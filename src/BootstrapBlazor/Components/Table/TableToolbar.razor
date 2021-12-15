@@ -14,19 +14,19 @@
                     @if (button is TableToolbarButton<TItem> b)
                     {
                         <Button AdditionalAttributes="b.AdditionalAttributes"
-                                Color="@b.Color" Icon="@b.Icon" Text="@b.Text" IsAsync="@b.IsAsync"
-                                OnClickWithoutRender="@(() => OnToolbarButtonClick(b))"
-                                IsDisabled="@GetDisabled(b)"></Button>
+                            Color="@b.Color" Icon="@b.Icon" Text="@b.Text" IsAsync="@b.IsAsync"
+                            OnClickWithoutRender="() => OnToolbarButtonClick(b)"
+                            IsDisabled="GetDisabled(b)"></Button>
                     }
                     else if (button is TableToolbarPopconfirmButton<TItem> pb)
                     {
                         <PopConfirmButton AdditionalAttributes="pb.AdditionalAttributes"
-                                          Color="@pb.Color" Icon="@pb.Icon" Text="@pb.Text"
-                                          IsDisabled="@pb.IsDisabled" IsBlock="@pb.IsBlock" IsOutline="@pb.IsOutline"
-                                          OnBeforeClick="@pb.OnBeforeClick" OnClose="@pb.OnClose" OnConfirm="@pb.OnConfirm"
-                                          ConfirmIcon="@pb.ConfirmIcon" ConfirmButtonColor="@pb.ConfirmButtonColor"
-                                          ConfirmButtonText="@pb.ConfirmButtonText" CloseButtonColor="@pb.CloseButtonColor"
-                                          CloseButtonText="@pb.CloseButtonText" Content="@pb.Content">
+                              Color="@pb.Color" Icon="@pb.Icon" Text="@pb.Text"
+                              IsDisabled="@pb.IsDisabled" IsBlock="@pb.IsBlock" IsOutline="@pb.IsOutline"
+                              OnBeforeClick="@pb.OnBeforeClick" OnClose="@pb.OnClose" OnConfirm="@pb.OnConfirm"
+                              ConfirmIcon="@pb.ConfirmIcon" ConfirmButtonColor="@pb.ConfirmButtonColor"
+                              ConfirmButtonText="@pb.ConfirmButtonText" CloseButtonColor="@pb.CloseButtonColor"
+                              CloseButtonText="@pb.CloseButtonText" Content="@pb.Content">
                         </PopConfirmButton>
                     }
                 }
@@ -40,28 +40,28 @@
                     {
                         @if (button is TableToolbarButton<TItem> b)
                         {
-                            <div class="dropdown-item" @onclick="@(e => OnToolbarButtonClick(b))">
-								@if(string.IsNullOrEmpty(b.Icon))
-								{
-									<span>@b.Text</span>
-								}
-								else
-								{
-									<i class="@b.Icon"></i>
-								}
+                            <div class="dropdown-item" @onclick="e => OnToolbarButtonClick(b)">
+                                @if (string.IsNullOrEmpty(b.Icon))
+                                {
+                                    <span>@b.Text</span>
+                                }
+                                else
+                                {
+                                    <i class="@b.Icon"></i>
+                                }
                             </div>
                         }
                         else if (button is TableToolbarPopconfirmButton<TItem> pb)
                         {
-                            <div class="dropdown-item" @onclick="@pb.OnConfirm">
-								@if(string.IsNullOrEmpty(pb.Icon))
-								{
-									<span>@pb.Text</span>
-								}
-								else
-								{
-									<i class="@pb.Icon"></i>
-								}
+                            <div class="dropdown-item" @onclick="pb.OnConfirm">
+                                @if (string.IsNullOrEmpty(pb.Icon))
+                                {
+                                    <span>@pb.Text</span>
+                                }
+                                else
+                                {
+                                    <i class="@pb.Icon"></i>
+                                }
                             </div>
                         }
                     }

@@ -30,7 +30,7 @@
         <div class="table-toolbar">
             @if (IsExcel || ShowToolbar)
             {
-                <TableToolbar TItem="TItem" OnGetSelectedRows="@GetSelectedRows">
+                <TableToolbar OnGetSelectedRows="@GetSelectedRows">
                     @if (IsExcel || ShowDefaultButtons)
                     {
                         @if (ShowAddButton)
@@ -316,16 +316,7 @@
                             <td>&nbsp;</td>
                             <td colspan="@colspan">
                                 <div class="table-cell is-wrap">
-                                    @if (DetailRows.Contains(item))
-                                    {
-                                        @DetailRowTemplate?.Invoke(item)
-                                    }
-                                    else
-                                    {
-                                        <div class="table-loading">
-                                            <Spinner Color="Color.Primary" />
-                                        </div>
-                                    }
+                                    @DetailRowTemplate?.Invoke(item)
                                 </div>
                             </td>
                         </tr>

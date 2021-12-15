@@ -14,6 +14,9 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// Table Toolbar 组件
     /// </summary>
+#if NET6_0_OR_GREATER
+    [CascadingTypeParameter(nameof(TItem))]
+#endif
     public partial class TableToolbar<TItem> : ComponentBase
     {
         /// <summary>
@@ -61,6 +64,10 @@ namespace BootstrapBlazor.Components
             if (button.IsAsync && _asyncButtonStateCache.TryGetValue(button, out var b))
             {
                 ret = b;
+            }
+            else if (button.IsEnableWhenSelectedOneRow)
+            {
+                ret = OnGetSelectedRows().Count() != 1;
             }
             return ret;
         }
