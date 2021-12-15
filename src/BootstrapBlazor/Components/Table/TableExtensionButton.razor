@@ -1,0 +1,27 @@
+﻿@namespace BootstrapBlazor.Components
+
+<CascadingValue Value="this" IsFixed="true">
+    @ChildContent
+</CascadingValue>
+<RenderTemplate>
+    @foreach (var button in Buttons)
+    {
+        if (button is TableCellButton b)
+        {
+            <Button AdditionalAttributes="b.AdditionalAttributes" Size="b.Size"
+                    Color="@b.Color" Icon="@b.Icon" Text="@b.Text" IsAsync="@b.IsAsync"
+                    OnClickWithoutRender="() => OnClick(b)"></Button>
+        }
+        else if (button is TableCellPopconfirmButton pb)
+        {
+            <PopConfirmButton AdditionalAttributes="pb.AdditionalAttributes"
+                      Color="@pb.Color" Icon="@pb.Icon" Text="@pb.Text" Size="pb.Size"
+                      IsDisabled="@pb.IsDisabled" IsBlock="@pb.IsBlock" IsOutline="@pb.IsOutline"
+                      OnBeforeClick="@pb.OnBeforeClick" OnClose="@pb.OnClose" OnConfirm="@pb.OnConfirm"
+                      ConfirmIcon="@pb.ConfirmIcon" ConfirmButtonColor="@pb.ConfirmButtonColor"
+                      ConfirmButtonText="@pb.ConfirmButtonText" CloseButtonColor="@pb.CloseButtonColor"
+                      CloseButtonText="@pb.CloseButtonText" Content="@pb.Content">
+            </PopConfirmButton>
+        }
+    }
+</RenderTemplate>

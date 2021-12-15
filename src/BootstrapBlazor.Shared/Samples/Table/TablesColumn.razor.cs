@@ -110,19 +110,13 @@ namespace BootstrapBlazor.Shared.Samples.Table
             });
         }
 
-        private List<Foo> SelectedRows { get; set; } = new();
-
         [NotNull]
         private Table<Foo>? TableRows { get; set; }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="item"></param>
-        private async Task OnRowButtonClick(Foo item)
+        private async Task OnRowButtonClick(Foo item, string text)
         {
             var cate = ToastCategory.Success;
-            var title = "行内按钮处理方法";
+            var title = $"{text} {item.Name}";
             var content = "通过不同的函数区分按钮处理逻辑，参数 Item 为当前行数据";
             await ToastService.Show(new ToastOption()
             {
@@ -131,8 +125,6 @@ namespace BootstrapBlazor.Shared.Samples.Table
                 Content = content
             });
 
-            SelectedRows.Clear();
-            SelectedRows.Add(item);
             await TableRows.QueryAsync();
         }
 

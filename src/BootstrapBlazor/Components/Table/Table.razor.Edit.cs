@@ -459,6 +459,12 @@ namespace BootstrapBlazor.Components
             }
         }
 
+        private void OnClickExtensionButton(TItem item)
+        {
+            SelectedRows.Clear();
+            SelectedRows.Add(item);
+        }
+
         private async Task ClickEditButton(TItem item)
         {
             SelectedRows.Clear();

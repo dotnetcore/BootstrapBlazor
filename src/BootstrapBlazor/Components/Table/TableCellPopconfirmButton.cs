@@ -10,19 +10,13 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// 单元格内按钮组件
     /// </summary>
-    public class TableCellButton : ButtonBase, IDisposable
+    public class TableCellPopconfirmButton : PopConfirmButtonBase, IDisposable
     {
         /// <summary>
         /// 获得/设置 Table 扩展按钮集合实例
         /// </summary>
         [CascadingParameter]
         protected TableExtensionButton? Buttons { get; set; }
-
-        /// <summary>
-        /// 获得/设置 点击按钮是否选中正行 默认 true 选中
-        /// </summary>
-        [Parameter]
-        public bool AutoSelectedRowWhenClick { get; set; } = true;
 
         /// <summary>
         /// OnInitialized 方法

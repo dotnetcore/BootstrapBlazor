@@ -725,7 +725,9 @@ RenderFragment<TItem> RenderExtendButtons => item =>
                                   OnConfirm="DeleteAsync" />
             }
         }
-        @RowButtonTemplate?.Invoke(item)
+        <TableExtensionButton>
+            @RowButtonTemplate?.Invoke(item)
+        </TableExtensionButton>
     </span>
 </div>;
 
@@ -738,7 +740,9 @@ RenderFragment<TItem> RenderRowExtendButtons => item =>
             }
             @if (!isInCell)
             {
-                @BeforeRowButtonTemplate?.Invoke(item)
+                <TableExtensionButton OnClickButton="() => OnClickExtensionButton(item)">
+                    @BeforeRowButtonTemplate?.Invoke(item)
+                </TableExtensionButton>
             }
             @if (ShowDefaultButtons)
             {
@@ -764,16 +768,18 @@ RenderFragment<TItem> RenderRowExtendButtons => item =>
                 @if (!isInCell && GetShowDeleteButton(item))
                 {
                     <PopConfirmButton Placement="Placement.Left" Size="Size.ExtraSmall"
-                                        Color="Color.Danger" Icon="fa fa-remove" Text="@DeleteButtonText"
-                                        CloseButtonText="@CancelDeleteButtonText" Content="@ConfirmDeleteContentText"
-                                        ConfirmButtonColor="Color.Danger" ConfirmButtonText="@ConfirmDeleteButtonText"
-                                        OnBeforeClick="@ClickBeforeDelete(item)"
-                                        OnConfirm="DeleteAsync" />
+                                      Color="Color.Danger" Icon="fa fa-remove" Text="@DeleteButtonText"
+                                      CloseButtonText="@CancelDeleteButtonText" Content="@ConfirmDeleteContentText"
+                                      ConfirmButtonColor="Color.Danger" ConfirmButtonText="@ConfirmDeleteButtonText"
+                                      OnBeforeClick="@ClickBeforeDelete(item)"
+                                      OnConfirm="DeleteAsync" />
                 }
             }
             @if (!isInCell)
             {
-                @RowButtonTemplate?.Invoke(item)
+                <TableExtensionButton OnClickButton="() => OnClickExtensionButton(item)">
+                    @RowButtonTemplate?.Invoke(item)
+                </TableExtensionButton>
             }
         </div>
     </div>
