@@ -4,6 +4,7 @@
 
 using Microsoft.AspNetCore.Components;
 using System;
+using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
 {
@@ -23,6 +24,13 @@ namespace BootstrapBlazor.Components
         /// </summary>
         [Parameter]
         public bool AutoSelectedRowWhenClick { get; set; } = true;
+
+        /// <summary>
+        /// 获得/设置 按钮点击后的回调方法
+        /// </summary>
+        [Parameter]
+        [Obsolete($"本回调已弃用，请使用 {nameof(ButtonBase.OnClick)} 或者 {nameof(ButtonBase.OnClickWithoutRender)} 均可", true)]
+        public Func<Task>? OnClickCallback { get; set; }
 
         /// <summary>
         /// OnInitialized 方法

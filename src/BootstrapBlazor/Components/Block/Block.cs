@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 namespace BootstrapBlazor.Components
 {
     /// <summary>
-    /// 
+    /// 条件输出自组件
     /// </summary>
     public class Block : BootstrapComponentBase
     {
@@ -40,8 +40,13 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 是否显示此 Block 默认显示
         /// </summary>
         [Parameter]
-        [NotNull]
         public Func<string?, Task<bool>>? OnQueryCondition { get; set; }
+
+        /// <summary>
+        /// 获得/设置 是否显示此 Block 默认显示 null 未参与判断
+        /// </summary>
+        [Parameter]
+        public bool? Condition { get; set; }
 
         /// <summary>
         /// 获得/设置 子组件内容
@@ -81,7 +86,11 @@ namespace BootstrapBlazor.Components
             {
                 IsShow = await ProcessAuthorizeAsync();
             }
-            if (OnQueryCondition != null)
+            else if (Condition.HasValue)
+            {
+                IsShow = Condition.Value;
+            }
+            else if (OnQueryCondition != null)
             {
                 IsShow = await OnQueryCondition(Name);
             }
