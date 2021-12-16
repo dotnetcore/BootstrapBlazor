@@ -3,20 +3,25 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.AspNetCore.Components;
-using System;
 
 namespace BootstrapBlazor.Components
 {
     /// <summary>
-    /// BootstrapInputTextBase 组件
+    /// 
     /// </summary>
-    public partial class BootstrapInput<TValue>
+    public partial class BootstrapInputGroupLabel
     {
+        private string? ClassString => CssBuilder.Default("input-group-text")
+            .AddClassFromAttributes(AdditionalAttributes)
+            .Build();
+
         /// <summary>
-        /// 获得/设置 是否为 Input-Group 组合中的 input 组件 默认 false
+        /// 
         /// </summary>
         [Parameter]
-        [Obsolete($"已弃用，请改用 {nameof(BootstrapInputGroup)} 组件支持更多功能")]
-        public bool IsGroup { get; set; }
+#if NET6_0_OR_GREATER
+        [EditorRequired]
+#endif
+        public string? Text { get; set; }
     }
 }

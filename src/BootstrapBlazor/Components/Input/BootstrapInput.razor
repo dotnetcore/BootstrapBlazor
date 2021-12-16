@@ -4,14 +4,7 @@
 
 @if (IsShowLabel)
 {
-    if (IsGroup)
-    {
-        <span class="input-group-text" required="@Required" for="@Id">@DisplayText</span>
-    }
-    else
-    {
-        <label class="form-label" required="@Required" for="@Id">@DisplayText</label>
-    }
+    <label class="form-label" required="@Required" for="@Id">@DisplayText</label>
 }
 
 <input @attributes="@AdditionalAttributes" type="@Type" placeholder="@PlaceHolder" id="@Id" class="@ClassName" disabled="@Disabled" @bind-value="CurrentValueAsString" @bind-value:event="onchange" @ref="FocusElement" />
