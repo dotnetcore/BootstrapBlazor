@@ -3,6 +3,7 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Routing;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -14,7 +15,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// Layout 组件基类
     /// </summary>
-    public abstract class LayoutBase : BootstrapComponentBase
+    public abstract class LayoutBase : BootstrapComponentBase, IDisposable
     {
         /// <summary>
         /// 
@@ -168,6 +169,45 @@ namespace BootstrapBlazor.Components
         public string TabDefaultUrl { get; set; } = "";
 
         /// <summary>
+        /// 获得/设置 授权回调方法多用于权限控制
+        /// </summary>
+        [Parameter]
+        public Func<string, Task<bool>>? OnAuthorizing { get; set; }
+
+        /// <summary>
+        /// 获得/设置 未授权导航地址 默认为 "/Account/Login" Cookie 模式登录页
+        /// </summary>
+        [Parameter]
+        public string NotAuthorizeUrl { get; set; } = "/Account/Login";
+
+        [Inject]
+        [NotNull]
+        private NavigationManager? Navigation { get; set; }
+
+        /// <summary>
+        /// OnInitializedAsync 方法
+        /// </summary>
+        /// <returns></returns>
+        protected override void OnInitialized()
+        {
+            base.OnInitialized();
+
+            if (OnAuthorizing != null)
+            {
+                Navigation.LocationChanged += Navigation_LocationChanged;
+            }
+        }
+
+        private async void Navigation_LocationChanged(object? sender, LocationChangedEventArgs e)
+        {
+            var auth = await OnAuthorizing!(e.Location);
+            if (!auth)
+            {
+                Navigation.NavigateTo(NotAuthorizeUrl, true);
+            }
+        }
+
+        /// <summary>
         /// 点击 收缩展开按钮时回调此方法
         /// </summary>
         /// <returns></returns>
@@ -202,5 +242,29 @@ namespace BootstrapBlazor.Components
                 await OnClickMenu(item);
             }
         };
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="disposing"></param>
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                if (OnAuthorizing != null)
+                {
+                    Navigation.LocationChanged -= Navigation_LocationChanged;
+                }
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
     }
 }

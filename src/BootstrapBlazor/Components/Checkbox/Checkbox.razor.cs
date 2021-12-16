@@ -68,16 +68,16 @@ namespace BootstrapBlazor.Components
         private bool IsBoolean { get; set; }
 
         /// <summary>
-        /// 获得/设置 按钮颜色
+        /// 获得/设置 按钮颜色 默认为 None 未设置
         /// </summary>
         [Parameter]
         public Color Color { get; set; }
 
         /// <summary>
-        /// 获得/设置 Size 大小
+        /// 获得/设置 Size 大小 默认为 None
         /// </summary>
         [Parameter]
-        public Size Size { get; set; } = Size.None;
+        public Size Size { get; set; }
 
         /// <summary>
         /// 获得/设置 是否显示 Checkbox 后置 label 文字 默认为 false
