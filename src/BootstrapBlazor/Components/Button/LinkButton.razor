@@ -1,0 +1,20 @@
+﻿@namespace BootstrapBlazor.Components
+@inherits TooltipComponentBase
+
+<a @attributes="AdditionalAttributes" id="@Id" href="@Url" @onclick:preventDefault="@Prevent" @onclick="OnClick">
+    @if (!string.IsNullOrEmpty(Text))
+    {
+        @Text
+    }
+    @if (!string.IsNullOrEmpty(Img))
+    {
+        <img alt="img" src="@Img" />
+    }
+    @ChildContent
+    @if (!string.IsNullOrEmpty(Title))
+    {
+        <CascadingValue Value="this" IsFixed="true">
+            <Tooltip Title="@Title" Placement="TooltipPlacement" />
+        </CascadingValue>
+    }
+</a>
