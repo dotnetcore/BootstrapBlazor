@@ -287,68 +287,6 @@ form .form-control.is-display {
 }
 /*end captcha*/
 
-/*divider*/
-.divider {
-    background-color: #dcdfe6;
-    position: relative;
-}
-
-    .divider .divider-text {
-        position: absolute;
-        background-color: #fff;
-        padding: 0 20px;
-        font-weight: 500;
-        color: #303133;
-        font-size: 14px;
-    }
-
-    .divider.divider-horizontal {
-        display: block;
-        height: 1px;
-        width: 100%;
-        margin: 1rem 0;
-    }
-
-        .divider.divider-horizontal .divider-text.is-left {
-            left: 20px;
-            transform: translateY(-50%);
-        }
-
-        .divider.divider-horizontal .divider-text.is-center {
-            left: 50%;
-            transform: translateX(-50%) translateY(-50%);
-        }
-
-        .divider.divider-horizontal .divider-text.is-right {
-            right: 20px;
-            transform: translateY(-50%);
-        }
-
-.divider-vertical {
-    width: 1px;
-    margin: 0 1rem;
-}
-
-.divider.divider-vertical .divider-text {
-    padding: 20px 0;
-}
-
-    .divider.divider-vertical .divider-text.is-left {
-        top: 20px;
-        transform: translateX(-50%);
-    }
-
-    .divider.divider-vertical .divider-text.is-center {
-        top: 50%;
-        transform: translateX(-50%) translateY(-50%);
-    }
-
-    .divider.divider-vertical .divider-text.is-right {
-        bottom: 20px;
-        transform: translateX(-50%);
-    }
-/*end divider*/
-
 /*avatar*/
 .avatar {
     border-radius: 4px;

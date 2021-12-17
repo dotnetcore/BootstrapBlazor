@@ -1,7 +1,7 @@
 ﻿@namespace BootstrapBlazor.Components
 @inherits ButtonBase
 
-<button @attributes="@AdditionalAttributes" type="@ButtonType.ToDescriptionString()" @onclick="@OnClickButton" Id="@Id" class="@ClassName" disabled="@Disabled" role="button" aria-disabled="@Disabled" tabindex="@Tab" @onclick:stopPropagation="@StopPropagation">
+<button @attributes="@AdditionalAttributes" type="@ButtonType.ToDescriptionString()" @onclick="@OnClickButton" id="@Id" class="@ClassName" disabled="@Disabled" role="button" aria-disabled="@Disabled" tabindex="@Tab" @onclick:stopPropagation="@StopPropagation">
     @if(!string.IsNullOrEmpty(ButtonIcon))
     {
         <i class="@ButtonIcon"></i>
