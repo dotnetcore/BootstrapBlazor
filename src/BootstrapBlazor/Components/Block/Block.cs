@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Rendering;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -66,9 +65,6 @@ namespace BootstrapBlazor.Components
         [Parameter]
         public RenderFragment? NotAuthorized { get; set; }
 
-        [CascadingParameter]
-        private Task<AuthenticationState>? AuthenticationState { get; set; }
-
         [Inject]
         private AuthenticationStateProvider? AuthenticationStateProvider { get; set; }
 
@@ -99,25 +95,21 @@ namespace BootstrapBlazor.Components
         private async Task<bool> ProcessAuthorizeAsync()
         {
             AuthenticationState? state = null;
-            if (AuthenticationState != null)
-            {
-                state = await AuthenticationState;
-            }
-            else if (AuthenticationStateProvider != null)
+            if (AuthenticationStateProvider != null)
             {
                 state = await AuthenticationStateProvider.GetAuthenticationStateAsync();
             }
-            var isAuthenticated = state?.User.Identity?.IsAuthenticated ?? false;
+            var isAuthenticated = state!.User.Identity!.IsAuthenticated;
             if (isAuthenticated)
             {
                 if (Users?.Any() ?? false)
                 {
-                    var userName = state?.User.Identity?.Name;
+                    var userName = state!.User.Identity!.Name;
                     isAuthenticated = Users.Any(i => i.Equals(userName, StringComparison.OrdinalIgnoreCase));
                 }
                 if (Roles?.Any() ?? false)
                 {
-                    isAuthenticated = Roles.Any(i => state?.User.IsInRole(i) ?? false);
+                    isAuthenticated = Roles.Any(i => state!.User.IsInRole(i));
                 }
             }
             return isAuthenticated;
