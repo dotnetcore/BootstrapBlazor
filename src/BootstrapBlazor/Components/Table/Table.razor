@@ -115,7 +115,10 @@
                     {
                         <div class="input-group">
                             <BootstrapInput class="table-toolbar-search" placeholder="@SearchPlaceholderText" @bind-Value="@SearchText" ShowLabel="false">
-                                <Tooltip Placement="Placement.Top" Title="@SearchTooltip" IsHtml="true" />
+                                @if (ShowSearchTextTooltip)
+                                {
+                                    <Tooltip Placement="Placement.Top" Title="@SearchTooltip" IsHtml="true" />
+                                }
                             </BootstrapInput>
                             <Button Color="@Color.Secondary" Icon="fa fa-search" OnClickWithoutRender="@SearchClick">
                                 <span class="d-none d-sm-inline-block">@SearchButtonText</span>
@@ -797,7 +800,10 @@ RenderFragment RenderSearch =>
             {
                 <div class="input-group">
                     <BootstrapInput class="table-toolbar-search" placeholder="@SearchPlaceholderText" @bind-Value="@SearchText">
-                        <Tooltip Placement="Placement.Top" Title="@SearchTooltip" IsHtml="true" />
+                        @if (ShowSearchTextTooltip)
+                        {
+                            <Tooltip Placement="Placement.Top" Title="@SearchTooltip" IsHtml="true" />
+                        }
                     </BootstrapInput>
                     <Button Color="Color.Secondary" Icon="fa fa-search" OnClickWithoutRender="SearchClick">
                         <span class="d-none d-sm-inline-block">@SearchButtonText</span>
