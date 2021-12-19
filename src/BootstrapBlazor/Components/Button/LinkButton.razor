@@ -6,9 +6,9 @@
     {
         @Text
     }
-    @if (!string.IsNullOrEmpty(Img))
+    @if (!string.IsNullOrEmpty(ImageUrl))
     {
-        <img alt="img" src="@Img" />
+        <img alt="img" src="@ImageUrl" />
     }
     @ChildContent
     @if (!string.IsNullOrEmpty(Title))

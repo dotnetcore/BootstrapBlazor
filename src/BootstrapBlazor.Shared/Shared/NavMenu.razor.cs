@@ -455,6 +455,12 @@ namespace BootstrapBlazor.Shared.Shared
                 },
                 new()
                 {
+                    IsNew = true,
+                    Text = Localizer["LinkButton"],
+                    Url = "linkbuttons"
+                },
+                new()
+                {
                     Text = Localizer["ListView"],
                     Url = "listviews"
                 },
