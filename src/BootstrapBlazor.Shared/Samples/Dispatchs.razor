@@ -48,6 +48,6 @@ private IDispatchService&lt;GiteePostBody&gt;? DispatchService { get; set; }</Pr
 </DemoBlock>
 
 <DemoBlock Title="实战应用" Introduction="点击按钮进行消息分发，所有打开此页面的人均能收到此按钮分发的消息" Name="Dispatch">
-    <p>由于本功能为全站推送通知，为防止恶意使用，下例中按钮通知后禁用 <b>30</b> 秒</p>
+    <p>由于本功能为全站推送通知，为防止恶意使用，下例中按钮通知后禁用 <b>30</b> 秒；消息注入代码在 <code>MainLayout</code> 模板中</p>
     <Button IsAsync="true" Icon="fa fa-paper-plane-o" Text="通知" OnClickWithoutRender="OnDispatch" />
 </DemoBlock>
