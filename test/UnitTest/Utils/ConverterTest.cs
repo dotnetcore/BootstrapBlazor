@@ -6,30 +6,12 @@ using BootstrapBlazor.Components;
 using Microsoft.AspNetCore.Components;
 using System;
 using System.Globalization;
-using System.Threading;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace UnitTest.Utils
 {
     public class ConverterTest
     {
-        [Fact]
-        public async Task Task_Test()
-        {
-            var error = false;
-            CancellationTokenSource cts = new(10);
-            try
-            {
-                await Task.Delay(50, cts.Token);
-            }
-            catch (TaskCanceledException)
-            {
-                error = true;
-            }
-            Assert.True(error);
-        }
-
         [Fact]
         public void NullableBool_Test()
         {
