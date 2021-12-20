@@ -30,11 +30,15 @@
                 <div class="modal-footer">
                     @if (ShowCloseButton)
                     {
-                        <Button Color="Color.None" class="btn btn-secondary" Text="@CloseButtonText" Icon="fa fa-times" OnClickWithoutRender="@OnClickClose" />
+                        <Button Color="Color.Secondary" Text="@CloseButtonText" Icon="fa fa-times" OnClickWithoutRender="OnClickClose" />
                     }
                     @if (ShowPrintButton && !ShowPrintButtonInHeader)
                     {
                         <PrintButton Color="Color.Primary" class="btn-print" Text="@PrintButtonText" />
+                    }
+                    @if (ShowSaveButton)
+                    {
+                        <Button Color="Color.Primary" Text="@SaveButtonText" Icon="fa fa-save" OnClickWithoutRender="OnClickSave" />
                     }
                     @FooterTemplate
                 </div>

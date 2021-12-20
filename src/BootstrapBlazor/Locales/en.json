@@ -133,6 +133,7 @@
   },
   "BootstrapBlazor.Components.ModalDialog": {
     "CloseButtonText": "Close",
+    "SaveButtonText": "Save",
     "PrintButtonText": "Print"
   },
   "BootstrapBlazor.Components.MultiSelect": {

@@ -16,28 +16,6 @@ namespace BootstrapBlazor.Components
     /// </summary>
     public class DialogService : BootstrapServiceBase<DialogOption>
     {
-        private IStringLocalizer<EditDialog<DialogOption>> EditDialogLocalizer { get; set; }
-
-        private IStringLocalizer<SearchDialog<DialogOption>> SearchDialogLocalizer { get; set; }
-
-        private IStringLocalizer<ResultDialogOption> ResultDialogLocalizer { get; set; }
-
-        /// <summary>
-        /// 构造函数
-        /// </summary>
-        /// <param name="editLocalizer"></param>
-        /// <param name="seachLocalizer"></param>
-        /// <param name="resultDialogLocalizer"></param>
-        public DialogService(
-            IStringLocalizer<EditDialog<DialogOption>> editLocalizer,
-            IStringLocalizer<SearchDialog<DialogOption>> seachLocalizer,
-            IStringLocalizer<ResultDialogOption> resultDialogLocalizer)
-        {
-            EditDialogLocalizer = editLocalizer;
-            SearchDialogLocalizer = seachLocalizer;
-            ResultDialogLocalizer = resultDialogLocalizer;
-        }
-
         /// <summary>
         /// 显示 Dialog 方法
         /// </summary>
@@ -53,9 +31,6 @@ namespace BootstrapBlazor.Components
         /// <param name="dialog">指定弹窗组件 默认为 null 使用 <see cref="BootstrapBlazorRoot"/> 组件内置弹窗组件</param>
         public async Task ShowSearchDialog<TModel>(SearchDialogOption<TModel> option, Dialog? dialog = null)
         {
-            option.ResetButtonText ??= SearchDialogLocalizer[nameof(option.ResetButtonText)];
-            option.QueryButtonText ??= SearchDialogLocalizer[nameof(option.QueryButtonText)];
-
             var parameters = new Dictionary<string, object>
             {
                 [nameof(SearchDialog<TModel>.ShowLabel)] = option.ShowLabel,
@@ -119,9 +94,6 @@ namespace BootstrapBlazor.Components
         /// <param name="dialog"></param>
         public async Task ShowEditDialog<TModel>(EditDialogOption<TModel> option, Dialog? dialog = null)
         {
-            option.CloseButtonText ??= EditDialogLocalizer[nameof(option.CloseButtonText)];
-            option.SaveButtonText ??= EditDialogLocalizer[nameof(option.SaveButtonText)];
-
             var parameters = new Dictionary<string, object>
             {
                 [nameof(EditDialog<TModel>.ShowLoading)] = option.ShowLoading,
@@ -134,9 +106,9 @@ namespace BootstrapBlazor.Components
                 }),
                 [nameof(EditDialog<TModel>.OnSaveAsync)] = new Func<EditContext, Task>(async context =>
                 {
-                    if (option.OnSaveAsync != null)
+                    if (option.OnEditAsync != null)
                     {
-                        var ret = await option.OnSaveAsync(context);
+                        var ret = await option.OnEditAsync(context);
                         if (ret)
                         {
                             option.Dialog.RemoveDialog();
@@ -202,10 +174,12 @@ namespace BootstrapBlazor.Components
 
             option.FooterTemplate = BootstrapDynamicComponent.CreateComponent<ResultDialogFooter>(new Dictionary<string, object>
             {
+                [nameof(ResultDialogFooter.ButtonCloseText)] = option.ButtonCloseText!,
+                [nameof(ResultDialogFooter.ButtonNoText)] = option.ButtonNoText!,
+                [nameof(ResultDialogFooter.ButtonYesText)] = option.ButtonYesText!,
                 [nameof(ResultDialogFooter.ShowCloseButton)] = option.ShowCloseButton,
                 [nameof(ResultDialogFooter.ButtonCloseColor)] = option.ButtonCloseColor,
                 [nameof(ResultDialogFooter.ButtonCloseIcon)] = option.ButtonCloseIcon,
-                [nameof(ResultDialogFooter.ButtonCloseText)] = option.ButtonCloseText ?? ResultDialogLocalizer[nameof(option.ButtonCloseText)].Value,
                 [nameof(ResultDialogFooter.OnClickClose)] = new Func<Task>(async () =>
                 {
                     result = DialogResult.Close;
@@ -215,7 +189,6 @@ namespace BootstrapBlazor.Components
                 [nameof(ResultDialogFooter.ShowYesButton)] = option.ShowYesButton,
                 [nameof(ResultDialogFooter.ButtonYesColor)] = option.ButtonYesColor,
                 [nameof(ResultDialogFooter.ButtonYesIcon)] = option.ButtonYesIcon,
-                [nameof(ResultDialogFooter.ButtonYesText)] = option.ButtonYesText ?? ResultDialogLocalizer[nameof(option.ButtonYesText)].Value,
                 [nameof(ResultDialogFooter.OnClickYes)] = new Func<Task>(async () =>
                 {
                     result = DialogResult.Yes;
@@ -225,7 +198,6 @@ namespace BootstrapBlazor.Components
                 [nameof(ResultDialogFooter.ShowNoButton)] = option.ShowNoButton,
                 [nameof(ResultDialogFooter.ButtonNoColor)] = option.ButtonNoColor,
                 [nameof(ResultDialogFooter.ButtonNoIcon)] = option.ButtonNoIcon,
-                [nameof(ResultDialogFooter.ButtonNoText)] = option.ButtonNoText ?? ResultDialogLocalizer[nameof(option.ButtonNoText)].Value,
                 [nameof(ResultDialogFooter.OnClickNo)] = new Func<Task>(async () =>
                 {
                     result = DialogResult.No;

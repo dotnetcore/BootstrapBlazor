@@ -80,16 +80,6 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 保存回调委托
         /// </summary>
-        public Func<EditContext, Task<bool>>? OnSaveAsync { get; set; }
-
-        /// <summary>
-        /// 获得/设置 关闭按钮文本
-        /// </summary>
-        public string? CloseButtonText { get; set; }
-
-        /// <summary>
-        /// 获得/设置 查询按钮文本
-        /// </summary>
-        public string? SaveButtonText { get; set; }
+        public Func<EditContext, Task<bool>>? OnEditAsync { get; set; }
     }
 }

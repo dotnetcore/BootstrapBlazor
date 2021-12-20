@@ -544,7 +544,7 @@ namespace BootstrapBlazor.Components
                     }
                     await UpdateAsync();
                 },
-                OnSaveAsync = async context =>
+                OnEditAsync = async context =>
                 {
                     await ToggleLoading(true);
                     var valid = await SaveModelAsync(context, changedType);

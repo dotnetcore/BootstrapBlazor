@@ -3,6 +3,7 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Localization;
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
@@ -95,22 +96,38 @@ namespace BootstrapBlazor.Components
         public Color ButtonCloseColor { get; set; } = Color.Secondary;
 
         /// <summary>
-        /// 
+        /// 获得/设置 点击关闭按钮回调方法
         /// </summary>
         [Parameter]
         public Func<Task>? OnClickClose { get; set; }
 
         /// <summary>
-        /// 
+        /// 获得/设置 点击确认按钮回调方法
         /// </summary>
         [Parameter]
         public Func<Task>? OnClickYes { get; set; }
 
         /// <summary>
-        /// 
+        /// 获得/设置 点击取消按钮回调方法
         /// </summary>
         [Parameter]
         public Func<Task>? OnClickNo { get; set; }
+
+        [Inject]
+        [NotNull]
+        private IStringLocalizer<ResultDialogOption>? Localizer { get; set; }
+
+        /// <summary>
+        /// OnInitialized 方法
+        /// </summary>
+        protected override void OnInitialized()
+        {
+            base.OnInitialized();
+
+            ButtonCloseText ??= Localizer[nameof(ButtonCloseText)];
+            ButtonNoText ??= Localizer[nameof(ButtonNoText)];
+            ButtonYesText ??= Localizer[nameof(ButtonYesText)];
+        }
 
         private async Task ButtonClick(DialogResult dialogResult)
         {

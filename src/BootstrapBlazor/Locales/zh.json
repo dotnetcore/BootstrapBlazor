@@ -133,6 +133,7 @@
   },
   "BootstrapBlazor.Components.ModalDialog": {
     "CloseButtonText": "关闭",
+    "SaveButtonText": "保存",
     "PrintButtonText": "打印"
   },
   "BootstrapBlazor.Components.MultiSelect": {

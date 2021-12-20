@@ -81,6 +81,12 @@ namespace BootstrapBlazor.Components
         public bool ShowCloseButton { get; set; } = true;
 
         /// <summary>
+        /// 获得/设置 是否显示保存按钮 默认为 false 不显示
+        /// </summary>
+        [Parameter]
+        public bool ShowSaveButton { get; set; }
+
+        /// <summary>
         /// 获得/设置 是否显示打印按钮 默认为 false 不显示
         /// </summary>
         [Parameter]
@@ -135,11 +141,25 @@ namespace BootstrapBlazor.Components
         public RenderFragment? HeaderTemplate { get; set; }
 
         /// <summary>
-        /// 获得/设置 关闭弹窗是回调委托
+        /// 获得/设置 关闭弹窗回调委托
         /// </summary>
         [Parameter]
         [NotNull]
         public Func<Task>? OnClose { get; set; }
+
+        /// <summary>
+        /// 获得/设置 保存按钮回调委托
+        /// </summary>
+        [Parameter]
+        [NotNull]
+        public Func<Task<bool>>? OnSaveAsync { get; set; }
+
+        /// <summary>
+        /// 获得/设置 保存成功后是否自动关闭弹窗 默认 true 自动关闭
+        /// </summary>
+        [Parameter]
+        [NotNull]
+        public bool IsAutoCloseAfterSave { get; set; } = true;
 
         /// <summary>
         /// 获得/设置 关闭按钮显示文字 资源文件设置为 关闭
@@ -147,6 +167,13 @@ namespace BootstrapBlazor.Components
         [Parameter]
         [NotNull]
         public string? CloseButtonText { get; set; }
+
+        /// <summary>
+        /// 获得/设置 保存按钮显示文字 资源文件设置为 保存
+        /// </summary>
+        [Parameter]
+        [NotNull]
+        public string? SaveButtonText { get; set; }
 
         /// <summary>
         /// 获得/设置 弹窗容器实例
@@ -172,6 +199,7 @@ namespace BootstrapBlazor.Components
             }
 
             CloseButtonText ??= Localizer[nameof(CloseButtonText)];
+            SaveButtonText ??= Localizer[nameof(SaveButtonText)];
             PrintButtonText ??= Localizer[nameof(PrintButtonText)];
 
             Interop = new JSInterop<ModalDialog>(JSRuntime);
@@ -200,6 +228,15 @@ namespace BootstrapBlazor.Components
             if (OnClose != null)
             {
                 await OnClose();
+            }
+        }
+
+        private async Task OnClickSave()
+        {
+            var ret = await OnSaveAsync();
+            if (IsAutoCloseAfterSave && ret)
+            {
+                await OnClickClose();
             }
         }
 

@@ -137,7 +137,7 @@ namespace UnitTest.Components
             // 设置保存回调
             var saved = false;
             editOption.ShowLoading = true;
-            editOption.OnSaveAsync = context =>
+            editOption.OnEditAsync = context =>
             {
                 saved = true;
                 return Task.FromResult(true);
