@@ -16,7 +16,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 组件参数集合
         /// </summary>
-        private IDictionary<string, object?> Parameters { get; set; }
+        private IDictionary<string, object?>? Parameters { get; set; }
 
         /// <summary>
         /// 获得/设置 组件类型
@@ -28,7 +28,7 @@ namespace BootstrapBlazor.Components
         /// </summary>
         /// <param name="componentType"></param>
         /// <param name="parameters">TCom 组件所需要的参数集合</param>
-        public BootstrapDynamicComponent(Type componentType, IDictionary<string, object?> parameters)
+        public BootstrapDynamicComponent(Type componentType, IDictionary<string, object?>? parameters = null)
         {
             ComponentType = componentType;
             Parameters = parameters;
@@ -40,7 +40,7 @@ namespace BootstrapBlazor.Components
         /// <typeparam name="TCom"></typeparam>
         /// <param name="parameters">TCom 组件所需要的参数集合</param>
         /// <returns></returns>
-        public static BootstrapDynamicComponent CreateComponent<TCom>(IDictionary<string, object?> parameters) where TCom : IComponent => new(typeof(TCom), parameters);
+        public static BootstrapDynamicComponent CreateComponent<TCom>(IDictionary<string, object?>? parameters = null) where TCom : IComponent => new(typeof(TCom), parameters);
 
         /// <summary>
         /// 创建自定义组件方法
@@ -57,9 +57,12 @@ namespace BootstrapBlazor.Components
         {
             var index = 0;
             builder.OpenComponent(index++, ComponentType);
-            foreach (var p in Parameters)
+            if (Parameters != null)
             {
-                builder.AddAttribute(index++, p.Key, p.Value);
+                foreach (var p in Parameters)
+                {
+                    builder.AddAttribute(index++, p.Key, p.Value);
+                }
             }
             builder.CloseComponent();
         };
