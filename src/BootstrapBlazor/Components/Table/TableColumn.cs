@@ -365,6 +365,11 @@ namespace BootstrapBlazor.Components
         protected ITable? Table { get; set; }
 
         /// <summary>
+        /// 
+        /// </summary>
+        public string? Category { get; set; }
+
+        /// <summary>
         /// 组件初始化方法
         /// </summary>
         protected override void OnInitialized()

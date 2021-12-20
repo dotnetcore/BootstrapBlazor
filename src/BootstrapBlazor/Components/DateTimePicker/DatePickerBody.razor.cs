@@ -444,6 +444,18 @@ namespace BootstrapBlazor.Components
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="d"></param>
+        /// <returns></returns>
+        private async Task OnDoubleClick(DateTime d)
+        {
+            await this.OnClickDateTime(d);
+            await ClickConfirmButton();
+        }
+
+
         private async Task OnClickShortLink(DateTime d)
         {
             await OnClickDateTime(d);

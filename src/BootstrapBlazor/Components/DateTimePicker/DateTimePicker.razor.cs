@@ -62,6 +62,11 @@ namespace BootstrapBlazor.Components
         private bool AllowNull { get; set; }
 
         /// <summary>
+        /// 
+        /// </summary>
+        private bool IsDateTimeOffset { get; set; }
+
+        /// <summary>
         /// 获得/设置 组件时间
         /// </summary>
         private DateTime ComponentValue
@@ -71,19 +76,38 @@ namespace BootstrapBlazor.Components
                 var v = DateTime.Now;
                 if (AllowNull)
                 {
-                    var t = Value as DateTime?;
-                    if (t.HasValue) v = t.Value;
+                    if (this.IsDateTimeOffset)
+                    {
+                        var t = Value as DateTimeOffset?;
+                        if (t.HasValue) v = t.Value.DateTime;
+                    }
+                    else
+                    {
+                        var t = Value as DateTime?;
+                        if (t.HasValue) v = t.Value;
+                    }
                 }
                 else
                 {
-                    var t = (DateTime)(object)Value;
-                    v = t;
+                    if (this.IsDateTimeOffset)
+                    {
+                        var t = (DateTimeOffset)(object)Value;
+                        v = t.DateTime;
+                    }
+                    else
+                    {
+                        var t = Value as DateTime?;
+                        if (t.HasValue) v = t.Value;
+                    }
                 }
                 return ViewModel == DatePickerViewModel.Date ? v.Date : v;
             }
             set
             {
-                CurrentValue = (TValue)(object)value;
+                if (IsDateTimeOffset)
+                    CurrentValue = (TValue)(object)(DateTimeOffset)value;
+                else
+                    CurrentValue = (TValue)(object)value;
             }
         }
 
@@ -167,11 +191,23 @@ namespace BootstrapBlazor.Components
             DateFormat ??= Localizer[nameof(DateFormat)];
 
             // 判断泛型类型
-            var isDateTime = typeof(TValue) == typeof(DateTime) || typeof(TValue) == typeof(DateTime?);
+            var isDateTime = typeof(TValue) == typeof(DateTime)
+                            || typeof(TValue) == typeof(DateTime?)
+                            || typeof(TValue) == typeof(DateTimeOffset)
+                            || typeof(TValue) == typeof(DateTimeOffset?)
+                            ;
+
             if (!isDateTime) throw new InvalidOperationException(GenericTypeErroMessage);
 
             // 泛型设置为可为空
-            AllowNull = typeof(TValue) == typeof(DateTime?);
+            AllowNull = typeof(TValue) == typeof(DateTime?)
+                        || typeof(TValue) == typeof(DateTimeOffset?);
+
+
+            if (AllowNull)
+                IsDateTimeOffset = typeof(TValue) == typeof(DateTimeOffset?);
+            else
+                IsDateTimeOffset = typeof(TValue) == typeof(DateTimeOffset);
 
             // 不允许为空时设置 Value 默认值
             if (!AllowNull && Value == null)

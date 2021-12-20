@@ -14,8 +14,41 @@
 }
 else
 {
-    <div class="@FormClassString">
-        <CascadingValue Value="this" Name="EidtorForm">
+
+    <CascadingValue Value="this" Name="EidtorForm">
+
+        @if (ShowCategory ?? false)
+    {
+        foreach (var grp in GroupedFormItems)
+        {
+            <div class="mt-4">
+                <GroupBox Title="@grp.Key">
+                    <div class="@FormClassString">
+                        @foreach (var item in grp.Value)
+                        {
+                            var render = GetRenderTemplate(item);
+
+
+                            @if (render != null)
+                            {
+                                @render(Model)
+                            }
+                            else
+                            {
+                                <div class="@GetCssString(item)">
+                                    @AutoGenerateTemplate(item)
+                                </div>
+                            }
+                        }
+                    </div>
+                </GroupBox>
+            </div>
+        }
+    }
+    else
+    {
+
+        <div class="@FormClassString">
             @foreach (var item in FormItems)
             {
                 var render = GetRenderTemplate(item);
@@ -30,12 +63,14 @@ else
                     </div>
                 }
             }
-        </CascadingValue>
-        @if (Buttons != null)
-        {
-            <div class="col-12">
-                @Buttons
-            </div>
-        }
-    </div>
+            @if (Buttons != null)
+            {
+                <div class="col-12">
+                    @Buttons
+                </div>
+            }
+        </div>
+    }
+
+</CascadingValue>
 }

@@ -1080,6 +1080,7 @@
     "Li2": "如不需要编辑列，设置 <code>Editable</code> 即可，默认值为 <code>true</code> 生成编辑组件",
     "Li3": "复杂编辑列，设置 <code>EditTemplate</code> 模板，进行自定义组件进行编辑",
     "Li4": "表单内按钮可以设置多个，设置 <code>Buttons</code> 模板即可",
+
     "Block1Title": "基础用法",
     "Block1Intro": "通过绑定 <code>TModel</code> 数据模型，自动生成模型各个字段的可编辑表单",
     "P2": "直接绑定模型 <code>Model</code>，设置 <b>Education</b> <b>Complete</b> 字段不显示",
@@ -1123,7 +1124,13 @@
     "Att12": "是否只读",
     "Att13": "编辑列前置标签名",
     "Att14": "列编辑模板",
-    "IsDisplay": "是否显示为 Display 组件"
+    "IsDisplay": "是否显示为 Display 组件",
+
+    "LiCategory": "如果需要分组，在模型上添加 <code>CategoryAttribute</code>, 并设置 <code>ShowCategory = true</code> 即可; 如果需要对分组进行排序, 可以设置<code>CategorySorts</code>",
+    "BlockCategoryTitle": "分组示例",
+    "BlockCategoryIntro": "在模型上添加 <code>CategoryAttribute</code>, 并设置 <code>ShowCategory = true</code>",
+    "AttShowCategory": "是否显示分组",
+    "AttCategoryOrders": "分组显示顺序， 值越小越靠前;相同顺序, 按名称排序."
   },
   "BootstrapBlazor.Shared.Samples.FloatingLabels": {
     "Title": "FloatingLabel 输入框",

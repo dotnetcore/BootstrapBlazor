@@ -75,46 +75,48 @@
                                             }
                                             else
                                             {
-                                                <DatePickerCell Value="@week.AddDays(index)" Text="@text" OnClick="@(async d => await OnClickDateTime(d))" />
-                                            }
-                                        </div>
-                                    </td>
-                                }
-                            </tr>
+                                                <DatePickerCell Value="@week.AddDays(index)" Text="@text"
+                                                    OnClick="@(async d => await OnClickDateTime(d))"
+                                                    OnDoubleClick="@(async d => await OnDoubleClick(d))" />
+                                    }
+                                </div>
+                            </td>
+                            }
+                        </tr>
                         }
                     </tbody>
                 </table>
                 <table class="@YearViewClassName">
                     <tbody>
                         @for (var row = 0; row < 5; row++)
-                        {
-                            <tr>
-                                @for (var index = 0; index < 4; index++)
-                                {
-                                    <td class="@GetYearClassName(index + row * 4)">
-                                        <div>
-                                            <DatePickerCell Value="@GetYear(index + row * 4)" Text="@GetYearText(index + row * 4)" OnClick="d => SwitchView(DatePickerViewModel.Month, d)" />
-                                        </div>
-                                    </td>
-                                }
-                            </tr>
+{
+                        <tr>
+                            @for (var index = 0; index < 4; index++)
+    {
+                            <td class="@GetYearClassName(index + row * 4)">
+                                <div>
+                                    <DatePickerCell Value="@GetYear(index + row * 4)" Text="@GetYearText(index + row * 4)" OnClick="d => SwitchView(DatePickerViewModel.Month, d)" />
+                                </div>
+                            </td>
+                            }
+                        </tr>
                         }
                     </tbody>
                 </table>
                 <table class="@MonthViewClassName">
                     <tbody>
                         @for (var row = 0; row < 3; row++)
-                        {
-                            <tr>
-                                @for (var index = 0; index < 4; index++)
-                                {
-                                    <td class="@GetMonthClassName(index + row * 4 + 1)">
-                                        <div>
-                                            <DatePickerCell Value="@GetMonth(index + row * 4 + 1)" Text="@GetMonthText(index + row * 4 + 1)" OnClick="d => SwitchView(DatePickerViewModel.Date, d)" />
-                                        </div>
-                                    </td>
-                                }
-                            </tr>
+{
+                        <tr>
+                            @for (var index = 0; index < 4; index++)
+    {
+                            <td class="@GetMonthClassName(index + row * 4 + 1)">
+                                <div>
+                                    <DatePickerCell Value="@GetMonth(index + row * 4 + 1)" Text="@GetMonthText(index + row * 4 + 1)" OnClick="d => SwitchView(DatePickerViewModel.Date, d)" />
+                                </div>
+                            </td>
+                            }
+                        </tr>
                         }
                     </tbody>
                 </table>
@@ -122,25 +124,25 @@
         </div>
     </div>
     @if (ShowFooter)
+{
+    <div class="picker-panel-footer">
+        <div class="flex-fill">
+            @if (AllowNull)
     {
-        <div class="picker-panel-footer">
-            <div class="flex-fill">
-                @if (AllowNull)
-                {
-                    <button type="button" class="btn picker-panel-link-btn is-confirm" @onclick="@ClickClearButton">
-                        <span>@ClearButtonText</span>
-                    </button>
-                }
-            </div>
-            @if (MinValue == null && MaxValue == null)
-            {
-                <button type="button" class="btn picker-panel-link-btn is-now" @onclick="@ClickNowButton">
-                    <span>@NowButtonText</span>
-                </button>
-            }
-            <button type="button" class="btn picker-panel-link-btn is-confirm" @onclick="@ClickConfirmButton">
-                <span>@ConfirmButtonText</span>
+            <button type="button" class="btn picker-panel-link-btn is-confirm" @onclick="@ClickClearButton">
+                <span>@ClearButtonText</span>
             </button>
+            }
         </div>
+        @if (MinValue == null && MaxValue == null)
+    {
+        <button type="button" class="btn picker-panel-link-btn is-now" @onclick="@ClickNowButton">
+            <span>@NowButtonText</span>
+        </button>
+        }
+        <button type="button" class="btn picker-panel-link-btn is-confirm" @onclick="@ClickConfirmButton">
+            <span>@ConfirmButtonText</span>
+        </button>
+    </div>
     }
 </div>

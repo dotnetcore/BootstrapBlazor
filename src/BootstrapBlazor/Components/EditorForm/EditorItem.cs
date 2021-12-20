@@ -166,6 +166,11 @@ namespace BootstrapBlazor.Components
         private List<IEditorItem>? EditorItems { get; set; }
 
         /// <summary>
+        /// 
+        /// </summary>
+        public string? Category { get; set; }
+
+        /// <summary>
         /// OnInitialized 方法
         /// </summary>
         protected override void OnInitialized()

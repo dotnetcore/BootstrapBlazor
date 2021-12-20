@@ -7,6 +7,7 @@ using Microsoft.Extensions.Localization;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
@@ -32,8 +33,14 @@ namespace BootstrapBlazor.Shared
         /// </summary>
         [Required(ErrorMessage = "{0}不能为空")]
         [AutoGenerateColumn(Order = 10, Filterable = true, Searchable = true)]
+        [Category("基本信息")]
         [Display(Name = "姓名")]
         public string? Name { get; set; }
+
+
+        [Category("基本信息")]
+        [Display(Name = "出生日期")]
+        public DateTimeOffset? Birthday { get; set; }
 
         /// <summary>
         ///
@@ -45,6 +52,7 @@ namespace BootstrapBlazor.Shared
         /// <summary>
         ///
         /// </summary>
+        [Category("联系方式")]
         [Display(Name = "地址")]
         [Required(ErrorMessage = "{0}不能为空")]
         [AutoGenerateColumn(Order = 20, Filterable = true, Searchable = true)]
@@ -70,8 +78,16 @@ namespace BootstrapBlazor.Shared
         /// </summary>
         [Required(ErrorMessage = "请选择学历")]
         [Display(Name = "学历")]
+        [Category("基本信息")]
         [AutoGenerateColumn(Order = 60)]
         public EnumEducation? Education { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [Display(Name = "是否会员")]
+        [Category("基本信息")]
+        public bool? IsMember { get; set; }
 
         /// <summary>
         ///
@@ -80,6 +96,19 @@ namespace BootstrapBlazor.Shared
         [Display(Name = "爱好")]
         [AutoGenerateColumn(Order = 70, Editable = false)]
         public IEnumerable<string> Hobby { get; set; } = new List<string>();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [Category("联系方式")]
+        [Display(Name = "电话")]
+        public string? Phone { get; set; }
+
+        [Category("联系方式")]
+        [Display(Name = "Email")]
+        public string? Email { get; set; }
+
+
 
         #region Static methods
         private static readonly Random random = new();

@@ -133,6 +133,20 @@ namespace BootstrapBlazor.Shared.Samples
                 Type = "Alignment",
                 ValueList = "None|Left|Center|Right",
                 DefaultValue = "None"
+            },
+            new AttributeItem() {
+                Name = "ShowCategory",
+                Description = Localizer["AttShowCategory"],
+                Type = "bool",
+                ValueList = " — ",
+                DefaultValue = " — "
+            },
+            new AttributeItem() {
+                Name = "CategoryOrders",
+                Description = Localizer["AttCategoryOrders"],
+                Type = "Dictionary<string,int>?",
+                ValueList = " — ",
+                DefaultValue = " — "
             }
         };
 
@@ -180,7 +194,17 @@ namespace BootstrapBlazor.Shared.Samples
                 Type = "RenderFragment<object>",
                 ValueList = " — ",
                 DefaultValue = " — "
-            }
+            },
+
+        };
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private Dictionary<string, int> CatOrders = new Dictionary<string, int>
+        {
+            ["基本信息"] = 1,
+            ["联系方式"] = 0
         };
     }
 }
