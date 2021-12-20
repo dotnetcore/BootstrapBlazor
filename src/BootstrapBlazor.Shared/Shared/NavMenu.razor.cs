@@ -943,7 +943,7 @@ namespace BootstrapBlazor.Shared.Shared
             static bool ShouldBadge(DemoMenuItem? item) => item != null && (item.IsNew || item.IsUpdate);
         }
 
-        private static BootstrapDynamicComponent CreateBadge(int count, bool isNew = false, bool isUpdate = false) => BootstrapDynamicComponent.CreateComponent<State>(new Dictionary<string, object>
+        private static BootstrapDynamicComponent CreateBadge(int count, bool isNew = false, bool isUpdate = false) => BootstrapDynamicComponent.CreateComponent<State>(new Dictionary<string, object?>
         {
             [nameof(State.Count)] = count,
             [nameof(State.IsNew)] = isNew,

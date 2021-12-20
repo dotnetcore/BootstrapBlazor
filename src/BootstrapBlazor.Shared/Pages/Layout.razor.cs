@@ -4,11 +4,8 @@
 
 using BootstrapBlazor.Components;
 using Microsoft.AspNetCore.Components;
-using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Shared.Pages
@@ -41,7 +38,7 @@ namespace BootstrapBlazor.Shared.Pages
                 Title = "测试弹窗",
                 BodyTemplate = builder =>
                 {
-                    builder.AddContent(0, BootstrapDynamicComponent.CreateComponent<Button>(new Dictionary<string, object>
+                    builder.AddContent(0, BootstrapDynamicComponent.CreateComponent<Button>(new Dictionary<string, object?>
                     {
                         [nameof(Button.Text)] = "Toast",
                         [nameof(Button.OnClickWithoutRender)] = async () =>
@@ -54,7 +51,7 @@ namespace BootstrapBlazor.Shared.Pages
                             });
                         }
                     }).Render());
-                    builder.AddContent(0, BootstrapDynamicComponent.CreateComponent<Button>(new Dictionary<string, object>
+                    builder.AddContent(0, BootstrapDynamicComponent.CreateComponent<Button>(new Dictionary<string, object?>
                     {
                         ["class"] = "ms-3",
                         [nameof(Button.Text)] = "Message",
@@ -66,7 +63,7 @@ namespace BootstrapBlazor.Shared.Pages
                             });
                         }
                     }).Render());
-                    builder.AddContent(0, BootstrapDynamicComponent.CreateComponent<Button>(new Dictionary<string, object>
+                    builder.AddContent(0, BootstrapDynamicComponent.CreateComponent<Button>(new Dictionary<string, object?>
                     {
                         ["class"] = "ms-3",
                         [nameof(Button.Text)] = "Swal",

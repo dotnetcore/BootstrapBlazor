@@ -10,6 +10,9 @@ using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Shared.Shared
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public partial class MainLayout : IDisposable
     {
         [Inject]

@@ -38,7 +38,7 @@ namespace BootstrapBlazor.Components
         private CancellationTokenSource? DelayToken { get; set; }
 
         [NotNull]
-        private List<KeyValuePair<string, object>>? DialogParameter { get; set; }
+        private Dictionary<string, object?>? DialogParameter { get; set; }
 
         /// <summary>
         /// OnInitialized 方法
@@ -91,7 +91,7 @@ namespace BootstrapBlazor.Components
             option.Dialog = ModalContainer;
             var parameters = option.ToAttributes();
 
-            parameters.Add(new KeyValuePair<string, object>(nameof(ModalDialog.OnClose), new Func<Task>(async () =>
+            parameters.Add(nameof(ModalDialog.OnClose), new Func<Task>(async () =>
             {
                 if (IsAutoHide && DelayToken != null)
                 {
@@ -101,9 +101,9 @@ namespace BootstrapBlazor.Components
                 DialogParameter = null;
                 await ModalContainer.CloseOrPopDialog();
                 StateHasChanged();
-            })));
+            }));
 
-            parameters.Add(new(nameof(ModalDialog.BodyTemplate), BootstrapDynamicComponent.CreateComponent<SweetAlertBody>(SweetAlertBody.Parse(option)).Render()));
+            parameters.Add(nameof(ModalDialog.BodyTemplate), BootstrapDynamicComponent.CreateComponent<SweetAlertBody>(SweetAlertBody.Parse(option)).Render());
 
             DialogParameter = parameters;
             IsShowDialog = true;
@@ -115,9 +115,13 @@ namespace BootstrapBlazor.Components
         {
             if (DialogParameter != null)
             {
-                builder.OpenComponent<ModalDialog>(0);
-                builder.AddMultipleAttributes(1, DialogParameter);
-                builder.AddComponentReferenceCapture(2, dialog =>
+                var index = 0;
+                builder.OpenComponent<ModalDialog>(index++);
+                foreach (var p in DialogParameter)
+                {
+                    builder.AddAttribute(index++, p.Key, p.Value);
+                }
+                builder.AddComponentReferenceCapture(index++, dialog =>
                 {
                     var modal = (ModalDialog)dialog;
                     ModalContainer.ShowDialog(modal);

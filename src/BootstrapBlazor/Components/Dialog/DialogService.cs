@@ -4,7 +4,6 @@
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
-using Microsoft.Extensions.Localization;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -31,7 +30,7 @@ namespace BootstrapBlazor.Components
         /// <param name="dialog">指定弹窗组件 默认为 null 使用 <see cref="BootstrapBlazorRoot"/> 组件内置弹窗组件</param>
         public async Task ShowSearchDialog<TModel>(SearchDialogOption<TModel> option, Dialog? dialog = null)
         {
-            var parameters = new Dictionary<string, object>
+            var parameters = new Dictionary<string, object?>
             {
                 [nameof(SearchDialog<TModel>.ShowLabel)] = option.ShowLabel,
                 [nameof(SearchDialog<TModel>.Items)] = option.Items ?? Utility.GenerateColumns<TModel>(item => item.Searchable),
@@ -54,36 +53,14 @@ namespace BootstrapBlazor.Components
                     }
                 }),
                 [nameof(SearchDialog<TModel>.RowType)] = option.RowType,
-                [nameof(SearchDialog<TModel>.LabelAlign)] = option.LabelAlign
+                [nameof(SearchDialog<TModel>.LabelAlign)] = option.LabelAlign,
+                [nameof(ItemsPerRow)] = option.ItemsPerRow,
+                [nameof(SearchDialog<TModel>.ResetButtonText)] = option.ResetButtonText,
+                [nameof(SearchDialog<TModel>.QueryButtonText)] = option.QueryButtonText,
+                [nameof(SearchDialog<TModel>.Model)] = option.Model,
+                [nameof(SearchDialog<TModel>.BodyTemplate)] = option.DialogBodyTemplate
             };
-
-            if (option.ItemsPerRow.HasValue)
-            {
-                parameters.Add(nameof(ItemsPerRow), option.ItemsPerRow);
-            }
-
-            if (!string.IsNullOrEmpty(option.ResetButtonText))
-            {
-                parameters.Add(nameof(SearchDialog<TModel>.ResetButtonText), option.ResetButtonText);
-            }
-
-            if (!string.IsNullOrEmpty(option.QueryButtonText))
-            {
-                parameters.Add(nameof(SearchDialog<TModel>.QueryButtonText), option.QueryButtonText);
-            }
-
-            if (option.Model != null)
-            {
-                parameters.Add(nameof(SearchDialog<TModel>.Model), option.Model);
-            }
-
-            if (option.DialogBodyTemplate != null)
-            {
-                parameters.Add(nameof(SearchDialog<TModel>.BodyTemplate), option.DialogBodyTemplate);
-            }
-
             option.Component = BootstrapDynamicComponent.CreateComponent<SearchDialog<TModel>>(parameters);
-
             await Invoke(option, dialog);
         }
 
@@ -94,7 +71,7 @@ namespace BootstrapBlazor.Components
         /// <param name="dialog"></param>
         public async Task ShowEditDialog<TModel>(EditDialogOption<TModel> option, Dialog? dialog = null)
         {
-            var parameters = new Dictionary<string, object>
+            var parameters = new Dictionary<string, object?>
             {
                 [nameof(EditDialog<TModel>.ShowLoading)] = option.ShowLoading,
                 [nameof(EditDialog<TModel>.ShowLabel)] = option.ShowLabel,
@@ -119,36 +96,15 @@ namespace BootstrapBlazor.Components
                 [nameof(EditDialog<TModel>.RowType)] = option.RowType,
                 [nameof(EditDialog<TModel>.LabelAlign)] = option.LabelAlign,
                 [nameof(EditDialog<TModel>.IsTracking)] = option.IsTracking,
-                [nameof(EditDialog<TModel>.ItemChangedType)] = option.ItemChangedType
+                [nameof(EditDialog<TModel>.ItemChangedType)] = option.ItemChangedType,
+                [nameof(ItemsPerRow)] = option.ItemsPerRow,
+                [nameof(EditDialog<TModel>.CloseButtonText)] = option.CloseButtonText,
+                [nameof(EditDialog<TModel>.SaveButtonText)] = option.SaveButtonText,
+                [nameof(EditDialog<TModel>.Model)] = option.Model,
+                [nameof(EditDialog<TModel>.BodyTemplate)] = option.DialogBodyTemplate
             };
 
-            if (option.ItemsPerRow.HasValue)
-            {
-                parameters.Add(nameof(ItemsPerRow), option.ItemsPerRow);
-            }
-
-            if (!string.IsNullOrEmpty(option.CloseButtonText))
-            {
-                parameters.Add(nameof(EditDialog<TModel>.CloseButtonText), option.CloseButtonText);
-            }
-
-            if (!string.IsNullOrEmpty(option.SaveButtonText))
-            {
-                parameters.Add(nameof(EditDialog<TModel>.SaveButtonText), option.SaveButtonText);
-            }
-
-            if (option.Model != null)
-            {
-                parameters.Add(nameof(EditDialog<TModel>.Model), option.Model);
-            }
-
-            if (option.DialogBodyTemplate != null)
-            {
-                parameters.Add(nameof(EditDialog<TModel>.BodyTemplate), option.DialogBodyTemplate);
-            }
-
             option.Component = BootstrapDynamicComponent.CreateComponent<EditDialog<TModel>>(parameters);
-
             await Invoke(option, dialog);
         }
 
@@ -166,17 +122,24 @@ namespace BootstrapBlazor.Components
 
             option.BodyTemplate = builder =>
             {
-                builder.OpenComponent(0, typeof(TDialog));
-                builder.AddMultipleAttributes(1, option.ComponentParamters);
-                builder.AddComponentReferenceCapture(2, com => resultDialog = (IResultDialog)com);
+                var index = 0;
+                builder.OpenComponent(index++, typeof(TDialog));
+                if (option.ComponentParamters != null)
+                {
+                    foreach (var p in option.ComponentParamters)
+                    {
+                        builder.AddAttribute(index++, p.Key, p.Value);
+                    }
+                }
+                builder.AddComponentReferenceCapture(index++, com => resultDialog = (IResultDialog)com);
                 builder.CloseComponent();
             };
 
-            option.FooterTemplate = BootstrapDynamicComponent.CreateComponent<ResultDialogFooter>(new Dictionary<string, object>
+            option.FooterTemplate = BootstrapDynamicComponent.CreateComponent<ResultDialogFooter>(new Dictionary<string, object?>
             {
-                [nameof(ResultDialogFooter.ButtonCloseText)] = option.ButtonCloseText!,
-                [nameof(ResultDialogFooter.ButtonNoText)] = option.ButtonNoText!,
-                [nameof(ResultDialogFooter.ButtonYesText)] = option.ButtonYesText!,
+                [nameof(ResultDialogFooter.ButtonCloseText)] = option.ButtonCloseText,
+                [nameof(ResultDialogFooter.ButtonNoText)] = option.ButtonNoText,
+                [nameof(ResultDialogFooter.ButtonYesText)] = option.ButtonYesText,
                 [nameof(ResultDialogFooter.ShowCloseButton)] = option.ShowCloseButton,
                 [nameof(ResultDialogFooter.ButtonCloseColor)] = option.ButtonCloseColor,
                 [nameof(ResultDialogFooter.ButtonCloseIcon)] = option.ButtonCloseIcon,
