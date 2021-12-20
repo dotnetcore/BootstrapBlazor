@@ -94,6 +94,12 @@ namespace BootstrapBlazor.Components
         /// </summary>
         List<IValidator>? ValidateRules { get; set; }
 
+
+        /// <summary>
+        /// 获取/设置 分组
+        /// </summary>
+        string? Category { get; set; }
+
         /// <summary>
         /// 获取绑定字段显示名称方法
         /// </summary>

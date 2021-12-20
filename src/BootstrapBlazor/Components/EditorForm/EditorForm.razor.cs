@@ -136,8 +136,33 @@ namespace BootstrapBlazor.Components
         /// </summary>
         private List<IEditorItem> FormItems { get; } = new List<IEditorItem>();
 
+
+        /// <summary>
+        /// 获得/设置 分组渲染的编辑项集合
+        /// </summary>
+        private Dictionary<string, IEnumerable<IEditorItem>> GroupedFormItems { get; set; } = new();
+
+
+        /// <summary>
+        /// 是否显示分组
+        /// </summary>
+        [Parameter]
+        public bool? ShowCategory { get; set; } = false;
+
+        /// <summary>
+        /// 分组显示顺序， 值越小越靠前
+        /// </summary>
+        [Parameter]
+        public Dictionary<string, int>? CategoryOrders { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         [NotNull]
         private string? PlaceHolderText { get; set; }
+
+
+
 
         /// <summary>
         /// OnInitialized 方法
@@ -244,8 +269,32 @@ namespace BootstrapBlazor.Components
                         FormItems.AddRange(EditorItems.Where(i => i.Editable));
                     }
                 }
+
+                GroupedFormItems = FormItems.GroupBy(i => string.IsNullOrEmpty(i.Category) ? "Other" : i.Category)
+                    .OrderBy(i => this.GetCategoryOrder(i.Key))
+                    .ThenBy(i => i.Key)
+                    .ToDictionary(i => i.Key, i => i.AsEnumerable());
+
                 StateHasChanged();
             }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="category"></param>
+        /// <returns></returns>
+        private int GetCategoryOrder(string category)
+        {
+            if (string.Equals(category, "other", StringComparison.OrdinalIgnoreCase))
+                return int.MaxValue;
+
+            if ((this.CategoryOrders?.Any() ?? false) && this.CategoryOrders.ContainsKey(category))
+            {
+                return this.CategoryOrders[category];
+            }
+
+            return int.MaxValue - 1;
         }
 
         private RenderFragment AutoGenerateTemplate(IEditorItem item) => builder =>

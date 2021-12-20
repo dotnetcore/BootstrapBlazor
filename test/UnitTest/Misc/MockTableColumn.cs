@@ -105,6 +105,11 @@ namespace UnitTest
         /// </summary>
         public List<IValidator>? ValidateRules { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        public string? Category { get; set; }
+
         public string GetDisplayName() => Text ?? FieldName;
 
         public string GetFieldName() => FieldName;

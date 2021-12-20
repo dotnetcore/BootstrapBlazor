@@ -5,6 +5,7 @@
 using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
@@ -132,16 +133,23 @@ namespace BootstrapBlazor.Components
         public List<IValidator>? ValidateRules { get; set; }
 
         /// <summary>
+        /// 
+        /// </summary>
+        public string? Category { get; set; }
+
+        /// <summary>
         /// 构造函数
         /// </summary>
         /// <param name="fieldName">字段名称</param>
         /// <param name="fieldType">字段类型</param>
         /// <param name="fieldText">显示文字</param>
-        public InternalTableColumn(string fieldName, Type fieldType, string? fieldText = null)
+        /// <param name="category">分组</param>
+        public InternalTableColumn(string fieldName, Type fieldType, string? fieldText = null, string? category = null)
         {
             FieldName = fieldName;
             PropertyType = fieldType;
             Text = fieldText;
+            Category = category;
         }
 
         public string GetDisplayName() => Text;
@@ -171,13 +179,15 @@ namespace BootstrapBlazor.Components
             {
                 ITableColumn? tc;
                 var attr = prop.GetCustomAttribute<AutoGenerateColumnAttribute>(true);
+                var catAttr = prop.GetCustomAttribute<CategoryAttribute>(true);
 
                 // Issue: 增加定义设置标签 AutoGenerateClassAttribute
                 // https://gitee.com/LongbowEnterprise/BootstrapBlazor/issues/I381ED
                 var displayName = attr?.Text ?? Utility.GetDisplayName(type, prop.Name);
+                var category = attr?.Category ?? catAttr?.Category;
                 if (attr == null)
                 {
-                    tc = new InternalTableColumn(prop.Name, prop.PropertyType, displayName);
+                    tc = new InternalTableColumn(prop.Name, prop.PropertyType, displayName, category);
 
                     if (attrModel != null)
                     {
@@ -191,6 +201,7 @@ namespace BootstrapBlazor.Components
                     attr.Text = displayName;
                     attr.FieldName = prop.Name;
                     attr.PropertyType = prop.PropertyType;
+                    attr.Category = category;
 
                     if (attrModel != null)
                     {

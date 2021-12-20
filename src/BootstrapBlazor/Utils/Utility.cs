@@ -362,7 +362,10 @@ namespace BootstrapBlazor.Components
         private static Type GenerateComponentType(Type fieldType, bool hasRows)
         {
             Type? ret = null;
-            var type = (Nullable.GetUnderlyingType(fieldType) ?? fieldType);
+            var nullableType = Nullable.GetUnderlyingType(fieldType);
+            var nullable = nullableType != null;
+
+            var type = nullableType ?? fieldType;
             if (type.IsEnum)
             {
                 ret = typeof(Select<>).MakeGenericType(fieldType);
@@ -376,9 +379,10 @@ namespace BootstrapBlazor.Components
                 switch (type.Name)
                 {
                     case nameof(Boolean):
-                        ret = typeof(Switch);
+                        ret = nullable ? typeof(NullSwitch) : typeof(Switch);
                         break;
                     case nameof(DateTime):
+                    case nameof(DateTimeOffset):
                         ret = typeof(DateTimePicker<>).MakeGenericType(fieldType);
                         break;
                     case nameof(Int16):

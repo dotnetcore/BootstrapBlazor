@@ -1,4 +1,4 @@
 ﻿@namespace BootstrapBlazor.Components
 @inherits BootstrapComponentBase
 
-<span @attributes="@AdditionalAttributes" class="cell" @onclick="e => OnClick(Value)">@Text</span>
+<span @attributes="@AdditionalAttributes" class="cell" @onclick="e => OnClick(Value)" @ondblclick="e=> OnDoubleClick?.Invoke(Value)">@Text</span>

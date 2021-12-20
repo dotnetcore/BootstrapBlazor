@@ -32,5 +32,11 @@ namespace BootstrapBlazor.Components
         [Parameter]
         [NotNull]
         public Action<DateTime>? OnClick { get; set; }
+
+        /// <summary>
+        /// 获取/设置 双击回调方法
+        /// </summary>
+        [Parameter]
+        public Action<DateTime>? OnDoubleClick { get; set; }
     }
 }
