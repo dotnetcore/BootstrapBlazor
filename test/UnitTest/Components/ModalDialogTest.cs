@@ -6,6 +6,9 @@ using BootstrapBlazor.Components;
 using BootstrapBlazor.Shared;
 using Bunit;
 using Microsoft.AspNetCore.Components;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Web;
 using UnitTest.Core;
 using Xunit;
 
@@ -105,6 +108,27 @@ namespace UnitTest.Components
             var content = cut.FindComponent<MockModalDialogContentComponent>().Instance;
             var f = content.Context as Foo;
             Assert.Equal("Test_BodyContext", f!.Name);
+        }
+
+        [Fact]
+        public void OnSaveAsync_Ok()
+        {
+            var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+            {
+                pb.AddChildContent<Modal>(pb =>
+                {
+                    pb.AddChildContent<ModalDialog>(pb =>
+                    {
+                        pb.Add(d => d.ShowSaveButton, true);
+                        pb.Add(d => d.IsAutoCloseAfterSave, true);
+                        pb.Add(d => d.OnSaveAsync, () => Task.FromResult(true));
+                    });
+                });
+            });
+            Assert.Contains("保存", HttpUtility.HtmlDecode(cut.Markup));
+
+            var b = cut.FindComponents<Button>().Last();
+            cut.InvokeAsync(() => b.Instance.OnClickWithoutRender!());
         }
 
         private class MockModalDialogContentComponent : ComponentBase
