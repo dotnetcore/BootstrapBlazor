@@ -1,0 +1,11 @@
+﻿@namespace BootstrapBlazor.Components
+@inherits FilterBase
+
+@if (IsHeaderRow)
+{
+    <Select Items="@Items" @bind-Value="@Value" OnSelectedItemChanged="_ => OnFilterValueChanged()"></Select>
+}
+else
+{
+    <Select Items="@Items" @bind-Value="@Value"></Select>
+}

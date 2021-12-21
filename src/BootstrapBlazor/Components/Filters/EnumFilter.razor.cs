@@ -71,7 +71,7 @@ namespace BootstrapBlazor.Components
             var filters = new List<FilterKeyValueAction>();
             if (!string.IsNullOrEmpty(Value) && Enum.TryParse(EnumType, Value, out var val))
             {
-                if (!string.IsNullOrEmpty(Value)) filters.Add(new FilterKeyValueAction()
+                filters.Add(new FilterKeyValueAction()
                 {
                     FieldKey = FieldKey,
                     FieldValue = val,

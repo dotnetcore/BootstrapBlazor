@@ -42,5 +42,12 @@ namespace UnitTest.Utils
             Assert.True("false".TryConvertTo(typeof(bool), out var v6));
             Assert.Equal(false, v6);
         }
+
+        [Fact]
+        public void ChangedType_Ok()
+        {
+            var v = Convert.ChangeType("1", typeof(int));
+            Assert.Equal(1, v);
+        }
     }
 }

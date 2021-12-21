@@ -153,7 +153,7 @@ namespace System.Linq
                     {
                         eq = Expression.Convert(fieldExpression, prop.PropertyType.GenericTypeArguments[0]);
                     }
-                    else if (prop.PropertyType.IsEnum)
+                    else if (prop.PropertyType.IsEnum && filter.FieldValue is string)
                     {
                         eq = Expression.Call(fieldExpression, prop.PropertyType.GetMethod("ToString", Array.Empty<Type>())!);
                     }
