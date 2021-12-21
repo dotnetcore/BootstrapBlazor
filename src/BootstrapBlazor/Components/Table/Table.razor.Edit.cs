@@ -354,6 +354,40 @@ namespace BootstrapBlazor.Components
                     RowItemsCache = null;
                     Items = null;
                     QueryItems = queryData.Items;
+                    TotalCount = queryData.TotalCount;
+                    var filtered = queryData.IsFiltered;
+                    var sorted = queryData.IsSorted;
+                    var searched = queryData.IsSearch;
+                    IsAdvanceSearch = queryData.IsAdvanceSearch;
+
+                    // 外部为处理 SearchText 模糊查询
+                    if (!searched && queryOption.Searchs.Any())
+                    {
+                        QueryItems = QueryItems.Where(queryOption.Searchs.GetFilterFunc<TItem>(FilterLogic.Or));
+                        TotalCount = QueryItems.Count();
+                    }
+
+                    // 外部未处理自定义高级搜索 内部进行高级自定义搜索过滤
+                    if (!IsAdvanceSearch && queryOption.CustomerSearchs.Any())
+                    {
+                        QueryItems = QueryItems.Where(queryOption.CustomerSearchs.GetFilterFunc<TItem>());
+                        TotalCount = QueryItems.Count();
+                        IsAdvanceSearch = true;
+                    }
+
+                    // 外部未过滤，内部自行过滤
+                    if (!filtered && queryOption.Filters.Any())
+                    {
+                        QueryItems = QueryItems.Where(queryOption.Filters.GetFilterFunc<TItem>());
+                        TotalCount = QueryItems.Count();
+                    }
+
+                    // 外部未处理排序，内部自行排序
+                    if (!sorted && SortOrder != SortOrder.Unset && !string.IsNullOrEmpty(SortName))
+                    {
+                        var invoker = Utility.GetSortFunc<TItem>();
+                        QueryItems = invoker(QueryItems, SortName, SortOrder);
+                    }
                     if (IsTree)
                     {
                         KeySet.Clear();
@@ -385,38 +419,6 @@ namespace BootstrapBlazor.Components
                                 HasChildren = CheckTreeChildren(item)
                             }).ToList();
                         }
-                    }
-                    TotalCount = queryData.TotalCount;
-                    var filtered = queryData.IsFiltered;
-                    var sorted = queryData.IsSorted;
-                    var searched = queryData.IsSearch;
-                    IsAdvanceSearch = queryData.IsAdvanceSearch;
-
-                    // 外部为处理 SearchText 模糊查询
-                    if (!searched && queryOption.Searchs.Any())
-                    {
-                        QueryItems = QueryItems.Where(queryOption.Searchs.GetFilterFunc<TItem>(FilterLogic.Or));
-                    }
-
-                    // 外部未处理自定义高级搜索 内部进行高级自定义搜索过滤
-                    if (!IsAdvanceSearch && queryOption.CustomerSearchs.Any())
-                    {
-                        QueryItems = QueryItems.Where(queryOption.CustomerSearchs.GetFilterFunc<TItem>());
-                        IsAdvanceSearch = true;
-                    }
-
-                    // 外部未过滤，内部自行过滤
-                    if (!filtered && queryOption.Filters.Any())
-                    {
-                        QueryItems = QueryItems.Where(queryOption.Filters.GetFilterFunc<TItem>());
-                        TotalCount = QueryItems.Count();
-                    }
-
-                    // 外部未处理排序，内部自行排序
-                    if (!sorted && SortOrder != SortOrder.Unset && !string.IsNullOrEmpty(SortName))
-                    {
-                        var invoker = Utility.GetSortFunc<TItem>();
-                        QueryItems = invoker(QueryItems, SortName, SortOrder);
                     }
                 }
             }
