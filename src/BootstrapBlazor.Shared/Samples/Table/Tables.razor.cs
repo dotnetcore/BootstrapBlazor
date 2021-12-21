@@ -497,10 +497,17 @@ namespace BootstrapBlazor.Shared.Samples.Table
             },
             new() {
                 Name = "ShowToastAfterSaveOrDeleteModel",
-                Description = "保存/删除失败后是否显示 Toast 提示框 ",
+                Description = "保存/删除失败后是否显示 Toast 提示框",
                 Type = "boolean",
                 ValueList = "true / false",
                 DefaultValue = "true"
+            },
+            new() {
+                Name = "TreeIcon",
+                Description = "树形数据行小箭头",
+                Type = "string",
+                ValueList = " — ",
+                DefaultValue = "fa-caret-right"
             },
             new() {
                 Name = "UseComponentWidth",

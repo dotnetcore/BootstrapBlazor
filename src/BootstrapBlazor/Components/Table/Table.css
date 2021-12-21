@@ -732,3 +732,7 @@ form .table .table-cell > textarea {
         width: 100%;
         background-color: var(--bs-primary);
     }
+
+.table-cell .is-node {
+    width: 18px;
+}

@@ -593,7 +593,7 @@ RenderFragment<TItem> RenderRow => item =>
                                 class="@GetCellClassString(col, triggerClick, isInCell)" style="@GetCellStyleString(col)">
                     @if (showArrow)
                     {
-                        <div style="@GetTreeStyleString(item)">
+                        <div class="is-node" style="@GetTreeStyleString(item)">
                             <i class="@GetTreeClassString(item)"></i>
                         </div>
                     }

@@ -91,8 +91,8 @@ namespace BootstrapBlazor.Components
         /// </summary>
         /// <param name="item"></param>
         /// <returns></returns>
-        protected string? GetTreeClassString(TItem item) => CssBuilder.Default("is-tree")
-            .AddClass("fa fa-caret-right", CheckTreeChildren(item))
+        protected string? GetTreeClassString(TItem item) => CssBuilder.Default("is-tree fa fa-fw")
+            .AddClass(TreeIcon, CheckTreeChildren(item) && !IsLoadChildren)
             .AddClass("fa-rotate-90", TryGetTreeNodeByItem(item, out var node) && node.IsExpand)
             .AddClass("fa-spin fa-spinner", IsLoadChildren)
             .Build();
@@ -103,7 +103,6 @@ namespace BootstrapBlazor.Components
         /// <param name="item"></param>
         /// <returns></returns>
         protected string? GetTreeStyleString(TItem item) => CssBuilder.Default()
-            .AddClass($"margin-right: .5rem;")
             .AddClass($"margin-left: {GetIndentSize(item)}px;")
             .Build();
 
@@ -121,7 +120,8 @@ namespace BootstrapBlazor.Components
         /// </summary>
         /// <param name="item"></param>
         /// <returns></returns>
-        protected string? GetDetailCaretClassString(TItem item) => CssBuilder.Default("fa fa-caret-right")
+        protected string? GetDetailCaretClassString(TItem item) => CssBuilder.Default("fa fa-fw")
+            .AddClass(TreeIcon)
             .AddClass("fa-rotate-90", ExpandRows.Contains(item))
             .Build();
 
@@ -142,6 +142,12 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 是否正在加载子项 默认为 false
         /// </summary>
         private bool IsLoadChildren { get; set; }
+
+        /// <summary>
+        /// 获得/设置 数型结构小箭头图标 默认 fa fa-caret-right
+        /// </summary>
+        [Parameter]
+        public string TreeIcon { get; set; } = "fa-caret-right";
 
         /// <summary>
         /// 获得/设置 树形数据节点展开式回调委托方法
@@ -579,16 +585,9 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 是否为树形数据 默认为 false
         /// </summary>
-        /// <remarks>通过 <see cref="ChildrenColumnName"/> 参数设置树状数据关联列，是否有子项请使用 <seealso cref="HasChildrenColumnName"/> 树形进行设置，此参数在 <see cref="IsExcel"/> 模式下不生效</remarks>
+        /// <remarks>是否有子项请使用 <seealso cref="HasChildrenColumnName"/> 树形进行设置，此参数在 <see cref="IsExcel"/> 模式下不生效</remarks>
         [Parameter]
         public bool IsTree { get; set; }
-
-        /// <summary>
-        /// 获得/设置 树形数据模式子项字段 默认为 Children
-        /// </summary>
-        /// <remarks>通过 <see cref="HasChildrenColumnName"/> 参数判断是否有子项，此参数在 <see cref="IsExcel"/> 模式下不生效</remarks>
-        [Parameter]
-        public string ChildrenColumnName { get; set; } = "Children";
 
         /// <summary>
         /// 获得/设置 树形数据模式子项字段是否有子节点属性名称 默认为 HasChildren 无法提供时请设置 <see cref="HasChildrenCallback"/> 回调方法
