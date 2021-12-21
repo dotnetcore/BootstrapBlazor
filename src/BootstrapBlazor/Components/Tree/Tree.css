@@ -65,7 +65,8 @@
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
-        vertical-align: top;
+        display: flex;
+        align-items: center;
     }
 
     .tree .form-check {

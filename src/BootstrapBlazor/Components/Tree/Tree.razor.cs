@@ -102,7 +102,7 @@ public sealed partial class Tree
     public bool ShowCheckbox { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否显示 Icon 图标
+    /// 获得/设置 是否显示 Icon 图标 默认 false 不显示
     /// </summary>
     [Parameter]
     public bool ShowIcon { get; set; }
