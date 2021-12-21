@@ -198,9 +198,10 @@ public class DialogService : BootstrapServiceBase<DialogOption>
     /// <param name="title"></param>
     /// <param name="saveCallback"></param>
     /// <param name="parameters"></param>
+    /// <param name="configureOption"></param>
     /// <param name="dialog"></param>
     /// <returns></returns>
-    public async Task ShowSaveDialog<TComponent>(string title, Func<Task<bool>> saveCallback, Dictionary<string, object?>? parameters = null, Dialog? dialog = null) where TComponent : ComponentBase
+    public async Task ShowSaveDialog<TComponent>(string title, Func<Task<bool>> saveCallback, Dictionary<string, object?>? parameters = null, Action<DialogOption>? configureOption = null, Dialog? dialog = null) where TComponent : ComponentBase
     {
         var option = new DialogOption()
         {
@@ -209,6 +210,7 @@ public class DialogService : BootstrapServiceBase<DialogOption>
             ShowSaveButton = true,
             OnSaveAsync = saveCallback
         };
+        configureOption?.Invoke(option);
         await Invoke(option, dialog);
     }
 }
