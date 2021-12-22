@@ -227,7 +227,7 @@ namespace UnitTest.Components
             cut.InvokeAsync(() => dialog.Show(new DialogOption()
             {
                 // 弹窗中按钮
-                BodyTemplate = BootstrapDynamicComponent.CreateComponent<Button>(new Dictionary<string, object>()
+                BodyTemplate = BootstrapDynamicComponent.CreateComponent<Button>(new Dictionary<string, object?>()
                 {
                     [nameof(Button.OnClickWithoutRender)] = () =>
                     {

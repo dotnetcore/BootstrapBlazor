@@ -17,50 +17,44 @@ public partial class Logout
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
-    private string? DropdownClassString => CssBuilder.Default("dropdown-menu dropdown-menu-right shadow")
-        .AddClass("show", IsShow)
-        .Build();
-
-    private bool IsShow { get; set; }
-
     /// <summary>
-    /// 
+    /// 获得/设置 组件当前用户头像
     /// </summary>
     [Parameter]
     public string? ImageUrl { get; set; }
 
     /// <summary>
-    /// 
+    /// 获得/设置 组件当前用户显示名称
     /// </summary>
     [Parameter]
     public string? DisplayName { get; set; }
 
     /// <summary>
-    /// 
+    /// 获得/设置 组件当前用户显示名称前置文本 默认 欢迎
     /// </summary>
     [Parameter]
     public string? PrefixDisplayNameText { get; set; }
 
     /// <summary>
-    /// 
+    /// 获得/设置 组件当前用户登录账号
     /// </summary>
     [Parameter]
     public string? UserName { get; set; }
 
     /// <summary>
-    /// 
+    /// 获得/设置 组件当前用户登录账号前置文本 默认 当前账号
     /// </summary>
     [Parameter]
     public string? PrefixUserNameText { get; set; }
 
     /// <summary>
-    /// 
+    /// 获得/设置 组件 HeaderTemplate
     /// </summary>
     [Parameter]
     public RenderFragment? HeaderTemplate { get; set; }
 
     /// <summary>
-    /// 
+    /// 获得/设置 组件 LinkTemplate
     /// </summary>
     [Parameter]
     public RenderFragment? LinkTemplate { get; set; }
@@ -70,7 +64,7 @@ public partial class Logout
     private IStringLocalizer<Logout>? Localizer { get; set; }
 
     /// <summary>
-    /// 
+    /// OnInitialized 方法
     /// </summary>
     protected override void OnInitialized()
     {
