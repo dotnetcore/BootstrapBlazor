@@ -157,7 +157,7 @@ namespace BootstrapBlazor.Components
         /// 点击减少按钮式时回调此方法
         /// </summary>
         /// <returns></returns>
-        private void OnClickDec()
+        private async Task OnClickDec()
         {
             var val = CurrentValue;
             switch (val)
@@ -182,13 +182,17 @@ namespace BootstrapBlazor.Components
                     break;
             }
             CurrentValue = SetMax(SetMin(val));
+            if (OnDecrement != null)
+            {
+                await OnDecrement(CurrentValue);
+            }
         }
 
         /// <summary>
         /// 点击增加按钮式时回调此方法
         /// </summary>
         /// <returns></returns>
-        private void OnClickInc()
+        private async Task OnClickInc()
         {
             var val = CurrentValue;
             switch (val)
@@ -213,6 +217,10 @@ namespace BootstrapBlazor.Components
                     break;
             }
             CurrentValue = SetMax(SetMin(val));
+            if (OnIncrement != null)
+            {
+                await OnIncrement(CurrentValue);
+            }
         }
 
         /// <summary>
