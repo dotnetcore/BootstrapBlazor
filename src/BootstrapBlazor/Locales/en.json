@@ -128,6 +128,10 @@
   "BootstrapBlazor.Components.Layout": {
     "TooltipText": "Click to Expand/Collapse sidebar"
   },
+  "BootstrapBlazor.Components.Logout": {
+    "PrefixDisplayNameText": "Welcome",
+    "PrefixUserNameText": "Account:"
+  },
   "BootstrapBlazor.Components.Menu": {
     "InvalidOperationExceptionMessage": "Sidemenu component cannot be used independently. Please use Menu component to set IsVertical = true"
   },
