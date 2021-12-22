@@ -13,6 +13,10 @@ namespace BootstrapBlazor.Components;
 /// </summary>
 public partial class Logout
 {
+    private string? LogoutClassString => CssBuilder.Default("dropdown dropdown-logout")
+        .AddClassFromAttributes(AdditionalAttributes)
+        .Build();
+
     private string? DropdownClassString => CssBuilder.Default("dropdown-menu dropdown-menu-right shadow")
         .AddClass("show", IsShow)
         .Build();

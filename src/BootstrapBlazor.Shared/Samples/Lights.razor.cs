@@ -5,43 +5,38 @@
 using BootstrapBlazor.Shared.Common;
 using System.Collections.Generic;
 
-namespace BootstrapBlazor.Shared.Samples
+namespace BootstrapBlazor.Shared.Samples;
+
+/// <summary>
+/// 
+/// </summary>
+public sealed partial class Lights
 {
-    /// <summary>
-    /// 
-    /// </summary>
-    public sealed partial class Lights
+    private static IEnumerable<AttributeItem> GetAttributes()
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        private static IEnumerable<AttributeItem> GetAttributes()
+        return new AttributeItem[]
         {
-            return new AttributeItem[]
-            {
-                new AttributeItem() {
-                    Name = "Color",
-                    Description = "颜色",
-                    Type = "Color",
-                    ValueList = "None / Active / Primary / Secondary / Success / Danger / Warning / Info / Light / Dark / Link",
-                    DefaultValue = "Success"
-                },
-                new AttributeItem() {
-                    Name = "IsFlash",
-                    Description = "是否闪烁",
-                    Type = "boolean",
-                    ValueList = " — ",
-                    DefaultValue = "false"
-                },
-                new AttributeItem() {
-                    Name = "Title",
-                    Description = "指示灯 Tooltip 显示文字",
-                    Type = "string",
-                    ValueList = " — ",
-                    DefaultValue = " — "
-                }
-            };
-        }
+            new AttributeItem() {
+                Name = "Color",
+                Description = "颜色",
+                Type = "Color",
+                ValueList = "None / Active / Primary / Secondary / Success / Danger / Warning / Info / Light / Dark / Link",
+                DefaultValue = "Success"
+            },
+            new AttributeItem() {
+                Name = "IsFlash",
+                Description = "是否闪烁",
+                Type = "boolean",
+                ValueList = " — ",
+                DefaultValue = "false"
+            },
+            new AttributeItem() {
+                Name = "Title",
+                Description = "指示灯 Tooltip 显示文字",
+                Type = "string",
+                ValueList = " — ",
+                DefaultValue = " — "
+            }
+        };
     }
 }

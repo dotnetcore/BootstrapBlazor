@@ -1,7 +1,7 @@
 ﻿@namespace BootstrapBlazor.Components
 @inherits IdComponentBase
 
-<div class="dropdown dropdown-logout">
+<div @attributes="AdditionalAttributes" class="@LogoutClassString">
     <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#" id="@Id" aria-expanded="false">
         <img class="logout-avatar" alt="avatar" src="@ImageUrl" />
         <span class="logout-text">@DisplayName</span>

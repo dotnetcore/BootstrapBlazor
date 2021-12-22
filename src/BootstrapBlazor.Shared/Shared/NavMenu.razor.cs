@@ -846,6 +846,12 @@ namespace BootstrapBlazor.Shared.Shared
                 },
                 new()
                 {
+                    IsNew = true,
+                    Text = Localizer["Logout"],
+                    Url = "logouts"
+                },
+                new()
+                {
                     Text = Localizer["Menu"],
                     Url = "menus"
                 },

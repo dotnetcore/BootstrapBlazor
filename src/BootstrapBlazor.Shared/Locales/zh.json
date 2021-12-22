@@ -2445,6 +2445,7 @@
     "Breadcrumb": "面包屑 Breadcrumb",
     "Dropdown": "下拉菜单 Dropdown",
     "GoTop": "跳转组件 GoTop",
+    "Logout": "登出组件 Logout",
     "Menu": "菜单 Menu",
     "Nav": "导航栏 Nav",
     "Pagination": "分页 Pagination",
