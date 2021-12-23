@@ -500,6 +500,28 @@ namespace UnitTest.Components
         }
 
         [Fact]
+        public void Required_AmbiguousMatch()
+        {
+            var model = new Cat();
+            var rules = new List<IValidator>
+            {
+                new FormItemValidator(new RequiredAttribute())
+            };
+            var cut = Context.RenderComponent<ValidateForm>(builder =>
+            {
+                builder.Add(v => v.Model, model);
+                builder.AddChildContent<MockValidate<int>>(pb =>
+                {
+                    pb.Add(v => v.Value, model.Foo);
+                    pb.Add(v => v.ValueExpression, Utility.GenerateValueExpression(model, nameof(Cat.Foo), typeof(int)));
+                    pb.Add(v => v.ValidateRules, rules);
+                });
+            });
+
+            // 不会报错 AmbiguousMatchException
+        }
+
+        [Fact]
         public void TooltipHost_Ok()
         {
             var cut = Context.RenderComponent<MockValidate<string>>(builder =>
@@ -531,6 +553,17 @@ namespace UnitTest.Components
                 OnValidate(false);
                 OnValidate(true);
             }
+        }
+
+        class Dummy
+        {
+            public virtual string? Foo { get; set; }
+        }
+
+        class Cat : Dummy
+        {
+            [Required]
+            public new int Foo { get; set; }
         }
     }
 }
