@@ -123,7 +123,7 @@ namespace BootstrapBlazor.Components
             var v = new TModel();
             foreach (var pi in source.GetType().GetProperties().Where(p => p.CanWrite))
             {
-                var pinfo = v.GetType().GetProperties().Where(p => p.Name == pi.Name).FirstOrDefault();
+                var pinfo = v.GetType().GetProperties().FirstOrDefault(p => p.Name == pi.Name);
                 if (pinfo != null)
                 {
                     pi.SetValue(source, pinfo.GetValue(v));
@@ -174,7 +174,7 @@ namespace BootstrapBlazor.Components
                                     if (p.CanWrite)
                                     {
                                         var v = p.GetValue(item);
-                                        var property = valType.GetProperty(p.Name);
+                                        var property = valType.GetProperties().FirstOrDefault(i => i.Name == p.Name && i.PropertyType == p.PropertyType);
                                         if (property != null)
                                         {
                                             property.SetValue(ret, v);
@@ -348,7 +348,8 @@ namespace BootstrapBlazor.Components
         public static object GenerateValueExpression(object model, string fieldName, Type fieldType)
         {
             // ValueExpression
-            var body = Expression.Property(Expression.Constant(model), model.GetType(), fieldName);
+            var pi = model.GetType().GetProperties().FirstOrDefault(p => p.Name == fieldName) ?? throw new InvalidOperationException($"the model {model.GetType().Name} not found property {fieldName}");
+            var body = Expression.Property(Expression.Constant(model), pi);
             var tDelegate = typeof(Func<>).MakeGenericType(fieldType);
             return Expression.Lambda(tDelegate, body);
         }

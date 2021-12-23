@@ -139,8 +139,7 @@ namespace BootstrapBlazor.Components
             {
                 var pi = FieldIdentifier.Value.Model.GetType()
                     .GetProperties()
-                    .Where(p => p.Name == FieldIdentifier.Value.FieldName)
-                    .FirstOrDefault();
+                    .FirstOrDefault(p => p.Name == FieldIdentifier.Value.FieldName);
                 if (pi != null)
                 {
                     var required = pi.GetCustomAttribute<RequiredAttribute>(true);

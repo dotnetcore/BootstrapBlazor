@@ -245,7 +245,8 @@ namespace BootstrapBlazor.Components
         protected virtual string? FormatParsingErrorMessage() => ParsingErrorMessage;
 
         private bool IsRequired() => FieldIdentifier?.Model.GetType()
-            .GetProperty(FieldIdentifier.Value.FieldName)?.GetCustomAttribute<RequiredAttribute>(true) != null
+            .GetProperties()
+            .FirstOrDefault(p => p.Name == FieldIdentifier.Value.FieldName)?.GetCustomAttribute<RequiredAttribute>(true) != null
             || (ValidateRules?.OfType<FormItemValidator>().Select(i => i.Validator).OfType<RequiredAttribute>().Any() ?? false);
 
         /// <summary>
