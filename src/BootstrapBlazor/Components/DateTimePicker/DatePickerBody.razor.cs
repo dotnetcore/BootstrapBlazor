@@ -604,10 +604,21 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 
         /// </summary>
-        private void OnTimePickerClose()
+        private Task OnTimePickerClose()
         {
             ShowTimePicker = false;
             StateHasChanged();
+            return Task.CompletedTask;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        private Task OnTimePickerConfirm()
+        {
+            this.OnTimePickerClose();
+            return Task.CompletedTask;
         }
     }
 }

@@ -1,0 +1,40 @@
+﻿.timespan-picker-bar {
+    position: relative;
+    color: #adb5bd;
+}
+
+.timespan-picker-input {
+    cursor: pointer;
+    padding-left: 2rem;
+}
+
+    .timespan-picker-input[readonly]:not([disabled]) {
+        background-color: #fff;
+    }
+
+.timespan-picker-input-icon {
+    position: absolute;
+    left: 0;
+    top: 0;
+    line-height: 35px;
+    cursor: pointer;
+    padding: 0 .75rem;
+}
+
+
+.popover-timespan {
+    max-width: unset;
+}
+
+    .popover-timespan .popover-body {
+        padding: 0;
+    }
+
+    .popover-timespan .timespan-picker {
+        border: none;
+    }
+
+    .popover-timespan .time-panel {
+        width: unset;
+        border: none;
+    }

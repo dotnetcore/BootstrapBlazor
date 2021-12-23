@@ -109,6 +109,14 @@ namespace BootstrapBlazor.Shared
         public string? Email { get; set; }
 
 
+        [Category("体能测试")]
+        [Display(Name = "100米成绩")]
+        public TimeSpan R100 { get; set; }
+
+
+        [Category("体能测试")]
+        [Display(Name = "800米成绩")]
+        public TimeSpan R800 { get; set; }
 
         #region Static methods
         private static readonly Random random = new();

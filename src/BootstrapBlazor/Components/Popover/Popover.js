@@ -137,7 +137,7 @@
     $(function () {
         // popover confirm
         $.fn.popover.Constructor.prototype.isWithContent = function () {
-            var components = ['', 'confirm', 'datetime-picker', 'datetime-range'];
+            var components = ['', 'confirm', 'datetime-picker', 'datetime-range', 'timespan-picker'];
             var toggle = this._config.toggle;
             return components.indexOf(toggle) || this.getTitle() || this._getContent();
         }
@@ -153,6 +153,9 @@
             }
             if (toggle === 'datetime-picker') {
                 $tip.addClass('popover-datetime');
+            }
+            if (toggle === 'timespan-picker') {
+                $tip.addClass('popover-timespan');
             }
             if (toggle === 'datetime-range') {
                 $tip.addClass('popover-datetime-range');
@@ -214,6 +217,17 @@
                     if (pId) {
                         var $input = $('[aria-describedby="' + pId + '"]');
                         if ($el.parents('.datetime-range-bar').attr('aria-describedby') !== pId) $input.popover('hide');
+                    }
+                });
+            }
+
+            // timespan picker
+            if ($el.parents('.popover-timespan.show').length === 0) {
+                $('.popover-timespan.show').each(function (index, ele) {
+                    var pId = this.getAttribute('id');
+                    if (pId) {
+                        var $input = $('[aria-describedby="' + pId + '"]');
+                        if ($el.attr('aria-describedby') !== pId) $input.popover('hide');
                     }
                 });
             }

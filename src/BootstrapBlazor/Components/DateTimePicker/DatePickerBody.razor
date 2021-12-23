@@ -24,7 +24,7 @@
                 </span>
                 <span class="date-picker-editor-wrap">
                     <input type="text" autocomplete="off" readonly placeholder="@TimePlaceHolder" class="input-inner form-control" value="@TimeValueString" @onclick="@OnClickTimeInput">
-                    <TimePickerBody @bind-Value="CurrentTime" OnClose="@OnTimePickerClose" OnConfirm="@OnTimePickerClose" />
+                    <TimePickerBody @bind-Value="CurrentTime" OnClose="@OnTimePickerClose" OnConfirm="@OnTimePickerConfirm" />
                 </span>
             </div>
             <div class="date-picker-header">

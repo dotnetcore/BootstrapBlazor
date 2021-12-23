@@ -1,0 +1,22 @@
+﻿@namespace BootstrapBlazor.Components
+@typeparam TValue
+@inherits ValidateBase<TValue>
+
+@if (IsShowLabel)
+{
+    <label class="form-label" required="@Required">@DisplayText</label>
+}
+
+<div @attributes="@AdditionalAttributes" id="@Id" class="@ClassString" @ref="Picker" data-bs-placement="@PlacementString">
+    <div class="timespan-picker-bar">
+        <input readonly="readonly" class="@InputClassName" @bind="@CurrentValueAsString" placeholder="@PlaceholderString" disabled="@Disabled" />
+        <span class="@DateTimePickerIconClassString">
+            <i class="fa fa-clock-o"></i>
+        </span>
+    </div>
+    <div class="@PickerBodyClassName">
+        <TimePickerBody @bind-Value="ComponentValue"
+                        OnClose="@OnClose"
+                        OnConfirm="@OnConfirm" />
+    </div>
+</div>

@@ -70,13 +70,13 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 取消按钮回调委托
         /// </summary>
         [Parameter]
-        public Action? OnClose { get; set; }
+        public Func<Task>? OnClose { get; set; }
 
         /// <summary>
         /// 获得/设置 确认按钮回调委托
         /// </summary>
         [Parameter]
-        public Action? OnConfirm { get; set; }
+        public Func<Task>? OnConfirm { get; set; }
 
         [Inject]
         [NotNull]
@@ -130,7 +130,8 @@ namespace BootstrapBlazor.Components
                 await ValueChanged.InvokeAsync(Value);
             }
 
-            OnConfirm?.Invoke();
+            if (OnConfirm != null)
+                await OnConfirm.Invoke();
         }
     }
 }

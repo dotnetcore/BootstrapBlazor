@@ -385,6 +385,9 @@ namespace BootstrapBlazor.Components
                     case nameof(DateTimeOffset):
                         ret = typeof(DateTimePicker<>).MakeGenericType(fieldType);
                         break;
+                    case nameof(TimeSpan):
+                        ret = typeof(TimespanPicker<>).MakeGenericType(fieldType);
+                        break;
                     case nameof(Int16):
                     case nameof(Int32):
                     case nameof(Int64):

@@ -147,7 +147,7 @@ namespace BootstrapBlazor.Components
             }
         }
 
-        private void OnStart()
+        private Task OnStart()
         {
             IsPause = false;
             CurrentTimespan = Value;
@@ -196,6 +196,8 @@ namespace BootstrapBlazor.Components
                 }
                 catch (TaskCanceledException) { }
             });
+
+            return Task.CompletedTask;
         }
 
         private Task OnClickPause()

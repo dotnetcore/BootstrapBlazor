@@ -1,0 +1,13 @@
+﻿@page "/timespanPickers"
+
+<h3>Timespan 选择器</h3>
+
+<h4>用于编辑/选择时间</h4>
+
+<DemoBlock Title="基本用法" Introduction="通过设置 <code>Value</code> 属性设定倒计时时间" Name="Normal">
+    <Row RowType="RowType.Inline">
+        <TimespanPicker TValue="TimeSpan" Value="T1" DisplayText="Timespan" ShowLabel="true" />
+        <TimespanPicker TValue="TimeSpan?" Value="T2" DisplayText="Timespan?" ShowLabel="true" />
+        <TimespanPicker TValue="TimeSpan?" Value="T3" DisplayText="Disabled" ShowLabel="true" IsDisabled="true" />
+    </Row>
+</DemoBlock>
