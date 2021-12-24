@@ -17,7 +17,7 @@ public class ReflectionTest
         Assert.Equal("Test", dog.Foo);
 
         var p1 = dog.GetType().GetProperty("Foo");
-        var p = dog.GetType().GetProperties().FirstOrDefault(p => p.Name == "Foo");
+        var p = dog.GetType().GetRuntimeProperties().FirstOrDefault(p => p.Name == "Foo");
 
         // 两种获取属性实例相等
         Assert.Equal(p1, p);
@@ -34,9 +34,9 @@ public class ReflectionTest
         Assert.Equal(1, cat.Foo);
 
         // 由于使用 new 关键字导致报错混淆异常
-        Assert.ThrowsAny<AmbiguousMatchException>(() => cat.GetType().GetProperty("Foo"));
+        Assert.ThrowsAny<AmbiguousMatchException>(() => cat.GetType().GetRuntimeProperty("Foo"));
 
-        var p = cat.GetType().GetProperties().FirstOrDefault(p => p.Name == "Foo");
+        var p = cat.GetType().GetRuntimeProperties().FirstOrDefault(p => p.Name == "Foo");
 
         // 反射获取值
         var v = p!.GetValue(cat);
@@ -56,5 +56,7 @@ public class ReflectionTest
     private class Cat : Dummy
     {
         public new int Foo { get; set; }
+
+        private string Test { get; set; }
     }
 }

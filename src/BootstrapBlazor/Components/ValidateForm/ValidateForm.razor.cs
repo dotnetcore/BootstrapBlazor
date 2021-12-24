@@ -166,8 +166,7 @@ namespace BootstrapBlazor.Components
             {
                 modelType = modelTypeInfo;
                 fieldName = propName;
-                var propertyInfo = modelType.GetProperties()
-                    .FirstOrDefault(p => p.Name == propName);
+                var propertyInfo = modelType.GetPropertyByName(propName);
                 if (propertyInfo == null)
                 {
                     break;
@@ -210,7 +209,7 @@ namespace BootstrapBlazor.Components
                     if (validator.IsNeedValidate)
                     {
                         var messages = new List<ValidationResult>();
-                        var pi = key.ModelType.GetProperties().FirstOrDefault(p => p.Name == key.FieldName);
+                        var pi = key.ModelType.GetPropertyByName(key.FieldName);
                         if (pi != null)
                         {
                             var propertyValidateContext = new ValidationContext(fieldIdentifier.Model)
@@ -246,7 +245,7 @@ namespace BootstrapBlazor.Components
                 if (validator.IsNeedValidate)
                 {
                     var fieldName = fieldIdentifier.FieldName;
-                    var pi = fieldIdentifier.Model.GetType().GetProperties().FirstOrDefault(p => p.Name == fieldName);
+                    var pi = fieldIdentifier.Model.GetType().GetPropertyByName(fieldName);
                     if (pi != null)
                     {
                         var propertyValue = Utility.GetPropertyValue(fieldIdentifier.Model, fieldIdentifier.FieldName);
@@ -273,7 +272,7 @@ namespace BootstrapBlazor.Components
             var metadataType = context.ObjectType.GetCustomAttribute<MetadataTypeAttribute>(false);
             if (metadataType != null)
             {
-                var p = metadataType.MetadataClassType.GetProperties().FirstOrDefault(p => p.Name == propertyInfo.Name);
+                var p = metadataType.MetadataClassType.GetPropertyByName(propertyInfo.Name);
                 if (p != null)
                 {
                     rules = rules.Concat(p.GetCustomAttributes(true).OfType<ValidationAttribute>());

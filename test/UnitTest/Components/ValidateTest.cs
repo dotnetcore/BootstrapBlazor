@@ -209,6 +209,7 @@ namespace UnitTest.Components
 
         [Required]
         private string? Test { get; set; }
+
         [Fact]
         public void IsRequired_Ok()
         {
@@ -231,7 +232,7 @@ namespace UnitTest.Components
                 });
             });
             var input = cut.FindComponent<BootstrapInput<string>>();
-            Assert.DoesNotContain("required", input.Markup);
+            Assert.Contains("required", input.Markup);
 
             // 更改值测试
             input.Find("input").Change("test1");

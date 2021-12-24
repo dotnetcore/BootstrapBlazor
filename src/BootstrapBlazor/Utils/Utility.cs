@@ -59,7 +59,7 @@ namespace BootstrapBlazor.Components
             object? ReflectionInvoke()
             {
                 object? ret = null;
-                var propertyInfo = model.GetType().GetProperties().FirstOrDefault(i => i.Name == fieldName);
+                var propertyInfo = model.GetType().GetRuntimeProperties().FirstOrDefault(i => i.Name == fieldName);
                 if (propertyInfo != null)
                 {
                     ret = propertyInfo.GetValue(model);
@@ -121,9 +121,9 @@ namespace BootstrapBlazor.Components
         public static void Reset<TModel>(TModel source) where TModel : class, new()
         {
             var v = new TModel();
-            foreach (var pi in source.GetType().GetProperties().Where(p => p.CanWrite))
+            foreach (var pi in source.GetType().GetRuntimeProperties().Where(p => p.CanWrite))
             {
-                var pinfo = v.GetType().GetProperties().FirstOrDefault(p => p.Name == pi.Name);
+                var pinfo = v.GetType().GetPropertyByName(pi.Name);
                 if (pinfo != null)
                 {
                     pi.SetValue(source, pinfo.GetValue(v));
@@ -169,12 +169,12 @@ namespace BootstrapBlazor.Components
                                         field.SetValue(ret, v);
                                     }
                                 };
-                                foreach (var p in type.GetProperties())
+                                foreach (var p in type.GetRuntimeProperties())
                                 {
                                     if (p.CanWrite)
                                     {
                                         var v = p.GetValue(item);
-                                        var property = valType.GetProperties().FirstOrDefault(i => i.Name == p.Name && i.PropertyType == p.PropertyType);
+                                        var property = valType.GetRuntimeProperties().FirstOrDefault(i => i.Name == p.Name && i.PropertyType == p.PropertyType);
                                         if (property != null)
                                         {
                                             property.SetValue(ret, v);
@@ -207,7 +207,7 @@ namespace BootstrapBlazor.Components
                     var v = f.GetValue(source);
                     valType.GetField(f.Name)!.SetValue(destination, v);
                 });
-                type.GetProperties().ToList().ForEach(p =>
+                type.GetRuntimeProperties().ToList().ForEach(p =>
                 {
                     if (p.CanWrite)
                     {
@@ -348,7 +348,7 @@ namespace BootstrapBlazor.Components
         public static object GenerateValueExpression(object model, string fieldName, Type fieldType)
         {
             // ValueExpression
-            var pi = model.GetType().GetProperties().FirstOrDefault(p => p.Name == fieldName) ?? throw new InvalidOperationException($"the model {model.GetType().Name} not found property {fieldName}");
+            var pi = model.GetType().GetPropertyByName(fieldName) ?? throw new InvalidOperationException($"the model {model.GetType().Name} not found the property {fieldName}");
             var body = Expression.Property(Expression.Constant(model), pi);
             var tDelegate = typeof(Func<>).MakeGenericType(fieldType);
             return Expression.Lambda(tDelegate, body);
