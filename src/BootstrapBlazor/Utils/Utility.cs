@@ -283,7 +283,8 @@ namespace BootstrapBlazor.Components
             var fieldValue = GenerateValue(model, fieldName);
             var fieldValueChanged = GenerateValueChanged(component, model, fieldName, fieldType);
             var valueExpression = GenerateValueExpression(model, fieldName, fieldType);
-            var componentType = item.ComponentType ?? GenerateComponentType(fieldType, item.Rows != 0);
+            var lookup = item is ITableColumn col ? col.Lookup : null;
+            var componentType = item.ComponentType ?? GenerateComponentType(fieldType, item.Rows != 0, lookup);
             builder.OpenComponent(0, componentType);
             if (componentType.IsSubclassOf(typeof(ValidateBase<>).MakeGenericType(fieldType)))
             {
@@ -306,6 +307,12 @@ namespace BootstrapBlazor.Components
             if (IsCheckboxList(fieldType) && item.Items != null)
             {
                 builder.AddAttribute(7, nameof(CheckboxList<IEnumerable<string>>.Items), item.Items.Clone());
+            }
+
+            // Lookup
+            if (lookup != null && item.Items == null)
+            {
+                builder.AddAttribute(8, nameof(Select<SelectedItem>.Items), lookup.Clone());
             }
 
             // 增加非枚举类,手动设定 ComponentType 为 Select 并且 Data 有值 自动生成下拉框
@@ -359,12 +366,13 @@ namespace BootstrapBlazor.Components
         /// </summary>
         /// <param name="fieldType"></param>
         /// <param name="hasRows">是否为 Textarea 组件</param>
+        /// <param name="lookup"></param>
         /// <returns></returns>
-        private static Type GenerateComponentType(Type fieldType, bool hasRows)
+        private static Type GenerateComponentType(Type fieldType, bool hasRows, IEnumerable<SelectedItem>? lookup)
         {
             Type? ret = null;
             var type = (Nullable.GetUnderlyingType(fieldType) ?? fieldType);
-            if (type.IsEnum)
+            if (type.IsEnum || lookup != null)
             {
                 ret = typeof(Select<>).MakeGenericType(fieldType);
             }
