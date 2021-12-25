@@ -36,13 +36,13 @@ namespace BootstrapBlazor.Components
         public IEnumerable<string>? Users { get; set; }
 
         /// <summary>
-        /// 获得/设置 是否显示此 Block 默认显示
+        /// 获得/设置 是否显示此 Block 默认显示 返回 true 时显示
         /// </summary>
         [Parameter]
         public Func<string?, Task<bool>>? OnQueryCondition { get; set; }
 
         /// <summary>
-        /// 获得/设置 是否显示此 Block 默认显示 null 未参与判断
+        /// 获得/设置 是否显示此 Block 默认显示 null 未参与判断 设置 true 时显示
         /// </summary>
         [Parameter]
         public bool? Condition { get; set; }

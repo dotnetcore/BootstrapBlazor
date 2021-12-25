@@ -13,6 +13,10 @@ namespace BootstrapBlazor.Components
     /// </summary>
     public sealed partial class CardUpload<TValue>
     {
+        private string? BodyClassString => CssBuilder.Default("upload-body is-card")
+            .AddClass("is-single", IsSingle)
+            .Build();
+
         private string? GetDiabledString(UploadFile item) => (!IsDisabled && item.Uploaded && item.Code == 0) ? null : "disabled";
 
         private string? GetDeleteButtonDiabledString(UploadFile item) => (!IsDisabled && item.Uploaded) ? null : "disabled";
