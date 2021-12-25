@@ -203,18 +203,6 @@ namespace BootstrapBlazor.Components
         protected EditContext? CascadedEditContext { get; set; }
 
         /// <summary>
-        /// 获得 ValidateForm 实例
-        /// </summary>
-        [CascadingParameter]
-        protected ValidateForm? ValidateForm { get; set; }
-
-        /// <summary>
-        /// 获得 IShowLabel 实例
-        /// </summary>
-        [CascadingParameter(Name = "EidtorForm")]
-        protected IShowLabel? EditorForm { get; set; }
-
-        /// <summary>
         /// Parses a string to create an instance of <typeparamref name="TValue"/>. Derived classes can override this to change how
         /// <see cref="CurrentValueAsString"/> interprets incoming values.
         /// </summary>
@@ -304,22 +292,7 @@ namespace BootstrapBlazor.Components
         /// </summary>
         protected override void OnParametersSet()
         {
-            // 显式设置显示标签时一定显示
-            var showLabel = ShowLabel;
-
-            // 组件自身未设置 ShowLabel 取 EditorForm/VaidateForm 级联值
-            if (ShowLabel == null && (EditorForm != null || ValidateForm != null))
-            {
-                showLabel = EditorForm?.ShowLabel ?? ValidateForm?.ShowLabel ?? true;
-            }
-
-            IsShowLabel = showLabel ?? false;
-
-            // 绑定属性值获取 DisplayName
-            if (IsShowLabel && DisplayText == null && FieldIdentifier.HasValue)
-            {
-                DisplayText = FieldIdentifier.Value.GetDisplayName();
-            }
+            base.OnParametersSet();
 
             Required = (IsNeedValidate && !string.IsNullOrEmpty(DisplayText) && (ValidateForm?.ShowRequiredMark ?? false) && IsRequired()) ? "true" : null;
         }
