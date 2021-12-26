@@ -658,7 +658,3 @@ form .form-label[required]:before {
 .arrow-info {
     border-color: transparent transparent var(--bs-info);
 }
-
-.card {
-    overflow: hidden;
-}
