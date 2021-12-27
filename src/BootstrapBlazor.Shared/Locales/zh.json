@@ -2271,6 +2271,29 @@
     "PrintServiceIntro": "通过设置要打印的内容组件，直接调用 <b>打印服务</b> 进行打印作业",
     "DialogTitle": "数据查询窗口"
   },
+  "BootstrapBlazor.Shared.Samples.Tags": {
+    "Title": "Tag 标签",
+    "SubTitle": "用于标记和选择。",
+    "Tag1": "标签一",
+    "Tag2": "标签二",
+    "Tag3": "标签三",
+    "Tag4": "标签四",
+    "Tag5": "标签五",
+    "Tag6": "标签六",
+    "Tag7": "标签七",
+    "BasicUsageTitle": "基本用法",
+    "BasicUsageIntro": "页面中的非浮层元素，不会自动消失。",
+    "CloseButtonTitle": "关闭按钮",
+    "CloseButtonIntro": "提供关闭按钮的标签",
+    "IconTitle": "带 Icon",
+    "IcoIntro": "表示某种状态时提升可读性。",
+    "ChildContent": "内容",
+    "Class": "样式",
+    "Color": "颜色",
+    "Icon": "图标",
+    "ShowDismiss": "关闭按钮",
+    "OnDismiss": "关闭标签回调方法"
+  }
   "BootstrapBlazor.Shared.Components.DemoBlock": {
     "Title": "未设置",
     "SubTitle": "示例"

@@ -1,81 +1,82 @@
 ﻿@page "/tags"
+@inject IStringLocalizer<Tags> Localizer
 
-<h3>Tag 标签</h3>
+<h3>@Localizer["Title"]</h3>
 
-<h4>用于标记和选择。</h4>
+<h4>@Localizer["SubTitle"]</h4>
 
-<DemoBlock Title="基本用法" Introduction="页面中的非浮层元素，不会自动消失。" Name="Normal">
+<DemoBlock Title="@Localizer["BasicUsageTitle"]" Introduction="@Localizer["BasicUsageIntro"]" Name="Normal">
         <div class="row g-3">
             <div class="col-4 col-sm-auto">
-                <Tag Color="Color.Primary">标签一</Tag>
+                <Tag Color="Color.Primary">@Localizer["Tag1"]</Tag>
             </div>
             <div class="col-4 col-sm-auto">
-                <Tag Color="Color.Secondary">标签二</Tag>
+                <Tag Color="Color.Secondary">@Localizer["Tag2"]</Tag>
             </div>
             <div class="col-4 col-sm-auto">
-                <Tag Color="Color.Success">标签三</Tag>
+                <Tag Color="Color.Success">@Localizer["Tag3"]</Tag>
             </div>
             <div class="col-4 col-sm-auto">
-                <Tag Color="Color.Danger">标签四</Tag>
+                <Tag Color="Color.Danger">@Localizer["Tag4"]</Tag>
             </div>
             <div class="col-4 col-sm-auto">
-                <Tag Color="Color.Warning">标签五</Tag>
+                <Tag Color="Color.Warning">@Localizer["Tag5"]</Tag>
             </div>
             <div class="col-4 col-sm-auto">
-                <Tag Color="Color.Info">标签六</Tag>
+                <Tag Color="Color.Info">@Localizer["Tag6"]</Tag>
             </div>
             <div class="col-4 col-sm-auto">
-                <Tag Color="Color.Dark">标签七</Tag>
+                <Tag Color="Color.Dark">@Localizer["Tag7"]</Tag>
             </div>
         </div>
 </DemoBlock>
 
-<DemoBlock Title="关闭按钮" Introduction="提供关闭按钮的标签" Name="CloseButton">
+<DemoBlock Title="@Localizer["CloseButtonTitle"]" Introduction="@Localizer["CloseButtonIntro"]" Name="CloseButton">
         <div class="row g-3">
             <div class="col-4 col-sm-auto">
-                <Tag Color="Color.Primary" ShowDismiss="true" OnDismiss="@DismissClick">标签一</Tag>
+                <Tag Color="Color.Primary" ShowDismiss="true" OnDismiss="@DismissClick">@Localizer["Tag1"]</Tag>
             </div>
             <div class="col-4 col-sm-auto">
-                <Tag Color="Color.Secondary" ShowDismiss="true" OnDismiss="@DismissClick">标签二</Tag>
+                <Tag Color="Color.Secondary" ShowDismiss="true" OnDismiss="@DismissClick">@Localizer["Tag2"]</Tag>
             </div>
             <div class="col-4 col-sm-auto">
-                <Tag Color="Color.Success" ShowDismiss="true" OnDismiss="@DismissClick">标签三</Tag>
+                <Tag Color="Color.Success" ShowDismiss="true" OnDismiss="@DismissClick">@Localizer["Tag3"]</Tag>
             </div>
             <div class="col-4 col-sm-auto">
-                <Tag Color="Color.Danger" ShowDismiss="true" OnDismiss="@DismissClick">标签四</Tag>
+                <Tag Color="Color.Danger" ShowDismiss="true" OnDismiss="@DismissClick">@Localizer["Tag4"]</Tag>
             </div>
             <div class="col-4 col-sm-auto">
-                <Tag Color="Color.Warning" ShowDismiss="true" OnDismiss="@DismissClick">标签五</Tag>
+                <Tag Color="Color.Warning" ShowDismiss="true" OnDismiss="@DismissClick">@Localizer["Tag5"]</Tag>
             </div>
             <div class="col-4 col-sm-auto">
-                <Tag Color="Color.Info" ShowDismiss="true" OnDismiss="@DismissClick">标签六</Tag>
+                <Tag Color="Color.Info" ShowDismiss="true" OnDismiss="@DismissClick">@Localizer["Tag6"]</Tag>
             </div>
             <div class="col-4 col-sm-auto">
-                <Tag Color="Color.Dark" ShowDismiss="true" OnDismiss="@DismissClick">标签七</Tag>
+                <Tag Color="Color.Dark" ShowDismiss="true" OnDismiss="@DismissClick">@Localizer["Tag7"]</Tag>
             </div>
         </div>
     <BlockLogger @ref="Trace" class="mt-3" />
 </DemoBlock>
 
-<DemoBlock Title="带 Icon" Introduction="表示某种状态时提升可读性。" Name="Icon">
+<DemoBlock Title="@Localizer["IconTitle"]" Introduction="@Localizer["IcoIntro"]" Name="Icon">
         <div class="row g-3">
             <div class="col-4 col-sm-auto">
-                <Tag Icon="fa fa-fw fa-check-circle" Color="Color.Success">标签一</Tag>
+                <Tag Icon="fa fa-fw fa-check-circle" Color="Color.Success">@Localizer["Tag1"]</Tag>
             </div>
             <div class="col-4 col-sm-auto">
-                <Tag Icon="fa fa-fw fa-warning" Color="Color.Warning">标签二</Tag>
+                <Tag Icon="fa fa-fw fa-warning" Color="Color.Warning">@Localizer["Tag2"]</Tag>
             </div>
             <div class="col-4 col-sm-auto">
-                <Tag Icon="fa fa-fw fa-question-circle" Color="Color.Info">标签三</Tag>
+                <Tag Icon="fa fa-fw fa-question-circle" Color="Color.Info">@Localizer["Tag3"]</Tag>
             </div>
             <div class="col-4 col-sm-auto">
-                <Tag Icon="fa fa-fw fa-times-circle" Color="Color.Danger">标签四</Tag>
+                <Tag Icon="fa fa-fw fa-times-circle" Color="Color.Danger">@Localizer["Tag4"]</Tag>
             </div>
             <div class="col-4 col-sm-auto">
-                <Tag Icon="fa fa-fw fa-angle-left" Color="Color.Primary">标签五</Tag>
+                <Tag Icon="fa fa-fw fa-angle-left" Color="Color.Primary">@Localizer["Tag5"]</Tag>
             </div>
             <div class="col-4 col-sm-auto">
-                <Tag Icon="fa fa-fw fa-user" Color="Color.Dark">标签六</Tag>
+                <Tag Icon="fa fa-fw fa-user" Color="Color.Dark">@Localizer["Tag6"]</Tag>
             </div>
         </div>
 </DemoBlock>
