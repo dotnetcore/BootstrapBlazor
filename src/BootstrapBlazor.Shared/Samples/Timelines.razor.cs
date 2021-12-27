@@ -64,6 +64,12 @@ namespace BootstrapBlazor.Shared.Samples
                 }
                 while (!_cancelTokenSource.IsCancellationRequested);
             });
+
+            Items = new SelectedItem[]
+            {
+                new SelectedItem("1",Localizer["SelectedItem1"]){ Active=true },
+                new SelectedItem("2",Localizer["SelectedItem2"])
+            };
         }
 
         /// <summary>
@@ -74,7 +80,7 @@ namespace BootstrapBlazor.Shared.Samples
 
         public Task OnStateChanged(IEnumerable<SelectedItem> values, SelectedItem value)
         {
-            IsReverse = value.Text == "倒序";
+            IsReverse = value.Text == Localizer["SelectedItem2"];
             StateHasChanged();
             return Task.CompletedTask;
         }
@@ -82,28 +88,24 @@ namespace BootstrapBlazor.Shared.Samples
         /// <summary>
         /// 
         /// </summary>
-        private IEnumerable<SelectedItem> Items { get; set; } = new SelectedItem[]
-        {
-            new SelectedItem("1","正序"){ Active=true },
-            new SelectedItem("2","倒序")
-        };
+        private IEnumerable<SelectedItem> Items { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        private readonly IEnumerable<TimelineItem> TimelineItems = new TimelineItem[]
+        private IEnumerable<TimelineItem> TimelineItems => new TimelineItem[]
         {
             new TimelineItem {
-                Content = "创建时间",
+                Content = Localizer["TimelineItemContent1"],
                 Description = DateTime.Now.ToString("yyyy-MM-dd")
             },
             new TimelineItem{
-                Content = "通过审核",
+                Content =  Localizer["TimelineItemContent2"],
                 Description = DateTime.Now.AddDays(1).ToString("yyyy-MM-dd")
             },
             new TimelineItem
             {
-                Content = "活动按期开始",
+                Content =  Localizer["TimelineItemContent3"],
                 Description = DateTime.Now.AddDays(2).ToString("yyyy-MM-dd")
             }
         };
@@ -111,24 +113,24 @@ namespace BootstrapBlazor.Shared.Samples
         /// <summary>
         /// 
         /// </summary>
-        private readonly IEnumerable<TimelineItem> CustomerTimelineItems = new TimelineItem[]
+        private IEnumerable<TimelineItem> CustomerTimelineItems => new TimelineItem[]
         {
             new TimelineItem
             {
-                Content = "默认样式的节点",
+                Content = Localizer["TimelineItemContent4"],
                 Description = DateTime.Now.ToString("yyyy-MM-dd")
             },
             new TimelineItem
             {
                 Color = Color.Success,
-                Content = "支持自定义颜色",
+                Content = Localizer["TimelineItemContent5"],
                 Description = DateTime.Now.AddDays(2).ToString("yyyy-MM-dd")
             },
             new TimelineItem
             {
                 Color = Color.Danger,
                 Icon = "fa fa-fw fa-fa",
-                Content = "支持使用图标",
+                Content = Localizer["TimelineItemContent6"],
                 Description = DateTime.Now.AddDays(3).ToString("yyyy-MM-dd")
             }
         };
@@ -145,19 +147,19 @@ namespace BootstrapBlazor.Shared.Samples
                 {
                     [nameof(BootstrapBlazor.Components.Console.Items)] = Messages
                 }),
-                Description = "实时输出"
+                Description = Localizer["Description1"]
             },
             new TimelineItem
             {
                 Color = Color.Info,
                 Component = BootstrapDynamicComponent.CreateComponent<Counter>(),
-                Description = "计数器"
+                Description = Localizer["Description2"]
             },
             new TimelineItem
             {
                 Color = Color.Warning,
                 Component = BootstrapDynamicComponent.CreateComponent<FetchData>(),
-                Description = "天气预报信息"
+                Description = Localizer["Description3"]
             }
         };
 
@@ -196,33 +198,33 @@ namespace BootstrapBlazor.Shared.Samples
         /// 获得属性方法
         /// </summary>
         /// <returns></returns>
-        private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+        private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
         {
             // TODO: 移动到数据库中
             new AttributeItem() {
                 Name = "Items",
-                Description = "数据集合",
+                Description = Localizer["Items"],
                 Type = "IEnumerable<TimelineItem>",
                 ValueList = "—",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "IsReverse",
-                Description = "是否倒序显示",
+                Description = Localizer["IsReverse"],
                 Type = "boolean",
                 ValueList = "true|false",
                 DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "IsLeft",
-                Description = "是否左侧展现内容",
+                Description = Localizer["IsLeft"],
                 Type = "boolean",
                 ValueList = "true|false",
                 DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "IsAlternate",
-                Description = "是否交替展现内容",
+                Description = Localizer["IsAlternate"],
                 Type = "boolean",
                 ValueList = "true|false",
                 DefaultValue = "false"
@@ -233,40 +235,40 @@ namespace BootstrapBlazor.Shared.Samples
         /// 获得属性方法
         /// </summary>
         /// <returns></returns>
-        private static IEnumerable<AttributeItem> GetTimelineItemAttributes() => new AttributeItem[]
+        private IEnumerable<AttributeItem> GetTimelineItemAttributes() => new AttributeItem[]
         {
             // TODO: 移动到数据库中
             new AttributeItem() {
                 Name = nameof(TimelineItem.Color),
-                Description = "节点颜色",
+                Description = Localizer["Color"],
                 Type = "Color",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = nameof(TimelineItem.Content),
-                Description = "内容正文",
+                Description = Localizer["Content"],
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = nameof(TimelineItem.Icon),
-                Description = "节点图标",
+                Description = Localizer["Icon"],
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = nameof(TimelineItem.Description),
-                Description = "节点描述文字",
+                Description = Localizer["Description"],
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = nameof(TimelineItem.Component),
-                Description = "节点自定义组件",
+                Description = Localizer["Component"],
                 Type = nameof(BootstrapDynamicComponent),
                 ValueList = " — ",
                 DefaultValue = " — "
