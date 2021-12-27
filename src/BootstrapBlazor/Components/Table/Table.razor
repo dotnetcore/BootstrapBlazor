@@ -212,13 +212,31 @@
                         }
                         @foreach (var col in GetColumns())
                         {
+                            var cellClass = "";
+                            string? value = null;
                             <div class="table-cell">
                                 <label>
                                     @col.GetDisplayName()
                                 </label>
-                                <span>
-                                    @GetValue(col, item)
-                                </span>
+                                @if (col.OnCellRender != null)
+                                {
+                                    var args = new TableCellArgs { Row = item, ColumnName = col.GetFieldName() };
+                                    col.OnCellRender(args);
+                                    cellClass = args.Class;
+                                    value = args.Value;
+                                }
+                                @if(value == null)
+                                {
+                                    <span>
+                                        @GetValue(col, item)
+                                    </span>
+                                }
+                                else
+                                {
+                                    <span class="@cellClass">
+                                        @value
+                                    </span>
+                                }
                             </div>
                         }
                         @if (!IsExcel && ShowExtendButtons && !IsExtendButtonsInRowHeader)
