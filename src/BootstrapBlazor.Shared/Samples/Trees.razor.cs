@@ -27,6 +27,9 @@ namespace BootstrapBlazor.Shared.Samples
         [NotNull]
         private BlockLogger? TraceChecked { get; set; }
 
+        [NotNull]
+        private BlockLogger? TraceCheckedItems { get; set; }
+
         [Inject]
         [NotNull]
         private IStringLocalizer<Foo>? Localizer { get; set; }
@@ -149,6 +152,12 @@ namespace BootstrapBlazor.Shared.Samples
             }
         }
 
+        private Task OnTreeItemChecked(List<TreeItem> items)
+        {
+            TraceCheckedItems.Log($"当前共选中{items.Count}项");
+            return Task.CompletedTask;
+        }
+
         /// <summary>
         /// 获得属性方法
         /// </summary>
@@ -209,6 +218,13 @@ namespace BootstrapBlazor.Shared.Samples
                 Name = "OnExpandNode",
                 Description = "树形控件节点展开回调委托",
                 Type = "Func<TreeItem, Task>",
+                ValueList = " — ",
+                DefaultValue = " — "
+            },
+            new AttributeItem() {
+                Name = "OnCheckedItems",
+                Description = "树形控件获取所有选中节点回调委托",
+                Type = "Func<List<TreeItem>, Task>",
                 ValueList = " — ",
                 DefaultValue = " — "
             }

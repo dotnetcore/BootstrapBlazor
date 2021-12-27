@@ -1,0 +1,36 @@
+﻿@page "/linkbuttons"
+
+<h3>@Localizer["ComTitle"]</h3>
+
+<h4>@Localizer["SubTitle"]</h4>
+
+<DemoBlock Title="@Localizer["LinkButtonTextTitle"]" Introduction="@Localizer["LinkButtonTextIntro"]" Name="Text">
+    <LinkButton Text="@Localizer["LinkButtonText"]" />
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["LinkButtonUrlTitle"]" Introduction="@Localizer["LinkButtonUrlIntro"]" Name="Url">
+    <LinkButton Text="@Localizer["LinkButtonText"]" Url="@WebsiteOption.Value.ServerUrl" />
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["LinkButtonTitleTitle"]" Introduction="@Localizer["LinkButtonTitleIntro"]" Name="Title">
+    <p>@((MarkupString)Localizer["LinkButtonTitleDetail"].Value)</p>
+    <LinkButton Text="@Localizer["LinkButtonText"]" Url="@WebsiteOption.Value.ServerUrl" Title="@Localizer["LinkButtonTitleTooltip"]" />
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["LinkButtonImageTitle"]" Introduction="@Localizer["LinkButtonImageIntro"]" Name="Image">
+    <LinkButton ImageUrl="_content/BootstrapBlazor.Shared/images/Argo-C.png" />
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["LinkButtonChildTitle"]" Introduction="@Localizer["LinkButtonChildIntro"]" Name="ChildContent">
+    <LinkButton>
+        <i class="fa fa-fa"></i>
+        <span>@Localizer["LinkButtonText"]</span>
+    </LinkButton>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["LinkButtonOnClickTitle"]" Introduction="@Localizer["LinkButtonOnClickIntro"]" Name="OnClick">
+    <LinkButton Text="@Localizer["LinkButtonText"]" OnClick="@OnClick" />
+    <BlockLogger @ref="Trace" class="mt-3" />
+</DemoBlock>
+
+<AttributeTable Items="GetAttributes()"></AttributeTable>

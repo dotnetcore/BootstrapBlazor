@@ -91,7 +91,7 @@ csharp_style_var_when_type_is_apparent = true:silent
 csharp_style_var_elsewhere = true:silent
 csharp_prefer_static_local_function= true:silent
 # Expression-bodied members 
-csharp_style_expression_bodied_methods = false:silent
+csharp_style_expression_bodied_methods =true:silent
 csharp_style_expression_bodied_constructors = false:silent 
 csharp_style_expression_bodied_operators = false:silent 
 csharp_style_expression_bodied_properties = true:silent 
@@ -150,3 +150,5 @@ visual_basic_preferred_modifier_order = Partial,Default,Private,Protected,Public
 [*.cs]
 # Add file header
 file_header_template = Copyright (c) Argo Zhang (argo@163.com). All rights reserved.\nLicensed under the Apache License, Version 2.0. See License.txt in the project root for license information.\nWebsite: https://www.blazor.zone or https://argozhang.github.io/
+csharp_style_namespace_declarations=file_scoped:suggestion
+csharp_style_expression_bodied_local_functions=true:silent

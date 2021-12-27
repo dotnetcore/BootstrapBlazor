@@ -73,9 +73,9 @@ namespace BootstrapBlazor.Shared
 #if DEBUG
                     IsAutoHide = false,
 #endif
-                    ChildContent = BootstrapDynamicComponent.CreateComponent<CommitItem>(new Dictionary<string, object>
+                    ChildContent = BootstrapDynamicComponent.CreateComponent<CommitItem>(new Dictionary<string, object?>
                     {
-                        [nameof(CommitItem.Item)] = payload.Entry!
+                        [nameof(CommitItem.Item)] = payload.Entry
                     }).Render()
                 };
                 await Toast.Show(option);

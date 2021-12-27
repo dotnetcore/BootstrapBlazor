@@ -119,39 +119,20 @@ namespace BootstrapBlazor.Components
         /// </summary>
         /// <param name="option"></param>
         /// <returns></returns>
-        internal static IDictionary<string, object> Parse(SwalOption option)
+        internal static IDictionary<string, object?> Parse(SwalOption option) => new Dictionary<string, object?>()
         {
-            var parameters = new Dictionary<string, object>()
-            {
-                [nameof(SweetAlertBody.Category)] = option.Category,
-                [nameof(SweetAlertBody.ShowClose)] = option.ShowClose,
-                [nameof(SweetAlertBody.IsConfirm)] = option.IsConfirm,
-                [nameof(SweetAlertBody.ShowFooter)] = option.ShowFooter,
-                [nameof(SweetAlertBody.OnClose)] = new Action(async () => await option.Close(false)),
-                [nameof(SweetAlertBody.OnConfirm)] = new Action(async () => await option.Close(true))
-            };
-            if (!string.IsNullOrEmpty(option.Title))
-            {
-                parameters.Add(nameof(SweetAlertBody.Title), option.Title);
-            }
-            if (!string.IsNullOrEmpty(option.Content))
-            {
-                parameters.Add(nameof(SweetAlertBody.Content), option.Content);
-            }
-            if (option.BodyTemplate != null)
-            {
-                parameters.Add(nameof(SweetAlertBody.BodyTemplate), option.BodyTemplate);
-            }
-            if (option.FooterTemplate != null)
-            {
-                parameters.Add(nameof(SweetAlertBody.FooterTemplate), option.FooterTemplate);
-            }
-            if (option.ButtonTemplate != null)
-            {
-                parameters.Add(nameof(SweetAlertBody.ButtonTemplate), option.ButtonTemplate);
-            }
-            return parameters;
-        }
+            [nameof(SweetAlertBody.Category)] = option.Category,
+            [nameof(SweetAlertBody.ShowClose)] = option.ShowClose,
+            [nameof(SweetAlertBody.IsConfirm)] = option.IsConfirm,
+            [nameof(SweetAlertBody.ShowFooter)] = option.ShowFooter,
+            [nameof(SweetAlertBody.OnClose)] = new Action(async () => await option.Close(false)),
+            [nameof(SweetAlertBody.OnConfirm)] = new Action(async () => await option.Close(true)),
+            [nameof(SweetAlertBody.Title)] = option.Title,
+            [nameof(SweetAlertBody.Content)] = option.Content,
+            [nameof(SweetAlertBody.BodyTemplate)] = option.BodyTemplate,
+            [nameof(SweetAlertBody.FooterTemplate)] = option.FooterTemplate,
+            [nameof(SweetAlertBody.ButtonTemplate)] = option.ButtonTemplate
+        };
 
         /// <summary>
         /// OnInitialized 方法

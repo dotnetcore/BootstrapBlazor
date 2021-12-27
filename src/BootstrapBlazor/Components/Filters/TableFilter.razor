@@ -31,49 +31,53 @@ else
     RenderFragment<ITableColumn> RenderFilter => Column =>
     @<CascadingValue Value="this" IsFixed="true">
         @if (Column.FilterTemplate != null)
+        {
+            @Column.FilterTemplate
+        }
+        else if (Column.PropertyType.IsEnum())
+        {
+            <EnumFilter Type="Column.PropertyType"></EnumFilter>
+        }
+        else if (Column.Lookup != null)
+        {
+            <LookupFilter Lookup="Column.Lookup" Type="Column.PropertyType"></LookupFilter>
+        }
+        else
+        {
+            var fieldType = Nullable.GetUnderlyingType(Column.PropertyType) ?? Column.PropertyType;
+            switch (fieldType?.Name)
             {
-                @Column.FilterTemplate
-            }
-            else if (Column.PropertyType.IsEnum())
-            {
-                <EnumFilter Type="Column.PropertyType"></EnumFilter>
-            }
-            else
-            {
-                var fieldType = Nullable.GetUnderlyingType(Column.PropertyType) ?? Column.PropertyType;
-                switch (fieldType?.Name)
-                {
-                    case nameof(Boolean):
-                        <BoolFilter />
-                        break;
-                    case nameof(DateTime):
-                        <DateTimeFilter Count="Count" />
-                        break;
-                    case nameof(Int16):
-                        <NumberFilter TType="Int16" Count="@Count" Step="@Step" />
-                        break;
-                    case nameof(Int32):
-                        <NumberFilter TType="Int32" Count="@Count" Step="@Step" />
-                        break;
-                    case nameof(Int64):
-                        <NumberFilter TType="Int64" Count="@Count" Step="@Step" />
-                        break;
-                    case nameof(Single):
-                        <NumberFilter TType="Single" Count="@Count" Step="@Step" />
-                        break;
-                    case nameof(Double):
-                        <NumberFilter TType="Double" Count="@Count" Step="@Step" />
-                        break;
-                    case nameof(Decimal):
-                        <NumberFilter TType="Decimal" Count="@Count" Step="@Step" />
-                        break;
-                    case nameof(String):
-                        <StringFilter Count="Count" />
-                        break;
-                    default:
-                        <div>不支持的类型</div>
-                        break;
-                };
-            }
-        </CascadingValue>;
+                case nameof(Boolean):
+                    <BoolFilter />
+                    break;
+                case nameof(DateTime):
+                    <DateTimeFilter Count="Count" />
+                    break;
+                case nameof(Int16):
+                    <NumberFilter TType="Int16" Count="@Count" Step="@Step" />
+                    break;
+                case nameof(Int32):
+                    <NumberFilter TType="Int32" Count="@Count" Step="@Step" />
+                    break;
+                case nameof(Int64):
+                    <NumberFilter TType="Int64" Count="@Count" Step="@Step" />
+                    break;
+                case nameof(Single):
+                    <NumberFilter TType="Single" Count="@Count" Step="@Step" />
+                    break;
+                case nameof(Double):
+                    <NumberFilter TType="Double" Count="@Count" Step="@Step" />
+                    break;
+                case nameof(Decimal):
+                    <NumberFilter TType="Decimal" Count="@Count" Step="@Step" />
+                    break;
+                case nameof(String):
+                    <StringFilter Count="Count" />
+                    break;
+                default:
+                    <div>不支持的类型</div>
+                    break;
+            };
+        }
+    </CascadingValue>;
 }

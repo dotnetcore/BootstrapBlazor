@@ -66,6 +66,18 @@ namespace BootstrapBlazor.Components
         public string? DisplayText { get; set; }
 
         /// <summary>
+        /// 获得 ValidateForm 实例
+        /// </summary>
+        [CascadingParameter]
+        protected ValidateForm? ValidateForm { get; set; }
+
+        /// <summary>
+        /// 获得 IShowLabel 实例
+        /// </summary>
+        [CascadingParameter(Name = "EidtorForm")]
+        protected IShowLabel? EditorForm { get; set; }
+
+        /// <summary>
         /// SetParametersAsync 方法
         /// </summary>
         /// <param name="parameters"></param>
@@ -92,7 +104,16 @@ namespace BootstrapBlazor.Components
         {
             base.OnParametersSet();
 
-            IsShowLabel = ShowLabel ?? false;
+            // 显式设置显示标签时一定显示
+            var showLabel = ShowLabel;
+
+            // 组件自身未设置 ShowLabel 取 EditorForm/VaidateForm 级联值
+            if (ShowLabel == null && (EditorForm != null || ValidateForm != null))
+            {
+                showLabel = EditorForm?.ShowLabel ?? ValidateForm?.ShowLabel ?? true;
+            }
+
+            IsShowLabel = showLabel ?? false;
 
             // 设置显示标签时未提供 DisplayText 通过双向绑定获取 DisplayName
             if (IsShowLabel && DisplayText == null && FieldIdentifier.HasValue)

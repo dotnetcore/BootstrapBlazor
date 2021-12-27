@@ -1,16 +1,38 @@
 ﻿@namespace BootstrapBlazor.Components
 @inherits SkeletonBase
 
-<div @attributes="@AdditionalAttributes" class="skeleton skeleton-table">
-    <div class="@ClassString">
-        @for (var rowIndex = 0; rowIndex < Rows; rowIndex++)
-        {
-            <div class="skeleton-row">
-                @for (var colIndex = 0; colIndex < Columns; colIndex++)
-                {
-                    <div class="skeleton-col"></div>
-                }
+<div @attributes="@AdditionalAttributes" class="skeleton">
+    @if (ShowToolbar)
+    {
+        <div class="skeleton-toolbar">
+            <div class="skeleton-buttons">
+                <div class="skeleton-button"></div>
+                <div class="skeleton-button"></div>
+                <div class="skeleton-button"></div>
             </div>
-        }
+            <div class="skeleton-buttons flex-fill ms-5 me-2 justify-content-end">
+                <div class="skeleton-button"></div>
+                <div class="skeleton-button"></div>
+                <div class="skeleton-button"></div>
+            </div>
+            <div class="skeleton-buttons">
+                <div class="skeleton-button"></div>
+                <div class="skeleton-button"></div>
+                <div class="skeleton-button"></div>
+            </div>
+        </div>
+    }
+    <div class="skeleton-table">
+        <div class="@ClassString">
+            @for (var rowIndex = 0; rowIndex < Rows; rowIndex++)
+            {
+                <div class="skeleton-row">
+                    @for (var colIndex = 0; colIndex < Columns; colIndex++)
+                    {
+                        <div class="skeleton-col"></div>
+                    }
+                </div>
+            }
+        </div>
     </div>
 </div>

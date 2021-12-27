@@ -141,7 +141,7 @@ namespace BootstrapBlazor.Shared.Samples
             new TimelineItem
             {
                 Color = Color.Success,
-                Component = BootstrapDynamicComponent.CreateComponent<BootstrapBlazor.Components.Console>(new Dictionary<string, object>
+                Component = BootstrapDynamicComponent.CreateComponent<BootstrapBlazor.Components.Console>(new Dictionary<string, object?>
                 {
                     [nameof(BootstrapBlazor.Components.Console.Items)] = Messages
                 }),

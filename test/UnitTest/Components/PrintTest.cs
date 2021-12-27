@@ -45,7 +45,7 @@ namespace UnitTest.Components
                 // 弹窗配置
                 op.Title = "数据查询窗口";
                 // 弹窗组件所需参数
-                return new Dictionary<string, object>();
+                return new Dictionary<string, object?>();
             }));
         }
 
@@ -69,7 +69,7 @@ namespace UnitTest.Components
             public Task PrintAsync() => PrintService.PrintAsync<Button>(op =>
             {
                 op.Title = "打印按钮测试";
-                return new Dictionary<string, object>();
+                return new Dictionary<string, object?>();
             });
         }
     }

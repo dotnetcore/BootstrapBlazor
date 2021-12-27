@@ -59,7 +59,7 @@ namespace BootstrapBlazor.Components
             object? ReflectionInvoke()
             {
                 object? ret = null;
-                var propertyInfo = model.GetType().GetProperties().FirstOrDefault(i => i.Name == fieldName);
+                var propertyInfo = model.GetType().GetRuntimeProperties().FirstOrDefault(i => i.Name == fieldName);
                 if (propertyInfo != null)
                 {
                     ret = propertyInfo.GetValue(model);
@@ -121,9 +121,9 @@ namespace BootstrapBlazor.Components
         public static void Reset<TModel>(TModel source) where TModel : class, new()
         {
             var v = new TModel();
-            foreach (var pi in source.GetType().GetProperties().Where(p => p.CanWrite))
+            foreach (var pi in source.GetType().GetRuntimeProperties().Where(p => p.CanWrite))
             {
-                var pinfo = v.GetType().GetProperties().Where(p => p.Name == pi.Name).FirstOrDefault();
+                var pinfo = v.GetType().GetPropertyByName(pi.Name);
                 if (pinfo != null)
                 {
                     pi.SetValue(source, pinfo.GetValue(v));
@@ -169,12 +169,12 @@ namespace BootstrapBlazor.Components
                                         field.SetValue(ret, v);
                                     }
                                 };
-                                foreach (var p in type.GetProperties())
+                                foreach (var p in type.GetRuntimeProperties())
                                 {
                                     if (p.CanWrite)
                                     {
                                         var v = p.GetValue(item);
-                                        var property = valType.GetProperty(p.Name);
+                                        var property = valType.GetRuntimeProperties().FirstOrDefault(i => i.Name == p.Name && i.PropertyType == p.PropertyType);
                                         if (property != null)
                                         {
                                             property.SetValue(ret, v);
@@ -207,7 +207,7 @@ namespace BootstrapBlazor.Components
                     var v = f.GetValue(source);
                     valType.GetField(f.Name)!.SetValue(destination, v);
                 });
-                type.GetProperties().ToList().ForEach(p =>
+                type.GetRuntimeProperties().ToList().ForEach(p =>
                 {
                     if (p.CanWrite)
                     {
@@ -283,7 +283,8 @@ namespace BootstrapBlazor.Components
             var fieldValue = GenerateValue(model, fieldName);
             var fieldValueChanged = GenerateValueChanged(component, model, fieldName, fieldType);
             var valueExpression = GenerateValueExpression(model, fieldName, fieldType);
-            var componentType = item.ComponentType ?? GenerateComponentType(fieldType, item.Rows != 0);
+            var lookup = item is ITableColumn col ? col.Lookup : null;
+            var componentType = item.ComponentType ?? GenerateComponentType(fieldType, item.Rows != 0, lookup);
             builder.OpenComponent(0, componentType);
             if (componentType.IsSubclassOf(typeof(ValidateBase<>).MakeGenericType(fieldType)))
             {
@@ -306,6 +307,12 @@ namespace BootstrapBlazor.Components
             if (IsCheckboxList(fieldType) && item.Items != null)
             {
                 builder.AddAttribute(7, nameof(CheckboxList<IEnumerable<string>>.Items), item.Items.Clone());
+            }
+
+            // Lookup
+            if (lookup != null && item.Items == null)
+            {
+                builder.AddAttribute(8, nameof(Select<SelectedItem>.Items), lookup.Clone());
             }
 
             // 增加非枚举类,手动设定 ComponentType 为 Select 并且 Data 有值 自动生成下拉框
@@ -348,7 +355,8 @@ namespace BootstrapBlazor.Components
         public static object GenerateValueExpression(object model, string fieldName, Type fieldType)
         {
             // ValueExpression
-            var body = Expression.Property(Expression.Constant(model), model.GetType(), fieldName);
+            var pi = model.GetType().GetPropertyByName(fieldName) ?? throw new InvalidOperationException($"the model {model.GetType().Name} not found the property {fieldName}");
+            var body = Expression.Property(Expression.Constant(model), pi);
             var tDelegate = typeof(Func<>).MakeGenericType(fieldType);
             return Expression.Lambda(tDelegate, body);
         }
@@ -358,15 +366,16 @@ namespace BootstrapBlazor.Components
         /// </summary>
         /// <param name="fieldType"></param>
         /// <param name="hasRows">是否为 Textarea 组件</param>
+        /// <param name="lookup"></param>
         /// <returns></returns>
-        private static Type GenerateComponentType(Type fieldType, bool hasRows)
+        private static Type GenerateComponentType(Type fieldType, bool hasRows, IEnumerable<SelectedItem>? lookup)
         {
             Type? ret = null;
             var nullableType = Nullable.GetUnderlyingType(fieldType);
             var nullable = nullableType != null;
 
             var type = nullableType ?? fieldType;
-            if (type.IsEnum)
+            if (type.IsEnum || lookup != null)
             {
                 ret = typeof(Select<>).MakeGenericType(fieldType);
             }

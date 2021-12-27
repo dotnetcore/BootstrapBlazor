@@ -86,24 +86,18 @@ namespace BootstrapBlazor.Components
         /// 将参数转换为组件属性方法
         /// </summary>
         /// <returns></returns>
-        public List<KeyValuePair<string, object>> ToAttributes()
+        public Dictionary<string, object?> ToAttributes()
         {
-            var parameters = new List<KeyValuePair<string, object>>
+            var parameters = new Dictionary<string, object?>
             {
-                new(nameof(Size), Size.Medium),
-                new(nameof(ModalDialog.IsCentered), true),
-                new(nameof(ModalDialog.IsScrolling), false),
-                new(nameof(ModalDialog.ShowCloseButton), false),
-                new(nameof(ShowFooter), false)
+                [nameof(Size)] = Size.Medium,
+                [nameof(ModalDialog.IsCentered)] = true,
+                [nameof(ModalDialog.IsScrolling)] = false,
+                [nameof(ModalDialog.ShowCloseButton)] = false,
+                [nameof(ShowFooter)] = false,
+                [nameof(ModalDialog.Title)] = Title,
+                [nameof(BodyContext)] = BodyContext
             };
-            if (!string.IsNullOrEmpty(Title))
-            {
-                parameters.Add(new(nameof(ModalDialog.Title), Title));
-            }
-            if (BodyContext != null)
-            {
-                parameters.Add(new(nameof(BodyContext), BodyContext));
-            }
             return parameters;
         }
 

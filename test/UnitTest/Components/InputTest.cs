@@ -16,34 +16,6 @@ namespace UnitTest.Components
     public class InputTest : BootstrapBlazorTestBase
     {
         [Fact]
-        public void IsGroup_Ok()
-        {
-            // 显示标签时 IsGroup 属性才生效
-            // 设置 IsGroup 为 true 
-            var cut = Context.RenderComponent<BootstrapInput<string>>(builder =>
-            {
-                builder.Add(a => a.ShowLabel, true);
-                builder.Add(a => a.IsGroup, true);
-            });
-            var span = cut.Find(".input-group-text");
-            Assert.NotNull(span);
-
-            // 设置 IsGroup 为 true 
-            cut.SetParametersAndRender(builder => builder.Add(a => a.IsGroup, false));
-            var label = cut.Find(".form-label");
-            Assert.NotNull(label);
-
-            // 设置不显示标签时 IsGroup 属性不生效
-            cut.SetParametersAndRender(builder =>
-            {
-                builder.Add(a => a.ShowLabel, false);
-                builder.Add(a => a.IsGroup, true);
-            });
-            var input = cut.Find(".form-control");
-            Assert.NotNull(input);
-        }
-
-        [Fact]
         public void Color_Ok()
         {
             var cut = Context.RenderComponent<BootstrapInput<string>>(builder =>

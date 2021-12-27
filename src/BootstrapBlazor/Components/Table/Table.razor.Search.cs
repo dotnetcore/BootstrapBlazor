@@ -62,6 +62,12 @@ namespace BootstrapBlazor.Components
         public bool ShowSearchText { get; set; } = true;
 
         /// <summary>
+        /// 获得/设置 是否显示搜索框提示文本 默认true
+        /// </summary>
+        [Parameter]
+        public bool ShowSearchTextTooltip { get; set; } = true;
+
+        /// <summary>
         /// 获得/设置 是否显示清空搜索按钮 默认显示 <see cref="ShowSearch" />
         /// </summary>
         [Parameter]

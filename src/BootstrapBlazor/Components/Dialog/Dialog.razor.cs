@@ -25,7 +25,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 弹出对话框实例集合
         /// </summary>
-        private List<List<KeyValuePair<string, object>>> DialogParameters { get; } = new();
+        private List<Dictionary<string, object>> DialogParameters { get; } = new();
 
         private bool IsKeyboard { get; set; }
 
@@ -69,30 +69,45 @@ namespace BootstrapBlazor.Components
         {
             IsKeyboard = option.IsKeyboard;
             option.Dialog = ModalContainer;
-            var parameters = option.ToAttributes().ToList();
+            var parameters = option.ToAttributes();
 
             var content = option.BodyTemplate ?? option.Component?.Render();
             if (content != null)
             {
-                parameters.Add(new(nameof(ModalDialog.BodyTemplate), content));
+                parameters.Add(nameof(ModalDialog.BodyTemplate), content);
             }
 
             if (option.HeaderTemplate != null)
             {
-                parameters.Add(new(nameof(ModalDialog.HeaderTemplate), option.HeaderTemplate));
+                parameters.Add(nameof(ModalDialog.HeaderTemplate), option.HeaderTemplate);
             }
 
             if (option.FooterTemplate != null)
             {
-                parameters.Add(new(nameof(ModalDialog.FooterTemplate), option.FooterTemplate));
+                parameters.Add(nameof(ModalDialog.FooterTemplate), option.FooterTemplate);
             }
 
             if (!string.IsNullOrEmpty(option.Class))
             {
-                parameters.Add(new(nameof(ModalDialog.Class), option.Class));
+                parameters.Add(nameof(ModalDialog.Class), option.Class);
             }
 
-            parameters.Add(new(nameof(ModalDialog.OnClose), new Func<Task>(async () =>
+            if (option.OnSaveAsync != null)
+            {
+                parameters.Add(nameof(ModalDialog.OnSaveAsync), option.OnSaveAsync);
+            }
+
+            if (option.CloseButtonText != null)
+            {
+                parameters.Add(nameof(ModalDialog.CloseButtonText), option.CloseButtonText);
+            }
+
+            if (option.SaveButtonText != null)
+            {
+                parameters.Add(nameof(ModalDialog.SaveButtonText), option.SaveButtonText);
+            }
+
+            parameters.Add(nameof(ModalDialog.OnClose), new Func<Task>(async () =>
             {
                 // 回调 OnClose 方法
                 // 移除当前对话框
@@ -105,7 +120,7 @@ namespace BootstrapBlazor.Components
                 // 支持多级弹窗
                 await ModalContainer.CloseOrPopDialog();
                 StateHasChanged();
-            })));
+            }));
 
             DialogParameters.Add(parameters);
             if (DialogParameters.Count == 1)

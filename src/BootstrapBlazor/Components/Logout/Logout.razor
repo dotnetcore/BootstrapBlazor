@@ -1,0 +1,33 @@
+﻿@namespace BootstrapBlazor.Components
+@inherits IdComponentBase
+
+<div @attributes="AdditionalAttributes" class="@LogoutClassString">
+    <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#" id="@Id" aria-expanded="false">
+        <img class="logout-avatar" alt="avatar" src="@ImageUrl" />
+        <span class="logout-text">@DisplayName</span>
+    </a>
+    <div class="dropdown-menu dropdown-menu-right shadow" aria-labelledby="@Id">
+        <div class="dropdown-item dropdown-user">
+            @if (HeaderTemplate == null)
+            {
+                <div class="d-flex flex-fill align-items-center">
+                    <img alt="avatar" src="@ImageUrl">
+                    <div class="flex-fill">
+                        <div class="logout-dn">@PrefixDisplayNameText @DisplayName</div>
+                        <div class="logout-un">@PrefixUserNameText @UserName</div>
+                    </div>
+                </div>
+            }
+            else
+            {
+                @HeaderTemplate
+            }
+        </div>
+        @if (LinkTemplate != null)
+        {
+            <div class="dropdown-item">
+                @LinkTemplate
+            </div>
+        }
+    </div>
+</div>

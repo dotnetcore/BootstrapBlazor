@@ -137,9 +137,7 @@ namespace System.Linq
             Expression<Func<TItem, bool>> ret = t => true;
             if (!string.IsNullOrEmpty(filter.FieldKey) && filter.FieldValue != null)
             {
-                var prop = typeof(TItem).GetProperties()
-                    .Where(p => p.Name == filter.FieldKey)
-                    .FirstOrDefault();
+                var prop = typeof(TItem).GetPropertyByName(filter.FieldKey);
                 if (prop != null)
                 {
                     var p = Expression.Parameter(typeof(TItem));
@@ -153,7 +151,7 @@ namespace System.Linq
                     {
                         eq = Expression.Convert(fieldExpression, prop.PropertyType.GenericTypeArguments[0]);
                     }
-                    else if (prop.PropertyType.IsEnum)
+                    else if (prop.PropertyType.IsEnum && filter.FieldValue is string)
                     {
                         eq = Expression.Call(fieldExpression, prop.PropertyType.GetMethod("ToString", Array.Empty<Type>())!);
                     }
@@ -251,9 +249,7 @@ namespace System.Linq
             IEnumerable<TItem>? ret = null;
             var methodName = sortOrder == SortOrder.Desc ? "OrderByDescendingInternal" : "OrderByInternal";
 
-            var pi = typeof(TItem).GetProperties()
-                    .Where(p => p.Name == propertyName)
-                    .FirstOrDefault();
+            var pi = typeof(TItem).GetPropertyByName(propertyName);
             if (pi != null)
             {
                 var mi = typeof(LambdaExtensions)
@@ -269,9 +265,7 @@ namespace System.Linq
             IQueryable<TItem>? ret = null;
             var methodName = sortOrder == SortOrder.Desc ? nameof(OrderByDescendingInternal) : nameof(OrderByInternal);
 
-            var pi = typeof(TItem).GetProperties()
-                    .Where(p => p.Name == propertyName)
-                    .FirstOrDefault();
+            var pi = typeof(TItem).GetPropertyByName(propertyName);
             if (pi != null)
             {
                 var mi = typeof(LambdaExtensions)
@@ -344,7 +338,7 @@ namespace System.Linq
                 throw new ArgumentNullException(nameof(item));
             }
 
-            var p = item.GetType().GetProperties().FirstOrDefault(p => p.Name == propertyName);
+            var p = item.GetType().GetPropertyByName(propertyName);
             if (p == null)
             {
                 throw new InvalidOperationException($"类型 {item.GetType().Name} 未找到 {propertyName} 属性，无法获取其值");
@@ -370,7 +364,7 @@ namespace System.Linq
                 throw new ArgumentNullException(nameof(model));
             }
 
-            var p = model.GetType().GetProperties().FirstOrDefault(p => p.Name == propertyName);
+            var p = model.GetType().GetPropertyByName(propertyName);
             if (p == null)
             {
                 throw new InvalidOperationException($"类型 {typeof(TModel).Name} 未找到 {propertyName} 属性，无法设置其值");

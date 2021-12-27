@@ -5,7 +5,7 @@
 <ValidateForm Model="@Model" OnValidSubmit="@OnValidSubmitAsync">
 	@if (BodyTemplate != null)
 	{
-		@BodyTemplate?.Invoke(Model)
+		@BodyTemplate.Invoke(Model)
 		@if (!IsTracking)
 		{
 			<div class="row mt-3">

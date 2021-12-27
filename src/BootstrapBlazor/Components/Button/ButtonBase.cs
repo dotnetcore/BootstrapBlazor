@@ -160,19 +160,38 @@ namespace BootstrapBlazor.Components
                     ButtonIcon = LoadingIcon;
                     IsDisabled = true;
                 }
-                if (IsAsync)
+
+                Exception? exception = null;
+                try
                 {
-                    await Task.Run(async () => await InvokeAsync(HandlerClick));
+                    if (IsAsync)
+                    {
+
+                        await Task.Run(async () => await InvokeAsync(HandlerClick));
+                    }
+                    else
+                    {
+                        await HandlerClick();
+                    }
                 }
-                else
+                catch (Exception ex)
                 {
-                    await HandlerClick();
+                    exception = ex;
                 }
+
+                // 恢复按钮
                 if (IsAsync && ButtonType == ButtonType.Button)
                 {
                     ButtonIcon = Icon;
                     IsDisabled = false;
                     IsAsyncLoading = false;
+                }
+
+                if (exception != null)
+                {
+                    // 如果有异常发生强制按钮恢复
+                    StateHasChanged();
+                    throw exception;
                 }
             });
 

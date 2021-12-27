@@ -1,0 +1,33 @@
+﻿{
+  "GetStarted": {
+    "Icon": "fa fa-fa",
+    "Items": [
+      {
+        "Introduction": {
+          "Url": "introduction"
+        },
+        "Install": {
+          "Url": "install"
+        }
+      }
+    ]
+  },
+  "Layout": {
+
+  },
+  "Navigation": {
+
+  },
+  "Form": {
+
+  },
+  "Data": {
+
+  },
+  "Chart": {
+
+  },
+  "Notification": {
+
+  }
+}

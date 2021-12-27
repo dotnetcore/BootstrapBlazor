@@ -91,8 +91,6 @@ namespace UnitTest.Utils
         private class Dummy
         {
             public string? Name { get; set; }
-
-            public string? Id;
         }
 
         private class MockClone : ICloneable

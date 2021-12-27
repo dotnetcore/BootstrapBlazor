@@ -137,7 +137,7 @@ namespace UnitTest.Components
             // 设置保存回调
             var saved = false;
             editOption.ShowLoading = true;
-            editOption.OnSaveAsync = context =>
+            editOption.OnEditAsync = context =>
             {
                 saved = true;
                 return Task.FromResult(true);
@@ -227,7 +227,7 @@ namespace UnitTest.Components
             cut.InvokeAsync(() => dialog.Show(new DialogOption()
             {
                 // 弹窗中按钮
-                BodyTemplate = BootstrapDynamicComponent.CreateComponent<Button>(new Dictionary<string, object>()
+                BodyTemplate = BootstrapDynamicComponent.CreateComponent<Button>(new Dictionary<string, object?>()
                 {
                     [nameof(Button.OnClickWithoutRender)] = () =>
                     {

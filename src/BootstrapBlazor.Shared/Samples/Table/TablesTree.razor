@@ -6,10 +6,10 @@
 <h4>表格支持树形数据的展示</h4>
 
 <Tips>
-    <div>通过 <code>IsTree</code> 参数控制是否为树形数据，通过 <code>ChildrenColumnName</code> 参数设置树形数据列，通过 <code>HasChildrenColumnName</code> 参数控制当前行是否有子数据，点击子项展开小箭头时，通过 <code>OnTreeExpand</code> 回调委托方法获取子项数据</div>
+    <div>通过 <code>IsTree</code> 参数控制是否为树形数据，通过 <code>HasChildrenColumnName</code> 参数控制当前行是否有子数据，点击子项展开小箭头时，通过 <code>OnTreeExpand</code> 回调委托方法获取子项数据</div>
 </Tips>
 
-<DemoBlock Title="树形数据展示" Introduction="当数据中有 <code>Children</code> 字段时会自动展示为树形表格，如果不需要或配置为其他字段可以用 <code>ChildrenColumnName</code> 进行配置。" Name="TreeData">
+<DemoBlock Title="树形数据展示" Introduction="通过设置 <code>IsTree</code> 开启树形表格" Name="TreeData">
     <Tips>
         <div>出于性能考虑，默认子项未展开，点击小箭头后，触发 <code>OnTreeExpand</code> 回调委托方法，再此方法中对当前行的子数据进行赋值，<code>Table</code> 组件进行渲染新数据</div>
     </Tips>
@@ -55,6 +55,22 @@
             <TableColumn @bind-Field="@context.Address" />
             <TableColumn @bind-Field="@context.Count" />
             <TableColumn @bind-Field="@context.ParentId" />
+        </TableColumns>
+    </Table>
+</DemoBlock>
+
+<DemoBlock Title="图标" Introduction="通过设置 <code>TreeIcon</code> 更改指示小箭头图标" Name="Icon">
+    <Tips>
+        <div>默认层次缩进宽度为 <code>16px</code> 通过设置 <code>Indent</code> 更改缩进宽度</div>
+    </Tips>
+    <p>本例中更改缩进宽度为 <code>8px</code></p>
+    <Table TItem="FooTree" IsBordered="true" IsStriped="true" HeaderStyle="@TableHeaderStyle.Light" TreeIcon="fa fa-chevron-circle-right"
+           Items="@TreeItems" IsTree="true" OnTreeExpand="@OnTreeExpand" IndentSize="8">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.Name" Width="360" />
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Address" />
+            <TableColumn @bind-Field="@context.Count" />
         </TableColumns>
     </Table>
 </DemoBlock>

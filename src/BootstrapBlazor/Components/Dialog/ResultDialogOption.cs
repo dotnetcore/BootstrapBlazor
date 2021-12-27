@@ -3,7 +3,6 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
@@ -29,7 +28,6 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 确认按钮文本
         /// </summary>
-        [NotNull]
         public string? ButtonYesText { get; set; }
 
         /// <summary>
@@ -50,7 +48,6 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 取消按钮文本
         /// </summary>
-        [NotNull]
         public string? ButtonNoText { get; set; }
 
         /// <summary>
@@ -66,7 +63,6 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 关闭按钮文本
         /// </summary>
-        [NotNull]
         public string? ButtonCloseText { get; set; }
 
         /// <summary>

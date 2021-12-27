@@ -83,10 +83,7 @@ namespace BootstrapBlazor.Components
             // 处理 Required 标签
             if (EditContext != null && FieldIdentifier != null)
             {
-                var pi = FieldIdentifier.Value.Model.GetType()
-                    .GetProperties()
-                    .Where(p => p.Name == FieldIdentifier.Value.FieldName)
-                    .FirstOrDefault();
+                var pi = FieldIdentifier.Value.Model.GetType().GetPropertyByName(FieldIdentifier.Value.FieldName);
                 if (pi != null)
                 {
                     var required = pi.GetCustomAttribute<RequiredAttribute>(true);

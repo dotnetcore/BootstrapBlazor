@@ -236,3 +236,7 @@
 .upload .upload-item.is-invalid .progress {
     display: none;
 }
+
+.upload .upload-body.is-card.is-single .upload-item {
+    margin: 0;
+}

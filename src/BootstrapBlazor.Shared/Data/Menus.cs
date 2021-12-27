@@ -185,7 +185,7 @@ namespace BootstrapBlazor.Shared
             };
         }
 
-        private static BootstrapDynamicComponent BuildDynamicComponent() => BootstrapDynamicComponent.CreateComponent<Badge>(new Dictionary<string, object>
+        private static BootstrapDynamicComponent BuildDynamicComponent() => BootstrapDynamicComponent.CreateComponent<Badge>(new Dictionary<string, object?>
         {
             [nameof(Badge.Color)] = Color.Danger,
             [nameof(Badge.IsPill)] = true,

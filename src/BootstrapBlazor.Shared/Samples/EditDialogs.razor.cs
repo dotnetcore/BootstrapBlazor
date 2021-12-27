@@ -54,7 +54,7 @@ namespace BootstrapBlazor.Shared.Samples
                     Trace.Log("关闭按钮被点击");
                     return Task.CompletedTask;
                 },
-                OnSaveAsync = context =>
+                OnEditAsync = context =>
                 {
                     Trace.Log("保存按钮被点击");
                     return Task.FromResult(true);
@@ -83,7 +83,7 @@ namespace BootstrapBlazor.Shared.Samples
                     Trace.Log("关闭按钮被点击");
                     return Task.CompletedTask;
                 },
-                OnSaveAsync = context =>
+                OnEditAsync = context =>
                 {
                     Trace.Log("保存按钮被点击");
                     return Task.FromResult(true);
@@ -117,7 +117,7 @@ namespace BootstrapBlazor.Shared.Samples
                     Trace.Log("关闭按钮被点击");
                     return Task.CompletedTask;
                 },
-                OnSaveAsync = context =>
+                OnEditAsync = context =>
                 {
                     Trace.Log("保存按钮被点击");
                     return Task.FromResult(true);

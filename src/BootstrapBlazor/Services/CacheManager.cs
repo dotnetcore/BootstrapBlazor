@@ -265,16 +265,16 @@ namespace BootstrapBlazor.Components
             var cacheKey = $"GetProperty-{modelType.FullName}-{fieldName}";
             propertyInfo = Instance.GetOrCreate(cacheKey, entry =>
             {
-                var props = modelType.GetProperties().AsEnumerable();
+                var props = modelType.GetRuntimeProperties().AsEnumerable();
 
                 // 支持 MetadataType
                 var metadataType = modelType.GetCustomAttribute<MetadataTypeAttribute>(false);
                 if (metadataType != null)
                 {
-                    props = props.Concat(metadataType.MetadataClassType.GetProperties());
+                    props = props.Concat(metadataType.MetadataClassType.GetRuntimeProperties());
                 }
 
-                var pi = props.Where(p => p.Name == fieldName).FirstOrDefault();
+                var pi = props.FirstOrDefault(p => p.Name == fieldName);
 
                 entry.SetDynamicAssemblyPolicy(modelType);
 

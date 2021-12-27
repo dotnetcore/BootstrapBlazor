@@ -73,8 +73,13 @@
     <Tree ClickToggleNode="true" Items="GetTemplateItems()" />
 </DemoBlock>
 
-<DemoBlock Title="节点颜色" Introduction="通过设置 <code>TreeItem</code> <code>CssClass</code> 来实现自己的节点样式"  Name="TreeNodeColor">
+<DemoBlock Title="节点颜色" Introduction="通过设置 <code>TreeItem</code> <code>CssClass</code> 来实现自己的节点样式" Name="TreeNodeColor">
     <Tree ClickToggleNode="true" Items="GetColorItems()" />
+</DemoBlock>
+
+<DemoBlock Title="获取所有选中节点" Introduction="通过设置 <code>OnTreeItemChecked</code> 回调委托获取所有节点" Name="CheckedItems">
+    <Tree ShowCheckbox="true" Items="@Items" OnTreeItemChecked="@OnTreeItemChecked" />
+    <BlockLogger @ref="TraceCheckedItems" class="mt-3" />
 </DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" />

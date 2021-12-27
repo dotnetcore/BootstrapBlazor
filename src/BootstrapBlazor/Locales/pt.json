@@ -128,11 +128,16 @@
   "BootstrapBlazor.Components.Layout": {
     "TooltipText": "Expandir/Recolher Sidear"
   },
+  "BootstrapBlazor.Components.Logout": {
+    "PrefixDisplayNameText": "Bem-vindos.",
+    "PrefixUserNameText": "Nome do registo:"
+  },
   "BootstrapBlazor.Components.Menu": {
     "InvalidOperationExceptionMessage": "O componente sidemenu não pode ser usado isoladamente. Use o componente Menu para IsVertical = true"
   },
   "BootstrapBlazor.Components.ModalDialog": {
     "CloseButtonText": "Fechar",
+    "SaveButtonText": "Salvar",
     "PrintButtonText": "Imprimir"
   },
   "BootstrapBlazor.Components.MultiSelect": {

@@ -1,0 +1,18 @@
+﻿.card .card-collapse {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.card .card-title {
+    margin: 0 0 0 1rem;
+}
+
+.card .card-collapse-arrow {
+    transition: transform .3s linear;
+}
+
+.card .is-open .card-collapse-arrow {
+    transform: rotate( 90deg);
+}

@@ -16,12 +16,15 @@ namespace BootstrapBlazor.Components
         [NotNull]
         private NavigationManager? Navigation { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
         [Parameter]
         public string Url { get; set; } = "Account/Login";
 
 #if DEBUG
         /// <summary>
-        /// 
+        /// OnAfterRender 方法
         /// </summary>
         /// <param name="firstRender"></param>
         protected override void OnAfterRender(bool firstRender)
@@ -29,6 +32,9 @@ namespace BootstrapBlazor.Components
             Navigation.NavigateTo(Url, true);
         }
 #else
+        /// <summary>
+        /// OnInitialized 方法
+        /// </summary>
         protected override void OnInitialized()
         {
             Navigation.NavigateTo(Url, true);

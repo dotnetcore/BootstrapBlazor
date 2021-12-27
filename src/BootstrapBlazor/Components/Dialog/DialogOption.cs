@@ -72,6 +72,11 @@ namespace BootstrapBlazor.Components
         public bool ShowPrintButton { get; set; }
 
         /// <summary>
+        /// 获得/设置 是否显示保存按钮 默认 false 不显示
+        /// </summary>
+        public bool ShowSaveButton { get; set; }
+
+        /// <summary>
         /// 获得/设置 打印按钮是否显示在 Header 中 默认 false 不显示
         /// </summary>
         public bool ShowPrintButtonInHeader { get; set; }
@@ -112,34 +117,50 @@ namespace BootstrapBlazor.Components
         public Func<Task>? OnCloseAsync { get; set; }
 
         /// <summary>
+        /// 获得/设置 保存按钮回调方法
+        /// </summary>
+        public Func<Task<bool>>? OnSaveAsync { get; set; }
+
+        /// <summary>
+        /// 获得/设置 关闭按钮文本
+        /// </summary>
+        public string? CloseButtonText { get; set; }
+
+        /// <summary>
+        /// 获得/设置 查询按钮文本
+        /// </summary>
+        public string? SaveButtonText { get; set; }
+
+        /// <summary>
         /// 将参数转换为组件属性方法
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<KeyValuePair<string, object>> ToAttributes()
+        public Dictionary<string, object> ToAttributes()
         {
-            var ret = new List<KeyValuePair<string, object>>
+            var ret = new Dictionary<string, object>
             {
-                new(nameof(Size), Size),
-                new(nameof(IsCentered), IsCentered),
-                new(nameof(IsScrolling), IsScrolling),
-                new(nameof(ShowCloseButton), ShowCloseButton),
-                new(nameof(ShowHeaderCloseButton), ShowHeaderCloseButton),
-                new(nameof(ShowFooter), ShowFooter),
-                new(nameof(ShowPrintButton), ShowPrintButton),
-                new(nameof(ShowPrintButtonInHeader), ShowPrintButtonInHeader),
-                new(nameof(IsKeyboard), IsKeyboard)
+                [nameof(Size)] = Size,
+                [nameof(IsCentered)] = IsCentered,
+                [nameof(IsScrolling)] = IsScrolling,
+                [nameof(ShowCloseButton)] = ShowCloseButton,
+                [nameof(ShowSaveButton)] = ShowSaveButton,
+                [nameof(ShowHeaderCloseButton)] = ShowHeaderCloseButton,
+                [nameof(ShowFooter)] = ShowFooter,
+                [nameof(ShowPrintButton)] = ShowPrintButton,
+                [nameof(ShowPrintButtonInHeader)] = ShowPrintButtonInHeader,
+                [nameof(IsKeyboard)] = IsKeyboard
             };
             if (!string.IsNullOrEmpty(PrintButtonText))
             {
-                ret.Add(new(nameof(PrintButtonText), PrintButtonText));
+                ret.Add(nameof(PrintButtonText), PrintButtonText);
             }
             if (!string.IsNullOrEmpty(Title))
             {
-                ret.Add(new(nameof(Title), Title));
+                ret.Add(nameof(Title), Title);
             }
             if (BodyContext != null)
             {
-                ret.Add(new(nameof(BodyContext), BodyContext));
+                ret.Add(nameof(BodyContext), BodyContext);
             }
             return ret;
         }
