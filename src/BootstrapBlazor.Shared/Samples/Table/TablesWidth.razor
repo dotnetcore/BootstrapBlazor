@@ -1,0 +1,42 @@
+﻿@page "/tables/width"
+
+<Card>
+    <CardHeader>
+        ShowLineNo="false" 时，这段 CSS 中，由于 position: absolte 的影响， 行都挤在一起了。 当 ShowLineNo="true" 时，行号列把单元格撑开了， 所以就不会挤在一起。
+        这个是 CSS的 BUG， 正确的做法是把 position: absolute 去掉
+        <br />
+        .table-cell.is-ellips.is-resizable {
+        position: absolute;
+        left: 12px;
+        right: 12px;
+        }
+    </CardHeader>
+    <CardBody>
+        <Table TItem="TablesWidthModel"
+               Items="items"
+               AutoGenerateColumns="true"
+               ShowLineNo="false"
+               IsBordered="true"
+               IsStriped="true"
+               IsFixedHeader="true"
+               Height="400"
+               AllowResizing="true" />
+    </CardBody>
+</Card>
+
+<Card>
+    <CardHeader>
+        由于行号列把行给撑开了， 不存在上面说的问题。
+    </CardHeader>
+    <CardBody>
+        <Table TItem="TablesWidthModel"
+               Items="items"
+               AutoGenerateColumns="true"
+               ShowLineNo="true"
+               IsBordered="true"
+               IsStriped="true"
+               IsFixedHeader="true"
+               Height="400"
+               AllowResizing="true" />
+    </CardBody>
+</Card>

@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
-    <Version>6.1.2.1-beta01</Version>
+    <Version>6.1.2.3-beta01</Version>
   </PropertyGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'net5.0'">
@@ -32,9 +32,7 @@
   <ItemGroup>
     <Content Remove="*.json" />
     <Content Remove="wwwroot\**\*.*" />
-    <Content Include="wwwroot\css\bootstrap.blazor.bundle.min.css" />
     <Content Include="wwwroot\css\motronic.min.css" />
-    <Content Include="wwwroot\js\bootstrap.blazor.bundle.min.js" />
     <Content Include="wwwroot\lib\summernote\font\*.*" />
     <None Include="*.json" />
     <None Include="wwwroot\**\*.*" />

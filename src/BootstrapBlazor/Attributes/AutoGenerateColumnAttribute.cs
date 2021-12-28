@@ -67,7 +67,9 @@ namespace BootstrapBlazor.Components
         int? ITableColumn.Width
         {
             get => Width <= 0 ? null : Width;
-            set => Width = value == null ? 0 : Width;
+            //BUG, value 值丢失了。
+            //set => Width = value == null ? 0 : Width;
+            set => Width = value == null ? 0 : value.Value;
         }
 
         /// <summary>

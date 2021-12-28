@@ -247,6 +247,10 @@ namespace BootstrapBlazor.Components
             if (source.ShowTips) dest.ShowTips = source.ShowTips;
             if (source.Sortable) dest.Sortable = source.Sortable;
             if (source.TextEllipsis) dest.TextEllipsis = source.TextEllipsis;
+            //对于有很多列的表格, 一列一列的设置列宽, 太麻烦
+            //疑惑:
+            //AutoGenerateClassAttribute 设计是用来提供默认的, 还是用来覆盖 AutoGenerateColumnAttribute 上的??
+            if (source.Width > 0 && (dest.Width == null || dest.Width <= 0)) dest.Width = source.Width;
         }
 
         /// <summary>

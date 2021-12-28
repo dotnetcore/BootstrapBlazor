@@ -357,3 +357,7 @@ tools/
 
 # Upload Folder
 src/**/wwwroot/**/uploader
+
+#Bundle css js
+src/**/wwwroot/**/*.bundle.min.css
+src/**/wwwroot/**/*.bundle.min.js

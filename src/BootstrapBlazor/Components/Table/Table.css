@@ -306,7 +306,8 @@
 }
 
     .table-cell.is-ellips.is-resizable {
-        position: absolute;
+        /*当显示行号列时, 行可以被行号单元格撑开;当不显示行号时, 行全挤一起了.*/
+        /*position: absolute;*/
         left: 12px;
         right: 12px;
     }

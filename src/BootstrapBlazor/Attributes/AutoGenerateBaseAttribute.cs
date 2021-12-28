@@ -55,5 +55,10 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 字段鼠标悬停提示
         /// </summary>
         public bool ShowTips { get; set; }
+
+        /// <summary>
+        /// 获得/设置 列宽
+        /// </summary>
+        public int Width { get; set; }
     }
 }

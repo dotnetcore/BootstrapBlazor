@@ -212,6 +212,8 @@ namespace BootstrapBlazor.Components
         protected string? GetHeaderWrapperClassString(ITableColumn col) => CssBuilder.Default("table-cell")
             .AddClass("is-sort", col.Sortable)
             .AddClass("is-filter", col.Filterable)
+            //表头文字省略号
+            .AddClass("is-ellips", col.TextEllipsis)
             .Build();
 
         /// <summary>
