@@ -9,51 +9,18 @@ using System.Threading.Tasks;
 using UnitTest.Core;
 using Xunit;
 
-namespace UnitTest.Components
+namespace UnitTest.Components;
+
+public class ErrorLoggerTest : BootstrapBlazorTestBase
 {
-    public class ErrorLoggerTest : BootstrapBlazorTestBase
+    [Fact]
+    public void OnErrorAsync_Ok()
     {
-        [Fact]
-        public void OnErrorAsync_Ok()
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
         {
-            var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+            pb.AddChildContent<ErrorLogger>(pb =>
             {
-                pb.AddChildContent<ErrorLogger>(pb =>
-                {
-                    pb.Add(e => e.ShowToast, false);
-                    pb.AddChildContent<Button>(pb =>
-                    {
-                        pb.Add(b => b.OnClick, () =>
-                        {
-                            var a = 0;
-                            _ = 1 / a;
-                        });
-                    });
-                });
-            });
-            // 无 Swal 弹窗
-            Assert.DoesNotContain("<div class=\"toast-header\">", cut.Markup);
-
-            var errorLogger = cut.FindComponent<ErrorLogger>();
-            errorLogger.SetParametersAndRender(pb =>
-            {
-                pb.Add(e => e.ShowToast, true);
-            });
-            var button = cut.Find("button");
-            button.TriggerEvent("onclick", EventArgs.Empty);
-        }
-
-        [Fact]
-        public void OnErrorHandleAsync_Ok()
-        {
-            var tcs = new TaskCompletionSource<bool>();
-            var cut = Context.RenderComponent<ErrorLogger>(pb =>
-            {
-                pb.Add(e => e.OnErrorHandleAsync, (logger, exception) =>
-                {
-                    tcs.SetResult(true);
-                    return Task.CompletedTask;
-                });
+                pb.Add(e => e.ShowToast, false);
                 pb.AddChildContent<Button>(pb =>
                 {
                     pb.Add(b => b.OnClick, () =>
@@ -63,9 +30,41 @@ namespace UnitTest.Components
                     });
                 });
             });
-            var button = cut.Find("button");
-            button.TriggerEvent("onclick", EventArgs.Empty);
-            Assert.True(tcs.Task.Result);
-        }
+        });
+        // 无 Swal 弹窗
+        Assert.DoesNotContain("<div class=\"toast-header\">", cut.Markup);
+
+        var errorLogger = cut.FindComponent<ErrorLogger>();
+        errorLogger.SetParametersAndRender(pb =>
+        {
+            pb.Add(e => e.ShowToast, true);
+        });
+        var button = cut.Find("button");
+        button.TriggerEvent("onclick", EventArgs.Empty);
+    }
+
+    [Fact]
+    public void OnErrorHandleAsync_Ok()
+    {
+        var tcs = new TaskCompletionSource<bool>();
+        var cut = Context.RenderComponent<ErrorLogger>(pb =>
+        {
+            pb.Add(e => e.OnErrorHandleAsync, (logger, exception) =>
+            {
+                tcs.SetResult(true);
+                return Task.CompletedTask;
+            });
+            pb.AddChildContent<Button>(pb =>
+            {
+                pb.Add(b => b.OnClick, () =>
+                {
+                    var a = 0;
+                    _ = 1 / a;
+                });
+            });
+        });
+        var button = cut.Find("button");
+        button.TriggerEvent("onclick", EventArgs.Empty);
+        Assert.True(tcs.Task.Result);
     }
 }

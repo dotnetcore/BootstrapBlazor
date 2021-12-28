@@ -11,47 +11,46 @@ using System.Globalization;
 using UnitTest.Core;
 using Xunit;
 
-namespace UnitTest.Localization
+namespace UnitTest.Localization;
+
+public class LocalizerEnTest : BootstrapBlazorEnTestBase
 {
-    public class LocalizerEnTest : BootstrapBlazorEnTestBase
+    private IStringLocalizer<Foo> Localizer { get; }
+
+    public LocalizerEnTest()
     {
-        private IStringLocalizer<Foo> Localizer { get; }
+        Localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+    }
 
-        public LocalizerEnTest()
-        {
-            Localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        }
+    [Fact]
+    public void Foo_Json_Ok()
+    {
+        var foo = Foo.Generate(Localizer);
 
-        [Fact]
-        public void Foo_Json_Ok()
-        {
-            var foo = Foo.Generate(Localizer);
+        Assert.Equal("Zhangsan 1000", foo.Name);
+    }
 
-            Assert.Equal("Zhangsan 1000", foo.Name);
-        }
+    [Fact]
+    public void Dummy_Resource_Ok()
+    {
+        Assert.Equal("en-US", CultureInfo.CurrentUICulture.Name);
 
-        [Fact]
-        public void Dummy_Resource_Ok()
-        {
-            Assert.Equal("en-US", CultureInfo.CurrentUICulture.Name);
+        var val = Utility.GetDisplayName(typeof(DummyEn), nameof(DummyEn.Name));
+        Assert.Equal("TestName", val);
 
-            var val = Utility.GetDisplayName(typeof(DummyEn), nameof(DummyEn.Name));
-            Assert.Equal("TestName", val);
+        var model = new DummyEn() { Name = "Name", Address = "Address" };
+        val = Utility.GetDisplayName(model, nameof(DummyEn.Address));
+        Assert.Equal("Address1", val);
+        Assert.Equal("Name", model.Name);
+        Assert.Equal("Address", model.Address);
+    }
 
-            var model = new DummyEn() { Name = "Name", Address = "Address" };
-            val = Utility.GetDisplayName(model, nameof(DummyEn.Address));
-            Assert.Equal("Address1", val);
-            Assert.Equal("Name", model.Name);
-            Assert.Equal("Address", model.Address);
-        }
+    class DummyEn
+    {
+        [Display(Name = "Name1")]
+        public string? Name { get; set; }
 
-        class DummyEn
-        {
-            [Display(Name = "Name1")]
-            public string? Name { get; set; }
-
-            [Display(Name = "Address1")]
-            public string? Address { get; set; }
-        }
+        [Display(Name = "Address1")]
+        public string? Address { get; set; }
     }
 }

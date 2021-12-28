@@ -9,97 +9,96 @@ using System.Threading.Tasks;
 using UnitTest.Core;
 using Xunit;
 
-namespace UnitTest.Components
+namespace UnitTest.Components;
+
+public class AvatarTest : TestBase
 {
-    public class AvatarTest : TestBase
+    [Fact]
+    public void IsCircle_Ok()
     {
-        [Fact]
-        public void IsCircle_Ok()
+        var cut = Context.RenderComponent<Avatar>(builder => builder.Add(a => a.IsCircle, true));
+        Assert.Contains("is-circle", cut.Markup);
+    }
+
+    [Fact]
+    public void Url_Ok()
+    {
+        var url = "_content/BootstrapBlazor.Shared/images/Argo-C.png";
+        var cut = Context.RenderComponent<Avatar>(builder =>
         {
-            var cut = Context.RenderComponent<Avatar>(builder => builder.Add(a => a.IsCircle, true));
-            Assert.Contains("is-circle", cut.Markup);
-        }
+            builder.Add(a => a.Url, url);
+            builder.Add(a => a.IsBorder, true);
+        });
+        Assert.Contains($"src=\"{url}\"", cut.Markup);
 
-        [Fact]
-        public void Url_Ok()
+        // handler event
+        var img = cut.Find("img");
+        img.TriggerEvent("onerror", new EventArgs());
+        Assert.Contains("border-danger", cut.Markup);
+    }
+
+    [Fact]
+    public void IsIcon_Ok()
+    {
+        var cut = Context.RenderComponent<Avatar>(builder =>
         {
-            var url = "_content/BootstrapBlazor.Shared/images/Argo-C.png";
-            var cut = Context.RenderComponent<Avatar>(builder =>
-            {
-                builder.Add(a => a.Url, url);
-                builder.Add(a => a.IsBorder, true);
-            });
-            Assert.Contains($"src=\"{url}\"", cut.Markup);
+            builder.Add(a => a.IsIcon, true);
+            builder.Add(a => a.Icon, "fa fa-fa");
+        });
+        Assert.Contains("fa fa-fa", cut.Markup);
+        Assert.True(cut.Instance.IsIcon);
+    }
 
-            // handler event
-            var img = cut.Find("img");
-            img.TriggerEvent("onerror", new EventArgs());
-            Assert.Contains("border-danger", cut.Markup);
-        }
-
-        [Fact]
-        public void IsIcon_Ok()
+    [Fact]
+    public void IsText_Ok()
+    {
+        var cut = Context.RenderComponent<Avatar>(builder =>
         {
-            var cut = Context.RenderComponent<Avatar>(builder =>
-            {
-                builder.Add(a => a.IsIcon, true);
-                builder.Add(a => a.Icon, "fa fa-fa");
-            });
-            Assert.Contains("fa fa-fa", cut.Markup);
-            Assert.True(cut.Instance.IsIcon);
-        }
+            builder.Add(a => a.IsText, true);
+            builder.Add(a => a.Text, "user");
+        });
+        Assert.Contains("user", cut.Markup);
+        Assert.True(cut.Instance.IsText);
+    }
 
-        [Fact]
-        public void IsText_Ok()
+    [Fact]
+    public void Size_Ok()
+    {
+        var cut = Context.RenderComponent<Avatar>(builder => builder.Add(a => a.Size, Size.None));
+        Assert.DoesNotContain("is-lg", cut.Markup);
+
+        cut = Context.RenderComponent<Avatar>(builder => builder.Add(a => a.Size, Size.Large));
+        Assert.Contains("is-lg", cut.Markup);
+    }
+
+    [Fact]
+    public void IsBorder_Ok()
+    {
+        var cut = Context.RenderComponent<Avatar>(builder => builder.Add(a => a.IsBorder, true));
+        Assert.Contains("border", cut.Markup);
+    }
+
+    [Fact]
+    public void CustomerClass_Ok()
+    {
+        var cut = Context.RenderComponent<Avatar>(builder => builder.AddUnmatched("class", "is-test"));
+        Assert.Contains("<span class=\"avatar is-test\"", cut.Markup);
+    }
+
+    [Fact]
+    public void GetUrlAsync_Ok()
+    {
+        var url = "_content/BootstrapBlazor.Shared/images/Argo-C.png";
+        var cut = Context.RenderComponent<Avatar>(builder =>
         {
-            var cut = Context.RenderComponent<Avatar>(builder =>
-            {
-                builder.Add(a => a.IsText, true);
-                builder.Add(a => a.Text, "user");
-            });
-            Assert.Contains("user", cut.Markup);
-            Assert.True(cut.Instance.IsText);
-        }
+            builder.Add(a => a.GetUrlAsync, () => Task.FromResult(url));
+            builder.Add(a => a.IsBorder, true);
+        });
+        Assert.Contains($"src=\"{url}\"", cut.Markup);
 
-        [Fact]
-        public void Size_Ok()
-        {
-            var cut = Context.RenderComponent<Avatar>(builder => builder.Add(a => a.Size, Size.None));
-            Assert.DoesNotContain("is-lg", cut.Markup);
-
-            cut = Context.RenderComponent<Avatar>(builder => builder.Add(a => a.Size, Size.Large));
-            Assert.Contains("is-lg", cut.Markup);
-        }
-
-        [Fact]
-        public void IsBorder_Ok()
-        {
-            var cut = Context.RenderComponent<Avatar>(builder => builder.Add(a => a.IsBorder, true));
-            Assert.Contains("border", cut.Markup);
-        }
-
-        [Fact]
-        public void CustomerClass_Ok()
-        {
-            var cut = Context.RenderComponent<Avatar>(builder => builder.AddUnmatched("class", "is-test"));
-            Assert.Contains("<span class=\"avatar is-test\"", cut.Markup);
-        }
-
-        [Fact]
-        public void GetUrlAsync_Ok()
-        {
-            var url = "_content/BootstrapBlazor.Shared/images/Argo-C.png";
-            var cut = Context.RenderComponent<Avatar>(builder =>
-            {
-                builder.Add(a => a.GetUrlAsync, () => Task.FromResult(url));
-                builder.Add(a => a.IsBorder, true);
-            });
-            Assert.Contains($"src=\"{url}\"", cut.Markup);
-
-            // handler event
-            var img = cut.Find("img");
-            img.TriggerEvent("onload", new EventArgs());
-            Assert.Contains("border-success", cut.Markup);
-        }
+        // handler event
+        var img = cut.Find("img");
+        img.TriggerEvent("onload", new EventArgs());
+        Assert.Contains("border-success", cut.Markup);
     }
 }

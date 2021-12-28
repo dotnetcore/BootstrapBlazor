@@ -24,6 +24,17 @@ public class TitleTest : BootstrapBlazorTestBase
         cut.InvokeAsync(async () => await titleService.SetTitle("test"));
     }
 
+    [Fact]
+    public void Text_Ok()
+    {
+        var cut = Context.RenderComponent<Title>(pb =>
+        {
+            pb.Add(a => a.Text, "Text");
+        });
+        var text = cut.Instance.Text;
+        Assert.Equal("Text", text);
+    }
+
     private class MockTitleTest : ComponentBase
     {
         [Inject]

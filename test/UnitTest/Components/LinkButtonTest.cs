@@ -8,63 +8,62 @@ using Microsoft.AspNetCore.Components;
 using UnitTest.Core;
 using Xunit;
 
-namespace UnitTest.Components
+namespace UnitTest.Components;
+
+public class LinkButtonTest : BootstrapBlazorTestBase
 {
-    public class LinkButtonTest : BootstrapBlazorTestBase
+    [Fact]
+    public void Text_Ok()
     {
-        [Fact]
-        public void Text_Ok()
+        var cut = Context.RenderComponent<LinkButton>(builder => builder.Add(s => s.Text, "TestButton"));
+
+        Assert.Contains("TestButton", cut.Markup);
+    }
+
+    [Fact]
+    public void Url_Ok()
+    {
+        var cut = Context.RenderComponent<LinkButton>(builder => builder.Add(s => s.Url, "https://www.blazor.zone"));
+
+        Assert.Contains("https://www.blazor.zone", cut.Markup);
+    }
+
+    [Fact]
+    public void ImageUrl_Ok()
+    {
+        var cut = Context.RenderComponent<LinkButton>(builder => builder.Add(s => s.ImageUrl, "Argo-C.png"));
+
+        Assert.Contains("Argo-C.png", cut.Markup);
+    }
+
+    [Fact]
+    public void Title_Ok()
+    {
+        var cut = Context.RenderComponent<LinkButton>(builder =>
         {
-            var cut = Context.RenderComponent<LinkButton>(builder => builder.Add(s => s.Text, "TestButton"));
+            builder.Add(s => s.Title, "Tooltip");
+            builder.Add(s => s.TooltipPlacement, Placement.Bottom);
+        });
+    }
 
-            Assert.Contains("TestButton", cut.Markup);
-        }
-
-        [Fact]
-        public void Url_Ok()
+    [Fact]
+    public void ChildContent_Ok()
+    {
+        var cut = Context.RenderComponent<LinkButton>(builder => builder.Add(s => s.ChildContent, b =>
         {
-            var cut = Context.RenderComponent<LinkButton>(builder => builder.Add(s => s.Url, "https://www.blazor.zone"));
+            b.AddContent(0, new MarkupString("<div>Test</div>"));
+        }));
 
-            Assert.Contains("https://www.blazor.zone", cut.Markup);
-        }
+        Assert.Contains("<div>Test</div>", cut.Markup);
+    }
 
-        [Fact]
-        public void ImageUrl_Ok()
-        {
-            var cut = Context.RenderComponent<LinkButton>(builder => builder.Add(s => s.ImageUrl, "Argo-C.png"));
+    [Fact]
+    public void OnClick_Ok()
+    {
+        var click = false;
+        var cut = Context.RenderComponent<LinkButton>(builder => builder.Add(s => s.OnClick, () => click = true));
 
-            Assert.Contains("Argo-C.png", cut.Markup);
-        }
-
-        [Fact]
-        public void Title_Ok()
-        {
-            var cut = Context.RenderComponent<LinkButton>(builder =>
-            {
-                builder.Add(s => s.Title, "Tooltip");
-                builder.Add(s => s.TooltipPlacement, Placement.Bottom);
-            });
-        }
-
-        [Fact]
-        public void ChildContent_Ok()
-        {
-            var cut = Context.RenderComponent<LinkButton>(builder => builder.Add(s => s.ChildContent, b =>
-            {
-                b.AddContent(0, new MarkupString("<div>Test</div>"));
-            }));
-
-            Assert.Contains("<div>Test</div>", cut.Markup);
-        }
-
-        [Fact]
-        public void OnClick_Ok()
-        {
-            var click = false;
-            var cut = Context.RenderComponent<LinkButton>(builder => builder.Add(s => s.OnClick, () => click = true));
-
-            cut.Find("a").Click();
-            Assert.True(click);
-        }
+        cut.Find("a").Click();
+        Assert.True(click);
     }
 }

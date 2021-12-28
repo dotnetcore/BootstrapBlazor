@@ -7,20 +7,19 @@ using Bunit;
 using UnitTest.Core;
 using Xunit;
 
-namespace UnitTest.Components
-{
-    public class ColorPickerTest : BootstrapBlazorTestBase
-    {
-        [Fact]
-        public void DisplayText_OK()
-        {
-            var cut = Context.RenderComponent<ColorPicker>(builder =>
-            {
-                builder.Add(a => a.ShowLabel, true);
-                builder.Add(a => a.DisplayText, "Test_Color");
-            });
+namespace UnitTest.Components;
 
-            Assert.Equal("Test_Color", cut.Find("label").TextContent);
-        }
+public class ColorPickerTest : BootstrapBlazorTestBase
+{
+    [Fact]
+    public void DisplayText_OK()
+    {
+        var cut = Context.RenderComponent<ColorPicker>(builder =>
+        {
+            builder.Add(a => a.ShowLabel, true);
+            builder.Add(a => a.DisplayText, "Test_Color");
+        });
+
+        Assert.Equal("Test_Color", cut.Find("label").TextContent);
     }
 }

@@ -15,13 +15,13 @@ using System.Threading.Tasks;
 using UnitTest.Core;
 using Xunit;
 
-namespace UnitTest.Components
-{
-    public class MenuTest : BootstrapBlazorTestBase
-    {
-        private List<MenuItem> Items { get; set; }
+namespace UnitTest.Components;
 
-        public MenuTest() => Items = new List<MenuItem>
+public class MenuTest : BootstrapBlazorTestBase
+{
+    private List<MenuItem> Items { get; set; }
+
+    public MenuTest() => Items = new List<MenuItem>
         {
             new("Menu1")
             {
@@ -104,221 +104,221 @@ namespace UnitTest.Components
             }
         };
 
-        [Fact]
-        public void Items_Ok()
+    [Fact]
+    public void Items_Ok()
+    {
+        // 未设置 Items
+        var cut = Context.RenderComponent<Menu>();
+        Assert.DoesNotContain("Menu1", cut.Markup);
+
+        cut.SetParametersAndRender(pb =>
         {
-            // 未设置 Items
-            var cut = Context.RenderComponent<Menu>();
-            Assert.DoesNotContain("Menu1", cut.Markup);
+            pb.Add(m => m.Items, Items);
+        });
 
-            cut.SetParametersAndRender(pb =>
-            {
-                pb.Add(m => m.Items, Items);
-            });
-
-            cut.SetParametersAndRender(pb =>
-            {
-                pb.Add(m => m.IsVertical, true);
-            });
-            Assert.Contains("Menu1", cut.Markup);
-        }
-
-        [Fact]
-        public void DisableNavigation_Ok()
+        cut.SetParametersAndRender(pb =>
         {
-            var cut = Context.RenderComponent<Menu>(pb =>
-            {
-                pb.Add(m => m.Items, Items);
-                pb.Add(m => m.DisableNavigation, true);
-            });
-        }
+            pb.Add(m => m.IsVertical, true);
+        });
+        Assert.Contains("Menu1", cut.Markup);
+    }
 
-        [Fact]
-        public void IsVertical_Ok()
+    [Fact]
+    public void DisableNavigation_Ok()
+    {
+        var cut = Context.RenderComponent<Menu>(pb =>
         {
-            var cut = Context.RenderComponent<Menu>(pb =>
-            {
-                pb.Add(m => m.Items, Items);
-                pb.Add(m => m.IsVertical, true);
-            });
+            pb.Add(m => m.Items, Items);
+            pb.Add(m => m.DisableNavigation, true);
+        });
+    }
 
-            Assert.Contains("is-vertical", cut.Markup);
-        }
-
-        [Fact]
-        public void IsBottom_Ok()
+    [Fact]
+    public void IsVertical_Ok()
+    {
+        var cut = Context.RenderComponent<Menu>(pb =>
         {
-            var cut = Context.RenderComponent<Menu>(pb =>
-            {
-                pb.Add(m => m.Items, Items);
-                pb.Add(m => m.IsBottom, true);
-            });
+            pb.Add(m => m.Items, Items);
+            pb.Add(m => m.IsVertical, true);
+        });
 
-            Assert.Contains("is-bottom", cut.Markup);
-        }
+        Assert.Contains("is-vertical", cut.Markup);
+    }
 
-        [Fact]
-        public void IndentSize_Ok()
+    [Fact]
+    public void IsBottom_Ok()
+    {
+        var cut = Context.RenderComponent<Menu>(pb =>
         {
-            var cut = Context.RenderComponent<Menu>(pb =>
-            {
-                pb.Add(m => m.Items, Items);
-                pb.Add(m => m.IndentSize, 32);
-            });
-            Assert.DoesNotContain("padding-left: 32px;", cut.Markup);
+            pb.Add(m => m.Items, Items);
+            pb.Add(m => m.IsBottom, true);
+        });
 
-            cut.SetParametersAndRender(pb =>
-            {
-                pb.Add(m => m.IsVertical, true);
-            });
-            Assert.Contains("padding-left: 32px;", cut.Markup);
-        }
+        Assert.Contains("is-bottom", cut.Markup);
+    }
 
-        [Fact]
-        public void IsCollapsed_Ok()
+    [Fact]
+    public void IndentSize_Ok()
+    {
+        var cut = Context.RenderComponent<Menu>(pb =>
         {
-            var cut = Context.RenderComponent<Menu>(pb =>
-            {
-                pb.Add(m => m.Items, Items);
-                pb.Add(m => m.IsCollapsed, true);
-            });
-            Assert.DoesNotContain("is-collapsed", cut.Markup);
+            pb.Add(m => m.Items, Items);
+            pb.Add(m => m.IndentSize, 32);
+        });
+        Assert.DoesNotContain("padding-left: 32px;", cut.Markup);
 
-            cut.SetParametersAndRender(pb =>
-            {
-                pb.Add(m => m.IsVertical, true);
-            });
-            Assert.Contains("is-collapsed", cut.Markup);
-        }
-
-        [Fact]
-        public void IsAccordion_Ok()
+        cut.SetParametersAndRender(pb =>
         {
-            var cut = Context.RenderComponent<Menu>(pb =>
-            {
-                pb.Add(m => m.Items, Items);
-                pb.Add(m => m.IsAccordion, true);
-            });
-            Assert.DoesNotContain("accordion", cut.Markup);
+            pb.Add(m => m.IsVertical, true);
+        });
+        Assert.Contains("padding-left: 32px;", cut.Markup);
+    }
 
-            cut.SetParametersAndRender(pb =>
-            {
-                pb.Add(m => m.IsVertical, true);
-            });
-            Assert.Contains("accordion", cut.Markup);
-        }
-
-        [Fact]
-        public void IsExpandAll_Ok()
+    [Fact]
+    public void IsCollapsed_Ok()
+    {
+        var cut = Context.RenderComponent<Menu>(pb =>
         {
-            var cut = Context.RenderComponent<Menu>(pb =>
-            {
-                pb.Add(m => m.Items, Items);
-                pb.Add(m => m.IsExpandAll, true);
-            });
-            Assert.DoesNotContain("expaned", cut.Markup);
+            pb.Add(m => m.Items, Items);
+            pb.Add(m => m.IsCollapsed, true);
+        });
+        Assert.DoesNotContain("is-collapsed", cut.Markup);
 
-            cut.SetParametersAndRender(pb =>
-            {
-                pb.Add(m => m.IsVertical, true);
-            });
-            Assert.Contains("expaned", cut.Markup);
-        }
-
-        [Fact]
-        public void OnClick_Ok()
+        cut.SetParametersAndRender(pb =>
         {
-            var clicked = false;
-            var cut = Context.RenderComponent<Menu>(pb =>
-            {
-                pb.Add(m => m.Items, Items);
-            });
+            pb.Add(m => m.IsVertical, true);
+        });
+        Assert.Contains("is-collapsed", cut.Markup);
+    }
 
-            // 子菜单 Click 触发
-            var div = cut.Find(".nav-item");
-            div.Click(new MouseEventArgs());
-
-            // 查找第一个 li 节点
-            var menuItems = cut.Find("li");
-            menuItems.Click(new MouseEventArgs());
-
-            cut.SetParametersAndRender(pb =>
-            {
-                pb.Add(m => m.OnClick, item =>
-                {
-                    clicked = true;
-                    return Task.CompletedTask;
-                });
-            });
-            menuItems.Click(new MouseEventArgs());
-            Assert.True(clicked);
-
-            // SubMenu Click
-            var sub = cut.Find(".sub-menu div.nav-item");
-            sub.Click(new MouseEventArgs());
-
-            sub = cut.FindAll(".sub-menu div.nav-item").Last();
-            sub.Click(new MouseEventArgs());
-
-            // 设置禁止导航 
-            // 顶栏模式
-            cut.SetParametersAndRender(pb =>
-            {
-                pb.Add(m => m.DisableNavigation, true);
-            });
-            menuItems.Click(new MouseEventArgs());
-            Assert.True(clicked);
-
-            // 再次点击
-            menuItems.Click(new MouseEventArgs());
-
-            // 侧边栏模式
-            cut.SetParametersAndRender(pb =>
-            {
-                pb.Add(m => m.IsVertical, true);
-                pb.Add(m => m.IsCollapsed, true);
-            });
-            menuItems.Click(new MouseEventArgs());
-            Assert.True(clicked);
-
-            // 再次点击
-            menuItems.Click(new MouseEventArgs());
-        }
-
-        [Fact]
-        public void ActiveItem_Ok()
+    [Fact]
+    public void IsAccordion_Ok()
+    {
+        var cut = Context.RenderComponent<Menu>(pb =>
         {
-            // 设置 后通过菜单激活 ActiveItem 不为空
-            var nav = Context.Services.GetRequiredService<FakeNavigationManager>();
-            nav.NavigateTo("/menu22");
-            var cut = Context.RenderComponent<Menu>(pb =>
-            {
-                pb.Add(m => m.Items, Items);
-            });
-        }
+            pb.Add(m => m.Items, Items);
+            pb.Add(m => m.IsAccordion, true);
+        });
+        Assert.DoesNotContain("accordion", cut.Markup);
 
-        [Fact]
-        public void SubMenu_ClassString_Ok()
+        cut.SetParametersAndRender(pb =>
         {
-            var nav = Context.Services.GetRequiredService<FakeNavigationManager>();
-            nav.NavigateTo("/menu2321");
-            var cut = Context.RenderComponent<Menu>(pb =>
-            {
-                pb.Add(m => m.Items, Items);
-            });
-        }
+            pb.Add(m => m.IsVertical, true);
+        });
+        Assert.Contains("accordion", cut.Markup);
+    }
 
-        [Fact]
-        public void GetAllSubItems_Ok()
+    [Fact]
+    public void IsExpandAll_Ok()
+    {
+        var cut = Context.RenderComponent<Menu>(pb =>
         {
-            var item = new MenuItem("Test");
-            var subs = item.GetAllSubItems();
-            Assert.Empty(subs.ToList());
+            pb.Add(m => m.Items, Items);
+            pb.Add(m => m.IsExpandAll, true);
+        });
+        Assert.DoesNotContain("expaned", cut.Markup);
 
-            item = new MenuItem("Test")
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(m => m.IsVertical, true);
+        });
+        Assert.Contains("expaned", cut.Markup);
+    }
+
+    [Fact]
+    public void OnClick_Ok()
+    {
+        var clicked = false;
+        var cut = Context.RenderComponent<Menu>(pb =>
+        {
+            pb.Add(m => m.Items, Items);
+        });
+
+        // 子菜单 Click 触发
+        var div = cut.Find(".nav-item");
+        div.Click(new MouseEventArgs());
+
+        // 查找第一个 li 节点
+        var menuItems = cut.Find("li");
+        menuItems.Click(new MouseEventArgs());
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(m => m.OnClick, item =>
             {
-                Items = new[]
-                {
+                clicked = true;
+                return Task.CompletedTask;
+            });
+        });
+        menuItems.Click(new MouseEventArgs());
+        Assert.True(clicked);
+
+        // SubMenu Click
+        var sub = cut.Find(".sub-menu div.nav-item");
+        sub.Click(new MouseEventArgs());
+
+        sub = cut.FindAll(".sub-menu div.nav-item").Last();
+        sub.Click(new MouseEventArgs());
+
+        // 设置禁止导航 
+        // 顶栏模式
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(m => m.DisableNavigation, true);
+        });
+        menuItems.Click(new MouseEventArgs());
+        Assert.True(clicked);
+
+        // 再次点击
+        menuItems.Click(new MouseEventArgs());
+
+        // 侧边栏模式
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(m => m.IsVertical, true);
+            pb.Add(m => m.IsCollapsed, true);
+        });
+        menuItems.Click(new MouseEventArgs());
+        Assert.True(clicked);
+
+        // 再次点击
+        menuItems.Click(new MouseEventArgs());
+    }
+
+    [Fact]
+    public void ActiveItem_Ok()
+    {
+        // 设置 后通过菜单激活 ActiveItem 不为空
+        var nav = Context.Services.GetRequiredService<FakeNavigationManager>();
+        nav.NavigateTo("/menu22");
+        var cut = Context.RenderComponent<Menu>(pb =>
+        {
+            pb.Add(m => m.Items, Items);
+        });
+    }
+
+    [Fact]
+    public void SubMenu_ClassString_Ok()
+    {
+        var nav = Context.Services.GetRequiredService<FakeNavigationManager>();
+        nav.NavigateTo("/menu2321");
+        var cut = Context.RenderComponent<Menu>(pb =>
+        {
+            pb.Add(m => m.Items, Items);
+        });
+    }
+
+    [Fact]
+    public void GetAllSubItems_Ok()
+    {
+        var item = new MenuItem("Test");
+        var subs = item.GetAllSubItems();
+        Assert.Empty(subs.ToList());
+
+        item = new MenuItem("Test")
+        {
+            Items = new[]
+            {
                     new MenuItem()
                     {
                         Text = "Test1",
@@ -329,33 +329,32 @@ namespace UnitTest.Components
                         }
                     }
                 }
-            };
-            subs = item.GetAllSubItems();
-            Assert.NotEmpty(subs.ToList());
-        }
+        };
+        subs = item.GetAllSubItems();
+        Assert.NotEmpty(subs.ToList());
+    }
 
-        [Fact]
-        public void MenuLink_Error()
-        {
-            Assert.ThrowsAny<InvalidOperationException>(() => Context.RenderComponent<MenuLink>());
-        }
+    [Fact]
+    public void MenuLink_Error()
+    {
+        Assert.ThrowsAny<InvalidOperationException>(() => Context.RenderComponent<MenuLink>());
+    }
 
-        [Fact]
-        public void TopMenu_Erorr()
-        {
-            Assert.ThrowsAny<InvalidOperationException>(() => Context.RenderComponent<TopMenu>());
-        }
+    [Fact]
+    public void TopMenu_Erorr()
+    {
+        Assert.ThrowsAny<InvalidOperationException>(() => Context.RenderComponent<TopMenu>());
+    }
 
-        [Fact]
-        public void SideMenu_Erorr()
-        {
-            Assert.ThrowsAny<InvalidOperationException>(() => Context.RenderComponent<SideMenu>());
-        }
+    [Fact]
+    public void SideMenu_Erorr()
+    {
+        Assert.ThrowsAny<InvalidOperationException>(() => Context.RenderComponent<SideMenu>());
+    }
 
-        [Fact]
-        public void SubMenu_Erorr()
-        {
-            Assert.ThrowsAny<InvalidOperationException>(() => Context.RenderComponent<SubMenu>());
-        }
+    [Fact]
+    public void SubMenu_Erorr()
+    {
+        Assert.ThrowsAny<InvalidOperationException>(() => Context.RenderComponent<SubMenu>());
     }
 }

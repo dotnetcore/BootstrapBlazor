@@ -8,19 +8,18 @@ using System.Globalization;
 using UnitTest.Core;
 using Xunit;
 
-namespace UnitTest.Localization
-{
-    public class EnumExtensionsTest : BootstrapBlazorTestBase
-    {
-        [Fact]
-        public void ToDisplayName_Ok()
-        {
-            var dn = EnumEducation.Middel.ToDisplayName();
-            Assert.Equal("中学", dn);
+namespace UnitTest.Localization;
 
-            CultureInfo.CurrentUICulture = new CultureInfo("en-US");
-            dn = EnumEducation.Middel.ToDisplayName();
-            Assert.Equal(EnumEducation.Middel.ToString(), dn);
-        }
+public class EnumExtensionsTest : BootstrapBlazorTestBase
+{
+    [Fact]
+    public void ToDisplayName_Ok()
+    {
+        var dn = EnumEducation.Middel.ToDisplayName();
+        Assert.Equal("中学", dn);
+
+        CultureInfo.CurrentUICulture = new CultureInfo("en-US");
+        dn = EnumEducation.Middel.ToDisplayName();
+        Assert.Equal(EnumEducation.Middel.ToString(), dn);
     }
 }

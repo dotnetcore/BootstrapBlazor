@@ -5,29 +5,28 @@
 using BootstrapBlazor.Components;
 using System;
 
-namespace UnitTest
+namespace UnitTest;
+
+internal static class DynamicObjectHelper
 {
-    internal static class DynamicObjectHelper
+    public static Type CreateDynamicType(string typeName = "Test")
     {
-        public static Type CreateDynamicType(string typeName = "Test")
+        var cols = new MockTableColumn[]
         {
-            var cols = new MockTableColumn[]
-            {
                 new("Id", typeof(int)),
                 new("Name", typeof(string))
-            };
+        };
 
-            // 创建动态类型基类是 DynamicObject
-            var instanceType = EmitHelper.CreateTypeByName(typeName, cols, typeof(DynamicObject));
-            return instanceType!;
-        }
+        // 创建动态类型基类是 DynamicObject
+        var instanceType = EmitHelper.CreateTypeByName(typeName, cols, typeof(DynamicObject));
+        return instanceType!;
+    }
 
-        public static object CreateDynamicObject(string typeName = "Test")
-        {
-            var instanceType = CreateDynamicType(typeName);
+    public static object CreateDynamicObject(string typeName = "Test")
+    {
+        var instanceType = CreateDynamicType(typeName);
 
-            // 创建动态类型实例
-            return Activator.CreateInstance(instanceType)!;
-        }
+        // 创建动态类型实例
+        return Activator.CreateInstance(instanceType)!;
     }
 }

@@ -8,31 +8,30 @@ using System.Web;
 using UnitTest.Core;
 using Xunit;
 
-namespace UnitTest.Components
+namespace UnitTest.Components;
+
+public class GoTopTest : BootstrapBlazorTestBase
 {
-    public class GoTopTest : BootstrapBlazorTestBase
+    [Fact]
+    public void Target_Ok()
     {
-        [Fact]
-        public void Target_Ok()
+        var cut = Context.RenderComponent<GoTop>(pb =>
         {
-            var cut = Context.RenderComponent<GoTop>(pb =>
-            {
-                pb.Add(c => c.Target, "#top");
-            });
-            Assert.Equal("#top", cut.Instance.Target);
-        }
+            pb.Add(c => c.Target, "#top");
+        });
+        Assert.Equal("#top", cut.Instance.Target);
+    }
 
-        [Fact]
-        public void TooltipText_Ok()
+    [Fact]
+    public void TooltipText_Ok()
+    {
+        var cut = Context.RenderComponent<GoTop>();
+        Assert.Contains("返回顶端", HttpUtility.HtmlDecode(cut.Markup));
+
+        cut.SetParametersAndRender(pb =>
         {
-            var cut = Context.RenderComponent<GoTop>();
-            Assert.Contains("返回顶端", HttpUtility.HtmlDecode(cut.Markup));
-
-            cut.SetParametersAndRender(pb =>
-            {
-                pb.Add(c => c.TooltipText, "TooltipText");
-            });
-            Assert.Contains("TooltipText", cut.Markup);
-        }
+            pb.Add(c => c.TooltipText, "TooltipText");
+        });
+        Assert.Contains("TooltipText", cut.Markup);
     }
 }

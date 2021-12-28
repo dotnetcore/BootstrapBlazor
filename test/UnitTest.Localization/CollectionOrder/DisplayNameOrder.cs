@@ -9,13 +9,12 @@ using Xunit.Abstractions;
 [assembly: CollectionBehavior(DisableTestParallelization = true)]
 [assembly: TestCollectionOrderer("UnitTest.CollectionOrder.DisplayNameOrderer", "UnitTest")]
 
-namespace UnitTest.CollectionOrder
+namespace UnitTest.CollectionOrder;
+
+public class DisplayNameOrderer : ITestCollectionOrderer
 {
-    public class DisplayNameOrderer : ITestCollectionOrderer
+    public IEnumerable<ITestCollection> OrderTestCollections(IEnumerable<ITestCollection> testCollections)
     {
-        public IEnumerable<ITestCollection> OrderTestCollections(IEnumerable<ITestCollection> testCollections)
-        {
-            return testCollections.OrderBy(collection => collection.DisplayName);
-        }
+        return testCollections.OrderBy(collection => collection.DisplayName);
     }
 }

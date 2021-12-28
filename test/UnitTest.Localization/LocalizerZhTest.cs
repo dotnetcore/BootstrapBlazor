@@ -11,47 +11,46 @@ using System.Globalization;
 using UnitTest.Core;
 using Xunit;
 
-namespace UnitTest.Localization
+namespace UnitTest.Localization;
+
+public class LocalizerZhTest : BootstrapBlazorZhTestBase
 {
-    public class LocalizerZhTest : BootstrapBlazorZhTestBase
+    private IStringLocalizer<Foo> Localizer { get; }
+
+    public LocalizerZhTest()
     {
-        private IStringLocalizer<Foo> Localizer { get; }
+        Localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+    }
 
-        public LocalizerZhTest()
-        {
-            Localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        }
+    [Fact]
+    public void Foo_Json_Ok()
+    {
+        var foo = Foo.Generate(Localizer);
 
-        [Fact]
-        public void Foo_Json_Ok()
-        {
-            var foo = Foo.Generate(Localizer);
+        Assert.Equal("张三 1000", foo.Name);
+    }
 
-            Assert.Equal("张三 1000", foo.Name);
-        }
+    [Fact]
+    public void Dummy_Resource_Ok()
+    {
+        Assert.Equal("zh-CN", CultureInfo.CurrentUICulture.Name);
 
-        [Fact]
-        public void Dummy_Resource_Ok()
-        {
-            Assert.Equal("zh-CN", CultureInfo.CurrentUICulture.Name);
+        var val = Utility.GetDisplayName(typeof(Dummy), nameof(Dummy.Name));
+        Assert.Equal("姓名", val);
 
-            var val = Utility.GetDisplayName(typeof(Dummy), nameof(Dummy.Name));
-            Assert.Equal("姓名", val);
+        var model = new Dummy() { Name = "Name", Address = "Address" };
+        val = Utility.GetDisplayName(model, nameof(Dummy.Address));
+        Assert.Equal("Address1", val);
+        Assert.Equal("Name", model.Name);
+        Assert.Equal("Address", model.Address);
+    }
 
-            var model = new Dummy() { Name = "Name", Address = "Address" };
-            val = Utility.GetDisplayName(model, nameof(Dummy.Address));
-            Assert.Equal("Address1", val);
-            Assert.Equal("Name", model.Name);
-            Assert.Equal("Address", model.Address);
-        }
+    class Dummy
+    {
+        [Display(Name = "Name1")]
+        public string? Name { get; set; }
 
-        class Dummy
-        {
-            [Display(Name = "Name1")]
-            public string? Name { get; set; }
-
-            [Display(Name = "Address1")]
-            public string? Address { get; set; }
-        }
+        [Display(Name = "Address1")]
+        public string? Address { get; set; }
     }
 }

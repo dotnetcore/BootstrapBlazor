@@ -6,29 +6,28 @@ using BootstrapBlazor.Components;
 using UnitTest.Core;
 using Xunit;
 
-namespace UnitTest.Components
+namespace UnitTest.Components;
+
+public class AnchorLinkTest : BootstrapBlazorTestBase
 {
-    public class AnchorLinkTest : BootstrapBlazorTestBase
+    [Fact]
+    public void Id_Ok()
     {
-        [Fact]
-        public void Id_Ok()
-        {
-            var cut = Context.RenderComponent<AnchorLink>(builder => builder.Add(a => a.Id, "anchorlink"));
-            Assert.Contains("id=\"anchorlink\"", cut.Markup);
-        }
+        var cut = Context.RenderComponent<AnchorLink>(builder => builder.Add(a => a.Id, "anchorlink"));
+        Assert.Contains("id=\"anchorlink\"", cut.Markup);
+    }
 
-        [Fact]
-        public void Text_Ok()
-        {
-            var cut = Context.RenderComponent<AnchorLink>(builder => builder.Add(a => a.Text, "anchorlink"));
-            Assert.Contains("anchorlink", cut.Markup);
-        }
+    [Fact]
+    public void Text_Ok()
+    {
+        var cut = Context.RenderComponent<AnchorLink>(builder => builder.Add(a => a.Text, "anchorlink"));
+        Assert.Contains("anchorlink", cut.Markup);
+    }
 
-        [Fact]
-        public void TooltipText_Ok()
-        {
-            var cut = Context.RenderComponent<AnchorLink>(builder => builder.Add(a => a.TooltipText, "anchorlink"));
-            Assert.Contains("anchorlink", cut.Markup);
-        }
+    [Fact]
+    public void TooltipText_Ok()
+    {
+        var cut = Context.RenderComponent<AnchorLink>(builder => builder.Add(a => a.TooltipText, "anchorlink"));
+        Assert.Contains("anchorlink", cut.Markup);
     }
 }
