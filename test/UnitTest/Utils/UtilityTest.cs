@@ -7,6 +7,7 @@ using BootstrapBlazor.Shared;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnitTest.Core;
 using Xunit;
@@ -35,14 +36,16 @@ public class UtilityTest : BootstrapBlazorTestBase
     [Fact]
     public void GetSortFunc_Ok()
     {
-        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var foos = Foo.GenerateFoo(localizer, 2);
+        var foos = new List<Foo>
+        {
+            new Foo { Count = 10},
+            new Foo { Count = 20 }
+        };
         var invoker = Utility.GetSortFunc<Foo>();
-        var data = invoker.Invoke(foos, nameof(Foo.Count), SortOrder.Asc).ToList();
-        Assert.True(data[0].Count < data[1].Count);
-
-        data = invoker.Invoke(foos, nameof(Foo.Count), SortOrder.Desc).ToList();
-        Assert.True(data[0].Count > data[1].Count);
+        var orderFoos = invoker.Invoke(foos, nameof(Foo.Count), SortOrder.Asc).ToList();
+        Assert.True(orderFoos[0].Count < orderFoos[1].Count);
+        orderFoos = invoker.Invoke(foos, nameof(Foo.Count), SortOrder.Desc).ToList();
+        Assert.True(orderFoos[0].Count > orderFoos[1].Count);
     }
 
     [Fact]
