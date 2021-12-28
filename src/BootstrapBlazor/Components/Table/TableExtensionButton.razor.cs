@@ -26,10 +26,10 @@ namespace BootstrapBlazor.Components
         public RenderFragment? ChildContent { get; set; }
 
         /// <summary>
-        /// 
+        /// 获得/设置 扩展按钮点击回调方法
         /// </summary>
         [Parameter]
-        public Action? OnClickButton { get; set; }
+        public Func<TableCellButtonArgs, Task>? OnClickButton { get; set; }
 
         /// <summary>
         /// 添加按钮到工具栏方法
@@ -43,10 +43,6 @@ namespace BootstrapBlazor.Components
 
         private async Task OnClick(TableCellButton b)
         {
-            if (b.AutoSelectedRowWhenClick)
-            {
-                OnClickButton?.Invoke();
-            }
             if (b.OnClick.HasDelegate)
             {
                 await b.OnClick.InvokeAsync();
@@ -54,6 +50,29 @@ namespace BootstrapBlazor.Components
             if (b.OnClickWithoutRender != null)
             {
                 await b.OnClickWithoutRender();
+            }
+
+            if (OnClickButton != null)
+            {
+                await OnClickButton(new TableCellButtonArgs()
+                {
+                    AutoRenderTableWhenClick = b.AutoRenderTableWhenClick,
+                    AutoSelectedRowWhenClick = b.AutoSelectedRowWhenClick
+                });
+            }
+        }
+
+        private async Task OnClickConfirm(TableCellPopconfirmButton b)
+        {
+            await b.OnConfirm();
+
+            if (OnClickButton != null)
+            {
+                await OnClickButton(new TableCellButtonArgs()
+                {
+                    AutoRenderTableWhenClick = b.AutoRenderTableWhenClick,
+                    AutoSelectedRowWhenClick = b.AutoSelectedRowWhenClick
+                });
             }
         }
     }

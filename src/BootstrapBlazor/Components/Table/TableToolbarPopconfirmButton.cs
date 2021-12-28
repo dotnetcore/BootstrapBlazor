@@ -3,8 +3,10 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Localization;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
@@ -25,6 +27,10 @@ namespace BootstrapBlazor.Components
         [CascadingParameter]
         protected TableToolbar<TItem>? Toolbar { get; set; }
 
+        [Inject]
+        [NotNull]
+        private IStringLocalizer<PopConfirmButton>? Localizer { get; set; }
+
         /// <summary>
         /// OnInitialized 方法
         /// </summary>
@@ -33,6 +39,10 @@ namespace BootstrapBlazor.Components
             base.OnInitialized();
 
             Toolbar?.AddButton(this);
+
+            ConfirmButtonText ??= Localizer[nameof(ConfirmButtonText)];
+            CloseButtonText ??= Localizer[nameof(CloseButtonText)];
+            Content ??= Localizer[nameof(Content)];
         }
 
         /// <summary>

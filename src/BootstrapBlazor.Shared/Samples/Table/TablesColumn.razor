@@ -64,10 +64,10 @@
            ShowExtendButtons="true" ExtendButtonColumnWidth="240"
            OnQueryAsync="@OnQueryAsync">
         <TableToolbarTemplate>
-            <TableToolbarButton TItem="Foo" Color="Color.Primary" Icon="fa fa-fw fa-edit" Text="明细" OnClickCallback="@CustomerButton" />
-            <TableToolbarButton TItem="Foo" Color="Color.Success" Icon="fa fa-fw fa-edit" Text="编辑" OnClickCallback="@CustomerButton" />
-            <TableToolbarButton TItem="Foo" Color="Color.Warning" Icon="fa fa-fw fa-edit" Text="权限" OnClickCallback="@CustomerButton" />
-            <TableToolbarButton TItem="Foo" Color="Color.Danger" Icon="fa fa-fw fa-edit" Text="审批" OnClickCallback="@CustomerButton" />
+            <TableToolbarButton TItem="Foo" Color="Color.Primary" Icon="fa fa-fw fa-edit" IsEnableWhenSelectedOneRow="true" Text="明细" OnClickCallback="@CustomerButton" />
+            <TableToolbarButton TItem="Foo" Color="Color.Success" Icon="fa fa-fw fa-edit" IsEnableWhenSelectedOneRow="true" Text="编辑" OnClickCallback="@CustomerButton" />
+            <TableToolbarButton TItem="Foo" Color="Color.Warning" Icon="fa fa-fw fa-edit" IsEnableWhenSelectedOneRow="true" Text="权限" OnClickCallback="@CustomerButton" />
+            <TableToolbarButton TItem="Foo" Color="Color.Danger" Icon="fa fa-fw fa-edit" IsEnableWhenSelectedOneRow="true" Text="审批" OnClickCallback="@CustomerButton" />
         </TableToolbarTemplate>
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" />
