@@ -69,7 +69,7 @@
                                 <span class="d-none d-sm-inline-block">@ColumnButtonText</span>
                                 <span class="caret"></span>
                             </button>
-                            <div class="dropdown-menu dropdown-menu-right">
+                            <div class="dropdown-menu dropdown-menu-right shadow">
                                 @foreach (var item in Columns)
                                 {
                                     var poco = ColumnVisibles.First(i => i.FieldName == item.GetFieldName());
@@ -90,7 +90,7 @@
                                 <span class="d-none d-sm-inline-block">@ExportButtonText</span>
                                 <span class="caret"></span>
                             </button>
-                            <div class="dropdown-menu dropdown-menu-right">
+                            <div class="dropdown-menu dropdown-menu-right shadow">
                                 <div class="dropdown-item">
                                     <i class="fa fa-file-text-o"></i>
                                     <span>CSV （未实现）</span>

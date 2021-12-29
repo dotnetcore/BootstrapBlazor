@@ -55,7 +55,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 菜单对齐方式样式
         /// </summary>
-        private string? MenuAlignmentClass => CssBuilder.Default("dropdown-menu")
+        private string? MenuAlignmentClass => CssBuilder.Default("dropdown-menu shadow")
             .AddClass($"dropdown-menu-{MenuAlignment.ToDescriptionString()}", MenuAlignment == Alignment.Right)
             .Build();
 
