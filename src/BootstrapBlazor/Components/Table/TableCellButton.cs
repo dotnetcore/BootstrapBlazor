@@ -32,6 +32,13 @@ namespace BootstrapBlazor.Components
         public bool AutoRenderTableWhenClick { get; set; }
 
         /// <summary>
+        /// 获得/设置 是否显示本按钮 默认 true 显示
+        /// </summary>
+        /// <remarks>一般是通过 context 进行业务判断是否需要显示功能按钮</remarks>
+        [Parameter]
+        public bool IsShow { get; set; } = true;
+
+        /// <summary>
         /// 获得/设置 按钮点击后的回调方法
         /// </summary>
         [Parameter]
