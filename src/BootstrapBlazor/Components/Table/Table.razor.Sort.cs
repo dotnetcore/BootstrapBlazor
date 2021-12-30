@@ -71,7 +71,7 @@ namespace BootstrapBlazor.Components
             // 通知 Table 组件刷新数据
             if (OnSortAsync != null)
             {
-                await OnSortAsync.Invoke();
+                await OnSortAsync();
             }
         };
 

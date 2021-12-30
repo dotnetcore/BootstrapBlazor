@@ -587,13 +587,6 @@ namespace BootstrapBlazor.Shared.Samples.Table
                 DefaultValue = " — "
             },
             new() {
-                Name = "OnSortAsync",
-                Description = "排序方法",
-                Type = "Func<string, SortOrder, Task>",
-                ValueList = " — ",
-                DefaultValue = " — "
-            },
-            new() {
                 Name = "OnClickRowCallback",
                 Description = "点击行回调委托方法",
                 Type = "Func<TItem, Task>",

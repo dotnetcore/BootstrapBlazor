@@ -615,7 +615,17 @@
     "Desc4": "是否显示分页数据汇总信息",
     "Desc5": "数据总数",
     "Event1": "第一个参数是当前页码，第二个参数是当前每页设置显示的数据项数量",
-    "Event2": "点击设置每页显示数据数量时回调方法"
+    "Event2": "点击设置每页显示数据数量时回调方法",
+    "AiraPageLabel": "分页组件",
+    "AiraPrevPageText": "上一页",
+    "AiraFirstPageText": "第一页",
+    "AiraNextPageText": "下一页",
+    "PageInfoText": "页数信息",
+    "TotalInfoText": "记录总数信息",
+    "PrePageInfoText": "每页显示信息",
+    "RowInfoText": "记录信息",
+    "LabelString": "标签信息",
+    "SelectItemsText": "分页选择器信息"
   },
   "BootstrapBlazor.Shared.Samples.Stepss": {
     "Title": "Steps 步骤条",
