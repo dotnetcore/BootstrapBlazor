@@ -13,12 +13,12 @@ namespace UnitTest.Components
     {
         private const string Content = "TestComponent-Card";
 
-        [Fact]
-        public void Class_Ok()
-        {
-            var cut = Context.RenderComponent<Card>(builder => builder.Add(a => a.Class, "is-test"));
-            Assert.Contains("is-test", cut.Markup);
-        }
+        //[Fact]
+        //public void Class_Ok()
+        //{
+        //    var cut = Context.RenderComponent<Card>(builder => builder.Add(a => a.Class, "is-test"));
+        //    Assert.Contains("is-test", cut.Markup);
+        //}
 
         [Fact]
         public void Header_Ok()

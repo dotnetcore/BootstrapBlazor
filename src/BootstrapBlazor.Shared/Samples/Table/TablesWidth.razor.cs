@@ -56,16 +56,25 @@ namespace BootstrapBlazor.Shared.Samples.Table
     /// <summary>
     /// 
     /// </summary>
-    [AutoGenerateClass(Width = 300, TextEllipsis = true, Align = Alignment.Right)]
+    [AutoGenerateClass(Width = 300, TextEllipsis = true, Align = Alignment.Center)]
     public class TablesWidthModel
     {
+        /// <summary>
+        /// 
+        /// </summary>
         [AutoGenerateColumn(Text = "超长的标题栏啊哈哈哈哈")]
         public string C1 { get; set; }
 
-        [AutoGenerateColumn(Width = 50)]
+        /// <summary>
+        /// 
+        /// </summary>
+        [AutoGenerateColumn(Width = 50, Text = "宽50")]
         public string C2 { get; set; }
 
-        [AutoGenerateColumn(Align = Alignment.Right)]
+        /// <summary>
+        /// 
+        /// </summary>
+        [AutoGenerateColumn(Align = Alignment.Right, Text = "右对齐")]
         public string C3 { get; set; }
         public string C4 { get; set; }
         public string C5 { get; set; }

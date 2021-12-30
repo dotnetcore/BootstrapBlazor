@@ -8,7 +8,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using System.Reflection;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
@@ -173,56 +172,30 @@ namespace BootstrapBlazor.Components
         public static IEnumerable<ITableColumn> GetProperties(Type type, IEnumerable<ITableColumn>? source = null)
         {
             var cols = new List<ITableColumn>(50);
-            //var attrModel = type.GetCustomAttribute<AutoGenerateClassAttribute>(true);
-            var attrModel = TypeDescriptor.GetAttributes(type).OfType<AutoGenerateClassAttribute>().FirstOrDefault();
+            //使用 TypeDescriptor 代替 Reflection,
+            //使 TypeDescriptor.AddProviderTransparent 添加的分离式特性可以读取出来.
+            //因为有些类型是自动生成的(EF), 或第三方库中的类型, 不方便添加特性.
+            //针对这部分类型, 可以用 TypeDescriptor.AddProviderTransparent 附加特性.
+            var topInfo = TypeDescriptor.GetAttributes(type).OfType<AutoGenerateClassAttribute>().FirstOrDefault()?.GetAutoGenerateInfo();
 
-            //var props = type.GetProperties();
-            var props = TypeDescriptor.GetProperties(type).OfType<PropertyDescriptor>();
+            var props = TypeDescriptor.GetProperties(type).Cast<PropertyDescriptor>();
 
             foreach (var prop in props)
             {
-                ITableColumn? tc;
-                //var attr = prop.GetCustomAttribute<AutoGenerateColumnAttribute>(true);
-                //var catAttr = prop.GetCustomAttribute<CategoryAttribute>(true);
+                var propInfo = prop.Attributes.OfType<AutoGenerateColumnAttribute>().FirstOrDefault()?.GetAutoGenerateInfo();
 
-                var attr = prop.Attributes.OfType<AutoGenerateColumnAttribute>().FirstOrDefault();
                 var catAttr = prop.Attributes.OfType<CategoryAttribute>().FirstOrDefault();
 
-                // Issue: 增加定义设置标签 AutoGenerateClassAttribute
-                // https://gitee.com/LongbowEnterprise/BootstrapBlazor/issues/I381ED
-                var displayName = attr?.Text ?? Utility.GetDisplayName(type, prop.Name);
-                var category = attr?.Category ?? catAttr?.Category;
-                if (attr == null)
-                {
-                    tc = new InternalTableColumn(prop.Name, prop.PropertyType, displayName, category);
+                var displayName = propInfo?.Text ?? Utility.GetDisplayName(type, prop.Name);
+                var category = propInfo?.Category ?? catAttr?.Category;
 
-                    if (attrModel != null)
-                    {
-                        InheritValue(attrModel, tc);
-                    }
-                }
-                else
-                {
-                    if (attr.Ignore) continue;
+                if (propInfo?.Ignore ?? false)
+                    continue;
 
-                    attr.Text = displayName;
-                    attr.FieldName = prop.Name;
-                    attr.PropertyType = prop.PropertyType;
-                    attr.Category = category;
-
-                    if (attrModel != null)
-                    {
-                        InheritValue(attrModel, attr);
-                    }
-                    tc = attr;
-                }
-
-                // 替换属性 手写优先
+                var tc = new InternalTableColumn(prop.Name, prop.PropertyType, displayName, category);
                 var col = source?.FirstOrDefault(c => c.GetFieldName() == tc.GetFieldName());
-                if (col != null)
-                {
-                    CopyValue(col, tc);
-                }
+                //就近合并
+                tc.Merge(col, topInfo, propInfo);
                 cols.Add(tc);
             }
 
@@ -231,70 +204,116 @@ namespace BootstrapBlazor.Components
                 .Concat(cols.Where(a => a.Order < 0).OrderBy(a => a.Order));
         }
 
-        /// <summary>
-        /// 集成 class 标签中设置的参数值
-        /// </summary>
-        /// <param name="source"></param>
-        /// <param name="dest"></param>
-        private static void InheritValue(AutoGenerateClassAttribute source, ITableColumn dest)
-        {
-            if (source.Align != Alignment.None) dest.Align = source.Align;
-            if (source.TextWrap) dest.TextWrap = source.TextWrap;
-            if (!source.Editable) dest.Editable = source.Editable;
-            if (source.Filterable) dest.Filterable = source.Filterable;
-            if (source.Readonly) dest.Readonly = source.Readonly;
-            if (source.Searchable) dest.Searchable = source.Searchable;
-            if (source.ShowTips) dest.ShowTips = source.ShowTips;
-            if (source.Sortable) dest.Sortable = source.Sortable;
-            if (source.TextEllipsis) dest.TextEllipsis = source.TextEllipsis;
-            //对于有很多列的表格, 一列一列的设置列宽, 太麻烦
-            //疑惑:
-            //AutoGenerateClassAttribute 设计是用来提供默认的, 还是用来覆盖 AutoGenerateColumnAttribute 上的??
-            if (source.Width > 0 && (dest.Width == null || dest.Width <= 0)) dest.Width = source.Width;
-        }
 
         /// <summary>
-        /// 属性赋值方法
+        /// 
         /// </summary>
-        /// <param name="source"></param>
-        /// <param name="dest"></param>
-        private static void CopyValue(ITableColumn source, ITableColumn dest)
+        /// <param name="col"></param>
+        /// <param name="topInfo"></param>
+        /// <param name="propInfo"></param>
+        private void Merge(ITableColumn? col, AutoGenerateClassInfo? topInfo, AutoGenerateColumnInfo? propInfo)
         {
-            if (source.Align != Alignment.None) dest.Align = source.Align;
-            if (source.TextWrap) dest.TextWrap = source.TextWrap;
-            if (source.ComponentType != null) dest.ComponentType = source.ComponentType;
-            if (source.ComponentParameters != null) dest.ComponentParameters = source.ComponentParameters;
-            if (!string.IsNullOrEmpty(source.CssClass)) dest.CssClass = source.CssClass;
-            if (source.DefaultSort) dest.DefaultSort = source.DefaultSort;
-            if (source.DefaultSortOrder != SortOrder.Unset) dest.DefaultSortOrder = source.DefaultSortOrder;
-            if (!source.Editable) dest.Editable = source.Editable;
-            if (source.EditTemplate != null) dest.EditTemplate = source.EditTemplate;
-            if (source.Filter != null) dest.Filter = source.Filter;
-            if (source.Filterable) dest.Filterable = source.Filterable;
-            if (source.FilterTemplate != null) dest.FilterTemplate = source.FilterTemplate;
-            if (source.Fixed) dest.Fixed = source.Fixed;
-            if (source.FormatString != null) dest.FormatString = source.FormatString;
-            if (source.Formatter != null) dest.Formatter = source.Formatter;
-            if (source.HeaderTemplate != null) dest.HeaderTemplate = source.HeaderTemplate;
-            if (source.Items != null) dest.Items = source.Items;
-            if (source.Lookup != null) dest.Lookup = source.Lookup;
-            if (source.IsReadonlyWhenAdd) dest.IsReadonlyWhenAdd = source.IsReadonlyWhenAdd;
-            if (source.IsReadonlyWhenEdit) dest.IsReadonlyWhenEdit = source.IsReadonlyWhenEdit;
-            if (source.OnCellRender != null) dest.OnCellRender = source.OnCellRender;
-            if (source.Readonly) dest.Readonly = source.Readonly;
-            if (source.Rows > 0) dest.Rows = source.Rows;
-            if (source.Searchable) dest.Searchable = source.Searchable;
-            if (source.SearchTemplate != null) dest.SearchTemplate = source.SearchTemplate;
-            if (source.ShownWithBreakPoint != BreakPoint.None) dest.ShownWithBreakPoint = source.ShownWithBreakPoint;
-            if (source.ShowTips) dest.ShowTips = source.ShowTips;
-            if (source.SkipValidate) dest.SkipValidate = source.SkipValidate;
-            if (source.Sortable) dest.Sortable = source.Sortable;
-            if (source.Template != null) dest.Template = source.Template;
-            if (!string.IsNullOrEmpty(source.Text)) dest.Text = source.Text;
-            if (source.TextEllipsis) dest.TextEllipsis = source.TextEllipsis;
-            if (!source.Visible) dest.Visible = source.Visible;
-            if (source.Width != null) dest.Width = source.Width;
-            if (source.ValidateRules != null) dest.ValidateRules = source.ValidateRules;
+            //构造函数传入
+            //this.Category = propInfo?.Category;
+            //this.Text = propInfo?.Text;
+            this.Category = col?.Category ?? this.Category;
+            this.Text = col?.Text ?? this.Text;
+
+            //就近原则
+            this.Align = col?.Align ?? propInfo?.Align ?? topInfo?.Align ?? Alignment.None;
+            this.Editable = col?.Editable ?? propInfo?.Editable ?? topInfo?.Editable ?? true;
+            this.Filterable = col?.Filterable ?? propInfo?.Filterable ?? topInfo?.Filterable ?? false;
+            this.Readonly = col?.Readonly ?? propInfo?.Readonly ?? topInfo?.Readonly ?? false;
+            this.Searchable = col?.Searchable ?? propInfo?.Searchable ?? topInfo?.Searchable ?? false;
+            this.ShowTips = col?.ShowTips ?? propInfo?.ShowTips ?? topInfo?.ShowTips ?? false;
+            this.Sortable = col?.Sortable ?? propInfo?.Sortable ?? topInfo?.Sortable ?? false;
+            this.TextEllipsis = col?.TextEllipsis ?? propInfo?.TextEllipsis ?? topInfo?.TextEllipsis ?? false;
+            this.TextWrap = col?.TextWrap ?? propInfo?.TextWrap ?? topInfo?.TextWrap ?? false;
+            this.Width = col?.Width ?? propInfo?.Width ?? topInfo?.Width;
+
+
+            this.ComponentType = col?.ComponentType ?? propInfo?.ComponentType;
+            this.CssClass = col?.CssClass ?? propInfo?.CssClass;
+            this.DefaultSort = col?.DefaultSort ?? propInfo?.DefaultSort ?? false;
+            this.DefaultSortOrder = col?.DefaultSortOrder ?? propInfo?.DefaultSortOrder ?? SortOrder.Unset;
+            this.Fixed = col?.Fixed ?? propInfo?.Fixed ?? false;
+            this.FormatString = col?.FormatString ?? propInfo?.FormatString;
+            this.IsReadonlyWhenAdd = col?.IsReadonlyWhenAdd ?? propInfo?.IsReadonlyWhenAdd ?? false;
+            this.IsReadonlyWhenEdit = col?.IsReadonlyWhenEdit ?? propInfo?.IsReadonlyWhenEdit ?? false;
+            this.Order = col?.Order ?? propInfo?.Order ?? 0;
+            this.PlaceHolder = col?.PlaceHolder ?? propInfo?.PlaceHolder;
+            this.Rows = col?.Rows ?? propInfo?.Rows ?? 0;
+            this.ShownWithBreakPoint = col?.ShownWithBreakPoint ?? propInfo?.ShownWithBreakPoint ?? BreakPoint.None;
+            this.SkipValidate = col?.SkipValidate ?? propInfo?.SkipValidate ?? false;
+            this.Step = col?.Step ?? propInfo?.Step;
+            this.Visible = col?.Visible ?? propInfo?.Visible ?? true;
         }
+
+
+        ///// <summary>
+        ///// 集成 class 标签中设置的参数值
+        ///// </summary>
+        ///// <param name="source"></param>
+        ///// <param name="dest"></param>
+        //private static void InheritValue(AutoGenerateClassAttribute source, ITableColumn dest)
+        //{
+        //    if (source.Align != Alignment.None) dest.Align = source.Align;
+        //    if (source.TextWrap) dest.TextWrap = source.TextWrap;
+        //    if (!source.Editable) dest.Editable = source.Editable;
+        //    if (source.Filterable) dest.Filterable = source.Filterable;
+        //    if (source.Readonly) dest.Readonly = source.Readonly;
+        //    if (source.Searchable) dest.Searchable = source.Searchable;
+        //    if (source.ShowTips) dest.ShowTips = source.ShowTips;
+        //    if (source.Sortable) dest.Sortable = source.Sortable;
+        //    if (source.TextEllipsis) dest.TextEllipsis = source.TextEllipsis;
+        //    //对于有很多列的表格, 一列一列的设置列宽, 太麻烦
+        //    //疑惑:
+        //    //AutoGenerateClassAttribute 设计是用来提供默认的, 还是用来覆盖 AutoGenerateColumnAttribute 上的??
+        //    if (source.Width > 0 && (dest.Width == null || dest.Width <= 0)) dest.Width = source.Width;
+        //}
+
+        ///// <summary>
+        ///// 属性赋值方法
+        ///// </summary>
+        ///// <param name="source"></param>
+        ///// <param name="dest"></param>
+        //private static void CopyValue(ITableColumn source, ITableColumn dest)
+        //{
+        //    if (source.Align != Alignment.None) dest.Align = source.Align;
+        //    if (source.TextWrap) dest.TextWrap = source.TextWrap;
+        //    if (source.ComponentType != null) dest.ComponentType = source.ComponentType;
+        //    if (source.ComponentParameters != null) dest.ComponentParameters = source.ComponentParameters;
+        //    if (!string.IsNullOrEmpty(source.CssClass)) dest.CssClass = source.CssClass;
+        //    if (source.DefaultSort) dest.DefaultSort = source.DefaultSort;
+        //    if (source.DefaultSortOrder != SortOrder.Unset) dest.DefaultSortOrder = source.DefaultSortOrder;
+        //    if (!source.Editable) dest.Editable = source.Editable;
+        //    if (source.EditTemplate != null) dest.EditTemplate = source.EditTemplate;
+        //    if (source.Filter != null) dest.Filter = source.Filter;
+        //    if (source.Filterable) dest.Filterable = source.Filterable;
+        //    if (source.FilterTemplate != null) dest.FilterTemplate = source.FilterTemplate;
+        //    if (source.Fixed) dest.Fixed = source.Fixed;
+        //    if (source.FormatString != null) dest.FormatString = source.FormatString;
+        //    if (source.Formatter != null) dest.Formatter = source.Formatter;
+        //    if (source.HeaderTemplate != null) dest.HeaderTemplate = source.HeaderTemplate;
+        //    if (source.Items != null) dest.Items = source.Items;
+        //    if (source.Lookup != null) dest.Lookup = source.Lookup;
+        //    if (source.IsReadonlyWhenAdd) dest.IsReadonlyWhenAdd = source.IsReadonlyWhenAdd;
+        //    if (source.IsReadonlyWhenEdit) dest.IsReadonlyWhenEdit = source.IsReadonlyWhenEdit;
+        //    if (source.OnCellRender != null) dest.OnCellRender = source.OnCellRender;
+        //    if (source.Readonly) dest.Readonly = source.Readonly;
+        //    if (source.Rows > 0) dest.Rows = source.Rows;
+        //    if (source.Searchable) dest.Searchable = source.Searchable;
+        //    if (source.SearchTemplate != null) dest.SearchTemplate = source.SearchTemplate;
+        //    if (source.ShownWithBreakPoint != BreakPoint.None) dest.ShownWithBreakPoint = source.ShownWithBreakPoint;
+        //    if (source.ShowTips) dest.ShowTips = source.ShowTips;
+        //    if (source.SkipValidate) dest.SkipValidate = source.SkipValidate;
+        //    if (source.Sortable) dest.Sortable = source.Sortable;
+        //    if (source.Template != null) dest.Template = source.Template;
+        //    if (!string.IsNullOrEmpty(source.Text)) dest.Text = source.Text;
+        //    if (source.TextEllipsis) dest.TextEllipsis = source.TextEllipsis;
+        //    if (!source.Visible) dest.Visible = source.Visible;
+        //    if (source.Width != null) dest.Width = source.Width;
+        //    if (source.ValidateRules != null) dest.ValidateRules = source.ValidateRules;
+        //}
     }
 }
