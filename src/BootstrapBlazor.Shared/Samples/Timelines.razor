@@ -1,36 +1,37 @@
 ﻿@page "/timelines"
+@inject IStringLocalizer<Timelines> Localizer
 
-<h3>Timeline 时间线</h3>
+<h3>@Localizer["Title"]</h3>
 
-<h4>可视化地呈现时间流信息</h4>
+<h4>@Localizer["SubTitle"]</h4>
 
-<DemoBlock Title="基本用法" Introduction="Timeline 可拆分成多个按照时间戳正序或倒序排列的 activity，时间戳是其区分于其他控件的重要特征，使⽤时注意与 Steps 步骤条等区分。" Name="Normal">
+<DemoBlock Title="@Localizer["BasicUsageTitle"]" Introduction="@Localizer["BasicUsageIntro"]" Name="Normal">
     <div class="d-flex mb-3">
-        <label class="me-1">排序：</label>
+        <label class="me-1">@Localizer["BasicUsageP"]</label>
         <RadioList TValue="SelectedItem" OnSelectedChanged="@OnStateChanged" Items="@Items"></RadioList>
     </div>
     <Timeline Items="TimelineItems" IsReverse="@IsReverse"></Timeline>
 </DemoBlock>
 
-<DemoBlock Title="⾃定义节点样式" Introduction="可根据实际场景⾃定义节点颜⾊，或直接使⽤图标。" Name="CutomNodeStyle">
+<DemoBlock Title="@Localizer["CutomNodeStyleTitle"]" Introduction="@Localizer["CutomNodeStyleIntro"]" Name="CutomNodeStyle">
     <Timeline Items="CustomerTimelineItems" />
 </DemoBlock>
 
-<DemoBlock Title="左侧展现" Introduction="内容在时间轴左侧轮流出现" Name="Left">
-    <p>通过设置 <code>IsLeft</code> 属性来控制内容出现在时间线左侧</p>
+<DemoBlock Title="@Localizer["LeftTitle"]" Introduction="@Localizer["LeftIntro"]" Name="Left">
+    <p>@((MarkupString)Localizer["LeftP"].Value)</p>
     <Timeline Items="AlternateTimelineItems" IsLeft="true" />
 </DemoBlock>
 
-<DemoBlock Title="交替展现" Introduction="内容在时间轴两侧轮流出现" Name="Alternate">
-    <p>通过设置 <code>IsAlternate</code> 属性来控制时间线左右交替展现</p>
+<DemoBlock Title="@Localizer["AlternateTitle"]" Introduction="@Localizer["AlternateIntro"]" Name="Alternate">
+    <p>@((MarkupString)Localizer["AlternateP"].Value)</p>
     <Timeline Items="AlternateTimelineItems" IsAlternate="true" />
 </DemoBlock>
 
-<DemoBlock Title="展现自定义组件" Introduction="时间轴上展现自定义组件" Name="DispalyCustomComponent">
-    <p>通过设置 <code>TimelineItem</code> 的 <code>CustomerComponent</code> 来控制时间线展现的自定义组件</p>
+<DemoBlock Title="@Localizer["DispalyCustomComponentTitle"]" Introduction="@Localizer["DispalyCustomComponentIntro"]" Name="DispalyCustomComponent">
+    <p>@((MarkupString)Localizer["DispalyCustomComponentP"].Value)</p>
     <Timeline Items="GetCustomerComponentTimelineItems()" />
 </DemoBlock>
 
 <AttributeTable Items="GetAttributes()" />
 
-<AttributeTable Items="GetTimelineItemAttributes()" Title="TimelineItem 属性" />
+<AttributeTable Items="GetTimelineItemAttributes()" Title="@Localizer["AttributeTitle"]" />

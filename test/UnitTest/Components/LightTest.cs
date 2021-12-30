@@ -6,32 +6,31 @@ using BootstrapBlazor.Components;
 using UnitTest.Core;
 using Xunit;
 
-namespace UnitTest.Components
+namespace UnitTest.Components;
+
+public class LightTest : TestBase
 {
-    public class LightTest : TestBase
+    [Fact]
+    public void IsFlash_Ok()
     {
-        [Fact]
-        public void IsFlash_Ok()
-        {
-            var cut = Context.RenderComponent<Light>(builder => builder.Add(s => s.IsFlash, true));
+        var cut = Context.RenderComponent<Light>(builder => builder.Add(s => s.IsFlash, true));
 
-            Assert.Contains("flash", cut.Markup);
-        }
+        Assert.Contains("flash", cut.Markup);
+    }
 
-        [Fact]
-        public void Title_Ok()
-        {
-            var cut = Context.RenderComponent<Light>(builder => builder.Add(s => s.Title, "I am Light"));
+    [Fact]
+    public void Title_Ok()
+    {
+        var cut = Context.RenderComponent<Light>(builder => builder.Add(s => s.Title, "I am Light"));
 
-            Assert.Contains("I am Light", cut.Markup);
-        }
+        Assert.Contains("I am Light", cut.Markup);
+    }
 
-        [Fact]
-        public void Color_Ok()
-        {
-            var cut = Context.RenderComponent<Light>(builder => builder.Add(s => s.Color, Color.Success));
+    [Fact]
+    public void Color_Ok()
+    {
+        var cut = Context.RenderComponent<Light>(builder => builder.Add(s => s.Color, Color.Success));
 
-            Assert.Contains("light-success", cut.Markup);
-        }
+        Assert.Contains("light-success", cut.Markup);
     }
 }

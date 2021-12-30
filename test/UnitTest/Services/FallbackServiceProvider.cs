@@ -4,21 +4,20 @@
 
 using System;
 
-namespace UnitTest.Services
+namespace UnitTest.Services;
+
+/// <summary>
+/// 
+/// </summary>
+public class FallbackServiceProvider : IServiceProvider
 {
     /// <summary>
     /// 
     /// </summary>
-    public class FallbackServiceProvider : IServiceProvider
+    /// <param name="serviceType"></param>
+    /// <returns></returns>
+    public object GetService(Type serviceType)
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="serviceType"></param>
-        /// <returns></returns>
-        public object GetService(Type serviceType)
-        {
-            return null;
-        }
+        return null;
     }
 }

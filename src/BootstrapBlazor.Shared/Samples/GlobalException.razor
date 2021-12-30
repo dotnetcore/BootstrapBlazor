@@ -68,4 +68,16 @@
     </ErrorLogger>
 </DemoBlock>
 
+<Tips class="mt-3">
+    <p>
+        @((MarkupString)Localizer["Tips"].Value)
+    </p>
+</Tips>
+
+<Pre>&lt;Layout OnErrorHandleAsync="OnErrorHandleAsync"&gt;
+    &lt;Main&gt;
+        @@Body
+    &lt;/Main&gt;
+&lt;/Layout&gt;</Pre>
+
 <AttributeTable Items="@GetAttributes()" />

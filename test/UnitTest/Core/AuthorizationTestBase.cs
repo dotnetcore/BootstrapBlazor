@@ -8,47 +8,46 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 using Xunit;
 
-namespace UnitTest.Core
+namespace UnitTest.Core;
+
+[Collection("AuthorizationContext")]
+public class AuthorizationTestBase
 {
-    [Collection("AuthorizationContext")]
-    public class AuthorizationTestBase
+    protected TestContext Context { get; }
+
+    protected TestAuthorizationContext AuthorizationContext { get; }
+
+    public AuthorizationTestBase()
     {
-        protected TestContext Context { get; }
+        Context = AuthorizationTestHost.Instance;
+        AuthorizationContext = AuthorizationTestHost.AuthorizationContext;
+    }
+}
 
-        protected TestAuthorizationContext AuthorizationContext { get; }
+[CollectionDefinition("AuthorizationContext")]
+public class AuthorizationTestCollection : ICollectionFixture<AuthorizationTestHost>
+{
 
-        public AuthorizationTestBase()
-        {
-            Context = AuthorizationTestHost.Instance;
-            AuthorizationContext = AuthorizationTestHost.AuthorizationContext;
-        }
+}
+
+public class AuthorizationTestHost : IDisposable
+{
+    [NotNull]
+    internal static TestContext? Instance { get; private set; }
+
+    [NotNull]
+    internal static TestAuthorizationContext? AuthorizationContext { get; private set; }
+
+    public AuthorizationTestHost()
+    {
+        Instance = new TestContext();
+        Instance.JSInterop.Mode = JSRuntimeMode.Loose;
+        AuthorizationContext = Instance.AddTestAuthorization();
     }
 
-    [CollectionDefinition("AuthorizationContext")]
-    public class AuthorizationTestCollection : ICollectionFixture<AuthorizationTestHost>
+    public void Dispose()
     {
-
-    }
-
-    public class AuthorizationTestHost : IDisposable
-    {
-        [NotNull]
-        internal static TestContext? Instance { get; private set; }
-
-        [NotNull]
-        internal static TestAuthorizationContext? AuthorizationContext { get; private set; }
-
-        public AuthorizationTestHost()
-        {
-            Instance = new TestContext();
-            Instance.JSInterop.Mode = JSRuntimeMode.Loose;
-            AuthorizationContext = Instance.AddTestAuthorization();
-        }
-
-        public void Dispose()
-        {
-            Instance.Dispose();
-            GC.SuppressFinalize(this);
-        }
+        Instance.Dispose();
+        GC.SuppressFinalize(this);
     }
 }

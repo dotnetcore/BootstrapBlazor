@@ -10,127 +10,127 @@ using System.Text;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace UnitTest.Performance
+namespace UnitTest.Performance;
+
+public class StringExtensionsTest : IClassFixture<ReadRazorFile>
 {
-    public class StringExtensionsTest : IClassFixture<ReadRazorFile>
+    private string Payload { get; set; }
+
+    private List<KeyValuePair<string, string>> Localizers { get; }
+
+    private ITestOutputHelper Logger { get; }
+
+    private const int Count = 2;
+
+    public StringExtensionsTest(ReadRazorFile reader, ITestOutputHelper logger)
     {
-        private string Payload { get; set; }
+        Payload = reader.FileContent;
+        Localizers = reader.Localizers;
+        Logger = logger;
+    }
 
-        private List<KeyValuePair<string, string>> Localizers { get; }
-
-        private ITestOutputHelper Logger { get; }
-
-        private const int Count = 2;
-
-        public StringExtensionsTest(ReadRazorFile reader, ITestOutputHelper logger)
+    [Fact]
+    public void Replace_Ok()
+    {
+        var sw = Stopwatch.StartNew();
+        for (var index = 0; index < Count; index++)
         {
-            Payload = reader.FileContent;
-            Localizers = reader.Localizers;
-            Logger = logger;
+            Loop(Payload);
         }
+        sw.Stop();
+        Logger.WriteLine($"String: {sw.Elapsed}");
 
-        [Fact]
-        public void Replace_Ok()
+        void Loop(string payload)
         {
-            var sw = Stopwatch.StartNew();
-            for (var index = 0; index < Count; index++)
+            Localizers.ForEach(kv =>
             {
-                Loop(Payload);
-            }
-            sw.Stop();
-            Logger.WriteLine($"String: {sw.Elapsed}");
-
-            void Loop(string payload)
-            {
-                Localizers.ForEach(kv =>
-                {
-                    payload = payload.Replace($"@(((MarkupString)Localizer[\"{kv.Key}\"].Value).ToString())", kv.Value);
-                    payload = payload.Replace($"@((MarkupString)Localizer[\"{kv.Key}\"].Value)", kv.Value);
-                    payload = payload.Replace($"@Localizer[\"{kv.Key}\"]", kv.Value);
-                });
-                payload = payload.Replace("@@", "@");
-                payload = payload.Replace("&lt;", "<");
-                payload = payload.Replace("&gt;", ">");
-            }
-        }
-
-        [Fact()]
-        public void Replace_Bad()
-        {
-            var segment = Payload.AsMemory();
-            var sw = Stopwatch.StartNew();
-            for (var index = 0; index < Count; index++)
-            {
-                LoopSpan(segment);
-            }
-            sw.Stop();
-            Logger.WriteLine($"Span: {sw.Elapsed}");
-
-            void LoopSpan(ReadOnlyMemory<char> payload)
-            {
-                Localizers.ForEach(kv =>
-                {
-                    payload = payload.Replace($"@(((MarkupString)Localizer[\"{kv.Key}\"].Value).ToString())".AsSpan(), kv.Value);
-                    payload = payload.Replace($"@((MarkupString)Localizer[\"{kv.Key}\"].Value)".AsSpan(), kv.Value);
-                    payload = payload.Replace($"@Localizer[\"{kv.Key}\"]".AsSpan(), kv.Value);
-                });
-                payload = payload.Replace("@@".AsSpan(), "@");
-                payload = payload.Replace("&lt;".AsSpan(), "<");
-                payload = payload.Replace("&gt;".AsSpan(), ">");
-            }
+                payload = payload.Replace($"@(((MarkupString)Localizer[\"{kv.Key}\"].Value).ToString())", kv.Value);
+                payload = payload.Replace($"@((MarkupString)Localizer[\"{kv.Key}\"].Value)", kv.Value);
+                payload = payload.Replace($"@Localizer[\"{kv.Key}\"]", kv.Value);
+            });
+            payload = payload.Replace("@@", "@");
+            payload = payload.Replace("&lt;", "<");
+            payload = payload.Replace("&gt;", ">");
         }
     }
 
-    internal static class StringExtensions
+    [Fact()]
+    public void Replace_Bad()
     {
-        public static ReadOnlyMemory<char> Replace(this ReadOnlyMemory<char> source, ReadOnlySpan<char> oldValue, string newValue)
+        var segment = Payload.AsMemory();
+        var sw = Stopwatch.StartNew();
+        for (var index = 0; index < Count; index++)
         {
-            var sb = new StringBuilder(100 * 1024);
-            while (!source.IsEmpty)
+            LoopSpan(segment);
+        }
+        sw.Stop();
+        Logger.WriteLine($"Span: {sw.Elapsed}");
+
+        void LoopSpan(ReadOnlyMemory<char> payload)
+        {
+            Localizers.ForEach(kv =>
             {
-                var index = source.Span.IndexOf(oldValue);
-                if (index > -1)
-                {
-                    sb.Append(source[0..index]);
-                    sb.Append(newValue.AsSpan());
-                    source = source[(index + oldValue.Length)..];
-                }
-                else
-                {
-                    sb.Append(source);
-                    break;
-                }
-            }
-            return sb.ToString().AsMemory();
+                payload = payload.Replace($"@(((MarkupString)Localizer[\"{kv.Key}\"].Value).ToString())".AsSpan(), kv.Value);
+                payload = payload.Replace($"@((MarkupString)Localizer[\"{kv.Key}\"].Value)".AsSpan(), kv.Value);
+                payload = payload.Replace($"@Localizer[\"{kv.Key}\"]".AsSpan(), kv.Value);
+            });
+            payload = payload.Replace("@@".AsSpan(), "@");
+            payload = payload.Replace("&lt;".AsSpan(), "<");
+            payload = payload.Replace("&gt;".AsSpan(), ">");
         }
     }
+}
 
-    /// <summary>
-    /// 
-    /// </summary>
-    public class ReadRazorFile
+internal static class StringExtensions
+{
+    public static ReadOnlyMemory<char> Replace(this ReadOnlyMemory<char> source, ReadOnlySpan<char> oldValue, string newValue)
     {
-        public string FileContent { get; }
-
-        public List<KeyValuePair<string, string>> Localizers { get; }
-
-        public ReadRazorFile()
+        var sb = new StringBuilder(100 * 1024);
+        while (!source.IsEmpty)
         {
-            FileContent = ReadFile();
-            Localizers = new List<KeyValuePair<string, string>>(BuildLocalizer());
-
-            string ReadFile()
+            var index = source.Span.IndexOf(oldValue);
+            if (index > -1)
             {
-                var dirSeparator = Path.DirectorySeparatorChar;
-                var rootFolder = $"..{dirSeparator}..{dirSeparator}..{dirSeparator}..{dirSeparator}..{dirSeparator}";
-                var razorFile = $"src{dirSeparator}BootstrapBlazor.Shared{dirSeparator}Samples{dirSeparator}Alerts.razor";
-                var file = Path.Combine(AppContext.BaseDirectory, rootFolder, razorFile);
-                return File.Exists(file) ? File.ReadAllText(file) : "";
+                sb.Append(source[0..index]);
+                sb.Append(newValue.AsSpan());
+                source = source[(index + oldValue.Length)..];
             }
-
-            IEnumerable<KeyValuePair<string, string>> BuildLocalizer()
+            else
             {
-                var localizers = new List<KeyValuePair<string, string>>
+                sb.Append(source);
+                break;
+            }
+        }
+        return sb.ToString().AsMemory();
+    }
+}
+
+/// <summary>
+/// 
+/// </summary>
+public class ReadRazorFile
+{
+    public string FileContent { get; }
+
+    public List<KeyValuePair<string, string>> Localizers { get; }
+
+    public ReadRazorFile()
+    {
+        FileContent = ReadFile();
+        Localizers = new List<KeyValuePair<string, string>>(BuildLocalizer());
+
+        string ReadFile()
+        {
+            var dirSeparator = Path.DirectorySeparatorChar;
+            var rootFolder = $"..{dirSeparator}..{dirSeparator}..{dirSeparator}..{dirSeparator}..{dirSeparator}";
+            var razorFile = $"src{dirSeparator}BootstrapBlazor.Shared{dirSeparator}Samples{dirSeparator}Alerts.razor";
+            var file = Path.Combine(AppContext.BaseDirectory, rootFolder, razorFile);
+            return File.Exists(file) ? File.ReadAllText(file) : "";
+        }
+
+        IEnumerable<KeyValuePair<string, string>> BuildLocalizer()
+        {
+            var localizers = new List<KeyValuePair<string, string>>
                 {
                     new("Title", "Alert 警告"),
                     new("SubTitle", "用于页面中展示重要的提示信息。"),
@@ -150,8 +150,7 @@ namespace UnitTest.Performance
                     new("ShowBarUsageText", "显示左侧 Bar"),
                     new("IntroText4", "作为 <code>Tip</code> 使用")
                 };
-                return localizers;
-            }
+            return localizers;
         }
     }
 }

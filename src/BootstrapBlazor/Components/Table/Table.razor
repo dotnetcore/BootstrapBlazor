@@ -69,7 +69,7 @@
                                 <span class="d-none d-sm-inline-block">@ColumnButtonText</span>
                                 <span class="caret"></span>
                             </button>
-                            <div class="dropdown-menu dropdown-menu-right">
+                            <div class="dropdown-menu dropdown-menu-right shadow">
                                 @foreach (var item in Columns)
                                 {
                                     var poco = ColumnVisibles.First(i => i.FieldName == item.GetFieldName());
@@ -90,7 +90,7 @@
                                 <span class="d-none d-sm-inline-block">@ExportButtonText</span>
                                 <span class="caret"></span>
                             </button>
-                            <div class="dropdown-menu dropdown-menu-right">
+                            <div class="dropdown-menu dropdown-menu-right shadow">
                                 <div class="dropdown-item">
                                     <i class="fa fa-file-text-o"></i>
                                     <span>CSV （未实现）</span>
@@ -212,13 +212,31 @@
                         }
                         @foreach (var col in GetColumns())
                         {
+                            var cellClass = "";
+                            string? value = null;
                             <div class="table-cell">
                                 <label>
                                     @col.GetDisplayName()
                                 </label>
-                                <span>
-                                    @GetValue(col, item)
-                                </span>
+                                @if (col.OnCellRender != null)
+                                {
+                                    var args = new TableCellArgs { Row = item, ColumnName = col.GetFieldName() };
+                                    col.OnCellRender(args);
+                                    cellClass = args.Class;
+                                    value = args.Value;
+                                }
+                                @if(value == null)
+                                {
+                                    <span>
+                                        @GetValue(col, item)
+                                    </span>
+                                }
+                                else
+                                {
+                                    <span class="@cellClass">
+                                        @value
+                                    </span>
+                                }
                             </div>
                         }
                         @if (!IsExcel && ShowExtendButtons && !IsExtendButtonsInRowHeader)
@@ -728,7 +746,7 @@ RenderFragment<TItem> RenderExtendButtons => item =>
                                   OnConfirm="DeleteAsync" />
             }
         }
-        <TableExtensionButton>
+        <TableExtensionButton OnClickButton="args => OnClickExtensionButton(item, args)">
             @RowButtonTemplate?.Invoke(item)
         </TableExtensionButton>
     </span>
@@ -743,7 +761,7 @@ RenderFragment<TItem> RenderRowExtendButtons => item =>
             }
             @if (!isInCell)
             {
-                <TableExtensionButton OnClickButton="() => OnClickExtensionButton(item)">
+                <TableExtensionButton OnClickButton="args => OnClickExtensionButton(item, args)">
                     @BeforeRowButtonTemplate?.Invoke(item)
                 </TableExtensionButton>
             }
@@ -780,7 +798,7 @@ RenderFragment<TItem> RenderRowExtendButtons => item =>
             }
             @if (!isInCell)
             {
-                <TableExtensionButton OnClickButton="() => OnClickExtensionButton(item)">
+                <TableExtensionButton OnClickButton="args => OnClickExtensionButton(item, args)">
                     @RowButtonTemplate?.Invoke(item)
                 </TableExtensionButton>
             }

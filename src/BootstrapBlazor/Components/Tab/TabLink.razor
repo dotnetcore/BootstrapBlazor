@@ -1,7 +1,4 @@
 ﻿@namespace BootstrapBlazor.Components
 @inherits BootstrapComponentBase
 
-@if (ChildContent != null)
-{
-    <a @attributes="@AdditionalAttributes" href="@Url" @onclick="@OnClickLink">@ChildContent</a>
-}
+<a @attributes="@AdditionalAttributes" href="@Url" @onclick="@OnClickLink">@RenderChildContent()</a>

@@ -12,129 +12,128 @@ using System.Web;
 using UnitTest.Core;
 using Xunit;
 
-namespace UnitTest.Components
+namespace UnitTest.Components;
+
+public class ModalDialogTest : BootstrapBlazorTestBase
 {
-    public class ModalDialogTest : BootstrapBlazorTestBase
+    [Fact]
+    public void ShowPrintButton_Ok()
     {
-        [Fact]
-        public void ShowPrintButton_Ok()
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
         {
-            var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+            pb.AddChildContent<Modal>(pb =>
             {
-                pb.AddChildContent<Modal>(pb =>
+                pb.AddChildContent<ModalDialog>(pb =>
                 {
-                    pb.AddChildContent<ModalDialog>(pb =>
-                    {
-                        pb.Add(d => d.ShowPrintButton, true);
-                    });
+                    pb.Add(d => d.ShowPrintButton, true);
                 });
             });
-            // 显示在 Footer
-            Assert.NotNull(cut.FindComponent<PrintButton>());
+        });
+        // 显示在 Footer
+        Assert.NotNull(cut.FindComponent<PrintButton>());
 
-            var dialog = cut.FindComponent<ModalDialog>();
-            dialog.SetParametersAndRender(pb =>
-            {
-                pb.Add(d => d.ShowPrintButtonInHeader, true);
-            });
-            // 显示在 Header
-            Assert.NotNull(cut.FindComponent<PrintButton>());
-        }
-
-        [Fact]
-        public void IsDraggable_Ok()
+        var dialog = cut.FindComponent<ModalDialog>();
+        dialog.SetParametersAndRender(pb =>
         {
-            var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+            pb.Add(d => d.ShowPrintButtonInHeader, true);
+        });
+        // 显示在 Header
+        Assert.NotNull(cut.FindComponent<PrintButton>());
+    }
+
+    [Fact]
+    public void IsDraggable_Ok()
+    {
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Modal>(pb =>
             {
-                pb.AddChildContent<Modal>(pb =>
+                pb.AddChildContent<ModalDialog>(pb =>
                 {
-                    pb.AddChildContent<ModalDialog>(pb =>
-                    {
-                        pb.Add(d => d.IsDraggable, true);
-                        pb.Add(d => d.Class, "test_class");
-                    });
+                    pb.Add(d => d.IsDraggable, true);
+                    pb.Add(d => d.Class, "test_class");
                 });
             });
-            Assert.Contains("is-draggable", cut.Markup);
-            Assert.Contains("test_class", cut.Markup);
-        }
+        });
+        Assert.Contains("is-draggable", cut.Markup);
+        Assert.Contains("test_class", cut.Markup);
+    }
 
-        [Fact]
-        public void HeaderTemplate_Ok()
+    [Fact]
+    public void HeaderTemplate_Ok()
+    {
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
         {
-            var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+            pb.AddChildContent<Modal>(pb =>
             {
-                pb.AddChildContent<Modal>(pb =>
+                pb.AddChildContent<ModalDialog>(pb =>
                 {
-                    pb.AddChildContent<ModalDialog>(pb =>
-                    {
-                        pb.Add(d => d.HeaderTemplate, builder => builder.AddContent(0, "HeaderTemplate"));
-                    });
+                    pb.Add(d => d.HeaderTemplate, builder => builder.AddContent(0, "HeaderTemplate"));
                 });
             });
-            Assert.Contains("HeaderTemplate", cut.Markup);
-        }
+        });
+        Assert.Contains("HeaderTemplate", cut.Markup);
+    }
 
-        [Fact]
-        public void FooterTemplate_Ok()
+    [Fact]
+    public void FooterTemplate_Ok()
+    {
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
         {
-            var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+            pb.AddChildContent<Modal>(pb =>
             {
-                pb.AddChildContent<Modal>(pb =>
+                pb.AddChildContent<ModalDialog>(pb =>
                 {
-                    pb.AddChildContent<ModalDialog>(pb =>
-                    {
-                        pb.Add(d => d.FooterTemplate, builder => builder.AddContent(0, "FooterTemplate"));
-                    });
+                    pb.Add(d => d.FooterTemplate, builder => builder.AddContent(0, "FooterTemplate"));
                 });
             });
-            Assert.Contains("FooterTemplate", cut.Markup);
-        }
+        });
+        Assert.Contains("FooterTemplate", cut.Markup);
+    }
 
-        [Fact]
-        public void BodyContext_Ok()
+    [Fact]
+    public void BodyContext_Ok()
+    {
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
         {
-            var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+            pb.AddChildContent<Modal>(pb =>
             {
-                pb.AddChildContent<Modal>(pb =>
+                pb.AddChildContent<ModalDialog>(pb =>
                 {
-                    pb.AddChildContent<ModalDialog>(pb =>
-                    {
-                        pb.Add(d => d.BodyContext, new Foo() { Name = "Test_BodyContext" });
-                        pb.Add(d => d.BodyTemplate, BootstrapDynamicComponent.CreateComponent<MockModalDialogContentComponent>().Render());
-                    });
+                    pb.Add(d => d.BodyContext, new Foo() { Name = "Test_BodyContext" });
+                    pb.Add(d => d.BodyTemplate, BootstrapDynamicComponent.CreateComponent<MockModalDialogContentComponent>().Render());
                 });
             });
-            var content = cut.FindComponent<MockModalDialogContentComponent>().Instance;
-            var f = content.Context as Foo;
-            Assert.Equal("Test_BodyContext", f!.Name);
-        }
+        });
+        var content = cut.FindComponent<MockModalDialogContentComponent>().Instance;
+        var f = content.Context as Foo;
+        Assert.Equal("Test_BodyContext", f!.Name);
+    }
 
-        [Fact]
-        public void OnSaveAsync_Ok()
+    [Fact]
+    public void OnSaveAsync_Ok()
+    {
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
         {
-            var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+            pb.AddChildContent<Modal>(pb =>
             {
-                pb.AddChildContent<Modal>(pb =>
+                pb.AddChildContent<ModalDialog>(pb =>
                 {
-                    pb.AddChildContent<ModalDialog>(pb =>
-                    {
-                        pb.Add(d => d.ShowSaveButton, true);
-                        pb.Add(d => d.IsAutoCloseAfterSave, true);
-                        pb.Add(d => d.OnSaveAsync, () => Task.FromResult(true));
-                    });
+                    pb.Add(d => d.ShowSaveButton, true);
+                    pb.Add(d => d.IsAutoCloseAfterSave, true);
+                    pb.Add(d => d.OnSaveAsync, () => Task.FromResult(true));
                 });
             });
-            Assert.Contains("保存", HttpUtility.HtmlDecode(cut.Markup));
+        });
+        Assert.Contains("保存", HttpUtility.HtmlDecode(cut.Markup));
 
-            var b = cut.FindComponents<Button>().Last();
-            cut.InvokeAsync(() => b.Instance.OnClickWithoutRender!());
-        }
+        var b = cut.FindComponents<Button>().Last();
+        cut.InvokeAsync(() => b.Instance.OnClickWithoutRender!());
+    }
 
-        private class MockModalDialogContentComponent : ComponentBase
-        {
-            [CascadingParameter(Name = "BodyContext")]
-            public object? Context { get; set; }
-        }
+    private class MockModalDialogContentComponent : ComponentBase
+    {
+        [CascadingParameter(Name = "BodyContext")]
+        public object? Context { get; set; }
     }
 }

@@ -65,5 +65,27 @@ namespace BootstrapBlazor.Components
             TabItemOptions.Text = Text;
             TabItemOptions.Closable = Closable;
         }
+
+        private RenderFragment RenderChildContent() => builder =>
+        {
+            var index = 0;
+            if (ChildContent == null)
+            {
+                if (!string.IsNullOrEmpty(Icon))
+                {
+                    builder.OpenElement(index++, "i");
+                    builder.AddAttribute(index++, "class", Icon);
+                    builder.CloseElement();
+                }
+                if (!string.IsNullOrEmpty(Text))
+                {
+                    builder.AddContent(index++, Text);
+                }
+            }
+            else
+            {
+                builder.AddContent(index++, ChildContent);
+            }
+        };
     }
 }

@@ -6,10 +6,9 @@ using BootstrapBlazor.Components;
 using BootstrapBlazor.Shared;
 using System;
 
-namespace UnitTest.Extensions
+namespace UnitTest.Extensions;
+
+internal static class FooExtensions
 {
-    internal static class FooExtensions
-    {
-        public static object GenerateValueExpression(this Foo model, string fieldName = nameof(Foo.Name), Type? fieldType = null) => Utility.GenerateValueExpression(model, fieldName, fieldType ?? typeof(string));
-    }
+    public static object GenerateValueExpression(this Foo model, string fieldName = nameof(Foo.Name), Type? fieldType = null) => Utility.GenerateValueExpression(model, fieldName, fieldType ?? typeof(string));
 }

@@ -6,28 +6,27 @@ using BootstrapBlazor.Components;
 using System.Linq;
 using Xunit;
 
-namespace UnitTest.Emit
+namespace UnitTest.Emit;
+
+public class TypeTest
 {
-    public class TypeTest
+    [Fact]
+    public void CreateType_Ok()
     {
-        [Fact]
-        public void CreateType_Ok()
-        {
-            // 创建动态类型基类是 DynamicObject
-            var instanceType = DynamicObjectHelper.CreateDynamicType();
-            Assert.NotNull(instanceType);
-            Assert.Equal(typeof(DynamicObject), instanceType.BaseType);
+        // 创建动态类型基类是 DynamicObject
+        var instanceType = DynamicObjectHelper.CreateDynamicType();
+        Assert.NotNull(instanceType);
+        Assert.Equal(typeof(DynamicObject), instanceType.BaseType);
 
-            // 创建动态类型实例
-            var instance = DynamicObjectHelper.CreateDynamicObject();
-            Assert.NotNull(instance);
+        // 创建动态类型实例
+        var instance = DynamicObjectHelper.CreateDynamicObject();
+        Assert.NotNull(instance);
 
-            var properties = instance.GetType().GetProperties().Select(p => p.Name);
-            Assert.Contains(nameof(DynamicObject.DynamicObjectPrimaryKey), properties);
+        var properties = instance.GetType().GetProperties().Select(p => p.Name);
+        Assert.Contains(nameof(DynamicObject.DynamicObjectPrimaryKey), properties);
 
-            // Utility
-            var v = Utility.GetPropertyValue(instance, "Name");
-            Assert.Null(v);
-        }
+        // Utility
+        var v = Utility.GetPropertyValue(instance, "Name");
+        Assert.Null(v);
     }
 }

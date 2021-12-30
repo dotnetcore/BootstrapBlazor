@@ -7,41 +7,40 @@ using Microsoft.Extensions.DependencyInjection;
 using UnitTest.Core;
 using Xunit;
 
-namespace UnitTest.Localization
+namespace UnitTest.Localization;
+
+[Collection("BlazorEnTestContext")]
+public class BootstrapBlazorEnTestBase
 {
-    [Collection("BlazorEnTestContext")]
-    public class BootstrapBlazorEnTestBase
-    {
-        protected TestContext Context { get; }
+    protected TestContext Context { get; }
 
-        public BootstrapBlazorEnTestBase()
+    public BootstrapBlazorEnTestBase()
+    {
+        Context = BootstrapBlazorEnTestHost.Instance;
+    }
+}
+
+[CollectionDefinition("BlazorEnTestContext")]
+public class BootstrapBlazorEnTestCollection : ICollectionFixture<BootstrapBlazorEnTestHost>
+{
+
+}
+
+public class BootstrapBlazorEnTestHost : BootstrapBlazorTestHost
+{
+    protected override void ConfigureServices(IServiceCollection services)
+    {
+        // 支持 微软 resx 格式资源文件
+        services.AddLocalization(option => option.ResourcesPath = "Resources");
+        services.AddBootstrapBlazor(localizationAction: options =>
         {
-            Context = BootstrapBlazorEnTestHost.Instance;
-        }
+            options.ResourceManagerStringLocalizerType = typeof(BootstrapBlazorEnTestHost);
+        });
     }
 
-    [CollectionDefinition("BlazorEnTestContext")]
-    public class BootstrapBlazorEnTestCollection : ICollectionFixture<BootstrapBlazorEnTestHost>
+    protected override void ConfigureConfigration(IServiceCollection services)
     {
-
-    }
-
-    public class BootstrapBlazorEnTestHost : BootstrapBlazorTestHost
-    {
-        protected override void ConfigureServices(IServiceCollection services)
-        {
-            // 支持 微软 resx 格式资源文件
-            services.AddLocalization(option => option.ResourcesPath = "Resources");
-            services.AddBootstrapBlazor(localizationAction: options =>
-            {
-                options.ResourceManagerStringLocalizerType = typeof(BootstrapBlazorEnTestHost);
-            });
-        }
-
-        protected override void ConfigureConfigration(IServiceCollection services)
-        {
-            // 增加单元测试 appsettings.json 配置文件
-            services.AddConfiguration("en-US");
-        }
+        // 增加单元测试 appsettings.json 配置文件
+        services.AddConfiguration("en-US");
     }
 }

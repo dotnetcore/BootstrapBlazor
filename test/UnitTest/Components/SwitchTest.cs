@@ -9,210 +9,209 @@ using System.Threading.Tasks;
 using UnitTest.Core;
 using Xunit;
 
-namespace UnitTest.Components
+namespace UnitTest.Components;
+
+public class SwitchTest : BootstrapBlazorTestBase
 {
-    public class SwitchTest : BootstrapBlazorTestBase
+    [Fact]
+    public void OnColor_Ok()
     {
-        [Fact]
-        public void OnColor_Ok()
+        var cut = Context.RenderComponent<Switch>(builder =>
         {
-            var cut = Context.RenderComponent<Switch>(builder =>
-            {
-                builder.Add(a => a.Value, true);
-                builder.Add(a => a.OnColor, Color.None);
-            });
+            builder.Add(a => a.Value, true);
+            builder.Add(a => a.OnColor, Color.None);
+        });
 
-            Assert.DoesNotContain("bg-", cut.Markup);
+        Assert.DoesNotContain("bg-", cut.Markup);
 
-            cut.SetParametersAndRender(pb =>
-            {
-                pb.Add(a => a.OnColor, Color.Danger);
-            });
-            Assert.Contains("bg-danger", cut.Markup);
-        }
-
-        [Fact]
-        public void OffColor_Ok()
+        cut.SetParametersAndRender(pb =>
         {
-            var cut = Context.RenderComponent<Switch>(builder =>
-            {
-                builder.Add(a => a.Value, false);
-                builder.Add(a => a.OffColor, Color.Danger);
-            });
+            pb.Add(a => a.OnColor, Color.Danger);
+        });
+        Assert.Contains("bg-danger", cut.Markup);
+    }
 
-            Assert.Contains("bg-danger", cut.Markup);
-        }
-
-        [Fact]
-        public void Width_Ok()
+    [Fact]
+    public void OffColor_Ok()
+    {
+        var cut = Context.RenderComponent<Switch>(builder =>
         {
-            var cut = Context.RenderComponent<Switch>(builder =>
-            {
-                builder.Add(a => a.Value, false);
-                builder.Add(a => a.Width, 100);
-            });
+            builder.Add(a => a.Value, false);
+            builder.Add(a => a.OffColor, Color.Danger);
+        });
 
-            Assert.Contains("width: 100px;", cut.Markup);
-        }
+        Assert.Contains("bg-danger", cut.Markup);
+    }
 
-        [Fact]
-        public void Height_Ok()
+    [Fact]
+    public void Width_Ok()
+    {
+        var cut = Context.RenderComponent<Switch>(builder =>
         {
-            var cut = Context.RenderComponent<Switch>(builder =>
-            {
-                builder.Add(a => a.Value, false);
-                builder.Add(a => a.Height, 20);
-            });
+            builder.Add(a => a.Value, false);
+            builder.Add(a => a.Width, 100);
+        });
 
-            Assert.Contains("height: 20px;", cut.Markup);
-        }
+        Assert.Contains("width: 100px;", cut.Markup);
+    }
 
-        [Fact]
-        public void OnInnerText_Ok()
+    [Fact]
+    public void Height_Ok()
+    {
+        var cut = Context.RenderComponent<Switch>(builder =>
         {
-            var cut = Context.RenderComponent<Switch>(builder =>
-            {
-                builder.Add(a => a.Value, true);
-                builder.Add(a => a.OnInnerText, "On");
-                builder.Add(a => a.ShowInnerText, true);
-            });
+            builder.Add(a => a.Value, false);
+            builder.Add(a => a.Height, 20);
+        });
 
-            Assert.Contains("On", cut.Markup);
-        }
+        Assert.Contains("height: 20px;", cut.Markup);
+    }
 
-        [Fact]
-        public void OffInnerText_Ok()
+    [Fact]
+    public void OnInnerText_Ok()
+    {
+        var cut = Context.RenderComponent<Switch>(builder =>
         {
-            var cut = Context.RenderComponent<Switch>(builder =>
-            {
-                builder.Add(a => a.Value, false);
-                builder.Add(a => a.OffInnerText, "Off");
-                builder.Add(a => a.ShowInnerText, true);
-            });
+            builder.Add(a => a.Value, true);
+            builder.Add(a => a.OnInnerText, "On");
+            builder.Add(a => a.ShowInnerText, true);
+        });
 
-            Assert.Contains("Off", cut.Markup);
-        }
+        Assert.Contains("On", cut.Markup);
+    }
 
-
-        [Fact]
-        public void ShowInnerText_Ok()
+    [Fact]
+    public void OffInnerText_Ok()
+    {
+        var cut = Context.RenderComponent<Switch>(builder =>
         {
-            var cut = Context.RenderComponent<Switch>(builder =>
-            {
-                builder.Add(a => a.Value, false);
-                builder.Add(a => a.OffInnerText, "Off");
-                builder.Add(a => a.ShowInnerText, true);
-            });
+            builder.Add(a => a.Value, false);
+            builder.Add(a => a.OffInnerText, "Off");
+            builder.Add(a => a.ShowInnerText, true);
+        });
 
-            var text = cut.Find("span").GetAttribute("data-inner-text");
+        Assert.Contains("Off", cut.Markup);
+    }
 
-            Assert.Equal("Off", text);
-        }
 
-        [Fact]
-        public void OnValueChanged_Ok()
+    [Fact]
+    public void ShowInnerText_Ok()
+    {
+        var cut = Context.RenderComponent<Switch>(builder =>
         {
-            var value = false;
-            var cut = Context.RenderComponent<Switch>(builder =>
-            {
-                builder.Add(a => a.Value, false);
-                builder.Add(a => a.OnValueChanged, e => { value = e; return Task.CompletedTask; });
-            });
+            builder.Add(a => a.Value, false);
+            builder.Add(a => a.OffInnerText, "Off");
+            builder.Add(a => a.ShowInnerText, true);
+        });
 
-            cut.Find("span").Click();
+        var text = cut.Find("span").GetAttribute("data-inner-text");
 
-            Assert.True(value);
-        }
+        Assert.Equal("Off", text);
+    }
 
-        [Fact]
-        public void ValueChanged_Ok()
+    [Fact]
+    public void OnValueChanged_Ok()
+    {
+        var value = false;
+        var cut = Context.RenderComponent<Switch>(builder =>
         {
-            var value = false;
-            var cut = Context.RenderComponent<Switch>(builder =>
-            {
-                builder.Add(a => a.Value, false);
-                builder.Add(a => a.ValueChanged, EventCallback.Factory.Create<bool>(this, e => { value = e; }));
-            });
+            builder.Add(a => a.Value, false);
+            builder.Add(a => a.OnValueChanged, e => { value = e; return Task.CompletedTask; });
+        });
 
-            cut.Find("span").Click();
+        cut.Find("span").Click();
 
-            Assert.True(value);
-        }
+        Assert.True(value);
+    }
 
-        [Fact]
-        public void IsDisabled_Ok()
+    [Fact]
+    public void ValueChanged_Ok()
+    {
+        var value = false;
+        var cut = Context.RenderComponent<Switch>(builder =>
         {
-            var cut = Context.RenderComponent<Switch>(builder =>
-            {
-                builder.Add(a => a.IsDisabled, true);
-            });
+            builder.Add(a => a.Value, false);
+            builder.Add(a => a.ValueChanged, EventCallback.Factory.Create<bool>(this, e => { value = e; }));
+        });
 
-            Assert.Contains("disable", cut.Markup);
-        }
+        cut.Find("span").Click();
 
-        [Fact]
-        public void Value_Ok()
+        Assert.True(value);
+    }
+
+    [Fact]
+    public void IsDisabled_Ok()
+    {
+        var cut = Context.RenderComponent<Switch>(builder =>
         {
-            var cut = Context.RenderComponent<Switch>(builder =>
-            {
-                builder.Add(a => a.Value, true);
-            });
+            builder.Add(a => a.IsDisabled, true);
+        });
 
-            Assert.Contains("is-checked", cut.Markup);
-        }
+        Assert.Contains("disable", cut.Markup);
+    }
 
-        [Fact]
-        public void DisplayText_Ok()
+    [Fact]
+    public void Value_Ok()
+    {
+        var cut = Context.RenderComponent<Switch>(builder =>
         {
-            var cut = Context.RenderComponent<Switch>(builder =>
-            {
-                builder.Add(a => a.DisplayText, "custome label");
-                builder.Add(a => a.ShowLabel, true);
-                builder.Add(a => a.Value, true);
-            });
+            builder.Add(a => a.Value, true);
+        });
 
-            var text = cut.Find("label").TextContent;
+        Assert.Contains("is-checked", cut.Markup);
+    }
 
-            Assert.Equal("custome label", text);
-        }
-
-        [Fact]
-        public void ShowLabel_Ok()
+    [Fact]
+    public void DisplayText_Ok()
+    {
+        var cut = Context.RenderComponent<Switch>(builder =>
         {
-            var cut = Context.RenderComponent<Switch>(builder =>
-            {
-                builder.Add(a => a.DisplayText, "custome label");
-                builder.Add(a => a.ShowLabel, true);
-                builder.Add(a => a.Value, true);
-            });
+            builder.Add(a => a.DisplayText, "custome label");
+            builder.Add(a => a.ShowLabel, true);
+            builder.Add(a => a.Value, true);
+        });
 
-            var label = cut.Find("label");
+        var text = cut.Find("label").TextContent;
 
-            Assert.NotNull(label);
-        }
+        Assert.Equal("custome label", text);
+    }
 
-        [Fact]
-        public void OnText_Ok()
+    [Fact]
+    public void ShowLabel_Ok()
+    {
+        var cut = Context.RenderComponent<Switch>(builder =>
         {
-            var cut = Context.RenderComponent<Switch>(builder =>
-            {
-                builder.Add(a => a.OnText, "On");
-                builder.Add(a => a.Value, true);
-            });
+            builder.Add(a => a.DisplayText, "custome label");
+            builder.Add(a => a.ShowLabel, true);
+            builder.Add(a => a.Value, true);
+        });
 
-            Assert.Equal("On", cut.Find(".switch-label").TextContent);
-        }
+        var label = cut.Find("label");
 
-        [Fact]
-        public void Off_Ok()
+        Assert.NotNull(label);
+    }
+
+    [Fact]
+    public void OnText_Ok()
+    {
+        var cut = Context.RenderComponent<Switch>(builder =>
         {
-            var cut = Context.RenderComponent<Switch>(builder =>
-            {
-                builder.Add(a => a.OffText, "Off");
-                builder.Add(a => a.Value, false);
-            });
+            builder.Add(a => a.OnText, "On");
+            builder.Add(a => a.Value, true);
+        });
 
-            Assert.Equal("Off", cut.Find(".switch-label").TextContent);
-        }
+        Assert.Equal("On", cut.Find(".switch-label").TextContent);
+    }
+
+    [Fact]
+    public void Off_Ok()
+    {
+        var cut = Context.RenderComponent<Switch>(builder =>
+        {
+            builder.Add(a => a.OffText, "Off");
+            builder.Add(a => a.Value, false);
+        });
+
+        Assert.Equal("Off", cut.Find(".switch-label").TextContent);
     }
 }

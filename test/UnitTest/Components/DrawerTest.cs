@@ -14,97 +14,96 @@ using System.Threading.Tasks;
 using UnitTest.Core;
 using Xunit;
 
-namespace UnitTest.Components
+namespace UnitTest.Components;
+
+public class DrawerTest : BootstrapBlazorTestBase
 {
-    public class DrawerTest : BootstrapBlazorTestBase
+    [Fact]
+    public void Width_Ok()
     {
-        [Fact]
-        public void Width_Ok()
+        var cut = Context.RenderComponent<Drawer>(builder => builder.Add(a => a.Width, "100px"));
+        Assert.Contains("width: 100px", cut.Markup);
+
+        cut.SetParametersAndRender(pb =>
         {
-            var cut = Context.RenderComponent<Drawer>(builder => builder.Add(a => a.Width, "100px"));
-            Assert.Contains("width: 100px", cut.Markup);
+            pb.Add(a => a.Width, "");
+        });
+        Assert.DoesNotContain("width:", cut.Markup);
+    }
 
-            cut.SetParametersAndRender(pb =>
-            {
-                pb.Add(a => a.Width, "");
-            });
-            Assert.DoesNotContain("width:", cut.Markup);
-        }
-
-        [Fact]
-        public void Height_Ok()
+    [Fact]
+    public void Height_Ok()
+    {
+        var cut = Context.RenderComponent<Drawer>(builder =>
         {
-            var cut = Context.RenderComponent<Drawer>(builder =>
-            {
-                builder.Add(a => a.Height, "100px");
-                builder.Add(a => a.Placement, Placement.Top);
-            });
-            Assert.Contains("height: 100px", cut.Markup);
+            builder.Add(a => a.Height, "100px");
+            builder.Add(a => a.Placement, Placement.Top);
+        });
+        Assert.Contains("height: 100px", cut.Markup);
 
-            cut.SetParametersAndRender(pb =>
-            {
-                pb.Add(a => a.Height, "");
-            });
-            Assert.DoesNotContain("height:", cut.Markup);
-        }
-
-        [Fact]
-        public void IsOpen_Ok()
+        cut.SetParametersAndRender(pb =>
         {
-            var cut = Context.RenderComponent<Drawer>(builder =>
-            {
-                builder.Add(a => a.IsOpen, true);
-                builder.Add(a => a.Placement, Placement.Top);
-            });
-        }
+            pb.Add(a => a.Height, "");
+        });
+        Assert.DoesNotContain("height:", cut.Markup);
+    }
 
-        [Fact]
-        public void IsOpenChanged_Ok()
+    [Fact]
+    public void IsOpen_Ok()
+    {
+        var cut = Context.RenderComponent<Drawer>(builder =>
         {
-            var isopen = true;
-            var cut = Context.RenderComponent<Drawer>(builder =>
-            {
-                builder.Add(a => a.IsBackdrop, true);
-                builder.Add(a => a.IsOpen, true);
-                builder.Add(a => a.IsOpenChanged, EventCallback.Factory.Create<bool>(this, e =>
-                {
-                    isopen = e;
-                }));
-            });
+            builder.Add(a => a.IsOpen, true);
+            builder.Add(a => a.Placement, Placement.Top);
+        });
+    }
 
-            cut.Find(".drawer-container").Click();
-            Assert.False(isopen);
-        }
-
-        [Fact]
-        public void OnClickBackdrop_Ok()
+    [Fact]
+    public void IsOpenChanged_Ok()
+    {
+        var isopen = true;
+        var cut = Context.RenderComponent<Drawer>(builder =>
         {
-            var isopen = true;
-            var cut = Context.RenderComponent<Drawer>(builder =>
+            builder.Add(a => a.IsBackdrop, true);
+            builder.Add(a => a.IsOpen, true);
+            builder.Add(a => a.IsOpenChanged, EventCallback.Factory.Create<bool>(this, e =>
             {
-                builder.Add(a => a.IsBackdrop, true);
-                builder.Add(a => a.IsOpen, true);
-                builder.Add(a => a.OnClickBackdrop, () => { isopen = false; return Task.CompletedTask; });
-            });
+                isopen = e;
+            }));
+        });
 
-            cut.Find(".drawer-container").Click();
-            Assert.False(isopen);
-        }
+        cut.Find(".drawer-container").Click();
+        Assert.False(isopen);
+    }
 
-        [Fact]
-        public void ChildContent_Ok()
+    [Fact]
+    public void OnClickBackdrop_Ok()
+    {
+        var isopen = true;
+        var cut = Context.RenderComponent<Drawer>(builder =>
         {
-            var cut = Context.RenderComponent<Drawer>(builder =>
-            {
-                builder.Add(a => a.ChildContent, s =>
-                {
-                    s.OpenComponent<Button>(0);
-                    s.CloseComponent();
-                });
-            });
+            builder.Add(a => a.IsBackdrop, true);
+            builder.Add(a => a.IsOpen, true);
+            builder.Add(a => a.OnClickBackdrop, () => { isopen = false; return Task.CompletedTask; });
+        });
 
-            var button = cut.FindComponent<Button>();
-            Assert.NotNull(button);
-        }
+        cut.Find(".drawer-container").Click();
+        Assert.False(isopen);
+    }
+
+    [Fact]
+    public void ChildContent_Ok()
+    {
+        var cut = Context.RenderComponent<Drawer>(builder =>
+        {
+            builder.Add(a => a.ChildContent, s =>
+            {
+                s.OpenComponent<Button>(0);
+                s.CloseComponent();
+            });
+        });
+
+        var button = cut.FindComponent<Button>();
+        Assert.NotNull(button);
     }
 }

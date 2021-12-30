@@ -3,7 +3,9 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Localization;
 using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace BootstrapBlazor.Components
 {
@@ -18,6 +20,22 @@ namespace BootstrapBlazor.Components
         [CascadingParameter]
         protected TableExtensionButton? Buttons { get; set; }
 
+        [Inject]
+        [NotNull]
+        private IStringLocalizer<PopConfirmButton>? Localizer { get; set; }
+
+        /// <summary>
+        /// 获得/设置 点击按钮是否选中正行 默认 true 选中
+        /// </summary>
+        [Parameter]
+        public bool AutoSelectedRowWhenClick { get; set; } = true;
+
+        /// <summary>
+        /// 获得/设置 点击按钮是否选中正行 默认 true 选中
+        /// </summary>
+        [Parameter]
+        public bool AutoRenderTableWhenClick { get; set; }
+
         /// <summary>
         /// OnInitialized 方法
         /// </summary>
@@ -31,6 +49,10 @@ namespace BootstrapBlazor.Components
             {
                 Size = Size.ExtraSmall;
             }
+
+            ConfirmButtonText ??= Localizer[nameof(ConfirmButtonText)];
+            CloseButtonText ??= Localizer[nameof(CloseButtonText)];
+            Content ??= Localizer[nameof(Content)];
         }
 
         /// <summary>

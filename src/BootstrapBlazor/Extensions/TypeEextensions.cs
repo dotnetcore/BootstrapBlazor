@@ -9,46 +9,45 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 
-namespace BootstrapBlazor.Components
+namespace BootstrapBlazor.Components;
+
+internal static class TypeEextensions
 {
-    internal static class TypeEextensions
+    public static PropertyInfo? GetPropertyByName(this Type type, string propertyName) => type.GetRuntimeProperties().FirstOrDefault(p => p.Name == propertyName);
+
+    public static async Task<bool> IsAuthorizedAsync(this Type type, Task<AuthenticationState>? authenticateState, IAuthorizationPolicyProvider? authorizePolicy, IAuthorizationService? authorizeService, object? resource = null)
     {
-        public static PropertyInfo? GetPropertyByName(this Type type, string propertyName) => type.GetRuntimeProperties().FirstOrDefault(p => p.Name == propertyName);
-
-        public static async Task<bool> IsAuthorizedAsync(this Type type, Task<AuthenticationState>? authenticateState, IAuthorizationPolicyProvider? authorizePolicy, IAuthorizationService? authorizeService, object? resource = null)
+        var ret = true;
+        var authorizeData = AttributeAuthorizeDataCache.GetAuthorizeDataForType(type);
+        if (authorizeData != null)
         {
-            var ret = true;
-            var authorizeData = AttributeAuthorizeDataCache.GetAuthorizeDataForType(type);
-            if (authorizeData != null)
-            {
-                EnsureNoAuthenticationSchemeSpecified();
+            EnsureNoAuthenticationSchemeSpecified();
 
-                if (authenticateState != null && authorizePolicy != null && authorizeService != null)
+            if (authenticateState != null && authorizePolicy != null && authorizeService != null)
+            {
+                var currentAuthenticationState = await authenticateState;
+                var user = currentAuthenticationState.User;
+                var policy = await AuthorizationPolicy.CombineAsync(authorizePolicy, authorizeData);
+                if (policy != null)
                 {
-                    var currentAuthenticationState = await authenticateState;
-                    var user = currentAuthenticationState.User;
-                    var policy = await AuthorizationPolicy.CombineAsync(authorizePolicy, authorizeData);
-                    if (policy != null)
-                    {
-                        var result = await authorizeService.AuthorizeAsync(user, resource, policy);
-                        ret = result.Succeeded;
-                    }
+                    var result = await authorizeService.AuthorizeAsync(user, resource, policy);
+                    ret = result.Succeeded;
                 }
             }
-            return ret;
+        }
+        return ret;
 
-            void EnsureNoAuthenticationSchemeSpecified()
+        void EnsureNoAuthenticationSchemeSpecified()
+        {
+            // It's not meaningful to specify a nonempty scheme, since by the time Components
+            // authorization runs, we already have a specific ClaimsPrincipal (we're stateful).
+            // To avoid any confusion, ensure the developer isn't trying to specify a scheme.
+            for (var i = 0; i < authorizeData.Length; i++)
             {
-                // It's not meaningful to specify a nonempty scheme, since by the time Components
-                // authorization runs, we already have a specific ClaimsPrincipal (we're stateful).
-                // To avoid any confusion, ensure the developer isn't trying to specify a scheme.
-                for (var i = 0; i < authorizeData.Length; i++)
+                var entry = authorizeData[i];
+                if (!string.IsNullOrEmpty(entry.AuthenticationSchemes))
                 {
-                    var entry = authorizeData[i];
-                    if (!string.IsNullOrEmpty(entry.AuthenticationSchemes))
-                    {
-                        throw new NotSupportedException($"The authorization data specifies an authentication scheme with value '{entry.AuthenticationSchemes}'. Authentication schemes cannot be specified for components.");
-                    }
+                    throw new NotSupportedException($"The authorization data specifies an authentication scheme with value '{entry.AuthenticationSchemes}'. Authentication schemes cannot be specified for components.");
                 }
             }
         }
