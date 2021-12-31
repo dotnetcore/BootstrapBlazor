@@ -4,23 +4,22 @@
 
 using System.ComponentModel;
 
-namespace BootstrapBlazor.Components
+namespace BootstrapBlazor.Components;
+
+/// <summary>
+/// 预览方式
+/// </summary>
+public enum PreviewStyle
 {
     /// <summary>
-    /// 预览方式
+    /// 左右树形预览
     /// </summary>
-    public enum PreviewStyle
-    {
-        /// <summary>
-        /// 左右树形预览
-        /// </summary>
-        [Description("vertical")]
-        Vertical,
+    [Description("vertical")]
+    Vertical,
 
-        /// <summary>
-        /// tab页预览
-        /// </summary>
-        [Description("tab")]
-        Tab
-    }
+    /// <summary>
+    /// tab页预览
+    /// </summary>
+    [Description("tab")]
+    Tab
 }

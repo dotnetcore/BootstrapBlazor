@@ -4,23 +4,22 @@
 
 using System.ComponentModel;
 
-namespace BootstrapBlazor
+namespace BootstrapBlazor;
+
+/// <summary>
+/// 
+/// </summary>
+public enum TransitionType
 {
     /// <summary>
-    /// 
+    /// 淡入效果
     /// </summary>
-    public enum TransitionType
-    {
-        /// <summary>
-        /// 淡入效果
-        /// </summary>
-        [Description("animate__fadeIn")]
-        FadeIn,
+    [Description("animate__fadeIn")]
+    FadeIn,
 
-        /// <summary>
-        /// 淡出效果
-        /// </summary>
-        [Description("animate__fadeOut")]
-        FadeOut,
-    }
+    /// <summary>
+    /// 淡出效果
+    /// </summary>
+    [Description("animate__fadeOut")]
+    FadeOut,
 }

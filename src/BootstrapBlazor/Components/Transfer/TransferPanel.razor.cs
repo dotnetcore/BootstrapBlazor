@@ -11,192 +11,191 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BootstrapBlazor.Components
+namespace BootstrapBlazor.Components;
+
+/// <summary>
+/// TransferPanelBase 穿梭框面板组件
+/// </summary>
+public partial class TransferPanel
 {
     /// <summary>
-    /// TransferPanelBase 穿梭框面板组件
+    /// 获得/设置 搜索关键字
     /// </summary>
-    public partial class TransferPanel
+    protected string? SearchText { get; set; }
+
+    private string? PanelClassString => CssBuilder.Default("transfer-panel")
+        .AddClassFromAttributes(AdditionalAttributes)
+        .Build();
+
+    /// <summary>
+    /// 获得 搜索图标样式
+    /// </summary>
+    private string? SearchClass => CssBuilder.Default("input-prefix")
+        .AddClass("is-on", !string.IsNullOrEmpty(SearchText))
+        .AddClass("disabled", IsDisabled)
+        .Build();
+
+    /// <summary>
+    /// 获得 Panel 样式
+    /// </summary>
+    private string? PanelListClassString => CssBuilder.Default("transfer-panel-list scroll")
+        .AddClass("search", ShowSearch)
+        .AddClass("disabled", IsDisabled)
+        .Build();
+
+    private string? GetItemClass(SelectedItem item) => CssBuilder.Default("transfer-panel-item")
+        .AddClass(OnSetItemClass?.Invoke(item))
+        .Build();
+
+    /// <summary>
+    /// 获得 组件是否被禁用属性值
+    /// </summary>
+    private string? Disabled => IsDisabled ? "disabled" : null;
+
+    /// <summary>
+    /// 获得/设置 数据集合
+    /// </summary>
+    [Parameter]
+    public List<SelectedItem>? Items { get; set; }
+
+    /// <summary>
+    /// 获得/设置 数据样式回调方法 默认为 null
+    /// </summary>
+    [Parameter]
+    public Func<SelectedItem, string?>? OnSetItemClass { get; set; }
+
+    /// <summary>
+    /// 获得/设置 面板显示文字
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public string? Text { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否显示搜索框
+    /// </summary>
+    [Parameter]
+    public bool ShowSearch { get; set; }
+
+    /// <summary>
+    /// 获得/设置 选项状态变化时回调方法
+    /// </summary>
+    [Parameter]
+    public Func<Task>? OnSelectedItemsChanged { get; set; }
+
+    /// <summary>
+    /// 获得/设置 搜索框的 placeholder 字符串
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public string? SearchPlaceHolderString { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否禁用 默认为 false
+    /// </summary>
+    [Parameter]
+    public bool IsDisabled { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<Transfer<string>>? Localizer { get; set; }
+
+    /// <summary>
+    /// OnParametersSet 方法
+    /// </summary>
+    protected override void OnParametersSet()
     {
-        /// <summary>
-        /// 获得/设置 搜索关键字
-        /// </summary>
-        protected string? SearchText { get; set; }
+        base.OnParametersSet();
 
-        private string? PanelClassString => CssBuilder.Default("transfer-panel")
-            .AddClassFromAttributes(AdditionalAttributes)
-            .Build();
+        SearchPlaceHolderString ??= Localizer[nameof(SearchPlaceHolderString)];
+        Text ??= Localizer[nameof(Text)];
+    }
 
-        /// <summary>
-        /// 获得 搜索图标样式
-        /// </summary>
-        private string? SearchClass => CssBuilder.Default("input-prefix")
-            .AddClass("is-on", !string.IsNullOrEmpty(SearchText))
-            .AddClass("disabled", IsDisabled)
-            .Build();
-
-        /// <summary>
-        /// 获得 Panel 样式
-        /// </summary>
-        private string? PanelListClassString => CssBuilder.Default("transfer-panel-list scroll")
-            .AddClass("search", ShowSearch)
-            .AddClass("disabled", IsDisabled)
-            .Build();
-
-        private string? GetItemClass(SelectedItem item) => CssBuilder.Default("transfer-panel-item")
-            .AddClass(OnSetItemClass?.Invoke(item))
-            .Build();
-
-        /// <summary>
-        /// 获得 组件是否被禁用属性值
-        /// </summary>
-        private string? Disabled => IsDisabled ? "disabled" : null;
-
-        /// <summary>
-        /// 获得/设置 数据集合
-        /// </summary>
-        [Parameter]
-        public List<SelectedItem>? Items { get; set; }
-
-        /// <summary>
-        /// 获得/设置 数据样式回调方法 默认为 null
-        /// </summary>
-        [Parameter]
-        public Func<SelectedItem, string?>? OnSetItemClass { get; set; }
-
-        /// <summary>
-        /// 获得/设置 面板显示文字
-        /// </summary>
-        [Parameter]
-        [NotNull]
-        public string? Text { get; set; }
-
-        /// <summary>
-        /// 获得/设置 是否显示搜索框
-        /// </summary>
-        [Parameter]
-        public bool ShowSearch { get; set; }
-
-        /// <summary>
-        /// 获得/设置 选项状态变化时回调方法
-        /// </summary>
-        [Parameter]
-        public Func<Task>? OnSelectedItemsChanged { get; set; }
-
-        /// <summary>
-        /// 获得/设置 搜索框的 placeholder 字符串
-        /// </summary>
-        [Parameter]
-        [NotNull]
-        public string? SearchPlaceHolderString { get; set; }
-
-        /// <summary>
-        /// 获得/设置 是否禁用 默认为 false
-        /// </summary>
-        [Parameter]
-        public bool IsDisabled { get; set; }
-
-        [Inject]
-        [NotNull]
-        private IStringLocalizer<Transfer<string>>? Localizer { get; set; }
-
-        /// <summary>
-        /// OnParametersSet 方法
-        /// </summary>
-        protected override void OnParametersSet()
+    /// <summary>
+    /// 头部复选框初始化值方法
+    /// </summary>
+    protected CheckboxState HeaderCheckState()
+    {
+        var ret = CheckboxState.Mixed;
+        if (Items != null && Items.Any() && Items.All(i => i.Active))
         {
-            base.OnParametersSet();
-
-            SearchPlaceHolderString ??= Localizer[nameof(SearchPlaceHolderString)];
-            Text ??= Localizer[nameof(Text)];
+            ret = CheckboxState.Checked;
+        }
+        else if (Items != null && !Items.Any(i => i.Active))
+        {
+            ret = CheckboxState.UnChecked;
         }
 
-        /// <summary>
-        /// 头部复选框初始化值方法
-        /// </summary>
-        protected CheckboxState HeaderCheckState()
+        return ret;
+    }
+
+    /// <summary>
+    /// 左侧头部复选框初始化值方法
+    /// </summary>
+    protected async Task OnHeaderCheck(CheckboxState state, SelectedItem item)
+    {
+        if (Items != null)
         {
-            var ret = CheckboxState.Mixed;
-            if (Items != null && Items.Any() && Items.All(i => i.Active))
+            if (state == CheckboxState.Checked)
             {
-                ret = CheckboxState.Checked;
+                GetShownItems().ForEach(i => i.Active = true);
             }
-            else if (Items != null && !Items.Any(i => i.Active))
+            else
             {
-                ret = CheckboxState.UnChecked;
+                GetShownItems().ForEach(i => i.Active = false);
             }
 
-            return ret;
-        }
-
-        /// <summary>
-        /// 左侧头部复选框初始化值方法
-        /// </summary>
-        protected async Task OnHeaderCheck(CheckboxState state, SelectedItem item)
-        {
-            if (Items != null)
-            {
-                if (state == CheckboxState.Checked)
-                {
-                    GetShownItems().ForEach(i => i.Active = true);
-                }
-                else
-                {
-                    GetShownItems().ForEach(i => i.Active = false);
-                }
-
-                if (OnSelectedItemsChanged != null)
-                {
-                    await OnSelectedItemsChanged();
-                }
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        protected async Task OnStateChanged(CheckboxState state, SelectedItem item)
-        {
-            // trigger when transfer item clicked
-            item.Active = state == CheckboxState.Checked;
-
-            // set header
             if (OnSelectedItemsChanged != null)
             {
                 await OnSelectedItemsChanged();
             }
         }
-
-        /// <summary>
-        /// 搜索框文本改变时回调此方法
-        /// </summary>
-        /// <param name="e"></param>
-        protected virtual void OnSearch(ChangeEventArgs e) => SearchText = e.Value?.ToString();
-
-        /// <summary>
-        /// 搜索文本框按键回调方法
-        /// </summary>
-        /// <param name="e"></param>
-        protected void OnKeyUp(KeyboardEventArgs e)
-        {
-            // Escape
-            if (e.Key == "Escape")
-            {
-                ClearSearch();
-            }
-        }
-
-        /// <summary>
-        /// 清空搜索条件方法
-        /// </summary>
-        protected void ClearSearch()
-        {
-            SearchText = "";
-        }
-
-        private List<SelectedItem> GetShownItems() => (string.IsNullOrEmpty(SearchText)
-            ? Items
-            : Items?.Where(i => i.Text.Contains(SearchText, StringComparison.OrdinalIgnoreCase)).ToList()) ?? new List<SelectedItem>();
     }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
+    protected async Task OnStateChanged(CheckboxState state, SelectedItem item)
+    {
+        // trigger when transfer item clicked
+        item.Active = state == CheckboxState.Checked;
+
+        // set header
+        if (OnSelectedItemsChanged != null)
+        {
+            await OnSelectedItemsChanged();
+        }
+    }
+
+    /// <summary>
+    /// 搜索框文本改变时回调此方法
+    /// </summary>
+    /// <param name="e"></param>
+    protected virtual void OnSearch(ChangeEventArgs e) => SearchText = e.Value?.ToString();
+
+    /// <summary>
+    /// 搜索文本框按键回调方法
+    /// </summary>
+    /// <param name="e"></param>
+    protected void OnKeyUp(KeyboardEventArgs e)
+    {
+        // Escape
+        if (e.Key == "Escape")
+        {
+            ClearSearch();
+        }
+    }
+
+    /// <summary>
+    /// 清空搜索条件方法
+    /// </summary>
+    protected void ClearSearch()
+    {
+        SearchText = "";
+    }
+
+    private List<SelectedItem> GetShownItems() => (string.IsNullOrEmpty(SearchText)
+        ? Items
+        : Items?.Where(i => i.Text.Contains(SearchText, StringComparison.OrdinalIgnoreCase)).ToList()) ?? new List<SelectedItem>();
 }

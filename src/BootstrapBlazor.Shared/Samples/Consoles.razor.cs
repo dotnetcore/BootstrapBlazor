@@ -10,78 +10,78 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace BootstrapBlazor.Shared.Samples
+namespace BootstrapBlazor.Shared.Samples;
+
+/// <summary>
+/// 
+/// </summary>
+public sealed partial class Consoles : IDisposable
 {
+    private ConcurrentQueue<ConsoleMessageItem> Messages { get; set; } = new();
+    private ConcurrentQueue<ConsoleMessageItem> ColorMessages { get; set; } = new();
+    private readonly CancellationTokenSource _cancelTokenSource = new();
+
     /// <summary>
     /// 
     /// </summary>
-    public sealed partial class Consoles : IDisposable
+    /// <returns></returns>
+    protected override async Task OnInitializedAsync()
     {
-        private ConcurrentQueue<ConsoleMessageItem> Messages { get; set; } = new();
-        private ConcurrentQueue<ConsoleMessageItem> ColorMessages { get; set; } = new();
-        private readonly CancellationTokenSource _cancelTokenSource = new();
+        await base.OnInitializedAsync();
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        protected override async Task OnInitializedAsync()
+        var _ = Task.Run(async () =>
         {
-            await base.OnInitializedAsync();
-
-            var _ = Task.Run(async () =>
+            do
             {
-                do
+                _locker.WaitOne();
+                Messages.Enqueue(new ConsoleMessageItem { Message = $"{DateTimeOffset.Now}: Dispatch Message" });
+
+                ColorMessages.Enqueue(new ConsoleMessageItem { Message = $"{DateTimeOffset.Now}: Dispatch Message", Color = GetColor() });
+
+                if (Messages.Count > 8)
                 {
-                    _locker.WaitOne();
-                    Messages.Enqueue(new ConsoleMessageItem { Message = $"{DateTimeOffset.Now}: Dispatch Message" });
-
-                    ColorMessages.Enqueue(new ConsoleMessageItem { Message = $"{DateTimeOffset.Now}: Dispatch Message", Color = GetColor() });
-
-                    if (Messages.Count > 8)
-                    {
-                        Messages.TryDequeue(out var _);
-                    }
-
-                    if (ColorMessages.Count > 12)
-                    {
-                        ColorMessages.TryDequeue(out var _);
-                    }
-                    await InvokeAsync(StateHasChanged);
-                    _locker.Set();
-                    await Task.Delay(2000, _cancelTokenSource.Token);
+                    Messages.TryDequeue(out var _);
                 }
-                while (!_cancelTokenSource.IsCancellationRequested);
-            });
-        }
 
-        private static Color GetColor()
-        {
-            var second = DateTime.Now.Second;
-            return (second % 3) switch
-            {
-                1 => Color.Danger,
-                2 => Color.Info,
-                _ => Color.None
-            };
-        }
-
-        private readonly AutoResetEvent _locker = new(true);
-
-        private void OnClear()
-        {
-            _locker.WaitOne();
-            while (!Messages.IsEmpty)
-            {
-                Messages.TryDequeue(out var _);
+                if (ColorMessages.Count > 12)
+                {
+                    ColorMessages.TryDequeue(out var _);
+                }
+                await InvokeAsync(StateHasChanged);
+                _locker.Set();
+                await Task.Delay(2000, _cancelTokenSource.Token);
             }
-            _locker.Set();
-        }
+            while (!_cancelTokenSource.IsCancellationRequested);
+        });
+    }
 
-        private static IEnumerable<AttributeItem> GetItemAttributes()
+    private static Color GetColor()
+    {
+        var second = DateTime.Now.Second;
+        return (second % 3) switch
         {
-            return new AttributeItem[]
-            {
+            1 => Color.Danger,
+            2 => Color.Info,
+            _ => Color.None
+        };
+    }
+
+    private readonly AutoResetEvent _locker = new(true);
+
+    private void OnClear()
+    {
+        _locker.WaitOne();
+        while (!Messages.IsEmpty)
+        {
+            Messages.TryDequeue(out var _);
+        }
+        _locker.Set();
+    }
+
+    private static IEnumerable<AttributeItem> GetItemAttributes()
+    {
+        return new AttributeItem[]
+        {
                 new AttributeItem(){
                     Name = "Message",
                     Description = "控制台输出消息",
@@ -96,17 +96,17 @@ namespace BootstrapBlazor.Shared.Samples
                     ValueList = "None / Active / Primary / Secondary / Success / Danger / Warning / Info / Light / Dark / Link",
                     DefaultValue = "None"
                 }
-            };
-        }
+        };
+    }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        private static IEnumerable<AttributeItem> GetAttributes()
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
+    private static IEnumerable<AttributeItem> GetAttributes()
+    {
+        return new AttributeItem[]
         {
-            return new AttributeItem[]
-            {
                 new AttributeItem(){
                     Name = "Items",
                     Description = "组件数据源",
@@ -170,25 +170,24 @@ namespace BootstrapBlazor.Shared.Samples
                     ValueList = "None / Active / Primary / Secondary / Success / Danger / Warning / Info / Light / Dark / Link",
                     DefaultValue = "Secondary"
                 }
-            };
-        }
+        };
+    }
 
-        private void Dispose(bool disposing)
+    private void Dispose(bool disposing)
+    {
+        if (disposing)
         {
-            if (disposing)
-            {
-                _cancelTokenSource.Cancel();
-                _cancelTokenSource.Dispose();
-            }
+            _cancelTokenSource.Cancel();
+            _cancelTokenSource.Dispose();
         }
+    }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
+    /// <summary>
+    /// 
+    /// </summary>
+    public void Dispose()
+    {
+        Dispose(true);
+        GC.SuppressFinalize(this);
     }
 }

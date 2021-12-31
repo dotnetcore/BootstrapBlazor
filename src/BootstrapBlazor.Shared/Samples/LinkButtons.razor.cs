@@ -13,35 +13,35 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 
-namespace BootstrapBlazor.Shared.Samples
+namespace BootstrapBlazor.Shared.Samples;
+
+/// <summary>
+/// 
+/// </summary>
+public sealed partial class LinkButtons
 {
+    [Inject]
+    [NotNull]
+    private IOptions<WebsiteOptions>? WebsiteOption { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<LinkButtons>? Localizer { get; set; }
+
+    [NotNull]
+    private BlockLogger? Trace { get; set; }
+
+    private void OnClick()
+    {
+        Trace.Log($"{DateTimeOffset.Now}: Clicked!");
+    }
+
     /// <summary>
     /// 
     /// </summary>
-    public sealed partial class LinkButtons
+    /// <returns></returns>
+    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
-        [Inject]
-        [NotNull]
-        private IOptions<WebsiteOptions>? WebsiteOption { get; set; }
-
-        [Inject]
-        [NotNull]
-        private IStringLocalizer<LinkButtons>? Localizer { get; set; }
-
-        [NotNull]
-        private BlockLogger? Trace { get; set; }
-
-        private void OnClick()
-        {
-            Trace.Log($"{DateTimeOffset.Now}: Clicked!");
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-        {
             new AttributeItem(){
                 Name = nameof(LinkButton.Text),
                 Description = Localizer[nameof(LinkButton.Text)],
@@ -91,6 +91,5 @@ namespace BootstrapBlazor.Shared.Samples
                 ValueList = "—",
                 DefaultValue = " — "
             }
-        };
-    }
+    };
 }

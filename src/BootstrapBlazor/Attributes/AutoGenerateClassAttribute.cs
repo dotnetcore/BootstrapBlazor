@@ -4,14 +4,13 @@
 
 using System;
 
-namespace BootstrapBlazor.Components
-{
-    /// <summary>
-    /// 
-    /// </summary>
-    [AttributeUsage(AttributeTargets.Class)]
-    public class AutoGenerateClassAttribute : AutoGenerateBaseAttribute
-    {
+namespace BootstrapBlazor.Components;
 
-    }
+/// <summary>
+/// 
+/// </summary>
+[AttributeUsage(AttributeTargets.Class)]
+public class AutoGenerateClassAttribute : AutoGenerateBaseAttribute
+{
+
 }

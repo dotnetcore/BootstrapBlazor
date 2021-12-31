@@ -8,33 +8,32 @@ using FreeSql;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using System;
 
-namespace Microsoft.Extensions.DependencyInjection
+namespace Microsoft.Extensions.DependencyInjection;
+
+/// <summary>
+/// BootstrapBlazor 服务扩展类
+/// </summary>
+public static class FreeSqlServiceCollectionExtensions
 {
     /// <summary>
-    /// BootstrapBlazor 服务扩展类
+    /// 增加 FreeSql 数据库操作服务
     /// </summary>
-    public static class FreeSqlServiceCollectionExtensions
+    /// <param name="services"></param>
+    /// <param name="optionsAction"></param>
+    /// <param name="configureAction"></param>
+    /// <returns></returns>
+    public static IServiceCollection AddFreeSql(this IServiceCollection services, Action<FreeSqlBuilder> optionsAction, Action<IFreeSql>? configureAction = null)
     {
-        /// <summary>
-        /// 增加 FreeSql 数据库操作服务
-        /// </summary>
-        /// <param name="services"></param>
-        /// <param name="optionsAction"></param>
-        /// <param name="configureAction"></param>
-        /// <returns></returns>
-        public static IServiceCollection AddFreeSql(this IServiceCollection services, Action<FreeSqlBuilder> optionsAction, Action<IFreeSql>? configureAction = null)
+        services.TryAddSingleton<IFreeSql>(sp =>
         {
-            services.TryAddSingleton<IFreeSql>(sp =>
-            {
-                var builder = new FreeSqlBuilder();
-                optionsAction(builder);
-                var instance = builder.Build();
-                configureAction?.Invoke(instance);
-                return instance;
-            });
+            var builder = new FreeSqlBuilder();
+            optionsAction(builder);
+            var instance = builder.Build();
+            configureAction?.Invoke(instance);
+            return instance;
+        });
 
-            services.TryAddSingleton(typeof(IDataService<>), typeof(DefaultDataService<>));
-            return services;
-        }
+        services.TryAddSingleton(typeof(IDataService<>), typeof(DefaultDataService<>));
+        return services;
     }
 }

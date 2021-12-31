@@ -4,27 +4,26 @@
 
 using Microsoft.AspNetCore.Components;
 
-namespace BootstrapBlazor.Components
+namespace BootstrapBlazor.Components;
+
+/// <summary>
+/// 
+/// </summary>
+public sealed partial class GroupBox
 {
+    private string? ClassString => CssBuilder.Default("groupbox")
+        .AddClassFromAttributes(AdditionalAttributes)
+        .Build();
+
     /// <summary>
-    /// 
+    /// 获得/设置 子组件
     /// </summary>
-    public sealed partial class GroupBox
-    {
-        private string? ClassString => CssBuilder.Default("groupbox")
-            .AddClassFromAttributes(AdditionalAttributes)
-            .Build();
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
 
-        /// <summary>
-        /// 获得/设置 子组件
-        /// </summary>
-        [Parameter]
-        public RenderFragment? ChildContent { get; set; }
-
-        /// <summary>
-        /// 获得/设置 Title 属性 默认为 null
-        /// </summary>
-        [Parameter]
-        public string? Title { get; set; }
-    }
+    /// <summary>
+    /// 获得/设置 Title 属性 默认为 null
+    /// </summary>
+    [Parameter]
+    public string? Title { get; set; }
 }

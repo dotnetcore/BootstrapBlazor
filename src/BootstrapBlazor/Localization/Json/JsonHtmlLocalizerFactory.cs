@@ -5,55 +5,54 @@
 using Microsoft.Extensions.Localization;
 using System;
 
-namespace BootstrapBlazor.Localization.Json
+namespace BootstrapBlazor.Localization.Json;
+
+/// <summary>
+/// An <see cref="T:BootstrapBlazor.Localization.Json.IHtmlLocalizerFactory" /> that creates instances of <see cref="T:BootstrapBlazor.Localization.Json.IHtmlLocalizer" /> using the
+/// registered <see cref="T:BootstrapBlazor.Localization.Json.IStringLocalizerFactory" />.
+/// </summary>
+public class JsonHtmlLocalizerFactory : IHtmlLocalizerFactory
 {
+    private readonly IStringLocalizerFactory _stringLocalizerFactory;
+
     /// <summary>
-    /// An <see cref="T:BootstrapBlazor.Localization.Json.IHtmlLocalizerFactory" /> that creates instances of <see cref="T:BootstrapBlazor.Localization.Json.IHtmlLocalizer" /> using the
-    /// registered <see cref="T:BootstrapBlazor.Localization.Json.IStringLocalizerFactory" />.
+    /// Creates a new <see cref="T:BootstrapBlazor.Localization.Json.JsonHtmlLocalizerFactory" />.
     /// </summary>
-    public class JsonHtmlLocalizerFactory : IHtmlLocalizerFactory
+    /// <param name="stringLocalizerFactory"></param>
+    public JsonHtmlLocalizerFactory(IStringLocalizerFactory stringLocalizerFactory)
     {
-        private readonly IStringLocalizerFactory _stringLocalizerFactory;
+        _stringLocalizerFactory = stringLocalizerFactory;
+    }
 
-        /// <summary>
-        /// Creates a new <see cref="T:BootstrapBlazor.Localization.Json.JsonHtmlLocalizerFactory" />.
-        /// </summary>
-        /// <param name="stringLocalizerFactory"></param>
-        public JsonHtmlLocalizerFactory(IStringLocalizerFactory stringLocalizerFactory)
+    /// <summary>
+    /// Creates an <see cref="T:BootstrapBlazor.Localization.Json.IHtmlLocalizer" /> using the specified <see cref="T:System.Type" />.
+    /// </summary>
+    /// <param name="resourceSource"></param>
+    /// <returns></returns>
+    public IHtmlLocalizer Create(Type resourceSource)
+        => new HtmlLocalizer(_stringLocalizerFactory.Create(resourceSource));
+
+    /// <summary>
+    /// Creates an <see cref="T:BootstrapBlazor.Localization.Json.IHtmlLocalizer" /> using the specified base name and location.
+    /// </summary>
+    /// <param name="baseName">The base name of the resource to load strings from.</param>
+    /// <param name="location">The location to load resources from.</param>
+    /// <returns>The <see cref="T:BootstrapBlazor.Localization.Json.IHtmlLocalizer" />.</returns>
+    public IHtmlLocalizer Create(string baseName, string location)
+    {
+        var index = 0;
+        if (baseName.StartsWith(location, StringComparison.OrdinalIgnoreCase))
         {
-            _stringLocalizerFactory = stringLocalizerFactory;
+            index = location.Length;
         }
 
-        /// <summary>
-        /// Creates an <see cref="T:BootstrapBlazor.Localization.Json.IHtmlLocalizer" /> using the specified <see cref="T:System.Type" />.
-        /// </summary>
-        /// <param name="resourceSource"></param>
-        /// <returns></returns>
-        public IHtmlLocalizer Create(Type resourceSource)
-            => new HtmlLocalizer(_stringLocalizerFactory.Create(resourceSource));
-
-        /// <summary>
-        /// Creates an <see cref="T:BootstrapBlazor.Localization.Json.IHtmlLocalizer" /> using the specified base name and location.
-        /// </summary>
-        /// <param name="baseName">The base name of the resource to load strings from.</param>
-        /// <param name="location">The location to load resources from.</param>
-        /// <returns>The <see cref="T:BootstrapBlazor.Localization.Json.IHtmlLocalizer" />.</returns>
-        public IHtmlLocalizer Create(string baseName, string location)
+        if (baseName.Length > index && baseName[index] == '.')
         {
-            var index = 0;
-            if (baseName.StartsWith(location, StringComparison.OrdinalIgnoreCase))
-            {
-                index = location.Length;
-            }
-
-            if (baseName.Length > index && baseName[index] == '.')
-            {
-                index += 1;
-            }
-
-            var relativeName = baseName.Substring(index);
-
-            return new HtmlLocalizer(_stringLocalizerFactory.Create(baseName, location));
+            index += 1;
         }
+
+        var relativeName = baseName.Substring(index);
+
+        return new HtmlLocalizer(_stringLocalizerFactory.Create(baseName, location));
     }
 }

@@ -12,139 +12,139 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BootstrapBlazor.Shared.Shared
+namespace BootstrapBlazor.Shared.Shared;
+
+/// <summary>
+/// 
+/// </summary>
+public sealed partial class NavMenu
 {
+    private bool collapseNavMenu = true;
+
+    private bool IsAccordion { get; set; }
+
+    private bool IsExpandAll { get; set; }
+
+    [NotNull]
+    private string? AccordionText { get; set; }
+
+    [NotNull]
+    private string? ExpandAllText { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<App>? AppLocalizer { get; set; }
+
+    [Inject]
+    [NotNull]
+    private TitleService? TitleService { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<NavMenu>? Localizer { get; set; }
+
+    private string? NavMenuCssClass => CssBuilder.Default("sidebar-content")
+        .AddClass("collapse", collapseNavMenu)
+        .Build();
+
+    private List<MenuItem> Menus { get; set; } = new List<MenuItem>(100);
+
     /// <summary>
-    /// 
+    ///
     /// </summary>
-    public sealed partial class NavMenu
+    protected override void OnInitialized()
     {
-        private bool collapseNavMenu = true;
+        base.OnInitialized();
 
-        private bool IsAccordion { get; set; }
+        InitMenus();
 
-        private bool IsExpandAll { get; set; }
+        AccordionText ??= Localizer["MenuAccordion"];
+        ExpandAllText ??= Localizer["MenuExpandAll"];
+    }
 
-        [NotNull]
-        private string? AccordionText { get; set; }
-
-        [NotNull]
-        private string? ExpandAllText { get; set; }
-
-        [Inject]
-        [NotNull]
-        private IStringLocalizer<App>? AppLocalizer { get; set; }
-
-        [Inject]
-        [NotNull]
-        private TitleService? TitleService { get; set; }
-
-        [Inject]
-        [NotNull]
-        private IStringLocalizer<NavMenu>? Localizer { get; set; }
-
-        private string? NavMenuCssClass => CssBuilder.Default("sidebar-content")
-            .AddClass("collapse", collapseNavMenu)
-            .Build();
-
-        private List<MenuItem> Menus { get; set; } = new List<MenuItem>(100);
-
-        /// <summary>
-        ///
-        /// </summary>
-        protected override void OnInitialized()
+    private async Task OnClickMenu(MenuItem item)
+    {
+        if (!item.Items.Any())
         {
-            base.OnInitialized();
-
-            InitMenus();
-
-            AccordionText ??= Localizer["MenuAccordion"];
-            ExpandAllText ??= Localizer["MenuExpandAll"];
+            ToggleNavMenu();
+            StateHasChanged();
         }
 
-        private async Task OnClickMenu(MenuItem item)
+        if (!item.Items.Any() && !string.IsNullOrEmpty(item.Text))
         {
-            if (!item.Items.Any())
-            {
-                ToggleNavMenu();
-                StateHasChanged();
-            }
-
-            if (!item.Items.Any() && !string.IsNullOrEmpty(item.Text))
-            {
-                await TitleService.SetTitle($"{item.Text} - {AppLocalizer["Title"]}");
-            }
+            await TitleService.SetTitle($"{item.Text} - {AppLocalizer["Title"]}");
         }
+    }
 
-        private void ToggleNavMenu()
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+
+    private void InitMenus()
+    {
+        // 快速入门
+        var item = new DemoMenuItem()
         {
-            collapseNavMenu = !collapseNavMenu;
-        }
+            Text = Localizer["GetStarted"],
+            Icon = "fa fa-fw fa-fa"
+        };
+        AddQuickStar(item);
 
-        private void InitMenus()
+        item = new DemoMenuItem()
         {
-            // 快速入门
-            var item = new DemoMenuItem()
-            {
-                Text = Localizer["GetStarted"],
-                Icon = "fa fa-fw fa-fa"
-            };
-            AddQuickStar(item);
+            Text = Localizer["LayoutComponents"],
+            Icon = "fa fa-fw fa-desktop"
+        };
+        AddLayout(item);
 
-            item = new DemoMenuItem()
-            {
-                Text = Localizer["LayoutComponents"],
-                Icon = "fa fa-fw fa-desktop"
-            };
-            AddLayout(item);
-
-            item = new DemoMenuItem()
-            {
-                Text = Localizer["NavigationComponents"],
-                Icon = "fa fa-fw fa-bars"
-            };
-            AddNavigation(item);
-
-            item = new DemoMenuItem()
-            {
-                Text = Localizer["FormsComponents"],
-                Icon = "fa fa-fw fa-cubes"
-            };
-            AddForm(item);
-
-            item = new DemoMenuItem()
-            {
-                Text = Localizer["DataComponents"],
-                Icon = "fa fa-fw fa-database"
-            };
-            AddData(item);
-
-            item = new DemoMenuItem()
-            {
-                Text = Localizer["Charts"],
-                Icon = "fa fa-fw fa-line-chart"
-            };
-            AddChart(item);
-
-            item = new DemoMenuItem()
-            {
-                Text = Localizer["NotificationComponents"],
-                Icon = "fa fa-fw fa-comments"
-            };
-            AddNotice(item);
-
-            item = new DemoMenuItem()
-            {
-                Text = Localizer["Components"],
-                Icon = "fa fa-fw fa-fa",
-                Url = "components"
-            };
-            AddSummary(item);
-        }
-
-        private void AddQuickStar(DemoMenuItem item)
+        item = new DemoMenuItem()
         {
-            item.Items = new List<DemoMenuItem>
+            Text = Localizer["NavigationComponents"],
+            Icon = "fa fa-fw fa-bars"
+        };
+        AddNavigation(item);
+
+        item = new DemoMenuItem()
+        {
+            Text = Localizer["FormsComponents"],
+            Icon = "fa fa-fw fa-cubes"
+        };
+        AddForm(item);
+
+        item = new DemoMenuItem()
+        {
+            Text = Localizer["DataComponents"],
+            Icon = "fa fa-fw fa-database"
+        };
+        AddData(item);
+
+        item = new DemoMenuItem()
+        {
+            Text = Localizer["Charts"],
+            Icon = "fa fa-fw fa-line-chart"
+        };
+        AddChart(item);
+
+        item = new DemoMenuItem()
+        {
+            Text = Localizer["NotificationComponents"],
+            Icon = "fa fa-fw fa-comments"
+        };
+        AddNotice(item);
+
+        item = new DemoMenuItem()
+        {
+            Text = Localizer["Components"],
+            Icon = "fa fa-fw fa-fa",
+            Url = "components"
+        };
+        AddSummary(item);
+    }
+
+    private void AddQuickStar(DemoMenuItem item)
+    {
+        item.Items = new List<DemoMenuItem>
             {
                 new()
                 {
@@ -213,12 +213,12 @@ namespace BootstrapBlazor.Shared.Shared
                     Url = "layout-page"
                 }
             };
-            AddBadge(item, count: 0);
-        }
+        AddBadge(item, count: 0);
+    }
 
-        private void AddForm(DemoMenuItem item)
-        {
-            item.Items = new List<DemoMenuItem>
+    private void AddForm(DemoMenuItem item)
+    {
+        item.Items = new List<DemoMenuItem>
             {
                 new()
                 {
@@ -352,19 +352,19 @@ namespace BootstrapBlazor.Shared.Shared
                     Url = "validateforms"
                 }
             };
-            AddBadge(item);
-        }
+        AddBadge(item);
+    }
 
-        private void AddData(DemoMenuItem item)
+    private void AddData(DemoMenuItem item)
+    {
+        var tableItem = new DemoMenuItem()
         {
-            var tableItem = new DemoMenuItem()
-            {
-                Text = Localizer["Table"],
-                Items = TableItems()
-            };
-            AddBadge(tableItem, false);
+            Text = Localizer["Table"],
+            Items = TableItems()
+        };
+        AddBadge(tableItem, false);
 
-            item.Items = new List<DemoMenuItem>
+        item.Items = new List<DemoMenuItem>
             {
                 new()
                 {
@@ -524,12 +524,12 @@ namespace BootstrapBlazor.Shared.Shared
                     Url = "transitions"
                 },
             };
-            AddBadge(item);
-        }
+        AddBadge(item);
+    }
 
-        private void AddChart(DemoMenuItem item)
-        {
-            item.Items = new List<DemoMenuItem>
+    private void AddChart(DemoMenuItem item)
+    {
+        item.Items = new List<DemoMenuItem>
             {
                 new()
                 {
@@ -562,12 +562,12 @@ namespace BootstrapBlazor.Shared.Shared
                     Url = "charts/bubble"
                 }
             };
-            AddBadge(item);
-        }
+        AddBadge(item);
+    }
 
-        private IEnumerable<DemoMenuItem> TableItems()
-        {
-            var item = new List<DemoMenuItem>
+    private IEnumerable<DemoMenuItem> TableItems()
+    {
+        var item = new List<DemoMenuItem>
             {
                 new()
                 {
@@ -705,12 +705,12 @@ namespace BootstrapBlazor.Shared.Shared
                 }
             };
 
-            return item;
-        }
+        return item;
+    }
 
-        private void AddNotice(DemoMenuItem item)
-        {
-            item.Items = new List<DemoMenuItem>
+    private void AddNotice(DemoMenuItem item)
+    {
+        item.Items = new List<DemoMenuItem>
             {
                 new()
                 {
@@ -805,12 +805,12 @@ namespace BootstrapBlazor.Shared.Shared
                     Url = "tooltips"
                 }
             };
-            AddBadge(item);
-        }
+        AddBadge(item);
+    }
 
-        private void AddNavigation(DemoMenuItem item)
-        {
-            item.Items = new List<DemoMenuItem>
+    private void AddNavigation(DemoMenuItem item)
+    {
+        item.Items = new List<DemoMenuItem>
             {
                 new()
                 {
@@ -877,12 +877,12 @@ namespace BootstrapBlazor.Shared.Shared
                 }
             };
 
-            AddBadge(item);
-        }
+        AddBadge(item);
+    }
 
-        private void AddLayout(DemoMenuItem item)
-        {
-            item.Items = new List<DemoMenuItem>
+    private void AddLayout(DemoMenuItem item)
+    {
+        item.Items = new List<DemoMenuItem>
             {
                 new()
                 {
@@ -920,47 +920,46 @@ namespace BootstrapBlazor.Shared.Shared
                     Url = "splits"
                 }
             };
-            AddBadge(item);
+        AddBadge(item);
+    }
+
+    private void AddSummary(DemoMenuItem item)
+    {
+        // 计算组件总数
+        var count = 0;
+        count = Menus.Aggregate(count, (c, item) => { c += item.Items.Count(); return c; }, c => c - Menus[0].Items.Count());
+        AddBadge(item, false, count);
+        Menus.Insert(1, item);
+    }
+
+    private void AddBadge(DemoMenuItem item, bool append = true, int? count = null)
+    {
+        item.Template = CreateBadge(count ?? item.Items.Count(),
+           isNew: item.Items.OfType<DemoMenuItem>().Any(i => i.IsNew),
+           isUpdate: item.Items.OfType<DemoMenuItem>().Any(i => i.IsUpdate)).Render();
+        foreach (var menu in item.GetAllSubItems().OfType<DemoMenuItem>().Where(i => ShouldBadge(i)))
+        {
+            menu.Template = CreateBadge(0, menu.IsNew, menu.IsUpdate).Render();
+        }
+        if (append)
+        {
+            Menus.Add(item);
         }
 
-        private void AddSummary(DemoMenuItem item)
-        {
-            // 计算组件总数
-            var count = 0;
-            count = Menus.Aggregate(count, (c, item) => { c += item.Items.Count(); return c; }, c => c - Menus[0].Items.Count());
-            AddBadge(item, false, count);
-            Menus.Insert(1, item);
-        }
+        static bool ShouldBadge(DemoMenuItem? item) => item != null && (item.IsNew || item.IsUpdate);
+    }
 
-        private void AddBadge(DemoMenuItem item, bool append = true, int? count = null)
-        {
-            item.Template = CreateBadge(count ?? item.Items.Count(),
-               isNew: item.Items.OfType<DemoMenuItem>().Any(i => i.IsNew),
-               isUpdate: item.Items.OfType<DemoMenuItem>().Any(i => i.IsUpdate)).Render();
-            foreach (var menu in item.GetAllSubItems().OfType<DemoMenuItem>().Where(i => ShouldBadge(i)))
-            {
-                menu.Template = CreateBadge(0, menu.IsNew, menu.IsUpdate).Render();
-            }
-            if (append)
-            {
-                Menus.Add(item);
-            }
+    private static BootstrapDynamicComponent CreateBadge(int count, bool isNew = false, bool isUpdate = false) => BootstrapDynamicComponent.CreateComponent<State>(new Dictionary<string, object?>
+    {
+        [nameof(State.Count)] = count,
+        [nameof(State.IsNew)] = isNew,
+        [nameof(State.IsUpdate)] = isUpdate
+    });
 
-            static bool ShouldBadge(DemoMenuItem? item) => item != null && (item.IsNew || item.IsUpdate);
-        }
+    private class DemoMenuItem : MenuItem
+    {
+        public bool IsNew { get; set; }
 
-        private static BootstrapDynamicComponent CreateBadge(int count, bool isNew = false, bool isUpdate = false) => BootstrapDynamicComponent.CreateComponent<State>(new Dictionary<string, object?>
-        {
-            [nameof(State.Count)] = count,
-            [nameof(State.IsNew)] = isNew,
-            [nameof(State.IsUpdate)] = isUpdate
-        });
-
-        private class DemoMenuItem : MenuItem
-        {
-            public bool IsNew { get; set; }
-
-            public bool IsUpdate { get; set; }
-        }
+        public bool IsUpdate { get; set; }
     }
 }

@@ -9,34 +9,34 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 
-namespace BootstrapBlazor.Shared.Samples.Charts
+namespace BootstrapBlazor.Shared.Samples.Charts;
+
+/// <summary>
+/// 
+/// </summary>
+public sealed partial class Index
 {
+    [Inject]
+    [NotNull]
+    private VersionService? VersionManager { get; set; }
+
+    private string Version { get; set; } = "fetching";
+
     /// <summary>
-    /// 
+    /// OnInitializedAsync 方法
     /// </summary>
-    public sealed partial class Index
+    /// <returns></returns>
+    protected override async Task OnInitializedAsync()
     {
-        [Inject]
-        [NotNull]
-        private VersionService? VersionManager { get; set; }
+        Version = await VersionManager.GetVersionAsync("bootstrapblazor.chart");
+    }
 
-        private string Version { get; set; } = "fetching";
-
-        /// <summary>
-        /// OnInitializedAsync 方法
-        /// </summary>
-        /// <returns></returns>
-        protected override async Task OnInitializedAsync()
-        {
-            Version = await VersionManager.GetVersionAsync("bootstrapblazor.chart");
-        }
-
-        /// <summary>
-        /// 获得事件方法
-        /// </summary>
-        /// <returns></returns>
-        private static IEnumerable<EventItem> GetEvents() => new EventItem[]
-        {
+    /// <summary>
+    /// 获得事件方法
+    /// </summary>
+    /// <returns></returns>
+    private static IEnumerable<EventItem> GetEvents() => new EventItem[]
+    {
             new EventItem()
             {
                 Name = "OnInitAsync",
@@ -55,14 +55,14 @@ namespace BootstrapBlazor.Shared.Samples.Charts
                 Description="客户端更新图表完毕后回调此委托方法",
                 Type ="Func<ChartAction, Task>"
             }
-        };
+    };
 
-        /// <summary>
-        /// 获得属性方法
-        /// </summary>
-        /// <returns></returns>
-        private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-        {
+    /// <summary>
+    /// 获得属性方法
+    /// </summary>
+    /// <returns></returns>
+    private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+    {
             // TODO: 移动到数据库中
             new AttributeItem() {
                 Name = "Width",
@@ -78,6 +78,5 @@ namespace BootstrapBlazor.Shared.Samples.Charts
                 ValueList = "Line|Bar|Pie|Doughnut|Bubble",
                 DefaultValue = "Line"
             }
-        };
-    }
+    };
 }

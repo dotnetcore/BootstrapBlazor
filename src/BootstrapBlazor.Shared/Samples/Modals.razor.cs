@@ -7,55 +7,55 @@ using BootstrapBlazor.Shared.Common;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
-namespace BootstrapBlazor.Shared.Samples
+namespace BootstrapBlazor.Shared.Samples;
+
+/// <summary>
+/// 
+/// </summary>
+public sealed partial class Modals
 {
+    [NotNull]
+    private Modal? Modal { get; set; }
+
+    [NotNull]
+    private Modal? BackdropModal { get; set; }
+
+    [NotNull]
+    private Modal? SmailModal { get; set; }
+
+    [NotNull]
+    private Modal? LargeModal { get; set; }
+
+    [NotNull]
+    private Modal? ExtraLargeModal { get; set; }
+
+    [NotNull]
+    private Modal? CenterModal { get; set; }
+
+    [NotNull]
+    private Modal? LongContentModal { get; set; }
+
+    [NotNull]
+    private Modal? ScrollModal { get; set; }
+
+    [NotNull]
+    private Modal? DragModal { get; set; }
+
+    private bool IsKeyboard { get; set; }
+
+    private void OnClickKeyboard()
+    {
+        IsKeyboard = !IsKeyboard;
+    }
+
     /// <summary>
     /// 
     /// </summary>
-    public sealed partial class Modals
+    /// <returns></returns>
+    private static IEnumerable<AttributeItem> GetAttributes()
     {
-        [NotNull]
-        private Modal? Modal { get; set; }
-
-        [NotNull]
-        private Modal? BackdropModal { get; set; }
-
-        [NotNull]
-        private Modal? SmailModal { get; set; }
-
-        [NotNull]
-        private Modal? LargeModal { get; set; }
-
-        [NotNull]
-        private Modal? ExtraLargeModal { get; set; }
-
-        [NotNull]
-        private Modal? CenterModal { get; set; }
-
-        [NotNull]
-        private Modal? LongContentModal { get; set; }
-
-        [NotNull]
-        private Modal? ScrollModal { get; set; }
-
-        [NotNull]
-        private Modal? DragModal { get; set; }
-
-        private bool IsKeyboard { get; set; }
-
-        private void OnClickKeyboard()
+        return new AttributeItem[]
         {
-            IsKeyboard = !IsKeyboard;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        private static IEnumerable<AttributeItem> GetAttributes()
-        {
-            return new AttributeItem[]
-            {
                 new AttributeItem() {
                     Name = "HeaderTemplate",
                     Description = "模态主体 ModalHeader 模板",
@@ -154,7 +154,6 @@ namespace BootstrapBlazor.Shared.Samples
                     ValueList = " — ",
                     DefaultValue = " 未设置 "
                 },
-            };
-        }
+        };
     }
 }

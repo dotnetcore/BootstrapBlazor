@@ -5,19 +5,19 @@
 using BootstrapBlazor.Shared.Common;
 using System.Collections.Generic;
 
-namespace BootstrapBlazor.Shared.Samples
+namespace BootstrapBlazor.Shared.Samples;
+
+/// <summary>
+/// 
+/// </summary>
+public sealed partial class Splits
 {
     /// <summary>
-    /// 
+    /// 获得属性方法
     /// </summary>
-    public sealed partial class Splits
+    /// <returns></returns>
+    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
-        /// <summary>
-        /// 获得属性方法
-        /// </summary>
-        /// <returns></returns>
-        private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-        {
             // TODO: 移动到数据库中
             new AttributeItem() {
                 Name = "IsVertical",
@@ -47,6 +47,5 @@ namespace BootstrapBlazor.Shared.Samples
                 ValueList = " — ",
                 DefaultValue = " — "
             }
-        };
-    }
+    };
 }

@@ -5,15 +5,15 @@
 using BootstrapBlazor.Shared.Common;
 using System.Collections.Generic;
 
-namespace BootstrapBlazor.Shared.Samples
+namespace BootstrapBlazor.Shared.Samples;
+
+/// <summary>
+/// 
+/// </summary>
+public partial class AnchorLinks
 {
-    /// <summary>
-    /// 
-    /// </summary>
-    public partial class AnchorLinks
+    private static IEnumerable<AttributeItem> GetAttributes() => new[]
     {
-        private static IEnumerable<AttributeItem> GetAttributes() => new[]
-        {
             // TODO: 移动到数据库中
             new AttributeItem() {
                 Name = "Id",
@@ -37,5 +37,4 @@ namespace BootstrapBlazor.Shared.Samples
                 DefaultValue = " — "
             }
         };
-    }
 }

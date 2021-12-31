@@ -4,29 +4,28 @@
 
 using Microsoft.AspNetCore.Components;
 
-namespace BootstrapBlazor.Components
+namespace BootstrapBlazor.Components;
+
+/// <summary>
+/// 
+/// </summary>
+public partial class SkeletonTable
 {
     /// <summary>
-    /// 
+    /// 获得/设置 行数 默认 7 行
     /// </summary>
-    public partial class SkeletonTable
-    {
-        /// <summary>
-        /// 获得/设置 行数 默认 7 行
-        /// </summary>
-        [Parameter]
-        public int Rows { get; set; } = 7;
+    [Parameter]
+    public int Rows { get; set; } = 7;
 
-        /// <summary>
-        /// 获得/设置 行数 默认 3 列
-        /// </summary>
-        [Parameter]
-        public int Columns { get; set; } = 3;
+    /// <summary>
+    /// 获得/设置 行数 默认 3 列
+    /// </summary>
+    [Parameter]
+    public int Columns { get; set; } = 3;
 
-        /// <summary>
-        /// 获得/设置 是否显示工具栏
-        /// </summary>
-        [Parameter]
-        public bool ShowToolbar { get; set; } = true;
-    }
+    /// <summary>
+    /// 获得/设置 是否显示工具栏
+    /// </summary>
+    [Parameter]
+    public bool ShowToolbar { get; set; } = true;
 }

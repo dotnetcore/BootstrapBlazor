@@ -14,156 +14,156 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BootstrapBlazor.Shared.Samples
+namespace BootstrapBlazor.Shared.Samples;
+
+/// <summary>
+/// 
+/// </summary>
+public sealed partial class Trees
 {
-    /// <summary>
-    /// 
-    /// </summary>
-    public sealed partial class Trees
+    [NotNull]
+    private BlockLogger? Trace { get; set; }
+
+    [NotNull]
+    private BlockLogger? TraceChecked { get; set; }
+
+    [NotNull]
+    private BlockLogger? TraceCheckedItems { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<Foo>? Localizer { get; set; }
+
+    private Foo Model => Foo.Generate(Localizer);
+
+    private List<TreeItem> Items { get; set; } = TreeDataFoo.GetTreeItems();
+
+    private List<TreeItem> CheckedItems { get; set; } = GetCheckedItems();
+
+    private static List<TreeItem> GetCheckedItems()
     {
-        [NotNull]
-        private BlockLogger? Trace { get; set; }
+        var ret = TreeDataFoo.GetTreeItems();
+        ret[1].Items[1].Checked = true;
+        return ret;
+    }
 
-        [NotNull]
-        private BlockLogger? TraceChecked { get; set; }
+    private List<TreeItem> DisabledItems { get; set; } = GetDisabledItems();
 
-        [NotNull]
-        private BlockLogger? TraceCheckedItems { get; set; }
+    private static List<TreeItem> GetDisabledItems()
+    {
+        var ret = TreeDataFoo.GetTreeItems();
+        ret[1].Items[1].IsDisabled = true;
+        return ret;
+    }
 
+    private static List<TreeItem> GetIconItems()
+    {
+        var ret = TreeDataFoo.GetTreeItems();
+        ret[1].Items[0].Icon = "fa fa-fa";
+        ret[1].Items[1].Icon = "fa fa-fa";
+        ret[1].Items[2].Icon = "fa fa-fa";
+        return ret;
+    }
+
+    private static List<TreeItem> GetLazyItems()
+    {
+        var ret = TreeDataFoo.GetTreeItems();
+        ret[1].Items[0].IsExpanded = true;
+        ret[1].Items[1].Text = "懒加载";
+        ret[1].Items[1].HasChildNode = true;
+        ret[1].Items[2].Text = "懒加载延时";
+        ret[1].Items[2].HasChildNode = true;
+        ret[1].Items[2].Key = "Delay";
+
+        return ret;
+    }
+
+    private static List<TreeItem> GetTemplateItems()
+    {
+        var ret = TreeDataFoo.GetTreeItems();
+        ret[0].Template = BootstrapDynamicComponent.CreateComponent<CustomerTreeItem>().Render();
+        return ret;
+    }
+
+    private static List<TreeItem> GetColorItems()
+    {
+        var ret = TreeDataFoo.GetTreeItems();
+        ret[0].CssClass = "text-primary";
+        ret[1].CssClass = "text-success";
+        ret[2].CssClass = "text-danger";
+        return ret;
+    }
+
+    private class CustomerTreeItem : ComponentBase
+    {
         [Inject]
         [NotNull]
-        private IStringLocalizer<Foo>? Localizer { get; set; }
+        private ToastService? ToastService { get; set; }
 
-        private Foo Model => Foo.Generate(Localizer);
-
-        private List<TreeItem> Items { get; set; } = TreeDataFoo.GetTreeItems();
-
-        private List<TreeItem> CheckedItems { get; set; } = GetCheckedItems();
-
-        private static List<TreeItem> GetCheckedItems()
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="builder"></param>
+        protected override void BuildRenderTree(RenderTreeBuilder builder)
         {
-            var ret = TreeDataFoo.GetTreeItems();
-            ret[1].Items[1].Checked = true;
-            return ret;
-        }
-
-        private List<TreeItem> DisabledItems { get; set; } = GetDisabledItems();
-
-        private static List<TreeItem> GetDisabledItems()
-        {
-            var ret = TreeDataFoo.GetTreeItems();
-            ret[1].Items[1].IsDisabled = true;
-            return ret;
-        }
-
-        private static List<TreeItem> GetIconItems()
-        {
-            var ret = TreeDataFoo.GetTreeItems();
-            ret[1].Items[0].Icon = "fa fa-fa";
-            ret[1].Items[1].Icon = "fa fa-fa";
-            ret[1].Items[2].Icon = "fa fa-fa";
-            return ret;
-        }
-
-        private static List<TreeItem> GetLazyItems()
-        {
-            var ret = TreeDataFoo.GetTreeItems();
-            ret[1].Items[0].IsExpanded = true;
-            ret[1].Items[1].Text = "懒加载";
-            ret[1].Items[1].HasChildNode = true;
-            ret[1].Items[2].Text = "懒加载延时";
-            ret[1].Items[2].HasChildNode = true;
-            ret[1].Items[2].Key = "Delay";
-
-            return ret;
-        }
-
-        private static List<TreeItem> GetTemplateItems()
-        {
-            var ret = TreeDataFoo.GetTreeItems();
-            ret[0].Template = BootstrapDynamicComponent.CreateComponent<CustomerTreeItem>().Render();
-            return ret;
-        }
-
-        private static List<TreeItem> GetColorItems()
-        {
-            var ret = TreeDataFoo.GetTreeItems();
-            ret[0].CssClass = "text-primary";
-            ret[1].CssClass = "text-success";
-            ret[2].CssClass = "text-danger";
-            return ret;
-        }
-
-        private class CustomerTreeItem : ComponentBase
-        {
-            [Inject]
-            [NotNull]
-            private ToastService? ToastService { get; set; }
-
-            /// <summary>
-            /// 
-            /// </summary>
-            /// <param name="builder"></param>
-            protected override void BuildRenderTree(RenderTreeBuilder builder)
+            builder.OpenComponent<Button>(0);
+            builder.AddAttribute(1, nameof(Button.Icon), "fa fa-fa");
+            builder.AddAttribute(2, nameof(Button.Text), "Click");
+            builder.AddAttribute(3, nameof(Button.OnClick), EventCallback.Factory.Create<MouseEventArgs>(this, e =>
             {
-                builder.OpenComponent<Button>(0);
-                builder.AddAttribute(1, nameof(Button.Icon), "fa fa-fa");
-                builder.AddAttribute(2, nameof(Button.Text), "Click");
-                builder.AddAttribute(3, nameof(Button.OnClick), EventCallback.Factory.Create<MouseEventArgs>(this, e =>
-                {
-                    ToastService.Warning("自定义 TreeItem", "测试 TreeItem 按钮点击事件");
-                }));
-                builder.CloseComponent();
+                ToastService.Warning("自定义 TreeItem", "测试 TreeItem 按钮点击事件");
+            }));
+            builder.CloseComponent();
+        }
+    }
+
+    private Task OnTreeItemClick(TreeItem item)
+    {
+        Trace.Log($"TreeItem: {item.Text} clicked");
+        return Task.CompletedTask;
+    }
+
+    private Task OnTreeItemChecked(TreeItem item)
+    {
+        var state = item.Checked ? "选中" : "未选中";
+        TraceChecked.Log($"TreeItem: {item.Text} {state}");
+        return Task.CompletedTask;
+    }
+
+    private static async Task OnExpandNode(TreeItem item)
+    {
+        if (!item.Items.Any() && item.HasChildNode && !item.ShowLoading)
+        {
+            item.ShowLoading = true;
+            if (item.Key?.ToString() == "Delay")
+            {
+                await Task.Delay(800);
             }
-        }
-
-        private Task OnTreeItemClick(TreeItem item)
-        {
-            Trace.Log($"TreeItem: {item.Text} clicked");
-            return Task.CompletedTask;
-        }
-
-        private Task OnTreeItemChecked(TreeItem item)
-        {
-            var state = item.Checked ? "选中" : "未选中";
-            TraceChecked.Log($"TreeItem: {item.Text} {state}");
-            return Task.CompletedTask;
-        }
-
-        private static async Task OnExpandNode(TreeItem item)
-        {
-            if (!item.Items.Any() && item.HasChildNode && !item.ShowLoading)
+            item.Items.AddRange(new TreeItem[]
             {
-                item.ShowLoading = true;
-                if (item.Key?.ToString() == "Delay")
-                {
-                    await Task.Delay(800);
-                }
-                item.Items.AddRange(new TreeItem[]
-                {
                     new TreeItem()
                     {
                         Text = "懒加载子节点1",
                         HasChildNode = true
                     },
                     new TreeItem() { Text = "懒加载子节点2" }
-                });
-                item.ShowLoading = false;
-            }
+            });
+            item.ShowLoading = false;
         }
+    }
 
-        private Task OnTreeItemChecked(List<TreeItem> items)
-        {
-            TraceCheckedItems.Log($"当前共选中{items.Count}项");
-            return Task.CompletedTask;
-        }
+    private Task OnTreeItemChecked(List<TreeItem> items)
+    {
+        TraceCheckedItems.Log($"当前共选中{items.Count}项");
+        return Task.CompletedTask;
+    }
 
-        /// <summary>
-        /// 获得属性方法
-        /// </summary>
-        /// <returns></returns>
-        private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-        {
+    /// <summary>
+    /// 获得属性方法
+    /// </summary>
+    /// <returns></returns>
+    private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+    {
             // TODO: 移动到数据库中
             new AttributeItem() {
                 Name = "Items",
@@ -228,10 +228,10 @@ namespace BootstrapBlazor.Shared.Samples
                 ValueList = " — ",
                 DefaultValue = " — "
             }
-        };
+    };
 
-        private static IEnumerable<AttributeItem> GetTreeItemAttributes() => new AttributeItem[]
-        {
+    private static IEnumerable<AttributeItem> GetTreeItemAttributes() => new AttributeItem[]
+    {
             // TODO: 移动到数据库中
             new AttributeItem() {
                 Name = nameof(TreeItem.Key),
@@ -318,6 +318,5 @@ namespace BootstrapBlazor.Shared.Samples
                 ValueList = " — ",
                 DefaultValue = " — "
             }
-        };
-    }
+    };
 }

@@ -10,39 +10,38 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BootstrapBlazor.Shared.Samples.Table
+namespace BootstrapBlazor.Shared.Samples.Table;
+
+/// <summary>
+/// 
+/// </summary>
+public partial class TablesVirtualization
 {
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<Foo>? Localizer { get; set; }
+
+    [NotNull]
+    private List<Foo>? Items { get; set; }
+
     /// <summary>
-    /// 
+    /// OnInitialized 方法
     /// </summary>
-    public partial class TablesVirtualization
+    protected override void OnInitialized()
     {
-        [Inject]
-        [NotNull]
-        private IStringLocalizer<Foo>? Localizer { get; set; }
+        base.OnInitialized();
 
-        [NotNull]
-        private List<Foo>? Items { get; set; }
+        Items = Foo.GenerateFoo(Localizer);
+    }
 
-        /// <summary>
-        /// OnInitialized 方法
-        /// </summary>
-        protected override void OnInitialized()
+    private async Task<QueryData<Foo>> OnQueryAsync(QueryPageOptions options)
+    {
+        await Task.Delay(200);
+        var items = Items.Skip(options.StartIndex).Take(options.PageItems);
+        return new QueryData<Foo>()
         {
-            base.OnInitialized();
-
-            Items = Foo.GenerateFoo(Localizer);
-        }
-
-        private async Task<QueryData<Foo>> OnQueryAsync(QueryPageOptions options)
-        {
-            await Task.Delay(200);
-            var items = Items.Skip(options.StartIndex).Take(options.PageItems);
-            return new QueryData<Foo>()
-            {
-                Items = items,
-                TotalCount = Items.Count
-            };
-        }
+            Items = items,
+            TotalCount = Items.Count
+        };
     }
 }

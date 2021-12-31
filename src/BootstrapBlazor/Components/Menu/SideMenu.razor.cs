@@ -9,61 +9,60 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 
-namespace BootstrapBlazor.Components
+namespace BootstrapBlazor.Components;
+
+/// <summary>
+/// 
+/// </summary>
+public partial class SideMenu
 {
+    private string? GetMenuClassString => CssBuilder.Default("submenu")
+        .AddClassFromAttributes(AdditionalAttributes)
+        .Build();
+
     /// <summary>
-    /// 
+    /// 获得/设置 菜单数据集合
     /// </summary>
-    public partial class SideMenu
+    [Parameter]
+    public IEnumerable<MenuItem> Items { get; set; } = Array.Empty<MenuItem>();
+
+    /// <summary>
+    /// 获得/设置 菜单项点击回调委托
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public Func<MenuItem, Task>? OnClick { get; set; }
+
+    [CascadingParameter]
+    private Menu? Parent { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<Menu>? Localizer { get; set; }
+
+    /// <summary>
+    /// SetParametersAsync 方法
+    /// </summary>
+    /// <param name="parameters"></param>
+    /// <returns></returns>
+    public override Task SetParametersAsync(ParameterView parameters)
     {
-        private string? GetMenuClassString => CssBuilder.Default("submenu")
-            .AddClassFromAttributes(AdditionalAttributes)
-            .Build();
+        parameters.SetParameterProperties(this);
 
-        /// <summary>
-        /// 获得/设置 菜单数据集合
-        /// </summary>
-        [Parameter]
-        public IEnumerable<MenuItem> Items { get; set; } = Array.Empty<MenuItem>();
-
-        /// <summary>
-        /// 获得/设置 菜单项点击回调委托
-        /// </summary>
-        [Parameter]
-        [NotNull]
-        public Func<MenuItem, Task>? OnClick { get; set; }
-
-        [CascadingParameter]
-        private Menu? Parent { get; set; }
-
-        [Inject]
-        [NotNull]
-        private IStringLocalizer<Menu>? Localizer { get; set; }
-
-        /// <summary>
-        /// SetParametersAsync 方法
-        /// </summary>
-        /// <param name="parameters"></param>
-        /// <returns></returns>
-        public override Task SetParametersAsync(ParameterView parameters)
+        if (Parent == null)
         {
-            parameters.SetParameterProperties(this);
-
-            if (Parent == null)
-            {
-                throw new InvalidOperationException(Localizer["InvalidOperationExceptionMessage"]);
-            }
-
-            // For derived components, retain the usual lifecycle with OnInit/OnParametersSet/etc.
-            return base.SetParametersAsync(ParameterView.Empty);
+            throw new InvalidOperationException(Localizer["InvalidOperationExceptionMessage"]);
         }
 
-        private async Task OnClickItem(MenuItem item)
+        // For derived components, retain the usual lifecycle with OnInit/OnParametersSet/etc.
+        return base.SetParametersAsync(ParameterView.Empty);
+    }
+
+    private async Task OnClickItem(MenuItem item)
+    {
+        if (OnClick != null)
         {
-            if (OnClick != null)
-            {
-                await OnClick(item);
-            }
+            await OnClick(item);
         }
     }
 }

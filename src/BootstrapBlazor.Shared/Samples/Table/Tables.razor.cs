@@ -9,46 +9,46 @@ using Microsoft.Extensions.Localization;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
-namespace BootstrapBlazor.Shared.Samples.Table
+namespace BootstrapBlazor.Shared.Samples.Table;
+
+/// <summary>
+/// 表格示例代码
+/// </summary>
+public partial class Tables
 {
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<Foo>? Localizer { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<Tables>? TablesLocalizer { get; set; }
+
+    [NotNull]
+    private List<Foo>? Items { get; set; }
+
+    [NotNull]
+    private string? RefreshText { get; set; }
+
     /// <summary>
-    /// 表格示例代码
+    /// OnInitialized 方法
     /// </summary>
-    public partial class Tables
+    protected override void OnInitialized()
     {
-        [Inject]
-        [NotNull]
-        private IStringLocalizer<Foo>? Localizer { get; set; }
+        base.OnInitialized();
 
-        [Inject]
-        [NotNull]
-        private IStringLocalizer<Tables>? TablesLocalizer { get; set; }
+        Items = Foo.GenerateFoo(Localizer);
 
-        [NotNull]
-        private List<Foo>? Items { get; set; }
+        RefreshText ??= TablesLocalizer[nameof(RefreshText)];
+    }
 
-        [NotNull]
-        private string? RefreshText { get; set; }
+    private void OnClick()
+    {
+        Items = Foo.GenerateFoo(Localizer);
+    }
 
-        /// <summary>
-        /// OnInitialized 方法
-        /// </summary>
-        protected override void OnInitialized()
-        {
-            base.OnInitialized();
-
-            Items = Foo.GenerateFoo(Localizer);
-
-            RefreshText ??= TablesLocalizer[nameof(RefreshText)];
-        }
-
-        private void OnClick()
-        {
-            Items = Foo.GenerateFoo(Localizer);
-        }
-
-        private static IEnumerable<AttributeItem> GetTableColumnAttributes() => new AttributeItem[]
-        {
+    private static IEnumerable<AttributeItem> GetTableColumnAttributes() => new AttributeItem[]
+    {
             new() {
                 Name = "TextWrap",
                 Description = "是否允许换行",
@@ -168,10 +168,10 @@ namespace BootstrapBlazor.Shared.Samples.Table
                 ValueList = " — ",
                 DefaultValue = " — "
             }
-        };
+    };
 
-        private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-        {
+    private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+    {
             // TODO: 移动到数据库中
             new() {
                 Name = "TableSize",
@@ -726,10 +726,10 @@ namespace BootstrapBlazor.Shared.Samples.Table
                 ValueList = "None|Left|Center|Right",
                 DefaultValue = "None"
             }
-        };
+    };
 
-        private static IEnumerable<MethodItem> GetMethods() => new MethodItem[]
-        {
+    private static IEnumerable<MethodItem> GetMethods() => new MethodItem[]
+    {
             new()
             {
                 Name = "AddAsync",
@@ -751,6 +751,5 @@ namespace BootstrapBlazor.Shared.Samples.Table
                 Parameters = " — ",
                 ReturnValue = "Task"
             },
-        };
-    }
+    };
 }

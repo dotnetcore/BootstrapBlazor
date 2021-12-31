@@ -7,50 +7,49 @@ using Microsoft.Extensions.Localization;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
-namespace BootstrapBlazor.Components
+namespace BootstrapBlazor.Components;
+
+/// <summary>
+/// 
+/// </summary>
+public sealed partial class ButtonUpload<TValue>
 {
+    private bool IsUploadButtonDisabled => IsDisabled || (IsSingle && UploadFiles.Any());
+
+    private string? BrowserButtonClassString => CssBuilder.Default("btn btn-browser")
+        .AddClass(BrowserButtonClass)
+        .Build();
+
     /// <summary>
-    /// 
+    /// 获得/设置 浏览按钮图标 默认 fa fa-folder-open-o
     /// </summary>
-    public sealed partial class ButtonUpload<TValue>
+    [Parameter]
+    public string BrowserButtonIcon { get; set; } = "fa fa-folder-open-o";
+
+    /// <summary>
+    /// 获得/设置 上传按钮样式 默认 btn-primary
+    /// </summary>
+    [Parameter]
+    public string BrowserButtonClass { get; set; } = "btn-primary";
+
+    /// <summary>
+    /// 获得/设置 浏览按钮显示文字
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public string? BrowserButtonText { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<Upload<TValue>>? Localizer { get; set; }
+
+    /// <summary>
+    /// OnInitialized 方法
+    /// </summary>
+    protected override void OnInitialized()
     {
-        private bool IsUploadButtonDisabled => IsDisabled || (IsSingle && UploadFiles.Any());
+        base.OnInitialized();
 
-        private string? BrowserButtonClassString => CssBuilder.Default("btn btn-browser")
-            .AddClass(BrowserButtonClass)
-            .Build();
-
-        /// <summary>
-        /// 获得/设置 浏览按钮图标 默认 fa fa-folder-open-o
-        /// </summary>
-        [Parameter]
-        public string BrowserButtonIcon { get; set; } = "fa fa-folder-open-o";
-
-        /// <summary>
-        /// 获得/设置 上传按钮样式 默认 btn-primary
-        /// </summary>
-        [Parameter]
-        public string BrowserButtonClass { get; set; } = "btn-primary";
-
-        /// <summary>
-        /// 获得/设置 浏览按钮显示文字
-        /// </summary>
-        [Parameter]
-        [NotNull]
-        public string? BrowserButtonText { get; set; }
-
-        [Inject]
-        [NotNull]
-        private IStringLocalizer<Upload<TValue>>? Localizer { get; set; }
-
-        /// <summary>
-        /// OnInitialized 方法
-        /// </summary>
-        protected override void OnInitialized()
-        {
-            base.OnInitialized();
-
-            BrowserButtonText ??= Localizer[nameof(BrowserButtonText)];
-        }
+        BrowserButtonText ??= Localizer[nameof(BrowserButtonText)];
     }
 }

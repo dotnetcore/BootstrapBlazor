@@ -7,95 +7,94 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 
-namespace BootstrapBlazor.Components
+namespace BootstrapBlazor.Components;
+
+/// <summary>
+/// 
+/// </summary>
+public partial class PopoverConfirm : IDisposable
 {
+    private RenderFragment? Content { get; set; }
+
+    private PopoverConfirmOption? Options { get; set; }
+
     /// <summary>
-    /// 
+    /// 获得/设置 PopoverConfirm 服务实例
     /// </summary>
-    public partial class PopoverConfirm : IDisposable
+    [Inject]
+    [NotNull]
+    private PopoverService? PopoverService { get; set; }
+
+    /// <summary>
+    /// OnInitialized 方法
+    /// </summary>
+    protected override void OnInitialized()
     {
-        private RenderFragment? Content { get; set; }
+        base.OnInitialized();
 
-        private PopoverConfirmOption? Options { get; set; }
+        PopoverService.Register(this, Show);
+    }
 
-        /// <summary>
-        /// 获得/设置 PopoverConfirm 服务实例
-        /// </summary>
-        [Inject]
-        [NotNull]
-        private PopoverService? PopoverService { get; set; }
+    /// <summary>
+    /// OnAfterRender 方法
+    /// </summary>
+    /// <param name="firstRender"></param>
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
 
-        /// <summary>
-        /// OnInitialized 方法
-        /// </summary>
-        protected override void OnInitialized()
+        // 生成代码后，调用 javascript 进行弹窗操作
+        if (Options?.Callback != null)
         {
-            base.OnInitialized();
-
-            PopoverService.Register(this, Show);
+            await Options.Callback();
         }
+    }
 
-        /// <summary>
-        /// OnAfterRender 方法
-        /// </summary>
-        /// <param name="firstRender"></param>
-        protected override async Task OnAfterRenderAsync(bool firstRender)
+    private Task Show(PopoverConfirmOption option)
+    {
+        Options = option;
+        Content = builder =>
         {
-            await base.OnAfterRenderAsync(firstRender);
+            var index = 0;
+            builder.OpenComponent<PopoverConfirmBox>(index++);
+            builder.AddAttribute(index++, nameof(PopoverConfirmBox.SourceId), option.ButtonId);
+            builder.AddAttribute(index++, nameof(PopoverConfirmBox.OnConfirm), option.OnConfirm);
+            builder.AddAttribute(index++, nameof(PopoverConfirmBox.OnClose), option.OnClose);
 
-            // 生成代码后，调用 javascript 进行弹窗操作
-            if (Options?.Callback != null)
-            {
-                await Options.Callback();
-            }
-        }
+            builder.AddAttribute(index++, nameof(PopoverConfirmBox.Title), option.Title);
+            builder.AddAttribute(index++, nameof(PopoverConfirmBox.Content), option.Content);
 
-        private Task Show(PopoverConfirmOption option)
+            builder.AddAttribute(index++, nameof(PopoverConfirmBox.CloseButtonText), option.CloseButtonText);
+            builder.AddAttribute(index++, nameof(PopoverConfirmBox.CloseButtonColor), option.CloseButtonColor);
+            builder.AddAttribute(index++, nameof(PopoverConfirmBox.ConfirmButtonText), option.ConfirmButtonText);
+            builder.AddAttribute(index++, nameof(PopoverConfirmBox.ConfirmButtonColor), option.ConfirmButtonColor);
+            builder.AddAttribute(index++, nameof(PopoverConfirmBox.Icon), option.Icon);
+
+            builder.CloseComponent();
+        };
+
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
+
+    /// <summary>
+    /// Dispose 方法
+    /// </summary>
+    /// <param name="disposing"></param>
+    protected virtual void Dispose(bool disposing)
+    {
+        if (disposing)
         {
-            Options = option;
-            Content = builder =>
-            {
-                var index = 0;
-                builder.OpenComponent<PopoverConfirmBox>(index++);
-                builder.AddAttribute(index++, nameof(PopoverConfirmBox.SourceId), option.ButtonId);
-                builder.AddAttribute(index++, nameof(PopoverConfirmBox.OnConfirm), option.OnConfirm);
-                builder.AddAttribute(index++, nameof(PopoverConfirmBox.OnClose), option.OnClose);
-
-                builder.AddAttribute(index++, nameof(PopoverConfirmBox.Title), option.Title);
-                builder.AddAttribute(index++, nameof(PopoverConfirmBox.Content), option.Content);
-
-                builder.AddAttribute(index++, nameof(PopoverConfirmBox.CloseButtonText), option.CloseButtonText);
-                builder.AddAttribute(index++, nameof(PopoverConfirmBox.CloseButtonColor), option.CloseButtonColor);
-                builder.AddAttribute(index++, nameof(PopoverConfirmBox.ConfirmButtonText), option.ConfirmButtonText);
-                builder.AddAttribute(index++, nameof(PopoverConfirmBox.ConfirmButtonColor), option.ConfirmButtonColor);
-                builder.AddAttribute(index++, nameof(PopoverConfirmBox.Icon), option.Icon);
-
-                builder.CloseComponent();
-            };
-
-            StateHasChanged();
-            return Task.CompletedTask;
+            PopoverService.UnRegister(this);
         }
+    }
 
-        /// <summary>
-        /// Dispose 方法
-        /// </summary>
-        /// <param name="disposing"></param>
-        protected virtual void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                PopoverService.UnRegister(this);
-            }
-        }
-
-        /// <summary>
-        /// Dispose 方法
-        /// </summary>
-        public void Dispose()
-        {
-            Dispose(disposing: true);
-            GC.SuppressFinalize(this);
-        }
+    /// <summary>
+    /// Dispose 方法
+    /// </summary>
+    public void Dispose()
+    {
+        Dispose(disposing: true);
+        GC.SuppressFinalize(this);
     }
 }

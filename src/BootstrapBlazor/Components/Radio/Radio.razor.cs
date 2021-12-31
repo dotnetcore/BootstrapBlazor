@@ -7,26 +7,25 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 
-namespace BootstrapBlazor.Components
+namespace BootstrapBlazor.Components;
+
+/// <summary>
+/// 
+/// </summary>
+public partial class Radio
 {
     /// <summary>
     /// 
     /// </summary>
-    public partial class Radio
+    [Parameter]
+    public Func<SelectedItem, Task>? OnClick { get; set; }
+
+    [CascadingParameter(Name = "GroupName")]
+    [NotNull]
+    private string? GroupName { get; set; }
+
+    private void OnClickHandler()
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        [Parameter]
-        public Func<SelectedItem, Task>? OnClick { get; set; }
-
-        [CascadingParameter(Name = "GroupName")]
-        [NotNull]
-        private string? GroupName { get; set; }
-
-        private void OnClickHandler()
-        {
-            OnClick?.Invoke(Value);
-        }
+        OnClick?.Invoke(Value);
     }
 }

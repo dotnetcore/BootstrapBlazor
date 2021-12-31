@@ -4,21 +4,20 @@
 
 using System.Collections.Generic;
 
-namespace BootstrapBlazor.Components
+namespace BootstrapBlazor.Components;
+
+/// <summary>
+/// Table 组件自定义搜索模型接口定义
+/// </summary>
+public interface ITableSearchModel
 {
     /// <summary>
-    /// Table 组件自定义搜索模型接口定义
+    /// 获得 搜索集合
     /// </summary>
-    public interface ITableSearchModel
-    {
-        /// <summary>
-        /// 获得 搜索集合
-        /// </summary>
-        IEnumerable<IFilterAction> GetSearchs();
+    IEnumerable<IFilterAction> GetSearchs();
 
-        /// <summary>
-        /// 重置操作
-        /// </summary>
-        void Reset();
-    }
+    /// <summary>
+    /// 重置操作
+    /// </summary>
+    void Reset();
 }

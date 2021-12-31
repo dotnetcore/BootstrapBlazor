@@ -5,15 +5,15 @@
 using BootstrapBlazor.Shared.Common;
 using System.Collections.Generic;
 
-namespace BootstrapBlazor.Shared.Samples
+namespace BootstrapBlazor.Shared.Samples;
+
+/// <summary>
+/// 
+/// </summary>
+public sealed partial class GroupBoxs
 {
-    /// <summary>
-    /// 
-    /// </summary>
-    public sealed partial class GroupBoxs
+    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
-        private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-        {
             new AttributeItem() {
                 Name = "Title",
                 Description = Localizer["AttTitle"],
@@ -21,6 +21,5 @@ namespace BootstrapBlazor.Shared.Samples
                 ValueList = " — ",
                 DefaultValue = " — "
             }
-        };
-    }
+    };
 }

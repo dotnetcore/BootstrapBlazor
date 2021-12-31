@@ -7,64 +7,64 @@ using BootstrapBlazor.Shared.Components;
 using System.Collections.Generic;
 using System.ComponentModel;
 
-namespace BootstrapBlazor.Shared.Samples
+namespace BootstrapBlazor.Shared.Samples;
+
+/// <summary>
+///
+/// </summary>
+public sealed partial class Toggles
 {
-    /// <summary>
-    ///
-    /// </summary>
-    public sealed partial class Toggles
+    private class Foo
     {
-        private class Foo
-        {
-            /// <summary>
-            /// 
-            /// </summary>
-            [DisplayName("绑定标签")]
-            public bool BindValue { get; set; }
-        }
-
-        private Foo Model { get; set; } = new Foo();
-
         /// <summary>
         /// 
         /// </summary>
-        private bool BindValue { get; set; } = true;
+        [DisplayName("绑定标签")]
+        public bool BindValue { get; set; }
+    }
 
-        /// <summary>
-        ///
-        /// </summary>
-        private BlockLogger? Trace { get; set; }
+    private Foo Model { get; set; } = new Foo();
 
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="val"></param>
-        private void OnValueChanged(bool val)
-        {
-            BindValue = val;
-            Trace?.Log($"Toggle CurrentValue: {val}");
-        }
+    /// <summary>
+    /// 
+    /// </summary>
+    private bool BindValue { get; set; } = true;
 
-        /// <summary>
-        /// 获得事件方法
-        /// </summary>
-        /// <returns></returns>
-        private IEnumerable<EventItem> GetEvents() => new EventItem[]
-        {
+    /// <summary>
+    ///
+    /// </summary>
+    private BlockLogger? Trace { get; set; }
+
+    /// <summary>
+    ///
+    /// </summary>
+    /// <param name="val"></param>
+    private void OnValueChanged(bool val)
+    {
+        BindValue = val;
+        Trace?.Log($"Toggle CurrentValue: {val}");
+    }
+
+    /// <summary>
+    /// 获得事件方法
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerable<EventItem> GetEvents() => new EventItem[]
+    {
             new EventItem()
             {
                 Name = "ValueChanged",
                 Description = Localizer["ValueChanged"],
                 Type = "EventCallback<bool>"
             }
-        };
+    };
 
-        /// <summary>
-        /// 获得属性方法
-        /// </summary>
-        /// <returns></returns>
-        private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-        {
+    /// <summary>
+    /// 获得属性方法
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+    {
             // TODO: 移动到数据库中
             new AttributeItem() {
                 Name = "Color",
@@ -129,6 +129,5 @@ namespace BootstrapBlazor.Shared.Samples
                 ValueList = " — ",
                 DefaultValue = " — "
             }
-        };
-    }
+    };
 }

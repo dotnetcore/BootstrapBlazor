@@ -10,68 +10,67 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BootstrapBlazor.Shared.Samples.Table
+namespace BootstrapBlazor.Shared.Samples.Table;
+
+/// <summary>
+/// 
+/// </summary>
+public sealed partial class TablesFooter
 {
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<Foo>? Localizer { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<TablesFooter>? LocalizerFooter { get; set; }
+
+    private static IEnumerable<int> PageItemsSource => new int[] { 2, 4, 10, 20 };
+
+    [NotNull]
+    private IEnumerable<Foo>? Items { get; set; }
+
+    [NotNull]
+    private string? Left { get; set; }
+
+    [NotNull]
+    private string? Center { get; set; }
+
+    [NotNull]
+    private string? Right { get; set; }
+
+    private Alignment Align { get; set; }
+
+    private AggregateType Aggregate { get; set; }
+
     /// <summary>
     /// 
     /// </summary>
-    public sealed partial class TablesFooter
+    protected override void OnInitialized()
     {
-        [Inject]
-        [NotNull]
-        private IStringLocalizer<Foo>? Localizer { get; set; }
+        base.OnInitialized();
 
-        [Inject]
-        [NotNull]
-        private IStringLocalizer<TablesFooter>? LocalizerFooter { get; set; }
+        Items = Foo.GenerateFoo(Localizer);
+        Left ??= LocalizerFooter[nameof(Left)];
+        Center ??= LocalizerFooter[nameof(Center)];
+        Right ??= LocalizerFooter[nameof(Right)];
+    }
 
-        private static IEnumerable<int> PageItemsSource => new int[] { 2, 4, 10, 20 };
+    private Task<QueryData<Foo>> OnQueryAsync(QueryPageOptions options)
+    {
+        // 设置记录总数
+        var total = Items.Count();
 
-        [NotNull]
-        private IEnumerable<Foo>? Items { get; set; }
+        // 内存分页
+        var items = Items.Skip((options.PageIndex - 1) * options.PageItems).Take(options.PageItems).ToList();
 
-        [NotNull]
-        private string? Left { get; set; }
-
-        [NotNull]
-        private string? Center { get; set; }
-
-        [NotNull]
-        private string? Right { get; set; }
-
-        private Alignment Align { get; set; }
-
-        private AggregateType Aggregate { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        protected override void OnInitialized()
+        return Task.FromResult(new QueryData<Foo>()
         {
-            base.OnInitialized();
-
-            Items = Foo.GenerateFoo(Localizer);
-            Left ??= LocalizerFooter[nameof(Left)];
-            Center ??= LocalizerFooter[nameof(Center)];
-            Right ??= LocalizerFooter[nameof(Right)];
-        }
-
-        private Task<QueryData<Foo>> OnQueryAsync(QueryPageOptions options)
-        {
-            // 设置记录总数
-            var total = Items.Count();
-
-            // 内存分页
-            var items = Items.Skip((options.PageIndex - 1) * options.PageItems).Take(options.PageItems).ToList();
-
-            return Task.FromResult(new QueryData<Foo>()
-            {
-                Items = items,
-                TotalCount = total,
-                IsSorted = true,
-                IsFiltered = true,
-                IsSearch = true
-            });
-        }
+            Items = items,
+            TotalCount = total,
+            IsSorted = true,
+            IsFiltered = true,
+            IsSearch = true
+        });
     }
 }

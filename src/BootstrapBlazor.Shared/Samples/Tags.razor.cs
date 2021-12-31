@@ -8,45 +8,45 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 
-namespace BootstrapBlazor.Shared.Samples
+namespace BootstrapBlazor.Shared.Samples;
+
+/// <summary>
+/// 
+/// </summary>
+public sealed partial class Tags
 {
+    [NotNull]
+    private BlockLogger? Trace { get; set; }
+
     /// <summary>
     /// 
     /// </summary>
-    public sealed partial class Tags
+    private Task DismissClick()
     {
-        [NotNull]
-        private BlockLogger? Trace { get; set; }
+        Trace.Log($"Tag Dismissed");
+        return Task.CompletedTask;
+    }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        private Task DismissClick()
-        {
-            Trace.Log($"Tag Dismissed");
-            return Task.CompletedTask;
-        }
-
-        /// <summary>
-        /// 获得事件方法
-        /// </summary>
-        /// <returns></returns>
-        private IEnumerable<EventItem> GetEvents() => new EventItem[]
-        {
+    /// <summary>
+    /// 获得事件方法
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerable<EventItem> GetEvents() => new EventItem[]
+    {
             new EventItem()
             {
                 Name = "OnDismiss",
                 Description = Localizer["OnDismiss"],
                 Type ="EventCallback<MouseEventArgs>"
             }
-        };
+    };
 
-        /// <summary>
-        /// 获得属性方法
-        /// </summary>
-        /// <returns></returns>
-        private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-        {
+    /// <summary>
+    /// 获得属性方法
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+    {
             // TODO: 移动到数据库中
             new AttributeItem() {
                 Name = "ChildContent",
@@ -83,6 +83,5 @@ namespace BootstrapBlazor.Shared.Samples
                 ValueList = " — ",
                 DefaultValue = "false"
             }
-        };
-    }
+    };
 }

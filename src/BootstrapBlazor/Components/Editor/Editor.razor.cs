@@ -11,114 +11,114 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BootstrapBlazor.Components
+namespace BootstrapBlazor.Components;
+
+/// <summary>
+/// Editor 组件基类
+/// </summary>
+public partial class Editor : IDisposable
 {
     /// <summary>
-    /// Editor 组件基类
+    /// 获得/设置 组件 DOM 实例
     /// </summary>
-    public partial class Editor : IDisposable
+    private ElementReference EditorElement { get; set; }
+
+    /// <summary>
+    /// 获得/设置 JSInterop 实例
+    /// </summary>
+    private JSInterop<Editor>? Interope { get; set; }
+
+    /// <summary>
+    /// 获得 Editor 样式
+    /// </summary>
+    private string? EditClassString => CssBuilder.Default("editor-body form-control")
+        .AddClass("open", IsEditor)
+        .Build();
+
+    /// <summary>
+    /// 获得/设置 Placeholder 提示消息
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public string? PlaceHolder { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否直接显示为富文本编辑框
+    /// </summary>
+    [Parameter]
+    public bool IsEditor { get; set; }
+
+    /// <summary>
+    /// 获得/设置 设置组件高度
+    /// </summary>
+    [Parameter]
+    public int Height { get; set; }
+
+    /// <summary>
+    /// 获得/设置 富文本框工具栏工具，默认为空使用默认值
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public IEnumerable<object>? ToolbarItems { get; set; }
+
+    /// <summary>
+    /// 获得/设置 自定义按钮
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public IEnumerable<EditorToolbarButton>? CustomerToolbarButtons { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<Editor>? Localizer { get; set; }
+
+    private string? _value;
+    private bool _renderValue;
+    /// <summary>
+    /// 获得/设置 组件值
+    /// </summary>
+    [Parameter]
+    public string? Value
     {
-        /// <summary>
-        /// 获得/设置 组件 DOM 实例
-        /// </summary>
-        private ElementReference EditorElement { get; set; }
-
-        /// <summary>
-        /// 获得/设置 JSInterop 实例
-        /// </summary>
-        private JSInterop<Editor>? Interope { get; set; }
-
-        /// <summary>
-        /// 获得 Editor 样式
-        /// </summary>
-        private string? EditClassString => CssBuilder.Default("editor-body form-control")
-            .AddClass("open", IsEditor)
-            .Build();
-
-        /// <summary>
-        /// 获得/设置 Placeholder 提示消息
-        /// </summary>
-        [Parameter]
-        [NotNull]
-        public string? PlaceHolder { get; set; }
-
-        /// <summary>
-        /// 获得/设置 是否直接显示为富文本编辑框
-        /// </summary>
-        [Parameter]
-        public bool IsEditor { get; set; }
-
-        /// <summary>
-        /// 获得/设置 设置组件高度
-        /// </summary>
-        [Parameter]
-        public int Height { get; set; }
-
-        /// <summary>
-        /// 获得/设置 富文本框工具栏工具，默认为空使用默认值
-        /// </summary>
-        [Parameter]
-        [NotNull]
-        public IEnumerable<object>? ToolbarItems { get; set; }
-
-        /// <summary>
-        /// 获得/设置 自定义按钮
-        /// </summary>
-        [Parameter]
-        [NotNull]
-        public IEnumerable<EditorToolbarButton>? CustomerToolbarButtons { get; set; }
-
-        [Inject]
-        [NotNull]
-        private IStringLocalizer<Editor>? Localizer { get; set; }
-
-        private string? _value;
-        private bool _renderValue;
-        /// <summary>
-        /// 获得/设置 组件值
-        /// </summary>
-        [Parameter]
-        public string? Value
+        get { return _value; }
+        set
         {
-            get { return _value; }
-            set
+            if (_value != value)
             {
-                if (_value != value)
-                {
-                    _value = value;
-                    _renderValue = true;
-                }
+                _value = value;
+                _renderValue = true;
             }
         }
+    }
 
-        /// <summary>
-        /// 获得/设置 组件值变化后的回调委托
-        /// </summary>
-        [Parameter]
-        public EventCallback<string?> ValueChanged { get; set; }
+    /// <summary>
+    /// 获得/设置 组件值变化后的回调委托
+    /// </summary>
+    [Parameter]
+    public EventCallback<string?> ValueChanged { get; set; }
 
-        /// <summary>
-        /// 获得/设置 组件值变化后的回调委托
-        /// </summary>
-        [Parameter]
-        public Func<string, Task>? OnValueChanged { get; set; }
+    /// <summary>
+    /// 获得/设置 组件值变化后的回调委托
+    /// </summary>
+    [Parameter]
+    public Func<string, Task>? OnValueChanged { get; set; }
 
-        /// <summary>
-        /// 获取/设置 插件点击时的回调委托
-        /// </summary>
-        [Parameter]
-        public Func<string, Task<string>>? OnClickButton { get; set; }
+    /// <summary>
+    /// 获取/设置 插件点击时的回调委托
+    /// </summary>
+    [Parameter]
+    public Func<string, Task<string>>? OnClickButton { get; set; }
 
-        /// <summary>
-        /// OnInitialized 方法
-        /// </summary>
-        protected override void OnInitialized()
-        {
-            base.OnInitialized();
+    /// <summary>
+    /// OnInitialized 方法
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
 
-            PlaceHolder ??= Localizer[nameof(PlaceHolder)];
+        PlaceHolder ??= Localizer[nameof(PlaceHolder)];
 
-            ToolbarItems ??= new List<object>
+        ToolbarItems ??= new List<object>
             {
                 new List<object> { "style", new List<string>() { "style" } },
                 new List<object> { "font", new List<string>() { "bold", "underline", "clear" } },
@@ -129,124 +129,123 @@ namespace BootstrapBlazor.Components
                 new List<object> { "insert", new List<string>() { "link", "picture", "video" } },
                 new List<object> { "view", new List<string>() { "fullscreen", "codeview", "help"} }
             };
-            CustomerToolbarButtons ??= Enumerable.Empty<EditorToolbarButton>();
-        }
+        CustomerToolbarButtons ??= Enumerable.Empty<EditorToolbarButton>();
+    }
 
-        /// <summary>
-        /// OnAfterRenderAsync 方法
-        /// </summary>
-        /// <param name="firstRender"></param>
-        /// <returns></returns>
-        protected override async Task OnAfterRenderAsync(bool firstRender)
+    /// <summary>
+    /// OnAfterRenderAsync 方法
+    /// </summary>
+    /// <param name="firstRender"></param>
+    /// <returns></returns>
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+
+        if (firstRender)
         {
-            await base.OnAfterRenderAsync(firstRender);
-
-            if (firstRender)
+            Interope = new JSInterop<Editor>(JSRuntime);
+            var methodGetPluginAttrs = "";
+            var methodClickPluginItem = "";
+            if (CustomerToolbarButtons.Any())
             {
-                Interope = new JSInterop<Editor>(JSRuntime);
-                var methodGetPluginAttrs = "";
-                var methodClickPluginItem = "";
-                if (CustomerToolbarButtons.Any())
-                {
-                    methodGetPluginAttrs = nameof(GetPluginAttrs);
-                    methodClickPluginItem = nameof(ClickPluginItem);
-                }
-                await Interope.InvokeVoidAsync(this, EditorElement, "bb_editor", methodGetPluginAttrs, methodClickPluginItem, nameof(Update), Height, Value ?? "");
+                methodGetPluginAttrs = nameof(GetPluginAttrs);
+                methodClickPluginItem = nameof(ClickPluginItem);
             }
-            else if (_renderValue)
-            {
-                _renderValue = false;
-                await JSRuntime.InvokeVoidAsync(EditorElement, "bb_editor", "code", "", "", "", Height, Value ?? "");
-            }
+            await Interope.InvokeVoidAsync(this, EditorElement, "bb_editor", methodGetPluginAttrs, methodClickPluginItem, nameof(Update), Height, Value ?? "");
         }
-
-        /// <summary>
-        /// Update 方法
-        /// </summary>
-        /// <param name="value"></param>
-        [JSInvokable]
-        public async Task Update(string value)
+        else if (_renderValue)
         {
-            Value = value;
-            if (ValueChanged.HasDelegate)
-            {
-                await ValueChanged.InvokeAsync(Value);
-            }
-
-            if (OnValueChanged != null)
-            {
-                await OnValueChanged.Invoke(value);
-            }
-
             _renderValue = false;
+            await JSRuntime.InvokeVoidAsync(EditorElement, "bb_editor", "code", "", "", "", Height, Value ?? "");
+        }
+    }
+
+    /// <summary>
+    /// Update 方法
+    /// </summary>
+    /// <param name="value"></param>
+    [JSInvokable]
+    public async Task Update(string value)
+    {
+        Value = value;
+        if (ValueChanged.HasDelegate)
+        {
+            await ValueChanged.InvokeAsync(Value);
         }
 
-        /// <summary>
-        /// 获取编辑器的 toolbar
-        /// </summary>
-        /// <returns>toolbar</returns>
-        [JSInvokable]
-        public Task<List<object>> GetToolBar()
+        if (OnValueChanged != null)
         {
-            var list = new List<object>(50);
-            list.AddRange(ToolbarItems);
+            await OnValueChanged.Invoke(value);
+        }
 
-            var itemList = new List<object>
+        _renderValue = false;
+    }
+
+    /// <summary>
+    /// 获取编辑器的 toolbar
+    /// </summary>
+    /// <returns>toolbar</returns>
+    [JSInvokable]
+    public Task<List<object>> GetToolBar()
+    {
+        var list = new List<object>(50);
+        list.AddRange(ToolbarItems);
+
+        var itemList = new List<object>
             {
                 "custom",
                 CustomerToolbarButtons.Select(p => p.ButtonName).ToList()
             };
-            list.Add(itemList);
+        list.Add(itemList);
 
-            return Task.FromResult(list);
-        }
+        return Task.FromResult(list);
+    }
 
-        /// <summary>
-        /// 获取插件信息
-        /// </summary>
-        /// <returns></returns>
-        [JSInvokable]
-        public Task<IEnumerable<EditorToolbarButton>> GetPluginAttrs()
+    /// <summary>
+    /// 获取插件信息
+    /// </summary>
+    /// <returns></returns>
+    [JSInvokable]
+    public Task<IEnumerable<EditorToolbarButton>> GetPluginAttrs()
+    {
+        return Task.FromResult(CustomerToolbarButtons);
+    }
+
+    /// <summary>
+    /// 插件点击事件
+    /// </summary>
+    /// <param name="pluginItemName">插件名</param>
+    /// <returns>插件回调的文本</returns>
+    [JSInvokable]
+    public async Task<string> ClickPluginItem(string pluginItemName)
+    {
+        var ret = "";
+        if (OnClickButton != null)
         {
-            return Task.FromResult(CustomerToolbarButtons);
+            ret = await OnClickButton(pluginItemName);
         }
+        return ret;
+    }
 
-        /// <summary>
-        /// 插件点击事件
-        /// </summary>
-        /// <param name="pluginItemName">插件名</param>
-        /// <returns>插件回调的文本</returns>
-        [JSInvokable]
-        public async Task<string> ClickPluginItem(string pluginItemName)
+    /// <summary>
+    /// Dispose 方法
+    /// </summary>
+    /// <param name="disposing"></param>
+    protected virtual void Dispose(bool disposing)
+    {
+        if (disposing)
         {
-            var ret = "";
-            if (OnClickButton != null)
-            {
-                ret = await OnClickButton(pluginItemName);
-            }
-            return ret;
+            Interope?.Dispose();
+            Interope = null;
         }
+    }
 
-        /// <summary>
-        /// Dispose 方法
-        /// </summary>
-        /// <param name="disposing"></param>
-        protected virtual void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                Interope?.Dispose();
-                Interope = null;
-            }
-        }
-
-        /// <summary>
-        /// Dispose 方法
-        /// </summary>
-        public void Dispose()
-        {
-            Dispose(disposing: true);
-            GC.SuppressFinalize(this);
-        }
+    /// <summary>
+    /// Dispose 方法
+    /// </summary>
+    public void Dispose()
+    {
+        Dispose(disposing: true);
+        GC.SuppressFinalize(this);
     }
 }

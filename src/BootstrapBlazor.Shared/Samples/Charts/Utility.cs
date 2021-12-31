@@ -7,90 +7,89 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BootstrapBlazor.Shared.Samples.Charts
+namespace BootstrapBlazor.Shared.Samples.Charts;
+
+/// <summary>
+/// Chart 工具类
+/// </summary>
+internal static class Utility
 {
+    public static IEnumerable<string> Colors { get; } = new List<string>() { "Red", "Blue", "Green", "Orange", "Yellow", "Tomato", "Pink", "Violet" };
+
     /// <summary>
-    /// Chart 工具类
+    /// 
     /// </summary>
-    internal static class Utility
+    /// <param name="chart"></param>
+    public static Task RandomData(Chart chart) => chart.Update(ChartAction.Update);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="chart"></param>
+    /// <param name="dsCount"></param>
+    public static void AddDataSet(Chart chart, ref int dsCount)
     {
-        public static IEnumerable<string> Colors { get; } = new List<string>() { "Red", "Blue", "Green", "Orange", "Yellow", "Tomato", "Pink", "Violet" };
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="chart"></param>
-        public static Task RandomData(Chart chart) => chart.Update(ChartAction.Update);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="chart"></param>
-        /// <param name="dsCount"></param>
-        public static void AddDataSet(Chart chart, ref int dsCount)
+        if (dsCount < Colors.Count())
         {
-            if (dsCount < Colors.Count())
-            {
-                dsCount++;
-                _ = chart.Update(ChartAction.AddDataset);
-            }
+            dsCount++;
+            _ = chart.Update(ChartAction.AddDataset);
         }
+    }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="chart"></param>
-        /// <param name="dsCount"></param>
-        public static void RemoveDataSet(Chart chart, ref int dsCount)
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="chart"></param>
+    /// <param name="dsCount"></param>
+    public static void RemoveDataSet(Chart chart, ref int dsCount)
+    {
+        if (dsCount > 1)
         {
-            if (dsCount > 1)
-            {
-                dsCount--;
-                _ = chart.Update(ChartAction.RemoveDataset);
-            }
+            dsCount--;
+            _ = chart.Update(ChartAction.RemoveDataset);
         }
+    }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="chart"></param>
-        /// <param name="daCount"></param>
-        public static void AddData(Chart chart, ref int daCount)
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="chart"></param>
+    /// <param name="daCount"></param>
+    public static void AddData(Chart chart, ref int daCount)
+    {
+        var limit = chart.ChartType switch
         {
-            var limit = chart.ChartType switch
-            {
-                ChartType.Line => 14,
-                ChartType.Bar => 14,
-                ChartType.Bubble => 14,
-                _ => Colors.Count()
-            };
+            ChartType.Line => 14,
+            ChartType.Bar => 14,
+            ChartType.Bubble => 14,
+            _ => Colors.Count()
+        };
 
-            if (daCount < limit)
-            {
-                daCount++;
-                _ = chart.Update(ChartAction.AddData);
-            }
+        if (daCount < limit)
+        {
+            daCount++;
+            _ = chart.Update(ChartAction.AddData);
         }
+    }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="chart"></param>
-        /// <param name="daCount"></param>
-        public static void RemoveData(Chart chart, ref int daCount)
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="chart"></param>
+    /// <param name="daCount"></param>
+    public static void RemoveData(Chart chart, ref int daCount)
+    {
+        var limit = chart.ChartType switch
         {
-            var limit = chart.ChartType switch
-            {
-                ChartType.Line => 7,
-                ChartType.Bar => 7,
-                ChartType.Bubble => 4,
-                _ => 2
-            };
-            if (daCount > limit)
-            {
-                daCount--;
-                _ = chart.Update(ChartAction.RemoveData);
-            }
+            ChartType.Line => 7,
+            ChartType.Bar => 7,
+            ChartType.Bubble => 4,
+            _ => 2
+        };
+        if (daCount > limit)
+        {
+            daCount--;
+            _ = chart.Update(ChartAction.RemoveData);
         }
     }
 }

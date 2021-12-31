@@ -4,30 +4,29 @@
 
 using System.Collections.Generic;
 
-namespace BootstrapBlazor.Components
+namespace BootstrapBlazor.Components;
+
+/// <summary>
+/// DynamicObjectContextArgs 类
+/// </summary>
+public class DynamicObjectContextArgs
 {
     /// <summary>
-    /// DynamicObjectContextArgs 类
+    /// 
     /// </summary>
-    public class DynamicObjectContextArgs
+    public DynamicObjectContextArgs(IEnumerable<IDynamicObject> items, DynamicItemChangedType changedType = DynamicItemChangedType.Add)
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        public DynamicObjectContextArgs(IEnumerable<IDynamicObject> items, DynamicItemChangedType changedType = DynamicItemChangedType.Add)
-        {
-            Items = items;
-            ChangedType = changedType;
-        }
-
-        /// <summary>
-        /// 获得 编辑数据集合
-        /// </summary>
-        public IEnumerable<IDynamicObject> Items { get; }
-
-        /// <summary>
-        /// 获得 数据改变类型 默认 Add
-        /// </summary>
-        public DynamicItemChangedType ChangedType { get; }
+        Items = items;
+        ChangedType = changedType;
     }
+
+    /// <summary>
+    /// 获得 编辑数据集合
+    /// </summary>
+    public IEnumerable<IDynamicObject> Items { get; }
+
+    /// <summary>
+    /// 获得 数据改变类型 默认 Add
+    /// </summary>
+    public DynamicItemChangedType ChangedType { get; }
 }

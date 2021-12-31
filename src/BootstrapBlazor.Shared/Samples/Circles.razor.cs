@@ -6,29 +6,29 @@ using BootstrapBlazor.Shared.Common;
 using System;
 using System.Collections.Generic;
 
-namespace BootstrapBlazor.Shared.Samples
+namespace BootstrapBlazor.Shared.Samples;
+
+/// <summary>
+/// 
+/// </summary>
+public sealed partial class Circles
 {
+    private int CircleValue = 0;
+
+    private void Add(int interval)
+    {
+        CircleValue += interval;
+        CircleValue = Math.Min(100, Math.Max(0, CircleValue));
+    }
+
     /// <summary>
     /// 
     /// </summary>
-    public sealed partial class Circles
+    /// <returns></returns>
+    private IEnumerable<AttributeItem> GetAttributes()
     {
-        private int CircleValue = 0;
-
-        private void Add(int interval)
+        return new AttributeItem[]
         {
-            CircleValue += interval;
-            CircleValue = Math.Min(100, Math.Max(0, CircleValue));
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        private IEnumerable<AttributeItem> GetAttributes()
-        {
-            return new AttributeItem[]
-            {
                 new AttributeItem(){
                     Name = "Width",
                     Description = Localizer["Width"],
@@ -74,8 +74,7 @@ namespace BootstrapBlazor.Shared.Samples
                     ValueList = "",
                     DefaultValue = ""
                 }
-            };
-        }
+        };
     }
 }
 

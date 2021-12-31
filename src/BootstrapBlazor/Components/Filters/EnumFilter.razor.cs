@@ -9,76 +9,75 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
-namespace BootstrapBlazor.Components
+namespace BootstrapBlazor.Components;
+
+/// <summary>
+/// 枚举类型过滤组件
+/// </summary>
+public partial class EnumFilter
 {
+    private string Value { get; set; } = "";
+
+    private IEnumerable<SelectedItem> Items { get; set; } = Enumerable.Empty<SelectedItem>();
+
     /// <summary>
-    /// 枚举类型过滤组件
+    /// 内部使用
     /// </summary>
-    public partial class EnumFilter
+    [NotNull]
+    private Type? EnumType { get; set; }
+
+    /// <summary>
+    /// 获得/设置 相关枚举类型
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public Type? Type { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<TableFilter>? Localizer { get; set; }
+
+    /// <summary>
+    /// OnInitialized 方法
+    /// </summary>
+    protected override void OnInitialized()
     {
-        private string Value { get; set; } = "";
+        base.OnInitialized();
 
-        private IEnumerable<SelectedItem> Items { get; set; } = Enumerable.Empty<SelectedItem>();
-
-        /// <summary>
-        /// 内部使用
-        /// </summary>
-        [NotNull]
-        private Type? EnumType { get; set; }
-
-        /// <summary>
-        /// 获得/设置 相关枚举类型
-        /// </summary>
-        [Parameter]
-        [NotNull]
-        public Type? Type { get; set; }
-
-        [Inject]
-        [NotNull]
-        private IStringLocalizer<TableFilter>? Localizer { get; set; }
-
-        /// <summary>
-        /// OnInitialized 方法
-        /// </summary>
-        protected override void OnInitialized()
+        if (TableFilter != null)
         {
-            base.OnInitialized();
+            TableFilter.ShowMoreButton = false;
+        }
 
-            if (TableFilter != null)
+        EnumType = Nullable.GetUnderlyingType(Type) ?? Type ?? throw new InvalidOperationException("the Parameter Type must be set.");
+        Items = EnumType.ToSelectList(new SelectedItem("", Localizer["EnumFilter.AllText"]?.Value ?? "All"));
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public override void Reset()
+    {
+        Value = "";
+        StateHasChanged();
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
+    public override IEnumerable<FilterKeyValueAction> GetFilterConditions()
+    {
+        var filters = new List<FilterKeyValueAction>();
+        if (!string.IsNullOrEmpty(Value) && Enum.TryParse(EnumType, Value, out var val))
+        {
+            filters.Add(new FilterKeyValueAction()
             {
-                TableFilter.ShowMoreButton = false;
-            }
-
-            EnumType = Nullable.GetUnderlyingType(Type) ?? Type ?? throw new InvalidOperationException("the Parameter Type must be set.");
-            Items = EnumType.ToSelectList(new SelectedItem("", Localizer["EnumFilter.AllText"]?.Value ?? "All"));
+                FieldKey = FieldKey,
+                FieldValue = val,
+                FilterAction = FilterAction.Equal
+            });
         }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public override void Reset()
-        {
-            Value = "";
-            StateHasChanged();
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public override IEnumerable<FilterKeyValueAction> GetFilterConditions()
-        {
-            var filters = new List<FilterKeyValueAction>();
-            if (!string.IsNullOrEmpty(Value) && Enum.TryParse(EnumType, Value, out var val))
-            {
-                filters.Add(new FilterKeyValueAction()
-                {
-                    FieldKey = FieldKey,
-                    FieldValue = val,
-                    FilterAction = FilterAction.Equal
-                });
-            }
-            return filters;
-        }
+        return filters;
     }
 }

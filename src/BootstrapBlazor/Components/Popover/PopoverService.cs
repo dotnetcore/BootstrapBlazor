@@ -4,19 +4,18 @@
 
 using System.Threading.Tasks;
 
-namespace BootstrapBlazor.Components
+namespace BootstrapBlazor.Components;
+
+/// <summary>
+/// Popover 服务类
+/// </summary>
+public class PopoverService : BootstrapServiceBase<PopoverConfirmOption>
 {
     /// <summary>
-    /// Popover 服务类
+    /// 
     /// </summary>
-    public class PopoverService : BootstrapServiceBase<PopoverConfirmOption>
-    {
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="option"></param>
-        /// <returns></returns>
-        /// <param name="popover">指定弹窗组件 默认为 null 使用 <see cref="BootstrapBlazorRoot"/> 组件内置弹窗组件</param>
-        public Task Show(PopoverConfirmOption option, PopoverConfirm? popover = null) => Invoke(option, popover);
-    }
+    /// <param name="option"></param>
+    /// <returns></returns>
+    /// <param name="popover">指定弹窗组件 默认为 null 使用 <see cref="BootstrapBlazorRoot"/> 组件内置弹窗组件</param>
+    public Task Show(PopoverConfirmOption option, PopoverConfirm? popover = null) => Invoke(option, popover);
 }

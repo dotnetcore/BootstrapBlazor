@@ -11,119 +11,119 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BootstrapBlazor.Shared.Samples
+namespace BootstrapBlazor.Shared.Samples;
+
+/// <summary>
+/// 
+/// </summary>
+public sealed partial class Tabs
 {
+    [NotNull]
+    private Tab? TabSet { get; set; }
+
+    [NotNull]
+    private Tab? TabSet2 { get; set; }
+
     /// <summary>
-    /// 
+    /// OnInitialized 方法
     /// </summary>
-    public sealed partial class Tabs
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        [NotNull]
-        private Tab? TabSet { get; set; }
+        await base.OnAfterRenderAsync(firstRender);
 
-        [NotNull]
-        private Tab? TabSet2 { get; set; }
-
-        /// <summary>
-        /// OnInitialized 方法
-        /// </summary>
-        protected override async Task OnAfterRenderAsync(bool firstRender)
+        if (firstRender)
         {
-            await base.OnAfterRenderAsync(firstRender);
-
-            if (firstRender)
+            var menuItem = TabMenu?.Items.FirstOrDefault();
+            if (menuItem != null)
             {
-                var menuItem = TabMenu?.Items.FirstOrDefault();
-                if (menuItem != null)
+                await InvokeAsync(() =>
                 {
-                    await InvokeAsync(() =>
-                    {
-                        var _ = TabMenu?.OnClick?.Invoke(menuItem);
-                    });
-                }
+                    var _ = TabMenu?.OnClick?.Invoke(menuItem);
+                });
             }
         }
+    }
 
-        private Task AddTab(Tab tabset)
+    private Task AddTab(Tab tabset)
+    {
+        var text = $"Tab {tabset.Items.Count() + 1}";
+        tabset.AddTab(new Dictionary<string, object?>
         {
-            var text = $"Tab {tabset.Items.Count() + 1}";
-            tabset.AddTab(new Dictionary<string, object?>
+            [nameof(TabItem.Text)] = text,
+            [nameof(TabItem.IsActive)] = true,
+            [nameof(TabItem.ChildContent)] = new RenderFragment(builder =>
             {
-                [nameof(TabItem.Text)] = text,
-                [nameof(TabItem.IsActive)] = true,
-                [nameof(TabItem.ChildContent)] = new RenderFragment(builder =>
-                {
-                    var index = 0;
-                    builder.OpenElement(index++, "div");
-                    builder.AddContent(index++, Localizer["BackAddTabText", text]);
-                    builder.CloseElement();
-                })
-            });
-            return Task.CompletedTask;
-        }
+                var index = 0;
+                builder.OpenElement(index++, "div");
+                builder.AddContent(index++, Localizer["BackAddTabText", text]);
+                builder.CloseElement();
+            })
+        });
+        return Task.CompletedTask;
+    }
 
-        private static Task Active(Tab tabset)
+    private static Task Active(Tab tabset)
+    {
+        tabset.ActiveTab(0);
+        return Task.CompletedTask;
+    }
+
+    private bool RemoveEndable => (TabSet?.Items.Count() ?? 4) < 4;
+
+    private static Task RemoveTab(Tab tabset)
+    {
+        if (tabset.Items.Count() > 4)
         {
-            tabset.ActiveTab(0);
-            return Task.CompletedTask;
+            var item = tabset.Items.Last();
+            tabset.RemoveTab(item);
         }
+        return Task.CompletedTask;
+    }
 
-        private bool RemoveEndable => (TabSet?.Items.Count() ?? 4) < 4;
+    private Placement BindPlacement = Placement.Top;
 
-        private static Task RemoveTab(Tab tabset)
-        {
-            if (tabset.Items.Count() > 4)
-            {
-                var item = tabset.Items.Last();
-                tabset.RemoveTab(item);
-            }
-            return Task.CompletedTask;
-        }
+    private void SetPlacement(Placement placement)
+    {
+        BindPlacement = placement;
+    }
 
-        private Placement BindPlacement = Placement.Top;
-
-        private void SetPlacement(Placement placement)
-        {
-            BindPlacement = placement;
-        }
-
-        private IEnumerable<MenuItem> GetSideMenuItems()
-        {
-            return new List<MenuItem>
+    private IEnumerable<MenuItem> GetSideMenuItems()
+    {
+        return new List<MenuItem>
             {
                 new MenuItem() { Text = Localizer["BackText1"]  },
                 new MenuItem() { Text = Localizer["BackText2"] }
             };
-        }
+    }
 
-        [NotNull]
-        private Tab? TabSetMenu { get; set; }
+    [NotNull]
+    private Tab? TabSetMenu { get; set; }
 
-        [NotNull]
-        private Menu? TabMenu { get; set; }
+    [NotNull]
+    private Menu? TabMenu { get; set; }
 
-        private Task OnClickMenuItem(MenuItem item)
-        {
-            var text = item.Text;
-            var tabItem = TabSetMenu.Items.FirstOrDefault(i => i.Text == text);
-            if (tabItem == null) AddTabItem(text ?? "");
-            else TabSetMenu.ActiveTab(tabItem);
-            return Task.CompletedTask;
-        }
+    private Task OnClickMenuItem(MenuItem item)
+    {
+        var text = item.Text;
+        var tabItem = TabSetMenu.Items.FirstOrDefault(i => i.Text == text);
+        if (tabItem == null) AddTabItem(text ?? "");
+        else TabSetMenu.ActiveTab(tabItem);
+        return Task.CompletedTask;
+    }
 
-        private void AddTabItem(string text) => TabSetMenu.AddTab(new Dictionary<string, object?>
-        {
-            [nameof(TabItem.Text)] = text,
-            [nameof(TabItem.IsActive)] = true,
-            [nameof(TabItem.ChildContent)] = text == Localizer["BackText1"] ? BootstrapDynamicComponent.CreateComponent<Counter>().Render() : BootstrapDynamicComponent.CreateComponent<FetchData>().Render()
-        });
+    private void AddTabItem(string text) => TabSetMenu.AddTab(new Dictionary<string, object?>
+    {
+        [nameof(TabItem.Text)] = text,
+        [nameof(TabItem.IsActive)] = true,
+        [nameof(TabItem.ChildContent)] = text == Localizer["BackText1"] ? BootstrapDynamicComponent.CreateComponent<Counter>().Render() : BootstrapDynamicComponent.CreateComponent<FetchData>().Render()
+    });
 
-        /// <summary>
-        /// 获得属性方法
-        /// </summary>
-        /// <returns></returns>
-        private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-        {
+    /// <summary>
+    /// 获得属性方法
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+    {
             // TODO: 移动到数据库中
             new AttributeItem() {
                 Name = "IsBorderCard",
@@ -223,14 +223,14 @@ namespace BootstrapBlazor.Shared.Samples
                 ValueList = " — ",
                 DefaultValue = " — "
             }
-        };
+    };
 
-        /// <summary>
-        /// 获得方法
-        /// </summary>
-        /// <returns></returns>
-        private IEnumerable<MethodItem> GetMethods() => new MethodItem[]
-        {
+    /// <summary>
+    /// 获得方法
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerable<MethodItem> GetMethods() => new MethodItem[]
+    {
             // TODO: 移动到数据库中
             new MethodItem() {
                 Name = "AddTab",
@@ -286,6 +286,5 @@ namespace BootstrapBlazor.Shared.Samples
                 Parameters = "",
                 ReturnValue = "Tabitem"
             },
-        };
-    }
+    };
 }

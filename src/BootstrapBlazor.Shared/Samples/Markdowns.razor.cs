@@ -8,45 +8,45 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Threading.Tasks;
 
-namespace BootstrapBlazor.Shared.Samples
+namespace BootstrapBlazor.Shared.Samples;
+
+/// <summary>
+/// Markdown 示例代码
+/// </summary>
+public partial class Markdowns
 {
+    private string? MarkdownString { get; set; }
+
+    private string? HtmlString { get; set; }
+
     /// <summary>
-    /// Markdown 示例代码
+    /// 获得/设置 版本号字符串
     /// </summary>
-    public partial class Markdowns
+    private string Version { get; set; } = "fetching";
+
+    private string? Language { get; set; }
+
+    private string? AsyncValue { get; set; }
+
+    /// <summary>
+    /// OnInitializedAsync 方法
+    /// </summary>
+    /// <returns></returns>
+    protected override async Task OnInitializedAsync()
     {
-        private string? MarkdownString { get; set; }
+        Language = CultureInfo.CurrentUICulture.Name;
+        MarkdownString = $"### {Localizer["MarkdownString"]}";
+        Version = await VersionManager.GetVersionAsync("bootstrapblazor.markdown");
+    }
 
-        private string? HtmlString { get; set; }
+    private async Task GetAsyncString()
+    {
+        await Task.Delay(600);
+        AsyncValue = $"### {DateTime.Now}";
+    }
 
-        /// <summary>
-        /// 获得/设置 版本号字符串
-        /// </summary>
-        private string Version { get; set; } = "fetching";
-
-        private string? Language { get; set; }
-
-        private string? AsyncValue { get; set; }
-
-        /// <summary>
-        /// OnInitializedAsync 方法
-        /// </summary>
-        /// <returns></returns>
-        protected override async Task OnInitializedAsync()
-        {
-            Language = CultureInfo.CurrentUICulture.Name;
-            MarkdownString = $"### {Localizer["MarkdownString"]}";
-            Version = await VersionManager.GetVersionAsync("bootstrapblazor.markdown");
-        }
-
-        private async Task GetAsyncString()
-        {
-            await Task.Delay(600);
-            AsyncValue = $"### {DateTime.Now}";
-        }
-
-        private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-        {
+    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+    {
             new AttributeItem(){
                 Name = "Height",
                 Description = Localizer["Att1"],
@@ -96,6 +96,5 @@ namespace BootstrapBlazor.Shared.Samples
                 ValueList = " true/false ",
                 DefaultValue = " false "
             }
-        };
-    }
+    };
 }

@@ -11,122 +11,121 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BootstrapBlazor.Shared.Samples.Table
+namespace BootstrapBlazor.Shared.Samples.Table;
+
+/// <summary>
+/// 
+/// </summary>
+public sealed partial class TablesDialog
 {
+    private static readonly Random random = new();
+
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<Foo>? Localizer { get; set; }
+
+    [NotNull]
+    private Modal? Modal { get; set; }
+
+    [NotNull]
+    private Table<Foo>? ProductTable { get; set; }
+
+    [NotNull]
+    private List<Foo>? Products { get; set; }
+
+    [NotNull]
+    private List<Foo>? ProductSelectItems { get; set; }
+
+    private bool _confirm;
+
+    private List<Foo> SelectedRows { get; set; } = new List<Foo>();
+
     /// <summary>
     /// 
     /// </summary>
-    public sealed partial class TablesDialog
+    protected override void OnInitialized()
     {
-        private static readonly Random random = new();
+        base.OnInitialized();
 
-        [Inject]
-        [NotNull]
-        private IStringLocalizer<Foo>? Localizer { get; set; }
+        Products = new List<Foo>();
 
-        [NotNull]
-        private Modal? Modal { get; set; }
-
-        [NotNull]
-        private Table<Foo>? ProductTable { get; set; }
-
-        [NotNull]
-        private List<Foo>? Products { get; set; }
-
-        [NotNull]
-        private List<Foo>? ProductSelectItems { get; set; }
-
-        private bool _confirm;
-
-        private List<Foo> SelectedRows { get; set; } = new List<Foo>();
-
-        /// <summary>
-        /// 
-        /// </summary>
-        protected override void OnInitialized()
+        ProductSelectItems = Enumerable.Range(1, 5).Select(i => new Foo()
         {
-            base.OnInitialized();
+            Id = i,
+            Name = Localizer["Foo.Name", $"{i:d4}"],
+            DateTime = DateTime.Now.AddDays(i - 1),
+            Address = Localizer["Foo.Address", $"{random.Next(1000, 2000)}"],
+            Count = random.Next(1, 100),
+            Complete = random.Next(1, 100) > 50,
+            Education = EnumEducation.Primary,
+            Hobby = new string[] { "1" }
+        }).ToList();
+    }
 
-            Products = new List<Foo>();
+    private async Task ShowDialog(IEnumerable<Foo> items)
+    {
+        await Modal.Toggle();
+    }
 
-            ProductSelectItems = Enumerable.Range(1, 5).Select(i => new Foo()
-            {
-                Id = i,
-                Name = Localizer["Foo.Name", $"{i:d4}"],
-                DateTime = DateTime.Now.AddDays(i - 1),
-                Address = Localizer["Foo.Address", $"{random.Next(1000, 2000)}"],
-                Count = random.Next(1, 100),
-                Complete = random.Next(1, 100) > 50,
-                Education = EnumEducation.Primary,
-                Hobby = new string[] { "1" }
-            }).ToList();
-        }
+    private async Task OnConfirm()
+    {
+        _confirm = true;
+        await Modal.Toggle();
+        await ProductTable.QueryAsync();
+    }
 
-        private async Task ShowDialog(IEnumerable<Foo> items)
+    private Task<bool> OnSaveAsync(Foo item, ItemChangedType changedType)
+    {
+        var oldItem = Products.FirstOrDefault(i => i.Id == item.Id);
+        if (oldItem != null)
         {
-            await Modal.Toggle();
+            oldItem.Count = item.Count;
         }
+        return Task.FromResult(true);
+    }
 
-        private async Task OnConfirm()
+    private Task<bool> OnDeleteAsync(IEnumerable<Foo> items)
+    {
+        Products.RemoveAll(p => items.Contains(p));
+        return Task.FromResult(true);
+    }
+
+    private Task<QueryData<Foo>> OnQueryEditAsync(QueryPageOptions options)
+    {
+        ProductTable.SelectedRows.Clear();
+        var items = Products;
+        if (_confirm)
         {
-            _confirm = true;
-            await Modal.Toggle();
-            await ProductTable.QueryAsync();
+            items.Clear();
+            items.AddRange(SelectedRows);
         }
+        _confirm = false;
 
-        private Task<bool> OnSaveAsync(Foo item, ItemChangedType changedType)
+        var total = items.Count;
+        // 内存分页
+        items = items.Skip((options.PageIndex - 1) * options.PageItems).Take(options.PageItems).ToList();
+        return Task.FromResult(new QueryData<Foo>()
         {
-            var oldItem = Products.FirstOrDefault(i => i.Id == item.Id);
-            if (oldItem != null)
-            {
-                oldItem.Count = item.Count;
-            }
-            return Task.FromResult(true);
-        }
+            Items = items,
+            TotalCount = total,
+            IsFiltered = true,
+            IsSearch = true,
+            IsSorted = true
+        });
+    }
 
-        private Task<bool> OnDeleteAsync(IEnumerable<Foo> items)
+    private Task<QueryData<Foo>> OnQueryProductAsync(QueryPageOptions options)
+    {
+        var items = ProductSelectItems;
+
+        var total = items.Count;
+        // 内存分页
+        items = items.Skip((options.PageIndex - 1) * options.PageItems).Take(options.PageItems).ToList();
+
+        return Task.FromResult(new QueryData<Foo>()
         {
-            Products.RemoveAll(p => items.Contains(p));
-            return Task.FromResult(true);
-        }
-
-        private Task<QueryData<Foo>> OnQueryEditAsync(QueryPageOptions options)
-        {
-            ProductTable.SelectedRows.Clear();
-            var items = Products;
-            if (_confirm)
-            {
-                items.Clear();
-                items.AddRange(SelectedRows);
-            }
-            _confirm = false;
-
-            var total = items.Count;
-            // 内存分页
-            items = items.Skip((options.PageIndex - 1) * options.PageItems).Take(options.PageItems).ToList();
-            return Task.FromResult(new QueryData<Foo>()
-            {
-                Items = items,
-                TotalCount = total,
-                IsFiltered = true,
-                IsSearch = true,
-                IsSorted = true
-            });
-        }
-
-        private Task<QueryData<Foo>> OnQueryProductAsync(QueryPageOptions options)
-        {
-            var items = ProductSelectItems;
-
-            var total = items.Count;
-            // 内存分页
-            items = items.Skip((options.PageIndex - 1) * options.PageItems).Take(options.PageItems).ToList();
-
-            return Task.FromResult(new QueryData<Foo>()
-            {
-                Items = items,
-                TotalCount = total,
-            });
-        }
+            Items = items,
+            TotalCount = total,
+        });
     }
 }

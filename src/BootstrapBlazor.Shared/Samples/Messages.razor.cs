@@ -9,82 +9,82 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 
-namespace BootstrapBlazor.Shared.Samples
+namespace BootstrapBlazor.Shared.Samples;
+
+/// <summary>
+/// 
+/// </summary>
+public sealed partial class Messages
 {
+    [NotNull]
+    private Message? Message { get; set; }
+
     /// <summary>
     /// 
     /// </summary>
-    public sealed partial class Messages
+    [Inject]
+    [NotNull]
+    public MessageService? MessageService { get; set; }
+
+    private async Task ShowMessage()
     {
-        [NotNull]
-        private Message? Message { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        [Inject]
-        [NotNull]
-        public MessageService? MessageService { get; set; }
-
-        private async Task ShowMessage()
+        Message.SetPlacement(Placement.Top);
+        await MessageService.Show(new MessageOption()
         {
-            Message.SetPlacement(Placement.Top);
-            await MessageService.Show(new MessageOption()
-            {
-                Content = "这是一条提示消息"
-            });
-        }
+            Content = "这是一条提示消息"
+        });
+    }
 
-        private async Task ShowIconMessage()
+    private async Task ShowIconMessage()
+    {
+        await MessageService.Show(new MessageOption()
         {
-            await MessageService.Show(new MessageOption()
-            {
-                Content = "这是一条提示消息",
-                Icon = "fa fa-info-circle"
-            });
-        }
+            Content = "这是一条提示消息",
+            Icon = "fa fa-info-circle"
+        });
+    }
 
-        private async Task ShowCloseMessage()
+    private async Task ShowCloseMessage()
+    {
+        await MessageService.Show(new MessageOption()
         {
-            await MessageService.Show(new MessageOption()
-            {
-                Content = "这是一条提示消息",
-                Icon = "fa fa-info-circle",
-                ShowDismiss = true,
-            });
-        }
+            Content = "这是一条提示消息",
+            Icon = "fa fa-info-circle",
+            ShowDismiss = true,
+        });
+    }
 
-        private async Task ShowBarMessage()
+    private async Task ShowBarMessage()
+    {
+        await MessageService.Show(new MessageOption()
         {
-            await MessageService.Show(new MessageOption()
-            {
-                Content = "这是一条提示消息",
-                Icon = "fa fa-info-circle",
-                ShowBar = true,
-            });
-        }
+            Content = "这是一条提示消息",
+            Icon = "fa fa-info-circle",
+            ShowBar = true,
+        });
+    }
 
-        private async Task ShowColorMessage(Color color)
+    private async Task ShowColorMessage(Color color)
+    {
+        await MessageService.Show(new MessageOption()
         {
-            await MessageService.Show(new MessageOption()
-            {
-                Content = "这是带颜色的消息",
-                Icon = "fa fa-info-circle",
-                Color = color
-            });
-        }
+            Content = "这是带颜色的消息",
+            Icon = "fa fa-info-circle",
+            Color = color
+        });
+    }
 
-        private async Task ShowBottomMessage()
+    private async Task ShowBottomMessage()
+    {
+        await MessageService.Show(new MessageOption()
         {
-            await MessageService.Show(new MessageOption()
-            {
-                Content = "这是一条提示消息",
-                Icon = "fa fa-info-circle",
-            }, Message);
-        }
+            Content = "这是一条提示消息",
+            Icon = "fa fa-info-circle",
+        }, Message);
+    }
 
-        private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-        {
+    private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+    {
             // TODO: 移动到数据库中
             new AttributeItem() {
                 Name = "Placement",
@@ -93,14 +93,14 @@ namespace BootstrapBlazor.Shared.Samples
                 ValueList = "Top|Bottom",
                 DefaultValue = "Top"
             }
-        };
+    };
 
-        /// <summary>
-        /// 获得属性方法
-        /// </summary>
-        /// <returns></returns>
-        private static IEnumerable<AttributeItem> GetMessageItemAttributes() => new AttributeItem[]
-        {
+    /// <summary>
+    /// 获得属性方法
+    /// </summary>
+    /// <returns></returns>
+    private static IEnumerable<AttributeItem> GetMessageItemAttributes() => new AttributeItem[]
+    {
             // TODO: 移动到数据库中
             new AttributeItem() {
                 Name = "ChildContent",
@@ -144,6 +144,5 @@ namespace BootstrapBlazor.Shared.Samples
                 ValueList = "true|false",
                 DefaultValue = "false"
             }
-        };
-    }
+    };
 }

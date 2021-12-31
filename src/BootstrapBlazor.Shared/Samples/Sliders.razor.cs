@@ -5,21 +5,21 @@
 using BootstrapBlazor.Shared.Common;
 using System.Collections.Generic;
 
-namespace BootstrapBlazor.Shared.Samples
-{
-    /// <summary>
-    /// 
-    /// </summary>
-    public sealed partial class Sliders
-    {
-        private int BindValue { get; set; } = 50;
+namespace BootstrapBlazor.Shared.Samples;
 
-        /// <summary>
-        /// 获得属性方法
-        /// </summary>
-        /// <returns></returns>
-        private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-        {
+/// <summary>
+/// 
+/// </summary>
+public sealed partial class Sliders
+{
+    private int BindValue { get; set; } = 50;
+
+    /// <summary>
+    /// 获得属性方法
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+    {
             // TODO: 移动到数据库中
             new AttributeItem() {
                 Name = "Class",
@@ -42,20 +42,19 @@ namespace BootstrapBlazor.Shared.Samples
                 ValueList = "—",
                 DefaultValue = "—"
             },
-        };
+    };
 
-        /// <summary>
-        /// 获得事件方法
-        /// </summary>
-        /// <returns></returns>
-        private IEnumerable<EventItem> GetEvents() => new EventItem[]
-        {
+    /// <summary>
+    /// 获得事件方法
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerable<EventItem> GetEvents() => new EventItem[]
+    {
             new EventItem()
             {
                 Name = "ValueChanged",
                 Description = Localizer["ValueChanged"],
                 Type ="EventCallback<int>"
             }
-        };
-    }
+    };
 }

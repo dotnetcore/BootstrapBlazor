@@ -7,48 +7,47 @@ using Microsoft.AspNetCore.Components;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 
-namespace BootstrapBlazor.Shared.Samples
+namespace BootstrapBlazor.Shared.Samples;
+
+/// <summary>
+/// 
+/// </summary>
+public partial class Locator
 {
+    [Inject]
+    [NotNull]
+    private WebClientService? ClientService { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IIPLocatorProvider? IPLocator { get; set; }
+
+    private string? Ip { get; set; }
+
+    private string? Location { get; set; }
+
     /// <summary>
     /// 
     /// </summary>
-    public partial class Locator
+    /// <param name="firstRender"></param>
+    /// <returns></returns>
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        [Inject]
-        [NotNull]
-        private WebClientService? ClientService { get; set; }
+        await base.OnAfterRenderAsync(firstRender);
 
-        [Inject]
-        [NotNull]
-        private IIPLocatorProvider? IPLocator { get; set; }
-
-        private string? Ip { get; set; }
-
-        private string? Location { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="firstRender"></param>
-        /// <returns></returns>
-        protected override async Task OnAfterRenderAsync(bool firstRender)
+        if (firstRender)
         {
-            await base.OnAfterRenderAsync(firstRender);
-
-            if (firstRender)
-            {
-                await ClientService.RetrieveRemoteInfo();
-                Ip = ClientService.Ip;
-                StateHasChanged();
-            }
+            await ClientService.RetrieveRemoteInfo();
+            Ip = ClientService.Ip;
+            StateHasChanged();
         }
+    }
 
-        private async Task OnClick()
+    private async Task OnClick()
+    {
+        if (!string.IsNullOrEmpty(Ip))
         {
-            if (!string.IsNullOrEmpty(Ip))
-            {
-                Location = await IPLocator.Locate(Ip);
-            }
+            Location = await IPLocator.Locate(Ip);
         }
     }
 }

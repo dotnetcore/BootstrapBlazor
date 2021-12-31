@@ -2,16 +2,15 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-namespace BootstrapBlazor.Shared
+namespace BootstrapBlazor.Shared;
+
+/// <summary>
+/// 
+/// </summary>
+public class MessageItem
 {
     /// <summary>
     /// 
     /// </summary>
-    public class MessageItem
-    {
-        /// <summary>
-        /// 
-        /// </summary>
-        public string? Message { get; set; }
-    }
+    public string? Message { get; set; }
 }

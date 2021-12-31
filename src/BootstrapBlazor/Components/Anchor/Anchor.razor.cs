@@ -5,57 +5,56 @@
 using Microsoft.AspNetCore.Components;
 using System.Threading.Tasks;
 
-namespace BootstrapBlazor.Components
+namespace BootstrapBlazor.Components;
+
+/// <summary>
+/// Anchor 组件部分类
+/// </summary>
+public sealed partial class Anchor
 {
+    private ElementReference AnchorElement { get; set; }
+
     /// <summary>
-    /// Anchor 组件部分类
+    /// 获得/设置 目标组件 Id
     /// </summary>
-    public sealed partial class Anchor
+    [Parameter]
+    public string? Target { get; set; }
+
+    /// <summary>
+    /// 获得/设置 滚动组件 Id 默认为 null 使用 window 元素
+    /// </summary>
+    [Parameter]
+    public string? Container { get; set; }
+
+    /// <summary>
+    /// 获得/设置 距离顶端偏移量 默认为 0
+    /// </summary>
+    [Parameter]
+    public int Offset { get; set; }
+
+    /// <summary>
+    /// 获得/设置 子内容
+    /// </summary>
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    /// <summary>
+    /// OnAfterRenderAsync 方法
+    /// </summary>
+    /// <param name="firstRender"></param>
+    /// <returns></returns>
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        private ElementReference AnchorElement { get; set; }
+        await base.OnAfterRenderAsync(firstRender);
 
-        /// <summary>
-        /// 获得/设置 目标组件 Id
-        /// </summary>
-        [Parameter]
-        public string? Target { get; set; }
-
-        /// <summary>
-        /// 获得/设置 滚动组件 Id 默认为 null 使用 window 元素
-        /// </summary>
-        [Parameter]
-        public string? Container { get; set; }
-
-        /// <summary>
-        /// 获得/设置 距离顶端偏移量 默认为 0
-        /// </summary>
-        [Parameter]
-        public int Offset { get; set; }
-
-        /// <summary>
-        /// 获得/设置 子内容
-        /// </summary>
-        [Parameter]
-        public RenderFragment? ChildContent { get; set; }
-
-        /// <summary>
-        /// OnAfterRenderAsync 方法
-        /// </summary>
-        /// <param name="firstRender"></param>
-        /// <returns></returns>
-        protected override async Task OnAfterRenderAsync(bool firstRender)
+        if (firstRender)
         {
-            await base.OnAfterRenderAsync(firstRender);
-
-            if (firstRender)
+            if (!string.IsNullOrEmpty(Target))
             {
-                if (!string.IsNullOrEmpty(Target))
-                {
-                    await JSRuntime.InvokeVoidAsync(AnchorElement, "bb_anchor");
-                }
+                await JSRuntime.InvokeVoidAsync(AnchorElement, "bb_anchor");
             }
         }
-
-        private string? GetTargetString => string.IsNullOrEmpty(Target) ? null : $"#{Target}";
     }
+
+    private string? GetTargetString => string.IsNullOrEmpty(Target) ? null : $"#{Target}";
 }

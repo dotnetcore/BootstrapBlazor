@@ -11,54 +11,54 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BootstrapBlazor.Shared.Samples
+namespace BootstrapBlazor.Shared.Samples;
+
+/// <summary>
+/// 
+/// </summary>
+partial class AutoFills
 {
+    [NotNull]
+    private Foo Model { get; set; } = new();
+
+    [NotNull]
+    private IEnumerable<Foo>? Items { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<Foo>? LocalizerFoo { get; set; }
+
     /// <summary>
-    /// 
+    /// OnInitialized 方法
     /// </summary>
-    partial class AutoFills
+    protected override void OnInitialized()
     {
-        [NotNull]
-        private Foo Model { get; set; } = new();
+        base.OnInitialized();
 
-        [NotNull]
-        private IEnumerable<Foo>? Items { get; set; }
+        Items = Foo.GenerateFoo(LocalizerFoo);
+    }
 
-        [Inject]
-        [NotNull]
-        private IStringLocalizer<Foo>? LocalizerFoo { get; set; }
+    private Task OnSelectedItemChanged(Foo foo)
+    {
+        Model = Utility.Clone(foo);
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
 
-        /// <summary>
-        /// OnInitialized 方法
-        /// </summary>
-        protected override void OnInitialized()
-        {
-            base.OnInitialized();
+    private string OnGetDisplayText(Foo foo) => foo.Name ?? "";
 
-            Items = Foo.GenerateFoo(LocalizerFoo);
-        }
+    private Task<IEnumerable<Foo>> OnCustomFilter(string searchText)
+    {
+        var items = string.IsNullOrEmpty(searchText) ? Items : Items.Where(i => i.Count > 50 && i.Name!.Contains(searchText));
+        return Task.FromResult(items);
+    }
 
-        private Task OnSelectedItemChanged(Foo foo)
-        {
-            Model = Utility.Clone(foo);
-            StateHasChanged();
-            return Task.CompletedTask;
-        }
-
-        private string OnGetDisplayText(Foo foo) => foo.Name ?? "";
-
-        private Task<IEnumerable<Foo>> OnCustomFilter(string searchText)
-        {
-            var items = string.IsNullOrEmpty(searchText) ? Items : Items.Where(i => i.Count > 50 && i.Name!.Contains(searchText));
-            return Task.FromResult(items);
-        }
-
-        /// <summary>
-        /// 获得属性方法
-        /// </summary>
-        /// <returns></returns>
-        private IEnumerable<AttributeItem> GetAttributes() => new[]
-        {
+    /// <summary>
+    /// 获得属性方法
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerable<AttributeItem> GetAttributes() => new[]
+    {
             // TODO: 移动到数据库中
             new AttributeItem() {
                 Name = "DisplayCount",
@@ -124,5 +124,4 @@ namespace BootstrapBlazor.Shared.Samples
                 DefaultValue = " — "
             }
         };
-    }
 }

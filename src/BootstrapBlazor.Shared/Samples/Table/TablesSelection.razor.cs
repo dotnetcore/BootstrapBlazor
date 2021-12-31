@@ -10,57 +10,56 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BootstrapBlazor.Shared.Samples.Table
+namespace BootstrapBlazor.Shared.Samples.Table;
+
+/// <summary>
+/// 选中行示例代码
+/// </summary>
+public sealed partial class TablesSelection
 {
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<Foo>? Localizer { get; set; }
+
+    private static IEnumerable<int> PageItemsSource => new int[] { 4, 10, 20 };
+
+    [NotNull]
+    private List<Foo>? Items { get; set; }
+
+    [NotNull]
+    private List<Foo>? SelectedItems { get; set; }
+
     /// <summary>
-    /// 选中行示例代码
+    /// OnInitialized 方法
     /// </summary>
-    public sealed partial class TablesSelection
+    protected override void OnInitialized()
     {
-        [Inject]
-        [NotNull]
-        private IStringLocalizer<Foo>? Localizer { get; set; }
+        base.OnInitialized();
 
-        private static IEnumerable<int> PageItemsSource => new int[] { 4, 10, 20 };
+        Items = Foo.GenerateFoo(Localizer);
+        SelectedItems = Items.Take(4).ToList();
+    }
 
-        [NotNull]
-        private List<Foo>? Items { get; set; }
+    private void OnClick()
+    {
+        SelectedItems.Clear();
+    }
 
-        [NotNull]
-        private List<Foo>? SelectedItems { get; set; }
+    private Task<QueryData<Foo>> OnQueryAsync(QueryPageOptions options)
+    {
+        // 设置记录总数
+        var total = Items.Count;
 
-        /// <summary>
-        /// OnInitialized 方法
-        /// </summary>
-        protected override void OnInitialized()
+        // 内存分页
+        var items = Items.Skip((options.PageIndex - 1) * options.PageItems).Take(options.PageItems).ToList();
+
+        return Task.FromResult(new QueryData<Foo>()
         {
-            base.OnInitialized();
-
-            Items = Foo.GenerateFoo(Localizer);
-            SelectedItems = Items.Take(4).ToList();
-        }
-
-        private void OnClick()
-        {
-            SelectedItems.Clear();
-        }
-
-        private Task<QueryData<Foo>> OnQueryAsync(QueryPageOptions options)
-        {
-            // 设置记录总数
-            var total = Items.Count;
-
-            // 内存分页
-            var items = Items.Skip((options.PageIndex - 1) * options.PageItems).Take(options.PageItems).ToList();
-
-            return Task.FromResult(new QueryData<Foo>()
-            {
-                Items = items,
-                TotalCount = total,
-                IsSorted = true,
-                IsFiltered = true,
-                IsSearch = true
-            });
-        }
+            Items = items,
+            TotalCount = total,
+            IsSorted = true,
+            IsFiltered = true,
+            IsSearch = true
+        });
     }
 }

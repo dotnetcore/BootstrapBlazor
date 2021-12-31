@@ -7,34 +7,33 @@ using System;
 using System.Collections.Concurrent;
 using System.Linq;
 
-namespace BootstrapBlazor.Components
+namespace BootstrapBlazor.Components;
+
+internal static class AttributeAuthorizeDataCache
 {
-    internal static class AttributeAuthorizeDataCache
+    private static readonly ConcurrentDictionary<Type, IAuthorizeData[]?> _cache = new();
+
+    public static IAuthorizeData[]? GetAuthorizeDataForType(Type type)
     {
-        private static readonly ConcurrentDictionary<Type, IAuthorizeData[]?> _cache = new();
-
-        public static IAuthorizeData[]? GetAuthorizeDataForType(Type type)
+        if (!_cache.TryGetValue(type, out var result))
         {
-            if (!_cache.TryGetValue(type, out var result))
-            {
-                result = ComputeAuthorizeDataForType(type);
-                _cache[type] = result; // Safe race - doesn't matter if it overwrites
-            }
-
-            return result;
+            result = ComputeAuthorizeDataForType(type);
+            _cache[type] = result; // Safe race - doesn't matter if it overwrites
         }
 
-        private static IAuthorizeData[]? ComputeAuthorizeDataForType(Type type)
-        {
-            // Allow Anonymous skips all authorization
-            var allAttributes = type.GetCustomAttributes(inherit: true);
-            if (allAttributes.OfType<IAllowAnonymous>().Any())
-            {
-                return null;
-            }
+        return result;
+    }
 
-            var authorizeDataAttributes = allAttributes.OfType<IAuthorizeData>().ToArray();
-            return authorizeDataAttributes.Length > 0 ? authorizeDataAttributes : null;
+    private static IAuthorizeData[]? ComputeAuthorizeDataForType(Type type)
+    {
+        // Allow Anonymous skips all authorization
+        var allAttributes = type.GetCustomAttributes(inherit: true);
+        if (allAttributes.OfType<IAllowAnonymous>().Any())
+        {
+            return null;
         }
+
+        var authorizeDataAttributes = allAttributes.OfType<IAuthorizeData>().ToArray();
+        return authorizeDataAttributes.Length > 0 ? authorizeDataAttributes : null;
     }
 }

@@ -10,97 +10,97 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 
-namespace BootstrapBlazor.Shared.Samples
+namespace BootstrapBlazor.Shared.Samples;
+
+/// <summary>
+/// 
+/// </summary>
+public sealed partial class SearchDialogs
 {
-    /// <summary>
-    /// 
-    /// </summary>
-    public sealed partial class SearchDialogs
+    [Inject]
+    [NotNull]
+    private DialogService? DialogService { get; set; }
+
+    [NotNull]
+    private BlockLogger? Trace { get; set; }
+
+    private async Task ShowDialog()
     {
-        [Inject]
-        [NotNull]
-        private DialogService? DialogService { get; set; }
-
-        [NotNull]
-        private BlockLogger? Trace { get; set; }
-
-        private async Task ShowDialog()
+        var option = new SearchDialogOption<Foo>()
         {
-            var option = new SearchDialogOption<Foo>()
+            Title = "搜索弹出框",
+            Model = new Foo(),
+            ItemsPerRow = 2,
+            RowType = RowType.Inline,
+            OnCloseAsync = () =>
             {
-                Title = "搜索弹出框",
-                Model = new Foo(),
-                ItemsPerRow = 2,
-                RowType = RowType.Inline,
-                OnCloseAsync = () =>
-                {
-                    Trace.Log("关闭按钮被点击");
-                    return Task.CompletedTask;
-                },
-                OnResetSearchClick = () =>
-                {
-                    Trace.Log("重置按钮被点击");
-                    return Task.CompletedTask;
-                },
-                OnSearchClick = () =>
-                {
-                    Trace.Log("搜索按钮被点击");
-                    return Task.CompletedTask;
-                }
-            };
-
-            await DialogService.ShowSearchDialog(option);
-        }
-
-        private async Task ShowColumnsDialog()
-        {
-            var model = new Foo();
-            var option = new SearchDialogOption<Foo>()
+                Trace.Log("关闭按钮被点击");
+                return Task.CompletedTask;
+            },
+            OnResetSearchClick = () =>
             {
-                Title = "搜索弹出框",
-                Model = model,
-                ItemsPerRow = 2,
-                RowType = RowType.Inline,
-                Items = Utility.GenerateColumns<Foo>(p => p.GetFieldName() == nameof(Foo.Name) || p.GetFieldName() == nameof(Foo.Address))
-            };
-            await DialogService.ShowSearchDialog(option);
-        }
-
-        private async Task ShowInlineDialog()
-        {
-            var model = new Foo();
-            var option = new SearchDialogOption<Foo>()
+                Trace.Log("重置按钮被点击");
+                return Task.CompletedTask;
+            },
+            OnSearchClick = () =>
             {
-                Title = "搜索弹出框",
-                ItemsPerRow = 2,
-                RowType = RowType.Inline,
-                Model = model,
-                Items = Utility.GenerateColumns<Foo>(p => p.GetFieldName() == nameof(Foo.Name) || p.GetFieldName() == nameof(Foo.Address))
-            };
-            await DialogService.ShowSearchDialog(option);
-        }
+                Trace.Log("搜索按钮被点击");
+                return Task.CompletedTask;
+            }
+        };
 
-        private async Task ShowInlineAlignDialog()
-        {
-            var model = new Foo();
-            var option = new SearchDialogOption<Foo>()
-            {
-                Title = "搜索弹出框",
-                ItemsPerRow = 2,
-                RowType = RowType.Inline,
-                LabelAlign = Alignment.Right,
-                Model = model,
-                Items = Utility.GenerateColumns<Foo>(p => p.GetFieldName() == nameof(Foo.Name) || p.GetFieldName() == nameof(Foo.Address))
-            };
-            await DialogService.ShowSearchDialog(option);
-        }
+        await DialogService.ShowSearchDialog(option);
+    }
 
-        /// <summary>
-        /// 获得属性方法
-        /// </summary>
-        /// <returns></returns>
-        private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+    private async Task ShowColumnsDialog()
+    {
+        var model = new Foo();
+        var option = new SearchDialogOption<Foo>()
         {
+            Title = "搜索弹出框",
+            Model = model,
+            ItemsPerRow = 2,
+            RowType = RowType.Inline,
+            Items = Utility.GenerateColumns<Foo>(p => p.GetFieldName() == nameof(Foo.Name) || p.GetFieldName() == nameof(Foo.Address))
+        };
+        await DialogService.ShowSearchDialog(option);
+    }
+
+    private async Task ShowInlineDialog()
+    {
+        var model = new Foo();
+        var option = new SearchDialogOption<Foo>()
+        {
+            Title = "搜索弹出框",
+            ItemsPerRow = 2,
+            RowType = RowType.Inline,
+            Model = model,
+            Items = Utility.GenerateColumns<Foo>(p => p.GetFieldName() == nameof(Foo.Name) || p.GetFieldName() == nameof(Foo.Address))
+        };
+        await DialogService.ShowSearchDialog(option);
+    }
+
+    private async Task ShowInlineAlignDialog()
+    {
+        var model = new Foo();
+        var option = new SearchDialogOption<Foo>()
+        {
+            Title = "搜索弹出框",
+            ItemsPerRow = 2,
+            RowType = RowType.Inline,
+            LabelAlign = Alignment.Right,
+            Model = model,
+            Items = Utility.GenerateColumns<Foo>(p => p.GetFieldName() == nameof(Foo.Name) || p.GetFieldName() == nameof(Foo.Address))
+        };
+        await DialogService.ShowSearchDialog(option);
+    }
+
+    /// <summary>
+    /// 获得属性方法
+    /// </summary>
+    /// <returns></returns>
+    private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+    {
             // TODO: 移动到数据库中
             new AttributeItem() {
                 Name = "ShowLabel",
@@ -179,6 +179,5 @@ namespace BootstrapBlazor.Shared.Samples
                 ValueList = "None|Left|Center|Right",
                 DefaultValue = "None"
             }
-        };
-    }
+    };
 }

@@ -10,31 +10,31 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
-namespace BootstrapBlazor.Shared.Samples
+namespace BootstrapBlazor.Shared.Samples;
+
+/// <summary>
+///
+/// </summary>
+public sealed partial class EditorForms
 {
-    /// <summary>
-    ///
-    /// </summary>
-    public sealed partial class EditorForms
-    {
-        [Inject]
-        [NotNull]
-        private IStringLocalizer<Foo>? FooLocalizer { get; set; }
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<Foo>? FooLocalizer { get; set; }
 
-        [Inject]
-        [NotNull]
-        private IStringLocalizer<EditorForms>? Localizer { get; set; }
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<EditorForms>? Localizer { get; set; }
 
-        [NotNull]
-        private Foo? Model { get; set; }
+    [NotNull]
+    private Foo? Model { get; set; }
 
-        [NotNull]
-        private Foo? ValidateModel { get; set; }
+    [NotNull]
+    private Foo? ValidateModel { get; set; }
 
-        [NotNull]
-        private IEnumerable<SelectedItem>? Hobbys { get; set; }
+    [NotNull]
+    private IEnumerable<SelectedItem>? Hobbys { get; set; }
 
-        private List<SelectedItem> DummyItems { get; } = new List<SelectedItem>()
+    private List<SelectedItem> DummyItems { get; } = new List<SelectedItem>()
         {
             new SelectedItem("1", "1"),
             new SelectedItem("2", "2"),
@@ -43,33 +43,33 @@ namespace BootstrapBlazor.Shared.Samples
             new SelectedItem("5", "5")
         };
 
-        /// <summary>
-        /// OnInitialized 方法
-        /// </summary>
-        protected override void OnInitialized()
-        {
-            base.OnInitialized();
+    /// <summary>
+    /// OnInitialized 方法
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
 
-            Hobbys = Foo.GenerateHobbys(FooLocalizer);
-            Model = new Foo()
-            {
-                Name = Localizer["TestAddr"],
-                Count = 23,
-                Address = Localizer["TestAddr"],
-                DateTime = new DateTime(1997, 12, 05),
-                Education = EnumEducation.Middel
-            };
-            ValidateModel = new Foo()
-            {
-                Name = Localizer["TestName"],
-                Count = 23,
-                DateTime = new DateTime(1997, 12, 05),
-                Education = EnumEducation.Middel
-            };
-        }
-
-        private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+        Hobbys = Foo.GenerateHobbys(FooLocalizer);
+        Model = new Foo()
         {
+            Name = Localizer["TestAddr"],
+            Count = 23,
+            Address = Localizer["TestAddr"],
+            DateTime = new DateTime(1997, 12, 05),
+            Education = EnumEducation.Middel
+        };
+        ValidateModel = new Foo()
+        {
+            Name = Localizer["TestName"],
+            Count = 23,
+            DateTime = new DateTime(1997, 12, 05),
+            Education = EnumEducation.Middel
+        };
+    }
+
+    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+    {
             // TODO: 移动到数据库中
             new AttributeItem() {
                 Name = "Model",
@@ -134,10 +134,10 @@ namespace BootstrapBlazor.Shared.Samples
                 ValueList = "None|Left|Center|Right",
                 DefaultValue = "None"
             }
-        };
+    };
 
-        private IEnumerable<AttributeItem> GetEditorItemAttributes() => new AttributeItem[]
-        {
+    private IEnumerable<AttributeItem> GetEditorItemAttributes() => new AttributeItem[]
+    {
             // TODO: 移动到数据库中
             new AttributeItem() {
                 Name = "Field",
@@ -181,6 +181,5 @@ namespace BootstrapBlazor.Shared.Samples
                 ValueList = " — ",
                 DefaultValue = " — "
             }
-        };
-    }
+    };
 }

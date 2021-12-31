@@ -9,39 +9,38 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 
-namespace BootstrapBlazor.Shared.Samples.Table
+namespace BootstrapBlazor.Shared.Samples.Table;
+
+/// <summary>
+/// 
+/// </summary>
+public partial class TablesLookup
 {
+    [NotNull]
+    private List<Foo>? Items { get; set; }
+
+    [NotNull]
+    private List<SelectedItem>? DataSource { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<Foo>? Localizer { get; set; }
+
     /// <summary>
-    /// 
+    /// OnInitialized 方法
     /// </summary>
-    public partial class TablesLookup
+    protected override async Task OnInitializedAsync()
     {
-        [NotNull]
-        private List<Foo>? Items { get; set; }
+        await base.OnInitializedAsync();
 
-        [NotNull]
-        private List<SelectedItem>? DataSource { get; set; }
+        await Task.Delay(200);
 
-        [Inject]
-        [NotNull]
-        private IStringLocalizer<Foo>? Localizer { get; set; }
+        Items = Foo.GenerateFoo(Localizer);
 
-        /// <summary>
-        /// OnInitialized 方法
-        /// </summary>
-        protected override async Task OnInitializedAsync()
-        {
-            await base.OnInitializedAsync();
-
-            await Task.Delay(200);
-
-            Items = Foo.GenerateFoo(Localizer);
-
-            DataSource = new List<SelectedItem>
+        DataSource = new List<SelectedItem>
             {
                 new SelectedItem{ Value = "true", Text = Localizer["True"].Value },
                 new SelectedItem{ Value = "false", Text = Localizer["False"].Value }
             };
-        }
     }
 }

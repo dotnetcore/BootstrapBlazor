@@ -7,58 +7,57 @@ using Microsoft.Extensions.Localization;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
-namespace BootstrapBlazor.Components
+namespace BootstrapBlazor.Components;
+
+/// <summary>
+/// 
+/// </summary>
+public partial class FilterLogicItem
 {
+    private FilterLogic _value;
+    private FilterLogic Value
+    {
+        get
+        {
+            _value = Logic;
+            return _value;
+        }
+        set
+        {
+            _value = value;
+            if (LogicChanged.HasDelegate) LogicChanged.InvokeAsync(value);
+        }
+    }
+
     /// <summary>
     /// 
     /// </summary>
-    public partial class FilterLogicItem
+    [Parameter]
+    public FilterLogic Logic { get; set; }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    [Parameter]
+    public EventCallback<FilterLogic> LogicChanged { get; set; }
+
+    private IEnumerable<SelectedItem>? Items { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<FilterLogicItem>? Localizer { get; set; }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    protected override void OnInitialized()
     {
-        private FilterLogic _value;
-        private FilterLogic Value
-        {
-            get
-            {
-                _value = Logic;
-                return _value;
-            }
-            set
-            {
-                _value = value;
-                if (LogicChanged.HasDelegate) LogicChanged.InvokeAsync(value);
-            }
-        }
+        base.OnInitialized();
 
-        /// <summary>
-        /// 
-        /// </summary>
-        [Parameter]
-        public FilterLogic Logic { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        [Parameter]
-        public EventCallback<FilterLogic> LogicChanged { get; set; }
-
-        private IEnumerable<SelectedItem>? Items { get; set; }
-
-        [Inject]
-        [NotNull]
-        private IStringLocalizer<FilterLogicItem>? Localizer { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        protected override void OnInitialized()
-        {
-            base.OnInitialized();
-
-            Items = new List<SelectedItem>()
+        Items = new List<SelectedItem>()
             {
                 new SelectedItem("And",Localizer["And"]?.Value ?? "And"),
                 new SelectedItem("Or",Localizer["Or"]?.Value ?? "Or")
             };
-        }
     }
 }

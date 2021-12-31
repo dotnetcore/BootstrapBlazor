@@ -9,66 +9,65 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BootstrapBlazor.Shared.Samples.Charts
+namespace BootstrapBlazor.Shared.Samples.Charts;
+
+/// <summary>
+/// 
+/// </summary>
+public partial class Line
 {
+    private Random Randomer { get; } = new Random();
+    private int LineDatasetCount = 2;
+    private int LineDataCount = 7;
+
+    [NotNull]
+    private Chart? LineChart { get; set; }
+
+    [NotNull]
+    private BlockLogger? Logger { get; set; }
+
     /// <summary>
     /// 
     /// </summary>
-    public partial class Line
+    /// <param name="firstRender"></param>
+    protected override void OnAfterRender(bool firstRender)
     {
-        private Random Randomer { get; } = new Random();
-        private int LineDatasetCount = 2;
-        private int LineDataCount = 7;
+        base.OnAfterRender(firstRender);
 
-        [NotNull]
-        private Chart? LineChart { get; set; }
-
-        [NotNull]
-        private BlockLogger? Logger { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="firstRender"></param>
-        protected override void OnAfterRender(bool firstRender)
+        if (firstRender)
         {
-            base.OnAfterRender(firstRender);
+            Logger.Log("Line 正在加载数据 ...");
+        }
+    }
 
-            if (firstRender)
+    private Task OnAfterInit()
+    {
+        Logger.Log("Line 初始化完毕");
+        return Task.CompletedTask;
+    }
+
+    private Task OnAfterUpdate(ChartAction action)
+    {
+        Logger.Log($"Line 图更新数据操作完毕 -- {action}");
+        return Task.CompletedTask;
+    }
+
+    private Task<ChartDataSource> OnInit(float tension, bool hasNull)
+    {
+        var ds = new ChartDataSource();
+        ds.Options.Title = "Line 折线图";
+        ds.Options.X.Title = "天数";
+        ds.Options.Y.Title = "数值";
+        ds.Labels = Enumerable.Range(1, LineDataCount).Select(i => i.ToString());
+        for (var index = 0; index < LineDatasetCount; index++)
+        {
+            ds.Data.Add(new ChartDataset()
             {
-                Logger.Log("Line 正在加载数据 ...");
-            }
+                Tension = tension,
+                Label = $"数据集 {index}",
+                Data = Enumerable.Range(1, LineDataCount).Select((i, index) => (index == 2 && hasNull) ? null! : (object)Randomer.Next(20, 37))
+            });
         }
-
-        private Task OnAfterInit()
-        {
-            Logger.Log("Line 初始化完毕");
-            return Task.CompletedTask;
-        }
-
-        private Task OnAfterUpdate(ChartAction action)
-        {
-            Logger.Log($"Line 图更新数据操作完毕 -- {action}");
-            return Task.CompletedTask;
-        }
-
-        private Task<ChartDataSource> OnInit(float tension, bool hasNull)
-        {
-            var ds = new ChartDataSource();
-            ds.Options.Title = "Line 折线图";
-            ds.Options.X.Title = "天数";
-            ds.Options.Y.Title = "数值";
-            ds.Labels = Enumerable.Range(1, LineDataCount).Select(i => i.ToString());
-            for (var index = 0; index < LineDatasetCount; index++)
-            {
-                ds.Data.Add(new ChartDataset()
-                {
-                    Tension = tension,
-                    Label = $"数据集 {index}",
-                    Data = Enumerable.Range(1, LineDataCount).Select((i, index) => (index == 2 && hasNull) ? null! : (object)Randomer.Next(20, 37))
-                });
-            }
-            return Task.FromResult(ds);
-        }
+        return Task.FromResult(ds);
     }
 }

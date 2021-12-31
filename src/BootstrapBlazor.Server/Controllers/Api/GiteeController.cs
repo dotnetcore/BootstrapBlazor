@@ -8,67 +8,66 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using System.Linq;
 
-namespace BootstrapBlazor.Server.Controllers.Api
+namespace BootstrapBlazor.Server.Controllers.Api;
+
+/// <summary>
+/// 
+/// </summary>
+[Route("api/[controller]/[action]")]
+[ApiController]
+public class GiteeController : ControllerBase
 {
     /// <summary>
-    /// 
+    /// Gitee Webhook
     /// </summary>
-    [Route("api/[controller]/[action]")]
-    [ApiController]
-    public class GiteeController : ControllerBase
+    /// <returns></returns>
+    [HttpPost]
+    public IActionResult Webhook([FromQuery] string? id, [FromServices] IConfiguration config, [FromServices] IDispatchService<GiteePostBody> dispatch, [FromBody] GiteePostBody payload)
     {
-        /// <summary>
-        /// Gitee Webhook
-        /// </summary>
-        /// <returns></returns>
-        [HttpPost]
-        public IActionResult Webhook([FromQuery] string? id, [FromServices] IConfiguration config, [FromServices] IDispatchService<GiteePostBody> dispatch, [FromBody] GiteePostBody payload)
+        bool ret = false;
+        if (Check())
         {
-            bool ret = false;
-            if (Check())
+            // 全局推送
+            if (payload.HeadCommit != null || payload.Commits?.Count > 0)
             {
-                // 全局推送
-                if (payload.HeadCommit != null || payload.Commits?.Count > 0)
+                dispatch.Dispatch(new DispatchEntry<GiteePostBody>()
                 {
-                    dispatch.Dispatch(new DispatchEntry<GiteePostBody>()
-                    {
-                        Name = "Gitee",
-                        Entry = payload
-                    });
-                }
-                ret = true;
+                    Name = "Gitee",
+                    Entry = payload
+                });
             }
-            return ret ? Ok() : Unauthorized();
-
-            bool Check()
-            {
-                var configId = config.GetValue<string>("WebHooks:Gitee:Id");
-                var configToken = config.GetValue<string>("WebHooks:Gitee:Token");
-                var token = "";
-                if (Request.Headers.TryGetValue("X-Gitee-Token", out var vals))
-                {
-                    token = vals.FirstOrDefault() ?? string.Empty;
-                }
-                return id == configId && token == configToken
-                        && payload.Id == configId && payload.Password == configToken;
-            }
+            ret = true;
         }
+        return ret ? Ok() : Unauthorized();
 
-        /// <summary>
-        /// Webhook 测试接口
-        /// </summary>
-        /// <returns></returns>
-        [HttpGet]
-        public IActionResult Webhook()
+        bool Check()
         {
-            return Ok(new { Message = "Ok" });
+            var configId = config.GetValue<string>("WebHooks:Gitee:Id");
+            var configToken = config.GetValue<string>("WebHooks:Gitee:Token");
+            var token = "";
+            if (Request.Headers.TryGetValue("X-Gitee-Token", out var vals))
+            {
+                token = vals.FirstOrDefault() ?? string.Empty;
+            }
+            return id == configId && token == configToken
+                    && payload.Id == configId && payload.Password == configToken;
         }
-
-        /// <summary>
-        /// 跨域握手协议
-        /// </summary>
-        /// <returns></returns>
-        [HttpOptions]
-        public string Options() => string.Empty;
     }
+
+    /// <summary>
+    /// Webhook 测试接口
+    /// </summary>
+    /// <returns></returns>
+    [HttpGet]
+    public IActionResult Webhook()
+    {
+        return Ok(new { Message = "Ok" });
+    }
+
+    /// <summary>
+    /// 跨域握手协议
+    /// </summary>
+    /// <returns></returns>
+    [HttpOptions]
+    public string Options() => string.Empty;
 }

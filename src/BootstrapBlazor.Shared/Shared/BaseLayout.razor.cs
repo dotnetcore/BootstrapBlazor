@@ -10,102 +10,101 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 
-namespace BootstrapBlazor.Shared.Shared
+namespace BootstrapBlazor.Shared.Shared;
+
+/// <summary>
+/// 
+/// </summary>
+public partial class BaseLayout
 {
+    private ElementReference MsLearnElement { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<BaseLayout>? Localizer { get; set; }
+
+    [NotNull]
+    private string? DownloadText { get; set; }
+
+    [NotNull]
+    private string? HomeText { get; set; }
+
+    [NotNull]
+    private string? IntroductionText { get; set; }
+
+    [NotNull]
+    private string? ComponentsText { get; set; }
+
+    [NotNull]
+    private string? FlowText { get; set; }
+
+    [NotNull]
+    private string? InstallAppText { get; set; }
+
+    [NotNull]
+    private string? InstallText { get; set; }
+
+    [NotNull]
+    private string? CancelText { get; set; }
+
+    [NotNull]
+    private string? Title { get; set; }
+
+    private static bool Installable = false;
+
+    [NotNull]
+    private static Action? OnInstallable { get; set; }
+
     /// <summary>
-    /// 
+    /// OnInitialized 方法
     /// </summary>
-    public partial class BaseLayout
+    /// <returns></returns>
+    protected override void OnInitialized()
     {
-        private ElementReference MsLearnElement { get; set; }
+        base.OnInitialized();
 
-        [Inject]
-        [NotNull]
-        private IStringLocalizer<BaseLayout>? Localizer { get; set; }
+        DownloadText ??= Localizer[nameof(DownloadText)];
+        HomeText ??= Localizer[nameof(HomeText)];
+        IntroductionText ??= Localizer[nameof(IntroductionText)];
+        ComponentsText ??= Localizer[nameof(ComponentsText)];
+        FlowText ??= Localizer[nameof(FlowText)];
+        InstallAppText ??= Localizer[nameof(InstallAppText)];
+        InstallText ??= Localizer[nameof(InstallText)];
+        CancelText ??= Localizer[nameof(CancelText)];
+        Title ??= Localizer[nameof(Title)];
+        OnInstallable = () => InvokeAsync(StateHasChanged);
+    }
 
-        [NotNull]
-        private string? DownloadText { get; set; }
+    /// <summary>
+    /// OnAfterRenderAsync 方法
+    /// </summary>
+    /// <param name="firstRender"></param>
+    /// <returns></returns>
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
 
-        [NotNull]
-        private string? HomeText { get; set; }
-
-        [NotNull]
-        private string? IntroductionText { get; set; }
-
-        [NotNull]
-        private string? ComponentsText { get; set; }
-
-        [NotNull]
-        private string? FlowText { get; set; }
-
-        [NotNull]
-        private string? InstallAppText { get; set; }
-
-        [NotNull]
-        private string? InstallText { get; set; }
-
-        [NotNull]
-        private string? CancelText { get; set; }
-
-        [NotNull]
-        private string? Title { get; set; }
-
-        private static bool Installable = false;
-
-        [NotNull]
-        private static Action? OnInstallable { get; set; }
-
-        /// <summary>
-        /// OnInitialized 方法
-        /// </summary>
-        /// <returns></returns>
-        protected override void OnInitialized()
+        if (firstRender)
         {
-            base.OnInitialized();
-
-            DownloadText ??= Localizer[nameof(DownloadText)];
-            HomeText ??= Localizer[nameof(HomeText)];
-            IntroductionText ??= Localizer[nameof(IntroductionText)];
-            ComponentsText ??= Localizer[nameof(ComponentsText)];
-            FlowText ??= Localizer[nameof(FlowText)];
-            InstallAppText ??= Localizer[nameof(InstallAppText)];
-            InstallText ??= Localizer[nameof(InstallText)];
-            CancelText ??= Localizer[nameof(CancelText)];
-            Title ??= Localizer[nameof(Title)];
-            OnInstallable = () => InvokeAsync(StateHasChanged);
+            await JSRuntime.InvokeVoidAsync("$.bb_tooltip_site", MsLearnElement);
         }
+    }
 
-        /// <summary>
-        /// OnAfterRenderAsync 方法
-        /// </summary>
-        /// <param name="firstRender"></param>
-        /// <returns></returns>
-        protected override async Task OnAfterRenderAsync(bool firstRender)
-        {
-            await base.OnAfterRenderAsync(firstRender);
+    /// <summary>
+    ///
+    /// </summary>
+    /// <returns></returns>
+    [JSInvokable]
+    public static Task PWAInstallable()
+    {
+        Installable = true;
+        OnInstallable.Invoke();
+        return Task.CompletedTask;
+    }
 
-            if (firstRender)
-            {
-                await JSRuntime.InvokeVoidAsync("$.bb_tooltip_site", MsLearnElement);
-            }
-        }
-
-        /// <summary>
-        ///
-        /// </summary>
-        /// <returns></returns>
-        [JSInvokable]
-        public static Task PWAInstallable()
-        {
-            Installable = true;
-            OnInstallable.Invoke();
-            return Task.CompletedTask;
-        }
-
-        private async Task InstallClicked()
-        {
-            Installable = false;
-            await JSRuntime.InvokeVoidAsync("BlazorPWA.installPWA");
-        }
+    private async Task InstallClicked()
+    {
+        Installable = false;
+        await JSRuntime.InvokeVoidAsync("BlazorPWA.installPWA");
     }
 }

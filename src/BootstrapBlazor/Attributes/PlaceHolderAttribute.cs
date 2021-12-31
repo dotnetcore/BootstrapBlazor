@@ -4,26 +4,25 @@
 
 using System;
 
-namespace BootstrapBlazor.Components
+namespace BootstrapBlazor.Components;
+
+/// <summary>
+/// 
+/// </summary>
+[AttributeUsage(AttributeTargets.Property)]
+public class PlaceHolderAttribute : Attribute
 {
+    /// <summary>
+    /// 获得 Order 属性
+    /// </summary>
+    public string Text { get; }
+
     /// <summary>
     /// 
     /// </summary>
-    [AttributeUsage(AttributeTargets.Property)]
-    public class PlaceHolderAttribute : Attribute
+    /// <param name="placeholder"></param>
+    public PlaceHolderAttribute(string placeholder)
     {
-        /// <summary>
-        /// 获得 Order 属性
-        /// </summary>
-        public string Text { get; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="placeholder"></param>
-        public PlaceHolderAttribute(string placeholder)
-        {
-            Text = placeholder;
-        }
+        Text = placeholder;
     }
 }

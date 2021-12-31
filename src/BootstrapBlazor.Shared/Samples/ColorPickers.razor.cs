@@ -8,35 +8,35 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 
-namespace BootstrapBlazor.Shared.Samples
+namespace BootstrapBlazor.Shared.Samples;
+
+/// <summary>
+/// 
+/// </summary>
+public partial class ColorPickers
 {
-    /// <summary>
-    /// 
-    /// </summary>
-    public partial class ColorPickers
+    [NotNull]
+    private BlockLogger? Trace { get; set; }
+
+    private string? Value1 { get; set; }
+
+    private string Value2 { get; set; } = "#FFFFFF";
+
+    private string Value3 { get; set; } = "#DDDDDD";
+
+    private string? Value5 { get; set; }
+
+    [NotNull]
+    private Foo? Dummy { get; set; } = new Foo() { Name = "#dddddd" };
+
+    private Task OnColorChanged(string color)
     {
-        [NotNull]
-        private BlockLogger? Trace { get; set; }
+        Trace.Log($"Selected color: {color}");
+        return Task.CompletedTask;
+    }
 
-        private string? Value1 { get; set; }
-
-        private string Value2 { get; set; } = "#FFFFFF";
-
-        private string Value3 { get; set; } = "#DDDDDD";
-
-        private string? Value5 { get; set; }
-
-        [NotNull]
-        private Foo? Dummy { get; set; } = new Foo() { Name = "#dddddd" };
-
-        private Task OnColorChanged(string color)
-        {
-            Trace.Log($"Selected color: {color}");
-            return Task.CompletedTask;
-        }
-
-        private  IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-        {
+    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+    {
             new AttributeItem()
             {
                 Name = "OnValueChanged",
@@ -45,6 +45,5 @@ namespace BootstrapBlazor.Shared.Samples
                 ValueList = "",
                 DefaultValue = ""
             }
-        };
-    }
+    };
 }

@@ -12,39 +12,39 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 
-namespace BootstrapBlazor.Shared.Samples
+namespace BootstrapBlazor.Shared.Samples;
+
+/// <summary>
+/// 
+/// </summary>
+public partial class GlobalException
 {
-    /// <summary>
-    /// 
-    /// </summary>
-    public partial class GlobalException
+    [Inject]
+    [NotNull]
+    private SwalService? SwalService { get; set; }
+
+    private static void OnClick()
     {
-        [Inject]
-        [NotNull]
-        private SwalService? SwalService { get; set; }
+        // NET6.0 采用 ErrorLogger 统一处理
+        var a = 0;
+        _ = 1 / a;
+    }
 
-        private static void OnClick()
-        {
-            // NET6.0 采用 ErrorLogger 统一处理
-            var a = 0;
-            _ = 1 / a;
-        }
+    private Task OnErrorHandleAsync(ILogger logger, Exception ex) => SwalService.Show(new SwalOption()
+    {
+        Category = SwalCategory.Error,
+        Title = "Oops...",
+        Content = ex.Message,
+        ShowFooter = true,
+        FooterTemplate = BootstrapDynamicComponent.CreateComponent<SwalFooter>().Render()
+    });
 
-        private Task OnErrorHandleAsync(ILogger logger, Exception ex) => SwalService.Show(new SwalOption()
-        {
-            Category = SwalCategory.Error,
-            Title = "Oops...",
-            Content = ex.Message,
-            ShowFooter = true,
-            FooterTemplate = BootstrapDynamicComponent.CreateComponent<SwalFooter>().Render()
-        });
-
-        /// <summary>
-        /// 获得属性方法
-        /// </summary>
-        /// <returns></returns>
-        private static IEnumerable<AttributeItem> GetAttributes() => new[]
-        {
+    /// <summary>
+    /// 获得属性方法
+    /// </summary>
+    /// <returns></returns>
+    private static IEnumerable<AttributeItem> GetAttributes() => new[]
+    {
             // TODO: 移动到数据库中
             new AttributeItem() {
                 Name = nameof(ErrorLogger.ChildContent),
@@ -68,5 +68,4 @@ namespace BootstrapBlazor.Shared.Samples
                 DefaultValue = "true"
             }
         };
-    }
 }

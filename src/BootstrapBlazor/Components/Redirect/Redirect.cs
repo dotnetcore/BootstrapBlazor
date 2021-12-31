@@ -5,32 +5,32 @@
 using Microsoft.AspNetCore.Components;
 using System.Diagnostics.CodeAnalysis;
 
-namespace BootstrapBlazor.Components
+namespace BootstrapBlazor.Components;
+
+/// <summary>
+/// 
+/// </summary>
+public class Redirect : ComponentBase
 {
+    [Inject]
+    [NotNull]
+    private NavigationManager? Navigation { get; set; }
+
     /// <summary>
     /// 
     /// </summary>
-    public class Redirect : ComponentBase
-    {
-        [Inject]
-        [NotNull]
-        private NavigationManager? Navigation { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        [Parameter]
-        public string Url { get; set; } = "Account/Login";
+    [Parameter]
+    public string Url { get; set; } = "Account/Login";
 
 #if DEBUG
-        /// <summary>
-        /// OnAfterRender 方法
-        /// </summary>
-        /// <param name="firstRender"></param>
-        protected override void OnAfterRender(bool firstRender)
-        {
-            Navigation.NavigateTo(Url, true);
-        }
+    /// <summary>
+    /// OnAfterRender 方法
+    /// </summary>
+    /// <param name="firstRender"></param>
+    protected override void OnAfterRender(bool firstRender)
+    {
+        Navigation.NavigateTo(Url, true);
+    }
 #else
         /// <summary>
         /// OnInitialized 方法
@@ -40,5 +40,4 @@ namespace BootstrapBlazor.Components
             Navigation.NavigateTo(Url, true);
         }
 #endif
-    }
 }

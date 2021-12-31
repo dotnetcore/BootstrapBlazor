@@ -8,50 +8,50 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 
-namespace BootstrapBlazor.Shared.Samples
+namespace BootstrapBlazor.Shared.Samples;
+
+/// <summary>
+///
+/// </summary>
+public sealed partial class Switchs
 {
-    /// <summary>
-    ///
-    /// </summary>
-    public sealed partial class Switchs
+    private class Foo
     {
-        private class Foo
-        {
-            /// <summary>
-            /// 
-            /// </summary>
-            [DisplayName("绑定标签")]
-            public bool BindValue { get; set; }
-        }
-
-        private Foo Model { get; set; } = new Foo();
-
         /// <summary>
         /// 
         /// </summary>
-        private bool BindValue { get; set; } = true;
+        [DisplayName("绑定标签")]
+        public bool BindValue { get; set; }
+    }
 
-        [NotNull]
-        private BlockLogger? Trace { get; set; }
+    private Foo Model { get; set; } = new Foo();
 
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="val"></param>
-        private void OnValueChanged(bool val)
-        {
-            BindValue = val;
-            Trace.Log($"Switch CurrentValue: {val}");
-        }
+    /// <summary>
+    /// 
+    /// </summary>
+    private bool BindValue { get; set; } = true;
 
-        private bool? NullValue { get; set; }
+    [NotNull]
+    private BlockLogger? Trace { get; set; }
 
-        /// <summary>
-        /// 获得属性方法
-        /// </summary>
-        /// <returns></returns>
-        private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-        {
+    /// <summary>
+    ///
+    /// </summary>
+    /// <param name="val"></param>
+    private void OnValueChanged(bool val)
+    {
+        BindValue = val;
+        Trace.Log($"Switch CurrentValue: {val}");
+    }
+
+    private bool? NullValue { get; set; }
+
+    /// <summary>
+    /// 获得属性方法
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+    {
             // TODO: 移动到数据库中
             new AttributeItem() {
                 Name = "Class",
@@ -158,20 +158,19 @@ namespace BootstrapBlazor.Shared.Samples
                 ValueList = " — ",
                 DefaultValue = " — "
             }
-        };
+    };
 
-        /// <summary>
-        /// 获得事件方法
-        /// </summary>
-        /// <returns></returns>
-        private IEnumerable<EventItem> GetEvents() => new EventItem[]
-        {
+    /// <summary>
+    /// 获得事件方法
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerable<EventItem> GetEvents() => new EventItem[]
+    {
             new EventItem()
             {
                 Name = "ValueChanged",
                 Description = Localizer["ValueChanged"],
                 Type = "EventCallback<bool>"
             }
-        };
-    }
+    };
 }

@@ -7,35 +7,35 @@ using BootstrapBlazor.Shared.Components;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace BootstrapBlazor.Shared.Samples
+namespace BootstrapBlazor.Shared.Samples;
+
+/// <summary>
+/// 
+/// </summary>
+public sealed partial class Timers
 {
+    private BlockLogger? Trace { get; set; }
+
+    private Task OnTimeout()
+    {
+        Trace?.Log("计时器时间到");
+        return Task.CompletedTask;
+    }
+
+    private Task OnCancel()
+    {
+        Trace?.Log("计时器取消");
+        return Task.CompletedTask;
+    }
+
     /// <summary>
     /// 
     /// </summary>
-    public sealed partial class Timers
+    /// <returns></returns>
+    private static IEnumerable<AttributeItem> GetAttributes()
     {
-        private BlockLogger? Trace { get; set; }
-
-        private Task OnTimeout()
+        return new AttributeItem[]
         {
-            Trace?.Log("计时器时间到");
-            return Task.CompletedTask;
-        }
-
-        private Task OnCancel()
-        {
-            Trace?.Log("计时器取消");
-            return Task.CompletedTask;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        private static IEnumerable<AttributeItem> GetAttributes()
-        {
-            return new AttributeItem[]
-            {
                 new AttributeItem()
                 {
                     Name = "Width",
@@ -76,7 +76,6 @@ namespace BootstrapBlazor.Shared.Samples
                     ValueList = "Primary / Secondary / Success / Danger / Warning / Info / Dark",
                     DefaultValue = "Primary"
                 }
-            };
-        }
+        };
     }
 }

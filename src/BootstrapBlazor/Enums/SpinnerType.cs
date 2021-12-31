@@ -4,23 +4,22 @@
 
 using System.ComponentModel;
 
-namespace BootstrapBlazor.Components
+namespace BootstrapBlazor.Components;
+
+/// <summary>
+/// 
+/// </summary>
+public enum SpinnerType
 {
     /// <summary>
     /// 
     /// </summary>
-    public enum SpinnerType
-    {
-        /// <summary>
-        /// 
-        /// </summary>
-        [Description("border")]
-        Border,
+    [Description("border")]
+    Border,
 
-        /// <summary>
-        /// 
-        /// </summary>
-        [Description("grow")]
-        Grow,
-    }
+    /// <summary>
+    /// 
+    /// </summary>
+    [Description("grow")]
+    Grow,
 }

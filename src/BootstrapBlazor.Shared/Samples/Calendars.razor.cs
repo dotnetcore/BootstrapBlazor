@@ -7,47 +7,47 @@ using BootstrapBlazor.Shared.Components;
 using System;
 using System.Collections.Generic;
 
-namespace BootstrapBlazor.Shared.Samples
+namespace BootstrapBlazor.Shared.Samples;
+
+/// <summary>
+/// 
+/// </summary>
+public sealed partial class Calendars
 {
     /// <summary>
     /// 
     /// </summary>
-    public sealed partial class Calendars
+    private BlockLogger? Trace { get; set; }
+
+    private DateTime BindValue { get; set; } = DateTime.Today;
+
+    private void OnValueChanged(DateTime ts)
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        private BlockLogger? Trace { get; set; }
+        Trace?.Log($"{ts:yyyy-MM-dd}");
+    }
 
-        private DateTime BindValue { get; set; } = DateTime.Today;
+    private static string Formatter(DateTime ts) => ts.ToString("yyyy-MM-dd");
 
-        private void OnValueChanged(DateTime ts)
-        {
-            Trace?.Log($"{ts:yyyy-MM-dd}");
-        }
-
-        private static string Formatter(DateTime ts) => ts.ToString("yyyy-MM-dd");
-
-        /// <summary>
-        /// 获得事件方法
-        /// </summary>
-        /// <returns></returns>
-        private IEnumerable<EventItem> GetEvents() => new EventItem[]
-        {
+    /// <summary>
+    /// 获得事件方法
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerable<EventItem> GetEvents() => new EventItem[]
+    {
             new EventItem()
             {
                 Name = "ValueChanged",
                 Description = Localizer["ValueChanged"],
                 Type ="EventCallback<DateTime>"
             }
-        };
+    };
 
-        /// <summary>
-        /// 获得属性方法
-        /// </summary>
-        /// <returns></returns>
-        private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-        {
+    /// <summary>
+    /// 获得属性方法
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+    {
             // TODO: 移动到数据库中
             new AttributeItem() {
                 Name = "Value",
@@ -63,6 +63,5 @@ namespace BootstrapBlazor.Shared.Samples
                 ValueList = " — ",
                 DefaultValue = " — "
             },
-        };
-    }
+    };
 }

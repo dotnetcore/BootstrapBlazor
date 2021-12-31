@@ -10,38 +10,38 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 
-namespace BootstrapBlazor.Shared.Samples
+namespace BootstrapBlazor.Shared.Samples;
+
+/// <summary>
+/// 
+/// </summary>
+public sealed partial class DateTimeRanges
 {
-    /// <summary>
-    /// 
-    /// </summary>
-    public sealed partial class DateTimeRanges
+    [NotNull]
+    private BlockLogger? DateLogger { get; set; }
+
+    private DateTimeRangeValue DateTimeRangeValue1 { get; set; } = new DateTimeRangeValue();
+
+    private DateTimeRangeValue DateTimeRangeValue2 { get; set; } = new DateTimeRangeValue();
+
+    private DateTimeRangeValue DateTimeRangeValue3 { get; set; } = new DateTimeRangeValue() { Start = DateTime.Today, End = DateTime.Today.AddDays(3) };
+
+    private DateTimeRangeValue DateTimeRangeValue4 { get; set; } = new DateTimeRangeValue();
+
+    private bool IsDisabled { get; set; } = true;
+
+    private Task OnConfirm(DateTimeRangeValue value)
     {
-        [NotNull]
-        private BlockLogger? DateLogger { get; set; }
+        DateLogger?.Log($"选择的时间范围是: {value.Start:yyyy-MM-dd} - {value.End:yyyy-MM-dd}");
+        return Task.CompletedTask;
+    }
 
-        private DateTimeRangeValue DateTimeRangeValue1 { get; set; } = new DateTimeRangeValue();
-
-        private DateTimeRangeValue DateTimeRangeValue2 { get; set; } = new DateTimeRangeValue();
-
-        private DateTimeRangeValue DateTimeRangeValue3 { get; set; } = new DateTimeRangeValue() { Start = DateTime.Today, End = DateTime.Today.AddDays(3) };
-
-        private DateTimeRangeValue DateTimeRangeValue4 { get; set; } = new DateTimeRangeValue();
-
-        private bool IsDisabled { get; set; } = true;
-
-        private Task OnConfirm(DateTimeRangeValue value)
-        {
-            DateLogger?.Log($"选择的时间范围是: {value.Start:yyyy-MM-dd} - {value.End:yyyy-MM-dd}");
-            return Task.CompletedTask;
-        }
-
-        /// <summary>
-        /// 获得事件方法
-        /// </summary>
-        /// <returns></returns>
-        private static IEnumerable<EventItem> GetEvents() => new EventItem[]
-        {
+    /// <summary>
+    /// 获得事件方法
+    /// </summary>
+    /// <returns></returns>
+    private static IEnumerable<EventItem> GetEvents() => new EventItem[]
+    {
             new EventItem()
             {
                 Name = "OnConfirm",
@@ -60,14 +60,14 @@ namespace BootstrapBlazor.Shared.Samples
                 Description="值改变回调委托",
                 Type ="Func<DateTimeRangeValue,Task>"
             }
-        };
+    };
 
-        /// <summary>
-        /// 获得属性方法
-        /// </summary>
-        /// <returns></returns>
-        private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-        {
+    /// <summary>
+    /// 获得属性方法
+    /// </summary>
+    /// <returns></returns>
+    private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+    {
             new AttributeItem() {
                 Name = "ShowLabel",
                 Description = "是否显示前置标签",
@@ -141,6 +141,5 @@ namespace BootstrapBlazor.Shared.Samples
                 ValueList = "",
                 DefaultValue = " — "
             }
-        };
-    }
+    };
 }

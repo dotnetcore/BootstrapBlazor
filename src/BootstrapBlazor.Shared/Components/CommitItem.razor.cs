@@ -6,50 +6,49 @@ using Microsoft.AspNetCore.Components;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
-namespace BootstrapBlazor.Shared.Components
+namespace BootstrapBlazor.Shared.Components;
+
+/// <summary>
+/// 
+/// </summary>
+public partial class CommitItem
 {
     /// <summary>
     /// 
     /// </summary>
-    public partial class CommitItem
+    [Parameter]
+    [NotNull]
+    [EditorRequired]
+    public GiteePostBody? Item { get; set; }
+
+    private string? Author { get; set; }
+
+    private string? Timestamp { get; set; }
+
+    private string? Message { get; set; }
+
+    private string? Url { get; set; }
+
+    private string? Branch { get; set; }
+
+    private string? TotalCount { get; set; }
+
+    /// <summary>
+    /// OnInitialized 方法
+    /// </summary>
+    protected override void OnInitialized()
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        [Parameter]
-        [NotNull]
-        [EditorRequired]
-        public GiteePostBody? Item { get; set; }
+        base.OnInitialized();
 
-        private string? Author { get; set; }
-
-        private string? Timestamp { get; set; }
-
-        private string? Message { get; set; }
-
-        private string? Url { get; set; }
-
-        private string? Branch { get; set; }
-
-        private string? TotalCount { get; set; }
-
-        /// <summary>
-        /// OnInitialized 方法
-        /// </summary>
-        protected override void OnInitialized()
+        var commit = Item.HeadCommit;
+        TotalCount = Item.Commits?.Count.ToString() ?? "1";
+        if (commit != null)
         {
-            base.OnInitialized();
-
-            var commit = Item.HeadCommit;
-            TotalCount = Item.Commits?.Count.ToString() ?? "1";
-            if (commit != null)
-            {
-                Timestamp = commit.Timestamp.ToString("yyyy-MM-dd HH:mm:ss");
-                Author = commit.Author.Name;
-                Message = commit.Message;
-                Url = commit.Url;
-                Branch = Item.GetBranchName();
-            }
+            Timestamp = commit.Timestamp.ToString("yyyy-MM-dd HH:mm:ss");
+            Author = commit.Author.Name;
+            Message = commit.Message;
+            Url = commit.Url;
+            Branch = Item.GetBranchName();
         }
     }
 }

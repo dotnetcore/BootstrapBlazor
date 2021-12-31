@@ -5,14 +5,13 @@
 using System;
 using System.Collections.Generic;
 
-namespace BootstrapBlazor.Components
+namespace BootstrapBlazor.Components;
+
+internal class RouteContext
 {
-    internal class RouteContext
-    {
-        public string[]? Segments { get; set; }
+    public string[]? Segments { get; set; }
 
-        public Type? Handler { get; set; }
+    public Type? Handler { get; set; }
 
-        public IReadOnlyDictionary<string, object>? Parameters { get; set; }
-    }
+    public IReadOnlyDictionary<string, object>? Parameters { get; set; }
 }

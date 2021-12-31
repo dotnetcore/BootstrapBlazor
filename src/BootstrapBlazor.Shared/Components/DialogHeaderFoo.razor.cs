@@ -9,49 +9,48 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 
-namespace BootstrapBlazor.Shared.Components
+namespace BootstrapBlazor.Shared.Components;
+
+/// <summary>
+/// 
+/// </summary>
+public partial class DialogHeaderFoo
 {
+    [NotNull]
+    private IEnumerable<SelectedItem>? Items { get; set; }
+
     /// <summary>
     /// 
     /// </summary>
-    public partial class DialogHeaderFoo
+    [Parameter]
+    public string? Value { get; set; }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    [Parameter]
+    public Func<string, Task>? OnValueChanged { get; set; }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    protected override void OnInitialized()
     {
-        [NotNull]
-        private IEnumerable<SelectedItem>? Items { get; set; }
+        base.OnInitialized();
 
-        /// <summary>
-        /// 
-        /// </summary>
-        [Parameter]
-        public string? Value { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        [Parameter]
-        public Func<string, Task>? OnValueChanged { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        protected override void OnInitialized()
+        Items = new[]
         {
-            base.OnInitialized();
-
-            Items = new[]
-            {
                 new SelectedItem("beijing", "北京"),
                 new SelectedItem("shanghai", "上海")
             };
-        }
+    }
 
-        private async Task OnSelectedItemChanged(SelectedItem item)
+    private async Task OnSelectedItemChanged(SelectedItem item)
+    {
+        Value = item.Value;
+        if (OnValueChanged != null)
         {
-            Value = item.Value;
-            if (OnValueChanged != null)
-            {
-                await OnValueChanged(Value);
-            }
+            await OnValueChanged(Value);
         }
     }
 }

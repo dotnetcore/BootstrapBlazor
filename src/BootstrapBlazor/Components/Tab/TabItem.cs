@@ -5,97 +5,96 @@
 using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
 
-namespace BootstrapBlazor.Components
+namespace BootstrapBlazor.Components;
+
+/// <summary>
+/// TabItem 组件基类
+/// </summary>
+public class TabItem : ComponentBase
 {
     /// <summary>
-    /// TabItem 组件基类
+    /// 获得/设置 文本文字
     /// </summary>
-    public class TabItem : ComponentBase
+    [Parameter]
+    public string? Text { get; set; }
+
+    /// <summary>
+    /// 获得/设置 请求地址
+    /// </summary>
+    [Parameter]
+    public string? Url { get; set; }
+
+    /// <summary>
+    /// 获得/设置 当前状态是否激活
+    /// </summary>
+    [Parameter]
+    public bool IsActive { get; set; }
+
+    /// <summary>
+    /// 获得/设置 当前 TabItem 是否可关闭 默认为 true 可关闭
+    /// </summary>
+    [Parameter]
+    public bool Closable { get; set; } = true;
+
+    /// <summary>
+    /// 获得/设置 图标字符串 如 "fa fa"
+    /// </summary>
+    [Parameter]
+    public string? Icon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 组件内容
+    /// </summary>
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    /// <summary>
+    /// 获得/设置 相关键值
+    /// </summary>
+    [Parameter]
+    public object? Key { get; set; }
+
+    /// <summary>
+    /// 获得/设置 所属 Tab 实例
+    /// </summary>
+    [CascadingParameter]
+    protected Tab? TabSet { get; set; }
+
+    /// <summary>
+    /// OnInitialized 方法
+    /// </summary>
+    protected override void OnInitialized()
     {
-        /// <summary>
-        /// 获得/设置 文本文字
-        /// </summary>
-        [Parameter]
-        public string? Text { get; set; }
+        base.OnInitialized();
 
-        /// <summary>
-        /// 获得/设置 请求地址
-        /// </summary>
-        [Parameter]
-        public string? Url { get; set; }
-
-        /// <summary>
-        /// 获得/设置 当前状态是否激活
-        /// </summary>
-        [Parameter]
-        public bool IsActive { get; set; }
-
-        /// <summary>
-        /// 获得/设置 当前 TabItem 是否可关闭 默认为 true 可关闭
-        /// </summary>
-        [Parameter]
-        public bool Closable { get; set; } = true;
-
-        /// <summary>
-        /// 获得/设置 图标字符串 如 "fa fa"
-        /// </summary>
-        [Parameter]
-        public string? Icon { get; set; }
-
-        /// <summary>
-        /// 获得/设置 组件内容
-        /// </summary>
-        [Parameter]
-        public RenderFragment? ChildContent { get; set; }
-
-        /// <summary>
-        /// 获得/设置 相关键值
-        /// </summary>
-        [Parameter]
-        public object? Key { get; set; }
-
-        /// <summary>
-        /// 获得/设置 所属 Tab 实例
-        /// </summary>
-        [CascadingParameter]
-        protected Tab? TabSet { get; set; }
-
-        /// <summary>
-        /// OnInitialized 方法
-        /// </summary>
-        protected override void OnInitialized()
-        {
-            base.OnInitialized();
-
-            TabSet?.AddItem(this);
-        }
-
-        /// <summary>
-        /// 设置是否被选中方法
-        /// </summary>
-        /// <param name="active"></param>
-        public virtual void SetActive(bool active) => IsActive = active;
-
-        /// <summary>
-        /// 通过指定参数集合获取 TabItem 实例
-        /// </summary>
-        /// <param name="parameters"></param>
-        /// <returns></returns>
-        public static TabItem Create(Dictionary<string, object?> parameters)
-        {
-            var item = new TabItem();
-            if (parameters.TryGetValue(nameof(Url), out var url))
-            {
-                parameters[nameof(Url)] = url?.ToString()?.TrimStart('/') ?? "";
-            }
-            var _ = item.SetParametersAsync(ParameterView.FromDictionary(parameters!));
-            return item;
-        }
-
-        /// <summary>
-        /// 内置 TabItem 显示文字
-        /// </summary>
-        /// <param name="text"></param>
-        internal void SetText(string text) => Text = text;
+        TabSet?.AddItem(this);
     }
+
+    /// <summary>
+    /// 设置是否被选中方法
+    /// </summary>
+    /// <param name="active"></param>
+    public virtual void SetActive(bool active) => IsActive = active;
+
+    /// <summary>
+    /// 通过指定参数集合获取 TabItem 实例
+    /// </summary>
+    /// <param name="parameters"></param>
+    /// <returns></returns>
+    public static TabItem Create(Dictionary<string, object?> parameters)
+    {
+        var item = new TabItem();
+        if (parameters.TryGetValue(nameof(Url), out var url))
+        {
+            parameters[nameof(Url)] = url?.ToString()?.TrimStart('/') ?? "";
+        }
+        var _ = item.SetParametersAsync(ParameterView.FromDictionary(parameters!));
+        return item;
+    }
+
+    /// <summary>
+    /// 内置 TabItem 显示文字
+    /// </summary>
+    /// <param name="text"></param>
+    internal void SetText(string text) => Text = text;
 }

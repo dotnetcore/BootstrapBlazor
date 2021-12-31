@@ -7,32 +7,31 @@ using Microsoft.AspNetCore.Components;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 
-namespace BootstrapBlazor.Shared.Samples
+namespace BootstrapBlazor.Shared.Samples;
+
+/// <summary>
+/// 
+/// </summary>
+public partial class Client
 {
+    [Inject]
+    [NotNull]
+    private WebClientService? ClientService { get; set; }
+
     /// <summary>
     /// 
     /// </summary>
-    public partial class Client
+    /// <param name="firstRender"></param>
+    /// <returns></returns>
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        [Inject]
-        [NotNull]
-        private WebClientService? ClientService { get; set; }
+        await base.OnAfterRenderAsync(firstRender);
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="firstRender"></param>
-        /// <returns></returns>
-        protected override async Task OnAfterRenderAsync(bool firstRender)
+        if (firstRender)
         {
-            await base.OnAfterRenderAsync(firstRender);
+            await ClientService.RetrieveRemoteInfo();
 
-            if (firstRender)
-            {
-                await ClientService.RetrieveRemoteInfo();
-
-                StateHasChanged();
-            }
+            StateHasChanged();
         }
     }
 }

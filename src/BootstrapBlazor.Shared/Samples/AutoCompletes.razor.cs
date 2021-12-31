@@ -6,37 +6,37 @@ using BootstrapBlazor.Shared.Common;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace BootstrapBlazor.Shared.Samples
+namespace BootstrapBlazor.Shared.Samples;
+
+/// <summary>
+///
+/// </summary>
+public sealed partial class AutoCompletes
 {
-    /// <summary>
-    ///
-    /// </summary>
-    public sealed partial class AutoCompletes
+    private readonly List<string> _items = new();
+
+    private IEnumerable<string> Items => _items;
+
+    private Foo Model { get; set; } = new Foo() { Name = "" };
+
+    private static List<string> StaticItems => new() { "1", "12", "123", "1234", "12345", "123456", "abc", "abcdef", "ABC", "aBcDeFg", "ABCDEFG" };
+
+    private Task OnValueChanged(string val)
     {
-        private readonly List<string> _items = new();
+        _items.Clear();
+        _items.Add($"{val}@163.com");
+        _items.Add($"{val}@126.com");
+        _items.Add($"{val}@sina.com");
+        _items.Add($"{val}@hotmail.com");
+        return Task.CompletedTask;
+    }
 
-        private IEnumerable<string> Items => _items;
-
-        private Foo Model { get; set; } = new Foo() { Name = "" };
-
-        private static List<string> StaticItems => new() { "1", "12", "123", "1234", "12345", "123456", "abc", "abcdef", "ABC", "aBcDeFg", "ABCDEFG" };
-
-        private Task OnValueChanged(string val)
-        {
-            _items.Clear();
-            _items.Add($"{val}@163.com");
-            _items.Add($"{val}@126.com");
-            _items.Add($"{val}@sina.com");
-            _items.Add($"{val}@hotmail.com");
-            return Task.CompletedTask;
-        }
-
-        /// <summary>
-        /// 获得属性方法
-        /// </summary>
-        /// <returns></returns>
-        private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-        {
+    /// <summary>
+    /// 获得属性方法
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+    {
             // TODO: 移动到数据库中
             new AttributeItem() {
                 Name = "ShowLabel",
@@ -111,6 +111,5 @@ namespace BootstrapBlazor.Shared.Samples
                 ValueList = " — ",
                 DefaultValue = "0"
             }
-        };
-    }
+    };
 }

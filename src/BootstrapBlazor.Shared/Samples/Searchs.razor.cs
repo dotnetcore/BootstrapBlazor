@@ -8,63 +8,63 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 
-namespace BootstrapBlazor.Shared.Samples
+namespace BootstrapBlazor.Shared.Samples;
+
+/// <summary>
+/// 
+/// </summary>
+public sealed partial class Searchs
 {
-    /// <summary>
-    /// 
-    /// </summary>
-    public sealed partial class Searchs
+    private static IEnumerable<string> Items => new string[] { "1", "12", "123", "1234" };
+
+    [NotNull]
+    private BlockLogger? Trace { get; set; }
+
+    [NotNull]
+    private BlockLogger? Trace2 { get; set; }
+
+    [NotNull]
+    private BlockLogger? Trace3 { get; set; }
+
+    [NotNull]
+    private BlockLogger? Trace4 { get; set; }
+
+    private Task OnSearch1(string searchText)
     {
-        private static IEnumerable<string> Items => new string[] { "1", "12", "123", "1234" };
+        Trace.Log($"SearchText: {searchText}");
+        return Task.CompletedTask;
+    }
 
-        [NotNull]
-        private BlockLogger? Trace { get; set; }
+    private Task OnSearch2(string searchText)
+    {
+        Trace2.Log($"SearchText: {searchText}");
+        return Task.CompletedTask;
+    }
 
-        [NotNull]
-        private BlockLogger? Trace2 { get; set; }
+    private Task OnSearch3(string searchText)
+    {
+        Trace3.Log($"SearchText: {searchText}");
+        return Task.CompletedTask;
+    }
 
-        [NotNull]
-        private BlockLogger? Trace3 { get; set; }
+    private Task OnSearch4(string searchText)
+    {
+        Trace4.Log($"SearchText: {searchText}");
+        return Task.CompletedTask;
+    }
 
-        [NotNull]
-        private BlockLogger? Trace4 { get; set; }
+    private Task OnClear(string searchText)
+    {
+        Trace3.Log($"OnClear: {searchText}");
+        return Task.CompletedTask;
+    }
 
-        private Task OnSearch1(string searchText)
-        {
-            Trace.Log($"SearchText: {searchText}");
-            return Task.CompletedTask;
-        }
-
-        private Task OnSearch2(string searchText)
-        {
-            Trace2.Log($"SearchText: {searchText}");
-            return Task.CompletedTask;
-        }
-
-        private Task OnSearch3(string searchText)
-        {
-            Trace3.Log($"SearchText: {searchText}");
-            return Task.CompletedTask;
-        }
-
-        private Task OnSearch4(string searchText)
-        {
-            Trace4.Log($"SearchText: {searchText}");
-            return Task.CompletedTask;
-        }
-
-        private Task OnClear(string searchText)
-        {
-            Trace3.Log($"OnClear: {searchText}");
-            return Task.CompletedTask;
-        }
-
-        /// <summary>
-        /// 获得属性方法
-        /// </summary>
-        /// <returns></returns>
-        private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-        {
+    /// <summary>
+    /// 获得属性方法
+    /// </summary>
+    /// <returns></returns>
+    private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+    {
             // TODO: 移动到数据库中
             new AttributeItem() {
                 Name = "ChildContent",
@@ -183,6 +183,5 @@ namespace BootstrapBlazor.Shared.Samples
                 ValueList = " — ",
                 DefaultValue = " — "
             }
-        };
-    }
+    };
 }

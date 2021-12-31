@@ -8,29 +8,28 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using PetaPoco;
 using System;
 
-namespace Microsoft.Extensions.DependencyInjection
+namespace Microsoft.Extensions.DependencyInjection;
+
+/// <summary>
+/// BootstrapBlazor 服务扩展类
+/// </summary>
+public static class PetaPocoServiceCollectionExtensions
 {
     /// <summary>
-    /// BootstrapBlazor 服务扩展类
+    /// 增加 PetaPoco 数据库操作服务
     /// </summary>
-    public static class PetaPocoServiceCollectionExtensions
+    /// <param name="services"></param>
+    /// <param name="optionsAction"></param>
+    /// <returns></returns>
+    public static IServiceCollection AddPetaPoco(this IServiceCollection services, Action<IDatabaseBuildConfiguration> optionsAction)
     {
-        /// <summary>
-        /// 增加 PetaPoco 数据库操作服务
-        /// </summary>
-        /// <param name="services"></param>
-        /// <param name="optionsAction"></param>
-        /// <returns></returns>
-        public static IServiceCollection AddPetaPoco(this IServiceCollection services, Action<IDatabaseBuildConfiguration> optionsAction)
+        services.AddTransient<IDatabase>(sp =>
         {
-            services.AddTransient<IDatabase>(sp =>
-            {
-                var builder = DatabaseConfiguration.Build();
-                optionsAction(builder);
-                return new Database(builder);
-            });
-            services.TryAddSingleton(typeof(IDataService<>), typeof(DefaultDataService<>));
-            return services;
-        }
+            var builder = DatabaseConfiguration.Build();
+            optionsAction(builder);
+            return new Database(builder);
+        });
+        services.TryAddSingleton(typeof(IDataService<>), typeof(DefaultDataService<>));
+        return services;
     }
 }

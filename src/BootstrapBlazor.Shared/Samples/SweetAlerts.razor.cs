@@ -11,121 +11,121 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 
-namespace BootstrapBlazor.Shared.Samples
+namespace BootstrapBlazor.Shared.Samples;
+
+/// <summary>
+/// 
+/// </summary>
+public sealed partial class SweetAlerts
 {
+    private Task OnSwal(SwalCategory cate) => SwalService.Show(new SwalOption()
+    {
+        Category = cate,
+        Title = "Sweet 弹窗"
+    });
+
+    private Task ShowTitle() => SwalService.Show(new SwalOption()
+    {
+        Category = SwalCategory.Success,
+        Title = "我是 Title"
+    });
+
+    private Task ShowContent() => SwalService.Show(new SwalOption()
+    {
+        Category = SwalCategory.Success,
+        Content = "我是 Content"
+    });
+
+    [Inject]
+    [NotNull]
+    private SwalService? SwalService { get; set; }
+
+    private async Task ShowButtons()
+    {
+        var op = new SwalOption()
+        {
+            Category = SwalCategory.Success,
+            Title = "我是 Title",
+            Content = "我是 Content",
+            ShowClose = false
+        };
+        op.ButtonTemplate = new RenderFragment(builder =>
+        {
+            builder.OpenComponent<Button>(0);
+            builder.AddAttribute(1, nameof(Button.Text), "自定义关闭按钮");
+            builder.AddAttribute(2, nameof(Button.OnClick), EventCallback.Factory.Create<MouseEventArgs>(this, async () => await op.Close()));
+            builder.CloseComponent();
+        });
+        await SwalService.Show(op);
+    }
+
+    private async Task ShowComponent()
+    {
+        var op = new SwalOption()
+        {
+            BodyTemplate = new RenderFragment(builder =>
+            {
+                builder.OpenElement(0, "div");
+                builder.AddAttribute(1, "class", "text-center");
+                builder.OpenComponent<Counter>(2);
+                builder.CloseComponent();
+                builder.CloseElement();
+            })
+        };
+        await SwalService.Show(op);
+    }
+
+    private async Task ShowFooterComponent()
+    {
+        var op = new SwalOption()
+        {
+            Category = SwalCategory.Error,
+            Title = "Oops...",
+            Content = "Something went wrong!",
+            ShowFooter = true,
+            FooterTemplate = BootstrapDynamicComponent.CreateComponent<SwalFooter>().Render()
+        };
+        await SwalService.Show(op);
+    }
+
+    private async Task ShowAutoCloseSwal()
+    {
+        var op = new SwalOption()
+        {
+            Category = SwalCategory.Error,
+            Title = "Oops...",
+            Content = "Something went wrong!",
+            ShowFooter = true,
+            IsAutoHide = true,
+            Delay = 4000,
+            FooterTemplate = BootstrapDynamicComponent.CreateComponent<SwalFooter>().Render()
+        };
+        await SwalService.Show(op);
+    }
+
+    private BlockLogger? Trace { get; set; }
+
+    private async Task ShowModal()
+    {
+        var op = new SwalOption()
+        {
+            Title = "模态对话框示例",
+            Content = "模态对话框内容，不同按钮返回不同值",
+            IsConfirm = true
+        };
+        var ret = await SwalService.ShowModal(op);
+
+        Trace?.Log($"模态弹窗返回值为：{ret}");
+    }
+
     /// <summary>
     /// 
     /// </summary>
-    public sealed partial class SweetAlerts
+    /// <returns></returns>
+    private static IEnumerable<AttributeItem> GetAttributes()
     {
-        private Task OnSwal(SwalCategory cate) => SwalService.Show(new SwalOption()
+        return new AttributeItem[]
         {
-            Category = cate,
-            Title = "Sweet 弹窗"
-        });
-
-        private Task ShowTitle() => SwalService.Show(new SwalOption()
-        {
-            Category = SwalCategory.Success,
-            Title = "我是 Title"
-        });
-
-        private Task ShowContent() => SwalService.Show(new SwalOption()
-        {
-            Category = SwalCategory.Success,
-            Content = "我是 Content"
-        });
-
-        [Inject]
-        [NotNull]
-        private SwalService? SwalService { get; set; }
-
-        private async Task ShowButtons()
-        {
-            var op = new SwalOption()
-            {
-                Category = SwalCategory.Success,
-                Title = "我是 Title",
-                Content = "我是 Content",
-                ShowClose = false
-            };
-            op.ButtonTemplate = new RenderFragment(builder =>
-            {
-                builder.OpenComponent<Button>(0);
-                builder.AddAttribute(1, nameof(Button.Text), "自定义关闭按钮");
-                builder.AddAttribute(2, nameof(Button.OnClick), EventCallback.Factory.Create<MouseEventArgs>(this, async () => await op.Close()));
-                builder.CloseComponent();
-            });
-            await SwalService.Show(op);
-        }
-
-        private async Task ShowComponent()
-        {
-            var op = new SwalOption()
-            {
-                BodyTemplate = new RenderFragment(builder =>
-                {
-                    builder.OpenElement(0, "div");
-                    builder.AddAttribute(1, "class", "text-center");
-                    builder.OpenComponent<Counter>(2);
-                    builder.CloseComponent();
-                    builder.CloseElement();
-                })
-            };
-            await SwalService.Show(op);
-        }
-
-        private async Task ShowFooterComponent()
-        {
-            var op = new SwalOption()
-            {
-                Category = SwalCategory.Error,
-                Title = "Oops...",
-                Content = "Something went wrong!",
-                ShowFooter = true,
-                FooterTemplate = BootstrapDynamicComponent.CreateComponent<SwalFooter>().Render()
-            };
-            await SwalService.Show(op);
-        }
-
-        private async Task ShowAutoCloseSwal()
-        {
-            var op = new SwalOption()
-            {
-                Category = SwalCategory.Error,
-                Title = "Oops...",
-                Content = "Something went wrong!",
-                ShowFooter = true,
-                IsAutoHide = true,
-                Delay = 4000,
-                FooterTemplate = BootstrapDynamicComponent.CreateComponent<SwalFooter>().Render()
-            };
-            await SwalService.Show(op);
-        }
-
-        private BlockLogger? Trace { get; set; }
-
-        private async Task ShowModal()
-        {
-            var op = new SwalOption()
-            {
-                Title = "模态对话框示例",
-                Content = "模态对话框内容，不同按钮返回不同值",
-                IsConfirm = true
-            };
-            var ret = await SwalService.ShowModal(op);
-
-            Trace?.Log($"模态弹窗返回值为：{ret}");
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        private static IEnumerable<AttributeItem> GetAttributes()
-        {
-            return new AttributeItem[]
-            {
                 new AttributeItem() {
                     Name = "Category",
                     Description = "弹出框类型",
@@ -217,7 +217,6 @@ namespace BootstrapBlazor.Shared.Samples
                     ValueList = " — ",
                     DefaultValue = " — "
                 }
-            };
-        }
+        };
     }
 }

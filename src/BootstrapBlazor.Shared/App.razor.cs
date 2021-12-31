@@ -13,95 +13,94 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 
-namespace BootstrapBlazor.Shared
+namespace BootstrapBlazor.Shared;
+
+/// <summary>
+/// 
+/// </summary>
+public sealed partial class App : IDisposable
 {
+    [Inject]
+    [NotNull]
+    private IJSRuntime? JSRuntime { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<App>? Localizer { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IDispatchService<GiteePostBody>? DispatchService { get; set; }
+
+    [Inject]
+    [NotNull]
+    private ToastService? Toast { get; set; }
+
+    /// <summary>
+    /// OnInitialized 方法
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        DispatchService.Subscribe(Notify);
+    }
+
     /// <summary>
     /// 
     /// </summary>
-    public sealed partial class App : IDisposable
+    /// <param name="firstRender"></param>
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        [Inject]
-        [NotNull]
-        private IJSRuntime? JSRuntime { get; set; }
+        await base.OnAfterRenderAsync(firstRender);
 
-        [Inject]
-        [NotNull]
-        private IStringLocalizer<App>? Localizer { get; set; }
-
-        [Inject]
-        [NotNull]
-        private IDispatchService<GiteePostBody>? DispatchService { get; set; }
-
-        [Inject]
-        [NotNull]
-        private ToastService? Toast { get; set; }
-
-        /// <summary>
-        /// OnInitialized 方法
-        /// </summary>
-        protected override void OnInitialized()
+        if (firstRender)
         {
-            base.OnInitialized();
-
-            DispatchService.Subscribe(Notify);
+            await JSRuntime.InvokeVoidAsync("$.loading", OperatingSystem.IsBrowser(), Localizer["ErrorMessage"].Value, Localizer["Reload"].Value);
         }
+    }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="firstRender"></param>
-        protected override async Task OnAfterRenderAsync(bool firstRender)
+    private async Task Notify(DispatchEntry<GiteePostBody> payload)
+    {
+        if (payload.CanDispatch())
         {
-            await base.OnAfterRenderAsync(firstRender);
-
-            if (firstRender)
+            var option = new ToastOption()
             {
-                await JSRuntime.InvokeVoidAsync("$.loading", OperatingSystem.IsBrowser(), Localizer["ErrorMessage"].Value, Localizer["Reload"].Value);
-            }
-        }
-
-        private async Task Notify(DispatchEntry<GiteePostBody> payload)
-        {
-            if (payload.CanDispatch())
-            {
-                var option = new ToastOption()
-                {
-                    Category = ToastCategory.Information,
-                    Title = "代码提交推送通知",
-                    Delay = 30 * 1000,
-                    ForceDelay = true,
+                Category = ToastCategory.Information,
+                Title = "代码提交推送通知",
+                Delay = 30 * 1000,
+                ForceDelay = true,
 #if DEBUG
-                    IsAutoHide = false,
+                IsAutoHide = false,
 #endif
-                    ChildContent = BootstrapDynamicComponent.CreateComponent<CommitItem>(new Dictionary<string, object?>
-                    {
-                        [nameof(CommitItem.Item)] = payload.Entry
-                    }).Render()
-                };
-                await Toast.Show(option);
-            }
+                ChildContent = BootstrapDynamicComponent.CreateComponent<CommitItem>(new Dictionary<string, object?>
+                {
+                    [nameof(CommitItem.Item)] = payload.Entry
+                }).Render()
+            };
+            await Toast.Show(option);
         }
+    }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="disposing"></param>
-        private void Dispose(bool disposing)
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="disposing"></param>
+    private void Dispose(bool disposing)
+    {
+        if (disposing)
         {
-            if (disposing)
-            {
-                DispatchService.UnSubscribe(Notify);
-            }
+            DispatchService.UnSubscribe(Notify);
         }
+    }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <exception cref="NotImplementedException"></exception>
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <exception cref="NotImplementedException"></exception>
+    public void Dispose()
+    {
+        Dispose(true);
+        GC.SuppressFinalize(this);
     }
 }

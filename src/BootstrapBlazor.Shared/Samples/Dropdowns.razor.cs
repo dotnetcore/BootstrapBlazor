@@ -10,114 +10,114 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BootstrapBlazor.Shared.Samples
+namespace BootstrapBlazor.Shared.Samples;
+
+/// <summary>
+///
+/// </summary>
+public sealed partial class Dropdowns
 {
-    /// <summary>
-    ///
-    /// </summary>
-    public sealed partial class Dropdowns
-    {
-        private List<SelectedItem> Items { get; set; } = new List<SelectedItem>
+    private List<SelectedItem> Items { get; set; } = new List<SelectedItem>
         {
             new SelectedItem{ Text="北京",Value="0"},
             new SelectedItem{ Text="上海",Value="1"},
             new SelectedItem{ Text="广州",Value="2"},
         };
 
-        private static List<SelectedItem> EmptyList => new();
+    private static List<SelectedItem> EmptyList => new();
 
-        private List<SelectedItem> Foos { get; set; } = new List<SelectedItem>
+    private List<SelectedItem> Foos { get; set; } = new List<SelectedItem>
         {
             new SelectedItem{ Text="北京",Value="0"},
             new SelectedItem{ Text="上海",Value="1"},
             new SelectedItem{ Text="广州",Value="2"},
         };
 
-        private List<SelectedItem> RadioItems { get; set; } = new List<SelectedItem>
+    private List<SelectedItem> RadioItems { get; set; } = new List<SelectedItem>
         {
             new SelectedItem("1", "北京") { Active = true },
             new SelectedItem("2", "上海")
         };
 
-        private List<SelectedItem> RadioDropDownItems { get; set; } = new List<SelectedItem>
+    private List<SelectedItem> RadioDropDownItems { get; set; } = new List<SelectedItem>
         {
             new SelectedItem("1", "北京") { Active = true },
             new SelectedItem("2", "上海"),
             new SelectedItem("3", "广州")
         };
 
-        private IEnumerable<SelectedItem>? Items2 { get; set; }
+    private IEnumerable<SelectedItem>? Items2 { get; set; }
 
-        private readonly IEnumerable<SelectedItem> Items3 = new SelectedItem[]
-        {
+    private readonly IEnumerable<SelectedItem> Items3 = new SelectedItem[]
+    {
             new SelectedItem ("", "请选择 ..."),
             new SelectedItem ("Beijing", "北京") { Active = true },
             new SelectedItem ("Shanghai", "上海"),
             new SelectedItem ("Hangzhou", "杭州")
-        };
+    };
 
-        /// <summary>
-        /// 级联绑定菜单
-        /// </summary>
-        /// <param name="item"></param>
-        private async Task OnCascadeBindSelectClick(SelectedItem item)
+    /// <summary>
+    /// 级联绑定菜单
+    /// </summary>
+    /// <param name="item"></param>
+    private async Task OnCascadeBindSelectClick(SelectedItem item)
+    {
+        // 模拟异步通讯切换线程
+        await Task.Delay(10);
+        if (item.Value == "Beijing")
         {
-            // 模拟异步通讯切换线程
-            await Task.Delay(10);
-            if (item.Value == "Beijing")
+            Items2 = new SelectedItem[]
             {
-                Items2 = new SelectedItem[]
-                {
                     new SelectedItem("1","朝阳区") { Active = true},
                     new SelectedItem("2","海淀区"),
-                };
-            }
-            else if (item.Value == "Shanghai")
+            };
+        }
+        else if (item.Value == "Shanghai")
+        {
+            Items2 = new SelectedItem[]
             {
-                Items2 = new SelectedItem[]
-                {
                     new SelectedItem("1","静安区"),
                     new SelectedItem("2","黄浦区") { Active = true } ,
-                };
-            }
-            else
-            {
-                Items2 = Enumerable.Empty<SelectedItem>();
-            }
-            StateHasChanged();
+            };
         }
-
-        [NotNull]
-        private BlockLogger? Trace { get; set; }
-
-        private Task ShowMessage(SelectedItem e)
+        else
         {
-            Trace.Log($"Dropdown Item Clicked: Value={e.Value} Text={e.Text}");
-            return Task.CompletedTask;
+            Items2 = Enumerable.Empty<SelectedItem>();
         }
+        StateHasChanged();
+    }
 
-        private void AddItem()
+    [NotNull]
+    private BlockLogger? Trace { get; set; }
+
+    private Task ShowMessage(SelectedItem e)
+    {
+        Trace.Log($"Dropdown Item Clicked: Value={e.Value} Text={e.Text}");
+        return Task.CompletedTask;
+    }
+
+    private void AddItem()
+    {
+        Foos.Add(new SelectedItem($"{Foos.Count}", $"城市 {Foos.Count}"));
+    }
+
+    private void RemoveItem()
+    {
+        if (Foos.Any())
         {
-            Foos.Add(new SelectedItem($"{Foos.Count}", $"城市 {Foos.Count}"));
+            Foos.RemoveAt(0);
         }
+    }
 
-        private void RemoveItem()
-        {
-            if (Foos.Any())
-            {
-                Foos.RemoveAt(0);
-            }
-        }
+    private Task OnRadioItemChanged(IEnumerable<SelectedItem> values, SelectedItem item)
+    {
+        RadioDropDownItems.Add(new SelectedItem($"{RadioDropDownItems.Count + 1}", $"城市 {RadioDropDownItems.Count}"));
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
 
-        private Task OnRadioItemChanged(IEnumerable<SelectedItem> values, SelectedItem item)
-        {
-            RadioDropDownItems.Add(new SelectedItem($"{RadioDropDownItems.Count + 1}", $"城市 {RadioDropDownItems.Count}"));
-            StateHasChanged();
-            return Task.CompletedTask;
-        }
-
-        private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-        {
+    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+    {
             // TODO: 移动到数据库中
             new AttributeItem() {
                 Name = "Value",
@@ -196,16 +196,15 @@ namespace BootstrapBlazor.Shared.Samples
                 ValueList = " a / button ",
                 DefaultValue = " — "
             },
-        };
+    };
 
-        private IEnumerable<EventItem> GetEvents() => new EventItem[]
-        {
+    private IEnumerable<EventItem> GetEvents() => new EventItem[]
+    {
             new EventItem()
             {
                 Name = "OnSelectedItemChanged",
                 Description= Localizer["EDesc1"],
                 Type ="EventCallback<SelectedItem>"
             }
-       };
-    }
+   };
 }

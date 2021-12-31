@@ -8,28 +8,27 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 
-namespace BootstrapBlazor.Shared.Samples
-{
-    /// <summary>
-    /// 消息分发示例
-    /// </summary>
-    public partial class Dispatchs
-    {
-        [Inject]
-        [NotNull]
-        private IDispatchService<MessageItem>? DispatchService { get; set; }
+namespace BootstrapBlazor.Shared.Samples;
 
-        private async Task OnDispatch()
+/// <summary>
+/// 消息分发示例
+/// </summary>
+public partial class Dispatchs
+{
+    [Inject]
+    [NotNull]
+    private IDispatchService<MessageItem>? DispatchService { get; set; }
+
+    private async Task OnDispatch()
+    {
+        DispatchService.Dispatch(new DispatchEntry<MessageItem>()
         {
-            DispatchService.Dispatch(new DispatchEntry<MessageItem>()
+            Name = nameof(MessageItem),
+            Entry = new MessageItem()
             {
-                Name = nameof(MessageItem),
-                Entry = new MessageItem()
-                {
-                    Message = $"{DateTime.Now:HH:mm:ss} 测试通知消息"
-                }
-            });
-            await Task.Delay(30 * 1000);
-        }
+                Message = $"{DateTime.Now:HH:mm:ss} 测试通知消息"
+            }
+        });
+        await Task.Delay(30 * 1000);
     }
 }

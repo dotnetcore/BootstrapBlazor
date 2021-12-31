@@ -7,55 +7,54 @@ using System;
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace BootstrapBlazor.DataAcces.EntityFrameworkCore
+namespace BootstrapBlazor.DataAcces.EntityFrameworkCore;
+
+/// <summary>
+/// IQueryable 扩展方法
+/// </summary>
+public static class IQueryableExtensions
 {
     /// <summary>
-    /// IQueryable 扩展方法
+    /// 条件
     /// </summary>
-    public static class IQueryableExtensions
+    /// <typeparam name="T"></typeparam>
+    /// <param name="queryable"></param>
+    /// <param name="condition"></param>
+    /// <param name="predicate"></param>
+    /// <returns></returns>
+    public static IQueryable<T> Where<T>(this IQueryable<T> queryable, Expression<Func<T, bool>> predicate, bool condition) => condition ? queryable.Where(predicate) : queryable;
+
+    /// <summary>
+    /// 排序
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="queryable"></param>
+    /// <param name="sortName"></param>
+    /// <param name="sortOrder"></param>
+    /// <param name="condition"></param>
+    /// <returns></returns>
+    public static IQueryable<T> Sort<T>(this IQueryable<T> queryable, string sortName, SortOrder sortOrder, bool condition) => condition ? queryable.Sort(sortName, sortOrder) : queryable;
+
+    /// <summary>
+    /// 分页
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="queryable"></param>
+    /// <param name="skipCount"></param>
+    /// <param name="maxResultCount"></param>
+    /// <returns></returns>
+    public static IQueryable<T> Page<T>(this IQueryable<T> queryable, int skipCount, int maxResultCount) => queryable.Skip(skipCount).Take(maxResultCount);
+
+    /// <summary>
+    /// 总数
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="queryable"></param>
+    /// <param name="totalCount"></param>
+    /// <returns></returns>
+    public static IQueryable<T> Count<T>(this IQueryable<T> queryable, out int totalCount)
     {
-        /// <summary>
-        /// 条件
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="queryable"></param>
-        /// <param name="condition"></param>
-        /// <param name="predicate"></param>
-        /// <returns></returns>
-        public static IQueryable<T> Where<T>(this IQueryable<T> queryable, Expression<Func<T, bool>> predicate, bool condition) => condition ? queryable.Where(predicate) : queryable;
-
-        /// <summary>
-        /// 排序
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="queryable"></param>
-        /// <param name="sortName"></param>
-        /// <param name="sortOrder"></param>
-        /// <param name="condition"></param>
-        /// <returns></returns>
-        public static IQueryable<T> Sort<T>(this IQueryable<T> queryable, string sortName, SortOrder sortOrder, bool condition) => condition ? queryable.Sort(sortName, sortOrder) : queryable;
-
-        /// <summary>
-        /// 分页
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="queryable"></param>
-        /// <param name="skipCount"></param>
-        /// <param name="maxResultCount"></param>
-        /// <returns></returns>
-        public static IQueryable<T> Page<T>(this IQueryable<T> queryable, int skipCount, int maxResultCount) => queryable.Skip(skipCount).Take(maxResultCount);
-
-        /// <summary>
-        /// 总数
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="queryable"></param>
-        /// <param name="totalCount"></param>
-        /// <returns></returns>
-        public static IQueryable<T> Count<T>(this IQueryable<T> queryable, out int totalCount)
-        {
-            totalCount = queryable.Count();
-            return queryable;
-        }
+        totalCount = queryable.Count();
+        return queryable;
     }
 }

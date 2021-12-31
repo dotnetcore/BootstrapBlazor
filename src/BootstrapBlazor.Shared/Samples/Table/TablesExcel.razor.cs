@@ -13,99 +13,98 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BootstrapBlazor.Shared.Samples.Table
+namespace BootstrapBlazor.Shared.Samples.Table;
+
+/// <summary>
+/// 
+/// </summary>
+partial class TablesExcel
 {
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<Foo>? Localizer { get; set; }
+
+    [NotNull]
+    private BlockLogger? Trace { get; set; }
+
     /// <summary>
-    /// 
+    /// OnInitialized 方法
     /// </summary>
-    partial class TablesExcel
+    protected override void OnInitialized()
     {
-        [Inject]
-        [NotNull]
-        private IStringLocalizer<Foo>? Localizer { get; set; }
+        base.OnInitialized();
 
-        [NotNull]
-        private BlockLogger? Trace { get; set; }
+        Items = Foo.GenerateFoo(Localizer);
+    }
 
-        /// <summary>
-        /// OnInitialized 方法
-        /// </summary>
-        protected override void OnInitialized()
+    // 绑定数据源代码
+    private static IEnumerable<int> PageItemsSource => new int[] { 10, 20, 40 };
+
+    [NotNull]
+    private List<Foo>? Items { get; set; }
+
+    private Task<QueryData<Foo>> OnQueryAsync(QueryPageOptions options)
+    {
+        IEnumerable<Foo> items = Items;
+
+        // 过滤
+        var isFiltered = false;
+        if (options.Filters.Any())
         {
-            base.OnInitialized();
-
-            Items = Foo.GenerateFoo(Localizer);
+            items = items.Where(options.Filters.GetFilterFunc<Foo>());
+            isFiltered = true;
         }
 
-        // 绑定数据源代码
-        private static IEnumerable<int> PageItemsSource => new int[] { 10, 20, 40 };
-
-        [NotNull]
-        private List<Foo>? Items { get; set; }
-
-        private Task<QueryData<Foo>> OnQueryAsync(QueryPageOptions options)
+        // 排序
+        var isSorted = false;
+        if (!string.IsNullOrEmpty(options.SortName))
         {
-            IEnumerable<Foo> items = Items;
-
-            // 过滤
-            var isFiltered = false;
-            if (options.Filters.Any())
-            {
-                items = items.Where(options.Filters.GetFilterFunc<Foo>());
-                isFiltered = true;
-            }
-
-            // 排序
-            var isSorted = false;
-            if (!string.IsNullOrEmpty(options.SortName))
-            {
-                var invoker = Foo.GetNameSortFunc();
-                items = invoker(items, options.SortName, options.SortOrder);
-                isSorted = true;
-            }
-
-            // 设置记录总数
-            var total = items.Count();
-
-            // 内存分页
-            items = items.Skip((options.PageIndex - 1) * options.PageItems).Take(options.PageItems).ToList();
-
-            return Task.FromResult(new QueryData<Foo>()
-            {
-                Items = items,
-                TotalCount = total,
-                IsSorted = isSorted,
-                IsFiltered = isFiltered,
-                IsSearch = true
-            });
+            var invoker = Foo.GetNameSortFunc();
+            items = invoker(items, options.SortName, options.SortOrder);
+            isSorted = true;
         }
 
-        private Task<Foo> OnAddAsync()
+        // 设置记录总数
+        var total = items.Count();
+
+        // 内存分页
+        items = items.Skip((options.PageIndex - 1) * options.PageItems).Take(options.PageItems).ToList();
+
+        return Task.FromResult(new QueryData<Foo>()
         {
-            // Excel 模式下新建要求更改数据源
-            var foo = new Foo() { DateTime = DateTime.Now, Address = $"自定义地址  {DateTime.Now.Second}" };
-            Items.Insert(0, foo);
+            Items = items,
+            TotalCount = total,
+            IsSorted = isSorted,
+            IsFiltered = isFiltered,
+            IsSearch = true
+        });
+    }
 
-            // 输出日志信息
-            Trace.Log($"集合值变化通知 列: {Items.Count} - 类型: Add");
-            return Task.FromResult(foo);
-        }
+    private Task<Foo> OnAddAsync()
+    {
+        // Excel 模式下新建要求更改数据源
+        var foo = new Foo() { DateTime = DateTime.Now, Address = $"自定义地址  {DateTime.Now.Second}" };
+        Items.Insert(0, foo);
 
-        private Task<bool> OnSaveAsync(Foo item, ItemChangedType changedType)
-        {
-            // 对象已经更新
-            // 输出日志信息
-            Trace.Log($"单元格变化通知 类: Foo - 值: 单元格");
-            return Task.FromResult(true);
-        }
+        // 输出日志信息
+        Trace.Log($"集合值变化通知 列: {Items.Count} - 类型: Add");
+        return Task.FromResult(foo);
+    }
 
-        private Task<bool> OnDeleteAsync(IEnumerable<Foo> items)
-        {
-            Items.RemoveAll(i => items.Contains(i));
+    private Task<bool> OnSaveAsync(Foo item, ItemChangedType changedType)
+    {
+        // 对象已经更新
+        // 输出日志信息
+        Trace.Log($"单元格变化通知 类: Foo - 值: 单元格");
+        return Task.FromResult(true);
+    }
 
-            // 输出日志信息
-            Trace.Log($"集合值变化通知 列: {Items.Count} - 类型: Delete");
-            return Task.FromResult(true);
-        }
+    private Task<bool> OnDeleteAsync(IEnumerable<Foo> items)
+    {
+        Items.RemoveAll(i => items.Contains(i));
+
+        // 输出日志信息
+        Trace.Log($"集合值变化通知 列: {Items.Count} - 类型: Delete");
+        return Task.FromResult(true);
     }
 }

@@ -4,18 +4,17 @@
 
 using BootstrapBlazor.Components;
 
-namespace BootstrapBlazor.Shared.Exntensions
+namespace BootstrapBlazor.Shared.Exntensions;
+
+internal static class DispatchEntryExtensions
 {
-    internal static class DispatchEntryExtensions
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="entry"></param>
+    /// <returns></returns>
+    public static bool CanDispatch(this DispatchEntry<GiteePostBody> entry)
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="entry"></param>
-        /// <returns></returns>
-        public static bool CanDispatch(this DispatchEntry<GiteePostBody> entry)
-        {
-            return entry.Entry != null && (entry.Entry.HeadCommit != null || entry.Entry.Commits?.Count > 0);
-        }
+        return entry.Entry != null && (entry.Entry.HeadCommit != null || entry.Entry.Commits?.Count > 0);
     }
 }

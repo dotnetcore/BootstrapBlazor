@@ -10,52 +10,52 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 
-namespace BootstrapBlazor.Shared.Samples
+namespace BootstrapBlazor.Shared.Samples;
+
+/// <summary>
+/// 
+/// </summary>
+public partial class Inputs
 {
+    private string? PlaceHolderText { get; set; }
+
+    private byte[] ByteArray { get; set; } = new byte[] { 0x01, 0x12, 0x34, 0x56 };
+
+    private static string ByteArrayFormatter(byte[] source) => Convert.ToBase64String(source);
+
+    [NotNull]
+    private Foo? Model { get; set; }
+
+    private static string DateTimeFormatter(DateTime source) => source.ToString("yyyy-MM-dd");
+
+    [NotNull]
+    private BlockLogger? Trace { get; set; }
+
     /// <summary>
     /// 
     /// </summary>
-    public partial class Inputs
+    protected override void OnInitialized()
     {
-        private string? PlaceHolderText { get; set; }
+        base.OnInitialized();
 
-        private byte[] ByteArray { get; set; } = new byte[] { 0x01, 0x12, 0x34, 0x56 };
+        PlaceHolderText = Localizer["PlaceHolder"];
+        Model = new Foo() { Name = Localizer["TestName"] };
+    }
 
-        private static string ByteArrayFormatter(byte[] source) => Convert.ToBase64String(source);
+    private Task OnEnterAsync(string val)
+    {
+        Trace.Log($"Enter {Localizer["Log"]}: {val}");
+        return Task.CompletedTask;
+    }
 
-        [NotNull]
-        private Foo? Model { get; set; }
+    private Task OnEscAsync(string val)
+    {
+        Trace.Log($"Esc {Localizer["Log"]}: {val}");
+        return Task.CompletedTask;
+    }
 
-        private static string DateTimeFormatter(DateTime source) => source.ToString("yyyy-MM-dd");
-
-        [NotNull]
-        private BlockLogger? Trace { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        protected override void OnInitialized()
-        {
-            base.OnInitialized();
-
-            PlaceHolderText = Localizer["PlaceHolder"];
-            Model = new Foo() { Name = Localizer["TestName"] };
-        }
-
-        private Task OnEnterAsync(string val)
-        {
-            Trace.Log($"Enter {Localizer["Log"]}: {val}");
-            return Task.CompletedTask;
-        }
-
-        private Task OnEscAsync(string val)
-        {
-            Trace.Log($"Esc {Localizer["Log"]}: {val}");
-            return Task.CompletedTask;
-        }
-
-        private IEnumerable<AttributeItem> GetAttributes() => new[]
-        {
+    private IEnumerable<AttributeItem> GetAttributes() => new[]
+    {
             new AttributeItem() {
                 Name = "ChildContent",
                 Description = Localizer["Att1"],
@@ -153,5 +153,4 @@ namespace BootstrapBlazor.Shared.Samples
                 DefaultValue = "false"
             }
         };
-    }
 }

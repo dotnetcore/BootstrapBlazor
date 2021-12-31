@@ -9,51 +9,51 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BootstrapBlazor.Shared.Samples
+namespace BootstrapBlazor.Shared.Samples;
+
+/// <summary>
+/// 
+/// </summary>
+public sealed partial class ListViews
 {
+    private BlockLogger? Trace { get; set; }
+    private IEnumerable<Product> Products { get; set; } = Enumerable.Empty<Product>();
+
     /// <summary>
     /// 
     /// </summary>
-    public sealed partial class ListViews
+    protected override void OnInitialized()
     {
-        private BlockLogger? Trace { get; set; }
-        private IEnumerable<Product> Products { get; set; } = Enumerable.Empty<Product>();
+        base.OnInitialized();
 
-        /// <summary>
-        /// 
-        /// </summary>
-        protected override void OnInitialized()
+        Products = Enumerable.Range(1, 100).Select(i => new Product()
         {
-            base.OnInitialized();
+            ImageUrl = $"{WebsiteOption.Value.ImageLibUrl}/images/Pic{i}.jpg",
+            Description = $"Pic{i}.jpg",
+            Category = $"Group{(i % 4) + 1}"
+        });
+    }
 
-            Products = Enumerable.Range(1, 100).Select(i => new Product()
-            {
-                ImageUrl = $"{WebsiteOption.Value.ImageLibUrl}/images/Pic{i}.jpg",
-                Description = $"Pic{i}.jpg",
-                Category = $"Group{(i % 4) + 1}"
-            });
-        }
-
-        private Task<QueryData<Product>> OnQueryAsync(QueryPageOptions options)
+    private Task<QueryData<Product>> OnQueryAsync(QueryPageOptions options)
+    {
+        var items = Products.Skip((options.PageIndex - 1) * options.PageItems).Take(options.PageItems);
+        return Task.FromResult(new QueryData<Product>()
         {
-            var items = Products.Skip((options.PageIndex - 1) * options.PageItems).Take(options.PageItems);
-            return Task.FromResult(new QueryData<Product>()
-            {
-                Items = items,
-                TotalCount = Products.Count()
-            });
-        }
-        private Task OnListViewItemClick(Product item)
-        {
-            Trace?.Log($"ListViewItem: {item.Description} clicked");
-            return Task.CompletedTask;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-        {
+            Items = items,
+            TotalCount = Products.Count()
+        });
+    }
+    private Task OnListViewItemClick(Product item)
+    {
+        Trace?.Log($"ListViewItem: {item.Description} clicked");
+        return Task.CompletedTask;
+    }
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+    {
             new AttributeItem(){
                 Name = "Items",
                 Description = Localizer["Items"],
@@ -110,10 +110,10 @@ namespace BootstrapBlazor.Shared.Samples
                 ValueList = " — ",
                 DefaultValue = " — "
             }
-        };
+    };
 
-        private IEnumerable<MethodItem> GetMethods() => new MethodItem[]
-        {
+    private IEnumerable<MethodItem> GetMethods() => new MethodItem[]
+    {
             new MethodItem()
             {
                 Name = "QueryAsync",
@@ -121,27 +121,26 @@ namespace BootstrapBlazor.Shared.Samples
                 Parameters = " — ",
                 ReturnValue = "Task"
             },
-        };
-    }
+    };
+}
+
+/// <summary>
+/// 
+/// </summary>
+internal class Product
+{
+    /// <summary>
+    /// 
+    /// </summary>
+    public string ImageUrl { get; set; } = "";
 
     /// <summary>
     /// 
     /// </summary>
-    internal class Product
-    {
-        /// <summary>
-        /// 
-        /// </summary>
-        public string ImageUrl { get; set; } = "";
+    public string Description { get; set; } = "";
 
-        /// <summary>
-        /// 
-        /// </summary>
-        public string Description { get; set; } = "";
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public string Category { get; set; } = "";
-    }
+    /// <summary>
+    /// 
+    /// </summary>
+    public string Category { get; set; } = "";
 }

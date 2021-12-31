@@ -6,25 +6,25 @@ using BootstrapBlazor.Shared.Common;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace BootstrapBlazor.Shared.Samples
+namespace BootstrapBlazor.Shared.Samples;
+
+/// <summary>
+/// 
+/// </summary>
+public sealed partial class Avatars
 {
-    /// <summary>
-    /// 
-    /// </summary>
-    public sealed partial class Avatars
+    private static async Task<string> GetUrlAsync()
     {
-        private static async Task<string> GetUrlAsync()
-        {
-            // 模拟异步获取图像地址
-            await Task.Delay(500);
-            return "_content/BootstrapBlazor.Shared/images/Argo-C.png";
-        }
-        /// <summary>
-        /// 获得属性方法
-        /// </summary>
-        /// <returns></returns>
-        private IEnumerable<AttributeItem> GetAttributes() => new[]
-        {
+        // 模拟异步获取图像地址
+        await Task.Delay(500);
+        return "_content/BootstrapBlazor.Shared/images/Argo-C.png";
+    }
+    /// <summary>
+    /// 获得属性方法
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerable<AttributeItem> GetAttributes() => new[]
+    {
             // TODO: 移动到数据库中
             new AttributeItem() {
                 Name = "Size",
@@ -90,5 +90,4 @@ namespace BootstrapBlazor.Shared.Samples
                 DefaultValue = " — "
             }
         };
-    }
 }

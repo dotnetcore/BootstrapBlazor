@@ -8,18 +8,18 @@ using Microsoft.Extensions.Localization;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace BootstrapBlazor.Shared
-{
-    /// <summary>
-    /// 
-    /// </summary>
-    internal static class MenusDataGerator
-    {
-        public static async Task<IEnumerable<MenuItem>> GetTopItemsAsync(IStringLocalizer localizer)
-        {
-            await Task.Delay(1);
+namespace BootstrapBlazor.Shared;
 
-            return new List<MenuItem>
+/// <summary>
+/// 
+/// </summary>
+internal static class MenusDataGerator
+{
+    public static async Task<IEnumerable<MenuItem>> GetTopItemsAsync(IStringLocalizer localizer)
+    {
+        await Task.Delay(1);
+
+        return new List<MenuItem>
             {
                 new(localizer["Menu1"].Value),
                 new(localizer["Menu2"].Value)
@@ -62,13 +62,13 @@ namespace BootstrapBlazor.Shared
                 },
                 new(localizer["Menu3"].Value)
             };
-        }
+    }
 
-        public static async Task<IEnumerable<MenuItem>> GetBottomMenuItemsAsync(IStringLocalizer localizer)
-        {
-            await Task.Delay(1);
+    public static async Task<IEnumerable<MenuItem>> GetBottomMenuItemsAsync(IStringLocalizer localizer)
+    {
+        await Task.Delay(1);
 
-            return new List<MenuItem>
+        return new List<MenuItem>
             {
                 new(localizer["Menu1"].Value),
                 new(localizer["Menu2"].Value)
@@ -83,12 +83,12 @@ namespace BootstrapBlazor.Shared
                 },
                 new(localizer["Menu3"].Value)
             };
-        }
+    }
 
-        public static async Task<IEnumerable<MenuItem>> GetTopIconItemsAsync(IStringLocalizer localizer)
-        {
-            await Task.Delay(1);
-            return new List<MenuItem>
+    public static async Task<IEnumerable<MenuItem>> GetTopIconItemsAsync(IStringLocalizer localizer)
+    {
+        await Task.Delay(1);
+        return new List<MenuItem>
             {
                 new(localizer["Menu1"].Value, icon:"fa fa-life-bouy"),
                 new(localizer["Menu2"].Value, icon:"fa fa-fa")
@@ -103,13 +103,13 @@ namespace BootstrapBlazor.Shared
                 },
                 new(localizer["Menu3"].Value, icon:"fa fa-rebel fa-fw")
             };
-        }
+    }
 
-        public static async Task<IEnumerable<MenuItem>> GetSideMenuItemsAsync(IStringLocalizer localizer)
-        {
-            await Task.Delay(1);
+    public static async Task<IEnumerable<MenuItem>> GetSideMenuItemsAsync(IStringLocalizer localizer)
+    {
+        await Task.Delay(1);
 
-            return new List<MenuItem>
+        return new List<MenuItem>
             {
                 new(localizer["Menu1"].Value, icon: "fa fa-fa"),
                 new(localizer["Menu2"].Value)
@@ -152,12 +152,12 @@ namespace BootstrapBlazor.Shared
                 },
                 new(localizer["Menu3"].Value)
             };
-        }
+    }
 
-        public static async Task<IEnumerable<MenuItem>> GetDisabledMenuItemsAsync(IStringLocalizer localizer)
-        {
-            await Task.Delay(1);
-            return new List<MenuItem>
+    public static async Task<IEnumerable<MenuItem>> GetDisabledMenuItemsAsync(IStringLocalizer localizer)
+    {
+        await Task.Delay(1);
+        return new List<MenuItem>
             {
                 new(localizer["Menu1"].Value)
                 {
@@ -183,23 +183,23 @@ namespace BootstrapBlazor.Shared
                     }
                 }
             };
-        }
+    }
 
-        private static BootstrapDynamicComponent BuildDynamicComponent() => BootstrapDynamicComponent.CreateComponent<Badge>(new Dictionary<string, object?>
+    private static BootstrapDynamicComponent BuildDynamicComponent() => BootstrapDynamicComponent.CreateComponent<Badge>(new Dictionary<string, object?>
+    {
+        [nameof(Badge.Color)] = Color.Danger,
+        [nameof(Badge.IsPill)] = true,
+        [nameof(Badge.ChildContent)] = new RenderFragment(builder =>
         {
-            [nameof(Badge.Color)] = Color.Danger,
-            [nameof(Badge.IsPill)] = true,
-            [nameof(Badge.ChildContent)] = new RenderFragment(builder =>
-            {
-                var index = 0;
-                builder.AddContent(index++, "10");
-            })
-        });
+            var index = 0;
+            builder.AddContent(index++, "10");
+        })
+    });
 
-        public static async Task<IEnumerable<MenuItem>> GetIconSideMenuItemsAsync(IStringLocalizer localizer)
-        {
-            await Task.Delay(1);
-            return new List<MenuItem>
+    public static async Task<IEnumerable<MenuItem>> GetIconSideMenuItemsAsync(IStringLocalizer localizer)
+    {
+        await Task.Delay(1);
+        return new List<MenuItem>
             {
                 new(localizer["System"].Value, icon: "fa fa-gears")
                 {
@@ -229,12 +229,12 @@ namespace BootstrapBlazor.Shared
                     }
                 }
             };
-        }
+    }
 
-        public static async Task<IEnumerable<MenuItem>> GetWidgetIconSideMenuItemsAsync(IStringLocalizer localizer)
-        {
-            await Task.Delay(1);
-            return new List<MenuItem>
+    public static async Task<IEnumerable<MenuItem>> GetWidgetIconSideMenuItemsAsync(IStringLocalizer localizer)
+    {
+        await Task.Delay(1);
+        return new List<MenuItem>
             {
                 new(localizer["System"].Value, icon: "fa fa-gears")
                 {
@@ -268,12 +268,12 @@ namespace BootstrapBlazor.Shared
                     }
                 }
             };
-        }
+    }
 
-        public static async Task<IEnumerable<MenuItem>> GetCollapsedIconSideMenuItemsAsync(IStringLocalizer localizer)
-        {
-            await Task.Delay(1);
-            return new List<MenuItem>
+    public static async Task<IEnumerable<MenuItem>> GetCollapsedIconSideMenuItemsAsync(IStringLocalizer localizer)
+    {
+        await Task.Delay(1);
+        return new List<MenuItem>
             {
                 new(localizer["System"].Value, icon: "fa fa-gears")
                 {
@@ -304,6 +304,5 @@ namespace BootstrapBlazor.Shared
                     }
                 }
             };
-        }
     }
 }

@@ -6,36 +6,35 @@ using BootstrapBlazor.Components;
 using Microsoft.AspNetCore.Components;
 using System.Threading.Tasks;
 
-namespace BootstrapBlazor.Shared.Components
+namespace BootstrapBlazor.Shared.Components;
+
+/// <summary>
+/// 
+/// </summary>
+public partial class ResultDialogDemo : ComponentBase, IResultDialog
 {
     /// <summary>
     /// 
     /// </summary>
-    public partial class ResultDialogDemo : ComponentBase, IResultDialog
+    [Parameter]
+    public int Value { get; set; } = 1;
+
+    /// <summary>
+    /// 
+    /// </summary>
+    [Parameter]
+    public EventCallback<int> ValueChanged { get; set; }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public async Task OnClose(DialogResult result)
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        [Parameter]
-        public int Value { get; set; } = 1;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        [Parameter]
-        public EventCallback<int> ValueChanged { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public async Task OnClose(DialogResult result)
+        if (result == DialogResult.Yes)
         {
-            if (result == DialogResult.Yes)
+            if (ValueChanged.HasDelegate)
             {
-                if (ValueChanged.HasDelegate)
-                {
-                    await ValueChanged.InvokeAsync(Value);
-                }
+                await ValueChanged.InvokeAsync(Value);
             }
         }
     }

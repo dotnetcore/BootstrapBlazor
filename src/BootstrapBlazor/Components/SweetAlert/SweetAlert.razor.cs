@@ -9,148 +9,147 @@ using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace BootstrapBlazor.Components
+namespace BootstrapBlazor.Components;
+
+/// <summary>
+/// SweetAlert 组件
+/// </summary>
+public partial class SweetAlert : IDisposable
 {
     /// <summary>
-    /// SweetAlert 组件
+    /// 获得/设置 Modal 容器组件实例
     /// </summary>
-    public partial class SweetAlert : IDisposable
+    [NotNull]
+    private Modal? ModalContainer { get; set; }
+
+    /// <summary>
+    /// DialogServices 服务实例
+    /// </summary>
+    [Inject]
+    [NotNull]
+    private SwalService? SwalService { get; set; }
+
+    private bool IsShowDialog { get; set; }
+
+    private bool IsAutoHide { get; set; }
+
+    private int Delay { get; set; }
+
+    private CancellationTokenSource? DelayToken { get; set; }
+
+    [NotNull]
+    private Dictionary<string, object?>? DialogParameter { get; set; }
+
+    /// <summary>
+    /// OnInitialized 方法
+    /// </summary>
+    protected override void OnInitialized()
     {
-        /// <summary>
-        /// 获得/设置 Modal 容器组件实例
-        /// </summary>
-        [NotNull]
-        private Modal? ModalContainer { get; set; }
+        base.OnInitialized();
 
-        /// <summary>
-        /// DialogServices 服务实例
-        /// </summary>
-        [Inject]
-        [NotNull]
-        private SwalService? SwalService { get; set; }
+        // 注册 Swal 弹窗事件
+        SwalService.Register(this, Show);
+    }
 
-        private bool IsShowDialog { get; set; }
+    /// <summary>
+    /// OnAfterRenderAsync 方法
+    /// </summary>
+    /// <param name="firstRender"></param>
+    /// <returns></returns>
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
 
-        private bool IsAutoHide { get; set; }
-
-        private int Delay { get; set; }
-
-        private CancellationTokenSource? DelayToken { get; set; }
-
-        [NotNull]
-        private Dictionary<string, object?>? DialogParameter { get; set; }
-
-        /// <summary>
-        /// OnInitialized 方法
-        /// </summary>
-        protected override void OnInitialized()
+        if (ModalContainer != null && IsShowDialog)
         {
-            base.OnInitialized();
+            IsShowDialog = false;
+            await ModalContainer.Show();
 
-            // 注册 Swal 弹窗事件
-            SwalService.Register(this, Show);
-        }
-
-        /// <summary>
-        /// OnAfterRenderAsync 方法
-        /// </summary>
-        /// <param name="firstRender"></param>
-        /// <returns></returns>
-        protected override async Task OnAfterRenderAsync(bool firstRender)
-        {
-            await base.OnAfterRenderAsync(firstRender);
-
-            if (ModalContainer != null && IsShowDialog)
+            if (IsAutoHide && Delay > 0)
             {
-                IsShowDialog = false;
-                await ModalContainer.Show();
-
-                if (IsAutoHide && Delay > 0)
+                if (DelayToken == null)
                 {
-                    if (DelayToken == null)
-                    {
-                        DelayToken = new CancellationTokenSource();
-                    }
+                    DelayToken = new CancellationTokenSource();
+                }
 
-                    await Task.Delay(Delay, DelayToken.Token);
+                await Task.Delay(Delay, DelayToken.Token);
 
-                    if (!DelayToken.IsCancellationRequested)
-                    {
-                        // 自动关闭弹窗
-                        await ModalContainer.Close();
-                    }
+                if (!DelayToken.IsCancellationRequested)
+                {
+                    // 自动关闭弹窗
+                    await ModalContainer.Close();
                 }
             }
         }
+    }
 
-        private Task Show(SwalOption option)
+    private Task Show(SwalOption option)
+    {
+        IsAutoHide = option.IsAutoHide;
+        Delay = option.Delay;
+
+        option.Dialog = ModalContainer;
+        var parameters = option.ToAttributes();
+
+        parameters.Add(nameof(ModalDialog.OnClose), new Func<Task>(async () =>
         {
-            IsAutoHide = option.IsAutoHide;
-            Delay = option.Delay;
-
-            option.Dialog = ModalContainer;
-            var parameters = option.ToAttributes();
-
-            parameters.Add(nameof(ModalDialog.OnClose), new Func<Task>(async () =>
+            if (IsAutoHide && DelayToken != null)
             {
-                if (IsAutoHide && DelayToken != null)
-                {
-                    DelayToken.Cancel();
-                    DelayToken = null;
-                }
-                DialogParameter = null;
-                await ModalContainer.CloseOrPopDialog();
-                StateHasChanged();
-            }));
-
-            parameters.Add(nameof(ModalDialog.BodyTemplate), BootstrapDynamicComponent.CreateComponent<SweetAlertBody>(SweetAlertBody.Parse(option)).Render());
-
-            DialogParameter = parameters;
-            IsShowDialog = true;
-            StateHasChanged();
-            return Task.CompletedTask;
-        }
-
-        private RenderFragment RenderDialog() => builder =>
-        {
-            if (DialogParameter != null)
-            {
-                var index = 0;
-                builder.OpenComponent<ModalDialog>(index++);
-                foreach (var p in DialogParameter)
-                {
-                    builder.AddAttribute(index++, p.Key, p.Value);
-                }
-                builder.AddComponentReferenceCapture(index++, dialog =>
-                {
-                    var modal = (ModalDialog)dialog;
-                    ModalContainer.ShowDialog(modal);
-                });
-                builder.CloseComponent();
-            }
-        };
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="disposing"></param>
-        protected virtual void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                DelayToken?.Dispose();
+                DelayToken.Cancel();
                 DelayToken = null;
-                SwalService.UnRegister(this);
             }
-        }
+            DialogParameter = null;
+            await ModalContainer.CloseOrPopDialog();
+            StateHasChanged();
+        }));
 
-        /// <summary>
-        /// Dispose 方法
-        /// </summary>
-        public void Dispose()
+        parameters.Add(nameof(ModalDialog.BodyTemplate), BootstrapDynamicComponent.CreateComponent<SweetAlertBody>(SweetAlertBody.Parse(option)).Render());
+
+        DialogParameter = parameters;
+        IsShowDialog = true;
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
+
+    private RenderFragment RenderDialog() => builder =>
+    {
+        if (DialogParameter != null)
         {
-            Dispose(disposing: true);
-            GC.SuppressFinalize(this);
+            var index = 0;
+            builder.OpenComponent<ModalDialog>(index++);
+            foreach (var p in DialogParameter)
+            {
+                builder.AddAttribute(index++, p.Key, p.Value);
+            }
+            builder.AddComponentReferenceCapture(index++, dialog =>
+            {
+                var modal = (ModalDialog)dialog;
+                ModalContainer.ShowDialog(modal);
+            });
+            builder.CloseComponent();
         }
+    };
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="disposing"></param>
+    protected virtual void Dispose(bool disposing)
+    {
+        if (disposing)
+        {
+            DelayToken?.Dispose();
+            DelayToken = null;
+            SwalService.UnRegister(this);
+        }
+    }
+
+    /// <summary>
+    /// Dispose 方法
+    /// </summary>
+    public void Dispose()
+    {
+        Dispose(disposing: true);
+        GC.SuppressFinalize(this);
     }
 }

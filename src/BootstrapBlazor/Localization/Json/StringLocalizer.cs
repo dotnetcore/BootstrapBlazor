@@ -6,24 +6,23 @@ using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Options;
 using System.Collections.Generic;
 
-namespace BootstrapBlazor.Localization.Json
+namespace BootstrapBlazor.Localization.Json;
+
+/// <summary>
+/// IStringLocalizer 实现类
+/// </summary>
+internal class StringLocalizer : IStringLocalizer
 {
-    /// <summary>
-    /// IStringLocalizer 实现类
-    /// </summary>
-    internal class StringLocalizer : IStringLocalizer
+    private readonly IStringLocalizer _localizer;
+
+    public StringLocalizer(IStringLocalizerFactory factory, IOptions<JsonLocalizationOptions> options)
     {
-        private readonly IStringLocalizer _localizer;
-
-        public StringLocalizer(IStringLocalizerFactory factory, IOptions<JsonLocalizationOptions> options)
-        {
-            _localizer = factory.Create(options.Value.ResourceManagerStringLocalizerType!);
-        }
-
-        public LocalizedString this[string name] => _localizer[name];
-
-        public LocalizedString this[string name, params object[] arguments] => _localizer[name, arguments];
-
-        public IEnumerable<LocalizedString> GetAllStrings(bool includeParentCultures) => _localizer.GetAllStrings(includeParentCultures);
+        _localizer = factory.Create(options.Value.ResourceManagerStringLocalizerType!);
     }
+
+    public LocalizedString this[string name] => _localizer[name];
+
+    public LocalizedString this[string name, params object[] arguments] => _localizer[name, arguments];
+
+    public IEnumerable<LocalizedString> GetAllStrings(bool includeParentCultures) => _localizer.GetAllStrings(includeParentCultures);
 }

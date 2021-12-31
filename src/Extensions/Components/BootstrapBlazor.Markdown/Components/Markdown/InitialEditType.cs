@@ -4,23 +4,22 @@
 
 using System.ComponentModel;
 
-namespace BootstrapBlazor.Components
+namespace BootstrapBlazor.Components;
+
+/// <summary>
+/// 初始化编辑器显示界面
+/// </summary>
+public enum InitialEditType
 {
     /// <summary>
-    /// 初始化编辑器显示界面
+    /// Markdown 界面
     /// </summary>
-    public enum InitialEditType
-    {
-        /// <summary>
-        /// Markdown 界面
-        /// </summary>
-        [Description("markdown")]
-        Markdown,
+    [Description("markdown")]
+    Markdown,
 
-        /// <summary>
-        /// 所见即所得界面
-        /// </summary>
-        [Description("wysiwyg")]
-        Wysiwyg
-    }
+    /// <summary>
+    /// 所见即所得界面
+    /// </summary>
+    [Description("wysiwyg")]
+    Wysiwyg
 }

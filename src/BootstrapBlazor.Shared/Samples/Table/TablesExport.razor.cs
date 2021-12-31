@@ -11,67 +11,66 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BootstrapBlazor.Shared.Samples.Table
+namespace BootstrapBlazor.Shared.Samples.Table;
+
+/// <summary>
+/// Table 组件数据导出示例
+/// </summary>
+public partial class TablesExport
 {
     /// <summary>
-    /// Table 组件数据导出示例
+    /// 获得/设置 版本号字符串
     /// </summary>
-    public partial class TablesExport
+    private string Version { get; set; } = "fetching";
+
+    private static IEnumerable<int> PageItemsSource => new int[] { 4, 10, 20 };
+
+    [NotNull]
+    private List<Foo>? Items { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<Foo>? Localizer { get; set; }
+
+    [Inject]
+    [NotNull]
+    private VersionService? VersionManager { get; set; }
+
+    /// <summary>
+    /// OnInitialized 方法
+    /// </summary>
+    protected override void OnInitialized()
     {
-        /// <summary>
-        /// 获得/设置 版本号字符串
-        /// </summary>
-        private string Version { get; set; } = "fetching";
+        base.OnInitialized();
 
-        private static IEnumerable<int> PageItemsSource => new int[] { 4, 10, 20 };
+        Items = Foo.GenerateFoo(Localizer);
+    }
 
-        [NotNull]
-        private List<Foo>? Items { get; set; }
+    private Task<QueryData<Foo>> OnQueryAsync(QueryPageOptions options)
+    {
+        IEnumerable<Foo> items = Items;
 
-        [Inject]
-        [NotNull]
-        private IStringLocalizer<Foo>? Localizer { get; set; }
+        // 设置记录总数
+        var total = items.Count();
 
-        [Inject]
-        [NotNull]
-        private VersionService? VersionManager { get; set; }
+        // 内存分页
+        items = items.Skip((options.PageIndex - 1) * options.PageItems).Take(options.PageItems).ToList();
 
-        /// <summary>
-        /// OnInitialized 方法
-        /// </summary>
-        protected override void OnInitialized()
+        return Task.FromResult(new QueryData<Foo>()
         {
-            base.OnInitialized();
+            Items = items,
+            TotalCount = total
+        });
+    }
 
-            Items = Foo.GenerateFoo(Localizer);
-        }
+    private static Task<bool> ExportAsync(IEnumerable<Foo> Items) => Task.FromResult(true);
 
-        private Task<QueryData<Foo>> OnQueryAsync(QueryPageOptions options)
-        {
-            IEnumerable<Foo> items = Items;
-
-            // 设置记录总数
-            var total = items.Count();
-
-            // 内存分页
-            items = items.Skip((options.PageIndex - 1) * options.PageItems).Take(options.PageItems).ToList();
-
-            return Task.FromResult(new QueryData<Foo>()
-            {
-                Items = items,
-                TotalCount = total
-            });
-        }
-
-        private static Task<bool> ExportAsync(IEnumerable<Foo> Items) => Task.FromResult(true);
-
-        /// <summary>
-        /// OnInitializedAsync 方法
-        /// </summary>
-        /// <returns></returns>
-        protected override async Task OnInitializedAsync()
-        {
-            Version = await VersionManager.GetVersionAsync("bootstrapblazor.tableexport");
-        }
+    /// <summary>
+    /// OnInitializedAsync 方法
+    /// </summary>
+    /// <returns></returns>
+    protected override async Task OnInitializedAsync()
+    {
+        Version = await VersionManager.GetVersionAsync("bootstrapblazor.tableexport");
     }
 }

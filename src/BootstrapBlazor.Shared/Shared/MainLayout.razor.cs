@@ -8,74 +8,73 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 
-namespace BootstrapBlazor.Shared.Shared
+namespace BootstrapBlazor.Shared.Shared;
+
+/// <summary>
+/// 
+/// </summary>
+public partial class MainLayout : IDisposable
 {
+    [Inject]
+    [NotNull]
+    private IDispatchService<MessageItem>? DispatchService { get; set; }
+
+    [Inject]
+    [NotNull]
+    private ToastService? Toast { get; set; }
+
+    [Inject]
+    [NotNull]
+    private WebClientService? ClientService { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IIPLocatorProvider? IPLocator { get; set; }
+
     /// <summary>
     /// 
     /// </summary>
-    public partial class MainLayout : IDisposable
+    protected override void OnInitialized()
     {
-        [Inject]
-        [NotNull]
-        private IDispatchService<MessageItem>? DispatchService { get; set; }
+        base.OnInitialized();
 
-        [Inject]
-        [NotNull]
-        private ToastService? Toast { get; set; }
+        DispatchService.Subscribe(Dispatch);
+    }
 
-        [Inject]
-        [NotNull]
-        private WebClientService? ClientService { get; set; }
-
-        [Inject]
-        [NotNull]
-        private IIPLocatorProvider? IPLocator { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        protected override void OnInitialized()
+    private async Task Dispatch(DispatchEntry<MessageItem> entry)
+    {
+        if (entry.Entry != null)
         {
-            base.OnInitialized();
-
-            DispatchService.Subscribe(Dispatch);
-        }
-
-        private async Task Dispatch(DispatchEntry<MessageItem> entry)
-        {
-            if (entry.Entry != null)
+            // 获得当前用户 IP 地址
+            if (await ClientService.RetrieveRemoteInfo() && ClientService.Ip != null)
             {
-                // 获得当前用户 IP 地址
-                if (await ClientService.RetrieveRemoteInfo() && ClientService.Ip != null)
+                var location = await IPLocator.Locate(ClientService.Ip);
+                await Toast.Show(new ToastOption()
                 {
-                    var location = await IPLocator.Locate(ClientService.Ip);
-                    await Toast.Show(new ToastOption()
-                    {
-                        Title = "Dispatch 服务测试",
-                        Content = $"{entry.Entry.Message} 来自 {location}",
-                        Category = ToastCategory.Information,
-                        Delay = 30 * 1000,
-                        ForceDelay = true
-                    });
-                }
+                    Title = "Dispatch 服务测试",
+                    Content = $"{entry.Entry.Message} 来自 {location}",
+                    Category = ToastCategory.Information,
+                    Delay = 30 * 1000,
+                    ForceDelay = true
+                });
             }
         }
+    }
 
-        private void Dispose(bool disposing)
+    private void Dispose(bool disposing)
+    {
+        if (disposing)
         {
-            if (disposing)
-            {
-                DispatchService.UnSubscribe(Dispatch);
-            }
+            DispatchService.UnSubscribe(Dispatch);
         }
+    }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
+    /// <summary>
+    /// 
+    /// </summary>
+    public void Dispose()
+    {
+        Dispose(true);
+        GC.SuppressFinalize(this);
     }
 }

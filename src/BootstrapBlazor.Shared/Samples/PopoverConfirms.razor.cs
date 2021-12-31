@@ -10,84 +10,84 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 
-namespace BootstrapBlazor.Shared.Samples
+namespace BootstrapBlazor.Shared.Samples;
+
+/// <summary>
+/// 
+/// </summary>
+public sealed partial class PopoverConfirms
 {
+    [NotNull]
+    private Foo? Model { get; set; }
+
     /// <summary>
     /// 
     /// </summary>
-    public sealed partial class PopoverConfirms
+    [NotNull]
+    private BlockLogger? Trace { get; set; }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    [NotNull]
+    private BlockLogger? Trace1 { get; set; }
+
+    /// <summary>
+    /// OnInitialized 方法
+    /// </summary>
+    protected override void OnInitialized()
     {
-        [NotNull]
-        private Foo? Model { get; set; }
+        base.OnInitialized();
 
-        /// <summary>
-        /// 
-        /// </summary>
-        [NotNull]
-        private BlockLogger? Trace { get; set; }
+        Model = new() { Name = "Name", Education = EnumEducation.Primary, DateTime = DateTime.Now };
+    }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        [NotNull]
-        private BlockLogger? Trace1 { get; set; }
+    /// <summary>
+    /// 
+    /// </summary>
+    private Task OnClose()
+    {
+        // 点击确认按钮后此方法被回调，点击取消按钮时此方法不会被调用
+        Trace.Log("OnClose Trigger");
+        return Task.CompletedTask;
+    }
 
-        /// <summary>
-        /// OnInitialized 方法
-        /// </summary>
-        protected override void OnInitialized()
-        {
-            base.OnInitialized();
+    /// <summary>
+    /// 
+    /// </summary>
+    private Task OnConfirm()
+    {
+        // 点击确认按钮后此方法被回调，点击取消按钮时此方法不会被调用
+        Trace.Log("OnConfirm Trigger");
+        return Task.CompletedTask;
+    }
 
-            Model = new() { Name = "Name", Education = EnumEducation.Primary, DateTime = DateTime.Now };
-        }
+    private static Task OnAsyncConfirm() => Task.Delay(3000);
 
-        /// <summary>
-        /// 
-        /// </summary>
-        private Task OnClose()
-        {
-            // 点击确认按钮后此方法被回调，点击取消按钮时此方法不会被调用
-            Trace.Log("OnClose Trigger");
-            return Task.CompletedTask;
-        }
+    private async Task OnAsyncSubmit()
+    {
+        await Task.Delay(3000);
+        Trace1.Log("异步提交");
+    }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        private Task OnConfirm()
-        {
-            // 点击确认按钮后此方法被回调，点击取消按钮时此方法不会被调用
-            Trace.Log("OnConfirm Trigger");
-            return Task.CompletedTask;
-        }
+    private Task OnValidSubmit(EditContext context)
+    {
+        Trace1.Log("数据合规");
+        return Task.CompletedTask;
+    }
 
-        private static Task OnAsyncConfirm() => Task.Delay(3000);
+    private Task OnInValidSubmit(EditContext context)
+    {
+        Trace1.Log("数据非法");
+        return Task.CompletedTask;
+    }
 
-        private async Task OnAsyncSubmit()
-        {
-            await Task.Delay(3000);
-            Trace1.Log("异步提交");
-        }
-
-        private Task OnValidSubmit(EditContext context)
-        {
-            Trace1.Log("数据合规");
-            return Task.CompletedTask;
-        }
-
-        private Task OnInValidSubmit(EditContext context)
-        {
-            Trace1.Log("数据非法");
-            return Task.CompletedTask;
-        }
-
-        /// <summary>
-        /// 获得属性方法
-        /// </summary>
-        /// <returns></returns>
-        private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-        {
+    /// <summary>
+    /// 获得属性方法
+    /// </summary>
+    /// <returns></returns>
+    private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+    {
             // TODO: 移动到数据库中
             new AttributeItem() {
                 Name = "Text",
@@ -166,14 +166,14 @@ namespace BootstrapBlazor.Shared.Samples
                 ValueList = "",
                 DefaultValue = " "
             },
-        };
+    };
 
-        /// <summary>
-        /// 获得事件方法
-        /// </summary>
-        /// <returns></returns>
-        private static IEnumerable<EventItem> GetEvents() => new EventItem[]
-        {
+    /// <summary>
+    /// 获得事件方法
+    /// </summary>
+    /// <returns></returns>
+    private static IEnumerable<EventItem> GetEvents() => new EventItem[]
+    {
             new EventItem()
             {
                 Name = "OnConfirm",
@@ -192,6 +192,5 @@ namespace BootstrapBlazor.Shared.Samples
                 Description="点击确认弹窗前回调方法 返回真时弹出弹窗 返回假时不弹出",
                 Type ="Func<Task<bool>>"
             },
-        };
-    }
+    };
 }

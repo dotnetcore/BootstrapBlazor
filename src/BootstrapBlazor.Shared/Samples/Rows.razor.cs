@@ -11,45 +11,45 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
 
-namespace BootstrapBlazor.Shared.Samples
+namespace BootstrapBlazor.Shared.Samples;
+
+/// <summary>
+/// 
+/// </summary>
+public sealed partial class Rows
 {
-    /// <summary>
-    /// 
-    /// </summary>
-    public sealed partial class Rows
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<Foo>? LocalizerFoo { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<Rows>? Localizer { get; set; }
+
+    private RowFoo Model { get; } = new()
     {
-        [Inject]
-        [NotNull]
-        private IStringLocalizer<Foo>? LocalizerFoo { get; set; }
+        Name = "张三",
+        Count = 23,
+        Address = "测试地址",
+        DateTime = new DateTime(1997, 12, 05),
+        Educations = new List<EnumEducation> { EnumEducation.Primary, EnumEducation.Middel }
+    };
 
-        [Inject]
-        [NotNull]
-        private IStringLocalizer<Rows>? Localizer { get; set; }
+    [NotNull]
+    private IEnumerable<SelectedItem>? Hobbys { get; set; }
 
-        private RowFoo Model { get; } = new()
-        {
-            Name = "张三",
-            Count = 23,
-            Address = "测试地址",
-            DateTime = new DateTime(1997, 12, 05),
-            Educations = new List<EnumEducation> { EnumEducation.Primary, EnumEducation.Middel }
-        };
+    /// <summary>
+    /// OnInitialized 方法
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
 
-        [NotNull]
-        private IEnumerable<SelectedItem>? Hobbys { get; set; }
+        Hobbys = Foo.GenerateHobbys(LocalizerFoo);
+    }
 
-        /// <summary>
-        /// OnInitialized 方法
-        /// </summary>
-        protected override void OnInitialized()
-        {
-            base.OnInitialized();
-
-            Hobbys = Foo.GenerateHobbys(LocalizerFoo);
-        }
-
-        private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-        {
+    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+    {
             new AttributeItem() {
                 Name = "ItemsPerRow",
                 Description = Localizer["Desc1"],
@@ -78,17 +78,16 @@ namespace BootstrapBlazor.Shared.Samples
                 ValueList = "-",
                 DefaultValue = "null"
             }
-        };
+    };
 
-        private class RowFoo : Foo
-        {
-            /// <summary>
-            /// 
-            /// </summary>
-            [Required(ErrorMessage = "请选择学历")]
-            [Display(Name = "学历")]
-            [AutoGenerateColumn(Order = 60)]
-            public List<EnumEducation>? Educations { get; set; }
-        }
+    private class RowFoo : Foo
+    {
+        /// <summary>
+        /// 
+        /// </summary>
+        [Required(ErrorMessage = "请选择学历")]
+        [Display(Name = "学历")]
+        [AutoGenerateColumn(Order = 60)]
+        public List<EnumEducation>? Educations { get; set; }
     }
 }

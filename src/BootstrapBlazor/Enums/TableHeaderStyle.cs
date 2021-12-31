@@ -4,27 +4,26 @@
 
 using System.ComponentModel;
 
-namespace BootstrapBlazor.Components
+namespace BootstrapBlazor.Components;
+
+/// <summary>
+/// 表格 thead 样式枚举
+/// </summary>
+public enum TableHeaderStyle
 {
     /// <summary>
-    /// 表格 thead 样式枚举
+    /// 未设置
     /// </summary>
-    public enum TableHeaderStyle
-    {
-        /// <summary>
-        /// 未设置
-        /// </summary>
-        None,
-        /// <summary>
-        /// 浅色
-        /// </summary>
-        [Description("table-light")]
-        Light,
+    None,
+    /// <summary>
+    /// 浅色
+    /// </summary>
+    [Description("table-light")]
+    Light,
 
-        /// <summary>
-        /// 深色
-        /// </summary>
-        [Description("table-dark")]
-        Dark
-    }
+    /// <summary>
+    /// 深色
+    /// </summary>
+    [Description("table-dark")]
+    Dark
 }

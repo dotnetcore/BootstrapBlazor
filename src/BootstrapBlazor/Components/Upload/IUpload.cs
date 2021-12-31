@@ -4,16 +4,15 @@
 
 using System.Collections.Generic;
 
-namespace BootstrapBlazor.Components
+namespace BootstrapBlazor.Components;
+
+/// <summary>
+/// IUpload 接口
+/// </summary>
+public interface IUpload
 {
     /// <summary>
-    /// IUpload 接口
+    /// 获得/设置 上传文件实例集合
     /// </summary>
-    public interface IUpload
-    {
-        /// <summary>
-        /// 获得/设置 上传文件实例集合
-        /// </summary>
-        List<UploadFile> UploadFiles { get; }
-    }
+    List<UploadFile> UploadFiles { get; }
 }

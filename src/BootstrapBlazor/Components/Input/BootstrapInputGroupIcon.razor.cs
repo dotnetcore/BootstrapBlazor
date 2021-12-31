@@ -4,24 +4,23 @@
 
 using Microsoft.AspNetCore.Components;
 
-namespace BootstrapBlazor.Components
+namespace BootstrapBlazor.Components;
+
+/// <summary>
+/// 
+/// </summary>
+public partial class BootstrapInputGroupIcon
 {
+    private string? ClassString => CssBuilder.Default("input-group-text")
+        .AddClassFromAttributes(AdditionalAttributes)
+        .Build();
+
     /// <summary>
     /// 
     /// </summary>
-    public partial class BootstrapInputGroupIcon
-    {
-        private string? ClassString => CssBuilder.Default("input-group-text")
-            .AddClassFromAttributes(AdditionalAttributes)
-            .Build();
-
-        /// <summary>
-        /// 
-        /// </summary>
-        [Parameter]
+    [Parameter]
 #if NET6_0_OR_GREATER
-        [EditorRequired]
+    [EditorRequired]
 #endif
-        public string? Icon { get; set; }
-    }
+    public string? Icon { get; set; }
 }

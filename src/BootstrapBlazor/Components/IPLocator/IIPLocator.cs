@@ -4,18 +4,17 @@
 
 using System.Threading.Tasks;
 
-namespace BootstrapBlazor.Components
+namespace BootstrapBlazor.Components;
+
+/// <summary>
+/// 
+/// </summary>
+public interface IIPLocator
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
-    public interface IIPLocator
-    {
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="option">定位器配置信息</param>
-        /// <returns>定位器定位结果</returns>
-        Task<string> Locate(IPLocatorOption option);
-    }
+    /// <param name="option">定位器配置信息</param>
+    /// <returns>定位器定位结果</returns>
+    Task<string> Locate(IPLocatorOption option);
 }

@@ -5,16 +5,16 @@
 using BootstrapBlazor.Shared.Common;
 using System.Collections.Generic;
 
-namespace BootstrapBlazor.Shared.Samples
-{
-    /// <summary>
-    /// 
-    /// </summary>
-    public partial class DropdownWidgets
-    {
+namespace BootstrapBlazor.Shared.Samples;
 
-        private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-        {
+/// <summary>
+/// 
+/// </summary>
+public partial class DropdownWidgets
+{
+
+    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+    {
             // TODO: 移动到数据库中
             new AttributeItem() {
                 Name = "Icon",
@@ -79,6 +79,5 @@ namespace BootstrapBlazor.Shared.Samples
                 ValueList = " — ",
                 DefaultValue = " — "
             }
-        };
-    }
+    };
 }

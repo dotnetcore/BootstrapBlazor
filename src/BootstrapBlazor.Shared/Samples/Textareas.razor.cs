@@ -5,19 +5,19 @@
 using BootstrapBlazor.Shared.Common;
 using System.Collections.Generic;
 
-namespace BootstrapBlazor.Shared.Samples
-{
-    /// <summary>
-    /// 
-    /// </summary>
-    public partial class Textareas
-    {
-        private string Text { get; set; } = "";
+namespace BootstrapBlazor.Shared.Samples;
 
-        private IEnumerable<AttributeItem> GetAttributes()
+/// <summary>
+/// 
+/// </summary>
+public partial class Textareas
+{
+    private string Text { get; set; } = "";
+
+    private IEnumerable<AttributeItem> GetAttributes()
+    {
+        return new AttributeItem[]
         {
-            return new AttributeItem[]
-            {
                 new AttributeItem() {
                     Name = "ShowLabel",
                     Description = Localizer["ShowLabel"],
@@ -40,7 +40,6 @@ namespace BootstrapBlazor.Shared.Samples
                     ValueList = "true|false",
                     DefaultValue = "false"
                 }
-            };
-        }
+        };
     }
 }

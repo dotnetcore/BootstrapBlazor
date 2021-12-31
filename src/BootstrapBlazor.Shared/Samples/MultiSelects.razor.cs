@@ -11,135 +11,135 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BootstrapBlazor.Shared.Samples
+namespace BootstrapBlazor.Shared.Samples;
+
+/// <summary>
+///
+/// </summary>
+public partial class MultiSelects
 {
+    [NotNull]
+    private BlockLogger? Trace { get; set; }
+
+    [NotNull]
+    private BlockLogger? Trace2 { get; set; }
+
     /// <summary>
-    ///
+    /// 级联绑定菜单
     /// </summary>
-    public partial class MultiSelects
+    /// <param name="item"></param>
+    private async Task OnCascadeBindSelectClick(SelectedItem item)
     {
-        [NotNull]
-        private BlockLogger? Trace { get; set; }
-
-        [NotNull]
-        private BlockLogger? Trace2 { get; set; }
-
-        /// <summary>
-        /// 级联绑定菜单
-        /// </summary>
-        /// <param name="item"></param>
-        private async Task OnCascadeBindSelectClick(SelectedItem item)
+        // 模拟异步获取数据源
+        await Task.Delay(100);
+        if (item.Value == "Beijing")
         {
-            // 模拟异步获取数据源
-            await Task.Delay(100);
-            if (item.Value == "Beijing")
+            Items2 = new List<SelectedItem>(new[]
             {
-                Items2 = new List<SelectedItem>(new[]
-                {
                     new SelectedItem("1","朝阳区") { Active = true },
                     new SelectedItem("2","海淀区")
                 });
-            }
-            else if (item.Value == "Shanghai")
+        }
+        else if (item.Value == "Shanghai")
+        {
+            Items2 = new List<SelectedItem>(new[]
             {
-                Items2 = new List<SelectedItem>(new[]
-                {
                     new SelectedItem("1","静安区"),
                     new SelectedItem("2","黄浦区") {Active = true },
                 });
-            }
-            else
-            {
-                Items2 = new List<SelectedItem>();
-            }
-            StateHasChanged();
         }
-
-        private void AddItems()
+        else
         {
-            SelectedItemsValue = "Beijing,Shanghai,Guangzhou";
+            Items2 = new List<SelectedItem>();
         }
+        StateHasChanged();
+    }
 
-        private void RemoveItems()
-        {
-            SelectedItemsValue = "Beijing";
-        }
+    private void AddItems()
+    {
+        SelectedItemsValue = "Beijing,Shanghai,Guangzhou";
+    }
 
-        private void ClearItems()
-        {
-            SelectedItemsValue = "";
-        }
+    private void RemoveItems()
+    {
+        SelectedItemsValue = "Beijing";
+    }
 
-        private void AddListItems()
-        {
-            SelectedArrayValues = "Beijing,Shanghai".Split(',');
-        }
+    private void ClearItems()
+    {
+        SelectedItemsValue = "";
+    }
 
-        private void RemoveListItems()
-        {
-            SelectedArrayValues = new[] { "Beijing" };
-        }
+    private void AddListItems()
+    {
+        SelectedArrayValues = "Beijing,Shanghai".Split(',');
+    }
 
-        private void ClearListItems()
-        {
-            SelectedArrayValues = Enumerable.Empty<string>();
-        }
+    private void RemoveListItems()
+    {
+        SelectedArrayValues = new[] { "Beijing" };
+    }
 
-        private void AddArrayItems()
-        {
-            SelectedIntArrayValues = new[] { 1, 2, 3, 4 };
-        }
+    private void ClearListItems()
+    {
+        SelectedArrayValues = Enumerable.Empty<string>();
+    }
 
-        private void RemoveArrayItems()
-        {
-            SelectedIntArrayValues = new[] { 1, 2, };
-        }
+    private void AddArrayItems()
+    {
+        SelectedIntArrayValues = new[] { 1, 2, 3, 4 };
+    }
 
-        private void ClearArrayItems()
-        {
-            SelectedIntArrayValues = Array.Empty<int>();
-        }
+    private void RemoveArrayItems()
+    {
+        SelectedIntArrayValues = new[] { 1, 2, };
+    }
 
-        private int[] SelectedIntArrayValues { get; set; } = Array.Empty<int>();
-        private IEnumerable<string> SelectedArrayValues { get; set; } = Enumerable.Empty<string>();
-        private IEnumerable<EnumEducation> SelectedEnumValues { get; set; } = new List<EnumEducation> { EnumEducation.Middel, EnumEducation.Primary };
+    private void ClearArrayItems()
+    {
+        SelectedIntArrayValues = Array.Empty<int>();
+    }
 
-        private IEnumerable<SelectedItem> OnSearch(string searchText)
-        {
-            Trace.Log($"{Localizer["Log1"]}：{searchText}");
-            return Items.Where(i => i.Text.Contains(searchText, System.StringComparison.OrdinalIgnoreCase));
-        }
+    private int[] SelectedIntArrayValues { get; set; } = Array.Empty<int>();
+    private IEnumerable<string> SelectedArrayValues { get; set; } = Enumerable.Empty<string>();
+    private IEnumerable<EnumEducation> SelectedEnumValues { get; set; } = new List<EnumEducation> { EnumEducation.Middel, EnumEducation.Primary };
 
-        private Task OnSelectedItemsChanged8(IEnumerable<SelectedItem> items)
-        {
-            Trace2.Log($"选中项集合：{string.Join(",", items.Select(i => i.Value))}");
-            return Task.CompletedTask;
-        }
+    private IEnumerable<SelectedItem> OnSearch(string searchText)
+    {
+        Trace.Log($"{Localizer["Log1"]}：{searchText}");
+        return Items.Where(i => i.Text.Contains(searchText, System.StringComparison.OrdinalIgnoreCase));
+    }
 
-        private Foo Model { get; set; } = new Foo();
+    private Task OnSelectedItemsChanged8(IEnumerable<SelectedItem> items)
+    {
+        Trace2.Log($"选中项集合：{string.Join(",", items.Select(i => i.Value))}");
+        return Task.CompletedTask;
+    }
 
-        private Foo Foo { get; set; } = new Foo();
+    private Foo Model { get; set; } = new Foo();
 
-        private static void OnClickButton()
-        {
+    private Foo Foo { get; set; } = new Foo();
 
-        }
+    private static void OnClickButton()
+    {
 
-        private string SelectedLongItemsValue1 { get; set; } = "";
-        private string SelectedLongItemsValue2 { get; set; } = "";
-        private string SelectedLongItemsValue3 { get; set; } = "";
-        private string SelectedMaxItemsValue { get; set; } = "";
-        private string SelectedMinItemsValue { get; set; } = "";
+    }
 
-        private string SelectedItemsValue { get; set; } = "Beijing";
+    private string SelectedLongItemsValue1 { get; set; } = "";
+    private string SelectedLongItemsValue2 { get; set; } = "";
+    private string SelectedLongItemsValue3 { get; set; } = "";
+    private string SelectedMaxItemsValue { get; set; } = "";
+    private string SelectedMinItemsValue { get; set; } = "";
 
-        private string SelectedItemsValue6 { get; set; } = "Beijing";
+    private string SelectedItemsValue { get; set; } = "Beijing";
 
-        private string SelectedItemsValue7 { get; set; } = "Beijing";
+    private string SelectedItemsValue6 { get; set; } = "Beijing";
 
-        private string SelectedItemsValue8 { get; set; } = "Beijing";
+    private string SelectedItemsValue7 { get; set; } = "Beijing";
 
-        private IEnumerable<SelectedItem> Items { get; set; } = new[] {
+    private string SelectedItemsValue8 { get; set; } = "Beijing";
+
+    private IEnumerable<SelectedItem> Items { get; set; } = new[] {
             new SelectedItem ("Beijing", "北京"),
             new SelectedItem ("Shanghai", "上海"),
             new SelectedItem ("Guangzhou", "广州"),
@@ -151,66 +151,66 @@ namespace BootstrapBlazor.Shared.Samples
             new SelectedItem ("Lianyungang", "连云港")
         };
 
-        private List<SelectedItem> Items2 { get; set; } = new List<SelectedItem>();
+    private List<SelectedItem> Items2 { get; set; } = new List<SelectedItem>();
 
-        private readonly List<SelectedItem> Items3 = new SelectedItem[]
-        {
+    private readonly List<SelectedItem> Items3 = new SelectedItem[]
+    {
             new SelectedItem ("", "请选择 ..."),
             new SelectedItem ("Beijing", "北京") { Active = true },
             new SelectedItem ("Shanghai", "上海"),
             new SelectedItem ("Hangzhou", "杭州")
-        }.ToList();
+    }.ToList();
 
-        private IEnumerable<SelectedItem> Items4 { get; set; } = new[] {
+    private IEnumerable<SelectedItem> Items4 { get; set; } = new[] {
             new SelectedItem ("Beijing", "北京"),
             new SelectedItem ("Shanghai", "上海"),
             new SelectedItem ("Guangzhou", "广州")
         };
 
-        private IEnumerable<SelectedItem> Items5 { get; set; } = new[] {
+    private IEnumerable<SelectedItem> Items5 { get; set; } = new[] {
             new SelectedItem ("Beijing", "北京"),
             new SelectedItem ("Shanghai", "上海"),
             new SelectedItem ("Guangzhou", "广州")
         };
 
-        private IEnumerable<SelectedItem> Items6 { get; set; } = new[] {
+    private IEnumerable<SelectedItem> Items6 { get; set; } = new[] {
             new SelectedItem ("Beijing", "北京"),
             new SelectedItem ("Shanghai", "上海"),
             new SelectedItem ("Guangzhou", "广州")
         };
 
-        private IEnumerable<SelectedItem> Items7 { get; set; } = new[] {
+    private IEnumerable<SelectedItem> Items7 { get; set; } = new[] {
             new SelectedItem ("Beijing", "北京"),
             new SelectedItem ("Shanghai", "上海"),
             new SelectedItem ("Guangzhou", "广州")
         };
 
-        private IEnumerable<SelectedItem> Items8 { get; set; } = new[] {
+    private IEnumerable<SelectedItem> Items8 { get; set; } = new[] {
             new SelectedItem ("Beijing", "北京"),
             new SelectedItem ("Shanghai", "上海"),
             new SelectedItem ("Guangzhou", "广州")
         };
 
-        private IEnumerable<SelectedItem> Items9 { get; set; } = new[] {
+    private IEnumerable<SelectedItem> Items9 { get; set; } = new[] {
             new SelectedItem ("Beijing", "北京"),
             new SelectedItem ("Shanghai", "上海"),
             new SelectedItem ("Guangzhou", "广州")
         };
 
-        private IEnumerable<SelectedItem> Items10 { get; set; } = new[] {
+    private IEnumerable<SelectedItem> Items10 { get; set; } = new[] {
             new SelectedItem ("Beijing", "北京"),
             new SelectedItem ("Shanghai", "上海"),
             new SelectedItem ("Guangzhou", "广州")
         };
 
-        private IEnumerable<SelectedItem> Items11 { get; set; } = new[] {
+    private IEnumerable<SelectedItem> Items11 { get; set; } = new[] {
             new SelectedItem ("Beijing", "北京"),
             new SelectedItem ("Shanghai", "上海"),
             new SelectedItem ("Guangzhou", "广州")
         };
 
-        private IEnumerable<SelectedItem> LongItems { get; set; } = new[]
-        {
+    private IEnumerable<SelectedItem> LongItems { get; set; } = new[]
+    {
             new SelectedItem ("1", "特别甜的东瓜(特别甜的东瓜)"),
             new SelectedItem ("2", "特别甜的西瓜(特别甜的西瓜)"),
             new SelectedItem ("3", "特别甜的南瓜(特别甜的南瓜)"),
@@ -222,8 +222,8 @@ namespace BootstrapBlazor.Shared.Samples
             new SelectedItem ("9", "特别甜的土瓜(特别甜的土瓜)"),
         };
 
-        private IEnumerable<SelectedItem> LongItems1 { get; set; } = new[]
-        {
+    private IEnumerable<SelectedItem> LongItems1 { get; set; } = new[]
+    {
             new SelectedItem ("1", "特别甜的东瓜(特别甜的东瓜)"),
             new SelectedItem ("2", "特别甜的西瓜(特别甜的西瓜)"),
             new SelectedItem ("3", "特别甜的南瓜(特别甜的南瓜)"),
@@ -235,8 +235,8 @@ namespace BootstrapBlazor.Shared.Samples
             new SelectedItem ("9", "特别甜的土瓜(特别甜的土瓜)"),
         };
 
-        private IEnumerable<SelectedItem> LongItems2 { get; set; } = new[]
-        {
+    private IEnumerable<SelectedItem> LongItems2 { get; set; } = new[]
+    {
             new SelectedItem ("1", "特别甜的东瓜(特别甜的东瓜)"),
             new SelectedItem ("2", "特别甜的西瓜(特别甜的西瓜)"),
             new SelectedItem ("3", "特别甜的南瓜(特别甜的南瓜)"),
@@ -248,8 +248,8 @@ namespace BootstrapBlazor.Shared.Samples
             new SelectedItem ("9", "特别甜的土瓜(特别甜的土瓜)"),
         };
 
-        private IEnumerable<SelectedItem> LongItems3 { get; set; } = new[]
-        {
+    private IEnumerable<SelectedItem> LongItems3 { get; set; } = new[]
+    {
             new SelectedItem ("1", "特别甜的东瓜(特别甜的东瓜)"),
             new SelectedItem ("2", "特别甜的西瓜(特别甜的西瓜)"),
             new SelectedItem ("3", "特别甜的南瓜(特别甜的南瓜)"),
@@ -261,8 +261,8 @@ namespace BootstrapBlazor.Shared.Samples
             new SelectedItem ("9", "特别甜的土瓜(特别甜的土瓜)"),
         };
 
-        private IEnumerable<SelectedItem> LongItems4 { get; set; } = new[]
-        {
+    private IEnumerable<SelectedItem> LongItems4 { get; set; } = new[]
+    {
             new SelectedItem ("1", "特别甜的东瓜(特别甜的东瓜)"),
             new SelectedItem ("2", "特别甜的西瓜(特别甜的西瓜)"),
             new SelectedItem ("3", "特别甜的南瓜(特别甜的南瓜)"),
@@ -274,8 +274,8 @@ namespace BootstrapBlazor.Shared.Samples
             new SelectedItem ("9", "特别甜的土瓜(特别甜的土瓜)"),
         };
 
-        private IEnumerable<SelectedItem> LongItems5 { get; set; } = new[]
-        {
+    private IEnumerable<SelectedItem> LongItems5 { get; set; } = new[]
+    {
             new SelectedItem ("1", "特别甜的东瓜(特别甜的东瓜)"),
             new SelectedItem ("2", "特别甜的西瓜(特别甜的西瓜)"),
             new SelectedItem ("3", "特别甜的南瓜(特别甜的南瓜)"),
@@ -287,12 +287,12 @@ namespace BootstrapBlazor.Shared.Samples
             new SelectedItem ("9", "特别甜的土瓜(特别甜的土瓜)"),
         };
 
-        /// <summary>
-        /// 获得事件方法
-        /// </summary>
-        /// <returns></returns>
-        private IEnumerable<EventItem> GetEvents() => new[]
-        {
+    /// <summary>
+    /// 获得事件方法
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerable<EventItem> GetEvents() => new[]
+    {
             new EventItem()
             {
                 Name = "OnSelectedItemChanged",
@@ -307,12 +307,12 @@ namespace BootstrapBlazor.Shared.Samples
             }
         };
 
-        /// <summary>
-        /// 获得属性方法
-        /// </summary>
-        /// <returns></returns>
-        private IEnumerable<AttributeItem> GetAttributes() => new[]
-        {
+    /// <summary>
+    /// 获得属性方法
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerable<AttributeItem> GetAttributes() => new[]
+    {
             // TODO: 移动到数据库中
             new AttributeItem() {
                 Name = "ShowLabel",
@@ -392,5 +392,4 @@ namespace BootstrapBlazor.Shared.Samples
                 DefaultValue = " — "
             }
         };
-    }
 }

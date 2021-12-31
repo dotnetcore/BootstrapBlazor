@@ -2,14 +2,13 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-namespace BootstrapBlazor.Shared.Samples
-{
-    /// <summary>
-    /// 
-    /// </summary>
-    public partial class Ips
-    {
-        private string? Value { get; set; }
+namespace BootstrapBlazor.Shared.Samples;
 
-    }
+/// <summary>
+/// 
+/// </summary>
+public partial class Ips
+{
+    private string? Value { get; set; }
+
 }

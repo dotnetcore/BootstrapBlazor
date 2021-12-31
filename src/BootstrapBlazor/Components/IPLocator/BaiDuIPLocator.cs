@@ -6,48 +6,47 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BootstrapBlazor.Components
+namespace BootstrapBlazor.Components;
+
+/// <summary>
+///
+/// </summary>
+internal class BaiDuIPLocator : DefaultIPLocator
 {
+    /// <summary>
+    /// 详细地址信息
+    /// </summary>
+    public IEnumerable<LocationInfo>? Data { get; set; }
+
+    /// <summary>
+    /// 结果状态返回码
+    /// </summary>
+    public string? Status { get; set; }
+
     /// <summary>
     ///
     /// </summary>
-    internal class BaiDuIPLocator : DefaultIPLocator
+    /// <param name="option"></param>
+    /// <returns></returns>
+    public override Task<string> Locate(IPLocatorOption option) => Locate<BaiDuIPLocator>(option);
+
+    /// <summary>
+    ///
+    /// </summary>
+    /// <returns></returns>
+    public override string ToString()
     {
-        /// <summary>
-        /// 详细地址信息
-        /// </summary>
-        public IEnumerable<LocationInfo>? Data { get; set; }
-
-        /// <summary>
-        /// 结果状态返回码
-        /// </summary>
-        public string? Status { get; set; }
-
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="option"></param>
-        /// <returns></returns>
-        public override Task<string> Locate(IPLocatorOption option) => Locate<BaiDuIPLocator>(option);
-
-        /// <summary>
-        ///
-        /// </summary>
-        /// <returns></returns>
-        public override string ToString()
-        {
-            return Status == "0" ? (Data?.FirstOrDefault()?.Location ?? "XX XX") : "Error";
-        }
+        return Status == "0" ? (Data?.FirstOrDefault()?.Location ?? "XX XX") : "Error";
     }
+}
 
+/// <summary>
+/// 
+/// </summary>
+public class LocationInfo
+{
     /// <summary>
     /// 
     /// </summary>
-    public class LocationInfo
-    {
-        /// <summary>
-        /// 
-        /// </summary>
-        public string? Location { get; set; }
-    }
+    public string? Location { get; set; }
 }

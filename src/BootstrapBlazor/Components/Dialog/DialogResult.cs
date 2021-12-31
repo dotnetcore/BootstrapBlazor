@@ -2,26 +2,25 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-namespace BootstrapBlazor.Components
+namespace BootstrapBlazor.Components;
+
+/// <summary>
+/// 对话框返回类型
+/// </summary>
+public enum DialogResult
 {
     /// <summary>
-    /// 对话框返回类型
+    /// 是
     /// </summary>
-    public enum DialogResult
-    {
-        /// <summary>
-        /// 是
-        /// </summary>
-        Yes,
+    Yes,
 
-        /// <summary>
-        /// 否
-        /// </summary>
-        No,
+    /// <summary>
+    /// 否
+    /// </summary>
+    No,
 
-        /// <summary>
-        /// 关闭
-        /// </summary>
-        Close
-    }
+    /// <summary>
+    /// 关闭
+    /// </summary>
+    Close
 }

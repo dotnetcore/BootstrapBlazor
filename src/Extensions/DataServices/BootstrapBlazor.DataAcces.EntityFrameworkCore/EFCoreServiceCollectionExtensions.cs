@@ -7,35 +7,34 @@ using BootstrapBlazor.DataAcces.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 
-namespace Microsoft.Extensions.DependencyInjection
+namespace Microsoft.Extensions.DependencyInjection;
+
+/// <summary>
+/// BootstrapBlazor 服务扩展类
+/// </summary>
+public static class EFCoreServiceCollectionExtensions
 {
     /// <summary>
-    /// BootstrapBlazor 服务扩展类
+    /// 增加 Entity Framework 数据库操作服务
     /// </summary>
-    public static class EFCoreServiceCollectionExtensions
+    /// <param name="services"></param>
+    /// <param name="optionsAction"></param>
+    /// <param name="contextLifetime"></param>
+    /// <param name="optionsLifetime"></param>
+    /// <returns></returns>
+    public static IServiceCollection AddEntityFrameworkCore<TContext>(this IServiceCollection services, Action<DbContextOptionsBuilder>? optionsAction = null, ServiceLifetime contextLifetime = ServiceLifetime.Scoped, ServiceLifetime optionsLifetime = ServiceLifetime.Scoped)
+        where TContext : DbContext
     {
-        /// <summary>
-        /// 增加 Entity Framework 数据库操作服务
-        /// </summary>
-        /// <param name="services"></param>
-        /// <param name="optionsAction"></param>
-        /// <param name="contextLifetime"></param>
-        /// <param name="optionsLifetime"></param>
-        /// <returns></returns>
-        public static IServiceCollection AddEntityFrameworkCore<TContext>(this IServiceCollection services, Action<DbContextOptionsBuilder>? optionsAction = null, ServiceLifetime contextLifetime = ServiceLifetime.Scoped, ServiceLifetime optionsLifetime = ServiceLifetime.Scoped)
-            where TContext : DbContext
+        services.AddDbContext<TContext>(optionsAction, contextLifetime, optionsLifetime);
+        services.Add(new ServiceDescriptor(typeof(IDataService<>), typeof(DefaultDataService<>), contextLifetime));
+        services.Add(new ServiceDescriptor(typeof(Func<IEntityFrameworkCoreDataService, DbContext>), provider =>
         {
-            services.AddDbContext<TContext>(optionsAction, contextLifetime, optionsLifetime);
-            services.Add(new ServiceDescriptor(typeof(IDataService<>), typeof(DefaultDataService<>), contextLifetime));
-            services.Add(new ServiceDescriptor(typeof(Func<IEntityFrameworkCoreDataService, DbContext>), provider =>
+            DbContext DbContextResolve(IEntityFrameworkCoreDataService server)
             {
-                DbContext DbContextResolve(IEntityFrameworkCoreDataService server)
-                {
-                    return provider.GetRequiredService<TContext>();
-                }
-                return (Func<IEntityFrameworkCoreDataService, DbContext>)DbContextResolve;
-            }, contextLifetime));
-            return services;
-        }
+                return provider.GetRequiredService<TContext>();
+            }
+            return (Func<IEntityFrameworkCoreDataService, DbContext>)DbContextResolve;
+        }, contextLifetime));
+        return services;
     }
 }

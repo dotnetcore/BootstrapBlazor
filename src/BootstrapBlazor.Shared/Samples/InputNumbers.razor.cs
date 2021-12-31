@@ -5,61 +5,61 @@
 using BootstrapBlazor.Shared.Common;
 using System.Collections.Generic;
 
-namespace BootstrapBlazor.Shared.Samples
+namespace BootstrapBlazor.Shared.Samples;
+
+/// <summary>
+/// 
+/// </summary>
+public sealed partial class InputNumbers
 {
     /// <summary>
     /// 
     /// </summary>
-    public sealed partial class InputNumbers
+    public int BindValue { get; set; } = 5;
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public sbyte BindSByteValue { get; set; } = 10;
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public byte BindByteValue { get; set; } = 10;
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public long BindLongValue { get; set; } = 10;
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public short BindShortValue { get; set; } = 10;
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public double BindDoubleValue { get; set; } = 10;
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public float BindFloatValue { get; set; } = 10;
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public decimal BindDecimalValue { get; set; } = 10;
+
+    private Foo Model { get; set; } = new Foo() { Count = 10 };
+
+    private static string Formatter(double val) => val.ToString("0.0");
+
+    private IEnumerable<AttributeItem> GetAttributes()
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        public int BindValue { get; set; } = 5;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public sbyte BindSByteValue { get; set; } = 10;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public byte BindByteValue { get; set; } = 10;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public long BindLongValue { get; set; } = 10;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public short BindShortValue { get; set; } = 10;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public double BindDoubleValue { get; set; } = 10;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public float BindFloatValue { get; set; } = 10;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public decimal BindDecimalValue { get; set; } = 10;
-
-        private Foo Model { get; set; } = new Foo() { Count = 10 };
-
-        private static string Formatter(double val) => val.ToString("0.0");
-
-        private IEnumerable<AttributeItem> GetAttributes()
+        return new AttributeItem[]
         {
-            return new AttributeItem[]
-            {
                 new AttributeItem() {
                     Name = "Value",
                     Description = Localizer["Att1"],
@@ -112,7 +112,6 @@ namespace BootstrapBlazor.Shared.Samples
                     ValueList = " — ",
                     DefaultValue = " — "
                 }
-            };
-        }
+        };
     }
 }

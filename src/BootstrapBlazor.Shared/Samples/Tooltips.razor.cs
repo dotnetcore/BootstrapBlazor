@@ -5,19 +5,19 @@
 using BootstrapBlazor.Shared.Common;
 using System.Collections.Generic;
 
-namespace BootstrapBlazor.Shared.Samples
+namespace BootstrapBlazor.Shared.Samples;
+
+/// <summary>
+/// 
+/// </summary>
+public partial class Tooltips
 {
     /// <summary>
-    /// 
+    /// 获得属性方法
     /// </summary>
-    public partial class Tooltips
+    /// <returns></returns>
+    protected IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
-        /// <summary>
-        /// 获得属性方法
-        /// </summary>
-        /// <returns></returns>
-        protected IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-        {
             // TODO: 移动到数据库中
             new AttributeItem() {
                 Name = "Placement",
@@ -26,6 +26,5 @@ namespace BootstrapBlazor.Shared.Samples
                 ValueList = "Auto / Top / Left / Bottom / Right",
                 DefaultValue = "Auto"
             }
-        };
-    }
+    };
 }

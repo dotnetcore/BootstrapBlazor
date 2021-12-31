@@ -7,29 +7,28 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BootstrapBlazor.Shared.Components
-{
-    /// <summary>
-    /// 
-    /// </summary>
-    public partial class DialogBodyFoo
-    {
-        private string? Value { get; set; }
+namespace BootstrapBlazor.Shared.Components;
 
-        private List<SelectedItem> Items { get; } = new(new[]
-        {
+/// <summary>
+/// 
+/// </summary>
+public partial class DialogBodyFoo
+{
+    private string? Value { get; set; }
+
+    private List<SelectedItem> Items { get; } = new(new[]
+    {
             new SelectedItem("beijing", "北京"),
             new SelectedItem("shanghai", "上海")
         });
 
-        /// <summary>
-        /// 
-        /// </summary>
-        public Task UpdateAsync(string val)
-        {
-            Value = Items.First(i => i.Value == val).Text;
-            StateHasChanged();
-            return Task.CompletedTask;
-        }
+    /// <summary>
+    /// 
+    /// </summary>
+    public Task UpdateAsync(string val)
+    {
+        Value = Items.First(i => i.Value == val).Text;
+        StateHasChanged();
+        return Task.CompletedTask;
     }
 }

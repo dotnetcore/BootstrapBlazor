@@ -5,16 +5,16 @@
 using BootstrapBlazor.Shared.Common;
 using System.Collections.Generic;
 
-namespace BootstrapBlazor.Shared.Samples
-{
-    /// <summary>
-    /// 
-    /// </summary>
-    public sealed partial class GoTops
-    {
+namespace BootstrapBlazor.Shared.Samples;
 
-        private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-        {
+/// <summary>
+/// 
+/// </summary>
+public sealed partial class GoTops
+{
+
+    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+    {
             new AttributeItem() {
                 Name = "Target",
                 Description = Localizer["Desc1"],
@@ -22,6 +22,5 @@ namespace BootstrapBlazor.Shared.Samples
                 ValueList = " — ",
                 DefaultValue = " — "
             }
-        };
-    }
+    };
 }

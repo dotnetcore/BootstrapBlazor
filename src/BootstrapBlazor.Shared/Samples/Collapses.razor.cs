@@ -9,35 +9,35 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 
-namespace BootstrapBlazor.Shared.Samples
+namespace BootstrapBlazor.Shared.Samples;
+
+/// <summary>
+/// 
+/// </summary>
+public sealed partial class Collapses
 {
-    /// <summary>
-    /// 
-    /// </summary>
-    public sealed partial class Collapses
+    [NotNull]
+    private BlockLogger? Trace { get; set; }
+
+    private bool State { get; set; }
+
+    private Task OnChanged(CollapseItem item)
     {
-        [NotNull]
-        private BlockLogger? Trace { get; set; }
+        Trace.Log($"{item.Text}: {item.IsCollapsed}");
+        return Task.CompletedTask;
+    }
 
-        private bool State { get; set; }
+    private void OnToggle()
+    {
+        State = !State;
+    }
 
-        private Task OnChanged(CollapseItem item)
-        {
-            Trace.Log($"{item.Text}: {item.IsCollapsed}");
-            return Task.CompletedTask;
-        }
-
-        private void OnToggle()
-        {
-            State = !State;
-        }
-
-        /// <summary>
-        /// 获得属性方法
-        /// </summary>
-        /// <returns></returns>
-        private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-        {
+    /// <summary>
+    /// 获得属性方法
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+    {
             // TODO: 移动到数据库中
             new AttributeItem() {
                 Name = "CollapseItems",
@@ -53,6 +53,5 @@ namespace BootstrapBlazor.Shared.Samples
                 ValueList = "true|false",
                 DefaultValue = "false"
             }
-        };
-    }
+    };
 }

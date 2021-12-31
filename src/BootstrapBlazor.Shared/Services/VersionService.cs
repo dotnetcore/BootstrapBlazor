@@ -9,84 +9,83 @@ using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
 
-namespace BootstrapBlazor.Shared.Services
+namespace BootstrapBlazor.Shared.Services;
+
+internal class VersionService
 {
-    internal class VersionService
+    private HttpClient Client { get; set; }
+
+    private static string Version { get; set; } = "latest";
+
+    /// <summary>
+    /// 构造方法
+    /// </summary>
+    /// <param name="client"></param>
+    public VersionService(HttpClient client)
     {
-        private HttpClient Client { get; set; }
+        Client = client;
+        Client.Timeout = TimeSpan.FromSeconds(5);
 
-        private static string Version { get; set; } = "latest";
-
-        /// <summary>
-        /// 构造方法
-        /// </summary>
-        /// <param name="client"></param>
-        public VersionService(HttpClient client)
+        Task.Run(async () =>
         {
-            Client = client;
-            Client.Timeout = TimeSpan.FromSeconds(5);
-
-            Task.Run(async () =>
+            do
             {
-                do
-                {
-                    await FetchVersionAsync();
+                await FetchVersionAsync();
 
-                    await Task.Delay(300000);
-                    Version = "latest";
+                await Task.Delay(300000);
+                Version = "latest";
+            }
+            while (true);
+        });
+    }
+
+    /// <summary>
+    /// 获得组件版本号方法
+    /// </summary>
+    /// <returns></returns>
+    public async Task<string> GetVersionAsync(string packageName = "bootstrapblazor")
+    {
+        Version = "latest";
+        await FetchVersionAsync(packageName);
+        return Version;
+    }
+
+    private async Task FetchVersionAsync(string packageName = "bootstrapblazor")
+    {
+        if (Version == "latest")
+        {
+            try
+            {
+                var url = $"https://azuresearch-usnc.nuget.org/query?q={packageName}&prerelease=true&semVerLevel=2.0.0";
+                var package = await Client.GetFromJsonAsync<NugetPackage>(url);
+                if (package != null)
+                {
+                    Version = package.GetVersion();
                 }
-                while (true);
-            });
+            }
+            catch { }
         }
+    }
+
+    private class NugetPackage
+    {
+        /// <summary>
+        /// Data 数据集合
+        /// </summary>
+        public IEnumerable<NugetPackageData> Data { get; set; } = Array.Empty<NugetPackageData>();
 
         /// <summary>
-        /// 获得组件版本号方法
+        /// 
         /// </summary>
         /// <returns></returns>
-        public async Task<string> GetVersionAsync(string packageName = "bootstrapblazor")
-        {
-            Version = "latest";
-            await FetchVersionAsync(packageName);
-            return Version;
-        }
+        public string GetVersion() => Data.FirstOrDefault()?.Version ?? "";
+    }
 
-        private async Task FetchVersionAsync(string packageName = "bootstrapblazor")
-        {
-            if (Version == "latest")
-            {
-                try
-                {
-                    var url = $"https://azuresearch-usnc.nuget.org/query?q={packageName}&prerelease=true&semVerLevel=2.0.0";
-                    var package = await Client.GetFromJsonAsync<NugetPackage>(url);
-                    if (package != null)
-                    {
-                        Version = package.GetVersion();
-                    }
-                }
-                catch { }
-            }
-        }
-
-        private class NugetPackage
-        {
-            /// <summary>
-            /// Data 数据集合
-            /// </summary>
-            public IEnumerable<NugetPackageData> Data { get; set; } = Array.Empty<NugetPackageData>();
-
-            /// <summary>
-            /// 
-            /// </summary>
-            /// <returns></returns>
-            public string GetVersion() => Data.FirstOrDefault()?.Version ?? "";
-        }
-
-        private class NugetPackageData
-        {
-            /// <summary>
-            /// 版本号
-            /// </summary>
-            public string Version { get; set; } = "";
-        }
+    private class NugetPackageData
+    {
+        /// <summary>
+        /// 版本号
+        /// </summary>
+        public string Version { get; set; } = "";
     }
 }

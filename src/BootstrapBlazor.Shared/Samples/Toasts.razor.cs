@@ -10,136 +10,136 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 
-namespace BootstrapBlazor.Shared.Samples
+namespace BootstrapBlazor.Shared.Samples;
+
+/// <summary>
+/// Toasts 示例
+/// </summary>
+public sealed partial class Toasts
 {
+    [NotNull]
+    private Toast? Toast { get; set; }
+
+    [NotNull]
+    private ToastOption? Options1 { get; set; }
+
+    [NotNull]
+    private ToastOption? Options2 { get; set; }
+
+    [NotNull]
+    private ToastOption? Options3 { get; set; }
+
+    [NotNull]
+    private ToastOption? Options4 { get; set; }
+
+    [CascadingParameter]
+    [NotNull]
+    private BootstrapBlazorRoot? Root { get; set; }
+
     /// <summary>
-    /// Toasts 示例
+    /// OnInitialized 方法
     /// </summary>
-    public sealed partial class Toasts
+    protected override void OnInitialized()
     {
-        [NotNull]
-        private Toast? Toast { get; set; }
+        base.OnInitialized();
 
-        [NotNull]
-        private ToastOption? Options1 { get; set; }
+        Options1 = new ToastOption { Title = "保存数据", IsAutoHide = false, Content = "保存数据成功，4 秒后自动关闭" };
+        Options2 = new ToastOption { Category = ToastCategory.Error, Title = "保存数据", IsAutoHide = false, Content = "保存数据成功，4 秒后自动关闭" };
+        Options3 = new ToastOption { Category = ToastCategory.Information, Title = "提示信息", IsAutoHide = false, Content = "信息提示弹窗，4 秒后自动关闭" };
+        Options4 = new ToastOption { Category = ToastCategory.Warning, Title = "警告信息", IsAutoHide = false, Content = "信息提示弹窗，4 秒后自动关闭" };
 
-        [NotNull]
-        private ToastOption? Options2 { get; set; }
+        Toast = Root.ToastContainer;
+    }
 
-        [NotNull]
-        private ToastOption? Options3 { get; set; }
-
-        [NotNull]
-        private ToastOption? Options4 { get; set; }
-
-        [CascadingParameter]
-        [NotNull]
-        private BootstrapBlazorRoot? Root { get; set; }
-
-        /// <summary>
-        /// OnInitialized 方法
-        /// </summary>
-        protected override void OnInitialized()
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="firstRender"></param>
+    /// <returns></returns>
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
         {
-            base.OnInitialized();
-
-            Options1 = new ToastOption { Title = "保存数据", IsAutoHide = false, Content = "保存数据成功，4 秒后自动关闭" };
-            Options2 = new ToastOption { Category = ToastCategory.Error, Title = "保存数据", IsAutoHide = false, Content = "保存数据成功，4 秒后自动关闭" };
-            Options3 = new ToastOption { Category = ToastCategory.Information, Title = "提示信息", IsAutoHide = false, Content = "信息提示弹窗，4 秒后自动关闭" };
-            Options4 = new ToastOption { Category = ToastCategory.Warning, Title = "警告信息", IsAutoHide = false, Content = "信息提示弹窗，4 秒后自动关闭" };
-
-            Toast = Root.ToastContainer;
+            await JSRuntime.InvokeVoidAsync("$._showToast");
         }
+    }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="firstRender"></param>
-        /// <returns></returns>
-        protected override async Task OnAfterRenderAsync(bool firstRender)
+    private async Task OnPlacementClick(Placement placement)
+    {
+        Toast.SetPlacement(placement);
+        await ToastService.Show(new ToastOption()
         {
-            if (firstRender)
-            {
-                await JSRuntime.InvokeVoidAsync("$._showToast");
-            }
-        }
+            Category = ToastCategory.Information,
+            Title = "消息通知",
+            Content = "<b>Toast</b> 组件更改位置啦，4 秒后自动关闭"
+        });
+    }
 
-        private async Task OnPlacementClick(Placement placement)
+    private async Task OnSuccessClick()
+    {
+        Toast.SetPlacement(Placement.BottomEnd);
+        await ToastService.Show(new ToastOption()
         {
-            Toast.SetPlacement(placement);
-            await ToastService.Show(new ToastOption()
-            {
-                Category = ToastCategory.Information,
-                Title = "消息通知",
-                Content = "<b>Toast</b> 组件更改位置啦，4 秒后自动关闭"
-            });
-        }
+            Category = ToastCategory.Success,
+            Title = "保存成功",
+            Content = "保存数据成功，4 秒后自动关闭"
+        });
+    }
 
-        private async Task OnSuccessClick()
+    private async Task OnErrorClick()
+    {
+        Toast.SetPlacement(Placement.BottomEnd);
+        await ToastService.Show(new ToastOption()
         {
-            Toast.SetPlacement(Placement.BottomEnd);
-            await ToastService.Show(new ToastOption()
-            {
-                Category = ToastCategory.Success,
-                Title = "保存成功",
-                Content = "保存数据成功，4 秒后自动关闭"
-            });
-        }
+            Category = ToastCategory.Error,
+            Title = "保存失败",
+            Content = "保存数据失败，4 秒后自动关闭"
+        });
+    }
 
-        private async Task OnErrorClick()
+    private async Task OnInfoClick()
+    {
+        Toast.SetPlacement(Placement.BottomEnd);
+        await ToastService.Show(new ToastOption()
         {
-            Toast.SetPlacement(Placement.BottomEnd);
-            await ToastService.Show(new ToastOption()
-            {
-                Category = ToastCategory.Error,
-                Title = "保存失败",
-                Content = "保存数据失败，4 秒后自动关闭"
-            });
-        }
+            Category = ToastCategory.Information,
+            Title = "消息通知",
+            Content = "系统增加新组件啦，4 秒后自动关闭"
+        });
+    }
 
-        private async Task OnInfoClick()
+    private async Task OnWarningClick()
+    {
+        Toast.SetPlacement(Placement.BottomEnd);
+        await ToastService.Show(new ToastOption()
         {
-            Toast.SetPlacement(Placement.BottomEnd);
-            await ToastService.Show(new ToastOption()
-            {
-                Category = ToastCategory.Information,
-                Title = "消息通知",
-                Content = "系统增加新组件啦，4 秒后自动关闭"
-            });
-        }
+            Category = ToastCategory.Warning,
+            Title = "警告通知",
+            Content = "系统发现异常请及时处理，4 秒后自动关闭"
+        });
+    }
 
-        private async Task OnWarningClick()
+    /// <summary>
+    /// 
+    /// </summary>
+    private async Task OnNotAutoHideClick()
+    {
+        Toast.SetPlacement(Placement.BottomEnd);
+        await ToastService.Show(new ToastOption()
         {
-            Toast.SetPlacement(Placement.BottomEnd);
-            await ToastService.Show(new ToastOption()
-            {
-                Category = ToastCategory.Warning,
-                Title = "警告通知",
-                Content = "系统发现异常请及时处理，4 秒后自动关闭"
-            });
-        }
+            Category = ToastCategory.Warning,
+            IsAutoHide = false,
+            Title = "消息通知",
+            Content = "我不会自动关闭哦，请点击右上角关闭按钮"
+        });
+    }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        private async Task OnNotAutoHideClick()
-        {
-            Toast.SetPlacement(Placement.BottomEnd);
-            await ToastService.Show(new ToastOption()
-            {
-                Category = ToastCategory.Warning,
-                IsAutoHide = false,
-                Title = "消息通知",
-                Content = "我不会自动关闭哦，请点击右上角关闭按钮"
-            });
-        }
-
-        /// <summary>
-        /// 获得属性方法
-        /// </summary>
-        /// <returns></returns>
-        private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-        {
+    /// <summary>
+    /// 获得属性方法
+    /// </summary>
+    /// <returns></returns>
+    private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+    {
             // TODO: 移动到数据库中
             new AttributeItem() {
                 Name = "Category",
@@ -190,6 +190,5 @@ namespace BootstrapBlazor.Shared.Samples
                 ValueList = "—",
                 DefaultValue = ""
             },
-        };
-    }
+    };
 }

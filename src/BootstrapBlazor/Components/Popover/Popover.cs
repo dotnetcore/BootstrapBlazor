@@ -2,21 +2,20 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-namespace BootstrapBlazor.Components
+namespace BootstrapBlazor.Components;
+
+/// <summary>
+/// Popover 弹出窗组件
+/// </summary>
+public class Popover : Tooltip
 {
     /// <summary>
-    /// Popover 弹出窗组件
+    /// OnInitialized 方法
     /// </summary>
-    public class Popover : Tooltip
+    protected override void OnInitialized()
     {
-        /// <summary>
-        /// OnInitialized 方法
-        /// </summary>
-        protected override void OnInitialized()
-        {
-            base.OnInitialized();
+        base.OnInitialized();
 
-            PopoverType = PopoverType.Popover;
-        }
+        PopoverType = PopoverType.Popover;
     }
 }

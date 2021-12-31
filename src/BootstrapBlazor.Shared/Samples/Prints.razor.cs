@@ -10,59 +10,58 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 
-namespace BootstrapBlazor.Shared.Samples
+namespace BootstrapBlazor.Shared.Samples;
+
+/// <summary>
+/// 
+/// </summary>
+public partial class Prints
 {
     /// <summary>
-    /// 
+    /// 获得 弹窗注入服务
     /// </summary>
-    public partial class Prints
+    [Inject]
+    [NotNull]
+    private DialogService? DialogService { get; set; }
+
+    /// <summary>
+    /// 获得 弹窗注入服务
+    /// </summary>
+    [Inject]
+    [NotNull]
+    private PrintService? PrintService { get; set; }
+
+    private async Task OnClickPrint()
     {
-        /// <summary>
-        /// 获得 弹窗注入服务
-        /// </summary>
-        [Inject]
-        [NotNull]
-        private DialogService? DialogService { get; set; }
-
-        /// <summary>
-        /// 获得 弹窗注入服务
-        /// </summary>
-        [Inject]
-        [NotNull]
-        private PrintService? PrintService { get; set; }
-
-        private async Task OnClickPrint()
+        var op = new DialogOption()
         {
-            var op = new DialogOption()
-            {
-                Title = Localizer["DialogTitle"],
-                ShowPrintButton = true,
-                ShowPrintButtonInHeader = true,
-                ShowFooter = false,
-                BodyContext = 1
-            };
-            op.BodyTemplate = BootstrapDynamicComponent.CreateComponent<DataDialogComponent>(new Dictionary<string, object?>
-            {
-                [nameof(DataDialogComponent.OnClose)] = new Action(async () => await op.Dialog.Close())
-            }).Render();
-
-            await DialogService.Show(op);
-        }
-
-        private Task OnClickPrintService() => PrintService.PrintAsync<DataDialogComponent>(op =>
+            Title = Localizer["DialogTitle"],
+            ShowPrintButton = true,
+            ShowPrintButtonInHeader = true,
+            ShowFooter = false,
+            BodyContext = 1
+        };
+        op.BodyTemplate = BootstrapDynamicComponent.CreateComponent<DataDialogComponent>(new Dictionary<string, object?>
         {
+            [nameof(DataDialogComponent.OnClose)] = new Action(async () => await op.Dialog.Close())
+        }).Render();
+
+        await DialogService.Show(op);
+    }
+
+    private Task OnClickPrintService() => PrintService.PrintAsync<DataDialogComponent>(op =>
+    {
             // 弹窗配置
             op.Title = Localizer["DialogTitle"];
-            op.ShowPrintButton = true;
-            op.ShowPrintButtonInHeader = true;
-            op.ShowFooter = false;
-            op.BodyContext = 2;
+        op.ShowPrintButton = true;
+        op.ShowPrintButtonInHeader = true;
+        op.ShowFooter = false;
+        op.BodyContext = 2;
 
             // 弹窗组件所需参数
             return new Dictionary<string, object?>
-            {
-                [nameof(DataDialogComponent.OnClose)] = new Action(async () => await op.Dialog.Close())
-            };
-        });
-    }
+        {
+            [nameof(DataDialogComponent.OnClose)] = new Action(async () => await op.Dialog.Close())
+        };
+    });
 }

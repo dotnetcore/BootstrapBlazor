@@ -4,52 +4,51 @@
 
 using System.ComponentModel;
 
-namespace BootstrapBlazor.Components
+namespace BootstrapBlazor.Components;
+
+/// <summary>
+/// Size 枚举类型
+/// </summary>
+public enum Size
 {
     /// <summary>
-    /// Size 枚举类型
+    /// 无设置
     /// </summary>
-    public enum Size
-    {
-        /// <summary>
-        /// 无设置
-        /// </summary>
-        None,
+    None,
 
-        /// <summary>
-        /// xs 超小设置小于 576px
-        /// </summary>
-        [Description("xs")]
-        ExtraSmall,
+    /// <summary>
+    /// xs 超小设置小于 576px
+    /// </summary>
+    [Description("xs")]
+    ExtraSmall,
 
-        /// <summary>
-        /// sm 小设置大于等于 576px
-        /// </summary>
-        [Description("sm")]
-        Small,
+    /// <summary>
+    /// sm 小设置大于等于 576px
+    /// </summary>
+    [Description("sm")]
+    Small,
 
-        /// <summary>
-        /// md 中等设置大于等于 768px
-        /// </summary>
-        [Description("md")]
-        Medium,
+    /// <summary>
+    /// md 中等设置大于等于 768px
+    /// </summary>
+    [Description("md")]
+    Medium,
 
-        /// <summary>
-        /// lg 大设置大于等于 992px
-        /// </summary>
-        [Description("lg")]
-        Large,
+    /// <summary>
+    /// lg 大设置大于等于 992px
+    /// </summary>
+    [Description("lg")]
+    Large,
 
-        /// <summary>
-        /// xl 超大设置大于等于 1200px
-        /// </summary>
-        [Description("xl")]
-        ExtraLarge,
+    /// <summary>
+    /// xl 超大设置大于等于 1200px
+    /// </summary>
+    [Description("xl")]
+    ExtraLarge,
 
-        /// <summary>
-        /// xl 超大设置大于等于 1400px
-        /// </summary>
-        [Description("xxl")]
-        ExtraExtraLarge
-    }
+    /// <summary>
+    /// xl 超大设置大于等于 1400px
+    /// </summary>
+    [Description("xxl")]
+    ExtraExtraLarge
 }

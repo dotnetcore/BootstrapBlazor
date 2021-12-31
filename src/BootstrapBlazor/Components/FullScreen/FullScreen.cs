@@ -7,75 +7,74 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 
-namespace BootstrapBlazor.Components
+namespace BootstrapBlazor.Components;
+
+/// <summary>
+/// FullScreen 组件部分类
+/// </summary>
+public partial class FullScreen : BootstrapComponentBase, IDisposable
 {
     /// <summary>
-    /// FullScreen 组件部分类
+    /// DialogServices 服务实例
     /// </summary>
-    public partial class FullScreen : BootstrapComponentBase, IDisposable
+    [Inject]
+    [NotNull]
+    private FullScreenService? FullScreenService { get; set; }
+
+    /// <summary>
+    /// OnInitialized 方法
+    /// </summary>
+    protected override void OnInitialized()
     {
-        /// <summary>
-        /// DialogServices 服务实例
-        /// </summary>
-        [Inject]
-        [NotNull]
-        private FullScreenService? FullScreenService { get; set; }
+        base.OnInitialized();
 
-        /// <summary>
-        /// OnInitialized 方法
-        /// </summary>
-        protected override void OnInitialized()
+        // 注册 FullScreen 弹窗事件
+        FullScreenService.Register(this, Show);
+    }
+
+    /// <summary>
+    /// OnAfterRenderAsync 方法
+    /// </summary>
+    /// <param name="firstRender"></param>
+    /// <returns></returns>
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+
+        if (Option != null)
         {
-            base.OnInitialized();
-
-            // 注册 FullScreen 弹窗事件
-            FullScreenService.Register(this, Show);
+            await JSRuntime.InvokeVoidAsync(Option.Element.Context != null ? Option.Element : "", "bb_toggleFullscreen", Option.Id ?? "");
+            Option = null;
         }
+    }
 
-        /// <summary>
-        /// OnAfterRenderAsync 方法
-        /// </summary>
-        /// <param name="firstRender"></param>
-        /// <returns></returns>
-        protected override async Task OnAfterRenderAsync(bool firstRender)
+    private FullScreenOption? Option { get; set; }
+
+    private Task Show(FullScreenOption option)
+    {
+        Option = option;
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
+
+    /// <summary>
+    /// Dispose 方法
+    /// </summary>
+    /// <param name="disposing"></param>
+    protected virtual void Dispose(bool disposing)
+    {
+        if (disposing)
         {
-            await base.OnAfterRenderAsync(firstRender);
-
-            if (Option != null)
-            {
-                await JSRuntime.InvokeVoidAsync(Option.Element.Context != null ? Option.Element : "", "bb_toggleFullscreen", Option.Id ?? "");
-                Option = null;
-            }
+            FullScreenService.UnRegister(this);
         }
+    }
 
-        private FullScreenOption? Option { get; set; }
-
-        private Task Show(FullScreenOption option)
-        {
-            Option = option;
-            StateHasChanged();
-            return Task.CompletedTask;
-        }
-
-        /// <summary>
-        /// Dispose 方法
-        /// </summary>
-        /// <param name="disposing"></param>
-        protected virtual void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                FullScreenService.UnRegister(this);
-            }
-        }
-
-        /// <summary>
-        /// Dispose 方法
-        /// </summary>
-        public void Dispose()
-        {
-            Dispose(disposing: true);
-            GC.SuppressFinalize(this);
-        }
+    /// <summary>
+    /// Dispose 方法
+    /// </summary>
+    public void Dispose()
+    {
+        Dispose(disposing: true);
+        GC.SuppressFinalize(this);
     }
 }

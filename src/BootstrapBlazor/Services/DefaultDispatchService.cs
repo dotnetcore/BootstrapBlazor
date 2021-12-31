@@ -6,39 +6,38 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace BootstrapBlazor.Components
+namespace BootstrapBlazor.Components;
+
+internal class DefaultDispatchService<TEntry> : IDispatchService<TEntry>
 {
-    internal class DefaultDispatchService<TEntry> : IDispatchService<TEntry>
+    public void Dispatch(DispatchEntry<TEntry> payload)
     {
-        public void Dispatch(DispatchEntry<TEntry> payload)
+        lock (locker)
         {
-            lock (locker)
+            Cache.ForEach(cb =>
             {
-                Cache.ForEach(cb =>
-                {
-                    cb(payload);
-                });
-            }
+                cb(payload);
+            });
         }
-
-        public void Subscribe(Func<DispatchEntry<TEntry>, Task> callback)
-        {
-            lock (locker)
-            {
-                Cache.Add(callback);
-            }
-        }
-
-        public void UnSubscribe(Func<DispatchEntry<TEntry>, Task> callback)
-        {
-            lock (locker)
-            {
-                Cache.Remove(callback);
-            }
-        }
-
-        private List<Func<DispatchEntry<TEntry>, Task>> Cache { get; } = new(50);
-
-        private readonly object locker = new();
     }
+
+    public void Subscribe(Func<DispatchEntry<TEntry>, Task> callback)
+    {
+        lock (locker)
+        {
+            Cache.Add(callback);
+        }
+    }
+
+    public void UnSubscribe(Func<DispatchEntry<TEntry>, Task> callback)
+    {
+        lock (locker)
+        {
+            Cache.Remove(callback);
+        }
+    }
+
+    private List<Func<DispatchEntry<TEntry>, Task>> Cache { get; } = new(50);
+
+    private readonly object locker = new();
 }

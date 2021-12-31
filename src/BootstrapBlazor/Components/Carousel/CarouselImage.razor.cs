@@ -6,31 +6,30 @@ using Microsoft.AspNetCore.Components;
 using System;
 using System.Threading.Tasks;
 
-namespace BootstrapBlazor.Components
+namespace BootstrapBlazor.Components;
+
+/// <summary>
+/// 
+/// </summary>
+public partial class CarouselImage : ComponentBase
 {
     /// <summary>
     /// 
     /// </summary>
-    public partial class CarouselImage : ComponentBase
+    [Parameter]
+    public string? ImageUrl { get; set; }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    [Parameter]
+    public Func<string, Task>? OnClick { get; set; }
+
+    private async Task OnClickImage()
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        [Parameter]
-        public string? ImageUrl { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        [Parameter]
-        public Func<string, Task>? OnClick { get; set; }
-
-        private async Task OnClickImage()
+        if (OnClick != null)
         {
-            if (OnClick != null)
-            {
-                await OnClick(ImageUrl ?? "");
-            }
+            await OnClick(ImageUrl ?? "");
         }
     }
 }

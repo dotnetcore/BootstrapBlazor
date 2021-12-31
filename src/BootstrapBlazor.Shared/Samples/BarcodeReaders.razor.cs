@@ -9,66 +9,66 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BootstrapBlazor.Shared.Samples
+namespace BootstrapBlazor.Shared.Samples;
+
+/// <summary>
+/// 
+/// </summary>
+public sealed partial class BarcodeReaders
 {
-    /// <summary>
-    /// 
-    /// </summary>
-    public sealed partial class BarcodeReaders
+    private BlockLogger? Trace { get; set; }
+
+    private BlockLogger? Trace2 { get; set; }
+
+    private Task OnInit(IEnumerable<DeviceItem> devices)
     {
-        private BlockLogger? Trace { get; set; }
+        var cams = string.Join("", devices.Select(i => i.Label));
+        Trace?.Log($"{Localizer["InitLog"]} {cams}");
+        return Task.CompletedTask;
+    }
 
-        private BlockLogger? Trace2 { get; set; }
+    private Task OnImageResult(string barcode)
+    {
+        Trace2?.Log($"{Localizer["ScanCodeLog"]} {barcode}");
+        return Task.CompletedTask;
+    }
 
-        private Task OnInit(IEnumerable<DeviceItem> devices)
-        {
-            var cams = string.Join("", devices.Select(i => i.Label));
-            Trace?.Log($"{Localizer["InitLog"]} {cams}");
-            return Task.CompletedTask;
-        }
+    private Task OnImageError(string err)
+    {
+        Trace2?.Log($"{Localizer["ErrorLog"]} {err}");
+        return Task.CompletedTask;
+    }
 
-        private Task OnImageResult(string barcode)
-        {
-            Trace2?.Log($"{Localizer["ScanCodeLog"]} {barcode}");
-            return Task.CompletedTask;
-        }
+    private Task OnResult(string barcode)
+    {
+        Trace?.Log($"{Localizer["ScanCodeLog"]} {barcode}");
+        return Task.CompletedTask;
+    }
 
-        private Task OnImageError(string err)
-        {
-            Trace2?.Log($"{Localizer["ErrorLog"]} {err}");
-            return Task.CompletedTask;
-        }
+    private Task OnError(string error)
+    {
+        Trace?.Log($"{Localizer["ErrorLog"]} {error}");
+        return Task.CompletedTask;
+    }
 
-        private Task OnResult(string barcode)
-        {
-            Trace?.Log($"{Localizer["ScanCodeLog"]} {barcode}");
-            return Task.CompletedTask;
-        }
+    private Task OnStart()
+    {
+        Trace?.Log(Localizer["OpenCameraLog"]);
+        return Task.CompletedTask;
+    }
 
-        private Task OnError(string error)
-        {
-            Trace?.Log($"{Localizer["ErrorLog"]} {error}");
-            return Task.CompletedTask;
-        }
+    private Task OnClose()
+    {
+        Trace?.Log(Localizer["CloseCameraLog"]);
+        return Task.CompletedTask;
+    }
 
-        private Task OnStart()
-        {
-            Trace?.Log(Localizer["OpenCameraLog"]);
-            return Task.CompletedTask;
-        }
-
-        private Task OnClose()
-        {
-            Trace?.Log(Localizer["CloseCameraLog"]);
-            return Task.CompletedTask;
-        }
-
-        /// <summary>
-        /// 获得属性
-        /// </summary>
-        /// <returns></returns>
-        private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-        {
+    /// <summary>
+    /// 获得属性
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+    {
             new AttributeItem()
             {
                 Name = "ButtonScanText",
@@ -181,6 +181,5 @@ namespace BootstrapBlazor.Shared.Samples
                 ValueList = " — ",
                 DefaultValue = " — "
             }
-        };
-    }
+    };
 }

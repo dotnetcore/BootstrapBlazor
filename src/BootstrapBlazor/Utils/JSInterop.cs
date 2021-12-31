@@ -7,82 +7,81 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace BootstrapBlazor.Components
+namespace BootstrapBlazor.Components;
+
+/// <summary>
+/// JSInterop 类
+/// </summary>
+public class JSInterop<TValue> : IDisposable where TValue : class
 {
+    private readonly IJSRuntime _jsRuntime;
+    private DotNetObjectReference<TValue>? _objRef;
+
     /// <summary>
-    /// JSInterop 类
+    /// 构造函数
     /// </summary>
-    public class JSInterop<TValue> : IDisposable where TValue : class
+    /// <param name="jsRuntime"></param>
+    public JSInterop(IJSRuntime jsRuntime)
     {
-        private readonly IJSRuntime _jsRuntime;
-        private DotNetObjectReference<TValue>? _objRef;
+        _jsRuntime = jsRuntime;
+    }
 
-        /// <summary>
-        /// 构造函数
-        /// </summary>
-        /// <param name="jsRuntime"></param>
-        public JSInterop(IJSRuntime jsRuntime)
-        {
-            _jsRuntime = jsRuntime;
-        }
-
-        /// <summary>
-        /// Invoke 方法
-        /// </summary>
-        /// <param name="value"></param>
-        /// <param name="el"></param>
-        /// <param name="func"></param>
-        /// <param name="args"></param>
-        public async ValueTask InvokeVoidAsync(TValue value, object? el, string func, params object[] args)
-        {
-            _objRef = DotNetObjectReference.Create(value);
-            var paras = new List<object>()
+    /// <summary>
+    /// Invoke 方法
+    /// </summary>
+    /// <param name="value"></param>
+    /// <param name="el"></param>
+    /// <param name="func"></param>
+    /// <param name="args"></param>
+    public async ValueTask InvokeVoidAsync(TValue value, object? el, string func, params object[] args)
+    {
+        _objRef = DotNetObjectReference.Create(value);
+        var paras = new List<object>()
             {
                 _objRef
             };
-            paras.AddRange(args);
-            await _jsRuntime.InvokeVoidAsync(el, func, paras.ToArray());
-        }
+        paras.AddRange(args);
+        await _jsRuntime.InvokeVoidAsync(el, func, paras.ToArray());
+    }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="value"></param>
-        /// <param name="el"></param>
-        /// <param name="func"></param>
-        /// <param name="args"></param>
-        /// <returns></returns>
-        public async ValueTask<TReturn?> InvokeAsync<TReturn>(TValue value, object? el, string func, params object[] args)
-        {
-            _objRef = DotNetObjectReference.Create(value);
-            var paras = new List<object>()
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="value"></param>
+    /// <param name="el"></param>
+    /// <param name="func"></param>
+    /// <param name="args"></param>
+    /// <returns></returns>
+    public async ValueTask<TReturn?> InvokeAsync<TReturn>(TValue value, object? el, string func, params object[] args)
+    {
+        _objRef = DotNetObjectReference.Create(value);
+        var paras = new List<object>()
             {
                 _objRef
             };
-            paras.AddRange(args);
-            return await _jsRuntime.InvokeAsync<TReturn>(el, func, paras.ToArray());
-        }
+        paras.AddRange(args);
+        return await _jsRuntime.InvokeAsync<TReturn>(el, func, paras.ToArray());
+    }
 
-        /// <summary>
-        /// Dispose 方法
-        /// </summary>
-        /// <param name="disposing"></param>
-        protected virtual void Dispose(bool disposing)
+    /// <summary>
+    /// Dispose 方法
+    /// </summary>
+    /// <param name="disposing"></param>
+    protected virtual void Dispose(bool disposing)
+    {
+        if (disposing)
         {
-            if (disposing)
-            {
-                _objRef?.Dispose();
-                _objRef = null;
-            }
+            _objRef?.Dispose();
+            _objRef = null;
         }
+    }
 
-        /// <summary>
-        /// Dispose 方法
-        /// </summary>
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
+    /// <summary>
+    /// Dispose 方法
+    /// </summary>
+    public void Dispose()
+    {
+        Dispose(true);
+        GC.SuppressFinalize(this);
     }
 }

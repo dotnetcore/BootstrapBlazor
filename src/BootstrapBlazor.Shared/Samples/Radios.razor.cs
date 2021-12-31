@@ -10,68 +10,68 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BootstrapBlazor.Shared.Samples
+namespace BootstrapBlazor.Shared.Samples;
+
+/// <summary>
+/// 
+/// </summary>
+public sealed partial class Radios
 {
-    /// <summary>
-    /// 
-    /// </summary>
-    public sealed partial class Radios
+    [NotNull]
+    private BlockLogger? Trace { get; set; }
+
+    [NotNull]
+    private BlockLogger? BinderLog { get; set; }
+
+    [NotNull]
+    private IEnumerable<SelectedItem>? DemoValues { get; set; }
+
+    private Task OnSelectedChanged(IEnumerable<SelectedItem> values, string val)
     {
-        [NotNull]
-        private BlockLogger? Trace { get; set; }
+        var value = values.FirstOrDefault();
+        Trace.Log($"{Localizer["Log1"]} {value?.Value}  {Localizer["Log1"]}{value?.Text}  {Localizer["Log3"]}{val}");
+        return Task.CompletedTask;
+    }
 
-        [NotNull]
-        private BlockLogger? BinderLog { get; set; }
+    private Task OnItemChanged(IEnumerable<SelectedItem> values, SelectedItem val)
+    {
+        var value = values.FirstOrDefault();
+        BinderLog.Log($"{Localizer["Log1"]} {value?.Value} {Localizer["Log1"]} {value?.Text}");
+        return Task.CompletedTask;
+    }
 
-        [NotNull]
-        private IEnumerable<SelectedItem>? DemoValues { get; set; }
+    [NotNull]
+    private IEnumerable<SelectedItem>? Items { get; set; }
 
-        private Task OnSelectedChanged(IEnumerable<SelectedItem> values, string val)
-        {
-            var value = values.FirstOrDefault();
-            Trace.Log($"{Localizer["Log1"]} {value?.Value}  {Localizer["Log1"]}{value?.Text}  {Localizer["Log3"]}{val}");
-            return Task.CompletedTask;
-        }
+    private SelectedItem BindRadioItem { get; set; } = new SelectedItem();
 
-        private Task OnItemChanged(IEnumerable<SelectedItem> values, SelectedItem val)
-        {
-            var value = values.FirstOrDefault();
-            BinderLog.Log($"{Localizer["Log1"]} {value?.Value} {Localizer["Log1"]} {value?.Text}");
-            return Task.CompletedTask;
-        }
+    [NotNull]
+    private EnumEducation? SelectedEnumItem { get; set; }
 
-        [NotNull]
-        private IEnumerable<SelectedItem>? Items { get; set; }
+    [NotNull]
+    private EnumEducation? SelectedEnumItem2 { get; set; }
 
-        private SelectedItem BindRadioItem { get; set; } = new SelectedItem();
+    /// <summary>
+    /// OnInitialized 方法
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
 
-        [NotNull]
-        private EnumEducation? SelectedEnumItem { get; set; }
-
-        [NotNull]
-        private EnumEducation? SelectedEnumItem2 { get; set; }
-
-        /// <summary>
-        /// OnInitialized 方法
-        /// </summary>
-        protected override void OnInitialized()
-        {
-            base.OnInitialized();
-
-            DemoValues = new List<SelectedItem>(2)
+        DemoValues = new List<SelectedItem>(2)
             {
                 new SelectedItem("1", Localizer["Item1"]!),
                 new SelectedItem("2", Localizer["Item2"]!),
             };
-            Items = new SelectedItem[]
-            {
+        Items = new SelectedItem[]
+        {
                 new SelectedItem("1", Localizer["Add1"]!) { Active = true },
                 new SelectedItem("2", Localizer["Add2"]!)
-            };
-        }
+        };
+    }
 
-        private IEnumerable<AttributeItem> GetAttributes() => new[]
-        {
+    private IEnumerable<AttributeItem> GetAttributes() => new[]
+    {
             new AttributeItem() {
                 Name = "DisplayText",
                 Description = Localizer["Att1"],
@@ -116,18 +116,17 @@ namespace BootstrapBlazor.Shared.Samples
             }
         };
 
-        /// <summary>
-        /// 获得事件方法
-        /// </summary>
-        /// <returns></returns>
-        private IEnumerable<EventItem> GetEvents() => new EventItem[]
-        {
+    /// <summary>
+    /// 获得事件方法
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerable<EventItem> GetEvents() => new EventItem[]
+    {
             new EventItem()
             {
                 Name = "OnSelectedChanged",
                 Description = Localizer["Event1"],
                 Type ="Func<IEnumerable<SelectedItem>, TValue, Task>"
             }
-        };
-    }
+    };
 }

@@ -8,38 +8,37 @@ using Microsoft.Extensions.Localization;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
-namespace BootstrapBlazor.Shared.Components
+namespace BootstrapBlazor.Shared.Components;
+
+/// <summary>
+/// 
+/// </summary>
+public sealed partial class MethodTable
 {
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<MethodTable>? Localizer { get; set; }
+
     /// <summary>
     /// 
     /// </summary>
-    public sealed partial class MethodTable
+    [Parameter]
+    [NotNull]
+    public string? Title { get; set; }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    [Parameter] public IEnumerable<MethodItem>? Items { get; set; }
+
+    /// <summary>
+    /// OnInitialized 方法
+    /// </summary>
+    protected override void OnInitialized()
     {
-        [Inject]
-        [NotNull]
-        private IStringLocalizer<MethodTable>? Localizer { get; set; }
+        base.OnInitialized();
 
-        /// <summary>
-        /// 
-        /// </summary>
-        [Parameter]
-        [NotNull]
-        public string? Title { get; set; }
+        Title ??= Localizer[nameof(Title)];
 
-        /// <summary>
-        /// 
-        /// </summary>
-        [Parameter] public IEnumerable<MethodItem>? Items { get; set; }
-
-        /// <summary>
-        /// OnInitialized 方法
-        /// </summary>
-        protected override void OnInitialized()
-        {
-            base.OnInitialized();
-
-            Title ??= Localizer[nameof(Title)];
-
-        }
     }
 }

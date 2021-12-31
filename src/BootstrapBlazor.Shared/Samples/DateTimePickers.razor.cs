@@ -12,127 +12,127 @@ using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 
-namespace BootstrapBlazor.Shared.Samples
+namespace BootstrapBlazor.Shared.Samples;
+
+/// <summary>
+/// 
+/// </summary>
+public sealed partial class DateTimePickers
 {
+    private TimeSpan SpanValue { get; set; } = DateTime.Now.Subtract(DateTime.Today);
+
+    private string SpanValue2 { get; set; } = DateTime.Now.ToString("HH:mm:ss");
+
+    [NotNull]
+    private BlockLogger? DateLogger { get; set; }
+
+    [NotNull]
+    private BlockLogger? TimeLogger { get; set; }
+
+    private DateTime? BindValue { get; set; } = DateTime.Today;
+
+    private DateTime? BindNullValue { get; set; }
+
+    private bool IsDisabled { get; set; } = true;
+
     /// <summary>
     /// 
     /// </summary>
-    public sealed partial class DateTimePickers
+    [Required]
+    public DateTime? ModelValidateValue { get; set; }
+
+    private string? SubmitText { get; set; }
+
+    private string GetNullValueString => BindNullValue.HasValue ? BindNullValue.Value.ToString("yyyy-MM-dd") : " ";
+
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<DateTimePickers>? Localizer { get; set; }
+
+    /// <summary>
+    /// OnInitialized 方法
+    /// </summary>
+    protected override void OnInitialized()
     {
-        private TimeSpan SpanValue { get; set; } = DateTime.Now.Subtract(DateTime.Today);
+        base.OnInitialized();
 
-        private string SpanValue2 { get; set; } = DateTime.Now.ToString("HH:mm:ss");
+        SubmitText ??= Localizer[nameof(SubmitText)];
+    }
 
-        [NotNull]
-        private BlockLogger? DateLogger { get; set; }
-
-        [NotNull]
-        private BlockLogger? TimeLogger { get; set; }
-
-        private DateTime? BindValue { get; set; } = DateTime.Today;
-
-        private DateTime? BindNullValue { get; set; }
-
-        private bool IsDisabled { get; set; } = true;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        [Required]
-        public DateTime? ModelValidateValue { get; set; }
-
-        private string? SubmitText { get; set; }
-
-        private string GetNullValueString => BindNullValue.HasValue ? BindNullValue.Value.ToString("yyyy-MM-dd") : " ";
-
-        [Inject]
-        [NotNull]
-        private IStringLocalizer<DateTimePickers>? Localizer { get; set; }
-
-        /// <summary>
-        /// OnInitialized 方法
-        /// </summary>
-        protected override void OnInitialized()
+    /// <summary>
+    /// 
+    /// </summary>
+    private string BindValueString
+    {
+        get
         {
-            base.OnInitialized();
-
-            SubmitText ??= Localizer[nameof(SubmitText)];
+            return BindValue.HasValue ? BindValue.Value.ToString("yyyy-MM-dd") : "";
         }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private string BindValueString
+        set
         {
-            get
+            if (DateTime.TryParse(value, out var d))
             {
-                return BindValue.HasValue ? BindValue.Value.ToString("yyyy-MM-dd") : "";
+                BindValue = d;
             }
-            set
+            else
             {
-                if (DateTime.TryParse(value, out var d))
-                {
-                    BindValue = d;
-                }
-                else
-                {
-                    BindValue = DateTime.Today;
-                }
+                BindValue = DateTime.Today;
             }
         }
+    }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="d"></param>
-        private Task DateValueChanged(DateTime d)
-        {
-            DateLogger.Log($"{Localizer["Log1Text"]}: {d:yyyy-MM-dd}");
-            return Task.CompletedTask;
-        }
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="d"></param>
+    private Task DateValueChanged(DateTime d)
+    {
+        DateLogger.Log($"{Localizer["Log1Text"]}: {d:yyyy-MM-dd}");
+        return Task.CompletedTask;
+    }
 
-        private static string FormatterSpanString(TimeSpan ts)
-        {
-            return ts.ToString("hh\\:mm\\:ss");
-        }
+    private static string FormatterSpanString(TimeSpan ts)
+    {
+        return ts.ToString("hh\\:mm\\:ss");
+    }
 
-        private TimeSpan TimeNow { get; set; } = DateTime.Now - DateTime.Today;
+    private TimeSpan TimeNow { get; set; } = DateTime.Now - DateTime.Today;
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="d"></param>
-        private void TimeValueChanged(TimeSpan d)
-        {
-            TimeLogger.Log($"{Localizer["Log2Text"]}: {d:hh\\:mm\\:ss}");
-        }
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="d"></param>
+    private void TimeValueChanged(TimeSpan d)
+    {
+        TimeLogger.Log($"{Localizer["Log2Text"]}: {d:hh\\:mm\\:ss}");
+    }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="d"></param>
-        private Task DateTimeValueChanged(DateTime? d)
-        {
-            BindValue = d;
-            return Task.CompletedTask;
-        }
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="d"></param>
+    private Task DateTimeValueChanged(DateTime? d)
+    {
+        BindValue = d;
+        return Task.CompletedTask;
+    }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="ts"></param>
-        private void OnValueChange(TimeSpan ts)
-        {
-            SpanValue2 = ts.ToString("hh\\:mm\\:ss");
-            StateHasChanged();
-        }
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="ts"></param>
+    private void OnValueChange(TimeSpan ts)
+    {
+        SpanValue2 = ts.ToString("hh\\:mm\\:ss");
+        StateHasChanged();
+    }
 
-        /// <summary>
-        /// 获得事件方法
-        /// </summary>
-        /// <returns></returns>
-        private IEnumerable<EventItem> GetEvents() => new EventItem[]
-        {
+    /// <summary>
+    /// 获得事件方法
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerable<EventItem> GetEvents() => new EventItem[]
+    {
             new EventItem()
             {
                 Name = "OnClickConfirm",
@@ -145,14 +145,14 @@ namespace BootstrapBlazor.Shared.Samples
                 Description = Localizer["Event2"],
                 Type ="EventCallback<DateTime?>"
             },
-        };
+    };
 
-        /// <summary>
-        /// 获得属性方法
-        /// </summary>
-        /// <returns></returns>
-        private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-        {
+    /// <summary>
+    /// 获得属性方法
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+    {
             new AttributeItem() {
                 Name = "ShowLabel",
                 Description = Localizer["Att1"],
@@ -217,6 +217,5 @@ namespace BootstrapBlazor.Shared.Samples
                 ValueList = " Date / DateTime / Year / Month",
                 DefaultValue = "Date"
             },
-        };
-    }
+    };
 }

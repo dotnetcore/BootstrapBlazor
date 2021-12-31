@@ -13,57 +13,57 @@ using System.Collections.Specialized;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 
-namespace BootstrapBlazor.Components
-{
-    /// <summary>
-    /// 
-    /// </summary>
-    public class ErrorLogger
+namespace BootstrapBlazor.Components;
+
+/// <summary>
+/// 
+/// </summary>
+public class ErrorLogger
 #if NET5_0
         : ComponentBase, IErrorLogger
 #else
         : ErrorBoundaryBase, IErrorLogger
 #endif
-    {
-        /// <summary>
-        /// 
-        /// </summary>
-        [Inject]
-        [NotNull]
-        private ILogger<ErrorLogger>? Logger { get; set; }
+{
+    /// <summary>
+    /// 
+    /// </summary>
+    [Inject]
+    [NotNull]
+    private ILogger<ErrorLogger>? Logger { get; set; }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        [Inject]
-        [NotNull]
-        private IConfiguration? Configuration { get; set; }
+    /// <summary>
+    /// 
+    /// </summary>
+    [Inject]
+    [NotNull]
+    private IConfiguration? Configuration { get; set; }
 
-        [Inject]
-        [NotNull]
-        private ToastService? ToastService { get; set; }
+    [Inject]
+    [NotNull]
+    private ToastService? ToastService { get; set; }
 
-        [Inject]
-        [NotNull]
-        private IStringLocalizer<ErrorLogger>? Localizer { get; set; }
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<ErrorLogger>? Localizer { get; set; }
 
-        /// <summary>
-        /// 获得/设置 是否显示弹窗 默认 true 显示
-        /// </summary>
-        [Parameter]
-        public bool ShowToast { get; set; } = true;
+    /// <summary>
+    /// 获得/设置 是否显示弹窗 默认 true 显示
+    /// </summary>
+    [Parameter]
+    public bool ShowToast { get; set; } = true;
 
-        /// <summary>
-        /// 获得/设置 Toast 弹窗标题
-        /// </summary>
-        [Parameter]
-        public string? ToastTitle { get; set; }
+    /// <summary>
+    /// 获得/设置 Toast 弹窗标题
+    /// </summary>
+    [Parameter]
+    public string? ToastTitle { get; set; }
 
-        /// <summary>
-        /// 获得/设置 自定义错误处理回调方法
-        /// </summary>
-        [Parameter]
-        public Func<ILogger, Exception, Task>? OnErrorHandleAsync { get; set; }
+    /// <summary>
+    /// 获得/设置 自定义错误处理回调方法
+    /// </summary>
+    [Parameter]
+    public Func<ILogger, Exception, Task>? OnErrorHandleAsync { get; set; }
 
 #if NET5_0
         /// <summary>
@@ -79,138 +79,137 @@ namespace BootstrapBlazor.Components
         [NotNull]
         public RenderFragment<Exception>? ErrorContent { get; set; }
 #else
-        [Inject]
-        [NotNull]
-        private IErrorBoundaryLogger? ErrorBoundaryLogger { get; set; }
+    [Inject]
+    [NotNull]
+    private IErrorBoundaryLogger? ErrorBoundaryLogger { get; set; }
 #endif
 
-        /// <summary>
-        /// 
-        /// </summary>
-        protected Exception? Exception { get; set; }
+    /// <summary>
+    /// 
+    /// </summary>
+    protected Exception? Exception { get; set; }
 
-        private bool ShowErrorDetails { get; set; }
+    private bool ShowErrorDetails { get; set; }
 
-        /// <summary>
-        /// OnInitialized 方法
-        /// </summary>
-        protected override void OnInitialized()
+    /// <summary>
+    /// OnInitialized 方法
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        ToastTitle ??= Localizer[nameof(ToastTitle)];
+
+        ShowErrorDetails = Configuration.GetValue<bool>("DetailedErrors", false);
+
+        if (ShowErrorDetails)
         {
-            base.OnInitialized();
-
-            ToastTitle ??= Localizer[nameof(ToastTitle)];
-
-            ShowErrorDetails = Configuration.GetValue<bool>("DetailedErrors", false);
-
-            if (ShowErrorDetails)
+            ErrorContent ??= ex => builder =>
             {
-                ErrorContent ??= ex => builder =>
-                {
-                    var index = 0;
-                    builder.OpenElement(index++, "div");
-                    builder.AddAttribute(index++, "class", "error-stack");
-                    builder.AddContent(index++, ex.FormatMarkupString(Configuration.GetEnvironmentInformation()));
-                    builder.CloseElement();
-                };
-            }
+                var index = 0;
+                builder.OpenElement(index++, "div");
+                builder.AddAttribute(index++, "class", "error-stack");
+                builder.AddContent(index++, ex.FormatMarkupString(Configuration.GetEnvironmentInformation()));
+                builder.CloseElement();
+            };
         }
+    }
 
-        /// <summary>
-        /// OnParametersSet 方法
-        /// </summary>
-        protected override void OnParametersSet()
-        {
-            base.OnParametersSet();
-            Exception = null;
+    /// <summary>
+    /// OnParametersSet 方法
+    /// </summary>
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+        Exception = null;
 
 #if NET6_0_OR_GREATER
-            Recover();
+        Recover();
 #endif
-        }
+    }
 
-        /// <summary>
-        /// BuildRenderTree 方法
-        /// </summary>
-        /// <param name="builder"></param>
-        protected override void BuildRenderTree(RenderTreeBuilder builder)
-        {
-            builder.OpenComponent<CascadingValue<IErrorLogger>>(0);
-            builder.AddAttribute(1, nameof(CascadingValue<IErrorLogger>.Value), this);
-            builder.AddAttribute(2, nameof(CascadingValue<IErrorLogger>.IsFixed), true);
+    /// <summary>
+    /// BuildRenderTree 方法
+    /// </summary>
+    /// <param name="builder"></param>
+    protected override void BuildRenderTree(RenderTreeBuilder builder)
+    {
+        builder.OpenComponent<CascadingValue<IErrorLogger>>(0);
+        builder.AddAttribute(1, nameof(CascadingValue<IErrorLogger>.Value), this);
+        builder.AddAttribute(2, nameof(CascadingValue<IErrorLogger>.IsFixed), true);
 
-            var content = ChildContent;
+        var content = ChildContent;
 #if DEBUG
 #if NET5_0
             var ex = Exception;
 #else
-            var ex = Exception ?? CurrentException;
+        var ex = Exception ?? CurrentException;
 #endif
-            if (ex != null && ErrorContent != null)
-            {
-                content = ErrorContent.Invoke(ex);
-            }
-#endif
-            builder.AddAttribute(3, nameof(CascadingValue<IErrorLogger>.ChildContent), content);
-            builder.CloseComponent();
-        }
-
-        /// <summary>
-        /// 由接口调用
-        /// </summary>
-        /// <param name="exception"></param>
-        /// <returns></returns>
-        public async Task HandlerExceptionAsync(Exception exception)
+        if (ex != null && ErrorContent != null)
         {
-            await OnErrorAsync(exception);
-
-            if (OnErrorHandleAsync is null && ShowErrorDetails)
-            {
-                Exception = exception;
-                StateHasChanged();
-            }
+            content = ErrorContent.Invoke(ex);
         }
+#endif
+        builder.AddAttribute(3, nameof(CascadingValue<IErrorLogger>.ChildContent), content);
+        builder.CloseComponent();
+    }
 
-        /// <summary>
-        /// OnErrorAsync 方法
-        /// </summary>
-        /// <param name="exception"></param>
-        /// <returns></returns>
+    /// <summary>
+    /// 由接口调用
+    /// </summary>
+    /// <param name="exception"></param>
+    /// <returns></returns>
+    public async Task HandlerExceptionAsync(Exception exception)
+    {
+        await OnErrorAsync(exception);
+
+        if (OnErrorHandleAsync is null && ShowErrorDetails)
+        {
+            Exception = exception;
+            StateHasChanged();
+        }
+    }
+
+    /// <summary>
+    /// OnErrorAsync 方法
+    /// </summary>
+    /// <param name="exception"></param>
+    /// <returns></returns>
 #if NET5_0
         protected async Task OnErrorAsync(Exception exception)
 #else
-        protected override async Task OnErrorAsync(Exception exception)
+    protected override async Task OnErrorAsync(Exception exception)
 #endif
+    {
+        // 由框架调用
+        if (OnErrorHandleAsync != null)
         {
-            // 由框架调用
-            if (OnErrorHandleAsync != null)
+            await OnErrorHandleAsync(Logger, exception);
+        }
+        else
+        {
+            if (ShowToast)
             {
-                await OnErrorHandleAsync(Logger, exception);
+                await ToastService.Error(ToastTitle, exception.Message);
             }
-            else
-            {
-                if (ShowToast)
-                {
-                    await ToastService.Error(ToastTitle, exception.Message);
-                }
 
 #if NET6_0_OR_GREATER
-                await ErrorBoundaryLogger.LogErrorAsync(exception);
+            await ErrorBoundaryLogger.LogErrorAsync(exception);
 #endif
-                Logger.LogError(FormatException(exception));
-            }
+            Logger.LogError(FormatException(exception));
         }
+    }
 
-        /// <summary>
-        /// 格式化异常信息
-        /// </summary>
-        /// <param name="exception"></param>
-        /// <param name="collection"></param>
-        /// <returns></returns>
-        public string FormatException(Exception exception, NameValueCollection? collection = null)
-        {
-            collection ??= new NameValueCollection();
-            collection.Add(Configuration.GetEnvironmentInformation());
-            return exception.Format(collection);
-        }
+    /// <summary>
+    /// 格式化异常信息
+    /// </summary>
+    /// <param name="exception"></param>
+    /// <param name="collection"></param>
+    /// <returns></returns>
+    public string FormatException(Exception exception, NameValueCollection? collection = null)
+    {
+        collection ??= new NameValueCollection();
+        collection.Add(Configuration.GetEnvironmentInformation());
+        return exception.Format(collection);
     }
 }

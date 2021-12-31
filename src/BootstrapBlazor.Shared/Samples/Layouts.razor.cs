@@ -10,36 +10,36 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 
-namespace BootstrapBlazor.Shared.Samples
+namespace BootstrapBlazor.Shared.Samples;
+
+/// <summary>
+/// 
+/// </summary>
+public sealed partial class Layouts
 {
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<Menus>? LocalizerMenu { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<Layouts>? Localizer { get; set; }
+
+    private IEnumerable<MenuItem>? IconSideMenuItems { get; set; }
+
     /// <summary>
-    /// 
+    /// OnInitializedAsync 方法
     /// </summary>
-    public sealed partial class Layouts
+    /// <returns></returns>
+    protected override async Task OnInitializedAsync()
     {
-        [Inject]
-        [NotNull]
-        private IStringLocalizer<Menus>? LocalizerMenu { get; set; }
+        await base.OnInitializedAsync();
 
-        [Inject]
-        [NotNull]
-        private IStringLocalizer<Layouts>? Localizer { get; set; }
+        IconSideMenuItems = await MenusDataGerator.GetIconSideMenuItemsAsync(LocalizerMenu);
+    }
 
-        private IEnumerable<MenuItem>? IconSideMenuItems { get; set; }
-
-        /// <summary>
-        /// OnInitializedAsync 方法
-        /// </summary>
-        /// <returns></returns>
-        protected override async Task OnInitializedAsync()
-        {
-            await base.OnInitializedAsync();
-
-            IconSideMenuItems = await MenusDataGerator.GetIconSideMenuItemsAsync(LocalizerMenu);
-        }
-
-        private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-        {
+    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+    {
             // TODO: 移动到数据库中
             new AttributeItem() {
                 Name = "Header",
@@ -167,6 +167,5 @@ namespace BootstrapBlazor.Shared.Samples
                 ValueList = " — ",
                 DefaultValue = " — "
             }
-        };
-    }
+    };
 }

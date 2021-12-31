@@ -12,127 +12,127 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BootstrapBlazor.Shared.Samples
+namespace BootstrapBlazor.Shared.Samples;
+
+/// <summary>
+/// 
+/// </summary>
+public sealed partial class EditDialogs
 {
-    /// <summary>
-    /// 
-    /// </summary>
-    public sealed partial class EditDialogs
+    private Foo Model { get; set; } = new Foo()
     {
-        private Foo Model { get; set; } = new Foo()
+        Name = "Name 1234",
+        Address = "Address 1234"
+    };
+
+    [Inject]
+    [NotNull]
+    private DialogService? DialogService { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<Foo>? Localizer { get; set; }
+
+    [NotNull]
+    private BlockLogger? Trace { get; set; }
+
+    private async Task ShowDialog()
+    {
+        var items = Utility.GenerateEditorItems<Foo>();
+        var item = items.First(i => i.GetFieldName() == nameof(Foo.Hobby));
+        item.Items = Foo.GenerateHobbys(Localizer);
+
+        var option = new EditDialogOption<Foo>()
         {
-            Name = "Name 1234",
-            Address = "Address 1234"
+            Title = "编辑对话框",
+            Model = Model,
+            Items = items,
+            ItemsPerRow = 2,
+            RowType = RowType.Inline,
+            OnCloseAsync = () =>
+            {
+                Trace.Log("关闭按钮被点击");
+                return Task.CompletedTask;
+            },
+            OnEditAsync = context =>
+            {
+                Trace.Log("保存按钮被点击");
+                return Task.FromResult(true);
+            }
         };
 
-        [Inject]
-        [NotNull]
-        private DialogService? DialogService { get; set; }
+        await DialogService.ShowEditDialog(option);
+    }
 
-        [Inject]
-        [NotNull]
-        private IStringLocalizer<Foo>? Localizer { get; set; }
+    private async Task ShowAlignDialog()
+    {
+        var items = Utility.GenerateEditorItems<Foo>();
+        var item = items.First(i => i.GetFieldName() == nameof(Foo.Hobby));
+        item.Items = Foo.GenerateHobbys(Localizer);
 
-        [NotNull]
-        private BlockLogger? Trace { get; set; }
-
-        private async Task ShowDialog()
+        var option = new EditDialogOption<Foo>()
         {
-            var items = Utility.GenerateEditorItems<Foo>();
-            var item = items.First(i => i.GetFieldName() == nameof(Foo.Hobby));
-            item.Items = Foo.GenerateHobbys(Localizer);
-
-            var option = new EditDialogOption<Foo>()
+            Title = "编辑对话框",
+            Model = Model,
+            Items = items,
+            ItemsPerRow = 2,
+            RowType = RowType.Inline,
+            LabelAlign = Alignment.Right,
+            OnCloseAsync = () =>
             {
-                Title = "编辑对话框",
-                Model = Model,
-                Items = items,
-                ItemsPerRow = 2,
-                RowType = RowType.Inline,
-                OnCloseAsync = () =>
-                {
-                    Trace.Log("关闭按钮被点击");
-                    return Task.CompletedTask;
-                },
-                OnEditAsync = context =>
-                {
-                    Trace.Log("保存按钮被点击");
-                    return Task.FromResult(true);
-                }
-            };
-
-            await DialogService.ShowEditDialog(option);
-        }
-
-        private async Task ShowAlignDialog()
-        {
-            var items = Utility.GenerateEditorItems<Foo>();
-            var item = items.First(i => i.GetFieldName() == nameof(Foo.Hobby));
-            item.Items = Foo.GenerateHobbys(Localizer);
-
-            var option = new EditDialogOption<Foo>()
+                Trace.Log("关闭按钮被点击");
+                return Task.CompletedTask;
+            },
+            OnEditAsync = context =>
             {
-                Title = "编辑对话框",
-                Model = Model,
-                Items = items,
-                ItemsPerRow = 2,
-                RowType = RowType.Inline,
-                LabelAlign = Alignment.Right,
-                OnCloseAsync = () =>
-                {
-                    Trace.Log("关闭按钮被点击");
-                    return Task.CompletedTask;
-                },
-                OnEditAsync = context =>
-                {
-                    Trace.Log("保存按钮被点击");
-                    return Task.FromResult(true);
-                }
-            };
+                Trace.Log("保存按钮被点击");
+                return Task.FromResult(true);
+            }
+        };
 
-            await DialogService.ShowEditDialog(option);
-        }
+        await DialogService.ShowEditDialog(option);
+    }
 
-        private async Task ShowEditDialog()
+    private async Task ShowEditDialog()
+    {
+        var items = Utility.GenerateEditorItems<Foo>();
+        var item = items.First(i => i.GetFieldName() == nameof(Foo.Hobby));
+        item.Items = Foo.GenerateHobbys(Localizer);
+
+        // 设置 地址与数量 不可编辑
+        item = items.First(i => i.GetFieldName() == nameof(Foo.Address));
+        item.Editable = false;
+        item = items.First(i => i.GetFieldName() == nameof(Foo.Count));
+        item.Editable = false;
+
+        var option = new EditDialogOption<Foo>()
         {
-            var items = Utility.GenerateEditorItems<Foo>();
-            var item = items.First(i => i.GetFieldName() == nameof(Foo.Hobby));
-            item.Items = Foo.GenerateHobbys(Localizer);
-
-            // 设置 地址与数量 不可编辑
-            item = items.First(i => i.GetFieldName() == nameof(Foo.Address));
-            item.Editable = false;
-            item = items.First(i => i.GetFieldName() == nameof(Foo.Count));
-            item.Editable = false;
-
-            var option = new EditDialogOption<Foo>()
+            Title = "编辑对话框",
+            Model = Model,
+            Items = items,
+            ItemsPerRow = 2,
+            RowType = RowType.Inline,
+            OnCloseAsync = () =>
             {
-                Title = "编辑对话框",
-                Model = Model,
-                Items = items,
-                ItemsPerRow = 2,
-                RowType = RowType.Inline,
-                OnCloseAsync = () =>
-                {
-                    Trace.Log("关闭按钮被点击");
-                    return Task.CompletedTask;
-                },
-                OnEditAsync = context =>
-                {
-                    Trace.Log("保存按钮被点击");
-                    return Task.FromResult(true);
-                }
-            };
+                Trace.Log("关闭按钮被点击");
+                return Task.CompletedTask;
+            },
+            OnEditAsync = context =>
+            {
+                Trace.Log("保存按钮被点击");
+                return Task.FromResult(true);
+            }
+        };
 
-            await DialogService.ShowEditDialog(option);
-        }
+        await DialogService.ShowEditDialog(option);
+    }
 
-        /// <summary>
-        /// 获得属性方法
-        /// </summary>
-        /// <returns></returns>
-        private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-        {
+    /// <summary>
+    /// 获得属性方法
+    /// </summary>
+    /// <returns></returns>
+    private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+    {
             // TODO: 移动到数据库中
             new AttributeItem() {
                 Name = "ShowLabel",
@@ -204,6 +204,5 @@ namespace BootstrapBlazor.Shared.Samples
                 ValueList = "None|Left|Center|Right",
                 DefaultValue = "None"
             }
-        };
-    }
+    };
 }

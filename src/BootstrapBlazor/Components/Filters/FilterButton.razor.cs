@@ -6,25 +6,24 @@ using Microsoft.AspNetCore.Components;
 using System;
 using System.Threading.Tasks;
 
-namespace BootstrapBlazor.Components
+namespace BootstrapBlazor.Components;
+
+/// <summary>
+/// 
+/// </summary>
+public partial class FilterButton<TValue>
 {
     /// <summary>
-    /// 
+    /// 获得/设置 清除过滤条件时的回调方法
     /// </summary>
-    public partial class FilterButton<TValue>
-    {
-        /// <summary>
-        /// 获得/设置 清除过滤条件时的回调方法
-        /// </summary>
-        [Parameter]
-        public Func<Task>? OnClearFilter { get; set; }
+    [Parameter]
+    public Func<Task>? OnClearFilter { get; set; }
 
-        private async Task ClearFilter()
+    private async Task ClearFilter()
+    {
+        if (OnClearFilter != null)
         {
-            if (OnClearFilter != null)
-            {
-                await OnClearFilter();
-            }
+            await OnClearFilter();
         }
     }
 }

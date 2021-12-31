@@ -4,25 +4,24 @@
 
 using System.Threading.Tasks;
 
-namespace BootstrapBlazor.Components
+namespace BootstrapBlazor.Components;
+
+/// <summary>
+/// Tag 组件类
+/// </summary>
+public partial class Tag
 {
     /// <summary>
-    /// Tag 组件类
+    /// 获得 样式集合
     /// </summary>
-    public partial class Tag
-    {
-        /// <summary>
-        /// 获得 样式集合
-        /// </summary>
-        /// <returns></returns>
-        protected override string? ClassName => CssBuilder.Default("tag fade show")
-            .AddClass($"alert-{Color.ToDescriptionString()}", Color != Color.None)
-            .AddClassFromAttributes(AdditionalAttributes)
-            .Build();
+    /// <returns></returns>
+    protected override string? ClassName => CssBuilder.Default("tag fade show")
+        .AddClass($"alert-{Color.ToDescriptionString()}", Color != Color.None)
+        .AddClassFromAttributes(AdditionalAttributes)
+        .Build();
 
-        private async Task OnClick()
-        {
-            if (OnDismiss != null) await OnDismiss();
-        }
+    private async Task OnClick()
+    {
+        if (OnDismiss != null) await OnDismiss();
     }
 }

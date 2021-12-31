@@ -9,56 +9,55 @@ using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Linq;
 
-namespace BootstrapBlazor.Components
+namespace BootstrapBlazor.Components;
+
+/// <summary>
+/// 上传文件扩展名验证标签类
+/// </summary>
+[AttributeUsage(AttributeTargets.Property)]
+public class FileValidationAttribute : ValidationAttribute
 {
+    private IStringLocalizer? Localizer { get; set; }
+
     /// <summary>
-    /// 上传文件扩展名验证标签类
+    /// 获得/设置 允许的扩展名
     /// </summary>
-    [AttributeUsage(AttributeTargets.Property)]
-    public class FileValidationAttribute : ValidationAttribute
+    public string[] Extensions { get; set; } = Array.Empty<string>();
+
+    /// <summary>
+    /// 获得/设置 文件大小 默认为 0 未限制
+    /// </summary>
+    public long FileSize { get; set; }
+
+    /// <summary>
+    /// 是否合规判断方法
+    /// </summary>
+    /// <param name="value"></param>
+    /// <param name="validationContext"></param>
+    /// <returns></returns>
+    protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
     {
-        private IStringLocalizer? Localizer { get; set; }
+        ValidationResult? ret = null;
 
-        /// <summary>
-        /// 获得/设置 允许的扩展名
-        /// </summary>
-        public string[] Extensions { get; set; } = Array.Empty<string>();
-
-        /// <summary>
-        /// 获得/设置 文件大小 默认为 0 未限制
-        /// </summary>
-        public long FileSize { get; set; }
-
-        /// <summary>
-        /// 是否合规判断方法
-        /// </summary>
-        /// <param name="value"></param>
-        /// <param name="validationContext"></param>
-        /// <returns></returns>
-        protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
+        if (value != null)
         {
-            ValidationResult? ret = null;
-
-            if (value != null)
+            var file = (IBrowserFile?)value;
+            if (file != null)
             {
-                var file = (IBrowserFile?)value;
-                if (file != null)
+                Localizer = CacheManager.CreateLocalizer<Upload<object>>();
+                if (Extensions.Any() && !Extensions.Contains(Path.GetExtension(file.Name), StringComparer.OrdinalIgnoreCase))
                 {
-                    Localizer = CacheManager.CreateLocalizer<Upload<object>>();
-                    if (Extensions.Any() && !Extensions.Contains(Path.GetExtension(file.Name), StringComparer.OrdinalIgnoreCase))
-                    {
-                        var errorMessage = Localizer?["FileExtensions", string.Join(", ", Extensions)];
-                        ret = new ValidationResult(errorMessage?.Value, new[] { validationContext.MemberName! });
-                    }
-                    if (ret == null && FileSize > 0 && file.Size > FileSize)
-                    {
-                        var errorMessage = Localizer?["FileSizeValidation", FileSize.ToFileSizeString()];
-                        ret = new ValidationResult(errorMessage?.Value, new[] { validationContext.MemberName! });
-                    }
+                    var errorMessage = Localizer?["FileExtensions", string.Join(", ", Extensions)];
+                    ret = new ValidationResult(errorMessage?.Value, new[] { validationContext.MemberName! });
+                }
+                if (ret == null && FileSize > 0 && file.Size > FileSize)
+                {
+                    var errorMessage = Localizer?["FileSizeValidation", FileSize.ToFileSizeString()];
+                    ret = new ValidationResult(errorMessage?.Value, new[] { validationContext.MemberName! });
                 }
             }
-
-            return ret;
         }
+
+        return ret;
     }
 }

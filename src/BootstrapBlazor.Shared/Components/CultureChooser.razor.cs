@@ -12,91 +12,90 @@ using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Threading.Tasks;
 
-namespace BootstrapBlazor.Shared.Components
+namespace BootstrapBlazor.Shared.Components;
+
+/// <summary>
+/// 
+/// </summary>
+public partial class CultureChooser
 {
+    [Inject]
+    [NotNull]
+    private IOptions<BootstrapBlazorOptions>? BootstrapOptions { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<CultureChooser>? Localizer { get; set; }
+
+    [Inject]
+    [NotNull]
+    private NavigationManager? NavigationManager { get; set; }
+
+    private string? ClassString => CssBuilder.Default("culture-selector")
+        .AddClassFromAttributes(AdditionalAttributes)
+        .Build();
+
+    private string SelectedCulture { get; set; } = CultureInfo.CurrentUICulture.Name;
+
+    [NotNull]
+    private string? Label { get; set; }
+
     /// <summary>
-    /// 
+    /// OnInitialized 方法
     /// </summary>
-    public partial class CultureChooser
+    protected override void OnInitialized()
     {
-        [Inject]
-        [NotNull]
-        private IOptions<BootstrapBlazorOptions>? BootstrapOptions { get; set; }
+        base.OnInitialized();
 
-        [Inject]
-        [NotNull]
-        private IStringLocalizer<CultureChooser>? Localizer { get; set; }
+        Label ??= Localizer[nameof(Label)];
+    }
 
-        [Inject]
-        [NotNull]
-        private NavigationManager? NavigationManager { get; set; }
-
-        private string? ClassString => CssBuilder.Default("culture-selector")
-            .AddClassFromAttributes(AdditionalAttributes)
-            .Build();
-
-        private string SelectedCulture { get; set; } = CultureInfo.CurrentUICulture.Name;
-
-        [NotNull]
-        private string? Label { get; set; }
-
-        /// <summary>
-        /// OnInitialized 方法
-        /// </summary>
-        protected override void OnInitialized()
+    private async Task SetCulture(SelectedItem item)
+    {
+        if (OperatingSystem.IsBrowser())
         {
-            base.OnInitialized();
-
-            Label ??= Localizer[nameof(Label)];
-        }
-
-        private async Task SetCulture(SelectedItem item)
-        {
-            if (OperatingSystem.IsBrowser())
+            var cultureName = item.Value;
+            if (cultureName != CultureInfo.CurrentCulture.Name)
             {
-                var cultureName = item.Value;
-                if (cultureName != CultureInfo.CurrentCulture.Name)
-                {
-                    await JSRuntime.InvokeVoidAsync(identifier: "$.blazorCulture.set", cultureName);
-                    var culture = new CultureInfo(cultureName);
-                    CultureInfo.CurrentCulture = culture;
-                    CultureInfo.CurrentUICulture = culture;
+                await JSRuntime.InvokeVoidAsync(identifier: "$.blazorCulture.set", cultureName);
+                var culture = new CultureInfo(cultureName);
+                CultureInfo.CurrentCulture = culture;
+                CultureInfo.CurrentUICulture = culture;
 
-                    NavigationManager.NavigateTo(NavigationManager.Uri, forceLoad: true);
-                }
-            }
-            else
-            {
-                // 使用 api 方式 适用于 Server-Side 模式
-                if (SelectedCulture != item.Value)
-                {
-                    var culture = item.Value;
-                    var uri = new Uri(NavigationManager.Uri).GetComponents(UriComponents.PathAndQuery, UriFormat.Unescaped);
-                    var query = $"?culture={Uri.EscapeDataString(culture)}&redirectUri={Uri.EscapeDataString(uri)}";
-
-                    // use a path that matches your culture redirect controller from the previous steps
-                    NavigationManager.NavigateTo("/Culture/SetCulture" + query, forceLoad: true);
-                }
+                NavigationManager.NavigateTo(NavigationManager.Uri, forceLoad: true);
             }
         }
-
-        private static string GetDisplayName(CultureInfo culture)
+        else
         {
-            string? ret;
-            if (OperatingSystem.IsBrowser())
+            // 使用 api 方式 适用于 Server-Side 模式
+            if (SelectedCulture != item.Value)
             {
-                ret = culture.Name switch
-                {
-                    "zh-CN" => "中文（中国）",
-                    "en-US" => "English (United States)",
-                    _ => ""
-                };
+                var culture = item.Value;
+                var uri = new Uri(NavigationManager.Uri).GetComponents(UriComponents.PathAndQuery, UriFormat.Unescaped);
+                var query = $"?culture={Uri.EscapeDataString(culture)}&redirectUri={Uri.EscapeDataString(uri)}";
+
+                // use a path that matches your culture redirect controller from the previous steps
+                NavigationManager.NavigateTo("/Culture/SetCulture" + query, forceLoad: true);
             }
-            else
-            {
-                ret = culture.NativeName;
-            }
-            return ret;
         }
+    }
+
+    private static string GetDisplayName(CultureInfo culture)
+    {
+        string? ret;
+        if (OperatingSystem.IsBrowser())
+        {
+            ret = culture.Name switch
+            {
+                "zh-CN" => "中文（中国）",
+                "en-US" => "English (United States)",
+                _ => ""
+            };
+        }
+        else
+        {
+            ret = culture.NativeName;
+        }
+        return ret;
     }
 }

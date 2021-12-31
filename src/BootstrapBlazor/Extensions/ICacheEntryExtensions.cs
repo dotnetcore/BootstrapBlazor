@@ -5,36 +5,35 @@
 using Microsoft.Extensions.Caching.Memory;
 using System;
 
-namespace BootstrapBlazor.Components
+namespace BootstrapBlazor.Components;
+
+/// <summary>
+/// ICacheEntry 扩展类
+/// </summary>
+internal static class ICacheEntryExtensions
 {
     /// <summary>
-    /// ICacheEntry 扩展类
+    /// 
     /// </summary>
-    internal static class ICacheEntryExtensions
+    /// <param name="entry"></param>
+    /// <param name="offset"></param>
+    /// <returns></returns>
+    public static ICacheEntry SetSlidingExpirationForDynamicAssembly(this ICacheEntry entry, TimeSpan? offset = null)
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="entry"></param>
-        /// <param name="offset"></param>
-        /// <returns></returns>
-        public static ICacheEntry SetSlidingExpirationForDynamicAssembly(this ICacheEntry entry, TimeSpan? offset = null)
-        {
-            entry.SlidingExpiration = offset ?? TimeSpan.FromMinutes(5);
-            return entry;
-        }
+        entry.SlidingExpiration = offset ?? TimeSpan.FromMinutes(5);
+        return entry;
+    }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="entry"></param>
-        /// <param name="type"></param>
-        internal static void SetDynamicAssemblyPolicy(this ICacheEntry entry, Type? type)
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="entry"></param>
+    /// <param name="type"></param>
+    internal static void SetDynamicAssemblyPolicy(this ICacheEntry entry, Type? type)
+    {
+        if (type?.Assembly.IsDynamic ?? false)
         {
-            if (type?.Assembly.IsDynamic ?? false)
-            {
-                entry.SetSlidingExpiration(TimeSpan.FromSeconds(10));
-            }
+            entry.SetSlidingExpiration(TimeSpan.FromSeconds(10));
         }
     }
 }

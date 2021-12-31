@@ -7,28 +7,27 @@ using Microsoft.Extensions.Localization;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
-namespace BootstrapBlazor.Shared.Samples.Table
+namespace BootstrapBlazor.Shared.Samples.Table;
+
+/// <summary>
+/// 固定列示例
+/// </summary>
+public partial class TablesFixedColumn
 {
+    [NotNull]
+    private List<Foo>? Items { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<Foo>? Localizer { get; set; }
+
     /// <summary>
-    /// 固定列示例
+    /// OnInitialized 方法
     /// </summary>
-    public partial class TablesFixedColumn
+    protected override void OnInitialized()
     {
-        [NotNull]
-        private List<Foo>? Items { get; set; }
+        base.OnInitialized();
 
-        [Inject]
-        [NotNull]
-        private IStringLocalizer<Foo>? Localizer { get; set; }
-
-        /// <summary>
-        /// OnInitialized 方法
-        /// </summary>
-        protected override void OnInitialized()
-        {
-            base.OnInitialized();
-
-            Items = Foo.GenerateFoo(Localizer);
-        }
+        Items = Foo.GenerateFoo(Localizer);
     }
 }

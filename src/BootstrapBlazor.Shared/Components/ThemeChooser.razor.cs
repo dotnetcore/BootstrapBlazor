@@ -12,77 +12,77 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BootstrapBlazor.Shared.Components
+namespace BootstrapBlazor.Shared.Components;
+
+/// <summary>
+/// 
+/// </summary>
+public partial class ThemeChooser
 {
+    private ElementReference ThemeElement { get; set; }
+
+    [NotNull]
+    private IEnumerable<SelectedItem>? Themes { get; set; }
+
+    [NotNull]
+    private string? Title { get; set; }
+
+    [NotNull]
+    private string? HeaderText { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<ThemeChooser>? Localizer { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IOptions<BootstrapBlazorOptions>? BootstrapOptions { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IOptions<WebsiteOptions>? SiteOptions { get; set; }
+
     /// <summary>
-    /// 
+    /// OnInitialized 方法
     /// </summary>
-    public partial class ThemeChooser
+    protected override void OnInitialized()
     {
-        private ElementReference ThemeElement { get; set; }
+        base.OnInitialized();
 
-        [NotNull]
-        private IEnumerable<SelectedItem>? Themes { get; set; }
+        Title ??= Localizer[nameof(Title)];
+        HeaderText ??= Localizer[nameof(HeaderText)];
+        Themes = BootstrapOptions.Value.Themes.Select(kv => new SelectedItem(kv.Value, kv.Key));
+        SiteOptions.Value.CurrentTheme = Themes.FirstOrDefault(i => i.Text == "Motronic")?.Value ?? "";
+    }
 
-        [NotNull]
-        private string? Title { get; set; }
+    /// <summary>
+    /// OnAfterRenderAsync 方法
+    /// </summary>
+    /// <param name="firstRender"></param>
+    /// <returns></returns>
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
 
-        [NotNull]
-        private string? HeaderText { get; set; }
-
-        [Inject]
-        [NotNull]
-        private IStringLocalizer<ThemeChooser>? Localizer { get; set; }
-
-        [Inject]
-        [NotNull]
-        private IOptions<BootstrapBlazorOptions>? BootstrapOptions { get; set; }
-
-        [Inject]
-        [NotNull]
-        private IOptions<WebsiteOptions>? SiteOptions { get; set; }
-
-        /// <summary>
-        /// OnInitialized 方法
-        /// </summary>
-        protected override void OnInitialized()
+        if (firstRender)
         {
-            base.OnInitialized();
-
-            Title ??= Localizer[nameof(Title)];
-            HeaderText ??= Localizer[nameof(HeaderText)];
-            Themes = BootstrapOptions.Value.Themes.Select(kv => new SelectedItem(kv.Value, kv.Key));
-            SiteOptions.Value.CurrentTheme = Themes.FirstOrDefault(i => i.Text == "Motronic")?.Value ?? "";
+            await JSRuntime.InvokeVoidAsync("$.initTheme", ThemeElement);
         }
+    }
 
-        /// <summary>
-        /// OnAfterRenderAsync 方法
-        /// </summary>
-        /// <param name="firstRender"></param>
-        /// <returns></returns>
-        protected override async Task OnAfterRenderAsync(bool firstRender)
-        {
-            await base.OnAfterRenderAsync(firstRender);
+    private async Task OnClickTheme(SelectedItem item)
+    {
+        SiteOptions.Value.CurrentTheme = item.Value;
 
-            if (firstRender)
-            {
-                await JSRuntime.InvokeVoidAsync("$.initTheme", ThemeElement);
-            }
-        }
+        await JSRuntime.InvokeVoidAsync("$.setTheme", LinksCache[item.Value]);
+    }
 
-        private async Task OnClickTheme(SelectedItem item)
-        {
-            SiteOptions.Value.CurrentTheme = item.Value;
+    private string? GetThemeItemClass(SelectedItem item) => CssBuilder.Default("theme-item")
+        .AddClass("active", SiteOptions.Value.CurrentTheme == item.Value)
+        .Build();
 
-            await JSRuntime.InvokeVoidAsync("$.setTheme", LinksCache[item.Value]);
-        }
-
-        private string? GetThemeItemClass(SelectedItem item) => CssBuilder.Default("theme-item")
-            .AddClass("active", SiteOptions.Value.CurrentTheme == item.Value)
-            .Build();
-
-        private Dictionary<string, ICollection<string>> LinksCache { get; } = new(new KeyValuePair<string, ICollection<string>>[]
-        {
+    private Dictionary<string, ICollection<string>> LinksCache { get; } = new(new KeyValuePair<string, ICollection<string>>[]
+    {
             new("bootstrap.blazor.bundle.min.css", new List<string>()),
             new("motronic.min.css", new string[]
             {
@@ -91,6 +91,5 @@ namespace BootstrapBlazor.Shared.Components
             }),
             new("ant", new List<string>()),
             new("layui", new List<string>())
-        });
-    }
+    });
 }

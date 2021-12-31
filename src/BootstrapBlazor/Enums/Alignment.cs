@@ -4,34 +4,33 @@
 
 using System.ComponentModel;
 
-namespace BootstrapBlazor.Components
+namespace BootstrapBlazor.Components;
+
+/// <summary>
+/// 对齐方式枚举类型
+/// </summary>
+public enum Alignment
 {
     /// <summary>
-    /// 对齐方式枚举类型
+    /// 
     /// </summary>
-    public enum Alignment
-    {
-        /// <summary>
-        /// 
-        /// </summary>
-        None,
+    None,
 
-        /// <summary>
-        /// 
-        /// </summary>
-        [Description("start")]
-        Left,
+    /// <summary>
+    /// 
+    /// </summary>
+    [Description("start")]
+    Left,
 
-        /// <summary>
-        /// 
-        /// </summary>
-        [Description("center")]
-        Center,
+    /// <summary>
+    /// 
+    /// </summary>
+    [Description("center")]
+    Center,
 
-        /// <summary>
-        /// 
-        /// </summary>
-        [Description("end")]
-        Right
-    }
+    /// <summary>
+    /// 
+    /// </summary>
+    [Description("end")]
+    Right
 }

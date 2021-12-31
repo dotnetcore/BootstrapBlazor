@@ -5,40 +5,39 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace BootstrapBlazor.Components
+namespace BootstrapBlazor.Components;
+
+/// <summary>
+/// IDataServie 实现类基类
+/// </summary>
+public abstract class DataServiceBase<TModel> : IDataService<TModel> where TModel : class, new()
 {
     /// <summary>
-    /// IDataServie 实现类基类
+    /// 新建数据操作方法
     /// </summary>
-    public abstract class DataServiceBase<TModel> : IDataService<TModel> where TModel : class, new()
-    {
-        /// <summary>
-        /// 新建数据操作方法
-        /// </summary>
-        /// <param name="model"></param>
-        /// <returns></returns>
-        public virtual Task<bool> AddAsync(TModel model) => Task.FromResult(true);
+    /// <param name="model"></param>
+    /// <returns></returns>
+    public virtual Task<bool> AddAsync(TModel model) => Task.FromResult(true);
 
-        /// <summary>
-        /// 删除数据操作方法
-        /// </summary>
-        /// <param name="models"></param>
-        /// <returns></returns>
-        public virtual Task<bool> DeleteAsync(IEnumerable<TModel> models) => Task.FromResult(true);
+    /// <summary>
+    /// 删除数据操作方法
+    /// </summary>
+    /// <param name="models"></param>
+    /// <returns></returns>
+    public virtual Task<bool> DeleteAsync(IEnumerable<TModel> models) => Task.FromResult(true);
 
-        /// <summary>
-        /// 保存数据操作方法
-        /// </summary>
-        /// <param name="model"></param>
-        /// <param name="changedType"></param>
-        /// <returns></returns>
-        public virtual Task<bool> SaveAsync(TModel model, ItemChangedType changedType) => Task.FromResult(true);
+    /// <summary>
+    /// 保存数据操作方法
+    /// </summary>
+    /// <param name="model"></param>
+    /// <param name="changedType"></param>
+    /// <returns></returns>
+    public virtual Task<bool> SaveAsync(TModel model, ItemChangedType changedType) => Task.FromResult(true);
 
-        /// <summary>
-        /// 查询数据操作方法
-        /// </summary>
-        /// <param name="option"></param>
-        /// <returns></returns>
-        public abstract Task<QueryData<TModel>> QueryAsync(QueryPageOptions option);
-    }
+    /// <summary>
+    /// 查询数据操作方法
+    /// </summary>
+    /// <param name="option"></param>
+    /// <returns></returns>
+    public abstract Task<QueryData<TModel>> QueryAsync(QueryPageOptions option);
 }

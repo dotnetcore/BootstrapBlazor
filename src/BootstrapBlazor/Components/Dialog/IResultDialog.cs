@@ -4,22 +4,21 @@
 
 using System.Threading.Tasks;
 
-namespace BootstrapBlazor.Components
+namespace BootstrapBlazor.Components;
+
+/// <summary>
+/// 
+/// </summary>
+public interface IResultDialog
 {
     /// <summary>
     /// 
     /// </summary>
-    public interface IResultDialog
-    {
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        Task<bool> OnClosing(DialogResult result) => Task.FromResult(true);
+    /// <returns></returns>
+    Task<bool> OnClosing(DialogResult result) => Task.FromResult(true);
 
-        /// <summary>
-        /// 
-        /// </summary>
-        Task OnClose(DialogResult result);
-    }
+    /// <summary>
+    /// 
+    /// </summary>
+    Task OnClose(DialogResult result);
 }

@@ -10,58 +10,58 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BootstrapBlazor.Shared.Samples
+namespace BootstrapBlazor.Shared.Samples;
+
+/// <summary>
+/// 
+/// </summary>
+public sealed partial class Cameras
 {
-    /// <summary>
-    /// 
-    /// </summary>
-    public sealed partial class Cameras
+    [NotNull]
+    private BlockLogger? Trace { get; set; }
+
+    private Task OnInit(IEnumerable<DeviceItem> devices)
     {
-        [NotNull]
-        private BlockLogger? Trace { get; set; }
+        var cams = string.Join("", devices.Select(i => i.Label));
+        Trace.Log($"初始化摄像头完成 {cams}");
+        return Task.CompletedTask;
+    }
 
-        private Task OnInit(IEnumerable<DeviceItem> devices)
-        {
-            var cams = string.Join("", devices.Select(i => i.Label));
-            Trace.Log($"初始化摄像头完成 {cams}");
-            return Task.CompletedTask;
-        }
+    private Task OnError(string err)
+    {
+        Trace.Log($"发生错误 {err}");
+        return Task.CompletedTask;
+    }
 
-        private Task OnError(string err)
-        {
-            Trace.Log($"发生错误 {err}");
-            return Task.CompletedTask;
-        }
+    private Task OnStart()
+    {
+        ImageUrl = null;
+        Trace.Log("打开摄像头");
+        return Task.CompletedTask;
+    }
 
-        private Task OnStart()
-        {
-            ImageUrl = null;
-            Trace.Log("打开摄像头");
-            return Task.CompletedTask;
-        }
+    private Task OnClose()
+    {
+        Trace.Log("关闭摄像头");
+        return Task.CompletedTask;
+    }
 
-        private Task OnClose()
-        {
-            Trace.Log("关闭摄像头");
-            return Task.CompletedTask;
-        }
+    private string? ImageUrl { get; set; }
 
-        private string? ImageUrl { get; set; }
+    private Task OnCapture(string url)
+    {
+        ImageUrl = url;
+        Trace.Log("拍照完成");
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
 
-        private Task OnCapture(string url)
-        {
-            ImageUrl = url;
-            Trace.Log("拍照完成");
-            StateHasChanged();
-            return Task.CompletedTask;
-        }
-
-        /// <summary>
-        /// 获得属性方法
-        /// </summary>
-        /// <returns></returns>
-        private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-        {
+    /// <summary>
+    /// 获得属性方法
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+    {
             // TODO: 移动到数据库中
             new AttributeItem() {
                 Name = "ShowPreview",
@@ -162,6 +162,5 @@ namespace BootstrapBlazor.Shared.Samples
                 ValueList = " — ",
                 DefaultValue = " — "
             }
-        };
-    }
+    };
 }

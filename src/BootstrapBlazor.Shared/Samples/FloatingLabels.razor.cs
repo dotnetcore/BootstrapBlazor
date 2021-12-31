@@ -7,34 +7,34 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
-namespace BootstrapBlazor.Shared.Samples
+namespace BootstrapBlazor.Shared.Samples;
+
+/// <summary>
+/// 
+/// </summary>
+public partial class FloatingLabels
 {
+    private byte[] ByteArray { get; set; } = new byte[] { 0x01, 0x12, 0x34, 0x56 };
+
+    private static string ByteArrayFormatter(byte[] source) => Convert.ToBase64String(source);
+
+    [NotNull]
+    private Foo? Model { get; set; }
+
+    private static string DateTimeFormatter(DateTime source) => source.ToString("yyyy-MM-dd");
+
     /// <summary>
     /// 
     /// </summary>
-    public partial class FloatingLabels
+    protected override void OnInitialized()
     {
-        private byte[] ByteArray { get; set; } = new byte[] { 0x01, 0x12, 0x34, 0x56 };
+        base.OnInitialized();
 
-        private static string ByteArrayFormatter(byte[] source) => Convert.ToBase64String(source);
+        Model = new Foo() { Name = Localizer["TestName"] };
+    }
 
-        [NotNull]
-        private Foo? Model { get; set; }
-
-        private static string DateTimeFormatter(DateTime source) => source.ToString("yyyy-MM-dd");
-
-        /// <summary>
-        /// 
-        /// </summary>
-        protected override void OnInitialized()
-        {
-            base.OnInitialized();
-
-            Model = new Foo() { Name = Localizer["TestName"] };
-        }
-
-        private IEnumerable<AttributeItem> GetAttributes() => new[]
-        {
+    private IEnumerable<AttributeItem> GetAttributes() => new[]
+    {
             new AttributeItem() {
                 Name = "ChildContent",
                 Description = Localizer["Att1"].Value,
@@ -87,5 +87,4 @@ namespace BootstrapBlazor.Shared.Samples
                 DefaultValue = "false"
             }
         };
-    }
 }

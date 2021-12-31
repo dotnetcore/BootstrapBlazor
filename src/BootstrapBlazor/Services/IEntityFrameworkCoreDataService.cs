@@ -4,24 +4,23 @@
 
 using System.Threading.Tasks;
 
-namespace BootstrapBlazor.Components
+namespace BootstrapBlazor.Components;
+
+/// <summary>
+/// 
+/// </summary>
+public interface IEntityFrameworkCoreDataService
 {
     /// <summary>
     /// 
     /// </summary>
-    public interface IEntityFrameworkCoreDataService
-    {
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        Task CancelAsync();
+    /// <returns></returns>
+    Task CancelAsync();
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="model"></param>
-        /// <returns></returns>
-        Task EditAsync(object model);
-    }
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="model"></param>
+    /// <returns></returns>
+    Task EditAsync(object model);
 }

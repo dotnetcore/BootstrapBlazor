@@ -6,20 +6,19 @@ using Microsoft.JSInterop;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace BootstrapBlazor.Components
+namespace BootstrapBlazor.Components;
+
+/// <summary>
+/// 
+/// </summary>
+internal class DefaultExcelExport : ITableExcelExport
 {
     /// <summary>
     /// 
     /// </summary>
-    internal class DefaultExcelExport : ITableExcelExport
+    /// <returns></returns>
+    public Task<bool> ExportAsync<TItem>(IEnumerable<TItem> items, IEnumerable<ITableColumn> cols, IJSRuntime jsRuntime) where TItem : class
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public Task<bool> ExportAsync<TItem>(IEnumerable<TItem> items, IEnumerable<ITableColumn> cols, IJSRuntime jsRuntime) where TItem : class
-        {
-            return Task.FromResult(false);
-        }
+        return Task.FromResult(false);
     }
 }

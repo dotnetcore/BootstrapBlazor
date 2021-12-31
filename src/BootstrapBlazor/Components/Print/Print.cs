@@ -7,62 +7,61 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 
-namespace BootstrapBlazor.Components
+namespace BootstrapBlazor.Components;
+
+/// <summary>
+/// 
+/// </summary>
+/// <summary>
+/// 打印组件类
+/// </summary>
+public class Print : BootstrapComponentBase, IDisposable
 {
     /// <summary>
-    /// 
+    /// PrintService 服务实例
     /// </summary>
+    [Inject]
+    [NotNull]
+    private PrintService? PrintService { get; set; }
+
     /// <summary>
-    /// 打印组件类
+    /// 获得 弹窗注入服务
     /// </summary>
-    public class Print : BootstrapComponentBase, IDisposable
+    [Inject]
+    [NotNull]
+    private DialogService? DialogService { get; set; }
+
+    /// <summary>
+    /// OnInitialized 方法
+    /// </summary>
+    protected override void OnInitialized()
     {
-        /// <summary>
-        /// PrintService 服务实例
-        /// </summary>
-        [Inject]
-        [NotNull]
-        private PrintService? PrintService { get; set; }
+        base.OnInitialized();
 
-        /// <summary>
-        /// 获得 弹窗注入服务
-        /// </summary>
-        [Inject]
-        [NotNull]
-        private DialogService? DialogService { get; set; }
+        // 注册 打印弹窗事件
+        PrintService.Register(this, PrintDialogAsync);
+    }
 
-        /// <summary>
-        /// OnInitialized 方法
-        /// </summary>
-        protected override void OnInitialized()
+    private Task PrintDialogAsync(DialogOption option) => DialogService.Show(option);
+
+    /// <summary>
+    /// Dispose 方法
+    /// </summary>
+    /// <param name="disposing"></param>
+    protected virtual void Dispose(bool disposing)
+    {
+        if (disposing)
         {
-            base.OnInitialized();
-
-            // 注册 打印弹窗事件
-            PrintService.Register(this, PrintDialogAsync);
+            PrintService.UnRegister(this);
         }
+    }
 
-        private Task PrintDialogAsync(DialogOption option) => DialogService.Show(option);
-
-        /// <summary>
-        /// Dispose 方法
-        /// </summary>
-        /// <param name="disposing"></param>
-        protected virtual void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                PrintService.UnRegister(this);
-            }
-        }
-
-        /// <summary>
-        /// Dispose 方法
-        /// </summary>
-        public void Dispose()
-        {
-            Dispose(disposing: true);
-            GC.SuppressFinalize(this);
-        }
+    /// <summary>
+    /// Dispose 方法
+    /// </summary>
+    public void Dispose()
+    {
+        Dispose(disposing: true);
+        GC.SuppressFinalize(this);
     }
 }

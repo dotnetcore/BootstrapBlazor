@@ -7,20 +7,19 @@ using Microsoft.AspNetCore.Components;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 
-namespace BootstrapBlazor.Shared.Samples
-{
-    /// <summary>
-    /// FullScreens 全屏示例代码
-    /// </summary>
-    public partial class FullScreens
-    {
-        [Inject]
-        [NotNull]
-        private FullScreenService? FullScreenService { get; set; }
+namespace BootstrapBlazor.Shared.Samples;
 
-        private async Task ToggleFullScreen()
-        {
-            await FullScreenService.Toggle();
-        }
+/// <summary>
+/// FullScreens 全屏示例代码
+/// </summary>
+public partial class FullScreens
+{
+    [Inject]
+    [NotNull]
+    private FullScreenService? FullScreenService { get; set; }
+
+    private async Task ToggleFullScreen()
+    {
+        await FullScreenService.Toggle();
     }
 }

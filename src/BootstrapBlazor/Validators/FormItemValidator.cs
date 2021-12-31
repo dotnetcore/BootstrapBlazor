@@ -5,40 +5,39 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace BootstrapBlazor.Components
+namespace BootstrapBlazor.Components;
+
+/// <summary>
+/// 自定义验证类
+/// </summary>
+public class FormItemValidator : ValidatorBase
 {
     /// <summary>
-    /// 自定义验证类
+    /// 获得 ValidationAttribute 实例
     /// </summary>
-    public class FormItemValidator : ValidatorBase
+    public ValidationAttribute Validator { get; }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="attribute"></param>
+    public FormItemValidator(ValidationAttribute attribute)
     {
-        /// <summary>
-        /// 获得 ValidationAttribute 实例
-        /// </summary>
-        public ValidationAttribute Validator { get; }
+        Validator = attribute;
+    }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="attribute"></param>
-        public FormItemValidator(ValidationAttribute attribute)
+    /// <summary>
+    /// 验证方法
+    /// </summary>
+    /// <param name="propertyValue">待校验值</param>
+    /// <param name="context">ValidateContext 实例</param>
+    /// <param name="results">ValidateResult 集合实例</param>
+    public override void Validate(object? propertyValue, ValidationContext context, List<ValidationResult> results)
+    {
+        var result = Validator.GetValidationResult(propertyValue, context);
+        if (result != null)
         {
-            Validator = attribute;
-        }
-
-        /// <summary>
-        /// 验证方法
-        /// </summary>
-        /// <param name="propertyValue">待校验值</param>
-        /// <param name="context">ValidateContext 实例</param>
-        /// <param name="results">ValidateResult 集合实例</param>
-        public override void Validate(object? propertyValue, ValidationContext context, List<ValidationResult> results)
-        {
-            var result = Validator.GetValidationResult(propertyValue, context);
-            if (result != null)
-            {
-                results.Add(result);
-            }
+            results.Add(result);
         }
     }
 }

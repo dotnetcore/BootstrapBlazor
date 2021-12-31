@@ -8,76 +8,75 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 
-namespace BootstrapBlazor.Components
+namespace BootstrapBlazor.Components;
+
+/// <summary>
+/// Title 组件
+/// </summary>
+public class Title : BootstrapComponentBase, IDisposable
 {
+    [Inject]
+    [NotNull]
+    private TitleService? TitleService { get; set; }
+
     /// <summary>
-    /// Title 组件
+    /// 获得/设置 当前页标题文字
     /// </summary>
-    public class Title : BootstrapComponentBase, IDisposable
+    [Parameter]
+    public string? Text { get; set; }
+
+    /// <summary>
+    /// OnInitialized 方法
+    /// </summary>
+    protected override void OnInitialized()
     {
-        [Inject]
-        [NotNull]
-        private TitleService? TitleService { get; set; }
+        base.OnInitialized();
 
-        /// <summary>
-        /// 获得/设置 当前页标题文字
-        /// </summary>
-        [Parameter]
-        public string? Text { get; set; }
-
-        /// <summary>
-        /// OnInitialized 方法
-        /// </summary>
-        protected override void OnInitialized()
+        if (string.IsNullOrEmpty(Text))
         {
-            base.OnInitialized();
-
-            if (string.IsNullOrEmpty(Text))
-            {
-                TitleService.Register(this, SetTitle);
-            }
+            TitleService.Register(this, SetTitle);
         }
+    }
 
-        /// <summary>
-        /// OnAfterRenderAsync 方法
-        /// </summary>
-        /// <param name="firstRender"></param>
-        /// <returns></returns>
-        protected override async Task OnAfterRenderAsync(bool firstRender)
+    /// <summary>
+    /// OnAfterRenderAsync 方法
+    /// </summary>
+    /// <param name="firstRender"></param>
+    /// <returns></returns>
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+
+        if (!string.IsNullOrEmpty(Text))
         {
-            await base.OnAfterRenderAsync(firstRender);
-
-            if (!string.IsNullOrEmpty(Text))
-            {
-                await SetTitle(Text);
-            }
+            await SetTitle(Text);
         }
+    }
 
-        /// <summary>
-        /// 设置网站 Title 方法
-        /// </summary>
-        /// <param name="title"></param>
-        /// <returns></returns>
-        private ValueTask SetTitle(string title) => JSRuntime.InvokeVoidAsync(identifier: "$.bb_setTitle", title);
+    /// <summary>
+    /// 设置网站 Title 方法
+    /// </summary>
+    /// <param name="title"></param>
+    /// <returns></returns>
+    private ValueTask SetTitle(string title) => JSRuntime.InvokeVoidAsync(identifier: "$.bb_setTitle", title);
 
-        /// <summary>
-        /// Dispose 方法
-        /// </summary>
-        protected virtual void Dispose(bool disposing)
+    /// <summary>
+    /// Dispose 方法
+    /// </summary>
+    protected virtual void Dispose(bool disposing)
+    {
+        if (disposing)
         {
-            if (disposing)
-            {
-                TitleService.UnRegister(this);
-            }
+            TitleService.UnRegister(this);
         }
+    }
 
-        /// <summary>
-        /// Dispose 方法
-        /// </summary>
-        public void Dispose()
-        {
-            Dispose(disposing: true);
-            GC.SuppressFinalize(this);
-        }
+    /// <summary>
+    /// Dispose 方法
+    /// </summary>
+    public void Dispose()
+    {
+        Dispose(disposing: true);
+        GC.SuppressFinalize(this);
     }
 }

@@ -12,63 +12,62 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace BootstrapBlazor.Server.Services
+namespace BootstrapBlazor.Server.Services;
+
+/// <summary>
+/// 后台任务服务类
+/// </summary>
+internal class ClearUploadFilesService : BackgroundService
 {
+    private readonly IWebHostEnvironment _env;
+
     /// <summary>
-    /// 后台任务服务类
+    /// 
     /// </summary>
-    internal class ClearUploadFilesService : BackgroundService
+    /// <param name="env"></param>
+    /// <param name="websiteOption"></param>
+    public ClearUploadFilesService(IWebHostEnvironment env, IOptions<WebsiteOptions> websiteOption)
     {
-        private readonly IWebHostEnvironment _env;
+        _env = env;
+        websiteOption.Value.WebRootPath = env.WebRootPath;
+        websiteOption.Value.ContentRootPath = env.ContentRootPath;
+        websiteOption.Value.IsDevelopment = env.IsDevelopment();
+    }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="env"></param>
-        /// <param name="websiteOption"></param>
-        public ClearUploadFilesService(IWebHostEnvironment env, IOptions<WebsiteOptions> websiteOption)
+    /// <summary>
+    /// 运行任务
+    /// </summary>
+    /// <param name="stoppingToken"></param>
+    /// <returns></returns>
+    protected override Task ExecuteAsync(CancellationToken stoppingToken)
+    {
+        _ = TaskServicesManager.GetOrAdd("Clear Upload Files", token =>
         {
-            _env = env;
-            websiteOption.Value.WebRootPath = env.WebRootPath;
-            websiteOption.Value.ContentRootPath = env.ContentRootPath;
-            websiteOption.Value.IsDevelopment = env.IsDevelopment();
-        }
-
-        /// <summary>
-        /// 运行任务
-        /// </summary>
-        /// <param name="stoppingToken"></param>
-        /// <returns></returns>
-        protected override Task ExecuteAsync(CancellationToken stoppingToken)
-        {
-            _ = TaskServicesManager.GetOrAdd("Clear Upload Files", token =>
+            if (_env != null)
             {
-                if (_env != null)
+                var webSiteUrl = $"images{Path.DirectorySeparatorChar}uploader{Path.DirectorySeparatorChar}";
+                var filePath = Path.Combine(_env.WebRootPath, webSiteUrl);
+                if (Directory.Exists(filePath))
                 {
-                    var webSiteUrl = $"images{Path.DirectorySeparatorChar}uploader{Path.DirectorySeparatorChar}";
-                    var filePath = Path.Combine(_env.WebRootPath, webSiteUrl);
-                    if (Directory.Exists(filePath))
+                    Directory.EnumerateFiles(filePath).Take(10).ToList().ForEach(file =>
                     {
-                        Directory.EnumerateFiles(filePath).Take(10).ToList().ForEach(file =>
+                        try
                         {
-                            try
+                            if (token.IsCancellationRequested)
                             {
-                                if (token.IsCancellationRequested)
-                                {
-                                    return;
-                                }
-
-                                File.Delete(file);
+                                return;
                             }
-                            catch { }
-                        });
-                    }
 
+                            File.Delete(file);
+                        }
+                        catch { }
+                    });
                 }
-                return Task.CompletedTask;
-            }, TriggerBuilder.Build(Cron.Minutely(10)));
 
+            }
             return Task.CompletedTask;
-        }
+        }, TriggerBuilder.Build(Cron.Minutely(10)));
+
+        return Task.CompletedTask;
     }
 }

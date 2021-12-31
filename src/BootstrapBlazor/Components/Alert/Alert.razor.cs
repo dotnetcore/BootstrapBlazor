@@ -4,26 +4,25 @@
 
 using System.Threading.Tasks;
 
-namespace BootstrapBlazor.Components
+namespace BootstrapBlazor.Components;
+
+/// <summary>
+/// 
+/// </summary>
+public partial class Alert
 {
     /// <summary>
     /// 
     /// </summary>
-    public partial class Alert
+    protected override string? ClassName => CssBuilder.Default(base.ClassName)
+        .AddClass("d-none", !IsShown)
+        .Build();
+
+    private bool IsShown { get; set; } = true;
+
+    private async Task OnClick()
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        protected override string? ClassName => CssBuilder.Default(base.ClassName)
-            .AddClass("d-none", !IsShown)
-            .Build();
-
-        private bool IsShown { get; set; } = true;
-
-        private async Task OnClick()
-        {
-            IsShown = !IsShown;
-            if (OnDismiss != null) await OnDismiss();
-        }
+        IsShown = !IsShown;
+        if (OnDismiss != null) await OnDismiss();
     }
 }

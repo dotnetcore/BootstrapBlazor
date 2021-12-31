@@ -7,41 +7,41 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Routing;
 using System.Collections.Generic;
 
-namespace BootstrapBlazor.Shared.Samples
+namespace BootstrapBlazor.Shared.Samples;
+
+/// <summary>
+/// 
+/// </summary>
+public sealed partial class Navs
 {
-    /// <summary>
-    /// 
-    /// </summary>
-    public sealed partial class Navs
+    private IEnumerable<NavLink> Items => GetItems();
+
+    private IEnumerable<NavLink> GetItems()
     {
-        private IEnumerable<NavLink> Items => GetItems();
-
-        private IEnumerable<NavLink> GetItems()
+        var ret = new List<NavLink>();
+        var link = new NavLink();
+        var parameters = new Dictionary<string, object?>()
         {
-            var ret = new List<NavLink>();
-            var link = new NavLink();
-            var parameters = new Dictionary<string, object?>()
+            ["href"] = WebsiteOption.Value.AdminUrl,
+            ["class"] = "nav-link nav-item",
+            ["target"] = "_blank",
+            ["ChildContent"] = new RenderFragment(builder =>
             {
-                ["href"] = WebsiteOption.Value.AdminUrl,
-                ["class"] = "nav-link nav-item",
-                ["target"] = "_blank",
-                ["ChildContent"] = new RenderFragment(builder =>
-                {
-                    builder.AddContent(0, "BootstrapAdmin");
-                })
-            };
-            // TODO: NET6.0 移除 ! 断言
-            link.SetParametersAsync(ParameterView.FromDictionary(parameters!));
-            ret.Add(link);
-            return ret;
-        }
+                builder.AddContent(0, "BootstrapAdmin");
+            })
+        };
+        // TODO: NET6.0 移除 ! 断言
+        link.SetParametersAsync(ParameterView.FromDictionary(parameters!));
+        ret.Add(link);
+        return ret;
+    }
 
-        /// <summary>
-        /// 获得属性方法
-        /// </summary>
-        /// <returns></returns>
-        private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-        {
+    /// <summary>
+    /// 获得属性方法
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+    {
             // TODO: 移动到数据库中
             new AttributeItem() {
                 Name = "ChildContent",
@@ -85,6 +85,5 @@ namespace BootstrapBlazor.Shared.Samples
                 ValueList = "true|false",
                 DefaultValue = "false"
             }
-        };
-    }
+    };
 }

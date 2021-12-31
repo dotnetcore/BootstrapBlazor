@@ -6,29 +6,28 @@ using BootstrapBlazor.Components;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
-namespace BootstrapBlazor.Shared.Samples
+namespace BootstrapBlazor.Shared.Samples;
+
+/// <summary>
+/// 
+/// </summary>
+public sealed partial class Breadcrumbs
 {
+    [NotNull]
+    private IEnumerable<BreadcrumbItem>? DataSource { get; set; }
+
     /// <summary>
-    /// 
+    /// OnInitialized 方法
     /// </summary>
-    public sealed partial class Breadcrumbs
+    protected override void OnInitialized()
     {
-        [NotNull]
-        private IEnumerable<BreadcrumbItem>? DataSource { get; set; }
+        base.OnInitialized();
 
-        /// <summary>
-        /// OnInitialized 方法
-        /// </summary>
-        protected override void OnInitialized()
-        {
-            base.OnInitialized();
-
-            DataSource = new List<BreadcrumbItem>
+        DataSource = new List<BreadcrumbItem>
             {
                 new BreadcrumbItem("Home", "#"),
                 new BreadcrumbItem("Library", "#"),
                 new BreadcrumbItem("Data")
             };
-        }
     }
 }

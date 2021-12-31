@@ -7,69 +7,69 @@ using BootstrapBlazor.Shared.Common;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace BootstrapBlazor.Shared.Samples
+namespace BootstrapBlazor.Shared.Samples;
+
+/// <summary>
+/// 
+/// </summary>
+public sealed partial class Editors
 {
-    /// <summary>
-    /// 
-    /// </summary>
-    public sealed partial class Editors
+    private string? EditorValue { get; set; }
+
+    private Task OnValueChanged(string val)
     {
-        private string? EditorValue { get; set; }
+        EditorValue = val;
+        return Task.CompletedTask;
+    }
 
-        private Task OnValueChanged(string val)
+    private void SetValue()
+    {
+        EditorValue = Localizer["UpdateValue"];
+    }
+
+    private List<EditorToolbarButton>? EditorPluginItems { get; set; }
+
+    private async Task<string?> PluginClick(string pluginItemName)
+    {
+        var ret = "";
+        if (pluginItemName == "plugin1")
         {
-            EditorValue = val;
-            return Task.CompletedTask;
-        }
-
-        private void SetValue()
-        {
-            EditorValue = Localizer["UpdateValue"];
-        }
-
-        private List<EditorToolbarButton>? EditorPluginItems { get; set; }
-
-        private async Task<string?> PluginClick(string pluginItemName)
-        {
-            var ret = "";
-            if (pluginItemName == "plugin1")
+            var op = new SwalOption()
             {
-                var op = new SwalOption()
-                {
-                    Title = Localizer["SwalTitle"],
-                    Content = Localizer["SwalContent"],
-                    IsConfirm = true
-                };
-                if (await SwalService.ShowModal(op))
-                {
-                    ret = Localizer["Ret1"];
-                }
-            }
-            if (pluginItemName == "plugin2")
+                Title = Localizer["SwalTitle"],
+                Content = Localizer["SwalContent"],
+                IsConfirm = true
+            };
+            if (await SwalService.ShowModal(op))
             {
-                var op = new SwalOption()
-                {
-                    Title = Localizer["Swal2Title"],
-                    Content = Localizer["Swal2Content"],
-                    IsConfirm = true
-                };
-                if (await SwalService.ShowModal(op))
-                {
-                    ret = Localizer["Ret2"];
-                }
+                ret = Localizer["Ret1"];
             }
-            return ret;
         }
-
-        /// <summary>
-        /// OnInitialized 方法
-        /// </summary>
-        protected override void OnInitialized()
+        if (pluginItemName == "plugin2")
         {
-            base.OnInitialized();
+            var op = new SwalOption()
+            {
+                Title = Localizer["Swal2Title"],
+                Content = Localizer["Swal2Content"],
+                IsConfirm = true
+            };
+            if (await SwalService.ShowModal(op))
+            {
+                ret = Localizer["Ret2"];
+            }
+        }
+        return ret;
+    }
 
-            EditorValue = Localizer["InitValue"];
-            EditorPluginItems = new List<EditorToolbarButton>()
+    /// <summary>
+    /// OnInitialized 方法
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        EditorValue = Localizer["InitValue"];
+        EditorPluginItems = new List<EditorToolbarButton>()
         {
             new EditorToolbarButton()
             {
@@ -84,16 +84,16 @@ namespace BootstrapBlazor.Shared.Samples
                 Tooltip = Localizer["ToolTip2"]
             }
         };
-        }
+    }
 
-        private List<object> ToolbarItems { get; } = new List<object>
+    private List<object> ToolbarItems { get; } = new List<object>
         {
             new List<object> {"style", new List<string>() {"style"}},
             new List<object> {"font", new List<string>() {"bold", "underline", "clear"}}
         };
 
-        private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-        {
+    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+    {
             // TODO: 移动到数据库中
             new AttributeItem() {
                 Name = "Placeholder",
@@ -132,6 +132,5 @@ namespace BootstrapBlazor.Shared.Samples
                 ValueList = " — ",
                 DefaultValue = " — "
             }
-        };
-    }
+    };
 }

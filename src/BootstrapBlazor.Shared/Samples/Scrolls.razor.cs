@@ -8,23 +8,23 @@ using Microsoft.Extensions.Localization;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
-namespace BootstrapBlazor.Shared.Samples
-{
-    /// <summary>
-    /// 
-    /// </summary>
-    public sealed partial class Scrolls
-    {
-        [Inject]
-        [NotNull]
-        private IStringLocalizer<Scrolls>? Localizer { get; set; }
+namespace BootstrapBlazor.Shared.Samples;
 
-        /// <summary>
-        /// 获得属性方法
-        /// </summary>
-        /// <returns></returns>
-        private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-        {
+/// <summary>
+/// 
+/// </summary>
+public sealed partial class Scrolls
+{
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<Scrolls>? Localizer { get; set; }
+
+    /// <summary>
+    /// 获得属性方法
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+    {
             // TODO: 移动到数据库中
             new AttributeItem() {
                 Name = "ChildContent",
@@ -40,6 +40,5 @@ namespace BootstrapBlazor.Shared.Samples
                 ValueList = " — ",
                 DefaultValue = " — "
             }
-        };
-    }
+    };
 }

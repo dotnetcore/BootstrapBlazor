@@ -6,32 +6,31 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using System.Diagnostics.CodeAnalysis;
 
-namespace BootstrapBlazor.Shared.Samples
+namespace BootstrapBlazor.Shared.Samples;
+
+/// <summary>
+/// 
+/// </summary>
+public partial class Labels : ComponentBase
 {
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<Foo>? LocalizerFoo { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<Labels>? Localizer { get; set; }
+
+    [NotNull]
+    private Foo? Dummy { get; set; }
+
     /// <summary>
-    /// 
+    /// OnInitialized 方法
     /// </summary>
-    public partial class Labels : ComponentBase
+    protected override void OnInitialized()
     {
-        [Inject]
-        [NotNull]
-        private IStringLocalizer<Foo>? LocalizerFoo { get; set; }
+        base.OnInitialized();
 
-        [Inject]
-        [NotNull]
-        private IStringLocalizer<Labels>? Localizer { get; set; }
-
-        [NotNull]
-        private Foo? Dummy { get; set; }
-
-        /// <summary>
-        /// OnInitialized 方法
-        /// </summary>
-        protected override void OnInitialized()
-        {
-            base.OnInitialized();
-
-            Dummy = Foo.Generate(LocalizerFoo);
-        }
+        Dummy = Foo.Generate(LocalizerFoo);
     }
 }

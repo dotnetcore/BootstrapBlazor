@@ -5,21 +5,21 @@
 using BootstrapBlazor.Shared.Common;
 using System.Collections.Generic;
 
-namespace BootstrapBlazor.Shared.Samples
-{
-    /// <summary>
-    /// 
-    /// </summary>
-    public sealed partial class Progresss
-    {
-        private int Value { get; set; } = 75;
+namespace BootstrapBlazor.Shared.Samples;
 
-        /// <summary>
-        /// 获得属性方法
-        /// </summary>
-        /// <returns></returns>
-        private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-        {
+/// <summary>
+/// 
+/// </summary>
+public sealed partial class Progresss
+{
+    private int Value { get; set; } = 75;
+
+    /// <summary>
+    /// 获得属性方法
+    /// </summary>
+    /// <returns></returns>
+    private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+    {
             // TODO: 移动到数据库中
             new AttributeItem() {
                 Name = "Color",
@@ -63,6 +63,5 @@ namespace BootstrapBlazor.Shared.Samples
                 ValueList = " — ",
                 DefaultValue = "false"
             },
-        };
-    }
+    };
 }

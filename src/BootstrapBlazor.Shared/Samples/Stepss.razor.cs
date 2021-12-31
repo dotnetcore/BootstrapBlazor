@@ -10,69 +10,69 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BootstrapBlazor.Shared.Samples
+namespace BootstrapBlazor.Shared.Samples;
+
+/// <summary>
+/// 
+/// </summary>
+public sealed partial class Stepss
 {
-    /// <summary>
-    /// 
-    /// </summary>
-    public sealed partial class Stepss
+    private IEnumerable<StepItem> Items { get; set; } = new StepItem[3]
     {
-        private IEnumerable<StepItem> Items { get; set; } = new StepItem[3]
-        {
             new StepItem() { Title = "步骤一" , Template = builder => { builder.OpenElement(0, "div"); builder.AddContent(1, "步骤一"); builder.CloseElement(); } },
             new StepItem() { Title = "步骤二", Template = builder => { builder.OpenElement(0, "div"); builder.AddContent(1, "步骤二"); builder.CloseElement(); } },
             new StepItem() { Title = "步骤三", Template = builder => { builder.OpenElement(0, "div"); builder.AddContent(1, "步骤三"); builder.CloseElement(); } }
-        };
+    };
 
-        private void NextStep()
+    private void NextStep()
+    {
+        var item = Items.FirstOrDefault(i => i.Status == StepStatus.Process);
+        if (item != null)
         {
-            var item = Items.FirstOrDefault(i => i.Status == StepStatus.Process);
-            if (item != null)
+            item.Status = StepStatus.Success;
+            var index = Items.ToList().IndexOf(item) + 1;
+            if (index < Items.Count())
             {
-                item.Status = StepStatus.Success;
-                var index = Items.ToList().IndexOf(item) + 1;
-                if (index < Items.Count())
-                {
-                    Items.ElementAt(index).Status = StepStatus.Process;
-                }
-            }
-            else
-            {
-                ResetStep();
-                Items.ElementAt(0).Status = StepStatus.Process;
+                Items.ElementAt(index).Status = StepStatus.Process;
             }
         }
-
-        private void ResetStep()
+        else
         {
-            Items.ToList().ForEach(i =>
-            {
-                i.Status = StepStatus.Wait;
-            });
+            ResetStep();
+            Items.ElementAt(0).Status = StepStatus.Process;
         }
+    }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        [NotNull]
-        private BlockLogger? Trace { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="status"></param>
-        private Task OnStatusChanged(StepStatus status)
+    private void ResetStep()
+    {
+        Items.ToList().ForEach(i =>
         {
-            Trace.Log($"Steps Status: {status}");
-            return Task.CompletedTask;
-        }
+            i.Status = StepStatus.Wait;
+        });
+    }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-        {
+    /// <summary>
+    /// 
+    /// </summary>
+    [NotNull]
+    private BlockLogger? Trace { get; set; }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="status"></param>
+    private Task OnStatusChanged(StepStatus status)
+    {
+        Trace.Log($"Steps Status: {status}");
+        return Task.CompletedTask;
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+    {
             new AttributeItem() {
                 Name = "Items",
                 Description = Localizer["Desc1"],
@@ -101,10 +101,10 @@ namespace BootstrapBlazor.Shared.Samples
                 ValueList = "Wait|Process|Finish|Error|Success",
                 DefaultValue = "Wait"
             }
-        };
+    };
 
-        private IEnumerable<AttributeItem> GetStepItemAttributes() => new AttributeItem[]
-        {
+    private IEnumerable<AttributeItem> GetStepItemAttributes() => new AttributeItem[]
+    {
             new AttributeItem() {
                 Name = "IsCenter",
                 Description = Localizer["Att1"],
@@ -175,9 +175,9 @@ namespace BootstrapBlazor.Shared.Samples
                 ValueList = " — ",
                 DefaultValue = " — "
             }
-        };
+    };
 
-        private IEnumerable<EventItem> GetEvents() => new List<EventItem>()
+    private IEnumerable<EventItem> GetEvents() => new List<EventItem>()
         {
             new EventItem()
             {
@@ -186,5 +186,4 @@ namespace BootstrapBlazor.Shared.Samples
                 Type ="Func<StepStatus, Task>"
             }
         };
-    }
 }

@@ -4,41 +4,40 @@
 
 using Microsoft.AspNetCore.Components;
 
-namespace BootstrapBlazor.Components
+namespace BootstrapBlazor.Components;
+
+/// <summary>
+/// Step 组件项类
+/// </summary>
+public class StepItem
 {
     /// <summary>
-    /// Step 组件项类
+    /// 获得/设置 步骤显示文字
     /// </summary>
-    public class StepItem
-    {
-        /// <summary>
-        /// 获得/设置 步骤显示文字
-        /// </summary>
-        public string? Title { get; set; }
+    public string? Title { get; set; }
 
-        /// <summary>
-        /// 获得/设置 步骤显示图标
-        /// </summary>
-        public string Icon { get; set; } = "fa fa-check";
+    /// <summary>
+    /// 获得/设置 步骤显示图标
+    /// </summary>
+    public string Icon { get; set; } = "fa fa-check";
 
-        /// <summary>
-        /// 获得/设置 步骤状态
-        /// </summary>
-        public StepStatus Status { get; set; }
+    /// <summary>
+    /// 获得/设置 步骤状态
+    /// </summary>
+    public StepStatus Status { get; set; }
 
-        /// <summary>
-        /// 获得/设置 描述信息
-        /// </summary>
-        public string? Description { get; set; }
+    /// <summary>
+    /// 获得/设置 描述信息
+    /// </summary>
+    public string? Description { get; set; }
 
-        /// <summary>
-        /// 获得/设置 每个 step 的间距不填写将自适应间距支持百分比
-        /// </summary>
-        public string? Space { get; set; }
+    /// <summary>
+    /// 获得/设置 每个 step 的间距不填写将自适应间距支持百分比
+    /// </summary>
+    public string? Space { get; set; }
 
-        /// <summary>
-        /// 获得/设置 每个 step 的模板
-        /// </summary>
-        public RenderFragment? Template { get; set; }
-    }
+    /// <summary>
+    /// 获得/设置 每个 step 的模板
+    /// </summary>
+    public RenderFragment? Template { get; set; }
 }

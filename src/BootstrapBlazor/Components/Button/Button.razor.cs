@@ -4,42 +4,41 @@
 
 using Microsoft.AspNetCore.Components;
 
-namespace BootstrapBlazor.Components
+namespace BootstrapBlazor.Components;
+
+/// <summary>
+/// 
+/// </summary>
+public partial class Button
 {
     /// <summary>
-    /// 
+    /// 获得 ValidateForm 实例
     /// </summary>
-    public partial class Button
+    [CascadingParameter]
+    protected ValidateForm? ValidateForm { get; set; }
+
+    /// <summary>
+    /// OnInitialized 方法
+    /// </summary>
+    protected override void OnInitialized()
     {
-        /// <summary>
-        /// 获得 ValidateForm 实例
-        /// </summary>
-        [CascadingParameter]
-        protected ValidateForm? ValidateForm { get; set; }
+        base.OnInitialized();
 
-        /// <summary>
-        /// OnInitialized 方法
-        /// </summary>
-        protected override void OnInitialized()
+        if (IsAsync && ValidateForm != null)
         {
-            base.OnInitialized();
-
-            if (IsAsync && ValidateForm != null)
-            {
-                // 开启异步操作时与 ValidateForm 联动
-                ValidateForm.RegisterAsyncSubmitButton(this);
-            }
+            // 开启异步操作时与 ValidateForm 联动
+            ValidateForm.RegisterAsyncSubmitButton(this);
         }
+    }
 
-        /// <summary>
-        /// 触发按钮异步操作方法
-        /// </summary>
-        /// <param name="loading">true 时显示正在操作 false 时表示结束</param>
-        internal void TriggerAsync(bool loading)
-        {
-            IsAsyncLoading = loading;
-            ButtonIcon = loading ? LoadingIcon : Icon;
-            SetDisable(loading);
-        }
+    /// <summary>
+    /// 触发按钮异步操作方法
+    /// </summary>
+    /// <param name="loading">true 时显示正在操作 false 时表示结束</param>
+    internal void TriggerAsync(bool loading)
+    {
+        IsAsyncLoading = loading;
+        ButtonIcon = loading ? LoadingIcon : Icon;
+        SetDisable(loading);
     }
 }

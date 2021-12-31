@@ -18,32 +18,32 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace BootstrapBlazor.Shared.Samples
+namespace BootstrapBlazor.Shared.Samples;
+
+/// <summary>
+/// 
+/// </summary>
+public sealed partial class Uploads : IDisposable
 {
-    /// <summary>
-    /// 
-    /// </summary>
-    public sealed partial class Uploads : IDisposable
-    {
-        private static readonly Random random = new();
+    private static readonly Random random = new();
 
-        [Inject]
-        [NotNull]
-        private ToastService? ToastService { get; set; }
+    [Inject]
+    [NotNull]
+    private ToastService? ToastService { get; set; }
 
-        [Inject]
-        [NotNull]
-        private IOptions<WebsiteOptions>? SiteOptions { get; set; }
+    [Inject]
+    [NotNull]
+    private IOptions<WebsiteOptions>? SiteOptions { get; set; }
 
-        [Inject]
-        [NotNull]
-        private IStringLocalizer<Uploads>? Localizer { get; set; }
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<Uploads>? Localizer { get; set; }
 
-        private List<UploadFile> PreviewFileList { get; } = new(new[] { new UploadFile { PrevUrl = "_content/BootstrapBlazor.Shared/images/Argo.png" } });
+    private List<UploadFile> PreviewFileList { get; } = new(new[] { new UploadFile { PrevUrl = "_content/BootstrapBlazor.Shared/images/Argo.png" } });
 
-        private BlockLogger? Trace { get; set; }
+    private BlockLogger? Trace { get; set; }
 
-        private List<UploadFile> DefaultFormatFileList { get; } = new List<UploadFile>()
+    private List<UploadFile> DefaultFormatFileList { get; } = new List<UploadFile>()
         {
             new UploadFile { FileName = "Test.xls" },
             new UploadFile { FileName = "Test.doc" },
@@ -57,172 +57,172 @@ namespace BootstrapBlazor.Shared.Samples
             new UploadFile { FileName = "Test.dat" }
         };
 
-        private Task OnFileChange(UploadFile file)
-        {
-            // 未真正保存文件
-            // file.SaveToFile()
-            Trace?.Log($"{file.File!.Name} {Localizer["Success"]}");
-            return Task.FromResult("");
-        }
+    private Task OnFileChange(UploadFile file)
+    {
+        // 未真正保存文件
+        // file.SaveToFile()
+        Trace?.Log($"{file.File!.Name} {Localizer["Success"]}");
+        return Task.FromResult("");
+    }
 
-        private async Task OnClickToUpload(UploadFile file)
+    private async Task OnClickToUpload(UploadFile file)
+    {
+        // 示例代码，模拟 80% 几率保存成功
+        var error = random.Next(1, 100) > 80;
+        if (error)
         {
-            // 示例代码，模拟 80% 几率保存成功
-            var error = random.Next(1, 100) > 80;
-            if (error)
+            file.Code = 1;
+            file.Error = Localizer["Error"];
+        }
+        else
+        {
+            await SaveToFile(file);
+        }
+    }
+
+    private CancellationTokenSource? UploadFolderToken { get; set; }
+    private async Task OnUploadFolder(UploadFile file)
+    {
+        // 上传文件夹时会多次回调此方法
+        await SaveToFile(file);
+    }
+
+    private CancellationTokenSource? ReadAvatarToken { get; set; }
+    private async Task OnAvatarUpload(UploadFile file)
+    {
+        // 示例代码，使用 base64 格式
+        if (file != null && file.File != null)
+        {
+            var format = file.File.ContentType;
+            if (CheckValidAvatarFormat(format))
+            {
+                ReadAvatarToken ??= new CancellationTokenSource();
+                if (ReadAvatarToken.IsCancellationRequested)
+                {
+                    ReadAvatarToken.Dispose();
+                    ReadAvatarToken = new CancellationTokenSource();
+                }
+
+                await file.RequestBase64ImageFileAsync(format, 640, 480, MaxFileLength, ReadAvatarToken.Token);
+            }
+            else
             {
                 file.Code = 1;
-                file.Error = Localizer["Error"] ;
+                file.Error = Localizer["FormatError"];
+            }
+
+            if (file.Code != 0)
+            {
+                await ToastService.Error(Localizer["AvatarMsg"], $"{file.Error} {format}");
+            }
+        }
+    }
+
+    private CancellationTokenSource? ReadToken { get; set; }
+
+    private static long MaxFileLength => 200 * 1024 * 1024;
+
+    private async Task OnCardUpload(UploadFile file)
+    {
+        if (file != null && file.File != null)
+        {
+            // 服务器端验证当文件大于 2MB 时提示文件太大信息
+            if (file.Size > MaxFileLength)
+            {
+                await ToastService.Information(Localizer["FileMsg"], Localizer["FileError"]);
+                file.Code = 1;
+                file.Error = Localizer["FileError"];
             }
             else
             {
                 await SaveToFile(file);
             }
         }
+    }
 
-        private CancellationTokenSource? UploadFolderToken { get; set; }
-        private async Task OnUploadFolder(UploadFile file)
+    private async Task<bool> SaveToFile(UploadFile file)
+    {
+        // Server Side 使用
+        // Web Assembly 模式下必须使用 webapi 方式去保存文件到服务器或者数据库中
+        // 生成写入文件名称
+        var ret = false;
+        if (!string.IsNullOrEmpty(SiteOptions.Value.WebRootPath))
         {
-            // 上传文件夹时会多次回调此方法
-            await SaveToFile(file);
-        }
+            var uploaderFolder = Path.Combine(SiteOptions.Value.WebRootPath, $"images{Path.DirectorySeparatorChar}uploader");
+            file.FileName = $"{Path.GetFileNameWithoutExtension(file.OriginFileName)}-{DateTimeOffset.Now:yyyyMMddHHmmss}{Path.GetExtension(file.OriginFileName)}";
+            var fileName = Path.Combine(uploaderFolder, file.FileName);
 
-        private CancellationTokenSource? ReadAvatarToken { get; set; }
-        private async Task OnAvatarUpload(UploadFile file)
-        {
-            // 示例代码，使用 base64 格式
-            if (file != null && file.File != null)
+            ReadToken ??= new CancellationTokenSource();
+            ret = await file.SaveToFile(fileName, MaxFileLength, ReadToken.Token);
+
+            if (ret)
             {
-                var format = file.File.ContentType;
-                if (CheckValidAvatarFormat(format))
-                {
-                    ReadAvatarToken ??= new CancellationTokenSource();
-                    if (ReadAvatarToken.IsCancellationRequested)
-                    {
-                        ReadAvatarToken.Dispose();
-                        ReadAvatarToken = new CancellationTokenSource();
-                    }
-
-                    await file.RequestBase64ImageFileAsync(format, 640, 480, MaxFileLength, ReadAvatarToken.Token);
-                }
-                else
-                {
-                    file.Code = 1;
-                    file.Error = Localizer["FormatError"];
-                }
-
-                if (file.Code != 0)
-                {
-                    await ToastService.Error(Localizer["AvatarMsg"], $"{file.Error} {format}");
-                }
-            }
-        }
-
-        private CancellationTokenSource? ReadToken { get; set; }
-
-        private static long MaxFileLength => 200 * 1024 * 1024;
-
-        private async Task OnCardUpload(UploadFile file)
-        {
-            if (file != null && file.File != null)
-            {
-                // 服务器端验证当文件大于 2MB 时提示文件太大信息
-                if (file.Size > MaxFileLength)
-                {
-                    await ToastService.Information(Localizer["FileMsg"], Localizer["FileError"]);
-                    file.Code = 1;
-                    file.Error = Localizer["FileError"];
-                }
-                else
-                {
-                    await SaveToFile(file);
-                }
-            }
-        }
-
-        private async Task<bool> SaveToFile(UploadFile file)
-        {
-            // Server Side 使用
-            // Web Assembly 模式下必须使用 webapi 方式去保存文件到服务器或者数据库中
-            // 生成写入文件名称
-            var ret = false;
-            if (!string.IsNullOrEmpty(SiteOptions.Value.WebRootPath))
-            {
-                var uploaderFolder = Path.Combine(SiteOptions.Value.WebRootPath, $"images{Path.DirectorySeparatorChar}uploader");
-                file.FileName = $"{Path.GetFileNameWithoutExtension(file.OriginFileName)}-{DateTimeOffset.Now:yyyyMMddHHmmss}{Path.GetExtension(file.OriginFileName)}";
-                var fileName = Path.Combine(uploaderFolder, file.FileName);
-
-                ReadToken ??= new CancellationTokenSource();
-                ret = await file.SaveToFile(fileName, MaxFileLength, ReadToken.Token);
-
-                if (ret)
-                {
-                    // 保存成功
-                    file.PrevUrl = $"images/uploader/{file.FileName}";
-                }
-                else
-                {
-                    var errorMessage = $"{Localizer["SaveFileError"]} {file.OriginFileName}";
-                    file.Code = 1;
-                    file.Error = errorMessage;
-                    await ToastService.Error(Localizer["UploadFile"], errorMessage);
-                }
+                // 保存成功
+                file.PrevUrl = $"images/uploader/{file.FileName}";
             }
             else
             {
+                var errorMessage = $"{Localizer["SaveFileError"]} {file.OriginFileName}";
                 file.Code = 1;
-                file.Error = Localizer["WasmError"];
-                await ToastService.Information(Localizer["SaveFile"],Localizer["SaveFileMsg"]);
+                file.Error = errorMessage;
+                await ToastService.Error(Localizer["UploadFile"], errorMessage);
             }
-            return ret;
         }
-
-        private static bool CheckValidAvatarFormat(string format)
+        else
         {
-            return "jpg;png;bmp;gif;jpeg".Split(';').Any(f => format.Contains(f, StringComparison.OrdinalIgnoreCase));
+            file.Code = 1;
+            file.Error = Localizer["WasmError"];
+            await ToastService.Information(Localizer["SaveFile"], Localizer["SaveFileMsg"]);
         }
+        return ret;
+    }
 
-        private Task<bool> OnFileDelete(UploadFile item)
-        {
-            Trace?.Log($"{item.OriginFileName} {Localizer["RemoveMsg"]}");
-            return Task.FromResult(true);
-        }
+    private static bool CheckValidAvatarFormat(string format)
+    {
+        return "jpg;png;bmp;gif;jpeg".Split(';').Any(f => format.Contains(f, StringComparison.OrdinalIgnoreCase));
+    }
 
-        private Person Foo { get; set; } = new Person();
+    private Task<bool> OnFileDelete(UploadFile item)
+    {
+        Trace?.Log($"{item.OriginFileName} {Localizer["RemoveMsg"]}");
+        return Task.FromResult(true);
+    }
 
-        private static Task OnSubmit(EditContext context)
-        {
-            // 示例代码请根据业务情况自行更改
-            // var fileName = Foo.Picture?.Name;
-            return Task.CompletedTask;
-        }
+    private Person Foo { get; set; } = new Person();
 
-        [NotNull]
-        private BlockLogger? AvatarTrace { get; set; }
+    private static Task OnSubmit(EditContext context)
+    {
+        // 示例代码请根据业务情况自行更改
+        // var fileName = Foo.Picture?.Name;
+        return Task.CompletedTask;
+    }
 
-        private Task OnAvatarValidSubmit(EditContext context)
-        {
-            AvatarTrace.Log(Foo.Picture?.Name ?? "");
-            return Task.CompletedTask;
-        }
+    [NotNull]
+    private BlockLogger? AvatarTrace { get; set; }
 
-        private class Person
-        {
-            [Required]
-            [StringLength(20, MinimumLength = 2)]
-            public string Name { get; set; } = "Blazor";
+    private Task OnAvatarValidSubmit(EditContext context)
+    {
+        AvatarTrace.Log(Foo.Picture?.Name ?? "");
+        return Task.CompletedTask;
+    }
 
-            [Required]
-            [FileValidation(Extensions = new string[] { ".png", ".jpg", ".jpeg" }, FileSize = 50 * 1024)]
-            public IBrowserFile? Picture { get; set; }
-        }
+    private class Person
+    {
+        [Required]
+        [StringLength(20, MinimumLength = 2)]
+        public string Name { get; set; } = "Blazor";
 
-        /// <summary>
-        /// 获得属性方法
-        /// </summary>
-        /// <returns></returns>
-        private IEnumerable<AttributeItem> GetInputAttributes() => new AttributeItem[]
-        {
+        [Required]
+        [FileValidation(Extensions = new string[] { ".png", ".jpg", ".jpeg" }, FileSize = 50 * 1024)]
+        public IBrowserFile? Picture { get; set; }
+    }
+
+    /// <summary>
+    /// 获得属性方法
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerable<AttributeItem> GetInputAttributes() => new AttributeItem[]
+    {
             new AttributeItem() {
                 Name = "ShowDeleteButton",
                 Description = Localizer["ShowDeleteButton"],
@@ -307,10 +307,10 @@ namespace BootstrapBlazor.Shared.Samples
                 ValueList = " — ",
                 DefaultValue = " — "
             },
-        };
+    };
 
-        private IEnumerable<AttributeItem> GetButtonAttributes() => new AttributeItem[]
-        {
+    private IEnumerable<AttributeItem> GetButtonAttributes() => new AttributeItem[]
+    {
             new AttributeItem() {
                 Name = "IsDirectory",
                 Description = Localizer["IsDirectory"],
@@ -395,10 +395,10 @@ namespace BootstrapBlazor.Shared.Samples
                 ValueList = " — ",
                 DefaultValue = " - "
             }
-        };
+    };
 
-        private IEnumerable<AttributeItem> GetAvatarAttributes() => new AttributeItem[]
-        {
+    private IEnumerable<AttributeItem> GetAvatarAttributes() => new AttributeItem[]
+    {
             new AttributeItem() {
                 Name = "Width",
                 Description = Localizer["Width"],
@@ -462,17 +462,16 @@ namespace BootstrapBlazor.Shared.Samples
                 ValueList = " — ",
                 DefaultValue = " — "
             },
-        };
+    };
 
-        /// <summary>
-        /// 
-        /// </summary>
-        public void Dispose()
-        {
-            UploadFolderToken?.Dispose();
-            ReadAvatarToken?.Cancel();
-            ReadToken?.Cancel();
-            GC.SuppressFinalize(this);
-        }
+    /// <summary>
+    /// 
+    /// </summary>
+    public void Dispose()
+    {
+        UploadFolderToken?.Dispose();
+        ReadAvatarToken?.Cancel();
+        ReadToken?.Cancel();
+        GC.SuppressFinalize(this);
     }
 }

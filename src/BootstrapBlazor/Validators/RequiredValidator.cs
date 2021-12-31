@@ -8,63 +8,62 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace BootstrapBlazor.Components
+namespace BootstrapBlazor.Components;
+
+/// <summary>
+/// Required 验证实现类
+/// </summary>
+class RequiredValidator : ValidatorBase
 {
     /// <summary>
-    /// Required 验证实现类
+    /// 获得/设置 是否允许空字符串 默认 false 不允许
     /// </summary>
-    class RequiredValidator : ValidatorBase
+    public bool AllowEmptyString { get; set; }
+
+    /// <summary>
+    /// 获得/设置 IStringLocalizerFactory 注入服务实例 默认为 null
+    /// </summary>
+    public IStringLocalizerFactory? LocalizerFactory { get; set; }
+
+    /// <summary>
+    /// 获得/设置 Json 资源文件配置 默认为 null
+    /// </summary>
+    public JsonLocalizationOptions? Options { get; set; }
+
+    /// <summary>
+    /// 验证方法
+    /// </summary>
+    /// <param name="propertyValue">待校验值</param>
+    /// <param name="context">ValidateContext 实例</param>
+    /// <param name="results">ValidateResult 集合实例</param>
+    public override void Validate(object? propertyValue, ValidationContext context, List<ValidationResult> results)
     {
-        /// <summary>
-        /// 获得/设置 是否允许空字符串 默认 false 不允许
-        /// </summary>
-        public bool AllowEmptyString { get; set; }
-
-        /// <summary>
-        /// 获得/设置 IStringLocalizerFactory 注入服务实例 默认为 null
-        /// </summary>
-        public IStringLocalizerFactory? LocalizerFactory { get; set; }
-
-        /// <summary>
-        /// 获得/设置 Json 资源文件配置 默认为 null
-        /// </summary>
-        public JsonLocalizationOptions? Options { get; set; }
-
-        /// <summary>
-        /// 验证方法
-        /// </summary>
-        /// <param name="propertyValue">待校验值</param>
-        /// <param name="context">ValidateContext 实例</param>
-        /// <param name="results">ValidateResult 集合实例</param>
-        public override void Validate(object? propertyValue, ValidationContext context, List<ValidationResult> results)
+        var errorMessage = GetLocalizerErrorMessage(context, LocalizerFactory, Options);
+        var memberNames = string.IsNullOrEmpty(context.MemberName) ? null : new string[] { context.MemberName };
+        if (propertyValue == null)
         {
-            var errorMessage = GetLocalizerErrorMessage(context, LocalizerFactory, Options);
-            var memberNames = string.IsNullOrEmpty(context.MemberName) ? null : new string[] { context.MemberName };
-            if (propertyValue == null)
+            results.Add(new ValidationResult(errorMessage, memberNames));
+        }
+        else if (propertyValue.GetType() == typeof(string))
+        {
+            var val = propertyValue.ToString();
+            if (!AllowEmptyString && val == string.Empty)
             {
                 results.Add(new ValidationResult(errorMessage, memberNames));
             }
-            else if (propertyValue.GetType() == typeof(string))
+        }
+        else if (typeof(IEnumerable).IsAssignableFrom(propertyValue.GetType()))
+        {
+            var v = propertyValue as IEnumerable;
+            var index = 0;
+            foreach (var item in v!)
             {
-                var val = propertyValue.ToString();
-                if (!AllowEmptyString && val == string.Empty)
-                {
-                    results.Add(new ValidationResult(errorMessage, memberNames));
-                }
+                index++;
+                break;
             }
-            else if (typeof(IEnumerable).IsAssignableFrom(propertyValue.GetType()))
+            if (index == 0)
             {
-                var v = propertyValue as IEnumerable;
-                var index = 0;
-                foreach (var item in v!)
-                {
-                    index++;
-                    break;
-                }
-                if (index == 0)
-                {
-                    results.Add(new ValidationResult(errorMessage, memberNames));
-                }
+                results.Add(new ValidationResult(errorMessage, memberNames));
             }
         }
     }

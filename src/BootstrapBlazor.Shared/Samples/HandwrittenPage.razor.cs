@@ -8,58 +8,58 @@ using Microsoft.Extensions.Localization;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
-namespace BootstrapBlazor.Shared.Samples
+namespace BootstrapBlazor.Shared.Samples;
+
+/// <summary>
+/// 
+/// </summary>
+public sealed partial class HandwrittenPage
 {
+    [NotNull]
+    private string? Title { get; set; }
+
+    [NotNull]
+    private string? SubTitle { get; set; }
+
+    [NotNull]
+    private string? BaseUsageText { get; set; }
+
+    [NotNull]
+    private string? IntroText1 { get; set; }
+
+    [NotNull]
+    private string? IntroText2 { get; set; }
+
+    [NotNull]
+    private string? HandwrittenButtonText { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<HandwrittenPage>? Localizer { get; set; }
+
+
     /// <summary>
-    /// 
+    /// 签名Base64
     /// </summary>
-    public sealed partial class HandwrittenPage
+    public string? DrawBase64 { get; set; }
+
+    /// <summary>
+    /// OnInitialized 方法
+    /// </summary>
+    protected override void OnInitialized()
     {
-        [NotNull]
-        private string? Title { get; set; }
+        base.OnInitialized();
 
-        [NotNull]
-        private string? SubTitle { get; set; }
+        Title ??= Localizer[nameof(Title)];
+        SubTitle ??= Localizer[nameof(SubTitle)];
+        BaseUsageText ??= Localizer[nameof(BaseUsageText)];
+        IntroText1 ??= Localizer[nameof(IntroText1)];
+        IntroText2 ??= Localizer[nameof(IntroText2)];
+        HandwrittenButtonText ??= Localizer[nameof(HandwrittenButtonText)];
+    }
 
-        [NotNull]
-        private string? BaseUsageText { get; set; }
-
-        [NotNull]
-        private string? IntroText1 { get; set; }
-
-        [NotNull]
-        private string? IntroText2 { get; set; }
-
-        [NotNull]
-        private string? HandwrittenButtonText { get; set; }
-
-        [Inject]
-        [NotNull]
-        private IStringLocalizer<HandwrittenPage>? Localizer { get; set; }
-
-
-        /// <summary>
-        /// 签名Base64
-        /// </summary>
-        public string? DrawBase64 { get; set; }
-
-        /// <summary>
-        /// OnInitialized 方法
-        /// </summary>
-        protected override void OnInitialized()
-        {
-            base.OnInitialized();
-
-            Title ??= Localizer[nameof(Title)];
-            SubTitle ??= Localizer[nameof(SubTitle)];
-            BaseUsageText ??= Localizer[nameof(BaseUsageText)];
-            IntroText1 ??= Localizer[nameof(IntroText1)];
-            IntroText2 ??= Localizer[nameof(IntroText2)];
-            HandwrittenButtonText ??= Localizer[nameof(HandwrittenButtonText)];
-        }
-
-        private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-        {
+    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+    {
             new AttributeItem()
             {
                 Name = "SaveButtonText",
@@ -92,6 +92,5 @@ namespace BootstrapBlazor.Shared.Samples
                 ValueList = " — ",
                 DefaultValue = " — "
             }
-        };
-    }
+    };
 }

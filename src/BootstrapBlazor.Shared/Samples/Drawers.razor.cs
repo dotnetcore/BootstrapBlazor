@@ -7,51 +7,51 @@ using BootstrapBlazor.Shared.Common;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace BootstrapBlazor.Shared.Samples
+namespace BootstrapBlazor.Shared.Samples;
+
+/// <summary>
+/// 
+/// </summary>
+public sealed partial class Drawers
 {
-    /// <summary>
-    /// 
-    /// </summary>
-    public sealed partial class Drawers
-    {
-        private IEnumerable<SelectedItem> DrawerDirection { get; } = new SelectedItem[] {
+    private IEnumerable<SelectedItem> DrawerDirection { get; } = new SelectedItem[] {
             new SelectedItem("left", "从左向右") { Active = true },
             new SelectedItem("right", "从右向左"),
             new SelectedItem("top", "从上到下"),
             new SelectedItem("bottom", "从下向上")
         };
 
-        private Placement DrawerAlign { get; set; }
+    private Placement DrawerAlign { get; set; }
 
-        private Task OnStateChanged(IEnumerable<SelectedItem> values, SelectedItem val)
+    private Task OnStateChanged(IEnumerable<SelectedItem> values, SelectedItem val)
+    {
+        DrawerAlign = val.Value switch
         {
-            DrawerAlign = val.Value switch
-            {
-                "right" => Placement.Right,
-                "top" => Placement.Top,
-                "bottom" => Placement.Bottom,
-                _ => Placement.Left
-            };
-            IsOpen = false;
-            StateHasChanged();
-            return Task.CompletedTask;
-        }
+            "right" => Placement.Right,
+            "top" => Placement.Top,
+            "bottom" => Placement.Bottom,
+            _ => Placement.Left
+        };
+        IsOpen = false;
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
 
-        private bool IsOpen { get; set; }
+    private bool IsOpen { get; set; }
 
-        private bool IsBackdropOpen { get; set; }
+    private bool IsBackdropOpen { get; set; }
 
-        private void OpenDrawer()
-        {
-            IsBackdropOpen = true;
-        }
+    private void OpenDrawer()
+    {
+        IsBackdropOpen = true;
+    }
 
-        /// <summary>
-        /// 获得属性方法
-        /// </summary>
-        /// <returns></returns>
-        private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-        {
+    /// <summary>
+    /// 获得属性方法
+    /// </summary>
+    /// <returns></returns>
+    private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+    {
             // TODO: 移动到数据库中
             new AttributeItem() {
                 Name = "Width",
@@ -102,6 +102,5 @@ namespace BootstrapBlazor.Shared.Samples
                 ValueList = " — ",
                 DefaultValue = " — "
             },
-        };
-    }
+    };
 }

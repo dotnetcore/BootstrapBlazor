@@ -10,55 +10,55 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 
-namespace BootstrapBlazor.Shared.Samples.Table
+namespace BootstrapBlazor.Shared.Samples.Table;
+
+/// <summary>
+/// 
+/// </summary>
+public partial class TablesCell
 {
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<Foo>? Localizer { get; set; }
+
+    [Inject]
+    [NotNull]
+    private ToastService? ToastService { get; set; }
+
+    [NotNull]
+    private List<Foo>? Items { get; set; }
+
     /// <summary>
-    /// 
+    /// OnInitialized 方法
     /// </summary>
-    public partial class TablesCell
+    protected override void OnInitialized()
     {
-        [Inject]
-        [NotNull]
-        private IStringLocalizer<Foo>? Localizer { get; set; }
+        base.OnInitialized();
 
-        [Inject]
-        [NotNull]
-        private ToastService? ToastService { get; set; }
+        Items = Foo.GenerateFoo(Localizer);
+    }
 
-        [NotNull]
-        private List<Foo>? Items { get; set; }
-
-        /// <summary>
-        /// OnInitialized 方法
-        /// </summary>
-        protected override void OnInitialized()
+    private static void OnCellRenderHandler(TableCellArgs args)
+    {
+        if (args.Row is Foo foo && args.ColumnName == "Name")
         {
-            base.OnInitialized();
-
-            Items = Foo.GenerateFoo(Localizer);
-        }
-
-        private static void OnCellRenderHandler(TableCellArgs args)
-        {
-            if (args.Row is Foo foo && args.ColumnName == "Name")
+            if (foo.Name == "张三 0002" || foo.Name == "Zhangsan 0002")
             {
-                if (foo.Name == "张三 0002" || foo.Name == "Zhangsan 0002")
-                {
-                    args.Colspan = 2;
-                    args.Class = "cell-demo";
-                    args.Value = $"{foo.Name} -- {foo.Address} -- {foo.Count}";
-                }
+                args.Colspan = 2;
+                args.Class = "cell-demo";
+                args.Value = $"{foo.Name} -- {foo.Address} -- {foo.Count}";
             }
         }
+    }
 
-        private async Task OnDoubleClickCellCallback(string columnName, object row, object value)
-        {
-            var displayName = Utility.GetDisplayName(typeof(Foo), columnName);
-            await ToastService.Show(new ToastOption() { Title = "双击单元格回调", Content = $"当前单元格名称：{displayName} 当前值：{value}" });
-        }
+    private async Task OnDoubleClickCellCallback(string columnName, object row, object value)
+    {
+        var displayName = Utility.GetDisplayName(typeof(Foo), columnName);
+        await ToastService.Show(new ToastOption() { Title = "双击单元格回调", Content = $"当前单元格名称：{displayName} 当前值：{value}" });
+    }
 
-        private static IEnumerable<AttributeItem> GetAttributes() => new[]
-        {
+    private static IEnumerable<AttributeItem> GetAttributes() => new[]
+    {
             new AttributeItem() {
                 Name = "Row",
                 Description = "当前单元格行数据 请自行转化为绑定模型",
@@ -95,5 +95,4 @@ namespace BootstrapBlazor.Shared.Samples.Table
                 DefaultValue = " — "
             }
         };
-    }
 }

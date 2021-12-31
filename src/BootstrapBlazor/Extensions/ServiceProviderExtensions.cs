@@ -4,21 +4,20 @@
 
 using System;
 
-namespace BootstrapBlazor.Components
+namespace BootstrapBlazor.Components;
+
+/// <summary>
+/// 
+/// </summary>
+public static class ServiceProviderExtensions
 {
     /// <summary>
     /// 
     /// </summary>
-    public static class ServiceProviderExtensions
+    /// <param name="provider"></param>
+    [Obsolete("可删除此行代码")]
+    public static void RegisterProvider(this IServiceProvider provider)
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="provider"></param>
-        [Obsolete("可删除此行代码")]
-        public static void RegisterProvider(this IServiceProvider provider)
-        {
-            //TODO: 请移除此代码
-        }
+        //TODO: 请移除此代码
     }
 }

@@ -4,27 +4,26 @@
 
 using System.Diagnostics.CodeAnalysis;
 
-namespace BootstrapBlazor.Components
+namespace BootstrapBlazor.Components;
+
+/// <summary>
+/// 富文本框插件信息
+/// </summary>
+public class EditorToolbarButton
 {
     /// <summary>
-    /// 富文本框插件信息
+    /// 获取或设置 插件名称
     /// </summary>
-    public class EditorToolbarButton
-    {
-        /// <summary>
-        /// 获取或设置 插件名称
-        /// </summary>
-        [NotNull]
-        public string? ButtonName { get; set; }
+    [NotNull]
+    public string? ButtonName { get; set; }
 
-        /// <summary>
-        /// 获取或设置 插件图标
-        /// </summary>
-        public string? IconClass { get; set; }
+    /// <summary>
+    /// 获取或设置 插件图标
+    /// </summary>
+    public string? IconClass { get; set; }
 
-        /// <summary>
-        /// 获取或设置 插件的提示信息
-        /// </summary>
-        public string? Tooltip { get; set; }
-    }
+    /// <summary>
+    /// 获取或设置 插件的提示信息
+    /// </summary>
+    public string? Tooltip { get; set; }
 }

@@ -7,55 +7,54 @@ using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace BootstrapBlazor.Shared.Components
+namespace BootstrapBlazor.Shared.Components;
+
+/// <summary>
+/// 
+/// </summary>
+public sealed partial class ComponentCategory
 {
     /// <summary>
     /// 
     /// </summary>
-    public sealed partial class ComponentCategory
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    [Parameter]
+    public string? Text { get; set; }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    [Parameter]
+    public string? Desc { get; set; }
+
+    private List<ComponentCard> Cards { get; } = new List<ComponentCard>();
+
+    internal void Add(ComponentCard card) => Cards.Add(card);
+
+    private int CardCount => Cards.Where(c => !c.IsHide).Count();
+
+    private bool IsRendered { get; set; }
+
+    private string? ClassString => CssBuilder.Default("coms-cate")
+        .AddClass("d-none", IsRendered && CardCount == 0)
+        .Build();
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="firstRender"></param>
+    protected override void OnAfterRender(bool firstRender)
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        [Parameter]
-        public RenderFragment? ChildContent { get; set; }
+        base.OnAfterRender(firstRender);
 
-        /// <summary>
-        /// 
-        /// </summary>
-        [Parameter]
-        public string? Text { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        [Parameter]
-        public string? Desc { get; set; }
-
-        private List<ComponentCard> Cards { get; } = new List<ComponentCard>();
-
-        internal void Add(ComponentCard card) => Cards.Add(card);
-
-        private int CardCount => Cards.Where(c => !c.IsHide).Count();
-
-        private bool IsRendered { get; set; }
-
-        private string? ClassString => CssBuilder.Default("coms-cate")
-            .AddClass("d-none", IsRendered && CardCount == 0)
-            .Build();
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="firstRender"></param>
-        protected override void OnAfterRender(bool firstRender)
+        if (firstRender)
         {
-            base.OnAfterRender(firstRender);
-
-            if (firstRender)
-            {
-                IsRendered = true;
-            }
+            IsRendered = true;
         }
     }
 }

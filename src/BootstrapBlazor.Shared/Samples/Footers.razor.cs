@@ -8,22 +8,22 @@ using Microsoft.Extensions.Localization;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
-namespace BootstrapBlazor.Shared.Samples
+namespace BootstrapBlazor.Shared.Samples;
+
+/// <summary>
+/// 
+/// </summary>
+public sealed partial class Footers
 {
     /// <summary>
     /// 
     /// </summary>
-    public sealed partial class Footers
-    {
-        /// <summary>
-        /// 
-        /// </summary>
-        [Inject]
-        [NotNull]
-        public IStringLocalizer<Footers>? Localizer { get; set; }
+    [Inject]
+    [NotNull]
+    public IStringLocalizer<Footers>? Localizer { get; set; }
 
-        private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-        {
+    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+    {
             // TODO: 移动到数据库中
             new AttributeItem() {
                 Name = "Text",
@@ -39,6 +39,5 @@ namespace BootstrapBlazor.Shared.Samples
                 ValueList = " — ",
                 DefaultValue = " — "
             }
-        };
-    }
+    };
 }

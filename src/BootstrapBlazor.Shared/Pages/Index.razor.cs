@@ -10,42 +10,41 @@ using Microsoft.JSInterop;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 
-namespace BootstrapBlazor.Shared.Pages
+namespace BootstrapBlazor.Shared.Pages;
+
+/// <summary>
+/// 
+/// </summary>
+public sealed partial class Index
 {
+    private ElementReference TypeElement { get; set; }
+
+    private string? BodyClassString => CssBuilder.Default(Localizer["BodyClassString"])
+        .Build();
+
+    [Inject]
+    private IJSRuntime? JSRuntime { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<Index>? Localizer { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IOptions<WebsiteOptions>? Options { get; set; }
+
     /// <summary>
     /// 
     /// </summary>
-    public sealed partial class Index
+    /// <param name="firstRender"></param>
+    /// <returns></returns>
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        private ElementReference TypeElement { get; set; }
+        await base.OnAfterRenderAsync(firstRender);
 
-        private string? BodyClassString => CssBuilder.Default(Localizer["BodyClassString"])
-            .Build();
-
-        [Inject]
-        private IJSRuntime? JSRuntime { get; set; }
-
-        [Inject]
-        [NotNull]
-        private IStringLocalizer<Index>? Localizer { get; set; }
-
-        [Inject]
-        [NotNull]
-        private IOptions<WebsiteOptions>? Options { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="firstRender"></param>
-        /// <returns></returns>
-        protected override async Task OnAfterRenderAsync(bool firstRender)
+        if (firstRender && JSRuntime != null)
         {
-            await base.OnAfterRenderAsync(firstRender);
-
-            if (firstRender && JSRuntime != null)
-            {
-                await JSRuntime.InvokeVoidAsync("$.indexTyper", TypeElement, Localizer["DynamicText"].Value.ToCharArray(), Localizer["DynamicText1"].Value.ToCharArray(), Localizer["DynamicText2"].Value.ToCharArray());
-            }
+            await JSRuntime.InvokeVoidAsync("$.indexTyper", TypeElement, Localizer["DynamicText"].Value.ToCharArray(), Localizer["DynamicText1"].Value.ToCharArray(), Localizer["DynamicText2"].Value.ToCharArray());
         }
     }
 }

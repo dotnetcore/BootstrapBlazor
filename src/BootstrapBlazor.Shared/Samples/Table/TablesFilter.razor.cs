@@ -10,67 +10,66 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BootstrapBlazor.Shared.Samples.Table
+namespace BootstrapBlazor.Shared.Samples.Table;
+
+/// <summary>
+/// 过滤示例代码
+/// </summary>
+public partial class TablesFilter
 {
+    private static IEnumerable<int> PageItemsSource => new int[] { 4, 10, 20 };
+
+    [NotNull]
+    private List<Foo>? Items { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<Foo>? Localizer { get; set; }
+
     /// <summary>
-    /// 过滤示例代码
+    /// OnInitialized 方法
     /// </summary>
-    public partial class TablesFilter
+    protected override void OnInitialized()
     {
-        private static IEnumerable<int> PageItemsSource => new int[] { 4, 10, 20 };
+        base.OnInitialized();
 
-        [NotNull]
-        private List<Foo>? Items { get; set; }
+        Items = Foo.GenerateFoo(Localizer);
+    }
 
-        [Inject]
-        [NotNull]
-        private IStringLocalizer<Foo>? Localizer { get; set; }
+    private Task<QueryData<Foo>> OnQueryAsync(QueryPageOptions options)
+    {
+        IEnumerable<Foo> items = Items;
 
-        /// <summary>
-        /// OnInitialized 方法
-        /// </summary>
-        protected override void OnInitialized()
+        // 过滤
+        var isFiltered = false;
+        if (options.Filters.Any())
         {
-            base.OnInitialized();
-
-            Items = Foo.GenerateFoo(Localizer);
+            items = items.Where(options.Filters.GetFilterFunc<Foo>());
+            isFiltered = true;
         }
 
-        private Task<QueryData<Foo>> OnQueryAsync(QueryPageOptions options)
+        // 排序
+        var isSorted = false;
+        if (!string.IsNullOrEmpty(options.SortName))
         {
-            IEnumerable<Foo> items = Items;
-
-            // 过滤
-            var isFiltered = false;
-            if (options.Filters.Any())
-            {
-                items = items.Where(options.Filters.GetFilterFunc<Foo>());
-                isFiltered = true;
-            }
-
-            // 排序
-            var isSorted = false;
-            if (!string.IsNullOrEmpty(options.SortName))
-            {
-                // 外部未进行排序，内部自动进行排序处理
-                var invoker = Foo.GetNameSortFunc();
-                items = invoker(items, options.SortName, options.SortOrder);
-                isSorted = true;
-            }
-
-            // 设置记录总数
-            var total = items.Count();
-
-            // 内存分页
-            items = items.Skip((options.PageIndex - 1) * options.PageItems).Take(options.PageItems).ToList();
-
-            return Task.FromResult(new QueryData<Foo>()
-            {
-                Items = items,
-                TotalCount = total,
-                IsSorted = isSorted,
-                IsFiltered = isFiltered
-            });
+            // 外部未进行排序，内部自动进行排序处理
+            var invoker = Foo.GetNameSortFunc();
+            items = invoker(items, options.SortName, options.SortOrder);
+            isSorted = true;
         }
+
+        // 设置记录总数
+        var total = items.Count();
+
+        // 内存分页
+        items = items.Skip((options.PageIndex - 1) * options.PageItems).Take(options.PageItems).ToList();
+
+        return Task.FromResult(new QueryData<Foo>()
+        {
+            Items = items,
+            TotalCount = total,
+            IsSorted = isSorted,
+            IsFiltered = isFiltered
+        });
     }
 }

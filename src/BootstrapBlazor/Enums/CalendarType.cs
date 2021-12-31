@@ -2,21 +2,20 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-namespace BootstrapBlazor.Components
+namespace BootstrapBlazor.Components;
+
+/// <summary>
+/// 日历组件显示模式枚举类型
+/// </summary>
+public enum CalendarViewModel
 {
     /// <summary>
-    /// 日历组件显示模式枚举类型
+    /// 月视图
     /// </summary>
-    public enum CalendarViewModel
-    {
-        /// <summary>
-        /// 月视图
-        /// </summary>
-        Month,
+    Month,
 
-        /// <summary>
-        /// 周视图
-        /// </summary>
-        Week
-    }
+    /// <summary>
+    /// 周视图
+    /// </summary>
+    Week
 }

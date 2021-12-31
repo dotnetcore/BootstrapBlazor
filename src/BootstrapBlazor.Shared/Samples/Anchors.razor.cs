@@ -8,23 +8,23 @@ using Microsoft.Extensions.Localization;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
-namespace BootstrapBlazor.Shared.Samples
-{
-    /// <summary>
-    /// 
-    /// </summary>
-    public sealed partial class Anchors
-    {
-        [Inject]
-        [NotNull]
-        private IStringLocalizer<Anchors>? Localizer { get; set; }
+namespace BootstrapBlazor.Shared.Samples;
 
-        /// <summary>
-        /// 获得属性方法
-        /// </summary>
-        /// <returns></returns>
-        private IEnumerable<AttributeItem> GetAttributes() => new[]
-        {
+/// <summary>
+/// 
+/// </summary>
+public sealed partial class Anchors
+{
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<Anchors>? Localizer { get; set; }
+
+    /// <summary>
+    /// 获得属性方法
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerable<AttributeItem> GetAttributes() => new[]
+    {
             // TODO: 移动到数据库中
             new AttributeItem() {
                 Name = "Target",
@@ -55,5 +55,4 @@ namespace BootstrapBlazor.Shared.Samples
                 DefaultValue = " — "
             }
         };
-    }
 }

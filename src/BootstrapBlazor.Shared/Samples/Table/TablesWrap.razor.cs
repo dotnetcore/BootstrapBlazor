@@ -10,43 +10,42 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 
-namespace BootstrapBlazor.Shared.Samples.Table
+namespace BootstrapBlazor.Shared.Samples.Table;
+
+/// <summary>
+/// 折行演示示例代码
+/// </summary>
+public sealed partial class TablesWrap
 {
+    [NotNull]
+    private IEnumerable<Foo>? CellItems { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<Foo>? Localizer { get; set; }
+
     /// <summary>
-    /// 折行演示示例代码
+    /// OnInitialized 方法
     /// </summary>
-    public sealed partial class TablesWrap
+    protected override void OnInitialized()
     {
-        [NotNull]
-        private IEnumerable<Foo>? CellItems { get; set; }
+        base.OnInitialized();
 
-        [Inject]
-        [NotNull]
-        private IStringLocalizer<Foo>? Localizer { get; set; }
+        CellItems = Foo.GenerateFoo(Localizer, 4);
+    }
 
-        /// <summary>
-        /// OnInitialized 方法
-        /// </summary>
-        protected override void OnInitialized()
+    /// <summary>
+    /// OnAfterRenderAsync 方法
+    /// </summary>
+    /// <param name="firstRender"></param>
+    /// <returns></returns>
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+
+        if (firstRender)
         {
-            base.OnInitialized();
-
-            CellItems = Foo.GenerateFoo(Localizer, 4);
-        }
-
-        /// <summary>
-        /// OnAfterRenderAsync 方法
-        /// </summary>
-        /// <param name="firstRender"></param>
-        /// <returns></returns>
-        protected override async Task OnAfterRenderAsync(bool firstRender)
-        {
-            await base.OnAfterRenderAsync(firstRender);
-
-            if (firstRender)
-            {
-                await JSRuntime.InvokeVoidAsync("$.table_wrap");
-            }
+            await JSRuntime.InvokeVoidAsync("$.table_wrap");
         }
     }
 }

@@ -4,21 +4,20 @@
 
 using Microsoft.AspNetCore.Components;
 
-namespace BootstrapBlazor.Components
+namespace BootstrapBlazor.Components;
+
+/// <summary>
+/// FullScreen 配置类
+/// </summary>
+public class FullScreenOption
 {
     /// <summary>
-    /// FullScreen 配置类
+    /// 
     /// </summary>
-    public class FullScreenOption
-    {
-        /// <summary>
-        /// 
-        /// </summary>
-        public ElementReference Element { get; set; }
+    public ElementReference Element { get; set; }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        public string? Id { get; set; }
-    }
+    /// <summary>
+    /// 
+    /// </summary>
+    public string? Id { get; set; }
 }

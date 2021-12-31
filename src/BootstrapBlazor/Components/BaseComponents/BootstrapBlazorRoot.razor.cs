@@ -6,45 +6,44 @@ using Microsoft.AspNetCore.Components;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 
-namespace BootstrapBlazor.Components
+namespace BootstrapBlazor.Components;
+
+/// <summary>
+/// BootstrapBlazorRoot 组件
+/// </summary>
+public partial class BootstrapBlazorRoot
 {
+    [Inject]
+    [NotNull]
+    private ICacheManager? Cache { get; set; }
+
     /// <summary>
-    /// BootstrapBlazorRoot 组件
+    /// 获得/设置 自组件
     /// </summary>
-    public partial class BootstrapBlazorRoot
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    /// <summary>
+    /// 获得 Message 组件实例
+    /// </summary>
+    [NotNull]
+    public Message? MessageContainer { get; private set; }
+
+    /// <summary>
+    /// 获得 Toast 组件实例
+    /// </summary>
+    [NotNull]
+    public Toast? ToastContainer { get; private set; }
+
+    /// <summary>
+    /// SetParametersAsync 方法
+    /// </summary>
+    /// <param name="parameters"></param>
+    /// <returns></returns>
+    public override async Task SetParametersAsync(ParameterView parameters)
     {
-        [Inject]
-        [NotNull]
-        private ICacheManager? Cache { get; set; }
+        Cache.SetStartTime();
 
-        /// <summary>
-        /// 获得/设置 自组件
-        /// </summary>
-        [Parameter]
-        public RenderFragment? ChildContent { get; set; }
-
-        /// <summary>
-        /// 获得 Message 组件实例
-        /// </summary>
-        [NotNull]
-        public Message? MessageContainer { get; private set; }
-
-        /// <summary>
-        /// 获得 Toast 组件实例
-        /// </summary>
-        [NotNull]
-        public Toast? ToastContainer { get; private set; }
-
-        /// <summary>
-        /// SetParametersAsync 方法
-        /// </summary>
-        /// <param name="parameters"></param>
-        /// <returns></returns>
-        public override async Task SetParametersAsync(ParameterView parameters)
-        {
-            Cache.SetStartTime();
-
-            await base.SetParametersAsync(parameters);
-        }
+        await base.SetParametersAsync(parameters);
     }
 }

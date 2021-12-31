@@ -5,19 +5,19 @@
 using BootstrapBlazor.Shared.Common;
 using System.Collections.Generic;
 
-namespace BootstrapBlazor.Shared.Samples
+namespace BootstrapBlazor.Shared.Samples;
+
+/// <summary>
+/// Card展示组件
+/// </summary>
+public sealed partial class Cards
 {
     /// <summary>
-    /// Card展示组件
+    /// Card属性
     /// </summary>
-    public sealed partial class Cards
+    /// <returns></returns>
+    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
-        /// <summary>
-        /// Card属性
-        /// </summary>
-        /// <returns></returns>
-        private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-        {
             new AttributeItem() {
                 Name = "CardBody",
                 Description = Localizer["CardBody"],
@@ -60,7 +60,6 @@ namespace BootstrapBlazor.Shared.Samples
                 ValueList = "true / false",
                 DefaultValue = "false"
             },
-        };
-    }
+    };
 }
 
