@@ -19,6 +19,7 @@ public abstract class CardBase : BootstrapComponentBase
     protected virtual string? ClassName => CssBuilder.Default("card")
         .AddClass("text-center", IsCenter)
         .AddClass($"border-{Color.ToDescriptionString()}", Color != Color.None)
+        .AddClass("card-shadow", IsShadow)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
@@ -77,6 +78,12 @@ public abstract class CardBase : BootstrapComponentBase
     /// </summary>
     [Parameter]
     public bool IsCollapsible { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否显示阴影 默认 false
+    /// </summary>
+    [Parameter]
+    public bool IsShadow { get; set; }
 
     /// <summary>
     /// 

@@ -16,3 +16,12 @@
 .card .is-open .card-collapse-arrow {
     transform: rotate( 90deg);
 }
+
+.card-shadow {
+    transition: box-shadow .3s linear;
+    box-shadow: 0 0 8px 0 #e8edfa99, 0 2px 4px 0 #e8edfa80;
+}
+
+    .card-shadow:hover {
+        box-shadow: 0 1px 7px 0 #0000000d, 0 2px 8px 0 #00000012, 0 3px 9px 0 #0000000f, 0 5px 10px 0 #00000008;
+    }
