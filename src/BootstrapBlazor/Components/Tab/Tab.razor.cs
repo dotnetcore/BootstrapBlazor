@@ -199,6 +199,7 @@ public partial class Tab
     /// 获得/设置 TabItem 显示文本字典 默认 null 未设置时取侧边栏菜单显示文本
     /// </summary>
     [Parameter]
+    [Obsolete("已弃用；请使用 [TabItemOptionAttribute] 标签替换此功能 详细说明见 更新日志 V6.2 https://gitee.com/LongbowEnterprise/BootstrapBlazor/wikis/%E6%9B%B4%E6%96%B0%E5%8E%86%E5%8F%B2/V6.2.0", true)]
     public Dictionary<string, string>? TabItemTextDictionary { get; set; }
 
     /// <summary>
@@ -486,12 +487,6 @@ public partial class Tab
         StateHasChanged();
     }
 
-    private bool TryGetTabItemText(string url, [MaybeNullWhen(false)] out string? text)
-    {
-        text = null;
-        return TabItemTextDictionary != null && TabItemTextDictionary.TryGetValue(url, out text);
-    }
-
     private void AddTabItem(string url)
     {
         var parameters = new Dictionary<string, object?>();
@@ -542,11 +537,6 @@ public partial class Tab
             var active = Options.IsActive ?? true;
             var closable = Options.Closable ?? true;
             Options.Reset();
-
-            if (string.IsNullOrEmpty(text) && TryGetTabItemText(url, out var tabText))
-            {
-                text = tabText;
-            }
 
             parameters.Add(nameof(TabItem.Url), url);
             parameters.Add(nameof(TabItem.Icon), icon);
@@ -666,14 +656,6 @@ public partial class Tab
     {
         _items.ForEach(i => i.SetActive(false));
         item.SetActive(true);
-        if (ClickTabToNavigation
-            && string.IsNullOrEmpty(item.Text)
-            && item.Url != null
-            && TryGetTabItemText(item.Url, out var tabText)
-            && !string.IsNullOrEmpty(tabText))
-        {
-            item.SetText(tabText);
-        }
     }
 
     private RenderFragment? RenderTabItemContent(RenderFragment? content) => ErrorLogger != null

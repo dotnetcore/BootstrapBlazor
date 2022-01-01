@@ -124,105 +124,98 @@ public sealed partial class Tabs
     /// <returns></returns>
     private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
-            // TODO: 移动到数据库中
-            new AttributeItem() {
-                Name = "IsBorderCard",
-                Description = Localizer["Att1"].Value,
-                Type = "boolean",
-                ValueList = "true/false",
-                DefaultValue = "false"
-            },
-            new AttributeItem() {
-                Name = "IsCard",
-                Description = Localizer["Att2"].Value,
-                Type = "boolean",
-                ValueList = "true/false",
-                DefaultValue = "false"
-            },
-            new AttributeItem() {
-                Name = "IsOnlyRenderActiveTab",
-                Description = Localizer["Att3"].Value,
-                Type = "boolean",
-                ValueList = "true/false",
-                DefaultValue = "false"
-            },
-            new AttributeItem() {
-                Name = "ShowClose",
-                Description = Localizer["Att4"].Value,
-                Type = "boolean",
-                ValueList = "true/false",
-                DefaultValue = "false"
-            },
-            new AttributeItem() {
-                Name = "ShowExtendButtons",
-                Description = Localizer["Att5"].Value,
-                Type = "boolean",
-                ValueList = " — ",
-                DefaultValue = "false"
-            },
-            new AttributeItem() {
-                Name = "ClickTabToNavigation",
-                Description = Localizer["Att6"].Value,
-                Type = "boolean",
-                ValueList = "true/false",
-                DefaultValue = "false"
-            },
-            new AttributeItem() {
-                Name = "Placement",
-                Description = Localizer["Att7"].Value,
-                Type = "Placement",
-                ValueList = "Top|Right|Bottom|Left",
-                DefaultValue = "Top"
-            },
-            new AttributeItem() {
-                Name = "Height",
-                Description = Localizer["Att8"].Value,
-                Type = "int",
-                ValueList = " — ",
-                DefaultValue = "0"
-            },
-            new AttributeItem() {
-                Name = "Items",
-                Description = Localizer["Att9"].Value,
-                Type = "IEnumerable<TabItemBase>",
-                ValueList = " — ",
-                DefaultValue = " — "
-            },
-            new AttributeItem() {
-                Name = "DefaultUrl",
-                Description = Localizer["DefaultUrl"].Value,
-                Type = "string",
-                ValueList = " — ",
-                DefaultValue = " — "
-            },
-            new AttributeItem() {
-                Name = "ChildContent",
-                Description = Localizer["Att10"].Value,
-                Type = "RenderFragment",
-                ValueList = " — ",
-                DefaultValue = " — "
-            },
-            new AttributeItem() {
-                Name = "AdditionalAssemblies",
-                Description = Localizer["Att11"].Value,
-                Type = "IEnumerable<Assembly>",
-                ValueList = " — ",
-                DefaultValue = " — "
-            },
-            new AttributeItem() {
-                Name = "OnClickTab",
-                Description = Localizer["Att12"].Value,
-                Type = "Func<TabItem, Task>",
-                ValueList = " — ",
-                DefaultValue = " — "
-            },
-            new AttributeItem() {
-                Name = "TabItemTextDictionary",
-                Description = Localizer["Att13"].Value,
-                Type = "Dictionary<string, string>",
-                ValueList = " — ",
-                DefaultValue = " — "
-            }
+        // TODO: 移动到数据库中
+        new AttributeItem() {
+            Name = "IsBorderCard",
+            Description = Localizer["Att1"].Value,
+            Type = "boolean",
+            ValueList = "true/false",
+            DefaultValue = "false"
+        },
+        new AttributeItem() {
+            Name = "IsCard",
+            Description = Localizer["Att2"].Value,
+            Type = "boolean",
+            ValueList = "true/false",
+            DefaultValue = "false"
+        },
+        new AttributeItem() {
+            Name = "IsOnlyRenderActiveTab",
+            Description = Localizer["Att3"].Value,
+            Type = "boolean",
+            ValueList = "true/false",
+            DefaultValue = "false"
+        },
+        new AttributeItem() {
+            Name = "ShowClose",
+            Description = Localizer["Att4"].Value,
+            Type = "boolean",
+            ValueList = "true/false",
+            DefaultValue = "false"
+        },
+        new AttributeItem() {
+            Name = "ShowExtendButtons",
+            Description = Localizer["Att5"].Value,
+            Type = "boolean",
+            ValueList = " — ",
+            DefaultValue = "false"
+        },
+        new AttributeItem() {
+            Name = "ClickTabToNavigation",
+            Description = Localizer["Att6"].Value,
+            Type = "boolean",
+            ValueList = "true/false",
+            DefaultValue = "false"
+        },
+        new AttributeItem() {
+            Name = "Placement",
+            Description = Localizer["Att7"].Value,
+            Type = "Placement",
+            ValueList = "Top|Right|Bottom|Left",
+            DefaultValue = "Top"
+        },
+        new AttributeItem() {
+            Name = "Height",
+            Description = Localizer["Att8"].Value,
+            Type = "int",
+            ValueList = " — ",
+            DefaultValue = "0"
+        },
+        new AttributeItem() {
+            Name = "Items",
+            Description = Localizer["Att9"].Value,
+            Type = "IEnumerable<TabItemBase>",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new AttributeItem() {
+            Name = "DefaultUrl",
+            Description = Localizer["DefaultUrl"].Value,
+            Type = "string",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new AttributeItem() {
+            Name = "ChildContent",
+            Description = Localizer["Att10"].Value,
+            Type = "RenderFragment",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new AttributeItem() {
+            Name = "AdditionalAssemblies",
+            Description = Localizer["Att11"].Value,
+            Type = "IEnumerable<Assembly>",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new AttributeItem() {
+            Name = "OnClickTab",
+            Description = Localizer["Att12"].Value,
+            Type = "Func<TabItem, Task>",
+            ValueList = " — ",
+            DefaultValue = " — "
+        }
     };
 
     /// <summary>
@@ -231,60 +224,60 @@ public sealed partial class Tabs
     /// <returns></returns>
     private IEnumerable<MethodItem> GetMethods() => new MethodItem[]
     {
-            // TODO: 移动到数据库中
-            new MethodItem() {
-                Name = "AddTab",
-                Description = Localizer["Method1"].Value,
-                Parameters = "TabItem",
-                ReturnValue = " — "
-            },
-            new MethodItem() {
-                Name = "RemoveTab",
-                Description = Localizer["Method2"].Value,
-                Parameters = "TabItem",
-                ReturnValue = " — "
-            },
-            new MethodItem() {
-                Name = "ActiveTab",
-                Description = Localizer["Method3"].Value,
-                Parameters = "TabItem",
-                ReturnValue = " — "
-            },
-            new MethodItem() {
-                Name = "ClickPrevTab",
-                Description = Localizer["Method4"].Value,
-                Parameters = "",
-                ReturnValue = "Task"
-            },
-            new MethodItem() {
-                Name = "ClickNextTab",
-                Description = Localizer["Method5"].Value,
-                Parameters = "",
-                ReturnValue = "Task"
-            },
-            new MethodItem() {
-                Name = "CloseCurrentTab",
-                Description = Localizer["Method6"].Value,
-                Parameters = "",
-                ReturnValue = "Task"
-            },
-            new MethodItem() {
-                Name = "CloseOtherTabs",
-                Description = Localizer["Method7"].Value,
-                Parameters = "",
-                ReturnValue = "Task"
-            },
-            new MethodItem() {
-                Name = "CloseAllTabs",
-                Description = Localizer["Method8"].Value,
-                Parameters = "",
-                ReturnValue = "Task"
-            },
-            new MethodItem() {
-                Name = nameof(Tab.GetActiveTab),
-                Description = Localizer["Method9"].Value,
-                Parameters = "",
-                ReturnValue = "Tabitem"
-            },
+        // TODO: 移动到数据库中
+        new MethodItem() {
+            Name = "AddTab",
+            Description = Localizer["Method1"].Value,
+            Parameters = "TabItem",
+            ReturnValue = " — "
+        },
+        new MethodItem() {
+            Name = "RemoveTab",
+            Description = Localizer["Method2"].Value,
+            Parameters = "TabItem",
+            ReturnValue = " — "
+        },
+        new MethodItem() {
+            Name = "ActiveTab",
+            Description = Localizer["Method3"].Value,
+            Parameters = "TabItem",
+            ReturnValue = " — "
+        },
+        new MethodItem() {
+            Name = "ClickPrevTab",
+            Description = Localizer["Method4"].Value,
+            Parameters = "",
+            ReturnValue = "Task"
+        },
+        new MethodItem() {
+            Name = "ClickNextTab",
+            Description = Localizer["Method5"].Value,
+            Parameters = "",
+            ReturnValue = "Task"
+        },
+        new MethodItem() {
+            Name = "CloseCurrentTab",
+            Description = Localizer["Method6"].Value,
+            Parameters = "",
+            ReturnValue = "Task"
+        },
+        new MethodItem() {
+            Name = "CloseOtherTabs",
+            Description = Localizer["Method7"].Value,
+            Parameters = "",
+            ReturnValue = "Task"
+        },
+        new MethodItem() {
+            Name = "CloseAllTabs",
+            Description = Localizer["Method8"].Value,
+            Parameters = "",
+            ReturnValue = "Task"
+        },
+        new MethodItem() {
+            Name = nameof(Tab.GetActiveTab),
+            Description = Localizer["Method9"].Value,
+            Parameters = "",
+            ReturnValue = "Tabitem"
+        }
     };
 }
