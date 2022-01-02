@@ -32,12 +32,12 @@ public class Redirect : ComponentBase
         Navigation.NavigateTo(Url, true);
     }
 #else
-        /// <summary>
-        /// OnInitialized 方法
-        /// </summary>
-        protected override void OnInitialized()
-        {
-            Navigation.NavigateTo(Url, true);
-        }
+    /// <summary>
+    /// OnInitialized 方法
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        Navigation.NavigateTo(Url, true);
+    }
 #endif
 }

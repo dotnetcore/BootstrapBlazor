@@ -20,9 +20,9 @@ namespace BootstrapBlazor.Components;
 /// </summary>
 public class ErrorLogger
 #if NET5_0
-        : ComponentBase, IErrorLogger
+    : ComponentBase, IErrorLogger
 #else
-        : ErrorBoundaryBase, IErrorLogger
+    : ErrorBoundaryBase, IErrorLogger
 #endif
 {
     /// <summary>
@@ -66,18 +66,18 @@ public class ErrorLogger
     public Func<ILogger, Exception, Task>? OnErrorHandleAsync { get; set; }
 
 #if NET5_0
-        /// <summary>
-        /// 
-        /// </summary>
-        [Parameter]
-        public RenderFragment? ChildContent { get; set; }
+    /// <summary>
+    /// 
+    /// </summary>
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        [Parameter]
-        [NotNull]
-        public RenderFragment<Exception>? ErrorContent { get; set; }
+    /// <summary>
+    /// 
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public RenderFragment<Exception>? ErrorContent { get; set; }
 #else
     [Inject]
     [NotNull]
@@ -141,7 +141,7 @@ public class ErrorLogger
         var content = ChildContent;
 #if DEBUG
 #if NET5_0
-            var ex = Exception;
+        var ex = Exception;
 #else
         var ex = Exception ?? CurrentException;
 #endif
@@ -176,7 +176,7 @@ public class ErrorLogger
     /// <param name="exception"></param>
     /// <returns></returns>
 #if NET5_0
-        protected async Task OnErrorAsync(Exception exception)
+    protected async Task OnErrorAsync(Exception exception)
 #else
     protected override async Task OnErrorAsync(Exception exception)
 #endif
@@ -194,22 +194,11 @@ public class ErrorLogger
             }
 
 #if NET6_0_OR_GREATER
+            // 此处注意 内部 logLevel=Warning
             await ErrorBoundaryLogger.LogErrorAsync(exception);
+#else
+            Logger.LogError(exception, "");
 #endif
-            Logger.LogError(FormatException(exception));
         }
-    }
-
-    /// <summary>
-    /// 格式化异常信息
-    /// </summary>
-    /// <param name="exception"></param>
-    /// <param name="collection"></param>
-    /// <returns></returns>
-    public string FormatException(Exception exception, NameValueCollection? collection = null)
-    {
-        collection ??= new NameValueCollection();
-        collection.Add(Configuration.GetEnvironmentInformation());
-        return exception.Format(collection);
     }
 }
