@@ -514,6 +514,12 @@ public partial class Table<TItem>
     }
 
     /// <summary>
+    /// 编辑框的大小
+    /// </summary>
+    [Parameter]
+    public Size EditDialogSize { get; set; } = Size.Large;
+
+    /// <summary>
     /// 弹出编辑对话框方法
     /// </summary>
     protected async Task ShowEditDialog(ItemChangedType changedType)
@@ -533,6 +539,7 @@ public partial class Table<TItem>
             ItemsPerRow = EditDialogItemsPerRow,
             LabelAlign = EditDialogLabelAlign,
             ItemChangedType = changedType,
+            Size = EditDialogSize,
             OnCloseAsync = async () =>
             {
                 if (UseInjectDataService && GetDataService() is IEntityFrameworkCoreDataService ef)

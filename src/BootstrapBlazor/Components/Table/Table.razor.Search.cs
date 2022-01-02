@@ -155,6 +155,12 @@ public partial class Table<TItem>
     }
 
     /// <summary>
+    /// 编辑框的大小
+    /// </summary>
+    [Parameter]
+    public Size SearchDialogSize { get; set; } = Size.Large;
+
+    /// <summary>
     /// 高级查询按钮点击时调用此方法
     /// </summary>
     protected async Task ShowSearchDialog()
@@ -179,6 +185,7 @@ public partial class Table<TItem>
             RowType = SearchDialogRowType,
             ItemsPerRow = SearchDialogItemsPerRow,
             LabelAlign = SearchDialogLabelAlign,
+            Size = SearchDialogSize,
             Items = Columns.Where(i => i.Searchable)
         };
 
@@ -192,6 +199,7 @@ public partial class Table<TItem>
             OnSearchClick = SearchClick,
             RowType = SearchDialogRowType,
             ItemsPerRow = SearchDialogItemsPerRow,
+            Size = SearchDialogSize,
             LabelAlign = SearchDialogLabelAlign
         };
     }
