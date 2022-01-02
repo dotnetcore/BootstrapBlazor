@@ -544,8 +544,8 @@ public partial class Table<TItem>
             {
                 if (UseInjectDataService && GetDataService() is IEntityFrameworkCoreDataService ef)
                 {
-                        // EFCore
-                        await ToggleLoading(true);
+                    // EFCore
+                    await ToggleLoading(true);
                     await ef.CancelAsync();
                     await ToggleLoading(false);
                 }
@@ -734,9 +734,9 @@ public partial class Table<TItem>
             }
             else
             {
-                    // 如果未提供 OnExportAsync 回调委托使用注入服务来尝试解析
-                    // TODO: 这里将本页数据作为参数传递给导出服务，服务本身可以利用自身优势获取全部所需数据，如果获取全部数据呢？
-                    ret = await ExcelExport.ExportAsync(RowItems, Columns, JSRuntime);
+                // 如果未提供 OnExportAsync 回调委托使用注入服务来尝试解析
+                // TODO: 这里将本页数据作为参数传递给导出服务，服务本身可以利用自身优势获取全部所需数据，如果获取全部数据呢？
+                ret = await ExcelExport.ExportAsync(RowItems, Columns, JSRuntime);
             }
 
             var option = new ToastOption()
@@ -771,11 +771,11 @@ public partial class Table<TItem>
     /// 是否显示行内编辑按钮
     /// </summary>
     /// <returns></returns>
-    protected bool GetShowEditButton(TItem item) => ShowEditButtonCallback == null ? ShowEditButton : ShowEditButtonCallback(item);
+    protected bool GetShowEditButton(TItem item) => ShowEditButtonCallback == null ? ShowToolbar && ShowDefaultButtons && ShowEditButton : ShowEditButtonCallback(item);
 
     /// <summary>
     /// 是否显示行内删除按钮
     /// </summary>
     /// <returns></returns>
-    protected bool GetShowDeleteButton(TItem item) => ShowDeleteButtonCallback == null ? ShowDeleteButton : ShowDeleteButtonCallback(item);
+    protected bool GetShowDeleteButton(TItem item) => ShowDeleteButtonCallback == null ? ShowToolbar && ShowDefaultButtons && ShowDeleteButton : ShowDeleteButtonCallback(item);
 }

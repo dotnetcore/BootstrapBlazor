@@ -12,11 +12,11 @@ using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components;
 #if NET5_0
-    /// <summary>
-    /// 表头组件
-    /// </summary>
-    /// <typeparam name="TType">绑定字段值类型</typeparam>
-    public class TableColumn<TType> : BootstrapComponentBase, ITableColumn
+/// <summary>
+/// 表头组件
+/// </summary>
+/// <typeparam name="TType">绑定字段值类型</typeparam>
+public class TableColumn<TType> : BootstrapComponentBase, ITableColumn
 #elif NET6_0_OR_GREATER
 /// <summary>
 /// 表头组件
@@ -219,25 +219,25 @@ public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn
     /// </summary>
     [Parameter]
 #if NET5_0
-        public RenderFragment<TableColumnContext<object, TType>>? Template { get; set; }
+    public RenderFragment<TableColumnContext<object, TType>>? Template { get; set; }
 
-        /// <summary>
-        /// 内部使用负责把 object 类型的绑定数据值转化为泛型数据传递给前端
-        /// </summary>
-        RenderFragment<object>? ITableColumn.Template
+    /// <summary>
+    /// 内部使用负责把 object 类型的绑定数据值转化为泛型数据传递给前端
+    /// </summary>
+    RenderFragment<object>? ITableColumn.Template
+    {
+        get => Template == null ? null : new RenderFragment<object>(context => builder =>
         {
-            get => Template == null ? null : new RenderFragment<object>(context => builder =>
-            {
-                // 此处 context 为行数据
-                var fieldName = GetFieldName();
-                var value = Utility.GetPropertyValue<object, TType>(context, fieldName);
-                builder.AddContent(0, Template.Invoke(new TableColumnContext<object, TType>(context, value)));
-            });
-            set
-            {
+            // 此处 context 为行数据
+            var fieldName = GetFieldName();
+            var value = Utility.GetPropertyValue<object, TType>(context, fieldName);
+            builder.AddContent(0, Template.Invoke(new TableColumnContext<object, TType>(context, value)));
+        });
+        set
+        {
 
-            }
         }
+    }
 #elif NET6_0_OR_GREATER
     public RenderFragment<TableColumnContext<TItem, TType>>? Template { get; set; }
 
@@ -248,8 +248,8 @@ public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn
     {
         get => Template == null ? null : new RenderFragment<object>(context => builder =>
         {
-                // 此处 context 为行数据
-                var fieldName = GetFieldName();
+            // 此处 context 为行数据
+            var fieldName = GetFieldName();
             var value = Utility.GetPropertyValue<object, TType>(context, fieldName);
             builder.AddContent(0, Template.Invoke(new TableColumnContext<TItem, TType>((TItem)context, value)));
         });
@@ -265,7 +265,7 @@ public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn
     /// </summary>
     [Parameter]
 #if NET5_0
-        public RenderFragment<object>? EditTemplate { get; set; }
+    public RenderFragment<object>? EditTemplate { get; set; }
 #elif NET6_0_OR_GREATER
     public RenderFragment<TItem>? EditTemplate { get; set; }
 
@@ -290,7 +290,7 @@ public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn
     /// <value></value>
     [Parameter]
 #if NET5_0
-        public RenderFragment<object>? SearchTemplate { get; set; }
+    public RenderFragment<object>? SearchTemplate { get; set; }
 #elif NET6_0_OR_GREATER
     public RenderFragment<TItem>? SearchTemplate { get; set; }
 
