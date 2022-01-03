@@ -2,13 +2,9 @@
     text-align: center;
 }
 
-.empty-image {
-    margin-bottom: 8px;
-}
-
-    .empty-image svg {
-        height: 100%;
-        margin: auto;
+    .empty > .empty-image {
+        margin-top: 1rem;
+        margin-bottom: 8px;
     }
 
 .empty-telemplate {

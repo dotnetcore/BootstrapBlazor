@@ -13,6 +13,10 @@ namespace BootstrapBlazor.Components;
 /// </summary>
 public partial class Empty
 {
+    private string? ClassString => CssBuilder.Default("empty")
+        .AddClassFromAttributes(AdditionalAttributes)
+        .Build();
+
     /// <summary>
     ///  获得/设置 图片路径 默认为 null
     /// </summary>
@@ -24,18 +28,6 @@ public partial class Empty
     /// </summary>
     [Parameter]
     public string? Text { get; set; }
-
-    /// <summary>
-    /// 获得/ 设置 图片宽度 默认 100px
-    /// </summary>
-    [Parameter]
-    public string? Width { get; set; } = "100";
-
-    /// <summary>
-    /// 获得/设置 图片高度 默认 100px
-    /// </summary>
-    [Parameter]
-    public string? Height { get; set; } = "100";
 
     /// <summary>
     /// 获得/设置 自定义模板

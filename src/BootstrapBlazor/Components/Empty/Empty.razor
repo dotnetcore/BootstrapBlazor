@@ -1,10 +1,11 @@
 ﻿@namespace BootstrapBlazor.Components
+@inherits BootstrapComponentBase
 
-<div class="empty">
+<div @attributes="AdditionalAttributes" class="@ClassString">
     @if (!string.IsNullOrEmpty(Image))
     {
         <div class="empty-image">
-            <img src="@Image" width="@Width" height="@Height">
+            <img src="@Image">
         </div>
     }
     @if (!string.IsNullOrEmpty(Text))

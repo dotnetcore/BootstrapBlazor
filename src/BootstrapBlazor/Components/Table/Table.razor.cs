@@ -505,6 +505,12 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
     public string? EmptyText { get; set; }
 
     /// <summary>
+    /// 获得/设置 无数据时显示图片路径 默认 null 未设置
+    /// </summary>
+    [Parameter]
+    public string? EmptyImage { get; set; }
+
+    /// <summary>
     /// 获得/设置 是否显示无数据空记录 默认 false 不显示
     /// </summary>
     [Parameter]
@@ -1084,6 +1090,21 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
     private static string? GetDoubleClickCellClassString(bool trigger) => CssBuilder.Default()
         .AddClass("is-dbcell", trigger)
         .Build();
+
+    private bool IsShowEmpty => ShowEmpty && !RowItems.Any();
+
+    private RenderFragment RenderEmpty() => builder =>
+    {
+        var index = 0;
+        builder.OpenComponent<Empty>(index++);
+        builder.AddAttribute(index++, nameof(Empty.Text), EmptyText);
+        builder.AddAttribute(index++, nameof(Empty.Image), EmptyImage);
+        if(EmptyTemplate != null)
+        {
+            builder.AddAttribute(index++, nameof(Empty.Template), EmptyTemplate);
+        }
+        builder.CloseComponent();
+    };
 
     #region Dispose
     /// <summary>

@@ -162,6 +162,10 @@
                     </div>
                     <div class="table-fixed-body scroll">
                         @RenderTable.Invoke(false)
+                        @if(IsShowEmpty)
+                        {
+                            @RenderEmpty()
+                        }
                     </div>
                 }
                 else if (FixedExtendButtonsColumn || Columns.Any(col => col.Fixed))
@@ -169,20 +173,17 @@
                     <div class="overflow-auto">
                         @RenderTable.Invoke(true)
                     </div>
+                    @if(IsShowEmpty)
+                    {
+                        @RenderEmpty()
+                    }
                 }
                 else
                 {
                     @RenderTable.Invoke(true)
-                }
-                if (!RowItems.Any() && ShowEmpty)
-                {
-                    if (EmptyTemplate != null)
+                    @if(IsShowEmpty)
                     {
-                        @EmptyTemplate
-                    }
-                    else
-                    {
-                        <Empty Text="@EmptyText" />
+                        @RenderEmpty()
                     }
                 }
             }
