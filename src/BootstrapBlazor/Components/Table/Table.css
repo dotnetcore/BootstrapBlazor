@@ -740,3 +740,7 @@ form .table .table-cell > textarea {
 .table-cell .is-node {
     width: 18px;
 }
+
+.table-cell .tag {
+    line-height: 22px;
+}

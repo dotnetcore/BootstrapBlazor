@@ -463,7 +463,7 @@ public partial class Table<TItem>
 
     private async Task OnClickExtensionButton(TItem item, TableCellButtonArgs args)
     {
-        if (args.AutoSelectedRowWhenClick)
+        if ((IsMultipleSelect || ClickToSelect) && args.AutoSelectedRowWhenClick)
         {
             SelectedRows.Clear();
             SelectedRows.Add(item);

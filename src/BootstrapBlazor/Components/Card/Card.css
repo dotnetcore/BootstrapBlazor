@@ -25,3 +25,7 @@
     .card-shadow:hover {
         box-shadow: 0 1px 7px 0 #0000000d, 0 2px 8px 0 #00000012, 0 3px 9px 0 #0000000f, 0 5px 10px 0 #00000008;
     }
+
+.card-header .tag {
+    line-height: 21px;
+}
