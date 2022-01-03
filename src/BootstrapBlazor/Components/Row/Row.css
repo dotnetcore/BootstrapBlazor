@@ -1,5 +1,5 @@
 ﻿:root {
-    --bs-row-label-width: 100px;
+    --bs-row-label-width: 120px;
 }
 
 @media (min-width: 576px) {
