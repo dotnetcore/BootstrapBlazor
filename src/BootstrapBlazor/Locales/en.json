@@ -132,6 +132,9 @@
     "PrefixDisplayNameText": "Welcome",
     "PrefixUserNameText": "Account:"
   },
+  "BootstrapBlazor.Components.LogoutLink": {
+    "Text": "Logout"
+  },
   "BootstrapBlazor.Components.Menu": {
     "InvalidOperationExceptionMessage": "Sidemenu component cannot be used independently. Please use Menu component to set IsVertical = true"
   },

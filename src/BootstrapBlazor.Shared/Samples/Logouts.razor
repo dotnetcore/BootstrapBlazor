@@ -9,7 +9,7 @@
     <div style="height: 80px;"></div>
 </DemoBlock>
 
-<DemoBlock Title="自定义登录信息模板" Introduction="设置 <code>HeaderTemplate</code>" Name="Normal">
+<DemoBlock Title="自定义登录信息模板" Introduction="设置 <code>HeaderTemplate</code>" Name="HeaderTemplate">
     <Logout ImageUrl="_content/BootstrapBlazor.Shared/images/Argo.png" DisplayName="Administrators" UserName="Admin" class="bg-warning">
         <HeaderTemplate>
             <div class="d-flex flex-fill align-items-center">
@@ -24,12 +24,12 @@
     <div style="height: 80px;"></div>
 </DemoBlock>
 
-<DemoBlock Title="自定义链接模板" Introduction="设置 <code>LinkTemplate</code>" Name="Normal">
+<DemoBlock Title="自定义链接模板" Introduction="设置 <code>LinkTemplate</code>" Name="LinkTemplate">
     <Logout ImageUrl="_content/BootstrapBlazor.Shared/images/Argo.png" DisplayName="Administrators" UserName="Admin" class="bg-primary">
         <LinkTemplate>
             <a href="#">个人中心</a>
             <a href="#">设置</a>
-            <a href="#">注销</a>
+            <LogoutLink />
         </LinkTemplate>
     </Logout>
     <div style="height: 220px;"></div>

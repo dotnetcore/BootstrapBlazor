@@ -132,6 +132,9 @@
     "PrefixDisplayNameText": "欢迎",
     "PrefixUserNameText": "当前账号:"
   },
+  "BootstrapBlazor.Components.LogoutLink": {
+    "Text": "注销"
+  },
   "BootstrapBlazor.Components.Menu": {
     "InvalidOperationExceptionMessage": "SideMenu 组件不可以独立使用，请使用 Menu 组件设置 IsVertical=true"
   },

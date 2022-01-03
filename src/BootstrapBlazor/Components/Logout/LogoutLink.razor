@@ -1,0 +1,13 @@
+﻿@namespace BootstrapBlazor.Components
+@inherits BootstrapComponentBase
+
+<a href="#" @onclick:preventDefault @onclick="OnLogout">
+    @if (!string.IsNullOrEmpty(Icon))
+    {
+        <i class="fa fa-key"></i>
+    }
+    @if (!string.IsNullOrEmpty(Text))
+    {
+        <span>注销</span>
+    }
+</a>
