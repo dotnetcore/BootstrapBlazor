@@ -220,6 +220,30 @@ public partial class Table<TItem>
     }
 
     /// <summary>
+    /// 获得 <see cref="SearchModel"/> 中过滤条件
+    /// </summary>
+    /// <returns></returns>
+    protected IEnumerable<IFilterAction> GetAdvanceSearchs()
+    {
+        var searchs = new List<IFilterAction>();
+        // 处理 SearchModel 条件
+        if (SearchModel != null)
+        {
+            // 处理 SearchModel
+            var searchColumns = Columns.Where(i => i.Searchable);
+            foreach (var property in SearchModel.GetType().GetProperties().Where(i => searchColumns.Any(col => col.GetFieldName() == i.Name)))
+            {
+                var v = property.GetValue(SearchModel);
+                if (v != null)
+                {
+                    searchs.Add(new SearchFilterAction(property.Name, v, FilterAction.Equal));
+                }
+            }
+        }
+        return searchs;
+    }
+
+    /// <summary>
     /// 通过列集合中的 <see cref="ITableColumn.Searchable"/> 列与 <see cref="SearchText"/> 拼装 IFilterAction 集合
     /// </summary>
     /// <returns></returns>

@@ -36,30 +36,6 @@ public class EmptyTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void Width_Ok()
-    {
-        var cut = Context.RenderComponent<Empty>(builder =>
-        {
-            builder.Add(p => p.Width, "200");
-            builder.Add(i => i.Image, "/src/image/argo.png");
-        });
-
-        Assert.Contains("width=\"200\"", cut.Markup);
-    }
-
-    [Fact]
-    public void Height_Ok()
-    {
-        var cut = Context.RenderComponent<Empty>(builder =>
-        {
-            builder.Add(p => p.Height, "200");
-            builder.Add(i => i.Image, "/src/image/argo.png");
-        });
-
-        Assert.Contains("height=\"200\"", cut.Markup);
-    }
-
-    [Fact]
     public void ChildContent_Ok()
     {
         var cut = Context.RenderComponent<Empty>(builder => builder.Add(p => p.ChildContent, r =>

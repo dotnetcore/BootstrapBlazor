@@ -28,9 +28,14 @@ public class QueryPageOptions
     public IEnumerable<IFilterAction> Searchs { get; set; } = Enumerable.Empty<IFilterAction>();
 
     /// <summary>
-    /// 获得/设置 获得 <see cref="Table{TItem}.CustomerSearchModel"/> 中过滤条件 <see cref="Table{TItem}.SearchTemplate"/> 模板中的条件无法获得
+    /// 获得/设置 获得 <see cref="Table{TItem}.CustomerSearchModel"/> 中过滤条件 <see cref="Table{TItem}.SearchTemplate"/> 模板中的条件请使用 <see cref="AdvanceSearchs" />获得
     /// </summary>
     public IEnumerable<IFilterAction> CustomerSearchs { get; set; } = Enumerable.Empty<IFilterAction>();
+
+    /// <summary>
+    /// 获得/设置 获得 <see cref="Table{TItem}.SearchModel"/> 中过滤条件
+    /// </summary>
+    public IEnumerable<IFilterAction> AdvanceSearchs { get; set; } = Enumerable.Empty<IFilterAction>();
 
     /// <summary>
     /// 获得/设置 排序字段名称

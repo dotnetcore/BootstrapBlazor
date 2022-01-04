@@ -333,6 +333,7 @@ public partial class Table<TItem>
                 SortList = SortList,
                 Filters = Filters.Values,
                 Searchs = GetSearchs(),
+                AdvanceSearchs = GetAdvanceSearchs(),
                 CustomerSearchs = GetCustomerSearchs(),
                 SearchModel = SearchModel,
                 StartIndex = StartIndex
