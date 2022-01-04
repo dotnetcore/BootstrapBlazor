@@ -207,13 +207,59 @@ public static class LambdaExtensions
     /// </summary>
     /// <typeparam name="TItem"></typeparam>
     /// <returns></returns>
+    public static Expression<Func<IEnumerable<TItem>, List<string>, IEnumerable<TItem>>> GetSortListLambda<TItem>()
+    {
+        var exp_p1 = Expression.Parameter(typeof(IEnumerable<TItem>));
+        var exp_p2 = Expression.Parameter(typeof(List<string>));
+
+        var mi = typeof(LambdaExtensions).GetMethods().First(m => m.Name == nameof(Sort) && m.ReturnType.Name == typeof(IEnumerable<>).Name && m.GetParameters().Any(p => p.Name == "sortList")).MakeGenericMethod(typeof(TItem));
+        var body = Expression.Call(mi, exp_p1, exp_p2);
+        return Expression.Lambda<Func<IEnumerable<TItem>, List<string>, IEnumerable<TItem>>>(body, exp_p1, exp_p2);
+    }
+
+    /// <summary>
+    /// IEnumerable 排序扩展方法
+    /// </summary>
+    /// <typeparam name="TItem"></typeparam>
+    /// <param name="items"></param>
+    /// <param name="sortList"></param>
+    /// <returns></returns>
+    public static IEnumerable<TItem> Sort<TItem>(this IEnumerable<TItem> items, List<string> sortList)
+    {
+        var ret = items;
+        if (sortList.Any())
+        {
+            foreach (var sortExp in sortList)
+            {
+                var segs = sortExp.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+                var sortOrder = SortOrder.Asc;
+                var sortName = sortExp;
+                if (segs.Length == 2)
+                {
+                    sortName = segs[0];
+                    if (segs[1].Equals("desc", StringComparison.OrdinalIgnoreCase))
+                    {
+                        sortOrder = SortOrder.Desc;
+                    }
+                }
+                ret = ret.Sort<TItem>(sortName, sortOrder);
+            }
+        }
+        return ret;
+    }
+
+    /// <summary>
+    /// 获得排序 Expression 表达式
+    /// </summary>
+    /// <typeparam name="TItem"></typeparam>
+    /// <returns></returns>
     public static Expression<Func<IEnumerable<TItem>, string, SortOrder, IEnumerable<TItem>>> GetSortLambda<TItem>()
     {
         var exp_p1 = Expression.Parameter(typeof(IEnumerable<TItem>));
         var exp_p2 = Expression.Parameter(typeof(string));
         var exp_p3 = Expression.Parameter(typeof(SortOrder));
 
-        var mi = typeof(LambdaExtensions).GetMethods().Where(m => m.Name == nameof(Sort) && m.ReturnType.Name == typeof(IEnumerable<>).Name).First().MakeGenericMethod(typeof(TItem));
+        var mi = typeof(LambdaExtensions).GetMethods().First(m => m.Name == nameof(Sort) && m.ReturnType.Name == typeof(IEnumerable<>).Name && m.GetParameters().Any(p => p.Name == "sortName")).MakeGenericMethod(typeof(TItem));
         var body = Expression.Call(mi, exp_p1, exp_p2, exp_p3);
         return Expression.Lambda<Func<IEnumerable<TItem>, string, SortOrder, IEnumerable<TItem>>>(body, exp_p1, exp_p2, exp_p3);
     }

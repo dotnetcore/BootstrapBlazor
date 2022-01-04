@@ -4,6 +4,7 @@
 
 using Microsoft.AspNetCore.Components;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 
@@ -43,6 +44,12 @@ public partial class Table<TItem>
     public string SortIcon { get; set; } = "fa fa-sort";
 
     /// <summary>
+    /// 获得/设置 多列排序顺序 默认为空 设置时支持 Order 后缀 "Name" "Age desc" 
+    /// </summary>
+    [Parameter]
+    public List<string>? SortList { get; set; }
+
+    /// <summary>
     /// 获得/设置 表头排序时回调方法
     /// </summary>
     [NotNull]
@@ -68,8 +75,8 @@ public partial class Table<TItem>
 
         SortName = col.GetFieldName();
 
-            // 通知 Table 组件刷新数据
-            if (OnSortAsync != null)
+        // 通知 Table 组件刷新数据
+        if (OnSortAsync != null)
         {
             await OnSortAsync();
         }

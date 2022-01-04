@@ -318,6 +318,15 @@ internal class CacheManager : ICacheManager
             return LambdaExtensions.GetSortLambda<T>().Compile();
         });
     }
+    public static Func<IEnumerable<T>, List<string>, IEnumerable<T>> GetSortListFunc<T>()
+    {
+        var cacheKey = $"Lambda-{nameof(LambdaExtensions.GetSortListLambda)}-{typeof(T).FullName}";
+        return Instance.GetOrCreate(cacheKey, entry =>
+        {
+            entry.SetDynamicAssemblyPolicy(typeof(T));
+            return LambdaExtensions.GetSortListLambda<T>().Compile();
+        });
+    }
     #endregion
 
     #region Lambda ConvertTo

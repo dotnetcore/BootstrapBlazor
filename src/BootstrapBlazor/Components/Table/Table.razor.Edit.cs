@@ -330,12 +330,14 @@ public partial class Table<TItem>
                 SearchText = SearchText,
                 SortOrder = SortOrder,
                 SortName = SortName,
+                SortList = SortList,
                 Filters = Filters.Values,
                 Searchs = GetSearchs(),
                 CustomerSearchs = GetCustomerSearchs(),
                 SearchModel = SearchModel,
                 StartIndex = StartIndex
             };
+
             if (CustomerSearchModel != null)
             {
                 queryOption.SearchModel = CustomerSearchModel;
@@ -355,39 +357,54 @@ public partial class Table<TItem>
                 Items = null;
                 QueryItems = queryData.Items;
                 TotalCount = queryData.TotalCount;
+                IsAdvanceSearch = queryData.IsAdvanceSearch;
+
                 var filtered = queryData.IsFiltered;
                 var sorted = queryData.IsSorted;
                 var searched = queryData.IsSearch;
-                IsAdvanceSearch = queryData.IsAdvanceSearch;
 
-                // 外部为处理 SearchText 模糊查询
-                if (!searched && queryOption.Searchs.Any())
+                // 分页情况下内部不做处理防止页码错乱
+                if (!queryOption.IsPage)
                 {
-                    QueryItems = QueryItems.Where(queryOption.Searchs.GetFilterFunc<TItem>(FilterLogic.Or));
-                    TotalCount = QueryItems.Count();
+                    // 外部未处理 SearchText 模糊查询
+                    if (!searched && queryOption.Searchs.Any())
+                    {
+                        QueryItems = QueryItems.Where(queryOption.Searchs.GetFilterFunc<TItem>(FilterLogic.Or));
+                        TotalCount = QueryItems.Count();
+                    }
+
+                    // 外部未处理自定义高级搜索 内部进行高级自定义搜索过滤
+                    if (!IsAdvanceSearch && queryOption.CustomerSearchs.Any())
+                    {
+                        QueryItems = QueryItems.Where(queryOption.CustomerSearchs.GetFilterFunc<TItem>());
+                        TotalCount = QueryItems.Count();
+                        IsAdvanceSearch = true;
+                    }
+
+                    // 外部未过滤，内部自行过滤
+                    if (!filtered && queryOption.Filters.Any())
+                    {
+                        QueryItems = QueryItems.Where(queryOption.Filters.GetFilterFunc<TItem>());
+                        TotalCount = QueryItems.Count();
+                    }
+
+                    // 外部未处理排序，内部自行排序
+                    // 先处理列头排序 再处理默认多列排序
+                    if (!sorted)
+                    {
+                        if (queryOption.SortOrder != SortOrder.Unset && !string.IsNullOrEmpty(queryOption.SortName))
+                        {
+                            var invoker = Utility.GetSortFunc<TItem>();
+                            QueryItems = invoker(QueryItems, queryOption.SortName, queryOption.SortOrder);
+                        }
+                        else if (queryOption.SortList != null && queryOption.SortList.Any())
+                        {
+                            var invoker = Utility.GetSortListFunc<TItem>();
+                            QueryItems = invoker(QueryItems, queryOption.SortList);
+                        }
+                    }
                 }
 
-                // 外部未处理自定义高级搜索 内部进行高级自定义搜索过滤
-                if (!IsAdvanceSearch && queryOption.CustomerSearchs.Any())
-                {
-                    QueryItems = QueryItems.Where(queryOption.CustomerSearchs.GetFilterFunc<TItem>());
-                    TotalCount = QueryItems.Count();
-                    IsAdvanceSearch = true;
-                }
-
-                // 外部未过滤，内部自行过滤
-                if (!filtered && queryOption.Filters.Any())
-                {
-                    QueryItems = QueryItems.Where(queryOption.Filters.GetFilterFunc<TItem>());
-                    TotalCount = QueryItems.Count();
-                }
-
-                // 外部未处理排序，内部自行排序
-                if (!sorted && SortOrder != SortOrder.Unset && !string.IsNullOrEmpty(SortName))
-                {
-                    var invoker = Utility.GetSortFunc<TItem>();
-                    QueryItems = invoker(QueryItems, SortName, SortOrder);
-                }
                 if (IsTree)
                 {
                     KeySet.Clear();

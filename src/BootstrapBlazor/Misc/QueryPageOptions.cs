@@ -43,6 +43,11 @@ public class QueryPageOptions
     public SortOrder SortOrder { get; set; }
 
     /// <summary>
+    /// 获得/设置 多列排序集合 默认为 Empty 内部为 "Name" "Age desc"
+    /// </summary>
+    public List<string>? SortList { get; set; }
+
+    /// <summary>
     /// 获得/设置 过滤条件集合
     /// </summary>
     public IEnumerable<IFilterAction> Filters { get; set; } = Enumerable.Empty<IFilterAction>();

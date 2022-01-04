@@ -88,6 +88,12 @@ public static class Utility
     public static Func<IEnumerable<T>, string, SortOrder, IEnumerable<T>> GetSortFunc<T>() => CacheManager.GetSortFunc<T>();
 
     /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
+    public static Func<IEnumerable<T>, List<string>, IEnumerable<T>> GetSortListFunc<T>() => CacheManager.GetSortListFunc<T>();
+
+    /// <summary>
     /// 获取 PlaceHolder 方法
     /// </summary>
     /// <param name="model">模型实例</param>

@@ -10,6 +10,10 @@
     --bs-border-color: #ebeef5;
 }
 
+#components-reconnect-modal {
+    z-index: 2000 !important;
+}
+
 :fullscreen {
     background-color: #fff;
 }
