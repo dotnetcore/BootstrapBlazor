@@ -319,11 +319,7 @@ public sealed partial class DateTimeRange
     /// <param name="d"></param>
     internal void UpdateValue(DateTime d)
     {
-        if (SelectedValue.Start == DateTime.MinValue)
-        {
-            SelectedValue.Start = d;
-        }
-        else if (SelectedValue.End == DateTime.MinValue)
+        if (SelectedValue.End == DateTime.MinValue)
         {
             if (d < SelectedValue.Start)
             {
@@ -345,7 +341,7 @@ public sealed partial class DateTimeRange
         {
             UpdateStart(d);
         }
-        else if (d.Year > EndValue.Year || d.Month > EndValue.Month)
+        else if (d.Month > EndValue.Month)
         {
             UpdateEnd(d);
         }
