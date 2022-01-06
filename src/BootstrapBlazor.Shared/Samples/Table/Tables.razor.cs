@@ -363,6 +363,13 @@ public partial class Tables
             DefaultValue = "null"
         },
         new() {
+            Name = nameof(Table<Foo>.IsHideFooterWhenNoData),
+            Description = "无数据时是否显示 Footer",
+            Type = "boolean",
+            ValueList = "true / false",
+            DefaultValue = "false"
+        },
+        new() {
             Name = "ClickToSelect",
             Description = "点击行即选中本行",
             Type = "boolean",
