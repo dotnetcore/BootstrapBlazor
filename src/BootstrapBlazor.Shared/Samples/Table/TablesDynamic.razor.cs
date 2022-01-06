@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Data;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Shared.Samples.Table;
@@ -59,43 +60,81 @@ public partial class TablesDynamic
             if (propertyName == nameof(Foo.DateTime))
             {
                 context.AddRequiredAttribute(nameof(Foo.DateTime));
-                    // 使用 AutoGenerateColumnAttribute 设置显示名称示例
-                    context.AddAutoGenerateColumnAttribute(nameof(Foo.DateTime), new KeyValuePair<string, object?>[] {
+                // 使用 AutoGenerateColumnAttribute 设置显示名称示例
+                context.AddAutoGenerateColumnAttribute(nameof(Foo.DateTime), new KeyValuePair<string, object?>[] {
                         new(nameof(AutoGenerateColumnAttribute.Text), Localizer[nameof(Foo.DateTime)].Value)
                 });
             }
             else if (propertyName == nameof(Foo.Name))
             {
                 context.AddRequiredAttribute(nameof(Foo.Name), Localizer["Name.Required"]);
-                    // 使用 Text 设置显示名称示例
-                    col.Text = Localizer[nameof(Foo.Name)];
+                // 使用 Text 设置显示名称示例
+                col.Text = Localizer[nameof(Foo.Name)];
             }
             else if (propertyName == nameof(Foo.Count))
             {
                 context.AddRequiredAttribute(nameof(Foo.Count));
-                    // 使用 DisplayNameAttribute 设置显示名称示例
-                    context.AddDisplayNameAttribute(nameof(Foo.Count), Localizer[nameof(Foo.Count)].Value);
+                // 使用 DisplayNameAttribute 设置显示名称示例
+                context.AddDisplayNameAttribute(nameof(Foo.Count), Localizer[nameof(Foo.Count)].Value);
             }
             else if (propertyName == nameof(Foo.Complete))
             {
                 col.Filterable = true;
-                    // 使用 DisplayAttribute 设置显示名称示例
-                    context.AddDisplayAttribute(nameof(Foo.Complete), new KeyValuePair<string, object?>[] {
+                // 使用 DisplayAttribute 设置显示名称示例
+                context.AddDisplayAttribute(nameof(Foo.Complete), new KeyValuePair<string, object?>[] {
                         new(nameof(DisplayAttribute.Name), Localizer[nameof(Foo.Complete)].Value)
                 });
             }
-        });
+            else if (propertyName == nameof(Foo.Id))
+            {
+                col.Editable = false;
+                col.Visible = false;
+            }
+        })
+        {
+            OnDeleteAsync = items =>
+            {
+                // 数据源中移除
+                foreach (var item in items)
+                {
+                    var id = item.GetValue(nameof(Foo.Id));
+                    if (id != null)
+                    {
+                        var row = UserData.Rows.Find(id);
+                        if (row != null)
+                        {
+                            UserData.Rows.Remove(row);
+                        }
+                    }
+                }
+                UserData.AcceptChanges();
+                return Task.FromResult(true);
+            },
+            OnChanged = args =>
+            {
+                if (args.ChangedType == DynamicItemChangedType.Add)
+                {
+                    var item = args.Items.First();
+                    item.SetValue(nameof(Foo.DateTime), DateTime.Today);
+                    item.SetValue(nameof(Foo.Name), "新建值");
+                }
+                return Task.CompletedTask;
+            }
+        };
     }
 
     private void InitDataTable()
     {
+        UserData.Columns.Add(nameof(Foo.Id), typeof(int));
         UserData.Columns.Add(nameof(Foo.DateTime), typeof(DateTime));
         UserData.Columns.Add(nameof(Foo.Name), typeof(string));
         UserData.Columns.Add(nameof(Foo.Count), typeof(int));
+        UserData.PrimaryKey = new DataColumn[] { UserData.Columns[0] };
+        UserData.Columns[0].AutoIncrement = true;
 
         Foo.GenerateFoo(Localizer, 10).ForEach(f =>
         {
-            UserData.Rows.Add(f.DateTime, f.Name, f.Count);
+            UserData.Rows.Add(f.Id, f.DateTime, f.Name, f.Count);
         });
 
         CreateContext();

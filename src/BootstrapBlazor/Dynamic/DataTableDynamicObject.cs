@@ -24,8 +24,17 @@ public class DataTableDynamicObject : DynamicObject
     public override object? GetValue(string propertyName)
     {
         object? ret = null;
-        if (Row != null && Row.RowState != DataRowState.Deleted && Row.RowState != DataRowState.Detached && Row.Table.Columns.Contains(propertyName))
+        if (Row != null && Row.Table.Columns.Contains(propertyName))
         {
+            if (Row.RowState == DataRowState.Added)
+            {
+                // 新建行 Model 同步到 Row 上
+                if (!Row.Table.Columns[propertyName]!.AutoIncrement)
+                {
+                    // 自增长列
+                    Row[propertyName] = Utility.GetPropertyValue(this, propertyName);
+                }
+            }
             ret = Row[propertyName];
         }
         return ret ?? Utility.GetPropertyValue(this, propertyName);
@@ -38,6 +47,8 @@ public class DataTableDynamicObject : DynamicObject
     /// <param name="value"></param>
     public override void SetValue(string propertyName, object? value)
     {
+        base.SetValue(propertyName, value);
+
         if (Row != null && Row.Table.Columns.Contains(propertyName))
         {
             Row[propertyName] = value;

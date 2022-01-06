@@ -15,11 +15,6 @@ public enum DynamicItemChangedType
     Add,
 
     /// <summary>
-    /// 更新
-    /// </summary>
-    Update,
-
-    /// <summary>
     /// 删除
     /// </summary>
     Delete

@@ -213,17 +213,17 @@ public class DataTableDynamicContext : DynamicObjectContext
             }
             dynamicObject.Row = row;
 
-            // Table 组件数据源更新数据
-            Items?.Insert(indexOfRow, dynamicObject);
-
-            // 缓存更新数据
-            Caches.TryAdd(dynamicObject.DynamicObjectPrimaryKey, (dynamicObject, row));
-
             // 触发 Changed 回调
             if (OnChanged != null)
             {
                 await OnChanged(new(new[] { dynamicObject }, DynamicItemChangedType.Add));
             }
+
+            // Table 组件数据源更新数据
+            Items?.Insert(indexOfRow, dynamicObject);
+
+            // 缓存更新数据
+            Caches.TryAdd(dynamicObject.DynamicObjectPrimaryKey, (dynamicObject, row));
         }
     }
 
@@ -259,9 +259,13 @@ public class DataTableDynamicContext : DynamicObjectContext
                     Items?.Remove(item);
                 }
             }
-            if (changed && OnChanged != null)
+            if (changed)
             {
-                await OnChanged(new(items, DynamicItemChangedType.Delete));
+                DataTable.AcceptChanges();
+                if (OnChanged != null)
+                {
+                    await OnChanged(new(items, DynamicItemChangedType.Delete));
+                }
             }
             ret = true;
         }

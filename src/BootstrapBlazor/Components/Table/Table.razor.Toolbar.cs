@@ -304,7 +304,7 @@ public partial class Table<TItem>
             if (DynamicContext != null)
             {
                 // 数据源为 DataTable 新建后重建行与列
-                await DynamicContext.AddAsync(SelectedRows.AsEnumerable().OfType<IDynamicObject>());
+                await DynamicContext.AddAsync(SelectedRows.OfType<IDynamicObject>());
                 ResetDynamicContext();
                 StateHasChanged();
             }
@@ -557,6 +557,10 @@ public partial class Table<TItem>
                 var valid = await SaveModelAsync(context, changedType);
                 if (valid)
                 {
+                    if (DynamicContext != null)
+                    {
+                        SelectedRows.Clear();
+                    }
                     await QueryAsync();
                 }
                 await ToggleLoading(false);
@@ -606,7 +610,7 @@ public partial class Table<TItem>
     /// </summary>
     protected async Task DeleteAsync()
     {
-        if (IsExcel)
+        if (IsExcel || DynamicContext != null)
         {
             await DeleteDynamicObjectExcelModelAsync();
         }
