@@ -183,6 +183,12 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
     public bool? IsDetails { get; set; }
 
     /// <summary>
+    /// 获得/设置 无数据时是否隐藏表格 Footer 默认为 false 不隐藏 
+    /// </summary>
+    [Parameter]
+    public bool IsHideFooterWhenNoData { get; set; }
+
+    /// <summary>
     /// 获得/设置 每行显示组件数量 默认为 2
     /// </summary>
     [Parameter]
@@ -1099,12 +1105,21 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
         builder.OpenComponent<Empty>(index++);
         builder.AddAttribute(index++, nameof(Empty.Text), EmptyText);
         builder.AddAttribute(index++, nameof(Empty.Image), EmptyImage);
-        if(EmptyTemplate != null)
+        if (EmptyTemplate != null)
         {
             builder.AddAttribute(index++, nameof(Empty.Template), EmptyTemplate);
         }
         builder.CloseComponent();
     };
+
+    private int GetColumnCount()
+    {
+        var colspan = ColumnVisibles.Count(col => col.Visible);
+        if (IsMultipleSelect) colspan++;
+        if (ShowLineNo) colspan++;
+        if (ShowExtendButtons) colspan++;
+        return colspan;
+    }
 
     #region Dispose
     /// <summary>

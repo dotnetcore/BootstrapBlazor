@@ -162,10 +162,6 @@
                     </div>
                     <div class="table-fixed-body scroll">
                         @RenderTable.Invoke(false)
-                        @if(IsShowEmpty)
-                        {
-                            @RenderEmpty()
-                        }
                     </div>
                 }
                 else if (FixedExtendButtonsColumn || Columns.Any(col => col.Fixed))
@@ -173,18 +169,10 @@
                     <div class="overflow-auto">
                         @RenderTable.Invoke(true)
                     </div>
-                    @if(IsShowEmpty)
-                    {
-                        @RenderEmpty()
-                    }
                 }
                 else
                 {
                     @RenderTable.Invoke(true)
-                    @if(IsShowEmpty)
-                    {
-                        @RenderEmpty()
-                    }
                 }
             }
             else
@@ -246,7 +234,7 @@
                         }
                     </DynamicElement>
                 }
-                @if (ShowFooter)
+                @if (ShowFooter && !IsHideFooterWhenNoData)
                 {
                     <div class="table-row table-footer">
                         <CascadingValue Value="@ScreenSize" Name="ScreenSize">
@@ -329,14 +317,9 @@
                     @RenderRow(item)
                     if (!IsExcel && ShowDetails())
                     {
-                        var colspan = ColumnVisibles.Count(col => col.Visible);
-                        if (IsMultipleSelect) colspan++;
-                        if (ShowLineNo) colspan++;
-                        if (ShowExtendButtons) colspan++;
-
                         <tr class="@GetDetailRowClassString(item)">
                             <td>&nbsp;</td>
-                            <td colspan="@colspan">
+                            <td colspan="@GetColumnCount()">
                                 <div class="table-cell is-wrap">
                                     @DetailRowTemplate?.Invoke(item)
                                 </div>
@@ -348,9 +331,18 @@
                         @RenderEditForm((EditModel, ItemChangedType.Update))
                     }
                 }
+                @if(IsShowEmpty)
+                {
+                    <tr>
+                        <td colspan="@GetColumnCount()">
+                            <Empty Text="@EmptyText" Image="@EmptyImage" Template="@EmptyTemplate">
+                            </Empty>
+                        </td>
+                    </tr>
+                }
             }
         </tbody>
-        @if (ShowFooter)
+        @if (ShowFooter && !IsHideFooterWhenNoData)
         {
             <tfoot>
                 <CascadingValue Value="@(ScreenSize > RenderModelResponsiveWidth)" Name="IsMobileMode">
