@@ -73,4 +73,8 @@ public sealed partial class TablesFooter
             IsSearch = true
         });
     }
+
+    private static double GetAverage(IEnumerable<Foo> items) => items.Any() ? items.Average(i => i.Count) : 0;
+
+    private static int GetSum(IEnumerable<Foo> items) => items.Any() ? items.Sum(i => i.Count) : 0;
 }

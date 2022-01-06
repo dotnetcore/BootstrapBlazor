@@ -2,23 +2,26 @@
 @inherits BootstrapComponentBase
 
 <div @attributes="AdditionalAttributes" class="@ClassString">
-    @if (!string.IsNullOrEmpty(Image))
-    {
-        <div class="empty-image">
-            <img src="@Image">
-        </div>
-    }
-    @if (!string.IsNullOrEmpty(Text))
-    {
-        <div class="empty-text">
-            <span>@Text</span>
-        </div>
-    }
     @if (Template != null)
     {
         <div class="empty-telemplate">
             @Template
         </div>
     }
-    @ChildContent
+    else
+    {
+        @if (!string.IsNullOrEmpty(Image))
+        {
+            <div class="empty-image">
+                <img src="@Image">
+            </div>
+        }
+        @if (!string.IsNullOrEmpty(Text))
+        {
+            <div class="empty-text">
+                <span>@Text</span>
+            </div>
+        }
+        @ChildContent
+    }
 </div>

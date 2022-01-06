@@ -60,11 +60,11 @@
                 <td>
                     <div class="footer-customer">
                         <div>
-                            Average: @context.Average(i => i.Count)
+                            Average: @GetAverage(context)
                         </div>
                         <hr />
                         <div>
-                            Sum: @context.Sum(i => i.Count)
+                            Sum: @GetSum(context)
                         </div>
                     </div>
                 </td>

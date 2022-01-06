@@ -59,7 +59,7 @@ public partial class TableFooterCell
     [CascadingParameter(Name = "TableFooterContext")]
     private object? DataSource { get; set; }
 
-    private string? GetText() => Text ?? GetCountValue() ?? GetAggegateValue();
+    private string? GetText() => Text ?? (GetCount(DataSource) == 0 ? "0" : (GetCountValue() ?? GetAggegateValue()));
 
     /// <summary>
     /// 解析 Count Aggregate
@@ -209,5 +209,28 @@ public partial class TableFooterCell
         return mi?.MakeGenericMethod(modelType);
     }
 
-    private static int CreateCountMethod<TSource>(IEnumerable<TSource> source) => Enumerable.Count(source);
+    private static int CreateCountMethod<TSource>(IEnumerable<TSource> source) => source.Count();
+
+    private static int GetCount(object? source)
+    {
+        var ret = 0;
+        if (source != null)
+        {
+            // 绑定数据源类型
+            var type = source.GetType();
+
+            // 数据源泛型 TModel 类型
+            var modelType = type.GenericTypeArguments[0];
+
+            var mi = typeof(TableFooterCell).GetMethod(nameof(CreateCountMethod), BindingFlags.NonPublic | BindingFlags.Static)
+                            ?.MakeGenericMethod(modelType);
+
+            if (mi != null)
+            {
+                var v = mi.Invoke(null, new object[] { source })?.ToString();
+                _ = int.TryParse(v, out ret);
+            }
+        }
+        return ret;
+    }
 }
