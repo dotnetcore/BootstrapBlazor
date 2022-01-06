@@ -20,10 +20,10 @@
            ShowToolbar="true" ShowSearch="true" IsMultipleSelect="true" ShowExtendButtons="true"
            AddModalTitle="增加测试数据窗口" EditModalTitle="编辑测试数据窗口"
            SearchModel="@SearchModel" ShowEmpty="true" SearchMode="SearchMode.Top"
-           OnQueryAsync="@OnQueryAsync" OnResetSearchAsync="@OnResetSearchAsync"
+           OnQueryAsync="@OnSearchModelQueryAsync" OnResetSearchAsync="@OnResetSearchAsync"
            OnAddAsync="@OnAddAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync">
         <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" Width="180" Filterable="true" />
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
             <TableColumn @bind-Field="@context.Name" />
             <TableColumn @bind-Field="@context.Address" />
             <TableColumn @bind-Field="@context.Education" />
@@ -35,7 +35,7 @@
                         <BootstrapInput @bind-Value="@context.Name" placeholder="请输入姓名，50字以内" maxlength="50" ShowLabel="true" DisplayText="@Localizer[nameof(context.Name)]" />
                     </div>
                     <div class="col-12 col-sm-6">
-                        <BootstrapInput @bind-Value="@context.Address" placeholder="请输入地址，50字以内" maxlength="50" ShowLabel="true" DisplayText="@Localizer[nameof(context.Address)]" />
+                        <BootstrapInput @bind-Value="@context.Address" placeholder="请输入地址，500字以内" maxlength="500" ShowLabel="true" DisplayText="@Localizer[nameof(context.Address)]" />
                     </div>
                 </div>
             </GroupBox>
@@ -103,11 +103,11 @@
                 <SearchTemplate Context="model">
                     @{
                         var items = new List<SelectedItem>()
-                        {
-                            new SelectedItem { Text = "请选择 ...", Value = "" },
-                            new SelectedItem { Text = "姓名1", Value = "姓名1" },
-                            new SelectedItem { Text = "姓名2", Value = "姓名2" },
-                        };
+                    {
+                    new SelectedItem { Text = "请选择 ...", Value = "" },
+                    new SelectedItem { Text = "姓名1", Value = "姓名1" },
+                    new SelectedItem { Text = "姓名2", Value = "姓名2" },
+                    };
                         <div class="col-12 col-sm-6">
                             <Select Items="items" @bind-Value="@model!.Name" ShowLabel="true" DisplayText="姓名" />
                         </div>

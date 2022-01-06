@@ -101,14 +101,56 @@ public sealed partial class TablesSearch
         return Task.CompletedTask;
     }
 
+    private Task<QueryData<Foo>> OnSearchModelQueryAsync(QueryPageOptions options)
+    {
+        // 自定义了 SearchModel
+        IEnumerable<Foo> items = Items;
+
+        // 设置记录总数
+        var total = items.Count();
+
+        if (!string.IsNullOrEmpty(SearchModel.Name))
+        {
+            items = items.Where(i => i.Name == SearchModel.Name);
+        }
+
+        if (!string.IsNullOrEmpty(SearchModel.Address))
+        {
+            items = items.Where(i => i.Address == SearchModel.Address);
+        }
+
+        // 内存分页
+        items = items.Skip((options.PageIndex - 1) * options.PageItems).Take(options.PageItems).ToList();
+
+        return Task.FromResult(new QueryData<Foo>()
+        {
+            Items = items,
+            TotalCount = total,
+            IsSorted = true,
+            IsFiltered = true,
+            IsSearch = true,
+            IsAdvanceSearch = true
+        });
+    }
+
+
     private Task<QueryData<Foo>> OnQueryAsync(QueryPageOptions options)
     {
         IEnumerable<Foo> items = Items;
 
-        // CustomerSearchModel 过滤条件已经内置到 Searchs 无需额外代码处理
+        var isAdvanceSearch = false;
+        // 处理高级搜索
+        if (options.AdvanceSearchs.Any())
+        {
+            items = items.Where(options.AdvanceSearchs.GetFilterFunc<Foo>());
+            isAdvanceSearch = true;
+        }
+
+        // 处理 自定义 高级搜索 CustomerSearchModel 过滤条件
         if (options.CustomerSearchs.Any())
         {
             items = items.Where(options.CustomerSearchs.GetFilterFunc<Foo>());
+            isAdvanceSearch = true;
         }
 
         // 处理 Searchable=true 列与 SeachText 模糊搜索
@@ -146,7 +188,8 @@ public sealed partial class TablesSearch
             TotalCount = total,
             IsSorted = isSorted,
             IsFiltered = isFiltered,
-            IsSearch = options.CustomerSearchs.Any()
+            IsSearch = options.CustomerSearchs.Any(),
+            IsAdvanceSearch = isAdvanceSearch
         });
     }
 }
