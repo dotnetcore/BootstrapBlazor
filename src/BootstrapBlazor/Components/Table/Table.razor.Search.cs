@@ -227,7 +227,7 @@ public partial class Table<TItem>
     {
         var searchs = new List<IFilterAction>();
         // 处理 SearchModel 条件
-        if (SearchModel != null)
+        if (CustomerSearchModel == null && SearchModel != null)
         {
             // 处理 SearchModel
             var searchColumns = Columns.Where(i => i.Searchable);
