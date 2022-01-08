@@ -197,6 +197,10 @@ public partial class Modal : IAsyncDisposable
     {
         if (disposing)
         {
+            // 切换线程防止 JS 清理 DOM 后 C# 代码报错
+            // https://gitee.com/LongbowEnterprise/BootstrapBlazor/issues/I4PKOC
+            await Task.Delay(300);
+
             // JS 清理 DOM
             await JSRuntime.InvokeVoidAsync(ModalElement, "bb_modal", "dispose");
         }
