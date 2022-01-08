@@ -19,7 +19,7 @@ namespace BootstrapBlazor.Components
 #if NET6_0_OR_GREATER
     [CascadingTypeParameter(nameof(TModel))]
 #endif
-    public sealed partial class EditorForm<TModel> : IShowLabel
+    public sealed partial class EditorForm<TModel> : IShowLabel, IRenderFlag
     {
         /// <summary>
         /// 支持每行多少个控件功能
@@ -209,6 +209,16 @@ namespace BootstrapBlazor.Components
         /// </summary>
         private bool FirstRender { get; set; } = true;
 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        void IRenderFlag.Reset()
+        {
+            this.FirstRender = true;
+            this.FormItems.Clear();
+        }
+
         /// <summary>
         /// OnAfterRenderAsync 方法
         /// </summary>
@@ -218,7 +228,7 @@ namespace BootstrapBlazor.Components
         {
             await base.OnAfterRenderAsync(firstRender);
 
-            if (firstRender)
+            if (this.FirstRender)
             {
                 FirstRender = false;
 
@@ -232,8 +242,12 @@ namespace BootstrapBlazor.Components
                     // 如果 EditorItems 有值表示 用户自定义列
                     if (AutoGenerateAllItem)
                     {
+                        List<ITableColumn> items;
                         // 获取绑定模型所有属性
-                        var items = InternalTableColumn.GetProperties<TModel>().ToList();
+                        if (this.Model != null)
+                            items = InternalTableColumn.GetProperties(this.Model.GetType(), null).ToList();
+                        else
+                            items = InternalTableColumn.GetProperties<TModel>().ToList();
 
                         // 通过设定的 FieldItems 模板获取项进行渲染
                         foreach (var el in EditorItems)

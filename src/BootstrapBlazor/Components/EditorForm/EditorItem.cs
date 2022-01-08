@@ -168,6 +168,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 
         /// </summary>
+        [Parameter]
         public string? Category { get; set; }
 
         /// <summary>
