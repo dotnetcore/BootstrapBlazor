@@ -14,6 +14,7 @@ FROM build AS publish
 RUN dotnet publish -c Release -o /app
 
 FROM base AS final
+ENV LANG zh_CN.utf8
 WORKDIR /app
 COPY --from=publish /app .
 ENTRYPOINT ["dotnet", "BootstrapBlazor.Server.dll"]
