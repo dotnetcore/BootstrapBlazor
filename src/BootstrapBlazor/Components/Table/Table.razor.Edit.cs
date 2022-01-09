@@ -419,12 +419,20 @@ public partial class Table<TItem>
     /// </summary>
     protected async Task QueryData()
     {
-        if (OnQueryAsync == null && DynamicContext != null && typeof(TItem).IsAssignableTo(typeof(IDynamicObject)))
+        if (Items == null)
         {
-            QueryItems = DynamicContext.GetItems().Cast<TItem>();
-            TotalCount = QueryItems.Count();
+            if (OnQueryAsync == null && DynamicContext != null && typeof(TItem).IsAssignableTo(typeof(IDynamicObject)))
+            {
+                QueryItems = DynamicContext.GetItems().Cast<TItem>();
+                TotalCount = QueryItems.Count();
+            }
+            else
+            {
+                await OnQuery();
+            }
         }
-        else
+
+        async Task OnQuery()
         {
             QueryData<TItem>? queryData = null;
             var queryOption = new QueryPageOptions()
@@ -459,84 +467,94 @@ public partial class Table<TItem>
                 TotalCount = queryData.TotalCount;
                 IsAdvanceSearch = queryData.IsAdvanceSearch;
 
-                var filtered = queryData.IsFiltered;
-                var sorted = queryData.IsSorted;
-                var searched = queryData.IsSearch;
-
                 // 分页情况下内部不做处理防止页码错乱
                 if (!queryOption.IsPage)
                 {
-                    // 外部未处理 SearchText 模糊查询
-                    if (!searched && queryOption.Searchs.Any())
-                    {
-                        QueryItems = QueryItems.Where(queryOption.Searchs.GetFilterFunc<TItem>(FilterLogic.Or));
-                        TotalCount = QueryItems.Count();
-                    }
-
-                    // 外部未处理自定义高级搜索 内部进行高级自定义搜索过滤
-                    if (!IsAdvanceSearch && queryOption.CustomerSearchs.Any())
-                    {
-                        QueryItems = QueryItems.Where(queryOption.CustomerSearchs.GetFilterFunc<TItem>());
-                        TotalCount = QueryItems.Count();
-                        IsAdvanceSearch = true;
-                    }
-
-                    // 外部未过滤，内部自行过滤
-                    if (!filtered && queryOption.Filters.Any())
-                    {
-                        QueryItems = QueryItems.Where(queryOption.Filters.GetFilterFunc<TItem>());
-                        TotalCount = QueryItems.Count();
-                    }
-
-                    // 外部未处理排序，内部自行排序
-                    // 先处理列头排序 再处理默认多列排序
-                    if (!sorted)
-                    {
-                        if (queryOption.SortOrder != SortOrder.Unset && !string.IsNullOrEmpty(queryOption.SortName))
-                        {
-                            var invoker = Utility.GetSortFunc<TItem>();
-                            QueryItems = invoker(QueryItems, queryOption.SortName, queryOption.SortOrder);
-                        }
-                        else if (queryOption.SortList != null && queryOption.SortList.Any())
-                        {
-                            var invoker = Utility.GetSortListFunc<TItem>();
-                            QueryItems = invoker(QueryItems, queryOption.SortList);
-                        }
-                    }
+                    ProcessPageData(queryData, queryOption);
                 }
 
                 if (IsTree)
                 {
-                    KeySet.Clear();
-                    if (TableTreeNode<TItem>.HasKey)
-                    {
-                        CheckExpandKeys(TreeRows);
-                    }
-                    if (KeySet.Count > 0)
-                    {
-                        TreeRows = new List<TableTreeNode<TItem>>();
-                        foreach (var item in QueryItems)
-                        {
-                            var node = new TableTreeNode<TItem>(item)
-                            {
-                                HasChildren = CheckTreeChildren(item),
-                            };
-                            node.IsExpand = node.HasChildren && node.Key != null && KeySet.Contains(node.Key);
-                            if (node.IsExpand)
-                            {
-                                await RestoreIsExpand(node);
-                            }
-                            TreeRows.Add(node);
-                        }
-                    }
-                    else
-                    {
-                        TreeRows = QueryItems.Select(item => new TableTreeNode<TItem>(item)
-                        {
-                            HasChildren = CheckTreeChildren(item)
-                        }).ToList();
-                    }
+                    await ProcessTreeData();
                 }
+            }
+        }
+
+        void ProcessPageData(QueryData<TItem> queryData, QueryPageOptions queryOption)
+        {
+            var filtered = queryData.IsFiltered;
+            var sorted = queryData.IsSorted;
+            var searched = queryData.IsSearch;
+
+            // 外部未处理 SearchText 模糊查询
+            if (!searched && queryOption.Searchs.Any())
+            {
+                QueryItems = QueryItems.Where(queryOption.Searchs.GetFilterFunc<TItem>(FilterLogic.Or));
+                TotalCount = QueryItems.Count();
+            }
+
+            // 外部未处理自定义高级搜索 内部进行高级自定义搜索过滤
+            if (!IsAdvanceSearch && queryOption.CustomerSearchs.Any())
+            {
+                QueryItems = QueryItems.Where(queryOption.CustomerSearchs.GetFilterFunc<TItem>());
+                TotalCount = QueryItems.Count();
+                IsAdvanceSearch = true;
+            }
+
+            // 外部未过滤，内部自行过滤
+            if (!filtered && queryOption.Filters.Any())
+            {
+                QueryItems = QueryItems.Where(queryOption.Filters.GetFilterFunc<TItem>());
+                TotalCount = QueryItems.Count();
+            }
+
+            // 外部未处理排序，内部自行排序
+            // 先处理列头排序 再处理默认多列排序
+            if (!sorted)
+            {
+                if (queryOption.SortOrder != SortOrder.Unset && !string.IsNullOrEmpty(queryOption.SortName))
+                {
+                    var invoker = Utility.GetSortFunc<TItem>();
+                    QueryItems = invoker(QueryItems, queryOption.SortName, queryOption.SortOrder);
+                }
+                else if (queryOption.SortList != null && queryOption.SortList.Any())
+                {
+                    var invoker = Utility.GetSortListFunc<TItem>();
+                    QueryItems = invoker(QueryItems, queryOption.SortList);
+                }
+            }
+        }
+
+        async Task ProcessTreeData()
+        {
+            KeySet.Clear();
+            if (TableTreeNode<TItem>.HasKey)
+            {
+                CheckExpandKeys(TreeRows);
+            }
+            if (KeySet.Count > 0)
+            {
+                TreeRows = new List<TableTreeNode<TItem>>();
+                foreach (var item in QueryItems)
+                {
+                    var node = new TableTreeNode<TItem>(item)
+                    {
+                        HasChildren = CheckTreeChildren(item),
+                    };
+                    node.IsExpand = node.HasChildren && node.Key != null && KeySet.Contains(node.Key);
+                    if (node.IsExpand)
+                    {
+                        await RestoreIsExpand(node);
+                    }
+                    TreeRows.Add(node);
+                }
+            }
+            else
+            {
+                TreeRows = QueryItems.Select(item => new TableTreeNode<TItem>(item)
+                {
+                    HasChildren = CheckTreeChildren(item)
+                }).ToList();
             }
         }
     }
