@@ -232,7 +232,7 @@ public partial class Table<TItem>
         {
             await AddDynamicOjbectExcelModelAsync();
         }
-        else if (UseInjectDataService || IsTracking || OnSaveAsync != null)
+        else if (IsTracking || CanSave)
         {
             await AddItemAsync();
         }
@@ -255,19 +255,8 @@ public partial class Table<TItem>
         async Task AddItemAsync()
         {
             await ToggleLoading(true);
-            if (OnAddAsync != null)
-            {
-                EditModel = await OnAddAsync();
-            }
-            else if (UseInjectDataService)
-            {
-                EditModel = new TItem();
-                await GetDataService().AddAsync(EditModel);
-            }
-            else
-            {
-                EditModel = new TItem();
-            }
+
+            await InternalOnAddAsync();
 
             SelectedRows.Clear();
 
@@ -310,26 +299,11 @@ public partial class Table<TItem>
             }
             else
             {
-                if (OnAddAsync != null)
-                {
-                    await OnAddAsync();
-                    SelectedRows.Clear();
-                    RowItemsCache = null;
-                    await OnSelectedRowsChanged();
-                    await QueryAsync();
-                }
-                else if (UseInjectDataService)
-                {
-                    var item = new TItem();
-                    await GetDataService().AddAsync(item);
-                    SelectedRows.Clear();
-                    await OnSelectedRowsChanged();
-                    await QueryAsync();
-                }
-                else
-                {
-                    await ShowAddToastAsync(AddButtonToastContent);
-                }
+                await InternalOnAddAsync();
+                SelectedRows.Clear();
+                RowItemsCache = null;
+                await OnSelectedRowsChanged();
+                await QueryAsync();
             }
         }
     }
@@ -341,24 +315,12 @@ public partial class Table<TItem>
     /// </summary>
     public async Task EditAsync()
     {
-        if (UseInjectDataService || IsTracking || OnSaveAsync != null || DynamicContext != null)
+        if (IsTracking || CanSave || DynamicContext != null)
         {
             if (SelectedRows.Count == 1)
             {
                 await ToggleLoading(true);
-                if (OnEditAsync != null)
-                {
-                    await OnEditAsync(SelectedRows[0]);
-                }
-                if (UseInjectDataService && GetDataService() is IEntityFrameworkCoreDataService ef)
-                {
-                    EditModel = SelectedRows[0];
-                    await ef.EditAsync(EditModel);
-                }
-                else
-                {
-                    EditModel = IsTracking ? SelectedRows[0] : Utility.Clone(SelectedRows[0]);
-                }
+                await InternalOnEditAsync();
                 EditModalTitleString = EditModalTitle;
 
                 // 显示编辑框
@@ -432,20 +394,16 @@ public partial class Table<TItem>
     /// <returns></returns>
     protected async Task<bool> SaveModelAsync(EditContext context, ItemChangedType changedType)
     {
-        var valid = false;
+        bool valid;
         if (DynamicContext != null)
         {
             await DynamicContext.SetValue(context.Model);
             RowItemsCache = null;
             valid = true;
         }
-        else if (OnSaveAsync != null)
-        {
-            valid = await OnSaveAsync((TItem)context.Model, changedType);
-        }
         else
         {
-            valid = await GetDataService().SaveAsync((TItem)context.Model, changedType);
+            valid = await InternalOnSaveAsync((TItem)context.Model, changedType);
         }
 
         if (ShowToastAfterSaveOrDeleteModel && valid)
@@ -458,7 +416,6 @@ public partial class Table<TItem>
             option.Content = string.Format(SaveButtonToastResultContent, valid ? SuccessText : FailText, Math.Ceiling(option.Delay / 1000.0));
             await Toast.Show(option);
         }
-
         return valid;
     }
 
@@ -469,7 +426,7 @@ public partial class Table<TItem>
     /// <param name="changedType"></param>
     protected async Task SaveAsync(EditContext context, ItemChangedType changedType)
     {
-        if (UseInjectDataService || OnSaveAsync != null || DynamicContext != null)
+        if (DynamicContext != null || CanSave)
         {
             await ToggleLoading(true);
             if (await SaveModelAsync(context, changedType))
@@ -542,7 +499,8 @@ public partial class Table<TItem>
             Size = EditDialogSize,
             OnCloseAsync = async () =>
             {
-                if (UseInjectDataService && GetDataService() is IEntityFrameworkCoreDataService ef)
+                var d = DataService ?? InjectDataService;
+                if (d is IEntityFrameworkCoreDataService ef)
                 {
                     // EFCore
                     await ToggleLoading(true);
@@ -641,15 +599,7 @@ public partial class Table<TItem>
 
         async Task<bool> DelteItemsAsync()
         {
-            var ret = false;
-            if (OnDeleteAsync != null)
-            {
-                ret = await OnDeleteAsync(SelectedRows);
-            }
-            else if (UseInjectDataService)
-            {
-                ret = await GetDataService().DeleteAsync(SelectedRows);
-            }
+            var ret = await InternalOnDeleteAsync();
             if (ret)
             {
                 // 删除成功 重新查询
@@ -675,9 +625,9 @@ public partial class Table<TItem>
             }
             else
             {
-                if (OnDeleteAsync != null)
+                if (CanDelete)
                 {
-                    await OnDeleteAsync(SelectedRows);
+                    await InternalOnDeleteAsync();
                     await QueryAsync();
                 }
             }

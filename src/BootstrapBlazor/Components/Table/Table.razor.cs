@@ -454,6 +454,7 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
     /// 获得/设置 是否使用注入的数据服务
     /// </summary>
     [Parameter]
+    [Obsolete("已弃用，组件内部采用就近原则智能推断是否使用全局注册数据服务")]
     public bool UseInjectDataService { get; set; }
 
     /// <summary>
@@ -1038,11 +1039,11 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
 
         void SetEditTemplate()
         {
-            if (OnSaveAsync != null)
+            if (CanSave)
             {
                 var onValueChanged = Utility.CreateOnValueChanged<TItem>(col.PropertyType).Compile();
                 var parameters = col.ComponentParameters?.ToList() ?? new List<KeyValuePair<string, object>>();
-                parameters.Add(new(nameof(ValidateBase<string>.OnValueChanged), onValueChanged.Invoke(item, col, (model, column, val) => OnSaveAsync(model, ItemChangedType.Update))));
+                parameters.Add(new(nameof(ValidateBase<string>.OnValueChanged), onValueChanged.Invoke(item, col, (model, column, val) => InternalOnSaveAsync(model, ItemChangedType.Update))));
                 col.ComponentParameters = parameters;
             }
         }

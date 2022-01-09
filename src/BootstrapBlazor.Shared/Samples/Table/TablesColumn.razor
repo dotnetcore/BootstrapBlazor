@@ -292,7 +292,7 @@
 
 <DemoBlock Title="实战示例" Introduction="通过显示模板 <code>Template</code> 对各列进行自定义渲染" Name="Advance">
     <Table TItem="Foo" IsPagination="true" PageItemsSource="@PageItemsSource" RenderMode="TableRenderMode.Table"
-           IsStriped="true" IsBordered="true" UseInjectDataService="true" OnQueryAsync="OnQueryAsync">
+           IsStriped="true" IsBordered="true" OnQueryAsync="OnQueryAsync">
         <TableColumns>
             <TableColumn @bind-Field="@context.Name" Width="220">
                 <Template Context="value">

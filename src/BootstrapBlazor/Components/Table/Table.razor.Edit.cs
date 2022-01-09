@@ -173,7 +173,7 @@ public partial class Table<TItem>
     private string? DataServiceInvalidOperationText { get; set; }
 
     /// <summary>
-    /// 获得/设置 数据服务
+    /// 获得/设置 数据服务参数 组件采用就近原则 如果提供了 Items > OnQueryAsync > DataService > 全局注入的数据服务 IDataService
     /// </summary>
     [Parameter]
     public IDataService<TItem>? DataService { get; set; }
@@ -194,6 +194,111 @@ public partial class Table<TItem>
         }
         return ds;
     }
+
+    private async Task<QueryData<TItem>> InternalOnQueryAsync(QueryPageOptions options)
+    {
+        QueryData<TItem>? ret = null;
+        if (OnQueryAsync != null)
+        {
+            ret = await OnQueryAsync(options);
+        }
+        else
+        {
+            var d = DataService ?? InjectDataService;
+            if (d != null)
+            {
+                ret = await d.QueryAsync(options);
+            }
+        }
+        return ret ?? new QueryData<TItem>
+        {
+            Items = Enumerable.Empty<TItem>(),
+            TotalCount = 0,
+            IsAdvanceSearch = false,
+            IsFiltered = false,
+            IsSearch = false,
+            IsSorted = false
+        };
+    }
+
+    private async Task<bool> InternalOnDeleteAsync()
+    {
+        var ret = false;
+        if (OnDeleteAsync != null)
+        {
+            ret = await OnDeleteAsync(SelectedRows);
+        }
+        else
+        {
+            var d = DataService ?? InjectDataService;
+            if (d != null)
+            {
+                ret = await d.DeleteAsync(SelectedRows);
+            }
+        }
+        return ret;
+    }
+
+    private async Task<bool> InternalOnSaveAsync(TItem item, ItemChangedType changedType)
+    {
+        var ret = false;
+        if (OnSaveAsync != null)
+        {
+            ret = await OnSaveAsync(item, changedType);
+        }
+        else
+        {
+            var d = DataService ?? InjectDataService;
+            if (d != null)
+            {
+                ret = await d.SaveAsync(item, changedType);
+            }
+        }
+        return ret;
+    }
+
+    private async Task InternalOnAddAsync()
+    {
+        if (OnAddAsync != null)
+        {
+            EditModel = await OnAddAsync();
+        }
+        else
+        {
+            EditModel = new TItem();
+            var d = DataService ?? InjectDataService;
+            if (d != null)
+            {
+                await d.AddAsync(EditModel);
+            }
+        }
+    }
+
+    private async Task InternalOnEditAsync()
+    {
+        if (OnEditAsync != null)
+        {
+            EditModel = SelectedRows[0];
+            await OnEditAsync(EditModel);
+        }
+        else
+        {
+            var d = DataService ?? InjectDataService;
+            if (d is IEntityFrameworkCoreDataService ef)
+            {
+                EditModel = SelectedRows[0];
+                await ef.EditAsync(EditModel);
+            }
+            else
+            {
+                EditModel = IsTracking ? SelectedRows[0] : Utility.Clone(SelectedRows[0]);
+            }
+        }
+    }
+
+    private bool CanDelete => OnDeleteAsync != null || DataService != null || InjectDataService != null;
+
+    private bool CanSave => OnSaveAsync != null || DataService != null || InjectDataService != null;
 
     /// <summary>
     /// 单选模式下选择行时调用此方法
@@ -343,14 +448,8 @@ public partial class Table<TItem>
             {
                 queryOption.SearchModel = CustomerSearchModel;
             }
-            if (OnQueryAsync != null)
-            {
-                queryData = await OnQueryAsync(queryOption);
-            }
-            else if (UseInjectDataService)
-            {
-                queryData = await GetDataService().QueryAsync(queryOption);
-            }
+
+            queryData = await InternalOnQueryAsync(queryOption);
 
             if (queryData != null)
             {
