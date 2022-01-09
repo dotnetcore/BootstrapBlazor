@@ -161,7 +161,7 @@
     "PrePageInfoText": "每页显示",
     "RowInfoText": "条记录",
     "LabelString": "第 {0} 页",
-    "SelectItemsText": "{0} 条/页"
+    "SelectItemsText": "{0}"
   },
   "BootstrapBlazor.Components.PopConfirmButton": {
     "CloseButtonText": "取消",

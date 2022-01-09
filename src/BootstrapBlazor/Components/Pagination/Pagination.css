@@ -30,6 +30,7 @@
 
         .pagination-items .select .form-control {
             width: 100%;
+            text-align: center;
         }
 
 .page-item:hover .page-link-prev .fa-ellipsis-h:before {
