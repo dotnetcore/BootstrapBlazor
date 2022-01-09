@@ -50,10 +50,16 @@ public partial class Table<TItem>
     public List<string>? SortList { get; set; }
 
     /// <summary>
-    /// 获得/设置 表头排序时回调方法
+    /// 获得/设置 点击表头排序时回调方法
+    /// </summary>
+    [Parameter]
+    public Action<string, SortOrder>? OnSort { get; set; }
+
+    /// <summary>
+    /// 获得/设置 内部表头排序时回调方法
     /// </summary>
     [NotNull]
-    protected Func<Task>? OnSortAsync { get; set; }
+    protected Func<string, SortOrder, Task>? IntenralOnSortAsync { get; set; }
 
     /// <summary>
     /// 点击列进行排序方法
@@ -76,9 +82,9 @@ public partial class Table<TItem>
         SortName = col.GetFieldName();
 
         // 通知 Table 组件刷新数据
-        if (OnSortAsync != null)
+        if (IntenralOnSortAsync != null)
         {
-            await OnSortAsync();
+            await IntenralOnSortAsync(SortName, SortOrder);
         }
     };
 

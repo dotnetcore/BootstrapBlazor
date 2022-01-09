@@ -659,7 +659,14 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
         Interop = new JSInterop<Table<TItem>>(JSRuntime);
 
         // 设置 OnSort 回调方法
-        OnSortAsync = QueryAsync;
+        IntenralOnSortAsync = async (sortName, sortOrder) =>
+        {
+            // 调用 OnSort 回调方法
+            OnSort?.Invoke(sortName, SortOrder);
+
+            // 重新查询
+            await QueryAsync();
+        };
 
         // 设置 OnFilter 回调方法
         OnFilterAsync = async () =>
@@ -1116,9 +1123,21 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
     private int GetColumnCount()
     {
         var colspan = ColumnVisibles.Count(col => col.Visible);
-        if (IsMultipleSelect) colspan++;
-        if (ShowLineNo) colspan++;
-        if (ShowExtendButtons) colspan++;
+        if (IsMultipleSelect)
+        {
+            colspan++;
+        }
+
+        if (ShowLineNo)
+        {
+            colspan++;
+        }
+
+        if (ShowExtendButtons)
+        {
+            colspan++;
+        }
+
         return colspan;
     }
 
