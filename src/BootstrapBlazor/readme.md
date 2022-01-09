@@ -2,10 +2,11 @@
 
 ## A set of enterprise-class UI components based on Bootstrap and Blazor.
 
+[![License](https://img.shields.io/github/license/argozhang/bootstrapblazor.svg?logo=git&logoColor=red)](https://github.com/ArgoZhang/BootstrapBlazor/blob/main/LICENSE)
 [![Github build](https://img.shields.io/github/workflow/status/ArgoZhang/BootstrapBlazor/Build%20Project/main?label=main&logo=github&logoColor=green)](https://github.com/ArgoZhang/BootstrapBlazor/actions?query=workflow%3A%22Build+Project%22+branch%3Amain)
-[![Github](https://img.shields.io/github/license/argozhang/bootstrapblazor.svg?logo=git&logoColor=red)](https://github.com/ArgoZhang/BootstrapBlazor/blob/main/LICENSE)
 [![Repo Size](https://img.shields.io/github/repo-size/ArgoZhang/BootstrapBlazor.svg?logo=github&logoColor=green&label=repo)](https://github.com/ArgoZhang/BootstrapBlazor)
 [![Commit Date](https://img.shields.io/github/last-commit/ArgoZhang/BootstrapBlazor/main.svg?logo=github&logoColor=green&label=commit)](https://github.com/ArgoZhang/BootstrapBlazor)
+[![codecov](https://codecov.io/gh/dotnetcore/BootstrapBlazor/branch/main/graph/badge.svg?token=5SXIWHXZC3)](https://codecov.io/gh/dotnetcore/BootstrapBlazor)
 
 ---
 

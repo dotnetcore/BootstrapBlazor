@@ -22,7 +22,6 @@ public static class NavigationManagerExtensions
     /// <param name="text"></param>
     /// <param name="icon"></param>
     /// <param name="closable"></param>
-    [Obsolete("已弃用；请使用 [TabItemOptionAttribute] 标签替换此功能 详细说明见 更新日志 V6.2 https://gitee.com/LongbowEnterprise/BootstrapBlazor/wikis/%E6%9B%B4%E6%96%B0%E5%8E%86%E5%8F%B2/V6.2.0", true)]
     public static void NavigateTo(this NavigationManager navigation, IServiceProvider provider, string url, string text, string? icon = null, bool? closable = null)
     {
         var option = provider.GetRequiredService<TabItemTextOptions>();

@@ -47,10 +47,10 @@ public partial class Introduction : IAsyncDisposable
 
         LocalizerUrls = new string[]
         {
-                WebsiteOption.Value.BootstrapBlazorLink,
-                WebsiteOption.Value.BootstrapBlazorLink + "/stargazers",
-                WebsiteOption.Value.BootstrapBlazorLink + "/badge/star.svg?theme=gvp",
-                WebsiteOption.Value.BootstrapAdminLink
+            WebsiteOption.Value.BootstrapBlazorLink,
+            WebsiteOption.Value.BootstrapBlazorLink + "/stargazers",
+            WebsiteOption.Value.BootstrapBlazorLink + "/badge/star.svg?theme=gvp",
+            WebsiteOption.Value.BootstrapAdminLink
         };
     }
 

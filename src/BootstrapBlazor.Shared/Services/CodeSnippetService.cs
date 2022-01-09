@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Shared.Services;
 
-internal class CodeSnippetService
+class CodeSnippetService
 {
     private HttpClient Client { get; set; }
 
@@ -165,8 +165,8 @@ internal class CodeSnippetService
         }
         if (Path.GetExtension(codeFile) == ".razor")
         {
-                // 将资源文件信息替换
-                GetLocalizers().ForEach(kv =>
+            // 将资源文件信息替换
+            GetLocalizers().ForEach(kv =>
             {
                 payload = payload.Replace($"@(((MarkupString)Localizer[\"{kv.Key}\"].Value).ToString())", kv.Value);
                 payload = payload.Replace($"@((MarkupString)Localizer[\"{kv.Key}\"].Value)", kv.Value);
@@ -182,12 +182,11 @@ internal class CodeSnippetService
         {
             var typeName = Path.GetFileNameWithoutExtension(codeFile);
             var sections = CacheManager.GetJsonStringConfig(typeof(CodeSnippetService).Assembly, Option);
-            var v = sections
-                .FirstOrDefault(s => $"BootstrapBlazor.Shared.Samples.{typeName}".Equals(s.Key, StringComparison.OrdinalIgnoreCase))?
+            var v = sections.FirstOrDefault(s => $"BootstrapBlazor.Shared.Samples.{typeName}".Equals(s.Key, StringComparison.OrdinalIgnoreCase))?
                 .GetChildren()
                 .SelectMany(c => new KeyValuePair<string, string>[]
                 {
-                        new KeyValuePair<string, string>(c.Key, c.Value)
+                    new KeyValuePair<string, string>(c.Key, c.Value)
                 }).ToList();
             return v ?? new List<KeyValuePair<string, string>>();
         });
