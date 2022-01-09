@@ -26,6 +26,8 @@ public partial class TablesFilter
     [NotNull]
     private IStringLocalizer<Foo>? Localizer { get; set; }
 
+    private List<string> SortList { get; } = new List<string> { "DateTime desc", "Address" };
+
     /// <summary>
     /// OnInitialized 方法
     /// </summary>
@@ -50,10 +52,16 @@ public partial class TablesFilter
 
         // 排序
         var isSorted = false;
-        if (!string.IsNullOrEmpty(options.SortName))
+        if (options.SortName == nameof(Foo.DateTime) && options.SortList != null)
+        {
+            var sortInvoker = Utility.GetSortListFunc<Foo>();
+            items = sortInvoker(items, options.SortList);
+            isSorted = true;
+        }
+        else if (!string.IsNullOrEmpty(options.SortName))
         {
             // 外部未进行排序，内部自动进行排序处理
-            var invoker = Foo.GetNameSortFunc();
+            var invoker = Utility.GetSortFunc<Foo>();
             items = invoker(items, options.SortName, options.SortOrder);
             isSorted = true;
         }
@@ -71,5 +79,30 @@ public partial class TablesFilter
             IsSorted = isSorted,
             IsFiltered = isFiltered
         });
+    }
+
+    private void OnSort(string sortName, SortOrder sortOrder)
+    {
+        if (sortName == nameof(Foo.DateTime))
+        {
+            if (sortOrder == SortOrder.Asc)
+            {
+                SortList.Clear();
+                SortList.Add(nameof(Foo.DateTime));
+                SortList.Add(nameof(Foo.Count));
+            }
+            else if (sortOrder == SortOrder.Desc)
+            {
+                SortList.Clear();
+                SortList.Add($"{nameof(Foo.DateTime)} desc");
+                SortList.Add($"{nameof(Foo.Count)} desc");
+            }
+            else
+            {
+                SortList.Clear();
+                SortList.Add($"{nameof(Foo.DateTime)} desc");
+                SortList.Add(nameof(Foo.Count));
+            }
+        }
     }
 }
