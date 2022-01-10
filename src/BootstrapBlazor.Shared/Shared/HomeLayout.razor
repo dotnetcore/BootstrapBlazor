@@ -84,6 +84,7 @@
     <div class="footer-info d-none d-sm-flex">
         <div>Powered by .NET @Version on @OS</div>
         <div class="ms-1">BB @BBVersion</div>
+        <div class="ms-2">Run @Runtime</div>
         <div class="d-flex flex-fill align-items-center justify-content-center">
             <a class="ms-3 d-none d-md-block" href="@WebsiteOption.Value.BootstrapBlazorLink" target="_blank">@Localizer["Footer"]</a>
             <div class="mx-3 d-none d-md-block">
@@ -111,6 +112,12 @@
 
     [NotNull]
     private string? BBVersion { get; set; }
+
+    [Inject]
+    [NotNull]
+    private ICacheManager? Cache { get; set; }
+
+    private string? Runtime { get; set; }
 
     private string SelectedCulture { get; set; } = CultureInfo.CurrentUICulture.Name;
 
@@ -143,6 +150,9 @@
         {
             OS = "Unknown";
         }
+
+        var ts = DateTimeOffset.Now - Cache.GetStartTime();
+        Runtime = ts.ToString("dd\\.hh\\:mm\\:ss");
     }
 
     private async Task SetLang(string cultureName)

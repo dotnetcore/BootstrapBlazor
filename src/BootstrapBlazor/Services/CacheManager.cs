@@ -58,10 +58,10 @@ internal class CacheManager : ICacheManager
     public T GetOrCreate<T>(object key, Func<ICacheEntry, T> factory) => Cache.GetOrCreate(key, entry =>
     {
 #if DEBUG
-            entry.SlidingExpiration = TimeSpan.FromSeconds(5);
+        entry.SlidingExpiration = TimeSpan.FromSeconds(5);
 #endif
 
-            if (key is not string)
+        if (key is not string)
         {
             entry.SetSlidingExpiration(TimeSpan.FromMinutes(5));
         }
@@ -74,10 +74,10 @@ internal class CacheManager : ICacheManager
     public Task<T> GetOrCreateAsync<T>(object key, Func<ICacheEntry, Task<T>> factory) => Cache.GetOrCreateAsync(key, async entry =>
     {
 #if DEBUG
-            entry.SlidingExpiration = TimeSpan.FromSeconds(5);
+        entry.SlidingExpiration = TimeSpan.FromSeconds(5);
 #endif
 
-            if (key is not string)
+        if (key is not string)
         {
             entry.SetSlidingExpiration(TimeSpan.FromMinutes(5));
         }
@@ -132,8 +132,8 @@ internal class CacheManager : ICacheManager
         return Instance.GetOrCreate(cacheKey, entry =>
         {
             var dn = "";
-                // search in Localization
-                var localizer = CreateLocalizerByType(t);
+            // search in Localization
+            var localizer = CreateLocalizerByType(t);
             var stringLocalizer = localizer?[fieldName];
             if (stringLocalizer != null && !stringLocalizer.ResourceNotFound)
             {
@@ -145,15 +145,15 @@ internal class CacheManager : ICacheManager
                 dn = field?.GetCustomAttribute<DisplayAttribute>(true)?.Name
                 ?? field?.GetCustomAttribute<DescriptionAttribute>(true)?.Description;
 
-                    // search in Localization again
-                    if (!string.IsNullOrEmpty(dn))
+                // search in Localization again
+                if (!string.IsNullOrEmpty(dn))
                 {
                     dn = GetLocalizerValueByKey(dn);
                 }
             }
 
-                // add display name into cache
-                if (type.Assembly.IsDynamic)
+            // add display name into cache
+            if (type.Assembly.IsDynamic)
             {
                 entry.SetSlidingExpirationForDynamicAssembly();
             }
@@ -170,8 +170,8 @@ internal class CacheManager : ICacheManager
         var displayName = Instance.GetOrCreate(cacheKey, entry =>
         {
             string? dn = null;
-                // 显示名称为空时通过资源文件查找 FieldName 项
-                var localizer = modelType.Assembly.IsDynamic ? null : CreateLocalizerByType(modelType);
+            // 显示名称为空时通过资源文件查找 FieldName 项
+            var localizer = modelType.Assembly.IsDynamic ? null : CreateLocalizerByType(modelType);
             var stringLocalizer = localizer?[fieldName];
             if (stringLocalizer != null && !stringLocalizer.ResourceNotFound)
             {
@@ -236,8 +236,8 @@ internal class CacheManager : ICacheManager
         return Instance.GetOrCreate(cacheKey, entry =>
         {
             string? ret = null;
-                // 通过资源文件查找 FieldName 项
-                var localizer = CreateLocalizerByType(modelType);
+            // 通过资源文件查找 FieldName 项
+            var localizer = CreateLocalizerByType(modelType);
             var stringLocalizer = localizer?[$"{fieldName}.PlaceHolder"];
             if (stringLocalizer != null && !stringLocalizer.ResourceNotFound)
             {
@@ -267,8 +267,8 @@ internal class CacheManager : ICacheManager
         {
             var props = modelType.GetRuntimeProperties().AsEnumerable();
 
-                // 支持 MetadataType
-                var metadataType = modelType.GetCustomAttribute<MetadataTypeAttribute>(false);
+            // 支持 MetadataType
+            var metadataType = modelType.GetCustomAttribute<MetadataTypeAttribute>(false);
             if (metadataType != null)
             {
                 props = props.Concat(metadataType.MetadataClassType.GetRuntimeProperties());
@@ -459,8 +459,8 @@ public static class ICacheManagerExtensions
         var cacheKey = $"Localizer-{cultureName}-{assembly.GetName().Name}-{typeName}";
         return cache.GetOrCreate(cacheKey, entry =>
         {
-                // 获得程序集中的资源文件 stream
-                var sections = option.GetJsonStringConfig(assembly);
+            // 获得程序集中的资源文件 stream
+            var sections = option.GetJsonStringConfig(assembly);
             var v = sections
                 .FirstOrDefault(kv => typeName.Equals(kv.Key, StringComparison.OrdinalIgnoreCase))?
                 .GetChildren()
