@@ -2668,7 +2668,7 @@
     "LearnLi8": "练习 - 数据绑定和事件",
     "Summarize": "总结",
     "ProjectsShow": "作品展示",
-    "P5": "国内最大代码托管协作开发平台 <b><a href='{0}' target='_blank'>码云</a></b> C# 板块最高星 <a href='{1}'><img src={2}' alt='star' style='margin-bottom',: '1px;' ></a> 作品 <b><a href='{3}' target=''_blank'>通用后台管理系统 BootstrapAdmin</a></b> 准备使用本组件实现全部功能",
+    "P5": "国内最大代码托管协作开发平台 <b><a href='{0}' target='_blank'>码云</a></b> C# 板块最高星 <a href='{1}'><img src='{2}' alt='star' style='margin-bottom': '1px;' ></a> 作品 <b><a href='{3}' target=''_blank'>通用后台管理系统 BootstrapAdmin</a></b> 准备使用本组件实现全部功能",
     "ShowWebSiteTitle": "演示网站",
     "GetStarted": "快速上手",
     "QuikStart": "快速入门",
