@@ -1,4 +1,4 @@
-﻿(function ($) {
+(function ($) {
     $.extend({
         bb_table_search: function (el, obj, searchMethod, clearSearchMethod) {
             $(el).data('bb_table_search', { obj: obj, searchMethod, clearSearchMethod });
@@ -259,6 +259,41 @@
                 }
             });
         },
+        bb_table_fixedbody: function ($ele, $body, $thead) {
+            // 尝试自适应高度
+            if (!$body) {
+                $body = $ele.find('.table-fixed-body');
+            }
+            if (!$thead) {
+                $thead = $ele.find('.table-fixed-header');
+            }
+            var searchHeight = $ele.find('.table-search:first').outerHeight();
+            if (!searchHeight) {
+                searchHeight = 0;
+            }
+            var paginationHeight = $ele.find('.table-pagination:first').outerHeight();
+            if (!paginationHeight) {
+                paginationHeight = 0;
+            }
+            var toolbarHeight = $ele.find('.table-toolbar:first').outerHeight();
+            var bodyHeight = paginationHeight + toolbarHeight + searchHeight + 16;
+            if (bodyHeight > 16) {
+                if (searchHeight > 0) {
+                    //记住历史height，用于展开搜索框时先设置一次高度
+                    //再重新计算，避免高度超出父容器，出现滚动条
+                    var lastHeight = $body.parent().css("height");
+                    $ele.find('.table-search-collapse').each(function () {
+                        $(this).data('fixed-height', lastHeight);
+                    });
+                }
+                $body.parent().css({ height: "calc(100% - " + bodyHeight + "px)" });
+            }
+
+            var headerHeight = $thead.outerHeight();
+            if (headerHeight > 0) {
+                $body.css({ height: "calc(100% - " + headerHeight + "px)" })
+            }
+        },
         bb_table: function (el, obj, method, args) {
             var $ele = $(el);
             var fixedHeader = $ele.find('.table-fixed').length > 0;
@@ -293,20 +328,7 @@
                 }
 
                 // 尝试自适应高度
-                var paginationHeight = $ele.find('.table-pagination:first').outerHeight();
-                if (!paginationHeight) {
-                    paginationHeight = 0;
-                }
-                var toolbarHeight = $ele.find('.table-toolbar:first').outerHeight();
-                var bodyHeight = paginationHeight + toolbarHeight;
-                if (bodyHeight > 0) {
-                    $body.parent().css({ height: "calc(100% - " + bodyHeight + "px)" });
-                }
-
-                var headerHeight = $thead.outerHeight();
-                if (headerHeight > 0) {
-                    $body.css({ height: "calc(100% - " + headerHeight + "px)" })
-                }
+                $.bb_table_fixedbody($ele, $body, $thead);
 
                 // 固定表头的最后一列禁止列宽调整
                 $ele.find('.col-resizer:last').remove();
@@ -362,12 +384,22 @@
                 var $body = $card.closest('.card').find('.card-body');
                 if ($body.length === 1) {
                     if ($body.is(':hidden')) {
+                        //设置历史高度，避免高度超出父容器，出现滚动条
+                        if (fixedHeader) {
+                            $ele.find('.table-fixed-body')
+                                .parent()
+                                .css({ height: $card.data('fixed-height') });
+                        }
                         $body.parent().toggleClass('collapsed')
                     }
                     $body.slideToggle('fade', function () {
                         var $this = $(this);
                         if ($this.is(':hidden')) {
                             $this.parent().toggleClass('collapsed')
+                        }
+                        // 尝试自适应高度
+                        if (fixedHeader) {
+                            $.bb_table_fixedbody($ele);
                         }
                     });
                 }
