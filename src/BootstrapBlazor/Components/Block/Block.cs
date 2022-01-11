@@ -99,7 +99,7 @@ public class Block : BootstrapComponentBase
         {
             state = await AuthenticationStateProvider.GetAuthenticationStateAsync();
         }
-        var isAuthenticated = state!.User.Identity!.IsAuthenticated;
+        var isAuthenticated = state!.User.Identity?.IsAuthenticated ?? false;
         if (isAuthenticated)
         {
             if (Users?.Any() ?? false)
