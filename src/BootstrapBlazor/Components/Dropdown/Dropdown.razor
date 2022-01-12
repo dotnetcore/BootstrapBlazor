@@ -2,6 +2,10 @@
 @typeparam TValue
 @inherits SelectBase<TValue>
 
+@if (IsShowLabel)
+{
+    <label class="form-label" for="@Id">@DisplayText</label>
+}
 <div @attributes="@AdditionalAttributes" id="@Id" class="@DirectionClassName">
     <button type="button" class="@ButtonClassName" data-bs-toggle="@DropdownToggle" aria-expanded="false">@GetText</button>
     @if (ShowSplit)
