@@ -75,4 +75,13 @@ public abstract class MultipleUploadBase<TValue> : UploadBase<TValue>
     /// </summary>
     /// <returns></returns>
     protected virtual List<UploadFile> GetUploadFiles() => DefaultFileList == null ? UploadFiles : DefaultFileList.Concat(UploadFiles).ToList();
+
+    /// <summary>
+    /// 清空上传列表方法
+    /// </summary>
+    public override void Reset()
+    {
+        DefaultFileList?.Clear();
+        base.Reset();
+    }
 }

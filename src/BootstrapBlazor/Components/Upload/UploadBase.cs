@@ -179,4 +179,13 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
 
         return ret;
     }
+
+    /// <summary>
+    /// 清空上传列表方法
+    /// </summary>
+    public virtual void Reset()
+    {
+        UploadFiles.Clear();
+        StateHasChanged();
+    }
 }
