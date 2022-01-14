@@ -25,11 +25,10 @@
 
         .pagination-items .select .dropdown-menu {
             min-width: unset;
-            text-align: right;
+            text-align: center;
         }
 
-        .pagination-items .select .form-control {
-            width: 100%;
+        .pagination-items .select .form-select {
             text-align: center;
         }
 
