@@ -80,10 +80,21 @@ public class DynamicElement : BootstrapComponentBase
         if (GenerateElement || IsTriggerClick() || IsTriggerDoubleClick())
         {
             builder.OpenElement(0, TagName);
-            if (AdditionalAttributes != null) builder.AddMultipleAttributes(1, AdditionalAttributes);
+            if (AdditionalAttributes != null)
+            {
+                builder.AddMultipleAttributes(1, AdditionalAttributes);
+            }
         }
-        if (IsTriggerClick()) builder.AddAttribute(2, "onclick", EventCallback.Factory.Create<MouseEventArgs>(this, e => OnClick!()));
-        if (IsTriggerDoubleClick()) builder.AddAttribute(3, "ondblclick", EventCallback.Factory.Create<MouseEventArgs>(this, e => OnDoubleClick!()));
+        if (IsTriggerClick())
+        {
+            builder.AddAttribute(2, "onclick", EventCallback.Factory.Create<MouseEventArgs>(this, e => OnClick!()));
+        }
+
+        if (IsTriggerDoubleClick())
+        {
+            builder.AddAttribute(3, "ondblclick", EventCallback.Factory.Create<MouseEventArgs>(this, e => OnDoubleClick!()));
+        }
+
         if (IsTriggerClick() || IsTriggerDoubleClick())
         {
             builder.AddEventPreventDefaultAttribute(4, "onclick", PreventDefault);
@@ -95,8 +106,8 @@ public class DynamicElement : BootstrapComponentBase
             builder.CloseElement();
         }
 
-        bool IsTriggerClick() => (TriggerClick && OnClick != null) || (TriggerDoubleClick && OnDoubleClick != null);
+        bool IsTriggerClick() => TriggerClick && OnClick != null;
 
-        bool IsTriggerDoubleClick() => (TriggerDoubleClick && OnDoubleClick != null);
+        bool IsTriggerDoubleClick() => TriggerDoubleClick && OnDoubleClick != null;
     }
 }
