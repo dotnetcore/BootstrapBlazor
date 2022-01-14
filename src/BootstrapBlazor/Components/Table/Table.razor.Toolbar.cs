@@ -406,7 +406,7 @@ public partial class Table<TItem>
             valid = await InternalOnSaveAsync((TItem)context.Model, changedType);
         }
 
-        if (ShowToastAfterSaveOrDeleteModel && valid)
+        if (ShowToastAfterSaveOrDeleteModel)
         {
             var option = new ToastOption
             {
