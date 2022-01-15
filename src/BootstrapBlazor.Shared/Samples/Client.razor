@@ -33,13 +33,15 @@
 [NotNull]
 private WebClientService? ClientService { get; set; }
 
+private ClientInfo? ClientInfo { get; set; }
+
 protected override async Task OnAfterRenderAsync(bool firstRender)
 {
     await base.OnAfterRenderAsync(firstRender);
 
     if (firstRender)
     {
-        await ClientService.RetrieveRemoteInfo();
+        ClientInfo = await ClientService.GetClientInfo();
         StateHasChanged();
     }
 }
@@ -49,31 +51,31 @@ protected override async Task OnAfterRenderAsync(bool firstRender)
     <GroupBox Title="@Localizer["GroupBoxTitle"]">
         <div class="row g-3 form-inline">
             <div class="col-12 col-sm-6">
-                <Display Value="ClientService.Id" DisplayText="@Localizer["Id"]" ShowLabel="true" />
+                <Display Value="ClientInfo.Id" DisplayText="@Localizer["Id"]" ShowLabel="true" />
             </div>
             <div class="col-12">
-                <Display Value="ClientService.RequestUrl" DisplayText="@Localizer["RequestUrl"]" ShowLabel="true" />
+                <Display Value="ClientInfo.RequestUrl" DisplayText="@Localizer["RequestUrl"]" ShowLabel="true" />
             </div>
             <div class="col-12 col-sm-6">
-                <Display Value="ClientService.Ip" DisplayText="@Localizer["Ip"]" ShowLabel="true" />
+                <Display Value="ClientInfo.Ip" DisplayText="@Localizer["Ip"]" ShowLabel="true" />
             </div>
             <div class="col-12 col-sm-6">
-                <Display Value="ClientService.OS" DisplayText="@Localizer["OS"]" ShowLabel="true" />
+                <Display Value="ClientInfo.OS" DisplayText="@Localizer["OS"]" ShowLabel="true" />
             </div>
             <div class="col-12 col-sm-6">
-                <Display Value="ClientService.Browser" DisplayText="@Localizer["Browser"]" ShowLabel="true" />
+                <Display Value="ClientInfo.Browser" DisplayText="@Localizer["Browser"]" ShowLabel="true" />
             </div>
             <div class="col-12 col-sm-6">
-                <Display Value="ClientService.Engine" DisplayText="@Localizer["Engine"]" ShowLabel="true" />
+                <Display Value="ClientInfo.Engine" DisplayText="@Localizer["Engine"]" ShowLabel="true" />
             </div>
             <div class="col-12 col-sm-6">
-                <Display Value="ClientService.Device" DisplayText="@Localizer["Device"]" ShowLabel="true" />
+                <Display Value="ClientInfo.Device" DisplayText="@Localizer["Device"]" ShowLabel="true" />
             </div>
             <div class="col-12 col-sm-6">
-                <Display Value="ClientService.Language" DisplayText="@Localizer["Language"]" ShowLabel="true" />
+                <Display Value="ClientInfo.Language" DisplayText="@Localizer["Language"]" ShowLabel="true" />
             </div>
             <div class="col-12">
-                <BootstrapInput Value="ClientService.UserAgent" DisplayText="UserAgent" ShowLabel="true" readonly />
+                <BootstrapInput Value="ClientInfo.UserAgent" DisplayText="UserAgent" ShowLabel="true" readonly />
             </div>
         </div>
     </GroupBox>

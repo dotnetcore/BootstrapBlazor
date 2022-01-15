@@ -46,9 +46,10 @@ public partial class MainLayout : IDisposable
         if (entry.Entry != null)
         {
             // 获得当前用户 IP 地址
-            if (await ClientService.RetrieveRemoteInfo() && ClientService.Ip != null)
+            var clientInfo = await ClientService.GetClientInfo();
+            if (clientInfo.Ip != null)
             {
-                var location = await IPLocator.Locate(ClientService.Ip);
+                var location = await IPLocator.Locate(clientInfo.Ip);
                 await Toast.Show(new ToastOption()
                 {
                     Title = "Dispatch 服务测试",

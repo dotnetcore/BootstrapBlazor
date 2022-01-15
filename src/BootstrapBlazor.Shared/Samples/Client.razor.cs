@@ -18,6 +18,8 @@ public partial class Client
     [NotNull]
     private WebClientService? ClientService { get; set; }
 
+    private ClientInfo ClientInfo { get; set; } = new ClientInfo();
+
     /// <summary>
     /// 
     /// </summary>
@@ -29,8 +31,7 @@ public partial class Client
 
         if (firstRender)
         {
-            await ClientService.RetrieveRemoteInfo();
-
+            ClientInfo = await ClientService.GetClientInfo();
             StateHasChanged();
         }
     }

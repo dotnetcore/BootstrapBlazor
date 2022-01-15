@@ -37,8 +37,8 @@ public partial class Locator
 
         if (firstRender)
         {
-            await ClientService.RetrieveRemoteInfo();
-            Ip = ClientService.Ip;
+            var clientInfo = await ClientService.GetClientInfo();
+            Ip = clientInfo.Ip;
             StateHasChanged();
         }
     }

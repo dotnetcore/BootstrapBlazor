@@ -2043,7 +2043,7 @@
     "BasicUsageP1": "用法介绍",
     "BasicUsageP2": "1. <b>Startup.cs</b> 文件中使用 <code>UseBootstrapBlazor</code> 中间件进行客户端信息收集",
     "BasicUsageTips": "<code>app.UseBootstrapBlazor</code> 中间件位于程序集 <code>BootstrapBlazor.Middleware</code>，请自行引用此包才能正常使用",
-    "BasicUsageP3": "2. 组件中使用注入服务 <code>WebClientService</code> 调用 <code>RetrieveRemoteInfo</code> 方法",
+    "BasicUsageP3": "2. 组件中使用注入服务 <code>WebClientService</code> 调用 <code>GetClientInfo</code> 方法",
     "GroupBoxTitle": "您的连接信息",
     "Id": "连接 ID",
     "RequestUrl": "请求地址",

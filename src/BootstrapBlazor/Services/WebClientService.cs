@@ -15,56 +15,6 @@ namespace BootstrapBlazor.Components;
 public class WebClientService : IDisposable
 {
     /// <summary>
-    /// 获得/设置 操作日志主键ID
-    /// </summary>
-    public string? Id { get; private set; }
-
-    /// <summary>
-    /// 获得/设置 客户端IP
-    /// </summary>
-    public string? Ip { get; private set; }
-
-    /// <summary>
-    /// 获得/设置 客户端地点
-    /// </summary>
-    public string? City { get; private set; }
-
-    /// <summary>
-    /// 获得/设置 客户端浏览器
-    /// </summary>
-    public string? Browser { get; private set; }
-
-    /// <summary>
-    /// 获得/设置 客户端操作系统
-    /// </summary>
-    public string? OS { get; private set; }
-
-    /// <summary>
-    /// 获得/设置 客户端设备类型
-    /// </summary>
-    public string? Device { get; private set; }
-
-    /// <summary>
-    /// 获得/设置 客户端浏览器语言
-    /// </summary>
-    public string? Language { get; private set; }
-
-    /// <summary>
-    /// 获取/设置 请求网址
-    /// </summary>
-    public string? RequestUrl { get; private set; }
-
-    /// <summary>
-    /// 获得/设置 客户端 UserAgent
-    /// </summary>
-    public string? UserAgent { get; private set; }
-
-    /// <summary>
-    /// 获得/设置 浏览器引擎信息
-    /// </summary>
-    public string? Engine { get; private set; }
-
-    /// <summary>
     /// 获得/设置 模态弹窗返回值任务实例
     /// </summary>
     private TaskCompletionSource<bool>? ReturnTask { get; set; }
@@ -74,6 +24,8 @@ public class WebClientService : IDisposable
     private readonly NavigationManager _navigation;
 
     private JSInterop<WebClientService>? Interop { get; set; }
+
+    private ClientInfo? Client { get; set; }
 
     /// <summary>
     /// 
@@ -86,15 +38,21 @@ public class WebClientService : IDisposable
     /// 
     /// </summary>
     /// <returns></returns>
-    public async Task<bool> RetrieveRemoteInfo()
+    public async Task<ClientInfo> GetClientInfo()
     {
         Interop ??= new JSInterop<WebClientService>(_runtime);
         await Interop.InvokeVoidAsync(this, null, "webClient", "ip.axd", nameof(SetData));
-        RequestUrl = _navigation.Uri;
+
+        Client = new ClientInfo()
+        {
+            RequestUrl = _navigation.Uri
+        };
 
         // 等待 SetData 方法执行完毕
         ReturnTask = new TaskCompletionSource<bool>();
-        return await ReturnTask.Task;
+        await ReturnTask.Task;
+
+        return Client;
     }
 
     /// <summary>
@@ -111,14 +69,17 @@ public class WebClientService : IDisposable
     [JSInvokable]
     public void SetData(string id, string ip, string os, string browser, string device, string language, string engine, string agent)
     {
-        Id = id;
-        Ip = ip;
-        OS = os;
-        Browser = browser;
-        Device = device;
-        Language = language;
-        Engine = engine;
-        UserAgent = agent;
+        if (Client != null)
+        {
+            Client.Id = id;
+            Client.Ip = ip;
+            Client.OS = os;
+            Client.Browser = browser;
+            Client.Device = device;
+            Client.Language = language;
+            Client.Engine = engine;
+            Client.UserAgent = agent;
+        }
         ReturnTask?.TrySetResult(true);
     }
 
@@ -143,4 +104,60 @@ public class WebClientService : IDisposable
         Dispose(true);
         GC.SuppressFinalize(this);
     }
+}
+
+/// <summary>
+/// 客户端请求信息实体类
+/// </summary>
+public class ClientInfo
+{
+    /// <summary>
+    /// 获得/设置 操作日志主键ID
+    /// </summary>
+    public string? Id { get; set; }
+
+    /// <summary>
+    /// 获得/设置 客户端IP
+    /// </summary>
+    public string? Ip { get; set; }
+
+    /// <summary>
+    /// 获得/设置 客户端地点
+    /// </summary>
+    public string? City { get; set; }
+
+    /// <summary>
+    /// 获得/设置 客户端浏览器
+    /// </summary>
+    public string? Browser { get; set; }
+
+    /// <summary>
+    /// 获得/设置 客户端操作系统
+    /// </summary>
+    public string? OS { get; set; }
+
+    /// <summary>
+    /// 获得/设置 客户端设备类型
+    /// </summary>
+    public string? Device { get; set; }
+
+    /// <summary>
+    /// 获得/设置 客户端浏览器语言
+    /// </summary>
+    public string? Language { get; set; }
+
+    /// <summary>
+    /// 获取/设置 请求网址
+    /// </summary>
+    public string? RequestUrl { get; set; }
+
+    /// <summary>
+    /// 获得/设置 客户端 UserAgent
+    /// </summary>
+    public string? UserAgent { get; set; }
+
+    /// <summary>
+    /// 获得/设置 浏览器引擎信息
+    /// </summary>
+    public string? Engine { get; set; }
 }
