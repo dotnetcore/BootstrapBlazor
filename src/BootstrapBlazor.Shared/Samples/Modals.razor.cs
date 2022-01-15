@@ -158,7 +158,7 @@ public sealed partial class Modals
             Name = nameof(ModalDialog.FullScreenSize),
             Description = "小于特定尺寸时全屏",
             Type = "Size",
-            ValueList = "None / Always / ExtraSmall / Small / Medium / Large / ExtraLarge",
+            ValueList = "None / Always / Small / Medium / Large / ExtraLarge",
             DefaultValue = "None"
         },
         new AttributeItem() {

@@ -37,6 +37,11 @@ public class DialogOption
     public Size Size { get; set; } = Size.Large;
 
     /// <summary>
+    /// 获得/设置 全屏弹窗 默认 None
+    /// </summary>
+    public FullScreenSize FullScreenSize { get; set; } = FullScreenSize.None;
+
+    /// <summary>
     /// 获得/设置 是否垂直居中 默认为 true
     /// </summary>
     public bool IsCentered { get; set; } = true;
@@ -140,6 +145,7 @@ public class DialogOption
         var ret = new Dictionary<string, object>
         {
             [nameof(Size)] = Size,
+            [nameof(FullScreenSize)] = FullScreenSize,
             [nameof(IsCentered)] = IsCentered,
             [nameof(IsScrolling)] = IsScrolling,
             [nameof(ShowCloseButton)] = ShowCloseButton,
