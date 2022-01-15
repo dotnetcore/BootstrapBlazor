@@ -321,17 +321,8 @@
                             <td>&nbsp;</td>
                             <td colspan="@GetColumnCount()">
                                 <div class="table-cell is-wrap">
-                                    @if (DetailRows.Contains(item))
-                                    {
-                                        @DetailRowTemplate?.Invoke(item)
-                                    }
-                                    else
-                                    {
-                                        <div class="table-loading">
-                                            <Spinner Color="Color.Primary" />
-                                        </div>
-                                    }
-                                    </div>
+                                    @DetailRowTemplate?.Invoke(item)
+                                </div>
                             </td>
                         </tr>
                     }

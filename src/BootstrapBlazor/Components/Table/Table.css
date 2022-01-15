@@ -744,3 +744,9 @@ form .table .table-cell > textarea {
 .table-cell .tag {
     line-height: 22px;
 }
+
+.table-cell .is-color {
+    width: 28px;
+    height: 21px;
+    border-radius: 0.25rem;
+}
