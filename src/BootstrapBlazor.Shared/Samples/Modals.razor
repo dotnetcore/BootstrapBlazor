@@ -78,6 +78,41 @@
     </div>
 </DemoBlock>
 
+<DemoBlock Title="全屏弹窗" Introduction="设置属性 <code>FullScreenSize</code> 即可" Name="FullScreenSize">
+    <div class="row g-3">
+        <div class="col-12 col-sm-4 col-lg-auto">
+            <Button OnClick="@(async e => await SmailFullScreenModal.Toggle())">全屏弹窗</Button>
+            <Modal @ref="SmailFullScreenModal">
+                <ModalDialog FullScreenSize="FullScreenSize.Always" Title="全屏弹窗">
+                    <BodyTemplate>
+                        <div>我是弹窗内正文</div>
+                    </BodyTemplate>
+                </ModalDialog>
+            </Modal>
+        </div>
+        <div class="col-12 col-sm-4 col-lg-auto">
+            <Button OnClick="@(async e => await LargeFullScreenModal.Toggle())">全屏弹窗(&lt;1200px)</Button>
+            <Modal @ref="LargeFullScreenModal">
+                <ModalDialog FullScreenSize="FullScreenSize.Large" Title="大全屏弹窗">
+                    <BodyTemplate>
+                        <div>我是弹窗内正文</div>
+                    </BodyTemplate>
+                </ModalDialog>
+            </Modal>
+        </div>
+        <div class="col-12 col-sm-4 col-lg-auto">
+            <Button OnClick="@(async e => await ExtraLargeFullScreenModal.Toggle())">全屏弹窗(&lt;1400px)</Button>
+            <Modal @ref="ExtraLargeFullScreenModal">
+                <ModalDialog FullScreenSize="FullScreenSize.ExtraLarge" Title="超大全屏弹窗">
+                    <BodyTemplate>
+                        <div>我是弹窗内正文</div>
+                    </BodyTemplate>
+                </ModalDialog>
+            </Modal>
+        </div>
+    </div>
+</DemoBlock>
+
 <DemoBlock Title="垂直居中" Introduction="通过 <code>IsCentered</code> 设置弹框组件的垂直居中" Name="CenterVertically">
     <Button OnClick="@(async e => await CenterModal.Toggle())">垂直居中的弹窗</Button>
     <Modal @ref="CenterModal">

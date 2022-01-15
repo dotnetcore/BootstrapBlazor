@@ -27,6 +27,7 @@ public partial class ModalDialog : IDisposable
     private string? ClassName => CssBuilder.Default("modal-dialog")
         .AddClass("modal-dialog-centered", IsCentered)
         .AddClass($"modal-{Size.ToDescriptionString()}", Size != Size.None)
+        .AddClass($"modal-{FullScreenSize.ToDescriptionString()}", FullScreenSize != FullScreenSize.None)
         .AddClass("modal-dialog-scrollable", IsScrolling)
         .AddClass("is-draggable", IsDraggable)
         .AddClass("d-none", !IsShown)
@@ -55,6 +56,12 @@ public partial class ModalDialog : IDisposable
     /// </summary>
     [Parameter]
     public Size Size { get; set; } = Size.Large;
+
+    /// <summary>
+    /// 获得/设置 弹窗大小
+    /// </summary>
+    [Parameter]
+    public FullScreenSize FullScreenSize { get; set; } = FullScreenSize.Large;
 
     /// <summary>
     /// 获得/设置 是否垂直居中 默认为 true
