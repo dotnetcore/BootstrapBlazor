@@ -147,7 +147,7 @@ public class DialogTest : BootstrapBlazorTestBase
 #if NET5_0
         var parameters = new Dictionary<string, object>()
 #else
-            var parameters = new Dictionary<string, object?>()
+        var parameters = new Dictionary<string, object?>()
 #endif
         {
             ["Field"] = "Name",
@@ -156,7 +156,7 @@ public class DialogTest : BootstrapBlazorTestBase
 #if NET5_0
         var item = new EditorItem<string>();
 #else
-            var item = new EditorItem<Foo, string>();
+        var item = new EditorItem<Foo, string>();
 #endif
         cut.InvokeAsync(() => item.SetParametersAsync(ParameterView.FromDictionary(parameters)));
         editOption.Items = new IEditorItem[]
@@ -231,8 +231,8 @@ public class DialogTest : BootstrapBlazorTestBase
             {
                 [nameof(Button.OnClickWithoutRender)] = () =>
                 {
-                        // 继续弹窗
-                        dialog.Show(new DialogOption()
+                    // 继续弹窗
+                    dialog.Show(new DialogOption()
                     {
                         BodyTemplate = builder =>
                         {
@@ -258,6 +258,130 @@ public class DialogTest : BootstrapBlazorTestBase
         btnClose = cut.FindAll(".btn-close").Last();
         btnClose.Click();
         Assert.Equal(0, cut.FindComponents<ModalDialog>().Count);
+        #endregion
+
+        #region 全屏弹窗
+        cut.InvokeAsync(() => dialog.Show(new DialogOption()
+        {
+            FullScreenSize = FullScreenSize.Large
+        }));
+        Assert.Contains("modal-fullscreen-lg-down", cut.Markup);
+        btnClose = cut.FindAll(".btn-close").Last();
+        btnClose.Click();
+        #endregion
+
+        #region IsCenter
+        cut.InvokeAsync(() => dialog.Show(new DialogOption()
+        {
+            IsCentered = true
+        }));
+        Assert.Contains("modal-dialog-centered", cut.Markup);
+        btnClose = cut.FindAll(".btn-close").Last();
+        btnClose.Click();
+
+        cut.InvokeAsync(() => dialog.Show(new DialogOption()
+        {
+            IsCentered = false
+        }));
+        Assert.DoesNotContain("modal-dialog-centered", cut.Markup);
+        btnClose = cut.FindAll(".btn-close").Last();
+        btnClose.Click();
+        #endregion
+
+        #region IsKeyboard
+        cut.InvokeAsync(() => dialog.Show(new DialogOption()
+        {
+            IsKeyboard = true
+        }));
+        Assert.Contains("data-bs-keyboard=\"true\"", cut.Markup);
+        btnClose = cut.FindAll(".btn-close").Last();
+        btnClose.Click();
+
+        cut.InvokeAsync(() => dialog.Show(new DialogOption()
+        {
+            IsKeyboard = false
+        }));
+        Assert.DoesNotContain("data-bs-keyboard\"false\"", cut.Markup);
+        btnClose = cut.FindAll(".btn-close").Last();
+        btnClose.Click();
+        #endregion
+
+        #region ShowHeaderCloseButton
+        cut.InvokeAsync(() => dialog.Show(new DialogOption()
+        {
+            ShowHeaderCloseButton = true
+        }));
+        btnClose = cut.FindAll(".btn-close").Last();
+        btnClose.Click();
+
+        cut.InvokeAsync(() => dialog.Show(new DialogOption()
+        {
+            ShowHeaderCloseButton = false
+        }));
+        Assert.DoesNotContain("btn-close", cut.Markup);
+        btnClose = cut.FindAll(".btn-secondary").Last();
+        btnClose.Click();
+        #endregion
+
+        #region ShowPrintButton
+        cut.InvokeAsync(() => dialog.Show(new DialogOption()
+        {
+            ShowPrintButton = true
+        }));
+        Assert.Contains("btn-print", cut.Markup);
+        btnClose = cut.FindAll(".btn-close").Last();
+        btnClose.Click();
+
+        cut.InvokeAsync(() => dialog.Show(new DialogOption()
+        {
+            ShowPrintButton = false
+        }));
+        Assert.DoesNotContain("btn-print", cut.Markup);
+        btnClose = cut.FindAll(".btn-close").Last();
+        btnClose.Click();
+
+        cut.InvokeAsync(() => dialog.Show(new DialogOption()
+        {
+            ShowPrintButton = true,
+            ShowPrintButtonInHeader = true,
+            PrintButtonText = "Print-Test"
+        }));
+        Assert.Contains("btn-print", cut.Markup);
+        Assert.Contains("Print-Test", cut.Markup);
+        btnClose = cut.FindAll(".btn-close").Last();
+        btnClose.Click();
+        #endregion
+
+        #region ShowSaveButton
+        cut.InvokeAsync(() => dialog.Show(new DialogOption()
+        {
+            ShowSaveButton = true,
+            SaveButtonText = "Save-Test",
+            CloseButtonText = "Close-Test",
+            BodyContext = "Test"
+        }));
+        Assert.Contains("Save-Test", cut.Markup);
+        Assert.Contains("Close-Test", cut.Markup);
+        btnClose = cut.FindAll(".btn-close").Last();
+        btnClose.Click();
+        #endregion
+
+        #region OnSaveAsync
+        var save = false;
+        cut.InvokeAsync(() => dialog.Show(new DialogOption()
+        {
+            ShowSaveButton = true,
+            IsAutoCloseAfterSave = true,
+            IsDraggable = false,
+            OnSaveAsync = () =>
+            {
+                save = true;
+                return Task.FromResult(save);
+            }
+        }));
+        btnClose = cut.FindAll(".btn-primary").Last();
+        btnClose.Click();
+        Assert.True(save);
         #endregion
     }
 

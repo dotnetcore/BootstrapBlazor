@@ -61,7 +61,7 @@ public partial class ModalDialog : IDisposable
     /// 获得/设置 弹窗大小
     /// </summary>
     [Parameter]
-    public FullScreenSize FullScreenSize { get; set; } = FullScreenSize.Large;
+    public FullScreenSize FullScreenSize { get; set; }
 
     /// <summary>
     /// 获得/设置 是否垂直居中 默认为 true
@@ -165,7 +165,6 @@ public partial class ModalDialog : IDisposable
     /// 获得/设置 保存成功后是否自动关闭弹窗 默认 true 自动关闭
     /// </summary>
     [Parameter]
-    [NotNull]
     public bool IsAutoCloseAfterSave { get; set; } = true;
 
     /// <summary>

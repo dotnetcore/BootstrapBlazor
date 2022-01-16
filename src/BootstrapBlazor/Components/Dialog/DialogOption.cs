@@ -137,6 +137,16 @@ public class DialogOption
     public string? SaveButtonText { get; set; }
 
     /// <summary>
+    /// 获得/设置 保存成功后是否自动关闭弹窗 默认 true 自动关闭
+    /// </summary>
+    public bool IsAutoCloseAfterSave { get; set; } = true;
+
+    /// <summary>
+    /// 获得/设置 是否可以拖拽弹窗 默认 false 不可以拖动
+    /// </summary>
+    public bool IsDraggable { get; set; }
+
+    /// <summary>
     /// 将参数转换为组件属性方法
     /// </summary>
     /// <returns></returns>
@@ -154,7 +164,9 @@ public class DialogOption
             [nameof(ShowFooter)] = ShowFooter,
             [nameof(ShowPrintButton)] = ShowPrintButton,
             [nameof(ShowPrintButtonInHeader)] = ShowPrintButtonInHeader,
-            [nameof(IsKeyboard)] = IsKeyboard
+            [nameof(IsKeyboard)] = IsKeyboard,
+            [nameof(IsAutoCloseAfterSave)] = IsAutoCloseAfterSave,
+            [nameof(IsDraggable)] = IsDraggable
         };
         if (!string.IsNullOrEmpty(PrintButtonText))
         {
