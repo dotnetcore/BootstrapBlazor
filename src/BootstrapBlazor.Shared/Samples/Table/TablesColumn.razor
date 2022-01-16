@@ -55,8 +55,9 @@
 </DemoBlock>
 
 <DemoBlock Title="自定义各列宽度" Introduction="通过设置 <code>TableColumn</code> <code>Width</code> 属性，来控制列宽度，行内按钮操作列宽度由 <code>ExtendButtonColumnWidth</code> 属性控制" Name="Width">
-    <p>本例中继续上一个例子，实现了自定义四个功能按钮，并且扩展到行内，点击各个按钮时均有相对应的回调委托方法，<code>TableToolbarButton</code> 采用的是 <code>Delegate</code> 方式完成数据交换，点击工具栏按钮时设置 <code>OnClickCallback</code> 委托方法即可获取表内选中的行数据集合</p>
+    <p>本例中继续上一个例子，实现了自定义四个功能按钮，并且扩展到行内，点击各个按钮时均有相对应的回调委托方法，<code>TableToolbarButton</code> 采用的是 <code>Delegate</code> 方式完成数据交换，点击工具栏按钮时设置 <code>OnClick</code> 委托方法即可获取表内选中的行数据集合</p>
     <p><code>RowButtonTemplate</code> 按钮模板默认将自定义按钮放置到内置按钮后面，如需要自定义按钮放置到内置按钮前请使用 <code>BeforeRowButtonTemplate</code> 模板</p>
+    <p>通过设置按钮 <code>IsShow</code> 参数来控制是否显示按钮</p>
     <Table TItem="Foo" @ref="TableRows"
            IsPagination="true" PageItemsSource="@PageItemsSource"
            IsStriped="true" IsBordered="true"
@@ -284,7 +285,7 @@
     <Table TItem="Foo"
            IsPagination="true" PageItemsSource="@PageItemsSource"
            IsStriped="true" IsBordered="true" AutoGenerateColumns="true"
-           ShowToolbar="false" IsMultipleSelect="true" ShowExtendButtons="true"
+           ShowToolbar="true" IsMultipleSelect="true" ShowExtendButtons="true"
            ShowDefaultButtons="true" OnSaveAsync="@OnSaveAsync"
            OnQueryAsync="@OnQueryAsync" OnColumnCreating="@OnColumnCreating" ShowEditButton="true">
     </Table>
