@@ -6,9 +6,9 @@
 <h4>@Localizer["SubTitle"]</h4>
 
 <DemoBlock Title="@Localizer["BasicUsageTitle"]" Introduction="@Localizer["BasicUsageIntro"]" Name="Normal">
-    <div class="d-flex mb-3">
-        <label class="me-1">@Localizer["BasicUsageP"]</label>
-        <RadioList TValue="SelectedItem" OnSelectedChanged="@OnStateChanged" Items="@Items"></RadioList>
+    <div class="d-flex mb-3 align-items-center">
+        <div class="text-nowrap me-1">@Localizer["BasicUsageP"]</div>
+        <RadioList class="flex-fill" TValue="SelectedItem" OnSelectedChanged="@OnStateChanged" Items="@Items"></RadioList>
     </div>
     <Timeline Items="TimelineItems" IsReverse="@IsReverse"></Timeline>
 </DemoBlock>
