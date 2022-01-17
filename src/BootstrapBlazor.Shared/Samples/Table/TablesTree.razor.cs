@@ -96,7 +96,7 @@ public partial class TablesTree
         });
     }
 
-    private async Task<IEnumerable<EditFooTree>> OnTreeExpandQuary(EditFooTree foo)
+    private async Task<IEnumerable<EditFooTree>> OnTreeExpandQuery(EditFooTree foo)
     {
         await Task.Delay(50);
         return AllItems.Where(f => f.ParentId == foo.Id);

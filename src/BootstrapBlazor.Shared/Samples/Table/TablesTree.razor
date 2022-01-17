@@ -47,7 +47,7 @@
     <Table TItem="EditFooTree" IsBordered="true" HeaderStyle="@TableHeaderStyle.Light"
            ShowToolbar="true" ShowExtendButtons="true" ShowSkeleton="true" IsStriped="true"
            OnQueryAsync="@OnQueryAsync" OnAddAsync="@OnAddAsync" OnSaveAsync="@OnSaveAsync"
-           OnDeleteAsync="@OnDeleteAsync" IsTree="true" OnTreeExpand="@OnTreeExpandQuary">
+           OnDeleteAsync="@OnDeleteAsync" IsTree="true" OnTreeExpand="@OnTreeExpandQuery">
         <TableColumns>
             <TableColumn @bind-Field="@context.Id" />
             <TableColumn @bind-Field="@context.Name" Width="360" />
