@@ -7,6 +7,7 @@ using BootstrapBlazor.Shared.Common;
 using BootstrapBlazor.Shared.Components;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.Extensions.Localization;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -28,6 +29,10 @@ public sealed partial class Dialogs
     [Inject]
     [NotNull]
     private DialogService? DialogService { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<Foo>? Localizer { get; set; }
 
     private bool IsKeyboard { get; set; }
 
@@ -221,6 +226,44 @@ public sealed partial class Dialogs
         {
             Title = $"弹窗 {DateTime.Now}",
             Component = BootstrapDynamicComponent.CreateComponent<DialogDemo>()
+        });
+    }
+
+    private async Task OnEditDialogClick()
+    {
+        var option = new EditDialogOption<Foo>()
+        {
+            Title = "编辑弹窗",
+            Model = new Foo(),
+            RowType = RowType.Inline,
+            ItemsPerRow = 2,
+            ItemChangedType = ItemChangedType.Update
+        };
+        await DialogService.ShowEditDialog(option);
+    }
+
+    private async Task OnSearchDialogClick()
+    {
+        var option = new SearchDialogOption<Foo>()
+        {
+            Title = "搜索弹窗",
+            Model = new Foo(),
+            RowType = RowType.Inline,
+            ItemsPerRow = 2,
+        };
+        await DialogService.ShowSearchDialog(option);
+    }
+
+    private async Task OnSaveDialogClick()
+    {
+        var foo = Foo.Generate(Localizer);
+        await DialogService.ShowSaveDialog<DialogSaveDetail>("保存", () =>
+        {
+            // 此处可以访问 foo 实例进行入库操作等
+            return Task.FromResult(true);
+        }, new Dictionary<string, object?>
+        {
+            ["Value"] = foo
         });
     }
 

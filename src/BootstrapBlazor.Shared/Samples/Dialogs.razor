@@ -4,14 +4,6 @@
 
 <h4>通过注入服务调用 <code>Show</code> 方法弹出窗口进行人机交互</h4>
 
-<Tips class="mt-3">
-    <p>
-        本组件使用注入服务的形式提供功能，使用时用户体验效果非常舒适，随时随地的调用，需要在使用本组件的页面中内置 <code>Dialog</code> 组件，或者在 <code>MainLayout</code> 主布局组件中内置，示例代码如下：
-    </p>
-</Tips>
-
-<Pre>&lt;Dialog /&gt;</Pre>
-
 <DemoBlock Title="基本用法" Introduction="通过设置 <code>DialogOption</code> 属性对模态框进行基本属性设置" Name="Keyboard">
     <div>
         <p>通过设置 <code>DialogOption</code> <code>IsKeyboard</code> 参数，开启弹窗是否支持 <kbd>ESC</kbd>，请点击后面按钮设置后再点击 <b>弹窗</b> 按钮测试效果</p>
@@ -98,6 +90,35 @@
     </ul>
     <Button OnClick="@OnResultDialogClick">点击打开 Dialog</Button>
     <BlockLogger @ref="Trace" class="mt-3" />
+</DemoBlock>
+
+<DemoBlock Title="编辑对话框" Introduction="通过 <code>ShowEditDialog</code> 方法弹出保存对话框" Name="EditDialog">
+    <p>功能介绍</p>
+    <ul class="ul-demo">
+        <li>点击按钮弹出编辑弹窗</li>
+        <li>通过 <code>EditDialogOption</code> 参数对弹窗进行设置</li>
+        <li>设计出发点通过给定 <code>Model</code> 或者 <code>Items</code> 自动生成带客户端验证的表单窗口</li>
+    </ul>
+    <Button OnClick="@OnEditDialogClick">编辑弹窗</Button>
+</DemoBlock>
+
+<DemoBlock Title="搜索对话框" Introduction="通过 <code>ShowSearchDialog</code> 方法弹出保存对话框" Name="SearchDialog">
+    <p>功能介绍</p>
+    <ul class="ul-demo">
+        <li>点击按钮弹出搜索弹窗</li>
+        <li>通过 <code>SearchDialogOption</code> 参数对弹窗进行设置</li>
+        <li>设计出发点通过给定 <code>Model</code> 或者 <code>Items</code> 自动生成搜索窗口</li>
+    </ul>
+    <Button OnClick="@OnSearchDialogClick">搜索弹窗</Button>
+</DemoBlock>
+
+<DemoBlock Title="保存对话框" Introduction="通过 <code>ShowSaveDialog</code> 方法弹出保存对话框" Name="SaveDialog">
+    <p>功能介绍</p>
+    <ul class="ul-demo">
+        <li>点击按钮弹出保存弹窗</li>
+        <li>设计出发点通过给定 <code>TComponent</code> 自动生成保存窗口，通过设置 <code>saveCallback</code> 在保存回调方法中进行数据处理，<code>TComponent</code> 泛型组件所需要参数可以通过 <code>parameters</code> 进行传递</li>
+    </ul>
+    <Button OnClick="@OnSaveDialogClick">保存弹窗</Button>
 </DemoBlock>
 
 <DemoBlock Title="对话框大小" Introduction="通过设置 <code>Size</code> <code>FullScreenSize</code> 参数组合可以实现非常灵活的窗体大小控制" Name="ModalDialog">
