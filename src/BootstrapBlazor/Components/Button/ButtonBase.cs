@@ -179,8 +179,8 @@ public abstract class ButtonBase : TooltipComponentBase
                 exception = ex;
             }
 
-                // 恢复按钮
-                if (IsAsync && ButtonType == ButtonType.Button)
+            // 恢复按钮
+            if (IsAsync && ButtonType == ButtonType.Button)
             {
                 ButtonIcon = Icon;
                 IsDisabled = false;
@@ -189,8 +189,8 @@ public abstract class ButtonBase : TooltipComponentBase
 
             if (exception != null)
             {
-                    // 如果有异常发生强制按钮恢复
-                    StateHasChanged();
+                // 如果有异常发生强制按钮恢复
+                StateHasChanged();
                 throw exception;
             }
         });
