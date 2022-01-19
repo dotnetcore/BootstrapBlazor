@@ -174,6 +174,12 @@ public partial class Table<TItem>
     public string? EditDialogSaveButtonText { get; set; }
 
     /// <summary>
+    /// 获得/设置 保存弹窗中的关闭按钮显示文本 默认为资源文件中的 关闭
+    /// </summary>
+    [Parameter]
+    public string? EditDialogCloseButtonText { get; set; }
+
+    /// <summary>
     /// ToastService 服务实例
     /// </summary>
     [Inject]
@@ -491,6 +497,7 @@ public partial class Table<TItem>
             Model = EditModel,
             Items = Columns.Where(i => i.Editable),
             SaveButtonText = EditDialogSaveButtonText,
+            CloseButtonText = EditDialogCloseButtonText,
             DialogBodyTemplate = EditTemplate,
             RowType = EditDialogRowType,
             ItemsPerRow = EditDialogItemsPerRow,
