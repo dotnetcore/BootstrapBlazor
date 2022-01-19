@@ -22,9 +22,8 @@ public static class BootstrapBlazorServiceCollectionExtensions
     /// <param name="services"></param>
     /// <param name="configureOptions"></param>
     /// <param name="localizationAction"></param>
-    /// <param name="locatorAction"></param>
     /// <returns></returns>
-    public static IServiceCollection AddBootstrapBlazor(this IServiceCollection services, Action<BootstrapBlazorOptions>? configureOptions = null, Action<JsonLocalizationOptions>? localizationAction = null, Action<IPLocatorOption>? locatorAction = null)
+    public static IServiceCollection AddBootstrapBlazor(this IServiceCollection services, Action<BootstrapBlazorOptions>? configureOptions = null, Action<JsonLocalizationOptions>? localizationAction = null)
     {
         services.AddMemoryCache();
         services.AddHttpClient();
@@ -67,13 +66,24 @@ public static class BootstrapBlazorServiceCollectionExtensions
 
         services.TryAddSingleton<IIPLocatorProvider, DefaultIPLocatorProvider>();
         services.TryAddSingleton<IConfigureOptions<IPLocatorOption>, ConfigureOptions<IPLocatorOption>>();
+        return services;
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="services"></param>
+    /// <param name="locatorAction"></param>
+    /// <returns></returns>
+    public static IServiceCollection ConfigIPLocatorOption(this IServiceCollection services, Action<IPLocatorOption> locatorAction)
+    {
         services.Configure<IPLocatorOption>(options =>
         {
-            locatorAction?.Invoke(options);
+            locatorAction(options);
 
             if (options.LocatorFactory == null)
             {
-                options.LocatorFactory = () => new BaiDuIPLocator();
+                options.LocatorFactory = provider => new BaiDuIPLocator();
             }
         });
         return services;

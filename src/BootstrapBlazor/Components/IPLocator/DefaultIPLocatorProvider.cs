@@ -4,6 +4,7 @@
 
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using System;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -17,14 +18,18 @@ internal class DefaultIPLocatorProvider : IIPLocatorProvider
 {
     private readonly IPLocatorOption _option;
 
+    private readonly IServiceProvider _provider;
+
     /// <summary>
     /// 构造函数
     /// </summary>
+    /// <param name="provider"></param>
     /// <param name="factory"></param>
     /// <param name="logger"></param>
     /// <param name="option"></param>
-    public DefaultIPLocatorProvider(IHttpClientFactory factory, ILogger<DefaultIPLocatorProvider> logger, IOptions<IPLocatorOption> option)
+    public DefaultIPLocatorProvider(IServiceProvider provider, IHttpClientFactory factory, ILogger<DefaultIPLocatorProvider> logger, IOptions<IPLocatorOption> option)
     {
+        _provider = provider;
         _option = option.Value;
         _option.HttpClient = factory.CreateClient();
         _option.Logger = logger;
@@ -50,7 +55,7 @@ internal class DefaultIPLocatorProvider : IIPLocatorProvider
             _option.IP = ip;
             if (_option.LocatorFactory != null)
             {
-                var locator = _option.LocatorFactory();
+                var locator = _option.LocatorFactory(_provider);
                 if (locator != null)
                 {
                     ret = await locator.Locate(_option);

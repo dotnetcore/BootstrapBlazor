@@ -17,7 +17,7 @@ public class IPLocatorOption
     /// <summary>
     /// 获得/设置 定位器创建方法未设置使用内部定位器
     /// </summary>
-    public Func<IIPLocator>? LocatorFactory { get; set; }
+    public Func<IServiceProvider, IIPLocator>? LocatorFactory { get; set; }
 
     /// <summary>
     /// 获得/设置 IP地址请求超时时间 默认为 3000 毫秒

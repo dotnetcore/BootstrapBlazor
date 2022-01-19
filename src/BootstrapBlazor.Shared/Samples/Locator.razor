@@ -49,7 +49,7 @@ private IIPLocatorProvider? IPLocator { get; set; }
 {
     services.AddBootstrapBlazor(locatorAction: option =>
     {
-        option.LocatorFactory = () => new CustomerLocator();
+        option.LocatorFactory = provider => new CustomerLocator();
     });
 }</Pre>
         <div>@((MarkupString)Localizer["BasicUsageP12"].Value)</div>
