@@ -13,28 +13,33 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 ///
 /// </summary>
-internal class DefaultIPLocator : IIPLocator
+class DefaultIPLocator : IIPLocator
 {
     /// <summary>
     ///
     /// </summary>
     /// <param name="option"></param>
     /// <returns></returns>
-    public virtual Task<string> Locate(IPLocatorOption option) => Task.FromResult(string.Empty);
+    public virtual Task<string?> Locate(IPLocatorOption option) => Task.FromResult<string?>(null);
+
+    /// <summary>
+    /// 获得/设置 IP定位器请求地址
+    /// </summary>
+    public string? Url { get; set; }
 
     /// <summary>
     ///
     /// </summary>
     /// <param name="option"></param>
     /// <returns></returns>
-    protected static async Task<string> Locate<T>(IPLocatorOption option) where T : class
+    protected async Task<string?> Locate<T>(IPLocatorOption option) where T : class
     {
         string? ret = null;
         try
         {
-            if (!string.IsNullOrEmpty(option.Url) && !string.IsNullOrEmpty(option.IP) && option.HttpClient != null)
+            if (!string.IsNullOrEmpty(Url) && !string.IsNullOrEmpty(option.IP) && option.HttpClient != null)
             {
-                var url = string.Format(option.Url, option.IP);
+                var url = string.Format(Url, option.IP);
                 using var token = new CancellationTokenSource(option.RequestTimeout);
                 var result = await option.HttpClient.GetFromJsonAsync<T>(url, token.Token);
                 ret = result?.ToString();
@@ -42,8 +47,8 @@ internal class DefaultIPLocator : IIPLocator
         }
         catch (Exception ex)
         {
-            option.Logger?.LogError(ex, option.Url, option.IP);
+            option.Logger?.LogError(ex, Url, option.IP);
         }
-        return ret ?? string.Empty;
+        return ret;
     }
 }

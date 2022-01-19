@@ -17,17 +17,12 @@ public class IPLocatorOption
     /// <summary>
     /// 获得/设置 定位器名称
     /// </summary>
-    public string LocatorName { get; set; } = nameof(BaiDuIPLocator);
+    public string? LocatorName { get; set; }
 
     /// <summary>
     /// 获得/设置 定位器创建方法未设置使用内部定位器
     /// </summary>
-    public Func<string, IIPLocator> LocatorFactory { get; set; } = _ => new BaiDuIPLocator();
-
-    /// <summary>
-    /// 获得/设置 IP定位器请求地址
-    /// </summary>
-    public string Url { get; set; } = "https://sp0.baidu.com/8aQDcjqpAAV3otqbppnN2DJv/api.php?resource_id=6006&query={0}";
+    public Func<IIPLocator>? LocatorFactory { get; set; }
 
     /// <summary>
     /// 获得/设置 IP地址请求超时时间 默认为 3000 毫秒

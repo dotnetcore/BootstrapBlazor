@@ -16,5 +16,10 @@ public interface IIPLocator
     /// </summary>
     /// <param name="option">定位器配置信息</param>
     /// <returns>定位器定位结果</returns>
-    Task<string> Locate(IPLocatorOption option);
+    Task<string?> Locate(IPLocatorOption option);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public string? Url { get; set; }
 }

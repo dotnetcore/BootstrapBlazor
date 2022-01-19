@@ -3,6 +3,7 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -14,15 +15,17 @@ namespace BootstrapBlazor.Components;
 /// </summary>
 internal class DefaultIPLocatorProvider : IIPLocatorProvider
 {
-    private readonly IPLocatorOption _option = new();
+    private readonly IPLocatorOption _option;
 
     /// <summary>
     /// 构造函数
     /// </summary>
     /// <param name="factory"></param>
     /// <param name="logger"></param>
-    public DefaultIPLocatorProvider(IHttpClientFactory factory, ILogger<DefaultIPLocatorProvider> logger)
+    /// <param name="option"></param>
+    public DefaultIPLocatorProvider(IHttpClientFactory factory, ILogger<DefaultIPLocatorProvider> logger, IOptions<IPLocatorOption> option)
     {
+        _option = option.Value;
         _option.HttpClient = factory.CreateClient();
         _option.Logger = logger;
     }
@@ -32,7 +35,7 @@ internal class DefaultIPLocatorProvider : IIPLocatorProvider
     /// </summary>
     /// <param name="ip"></param>
     /// <returns></returns>
-    public async Task<string> Locate(string ip)
+    public async Task<string?> Locate(string ip)
     {
         string? ret = null;
 
@@ -45,13 +48,15 @@ internal class DefaultIPLocatorProvider : IIPLocatorProvider
         {
             // IP定向器地址未设置
             _option.IP = ip;
-            if (string.IsNullOrEmpty(_option.Url))
+            if (_option.LocatorFactory != null)
             {
-                ret = string.Empty;
+                var locator = _option.LocatorFactory();
+                if (locator != null)
+                {
+                    ret = await locator.Locate(_option);
+                }
             }
-            var locator = _option.LocatorFactory(_option.LocatorName);
-            ret = await locator.Locate(_option);
         }
-        return ret ?? string.Empty;
+        return ret;
     }
 }

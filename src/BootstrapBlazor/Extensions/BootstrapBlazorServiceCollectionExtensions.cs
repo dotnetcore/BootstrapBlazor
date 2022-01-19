@@ -56,8 +56,8 @@ public static class BootstrapBlazorServiceCollectionExtensions
         {
             configureOptions?.Invoke(options);
 
-                // 设置默认文化信息
-                if (options.DefaultCultureInfo != null)
+            // 设置默认文化信息
+            if (options.DefaultCultureInfo != null)
             {
                 var culture = new CultureInfo(options.DefaultCultureInfo);
                 CultureInfo.DefaultThreadCurrentCulture = culture;
@@ -66,9 +66,15 @@ public static class BootstrapBlazorServiceCollectionExtensions
         });
 
         services.TryAddSingleton<IIPLocatorProvider, DefaultIPLocatorProvider>();
+        services.TryAddSingleton<IConfigureOptions<IPLocatorOption>, ConfigureOptions<IPLocatorOption>>();
         services.Configure<IPLocatorOption>(options =>
         {
             locatorAction?.Invoke(options);
+
+            if (options.LocatorFactory == null)
+            {
+                options.LocatorFactory = () => new BaiDuIPLocator();
+            }
         });
         return services;
     }
