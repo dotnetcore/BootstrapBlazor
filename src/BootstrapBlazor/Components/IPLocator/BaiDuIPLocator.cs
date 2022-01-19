@@ -33,7 +33,7 @@ class BaiDuIPLocator : DefaultIPLocator
     /// </summary>
     /// <param name="option"></param>
     /// <returns></returns>
-    public override Task<string> Locate(IPLocatorOption option) => Locate<BaiDuIPLocator>(option);
+    public override Task<string?> Locate(IPLocatorOption option) => Locate<BaiDuIPLocator>(option);
 
     /// <summary>
     ///

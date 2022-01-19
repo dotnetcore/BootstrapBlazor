@@ -49,9 +49,7 @@ private IIPLocatorProvider? IPLocator { get; set; }
 {
     services.AddBootstrapBlazor(locatorAction: option =>
     {
-        option.LocatorName = "CustomerLocator";
-        option.LocatorFactory = name => new CustomerLocator();
-        option.Url = "http://apis.juhe.cn/ip/ipNew?key=f57102d1b9fadd3f4a1c29072d0c0206&ip=";
+        option.LocatorFactory = () => new CustomerLocator();
     });
 }</Pre>
         <div>@((MarkupString)Localizer["BasicUsageP12"].Value)</div>

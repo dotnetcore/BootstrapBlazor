@@ -15,11 +15,6 @@ namespace BootstrapBlazor.Components;
 public class IPLocatorOption
 {
     /// <summary>
-    /// 获得/设置 定位器名称
-    /// </summary>
-    public string? LocatorName { get; set; }
-
-    /// <summary>
     /// 获得/设置 定位器创建方法未设置使用内部定位器
     /// </summary>
     public Func<IIPLocator>? LocatorFactory { get; set; }
