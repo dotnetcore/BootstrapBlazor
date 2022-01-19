@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 namespace BootstrapBlazor.Shared.Shared;
 
 /// <summary>
-/// 
+///
 /// </summary>
 public sealed partial class NavMenu
 {
@@ -522,6 +522,11 @@ public sealed partial class NavMenu
                 {
                     Text = Localizer["Transition"],
                     Url = "transitions"
+                },
+                new()
+                {
+                    Text = "Ajax",
+                    Url = "ajaxs"
                 },
             };
         AddBadge(item);

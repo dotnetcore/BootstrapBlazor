@@ -49,6 +49,7 @@ public static class BootstrapBlazorServiceCollectionExtensions
         services.TryAddScoped<TitleService>();
         services.TryAddScoped<DownloadService>();
         services.TryAddScoped<WebClientService>();
+        services.TryAddScoped<AjaxService>();
 
         services.TryAddSingleton<IConfigureOptions<BootstrapBlazorOptions>, ConfigureOptions<BootstrapBlazorOptions>>();
         services.Configure<BootstrapBlazorOptions>(options =>
