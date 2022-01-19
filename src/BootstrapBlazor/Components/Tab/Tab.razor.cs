@@ -23,15 +23,17 @@ public partial class Tab
 
     private static string? GetContentClassString(TabItem item) => CssBuilder.Default("tabs-body-content")
         .AddClass("d-none", !item.IsActive)
+        .AddClass("invisible", !item.IsVisible)
         .Build();
 
     private string? WrapClassString => CssBuilder.Default("tabs-nav-wrap")
         .AddClass("extend", ShouldShowExtendButtons())
         .Build();
 
-    private string? GetClassString(bool active) => CssBuilder.Default("tabs-item")
-        .AddClass("active", active)
+    private string? GetClassString(TabItem item) => CssBuilder.Default("tabs-item")
+        .AddClass("active", item.IsActive)
         .AddClass("is-closeable", ShowClose)
+        .AddClass("invisible", !item.IsVisible)
         .Build();
 
     private static string? GetIconClassString(string icon) => CssBuilder.Default()

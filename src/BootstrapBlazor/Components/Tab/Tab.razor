@@ -41,7 +41,7 @@ else
                             }
                             @foreach (var item in Items)
                             {
-                                <DynamicElement href="@item.Url" role="tab" tabindex="-1" class="@GetClassString(item.IsActive)" TagName="a" TriggerClick="!ClickTabToNavigation" PreventDefault="@(!ClickTabToNavigation)" OnClick="@(() => OnClickTabItem(item))">
+                                <DynamicElement href="@item.Url" role="tab" tabindex="-1" class="@GetClassString(item)" TagName="a" TriggerClick="!ClickTabToNavigation" PreventDefault="@(!ClickTabToNavigation)" OnClick="@(() => OnClickTabItem(item))">
                                     @if (!string.IsNullOrEmpty(item.Icon))
                                     {
                                         <i class="@GetIconClassString(item.Icon)"></i>
