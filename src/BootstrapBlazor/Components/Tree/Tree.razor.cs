@@ -66,9 +66,10 @@ public sealed partial class Tree
         .Build();
 
     /// <summary>
-    /// 获得/设置 当前激活的节点实例
+    /// 获得/设置 选中节点 默认 null
     /// </summary>
-    private TreeItem? ActiveItem { get; set; }
+    [Parameter]
+    public TreeItem? ActiveItem { get; set; }
 
     /// <summary>
     /// 获得/设置 是否为手风琴效果 默认为 false
@@ -168,8 +169,15 @@ public sealed partial class Tree
     private async Task OnClick(TreeItem item)
     {
         ActiveItem = item;
-        if (ClickToggleNode) await OnExpandRowAsync(item);
-        if (OnTreeItemClick != null) await OnTreeItemClick(item);
+        if (ClickToggleNode)
+        {
+            await OnExpandRowAsync(item);
+        }
+
+        if (OnTreeItemClick != null)
+        {
+            await OnTreeItemClick(item);
+        }
     }
 
     /// <summary>
@@ -182,7 +190,10 @@ public sealed partial class Tree
         {
             if (Items != null && Items.Contains(item))
             {
-                foreach (var rootNode in Items.Where(p => p.IsExpanded && p != item)) rootNode.IsExpanded = false;
+                foreach (var rootNode in Items.Where(p => p.IsExpanded && p != item))
+                {
+                    rootNode.IsExpanded = false;
+                }
             }
             else
             {
