@@ -13,7 +13,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 ///
 /// </summary>
-class DefaultIPLocator : IIPLocator
+public class DefaultIPLocator : IIPLocator
 {
     /// <summary>
     ///

@@ -11,8 +11,11 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 ///
 /// </summary>
-class BaiDuIPLocator : DefaultIPLocator
+public class BaiDuIPLocator : DefaultIPLocator
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public BaiDuIPLocator()
     {
         Url = "https://sp0.baidu.com/8aQDcjqpAAV3otqbppnN2DJv/api.php?resource_id=6006&query={0}";
