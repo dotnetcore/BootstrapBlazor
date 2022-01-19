@@ -1,4 +1,4 @@
-(function ($) {
+﻿(function ($) {
     $.extend({
         bb_table_search: function (el, obj, searchMethod, clearSearchMethod) {
             $(el).data('bb_table_search', { obj: obj, searchMethod, clearSearchMethod });
@@ -276,8 +276,8 @@
                 paginationHeight = 0;
             }
             var toolbarHeight = $ele.find('.table-toolbar:first').outerHeight();
-            var bodyHeight = paginationHeight + toolbarHeight + searchHeight + 16;
-            if (bodyHeight > 16) {
+            var bodyHeight = paginationHeight + toolbarHeight + searchHeight;
+            if (bodyHeight > 0) {
                 if (searchHeight > 0) {
                     //记住历史height，用于展开搜索框时先设置一次高度
                     //再重新计算，避免高度超出父容器，出现滚动条
