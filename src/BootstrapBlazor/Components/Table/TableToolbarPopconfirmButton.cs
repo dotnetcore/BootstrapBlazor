@@ -22,6 +22,12 @@ public class TableToolbarPopconfirmButton<TItem> : PopConfirmButtonBase, IToolba
     public Func<IEnumerable<TItem>, Task>? OnClickCallback { get; set; }
 
     /// <summary>
+    /// 获得/设置 是否显示 默认 true 显示
+    /// </summary>
+    [Parameter]
+    public bool IsShow { get; set; } = true;
+
+    /// <summary>
     /// 获得/设置 Table Toolbar 实例
     /// </summary>
     [CascadingParameter]

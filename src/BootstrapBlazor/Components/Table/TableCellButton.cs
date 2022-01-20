@@ -32,7 +32,7 @@ public class TableCellButton : ButtonBase, IDisposable
     public bool AutoRenderTableWhenClick { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否显示本按钮 默认 true 显示
+    /// 获得/设置 是否显示 默认 true 显示
     /// </summary>
     /// <remarks>一般是通过 context 进行业务判断是否需要显示功能按钮</remarks>
     [Parameter]
