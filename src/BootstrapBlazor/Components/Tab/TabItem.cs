@@ -34,7 +34,7 @@ public class TabItem : ComponentBase
     /// 获得/设置 当前是否显示
     /// </summary>
     [Parameter]
-    public bool IsVisible { get; set; } = true;
+    public bool IsShow { get; set; } = true;
 
     /// <summary>
     /// 获得/设置 当前 TabItem 是否可关闭 默认为 true 可关闭
