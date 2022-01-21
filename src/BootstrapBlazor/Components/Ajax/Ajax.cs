@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// Ajax组件
+/// Ajax 组件
 /// </summary>
 public class Ajax : BootstrapComponentBase, IDisposable
 {

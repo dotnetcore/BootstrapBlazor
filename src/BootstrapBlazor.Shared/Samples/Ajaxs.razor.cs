@@ -27,9 +27,11 @@ public partial class Ajaxs
 
     private async Task Success()
     {
-        AjaxOption option = new AjaxOption();
-        option.Url = "/api/User/Login";
-        option.Data = new User() { UserName = "admin", Password = "123456" };
+        var option = new AjaxOption
+        {
+            Url = "/api/Login",
+            Data = new User() { UserName = "admin", Password = "123456" }
+        };
         var result = await AjaxService.GetMessage(option);
         if (result == null)
         {
@@ -52,9 +54,11 @@ public partial class Ajaxs
 
     private async Task Fail()
     {
-        AjaxOption option = new AjaxOption();
-        option.Url = "/api/User/Login";
-        option.Data = new User() { UserName = "admin", Password = "1234567" };
+        var option = new AjaxOption
+        {
+            Url = "/api/Login",
+            Data = new User() { UserName = "admin", Password = "1234567" }
+        };
         var result = await AjaxService.GetMessage(option);
         if (result == null)
         {

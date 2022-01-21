@@ -27,5 +27,4 @@ public class AjaxOption
     /// </summary>
     [NotNull]
     public string? Url { get; set; }
-
 }

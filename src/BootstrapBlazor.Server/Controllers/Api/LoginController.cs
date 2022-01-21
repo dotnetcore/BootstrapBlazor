@@ -3,23 +3,28 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using BootstrapBlazor.Shared;
-using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BootstrapBlazor.Server.Controllers.Api;
 
-[Route("api/[controller]/[action]")]
+[Route("api/[controller]")]
+[AllowAnonymous]
 [ApiController]
-public class UserController : ControllerBase
+public class LoginController : ControllerBase
 {
     [HttpPost]
-    public IActionResult Login(User user)
+    public IActionResult Post(User user)
     {
+        IActionResult? response = null;
         if (user.UserName == "admin" && user.Password == "123456")
         {
-            return new JsonResult( new { Code = 200, Message = "登录成功" });
+            response = new JsonResult(new { Code = 200, Message = "登录成功" });
         }
-
-        return new JsonResult(new { Code = 500, Message = "用户名或密码错误" });
+        else
+        {
+            response = new JsonResult(new { Code = 500, Message = "用户名或密码错误" });
+        }
+        return response;
     }
 }

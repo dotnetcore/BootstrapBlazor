@@ -2,18 +2,17 @@
 
 <h3>Ajax调用</h3>
 
-<h4>用于直接在浏览器使用js的ajax方法与服务器交互.目前只支持输入输出皆为json，返回值为json字符串，可以自行转换处理。</h4>
+<h4>用于直接在浏览器使用 js 的 ajax 方法与服务器交互，目前只支持输入输出皆为json，返回值为 json 字符串，可以自行转换处理。</h4>
 
-<Ajax></Ajax>
-
-<DemoBlock Introduction="模拟登录" Title="基本用法">
+<DemoBlock Introduction="模拟登录" Title="基本用法" Name="Normal">
     <p>
-            <b>特别注意：</b>
-            <div>
-                这里只是进行了登录模拟，并没有真正的调用HttpContext.SignIn，真实使用时需要在登录完成后对页面进行刷新，否则无法真正的登录成功。
-            </div>
-        </p>
-    @ResultMessage <br/>
+        <b>特别注意：</b>
+        <div>
+            这里只是进行了登录模拟，并没有真正的调用 <code>HttpContext.SignInAsync</code>，真实使用时需要在登录完成后对页面进行刷新，否则无法真正的登录成功。
+        </div>
+    </p>
+    <div class="mb-3">@ResultMessage</div>
     <Button OnClick="Success">登录成功</Button>
     <Button OnClick="Fail">登录失败</Button>
+    <Ajax></Ajax>
 </DemoBlock>

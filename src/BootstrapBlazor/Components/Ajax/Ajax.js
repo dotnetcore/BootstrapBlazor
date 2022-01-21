@@ -1,8 +1,8 @@
 ﻿(function ($) {
     $.extend({
         bb_ajax: function (url, method, data) {
-            data = JSON.stringify(data)
-            var res = null
+            data = JSON.stringify(data);
+            var res = null;
             $.ajax({
                 url: url,
                 data: data,
@@ -11,13 +11,13 @@
                 dataType: 'json',
                 async: false,
                 success: function (result) {
-                    res = result
+                    res = result;
                 },
                 error: function (XMLHttpRequest, textStatus, errorThrown) {
-                    return null
+                    return null;
                 }
-            })
-            return JSON.stringify(res)
+            });
+            return JSON.stringify(res);
         }
     });
 })(jQuery);

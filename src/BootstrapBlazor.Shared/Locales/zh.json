@@ -2570,6 +2570,7 @@
     "Upload": "上传组件 Upload",
     "ValidateForm": "验证表单 ValidateForm",
     "DataComponents": "数据组件",
+    "Ajax": "数据传输 Ajax",
     "Avatar": "头像框 Avatar",
     "Badge": "徽章 Badge",
     "BarcodeReader": "条码扫描 BarcodeReader",
