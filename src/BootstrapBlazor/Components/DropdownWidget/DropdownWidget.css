@@ -1,7 +1,8 @@
 ﻿.widget .dropdown-toggle {
     color: #fff;
-    padding: 14px 15px;
+    padding: 10px 16px;
     position: relative;
+    display: inline-block;
 }
 
     .widget .dropdown-toggle:after {
@@ -17,7 +18,7 @@
 .widget .dropdown-menu {
     overflow: visible;
     width: 235px;
-    margin-left: -96px !important;
+    margin-left: -94px !important;
     padding: 0;
     max-height: none;
     border: none;

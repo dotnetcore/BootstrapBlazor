@@ -6,7 +6,7 @@
 <h4>@Localizer["SubTitle"]</h4>
 
 <DemoBlock Title="@Localizer["BasicUsageTitle"]" Introduction="@Localizer["BasicUsageIntro"]" Name="Normal">
-    <div class="d-flex align-items-center" style="height: 40px; background-color: #6c757d;">
+    <div style="background-color: #6c757d;">
         <DropdownWidget>
             <DropdownWidgetItem Icon="fa fa-envelope-o" BadgeNumber="4">
                 <HeaderTemplate>
@@ -35,7 +35,7 @@
             </DropdownWidgetItem>
             <DropdownWidgetItem Icon="fa fa-bell-o" BadgeNumber="10" HeaderColor="Color.Success" BadgeColor="Color.Warning">
                 <HeaderTemplate>
-                    <span></span>
+                    <span>@Localizer["BasicUsageNotify"]</span>
                 </HeaderTemplate>
                 <BodyTemplate>
                     @for (var index = 0; index < 10; index++)
