@@ -16,6 +16,11 @@ public class DropdownWidgetItem : BootstrapComponentBase
     /// </summary>
     [Parameter]
     public string Icon { get; set; } = "fa fa-bell-o";
+    /// <summary>
+    /// 获得/设置 DropdownWidgetItem 组件项目的悬浮提示信息
+    /// </summary>
+    [Parameter]
+    public string? Title { get; set; }
 
     /// <summary>
     /// 获得/设置 徽章颜色 默认为 Color.Success
