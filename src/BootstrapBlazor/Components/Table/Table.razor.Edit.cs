@@ -443,7 +443,7 @@ public partial class Table<TItem>
                 SearchText = SearchText,
                 SortOrder = SortOrder,
                 SortName = SortName,
-                SortList = SortList,
+                SortList = SortString?.SpanSplit(",", StringSplitOptions.RemoveEmptyEntries),
                 Filters = Filters.Values,
                 Searchs = GetSearchs(),
                 AdvanceSearchs = GetAdvanceSearchs(),

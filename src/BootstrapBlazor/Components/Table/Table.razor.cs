@@ -663,7 +663,10 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
         IntenralOnSortAsync = async (sortName, sortOrder) =>
         {
             // 调用 OnSort 回调方法
-            OnSort?.Invoke(sortName, SortOrder);
+            if (OnSort != null)
+            {
+                SortString = OnSort(sortName, SortOrder);
+            }
 
             // 重新查询
             await QueryAsync();

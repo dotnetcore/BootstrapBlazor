@@ -26,7 +26,7 @@ public partial class TablesFilter
     [NotNull]
     private IStringLocalizer<Foo>? Localizer { get; set; }
 
-    private List<string> SortList { get; } = new List<string> { "DateTime desc", "Address" };
+    private string SortString { get; set; } = "DateTime desc, Address";
 
     /// <summary>
     /// OnInitialized 方法
@@ -81,28 +81,24 @@ public partial class TablesFilter
         });
     }
 
-    private void OnSort(string sortName, SortOrder sortOrder)
+    private string OnSort(string sortName, SortOrder sortOrder)
     {
+        string sortString = "";
         if (sortName == nameof(Foo.DateTime))
         {
             if (sortOrder == SortOrder.Asc)
             {
-                SortList.Clear();
-                SortList.Add(nameof(Foo.DateTime));
-                SortList.Add(nameof(Foo.Count));
+                sortString = "DateTime, Count";
             }
             else if (sortOrder == SortOrder.Desc)
             {
-                SortList.Clear();
-                SortList.Add($"{nameof(Foo.DateTime)} desc");
-                SortList.Add($"{nameof(Foo.Count)} desc");
+                sortString = "DateTime desc, Count desc";
             }
             else
             {
-                SortList.Clear();
-                SortList.Add($"{nameof(Foo.DateTime)} desc");
-                SortList.Add(nameof(Foo.Count));
+                sortString = "DateTime desc, Count";
             }
         }
+        return sortString;
     }
 }
