@@ -190,6 +190,13 @@ public partial class Table<TItem>
     public string? EditButtonToastNotSelectContent { get; set; }
 
     /// <summary>
+    /// 编辑按钮 Toast 选择项设置不可编辑时提示 Content 文字
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public string? EditButtonToastReadonlyContent { get; set; }
+
+    /// <summary>
     /// 编辑按钮 Toast 多项选择时提示 Content 文字
     /// </summary>
     [Parameter]
@@ -246,6 +253,13 @@ public partial class Table<TItem>
     public string? DeleteButtonToastTitle { get; set; }
 
     /// <summary>
+    /// 删除按钮选项中有无法删除项时 Toast 提示文字
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public string? DeleteButtonToastCanNotDeleteContent { get; set; }
+
+    /// <summary>
     /// 删除按钮 Toast 提示 Content 文字
     /// </summary>
     [Parameter]
@@ -296,6 +310,7 @@ public partial class Table<TItem>
         EditButtonToastNotSelectContent ??= Localizer[nameof(EditButtonToastNotSelectContent)];
         EditButtonToastMoreSelectContent ??= Localizer[nameof(EditButtonToastMoreSelectContent)];
         EditButtonToastNoSaveMethodContent ??= Localizer[nameof(EditButtonToastNoSaveMethodContent)];
+        EditButtonToastReadonlyContent ??= Localizer[nameof(EditButtonToastReadonlyContent)];
         SaveButtonToastTitle ??= Localizer[nameof(SaveButtonToastTitle)];
         SaveButtonToastContent ??= Localizer[nameof(SaveButtonToastContent)];
         SaveButtonToastResultContent ??= Localizer[nameof(SaveButtonToastResultContent)];
@@ -304,6 +319,7 @@ public partial class Table<TItem>
         DeleteButtonToastTitle ??= Localizer[nameof(DeleteButtonToastTitle)];
         DeleteButtonToastContent ??= Localizer[nameof(DeleteButtonToastContent)];
         DeleteButtonToastResultContent ??= Localizer[nameof(DeleteButtonToastResultContent)];
+        DeleteButtonToastCanNotDeleteContent ??= Localizer[nameof(DeleteButtonToastCanNotDeleteContent)];
         DataServiceInvalidOperationText ??= Localizer[nameof(DataServiceInvalidOperationText), typeof(TItem).FullName!];
         NotSetOnTreeExpandErrorMessage = Localizer[nameof(NotSetOnTreeExpandErrorMessage)];
         UnsetText ??= Localizer[nameof(UnsetText)];

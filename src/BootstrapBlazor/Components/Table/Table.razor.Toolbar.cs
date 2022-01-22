@@ -325,49 +325,58 @@ public partial class Table<TItem>
         {
             if (SelectedRows.Count == 1)
             {
-                await ToggleLoading(true);
-                await InternalOnEditAsync();
-                EditModalTitleString = EditModalTitle;
-
-                // 显示编辑框
-                if (EditMode == EditMode.Popup)
+                // 检查是否选中了不可编辑行（行内无编辑按钮）
+                if (ShowEditButtonCallback != null && !ShowEditButtonCallback(SelectedRows[0]))
                 {
-                    await ShowEditDialog(ItemChangedType.Update);
+                    // 提示不可编辑
+                    await ShowToastAsync(ToastCategory.Information, EditButtonToastReadonlyContent);
                 }
-                else if (EditMode == EditMode.EditForm)
+                else
                 {
-                    ShowEditForm = true;
-                    ShowAddForm = false;
-                    await UpdateAsync();
+                    await ToggleLoading(true);
+                    await InternalOnEditAsync();
+                    EditModalTitleString = EditModalTitle;
 
-                }
-                else if (EditMode == EditMode.InCell)
-                {
-                    AddInCell = false;
-                    EditInCell = true;
-                    await UpdateAsync();
+                    // 显示编辑框
+                    if (EditMode == EditMode.Popup)
+                    {
+                        await ShowEditDialog(ItemChangedType.Update);
+                    }
+                    else if (EditMode == EditMode.EditForm)
+                    {
+                        ShowEditForm = true;
+                        ShowAddForm = false;
+                        await UpdateAsync();
 
+                    }
+                    else if (EditMode == EditMode.InCell)
+                    {
+                        AddInCell = false;
+                        EditInCell = true;
+                        await UpdateAsync();
+
+                    }
+                    await ToggleLoading(false);
                 }
-                await ToggleLoading(false);
             }
             else
             {
-                var option = new ToastOption
-                {
-                    Category = ToastCategory.Information,
-                    Title = EditButtonToastTitle,
-                    Content = SelectedRows.Count == 0 ? EditButtonToastNotSelectContent : EditButtonToastMoreSelectContent
-                };
-                await Toast.Show(option);
+                var content = SelectedRows.Count == 0 ? EditButtonToastNotSelectContent : EditButtonToastMoreSelectContent;
+                await ShowToastAsync(ToastCategory.Information, content);
             }
         }
         else
         {
+            await ShowToastAsync(ToastCategory.Error, EditButtonToastNoSaveMethodContent);
+        }
+
+        async Task ShowToastAsync(ToastCategory category, string content)
+        {
             var option = new ToastOption
             {
-                Category = ToastCategory.Error,
+                Category = category,
                 Title = EditButtonToastTitle,
-                Content = EditButtonToastNoSaveMethodContent
+                Content = content
             };
             await Toast.Show(option);
         }
@@ -555,19 +564,31 @@ public partial class Table<TItem>
         var ret = false;
         if (SelectedRows.Count == 0)
         {
+            await ShowToastAsync(DeleteButtonToastContent);
+        }
+        else
+        {
+            if (ShowDeleteButtonCallback != null && SelectedRows.Any(i => !ShowDeleteButtonCallback(i)))
+            {
+                await ShowToastAsync(DeleteButtonToastCanNotDeleteContent);
+            }
+            else
+            {
+                ret = true;
+            }
+        }
+        return ret;
+
+        async Task ShowToastAsync(string content)
+        {
             var option = new ToastOption
             {
                 Category = ToastCategory.Information,
                 Title = DeleteButtonToastTitle
             };
-            option.Content = string.Format(DeleteButtonToastContent, Math.Ceiling(option.Delay / 1000.0));
+            option.Content = string.Format(content, Math.Ceiling(option.Delay / 1000.0));
             await Toast.Show(option);
         }
-        else
-        {
-            ret = true;
-        }
-        return ret;
     }
 
     /// <summary>
@@ -732,11 +753,11 @@ public partial class Table<TItem>
     /// 是否显示行内编辑按钮
     /// </summary>
     /// <returns></returns>
-    protected bool GetShowEditButton(TItem item) => ShowEditButtonCallback == null ? ShowToolbar && ShowDefaultButtons && ShowEditButton : ShowEditButtonCallback(item);
+    protected bool GetShowEditButton(TItem item) => ShowToolbar && ShowDefaultButtons && (ShowEditButtonCallback == null ? ShowEditButton : ShowEditButtonCallback(item));
 
     /// <summary>
     /// 是否显示行内删除按钮
     /// </summary>
     /// <returns></returns>
-    protected bool GetShowDeleteButton(TItem item) => ShowDeleteButtonCallback == null ? ShowToolbar && ShowDefaultButtons && ShowDeleteButton : ShowDeleteButtonCallback(item);
+    protected bool GetShowDeleteButton(TItem item) => ShowToolbar && ShowDefaultButtons && (ShowDeleteButtonCallback == null ? ShowDeleteButton : ShowDeleteButtonCallback(item));
 }
