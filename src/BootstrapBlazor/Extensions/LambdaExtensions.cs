@@ -226,26 +226,32 @@ public static class LambdaExtensions
     /// <returns></returns>
     public static IEnumerable<TItem> Sort<TItem>(this IEnumerable<TItem> items, List<string> sortList)
     {
-        var ret = items;
-        if (sortList.Any())
+        for (var index = 0; index < sortList.Count; index++)
         {
-            foreach (var sortExp in sortList)
+            var sortExp = sortList[index];
+            var segs = sortExp.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+            var sortOrder = SortOrder.Asc;
+            var sortName = sortExp;
+            if (segs.Length == 2)
             {
-                var segs = sortExp.Split(' ', StringSplitOptions.RemoveEmptyEntries);
-                var sortOrder = SortOrder.Asc;
-                var sortName = sortExp;
-                if (segs.Length == 2)
+                sortName = segs[0];
+                if (segs[1].Equals("desc", StringComparison.OrdinalIgnoreCase))
                 {
-                    sortName = segs[0];
-                    if (segs[1].Equals("desc", StringComparison.OrdinalIgnoreCase))
-                    {
-                        sortOrder = SortOrder.Desc;
-                    }
+                    sortOrder = SortOrder.Desc;
                 }
-                ret = ret.Sort<TItem>(sortName, sortOrder);
+            }
+            if (index == 0)
+            {
+                // OrderBy
+                items = EnumerableOrderBy(items, sortName, sortOrder);
+            }
+            else
+            {
+                // ThenBy
+                items = EnumerableThenBy(items, sortName, sortOrder);
             }
         }
-        return ret;
+        return items;
     }
 
     /// <summary>
@@ -257,32 +263,29 @@ public static class LambdaExtensions
     /// <returns></returns>
     public static IQueryable<TItem> Sort<TItem>(this IQueryable<TItem> items, List<string> sortList)
     {
-        if (sortList.Any())
+        for (var index = 0; index < sortList.Count; index++)
         {
-            for (var index = 0; index < sortList.Count; index++)
+            var sortExp = sortList[index];
+            var segs = sortExp.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+            var sortOrder = SortOrder.Asc;
+            var sortName = sortExp;
+            if (segs.Length == 2)
             {
-                var sortExp = sortList[index];
-                var segs = sortExp.Split(' ', StringSplitOptions.RemoveEmptyEntries);
-                var sortOrder = SortOrder.Asc;
-                var sortName = sortExp;
-                if (segs.Length == 2)
+                sortName = segs[0];
+                if (segs[1].Equals("desc", StringComparison.OrdinalIgnoreCase))
                 {
-                    sortName = segs[0];
-                    if (segs[1].Equals("desc", StringComparison.OrdinalIgnoreCase))
-                    {
-                        sortOrder = SortOrder.Desc;
-                    }
+                    sortOrder = SortOrder.Desc;
                 }
-                if (index == 0)
-                {
-                    // OrderBy
-                    items = QueryableOrderBy(items, sortName, sortOrder);
-                }
-                else
-                {
-                    // ThenBy
-                    items = QueryableThenBy(items, sortName, sortOrder);
-                }
+            }
+            if (index == 0)
+            {
+                // OrderBy
+                items = QueryableOrderBy(items, sortName, sortOrder);
+            }
+            else
+            {
+                // ThenBy
+                items = QueryableThenBy(items, sortName, sortOrder);
             }
         }
         return items;
@@ -333,7 +336,23 @@ public static class LambdaExtensions
     private static IEnumerable<TItem> EnumerableOrderBy<TItem>(IEnumerable<TItem> query, string propertyName, SortOrder sortOrder)
     {
         IEnumerable<TItem>? ret = null;
-        var methodName = sortOrder == SortOrder.Desc ? "OrderByDescendingInternal" : "OrderByInternal";
+        var methodName = sortOrder == SortOrder.Desc ? nameof(OrderByDescendingInternal) : nameof(OrderByInternal);
+
+        var pi = typeof(TItem).GetPropertyByName(propertyName);
+        if (pi != null)
+        {
+            var mi = typeof(LambdaExtensions)
+                .GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Static)?
+                .MakeGenericMethod(typeof(TItem), pi.PropertyType);
+            ret = mi?.Invoke(null, new object[] { query.AsQueryable(), pi }) as IOrderedQueryable<TItem>;
+        }
+        return ret ?? query;
+    }
+
+    private static IEnumerable<TItem> EnumerableThenBy<TItem>(IEnumerable<TItem> query, string propertyName, SortOrder sortOrder)
+    {
+        IEnumerable<TItem>? ret = null;
+        var methodName = sortOrder == SortOrder.Desc ? nameof(ThenByDescendingInternal) : nameof(ThenByInternal);
 
         var pi = typeof(TItem).GetPropertyByName(propertyName);
         if (pi != null)
