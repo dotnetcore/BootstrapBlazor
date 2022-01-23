@@ -825,15 +825,15 @@ RenderFragment RenderSearch =>
                             <Tooltip Placement="Placement.Top" Title="@SearchTooltip" IsHtml="true" />
                         }
                     </BootstrapInput>
-                    <Button Color="Color.Secondary" Icon="fa fa-search" OnClickWithoutRender="SearchClick">
-                        <span class="d-none d-sm-inline-block">@SearchButtonText</span>
-                    </Button>
                     @if (ShowResetButton)
                     {
                         <Button Color="Color.Secondary" Icon="fa fa-trash" OnClickWithoutRender="ClearSearchClick">
                             <span class="d-none d-sm-inline-block">@ResetSearchButtonText</span>
                         </Button>
                     }
+                    <Button Color="Color.Secondary" Icon="fa fa-search" OnClickWithoutRender="SearchClick">
+                        <span class="d-none d-sm-inline-block">@SearchButtonText</span>
+                    </Button>
                 </div>
             }
             <div class="table-search-buttons">
