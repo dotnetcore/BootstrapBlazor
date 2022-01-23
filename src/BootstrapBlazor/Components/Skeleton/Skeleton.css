@@ -76,6 +76,7 @@
 .skeleton-buttons {
     border-radius: var(--bs-border-radius);
     border: 1px solid #dee2e6;
+    overflow: hidden;
 }
 
     .skeleton-table .skeleton-content .skeleton-row {
