@@ -125,6 +125,12 @@ public partial class Layout : IAsyncDisposable
     [Parameter]
     public string? ToastTitle { get; set; }
 
+    /// <summary>
+    /// 获得/设置 更新回调方法 默认 null
+    /// </summary>
+    [Parameter]
+    public Func<string, Task>? OnUpdate { get; set; }
+
     [Inject]
     [NotNull]
     private IStringLocalizer<Layout>? Localizer { get; set; }
@@ -219,6 +225,19 @@ public partial class Layout : IAsyncDisposable
     /// 获得/设置 组件是否已经 Render
     /// </summary>
     protected bool IsRendered { get; set; }
+
+    /// <summary>
+    /// 调用 Update 回调方法
+    /// </summary>
+    /// <param name="key"></param>
+    /// <returns></returns>
+    public async Task Update(string key)
+    {
+        if (OnUpdate != null)
+        {
+            await OnUpdate(key);
+        }
+    }
 
     /// <summary>
     /// DisposeAsyncCore 方法
