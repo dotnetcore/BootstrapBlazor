@@ -56,101 +56,109 @@ public partial class Inputs
 
     private IEnumerable<AttributeItem> GetAttributes() => new[]
     {
-            new AttributeItem() {
-                Name = "ChildContent",
-                Description = Localizer["Att1"],
-                Type = "RenderFragment",
-                ValueList = " — ",
-                DefaultValue = " — "
-            },
-            new AttributeItem() {
-                Name = "ShowLabel",
-                Description = Localizer["Att2"],
-                Type = "bool",
-                ValueList = "true|false",
-                DefaultValue = "false"
-            },
-            new AttributeItem() {
-                Name = "DisplayText",
-                Description = Localizer["Att3"],
-                Type = "string",
-                ValueList = " — ",
-                DefaultValue = " — "
-            },
-            new AttributeItem() {
-                Name = "Color",
-                Description = Localizer["Att4"],
-                Type = "Color",
-                ValueList = "Primary / Secondary / Success / Danger / Warning / Info / Dark",
-                DefaultValue = "Primary"
-            },
-            new AttributeItem() {
-                Name = "FormatString",
-                Description = Localizer["Att5"],
-                Type = "string",
-                ValueList = " — ",
-                DefaultValue = " — "
-            },
-            new AttributeItem() {
-                Name = "Formatter",
-                Description = Localizer["Att6"],
-                Type = "RenderFragment<TItem>",
-                ValueList = " — ",
-                DefaultValue = " — "
-            },
-            new AttributeItem()
-            {
-                Name = "type",
-                Description = Localizer["Att7"],
-                Type = "string",
-                ValueList = "text / number / email / url / password",
-                DefaultValue = "text"
-            },
-            new AttributeItem() {
-                Name = "OnEnterAsync",
-                Description = Localizer["Att8"],
-                Type = "Func<TValue, Task>",
-                ValueList = " — ",
-                DefaultValue = " — "
-            },
-            new AttributeItem() {
-                Name = "OnEscAsync",
-                Description = Localizer["Att9"],
-                Type = "Func<TValue, Task>",
-                ValueList = " — ",
-                DefaultValue = " — "
-            },
-            new AttributeItem()
-            {
-                Name = "IsDisabled",
-                Description = Localizer["Att10"],
-                Type = "bool",
-                ValueList = "true|false",
-                DefaultValue = "false"
-            },
-            new AttributeItem()
-            {
-                Name = "IsAutoFocus",
-                Description = Localizer["Att11"],
-                Type = "bool",
-                ValueList = "true|false",
-                DefaultValue = "false"
-            },
-            new AttributeItem()
-            {
-                Name = nameof(BootstrapInput<string>.IsSelectAllTextOnFocus),
-                Description = Localizer[nameof(BootstrapInput<string>.IsSelectAllTextOnFocus)].Value,
-                Type = "bool",
-                ValueList = "true|false",
-                DefaultValue = "false"
-            },
-            new AttributeItem()
-            {
-                Name = nameof(BootstrapInput<string>.IsTrim),
-                Description = Localizer[nameof(BootstrapInput<string>.IsTrim)].Value,
-                Type = "bool",
-                ValueList = "true|false",
-                DefaultValue = "false"
-            }
-        };
+        new AttributeItem() {
+            Name = "ChildContent",
+            Description = Localizer["Att1"],
+            Type = "RenderFragment",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new AttributeItem() {
+            Name = "ShowLabel",
+            Description = Localizer["Att2"],
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "false"
+        },
+        new AttributeItem() {
+            Name = "DisplayText",
+            Description = Localizer["Att3"],
+            Type = "string",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new AttributeItem() {
+            Name = "Color",
+            Description = Localizer["Att4"],
+            Type = "Color",
+            ValueList = "Primary / Secondary / Success / Danger / Warning / Info / Dark",
+            DefaultValue = "Primary"
+        },
+        new AttributeItem() {
+            Name = "FormatString",
+            Description = Localizer["Att5"],
+            Type = "string",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new AttributeItem() {
+            Name = "Formatter",
+            Description = Localizer["Att6"],
+            Type = "RenderFragment<TItem>",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new AttributeItem()
+        {
+            Name = "type",
+            Description = Localizer["Att7"],
+            Type = "string",
+            ValueList = "text / number / email / url / password",
+            DefaultValue = "text"
+        },
+        new AttributeItem() {
+            Name = "OnEnterAsync",
+            Description = Localizer["Att8"],
+            Type = "Func<TValue, Task>",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new AttributeItem() {
+            Name = "OnEscAsync",
+            Description = Localizer["Att9"],
+            Type = "Func<TValue, Task>",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new AttributeItem()
+        {
+            Name = "IsDisabled",
+            Description = Localizer["Att10"],
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "false"
+        },
+        new AttributeItem()
+        {
+            Name = "IsAutoFocus",
+            Description = Localizer["Att11"],
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "false"
+        },
+        new AttributeItem()
+        {
+            Name = nameof(BootstrapInput<string>.IsSelectAllTextOnFocus),
+            Description = Localizer[nameof(BootstrapInput<string>.IsSelectAllTextOnFocus)].Value,
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "false"
+        },
+        new AttributeItem()
+        {
+            Name = nameof(BootstrapInput<string>.IsTrim),
+            Description = Localizer[nameof(BootstrapInput<string>.IsTrim)].Value,
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "false"
+        },
+        new AttributeItem()
+        {
+            Name = nameof(BootstrapInput<string>.ValidateRules),
+            Description = Localizer[nameof(BootstrapInput<string>.ValidateRules)].Value,
+            Type = "List<IValidator>",
+            ValueList = " — ",
+            DefaultValue = " — "
+        }
+    };
 }

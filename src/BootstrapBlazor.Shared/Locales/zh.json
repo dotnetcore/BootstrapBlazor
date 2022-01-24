@@ -1231,7 +1231,8 @@
     "Att9": "用户按下 Esc 键回调委托",
     "Att10": "是否禁用",
     "Att11": "是否自动获取焦点",
-    "IsSelectAllTextOnFocus": "获得焦点后自动选择输入框内所有字符串"
+    "IsSelectAllTextOnFocus": "获得焦点后自动选择输入框内所有字符串",
+    "ValidateRules": "自定义验证集合"
   },
   "BootstrapBlazor.Shared.Samples.InputNumbers": {
     "Title": "InputNumber 组件",
