@@ -51,18 +51,7 @@ public static class BootstrapBlazorServiceCollectionExtensions
         services.TryAddScoped<AjaxService>();
 
         services.TryAddSingleton<IConfigureOptions<BootstrapBlazorOptions>, ConfigureOptions<BootstrapBlazorOptions>>();
-        services.Configure<BootstrapBlazorOptions>(options =>
-        {
-            configureOptions?.Invoke(options);
-
-            // 设置默认文化信息
-            if (options.DefaultCultureInfo != null)
-            {
-                var culture = new CultureInfo(options.DefaultCultureInfo);
-                CultureInfo.DefaultThreadCurrentCulture = culture;
-                CultureInfo.DefaultThreadCurrentUICulture = culture;
-            }
-        });
+        services.ConfigureBootstrapBlazorOption(configureOptions);
 
         services.TryAddSingleton<IIPLocatorProvider, DefaultIPLocatorProvider>();
         services.TryAddSingleton<IConfigureOptions<IPLocatorOption>, ConfigureOptions<IPLocatorOption>>();
@@ -75,17 +64,44 @@ public static class BootstrapBlazorServiceCollectionExtensions
     /// <param name="services"></param>
     /// <param name="locatorAction"></param>
     /// <returns></returns>
-    public static IServiceCollection ConfigIPLocatorOption(this IServiceCollection services, Action<IPLocatorOption> locatorAction)
+    public static IServiceCollection ConfigureIPLocatorOption(this IServiceCollection services, Action<IPLocatorOption> locatorAction)
     {
-        services.Configure<IPLocatorOption>(options =>
-        {
-            locatorAction(options);
+        services.Configure<IPLocatorOption>(locatorAction);
+        return services;
+    }
 
-            if (options.LocatorFactory == null)
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="services"></param>
+    /// <param name="options"></param>
+    /// <returns></returns>
+    public static IServiceCollection ConfigureBootstrapBlazorOption(this IServiceCollection services, Action<BootstrapBlazorOptions>? options = null)
+    {
+        services.Configure<BootstrapBlazorOptions>(op =>
+        {
+            options?.Invoke(op);
+
+            // 设置默认文化信息
+            if (op.DefaultCultureInfo != null)
             {
-                options.LocatorFactory = provider => new BaiDuIPLocator();
+                var culture = new CultureInfo(op.DefaultCultureInfo);
+                CultureInfo.DefaultThreadCurrentCulture = culture;
+                CultureInfo.DefaultThreadCurrentUICulture = culture;
             }
         });
+        return services;
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="services"></param>
+    /// <param name="localizationAction"></param>
+    /// <returns></returns>
+    public static IServiceCollection ConfigureJsonLocalizationOptions(this IServiceCollection services, Action<JsonLocalizationOptions> localizationAction)
+    {
+        services.Configure(localizationAction);
         return services;
     }
 }
