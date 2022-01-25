@@ -197,7 +197,7 @@ public partial class AutoComplete
             _isShown = true;
 
             // 键盘向上选择
-            if (_isShown && args.Key == "ArrowUp")
+            if (args.Key == "ArrowUp")
             {
                 var index = source.IndexOf(_selectedItem) - 1;
                 if (index < 0)
@@ -207,7 +207,7 @@ public partial class AutoComplete
                 _selectedItem = source[index];
                 CurrentItemIndex = index;
             }
-            else if (_isShown && args.Key == "ArrowDown")
+            else if (args.Key == "ArrowDown")
             {
                 var index = source.IndexOf(_selectedItem) + 1;
                 if (index > source.Count - 1)
