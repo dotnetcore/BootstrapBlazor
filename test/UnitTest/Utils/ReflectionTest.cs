@@ -2,9 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using System.Linq;
 using System.Reflection;
-using Xunit;
 
 namespace UnitTest.Utils;
 
@@ -56,7 +54,5 @@ public class ReflectionTest
     private class Cat : Dummy
     {
         public new int Foo { get; set; }
-
-        private string Test { get; set; }
     }
 }

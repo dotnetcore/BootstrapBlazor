@@ -1,10 +1,5 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <IsPackable>false</IsPackable>
-    <Nullable>enable</Nullable>
-  </PropertyGroup>
-
   <ItemGroup>
     <Compile Include="..\..\src\BootstrapBlazor.Shared\Data\Foo.cs" Link="Mics\Foo.cs" />
     <Compile Include="..\UnitTest\Core\BootstrapBlazorTestBase.cs" Link="Mics\BootstrapBlazorTestBase.cs" />

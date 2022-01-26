@@ -34,7 +34,7 @@ jobs:
 
     - name: Test
       run: |
-        dotnet test test/UnitTest -c Release -f net6.0 --collect:"XPlat Code Coverage" -r ./coverage
+        dotnet test test/UnitTest -c Release --collect:"XPlat Code Coverage" -r ./coverage
         #dotnet test test/UnitTest.Localization -c Release -f net6.0 --collect:"XPlat Code Coverage" -r ./coverage
 
     - name: Upload to Codecov

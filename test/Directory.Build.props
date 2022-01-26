@@ -1,0 +1,23 @@
+<Project>
+
+  <PropertyGroup>
+    <IsPackable>false</IsPackable>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Using Include="BootstrapBlazor.Components"/>
+    <Using Include="Bunit"/>
+    <Using Include="Microsoft.AspNetCore.Components"/>
+    <Using Include="System.Diagnostics.CodeAnalysis"/>
+    <Using Include="UnitTest.Core"/>
+    <Using Include="Xunit"/>
+  </ItemGroup>
+
+</Project>

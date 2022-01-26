@@ -5,13 +5,8 @@
 using BootstrapBlazor.Shared;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
-using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using UnitTest.Core;
-using Xunit;
 using Xunit.Abstractions;
 
 namespace UnitTest.Performance;
