@@ -43,8 +43,37 @@ public class AutoCompleteTest : BootstrapBlazorTestBase
         cut.Find(".form-control").KeyUp(new KeyboardEventArgs() { Key = "t" });
         cut.Find(".form-control").KeyUp(new KeyboardEventArgs() { Key = "ArrowUp" });
         cut.Find(".form-control").KeyUp(new KeyboardEventArgs() { Key = "ArrowUp" });
+        cut.Find(".form-control").KeyUp(new KeyboardEventArgs() { Key = "ArrowUp" });
         cut.Find(".form-control").KeyUp(new KeyboardEventArgs() { Key = "ArrowDown" });
         cut.Find(".form-control").KeyUp(new KeyboardEventArgs() { Key = "ArrowDown" });
+        cut.Find(".form-control").KeyUp(new KeyboardEventArgs() { Key = "ArrowDown" });
+    }
+
+    [Fact]
+    public void OnCustomFilter_Test()
+    {
+        IEnumerable<string> items = new List<string>() { "test1", "test2" };
+        var cut = Context.RenderComponent<AutoComplete>(builder =>
+        {
+            builder.Add(a => a.Items, items);
+        });
+
+        cut.Find(".form-control").KeyUp(new KeyboardEventArgs() { Key = "t" });
+    }
+
+    [Fact]
+    public void IsLikeMatch_Test()
+    {
+        IEnumerable<string> items = new List<string>() { "test1", "test2" };
+        var cut = Context.RenderComponent<AutoComplete>(builder =>
+        {
+            builder.Add(a => a.Items, items);
+            builder.Add(a => a.IsLikeMatch, true);
+            builder.Add(a => a.IgnoreCase, false);
+            builder.Add(a => a.DisplayCount, 2);
+        });
+
+        cut.Find(".form-control").KeyUp(new KeyboardEventArgs() { Key = "t" });
     }
 
     [Fact]
@@ -61,15 +90,64 @@ public class AutoCompleteTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void OnBlur_Test()
+    public void Esc_Test()
     {
+        var esc = false;
         IEnumerable<string> items = new List<string>() { "test1", "test2" };
         var cut = Context.RenderComponent<AutoComplete>(builder =>
         {
             builder.Add(a => a.OnCustomFilter, new Func<string, Task<IEnumerable<string>>>(_ => Task.FromResult(items)));
+            builder.Add(a => a.SkipEsc, true);
+            builder.Add(a => a.OnEscAsync, new Func<string, Task>(v =>
+            {
+                esc = true;
+                return Task.CompletedTask;
+            }));
         });
 
         cut.Find(".form-control").KeyUp(new KeyboardEventArgs() { Key = "t" });
-        cut.Find(".form-control").Blur();
+        cut.Find(".form-control").KeyUp(new KeyboardEventArgs() { Key = "Escape" });
+        Assert.False(esc);
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.SkipEsc, false);
+        });
+
+        cut.Find(".form-control").KeyUp(new KeyboardEventArgs() { Key = "t" });
+        cut.Find(".form-control").KeyUp(new KeyboardEventArgs() { Key = "Escape" });
+        Assert.True(esc);
+    }
+
+    [Fact]
+    public void Enter_Test()
+    {
+        var enter = false;
+        IEnumerable<string> items = new List<string>() { "test1", "test2" };
+        var cut = Context.RenderComponent<AutoComplete>(builder =>
+        {
+            builder.Add(a => a.OnCustomFilter, new Func<string, Task<IEnumerable<string>>>(_ => Task.FromResult(items)));
+            builder.Add(a => a.SkipEnter, true);
+            builder.Add(a => a.OnEnterAsync, new Func<string, Task>(v =>
+            {
+                enter = true;
+                return Task.CompletedTask;
+            }));
+        });
+
+        cut.Find(".form-control").KeyUp(new KeyboardEventArgs() { Key = "t" });
+        cut.Find(".form-control").KeyUp(new KeyboardEventArgs() { Key = "ArrowDown" });
+        cut.Find(".form-control").KeyUp(new KeyboardEventArgs() { Key = "Enter" });
+        Assert.False(enter);
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.SkipEnter, false);
+        });
+
+        cut.Find(".form-control").KeyUp(new KeyboardEventArgs() { Key = "t" });
+        cut.Find(".form-control").KeyUp(new KeyboardEventArgs() { Key = "ArrowDown" });
+        cut.Find(".form-control").KeyUp(new KeyboardEventArgs() { Key = "Enter" });
+        Assert.True(enter);
     }
 }

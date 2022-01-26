@@ -20,7 +20,6 @@ public partial class AutoComplete
 {
     private bool _isLoading;
     private bool _isShown;
-    private string? _lastFilterText;
 
     /// <summary>
     /// 获得 组件样式
@@ -80,6 +79,18 @@ public partial class AutoComplete
     /// </summary>
     [Parameter]
     public int Debounce { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否跳过 Enter 按键处理 默认 false
+    /// </summary>
+    [Parameter]
+    public bool SkipEnter { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否跳过 Esc 按键处理 默认 false
+    /// </summary>
+    [Parameter]
+    public bool SkipEsc { get; set; }
 
     /// <summary>
     /// 
@@ -155,26 +166,15 @@ public partial class AutoComplete
     }
 
     /// <summary>
-    /// 获得/设置 是否跳过 Enter 按键处理 默认 false
-    /// </summary>
-    protected bool SkipEnter { get; set; }
-
-    /// <summary>
-    /// 获得/设置 是否跳过 Esc 按键处理 默认 false
-    /// </summary>
-    protected bool SkipEsc { get; set; }
-
-    /// <summary>
     /// OnKeyUp 方法
     /// </summary>
     /// <param name="args"></param>
     /// <returns></returns>
     protected virtual async Task OnKeyUp(KeyboardEventArgs args)
     {
-        if (!_isLoading && _lastFilterText != CurrentValueAsString)
+        if (!_isLoading)
         {
             _isLoading = true;
-            _lastFilterText = CurrentValueAsString;
             if (OnCustomFilter != null)
             {
                 var items = await OnCustomFilter(CurrentValueAsString);
@@ -186,7 +186,7 @@ public partial class AutoComplete
                 var items = IsLikeMatch ?
                     Items.Where(s => s.Contains(CurrentValueAsString, comparison)) :
                     Items.Where(s => s.StartsWith(CurrentValueAsString, comparison));
-                FilterItems = DisplayCount == null ? items.ToList() : items.Take((int)DisplayCount).ToList();
+                FilterItems = DisplayCount == null ? items.ToList() : items.Take(DisplayCount.Value).ToList();
             }
             _isLoading = false;
         }
