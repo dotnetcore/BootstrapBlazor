@@ -60,6 +60,20 @@ public sealed partial class Cards
                 ValueList = "true / false",
                 DefaultValue = "false"
             },
+            new AttributeItem{
+                Name = "IsCollapsible",
+                Description = Localizer["IsCollapsible"],
+                Type = "boolean",
+                ValueList = "true / false",
+                DefaultValue = "false"
+            },
+            new AttributeItem{
+                Name = "IsShadow",
+                Description = Localizer["IsShadow"],
+                Type = "boolean",
+                ValueList = "true / false",
+                DefaultValue = "false"
+            },
     };
 }
 

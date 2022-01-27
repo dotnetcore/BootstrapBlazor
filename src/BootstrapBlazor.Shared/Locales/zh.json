@@ -1936,12 +1936,18 @@
     "IsCenterIntro": "通过设置，<code>IsCenter=true</code> 使内容居中",
     "ColorTitle": "带有边框颜色的卡片",
     "ColorIntro": "通过设置，<code>Color</code> 使border和Body具有相应的颜色",
+    "CollapsibleTitle": "可以伸缩的卡片",
+    "CollapsibleIntro": "通过设置，<code>IsCollapsibleIntro=true</code> 使Body可以伸缩",
+    "ShadowTitle": "带有阴影的卡片",
+    "ShadowIntro": "通过设置，<code>IsShadow=true</code> Card带有阴影",
     "CardBody": "获得/设置 CardBody",
     "CardFooter": "获得/设置 CardFooter",
     "CardHeader": "获得/设置 CardHeader",
     "Class": "样式",
     "Color": "设置卡片边框颜色",
-    "IsCenter": "通过设置,IsCenter=true 使内容居中"
+    "IsCenter": "通过设置,IsCenter=true 使内容居中",
+    "IsCollapsible": "通过设置,IsCollapsibleIntro=true 使CardBody可以收缩",
+    "IsShadow": "通过设置,IsShadow=true 使Card 具有阴影"
   },
   "BootstrapBlazor.Shared.Samples.Calendars": {
     "Title": "Calendar 日历框",
