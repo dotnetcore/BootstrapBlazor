@@ -129,7 +129,7 @@ public partial class Layout : IAsyncDisposable
     /// 获得/设置 更新回调方法 默认 null
     /// </summary>
     [Parameter]
-    public Func<string, Task>? OnUpdate { get; set; }
+    public Func<string, Task>? OnUpdateAsync { get; set; }
 
     [Inject]
     [NotNull]
@@ -231,11 +231,11 @@ public partial class Layout : IAsyncDisposable
     /// </summary>
     /// <param name="key"></param>
     /// <returns></returns>
-    public async Task Update(string key)
+    public async Task UpdateAsync(string key)
     {
-        if (OnUpdate != null)
+        if (OnUpdateAsync != null)
         {
-            await OnUpdate(key);
+            await OnUpdateAsync(key);
         }
     }
 
