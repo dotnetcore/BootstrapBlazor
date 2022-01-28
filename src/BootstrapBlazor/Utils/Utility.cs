@@ -310,7 +310,7 @@ public static class Utility
             }
         }
 
-        if (IsCheckboxList(fieldType) && item.Items != null)
+        if (IsCheckboxList(fieldType, componentType) && item.Items != null)
         {
             builder.AddAttribute(7, nameof(CheckboxList<IEnumerable<string>>.Items), item.Items.Clone());
         }
@@ -423,11 +423,21 @@ public static class Utility
     /// 通过指定数据类型判断是否可使用 CheckboxList 进行渲染
     /// </summary>
     /// <param name="fieldType"></param>
+    /// <param name="componentType">组件类型</param>
     /// <returns></returns>
-    private static bool IsCheckboxList(Type fieldType)
+    private static bool IsCheckboxList(Type fieldType, Type? componentType = null)
     {
-        var type = (Nullable.GetUnderlyingType(fieldType) ?? fieldType);
-        return type.IsAssignableTo(typeof(IEnumerable<string>));
+        var ret = false;
+        if (componentType != null)
+        {
+            ret = componentType.GetGenericTypeDefinition() == typeof(CheckboxList<>);
+        }
+        if (!ret)
+        {
+            var type = Nullable.GetUnderlyingType(fieldType) ?? fieldType;
+            ret = type.IsAssignableTo(typeof(IEnumerable<string>));
+        }
+        return ret;
     }
 
     private static bool IsValidatableComponent(Type componentType) => componentType.GetProperties().FirstOrDefault(p => p.Name == nameof(IEditorItem.SkipValidate)) != null;
