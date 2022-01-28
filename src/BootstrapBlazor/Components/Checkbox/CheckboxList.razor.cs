@@ -112,7 +112,8 @@ public partial class CheckboxList<TValue>
             Type? innerType = null;
             if (typeof(IEnumerable).IsAssignableFrom(typeof(TValue)))
             {
-                innerType = typeof(TValue).GetGenericArguments()[0];
+                var t = typeof(TValue);
+                innerType = t.IsGenericType ? typeof(TValue).GetGenericArguments()[0] : t;
             }
             if (innerType != null && innerType.IsEnum)
             {
