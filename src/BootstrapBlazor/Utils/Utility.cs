@@ -430,7 +430,7 @@ public static class Utility
         var ret = false;
         if (componentType != null)
         {
-            ret = componentType.GetGenericTypeDefinition() == typeof(CheckboxList<>);
+            ret = componentType.IsGenericType && componentType.GetGenericTypeDefinition() == typeof(CheckboxList<>);
         }
         if (!ret)
         {
