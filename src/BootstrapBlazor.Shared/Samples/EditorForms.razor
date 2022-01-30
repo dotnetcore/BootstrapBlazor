@@ -20,13 +20,7 @@
             <FieldItems>
                 <EditorItem @bind-Field="@context.Education" Editable="false" />
                 <EditorItem @bind-Field="@context.Complete" Editable="false" />
-                <EditorItem @bind-Field="@context.Hobby">
-                    <EditTemplate Context="value">
-                        <div class="col-12">
-                            <CheckboxList @bind-Value="@value.Hobby" Items="@Hobbys" />
-                        </div>
-                    </EditTemplate>
-                </EditorItem>
+                <EditorItem @bind-Field="@context.Hobby" Items="@Hobbys" />
             </FieldItems>
             <Buttons>
                 <Button Icon="fa fa-save" Text="@Localizer["ButtonText"]" />
@@ -43,13 +37,7 @@
             <EditorForm Model="@ValidateModel">
                 <FieldItems>
                     <EditorItem @bind-Field="@context.DateTime" Readonly="true" />
-                    <EditorItem @bind-Field="@context.Hobby">
-                        <EditTemplate Context="value">
-                            <div class="col-12">
-                                <CheckboxList @bind-Value="@value.Hobby" Items="@Hobbys" />
-                            </div>
-                        </EditTemplate>
-                    </EditorItem>
+                    <EditorItem @bind-Field="@context.Hobby" Items="@Hobbys" />
                 </FieldItems>
                 <Buttons>
                     <Button ButtonType="ButtonType.Submit" Icon="fa fa-save" Text='@Localizer["ButtonText"]' />
