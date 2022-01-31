@@ -19,6 +19,8 @@ public class AutoCompleteTest : BootstrapBlazorTestBase
             builder.Add(a => a.IsLikeMatch, true);
             builder.Add(a => a.IgnoreCase, false);
             builder.Add(a => a.Debounce, 2000);
+            builder.Add(a => a.ShowLabel, true);
+            builder.Add(a => a.DisplayText, "test");
         });
         Assert.Contains("<div class=\"auto-complete\"", cut.Markup);
     }

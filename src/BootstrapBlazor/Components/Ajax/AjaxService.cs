@@ -18,7 +18,7 @@ public class AjaxService
     /// <summary>
     /// 获得 回调委托缓存集合
     /// </summary>
-    private List<(IComponent Key, Func<AjaxOption, Task<string?>> Callback)> Cache { get; set; } = new();
+    private List<(IComponent Key, Func<AjaxOption, Task<string?>> Callback)> Cache { get; } = new();
 
     /// <summary>
     /// 注册服务
