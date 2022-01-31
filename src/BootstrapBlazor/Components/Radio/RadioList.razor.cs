@@ -5,7 +5,6 @@
 using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -29,7 +28,7 @@ public partial class RadioList<TValue>
     public bool IsAutoAddNullItem { get; set; }
 
     /// <summary>
-    /// 获得/设置 空值项显示文字 默认为 null 是否自动添加空值请参考 <see cref="IsAutoAddNullItem"/>
+    /// 获得/设置 空值项显示文字 默认为 "" 是否自动添加空值请参考 <see cref="IsAutoAddNullItem"/>
     /// </summary>
     [Parameter]
     public string NullItemText { get; set; } = "";
@@ -62,9 +61,7 @@ public partial class RadioList<TValue>
 
         if (!Items.Any(i => i.Value == CurrentValueAsString))
         {
-            CurrentValueAsString = Items.FirstOrDefault(i => i.Active)?.Value
-                ?? Items.FirstOrDefault()?.Value
-                ?? "";
+            CurrentValueAsString = Items.FirstOrDefault()?.Value ?? "";
         }
     }
 
@@ -73,10 +70,12 @@ public partial class RadioList<TValue>
     /// </summary>
     /// <param name="typeValue"></param>
     /// <param name="list"></param>
-    protected override void ProcessGenericItems(Type typeValue, IEnumerable? list)
-    {
+    protected override void ProcessGenericItems(Type typeValue, IEnumerable? list) { }
 
-    }
+    /// <summary>
+    /// 
+    /// </summary>
+    protected override void EnsureParameterValid() { }
 
     /// <summary>
     /// 点击选择框方法
@@ -102,51 +101,5 @@ public partial class RadioList<TValue>
         }
     }
 
-    private CheckboxState CheckState(SelectedItem item)
-    {
-        return item.Value == CurrentValueAsString ? CheckboxState.Checked : CheckboxState.UnChecked;
-    }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="value"></param>
-    /// <param name="result"></param>
-    /// <param name="validationErrorMessage"></param>
-    /// <returns></returns>
-    protected override bool TryParseValueFromString(string value, [MaybeNullWhen(false)] out TValue result, out string? validationErrorMessage)
-    {
-        var ret = false;
-        if (typeof(TValue) == typeof(SelectedItem))
-        {
-            var val = Items.FirstOrDefault(i => i.Value == value)
-                ?? Items.FirstOrDefault();
-            if (val != null)
-            {
-                result = (TValue)(object)val;
-            }
-            else
-            {
-                result = default;
-            }
-            validationErrorMessage = null;
-            ret = true;
-        }
-        else
-        {
-            ret = base.TryParseValueFromString(value, out result, out validationErrorMessage);
-        }
-        return ret;
-    }
-
-    /// <summary>
-    /// 将 Value 格式化为 String 方法
-    /// </summary>
-    /// <param name="value">The value to format.</param>
-    /// <returns>A string representation of the value.</returns>
-    protected override string? FormatValueAsString(TValue value) => typeof(TValue).Name switch
-    {
-        nameof(SelectedItem) => (value as SelectedItem)?.Value,
-        _ => value?.ToString()
-    };
+    private CheckboxState CheckState(SelectedItem item) => item.Value == CurrentValueAsString ? CheckboxState.Checked : CheckboxState.UnChecked;
 }
