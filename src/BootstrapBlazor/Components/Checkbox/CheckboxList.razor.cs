@@ -74,6 +74,21 @@ public partial class CheckboxList<TValue>
     private IStringLocalizerFactory? LocalizerFactory { get; set; }
 
     /// <summary>
+    /// SetParametersAsync 方法
+    /// </summary>
+    /// <param name="parameters"></param>
+    /// <returns></returns>
+    public override Task SetParametersAsync(ParameterView parameters)
+    {
+        parameters.SetParameterProperties(this);
+
+        EnsureParameterValid();
+
+        // For derived components, retain the usual lifecycle with OnInit/OnParametersSet/etc.
+        return base.SetParametersAsync(ParameterView.Empty);
+    }
+
+    /// <summary>
     /// OnInitialized 方法
     /// </summary>
     protected override void OnInitialized()
@@ -109,19 +124,15 @@ public partial class CheckboxList<TValue>
 
         if (Items == null)
         {
-            Type? innerType = null;
-            if (typeof(IEnumerable).IsAssignableFrom(typeof(TValue)))
+            var t = typeof(TValue);
+            if (t == typeof(string))
             {
-                var t = typeof(TValue);
-                innerType = t.IsGenericType ? typeof(TValue).GetGenericArguments()[0] : t;
-            }
-            if (innerType != null && innerType.IsEnum)
-            {
-                Items = innerType.ToSelectList();
+                Items = Enumerable.Empty<SelectedItem>();
             }
             else
             {
-                Items = Enumerable.Empty<SelectedItem>();
+                var innerType = t.GetGenericArguments()[0];
+                Items = innerType.IsEnum ? innerType.ToSelectList() : Enumerable.Empty<SelectedItem>();
             }
         }
 
@@ -219,6 +230,26 @@ public partial class CheckboxList<TValue>
         if (OnSelectedChanged != null)
         {
             await OnSelectedChanged.Invoke(Items, Value);
+        }
+    }
+
+    /// <summary>
+    /// 泛型参数约束检查
+    /// </summary>
+    protected virtual void EnsureParameterValid()
+    {
+        var typeValue = typeof(TValue);
+        if (typeValue.IsGenericType)
+        {
+            // 泛型参数
+            if (!typeValue.IsAssignableTo(typeof(IEnumerable)))
+            {
+                throw new NotSupportedException();
+            }
+        }
+        else if (typeValue != typeof(string))
+        {
+            throw new NotSupportedException();
         }
     }
 }

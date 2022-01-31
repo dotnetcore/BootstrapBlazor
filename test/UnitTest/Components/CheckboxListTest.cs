@@ -2,89 +2,194 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using BootstrapBlazor.Shared;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Localization;
+using UnitTest.Extensions;
+
 namespace UnitTest.Components;
 
 public class CheckboxListTest : BootstrapBlazorTestBase
 {
-    IEnumerable<SelectedItem>? Items1 { get; set; } = new List<SelectedItem>(new List<SelectedItem> {
-                new SelectedItem { Text = "Item 1", Value = "1" },
-                new SelectedItem { Text = "Item 2", Value = "2" },
-                new SelectedItem { Text = "Item 3", Value = "3" },
-                new SelectedItem { Text = "Item 4", Value = "4" }
-     });
+    private IStringLocalizer<Foo> Localizer { get; }
 
-    string Value1 { get; set; } = "1,3";
-    IEnumerable<int>? Value2 { get; set; } = new int[] { 3, 4 };
-
-    [Fact]
-    public void Components_Ok()
+    public CheckboxListTest()
     {
-
-        var cut = Context.RenderComponent<CheckboxList<string>>(builder => {
-            builder.Add(a => a.DisplayText, "长沙");
-            builder.Add(a => a.ShowLabel, true);
-            builder.Add(a => a.Value, Value1);
-            builder.Add(a => a.Items, Items1);
-            }
-        );
-        Assert.Contains("class=\"form-control checkbox-list\"", cut.Markup);
-    }
-    
-    [Fact]
-    public void Items_Ok()
-    {
-
-        var cut = Context.RenderComponent<CheckboxList<string>>(builder => {
-            builder.Add(a => a.ShowLabel, true);
-            builder.Add(a => a.Items, Items1);
-            }
-        );
-        Assert.Contains("Item 3", cut.Markup);
-    }
-    
-    [Fact]
-    public void Value_String_Ok()
-    {
-
-        var cut = Context.RenderComponent<CheckboxList<string>>(builder => {
-            builder.Add(a => a.Value, Value1);
-            builder.Add(a => a.Items, Items1);
-            }
-        );
-        Assert.Contains("form-check is-checked", cut.Markup);
-        Assert.Contains("Item 3", cut.Markup);
+        Localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
     }
 
-    //[Fact]
-    //public void Value_IEnumerable_Ok()
-    //{
-
-    //    var cut = Context.RenderComponent<CheckboxList<string>>(builder => {
-    //        builder.Add(a => a.Value, Value2);
-    //        builder.Add(a => a.Items, Items1);
-    //        }
-    //    );
-    //    Assert.Contains("form-check is-checked", cut.Markup);
-    //    Assert.Contains("Item 4", cut.Markup);
-    //}
-
-    private RenderFragment GenerateCheckboxList() => builder =>
-    {
-        builder.OpenComponent(0, typeof(CheckboxList<string>));
-        builder.AddAttribute(1, nameof(CheckboxList<string>.DisplayText), "长沙市");
-        builder.AddAttribute(2, nameof(CheckboxList<string>.ShowLabel), true);
-        builder.AddAttribute(2, nameof(CheckboxList<string>.Value), Value1);
-        builder.AddAttribute(7, nameof(CheckboxList<string>.Items), Items1);
-        builder.CloseComponent();
-    };
-
     [Fact]
-    public void Generate_Ok()
+    public void EditorForm_Ok()
     {
-        var cut = Context.Render(GenerateCheckboxList());
-         
-        Assert.Contains("form-check is-checked", cut.Markup);
-        Assert.Contains("Item 3", cut.Markup);
+        var foo = Foo.Generate(Localizer);
+        var cut = Context.RenderComponent<ValidateForm>(builder =>
+        {
+            builder.Add(a => a.Model, foo);
+            builder.AddChildContent<CheckboxList<IEnumerable<string>>>(pb =>
+            {
+                pb.Add(a => a.Items, Foo.GenerateHobbys(Localizer));
+                pb.Add(a => a.Value, foo.Hobby);
+                pb.Add(a => a.ValueExpression, foo.GenerateValueExpression(nameof(foo.Hobby), typeof(IEnumerable<string>)));
+            });
+        });
+        // 断言生成 CheckboxList
+        Assert.Contains("form-check", cut.Markup);
+
+        // 提交表单触发客户端验证
+        var form = cut.Find("form");
+        form.Submit();
+        Assert.Contains("is-invalid", cut.Markup);
     }
 
+    [Fact]
+    public void ShowBorder_Ok()
+    {
+        var foo = Foo.Generate(Localizer);
+        var cut = Context.RenderComponent<CheckboxList<IEnumerable<string>>>(pb =>
+        {
+            pb.Add(a => a.Items, Foo.GenerateHobbys(Localizer));
+            pb.Add(a => a.Value, foo.Hobby);
+        });
+        Assert.DoesNotContain("no-border", cut.Markup);
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ShowBorder, false);
+        });
+        Assert.Contains("no-border", cut.Markup);
+    }
+
+    [Fact]
+    public void IsVertical_Ok()
+    {
+        var foo = Foo.Generate(Localizer);
+        var cut = Context.RenderComponent<CheckboxList<IEnumerable<int>>>();
+        Assert.DoesNotContain("is-vertical", cut.Markup);
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.IsVertical, true);
+        });
+        Assert.Contains("is-vertical", cut.Markup);
+    }
+
+    [Fact]
+    public void CheckboxItemClass_Ok()
+    {
+        var cut = Context.RenderComponent<CheckboxList<string>>(builder =>
+        {
+            builder.Add(a => a.CheckboxItemClass, "test-item");
+        });
+        Assert.DoesNotContain("test-item", cut.Markup);
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.Items, Foo.GenerateHobbys(Localizer));
+        });
+        Assert.Contains("test-item", cut.Markup);
+    }
+
+    [Fact]
+    public void StringValue_Ok()
+    {
+        var cut = Context.RenderComponent<CheckboxList<string>>(builder =>
+        {
+            builder.Add(a => a.Value, "1,2");
+        });
+        Assert.Contains("checkbox-list", cut.Markup);
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.Items, new List<SelectedItem>()
+            {
+                new SelectedItem("1", "Test 1"),
+                new SelectedItem("2", "Test 2")
+            });
+        });
+        Assert.Contains("checkbox-list", cut.Markup);
+
+        var selected = false;
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.OnSelectedChanged, (v1, v2) =>
+            {
+                selected = true;
+                return Task.CompletedTask;
+            });
+        });
+        // 字符串值选中事件
+        var item = cut.Find(".form-check-input");
+        item.Click();
+        Assert.True(selected);
+    }
+
+    [Fact]
+    public void OnSelectedChanged_Ok()
+    {
+        var selected = false;
+        var foo = Foo.Generate(Localizer);
+        var cut = Context.RenderComponent<CheckboxList<IEnumerable<string>>>(pb =>
+        {
+            pb.Add(a => a.Items, Foo.GenerateHobbys(Localizer));
+            pb.Add(a => a.Value, foo.Hobby);
+            pb.Add(a => a.OnSelectedChanged, (v1, v2) =>
+            {
+                selected = true;
+                return Task.CompletedTask;
+            });
+        });
+
+        var item = cut.Find(".form-check-input");
+        item.Click();
+        Assert.True(selected);
+    }
+
+    [Fact]
+    public void EnumValue_Ok()
+    {
+        var selectedEnumValues = new List<EnumEducation> { EnumEducation.Middel, EnumEducation.Primary };
+        var cut = Context.RenderComponent<CheckboxList<IEnumerable<EnumEducation>>>(pb =>
+        {
+            pb.Add(a => a.Value, selectedEnumValues);
+        });
+        Assert.Contains("form-check-input", cut.Markup);
+    }
+
+    [Fact]
+    public void IntValue_Ok()
+    {
+        var ret = new List<int>();
+        var selectedIntValues = new List<int> { 1, 2 };
+        var cut = Context.RenderComponent<CheckboxList<IEnumerable<int>>>(pb =>
+        {
+            pb.Add(a => a.Value, selectedIntValues);
+            pb.Add(a => a.Items, new List<SelectedItem>()
+            {
+                new SelectedItem("1", "Test 1"),
+                new SelectedItem("2", "Test 2")
+            });
+            pb.Add(a => a.OnSelectedChanged, (v1, v2) =>
+            {
+                ret.AddRange(v2);
+                return Task.CompletedTask;
+            });
+        });
+        var item = cut.Find(".form-check-input");
+        item.Click();
+
+        // 选中 2 
+        Assert.Equal(2, ret.First());
+    }
+
+    [Fact]
+    public void NotSupportedException_Error()
+    {
+        Assert.Throws<NotSupportedException>(() => Context.RenderComponent<CheckboxList<CheckboxListGenericMock<int>>>());
+        Assert.Throws<NotSupportedException>(() => Context.RenderComponent<CheckboxList<int>>());
+    }
+
+    private class CheckboxListGenericMock<T>
+    {
+
+    }
 }
