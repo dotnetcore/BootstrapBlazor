@@ -510,14 +510,6 @@ form .form-control.is-display {
 }
 /*end InputNumber*/
 
-/*Textarea*/
-@media (min-width: 576px) {
-    .row.form-inline textarea.form-control {
-        width: calc(100% - 100px);
-    }
-}
-/*End Textarea*/
-
 /*editor-form*/
 .ef-loading {
     display: flex;
