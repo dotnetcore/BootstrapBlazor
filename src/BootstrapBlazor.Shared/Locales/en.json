@@ -789,9 +789,11 @@
     "Att4DefaultValue": "No matching data",
     "Att5": "The number of data displayed when the data is matched",
     "Att6": "Call back the delegate method when the text box value changes",
-    "Att7": "whether to turn on fuzzy matching",
-    "Att8": "whether case is ignored when matching",
-    "Att9": "custom collection filtering rules"
+    "Att7": "Whether to turn on fuzzy matching",
+    "Att8": "Whether case is ignored when matching",
+    "Att9": "Custom collection filtering rules",
+    "SkipEnter": "Skip Enter key processing",
+    "SkipEsc": "Skip Esc key processing"
   },
   "BootstrapBlazor.Shared.Samples.FullScreens": {
     "Title": "FullScreen",
