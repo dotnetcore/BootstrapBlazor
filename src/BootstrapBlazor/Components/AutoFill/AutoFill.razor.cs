@@ -20,7 +20,6 @@ public partial class AutoFill<TValue>
 {
     private bool _isLoading;
     private bool _isShown;
-    private string? _lastFilterText;
 
     /// <summary>
     /// 获得 组件样式
@@ -87,6 +86,18 @@ public partial class AutoFill<TValue>
     [Parameter]
     [NotNull]
     public Func<TValue, string>? OnGetDisplayText { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否跳过 Enter 按键处理 默认 false
+    /// </summary>
+    [Parameter]
+    public bool SkipEnter { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否跳过 Esc 按键处理 默认 false
+    /// </summary>
+    [Parameter]
+    public bool SkipEsc { get; set; }
 
     /// <summary>
     /// 获得/设置 选项改变回调方法 默认 null
@@ -172,26 +183,15 @@ public partial class AutoFill<TValue>
     }
 
     /// <summary>
-    /// 获得/设置 是否跳过 Enter 按键处理 默认 false
-    /// </summary>
-    protected bool SkipEnter { get; set; }
-
-    /// <summary>
-    /// 获得/设置 是否跳过 Esc 按键处理 默认 false
-    /// </summary>
-    protected bool SkipEsc { get; set; }
-
-    /// <summary>
     /// OnKeyUp 方法
     /// </summary>
     /// <param name="args"></param>
     /// <returns></returns>
     protected virtual async Task OnKeyUp(KeyboardEventArgs args)
     {
-        if (!_isLoading && _lastFilterText != InputString)
+        if (!_isLoading)
         {
             _isLoading = true;
-            _lastFilterText = InputString;
             if (OnCustomFilter != null)
             {
                 var items = await OnCustomFilter(InputString);
@@ -209,9 +209,8 @@ public partial class AutoFill<TValue>
         if (source.Any())
         {
             _isShown = true;
-
             // 键盘向上选择
-            if (_isShown && args.Key == "ArrowUp")
+            if (args.Key == "ArrowUp")
             {
                 var index = 0;
                 if (ActiveSelectedItem != null)
@@ -225,7 +224,7 @@ public partial class AutoFill<TValue>
                 ActiveSelectedItem = source[index];
                 CurrentItemIndex = index;
             }
-            else if (_isShown && args.Key == "ArrowDown")
+            else if (args.Key == "ArrowDown")
             {
                 var index = 0;
                 if (ActiveSelectedItem != null)
