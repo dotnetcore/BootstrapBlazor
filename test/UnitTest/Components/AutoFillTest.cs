@@ -193,7 +193,7 @@ public class AutoFillTest : BootstrapBlazorTestBase
             pb.Add(a => a.Template, v => builder =>
             {
                 builder.OpenElement(0, "div");
-                builder.AddContent(1, v.Value);
+                builder.AddContent(1, v?.Value);
                 builder.CloseElement();
             });
         });

@@ -46,6 +46,13 @@ public partial class Display<TValue>
     public IEnumerable<SelectedItem>? Lookup { get; set; }
 
     /// <summary>
+    /// 获得/设置 类型解析回调方法 组件泛型为 Array 时内部调用
+    /// </summary>
+    [Parameter]
+
+    public Func<Assembly?, string, bool, Type?>? TypeResolver { get; set; }
+
+    /// <summary>
     /// OnParametersSetAsync 方法
     /// </summary>
     /// <returns></returns>
@@ -106,31 +113,45 @@ public partial class Display<TValue>
         return ret ?? valueString ?? string.Empty;
     }
 
-    private static Func<TValue, string>? _converterArray;
+    private Func<TValue, string>? _converterArray;
     /// <summary>
     /// 获取属性方法 Lambda 表达式
     /// </summary>
     /// <returns></returns>
-    private static string ConvertArrayToString(TValue value)
+    private string ConvertArrayToString(TValue value)
     {
         return (_converterArray ??= ConvertArrayToStringLambda())(value);
 
-        static Func<TValue, string> ConvertArrayToStringLambda()
+        Func<TValue, string> ConvertArrayToStringLambda()
         {
             Func<TValue, string> ret = _ => "";
             var param_p1 = Expression.Parameter(typeof(Array));
             var target_type = typeof(TValue).UnderlyingSystemType;
-            var methodType = Type.GetType(target_type.FullName!.Replace("[]", ""));
+            var methodType = ResolveArrayType();
             if (methodType != null)
             {
-                var method = typeof(string).GetMethods().Where(m => m.Name == "Join" && m.IsGenericMethod && m.GetParameters()[0].ParameterType == typeof(string)).FirstOrDefault()?.MakeGenericMethod(methodType);
-                if (method != null)
-                {
-                    var body = Expression.Call(method, Expression.Constant(","), Expression.Convert(param_p1, target_type));
-                    ret = Expression.Lambda<Func<TValue, string>>(body, param_p1).Compile();
-                }
+                // 调用 string.Join<T>(",", IEnumerable<T>) 方法
+                var method = typeof(string).GetMethods().Where(m => m.Name == "Join" && m.IsGenericMethod && m.GetParameters()[0].ParameterType == typeof(string)).First().MakeGenericMethod(methodType);
+                var body = Expression.Call(method, Expression.Constant(","), Expression.Convert(param_p1, target_type));
+                ret = Expression.Lambda<Func<TValue, string>>(body, param_p1).Compile();
             }
             return ret;
+
+            Type? ResolveArrayType()
+            {
+                Type? ret = null;
+                var typeName = target_type.FullName;
+                if (!string.IsNullOrEmpty(typeName))
+                {
+                    typeName = typeName.Replace("[]", "");
+                    if (typeName.Contains("+"))
+                    {
+                        typeName = typeName.Split('+', StringSplitOptions.RemoveEmptyEntries).Last();
+                    }
+                    ret = Type.GetType(typeName, null, TypeResolver, false, true);
+                }
+                return ret;
+            }
         }
     }
 
@@ -148,47 +169,35 @@ public partial class Display<TValue>
 
         static Func<TValue, string> ConvertEnumerableToStringLambda()
         {
-            Func<TValue, string> ret = _ => "";
             var typeArguments = typeof(TValue).GenericTypeArguments;
             var param_p1 = Expression.Parameter(typeof(IEnumerable<>).MakeGenericType(typeArguments));
-            var method = typeof(string).GetMethods().Where(m => m.Name == "Join" && m.IsGenericMethod && m.GetParameters()[0].ParameterType == typeof(string)).FirstOrDefault()?.MakeGenericMethod(typeArguments);
-            if (method != null)
-            {
-                var body = Expression.Call(method, Expression.Constant(","), param_p1);
-                ret = Expression.Lambda<Func<TValue, string>>(body, param_p1).Compile();
-            }
-            return ret;
+            var method = typeof(string).GetMethods().Where(m => m.Name == "Join" && m.IsGenericMethod && m.GetParameters()[0].ParameterType == typeof(string)).First().MakeGenericMethod(typeArguments);
+            var body = Expression.Call(method, Expression.Constant(","), param_p1);
+            return Expression.Lambda<Func<TValue, string>>(body, param_p1).Compile();
         }
 
         static Func<TValue, IEnumerable<string>> ConvertToEnumerableStringLambda()
         {
-            Func<TValue, IEnumerable<string>> ret = _ => Enumerable.Empty<string>();
             var typeArguments = typeof(TValue).GenericTypeArguments;
             var param_p1 = Expression.Parameter(typeof(IEnumerable<>).MakeGenericType(typeArguments));
 
             var method = typeof(Display<>).MakeGenericType(typeof(TValue))
-                .GetMethod("Cast", BindingFlags.NonPublic | BindingFlags.Static)?
+                .GetMethod(nameof(Cast), BindingFlags.NonPublic | BindingFlags.Static)!
                 .MakeGenericMethod(typeArguments);
-            if (method != null)
-            {
-                var body = Expression.Call(method, param_p1);
-                ret = Expression.Lambda<Func<TValue, IEnumerable<string>>>(body, param_p1).Compile();
-            }
-            return ret;
+            var body = Expression.Call(method, param_p1);
+            return Expression.Lambda<Func<TValue, IEnumerable<string>>>(body, param_p1).Compile();
         }
     }
 
-    private static IEnumerable<string?> Cast<TType>(IEnumerable<TType> source) => source.Select(i => i?.ToString());
+    private static IEnumerable<string> Cast<TType>(IEnumerable<TType> source) => source.Select(i => i?.ToString() ?? string.Empty);
 
-    private string GetTextByValue(IEnumerable<string> source) => Lookup == null
-        ? ""
-        : string.Join(",", source.Aggregate(new List<string>(), (s, i) =>
+    private string GetTextByValue(IEnumerable<string> source) => string.Join(",", source.Aggregate(new List<string>(), (s, i) =>
+    {
+        var text = Lookup!.FirstOrDefault(d => d.Value.Equals(i, StringComparison.OrdinalIgnoreCase))?.Text;
+        if (text != null)
         {
-            var text = Lookup.FirstOrDefault(d => d.Value.Equals(i, StringComparison.OrdinalIgnoreCase))?.Text;
-            if (text != null)
-            {
-                s.Add(text);
-            }
-            return s;
-        }));
+            s.Add(text);
+        }
+        return s;
+    }));
 }

@@ -5,6 +5,7 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
@@ -30,7 +31,6 @@ public abstract class DisplayBase<TValue> : TooltipComponentBase
     /// </summary>
     protected Type? NullableUnderlyingType { get; set; }
 
-#nullable disable
     /// <summary>
     /// Gets or sets the value of the input. This should be used with two-way binding.
     /// </summary>
@@ -38,8 +38,8 @@ public abstract class DisplayBase<TValue> : TooltipComponentBase
     /// @bind-Value="model.PropertyName"
     /// </example>
     [Parameter]
-    public TValue Value { get; set; }
-#nullable restore
+    [NotNull]
+    public TValue? Value { get; set; }
 
     /// <summary>
     /// Gets or sets a callback that updates the bound value.
