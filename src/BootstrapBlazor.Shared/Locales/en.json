@@ -2142,6 +2142,7 @@
     "DisplayText": "The front label displays text",
     "FormatString": "The numerically formatted string",
     "Formatter": "TableHeader instance",
+    "TypeResolver": "It is used internally when the type resolution callback method tvalue is an array instance",
     "Integer": "Integer",
     "Enum": "Enumerate",
     "Collection": "Collection",

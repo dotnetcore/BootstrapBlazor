@@ -62,33 +62,40 @@ public partial class Displays
 
     private IEnumerable<AttributeItem> GetAttributes() => new[]
     {
-            new AttributeItem() {
-                Name = "ShowLabel",
-                Description = Localizer["ShowLabel"],
-                Type = "bool",
-                ValueList = "true|false",
-                DefaultValue = "false"
-            },
-            new AttributeItem() {
-                Name = "DisplayText",
-                Description = Localizer["DisplayText"],
-                Type = "string",
-                ValueList = " — ",
-                DefaultValue = " — "
-            },
-            new AttributeItem() {
-                Name = "FormatString",
-                Description = Localizer["FormatString"],
-                Type = "string",
-                ValueList = " — ",
-                DefaultValue = " — "
-            },
-            new AttributeItem() {
-                Name = "Formatter",
-                Description = Localizer["Formatter"],
-                Type = "RenderFragment<TItem>",
-                ValueList = " — ",
-                DefaultValue = " — "
-            }
-        };
+        new AttributeItem() {
+            Name = "ShowLabel",
+            Description = Localizer["ShowLabel"],
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "false"
+        },
+        new AttributeItem() {
+            Name = "DisplayText",
+            Description = Localizer["DisplayText"],
+            Type = "string",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new AttributeItem() {
+            Name = "FormatString",
+            Description = Localizer["FormatString"],
+            Type = "string",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new AttributeItem() {
+            Name = "Formatter",
+            Description = Localizer["Formatter"],
+            Type = "RenderFragment<TItem>",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new AttributeItem() {
+            Name = nameof(Display<string>.TypeResolver),
+            Description = Localizer["TypeResolver"],
+            Type = "Func<Assembly?, string, bool, Type?>",
+            ValueList = " — ",
+            DefaultValue = " — "
+        }
+    };
 }

@@ -2147,6 +2147,7 @@
     "DisplayText": "前置标签显示文本",
     "FormatString": "数值格式化字符串",
     "Formatter": "TableHeader 实例",
+    "TypeResolver": "类型解析回调方法 TValue 为 Array 实例时内部使用",
     "Integer": "整型",
     "Enum": "枚举",
     "Collection": "集合",
