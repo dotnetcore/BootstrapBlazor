@@ -23,12 +23,18 @@ public class Ajax : BootstrapComponentBase, IDisposable
     {
         base.OnInitialized();
         AjaxService.Register(this, GetMessage);
+        AjaxService.RegisterGoto(this, Goto);
     }
 
     private async Task<string?> GetMessage(AjaxOption option)
     {
         var obj = await JSRuntime.InvokeAsync<string?>(identifier: "$.bb_ajax", option.Url, option.Method, option.Data);
         return obj;
+    }
+
+    private async Task Goto(string url)
+    {
+        await JSRuntime.InvokeVoidAsync(identifier: "$.bb_ajax_goto", url);
     }
 
     /// <summary>
@@ -39,6 +45,7 @@ public class Ajax : BootstrapComponentBase, IDisposable
         if (disposing)
         {
             AjaxService.UnRegister(this);
+            AjaxService.UnRegisterGoto(this);
         }
     }
 

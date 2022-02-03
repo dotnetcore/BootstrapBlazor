@@ -76,4 +76,14 @@ public partial class Ajaxs
             }
         }
     }
+
+    private async Task Goto()
+    {
+        await AjaxService.Goto("/introduction");
+    }
+
+    private async Task GotoSelf()
+    {
+        await AjaxService.Goto("/ajaxs");
+    }
 }

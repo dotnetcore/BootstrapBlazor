@@ -524,11 +524,6 @@ public sealed partial class NavMenu
                 Text = Localizer["Transition"],
                 Url = "transitions"
             },
-            new()
-            {
-                Text = "Ajax",
-                Url = "ajaxs"
-            },
         };
         AddBadge(item);
     }

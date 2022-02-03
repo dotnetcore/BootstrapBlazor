@@ -17,7 +17,13 @@
                     return null;
                 }
             });
+            if (res == null) {
+                return null;
+            }
             return JSON.stringify(res);
+        },
+        bb_ajax_goto: function (url) {
+            window.location.href = url;
         }
     });
 })(jQuery);
