@@ -3,7 +3,6 @@
   <Import Project="..\Directory.Build.props" />
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
     <RepositoryUrl>https://github.com/dotnetcore/BootstrapBlazor.git</RepositoryUrl>
     <PackageProjectUrl>https://www.blazor.zone</PackageProjectUrl>
     <RepositoryType>github</RepositoryType>
@@ -16,5 +15,5 @@
   <ItemGroup>
     <Using Include="System.Diagnostics.CodeAnalysis"/>
   </ItemGroup>
-  
+
 </Project>

@@ -16,6 +16,7 @@
     <Using Include="System.Diagnostics.CodeAnalysis"/>
     <Using Include="UnitTest.Core"/>
     <Using Include="Xunit"/>
+    <Using Include="Xunit.Abstractions"/>
   </ItemGroup>
 
 </Project>

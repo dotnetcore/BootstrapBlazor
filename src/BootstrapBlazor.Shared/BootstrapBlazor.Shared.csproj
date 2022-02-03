@@ -1,5 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk.Razor">
   
+
+  <Import Project="..\Framework.props" />
+
   <ItemGroup>
     <SupportedPlatform Include="browser" />
   </ItemGroup>

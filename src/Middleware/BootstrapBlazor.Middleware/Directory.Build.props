@@ -1,6 +1,8 @@
 <Project>
 
   <Import Project="..\..\Directory.Build.props" />
+  <Import Project="..\..\Frameworks.props" />
+  <Import Project="..\..\SourceLink.targets" />
 
   <PropertyGroup>
     <IsPackable>true</IsPackable>
