@@ -77,7 +77,7 @@ public partial class TablesFilter
         });
     }
 
-    private string OnSort(string sortName, SortOrder sortOrder)
+    private static string OnSort(string sortName, SortOrder sortOrder)
     {
         string sortString = "";
         if (sortName == nameof(Foo.DateTime))

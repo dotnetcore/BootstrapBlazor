@@ -503,7 +503,7 @@ public partial class Tab
                     parameters.Add(nameof(TabItem.Closable), option.Closable);
                     parameters.Add(nameof(TabItem.IsActive), true);
                 }
-                parameters.Add(nameof(TabItem.Text), option?.Text ?? url.SpanSplit("/").FirstOrDefault());
+                parameters.Add(nameof(TabItem.Text), option?.Text ?? url.Split("/").FirstOrDefault());
                 parameters.Add(nameof(TabItem.Url), url);
             }
 

@@ -2,12 +2,12 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-namespace BootstrapBlazor.Components;
+namespace UnitTest.Extensions;
 
 /// <summary>
 /// 
 /// </summary>
-internal static class StringExtensions
+public static class StringExtensions
 {
     /// <summary>
     /// SpanSplit 扩展方法
@@ -16,7 +16,7 @@ internal static class StringExtensions
     /// <param name="splitStr">分隔符数组 分割规则作为整体</param>
     /// <param name="stringSplitOptions">StringSplitOptions 选项</param>
     /// <returns>分割后的字符串数组</returns>
-    public static List<string> SpanSplit(this string source, string? splitStr = null, StringSplitOptions stringSplitOptions = StringSplitOptions.None)
+    public static List<string> SpanSplit(this string? source, string? splitStr = null, StringSplitOptions stringSplitOptions = StringSplitOptions.None)
     {
         var ret = new List<string>();
         if (string.IsNullOrEmpty(source))
@@ -56,7 +56,7 @@ internal static class StringExtensions
     /// <param name="splitStr">分隔符数组 分割规则是任意一个</param>
     /// <param name="stringSplitOptions">StringSplitOptions 选项</param>
     /// <returns>分割后的字符串数组</returns>
-    public static List<string> SpanSplitAny(this string source, string splitStr, StringSplitOptions stringSplitOptions = StringSplitOptions.None)
+    public static List<string> SpanSplitAny(this string? source, string splitStr, StringSplitOptions stringSplitOptions = StringSplitOptions.None)
     {
         var ret = new List<string>();
         if (string.IsNullOrEmpty(source))

@@ -438,7 +438,7 @@ public partial class Table<TItem>
                 SearchText = SearchText,
                 SortOrder = SortOrder,
                 SortName = SortName,
-                SortList = SortString?.SpanSplit(",", StringSplitOptions.RemoveEmptyEntries),
+                SortList = string.IsNullOrEmpty(SortString) ? null : new List<string>(SortString.Split(",", StringSplitOptions.RemoveEmptyEntries)),
                 Filters = Filters.Values,
                 Searchs = GetSearchs(),
                 AdvanceSearchs = GetAdvanceSearchs(),

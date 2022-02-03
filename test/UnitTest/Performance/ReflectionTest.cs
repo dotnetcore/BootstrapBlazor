@@ -3,7 +3,6 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using System.Diagnostics;
-using Xunit.Abstractions;
 
 namespace UnitTest.Performance;
 
