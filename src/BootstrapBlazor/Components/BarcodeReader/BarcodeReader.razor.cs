@@ -68,6 +68,12 @@ public partial class BarcodeReader : IAsyncDisposable
     public ScanType ScanType { get; set; }
 
     /// <summary>
+    /// 获得/设置 摄像头设备切换回调方法 默认 null
+    /// </summary>
+    [Parameter]
+    public Func<DeviceItem, Task>? OnDeviceChanged { get; set; }
+
+    /// <summary>
     /// 获得/设置 初始化摄像头回调方法
     /// </summary>
     [Parameter]
@@ -108,8 +114,6 @@ public partial class BarcodeReader : IAsyncDisposable
     /// </summary>
     [Parameter]
     public Func<Task>? OnClose { get; set; }
-
-    private string DeviceId { get; set; } = "";
 
     private ElementReference ScannerElement { get; set; }
 
@@ -204,6 +208,14 @@ public partial class BarcodeReader : IAsyncDisposable
     public async Task Stop()
     {
         if (OnClose != null) await OnClose.Invoke();
+    }
+
+    private async Task OnSelectedItemChanged(SelectedItem item)
+    {
+        if (OnDeviceChanged != null)
+        {
+            await OnDeviceChanged(new DeviceItem() { DeviceId = item.Value, Label = item.Text });
+        }
     }
 
     /// <summary>

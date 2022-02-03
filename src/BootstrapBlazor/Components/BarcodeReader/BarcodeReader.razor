@@ -14,7 +14,7 @@
                 <Checkbox DisplayText="@AutoStopText" ShowAfterLabel="true" @bind-Value="@AutoStop" class="mt-3" />
             </div>
             <div class="col-12 scanner-devices">
-                <Select Items="@Devices" @bind-Value="@DeviceId" DisplayText="@DeviceLabel" ShowLabel="true" placeholder="@InitDevicesString" />
+                <Select TValue="string" Items="@Devices" DisplayText="@DeviceLabel" OnSelectedItemChanged="OnSelectedItemChanged" ShowLabel="true" placeholder="@InitDevicesString" />
             </div>
             <div class="col-12 scanner-video">
                 <video id="@GetHashCode()"></video>

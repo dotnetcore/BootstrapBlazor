@@ -1889,6 +1889,7 @@
     "OnStart": "Turn on the camera callback method",
     "OnClose": "Turn off the camera callback method",
     "OnError": "An error callback method occurred",
+    "OnDeviceChanged": "switch camera device callback method",
     "InitLog": "Initialize the camera to complete",
     "ScanCodeLog": "Scan to barcode",
     "ErrorLog": "An error has occurred",
