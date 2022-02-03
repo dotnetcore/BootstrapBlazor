@@ -3,9 +3,7 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.AspNetCore.Components;
-using System;
 using System.Globalization;
-using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components;
 

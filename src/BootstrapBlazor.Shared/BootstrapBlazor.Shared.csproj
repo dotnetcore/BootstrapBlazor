@@ -1,7 +1,5 @@
 <Project Sdk="Microsoft.NET.Sdk.Razor">
   
-  <Import Project="..\BootstrapBlazor.Server\Directory.Build.props" />
-
   <ItemGroup>
     <SupportedPlatform Include="browser" />
   </ItemGroup>

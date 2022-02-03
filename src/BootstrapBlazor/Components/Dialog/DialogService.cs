@@ -4,9 +4,6 @@
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components;
 

@@ -4,9 +4,7 @@
 
 using BootstrapBlazor.Components;
 using Microsoft.AspNetCore.Components;
-using System.Diagnostics.CodeAnalysis;
 using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Shared.Samples;
 

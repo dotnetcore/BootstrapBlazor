@@ -4,8 +4,6 @@
 
 using BootstrapBlazor.Components;
 using BootstrapBlazor.Shared.Common;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 
 namespace BootstrapBlazor.Shared.Samples;
 

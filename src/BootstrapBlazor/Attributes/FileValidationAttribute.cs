@@ -4,10 +4,7 @@
 
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.Extensions.Localization;
-using System;
 using System.ComponentModel.DataAnnotations;
-using System.IO;
-using System.Linq;
 
 namespace BootstrapBlazor.Components;
 

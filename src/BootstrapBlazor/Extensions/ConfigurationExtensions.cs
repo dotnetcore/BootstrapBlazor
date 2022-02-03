@@ -2,7 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using System;
 using System.Collections.Specialized;
 using System.Runtime.InteropServices;
 
@@ -55,7 +54,6 @@ internal static class ConfigurationExtensions
         {
             nv["VSIDE"] = vs;
         }
-
         return nv;
     }
 
@@ -76,12 +74,10 @@ internal static class ConfigurationExtensions
             {
                 os = $"OSX";
             }
-#if NETCOREAPP3_0_OR_GREATER
             else if (RuntimeInformation.IsOSPlatform(OSPlatform.FreeBSD))
             {
                 os = "FreeBSD";
             }
-#endif
             else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
             {
                 os = $"Linux";
@@ -105,7 +101,6 @@ internal static class ConfigurationExtensions
         {
             userName = config.GetValue("LOGNAME", defaultValue);
         }
-
         return userName;
     }
 
@@ -147,7 +142,6 @@ internal static class ConfigurationExtensions
         {
             ret = defaultValue;
         }
-
         return ret;
     }
 }

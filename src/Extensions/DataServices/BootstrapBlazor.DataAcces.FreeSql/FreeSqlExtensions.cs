@@ -4,8 +4,6 @@
 
 using BootstrapBlazor.Components;
 using FreeSql.Internal.Model;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace BootstrapBlazor.DataAcces.FreeSql;
 

@@ -5,7 +5,6 @@
 using BootstrapBlazor.Localization.Json;
 using Microsoft.Extensions.Localization;
 using System.Collections;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace BootstrapBlazor.Components;

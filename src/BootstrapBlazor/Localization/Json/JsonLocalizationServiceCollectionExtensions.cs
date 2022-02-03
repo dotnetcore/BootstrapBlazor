@@ -4,7 +4,6 @@
 
 using BootstrapBlazor.Localization.Json;
 using Microsoft.Extensions.Localization;
-using System;
 
 namespace Microsoft.Extensions.DependencyInjection;
 

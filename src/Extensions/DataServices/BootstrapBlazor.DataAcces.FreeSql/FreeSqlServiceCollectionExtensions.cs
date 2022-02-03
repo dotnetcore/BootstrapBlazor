@@ -6,7 +6,6 @@ using BootstrapBlazor.Components;
 using BootstrapBlazor.DataAcces.FreeSql;
 using FreeSql;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using System;
 
 namespace Microsoft.Extensions.DependencyInjection;
 

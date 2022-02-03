@@ -4,9 +4,6 @@
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq.Expressions;
 
 namespace BootstrapBlazor.Components;
@@ -16,7 +13,7 @@ namespace BootstrapBlazor.Components;
 /// </summary>
 /// <remarks>用于 EditorForm 的 FieldItems 模板内</remarks>
 #if NET5_0
-    public class EditorItem<TValue> : ComponentBase, IEditorItem
+public class EditorItem<TValue> : ComponentBase, IEditorItem
 #elif NET6_0_OR_GREATER
 public class EditorItem<TModel, TValue> : ComponentBase, IEditorItem
 #endif

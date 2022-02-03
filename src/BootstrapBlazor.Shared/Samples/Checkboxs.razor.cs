@@ -5,9 +5,7 @@
 using BootstrapBlazor.Components;
 using BootstrapBlazor.Shared.Common;
 using BootstrapBlazor.Shared.Components;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Shared.Samples;
 

@@ -3,7 +3,6 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.AspNetCore.Http;
-using System.Collections.Generic;
 using System.Text.Json;
 
 namespace Microsoft.AspNetCore.Builder;

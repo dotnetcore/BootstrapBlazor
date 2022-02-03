@@ -3,8 +3,6 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.AspNetCore.Components;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 
 namespace BootstrapBlazor.Shared.Components;
 

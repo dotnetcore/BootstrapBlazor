@@ -3,8 +3,6 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using BootstrapBlazor.Shared.Common;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Shared.Samples;
 

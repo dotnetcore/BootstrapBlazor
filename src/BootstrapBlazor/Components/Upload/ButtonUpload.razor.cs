@@ -4,8 +4,6 @@
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 
 namespace BootstrapBlazor.Components;
 

@@ -3,10 +3,6 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.AspNetCore.Components.Forms;
-using System;
-using System.IO;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components;
 

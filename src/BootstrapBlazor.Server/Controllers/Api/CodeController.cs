@@ -5,10 +5,7 @@
 using BootstrapBlazor.Shared;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
-using System;
 using System.Net;
-using System.Net.Http;
-using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Server.Controllers.Api;
 

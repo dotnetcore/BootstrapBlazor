@@ -5,8 +5,6 @@
 using BootstrapBlazor.Components;
 using BootstrapBlazor.Shared;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using System.Linq;
 
 namespace BootstrapBlazor.Server.Controllers.Api;
 

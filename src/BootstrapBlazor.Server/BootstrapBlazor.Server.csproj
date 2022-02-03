@@ -2,7 +2,6 @@
   
   <PropertyGroup>
     <IsWebProject>true</IsWebProject>
-    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>

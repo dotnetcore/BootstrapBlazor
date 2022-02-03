@@ -4,10 +4,7 @@
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
-using System;
-using System.Collections.Generic;
 using System.Reflection.Metadata;
-using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components;
 

@@ -4,7 +4,6 @@
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Routing;
-using System.Collections.Generic;
 
 namespace BootstrapBlazor.Components;
 

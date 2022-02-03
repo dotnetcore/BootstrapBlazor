@@ -8,15 +8,23 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BootstrapBlazor.Server.Controllers.Api;
 
+/// <summary>
+/// 
+/// </summary>
 [Route("api/[controller]")]
 [AllowAnonymous]
 [ApiController]
 public class LoginController : ControllerBase
 {
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="user"></param>
+    /// <returns></returns>
     [HttpPost]
     public IActionResult Post(User user)
     {
-        IActionResult? response = null;
+        IActionResult? response;
         if (user.UserName == "admin" && user.Password == "123456")
         {
             response = new JsonResult(new { Code = 200, Message = "登录成功" });

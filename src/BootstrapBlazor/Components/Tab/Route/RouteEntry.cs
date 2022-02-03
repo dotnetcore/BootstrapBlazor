@@ -4,11 +4,7 @@
 
 #nullable disable warnings
 
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
 
 namespace Microsoft.AspNetCore.Components.Routing;
 

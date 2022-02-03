@@ -4,8 +4,6 @@
 
 using BootstrapBlazor.Components;
 using Microsoft.AspNetCore.Components;
-using System;
-using System.Collections.Generic;
 
 namespace BootstrapBlazor.Shared.Components;
 

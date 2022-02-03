@@ -4,9 +4,6 @@
 
 using BootstrapBlazor.Components;
 using Microsoft.AspNetCore.Components;
-using System;
-using System.Diagnostics.CodeAnalysis;
-using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Shared.Components;
 

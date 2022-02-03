@@ -5,7 +5,6 @@
 using BootstrapBlazor.Components;
 using BootstrapBlazor.Server.Services;
 using Microsoft.Extensions.Options;
-using System.Collections.Generic;
 using System.Reflection;
 
 namespace Microsoft.Extensions.DependencyInjection;

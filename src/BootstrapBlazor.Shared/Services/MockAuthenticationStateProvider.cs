@@ -3,9 +3,7 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.AspNetCore.Components.Authorization;
-using System;
 using System.Security.Claims;
-using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Shared.Services;
 

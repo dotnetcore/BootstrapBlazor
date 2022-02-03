@@ -6,7 +6,6 @@ using BootstrapBlazor.Components;
 using BootstrapBlazor.DataAcces.PetaPoco;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using PetaPoco;
-using System;
 
 namespace Microsoft.Extensions.DependencyInjection;
 

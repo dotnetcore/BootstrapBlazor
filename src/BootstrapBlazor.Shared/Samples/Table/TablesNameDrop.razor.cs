@@ -4,8 +4,6 @@
 
 using BootstrapBlazor.Components;
 using Microsoft.AspNetCore.Components;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 
 namespace BootstrapBlazor.Shared.Samples.Table;
 

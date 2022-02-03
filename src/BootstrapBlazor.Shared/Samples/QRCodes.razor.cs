@@ -4,9 +4,6 @@
 
 using BootstrapBlazor.Shared.Common;
 using BootstrapBlazor.Shared.Components;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.Threading.Tasks;
 using Microsoft.Extensions.Localization;
 using Microsoft.AspNetCore.Components;
 

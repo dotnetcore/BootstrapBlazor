@@ -3,13 +3,9 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.AspNetCore.Components;
-using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
-using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components;
 
@@ -144,7 +140,7 @@ public partial class Display<TValue>
                 if (!string.IsNullOrEmpty(typeName))
                 {
                     typeName = typeName.Replace("[]", "");
-                    if (typeName.Contains("+"))
+                    if (typeName.Contains('+'))
                     {
                         typeName = typeName.Split('+', StringSplitOptions.RemoveEmptyEntries).Last();
                     }

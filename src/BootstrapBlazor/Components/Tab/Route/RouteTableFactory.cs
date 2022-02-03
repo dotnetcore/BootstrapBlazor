@@ -2,21 +2,16 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using Microsoft.AspNetCore.Components;
-using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using IComponent = Microsoft.AspNetCore.Components.IComponent;
 
 namespace Microsoft.AspNetCore.Components.Routing;
 
 #if NET5_0
-    /// <summary>
-    /// Resolves components for an application.
-    /// </summary>
-    internal static class RouteTableFactory
+/// <summary>
+/// Resolves components for an application.
+/// </summary>
+internal static class RouteTableFactory
     {
         private static readonly ConcurrentDictionary<Key, RouteTable> Cache =
             new ConcurrentDictionary<Key, RouteTable>();

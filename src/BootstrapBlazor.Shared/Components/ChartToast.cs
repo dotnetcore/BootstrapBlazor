@@ -6,8 +6,6 @@ using BootstrapBlazor.Components;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.JSInterop;
-using System;
-using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Shared.Components;
 
