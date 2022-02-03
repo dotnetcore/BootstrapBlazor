@@ -43,6 +43,31 @@ public class CardTest : TestBase
         Assert.Contains("text-center", cut.Markup);
     }
 
+    [Fact]
+    public void IsShadow_Ok()
+    {
+        var cut = Context.RenderComponent<Card>(builder => builder.Add(a => a.IsShadow, true));
+        Assert.Contains("card-shadow", cut.Markup);
+    }
+
+    [Fact]
+    public void HeaderText_Ok()
+    {
+        var cut = Context.RenderComponent<Card>(builder => builder.Add(a => a.HeaderText, "Header"));
+        Assert.Contains("Header", cut.Markup);
+    }
+
+    [Fact]
+    public void IsCollapsible_Ok()
+    {
+        var cut = Context.RenderComponent<Card>(builder =>
+        {
+            builder.Add(a => a.IsCollapsible, true);
+            builder.Add(a => a.HeaderText, "Header");
+        });
+        Assert.Contains("card-collapse", cut.Markup);
+    }
+
 
     private static RenderFragment CreateComponent() => builder =>
     {
