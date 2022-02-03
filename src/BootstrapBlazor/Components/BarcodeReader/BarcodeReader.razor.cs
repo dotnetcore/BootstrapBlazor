@@ -145,7 +145,7 @@ public partial class BarcodeReader : IAsyncDisposable
     /// <returns></returns>
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        if (firstRender && JSRuntime != null)
+        if (firstRender)
         {
             Interop = new JSInterop<BarcodeReader>(JSRuntime);
             await Interop.InvokeVoidAsync(this, ScannerElement, "bb_barcode", "init", AutoStart);
@@ -225,11 +225,14 @@ public partial class BarcodeReader : IAsyncDisposable
     /// <returns></returns>
     protected virtual async ValueTask DisposeAsyncCore(bool disposing)
     {
-        if (disposing && Interop != null)
+        if (disposing)
         {
-            await Interop.InvokeVoidAsync(this, ScannerElement, "bb_barcode", "dispose");
-            Interop.Dispose();
-            Interop = null;
+            if (Interop != null)
+            {
+                await Interop.InvokeVoidAsync(this, ScannerElement, "bb_barcode", "dispose");
+                Interop.Dispose();
+                Interop = null;
+            }
         }
     }
 
