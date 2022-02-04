@@ -7,6 +7,7 @@ using System.Globalization;
 
 namespace Microsoft.AspNetCore.Components.Routing;
 
+[ExcludeFromCodeCoverage]
 #if NET5_0
 internal abstract class RouteConstraint
 {

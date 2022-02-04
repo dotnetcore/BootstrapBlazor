@@ -4,6 +4,7 @@
 
 namespace Microsoft.AspNetCore.Components.Routing;
 
+[ExcludeFromCodeCoverage]
 #if NET5_0
 internal class RouteTable : IRouteTable
 #else

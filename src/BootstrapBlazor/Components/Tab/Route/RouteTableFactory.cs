@@ -11,6 +11,7 @@ namespace Microsoft.AspNetCore.Components.Routing;
 /// <summary>
 /// Resolves components for an application.
 /// </summary>
+[ExcludeFromCodeCoverage]
 internal static class RouteTableFactory
     {
         private static readonly ConcurrentDictionary<Key, RouteTable> Cache =
@@ -237,6 +238,7 @@ internal static class RouteTableFactory
 /// <summary>
 /// Resolves components for an application.
 /// </summary>
+[ExcludeFromCodeCoverage]
 internal static class RouteTableFactory
 {
     private static readonly ConcurrentDictionary<RouteKey, RouteTable> Cache = new();

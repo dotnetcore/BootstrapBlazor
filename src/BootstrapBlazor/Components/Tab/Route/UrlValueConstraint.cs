@@ -11,6 +11,7 @@ namespace Microsoft.AspNetCore.Components.Routing;
 /// <summary>
 /// Shared logic for parsing tokens from route values and querystring values.
 /// </summary>
+[ExcludeFromCodeCoverage]
 internal abstract class UrlValueConstraint
 {
     public delegate bool TryParseDelegate<T>(ReadOnlySpan<char> str, [MaybeNullWhen(false)] out T result);

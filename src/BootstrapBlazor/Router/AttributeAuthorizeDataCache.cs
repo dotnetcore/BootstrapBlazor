@@ -7,6 +7,7 @@ using System.Collections.Concurrent;
 
 namespace BootstrapBlazor.Components;
 
+[ExcludeFromCodeCoverage]
 internal static class AttributeAuthorizeDataCache
 {
     private static readonly ConcurrentDictionary<Type, IAuthorizeData[]?> _cache = new();

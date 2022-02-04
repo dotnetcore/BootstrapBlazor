@@ -2,14 +2,15 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-namespace BootstrapBlazor.Components;
+using Microsoft.AspNetCore.Components.Rendering;
 
-[ExcludeFromCodeCoverage]
-internal class RouteContext
+namespace UnitTest.Pages;
+
+[Route("/")]
+public class Index : ComponentBase
 {
-    public string[]? Segments { get; set; }
-
-    public Type? Handler { get; set; }
-
-    public IReadOnlyDictionary<string, object>? Parameters { get; set; }
+    protected override void BuildRenderTree(RenderTreeBuilder builder)
+    {
+        builder.AddContent(0, "Index");
+    }
 }

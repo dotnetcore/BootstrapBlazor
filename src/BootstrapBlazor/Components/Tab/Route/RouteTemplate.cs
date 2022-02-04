@@ -8,6 +8,7 @@ using System.Diagnostics;
 namespace Microsoft.AspNetCore.Components.Routing;
 
 [DebuggerDisplay("{TemplateText}")]
+[ExcludeFromCodeCoverage]
 internal class RouteTemplate
 {
     public RouteTemplate(string templateText, TemplateSegment[] segments)

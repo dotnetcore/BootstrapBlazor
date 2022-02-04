@@ -102,14 +102,7 @@ RenderFragment RenderMain =>
                  AdditionalAssemblies="@AdditionalAssemblies" NotFoundTabText="@NotFoundTabText"
                  DefaultUrl="@TabDefaultUrl" ExcludeUrls="@ExcludeUrls" IsOnlyRenderActiveTab="IsOnlyRenderActiveTab"
                  ShowToast="ShowToast" ToastTitle="@ToastTitle" OnErrorHandleAsync="OnErrorHandleAsync!"
-                 Body="@Main">
-                <NotAuthorized>
-                    @NotAuthorized
-                </NotAuthorized>
-                <NotFound>
-                    @NotFound
-                </NotFound>
-            </Tab>
+                 Body="@Main" NotAuthorized="NotAuthorized!" NotFound="NotFound!" />
         </RenderTemplate>
     }
     else

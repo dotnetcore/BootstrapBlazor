@@ -4,6 +4,7 @@
 
 namespace Microsoft.AspNetCore.Components.Routing;
 
+[ExcludeFromCodeCoverage]
 internal class RouteContext
 {
     private static readonly char[] Separator = new[] { '/' };
