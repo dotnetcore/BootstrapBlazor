@@ -100,10 +100,10 @@ public class InputTest : BootstrapBlazorTestBase
         cut.SetParametersAndRender(builder =>
         {
             builder.Add(a => a.FormatString, null);
-            builder.Add(a => a.Formatter, dt => dt.ToString("HH:mm:ss"));
+            builder.Add(a => a.Formatter, dt => dt.ToString("HH:mm"));
             builder.Add(a => a.Value, DateTime.Now);
         });
-        Assert.Contains($"value=\"{DateTime.Now:HH:mm:ss}\"", cut.Markup);
+        Assert.Contains($"value=\"{DateTime.Now:HH:mm}\"", cut.Markup);
     }
 
     [Fact]

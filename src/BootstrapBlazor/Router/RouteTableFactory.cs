@@ -20,7 +20,7 @@ internal static class RouteTableFactory
     /// <param name="assemblies"></param>
     /// <param name="url"></param>
     /// <returns></returns>
-    public static RouteContext Create(IEnumerable<Assembly> assemblies, string url)
+    public static RouteContext Create(IEnumerable<Assembly>? assemblies, string url)
     {
         RefreshRouteTable(assemblies);
         if (url.IndexOf("?") > 0) url = url[..url.IndexOf("?")];
@@ -34,8 +34,9 @@ internal static class RouteTableFactory
         };
     }
 
-    private static void RefreshRouteTable(IEnumerable<Assembly> assemblies)
+    private static void RefreshRouteTable(IEnumerable<Assembly>? assemblies)
     {
+        assemblies ??= Enumerable.Empty<Assembly>();
         var assembliesSet = new HashSet<Assembly>(assemblies);
         if (!_assemblies.SetEquals(assembliesSet))
         {

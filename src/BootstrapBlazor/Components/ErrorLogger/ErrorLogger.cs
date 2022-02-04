@@ -135,7 +135,7 @@ public class ErrorLogger
         builder.AddAttribute(2, nameof(CascadingValue<IErrorLogger>.IsFixed), true);
 
         var content = ChildContent;
-#if DEBUG
+
 #if NET5_0
         var ex = Exception;
 #else
@@ -145,7 +145,6 @@ public class ErrorLogger
         {
             content = ErrorContent.Invoke(ex);
         }
-#endif
         builder.AddAttribute(3, nameof(CascadingValue<IErrorLogger>.ChildContent), content);
         builder.CloseComponent();
     }

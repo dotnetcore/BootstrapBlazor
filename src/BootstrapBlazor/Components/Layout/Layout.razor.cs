@@ -150,7 +150,6 @@ public partial class Layout : IAsyncDisposable
         {
             AdditionalAssemblies ??= new[] { Assembly.GetEntryAssembly()! };
         }
-        AdditionalAssemblies ??= Enumerable.Empty<Assembly>();
     }
 
     /// <summary>

@@ -96,10 +96,4 @@ public class TabItem : ComponentBase
         var _ = item.SetParametersAsync(ParameterView.FromDictionary(parameters!));
         return item;
     }
-
-    /// <summary>
-    /// 内置 TabItem 显示文字
-    /// </summary>
-    /// <param name="text"></param>
-    internal void SetText(string text) => Text = text;
 }

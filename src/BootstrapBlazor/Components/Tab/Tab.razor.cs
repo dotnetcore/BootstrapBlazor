@@ -192,13 +192,6 @@ public partial class Tab
     public string? CloseOtherTabsText { get; set; }
 
     /// <summary>
-    /// 获得/设置 TabItem 显示文本字典 默认 null 未设置时取侧边栏菜单显示文本
-    /// </summary>
-    [Parameter]
-    [Obsolete("已弃用；请使用 [TabItemOptionAttribute] 标签替换此功能 详细说明见 更新日志 V6.2 https://gitee.com/LongbowEnterprise/BootstrapBlazor/wikis/%E6%9B%B4%E6%96%B0%E5%8E%86%E5%8F%B2/V6.2.0", true)]
-    public Dictionary<string, string>? TabItemTextDictionary { get; set; }
-
-    /// <summary>
     /// 获得/设置 自定义错误处理回调方法
     /// </summary>
     [Parameter]
@@ -245,9 +238,9 @@ public partial class Tab
         CloseCurrentTabText ??= Localizer[nameof(CloseCurrentTabText)];
         NotFoundTabText ??= Localizer[nameof(NotFoundTabText)];
 
-        if (!OperatingSystem.IsBrowser() && AdditionalAssemblies == null)
+        if (!OperatingSystem.IsBrowser())
         {
-            AdditionalAssemblies = new[] { Assembly.GetEntryAssembly()! };
+            AdditionalAssemblies ??= new[] { Assembly.GetEntryAssembly()! };
         }
     }
 
@@ -268,11 +261,11 @@ public partial class Tab
         var ret = false;
         foreach (var rule in ExcludeUrls ?? Enumerable.Empty<string>())
         {
-            var checkUrl = rule;
-            var startIndex = rule.IndexOf("/*");
+            var checkUrl = rule.TrimStart('/');
+            var startIndex = checkUrl.IndexOf("?");
             if (startIndex > 0)
             {
-                checkUrl = rule[..startIndex].Trim();
+                checkUrl = checkUrl[..startIndex];
                 if (url.StartsWith(checkUrl, StringComparison.OrdinalIgnoreCase))
                 {
                     ret = true;
@@ -654,16 +647,14 @@ public partial class Tab
         item.SetActive(true);
     }
 
-    private RenderFragment? RenderTabItemContent(RenderFragment? content) => ErrorLogger != null
-        ? builder =>
-        {
-            var index = 0;
-            builder.OpenComponent<ErrorLogger>(index++);
-            builder.AddAttribute(index++, nameof(Components.ErrorLogger.ShowToast), ErrorLogger.ShowToast);
-            builder.AddAttribute(index++, nameof(Components.ErrorLogger.OnErrorHandleAsync), OnErrorHandleAsync);
-            builder.AddAttribute(index++, nameof(Components.ErrorLogger.ToastTitle), ErrorLogger.ToastTitle);
-            builder.AddAttribute(index++, nameof(Components.ErrorLogger.ChildContent), content);
-            builder.CloseComponent();
-        }
-    : content;
+    private RenderFragment? RenderTabItemContent(RenderFragment? content) => builder =>
+    {
+        var index = 0;
+        builder.OpenComponent<ErrorLogger>(index++);
+        builder.AddAttribute(index++, nameof(Components.ErrorLogger.ShowToast), ErrorLogger?.ShowToast ?? ShowToast);
+        builder.AddAttribute(index++, nameof(Components.ErrorLogger.OnErrorHandleAsync), OnErrorHandleAsync);
+        builder.AddAttribute(index++, nameof(Components.ErrorLogger.ToastTitle), ErrorLogger?.ToastTitle ?? ToastTitle);
+        builder.AddAttribute(index++, nameof(Components.ErrorLogger.ChildContent), content);
+        builder.CloseComponent();
+    };
 }
