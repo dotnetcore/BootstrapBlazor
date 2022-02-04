@@ -3,7 +3,6 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.AspNetCore.Components;
-using Microsoft.JSInterop;
 
 namespace BootstrapBlazor.Components;
 
@@ -28,13 +27,13 @@ public class Ajax : BootstrapComponentBase, IDisposable
 
     private async Task<string?> GetMessage(AjaxOption option)
     {
-        var obj = await JSRuntime.InvokeAsync<string?>(identifier: "$.bb_ajax", option.Url, option.Method, option.Data);
+        var obj = await JSRuntime.InvokeAsync<string?>(null, "bb_ajax", option.Url, option.Method, option.Data);
         return obj;
     }
 
     private async Task Goto(string url)
     {
-        await JSRuntime.InvokeVoidAsync(identifier: "$.bb_ajax_goto", url);
+        await JSRuntime.InvokeVoidAsync(null, "bb_ajax_goto", url);
     }
 
     /// <summary>

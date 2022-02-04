@@ -17,13 +17,6 @@ public class AjaxService
     private List<(IComponent Key, Func<AjaxOption, Task<string?>> Callback)> Cache { get; } = new();
 
     /// <summary>
-    /// 注册服务
-    /// </summary>
-    /// <param name="key"></param>
-    /// <param name="callback"></param>
-    internal void Register(IComponent key, Func<AjaxOption, Task<string?>> callback) => Cache.Add((key, callback));
-
-    /// <summary>
     /// 获得 跳转其他页面的回调委托缓存集合
     /// </summary>
     private List<(IComponent Key, Func<string, Task> Callback)> GotoCache { get; } = new();
@@ -33,7 +26,7 @@ public class AjaxService
     /// </summary>
     /// <param name="key"></param>
     /// <param name="callback"></param>
-    internal void RegisterGoto(IComponent key, Func<string, Task> callback) => GotoCache.Add((key, callback));
+    internal void Register(IComponent key, Func<AjaxOption, Task<string?>> callback) => Cache.Add((key, callback));
 
     /// <summary>
     /// 注销事件
@@ -46,6 +39,13 @@ public class AjaxService
             Cache.Remove(item);
         }
     }
+
+    /// <summary>
+    /// 注册服务
+    /// </summary>
+    /// <param name="key"></param>
+    /// <param name="callback"></param>
+    internal void RegisterGoto(IComponent key, Func<string, Task> callback) => GotoCache.Add((key, callback));
 
     /// <summary>
     /// 注销事件
@@ -71,16 +71,10 @@ public class AjaxService
     }
 
     /// <summary>
-    /// 调用Goto方法跳转其他页面
+    /// 调用 Goto 方法跳转其他页面
     /// </summary>
     /// <param name="url"></param>
-    public async 
-    /// <summary>
-    /// 调用Goto方法跳转其他页面
-    /// </summary>
-    /// <param name="url"></param>
-    Task
-Goto(string url)
+    public async Task Goto(string url)
     {
         var cb = GotoCache.FirstOrDefault().Callback;
         if (cb != null)

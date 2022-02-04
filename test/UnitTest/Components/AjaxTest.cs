@@ -22,5 +22,6 @@ public class AjaxTest : BootstrapBlazorTestBase
 
         _ = Context.RenderComponent<Ajax>();
         _ = service.GetMessage(option);
+        _ = service.Goto("http://www.blazor.zone");
     }
 }

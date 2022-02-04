@@ -14,12 +14,11 @@
     <div class="mb-3">@ResultMessage</div>
     <Button OnClick="Success">登录成功</Button>
     <Button OnClick="Fail">登录失败</Button>
-    <Ajax></Ajax>
 </DemoBlock>
 
-<DemoBlock Introduction="用于Js实现页面跳转，解决了Blazor页面作为SPA跳转时不会真正刷新页面的问题" Title="页面跳转" Name="Normal">
-
+<DemoBlock Introduction="用 <code>Js</code> 实现页面跳转，解决了 <code>Blazor</code> 页面作为 <b>SPA</b> 跳转时不会真正刷新页面的问题" Title="页面跳转" Name="Goto">
     <Button OnClick="Goto">跳转到文档首页</Button>
-	<Button OnClick="GotoSelf">跳转到自己（刷新页面）</Button>
-    <Ajax></Ajax>
+    <Button OnClick="GotoSelf">跳转到自己（刷新页面）</Button>
 </DemoBlock>
+
+<Ajax></Ajax>
