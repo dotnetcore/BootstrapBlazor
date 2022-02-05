@@ -374,6 +374,13 @@ public class DialogTest : BootstrapBlazorTestBase
         btnClose.Click();
         Assert.True(save);
         #endregion
+
+        #region ShowSaveDialog
+        cut.InvokeAsync(() => dialog.ShowSaveDialog<MockDialogTest>("Title", () => Task.FromResult(true)));
+        modal.FindAll("button")[modal.FindAll("button").Count - 1].Click();
+        cut.InvokeAsync(() => dialog.ShowSaveDialog<MockDialogTest>("Title", () => Task.FromResult(true), configureOption: op => op.Class = "test"));
+        modal.FindAll("button")[modal.FindAll("button").Count - 1].Click();
+        #endregion
     }
 
     private class MockDialogTest : ComponentBase
