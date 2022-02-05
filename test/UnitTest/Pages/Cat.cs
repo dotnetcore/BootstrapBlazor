@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Components.Rendering;
 namespace UnitTest.Pages;
 
 [Route("/Cat")]
+[TabItemOption(Icon = "fa fa-fa", Closable = true, Text = "Cat")]
 public class Cat : ComponentBase
 {
     protected override void BuildRenderTree(RenderTreeBuilder builder)

@@ -171,13 +171,6 @@ public partial class Tab
     public string? CloseCurrentTabText { get; set; }
 
     /// <summary>
-    /// 获得/设置 空白 Tab 显示文字
-    /// </summary>
-    [Parameter]
-    [NotNull]
-    public string? NullTabText { get; set; }
-
-    /// <summary>
     /// 获得/设置 关闭所有 TabItem 菜单文本
     /// </summary>
     [Parameter]
@@ -256,44 +249,24 @@ public partial class Tab
         }
     }
 
-    private bool CheckUrl(string url)
-    {
-        var ret = false;
-        foreach (var rule in ExcludeUrls ?? Enumerable.Empty<string>())
-        {
-            var checkUrl = rule.TrimStart('/');
-            var startIndex = checkUrl.IndexOf("?");
-            if (startIndex > 0)
-            {
-                checkUrl = checkUrl[..startIndex];
-                if (url.StartsWith(checkUrl, StringComparison.OrdinalIgnoreCase))
-                {
-                    ret = true;
-                    break;
-                }
-            }
-            else
-            {
-                if (url.Equals(checkUrl, StringComparison.OrdinalIgnoreCase))
-                {
-                    ret = true;
-                    break;
-                }
-            }
-        }
-        return ret;
-    }
-
     private void AddTabByUrl()
     {
         var requestUrl = Navigator.ToBaseRelativePath(Navigator.Uri);
 
         // 判断是否排除
-        Excluded = CheckUrl(requestUrl);
-
+        var urls = ExcludeUrls ?? Enumerable.Empty<string>();
+        if (requestUrl == "")
+        {
+            Excluded = urls.Any(u => u == "" || u == "/");
+        }
+        else
+        {
+            Excluded = urls.Any(u => u != "/" && requestUrl.StartsWith(u.TrimStart('/'), StringComparison.OrdinalIgnoreCase));
+        }
         if (!Excluded)
         {
-            var tab = Items.FirstOrDefault(tab => tab.Url?.Equals(requestUrl, StringComparison.OrdinalIgnoreCase) ?? false);
+            // 地址相同参数不同需要重新渲染 TabItem
+            var tab = Items.FirstOrDefault(tab => tab.Url.TrimStart('/').Equals(requestUrl, StringComparison.OrdinalIgnoreCase));
             if (tab != null)
             {
                 ActiveTabItem(tab);
@@ -366,7 +339,7 @@ public partial class Tab
                 item = Items.ElementAt(index);
                 if (ClickTabToNavigation)
                 {
-                    Navigator.NavigateTo(item.Url!);
+                    Navigator.NavigateTo(item.Url);
                 }
                 else
                 {
@@ -404,7 +377,7 @@ public partial class Tab
 
                 if (ClickTabToNavigation)
                 {
-                    Navigator.NavigateTo(item.Url!);
+                    Navigator.NavigateTo(item.Url);
                 }
                 else
                 {
@@ -523,29 +496,16 @@ public partial class Tab
         {
             var text = Options.Text;
             var icon = Options.Icon ?? string.Empty;
-            var active = Options.IsActive ?? true;
-            var closable = Options.Closable ?? true;
+            var active = Options.IsActive;
+            var closable = Options.Closable;
             Options.Reset();
 
             parameters.Add(nameof(TabItem.Url), url);
             parameters.Add(nameof(TabItem.Icon), icon);
             parameters.Add(nameof(TabItem.Closable), closable);
             parameters.Add(nameof(TabItem.IsActive), active);
-            parameters.Add(nameof(TabItem.Text), GetTabText(text, context.Segments));
+            parameters.Add(nameof(TabItem.Text), text);
         }
-    }
-
-    private string GetTabText(string? text, string[]? segments)
-    {
-        if (NullTabText == null)
-        {
-            var t = Localizer[nameof(NullTabText)];
-            if (!t.ResourceNotFound)
-            {
-                NullTabText = t.Value;
-            }
-        }
-        return text ?? NullTabText ?? segments?.FirstOrDefault() ?? "";
     }
 
     /// <summary>
@@ -596,7 +556,7 @@ public partial class Tab
         {
             if (ClickTabToNavigation)
             {
-                Navigator.NavigateTo(activeItem.Url!);
+                Navigator.NavigateTo(activeItem.Url);
             }
             else
             {

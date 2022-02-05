@@ -20,29 +20,29 @@ internal class TabItemTextOptions
     public string? Icon { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否激活 默认为 null
+    /// 获得/设置 是否激活 默认为 true
     /// </summary>
     /// <value></value>
-    public bool? IsActive { get; set; }
+    public bool IsActive { get; set; } = true;
 
     /// <summary>
-    /// 获得/设置 当前 TabItem 是否可关闭 默认为 null
+    /// 获得/设置 当前 TabItem 是否可关闭 默认为 true
     /// </summary>
-    public bool? Closable { get; set; }
+    public bool Closable { get; set; } = true;
 
     /// <summary>
-    /// 
+    /// 重置方法
     /// </summary>
     public void Reset()
     {
         Text = null;
         Icon = null;
-        IsActive = null;
-        Closable = null;
+        IsActive = true;
+        Closable = true;
     }
 
     /// <summary>
-    /// 
+    /// 是否可用方法
     /// </summary>
     /// <returns></returns>
     public bool Valid() => Text != null;

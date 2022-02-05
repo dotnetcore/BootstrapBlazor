@@ -21,6 +21,7 @@ public class TabItem : ComponentBase
     /// 获得/设置 请求地址
     /// </summary>
     [Parameter]
+    [NotNull]
     public string? Url { get; set; }
 
     /// <summary>
@@ -72,6 +73,7 @@ public class TabItem : ComponentBase
     {
         base.OnInitialized();
 
+        Url ??= "";
         TabSet?.AddItem(this);
     }
 
