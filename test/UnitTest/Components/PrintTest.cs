@@ -33,10 +33,10 @@ public class PrintTest : BootstrapBlazorTestBase
         var printService = cut.Services.CreateScope().ServiceProvider.GetRequiredService<PrintService>();
         Assert.ThrowsAsync<InvalidOperationException>(() => printService.PrintAsync<Button>(op =>
         {
-                // 弹窗配置
-                op.Title = "数据查询窗口";
-                // 弹窗组件所需参数
-                return new Dictionary<string, object?>();
+            // 弹窗配置
+            op.Title = "数据查询窗口";
+            // 弹窗组件所需参数
+            return new Dictionary<string, object?>();
         }));
     }
 

@@ -15,6 +15,7 @@ public abstract class IdComponentBase : BootstrapComponentBase
     /// 获得/设置 组件 id 属性
     /// </summary>
     [Parameter]
+    [NotNull]
     public virtual string? Id { get; set; }
 
     [Inject]

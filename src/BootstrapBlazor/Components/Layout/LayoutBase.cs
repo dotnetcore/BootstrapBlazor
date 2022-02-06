@@ -192,10 +192,13 @@ public abstract class LayoutBase : BootstrapComponentBase, IAsyncDisposable
 
     private async void Navigation_LocationChanged(object? sender, LocationChangedEventArgs e)
     {
-        var auth = await OnAuthorizing!(e.Location);
-        if (!auth)
+        if (OnAuthorizing != null)
         {
-            Navigation.NavigateTo(NotAuthorizeUrl, true);
+            var auth = await OnAuthorizing(e.Location);
+            if (!auth)
+            {
+                Navigation.NavigateTo(NotAuthorizeUrl, true);
+            }
         }
     }
 

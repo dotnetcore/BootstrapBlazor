@@ -1438,7 +1438,7 @@
     "Block3Intro": "The values in the text box change as you change the drop-down option by binding the <code>Model.Name</code> property to the component with <code>Select </code> .",
     "Block4Title": "Select cascading binding",
     "Block4Intro": "The second drop-down box dynamically populates the content by selecting the different options for the first drop-down box.",
-    "ButtonText1": "Example of a window intermediate joint",
+    "ButtonText1": "In Dialog",
     "Block5Title": "Select client validation",
     "Block5Intro": "When the drop-down box is not selected, it is blocked when the submit button is clicked.",
     "Option1": "Please select ...",

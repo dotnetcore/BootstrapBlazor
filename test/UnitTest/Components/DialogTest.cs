@@ -241,12 +241,12 @@ public class DialogTest : BootstrapBlazorTestBase
         Assert.Equal(2, cut.FindComponents<ModalDialog>().Count);
 
         // 关闭第二个弹窗
-        var btnClose = cut.FindAll(".btn-close").Last();
+        var btnClose = cut.FindAll(".btn-close")[cut.FindAll(".btn-close").Count - 1];
         btnClose.Click();
         Assert.Equal(1, cut.FindComponents<ModalDialog>().Count);
 
         // 关闭第一个弹窗
-        btnClose = cut.FindAll(".btn-close").Last();
+        btnClose = cut.FindAll(".btn-close")[cut.FindAll(".btn-close").Count - 1];
         btnClose.Click();
         Assert.Equal(0, cut.FindComponents<ModalDialog>().Count);
         #endregion
@@ -257,7 +257,7 @@ public class DialogTest : BootstrapBlazorTestBase
             FullScreenSize = FullScreenSize.Large
         }));
         Assert.Contains("modal-fullscreen-lg-down", cut.Markup);
-        btnClose = cut.FindAll(".btn-close").Last();
+        btnClose = cut.FindAll(".btn-close")[cut.FindAll(".btn-close").Count - 1];
         btnClose.Click();
         #endregion
 
@@ -267,7 +267,7 @@ public class DialogTest : BootstrapBlazorTestBase
             IsCentered = true
         }));
         Assert.Contains("modal-dialog-centered", cut.Markup);
-        btnClose = cut.FindAll(".btn-close").Last();
+        btnClose = cut.FindAll(".btn-close")[cut.FindAll(".btn-close").Count - 1];
         btnClose.Click();
 
         cut.InvokeAsync(() => dialog.Show(new DialogOption()
@@ -275,7 +275,7 @@ public class DialogTest : BootstrapBlazorTestBase
             IsCentered = false
         }));
         Assert.DoesNotContain("modal-dialog-centered", cut.Markup);
-        btnClose = cut.FindAll(".btn-close").Last();
+        btnClose = cut.FindAll(".btn-close")[cut.FindAll(".btn-close").Count - 1];
         btnClose.Click();
         #endregion
 
@@ -285,7 +285,7 @@ public class DialogTest : BootstrapBlazorTestBase
             IsKeyboard = true
         }));
         Assert.Contains("data-bs-keyboard=\"true\"", cut.Markup);
-        btnClose = cut.FindAll(".btn-close").Last();
+        btnClose = cut.FindAll(".btn-close")[cut.FindAll(".btn-close").Count - 1];
         btnClose.Click();
 
         cut.InvokeAsync(() => dialog.Show(new DialogOption()
@@ -293,7 +293,7 @@ public class DialogTest : BootstrapBlazorTestBase
             IsKeyboard = false
         }));
         Assert.DoesNotContain("data-bs-keyboard\"false\"", cut.Markup);
-        btnClose = cut.FindAll(".btn-close").Last();
+        btnClose = cut.FindAll(".btn-close")[cut.FindAll(".btn-close").Count - 1];
         btnClose.Click();
         #endregion
 
@@ -302,7 +302,7 @@ public class DialogTest : BootstrapBlazorTestBase
         {
             ShowHeaderCloseButton = true
         }));
-        btnClose = cut.FindAll(".btn-close").Last();
+        btnClose = cut.FindAll(".btn-close")[cut.FindAll(".btn-close").Count - 1];
         btnClose.Click();
 
         cut.InvokeAsync(() => dialog.Show(new DialogOption()
@@ -310,7 +310,7 @@ public class DialogTest : BootstrapBlazorTestBase
             ShowHeaderCloseButton = false
         }));
         Assert.DoesNotContain("btn-close", cut.Markup);
-        btnClose = cut.FindAll(".btn-secondary").Last();
+        btnClose = cut.FindAll(".btn-secondary")[cut.FindAll(".btn-secondary").Count - 1];
         btnClose.Click();
         #endregion
 
@@ -320,7 +320,7 @@ public class DialogTest : BootstrapBlazorTestBase
             ShowPrintButton = true
         }));
         Assert.Contains("btn-print", cut.Markup);
-        btnClose = cut.FindAll(".btn-close").Last();
+        btnClose = cut.FindAll(".btn-close")[cut.FindAll(".btn-close").Count - 1];
         btnClose.Click();
 
         cut.InvokeAsync(() => dialog.Show(new DialogOption()
@@ -328,7 +328,7 @@ public class DialogTest : BootstrapBlazorTestBase
             ShowPrintButton = false
         }));
         Assert.DoesNotContain("btn-print", cut.Markup);
-        btnClose = cut.FindAll(".btn-close").Last();
+        btnClose = cut.FindAll(".btn-close")[cut.FindAll(".btn-close").Count - 1];
         btnClose.Click();
 
         cut.InvokeAsync(() => dialog.Show(new DialogOption()
@@ -339,7 +339,7 @@ public class DialogTest : BootstrapBlazorTestBase
         }));
         Assert.Contains("btn-print", cut.Markup);
         Assert.Contains("Print-Test", cut.Markup);
-        btnClose = cut.FindAll(".btn-close").Last();
+        btnClose = cut.FindAll(".btn-close")[cut.FindAll(".btn-close").Count - 1];
         btnClose.Click();
         #endregion
 
@@ -353,7 +353,7 @@ public class DialogTest : BootstrapBlazorTestBase
         }));
         Assert.Contains("Save-Test", cut.Markup);
         Assert.Contains("Close-Test", cut.Markup);
-        btnClose = cut.FindAll(".btn-close").Last();
+        btnClose = cut.FindAll(".btn-close")[cut.FindAll(".btn-close").Count - 1];
         btnClose.Click();
         #endregion
 
@@ -370,7 +370,7 @@ public class DialogTest : BootstrapBlazorTestBase
                 return Task.FromResult(save);
             }
         }));
-        btnClose = cut.FindAll(".btn-primary").Last();
+        btnClose = cut.FindAll(".btn-primary")[cut.FindAll(".btn-primary").Count - 1];
         btnClose.Click();
         Assert.True(save);
         #endregion

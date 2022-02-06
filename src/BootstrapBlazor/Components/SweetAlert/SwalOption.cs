@@ -63,11 +63,6 @@ public class SwalOption : PopupOptionBase
     public bool IsConfirm { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否保持弹窗内组件状态 默认为 false 不保持
-    /// </summary>
-    public bool KeepChildrenState { get; set; }
-
-    /// <summary>
     /// 获得/设置 按钮模板
     /// </summary>
     public RenderFragment? ButtonTemplate { get; set; }

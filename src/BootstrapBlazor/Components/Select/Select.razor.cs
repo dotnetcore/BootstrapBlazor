@@ -109,7 +109,7 @@ public partial class Select<TValue> : ISelect
     /// <summary>
     /// 获得/设置 Select 内部 Input 组件 Id
     /// </summary>
-    private string? InputId => string.IsNullOrEmpty(Id) ? null : $"{Id}_input";
+    private string? InputId => $"{Id}_input";
 
     /// <summary>
     /// 获得/设置 搜索文字
@@ -139,19 +139,7 @@ public partial class Select<TValue> : ISelect
     {
         base.OnParametersSet();
 
-        if (NullableUnderlyingType != null)
-        {
-            if (string.IsNullOrEmpty(PlaceHolder))
-            {
-                // 设置 placeholder
-                if (AdditionalAttributes != null && AdditionalAttributes.TryGetValue("placeholder", out var pl))
-                {
-                    PlaceHolder = pl?.ToString();
-                    AdditionalAttributes.Remove("placeholder");
-                }
-            }
-            PlaceHolder ??= Localizer[nameof(PlaceHolder)];
-        }
+        PlaceHolder ??= Localizer[nameof(PlaceHolder)];
 
         // 内置对枚举类型的支持
         var t = NullableUnderlyingType ?? typeof(TValue);
@@ -164,12 +152,6 @@ public partial class Select<TValue> : ISelect
 
     private void ResetSelectedItem()
     {
-        // 合并 Items 与 Options 集合
-        if (!Items.Any() && typeof(TValue).IsEnum())
-        {
-            Items = typeof(TValue).ToSelectList();
-        }
-
         if (string.IsNullOrEmpty(SearchText))
         {
             DataSource = Items.ToList();
@@ -231,39 +213,36 @@ public partial class Select<TValue> : ISelect
     /// </summary>
     private async Task OnItemClick(SelectedItem item)
     {
-        if (!IsDisabled && !item.IsDisabled)
+        var ret = true;
+        if (OnBeforeSelectedItemChange != null)
         {
-            var ret = true;
-            if (OnBeforeSelectedItemChange != null)
-            {
-                ret = await OnBeforeSelectedItemChange(item);
-                if (ret)
-                {
-                    // 返回 True 弹窗提示
-                    var option = new SwalOption()
-                    {
-                        Category = SwalCategory,
-                        Title = SwalTitle,
-                        Content = SwalContent,
-                        IsConfirm = true
-                    };
-                    if (!string.IsNullOrEmpty(SwalFooter))
-                    {
-                        option.ShowFooter = true;
-                        option.FooterTemplate = builder => builder.AddContent(0, SwalFooter);
-                    }
-                    ret = await SwalService.ShowModal(option);
-                }
-                else
-                {
-                    // 返回 False 直接运行
-                    ret = true;
-                }
-            }
+            ret = await OnBeforeSelectedItemChange(item);
             if (ret)
             {
-                await ItemChanged(item);
+                // 返回 True 弹窗提示
+                var option = new SwalOption()
+                {
+                    Category = SwalCategory,
+                    Title = SwalTitle,
+                    Content = SwalContent,
+                    IsConfirm = true
+                };
+                if (!string.IsNullOrEmpty(SwalFooter))
+                {
+                    option.ShowFooter = true;
+                    option.FooterTemplate = builder => builder.AddContent(0, SwalFooter);
+                }
+                ret = await SwalService.ShowModal(option);
             }
+            else
+            {
+                // 返回 False 直接运行
+                ret = true;
+            }
+        }
+        if (ret)
+        {
+            await ItemChanged(item);
         }
     }
 

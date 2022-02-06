@@ -17,31 +17,31 @@ public abstract class SelectBase<TValue> : ValidateBase<TValue>
     protected SelectedItem? SelectedItem { get; set; }
 
     /// <summary>
-    /// 获得/设置 按钮颜色
+    /// 获得/设置 颜色 默认 Color.None 无设置
     /// </summary>
     [Parameter]
-    public Color Color { get; set; } = Color.None;
+    public Color Color { get; set; }
 
     /// <summary>
-    /// 获得/设置 SWal 图标
+    /// 获得/设置 Swal 图标 默认 Question
     /// </summary>
     [Parameter]
     public SwalCategory SwalCategory { get; set; } = SwalCategory.Question;
 
     /// <summary>
-    /// 获得/设置 Swal 标题
+    /// 获得/设置 Swal 标题 默认 null
     /// </summary>
     [Parameter]
     public string? SwalTitle { get; set; }
 
     /// <summary>
-    /// 获得/设置 Swal 内容
+    /// 获得/设置 Swal 内容 默认 null
     /// </summary>
     [Parameter]
     public string? SwalContent { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否显示 Swal Footer
+    /// 获得/设置 Footer 默认 null
     /// </summary>
     [Parameter]
     public string? SwalFooter { get; set; }
