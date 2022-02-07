@@ -1,0 +1,41 @@
+﻿@typeparam TItem
+@inherits BootstrapComponentBase
+
+@namespace BootstrapBlazor.Components
+
+<div @attributes="@AdditionalAttributes" class="@ClassName"
+     @ondragover:preventDefault @ondragover="() => {}"
+     @ondragenter:preventDefault @ondragenter="() => {}"
+     @ondrop:preventDefault @ondrop="@OnDrop"
+     ondragstart="event.dataTransfer.setData('text', event.target.id);"
+     @ondrop:stopPropagation
+     @ondragenter:stopPropagation
+     @ondragend:stopPropagation
+     @ondragover:stopPropagation
+     @ondragleave:stopPropagation
+     @ondragstart:stopPropagation>
+
+    <div @ondrop="() => OnDropItemOnSpacing(0)" @ondrop:stopPropagation @ondragenter="() => DragDropService.ActiveSpacerId = 0"
+         @ondragleave="() => DragDropService.ActiveSpacerId = null" class="@GetClassesForSpacing(0)"></div>
+
+    @foreach (var item in Items)
+    {
+        <div draggable="@IsItemDragable(item)"
+             @ondragstart="() => OnDragStart(item)"
+             @ondragend="@OnDragEnd"
+             @ondragenter="() => OnDragEnter(item)"
+             @ondragleave="@OnDragLeave"
+             class="@GetItemClass(item) @ItemClass"
+             style="@(item == null ? "display:none" : "")">
+            @if (item != null)
+            {
+                @ChildContent?.Invoke(item)
+            }
+        </div>
+
+        @if (MaxItems is null or > 1)
+        {
+            <div @ondrop="()=>OnDropItemOnSpacing(Items.IndexOf(item)+1)" @ondrop:stopPropagation @ondragenter="()=>DragDropService.ActiveSpacerId = Items.IndexOf(item)+1" @ondragleave="()=>DragDropService.ActiveSpacerId = null" class="@ItemClass @GetClassesForSpacing(Items.IndexOf(item)+1)"></div>
+        }
+    }
+</div>

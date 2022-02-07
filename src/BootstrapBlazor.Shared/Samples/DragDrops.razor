@@ -1,0 +1,86 @@
+﻿@page "/dragdrops"
+
+<h3>DragDrop 拖拽</h3>
+
+<h4>用于拖拽使用</h4>
+
+<DemoBlock Title="基本用法" Introduction="简单拖拽" Name="Normal">
+    <Row ItemsPerRow="ItemsPerRow.Two">
+        <Dropzone TItem="string" Items="@StrList1">
+            <Card IsShadow="true">
+                <CardBody>
+                    @context
+                </CardBody>
+            </Card>
+        </Dropzone>
+        <Dropzone TItem="string" Items="@StrList2">
+            <Card IsShadow="true">
+                <CardBody>
+                    @context
+                </CardBody>
+            </Card>
+        </Dropzone>
+    </Row>
+</DemoBlock>
+
+<DemoBlock Title="复制到新容器" Introduction="使用<code>CopyItem</code>复制一份新的到新位置" Name="Normal">
+    <Row ItemsPerRow="ItemsPerRow.Two">
+        <Dropzone TItem="string" Items="@StrList1">
+            <Card IsShadow="true">
+                <CardBody>
+                    @context
+                </CardBody>
+            </Card>
+        </Dropzone>
+        <Dropzone TItem="string" Items="@StrList2" CopyItem="s => new string(s)">
+            <Card IsShadow="true">
+                <CardBody>
+                    @context
+                </CardBody>
+            </Card>
+        </Dropzone>
+    </Row>
+</DemoBlock>
+
+<DemoBlock Title="限制拖入的内容" Introduction="使用<code>Accepts</code>只允许左侧拖入10并且使用<code>AllowsDrag</code>限制2不能被拖动，使用<code>MaxItems</code>限制右侧最多拥有6个节点" Name="Normal">
+    <Row ItemsPerRow="ItemsPerRow.Two">
+        <Dropzone TItem="string" Items="@StrList1" Accepts="@((s, s1) => s == "10")" AllowsDrag="@(s => s != "2")">
+            <Card IsShadow="true">
+                <CardBody>
+                    @context
+                </CardBody>
+            </Card>
+        </Dropzone>
+        <Dropzone TItem="string" Items="@StrList2" MaxItems="6">
+            <Card IsShadow="true">
+                <CardBody>
+                    @context
+                </CardBody>
+            </Card>
+        </Dropzone>
+    </Row>
+</DemoBlock>
+
+<DemoBlock Title="各种事件" Introduction="当拖入数量超限时<code>OnItemDropRejectedByMaxItemLimit</code>，当拖拽被禁止时<code>OnItemDropRejected</code>，返回底下的Item<code>OnReplacedItemDrop</code>,返回放下的Item<code>OnItemDrop</code>" Name="Normal">
+    <Row ItemsPerRow="ItemsPerRow.Two">
+        <Dropzone TItem="string" Items="@StrList1" Accepts="@((s, s1) => s == "10")" OnItemDropRejected="@OnItemDropRejected" OnItemDrop="@OnItemDrop" OnReplacedItemDrop="@OnReplacedItemDrop">
+            <Card IsShadow="true">
+                <CardBody>
+                    @context
+                </CardBody>
+            </Card>
+        </Dropzone>
+        <Dropzone TItem="string" Items="@StrList2" MaxItems="6" OnItemDropRejectedByMaxItemLimit="@OnItemDropRejectedByMaxItemLimit" OnItemDrop="@OnItemDrop" OnReplacedItemDrop="@OnReplacedItemDrop">
+            <Card IsShadow="true">
+                <CardBody>
+                    @context
+                </CardBody>
+            </Card>
+        </Dropzone>
+    </Row>
+    <BlockLogger @ref="Trace" class="mt-3" />
+</DemoBlock>
+
+<AttributeTable Items="@GetAttributes()" />
+
+<MethodTable Items="GetMethods()"></MethodTable>

@@ -14,6 +14,7 @@
     "datetimepickers": "DateTimePickers",
     "datetimeranges": "DateTimeRanges",
     "doughnut": "Charts/Doughnut",
+    "dragdrops": "DragDrops",
     "dropdownlists": "DropdownLists",
     "dropdownwidgets": "DropdownWidgets",
     "fullscreens": "FullScreens",

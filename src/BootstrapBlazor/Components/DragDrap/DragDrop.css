@@ -1,0 +1,92 @@
+﻿/*add this to avoid flickering*/
+.bb-dd-inprogess > * {
+    pointer-events: none;
+}
+
+/*dropzone style style*/
+.bb-dd-dropzone {
+    min-height: 50px;
+}
+
+/*drag drop styles*/
+
+.bb-dd-spacing {
+    height: 10px;
+}
+
+.bb-dd-spacing-dragged-over {
+    padding: 25px;
+}
+
+.bb-dd-dragged-over {
+    background-color: lightgray;
+    opacity: 0.6;
+    animation: blinker 1s linear infinite;
+}
+
+.bb-dd-dragged-over > div {
+    background-color: lightgray;
+    opacity: 0.6;
+    animation: blinker 1s linear infinite;
+}
+
+.bb-dd-dragged-over-denied {
+    background-color: red;
+    opacity: 0.6;
+    animation: blinker 1s linear infinite;
+}
+
+.bb-dd-in-transit {
+    opacity: 0;
+}
+
+.bb-dd-in-transit > div {
+    opacity: 0;
+}
+
+@keyframes blinker {
+    50% {
+        opacity: 0;
+    }
+}
+
+.blink_me {
+    animation: blinker 1s linear infinite;
+}
+
+/*for flex demo*/
+
+.bb-flex .bb-dd-spacing {
+    width: 20px;
+    height: auto;
+}
+
+.bb-flex .bb-dd-dragged-over {
+    background-color: lightgray;
+    opacity: 0.6;
+    animation: blinker 1s linear infinite;
+}
+
+.bb-flex .bb-dd-dragged-over > div {
+    background-color: lightgray;
+    opacity: 0.9;
+    animation: blinker 1s linear infinite;
+}
+
+.bb-flex .bb-dd-in-transit {
+    background-color: orangered;
+}
+
+.bb-flex .bb-dd-in-transit > div {
+    background-color: orangered;
+}
+
+.bb-dd-noselect {
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Old versions of Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
+}

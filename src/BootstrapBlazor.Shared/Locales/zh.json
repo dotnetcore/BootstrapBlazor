@@ -2548,6 +2548,7 @@
     "LayoutComponents": "布局组件",
     "Client": "客户信息服务 Client",
     "Divider": "分割线 Divider",
+    "Dragdrop": "拖拽组件 DragDrop",
     "Layout": "布局组件 Layout",
     "FullScreen": "全屏组件 FullScreen",
     "Footer": "页脚组件 Footer",
