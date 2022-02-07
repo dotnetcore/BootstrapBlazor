@@ -1,27 +1,28 @@
 ﻿@page "/searchs"
+@inject IStringLocalizer<Searchs> Localizer
 
-<h3>Search 搜索框</h3>
+<h3>@Localizer["Title"]</h3>
 
-<h4>用于数据搜索</h4>
+<h4>@Localizer["SubTitle"]</h4>
 
-<DemoBlock Title="基本用法" Introduction="输入部分数据进行搜索" Name="Normal">
-    <p>请输入 <code>1234</code> 获取智能提示，通过设置 <code>IsAutoFocus="true"</code> 开启自动获得焦点功能</p>
-    <Search IgnoreCase="true" IsLikeMatch="true" IsAutoFocus="true" PlaceHolder="搜索示例" Items="@Items" OnSearch="@OnSearch1" IsSelectAllTextOnFocus="true"></Search>
+<DemoBlock Title="@Localizer["BasicUsageTitle"]" Introduction="@Localizer["BasicUsageIntro"]" Name="Normal">
+    <p>@((MarkupString)Localizer["BasicUsageP"].Value)</p>
+    <Search IgnoreCase="true" IsLikeMatch="true" IsAutoFocus="true" PlaceHolder="@Localizer["PlaceHolder"]" Items="@Items" OnSearch="@OnSearch1" IsSelectAllTextOnFocus="true"></Search>
     <BlockLogger @ref="Trace" class="mt-3" />
 </DemoBlock>
 
-<DemoBlock Title="搜索后自动清空值" Introduction="通过设置 <code>IsAutoClearAfterSearch=&quot;true&quot;</code> 开启搜索后自动清空搜索框功能" Name="ClearValue">
-    <Search IgnoreCase="true" IsLikeMatch="true" IsAutoClearAfterSearch="true" PlaceHolder="搜索示例" Items="@Items" OnSearch="@OnSearch2"></Search>
+<DemoBlock Title="@Localizer["ClearValueTitle"]" Introduction="@Localizer["ClearValueIntro"]" Name="ClearValue">
+    <Search IgnoreCase="true" IsLikeMatch="true" IsAutoClearAfterSearch="true" PlaceHolder="@Localizer["PlaceHolder"]" Items="@Items" OnSearch="@OnSearch2"></Search>
     <BlockLogger @ref="Trace2" class="mt-3" />
 </DemoBlock>
 
-<DemoBlock Title="显示清空按钮" Introduction="通过设置 <code>ShowClearButton</code> 参数控制是否显示清空按钮" Name="DispalyButton">
-    <Search IgnoreCase="true" IsLikeMatch="true" PlaceHolder="搜索示例" ShowClearButton="true" Items="@Items" OnSearch="@OnSearch3" OnClear="@OnClear"></Search>
+<DemoBlock Title="@Localizer["DispalyButtonTitle"]" Introduction="@Localizer["DispalyButtonIntro"]" Name="DispalyButton">
+    <Search IgnoreCase="true" IsLikeMatch="true" PlaceHolder="@Localizer["PlaceHolder"]" ShowClearButton="true" Items="@Items" OnSearch="@OnSearch3" OnClear="@OnClear"></Search>
     <BlockLogger @ref="Trace3" class="mt-3" />
 </DemoBlock>
 
-<DemoBlock Title="键盘输入即时搜索" Introduction="通过设置 <code>IsOnInputTrigger</code> 参数控制是否实时进行搜索操作" Name="keyboards">
-    <Search IgnoreCase="true" IsLikeMatch="true" PlaceHolder="搜索示例" IsOnInputTrigger="true" Items="@Items" OnSearch="@OnSearch4"></Search>
+<DemoBlock Title="@Localizer["keyboardsTitle"]" Introduction="@Localizer["keyboardsIntro"]" Name="keyboards">
+    <Search IgnoreCase="true" IsLikeMatch="true" PlaceHolder="@Localizer["PlaceHolder"]" IsOnInputTrigger="true" Items="@Items" OnSearch="@OnSearch4"></Search>
     <BlockLogger @ref="Trace4" class="mt-3" />
 </DemoBlock>
 

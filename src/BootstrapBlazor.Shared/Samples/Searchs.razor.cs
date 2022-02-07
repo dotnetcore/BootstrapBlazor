@@ -60,90 +60,90 @@ public sealed partial class Searchs
     /// 获得属性方法
     /// </summary>
     /// <returns></returns>
-    private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
             // TODO: 移动到数据库中
             new AttributeItem() {
                 Name = "ChildContent",
-                Description = "内容",
+                Description = Localizer["ChildContent"],
                 Type = "RenderFragment",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "Items",
-                Description = "内容",
+                Description = Localizer["Items"],
                 Type = "IEnumerable<string>",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "NoDataTip",
-                Description = "自动完成数据无匹配项时提示信息",
+                Description = Localizer["NoDataTip"],
                 Type = "string",
                 ValueList = " — ",
-                DefaultValue = "无匹配数据"
+                DefaultValue = Localizer["NoDataTipDefaultValue"]
             },
             new AttributeItem()
             {
                 Name="SearchButtonLoadingIcon",
-                Description = "正在搜索按钮图标",
+                Description = Localizer["SearchButtonLoadingIcon"],
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = "fa fa-fw fa-spinner fa-spin"
             },
             new AttributeItem() {
                 Name = "ClearButtonIcon",
-                Description = "清空按钮图标",
+                Description = Localizer["ChildContent"],
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = "fa fa-trash"
             },
             new AttributeItem() {
                 Name = "ClearButtonText",
-                Description = "清空按钮文本",
+                Description = Localizer["ClearButtonText"],
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "ClearButtonColor",
-                Description = "清空按钮颜色",
+                Description = Localizer["ClearButtonColor"],
                 Type = "Color",
                 ValueList = " — ",
                 DefaultValue = "Secondary"
             },
             new AttributeItem() {
                 Name = "SearchButtonColor",
-                Description = "搜索按钮颜色",
+                Description = Localizer["SearchButtonColor"],
                 Type = "Color",
                 ValueList = " — ",
                 DefaultValue = "Primary"
             },
             new AttributeItem() {
                 Name = "IsLikeMatch",
-                Description = "是否开启模糊匹配",
+                Description = Localizer["IsLikeMatch"],
                 Type = "bool",
                 ValueList = "true|false",
                 DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "IsAutoFocus",
-                Description = "是否自动获得焦点",
+                Description = Localizer["IsAutoFocus"],
                 Type = "bool",
                 ValueList = "true|false",
                 DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "IsAutoClearAfterSearch",
-                Description = "点击搜索后是否自动清空搜索框",
+                Description = Localizer["IsAutoClearAfterSearch"],
                 Type = "bool",
                 ValueList = "true|false",
                 DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "IsOnInputTrigger",
-                Description = "搜索模式是否为输入即触发,默认点击搜索按钮触发",
+                Description = Localizer["IsOnInputTrigger"],
                 Type = "bool",
                 ValueList = "true|false",
                 DefaultValue = "false"
@@ -151,7 +151,7 @@ public sealed partial class Searchs
             new AttributeItem()
             {
                 Name = "IgnoreCase",
-                Description = "匹配时是否忽略大小写",
+                Description = Localizer["IgnoreCase"],
                 Type = "bool",
                 ValueList = "true|false",
                 DefaultValue = "true"
@@ -159,7 +159,7 @@ public sealed partial class Searchs
             new AttributeItem()
             {
                 Name = "ShowClearButton",
-                Description = "是否显示清除按钮",
+                Description = Localizer["ShowClearButton"],
                 Type = "bool",
                 ValueList = "true|false",
                 DefaultValue = "false"
@@ -167,7 +167,7 @@ public sealed partial class Searchs
             new AttributeItem()
             {
                 Name="OnSearch",
-                Description = "点击搜索时回调此委托",
+                Description = Localizer["OnSearch"],
                 Type = "Func<string, Task>",
                 ValueList = " — ",
                 DefaultValue = " — "
@@ -175,7 +175,7 @@ public sealed partial class Searchs
             new AttributeItem()
             {
                 Name="OnClear",
-                Description = "点击清空时回调此委托",
+                Description = Localizer["OnClear"],
                 Type = "Func<string, Task>",
                 ValueList = " — ",
                 DefaultValue = " — "
