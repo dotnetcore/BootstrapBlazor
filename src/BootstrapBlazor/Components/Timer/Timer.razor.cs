@@ -42,7 +42,7 @@ public partial class Timer : IDisposable
 
     private CancellationTokenSource? CancelTokenSource { get; set; }
 
-    private ManualResetEvent ResetEvent { get; set; } = new(true);
+    private ManualResetEvent ResetEvent { get; } = new(true);
 
     private bool Vibrate { get; set; }
 
@@ -153,44 +153,49 @@ public partial class Timer : IDisposable
 
         Task.Run(async () =>
         {
+            // 点击 Cancel 后重新设置再点击 Star
             if (CancelTokenSource != null)
             {
+                CancelTokenSource.Cancel();
                 CancelTokenSource.Dispose();
             }
 
             CancelTokenSource = new CancellationTokenSource();
 
-            try
+            do
             {
-                do
+                try
                 {
-                    await Task.Delay(1000, CancelTokenSource?.Token ?? new CancellationToken(true));
-
-                    if (!(CancelTokenSource?.IsCancellationRequested ?? true))
-                    {
-                        ResetEvent.WaitOne();
-                        CurrentTimespan = CurrentTimespan.Subtract(TimeSpan.FromSeconds(1));
-                        await InvokeAsync(StateHasChanged);
-                    }
+                    await Task.Delay(1000, CancelTokenSource.Token);
                 }
-                while (!(CancelTokenSource?.IsCancellationRequested ?? true) && CurrentTimespan > TimeSpan.Zero);
+                catch (TaskCanceledException) { }
 
-                if (CurrentTimespan == TimeSpan.Zero)
+                if (!CancelTokenSource.IsCancellationRequested)
                 {
-                    await Task.Delay(500, CancelTokenSource?.Token ?? new CancellationToken(true));
-                    if (!(CancelTokenSource?.IsCancellationRequested ?? true))
-                    {
-                        Value = TimeSpan.Zero;
-                        await InvokeAsync(() =>
-                        {
-                            Vibrate = IsVibrate;
-                            StateHasChanged();
-                            OnTimeout?.Invoke();
-                        });
-                    }
+                    ResetEvent.WaitOne();
+                    CurrentTimespan = CurrentTimespan.Subtract(TimeSpan.FromSeconds(1));
+                    await InvokeAsync(StateHasChanged);
                 }
             }
-            catch (TaskCanceledException) { }
+            while (!CancelTokenSource.IsCancellationRequested && CurrentTimespan > TimeSpan.Zero);
+
+            if (CurrentTimespan == TimeSpan.Zero)
+            {
+                await Task.Delay(500, CancelTokenSource.Token);
+                if (!CancelTokenSource.IsCancellationRequested)
+                {
+                    Value = TimeSpan.Zero;
+                    await InvokeAsync(() =>
+                    {
+                        Vibrate = IsVibrate;
+                        StateHasChanged();
+                        if (OnTimeout != null)
+                        {
+                            OnTimeout();
+                        }
+                    });
+                }
+            }
         });
     }
 
@@ -214,8 +219,14 @@ public partial class Timer : IDisposable
     private async Task OnClickCancel()
     {
         Value = TimeSpan.Zero;
-        CancelTokenSource?.Cancel();
-        if (OnCancel != null) await OnCancel.Invoke();
+        if (CancelTokenSource != null)
+        {
+            CancelTokenSource.Cancel();
+        }
+        if (OnCancel != null)
+        {
+            await OnCancel();
+        }
     }
 
     /// <summary>
@@ -226,9 +237,12 @@ public partial class Timer : IDisposable
     {
         if (disposing)
         {
-            CancelTokenSource?.Dispose();
-            CancelTokenSource = null;
-
+            if (CancelTokenSource != null)
+            {
+                CancelTokenSource.Cancel();
+                CancelTokenSource.Dispose();
+                CancelTokenSource = null;
+            }
             ResetEvent.Dispose();
         }
     }
