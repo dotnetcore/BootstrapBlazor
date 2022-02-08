@@ -7,10 +7,15 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Options;
+using System;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components;
 
@@ -34,6 +39,12 @@ public partial class ValidateForm : IAsyncDisposable
     [Parameter]
     [NotNull]
     public Func<EditContext, Task>? OnInvalidSubmit { get; set; }
+
+    /// <summary>
+    /// A callback that will be invoked when the field's value has been changed
+    /// </summary>
+    [Parameter]
+    public Action<string, object?>? OnFieldChanged { get; set; }
 
     /// <summary>
     /// 获得/设置 是否验证所有字段 默认 false
@@ -393,8 +404,8 @@ public partial class ValidateForm : IAsyncDisposable
                 // 处理多个上传文件
                 uploader.UploadFiles.ForEach(file =>
                 {
-                        // 优先检查 File 流，如果没有检查 FileName
-                        ValidateDataAnnotations((object?)file.File ?? file.FileName, context, messages, pi, file.ValidateId);
+                    // 优先检查 File 流，如果没有检查 FileName
+                    ValidateDataAnnotations((object?)file.File ?? file.FileName, context, messages, pi, file.ValidateId);
                 });
             }
             else
@@ -447,13 +458,14 @@ public partial class ValidateForm : IAsyncDisposable
     }
 
     /// <summary>
-    /// 
+    /// 表单Field修改
     /// </summary>
     /// <param name="fieldIdentifier"></param>
     /// <param name="value"></param>
     public void NotifyFieldChanged(in FieldIdentifier fieldIdentifier, object? value)
     {
         ValueChagnedFields.AddOrUpdate(fieldIdentifier, key => value, (key, v) => value);
+        OnFieldChanged?.Invoke(fieldIdentifier.FieldName, value);
     }
 
     /// <summary>

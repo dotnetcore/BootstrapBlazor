@@ -82,6 +82,16 @@ public partial class ValidateForms
         };
     }
 
+    /// <summary>
+    /// 获取修改的Field和value
+    /// </summary>
+    /// <param name="field"></param>
+    /// <param name="value"></param>
+    private void OnFieldChange(string field, object? value)
+    {
+        Trace.Log($"{field}:{value}");
+    }
+
     private Task OnInvalidSubmit1(EditContext context)
     {
         Trace.Log(Localizer["OnInvalidSubmitLog"]);
