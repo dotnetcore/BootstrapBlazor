@@ -94,9 +94,9 @@ public abstract class CircleBase : BootstrapComponentBase
     /// <summary>
     /// OnInitialized 方法
     /// </summary>
-    protected override void OnInitialized()
+    protected override void OnParametersSet()
     {
-        base.OnInitialized();
+        base.OnParametersSet();
 
         // 检查 StrokeWidth 参数
         if (Width / 2 < StrokeWidth) StrokeWidth = 2;
