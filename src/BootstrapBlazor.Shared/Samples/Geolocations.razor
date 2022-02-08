@@ -1,0 +1,51 @@
+﻿@page "/geolocations"
+
+<h3>@Localizer["Title"]</h3>
+
+<DemoBlock Title="@Localizer["BaseUsageText"]" Introduction="@Localizer["IntroText1"]" Name="Normal">
+    <p>@Localizer["IntroText2"]</p>
+    <Tips>
+        <p>@Localizer["IntroText3"]</p>
+    </Tips>
+    <Button Text="@Localizer["GetLocationButtonText"]" OnClick="GetLocation"></Button>
+    @if (Model != null)
+    {
+        <div class="form-inline row mt-3">
+            <div class="col-12 col-sm-4">
+                <Display Value="@Model.Longitude" ShowLabel="true" DisplayText="@Localizer["Longitude"]" />
+            </div>
+            <div class="col-12 col-sm-4">
+                <Display Value="@Model.Latitude" ShowLabel="true" DisplayText="@Localizer["Latitude"]" />
+            </div>
+            <div class="col-12 col-sm-4">
+                <Display Value="@Model.Accuracy" ShowLabel="true" DisplayText="@Localizer["Accuracy"]" />
+            </div>
+            <div class="col-12 col-sm-4">
+                <Display Value="@Model.Altitude" ShowLabel="true" DisplayText="@Localizer["Altitude"]" />
+            </div>
+            <div class="col-12 col-sm-4">
+            </div>
+            <div class="col-12 col-sm-4">
+                <Display Value="@Model.AltitudeAccuracy" ShowLabel="true" DisplayText="@Localizer["AltitudeAccuracy"]" />
+            </div>
+            <div class="col-12 col-sm-4">
+                <Display Value="@Model.Heading" ShowLabel="true" DisplayText="@Localizer["Heading"]" />
+            </div>
+            <div class="col-12 col-sm-4">
+            </div>
+            <div class="col-12 col-sm-4">
+                <Display Value="@Model.Speed" ShowLabel="true" DisplayText="@Localizer["Speed"]" />
+            </div>
+            <div class="col-12 col-sm-4">
+                <Display Value="@Model.CurrentDistance" ShowLabel="true" DisplayText="@Localizer["CurrentDistance"]" />
+            </div>
+            <div class="col-12 col-sm-4">
+                <Display Value="@Model.TotalDistance" ShowLabel="true" DisplayText="@Localizer["TotalDistance"]" />
+            </div>
+            <div class="col-12 col-sm-4">
+                <Display Value="@Model.LastUpdateTime" ShowLabel="true" DisplayText="@Localizer["LastUpdateTime"]" />
+            </div>
+        </div>
+    }
+    <BlockLogger @ref="Trace" class="mt-3" />
+</DemoBlock>

@@ -53,11 +53,21 @@ public class JSInterop<TValue> : IDisposable where TValue : class
     {
         _objRef = DotNetObjectReference.Create(value);
         var paras = new List<object>()
-            {
-                _objRef
-            };
+        {
+            _objRef
+        };
         paras.AddRange(args);
         return await _jsRuntime.InvokeAsync<TReturn>(el, func, paras.ToArray());
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
+    internal ValueTask<bool> GetGeolocationItemAsync(TValue value, string callbackMethodName)
+    {
+        _objRef = DotNetObjectReference.Create(value);
+        return _jsRuntime.InvokeAsync<bool>("$.bb_geo_getCurrnetPosition", _objRef, callbackMethodName);
     }
 
     /// <summary>

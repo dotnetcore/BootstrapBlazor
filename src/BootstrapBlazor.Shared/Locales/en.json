@@ -417,7 +417,8 @@
     "ChartPieText": "Pie",
     "ChartDoughnutText": "Doughnut",
     "ChartBubbleText": "Bubble",
-    "DispatchText": "Dispatch"
+    "DispatchText": "Dispatch",
+    "GeolocationText": "Geolocation"
   },
   "BootstrapBlazor.Shared.Samples.GlobalException": {
     "Title": "Global exception",
@@ -2675,7 +2676,8 @@
     "ChartPie": "Pie",
     "ChartDoughnut": "Doughnut",
     "ChartBubble": "Bubble",
-    "Transition": "Transition"
+    "Transition": "Transition",
+    "Geolocation": "Geolocation"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesFooter": {
     "Left": "Left",
@@ -2744,5 +2746,27 @@
     "ClearButtonTextDefaultValue": "Clear",
     "Result": "Handwritten signature imgBase64 string",
     "HandwrittenBase64": "Handwritten result callback method"
+  },
+  "BootstrapBlazor.Shared.Samples.Geolocations": {
+    "Title": "Geolocation",
+    "BaseUsageText": "Basic usage",
+    "IntroText1": "Obtain location information through browser API.",
+    "IntroText2": "Click the button to get your coordinates.",
+    "IntroText3": "Note: For security reasons, when a web page tries to access location information, the user is notified and asked to grant permission. Be aware that each browser has its own policies and methods for requesting this permission.",
+    "GetLocationButtonText": "Get Location",
+    "WatchPositionButtonText": "Watch Position",
+    "ClearWatchPositionButtonText": "Stop Watch Position",
+    "GetLocationResultSuccess": "Call GetLocaltion success",
+    "GetLocationResultFailed": "Call GetLocaltion failed",
+    "Longitude": "Longitude",
+    "Latitude": "Latitude",
+    "Accuracy": "Accuracy",
+    "Altitude": "Altitude",
+    "AltitudeAccuracy": "AltitudeAccuracy",
+    "Heading": "Heading",
+    "Speed": "Speed",
+    "LastUpdateTime": "UpdateTime",
+    "CurrentDistance": "CurrentDistance",
+    "TotalDistance": "TotalDistance"
   }
 }

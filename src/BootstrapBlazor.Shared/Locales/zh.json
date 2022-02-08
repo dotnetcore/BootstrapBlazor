@@ -417,7 +417,8 @@
     "ChartPieText": "饼图",
     "ChartDoughnutText": "圆环图",
     "ChartBubbleText": "气泡图",
-    "DispatchText": "消息分发 Dispatch"
+    "DispatchText": "消息分发 Dispatch",
+    "GeolocationText": "地理定位组件 Geolocation"
   },
   "BootstrapBlazor.Shared.Samples.GlobalException": {
     "Title": "全局异常",
@@ -2680,7 +2681,8 @@
     "ChartPie": "饼图",
     "ChartDoughnut": "圆环图",
     "ChartBubble": "气泡图",
-    "Transition": "过渡效果 Transition"
+    "Transition": "过渡效果 Transition",
+    "Geolocation": "地理定位组件 Geolocation"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesFooter": {
     "Left": "左对齐",
@@ -2749,5 +2751,27 @@
     "ClearButtonTextDefaultValue": "清除",
     "Result": "手写签名imgBase64字符串",
     "HandwrittenBase64": "手写结果回调方法"
+  },
+  "BootstrapBlazor.Shared.Samples.Geolocations": {
+    "Title": "地理定位/移动距离追踪",
+    "BaseUsageText": "基础用法",
+    "IntroText1": "通过浏览器API获取定位信息。",
+    "IntroText2": "单击按钮以获取地理位置坐标。",
+    "IntroText3": "注意: 出于安全考虑，当网页请求获取用户位置信息时，用户会被提示进行授权。注意不同浏览器在请求权限时有不同的策略和方式。Windows10 在未开启定位的情况下无法获取位置。",
+    "GetLocationButtonText": "获取位置",
+    "WatchPositionButtonText": "移动距离追踪",
+    "ClearWatchPositionButtonText": "停止追踪",
+    "GetLocationResultSuccess": "调用 GetLocaltion 成功",
+    "GetLocationResultFailed": "调用 GetLocaltion 失败",
+    "Longitude": "经度",
+    "Latitude": "纬度",
+    "Accuracy": "位置精度",
+    "Altitude": "海拔",
+    "AltitudeAccuracy": "海拔精度",
+    "Heading": "方向",
+    "Speed": "速度",
+    "LastUpdateTime": "时间戳",
+    "CurrentDistance": "移动距离",
+    "TotalDistance": "总移动距离"
   }
 }

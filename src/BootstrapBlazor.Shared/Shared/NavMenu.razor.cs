@@ -446,6 +446,12 @@ public sealed partial class NavMenu
             },
             new()
             {
+                IsNew= true,
+                Text = Localizer["Geolocation"],
+                Url = "geolocations"
+            },
+            new()
+            {
                 Text = Localizer["GroupBox"],
                 Url = "groupboxs"
             },
