@@ -2,7 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using System.Threading;
 using Timer = BootstrapBlazor.Components.Timer;
 
 namespace UnitTest.Components;
@@ -127,6 +126,7 @@ public class TimerTest : BootstrapBlazorTestBase
         // pause
         Assert.True(buttons[1].ClassList.Contains("btn-warning"));
         buttons[1].Click();
+        await Task.Delay(500);
 
         // resume
         buttons = cut.FindAll(".timer-buttons button");
