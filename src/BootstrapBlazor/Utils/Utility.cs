@@ -319,20 +319,20 @@ public static class Utility
         // 增加非枚举类,手动设定 ComponentType 为 Select 并且 Data 有值 自动生成下拉框
         if (item.Items != null && item.ComponentType == typeof(Select<>).MakeGenericType(fieldType))
         {
-            builder.AddAttribute(8, nameof(Select<SelectedItem>.Items), item.Items.Clone());
+            builder.AddAttribute(9, nameof(Select<SelectedItem>.Items), item.Items.Clone());
         }
 
         // 设置 SkipValidate 参数
         if (IsValidatableComponent(componentType))
         {
-            builder.AddAttribute(9, nameof(IEditorItem.SkipValidate), item.SkipValidate);
+            builder.AddAttribute(10, nameof(IEditorItem.SkipValidate), item.SkipValidate);
         }
 
-        builder.AddMultipleAttributes(10, CreateMultipleAttributes(fieldType, model, fieldName, item, showLabel));
+        builder.AddMultipleAttributes(11, CreateMultipleAttributes(fieldType, model, fieldName, item, showLabel));
 
         if (item.ComponentParameters != null)
         {
-            builder.AddMultipleAttributes(11, item.ComponentParameters);
+            builder.AddMultipleAttributes(12, item.ComponentParameters);
         }
         builder.CloseComponent();
     }

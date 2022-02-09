@@ -215,4 +215,11 @@ public class SelectTest : BootstrapBlazorTestBase
         //Assert.Contains("Test-Swal-Content", cut.Markup);
         //Assert.Contains("Test-Swal-Footer", cut.Markup);
     }
+
+    [Fact]
+    public void NullItems_Ok()
+    {
+        var cut = Context.RenderComponent<Select<string>>();
+        Assert.Contains("select", cut.Markup);
+    }
 }

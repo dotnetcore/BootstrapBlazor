@@ -128,7 +128,6 @@ public partial class Select<TValue> : ISelect
             OnSearchTextChanged = text => Items.Where(i => i.Text.Contains(text, StringComparison.OrdinalIgnoreCase));
         }
 
-        Items ??= Enumerable.Empty<SelectedItem>();
         Childs = new List<SelectedItem>();
     }
 
@@ -139,6 +138,7 @@ public partial class Select<TValue> : ISelect
     {
         base.OnParametersSet();
 
+        Items ??= Enumerable.Empty<SelectedItem>();
         PlaceHolder ??= Localizer[nameof(PlaceHolder)];
 
         // 内置对枚举类型的支持

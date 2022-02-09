@@ -66,7 +66,7 @@ public abstract class SelectBase<TValue> : ValidateBase<TValue>
     public RenderFragment<SelectedItem>? ItemTemplate { get; set; }
 
     /// <summary>
-    /// SelectedItemChanged 方法
+    /// SelectedItemChanged 回调方法
     /// </summary>
     [Parameter]
     public Func<SelectedItem, Task>? OnSelectedItemChanged { get; set; }
