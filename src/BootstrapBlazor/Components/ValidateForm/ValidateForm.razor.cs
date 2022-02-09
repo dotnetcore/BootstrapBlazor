@@ -36,6 +36,13 @@ public partial class ValidateForm : IAsyncDisposable
     public Func<EditContext, Task>? OnInvalidSubmit { get; set; }
 
     /// <summary>
+    /// A callback that will be invoked when the field's value has been changed
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public Action<string, object?>? OnFieldValueChanged { get; set; }
+
+    /// <summary>
     /// 获得/设置 是否验证所有字段 默认 false
     /// </summary>
     [Parameter]
@@ -393,8 +400,8 @@ public partial class ValidateForm : IAsyncDisposable
                 // 处理多个上传文件
                 uploader.UploadFiles.ForEach(file =>
                 {
-                        // 优先检查 File 流，如果没有检查 FileName
-                        ValidateDataAnnotations((object?)file.File ?? file.FileName, context, messages, pi, file.ValidateId);
+                    // 优先检查 File 流，如果没有检查 FileName
+                    ValidateDataAnnotations((object?)file.File ?? file.FileName, context, messages, pi, file.ValidateId);
                 });
             }
             else
@@ -454,6 +461,7 @@ public partial class ValidateForm : IAsyncDisposable
     public void NotifyFieldChanged(in FieldIdentifier fieldIdentifier, object? value)
     {
         ValueChagnedFields.AddOrUpdate(fieldIdentifier, key => value, (key, v) => value);
+        OnFieldValueChanged?.Invoke(fieldIdentifier.FieldName, value);
     }
 
     /// <summary>

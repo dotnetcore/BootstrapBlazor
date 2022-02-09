@@ -15,6 +15,7 @@
         <li>@((MarkupString)Localizer["BasicUsageLi5"].Value)</li>
         <li>@((MarkupString)Localizer["BasicUsageLi6"].Value)</li>
         <li>@((MarkupString)Localizer["BasicUsageLi7"].Value)</li>
+        <li>@((MarkupString)Localizer["BasicUsageLi9"].Value)</li>
     </ul>
     <p>@Localizer["BasicUsageP2"]</p>
     <ul class="ul-demo">
@@ -22,7 +23,7 @@
     </ul>
     <div class="form-demo">
         <ValidateForm Model="@Model" OnInvalidSubmit="@OnInvalidSubmit1"
-                      OnValidSubmit="@OnValidSubmit1">
+                      OnValidSubmit="@OnValidSubmit1" OnFieldChanged="@OnFiledChanged">
             <div class="row g-3">
                 <div class="col-12">
                     <BootstrapInput @bind-Value="@Model.Name" />
