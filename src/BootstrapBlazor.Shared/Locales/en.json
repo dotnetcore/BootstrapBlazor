@@ -1760,6 +1760,7 @@
     "BasicUsageLi6": "The form checks by default whether the binding field values within the form are legitimate, and you can set the <code> ValidateAllProperties </code> property value to <code> true </code> if you need to check all fields in the model",
     "BasicUsageLi7": "Set the asynchronous submission form by setting the value of the Button <code> Button </code> property <code> IsAsync </code>",
     "BasicUsageLi8": "Components within a form are typically used to bind the property values of <code> Model </code> in both directions using bidirectional binding techniques, causing the component to refresh and re-render when its value changes <code> StateHasChanged </code>, and the method is called, i.e. its component or page is refreshed and re-rendered",
+    "BasicUsageLi9": "After the value of the component control in the form is modified, the <code>OnFieldChanged</code> method is called",
     "BasicUsageP2": "Note:",
     "InnerComponentTitle": "Built-in components",
     "InnerComponentIntro": "Place the support form components into the <code>ValidateForm </code>",

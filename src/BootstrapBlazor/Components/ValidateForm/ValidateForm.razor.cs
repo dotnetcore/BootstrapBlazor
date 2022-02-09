@@ -36,6 +36,13 @@ public partial class ValidateForm : IAsyncDisposable
     public Func<EditContext, Task>? OnInvalidSubmit { get; set; }
 
     /// <summary>
+    /// A callback that will be invoked when the field's value has been changed
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public Action<string,object?>? OnFieldChanged { get; set; }
+
+    /// <summary>
     /// 获得/设置 是否验证所有字段 默认 false
     /// </summary>
     [Parameter]
@@ -454,6 +461,7 @@ public partial class ValidateForm : IAsyncDisposable
     public void NotifyFieldChanged(in FieldIdentifier fieldIdentifier, object? value)
     {
         ValueChagnedFields.AddOrUpdate(fieldIdentifier, key => value, (key, v) => value);
+        OnFieldChanged?.Invoke(fieldIdentifier.FieldName, value);
     }
 
     /// <summary>
