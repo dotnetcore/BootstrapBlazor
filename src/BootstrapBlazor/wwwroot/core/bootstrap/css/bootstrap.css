@@ -5558,11 +5558,6 @@ textarea.form-control-lg {
     max-width: 1140px;
   }
 }
-@media(min-width:1200px) {
-    .modal-xxl {
-        max-width: 1400px;
-    }
-}
 .modal-fullscreen {
   width: 100vw;
   max-width: none;
