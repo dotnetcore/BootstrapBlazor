@@ -1,4 +1,4 @@
-@charset "UTF-8";
+﻿@charset "UTF-8";
 /*!
  * Bootstrap v5.1.0 (https://getbootstrap.com/)
  * Copyright 2011-2021 The Bootstrap Authors
@@ -5557,6 +5557,11 @@ textarea.form-control-lg {
   .modal-xl {
     max-width: 1140px;
   }
+}
+@media (min-width: 1400px) {
+    .modal-xxl {
+        max-width: 1400px;
+    }
 }
 .modal-fullscreen {
   width: 100vw;
