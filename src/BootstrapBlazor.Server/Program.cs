@@ -2,7 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-#if NET6_0_OR_GREATER
+using BootstrapBlazor.Components;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.Extensions.Options;
 using System.Text;
@@ -58,38 +58,3 @@ app.MapBlazorHub();
 app.MapFallbackToPage("/_Host");
 
 app.Run();
-#else
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Hosting;
-
-namespace BootstrapBlazor.Server
-{
-    /// <summary>
-    ///
-    /// </summary>
-    public class Program
-    {
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="args"></param>
-        public static void Main(string[] args)
-        {
-            CreateHostBuilder(args).Build().Run();
-        }
-
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="args"></param>
-        /// <returns></returns>
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder =>
-                {
-                    webBuilder.UseStaticWebAssets();
-                    webBuilder.UseStartup<Startup>();
-                });
-    }
-}
-#endif

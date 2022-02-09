@@ -32,20 +32,27 @@ internal static class ServicesExtensions
         services.AddWebSiteServices();
 
         // 增加 BootstrapBlazor 组件
-        services.AddBootstrapBlazor(options =>
+        services.AddBootstrapBlazor();
+
+        services.ConfigureBootstrapBlazorOption(options =>
         {
             // 统一设置 Toast 组件自动消失时间
             options.ToastDelay = 4000;
             options.Themes.AddRange(themes);
-        }, options =>
+        });
+
+        services.ConfigureJsonLocalizationOptions(options =>
         {
             // 附加自己的 json 多语言文化资源文件 如 zh-TW.json
             options.AdditionalJsonAssemblies = new Assembly[]
             {
-                    typeof(BootstrapBlazor.Shared.App).Assembly,
-                    typeof(BootstrapBlazor.Components.Chart).Assembly
+                typeof(BootstrapBlazor.Shared.App).Assembly,
+                typeof(BootstrapBlazor.Components.Chart).Assembly
             };
         });
+
+        // 设置地理位置定位器
+        services.ConfigureIPLocatorOption(op => op.LocatorFactory = sp => new BaiDuIPLocator());
 
         // 增加多语言支持配置信息
         services.AddRequestLocalization<IOptions<BootstrapBlazorOptions>>((localizerOption, blazorOption) =>
