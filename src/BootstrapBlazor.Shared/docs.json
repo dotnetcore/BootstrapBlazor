@@ -36,6 +36,7 @@
     "header": "Table/TablesFixedHeader",
     "handwrittenpage": "HandwrittenPage",
     "inputnumbers": "InputNumbers",
+    "inputgroups": "InputGroups",
     "line": "Charts/Line",
     "linkbuttons": "LinkButtons",
     "listviews": "ListViews",

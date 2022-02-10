@@ -347,6 +347,7 @@
     "EditorText": "Editor",
     "InputText": "Input",
     "InputNumberText": "InputNumber",
+    "InputGroupText": "InputGroup",
     "MarkdownText": "Markdown",
     "FloatingLabelText": "FloatingLabel",
     "RadioText": "Radio",
@@ -1273,6 +1274,18 @@
     "Att5": "Whether to disable,Default is fasle",
     "Att6": "Whether to display the front label",
     "Att7": "The front label displays text"
+  },
+  "BootstrapBlazor.Shared.Samples.InputGroups": {
+    "Title": "InputGroup",
+    "H1": "Input can add lables and buttons before or after it to make as a group",
+    "Block1Title": "Basic usage",
+    "Block1Intro": "Add a label before the <code>Input</code>, or Add a <code>Button</code> after the <code>Input</code>",
+    "Block2Title": "Add multiple components",
+    "Block2Intro": "The <code>InputGroup</code> can have lots of children",
+    "Block3Title": "Add Select",
+    "Block3Intro": "Add <code>Select</code> component to the <code>InputGroup</code>",
+    "UserName": "UserName",
+    "Distance": "Distance"
   },
   "BootstrapBlazor.Shared.Samples.Markdowns": {
     "Title": "Markdown",

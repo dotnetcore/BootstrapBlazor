@@ -347,6 +347,7 @@
     "EditorText": "富文本框 Editor",
     "InputText": "输入框 Input",
     "InputNumberText": "数字框 InputNumber",
+    "InputGroupText": "输入组 InputGroup",
     "MarkdownText": "富文本框 Markdown",
     "FloatingLabelText": "悬浮标签 FloatingLabel",
     "RadioText": "单选框 Radio",
@@ -1274,6 +1275,18 @@
     "Att5": "是否禁用 默认为 fasle",
     "Att6": "是否显示前置标签",
     "Att7": "前置标签显示文本"
+  },
+  "BootstrapBlazor.Shared.Samples.InputGroups": {
+    "Title": "InputGroup 组件",
+    "H1": "Input的前后可以增加与一些标签和按钮，拼成一组。其排版格式紧凑，非常适合单行多列的场景，比如搜索等。",
+    "Block1Title": "基础用法",
+    "Block1Intro": "在<code>Input</code>前增加标签，或者在<code>Input</code>后增加<code>Button</code>",
+    "Block2Title": "增加多个组件",
+    "Block2Intro": "<code>InputGroup</code>里面可以增加很多组件",
+    "Block3Title": "增加Select",
+    "Block3Intro": "往<code>InputGroup</code>里面增加<code>Select</code>",
+    "UserName": "用户名",
+    "Distance": "距离"
   },
   "BootstrapBlazor.Shared.Samples.Markdowns": {
     "Title": "Markdown 编辑器",
@@ -2603,6 +2616,7 @@
     "EditorForm": "表单编辑框 EditorForm",
     "Input": "输入框 Input",
     "InputNumber": "数字框 InputNumber",
+    "InputGroup": "输入组 InputGroup",
     "Ip": "IP 地址 IpAddress",
     "Markdown": "富文本框 Markdown",
     "MultiSelect": "多项选择器 MultiSelect",

@@ -289,6 +289,11 @@ public sealed partial class NavMenu
                 },
                 new()
                 {
+                    Text = Localizer["InputGroup"],
+                    Url = "inputgroups"
+                },
+                new()
+                {
                     Text = Localizer["Markdown"],
                     Url = "markdowns"
                 },

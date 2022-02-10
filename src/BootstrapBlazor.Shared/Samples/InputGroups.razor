@@ -1,0 +1,46 @@
+﻿@page "/inputgroups"
+@inject IStringLocalizer<InputGroups> Localizer
+
+<h3>@Localizer["Title"]</h3>
+
+<h4>@Localizer["H1"]</h4>
+
+<DemoBlock Title="@Localizer["Block1Title"]" Introduction="@Localizer["Block1Intro"]" Name="Normal">
+    <div class="row g-3">
+        <div class="col-12 col-sm-6">
+	        <BootstrapInputGroup>
+		        <BootstrapInputGroupLabel Text="@Localizer["UserName"]" />
+		        <BootstrapInput @bind-Value="@BindValue"  />
+	        </BootstrapInputGroup>
+        </div>
+        <div class="col-12 col-sm-6">
+	        <BootstrapInputGroup>
+		        <BootstrapInput @bind-Value="@BindValue"  />
+		        <Button Icon="fa fa-search"></Button>
+	        </BootstrapInputGroup>
+        </div>
+    </div>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["Block2Title"]" Introduction="@Localizer["Block2Intro"]" Name="Multiple">
+	<BootstrapInputGroup>
+		<BootstrapInputGroupLabel Text="@Localizer["Distance"]" />
+		<BootstrapInput @bind-Value="@BindValue"  />
+		<BootstrapInputGroupLabel Text="km" />
+	</BootstrapInputGroup>
+	<BootstrapInputGroup style="margin-top:5px;">
+		<BootstrapInput @bind-Value="@BindValue"  />
+		<BootstrapInputGroupLabel Text="@StringAt" />
+		<BootstrapInput @bind-Value="@StringMailServer"  />
+		<Button Icon="fa fa-print" IsOutline="true"></Button>
+		<Button Icon="fa fa-search" IsOutline="true"></Button>
+	</BootstrapInputGroup>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["Block3Title"]" Introduction="@Localizer["Block3Intro"]" Name="Select">
+	<BootstrapInputGroup>
+		<BootstrapInputGroupLabel Text="@Localizer["UserName"]"  />
+		<Select TValue="string" Items="@Items3" />
+	</BootstrapInputGroup>
+</DemoBlock>
+
