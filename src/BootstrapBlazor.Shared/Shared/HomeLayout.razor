@@ -1,4 +1,5 @@
 ﻿@inherits LayoutComponentBase
+@implements IDisposable
 @layout BaseLayout
 @inject NavigationManager NavigationManager
 @inject IJSRuntime JSRuntime
@@ -121,10 +122,10 @@
 
     private string SelectedCulture { get; set; } = CultureInfo.CurrentUICulture.Name;
 
-    protected override async Task OnInitializedAsync()
-    {
-        await base.OnInitializedAsync();
+    private CancellationTokenSource DisposeTokenSource { get; } = new();
 
+    protected override void OnInitialized()
+    {
         if (OperatingSystem.IsBrowser())
         {
             BBVersion = typeof(BootstrapComponentBase).Assembly.GetName().Version?.ToString() ?? "";
@@ -151,6 +152,42 @@
             OS = "Unknown";
         }
 
+        UpdateRuntime();
+    }
+
+    /// <summary>
+    /// OnAfterRenderAsync 方法
+    /// </summary>
+    /// <param name="firstRender"></param>
+    /// <returns></returns>
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (firstRender)
+        {
+            _ = Task.Run(async () =>
+            {
+                while (!DisposeTokenSource.IsCancellationRequested)
+                {
+                    try
+                    {
+                        await Task.Delay(1000, DisposeTokenSource.Token);
+                    }
+                    catch (TaskCanceledException)
+                    {
+
+                    }
+                    if (!DisposeTokenSource.IsCancellationRequested)
+                    {
+                        UpdateRuntime();
+                        await InvokeAsync(StateHasChanged);
+                    }
+                }
+            });
+        }
+    }
+
+    private void UpdateRuntime()
+    {
         var ts = DateTimeOffset.Now - Cache.GetStartTime();
         Runtime = ts.ToString("dd\\.hh\\:mm\\:ss");
     }
@@ -182,5 +219,20 @@
                 NavigationManager.NavigateTo("/Culture/SetCulture" + query, forceLoad: true);
             }
         }
+    }
+
+    private void Dispose(bool disposing)
+    {
+        if (disposing)
+        {
+            DisposeTokenSource.Cancel();
+            DisposeTokenSource.Dispose();
+        }
+    }
+
+    public void Dispose()
+    {
+        Dispose(true);
+        GC.SuppressFinalize(this);
     }
 }
