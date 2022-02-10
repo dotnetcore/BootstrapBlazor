@@ -116,11 +116,6 @@ public partial class SweetAlert : IDisposable
             {
                 builder.AddAttribute(index++, p.Key, p.Value);
             }
-            builder.AddComponentReferenceCapture(index++, dialog =>
-            {
-                var modal = (ModalDialog)dialog;
-                ModalContainer.ShowDialog(modal);
-            });
             builder.CloseComponent();
         }
     };

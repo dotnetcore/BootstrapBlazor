@@ -192,31 +192,6 @@ public class SelectTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void OnBeforeSelectedItemChange_Ok()
-    {
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
-        {
-            pb.AddChildContent<Select<string>>(pb =>
-            {
-                pb.Add(a => a.OnBeforeSelectedItemChange, item => Task.FromResult(true));
-                pb.Add(a => a.SwalFooter, "Test-Swal-Footer");
-                pb.Add(a => a.SwalCategory, SwalCategory.Question);
-                pb.Add(a => a.SwalTitle, "Test-Swal-Title");
-                pb.Add(a => a.SwalContent, "Test-Swal-Content");
-                pb.Add(a => a.Items, new SelectedItem[]
-                {
-                    new SelectedItem("1", "Test1"),
-                    new SelectedItem("2", "Test2")
-                });
-            });
-        });
-        cut.Find(".dropdown-item").Click();
-        //Assert.Contains("Test-Swal-Title", cut.Markup);
-        //Assert.Contains("Test-Swal-Content", cut.Markup);
-        //Assert.Contains("Test-Swal-Footer", cut.Markup);
-    }
-
-    [Fact]
     public void NullItems_Ok()
     {
         var cut = Context.RenderComponent<Select<string>>();
