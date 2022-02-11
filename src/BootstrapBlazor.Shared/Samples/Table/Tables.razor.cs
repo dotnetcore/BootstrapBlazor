@@ -655,6 +655,34 @@ public partial class Tables
             DefaultValue = " — "
         },
         new() {
+            Name = "EditDialogDraggable",
+            Description = "编辑弹窗是否可拖拽",
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "false"
+        },
+        new() {
+            Name = "EditDialogSize",
+            Description = "编辑弹窗大小",
+            Type = "Size",
+            ValueList = " — ",
+            DefaultValue = "Large"
+        },
+        new() {
+            Name = "SearchDialogIsDraggable",
+            Description = "搜索弹窗是否可拖拽",
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "false"
+        },
+        new() {
+            Name = "SearchDialogSize",
+            Description = "搜索弹窗大小",
+            Type = "Size",
+            ValueList = " — ",
+            DefaultValue = "Large"
+        },
+        new() {
             Name = "AddModalTitle",
             Description = "新建数据弹窗 Title",
             Type = "string",

@@ -151,10 +151,16 @@ public partial class Table<TItem>
     }
 
     /// <summary>
-    /// 编辑框的大小
+    /// 获得/设置 搜索框的大小
     /// </summary>
     [Parameter]
     public Size SearchDialogSize { get; set; } = Size.Large;
+
+    /// <summary>
+    /// 获得/设置 搜索框是否可以拖拽
+    /// </summary>
+    [Parameter]
+    public bool SearchDialogIsDraggable { get; set; }
 
     /// <summary>
     /// 高级查询按钮点击时调用此方法
@@ -182,7 +188,8 @@ public partial class Table<TItem>
             ItemsPerRow = SearchDialogItemsPerRow,
             LabelAlign = SearchDialogLabelAlign,
             Size = SearchDialogSize,
-            Items = Columns.Where(i => i.Searchable)
+            Items = Columns.Where(i => i.Searchable),
+            IsDraggable = SearchDialogIsDraggable
         };
 
         SearchDialogOption<ITableSearchModel> CreateCustomerModelDialog() => new()

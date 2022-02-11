@@ -487,6 +487,12 @@ public partial class Table<TItem>
     public Size EditDialogSize { get; set; } = Size.Large;
 
     /// <summary>
+    /// 获得/设置 编辑框是否可以拖拽
+    /// </summary>
+    [Parameter]
+    public bool EditDialogDraggable { get; set; }
+
+    /// <summary>
     /// 弹出编辑对话框方法
     /// </summary>
     protected async Task ShowEditDialog(ItemChangedType changedType)
@@ -508,6 +514,7 @@ public partial class Table<TItem>
             LabelAlign = EditDialogLabelAlign,
             ItemChangedType = changedType,
             Size = EditDialogSize,
+            IsDraggable = EditDialogDraggable,
             OnCloseAsync = async () =>
             {
                 var d = DataService ?? InjectDataService;
