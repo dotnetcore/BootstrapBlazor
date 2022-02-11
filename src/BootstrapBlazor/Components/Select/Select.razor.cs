@@ -82,6 +82,12 @@ public partial class Select<TValue> : ISelect
     public bool ShowSearch { get; set; }
 
     /// <summary>
+    /// 获得/设置 选中候选项后是否自动清空搜索框内容 默认 false 不清空
+    /// </summary>
+    [Parameter]
+    public bool AutoClearSearchText { get; set; }
+
+    /// <summary>
     /// 获得 PlaceHolder 属性
     /// </summary>
     [Parameter]
@@ -260,6 +266,11 @@ public partial class Select<TValue> : ISelect
         if (OnSelectedItemChanged != null)
         {
             await OnSelectedItemChanged.Invoke(SelectedItem);
+        }
+
+        if (AutoClearSearchText)
+        {
+            SearchText = string.Empty;
         }
     }
 

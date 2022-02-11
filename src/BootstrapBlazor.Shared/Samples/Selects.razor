@@ -113,7 +113,7 @@
     </ValidateForm>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["Block6Title"]" Introduction="@Localizer["Block6Intro"]"  Name="Group">
+<DemoBlock Title="@Localizer["Block6Title"]" Introduction="@Localizer["Block6Intro"]" Name="Group">
     <div class="row g-3">
         <div class="col-12 col-sm-6">
             <Select TValue="string" Color="Color.Primary" Items="GroupItems">
@@ -133,7 +133,7 @@
     </div>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["Block8Title"]" Introduction="@Localizer["Block8Intro"]"  Name="DispalyLabel">
+<DemoBlock Title="@Localizer["Block8Title"]" Introduction="@Localizer["Block8Intro"]" Name="DispalyLabel">
     <p>@((MarkupString)Localizer["P3"].Value)</p>
     <Divider Text="@Localizer["Divider1"]" Alignment="Alignment.Left" style="margin: 2rem 0;"></Divider>
     <ValidateForm Model="Model">
@@ -171,7 +171,7 @@
     </div>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["Block10Title"]" Introduction="@Localizer["Block10Intro"]"  Name="Enum">
+<DemoBlock Title="@Localizer["Block10Title"]" Introduction="@Localizer["Block10Intro"]" Name="Enum">
     <p>@((MarkupString)Localizer["P4"].Value)</p>
     <p>@((MarkupString)Localizer["P5"].Value)</p>
     <div class="row g-3">
@@ -236,18 +236,19 @@
     </div>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["BlockShowSearchTitle"]" Introduction="@Localizer["BlockShowSearchIntro"]"  Name="ShowSearch">
+<DemoBlock Title="@Localizer["BlockShowSearchTitle"]" Introduction="@Localizer["BlockShowSearchIntro"]" Name="ShowSearch">
+    <p>@((MarkupString)Localizer["AutoClearSearchTextIntro"].Value)</p>
     <div class="row g-3">
         <div class="col-12 col-sm-6">
             <Select TValue="string" Items="Items" ShowSearch="true" />
         </div>
         <div class="col-12 col-sm-6">
-            <Select TValue="string" Items="StringItems" ShowSearch="true" />
+            <Select TValue="string" Items="StringItems" ShowSearch="true" AutoClearSearchText="true" />
         </div>
     </div>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["Block15Title"]" Introduction="@Localizer["Block15Intro"]"  Name="ConfirmSelect">
+<DemoBlock Title="@Localizer["Block15Title"]" Introduction="@Localizer["Block15Intro"]" Name="ConfirmSelect">
     <div class="row g-3">
         <div class="col-12 col-sm-6">
             <Select TValue="string" Items="Items" OnBeforeSelectedItemChange="@OnBeforeSelectedItemChange"

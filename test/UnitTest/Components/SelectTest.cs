@@ -17,6 +17,7 @@ public class SelectTest : BootstrapBlazorTestBase
             pb.AddChildContent<Select<string>>(pb =>
             {
                 pb.Add(a => a.ShowSearch, true);
+                pb.Add(a => a.AutoClearSearchText, true);
                 pb.Add(a => a.Items, new List<SelectedItem>()
                 {
                     new SelectedItem("1", "Test1"),
