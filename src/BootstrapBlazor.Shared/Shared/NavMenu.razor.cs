@@ -215,144 +215,144 @@ public sealed partial class NavMenu
     private void AddForm(DemoMenuItem item)
     {
         item.Items = new List<DemoMenuItem>
+        {
+            new()
             {
-                new()
-                {
-                    Text = Localizer["AutoComplete"],
-                    Url = "autocompletes"
-                },
-                new()
-                {
-                    IsNew = true,
-                    Text = Localizer["AutoFill"],
-                    Url = "autofills"
-                },
-                new()
-                {
-                    Text = Localizer["Button"],
-                    Url = "buttons"
-                },
-                new()
-                {
-                    Text = Localizer["Cascader"],
-                    Url = "cascaders"
-                },
-                new()
-                {
-                    Text = Localizer["Checkbox"],
-                    Url = "checkboxs"
-                },
-                new()
-                {
-                    Text = Localizer["CheckboxList"],
-                    Url = "checkboxlists"
-                },
-                new()
-                {
-                    Text = Localizer["ColorPicker"],
-                    Url = "colorpickers"
-                },
-                new()
-                {
-                    Text = Localizer["DateTimePicker"],
-                    Url = "datetimepickers"
-                },
-                new()
-                {
-                    Text = Localizer["DateTimeRange"],
-                    Url = "datetimeranges"
-                },
-                new()
-                {
-                    Text = Localizer["Editor"],
-                    Url = "editors"
-                },
-                new()
-                {
-                    Text = Localizer["EditorForm"],
-                    Url = "editorforms"
-                },
-                new()
-                {
-                    Text = Localizer["FloatingLabel"],
-                    Url = "floatinglabels"
-                },
-                new()
-                {
-                    Text = Localizer["Input"],
-                    Url = "inputs"
-                },
-                new()
-                {
-                    Text = Localizer["InputNumber"],
-                    Url = "inputnumbers"
-                },
-                new()
-                {
-                    Text = Localizer["InputGroup"],
-                    Url = "inputgroups"
-                },
-                new()
-                {
-                    Text = Localizer["Markdown"],
-                    Url = "markdowns"
-                },
-                new()
-                {
-                    Text = Localizer["MultiSelect"],
-                    Url = "multiselects"
-                },
-                new()
-                {
-                    Text = Localizer["Radio"],
-                    Url = "radios"
-                },
-                new()
-                {
-                    Text = Localizer["Rate"],
-                    Url = "rates"
-                },
-                new()
-                {
-                    Text = Localizer["Select"],
-                    Url = "selects"
-                },
-                new()
-                {
-                    Text = Localizer["Slider"],
-                    Url = "sliders"
-                },
-                new()
-                {
-                    Text = Localizer["Switch"],
-                    Url = "switchs"
-                },
-                new()
-                {
-                    Text = Localizer["Textarea"],
-                    Url = "textareas"
-                },
-                new()
-                {
-                    Text = Localizer["Toggle"],
-                    Url = "toggles"
-                },
-                new()
-                {
-                    Text = Localizer["Transfer"],
-                    Url = "transfers"
-                },
-                new()
-                {
-                    Text = Localizer["Upload"],
-                    Url = "uploads"
-                },
-                new()
-                {
-                    Text = Localizer["ValidateForm"],
-                    Url = "validateforms"
-                }
-            };
+                Text = Localizer["AutoComplete"],
+                Url = "autocompletes"
+            },
+            new()
+            {
+                IsNew = true,
+                Text = Localizer["AutoFill"],
+                Url = "autofills"
+            },
+            new()
+            {
+                Text = Localizer["Button"],
+                Url = "buttons"
+            },
+            new()
+            {
+                Text = Localizer["Cascader"],
+                Url = "cascaders"
+            },
+            new()
+            {
+                Text = Localizer["Checkbox"],
+                Url = "checkboxs"
+            },
+            new()
+            {
+                Text = Localizer["CheckboxList"],
+                Url = "checkboxlists"
+            },
+            new()
+            {
+                Text = Localizer["ColorPicker"],
+                Url = "colorpickers"
+            },
+            new()
+            {
+                Text = Localizer["DateTimePicker"],
+                Url = "datetimepickers"
+            },
+            new()
+            {
+                Text = Localizer["DateTimeRange"],
+                Url = "datetimeranges"
+            },
+            new()
+            {
+                Text = Localizer["Editor"],
+                Url = "editors"
+            },
+            new()
+            {
+                Text = Localizer["EditorForm"],
+                Url = "editorforms"
+            },
+            new()
+            {
+                Text = Localizer["FloatingLabel"],
+                Url = "floatinglabels"
+            },
+            new()
+            {
+                Text = Localizer["Input"],
+                Url = "inputs"
+            },
+            new()
+            {
+                Text = Localizer["InputNumber"],
+                Url = "inputnumbers"
+            },
+            new()
+            {
+                Text = Localizer["InputGroup"],
+                Url = "inputgroups"
+            },
+            new()
+            {
+                Text = Localizer["Markdown"],
+                Url = "markdowns"
+            },
+            new()
+            {
+                Text = Localizer["MultiSelect"],
+                Url = "multiselects"
+            },
+            new()
+            {
+                Text = Localizer["Radio"],
+                Url = "radios"
+            },
+            new()
+            {
+                Text = Localizer["Rate"],
+                Url = "rates"
+            },
+            new()
+            {
+                Text = Localizer["Select"],
+                Url = "selects"
+            },
+            new()
+            {
+                Text = Localizer["Slider"],
+                Url = "sliders"
+            },
+            new()
+            {
+                Text = Localizer["Switch"],
+                Url = "switchs"
+            },
+            new()
+            {
+                Text = Localizer["Textarea"],
+                Url = "textareas"
+            },
+            new()
+            {
+                Text = Localizer["Toggle"],
+                Url = "toggles"
+            },
+            new()
+            {
+                Text = Localizer["Transfer"],
+                Url = "transfers"
+            },
+            new()
+            {
+                Text = Localizer["Upload"],
+                Url = "uploads"
+            },
+            new()
+            {
+                Text = Localizer["ValidateForm"],
+                Url = "validateforms"
+            }
+        };
         AddBadge(item);
     }
 
@@ -468,6 +468,12 @@ public sealed partial class NavMenu
             new()
             {
                 IsNew = true,
+                Text = Localizer["Ip"],
+                Url = "ips"
+            },
+            new()
+            {
+                IsNew = true,
                 Text = Localizer["LinkButton"],
                 Url = "linkbuttons"
             },
@@ -481,12 +487,6 @@ public sealed partial class NavMenu
                 IsNew = true,
                 Text = Localizer["Locator"],
                 Url = "locator"
-            },
-            new()
-            {
-                IsNew = true,
-                Text = Localizer["Ip"],
-                Url = "ips"
             },
             new()
             {
@@ -770,6 +770,12 @@ public sealed partial class NavMenu
             {
                 Text = Localizer["Modal"],
                 Url = "modals"
+            },
+            new()
+            {
+                IsNew= true,
+                Text = Localizer["Notification"],
+                Url = "notifications"
             },
             new()
             {

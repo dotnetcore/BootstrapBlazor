@@ -3,7 +3,6 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using BootstrapBlazor.Components;
-using BootstrapBlazor.Shared.Common;
 using BootstrapBlazor.Shared.Components;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
@@ -29,16 +28,12 @@ public partial class Geolocations : IDisposable
     [NotNull]
     private IJSRuntime? JSRuntime { get; set; }
 
-    [Inject]
-    [NotNull]
-    private GeolocationService? GeolocationService { get; set; }
-
     private GeolocationItem? Model { get; set; }
 
     private async Task GetLocation()
     {
         Interop ??= new JSInterop<Geolocations>(JSRuntime);
-        var ret = await GeolocationService.GetLocaltion(Interop, this, nameof(GetLocationCallback));
+        var ret = await Geolocation.GetLocaltion(Interop, this, nameof(GetLocationCallback));
         Trace.Log(ret ? Localizer["GetLocationResultSuccess"] : Localizer["GetLocationResultFailed"]);
     }
 

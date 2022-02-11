@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
-    <Version>6.3.1-beta01</Version>
+    <Version>6.3.1-beta02</Version>
   </PropertyGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'net5.0'">
@@ -38,6 +38,10 @@
     <Content Include="wwwroot\lib\summernote\font\*.*" />
     <None Include="*.json" />
     <None Include="wwwroot\**\*.*" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="wwwroot\Notification.js" />
   </ItemGroup>
 
 </Project>
