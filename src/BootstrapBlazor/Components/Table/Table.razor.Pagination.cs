@@ -32,12 +32,26 @@ public partial class Table<TItem>
     [Parameter]
     public string LineNoText { get; set; } = "行号";
 
+    private bool PageItemsSourceChanged { get; set; }
+
+    private IEnumerable<int>? _pageItemsSource;
     /// <summary>
     /// 获得/设置 每页显示数据数量的外部数据源
     /// </summary>
     [Parameter]
     [NotNull]
-    public IEnumerable<int>? PageItemsSource { get; set; }
+    public IEnumerable<int>? PageItemsSource
+    {
+        get { return _pageItemsSource ?? new int[] { 20, 50, 100, 200, 500, 1000 }; }
+        set
+        {
+            if ((value == null && _pageItemsSource != null) || (value != null && !PageItemsSource.SequenceEqual(value)))
+            {
+                _pageItemsSource = value;
+                PageItemsSourceChanged = true;
+            }
+        }
+    }
 
     /// <summary>
     /// 异步查询回调方法

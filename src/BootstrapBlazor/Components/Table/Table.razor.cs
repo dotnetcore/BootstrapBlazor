@@ -725,10 +725,9 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
     {
         base.OnParametersSet();
 
-        // 初始化每页显示数量
-        PageItemsSource ??= new int[] { 20, 50, 100, 200, 500, 1000 };
-        if (IsPagination)
+        if (IsPagination && PageItemsSourceChanged)
         {
+            PageItemsSourceChanged = false;
             PageItems = PageItemsSource.FirstOrDefault();
         }
 
