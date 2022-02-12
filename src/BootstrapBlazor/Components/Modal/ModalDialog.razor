@@ -18,7 +18,7 @@
             }
             @if (ShowMaximizeButton)
             {
-                <Button Color="Color.None" class="btn-maximize" aria-label="Maximize" OnClick="@OnToggleMaximize" Icon="@MaximizeIcon"></Button>
+                <Button Color="Color.None" class="btn-maximize" aria-label="@MaximizeAriaLabel" OnClick="@OnToggleMaximize" Icon="@MaximizeIcon"></Button>
             }
             @if (ShowHeaderCloseButton)
             {

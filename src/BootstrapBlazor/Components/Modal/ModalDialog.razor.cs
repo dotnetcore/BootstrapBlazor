@@ -18,11 +18,13 @@ public partial class ModalDialog : IDisposable
     [NotNull]
     private JSInterop<ModalDialog>? Interop { get; set; }
 
+    private string MaximizeAriaLabel => MaximizeStatus ? "maximize" : "restore";
+
     /// <summary>
     /// 获得 弹窗组件样式
     /// </summary>
     private string? ClassName => CssBuilder.Default("modal-dialog")
-        .AddClass("modal-dialog-centered", IsCentered)
+        .AddClass("modal-dialog-centered", IsCentered && !IsDraggable)
         .AddClass($"modal-{Size.ToDescriptionString()}", Size != Size.None)
         .AddClass($"modal-{FullScreenSize.ToDescriptionString()}", FullScreenSize != FullScreenSize.None && !MaximizeStatus)
         .AddClass("modal-dialog-scrollable", IsScrolling)

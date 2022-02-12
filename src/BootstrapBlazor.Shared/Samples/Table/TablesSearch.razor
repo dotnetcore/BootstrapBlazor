@@ -96,7 +96,7 @@
            IsPagination="true" PageItemsSource="@PageItemsSource"
            IsStriped="true" IsBordered="true" SearchModel="@SearchModel" ShowSearch="true" ShowSearchText="false"
            ShowToolbar="true" IsMultipleSelect="true" ShowExtendButtons="true" SearchDialogIsDraggable="true"
-           AddModalTitle="增加测试数据窗口" EditModalTitle="编辑测试数据窗口"
+           AddModalTitle="增加测试数据窗口" EditModalTitle="编辑测试数据窗口" SearchDialogShowMaximizeButton="true"
            OnQueryAsync="@OnQueryAsync" OnAddAsync="@OnAddAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" Filterable="true" />
