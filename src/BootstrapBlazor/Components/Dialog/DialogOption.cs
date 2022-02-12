@@ -38,6 +38,11 @@ public class DialogOption
     public FullScreenSize FullScreenSize { get; set; } = FullScreenSize.None;
 
     /// <summary>
+    /// 获得/设置 是否显示最大化按钮 默认 false 不显示
+    /// </summary>
+    public bool ShowMaximizeButton { get; set; }
+
+    /// <summary>
     /// 获得/设置 是否垂直居中 默认为 true
     /// </summary>
     public bool IsCentered { get; set; } = true;
@@ -162,7 +167,8 @@ public class DialogOption
             [nameof(ShowPrintButtonInHeader)] = ShowPrintButtonInHeader,
             [nameof(IsKeyboard)] = IsKeyboard,
             [nameof(IsAutoCloseAfterSave)] = IsAutoCloseAfterSave,
-            [nameof(IsDraggable)] = IsDraggable
+            [nameof(IsDraggable)] = IsDraggable,
+            [nameof(ShowMaximizeButton)] = ShowMaximizeButton
         };
         if (!string.IsNullOrEmpty(PrintButtonText))
         {

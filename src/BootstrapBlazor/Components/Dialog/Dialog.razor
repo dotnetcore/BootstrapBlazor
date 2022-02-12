@@ -4,6 +4,6 @@
 <Modal AdditionalAttributes="@AdditionalAttributes" @ref="ModalContainer" IsKeyboard="@IsKeyboard">
     @foreach (var parameter in DialogParameters)
     {
-        @RenderDialog(parameter)
+        @Dialog.RenderDialog(parameter)
     }
 </Modal>

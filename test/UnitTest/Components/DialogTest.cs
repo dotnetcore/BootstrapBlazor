@@ -26,12 +26,16 @@ public class DialogTest : BootstrapBlazorTestBase
             HeaderTemplate = builder => builder.AddContent(0, "Test-HeaderTemplate"),
             FooterTemplate = builder => builder.AddContent(0, "Test-FooterTemplate"),
             Class = "test-class",
+            ShowMaximizeButton = true,
             OnCloseAsync = () =>
             {
                 closed = true;
                 return Task.CompletedTask;
             }
         }));
+
+        // 全屏按钮
+        Assert.Contains("btn-maximize", cut.Markup);
 
         // 代码覆盖模板单元测试
         Assert.Contains("Test-BodyTemplate", cut.Markup);
@@ -70,10 +74,22 @@ public class DialogTest : BootstrapBlazorTestBase
             Title = "Test-SearchDialogTitle",
             Model = new Foo(),
             ItemsPerRow = 2,
-            RowType = RowType.Inline
+            RowType = RowType.Inline,
+            LabelAlign = Alignment.Left,
+            ResetButtonText = null,
+            QueryButtonText = null,
+            Items = null
         };
         cut.InvokeAsync(() => dialog.ShowSearchDialog(option));
-        cut.InvokeAsync(() => modal.Instance.Close());
+
+        // 重置按钮委托为空 null
+        var button = cut.FindComponents<Button>().First(b => b.Instance.Text == "重置");
+        cut.InvokeAsync(() => button.Instance.OnClickWithoutRender!.Invoke());
+
+        // 搜索按钮委托为空
+        cut.InvokeAsync(() => dialog.ShowSearchDialog(option));
+        button = cut.FindComponents<Button>().First(b => b.Instance.Text == "查询");
+        cut.InvokeAsync(() => button.Instance.OnClickWithoutRender!.Invoke());
 
         // 重置按钮
         var reset = false;
@@ -83,10 +99,9 @@ public class DialogTest : BootstrapBlazorTestBase
             return Task.CompletedTask;
         };
         cut.InvokeAsync(() => dialog.ShowSearchDialog(option));
-        var button = cut.FindComponents<Button>().First(b => b.Instance.Text == "重置");
+        button = cut.FindComponents<Button>().First(b => b.Instance.Text == "重置");
         cut.InvokeAsync(() => button.Instance.OnClickWithoutRender!.Invoke());
         Assert.True(reset);
-        cut.InvokeAsync(() => modal.Instance.Close());
 
         // 搜索按钮
         var search = false;
@@ -108,7 +123,10 @@ public class DialogTest : BootstrapBlazorTestBase
         {
             Model = new Foo(),
             ItemsPerRow = 2,
-            RowType = RowType.Inline
+            RowType = RowType.Inline,
+            ItemChangedType = ItemChangedType.Add,
+            IsTracking = false,
+            LabelAlign = Alignment.Left
         };
         cut.InvokeAsync(() => dialog.ShowEditDialog(editOption));
         cut.InvokeAsync(() => modal.Instance.Close());
@@ -135,20 +153,12 @@ public class DialogTest : BootstrapBlazorTestBase
         };
 
         var model = new Foo() { Name = "Test" };
-#if NET5_0
-        var parameters = new Dictionary<string, object>()
-#else
         var parameters = new Dictionary<string, object?>()
-#endif
         {
             ["Field"] = "Name",
             ["FieldExpression"] = model.GenerateValueExpression()
         };
-#if NET5_0
-        var item = new EditorItem<string>();
-#else
         var item = new EditorItem<Foo, string>();
-#endif
         cut.InvokeAsync(() => item.SetParametersAsync(ParameterView.FromDictionary(parameters)));
         editOption.Items = new IEditorItem[]
         {
@@ -164,6 +174,10 @@ public class DialogTest : BootstrapBlazorTestBase
         editOption.DialogBodyTemplate = foo => builder => builder.AddContent(0, "test");
         cut.InvokeAsync(() => dialog.ShowEditDialog(editOption));
         form.Submit();
+
+        // Modal is Null
+        editOption.Model = null;
+        Assert.ThrowsAsync<InvalidOperationException>(() => dialog.ShowEditDialog(editOption));
         #endregion
 
         #region ShowModal

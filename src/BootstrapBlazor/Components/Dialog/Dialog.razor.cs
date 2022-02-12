@@ -126,7 +126,7 @@ public partial class Dialog : IDisposable
         return Task.CompletedTask;
     }
 
-    private RenderFragment RenderDialog(IEnumerable<KeyValuePair<string, object>> parameter) => builder =>
+    private static RenderFragment RenderDialog(IEnumerable<KeyValuePair<string, object>> parameter) => builder =>
     {
         builder.OpenComponent<ModalDialog>(0);
         builder.AddMultipleAttributes(1, parameter);

@@ -4,7 +4,7 @@
 
 @if (BodyTemplate != null)
 {
-    @BodyTemplate?.Invoke(Model)
+    @BodyTemplate.Invoke(Model)
     <div class="row mt-3">
         <div class="col-12">
             @RenderFooter

@@ -190,6 +190,19 @@ public sealed partial class Dialogs
         await DialogService.Show(op);
     }
 
+    private async Task OnMaximizeDialogClick()
+    {
+        await DialogService.Show(new DialogOption()
+        {
+            Title = $"可控制最大化弹窗",
+            ShowMaximizeButton = true,
+            BodyTemplate = builder =>
+            {
+                builder.AddContent(0, "点击 Header 中最大化按钮弹窗可全屏");
+            }
+        });
+    }
+
     private string? InputValue { get; set; }
 
     private IEnumerable<string> Emails { get; set; } = Array.Empty<string>();
@@ -380,6 +393,13 @@ public sealed partial class Dialogs
             Type = "string",
             ValueList = " — ",
             DefaultValue = "资源文件中设定值"
+        },
+        new AttributeItem() {
+            Name = nameof(DialogOption.ShowMaximizeButton),
+            Description = "是否显示最大化按钮",
+            Type = "boolean",
+            ValueList = "true|false",
+            DefaultValue = "false"
         }
     };
 }
