@@ -44,7 +44,7 @@
 </DemoBlock>
 
 <DemoBlock Title="自动生成搜索功能的表格" Introduction="当设置了 <code>ShowSearch</code> 时，如果未设置 <code>SearchTemplate</code> 编辑模板时，组件会尝试自动生成搜索条件 UI" Name="AutoGenerateSearch">
-    <p>列信息绑定时通过设置 <code>Searchable</code> 属性，设置搜索条件自动构建 UI</p>
+    <p>列信息绑定时通过设置 <code>Searchable</code> 属性，设置搜索条件自动构建 UI，可通过设置 <code>SearchDialogShowMaximizeButton</code> 使搜索弹窗显示 <b>最大化</b> 按钮</p>
     <Tips>
         <p>自动构建搜索弹窗时，由于各列设置 <code>Searchable</code> 此时组件会通过 <code>SearchText</code> 与设置 <code>Searchable</code> 值为 <code>true</code> 的各列自动构建搜索拉姆达表达式，通过 <code>QueryPageOptions</code> 的属性 <code>Searchs</code> 获得</p>
 
@@ -71,7 +71,7 @@
         </div>
     </GroupBox>
     <Table TItem="Foo"
-           IsPagination="true" PageItemsSource="@PageItemsSource"
+           IsPagination="true" PageItemsSource="@PageItemsSource" SearchDialogShowMaximizeButton="true"
            IsStriped="true" IsBordered="true" SearchModel="@SearchModel" ShowSearch="true"
            SearchMode="SearchModeValue" ShowResetButton="ShowResetButton" ShowSearchButton="ShowSearchButton"
            ShowToolbar="true" IsMultipleSelect="true" ShowExtendButtons="true" ShowSearchText="ShowSearchText"

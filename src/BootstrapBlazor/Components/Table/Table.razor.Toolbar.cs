@@ -487,10 +487,16 @@ public partial class Table<TItem>
     public Size EditDialogSize { get; set; } = Size.Large;
 
     /// <summary>
-    /// 获得/设置 编辑框是否可以拖拽
+    /// 获得/设置 编辑框是否可以拖拽 默认 false 不可以拖拽
     /// </summary>
     [Parameter]
-    public bool EditDialogDraggable { get; set; }
+    public bool EditDialogIsDraggable { get; set; }
+
+    /// <summary>
+    /// 获得/设置 编辑框是否显示最大化按钮 默认 false 不显示
+    /// </summary>
+    [Parameter]
+    public bool EditDialogShowMaximizeButton { get; set; }
 
     /// <summary>
     /// 弹出编辑对话框方法
@@ -514,7 +520,8 @@ public partial class Table<TItem>
             LabelAlign = EditDialogLabelAlign,
             ItemChangedType = changedType,
             Size = EditDialogSize,
-            IsDraggable = EditDialogDraggable,
+            IsDraggable = EditDialogIsDraggable,
+            ShowMaximizeButton = EditDialogShowMaximizeButton,
             OnCloseAsync = async () =>
             {
                 var d = DataService ?? InjectDataService;

@@ -24,7 +24,7 @@ public partial class ModalDialog : IDisposable
     private string? ClassName => CssBuilder.Default("modal-dialog")
         .AddClass("modal-dialog-centered", IsCentered)
         .AddClass($"modal-{Size.ToDescriptionString()}", Size != Size.None)
-        .AddClass($"modal-{FullScreenSize.ToDescriptionString()}", FullScreenSize != FullScreenSize.None || !MaximizeStatus)
+        .AddClass($"modal-{FullScreenSize.ToDescriptionString()}", FullScreenSize != FullScreenSize.None && !MaximizeStatus)
         .AddClass("modal-dialog-scrollable", IsScrolling)
         .AddClass("modal-fullscreen", MaximizeStatus)
         .AddClass("is-draggable", IsDraggable)

@@ -25,7 +25,7 @@ public enum FullScreenSize
     /// <summary>
     /// sm 小设置小于 576px
     /// </summary>
-    [Description("ssm-down")]
+    [Description("fullscreen-sm-down")]
     Small,
 
     /// <summary>

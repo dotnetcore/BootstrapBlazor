@@ -54,7 +54,7 @@
     <p>通过设置 <code>EditDialogDraggable="true"</code> 使编辑弹出框可拖拽</p>
     <Table TItem="Foo"
            IsPagination="true" PageItemsSource="@PageItemsSource"
-           IsStriped="true" IsBordered="true" IsMultipleSelect="true" EditDialogDraggable="true"
+           IsStriped="true" IsBordered="true" IsMultipleSelect="true" EditDialogIsDraggable="true"
            ShowToolbar="true" ShowExtendButtons="true" ShowSkeleton="true" IsExtendButtonsInRowHeader="true"
            OnQueryAsync="@OnQueryAsync"
            OnAddAsync="@OnAddAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync">
@@ -77,7 +77,7 @@
 
     <Table TItem="Foo"
            IsPagination="true" PageItemsSource="@PageItemsSource"
-           IsStriped="true" IsBordered="true" IsMultipleSelect="true" IsFrontExtendButtons="true"
+           IsStriped="true" IsBordered="true" IsMultipleSelect="true" IsExtendButtonsInRowHeader="true"
            ShowToolbar="true" ShowExtendButtons="true" ShowSkeleton="true"
            OnQueryAsync="@OnQueryAsync"
            OnAddAsync="@OnAddAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync">
@@ -175,9 +175,10 @@
     <p id="anchor7">
         <b>自定义数据服务</b>
         <div class="mt-1">开启使用注入数据服务后，可通过设置 <code>DataServices</code> 参数对组件进行单独设置，如未设置内部使用注入服务提供的实例</div>
+        <div class="mt-1">本例中通过设置 <code>EditDialogShowMaximizeButton</code> 参数，使编辑弹窗中显示 <b>最大化</b> 按钮</div>
     </p>
     <Pre class="no-highlight mt-3">services.AddTableDemoDataService();</Pre>
-    <Table TItem="Foo"
+    <Table TItem="Foo" EditDialogShowMaximizeButton="true"
            IsPagination="true" PageItemsSource="@PageItemsSource" DataService="@CustomerDataService"
            IsStriped="true" IsBordered="true" IsMultipleSelect="true" AutoGenerateColumns="true"
            ShowToolbar="true" ShowExtendButtons="true" ShowSkeleton="true">

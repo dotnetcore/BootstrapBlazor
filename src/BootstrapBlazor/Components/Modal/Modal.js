@@ -11,6 +11,12 @@
             var dialogHeight = 0;
             var pt = { top: 0, left: 0 };
             if ($el.hasClass('is-draggable')) {
+                if ($el.hasClass('modal-dialog-centered')) {
+                    $el.css({
+                        "marginTop": "calc(100vh - 50%)"
+                    });
+                    $el.removeClass("modal-dialog-centered");
+                }
                 $el.find('.modal-header').drag(
                     function (e) {
                         originX = e.clientX || e.touches[0].clientX;
@@ -24,9 +30,7 @@
                         pt.top = parseInt($el.css('marginTop').replace("px", ""));
                         pt.left = parseInt($el.css('marginLeft').replace("px", ""));
 
-                        // 移除 Center 样式
                         $el.css({ "marginLeft": pt.left, "marginTop": pt.top });
-                        $el.removeClass('modal-dialog-centered');
 
                         // 固定大小
                         $el.css("width", dialogWidth);

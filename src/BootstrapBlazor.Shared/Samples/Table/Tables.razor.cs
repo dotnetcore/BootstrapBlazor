@@ -655,8 +655,15 @@ public partial class Tables
             DefaultValue = " — "
         },
         new() {
-            Name = "EditDialogDraggable",
+            Name = nameof(Table<Foo>.EditDialogIsDraggable),
             Description = "编辑弹窗是否可拖拽",
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "false"
+        },
+        new() {
+            Name = nameof(Table<Foo>.EditDialogShowMaximizeButton),
+            Description = "编辑弹窗是否显示最大化按钮",
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
@@ -669,8 +676,15 @@ public partial class Tables
             DefaultValue = "Large"
         },
         new() {
-            Name = "SearchDialogIsDraggable",
+            Name = nameof(Table<Foo>.SearchDialogIsDraggable),
             Description = "搜索弹窗是否可拖拽",
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "false"
+        },
+        new() {
+            Name = nameof(Table<Foo>.SearchDialogShowMaximizeButton),
+            Description = "搜索弹窗是否显示最大化按钮",
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
