@@ -53,6 +53,29 @@ public class ModalDialogTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void ShowMaximizeButton_Ok()
+    {
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Modal>(pb =>
+            {
+                pb.AddChildContent<ModalDialog>(pb =>
+                {
+                    pb.Add(d => d.ShowMaximizeButton, true);
+                });
+            });
+        });
+        Assert.Contains("btn-maximize", cut.Markup);
+
+        var button = cut.Find(".btn-maximize");
+        button.Click();
+        Assert.Contains("modal-fullscreen", cut.Markup);
+
+        button.Click();
+        Assert.DoesNotContain("modal-fullscreen", cut.Markup);
+    }
+
+    [Fact]
     public void HeaderTemplate_Ok()
     {
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>

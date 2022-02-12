@@ -48,6 +48,9 @@ public sealed partial class Modals
     [NotNull]
     private Modal? DragModal { get; set; }
 
+    [NotNull]
+    private Modal? MaximizeModal { get; set; }
+
     private bool IsKeyboard { get; set; }
 
     private void OnClickKeyboard()
@@ -166,5 +169,12 @@ public sealed partial class Modals
             ValueList = " — ",
             DefaultValue = " 未设置 "
         },
+        new AttributeItem() {
+            Name = nameof(ModalDialog.ShowMaximizeButton),
+            Description = "是否显示弹窗最大化按钮",
+            Type = "boolean",
+            ValueList = "true|false",
+            DefaultValue = "false"
+        }
     };
 }

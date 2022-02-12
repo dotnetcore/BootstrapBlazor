@@ -28,13 +28,10 @@ public class ModalTest : BootstrapBlazorTestBase
     {
         var cut = Context.RenderComponent<Modal>(pb =>
         {
-            pb.AddChildContent<ModalDialog>(pb =>
-            {
-
-            });
+            pb.AddChildContent<ModalDialog>();
         });
         cut.InvokeAsync(async () => await cut.Instance.Toggle());
-        Assert.Contains("<div class=\"modal-dialog modal-lg\" role=\"document\"", cut.Markup);
+        Assert.Contains("modal-dialog", cut.Markup);
     }
 
     [Fact]

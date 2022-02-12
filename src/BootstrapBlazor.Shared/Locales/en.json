@@ -2801,10 +2801,10 @@
     "SoundText": "The audio URL to play when the notification",
     "CheckPermissionResultSuccess": "Check permission success",
     "NotificationResultSuccess": "Call Notification success",
-    "BasicUsageTips": "Uses the static class <code>BrowserNotification</code> to call the <code>Dispatch</code> method.",
-    "ShowNotificationCallbackText": "Show notification callback ",
-    "GetPermissionCallbackText": "Get permission callback ",
-    "OnClickText": "Click notification callback ",
+    "BasicUsageTips": "Uses the static class <code>BrowserNotification</code> to call the <code>Dispatch</code> method",
+    "ShowNotificationCallbackText": "Show notification callback",
+    "GetPermissionCallbackText": "Get permission callback",
+    "OnClickText": "Click notification callback method name",
     "TitleSampleText": "You have a new logistics notification",
     "MessageSampleText": "Your package has arrived on Panama South Road, and there are only 3 stops left for distribution."
   }

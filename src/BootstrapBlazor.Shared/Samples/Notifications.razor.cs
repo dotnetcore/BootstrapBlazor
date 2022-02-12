@@ -31,7 +31,10 @@ public partial class Notifications : IDisposable
 
     private bool Permission { get; set; }
 
-    private NotificationItem Model { get; set; } = new NotificationItem();
+    private NotificationItem Model { get; set; } = new NotificationItem()
+    {
+        Icon = "_content/BootstrapBlazor.Shared/images/Argo-C.png"
+    };
 
     /// <summary>
     /// OnInitialized 方法
@@ -41,7 +44,6 @@ public partial class Notifications : IDisposable
         base.OnInitialized();
         Model.Title ??= Localizer["TitleSampleText"];
         Model.Message ??= Localizer["MessageSampleText"];
-        Model.Icon ??= "_content/BootstrapBlazor.Shared/images/Argo-C.png";
         Model.OnClick ??= nameof(OnClickNotificationCallback);
     }
 

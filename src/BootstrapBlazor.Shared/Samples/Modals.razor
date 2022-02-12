@@ -194,4 +194,15 @@
     </Modal>
 </DemoBlock>
 
+<DemoBlock Title="最大化按钮" Introduction="通过设置 <code>ShowMaximinzeButton</code> 弹窗显示最大化按钮" Name="Maximize">
+    <Button OnClick="@(async e => await MaximizeModal.Toggle())">弹窗</Button>
+    <Modal @ref="MaximizeModal">
+        <ModalDialog Title="可最大化弹窗" ShowMaximizeButton="true">
+            <BodyTemplate>
+                <div>我是弹窗内正文</div>
+            </BodyTemplate>
+        </ModalDialog>
+    </Modal>
+</DemoBlock>
+
 <AttributeTable Items="@GetAttributes()" />

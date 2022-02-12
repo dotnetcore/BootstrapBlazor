@@ -24,8 +24,9 @@ public partial class ModalDialog : IDisposable
     private string? ClassName => CssBuilder.Default("modal-dialog")
         .AddClass("modal-dialog-centered", IsCentered)
         .AddClass($"modal-{Size.ToDescriptionString()}", Size != Size.None)
-        .AddClass($"modal-{FullScreenSize.ToDescriptionString()}", FullScreenSize != FullScreenSize.None)
+        .AddClass($"modal-{FullScreenSize.ToDescriptionString()}", FullScreenSize != FullScreenSize.None || !MaximizeStatus)
         .AddClass("modal-dialog-scrollable", IsScrolling)
+        .AddClass("modal-fullscreen", MaximizeStatus)
         .AddClass("is-draggable", IsDraggable)
         .AddClass("d-none", !IsShown)
         .AddClass(Class, !string.IsNullOrEmpty(Class))
@@ -77,6 +78,12 @@ public partial class ModalDialog : IDisposable
     /// </summary>
     [Parameter]
     public bool IsDraggable { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否显示最大化按钮
+    /// </summary>
+    [Parameter]
+    public bool ShowMaximizeButton { get; set; }
 
     /// <summary>
     /// 获得/设置 是否显示关闭按钮 默认为 true 显示
@@ -232,6 +239,16 @@ public partial class ModalDialog : IDisposable
         {
             await OnClose();
         }
+    }
+
+    private bool MaximizeStatus { get; set; }
+
+    private string MaximizeIcon { get; set; } = "fa fa-window-maximize";
+
+    private void OnToggleMaximize()
+    {
+        MaximizeStatus = !MaximizeStatus;
+        MaximizeIcon = MaximizeStatus ? "fa fa-window-restore" : "fa fa-window-maximize";
     }
 
     private async Task OnClickSave()

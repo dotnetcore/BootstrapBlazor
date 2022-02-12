@@ -25,6 +25,10 @@
     min-height: calc(100vh);
 }
 
+.modal-header .btn-maximize {
+    color: #6c757d;
+}
+
 @media screen {
     .bb-printview {
         display: none;

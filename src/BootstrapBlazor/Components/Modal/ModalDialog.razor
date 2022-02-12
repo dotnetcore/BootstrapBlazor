@@ -16,6 +16,10 @@
             {
                 <PrintButton Color="Color.Primary" class="btn-print" Text="@PrintButtonText" />
             }
+            @if (ShowMaximizeButton)
+            {
+                <Button Color="Color.None" class="btn-maximize" aria-label="Maximize" OnClick="@OnToggleMaximize" Icon="@MaximizeIcon"></Button>
+            }
             @if (ShowHeaderCloseButton)
             {
                 <Button Color="Color.None" class="btn-close" aria-label="Close" OnClickWithoutRender="@OnClickClose"></Button>
