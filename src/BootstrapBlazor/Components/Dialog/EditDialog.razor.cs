@@ -70,11 +70,11 @@ public partial class EditDialog<TModel>
     private IJSRuntime? JSRuntime { get; set; }
 
     /// <summary>
-    /// OnInitialized 方法
+    /// OnParametersSet 方法
     /// </summary>
-    protected override void OnInitialized()
+    protected override void OnParametersSet()
     {
-        base.OnInitialized();
+        base.OnParametersSet();
 
         CloseButtonText ??= Localizer[nameof(CloseButtonText)];
         SaveButtonText ??= Localizer[nameof(SaveButtonText)];
