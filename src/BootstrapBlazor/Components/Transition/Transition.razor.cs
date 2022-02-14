@@ -10,7 +10,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 
 /// </summary>
-public partial class Transition : BootstrapComponentBase, IDisposable
+public partial class Transition : IDisposable
 {
     private ElementReference TransitionElement { get; set; }
 
@@ -91,7 +91,11 @@ public partial class Transition : BootstrapComponentBase, IDisposable
     {
         if (disposing)
         {
-            Interop?.Dispose();
+            if (Interop != null)
+            {
+                Interop.Dispose();
+                Interop = null;
+            }
         }
     }
 

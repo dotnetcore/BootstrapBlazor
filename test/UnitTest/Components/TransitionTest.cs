@@ -3,33 +3,27 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using BootstrapBlazor;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
-using System.Reflection;
 
 namespace UnitTest.Components;
 
-public class TransitionTest : BootstrapBlazorTestBase
+public class TransitionTest : TestBase
 {
-
     [Fact]
     public void ShowAnimate_Ok()
     {
-        var cut = Context.RenderComponent<Transition>(builder => builder.Add(s => s.Show, true));
-        Assert.Contains("animate__animated animate__fadeIn", cut.Markup);
-    }
-    [Fact]
-    public void HideAnimate_Ok()
-    {
-        var cut = Context.RenderComponent<Transition>(builder => builder.Add(s => s.Show, false));
-        Assert.Contains("\"animate__animated\"", cut.Markup);
+        var cut = Context.RenderComponent<Transition>();
+        Assert.Contains("animate__animated", cut.Markup);
+        Assert.Contains("animate__fadeIn", cut.Markup);
+
+        cut.SetParametersAndRender(builder => builder.Add(s => s.Show, false));
+        Assert.DoesNotContain("animate__fadeIn", cut.Markup);
     }
 
     [Fact]
     public void TransitionType_Ok()
     {
         var cut = Context.RenderComponent<Transition>(builder => builder.Add(s => s.TransitionType, TransitionType.FadeOut));
-        Assert.Contains("\"animate__animated animate__fadeOut\"", cut.Markup);
+        Assert.Contains("animate__animated animate__fadeOut", cut.Markup);
     }
 
     [Fact]
@@ -58,12 +52,10 @@ public class TransitionTest : BootstrapBlazorTestBase
     public void OnTransitionEnd_Ok()
     {
         var transitionEnd = false;
-
         var cut = Context.RenderComponent<Transition>(builder =>
         {
-            //TODO 设置Duration测试条件是否多余?
-            //builder.Add(s => s.Duration, 1000);
-            builder.Add(a => a.OnTransitionEnd, ()=> {
+            builder.Add(a => a.OnTransitionEnd, () =>
+            {
                 transitionEnd = true;
                 return Task.FromResult(true);
             });
@@ -72,18 +64,4 @@ public class TransitionTest : BootstrapBlazorTestBase
         cut.InvokeAsync(() => cut.Instance.TransitionEndAsync());
         Assert.True(transitionEnd);
     }
-
-    [Fact]
-    public void Dispose_Ok()
-    {
-
-        var cut = Context.RenderComponent<Transition>();
-        cut.InvokeAsync(() => cut.Instance.Dispose());
-        Type type = cut.Instance.GetType();
-        FieldInfo fieldInfo = type.GetField("Interop", BindingFlags.NonPublic);
-        //object value = fieldInfo.GetValue(null);
-        //Assert.True(cut.Instance.Interop._objRef==null);
-        Assert.True(1==1);
-    }
-
 }
