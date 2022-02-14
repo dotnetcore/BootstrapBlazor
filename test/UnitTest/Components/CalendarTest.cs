@@ -41,12 +41,10 @@ public class CalendarTest : BootstrapBlazorTestBase
     public void ButtonClick_Ok()
     {
         var cut = Context.RenderComponent<Calendar>();
-
         var buttons = cut.FindAll(".calendar-button-group button");
 
         // btn 上一年
         buttons[0].Click();
-
         Assert.Contains($"{DateTime.Now.Year - 1} 年 {DateTime.Now.Month} 月", cut.Find(".calendar-title").ToMarkup());
 
         // btn 下一年

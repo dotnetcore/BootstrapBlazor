@@ -36,7 +36,6 @@ public class TransitionTest : TestBase
     [Fact]
     public void ChildContent_Ok()
     {
-
         var cut = Context.RenderComponent<Transition>(builder => builder.Add(a => a.ChildContent, CreateComponent()));
         Assert.Contains("test", cut.Markup);
 

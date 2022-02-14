@@ -12,7 +12,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 
 /// </summary>
-public sealed partial class InputUpload<TValue>
+public partial class InputUpload<TValue>
 {
     private string? InputValueClassString => CssBuilder.Default("form-control")
         .AddClass(CssClass).AddClass(ValidCss)

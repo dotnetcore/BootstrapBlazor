@@ -74,7 +74,7 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
     /// </summary>
     /// <param name="item"></param>
     /// <returns></returns>
-    protected static string? GetFileName(UploadFile? item = null) => item?.OriginFileName ?? item?.FileName;
+    protected string? GetFileName(UploadFile? item = null) => item?.OriginFileName ?? item?.FileName ?? Value?.ToString();
 
     /// <summary>
     /// 触发客户端验证方法
