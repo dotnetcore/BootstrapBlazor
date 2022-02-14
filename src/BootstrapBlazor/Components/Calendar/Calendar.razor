@@ -1,5 +1,5 @@
 ﻿@namespace BootstrapBlazor.Components
-@inherits CalendarBase
+@inherits BootstrapComponentBase
 
 <div class="calendar">
     @if (ViewModel == CalendarViewModel.Month)
@@ -108,11 +108,11 @@
         </div>
     </td>;
 
-RenderFragment<int> RenderWeekHeader => index =>
-@<th>
-    <div class="@GetWeekDayClassString(index)">
-        <div><span class="d-none d-sm-inline-block">@WeekHeaderText</span>@WeekLists.ElementAtOrDefault(index)</div>
-        <div>@GetWeekDayString(index)</div>
-    </div>
-</th>;
+    RenderFragment<int> RenderWeekHeader => index =>
+    @<th>
+        <div class="@GetWeekDayClassString(index)">
+            <div><span class="d-none d-sm-inline-block">@WeekHeaderText</span>@WeekLists.ElementAtOrDefault(index)</div>
+            <div>@GetWeekDayString(index)</div>
+        </div>
+    </th>;
 }
