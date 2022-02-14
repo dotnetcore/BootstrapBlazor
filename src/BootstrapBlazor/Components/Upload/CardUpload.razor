@@ -23,11 +23,11 @@
                 </div>
                 <div class="upload-item-size"><span>@GetFileName(item)</span> (@item.Size.ToFileSizeString())</div>
                 <div class="upload-item-actions">
-                    <button type="button" class="btn btn-sm btn-outline-secondary" disabled="@GetDiabledString(item)">
+                    <button type="button" class="btn btn-sm btn-outline-secondary" disabled="@GetDiabledString(item)" @onclick="() => OnClickZoom(item)">
                         <i class="fa fa-search-plus"></i>
                     </button>
                     <DynamicElement TagName="button" type="button" class="btn btn-sm btn-outline-danger" disabled="@GetDeleteButtonDiabledString(item)"
-                                    TriggerClick="@(!IsDisabled)" OnClick="@(() => OnCardFileDelete(item))">
+                                TriggerClick="@(!IsDisabled)" OnClick="@(() => OnCardFileDelete(item))">
                         <i class="fa fa-trash-o"></i>
                     </DynamicElement>
                 </div>

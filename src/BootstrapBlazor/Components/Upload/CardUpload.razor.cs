@@ -2,12 +2,14 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using Microsoft.AspNetCore.Components;
+
 namespace BootstrapBlazor.Components;
 
 /// <summary>
 /// 
 /// </summary>
-public sealed partial class CardUpload<TValue>
+public partial class CardUpload<TValue>
 {
     private string? BodyClassString => CssBuilder.Default("upload-body is-card")
         .AddClass("is-single", IsSingle)
@@ -28,9 +30,23 @@ public sealed partial class CardUpload<TValue>
                 _ => false
             };
 
+    /// <summary>
+    /// 获得/设置 点击 Zoom 图标回调方法
+    /// </summary>
+    [Parameter]
+    public Func<UploadFile, Task>? OnZoomAsync { get; set; }
+
     private async Task OnCardFileDelete(UploadFile item)
     {
         await OnFileDelete(item);
         StateHasChanged();
+    }
+
+    private async Task OnClickZoom(UploadFile item)
+    {
+        if (OnZoomAsync != null)
+        {
+            await OnZoomAsync(item);
+        }
     }
 }
