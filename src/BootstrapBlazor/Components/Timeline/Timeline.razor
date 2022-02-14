@@ -1,8 +1,8 @@
 ﻿@namespace BootstrapBlazor.Components
-@inherits TimelineBase
+@inherits BootstrapComponentBase
 
 <ul @attributes="AdditionalAttributes" class="@ClassString">
-    @foreach (var item in Items ?? new TimelineItem[0])
+    @foreach (var item in Items)
     {
         <li class="time-line-item">
             <div class="time-line-item-tail"></div>

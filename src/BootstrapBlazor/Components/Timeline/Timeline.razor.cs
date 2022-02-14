@@ -9,7 +9,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 时间线组件基类
 /// </summary>
-public abstract class TimelineBase : BootstrapComponentBase
+public partial class Timeline
 {
     /// <summary>
     /// 获得 Timeline 样式
@@ -46,25 +46,17 @@ public abstract class TimelineBase : BootstrapComponentBase
     public bool IsLeft { get; set; }
 
     /// <summary>
-    /// OnInitializedAsync 方法
-    /// </summary>
-    /// <returns></returns>
-    protected override async Task OnInitializedAsync()
-    {
-        await base.OnInitializedAsync();
-
-        if (Items == null)
-        {
-            Items = Enumerable.Empty<TimelineItem>();
-        }
-    }
-
-    /// <summary>
     /// OnParametersSet 方法
     /// </summary>
     protected override void OnParametersSet()
     {
         base.OnParametersSet();
+
+        if (Items == null)
+        {
+            Items = Enumerable.Empty<TimelineItem>();
+        }
+
         if (IsReverse)
         {
             var arr = Items.Reverse();
