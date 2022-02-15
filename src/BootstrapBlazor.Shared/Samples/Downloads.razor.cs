@@ -85,4 +85,33 @@ public partial class Downloads
             return ms;
         }
     });
+
+    private Task DownloadPhysicalFileAsync() => Task.Run(async () =>
+    {
+        try
+        {
+            var filePath = Path.Combine(SiteOptions.Value.WebRootPath, "favicon.png");
+            await downloadService.DownloadAsync("favicon.png", filePath);
+        }
+        catch (FileNotFoundException msg)
+        {
+
+            await ToastService.Error("下载", msg.Message);
+        }
+
+    });
+
+    private Task DownloadFolderAsync() => Task.Run(async () =>
+    {
+        try
+        {
+            await downloadService.DownloadFolderAsync("test.zip", SiteOptions.Value.WebRootPath);
+        }
+        catch (FileNotFoundException msg)
+        {
+
+            await ToastService.Error("下载", msg.Message);
+        }
+
+    });
 }

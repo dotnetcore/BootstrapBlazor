@@ -3,6 +3,7 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.AspNetCore.Components;
+using System.IO.Compression;
 
 namespace BootstrapBlazor.Components;
 
@@ -62,50 +63,71 @@ public class DownloadService
     /// <summary>
     /// 下载文件方法
     /// </summary>
-    /// <param name="fileName">文件名</param>
+    /// <param name="downloadFileName">文件名</param>
     /// <param name="stream">文件流</param>
     /// <param name="mime"></param>
     /// <returns></returns>
-    public async Task DownloadAsync(string fileName, Stream stream, string mime = "application/octet-stream")
+    public async Task DownloadAsync(string downloadFileName, Stream stream, string mime = "application/octet-stream")
     {
         var bytes = new byte[stream.Length];
         stream.Read(bytes, 0, bytes.Length);
         stream.Seek(0, SeekOrigin.Begin);
-        await DownloadAsync(new DownloadOption() { FileName = fileName, FileContent = bytes, Mime = mime });
+        await DownloadAsync(new DownloadOption() { FileName = downloadFileName, FileContent = bytes, Mime = mime });
     }
 
     /// <summary>
     /// 下载文件方法
     /// </summary>
-    /// <param name="fileName">文件名</param>
+    /// <param name="downloadFileName">文件名</param>
+    /// <param name="physicalFilePath">文件物理路径</param>
+    /// <param name="mime"></param>
+    /// <returns></returns>
+    public async Task DownloadAsync(string downloadFileName, string physicalFilePath, string mime = "application/octet-stream")
+    {
+        if (!File.Exists(physicalFilePath))
+        {
+            throw new FileNotFoundException($"Couldn't be not found {physicalFilePath}", physicalFilePath);
+        }
+
+        using var stream = new FileStream(physicalFilePath, FileMode.Open, FileAccess.Read, FileShare.Read);
+        var bytes = new byte[stream.Length];
+        stream.Read(bytes, 0, bytes.Length);
+        stream.Seek(0, SeekOrigin.Begin);
+        await DownloadAsync(new DownloadOption() { FileName = downloadFileName, FileContent = bytes, Mime = mime });
+    }
+
+    /// <summary>
+    /// 下载文件方法
+    /// </summary>
+    /// <param name="downloadFileName">文件名</param>
     /// <param name="fileContent">文件内容 byte[] 数组</param>
     /// <param name="mime"></param>
     /// <returns></returns>
-    public Task DownloadAsync(string fileName, byte[] fileContent, string mime = "application/octet-stream") => DownloadAsync(new DownloadOption() { FileName = fileName, FileContent = fileContent, Mime = mime });
+    public Task DownloadAsync(string downloadFileName, byte[] fileContent, string mime = "application/octet-stream") => DownloadAsync(new DownloadOption() { FileName = downloadFileName, FileContent = fileContent, Mime = mime });
 
     /// <summary>
     /// 获取文件连接方法
     /// </summary>
-    /// <param name="fileName">文件名</param>
+    /// <param name="downloadFileName">文件名</param>
     /// <param name="stream">文件流</param>
     /// <param name="mime"></param>
     /// <returns></returns>
-    public async Task<string> CreateUrlAsync(string fileName, Stream stream, string mime = "application/octet-stream")
+    public async Task<string> CreateUrlAsync(string downloadFileName, Stream stream, string mime = "application/octet-stream")
     {
         var bytes = new byte[stream.Length];
         stream.Read(bytes, 0, bytes.Length);
         stream.Seek(0, SeekOrigin.Begin);
-        return await CreateUrlAsync(new DownloadOption() { FileName = fileName, FileContent = bytes, Mime = mime });
+        return await CreateUrlAsync(new DownloadOption() { FileName = downloadFileName, FileContent = bytes, Mime = mime });
     }
 
     /// <summary>
     /// 获取文件连接方法
     /// </summary>
-    /// <param name="fileName">文件名</param>
+    /// <param name="downloadFileName">文件名</param>
     /// <param name="fileContent">文件内容 byte[] 数组</param>
     /// <param name="mime"></param>
     /// <returns></returns>
-    public Task<string> CreateUrlAsync(string fileName, byte[] fileContent, string mime = "application/octet-stream") => CreateUrlAsync(new DownloadOption() { FileName = fileName, FileContent = fileContent, Mime = mime });
+    public Task<string> CreateUrlAsync(string downloadFileName, byte[] fileContent, string mime = "application/octet-stream") => CreateUrlAsync(new DownloadOption() { FileName = downloadFileName, FileContent = fileContent, Mime = mime });
 
     /// <summary>
     /// 下载文件方法
