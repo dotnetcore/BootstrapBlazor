@@ -41,10 +41,10 @@ public partial class StringFilter
 
         Items = new SelectedItem[]
         {
-            new SelectedItem("Contains", Localizer["Contains"]?.Value ?? "Contains"),
-            new SelectedItem("Equal", Localizer["Equal"]?.Value ?? "Equal"),
-            new SelectedItem("NotEqual", Localizer["NotEqual"]?.Value ?? "NotEqual"),
-            new SelectedItem("NotContains", Localizer["NotContains"]?.Value ?? "NotContains")
+            new SelectedItem("Contains", Localizer["Contains"].Value),
+            new SelectedItem("Equal", Localizer["Equal"].Value),
+            new SelectedItem("NotEqual", Localizer["NotEqual"].Value),
+            new SelectedItem("NotContains", Localizer["NotContains"].Value)
         };
     }
 
@@ -69,19 +69,26 @@ public partial class StringFilter
     public override IEnumerable<FilterKeyValueAction> GetFilterConditions()
     {
         var filters = new List<FilterKeyValueAction>();
-        if (!string.IsNullOrEmpty(Value1)) filters.Add(new FilterKeyValueAction()
+        if (!string.IsNullOrEmpty(Value1))
         {
-            FieldKey = FieldKey,
-            FieldValue = Value1,
-            FilterAction = Action1
-        });
-        if (Count > 0 && !string.IsNullOrEmpty(Value2)) filters.Add(new FilterKeyValueAction()
+            filters.Add(new FilterKeyValueAction()
+            {
+                FieldKey = FieldKey,
+                FieldValue = Value1,
+                FilterAction = Action1
+            });
+        }
+
+        if (Count > 0 && !string.IsNullOrEmpty(Value2))
         {
-            FieldKey = FieldKey,
-            FieldValue = Value2,
-            FilterAction = Action2,
-            FilterLogic = Logic
-        });
+            filters.Add(new FilterKeyValueAction()
+            {
+                FieldKey = FieldKey,
+                FieldValue = Value2,
+                FilterAction = Action2,
+                FilterLogic = Logic
+            });
+        }
         return filters;
     }
 }
