@@ -18,6 +18,7 @@ public class TableDateTimeFilterTest : BootstrapBlazorTestBase
         var filter = cut.Instance;
         cut.InvokeAsync(() => filter.Reset());
     }
+
     [Fact]
     public void GetFilterConditions_Ok()
     {

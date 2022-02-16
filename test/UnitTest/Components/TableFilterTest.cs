@@ -108,8 +108,8 @@ public class TableFilterTest : BootstrapBlazorTestBase
             var column = new TableColumn<Foo, string>();
             column.SetParametersAsync(ParameterView.FromDictionary(new Dictionary<string, object?>()
             {
-                ["Field"] = foo.Name,
-                ["FieldExpression"] = foo.GenerateValueExpression()
+                [nameof(TableColumn<Foo, string>.Field)] = foo.Name,
+                [nameof(TableColumn<Foo, string>.FieldExpression)] = foo.GenerateValueExpression(),
             }));
             pb.Add(a => a.IsHeaderRow, true);
             pb.Add(a => a.Column, column);
