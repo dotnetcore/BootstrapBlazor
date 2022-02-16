@@ -2403,6 +2403,26 @@
     "OnSearch": "点击搜索时回调此委托",
     "OnClear": "点击清空时回调此委托"
   },
+  "BootstrapBlazor.Shared.Samples.Titles": {
+    "Title": "Title 网站标题",
+    "SubTitle": "用于设置网页页面标题",
+    "Tips": "<p><code>NET6.0</code> 可使用微软 <code>PageTitle</code> 组件，用于设置网页标题，本组建额外提供了以服务的形式设置当前网页标题</p>",
+    "BasicUsageTitle": "基本用法",
+    "BasicUsageIntro": "网页中添加 <code>Title</code> 组件并设置 <code>Text</code> 属性即可",
+    "BasicUsageTips": "<code>Title</code> 组件设置 <code>Text</code> 后为普通组件使用，未设置 <code>Text</code> 属性时供服务调用",
+    "BasicUsageP": "<b>设置 <code>Text</code> 属性</b>",
+    "BasicUsageTitleText": "我是标题",
+    "BasicUsageP1": "测试网页",
+    "AdvanceTitle": "高级用法",
+    "AdvanceIntro": "网页中无需添加 <code>Title</code> 组件，调用注入服务 <code>TitleService</code>",
+    "AdvanceB": "特别注意：",
+    "AdvanceP": "使用此种方法时请在 <code>App</code> 或者 <code>MainLayout</code> 或者 <code>Page</code> 中添加 <b>未设置 <code>Text</code> 属性</b> 的 <code>Title</code> 组件",
+    "FuncationParmeter": "我是标题",
+    "StaticTitle": "静态方法",
+    "StaticIntro": "直接调用 <code>TitleService</code> 静态方法",
+    "StaticB": "特别注意：",
+    "StaticDiv": "使用此种方法时请在 <code>App</code> 或者 <code>MainLayout</code> 或者 <code>Page</code> 中添加 <b>未设置 <code>Text</code> 属性</b> 的 <code>Title</code> 组件"
+  },
   "BootstrapBlazor.Shared.Components.DemoBlock": {
     "Title": "未设置",
     "SubTitle": "示例"

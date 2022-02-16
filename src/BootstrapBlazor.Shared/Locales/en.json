@@ -2397,6 +2397,26 @@
     "OnSearch": "Call back this delegate when you click Search",
     "OnClear": "Click Recall this order when emptying"
   },
+  "BootstrapBlazor.Shared.Samples.Titles": {
+    "Title": "Title",
+    "SubTitle": "Used to set page title",
+    "Tips": "<p><code>NET6. 0</code> you can use the Microsoft <code> PageTitle </code> component to set the page title. This component additionally provides setting the current page title in the form of service</p>",
+    "BasicUsageTitle": "BasicUsage",
+    "BasicUsageIntro": "Add the <code> Title </code> component to the web page and set the <code> text </code> attribute",
+    "BasicUsageTips": "The <code> Title </code> component is used by ordinary components after setting <code> text </code>, and can be called by the service when the <code> text </code> attribute is not set",
+    "BasicUsageP": "<b>Set the <code>Text</code> property</b>",
+    "BasicUsageTitleText": "I am the title",
+    "BasicUsageP1": "Test page",
+    "AdvanceTitle": "Advanced usage",
+    "AdvanceIntro": "There is no need to add the <code>Title</code> component to the webpage, and the injection service <code>TitleService</code> is called",
+    "AdvanceB": "Pay attention:",
+    "AdvanceP": "When using this method, please add <b>not set <code>Text</code> attribute in <code>App</code> or <code>MainLayout</code> or <code>Page</code> The <code>Title</code> component of </b>",
+    "FuncationParmeter": "I am the title",
+    "StaticTitle": "Static method",
+    "StaticIntro": "Call the <code>TitleService</code> static method directly",
+    "StaticB": "Pay attention",
+    "StaticDiv": "When using this method, please add <b>not set <code>Text</code> attribute in <code>App</code> or <code>MainLayout</code> or <code>Page</code>The <code>Title</code> component of </b>"
+  },
   "BootstrapBlazor.Shared.Components.DemoBlock": {
     "Title": "",
     "SubTitle": "Demo"
