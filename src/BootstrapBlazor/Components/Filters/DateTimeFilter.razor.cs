@@ -32,17 +32,17 @@ public partial class DateTimeFilter
     /// </summary>
     protected override void OnInitialized()
     {
+        base.OnInitialized();
+
         Items = new SelectedItem[]
         {
-                new SelectedItem("GreaterThanOrEqual", Localizer["GreaterThanOrEqual"]?.Value ?? "GreaterThanOrEqual"),
-                new SelectedItem("LessThanOrEqual", Localizer["LessThanOrEqual"]?.Value ?? "LessThanOrEqual"),
-                new SelectedItem("GreaterThan", Localizer["GreaterThan"]?.Value ?? "GreaterThan"),
-                new SelectedItem("LessThan", Localizer["LessThan"]?.Value ?? "LessThan"),
-                new SelectedItem("Equal", Localizer["Equal"]?.Value ?? "Equal"),
-                new SelectedItem("NotEqual", Localizer["NotEqual"]?.Value ?? "NotEqual")
+            new SelectedItem("GreaterThanOrEqual", Localizer["GreaterThanOrEqual"]?.Value ?? "GreaterThanOrEqual"),
+            new SelectedItem("LessThanOrEqual", Localizer["LessThanOrEqual"]?.Value ?? "LessThanOrEqual"),
+            new SelectedItem("GreaterThan", Localizer["GreaterThan"]?.Value ?? "GreaterThan"),
+            new SelectedItem("LessThan", Localizer["LessThan"]?.Value ?? "LessThan"),
+            new SelectedItem("Equal", Localizer["Equal"]?.Value ?? "Equal"),
+            new SelectedItem("NotEqual", Localizer["NotEqual"]?.Value ?? "NotEqual")
         };
-
-        base.OnInitialized();
     }
 
     /// <summary>

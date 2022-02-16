@@ -45,7 +45,7 @@ else
         else
         {
             var fieldType = Nullable.GetUnderlyingType(Column.PropertyType) ?? Column.PropertyType;
-            switch (fieldType?.Name)
+            switch (fieldType.Name)
             {
                 case nameof(Boolean):
                     <BoolFilter />

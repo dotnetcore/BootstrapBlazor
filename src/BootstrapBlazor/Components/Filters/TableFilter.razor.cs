@@ -57,6 +57,7 @@ public partial class TableFilter : IFilter, IDisposable
     /// <summary>
     /// 获得/设置 过滤条件 IFilterAction 接口
     /// </summary>
+    [NotNull]
     public IFilterAction? FilterAction { get; set; }
 
     /// <summary>
@@ -201,8 +202,11 @@ public partial class TableFilter : IFilter, IDisposable
             if (Table != null)
             {
                 Table.Filters.Remove(FieldKey);
-                FilterAction?.Reset();
-                if (Table.OnFilterAsync != null) await Table.OnFilterAsync();
+                FilterAction.Reset();
+                if (Table.OnFilterAsync != null)
+                {
+                    await Table.OnFilterAsync();
+                }
             }
         }
     }
@@ -216,7 +220,6 @@ public partial class TableFilter : IFilter, IDisposable
         if (IsShow)
         {
             IsShow = false;
-
             await OnFilterAsync();
         }
     }
@@ -229,7 +232,7 @@ public partial class TableFilter : IFilter, IDisposable
     {
         if (Table != null)
         {
-            if (FilterAction?.GetFilterConditions().Any() ?? false)
+            if (FilterAction.GetFilterConditions().Any())
             {
                 Table.Filters[FieldKey] = FilterAction;
             }
@@ -251,7 +254,10 @@ public partial class TableFilter : IFilter, IDisposable
     /// <returns></returns>
     private void OnClickPlus()
     {
-        if (Count == 0) Count++;
+        if (Count == 0)
+        {
+            Count++;
+        }
     }
 
     /// <summary>
@@ -260,7 +266,10 @@ public partial class TableFilter : IFilter, IDisposable
     /// <returns></returns>
     private void OnClickMinus()
     {
-        if (Count == 1) Count--;
+        if (Count == 1)
+        {
+            Count--;
+        }
     }
 
     /// <summary>
@@ -270,10 +279,13 @@ public partial class TableFilter : IFilter, IDisposable
     protected virtual void Dispose(bool disposing)
     {
 
-        if (disposing && Interop != null)
+        if (disposing)
         {
-            Interop.Dispose();
-            Interop = null;
+            if (Interop != null)
+            {
+                Interop.Dispose();
+                Interop = null;
+            }
         }
     }
 
@@ -282,7 +294,7 @@ public partial class TableFilter : IFilter, IDisposable
     /// </summary>
     public void Dispose()
     {
-        Dispose(disposing: true);
+        Dispose(true);
         GC.SuppressFinalize(this);
     }
 }

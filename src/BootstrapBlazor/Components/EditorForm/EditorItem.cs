@@ -94,7 +94,7 @@ public class EditorItem<TModel, TValue> : ComponentBase, IEditorItem
     /// </summary>
     [Parameter]
 #if NET5_0
-        public RenderFragment<object>? EditTemplate { get; set; }
+    public RenderFragment<object>? EditTemplate { get; set; }
 #elif NET6_0_OR_GREATER
     public RenderFragment<TModel>? EditTemplate { get; set; }
 

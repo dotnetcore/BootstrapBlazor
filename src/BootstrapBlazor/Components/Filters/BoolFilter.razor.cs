@@ -30,9 +30,9 @@ public partial class BoolFilter
 
         Items = new SelectedItem[]
         {
-                new SelectedItem("", Localizer["BoolFilter.AllText"]?.Value ?? "All"),
-                new SelectedItem("true", Localizer["BoolFilter.TrueText"]?.Value ?? "True"),
-                new SelectedItem("false", Localizer["BoolFilter.FalseText"]?.Value ?? "False")
+            new SelectedItem("", Localizer["BoolFilter.AllText"]?.Value ?? "All"),
+            new SelectedItem("true", Localizer["BoolFilter.TrueText"]?.Value ?? "True"),
+            new SelectedItem("false", Localizer["BoolFilter.FalseText"]?.Value ?? "False")
         };
 
         if (TableFilter != null)

@@ -1,4 +1,4 @@
-// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
+﻿// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
@@ -41,10 +41,10 @@ public partial class StringFilter
 
         Items = new SelectedItem[]
         {
-                new SelectedItem("Contains", Localizer["Contains"]?.Value ?? "Contains"),
-                new SelectedItem("Equal", Localizer["Equal"]?.Value ?? "Equal"),
-                new SelectedItem("NotEqual", Localizer["NotEqual"]?.Value ?? "NotEqual"),
-                new SelectedItem("NotContains", Localizer["NotContains"]?.Value ?? "NotContains")
+            new SelectedItem("Contains", Localizer["Contains"]?.Value ?? "Contains"),
+            new SelectedItem("Equal", Localizer["Equal"]?.Value ?? "Equal"),
+            new SelectedItem("NotEqual", Localizer["NotEqual"]?.Value ?? "NotEqual"),
+            new SelectedItem("NotContains", Localizer["NotContains"]?.Value ?? "NotContains")
         };
     }
 
