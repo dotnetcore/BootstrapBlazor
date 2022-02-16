@@ -34,7 +34,7 @@
     <p>@((MarkupString)Localizer["P4"].Value)</p>
     <GroupBox Title="@Localizer["GroupBox2"]" style="margin-top: 1.5rem;">
         <ValidateForm Model="@ValidateModel">
-            <EditorForm Model="@ValidateModel">
+            <EditorForm TModel="Foo">
                 <FieldItems>
                     <EditorItem @bind-Field="@context.DateTime" Readonly="true" />
                     <EditorItem @bind-Field="@context.Hobby" Items="@Hobbys" />
