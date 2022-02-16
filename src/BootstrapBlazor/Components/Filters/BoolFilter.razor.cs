@@ -30,9 +30,9 @@ public partial class BoolFilter
 
         Items = new SelectedItem[]
         {
-            new SelectedItem("", Localizer["BoolFilter.AllText"]?.Value ?? "All"),
-            new SelectedItem("true", Localizer["BoolFilter.TrueText"]?.Value ?? "True"),
-            new SelectedItem("false", Localizer["BoolFilter.FalseText"]?.Value ?? "False")
+            new SelectedItem("", Localizer["BoolFilter.AllText"].Value),
+            new SelectedItem("true", Localizer["BoolFilter.TrueText"].Value),
+            new SelectedItem("false", Localizer["BoolFilter.FalseText"].Value)
         };
 
         if (TableFilter != null)
@@ -57,12 +57,15 @@ public partial class BoolFilter
     public override IEnumerable<FilterKeyValueAction> GetFilterConditions()
     {
         var filters = new List<FilterKeyValueAction>();
-        if (!string.IsNullOrEmpty(Value)) filters.Add(new FilterKeyValueAction()
+        if (!string.IsNullOrEmpty(Value))
         {
-            FieldKey = FieldKey,
-            FieldValue = Value == "" ? (object?)null : (Value == "true"),
-            FilterAction = FilterAction.Equal
-        });
+            filters.Add(new FilterKeyValueAction()
+            {
+                FieldKey = FieldKey,
+                FieldValue = Value == "true",
+                FilterAction = FilterAction.Equal
+            });
+        }
         return filters;
     }
 }
