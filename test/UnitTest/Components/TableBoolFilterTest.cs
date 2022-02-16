@@ -2,9 +2,12 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using BootstrapBlazor.Shared;
+using UnitTest.Extensions;
+
 namespace UnitTest.Components;
 
-public class BoolFilterTest : BootstrapBlazorTestBase
+public class TableBoolFilterTest : BootstrapBlazorTestBase
 {
     [Fact]
     public void Reset_Ok()
@@ -34,29 +37,29 @@ public class BoolFilterTest : BootstrapBlazorTestBase
     [Fact]
     public void IsHeaderRow_OnSelectedItemChanged()
     {
-        var cut = Context.RenderComponent<MockBoolFilter>();
-        var filter = cut.Instance;
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.Items, new List<Foo>() { new Foo() });
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.ShowFilterHeader, true);
+                pb.Add(a => a.TableColumns, new RenderFragment<Foo>(foo => builder =>
+                {
+                    var index = 0;
+                    builder.OpenComponent<TableColumn<Foo, bool>>(index++);
+                    builder.AddAttribute(index++, nameof(TableColumn<Foo, bool>.Field), foo.Complete);
+                    builder.AddAttribute(index++, nameof(TableColumn<Foo, bool>.FieldExpression), foo.GenerateValueExpression(nameof(Foo.Complete), typeof(bool)));
+                    builder.AddAttribute(index++, nameof(TableColumn<Foo, bool>.Filterable), true);
+                    builder.CloseComponent();
+                }));
+            });
+        });
+        var filter = cut.FindComponent<BoolFilter>().Instance;
         var items = cut.FindAll(".dropdown-item");
         IEnumerable<FilterKeyValueAction>? condtions = null;
         cut.InvokeAsync(() => items[1].Click());
         cut.InvokeAsync(() => condtions = filter.GetFilterConditions());
         Assert.Single(condtions);
-    }
-
-    public class MockBoolFilter : BoolFilter
-    {
-        protected override void OnInitialized()
-        {
-            base.OnInitialized();
-
-            if (TableFilter == null)
-            {
-                TableFilter = new TableFilter();
-                TableFilter.SetParametersAsync(ParameterView.FromDictionary(new Dictionary<string, object?>
-                {
-                    [nameof(TableFilter.IsHeaderRow)] = true
-                }));
-            }
-        }
     }
 }

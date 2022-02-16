@@ -36,12 +36,12 @@ public partial class DateTimeFilter
 
         Items = new SelectedItem[]
         {
-            new SelectedItem("GreaterThanOrEqual", Localizer["GreaterThanOrEqual"]?.Value ?? "GreaterThanOrEqual"),
-            new SelectedItem("LessThanOrEqual", Localizer["LessThanOrEqual"]?.Value ?? "LessThanOrEqual"),
-            new SelectedItem("GreaterThan", Localizer["GreaterThan"]?.Value ?? "GreaterThan"),
-            new SelectedItem("LessThan", Localizer["LessThan"]?.Value ?? "LessThan"),
-            new SelectedItem("Equal", Localizer["Equal"]?.Value ?? "Equal"),
-            new SelectedItem("NotEqual", Localizer["NotEqual"]?.Value ?? "NotEqual")
+            new SelectedItem("GreaterThanOrEqual", Localizer["GreaterThanOrEqual"].Value),
+            new SelectedItem("LessThanOrEqual", Localizer["LessThanOrEqual"].Value),
+            new SelectedItem("GreaterThan", Localizer["GreaterThan"].Value),
+            new SelectedItem("LessThan", Localizer["LessThan"].Value),
+            new SelectedItem("Equal", Localizer["Equal"].Value),
+            new SelectedItem("NotEqual", Localizer["NotEqual"].Value )
         };
     }
 
@@ -55,6 +55,7 @@ public partial class DateTimeFilter
         Action1 = FilterAction.GreaterThanOrEqual;
         Action2 = FilterAction.LessThanOrEqual;
         Count = 0;
+        Logic = FilterLogic.And;
         StateHasChanged();
     }
 
@@ -65,19 +66,26 @@ public partial class DateTimeFilter
     public override IEnumerable<FilterKeyValueAction> GetFilterConditions()
     {
         var filters = new List<FilterKeyValueAction>();
-        if (Value1 != null) filters.Add(new FilterKeyValueAction()
+        if (Value1 != null)
         {
-            FieldKey = FieldKey,
-            FieldValue = Value1,
-            FilterAction = Action1
-        });
-        if (Count > 0 && Value2 != null) filters.Add(new FilterKeyValueAction()
+            filters.Add(new FilterKeyValueAction()
+            {
+                FieldKey = FieldKey,
+                FieldValue = Value1,
+                FilterAction = Action1
+            });
+        }
+
+        if (Count > 0 && Value2 != null)
         {
-            FieldKey = FieldKey,
-            FieldValue = Value2,
-            FilterAction = Action2,
-            FilterLogic = Logic
-        });
+            filters.Add(new FilterKeyValueAction()
+            {
+                FieldKey = FieldKey,
+                FieldValue = Value2,
+                FilterAction = Action2,
+                FilterLogic = Logic
+            });
+        }
         return filters;
     }
 }
