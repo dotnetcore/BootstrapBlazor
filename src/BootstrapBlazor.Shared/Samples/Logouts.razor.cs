@@ -36,14 +36,14 @@ public partial class Logouts
             DefaultValue = "欢迎"
         },
         new AttributeItem() {
-            Name = nameof(Logout.ImageUrl),
+            Name = nameof(Logout.UserName),
             Description = "登出组件当前用户登录账号",
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
         },
         new AttributeItem() {
-            Name = nameof(Logout.ImageUrl),
+            Name = nameof(Logout.PrefixUserNameText),
             Description = "登出组件当前用户登录账号前置文字",
             Type = "string",
             ValueList = " — ",
