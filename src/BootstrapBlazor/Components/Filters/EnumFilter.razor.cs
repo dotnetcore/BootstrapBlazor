@@ -25,6 +25,9 @@ public partial class EnumFilter
     /// <summary>
     /// 获得/设置 相关枚举类型
     /// </summary>
+#if NET6_0_OR_GREATER
+    [EditorRequired]
+#endif
     [Parameter]
     [NotNull]
     public Type? Type { get; set; }
@@ -40,13 +43,15 @@ public partial class EnumFilter
     {
         base.OnInitialized();
 
+        if(Type == null) throw new InvalidOperationException("the Parameter Type must be set.");
+
         if (TableFilter != null)
         {
             TableFilter.ShowMoreButton = false;
         }
 
-        EnumType = Nullable.GetUnderlyingType(Type) ?? Type ?? throw new InvalidOperationException("the Parameter Type must be set.");
-        Items = EnumType.ToSelectList(new SelectedItem("", Localizer["EnumFilter.AllText"]?.Value ?? "All"));
+        EnumType = Nullable.GetUnderlyingType(Type) ?? Type;
+        Items = EnumType.ToSelectList(new SelectedItem("", Localizer["EnumFilter.AllText"].Value));
     }
 
     /// <summary>
