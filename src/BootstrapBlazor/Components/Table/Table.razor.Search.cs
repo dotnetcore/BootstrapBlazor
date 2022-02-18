@@ -244,7 +244,7 @@ public partial class Table<TItem>
             foreach (var property in SearchModel.GetType().GetProperties().Where(i => searchColumns.Any(col => col.GetFieldName() == i.Name)))
             {
                 var v = property.GetValue(SearchModel);
-                if (v != null)
+                if (v != null && v.ToString() != string.Empty)
                 {
                     searchs.Add(new SearchFilterAction(property.Name, v, FilterAction.Equal));
                 }
