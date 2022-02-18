@@ -34,6 +34,12 @@ public class TableStringFilterTest : BootstrapBlazorTestBase
 
         conditions = cut.Instance.GetFilterConditions();
         Assert.Equal(2, conditions.Count());
+
+        // 测试 FilterLogicItem LogicChanged 代码覆盖率
+        var logicItem = cut.FindComponent<FilterLogicItem>();
+        var item = logicItem.FindAll(".dropdown-item")[0];
+        cut.InvokeAsync(() => item.Click());
+        Assert.Equal(FilterLogic.And, logicItem.Instance.Logic);
     }
 
     [Fact]
@@ -65,5 +71,18 @@ public class TableStringFilterTest : BootstrapBlazorTestBase
         cut.InvokeAsync(() => items[1].Click());
         cut.InvokeAsync(() => condtions = cut.FindComponent<StringFilter>().Instance.GetFilterConditions());
         Assert.Single(condtions);
+    }
+
+    [Fact]
+    public void SearchFilterAction_Ok()
+    {
+        var searchFilterAction = new SearchFilterAction("Test-Search", "1", FilterAction.NotEqual);
+
+        var condtion = searchFilterAction.GetFilterConditions();
+        Assert.Single(condtion);
+        Assert.Equal("Test-Search", condtion.First().FieldKey);
+        Assert.Equal("1", condtion.First().FieldValue);
+        Assert.Equal(FilterAction.NotEqual, condtion.First().FilterAction);
+        Assert.Equal(FilterLogic.And, condtion.First().FilterLogic);
     }
 }

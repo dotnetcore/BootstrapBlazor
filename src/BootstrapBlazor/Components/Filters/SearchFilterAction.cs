@@ -42,12 +42,12 @@ public class SearchFilterAction : IFilterAction
     /// </summary>
     /// <returns></returns>
     public virtual IEnumerable<FilterKeyValueAction> GetFilterConditions() => new List<FilterKeyValueAction>()
+    {
+        new()
         {
-            new()
-            {
-                FieldKey = Name,
-                FieldValue = Value,
-                FilterAction = Action,
-            }
-        };
+            FieldKey = Name,
+            FieldValue = Value,
+            FilterAction = Action,
+        }
+    };
 }

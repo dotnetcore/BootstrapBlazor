@@ -17,14 +17,11 @@ public partial class LookupFilter
     private List<SelectedItem> Items { get; } = new List<SelectedItem>();
 
     /// <summary>
-    /// 内部使用
-    /// </summary>
-    [NotNull]
-    private Type? EnumType { get; set; }
-
-    /// <summary>
     /// 获得/设置 相关枚举类型
     /// </summary>
+#if NET6_0_OR_GREATER
+    [EditorRequired]
+#endif
     [Parameter]
     [NotNull]
 
@@ -33,6 +30,9 @@ public partial class LookupFilter
     /// <summary>
     /// 获得/设置 相关枚举类型
     /// </summary>
+#if NET6_0_OR_GREATER
+    [EditorRequired]
+#endif
     [Parameter]
     [NotNull]
     public Type? Type { get; set; }
@@ -48,11 +48,15 @@ public partial class LookupFilter
     {
         base.OnInitialized();
 
+        if (Lookup == null) throw new InvalidOperationException("the Parameter Lookup must be set.");
+
+        if (Type == null) throw new InvalidOperationException("the Parameter Type must be set.");
+
         if (TableFilter != null)
         {
             TableFilter.ShowMoreButton = false;
         }
-        Items.Add(new SelectedItem("", Localizer["EnumFilter.AllText"]?.Value ?? "All"));
+        Items.Add(new SelectedItem("", Localizer["EnumFilter.AllText"].Value));
         Items.AddRange(Lookup);
     }
 

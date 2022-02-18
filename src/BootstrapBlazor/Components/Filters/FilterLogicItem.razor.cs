@@ -53,9 +53,9 @@ public partial class FilterLogicItem
         base.OnInitialized();
 
         Items = new List<SelectedItem>()
-            {
-                new SelectedItem("And",Localizer["And"]?.Value ?? "And"),
-                new SelectedItem("Or",Localizer["Or"]?.Value ?? "Or")
-            };
+        {
+            new SelectedItem("And",Localizer["And"].Value),
+            new SelectedItem("Or",Localizer["Or"].Value)
+        };
     }
 }
