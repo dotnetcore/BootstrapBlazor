@@ -549,25 +549,12 @@ public static class Utility
     /// 树状数据层次化方法
     /// </summary>
     /// <param name="items">数据集合</param>
-    /// <param name="parentItem">父级节点</param>
-    public static TreeItem? CascadingTree(this List<TreeItem> items, TreeItem? parentItem = null)
+    /// <param name="parentId">父级节点</param>
+    public static IEnumerable<TreeItem> CascadingTree(this IEnumerable<TreeItem> items, string? parentId = null) => items.Where(i => i.ParentId == parentId).Select(i =>
     {
-        TreeItem? activeItem = null;
-        items.ForEach(i =>
-        {
-            i.Parent = parentItem;
-            if (i.IsActive)
-            {
-                activeItem = i;
-            }
-            var item = i.Items.CascadingTree(i);
-            if (item != null)
-            {
-                activeItem = item;
-            }
-        });
-        return activeItem;
-    }
+        i.Items = CascadingTree(items, i.Id).ToList();
+        return i;
+    });
 
     /// <summary>
     /// 

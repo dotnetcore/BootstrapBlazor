@@ -20,6 +20,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Using Include="UnitTest.Extensions" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Include="..\..\src\BootstrapBlazor.Shared\Data\Foo.cs" Link="Misc\Foo.cs" />
   </ItemGroup>
 

@@ -24,37 +24,30 @@ class TreeDataFoo
     /// <returns></returns>
     public static List<TreeItem> GetTreeItems()
     {
-        var items = new List<TreeDataFoo>
-            {
-                new TreeDataFoo() { Text = "导航一", Code = "1010" },
-                new TreeDataFoo() { Text = "导航二", Code = "1020" },
-                new TreeDataFoo() { Text = "导航三", Code = "1030" },
+        var items = new List<TreeItem>
+        {
+            new TreeItem() { Text = "导航一", Id = "1010" },
+            new TreeItem() { Text = "导航二", Id = "1020" },
+            new TreeItem() { Text = "导航三", Id = "1030" },
 
-                new TreeDataFoo() { Text = "子菜单一", Code = "1040", ParentCode = "1020" },
-                new TreeDataFoo() { Text = "子菜单二", Code = "1050", ParentCode = "1020" },
-                new TreeDataFoo() { Text = "子菜单三", Code = "1060", ParentCode = "1020" },
+            new TreeItem() { Text = "子菜单一", Id = "1040", ParentId = "1020" },
+            new TreeItem() { Text = "子菜单二", Id = "1050", ParentId = "1020" },
+            new TreeItem() { Text = "子菜单三", Id = "1060", ParentId = "1020" },
 
-                new TreeDataFoo() { Text = "孙菜单一", Code = "1070", ParentCode = "1050" },
-                new TreeDataFoo() { Text = "孙菜单二", Code = "1080", ParentCode = "1050" },
-                new TreeDataFoo() { Text = "孙菜单三", Code = "1090", ParentCode = "1050" },
+            new TreeItem() { Text = "孙菜单一", Id = "1070", ParentId = "1050" },
+            new TreeItem() { Text = "孙菜单二", Id = "1080", ParentId = "1050" },
+            new TreeItem() { Text = "孙菜单三", Id = "1090", ParentId = "1050" },
 
-                new TreeDataFoo() { Text = "曾孙菜单一", Code = "1100", ParentCode = "1080" },
-                new TreeDataFoo() { Text = "曾孙菜单二", Code = "1110", ParentCode = "1080" },
-                new TreeDataFoo() { Text = "曾孙菜单三", Code = "1120", ParentCode = "1080" },
+            new TreeItem() { Text = "曾孙菜单一", Id = "1100", ParentId = "1080" },
+            new TreeItem() { Text = "曾孙菜单二", Id = "1110", ParentId = "1080" },
+            new TreeItem() { Text = "曾孙菜单三", Id = "1120", ParentId = "1080" },
 
-                new TreeDataFoo() { Text = "曾曾孙菜单一", Code = "1130", ParentCode = "1100" },
-                new TreeDataFoo() { Text = "曾曾孙菜单二", Code = "1140", ParentCode = "1100" },
-                new TreeDataFoo() { Text = "曾曾孙菜单三", Code = "1150", ParentCode = "1100" }
-            };
+            new TreeItem() { Text = "曾曾孙菜单一", Id = "1130", ParentId = "1100" },
+            new TreeItem() { Text = "曾曾孙菜单二", Id = "1140", ParentId = "1100" },
+            new TreeItem() { Text = "曾曾孙菜单三", Id = "1150", ParentId = "1100" }
+        };
 
         // 算法获取属性结构数据
-        return GetSubItems(null, items).ToList();
-    }
-
-    private static List<TreeItem> GetSubItems(string? parentCode, IEnumerable<TreeDataFoo> foos)
-    {
-        var subData = foos.Where(i => i.ParentCode == parentCode);
-
-        return subData.Select(i => new TreeItem() { Text = i.Text, IsActive = i.IsActive, Items = GetSubItems(i.Code, foos) }).ToList();
+        return items.CascadingTree().ToList();
     }
 }

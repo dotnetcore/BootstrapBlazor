@@ -64,7 +64,7 @@ public sealed partial class Trees
     private static List<TreeItem> GetLazyItems()
     {
         var ret = TreeDataFoo.GetTreeItems();
-        ret[1].Items[0].IsExpanded = true;
+        ret[1].Items[0].IsCollapsed = false;
         ret[1].Items[1].Text = "懒加载";
         ret[1].Items[1].HasChildNode = true;
         ret[1].Items[2].Text = "懒加载延时";
@@ -160,159 +160,159 @@ public sealed partial class Trees
     /// <returns></returns>
     private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
-            // TODO: 移动到数据库中
-            new AttributeItem() {
-                Name = "Items",
-                Description = "菜单数据集合",
-                Type = "IEnumerable<TreeItem>",
-                ValueList = " — ",
-                DefaultValue = "new List<TreeItem>(20)"
-            },
-            new AttributeItem() {
-                Name = "ClickToggleNode",
-                Description = "是否点击节点时展开或者收缩子项",
-                Type = "bool",
-                ValueList = "true|false",
-                DefaultValue = "false"
-            },
-            new AttributeItem() {
-                Name = "ShowCheckbox",
-                Description = "是否显示 CheckBox",
-                Type = "bool",
-                ValueList = "true|false",
-                DefaultValue = "false"
-            },
-            new AttributeItem() {
-                Name = "ShowIcon",
-                Description = "是否显示 Icon",
-                Type = "bool",
-                ValueList = "true|false",
-                DefaultValue = "false"
-            },
-            new AttributeItem() {
-                Name = "ShowSkeleton",
-                Description = "是否显示加载骨架屏",
-                Type = "bool",
-                ValueList = "true|false",
-                DefaultValue = "false"
-            },
-            new AttributeItem() {
-                Name = "OnTreeItemClick",
-                Description = "树形控件节点点击时回调委托",
-                Type = "Func<TreeItem, Task>",
-                ValueList = " — ",
-                DefaultValue = " — "
-            },
-            new AttributeItem() {
-                Name = "OnTreeItemChecked",
-                Description = "树形控件节点选中时回调委托",
-                Type = "Func<TreeItem, Task>",
-                ValueList = " — ",
-                DefaultValue = " — "
-            },
-            new AttributeItem() {
-                Name = "OnExpandNode",
-                Description = "树形控件节点展开回调委托",
-                Type = "Func<TreeItem, Task>",
-                ValueList = " — ",
-                DefaultValue = " — "
-            },
-            new AttributeItem() {
-                Name = "OnCheckedItems",
-                Description = "树形控件获取所有选中节点回调委托",
-                Type = "Func<List<TreeItem>, Task>",
-                ValueList = " — ",
-                DefaultValue = " — "
-            }
+        // TODO: 移动到数据库中
+        new AttributeItem() {
+            Name = "Items",
+            Description = "菜单数据集合",
+            Type = "IEnumerable<TreeItem>",
+            ValueList = " — ",
+            DefaultValue = "new List<TreeItem>(20)"
+        },
+        new AttributeItem() {
+            Name = "ClickToggleNode",
+            Description = "是否点击节点时展开或者收缩子项",
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "false"
+        },
+        new AttributeItem() {
+            Name = "ShowCheckbox",
+            Description = "是否显示 CheckBox",
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "false"
+        },
+        new AttributeItem() {
+            Name = "ShowIcon",
+            Description = "是否显示 Icon",
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "false"
+        },
+        new AttributeItem() {
+            Name = "ShowSkeleton",
+            Description = "是否显示加载骨架屏",
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "false"
+        },
+        new AttributeItem() {
+            Name = "OnTreeItemClick",
+            Description = "树形控件节点点击时回调委托",
+            Type = "Func<TreeItem, Task>",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new AttributeItem() {
+            Name = "OnTreeItemChecked",
+            Description = "树形控件节点选中时回调委托",
+            Type = "Func<TreeItem, Task>",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new AttributeItem() {
+            Name = "OnExpandNode",
+            Description = "树形控件节点展开回调委托",
+            Type = "Func<TreeItem, Task>",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new AttributeItem() {
+            Name = "OnCheckedItems",
+            Description = "树形控件获取所有选中节点回调委托",
+            Type = "Func<List<TreeItem>, Task>",
+            ValueList = " — ",
+            DefaultValue = " — "
+        }
     };
 
     private static IEnumerable<AttributeItem> GetTreeItemAttributes() => new AttributeItem[]
     {
-            // TODO: 移动到数据库中
-            new AttributeItem() {
-                Name = nameof(TreeItem.Key),
-                Description = "TreeItem 标识",
-                Type = "object?",
-                ValueList = " — ",
-                DefaultValue = " — "
-            },
-            new AttributeItem() {
-                Name = "Items",
-                Description = "子节点数据源",
-                Type = "IEnumerable<TreeItem>",
-                ValueList = " — ",
-                DefaultValue = "new List<TreeItem>(20)"
-            },
-            new AttributeItem() {
-                Name = "Text",
-                Description = "显示文字",
-                Type = "string",
-                ValueList = " — ",
-                DefaultValue = " — "
-            },
-            new AttributeItem() {
-                Name = "Icon",
-                Description = "显示图标",
-                Type = "string",
-                ValueList = " — ",
-                DefaultValue = " — "
-            },
-            new AttributeItem() {
-                Name = "CssClass",
-                Description = "节点自定义样式",
-                Type = "string",
-                ValueList = " — ",
-                DefaultValue = " — "
-            },
-            new AttributeItem() {
-                Name = "Checked",
-                Description = "是否被选中",
-                Type = "bool",
-                ValueList = "true|false",
-                DefaultValue = "false"
-            },
-            new AttributeItem() {
-                Name = nameof(TreeItem.IsDisabled),
-                Description = "是否被禁用",
-                Type = "bool",
-                ValueList = "true|false",
-                DefaultValue = "false"
-            },
-            new AttributeItem() {
-                Name = "IsExpanded",
-                Description = "是否展开",
-                Type = "bool",
-                ValueList = "true|false",
-                DefaultValue = "false"
-            },
-            new AttributeItem() {
-                Name = nameof(TreeItem.Tag),
-                Description = "TreeItem 附加数据",
-                Type = "object?",
-                ValueList = " — ",
-                DefaultValue = " — "
-            },
-            new AttributeItem() {
-                Name = nameof(TreeItem.HasChildNode),
-                Description = "是否有子节点",
-                Type = "bool",
-                ValueList = " true|false ",
-                DefaultValue = " false "
-            },
-            new AttributeItem() {
-                Name = nameof(TreeItem.ShowLoading),
-                Description = "是否显示子节点加载动画",
-                Type = "bool",
-                ValueList = " true|false ",
-                DefaultValue = " false "
-            },
-            new AttributeItem()
-            {
-                Name = nameof(TreeItem.Template),
-                Description = "子节点模板",
-                Type = nameof(RenderFragment),
-                ValueList = " — ",
-                DefaultValue = " — "
-            }
+        // TODO: 移动到数据库中
+        new AttributeItem() {
+            Name = nameof(TreeItem.Key),
+            Description = "TreeItem 标识",
+            Type = "object?",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new AttributeItem() {
+            Name = "Items",
+            Description = "子节点数据源",
+            Type = "IEnumerable<TreeItem>",
+            ValueList = " — ",
+            DefaultValue = "new List<TreeItem>(20)"
+        },
+        new AttributeItem() {
+            Name = "Text",
+            Description = "显示文字",
+            Type = "string",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new AttributeItem() {
+            Name = "Icon",
+            Description = "显示图标",
+            Type = "string",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new AttributeItem() {
+            Name = "CssClass",
+            Description = "节点自定义样式",
+            Type = "string",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new AttributeItem() {
+            Name = "Checked",
+            Description = "是否被选中",
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "false"
+        },
+        new AttributeItem() {
+            Name = nameof(TreeItem.IsDisabled),
+            Description = "是否被禁用",
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "false"
+        },
+        new AttributeItem() {
+            Name = "IsExpanded",
+            Description = "是否展开",
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "false"
+        },
+        new AttributeItem() {
+            Name = nameof(TreeItem.Tag),
+            Description = "TreeItem 附加数据",
+            Type = "object?",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new AttributeItem() {
+            Name = nameof(TreeItem.HasChildNode),
+            Description = "是否有子节点",
+            Type = "bool",
+            ValueList = " true|false ",
+            DefaultValue = " false "
+        },
+        new AttributeItem() {
+            Name = nameof(TreeItem.ShowLoading),
+            Description = "是否显示子节点加载动画",
+            Type = "bool",
+            ValueList = " true|false ",
+            DefaultValue = " false "
+        },
+        new AttributeItem()
+        {
+            Name = nameof(TreeItem.Template),
+            Description = "子节点模板",
+            Type = nameof(RenderFragment),
+            ValueList = " — ",
+            DefaultValue = " — "
+        }
     };
 }
