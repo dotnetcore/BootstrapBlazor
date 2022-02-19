@@ -53,6 +53,9 @@ public partial class Transfer<TValue>
     /// 获得/设置 组件绑定数据项集合
     /// </summary>
     [Parameter]
+#if NET6_0_OR_GREATER
+    [EditorRequired]
+#endif
     public IEnumerable<SelectedItem>? Items { get; set; }
 
     /// <summary>
@@ -158,20 +161,19 @@ public partial class Transfer<TValue>
         LeftItems.Clear();
         RightItems.Clear();
 
-        if (Items != null)
-        {
-            // 左侧移除
-            LeftItems.AddRange(Items);
-            LeftItems.RemoveAll(i => list.Any(l => l == i.Value));
+        Items ??= Enumerable.Empty<SelectedItem>();
 
-            // 右侧插入
-            foreach (var t in list)
+        // 左侧移除
+        LeftItems.AddRange(Items);
+        LeftItems.RemoveAll(i => list.Any(l => l == i.Value));
+
+        // 右侧插入
+        foreach (var t in list)
+        {
+            var item = Items.FirstOrDefault(i => i.Value == t);
+            if (item != null)
             {
-                var item = Items.FirstOrDefault(i => i.Value == t);
-                if (item != null)
-                {
-                    RightItems.Add(item);
-                }
+                RightItems.Add(item);
             }
         }
     }
@@ -181,7 +183,7 @@ public partial class Transfer<TValue>
     /// </summary>
     private async Task TransferItems(List<SelectedItem> source, List<SelectedItem> target)
     {
-        if (!IsDisabled && Items != null)
+        if (Items != null)
         {
             var items = source.Where(i => i.Active).ToList();
             items.ForEach(i => i.Active = false);
@@ -189,11 +191,11 @@ public partial class Transfer<TValue>
             source.RemoveAll(i => items.Contains(i));
             target.AddRange(items);
 
-            CurrentValueAsString = string.Join(",", RightItems.Select(i => i.Value));
+            CurrentValueAsString = string.Join(",", target.Select(i => i.Value));
 
             if (OnSelectedItemsChanged != null)
             {
-                await OnSelectedItemsChanged(RightItems);
+                await OnSelectedItemsChanged(target);
             }
         }
     }

@@ -51,6 +51,9 @@ public partial class TransferPanel
     /// 获得/设置 数据集合
     /// </summary>
     [Parameter]
+#if NET6_0_OR_GREATER
+    [EditorRequired]
+#endif
     public List<SelectedItem>? Items { get; set; }
 
     /// <summary>
@@ -167,7 +170,13 @@ public partial class TransferPanel
     /// 搜索框文本改变时回调此方法
     /// </summary>
     /// <param name="e"></param>
-    protected virtual void OnSearch(ChangeEventArgs e) => SearchText = e.Value?.ToString();
+    protected virtual void OnSearch(ChangeEventArgs e)
+    {
+        if (e.Value != null)
+        {
+            SearchText = e.Value.ToString();
+        }
+    }
 
     /// <summary>
     /// 搜索文本框按键回调方法
