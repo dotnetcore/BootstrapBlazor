@@ -296,7 +296,7 @@
     "SearchPlaceHolderString": "Please input ...",
     "Text": "List"
   },
-  "BootstrapBlazor.Components.Upload": {
+  "BootstrapBlazor.Components.UploadBase": {
     "DeleteButtonText": "Delete",
     "BrowserButtonText": "Browser",
     "FileExtensions": "File must have one of the following extensions: {0}",

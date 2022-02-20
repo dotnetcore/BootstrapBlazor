@@ -296,7 +296,7 @@
     "SearchPlaceHolderString": "请输入 ...",
     "Text": "列表"
   },
-  "BootstrapBlazor.Components.Upload": {
+  "BootstrapBlazor.Components.UploadBase": {
     "DeleteButtonText": "删除",
     "BrowserButtonText": "浏览",
     "FileExtensions": "文件扩展名必须为以下几种格式: {0}",

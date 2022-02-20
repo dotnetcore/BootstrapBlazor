@@ -39,7 +39,7 @@ public sealed partial class ButtonUpload<TValue>
 
     [Inject]
     [NotNull]
-    private IStringLocalizer<Upload<TValue>>? Localizer { get; set; }
+    private IStringLocalizer<UploadBase<TValue>>? Localizer { get; set; }
 
     /// <summary>
     /// OnInitialized 方法

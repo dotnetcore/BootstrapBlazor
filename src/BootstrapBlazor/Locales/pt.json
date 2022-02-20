@@ -296,7 +296,7 @@
     "SearchPlaceHolderString": "Digite ...",
     "Text": "Lista"
   },
-  "BootstrapBlazor.Components.Upload": {
+  "BootstrapBlazor.Components.UploadBase": {
     "DeleteButtonText": "Excluir",
     "BrowserButtonText": "Browser",
     "FileExtensions": "O aquivo deve conter uma das extensões: {0}",

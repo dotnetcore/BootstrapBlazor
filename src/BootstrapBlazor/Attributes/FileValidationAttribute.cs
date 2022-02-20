@@ -41,7 +41,7 @@ public class FileValidationAttribute : ValidationAttribute
             var file = (IBrowserFile?)value;
             if (file != null)
             {
-                Localizer = CacheManager.CreateLocalizer<Upload<object>>();
+                Localizer = CacheManager.CreateLocalizer<UploadBase<object>>();
                 if (Extensions.Any() && !Extensions.Contains(Path.GetExtension(file.Name), StringComparer.OrdinalIgnoreCase))
                 {
                     var errorMessage = Localizer?["FileExtensions", string.Join(", ", Extensions)];
