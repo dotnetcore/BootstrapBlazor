@@ -218,14 +218,245 @@ public class UploadTest : BootstrapBlazorTestBase
         Assert.False(invalid);
     }
 
+    [Fact]
+    public void ButtonUpload_Ok()
+    {
+        UploadFile? uploadFile = null;
+        var cut = Context.RenderComponent<ButtonUpload<string>>(pb =>
+        {
+            pb.Add(a => a.IsSingle, true);
+            pb.Add(a => a.BrowserButtonClass, "browser-class");
+            pb.Add(a => a.BrowserButtonIcon, "fa fa-browser-icon");
+        });
+        cut.Contains("fa fa-browser-icon");
+        cut.Contains("browser-class");
+        cut.DoesNotContain("form-label");
+
+        // DefaultFileList
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ShowProgress, true);
+            pb.Add(a => a.DefaultFileList, new List<UploadFile>()
+            {
+                new UploadFile() { FileName  = "Test-File" }
+            });
+            pb.Add(a => a.OnChange, file =>
+            {
+                uploadFile = file;
+                return Task.CompletedTask;
+            });
+        });
+        var input = cut.FindComponent<InputFile>();
+        cut.InvokeAsync(() => input.Instance.OnChange.InvokeAsync(new InputFileChangeEventArgs(new List<MockBrowserFile>()
+        {
+            new MockBrowserFile()
+        })));
+    }
+
+    [Fact]
+    public void ButtonUpload_IsDisabled_Ok()
+    {
+        var cut = Context.RenderComponent<ButtonUpload<string>>(pb =>
+        {
+            pb.Add(a => a.IsDisabled, true);
+        });
+        var button = cut.Find(".btn-browser");
+        Assert.Contains("disabled=\"disabled\"", button.ToMarkup());
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.IsDisabled, false);
+            pb.Add(a => a.IsSingle, false);
+        });
+        Assert.DoesNotContain("disabled", button.ToMarkup());
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.IsDisabled, false);
+            pb.Add(a => a.IsSingle, true);
+        });
+        Assert.DoesNotContain("disabled", button.ToMarkup());
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.IsDisabled, false);
+            pb.Add(a => a.IsSingle, true);
+        });
+        var input = cut.FindComponent<InputFile>();
+        cut.InvokeAsync(() => input.Instance.OnChange.InvokeAsync(new InputFileChangeEventArgs(new List<MockBrowserFile>()
+        {
+            new MockBrowserFile()
+        })));
+        Assert.Contains("disabled=\"disabled\"", button.ToMarkup());
+    }
+
+    [Fact]
+    public void ButtonUpload_ValidateForm_Ok()
+    {
+        var foo = new Foo();
+        var cut = Context.RenderComponent<ValidateForm>(pb =>
+        {
+            pb.Add(a => a.Model, foo);
+            pb.AddChildContent<ButtonUpload<string>>(pb =>
+            {
+                pb.Add(a => a.Value, foo.Name);
+                pb.Add(a => a.ValueExpression, foo.GenerateValueExpression());
+            });
+        });
+        cut.Contains("form-label");
+    }
+
+    [Fact]
+    public void ButtonUpload_OnDeleteFile_Ok()
+    {
+        UploadFile? deleteFile = null;
+        var cut = Context.RenderComponent<ButtonUpload<string>>(pb =>
+        {
+            pb.Add(a => a.IsSingle, false);
+            pb.Add(a => a.DefaultFileList, new List<UploadFile>()
+            {
+                new UploadFile() { FileName  = "Test-File" }
+            });
+            pb.Add(a => a.OnDelete, file =>
+            {
+                deleteFile = file;
+                return Task.FromResult(true);
+            });
+        });
+        cut.InvokeAsync(() => cut.Find(".fa-trash-o.text-danger").Click());
+        Assert.NotNull(deleteFile);
+
+        deleteFile = null;
+        // 上传失败测试
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.DefaultFileList, new List<UploadFile>()
+            {
+                new UploadFile() { FileName  = "Test-File2", Code = 1001 }
+            });
+        });
+        cut.InvokeAsync(() => cut.Find(".fa-trash-o.text-danger").Click());
+        Assert.NotNull(deleteFile);
+    }
+
+    [Fact]
+    public void ButtonUpload_ShowProgress_Ok()
+    {
+        var cut = Context.RenderComponent<ButtonUpload<string>>(pb =>
+        {
+            pb.Add(a => a.ShowProgress, true);
+            pb.Add(a => a.OnChange, async file =>
+            {
+                await file.SaveToFile("1.txt");
+            });
+        });
+        var input = cut.FindComponent<InputFile>();
+        cut.InvokeAsync(() => input.Instance.OnChange.InvokeAsync(new InputFileChangeEventArgs(new List<MockBrowserFile>()
+        {
+            new MockBrowserFile()
+        })));
+    }
+
+    [Fact]
+    public void ButtonUpload_IsDirectory_Ok()
+    {
+        var fileNames = new List<string>();
+        var cut = Context.RenderComponent<ButtonUpload<string>>(pb =>
+        {
+            pb.Add(a => a.IsDirectory, true);
+            pb.Add(a => a.OnChange, file =>
+            {
+                fileNames.Add(file.OriginFileName!);
+                return Task.CompletedTask;
+            });
+        });
+        var input = cut.FindComponent<InputFile>();
+        cut.InvokeAsync(() => input.Instance.OnChange.InvokeAsync(new InputFileChangeEventArgs(new List<MockBrowserFile>()
+        {
+            new MockBrowserFile(),
+            new MockBrowserFile("UploadTestFile2")
+        })));
+        Assert.Equal(2, fileNames.Count);
+    }
+
+    [Fact]
+    public void ButtonUpload_Accept_Ok()
+    {
+        var cut = Context.RenderComponent<ButtonUpload<string>>(pb =>
+        {
+            pb.Add(a => a.Accept, ".jpg");
+        });
+        cut.Contains("accept=\".jpg\"");
+    }
+
+    [Fact]
+    public void ButtonUpload_OnGetFileFormat_Ok()
+    {
+        var cut = Context.RenderComponent<ButtonUpload<string>>(pb =>
+        {
+            pb.Add(a => a.DefaultFileList, new List<UploadFile>()
+            {
+                new UploadFile() { FileName  = "1.csv" },
+                new UploadFile() { FileName  = "1.xls" },
+                new UploadFile() { FileName  = "1.xlsx" },
+                new UploadFile() { FileName  = "1.doc" },
+                new UploadFile() { FileName  = "1.docx" },
+                new UploadFile() { FileName  = "1.dot" },
+                new UploadFile() { FileName  = "1.ppt" },
+                new UploadFile() { FileName  = "1.pptx" },
+                new UploadFile() { FileName  = "1.wav" },
+                new UploadFile() { FileName  = "1.mp3" },
+                new UploadFile() { FileName  = "1.mp4" },
+                new UploadFile() { FileName  = "1.mov" },
+                new UploadFile() { FileName  = "1.mkv" },
+                new UploadFile() { FileName  = "1.cs" },
+                new UploadFile() { FileName  = "1.html" },
+                new UploadFile() { FileName  = "1.vb" },
+                new UploadFile() { FileName  = "1.pdf" },
+                new UploadFile() { FileName  = "1.zip" },
+                new UploadFile() { FileName  = "1.rar" },
+                new UploadFile() { FileName  = "1.iso" },
+                new UploadFile() { FileName  = "1.txt" },
+                new UploadFile() { FileName  = "1.log" },
+                new UploadFile() { FileName  = "1.jpg" },
+                new UploadFile() { FileName  = "1.jpeg" },
+                new UploadFile() { FileName  = "1.png" },
+                new UploadFile() { FileName  = "1.bmp" },
+                new UploadFile() { FileName  = "1.gif" },
+                new UploadFile() { FileName  = "1.test" },
+                new UploadFile() { FileName  = "1" }
+            });
+        });
+        cut.Contains("fa-file-excel-o");
+        cut.Contains("fa-file-word-o");
+        cut.Contains("fa-file-powerpoint-o");
+        cut.Contains("fa-file-audio-o");
+        cut.Contains("fa-file-video-o");
+        cut.Contains("fa-file-code-o");
+        cut.Contains("fa-file-pdf-o");
+        cut.Contains("fa-file-archive-o");
+        cut.Contains("fa-file-text-o");
+        cut.Contains("fa-file-image-o");
+        cut.Contains("fa-file-o");
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.OnGetFileFormat, extensions =>
+            {
+                return "fa-format-test";
+            });
+        });
+        cut.Contains("fa-format-test");
+    }
+
     [ExcludeFromCodeCoverage]
     private class MockBrowserFile : IBrowserFile
     {
-        public MockBrowserFile()
+        public MockBrowserFile(string name = "UploadTestFile")
         {
-            Name = "UploadTestFile";
+            Name = name;
             LastModified = DateTimeOffset.Now;
-            Size = 10 * 1024;
+            Size = 10;
             ContentType = "jpg";
         }
 
@@ -239,7 +470,7 @@ public class UploadTest : BootstrapBlazorTestBase
 
         public Stream OpenReadStream(long maxAllowedSize = 512000, CancellationToken cancellationToken = default)
         {
-            throw new NotImplementedException();
+            return new MemoryStream(new byte[] { 0x01, 0x02 });
         }
     }
 }

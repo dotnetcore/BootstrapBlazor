@@ -17,7 +17,7 @@ public class UploadFile
     public string? FileName { get; set; }
 
     /// <summary>
-    /// 获得/设置 原始文件名
+    /// 获得/设置 原始文件名(上传时 IBrowserFile.Name 实例赋值)
     /// </summary>
     public string? OriginFileName { get; internal set; }
 

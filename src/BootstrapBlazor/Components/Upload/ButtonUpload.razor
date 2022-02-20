@@ -36,7 +36,7 @@
                     {
                         @if (!IsDisabled)
                         {
-                            <i class="fa fa-times-circle-o" @onclick:stopPropagation @onclick="@(e => OnFileDelete(item))"></i>
+                            <i class="fa fa-times-circle-o"></i>
                             <i class="fa fa-trash-o text-danger" @onclick:stopPropagation @onclick="@(e => OnFileDelete(item))"></i>
                         }
                     }
