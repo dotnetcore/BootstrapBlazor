@@ -3,7 +3,6 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using BootstrapBlazor.Shared;
-using UnitTest.Extensions;
 
 namespace UnitTest.Components;
 
@@ -162,7 +161,7 @@ public class DialogTest : BootstrapBlazorTestBase
         cut.InvokeAsync(() => item.SetParametersAsync(ParameterView.FromDictionary(parameters)));
         editOption.Items = new IEditorItem[]
         {
-                item
+            item
         };
         editOption.Model = model;
         cut.InvokeAsync(() => dialog.ShowEditDialog(editOption));
@@ -177,7 +176,8 @@ public class DialogTest : BootstrapBlazorTestBase
 
         // Modal is Null
         editOption.Model = null;
-        Assert.ThrowsAsync<InvalidOperationException>(() => dialog.ShowEditDialog(editOption));
+        Assert.ThrowsAsync<InvalidOperationException>(() => cut.InvokeAsync(() => dialog.ShowEditDialog(editOption)));
+        cut.InvokeAsync(() => cut.Find(".btn-close").Click());
         #endregion
 
         #region ShowModal
