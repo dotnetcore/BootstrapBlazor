@@ -79,6 +79,10 @@
             cursor: pointer;
         }
 
+            .upload .upload-body.is-avatar .upload-item.is-single {
+                margin: 0;
+            }
+
             .upload .upload-body.is-avatar .upload-item.is-invalid {
                 border-color: #dc3545;
                 border-style: solid;

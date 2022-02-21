@@ -23,12 +23,25 @@ public partial class CardUpload<TValue>
         .AddClass("disabled", IsDisabled)
         .Build();
 
-    private static bool IsImage(UploadFile item) => item.File?.ContentType.Contains("image", StringComparison.OrdinalIgnoreCase)
-            ?? Path.GetExtension(item.OriginFileName ?? item.FileName ?? item.PrevUrl)?.ToLowerInvariant() switch
-            {
-                ".jpg" or ".jpeg" or ".png" or ".bmp" or ".gif" => true,
-                _ => false
-            };
+    private static bool IsImage(UploadFile item)
+    {
+        bool ret;
+        if (item.File != null)
+        {
+            ret = item.File.ContentType.Contains("image", StringComparison.OrdinalIgnoreCase) || CheckExtensions(item.File.Name);
+        }
+        else
+        {
+            ret = CheckExtensions(item.FileName ?? item.PrevUrl ?? "");
+        }
+
+        bool CheckExtensions(string fileName) => Path.GetExtension(fileName).ToLowerInvariant() switch
+        {
+            ".jpg" or ".jpeg" or ".png" or ".bmp" or ".gif" => true,
+            _ => false
+        };
+        return ret;
+    }
 
     /// <summary>
     /// 获得/设置 点击 Zoom 图标回调方法

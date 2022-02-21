@@ -113,8 +113,6 @@ public partial class InputUpload<TValue>
 
         await base.OnFileChange(args);
 
-        ValidateFile();
-
         if (OnChange != null)
         {
             await OnChange(CurrentFile);

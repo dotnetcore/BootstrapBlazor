@@ -137,9 +137,9 @@ public abstract class ButtonUploadBase<TValue> : SingleUploadBase<TValue>
     protected override IDictionary<string, object> GetUploadAdditionalAttributes()
     {
         var ret = new Dictionary<string, object>
-            {
-                { "hidden", "hidden" }
-            };
+        {
+            { "hidden", "hidden" }
+        };
 
         if (!string.IsNullOrEmpty(Accept))
         {

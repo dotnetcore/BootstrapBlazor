@@ -74,18 +74,7 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
     /// </summary>
     /// <param name="item"></param>
     /// <returns></returns>
-    protected string? GetFileName(UploadFile? item = null) => item?.OriginFileName ?? item?.FileName ?? Value?.ToString();
-
-    /// <summary>
-    /// 触发客户端验证方法
-    /// </summary>
-    protected void ValidateFile()
-    {
-        if (ValidateForm != null && EditContext != null && FieldIdentifier.HasValue)
-        {
-            EditContext.NotifyFieldChanged(FieldIdentifier.Value);
-        }
-    }
+    protected string? GetFileName(UploadFile? item) => item?.OriginFileName ?? item?.FileName;
 
     /// <summary>
     /// 显示/隐藏验证结果方法
@@ -97,14 +86,17 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
         if (FieldIdentifier != null)
         {
             var messages = results.Where(item => item.MemberNames.Any(m => UploadFiles.Any(f => f.ValidateId?.Equals(m, StringComparison.OrdinalIgnoreCase) ?? false)));
-            if (messages.Any() && CurrentFile != null)
+            if (messages.Any())
             {
-                ErrorMessage = messages.FirstOrDefault(m => m.MemberNames.Any(f => f.Equals(CurrentFile.ValidateId, StringComparison.OrdinalIgnoreCase)))?.ErrorMessage;
-                IsValid = string.IsNullOrEmpty(ErrorMessage);
-
-                if (IsValid.HasValue && !IsValid.Value)
+                IsValid = false;
+                if (CurrentFile != null)
                 {
-                    TooltipMethod = validProperty ? "show" : "enable";
+                    var msg = messages.FirstOrDefault(m => m.MemberNames.Any(f => f.Equals(CurrentFile.ValidateId, StringComparison.OrdinalIgnoreCase)));
+                    if (msg != null)
+                    {
+                        ErrorMessage = msg.ErrorMessage;
+                        TooltipMethod = validProperty ? "show" : "enable";
+                    }
                 }
             }
             else
@@ -147,7 +139,7 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
         }
         if (type.IsAssignableTo(typeof(List<IBrowserFile>)))
         {
-            CurrentValue = (TValue)(object)UploadFiles;
+            CurrentValue = (TValue)(object)UploadFiles.Select(f => f.File).ToList();
         }
         return Task.CompletedTask;
     }
@@ -156,23 +148,16 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
     /// 
     /// </summary>
     /// <returns></returns>
-    protected virtual Task OnFileBrowser() => Task.CompletedTask;
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <returns></returns>
     protected virtual IDictionary<string, object> GetUploadAdditionalAttributes()
     {
         var ret = new Dictionary<string, object>
-            {
-                { "hidden", "hidden" }
-            };
+        {
+            { "hidden", "hidden" }
+        };
         if (!string.IsNullOrEmpty(Accept))
         {
             ret.Add("accept", Accept);
         }
-
         return ret;
     }
 

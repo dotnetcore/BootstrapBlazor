@@ -27,7 +27,7 @@ public abstract class SingleUploadBase<TValue> : MultipleUploadBase<TValue>
     /// 获得当前图片集合
     /// </summary>
     /// <returns></returns>
-    protected override List<UploadFile> GetUploadFiles()
+    protected virtual List<UploadFile> GetUploadFiles()
     {
         var ret = new List<UploadFile>();
         if (IsSingle)
@@ -60,7 +60,7 @@ public abstract class SingleUploadBase<TValue> : MultipleUploadBase<TValue>
     protected override async Task<bool> OnFileDelete(UploadFile item)
     {
         var ret = await base.OnFileDelete(item);
-        if (ret && item != null)
+        if (ret)
         {
             if (IsSingle)
             {
@@ -74,13 +74,21 @@ public abstract class SingleUploadBase<TValue> : MultipleUploadBase<TValue>
             {
                 await JSRuntime.InvokeVoidAsync(null, "bb_tooltip", item.ValidateId, "dispose");
             }
-            if (IsSingle)
+            RemoveItem();
+        }
+
+        void RemoveItem()
+        {
+            if (DefaultFileList != null)
             {
-                DefaultFileList?.Clear();
-            }
-            else
-            {
-                DefaultFileList?.Remove(item);
+                if (IsSingle)
+                {
+                    DefaultFileList.Clear();
+                }
+                else
+                {
+                    DefaultFileList.Remove(item);
+                }
             }
         }
         return ret;

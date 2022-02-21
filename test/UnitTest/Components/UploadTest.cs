@@ -4,6 +4,7 @@
 
 using BootstrapBlazor.Shared;
 using Microsoft.AspNetCore.Components.Forms;
+using System.ComponentModel.DataAnnotations;
 
 namespace UnitTest.Components;
 
@@ -113,6 +114,31 @@ public class UploadTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void InputUpload_FileValidate_OK()
+    {
+        var foo = new Person();
+        var cut = Context.RenderComponent<ValidateForm>(pb =>
+        {
+            pb.Add(a => a.Model, foo);
+            pb.AddChildContent<InputUpload<IBrowserFile>>(pb =>
+            {
+                pb.Add(a => a.Value, foo.Picture);
+                pb.Add(a => a.ValueExpression, Utility.GenerateValueExpression(foo, nameof(Person.Picture), typeof(IBrowserFile)));
+            });
+        });
+
+        var input = cut.FindComponent<InputFile>();
+        cut.InvokeAsync(() => input.Instance.OnChange.InvokeAsync(new InputFileChangeEventArgs(new List<MockBrowserFile>()
+        {
+            new MockBrowserFile()
+        })));
+
+        // 提交表单
+        var form = cut.Find("form");
+        cut.InvokeAsync(() => form.Submit());
+    }
+
+    [Fact]
     public void AvatarUpload_Ok()
     {
         UploadFile? uploadFile = null;
@@ -180,6 +206,30 @@ public class UploadTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void AvatarUpload_Value_Ok()
+    {
+        var cut = Context.RenderComponent<AvatarUpload<IBrowserFile>>(pb => pb.Add(a => a.IsSingle, true));
+        var input = cut.FindComponent<InputFile>();
+        cut.InvokeAsync(() => input.Instance.OnChange.InvokeAsync(new InputFileChangeEventArgs(new List<MockBrowserFile>()
+        {
+            new MockBrowserFile()
+        })));
+        Assert.Equal("UploadTestFile", cut.Instance.Value!.Name);
+    }
+
+    [Fact]
+    public void AvatarUpload_ListValue_Ok()
+    {
+        var cut = Context.RenderComponent<AvatarUpload<List<IBrowserFile>>>();
+        var input = cut.FindComponent<InputFile>();
+        cut.InvokeAsync(() => input.Instance.OnChange.InvokeAsync(new InputFileChangeEventArgs(new List<MockBrowserFile>()
+        {
+            new MockBrowserFile()
+        })));
+        Assert.Single(cut.Instance.Value);
+    }
+
+    [Fact]
     public void AvatarUpload_ValidateForm_Ok()
     {
         var invalid = false;
@@ -189,6 +239,7 @@ public class UploadTest : BootstrapBlazorTestBase
             pb.Add(a => a.Model, foo);
             pb.AddChildContent<AvatarUpload<string>>(pb =>
             {
+                pb.Add(a => a.Accept, "Image");
                 pb.Add(a => a.Value, foo.Name);
                 pb.Add(a => a.ValueExpression, foo.GenerateValueExpression());
             });
@@ -219,6 +270,31 @@ public class UploadTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void AvatarUpload_FileValidate_Ok()
+    {
+        var foo = new Person();
+        var cut = Context.RenderComponent<ValidateForm>(pb =>
+        {
+            pb.Add(a => a.Model, foo);
+            pb.AddChildContent<AvatarUpload<IBrowserFile>>(pb =>
+            {
+                pb.Add(a => a.Value, foo.Picture);
+                pb.Add(a => a.ValueExpression, Utility.GenerateValueExpression(foo, nameof(Person.Picture), typeof(IBrowserFile)));
+            });
+        });
+
+        var input = cut.FindComponent<InputFile>();
+        cut.InvokeAsync(() => input.Instance.OnChange.InvokeAsync(new InputFileChangeEventArgs(new List<MockBrowserFile>()
+        {
+            new MockBrowserFile()
+        })));
+
+        // 提交表单
+        var form = cut.Find("form");
+        cut.InvokeAsync(() => form.Submit());
+    }
+
+    [Fact]
     public void ButtonUpload_Ok()
     {
         UploadFile? uploadFile = null;
@@ -236,10 +312,6 @@ public class UploadTest : BootstrapBlazorTestBase
         cut.SetParametersAndRender(pb =>
         {
             pb.Add(a => a.ShowProgress, true);
-            pb.Add(a => a.DefaultFileList, new List<UploadFile>()
-            {
-                new UploadFile() { FileName  = "Test-File" }
-            });
             pb.Add(a => a.OnChange, file =>
             {
                 uploadFile = file;
@@ -325,6 +397,7 @@ public class UploadTest : BootstrapBlazorTestBase
         });
         cut.InvokeAsync(() => cut.Find(".fa-trash-o.text-danger").Click());
         Assert.NotNull(deleteFile);
+        Assert.Null(deleteFile!.Error);
 
         deleteFile = null;
         // 上传失败测试
@@ -449,15 +522,113 @@ public class UploadTest : BootstrapBlazorTestBase
         cut.Contains("fa-format-test");
     }
 
+    [Fact]
+    public void CardUpload_Ok()
+    {
+        var zoom = false;
+        var deleted = false;
+        var cut = Context.RenderComponent<CardUpload<string>>(pb =>
+        {
+            pb.Add(a => a.OnZoomAsync, file =>
+            {
+                zoom = true;
+                return Task.CompletedTask;
+            });
+            pb.Add(a => a.OnDelete, file =>
+            {
+                deleted = true;
+                return Task.FromResult(true);
+            });
+            pb.Add(a => a.DefaultFileList, new List<UploadFile>()
+            {
+                new UploadFile() { FileName  = "Test-File1.text" },
+                new UploadFile() { FileName  = "Test-File2.jpg" },
+                new UploadFile() { PrevUrl  = "Test-File3.png" },
+                new UploadFile() { PrevUrl  = "Test-File4.bmp" },
+                new UploadFile() { PrevUrl  = "Test-File5.jpeg" },
+                new UploadFile() { PrevUrl  = "Test-File6.gif" },
+                new UploadFile() { FileName = null! }
+            });
+        });
+
+        // OnZoom
+        cut.InvokeAsync(() => cut.Find(".btn-outline-secondary").Click());
+        Assert.True(zoom);
+
+        // OnDelete
+        cut.InvokeAsync(() => cut.Find(".btn-outline-danger").Click());
+        Assert.True(deleted);
+
+        // ShowProgress
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ShowProgress, true);
+            pb.Add(a => a.OnChange, async file =>
+            {
+                await file.SaveToFile("1.txt");
+            });
+        });
+        var input = cut.FindComponent<InputFile>();
+        cut.InvokeAsync(() => input.Instance.OnChange.InvokeAsync(new InputFileChangeEventArgs(new List<MockBrowserFile>()
+        {
+            new MockBrowserFile("test.txt", "Image-Png")
+        })));
+        cut.InvokeAsync(() => input.Instance.OnChange.InvokeAsync(new InputFileChangeEventArgs(new List<MockBrowserFile>()
+        {
+            new MockBrowserFile("test.png")
+        })));
+    }
+
+    [Fact]
+    public void CardUpload_Reset()
+    {
+        var cut = Context.RenderComponent<CardUpload<string>>();
+        cut.InvokeAsync(() => cut.Instance.Reset());
+        Assert.Null(cut.Instance.DefaultFileList);
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.DefaultFileList, new List<UploadFile>()
+            {
+                new UploadFile() { FileName  = "Test-File1.text" }
+            });
+        });
+        cut.InvokeAsync(() => cut.Instance.Reset());
+        Assert.Empty(cut.Instance.DefaultFileList);
+    }
+
+    [Fact]
+    public void CardUpload_ValidateForm_Ok()
+    {
+        var foo = new Foo();
+        var cut = Context.RenderComponent<ValidateForm>(pb =>
+        {
+            pb.Add(a => a.Model, foo);
+            pb.AddChildContent<CardUpload<string>>(pb =>
+            {
+                pb.Add(a => a.Value, foo.Name);
+                pb.Add(a => a.ValueExpression, foo.GenerateValueExpression());
+            });
+        });
+        cut.Contains("form-label");
+    }
+
+    private class Person
+    {
+        [Required]
+        [FileValidation(Extensions = new string[] { ".png", ".jpg", ".jpeg" })]
+        public IBrowserFile? Picture { get; set; }
+    }
+
     [ExcludeFromCodeCoverage]
     private class MockBrowserFile : IBrowserFile
     {
-        public MockBrowserFile(string name = "UploadTestFile")
+        public MockBrowserFile(string name = "UploadTestFile", string contentType = "text")
         {
             Name = name;
             LastModified = DateTimeOffset.Now;
             Size = 10;
-            ContentType = "jpg";
+            ContentType = contentType;
         }
 
         public string Name { get; }

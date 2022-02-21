@@ -48,14 +48,17 @@ public abstract class MultipleUploadBase<TValue> : UploadBase<TValue>
     protected override async Task<bool> OnFileDelete(UploadFile item)
     {
         var ret = await base.OnFileDelete(item);
-        if (ret && item != null)
+        if (ret)
         {
             UploadFiles.Remove(item);
             if (!string.IsNullOrEmpty(item.ValidateId))
             {
                 await JSRuntime.InvokeVoidAsync(null, "bb_tooltip", item.ValidateId, "dispose");
             }
-            DefaultFileList?.Remove(item);
+            if (DefaultFileList != null)
+            {
+                DefaultFileList.Remove(item);
+            }
         }
         return ret;
     }
@@ -66,12 +69,6 @@ public abstract class MultipleUploadBase<TValue> : UploadBase<TValue>
     /// <param name="item"></param>
     /// <returns></returns>
     protected bool GetShowProgress(UploadFile item) => ShowProgress && !item.Uploaded;
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <returns></returns>
-    protected virtual List<UploadFile> GetUploadFiles() => DefaultFileList == null ? UploadFiles : DefaultFileList.Concat(UploadFiles).ToList();
 
     /// <summary>
     /// 清空上传列表方法

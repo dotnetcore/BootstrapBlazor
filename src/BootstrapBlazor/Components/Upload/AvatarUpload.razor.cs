@@ -30,6 +30,7 @@ public partial class AvatarUpload<TValue>
     /// </summary>
     protected override string? ItemClassString => CssBuilder.Default(base.ItemClassString)
         .AddClass("is-circle", IsCircle)
+        .AddClass("is-single", IsSingle)
         .AddClass("disabled", IsDisabled)
         .Build();
 
@@ -67,8 +68,6 @@ public partial class AvatarUpload<TValue>
     /// <returns></returns>
     protected override async Task OnFileChange(InputFileChangeEventArgs args)
     {
-        await base.OnFileChange(args);
-
         CurrentFile = new UploadFile()
         {
             OriginFileName = args.File.Name,
@@ -86,7 +85,8 @@ public partial class AvatarUpload<TValue>
         }
 
         UploadFiles.Add(CurrentFile);
-        ValidateFile();
+
+        await base.OnFileChange(args);
 
         // ValidateFile 后 IsValid 才有值
         CurrentFile.IsValid = IsValid;
