@@ -9,17 +9,22 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 
 /// </summary>
-public partial class Radio
+public partial class Radio<TValue>
 {
     /// <summary>
-    /// 
+    /// 获得/设置 点击回调方法
     /// </summary>
     [Parameter]
-    public Func<SelectedItem, Task>? OnClick { get; set; }
+    public Func<TValue, Task>? OnClick { get; set; }
 
-    [CascadingParameter(Name = "GroupName")]
-    [NotNull]
-    private string? GroupName { get; set; }
+    /// <summary>
+    /// 获得/设置 Radio 组名称一般来讲需要设置 默认为 null 未设置
+    /// </summary>
+    [Parameter]
+#if NET6_0_OR_GREATER
+    [EditorRequired]
+#endif
+    public string? GroupName { get; set; }
 
     private void OnClickHandler()
     {

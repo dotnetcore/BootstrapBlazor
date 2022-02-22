@@ -6,12 +6,10 @@
 {
     <label class="form-label" required="@Required">@DisplayText</label>
 }
-<CascadingValue Value="GroupName" Name="GroupName">
-    <div @attributes="@AdditionalAttributes" class="@GetClassString("radio-list")">
-        @foreach (var item in Items)
-        {
-            <Radio Value="@item" Color="@Color" IsDisabled="@IsDisabled" ShowAfterLabel="true" ShowLabel="false" DisplayText="@item.Text" State="@CheckState(item)" OnClick="OnClick" />
-        }
-    </div>
-    @ChildContent
-</CascadingValue>
+<div @attributes="@AdditionalAttributes" class="@GetClassString("radio-list")">
+    @foreach (var item in Items)
+    {
+        <Radio TValue="SelectedItem" Value="@item" Color="@Color" GroupName="@GroupName" IsDisabled="@IsDisabled" ShowAfterLabel="true" ShowLabel="false" DisplayText="@item.Text" State="@CheckState(item)" OnClick="OnClick" />
+    }
+</div>
+@ChildContent

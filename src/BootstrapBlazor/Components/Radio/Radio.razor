@@ -1,5 +1,6 @@
 ﻿@namespace BootstrapBlazor.Components
-@inherits Checkbox<SelectedItem>
+@typeparam TValue
+@inherits Checkbox<TValue>
 
 <div @attributes="AdditionalAttributes" class="@ClassString" aria-checked="@StateString">
     <input class="@InputClassString" type="radio" name="@GroupName" id="@Id" disabled="@Disabled" checked="@CheckedString" @onclick="@OnClickHandler">

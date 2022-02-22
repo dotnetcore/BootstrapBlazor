@@ -16,6 +16,9 @@ public partial class Tree
     /// </summary>
     private ElementReference TreeElement { get; set; }
 
+    [NotNull]
+    private string? GroupName { get; set; }
+
     /// <summary>
     /// 获得 按钮样式集合
     /// </summary>
@@ -98,6 +101,12 @@ public partial class Tree
     public bool ShowCheckbox { get; set; }
 
     /// <summary>
+    /// 获得/设置 是否显示 Radio 默认 false 不显示
+    /// </summary>
+    [Parameter]
+    public bool ShowRadio { get; set; }
+
+    /// <summary>
     /// 获得/设置 是否显示 Icon 图标 默认 false 不显示
     /// </summary>
     [Parameter]
@@ -120,6 +129,16 @@ public partial class Tree
     /// </summary>
     [Parameter]
     public Func<TreeItem, Task>? OnExpandNode { get; set; }
+
+    /// <summary>
+    /// OnInitialized 方法
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        GroupName = this.GetHashCode().ToString();
+    }
 
     /// <summary>
     /// OnParametersSet 方法
@@ -213,5 +232,19 @@ public partial class Tree
             });
             await OnTreeItemChecked(checkedItems.Where(i => i.Checked).ToList());
         }
+    }
+
+    private async Task OnRadioClick(TreeItem item)
+    {
+        item.CascadeSetCheck(item.Checked);
+        if (OnTreeItemChecked != null)
+        {
+            await OnTreeItemChecked.Invoke(new List<TreeItem> { item });
+        }
+    }
+
+    private CheckboxState CheckState(TreeItem item)
+    {
+        return item.Checked ? CheckboxState.Checked : CheckboxState.UnChecked;
     }
 }

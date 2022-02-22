@@ -1416,6 +1416,7 @@
     "Att4": "Whether it is vertically distributed",
     "Att5": "Whether the binding automatically adds an empty value when the type is enumerated",
     "Att6": "Bind the data source",
+    "GroupName": "Group name",
     "Event1": "Call back this method when the check box state changes",
     "Log1": "The component selects the value:",
     "Log2": "The value is displayed:",

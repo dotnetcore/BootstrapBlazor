@@ -12,12 +12,19 @@
     <BlockLogger @ref="Trace" class="mt-3" />
 </DemoBlock>
 
-<DemoBlock Title="可选择" Introduction="适用于需要选择层级时使用" Name="Optional">
+<DemoBlock Title="多选框" Introduction="适用于需要选择层级时使用" Name="Checkbox">
     <p>
         通过设置 <code>OnTreeItemChecked</code> 属性监控树形控件节点被勾选时的事件，选中树形控件节点前复选框时下面日志显示选中节点的数据
     </p>
     <Tree Items="@CheckedItems" ShowCheckbox="true" OnTreeItemChecked="@OnTreeItemChecked" />
     <BlockLogger @ref="TraceChecked" class="mt-3" />
+</DemoBlock>
+
+<DemoBlock Title="单选框" Introduction="适用于单选节点" Name="ShowRadio">
+    <p>
+        通过设置 <code>ShowRadio</code> 属性节点前面显示 <code>Radio</code> 组件
+    </p>
+    <Tree Items="@CheckedItems" ShowRadio="true" />
 </DemoBlock>
 
 <DemoBlock Title="禁用状态" Introduction="可将 Tree 的某些节点设置为禁用状态" Name="TreeDisable">

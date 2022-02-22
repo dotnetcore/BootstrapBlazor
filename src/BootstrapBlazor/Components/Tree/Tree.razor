@@ -45,6 +45,13 @@ private RenderFragment<TreeItem> RenderTreeItem => item =>
                       ShowLabel="false" ShowAfterLabel="false"
                       OnStateChanged="(state, v) => OnStateChanged(state, item)" />
         }
+        else if (ShowRadio)
+        {
+            <Radio @bind-Value="@item.Checked" IsDisabled="@item.IsDisabled" SkipValidate="true"
+                   ShowLabel="false" ShowAfterLabel="false" GroupName="@GroupName"
+                   OnClick="p => OnRadioClick(item)" State="@CheckState(item)"
+                   OnStateChanged="(state, v) => OnStateChanged(state, item)" />
+        }
         <div class="tree-node" @onclick="() => OnClick(item)">
             @if (ShowIcon)
             {

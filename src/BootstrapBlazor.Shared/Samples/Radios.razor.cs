@@ -68,49 +68,56 @@ public sealed partial class Radios
 
     private IEnumerable<AttributeItem> GetAttributes() => new[]
     {
-            new AttributeItem() {
-                Name = "DisplayText",
-                Description = Localizer["Att1"],
-                Type = "string",
-                ValueList = " — ",
-                DefaultValue = "—"
-            },
-            new AttributeItem() {
-                Name = "NullItemText",
-                Description = Localizer["Att2"],
-                Type = "string",
-                ValueList = " — ",
-                DefaultValue = "—"
-            },
-            new AttributeItem() {
-                Name = "IsDisabled",
-                Description = Localizer["Att3"],
-                Type = "boolean",
-                ValueList = "true / false",
-                DefaultValue = "false"
-            },
-            new AttributeItem() {
-                Name = "IsVertical",
-                Description = Localizer["Att4"],
-                Type = "boolean",
-                ValueList = "true / false",
-                DefaultValue = "false"
-            },
-            new AttributeItem() {
-                Name = "IsAutoAddNullItem",
-                Description = Localizer["Att5"],
-                Type = "boolean",
-                ValueList = "true / false",
-                DefaultValue = "false"
-            },
-            new AttributeItem() {
-                Name = "Items",
-                Description = Localizer["Att6"],
-                Type = "IEnumerable<TItem>",
-                ValueList = " — ",
-                DefaultValue = "—"
-            }
-        };
+        new AttributeItem() {
+            Name = "DisplayText",
+            Description = Localizer["Att1"],
+            Type = "string",
+            ValueList = " — ",
+            DefaultValue = "—"
+        },
+        new AttributeItem() {
+            Name = "GroupName",
+            Description = Localizer["GroupName"],
+            Type = "string",
+            ValueList = " — ",
+            DefaultValue = "—"
+        },
+        new AttributeItem() {
+            Name = "NullItemText",
+            Description = Localizer["Att2"],
+            Type = "string",
+            ValueList = " — ",
+            DefaultValue = "—"
+        },
+        new AttributeItem() {
+            Name = "IsDisabled",
+            Description = Localizer["Att3"],
+            Type = "boolean",
+            ValueList = "true / false",
+            DefaultValue = "false"
+        },
+        new AttributeItem() {
+            Name = "IsVertical",
+            Description = Localizer["Att4"],
+            Type = "boolean",
+            ValueList = "true / false",
+            DefaultValue = "false"
+        },
+        new AttributeItem() {
+            Name = "IsAutoAddNullItem",
+            Description = Localizer["Att5"],
+            Type = "boolean",
+            ValueList = "true / false",
+            DefaultValue = "false"
+        },
+        new AttributeItem() {
+            Name = "Items",
+            Description = Localizer["Att6"],
+            Type = "IEnumerable<TItem>",
+            ValueList = " — ",
+            DefaultValue = "—"
+        }
+    };
 
     /// <summary>
     /// 获得事件方法
@@ -118,11 +125,11 @@ public sealed partial class Radios
     /// <returns></returns>
     private IEnumerable<EventItem> GetEvents() => new EventItem[]
     {
-            new EventItem()
-            {
-                Name = "OnSelectedChanged",
-                Description = Localizer["Event1"],
-                Type ="Func<IEnumerable<SelectedItem>, TValue, Task>"
-            }
+        new EventItem()
+        {
+            Name = "OnSelectedChanged",
+            Description = Localizer["Event1"],
+            Type ="Func<IEnumerable<SelectedItem>, TValue, Task>"
+        }
     };
 }
