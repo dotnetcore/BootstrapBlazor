@@ -30,10 +30,7 @@ public partial class RadioList<TValue>
     [Parameter]
     public string NullItemText { get; set; } = "";
 
-    /// <summary>
-    /// 
-    /// </summary>
-    public string? GroupName => Id;
+    private string? GroupName => Id;
 
     /// <summary>
     /// OnInitialized 方法

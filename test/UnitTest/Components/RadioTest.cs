@@ -106,6 +106,57 @@ public class RadioTest : BootstrapBlazorTestBase
         Assert.Contains("primary", cut.Markup);
     }
 
+    [Fact]
+    public void OnClick_Ok()
+    {
+        var cut = Context.RenderComponent<Radio<bool>>();
+        cut.InvokeAsync(() => cut.Find("input").Click());
+
+        var clicked = false;
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.OnClick, v =>
+            {
+                clicked = true;
+                return Task.CompletedTask;
+            });
+        });
+        cut.InvokeAsync(() => cut.Find("input").Click());
+        Assert.True(clicked);
+    }
+
+    [Fact]
+    public void ShowLabel_Ok()
+    {
+        var cut = Context.RenderComponent<Radio<bool>>(pb =>
+        {
+            pb.Add(a => a.ShowAfterLabel, true);
+            pb.Add(a => a.DisplayText, "AfterLabel");
+        });
+        cut.Contains("AfterLabel");
+    }
+
+    [Fact]
+    public void ValidateForm_Ok()
+    {
+        var foo = new Foo();
+        var cut = Context.RenderComponent<ValidateForm>(pb =>
+        {
+            pb.Add(a => a.Model, foo);
+            pb.AddChildContent<RadioList<IEnumerable<string>>>(pb =>
+            {
+                pb.Add(a => a.Items, new List<SelectedItem>
+                {
+                    new("1", "Test1"),
+                    new("2", "Test2")
+                });
+                pb.Add(a => a.Value, foo.Hobby);
+                pb.Add(a => a.ValueExpression, foo.GenerateValueExpression(nameof(Foo.Hobby), typeof(IEnumerable<string>)));
+            });
+        });
+        cut.Contains("class=\"form-label\"");
+    }
+
     private class RadioListGenericMock<T>
     {
 
