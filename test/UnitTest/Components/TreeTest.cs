@@ -96,12 +96,30 @@ public class TreeTest : BootstrapBlazorTestBase
             });
             pb.Add(a => a.Items, new List<TreeItem>()
             {
-                new TreeItem() { Text = "Test1", Icon = "fa fa-fa", CssClass = "Test-Class" }
+                new TreeItem()
+                {
+                    Text = "Test1",
+                    Icon = "fa fa-fa",
+                    CssClass = "Test-Class",
+                    Items = new List<TreeItem>()
+                    {
+                        new()
+                        {
+                            Text = "Test1-1",
+                            Items = new List<TreeItem>()
+                            {
+                                new()
+                                {
+                                    Text = "Test1-1-1"
+                                }
+                            }
+                        }
+                    }
+                }
             });
         });
 
         cut.InvokeAsync(() => cut.Find("[type=\"checkbox\"]").Click());
-        Assert.Single(checkedLists);
         cut.DoesNotContain("fa fa-fa");
         cut.Contains("Test-Class");
 
@@ -182,5 +200,36 @@ public class TreeTest : BootstrapBlazorTestBase
 
         var subs = data.First().GetAllSubItems();
         Assert.Equal(2, subs.Count());
+    }
+
+    [Fact]
+    public void ShowRadio_Ok()
+    {
+        List<TreeItem>? checkedLists = null;
+        var cut = Context.RenderComponent<Tree>(pb =>
+        {
+            pb.Add(a => a.ShowRadio, true);
+            pb.Add(a => a.OnTreeItemChecked, items =>
+            {
+                checkedLists = items;
+                return Task.CompletedTask;
+            });
+            pb.Add(a => a.Items, new List<TreeItem>()
+            {
+                new() { Text = "Test1", Icon = "fa fa-fa" },
+                new() { Text = "Test2", Icon = "fa fa-fa" }
+            });
+        });
+        cut.Find("[type=\"radio\"]").Click();
+        Assert.Single(checkedLists);
+        Assert.Equal("Test1", checkedLists![0].Text);
+
+        cut.FindAll("[type=\"radio\"]")[1].Click();
+        Assert.Equal("Test2", checkedLists![0].Text);
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ShowSkeleton, false);
+        });
     }
 }

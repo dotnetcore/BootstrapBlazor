@@ -230,20 +230,27 @@ public partial class Tree
                 t.AddRange(item.GetAllSubItems());
                 return t;
             });
-            await OnTreeItemChecked(checkedItems.Where(i => i.Checked).ToList());
+            await OnTreeItemChecked(checkedItems);
         }
     }
 
     private async Task OnRadioClick(TreeItem item)
     {
-        item.CascadeSetCheck(item.Checked);
+        if (ActiveItem != null)
+        {
+            ActiveItem.Checked = false;
+        }
+        ActiveItem = item;
+        ActiveItem.Checked = true;
+
+        // 其他设置为 false
         if (OnTreeItemChecked != null)
         {
-            await OnTreeItemChecked.Invoke(new List<TreeItem> { item });
+            await OnTreeItemChecked(new List<TreeItem> { item });
         }
     }
 
-    private CheckboxState CheckState(TreeItem item)
+    private static CheckboxState CheckState(TreeItem item)
     {
         return item.Checked ? CheckboxState.Checked : CheckboxState.UnChecked;
     }

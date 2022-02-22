@@ -67,18 +67,18 @@ public class TreeItem : NodeItem
         }
     }
 
-    /// <summary>
-    /// 级联设置展开状态方法
-    /// </summary>
-    public void CollapseOtherNodes()
-    {
-        //if (!string.IsNullOrEmpty(ParentId))
-        //{
-        //    var parent = Items.FirstOrDefault(i => i.Id)
-        //    foreach (var node in Parent.Items.Where(p => p.IsExpanded && p != this))
-        //    {
-        //        node.IsExpanded = false;
-        //    }
-        //}
-    }
+    ///// <summary>
+    ///// 级联设置展开状态方法
+    ///// </summary>
+    //public void CollapseOtherNodes()
+    //{
+    //    if (!string.IsNullOrEmpty(ParentId))
+    //    {
+    //        var parent = Items.FirstOrDefault(i => i.Id)
+    //        foreach (var node in Parent.Items.Where(p => p.IsExpanded && p != this))
+    //        {
+    //            node.IsExpanded = false;
+    //        }
+    //    }
+    //}
 }
