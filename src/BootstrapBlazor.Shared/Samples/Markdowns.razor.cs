@@ -25,6 +25,10 @@ public partial class Markdowns
 
     private string? AsyncValue { get; set; }
 
+    private string JsString { get; set; } = @"```js
+console.log('test');
+```";
+
     /// <summary>
     /// OnInitializedAsync 方法
     /// </summary>
@@ -89,6 +93,20 @@ public partial class Markdowns
             new AttributeItem(){
                 Name = "IsViewer",
                 Description = Localizer["Att7"],
+                Type = "bool",
+                ValueList = " true/false ",
+                DefaultValue = " false "
+            },
+            new AttributeItem(){
+                Name = "IsDark",
+                Description = "是否为暗黑模式",
+                Type = "bool",
+                ValueList = " true/false ",
+                DefaultValue = " false "
+            },
+            new AttributeItem(){
+                Name = "EnableHighlight",
+                Description = "是否启用代码高亮插件，启用前需要引入插件对应的js css",
                 Type = "bool",
                 ValueList = " true/false ",
                 DefaultValue = " false "

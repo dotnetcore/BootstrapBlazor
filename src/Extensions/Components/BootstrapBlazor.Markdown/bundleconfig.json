@@ -2,7 +2,8 @@
   {
     "outputFileName": "wwwroot/css/bootstrap.blazor.markdown.min.css",
     "inputFiles": [
-      "wwwroot/lib/**/*.min.css"
+      "wwwroot/lib/**/*.min.css",
+      "Components/**/*.css"
     ]
   },
   {

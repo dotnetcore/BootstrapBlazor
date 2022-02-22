@@ -84,6 +84,18 @@ public partial class Markdown : IDisposable
     [Parameter]
     public bool? IsViewer { get; set; }
 
+    /// <summary>
+    /// 获取/设置 组件是否为为暗黑主题，默认为false
+    /// </summary>
+    [Parameter]
+    public bool IsDark { get; set; } = false;
+
+    /// <summary>
+    /// 启用代码高亮插件，需引入对应的css js，默认为false
+    /// </summary>
+    [Parameter]
+    public bool EnableHighlight { get; set; } = false;
+
     private JSInterop<Markdown>? Interop { get; set; }
 
     private readonly MarkdownOption _markdownOption = new();
@@ -103,8 +115,10 @@ public partial class Markdown : IDisposable
         _markdownOption.Placeholder = Placeholder;
         _markdownOption.Height = $"{Height}px";
         _markdownOption.MinHeight = $"{MinHeight}px";
-        _markdownOption.initialValue = Value;
+        _markdownOption.InitialValue = Value ?? "";
         _markdownOption.Viewer = IsViewer;
+        _markdownOption.Theme = IsDark ? "dark" : "light";
+        _markdownOption.EnableHighlight = EnableHighlight;
     }
 
     /// <summary>

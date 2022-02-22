@@ -1,0 +1,13 @@
+﻿.toastui-editor-defaultUI-toolbar .switch {
+    display: block;
+    align-items: normal;
+    height: auto;
+    width: auto;
+}
+
+.token.tag {
+    display: inline;
+    padding: 0;
+    border-radius: unset;
+    white-space: pre-wrap;
+}

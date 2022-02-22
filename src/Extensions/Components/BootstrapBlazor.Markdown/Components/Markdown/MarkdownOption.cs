@@ -42,10 +42,20 @@ internal class MarkdownOption
     /// <summary>
     /// 获得/设置 Markdown 内容
     /// </summary>
-    public string? initialValue { get; set; }
+    public string? InitialValue { get; set; }
 
     /// <summary>
     /// 是否为浏览器模式
     /// </summary>
     public bool? Viewer { get; set; } = false;
+
+    /// <summary>
+    /// 获得/设置 主题类型
+    /// </summary>
+    public string? Theme { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否启用代码高亮
+    /// </summary>
+    public bool? EnableHighlight { get; set; }
 }
