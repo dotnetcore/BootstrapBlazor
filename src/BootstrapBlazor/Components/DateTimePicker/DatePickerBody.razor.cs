@@ -19,11 +19,6 @@ public sealed partial class DatePickerBody
     {
         get
         {
-            if (CurrentDate == DateTime.MinValue)
-            {
-                CurrentDate = DateTime.Today;
-            }
-
             var d = CurrentDate.AddDays(1 - CurrentDate.Day);
             d = d.AddDays(0 - (int)d.DayOfWeek);
             return d;
@@ -73,7 +68,7 @@ public sealed partial class DatePickerBody
         .AddClass("disabled", IsDisabled(day))
         .Build();
 
-    private bool IsDisabled(DateTime day) => (MinValue != null && MaxValue != null) && (day < MinValue || day > MaxValue);
+    private bool IsDisabled(DateTime day) => (MinValue != null && day < MinValue) || (MaxValue != null && day > MaxValue);
 
     /// <summary>
     /// 获得 年月日时分秒视图样式
@@ -517,7 +512,7 @@ public sealed partial class DatePickerBody
     /// </summary>
     /// <returns></returns>
     private string? GetMonthClassName(int month) => CssBuilder.Default()
-        .AddClass("current", CurrentDate.Year == Value.Year && month == Value.Month)
+        .AddClass("current", month == Value.Month)
         .AddClass("today", CurrentDate.Year == DateTime.Today.Year && month == DateTime.Today.Month)
         .Build();
 

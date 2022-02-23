@@ -22,22 +22,19 @@ public partial class TimePickerCell : IDisposable
         {
             TimePickerCellViewModel.Hour => Value.Hours - 1 == index,
             TimePickerCellViewModel.Minute => Value.Minutes - 1 == index,
-            TimePickerCellViewModel.Second => Value.Seconds - 1 == index,
-            _ => false
+            _ => Value.Seconds - 1 == index
         })
         .AddClass("active", ViewModel switch
         {
             TimePickerCellViewModel.Hour => Value.Hours == index,
             TimePickerCellViewModel.Minute => Value.Minutes == index,
-            TimePickerCellViewModel.Second => Value.Seconds == index,
-            _ => false
+            _ => Value.Seconds == index
         })
         .AddClass("next", ViewModel switch
         {
             TimePickerCellViewModel.Hour => Value.Hours + 1 == index,
             TimePickerCellViewModel.Minute => Value.Minutes + 1 == index,
-            TimePickerCellViewModel.Second => Value.Seconds + 1 == index,
-            _ => false
+            _ => Value.Seconds + 1 == index
         })
         .Build();
 
@@ -137,8 +134,7 @@ public partial class TimePickerCell : IDisposable
         {
             TimePickerCellViewModel.Hour => TimeSpan.FromHours(1),
             TimePickerCellViewModel.Minute => TimeSpan.FromMinutes(1),
-            TimePickerCellViewModel.Second => TimeSpan.FromSeconds(1),
-            _ => TimeSpan.Zero
+            _ => TimeSpan.FromSeconds(1)
         };
         Value = Value.Add(ts);
         if (Value.Days > 0)
@@ -159,8 +155,7 @@ public partial class TimePickerCell : IDisposable
         {
             TimePickerCellViewModel.Hour => (Value.Hours) * height,
             TimePickerCellViewModel.Minute => (Value.Minutes) * height,
-            TimePickerCellViewModel.Second => (Value.Seconds) * height,
-            _ => 0
+            _ => (Value.Seconds) * height
         };
     }
 
@@ -170,11 +165,13 @@ public partial class TimePickerCell : IDisposable
     /// <param name="disposing"></param>
     protected virtual void Dispose(bool disposing)
     {
-
-        if (disposing && Interop != null)
+        if (disposing)
         {
-            Interop.Dispose();
-            Interop = null;
+            if (Interop != null)
+            {
+                Interop.Dispose();
+                Interop = null;
+            }
         }
     }
 
@@ -183,7 +180,7 @@ public partial class TimePickerCell : IDisposable
     /// </summary>
     public void Dispose()
     {
-        Dispose(disposing: true);
+        Dispose(true);
         GC.SuppressFinalize(this);
     }
 }

@@ -169,12 +169,14 @@ public sealed partial class DateTimePicker<TValue>
 
         // 泛型设置为可为空
         AllowNull = typeof(TValue) == typeof(DateTime?);
+    }
 
-        // 不允许为空时设置 Value 默认值
-        if (!AllowNull && Value == null)
-        {
-            CurrentValue = (TValue)(object)DateTime.Now;
-        }
+    /// <summary>
+    /// OnParametersSet 方法
+    /// </summary>
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
 
         // Value 为 MinValue 时 设置 Value 默认值
         if (Value?.ToString() == DateTime.MinValue.ToString())
@@ -222,7 +224,7 @@ public sealed partial class DateTimePicker<TValue>
     /// <returns></returns>
     private async Task OnClear()
     {
-        CurrentValue = default!;
+        CurrentValue = default;
         await JSRuntime.InvokeVoidAsync(Picker, "bb_datetimePicker", "hide");
         if (OnDateTimeChanged != null)
         {

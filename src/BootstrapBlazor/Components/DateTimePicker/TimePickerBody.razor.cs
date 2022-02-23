@@ -126,7 +126,6 @@ public sealed partial class TimePickerBody
         {
             await ValueChanged.InvokeAsync(Value);
         }
-
         OnConfirm?.Invoke();
     }
 }
