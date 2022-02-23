@@ -466,8 +466,22 @@ public partial class Tables
             DefaultValue = "true"
         },
         new() {
+            Name = "ShowEditButtonCallback",
+            Description = "显示行内编辑按钮，未设置时使用 ShowEditButton 值",
+            Type = "boolean",
+            ValueList = "true / false",
+            DefaultValue = "true"
+        },
+        new() {
             Name = "ShowDeleteButton",
             Description = "显示删除按钮",
+            Type = "boolean",
+            ValueList = "true / false",
+            DefaultValue = "true"
+        },
+        new() {
+            Name = "ShowDeleteButtonCallback",
+            Description = "显示行内删除按钮未设置时使用 ShowEditButton 值",
             Type = "boolean",
             ValueList = "true / false",
             DefaultValue = "true"
