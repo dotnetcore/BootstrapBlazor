@@ -81,7 +81,7 @@ public partial class ListView<TItem> : BootstrapComponentBase where TItem : clas
     /// <summary>
     /// 获得/设置 数据总条目
     /// </summary>
-    protected long TotalCount { get; set; }
+    protected int TotalCount { get; set; }
 
     /// <summary>
     /// 获得/设置 当前页码

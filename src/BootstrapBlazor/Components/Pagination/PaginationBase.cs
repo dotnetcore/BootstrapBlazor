@@ -65,7 +65,7 @@ public abstract class PaginationBase : BootstrapComponentBase
     /// 获得/设置 数据总数
     /// </summary>
     [Parameter]
-    public long TotalCount { get; set; }
+    public int TotalCount { get; set; }
 
     /// <summary>
     /// 获得/设置 当前页码
