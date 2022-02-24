@@ -67,15 +67,15 @@ public class DataTableDynamicContext : DynamicObjectContext
         DynamicObjectType = dynamicType;
 
         // 获得显示列
-        Columns = InternalTableColumn.GetProperties(DynamicObjectType, cols).Where(col => GetShownColumns(col.GetFieldName(), invisibleColumns, shownColumns, hiddenColumns)).ToList();
+        Columns = InternalTableColumn.GetProperties(DynamicObjectType, cols).Where(col => GetShownColumns(col, invisibleColumns, shownColumns, hiddenColumns)).ToList();
 
         OnValueChanged = OnCellValueChanged;
     }
 
-    private static bool GetShownColumns(string columnName, IEnumerable<string>? invisibleColumns, IEnumerable<string>? shownColumns, IEnumerable<string>? hiddenColumns)
+    private static bool GetShownColumns(ITableColumn col, IEnumerable<string>? invisibleColumns, IEnumerable<string>? shownColumns, IEnumerable<string>? hiddenColumns)
     {
         var ret = true;
-
+        var columnName = col.GetFieldName();
         if (invisibleColumns != null && invisibleColumns.Any(c => c.Equals(columnName, StringComparison.OrdinalIgnoreCase)))
         {
             ret = false;
@@ -84,13 +84,13 @@ public class DataTableDynamicContext : DynamicObjectContext
         // 隐藏列优先 移除隐藏列
         if (ret && hiddenColumns != null && hiddenColumns.Any(c => c.Equals(columnName, StringComparison.OrdinalIgnoreCase)))
         {
-            ret = false;
+            col.Visible = false;
         }
 
         // 显示列不存在时 不显示
         if (ret && shownColumns != null && !shownColumns.Any(c => c.Equals(columnName, StringComparison.OrdinalIgnoreCase)))
         {
-            ret = false;
+            col.Visible = true;
         }
         return ret;
     }
