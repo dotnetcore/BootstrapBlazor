@@ -547,6 +547,7 @@ public class UploadTest : BootstrapBlazorTestBase
                 new UploadFile() { PrevUrl  = "Test-File4.bmp" },
                 new UploadFile() { PrevUrl  = "Test-File5.jpeg" },
                 new UploadFile() { PrevUrl  = "Test-File6.gif" },
+                new UploadFile() { PrevUrl  = "data:image/png;base64,iVBORw0KGgoAAAANS=" },
                 new UploadFile() { FileName = null! }
             });
         });
