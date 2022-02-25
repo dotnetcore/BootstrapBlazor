@@ -5,11 +5,15 @@
 <h4>数据结构比较复杂的时候，可使用多级表头来展现数据的层次关系</h4>
 
 <DemoBlock Title="基础用法" Introduction="设置 <code>MultiHeaderTemplate</code> 模板即可" Name="MultiHeaderTemplate">
-    <Table TItem="Foo" OnQueryAsync="@OnQueryAsync" IsBordered="true" IsStriped="true">
+    <p>
+        <div>通过设置 <code>ShowMultiFilterHeader</code> 值，来控制是否显示过滤行头</div>
+        <div>注意细节，首列单元格合并后导致最后一行表头第一列无单元格，所以需要自行设置样式 <code>border-bottom</code> 与其他单元格一致</div>
+    </p>
+    <Table TItem="Foo" OnQueryAsync="@OnQueryAsync" IsBordered="true" IsStriped="true" ShowMultiFilterHeader="false">
         <MultiHeaderTemplate>
             <tr>
-                <th rowspan="2"><div class="table-cell" style="height: 94px; justify-content: center;">时间</div></th>
-                <th colspan="2"><div class="table-cell" style="justify-content: center">个人信息</div></th>
+                <th rowspan="2" class="table-header-group-th1"><div class="table-cell">时间</div></th>
+                <th colspan="2" class="table-header-group-th2"><div class="table-cell">个人信息</div></th>
             </tr>
             <tr>
                 <th><div class="table-cell">个人姓名</div></th>

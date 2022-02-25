@@ -420,74 +420,77 @@ RenderFragment<bool> RenderHeader => hasScroll =>
     {
         @MultiHeaderTemplate
     }
-    <tr>
-        @if (ShowDetails())
-        {
-            <th>
-                <div class="table-cell">&nbsp;</div>
-            </th>
-        }
-        @if (IsMultipleSelect)
-        {
-            <th class="@CheckboxColumnClass">
-                <div class="table-cell">
-                    <Checkbox TValue="TItem" DisplayText="@CheckboxDisplayTextString" ShowAfterLabel="@ShowCheckboxText"
-                              State="@HeaderCheckState()" OnStateChanged="OnHeaderCheck"></Checkbox>
-                </div>
-            </th>
-        }
-        @if (ShowLineNo)
-        {
-            <th>
-                <div class="table-cell">@LineNoText</div>
-            </th>
-        }
-        @if (!IsExcel && ShowExtendButtons && IsExtendButtonsInRowHeader)
-        {
-            @RenderExtendButtonsHeader
-        }
-        @foreach (var col in GetColumns())
-        {
-            @if (CheckShownWithBreakpoint(col))
+    @if (ShowMultiFilterHeader)
+    {
+        <tr>
+            @if (ShowDetails())
             {
-                var fieldName = col.GetFieldName();
-                var displayName = col.GetDisplayName();
-                <DynamicElement TagName="th" class="@GetHeaderClassString(col)" style="@GetFixedCellStyleString(col, 6)"
-                                TriggerClick="col.Sortable" OnClick="@OnClickHeader(col)">
-                    <div class="@GetHeaderWrapperClassString(col)">
-                        @if(col.HeaderTemplate != null)
-                        {
-                            @col.HeaderTemplate(col)
-                        }
-                        else
-                        {
-                            <span class="@GetHeaderTextClassString(col)">@displayName</span>
-                        }
-                        @if (col.Filterable && !ShowFilterHeader)
-                        {
-                            <i class="@GetFilterClassString(fieldName)" data-field="@fieldName" @onclick:stopPropagation @onclick="() => OnFilterClick(col)"></i>
-                        }
-                        @if (col.Sortable)
-                        {
-                            <i class="@GetIconClassString(fieldName)"></i>
-                        }
-                    </div>
-                    @if (AllowResizing)
-                    {
-                        <span class="col-resizer"></span>
-                    }
-                </DynamicElement>
+                <th>
+                    <div class="table-cell">&nbsp;</div>
+                </th>
             }
-        }
-        @if (!IsExcel && ShowExtendButtons && !IsExtendButtonsInRowHeader)
-        {
-            @RenderExtendButtonsHeader
-        }
-        @if (hasScroll)
-        {
-            <th class="fixed-scroll"><div class="table-cell"><span>&nbsp;</span></div></th>
-        }
-    </tr>
+            @if (IsMultipleSelect)
+            {
+                <th class="@CheckboxColumnClass">
+                    <div class="table-cell">
+                        <Checkbox TValue="TItem" DisplayText="@CheckboxDisplayTextString" ShowAfterLabel="@ShowCheckboxText"
+                                  State="@HeaderCheckState()" OnStateChanged="OnHeaderCheck"></Checkbox>
+                    </div>
+                </th>
+            }
+            @if (ShowLineNo)
+            {
+                <th>
+                    <div class="table-cell">@LineNoText</div>
+                </th>
+            }
+            @if (!IsExcel && ShowExtendButtons && IsExtendButtonsInRowHeader)
+            {
+                @RenderExtendButtonsHeader
+            }
+            @foreach (var col in GetColumns())
+            {
+                @if (CheckShownWithBreakpoint(col))
+                {
+                    var fieldName = col.GetFieldName();
+                    var displayName = col.GetDisplayName();
+                    <DynamicElement TagName="th" class="@GetHeaderClassString(col)" style="@GetFixedCellStyleString(col, 6)"
+                                    TriggerClick="col.Sortable" OnClick="@OnClickHeader(col)">
+                        <div class="@GetHeaderWrapperClassString(col)">
+                            @if(col.HeaderTemplate != null)
+                            {
+                                @col.HeaderTemplate(col)
+                            }
+                            else
+                            {
+                                <span class="@GetHeaderTextClassString(col)">@displayName</span>
+                            }
+                            @if (col.Filterable && !ShowFilterHeader)
+                            {
+                                <i class="@GetFilterClassString(fieldName)" data-field="@fieldName" @onclick:stopPropagation @onclick="() => OnFilterClick(col)"></i>
+                            }
+                            @if (col.Sortable)
+                            {
+                                <i class="@GetIconClassString(fieldName)"></i>
+                            }
+                        </div>
+                        @if (AllowResizing)
+                        {
+                            <span class="col-resizer"></span>
+                        }
+                    </DynamicElement>
+                }
+            }
+            @if (!IsExcel && ShowExtendButtons && !IsExtendButtonsInRowHeader)
+            {
+                @RenderExtendButtonsHeader
+            }
+            @if (hasScroll)
+            {
+                <th class="fixed-scroll"><div class="table-cell"><span>&nbsp;</span></div></th>
+            }
+        </tr>
+    }
     @if (ShowFilterHeader)
     {
         <tr>

@@ -389,6 +389,20 @@ public partial class Tables
             DefaultValue = "false"
         },
         new() {
+            Name = nameof(Table<Foo>.ShowFilterHeader),
+            Description = "是否显示过滤行",
+            Type = "boolean",
+            ValueList = "true / false",
+            DefaultValue = "false"
+        },
+        new() {
+            Name = nameof(Table<Foo>.ShowMultiFilterHeader),
+            Description = "是否显示多级表头的过滤行",
+            Type = "boolean",
+            ValueList = "true / false",
+            DefaultValue = "false"
+        },
+        new() {
             Name = "ShowSearch",
             Description = "显示搜索栏",
             Type = "boolean",

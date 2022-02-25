@@ -525,6 +525,12 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
     public bool ShowFilterHeader { get; set; }
 
     /// <summary>
+    /// 获得/设置 是否显示过滤表头 默认 false 不显示
+    /// </summary>
+    [Parameter]
+    public bool ShowMultiFilterHeader { get; set; }
+
+    /// <summary>
     /// 获得/设置 是否显示表脚 默认为 false
     /// </summary>
     [Parameter]
