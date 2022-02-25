@@ -1723,6 +1723,8 @@
     "PreCardStyleP2": "When you set up <code> IsSingle </code>, you can upload only one image or file",
     "FileIconTitle": "The file icon",
     "FileIconIntro": "Icons are displayed in different file formats",
+    "Base64FormatTitle": "Base64 format",
+    "Base64FormatIntro": "use <code>data:image/xxx;base64,XXXXX</code> format data string as PrevUrl value",
     "ShowDeleteButton": "Whether to display the delete button",
     "IsDisabled": "Whether to disable it",
     "PlaceHolder": "The place-in string",

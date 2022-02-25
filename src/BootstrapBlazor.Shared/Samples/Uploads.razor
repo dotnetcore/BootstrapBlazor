@@ -137,6 +137,10 @@
     <CardUpload TValue="string" DefaultFileList="@DefaultFormatFileList" OnChange="@OnCardUpload" OnDelete="@(fileName => Task.FromResult(true))"></CardUpload>
 </DemoBlock>
 
+<DemoBlock Title="@Localizer["Base64FormatTitle"]" Introduction="@Localizer["Base64FormatIntro"]" Name="Base64">
+    <CardUpload TValue="string" DefaultFileList="@Base64FormatFileList" IsSingle="true" />
+</DemoBlock>
+
 <AttributeTable Items="@GetInputAttributes()" Title="InputUpload" />
 
 <AttributeTable Items="@GetButtonAttributes()" Title="ButtonUpload/CardUpload" />

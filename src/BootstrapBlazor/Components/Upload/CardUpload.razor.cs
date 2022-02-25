@@ -32,8 +32,10 @@ public partial class CardUpload<TValue>
         }
         else
         {
-            ret = CheckExtensions(item.FileName ?? item.PrevUrl ?? "");
+            ret = IsBase64Format() || CheckExtensions(item.FileName ?? item.PrevUrl ?? "");
         }
+
+        bool IsBase64Format() => !string.IsNullOrEmpty(item.PrevUrl) && item.PrevUrl.StartsWith("data:image/", StringComparison.OrdinalIgnoreCase);
 
         bool CheckExtensions(string fileName) => Path.GetExtension(fileName).ToLowerInvariant() switch
         {

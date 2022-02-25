@@ -1726,6 +1726,8 @@
     "PreCardStyleP2": "设置 <code>IsSingle</code> 时，仅可以上传一张图片或者文件",
     "FileIconTitle": "文件图标",
     "FileIconIntro": "不同文件格式显示的图标不同",
+    "Base64FormatTitle": "Base64 格式文件",
+    "Base64FormatIntro": "使用 <code>data:image/xxx;base64,XXXXX</code> 格式图片内容字符串作为预览文件路径",
     "ShowDeleteButton": "是否显示删除按钮",
     "IsDisabled": "是否禁用",
     "PlaceHolder": "占位字符串",
