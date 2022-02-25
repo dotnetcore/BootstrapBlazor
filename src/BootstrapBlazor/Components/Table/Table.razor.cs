@@ -1155,6 +1155,16 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
         return colspan;
     }
 
+    private bool GetShowHeader()
+    {
+        var ret = true;
+        if (MultiHeaderTemplate != null)
+        {
+            ret = ShowMultiFilterHeader;
+        }
+        return ret;
+    }
+
     #region Dispose
     /// <summary>
     /// Dispose 方法

@@ -420,7 +420,7 @@ RenderFragment<bool> RenderHeader => hasScroll =>
     {
         @MultiHeaderTemplate
     }
-    @if (ShowMultiFilterHeader)
+    @if (GetShowHeader())
     {
         <tr>
             @if (ShowDetails())
