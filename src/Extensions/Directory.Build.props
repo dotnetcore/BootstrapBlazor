@@ -19,7 +19,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="BootstrapBlazor" Version="6.*" />
+    <PackageReference Include="BootstrapBlazor" Version="6.*">
+      <ExcludeAssets>contentFiles</ExcludeAssets>
+    </PackageReference>
   </ItemGroup>
 
 </Project>

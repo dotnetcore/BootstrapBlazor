@@ -36,6 +36,9 @@ jobs:
         dotnet pack src/Extensions/Components/BootstrapBlazor.Markdown -c Release -o publish
         dotnet nuget push publish/BootstrapBlazor.Markdown.*.nupkg -s https://api.nuget.org/v3/index.json -k $NUGET_API_KEY --skip-duplicate
         
+        dotnet pack src/Extensions/Components/BootstrapBlazor.FontAwesome -c Release -o publish
+        dotnet nuget push publish/BootstrapBlazor.FontAwesome.*.nupkg -s https://api.nuget.org/v3/index.json -k $NUGET_API_KEY --skip-duplicate
+        
         dotnet pack src/Extensions/DataServices/BootstrapBlazor.DataAcces.PetaPoco -c Release -o publish
         dotnet nuget push publish/BootstrapBlazor.DataAcces.PetaPoco.*.nupkg -s https://api.nuget.org/v3/index.json -k $NUGET_API_KEY --skip-duplicate
         
