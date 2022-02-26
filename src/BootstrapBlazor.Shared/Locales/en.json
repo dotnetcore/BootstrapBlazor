@@ -131,8 +131,7 @@
     "P1": "There are many ways to reference components, please refer to <a href='install'>Installation</a>",
     "H2": "CSS file",
     "P2": "Add the Bootstrap CSS file in the form of <code>&lt;link&gt;</code> tags to the <code>{0}</code> file <code>&lt;head&gt;</code> tags, and place them in all Before other style sheets.",
-    "Tips": "After this set of components version <b>5.0.32</b> remove the built-in <code>font-awesome</code> icon, please download it yourself or use the <b>CDN</b> acceleration service",
-    "Tips2": "If you use the <code>Blazor App</code> template to create a project, please remove the default <code>Bootstrap</code> style link <code>&lt;link rel='stylesheet' href='css/bootstrap/bootstrap.min.css' /&gt;</code>",
+    "Tips2": "If you use the <code>Blazor App</code> template to create a project, please remove the default <code>Bootstrap</code> style link <code>&lt;link rel='stylesheet' href='css/bootstrap/bootstrap.min.css' /&gt;</code>. Install <b>FontAwesome</b> related resources by yourself or get the nuget package <code>BootstrapBlazor.FontAwesome</code>",
     "H3": "JS file",
     "P3": "Many components provided by Bootstrap rely on JavaScript to run. Specifically, these components rely on jQuery, Popper.js, and our own JavaScript plug-ins. Put the following <code>&lt;script&gt;</code> tag at the end of the <code>{0}</code> file and before the <code>&lt;/body&gt;</code> tag, it will work.",
     "H4": "Add the namespace to the <code>_Imports.razor</code> file",
@@ -423,7 +422,7 @@
   },
   "BootstrapBlazor.Shared.Samples.GlobalException": {
     "Title": "Global exception",
-    "Introduce": "Added component <code>ErrorLogger</code> Through this component, global logs and exceptions can be output uniformly; currently, the <code>Blazor</code> framework does not provide a <code>MVC</code> like < b>Global exception</b> The overall solution, for the time being, you need to use <code>try/catch</code> in the code block for exception capture",
+    "Introduce": "Added component <code>ErrorLogger</code> Through this component, global logs and exceptions can be output uniformly; currently, the <code>Blazor</code> framework does not provide a <code>MVC</code> like <b>Global exception</b> The overall solution, for the time being, you need to use <code>try/catch</code> in the code block for exception capture",
     "H1": "Instructions",
     "Step1": "1. Add <code>AddLogging</code> to the <code>Startup</code> file to enable the <code>net core</code> system log function",
     "Step1Introduce": "Use <code>AddFileLogger</code> need to reference <b>Longbow.Logging</b> component package",
