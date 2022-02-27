@@ -141,74 +141,74 @@ public sealed partial class NavMenu
     private void AddQuickStar(DemoMenuItem item)
     {
         item.Items = new List<DemoMenuItem>
+        {
+            new()
             {
-                new()
-                {
-                    Text = Localizer["Introduction"],
-                    Url = "introduction"
-                },
-                new()
-                {
-                    Text = Localizer["Install"],
-                    Url = "install",
-                    Match = NavLinkMatch.All
-                },
-                new()
-                {
-                    Text = Localizer["ProjectTemplate"],
-                    Url = "template"
-                },
-                new()
-                {
-                    Text = Localizer["Globalization"],
-                    Url = "globalization"
-                },
-                new()
-                {
-                    Text = Localizer["Localization"],
-                    Url = "localization"
-                },
-                new()
-                {
-                    Text = Localizer["Labels"],
-                    Url = "labels"
-                },
-                new()
-                {
-                    IsNew = true,
-                    Text = Localizer["GlobalException"],
-                    Url = "globalexception"
-                },
-                new()
-                {
-                    Text = Localizer["ServerBlazor"],
-                    Url = "install-server",
-                    Match = NavLinkMatch.All
-                },
-                new()
-                {
-                    Text = Localizer["ClientBlazor"],
-                    Url = "install-wasm",
-                    Match = NavLinkMatch.All
-                },
-                new()
-                {
-                    IsNew = true,
-                    Text = Localizer["ZIndex"],
-                    Url = "layout"
-                },
-                new()
-                {
-                    IsNew = true,
-                    Text = Localizer["Theme"],
-                    Url = "themes"
-                },
-                new()
-                {
-                    Text = Localizer["LayoutPage"],
-                    Url = "layout-page"
-                }
-            };
+                Text = Localizer["Introduction"],
+                Url = "introduction"
+            },
+            new()
+            {
+                Text = Localizer["Install"],
+                Url = "install",
+                Match = NavLinkMatch.All
+            },
+            new()
+            {
+                Text = Localizer["ProjectTemplate"],
+                Url = "template"
+            },
+            new()
+            {
+                Text = Localizer["Globalization"],
+                Url = "globalization"
+            },
+            new()
+            {
+                Text = Localizer["Localization"],
+                Url = "localization"
+            },
+            new()
+            {
+                Text = Localizer["Labels"],
+                Url = "labels"
+            },
+            new()
+            {
+                IsNew = true,
+                Text = Localizer["GlobalException"],
+                Url = "globalexception"
+            },
+            new()
+            {
+                Text = Localizer["ServerBlazor"],
+                Url = "install-server",
+                Match = NavLinkMatch.All
+            },
+            new()
+            {
+                Text = Localizer["ClientBlazor"],
+                Url = "install-wasm",
+                Match = NavLinkMatch.All
+            },
+            new()
+            {
+                IsNew = true,
+                Text = Localizer["ZIndex"],
+                Url = "layout"
+            },
+            new()
+            {
+                IsNew = true,
+                Text = Localizer["Theme"],
+                Url = "themes"
+            },
+            new()
+            {
+                Text = Localizer["LayoutPage"],
+                Url = "layout-page"
+            }
+        };
         AddBadge(item, count: 0);
     }
 

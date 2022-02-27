@@ -322,9 +322,9 @@ public class ValidateTest : BootstrapBlazorTestBase
 
         // 增加邮箱验证规则
         var rules = new List<IValidator>
-            {
-                new FormItemValidator(new EmailAddressAttribute())
-            };
+        {
+            new FormItemValidator(new EmailAddressAttribute())
+        };
         input.SetParametersAndRender(pb =>
         {
             pb.Add(v => v.ValidateRules, rules);

@@ -2,6 +2,9 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using BootstrapBlazor.Shared;
+using System.ComponentModel.DataAnnotations;
+
 namespace UnitTest.Components;
 
 public class DateTimeRangeTest : BootstrapBlazorTestBase
@@ -231,5 +234,47 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
         cut.FindAll(".picker-panel-icon-btn").Last().Click();
         cut.Find(".date-table .cell").Click();
         cut.FindAll(".date-table .cell").Last().Click();
+    }
+
+    [Fact]
+    public void InValidateForm_Ok()
+    {
+        var foo = new Dummy
+        {
+            Value = new DateTimeRangeValue { Start = DateTime.Now.AddDays(1), End = DateTime.Now.AddDays(30) }
+        };
+        var cut = Context.RenderComponent<ValidateForm>(pb =>
+        {
+            pb.Add(a => a.Model, foo);
+            pb.AddChildContent<DateTimeRange>(pb =>
+            {
+                pb.Add(a => a.Value, foo.Value);
+                pb.Add(a => a.ValueExpression, Utility.GenerateValueExpression(foo, nameof(Dummy.Value), typeof(DateTimeRangeValue)));
+            });
+        });
+        cut.Contains("class=\"form-label\"");
+    }
+
+    [Fact]
+    public void PrevButton_Ok()
+    {
+        var cut = Context.RenderComponent<DateTimeRange>(builder =>
+        {
+            builder.Add(a => a.Value, new DateTimeRangeValue());
+        });
+
+        var buttons = cut.FindAll(".date-picker-header button");
+
+        // 上一月
+        cut.InvokeAsync(() => buttons[1].Click());
+
+        // 上一年
+        cut.InvokeAsync(() => buttons[0].Click());
+    }
+
+    private class Dummy
+    {
+        [Required]
+        public DateTimeRangeValue? Value { get; set; }
     }
 }

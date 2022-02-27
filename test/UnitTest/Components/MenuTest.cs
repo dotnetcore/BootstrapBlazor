@@ -249,7 +249,8 @@ public class MenuTest : BootstrapBlazorTestBase
         var sub = cut.Find(".sub-menu div.nav-item");
         sub.Click(new MouseEventArgs());
 
-        sub = cut.FindAll(".sub-menu div.nav-item").Last();
+        var subs = cut.FindAll(".sub-menu div.nav-item");
+        sub = subs[subs.Count - 1];
         sub.Click(new MouseEventArgs());
 
         // 设置禁止导航 
