@@ -192,22 +192,6 @@ public abstract class ButtonBase : TooltipComponentBase
                 throw exception;
             }
         });
-
-        async Task HandlerClick()
-        {
-            if (OnClickWithoutRender != null)
-            {
-                if (!IsAsync)
-                {
-                    IsNotRender = true;
-                }
-                await OnClickWithoutRender.Invoke();
-            }
-            if (OnClick.HasDelegate)
-            {
-                await OnClick.InvokeAsync();
-            }
-        }
     }
 
     /// <summary>
@@ -263,6 +247,26 @@ public abstract class ButtonBase : TooltipComponentBase
                     }
                 }
             }
+        }
+    }
+
+    /// <summary>
+    /// 处理点击方法
+    /// </summary>
+    /// <returns></returns>
+    protected virtual async Task HandlerClick()
+    {
+        if (OnClickWithoutRender != null)
+        {
+            if (!IsAsync)
+            {
+                IsNotRender = true;
+            }
+            await OnClickWithoutRender.Invoke();
+        }
+        if (OnClick.HasDelegate)
+        {
+            await OnClick.InvokeAsync();
         }
     }
 
