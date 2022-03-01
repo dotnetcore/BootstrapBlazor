@@ -76,8 +76,8 @@ public sealed partial class PopConfirmButton
                 OnClose = OnClose,
                 Callback = async () =>
                 {
-                        // 调用 JS 进行弹窗 等待 弹窗点击确认回调
-                        await JSRuntime.InvokeVoidAsync(Id, "bb_confirm");
+                    // 调用 JS 进行弹窗 等待 弹窗点击确认回调
+                    await JSRuntime.InvokeVoidAsync(Id, "bb_confirm");
                 }
             });
         }
