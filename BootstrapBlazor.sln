@@ -13,8 +13,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{A627
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "linux", "linux", "{EA765165-0542-41C8-93F2-85787FEDEDFF}"
 	ProjectSection(SolutionItems) = preProject
+		scripts\linux\ba.blazor.service = scripts\linux\ba.blazor.service
 		scripts\linux\deploy-blazor.sh = scripts\linux\deploy-blazor.sh
 		scripts\linux\deploy-wasm.sh = scripts\linux\deploy-wasm.sh
+		scripts\linux\nginx.conf = scripts\linux\nginx.conf
 		scripts\linux\publish.sh = scripts\linux\publish.sh
 		scripts\linux\watch-run.sh = scripts\linux\watch-run.sh
 	EndProjectSection
