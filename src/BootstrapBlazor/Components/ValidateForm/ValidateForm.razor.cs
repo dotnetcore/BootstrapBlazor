@@ -130,9 +130,9 @@ public partial class ValidateForm : IAsyncDisposable
         if (validator != null)
         {
             var results = new List<ValidationResult>
-                    {
-                        new ValidationResult(errorMessage, new string[] { fieldName })
-                    };
+            {
+                new ValidationResult(errorMessage, new string[] { fieldName })
+            };
             validator.ToggleMessage(results, true);
         }
     }
@@ -150,9 +150,9 @@ public partial class ValidateForm : IAsyncDisposable
             if (validator != null)
             {
                 var results = new List<ValidationResult>
-                    {
-                        new ValidationResult(errorMessage, new string[] { fieldName })
-                    };
+                {
+                    new ValidationResult(errorMessage, new string[] { fieldName })
+                };
                 validator.ToggleMessage(results, true);
             }
         }

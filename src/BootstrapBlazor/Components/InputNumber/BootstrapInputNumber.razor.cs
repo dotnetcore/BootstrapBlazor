@@ -74,7 +74,12 @@ public partial class BootstrapInputNumber<TValue>
     [NotNull]
     private IStringLocalizer<BootstrapInputNumber<TValue>>? Localizer { get; set; }
 
-    static BootstrapInputNumber()
+    /// <summary>
+    /// SetParametersAsync 方法
+    /// </summary>
+    /// <param name="parameters"></param>
+    /// <returns></returns>
+    public override Task SetParametersAsync(ParameterView parameters)
     {
         // Unwrap Nullable<T>, because InputBase already deals with the Nullable aspect
         // of it for us. We will only get asked to parse the T for nonempty inputs.
@@ -83,6 +88,8 @@ public partial class BootstrapInputNumber<TValue>
         {
             throw new InvalidOperationException($"The type '{targetType}' is not a supported numeric type.");
         }
+
+        return base.SetParametersAsync(parameters);
     }
 
     /// <summary>
@@ -120,17 +127,24 @@ public partial class BootstrapInputNumber<TValue>
         ? Formatter.Invoke(value)
         : (!string.IsNullOrEmpty(FormatString) && value != null
             ? Utility.Format(value, FormatString)
-            : value switch
-            {
-                null => null,
-                int @int => BindConverter.FormatValue(@int, CultureInfo.InvariantCulture),
-                long @long => BindConverter.FormatValue(@long, CultureInfo.InvariantCulture),
-                short @short => BindConverter.FormatValue(@short, CultureInfo.InvariantCulture),
-                float @float => BindConverter.FormatValue(@float, CultureInfo.InvariantCulture),
-                double @double => BindConverter.FormatValue(@double, CultureInfo.InvariantCulture),
-                decimal @decimal => BindConverter.FormatValue(@decimal, CultureInfo.InvariantCulture),
-                _ => throw new InvalidOperationException($"Unsupported type {value!.GetType()}"),
-            });
+            : InternalFormat(value));
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="value"></param>
+    /// <returns></returns>
+    /// <exception cref="InvalidOperationException"></exception>
+    protected virtual string? InternalFormat(TValue value) => value switch
+    {
+        int @int => BindConverter.FormatValue(@int, CultureInfo.InvariantCulture),
+        long @long => BindConverter.FormatValue(@long, CultureInfo.InvariantCulture),
+        short @short => BindConverter.FormatValue(@short, CultureInfo.InvariantCulture),
+        float @float => BindConverter.FormatValue(@float, CultureInfo.InvariantCulture),
+        double @double => BindConverter.FormatValue(@double, CultureInfo.InvariantCulture),
+        decimal @decimal => BindConverter.FormatValue(@decimal, CultureInfo.InvariantCulture),
+        _ => throw new InvalidOperationException($"Unsupported type {value!.GetType()}"),
+    };
 
     private void SetStep()
     {

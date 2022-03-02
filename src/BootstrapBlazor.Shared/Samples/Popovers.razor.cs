@@ -23,34 +23,38 @@ public sealed partial class Popovers
     /// <returns></returns>
     private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
-            // TODO: 移动到数据库中
-            new AttributeItem() {
-                Name = "Cotent",
-                Description = "Popover 弹窗内容",
-                Type = "string",
-                ValueList = "",
-                DefaultValue = "Popover"
-            },
-            new AttributeItem() {
-                Name = "IsHtml",
-                Description = "内容中是否包含 Html 代码",
-                Type = "boolean",
-                ValueList = "",
-                DefaultValue = "false"
-            },
-            new AttributeItem() {
-                Name = "Placement",
-                Description = "位置",
-                Type = "Placement",
-                ValueList = "Auto / Top / Left / Bottom / Right",
-                DefaultValue = "Auto"
-            },
-            new AttributeItem() {
-                Name = "Title",
-                Description = "Popover 弹窗标题",
-                Type = "string",
-                ValueList = "",
-                DefaultValue = "Popover"
-            },
+        // TODO: 移动到数据库中
+        new AttributeItem()
+        {
+            Name = "Cotent",
+            Description = "Popover 弹窗内容",
+            Type = "string",
+            ValueList = "",
+            DefaultValue = "Popover"
+        },
+        new AttributeItem()
+        {
+            Name = "IsHtml",
+            Description = "内容中是否包含 Html 代码",
+            Type = "boolean",
+            ValueList = "",
+            DefaultValue = "false"
+        },
+        new AttributeItem()
+        {
+            Name = "Placement",
+            Description = "位置",
+            Type = "Placement",
+            ValueList = "Auto / Top / Left / Bottom / Right",
+            DefaultValue = "Auto"
+        },
+        new AttributeItem()
+        {
+            Name = "Title",
+            Description = "Popover 弹窗标题",
+            Type = "string",
+            ValueList = "",
+            DefaultValue = "Popover"
+        }
     };
 }
