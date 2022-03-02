@@ -137,6 +137,7 @@ public partial class BootstrapInputNumber<TValue>
     /// <exception cref="InvalidOperationException"></exception>
     protected virtual string? InternalFormat(TValue value) => value switch
     {
+        null => null,
         int @int => BindConverter.FormatValue(@int, CultureInfo.InvariantCulture),
         long @long => BindConverter.FormatValue(@long, CultureInfo.InvariantCulture),
         short @short => BindConverter.FormatValue(@short, CultureInfo.InvariantCulture),

@@ -78,6 +78,16 @@ public class InputNumberTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void Formatter_Null()
+    {
+        var cut = Context.RenderComponent<BootstrapInputNumber<int?>>(pb =>
+        {
+            pb.Add(a => a.FormatString, "d2");
+        });
+        cut.Contains("value=\"\"");
+    }
+
+    [Fact]
     public void Formatter_Error()
     {
         Assert.ThrowsAny<InvalidOperationException>(() => Context.RenderComponent<MockInputNumber>());
