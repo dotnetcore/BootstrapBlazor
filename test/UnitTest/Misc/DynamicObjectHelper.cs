@@ -10,8 +10,8 @@ internal static class DynamicObjectHelper
     {
         var cols = new MockTableColumn[]
         {
-                new("Id", typeof(int)),
-                new("Name", typeof(string))
+            new("Id", typeof(int)),
+            new("Name", typeof(string))
         };
 
         // 创建动态类型基类是 DynamicObject
