@@ -1,6 +1,6 @@
 ﻿(function ($) {
     $.extend({
-        bb_camera: function (el, obj, method, auto) {
+        bb_camera: function (el, obj, method, auto, videoWidth, videoHeight) {
             var $el = $(el);
 
             var stop = function (video, track) {
@@ -31,6 +31,8 @@
                 // handler button click event
                 var video = $el.find('video')[0];
                 var canvas = $el.find('canvas')[0];
+                canvas.width = videoWidth;
+                canvas.height = videoHeight;
                 var context = canvas.getContext('2d');
                 var mediaStreamTrack;
 
@@ -39,7 +41,7 @@
                     if (data_method === 'play') {
                         var front = $(this).attr('data-camera');
                         var deviceId = $el.find('.dropdown-item.active').attr('data-val');
-                        var constrains = { video: { facingMode: front }, audio: false };
+                        var constrains = { video: { facingMode: front, width: videoWidth, height: videoHeight }, audio: false };
                         if (deviceId !== "") {
                             constrains.video.deviceId = { exact: deviceId };
                         }
@@ -59,7 +61,7 @@
                         obj.invokeMethodAsync("Stop");
                     }
                     else if (data_method === 'capture') {
-                        context.drawImage(video, 0, 0, 300, 200);
+                        context.drawImage(video, 0, 0, videoWidth, videoHeight);
                         var url = canvas.toDataURL();
                         var maxLength = 30 * 1024;
                         while (url.length > maxLength) {

@@ -4,8 +4,8 @@
 <div class="camera" @ref="CameraElement">
     <div class="row g-3">
         <div class="col-12">
-            <video class="camera-header"></video>
-            <canvas></canvas>
+            <video class="camera-header" style="width:100%; height:100%; object-fit:fill"></video>
+            <canvas style="display:none"></canvas>
         </div>
         @if (ShowPreview)
         {

@@ -72,6 +72,18 @@ public partial class Camera : IAsyncDisposable
     public string? InitDevicesString { get; set; }
 
     /// <summary>
+    /// 获得/设置 摄像头视频宽度
+    /// </summary>
+    [Parameter]
+    public int VideoWidth { get; set; } = 320;
+
+    /// <summary>
+    /// 获得/设置 摄像头视频高度
+    /// </summary>
+    [Parameter]
+    public int VideoHeight { get; set; } = 240;
+
+    /// <summary>
     /// 获得/设置 初始化摄像头回调方法
     /// </summary>
     [Parameter]
