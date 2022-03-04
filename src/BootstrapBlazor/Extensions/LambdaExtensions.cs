@@ -452,41 +452,58 @@ public static class LambdaExtensions
     /// </summary>
     /// <typeparam name="TModel"></typeparam>
     /// <typeparam name="TResult"></typeparam>
-    /// <param name="item"></param>
+    /// <param name="model"></param>
     /// <param name="propertyName"></param>
     /// <returns></returns>
-    public static Expression<Func<TModel, TResult>> GetPropertyValueLambda<TModel, TResult>(TModel item, string propertyName)
+    public static Expression<Func<TModel, TResult>> GetPropertyValueLambda<TModel, TResult>(TModel model, string propertyName)
     {
-        if (item == null)
+        if (model == null)
         {
-            throw new ArgumentNullException(nameof(item));
-        }
-        var param_p1 = Expression.Parameter(typeof(TModel));
-        var conv = Expression.Convert(param_p1, item.GetType());
-        Expression prop = null;
-        string[] arPropName = propertyName.Split(new char[] { '.' });
-        PropertyInfo? p = null;
-        object itemLocal = item;
-        for (int i = 0; i < arPropName.Length; i++)
-        {
-            var propName = arPropName[i];
-            p = itemLocal.GetType().GetPropertyByName(propName);
-            itemLocal = p.GetValue(itemLocal);
-            if (p == null)
-            {
-                throw new InvalidOperationException($"类型 {item.GetType().Name} 未找到 {propertyName} 属性，无法获取其值");
-            }
-            if (i == 0)
-            {
-                prop = Expression.Property(conv, p);
-            }
-            else
-            {
-                prop = Expression.Property(prop, p);
-            }
+            throw new ArgumentNullException(nameof(model));
         }
 
-        return Expression.Lambda<Func<TModel, TResult>>(Expression.Convert(prop, typeof(TResult)), param_p1);
+        var type = model.GetType();
+        return propertyName.Contains(".") ? GetComplexPropertyExpression() : GetSimplePropertyExpression();
+
+        Expression<Func<TModel, TResult>> GetSimplePropertyExpression()
+        {
+            var p = type.GetPropertyByName(propertyName);
+            if (p == null)
+            {
+                throw new InvalidOperationException($"类型 {type.Name} 未找到 {propertyName} 属性，无法获取其值");
+            }
+
+            var param_p1 = Expression.Parameter(typeof(TModel));
+            var body = Expression.Property(Expression.Convert(param_p1, type), p);
+            return Expression.Lambda<Func<TModel, TResult>>(Expression.Convert(body, typeof(TResult)), param_p1);
+        }
+
+        Expression<Func<TModel, TResult>> GetComplexPropertyExpression()
+        {
+            var propertyNames = propertyName.Split(".");
+            var param_p1 = Expression.Parameter(typeof(TModel));
+            Expression? body = null;
+            Type t = type;
+            object? propertyInstance = model;
+            foreach (var name in propertyNames)
+            {
+                var p = t.GetPropertyByName(name) ?? throw new InvalidOperationException($"类型 {type.Name} 未找到 {name} 属性，无法获取其值");
+                propertyInstance = p.GetValue(propertyInstance);
+                if (propertyInstance != null)
+                {
+                    t = propertyInstance.GetType();
+                }
+                if (body == null)
+                {
+                    body = Expression.Property(Expression.Convert(param_p1, type), p);
+                }
+                else
+                {
+                    body = Expression.Property(body, p);
+                }
+            }
+            return Expression.Lambda<Func<TModel, TResult>>(Expression.Convert(body!, typeof(TResult)), param_p1);
+        }
     }
 
     /// <summary>
@@ -504,34 +521,50 @@ public static class LambdaExtensions
             throw new ArgumentNullException(nameof(model));
         }
 
-        ParameterExpression param_p1 = Expression.Parameter(typeof(TModel));
-        ParameterExpression param_p2 = Expression.Parameter(typeof(TValue));
-        var conv2 = Expression.Convert(param_p2, typeof(TValue));
-        Expression prop = null;
+        var type = model.GetType();
+        return propertyName.Contains(".") ? SetComplexPropertyExpression() : SetSimplePropertyExpression();
 
-        string[] arPropName = propertyName.Split(new char[] { '.' });
-        PropertyInfo? p = null;
-        object modelLocal = model;
-        for (int i = 0; i < arPropName.Length; i++)
+        Expression<Action<TModel, TValue>> SetSimplePropertyExpression()
         {
-            var propName = arPropName[i];
-            p = modelLocal.GetType().GetPropertyByName(propName);
-            modelLocal = p.GetValue(modelLocal);
-            if (p == null)
-            {
-                throw new InvalidOperationException($"类型 {model.GetType().Name} 未找到 {propertyName} 属性，无法获取其值");
-            }
-            if (i == 0)
-            {
-                prop = Expression.PropertyOrField(Expression.Convert(param_p1, model.GetType()), propName);
-            }
-            else
-            {
-                prop = Expression.PropertyOrField(prop, propName);
-            }
+            var p = type.GetPropertyByName(propertyName) ?? throw new InvalidOperationException($"类型 {type.Name} 未找到 {propertyName} 属性，无法设置其值");
+
+            var param_p1 = Expression.Parameter(typeof(TModel));
+            var param_p2 = Expression.Parameter(typeof(TValue));
+
+            //获取设置属性的值的方法
+            var mi = p.GetSetMethod(true);
+            var body = Expression.Call(Expression.Convert(param_p1, model.GetType()), mi!, Expression.Convert(param_p2, p.PropertyType));
+            return Expression.Lambda<Action<TModel, TValue>>(body, param_p1, param_p2);
         }
-        var body = Expression.Assign(prop, conv2);
-        return Expression.Lambda<Action<TModel, TValue>>(body, param_p1, param_p2);
+
+        Expression<Action<TModel, TValue>> SetComplexPropertyExpression()
+        {
+            var propertyNames = propertyName.Split(".");
+            var param_p1 = Expression.Parameter(typeof(TModel));
+            var param_p2 = Expression.Parameter(typeof(TValue));
+            Expression? body = null;
+            Type t = type;
+            object? propertyInstance = model;
+            foreach (var name in propertyNames)
+            {
+                var p = t.GetPropertyByName(name) ?? throw new InvalidOperationException($"类型 {type.Name} 未找到 {name} 属性，无法获取其值");
+                propertyInstance = p.GetValue(propertyInstance);
+                if (propertyInstance != null)
+                {
+                    t = propertyInstance.GetType();
+                }
+                if (body == null)
+                {
+                    body = Expression.Property(Expression.Convert(param_p1, type), p);
+                }
+                else
+                {
+                    body = Expression.Property(body, p);
+                }
+            }
+            body = Expression.Assign(body!, param_p2);
+            return Expression.Lambda<Action<TModel, TValue>>(body, param_p1, param_p2);
+        }
     }
 
     #region TryParse

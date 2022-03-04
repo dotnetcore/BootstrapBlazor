@@ -5,7 +5,6 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using System.Linq.Expressions;
-using System.Text.RegularExpressions;
 
 namespace BootstrapBlazor.Components;
 #if NET5_0
@@ -381,21 +380,42 @@ public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn
     /// </summary>
     public string GetDisplayName() => Text ?? _fieldIdentifier?.GetDisplayName() ?? "";
 
+    private string? FieldName { get; set; }
+
     /// <summary>
     /// 获取绑定字段信息方法
     /// </summary>
     public string GetFieldName()
     {
-        string? strExpression = FieldExpression?.ToString();
-        if (strExpression != null)
+        if (string.IsNullOrEmpty(FieldName))
         {
-            Regex regEx = new Regex(@"value\(.*\)\.\w*\.(.*)");
-            if (regEx.IsMatch(strExpression))
+            var fields = new List<string>();
+            Expression? express = FieldExpression;
+
+            while (express is LambdaExpression lambda)
             {
-                var group = regEx.Match(strExpression).Groups;
-                return group[group.Count - 1].Value;
+                express = lambda.Body;
+            }
+
+            while (express is MemberExpression member)
+            {
+                if (member.Expression is MemberExpression)
+                {
+                    fields.Add(member.Member.Name);
+                }
+                express = member.Expression;
+            }
+
+            if (fields.Any())
+            {
+                fields.Reverse();
+                FieldName = string.Join(".", fields);
+            }
+            else
+            {
+                FieldName = _fieldIdentifier?.FieldName;
             }
         }
-        return _fieldIdentifier?.FieldName ?? "";
+        return FieldName ?? "";
     }
 }

@@ -355,32 +355,44 @@ public static class Utility
     /// <returns></returns>
     public static object GenerateValueExpression(object model, string fieldName, Type fieldType)
     {
-        // ValueExpression
-        Expression con = Expression.Constant(model);
-        PropertyInfo pi = null;
-        object itemLocal = model;
-        Expression prop = null;
-        string[] arPropName = fieldName.Split(new char[] { '.' });
-        for (int i = 0; i < arPropName.Length; i++)
+        var type = model.GetType();
+        return fieldName.Contains(".") ? ComplexPropertyValueExpression() : SimplePropertyValueExpression();
+
+        object SimplePropertyValueExpression()
         {
-            var propName = arPropName[i];
-            pi = itemLocal.GetType().GetPropertyByName(propName);
-            itemLocal = pi.GetValue(itemLocal);
-            if (pi == null)
-            {
-                throw new InvalidOperationException($"the model {model.GetType().Name} not found the property {fieldName}");
-            }
-            if (i == 0)
-            {
-                prop = Expression.Property(con, pi);
-            }
-            else
-            {
-                prop = Expression.Property(prop, pi);
-            }
+            // ValueExpression
+            var pi = type.GetPropertyByName(fieldName) ?? throw new InvalidOperationException($"the model {type.Name} not found the property {fieldName}");
+            var body = Expression.Property(Expression.Constant(model), pi);
+            var tDelegate = typeof(Func<>).MakeGenericType(fieldType);
+            return Expression.Lambda(tDelegate, body);
         }
-        var tDelegate = typeof(Func<>).MakeGenericType(fieldType);
-        return Expression.Lambda(tDelegate, prop);
+
+        object ComplexPropertyValueExpression()
+        {
+            var propertyNames = fieldName.Split(".");
+            Expression? body = null;
+            Type t = type;
+            object? propertyInstance = model;
+            foreach (var name in propertyNames)
+            {
+                var p = t.GetPropertyByName(name) ?? throw new InvalidOperationException($"the model {model.GetType().Name} not found the property {fieldName}");
+                propertyInstance = p.GetValue(propertyInstance);
+                if (propertyInstance != null)
+                {
+                    t = propertyInstance.GetType();
+                }
+                if (body == null)
+                {
+                    body = Expression.Property(Expression.Convert(Expression.Constant(model), type), p);
+                }
+                else
+                {
+                    body = Expression.Property(body, p);
+                }
+            }
+            var tDelegate = typeof(Func<>).MakeGenericType(fieldType);
+            return Expression.Lambda(tDelegate, body!);
+        }
     }
 
     /// <summary>

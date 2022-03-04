@@ -94,7 +94,7 @@ public partial class ValidateForms
         Trace.Log(Localizer["OnValidSubmitLog"]);
     }
 
-    private void OnFiledChanged(string field,object? value)
+    private void OnFiledChanged(string field, object? value)
     {
         Trace.Log($"{field}:{value}");
     }

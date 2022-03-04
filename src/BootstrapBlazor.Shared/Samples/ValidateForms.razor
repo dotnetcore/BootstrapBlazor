@@ -23,7 +23,7 @@
     </ul>
     <div class="form-demo">
         <ValidateForm Model="@Model" OnInvalidSubmit="@OnInvalidSubmit1"
-                      OnValidSubmit="@OnValidSubmit1" OnFieldChanged="@OnFiledChanged">
+                      OnValidSubmit="@OnValidSubmit1" OnFieldValueChanged="@OnFiledChanged">
             <div class="row g-3">
                 <div class="col-12">
                     <BootstrapInput @bind-Value="@Model.Name" />
