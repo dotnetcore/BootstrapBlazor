@@ -461,16 +461,32 @@ public static class LambdaExtensions
         {
             throw new ArgumentNullException(nameof(item));
         }
-
-        var p = item.GetType().GetPropertyByName(propertyName);
-        if (p == null)
+        var param_p1 = Expression.Parameter(typeof(TModel));
+        var conv = Expression.Convert(param_p1, item.GetType());
+        Expression prop = null;
+        string[] arPropName = propertyName.Split(new char[] { '.' });
+        PropertyInfo? p = null;
+        object itemLocal = item;
+        for (int i = 0; i < arPropName.Length; i++)
         {
-            throw new InvalidOperationException($"类型 {item.GetType().Name} 未找到 {propertyName} 属性，无法获取其值");
+            var propName = arPropName[i];
+            p = itemLocal.GetType().GetPropertyByName(propName);
+            itemLocal = p.GetValue(itemLocal);
+            if (p == null)
+            {
+                throw new InvalidOperationException($"类型 {item.GetType().Name} 未找到 {propertyName} 属性，无法获取其值");
+            }
+            if (i == 0)
+            {
+                prop = Expression.Property(conv, p);
+            }
+            else
+            {
+                prop = Expression.Property(prop, p);
+            }
         }
 
-        var param_p1 = Expression.Parameter(typeof(TModel));
-        var body = Expression.Property(Expression.Convert(param_p1, item.GetType()), p);
-        return Expression.Lambda<Func<TModel, TResult>>(Expression.Convert(body, typeof(TResult)), param_p1);
+        return Expression.Lambda<Func<TModel, TResult>>(Expression.Convert(prop, typeof(TResult)), param_p1);
     }
 
     /// <summary>
@@ -488,18 +504,33 @@ public static class LambdaExtensions
             throw new ArgumentNullException(nameof(model));
         }
 
-        var p = model.GetType().GetPropertyByName(propertyName);
-        if (p == null)
+        ParameterExpression param_p1 = Expression.Parameter(typeof(TModel));
+        ParameterExpression param_p2 = Expression.Parameter(typeof(TValue));
+        var conv2 = Expression.Convert(param_p2, typeof(TValue));
+        Expression prop = null;
+
+        string[] arPropName = propertyName.Split(new char[] { '.' });
+        PropertyInfo? p = null;
+        object modelLocal = model;
+        for (int i = 0; i < arPropName.Length; i++)
         {
-            throw new InvalidOperationException($"类型 {typeof(TModel).Name} 未找到 {propertyName} 属性，无法设置其值");
+            var propName = arPropName[i];
+            p = modelLocal.GetType().GetPropertyByName(propName);
+            modelLocal = p.GetValue(modelLocal);
+            if (p == null)
+            {
+                throw new InvalidOperationException($"类型 {model.GetType().Name} 未找到 {propertyName} 属性，无法获取其值");
+            }
+            if (i == 0)
+            {
+                prop = Expression.PropertyOrField(Expression.Convert(param_p1, model.GetType()), propName);
+            }
+            else
+            {
+                prop = Expression.PropertyOrField(prop, propName);
+            }
         }
-
-        var param_p1 = Expression.Parameter(typeof(TModel));
-        var param_p2 = Expression.Parameter(typeof(TValue));
-
-        //获取设置属性的值的方法
-        var mi = p.GetSetMethod(true);
-        var body = Expression.Call(Expression.Convert(param_p1, model.GetType()), mi!, Expression.Convert(param_p2, p.PropertyType));
+        var body = Expression.Assign(prop, conv2);
         return Expression.Lambda<Action<TModel, TValue>>(body, param_p1, param_p2);
     }
 

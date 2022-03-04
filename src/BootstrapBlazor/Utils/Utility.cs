@@ -356,10 +356,31 @@ public static class Utility
     public static object GenerateValueExpression(object model, string fieldName, Type fieldType)
     {
         // ValueExpression
-        var pi = model.GetType().GetPropertyByName(fieldName) ?? throw new InvalidOperationException($"the model {model.GetType().Name} not found the property {fieldName}");
-        var body = Expression.Property(Expression.Constant(model), pi);
+        Expression con = Expression.Constant(model);
+        PropertyInfo pi = null;
+        object itemLocal = model;
+        Expression prop = null;
+        string[] arPropName = fieldName.Split(new char[] { '.' });
+        for (int i = 0; i < arPropName.Length; i++)
+        {
+            var propName = arPropName[i];
+            pi = itemLocal.GetType().GetPropertyByName(propName);
+            itemLocal = pi.GetValue(itemLocal);
+            if (pi == null)
+            {
+                throw new InvalidOperationException($"the model {model.GetType().Name} not found the property {fieldName}");
+            }
+            if (i == 0)
+            {
+                prop = Expression.Property(con, pi);
+            }
+            else
+            {
+                prop = Expression.Property(prop, pi);
+            }
+        }
         var tDelegate = typeof(Func<>).MakeGenericType(fieldType);
-        return Expression.Lambda(tDelegate, body);
+        return Expression.Lambda(tDelegate, prop);
     }
 
     /// <summary>

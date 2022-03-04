@@ -5,6 +5,7 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using System.Linq.Expressions;
+using System.Text.RegularExpressions;
 
 namespace BootstrapBlazor.Components;
 #if NET5_0
@@ -383,5 +384,18 @@ public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn
     /// <summary>
     /// 获取绑定字段信息方法
     /// </summary>
-    public string GetFieldName() => _fieldIdentifier?.FieldName ?? "";
+    public string GetFieldName()
+    {
+        string? strExpression = FieldExpression?.ToString();
+        if (strExpression != null)
+        {
+            Regex regEx = new Regex(@"value\(.*\)\.\w*\.(.*)");
+            if (regEx.IsMatch(strExpression))
+            {
+                var group = regEx.Match(strExpression).Groups;
+                return group[group.Count - 1].Value;
+            }
+        }
+        return _fieldIdentifier?.FieldName ?? "";
+    }
 }
