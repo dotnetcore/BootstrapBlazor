@@ -145,6 +145,10 @@ public partial class Camera : IAsyncDisposable
     [NotNull]
     private IStringLocalizer<Camera>? Localizer { get; set; }
 
+    private string VideoWidthString => $"{VideoWidth}px;";
+
+    private string VideoHeightString => $"{VideoHeight}px;";
+
     /// <summary>
     /// OnInitialized 方法
     /// </summary>
@@ -166,6 +170,24 @@ public partial class Camera : IAsyncDisposable
                 new SelectedItem { Text = FrontText!, Value = "user", Active = true },
                 new SelectedItem { Text = BackText!, Value = "environment" }
         };
+    }
+
+    /// <summary>
+    /// OnParametersSet 方法
+    /// </summary>
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
+        if (VideoWidth < 40)
+        {
+            VideoWidth = 40;
+        }
+
+        if (VideoHeight < 30)
+        {
+            VideoHeight = 30;
+        }
     }
 
     /// <summary>

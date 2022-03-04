@@ -2023,7 +2023,14 @@
     "OnInit": "初始化摄像头回调方法",
     "OnStart": "开始扫码回调方法",
     "OnClose": "关闭扫码回调方法",
-    "OnCapture": "扫码成功回调方法"
+    "OnCapture": "扫码成功回调方法",
+    "VideoWidth": "视频窗口宽度",
+    "VideoHeight": "视频窗口高度",
+    "TraceOnInit": "初始化摄像头完成",
+    "TraceOnError": "发生错误",
+    "TraceOnStar": "打开摄像头",
+    "TraceOnClose": "关闭摄像头",
+    "TraceOnCapture": "拍照完成"
   },
   "BootstrapBlazor.Shared.Samples.Captchas": {
     "Title": "Captchas 滑块验证码",

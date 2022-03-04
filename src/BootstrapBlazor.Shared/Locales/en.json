@@ -2017,7 +2017,14 @@
     "OnInit": "Initialize the camera callback method",
     "OnStart": "Start scanning code callback method",
     "OnClose": "Turn off the scan code callback method",
-    "OnCapture": "Callback method for successful scan code"
+    "OnCapture": "Callback method for successful scan code",
+    "VideoWidth": "The width of Video window",
+    "VideoHeight": "The height of Video window",
+    "TraceOnInit": "Initialized carmera",
+    "TraceOnError": "Error",
+    "TraceOnStar": "Star video",
+    "TraceOnClose": "Stop video",
+    "TraceOnCapture": "Capture done"
   },
   "BootstrapBlazor.Shared.Samples.Captchas": {
     "Title": "Captchas",
