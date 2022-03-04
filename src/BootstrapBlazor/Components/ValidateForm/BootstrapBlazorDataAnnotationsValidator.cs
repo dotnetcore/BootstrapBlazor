@@ -16,31 +16,27 @@ public class BootstrapBlazorDataAnnotationsValidator : ComponentBase
     /// 获得/设置 当前编辑数据上下文
     /// </summary>
     [CascadingParameter]
+    [NotNull]
     private EditContext? CurrentEditContext { get; set; }
 
     /// <summary>
     /// 获得/设置 当前编辑窗体上下文
     /// </summary>
     [CascadingParameter]
-    public ValidateForm? EditForm { get; set; }
+    private ValidateForm? ValidateForm { get; set; }
 
     /// <summary>
     /// 初始化方法
     /// </summary>
     protected override void OnInitialized()
     {
-        if (EditForm == null)
+        if (ValidateForm == null)
         {
-            throw new InvalidOperationException($"{nameof(BootstrapBlazorDataAnnotationsValidator)} requires a cascading " +
-                $"parameter of type {nameof(ValidateForm)}. For example, you can use {nameof(BootstrapBlazorDataAnnotationsValidator)} " +
-                $"inside an {nameof(ValidateForm)}.");
+            throw new InvalidOperationException($"{nameof(Components.BootstrapBlazorDataAnnotationsValidator)} requires a cascading " +
+                $"parameter of type {nameof(Components.ValidateForm)}. For example, you can use {nameof(Components.BootstrapBlazorDataAnnotationsValidator)} " +
+                $"inside an {nameof(Components.ValidateForm)}.");
         }
 
-        if (CurrentEditContext == null)
-        {
-            throw new InvalidOperationException($"{nameof(BootstrapBlazorDataAnnotationsValidator)} requires a cascading parameter of type {nameof(EditContext)}. For example, you can use {nameof(BootstrapBlazorDataAnnotationsValidator)} inside an EditForm.");
-        }
-
-        CurrentEditContext.AddEditContextDataAnnotationsValidation(EditForm);
+        CurrentEditContext.AddEditContextDataAnnotationsValidation(ValidateForm);
     }
 }

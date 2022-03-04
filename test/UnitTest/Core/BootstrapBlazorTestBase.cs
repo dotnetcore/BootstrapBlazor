@@ -46,9 +46,10 @@ public class BootstrapBlazorTestHost : IDisposable
 
     protected virtual void ConfigureServices(IServiceCollection services)
     {
-        services.AddBootstrapBlazor(localizationAction: options =>
+        services.AddBootstrapBlazor();
+        services.ConfigureJsonLocalizationOptions(op =>
         {
-            options.AdditionalJsonAssemblies = new[] { typeof(Alert).Assembly };
+            op.AdditionalJsonAssemblies = new[] { typeof(Alert).Assembly, GetType().Assembly };
         });
     }
 

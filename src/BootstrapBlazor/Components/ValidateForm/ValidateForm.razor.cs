@@ -95,7 +95,7 @@ public partial class ValidateForm : IAsyncDisposable
     /// <param name="value"></param>
     internal void AddValidator((string FieldName, Type ModelType) key, (FieldIdentifier FieldIdentifier, IValidateComponent IValidateComponent) value)
     {
-        ValidatorCache.AddOrUpdate(key, k => value, (k, v) => v = value);
+        ValidatorCache.TryAdd(key, value);
     }
 
     /// <summary>
@@ -125,15 +125,18 @@ public partial class ValidateForm : IAsyncDisposable
     private void InternalSetError(MemberExpression exp, string errorMessage)
     {
         var fieldName = exp.Member.Name;
-        var modelType = exp.Expression?.Type;
-        var validator = ValidatorCache.FirstOrDefault(c => c.Key.ModelType == modelType && c.Key.FieldName == fieldName).Value.ValidateComponent;
-        if (validator != null)
+        if (exp.Expression != null)
         {
-            var results = new List<ValidationResult>
+            var modelType = exp.Expression.Type;
+            var validator = ValidatorCache.FirstOrDefault(c => c.Key.ModelType == modelType && c.Key.FieldName == fieldName).Value.ValidateComponent;
+            if (validator != null)
             {
-                new ValidationResult(errorMessage, new string[] { fieldName })
-            };
-            validator.ToggleMessage(results, true);
+                var results = new List<ValidationResult>
+                {
+                    new ValidationResult(errorMessage, new string[] { fieldName })
+                };
+                validator.ToggleMessage(results, true);
+            }
         }
     }
 
@@ -144,17 +147,13 @@ public partial class ValidateForm : IAsyncDisposable
     /// <param name="errorMessage">错误描述信息，可为空，为空时查找资源文件</param>
     public void SetError(string propertyName, string errorMessage)
     {
-        if (TryGetModelField(propertyName, out var modelType, out var fieldName)
-            && TryGetValidator(modelType, fieldName, out var validator))
+        if (TryGetModelField(propertyName, out var modelType, out var fieldName) && TryGetValidator(modelType, fieldName, out var validator))
         {
-            if (validator != null)
+            var results = new List<ValidationResult>
             {
-                var results = new List<ValidationResult>
-                {
-                    new ValidationResult(errorMessage, new string[] { fieldName })
-                };
-                validator.ToggleMessage(results, true);
-            }
+                new ValidationResult(errorMessage, new string[] { fieldName })
+            };
+            validator.ToggleMessage(results, true);
         }
     }
 
@@ -180,7 +179,7 @@ public partial class ValidateForm : IAsyncDisposable
         return propNames.IsEmpty;
     }
 
-    private bool TryGetValidator(Type modelType, string fieldName, [MaybeNull] out IValidateComponent validator)
+    private bool TryGetValidator(Type modelType, string fieldName, [NotNullWhen(true)] out IValidateComponent validator)
     {
         validator = ValidatorCache.FirstOrDefault(c => c.Key.ModelType == modelType && c.Key.FieldName == fieldName).Value.ValidateComponent;
         return validator != null;
@@ -333,11 +332,7 @@ public partial class ValidateForm : IAsyncDisposable
                 {
                     rule.ErrorMessage = result.ErrorMessage;
                 }
-
-                var errorMessage = string.IsNullOrEmpty(rule.ErrorMessageResourceName)
-                    ? rule.FormatErrorMessage(displayName ?? memberName)
-                    : rule.ErrorMessage;
-                results.Add(new ValidationResult(errorMessage, new string[] { memberName }));
+                results.Add(new ValidationResult(rule.ErrorMessage, new string[] { memberName }));
             }
         }
     }
@@ -350,8 +345,7 @@ public partial class ValidateForm : IAsyncDisposable
     private void ValidateProperty(ValidationContext context, List<ValidationResult> results)
     {
         // 获得所有可写属性
-        var properties = context.ObjectType.GetRuntimeProperties()
-            .Where(p => IsPublic(p) && p.CanWrite && !p.GetIndexParameters().Any());
+        var properties = context.ObjectType.GetRuntimeProperties().Where(p => IsPublic(p) && p.CanWrite && !p.GetIndexParameters().Any());
         foreach (var pi in properties)
         {
             // 设置其关联属性字段
@@ -400,8 +394,8 @@ public partial class ValidateForm : IAsyncDisposable
                 // 处理多个上传文件
                 uploader.UploadFiles.ForEach(file =>
                 {
-                    // 优先检查 File 流，如果没有检查 FileName
-                    ValidateDataAnnotations((object?)file.File ?? file.FileName, context, messages, pi, file.ValidateId);
+                    // 优先检查 File 流，不需要检查 FileName
+                    ValidateDataAnnotations(file.File, context, messages, pi, file.ValidateId);
                 });
             }
             else
@@ -421,7 +415,7 @@ public partial class ValidateForm : IAsyncDisposable
         }
     }
 
-    private List<Button> AsyncSubmitButtons { get; set; } = new List<Button>();
+    private List<Button> AsyncSubmitButtons { get; } = new List<Button>();
 
     /// <summary>
     /// 注册提交按钮
