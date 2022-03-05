@@ -17,12 +17,6 @@ public sealed partial class Breadcrumb
     [Parameter]
     public IEnumerable<BreadcrumbItem> Value { get; set; } = Enumerable.Empty<BreadcrumbItem>();
 
-    /// <summary>
-    /// 获得/设置 面包屑渲染模式是否进行导航 默认 false 不进行导航
-    /// </summary>
-    [Parameter]
-    public bool ActiveLink { get; set; }
-
     private string? GetItemClassName(BreadcrumbItem item) => CssBuilder.Default("breadcrumb-item")
         .Build();
 
