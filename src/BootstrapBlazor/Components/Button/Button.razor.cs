@@ -3,6 +3,7 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 
 namespace BootstrapBlazor.Components;
 
@@ -11,6 +12,11 @@ namespace BootstrapBlazor.Components;
 /// </summary>
 public partial class Button
 {
+    /// <summary>
+    /// 按钮点击回调方法，内置支持 IsAsync 开关
+    /// </summary>
+    protected EventCallback<MouseEventArgs> OnClickButton { get; set; }
+
     /// <summary>
     /// 获得 ValidateForm 实例
     /// </summary>
@@ -24,10 +30,73 @@ public partial class Button
     {
         base.OnInitialized();
 
+        OnClickButton = EventCallback.Factory.Create<MouseEventArgs>(this, async () =>
+        {
+            if (IsAsync && ButtonType == ButtonType.Button)
+            {
+                IsAsyncLoading = true;
+                ButtonIcon = LoadingIcon;
+                IsDisabled = true;
+            }
+
+            Exception? exception = null;
+            try
+            {
+                if (IsAsync)
+                {
+
+                    await Task.Run(async () => await InvokeAsync(HandlerClick));
+                }
+                else
+                {
+                    await HandlerClick();
+                }
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+
+            // 恢复按钮
+            if (IsAsync && ButtonType == ButtonType.Button)
+            {
+                ButtonIcon = Icon;
+                IsDisabled = false;
+                IsAsyncLoading = false;
+            }
+
+            if (exception != null)
+            {
+                // 如果有异常发生强制按钮恢复
+                StateHasChanged();
+                throw exception;
+            }
+        });
+
         if (IsAsync && ValidateForm != null)
         {
             // 开启异步操作时与 ValidateForm 联动
             ValidateForm.RegisterAsyncSubmitButton(this);
+        }
+    }
+
+    /// <summary>
+    /// 处理点击方法
+    /// </summary>
+    /// <returns></returns>
+    protected virtual async Task HandlerClick()
+    {
+        if (OnClickWithoutRender != null)
+        {
+            if (!IsAsync)
+            {
+                IsNotRender = true;
+            }
+            await OnClickWithoutRender.Invoke();
+        }
+        if (OnClick.HasDelegate)
+        {
+            await OnClick.InvokeAsync();
         }
     }
 

@@ -37,11 +37,6 @@ public abstract class ButtonBase : TooltipComponentBase
     protected string? Tab => IsDisabled ? "-1" : null;
 
     /// <summary>
-    /// 按钮点击回调方法，内置支持 IsAsync 开关
-    /// </summary>
-    protected EventCallback<MouseEventArgs> OnClickButton { get; set; }
-
-    /// <summary>
     /// 获得/设置 实际按钮渲染图标
     /// </summary>
     protected string? ButtonIcon { get; set; }
@@ -149,49 +144,6 @@ public abstract class ButtonBase : TooltipComponentBase
         base.OnInitialized();
 
         ButtonIcon = Icon;
-
-        OnClickButton = EventCallback.Factory.Create<MouseEventArgs>(this, async () =>
-        {
-            if (IsAsync && ButtonType == ButtonType.Button)
-            {
-                IsAsyncLoading = true;
-                ButtonIcon = LoadingIcon;
-                IsDisabled = true;
-            }
-
-            Exception? exception = null;
-            try
-            {
-                if (IsAsync)
-                {
-
-                    await Task.Run(async () => await InvokeAsync(HandlerClick));
-                }
-                else
-                {
-                    await HandlerClick();
-                }
-            }
-            catch (Exception ex)
-            {
-                exception = ex;
-            }
-
-            // 恢复按钮
-            if (IsAsync && ButtonType == ButtonType.Button)
-            {
-                ButtonIcon = Icon;
-                IsDisabled = false;
-                IsAsyncLoading = false;
-            }
-
-            if (exception != null)
-            {
-                // 如果有异常发生强制按钮恢复
-                StateHasChanged();
-                throw exception;
-            }
-        });
     }
 
     /// <summary>
@@ -247,26 +199,6 @@ public abstract class ButtonBase : TooltipComponentBase
                     }
                 }
             }
-        }
-    }
-
-    /// <summary>
-    /// 处理点击方法
-    /// </summary>
-    /// <returns></returns>
-    protected virtual async Task HandlerClick()
-    {
-        if (OnClickWithoutRender != null)
-        {
-            if (!IsAsync)
-            {
-                IsNotRender = true;
-            }
-            await OnClickWithoutRender.Invoke();
-        }
-        if (OnClick.HasDelegate)
-        {
-            await OnClick.InvokeAsync();
         }
     }
 

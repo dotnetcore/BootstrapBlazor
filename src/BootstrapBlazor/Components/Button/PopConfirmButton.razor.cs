@@ -10,7 +10,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 
 /// </summary>
-public sealed partial class PopConfirmButton
+public partial class PopConfirmButton
 {
     /// <summary>
     /// 获得/设置 PopoverConfirm 服务实例
