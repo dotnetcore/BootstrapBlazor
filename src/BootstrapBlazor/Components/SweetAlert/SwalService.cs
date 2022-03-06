@@ -40,18 +40,6 @@ public class SwalService : BootstrapServiceBase<SwalOption>, IDisposable
     }
 
     /// <summary>
-    /// 异步回调方法
-    /// </summary>
-    /// <param name="option"></param>
-    /// <param name="swal">指定弹窗组件 默认为 null 使用 <see cref="BootstrapBlazorRoot"/> 组件内置弹窗组件</param>
-    /// <returns></returns>
-    public async Task<bool> ShowModal(SwalOption option, SweetAlert? swal = null)
-    {
-        await Invoke(option, swal);
-        return option.IsConfirm != true || await option.ReturnTask.Task;
-    }
-
-    /// <summary>
     /// 
     /// </summary>
     /// <param name="disposing"></param>

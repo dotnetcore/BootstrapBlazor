@@ -22,6 +22,12 @@ public class SwalOption : PopupOptionBase
     internal TaskCompletionSource<bool> ReturnTask { get; } = new TaskCompletionSource<bool>();
 
     /// <summary>
+    /// 获得/设置 是否为确认弹窗模式 默认为 false
+    /// </summary>
+    /// <remarks>此属性给模态弹窗时使用</remarks>
+    internal bool IsConfirm { get; set; }
+
+    /// <summary>
     /// 获得/设置 提示类型 默认为 Success
     /// </summary>
     public SwalCategory Category { get; set; }
@@ -55,12 +61,6 @@ public class SwalOption : PopupOptionBase
     /// 获得/设置 是否显示 Footer 默认 false 不显示
     /// </summary>
     public bool ShowFooter { get; set; }
-
-    /// <summary>
-    /// 获得/设置 是否为确认弹窗模式 默认为 false
-    /// </summary>
-    /// <remarks>此属性给模态弹窗时使用</remarks>
-    public bool IsConfirm { get; set; }
 
     /// <summary>
     /// 获得/设置 按钮模板

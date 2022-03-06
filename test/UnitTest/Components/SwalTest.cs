@@ -90,8 +90,7 @@ public class SwalTest : SwalTestBase
         {
             cancel = await swal.ShowModal(new SwalOption()
             {
-                Content = "I am Swal",
-                IsConfirm = true
+                Content = "I am Swal"
             });
         });
 
@@ -105,8 +104,7 @@ public class SwalTest : SwalTestBase
         {
             confirm = await swal.ShowModal(new SwalOption()
             {
-                Content = "I am Swal",
-                IsConfirm = true,
+                Content = "I am Swal"
             });
         });
 
