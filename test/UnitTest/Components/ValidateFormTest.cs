@@ -19,7 +19,7 @@ public class ValidateFormTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void Validate_Ok()
+    public async Task Validate_Ok()
     {
         var valid = false;
         var invalid = false;
@@ -45,11 +45,14 @@ public class ValidateFormTest : BootstrapBlazorTestBase
             });
         });
         var form = cut.Find("form");
-        cut.InvokeAsync(() => form.Submit());
+        await cut.InvokeAsync(() => form.Submit());
         Assert.True(invalid);
 
-        cut.InvokeAsync(() => cut.Find("input").Change("Test"));
-        cut.InvokeAsync(() => form.Submit());
+        await cut.InvokeAsync(() =>
+        {
+            cut.Find("input").Change("Test");
+            form.Submit();
+        });
         Assert.True(valid);
     }
 

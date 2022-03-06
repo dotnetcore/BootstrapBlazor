@@ -89,7 +89,7 @@ public class TransferTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void TransferItem_Ok()
+    public async Task TransferItem_Ok()
     {
         IEnumerable<SelectedItem> rightItems = new List<SelectedItem>();
         var cut = Context.RenderComponent<Transfer<string>>(pb =>
@@ -109,18 +109,19 @@ public class TransferTest : BootstrapBlazorTestBase
 
         // 选中移动到右侧按钮并且点击
         var checkbox = cut.FindComponent<Checkbox<SelectedItem>>();
-        cut.InvokeAsync(() => checkbox.Instance.SetState(CheckboxState.Checked));
+        await cut.InvokeAsync(() => checkbox.Instance.SetState(CheckboxState.Checked));
         var button = cut.FindComponents<Button>()[1];
-        cut.InvokeAsync(() => button.Instance.OnClick.InvokeAsync());
+        await cut.InvokeAsync(() => button.Instance.OnClick.InvokeAsync());
 
         // 右侧共两项
         Assert.Equal(2, rightItems.Count());
 
         // 选中右侧第一项
         checkbox = cut.FindComponents<Checkbox<SelectedItem>>().First(i => i.Instance.DisplayText == "Test1");
-        cut.InvokeAsync(() => checkbox.Instance.SetState(CheckboxState.Checked));
+        await cut.InvokeAsync(() => checkbox.Instance.SetState(CheckboxState.Checked));
+
         button = cut.FindComponents<Button>()[0];
-        cut.InvokeAsync(() => button.Instance.OnClick.InvokeAsync());
+        await cut.InvokeAsync(() => button.Instance.OnClick.InvokeAsync());
 
         // 右侧共一项
         Assert.Single(rightItems);

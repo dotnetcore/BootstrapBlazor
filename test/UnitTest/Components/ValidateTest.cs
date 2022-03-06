@@ -52,20 +52,12 @@ public class ValidateTest : BootstrapBlazorTestBase
             builder.Add(a => a.Model, model);
             builder.Add(a => a.ShowLabel, showLabel);
             builder.Add(a => a.AutoGenerateAllItem, false);
-#if NET5_0
-                builder.Add<EditorItem<string>, Foo>(a => a.FieldItems, f => p =>
-#elif NET6_0_OR_GREATER
-                builder.Add<EditorItem<Foo, string>, Foo>(a => a.FieldItems, f => p =>
-#endif
-                {
+            builder.Add<EditorItem<Foo, string>, Foo>(a => a.FieldItems, f => p =>
+            {
                 p.Add(p => p.Field, f.Name);
                 p.Add(p => p.FieldExpression, f.GenerateValueExpression());
-#if NET5_0
-                    p.Add<BootstrapInput<string>, object>(e => e.EditTemplate, f => p =>
-#elif NET6_0_OR_GREATER
-                    p.Add<BootstrapInput<string>, Foo>(e => e.EditTemplate, f => p =>
-#endif
-                    {
+                p.Add<BootstrapInput<string>, Foo>(e => e.EditTemplate, f => p =>
+                {
                     p.Add(a => a.ShowLabel, null);
                     p.Add(a => a.Value, model.Name);
                     p.Add(a => a.ValueExpression, model.GenerateValueExpression());
@@ -341,7 +333,7 @@ public class ValidateTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void ValidateProperty_Ok()
+    public async Task ValidateProperty_Ok()
     {
         var model = new Foo() { Hobby = new string[0] };
         var invalid = false;
@@ -370,9 +362,9 @@ public class ValidateTest : BootstrapBlazorTestBase
             });
         });
 
-        var form = cut.Find("form");
-        form.Submit();
         // 提交表单验证不通过
+        var form = cut.Find("form");
+        await cut.InvokeAsync(() => form.Submit());
         Assert.True(invalid);
 
         // 更新选中值
@@ -383,7 +375,7 @@ public class ValidateTest : BootstrapBlazorTestBase
         {
             pb.Add(v => v.Value, model.Hobby);
         });
-        form.Submit();
+        await cut.InvokeAsync(() => form.Submit());
         Assert.False(invalid);
     }
 

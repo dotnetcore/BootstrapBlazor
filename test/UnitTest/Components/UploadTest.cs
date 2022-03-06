@@ -22,7 +22,10 @@ public class UploadTest : BootstrapBlazorTestBase
                 uploadFile = file;
                 return Task.CompletedTask;
             });
+            pb.Add(a => a.Value, "test.jpg");
         });
+        cut.Contains("value=\"test.jpg\"");
+
         var input = cut.FindComponent<InputFile>();
         cut.InvokeAsync(() => input.Instance.OnChange.InvokeAsync(new InputFileChangeEventArgs(new List<MockBrowserFile>()
         {
@@ -230,7 +233,7 @@ public class UploadTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void AvatarUpload_ValidateForm_Ok()
+    public async Task AvatarUpload_ValidateForm_Ok()
     {
         var invalid = false;
         var foo = new Foo();
@@ -257,15 +260,18 @@ public class UploadTest : BootstrapBlazorTestBase
 
         // 提交表单
         var form = cut.Find("form");
-        cut.InvokeAsync(() => form.Submit());
+        await cut.InvokeAsync(() => form.Submit());
         Assert.True(invalid);
 
         var input = cut.FindComponent<InputFile>();
-        cut.InvokeAsync(() => input.Instance.OnChange.InvokeAsync(new InputFileChangeEventArgs(new List<MockBrowserFile>()
+        await cut.InvokeAsync(async () =>
         {
-            new MockBrowserFile()
-        })));
-        cut.InvokeAsync(() => form.Submit());
+            await input.Instance.OnChange.InvokeAsync(new InputFileChangeEventArgs(new List<MockBrowserFile>()
+            {
+                new MockBrowserFile()
+            }));
+            form.Submit();
+        });
         Assert.False(invalid);
     }
 
