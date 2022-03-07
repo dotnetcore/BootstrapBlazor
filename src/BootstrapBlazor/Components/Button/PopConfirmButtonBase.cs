@@ -12,6 +12,12 @@ namespace BootstrapBlazor.Components;
 public abstract class PopConfirmButtonBase : ButtonBase
 {
     /// <summary>
+    /// 获得/设置 是否为 A 标签 默认 false 使用 button 渲染 
+    /// </summary>
+    [Parameter]
+    public bool IsLink { get; set; }
+
+    /// <summary>
     /// 获得/设置 弹窗显示位置
     /// </summary>
     [Parameter]
@@ -78,4 +84,14 @@ public abstract class PopConfirmButtonBase : ButtonBase
     /// </summary>
     [Parameter]
     public string ConfirmIcon { get; set; } = "fa fa-exclamation-circle text-info";
+
+    /// <summary>
+    /// 
+    /// </summary>
+    protected string TagName => IsLink ? "a" : "button";
+
+    /// <summary>
+    /// 
+    /// </summary>
+    protected string? ElementType => IsLink ? null : "button";
 }

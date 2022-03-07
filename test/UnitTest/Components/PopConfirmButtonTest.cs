@@ -105,5 +105,12 @@ public class PopConfirmButtonTest : PopoverTestBase
         // Confirm
         buttons = cut.FindAll(".popover-confirm-buttons button");
         cut.InvokeAsync(() => buttons[1].Click());
+
+        // IsLink
+        popButton.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.IsLink, true);
+        });
+        Assert.Contains("a data-bs-toggle=\"confirm\"", popButton.Markup);
     }
 }

@@ -26,7 +26,7 @@
     <PopConfirmButton Placement="Placement.Top" Color="Color.Danger" ConfirmIcon="fa fa-exclamation-triangle text-danger" ConfirmButtonColor="Color.Danger" Text="删除确认按钮" Content="确定删除数据吗？" />
 </DemoBlock>
 
-<DemoBlock Title="异步确认" Introduction="通过设置<code>IsAsync</code> 属性点击确认按钮时异步进行数据提交" Name="Async">
+<DemoBlock Title="异步确认" Introduction="通过设置<code>IsAsync</code> 属性点击确认按钮时异步进行数据提交" Name="IsAsync">
     <PopConfirmButton Placement="Placement.Top" Color="Color.Danger" ConfirmIcon="fa fa-exclamation-triangle text-danger"
                       ConfirmButtonColor="Color.Danger" Text="异步确认" Content="确定删除数据吗？" Icon="fa fa-fa fa-fw" IsAsync="true"
                       OnConfirm="OnAsyncConfirm" />
@@ -46,6 +46,11 @@
         </div>
     </ValidateForm>
     <BlockLogger @ref="Trace1" class="mt-3" />
+</DemoBlock>
+
+<DemoBlock Title="超链接按钮" Introduction="通过设置<code>IsLink</code> 属性组件使用 <code>A</code> 标签进行渲染" Name="IsLink">
+    <PopConfirmButton Placement="Placement.Top" ConfirmIcon="fa fa-exclamation-triangle text-danger"
+                      ConfirmButtonColor="Color.Danger" Text="我是超链接" Content="确定删除数据吗？" IsLink="true" />
 </DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" />
