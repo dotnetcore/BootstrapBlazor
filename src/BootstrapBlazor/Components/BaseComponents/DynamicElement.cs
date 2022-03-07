@@ -63,25 +63,17 @@ public class DynamicElement : BootstrapComponentBase
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否生成指定 Tag 元素 默认 true 生成
-    /// </summary>
-    [Parameter]
-    public bool GenerateElement { get; set; } = true;
-
-    /// <summary>
     /// BuildRenderTree 方法
     /// </summary>
     /// <param name="builder"></param>
     protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
-        if (GenerateElement || IsTriggerClick() || IsTriggerDoubleClick())
+        builder.OpenElement(0, TagName);
+        if (AdditionalAttributes != null)
         {
-            builder.OpenElement(0, TagName);
-            if (AdditionalAttributes != null)
-            {
-                builder.AddMultipleAttributes(1, AdditionalAttributes);
-            }
+            builder.AddMultipleAttributes(1, AdditionalAttributes);
         }
+
         if (IsTriggerClick())
         {
             builder.AddAttribute(2, "onclick", EventCallback.Factory.Create<MouseEventArgs>(this, e => OnClick!()));
@@ -98,13 +90,9 @@ public class DynamicElement : BootstrapComponentBase
             builder.AddEventStopPropagationAttribute(5, "onclick", StopPropagation);
         }
         builder.AddContent(6, ChildContent);
-        if (GenerateElement || IsTriggerClick() || IsTriggerDoubleClick())
-        {
-            builder.CloseElement();
-        }
+        builder.CloseElement();
 
         bool IsTriggerClick() => TriggerClick && OnClick != null;
-
         bool IsTriggerDoubleClick() => TriggerDoubleClick && OnDoubleClick != null;
     }
 }
