@@ -35,8 +35,7 @@ public sealed partial class Editors
             var op = new SwalOption()
             {
                 Title = Localizer["SwalTitle"],
-                Content = Localizer["SwalContent"],
-                IsConfirm = true
+                Content = Localizer["SwalContent"]
             };
             if (await SwalService.ShowModal(op))
             {
@@ -48,8 +47,7 @@ public sealed partial class Editors
             var op = new SwalOption()
             {
                 Title = Localizer["Swal2Title"],
-                Content = Localizer["Swal2Content"],
-                IsConfirm = true
+                Content = Localizer["Swal2Content"]
             };
             if (await SwalService.ShowModal(op))
             {

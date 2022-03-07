@@ -22,10 +22,15 @@ public class SwalOption : PopupOptionBase
     internal TaskCompletionSource<bool> ReturnTask { get; } = new TaskCompletionSource<bool>();
 
     /// <summary>
-    /// 获得/设置 是否为确认弹窗模式 默认为 false
+    /// 获得/设置 是否为确认弹窗模式 此属性给模态弹窗时使用 默认为 false
     /// </summary>
-    /// <remarks>此属性给模态弹窗时使用</remarks>
-    internal bool IsConfirm { get; set; }
+    [Obsolete("已弃用，无需设置本参数，内部已优化处理减少使用者代码量")]
+    public bool IsConfirm { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否为确认弹窗模式 此属性给模态弹窗时使用 默认为 false
+    /// </summary>
+    internal bool IsModalConfirm { get; set; }
 
     /// <summary>
     /// 获得/设置 提示类型 默认为 Success
@@ -105,7 +110,7 @@ public class SwalOption : PopupOptionBase
             await Dialog.Close();
         }
 
-        if (IsConfirm)
+        if (IsModalConfirm)
         {
             ReturnTask.TrySetResult(returnValue);
         }

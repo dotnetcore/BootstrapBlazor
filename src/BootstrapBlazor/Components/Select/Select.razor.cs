@@ -230,8 +230,7 @@ public partial class Select<TValue> : ISelect
                 {
                     Category = SwalCategory,
                     Title = SwalTitle,
-                    Content = SwalContent,
-                    IsConfirm = true
+                    Content = SwalContent
                 };
                 if (!string.IsNullOrEmpty(SwalFooter))
                 {
