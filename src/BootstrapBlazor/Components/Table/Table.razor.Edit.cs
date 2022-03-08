@@ -4,6 +4,8 @@
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
+using System.ComponentModel.DataAnnotations;
+using System.Reflection;
 
 namespace BootstrapBlazor.Components;
 
@@ -414,15 +416,18 @@ public partial class Table<TItem>
     /// </summary>
     protected async Task QueryData()
     {
+        // 目前设计使用 Items 参数后不回调 OnQueryAsync 方法
         if (Items == null)
         {
             if (OnQueryAsync == null && DynamicContext != null && typeof(TItem).IsAssignableTo(typeof(IDynamicObject)))
             {
+                // 动态数据
                 QueryItems = DynamicContext.GetItems().Cast<TItem>();
                 TotalCount = QueryItems.Count();
             }
             else
             {
+                // 数据集合
                 await OnQuery();
             }
         }
@@ -462,6 +467,9 @@ public partial class Table<TItem>
                 TotalCount = queryData.TotalCount;
                 IsAdvanceSearch = queryData.IsAdvanceSearch;
 
+                // 处理选中行逻辑
+                ProcessSelectedRows();
+
                 // 分页情况下内部不做处理防止页码错乱
                 if (!queryOption.IsPage)
                 {
@@ -473,83 +481,109 @@ public partial class Table<TItem>
                     await ProcessTreeData();
                 }
             }
-        }
 
-        void ProcessPageData(QueryData<TItem> queryData, QueryPageOptions queryOption)
-        {
-            var filtered = queryData.IsFiltered;
-            var sorted = queryData.IsSorted;
-            var searched = queryData.IsSearch;
-
-            // 外部未处理 SearchText 模糊查询
-            if (!searched && queryOption.Searchs.Any())
+            void ProcessSelectedRows()
             {
-                QueryItems = QueryItems.Where(queryOption.Searchs.GetFilterFunc<TItem>(FilterLogic.Or));
-                TotalCount = QueryItems.Count();
-            }
-
-            // 外部未处理自定义高级搜索 内部进行高级自定义搜索过滤
-            if (!IsAdvanceSearch && queryOption.CustomerSearchs.Any())
-            {
-                QueryItems = QueryItems.Where(queryOption.CustomerSearchs.GetFilterFunc<TItem>());
-                TotalCount = QueryItems.Count();
-                IsAdvanceSearch = true;
-            }
-
-            // 外部未过滤，内部自行过滤
-            if (!filtered && queryOption.Filters.Any())
-            {
-                QueryItems = QueryItems.Where(queryOption.Filters.GetFilterFunc<TItem>());
-                TotalCount = QueryItems.Count();
-            }
-
-            // 外部未处理排序，内部自行排序
-            // 先处理列头排序 再处理默认多列排序
-            if (!sorted)
-            {
-                if (queryOption.SortOrder != SortOrder.Unset && !string.IsNullOrEmpty(queryOption.SortName))
+                // 判断模型是否有 [Key] Id 等可识别字段尝试重构
+                if (typeof(TItem).GetRuntimeProperties().Any(p => p.IsDefined(typeof(KeyAttribute))))
                 {
-                    var invoker = Utility.GetSortFunc<TItem>();
-                    QueryItems = invoker(QueryItems, queryOption.SortName, queryOption.SortOrder);
-                }
-                else if (queryOption.SortList != null && queryOption.SortList.Any())
-                {
-                    var invoker = Utility.GetSortListFunc<TItem>();
-                    QueryItems = invoker(QueryItems, queryOption.SortList);
-                }
-            }
-        }
-
-        async Task ProcessTreeData()
-        {
-            KeySet.Clear();
-            if (TableTreeNode<TItem>.HasKey)
-            {
-                CheckExpandKeys(TreeRows);
-            }
-            if (KeySet.Count > 0)
-            {
-                TreeRows = new List<TableTreeNode<TItem>>();
-                foreach (var item in QueryItems)
-                {
-                    var node = new TableTreeNode<TItem>(item)
+                    var rows = new List<TItem>();
+                    // 更新选中行逻辑
+                    foreach (var item in SelectedRows)
                     {
-                        HasChildren = CheckTreeChildren(item),
-                    };
-                    node.IsExpand = node.HasChildren && node.Key != null && KeySet.Contains(node.Key);
-                    if (node.IsExpand)
-                    {
-                        await RestoreIsExpand(node);
+                        var key = Utility.GetKeyValue<TItem, object?>(item);
+                        if (key != null)
+                        {
+                            if (QueryItems.Any(i => Utility.GetKeyValue<TItem, object?>(i)?.ToString() == key.ToString()))
+                            {
+                                rows.Add(item);
+                            }
+                        }
                     }
-                    TreeRows.Add(node);
+                    SelectedRows = rows;
+                }
+                else
+                {
+                    SelectedRows.Clear();
                 }
             }
-            else
+
+            void ProcessPageData(QueryData<TItem> queryData, QueryPageOptions queryOption)
             {
-                TreeRows = QueryItems.Select(item => new TableTreeNode<TItem>(item)
+                var filtered = queryData.IsFiltered;
+                var sorted = queryData.IsSorted;
+                var searched = queryData.IsSearch;
+
+                // 外部未处理 SearchText 模糊查询
+                if (!searched && queryOption.Searchs.Any())
                 {
-                    HasChildren = CheckTreeChildren(item)
-                }).ToList();
+                    QueryItems = QueryItems.Where(queryOption.Searchs.GetFilterFunc<TItem>(FilterLogic.Or));
+                    TotalCount = QueryItems.Count();
+                }
+
+                // 外部未处理自定义高级搜索 内部进行高级自定义搜索过滤
+                if (!IsAdvanceSearch && queryOption.CustomerSearchs.Any())
+                {
+                    QueryItems = QueryItems.Where(queryOption.CustomerSearchs.GetFilterFunc<TItem>());
+                    TotalCount = QueryItems.Count();
+                    IsAdvanceSearch = true;
+                }
+
+                // 外部未过滤，内部自行过滤
+                if (!filtered && queryOption.Filters.Any())
+                {
+                    QueryItems = QueryItems.Where(queryOption.Filters.GetFilterFunc<TItem>());
+                    TotalCount = QueryItems.Count();
+                }
+
+                // 外部未处理排序，内部自行排序
+                // 先处理列头排序 再处理默认多列排序
+                if (!sorted)
+                {
+                    if (queryOption.SortOrder != SortOrder.Unset && !string.IsNullOrEmpty(queryOption.SortName))
+                    {
+                        var invoker = Utility.GetSortFunc<TItem>();
+                        QueryItems = invoker(QueryItems, queryOption.SortName, queryOption.SortOrder);
+                    }
+                    else if (queryOption.SortList != null && queryOption.SortList.Any())
+                    {
+                        var invoker = Utility.GetSortListFunc<TItem>();
+                        QueryItems = invoker(QueryItems, queryOption.SortList);
+                    }
+                }
+            }
+
+            async Task ProcessTreeData()
+            {
+                KeySet.Clear();
+                if (TableTreeNode<TItem>.HasKey)
+                {
+                    CheckExpandKeys(TreeRows);
+                }
+                if (KeySet.Count > 0)
+                {
+                    TreeRows = new List<TableTreeNode<TItem>>();
+                    foreach (var item in QueryItems)
+                    {
+                        var node = new TableTreeNode<TItem>(item)
+                        {
+                            HasChildren = CheckTreeChildren(item),
+                        };
+                        node.IsExpand = node.HasChildren && node.Key != null && KeySet.Contains(node.Key);
+                        if (node.IsExpand)
+                        {
+                            await RestoreIsExpand(node);
+                        }
+                        TreeRows.Add(node);
+                    }
+                }
+                else
+                {
+                    TreeRows = QueryItems.Select(item => new TableTreeNode<TItem>(item)
+                    {
+                        HasChildren = CheckTreeChildren(item)
+                    }).ToList();
+                }
             }
         }
     }

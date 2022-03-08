@@ -54,7 +54,7 @@ public partial class Table<TItem>
     }
 
     /// <summary>
-    /// 异步查询回调方法
+    /// 异步查询回调方法，设置 <see cref="Items"/> 后无法触发此回调方法
     /// </summary>
     [Parameter]
     public Func<QueryPageOptions, Task<QueryData<TItem>>>? OnQueryAsync { get; set; }
