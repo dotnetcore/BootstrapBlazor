@@ -4,8 +4,6 @@
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
-using System.ComponentModel.DataAnnotations;
-using System.Reflection;
 
 namespace BootstrapBlazor.Components;
 
@@ -485,7 +483,7 @@ public partial class Table<TItem>
             void ProcessSelectedRows()
             {
                 // 判断模型是否有 [Key] Id 等可识别字段尝试重构
-                if (typeof(TItem).GetRuntimeProperties().Any(p => p.IsDefined(typeof(KeyAttribute))))
+                if (HasKeyAttribute)
                 {
                     var rows = new List<TItem>();
                     // 更新选中行逻辑
@@ -556,7 +554,7 @@ public partial class Table<TItem>
             async Task ProcessTreeData()
             {
                 KeySet.Clear();
-                if (TableTreeNode<TItem>.HasKey)
+                if (HasKeyAttribute)
                 {
                     CheckExpandKeys(TreeRows);
                 }

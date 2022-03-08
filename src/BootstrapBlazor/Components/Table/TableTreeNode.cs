@@ -2,10 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using System.ComponentModel.DataAnnotations;
-using System.Linq.Expressions;
-using System.Reflection;
-
 namespace BootstrapBlazor.Components;
 
 /// <summary>
@@ -14,24 +10,6 @@ namespace BootstrapBlazor.Components;
 /// <typeparam name="TItem"></typeparam>
 public class TableTreeNode<TItem> where TItem : class
 {
-    private static readonly Lazy<Func<TItem, object?>> GetKeyFunc = new(() =>
-    {
-        var property = typeof(TItem).GetProperties().FirstOrDefault(p => p.IsDefined(typeof(KeyAttribute)));
-        if (property == null)
-        {
-            return _ => null;
-        }
-        HasKey = true;
-        var param = Expression.Parameter(typeof(TItem));
-        var body = Expression.Property(param, property);
-        return Expression.Lambda<Func<TItem, object>>(Expression.Convert(body, typeof(object)), param).Compile();
-    });
-
-    /// <summary>
-    /// 获取 TItem 是否存在唯一标识
-    /// </summary>
-    public static bool HasKey { get; private set; }
-
     /// <summary>
     /// 获得/设置 当前节点值
     /// </summary>
@@ -68,6 +46,6 @@ public class TableTreeNode<TItem> where TItem : class
     public TableTreeNode(TItem item)
     {
         Value = item;
-        Key = GetKeyFunc.Value(item);
+        Key = Utility.GetKeyValue<TItem, object?>(item);
     }
 }

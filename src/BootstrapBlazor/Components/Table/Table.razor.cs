@@ -5,7 +5,9 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web.Virtualization;
 using Microsoft.Extensions.Options;
+using System.ComponentModel.DataAnnotations;
 using System.Globalization;
+using System.Reflection;
 
 namespace BootstrapBlazor.Components;
 
@@ -647,6 +649,11 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
     private bool OnAfterRenderIsTriggered { get; set; }
 
     /// <summary>
+    /// 获得/设置 模型是否有 [KeyAttribute] 标签
+    /// </summary>
+    protected bool HasKeyAttribute { get; set; }
+
+    /// <summary>
     /// OnInitialized 方法
     /// </summary>
     protected override void OnInitialized()
@@ -678,6 +685,8 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
             PageIndex = 1;
             await QueryAsync();
         };
+
+        HasKeyAttribute = typeof(TItem).GetRuntimeProperties().Any(p => p.IsDefined(typeof(KeyAttribute)));
 
         if (IsTree)
         {
