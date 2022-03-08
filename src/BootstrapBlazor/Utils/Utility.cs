@@ -4,6 +4,7 @@
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
+using System.ComponentModel.DataAnnotations;
 using System.Data;
 using System.Linq.Expressions;
 using System.Reflection;
@@ -30,6 +31,15 @@ public static class Utility
     /// <param name="fieldName">字段名称</param>
     /// <returns></returns>
     public static string GetDisplayName(Type modelType, string fieldName) => CacheManager.GetDisplayName(modelType, fieldName);
+
+    /// <summary>
+    /// 获得 指定模型标记 <see cref="KeyAttribute"/> 的属性值
+    /// </summary>
+    /// <typeparam name="TModel"></typeparam>
+    /// <typeparam name="TValue"></typeparam>
+    /// <param name="model"></param>
+    /// <returns></returns>
+    public static TValue GetKeyValue<TModel, TValue>(TModel model) => CacheManager.GetKeyValue<TModel, TValue>(model);
 
     /// <summary>
     /// 

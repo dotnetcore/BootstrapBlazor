@@ -301,6 +301,25 @@ internal class CacheManager : ICacheManager
         });
         invoker(model, value);
     }
+
+    /// <summary>
+    /// 获得 指定模型标记 <see cref="KeyAttribute"/> 的属性值
+    /// </summary>
+    /// <typeparam name="TModel"></typeparam>
+    /// <typeparam name="TValue"></typeparam>
+    /// <param name="model"></param>
+    /// <returns></returns>
+    public static TValue GetKeyValue<TModel, TValue>(TModel model)
+    {
+        var type = model is object o ? o.GetType() : typeof(TModel);
+        var cacheKey = ($"Lambda-GetKeyValue-{type.FullName}", typeof(TModel));
+        var invoker = Instance.GetOrCreate(cacheKey, entry =>
+        {
+            entry.SetDynamicAssemblyPolicy(type);
+            return LambdaExtensions.GetKeyValue<TModel, TValue>(model).Compile();
+        });
+        return invoker(model);
+    }
     #endregion
 
     #region Lambda Sort

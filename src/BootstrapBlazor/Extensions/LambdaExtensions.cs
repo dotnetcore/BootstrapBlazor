@@ -3,6 +3,7 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using BootstrapBlazor.Components;
+using System.ComponentModel.DataAnnotations;
 using System.Linq.Expressions;
 using System.Reflection;
 
@@ -600,4 +601,24 @@ public static class LambdaExtensions
         return false;
     }
     #endregion
+
+    /// <summary>
+    /// 获得 指定模型标记 <see cref="KeyAttribute"/> 的属性值
+    /// </summary>
+    /// <typeparam name="TModel"></typeparam>
+    /// <typeparam name="TValue"></typeparam>
+    /// <returns></returns>
+    public static Expression<Func<TModel, TValue>> GetKeyValue<TModel, TValue>(TModel model)
+    {
+        var type = model is not null ? model.GetType() : typeof(TModel);
+        Expression<Func<TModel, TValue>> ret = _ => default!;
+        var property = type.GetRuntimeProperties().FirstOrDefault(p => p.IsDefined(typeof(KeyAttribute)));
+        if (property != null)
+        {
+            var param = Expression.Parameter(typeof(TModel));
+            var body = Expression.Property(Expression.Convert(param, type), property);
+            ret = Expression.Lambda<Func<TModel, TValue>>(Expression.Convert(body, typeof(TValue)), param);
+        }
+        return ret;
+    }
 }
