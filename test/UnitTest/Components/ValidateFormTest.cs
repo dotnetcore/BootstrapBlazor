@@ -3,14 +3,11 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using BootstrapBlazor.Shared;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Localization;
-using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace UnitTest.Components;
 
-public class ValidateFormTest : BootstrapBlazorTestBase
+public class ValidateFormTest : ValidateFormTestBase
 {
     [Fact]
     public void BootstrapBlazorDataAnnotationsValidator_Error()
@@ -236,7 +233,7 @@ public class ValidateFormTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void Validate_UploadFile_Ok()
+    public async Task Validate_UploadFile_Ok()
     {
         var foo = new Dummy() { File = "text.txt" };
         var cut = Context.RenderComponent<ValidateForm>(pb =>
@@ -249,75 +246,83 @@ public class ValidateFormTest : BootstrapBlazorTestBase
             });
         });
         var form = cut.Find("form");
-        cut.InvokeAsync(() => form.Submit());
+        await cut.InvokeAsync(() => form.Submit());
     }
 
     [Fact]
-    public void Validate_Localizer_Ok()
+    public async Task Validate_Localizer_Ok()
     {
         var foo = new MockFoo();
         var cut = Context.RenderComponent<ValidateForm>(pb =>
         {
             pb.Add(a => a.Model, foo);
-            pb.AddChildContent<BootstrapInput<string>>(pb =>
+            pb.AddChildContent<MockInput<string>>(pb =>
             {
                 pb.Add(a => a.Value, foo.Name);
                 pb.Add(a => a.ValueExpression, Utility.GenerateValueExpression(foo, "Name", typeof(string)));
             });
         });
         var form = cut.Find("form");
-        cut.InvokeAsync(() => form.Submit());
+        await cut.InvokeAsync(() => form.Submit());
+        var msg = cut.FindComponent<MockInput<string>>().Instance.GetErrorMessage();
+        Assert.Equal("Name is Required", msg);
     }
 
     [Fact]
-    public void Validate_Attribute_Ok()
+    public async Task Validate_Attribute_Ok()
     {
         var foo = new MockFoo();
         var cut = Context.RenderComponent<ValidateForm>(pb =>
         {
             pb.Add(a => a.Model, foo);
-            pb.AddChildContent<BootstrapInput<string>>(pb =>
+            pb.AddChildContent<MockInput<string>>(pb =>
             {
                 pb.Add(a => a.Value, foo.Rule);
                 pb.Add(a => a.ValueExpression, Utility.GenerateValueExpression(foo, "Rule", typeof(string)));
             });
         });
         var form = cut.Find("form");
-        cut.InvokeAsync(() => form.Submit());
+        await cut.InvokeAsync(() => form.Submit());
+        var msg = cut.FindComponent<MockInput<string>>().Instance.GetErrorMessage();
+        Assert.Equal("Rule is Required", msg);
     }
 
     [Fact]
-    public void Validate_MemberName_Ok()
+    public async Task Validate_MemberName_Ok()
     {
         var foo = new MockFoo();
         var cut = Context.RenderComponent<ValidateForm>(pb =>
         {
             pb.Add(a => a.Model, foo);
-            pb.AddChildContent<BootstrapInput<string>>(pb =>
+            pb.AddChildContent<MockInput<string>>(pb =>
             {
                 pb.Add(a => a.Value, foo.Member);
                 pb.Add(a => a.ValueExpression, Utility.GenerateValueExpression(foo, "Member", typeof(string)));
             });
         });
         var form = cut.Find("form");
-        cut.InvokeAsync(() => form.Submit());
+        await cut.InvokeAsync(() => form.Submit());
+        var msg = cut.FindComponent<MockInput<string>>().Instance.GetErrorMessage();
+        Assert.Equal("Member is Required", msg);
     }
 
     [Fact]
-    public void Validate_Address_Ok()
+    public async Task Validate_Address_Ok()
     {
         var foo = new MockFoo();
         var cut = Context.RenderComponent<ValidateForm>(pb =>
         {
             pb.Add(a => a.Model, foo);
-            pb.AddChildContent<BootstrapInput<string>>(pb =>
+            pb.AddChildContent<MockInput<string>>(pb =>
             {
                 pb.Add(a => a.Value, foo.Address);
                 pb.Add(a => a.ValueExpression, Utility.GenerateValueExpression(foo, "Address", typeof(string)));
             });
         });
         var form = cut.Find("form");
-        cut.InvokeAsync(() => form.Submit());
+        await cut.InvokeAsync(() => form.Submit());
+        var msg = cut.FindComponent<MockInput<string>>().Instance.GetErrorMessage();
+        Assert.Equal("Address must fill", msg);
     }
 
     [Fact]
@@ -354,7 +359,6 @@ public class ValidateFormTest : BootstrapBlazorTestBase
     [MetadataType(typeof(DummyMetadata))]
     private class Dummy
     {
-        [Required]
         public DateTime? Value { get; set; }
 
         public Foo Foo { get; set; } = new Foo();
@@ -383,5 +387,10 @@ public class ValidateFormTest : BootstrapBlazorTestBase
 
         [EmailAddress()]
         public string? Member { get; set; } = "test";
+    }
+
+    private class MockInput<TValue> : BootstrapInput<TValue>
+    {
+        public string? GetErrorMessage() => base.ErrorMessage;
     }
 }

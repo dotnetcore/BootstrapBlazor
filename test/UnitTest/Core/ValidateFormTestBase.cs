@@ -7,29 +7,29 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace UnitTest.Core;
 
-[Collection("BlazorTestContext")]
-public class BootstrapBlazorTestBase
+[Collection("ValidateFormTestContext")]
+public class ValidateFormTestBase
 {
     protected TestContext Context { get; }
 
-    public BootstrapBlazorTestBase()
+    public ValidateFormTestBase()
     {
-        Context = BootstrapBlazorTestHost.Instance;
+        Context = ValidateFormTestHost.Instance;
     }
 }
 
-[CollectionDefinition("BlazorTestContext")]
-public class BootstrapBlazorTestCollection : ICollectionFixture<BootstrapBlazorTestHost>
+[CollectionDefinition("ValidateFormTestContext")]
+public class ValidateFormTestCollection : ICollectionFixture<ValidateFormTestHost>
 {
 
 }
 
-public class BootstrapBlazorTestHost : IDisposable
+public class ValidateFormTestHost : IDisposable
 {
     [NotNull]
     internal static TestContext? Instance { get; private set; }
 
-    public BootstrapBlazorTestHost()
+    public ValidateFormTestHost()
     {
         Instance = new TestContext();
 
@@ -40,14 +40,16 @@ public class BootstrapBlazorTestHost : IDisposable
 
         ConfigureConfigration(Instance.Services);
 
-        // 渲染 BootstrapBlazorRoot 组件 激活 ICacheManager 接口
+        // 渲染 SwalRoot 组件 激活 ICacheManager 接口
         Instance.Services.GetRequiredService<ICacheManager>();
     }
 
     protected virtual void ConfigureServices(IServiceCollection services)
     {
-        services.AddBootstrapBlazor();
-        services.ConfigureJsonLocalizationOptions(op => op.AdditionalJsonAssemblies = new[] { typeof(Alert).Assembly });
+        services.AddBootstrapBlazor().ConfigureJsonLocalizationOptions(op =>
+        {
+            op.AdditionalJsonAssemblies = new[] { typeof(Alert).Assembly, GetType().Assembly };
+        });
     }
 
     protected virtual void ConfigureConfigration(IServiceCollection services)

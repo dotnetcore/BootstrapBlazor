@@ -332,7 +332,10 @@ public partial class ValidateForm : IAsyncDisposable
                 {
                     rule.ErrorMessage = result.ErrorMessage;
                 }
-                results.Add(new ValidationResult(rule.ErrorMessage, new string[] { memberName }));
+                var errorMessage = !string.IsNullOrEmpty(rule.ErrorMessage) && rule.ErrorMessage.Contains("{0}")
+                    ? rule.FormatErrorMessage(displayName)
+                    : rule.ErrorMessage;
+                results.Add(new ValidationResult(errorMessage, new string[] { memberName }));
             }
         }
     }

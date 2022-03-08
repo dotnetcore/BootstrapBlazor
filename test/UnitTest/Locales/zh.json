@@ -32,6 +32,6 @@
     "Email": "Age msg"
   },
   "System.ComponentModel.DataAnnotations.RequiredAttribute": {
-    "ErrorMessage": "Rule is Required"
+    "ErrorMessage": "{0} is Required"
   }
 }
