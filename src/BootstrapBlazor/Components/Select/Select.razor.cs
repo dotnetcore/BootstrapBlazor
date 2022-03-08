@@ -171,14 +171,12 @@ public partial class Select<TValue> : ISelect
         SelectedItem = DataSource.FirstOrDefault(i => i.Value.Equals(CurrentValueAsString, StringComparison.OrdinalIgnoreCase))
             ?? DataSource.FirstOrDefault(i => i.Active)
             ?? DataSource.FirstOrDefault();
-        if (SelectedItem != null && SelectedItem.Value != null)
+
+        // 检查 Value 值是否在候选项中存在
+        // Value 不等于 选中值即不存在
+        if (!string.IsNullOrEmpty(SelectedItem?.Value) && CurrentValueAsString != SelectedItem.Value)
         {
-            TValue val;
-            if(SelectedItem.Value.TryConvertTo<TValue>(out val))
-            {
-                CurrentValue = val;
-            }
-            //CurrentValueAsString = SelectedItem.Value;
+            CurrentValueAsString = SelectedItem.Value;
         }
     }
 

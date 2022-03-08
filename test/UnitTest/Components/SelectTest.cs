@@ -3,7 +3,6 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using BootstrapBlazor.Shared;
-using UnitTest.Extensions;
 
 namespace UnitTest.Components;
 
@@ -197,5 +196,23 @@ public class SelectTest : BootstrapBlazorTestBase
     {
         var cut = Context.RenderComponent<Select<string>>();
         Assert.Contains("select", cut.Markup);
+    }
+
+    [Fact]
+    public void NullBool_Ok()
+    {
+        var cut = Context.RenderComponent<Select<bool?>>(pb =>
+        {
+            pb.Add(a => a.Items, new List<SelectedItem>
+            {
+                new SelectedItem("true", "True"),
+                new SelectedItem("false", "False"),
+            });
+            pb.Add(a => a.Value, null);
+        });
+
+        // 值为 null
+        // 候选项中无，导致默认选择第一个 Value 被更改为 true
+        Assert.True(cut.Instance.Value);
     }
 }
