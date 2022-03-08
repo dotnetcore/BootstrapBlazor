@@ -171,6 +171,15 @@ public partial class Select<TValue> : ISelect
         SelectedItem = DataSource.FirstOrDefault(i => i.Value.Equals(CurrentValueAsString, StringComparison.OrdinalIgnoreCase))
             ?? DataSource.FirstOrDefault(i => i.Active)
             ?? DataSource.FirstOrDefault();
+        if (SelectedItem != null && SelectedItem.Value != null)
+        {
+            TValue val;
+            if(SelectedItem.Value.TryConvertTo<TValue>(out val))
+            {
+                CurrentValue = val;
+            }
+            //CurrentValueAsString = SelectedItem.Value;
+        }
     }
 
     /// <summary>
