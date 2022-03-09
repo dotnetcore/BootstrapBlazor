@@ -7,15 +7,29 @@
     <label class="form-label" for="@Id">@DisplayText</label>
 }
 <div @attributes="@AdditionalAttributes" id="@Id" class="@DirectionClassName">
-    <button type="button" class="@ButtonClassName" data-bs-toggle="@DropdownToggle" aria-expanded="false">@GetText</button>
+    <button type="button" class="@ButtonClassName" data-bs-toggle="@DropdownToggle" disabled="@Disabled">@GetText</button>
     @if (ShowSplit)
     {
-        <button type="button" class="@ClassName" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+        <button type="button" class="@ClassName" data-bs-toggle="dropdown" disabled="@Disabled" aria-haspopup="true" aria-expanded="false"></button>
     }
-    <div class="@MenuAlignmentClass">
-        @foreach (var item in GetItems())
-        {
-            <div class="@ActiveItem(item)" @onclick="e => OnItemClick(item)">@item.Text</div>
-        }
-    </div>
+    @if (!IsDisabled)
+    {
+        <div class="@MenuAlignmentClass">
+            @foreach (var item in GetItems())
+            {
+                if (ItemTemplate != null)
+                {
+                    @ItemTemplate.Invoke(item)
+                }
+                else if (item.IsDisabled)
+                {
+                    <div class="@ActiveItem(item)">@item.Text</div>
+                }
+                else
+                {
+                    <div class="@ActiveItem(item)" @onclick="e => OnItemClick(item)">@item.Text</div>
+                }
+            }
+        </div>
+    }
 </div>
