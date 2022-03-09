@@ -19,7 +19,10 @@ public partial class Layout : IAsyncDisposable
 {
     private JSInterop<Layout>? Interop { get; set; }
 
-    private bool IsAuthenticated { get; set; }
+    /// <summary>
+    /// 获得/设置 是否已授权
+    /// </summary>
+    protected bool IsAuthenticated { get; set; }
 
     /// <summary>
     /// 获得 组件样式
