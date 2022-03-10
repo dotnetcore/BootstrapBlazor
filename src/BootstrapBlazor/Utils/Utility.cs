@@ -630,7 +630,15 @@ public static class Utility
         return ret;
     }
 
-    internal static object? GenerateValueChanged(ComponentBase component, object model, string fieldName, Type fieldType)
+    /// <summary>
+    /// 获得 ValueChanged 回调委托
+    /// </summary>
+    /// <param name="component"></param>
+    /// <param name="model"></param>
+    /// <param name="fieldName"></param>
+    /// <param name="fieldType"></param>
+    /// <returns></returns>
+    public static object? GenerateValueChanged(ComponentBase component, object model, string fieldName, Type fieldType)
     {
         var valueChangedInvoker = CreateLambda(fieldType).Compile();
         return valueChangedInvoker(component, model, fieldName);
