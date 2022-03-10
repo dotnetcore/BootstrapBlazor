@@ -716,7 +716,7 @@ public static class LambdaExtensions
         var type = model.GetType();
         var param_p1 = Expression.Parameter(typeof(TModel));
         var param_p2 = Expression.Parameter(typeof(TValue));
-        return propertyName.Contains(".") ? SetComplexPropertyExpression() : SetSimplePropertyExpression();
+        return propertyName.Contains('.') ? SetComplexPropertyExpression() : SetSimplePropertyExpression();
 
         Expression<Action<TModel, TValue>> SetSimplePropertyExpression()
         {

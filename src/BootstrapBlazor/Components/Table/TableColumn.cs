@@ -378,9 +378,13 @@ public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn
     /// <summary>
     /// 获取绑定字段显示名称方法
     /// </summary>
-    public string GetDisplayName() => Text ?? _fieldIdentifier?.GetDisplayName() ?? "";
+    public string GetDisplayName() => Text ?? _fieldIdentifier?.GetDisplayName() ?? FieldName ?? "";
 
-    private string? FieldName { get; set; }
+    /// <summary>
+    /// 获得/设置 绑定类字段名称
+    /// </summary>
+    [Parameter]
+    public string? FieldName { get; set; }
 
     /// <summary>
     /// 获取绑定字段信息方法

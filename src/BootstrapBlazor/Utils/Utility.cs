@@ -252,7 +252,6 @@ public static class Utility
         var displayName = item.GetDisplayName() ?? GetDisplayName(model, fieldName);
 
         var fieldValue = GenerateValue(model, fieldName);
-        var fieldValueChanged = GenerateValueChanged(component, model, fieldName, fieldType);
         var valueExpression = GenerateValueExpression(model, fieldName, fieldType);
 
         var type = (Nullable.GetUnderlyingType(fieldType) ?? fieldType);
@@ -268,7 +267,6 @@ public static class Utility
             builder.OpenComponent(0, typeof(Display<>).MakeGenericType(fieldType));
             builder.AddAttribute(1, nameof(ValidateBase<string>.DisplayText), displayName);
             builder.AddAttribute(2, nameof(ValidateBase<string>.Value), fieldValue);
-            builder.AddAttribute(3, nameof(ValidateBase<string>.ValueChanged), fieldValueChanged);
             builder.AddAttribute(4, nameof(ValidateBase<string>.ValueExpression), valueExpression);
             builder.AddAttribute(5, nameof(ValidateBase<string>.ShowLabel), showLabel ?? true);
             builder.CloseComponent();

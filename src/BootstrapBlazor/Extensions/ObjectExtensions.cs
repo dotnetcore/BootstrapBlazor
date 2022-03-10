@@ -190,4 +190,16 @@ public static class ObjectExtensions
             ItemChangedType.Add => !item.IsReadonlyWhenAdd,
             _ => !item.IsReadonlyWhenEdit
         } || search;
+
+    /// <summary>
+    /// 判断模型是否可写
+    /// </summary>
+    /// <param name="col"></param>
+    /// <param name="modelType"></param>
+    /// <returns></returns>
+    public static bool CanWrite(this IEditorItem col, Type modelType)
+    {
+        var fieldName = col.GetFieldName();
+        return modelType.GetPropertyByName(fieldName)?.CanWrite ?? false;
+    }
 }

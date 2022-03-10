@@ -1025,7 +1025,7 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
     }
     #endregion
 
-    private RenderFragment RenderCell(ITableColumn col, TItem item, ItemChangedType changedType) => col.IsEditable(changedType)
+    private RenderFragment RenderCell(ITableColumn col, TItem item, ItemChangedType changedType) => col.CanWrite(typeof(TItem)) && col.IsEditable(changedType)
         ? (col.EditTemplate == null
             ? builder => builder.CreateComponentByFieldType(this, col, item, false, changedType)
             : col.EditTemplate(item))

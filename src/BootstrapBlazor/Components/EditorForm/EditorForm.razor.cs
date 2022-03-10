@@ -245,7 +245,7 @@ public sealed partial class EditorForm<TModel> : IShowLabel
 
     private RenderFragment AutoGenerateTemplate(IEditorItem item) => builder =>
     {
-        if (IsDisplay || !item.IsEditable(ItemChangedType, IsSearch.Value))
+        if (IsDisplay || !CanWrite(item))
         {
             builder.CreateDisplayByFieldType(this, item, Model, ShowLabel);
         }
@@ -254,6 +254,8 @@ public sealed partial class EditorForm<TModel> : IShowLabel
             item.PlaceHolder ??= PlaceHolderText;
             builder.CreateComponentByFieldType(this, item, Model, ShowLabel, ItemChangedType, IsSearch.Value);
         }
+
+        bool CanWrite(IEditorItem item) => item.CanWrite(typeof(TModel)) && item.IsEditable(ItemChangedType, IsSearch.Value);
     };
 
     private RenderFragment<object>? GetRenderTemplate(IEditorItem item) => IsSearch.Value && item is ITableColumn col
