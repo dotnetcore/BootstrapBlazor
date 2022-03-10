@@ -332,4 +332,18 @@ public class TabTest : BootstrapBlazorTestBase
             });
         });
     }
+
+    [Fact]
+    public void ButtonTemplate_Ok()
+    {
+        var cut = Context.RenderComponent<Tab>(pb =>
+        {
+            pb.Add(a => a.ShowExtendButtons, true);
+            pb.Add(a => a.ButtonTemplate, new RenderFragment(builder =>
+            {
+                builder.AddContent(0, new MarkupString("<div>test-button</div>"));
+            }));
+        });
+        cut.Contains("<div>test-button</div>");
+    }
 }

@@ -202,6 +202,12 @@ public partial class Tab
     [Parameter]
     public string? ToastTitle { get; set; }
 
+    /// <summary>
+    /// 获得/设置 按钮模板 默认 null
+    /// </summary>
+    [Parameter]
+    public RenderFragment? ButtonTemplate { get; set; }
+
     [Inject]
     [NotNull]
     private IStringLocalizer<Tab>? Localizer { get; set; }

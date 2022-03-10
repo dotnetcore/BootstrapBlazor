@@ -58,6 +58,10 @@ else
                         </RenderTemplate>
                     </div>
                 </div>
+                @if(ButtonTemplate != null)
+                {
+                    @ButtonTemplate
+                }
                 @if (ShouldShowExtendButtons())
                 {
                     <DynamicElement class="nav-link-bar right" OnClick="@ClickNextTab"><i class="fa fa-chevron-right"></i></DynamicElement>
