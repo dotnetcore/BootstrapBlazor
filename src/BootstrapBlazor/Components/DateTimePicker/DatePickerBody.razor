@@ -60,22 +60,27 @@
                                 <th>@w</th>
                             }
                         </tr>
-                        @for (var week = StartDate; week < EndDate; week = week.AddDays(7))
+                        @for (var week = StartDate; week < EndDate; week = week.GetSafeDayDateTime(7))
                         {
                             <tr class="date-table-row">
                                 @for (var index = 0; index < 7; index++)
                                 {
-                                    var day = week.AddDays(index);
+                                    var day = week.GetSafeDayDateTime(index);
                                     var text = GetDayText(day.Day);
-                                    <td class="@GetDayClass(day)">
+                                    var isOverflow = week.IsDayOverflow(index);
+                                    <td class="@GetDayClass(day, isOverflow)">
                                         <div>
-                                            @if (IsDisabled(day))
+                                            @if(isOverflow)
+                                            {
+                                                <span class="cell"> - </span>
+                                            }
+                                            else if (IsDisabled(day))
                                             {
                                                 <span class="cell">@text</span>
                                             }
                                             else
                                             {
-                                                <DatePickerCell Value="@week.AddDays(index)" Text="@text" OnClick="@(async d => await OnClickDateTime(d))" />
+                                                <DatePickerCell Value="@week.GetSafeDayDateTime(index)" Text="@text" OnClick="@(async d => await OnClickDateTime(d))" />
                                             }
                                         </div>
                                     </td>
@@ -91,10 +96,21 @@
                             <tr>
                                 @for (var index = 0; index < 4; index++)
                                 {
-                                    <td class="@GetYearClassName(index + row * 4)">
-                                        <div>
-                                            <DatePickerCell Value="@GetYear(index + row * 4)" Text="@GetYearText(index + row * 4)" OnClick="d => SwitchView(DatePickerViewModel.Month, d)" />
-                                        </div>
+                                    var year = index + row * 4;
+                                    var isOverflow = CurrentDate.IsYearOverflow(year - (CurrentDate.Year % 20));
+                                    <td class="@GetYearClassName(year, isOverflow)">
+                                        @if(isOverflow)
+                                        {
+                                            <div>
+                                                <span class="cell"> - </span>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div>
+                                                <DatePickerCell Value="@GetYear(year)" Text="@GetYearText(year)" OnClick="d => SwitchView(DatePickerViewModel.Month, d)" />
+                                            </div>
+                                        }
                                     </td>
                                 }
                             </tr>
@@ -108,9 +124,10 @@
                             <tr>
                                 @for (var index = 0; index < 4; index++)
                                 {
-                                    <td class="@GetMonthClassName(index + row * 4 + 1)">
+                                    var month = index + row * 4 + 1;
+                                    <td class="@GetMonthClassName(month)">
                                         <div>
-                                            <DatePickerCell Value="@GetMonth(index + row * 4 + 1)" Text="@GetMonthText(index + row * 4 + 1)" OnClick="d => SwitchView(DatePickerViewModel.Date, d)" />
+                                            <DatePickerCell Value="@GetMonth(month)" Text="@GetMonthText(month)" OnClick="d => SwitchView(DatePickerViewModel.Date, d)" />
                                         </div>
                                     </td>
                                 }
