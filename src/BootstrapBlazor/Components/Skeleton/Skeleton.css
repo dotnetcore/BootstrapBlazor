@@ -16,12 +16,14 @@
         margin-bottom: 0.5rem;
     }
 
-.skeleton-content.round .skeleton-col {
+.skeleton-content.round .skeleton-col,
+.skeleton-content.round .tree-node {
     border-radius: var(--bs-border-radius);
 }
 
 .skeleton-content.active .skeleton-col,
-.skeleton-content.active .skeleton-avatar {
+.skeleton-content.active .skeleton-avatar,
+.skeleton-content.active .tree-node {
     background: -webkit-gradient(linear,left top,right top,color-stop(25%,#f2f2f2),color-stop(37%,#e6e6e6),color-stop(63%,#f2f2f2));
     background: linear-gradient(90deg,#f2f2f2 25%,#e6e6e6 37%,#f2f2f2 63%);
     background-size: 400% 100%;
@@ -95,7 +97,8 @@
             border-bottom: 2px solid var(--bs-secondary);
         }
 
-        .skeleton-table .skeleton-content .skeleton-row .skeleton-col {
+        .skeleton-table .skeleton-content .skeleton-row .skeleton-col,
+        .skeleton.tree .tree-item .tree-node {
             flex: 1;
             background-color: #e9ecef;
             margin: 5px;
@@ -127,3 +130,9 @@
     .skeleton-button:not(:last-child) {
         border-right: 1px solid #ddd;
     }
+
+.skeleton .tree-node {
+    background-color: #e9ecef;
+    height: 11px;
+    margin: 5px 0 5px 5px;
+}

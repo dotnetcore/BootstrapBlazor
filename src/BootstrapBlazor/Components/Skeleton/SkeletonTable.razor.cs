@@ -28,4 +28,8 @@ public partial class SkeletonTable
     /// </summary>
     [Parameter]
     public bool ShowToolbar { get; set; } = true;
+
+    private string? TableClassString => CssBuilder.Default("skeleton")
+        .AddClassFromAttributes(AdditionalAttributes)
+        .Build();
 }
