@@ -180,3 +180,13 @@
     .was-validated .form-select:invalid:not([multiple])[size="1"] {
         background-position: right -1rem center, center right 1.5rem;
     }
+
+.input-group > .select:not(:first-child) .form-select {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.input-group > .select:not(:last-child) .form-select {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}

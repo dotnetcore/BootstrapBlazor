@@ -3,7 +3,6 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using BootstrapBlazor.Components;
-using BootstrapBlazor.Shared.Common;
 
 namespace BootstrapBlazor.Shared.Samples;
 
@@ -12,37 +11,16 @@ namespace BootstrapBlazor.Shared.Samples;
 /// </summary>
 public sealed partial class InputGroups
 {
-    /// <summary>
-    /// 
-    /// </summary>
-    public string BindValue { get; set; } = string.Empty;
-    /// <summary>
-    /// 
-    /// </summary>
-    public string StringAt { get; set; } = "@";
-    /// <summary>
-    /// 
-    /// </summary>
-    public string StringMailServer { get; set; } = "163.com";
-    /// <summary>
-    /// 
-    /// </summary>
+    private string BindValue { get; set; } = string.Empty;
+
+    private string StringAt { get; set; } = "@";
+
+    private string StringMailServer { get; set; } = "163.com";
 
     private readonly IEnumerable<SelectedItem> Items3 = new SelectedItem[]
-{
-            new SelectedItem ("", "请选择 ..."),
-            new SelectedItem ("Beijing", "北京"),
-            new SelectedItem ("Shanghai", "上海")
-};
-
-    private Foo Model { get; set; } = new Foo() { Count = 10 };
-
-
-    private IEnumerable<AttributeItem> GetAttributes()
     {
-        return new AttributeItem[]
-        {
-               
-        };
-    }
+        new SelectedItem ("", "请选择 ..."),
+        new SelectedItem ("Beijing", "北京"),
+        new SelectedItem ("Shanghai", "上海")
+    };
 }

@@ -4,10 +4,10 @@
 @if (IsInnerLabel)
 {
     <div @attributes="@AdditionalAttributes" class="@ClassString">
-        <span>@Text</span>
+        <span>@DisplayText</span>
     </div>
 }
 else
 {
-    <label class="form-label">@DisplayText</label>
+    <label @attributes="@AdditionalAttributes" class="@ClassString">@DisplayText</label>
 }
