@@ -36,6 +36,24 @@ public sealed partial class Trees
 
     private List<TreeItem> CheckedItems { get; set; } = GetCheckedItems();
 
+    private List<TreeItem>? AsyncItems { get; set; }
+
+    /// <summary>
+    /// OnInitializedAsync 方法
+    /// </summary>
+    /// <returns></returns>
+    protected override async Task OnInitializedAsync()
+    {
+        await OnLoadAsyncItems();
+    }
+
+    private async Task OnLoadAsyncItems()
+    {
+        AsyncItems = null;
+        await Task.Delay(2000);
+        AsyncItems = TreeDataFoo.GetTreeItems();
+    }
+
     private static List<TreeItem> GetCheckedItems()
     {
         var ret = TreeDataFoo.GetTreeItems();

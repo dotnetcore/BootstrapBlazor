@@ -5,18 +5,18 @@
 {
     if (ShowSkeleton)
     {
-        <SkeletonTree></SkeletonTree>
+        <SkeletonTree AdditionalAttributes="AdditionalAttributes"></SkeletonTree>
     }
     else
     {
-        <div class="table-loading">
+        <div class="@LoadingClassString">
             <Spinner Color="Color.Primary" />
         </div>
     }
 }
 else
 {
-    <div @attributes="@AdditionalAttributes" tabindex="0" role="tree" class="@ClassString" @ref="@TreeElement">
+    <div tabindex="0" role="tree" class="@ClassString" @ref="@TreeElement">
         <ul class="tree-root" role="tree">
             @foreach (var item in Items)
             {

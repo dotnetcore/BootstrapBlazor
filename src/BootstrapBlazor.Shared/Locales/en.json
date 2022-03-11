@@ -297,16 +297,18 @@
     "Li2": "Lists/cards with more graphic information content",
     "Li3": "Only used when loading data for the first time",
     "Li4": "Can be completely replaced by Spin, but can provide better visual effects and user experience than Spin in available scenarios",
-    "Block1Title": "Picture frame screen",
+    "Block1Title": "Picture frame",
     "Block1Intro": "Suitable for display when loading avatars, pictures, etc.",
     "P1": "It can be set to a circle display by setting the <code>Circle</code> property",
-    "Block2Title": "Paragraph skeleton screen",
+    "Block2Title": "Paragraph skeleton",
     "Block2Intro": "Applicable to display when loading large paragraphs of text and other types",
     "P2": "The default paragraph skeleton screen only displays three lines. If you need multiple lines to occupy space, please place multiple <code>SkeletonParagraph</code>.",
-    "Block3Title": "Form skeleton screen",
+    "Block3Title": "Form skeleton",
     "Block3Intro": "Suitable for display when the edit form is loaded",
-    "Block4Title": "Table skeleton screen",
-    "Block4Intro": "Applicable to display when the edit table is loaded"
+    "Block4Title": "Table skeleton",
+    "Block4Intro": "Applicable to display when the edit table is loaded",
+    "BlockTreeTitle": "Tree skeleton",
+    "BlockTreeIntro": "Display when tree component is loaded"
   },
   "BootstrapBlazor.Shared.Pages.Coms": {
     "Search": "Search for the desired component",

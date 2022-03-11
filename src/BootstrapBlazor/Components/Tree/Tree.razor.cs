@@ -27,6 +27,13 @@ public partial class Tree
         .Build();
 
     /// <summary>
+    /// 获得 Loading 样式集合
+    /// </summary>
+    private string? LoadingClassString => CssBuilder.Default("table-loading")
+        .AddClassFromAttributes(AdditionalAttributes)
+        .Build();
+
+    /// <summary>
     /// 获得/设置 TreeItem 图标
     /// </summary>
     /// <param name="item"></param>

@@ -17,7 +17,7 @@ public class TreeTest : BootstrapBlazorTestBase
         cut.DoesNotContain("li");
 
         cut.SetParametersAndRender(pb => pb.Add(a => a.ShowSkeleton, true));
-        cut.Contains("Loading");
+        cut.Contains("skeleton tree");
 
         // 设置 Items
         cut.SetParametersAndRender(pb =>

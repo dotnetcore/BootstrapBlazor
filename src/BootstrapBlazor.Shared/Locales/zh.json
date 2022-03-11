@@ -306,7 +306,9 @@
     "Block3Title": "表单骨架屏",
     "Block3Intro": "适用于编辑表单加载时显示",
     "Block4Title": "表格骨架屏",
-    "Block4Intro": "适用于编辑表格加载时显示"
+    "Block4Intro": "适用于编辑表格加载时显示",
+    "BlockTreeTitle": "树骨架屏",
+    "BlockTreeIntro": "适用于树组件加载时显示"
   },
   "BootstrapBlazor.Shared.Pages.Coms": {
     "Search": "搜索想要的组件",
