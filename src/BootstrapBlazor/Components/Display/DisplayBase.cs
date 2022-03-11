@@ -75,6 +75,12 @@ public abstract class DisplayBase<TValue> : TooltipComponentBase
     protected IShowLabel? EditorForm { get; set; }
 
     /// <summary>
+    /// 获得 InputGroup 实例
+    /// </summary>
+    [CascadingParameter]
+    protected BootstrapInputGroup? InputGroup { get; set; }
+
+    /// <summary>
     /// SetParametersAsync 方法
     /// </summary>
     /// <param name="parameters"></param>
@@ -104,18 +110,26 @@ public abstract class DisplayBase<TValue> : TooltipComponentBase
         // 显式设置显示标签时一定显示
         var showLabel = ShowLabel;
 
-        // 组件自身未设置 ShowLabel 取 EditorForm/VaidateForm 级联值
-        if (ShowLabel == null && (EditorForm != null || ValidateForm != null))
+        // 如果被 InputGroup 包裹不显示 Label
+        if (InputGroup == null)
         {
-            showLabel = EditorForm?.ShowLabel ?? ValidateForm?.ShowLabel ?? true;
+            // 组件自身未设置 ShowLabel 取 EditorForm/VaidateForm 级联值
+            if (ShowLabel == null && (EditorForm != null || ValidateForm != null))
+            {
+                showLabel = EditorForm?.ShowLabel ?? ValidateForm?.ShowLabel ?? true;
+            }
+
+            IsShowLabel = showLabel ?? false;
+
+            // 设置显示标签时未提供 DisplayText 通过双向绑定获取 DisplayName
+            if (IsShowLabel && DisplayText == null && FieldIdentifier.HasValue)
+            {
+                DisplayText = FieldIdentifier.Value.GetDisplayName();
+            }
         }
-
-        IsShowLabel = showLabel ?? false;
-
-        // 设置显示标签时未提供 DisplayText 通过双向绑定获取 DisplayName
-        if (IsShowLabel && DisplayText == null && FieldIdentifier.HasValue)
+        else
         {
-            DisplayText = FieldIdentifier.Value.GetDisplayName();
+            IsShowLabel = false;
         }
     }
 

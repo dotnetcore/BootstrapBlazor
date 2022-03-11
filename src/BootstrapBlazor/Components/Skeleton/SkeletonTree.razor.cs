@@ -4,6 +4,9 @@
 
 namespace BootstrapBlazor.Components;
 
+/// <summary>
+/// 树状组件骨架屏组件
+/// </summary>
 public partial class SkeletonTree
 {
     private string? TreeClassString => CssBuilder.Default("skeleton tree")

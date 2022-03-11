@@ -53,7 +53,11 @@
                       OnInvalidSubmit="@OnInvalidSubmit">
             <div class="row g-3">
                 <div class="col-12 col-sm-6">
-                    <BootstrapInput @bind-Value="@Model.Name" />
+                    <BootstrapInputGroupLabel @bind-Value="@Model.Name" />
+                    <BootstrapInputGroup>
+                        <Display @bind-Value="@Model.Name"></Display>
+                        <BootstrapInputGroupLabel Text="Test" />
+                    </BootstrapInputGroup>
                 </div>
                 <div class="col-12 col-sm-6">
                     <BootstrapInputNumber @bind-Value="@Model.Count" />

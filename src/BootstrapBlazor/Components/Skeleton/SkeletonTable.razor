@@ -1,7 +1,7 @@
 ﻿@namespace BootstrapBlazor.Components
 @inherits SkeletonBase
 
-<div class="@TableClassString">
+<div @attributes="@AdditionalAttributes" class="@TableClassString">
     @if (ShowToolbar)
     {
         <div class="skeleton-toolbar">

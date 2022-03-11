@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Components;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// 表格骨架屏组件
 /// </summary>
 public partial class SkeletonTable
 {

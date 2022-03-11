@@ -11,7 +11,8 @@ namespace BootstrapBlazor.Components;
 /// </summary>
 public partial class BootstrapInputGroupLabel
 {
-    private string? ClassString => CssBuilder.Default("input-group-text")
+    private string? ClassString => CssBuilder.Default()
+        .AddClass("input-group-text", IsInnerLabel)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
@@ -23,4 +24,16 @@ public partial class BootstrapInputGroupLabel
     [EditorRequired]
 #endif
     public string? Text { get; set; }
+
+    private bool IsInnerLabel { get; set; }
+
+    /// <summary>
+    /// OnParametersSet 方法
+    /// </summary>
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
+        IsInnerLabel = InputGroup != null;
+    }
 }
