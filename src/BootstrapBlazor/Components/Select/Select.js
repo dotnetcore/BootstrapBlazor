@@ -4,6 +4,27 @@
             var $el = $(el);
             var $search = $el.find('input.search-text');
 
+            var bb_scrollToActive = function ($el) {
+                var $menu = $el.find('.dropdown-menu');
+                var $activeItem = $menu.children('.preActive');
+                if ($activeItem.length === 0) {
+                    $activeItem = $menu.children('.active');
+                    $activeItem.addClass('preActive');
+                }
+                if ($activeItem.length === 1) {
+                    var height = $menu.innerHeight();
+                    var itemHeight = $activeItem.outerHeight();
+                    var index = $activeItem.index() + 1;
+                    var margin = 11 + itemHeight * index - height;
+                    if (margin >= 0) {
+                        $menu.scrollTop(margin);
+                    }
+                    else {
+                        $menu.scrollTop(0);
+                    }
+                }
+            };
+
             $el.on('show.bs.dropdown', function (e) {
                 if ($el.find('.form-select').prop('disabled')) {
                     e.preventDefault();
@@ -14,6 +35,7 @@
                 if ($search.length > 0) {
                     $search.focus();
                 }
+                bb_scrollToActive($(this));
             });
 
             $el.on('keyup', function (e) {
@@ -22,25 +44,27 @@
                     var $items = $this.find('.dropdown-menu.show > .dropdown-item').not('.disabled, .search');
 
                     var $activeItem = $items.filter(function (index, ele) {
-                        return $(ele).hasClass('active');
+                        return $(ele).hasClass('preActive');
                     });
 
                     if ($items.length > 1) {
                         if (e.key === "ArrowUp") {
-                            $activeItem.removeClass('active');
+                            $activeItem.removeClass('preActive');
                             var $prev = $activeItem.prev().not('.disabled, .search');
                             if ($prev.length === 0) {
                                 $prev = $items.last();
                             }
-                            $prev.addClass('active');
+                            $prev.addClass('preActive');
+                            bb_scrollToActive($this);
                         }
                         else if (e.key === "ArrowDown") {
-                            $activeItem.removeClass('active');
+                            $activeItem.removeClass('preActive');
                             var $next = $activeItem.next().not('.disabled, .search');
                             if ($next.length === 0) {
                                 $next = $items.first();
                             }
-                            $next.addClass('active');
+                            $next.addClass('preActive');
+                            bb_scrollToActive($this);
                         }
                     }
 

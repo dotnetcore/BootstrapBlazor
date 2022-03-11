@@ -111,6 +111,12 @@
     margin-top: 2px;
 }
 
+.dropdown-item.preActive {
+    color: #fff;
+    text-decoration: none;
+    background-color: #498ff7;
+}
+
 .disabled .form-select {
     background-color: #f5f7fa;
     border-color: #e4e7ed;
