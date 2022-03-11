@@ -73,12 +73,22 @@ public class WebClientService : IDisposable
             Client.Ip = ip;
             Client.OS = os;
             Client.Browser = browser;
-            Client.Device = device;
+            Client.Device = ParseDeviceType(device);
             Client.Language = language;
             Client.Engine = engine;
             Client.UserAgent = agent;
         }
         ReturnTask?.TrySetResult(true);
+    }
+
+    private WebClientDeviceType ParseDeviceType(string device)
+    {
+        var ret = WebClientDeviceType.PC;
+        if (Enum.TryParse<WebClientDeviceType>(device, true, out var d))
+        {
+            ret = d;
+        }
+        return ret;
     }
 
     /// <summary>
@@ -137,7 +147,7 @@ public class ClientInfo
     /// <summary>
     /// 获得/设置 客户端设备类型
     /// </summary>
-    public string? Device { get; set; }
+    public WebClientDeviceType Device { get; set; }
 
     /// <summary>
     /// 获得/设置 客户端浏览器语言
