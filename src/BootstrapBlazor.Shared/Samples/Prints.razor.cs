@@ -47,15 +47,15 @@ public partial class Prints
 
     private Task OnClickPrintService() => PrintService.PrintAsync<DataDialogComponent>(op =>
     {
-            // 弹窗配置
-            op.Title = Localizer["DialogTitle"];
+        // 弹窗配置
+        op.Title = Localizer["DialogTitle"];
         op.ShowPrintButton = true;
         op.ShowPrintButtonInHeader = true;
         op.ShowFooter = false;
         op.BodyContext = 2;
 
-            // 弹窗组件所需参数
-            return new Dictionary<string, object?>
+        // 弹窗组件所需参数
+        return new Dictionary<string, object?>
         {
             [nameof(DataDialogComponent.OnClose)] = new Action(async () => await op.Dialog.Close())
         };
