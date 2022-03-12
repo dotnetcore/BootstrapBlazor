@@ -65,6 +65,20 @@ public class InputTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void Readonly_Ok()
+    {
+        var cut = Context.RenderComponent<BootstrapInput<string>>(builder => builder.Add(a => a.Readonly, true));
+        cut.Contains("readonly=\"true\"");
+    }
+
+    [Fact]
+    public void Password_Ok()
+    {
+        var cut = Context.RenderComponent<BootstrapPassword>();
+        cut.Contains("type=\"password\"");
+    }
+
+    [Fact]
     public void IsTrim_Ok()
     {
         var val = "    test    ";

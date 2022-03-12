@@ -276,7 +276,7 @@ public class ValidateTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void ValidateRules_Ok()
+    public async Task ValidateRules_Ok()
     {
         var model = new Foo() { Name = "test" };
         var invalid = false;
@@ -301,15 +301,18 @@ public class ValidateTest : BootstrapBlazorTestBase
         });
 
         var form = cut.Find("form");
-        form.Submit();
+        await cut.InvokeAsync(() => form.Submit());
         // 提交表单验证通过
         Assert.False(invalid);
 
         // 设置 Name="" 验证不通过
         var input = cut.FindComponent<BootstrapInput<string>>();
         var c = input.Find("input");
-        c.Change("");
-        form.Submit();
+        await cut.InvokeAsync(() =>
+        {
+            c.Change("");
+            form.Submit();
+        });
         Assert.True(invalid);
 
         // 增加邮箱验证规则
@@ -322,13 +325,19 @@ public class ValidateTest : BootstrapBlazorTestBase
             pb.Add(v => v.ValidateRules, rules);
         });
         invalid = false;
-        c.Change("argo@163.com");
-        form.Submit();
+        await cut.InvokeAsync(() =>
+        {
+            c.Change("argo@163.com");
+            form.Submit();
+        });
         Assert.False(invalid);
 
         // 更改值不符合邮箱规则验证不通过
-        c.Change("argo");
-        form.Submit();
+        await cut.InvokeAsync(() =>
+        {
+            c.Change("argo");
+            form.Submit();
+        });
         Assert.True(invalid);
     }
 
