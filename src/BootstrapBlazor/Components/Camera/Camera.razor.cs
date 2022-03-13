@@ -167,8 +167,8 @@ public partial class Camera : IAsyncDisposable
 
         Cameras = new SelectedItem[]
         {
-                new SelectedItem { Text = FrontText!, Value = "user", Active = true },
-                new SelectedItem { Text = BackText!, Value = "environment" }
+            new SelectedItem { Text = FrontText!, Value = "user", Active = true },
+            new SelectedItem { Text = BackText!, Value = "environment" }
         };
     }
 
@@ -199,7 +199,7 @@ public partial class Camera : IAsyncDisposable
     {
         await base.OnAfterRenderAsync(firstRender);
 
-        if (firstRender && JSRuntime != null)
+        if (firstRender)
         {
             Interop = new JSInterop<Camera>(JSRuntime);
             await Interop.InvokeVoidAsync(this, CameraElement, "bb_camera", "init", AutoStart);
@@ -232,7 +232,6 @@ public partial class Camera : IAsyncDisposable
                     d.Label = $"Video device {index + 1}";
                 }
             }
-            IsDisabled = false;
             ActiveCamera = Cameras.First();
         }
 
@@ -320,11 +319,14 @@ public partial class Camera : IAsyncDisposable
     /// <returns></returns>
     protected virtual async ValueTask DisposeAsyncCore(bool disposing)
     {
-        if (disposing && Interop != null)
+        if (disposing)
         {
-            await JSRuntime.InvokeVoidAsync(CameraElement, "bb_camera", "", "stop").ConfigureAwait(false);
-            Interop.Dispose();
-            Interop = null;
+            if (Interop != null)
+            {
+                await JSRuntime.InvokeVoidAsync(CameraElement, "bb_camera", "", "stop").ConfigureAwait(false);
+                Interop.Dispose();
+                Interop = null;
+            }
         }
     }
 
