@@ -27,6 +27,19 @@ public class EditorFormTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void CanWrite_Ok()
+    {
+        var foo = new Dummy();
+        var cut = Context.RenderComponent<EditorForm<Dummy>>(pb =>
+        {
+            pb.Add(a => a.Model, foo);
+        });
+
+        // 只读属性渲染成 Display 组件
+        cut.Contains("form-control is-display");
+    }
+
+    [Fact]
     public void CascadedEditContext_Ok()
     {
         var foo = new Foo();
@@ -260,7 +273,7 @@ public class EditorFormTest : BootstrapBlazorTestBase
 
     private class Dummy
     {
-        public string? Name { get; set; }
+        public string? Name { get; }
     }
 
     private class MockEditorItem : EditorItem<Foo, string>

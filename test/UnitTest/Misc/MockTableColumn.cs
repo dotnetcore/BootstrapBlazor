@@ -97,6 +97,8 @@ internal class MockTableColumn : ITableColumn
     /// </summary>
     public List<IValidator>? ValidateRules { get; set; }
 
+    public string? LookUpServiceKey { get; set; }
+
     public string GetDisplayName() => Text ?? FieldName;
 
     public string GetFieldName() => FieldName;
