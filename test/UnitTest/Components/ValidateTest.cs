@@ -229,14 +229,14 @@ public class ValidateTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void SetDisable_Ok()
+    public async Task SetDisable_Ok()
     {
         var cut = Context.RenderComponent<BootstrapInput<string>>(builder =>
         {
             builder.Add(a => a.IsDisabled, false);
         });
         Assert.False(cut.Instance.IsDisabled);
-        cut.InvokeAsync(() => cut.Instance.SetDisable(true));
+        await cut.InvokeAsync(() => cut.Instance.SetDisable(true));
         Assert.True(cut.Instance.IsDisabled);
     }
 

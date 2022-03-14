@@ -13,7 +13,7 @@ namespace BootstrapBlazor.Components;
 /// </summary>
 public partial class Captcha : IDisposable
 {
-    private static Random ImageRandomer { get; set; } = new Random();
+    private static Random ImageRandomer { get; } = new Random();
 
     private int OriginX { get; set; }
 
@@ -73,6 +73,48 @@ public partial class Captcha : IDisposable
     [Parameter]
     public string? TryText { get; set; }
 
+    /// <summary>
+    /// 获得/设置 验证码结果回调委托
+    /// </summary>
+    [Parameter]
+    public Action<bool>? OnValid { get; set; }
+
+    /// <summary>
+    /// 获得/设置 图床路径 默认值为 images
+    /// </summary>
+    [Parameter]
+    public string ImagesPath { get; set; } = "images";
+
+    /// <summary>
+    /// 获得/设置 图床路径 默认值为 Pic.jpg
+    /// </summary>
+    [Parameter]
+    public string ImagesName { get; set; } = "Pic.jpg";
+
+    /// <summary>
+    /// 获得/设置 获取背景图方法委托
+    /// </summary>
+    [Parameter]
+    public Func<string>? GetImageName { get; set; }
+
+    /// <summary>
+    /// 获得/设置 容错偏差
+    /// </summary>
+    [Parameter]
+    public int Offset { get; set; } = 5;
+
+    /// <summary>
+    /// 获得/设置 图片宽度
+    /// </summary>
+    [Parameter]
+    public int Width { get; set; } = 280;
+
+    /// <summary>
+    /// 获得/设置 图片高度
+    /// </summary>
+    [Parameter]
+    public int Height { get; set; } = 155;
+
     [Inject]
     [NotNull]
     private IStringLocalizer<Captcha>? Localizer { get; set; }
@@ -92,7 +134,26 @@ public partial class Captcha : IDisposable
     }
 
     /// <summary>
-    /// 清除 ToastBox 方法
+    /// OnAfterRender 方法
+    /// </summary>
+    /// <param name="firstRender"></param>
+    protected override void OnAfterRender(bool firstRender)
+    {
+        base.OnAfterRender(firstRender);
+
+        if (firstRender)
+        {
+            Reset();
+        }
+    }
+
+    /// <summary>
+    /// 点击刷新按钮时回调此方法
+    /// </summary>
+    protected void OnClickRefresh() => Reset();
+
+    /// <summary>
+    /// 验证方差方法
     /// </summary>
     [JSInvokable]
     public Task<bool> Verify(int offset, IEnumerable<int> trails)
@@ -159,8 +220,11 @@ public partial class Captcha : IDisposable
     {
         if (disposing)
         {
-            Interop?.Dispose();
-            Interop = null;
+            if (Interop != null)
+            {
+                Interop.Dispose();
+                Interop = null;
+            }
         }
     }
 
@@ -169,14 +233,14 @@ public partial class Captcha : IDisposable
     /// </summary>
     public void Dispose()
     {
-        Dispose(disposing: true);
+        Dispose(true);
         GC.SuppressFinalize(this);
     }
 
     /// <summary>
     /// 重置组件方法
     /// </summary>
-    public override void Reset()
+    public void Reset()
     {
         var option = GetCaptchaOption();
         if (Interop == null)
@@ -184,6 +248,6 @@ public partial class Captcha : IDisposable
             Interop = new JSInterop<Captcha>(JSRuntime);
         }
 
-        var _ = Interop?.InvokeVoidAsync(this, CaptchaElement, "captcha", nameof(Verify), option);
+        _ = Interop.InvokeVoidAsync(this, CaptchaElement, "captcha", nameof(Verify), option);
     }
 }
