@@ -79,6 +79,9 @@ public abstract class BootstrapInputBase<TValue> : ValidateBase<TValue>
     [Parameter]
     public bool IsTrim { get; set; }
 
+    [CascadingParameter]
+    private Modal? Modal { get; set; }
+
     /// <summary>
     /// 获得 input 组件类型 默认 text
     /// </summary>
@@ -125,10 +128,6 @@ public abstract class BootstrapInputBase<TValue> : ValidateBase<TValue>
 
         if (firstRender)
         {
-            if (IsAutoFocus)
-            {
-                await FocusAsync();
-            }
             if (OnEnterAsync != null || OnEscAsync != null)
             {
                 Interop ??= new JSInterop<BootstrapInputBase<TValue>>(JSRuntime);
@@ -137,6 +136,14 @@ public abstract class BootstrapInputBase<TValue> : ValidateBase<TValue>
             if (IsSelectAllTextOnFocus)
             {
                 await JSRuntime.InvokeVoidAsync(FocusElement, "bb_input_selectAll");
+            }
+            if (IsAutoFocus)
+            {
+                if (Modal != null)
+                {
+                    await Task.Delay(100);
+                }
+                await FocusAsync();
             }
         }
     }
