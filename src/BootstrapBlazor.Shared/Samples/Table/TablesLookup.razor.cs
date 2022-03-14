@@ -16,9 +16,6 @@ public partial class TablesLookup
     [NotNull]
     private List<Foo>? Items { get; set; }
 
-    [NotNull]
-    private List<SelectedItem>? DataSource { get; set; }
-
     [Inject]
     [NotNull]
     private IStringLocalizer<Foo>? Localizer { get; set; }
@@ -33,11 +30,5 @@ public partial class TablesLookup
         await Task.Delay(200);
 
         Items = Foo.GenerateFoo(Localizer);
-
-        DataSource = new List<SelectedItem>
-            {
-                new SelectedItem{ Value = "true", Text = Localizer["True"].Value },
-                new SelectedItem{ Value = "false", Text = Localizer["False"].Value }
-            };
     }
 }

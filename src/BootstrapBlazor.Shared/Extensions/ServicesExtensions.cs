@@ -26,6 +26,7 @@ public static class ServicesExtensions
         services.AddSingleton<CodeSnippetService>();
         services.AddSingleton<IConfigureOptions<WebsiteOptions>, ConfigureOptions<WebsiteOptions>>();
         services.AddSingleton(typeof(IDataService<>), typeof(TableDemoDataService<>));
+        services.AddSingleton(typeof(ILookUpService), typeof(DemoLookUpService));
 
         // 增加模拟登录服务
         services.AddScoped<AuthenticationStateProvider, MockAuthenticationStateProvider>();

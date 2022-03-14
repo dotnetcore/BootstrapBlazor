@@ -13,13 +13,14 @@
 };
 </Pre>
     <p>组件自动将 <code>Complete</code> 转换为 <code>DataSource</code> 集合中的预设值</p>
+    <p>本例中使用 <code>ILookupService</code> 服务进行统一处理，通过设置 <code>LookupServiceKey</code> 值，从服务中获取 <code>Lookup</code> 数据集合</p>
     @if (Items != null)
     {
         <Table TItem="Foo" Items="@Items.Take(3)">
             <TableColumns>
                 <TableColumn @bind-Field="@context.DateTime" Width="180" />
                 <TableColumn @bind-Field="@context.Name" />
-                <TableColumn @bind-Field="@context.Complete" Lookup="@DataSource" />
+                <TableColumn @bind-Field="@context.Complete" LookupServiceKey="Foo.Complete" />
             </TableColumns>
         </Table>
     }

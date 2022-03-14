@@ -88,6 +88,11 @@ public interface IEditorItem
     IEnumerable<SelectedItem>? Lookup { get; set; }
 
     /// <summary>
+    /// 获得/设置 LookupService 服务获取 Lookup 数据集合键值 常用于外键自动转换为名称操作
+    /// </summary>
+    string? LookUpServiceKey { get; set; }
+
+    /// <summary>
     /// 获得/设置 自定义验证集合
     /// </summary>
     List<IValidator>? ValidateRules { get; set; }

@@ -241,11 +241,11 @@ public static class Utility
     /// 
     /// </summary>
     /// <param name="builder"></param>
-    /// <param name="component"></param>
     /// <param name="item"></param>
     /// <param name="model"></param>
     /// <param name="showLabel"></param>
-    public static void CreateDisplayByFieldType(this RenderTreeBuilder builder, ComponentBase component, IEditorItem item, object model, bool? showLabel = null)
+    /// <param name="lookUpService"></param>
+    public static void CreateDisplayByFieldType(this RenderTreeBuilder builder, IEditorItem item, object model, bool? showLabel = null, ILookUpService? lookUpService = null)
     {
         var fieldType = item.PropertyType;
         var fieldName = item.GetFieldName();
@@ -265,10 +265,11 @@ public static class Utility
         else
         {
             builder.OpenComponent(0, typeof(Display<>).MakeGenericType(fieldType));
-            builder.AddAttribute(1, nameof(ValidateBase<string>.DisplayText), displayName);
-            builder.AddAttribute(2, nameof(ValidateBase<string>.Value), fieldValue);
-            builder.AddAttribute(4, nameof(ValidateBase<string>.ValueExpression), valueExpression);
-            builder.AddAttribute(5, nameof(ValidateBase<string>.ShowLabel), showLabel ?? true);
+            builder.AddAttribute(1, nameof(Display<string>.DisplayText), displayName);
+            builder.AddAttribute(2, nameof(Display<string>.Value), fieldValue);
+            builder.AddAttribute(4, nameof(Display<string>.ValueExpression), valueExpression);
+            builder.AddAttribute(5, nameof(Display<string>.ShowLabel), showLabel ?? true);
+            builder.AddAttribute(6, nameof(Display<string>.Lookup), lookUpService?.GetItemsByKey(item.LookUpServiceKey));
             builder.CloseComponent();
         }
     }
@@ -283,7 +284,8 @@ public static class Utility
     /// <param name="showLabel"></param>
     /// <param name="changedType"></param>
     /// <param name="isSearch"></param>
-    public static void CreateComponentByFieldType(this RenderTreeBuilder builder, ComponentBase component, IEditorItem item, object model, bool? showLabel = null, ItemChangedType changedType = ItemChangedType.Update, bool isSearch = false)
+    /// <param name="lookUpService"></param>
+    public static void CreateComponentByFieldType(this RenderTreeBuilder builder, ComponentBase component, IEditorItem item, object model, bool? showLabel = null, ItemChangedType changedType = ItemChangedType.Update, bool isSearch = false, ILookUpService? lookUpService = null)
     {
         var fieldType = item.PropertyType;
         var fieldName = item.GetFieldName();
@@ -292,7 +294,7 @@ public static class Utility
         var fieldValue = GenerateValue(model, fieldName);
         var fieldValueChanged = GenerateValueChanged(component, model, fieldName, fieldType);
         var valueExpression = GenerateValueExpression(model, fieldName, fieldType);
-        var lookup = item is ITableColumn col ? col.Lookup : null;
+        var lookup = item is ITableColumn col ? col.Lookup : lookUpService?.GetItemsByKey(item.LookUpServiceKey);
         var componentType = item.ComponentType ?? GenerateComponentType(fieldType, item.Rows != 0, lookup);
         builder.OpenComponent(0, componentType);
         if (componentType.IsSubclassOf(typeof(ValidateBase<>).MakeGenericType(fieldType)))

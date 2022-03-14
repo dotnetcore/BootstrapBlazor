@@ -104,6 +104,20 @@ public partial class Tables
             DefaultValue = "false"
         },
         new() {
+            Name = nameof(IEditorItem.Lookup),
+            Description = "字典数据源",
+            Type = "IEnumerable<SelectedItem>",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new() {
+            Name = nameof(IEditorItem.LookUpServiceKey),
+            Description = "LookupService 服务获取 Lookup 数据集合键值",
+            Type = "string",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new() {
             Name = "Readonly",
             Description = "编辑时是否只读模式",
             Type = "boolean",
