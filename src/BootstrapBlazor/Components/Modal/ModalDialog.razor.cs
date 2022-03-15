@@ -157,14 +157,12 @@ public partial class ModalDialog : IDisposable
     /// 获得/设置 关闭弹窗回调委托
     /// </summary>
     [Parameter]
-    [NotNull]
     public Func<Task>? OnClose { get; set; }
 
     /// <summary>
     /// 获得/设置 保存按钮回调委托
     /// </summary>
     [Parameter]
-    [NotNull]
     public Func<Task<bool>>? OnSaveAsync { get; set; }
 
     /// <summary>
@@ -255,7 +253,11 @@ public partial class ModalDialog : IDisposable
 
     private async Task OnClickSave()
     {
-        var ret = await OnSaveAsync();
+        var ret = true;
+        if (OnSaveAsync != null)
+        {
+            await OnSaveAsync();
+        }
         if (IsAutoCloseAfterSave && ret)
         {
             await OnClickClose();
