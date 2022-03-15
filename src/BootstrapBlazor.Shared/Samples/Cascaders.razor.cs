@@ -26,11 +26,11 @@ public sealed partial class Cascaders
     private static IEnumerable<CascaderItem> GetItems()
     {
         var ret = new List<CascaderItem>
-            {
-                new CascaderItem("Beijing", "北京"),
-                new CascaderItem("Shanghai", "上海"),
-                new CascaderItem("GuangZhou", "广州"),
-            };
+        {
+            new CascaderItem("Beijing", "北京"),
+            new CascaderItem("Shanghai", "上海"),
+            new CascaderItem("GuangZhou", "广州"),
+        };
 
         ret[0].AddItem(new CascaderItem("DC", "东城区"));
         ret[0].AddItem(new CascaderItem("XC", "西城区"));
