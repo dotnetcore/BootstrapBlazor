@@ -260,6 +260,7 @@ public static class Utility
             builder.OpenComponent<Switch>(0);
             builder.AddAttribute(1, nameof(Switch.Value), fieldValue);
             builder.AddAttribute(2, nameof(Switch.IsDisabled), true);
+            builder.AddAttribute(3, nameof(Display<string>.DisplayText), displayName);
             builder.CloseComponent();
         }
         else
