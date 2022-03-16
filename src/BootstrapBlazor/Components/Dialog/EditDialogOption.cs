@@ -18,7 +18,7 @@ public class EditDialogOption<TModel> : DialogOption
     public EditDialogOption()
     {
         IsScrolling = true;
-        Size = Size.ExtraLarge;
+        Size = Size.ExtraExtraLarge;
         ShowCloseButton = false;
         ShowFooter = false;
         ShowLabel = true;

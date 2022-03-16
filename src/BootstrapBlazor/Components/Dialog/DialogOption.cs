@@ -30,7 +30,7 @@ public class DialogOption
     /// <summary>
     /// 获得/设置 弹窗大小
     /// </summary>
-    public Size Size { get; set; } = Size.Large;
+    public Size Size { get; set; } = Size.ExtraExtraLarge;
 
     /// <summary>
     /// 获得/设置 全屏弹窗 默认 None

@@ -17,7 +17,7 @@ public class SearchDialogOption<TModel> : DialogOption
     public SearchDialogOption()
     {
         IsScrolling = true;
-        Size = Size.ExtraLarge;
+        Size = Size.ExtraExtraLarge;
         ShowCloseButton = false;
         ShowFooter = false;
         ShowLabel = true;

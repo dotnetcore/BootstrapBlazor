@@ -55,7 +55,7 @@ public partial class ModalDialog : IDisposable
     /// 获得/设置 弹窗大小
     /// </summary>
     [Parameter]
-    public Size Size { get; set; } = Size.Large;
+    public Size Size { get; set; } = Size.ExtraExtraLarge;
 
     /// <summary>
     /// 获得/设置 弹窗大小

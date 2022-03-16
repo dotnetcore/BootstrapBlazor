@@ -75,6 +75,16 @@
                 </ModalDialog>
             </Modal>
         </div>
+        <div class="col-12 col-sm-4 col-lg-auto">
+            <Button OnClick="@(async e => await ExtraExtraLargeModal.Toggle())">超超大弹窗</Button>
+            <Modal @ref="ExtraExtraLargeModal">
+                <ModalDialog Size="Size.ExtraExtraLarge" Title="超超大弹窗">
+                    <BodyTemplate>
+                        <div>我是弹窗内正文</div>
+                    </BodyTemplate>
+                </ModalDialog>
+            </Modal>
+        </div>
     </div>
 </DemoBlock>
 
