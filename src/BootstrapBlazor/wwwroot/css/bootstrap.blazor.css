@@ -19,7 +19,7 @@
 }
 
 body, .form-control, .dropdown-menu, .form-select,
-.btn:not(.btn-xs):not(.btn-sm):not(.btn-md):not(.btn-lg):not(.btn-xl),
+.btn:not(.btn-xs):not(.btn-sm):not(.btn-md):not(.btn-lg):not(.btn-xl):not(.btn-xxl),
 .input-group-text {
     font-size: 0.875rem;
 }

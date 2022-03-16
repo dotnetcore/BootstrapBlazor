@@ -13,7 +13,11 @@
 .btn-xl, .btn-group-xl > .btn {
     padding: 0.8rem 1.25rem;
     font-size: 1.35rem;
-    border-radius: 0.4rem;
+}
+
+.btn-xxl, .btn-group-xxl > .btn {
+    padding: 0.8rem 1.25rem;
+    font-size: 1.5rem;
 }
 
 .btn .badge, .btn i + span, .badge i + span {
