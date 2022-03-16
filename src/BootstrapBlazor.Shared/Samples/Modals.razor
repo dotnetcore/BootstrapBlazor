@@ -101,7 +101,7 @@
             </Modal>
         </div>
         <div class="col-12 col-sm-4 col-lg-auto">
-            <Button OnClick="@(async e => await LargeFullScreenModal.Toggle())">全屏弹窗(&lt;1200px)</Button>
+            <Button OnClick="@(async e => await LargeFullScreenModal.Toggle())">全屏弹窗(&lt;992px)</Button>
             <Modal @ref="LargeFullScreenModal">
                 <ModalDialog FullScreenSize="FullScreenSize.Large" Title="大全屏弹窗">
                     <BodyTemplate>
@@ -111,9 +111,19 @@
             </Modal>
         </div>
         <div class="col-12 col-sm-4 col-lg-auto">
-            <Button OnClick="@(async e => await ExtraLargeFullScreenModal.Toggle())">全屏弹窗(&lt;1400px)</Button>
+            <Button OnClick="@(async e => await ExtraLargeFullScreenModal.Toggle())">全屏弹窗(&lt;1200px)</Button>
             <Modal @ref="ExtraLargeFullScreenModal">
                 <ModalDialog FullScreenSize="FullScreenSize.ExtraLarge" Title="超大全屏弹窗">
+                    <BodyTemplate>
+                        <div>我是弹窗内正文</div>
+                    </BodyTemplate>
+                </ModalDialog>
+            </Modal>
+        </div>
+        <div class="col-12 col-sm-4 col-lg-auto">
+            <Button OnClick="@(async e => await ExtraExtraLargeFullScreenModal.Toggle())">全屏弹窗(&lt;1400px)</Button>
+            <Modal @ref="ExtraExtraLargeFullScreenModal">
+                <ModalDialog FullScreenSize="FullScreenSize.ExtraExtraLarge" Title="超超大全屏弹窗">
                     <BodyTemplate>
                         <div>我是弹窗内正文</div>
                     </BodyTemplate>

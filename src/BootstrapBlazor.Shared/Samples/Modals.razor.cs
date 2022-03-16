@@ -40,6 +40,9 @@ public sealed partial class Modals
     private Modal? ExtraLargeFullScreenModal { get; set; }
 
     [NotNull]
+    private Modal? ExtraExtraLargeFullScreenModal { get; set; }
+
+    [NotNull]
     private Modal? CenterModal { get; set; }
 
     [NotNull]
