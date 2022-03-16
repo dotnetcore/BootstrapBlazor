@@ -23,69 +23,69 @@ public sealed partial class Avatars
     /// <returns></returns>
     private IEnumerable<AttributeItem> GetAttributes() => new[]
     {
-            // TODO: 移动到数据库中
-            new AttributeItem() {
-                Name = "Size",
-                Description = Localizer["Size"],
-                Type = "Size",
-                ValueList = "ExtraSmall|Small|Medium|Large|ExtraLarge",
-                DefaultValue = "false"
-            },
-            new AttributeItem() {
-                Name = "IsBorder",
-                Description = Localizer["IsBorder"],
-                Type = "bool",
-                ValueList = "true|false",
-                DefaultValue = "false"
-            },
-            new AttributeItem() {
-                Name = "IsCircle",
-                Description = Localizer["IsCircle"],
-                Type = "bool",
-                ValueList = "true|false",
-                DefaultValue = "false"
-            },
-            new AttributeItem() {
-                Name = "IsIcon",
-                Description = Localizer["IsIcon"],
-                Type = "bool",
-                ValueList = "true|false",
-                DefaultValue = "false"
-            },
-            new AttributeItem() {
-                Name = "IsText",
-                Description = Localizer["IsText"],
-                Type = "bool",
-                ValueList = "true|false",
-                DefaultValue = "false"
-            },
-            new AttributeItem() {
-                Name = "Icon",
-                Description = Localizer["Icon"],
-                Type = "string",
-                ValueList = " — ",
-                DefaultValue = "fa fa-user"
-            },
-            new AttributeItem() {
-                Name = "Text",
-                Description = Localizer["Text"],
-                Type = "string",
-                ValueList = " — ",
-                DefaultValue = " — "
-            },
-            new AttributeItem() {
-                Name = "Url",
-                Description = Localizer["Url"],
-                Type = "string",
-                ValueList = " — ",
-                DefaultValue = " — "
-            },
-            new AttributeItem() {
-                Name = "GetUrlAsync",
-                Description = Localizer["GetUrlAsync"],
-                Type = "Func<Task<string>>",
-                ValueList = " — ",
-                DefaultValue = " — "
-            }
-        };
+        // TODO: 移动到数据库中
+        new AttributeItem() {
+            Name = "Size",
+            Description = Localizer["Size"],
+            Type = "Size",
+            ValueList = "ExtraSmall|Small|Medium|Large|ExtraLarge|ExtraExtraLarge",
+            DefaultValue = "None"
+        },
+        new AttributeItem() {
+            Name = "IsBorder",
+            Description = Localizer["IsBorder"],
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "false"
+        },
+        new AttributeItem() {
+            Name = "IsCircle",
+            Description = Localizer["IsCircle"],
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "false"
+        },
+        new AttributeItem() {
+            Name = "IsIcon",
+            Description = Localizer["IsIcon"],
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "false"
+        },
+        new AttributeItem() {
+            Name = "IsText",
+            Description = Localizer["IsText"],
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "false"
+        },
+        new AttributeItem() {
+            Name = "Icon",
+            Description = Localizer["Icon"],
+            Type = "string",
+            ValueList = " — ",
+            DefaultValue = "fa fa-user"
+        },
+        new AttributeItem() {
+            Name = "Text",
+            Description = Localizer["Text"],
+            Type = "string",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new AttributeItem() {
+            Name = "Url",
+            Description = Localizer["Url"],
+            Type = "string",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new AttributeItem() {
+            Name = "GetUrlAsync",
+            Description = Localizer["GetUrlAsync"],
+            Type = "Func<Task<string>>",
+            ValueList = " — ",
+            DefaultValue = " — "
+        }
+    };
 }

@@ -155,14 +155,14 @@ public sealed partial class Modals
             Name = "Size",
             Description = "尺寸",
             Type = "Size",
-            ValueList = "None / ExtraSmall / Small / Medium / Large / ExtraLarge",
-            DefaultValue = "Large"
+            ValueList = "None / ExtraSmall / Small / Medium / Large / ExtraLarge / ExtraExtraLarge",
+            DefaultValue = "ExtraExtraLarge"
         },
         new AttributeItem() {
             Name = nameof(ModalDialog.FullScreenSize),
             Description = "小于特定尺寸时全屏",
             Type = "Size",
-            ValueList = "None / Always / Small / Medium / Large / ExtraLarge",
+            ValueList = "None / Always / Small / Medium / Large / ExtraLarge / ExtraExtraLarge",
             DefaultValue = "None"
         },
         new AttributeItem() {

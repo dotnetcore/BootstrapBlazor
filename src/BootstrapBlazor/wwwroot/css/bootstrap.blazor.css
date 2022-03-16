@@ -291,53 +291,6 @@ form .form-control.is-display {
 }
 /*end captcha*/
 
-/*avatar*/
-.avatar {
-    border-radius: 4px;
-    width: 50px;
-    height: 50px;
-    overflow: hidden;
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    background: #c0c4cc;
-    color: #fff;
-}
-
-    .avatar img {
-        width: 100%;
-        object-fit: cover;
-    }
-
-    .avatar.is-circle {
-        border-radius: 50%;
-    }
-
-    .avatar.is-xl {
-        width: 70px;
-        height: 70px;
-    }
-
-    .avatar.is-lg {
-        width: 60px;
-        height: 60px;
-    }
-
-    .avatar.is-sm {
-        width: 40px;
-        height: 40px;
-    }
-
-    .avatar.is-xs {
-        width: 30px;
-        height: 30px;
-    }
-
-    .avatar i {
-        font-size: 1.4rem;
-    }
-/*end avatar*/
-
 /*timeline*/
 .timeline {
     margin: 0;
