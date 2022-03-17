@@ -59,7 +59,7 @@ public class EditorTest : BootstrapBlazorTestBase
 
         IEnumerable<EditorToolbarButton>? btns = null;
         await cut.InvokeAsync(async () => btns = await cut.Instance.GetPluginAttrs());
-        Assert.Single(buttons);
+        Assert.Single(btns);
         Assert.Equal("Class1", btns!.First().IconClass);
         Assert.Equal("Tooltip1", btns!.First().Tooltip);
 
