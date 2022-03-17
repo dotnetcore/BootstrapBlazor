@@ -76,12 +76,7 @@ public class GeolocationItem
     /// </summary>
     public decimal LastLong { get; set; }
 
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="unixTimeStamp"></param>
-    /// <returns></returns>
-    public static DateTime UnixTimeStampToDateTime(long unixTimeStamp)
+    private static DateTime UnixTimeStampToDateTime(long unixTimeStamp)
     {
         // Unix timestamp is seconds past epoch
         DateTime dtDateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Utc);

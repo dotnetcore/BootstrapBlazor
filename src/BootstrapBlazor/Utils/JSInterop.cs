@@ -70,6 +70,25 @@ public class JSInterop<TValue> : IDisposable where TValue : class
         return _jsRuntime.InvokeAsync<bool>("$.bb_geo_getCurrnetPosition", _objRef, callbackMethodName);
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
+    internal ValueTask<long> GetWatchPositionItemAsync(TValue value, string callbackMethodName)
+    {
+        _objRef = DotNetObjectReference.Create(value);
+        return _jsRuntime.InvokeAsync<long>("$.bb_geo_watchPosition", _objRef, callbackMethodName);
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
+    internal ValueTask<bool> SetClearWatchPositionAsync(long watchid)
+    {
+        return _jsRuntime.InvokeAsync<bool>("$.bb_geo_clearWatchLocation", watchid);
+    }
+
 
     /// <summary>
     /// 

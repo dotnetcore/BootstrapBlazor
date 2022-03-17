@@ -7,7 +7,15 @@
     <Tips>
         <p>@Localizer["IntroText3"]</p>
     </Tips>
-    <Button Text="@Localizer["GetLocationButtonText"]" OnClick="GetLocation"></Button>
+    @if (WatchID == null)
+    {
+        <Button Text="@Localizer["GetLocationButtonText"]" OnClick="GetLocation"></Button>
+        <Button Text="@Localizer["WatchPositionButtonText"]" OnClick="WatchPosition"></Button>
+    }
+    else
+    {
+        <Button Text="@Localizer["ClearWatchPositionButtonText"]" OnClick="ClearWatchPosition"></Button>
+    }
     @if (Model != null)
     {
         <div class="form-inline row g-3 mt-3">

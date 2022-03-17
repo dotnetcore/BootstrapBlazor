@@ -10,7 +10,8 @@
 
             var deltaLatitude = (latitude2 - latitude1).toRadians();
             var deltaLongitude = (longitude2 - longitude1).toRadians();
-            latitude1 = latitude1.toRadians(), latitude2 = latitude2.toRadians();
+            latitude1 = latitude1.toRadians();
+            latitude2 = latitude2.toRadians();
 
             var a = Math.sin(deltaLatitude / 2) *
                 Math.sin(deltaLatitude / 2) +
@@ -23,7 +24,7 @@
             var d = R * c;
             return d;
         },
-        bb_geo_updateLocaltion: function (position) {
+        bb_geo_updateLocaltion: function (position, currentDistance = 0.0, totalDistance = 0.0, lastLat, lastLong) {
             // 纬度
             var latitude = position.coords.latitude;
             // 经度
@@ -45,19 +46,16 @@
             // value too large
             if (accuracy >= 500) {
                 console.warn("Need more accurate values to calculate distance.");
-                return;
             }
 
             // calculate distance
-            var currentDistance = 0.0;
-            var totalDistance = 0.0;
             if (lastLat != null && lastLong != null) {
                 currentDistance = $.bb_geo_distance(latitude, longitude, lastLat, lastLong);
                 totalDistance += currentDistance;
             }
 
-            var lastLat = latitude;
-            var lastLong = longitude;
+            lastLat = latitude;
+            lastLong = longitude;
 
             if (altitude == null) {
                 altitude = 0;
@@ -116,11 +114,20 @@
             }
             return ret;
         },
-        bb_geo_watchPosition: function (obj) {
+        bb_geo_watchPosition: function (obj, method) {
             var id = 0;
+            var currentDistance = 0.0;
+            var totalDistance = 0.0;
+            var lastLat;
+            var lastLong;
             if (navigator.geolocation) {
                 id = navigator.geolocation.watchPosition(position => {
-                    $.bb_geo_updateLocaltion(position);
+                    var info = $.bb_geo_updateLocaltion(position, currentDistance, totalDistance, lastLat, lastLong);
+                    currentDistance = info.currentDistance;
+                    totalDistance = info.totalDistance;
+                    lastLat = info.lastLat;
+                    lastLong = info.lastLong;
+                    obj.invokeMethodAsync(method, info);
                 }, $.bb_geo_handleLocationError, {
                     maximumAge: 20000
                 });
@@ -131,9 +138,12 @@
             return id;
         },
         bb_geo_clearWatchLocation: function (id) {
+            var ret = false;
             if (navigator.geolocation) {
+                ret = true;
                 navigator.geolocation.clearWatch(id);
             }
+            return ret;
         }
     });
 })(jQuery);

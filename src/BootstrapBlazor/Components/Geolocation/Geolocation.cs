@@ -5,7 +5,7 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 地理位置坐标服务
+/// 地理位置坐标操作类
 /// </summary>
 public static class Geolocation
 {
@@ -13,9 +13,17 @@ public static class Geolocation
     /// 获取当前地理位置坐标信息
     /// </summary>
     /// <returns></returns>
-    public static async Task<bool> GetLocaltion<TComponent>(JSInterop<TComponent> interop, TComponent component, string callbackMethodName) where TComponent : class
-    {
-        var ret = await interop.GetGeolocationItemAsync(component, callbackMethodName);
-        return ret;
-    }
+    public static ValueTask<bool> GetLocaltion<TComponent>(JSInterop<TComponent> interop, TComponent component, string callbackMethodName) where TComponent : class => interop.GetGeolocationItemAsync(component, callbackMethodName);
+
+    /// <summary>
+    /// 持续定位
+    /// </summary>
+    /// <returns></returns>
+    public static ValueTask<long> WatchPosition<TComponent>(JSInterop<TComponent> interop, TComponent component, string callbackMethodName) where TComponent : class => interop.GetWatchPositionItemAsync(component, callbackMethodName);
+
+    /// <summary>
+    /// 停止持续定位
+    /// </summary>
+    /// <returns></returns>
+    public static ValueTask<bool> ClearWatchPosition<TComponent>(JSInterop<TComponent> interop, long watchID) where TComponent : class => interop.SetClearWatchPositionAsync(watchID);
 }
