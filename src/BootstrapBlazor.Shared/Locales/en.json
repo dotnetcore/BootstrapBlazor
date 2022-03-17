@@ -424,7 +424,7 @@
   },
   "BootstrapBlazor.Shared.Samples.GlobalException": {
     "Title": "Global exception",
-    "Introduce": "Added component <code>ErrorLogger</code> Through this component, global logs and exceptions can be output uniformly; currently, the <code>Blazor</code> framework does not provide a <code>MVC</code> like <b>Global exception</b> The overall solution, for the time being, you need to use <code>try/catch</code> in the code block for exception capture",
+    "Introduce": "Added component <code>ErrorLogger</code> Through this component, global logs and exceptions can be output uniformly; currently, the <code>Blazor</code> framework does not provide a <code>MVC</code> like <b>Global exception</b> The overall solution",
     "H1": "Instructions",
     "Step1": "1. Add <code>AddLogging</code> to the <code>Startup</code> file to enable the <code>net core</code> system log function",
     "Step1Introduce": "Use <code>AddFileLogger</code> need to reference <b>Longbow.Logging</b> component package",

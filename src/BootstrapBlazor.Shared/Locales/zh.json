@@ -425,7 +425,7 @@
   },
   "BootstrapBlazor.Shared.Samples.GlobalException": {
     "Title": "全局异常",
-    "Introduce": "<p>增加组件 <code>ErrorLogger</code> 通过本组件可以对全局的日志、异常进行统一输出；目前由于 <code>Blazor</code> 框架并未提供一个类似 <code>MVC</code> 的 <b>全局异常</b> 整体解决方案</p><ul class='ul-demo'><li><b>NET5.0</b> 框架下暂时还需要在代码块中使用 <code>try/catch</code> 进行异常捕获</li><li><b>NET6.0</b> 框架下 <b>无需任何额外代码</b> 即可进行全局异常捕获与处理</li></ul>",
+    "Introduce": "<p>增加组件 <code>ErrorLogger</code> 通过本组件可以对全局的日志、异常进行统一输出；目前由于 <code>Blazor</code> 框架并未提供一个类似 <code>MVC</code> 的 <b>全局异常</b> 整体解决方案；通过使用 <code>ErrorLogger</code> 组件 <b>无需任何额外代码</b> 即可进行全局异常捕获与处理</p>",
     "H1": "使用方法",
     "Step1": "1. <code>Startup</code> 文件中增加 <code>AddLogging</code> 开启 <code>net core</code> 系统日志功能",
     "Step1Introduce": "使用 <code>AddFileLogger</code> 需要引用 <b>Longbow.Logging</b> 组件包 <a href='https://www.nuget.org/packages/Longbow.Logging/' target='_blank'>[传送门]</a>",

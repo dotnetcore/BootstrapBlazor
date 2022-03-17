@@ -41,27 +41,27 @@ public partial class GlobalException
     /// <returns></returns>
     private static IEnumerable<AttributeItem> GetAttributes() => new[]
     {
-            // TODO: 移动到数据库中
-            new AttributeItem() {
-                Name = nameof(ErrorLogger.ChildContent),
-                Description = "子组件模板",
-                Type = nameof(RenderTemplate),
-                ValueList = " — ",
-                DefaultValue = " — "
-            },
-            new AttributeItem() {
-                Name = nameof(ErrorLogger.ErrorContent),
-                Description = "异常显示模板",
-                Type = nameof(RenderTemplate),
-                ValueList = " — ",
-                DefaultValue = " — "
-            },
-            new AttributeItem() {
-                Name = nameof(ErrorLogger.ShowToast),
-                Description = "是否显示错误消息弹窗",
-                Type = "bool",
-                ValueList = "true|false",
-                DefaultValue = "true"
-            }
-        };
+        // TODO: 移动到数据库中
+        new AttributeItem() {
+            Name = nameof(ErrorLogger.ChildContent),
+            Description = "子组件模板",
+            Type = nameof(RenderTemplate),
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new AttributeItem() {
+            Name = nameof(ErrorLogger.ErrorContent),
+            Description = "异常显示模板",
+            Type = nameof(RenderTemplate),
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new AttributeItem() {
+            Name = nameof(ErrorLogger.ShowToast),
+            Description = "是否显示错误消息弹窗",
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "true"
+        }
+    };
 }

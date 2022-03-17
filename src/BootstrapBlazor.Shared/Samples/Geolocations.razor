@@ -7,7 +7,7 @@
     <Tips>
         <p>@Localizer["IntroText3"]</p>
     </Tips>
-    @if (WatchID == null)
+    @if (WatchID == 0)
     {
         <Button Text="@Localizer["GetLocationButtonText"]" OnClick="GetLocation"></Button>
         <Button Text="@Localizer["WatchPositionButtonText"]" OnClick="WatchPosition"></Button>

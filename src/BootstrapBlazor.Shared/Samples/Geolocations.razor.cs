@@ -105,9 +105,9 @@ public partial class Geolocations : IAsyncDisposable
     /// <summary>
     /// 
     /// </summary>
-    public ValueTask DisposeAsync()
+    public async ValueTask DisposeAsync()
     {
-        DisposeAsync(true);
+        await DisposeAsync(true);
         GC.SuppressFinalize(this);
     }
 }
