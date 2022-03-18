@@ -15,10 +15,10 @@ namespace BootstrapBlazor.Components;
 /// 
 /// </summary>
 public class ErrorLogger
-#if NET5_0
-    : ComponentBase, IErrorLogger
-#else
+#if NET6_0_OR_GREATER
     : ErrorBoundaryBase, IErrorLogger
+#else
+    : ComponentBase, IErrorLogger
 #endif
 {
     /// <summary>
@@ -61,7 +61,11 @@ public class ErrorLogger
     [Parameter]
     public Func<ILogger, Exception, Task>? OnErrorHandleAsync { get; set; }
 
-#if NET5_0
+#if NET6_0_OR_GREATER
+    [Inject]
+    [NotNull]
+    private IErrorBoundaryLogger? ErrorBoundaryLogger { get; set; }
+#else
     /// <summary>
     /// 
     /// </summary>
@@ -74,10 +78,6 @@ public class ErrorLogger
     [Parameter]
     [NotNull]
     public RenderFragment<Exception>? ErrorContent { get; set; }
-#else
-    [Inject]
-    [NotNull]
-    private IErrorBoundaryLogger? ErrorBoundaryLogger { get; set; }
 #endif
 
     /// <summary>
@@ -136,10 +136,10 @@ public class ErrorLogger
 
         var content = ChildContent;
 
-#if NET5_0
-        var ex = Exception;
-#else
+#if NET6_0_OR_GREATER
         var ex = Exception ?? CurrentException;
+#else
+        var ex = Exception;
 #endif
         if (ex != null && ErrorContent != null)
         {
@@ -169,11 +169,10 @@ public class ErrorLogger
     /// OnErrorAsync 方法
     /// </summary>
     /// <param name="exception"></param>
-    /// <returns></returns>
-#if NET5_0
-    protected async Task OnErrorAsync(Exception exception)
-#else
+#if NET6_0_OR_GREATER
     protected override async Task OnErrorAsync(Exception exception)
+#else
+    protected async Task OnErrorAsync(Exception exception)
 #endif
     {
         // 由框架调用

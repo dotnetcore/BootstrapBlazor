@@ -15,12 +15,12 @@ public class DownloadService
     /// <summary>
     /// 获得 回调委托缓存集合
     /// </summary>
-    private List<(IComponent Key, Func<DownloadOption, Task> Callback)> Cache { get; set; } = new();
+    private List<(IComponent Key, Func<DownloadOption, Task> Callback)> Cache { get; } = new();
 
     /// <summary>
     /// 获得 获取地址的回调委托缓存集合
     /// </summary>
-    private List<(IComponent Key, Func<DownloadOption, Task<string>> Callback)> CacheUrl { get; set; } = new();
+    private List<(IComponent Key, Func<DownloadOption, Task<string>> Callback)> CacheUrl { get; } = new();
 
     /// <summary>
     /// 注册服务
