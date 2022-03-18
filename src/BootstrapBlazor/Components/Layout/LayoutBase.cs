@@ -30,6 +30,12 @@ public abstract class LayoutBase : BootstrapComponentBase, IAsyncDisposable
     public EventCallback<bool> IsCollapsedChanged { get; set; }
 
     /// <summary>
+    /// 获得/设置 菜单手风琴效果
+    /// </summary>
+    [Parameter]
+    public bool IsAccordion { get; set; }
+
+    /// <summary>
     /// 获得/设置 Header 模板
     /// </summary>
     [Parameter]

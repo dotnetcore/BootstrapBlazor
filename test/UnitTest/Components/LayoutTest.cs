@@ -157,6 +157,7 @@ public class LayoutTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.Header, CreateHeader());
             pb.Add(a => a.IsFixedHeader, true);
+            pb.Add(a => a.IsAccordion, false);
         });
         Assert.Contains("layout-header is-fixed", cut.Markup);
 

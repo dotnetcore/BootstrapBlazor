@@ -84,12 +84,12 @@ RenderFragment<bool> RenderMenu => hasScroll =>
     @if (hasScroll)
     {
         <Scroll>
-            <Menu Items="@Menus" IsVertical="true" IsCollapsed="@IsCollapsed" OnClick="@ClickMenu()" />
+            <Menu Items="@Menus" IsVertical="true" IsCollapsed="@IsCollapsed" IsAccordion="@IsAccordion" OnClick="@ClickMenu()" />
         </Scroll>
     }
     else
     {
-        <Menu Items="@Menus" IsVertical="true" IsCollapsed="@IsCollapsed" OnClick="@ClickMenu()" />
+        <Menu Items="@Menus" IsVertical="true" IsCollapsed="@IsCollapsed" IsAccordion="@IsAccordion" OnClick="@ClickMenu()" />
     }
 </div>;
 
