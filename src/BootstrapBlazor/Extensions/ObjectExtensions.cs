@@ -201,9 +201,12 @@ public static class ObjectExtensions
     public static bool CanWrite(this IEditorItem col, Type modelType)
     {
         var fieldName = col.GetFieldName();
-        return fieldName.Contains('.')
+        var canWrite = IsDynamicObject();
+        return canWrite || (fieldName.Contains('.')
             ? modelType.GetPropertyByName(fieldName)?.CanWrite ?? false
-            : ComplexCanWrite();
+            : ComplexCanWrite());
+
+        bool IsDynamicObject() => modelType == typeof(DynamicObject);
 
         bool ComplexCanWrite()
         {
