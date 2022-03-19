@@ -31,11 +31,13 @@ public class MessageService : BootstrapServiceBase<MessageOption>, IDisposable
     /// <param name="message">指定弹窗组件 默认为 null 使用 <see cref="BootstrapBlazorRoot"/> 组件内置弹窗组件</param>
     public async Task Show(MessageOption option, Message? message = null)
     {
-        if (!option.ForceDelay && _option.MessageDelay != 0)
+        if (!option.ForceDelay)
         {
-            option.Delay = _option.MessageDelay;
+            if (_option.MessageDelay != 0)
+            {
+                option.Delay = _option.MessageDelay;
+            }
         }
-
         await Invoke(option, message);
     }
 

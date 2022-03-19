@@ -87,6 +87,14 @@ public partial class Message : IDisposable
         await InvokeAsync(StateHasChanged);
     }
 
+    private static async Task OnDismiss(MessageOption option)
+    {
+        if (option.OnDismiss != null)
+        {
+            await option.OnDismiss();
+        }
+    }
+
     private List<MessageOption> GetMessages()
     {
         if (Placement != Placement.Top)
