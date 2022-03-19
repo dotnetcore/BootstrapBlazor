@@ -59,7 +59,7 @@ public partial class ListView<TItem> : BootstrapComponentBase where TItem : clas
     /// 获得/设置 分组名称
     /// </summary>
     [Parameter]
-    public Func<TItem, object>? GroupName { get; set; }
+    public Func<TItem, object?>? GroupName { get; set; }
 
     /// <summary>
     /// 异步查询回调方法
@@ -70,7 +70,7 @@ public partial class ListView<TItem> : BootstrapComponentBase where TItem : clas
     /// 获得/设置 ListView组件元素点击时回调委托
     /// </summary>
     [Parameter]
-    public Func<TItem, Task> OnListViewItemClick { get; set; } = item => Task.CompletedTask;
+    public Func<TItem, Task>? OnListViewItemClick { get; set; }
 
     /// <summary>
     /// 获得/设置 是否为竖向排列 默认为 false
@@ -105,14 +105,16 @@ public partial class ListView<TItem> : BootstrapComponentBase where TItem : clas
         {
             PageItems = PageItemsSource.FirstOrDefault();
 
-            if (Items != null) throw new InvalidOperationException($"Please set {nameof(OnQueryAsync)} instead set {nameof(Items)} property when {nameof(Pageable)} be set True.");
+            if (Items != null)
+            {
+                throw new InvalidOperationException($"Please set {nameof(OnQueryAsync)} instead set {nameof(Items)} property when {nameof(Pageable)} be set True.");
+            }
         }
 
         // 如果未设置 Items 数据源 自动执行查询方法
         if (Items == null)
         {
             await QueryData();
-            if (Items == null) Items = Array.Empty<TItem>();
         }
     }
 
@@ -178,6 +180,9 @@ public partial class ListView<TItem> : BootstrapComponentBase where TItem : clas
     /// <returns></returns>
     protected async Task OnClick(TItem item)
     {
-        if (OnListViewItemClick != null) await OnListViewItemClick.Invoke(item);
+        if (OnListViewItemClick != null)
+        {
+            await OnListViewItemClick.Invoke(item);
+        }
     }
 }

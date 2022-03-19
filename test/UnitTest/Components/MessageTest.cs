@@ -6,7 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace UnitTest.Components;
 
-public class MessageTest : BootstrapBlazorTestBase
+public class MessageTest : MessageTestBase
 {
     [Fact]
     public async Task Message_Ok()
