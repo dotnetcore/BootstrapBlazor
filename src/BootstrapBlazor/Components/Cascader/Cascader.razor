@@ -4,7 +4,7 @@
 
 @if (IsShowLabel)
 {
-    <label class="form-label" required="@Required" for="@InputId">@DisplayText</label>
+    <label class="form-label" required="@Required" for="@InputId" title="@DisplayText">@DisplayText</label>
 }
 <div class="cascade menu">
     <div @attributes="AdditionalAttributes" id="@Id" data-bs-toggle="lgbSelect" class="@ClassName">

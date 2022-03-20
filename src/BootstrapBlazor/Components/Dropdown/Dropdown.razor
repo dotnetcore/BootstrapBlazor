@@ -4,7 +4,7 @@
 
 @if (IsShowLabel)
 {
-    <label class="form-label" for="@Id">@DisplayText</label>
+    <label class="form-label" for="@Id" title="@DisplayText">@DisplayText</label>
 }
 <div @attributes="@AdditionalAttributes" id="@Id" class="@DirectionClassName">
     <button type="button" class="@ButtonClassName" data-bs-toggle="@DropdownToggle" disabled="@Disabled">@GetText</button>

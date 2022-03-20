@@ -3,7 +3,7 @@
 
 @if (IsShowLabel)
 {
-    <label class="form-label" required="@Required">@DisplayText</label>
+    <label class="form-label" required="@Required" title="@DisplayText">@DisplayText</label>
 }
 <div @attributes="@AdditionalAttributes" class="@ClassName" style="@SwitchStyleName">
     <span class="@CoreClassName" data-inner-text="@GetInnerText()" style="@StyleName" @onclick="@OnClick" />

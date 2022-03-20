@@ -4,7 +4,7 @@
 
 @if (IsShowLabel)
 {
-    <label class="form-label" required="@Required">@DisplayText</label>
+    <label class="form-label" required="@Required" title="@DisplayText">@DisplayText</label>
 }
 <div @attributes="@AdditionalAttributes" id="@Id" class="@ClassString" @ref="Picker" data-bs-placement="@PlacementString">
     <div class="datetime-picker-bar">

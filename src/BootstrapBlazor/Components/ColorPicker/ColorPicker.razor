@@ -3,7 +3,7 @@
 
 @if (IsShowLabel)
 {
-    <label class="form-label" required="@Required" for="@Id">@DisplayText</label>
+    <label class="form-label" required="@Required" for="@Id" title="@DisplayText">@DisplayText</label>
 }
 <div class="input-group color-picker">
     <input @attributes="@AdditionalAttributes" type="color" class="form-control form-control-color" disabled="@Disabled" @bind-value="@CurrentValueAsString" @bind-value:event="onchange" />
