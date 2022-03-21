@@ -42,11 +42,36 @@ public partial class Display<TValue>
     public IEnumerable<SelectedItem>? Lookup { get; set; }
 
     /// <summary>
+    /// 获得/设置 LookupService 服务获取 Lookup 数据集合键值 常用于外键自动转换为名称操作
+    /// </summary>
+    [Parameter]
+    public string? LookUpServiceKey { get; set; }
+
+    [Inject]
+    [NotNull]
+    private ILookUpService? LookUpService { get; set; }
+
+    /// <summary>
     /// 获得/设置 类型解析回调方法 组件泛型为 Array 时内部调用
     /// </summary>
     [Parameter]
 
     public Func<Assembly?, string, bool, Type?>? TypeResolver { get; set; }
+
+    /// <summary>
+    /// SetParametersAsync 方法
+    /// </summary>
+    /// <param name="parameters"></param>
+    /// <returns></returns>
+    public override async Task SetParametersAsync(ParameterView parameters)
+    {
+        await base.SetParametersAsync(parameters);
+
+        if (!string.IsNullOrEmpty(LookUpServiceKey))
+        {
+            Lookup = LookUpService.GetItemsByKey(LookUpServiceKey);
+        }
+    }
 
     /// <summary>
     /// OnParametersSetAsync 方法

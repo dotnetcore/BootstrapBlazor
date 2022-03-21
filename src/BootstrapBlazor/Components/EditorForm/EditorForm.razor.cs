@@ -252,7 +252,7 @@ public sealed partial class EditorForm<TModel> : IShowLabel
     {
         if (IsDisplay || !CanWrite(item))
         {
-            builder.CreateDisplayByFieldType(item, Model, LookUpService);
+            builder.CreateDisplayByFieldType(item, Model);
         }
         else
         {

@@ -238,13 +238,12 @@ public static class Utility
     public static IEnumerable<ITableColumn> GenerateColumns<TModel>(Func<ITableColumn, bool> predicate) => InternalTableColumn.GetProperties<TModel>().Where(predicate);
 
     /// <summary>
-    /// 
+    /// RenderTreeBuilder 扩展方法 通过 IEditorItem 与 model 创建 Display 组件
     /// </summary>
     /// <param name="builder"></param>
     /// <param name="item"></param>
     /// <param name="model"></param>
-    /// <param name="lookUpService"></param>
-    public static void CreateDisplayByFieldType(this RenderTreeBuilder builder, IEditorItem item, object model, ILookUpService? lookUpService = null)
+    public static void CreateDisplayByFieldType(this RenderTreeBuilder builder, IEditorItem item, object model)
     {
         var fieldType = item.PropertyType;
         var fieldName = item.GetFieldName();
@@ -259,7 +258,7 @@ public static class Utility
             builder.OpenComponent<Switch>(0);
             builder.AddAttribute(1, nameof(Switch.Value), fieldValue);
             builder.AddAttribute(2, nameof(Switch.IsDisabled), true);
-            builder.AddAttribute(3, nameof(Display<string>.DisplayText), displayName);
+            builder.AddAttribute(3, nameof(Switch.DisplayText), displayName);
             builder.CloseComponent();
         }
         else
@@ -268,13 +267,13 @@ public static class Utility
             builder.AddAttribute(1, nameof(Display<string>.DisplayText), displayName);
             builder.AddAttribute(2, nameof(Display<string>.Value), fieldValue);
             builder.AddAttribute(3, nameof(Display<string>.ValueExpression), valueExpression);
-            builder.AddAttribute(4, nameof(Display<string>.Lookup), lookUpService?.GetItemsByKey(item.LookUpServiceKey));
+            builder.AddAttribute(4, nameof(Display<string>.LookUpServiceKey), item.LookUpServiceKey);
             builder.CloseComponent();
         }
     }
 
     /// <summary>
-    /// RenderTreeBuilder 扩展方法，通过指定模型与属性生成编辑组件
+    /// RenderTreeBuilder 扩展方法 通过指定模型与属性生成编辑组件
     /// </summary>
     /// <param name="builder"></param>
     /// <param name="model"></param>
@@ -485,9 +484,8 @@ public static class Utility
     /// <param name="model">上下文模型</param>
     /// <param name="fieldName">字段名称</param>
     /// <param name="item">IEditorItem 实例</param>
-    /// <param name="showLabel"></param>
     /// <returns></returns>
-    private static IEnumerable<KeyValuePair<string, object>> CreateMultipleAttributes(Type fieldType, object model, string fieldName, IEditorItem item, bool? showLabel = null)
+    private static IEnumerable<KeyValuePair<string, object>> CreateMultipleAttributes(Type fieldType, object model, string fieldName, IEditorItem item)
     {
         var ret = new List<KeyValuePair<string, object>>();
         var type = Nullable.GetUnderlyingType(fieldType) ?? fieldType;

@@ -1041,7 +1041,7 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
             ? builder => builder.CreateComponentByFieldType(this, col, item, changedType, false, LookUpService)
             : col.EditTemplate(item))
         : (col.Template == null
-            ? builder => builder.CreateDisplayByFieldType(col, item, LookUpService)
+            ? builder => builder.CreateDisplayByFieldType(col, item)
             : col.Template(item));
 
     private RenderFragment RenderExcelCell(ITableColumn col, TItem item, ItemChangedType changedType)
