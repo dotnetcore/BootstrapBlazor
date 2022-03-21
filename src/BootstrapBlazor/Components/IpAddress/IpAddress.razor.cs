@@ -26,7 +26,7 @@ public partial class IpAddress
     /// </summary>
     protected string? ClassName => CssBuilder.Default("ipaddress form-control")
         .AddClass("disabled", IsDisabled)
-        .AddClassFromAttributes(AdditionalAttributes)
+        .AddClass(CssClass).AddClass(ValidCss)
         .Build();
 
     /// <summary>

@@ -22,8 +22,7 @@ public partial class CheckboxList<TValue>
         .AddClass(defaultClass)
         .AddClass("no-border", !ShowBorder && ValidCss != "is-invalid")
         .AddClass("is-vertical", IsVertical)
-        .AddClass(CssClass)
-        .AddClass("is-invalid", IsValid.HasValue && !IsValid.Value)
+        .AddClass(CssClass).AddClass(ValidCss)
         .Build();
 
     /// <summary>

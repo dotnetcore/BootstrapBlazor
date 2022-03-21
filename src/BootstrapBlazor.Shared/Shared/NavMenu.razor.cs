@@ -294,6 +294,12 @@ public sealed partial class NavMenu
             },
             new()
             {
+                IsNew = true,
+                Text = Localizer["Ip"],
+                Url = "ips"
+            },
+            new()
+            {
                 Text = Localizer["Markdown"],
                 Url = "markdowns"
             },
@@ -464,12 +470,6 @@ public sealed partial class NavMenu
             {
                 Text = Localizer["HandwrittenPage"],
                 Url = "handwrittenpage"
-            },
-            new()
-            {
-                IsNew = true,
-                Text = Localizer["Ip"],
-                Url = "ips"
             },
             new()
             {
