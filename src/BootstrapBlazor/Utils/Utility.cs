@@ -243,9 +243,8 @@ public static class Utility
     /// <param name="builder"></param>
     /// <param name="item"></param>
     /// <param name="model"></param>
-    /// <param name="showLabel"></param>
     /// <param name="lookUpService"></param>
-    public static void CreateDisplayByFieldType(this RenderTreeBuilder builder, IEditorItem item, object model, bool? showLabel = null, ILookUpService? lookUpService = null)
+    public static void CreateDisplayByFieldType(this RenderTreeBuilder builder, IEditorItem item, object model, ILookUpService? lookUpService = null)
     {
         var fieldType = item.PropertyType;
         var fieldName = item.GetFieldName();
@@ -268,9 +267,8 @@ public static class Utility
             builder.OpenComponent(0, typeof(Display<>).MakeGenericType(fieldType));
             builder.AddAttribute(1, nameof(Display<string>.DisplayText), displayName);
             builder.AddAttribute(2, nameof(Display<string>.Value), fieldValue);
-            builder.AddAttribute(4, nameof(Display<string>.ValueExpression), valueExpression);
-            builder.AddAttribute(5, nameof(Display<string>.ShowLabel), showLabel ?? true);
-            builder.AddAttribute(6, nameof(Display<string>.Lookup), lookUpService?.GetItemsByKey(item.LookUpServiceKey));
+            builder.AddAttribute(3, nameof(Display<string>.ValueExpression), valueExpression);
+            builder.AddAttribute(4, nameof(Display<string>.Lookup), lookUpService?.GetItemsByKey(item.LookUpServiceKey));
             builder.CloseComponent();
         }
     }
@@ -282,11 +280,10 @@ public static class Utility
     /// <param name="model"></param>
     /// <param name="component"></param>
     /// <param name="item"></param>
-    /// <param name="showLabel"></param>
     /// <param name="changedType"></param>
     /// <param name="isSearch"></param>
     /// <param name="lookUpService"></param>
-    public static void CreateComponentByFieldType(this RenderTreeBuilder builder, ComponentBase component, IEditorItem item, object model, bool? showLabel = null, ItemChangedType changedType = ItemChangedType.Update, bool isSearch = false, ILookUpService? lookUpService = null)
+    public static void CreateComponentByFieldType(this RenderTreeBuilder builder, ComponentBase component, IEditorItem item, object model, ItemChangedType changedType = ItemChangedType.Update, bool isSearch = false, ILookUpService? lookUpService = null)
     {
         var fieldType = item.PropertyType;
         var fieldName = item.GetFieldName();
@@ -339,7 +336,7 @@ public static class Utility
             builder.AddAttribute(10, nameof(IEditorItem.SkipValidate), item.SkipValidate);
         }
 
-        builder.AddMultipleAttributes(11, CreateMultipleAttributes(fieldType, model, fieldName, item, showLabel));
+        builder.AddMultipleAttributes(11, CreateMultipleAttributes(fieldType, model, fieldName, item));
 
         if (item.ComponentParameters != null)
         {
@@ -367,7 +364,7 @@ public static class Utility
     public static object GenerateValueExpression(object model, string fieldName, Type fieldType)
     {
         var type = model.GetType();
-        return fieldName.Contains(".") ? ComplexPropertyValueExpression() : SimplePropertyValueExpression();
+        return fieldName.Contains('.') ? ComplexPropertyValueExpression() : SimplePropertyValueExpression();
 
         object SimplePropertyValueExpression()
         {
@@ -524,11 +521,6 @@ public static class Utility
                 break;
             default:
                 break;
-        }
-
-        if (showLabel != null)
-        {
-            ret.Add(new("ShowLabel", showLabel));
         }
         return ret;
     }

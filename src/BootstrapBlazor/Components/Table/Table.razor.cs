@@ -1038,10 +1038,10 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
 
     private RenderFragment RenderCell(ITableColumn col, TItem item, ItemChangedType changedType) => col.CanWrite(typeof(TItem)) && col.IsEditable(changedType)
         ? (col.EditTemplate == null
-            ? builder => builder.CreateComponentByFieldType(this, col, item, false, changedType, false, LookUpService)
+            ? builder => builder.CreateComponentByFieldType(this, col, item, changedType, false, LookUpService)
             : col.EditTemplate(item))
         : (col.Template == null
-            ? builder => builder.CreateDisplayByFieldType(col, item, false, LookUpService)
+            ? builder => builder.CreateDisplayByFieldType(col, item, LookUpService)
             : col.Template(item));
 
     private RenderFragment RenderExcelCell(ITableColumn col, TItem item, ItemChangedType changedType)
@@ -1074,7 +1074,7 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
                     parameters.Add(new(nameof(ValidateBase<string>.OnValueChanged), onValueChanged.Invoke(d, col, (model, column, val) => DynamicContext.OnValueChanged(model, column, val))));
                     col.ComponentParameters = parameters;
                 }
-                builder.CreateComponentByFieldType(this, col, row, false, changedType, false, LookUpService);
+                builder.CreateComponentByFieldType(this, col, row, changedType, false, LookUpService);
             };
         }
 

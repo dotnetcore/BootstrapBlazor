@@ -252,12 +252,12 @@ public sealed partial class EditorForm<TModel> : IShowLabel
     {
         if (IsDisplay || !CanWrite(item))
         {
-            builder.CreateDisplayByFieldType(item, Model, ShowLabel, LookUpService);
+            builder.CreateDisplayByFieldType(item, Model, LookUpService);
         }
         else
         {
             item.PlaceHolder ??= PlaceHolderText;
-            builder.CreateComponentByFieldType(this, item, Model, ShowLabel, ItemChangedType, IsSearch.Value, LookUpService);
+            builder.CreateComponentByFieldType(this, item, Model, ItemChangedType, IsSearch.Value, LookUpService);
         }
 
         bool CanWrite(IEditorItem item) => item.CanWrite(typeof(TModel)) && item.IsEditable(ItemChangedType, IsSearch.Value);
