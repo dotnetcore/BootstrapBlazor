@@ -4,7 +4,7 @@
 
 @if (IsShowLabel)
 {
-    <label class="form-label" required="@Required" title="@DisplayText">@DisplayText</label>
+    <BootstrapLabel required="@Required" for="@Id" ShowLabelTooltip="ShowLabelTooltip" Value="@DisplayText" />
 }
 <div @attributes="@AdditionalAttributes" id="@Id" class="@ClassString" @ref="Picker" data-bs-placement="@PlacementString">
     <div class="datetime-picker-bar">

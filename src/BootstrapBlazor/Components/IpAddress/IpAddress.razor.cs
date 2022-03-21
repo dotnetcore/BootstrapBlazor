@@ -51,6 +51,7 @@ public partial class IpAddress
             Value3 = "0";
             Value4 = "0";
         }
+        UpdateValue();
     }
 
     /// <summary>

@@ -4,7 +4,7 @@
 
 @if (IsShowLabel)
 {
-    <label class="form-label" required="@Required" for="@Id" title="@DisplayText">@DisplayText</label>
+    <BootstrapLabel required="@Required" for="@Id" ShowLabelTooltip="ShowLabelTooltip" Value="@DisplayText" />
 }
 <div @attributes="AdditionalAttributes" class="@ClassString" aria-checked="@StateString">
     <input class="@InputClassString" type="checkbox" id="@Id" disabled="@Disabled" checked="@CheckedString" @onclick="@OnToggleClick" />

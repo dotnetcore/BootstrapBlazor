@@ -3,7 +3,7 @@
 
 @if (IsShowLabel)
 {
-    <label class="form-label" required="@Required" @onclick="@OnClick" title="@DisplayText">@DisplayText</label>
+    <BootstrapLabel required="@Required" @onclick="@OnClick" ShowLabelTooltip="ShowLabelTooltip" Value="@DisplayText" />
 }
 <div @attributes="AdditionalAttributes" class="@WrapperClassString">
     <div class="@ClassName" style="@StyleName" @onclick="@OnClick">

@@ -12,10 +12,10 @@ namespace BootstrapBlazor.Components;
 /// EditorItem 组件
 /// </summary>
 /// <remarks>用于 EditorForm 的 FieldItems 模板内</remarks>
-#if NET5_0
-public class EditorItem<TValue> : ComponentBase, IEditorItem
-#elif NET6_0_OR_GREATER
+#if NET6_0_OR_GREATER
 public class EditorItem<TModel, TValue> : ComponentBase, IEditorItem
+#else
+public class EditorItem<TValue> : ComponentBase, IEditorItem
 #endif
 {
     /// <summary>
@@ -70,6 +70,12 @@ public class EditorItem<TModel, TValue> : ComponentBase, IEditorItem
     /// </summary>
     [Parameter]
     public bool SkipValidate { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否显示标签 Tooltip 多用于标签文字过长导致裁减时使用 默认 null
+    /// </summary>
+    [Parameter]
+    public bool? ShowLabelTooltip { get; set; }
 
     /// <summary>
     /// 获得/设置 表头显示文字

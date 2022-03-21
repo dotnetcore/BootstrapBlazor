@@ -1141,7 +1141,8 @@
     "Att12": "是否只读",
     "Att13": "编辑列前置标签名",
     "Att14": "列编辑模板",
-    "IsDisplay": "是否显示为 Display 组件"
+    "IsDisplay": "是否显示为 Display 组件",
+    "ShowLabelTooltip": "鼠标悬停标签时显示完整信息"
   },
   "BootstrapBlazor.Shared.Samples.FloatingLabels": {
     "Title": "FloatingLabel 输入框",
@@ -1224,6 +1225,7 @@
     "Block11Intro": "使用 <code>BootstrapPassword</code> 组件",
     "IsTrimTitle": "修剪空白",
     "IsTrimIntro": "使用 <code>IsTrim=\"true\"</code> 可在输入内容的时候自动修剪空白",
+    "TrimDescription": "设置参数 <code>IsTrim</code> 值为 <code>true</code> 后，组件内的前后空格将会被裁减",
     "PlaceHolder": "请输入 ...",
     "TestName": "张三",
     "Log": "按键触发 当前文本框值",
@@ -1783,7 +1785,7 @@
     "BasicUsageLi7": "通过设置提交按钮 <code>Button</code> 属性 <code>IsAsync</code> 值，设置异步提交表单",
     "BasicUsageLi8": "表单内组件通常用法都是使用双向绑定技术对 <code>Model</code> 的属性值进行双向绑定，当其值改变时会导致所在组件 <code>StateHasChanged</code> 方法被调用，即其所在组件或者页面进行刷新重新渲染",
     "BasicUsageLi9": "表单内组件控件的值修改后 <code>OnFieldChanged</code> 方法被调用",
-    "FormLabelWidth": "组件前置标签默认宽度为 <code>120px</code> 六个汉字，如需要更多汉字请在项目样式文件中更改样式变量 <code>--bs-row-label-width</code> 即可",
+    "FormLabelWidth": "组件前置标签默认宽度为 <code>120px</code> 六个汉字，如需要更多汉字请在项目样式文件中更改样式变量 <code>--bs-row-label-width</code> 即可，或者设置表单显示标签在组件上方",
     "BasicUsageP2": "注意事项：",
     "InnerComponentTitle": "内置组件",
     "InnerComponentIntro": "放置支持表单组件到 <code>ValidateForm</code> 中",
@@ -1829,7 +1831,10 @@
     "OnValidSubmitDoneLog": "OnValidSubmit 回调委托: Done!",
     "OnInvalidSubmitCallBackLog": "OnInvalidSubmit 回调委托",
     "OnValidSubmitCallBackLog": "OnValidSubmit 回调委托",
-    "DatabaseExistLog": "数据库中已存在"
+    "DatabaseExistLog": "数据库中已存在",
+    "LongDisplayText": "我是特别长的显示标签",
+    "LongDisplayDescription": "本例中通过设置 <code>form-inline</code> 样式内的 <code>BootstrapInput</code> 组件 <code>ShowLabelTooltip</code> 为 <code>true</code> 使鼠标悬停在被裁剪的 <code>label</code> 时显示完整信息",
+    "ShowLabelTooltip": "鼠标悬停标签时显示完整信息"
   },
   "BootstrapBlazor.Shared.Samples.Avatars": {
     "Title": "Avatar 头像",

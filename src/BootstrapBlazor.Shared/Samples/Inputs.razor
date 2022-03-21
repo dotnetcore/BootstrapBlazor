@@ -12,7 +12,7 @@
             <span>@Localizer["Span1"]</span>
         </div>
         <div class="col-6">
-            <BootstrapInput placeholder="@PlaceHolderText" TValue="string" IsAutoFocus="true" IsSelectAllTextOnFocus="true" />
+            <BootstrapInput PlaceHolder="@PlaceHolderText" TValue="string" IsAutoFocus="true" IsSelectAllTextOnFocus="true" />
         </div>
     </div>
 </DemoBlock>
@@ -46,7 +46,7 @@
             <span>@Localizer["Span1"]</span>
         </div>
         <div class="col-6">
-            <BootstrapInput TValue="string" placeholder="@PlaceHolderText" OnEnterAsync="OnEnterAsync" OnEscAsync="OnEscAsync" />
+            <BootstrapInput TValue="string" PlaceHolder="@PlaceHolderText" OnEnterAsync="OnEnterAsync" OnEscAsync="OnEscAsync" />
         </div>
         <div class="col-12">
             <div>@((MarkupString)Localizer["Div1"].Value)</div>
@@ -61,7 +61,7 @@
             <span>@Localizer["Span2"]</span>
         </div>
         <div class="col-6">
-            <BootstrapInput placeholder="@PlaceHolderText" Value="@Model.Name" />
+            <BootstrapInput PlaceHolder="@PlaceHolderText" Value="@Model.Name" />
         </div>
     </div>
 </DemoBlock>
@@ -74,21 +74,21 @@
             <p>@((MarkupString)Localizer["P3"].Value)</p>
         </div>
         <div class="col-12">
-            <BootstrapInput placeholder="@PlaceHolderText" @bind-Value="@Model.Name" DisplayText="@Localizer["InputText1"]" ShowLabel="true" />
+            <BootstrapInput PlaceHolder="@PlaceHolderText" @bind-Value="@Model.Name" DisplayText="@Localizer["InputText1"]" ShowLabel="true" />
         </div>
         <Divider Text="@Localizer["Divider2"]" />
         <div class="col-12">
             <p>@((MarkupString)Localizer["P4"].Value)</p>
         </div>
         <div class="col-12">
-            <BootstrapInput placeholder="@PlaceHolderText" @bind-Value="@Model.Name" ShowLabel="true" />
+            <BootstrapInput PlaceHolder="@PlaceHolderText" @bind-Value="@Model.Name" ShowLabel="true" />
         </div>
         <Divider Text="@Localizer["Divider3"]" />
         <div class="col-12">
             <p>@((MarkupString)Localizer["P5"].Value)</p>
         </div>
         <div class="col-12">
-            <BootstrapInput placeholder="@PlaceHolderText" @bind-Value="@Model.Name" />
+            <BootstrapInput PlaceHolder="@PlaceHolderText" @bind-Value="@Model.Name" />
         </div>
     </div>
 </DemoBlock>
@@ -102,13 +102,13 @@
 
 <DemoBlock Title="@Localizer["Block7Title"]" Introduction="@Localizer["Block7Intro"]" Name="Password">
     <p>@((MarkupString)Localizer["P6"].Value)</p>
-    <BootstrapInput TValue="string" placeholder="@PlaceHolderText" type="password" maxlength="5" style="width: 200px;" />
+    <BootstrapInput TValue="string" PlaceHolder="@PlaceHolderText" type="password" maxlength="5" style="width: 200px;" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["Block8Title"]" Introduction="@Localizer["Block8Intro"]" Name="FormatString">
     <div class="row g-3">
         <div class="col-12 col-sm-6">
-            <BootstrapInput FormatString="000" step="1" placeholder="@PlaceHolderText" @bind-Value="@Model.Count" />
+            <BootstrapInput FormatString="000" step="1" PlaceHolder="@PlaceHolderText" @bind-Value="@Model.Count" />
         </div>
         <div class="col-12 col-sm-6">
             <div class="col-form-label">@Localizer["Div2"]: @Model.Count.ToString("000")</div>
@@ -146,19 +146,20 @@
             <span>@Localizer["Span1"]</span>
         </div>
         <div class="col-6">
-            <BootstrapPassword placeholder="@PlaceHolderText" IsSelectAllTextOnFocus="true" />
+            <BootstrapPassword PlaceHolder="@PlaceHolderText" IsSelectAllTextOnFocus="true" />
         </div>
     </div>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["IsTrimTitle"]" Introduction="@Localizer["IsTrimIntro"]" Name="Trim">
+    <p>@((MarkupString)Localizer["TrimDescription"].Value)</p>
     <div class="row g-3">
         <div class="col-auto col-form-label">
             <span>@Localizer["Span1"]</span>
         </div>
         <div class="col-6">
-            <BootstrapInput @bind-Value="Model.Name" placeholder="@PlaceHolderText" IsTrim="true" />
-            123<span>@Model.Name</span>456
+            <BootstrapInput @bind-Value="Model.Name" PlaceHolder="@PlaceHolderText" IsTrim="true" />
+            <div class="mt-2">123<span>@Model.Name</span>456</div>
         </div>
     </div>
 </DemoBlock>

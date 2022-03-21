@@ -17,6 +17,7 @@ public class ValidateTest : BootstrapBlazorTestBase
         var cut = Context.RenderComponent<BootstrapInput<string>>(builder =>
         {
             builder.AddChildContent("ChildContent-Test");
+            builder.Add(a => a.ShowLabelTooltip, true);
         });
         Assert.Contains("ChildContent-Test", cut.Markup);
     }

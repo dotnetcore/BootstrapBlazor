@@ -63,14 +63,17 @@ public partial class Display<TValue>
     /// </summary>
     /// <param name="parameters"></param>
     /// <returns></returns>
-    public override async Task SetParametersAsync(ParameterView parameters)
+    public override Task SetParametersAsync(ParameterView parameters)
     {
-        await base.SetParametersAsync(parameters);
+        parameters.SetParameterProperties(this);
 
         if (!string.IsNullOrEmpty(LookUpServiceKey))
         {
             Lookup = LookUpService.GetItemsByKey(LookUpServiceKey);
         }
+
+        // For derived components, retain the usual lifecycle with OnInit/OnParametersSet/etc.
+        return base.SetParametersAsync(ParameterView.Empty);
     }
 
     /// <summary>

@@ -191,49 +191,56 @@ public partial class ValidateForms
     #region 参数说明
     private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
-            // TODO: 移动到数据库中
-            new AttributeItem() {
-                Name = "Model",
-                Description = Localizer["Model"],
-                Type = "object",
-                ValueList = " — ",
-                DefaultValue = " — "
-            },
-            new AttributeItem() {
-                Name = "ValidateAllProperties",
-                Description = Localizer["ValidateAllProperties"],
-                Type = "bool",
-                ValueList = "true/false",
-                DefaultValue = "false"
-            },
-            new AttributeItem() {
-                Name = "ShowRequiredMark",
-                Description = Localizer["ShowRequiredMark"],
-                Type = "bool",
-                ValueList = "true/false",
-                DefaultValue = "true"
-            },
-            new AttributeItem() {
-                Name = "ChildContent",
-                Description = Localizer["ChildContent"],
-                Type = "RenderFragment",
-                ValueList = " — ",
-                DefaultValue = " — "
-            },
-            new AttributeItem() {
-                Name = "OnValidSubmit",
-                Description = Localizer["OnValidSubmit"],
-                Type = "EventCallback<EditContext>",
-                ValueList = " — ",
-                DefaultValue = " — "
-            },
-            new AttributeItem() {
-                Name = "OnInvalidSubmit",
-                Description = Localizer["OnInvalidSubmit"],
-                Type = "EventCallback<EditContext>",
-                ValueList = " — ",
-                DefaultValue = " — "
-            }
+        // TODO: 移动到数据库中
+        new AttributeItem() {
+            Name = "Model",
+            Description = Localizer["Model"],
+            Type = "object",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new AttributeItem() {
+            Name = "ValidateAllProperties",
+            Description = Localizer["ValidateAllProperties"],
+            Type = "bool",
+            ValueList = "true/false",
+            DefaultValue = "false"
+        },
+        new AttributeItem() {
+            Name = "ShowRequiredMark",
+            Description = Localizer["ShowRequiredMark"],
+            Type = "bool",
+            ValueList = "true/false",
+            DefaultValue = "true"
+        },
+        new AttributeItem() {
+            Name = "ShowLabelTooltip",
+            Description = Localizer["ShowLabelTooltip"],
+            Type = "bool?",
+            ValueList = "true/false/null",
+            DefaultValue = "null"
+        },
+        new AttributeItem() {
+            Name = "ChildContent",
+            Description = Localizer["ChildContent"],
+            Type = "RenderFragment",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new AttributeItem() {
+            Name = "OnValidSubmit",
+            Description = Localizer["OnValidSubmit"],
+            Type = "EventCallback<EditContext>",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new AttributeItem() {
+            Name = "OnInvalidSubmit",
+            Description = Localizer["OnInvalidSubmit"],
+            Type = "EventCallback<EditContext>",
+            ValueList = " — ",
+            DefaultValue = " — "
+        }
     };
 
     /// <summary>
@@ -242,13 +249,13 @@ public partial class ValidateForms
     /// <returns></returns>
     private IEnumerable<MethodItem> GetMethods() => new MethodItem[]
     {
-            new MethodItem()
-            {
-                Name = "SetError",
-                Description = Localizer["SetError"],
-                Parameters = "PropertyName, ErrorMessage",
-                ReturnValue = " — "
-            }
+        new MethodItem()
+        {
+            Name = "SetError",
+            Description = Localizer["SetError"],
+            Parameters = "PropertyName, ErrorMessage",
+            ReturnValue = " — "
+        }
     };
     #endregion
 }

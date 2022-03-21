@@ -1139,7 +1139,8 @@
     "Att12": "Whether to read only",
     "Att13": "Edit the column's front label name",
     "Att14": "Column editing template",
-    "IsDisplay": "Shown as Display component"
+    "IsDisplay": "Shown as Display component",
+    "ShowLabelTooltip": "Show complete information when mouse hover over the label"
   },
   "BootstrapBlazor.Shared.Samples.FloatingLabels": {
     "Title": "FloatingLabel",
@@ -1222,6 +1223,7 @@
     "Block11Intro": "Use the <code>BootstrapPassword</code> component",
     "IsTrimTitle": "Trim",
     "IsTrimIntro": "Use <code>IsTrim=\"true\"</code> to automatically trim white space when entering content",
+    "TrimDescription": "The front and back spaces in the component will be trimmed when set <code>IsTrim</code> to <code>true</code>",
     "PlaceHolder": "Please enter ...",
     "TestName": "Tom",
     "Log": "The key triggers the current text box value",
@@ -1780,7 +1782,7 @@
     "BasicUsageLi7": "Set the asynchronous submission form by setting the value of the Button <code>Button</code> property <code>IsAsync</code>",
     "BasicUsageLi8": "Components within a form are typically used to bind the property values of <code>Model</code> in both directions using bidirectional binding techniques, causing the component to refresh and re-render when its value changes <code>StateHasChanged</code>, and the method is called, i.e. its component or page is refreshed and re-rendered",
     "BasicUsageLi9": "After the value of the component control in the form is modified, the <code>OnFieldChanged</code> method is called",
-    "FormLabelWidth": "The default width of component front label is <code>120px</code>. If you need more, please change the style variable <code>--bs-row-label-width</code> in the project style file",
+    "FormLabelWidth": "The default width of component front label is <code>120px</code>. If you need more, please change the style variable <code>--bs-row-label-width</code> in the project style file or remove <code>RowType.Inline</code>",
     "BasicUsageP2": "Note:",
     "InnerComponentTitle": "Built-in components",
     "InnerComponentIntro": "Place the support form components into the <code>ValidateForm</code>",
@@ -1826,7 +1828,10 @@
     "OnValidSubmitDoneLog": "OnValidSubmit callback delegate: Done!",
     "OnInvalidSubmitCallBackLog": "OnInvalidSubmit callback delegate",
     "OnValidSubmitCallBackLog": "OnValidSubmit callback delegate",
-    "DatabaseExistLog": "Exists in the database"
+    "DatabaseExistLog": "Exists in the database",
+    "LongDisplayText": "I am very long display text",
+    "LongDisplayDescription": "In this example, set the <code>ShowLabelTooltip</code> in the <code>form-inline</code> style to <code>true</code> to make the mouse hover over the cropped label to display the complete information",
+    "ShowLabelTooltip": "Show complete information when mouse hover over the label"
   },
   "BootstrapBlazor.Shared.Samples.Avatars": {
     "Title": "Avatar",

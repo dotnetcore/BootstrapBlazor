@@ -4,6 +4,6 @@
 
 @if (IsShowLabel)
 {
-    <label class="form-label is-display" title="@DisplayText">@DisplayText</label>
+    <BootstrapLabel class="is-display" ShowLabelTooltip="ShowLabelTooltip" Value="@DisplayText" />
 }
 <div @attributes="AdditionalAttributes" class="@ClassString">@CurrentTextAsString</div>
