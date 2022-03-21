@@ -395,6 +395,23 @@ public class DialogTest : BootstrapBlazorTestBase
         cut.InvokeAsync(() => dialog.ShowSaveDialog<MockDialogTest>("Title", () => Task.FromResult(true), configureOption: op => op.Class = "test"));
         modal.FindAll("button")[modal.FindAll("button").Count - 1].Click();
         #endregion
+
+        #region ShowValidateFormDialog
+        cut.InvokeAsync(() => dialog.ShowValidateFormDialog<MockValidateFormDialog>("ValidateFormDialog"));
+        var btn = cut.Find(".btn-close");
+        cut.InvokeAsync(() => btn.Click());
+
+        Func<DialogOption, Dictionary<string, object?>> parameterFactory = op => new Dictionary<string, object?>();
+        Action<DialogOption> configureOption = op => op.Class = "ValidateFormDialog-Class";
+        cut.InvokeAsync(() => dialog.ShowValidateFormDialog<MockValidateFormDialog>("ValidateFormDialog", parameterFactory, configureOption));
+        btn = cut.Find(".btn-close");
+        cut.InvokeAsync(() => btn.Click());
+        #endregion
+    }
+
+    private class MockValidateFormDialog : ComponentBase
+    {
+
     }
 
     private class MockDialogTest : ComponentBase

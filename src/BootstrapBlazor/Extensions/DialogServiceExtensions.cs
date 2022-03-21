@@ -206,4 +206,27 @@ public static class DialogServiceExtensions
         configureOption?.Invoke(option);
         await service.Show(option, dialog);
     }
+
+    /// <summary>
+    /// 弹出表单对话窗方法
+    /// </summary>
+    /// <typeparam name="TComponent"></typeparam>
+    /// <param name="service">DialogService 服务实例</param>
+    /// <param name="title">弹窗标题</param>
+    /// <param name="parametersFactory">TComponent 组件所需参数</param>
+    /// <param name="configureOption"><see cref="DialogOption"/> 实例配置回调方法</param>
+    /// <param name="dialog"></param>
+    /// <returns></returns>
+    public static async Task ShowValidateFormDialog<TComponent>(this DialogService service, string title, Func<DialogOption, Dictionary<string, object?>>? parametersFactory = null, Action<DialogOption>? configureOption = null, Dialog? dialog = null) where TComponent : ComponentBase
+    {
+        var option = new DialogOption()
+        {
+            Title = title,
+            ShowFooter = false,
+        };
+        var parameters = parametersFactory?.Invoke(option);
+        option.Component = BootstrapDynamicComponent.CreateComponent<TComponent>(parameters);
+        configureOption?.Invoke(option);
+        await service.Show(option, dialog);
+    }
 }
