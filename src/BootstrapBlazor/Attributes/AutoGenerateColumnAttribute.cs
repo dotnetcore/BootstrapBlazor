@@ -49,10 +49,16 @@ public class AutoGenerateColumnAttribute : AutoGenerateBaseAttribute, ITableColu
     public bool IsReadonlyWhenEdit { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否显示标签 Tooltip 多用于标签文字过长导致裁减时使用 默认 null
+    /// 获得/设置 是否显示标签 Tooltip 多用于标签文字过长导致裁减时使用 默认 false
     /// </summary>
     [Parameter]
-    public bool? ShowLabelTooltip { get; set; }
+    public bool ShowLabelTooltip { get; set; }
+
+    bool? IEditorItem.ShowLabelTooltip
+    {
+        get => ShowLabelTooltip;
+        set => ShowLabelTooltip = value.HasValue && value.Value ? true : false;
+    }
 
     /// <summary>
     /// 获得/设置 是否为默认排序规则 默认为 SortOrder.Unset
