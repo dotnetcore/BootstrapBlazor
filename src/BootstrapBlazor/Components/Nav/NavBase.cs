@@ -30,6 +30,7 @@ public abstract class NavBase : BootstrapComponentBase
     /// 获得/设置 组件数据源
     /// </summary>
     [Parameter]
+    [NotNull]
     public IEnumerable<NavLink>? Items { get; set; }
 
     /// <summary>
@@ -67,6 +68,16 @@ public abstract class NavBase : BootstrapComponentBase
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
+
+    /// <summary>
+    /// OnParametersSet 方法
+    /// </summary>
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
+        Items ??= Enumerable.Empty<NavLink>();
+    }
 
     /// <summary>
     /// 获得 NavLink 组件渲染内容
