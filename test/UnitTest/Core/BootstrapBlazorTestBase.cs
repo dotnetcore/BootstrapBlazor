@@ -47,6 +47,10 @@ public class BootstrapBlazorTestHost : IDisposable
     protected virtual void ConfigureServices(IServiceCollection services)
     {
         services.AddBootstrapBlazor();
+        services.ConfigureIPLocatorOption(options =>
+        {
+            options.LocatorFactory = provider => new BaiDuIPLocator();
+        });
         services.ConfigureJsonLocalizationOptions(op => op.AdditionalJsonAssemblies = new[] { typeof(Alert).Assembly });
 
         services.AddSingleton<ILookUpService, FooLookupService>();
