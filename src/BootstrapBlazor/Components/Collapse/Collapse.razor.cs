@@ -23,10 +23,6 @@ public partial class Collapse
         .AddClass("show", !collpased)
         .Build();
 
-    private static string? TitleClassString(Color color) => CssBuilder.Default("accordion-header")
-        .AddClass($"bg-{color.ToDescriptionString()}", color != Color.None)
-        .Build();
-
     private string? ClassString => CssBuilder.Default("accordion")
         .AddClass("is-accordion", IsAccordion)
         .AddClassFromAttributes(AdditionalAttributes)
@@ -37,7 +33,7 @@ public partial class Collapse
     /// <summary>
     /// 获得/设置 CollapseItem 集合
     /// </summary>
-    public IEnumerable<CollapseItem> Items => _items;
+    protected IEnumerable<CollapseItem> Items => _items;
 
     /// <summary>
     /// 获得/设置 是否为手风琴效果 默认为 false
