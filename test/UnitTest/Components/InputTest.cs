@@ -153,4 +153,64 @@ public class InputTest : BootstrapBlazorTestBase
             builder.Add(a => a.IsSelectAllTextOnFocus, true);
         });
     }
+
+    [Fact]
+    public void FloatingLabel_Ok()
+    {
+        var cut = Context.RenderComponent<FloatingLabel<string>>();
+
+        Assert.NotEmpty(cut.Markup);
+    }
+
+    [Fact]
+    public void GroupLabel_Ok()
+    {
+        var cut = Context.RenderComponent<BootstrapInputGroupLabel>(builder =>
+        {
+            builder.Add(s => s.DisplayText, "DisplayText");
+        });
+
+        Assert.Contains("DisplayText", cut.Markup);
+    }
+
+    [Fact]
+    public void GroupIcon_Ok()
+    {
+        var cut = Context.RenderComponent<BootstrapInputGroupIcon>(builder =>
+        {
+            builder.Add(s => s.Icon, "fa fa-user");
+        });
+
+        var ele = cut.Find(".fa-user");
+        Assert.NotNull(ele);
+    }
+
+    [Fact]
+    public void InputGroup_Ok()
+    {
+        var cut = Context.RenderComponent<BootstrapInputGroup>(builder =>
+        {
+            builder.Add(s => s.ChildContent, new RenderFragment(builder =>
+            {
+                builder.OpenComponent<BootstrapInputGroupLabel>(0);
+                builder.AddAttribute(1, nameof(BootstrapInputGroupLabel.DisplayText), "BootstrapInputGroup");
+                builder.CloseComponent();
+            }));
+        });
+
+        Assert.NotEmpty(cut.Markup);
+        Assert.Contains("BootstrapInputGroup", cut.Markup);
+    }
+
+    [Fact]
+    public void Focus_Ok()
+    {
+        var cut = Context.RenderComponent<Modal>(pb =>
+        {
+            pb.AddChildContent<BootstrapInput<string>>(pb =>
+            {
+                pb.Add(a => a.IsAutoFocus, true);
+            });
+        });
+    }
 }
