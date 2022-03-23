@@ -85,11 +85,13 @@ public partial class Slider : IDisposable
     /// <param name="disposing"></param>
     protected virtual void Dispose(bool disposing)
     {
-
-        if (disposing && Interop != null)
+        if (disposing)
         {
-            Interop.Dispose();
-            Interop = null;
+            if (Interop != null)
+            {
+                Interop.Dispose();
+                Interop = null;
+            }
         }
     }
 
