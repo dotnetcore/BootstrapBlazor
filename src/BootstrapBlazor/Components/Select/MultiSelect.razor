@@ -51,7 +51,7 @@
         @foreach (var item in GetData())
         {
             <DynamicElement OnClick="() => ToggleRow(item, true)" TriggerClick="@CheckCanTrigger(item)" class="@GetItemClassString(item)">
-                <Checkbox TValue="bool" Value="GetCheckedState(item)" IsDisabled="@CheckCanSelect(item)"></Checkbox>
+                <Checkbox Value="GetCheckedState(item)" IsDisabled="@CheckCanSelect(item)"></Checkbox>
                 <span>@item.Text</span>
             </DynamicElement>
         }

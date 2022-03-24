@@ -250,8 +250,13 @@ public partial class MultiSelect<TValue>
     {
         if (!IsDisabled)
         {
-            item.Active = !item.Active;
+            var d = Items.FirstOrDefault(i => i.Value == item.Value);
+            if (d != null)
+            {
+                d.Active = !d.Active;
+            }
 
+            // 更新选中值
             SetValue();
 
             if (Min > 0 || Max > 0)
@@ -340,7 +345,7 @@ public partial class MultiSelect<TValue>
         await TriggerSelectedItemChanged();
     }
 
-    private bool GetCheckedState(SelectedItem item) => SelectedItems.Contains(item);
+    private bool GetCheckedState(SelectedItem item) => SelectedItems.Any(i => i.Value == item.Value);
 
     private bool CheckCanTrigger(SelectedItem item)
     {
