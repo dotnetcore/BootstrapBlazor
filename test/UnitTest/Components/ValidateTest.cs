@@ -23,7 +23,7 @@ public class ValidateTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void CascadedEditContext_Ok()
+    public async Task CascadedEditContext_Ok()
     {
         var model = new Foo() { Name = "Name-Test" };
         Context.RenderTree.Add<CascadingValue<EditContext>>(builder =>
@@ -37,7 +37,7 @@ public class ValidateTest : BootstrapBlazorTestBase
             builder.Add(a => a.ValueExpression, model.GenerateValueExpression());
         });
         Assert.Equal(model.Name, cut.Instance.Value);
-        cut.Find("input").Change("Test");
+        await cut.InvokeAsync(() => cut.Find("input").Change("Test"));
         Assert.Equal("Test", model.Name);
     }
 

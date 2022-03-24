@@ -153,7 +153,7 @@ public class TreeTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void OnExpandRowAsync_Ok()
+    public async Task OnExpandRowAsync_Ok()
     {
         var expanded = false;
         var cut = Context.RenderComponent<Tree>(pb =>
@@ -181,7 +181,7 @@ public class TreeTest : BootstrapBlazorTestBase
             });
         });
 
-        cut.InvokeAsync(() => cut.Find(".fa-caret-right").Click());
+        await cut.InvokeAsync(() => cut.Find(".fa-caret-right").Click());
         Assert.True(expanded);
     }
 

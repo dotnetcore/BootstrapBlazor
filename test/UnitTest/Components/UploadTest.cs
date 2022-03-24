@@ -385,7 +385,7 @@ public class UploadTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void ButtonUpload_OnDeleteFile_Ok()
+    public async Task ButtonUpload_OnDeleteFile_Ok()
     {
         UploadFile? deleteFile = null;
         var cut = Context.RenderComponent<ButtonUpload<string>>(pb =>
@@ -401,7 +401,7 @@ public class UploadTest : BootstrapBlazorTestBase
                 return Task.FromResult(true);
             });
         });
-        cut.InvokeAsync(() => cut.Find(".fa-trash-o.text-danger").Click());
+        await cut.InvokeAsync(() => cut.Find(".fa-trash-o.text-danger").Click());
         Assert.NotNull(deleteFile);
         Assert.Null(deleteFile!.Error);
 
@@ -414,7 +414,7 @@ public class UploadTest : BootstrapBlazorTestBase
                 new UploadFile() { FileName  = "Test-File2", Code = 1001 }
             });
         });
-        cut.InvokeAsync(() => cut.Find(".fa-trash-o.text-danger").Click());
+        await cut.InvokeAsync(() => cut.Find(".fa-trash-o.text-danger").Click());
         Assert.NotNull(deleteFile);
     }
 
