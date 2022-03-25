@@ -111,18 +111,6 @@ public partial class Table<TItem>
     /// <summary>
     /// 获得/设置 保存、删除失败后是否显示 Toast 提示框 默认为 true 显示
     /// </summary>
-    /// <remarks>已过期请使用 <see cref="ShowToastAfterSaveOrDeleteModel"/></remarks>
-    [Parameter]
-    [Obsolete("请使用 ShowToastAfterSaveOrDeleteModel")]
-    public bool ShowErrorToast
-    {
-        get => ShowToastAfterSaveOrDeleteModel;
-        set => ShowToastAfterSaveOrDeleteModel = value;
-    }
-
-    /// <summary>
-    /// 获得/设置 保存、删除失败后是否显示 Toast 提示框 默认为 true 显示
-    /// </summary>
     [Parameter]
     public bool ShowToastAfterSaveOrDeleteModel { get; set; } = true;
 

@@ -23,6 +23,7 @@ public class ValidateFormTest : ValidateFormTestBase
         var foo = new Foo();
         var cut = Context.RenderComponent<ValidateForm>(pb =>
         {
+            pb.Add(a => a.ShowLabelTooltip, true);
             pb.Add(a => a.Model, foo);
             pb.Add(a => a.OnValidSubmit, context =>
             {

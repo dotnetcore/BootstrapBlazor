@@ -188,6 +188,19 @@ public class CheckboxListTest : BootstrapBlazorTestBase
         Assert.Throws<NotSupportedException>(() => Context.RenderComponent<CheckboxList<int>>());
     }
 
+    [Fact]
+    public async Task Size_Ok()
+    {
+        var @checked = false;
+        var cut = Context.RenderComponent<Checkbox<string>>(pb =>
+        {
+            pb.Add(a => a.Size, Size.ExtraExtraLarge);
+            pb.Add(a => a.StateChanged, v => @checked = v == CheckboxState.Checked);
+        });
+        await cut.InvokeAsync(() => cut.Instance.SetState(CheckboxState.Checked));
+        Assert.True(@checked);
+    }
+
     private class CheckboxListGenericMock<T>
     {
 

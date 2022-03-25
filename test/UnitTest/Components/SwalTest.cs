@@ -22,6 +22,8 @@ public class SwalTest : SwalTestBase
             FooterTemplate = builder => builder.AddContent(0, "Test-FooterTemplate"),
             ButtonTemplate = builder => builder.AddContent(0, "Test-ButtonTemplate"),
             ShowFooter = true,
+            ShowClose = true,
+            BodyContext = null
         }));
 
         // 代码覆盖模板单元测试

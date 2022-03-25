@@ -74,7 +74,7 @@ public class ToggleTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void ValueChanged_Ok()
+    public async Task ValueChanged_Ok()
     {
         var value = false;
         var cut = Context.RenderComponent<Toggle>(builder =>
@@ -86,8 +86,7 @@ public class ToggleTest : BootstrapBlazorTestBase
             builder.Add(s => s.Value, false);
         });
 
-        cut.Find(".btn-toggle").Click();
-
+        await cut.InvokeAsync(() => cut.Find(".btn-toggle").Click());
         Assert.True(value);
     }
 

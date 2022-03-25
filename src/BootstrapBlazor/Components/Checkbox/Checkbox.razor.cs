@@ -34,13 +34,6 @@ public partial class Checkbox<TValue>
         .Build();
 
     /// <summary>
-    /// 
-    /// </summary>
-    protected string? GetInnerClassString(string defaultClass = "checkbox-inner") => CssBuilder.Default(defaultClass)
-        .AddClass($"bg-{Color.ToDescriptionString()} border-{Color.ToDescriptionString()}", Color != Color.None)
-        .Build();
-
-    /// <summary>
     /// 获得 复选框状态字符串
     /// </summary>
     protected string StateString => State switch

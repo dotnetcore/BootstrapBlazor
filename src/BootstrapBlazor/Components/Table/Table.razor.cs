@@ -452,13 +452,6 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
     public List<ITableColumn> Columns { get; } = new(50);
 
     /// <summary>
-    /// 获得/设置 是否使用注入的数据服务
-    /// </summary>
-    [Parameter]
-    [Obsolete("已弃用，组件内部采用就近原则智能推断是否使用全局注册数据服务")]
-    public bool UseInjectDataService { get; set; }
-
-    /// <summary>
     /// 获得/设置 明细行模板 <see cref="IsDetails" />
     /// </summary>
     [Parameter]

@@ -24,12 +24,6 @@ public class SwalOption : PopupOptionBase
     /// <summary>
     /// 获得/设置 是否为确认弹窗模式 此属性给模态弹窗时使用 默认为 false
     /// </summary>
-    [Obsolete("已弃用，无需设置本参数，内部已优化处理减少使用者代码量")]
-    public bool IsConfirm { get; set; }
-
-    /// <summary>
-    /// 获得/设置 是否为确认弹窗模式 此属性给模态弹窗时使用 默认为 false
-    /// </summary>
     internal bool IsModalConfirm { get; set; }
 
     /// <summary>

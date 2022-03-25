@@ -17,13 +17,6 @@ public partial class BootstrapInputGroupLabel
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
-    /// <summary>
-    /// 获得/设置 显示名称 已弃用，请使用 DisplayText
-    /// </summary>
-    [Parameter]
-    [Obsolete("已弃用，请使用 DisplayText")]
-    public string? Text { get => DisplayText; set => DisplayText = value; }
-
     private bool IsInnerLabel { get; set; }
 
     /// <summary>
