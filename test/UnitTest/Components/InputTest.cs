@@ -155,6 +155,16 @@ public class InputTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public async Task IsSelectAllTextOnEnter_Ok()
+    {
+        var cut = Context.RenderComponent<BootstrapInput<string>>(builder =>
+        {
+            builder.Add(a => a.IsSelectAllTextOnEnter, true);
+        });
+        await cut.Instance.SelectAllTextAsync();
+    }
+
+    [Fact]
     public void FloatingLabel_Ok()
     {
         var cut = Context.RenderComponent<FloatingLabel<string>>();

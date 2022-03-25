@@ -11,11 +11,22 @@
                 }
             });
         },
-        bb_input_selectAll: function (el) {
+        bb_input_selectAll_focus: function (el) {
             var $el = $(el);
             $el.on('focus', function () {
                 $(this).select();
             });
+        },
+        bb_input_selectAll_enter: function (el) {
+            var $el = $(el);
+            $el.on('keyup', function (e) {
+                if (e.key === 'Enter') {
+                    $(this).select();
+                }
+            });
+        },
+        bb_input_selectAll: function (el) {
+            $(el).select();
         }
     });
 })(jQuery);
