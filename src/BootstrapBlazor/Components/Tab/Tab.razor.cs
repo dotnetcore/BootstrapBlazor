@@ -482,7 +482,8 @@ public partial class Tab
             parameters.Add(nameof(TabItem.ChildContent), new RenderFragment(builder =>
             {
                 builder.OpenComponent<BootstrapBlazorAuthorizeView>(0);
-                builder.AddAttribute(1, nameof(BootstrapBlazorAuthorizeView.RouteContext), context);
+                builder.AddAttribute(1, nameof(BootstrapBlazorAuthorizeView.Type), context.Handler);
+                builder.AddAttribute(1, nameof(BootstrapBlazorAuthorizeView.Parameters), context.Parameters);
                 builder.AddAttribute(2, nameof(BootstrapBlazorAuthorizeView.NotAuthorized), NotAuthorized);
                 builder.CloseComponent();
             }));

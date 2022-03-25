@@ -14,14 +14,20 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 
 /// </summary>
-internal class BootstrapBlazorAuthorizeView : ComponentBase
+public class BootstrapBlazorAuthorizeView : ComponentBase
 {
     /// <summary>
     /// 获得/设置 路由关联上下文
     /// </summary>
     [Parameter]
     [NotNull]
-    public RouteContext? RouteContext { get; set; }
+    public Type? Type { get; set; }
+
+    /// <summary>
+    /// 获得/设置 路由关联上下文
+    /// </summary>
+    [Parameter]
+    public IReadOnlyDictionary<string, object>? Parameters { get; set; }
 
     /// <summary>
     /// 获得/设置 NotAuthorized 模板
@@ -58,8 +64,8 @@ internal class BootstrapBlazorAuthorizeView : ComponentBase
     /// <returns></returns>
     protected override async Task OnInitializedAsync()
     {
-        Authorized = RouteContext.Handler == null
-            || await RouteContext.Handler.IsAuthorizedAsync(AuthenticationState, AuthorizationPolicyProvider, AuthorizationService, Resource);
+        Authorized = Type == null
+            || await Type.IsAuthorizedAsync(AuthenticationState, AuthorizationPolicyProvider, AuthorizationService, Resource);
     }
 
     /// <summary>
@@ -69,11 +75,11 @@ internal class BootstrapBlazorAuthorizeView : ComponentBase
     protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
         // 判断是否开启权限
-        if (Authorized && RouteContext.Handler != null)
+        if (Authorized && Type != null)
         {
             var index = 0;
-            builder.OpenComponent(index++, RouteContext.Handler);
-            foreach (var kv in (RouteContext.Parameters ?? new ReadOnlyDictionary<string, object>(new Dictionary<string, object>())))
+            builder.OpenComponent(index++, Type);
+            foreach (var kv in (Parameters ?? new ReadOnlyDictionary<string, object>(new Dictionary<string, object>())))
             {
                 builder.AddAttribute(index++, kv.Key, kv.Value);
             }
@@ -90,7 +96,7 @@ internal class BootstrapBlazorAuthorizeView : ComponentBase
 #if NET6_0_OR_GREATER
         void BuildQueryParameters()
         {
-            var queryParameterSupplier = QueryParameterValueSupplier.ForType(RouteContext.Handler);
+            var queryParameterSupplier = QueryParameterValueSupplier.ForType(Type);
             if (queryParameterSupplier is not null)
             {
                 // Since this component does accept some parameters from query, we must supply values for all of them,
