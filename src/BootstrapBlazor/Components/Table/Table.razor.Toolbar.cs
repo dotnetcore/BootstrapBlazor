@@ -459,11 +459,8 @@ public partial class Table<TItem>
                 {
                     SelectedRows.Clear();
                     EditInCell = false;
-                    if (AddInCell)
-                    {
-                        AddInCell = false;
-                        await QueryAsync();
-                    }
+                    AddInCell = false;
+                    await QueryAsync();
                 }
             }
             await ToggleLoading(false);
