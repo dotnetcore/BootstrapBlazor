@@ -13,4 +13,9 @@ public class ClipboardOption
     /// 获得/设置 要拷贝的文字
     /// </summary>
     public string? Text { get; set; }
+
+    /// <summary>
+    /// 获得/设置 拷贝完成后回调委托 默认为 null
+    /// </summary>
+    public Func<Task>? Callback { get; set; }
 }

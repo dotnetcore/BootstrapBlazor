@@ -40,8 +40,4 @@
     <None Include="wwwroot\**\*.*" />
   </ItemGroup>
 
-  <ItemGroup>
-    <None Remove="wwwroot\Notification.js" />
-  </ItemGroup>
-
 </Project>
