@@ -51,6 +51,7 @@ public static class BootstrapBlazorServiceCollectionExtensions
         services.TryAddScoped<WebClientService>();
         services.TryAddScoped<AjaxService>();
         services.TryAddScoped(typeof(DragDropService<>));
+        services.TryAddScoped<ClipboardService>();
 
         services.TryAddSingleton<IConfigureOptions<BootstrapBlazorOptions>, ConfigureOptions<BootstrapBlazorOptions>>();
         services.ConfigureBootstrapBlazorOption(configureOptions);

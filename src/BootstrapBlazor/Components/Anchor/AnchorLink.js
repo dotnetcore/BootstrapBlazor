@@ -1,22 +1,4 @@
 ﻿(function ($) {
-    $.extend({
-        bb_copyText: function (ele) {
-            if (navigator.clipboard) {
-                navigator.clipboard.writeText(ele);
-            }
-            else {
-                if (typeof ele !== "string") return false;
-                var input = document.createElement('input');
-                input.setAttribute('type', 'text');
-                input.setAttribute('value', ele);
-                document.body.appendChild(input);
-                input.select();
-                document.execCommand('copy');
-                document.body.removeChild(input);
-            }
-        }
-    });
-
     $(function () {
         $(document)
             .on('click', '.anchor-link', function (e) {
