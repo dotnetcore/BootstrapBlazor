@@ -14,6 +14,19 @@
     padding: 0.25rem 1rem;
 }
 
+    .modal-footer button:last-child {
+        margin-right: 0;
+    }
+
+.modal-body .modal-footer {
+    margin: 1rem -1rem 0 -1rem;
+    padding: .25rem 1rem 0 1rem;
+}
+
+    .modal-body .modal-footer button {
+        margin-bottom: 0;
+    }
+
 .modal-header .btn-print {
     padding: 3px 8px 4px 8px;
     margin: 0 6px;

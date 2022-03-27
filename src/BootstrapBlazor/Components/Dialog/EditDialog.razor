@@ -3,38 +3,34 @@
 @inherits DialogBase<TModel>
 
 <ValidateForm Model="@Model" OnValidSubmit="@OnValidSubmitAsync">
-	@if (BodyTemplate != null)
-	{
-		@BodyTemplate.Invoke(Model)
-		@if (!IsTracking)
-		{
-			<div class="row mt-3">
-				<div class="col-12">
-					@RenderFooter
-				</div>
-			</div>
-		}
-	}
-	else
-	{
-		<EditorForm TModel="TModel" Items="Items" ItemChangedType="ItemChangedType" ItemsPerRow="ItemsPerRow" RowType="RowType" LabelAlign="LabelAlign" ShowLabel="ShowLabel">
-			<Buttons>
-				@if (!IsTracking)
-				{
-					@RenderFooter
-				}
-			</Buttons>
-		</EditorForm>
-	}
+    @if (BodyTemplate != null)
+    {
+        @BodyTemplate.Invoke(Model)
+        @if (!IsTracking)
+        {
+            @RenderFooter
+        }
+    }
+    else
+    {
+        <EditorForm TModel="TModel" Items="Items" ItemChangedType="ItemChangedType" ItemsPerRow="ItemsPerRow" RowType="RowType" LabelAlign="LabelAlign" ShowLabel="ShowLabel">
+            <Buttons>
+                @if (!IsTracking)
+                {
+                    @RenderFooter
+                }
+            </Buttons>
+        </EditorForm>
+    }
 </ValidateForm>
 <div class="form-loader" @ref="SpinnerElement">
-	<Spinner Color="Color.Primary" />
+    <Spinner Color="Color.Primary" />
 </div>
 
 @code {
-	RenderFragment RenderFooter =>
-	@<div class="table-modal-footer">
-		<Button Color="Color.Secondary" Icon="fa fa-times" Text="@CloseButtonText" OnClickWithoutRender="OnClose" />
-		<Button Color="Color.Primary" ButtonType="ButtonType.Submit" Icon="fa fa-save" Text="@SaveButtonText" />
-	</div>;
+    RenderFragment RenderFooter =>
+    @<div class="modal-footer">
+        <Button Color="Color.Secondary" Icon="fa fa-times" Text="@CloseButtonText" OnClickWithoutRender="OnClose" />
+        <Button Color="Color.Primary" ButtonType="ButtonType.Submit" Icon="fa fa-save" Text="@SaveButtonText" />
+    </div>;
 }

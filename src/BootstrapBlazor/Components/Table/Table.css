@@ -341,12 +341,6 @@
         display: flex;
     }
 
-.table-modal-footer {
-    padding-top: 1rem;
-    border-top: 1px solid #dee2e6;
-    text-align: right;
-}
-
 .table tbody tr.active:not(.is-edit),
 .table-row.active {
     background-color: var(--bb-table-selected-bg);
