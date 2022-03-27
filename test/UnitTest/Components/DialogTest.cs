@@ -390,9 +390,9 @@ public class DialogTest : BootstrapBlazorTestBase
         #endregion
 
         #region ShowSaveDialog
-        cut.InvokeAsync(() => dialog.ShowSaveDialog<MockDialogTest>("Title", () => Task.FromResult(true)));
+        cut.InvokeAsync(() => dialog.ShowSaveDialog<MockDialogTest>("Title", () => Task.FromResult(true), p => { }, op => op.Class = "test"));
         modal.FindAll("button")[modal.FindAll("button").Count - 1].Click();
-        cut.InvokeAsync(() => dialog.ShowSaveDialog<MockDialogTest>("Title", () => Task.FromResult(true), configureOption: op => op.Class = "test"));
+        cut.InvokeAsync(() => dialog.ShowSaveDialog<MockDialogTest>("Title"));
         modal.FindAll("button")[modal.FindAll("button").Count - 1].Click();
         #endregion
 
@@ -404,6 +404,16 @@ public class DialogTest : BootstrapBlazorTestBase
         Func<DialogOption, Dictionary<string, object?>> parameterFactory = op => new Dictionary<string, object?>();
         Action<DialogOption> configureOption = op => op.Class = "ValidateFormDialog-Class";
         cut.InvokeAsync(() => dialog.ShowValidateFormDialog<MockValidateFormDialog>("ValidateFormDialog", parameterFactory, configureOption));
+        btn = cut.Find(".btn-close");
+        cut.InvokeAsync(() => btn.Click());
+        #endregion
+
+        #region ShowCloseDialog
+        Action<Dictionary<string, object?>> closeDialogParameterFactory = op => new Dictionary<string, object?>();
+        cut.InvokeAsync(() => dialog.ShowCloseDialog<MockValidateFormDialog>("CloseDialog", closeDialogParameterFactory, configureOption));
+        btn = cut.Find(".btn-close");
+        cut.InvokeAsync(() => btn.Click());
+        cut.InvokeAsync(() => dialog.ShowCloseDialog<MockValidateFormDialog>("CloseDialog"));
         btn = cut.Find(".btn-close");
         cut.InvokeAsync(() => btn.Click());
         #endregion

@@ -270,9 +270,9 @@ public sealed partial class Dialogs
         {
             // 此处可以访问 foo 实例进行入库操作等
             return Task.FromResult(true);
-        }, new Dictionary<string, object?>
+        }, parameters =>
         {
-            ["Value"] = foo
+            parameters.Add(nameof(DialogSaveDetail.Value), foo);
         });
     }
 

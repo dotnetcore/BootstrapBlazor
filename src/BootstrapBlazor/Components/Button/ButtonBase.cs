@@ -221,7 +221,7 @@ public abstract class ButtonBase : TooltipComponentBase
     {
         if (!string.IsNullOrEmpty(Id))
         {
-            await JSRuntime.InvokeVoidAsync(null, "bb_tooltip", Id, "show", message, "auto", false, "focus");
+            await JSRuntime.InvokeVoidAsync(null, "bb_tooltip", Id, "show", message, "auto", false, "hover");
         }
     }
 

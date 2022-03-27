@@ -9,7 +9,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// FullScreen 组件部分类
 /// </summary>
-public partial class FullScreen : BootstrapComponentBase, IDisposable
+public class FullScreen : BootstrapComponentBase, IDisposable
 {
     /// <summary>
     /// DialogServices 服务实例
