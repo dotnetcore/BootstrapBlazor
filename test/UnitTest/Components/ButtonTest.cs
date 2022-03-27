@@ -321,4 +321,18 @@ public class ButtonTest : BootstrapBlazorTestBase
         await tcs.Task;
         Assert.True(valid);
     }
+
+    [Fact]
+    public async Task ShowTooltip_Ok()
+    {
+        var cut = Context.RenderComponent<Button>();
+        await cut.InvokeAsync(() => cut.Instance.ShowTooltip("Test"));
+    }
+
+    [Fact]
+    public async Task RemoveTooltip_Ok()
+    {
+        var cut = Context.RenderComponent<Button>();
+        await cut.InvokeAsync(() => cut.Instance.RemoveTooltip());
+    }
 }
