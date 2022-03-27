@@ -11,7 +11,7 @@ namespace UnitTest.Components;
 public class UploadTest : BootstrapBlazorTestBase
 {
     [Fact]
-    public void InputUpload_Ok()
+    public async Task InputUpload_Ok()
     {
         UploadFile? uploadFile = null;
         var cut = Context.RenderComponent<InputUpload<string>>(pb =>
@@ -27,7 +27,7 @@ public class UploadTest : BootstrapBlazorTestBase
         cut.Contains("value=\"test.jpg\"");
 
         var input = cut.FindComponent<InputFile>();
-        cut.InvokeAsync(() => input.Instance.OnChange.InvokeAsync(new InputFileChangeEventArgs(new List<MockBrowserFile>()
+        await cut.InvokeAsync(() => input.Instance.OnChange.InvokeAsync(new InputFileChangeEventArgs(new List<MockBrowserFile>()
         {
             new MockBrowserFile()
         })));
@@ -66,7 +66,7 @@ public class UploadTest : BootstrapBlazorTestBase
         cut.Contains("btn btn-delete");
 
         var button = cut.Find(".input-group button");
-        cut.InvokeAsync(() => button.Click());
+        await cut.InvokeAsync(() => button.Click());
         Assert.True(deleted);
 
         // IsDisable
