@@ -41,9 +41,9 @@
 
 <DemoBlock Title="默认展开和默认选中" Introduction="可将 <code>Tree</code> 的某些节点设置为默认展开或默认选中" Name="DefauleExpand">
     <p>
-        通过设置 <code>TreeItem</code> 对象的 <code>IsExpanded</code> 属性，来控制此节点是否默认为展开状态，本例中 <b>导航二</b> 与 <b>子菜单二</b> 默认为展开状态，其余节点默认为收缩状态
+        通过设置 <code>TreeItem</code> 对象的 <code>IsCollapsed</code> 属性，来控制此节点是否默认为展开状态，本例中 <b>导航二</b> 默认为展开状态，其余节点默认为收缩状态
     </p>
-    <Tree Items="@CheckedItems" ShowCheckbox="true" />
+    <Tree Items="@ExpandItems" ShowCheckbox="true" />
 </DemoBlock>
 
 <DemoBlock Title="显示图标" Introduction="通过设置 <code>ShowIcon</code> 来控制组件是否显示图标" Name="TreeDisplayIcon">

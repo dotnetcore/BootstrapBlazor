@@ -36,6 +36,8 @@ public sealed partial class Trees
 
     private List<TreeItem> CheckedItems { get; set; } = GetCheckedItems();
 
+    private List<TreeItem> ExpandItems { get; set; } = GetExpandItems();
+
     private List<TreeItem>? AsyncItems { get; set; }
 
     /// <summary>
@@ -58,6 +60,13 @@ public sealed partial class Trees
     {
         var ret = TreeDataFoo.GetTreeItems();
         ret[1].Items[1].Checked = true;
+        return ret;
+    }
+
+    private static List<TreeItem> GetExpandItems()
+    {
+        var ret = TreeDataFoo.GetTreeItems();
+        ret[1].IsCollapsed = false;
         return ret;
     }
 
@@ -297,11 +306,11 @@ public sealed partial class Trees
             DefaultValue = "false"
         },
         new AttributeItem() {
-            Name = "IsExpanded",
+            Name = "IsCollapsed",
             Description = "是否展开",
             Type = "bool",
             ValueList = "true|false",
-            DefaultValue = "false"
+            DefaultValue = "true"
         },
         new AttributeItem() {
             Name = nameof(TreeItem.Tag),
