@@ -10,7 +10,7 @@ namespace BootstrapBlazor.Components;
 public class ClipboardOption
 {
     /// <summary>
-    /// 获得/设置 要拷贝的文字
+    /// 获得/设置 要拷贝的文字 默认为 null
     /// </summary>
     public string? Text { get; set; }
 

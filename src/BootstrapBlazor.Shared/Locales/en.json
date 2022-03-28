@@ -2595,7 +2595,8 @@
     "ZIndex": "Layout",
     "Theme": "Theme",
     "GlobalException": "Global Exception",
-    "LayoutPage": "后台模拟器",
+    "LayoutPage": "Admin Template",
+    "FAIcon": "FontAwesome Icons",
     "Components": "COMPONENTS",
     "Client": "WebClientService",
     "LayoutComponents": "LAYOUTS",
@@ -2852,5 +2853,11 @@
     "OnClickText": "Click notification callback method name",
     "TitleSampleText": "You have a new logistics notification",
     "MessageSampleText": "Your package has arrived on Panama South Road, and there are only 3 stops left for distribution."
+  },
+  "BootstrapBlazor.Shared.Samples.FAIcons": {
+    "Title": "Font Awesome Icons",
+    "BaseUsageText": "<code> bootstrapblazor </code> uses <code> font awesome 4.7.0 </code> as the built-in icon library. All icons are as follows",
+    "SwitchButtonTextOff": "Click to copy",
+    "SwitchButtonTextOn": "Show Copy Dialog"
   }
 }

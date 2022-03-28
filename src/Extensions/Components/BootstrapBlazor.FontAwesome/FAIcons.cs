@@ -7,8 +7,9 @@ namespace BootstrapBlazor.FontAwesome;
 /// <summary>
 /// 
 /// </summary>
-internal static class FAIcons
+public static class FAIcons
 {
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
     public static new readonly string Equals = "fa-equals";
     public static readonly string Ad = "fa-ad";
     public static readonly string AddressBook = "fa-address-book";
@@ -1005,4 +1006,5 @@ internal static class FAIcons
     public static readonly string XRay = "fa-x-ray";
     public static readonly string YenSign = "fa-yen-sign";
     public static readonly string YinYang = "fa-yin-yang";
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 }

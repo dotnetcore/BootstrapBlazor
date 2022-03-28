@@ -1,0 +1,7 @@
+﻿@namespace BootstrapBlazor.Components
+@inherits TooltipComponentBase
+
+<a @onclick:preventDefault @onclick:stopPropagation @onclick="OnClickIcon" id="@Id">
+    <i class="@Name" aria-hidden="true"></i>
+    @ChildContent
+</a>

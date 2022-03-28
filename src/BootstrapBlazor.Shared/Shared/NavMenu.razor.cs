@@ -205,6 +205,12 @@ public sealed partial class NavMenu
             },
             new()
             {
+                IsNew = true,
+                Text = Localizer["FAIcon"],
+                Url = "fa-icons"
+            },
+            new()
+            {
                 Text = Localizer["LayoutPage"],
                 Url = "layout-page"
             }
