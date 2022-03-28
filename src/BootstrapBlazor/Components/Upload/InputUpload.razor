@@ -11,9 +11,9 @@
         <input type="text" class="@InputValueClassString" id="@Id" disabled="@Disabled" readonly placeholder="@PlaceHolder" value="@GetFileName(CurrentFile)" />
         @if (ShowDeleteButton)
         {
-            <Button class="@RemoveButtonClassString" IsDisabled="@IsDeleteButtonDisabled" Icon="@DeleteButtonIcon" Text="@DeleteButtonText" OnClick="@OnDeleteFile" />
+            <Button class="@RemoveButtonClassString" IsDisabled="@IsDeleteButtonDisabled" Icon="@DeleteButtonIcon" Text="@DeleteButtonText" OnClick="@OnDeleteFile" Color="Color.None" />
         }
-        <Button class="@BrowserButtonClassString" IsDisabled="@IsDisabled" Icon="@BrowserButtonIcon" Text="@BrowserButtonText" />
+        <Button class="@BrowserButtonClassString" IsDisabled="@IsDisabled" Icon="@BrowserButtonIcon" Text="@BrowserButtonText" Color="Color.None" />
     </div>
     <InputFile AdditionalAttributes="@GetUploadAdditionalAttributes()" OnChange="OnFileChange" />
 </div>
