@@ -68,9 +68,9 @@
     </div>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["Block7Title"]" Introduction="@Localizer["Block7Intro"]" Name="ViewModel">
+<DemoBlock Title="@Localizer["Block7Title"]" Introduction="@Localizer["Block7Intro"]" Name="ViewMode">
     <p>@((MarkupString)Localizer["P1"].Value)</p>
-    <DateTimePicker TValue="DateTime" ViewModel="DatePickerViewModel.DateTime" />
+    <DateTimePicker TValue="DateTime" ViewMode="DatePickerViewMode.DateTime" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["Block8Title"]" Introduction="@Localizer["Block8Intro"]" Name="NullValue">
@@ -109,7 +109,7 @@
 <DemoBlock Title="@Localizer["Block11Title"]" Introduction="@Localizer["Block12Title"]" Name="ViewModel">
     <div class="row g-3">
         <div class="col-12">
-            <DateTimePicker TValue="DateTime" ShowSidebar="true" ViewModel="DatePickerViewModel.DateTime" />
+            <DateTimePicker TValue="DateTime" ShowSidebar="true" ViewMode="DatePickerViewMode.DateTime" />
         </div>
     </div>
 </DemoBlock>
@@ -117,7 +117,7 @@
 <DemoBlock Title="@Localizer["Block12Title"]" Introduction="@Localizer["Block12Intro"]" Name="MinValue">
     <div class="row g-3">
         <div class="col-12">
-            <DateTimePicker TValue="DateTime" ViewModel="DatePickerViewModel.Date" Value="@(DateTime.Today.AddDays(3 - DateTime.Today.Day))"
+            <DateTimePicker TValue="DateTime" ViewMode="DatePickerViewMode.Date" Value="@(DateTime.Today.AddDays(3 - DateTime.Today.Day))"
                             MinValue="@(DateTime.Today.AddDays(1 - DateTime.Today.Day))" MaxValue="@(DateTime.Today.AddDays(46 - DateTime.Today.Day))" />
         </div>
     </div>

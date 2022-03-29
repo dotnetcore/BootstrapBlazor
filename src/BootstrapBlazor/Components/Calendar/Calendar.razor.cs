@@ -146,7 +146,7 @@ public partial class Calendar
     /// 获得/设置 是否显示周视图 默认为 CalendarVieModel.Month 月视图
     /// </summary>
     [Parameter]
-    public CalendarViewModel ViewModel { get; set; }
+    public CalendarViewMode ViewMode { get; set; }
 
     /// <summary>
     /// 获得/设置 周内容

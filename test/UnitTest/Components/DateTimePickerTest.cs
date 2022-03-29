@@ -154,7 +154,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         var cut = Context.RenderComponent<DatePickerBody>(builder =>
         {
             builder.Add(a => a.Value, DateTime.Now);
-            builder.Add(a => a.ViewModel, DatePickerViewModel.Year);
+            builder.Add(a => a.ViewMode, DatePickerViewMode.Year);
         });
 
         var labels = cut.FindAll(".date-picker-header-label");
@@ -169,7 +169,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
 
         cut.SetParametersAndRender(pb =>
         {
-            pb.Add(a => a.ViewModel, DatePickerViewModel.Month);
+            pb.Add(a => a.ViewMode, DatePickerViewMode.Month);
             pb.Add(a => a.Value, GetToday());
         });
 
@@ -334,7 +334,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
     {
         var cut = Context.RenderComponent<DatePickerBody>(builder =>
         {
-            builder.Add(a => a.ViewModel, DatePickerViewModel.DateTime);
+            builder.Add(a => a.ViewMode, DatePickerViewMode.DateTime);
             builder.Add(a => a.ShowFooter, true);
             builder.Add(a => a.Value, DateTime.Today.AddDays(-10));
         });
@@ -354,7 +354,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
     {
         var cut = Context.RenderComponent<DatePickerBody>(builder =>
         {
-            builder.Add(a => a.ViewModel, DatePickerViewModel.DateTime);
+            builder.Add(a => a.ViewMode, DatePickerViewMode.DateTime);
             builder.Add(a => a.ShowFooter, false);
             builder.Add(a => a.Value, DateTime.Today);
         });
@@ -370,7 +370,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
     {
         using var cut = Context.RenderComponent<DateTimePicker<DateTime>>(pb =>
         {
-            pb.Add(a => a.ViewModel, DatePickerViewModel.DateTime);
+            pb.Add(a => a.ViewMode, DatePickerViewMode.DateTime);
         });
 
         // 打开 Time 弹窗
@@ -495,15 +495,15 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
 
     #region TimeCell
     [Theory]
-    [InlineData(TimePickerCellViewModel.Hour)]
-    [InlineData(TimePickerCellViewModel.Minute)]
-    [InlineData(TimePickerCellViewModel.Second)]
-    public async Task TimeCell_Up(TimePickerCellViewModel viewMode)
+    [InlineData(TimePickerCellViewMode.Hour)]
+    [InlineData(TimePickerCellViewMode.Minute)]
+    [InlineData(TimePickerCellViewMode.Second)]
+    public async Task TimeCell_Up(TimePickerCellViewMode viewMode)
     {
         var valueChanged = false;
         var cut = Context.RenderComponent<TimePickerCell>(pb =>
         {
-            pb.Add(a => a.ViewModel, viewMode);
+            pb.Add(a => a.ViewMode, viewMode);
             pb.Add(a => a.Value, new TimeSpan(6, 6, 6));
             pb.Add(a => a.ValueChanged, v =>
             {
@@ -525,7 +525,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         var ts = new TimeSpan(23, 59, 59);
         var cut = Context.RenderComponent<TimePickerCell>(pb =>
         {
-            pb.Add(a => a.ViewModel, TimePickerCellViewModel.Second);
+            pb.Add(a => a.ViewMode, TimePickerCellViewMode.Second);
             pb.Add(a => a.Value, ts);
             pb.Add(a => a.ValueChanged, v =>
             {

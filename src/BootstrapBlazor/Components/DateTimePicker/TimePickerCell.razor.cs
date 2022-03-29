@@ -18,22 +18,22 @@ public partial class TimePickerCell : IDisposable
     /// 获得 当前样式名称
     /// </summary>
     private string? GetClassName(int index) => CssBuilder.Default("time-spinner-item")
-        .AddClass("prev", ViewModel switch
+        .AddClass("prev", ViewMode switch
         {
-            TimePickerCellViewModel.Hour => Value.Hours - 1 == index,
-            TimePickerCellViewModel.Minute => Value.Minutes - 1 == index,
+            TimePickerCellViewMode.Hour => Value.Hours - 1 == index,
+            TimePickerCellViewMode.Minute => Value.Minutes - 1 == index,
             _ => Value.Seconds - 1 == index
         })
-        .AddClass("active", ViewModel switch
+        .AddClass("active", ViewMode switch
         {
-            TimePickerCellViewModel.Hour => Value.Hours == index,
-            TimePickerCellViewModel.Minute => Value.Minutes == index,
+            TimePickerCellViewMode.Hour => Value.Hours == index,
+            TimePickerCellViewMode.Minute => Value.Minutes == index,
             _ => Value.Seconds == index
         })
-        .AddClass("next", ViewModel switch
+        .AddClass("next", ViewMode switch
         {
-            TimePickerCellViewModel.Hour => Value.Hours + 1 == index,
-            TimePickerCellViewModel.Minute => Value.Minutes + 1 == index,
+            TimePickerCellViewMode.Hour => Value.Hours + 1 == index,
+            TimePickerCellViewMode.Minute => Value.Minutes + 1 == index,
             _ => Value.Seconds + 1 == index
         })
         .Build();
@@ -41,9 +41,9 @@ public partial class TimePickerCell : IDisposable
     /// <summary>
     /// 获得 滚轮单元数据区间
     /// </summary>
-    private IEnumerable<int> Range => ViewModel switch
+    private IEnumerable<int> Range => ViewMode switch
     {
-        TimePickerCellViewModel.Hour => Enumerable.Range(0, 24),
+        TimePickerCellViewMode.Hour => Enumerable.Range(0, 24),
         _ => Enumerable.Range(0, 60)
     };
 
@@ -58,7 +58,7 @@ public partial class TimePickerCell : IDisposable
     /// 获得/设置 时间选择框视图模式
     /// </summary>
     [Parameter]
-    public TimePickerCellViewModel ViewModel { get; set; }
+    public TimePickerCellViewMode ViewMode { get; set; }
 
     /// <summary>
     /// 获得/设置 组件值
@@ -105,10 +105,10 @@ public partial class TimePickerCell : IDisposable
     [JSInvokable]
     public async Task OnClickUp()
     {
-        var ts = ViewModel switch
+        var ts = ViewMode switch
         {
-            TimePickerCellViewModel.Hour => TimeSpan.FromHours(1),
-            TimePickerCellViewModel.Minute => TimeSpan.FromMinutes(1),
+            TimePickerCellViewMode.Hour => TimeSpan.FromHours(1),
+            TimePickerCellViewMode.Minute => TimeSpan.FromMinutes(1),
             _ => TimeSpan.FromSeconds(1),
         };
         Value = Value.Subtract(ts);
@@ -128,10 +128,10 @@ public partial class TimePickerCell : IDisposable
     [JSInvokable]
     public async Task OnClickDown()
     {
-        var ts = ViewModel switch
+        var ts = ViewMode switch
         {
-            TimePickerCellViewModel.Hour => TimeSpan.FromHours(1),
-            TimePickerCellViewModel.Minute => TimeSpan.FromMinutes(1),
+            TimePickerCellViewMode.Hour => TimeSpan.FromHours(1),
+            TimePickerCellViewMode.Minute => TimeSpan.FromMinutes(1),
             _ => TimeSpan.FromSeconds(1)
         };
         Value = Value.Add(ts);
@@ -149,10 +149,10 @@ public partial class TimePickerCell : IDisposable
     private double CalcTranslateY()
     {
         var height = ItemHeightCallback?.Invoke() ?? 36.594d;
-        return 0 - ViewModel switch
+        return 0 - ViewMode switch
         {
-            TimePickerCellViewModel.Hour => (Value.Hours) * height,
-            TimePickerCellViewModel.Minute => (Value.Minutes) * height,
+            TimePickerCellViewMode.Hour => (Value.Hours) * height,
+            TimePickerCellViewMode.Minute => (Value.Minutes) * height,
             _ => (Value.Seconds) * height
         };
     }

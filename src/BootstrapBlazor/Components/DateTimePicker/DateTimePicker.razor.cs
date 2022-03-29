@@ -47,9 +47,9 @@ public sealed partial class DateTimePicker<TValue>
     /// <summary>
     /// 获得 Placeholder 显示字符串
     /// </summary>
-    private string? PlaceholderString => ViewModel switch
+    private string? PlaceholderString => ViewMode switch
     {
-        DatePickerViewModel.DateTime => DateTimePlaceHolderText,
+        DatePickerViewMode.DateTime => DateTimePlaceHolderText,
         _ => DatePlaceHolderText
     };
 
@@ -76,7 +76,7 @@ public sealed partial class DateTimePicker<TValue>
                 var t = (DateTime)(object)Value;
                 v = t;
             }
-            return ViewModel == DatePickerViewModel.Date ? v.Date : v;
+            return ViewMode == DatePickerViewMode.Date ? v.Date : v;
         }
         set
         {
@@ -105,7 +105,7 @@ public sealed partial class DateTimePicker<TValue>
     /// 获得/设置 组件显示模式 默认为显示年月日模式
     /// </summary>
     [Parameter]
-    public DatePickerViewModel ViewModel { get; set; }
+    public DatePickerViewMode ViewMode { get; set; }
 
     /// <summary>
     /// 获得/设置 是否显示快捷侧边栏 默认不显示
@@ -210,7 +210,7 @@ public sealed partial class DateTimePicker<TValue>
             var format = Format;
             if (string.IsNullOrEmpty(format))
             {
-                format = ViewModel == DatePickerViewModel.DateTime ? DateTimeFormat : DateFormat;
+                format = ViewMode == DatePickerViewMode.DateTime ? DateTimeFormat : DateFormat;
             }
 
             ret = ComponentValue.ToString(format);

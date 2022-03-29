@@ -75,49 +75,49 @@ public sealed partial class DatePickerBody
     /// 获得 年月日时分秒视图样式
     /// </summary>
     private string? DateTimeViewClassName => CssBuilder.Default("date-picker-time-header")
-        .AddClass("d-none", ViewModel != DatePickerViewModel.DateTime)
+        .AddClass("d-none", ViewMode != DatePickerViewMode.DateTime)
         .AddClass("is-open", ShowTimePicker)
         .Build();
     /// <summary>
     /// 获得 上一月按钮样式
     /// </summary>
     private string? PrevMonthClassName => CssBuilder.Default("picker-panel-icon-btn pick-panel-arrow-left")
-        .AddClass("d-none", CurrentViewModel == DatePickerViewModel.Year || CurrentViewModel == DatePickerViewModel.Month)
+        .AddClass("d-none", CurrentViewMode == DatePickerViewMode.Year || CurrentViewMode == DatePickerViewMode.Month)
         .Build();
 
     /// <summary>
     /// 获得 下一月按钮样式
     /// </summary>
     private string? NextMonthClassName => CssBuilder.Default("picker-panel-icon-btn pick-panel-arrow-right")
-        .AddClass("d-none", CurrentViewModel == DatePickerViewModel.Year || CurrentViewModel == DatePickerViewModel.Month)
+        .AddClass("d-none", CurrentViewMode == DatePickerViewMode.Year || CurrentViewMode == DatePickerViewMode.Month)
         .Build();
 
     /// <summary>
     /// 获得 年月日显示表格样式
     /// </summary>
     private string? DateViewClassName => CssBuilder.Default("date-table")
-        .AddClass("d-none", CurrentViewModel == DatePickerViewModel.Year || CurrentViewModel == DatePickerViewModel.Month)
+        .AddClass("d-none", CurrentViewMode == DatePickerViewMode.Year || CurrentViewMode == DatePickerViewMode.Month)
         .Build();
 
     /// <summary>
     /// 获得 年月日显示表格样式
     /// </summary>
     private string? YearViewClassName => CssBuilder.Default("year-table")
-        .AddClass("d-none", CurrentViewModel != DatePickerViewModel.Year)
+        .AddClass("d-none", CurrentViewMode != DatePickerViewMode.Year)
         .Build();
 
     /// <summary>
     /// 获得 年月日显示表格样式
     /// </summary>
     private string? MonthViewClassName => CssBuilder.Default("month-table")
-        .AddClass("d-none", CurrentViewModel != DatePickerViewModel.Month)
+        .AddClass("d-none", CurrentViewMode != DatePickerViewMode.Month)
         .Build();
 
     /// <summary>
     /// 获得 年月日显示表格样式
     /// </summary>
     private string? CurrentMonthViewClassName => CssBuilder.Default("date-picker-header-label")
-        .AddClass("d-none", CurrentViewModel != DatePickerViewModel.Date)
+        .AddClass("d-none", CurrentViewMode != DatePickerViewMode.Date)
         .Build();
 
     [NotNull]
@@ -126,9 +126,9 @@ public sealed partial class DatePickerBody
     /// <summary>
     /// 获得 年显示文字
     /// </summary>
-    private string? YearString => CurrentViewModel switch
+    private string? YearString => CurrentViewMode switch
     {
-        DatePickerViewModel.Year => GetYearPeriod(),
+        DatePickerViewMode.Year => GetYearPeriod(),
         _ => string.Format(YearText, CurrentDate.Year)
     };
 
@@ -153,13 +153,13 @@ public sealed partial class DatePickerBody
     /// <summary>
     /// 获得/设置 组件显示模式 默认为显示年月日模式
     /// </summary>
-    private DatePickerViewModel CurrentViewModel { get; set; }
+    private DatePickerViewMode CurrentViewMode { get; set; }
 
     /// <summary>
     /// 获得/设置 组件显示模式 默认为显示年月日模式
     /// </summary>
     [Parameter]
-    public DatePickerViewModel ViewModel { get; set; } = DatePickerViewModel.Date;
+    public DatePickerViewMode ViewMode { get; set; } = DatePickerViewMode.Date;
 
     /// <summary>
     /// 获得/设置 日期格式字符串 默认为 "yyyy-MM-dd"
@@ -340,7 +340,7 @@ public sealed partial class DatePickerBody
     {
         base.OnInitialized();
 
-        CurrentViewModel = ViewModel;
+        CurrentViewMode = ViewMode;
 
         // 计算开始与结束时间 每个组件显示 6 周数据
         if (Value == DateTime.MinValue)
@@ -380,7 +380,7 @@ public sealed partial class DatePickerBody
     private void OnClickPrevYear()
     {
         ShowTimePicker = false;
-        CurrentDate = CurrentViewModel == DatePickerViewModel.Year ? CurrentDate.GetSafeYearDateTime(-20) : CurrentDate.GetSafeYearDateTime(-1);
+        CurrentDate = CurrentViewMode == DatePickerViewMode.Year ? CurrentDate.GetSafeYearDateTime(-20) : CurrentDate.GetSafeYearDateTime(-1);
         Ranger?.UpdateStart(CurrentDate);
     }
 
@@ -400,7 +400,7 @@ public sealed partial class DatePickerBody
     private void OnClickNextYear()
     {
         ShowTimePicker = false;
-        CurrentDate = CurrentViewModel == DatePickerViewModel.Year ? CurrentDate.GetSafeYearDateTime(20) : CurrentDate.GetSafeYearDateTime(1);
+        CurrentDate = CurrentViewMode == DatePickerViewMode.Year ? CurrentDate.GetSafeYearDateTime(20) : CurrentDate.GetSafeYearDateTime(1);
         Ranger?.UpdateEnd(CurrentDate);
     }
 
@@ -449,10 +449,10 @@ public sealed partial class DatePickerBody
     /// 设置组件显示视图方法
     /// </summary>
     /// <param name="view"></param>
-    private Task SwitchView(DatePickerViewModel view)
+    private Task SwitchView(DatePickerViewMode view)
     {
         ShowTimePicker = false;
-        CurrentViewModel = view;
+        CurrentViewMode = view;
         StateHasChanged();
         return Task.CompletedTask;
     }
@@ -462,7 +462,7 @@ public sealed partial class DatePickerBody
     /// </summary>
     /// <param name="view"></param>
     /// <param name="d"></param>
-    private void SwitchView(DatePickerViewModel view, DateTime d)
+    private void SwitchView(DatePickerViewMode view, DateTime d)
     {
         CurrentDate = d;
         SwitchView(view);
@@ -542,9 +542,9 @@ public sealed partial class DatePickerBody
     /// </summary>
     private async Task ClickNowButton()
     {
-        Value = ViewModel switch
+        Value = ViewMode switch
         {
-            DatePickerViewModel.DateTime => DateTime.Now,
+            DatePickerViewMode.DateTime => DateTime.Now,
             _ => DateTime.Today
         };
         await ClickConfirmButton();
