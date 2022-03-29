@@ -29,7 +29,7 @@ public abstract class BootstrapServiceBase<TOption>
             : Cache.FirstOrDefault();
         if (Callback == null)
         {
-            throw new InvalidOperationException();
+            throw new InvalidOperationException($"{GetType().Name} not registerd");
         }
         await Callback.Invoke(option);
     }

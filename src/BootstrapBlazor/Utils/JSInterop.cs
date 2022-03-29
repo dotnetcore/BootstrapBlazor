@@ -34,9 +34,9 @@ public class JSInterop<TValue> : IDisposable where TValue : class
     {
         _objRef = DotNetObjectReference.Create(value);
         var paras = new List<object>()
-            {
-                _objRef
-            };
+        {
+            _objRef
+        };
         paras.AddRange(args);
         await _jsRuntime.InvokeVoidAsync(el, func, paras.ToArray());
     }
