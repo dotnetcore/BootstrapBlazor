@@ -16,17 +16,14 @@ public class SearchDialogOption<TModel> : DialogOption
     /// </summary>
     public SearchDialogOption()
     {
-        IsScrolling = true;
-        Size = Size.ExtraExtraLarge;
         ShowCloseButton = false;
         ShowFooter = false;
-        ShowLabel = true;
     }
 
     /// <summary>
     /// 获得/设置 是否显示标签 默认为 true 显示标签
     /// </summary>
-    public bool ShowLabel { get; set; }
+    public bool ShowLabel { get; set; } = true;
 
     /// <summary>
     /// 获得/设置 每行显示组件数量 默认为 null

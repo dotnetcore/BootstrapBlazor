@@ -4,24 +4,22 @@
 
 @if (BodyTemplate != null)
 {
-    @BodyTemplate.Invoke(Model)
-    @RenderFooter
+    <div class="form-body">
+        @BodyTemplate.Invoke(Model)
+    </div>
+    <div class="form-footer">
+        <Button Color="Color.Secondary" Icon="fa fa-trash-o" Text="@ResetButtonText" OnClickWithoutRender="@OnResetSearchClick" />
+        <Button Color="Color.Primary" Icon="fa fa-search" Text="@QueryButtonText" OnClickWithoutRender="@OnSearchClick" />
+    </div>
 }
 else
 {
     <CascadingValue Value="true" IsFixed="true" Name="IsSearch">
         <EditorForm TModel="TModel" Model="Model" Items="Items" RowType="RowType" ItemsPerRow="ItemsPerRow" LabelAlign="LabelAlign" ShowLabel="ShowLabel">
             <Buttons>
-                @RenderFooter
+                <Button Color="Color.Secondary" Icon="fa fa-trash-o" Text="@ResetButtonText" OnClickWithoutRender="@OnResetSearchClick" />
+                <Button Color="Color.Primary" Icon="fa fa-search" Text="@QueryButtonText" OnClickWithoutRender="@OnSearchClick" />
             </Buttons>
         </EditorForm>
     </CascadingValue>
-}
-
-@code {
-    RenderFragment RenderFooter =>
-    @<div class="modal-footer">
-        <Button Color="Color.Secondary" Icon="fa fa-trash-o" Text="@ResetButtonText" OnClickWithoutRender="@OnResetSearchClick" />
-        <Button Color="Color.Primary" Icon="fa fa-search" Text="@QueryButtonText" OnClickWithoutRender="@OnSearchClick" />
-    </div>;
 }

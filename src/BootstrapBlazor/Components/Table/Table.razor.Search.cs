@@ -154,7 +154,7 @@ public partial class Table<TItem>
     /// 获得/设置 搜索框的大小
     /// </summary>
     [Parameter]
-    public Size SearchDialogSize { get; set; } = Size.Large;
+    public Size SearchDialogSize { get; set; } = Size.ExtraExtraLarge;
 
     /// <summary>
     /// 获得/设置 搜索框是否可以拖拽 默认 false 不可以拖拽
@@ -184,6 +184,7 @@ public partial class Table<TItem>
 
         SearchDialogOption<TItem> CreateModelDialog() => new()
         {
+            Class = "modal-dialog-table",
             IsScrolling = ScrollingDialogContent,
             Title = SearchModalTitle,
             Model = SearchModel,
