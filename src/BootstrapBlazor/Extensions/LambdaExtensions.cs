@@ -246,6 +246,38 @@ public static class LambdaExtensions
         return Expression.AndAlso(Expression.NotEqual(left, Expression.Constant(null)), Expression.Call(left, method, right));
     }
 
+    #region Count
+    /// <summary>
+    /// Count 方法内部使用 Lambda 表达式做通用适配 可接受 IEnumerable 与 Array 子类
+    /// </summary>
+    /// <param name="value"></param>
+    /// <returns></returns>
+    public static int ElementCount(object? value) => CacheManager.ElementCount(value);
+
+    /// <summary>
+    /// Count 方法内部使用 Lambda 表达式做通用适配 可接受 IEnumerable 与 Array 子类
+    /// </summary>
+    /// <param name="type"></param>
+    /// <returns></returns>
+    public static Expression<Func<object, int>> CountLambda(Type type)
+    {
+        Expression<Func<object, int>> invoker = _ => 0;
+        var elementType = type.IsGenericType ? type.GetGenericArguments()[0] : type.GetElementType();
+        if (elementType != null)
+        {
+            var p1 = Expression.Parameter(typeof(object));
+            var method = typeof(Enumerable).GetMethods().FirstOrDefault(m => m.Name == nameof(Enumerable.Count) && m.GetGenericArguments().Length == 1);
+            if (method != null)
+            {
+                method = method.MakeGenericMethod(elementType);
+                var body = Expression.Call(method, Expression.Convert(p1, typeof(IEnumerable<>).MakeGenericType(elementType)));
+                invoker = Expression.Lambda<Func<object, int>>(body, p1);
+            }
+        }
+        return invoker;
+    }
+    #endregion
+
     #region Sort
     /// <summary>
     /// 获得排序 Expression 表达式

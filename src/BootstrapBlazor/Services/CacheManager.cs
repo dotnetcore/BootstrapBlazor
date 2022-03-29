@@ -101,6 +101,25 @@ internal class CacheManager : ICacheManager
         return ret;
     }
 
+    #region Count
+    public static int ElementCount(object? value)
+    {
+        var ret = 0;
+        if (value != null)
+        {
+            var type = value.GetType();
+            var cacheKey = $"Lambda-Count-{type.FullName}";
+            var invoker = Instance.GetOrCreate(cacheKey, entry =>
+            {
+                entry.SetDynamicAssemblyPolicy(type);
+                return LambdaExtensions.CountLambda(type).Compile();
+            });
+            ret = invoker(value);
+        }
+        return ret;
+    }
+    #endregion
+
     #region Localizer
     /// <summary>
     /// 通过指定类型创建 IStringLocalizer 实例
