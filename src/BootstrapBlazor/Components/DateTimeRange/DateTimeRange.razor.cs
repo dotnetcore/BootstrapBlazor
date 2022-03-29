@@ -10,7 +10,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 
 /// </summary>
-public sealed partial class DateTimeRange
+public partial class DateTimeRange
 {
     /// <summary>
     /// 获得 组件 DOM 实例
@@ -158,6 +158,8 @@ public sealed partial class DateTimeRange
     protected override void OnParametersSet()
     {
         base.OnParametersSet();
+
+        Value ??= new DateTimeRangeValue();
 
         StartValue = Value.Start;
         EndValue = Value.End;
