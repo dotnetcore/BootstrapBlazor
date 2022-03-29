@@ -492,4 +492,55 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         Assert.True(value);
     }
     #endregion
+
+    #region TimeCell
+    [Theory]
+    [InlineData(TimePickerCellViewModel.Hour)]
+    [InlineData(TimePickerCellViewModel.Minute)]
+    [InlineData(TimePickerCellViewModel.Second)]
+    public async Task TimeCell_Up(TimePickerCellViewModel viewMode)
+    {
+        var valueChanged = false;
+        var cut = Context.RenderComponent<TimePickerCell>(pb =>
+        {
+            pb.Add(a => a.ViewModel, viewMode);
+            pb.Add(a => a.Value, new TimeSpan(6, 6, 6));
+            pb.Add(a => a.ValueChanged, v =>
+            {
+                valueChanged = true;
+            });
+        });
+        var i = cut.Find(".time-spinner-arrow.fa-angle-up");
+        await cut.InvokeAsync(() => i.Click());
+        Assert.True(valueChanged);
+
+        i = cut.Find(".time-spinner-arrow.fa-angle-down");
+        await cut.InvokeAsync(() => i.Click());
+        Assert.True(valueChanged);
+    }
+
+    [Fact]
+    public async Task TimeCell_OverDay()
+    {
+        var ts = new TimeSpan(23, 59, 59);
+        var cut = Context.RenderComponent<TimePickerCell>(pb =>
+        {
+            pb.Add(a => a.ViewModel, TimePickerCellViewModel.Second);
+            pb.Add(a => a.Value, ts);
+            pb.Add(a => a.ValueChanged, v =>
+            {
+                ts = v;
+            });
+        });
+
+        var i = cut.Find(".time-spinner-arrow.fa-angle-down");
+        await cut.InvokeAsync(() => i.Click());
+        Assert.Equal(0, ts.Days);
+        Assert.Equal(TimeSpan.Zero, ts);
+
+        i = cut.Find(".time-spinner-arrow.fa-angle-up");
+        await cut.InvokeAsync(() => i.Click());
+        Assert.Equal(new TimeSpan(23, 59, 59), ts);
+    }
+    #endregion
 }

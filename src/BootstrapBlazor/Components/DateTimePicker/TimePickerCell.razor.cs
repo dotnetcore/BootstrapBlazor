@@ -109,15 +109,13 @@ public partial class TimePickerCell : IDisposable
         {
             TimePickerCellViewModel.Hour => TimeSpan.FromHours(1),
             TimePickerCellViewModel.Minute => TimeSpan.FromMinutes(1),
-            TimePickerCellViewModel.Second => TimeSpan.FromSeconds(1),
-            _ => TimeSpan.Zero
+            _ => TimeSpan.FromSeconds(1),
         };
         Value = Value.Subtract(ts);
         if (Value < TimeSpan.Zero)
         {
             Value = Value.Add(TimeSpan.FromHours(24));
         }
-
         if (ValueChanged.HasDelegate)
         {
             await ValueChanged.InvokeAsync(Value);
