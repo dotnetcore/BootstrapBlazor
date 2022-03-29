@@ -18,13 +18,13 @@ public partial class InputUpload<TValue>
         .AddClass(CssClass).AddClass(ValidCss)
         .Build();
 
-    private string? RemoveButtonClassString => CssBuilder.Default("btn")
+    private string? RemoveButtonClassString => CssBuilder.Default()
         .AddClass(DeleteButtonClass)
         .Build();
 
     private bool IsDeleteButtonDisabled => IsDisabled || CurrentFile == null;
 
-    private string? BrowserButtonClassString => CssBuilder.Default("btn btn-browser")
+    private string? BrowserButtonClassString => CssBuilder.Default("btn-browser")
         .AddClass(BrowserButtonClass)
         .Build();
 
