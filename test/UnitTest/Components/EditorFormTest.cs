@@ -3,6 +3,7 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using BootstrapBlazor.Shared;
+using Microsoft.Extensions.DependencyInjection;
 using System.ComponentModel.DataAnnotations;
 
 namespace UnitTest.Components;
@@ -302,6 +303,54 @@ public class EditorFormTest : BootstrapBlazorTestBase
         });
         var display = cut.FindComponent<Display<string>>();
         Assert.Equal(showTooltip, display.Instance.ShowLabelTooltip);
+    }
+
+    [Fact]
+    public void Order_Ok()
+    {
+        var foo = new Foo();
+        var cut = Context.RenderComponent<EditorForm<Foo>>(pb =>
+        {
+            pb.Add(a => a.Model, foo);
+            pb.Add(a => a.AutoGenerateAllItem, false);
+            pb.Add(a => a.FieldItems, f => builder =>
+            {
+                var index = 0;
+                builder.OpenComponent<EditorItem<Foo, string>>(index++);
+                builder.AddAttribute(index++, nameof(EditorItem<Foo, string>.Field), f.Name);
+                builder.AddAttribute(index++, nameof(EditorItem<Foo, string>.FieldExpression), Utility.GenerateValueExpression(foo, nameof(Foo.Name), typeof(string)));
+                builder.AddAttribute(index++, nameof(EditorItem<Foo, string>.Text), "Test-Text");
+                builder.AddAttribute(index++, nameof(EditorItem<Foo, string>.Order), 1);
+                builder.CloseComponent();
+            });
+        });
+        var item = cut.FindComponent<EditorItem<Foo, string>>();
+        Assert.Equal(1, item.Instance.Order);
+    }
+
+    [Fact]
+    public void LookUpServiceKey_Ok()
+    {
+        var foo = new Foo();
+        var cut = Context.RenderComponent<EditorForm<Foo>>(pb =>
+        {
+            pb.Add(a => a.Model, foo);
+            pb.Add(a => a.AutoGenerateAllItem, false);
+            pb.Add(a => a.FieldItems, f => builder =>
+            {
+                var index = 0;
+                builder.OpenComponent<EditorItem<Foo, string>>(index++);
+                builder.AddAttribute(index++, nameof(EditorItem<Foo, string>.Field), f.Name);
+                builder.AddAttribute(index++, nameof(EditorItem<Foo, string>.FieldExpression), Utility.GenerateValueExpression(foo, nameof(Foo.Name), typeof(string)));
+                builder.AddAttribute(index++, nameof(EditorItem<Foo, string>.Text), "Test-Text");
+                builder.AddAttribute(index++, nameof(EditorItem<Foo, string>.LookUpServiceKey), "FooLookup");
+                builder.CloseComponent();
+            });
+        });
+        var select = cut.FindComponent<Select<string>>();
+        var lookupService = Context.Services.GetRequiredService<ILookUpService>();
+        var lookup = lookupService.GetItemsByKey("FooLookup");
+        Assert.Equal(lookup!.Count(), select.Instance.Items.Count());
     }
 
     private static RenderFragment<Foo> GenerateEditorItems(Foo foo) => f => builder =>
