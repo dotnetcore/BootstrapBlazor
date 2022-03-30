@@ -278,6 +278,32 @@ public class EditorFormTest : BootstrapBlazorTestBase
         Assert.Equal(showTooltip, display.Instance.ShowLabelTooltip);
     }
 
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void EditorItem_ShowLabelTooltip_Ok(bool showTooltip)
+    {
+        var foo = new Foo();
+        var cut = Context.RenderComponent<EditorForm<Foo>>(pb =>
+        {
+            pb.Add(a => a.Model, foo);
+            pb.Add(a => a.AutoGenerateAllItem, false);
+            pb.Add(a => a.FieldItems, f => builder =>
+            {
+                var index = 0;
+                builder.OpenComponent<EditorItem<Foo, string>>(index++);
+                builder.AddAttribute(index++, nameof(EditorItem<Foo, string>.Field), f.Name);
+                builder.AddAttribute(index++, nameof(EditorItem<Foo, string>.FieldExpression), Utility.GenerateValueExpression(foo, nameof(Foo.Name), typeof(string)));
+                builder.AddAttribute(index++, nameof(EditorItem<Foo, string>.Readonly), true);
+                builder.AddAttribute(index++, nameof(EditorItem<Foo, string>.Text), "Test-Text");
+                builder.AddAttribute(index++, nameof(EditorItem<Foo, string>.ShowLabelTooltip), showTooltip);
+                builder.CloseComponent();
+            });
+        });
+        var display = cut.FindComponent<Display<string>>();
+        Assert.Equal(showTooltip, display.Instance.ShowLabelTooltip);
+    }
+
     private static RenderFragment<Foo> GenerateEditorItems(Foo foo) => f => builder =>
     {
         builder.OpenComponent<EditorItem<Foo, string>>(0);

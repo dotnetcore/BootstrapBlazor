@@ -279,6 +279,6 @@ internal class InternalTableColumn : ITableColumn
         if (!source.Visible) dest.Visible = source.Visible;
         if (source.Width != null) dest.Width = source.Width;
         if (source.ValidateRules != null) dest.ValidateRules = source.ValidateRules;
-        if (source.ValidateRules != null) dest.ShowLabelTooltip = source.ShowLabelTooltip;
+        if (source.ShowLabelTooltip != null) dest.ShowLabelTooltip = source.ShowLabelTooltip;
     }
 }

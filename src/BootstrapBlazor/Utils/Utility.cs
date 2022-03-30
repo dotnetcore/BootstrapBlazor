@@ -259,6 +259,7 @@ public static class Utility
             builder.AddAttribute(1, nameof(Switch.Value), fieldValue);
             builder.AddAttribute(2, nameof(Switch.IsDisabled), true);
             builder.AddAttribute(3, nameof(Switch.DisplayText), displayName);
+            builder.AddAttribute(4, nameof(Switch.ShowLabelTooltip), item.ShowLabelTooltip);
             builder.CloseComponent();
         }
         else
@@ -268,6 +269,7 @@ public static class Utility
             builder.AddAttribute(2, nameof(Display<string>.Value), fieldValue);
             builder.AddAttribute(3, nameof(Display<string>.ValueExpression), valueExpression);
             builder.AddAttribute(4, nameof(Display<string>.LookUpServiceKey), item.LookUpServiceKey);
+            builder.AddAttribute(5, nameof(Display<string>.ShowLabelTooltip), item.ShowLabelTooltip);
             builder.CloseComponent();
         }
     }
@@ -310,36 +312,41 @@ public static class Utility
             {
                 builder.AddAttribute(6, nameof(ValidateBase<string>.ValidateRules), item.ValidateRules);
             }
+
+            if (item.ShowLabelTooltip != null)
+            {
+                builder.AddAttribute(7, nameof(ValidateBase<string>.ShowLabelTooltip), item.ShowLabelTooltip);
+            }
         }
 
         if (IsCheckboxList(fieldType, componentType) && item.Items != null)
         {
-            builder.AddAttribute(7, nameof(CheckboxList<IEnumerable<string>>.Items), item.Items.Clone());
+            builder.AddAttribute(8, nameof(CheckboxList<IEnumerable<string>>.Items), item.Items.Clone());
         }
 
         // Lookup
         if (lookup != null && item.Items == null)
         {
-            builder.AddAttribute(8, nameof(Select<SelectedItem>.Items), lookup.Clone());
+            builder.AddAttribute(9, nameof(Select<SelectedItem>.Items), lookup.Clone());
         }
 
         // 增加非枚举类,手动设定 ComponentType 为 Select 并且 Data 有值 自动生成下拉框
         if (item.Items != null && item.ComponentType == typeof(Select<>).MakeGenericType(fieldType))
         {
-            builder.AddAttribute(9, nameof(Select<SelectedItem>.Items), item.Items.Clone());
+            builder.AddAttribute(10, nameof(Select<SelectedItem>.Items), item.Items.Clone());
         }
 
         // 设置 SkipValidate 参数
         if (IsValidatableComponent(componentType))
         {
-            builder.AddAttribute(10, nameof(IEditorItem.SkipValidate), item.SkipValidate);
+            builder.AddAttribute(11, nameof(IEditorItem.SkipValidate), item.SkipValidate);
         }
 
-        builder.AddMultipleAttributes(11, CreateMultipleAttributes(fieldType, model, fieldName, item));
+        builder.AddMultipleAttributes(12, CreateMultipleAttributes(fieldType, model, fieldName, item));
 
         if (item.ComponentParameters != null)
         {
-            builder.AddMultipleAttributes(12, item.ComponentParameters);
+            builder.AddMultipleAttributes(13, item.ComponentParameters);
         }
         builder.CloseComponent();
     }
