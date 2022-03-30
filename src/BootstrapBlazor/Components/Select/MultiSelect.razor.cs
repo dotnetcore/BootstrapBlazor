@@ -264,7 +264,7 @@ public partial class MultiSelect<TValue>
                 var validationContext = new ValidationContext(Value!) { MemberName = FieldIdentifier?.FieldName };
                 var validationResults = new List<ValidationResult>();
 
-                ValidateProperty(SelectedItems.Count(), validationContext, validationResults);
+                await ValidateProperty(SelectedItems.Count(), validationContext, validationResults);
                 ToggleMessage(validationResults, true);
             }
 

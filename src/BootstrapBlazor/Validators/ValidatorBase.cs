@@ -26,7 +26,7 @@ public abstract class ValidatorBase : IValidator
     /// <param name="propertyValue"></param>
     /// <param name="context"></param>
     /// <param name="results"></param>
-    public abstract void Validate(object? propertyValue, ValidationContext context, List<ValidationResult> results);
+    public abstract Task Validate(object? propertyValue, ValidationContext context, List<ValidationResult> results);
 
     /// <summary>
     /// 获得当前验证规则资源文件中 Key 格式
