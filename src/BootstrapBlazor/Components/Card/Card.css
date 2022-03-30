@@ -5,10 +5,6 @@
     cursor: pointer;
 }
 
-.card .card-title {
-    margin: 0 0 0 1rem;
-}
-
 .card .card-collapse-arrow {
     transition: transform .3s linear;
 }
