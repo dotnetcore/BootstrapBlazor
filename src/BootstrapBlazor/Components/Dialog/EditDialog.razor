@@ -5,10 +5,15 @@
 <ValidateForm Model="@Model" OnValidSubmit="@OnValidSubmitAsync">
     @if (BodyTemplate != null)
     {
-        @BodyTemplate.Invoke(Model)
+        <div class="form-body">
+            @BodyTemplate.Invoke(Model)
+        </div>
         @if (!IsTracking)
         {
-            @RenderFooter
+            <div class="form-footer">
+                <Button Color="Color.Secondary" Icon="fa fa-times" Text="@CloseButtonText" OnClickWithoutRender="OnClose" />
+                <Button Color="Color.Primary" ButtonType="ButtonType.Submit" Icon="fa fa-save" Text="@SaveButtonText" />
+            </div>
         }
     }
     else
@@ -17,7 +22,8 @@
             <Buttons>
                 @if (!IsTracking)
                 {
-                    @RenderFooter
+                    <Button Color="Color.Secondary" Icon="fa fa-times" Text="@CloseButtonText" OnClickWithoutRender="OnClose" />
+                    <Button Color="Color.Primary" ButtonType="ButtonType.Submit" Icon="fa fa-save" Text="@SaveButtonText" />
                 }
             </Buttons>
         </EditorForm>
@@ -26,11 +32,3 @@
 <div class="form-loader" @ref="SpinnerElement">
     <Spinner Color="Color.Primary" />
 </div>
-
-@code {
-    RenderFragment RenderFooter =>
-    @<div class="modal-footer">
-        <Button Color="Color.Secondary" Icon="fa fa-times" Text="@CloseButtonText" OnClickWithoutRender="OnClose" />
-        <Button Color="Color.Primary" ButtonType="ButtonType.Submit" Icon="fa fa-save" Text="@SaveButtonText" />
-    </div>;
-}

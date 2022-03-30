@@ -16,12 +16,12 @@
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["ViewModelTitle"]" Introduction="@Localizer["ViewModelIntro"]" Name="ViewModel">
-    <Calendar ViewModel="CalendarViewModel.Week" />
+    <Calendar ViewMode="CalendarViewMode.Week" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["AppTitle"]" Introduction="@Localizer["AppIntro"]" Name="App">
     <p>@((MarkupString)Localizer["AppText"].Value)</p>
-    <Calendar ViewModel="CalendarViewModel.Week">
+    <Calendar ViewMode="CalendarViewMode.Week">
         <tr>
             <td class="none">@Localizer["None"]</td>
             <td rowspan="4"><div class="less ch">@Localizer["Chinese"]</div></td>

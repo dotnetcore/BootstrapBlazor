@@ -1,17 +1,25 @@
 ﻿@namespace BootstrapBlazor.Components
 @inherits ClosableDialogBase
 
-<Row ItemsPerRow="ItemsPerRow.One">
-    <BootstrapLabel Value="选择的图标"></BootstrapLabel>
-    <BootstrapInputGroup>
-        <BootstrapInputGroupIcon Icon="@IconName"></BootstrapInputGroupIcon>
-        <Display Value="@IconName"></Display>
-        <Button Text="点击复制" OnClickWithoutRender="OnClickCopyIcon" @ref="ButtonIcon"></Button>
-    </BootstrapInputGroup>
-    <BootstrapLabel Value="完整文本"></BootstrapLabel>
-    <BootstrapInputGroup>
-        <BootstrapInputGroupIcon Icon="@IconName"></BootstrapInputGroupIcon>
-        <Display Value="@IconFullName"></Display>
-        <Button Text="点击复制" OnClickWithoutRender="OnClickCopyFullIcon" @ref="ButtonFullIcon"></Button>
-    </BootstrapInputGroup>
-</Row>
+<div class="row g-3" @ref="IconDialogElement">
+    <div class="col-12">
+        <label class="form-label">选择图标</label>
+        <div class="input-group">
+            <div class="input-group-text">
+                <i class="@IconName"></i>
+            </div>
+            <div class="form-control is-display">@IconName</div>
+            <button type="button" class="btn btn-primary" role="button">点击复制</button>
+        </div>
+    </div>
+    <div class="col-12">
+        <label class="form-label">完整文本</label>
+        <div class="input-group">
+            <div class="input-group-text">
+                <i class="@IconName"></i>
+            </div>
+            <div class="form-control is-display">@IconFullName</div>
+            <button type="button" class="btn btn-primary" role="button">点击复制</button>
+        </div>
+    </div>
+</div>

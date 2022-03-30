@@ -9,84 +9,34 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 
 /// </summary>
-public partial class IconDialog : IAsyncDisposable
+public partial class IconDialog
 {
-    [Inject]
-    [NotNull]
-    private ClipboardService? ClipboardService { get; set; }
-
     /// <summary>
     /// 
     /// </summary>
     [Parameter]
+    [NotNull]
+#if NET6_0_OR_GREATER
+    [EditorRequired]
+#endif
     public string? IconName { get; set; }
-
-    [NotNull]
-    private Button? ButtonIcon { get; set; }
-
-    [NotNull]
-    private Button? ButtonFullIcon { get; set; }
 
     private string IconFullName => $"<i class=\"{IconName}\" aria-hidden=\"true\"></i>";
 
-    private CancellationTokenSource CopyIconTokenSource { get; } = new();
-
-    private CancellationTokenSource CopyFullIconTokenSource { get; } = new();
-
-    private Task OnClickCopyIcon() => ClipboardService.Copy(IconName, async () =>
-    {
-        await ButtonIcon.ShowTooltip("拷贝成功");
-        try
-        {
-            await Task.Delay(1000, CopyIconTokenSource.Token);
-            await ButtonIcon.RemoveTooltip();
-        }
-        catch (TaskCanceledException)
-        {
-
-        }
-    });
-
-    private Task OnClickCopyFullIcon() => ClipboardService.Copy(IconFullName, async () =>
-    {
-        await ButtonFullIcon.ShowTooltip("拷贝成功");
-        try
-        {
-            await Task.Delay(1000, CopyFullIconTokenSource.Token);
-            await ButtonFullIcon.RemoveTooltip();
-        }
-        catch (TaskCanceledException)
-        {
-
-        }
-    });
-
-    private async Task OnClickClose()
-    {
-        if (OnClose != null)
-        {
-            await OnClose();
-        }
-    }
+    private ElementReference IconDialogElement { get; set; }
 
     /// <summary>
-    /// 
+    /// OnAfterRenderAsync 方法
     /// </summary>
+    /// <param name="firstRender"></param>
     /// <returns></returns>
-    public async ValueTask DisposeAsync()
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        if (CopyIconTokenSource.IsCancellationRequested)
-        {
-            await ButtonIcon.RemoveTooltip();
-        }
-        CopyIconTokenSource.Dispose();
+        await base.OnAfterRenderAsync(firstRender);
 
-        if (CopyFullIconTokenSource.IsCancellationRequested)
+        if (firstRender)
         {
-            await ButtonFullIcon.RemoveTooltip();
+            await JSRuntime.InvokeVoidAsync(IconDialogElement, "bb_iconDialog");
         }
-        CopyFullIconTokenSource.Dispose();
-
-        GC.SuppressFinalize(this);
     }
 }

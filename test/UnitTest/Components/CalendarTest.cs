@@ -24,7 +24,7 @@ public class CalendarTest : BootstrapBlazorTestBase
     {
         var cut = Context.RenderComponent<Calendar>(builder =>
         {
-            builder.Add(s => s.ViewModel, CalendarViewModel.Week);
+            builder.Add(s => s.ViewMode, CalendarViewMode.Week);
             builder.Add(a => a.ChildContent, CreateComponent());
         });
         Assert.Contains("test", cut.Markup);
@@ -85,7 +85,7 @@ public class CalendarTest : BootstrapBlazorTestBase
     [Fact]
     public void OnChangeWeek_Ok()
     {
-        var cut = Context.RenderComponent<Calendar>(builder => builder.Add(s => s.ViewModel, CalendarViewModel.Week));
+        var cut = Context.RenderComponent<Calendar>(builder => builder.Add(s => s.ViewMode, CalendarViewMode.Week));
         Assert.Contains("table-week", cut.Markup);
 
         var buttons = cut.FindAll(".calendar-button-group button");

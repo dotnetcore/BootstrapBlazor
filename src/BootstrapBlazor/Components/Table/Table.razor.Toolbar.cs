@@ -469,7 +469,7 @@ public partial class Table<TItem>
     /// 编辑框的大小
     /// </summary>
     [Parameter]
-    public Size EditDialogSize { get; set; } = Size.Large;
+    public Size EditDialogSize { get; set; } = Size.ExtraExtraLarge;
 
     /// <summary>
     /// 获得/设置 编辑框是否可以拖拽 默认 false 不可以拖拽
@@ -490,6 +490,7 @@ public partial class Table<TItem>
     {
         var option = new EditDialogOption<TItem>()
         {
+            Class = "modal-dialog-table",
             IsTracking = IsTracking,
             IsScrolling = ScrollingDialogContent,
             IsKeyboard = IsKeyboard,

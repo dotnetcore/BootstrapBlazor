@@ -2,7 +2,7 @@
 @inherits BootstrapComponentBase
 
 <div class="calendar">
-    @if (ViewModel == CalendarViewModel.Month)
+    @if (ViewMode == CalendarViewMode.Month)
     {
         <div class="calendar-header">
             <div class="calendar-title">@GetTitle()</div>

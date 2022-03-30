@@ -14,28 +14,30 @@
 }
 else
 {
-    <div class="@FormClassString">
-        <CascadingValue Value="this" Name="EidtorForm">
-            @foreach (var item in FormItems)
-            {
-                var render = GetRenderTemplate(item);
-                @if (render != null)
+    <div class="form-body">
+        <div class="@FormClassString">
+            <CascadingValue Value="this" Name="EidtorForm">
+                @foreach (var item in FormItems)
                 {
-                    @render(Model)
+                    var render = GetRenderTemplate(item);
+                    @if (render != null)
+                    {
+                        @render(Model)
+                    }
+                    else
+                    {
+                        <div class="@GetCssString(item)">
+                            @AutoGenerateTemplate(item)
+                        </div>
+                    }
                 }
-                else
-                {
-                    <div class="@GetCssString(item)">
-                        @AutoGenerateTemplate(item)
-                    </div>
-                }
-            }
-        </CascadingValue>
-        @if (Buttons != null)
-        {
-            <div class="col-12">
-                @Buttons
-            </div>
-        }
+            </CascadingValue>
+        </div>
     </div>
+    @if (Buttons != null)
+    {
+        <div class="form-footer">
+            @Buttons
+        </div>
+    }
 }

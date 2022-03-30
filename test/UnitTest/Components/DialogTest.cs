@@ -6,7 +6,7 @@ using BootstrapBlazor.Shared;
 
 namespace UnitTest.Components;
 
-public class DialogTest : BootstrapBlazorTestBase
+public class DialogTest : DialogTestBase
 {
     [Fact]
     public void Show_Ok()

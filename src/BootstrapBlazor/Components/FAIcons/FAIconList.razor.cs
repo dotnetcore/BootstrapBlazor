@@ -3,6 +3,7 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 
 namespace BootstrapBlazor.Components;
 
@@ -12,6 +13,12 @@ namespace BootstrapBlazor.Components;
 public partial class FAIconList
 {
     private ElementReference IconListElement { get; set; }
+
+    private string? ClassString => CssBuilder.Default("icon-list")
+        .AddClass("is-catalog", ShowCatalog)
+        .AddClass("is-dialog", ShowCopyDialog)
+        .AddClassFromAttributes(AdditionalAttributes)
+        .Build();
 
     /// <summary>
     /// 获得/设置 点击时是否显示高级拷贝弹窗 默认 false 直接拷贝到粘贴板
@@ -25,7 +32,11 @@ public partial class FAIconList
     [Parameter]
     public bool ShowCatalog { get; set; }
 
-    private bool InitCatalog { get; set; }
+    [Inject]
+    [NotNull]
+    private DialogService? DialogService { get; set; }
+
+    private JSInterop<FAIconList>? Interop { get; set; }
 
     /// <summary>
     /// OnAfterRenderAsync 方法
@@ -36,13 +47,20 @@ public partial class FAIconList
     {
         await base.OnAfterRenderAsync(firstRender);
 
-        if (ShowCatalog)
+        if (firstRender)
         {
-            if (!InitCatalog)
-            {
-                InitCatalog = true;
-                await JSRuntime.InvokeVoidAsync(IconListElement, "bb_iconList");
-            }
+            Interop ??= new(JSRuntime);
+            await Interop.InvokeVoidAsync(this, IconListElement, "bb_iconList", nameof(ShowDialog));
         }
     }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
+    [JSInvokable]
+    public Task ShowDialog(string text) => DialogService.ShowCloseDialog<IconDialog>("请选择图标", parameters =>
+    {
+        parameters.Add(nameof(IconDialog.IconName), text);
+    });
 }

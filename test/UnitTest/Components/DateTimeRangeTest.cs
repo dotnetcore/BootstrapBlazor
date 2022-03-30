@@ -93,6 +93,13 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void NullValue_Ok()
+    {
+        var cut = Context.RenderComponent<DateTimeRange>();
+        Assert.NotNull(cut.Instance.Value);
+    }
+
+    [Fact]
     public void ShowSidebar_Ok()
     {
         var cut = Context.RenderComponent<DateTimeRange>(builder =>

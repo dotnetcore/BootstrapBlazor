@@ -38,8 +38,8 @@
                     </button>
                 }
                 <div class="d-flex align-items-center justify-content-center flex-fill">
-                    <DynamicElement TagName="span" role="button" class="date-picker-header-label" TriggerClick="@(Ranger == null)" OnClick="@(() => SwitchView(DatePickerViewModel.Year))">@YearString</DynamicElement>
-                    <DynamicElement TagName="span" role="button" class="@CurrentMonthViewClassName" TriggerClick="@(Ranger == null)" OnClick="@(() => SwitchView(DatePickerViewModel.Month))">@MonthString</DynamicElement>
+                    <DynamicElement TagName="span" role="button" class="date-picker-header-label" TriggerClick="@(Ranger == null)" OnClick="@(() => SwitchView(DatePickerViewMode.Year))">@YearString</DynamicElement>
+                    <DynamicElement TagName="span" role="button" class="@CurrentMonthViewClassName" TriggerClick="@(Ranger == null)" OnClick="@(() => SwitchView(DatePickerViewMode.Month))">@MonthString</DynamicElement>
                 </div>
                 @if (ShowRightButtons)
                 {
@@ -108,7 +108,7 @@
                                         else
                                         {
                                             <div>
-                                                <DatePickerCell Value="@GetYear(year)" Text="@GetYearText(year)" OnClick="d => SwitchView(DatePickerViewModel.Month, d)" />
+                                                <DatePickerCell Value="@GetYear(year)" Text="@GetYearText(year)" OnClick="d => SwitchView(DatePickerViewMode.Month, d)" />
                                             </div>
                                         }
                                     </td>
@@ -127,7 +127,7 @@
                                     var month = index + row * 4 + 1;
                                     <td class="@GetMonthClassName(month)">
                                         <div>
-                                            <DatePickerCell Value="@GetMonth(month)" Text="@GetMonthText(month)" OnClick="d => SwitchView(DatePickerViewModel.Date, d)" />
+                                            <DatePickerCell Value="@GetMonth(month)" Text="@GetMonthText(month)" OnClick="d => SwitchView(DatePickerViewMode.Date, d)" />
                                         </div>
                                     </td>
                                 }

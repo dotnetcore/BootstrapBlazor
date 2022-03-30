@@ -744,3 +744,31 @@ form .table .table-cell > textarea {
     height: 21px;
     border-radius: 0.25rem;
 }
+
+.modal-dialog-table.modal-dialog-scrollable .modal-body {
+    display: flex;
+    flex-direction: column;
+}
+
+    .modal-dialog-table.modal-dialog-scrollable .modal-body > form {
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+    }
+
+    .modal-dialog-table.modal-dialog-scrollable .modal-body .form-body {
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+.modal-body .form-footer {
+    margin: 1rem -1rem 0 -1rem;
+    padding: 1rem 1rem 0 1rem;
+    border-top: 1px solid #dee2e6;
+    text-align: right;
+}
+
+    .modal-body .form-footer button:not(:last-child) {
+        margin-right: .25rem;
+    }
