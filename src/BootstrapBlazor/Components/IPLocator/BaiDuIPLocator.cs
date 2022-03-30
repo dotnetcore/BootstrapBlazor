@@ -5,12 +5,12 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-///
+/// 百度搜索引擎 IP 定位器
 /// </summary>
 public class BaiDuIPLocator : DefaultIPLocator
 {
     /// <summary>
-    /// 
+    /// 构造函数
     /// </summary>
     public BaiDuIPLocator()
     {
@@ -18,39 +18,39 @@ public class BaiDuIPLocator : DefaultIPLocator
     }
 
     /// <summary>
-    /// 详细地址信息
+    /// 获得/设置 详细地址信息
     /// </summary>
     public IEnumerable<LocationInfo>? Data { get; set; }
 
     /// <summary>
-    /// 结果状态返回码
+    /// 获得/设置 结果状态返回码 为 0 时通讯正常
     /// </summary>
     public string? Status { get; set; }
 
     /// <summary>
-    ///
+    /// 定位方法
     /// </summary>
     /// <param name="option"></param>
     /// <returns></returns>
     public override Task<string?> Locate(IPLocatorOption option) => Locate<BaiDuIPLocator>(option);
 
     /// <summary>
-    ///
+    /// ToString 方法
     /// </summary>
     /// <returns></returns>
     public override string ToString()
     {
-        return Status == "0" ? (Data?.FirstOrDefault()?.Location ?? "XX XX") : "Error";
+        return Status == "0" ? (Data?.FirstOrDefault().Location ?? "XX XX") : "Error";
     }
 }
 
 /// <summary>
-/// 
+/// LocationInfo 结构体
 /// </summary>
-public class LocationInfo
+public struct LocationInfo
 {
     /// <summary>
-    /// 
+    /// 获得/设置 定位信息
     /// </summary>
     public string? Location { get; set; }
 }

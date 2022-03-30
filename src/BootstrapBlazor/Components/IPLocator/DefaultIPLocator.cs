@@ -29,7 +29,7 @@ public class DefaultIPLocator : IIPLocator
     /// </summary>
     /// <param name="option"></param>
     /// <returns></returns>
-    protected async Task<string?> Locate<T>(IPLocatorOption option) where T : class
+    protected virtual async Task<string?> Locate<T>(IPLocatorOption option) where T : class
     {
         string? ret = null;
         try
@@ -39,7 +39,10 @@ public class DefaultIPLocator : IIPLocator
                 var url = string.Format(Url, option.IP);
                 using var token = new CancellationTokenSource(option.RequestTimeout);
                 var result = await option.HttpClient.GetFromJsonAsync<T>(url, token.Token);
-                ret = result?.ToString();
+                if (result != null)
+                {
+                    ret = result.ToString();
+                }
             }
         }
         catch (Exception ex)
