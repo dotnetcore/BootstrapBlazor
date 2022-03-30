@@ -478,10 +478,10 @@ public partial class Table<TItem>
     public bool EditDialogIsDraggable { get; set; }
 
     /// <summary>
-    /// 获得/设置 编辑框是否显示最大化按钮 默认 false 不显示
+    /// 获得/设置 编辑框是否显示最大化按钮 默认 true 不显示
     /// </summary>
     [Parameter]
-    public bool EditDialogShowMaximizeButton { get; set; }
+    public bool EditDialogShowMaximizeButton { get; set; } = true;
 
     /// <summary>
     /// 弹出编辑对话框方法

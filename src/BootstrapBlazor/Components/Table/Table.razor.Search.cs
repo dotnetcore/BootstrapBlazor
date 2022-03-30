@@ -163,10 +163,10 @@ public partial class Table<TItem>
     public bool SearchDialogIsDraggable { get; set; }
 
     /// <summary>
-    /// 获得/设置 搜索框是否显示最大化按钮 默认 false 不显示
+    /// 获得/设置 搜索框是否显示最大化按钮 默认 true 不显示
     /// </summary>
     [Parameter]
-    public bool SearchDialogShowMaximizeButton { get; set; }
+    public bool SearchDialogShowMaximizeButton { get; set; } = true;
 
     /// <summary>
     /// 高级查询按钮点击时调用此方法

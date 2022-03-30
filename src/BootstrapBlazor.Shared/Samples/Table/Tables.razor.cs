@@ -568,7 +568,7 @@ public partial class Tables
             Description = "编辑弹窗框是否为内部出现滚动条",
             Type = "boolean",
             ValueList = "true / false",
-            DefaultValue = "false"
+            DefaultValue = "true"
         },
         new() {
             Name = "FixedExtendButtonsColumn",
@@ -708,7 +708,7 @@ public partial class Tables
             Description = "编辑弹窗是否显示最大化按钮",
             Type = "bool",
             ValueList = "true|false",
-            DefaultValue = "false"
+            DefaultValue = "true"
         },
         new() {
             Name = "EditDialogSize",
@@ -729,7 +729,7 @@ public partial class Tables
             Description = "搜索弹窗是否显示最大化按钮",
             Type = "bool",
             ValueList = "true|false",
-            DefaultValue = "false"
+            DefaultValue = "true"
         },
         new() {
             Name = "SearchDialogSize",
