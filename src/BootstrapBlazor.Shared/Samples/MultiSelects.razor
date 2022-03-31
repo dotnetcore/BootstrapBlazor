@@ -109,7 +109,7 @@
     <ValidateForm Model="@Model">
         <div class="row g-3">
             <div class="col-12 col-sm-8">
-                <MultiSelect @bind-Value="@Model.Education" />
+                <MultiSelect Items="Items8" @bind-Value="@Model.Address" />
             </div>
             <div class="col-12 col-sm-4 align-self-end">
                 <Button ButtonType="ButtonType.Submit">@Localizer["ButtonText4"]</Button>
