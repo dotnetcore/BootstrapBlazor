@@ -28,15 +28,13 @@ class MaxValidator : ValidatorBase
     /// <param name="propertyValue">待校验值</param>
     /// <param name="context">ValidateContext 实例</param>
     /// <param name="results">ValidateResult 集合实例</param>
-    public override async Task ValidateAsync(object? propertyValue, ValidationContext context, List<ValidationResult> results)
+    public override void Validate(object? propertyValue, ValidationContext context, List<ValidationResult> results)
     {
         if (!Validate(propertyValue))
         {
             var errorMessage = string.Format(CultureInfo.CurrentCulture, ErrorMessage ?? "", Value);
             results.Add(new ValidationResult(errorMessage, new string[] { context.MemberName ?? context.DisplayName }));
         }
-
-        return Task.CompletedTask;
     }
 
     /// <summary>
