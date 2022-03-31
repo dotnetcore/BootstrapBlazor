@@ -17,14 +17,6 @@ public interface IValidator
     string? ErrorMessage { get; set; }
 
     /// <summary>
-    /// 验证方法
-    /// </summary>
-    /// <param name="propertyValue"></param>
-    /// <param name="context"></param>
-    /// <param name="results"></param>
-    void Validate(object? propertyValue, ValidationContext context, List<ValidationResult> results);
-
-    /// <summary>
     /// 异步验证方法
     /// </summary>
     /// <param name="propertyValue"></param>

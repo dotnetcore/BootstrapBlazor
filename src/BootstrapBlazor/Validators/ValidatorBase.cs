@@ -26,7 +26,7 @@ public abstract class ValidatorBase : IValidator
     /// <param name="propertyValue"></param>
     /// <param name="context"></param>
     /// <param name="results"></param>
-    public virtual void Validate(object? propertyValue, ValidationContext context, List<ValidationResult> results)
+    protected virtual void Validate(object? propertyValue, ValidationContext context, List<ValidationResult> results)
     {
 
     }
