@@ -343,7 +343,7 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
     /// <param name="propertyValue"></param>
     /// <param name="context"></param>
     /// <param name="results"></param>
-    public void ValidateProperty(object? propertyValue, ValidationContext context, List<ValidationResult> results)
+    public async Task ValidateProperty(object? propertyValue, ValidationContext context, List<ValidationResult> results)
     {
         // 如果禁用移除验证信息
         if (IsNeedValidate)
@@ -356,7 +356,7 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
             {
                 foreach (var validator in Rules)
                 {
-                    validator.Validate(propertyValue, context, results);
+                    await validator.Validate(propertyValue, context, results);
                     if (results.Count > 0)
                     {
                         break;
@@ -369,7 +369,7 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
             {
                 foreach (var validator in ValidateRules)
                 {
-                    validator.Validate(propertyValue, context, results);
+                    await validator.Validate(propertyValue, context, results);
                     if (results.Count > 0)
                     {
                         break;
