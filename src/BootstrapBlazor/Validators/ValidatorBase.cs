@@ -32,7 +32,7 @@ public abstract class ValidatorBase : IValidator
     }
 
     /// <summary>
-    /// 数据验证方法
+    /// 异步数据验证方法
     /// </summary>
     /// <param name="propertyValue"></param>
     /// <param name="context"></param>
