@@ -31,7 +31,7 @@ public class FormItemValidator : ValidatorBase
     /// <param name="propertyValue">待校验值</param>
     /// <param name="context">ValidateContext 实例</param>
     /// <param name="results">ValidateResult 集合实例</param>
-    public override Task Validate(object? propertyValue, ValidationContext context, List<ValidationResult> results)
+    public override Task ValidateAsync(object? propertyValue, ValidationContext context, List<ValidationResult> results)
     {
         var result = Validator.GetValidationResult(propertyValue, context);
         if (result != null)

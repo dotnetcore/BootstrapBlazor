@@ -356,7 +356,7 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
             {
                 foreach (var validator in Rules)
                 {
-                    await validator.Validate(propertyValue, context, results);
+                    await validator.ValidateAsync(propertyValue, context, results);
                     if (results.Count > 0)
                     {
                         break;
@@ -369,7 +369,7 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
             {
                 foreach (var validator in ValidateRules)
                 {
-                    await validator.Validate(propertyValue, context, results);
+                    await validator.ValidateAsync(propertyValue, context, results);
                     if (results.Count > 0)
                     {
                         break;

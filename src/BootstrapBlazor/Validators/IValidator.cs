@@ -22,5 +22,5 @@ public interface IValidator
     /// <param name="propertyValue"></param>
     /// <param name="context"></param>
     /// <param name="results"></param>
-    Task Validate(object? propertyValue, ValidationContext context, List<ValidationResult> results);
+    Task ValidateAsync(object? propertyValue, ValidationContext context, List<ValidationResult> results);
 }
