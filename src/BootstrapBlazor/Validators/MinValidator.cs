@@ -5,10 +5,15 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 最小值验证实现类
+/// 选项最小数验证实现类
 /// </summary>
-class MinValidator : MaxValidator
+public class MinValidator : MaxValidator
 {
+    /// <summary>
+    /// 获得 默认错误信息文字
+    /// </summary>
+    protected override string DefaultErrorMessage { get; } = "Select at least {0} items";
+
     /// <summary>
     /// 验证方法 大于等于 Value 时 返回 true
     /// </summary>

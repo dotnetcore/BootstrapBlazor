@@ -19,7 +19,8 @@
     "Foo.BindValue": "绑定值",
     "True": "通过",
     "False": "未通过",
-    "NullItemText": "未设置"
+    "NullItemText": "未设置",
+    "Name.Mock": "张三 {0}"
   },
   "BootstrapBlazor.Shared.EnumEducation": {
     "PlaceHolder": "请选择 ...",

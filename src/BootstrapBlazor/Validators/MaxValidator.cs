@@ -8,10 +8,15 @@ using System.Globalization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 最大值验证实现类
+/// 选项最大数验证实现类
 /// </summary>
-class MaxValidator : ValidatorBase
+public class MaxValidator : ValidatorBase
 {
+    /// <summary>
+    /// 获得 默认错误信息文字
+    /// </summary>
+    protected virtual string DefaultErrorMessage { get; } = "At most {0} items can be selected";
+
     /// <summary>
     /// 获得/设置 值
     /// </summary>
@@ -32,7 +37,7 @@ class MaxValidator : ValidatorBase
     {
         if (!Validate(propertyValue))
         {
-            var errorMessage = string.Format(CultureInfo.CurrentCulture, ErrorMessage ?? "", Value);
+            var errorMessage = string.Format(CultureInfo.CurrentCulture, ErrorMessage ?? DefaultErrorMessage, Value);
             results.Add(new ValidationResult(errorMessage, new string[] { context.MemberName ?? context.DisplayName }));
         }
     }
@@ -49,7 +54,7 @@ class MaxValidator : ValidatorBase
             var type = propertyValue.GetType();
             if (propertyValue is string value)
             {
-                var count = SplitCallback == null ? value.Length : SplitCallback(value);
+                var count = SplitCallback(value);
                 ret = Validate(count);
             }
             else if (type.IsGenericType || type.IsArray)
