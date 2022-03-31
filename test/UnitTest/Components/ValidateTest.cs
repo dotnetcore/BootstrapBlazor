@@ -540,7 +540,7 @@ public class ValidateTest : BootstrapBlazorTestBase
 
             var results = new List<ValidationResult>();
             var context = new ValidationContext(model);
-            ValidateProperty(1, context, results);
+            ValidatePropertyAsync(1, context, results);
         }
 
         public void OnValidateTest()

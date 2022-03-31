@@ -343,7 +343,7 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
     /// <param name="propertyValue"></param>
     /// <param name="context"></param>
     /// <param name="results"></param>
-    public async Task ValidateProperty(object? propertyValue, ValidationContext context, List<ValidationResult> results)
+    public async Task ValidatePropertyAsync(object? propertyValue, ValidationContext context, List<ValidationResult> results)
     {
         // 如果禁用移除验证信息
         if (IsNeedValidate)

@@ -228,7 +228,7 @@ public partial class ValidateForm : IAsyncDisposable
                         // 设置其关联属性字段
                         var propertyValue = Utility.GetPropertyValue(fieldIdentifier.Model, fieldIdentifier.FieldName);
 
-                        await Validate(validator, propertyValidateContext, messages, pi, propertyValue);
+                        await ValidateAsync(validator, propertyValidateContext, messages, pi, propertyValue);
                     }
                     // 客户端提示
                     validator.ToggleMessage(messages, false);
@@ -254,7 +254,7 @@ public partial class ValidateForm : IAsyncDisposable
                 if (pi != null)
                 {
                     var propertyValue = Utility.GetPropertyValue(context.ObjectInstance, context.MemberName);
-                    await Validate(validator, context, results, pi, propertyValue);
+                    await ValidateAsync(validator, context, results, pi, propertyValue);
                 }
 
                 // 客户端提示
@@ -380,7 +380,7 @@ public partial class ValidateForm : IAsyncDisposable
                     if (validator.IsNeedValidate)
                     {
                         // 组件进行验证
-                        await Validate(validator, context, messages, pi, propertyValue);
+                        await ValidateAsync(validator, context, messages, pi, propertyValue);
 
                         // 客户端提示
                         validator.ToggleMessage(messages, true);
@@ -391,7 +391,7 @@ public partial class ValidateForm : IAsyncDisposable
         }
     }
 
-    private Task Validate(IValidateComponent validator, ValidationContext context, List<ValidationResult> messages, PropertyInfo pi, object? propertyValue)
+    private async Task ValidateAsync(IValidateComponent validator, ValidationContext context, List<ValidationResult> messages, PropertyInfo pi, object? propertyValue)
     {
         // 单独处理 Upload 组件
         if (validator is IUpload uploader)
@@ -417,11 +417,9 @@ public partial class ValidateForm : IAsyncDisposable
             if (messages.Count == 0)
             {
                 // 自定义验证组件
-                return validator.ValidateProperty(propertyValue, context, messages);
+                await validator.ValidatePropertyAsync(propertyValue, context, messages);
             }
         }
-
-        return Task.CompletedTask;
     }
 
     private List<Button> AsyncSubmitButtons { get; } = new List<Button>();
