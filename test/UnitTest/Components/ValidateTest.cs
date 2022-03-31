@@ -438,7 +438,7 @@ public class ValidateTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void ValidateType_Ok()
+    public async Task ValidateType_Ok()
     {
         var model = new Foo() { Count = 0 };
         var cut = Context.RenderComponent<RenderTemplate>(builder =>
@@ -450,7 +450,7 @@ public class ValidateTest : BootstrapBlazorTestBase
             });
         });
         var intValidate = cut.FindComponent<MockValidate<int>>();
-        intValidate.Instance.ValidateTypeTest(model);
+        await intValidate.Instance.ValidateTypeTest(model);
     }
 
     [Fact]
@@ -534,13 +534,13 @@ public class ValidateTest : BootstrapBlazorTestBase
             CurrentValueAsString = "1";
         }
 
-        public void ValidateTypeTest(Foo model)
+        public async Task ValidateTypeTest(Foo model)
         {
             CurrentValueAsString = "test";
 
             var results = new List<ValidationResult>();
             var context = new ValidationContext(model);
-            ValidatePropertyAsync(1, context, results);
+            await ValidatePropertyAsync(1, context, results);
         }
 
         public void OnValidateTest()
