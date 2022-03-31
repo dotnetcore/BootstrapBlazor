@@ -64,7 +64,7 @@ internal static class BootstrapBlazorEditContextDataAnnotationsExtensions
             DisplayName = args.FieldIdentifier.GetDisplayName()
         };
 
-        await editForm.ValidateField(validationContext, validationResults);
+        await editForm.ValidateFieldAsync(validationContext, validationResults);
 
         messages.Clear(args.FieldIdentifier);
         messages.Add(args.FieldIdentifier, validationResults.Where(v => !string.IsNullOrEmpty(v.ErrorMessage)).Select(result => result.ErrorMessage!));

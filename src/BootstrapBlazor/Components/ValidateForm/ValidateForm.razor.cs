@@ -243,9 +243,9 @@ public partial class ValidateForm : IAsyncDisposable
     /// </summary>
     /// <param name="context"></param>
     /// <param name="results"></param>
-    internal async Task ValidateField(ValidationContext context, List<ValidationResult> results)
+    internal async Task ValidateFieldAsync(ValidationContext context, List<ValidationResult> results)
     {
-        if (!string.IsNullOrWhiteSpace(context.MemberName) && ValidatorCache.TryGetValue((context.MemberName, context.ObjectType), out var v))
+        if (!string.IsNullOrEmpty(context.MemberName) && ValidatorCache.TryGetValue((context.MemberName, context.ObjectType), out var v))
         {
             var validator = v.ValidateComponent;
             if (validator.IsNeedValidate)
