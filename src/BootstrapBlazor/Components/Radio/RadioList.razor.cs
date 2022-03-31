@@ -60,6 +60,13 @@ public partial class RadioList<TValue>
     }
 
     /// <summary>
+    /// 格式化 Value 方法
+    /// </summary>
+    /// <param name="value"></param>
+    /// <returns></returns>
+    protected override string? FormatValueAsString(TValue value) => value is SelectedItem v ? v.Value : base.FormatValueAsString(value);
+
+    /// <summary>
     /// 
     /// </summary>
     /// <param name="typeValue"></param>

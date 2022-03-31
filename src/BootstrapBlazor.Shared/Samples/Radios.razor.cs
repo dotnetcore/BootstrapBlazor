@@ -55,14 +55,14 @@ public sealed partial class Radios
         base.OnInitialized();
 
         DemoValues = new List<SelectedItem>(2)
-            {
-                new SelectedItem("1", Localizer["Item1"]!),
-                new SelectedItem("2", Localizer["Item2"]!),
-            };
+        {
+            new SelectedItem("1", Localizer["Item1"]),
+            new SelectedItem("2", Localizer["Item2"]),
+        };
         Items = new SelectedItem[]
         {
-                new SelectedItem("1", Localizer["Add1"]!) { Active = true },
-                new SelectedItem("2", Localizer["Add2"]!)
+            new SelectedItem("1", Localizer["Add1"]) { Active = true },
+            new SelectedItem("2", Localizer["Add2"])
         };
     }
 

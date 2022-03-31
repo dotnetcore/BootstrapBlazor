@@ -24,10 +24,10 @@
             <RadioList Items="@Items" @bind-Value="@BindRadioItem" OnSelectedChanged="@OnItemChanged"></RadioList>
         </div>
         <div class="col-12">
-            <div>Text: @BindRadioItem.Text Value: @BindRadioItem.Value</div>
+            Text: @BindRadioItem.Text Value: @BindRadioItem.Value
         </div>
     </div>
-    <BlockLogger @ref="BinderLog" />
+    <BlockLogger class="mt-3" @ref="BinderLog" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["Block5Title"]" Introduction="@Localizer["Block5Intro"]" Name="Vertical">
