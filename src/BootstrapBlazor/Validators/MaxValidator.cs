@@ -28,7 +28,7 @@ class MaxValidator : ValidatorBase
     /// <param name="propertyValue">待校验值</param>
     /// <param name="context">ValidateContext 实例</param>
     /// <param name="results">ValidateResult 集合实例</param>
-    public override void Validate(object? propertyValue, ValidationContext context, List<ValidationResult> results)
+    protected override void Validate(object? propertyValue, ValidationContext context, List<ValidationResult> results)
     {
         if (!Validate(propertyValue))
         {

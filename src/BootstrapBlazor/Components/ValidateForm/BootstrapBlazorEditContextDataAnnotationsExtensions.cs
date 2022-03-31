@@ -21,22 +21,20 @@ internal static class BootstrapBlazorEditContextDataAnnotationsExtensions
     {
         var messages = new ValidationMessageStore(editContext);
 
-        editContext.OnValidationRequested +=
-            (sender, eventArgs) => ValidateModel(sender as EditContext, messages, editForm);
+        editContext.OnValidationRequested += async (sender, eventArgs) => await editForm.ValidateModel(sender as EditContext, messages);
 
-        editContext.OnFieldChanged +=
-            (sender, eventArgs) => ValidateField(editContext, messages, eventArgs.FieldIdentifier, editForm);
+        editContext.OnFieldChanged += async (sender, eventArgs) => await editForm.ValidateField(editContext, messages, eventArgs);
 
         return editContext;
     }
 
-    private static void ValidateModel(EditContext? editContext, ValidationMessageStore messages, ValidateForm editForm)
+    private static async Task ValidateModel(this ValidateForm editForm, EditContext? editContext, ValidationMessageStore messages)
     {
         if (editContext != null)
         {
             var validationContext = new ValidationContext(editContext.Model);
             var validationResults = new List<ValidationResult>();
-            editForm.ValidateObject(validationContext, validationResults);
+            await editForm.ValidateObject(validationContext, validationResults);
 
             messages.Clear();
             foreach (var validationResult in validationResults.Where(v => !string.IsNullOrEmpty(v.ErrorMessage)))
@@ -56,20 +54,20 @@ internal static class BootstrapBlazorEditContextDataAnnotationsExtensions
         }
     }
 
-    private static void ValidateField(EditContext editContext, ValidationMessageStore messages, in FieldIdentifier fieldIdentifier, ValidateForm editForm)
+    private static async Task ValidateField(this ValidateForm editForm, EditContext editContext, ValidationMessageStore messages, FieldChangedEventArgs args)
     {
         // 获取验证消息
-        var results = new List<ValidationResult>();
-        var validationContext = new ValidationContext(fieldIdentifier.Model)
+        var validationResults = new List<ValidationResult>();
+        var validationContext = new ValidationContext(args.FieldIdentifier.Model)
         {
-            MemberName = fieldIdentifier.FieldName,
-            DisplayName = fieldIdentifier.GetDisplayName()
+            MemberName = args.FieldIdentifier.FieldName,
+            DisplayName = args.FieldIdentifier.GetDisplayName()
         };
 
-        editForm.ValidateField(validationContext, results, fieldIdentifier);
+        await editForm.ValidateFieldAsync(validationContext, validationResults);
 
-        messages.Clear(fieldIdentifier);
-        messages.Add(fieldIdentifier, results.Where(v => !string.IsNullOrEmpty(v.ErrorMessage)).Select(result => result.ErrorMessage!));
+        messages.Clear(args.FieldIdentifier);
+        messages.Add(args.FieldIdentifier, validationResults.Where(v => !string.IsNullOrEmpty(v.ErrorMessage)).Select(result => result.ErrorMessage!));
 
         editContext.NotifyValidationStateChanged();
     }

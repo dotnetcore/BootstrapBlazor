@@ -22,7 +22,7 @@ public interface IValidateComponent
     /// <param name="propertyValue"></param>
     /// <param name="context"></param>
     /// <param name="results"></param>
-    void ValidateProperty(object? propertyValue, ValidationContext context, List<ValidationResult> results);
+    Task ValidatePropertyAsync(object? propertyValue, ValidationContext context, List<ValidationResult> results);
 
     /// <summary>
     /// 显示或者隐藏提示信息方法
