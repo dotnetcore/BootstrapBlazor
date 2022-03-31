@@ -10,14 +10,26 @@ namespace UnitTest.Components;
 public class MultiSelectTest : BootstrapBlazorTestBase
 {
     [Fact]
-    public void MinMax_Ok()
+    public async Task MinMax_Ok()
     {
         var cut = Context.RenderComponent<MultiSelect<string>>(pb =>
         {
-            pb.Add(a => a.Min, 2);
+            pb.Add(a => a.Min, 1);
             pb.Add(a => a.Max, 3);
+            pb.Add(a => a.Items, new List<SelectedItem>
+            {
+                new("1", "Test 1"),
+                new("2", "Test 2"),
+                new("3", "Test 3"),
+                new("4", "Test 4"),
+            });
         });
         Assert.Contains("multi-select", cut.Markup);
+
+        var items = cut.FindAll(".dropdown-item");
+        await cut.InvokeAsync(() => items[0].Click());
+        await cut.InvokeAsync(() => items[1].Click());
+        await cut.InvokeAsync(() => items[2].Click());
     }
 
     [Fact]

@@ -1,6 +1,6 @@
 ﻿(function ($) {
     $.extend({
-        bb_form: function (id, method) {
+        bb_form: function (id) {
             var $el = $('#' + id);
             $el.find('[aria-describedby]').each(function (index, ele) {
                 var tooltip = bootstrap.Tooltip.getInstance(ele);

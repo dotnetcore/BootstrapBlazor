@@ -1797,7 +1797,7 @@
     "InnerComponentLi3": "Birthday is the datetime type",
     "InnerComponentLi4": "Education is an enumeration type",
     "InnerComponentLi5": "Hobbies are collection types",
-    "InnerComponentP2": "In this example, by setting the <b>submit button</b>property <code>IsAsync</code> to submit the form asynchronously, click Submit to disable itself, and resume after the asynchronous operation is complete",
+    "InnerComponentP2": "In this example, by setting the <b>submit button</b> property <code>IsAsync</code> to submit the form asynchronously, click Submit to disable itself, and resume after the asynchronous operation is complete",
     "CustomDisplsyErrorTitle": "Custom displays error messages",
     "CustomDisplsyErrorIntro": "Set the custom error message by calling <code>SetError</code> method",
     "CustomDisplsyErrorP1": "<b>Scenario</b><p>the client verification after the pass of the database save operation, if other problems, you can still make a form custom error prompt, in this case, after the data verification is legal, click the <code>submit form</code> button, the name field will show, <code>the database already exists</code> such a custom prompt</p>",

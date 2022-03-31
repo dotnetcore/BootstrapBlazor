@@ -480,7 +480,7 @@ public partial class ValidateForm : IAsyncDisposable
     {
         if (disposing)
         {
-            await JSRuntime.InvokeVoidAsync(Id, "bb_form", "dispose");
+            await JSRuntime.InvokeVoidAsync(Id, "bb_form");
         }
     }
 
