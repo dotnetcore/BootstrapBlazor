@@ -7,14 +7,14 @@ using System.ComponentModel.DataAnnotations;
 
 namespace UnitTest.Validators;
 
-public class ValidatorTest : BootstrapBlazorTestBase
+public class ValidatorTest
 {
     [Fact]
-    public async Task Validate_Ok()
+    public void Validate_Ok()
     {
         var validator = new MockValidator();
         var results = new List<ValidationResult>();
-        await validator.ValidateEmptyTest(results);
+        validator.ValidateEmptyTest(results);
         Assert.Empty(results);
     }
 
@@ -27,10 +27,15 @@ public class ValidatorTest : BootstrapBlazorTestBase
             foo = new Foo();
         }
 
-        public async Task ValidateEmptyTest(List<ValidationResult> results)
+        public override void Validate(object? propertyValue, ValidationContext context, List<ValidationResult> results)
+        {
+
+        }
+
+        public void ValidateEmptyTest(List<ValidationResult> results)
         {
             var context = new ValidationContext(foo);
-            await ValidateAsync(null, context, results);
+            Validate(null, context, results);
         }
     }
 }

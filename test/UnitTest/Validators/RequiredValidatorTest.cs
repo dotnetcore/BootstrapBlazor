@@ -14,7 +14,7 @@ namespace UnitTest.Validators;
 public class RequiredValidatorTest : BootstrapBlazorTestBase
 {
     [Fact]
-    public async Task AllowEmptyString_Ok()
+    public void AllowEmptyString_Ok()
     {
         var foo = new Foo();
         var validator = new RequiredValidator()
@@ -24,20 +24,20 @@ public class RequiredValidatorTest : BootstrapBlazorTestBase
         };
         var context = new ValidationContext(foo);
         var results = new List<ValidationResult>();
-        await validator.ValidateAsync(null, context, results);
+        validator.Validate(null, context, results);
         Assert.Equal(validator.ErrorMessage, results[0].ErrorMessage);
 
-        await validator.ValidateAsync("", context, results);
+        validator.Validate("", context, results);
         Assert.Equal(validator.ErrorMessage, results[0].ErrorMessage);
 
         validator.AllowEmptyString = true;
         results.Clear();
-        await validator.ValidateAsync("", context, results);
+        validator.Validate("", context, results);
         Assert.Empty(results);
     }
 
     [Fact]
-    public async Task EnnumerableValue_Ok()
+    public void EnnumerableValue_Ok()
     {
         var foo = new Foo();
         var validator = new RequiredValidator()
@@ -47,15 +47,15 @@ public class RequiredValidatorTest : BootstrapBlazorTestBase
         };
         var context = new ValidationContext(foo);
         var results = new List<ValidationResult>();
-        await validator.ValidateAsync(new int[] { 1, 2 }, context, results);
+        validator.Validate(new int[] { 1, 2 }, context, results);
         Assert.Empty(results);
 
-        await validator.ValidateAsync(Array.Empty<int>(), context, results);
+        validator.Validate(Array.Empty<int>(), context, results);
         Assert.Single(results);
     }
 
     [Fact]
-    public async Task Localizer_Ok()
+    public void Localizer_Ok()
     {
         var foo = new Foo();
         var validator = new RequiredValidator()
@@ -66,16 +66,16 @@ public class RequiredValidatorTest : BootstrapBlazorTestBase
         };
         var context = new ValidationContext(foo);
         var results = new List<ValidationResult>();
-        await validator.ValidateAsync("v1", context, results);
+        validator.Validate("v1", context, results);
         Assert.Empty(results);
 
         context.MemberName = "Name";
-        await validator.ValidateAsync("v1", context, results);
+        validator.Validate("v1", context, results);
         Assert.Empty(results);
 
         validator.Options = Context.Services.GetRequiredService<IOptions<JsonLocalizationOptions>>().Value;
         validator.Options.ResourceManagerStringLocalizerType = typeof(Foo);
-        await validator.ValidateAsync("v1", context, results);
+        validator.Validate("v1", context, results);
         Assert.Empty(results);
     }
 }

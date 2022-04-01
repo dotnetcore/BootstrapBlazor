@@ -7,15 +7,15 @@ using System.ComponentModel.DataAnnotations;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// IValidator 实现类基类
+/// 异步验证组件
 /// </summary>
-public abstract class ValidatorBase : IValidator
+public interface IValidatorAsync : IValidator
 {
     /// <summary>
-    /// 数据验证方法
+    /// 异步验证方法
     /// </summary>
     /// <param name="propertyValue"></param>
     /// <param name="context"></param>
     /// <param name="results"></param>
-    public abstract void Validate(object? propertyValue, ValidationContext context, List<ValidationResult> results);
+    Task ValidateAsync(object? propertyValue, ValidationContext context, List<ValidationResult> results);
 }

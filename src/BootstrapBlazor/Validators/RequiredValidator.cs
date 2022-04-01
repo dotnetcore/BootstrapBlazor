@@ -17,6 +17,11 @@ namespace BootstrapBlazor.Components;
 public class RequiredValidator : ValidatorBase
 {
     /// <summary>
+    /// 获得/设置 错误描述信息 默认为 null 需要赋值
+    /// </summary>
+    public string? ErrorMessage { get; set; }
+
+    /// <summary>
     /// 获得/设置 是否允许空字符串 默认 false 不允许
     /// </summary>
     public bool AllowEmptyString { get; set; }
@@ -37,7 +42,7 @@ public class RequiredValidator : ValidatorBase
     /// <param name="propertyValue">待校验值</param>
     /// <param name="context">ValidateContext 实例</param>
     /// <param name="results">ValidateResult 集合实例</param>
-    protected override void Validate(object? propertyValue, ValidationContext context, List<ValidationResult> results)
+    public override void Validate(object? propertyValue, ValidationContext context, List<ValidationResult> results)
     {
         var errorMessage = GetLocalizerErrorMessage(context, LocalizerFactory, Options);
         var memberNames = string.IsNullOrEmpty(context.MemberName) ? null : new string[] { context.MemberName };

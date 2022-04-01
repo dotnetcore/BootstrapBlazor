@@ -13,9 +13,9 @@ namespace BootstrapBlazor.Components;
 public class MaxValidator : ValidatorBase
 {
     /// <summary>
-    /// 获得 默认错误信息文字
+    /// 获得/设置 错误描述信息 默认为 null 需要赋值
     /// </summary>
-    protected virtual string DefaultErrorMessage { get; } = "At most {0} items can be selected";
+    public string ErrorMessage { get; set; } = "At most {0} items can be selected";
 
     /// <summary>
     /// 获得/设置 值
@@ -33,11 +33,11 @@ public class MaxValidator : ValidatorBase
     /// <param name="propertyValue">待校验值</param>
     /// <param name="context">ValidateContext 实例</param>
     /// <param name="results">ValidateResult 集合实例</param>
-    protected override void Validate(object? propertyValue, ValidationContext context, List<ValidationResult> results)
+    public override void Validate(object? propertyValue, ValidationContext context, List<ValidationResult> results)
     {
         if (!Validate(propertyValue))
         {
-            var errorMessage = string.Format(CultureInfo.CurrentCulture, ErrorMessage ?? DefaultErrorMessage, Value);
+            var errorMessage = string.Format(CultureInfo.CurrentCulture, ErrorMessage, Value);
             results.Add(new ValidationResult(errorMessage, new string[] { context.MemberName ?? context.DisplayName }));
         }
     }

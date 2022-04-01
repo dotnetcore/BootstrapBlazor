@@ -7,19 +7,19 @@ using System.ComponentModel.DataAnnotations;
 
 namespace UnitTest.Validators;
 
-public class MinValidatorTest
+public class FormItemValidatorTest
 {
     [Fact]
     public void Validate_Ok()
     {
         var foo = new Foo();
-        var validator = new MinValidator()
+        var context = new ValidationContext(foo)
         {
-            Value = 2
+            MemberName = "Name"
         };
-        var context = new ValidationContext(foo);
         var results = new List<ValidationResult>();
-        validator.Validate("v1", context, results);
-        Assert.Equal($"Select at least {validator.Value} items", results[0].ErrorMessage);
+        var validator = new FormItemValidator(new RequiredAttribute());
+        validator.Validate(null, context, results);
+        Assert.Single(results);
     }
 }
