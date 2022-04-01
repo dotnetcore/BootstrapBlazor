@@ -71,10 +71,10 @@ public partial class Table<TItem>
     public decimal RenderModelResponsiveWidth { get; set; } = 768;
 
     /// <summary>
-    /// 获得/设置 编辑弹框是否 Body 出现滚动条 默认 true
+    /// 获得/设置 编辑弹框是否 Body 出现滚动条 默认 false
     /// </summary>
     [Parameter]
-    public bool ScrollingDialogContent { get; set; } = true;
+    public bool ScrollingDialogContent { get; set; }
 
     /// <summary>
     /// 获得/设置 是否支持键盘 ESC 关闭当前弹窗 默认 true 支持
