@@ -86,4 +86,11 @@
     <Markdown EnableHighlight="true" Value="@JsString"></Markdown>
 </DemoBlock>
 
+<DemoBlock Title="外部操作Markdown" Introduction="使用Api从外部操作Editor，具体的Api参照<a href='https://nhn.github.io/tui.editor/latest/ToastUIEditorCore'>tui.editor api</a>" Name="Browser">
+    <Markdown @ref="Markdown"></Markdown>
+    <Button OnClick="@(() => Markdown.DoMethodAsync("insertText", "# test"))">插入一行文字</Button>
+    <Button OnClick="@(() => Markdown.DoMethodAsync("insertText", "![椰子树](https://i.niupic.com/images/2022/04/01/9Y6T.jpg)"))">插入一张图片</Button>
+    <Button OnClick="@(() => Markdown.DoMethodAsync("moveCursorToEnd"))">光标移动到最后</Button>
+</DemoBlock>
+
 <AttributeTable Items="GetAttributes()"></AttributeTable>

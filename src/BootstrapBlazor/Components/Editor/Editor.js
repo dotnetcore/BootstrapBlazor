@@ -111,6 +111,10 @@
             else {
                 invoker();
             }
+        },
+        bb_editor_method: function (el, method, parameter) {
+            var editor = el.getElementsByClassName("editor-body");
+            $(editor).toggleClass('open').summernote(method, ...parameter);
         }
     });
 })(jQuery);

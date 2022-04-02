@@ -14,6 +14,9 @@ public sealed partial class Editors
 {
     private string? EditorValue { get; set; }
 
+    [NotNull]
+    private Editor? Editor { get; set; }
+
     private Task OnValueChanged(string val)
     {
         EditorValue = val;
@@ -23,6 +26,11 @@ public sealed partial class Editors
     private void SetValue()
     {
         EditorValue = Localizer["UpdateValue"];
+    }
+
+    private async Task InsertHtmlAsync()
+    {
+        await Editor.DoMethodAysnc("pasteHTML", "<h1>这里是外部按钮插入的内容</h1>");
     }
 
     private List<EditorToolbarButton>? EditorPluginItems { get; set; }

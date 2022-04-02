@@ -16,7 +16,7 @@
 
 <DemoBlock Title="@Localizer["Block2Title"]" Introduction="@Localizer["Block2Intro"]" Name="Placeholder">
     <p>@((MarkupString)Localizer["P3"].Value)</p>
-    <Editor Placeholder="@Localizer["Placeholder1"]"></Editor>
+    <Editor PlaceHolder="@Localizer["Placeholder1"]"></Editor>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["Block3Title"]" Introduction="@Localizer["Block3Intro"]" Name="IsEditor">
@@ -46,6 +46,16 @@
 <DemoBlock Title="@Localizer["Block7Title"]" Introduction="@Localizer["Block7Intro"]" Name="ToolbarItems">
     <p>@((MarkupString)Localizer["P6"].Value)</p>
     <Editor IsEditor="true" ToolbarItems="@ToolbarItems"></Editor>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["DoMethodAsync"]" Introduction="@Localizer["DoMethodAsyncIntro"]" Name="DoMethodAsync">
+    <p>@((MarkupString)Localizer["P6"].Value)</p>
+    <Editor IsEditor="true" @ref="Editor"></Editor>
+    <div class="mt-3">
+        <Button OnClick="InsertHtmlAsync">@Localizer["DoMethodAsyncButton1"]</Button>
+        <Button OnClick="@(() => Editor.DoMethodAysnc("formatH2", ""))">@Localizer["DoMethodAsyncButton2"]</Button>
+        <Button OnClick="@(() => Editor.DoMethodAysnc("insertImage", "https://www.blazor.zone/_content/BootstrapBlazor.Shared/images/avatars/150-1.jpg", "tree"))">@Localizer["DoMethodAsyncButton3"]</Button>
+    </div>
 </DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" />

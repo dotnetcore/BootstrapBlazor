@@ -105,6 +105,11 @@ public partial class Editor : IDisposable
     public Func<string, Task<string>>? OnClickButton { get; set; }
 
     /// <summary>
+    /// 执行editor的方法
+    /// </summary>
+    public ValueTask DoMethodAysnc(string method, params object[] value) => JSRuntime.InvokeVoidAsync(EditorElement, "bb_editor_method", method, value);
+
+    /// <summary>
     /// OnInitialized 方法
     /// </summary>
     protected override void OnInitialized()

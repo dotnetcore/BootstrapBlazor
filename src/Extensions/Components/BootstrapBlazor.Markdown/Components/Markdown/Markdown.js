@@ -9,7 +9,7 @@
             var $el = $(el);
             if (method === "setMarkdown") {
                 //$el.toastuiEditor('setMarkdown', value);
-                var editor = $.data(el,'editor');
+                var editor = $.data(el, 'editor');
                 editor.setMarkdown(value);
             }
             else {
@@ -22,8 +22,8 @@
                             obj.invokeMethodAsync(method, [val, html]);
                         }
                     }
-                })
-                
+                });
+
                 // 修复弹窗内初始化值不正确问题
                 var handler = window.setInterval(function () {
                     if ($el.is(':visible')) {
@@ -38,6 +38,12 @@
                         $.data(el, 'editor', editor);
                     }
                 }, 100);
+            }
+        },
+        bb_markdown_method: function (el, obj, method, parameter) {
+            var editor = $.data(el, 'editor');
+            if (editor) {
+                editor[method](...parameter);
             }
         }
     });

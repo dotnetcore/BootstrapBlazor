@@ -195,6 +195,21 @@ public partial class Markdown : IDisposable
     }
 
     /// <summary>
+    /// 执行方法
+    /// </summary>
+    /// <param name="method"></param>
+    /// <param name="parameters"></param>
+    /// <returns></returns>
+    public async ValueTask DoMethodAsync(string method, params object[] parameters)
+    {
+        if (Interop == null)
+        {
+            Interop = new JSInterop<Markdown>(JSRuntime);
+        }
+        await Interop.InvokeVoidAsync(this, MarkdownElement, "bb_markdown_method", method, parameters);
+    }
+
+    /// <summary>
     /// Dispose 方法
     /// </summary>
     /// <param name="disposing"></param>

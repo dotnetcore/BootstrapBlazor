@@ -75,4 +75,14 @@ public class EditorTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(async () => name = await cut.Instance.ClickPluginItem("Test1"));
         Assert.Equal("Test", name);
     }
+
+    [Fact]
+    public void DoMethodAysnc_Ok()
+    {
+        var cut = Context.RenderComponent<Editor>(pb =>
+        {
+            pb.Add(a => a.Value, "Test");
+        });
+        cut.Instance.DoMethodAysnc("test", new object[] { "1" });
+    }
 }

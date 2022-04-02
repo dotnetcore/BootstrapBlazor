@@ -1088,7 +1088,12 @@
     "Ret1": "<div class='text-danger'>从plugin1返回的数据</div>",
     "Swal2Title": "点击 plugin2 按钮后弹窗",
     "Swal2Content": "点击插件按钮后弹窗并确认后才进行下一步处理",
-    "Ret2": "从plugin2返回的数据"
+    "Ret2": "从plugin2返回的数据",
+    "DoMethodAsync": "实例方法",
+    "DoMethodAsyncIntro": "使用实例方法从外部操作 <code>Editor</code>，具体的参数参照 <a href='https://summernote.org/deep-dive'>summernote api</a>",
+    "DoMethodAsyncButton1": "插入一段 Html",
+    "DoMethodAsyncButton2": "将段落修改为 H2",
+    "DoMethodAsyncButton3": "添加一张图片"
   },
   "BootstrapBlazor.Shared.Samples.EditorForms": {
     "Title": "EditorForm 表单组件",
