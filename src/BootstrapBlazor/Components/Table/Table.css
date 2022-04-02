@@ -745,22 +745,9 @@ form .table .table-cell > textarea {
     border-radius: 0.25rem;
 }
 
-.modal-dialog-table.modal-dialog-scrollable .modal-body {
-    display: flex;
-    flex-direction: column;
+.form-footer {
+    margin-top: .5rem;
 }
-
-    .modal-dialog-table.modal-dialog-scrollable .modal-body > form {
-        overflow: hidden;
-        display: flex;
-        flex-direction: column;
-        flex: 1;
-    }
-
-    .modal-dialog-table.modal-dialog-scrollable .modal-body .form-body {
-        overflow-y: auto;
-        overflow-x: hidden;
-    }
 
 .modal-body .form-footer {
     margin: 1rem -1rem 0 -1rem;
@@ -771,4 +758,28 @@ form .table .table-cell > textarea {
 
     .modal-body .form-footer button:not(:last-child) {
         margin-right: .25rem;
+    }
+
+.modal-dialog-table.modal-dialog-scrollable .modal-body {
+    display: flex;
+    flex-direction: column;
+}
+
+    .modal-dialog-table.modal-dialog-scrollable .modal-body > form {
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        margin: -1rem;
+    }
+
+    .modal-dialog-table.modal-dialog-scrollable .modal-body .form-body {
+        overflow-y: auto;
+        overflow-x: hidden;
+        padding: 1rem;
+    }
+
+    .modal-dialog-table.modal-dialog-scrollable .modal-body .form-footer {
+        margin: 0;
+        padding: 1rem;
     }
