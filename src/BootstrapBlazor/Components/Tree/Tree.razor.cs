@@ -231,15 +231,20 @@ public partial class Tree
 
         if (OnTreeItemChecked != null)
         {
-            var checkedItems = Items.Aggregate(new List<TreeItem>(), (t, item) =>
-            {
-                t.Add(item);
-                t.AddRange(item.GetAllSubItems());
-                return t;
-            });
-            await OnTreeItemChecked(checkedItems);
+            await OnTreeItemChecked(GetCheckedItems().ToList());
         }
     }
+
+    /// <summary>
+    /// 获得 所有选中节点集合
+    /// </summary>
+    /// <returns></returns>
+    public IEnumerable<TreeItem> GetCheckedItems() => Items.Aggregate(new List<TreeItem>(), (t, item) =>
+    {
+        t.Add(item);
+        t.AddRange(item.GetAllSubItems());
+        return t;
+    }).Where(i => i.Checked);
 
     private async Task OnRadioClick(TreeItem item)
     {
