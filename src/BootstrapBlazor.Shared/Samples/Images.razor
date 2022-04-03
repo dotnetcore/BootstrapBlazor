@@ -1,0 +1,44 @@
+﻿@page "/images"
+
+<h3>Image 图片</h3>
+
+<h4>图片容器，在保留原生 img 的特性下，支持懒加载，自定义占位、加载失败等</h4>
+
+<DemoBlock Title="基本用法" Introduction="加载并显示图片文件" Name="Normal">
+    <div class="images">
+        <div class="images-item">
+            <div>Fill</div>
+            <Image Url="_content/BootstrapBlazor.Shared/images/bird.jpeg" FitMode="ObjectFitMode.Fill" />
+        </div>
+        <div class="images-item">
+            <div>Contain</div>
+            <Image Url="_content/BootstrapBlazor.Shared/images/bird.jpeg" FitMode="ObjectFitMode.Contain" />
+        </div>
+        <div class="images-item">
+            <div>Cover</div>
+            <Image Url="_content/BootstrapBlazor.Shared/images/bird.jpeg" FitMode="ObjectFitMode.Cover" />
+        </div>
+        <div class="images-item">
+            <div>None</div>
+            <Image Url="_content/BootstrapBlazor.Shared/images/bird.jpeg" FitMode="ObjectFitMode.None" />
+        </div>
+        <div class="images-item">
+            <div>ScaleDown</div>
+            <Image Url="_content/BootstrapBlazor.Shared/images/bird.jpeg" FitMode="ObjectFitMode.ScaleDown" />
+        </div>
+    </div>
+</DemoBlock>
+
+<DemoBlock Title="占位内容" Introduction="可通过设置 <code>ShowPlaceHolder</code> 开启占位符功能，通过设置 <code>PlaceHolder</code> 自定义占位内容" Name="PlaceHolder">
+    <div>图片加载后浏览器默认会缓存，建议 <kbd>F12</kbd> 关闭缓存体验此功能</div>
+    <div class="images img-ph mt-3">
+        <div class="images-item">
+            <div>默认</div>
+            <Image Url="_content/BootstrapBlazor.Shared/images/image-ph.jpeg" ShowPlaceHolder="true" />
+        </div>
+        <div class="images-item">
+            <div>自定义</div>
+            <Image Url="_content/BootstrapBlazor.Shared/images/image-ph.jpeg" ShowPlaceHolder="true" PlaceHolder="正在加载 ..." />
+        </div>
+    </div>
+</DemoBlock>

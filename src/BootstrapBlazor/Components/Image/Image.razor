@@ -1,0 +1,22 @@
+﻿@namespace BootstrapBlazor.Components
+@inherits BootstrapComponentBase
+
+<div @attributes="AdditionalAttributes" class="@ClassString">
+    @if (ShowImage)
+    {
+        @RenderImage()
+        @if (ShowPlaceHolder && !Loaded)
+        {
+            <div class="bb_img_holder">
+                @if(!string.IsNullOrEmpty(PlaceHolder))
+                {
+                    <div class="bb_img_loading">@PlaceHolder</div>
+                }
+            </div>
+        }
+    }
+    else if (ErrorTemplate != null)
+    {
+        @ErrorTemplate
+    }
+</div>

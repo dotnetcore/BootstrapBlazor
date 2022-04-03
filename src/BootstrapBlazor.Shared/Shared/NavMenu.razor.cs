@@ -492,7 +492,13 @@ public sealed partial class NavMenu
             {
                 IsNew = true,
                 Text = Localizer["Locator"],
-                Url = "locator"
+                Url = "locators"
+            },
+            new()
+            {
+                IsNew = true,
+                Text = Localizer["Image"],
+                Url = "images"
             },
             new()
             {

@@ -373,6 +373,7 @@
     "DisplayText": "Display",
     "EmptyText": "Empty",
     "LocatorText": "Locator",
+    "ImageText": "Image",
     "IpText": "IpAddress",
     "PrintText": "Print",
     "TitleText": "Title",
@@ -2290,7 +2291,7 @@
     "OnListViewItemClick": "The ListView element calls back when it clicks on the delegate",
     "QueryAsync": "Manually query data methods"
   },
-  "BootstrapBlazor.Shared.Samples.Locator": {
+  "BootstrapBlazor.Shared.Samples.Locators": {
     "Title": "Get the IP geographic location",
     "SubTitle": "More for system log tracking and analysis",
     "BasicUsageTitle": "Basic usage",
@@ -2691,6 +2692,7 @@
     "LinkButton": "LinkButton",
     "ListView": "ListView",
     "Locator": "Locator",
+    "Image": "Image",
     "Popover": "Popover",
     "Print": "Print",
     "QRCode": "QRCode",

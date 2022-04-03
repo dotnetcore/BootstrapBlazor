@@ -373,6 +373,7 @@
     "DisplayText": "数据显示 Display",
     "EmptyText": "空状态 Empty",
     "LocatorText": "位置定位 Locator",
+    "ImageText": "图片 Image",
     "IpText": "IP 地址 IpAddress",
     "PrintText": "打印组件 Print",
     "TitleText": "网站标题 Title",
@@ -2297,7 +2298,7 @@
     "OnListViewItemClick": "ListView元素点击时回调委托",
     "QueryAsync": "手工查询数据方法"
   },
-  "BootstrapBlazor.Shared.Samples.Locator": {
+  "BootstrapBlazor.Shared.Samples.Locators": {
     "Title": "获取 IP 地理位置",
     "SubTitle": "多用于系统日志跟踪与分析",
     "BasicUsageTitle": "普通用法",
@@ -2317,6 +2318,9 @@
     "BasicUsageP10": "1. 实现自定义定位器",
     "BasicUsageP11": "2. 配置自定义定位器",
     "BasicUsageP12": "通过 <code>AddBootstrapBlazor</code> 方法的回调委托参数进行自定义定位器 <code>CustomerLocator</code> 配置"
+  },
+  "BootstrapBlazor.Shared.Samples.Images": {
+    "BasicUsageTitle": "基础用法"
   },
   "BootstrapBlazor.Shared.Samples.Ips": {
     "BasicUsageTitle": "基础用法"
@@ -2699,6 +2703,7 @@
     "LinkButton": "链接按钮 LinkButton",
     "ListView": "列表组件 ListView",
     "Locator": "位置定位 Locator",
+    "Image": "图片 Image",
     "Popover": "弹出窗 Popover",
     "Print": "打印组件 Print",
     "QRCode": "二维码 QRCode",
