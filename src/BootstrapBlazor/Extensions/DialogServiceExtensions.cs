@@ -196,14 +196,30 @@ public static class DialogServiceExtensions
     /// <returns></returns>
     public static async Task ShowSaveDialog<TComponent>(this DialogService service, string title, Func<Task<bool>>? saveCallback = null, Action<Dictionary<string, object?>>? parametersFactory = null, Action<DialogOption>? configureOption = null, Dialog? dialog = null) where TComponent : ComponentBase
     {
+        var parameters = new Dictionary<string, object?>();
+        parametersFactory?.Invoke(parameters);
+        await ShowSaveDialog<TComponent>(service, title, saveCallback, parameters, configureOption, dialog);
+    }
+
+    /// <summary>
+    /// 弹出保存对话窗方法
+    /// </summary>
+    /// <typeparam name="TComponent"></typeparam>
+    /// <param name="service">DialogService 服务实例</param>
+    /// <param name="title">弹窗标题</param>
+    /// <param name="saveCallback">点击保存按钮回调委托方法 返回 true 时关闭弹窗</param>
+    /// <param name="parameters">TComponent 组件所需参数</param>
+    /// <param name="configureOption"><see cref="DialogOption"/> 实例配置回调方法</param>
+    /// <param name="dialog"></param>
+    /// <returns></returns>
+    public static async Task ShowSaveDialog<TComponent>(this DialogService service, string title, Func<Task<bool>>? saveCallback = null, Dictionary<string, object?>? parameters = null, Action<DialogOption>? configureOption = null, Dialog? dialog = null) where TComponent : ComponentBase
+    {
         var option = new DialogOption()
         {
             Title = title,
             ShowSaveButton = true,
             OnSaveAsync = saveCallback
         };
-        var parameters = new Dictionary<string, object?>();
-        parametersFactory?.Invoke(parameters);
         option.Component = BootstrapDynamicComponent.CreateComponent<TComponent>(parameters);
         configureOption?.Invoke(option);
         await service.Show(option, dialog);
