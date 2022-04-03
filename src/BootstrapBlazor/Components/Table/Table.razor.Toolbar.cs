@@ -668,6 +668,7 @@ public partial class Table<TItem>
             Columns.AddRange(cols);
 
             QueryItems = DynamicContext.GetItems().Cast<TItem>();
+            SelectedRows.Clear();
             RowItemsCache = null;
         }
     }
