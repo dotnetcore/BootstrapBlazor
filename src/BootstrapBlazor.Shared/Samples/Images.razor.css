@@ -15,7 +15,7 @@
     margin-top: 1rem;
 }
 
-.images-item div {
+.images-item > div {
     text-align: center;
     margin-bottom: .5rem;
 }

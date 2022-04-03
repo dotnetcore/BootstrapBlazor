@@ -53,6 +53,12 @@ public partial class Image
     public bool ShowPlaceHolder { get; set; }
 
     /// <summary>
+    /// 获得/设置 占位模板 未设置 <see cref="Url"/> 或者 正在加载时显示 默认 null 未设置
+    /// </summary>
+    [Parameter]
+    public RenderFragment? PlaceHolderTemplate { get; set; }
+
+    /// <summary>
     /// 获得/设置 错误模板 默认 null 未设置
     /// </summary>
     [Parameter]
