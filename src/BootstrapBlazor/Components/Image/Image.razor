@@ -4,30 +4,26 @@
 <div @attributes="AdditionalAttributes" class="@ClassString">
     @if (ShowImage)
     {
-        @RenderImage()
-        @if (ShowPlaceHolder && !Loaded)
-        {
-            @if(PlaceHolderTemplate != null)
-            {
-                @PlaceHolderTemplate
-            }
-            else
-            {
-                <div class="bb_img_holder">
-                    @if(!string.IsNullOrEmpty(PlaceHolder))
-                    {
-                        <div class="bb_img_loading">@PlaceHolder</div>
-                    }
-                </div>
-            }
-        }
+        @RenderChildContent()
     }
-    else if(PlaceHolderTemplate != null)
+    else if (ShouldRenderPlaceHolder)
     {
         @PlaceHolderTemplate
     }
-    else if (ErrorTemplate != null)
-    {
-        @ErrorTemplate
-    }
 </div>
+
+@code {
+    RenderFragment RenderErrorTemplate() =>
+    @<div class="bb_img_holder bb_img_error">
+        <div class="bb_img_loading">
+            <i class="fa fa-file-picture-o fa-2x"></i>
+        </div>
+    </div>;
+
+    RenderFragment RenderPlaceHolder() =>
+    @<div class="bb_img_holder">
+        <div class="bb_img_loading">
+            <Spinner Color="Color.Primary" />
+        </div>
+    </div>;
+}

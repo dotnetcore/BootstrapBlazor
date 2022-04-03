@@ -29,7 +29,7 @@
     </div>
 </DemoBlock>
 
-<DemoBlock Title="占位内容" Introduction="可通过设置 <code>ShowPlaceHolder</code> 开启占位符功能，通过设置 <code>PlaceHolder</code> 自定义占位内容" Name="PlaceHolder">
+<DemoBlock Title="占位内容" Introduction="可通过设置 <code>ShowPlaceHolder</code> 开启占位符功能，通过设置 <code>PlaceHolderTemplate</code> 自定义占位内容" Name="PlaceHolder">
     <div>图片加载后浏览器默认会缓存，建议 <kbd>F12</kbd> 关闭缓存体验此功能</div>
     <div class="images img-ph mt-3">
         <div class="images-item">
@@ -38,7 +38,13 @@
         </div>
         <div class="images-item">
             <div>自定义</div>
-            <Image Url="_content/BootstrapBlazor.Shared/images/image-ph.jpeg" ShowPlaceHolder="true" PlaceHolder="正在加载 ..." />
+            <Image Url="_content/BootstrapBlazor.Shared/images/image-ph.jpeg" ShowPlaceHolder="true">
+                <PlaceHolderTemplate>
+                    <div class="bb_img_holder">
+                        <div class="bb_img_loading">加载中 ...</div>
+                    </div>
+                </PlaceHolderTemplate>
+            </Image>
         </div>
     </div>
 </DemoBlock>
@@ -64,6 +70,25 @@
                         <div class="bb_img_loading">占位模板</div>
                     </div>
                 </PlaceHolderTemplate>
+            </Image>
+        </div>
+    </div>
+</DemoBlock>
+
+<DemoBlock Title="加载失败" Introduction="可通过设置 <code>ErrorTemplate</code> 开启错误模板功能，参数 <code>Url</code> 无法加载图片时显示此模板内容" Name="PlaceHolderTemplate">
+    <div class="images img-ph mt-3">
+        <div class="images-item">
+            <div>Url 路径错误</div>
+            <Image Url="_content/BootstrapBlazor.Shared/images/error-image.jpeg" HandleError="true" />
+        </div>
+        <div class="images-item">
+            <div>自定义</div>
+            <Image Url="_content/BootstrapBlazor.Shared/images/error-image.jpeg">
+                <ErrorTemplate>
+                    <div class="bb_img_holder">
+                        <div class="bb_img_loading">加载失败</div>
+                    </div>
+                </ErrorTemplate>
             </Image>
         </div>
     </div>

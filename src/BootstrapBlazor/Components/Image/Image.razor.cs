@@ -41,16 +41,16 @@ public partial class Image
     public string? Alt { get; set; }
 
     /// <summary>
-    /// 获得/设置 图片加载时占位符 默认 null
-    /// </summary>
-    [Parameter]
-    public string? PlaceHolder { get; set; }
-
-    /// <summary>
-    /// 获得/设置 是否显示占位符 适用于大图片加载 占位符内容请查看 <see cref="PlaceHolder"/> 默认 false
+    /// 获得/设置 是否显示占位符 适用于大图片加载 默认 false
     /// </summary>
     [Parameter]
     public bool ShowPlaceHolder { get; set; }
+
+    /// <summary>
+    /// 获得/设置 加载失败时是否显示错误占位符 默认 false
+    /// </summary>
+    [Parameter]
+    public bool HandleError { get; set; }
 
     /// <summary>
     /// 获得/设置 占位模板 未设置 <see cref="Url"/> 或者 正在加载时显示 默认 null 未设置
@@ -72,37 +72,50 @@ public partial class Image
 
     private bool ShowImage => !string.IsNullOrEmpty(Url);
 
-    private bool Loaded { get; set; }
+    private bool IsLoaded { get; set; }
 
-    private RenderFragment RenderImage() => builder =>
+    private bool IsError { get; set; }
+
+    private RenderFragment RenderChildContent() => builder =>
     {
-        builder.OpenElement(0, "img");
-        builder.AddAttribute(1, "class", ImageClassString);
-        if (!string.IsNullOrEmpty(Url))
+        if (!IsError)
         {
-            builder.AddAttribute(2, "src", Url);
-        }
-        if (!string.IsNullOrEmpty(Alt))
-        {
-            builder.AddAttribute(3, "alt", Alt);
-        }
-        if (ShowPlaceHolder)
-        {
-            builder.AddAttribute(4, "onload", EventCallback.Factory.Create<ProgressEventArgs>(this, args =>
+            builder.OpenElement(0, "img");
+            builder.AddAttribute(1, "class", ImageClassString);
+            if (!string.IsNullOrEmpty(Url))
             {
-                Loaded = true;
-            }));
+                builder.AddAttribute(2, "src", Url);
+            }
+            if (!string.IsNullOrEmpty(Alt))
+            {
+                builder.AddAttribute(3, "alt", Alt);
+            }
+            if (ShowPlaceHolder)
+            {
+                builder.AddAttribute(4, "onload", EventCallback.Factory.Create<ProgressEventArgs>(this, args =>
+                {
+                    IsLoaded = true;
+                }));
+            }
+            if (HandleError || ErrorTemplate != null)
+            {
+                builder.AddAttribute(4, "onerror", EventCallback.Factory.Create<ErrorEventArgs>(this, args =>
+                {
+                    IsError = true;
+                }));
+            }
+            builder.CloseElement();
+
+            if (ShouldRenderPlaceHolder)
+            {
+                builder.AddContent(5, PlaceHolderTemplate ?? RenderPlaceHolder());
+            }
         }
-        builder.CloseElement();
+        else
+        {
+            builder.AddContent(6, ErrorTemplate ?? RenderErrorTemplate());
+        }
     };
 
-    private void OnError(ErrorEventArgs e)
-    {
-
-    }
-
-    private void OnLoad(ProgressEventArgs e)
-    {
-        Loaded = true;
-    }
+    private bool ShouldRenderPlaceHolder => (ShowPlaceHolder || PlaceHolderTemplate != null) && !IsLoaded;
 }
