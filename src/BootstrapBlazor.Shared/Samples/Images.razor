@@ -5,7 +5,14 @@
 <h4>图片容器，在保留原生 img 的特性下，支持懒加载，自定义占位、加载失败等</h4>
 
 <DemoBlock Title="基本用法" Introduction="加载并显示图片文件" Name="Normal">
-    <div class="images">
+    <ul class="ul-demo">
+        <li><code>object-fit: fill</code> 填充 默认值 使图片拉伸填满整个容器, 不保证保持原有的比例</li>
+        <li><code>object-fit: contain</code> 包含 保持原有尺寸比例缩放 保证整个图片都可以出现在容器中，因此此参数可能会在容器内留下空白</li>
+        <li><code>object-fit: cover</code> 覆盖 保持原有尺寸比例缩放，宽度和高度至少有一个和容器一致（尺寸小的一致）因此此参数可能会让图片部分区域不可见</li>
+        <li><code>object-fit: none</code> 无 保持原有尺寸比例，同时保持图片原始尺寸大小，多出的部分隐藏</li>
+        <li><code>object-fit: scale-down</code> 降低 就好像依次设置了 <b>none</b> 或 <b>contain</b> 最终呈现的是尺寸比较小的那个</li>
+    </ul>
+    <div class="images mt-3">
         <div class="images-item">
             <div>Fill</div>
             <Image Url="_content/BootstrapBlazor.Shared/images/bird.jpeg" FitMode="ObjectFitMode.Fill" />
@@ -40,8 +47,8 @@
             <div>自定义</div>
             <Image Url="_content/BootstrapBlazor.Shared/images/image-ph.jpeg" ShowPlaceHolder="true">
                 <PlaceHolderTemplate>
-                    <div class="bb_img_holder">
-                        <div class="bb_img_loading">加载中 ...</div>
+                    <div class="bb-img-holder">
+                        <div class="bb-img-loading">加载中 ...</div>
                     </div>
                 </PlaceHolderTemplate>
             </Image>
@@ -56,8 +63,8 @@
             <div>未设置 Url</div>
             <Image Url="">
                 <PlaceHolderTemplate>
-                    <div class="bb_img_holder">
-                        <div class="bb_img_loading">占位模板</div>
+                    <div class="bb-img-holder">
+                        <div class="bb-img-loading">占位模板</div>
                     </div>
                 </PlaceHolderTemplate>
             </Image>
@@ -66,8 +73,8 @@
             <div>加载时显示</div>
             <Image Url="_content/BootstrapBlazor.Shared/images/image-ph.jpeg" ShowPlaceHolder="true">
                 <PlaceHolderTemplate>
-                    <div class="bb_img_holder">
-                        <div class="bb_img_loading">占位模板</div>
+                    <div class="bb-img-holder">
+                        <div class="bb-img-loading">占位模板</div>
                     </div>
                 </PlaceHolderTemplate>
             </Image>
@@ -75,7 +82,7 @@
     </div>
 </DemoBlock>
 
-<DemoBlock Title="加载失败" Introduction="可通过设置 <code>ErrorTemplate</code> 开启错误模板功能，参数 <code>Url</code> 无法加载图片时显示此模板内容" Name="PlaceHolderTemplate">
+<DemoBlock Title="加载失败" Introduction="可通过设置 <code>ErrorTemplate</code> 开启错误模板功能，参数 <code>Url</code> 无法加载图片时显示此模板内容" Name="ErrorTemplate">
     <div class="images img-ph mt-3">
         <div class="images-item">
             <div>Url 路径错误</div>
@@ -85,11 +92,21 @@
             <div>自定义</div>
             <Image Url="_content/BootstrapBlazor.Shared/images/error-image.jpeg">
                 <ErrorTemplate>
-                    <div class="bb_img_holder">
-                        <div class="bb_img_loading">加载失败</div>
+                    <div class="bb-img-holder">
+                        <div class="bb-img-loading">加载失败</div>
                     </div>
                 </ErrorTemplate>
             </Image>
         </div>
     </div>
 </DemoBlock>
+
+<DemoBlock Title="大图预览" Introduction="可通过设置 <code>PreviewList</code> 开启预览大图的功能" Name="PreviewList">
+    <div class="images img-ph mt-3">
+        <div class="images-item">
+            <Image Url="_content/BootstrapBlazor.Shared/images/bird.jpeg" PreviewList="PreviewList" />
+        </div>
+    </div>
+</DemoBlock>
+
+<AttributeTable Items="@GetAttributes()" />

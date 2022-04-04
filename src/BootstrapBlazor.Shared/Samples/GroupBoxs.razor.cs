@@ -13,12 +13,12 @@ public sealed partial class GroupBoxs
 {
     private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
-            new AttributeItem() {
-                Name = "Title",
-                Description = Localizer["AttTitle"],
-                Type = "string",
-                ValueList = " — ",
-                DefaultValue = " — "
-            }
+        new AttributeItem() {
+            Name = "Title",
+            Description = Localizer["AttTitle"],
+            Type = "string",
+            ValueList = " — ",
+            DefaultValue = " — "
+        }
     };
 }

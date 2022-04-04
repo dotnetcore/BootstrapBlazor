@@ -1,4 +1,4 @@
-﻿.images ::deep .bb_img {
+﻿.images ::deep .bb-img {
     width: 100px;
     height: 100px;
     border-radius: var(--bs-border-radius);
@@ -6,7 +6,7 @@
     margin: 0 auto;
 }
 
-.images.img-ph ::deep .bb_img {
+.images.img-ph ::deep .bb-img {
     width: 300px;
     height: 200px;
 }
