@@ -60,13 +60,9 @@
             // 更新预览图片数据源
             var index = 0;
             var updateImage = function (index) {
-                $prevImg.addClass('transition-none');
                 resetImage();
                 var url = prevList[index];
                 $wrapper.find('.bb-viewer-canvas > img').attr('src', url);
-                window.setTimeout(function () {
-                    $prevImg.removeClass('transition-none');
-                }, 300);
             }
 
             // 全屏/恢复按钮功能
@@ -179,7 +175,11 @@
             };
 
             var resetImage = function () {
+                $prevImg.addClass('transition-none');
                 $prevImg.css('transform', 'scale(1) rotate(0deg)');
+                window.setTimeout(function () {
+                    $prevImg.removeClass('transition-none');
+                }, 300);
             }
         }
     });

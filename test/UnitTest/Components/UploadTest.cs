@@ -535,11 +535,6 @@ public class UploadTest : BootstrapBlazorTestBase
         var deleted = false;
         var cut = Context.RenderComponent<CardUpload<string>>(pb =>
         {
-            pb.Add(a => a.OnZoomAsync, file =>
-            {
-                zoom = true;
-                return Task.CompletedTask;
-            });
             pb.Add(a => a.OnDelete, file =>
             {
                 deleted = true;
@@ -557,8 +552,20 @@ public class UploadTest : BootstrapBlazorTestBase
                 new UploadFile() { FileName = null! }
             });
         });
+        cut.Contains("bb-viewer-wrapper active");
 
         // OnZoom
+        cut.InvokeAsync(() => cut.Find(".btn-outline-secondary").Click());
+        Assert.False(zoom);
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.OnZoomAsync, file =>
+            {
+                zoom = true;
+                return Task.CompletedTask;
+            });
+        });
         cut.InvokeAsync(() => cut.Find(".btn-outline-secondary").Click());
         Assert.True(zoom);
 

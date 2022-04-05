@@ -56,4 +56,9 @@
         }
     </div>
     <InputFile AdditionalAttributes="@GetUploadAdditionalAttributes()" OnChange="OnFileChange" />
+
+    @if(ShowPreviewList)
+    {
+        <ImagePreview PreviewList="PreviewList" />
+    }
 </div>

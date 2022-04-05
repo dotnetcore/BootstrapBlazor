@@ -3,7 +3,6 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
 
 namespace BootstrapBlazor.Components;
 
@@ -164,6 +163,4 @@ public partial class Image
     private bool ShouldHandleError => HandleError || ErrorTemplate != null;
 
     private bool ShowPreviewList => PreviewList != null && PreviewList.Count > 0;
-
-    private string? GetFirstImageUrl() => PreviewList!.First();
 }

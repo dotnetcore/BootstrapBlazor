@@ -17,6 +17,10 @@ public partial class CardUpload<TValue>
 
     private string? GetDiabledString(UploadFile item) => (!IsDisabled && item.Uploaded && item.Code == 0) ? null : "disabled";
 
+    private bool ShowPreviewList => GetUploadFiles().Any();
+
+    private List<string?> PreviewList => GetUploadFiles().Select(i => i.PrevUrl).ToList();
+
     private string? GetDeleteButtonDiabledString(UploadFile item) => (!IsDisabled && item.Uploaded) ? null : "disabled";
 
     private string? CardItemClass => CssBuilder.Default("upload-item")
@@ -62,6 +66,10 @@ public partial class CardUpload<TValue>
         if (OnZoomAsync != null)
         {
             await OnZoomAsync(item);
+        }
+        else
+        {
+            await JSRuntime.InvokeVoidAsync(UploaderElement, "bb_image_preview", PreviewList);
         }
     }
 }
