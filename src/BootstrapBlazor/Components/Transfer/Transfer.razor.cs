@@ -181,7 +181,7 @@ public partial class Transfer<TValue>
     /// <summary>
     /// 选中数据移动方法
     /// </summary>
-    private async Task TransferItems(List<SelectedItem> source, List<SelectedItem> target)
+    private async Task TransferItems(List<SelectedItem> source, List<SelectedItem> target, bool isLeft)
     {
         if (Items != null)
         {
@@ -191,11 +191,17 @@ public partial class Transfer<TValue>
             source.RemoveAll(i => items.Contains(i));
             target.AddRange(items);
 
-            CurrentValueAsString = string.Join(",", target.Select(i => i.Value));
-
+            if (isLeft)
+            {
+                CurrentValueAsString = string.Join(",", target.Select(i => i.Value));
+            }
+            else
+            {
+                CurrentValueAsString = string.Join(",", source.Select(i => i.Value));
+            }
             if (OnSelectedItemsChanged != null)
             {
-                await OnSelectedItemsChanged(target);
+                await OnSelectedItemsChanged(isLeft ? target : source);
             }
         }
     }
@@ -221,7 +227,7 @@ public partial class Transfer<TValue>
         }
         else if (typeof(IEnumerable<SelectedItem>).IsAssignableFrom(typeof(TValue)))
         {
-            result = (TValue)(object)RightItems;
+            result = (TValue)(object)RightItems.Select(i => new SelectedItem(i.Value, i.Text)).ToList();
         }
         else
         {

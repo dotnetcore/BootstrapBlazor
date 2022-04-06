@@ -12,11 +12,11 @@
                    OnSelectedItemsChanged="@SelectedItemsChanged" OnSetItemClass="OnSetItemClass">
     </TransferPanel>
     <div class="transfer-buttons">
-        <Button Color="@Color.Primary" IsDisabled="@GetButtonState(RightItems)" OnClick="() => TransferItems(RightItems, LeftItems)">
+        <Button Color="@Color.Primary" IsDisabled="@GetButtonState(RightItems)" OnClick="() => TransferItems(RightItems, LeftItems, false)">
             <i class="fa fa-angle-left"></i>
             <span class="@LeftButtonClassName">@LeftButtonText</span>
         </Button>
-        <Button Color="@Color.Primary" IsDisabled="@GetButtonState(LeftItems)" OnClick="() => TransferItems(LeftItems, RightItems)">
+        <Button Color="@Color.Primary" IsDisabled="@GetButtonState(LeftItems)" OnClick="() => TransferItems(LeftItems, RightItems, true)">
             <span class="@RightButtonClassName">@RightButtonText</span>
             <i class="fa fa-angle-right"></i>
         </Button>
