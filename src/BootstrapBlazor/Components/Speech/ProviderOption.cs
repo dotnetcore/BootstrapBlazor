@@ -5,18 +5,22 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 选项最小数验证实现类
+/// 
 /// </summary>
-public class MinValidator : MaxValidator
+public class ProviderOption
 {
     /// <summary>
-    /// 验证方法 大于等于 Value 时 返回 true
+    /// 获得/设置 语音识别指令名称
     /// </summary>
-    protected override bool Validate(int count) => count >= Value;
+    public string? MethodName { get; set; }
 
     /// <summary>
-    /// 获得 ErrorMessage 方法
+    /// 获得/设置 IServiceProvider 实例
     /// </summary>
-    /// <returns></returns>
-    protected override string GetErrorMessage() => ErrorMessage ?? "Select at least {0} items";
+    public IServiceProvider? ServiceProvider { get; set; }
+
+    /// <summary>
+    /// 获得/设置 回调方法
+    /// </summary>
+    public Func<string, Task>? Callback { get; set; }
 }

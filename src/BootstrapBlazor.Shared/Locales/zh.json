@@ -2753,7 +2753,8 @@
     "ChartBubble": "气泡图",
     "Transition": "过渡效果 Transition",
     "Geolocation": "地理定位组件 Geolocation",
-    "Notification": "浏览器通知 Notification"
+    "Notification": "浏览器通知 Notification",
+    "Speech": "语音识别 Speech"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesFooter": {
     "Left": "左对齐",

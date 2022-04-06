@@ -13,9 +13,9 @@ namespace BootstrapBlazor.Components;
 public class MaxValidator : ValidatorBase
 {
     /// <summary>
-    /// 获得/设置 错误描述信息 默认为 null 需要赋值
+    /// 获得/设置 错误描述信息
     /// </summary>
-    public string ErrorMessage { get; set; } = "At most {0} items can be selected";
+    public string? ErrorMessage { get; set; }
 
     /// <summary>
     /// 获得/设置 值
@@ -28,6 +28,11 @@ public class MaxValidator : ValidatorBase
     public Func<string, int> SplitCallback { get; set; } = value => value.Split(',', StringSplitOptions.RemoveEmptyEntries).Length;
 
     /// <summary>
+    /// 获得 ErrorMessage 方法
+    /// </summary>
+    protected virtual string GetErrorMessage() => ErrorMessage ?? "At most {0} items can be selected";
+
+    /// <summary>
     /// 验证方法
     /// </summary>
     /// <param name="propertyValue">待校验值</param>
@@ -37,7 +42,7 @@ public class MaxValidator : ValidatorBase
     {
         if (!Validate(propertyValue))
         {
-            var errorMessage = string.Format(CultureInfo.CurrentCulture, ErrorMessage, Value);
+            var errorMessage = string.Format(CultureInfo.CurrentCulture, GetErrorMessage(), Value);
             results.Add(new ValidationResult(errorMessage, new string[] { context.MemberName ?? context.DisplayName }));
         }
     }

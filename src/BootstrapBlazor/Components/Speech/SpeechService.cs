@@ -5,18 +5,17 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 选项最小数验证实现类
+/// 
 /// </summary>
-public class MinValidator : MaxValidator
+public class SpeechService : BootstrapServiceBase<SpeechOption>
 {
     /// <summary>
-    /// 验证方法 大于等于 Value 时 返回 true
+    /// 
     /// </summary>
-    protected override bool Validate(int count) => count >= Value;
-
-    /// <summary>
-    /// 获得 ErrorMessage 方法
-    /// </summary>
+    /// <param name="option"></param>
     /// <returns></returns>
-    protected override string GetErrorMessage() => ErrorMessage ?? "Select at least {0} items";
+    public async Task InvokeAsync(SpeechOption option)
+    {
+        await base.Invoke(option);
+    }
 }

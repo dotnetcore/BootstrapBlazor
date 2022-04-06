@@ -61,7 +61,7 @@ public class BootstrapBlazorOptions
     /// <summary>
     /// 获得/设置 网站主题集合
     /// </summary>
-    public List<KeyValuePair<string, string>> Themes { get; private set; } = new()
+    public List<KeyValuePair<string, string>> Themes { get; } = new()
     {
         new("Bootstrap", "bootstrap.blazor.bundle.min.css"),
         new("Motronic", "motronic.min.css")

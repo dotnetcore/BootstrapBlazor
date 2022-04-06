@@ -114,7 +114,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BootstrapBlazor.Middleware"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTest.Localization", "test\UnitTest.Localization\UnitTest.Localization.csproj", "{99B55645-0E89-43F8-938F-2304B486AD2A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BootstrapBlazor.FontAwesome", "src\Extensions\Components\BootstrapBlazor.FontAwesome\BootstrapBlazor.FontAwesome.csproj", "{C28717F8-9D2B-4296-9CC4-94882338F370}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BootstrapBlazor.FontAwesome", "src\Extensions\Components\BootstrapBlazor.FontAwesome\BootstrapBlazor.FontAwesome.csproj", "{C28717F8-9D2B-4296-9CC4-94882338F370}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BootstrapBlazor.Speech", "src\Extensions\Components\BootstrapBlazor.Speech\BootstrapBlazor.Speech.csproj", "{6A294916-66AF-4A05-B26F-006A9FEFFD51}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -182,6 +184,10 @@ Global
 		{C28717F8-9D2B-4296-9CC4-94882338F370}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C28717F8-9D2B-4296-9CC4-94882338F370}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C28717F8-9D2B-4296-9CC4-94882338F370}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6A294916-66AF-4A05-B26F-006A9FEFFD51}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A294916-66AF-4A05-B26F-006A9FEFFD51}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A294916-66AF-4A05-B26F-006A9FEFFD51}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A294916-66AF-4A05-B26F-006A9FEFFD51}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -212,6 +218,7 @@ Global
 		{59B49D4C-05FB-4E51-AB40-9498ADC71DD0} = {4A7F4513-C515-40DD-A217-169E1CBB2827}
 		{99B55645-0E89-43F8-938F-2304B486AD2A} = {7C1D79F1-87BC-42C1-BD5A-CDE4044AC1BD}
 		{C28717F8-9D2B-4296-9CC4-94882338F370} = {CD062AB6-244D-402A-8F33-C37DAC5856CC}
+		{6A294916-66AF-4A05-B26F-006A9FEFFD51} = {CD062AB6-244D-402A-8F33-C37DAC5856CC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0DCB0756-34FA-4FD0-AE1D-D3F08B5B3A6B}

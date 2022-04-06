@@ -437,7 +437,7 @@ public class UploadTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void ButtonUpload_IsDirectory_Ok()
+    public async Task ButtonUpload_IsDirectory_Ok()
     {
         var fileNames = new List<string>();
         var cut = Context.RenderComponent<ButtonUpload<string>>(pb =>
@@ -450,7 +450,7 @@ public class UploadTest : BootstrapBlazorTestBase
             });
         });
         var input = cut.FindComponent<InputFile>();
-        cut.InvokeAsync(() => input.Instance.OnChange.InvokeAsync(new InputFileChangeEventArgs(new List<MockBrowserFile>()
+        await cut.InvokeAsync(() => input.Instance.OnChange.InvokeAsync(new InputFileChangeEventArgs(new List<MockBrowserFile>()
         {
             new MockBrowserFile(),
             new MockBrowserFile("UploadTestFile2")

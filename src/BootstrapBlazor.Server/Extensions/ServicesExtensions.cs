@@ -18,8 +18,7 @@ internal static class ServicesExtensions
     /// 添加示例后台任务
     /// </summary>
     /// <param name="services"></param>
-    /// <param name="themes"></param>
-    public static IServiceCollection AddBootstrapBlazorServices(this IServiceCollection services, IEnumerable<KeyValuePair<string, string>> themes)
+    public static IServiceCollection AddBootstrapBlazorServices(this IServiceCollection services)
     {
         // 增加错误日志
         services.AddLogging(logging => logging.AddFileLogger());
@@ -33,13 +32,6 @@ internal static class ServicesExtensions
 
         // 增加 BootstrapBlazor 组件
         services.AddBootstrapBlazor();
-
-        services.ConfigureBootstrapBlazorOption(options =>
-        {
-            // 统一设置 Toast 组件自动消失时间
-            options.ToastDelay = 4000;
-            options.Themes.AddRange(themes);
-        });
 
         services.ConfigureJsonLocalizationOptions(options =>
         {

@@ -2741,7 +2741,8 @@
     "ChartDoughnut": "Doughnut",
     "ChartBubble": "Bubble",
     "Transition": "Transition",
-    "Geolocation": "Geolocation"
+    "Geolocation": "Geolocation",
+    "Speech": "Speech"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesFooter": {
     "Left": "Left",

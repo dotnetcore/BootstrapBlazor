@@ -546,7 +546,12 @@ public sealed partial class NavMenu
             {
                 Text = Localizer["Transition"],
                 Url = "transitions"
-            }
+            },
+            //new()
+            //{
+            //    Text = Localizer["Speech"],
+            //    Url = "speechs"
+            //}
         };
         AddBadge(item);
     }

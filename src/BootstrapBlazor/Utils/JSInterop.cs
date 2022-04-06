@@ -89,7 +89,6 @@ public class JSInterop<TValue> : IDisposable where TValue : class
         return _jsRuntime.InvokeAsync<bool>("$.bb_geo_clearWatchLocation", watchid);
     }
 
-
     /// <summary>
     /// 
     /// </summary>

@@ -2,8 +2,8 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using BootstrapBlazor.Components;
 using Microsoft.AspNetCore.HttpOverrides;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Options;
 using System.Text;
 
@@ -18,9 +18,21 @@ builder.Services.AddResponseCompression();
 builder.Services.AddControllers();
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
-builder.Services.AddBootstrapBlazorServices(builder.Configuration.GetSection("Themes")
+builder.Services.AddBootstrapBlazorServices();
+
+// 获得当前主题配置
+var themes = builder.Configuration.GetSection("Themes")
     .GetChildren()
-    .Select(c => new KeyValuePair<string, string>(c.Key, c.Value)));
+    .Select(c => new KeyValuePair<string, string>(c.Key, c.Value));
+
+builder.Services.ConfigureBootstrapBlazorOption(options =>
+{
+    // 统一设置 Toast 组件自动消失时间
+    options.ToastDelay = 4000;
+    options.Themes.AddRange(themes);
+});
+
+builder.Services.Configure<HubOptions>(option => option.MaximumReceiveMessageSize = int.MaxValue);
 
 var app = builder.Build();
 
