@@ -9,7 +9,7 @@ public class ImageTest : TestBase
     [Fact]
     public void ShowImage_Ok()
     {
-        var cut = Context.RenderComponent<Image>(pb =>
+        var cut = Context.RenderComponent<ImageViewer>(pb =>
         {
             pb.Add(a => a.Url, "https://www.blazor.zone/_content/BootstrapBlazor.Shared/images/logo.png");
             pb.Add(a => a.ZIndex, 2000);
@@ -21,7 +21,7 @@ public class ImageTest : TestBase
     [Fact]
     public void Alt_Ok()
     {
-        var cut = Context.RenderComponent<Image>(pb =>
+        var cut = Context.RenderComponent<ImageViewer>(pb =>
         {
             pb.Add(a => a.Url, "https://www.blazor.zone/_content/BootstrapBlazor.Shared/images/logo.png");
             pb.Add(a => a.Alt, "alt-test");
@@ -32,7 +32,7 @@ public class ImageTest : TestBase
     [Fact]
     public void ShouldRenderPlaceHolder_Ok()
     {
-        var cut = Context.RenderComponent<Image>(pb =>
+        var cut = Context.RenderComponent<ImageViewer>(pb =>
         {
             pb.Add(a => a.ShowPlaceHolder, true);
         });
@@ -49,7 +49,7 @@ public class ImageTest : TestBase
     public async Task OnLoad_Ok()
     {
         var load = false;
-        var cut = Context.RenderComponent<Image>(pb =>
+        var cut = Context.RenderComponent<ImageViewer>(pb =>
         {
             pb.Add(a => a.Url, "https://www.blazor.zone/_content/BootstrapBlazor.Shared/images/logo.png");
             pb.Add(a => a.ShowPlaceHolder, true);
@@ -70,7 +70,7 @@ public class ImageTest : TestBase
     public async Task HandleError_Ok()
     {
         var error = false;
-        var cut = Context.RenderComponent<Image>(pb =>
+        var cut = Context.RenderComponent<ImageViewer>(pb =>
         {
             pb.Add(a => a.Url, "https://www.blazor.zone/_content/BootstrapBlazor.Shared/images/logo1.png");
             pb.Add(a => a.HandleError, true);
@@ -101,7 +101,7 @@ public class ImageTest : TestBase
     [Fact]
     public async Task ShowPreviewList_Ok()
     {
-        var cut = Context.RenderComponent<Image>(pb =>
+        var cut = Context.RenderComponent<ImageViewer>(pb =>
         {
             pb.Add(a => a.Url, "https://www.blazor.zone/_content/BootstrapBlazor.Shared/images/logo.png");
             pb.Add(a => a.PreviewList, new List<string> { "v1", "v2" });

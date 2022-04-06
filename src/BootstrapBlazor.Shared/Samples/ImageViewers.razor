@@ -1,4 +1,4 @@
-﻿@page "/images"
+﻿@page "/imageviewers"
 
 <h3>Image 图片</h3>
 
@@ -15,23 +15,23 @@
     <div class="images mt-3">
         <div class="images-item">
             <div>Fill</div>
-            <Image Url="_content/BootstrapBlazor.Shared/images/bird.jpeg" FitMode="ObjectFitMode.Fill" />
+            <ImageViewer Url="_content/BootstrapBlazor.Shared/images/bird.jpeg" FitMode="ObjectFitMode.Fill" />
         </div>
         <div class="images-item">
             <div>Contain</div>
-            <Image Url="_content/BootstrapBlazor.Shared/images/bird.jpeg" FitMode="ObjectFitMode.Contain" />
+            <ImageViewer Url="_content/BootstrapBlazor.Shared/images/bird.jpeg" FitMode="ObjectFitMode.Contain" />
         </div>
         <div class="images-item">
             <div>Cover</div>
-            <Image Url="_content/BootstrapBlazor.Shared/images/bird.jpeg" FitMode="ObjectFitMode.Cover" />
+            <ImageViewer Url="_content/BootstrapBlazor.Shared/images/bird.jpeg" FitMode="ObjectFitMode.Cover" />
         </div>
         <div class="images-item">
             <div>None</div>
-            <Image Url="_content/BootstrapBlazor.Shared/images/bird.jpeg" FitMode="ObjectFitMode.None" />
+            <ImageViewer Url="_content/BootstrapBlazor.Shared/images/bird.jpeg" FitMode="ObjectFitMode.None" />
         </div>
         <div class="images-item">
             <div>ScaleDown</div>
-            <Image Url="_content/BootstrapBlazor.Shared/images/bird.jpeg" FitMode="ObjectFitMode.ScaleDown" />
+            <ImageViewer Url="_content/BootstrapBlazor.Shared/images/bird.jpeg" FitMode="ObjectFitMode.ScaleDown" />
         </div>
     </div>
 </DemoBlock>
@@ -41,17 +41,17 @@
     <div class="images img-ph mt-3">
         <div class="images-item">
             <div>默认</div>
-            <Image Url="_content/BootstrapBlazor.Shared/images/image-ph.jpeg" ShowPlaceHolder="true" />
+            <ImageViewer Url="_content/BootstrapBlazor.Shared/images/image-ph.jpeg" ShowPlaceHolder="true" />
         </div>
         <div class="images-item">
             <div>自定义</div>
-            <Image Url="_content/BootstrapBlazor.Shared/images/image-ph.jpeg" ShowPlaceHolder="true">
+            <ImageViewer Url="_content/BootstrapBlazor.Shared/images/image-ph.jpeg" ShowPlaceHolder="true">
                 <PlaceHolderTemplate>
                     <div class="bb-img-holder">
                         <div class="bb-img-loading">加载中 ...</div>
                     </div>
                 </PlaceHolderTemplate>
-            </Image>
+            </ImageViewer>
         </div>
     </div>
 </DemoBlock>
@@ -61,23 +61,23 @@
     <div class="images img-ph mt-3">
         <div class="images-item">
             <div>未设置 Url</div>
-            <Image Url="">
+            <ImageViewer Url="">
                 <PlaceHolderTemplate>
                     <div class="bb-img-holder">
                         <div class="bb-img-loading">占位模板</div>
                     </div>
                 </PlaceHolderTemplate>
-            </Image>
+            </ImageViewer>
         </div>
         <div class="images-item">
             <div>加载时显示</div>
-            <Image Url="_content/BootstrapBlazor.Shared/images/image-ph.jpeg" ShowPlaceHolder="true">
+            <ImageViewer Url="_content/BootstrapBlazor.Shared/images/image-ph.jpeg" ShowPlaceHolder="true">
                 <PlaceHolderTemplate>
                     <div class="bb-img-holder">
                         <div class="bb-img-loading">占位模板</div>
                     </div>
                 </PlaceHolderTemplate>
-            </Image>
+            </ImageViewer>
         </div>
     </div>
 </DemoBlock>
@@ -86,17 +86,17 @@
     <div class="images img-ph mt-3">
         <div class="images-item">
             <div>Url 路径错误</div>
-            <Image Url="_content/BootstrapBlazor.Shared/images/error-image.jpeg" HandleError="true" />
+            <ImageViewer Url="_content/BootstrapBlazor.Shared/images/error-image.jpeg" HandleError="true" />
         </div>
         <div class="images-item">
             <div>自定义</div>
-            <Image Url="_content/BootstrapBlazor.Shared/images/error-image.jpeg">
+            <ImageViewer Url="_content/BootstrapBlazor.Shared/images/error-image.jpeg">
                 <ErrorTemplate>
                     <div class="bb-img-holder">
                         <div class="bb-img-loading">加载失败</div>
                     </div>
                 </ErrorTemplate>
-            </Image>
+            </ImageViewer>
         </div>
     </div>
 </DemoBlock>
@@ -104,7 +104,7 @@
 <DemoBlock Title="大图预览" Introduction="可通过设置 <code>PreviewList</code> 开启预览大图的功能" Name="PreviewList">
     <div class="images img-ph mt-3">
         <div class="images-item">
-            <Image Url="_content/BootstrapBlazor.Shared/images/bird.jpeg" PreviewList="PreviewList" />
+            <ImageViewer Url="_content/BootstrapBlazor.Shared/images/bird.jpeg" PreviewList="PreviewList" />
         </div>
     </div>
 </DemoBlock>

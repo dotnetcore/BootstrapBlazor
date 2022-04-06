@@ -497,8 +497,8 @@ public sealed partial class NavMenu
             new()
             {
                 IsNew = true,
-                Text = Localizer["Image"],
-                Url = "images"
+                Text = Localizer["ImageViewer"],
+                Url = "imageviewers"
             },
             new()
             {

@@ -373,7 +373,7 @@
     "DisplayText": "数据显示 Display",
     "EmptyText": "空状态 Empty",
     "LocatorText": "位置定位 Locator",
-    "ImageText": "图片 Image",
+    "ImageViewerText": "图片 ImageViewer",
     "IpText": "IP 地址 IpAddress",
     "PrintText": "打印组件 Print",
     "TitleText": "网站标题 Title",

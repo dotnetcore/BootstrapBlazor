@@ -9,7 +9,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// Image 组件
 /// </summary>
-public partial class Image
+public partial class ImageViewer
 {
     /// <summary>
     /// 获得 组件样式

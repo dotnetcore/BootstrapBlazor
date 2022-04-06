@@ -10,7 +10,7 @@ namespace BootstrapBlazor.Shared.Samples;
 /// <summary>
 /// Images 示例类
 /// </summary>
-public partial class Images
+public partial class ImageViewers
 {
     private List<string> PreviewList { get; } = new();
 
@@ -31,77 +31,77 @@ public partial class Images
     private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
         new AttributeItem() {
-            Name = nameof(Image.Url),
+            Name = nameof(ImageViewer.Url),
             Description = "图片 Url",
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
         },
         new AttributeItem() {
-            Name = nameof(Image.Alt),
+            Name = nameof(ImageViewer.Alt),
             Description = "原生 alt 属性",
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
         },
         new AttributeItem() {
-            Name = nameof(Image.ShowPlaceHolder),
+            Name = nameof(ImageViewer.ShowPlaceHolder),
             Description = "是否显示占位符 适用于大图片加载",
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
         },
         new AttributeItem() {
-            Name = nameof(Image.HandleError),
+            Name = nameof(ImageViewer.HandleError),
             Description = "加载失败时是否显示错误占位符",
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
         },
         new AttributeItem() {
-            Name = nameof(Image.PlaceHolderTemplate),
+            Name = nameof(ImageViewer.PlaceHolderTemplate),
             Description = "占位模板 未设置 Url 或者正在加载大图时生效",
             Type = "RenderFragment",
             ValueList = "true|false",
             DefaultValue = "false"
         },
         new AttributeItem() {
-            Name = nameof(Image.ErrorTemplate),
+            Name = nameof(ImageViewer.ErrorTemplate),
             Description = "错误模板 图片路径错误时生效",
             Type = "RenderFragment",
             ValueList = "true|false",
             DefaultValue = "false"
         },
         new AttributeItem() {
-            Name = nameof(Image.FitMode),
+            Name = nameof(ImageViewer.FitMode),
             Description = "原生 object-fit 属性",
             Type = "ObjectFitMode",
             ValueList = "fill|contain|cover|none|scale-down",
             DefaultValue = "fill"
         },
         new AttributeItem() {
-            Name = nameof(Image.ZIndex),
+            Name = nameof(ImageViewer.ZIndex),
             Description = "原生 z-index 属性",
             Type = "int",
             ValueList = " — ",
             DefaultValue = "2050"
         },
         new AttributeItem() {
-            Name = nameof(Image.PreviewList),
+            Name = nameof(ImageViewer.PreviewList),
             Description = "预览大图链接集合",
             Type = "List<string>",
             ValueList = " — ",
             DefaultValue = " — "
         },
         new AttributeItem() {
-            Name = nameof(Image.OnLoadAsync),
+            Name = nameof(ImageViewer.OnLoadAsync),
             Description = "图片加载成功时回调方法",
             Type = "Func<string, Task>",
             ValueList = " — ",
             DefaultValue = " — "
         },
         new AttributeItem() {
-            Name = nameof(Image.OnErrorAsync),
+            Name = nameof(ImageViewer.OnErrorAsync),
             Description = "图片加载失败时回调方法",
             Type = "Func<string, Task>",
             ValueList = " — ",
