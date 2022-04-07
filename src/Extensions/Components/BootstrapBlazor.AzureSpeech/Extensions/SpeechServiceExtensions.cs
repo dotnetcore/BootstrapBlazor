@@ -13,11 +13,15 @@ public static class SpeechServiceExtensions
     /// 
     /// </summary>
     /// <param name="service"></param>
-    /// <param name="option"></param>
+    /// <param name="callback"></param>
     /// <returns></returns>
-    public static async Task RecognizeOnceAsync(this SpeechService service, SpeechOption option)
+    public static async Task RecognizeOnceAsync(this SpeechService service, Func<string, Task> callback)
     {
-        option.MethodName = "bb_speech_recognizeOnce";
+        var option = new SpeechOption()
+        {
+            MethodName = "bb_speech_recognizeOnce",
+            Callback = callback
+        };
         await service.InvokeAsync(option);
     }
 
@@ -25,11 +29,15 @@ public static class SpeechServiceExtensions
     /// 
     /// </summary>
     /// <param name="service"></param>
-    /// <param name="option"></param>
+    /// <param name="callback"></param>
     /// <returns></returns>
-    public static async Task CloseAsync(this SpeechService service, SpeechOption option)
+    public static async Task CloseAsync(this SpeechService service, Func<string, Task> callback)
     {
-        option.MethodName = "bb_close";
+        var option = new SpeechOption()
+        {
+            MethodName = "bb_close",
+            Callback = callback
+        };
         await service.InvokeAsync(option);
     }
 }

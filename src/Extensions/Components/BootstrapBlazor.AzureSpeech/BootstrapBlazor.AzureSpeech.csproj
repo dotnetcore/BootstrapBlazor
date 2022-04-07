@@ -5,8 +5,8 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <PackageTags>Bootstrap Blazor Speech Components</PackageTags>
-    <Description>Bootstrap UI components extensions of Speech</Description>
+    <PackageTags>Bootstrap Blazor Azure Speech Components</PackageTags>
+    <Description>Bootstrap UI components extensions of Azure Speech</Description>
     <RootNamespace>BootstrapBlazor.Components</RootNamespace>
   </PropertyGroup>
 

@@ -5,12 +5,27 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// SpeechOption 配置类
+/// 
 /// </summary>
-public class SpeechOption : ProviderOption
+public class SpeechOption
 {
     /// <summary>
-    /// 获得/设置 语音识别 Provider 实例
+    /// 获得/设置 语音识别指令名称
     /// </summary>
-    public ISpeechProvider? Provider { get; set; }
+    public string? MethodName { get; set; }
+
+    /// <summary>
+    /// 获得/设置 回调方法
+    /// </summary>
+    public Func<string, Task>? Callback { get; set; }
+
+    /// <summary>
+    /// 获得/设置 识别语音文化 默认 zh-CN
+    /// </summary>
+    public string SpeechRecognitionLanguage { get; set; } = "zh-CN";
+
+    /// <summary>
+    /// 获得/设置 结果文化 默认 zh-CN
+    /// </summary>
+    public string TargetLanguage { get; set; } = "zh-CN";
 }

@@ -17,24 +17,11 @@ public partial class Speechs
     [NotNull]
     private SpeechService? SpeechService { get; set; }
 
-    [Inject]
-    [NotNull]
-    private IServiceProvider? ServiceProvider { get; set; }
-
-    [Inject]
-    [NotNull]
-    private ISpeechProvider? SpeechProvider { get; set; }
-
     private string? Result { get; set; }
 
     private async Task OnStart()
     {
-        await SpeechService.RecognizeOnceAsync(new SpeechOption()
-        {
-            ServiceProvider = ServiceProvider,
-            Callback = Recognize,
-            Provider = SpeechProvider
-        });
+        await SpeechService.RecognizeOnceAsync(Recognize);
     }
 
     private Task Recognize(string result)
@@ -46,11 +33,6 @@ public partial class Speechs
 
     private async Task OnStop()
     {
-        await SpeechService.CloseAsync(new SpeechOption()
-        {
-            ServiceProvider = ServiceProvider,
-            Callback = Recognize,
-            Provider = SpeechProvider
-        });
+        await SpeechService.CloseAsync(Recognize);
     }
 }

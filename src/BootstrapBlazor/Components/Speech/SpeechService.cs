@@ -14,8 +14,5 @@ public class SpeechService : BootstrapServiceBase<SpeechOption>
     /// </summary>
     /// <param name="option"></param>
     /// <returns></returns>
-    public async Task InvokeAsync(SpeechOption option)
-    {
-        await base.Invoke(option);
-    }
+    public Task InvokeAsync(SpeechOption option) => Invoke(option);
 }

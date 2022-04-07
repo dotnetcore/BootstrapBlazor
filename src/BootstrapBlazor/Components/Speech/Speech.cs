@@ -15,6 +15,10 @@ public class Speech : BootstrapComponentBase, IAsyncDisposable
     [NotNull]
     private SpeechService? SpeechService { get; set; }
 
+    [Inject]
+    [NotNull]
+    private ISpeechProvider? SpeechProvider { get; set; }
+
     /// <summary>
     /// OnInitialized 方法
     /// </summary>
@@ -30,13 +34,7 @@ public class Speech : BootstrapComponentBase, IAsyncDisposable
     /// Invoke 方法
     /// </summary>
     /// <param name="option"></param>
-    private static async Task Invoke(SpeechOption option)
-    {
-        if (option.Provider != null)
-        {
-            await option.Provider.InvokeAsync(option);
-        }
-    }
+    private async Task Invoke(SpeechOption option) => await SpeechProvider.InvokeAsync(option);
 
     /// <summary>
     /// DisposeAsync 方法

@@ -1,12 +1,10 @@
 ﻿var recognizer = null;
 
-export function bb_speech_recognizeOnce(obj, method) {
+export function bb_speech_recognizeOnce(obj, method, token, region, recognitionLanguage, targetLanguage) {
     var SpeechSDK = window.SpeechSDK;
-    var speechConfig = SpeechSDK.SpeechTranslationConfig.fromSubscription("b35c184e650c44d29734b634bda00789", "eastasia");
-
-    speechConfig.speechRecognitionLanguage = "zh-CN";
-    let language = "zh-CN"
-    speechConfig.addTargetLanguage(language)
+    var speechConfig = SpeechSDK.SpeechTranslationConfig.fromAuthorizationToken(token, region);
+    speechConfig.speechRecognitionLanguage = recognitionLanguage;
+    speechConfig.addTargetLanguage(targetLanguage)
 
     var audioConfig = SpeechSDK.AudioConfig.fromDefaultMicrophoneInput();
     recognizer = new SpeechSDK.TranslationRecognizer(speechConfig, audioConfig);
@@ -16,6 +14,8 @@ export function bb_speech_recognizeOnce(obj, method) {
         recognizer = null;
         console.log(successfulResult);
         obj.invokeMethodAsync(method, successfulResult.privText);
+    }, function (err) {
+
     });
 }
 

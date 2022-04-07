@@ -13,5 +13,5 @@ public interface ISpeechProvider
     /// 识别语音一次方法
     /// </summary>
     /// <returns></returns>
-    Task InvokeAsync(ProviderOption option);
+    Task InvokeAsync(SpeechOption option);
 }
