@@ -1,8 +1,13 @@
 ﻿@page "/speechs"
 
-<Button Text="开始录音" OnClick="OnStart"> </Button>
-<Button Text="结束录音" OnClick="OnStop"> </Button>
-
-<div>@Result</div>
+<div class="row">
+    <div class="col-12 col-sm-6 text-center">
+        <SpeechWave Value="Start" OnTimeout="OnTimeout" class="my-3" />
+        <Button Text="@ButtonText" OnClick="OnStart"> </Button>
+    </div>
+    <div class="col-12 col-sm-6">
+        <Textarea @bind-Value="Result" rows="6" />
+    </div>
+</div>
 
 <Speech />

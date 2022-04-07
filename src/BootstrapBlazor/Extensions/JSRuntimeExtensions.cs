@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 
 namespace BootstrapBlazor.Components;
@@ -38,6 +39,7 @@ internal static class JSRuntimeExtensions
 #if NET6_0_OR_GREATER
         catch (JSDisconnectedException) { }
 #endif
+        catch (JSException) { }
         catch (AggregateException) { }
         catch (InvalidOperationException) { }
         catch (TaskCanceledException) { }
@@ -71,9 +73,35 @@ internal static class JSRuntimeExtensions
 #if NET6_0_OR_GREATER
         catch (JSDisconnectedException) { }
 #endif
+        catch (JSException) { }
         catch (AggregateException) { }
         catch (InvalidOperationException) { }
         catch (TaskCanceledException) { }
         return ret;
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="jsRuntime"></param>
+    /// <param name="path"></param>
+    /// <returns></returns>
+    public static async Task<JSModule> LoadModule(this IJSRuntime jsRuntime, string path)
+    {
+        var jSObjectReference = await jsRuntime.InvokeAsync<IJSObjectReference>("import", $"./_content/BootstrapBlazor/js/{path}");
+        return new JSModule(jSObjectReference);
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="jsRuntime"></param>
+    /// <param name="component"></param>
+    /// <returns></returns>
+    public static async Task<JSModule> LoadModule<TComponent>(this IJSRuntime jsRuntime, TComponent component) where TComponent : ComponentBase
+    {
+        var fileName = $"{component.GetType().Name}.js";
+        var jSObjectReference = await jsRuntime.InvokeAsync<IJSObjectReference>("import", $"./_content/BootstrapBlazor/js/{fileName}");
+        return new JSModule(jSObjectReference);
     }
 }

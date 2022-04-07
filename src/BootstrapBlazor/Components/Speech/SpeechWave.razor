@@ -1,0 +1,23 @@
+﻿@namespace BootstrapBlazor.Components
+@inherits BootstrapComponentBase
+
+<div @attributes="AdditionalAttributes" class="@ClassString">
+    <span class="@LineClassString">
+        <span class="l1" />
+        <span class="l2" />
+        <span class="l3" />
+        <span class="l4" />
+        <span class="l5" />
+        <span class="l6" />
+        <span class="l7" />
+        <span class="l8" />
+        <span class="l9" />
+        <span class="l10" />
+    </span>
+    @if (ShowUsedTime)
+    {
+        <span class="speech-wave-time">
+            <span class="used-time">@UsedTimeSpanString</span>/ <span>@TotalTimeSpanString</span>
+        </span>
+    }
+</div>

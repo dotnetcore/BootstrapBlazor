@@ -17,11 +17,30 @@ public partial class Speechs
     [NotNull]
     private SpeechService? SpeechService { get; set; }
 
+    private bool Start { get; set; }
+
     private string? Result { get; set; }
+
+    private string ButtonText { get; set; } = "开始识别";
 
     private async Task OnStart()
     {
-        await SpeechService.RecognizeOnceAsync(Recognize);
+        if (ButtonText == "开始识别")
+        {
+            Start = true;
+            ButtonText = "结束识别";
+            await SpeechService.RecognizeOnceAsync(Recognize);
+        }
+        else
+        {
+            await Close();
+        }
+    }
+
+    private async Task OnTimeout()
+    {
+        await Close();
+        StateHasChanged();
     }
 
     private Task Recognize(string result)
@@ -31,8 +50,10 @@ public partial class Speechs
         return Task.CompletedTask;
     }
 
-    private async Task OnStop()
+    private async Task Close()
     {
+        Start = false;
+        ButtonText = "开始识别";
         await SpeechService.CloseAsync(Recognize);
     }
 }
