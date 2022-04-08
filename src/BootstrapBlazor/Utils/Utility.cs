@@ -293,7 +293,7 @@ public static class Utility
         var fieldValue = GenerateValue(model, fieldName);
         var fieldValueChanged = GenerateValueChanged(component, model, fieldName, fieldType);
         var valueExpression = GenerateValueExpression(model, fieldName, fieldType);
-        var lookup = item is ITableColumn col ? col.Lookup : lookUpService?.GetItemsByKey(item.LookUpServiceKey);
+        var lookup = item.Lookup ?? lookUpService?.GetItemsByKey(item.LookUpServiceKey);
         var componentType = item.ComponentType ?? GenerateComponentType(fieldType, item.Rows != 0, lookup);
         builder.OpenComponent(0, componentType);
         if (componentType.IsSubclassOf(typeof(ValidateBase<>).MakeGenericType(fieldType)))
