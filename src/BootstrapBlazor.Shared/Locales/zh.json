@@ -2757,9 +2757,11 @@
     "Geolocation": "地理定位组件 Geolocation",
     "Notification": "浏览器通知 Notification",
     "SpeechComponents": "语音组件",
+    "SpeechIntro": "简介",
     "Recognizer": "语音识别 Recognizer",
     "Synthesizer": "语音合成 Synthesizer",
     "SpeechWave": "语音波形图 SpeechWave"
+
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesFooter": {
     "Left": "左对齐",

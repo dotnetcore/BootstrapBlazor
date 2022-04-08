@@ -1,0 +1,41 @@
+﻿@page "/speechs"
+@layout MainLayout
+
+<h3>Speech 语音识别与合成</h3>
+
+<h4>通过麦克风语音采集转换为文字（STT），或者通过文字通过语音朗读出来（TTS）</h4>
+
+<p>本组件依赖于 <a href="https://www.nuget.org/packages?q=BootstrapBlazor.AzureSpeech" target="_blank"><code>BootstrapBlazor.AzureSpeech</code></a>，使用本组件时需要引用其组件包</p>
+
+<p><b>Nuget 包安装</b></p>
+
+<p>使用 <a href="https://www.nuget.org/packages?q=BootstrapBlazor.AzureSpeech" target="_blank">nuget.org</a> 进行 <code>BootstrapBlazor.AzureSpeech</code> 组件的安装</p>
+
+<div class="code-label">.NET CLI</div>
+<Pre class="no-highlight">dotnet add package BootstrapBlazor.AzureSpeech --version @Version</Pre>
+
+<div class="code-label">PackageReference</div>
+<Pre class="no-highlight">&lt;PackageReference Include="BootstrapBlazor.AzureSpeech" Version="@Version" /&gt;</Pre>
+
+<div class="code-label">Package Manager</div>
+<Pre class="no-highlight">Install-Package BootstrapBlazor.AzureSpeech -Version @Version</Pre>
+
+<div class="code-label mb-2">1. 注册服务</div>
+
+<div class="mb-2"><b>Program.cs</b></div>
+
+<Pre>// 增加语音服务
+
+<b><i>builder.Services.AddBootstrapBlazorAzureSpeech();</i></b></Pre>
+
+<div class="code-label mb-2">2. 使用服务</div>
+
+<Pre>// 语音识别服务
+[Inject]
+[NotNull]
+private RecognizerService? RecognizerService { get; set; }
+
+// 语音合成服务
+[Inject]
+[NotNull]
+private SynthesizerService? SynthesizerService { get; set; }</Pre>

@@ -34,24 +34,24 @@ public sealed partial class Index
     /// <returns></returns>
     private static IEnumerable<EventItem> GetEvents() => new EventItem[]
     {
-            new EventItem()
-            {
-                Name = "OnInitAsync",
-                Description="组件数据初始化委托方法",
-                Type ="Func<Task<ChartDataSource>>"
-            },
-            new EventItem()
-            {
-                Name = "OnAfterInitAsync",
-                Description="客户端绘制图表完毕后回调此委托方法",
-                Type ="Func<Task>"
-            },
-            new EventItem()
-            {
-                Name = "OnAfterUpdateAsync",
-                Description="客户端更新图表完毕后回调此委托方法",
-                Type ="Func<ChartAction, Task>"
-            }
+        new EventItem()
+        {
+            Name = "OnInitAsync",
+            Description="组件数据初始化委托方法",
+            Type ="Func<Task<ChartDataSource>>"
+        },
+        new EventItem()
+        {
+            Name = "OnAfterInitAsync",
+            Description="客户端绘制图表完毕后回调此委托方法",
+            Type ="Func<Task>"
+        },
+        new EventItem()
+        {
+            Name = "OnAfterUpdateAsync",
+            Description="客户端更新图表完毕后回调此委托方法",
+            Type ="Func<ChartAction, Task>"
+        }
     };
 
     /// <summary>
@@ -60,20 +60,20 @@ public sealed partial class Index
     /// <returns></returns>
     private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
-            // TODO: 移动到数据库中
-            new AttributeItem() {
-                Name = "Width",
-                Description = "组件宽度支持单位 如: 100px 75%",
-                Type = "string",
-                ValueList = " — ",
-                DefaultValue = " — "
-            },
-            new AttributeItem() {
-                Name = "ChartType",
-                Description = "设置图表类型",
-                Type = "ChartType",
-                ValueList = "Line|Bar|Pie|Doughnut|Bubble",
-                DefaultValue = "Line"
-            }
+        // TODO: 移动到数据库中
+        new AttributeItem() {
+            Name = "Width",
+            Description = "组件宽度支持单位 如: 100px 75%",
+            Type = "string",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new AttributeItem() {
+            Name = "ChartType",
+            Description = "设置图表类型",
+            Type = "ChartType",
+            ValueList = "Line|Bar|Pie|Doughnut|Bubble",
+            DefaultValue = "Line"
+        }
     };
 }
