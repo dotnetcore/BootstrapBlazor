@@ -84,7 +84,7 @@ public partial class SpeechWave : IDisposable
         IsRun = true;
         UsedTimeSpan = TimeSpan.Zero;
         Token ??= new CancellationTokenSource();
-        while (Token != null && !Token.IsCancellationRequested)
+        while (!Token.IsCancellationRequested)
         {
             try
             {
@@ -103,7 +103,10 @@ public partial class SpeechWave : IDisposable
                     await InvokeAsync(StateHasChanged);
                 }
             }
-            catch { }
+            catch
+            {
+                break;
+            }
         }
         IsRun = false;
     }

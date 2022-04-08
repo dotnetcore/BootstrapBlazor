@@ -29,4 +29,61 @@ public class SpeetchTest : SpeechTestBase
 
         Assert.Equal("MockSpeechProvider", result);
     }
+
+    [Fact]
+    public void SpeechWave_Show_Test()
+    {
+        var cut = Context.RenderComponent<SpeechWave>(pb =>
+        {
+            pb.Add(a => a.Show, false);
+        });
+        cut.Contains("speech-wave invisible");
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.Show, true);
+            pb.Add(a => a.TotalTimeSecond, 60);
+        });
+        cut.Contains("speech-wave");
+        cut.Contains("<span>01:00</span>");
+    }
+
+    [Fact]
+    public void SpeechWave_ShowUsedTime_Test()
+    {
+        var cut = Context.RenderComponent<SpeechWave>(pb =>
+        {
+            pb.Add(a => a.ShowUsedTime, false);
+        });
+        cut.DoesNotContain("speech-wave-time");
+    }
+
+    [Fact]
+    public async Task SpeechWave_OnTimeout_Test()
+    {
+        var timeout = false;
+        var cut = Context.RenderComponent<SpeechWave>(pb =>
+        {
+            pb.Add(a => a.Show, true);
+            pb.Add(a => a.TotalTimeSecond, 1);
+            pb.Add(a => a.OnTimeout, new Func<Task>(() =>
+            {
+                timeout = true;
+                return Task.CompletedTask;
+            }));
+        });
+
+        await Task.Delay(1000);
+        Assert.True(timeout);
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.Show, true);
+        });
+        await Task.Delay(500);
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.Show, false);
+        });
+    }
 }
