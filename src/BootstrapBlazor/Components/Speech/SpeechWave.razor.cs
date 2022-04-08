@@ -15,7 +15,7 @@ public partial class SpeechWave : IDisposable
     /// 获得/设置 是否开始 默认 false
     /// </summary>
     [Parameter]
-    public bool Value { get; set; }
+    public bool Show { get; set; }
 
     /// <summary>
     /// 获得/设置 是否显示已用时长 默认 true
@@ -40,12 +40,12 @@ public partial class SpeechWave : IDisposable
     private CancellationTokenSource? Token { get; set; }
 
     private string? ClassString => CssBuilder.Default("speech-wave")
-        .AddClass("invisible", !Value)
+        .AddClass("invisible", !Show)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
     private string? LineClassString => CssBuilder.Default("speech-wave-line")
-        .AddClass("line", Value)
+        .AddClass("line", Show)
         .Build();
 
     private string? TotalTimeSpanString => $"{TimeSpan.FromSeconds(TotalTimeSecond):mm\\:ss}";
@@ -59,7 +59,7 @@ public partial class SpeechWave : IDisposable
     {
         base.OnParametersSet();
 
-        if (Value && ShowUsedTime)
+        if (Show && ShowUsedTime)
         {
             if (!IsRun)
             {
@@ -92,13 +92,13 @@ public partial class SpeechWave : IDisposable
                 UsedTimeSpan = UsedTimeSpan.Add(TimeSpan.FromSeconds(1));
                 if (UsedTimeSpan.TotalSeconds >= TotalTimeSecond)
                 {
-                    Value = false;
+                    Show = false;
                     if (OnTimeout != null)
                     {
                         await OnTimeout();
                     }
                 }
-                if (Value)
+                if (Show)
                 {
                     await InvokeAsync(StateHasChanged);
                 }

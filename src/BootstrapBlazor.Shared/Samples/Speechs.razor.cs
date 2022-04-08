@@ -40,20 +40,19 @@ public partial class Speechs
     private async Task OnTimeout()
     {
         await Close();
-        StateHasChanged();
     }
 
     private Task Recognize(string result)
     {
         Result = result;
+        Start = false;
+        ButtonText = "开始识别";
         StateHasChanged();
         return Task.CompletedTask;
     }
 
     private async Task Close()
     {
-        Start = false;
-        ButtonText = "开始识别";
         await SpeechService.CloseAsync(Recognize);
     }
 }

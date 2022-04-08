@@ -387,6 +387,8 @@
     "PopoverText": "Popover",
     "QRCodeText": "QRCode",
     "SearchText": "Search",
+    "SpeechText": "Speech",
+    "SpeechWaveText": "SpeechWave",
     "TableText": "Table",
     "TagText": "Tag",
     "TimelineText": "Timeline",
@@ -2742,7 +2744,8 @@
     "ChartBubble": "Bubble",
     "Transition": "Transition",
     "Geolocation": "Geolocation",
-    "Speech": "Speech"
+    "Speech": "Speech",
+    "SpeechWave": "SpeechWave"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesFooter": {
     "Left": "Left",

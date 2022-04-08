@@ -1,0 +1,26 @@
+﻿@page "/speechwaves"
+
+<h3>SpeechWave 语音波形图</h3>
+
+<h4>开始采集语音时显示的波形动态图</h4>
+
+<DemoBlock Title="基础用法" Introduction="显示波形图" Name="Normal">
+    <SpeechWave Show="@true" ShowUsedTime="false" />
+</DemoBlock>
+
+<DemoBlock Title="显示时长" Introduction="通过 <code>ShowUsedTime</code>" Name="ShowUsedTime">
+    <SpeechWave Show="@true" ShowUsedTime="true" />
+</DemoBlock>
+
+<DemoBlock Title="参数控制是否显示" Introduction="通过 <code>Show</code> 值控制是否显示波形图" Name="Value">
+    <div class="row g-3">
+        <div class="col-12">
+            <SpeechWave Show="IsShow" />
+        </div>
+        <div class="col-12">
+            <Button Text="@ButtonText" OnClick="OnClickShow"> </Button>
+        </div>
+    </div>
+</DemoBlock>
+
+<AttributeTable Items="@GetAttributes()" />

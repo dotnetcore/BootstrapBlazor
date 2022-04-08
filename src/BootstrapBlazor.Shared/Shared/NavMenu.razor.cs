@@ -516,6 +516,18 @@ public sealed partial class NavMenu
                 Text = Localizer["Search"],
                 Url = "searchs"
             },
+            new()
+            {
+                IsNew = true,
+                Text = Localizer["Speech"],
+                Url = "speechs"
+            },
+            new()
+            {
+                IsNew = true,
+                Text = Localizer["SpeechWave"],
+                Url = "speechwaves"
+            },
             tableItem,
             new()
             {

@@ -67,3 +67,7 @@
         transform: scaleY(4)
     }
 }
+
+.speech-wave-time {
+    margin-left: 1rem;
+}
