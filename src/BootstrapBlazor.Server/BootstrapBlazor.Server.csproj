@@ -4,6 +4,7 @@
 
   <PropertyGroup>
     <IsWebProject>true</IsWebProject>
+    <UserSecretsId>dd866c36-9a9b-4dda-bce0-44c91d3094cc</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>

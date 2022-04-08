@@ -1,0 +1,19 @@
+﻿@page "/recognizers"
+
+<h3>Recognizer 语音识别</h3>
+
+<h4>通过语音采集设备将语音转化为文本</h4>
+
+<DemoBlock Title="普通用法" Introduction="点击开始识别后对录入语音进行识别" Name="Normal">
+    <p><b>使用说明：</b></p>
+    <p>点击 <b>开始识别</b> 后，脚本运行可能会提示要求录音权限，授权后开始讲话，稍等一下，右侧文本框显示语音识别结果，请勿讲完话后直接点击 <b>结束识别</b></p>
+    <div class="row">
+        <div class="col-12 col-sm-6 text-center">
+            <SpeechWave Show="Start" OnTimeout="OnTimeout" class="my-3" />
+            <Button Text="@ButtonText" OnClick="OnStart" />
+        </div>
+        <div class="col-12 col-sm-6">
+            <Textarea @bind-Value="Result" rows="6" />
+        </div>
+    </div>
+</DemoBlock>

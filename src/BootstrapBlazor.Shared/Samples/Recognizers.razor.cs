@@ -4,18 +4,17 @@
 
 using BootstrapBlazor.Components;
 using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.Options;
 
 namespace BootstrapBlazor.Shared.Samples;
 
 /// <summary>
 /// 
 /// </summary>
-public partial class Speechs
+public partial class Recognizers
 {
     [Inject]
     [NotNull]
-    private SpeechService? SpeechService { get; set; }
+    private RecognizerService? RecognizerService { get; set; }
 
     private bool Start { get; set; }
 
@@ -29,7 +28,7 @@ public partial class Speechs
         {
             Start = true;
             ButtonText = "结束识别";
-            await SpeechService.RecognizeOnceAsync(Recognize);
+            await RecognizerService.RecognizeOnceAsync(Recognize);
         }
         else
         {
@@ -53,6 +52,6 @@ public partial class Speechs
 
     private async Task Close()
     {
-        await SpeechService.CloseAsync(Recognize);
+        await RecognizerService.CloseAsync(Recognize);
     }
 }

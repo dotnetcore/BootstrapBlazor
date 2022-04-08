@@ -5,35 +5,37 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// SpeechService 扩展方法
+/// SynthesizerService 扩展操作类
 /// </summary>
-public static class SpeechServiceExtensions
+public static class SynthesizerServiceExtensions
 {
     /// <summary>
-    /// 
+    /// 语音合成方法
     /// </summary>
     /// <param name="service"></param>
+    /// <param name="text"></param>
     /// <param name="callback"></param>
     /// <returns></returns>
-    public static async Task RecognizeOnceAsync(this SpeechService service, Func<string, Task> callback)
+    public static async Task SynthesizerOnceAsync(this SynthesizerService service, string? text, Func<SynthesizerStatus, Task> callback)
     {
-        var option = new SpeechOption()
+        var option = new SynthesizerOption()
         {
-            MethodName = "bb_speech_recognizeOnce",
+            Text = text,
+            MethodName = "bb_speech_synthesizerOnce",
             Callback = callback
         };
         await service.InvokeAsync(option);
     }
 
     /// <summary>
-    /// 
+    /// 关闭语音合成方法
     /// </summary>
     /// <param name="service"></param>
     /// <param name="callback"></param>
     /// <returns></returns>
-    public static async Task CloseAsync(this SpeechService service, Func<string, Task> callback)
+    public static async Task CloseAsync(this SynthesizerService service, Func<SynthesizerStatus, Task> callback)
     {
-        var option = new SpeechOption()
+        var option = new SynthesizerOption()
         {
             MethodName = "bb_close",
             Callback = callback

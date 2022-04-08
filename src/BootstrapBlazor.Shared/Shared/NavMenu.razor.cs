@@ -131,11 +131,42 @@ public sealed partial class NavMenu
 
         item = new DemoMenuItem()
         {
+            Text = Localizer["SpeechComponents"],
+            Icon = "fa fa-fw fa-microphone"
+        };
+        AddSpeech(item);
+
+        item = new DemoMenuItem()
+        {
             Text = Localizer["Components"],
             Icon = "fa fa-fw fa-fa",
             Url = "components"
         };
         AddSummary(item);
+    }
+
+    private void AddSpeech(DemoMenuItem item)
+    {
+        item.Items = new List<DemoMenuItem>
+        {
+            new()
+            {
+                Text = Localizer["Recognizer"],
+                Url = "recognizers"
+            },
+            new()
+            {
+                Text = Localizer["Synthesizer"],
+                Url = "synthesizers",
+                Match = NavLinkMatch.All
+            },
+            new()
+            {
+                Text = Localizer["SpeechWave"],
+                Url = "speechwaves"
+            },
+        };
+        AddBadge(item);
     }
 
     private void AddQuickStar(DemoMenuItem item)
@@ -513,14 +544,14 @@ public sealed partial class NavMenu
             },
             new()
             {
-                Text = Localizer["Search"],
-                Url = "searchs"
+                IsNew = true,
+                Text = Localizer["Recognizer"],
+                Url = "recognizers"
             },
             new()
             {
-                IsNew = true,
-                Text = Localizer["Speech"],
-                Url = "speechs"
+                Text = Localizer["Search"],
+                Url = "searchs"
             },
             new()
             {
@@ -558,12 +589,7 @@ public sealed partial class NavMenu
             {
                 Text = Localizer["Transition"],
                 Url = "transitions"
-            },
-            //new()
-            //{
-            //    Text = Localizer["Speech"],
-            //    Url = "speechs"
-            //}
+            }
         };
         AddBadge(item);
     }

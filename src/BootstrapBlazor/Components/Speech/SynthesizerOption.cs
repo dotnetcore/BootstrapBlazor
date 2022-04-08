@@ -5,27 +5,32 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// 语音合成配置类
 /// </summary>
-public class SpeechOption
+public class SynthesizerOption
 {
     /// <summary>
-    /// 获得/设置 语音识别指令名称
+    /// 获得/设置 语音识别指令名称 默认 null
     /// </summary>
     public string? MethodName { get; set; }
 
     /// <summary>
-    /// 获得/设置 回调方法
+    /// 获得/设置 语音合成文本内容 默认 null
     /// </summary>
-    public Func<string, Task>? Callback { get; set; }
+    public string? Text { get; set; }
+
+    /// <summary>
+    /// 获得/设置 回调方法 默认 null
+    /// </summary>
+    public Func<SynthesizerStatus, Task>? Callback { get; set; }
 
     /// <summary>
     /// 获得/设置 识别语音文化 默认 zh-CN
     /// </summary>
-    public string SpeechRecognitionLanguage { get; set; } = "zh-CN";
+    public string SpeechSynthesisLanguage { get; set; } = "zh-CN";
 
     /// <summary>
     /// 获得/设置 结果文化 默认 zh-CN
     /// </summary>
-    public string TargetLanguage { get; set; } = "zh-CN";
+    public string SpeechSynthesisVoiceName { get; set; } = "zh-CN-XiaoxiaoNeural";
 }

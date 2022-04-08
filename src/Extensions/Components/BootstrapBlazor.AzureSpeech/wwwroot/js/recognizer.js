@@ -1,4 +1,4 @@
-﻿var recognizer = null;
+﻿var recognizer = undefined;
 
 export function bb_speech_recognizeOnce(obj, method, token, region, recognitionLanguage, targetLanguage) {
     var SpeechSDK = window.SpeechSDK;
@@ -11,7 +11,7 @@ export function bb_speech_recognizeOnce(obj, method, token, region, recognitionL
 
     recognizer.recognizeOnceAsync(function (successfulResult) {
         recognizer.close();
-        recognizer = null;
+        recognizer = undefined;
         console.log(successfulResult);
         obj.invokeMethodAsync(method, successfulResult.privText);
     }, function (err) {
@@ -20,8 +20,9 @@ export function bb_speech_recognizeOnce(obj, method, token, region, recognitionL
 }
 
 export function bb_close(obj, method) {
-    if (recognizer != null) {
+    if (recognizer != undefined) {
         recognizer.close();
+        recognizer = undefined;
     }
     obj.invokeMethodAsync(method, '');
 }

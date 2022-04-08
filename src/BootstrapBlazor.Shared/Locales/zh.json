@@ -387,7 +387,7 @@
     "PopoverText": "弹出框 Popover",
     "QRCodeText": "二维码 QRCode",
     "SearchText": "搜索框 Search",
-    "SpeechText": "语音识别 Speech",
+    "RecognizerText": "语音识别 Recognizer",
     "SpeechWaveText": "语音波形图 SpeechWave",
     "TableText": "表格 Table",
     "TagText": "标签 Tag",
@@ -2756,7 +2756,9 @@
     "Transition": "过渡效果 Transition",
     "Geolocation": "地理定位组件 Geolocation",
     "Notification": "浏览器通知 Notification",
-    "Speech": "语音识别 Speech",
+    "SpeechComponents": "语音组件",
+    "Recognizer": "语音识别 Recognizer",
+    "Synthesizer": "语音合成 Synthesizer",
     "SpeechWave": "语音波形图 SpeechWave"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesFooter": {

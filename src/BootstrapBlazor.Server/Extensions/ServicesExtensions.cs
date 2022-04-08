@@ -33,7 +33,7 @@ internal static class ServicesExtensions
         // 增加 BootstrapBlazor 组件
         services.AddBootstrapBlazor();
 
-        // 增加语音识别服务
+        // 增加语音服务
         services.AddBootstrapBlazorAzureSpeech();
 
         services.ConfigureJsonLocalizationOptions(options =>

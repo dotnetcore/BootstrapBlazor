@@ -1,0 +1,17 @@
+﻿@page "/synthesizers"
+
+<h3>Synthesizer 语音合成</h3>
+
+<h4>将文本内容转化为语音</h4>
+
+<DemoBlock Title="普通用法" Introduction="点击开始合成后对文本内容进行语音合成" Name="Normal">
+    <div class="row">
+        <div class="col-12 col-sm-6">
+            <Textarea @bind-Value="InputText" rows="6" />
+        </div>
+        <div class="col-12 col-sm-6 text-center">
+            <SpeechWave Show="Start" ShowUsedTime="false" class="my-3" />
+            <Button Text="@ButtonText" OnClick="OnStart" IsDisabled="@IsDisabled" Icon="@ButtonIcon" />
+        </div>
+    </div>
+</DemoBlock>

@@ -12,14 +12,14 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 
 /// </summary>
-internal class AzureSpeechProvider : ISpeechProvider, IAsyncDisposable
+internal class AzureRecognizerProvider : IRecognizerProvider, IAsyncDisposable
 {
-    private DotNetObjectReference<AzureSpeechProvider>? Interop { get; set; }
+    private DotNetObjectReference<AzureRecognizerProvider>? Interop { get; set; }
 
     private IJSObjectReference? Module { get; set; }
 
     [NotNull]
-    private SpeechOption? Option { get; set; }
+    private RecognizerOption? Option { get; set; }
 
     private AzureSpeechOption SpeechOption { get; }
 
@@ -36,7 +36,7 @@ internal class AzureSpeechProvider : ISpeechProvider, IAsyncDisposable
     /// <param name="runtime"></param>
     /// <param name="factory"></param>
     /// <param name="cache"></param>
-    public AzureSpeechProvider(IOptions<AzureSpeechOption> options, IJSRuntime runtime, IHttpClientFactory factory, IMemoryCache cache)
+    public AzureRecognizerProvider(IOptions<AzureSpeechOption> options, IJSRuntime runtime, IHttpClientFactory factory, IMemoryCache cache)
     {
         Cache = cache;
         JSRuntime = runtime;
@@ -55,7 +55,7 @@ internal class AzureSpeechProvider : ISpeechProvider, IAsyncDisposable
     /// </summary>
     /// <param name="option"></param>
     /// <returns></returns>
-    public async Task InvokeAsync(SpeechOption option)
+    public async Task InvokeAsync(RecognizerOption option)
     {
         if (string.IsNullOrEmpty(option.MethodName))
         {
@@ -68,7 +68,7 @@ internal class AzureSpeechProvider : ISpeechProvider, IAsyncDisposable
         Option = option;
         if (Module == null)
         {
-            Module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/BootstrapBlazor.AzureSpeech/js/speech.js");
+            Module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/BootstrapBlazor.AzureSpeech/js/recognizer.js");
         }
         Interop ??= DotNetObjectReference.Create(this);
         await Module.InvokeVoidAsync(Option.MethodName, Interop, nameof(Callback), token, SpeechOption.Region, option.SpeechRecognitionLanguage, option.TargetLanguage);

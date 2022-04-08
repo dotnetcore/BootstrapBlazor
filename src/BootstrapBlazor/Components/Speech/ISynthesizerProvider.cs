@@ -5,13 +5,13 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// ISpeechService 服务接口定义
+/// ISynthesizerProvider 语音合成接口
 /// </summary>
-public interface ISpeechProvider
+public interface ISynthesizerProvider
 {
     /// <summary>
-    /// 识别语音一次方法
+    /// 语音合成回调方法
     /// </summary>
     /// <returns></returns>
-    Task InvokeAsync(SpeechOption option);
+    Task InvokeAsync(SynthesizerOption option);
 }

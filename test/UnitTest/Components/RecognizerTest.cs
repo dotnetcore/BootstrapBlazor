@@ -7,15 +7,14 @@ using Microsoft.Extensions.DependencyInjection;
 namespace UnitTest.Components;
 
 
-public class SpeetchTest : SpeechTestBase
+public class RecognizerTest : SpeechTestBase
 {
     [Fact]
-    public async Task Speech_Ok()
+    public async Task Recognizer_Ok()
     {
         var result = "";
-        var speechService = Context.Services.GetRequiredService<SpeechService>();
-        var cut = Context.RenderComponent<Speech>();
-        await speechService.InvokeAsync(new SpeechOption()
+        var recognizerService = Context.Services.GetRequiredService<RecognizerService>();
+        await recognizerService.InvokeAsync(new RecognizerOption()
         {
             MethodName = "Test",
             TargetLanguage = "zh-CN",
@@ -73,7 +72,7 @@ public class SpeetchTest : SpeechTestBase
             }));
         });
 
-        await Task.Delay(1000);
+        await Task.Delay(1200);
         Assert.True(timeout);
 
         cut.SetParametersAndRender(pb =>

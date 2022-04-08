@@ -14,7 +14,7 @@ namespace Microsoft.Extensions.DependencyInjection;
 public static class ServiceCollectionExtensions
 {
     /// <summary>
-    /// 增加 BootstrapBlazor 服务
+    /// 增加 语音识别服务
     /// </summary>
     /// <param name="services"></param>
     /// <param name="configOptions"></param>
@@ -24,9 +24,15 @@ public static class ServiceCollectionExtensions
     {
         services.AddHttpClient();
         services.AddMemoryCache();
-        services.TryAddScoped<SpeechService>();
-        services.TryAddScoped<ISpeechProvider, AzureSpeechProvider>();
+
+        services.TryAddScoped<RecognizerService>();
+        services.TryAddScoped<IRecognizerProvider, AzureRecognizerProvider>();
         services.TryAddSingleton<IConfigureOptions<AzureSpeechOption>, ConfigureOptions<AzureSpeechOption>>();
+
+        services.TryAddScoped<SynthesizerService>();
+        services.TryAddScoped<ISynthesizerProvider, AzureSynthesizerProvider>();
+        services.TryAddSingleton<IConfigureOptions<AzureSpeechOption>, ConfigureOptions<AzureSpeechOption>>();
+
         services.Configure<AzureSpeechOption>(option =>
         {
             configOptions?.Invoke(option);

@@ -48,8 +48,10 @@ public class SpeechTestHost : IDisposable
     protected virtual void ConfigureServices(IServiceCollection services)
     {
         services.AddBootstrapBlazor();
-        services.TryAddScoped<SpeechService>();
-        services.TryAddScoped<ISpeechProvider, MockSpeechProvider>();
+        services.TryAddScoped<RecognizerService>();
+        services.TryAddScoped<IRecognizerProvider, MockRecognizerProvider>();
+        services.TryAddScoped<SynthesizerService>();
+        services.TryAddScoped<ISynthesizerProvider, MockSynthesizerProvider>();
         services.ConfigureIPLocatorOption(options =>
         {
             options.LocatorFactory = provider => new BaiDuIPLocator();
@@ -69,9 +71,9 @@ public class SpeechTestHost : IDisposable
         GC.SuppressFinalize(this);
     }
 
-    class MockSpeechProvider : ISpeechProvider
+    class MockRecognizerProvider : IRecognizerProvider
     {
-        public async Task InvokeAsync(SpeechOption option)
+        public async Task InvokeAsync(RecognizerOption option)
         {
             var method = option.MethodName;
             var language = option.TargetLanguage;
@@ -79,6 +81,21 @@ public class SpeechTestHost : IDisposable
             if (option.Callback != null)
             {
                 await option.Callback("MockSpeechProvider");
+            }
+        }
+    }
+
+    class MockSynthesizerProvider : ISynthesizerProvider
+    {
+        public async Task InvokeAsync(SynthesizerOption option)
+        {
+            var method = option.MethodName;
+            var language = option.SpeechSynthesisLanguage;
+            var recognitionLanguage = option.SpeechSynthesisVoiceName;
+            var text = option.Text;
+            if (option.Callback != null)
+            {
+                await option.Callback(SynthesizerStatus.Close);
             }
         }
     }

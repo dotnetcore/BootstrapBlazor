@@ -5,14 +5,25 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// 语音识别服务
 /// </summary>
-public class SpeechService : BootstrapServiceBase<SpeechOption>
+public class RecognizerService
 {
+    private IRecognizerProvider Provider { get; }
+
     /// <summary>
-    /// 
+    /// 构造函数
+    /// </summary>
+    /// <param name="provider"></param>
+    public RecognizerService(IRecognizerProvider provider)
+    {
+        Provider = provider;
+    }
+
+    /// <summary>
+    /// 语音识别回调方法
     /// </summary>
     /// <param name="option"></param>
     /// <returns></returns>
-    public Task InvokeAsync(SpeechOption option) => Invoke(option);
+    public Task InvokeAsync(RecognizerOption option) => Provider.InvokeAsync(option);
 }
