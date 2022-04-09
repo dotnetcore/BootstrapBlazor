@@ -161,7 +161,7 @@ public class ValidateTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void SkipValidate_Ok()
+    public async Task SkipValidate_Ok()
     {
         var model = new Foo() { Name = "Name-Test" };
         var valid = false;
@@ -187,7 +187,7 @@ public class ValidateTest : BootstrapBlazorTestBase
 
         // 提交表单
         var form = cut.Find("form");
-        form.Submit();
+        await cut.InvokeAsync(() => form.Submit());
 
         // 内置 ValidateForm 验证表单中 设置 SkipValidate=true 提交表单时不进行验证
         Assert.True(valid);

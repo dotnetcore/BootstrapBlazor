@@ -90,12 +90,20 @@ public class Block : BootstrapComponentBase
 
     private async Task<bool> ProcessAuthorizeAsync()
     {
+        bool isAuthenticated = false;
         AuthenticationState? state = null;
         if (AuthenticationStateProvider != null)
         {
             state = await AuthenticationStateProvider.GetAuthenticationStateAsync();
         }
-        var isAuthenticated = state!.User.Identity?.IsAuthenticated ?? false;
+        if (state != null)
+        {
+            var identity = state.User.Identity;
+            if (identity != null)
+            {
+                isAuthenticated = identity.IsAuthenticated;
+            }
+        }
         if (isAuthenticated)
         {
             if (Users?.Any() ?? false)
