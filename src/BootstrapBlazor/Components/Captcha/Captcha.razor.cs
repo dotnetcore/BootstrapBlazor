@@ -110,6 +110,18 @@ public partial class Captcha : IDisposable
     public int Width { get; set; } = 280;
 
     /// <summary>
+    /// 获得/设置 拼图边长
+    /// </summary>
+    [Parameter]
+    public int SideLength { get; set; } = 42;
+
+    /// <summary>
+    /// 获得/设置 拼图直径
+    /// </summary>
+    [Parameter]
+    public int Diameter { get; set; } = 9;
+
+    /// <summary>
     /// 获得/设置 图片高度
     /// </summary>
     [Parameter]
@@ -134,23 +146,21 @@ public partial class Captcha : IDisposable
     }
 
     /// <summary>
-    /// OnAfterRender 方法
+    /// OnAfterRenderAsync 方法
     /// </summary>
     /// <param name="firstRender"></param>
-    protected override void OnAfterRender(bool firstRender)
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        base.OnAfterRender(firstRender);
-
         if (firstRender)
         {
-            Reset();
+            await Reset();
         }
     }
 
     /// <summary>
     /// 点击刷新按钮时回调此方法
     /// </summary>
-    protected void OnClickRefresh() => Reset();
+    protected Task OnClickRefresh() => Reset();
 
     /// <summary>
     /// 验证方差方法
@@ -172,7 +182,9 @@ public partial class Captcha : IDisposable
         var option = new CaptchaOption()
         {
             Width = Width,
-            Height = Height
+            Height = Height,
+            SideLength = SideLength,
+            Diameter = Diameter
         };
         option.BarWidth = option.SideLength + option.Diameter * 2 + 6; // 滑块实际边长
         var start = option.BarWidth + 10;
@@ -240,7 +252,7 @@ public partial class Captcha : IDisposable
     /// <summary>
     /// 重置组件方法
     /// </summary>
-    public void Reset()
+    public async Task Reset()
     {
         var option = GetCaptchaOption();
         if (Interop == null)
@@ -248,6 +260,6 @@ public partial class Captcha : IDisposable
             Interop = new JSInterop<Captcha>(JSRuntime);
         }
 
-        _ = Interop.InvokeVoidAsync(this, CaptchaElement, "captcha", nameof(Verify), option);
+        await Interop.InvokeVoidAsync(this, CaptchaElement, "captcha", nameof(Verify), option);
     }
 }

@@ -11,6 +11,8 @@ public class CaptchaTest : BootstrapBlazorTestBase
         var verify = false;
         var cut = Context.RenderComponent<Captcha>(pb =>
         {
+            pb.Add(a => a.SideLength, 42);
+            pb.Add(a => a.Diameter, 9);
             pb.Add(a => a.Width, 280);
             pb.Add(a => a.Height, 150);
             pb.Add(a => a.Offset, 1000);
@@ -43,5 +45,17 @@ public class CaptchaTest : BootstrapBlazorTestBase
             pb.Add(a => a.GetImageName, () => "test.jpg");
         });
         await cut.InvokeAsync(() => cut.Find(".captcha-refresh").Click());
+    }
+
+    [Fact]
+    public void Option_Ok()
+    {
+        var option = new CaptchaOption()
+        {
+            OffsetY = 100,
+            ImageUrl = "test.jpg"
+        };
+        Assert.Equal(100, option.OffsetY);
+        Assert.Equal("test.jpg", option.ImageUrl);
     }
 }
