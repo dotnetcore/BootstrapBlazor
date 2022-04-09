@@ -44,6 +44,9 @@
             var editor = $.data(el, 'editor');
             if (editor) {
                 editor[method](...parameter);
+                var val = editor.getMarkdown();
+                var html = editor.getHTML();
+                obj.invokeMethodAsync('Update', [val, html]);
             }
         }
     });
