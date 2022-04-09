@@ -15,13 +15,15 @@ public class ToastTest : BootstrapBlazorTestBase
         var options = Context.Services.GetRequiredService<IOptions<BootstrapBlazorOptions>>();
         options.Value.ToastPlacement = Placement.TopStart;
 
-        Context.RenderComponent<BootstrapBlazorRoot>();
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>();
 
         var service = Context.Services.GetRequiredService<ToastService>();
         service.Success("Test", "test content");
 
         // 恢复设置
         options.Value.ToastPlacement = Placement.Auto;
+
+        Assert.NotNull(cut.Instance.ToastContainer);
     }
 
     [Fact]

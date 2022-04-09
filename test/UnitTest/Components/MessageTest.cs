@@ -38,6 +38,8 @@ public class MessageTest : MessageTestBase
                 });
             });
         });
+        Assert.NotNull(cut.Instance.MessageContainer);
+
         var btn = cut.Find("button");
         await cut.InvokeAsync(() => btn.Click());
 
