@@ -14,4 +14,22 @@ public class TextareaTest : BootstrapBlazorTestBase
         var component = cut.FindComponent<BootstrapLabel>();
         Assert.NotNull(component);
     }
+
+    [Fact]
+    public void ShowLabelTooltip_OK()
+    {
+        var cut = Context.RenderComponent<BootstrapLabel>(pb =>
+        {
+            pb.Add(a => a.ShowLabelTooltip, null);
+        });
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ShowLabelTooltip, false);
+        });
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.Value, "Test");
+            pb.Add(a => a.ShowLabelTooltip, true);
+        });
+    }
 }
