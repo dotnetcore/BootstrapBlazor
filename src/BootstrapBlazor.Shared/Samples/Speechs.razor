@@ -20,12 +20,33 @@
 <div class="code-label">Package Manager</div>
 <Pre class="no-highlight">Install-Package BootstrapBlazor.AzureSpeech -Version @Version</Pre>
 
-<div class="code-label mb-2">1. 注册服务</div>
+<div class="code-label mb-2">实战体验</div>
+
+<ul class="ul-demo">
+    <li>点击 <b>开始</b> 按钮后，对着电脑说：<b><i>“请帮我把灯打开”</i></b></li>
+    <li>电脑接收到指令后，会询问 <b><i>“您确认要把灯打开吗？请您确认！”</i></b></li>
+    <li>您对着电脑说：<b><i>“确认”</i></b></li>
+    <li>电脑执行指令，在下方文本框内输入 <b>开灯</b> 文本</li>
+</ul>
+
+<div class="row">
+    <div class="col-12 col-sm-auto">
+        <Button Text="开始体验" Icon="fa fa-fw fa-microphone" OnClick="OnStart" style="margin: 1.5rem 0;" />
+    </div>
+    <div class="col-12 col-sm-auto">
+        <SpeechWave Show="Show" class="my-3" />
+    </div>
+</div>
+
+<GroupBox Title="指令输出区">
+    <Console HeaderText="指令面板" Items="@ConsoleMessages" Height="140" />
+</GroupBox>
+
+<div class="code-label mt-3 mb-2">1. 注册服务</div>
 
 <div class="mb-2"><b>Program.cs</b></div>
 
 <Pre>// 增加语音服务
-
 <b><i>builder.Services.AddBootstrapBlazorAzureSpeech();</i></b></Pre>
 
 <div class="code-label mb-2">2. 使用服务</div>

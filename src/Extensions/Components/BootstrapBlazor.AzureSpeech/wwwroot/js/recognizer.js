@@ -12,10 +12,9 @@ export function bb_speech_recognizeOnce(obj, method, token, region, recognitionL
     recognizer.recognizeOnceAsync(function (successfulResult) {
         recognizer.close();
         recognizer = undefined;
-        console.log(successfulResult);
         obj.invokeMethodAsync(method, successfulResult.privText);
     }, function (err) {
-
+        console.log(err);
     });
 }
 
