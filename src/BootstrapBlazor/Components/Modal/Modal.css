@@ -49,6 +49,7 @@
     }
 
         body.bb-printview-open app,
+        body.bb-printview-open #app,
         body.bb-printview-open .modal,
         body.bb-printview-open .modal-footer,
         body.bb-printview-open .modal-backdrop {
