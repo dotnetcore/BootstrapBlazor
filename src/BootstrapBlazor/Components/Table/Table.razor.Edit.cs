@@ -420,6 +420,7 @@ public partial class Table<TItem>
             if (OnQueryAsync == null && DynamicContext != null && typeof(TItem).IsAssignableTo(typeof(IDynamicObject)))
             {
                 // 动态数据
+                SelectedRows.Clear();
                 QueryItems = DynamicContext.GetItems().Cast<TItem>();
                 TotalCount = QueryItems.Count();
             }
@@ -492,9 +493,10 @@ public partial class Table<TItem>
                         var key = Utility.GetKeyValue<TItem, object?>(item);
                         if (key != null)
                         {
-                            if (QueryItems.Any(i => Utility.GetKeyValue<TItem, object?>(i)?.ToString() == key.ToString()))
+                            var row = QueryItems.FirstOrDefault(i => Utility.GetKeyValue<TItem, object?>(i)?.ToString() == key.ToString());
+                            if (row != null)
                             {
-                                rows.Add(item);
+                                rows.Add(row);
                             }
                         }
                     }

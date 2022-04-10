@@ -526,10 +526,6 @@ public partial class Table<TItem>
                 var valid = await SaveModelAsync(context, changedType);
                 if (valid)
                 {
-                    if (DynamicContext != null)
-                    {
-                        SelectedRows.Clear();
-                    }
                     await QueryAsync();
                 }
                 await ToggleLoading(false);
