@@ -482,7 +482,15 @@ public partial class Tables
             Description = "显示搜索文本框",
             Type = "boolean",
             ValueList = "true / false",
-            DefaultValue = "false"
+            DefaultValue = "true"
+        },
+        new()
+        {
+            Name = "ShowSearchTextTooltip",
+            Description = "是否显示搜索框文本提示栏",
+            Type = "boolean",
+            ValueList = "true / false",
+            DefaultValue = "true"
         },
         new()
         {
