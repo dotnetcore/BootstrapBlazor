@@ -122,6 +122,7 @@
             var $this = $(this);
 
             var handleDragStart = function (e) {
+                e.preventDefault();
                 e.stopPropagation();
 
                 document.addEventListener('mousemove', handleDragMove);

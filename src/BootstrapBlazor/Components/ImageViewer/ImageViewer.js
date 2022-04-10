@@ -118,6 +118,37 @@
                 }
             });
 
+            var originX = 0;
+            var originY = 0;
+            var pt = { top: 0, left: 0 };
+            $prevImg.drag(
+                function (e) {
+                    originX = e.clientX || e.touches[0].clientX;
+                    originY = e.clientY || e.touches[0].clientY;
+
+                    // 偏移量
+                    pt.top = parseInt($prevImg.css('marginTop').replace("px", ""));
+                    pt.left = parseInt($prevImg.css('marginLeft').replace("px", ""));
+
+                    this.addClass('is-drag');
+                },
+                function (e) {
+                    if (this.hasClass('is-drag')) {
+                        var eventX = e.clientX || e.changedTouches[0].clientX;
+                        var eventY = e.clientY || e.changedTouches[0].clientY;
+
+                        newValX = pt.left + Math.ceil(eventX - originX);
+                        newValY = pt.top + Math.ceil(eventY - originY);
+
+                        this.css({ "marginLeft": newValX });
+                        this.css({ "marginTop": newValY });
+                    }
+                },
+                function (e) {
+                    this.removeClass('is-drag');
+                }
+            );
+
             // 点击遮罩关闭功能
             $mask.on('click', function () {
                 $closeButton.trigger('click');
@@ -172,15 +203,30 @@
                     rotate = rotateCallback(rotate);
                 }
                 $prevImg.css('transform', 'scale(' + scale + ') rotate(' + rotate + 'deg)');
+
+                var left = getValue($prevImg[0].style.marginLeft);
+                var top = getValue($prevImg[0].style.marginTop);
+                $prevImg.css('marginLeft', left + 'px');
+                $prevImg.css('marginTop', top + 'px');
             };
 
             var resetImage = function () {
                 $prevImg.addClass('transition-none');
                 $prevImg.css('transform', 'scale(1) rotate(0deg)');
+                $prevImg.css('marginLeft', '0px');
+                $prevImg.css('marginTop', '0px');
                 window.setTimeout(function () {
                     $prevImg.removeClass('transition-none');
                 }, 300);
             }
+
+            var getValue = function (v) {
+                var value = 0;
+                if (v) {
+                    value = parseFloat(v);
+                }
+                return value;
+            };
         }
     });
 })(jQuery);
