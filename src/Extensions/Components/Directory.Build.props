@@ -1,6 +1,5 @@
 <Project>
 
   <Import Project="..\Directory.Build.props" />
-  <Import Project="..\..\bundleconfig.props" />
 
 </Project>
