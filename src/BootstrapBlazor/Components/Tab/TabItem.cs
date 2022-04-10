@@ -64,7 +64,7 @@ public class TabItem : ComponentBase
     /// 获得/设置 所属 Tab 实例
     /// </summary>
     [CascadingParameter]
-    protected Tab? TabSet { get; set; }
+    protected internal Tab? TabSet { get; set; }
 
     /// <summary>
     /// OnInitialized 方法
@@ -82,6 +82,30 @@ public class TabItem : ComponentBase
     /// </summary>
     /// <param name="active"></param>
     public virtual void SetActive(bool active) => IsActive = active;
+
+    /// <summary>
+    /// 重新设置标签文字等参数
+    /// </summary>
+    /// <param name="text"></param>
+    /// <param name="icon"></param>
+    /// <param name="closable"></param>
+    public void SetText(string text, string? icon = null, bool? closable = null)
+    {
+        if (TabSet != null)
+        {
+            Text = text;
+
+            if (!string.IsNullOrEmpty(icon))
+            {
+                Icon = icon;
+            }
+            if (closable.HasValue)
+            {
+                Closable = closable.Value;
+            }
+            TabSet.ActiveTab(this);
+        }
+    }
 
     /// <summary>
     /// 通过指定参数集合获取 TabItem 实例

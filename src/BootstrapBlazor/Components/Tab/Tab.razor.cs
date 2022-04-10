@@ -528,6 +528,7 @@ public partial class Tab
     private void AddTabItem(Dictionary<string, object?> parameters)
     {
         var item = TabItem.Create(parameters);
+        item.TabSet = this;
         if (item.IsActive)
         {
             _items.ForEach(i => i.SetActive(false));
