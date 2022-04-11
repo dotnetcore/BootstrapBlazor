@@ -116,7 +116,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTest.Localization", "te
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BootstrapBlazor.FontAwesome", "src\Extensions\Components\BootstrapBlazor.FontAwesome\BootstrapBlazor.FontAwesome.csproj", "{C28717F8-9D2B-4296-9CC4-94882338F370}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BootstrapBlazor.AzureSpeech", "src\Extensions\Components\BootstrapBlazor.AzureSpeech\BootstrapBlazor.AzureSpeech.csproj", "{42108A8A-C773-4F35-A870-3673BDD383E4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BootstrapBlazor.AzureSpeech", "src\Extensions\Components\BootstrapBlazor.AzureSpeech\BootstrapBlazor.AzureSpeech.csproj", "{42108A8A-C773-4F35-A870-3673BDD383E4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

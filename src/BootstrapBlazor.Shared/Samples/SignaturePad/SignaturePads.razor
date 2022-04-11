@@ -1,0 +1,62 @@
+﻿@page "/signaturepads"
+@namespace BootstrapBlazor.Shared.Samples
+@inject IStringLocalizer<SignaturePads> Localizer
+
+<h3>@Localizer["Title"]</h3>
+
+<p><b>@Localizer["P1"] ：</b></p>
+
+<p>@((MarkupString)Localizer["P2"].Value)</p>
+
+<p><b>@Localizer["P3"]</b></p>
+
+<p>@((MarkupString)Localizer["P4"].Value)</p>
+
+<div class="code-label">.NET CLI</div>
+<Pre class="no-highlight">dotnet add package BootstrapBlazor.SignaturePad</Pre>
+
+<div class="code-label">PackageReference</div>
+<Pre class="no-highlight">&lt;PackageReference Include="BootstrapBlazor.SignaturePad" /&gt;</Pre>
+
+<div class="code-label">Package Manager</div>
+<Pre class="no-highlight">Install-Package BootstrapBlazor.SignaturePad</Pre>
+
+<DemoBlock Title="@Localizer["BaseUsageText"]" Introduction="@Localizer["BaseUsageIntro"]" Name="Normal">
+    <Pre>&lt;SignaturePad OnResult="OnResult" /&gt;</Pre>
+    <div class="row">
+        <div class="col-12 col-sm-6">
+            <div class="form-label">@Localizer["SignText"]</div>
+            <SignaturePad OnResult="OnResult" />
+        </div>
+        <div class="col-12 col-sm-6">
+            @if (Result != null)
+            {
+                <div class="form-label">@Localizer["ResultText"]</div>
+                <img src="@Result" style="height: 240px; width: auto;" />
+                <div class="form-label">@Localizer["ResultBase64Text"]</div>
+                <textarea class="form-control" rows="4" @bind="Result" />
+            }
+        </div>
+    </div>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["ButtonCssStyleText"]" Introduction="@Localizer["ButtonCssStyleIntro"]" Name="ButtonCssStyle">
+    <Pre>&lt;SignaturePad OnResult="OnResult" BtnCssClass="btn btn-outline-success" /&gt;</Pre>
+    <div class="form-label">@Localizer["SignText"]</div>
+    <SignaturePad OnResult="OnResult2" BtnCssClass="btn btn-outline-success" />
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["CustomButtonText"]" Introduction="@Localizer["CustomButtonIntro"]" Name="CustomButton">
+    <Pre>&lt;SignaturePad OnResult="OnResult" SignAboveLabel="Sign above" UndoBtnTitle="Undo" SaveBase64BtnTitle="OK" ChangeColorBtnTitle="Change color" ClearBtnTitle="Clear" /&gt;</Pre>
+    <SignaturePad OnResult="OnResult3" SignAboveLabel="Sign above" UndoBtnTitle="Undo" SaveBase64BtnTitle="OK" ChangeColorBtnTitle="Change color" ClearBtnTitle="Clear" />
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["ResponsiveInterfaceText"]" Introduction="@Localizer["TipsResponsive"]" Name="ResponsiveInterface">
+    <a class="btn btn-primary" type="button" href="signaturepadResponsive">@Localizer["ResponsiveInterfaceText"]</a>
+</DemoBlock>
+
+<Tips>
+    <p>@((MarkupString)Localizer["Tips"].Value)</p>
+</Tips>
+
+<AttributeTable Items="@GetAttributes()" />

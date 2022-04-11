@@ -1,0 +1,94 @@
+﻿@page "/signaturepadResponsive"
+@inject IStringLocalizer<SignaturePads> Localizer
+@namespace BootstrapBlazor.Shared.Samples
+
+<h3>@Localizer["ResponsiveInterfaceText"]</h3>
+
+<DemoBlock Title="@Localizer["ResponsiveInterfaceText"]" Name="Base" Introduction="@Localizer["TipsResponsive"]">
+
+<pre>
+<code style="color:gray">
+        &lt;SignaturePad OnResult="OnResult" EnableChangeColorBtn="false" Responsive="true" BackgroundColor="rgba(0,0,0,0)" SignAboveLabel="" OnClose="OnClose" /&gt;
+    </code>
+</pre>
+
+    @if (ShowSignaturePad)
+    {
+        <SignaturePad OnResult="OnResult" EnableChangeColorBtn="false" Responsive="true" BackgroundColor="rgba(0,0,0,0)" SignAboveLabel="" OnClose="OnClose" />
+    }
+    else if (Result != null)
+    {
+        <div>
+            <p></p>
+            <p>@Localizer["ResultText"]</p>
+            <img src="@Result" style="background-color: beige ; max-width: 80%; " />
+        </div>
+        <p></p>
+<textarea type="text" class="form-control" style="min-width: 100px;max-width: 80%;" rows="6"
+          @bind="Result"
+          placeholder="Base64" />
+        <button class="btn btn-primary"
+                type="button"
+                @onclick="(() => Result = null)">
+            @Localizer["BackText"]
+        </button>
+
+
+
+    }
+    else
+    {
+        <button class="btn btn-primary"
+                type="button"
+                @onclick="(() => ShowSignaturePad = !ShowSignaturePad)">
+            @Localizer["SignatureText"]
+        </button>
+
+    }
+
+</DemoBlock>
+
+
+<a class="btn btn-primary"
+   type="button"
+   href="signaturepads">
+    @Localizer["BackText"]
+</a>
+
+
+@code{
+    /// <summary>
+    /// 签名Base64
+    /// </summary>
+    public string? Result { get; set; }
+
+    /// <summary>
+    /// 显示响应式签名界面
+    /// </summary>
+    bool ShowSignaturePad { get; set; } = false;
+
+    /// <summary>
+    /// 签名回调处理
+    /// </summary>
+    /// <param name="result"></param>
+    /// <returns></returns>
+    private Task OnResult(string result)
+    {
+        Result = result;
+        ShowSignaturePad = (result == null);
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
+
+    /// <summary>
+    /// 关闭回调处理
+    /// </summary>
+    /// <returns></returns>
+    private Task OnClose()
+    {
+        ShowSignaturePad = false;
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
+
+}

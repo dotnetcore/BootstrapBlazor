@@ -414,7 +414,7 @@
     "SearchDialogText": "SearchDialog",
     "ToastText": "Toast",
     "TimerText": "Timer",
-    "Text6": "图表 Chart",
+    "Text6": "Chart",
     "ChartText": "Chart",
     "ChartSummaryText": "Summary",
     "ChartLineText": "Line",
@@ -423,7 +423,9 @@
     "ChartDoughnutText": "Doughnut",
     "ChartBubbleText": "Bubble",
     "DispatchText": "Dispatch",
-    "GeolocationText": "Geolocation"
+    "GeolocationText": "Geolocation",
+    "Notification": "Notification",
+    "SignaturePadText": "SignaturePad"
   },
   "BootstrapBlazor.Shared.Samples.GlobalException": {
     "Title": "Global exception",
@@ -2873,5 +2875,28 @@
     "BaseUsageText": "<code> bootstrapblazor </code> uses <code> font awesome 4.7.0 </code> as the built-in icon library. All icons are as follows",
     "SwitchButtonTextOff": "Click to copy",
     "SwitchButtonTextOn": "Show Copy Dialog"
+  },
+  "BootstrapBlazor.Shared.Samples.SignaturePads": {
+    "BackText": "Back",
+    "BaseUsageText": "Basic usage",
+    "BaseUsageIntro": "Signature with touch or mouse",
+    "ButtonCssStyleText": "Button CSS style",
+    "ButtonCssStyleIntro": "Set button css",
+    "CustomButtonText": "Custom button text",
+    "CustomButtonIntro": "Custom button text",
+    "ResponsiveInterfaceText": "Responsive signature interface",
+    "ResultBase64Text": "Your signature in base64",
+    "ResultText": "Your signature",
+    "SignText": "signature",
+    "Tips": "Complex signatures will cause a large amount of data to be transmitted, and ssr will show a reload error. The configuration changes the maximum size of a single incoming hub message (default 32KB) to solve this problem. <code> builder.Services.AddServerSideBlazor().AddHubOptions(o => o.MaximumReceiveMessageSize = null); </code> ",
+    "TipsResponsive": "When device width is less than 640px (such as mobile phones) automatically topless without borders, the width is less than 500px the button is automatically rotated. Optional transparent background.",
+    "Title": "SignaturePad",
+    "SignatureText": "Signature",
+    "CleanText": "Clean",
+    "P1": "Precautions",
+    "P2": "This component relies on <a href='https://www.nuget.org/packages?q-BootstrapBlazor.SignaturePad' target'_blank'><code>BootstrapBlazor.SignaturePad</code></a>, which needs to reference its component package when using this component",
+    "P3": "Nuget package installation",
+    "P4": "Install the</code> components of <code>BootstrapBlazor.SignaturePad using <a href='https://www.nuget.org/packages?q-BootstrapBlazor.SignaturePad' target'_blank'>nuget.org</a>"
+
   }
 }

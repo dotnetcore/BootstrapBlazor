@@ -546,6 +546,11 @@ public sealed partial class NavMenu
             },
             new()
             {
+                Text = Localizer["SignaturePad"],
+                Url = "signaturepads",
+            },
+            new()
+            {
                 Text = Localizer["SpeechWave"],
                 Url = "speechwaves"
             },

@@ -130,48 +130,48 @@ public sealed partial class Alerts
     /// <returns></returns>
     private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
-            // TODO: 移动到数据库中
-            new AttributeItem() {
-                Name = "ChildContent",
-                Description = "内容",
-                Type = "RenderFragment",
-                ValueList = " — ",
-                DefaultValue = " — "
-            },
-            new AttributeItem() {
-                Name = "Class",
-                Description = "样式",
-                Type = "string",
-                ValueList = " — ",
-                DefaultValue = " — "
-            },
-            new AttributeItem() {
-                Name = "Color",
-                Description = "颜色",
-                Type = "Color",
-                ValueList = "Primary / Secondary / Success / Danger / Warning / Info / Dark",
-                DefaultValue = "Primary"
-            },
-            new AttributeItem() {
-                Name = "Icon",
-                Description = "图标",
-                Type = "string",
-                ValueList = " — ",
-                DefaultValue = " — "
-            },
-            new AttributeItem() {
-                Name = "ShowDismiss",
-                Description = "关闭按钮",
-                Type = "bool",
-                ValueList = " — ",
-                DefaultValue = "false"
-            },
-            new AttributeItem() {
-                Name = "ShowBar",
-                Description = "是否显示左侧 Bar",
-                Type = "bool",
-                ValueList = "true|false",
-                DefaultValue = "false"
-            }
+        // TODO: 移动到数据库中
+        new AttributeItem() {
+            Name = "ChildContent",
+            Description = "内容",
+            Type = "RenderFragment",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new AttributeItem() {
+            Name = "Class",
+            Description = "样式",
+            Type = "string",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new AttributeItem() {
+            Name = "Color",
+            Description = "颜色",
+            Type = "Color",
+            ValueList = "Primary / Secondary / Success / Danger / Warning / Info / Dark",
+            DefaultValue = "Primary"
+        },
+        new AttributeItem() {
+            Name = "Icon",
+            Description = "图标",
+            Type = "string",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new AttributeItem() {
+            Name = "ShowDismiss",
+            Description = "关闭按钮",
+            Type = "bool",
+            ValueList = " — ",
+            DefaultValue = "false"
+        },
+        new AttributeItem() {
+            Name = "ShowBar",
+            Description = "是否显示左侧 Bar",
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "false"
+        }
     };
 }

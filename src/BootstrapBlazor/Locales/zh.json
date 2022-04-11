@@ -305,5 +305,17 @@
   "BootstrapBlazor.Components.Handwritten": {
     "SaveButtonText": "保存",
     "ClearButtonText": "清除"
+  },
+  "BootstrapBlazor.Components.SignaturePad": {
+    "SignAboveLabel": "在框内签名",
+    "ClearBtnTitle": "清除",
+    "SignatureAlertText": "请先签名",
+    "ChangeColorBtnTitle": "换颜色",
+    "UndoBtnTitle": "撤消",
+    "CloseBtnTitle": "关闭",
+    "SaveBase64BtnTitle": "确定",
+    "SavePNGBtnTitle": "PNG",
+    "SaveJPGBtnTitle": "JPG",
+    "SaveSVGBtnTitle": "SVG"
   }
 }

@@ -59,6 +59,7 @@
     "validateforms": "ValidateForms",
     "wrap": "Table/TablesWrap",
     "virtualization": "Table/TablesVirtualization",
+    "signaturepads": "SignaturePad/SignaturePads",
     "speechwaves": "SpeechWaves"
   },
   "video": {

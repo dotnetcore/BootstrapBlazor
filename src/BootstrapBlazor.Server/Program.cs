@@ -17,7 +17,7 @@ builder.Services.AddResponseCompression();
 
 builder.Services.AddControllers();
 builder.Services.AddRazorPages();
-builder.Services.AddServerSideBlazor();
+builder.Services.AddServerSideBlazor().AddHubOptions(o => o.MaximumReceiveMessageSize = null);
 builder.Services.AddBootstrapBlazorServices();
 
 // 获得当前主题配置
