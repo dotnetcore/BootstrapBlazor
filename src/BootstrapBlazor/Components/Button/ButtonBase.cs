@@ -69,7 +69,7 @@ public abstract class ButtonBase : TooltipComponentBase
     /// 获得/设置 按钮颜色
     /// </summary>
     [Parameter]
-    public Color Color { get; set; } = Color.Primary;
+    public virtual Color Color { get; set; } = Color.Primary;
 
     /// <summary>
     /// 获得/设置 显示图标

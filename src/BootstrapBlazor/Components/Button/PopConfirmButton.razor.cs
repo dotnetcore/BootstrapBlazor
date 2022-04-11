@@ -12,6 +12,19 @@ namespace BootstrapBlazor.Components;
 /// </summary>
 public partial class PopConfirmButton
 {
+    private string? PopButtonClassName => IsLink ? InternalClassName : ClassName;
+
+    private string? InternalClassName => CssBuilder.Default()
+        .AddClass($"text-{Color.ToDescriptionString()}", Color != Color.None)
+        .AddClassFromAttributes(AdditionalAttributes)
+        .Build();
+
+    /// <summary>
+    /// 获得/设置 按钮颜色
+    /// </summary>
+    [Parameter]
+    public override Color Color { get; set; } = Color.None;
+
     /// <summary>
     /// 获得/设置 PopoverConfirm 服务实例
     /// </summary>
@@ -35,11 +48,6 @@ public partial class PopConfirmButton
         ConfirmButtonText ??= Localizer[nameof(ConfirmButtonText)];
         CloseButtonText ??= Localizer[nameof(CloseButtonText)];
         Content ??= Localizer[nameof(Content)];
-
-        if (IsLink)
-        {
-            Color = Color.None;
-        }
     }
 
     /// <summary>

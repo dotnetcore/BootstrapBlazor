@@ -3,7 +3,7 @@
 
 <DynamicElement TagName="@TagName" OnClick="Show"
                 data-bs-toggle="confirm" data-bs-placement="@Placement.ToDescriptionString()" id="@Id" type="@ElementType"
-                class="@ClassName" disabled="@Disabled" role="button" aria-disabled="@Disabled" tabindex="@Tab">
+                class="@PopButtonClassName" disabled="@Disabled" role="button" aria-disabled="@Disabled" tabindex="@Tab">
     @if (!string.IsNullOrEmpty(Icon))
     {
         <i class="@Icon"></i>
