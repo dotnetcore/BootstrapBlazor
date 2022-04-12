@@ -19,6 +19,8 @@ namespace BootstrapBlazor.Components;
 #endif
 public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable where TItem : class, new()
 {
+    private Virtualize<TItem>? VirtualizeElement { get; set; }
+
     [NotNull]
     private JSInterop<Table<TItem>>? Interop { get; set; }
 
@@ -674,6 +676,12 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
 
             // 重新查询
             await QueryAsync();
+
+            if (ScrollMode == ScrollMode.Virtual && VirtualizeElement is not null)
+            {
+                await VirtualizeElement.RefreshDataAsync();
+                StateHasChanged();
+            }
         };
 
         // 设置 OnFilter 回调方法
@@ -681,6 +689,12 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
         {
             PageIndex = 1;
             await QueryAsync();
+
+            if (ScrollMode == ScrollMode.Virtual && VirtualizeElement is not null)
+            {
+                await VirtualizeElement.RefreshDataAsync();
+                StateHasChanged();
+            }
         };
 
         HasKeyAttribute = typeof(TItem).GetRuntimeProperties().Any(p => p.IsDefined(typeof(KeyAttribute)));
