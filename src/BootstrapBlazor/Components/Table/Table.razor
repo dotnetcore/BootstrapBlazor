@@ -288,12 +288,12 @@
             {
                 @if(Items != null)
                 {
-                    <Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize
+                    <Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize @ref="VirtualizeElement"
                         ItemSize="RowHeight" OverscanCount="10" Items="@Items.ToList()" ChildContent="RenderRow" />
                 }
                 else
                 {
-                    <Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize
+                    <Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize @ref="VirtualizeElement"
                         ItemSize="RowHeight" OverscanCount="10"
                         ItemsProvider="LoadItems" ItemContent="RenderRow">
                         <Placeholder>
