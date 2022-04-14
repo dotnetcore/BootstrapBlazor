@@ -75,4 +75,28 @@ public class TableEnumFilterTest : BootstrapBlazorTestBase
         cut.InvokeAsync(() => condtions = cut.FindComponent<EnumFilter>().Instance.GetFilterConditions());
         Assert.Single(condtions);
     }
+
+    [Fact]
+    public void SetFilterConditions_Ok()
+    {
+        var cut = Context.RenderComponent<EnumFilter>(pb =>
+        {
+            pb.Add(a => a.Type, typeof(EnumEducation));
+        });
+
+        var filter = cut.Instance;
+        IEnumerable<FilterKeyValueAction>? conditions = null;
+        cut.InvokeAsync(() => conditions = filter.GetFilterConditions());
+        Assert.Empty(conditions);
+
+        List<FilterKeyValueAction>? newConditions = new(1);
+
+        newConditions.Add(new FilterKeyValueAction() { FieldValue = EnumEducation.Middel });
+
+        cut.InvokeAsync(() => filter.SetFilterConditions(newConditions));
+
+        cut.InvokeAsync(() => conditions = filter.GetFilterConditions());
+        Assert.Single(conditions);
+        Assert.True(conditions?.First().FieldValue is EnumEducation.Middel);
+    }
 }

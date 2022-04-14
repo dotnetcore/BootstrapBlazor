@@ -89,4 +89,24 @@ public partial class LookupFilter
         }
         return filters;
     }
+
+    /// <summary>
+    /// Override existing filter conditions
+    /// </summary>
+    public void SetFilterConditions(IEnumerable<FilterKeyValueAction> conditions)
+    {
+        if (!conditions.Any())
+            return;
+
+        var type = Nullable.GetUnderlyingType(Type) ?? Type;
+        FilterKeyValueAction first = conditions.First();
+        if (first.FieldValue?.GetType() == type)
+        {
+            Value = first.FieldValue.ToString() ?? "";
+        }
+        else
+        {
+            Value = "";
+        }
+    }
 }

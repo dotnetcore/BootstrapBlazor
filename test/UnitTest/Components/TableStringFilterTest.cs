@@ -85,4 +85,27 @@ public class TableStringFilterTest : BootstrapBlazorTestBase
         Assert.Equal(FilterAction.NotEqual, condtion.First().FilterAction);
         Assert.Equal(FilterLogic.And, condtion.First().FilterLogic);
     }
+
+    [Fact]
+    public void SetFilterConditions_Ok()
+    {
+        var cut = Context.RenderComponent<StringFilter>();
+
+        var filter = cut.Instance;
+        IEnumerable<FilterKeyValueAction>? conditions = null;
+        cut.InvokeAsync(() => conditions = filter.GetFilterConditions());
+        Assert.Empty(conditions);
+
+        List<FilterKeyValueAction>? newConditions = new(1);
+
+        newConditions.Add(new FilterKeyValueAction() { FieldValue = "test1" });
+        newConditions.Add(new FilterKeyValueAction() { FieldValue = "test2" });
+
+        cut.InvokeAsync(() => filter.SetFilterConditions(newConditions));
+
+        cut.InvokeAsync(() => conditions = filter.GetFilterConditions());
+        Assert.True(conditions?.Count() == 2);
+        Assert.True(conditions?.First().FieldValue is string);
+        Assert.True((string?)conditions?.First().FieldValue == "test1");
+    }
 }

@@ -1192,6 +1192,22 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
         return ret;
     }
 
+    /// <summary>
+    /// Reset all Columns Filter
+    /// </summary>
+    public void ResetAllColumnsFilter()
+    {
+        foreach (ITableColumn column in Columns)
+        {
+            column.Filter?.FilterAction?.Reset();
+        }
+        Filters.Clear();
+        if (OnFilterAsync is not null)
+        {
+            OnFilterAsync();
+        }
+    }
+
     #region Dispose
     /// <summary>
     /// Dispose 方法
