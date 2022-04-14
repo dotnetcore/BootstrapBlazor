@@ -94,4 +94,41 @@ public partial class NumberFilter<TType>
         }
         return filters;
     }
+
+    /// <summary>
+    /// Override existing filter conditions
+    /// </summary>
+    public void SetFilterConditions(IEnumerable<FilterKeyValueAction> conditions)
+    {
+        if (!conditions.Any())
+            return;
+
+        FilterKeyValueAction first = conditions.First();
+        if (first.FieldValue is TType value)
+        {
+            Value1 = value;
+        }
+        else
+        {
+            Value1 = default;
+        }
+        Action1 = first.FilterAction;
+
+        if (conditions.Count() == 2)
+        {
+            Count = 1;
+
+            FilterKeyValueAction second = conditions.ElementAt(1);
+            if (second.FieldValue is TType value2)
+            {
+                Value2 = value2;
+            }
+            else
+            {
+                Value2 = default;
+            }
+            Action1 = second.FilterAction;
+            Logic = second.FilterLogic;
+        }
+    }
 }

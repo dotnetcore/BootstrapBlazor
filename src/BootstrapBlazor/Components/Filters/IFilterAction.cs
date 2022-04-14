@@ -19,4 +19,9 @@ public interface IFilterAction
     /// 重置过滤条件方法
     /// </summary>
     void Reset() { }
+
+    /// <summary>
+    /// Override existing filter conditions
+    /// </summary>
+    void SetFilterConditions(IEnumerable<FilterKeyValueAction> conditions) { }
 }

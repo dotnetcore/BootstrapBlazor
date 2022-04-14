@@ -68,4 +68,23 @@ public partial class BoolFilter
         }
         return filters;
     }
+
+    /// <summary>
+    /// Override existing filter conditions
+    /// </summary>
+    public void SetFilterConditions(IEnumerable<FilterKeyValueAction> conditions)
+    {
+        if(!conditions.Any())
+            return;
+
+        FilterKeyValueAction first = conditions.First();
+        if (first.FieldValue is bool value)
+        {
+            Value = value ? "true" : "false";
+        }
+        else if (first.FieldValue is null)
+        {
+            Value = "";
+        }
+    }
 }

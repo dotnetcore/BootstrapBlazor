@@ -88,4 +88,41 @@ public partial class DateTimeFilter
         }
         return filters;
     }
+
+    /// <summary>
+    /// Override existing filter conditions
+    /// </summary>
+    public void SetFilterConditions(IEnumerable<FilterKeyValueAction> conditions)
+    {
+        if (!conditions.Any())
+            return;
+
+        FilterKeyValueAction first = conditions.First();
+        if(first.FieldValue is DateTime value)
+        {
+            Value1 = value;
+        }
+        else
+        {
+            Value1 = null;
+        }
+        Action1 = first.FilterAction;
+
+        if(conditions.Count() == 2)
+        {
+            Count = 1;
+
+            FilterKeyValueAction second = conditions.ElementAt(1);
+            if (second.FieldValue is DateTime value2)
+            {
+                Value2 = value2;
+            }
+            else
+            {
+                Value2 = null;
+            }
+            Action1 = second.FilterAction;
+            Logic = second.FilterLogic;
+        }
+    }
 }

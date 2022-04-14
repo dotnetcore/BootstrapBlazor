@@ -115,4 +115,29 @@ public class TableDateTimeFilterTest : BootstrapBlazorTestBase
         });
         Assert.Empty(condtions);
     }
+
+    [Fact]
+    public void SetFilterConditions_Ok()
+    {
+        var cut = Context.RenderComponent<DateTimeFilter>();
+
+        var filter = cut.Instance;
+        IEnumerable<FilterKeyValueAction>? conditions = null;
+        cut.InvokeAsync(() => conditions = filter.GetFilterConditions());
+        Assert.Empty(conditions);
+
+        List<FilterKeyValueAction>? newConditions = new(1);
+
+        DateTime dati = DateTime.Now;
+
+        newConditions.Add(new FilterKeyValueAction() { FieldValue = dati });
+        newConditions.Add(new FilterKeyValueAction() { FieldValue = dati });
+
+        cut.InvokeAsync(() => filter.SetFilterConditions(newConditions));
+
+        cut.InvokeAsync(() => conditions = filter.GetFilterConditions());
+        Assert.True(conditions?.Count() == 2);
+        Assert.True(conditions?.First().FieldValue is DateTime);
+        Assert.True((DateTime?)conditions?.First().FieldValue == dati);
+    }
 }
