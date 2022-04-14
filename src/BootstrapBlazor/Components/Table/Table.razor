@@ -239,7 +239,7 @@
             }
         </div>
 
-        if (ActiveRenderMode == TableRenderMode.Table)
+        if (ActiveRenderMode == TableRenderMode.Table && !ShowFilterHeader)
         {
             if (FilterColumns == null) FilterColumns = Columns.Where(i => i.Filterable);
             if (FilterColumns.Any())

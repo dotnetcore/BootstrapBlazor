@@ -116,6 +116,32 @@ public class TableFilterTest : BootstrapBlazorTestBase
         });
     }
 
+    [Fact]
+    public void OnlyOneTableFilterPerColumn_Ok()
+    {
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.Items, new List<Foo>() { new Foo() });
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.ShowFilterHeader, true);
+                pb.Add(a => a.TableColumns, new RenderFragment<Foo>(foo => builder =>
+                {
+                    var index = 0;
+                    builder.OpenComponent<TableColumn<Foo, bool>>(index++);
+                    builder.AddAttribute(index++, nameof(TableColumn<Foo, bool>.Field), foo.Complete);
+                    builder.AddAttribute(index++, nameof(TableColumn<Foo, bool>.FieldExpression), foo.GenerateValueExpression(nameof(Foo.Complete), typeof(bool)));
+                    builder.AddAttribute(index++, nameof(TableColumn<Foo, bool>.Filterable), true);
+                    builder.CloseComponent();
+                }));
+            });
+        });
+
+        var filters = cut.FindComponents<BoolFilter>();
+        Assert.Single(filters);
+    }
+
     private static RenderFragment<Foo> CreateTableColumns() => foo => builder =>
     {
         var index = 0;
