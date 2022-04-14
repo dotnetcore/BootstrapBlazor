@@ -1,8 +1,12 @@
 ﻿@page "/recognizers"
+@namespace BootstrapBlazor.Shared.Samples
+@inherits SpeechBase
 
 <h3>Recognizer 语音识别</h3>
 
 <h4>通过语音采集设备将语音转化为文本</h4>
+
+<RadioList Items="@SpeechItems" Value="@SpeechItem" OnValueChanged="OnSpeechProviderChanged" class="my-3" />
 
 <DemoBlock Title="普通用法" Introduction="点击开始识别后对录入语音进行识别" Name="Normal">
     <p><b>使用说明：</b></p>
@@ -13,7 +17,7 @@
             <Button Text="@ButtonText" OnClick="OnStart" />
         </div>
         <div class="col-12 col-sm-6">
-            <Textarea @bind-Value="Result" rows="6" />
+            <Textarea Value="@Result" rows="6" />
         </div>
     </div>
 </DemoBlock>

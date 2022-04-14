@@ -11,7 +11,7 @@ namespace Microsoft.Extensions.DependencyInjection;
 /// <summary>
 /// BootstrapBlazor 服务扩展类
 /// </summary>
-public static class ServiceCollectionExtensions
+public static class ServiceCollectionExtension
 {
     /// <summary>
     /// 增加 语音识别服务
@@ -19,21 +19,21 @@ public static class ServiceCollectionExtensions
     /// <param name="services"></param>
     /// <param name="configOptions"></param>
     /// <returns></returns>
-    public static IServiceCollection AddBootstrapBlazorAzureSpeech(this IServiceCollection services, Action<
-        AzureSpeechOption>? configOptions = null)
+    public static IServiceCollection AddBootstrapBlazorBaiduSpeech(this IServiceCollection services, Action<
+        BaiduSpeechOption>? configOptions = null)
     {
         services.AddHttpClient();
         services.AddMemoryCache();
 
         services.TryAddScoped<RecognizerService>();
-        services.AddScoped<IRecognizerProvider, AzureRecognizerProvider>();
+        services.AddScoped<IRecognizerProvider, BaiduRecognizerProvider>();
 
         services.TryAddScoped<SynthesizerService>();
-        services.AddScoped<ISynthesizerProvider, AzureSynthesizerProvider>();
+        services.AddScoped<ISynthesizerProvider, BaiduSynthesizerProvider>();
 
-        services.TryAddSingleton<IConfigureOptions<AzureSpeechOption>, ConfigureOptions<AzureSpeechOption>>();
+        services.TryAddSingleton<IConfigureOptions<BaiduSpeechOption>, ConfigureOptions<BaiduSpeechOption>>();
 
-        services.Configure<AzureSpeechOption>(option =>
+        services.Configure<BaiduSpeechOption>(option =>
         {
             configOptions?.Invoke(option);
         });

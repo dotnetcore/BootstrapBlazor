@@ -46,7 +46,7 @@ public sealed partial class NavMenu
     private List<MenuItem> Menus { get; set; } = new List<MenuItem>(100);
 
     /// <summary>
-    ///
+    /// OnInitialized 方法
     /// </summary>
     protected override void OnInitialized()
     {
@@ -169,9 +169,9 @@ public sealed partial class NavMenu
             {
                 Text = Localizer["SpeechWave"],
                 Url = "speechwaves"
-            },
+            }
         };
-        AddBadge(item, count: 3);
+        AddBadge(item, count: 7);
     }
 
     private void AddQuickStar(DemoMenuItem item)

@@ -10,22 +10,17 @@ namespace BootstrapBlazor.Components;
 /// 语音合成状态枚举
 /// </summary>
 [JsonConverter(typeof(JsonStringEnumConverter))]
-public enum SynthesizerStatus
+public enum RecognizerStatus
 {
     /// <summary>
-    /// 正在合成
+    /// 正在识别
     /// </summary>
-    Synthesizer,
+    Start,
 
     /// <summary>
-    /// 朗读完毕
+    /// 识别完毕
     /// </summary>
     Finished,
-
-    /// <summary>
-    /// 取消
-    /// </summary>
-    Cancel,
 
     /// <summary>
     /// 出错

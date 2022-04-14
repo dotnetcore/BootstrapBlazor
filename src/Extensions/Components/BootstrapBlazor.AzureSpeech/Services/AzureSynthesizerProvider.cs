@@ -10,9 +10,9 @@ using System.Net.Http.Json;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// Azure 语音合成提供类
 /// </summary>
-internal class AzureSynthesizerProvider : ISynthesizerProvider, IAsyncDisposable
+public class AzureSynthesizerProvider : ISynthesizerProvider, IAsyncDisposable
 {
     private DotNetObjectReference<AzureSynthesizerProvider>? Interop { get; set; }
 
@@ -57,30 +57,23 @@ internal class AzureSynthesizerProvider : ISynthesizerProvider, IAsyncDisposable
     /// <returns></returns>
     public async Task InvokeAsync(SynthesizerOption option)
     {
-        if (!string.IsNullOrEmpty(option.Text))
+        Option = option;
+        if (Module == null)
         {
-            if (string.IsNullOrEmpty(option.MethodName))
-            {
-                throw new InvalidOperationException();
-            }
+            Module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/BootstrapBlazor.AzureSpeech/js/speech.js");
+        }
+        Interop ??= DotNetObjectReference.Create(this);
 
+        if (Option.MethodName == "bb_azure_speech_synthesizerOnce" && !string.IsNullOrEmpty(Option.Text))
+        {
             // 通过 SubscriptionKey 交换 Token
             var token = await ExchangeToken();
-
-            Option = option;
-            if (Module == null)
-            {
-                Module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/BootstrapBlazor.AzureSpeech/js/synthesizer.js");
-            }
-            Interop ??= DotNetObjectReference.Create(this);
-            await Module.InvokeVoidAsync(Option.MethodName, Interop, nameof(Callback), token, SpeechOption.Region, option.SpeechSynthesisLanguage, option.SpeechSynthesisVoiceName, Option.Text);
+            await Module.InvokeVoidAsync(Option.MethodName, Interop, nameof(Callback), token, SpeechOption.Region, Option.SpeechSynthesisLanguage, Option.SpeechSynthesisVoiceName, Option.Text);
         }
-        else
+        else if (Option.MethodName == "bb_azure_close_synthesizer")
         {
-            if (option.Callback != null)
-            {
-                await option.Callback(SynthesizerStatus.Close);
-            }
+            // 停止语音
+            await Module.InvokeVoidAsync(Option.MethodName, Interop, nameof(Callback));
         }
     }
 

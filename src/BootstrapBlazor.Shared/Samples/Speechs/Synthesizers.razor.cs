@@ -14,7 +14,10 @@ public partial class Synthesizers
 {
     [Inject]
     [NotNull]
-    private SynthesizerService? SynthesizerService { get; set; }
+    private IEnumerable<ISynthesizerProvider>? SynthesizerProviders { get; set; }
+
+    [NotNull]
+    private ISynthesizerProvider? SynthesizerProvider { get; set; }
 
     private bool Start { get; set; }
 
@@ -26,13 +29,47 @@ public partial class Synthesizers
 
     private bool IsDisabled { get; set; }
 
+    /// <summary>
+    /// OnInitialized 方法
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        InitProvider();
+    }
+
+    private void InitProvider()
+    {
+        if (SpeechItem == "Azure")
+        {
+            SynthesizerProvider = SynthesizerProviders.OfType<AzureSynthesizerProvider>().FirstOrDefault();
+        }
+        else
+        {
+            SynthesizerProvider = SynthesizerProviders.OfType<BaiduSynthesizerProvider>().FirstOrDefault();
+        }
+    }
+
+    private Task OnSpeechProviderChanged(string value)
+    {
+        SpeechItem = value;
+        InitProvider();
+        return Task.CompletedTask;
+    }
+
     private async Task OnStart()
     {
         if (ButtonText == "开始合成")
         {
             IsDisabled = true;
             ButtonIcon = "fa fa-fw fa-spin fa-spinner";
-            await SynthesizerService.SynthesizerOnceAsync(InputText, Recognize);
+            if (SpeechItem == "Azure")
+            {
+                await SynthesizerProvider.AzureSynthesizerOnceAsync(InputText, Recognize);
+            }
+            else
+            {
+                await SynthesizerProvider.BaiduSynthesizerOnceAsync(InputText, Recognize);
+            }
         }
         else
         {
@@ -52,7 +89,6 @@ public partial class Synthesizers
         else
         {
             Start = false;
-            IsDisabled = false;
             ButtonIcon = "fa fa-fw fa-microphone";
             ButtonText = "开始合成";
         }
@@ -62,6 +98,13 @@ public partial class Synthesizers
 
     private async Task Close()
     {
-        await SynthesizerService.CloseAsync(Recognize);
+        if (SpeechItem == "Azure")
+        {
+            await SynthesizerProvider.AzureCloseAsync(Recognize);
+        }
+        else
+        {
+            await SynthesizerProvider.BaiduCloseAsync(Recognize);
+        }
     }
 }

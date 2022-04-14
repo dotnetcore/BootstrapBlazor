@@ -15,11 +15,11 @@ public static class RecognizerServiceExtensions
     /// <param name="service"></param>
     /// <param name="callback"></param>
     /// <returns></returns>
-    public static async Task AzureRecognizeOnceAsync(this RecognizerService service, Func<string, Task> callback)
+    public static async Task BaiduRecognizeOnceAsync(this RecognizerService service, Func<string, Task> callback)
     {
         var option = new RecognizerOption()
         {
-            MethodName = "bb_azure_speech_recognizeOnce",
+            MethodName = "bb_baidu_speech_recognizeOnce",
             Callback = callback
         };
         await service.InvokeAsync(option);
@@ -31,11 +31,11 @@ public static class RecognizerServiceExtensions
     /// <param name="provider"></param>
     /// <param name="callback"></param>
     /// <returns></returns>
-    public static async Task AzureRecognizeOnceAsync(this IRecognizerProvider provider, Func<string, Task> callback)
+    public static async Task BaiduRecognizeOnceAsync(this IRecognizerProvider provider, Func<string, Task> callback)
     {
         var option = new RecognizerOption()
         {
-            MethodName = "bb_azure_speech_recognizeOnce",
+            MethodName = "bb_baidu_speech_recognizeOnce",
             Callback = callback
         };
         await provider.InvokeAsync(option);
@@ -47,11 +47,11 @@ public static class RecognizerServiceExtensions
     /// <param name="service"></param>
     /// <param name="callback"></param>
     /// <returns></returns>
-    public static async Task AzureCloseAsync(this RecognizerService service, Func<string, Task> callback)
+    public static async Task BaiduCloseAsync(this RecognizerService service, Func<string, Task> callback)
     {
         var option = new RecognizerOption()
         {
-            MethodName = "bb_azure_close_recognizer",
+            MethodName = "bb_baidu_speech_close",
             Callback = callback
         };
         await service.InvokeAsync(option);
@@ -63,11 +63,11 @@ public static class RecognizerServiceExtensions
     /// <param name="provider"></param>
     /// <param name="callback"></param>
     /// <returns></returns>
-    public static async Task AzureCloseAsync(this IRecognizerProvider provider, Func<string, Task> callback)
+    public static async Task BaiduCloseAsync(this IRecognizerProvider provider, Func<string, Task> callback)
     {
         var option = new RecognizerOption()
         {
-            MethodName = "bb_azure_close_recognizer",
+            MethodName = "bb_baidu_speech_close",
             Callback = callback
         };
         await provider.InvokeAsync(option);

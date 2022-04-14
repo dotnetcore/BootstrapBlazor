@@ -10,9 +10,9 @@ using System.Net.Http.Json;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// Azure 语音识别提供类
 /// </summary>
-internal class AzureRecognizerProvider : IRecognizerProvider, IAsyncDisposable
+public class AzureRecognizerProvider : IRecognizerProvider, IAsyncDisposable
 {
     private DotNetObjectReference<AzureRecognizerProvider>? Interop { get; set; }
 
@@ -51,7 +51,7 @@ internal class AzureRecognizerProvider : IRecognizerProvider, IAsyncDisposable
     }
 
     /// <summary>
-    /// 
+    /// 回调方法
     /// </summary>
     /// <param name="option"></param>
     /// <returns></returns>
@@ -68,7 +68,7 @@ internal class AzureRecognizerProvider : IRecognizerProvider, IAsyncDisposable
         Option = option;
         if (Module == null)
         {
-            Module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/BootstrapBlazor.AzureSpeech/js/recognizer.js");
+            Module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/BootstrapBlazor.AzureSpeech/js/speech.js");
         }
         Interop ??= DotNetObjectReference.Create(this);
         await Module.InvokeVoidAsync(Option.MethodName, Interop, nameof(Callback), token, SpeechOption.Region, option.SpeechRecognitionLanguage, option.TargetLanguage);
@@ -88,6 +88,10 @@ internal class AzureRecognizerProvider : IRecognizerProvider, IAsyncDisposable
                 {
                     entry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(9);
                 }
+            }
+            else
+            {
+                entry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMilliseconds(50);
             }
         }
         catch

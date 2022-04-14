@@ -14,6 +14,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="BootstrapBlazor.AzureSpeech" Version="6.*" />
+    <PackageReference Include="BootstrapBlazor.BaiduSpeech" Version="6.*" />
     <PackageReference Include="BootstrapBlazor.Chart" Version="6.*" />
     <PackageReference Include="BootstrapBlazor.Markdown" Version="6.*" />
     <PackageReference Include="BootstrapBlazor.SignaturePad" Version="6.*" />
@@ -23,7 +25,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BootstrapBlazor\BootstrapBlazor.csproj" />
-    <ProjectReference Include="..\Extensions\Components\BootstrapBlazor.AzureSpeech\BootstrapBlazor.AzureSpeech.csproj" />
   </ItemGroup>
 
 </Project>

@@ -5,69 +5,73 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// RecognizerService 扩展方法
+/// SynthesizerService 扩展操作类
 /// </summary>
-public static class RecognizerServiceExtensions
+public static class SynthesizerServiceExtensions
 {
     /// <summary>
-    /// 语音识别方法
+    /// 语音合成方法
     /// </summary>
     /// <param name="service"></param>
+    /// <param name="text"></param>
     /// <param name="callback"></param>
     /// <returns></returns>
-    public static async Task AzureRecognizeOnceAsync(this RecognizerService service, Func<string, Task> callback)
+    public static async Task BaiduSynthesizerOnceAsync(this SynthesizerService service, string? text, Func<SynthesizerStatus, Task> callback)
     {
-        var option = new RecognizerOption()
+        var option = new SynthesizerOption()
         {
-            MethodName = "bb_azure_speech_recognizeOnce",
+            Text = text,
+            MethodName = "bb_baidu_speech_synthesizerOnce",
             Callback = callback
         };
         await service.InvokeAsync(option);
     }
 
     /// <summary>
-    /// 语音识别方法
+    /// 语音合成方法
     /// </summary>
     /// <param name="provider"></param>
+    /// <param name="text"></param>
     /// <param name="callback"></param>
     /// <returns></returns>
-    public static async Task AzureRecognizeOnceAsync(this IRecognizerProvider provider, Func<string, Task> callback)
+    public static async Task BaiduSynthesizerOnceAsync(this ISynthesizerProvider provider, string? text, Func<SynthesizerStatus, Task> callback)
     {
-        var option = new RecognizerOption()
+        var option = new SynthesizerOption()
         {
-            MethodName = "bb_azure_speech_recognizeOnce",
+            Text = text,
+            MethodName = "bb_baidu_speech_synthesizerOnce",
             Callback = callback
         };
         await provider.InvokeAsync(option);
     }
 
     /// <summary>
-    /// 关闭语音识别方法
+    /// 关闭语音合成方法
     /// </summary>
     /// <param name="service"></param>
     /// <param name="callback"></param>
     /// <returns></returns>
-    public static async Task AzureCloseAsync(this RecognizerService service, Func<string, Task> callback)
+    public static async Task BaiduCloseAsync(this SynthesizerService service, Func<SynthesizerStatus, Task> callback)
     {
-        var option = new RecognizerOption()
+        var option = new SynthesizerOption()
         {
-            MethodName = "bb_azure_close_recognizer",
+            MethodName = "bb_baidu_close_synthesizer",
             Callback = callback
         };
         await service.InvokeAsync(option);
     }
 
     /// <summary>
-    /// 关闭语音识别方法
+    /// 关闭语音合成方法
     /// </summary>
     /// <param name="provider"></param>
     /// <param name="callback"></param>
     /// <returns></returns>
-    public static async Task AzureCloseAsync(this IRecognizerProvider provider, Func<string, Task> callback)
+    public static async Task BaiduCloseAsync(this ISynthesizerProvider provider, Func<SynthesizerStatus, Task> callback)
     {
-        var option = new RecognizerOption()
+        var option = new SynthesizerOption()
         {
-            MethodName = "bb_azure_close_recognizer",
+            MethodName = "bb_baidu_close_synthesizer",
             Callback = callback
         };
         await provider.InvokeAsync(option);
