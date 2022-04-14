@@ -95,7 +95,7 @@ public class SpeechTestHost : IDisposable
             var text = option.Text;
             if (option.Callback != null)
             {
-                await option.Callback(SynthesizerStatus.Close);
+                await option.Callback(SynthesizerStatus.Finished);
             }
         }
     }

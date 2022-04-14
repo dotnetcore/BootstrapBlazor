@@ -26,6 +26,6 @@ public class SynthesizerTest : SpeechTestBase
             })
         });
 
-        Assert.Equal(SynthesizerStatus.Close, result);
+        Assert.Equal(SynthesizerStatus.Finished, result);
     }
 }
