@@ -2,19 +2,6 @@
 let isStart;
 let handler;
 
-function bb_load_speech() {
-    const sdk = '_content/BootstrapBlazor.BaiduSpeech/js/recorder.wav.min.js';
-    const links = [...document.getElementsByTagName('script')];
-    var link = links.filter(function (link) {
-        return link.src.indexOf(sdk) > -1;
-    });
-    if (link.length === 0) {
-        link = document.createElement('script');
-        link.setAttribute('src', sdk);
-        document.body.appendChild(link);
-    }
-}
-
 export function bb_baidu_speech_recognizeOnce(obj, beginRecognize, recognizeCallback) {
     var baidu_recognizer = function () {
         isStart = true;
@@ -31,20 +18,8 @@ export function bb_baidu_speech_recognizeOnce(obj, beginRecognize, recognizeCall
         });
     }
 
-    bb_load_speech();
-
-    if (window.Recorder === undefined) {
-        var handler = window.setInterval(function () {
-            if (window.Recorder) {
-                window.clearInterval(handler);
-
-                baidu_recognizer();
-            }
-        }, 100);
-    }
-    else {
-        baidu_recognizer();
-    }
+    BootstrapBlazorModules.addScript('_content/BootstrapBlazor.BaiduSpeech/js/recorder.wav.min.js');
+    BootstrapBlazorModules.load('Recorder', baidu_recognizer);
 };
 
 export function bb_baidu_speech_close(obj, recognizerStatus, recognizeCallback) {

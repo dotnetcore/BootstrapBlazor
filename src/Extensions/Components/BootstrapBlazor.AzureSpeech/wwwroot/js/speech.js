@@ -2,19 +2,6 @@
 var synthesizer = undefined;
 var player = undefined;
 
-function bb_load_speech() {
-    const sdk = '_content/BootstrapBlazor.AzureSpeech/js/microsoft.cognitiveservices.speech.sdk.bundle.js';
-    const links = [...document.getElementsByTagName('script')];
-    var link = links.filter(function (link) {
-        return link.src.indexOf(sdk) > -1;
-    });
-    if (link.length === 0) {
-        link = document.createElement('script');
-        link.setAttribute('src', sdk);
-        document.body.appendChild(link);
-    }
-}
-
 export function bb_azure_speech_recognizeOnce(obj, method, token, region, recognitionLanguage, targetLanguage) {
     var azure_recognizer = function () {
         var speechConfig = SpeechSDK.SpeechTranslationConfig.fromAuthorizationToken(token, region);
@@ -34,20 +21,8 @@ export function bb_azure_speech_recognizeOnce(obj, method, token, region, recogn
 
     };
 
-    bb_load_speech();
-
-    if (window.SpeechSDK === undefined) {
-        var handler = window.setInterval(function () {
-            if (window.SpeechSDK) {
-                window.clearInterval(handler);
-
-                azure_recognizer();
-            }
-        }, 100);
-    }
-    else {
-        azure_recognizer();
-    }
+    BootstrapBlazorModules.addScript('_content/BootstrapBlazor.AzureSpeech/js/microsoft.cognitiveservices.speech.sdk.bundle.js');
+    BootstrapBlazorModules.load('SpeechSDK', azure_recognizer);
 }
 
 export function bb_azure_close_recognizer(obj, method) {
@@ -92,20 +67,8 @@ export function bb_azure_speech_synthesizerOnce(obj, method, token, region, synt
             });
     };
 
-    bb_load_speech();
-
-    if (window.SpeechSDK === undefined) {
-        var handler = window.setInterval(function () {
-            if (window.SpeechSDK) {
-                window.clearInterval(handler);
-
-                azure_synthesizer();
-            }
-        }, 200);
-    }
-    else {
-        azure_synthesizer();
-    }
+    BootstrapBlazorModules.addScript('_content/BootstrapBlazor.AzureSpeech/js/microsoft.cognitiveservices.speech.sdk.bundle.js');
+    BootstrapBlazorModules.load('SpeechSDK', azure_synthesizer);
 }
 
 export function bb_azure_close_synthesizer(obj, method) {
