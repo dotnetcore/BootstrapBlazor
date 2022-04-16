@@ -201,9 +201,34 @@
         }
     }
 
+    var addLink = function (href) {
+        const links = document.getElementsByTagName('link');
+        var link = links.filter(function (link) {
+            return link.href.indexOf(href) > -1;
+        });
+        if (link.length === 0) {
+            link = document.createElement('link');
+            link.setAttribute('href', href);
+            link.setAttribute("rel", "stylesheet");
+            document.getElementsByTagName("head")[0].appendChild(link);
+        }
+    }
+
+    var removeLink = function (href) {
+        const links = [...document.getElementsByTagName('link')];
+        var nodes = links.filter(function (link) {
+            return link.href.indexOf(content) > -1;
+        });
+        for (var index = 0; index < nodes.length; index++) {
+            document.getElementsByTagName("head")[0].removeChild(nodes[index]);
+        }
+    }
+
     window.BootstrapBlazorModules = {
         load: load,
         addScript: addScript,
-        removeScript: removeScript
+        removeScript: removeScript,
+        addLink: addLink,
+        removeLink: removeLink
     };
 })(jQuery);

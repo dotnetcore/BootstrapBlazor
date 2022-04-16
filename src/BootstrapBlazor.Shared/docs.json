@@ -60,6 +60,7 @@
     "wrap": "Table/TablesWrap",
     "virtualization": "Table/TablesVirtualization",
     "signaturepads": "SignaturePad/SignaturePads",
+    "imageviewers": "ImageViewers",
     "speechwaves": "Speechs/SpeechWaves",
     "recognizers": "Speechs/Recognizers",
     "synthesizers": "Speechs/Synthesizers"

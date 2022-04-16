@@ -838,6 +838,12 @@ public sealed partial class NavMenu
             },
             new()
             {
+                IsNew = true,
+                Text = Localizer["Responsive"],
+                Url = "responsives"
+            },
+            new()
+            {
                 Text = Localizer["SearchDialog"],
                 Url = "searchdialogs"
             },

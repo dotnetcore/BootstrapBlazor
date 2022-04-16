@@ -1,0 +1,13 @@
+﻿@page "/responsives"
+
+<h3>Responsive 断点监听</h3>
+
+<h4>根据参数条件，确定是否重新渲染响应布局的内容，通常用于响应布局</h4>
+
+<DemoBlock Title="基础用法" Introduction="调整浏览器窗口大小，观察 <code>Breakpoint</code> 的变化" Name="Normal">
+    <div>当前 <code>Breakpoint</code>：@Size</div>
+</DemoBlock>
+
+<Responsive OnBreakPointChanged="OnChanged" />
+
+<AttributeTable Items="@GetAttributes()" />
