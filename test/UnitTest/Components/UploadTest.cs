@@ -594,10 +594,10 @@ public class UploadTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void CardUpload_Reset()
+    public async Task CardUpload_Reset()
     {
         var cut = Context.RenderComponent<CardUpload<string>>();
-        cut.InvokeAsync(() => cut.Instance.Reset());
+        await cut.InvokeAsync(() => cut.Instance.Reset());
         Assert.Null(cut.Instance.DefaultFileList);
 
         cut.SetParametersAndRender(pb =>
@@ -607,7 +607,7 @@ public class UploadTest : BootstrapBlazorTestBase
                 new UploadFile() { FileName  = "Test-File1.text" }
             });
         });
-        cut.InvokeAsync(() => cut.Instance.Reset());
+        await cut.InvokeAsync(() => cut.Instance.Reset());
         Assert.Empty(cut.Instance.DefaultFileList);
     }
 
