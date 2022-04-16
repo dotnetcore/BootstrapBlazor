@@ -74,17 +74,17 @@ public partial class BoolFilter
     /// </summary>
     public void SetFilterConditions(IEnumerable<FilterKeyValueAction> conditions)
     {
-        if(!conditions.Any())
-            return;
-
-        FilterKeyValueAction first = conditions.First();
-        if (first.FieldValue is bool value)
+        if (conditions.Any())
         {
-            Value = value ? "true" : "false";
-        }
-        else if (first.FieldValue is null)
-        {
-            Value = "";
+            var first = conditions.First();
+            if (first.FieldValue is bool value)
+            {
+                Value = value ? "true" : "false";
+            }
+            else if (first.FieldValue is null)
+            {
+                Value = "";
+            }
         }
     }
 }

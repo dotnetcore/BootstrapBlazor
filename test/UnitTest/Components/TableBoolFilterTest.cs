@@ -70,19 +70,26 @@ public class TableBoolFilterTest : BootstrapBlazorTestBase
         var cut = Context.RenderComponent<BoolFilter>();
 
         var filter = cut.Instance;
-        IEnumerable<FilterKeyValueAction>? conditions = null;
-        cut.InvokeAsync(() => conditions = filter.GetFilterConditions());
+        IEnumerable<FilterKeyValueAction>? conditions = filter.GetFilterConditions();
         Assert.Empty(conditions);
 
-        List<FilterKeyValueAction>? newConditions = new(1);
-
-        newConditions.Add(new FilterKeyValueAction() { FieldValue = true });
-
-        cut.InvokeAsync(() => filter.SetFilterConditions(newConditions));
-
-        cut.InvokeAsync(() => conditions = filter.GetFilterConditions());
+        var newConditions = new List<FilterKeyValueAction>
+        {
+            new FilterKeyValueAction() { FieldValue = true }
+        };
+        filter.SetFilterConditions(newConditions);
+        conditions = filter.GetFilterConditions();
         Assert.Single(conditions);
-        Assert.True(conditions?.First().FieldValue is bool);
-        Assert.True((bool?)conditions?.First().FieldValue);
+        Assert.True((bool?)conditions.First().FieldValue);
+
+        newConditions[0].FieldValue = false;
+        filter.SetFilterConditions(newConditions);
+        conditions = filter.GetFilterConditions();
+        Assert.False((bool?)conditions.First().FieldValue);
+
+        newConditions[0].FieldValue = null;
+        filter.SetFilterConditions(newConditions);
+        conditions = filter.GetFilterConditions();
+        Assert.Empty(conditions);
     }
 }

@@ -3,7 +3,6 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using BootstrapBlazor.Shared;
-using UnitTest.Extensions;
 
 namespace UnitTest.Components;
 
@@ -83,20 +82,25 @@ public class TableEnumFilterTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.Type, typeof(EnumEducation));
         });
-
         var filter = cut.Instance;
-        IEnumerable<FilterKeyValueAction>? conditions = null;
-        cut.InvokeAsync(() => conditions = filter.GetFilterConditions());
+        var conditions = filter.GetFilterConditions();
         Assert.Empty(conditions);
 
-        List<FilterKeyValueAction>? newConditions = new(1);
+        var newConditions = new List<FilterKeyValueAction>
+        {
+            new FilterKeyValueAction() { FieldValue = EnumEducation.Middel }
+        };
+        filter.SetFilterConditions(newConditions);
 
-        newConditions.Add(new FilterKeyValueAction() { FieldValue = EnumEducation.Middel });
+        conditions = filter.GetFilterConditions();
+        Assert.Equal(EnumEducation.Middel, conditions.First().FieldValue);
 
-        cut.InvokeAsync(() => filter.SetFilterConditions(newConditions));
-
-        cut.InvokeAsync(() => conditions = filter.GetFilterConditions());
-        Assert.Single(conditions);
-        Assert.True(conditions?.First().FieldValue is EnumEducation.Middel);
+        newConditions = new List<FilterKeyValueAction>
+        {
+            new FilterKeyValueAction() { FieldValue = null }
+        };
+        filter.SetFilterConditions(newConditions);
+        conditions = filter.GetFilterConditions();
+        Assert.Empty(conditions);
     }
 }

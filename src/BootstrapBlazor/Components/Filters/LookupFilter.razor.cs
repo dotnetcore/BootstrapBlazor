@@ -12,7 +12,7 @@ namespace BootstrapBlazor.Components;
 /// </summary>
 public partial class LookupFilter
 {
-    private string Value { get; set; } = "";
+    private string? Value { get; set; }
 
     private List<SelectedItem> Items { get; } = new List<SelectedItem>();
 
@@ -48,9 +48,15 @@ public partial class LookupFilter
     {
         base.OnInitialized();
 
-        if (Lookup == null) throw new InvalidOperationException("the Parameter Lookup must be set.");
+        if (Lookup == null)
+        {
+            throw new InvalidOperationException("the Parameter Lookup must be set.");
+        }
 
-        if (Type == null) throw new InvalidOperationException("the Parameter Type must be set.");
+        if (Type == null)
+        {
+            throw new InvalidOperationException("the Parameter Type must be set.");
+        }
 
         if (TableFilter != null)
         {
@@ -95,18 +101,18 @@ public partial class LookupFilter
     /// </summary>
     public void SetFilterConditions(IEnumerable<FilterKeyValueAction> conditions)
     {
-        if (!conditions.Any())
-            return;
-
-        var type = Nullable.GetUnderlyingType(Type) ?? Type;
-        FilterKeyValueAction first = conditions.First();
-        if (first.FieldValue?.GetType() == type)
+        if (conditions.Any())
         {
-            Value = first.FieldValue.ToString() ?? "";
-        }
-        else
-        {
-            Value = "";
+            var type = Nullable.GetUnderlyingType(Type) ?? Type;
+            FilterKeyValueAction first = conditions.First();
+            if (first.FieldValue != null && first.FieldValue.GetType() == type)
+            {
+                Value = first.FieldValue.ToString();
+            }
+            else
+            {
+                Value = "";
+            }
         }
     }
 }

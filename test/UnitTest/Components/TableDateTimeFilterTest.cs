@@ -120,24 +120,25 @@ public class TableDateTimeFilterTest : BootstrapBlazorTestBase
     public void SetFilterConditions_Ok()
     {
         var cut = Context.RenderComponent<DateTimeFilter>();
-
         var filter = cut.Instance;
-        IEnumerable<FilterKeyValueAction>? conditions = null;
-        cut.InvokeAsync(() => conditions = filter.GetFilterConditions());
+        var conditions = filter.GetFilterConditions();
         Assert.Empty(conditions);
 
-        List<FilterKeyValueAction>? newConditions = new(1);
-
+        var newConditions = new List<FilterKeyValueAction>();
         DateTime dati = DateTime.Now;
-
         newConditions.Add(new FilterKeyValueAction() { FieldValue = dati });
         newConditions.Add(new FilterKeyValueAction() { FieldValue = dati });
+        filter.SetFilterConditions(newConditions);
+        conditions = filter.GetFilterConditions();
 
-        cut.InvokeAsync(() => filter.SetFilterConditions(newConditions));
+        Assert.NotNull(conditions);
+        Assert.Equal(2, conditions.Count());
 
-        cut.InvokeAsync(() => conditions = filter.GetFilterConditions());
-        Assert.True(conditions?.Count() == 2);
-        Assert.True(conditions?.First().FieldValue is DateTime);
-        Assert.True((DateTime?)conditions?.First().FieldValue == dati);
+        newConditions.Clear();
+        newConditions.Add(new FilterKeyValueAction() { FieldValue = null });
+        newConditions.Add(new FilterKeyValueAction() { FieldValue = null });
+        filter.SetFilterConditions(newConditions);
+        conditions = filter.GetFilterConditions();
+        Assert.Empty(conditions);
     }
 }

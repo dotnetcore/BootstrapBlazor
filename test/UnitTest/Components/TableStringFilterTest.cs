@@ -90,22 +90,35 @@ public class TableStringFilterTest : BootstrapBlazorTestBase
     public void SetFilterConditions_Ok()
     {
         var cut = Context.RenderComponent<StringFilter>();
-
         var filter = cut.Instance;
-        IEnumerable<FilterKeyValueAction>? conditions = null;
-        cut.InvokeAsync(() => conditions = filter.GetFilterConditions());
+        var conditions = filter.GetFilterConditions();
         Assert.Empty(conditions);
 
-        List<FilterKeyValueAction>? newConditions = new(1);
+        var newConditions = new List<FilterKeyValueAction>
+        {
+            new FilterKeyValueAction() { FieldValue = "test1" },
+            new FilterKeyValueAction() { FieldValue = "test2" }
+        };
+        filter.SetFilterConditions(newConditions);
+        conditions = filter.GetFilterConditions();
+        Assert.Equal(2, conditions.Count());
 
-        newConditions.Add(new FilterKeyValueAction() { FieldValue = "test1" });
-        newConditions.Add(new FilterKeyValueAction() { FieldValue = "test2" });
+        newConditions = new List<FilterKeyValueAction>
+        {
+            new FilterKeyValueAction() { FieldValue = true },
+            new FilterKeyValueAction() { FieldValue = false }
+        };
+        filter.SetFilterConditions(newConditions);
+        conditions = filter.GetFilterConditions();
+        Assert.Empty(conditions);
 
-        cut.InvokeAsync(() => filter.SetFilterConditions(newConditions));
-
-        cut.InvokeAsync(() => conditions = filter.GetFilterConditions());
-        Assert.True(conditions?.Count() == 2);
-        Assert.True(conditions?.First().FieldValue is string);
-        Assert.True((string?)conditions?.First().FieldValue == "test1");
+        newConditions = new List<FilterKeyValueAction>
+        {
+            new FilterKeyValueAction() { FieldValue = "" },
+            new FilterKeyValueAction() { FieldValue = "" }
+        };
+        filter.SetFilterConditions(newConditions);
+        conditions = filter.GetFilterConditions();
+        Assert.Empty(conditions);
     }
 }

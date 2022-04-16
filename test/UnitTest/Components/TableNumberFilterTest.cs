@@ -155,23 +155,27 @@ public class TableNumberFilterTest : BootstrapBlazorTestBase
     [Fact]
     public void SetFilterConditions_Ok()
     {
-        var cut = Context.RenderComponent<NumberFilter<int>>();
-
+        var cut = Context.RenderComponent<NumberFilter<int?>>();
         var filter = cut.Instance;
-        IEnumerable<FilterKeyValueAction>? conditions = null;
-        cut.InvokeAsync(() => conditions = filter.GetFilterConditions());
-        Assert.NotEmpty(conditions); //This is a problem with the NumberFilter, actually it should be empty
+        var conditions = filter.GetFilterConditions();
+        Assert.Empty(conditions);
 
-        List<FilterKeyValueAction>? newConditions = new(1);
-
-        newConditions.Add(new FilterKeyValueAction() { FieldValue = 1 });
-        newConditions.Add(new FilterKeyValueAction() { FieldValue = 2 });
-
-        cut.InvokeAsync(() => filter.SetFilterConditions(newConditions));
-
-        cut.InvokeAsync(() => conditions = filter.GetFilterConditions());
-        Assert.True(conditions?.Count() == 2);
-        Assert.True(conditions?.First().FieldValue is int);
-        Assert.True((int?)conditions?.First().FieldValue == 1);
+        var newConditions = new List<FilterKeyValueAction>
+        {
+            new FilterKeyValueAction() { FieldValue = 1 },
+            new FilterKeyValueAction() { FieldValue = 2 }
+        };
+        filter.SetFilterConditions(newConditions);
+        conditions = filter.GetFilterConditions();
+        Assert.Equal(2, conditions.Count());
+        
+        newConditions = new List<FilterKeyValueAction>
+        {
+            new FilterKeyValueAction() { FieldValue = null },
+            new FilterKeyValueAction() { FieldValue = null }
+        };
+        filter.SetFilterConditions(newConditions);
+        conditions = filter.GetFilterConditions();
+        Assert.Empty(conditions);
     }
 }

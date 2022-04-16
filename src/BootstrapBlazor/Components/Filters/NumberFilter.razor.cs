@@ -100,35 +100,34 @@ public partial class NumberFilter<TType>
     /// </summary>
     public void SetFilterConditions(IEnumerable<FilterKeyValueAction> conditions)
     {
-        if (!conditions.Any())
-            return;
-
-        FilterKeyValueAction first = conditions.First();
-        if (first.FieldValue is TType value)
+        if (conditions.Any())
         {
-            Value1 = value;
-        }
-        else
-        {
-            Value1 = default;
-        }
-        Action1 = first.FilterAction;
-
-        if (conditions.Count() == 2)
-        {
-            Count = 1;
-
-            FilterKeyValueAction second = conditions.ElementAt(1);
-            if (second.FieldValue is TType value2)
+            FilterKeyValueAction first = conditions.First();
+            if (first.FieldValue is TType value)
             {
-                Value2 = value2;
+                Value1 = value;
             }
             else
             {
-                Value2 = default;
+                Value1 = default;
             }
-            Action1 = second.FilterAction;
-            Logic = second.FilterLogic;
+            Action1 = first.FilterAction;
+
+            if (conditions.Count() == 2)
+            {
+                Count = 1;
+                FilterKeyValueAction second = conditions.ElementAt(1);
+                if (second.FieldValue is TType value2)
+                {
+                    Value2 = value2;
+                }
+                else
+                {
+                    Value2 = default;
+                }
+                Action1 = second.FilterAction;
+                Logic = second.FilterLogic;
+            }
         }
     }
 }

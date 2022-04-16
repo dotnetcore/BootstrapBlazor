@@ -97,35 +97,35 @@ public partial class StringFilter
     /// </summary>
     public void SetFilterConditions(IEnumerable<FilterKeyValueAction> conditions)
     {
-        if (!conditions.Any())
-            return;
-
-        FilterKeyValueAction first = conditions.First();
-        if (first.FieldValue is string value)
+        if (conditions.Any())
         {
-            Value1 = value;
-        }
-        else
-        {
-            Value1 = "";
-        }
-        Action1 = first.FilterAction;
-
-        if (conditions.Count() == 2)
-        {
-            Count = 1;
-
-            FilterKeyValueAction second = conditions.ElementAt(1);
-            if (second.FieldValue is string value2)
+            FilterKeyValueAction first = conditions.First();
+            if (first.FieldValue is string value)
             {
-                Value2 = value2;
+                Value1 = value;
             }
             else
             {
-                Value2 = "";
+                Value1 = "";
             }
-            Action1 = second.FilterAction;
-            Logic = second.FilterLogic;
+            Action1 = first.FilterAction;
+
+            if (conditions.Count() == 2)
+            {
+                Count = 1;
+
+                FilterKeyValueAction second = conditions.ElementAt(1);
+                if (second.FieldValue is string value2)
+                {
+                    Value2 = value2;
+                }
+                else
+                {
+                    Value2 = "";
+                }
+                Action1 = second.FilterAction;
+                Logic = second.FilterLogic;
+            }
         }
     }
 }

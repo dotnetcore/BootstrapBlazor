@@ -12,7 +12,7 @@ namespace BootstrapBlazor.Components;
 /// </summary>
 public partial class EnumFilter
 {
-    private string Value { get; set; } = "";
+    private string? Value { get; set; }
 
     private IEnumerable<SelectedItem> Items { get; set; } = Enumerable.Empty<SelectedItem>();
 
@@ -43,7 +43,7 @@ public partial class EnumFilter
     {
         base.OnInitialized();
 
-        if(Type == null) throw new InvalidOperationException("the Parameter Type must be set.");
+        if (Type == null) throw new InvalidOperationException("the Parameter Type must be set.");
 
         if (TableFilter != null)
         {
@@ -87,18 +87,18 @@ public partial class EnumFilter
     /// </summary>
     public void SetFilterConditions(IEnumerable<FilterKeyValueAction> conditions)
     {
-        if (!conditions.Any())
-            return;
-
-        var type = Nullable.GetUnderlyingType(Type) ?? Type;
-        FilterKeyValueAction first = conditions.First();
-        if (first.FieldValue?.GetType() == type)
+        if (conditions.Any())
         {
-            Value = first.FieldValue.ToString() ?? "";
-        }
-        else
-        {
-            Value = "";
+            var type = Nullable.GetUnderlyingType(Type) ?? Type;
+            FilterKeyValueAction first = conditions.First();
+            if (first.FieldValue != null && first.FieldValue.GetType() == type)
+            {
+                Value = first.FieldValue.ToString();
+            }
+            else
+            {
+                Value = "";
+            }
         }
     }
 }
