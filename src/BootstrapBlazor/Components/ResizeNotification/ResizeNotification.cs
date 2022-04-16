@@ -10,15 +10,13 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 网页尺寸变化通知组件
 /// </summary>
-public class ResizeNotification : BootstrapComponentBase, IAsyncDisposable
+public class ResizeNotification : BootstrapComponentBase, IDisposable
 {
     [Inject]
     [NotNull]
     private ResizeNotificationService? ResizeService { get; set; }
 
     private JSInterop<ResizeNotification>? Interop { get; set; }
-
-    private JSModule? Module { get; set; }
 
     /// <summary>
     /// OnAfterRenderAsync 方法
@@ -44,21 +42,17 @@ public class ResizeNotification : BootstrapComponentBase, IAsyncDisposable
     public Task OnResize(BreakPoint point) => ResizeService.InvokeAsync(point);
 
     /// <summary>
-    /// DisposeAsync 方法
+    /// Dispose 方法
     /// </summary>
     /// <param name="disposing"></param>
     /// <returns></returns>
-    protected virtual async Task DisposeAsync(bool disposing)
+    protected virtual void Dispose(bool disposing)
     {
         if (disposing)
         {
             if (Interop != null)
             {
                 Interop.Dispose();
-            }
-            if (Module != null)
-            {
-                await Module.DisposeAsync();
             }
         }
     }
@@ -67,9 +61,9 @@ public class ResizeNotification : BootstrapComponentBase, IAsyncDisposable
     /// DisposeAsync 方法
     /// </summary>
     /// <returns></returns>
-    public async ValueTask DisposeAsync()
+    public void Dispose()
     {
-        await DisposeAsync(true);
+        Dispose(true);
         GC.SuppressFinalize(this);
     }
 }
