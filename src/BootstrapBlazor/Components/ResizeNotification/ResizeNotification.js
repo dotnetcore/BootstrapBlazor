@@ -1,10 +1,10 @@
 ﻿(function ($) {
     $.extend({
         bb_resize_monitor: function (obj, method) {
-            var currentBreakpoint = bb_get_responsive();
+            var currentBreakpoint = $.bb_get_responsive();
             var onResized = function () {
                 var lastBreakpoint = currentBreakpoint;
-                currentBreakpoint = bb_get_responsive();
+                currentBreakpoint = $.bb_get_responsive();
 
                 if (lastBreakpoint !== currentBreakpoint) {
                     lastBreakpoint = currentBreakpoint;
