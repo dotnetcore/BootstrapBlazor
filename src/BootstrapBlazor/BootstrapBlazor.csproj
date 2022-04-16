@@ -36,6 +36,7 @@
     <Content Include="wwwroot\css\motronic.min.css" />
     <Content Include="wwwroot\js\bootstrap.blazor.bundle.min.js" />
     <Content Include="wwwroot\lib\summernote\font\*.*" />
+    <Content Include="wwwroot\modules\*.js" />
     <None Include="*.json" />
     <None Include="wwwroot\**\*.*" />
   </ItemGroup>

@@ -55,6 +55,8 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
     [Parameter]
     public Func<UploadFile, Task>? OnChange { get; set; }
 
+    private JSModule? Module { get; set; }
+
     /// <summary>
     /// OnAfterRender 方法
     /// </summary>
@@ -66,8 +68,18 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
         if (firstRender && !IsDisabled)
         {
             await JSRuntime.InvokeVoidAsync(UploaderElement, "bb_upload");
+
+            // support drag
+            Module = await JSRuntime.LoadModule("upload.js");
+            await Module.InvokeVoidAsync("bb_upload_drag_init", UploaderElement, InputFileId);
         }
     }
+
+    /// <summary>
+    /// 获得 InputFile 组件 Id 方法
+    /// </summary>
+    /// <returns></returns>
+    protected string InputFileId => $"{Id}_InputFile";
 
     /// <summary>
     /// 
@@ -158,6 +170,7 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
         {
             ret.Add("accept", Accept);
         }
+        ret.Add("id", InputFileId);
         return ret;
     }
 
@@ -168,5 +181,24 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
     {
         UploadFiles.Clear();
         StateHasChanged();
+    }
+
+    /// <summary>
+    /// DisposeAsyncCore 方法
+    /// </summary>
+    /// <param name="disposing"></param>
+    /// <returns></returns>
+    protected override async ValueTask DisposeAsyncCore(bool disposing)
+    {
+        await base.DisposeAsyncCore(disposing);
+
+        if (disposing)
+        {
+            if (Module != null)
+            {
+                await Module.InvokeVoidAsync("dispose");
+                await Module.DisposeAsync();
+            }
+        }
     }
 }
