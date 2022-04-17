@@ -494,8 +494,11 @@
     "Block9Intro": "改变选项时，下拉框内菜单项会增加",
     "Block10Title": "级联绑定",
     "Block10Intro": "通过选择第一个下拉框不同选项，第二个下拉框动态填充内容。",
-    "FixedButtonTextTitle": "固定按钮文本",
-    "FixedButtonTextIntro": "通过设置 <code>IsFixedButtonText</code> 使更改下拉选项时按钮文本不变",
+    "IsFixedButtonTextTitle": "固定按钮文本",
+    "IsFixedButtonTextIntro": "通过设置 <code>IsFixedButtonText</code> 使更改下拉选项时按钮文本不变",
+    "FixedButtonTextTitle": "设置固定按钮文字",
+    "FixedButtonTextIntro": "通过设置 <code>FixedButtonText</code> 来设置固定按钮的初始文字",
+    "FixedButtonTextCity": "城市",
     "ADesc1": "当前选中的值",
     "ADesc2": "样式",
     "ADesc3": "颜色",
@@ -507,7 +510,8 @@
     "ADesc9": "分裂式按钮下拉菜单(使用分裂式组件时需要加上MenuType='MenuType.Btngroup')",
     "ADesc10": "尺寸",
     "ADesc11": "标签",
-    "EDesc1": "下拉框值发生改变时触发"
+    "EDesc1": "下拉框值发生改变时触发",
+    "FixedButtonText": "固定按钮显示文字"
   },
   "BootstrapBlazor.Shared.Samples.GoTops": {
     "Title": "GoTop 返回顶端组件",

@@ -7,7 +7,7 @@
     <BootstrapLabel for="@Id" ShowLabelTooltip="ShowLabelTooltip" Value="@DisplayText" />
 }
 <div @attributes="@AdditionalAttributes" id="@Id" class="@DirectionClassName">
-    <button type="button" class="@ButtonClassName" data-bs-toggle="@DropdownToggle" disabled="@Disabled">@GetText</button>
+    <button type="button" class="@ButtonClassName" data-bs-toggle="@DropdownToggle" disabled="@Disabled">@ButtonText</button>
     @if (ShowSplit)
     {
         <button type="button" class="@ClassName" data-bs-toggle="dropdown" disabled="@Disabled" aria-haspopup="true" aria-expanded="false"></button>

@@ -191,6 +191,13 @@ public sealed partial class Dropdowns
             Type = "string",
             ValueList = " a / button ",
             DefaultValue = " — "
+        },
+        new AttributeItem() {
+            Name = nameof(Dropdown<string>.FixedButtonText),
+            Description = Localizer["FixedButtonText"],
+            Type = "string",
+            ValueList = " — ",
+            DefaultValue = " — "
         }
     };
 
@@ -200,7 +207,7 @@ public sealed partial class Dropdowns
         {
             Name = "OnSelectedItemChanged",
             Description= Localizer["EDesc1"],
-            Type ="EventCallback<SelectedItem>"
+            Type ="Func<SelectedItem, Task>"
         }
    };
 }

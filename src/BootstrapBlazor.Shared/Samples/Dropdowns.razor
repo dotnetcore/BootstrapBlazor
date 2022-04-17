@@ -96,8 +96,12 @@
     </div>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["FixedButtonTextTitle"]" Introduction="@Localizer["FixedButtonTextIntro"]" Name="FixedButtonText">
+<DemoBlock Title="@Localizer["IsFixedButtonTextTitle"]" Introduction="@Localizer["IsFixedButtonTextIntro"]" Name="IsFixedButtonText">
     <Dropdown TValue="string" Items="RadioItems" IsFixedButtonText="true" />
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["FixedButtonTextTitle"]" Introduction="@Localizer["FixedButtonTextIntro"]" Name="FixedButtonText">
+    <Dropdown TValue="string" Items="RadioItems" IsFixedButtonText="true" FixedButtonText="@Localizer["FixedButtonTextCity"]"></Dropdown>
 </DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" />

@@ -494,8 +494,11 @@
     "Block9Intro": "When you change the options, the menu items in the drop-down box will increase",
     "Block10Title": "Cascade binding",
     "Block10Intro": "By selecting different options in the first drop-down box, the second drop-down box is filled with content dynamically.",
-    "FixedButtonTextTitle": "Fixed Button Text",
-    "FixedButtonTextIntro": "Set <code>IsFixedButtonText</code> to <b>true</true> make the ButtonText to const",
+    "IsFixedButtonTextTitle": "Fixed button text",
+    "IsFixedButtonTextIntro": "Set <code>IsFixedButtonText</code> to <b>true</true> make the ButtonText to const",
+    "FixedButtonTextTitle": "Set the fixed button text",
+    "FixedButtonTextIntro": "Set the <code>FixedButtonText</code> value for fixed button text",
+    "FixedButtonTextCity": "City",
     "ADesc1": "Currently selected value",
     "ADesc2": "Style",
     "ADesc3": "Color",
@@ -507,7 +510,8 @@
     "ADesc9": "Split button drop-down menu (you need to add MenuType='MenuType.Btngroup' when using split component)",
     "ADesc10": "Size",
     "ADesc11": "Label",
-    "EDesc1": "Triggered when the value of the drop-down box changes"
+    "EDesc1": "Triggered when the value of the drop-down box changes",
+    "FixedButtonText": "The text of fixed button"
   },
   "BootstrapBlazor.Shared.Samples.GoTops": {
     "Title": "GoTop",
