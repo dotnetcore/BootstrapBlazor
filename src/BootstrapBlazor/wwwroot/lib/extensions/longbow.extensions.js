@@ -309,7 +309,7 @@
     }
 
     var addLink = function (href) {
-        const links = document.getElementsByTagName('link');
+        const links = [...document.getElementsByTagName('link')];
         var link = links.filter(function (link) {
             return link.href.indexOf(href) > -1;
         });
