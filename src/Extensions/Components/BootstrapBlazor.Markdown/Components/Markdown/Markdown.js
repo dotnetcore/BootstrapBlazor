@@ -1,53 +1,47 @@
-﻿/*!
- * Markdown : Argo@163.com
- * @version 5.1.0
- */
+﻿export function bb_markdown(el, obj, value, method) {
+    // 自动加载样式
+    BootstrapBlazorModules.addLink('_content/BootstrapBlazor.Markdown/css/bootstrap.blazor.markdown.min.css');
 
-(function ($) {
-    $.extend({
-        bb_markdown: function (el, obj, value, method) {
-            var $el = $(el);
-            if (method === "setMarkdown") {
-                //$el.toastuiEditor('setMarkdown', value);
-                var editor = $.data(el, 'editor');
-                editor.setMarkdown(value);
+    var $el = $(el);
+    if (method === "setMarkdown") {
+        var editor = $.data(el, 'editor');
+        editor.setMarkdown(value);
+    }
+    else {
+        $.extend(value, {
+            events: {
+                blur: function () {
+                    var editor = $.data(el, 'editor');
+                    var val = editor.getMarkdown();
+                    var html = editor.getHTML();
+                    obj.invokeMethodAsync(method, [val, html]);
+                }
             }
-            else {
-                $.extend(value, {
-                    events: {
-                        blur: function () {
-                            var editor = $.data(el, 'editor');
-                            var val = editor.getMarkdown();
-                            var html = editor.getHTML();
-                            obj.invokeMethodAsync(method, [val, html]);
-                        }
-                    }
-                });
+        });
 
-                // 修复弹窗内初始化值不正确问题
-                var handler = window.setInterval(function () {
-                    if ($el.is(':visible')) {
-                        window.clearInterval(handler);
-                        value.el = el;
-                        value.plugins = [];
-                        if (value.enableHighlight) {
-                            value.plugins.push(toastui.Editor.plugin.codeSyntaxHighlight);
-                        }
-                        delete value.enableHighlight;
-                        const editor = toastui.Editor.factory(value);
-                        $.data(el, 'editor', editor);
-                    }
-                }, 100);
+        // 修复弹窗内初始化值不正确问题
+        var handler = window.setInterval(function () {
+            if ($el.is(':visible')) {
+                window.clearInterval(handler);
+                value.el = el;
+                value.plugins = [];
+                if (value.enableHighlight) {
+                    value.plugins.push(toastui.Editor.plugin.codeSyntaxHighlight);
+                }
+                delete value.enableHighlight;
+                const editor = toastui.Editor.factory(value);
+                $.data(el, 'editor', editor);
             }
-        },
-        bb_markdown_method: function (el, obj, method, parameter) {
-            var editor = $.data(el, 'editor');
-            if (editor) {
-                editor[method](...parameter);
-                var val = editor.getMarkdown();
-                var html = editor.getHTML();
-                obj.invokeMethodAsync('Update', [val, html]);
-            }
-        }
-    });
-})(jQuery);
+        }, 100);
+    }
+};
+
+export function bb_markdown_method(el, obj, method, parameter) {
+    var editor = $.data(el, 'editor');
+    if (editor) {
+        editor[method](...parameter);
+        var val = editor.getMarkdown();
+        var html = editor.getHTML();
+        obj.invokeMethodAsync('Update', [val, html]);
+    }
+}

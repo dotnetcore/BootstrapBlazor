@@ -11,7 +11,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// Markdown 组件
 /// </summary>
-public partial class Markdown : IDisposable
+public partial class Markdown : IAsyncDisposable
 {
     /// <summary>
     /// 获得/设置 DOM 元素实例
@@ -54,11 +54,23 @@ public partial class Markdown : IDisposable
     [Parameter]
     public string? Placeholder { get; set; }
 
+    private string? _value;
     /// <summary>
     /// 获得/设置 组件值
     /// </summary>
     [Parameter]
-    public string? Value { get; set; }
+    public string? Value
+    {
+        get => _value;
+        set
+        {
+            if (_value != value)
+            {
+                _value = value;
+                IsRender = true;
+            }
+        }
+    }
 
     /// <summary>
     /// 获得/设置 组件值回调
@@ -96,11 +108,15 @@ public partial class Markdown : IDisposable
     [Parameter]
     public bool EnableHighlight { get; set; } = false;
 
+    [NotNull]
     private JSInterop<Markdown>? Interop { get; set; }
 
     private readonly MarkdownOption _markdownOption = new();
 
     private bool IsRender { get; set; }
+
+    [NotNull]
+    private JSModule? Module { get; set; }
 
     /// <summary>
     /// OnInitialized 方法
@@ -122,16 +138,6 @@ public partial class Markdown : IDisposable
     }
 
     /// <summary>
-    /// OnParametersSetAsync 方法
-    /// </summary>
-    protected override void OnParametersSet()
-    {
-        base.OnParametersSet();
-
-        IsRender = true;
-    }
-
-    /// <summary>
     /// OnAfterRenderAsync 方法
     /// </summary>
     /// <param name="firstRender"></param>
@@ -143,22 +149,17 @@ public partial class Markdown : IDisposable
         if (firstRender)
         {
             IsRender = false;
-            if (Interop == null)
-            {
-                Interop = new JSInterop<Markdown>(JSRuntime);
-            }
-
-            await Interop.InvokeVoidAsync(this, MarkdownElement, "bb_markdown", _markdownOption, nameof(Update));
+            Interop = new JSInterop<Markdown>(JSRuntime);
+            var jSObjectReference = await JSRuntime.InvokeAsync<IJSObjectReference>(identifier: "import", $"./_content/BootstrapBlazor.Markdown/js/bootstrap.blazor.markdown.min.js");
+            Module = new JSModule(jSObjectReference);
+            await Module.InvokeVoidAsync("bb_markdown", MarkdownElement, Interop, _markdownOption, nameof(Update));
+            //await Interop.InvokeVoidAsync(this, MarkdownElement, "bb_markdown", _markdownOption, nameof(Update));
         }
 
         if (IsRender)
         {
-            if (Interop == null)
-            {
-                Interop = new JSInterop<Markdown>(JSRuntime);
-            }
-
-            await Interop.InvokeVoidAsync(this, MarkdownElement, "bb_markdown", Value ?? "", "setMarkdown");
+            await Module.InvokeVoidAsync("bb_markdown", MarkdownElement, Interop, Value ?? "", "setMarkdown");
+            //await Interop.InvokeVoidAsync(this, MarkdownElement, "bb_markdown", Value ?? "", "setMarkdown");
         }
     }
 
@@ -200,34 +201,34 @@ public partial class Markdown : IDisposable
     /// <param name="method"></param>
     /// <param name="parameters"></param>
     /// <returns></returns>
-    public async ValueTask DoMethodAsync(string method, params object[] parameters)
-    {
-        if (Interop == null)
-        {
-            Interop = new JSInterop<Markdown>(JSRuntime);
-        }
-        await Interop.InvokeVoidAsync(this, MarkdownElement, "bb_markdown_method", method, parameters);
-    }
+    public ValueTask DoMethodAsync(string method, params object[] parameters) => Module.InvokeVoidAsync("bb_markdown_method", MarkdownElement, Interop, method, parameters);
 
     /// <summary>
     /// Dispose 方法
     /// </summary>
     /// <param name="disposing"></param>
-    protected virtual void Dispose(bool disposing)
+    protected virtual async ValueTask DisposeAsync(bool disposing)
     {
         if (disposing)
         {
-            Interop?.Dispose();
-            Interop = null;
+            if (Interop != null)
+            {
+                Interop.Dispose();
+                Interop = null;
+            }
+            if (Module != null)
+            {
+                await Module.DisposeAsync();
+            }
         }
     }
 
     /// <summary>
     /// Dispose 方法
     /// </summary>
-    public void Dispose()
+    public async ValueTask DisposeAsync()
     {
-        Dispose(true);
+        await DisposeAsync(true);
         GC.SuppressFinalize(this);
     }
 }

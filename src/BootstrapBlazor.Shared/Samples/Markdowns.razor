@@ -24,13 +24,13 @@
 <div class="code-label">Package Manager</div>
 <Pre class="no-highlight">Install-Package BootstrapBlazor.Markdown -Version @Version</Pre>
 
-<h4>@Localizer["H2"]</h4>
+<h4>@Localizer["Css"]</h4>
 
-<Pre>&lt;link rel="stylesheet" href="_content/BootstrapBlazor.Markdown/css/bootstrap.blazor.markdown.min.css" /&gt;</Pre>
+<p>@Localizer["CssText"]</p>
 
-<h4>@Localizer["H3"]</h4>
+<h4>@Localizer["Js"]</h4>
 
-<Pre>&lt;script src="_content/BootstrapBlazor.Markdown/js/bootstrap.blazor.markdown.min.js"&gt;&lt;/script&gt;</Pre>
+<p>@Localizer["JsText"]</p>
 
 <h4>@Localizer["H4"]</h4>
 
@@ -54,7 +54,7 @@
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["Block2Title"]" Introduction="@Localizer["Block2Intro"]" Name="Async">
-    <Button Text="@Localizer["ButtonText"]" IsAsync="true" OnClick="GetAsyncString" Icon="fa fa-fa" />
+    <Button Text="@Localizer["ButtonText"]" IsAsync="true" OnClick="GetAsyncString" Icon="fa fa-fa" class="mb-3" />
     <Markdown @bind-Value="@AsyncValue"></Markdown>
 </DemoBlock>
 
@@ -63,34 +63,26 @@
     <Markdown Height="500" MinHeight="300" Placeholder="@Localizer["PlaceHolder"]" PreviewStyle="PreviewStyle.Tab" InitialEditType="InitialEditType.Wysiwyg" Language="@Language"></Markdown>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["Block4Title"]" Introduction="@Localizer["Block4Intro"]" Name="Browser">
+<DemoBlock Title="@Localizer["Block4Title"]" Introduction="@Localizer["Block4Intro"]" Name="IsViewer">
     <p>@((MarkupString)Localizer["P7"].Value)</p>
     <Markdown IsViewer="true" Value="# Viewer Mode"></Markdown>
 </DemoBlock>
 
-<DemoBlock Title="暗黑模式" Introduction="启用暗黑模式" Name="Browser">
+<DemoBlock Title="暗黑模式" Introduction="启用暗黑模式" Name="IsDark">
     <Markdown IsDark="true" Value="# Dark Mode"></Markdown>
 </DemoBlock>
 
-<h3>启用插件</h3>
-<p>启用插件需要引入插件对应的css和js文件</p>
-
-<p>代码高亮插件：</p>
-<p>引入</p>
-
-<Pre>&lt;link rel="stylesheet" href="_content/BootstrapBlazor.Markdown/css/bootstrap.blazor.markdown.highlight.min.css" /&gt;</Pre>
-
-<Pre>&lt;script src="_content/BootstrapBlazor.Markdown/js/bootstrap.blazor.markdown.highlight.min.js"&gt;&lt;/script&gt;</Pre>
-
-<DemoBlock Title="启用代码高亮插件" Introduction="使用<code>EnableHighlight=true</code>启用插件，使用```后加代码格式的方式使用高亮，如```js 则使用js高亮语法" Name="Browser">
+<DemoBlock Title="启用代码高亮插件" Introduction="使用 <code>EnableHighlight=true</code> 启用插件，使用```后加代码格式的方式使用高亮，如```js 则使用 js 高亮语法" Name="EnableHighlight">
     <Markdown EnableHighlight="true" Value="@JsString"></Markdown>
 </DemoBlock>
 
-<DemoBlock Title="外部操作Markdown" Introduction="使用Api从外部操作Editor，具体的Api参照<a href='https://nhn.github.io/tui.editor/latest/ToastUIEditorCore'>tui.editor api</a>" Name="Browser">
+<DemoBlock Title="外部操作 Markdown" Introduction="使用 Api 从外部操作 Editor，具体的Api参照 <a href='https://nhn.github.io/tui.editor/latest/ToastUIEditorCore'>tui.editor api</a>" Name="Browser">
     <Markdown @ref="Markdown"></Markdown>
-    <Button OnClick="@(() => Markdown.DoMethodAsync("insertText", "# test"))">插入一行文字</Button>
-    <Button OnClick="@(() => Markdown.DoMethodAsync("insertText", "![椰子树](https://i.niupic.com/images/2022/04/01/9Y6T.jpg)"))">插入一张图片</Button>
-    <Button OnClick="@(() => Markdown.DoMethodAsync("moveCursorToEnd"))">光标移动到最后</Button>
+    <div class="mt-3">
+        <Button OnClick="@(() => Markdown.DoMethodAsync("insertText", "# test"))">插入一行文字</Button>
+        <Button OnClick="@(() => Markdown.DoMethodAsync("insertText", "![椰子树](https://i.niupic.com/images/2022/04/01/9Y6T.jpg)"))">插入一张图片</Button>
+        <Button OnClick="@(() => Markdown.DoMethodAsync("moveCursorToEnd"))">光标移动到最后</Button>
+    </div>
 </DemoBlock>
 
 <AttributeTable Items="GetAttributes()"></AttributeTable>
