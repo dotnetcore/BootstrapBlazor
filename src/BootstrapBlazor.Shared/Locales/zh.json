@@ -2708,7 +2708,7 @@
     "LinkButton": "链接按钮 LinkButton",
     "ListView": "列表组件 ListView",
     "Locator": "位置定位 Locator",
-    "Image": "图片 Image",
+    "ImageViewer": "图片 ImageViewer",
     "Popover": "弹出窗 Popover",
     "Print": "打印组件 Print",
     "QRCode": "二维码 QRCode",

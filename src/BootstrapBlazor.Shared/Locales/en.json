@@ -2698,7 +2698,7 @@
     "LinkButton": "LinkButton",
     "ListView": "ListView",
     "Locator": "Locator",
-    "Image": "Image",
+    "ImageViewer": "ImageViewer",
     "Popover": "Popover",
     "Print": "Print",
     "QRCode": "QRCode",

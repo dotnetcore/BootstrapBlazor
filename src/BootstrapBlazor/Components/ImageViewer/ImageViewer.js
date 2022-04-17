@@ -227,6 +227,12 @@
                 }
                 return value;
             };
+
+            $prevImg.touchScale(function (scale) {
+                processImage(function () {
+                    return scale;
+                });
+            });
         }
     });
 })(jQuery);
