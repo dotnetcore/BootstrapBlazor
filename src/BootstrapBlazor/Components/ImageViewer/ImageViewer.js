@@ -113,7 +113,7 @@
                 else {
                     // 缩小
                     processImage(function (scale) {
-                        return scale - 0.015;
+                        return Math.max(0.195, scale - 0.015);
                     })
                 }
             });
