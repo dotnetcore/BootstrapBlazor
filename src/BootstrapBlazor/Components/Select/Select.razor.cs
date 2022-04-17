@@ -99,6 +99,12 @@ public partial class Select<TValue> : ISelect
     [Parameter]
     public RenderFragment? Options { get; set; }
 
+    /// <summary>
+    /// 获得/设置 字符串比较规则 默认 StringComparison.OrdinalIgnoreCase 大小写不敏感 
+    /// </summary>
+    [Parameter]
+    public StringComparison StringComparison { get; set; } = StringComparison.OrdinalIgnoreCase;
+
     [Inject]
     [NotNull]
     private IStringLocalizer<Select<TValue>>? Localizer { get; set; }
@@ -131,7 +137,7 @@ public partial class Select<TValue> : ISelect
 
         if (OnSearchTextChanged == null)
         {
-            OnSearchTextChanged = text => Items.Where(i => i.Text.Contains(text, StringComparison.OrdinalIgnoreCase));
+            OnSearchTextChanged = text => Items.Where(i => i.Text.Contains(text, StringComparison));
         }
 
         Childs = new List<SelectedItem>();
@@ -168,7 +174,7 @@ public partial class Select<TValue> : ISelect
             DataSource = OnSearchTextChanged(SearchText).ToList();
         }
 
-        SelectedItem = DataSource.FirstOrDefault(i => i.Value.Equals(CurrentValueAsString, StringComparison.OrdinalIgnoreCase))
+        SelectedItem = DataSource.FirstOrDefault(i => i.Value.Equals(CurrentValueAsString, StringComparison))
             ?? DataSource.FirstOrDefault(i => i.Active)
             ?? DataSource.FirstOrDefault();
 

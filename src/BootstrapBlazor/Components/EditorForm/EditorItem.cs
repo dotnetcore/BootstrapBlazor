@@ -156,6 +156,12 @@ public class EditorItem<TValue> : ComponentBase, IEditorItem
     public IEnumerable<SelectedItem>? Lookup { get; set; }
 
     /// <summary>
+    /// 获得/设置 字典数据源字符串比较规则 默认 StringComparison.OrdinalIgnoreCase 大小写不敏感 
+    /// </summary>
+    [Parameter]
+    public StringComparison LookupStringComparison { get; set; } = StringComparison.OrdinalIgnoreCase;
+
+    /// <summary>
     /// 获得/设置 LookupService 服务获取 Lookup 数据集合键值 常用于外键自动转换为名称操作
     /// </summary>
     [Parameter]

@@ -977,7 +977,7 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
             if (col.Lookup != null && val != null)
             {
                 // 转化 Lookup 数据源
-                var lookupVal = col.Lookup.FirstOrDefault(l => l.Value.Equals(val.ToString(), StringComparison.OrdinalIgnoreCase));
+                var lookupVal = col.Lookup.FirstOrDefault(l => l.Value.Equals(val.ToString(), col.LookupStringComparison));
                 if (lookupVal != null)
                 {
                     content = lookupVal.Text;

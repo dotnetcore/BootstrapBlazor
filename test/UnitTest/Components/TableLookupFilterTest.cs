@@ -78,6 +78,7 @@ public class TableLookupFilterTest : BootstrapBlazorTestBase
                     builder.AddAttribute(index++, nameof(TableColumn<Foo, bool>.Field), foo.Complete);
                     builder.AddAttribute(index++, nameof(TableColumn<Foo, bool>.FieldExpression), foo.GenerateValueExpression(nameof(foo.Complete), typeof(bool)));
                     builder.AddAttribute(index++, nameof(TableColumn<Foo, bool>.Filterable), true);
+                    builder.AddAttribute(index++, nameof(TableColumn<Foo, bool>.LookupStringComparison), StringComparison.OrdinalIgnoreCase);
                     builder.AddAttribute(index++, nameof(TableColumn<Foo, bool>.Lookup), new List<SelectedItem>()
                     {
                         new SelectedItem("true", "True"),

@@ -57,7 +57,7 @@ public class AutoGenerateColumnAttribute : AutoGenerateBaseAttribute, ITableColu
     bool? IEditorItem.ShowLabelTooltip
     {
         get => ShowLabelTooltip;
-        set => ShowLabelTooltip = value.HasValue && value.Value ? true : false;
+        set => ShowLabelTooltip = value.HasValue && value.Value;
     }
 
     /// <summary>
@@ -184,6 +184,11 @@ public class AutoGenerateColumnAttribute : AutoGenerateBaseAttribute, ITableColu
     /// 获得/设置 字典数据源 常用于外键自动转换为名称操作
     /// </summary>
     IEnumerable<SelectedItem>? IEditorItem.Lookup { get; set; }
+
+    /// <summary>
+    /// 获得/设置 字典数据源字符串比较规则 默认 StringComparison.OrdinalIgnoreCase 大小写不敏感 
+    /// </summary>
+    public StringComparison LookupStringComparison { get; set; } = StringComparison.OrdinalIgnoreCase;
 
     /// <summary>
     /// 获得/设置 LookupService 服务指定数据集合键值 常用于外键自动转换为名称操作

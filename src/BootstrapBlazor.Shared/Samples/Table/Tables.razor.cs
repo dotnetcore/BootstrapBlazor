@@ -119,6 +119,14 @@ public partial class Tables
             ValueList = " — ",
             DefaultValue = " — "
         },
+        new()
+        {
+            Name = nameof(IEditorItem.LookupStringComparison),
+            Description = "字典数据源比较规则",
+            Type = "StringComparison",
+            ValueList = " — ",
+            DefaultValue = "OrdinalIgnoreCase"
+        },
         new() 
 		{
             Name = nameof(IEditorItem.LookUpServiceKey),

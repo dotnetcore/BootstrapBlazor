@@ -40,8 +40,6 @@ internal class MockTableColumn : ITableColumn
 
     public System.Type? ComponentType { get; set; }
 
-    public IEnumerable<SelectedItem>? Lookup { get; set; }
-
     public bool Sortable { get; set; }
 
     public bool DefaultSort { get; set; }
@@ -96,6 +94,10 @@ internal class MockTableColumn : ITableColumn
     /// 获得/设置 自定义验证集合
     /// </summary>
     public List<IValidator>? ValidateRules { get; set; }
+
+    public IEnumerable<SelectedItem>? Lookup { get; set; }
+
+    public StringComparison LookupStringComparison { get; set; } = StringComparison.OrdinalIgnoreCase;
 
     public string? LookUpServiceKey { get; set; }
 

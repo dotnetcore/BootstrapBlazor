@@ -3,9 +3,9 @@
 
 @if (IsHeaderRow)
 {
-    <Select Items="@Items" @bind-Value="@Value" OnSelectedItemChanged="_ => OnFilterValueChanged()"></Select>
+    <Select Items="@Items" StringComparison="LookupStringComparison" @bind-Value="@Value" OnSelectedItemChanged="_ => OnFilterValueChanged()"></Select>
 }
 else
 {
-    <Select Items="@Items" @bind-Value="@Value"></Select>
+    <Select Items="@Items" StringComparison="LookupStringComparison" @bind-Value="@Value"></Select>
 }

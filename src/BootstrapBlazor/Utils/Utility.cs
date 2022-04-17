@@ -328,25 +328,26 @@ public static class Utility
         if (lookup != null && item.Items == null)
         {
             builder.AddAttribute(9, nameof(Select<SelectedItem>.Items), lookup.Clone());
+            builder.AddAttribute(10, nameof(Select<SelectedItem>.StringComparison), item.LookupStringComparison);
         }
 
         // 增加非枚举类,手动设定 ComponentType 为 Select 并且 Data 有值 自动生成下拉框
         if (item.Items != null && item.ComponentType == typeof(Select<>).MakeGenericType(fieldType))
         {
-            builder.AddAttribute(10, nameof(Select<SelectedItem>.Items), item.Items.Clone());
+            builder.AddAttribute(11, nameof(Select<SelectedItem>.Items), item.Items.Clone());
         }
 
         // 设置 SkipValidate 参数
         if (IsValidatableComponent(componentType))
         {
-            builder.AddAttribute(11, nameof(IEditorItem.SkipValidate), item.SkipValidate);
+            builder.AddAttribute(12, nameof(IEditorItem.SkipValidate), item.SkipValidate);
         }
 
-        builder.AddMultipleAttributes(12, CreateMultipleAttributes(fieldType, model, fieldName, item));
+        builder.AddMultipleAttributes(13, CreateMultipleAttributes(fieldType, model, fieldName, item));
 
         if (item.ComponentParameters != null)
         {
-            builder.AddMultipleAttributes(13, item.ComponentParameters);
+            builder.AddMultipleAttributes(14, item.ComponentParameters);
         }
         builder.CloseComponent();
     }
