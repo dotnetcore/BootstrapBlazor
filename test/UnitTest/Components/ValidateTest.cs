@@ -242,14 +242,14 @@ public class ValidateTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void SetValue_Ok()
+    public async Task SetValue_Ok()
     {
         var cut = Context.RenderComponent<BootstrapInput<string>>(builder =>
         {
             builder.Add(a => a.Value, "test");
         });
         Assert.Equal("test", cut.Instance.Value);
-        cut.InvokeAsync(() => cut.Instance.SetValue("test2"));
+        await cut.InvokeAsync(() => cut.Instance.SetValue("test2"));
         Assert.Equal("test2", cut.Instance.Value);
     }
 

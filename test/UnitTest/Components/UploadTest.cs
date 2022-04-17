@@ -529,7 +529,7 @@ public class UploadTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void CardUpload_Ok()
+    public async Task CardUpload_Ok()
     {
         var zoom = false;
         var deleted = false;
@@ -555,7 +555,7 @@ public class UploadTest : BootstrapBlazorTestBase
         cut.Contains("bb-viewer-wrapper active");
 
         // OnZoom
-        cut.InvokeAsync(() => cut.Find(".btn-outline-secondary").Click());
+        await cut.InvokeAsync(() => cut.Find(".btn-outline-secondary").Click());
         Assert.False(zoom);
 
         cut.SetParametersAndRender(pb =>
@@ -566,11 +566,11 @@ public class UploadTest : BootstrapBlazorTestBase
                 return Task.CompletedTask;
             });
         });
-        cut.InvokeAsync(() => cut.Find(".btn-outline-secondary").Click());
+        await cut.InvokeAsync(() => cut.Find(".btn-outline-secondary").Click());
         Assert.True(zoom);
 
         // OnDelete
-        cut.InvokeAsync(() => cut.Find(".btn-outline-danger").Click());
+        await cut.InvokeAsync(() => cut.Find(".btn-outline-danger").Click());
         Assert.True(deleted);
 
         // ShowProgress
@@ -583,11 +583,11 @@ public class UploadTest : BootstrapBlazorTestBase
             });
         });
         var input = cut.FindComponent<InputFile>();
-        cut.InvokeAsync(() => input.Instance.OnChange.InvokeAsync(new InputFileChangeEventArgs(new List<MockBrowserFile>()
+        await cut.InvokeAsync(() => input.Instance.OnChange.InvokeAsync(new InputFileChangeEventArgs(new List<MockBrowserFile>()
         {
             new MockBrowserFile("test.txt", "Image-Png")
         })));
-        cut.InvokeAsync(() => input.Instance.OnChange.InvokeAsync(new InputFileChangeEventArgs(new List<MockBrowserFile>()
+        await cut.InvokeAsync(() => input.Instance.OnChange.InvokeAsync(new InputFileChangeEventArgs(new List<MockBrowserFile>()
         {
             new MockBrowserFile("test.png")
         })));

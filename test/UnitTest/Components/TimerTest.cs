@@ -119,29 +119,29 @@ public class TimerTest : BootstrapBlazorTestBase
             });
         });
         var downs = cut.FindAll(".time-spinner-arrow.fa-angle-down");
-        downs[0].Click();
-        cut.Find(".time-panel-btn.confirm").Click();
+        await cut.InvokeAsync(() => downs[0].Click());
+        await cut.InvokeAsync(() => cut.Find(".time-panel-btn.confirm").Click());
         await Task.Delay(1000);
         var buttons = cut.FindAll(".timer-buttons button");
         // pause
         Assert.True(buttons[1].ClassList.Contains("btn-warning"));
-        buttons[1].Click();
+        await cut.InvokeAsync(() => buttons[1].Click());
         await Task.Delay(500);
 
         // resume
         buttons = cut.FindAll(".timer-buttons button");
         Assert.True(buttons[1].ClassList.Contains("btn-success"));
-        buttons[1].Click();
+        await cut.InvokeAsync(() => buttons[1].Click());
 
         // cancel
         buttons = cut.FindAll(".timer-buttons button");
-        buttons[0].Click();
+        await cut.InvokeAsync(() => buttons[0].Click());
         Assert.True(cancelled);
 
         // 代码覆盖率 Cancel 后再 Star
         downs = cut.FindAll(".time-spinner-arrow.fa-angle-down");
-        downs[0].Click();
-        cut.Find(".time-panel-btn.confirm").Click();
+        await cut.InvokeAsync(() => downs[0].Click());
+        await cut.InvokeAsync(() => cut.Find(".time-panel-btn.confirm").Click());
         await Task.Delay(1000);
     }
 }

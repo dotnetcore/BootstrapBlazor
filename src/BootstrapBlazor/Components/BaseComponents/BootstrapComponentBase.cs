@@ -36,6 +36,7 @@ public abstract class BootstrapComponentBase : ComponentBase, IHandleEvent
     /// </summary>
     protected bool IsNotRender { get; set; }
 
+    [ExcludeFromCodeCoverage]
     private async Task CallStateHasChangedOnAsyncCompletion(Task task)
     {
         try
