@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Razor">
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
     <Version>6.5.7</Version>
@@ -30,15 +30,16 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Remove="*.json" />
-    <Content Remove="wwwroot\**\*.*" />
-    <Content Include="wwwroot\css\bootstrap.blazor.bundle.min.css" />
-    <Content Include="wwwroot\css\motronic.min.css" />
-    <Content Include="wwwroot\js\bootstrap.blazor.bundle.min.js" />
-    <Content Include="wwwroot\lib\summernote\font\*.*" />
-    <Content Include="wwwroot\modules\*.js" />
-    <None Include="*.json" />
-    <None Include="wwwroot\**\*.*" />
+    <Content Remove="bundleconfig.json" />
+    <Content Remove="wwwroot\core\**\*.*" />
+    <Content Remove="wwwroot\lib\**\*.*" />
+    <Content Remove="wwwroot\bundle\*.*" />
+    <Content Remove="wwwroot\src\*.*" />
+    <None Include="bundleconfig.json" />
+    <None Include="wwwroot\core\**\*.*" />
+    <None Include="wwwroot\lib\**\*.*" />
+    <None Include="wwwroot\bundle\*.*" />
+    <None Include="wwwroot\src\*.*" />
   </ItemGroup>
 
 </Project>

@@ -4,16 +4,16 @@
     "inputFiles": [
       "wwwroot/core/bootstrap/css/bootstrap.min.css",
       "wwwroot/lib/**/*.min.css",
-      "wwwroot/css/bootstrap.blazor.css",
-      "Components/**/*.css"
+      "Components/**/*.css",
+      "wwwroot/src/bootstrap.blazor.css"
     ]
   },
   {
     "outputFileName": "wwwroot/css/motronic.min.css",
-    "inputFiles": [ "wwwroot/css/motronic.css" ]
+    "inputFiles": [ "wwwroot/src/motronic.css" ]
   },
   {
-    "outputFileName": "wwwroot/js/bootstrap.blazor.min.js",
+    "outputFileName": "wwwroot/bundle/bootstrap.blazor.min.js",
     "inputFiles": [
       "wwwroot/lib/extensions/*.js",
       "Components/**/!(*.esm).js"
@@ -29,7 +29,7 @@
       "wwwroot/core/jquery/jquery-3.5.1.min.js",
       "wwwroot/core/bootstrap/js/bootstrap.bundle.min.js",
       "wwwroot/lib/**/*.min.js",
-      "wwwroot/js/bootstrap.blazor.min.js"
+      "wwwroot/bundle/bootstrap.blazor.min.js"
     ],
     "minify": {
       "enabled": false,
