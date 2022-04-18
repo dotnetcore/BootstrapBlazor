@@ -24,5 +24,6 @@ jobs:
         Bundle: True
 
       run: |
+        dotnet build src/BootstrapBlazor
         dotnet pack src/BootstrapBlazor -c Release -o publish
         dotnet nuget push publish/BootstrapBlazor.*.nupkg -s https://api.nuget.org/v3/index.json -k $NUGET_API_KEY --skip-duplicate

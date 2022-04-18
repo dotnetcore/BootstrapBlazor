@@ -39,7 +39,7 @@
   {
     "outputFileName": "wwwroot/modules/barcodereader.bundle.js",
     "inputFiles": [
-      "Components/barcodereader/*.esm.js"
+      "Components/BarcodeReader/*.esm.js"
     ],
     "minify": {
       "enabled": false,
