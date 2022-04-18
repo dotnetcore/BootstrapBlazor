@@ -3,7 +3,7 @@
   <Import Project="..\..\..\bundleconfig.props" />
 
   <PropertyGroup>
-    <Version>6.1.0</Version>
+    <Version>6.1.1</Version>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -16,6 +16,10 @@
     <Content Remove="wwwroot\lib\**\*.*" />
     <None Include="*.json" />
     <None Include="wwwroot\lib\**\*.*" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="..\..\..\BootstrapBlazor\Extensions\JSRuntimeExtensions.cs" Link="JSRuntimeExtensions.cs" />
   </ItemGroup>
 
 </Project>

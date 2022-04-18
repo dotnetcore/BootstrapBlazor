@@ -108,15 +108,12 @@ public partial class Markdown : IAsyncDisposable
     [Parameter]
     public bool EnableHighlight { get; set; } = false;
 
-    [NotNull]
-    private JSInterop<Markdown>? Interop { get; set; }
-
     private readonly MarkdownOption _markdownOption = new();
 
     private bool IsRender { get; set; }
 
     [NotNull]
-    private JSModule? Module { get; set; }
+    private JSModule<Markdown>? Module { get; set; }
 
     /// <summary>
     /// OnInitialized 方法
@@ -149,15 +146,13 @@ public partial class Markdown : IAsyncDisposable
         if (firstRender)
         {
             IsRender = false;
-            Interop = new JSInterop<Markdown>(JSRuntime);
-            var jSObjectReference = await JSRuntime.InvokeAsync<IJSObjectReference>(identifier: "import", $"./_content/BootstrapBlazor.Markdown/js/bootstrap.blazor.markdown.min.js");
-            Module = new JSModule(jSObjectReference);
-            await Module.InvokeVoidAsync("bb_markdown", MarkdownElement, Interop, _markdownOption, nameof(Update));
+            Module = await JSRuntime.LoadModule<Markdown>("./_content/BootstrapBlazor.Markdown/js/bootstrap.blazor.markdown.min.js", this, false);
+            await Module.InvokeVoidAsync("bb_markdown", MarkdownElement, _markdownOption, nameof(Update));
         }
 
         if (IsRender)
         {
-            await Module.InvokeVoidAsync("bb_markdown", MarkdownElement, Interop, Value ?? "", "setMarkdown");
+            await Module.InvokeVoidAsync("bb_markdown", MarkdownElement, Value ?? "", "setMarkdown");
         }
     }
 
@@ -199,7 +194,7 @@ public partial class Markdown : IAsyncDisposable
     /// <param name="method"></param>
     /// <param name="parameters"></param>
     /// <returns></returns>
-    public ValueTask DoMethodAsync(string method, params object[] parameters) => Module.InvokeVoidAsync("bb_markdown_method", MarkdownElement, Interop, method, parameters);
+    public ValueTask DoMethodAsync(string method, params object[] parameters) => Module.InvokeVoidAsync("bb_markdown_method", MarkdownElement, method, parameters);
 
     /// <summary>
     /// Dispose 方法
@@ -209,11 +204,6 @@ public partial class Markdown : IAsyncDisposable
     {
         if (disposing)
         {
-            if (Interop != null)
-            {
-                Interop.Dispose();
-                Interop = null;
-            }
             if (Module != null)
             {
                 await Module.DisposeAsync();

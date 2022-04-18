@@ -52,68 +52,68 @@ console.log('test');
 
     private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
-            new AttributeItem(){
-                Name = "Height",
-                Description = Localizer["Att1"],
-                Type = "int",
-                ValueList = " — ",
-                DefaultValue = "300"
-            },
-            new AttributeItem(){
-                Name = "MinHeight",
-                Description = Localizer["Att2"],
-                Type = "int",
-                ValueList = " — ",
-                DefaultValue = "200"
-            },
-            new AttributeItem(){
-                Name = "InitialEditType",
-                Description = Localizer["Att3"],
-                Type = "InitialEditType",
-                ValueList = "Markdown/Wysiwyg",
-                DefaultValue = "Markdown"
-            },
-            new AttributeItem(){
-                Name = "PreviewStyle",
-                Description = Localizer["Att4"],
-                Type = "PreviewStyle",
-                ValueList = "Tab/Vertical",
-                DefaultValue = "Vertical"
-            },
-            new AttributeItem(){
-                Name = "Language",
-                Description = Localizer["Att5"],
-                Type = "string",
-                ValueList = " — ",
-                DefaultValue = " — "
-            },
-            new AttributeItem(){
-                Name = "Placeholder",
-                Description = Localizer["Att6"],
-                Type = "string",
-                ValueList = " — ",
-                DefaultValue = " — "
-            },
-            new AttributeItem(){
-                Name = "IsViewer",
-                Description = Localizer["Att7"],
-                Type = "bool",
-                ValueList = " true/false ",
-                DefaultValue = " false "
-            },
-            new AttributeItem(){
-                Name = "IsDark",
-                Description = "是否为暗黑模式",
-                Type = "bool",
-                ValueList = " true/false ",
-                DefaultValue = " false "
-            },
-            new AttributeItem(){
-                Name = "EnableHighlight",
-                Description = "是否启用代码高亮插件，启用前需要引入插件对应的js css",
-                Type = "bool",
-                ValueList = " true/false ",
-                DefaultValue = " false "
-            }
+        new AttributeItem(){
+            Name = "Height",
+            Description = Localizer["Att1"],
+            Type = "int",
+            ValueList = " — ",
+            DefaultValue = "300"
+        },
+        new AttributeItem(){
+            Name = "MinHeight",
+            Description = Localizer["Att2"],
+            Type = "int",
+            ValueList = " — ",
+            DefaultValue = "200"
+        },
+        new AttributeItem(){
+            Name = "InitialEditType",
+            Description = Localizer["Att3"],
+            Type = "InitialEditType",
+            ValueList = "Markdown/Wysiwyg",
+            DefaultValue = "Markdown"
+        },
+        new AttributeItem(){
+            Name = "PreviewStyle",
+            Description = Localizer["Att4"],
+            Type = "PreviewStyle",
+            ValueList = "Tab/Vertical",
+            DefaultValue = "Vertical"
+        },
+        new AttributeItem(){
+            Name = "Language",
+            Description = Localizer["Att5"],
+            Type = "string",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new AttributeItem(){
+            Name = "Placeholder",
+            Description = Localizer["Att6"],
+            Type = "string",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new AttributeItem(){
+            Name = "IsViewer",
+            Description = Localizer["Att7"],
+            Type = "bool",
+            ValueList = " true/false ",
+            DefaultValue = " false "
+        },
+        new AttributeItem(){
+            Name = "IsDark",
+            Description = "是否为暗黑模式",
+            Type = "bool",
+            ValueList = " true/false ",
+            DefaultValue = " false "
+        },
+        new AttributeItem(){
+            Name = "EnableHighlight",
+            Description = "是否启用代码高亮插件，启用前需要引入插件对应的js css",
+            Type = "bool",
+            ValueList = " true/false ",
+            DefaultValue = " false "
+        }
     };
 }
