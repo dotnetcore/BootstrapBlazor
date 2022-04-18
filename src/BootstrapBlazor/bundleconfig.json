@@ -45,5 +45,15 @@
       "enabled": false,
       "renameLocals": true
     }
+  },
+  {
+    "outputFileName": "wwwroot/modules/qrcode.esm.min.js",
+    "inputFiles": [
+      "Components/qrcode/QRCode.esm.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    }
   }
 ]

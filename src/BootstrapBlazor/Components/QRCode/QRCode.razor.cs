@@ -11,12 +11,9 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// QRCode 组件
 /// </summary>
-public partial class QRCode : IDisposable
+public partial class QRCode : IAsyncDisposable
 {
     private ElementReference QRCodeElement { get; set; }
-
-    [NotNull]
-    private JSInterop<QRCode>? Interop { get; set; }
 
     /// <summary>
     /// 获得/设置 二维码生成后回调委托
@@ -63,6 +60,9 @@ public partial class QRCode : IDisposable
 
     private string? MethodName { get; set; }
 
+    [NotNull]
+    private JSModule<QRCode>? Module { get; set; }
+
     /// <summary>
     /// OnInitialized 方法
     /// </summary>
@@ -73,8 +73,6 @@ public partial class QRCode : IDisposable
         PlaceHolder ??= Localizer[nameof(PlaceHolder)];
         ClearButtonText ??= Localizer[nameof(ClearButtonText)];
         GenerateButtonText ??= Localizer[nameof(GenerateButtonText)];
-
-        Interop = new JSInterop<QRCode>(JSRuntime);
     }
 
     /// <summary>
@@ -94,7 +92,11 @@ public partial class QRCode : IDisposable
     {
         if (!string.IsNullOrEmpty(MethodName))
         {
-            await Interop.InvokeVoidAsync(this, QRCodeElement, "bb_qrcode", MethodName, Content ?? "");
+            if (Module == null)
+            {
+                Module = await JSRuntime.LoadModule("qrcode.esm.min.js", this);
+            }
+            await Module.InvokeVoidAsync("bb_qrcode", QRCodeElement, MethodName, Content ?? "");
             MethodName = null;
         }
     }
@@ -128,21 +130,23 @@ public partial class QRCode : IDisposable
     /// Dispose 方法
     /// </summary>
     /// <param name="disposing"></param>
-    protected virtual void Dispose(bool disposing)
+    protected virtual async ValueTask DisposeAsync(bool disposing)
     {
         if (disposing)
         {
-            Interop.Dispose();
-            Interop = null;
+            if (Module != null)
+            {
+                await Module.DisposeAsync();
+            }
         }
     }
 
     /// <summary>
     /// Dispose 方法
     /// </summary>
-    public void Dispose()
+    public async ValueTask DisposeAsync()
     {
-        Dispose(disposing: true);
+        await DisposeAsync(true);
         GC.SuppressFinalize(this);
     }
 }

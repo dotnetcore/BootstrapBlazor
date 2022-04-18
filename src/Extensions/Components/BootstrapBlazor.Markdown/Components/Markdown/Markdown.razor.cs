@@ -153,13 +153,11 @@ public partial class Markdown : IAsyncDisposable
             var jSObjectReference = await JSRuntime.InvokeAsync<IJSObjectReference>(identifier: "import", $"./_content/BootstrapBlazor.Markdown/js/bootstrap.blazor.markdown.min.js");
             Module = new JSModule(jSObjectReference);
             await Module.InvokeVoidAsync("bb_markdown", MarkdownElement, Interop, _markdownOption, nameof(Update));
-            //await Interop.InvokeVoidAsync(this, MarkdownElement, "bb_markdown", _markdownOption, nameof(Update));
         }
 
         if (IsRender)
         {
             await Module.InvokeVoidAsync("bb_markdown", MarkdownElement, Interop, Value ?? "", "setMarkdown");
-            //await Interop.InvokeVoidAsync(this, MarkdownElement, "bb_markdown", Value ?? "", "setMarkdown");
         }
     }
 
