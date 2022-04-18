@@ -67,8 +67,6 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
 
         if (firstRender && !IsDisabled)
         {
-            await JSRuntime.InvokeVoidAsync(UploaderElement, "bb_upload");
-
             // support drag
             Module = await JSRuntime.LoadModule("upload.js");
             await Module.InvokeVoidAsync("bb_upload_drag_init", UploaderElement, InputFileId);
@@ -196,7 +194,6 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
         {
             if (Module != null)
             {
-                await Module.InvokeVoidAsync("dispose");
                 await Module.DisposeAsync();
             }
         }

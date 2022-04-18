@@ -1,4 +1,11 @@
 ﻿export function bb_upload_drag_init(element, id) {
+    var $el = $(element);
+    $el.on('click', '.btn-browser', function (e) {
+        var $this = $(this);
+        var $file = $el.find(':file');
+        $file.trigger('click');
+    });
+
     var inputFile = document.getElementById(id);
     if (inputFile === null) {
         return;
@@ -40,14 +47,4 @@
         const event = new Event('change', { bubbles: true });
         inputFile.dispatchEvent(event);
     });
-
-    return {
-        dispose: () => {
-            element.removeEventListener('dragleave', onDragLeave);
-            element.removeEventListener("drop", onDrop);
-            element.removeEventListener('dragenter', onDragHover);
-            element.removeEventListener('dragover', onDragHover);
-            element.removeEventListener('paste', handler);
-        }
-    }
 }
