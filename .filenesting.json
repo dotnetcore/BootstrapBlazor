@@ -25,6 +25,10 @@
       },
       "extensionToExtension": {
         "add": {
+          ".esm.js": [
+            ".cs",
+            ".razor"
+          ],
           ".js": [
             ".cs",
             ".razor",

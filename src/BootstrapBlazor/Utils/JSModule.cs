@@ -11,11 +11,14 @@ namespace BootstrapBlazor.Components;
 /// </summary>
 public class JSModule : IAsyncDisposable
 {
+    /// <summary>
+    /// IJSObjectReference 实例
+    /// </summary>
     [NotNull]
-    private IJSObjectReference? Module { get; set; }
+    protected IJSObjectReference? Module { get; set; }
 
     /// <summary>
-    /// 
+    /// 构造函数
     /// </summary>
     /// <param name="jSObjectReference"></param>
     public JSModule(IJSObjectReference? jSObjectReference)
@@ -24,12 +27,20 @@ public class JSModule : IAsyncDisposable
     }
 
     /// <summary>
-    /// 
+    /// InvokeVoidAsync 方法
     /// </summary>
     /// <param name="identifier"></param>
     /// <param name="args"></param>
     /// <returns></returns>
-    public ValueTask InvokeVoidAsync(string identifier, params object[] args) => Module.InvokeVoidAsync(identifier, args);
+    public virtual ValueTask InvokeVoidAsync(string identifier, params object?[] args) => Module.InvokeVoidAsync(identifier, args);
+
+    /// <summary>
+    /// InvokeVoidAsync 方法
+    /// </summary>
+    /// <param name="identifier"></param>
+    /// <param name="args"></param>
+    /// <returns></returns>
+    public virtual ValueTask<TValue> InvokeAsync<TValue>(string identifier, params object?[] args) => Module.InvokeAsync<TValue>(identifier, args);
 
     /// <summary>
     /// Dispose 方法
@@ -54,5 +65,57 @@ public class JSModule : IAsyncDisposable
     {
         await DisposeAsyncCore(true).ConfigureAwait(false);
         GC.SuppressFinalize(this);
+    }
+}
+
+/// <summary>
+/// 模块加载器
+/// </summary>
+/// <typeparam name="TValue"></typeparam>
+public class JSModule<TValue> : JSModule where TValue : class
+{
+    /// <summary>
+    /// DotNetReference 实例
+    /// </summary>
+    protected DotNetObjectReference<TValue> DotNetReference { get; set; }
+
+    /// <summary>
+    /// 构造函数
+    /// </summary>
+    /// <param name="jSObjectReference"></param>
+    /// <param name="value"></param>
+    public JSModule(IJSObjectReference? jSObjectReference, TValue value) : base(jSObjectReference)
+    {
+        DotNetReference = DotNetObjectReference.Create(value);
+    }
+
+    /// <summary>
+    /// InvokeVoidAsync 方法
+    /// </summary>
+    /// <param name="identifier"></param>
+    /// <param name="args"></param>
+    /// <returns></returns>
+    public override ValueTask InvokeVoidAsync(string identifier, params object?[] args)
+    {
+        var paras = new List<object?>();
+        if (args != null)
+        {
+            paras.AddRange(args);
+        }
+        paras.Add(DotNetReference);
+        return Module.InvokeVoidAsync(identifier, paras.ToArray());
+    }
+
+    /// <summary>
+    /// Dispose 方法
+    /// </summary>
+    /// <param name="disposing"></param>
+    protected override ValueTask DisposeAsyncCore(bool disposing)
+    {
+        if (disposing)
+        {
+            DotNetReference.Dispose();
+        }
+        return base.DisposeAsyncCore(disposing);
     }
 }

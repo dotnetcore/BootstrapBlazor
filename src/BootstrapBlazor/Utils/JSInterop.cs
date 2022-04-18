@@ -117,8 +117,11 @@ public class JSInterop<TValue> : IDisposable where TValue : class
     {
         if (disposing)
         {
-            _objRef?.Dispose();
-            _objRef = null;
+            if (_objRef != null)
+            {
+                _objRef.Dispose();
+                _objRef = null;
+            }
         }
     }
 

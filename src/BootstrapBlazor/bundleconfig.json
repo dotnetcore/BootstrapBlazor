@@ -16,7 +16,7 @@
     "outputFileName": "wwwroot/js/bootstrap.blazor.min.js",
     "inputFiles": [
       "wwwroot/lib/extensions/*.js",
-      "Components/**/*.js"
+      "Components/**/!(*.esm).js"
     ],
     "minify": {
       "enabled": true,
@@ -30,6 +30,16 @@
       "wwwroot/core/bootstrap/js/bootstrap.bundle.min.js",
       "wwwroot/lib/**/*.min.js",
       "wwwroot/js/bootstrap.blazor.min.js"
+    ],
+    "minify": {
+      "enabled": false,
+      "renameLocals": true
+    }
+  },
+  {
+    "outputFileName": "wwwroot/modules/barcodereader.bundle.js",
+    "inputFiles": [
+      "Components/barcodereader/*.esm.js"
     ],
     "minify": {
       "enabled": false,

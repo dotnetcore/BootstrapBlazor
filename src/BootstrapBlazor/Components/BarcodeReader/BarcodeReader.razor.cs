@@ -13,7 +13,7 @@ namespace BootstrapBlazor.Components;
 /// </summary>
 public partial class BarcodeReader : IAsyncDisposable
 {
-    private JSInterop<BarcodeReader>? Interop { get; set; }
+    private JSModule<BarcodeReader>? Module { get; set; }
 
     private string AutoStopString => AutoStop ? "true" : "false";
 
@@ -147,8 +147,8 @@ public partial class BarcodeReader : IAsyncDisposable
     {
         if (firstRender)
         {
-            Interop = new JSInterop<BarcodeReader>(JSRuntime);
-            await Interop.InvokeVoidAsync(this, ScannerElement, "bb_barcode", "init", AutoStart);
+            Module = await JSRuntime.LoadModule("barcodereader.bundle.js", this);
+            await Module.InvokeVoidAsync("bb_barcode", ScannerElement, "init", AutoStart);
         }
     }
 
@@ -222,24 +222,21 @@ public partial class BarcodeReader : IAsyncDisposable
     /// DisposeAsyncCore 方法
     /// </summary>
     /// <param name="disposing"></param>
-    /// <returns></returns>
     protected virtual async ValueTask DisposeAsyncCore(bool disposing)
     {
         if (disposing)
         {
-            if (Interop != null)
+            if (Module != null)
             {
-                await Interop.InvokeVoidAsync(this, ScannerElement, "bb_barcode", "dispose");
-                Interop.Dispose();
-                Interop = null;
+                await Module.InvokeVoidAsync("bb_barcode_dispose");
+                await Module.DisposeAsync();
             }
         }
     }
 
     /// <summary>
-    /// 
+    /// DisposeAsync 方法
     /// </summary>
-    /// <returns></returns>
     public async ValueTask DisposeAsync()
     {
         await DisposeAsyncCore(true);

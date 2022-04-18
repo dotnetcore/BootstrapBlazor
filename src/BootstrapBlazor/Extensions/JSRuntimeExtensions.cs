@@ -81,7 +81,7 @@ internal static class JSRuntimeExtensions
     }
 
     /// <summary>
-    /// 
+    /// IJSRuntime 扩展方法 动态加载脚本 脚本目录为 modules
     /// </summary>
     /// <param name="jsRuntime"></param>
     /// <param name="path"></param>
@@ -93,15 +93,16 @@ internal static class JSRuntimeExtensions
     }
 
     /// <summary>
-    /// 
+    /// IJSRuntime 扩展方法 动态加载脚本 脚本目录为 modules
     /// </summary>
+    /// <typeparam name="TValue"></typeparam>
     /// <param name="jsRuntime"></param>
-    /// <param name="component"></param>
+    /// <param name="value"></param>
+    /// <param name="path"></param>
     /// <returns></returns>
-    public static async Task<JSModule> LoadModule<TComponent>(this IJSRuntime jsRuntime, TComponent component) where TComponent : ComponentBase
+    public static async Task<JSModule<TValue>> LoadModule<TValue>(this IJSRuntime jsRuntime, string path, TValue value) where TValue : class
     {
-        var fileName = $"{component.GetType().Name}.js";
-        var jSObjectReference = await jsRuntime.InvokeAsync<IJSObjectReference>(identifier: "import", $"./_content/BootstrapBlazor/modules/{fileName}");
-        return new JSModule(jSObjectReference);
+        var jSObjectReference = await jsRuntime.InvokeAsync<IJSObjectReference>(identifier: "import", $"./_content/BootstrapBlazor/modules/{path}");
+        return new JSModule<TValue>(jSObjectReference, value);
     }
 }
