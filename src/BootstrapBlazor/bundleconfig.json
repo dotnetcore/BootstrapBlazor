@@ -49,7 +49,7 @@
   {
     "outputFileName": "wwwroot/modules/qrcode.esm.min.js",
     "inputFiles": [
-      "Components/qrcode/QRCode.esm.js"
+      "Components/QRCode/QRCode.esm.js"
     ],
     "minify": {
       "enabled": true,
