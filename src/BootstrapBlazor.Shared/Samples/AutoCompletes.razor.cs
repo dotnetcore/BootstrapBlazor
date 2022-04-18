@@ -96,9 +96,9 @@ public sealed partial class AutoCompletes
         },
         new AttributeItem()
         {
-            Name = "CustomFilter",
+            Name = "OnCustomFilter",
             Description = Localizer["Att9"],
-            Type = "Func<Task<IEnumerable<string>>>",
+            Type = "Func<string, Task<IEnumerable<string>>>",
             ValueList = " — ",
             DefaultValue = " — "
         },
