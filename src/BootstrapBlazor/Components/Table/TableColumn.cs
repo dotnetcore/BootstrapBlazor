@@ -400,6 +400,7 @@ public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn
     /// <summary>
     /// 获得/设置 当前属性分组 默认 null
     /// </summary>
+    [Parameter]
     public string? GroupName { get; set; }
 
     /// <summary>
