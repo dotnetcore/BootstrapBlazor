@@ -151,8 +151,8 @@ public partial class Tables
             ValueList = " — ",
             DefaultValue = "OrdinalIgnoreCase"
         },
-        new() 
-		{
+        new()
+        {
             Name = nameof(IEditorItem.LookUpServiceKey),
             Description = "LookupService 服务获取 Lookup 数据集合键值",
             Type = "string",
@@ -265,9 +265,17 @@ public partial class Tables
         },
         new()
         {
-            Name = "Category",
+            Name = nameof(TableColumn<Foo, string>.GroupName),
             Description = "当前属性分组",
             Type = "string",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = nameof(TableColumn<Foo, string>.GroupOrder),
+            Description = "当前属性分组顺序",
+            Type = "int",
             ValueList = " — ",
             DefaultValue = " — "
         },
@@ -373,7 +381,7 @@ public partial class Tables
             DefaultValue = "130"
         },
         new()
-		{
+        {
             Name = "RenderModelResponsiveWidth",
             Description = "组件布局模式自动切换阈值",
             Type = "int",
@@ -693,7 +701,7 @@ public partial class Tables
             DefaultValue = "true"
         },
         new()
-		{
+        {
             Name = "ShowDeleteButton",
             Description = "显示删除按钮",
             Type = "boolean",
@@ -701,7 +709,7 @@ public partial class Tables
             DefaultValue = "true"
         },
         new()
-		{
+        {
             Name = "ShowDeleteButtonCallback",
             Description = "显示行内删除按钮未设置时使用 ShowEditButton 值",
             Type = "boolean",
@@ -716,344 +724,360 @@ public partial class Tables
             ValueList = "true / false",
             DefaultValue = "false"
         },
-        new() 
-		{
+        new()
+        {
+            Name = nameof(Table<Foo>.ShowExtendEditButton),
+            Description = "显示行编辑操作按钮",
+            Type = "boolean",
+            ValueList = "true / false",
+            DefaultValue = "true"
+        },
+        new()
+        {
+            Name = nameof(Table<Foo>.ShowExtendDeleteButton),
+            Description = "显示行删除操作按钮",
+            Type = "boolean",
+            ValueList = "true / false",
+            DefaultValue = "true"
+        },
+        new()
+        {
             Name = "ShowSkeleton",
             Description = "加载时是否显示骨架屏",
             Type = "boolean",
             ValueList = "true / false",
             DefaultValue = "false"
         },
-        new() 
-		{
+        new()
+        {
             Name = "ShowColumnList",
             Description = "是否显示列显示/隐藏控制按钮",
             Type = "boolean",
             ValueList = "true / false",
             DefaultValue = "false"
         },
-        new() 
-		{
+        new()
+        {
             Name = "ShowEmpty",
             Description = "是否显示无数据提示",
             Type = "boolean",
             ValueList = "true / false",
             DefaultValue = "false"
         },
-        new() 
-		{
+        new()
+        {
             Name = "ShowToastAfterSaveOrDeleteModel",
             Description = "保存/删除失败后是否显示 Toast 提示框",
             Type = "boolean",
             ValueList = "true / false",
             DefaultValue = "true"
         },
-        new() 
-		{
+        new()
+        {
             Name = "TreeIcon",
             Description = "树形数据行小箭头",
             Type = "string",
             ValueList = " — ",
             DefaultValue = "fa-caret-right"
         },
-        new() 
-		{
+        new()
+        {
             Name = "UseComponentWidth",
             Description = "组件渲染模式是否使用组件宽度来判断",
             Type = "boolean",
             ValueList = "true|false",
             DefaultValue = "false"
         },
-        new() 
-		{
+        new()
+        {
             Name = "ScrollingDialogContent",
             Description = "编辑弹窗框是否为内部出现滚动条",
             Type = "boolean",
             ValueList = "true / false",
             DefaultValue = "false"
         },
-        new() 
-		{
+        new()
+        {
             Name = "FixedExtendButtonsColumn",
             Description = "是否固定扩展按钮列",
             Type = "boolean",
             ValueList = "true / false",
             DefaultValue = "false"
         },
-        new() 
-		{
+        new()
+        {
             Name = "OnQueryAsync",
             Description = "异步查询回调方法",
             Type = "Func<QueryPageOptions, Task<QueryData<TItem>>>",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new() 
-		{
+        new()
+        {
             Name = "OnAddAsync",
             Description = "新建按钮回调方法",
             Type = "Func<Task<TItem>>",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new() 
-		{
+        new()
+        {
             Name = nameof(Table<Foo>.OnColumnCreating),
             Description = "列创建时回调委托方法",
             Type = "Func<List<ITableColumn>,Task>",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new() 
-		{
+        new()
+        {
             Name = nameof(Table<Foo>.OnDoubleClickCellCallback),
             Description = "设置单元格双击事件",
             Type = "Func<string, object, object?, Task>",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new() 
-		{
+        new()
+        {
             Name = "OnDeleteAsync",
             Description = "删除按钮异步回调方法",
             Type = "Func<IEnumerable<TItem>, Task<bool>>",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new() 
-		{
+        new()
+        {
             Name = "OnEditAsync",
             Description = "编辑按钮异步回调方法",
             Type = "Func<TItem, Task>",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new() 
-		{
+        new()
+        {
             Name = "OnSaveAsync",
             Description = "保存按钮异步回调方法",
             Type = "Func<TItem, Task>",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new() 
-		{
+        new()
+        {
             Name = "OnResetSearchAsync",
             Description = "重置搜索按钮异步回调方法",
             Type = "Func<TItem, Task>",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new() 
-		{
+        new()
+        {
             Name = "OnClickRowCallback",
             Description = "点击行回调委托方法",
             Type = "Func<TItem, Task>",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new() 
-		{
+        new()
+        {
             Name = "OnAfterSaveAsync",
             Description = "保存数据后异步回调方法",
             Type = "Func<TItem, Task>",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new() 
-		{
+        new()
+        {
             Name = nameof(BootstrapBlazor.Components.Table<Foo>.OnAfterRenderCallback),
             Description = "表格渲染完毕后回调方法",
             Type = "Func<Table<TItem>, Task>",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new() 
-		{
+        new()
+        {
             Name = "OnTreeExpand",
             Description = "树形数据节点展开式回调委托方法",
             Type = "Func<TItem, Task<IEnumerable<TItem>>>",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new() 
-		{
+        new()
+        {
             Name = "OnDoubleClickRowCallback",
             Description = "双击行回调委托方法",
             Type = "Func<TItem, Task>",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new() 
-		{
+        new()
+        {
             Name = "SortIcon",
             Description = "排序默认图标",
             Type = "string",
             ValueList = " — ",
             DefaultValue = "fa fa-sort"
         },
-        new() 
-		{
+        new()
+        {
             Name = "SortIconAsc",
             Description = "排序升序图标",
             Type = "string",
             ValueList = " — ",
             DefaultValue = "fa fa-sort-asc"
         },
-        new() 
-		{
+        new()
+        {
             Name = "SortIconDesc",
             Description = "排序降序图标",
             Type = "string",
             ValueList = " — ",
             DefaultValue = "fa fa-sort-desc"
         },
-        new() 
-		{
+        new()
+        {
             Name = "EditDialogSaveButtonText",
             Description = "编辑弹窗中保存按钮文字",
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new() 
-		{
+        new()
+        {
             Name = nameof(Table<Foo>.EditDialogIsDraggable),
             Description = "编辑弹窗是否可拖拽",
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
         },
-        new() 
-		{
+        new()
+        {
             Name = nameof(Table<Foo>.EditDialogShowMaximizeButton),
             Description = "编辑弹窗是否显示最大化按钮",
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "true"
         },
-        new() 
-		{
+        new()
+        {
             Name = "EditDialogSize",
             Description = "编辑弹窗大小",
             Type = "Size",
             ValueList = " — ",
             DefaultValue = "Large"
         },
-        new() 
-		{
+        new()
+        {
             Name = nameof(Table<Foo>.SearchDialogIsDraggable),
             Description = "搜索弹窗是否可拖拽",
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
         },
-        new() 
-		{
+        new()
+        {
             Name = nameof(Table<Foo>.SearchDialogShowMaximizeButton),
             Description = "搜索弹窗是否显示最大化按钮",
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "true"
         },
-        new() 
-		{
+        new()
+        {
             Name = "SearchDialogSize",
             Description = "搜索弹窗大小",
             Type = "Size",
             ValueList = " — ",
             DefaultValue = "Large"
         },
-        new() 
-		{
+        new()
+        {
             Name = "AddModalTitle",
             Description = "新建数据弹窗 Title",
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new() 
-		{
+        new()
+        {
             Name = "EditModalTitle",
             Description = "编辑数据弹窗 Title",
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new() 
-		{
+        new()
+        {
             Name = "UnsetText",
             Description = "未设置排序时 tooltip 显示文字",
             Type = "string",
             ValueList = " — ",
             DefaultValue = "点击升序"
         },
-        new() 
-		{
+        new()
+        {
             Name = "SortAscText",
             Description = "升序排序时 tooltip 显示文字",
             Type = "string",
             ValueList = " — ",
             DefaultValue = "点击降序"
         },
-        new() 
-		{
+        new()
+        {
             Name = "SortDescText",
             Description = "降序排序时 tooltip 显示文字",
             Type = "string",
             ValueList = " — ",
             DefaultValue = "取消排序"
         },
-        new() 
-		{
+        new()
+        {
             Name = "RenderMode",
             Description = "Table 组件布局模式设置",
             Type = "TableRenderMode",
             ValueList = "Auto|Table|CardView",
             DefaultValue = "Auto"
         },
-        new() 
-		{
+        new()
+        {
             Name = "EmptyText",
             Description = "无数据时显示文本",
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new() 
-		{
+        new()
+        {
             Name = nameof(Table<MethodItem>.EmptyImage),
             Description = "无数据时显示图片链接地址",
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new() 
-		{
+        new()
+        {
             Name = "EmptyTemplate",
             Description = "无数据时显示模板",
             Type = "RenderFragment",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new() 
-		{
+        new()
+        {
             Name = "EditDialogItemsPerRow",
             Description = "每行显示组件数量",
             Type = "int?",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new() 
-		{
+        new()
+        {
             Name = "EditDialogRowType",
             Description = "设置组件布局方式",
             Type = "RowType",
             ValueList = "Row|Inline",
             DefaultValue = "Row"
         },
-        new() 
-		{
+        new()
+        {
             Name = "EditDialogLabelAlign",
             Description = "Inline 布局模式下标签对齐方式",
             Type = "Alignment",

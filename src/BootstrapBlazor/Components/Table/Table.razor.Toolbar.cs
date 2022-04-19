@@ -86,13 +86,13 @@ public partial class Table<TItem>
     /// 获得/设置 是否显示行内扩展编辑按钮 默认 true 显示
     /// </summary>
     [Parameter]
-    public bool ShowExtendEditButton { get; set; }
+    public bool ShowExtendEditButton { get; set; } = true;
 
     /// <summary>
     /// 获得/设置 是否显示行内扩展编辑按钮 默认 true 显示
     /// </summary>
     [Parameter]
-    public bool ShowExtendDeleteButton { get; set; }
+    public bool ShowExtendDeleteButton { get; set; } = true;
 
     /// <summary>
     /// 获得/设置 是否固定扩展按钮列 默认为 false 不固定
