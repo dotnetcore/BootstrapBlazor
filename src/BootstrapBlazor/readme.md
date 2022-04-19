@@ -29,6 +29,12 @@
 - Install .net core sdk [Offical website](https://dotnet.microsoft.com/download)
 - Install Visual Studio 2019 lastest [Offical website](https://visualstudio.microsoft.com/vs/getting-started/)
 
+```shell
+git clone https://github.com/dotnetcore/BootstrapBlazor.git
+cd BootstrapBlazor/src/BootstrapBlazor.Server
+dotnet run
+```
+
 ## Create a new project from the dotnet new template
 
 1. Install the template

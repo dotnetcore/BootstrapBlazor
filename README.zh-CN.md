@@ -49,6 +49,44 @@ WTM 快速开发框架，设计的核心理念就是 "尽一切可能提高开�
 2. 安装 Visual Studio 2022 最新版 [官方网址](https://visualstudio.microsoft.com/vs/getting-started/)
 3. 获取本项目代码 [BootstrapBlazor](https://gitee.com/LongbowEnterprise/BootstrapBlazor)
 
+### 克隆代码
+
+```shell
+git clone https://gitee.com/LongbowEnterprise/BootstrapBlazor.git
+cd BootstrapBlazor/src/BootstrapBlazor.Server
+dotnet run
+```
+
+### CLI
+
+**Install Template**
+
+```c#
+dotnet new -i Bootstrap.Blazor.Templates
+```
+
+**Create Project**
+
+```shell
+dotnet new bbapp
+```
+
+**Run**
+
+```shell
+dotnet run
+```
+
+### 项目模板
+
+- [微软市场](https://marketplace.visualstudio.com/items?itemName=Longbow.BootstrapBlazorUITemplate)
+- [码云镜像](https://gitee.com/LongbowEnterprise/BootstrapBlazorVsix/raw/master/dist/BootstrapBlazor.UITemplate.vsix)
+
+### 更多文档
+
+- [项目模板](https://www.blazor.zone/template)
+- [快速上手](https://www.blazor.zone/install-server)
+
 ## 相关资源
 
 - [Blazor 官方文档](https://docs.microsoft.com/zh-cn/aspnet/core/blazor/?WT.mc_id=DT-MVP-5004174)
@@ -91,6 +129,41 @@ Blazor 应用基于组件。 Blazor 中的组件是指 UI 元素，例如页面�
 
 ## 演示地址
 [![website](https://img.shields.io/badge/Github-海外-success.svg?logo=buzzfeed&logoColor=red&color=red)](https://argozhang.github.io) [![website](https://img.shields.io/badge/linux-主站-success.svg?logo=buzzfeed&logoColor=green)](https://www.blazor.zone)
+
+## 浏览器支持
+
+![chrome](https://img.shields.io/badge/chrome->%3D57-success.svg?logo=google%20chrome&logoColor=red)
+![firefox](https://img.shields.io/badge/firefox->522-success.svg?logo=mozilla%20firefox&logoColor=red)
+![edge](https://img.shields.io/badge/edge->%3D16-success.svg?logo=microsoft%20edge&logoColor=blue)
+![ie](https://img.shields.io/badge/ie->%3D11-success.svg?logo=internet%20explorer&logoColor=blue)
+![Safari](https://img.shields.io/badge/safari->%3D14-success.svg?logo=safari&logoColor=blue)
+![Andriod](https://img.shields.io/badge/andriod->%3D4.4-success.svg?logo=android)
+![oper](https://img.shields.io/badge/opera->%3D4.4-success.svg?logo=opera&logoColor=red)
+
+### 移动设备
+
+![ios](https://img.shields.io/badge/ios-supported-success.svg?logo=apple&logoColor=white)
+![Andriod](https://img.shields.io/badge/andriod-suported-success.svg?logo=android)
+![windows](https://img.shields.io/badge/windows-suported-success.svg?logo=windows&logoColor=blue)
+
+|                        |  **Chrome**  |  **Firefox**  |  **Safari**  |  **Android Browser & WebView**  |  **Microsoft Edge**  |
+| -------                | ---------    | ---------     | ------       | -------------------------       | --------------       |
+|  **iOS**               | Supported    | Supported     | Supported    | N/A                             | Supported            |
+|  **Android**           | Supported    | Supported     | N/A          | Android v5.0+ supported         | Supported            |
+|  **Windows 10 Mobile** | N/A          | N/A           | N/A          | N/A                             | Supported            |
+
+### 桌面设备
+
+![macOS](https://img.shields.io/badge/macOS-supported-success.svg?logo=apple&logoColor=white)
+![linux](https://img.shields.io/badge/linux-suported-success.svg?logo=linux&logoColor=white)
+![windows](https://img.shields.io/badge/windows-suported-success.svg?logo=windows)
+
+|         | Chrome    | Firefox   | Internet Explorer | Microsoft Edge | Opera     | Safari        |
+| ------- | --------- | --------- | ----------------- | -------------- | --------- | ------------- |
+| Mac     | Supported | Supported | N/A               | N/A            | Supported | Supported     |
+| Linux   | Supported | Supported | N/A               | N/A            | N/A       | N/A           |
+| Windows | Supported | Supported | Supported, IE11+  | Supported      | Supported | Not supported |
+
 
 ## GVP 奖杯
 ![项目奖杯](https://images.gitee.com/uploads/images/2021/0112/120620_e596ac3c_554725.png "GVP.png")
