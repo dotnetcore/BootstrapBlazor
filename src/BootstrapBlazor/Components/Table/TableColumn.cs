@@ -398,6 +398,17 @@ public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn
     public string? FieldName { get; set; }
 
     /// <summary>
+    /// 获得/设置 当前属性分组 默认 null
+    /// </summary>
+    public string? GroupName { get; set; }
+
+    /// <summary>
+    /// 获得/设置 当前属性分组排序 默认 0
+    /// </summary>
+    [Parameter]
+    public int GroupOrder { get; set; }
+
+    /// <summary>
     /// 获取绑定字段信息方法
     /// </summary>
     public string GetFieldName()

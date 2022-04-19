@@ -106,4 +106,8 @@ internal class MockTableColumn : ITableColumn
     public string GetDisplayName() => Text ?? FieldName;
 
     public string GetFieldName() => FieldName;
+
+    public string? GroupName { get; set; }
+
+    public int GroupOrder { get; set; }
 }

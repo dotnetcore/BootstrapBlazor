@@ -116,4 +116,19 @@ public interface IEditorItem
     /// 获取绑定字段信息方法
     /// </summary>
     string GetFieldName();
+
+    /// <summary>
+    /// 获得/设置 顺序号
+    /// </summary>
+    int Order { get; set; }
+
+    /// <summary>
+    /// 获得/设置 当前属性分组
+    /// </summary>
+    string? GroupName { get; set; }
+
+    /// <summary>
+    /// 获得/设置 当前属性分组排序 默认 0
+    /// </summary>
+    int GroupOrder { get; set; }
 }
