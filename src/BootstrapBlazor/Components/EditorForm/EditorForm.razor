@@ -16,48 +16,26 @@ else
 {
     <div class="form-body">
         <CascadingValue Value="this" Name="EidtorForm">
-            @foreach (var g in FormItems.GroupBy(i => i.GroupOrder).OrderBy(i => i.Key).Select(i => new { i.First().GroupName, Items = i.OrderBy(x => x.Order) }))
+            @if(ShowUnsetGroupItemsOnTop)
             {
-                if (string.IsNullOrEmpty(g.GroupName))
+                if (UnsetGroupItems.Any())
                 {
-                    <div class="@FormClassString">
-                        @foreach (var item in g.Items)
-                        {
-                            var render = GetRenderTemplate(item);
-                            @if (render != null)
-                            {
-                                @render(Model)
-                            }
-                            else
-                            {
-                                <div class="@GetCssString(item)">
-                                    @AutoGenerateTemplate(item)
-                                </div>
-                            }
-                        }
-                    </div>
+                    @RenderUnsetGroupItems
                 }
-                else
+                @foreach (var g in GroupItems)
                 {
-                    <GroupBox Title="@g.GroupName">
-                        <div class="@FormClassString">
-                            @foreach (var item in g.Items)
-                            {
-
-                                var render = GetRenderTemplate(item);
-                                @if (render != null)
-                                {
-                                    @render(Model)
-                                }
-                                else
-                                {
-                                    <div class="@GetCssString(item)">
-                                        @AutoGenerateTemplate(item)
-                                    </div>
-                                }
-                            }
-                        </div>
-                    </GroupBox>
+                    @RenderGroupItems(g)
+                }
+            }
+            else
+            {
+                @foreach (var g in GroupItems)
+                {
+                    @RenderGroupItems(g)
+                }
+                if (UnsetGroupItems.Any())
+                {
+                    @RenderUnsetGroupItems
                 }
             }
         </CascadingValue>
@@ -68,4 +46,46 @@ else
             @Buttons
         </div>
     }
+}
+
+@code
+{
+    RenderFragment RenderUnsetGroupItems =>
+    @<div class="@FormClassString">
+        @foreach (var item in UnsetGroupItems)
+        {
+            var render = GetRenderTemplate(item);
+            @if (render != null)
+            {
+                @render(Model)
+            }
+            else
+            {
+                <div class="@GetCssString(item)">
+                    @AutoGenerateTemplate(item)
+                </div>
+            }
+        }
+    </div>;
+
+    RenderFragment<KeyValuePair<string, IOrderedEnumerable<IEditorItem>>> RenderGroupItems => g =>
+    @<GroupBox Title="@g.Key">
+        <div class="@FormClassString">
+            @foreach (var item in g.Value)
+            {
+
+                var render = GetRenderTemplate(item);
+                @if (render != null)
+                {
+                    @render(Model)
+                }
+                else
+                {
+                    <div class="@GetCssString(item)">
+                        @AutoGenerateTemplate(item)
+                    </div>
+                }
+            }
+        </div>
+    </GroupBox>;
 }

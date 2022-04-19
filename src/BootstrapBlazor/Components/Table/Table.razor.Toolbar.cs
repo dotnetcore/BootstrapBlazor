@@ -496,6 +496,12 @@ public partial class Table<TItem>
     public bool EditDialogShowMaximizeButton { get; set; } = true;
 
     /// <summary>
+    /// 获得/设置 未分组编辑项布局位置 默认 false 在尾部
+    /// </summary>
+    [Parameter]
+    public bool ShowUnsetGroupItemsOnTop { get; set; }
+
+    /// <summary>
     /// 弹出编辑对话框方法
     /// </summary>
     protected async Task ShowEditDialog(ItemChangedType changedType)
@@ -520,6 +526,7 @@ public partial class Table<TItem>
             Size = EditDialogSize,
             IsDraggable = EditDialogIsDraggable,
             ShowMaximizeButton = EditDialogShowMaximizeButton,
+            ShowUnsetGroupItemsOnTop = ShowUnsetGroupItemsOnTop,
             OnCloseAsync = async () =>
             {
                 var d = DataService ?? InjectDataService;

@@ -22,6 +22,7 @@ public static class DialogServiceExtensions
     {
         var parameters = new Dictionary<string, object?>
         {
+            [nameof(SearchDialog<TModel>.ShowUnsetGroupItemsOnTop)] = option.ShowUnsetGroupItemsOnTop,
             [nameof(SearchDialog<TModel>.ShowLabel)] = option.ShowLabel,
             [nameof(SearchDialog<TModel>.Items)] = option.Items ?? Utility.GenerateColumns<TModel>(item => item.Searchable),
             [nameof(SearchDialog<TModel>.OnResetSearchClick)] = new Func<Task>(async () =>
@@ -64,6 +65,7 @@ public static class DialogServiceExtensions
     {
         var parameters = new Dictionary<string, object?>
         {
+            [nameof(EditDialog<TModel>.ShowUnsetGroupItemsOnTop)] = option.ShowUnsetGroupItemsOnTop,
             [nameof(EditDialog<TModel>.ShowLoading)] = option.ShowLoading,
             [nameof(EditDialog<TModel>.ShowLabel)] = option.ShowLabel,
             [nameof(EditDialog<TModel>.Items)] = option.Items ?? Utility.GenerateColumns<TModel>(item => item.Editable),

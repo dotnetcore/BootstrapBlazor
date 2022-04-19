@@ -57,6 +57,11 @@ public class EditDialogOption<TModel> : DialogOption
     public bool ShowLoading { get; set; }
 
     /// <summary>
+    /// 获得/设置 未分组编辑项布局位置 默认 false 在尾部
+    /// </summary>
+    public bool ShowUnsetGroupItemsOnTop { get; set; }
+
+    /// <summary>
     /// 获得/设置 编辑框模型
     /// </summary>
     public TModel? Model { get; set; }

@@ -26,6 +26,11 @@ public class SearchDialogOption<TModel> : DialogOption
     public bool ShowLabel { get; set; } = true;
 
     /// <summary>
+    /// 获得/设置 未分组编辑项布局位置 默认 false 在尾部
+    /// </summary>
+    public bool ShowUnsetGroupItemsOnTop { get; set; }
+
+    /// <summary>
     /// 获得/设置 每行显示组件数量 默认为 null
     /// </summary>
     public int? ItemsPerRow { get; set; }

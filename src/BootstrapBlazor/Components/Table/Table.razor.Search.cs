@@ -197,7 +197,8 @@ public partial class Table<TItem>
             Size = SearchDialogSize,
             Items = Columns.Where(i => i.Searchable),
             IsDraggable = SearchDialogIsDraggable,
-            ShowMaximizeButton = SearchDialogShowMaximizeButton
+            ShowMaximizeButton = SearchDialogShowMaximizeButton,
+            ShowUnsetGroupItemsOnTop = ShowUnsetGroupItemsOnTop
         };
 
         SearchDialogOption<ITableSearchModel> CreateCustomerModelDialog() => new()

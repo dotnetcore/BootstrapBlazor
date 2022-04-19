@@ -55,6 +55,12 @@ public abstract class DialogBase<TModel> : ComponentBase
     public Alignment LabelAlign { get; set; }
 
     /// <summary>
+    /// 获得/设置 未分组编辑项布局位置 默认 false 在尾部
+    /// </summary>
+    [Parameter]
+    public bool ShowUnsetGroupItemsOnTop { get; set; }
+
+    /// <summary>
     /// OnInitialized 方法
     /// </summary>
     protected override void OnInitialized()

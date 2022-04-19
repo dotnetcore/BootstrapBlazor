@@ -742,6 +742,14 @@ public partial class Tables
         },
         new()
         {
+            Name = nameof(Table<Foo>.ShowUnsetGroupItemsOnTop),
+            Description = "未分组编辑项是否在开头渲染",
+            Type = "boolean",
+            ValueList = "true / false",
+            DefaultValue = "false"
+        },
+        new()
+        {
             Name = "ShowSkeleton",
             Description = "加载时是否显示骨架屏",
             Type = "boolean",

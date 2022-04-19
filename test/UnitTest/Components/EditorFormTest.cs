@@ -354,13 +354,16 @@ public class EditorFormTest : BootstrapBlazorTestBase
         Assert.Equal(lookup!.Count(), select.Instance.Items.Count());
     }
 
-    [Fact]
-    public void GroupName_Order_Ok()
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void GroupName_Order_Ok(bool showUnsetGroupItemsOnTop)
     {
         var foo = new Foo();
         var cut = Context.RenderComponent<EditorForm<Foo>>(pb =>
         {
             pb.AddCascadingValue("IsSearch", true);
+            pb.Add(a => a.ShowUnsetGroupItemsOnTop, showUnsetGroupItemsOnTop);
             pb.Add(a => a.Model, foo);
             pb.Add(a => a.AutoGenerateAllItem, false);
             pb.Add(a => a.FieldItems, f => builder =>
