@@ -10,7 +10,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 枚举类型过滤组件
 /// </summary>
-public partial class LookupFilter
+public partial class LookupFilter : IFilterAction
 {
     private string? Value { get; set; }
 
@@ -104,7 +104,7 @@ public partial class LookupFilter
     /// <summary>
     /// Override existing filter conditions
     /// </summary>
-    public void SetFilterConditions(IEnumerable<FilterKeyValueAction> conditions)
+    public async void SetFilterConditions(IEnumerable<FilterKeyValueAction> conditions)
     {
         if (conditions.Any())
         {
@@ -118,6 +118,8 @@ public partial class LookupFilter
             {
                 Value = "";
             }
+
+            await OnFilterValueChanged();
         }
     }
 }
