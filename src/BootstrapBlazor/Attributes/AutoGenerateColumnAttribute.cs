@@ -215,4 +215,14 @@ public class AutoGenerateColumnAttribute : AutoGenerateBaseAttribute, ITableColu
     /// </summary>
     /// <returns></returns>
     public string GetFieldName() => FieldName;
+
+    /// <summary>
+    /// 获得/设置 当前属性分组
+    /// </summary>
+    public string? GroupName { get; set; }
+
+    /// <summary>
+    /// 获得/设置 当前属性分组排序 默认 0
+    /// </summary>
+    public int GroupOrder { get; set; }
 }

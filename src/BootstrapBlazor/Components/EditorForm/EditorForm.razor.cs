@@ -134,12 +134,12 @@ public sealed partial class EditorForm<TModel> : IShowLabel
     /// <summary>
     /// 获得/设置 配置编辑项目集合
     /// </summary>
-    private List<IEditorItem> EditorItems { get; } = new List<IEditorItem>();
+    private List<IEditorItem> EditorItems { get; } = new();
 
     /// <summary>
     /// 获得/设置 渲染的编辑项集合
     /// </summary>
-    private List<IEditorItem> FormItems { get; } = new List<IEditorItem>();
+    private List<IEditorItem> FormItems { get; } = new();
 
     [NotNull]
     private string? PlaceHolderText { get; set; }

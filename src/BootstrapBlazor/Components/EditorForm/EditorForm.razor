@@ -15,24 +15,52 @@
 else
 {
     <div class="form-body">
-        <div class="@FormClassString">
-            <CascadingValue Value="this" Name="EidtorForm">
-                @foreach (var item in FormItems)
+        <CascadingValue Value="this" Name="EidtorForm">
+            @foreach (var g in FormItems.GroupBy(i => i.GroupOrder).OrderBy(i => i.Key).Select(i => new { i.First().GroupName, Items = i.OrderBy(x => x.Order) }))
+            {
+                if (string.IsNullOrEmpty(g.GroupName))
                 {
-                    var render = GetRenderTemplate(item);
-                    @if (render != null)
-                    {
-                        @render(Model)
-                    }
-                    else
-                    {
-                        <div class="@GetCssString(item)">
-                            @AutoGenerateTemplate(item)
-                        </div>
-                    }
+                    <div class="@FormClassString">
+                        @foreach (var item in g.Items)
+                        {
+                            var render = GetRenderTemplate(item);
+                            @if (render != null)
+                            {
+                                @render(Model)
+                            }
+                            else
+                            {
+                                <div class="@GetCssString(item)">
+                                    @AutoGenerateTemplate(item)
+                                </div>
+                            }
+                        }
+                    </div>
                 }
-            </CascadingValue>
-        </div>
+                else
+                {
+                    <GroupBox Title="@g.GroupName">
+                        <div class="@FormClassString">
+                            @foreach (var item in g.Items)
+                            {
+
+                                var render = GetRenderTemplate(item);
+                                @if (render != null)
+                                {
+                                    @render(Model)
+                                }
+                                else
+                                {
+                                    <div class="@GetCssString(item)">
+                                        @AutoGenerateTemplate(item)
+                                    </div>
+                                }
+                            }
+                        </div>
+                    </GroupBox>
+                }
+            }
+        </CascadingValue>
     </div>
     @if (Buttons != null)
     {
