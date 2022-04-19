@@ -22,7 +22,7 @@ public interface ITableColumn : IEditorItem
     bool DefaultSort { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否为默认排序规则 默认为 SortOrder.Unset
+    /// 获得/设置 默认排序规则 默认为 SortOrder.Unset
     /// </summary>
     SortOrder DefaultSortOrder { get; set; }
 

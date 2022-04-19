@@ -97,6 +97,30 @@ public partial class Tables
         },
         new()
         {
+            Name = "FilterTemplate",
+            Description = "过滤模板",
+            Type = "RenderFragment?",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = "Filter",
+            Description = "列过滤器",
+            Type = "IFilter?",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = "HeaderTemplate",
+            Description = "表头模板",
+            Type = "RenderFragment<ITableColumn>?",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
             Name = nameof(IEditorItem.IsReadonlyWhenAdd),
             Description = "新建时此列只读",
             Type = "boolean",
@@ -161,11 +185,35 @@ public partial class Tables
         },
         new()
         {
+            Name = "Searchable",
+            Description = "是否参与搜索",
+            Type = "boolean",
+            ValueList = "true|false",
+            DefaultValue = "false"
+        },
+        new()
+        {
             Name = "Sortable",
             Description = "是否排序",
             Type = "boolean",
             ValueList = "true|false",
             DefaultValue = "false"
+        },
+        new()
+        {
+            Name = "DefaultSort",
+            Description = "是否为默认排序列",
+            Type = "boolean",
+            ValueList = "true|false",
+            DefaultValue = "false"
+        },
+        new()
+        {
+            Name = "DefaultSortOrder",
+            Description = "默认排序规则",
+            Type = "SortOrder",
+            ValueList = "Unset|Asc|Desc",
+            DefaultValue = "Unset"
         },
         new()
         {
@@ -206,7 +254,71 @@ public partial class Tables
             Type = "int",
             ValueList = " — ",
             DefaultValue = " — "
-        }
+        },
+        new()
+        {
+            Name = "Fixed",
+            Description = "是否固定本列",
+            Type = "boolean",
+            ValueList = "true|false",
+            DefaultValue = "false"
+        },
+        new()
+        {
+            Name = "Category",
+            Description = "当前属性分组",
+            Type = "string",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = "ShownWithBreakPoint",
+            Description = "显示节点阈值",
+            Type = "BreakPoint",
+            ValueList = "None|ExtraSmall|...",
+            DefaultValue = "None"
+        },
+        new()
+        {
+            Name = "FormatString",
+            Description = "格式化字符串",
+            Type = "string?",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = "Formatter",
+            Description = "列格式化回调委托",
+            Type = "Func<object?, Task<string>>?",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = "Align",
+            Description = "文字对齐方式",
+            Type = "Alignment",
+            ValueList = "None|Left|Center|Right",
+            DefaultValue = "None"
+        },
+        new()
+        {
+            Name = "Order",
+            Description = "顺序号",
+            Type = "int",
+            ValueList = " - ",
+            DefaultValue = " - "
+        },
+        new()
+        {
+            Name = "OnCellRender",
+            Description = "单元格回调方法",
+            Type = "Action<TableCellArgs>?",
+            ValueList = " - ",
+            DefaultValue = " - "
+        },
     };
 
     private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
