@@ -10,7 +10,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 字符串类型过滤条件
 /// </summary>
-public partial class StringFilter
+public partial class StringFilter : IFilterAction
 {
     private string Value1 { get; set; } = "";
 
@@ -95,7 +95,7 @@ public partial class StringFilter
     /// <summary>
     /// Override existing filter conditions
     /// </summary>
-    public void SetFilterConditions(IEnumerable<FilterKeyValueAction> conditions)
+    public async void SetFilterConditions(IEnumerable<FilterKeyValueAction> conditions)
     {
         if (conditions.Any())
         {
@@ -126,6 +126,8 @@ public partial class StringFilter
                 Action1 = second.FilterAction;
                 Logic = second.FilterLogic;
             }
+
+            await OnFilterValueChanged();
         }
     }
 }

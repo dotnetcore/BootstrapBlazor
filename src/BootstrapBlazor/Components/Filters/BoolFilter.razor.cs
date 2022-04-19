@@ -10,7 +10,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 布尔类型过滤条件
 /// </summary>
-public partial class BoolFilter
+public partial class BoolFilter : IFilterAction
 {
     private string Value { get; set; } = "";
 
@@ -72,7 +72,7 @@ public partial class BoolFilter
     /// <summary>
     /// Override existing filter conditions
     /// </summary>
-    public void SetFilterConditions(IEnumerable<FilterKeyValueAction> conditions)
+    public async void SetFilterConditions(IEnumerable<FilterKeyValueAction> conditions)
     {
         if (conditions.Any())
         {
@@ -85,6 +85,8 @@ public partial class BoolFilter
             {
                 Value = "";
             }
+
+            await OnFilterValueChanged();
         }
     }
 }
