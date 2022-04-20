@@ -662,6 +662,14 @@ public partial class Tables
         },
         new()
         {
+            Name = nameof(Table<Foo>.CollapsedTopSearch),
+            Description = "是否收缩顶部搜索框",
+            Type = "boolean",
+            ValueList = "true / false",
+            DefaultValue = "false"
+        },
+        new()
+        {
             Name = "ShowToolbar",
             Description = "显示 Toolbar",
             Type = "boolean",

@@ -798,10 +798,10 @@ RenderFragment<TItem> RenderRowExtendButtons => item =>
 </td>;
 
 RenderFragment RenderSearch =>
-@<Card>
-    <CardHeader>
+@<div class="@TopSearchClassString">
+    <div class="card-header">
         <div class="d-flex">
-            <div class="table-search-collapse is-open">
+            <div class="@TopSearchHeaderClassString">
                 <i class="table-search-collapse-arrow fa fa-chevron-circle-right"></i>
                 <div class="table-search-collapse-title">@SearchModalTitle</div>
             </div>
@@ -840,8 +840,8 @@ RenderFragment RenderSearch =>
                 }
             </div>
         </div>
-    </CardHeader>
-    <CardBody>
+    </div>
+    <div class="card-body" style="@TopSearchBodyClassString">
         @if(CustomerSearchModel != null && CustomerSearchTemplate != null)
         {
             @CustomerSearchTemplate(CustomerSearchModel)
@@ -857,6 +857,6 @@ RenderFragment RenderSearch =>
                 </EditorForm>
             </CascadingValue>
         }
-    </CardBody>
-</Card>;
+    </div>
+</div>;
 }

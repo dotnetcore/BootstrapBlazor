@@ -52,6 +52,12 @@ public partial class Table<TItem>
     public bool ShowSearch { get; set; }
 
     /// <summary>
+    /// 获得/设置 是否收缩顶部搜索框 默认为 false 不收缩搜索框 是否显示搜索框请设置 <see cref="SearchMode"/> 值 Top
+    /// </summary>
+    [Parameter]
+    public bool CollapsedTopSearch { get; set; }
+
+    /// <summary>
     /// 获得/设置 是否显示搜索框 默认为 true 显示搜索文本框  <see cref="ShowSearch" />
     /// </summary>
     [Parameter]
@@ -116,6 +122,18 @@ public partial class Table<TItem>
     /// </summary>
     [Parameter]
     public Func<TItem, Task>? OnResetSearchAsync { get; set; }
+
+    private string? TopSearchClassString => CssBuilder.Default("card")
+        .AddClass("collapsed", CollapsedTopSearch)
+        .Build();
+
+    private string? TopSearchHeaderClassString => CssBuilder.Default("table-search-collapse")
+        .AddClass("is-open", !CollapsedTopSearch)
+        .Build();
+
+    private string? TopSearchBodyClassString => CssBuilder.Default()
+        .AddClass("display: none;", CollapsedTopSearch)
+        .Build();
 
     /// <summary>
     /// 重置查询方法
