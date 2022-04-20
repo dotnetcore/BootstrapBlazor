@@ -10,7 +10,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 时间类型过滤条件
 /// </summary>
-public partial class DateTimeFilter : IFilterAction
+public partial class DateTimeFilter
 {
     private DateTime? Value1 { get; set; }
 
@@ -92,7 +92,7 @@ public partial class DateTimeFilter : IFilterAction
     /// <summary>
     /// Override existing filter conditions
     /// </summary>
-    public async void SetFilterConditions(IEnumerable<FilterKeyValueAction> conditions)
+    public override async Task SetFilterConditionsAsync(IEnumerable<FilterKeyValueAction> conditions)
     {
         if (conditions.Any())
         {
@@ -122,8 +122,7 @@ public partial class DateTimeFilter : IFilterAction
                 Action1 = second.FilterAction;
                 Logic = second.FilterLogic;
             }
-
-            await OnFilterValueChanged();
         }
+        await base.SetFilterConditionsAsync(conditions);
     }
 }

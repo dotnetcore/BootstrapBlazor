@@ -203,10 +203,7 @@ public partial class TableFilter : IFilter, IDisposable
             {
                 Table.Filters.Remove(FieldKey);
                 FilterAction.Reset();
-                if (Table.OnFilterAsync != null)
-                {
-                    await Table.OnFilterAsync();
-                }
+                await Table.OnFilterAsync();
             }
         }
     }
@@ -240,11 +237,7 @@ public partial class TableFilter : IFilter, IDisposable
             {
                 Table.Filters.Remove(FieldKey);
             }
-
-            if (Table.OnFilterAsync != null)
-            {
-                await Table.OnFilterAsync();
-            }
+            await Table.OnFilterAsync();
         }
     }
 

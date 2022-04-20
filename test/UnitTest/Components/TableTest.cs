@@ -164,7 +164,7 @@ public class TableTest : TableTestBase
     }
 
     [Fact]
-    public void ResetAllColumnFilters_Ok()
+    public async Task ResetFilters_Ok()
     {
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
         {
@@ -185,20 +185,19 @@ public class TableTest : TableTestBase
             });
         });
         var filter = cut.FindComponent<BootstrapInput<string>>().Instance;
-        cut.InvokeAsync(() => filter.SetValue("test"));
+        await cut.InvokeAsync(() => filter.SetValue("test"));
 
         var items = cut.FindAll(".dropdown-item");
         IEnumerable<FilterKeyValueAction>? condtions = null;
-        cut.InvokeAsync(() => items[1].Click());
-        cut.InvokeAsync(() => condtions = cut.FindComponent<StringFilter>().Instance.GetFilterConditions());
+        await cut.InvokeAsync(() => items[1].Click());
+        await cut.InvokeAsync(() => condtions = cut.FindComponent<StringFilter>().Instance.GetFilterConditions());
         Assert.Single(condtions);
 
         var table = cut.FindComponent<Table<Foo>>().Instance;
-
-        cut.InvokeAsync(() => table.ResetAllColumnsFilter());
+        await cut.InvokeAsync(() => table.ResetFilters());
 
         condtions = null;
-        cut.InvokeAsync(() => condtions = cut.FindComponent<StringFilter>().Instance.GetFilterConditions());
+        await cut.InvokeAsync(() => condtions = cut.FindComponent<StringFilter>().Instance.GetFilterConditions());
         Assert.Empty(condtions);
     }
 

@@ -10,7 +10,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 数字类型过滤条件
 /// </summary>
-public partial class NumberFilter<TType> : IFilterAction
+public partial class NumberFilter<TType>
 {
     private TType? Value1 { get; set; }
 
@@ -98,7 +98,7 @@ public partial class NumberFilter<TType> : IFilterAction
     /// <summary>
     /// Override existing filter conditions
     /// </summary>
-    public async void SetFilterConditions(IEnumerable<FilterKeyValueAction> conditions)
+    public override async Task SetFilterConditionsAsync(IEnumerable<FilterKeyValueAction> conditions)
     {
         if (conditions.Any())
         {
@@ -128,8 +128,7 @@ public partial class NumberFilter<TType> : IFilterAction
                 Action1 = second.FilterAction;
                 Logic = second.FilterLogic;
             }
-
-            await OnFilterValueChanged();
         }
+        await base.SetFilterConditionsAsync(conditions);
     }
 }

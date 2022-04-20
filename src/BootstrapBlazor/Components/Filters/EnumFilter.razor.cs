@@ -10,7 +10,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 枚举类型过滤组件
 /// </summary>
-public partial class EnumFilter : IFilterAction
+public partial class EnumFilter
 {
     private string? Value { get; set; }
 
@@ -85,7 +85,7 @@ public partial class EnumFilter : IFilterAction
     /// <summary>
     /// Override existing filter conditions
     /// </summary>
-    public async void SetFilterConditions(IEnumerable<FilterKeyValueAction> conditions)
+    public override async Task SetFilterConditionsAsync(IEnumerable<FilterKeyValueAction> conditions)
     {
         if (conditions.Any())
         {
@@ -99,8 +99,7 @@ public partial class EnumFilter : IFilterAction
             {
                 Value = "";
             }
-
-            await OnFilterValueChanged();
         }
+        await base.SetFilterConditionsAsync(conditions);
     }
 }

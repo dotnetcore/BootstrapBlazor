@@ -76,6 +76,12 @@ public abstract class FilterBase : ComponentBase, IFilterAction
     public abstract IEnumerable<FilterKeyValueAction> GetFilterConditions();
 
     /// <summary>
+    /// 设置过滤集合方法
+    /// </summary>
+    /// <param name="conditions"></param>
+    public virtual Task SetFilterConditionsAsync(IEnumerable<FilterKeyValueAction> conditions) => OnFilterValueChanged();
+
+    /// <summary>
     /// 
     /// </summary>
     /// <returns></returns>

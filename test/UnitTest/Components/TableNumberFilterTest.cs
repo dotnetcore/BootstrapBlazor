@@ -153,7 +153,7 @@ public class TableNumberFilterTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void SetFilterConditions_Ok()
+    public async Task SetFilterConditions_Ok()
     {
         var cut = Context.RenderComponent<NumberFilter<int?>>();
         var filter = cut.Instance;
@@ -165,16 +165,16 @@ public class TableNumberFilterTest : BootstrapBlazorTestBase
             new FilterKeyValueAction() { FieldValue = 1 },
             new FilterKeyValueAction() { FieldValue = 2 }
         };
-        filter.SetFilterConditions(newConditions);
+        await filter.SetFilterConditionsAsync(newConditions);
         conditions = filter.GetFilterConditions();
         Assert.Equal(2, conditions.Count());
-        
+
         newConditions = new List<FilterKeyValueAction>
         {
             new FilterKeyValueAction() { FieldValue = null },
             new FilterKeyValueAction() { FieldValue = null }
         };
-        filter.SetFilterConditions(newConditions);
+        await filter.SetFilterConditionsAsync(newConditions);
         conditions = filter.GetFilterConditions();
         Assert.Empty(conditions);
     }

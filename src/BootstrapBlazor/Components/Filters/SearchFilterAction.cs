@@ -17,7 +17,7 @@ public class SearchFilterAction : IFilterAction
     /// <summary>
     /// 
     /// </summary>
-    public object Value { get; set; }
+    public object? Value { get; set; }
 
     /// <summary>
     /// 
@@ -30,11 +30,37 @@ public class SearchFilterAction : IFilterAction
     /// <param name="name"></param>
     /// <param name="value"></param>
     /// <param name="action"></param>
-    public SearchFilterAction(string name, object value, FilterAction action = FilterAction.Contains)
+    public SearchFilterAction(string name, object? value, FilterAction action = FilterAction.Contains)
     {
         Name = name;
         Value = value;
         Action = action;
+    }
+
+    /// <summary>
+    /// 重置过滤条件方法
+    /// </summary>
+    public void Reset()
+    {
+        Value = null;
+    }
+
+    /// <summary>
+    /// 设置过滤条件方法
+    /// </summary>
+    /// <param name="conditions"></param>
+    /// <returns></returns>
+    public Task SetFilterConditionsAsync(IEnumerable<FilterKeyValueAction> conditions)
+    {
+        if (conditions.Any())
+        {
+            var condition = conditions.FirstOrDefault(c => c.FieldKey == Name);
+            if (condition != null)
+            {
+                Value = condition.FieldValue;
+            }
+        }
+        return Task.CompletedTask;
     }
 
     /// <summary>

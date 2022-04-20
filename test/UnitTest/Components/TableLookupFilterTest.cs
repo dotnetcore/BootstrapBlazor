@@ -97,7 +97,7 @@ public class TableLookupFilterTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void SetFilterConditions_Ok()
+    public async Task SetFilterConditions_Ok()
     {
         var cut = Context.RenderComponent<LookupFilter>(pb =>
         {
@@ -117,7 +117,7 @@ public class TableLookupFilterTest : BootstrapBlazorTestBase
         {
             new FilterKeyValueAction() { FieldValue = true }
         };
-        filter.SetFilterConditions(newConditions);
+        await filter.SetFilterConditionsAsync(newConditions);
         conditions = filter.GetFilterConditions();
         Assert.Single(conditions);
 
@@ -125,7 +125,7 @@ public class TableLookupFilterTest : BootstrapBlazorTestBase
         {
             new FilterKeyValueAction() { FieldValue = null }
         };
-        filter.SetFilterConditions(newConditions);
+        await filter.SetFilterConditionsAsync(newConditions);
         conditions = filter.GetFilterConditions();
         Assert.Empty(conditions);
     }

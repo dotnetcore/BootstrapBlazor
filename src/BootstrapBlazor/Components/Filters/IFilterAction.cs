@@ -18,10 +18,10 @@ public interface IFilterAction
     /// <summary>
     /// 重置过滤条件方法
     /// </summary>
-    void Reset() { }
+    void Reset();
 
     /// <summary>
     /// Override existing filter conditions
     /// </summary>
-    void SetFilterConditions(IEnumerable<FilterKeyValueAction> conditions) { }
+    Task SetFilterConditionsAsync(IEnumerable<FilterKeyValueAction> conditions);
 }

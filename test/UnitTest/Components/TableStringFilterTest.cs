@@ -87,7 +87,7 @@ public class TableStringFilterTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void SetFilterConditions_Ok()
+    public async Task SetFilterConditions_Ok()
     {
         var cut = Context.RenderComponent<StringFilter>();
         var filter = cut.Instance;
@@ -99,7 +99,7 @@ public class TableStringFilterTest : BootstrapBlazorTestBase
             new FilterKeyValueAction() { FieldValue = "test1" },
             new FilterKeyValueAction() { FieldValue = "test2" }
         };
-        filter.SetFilterConditions(newConditions);
+        await filter.SetFilterConditionsAsync(newConditions);
         conditions = filter.GetFilterConditions();
         Assert.Equal(2, conditions.Count());
 
@@ -108,7 +108,7 @@ public class TableStringFilterTest : BootstrapBlazorTestBase
             new FilterKeyValueAction() { FieldValue = true },
             new FilterKeyValueAction() { FieldValue = false }
         };
-        filter.SetFilterConditions(newConditions);
+        await filter.SetFilterConditionsAsync(newConditions);
         conditions = filter.GetFilterConditions();
         Assert.Empty(conditions);
 
@@ -117,7 +117,7 @@ public class TableStringFilterTest : BootstrapBlazorTestBase
             new FilterKeyValueAction() { FieldValue = "" },
             new FilterKeyValueAction() { FieldValue = "" }
         };
-        filter.SetFilterConditions(newConditions);
+        await filter.SetFilterConditionsAsync(newConditions);
         conditions = filter.GetFilterConditions();
         Assert.Empty(conditions);
     }

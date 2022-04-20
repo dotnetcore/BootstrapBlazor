@@ -22,5 +22,5 @@ public interface ITable
     /// <summary>
     /// 获得 过滤异步回调方法
     /// </summary>
-    Func<Task>? OnFilterAsync { get; }
+    Func<Task> OnFilterAsync { get; }
 }

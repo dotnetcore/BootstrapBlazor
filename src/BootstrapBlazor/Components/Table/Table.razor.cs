@@ -1108,12 +1108,13 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
     /// <summary>
     /// 获得/设置 表头过滤时回调方法
     /// </summary>
+    [NotNull]
     public Func<Task>? OnFilterAsync { get; private set; }
 
     /// <summary>
     /// 获得 过滤集合
     /// </summary>
-    public Dictionary<string, IFilterAction> Filters { get; } = new Dictionary<string, IFilterAction>();
+    public Dictionary<string, IFilterAction> Filters { get; } = new();
 
     /// <summary>
     /// 点击 过滤小图标方法
@@ -1195,17 +1196,14 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
     /// <summary>
     /// Reset all Columns Filter
     /// </summary>
-    public void ResetAllColumnsFilter()
+    public async Task ResetFilters()
     {
-        foreach (ITableColumn column in Columns)
+        foreach (var column in Columns)
         {
             column.Filter?.FilterAction?.Reset();
         }
         Filters.Clear();
-        if (OnFilterAsync is not null)
-        {
-            OnFilterAsync();
-        }
+        await OnFilterAsync();
     }
 
     #region Dispose

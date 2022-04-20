@@ -519,7 +519,10 @@ RenderFragment<bool> RenderHeader => hasScroll =>
                         var displayName = col.GetDisplayName();
                         <th class="@GetHeaderClassString(col, true)" style="@GetFixedCellStyleString(col, 6)">
                             <div class="tabel-cell">
-                                <TableFilter Column="col" IsHeaderRow="true" />
+                                @if(col.Filterable)
+                                {
+                                    <TableFilter Column="col" IsHeaderRow="true" />
+                                }                             
                             </div>
                         </th>
                     }

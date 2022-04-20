@@ -76,7 +76,7 @@ public class TableEnumFilterTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void SetFilterConditions_Ok()
+    public async Task SetFilterConditions_Ok()
     {
         var cut = Context.RenderComponent<EnumFilter>(pb =>
         {
@@ -90,7 +90,7 @@ public class TableEnumFilterTest : BootstrapBlazorTestBase
         {
             new FilterKeyValueAction() { FieldValue = EnumEducation.Middel }
         };
-        filter.SetFilterConditions(newConditions);
+        await filter.SetFilterConditionsAsync(newConditions);
 
         conditions = filter.GetFilterConditions();
         Assert.Equal(EnumEducation.Middel, conditions.First().FieldValue);
@@ -99,7 +99,7 @@ public class TableEnumFilterTest : BootstrapBlazorTestBase
         {
             new FilterKeyValueAction() { FieldValue = null }
         };
-        filter.SetFilterConditions(newConditions);
+        await filter.SetFilterConditionsAsync(newConditions);
         conditions = filter.GetFilterConditions();
         Assert.Empty(conditions);
     }

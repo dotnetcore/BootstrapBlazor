@@ -101,24 +101,24 @@ public partial class TablesFilter
     [NotNull]
     private Table<Foo>? TableSetFilter { get; set; }
 
-    private Task SetFilterInCode()
+    private async Task SetFilterInCode()
     {
         //Find Column
-        var column = TableSetFilter.Columns.FirstOrDefault(x => x.GetFieldName() == nameof(Foo.Count));
+        var column = TableSetFilter.Columns.First(x => x.GetFieldName() == nameof(Foo.Name));
 
         //Build Filter
-        List<FilterKeyValueAction> filters = new List<FilterKeyValueAction>() { new FilterKeyValueAction { FieldValue = 50, FilterAction = FilterAction.LessThan } };
+        var filters = new List<FilterKeyValueAction>()
+        {
+            new FilterKeyValueAction { FieldValue = "01", FilterAction = FilterAction.Contains }
+        };
 
         //Set Filter
-        column?.Filter?.FilterAction?.SetFilterConditions(filters);
-
-        return Task.CompletedTask;
+        var filterAction = column.Filter?.FilterAction;
+        if (filterAction != null)
+        {
+            await filterAction.SetFilterConditionsAsync(filters);
+        }
     }
 
-    private Task ResetAllFilters()
-    {
-        TableSetFilter.ResetAllColumnsFilter();
-
-        return Task.CompletedTask;
-    }
+    private Task ResetAllFilters() => TableSetFilter.ResetFilters();
 }
