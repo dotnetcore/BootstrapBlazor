@@ -807,7 +807,11 @@
     "Att9": "自定义集合过滤规则",
     "Att10": "js 防抖时间，毫秒",
     "SkipEnter": "是否跳过 Enter 按键处理",
-    "SkipEsc": "是否跳过 Esc 按键处理"
+    "SkipEsc": "是否跳过 Esc 按键处理",
+    "OnSelectedItemChanged": "下拉菜单选择回调方法",
+    "OnSelectedItemChangedTitle": "下拉菜单选选中回调",
+    "OnSelectedItemChangedIntro": "点击下拉菜单或者 <kbd>Enter</kbd> 回车时触发此回调方法",
+    "OnValueChanged": "Value 改变时回调方法"
   },
   "BootstrapBlazor.Shared.Samples.FullScreens": {
     "Title": "FullScreen 全屏",

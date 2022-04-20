@@ -806,7 +806,11 @@
     "Att8": "Whether case is ignored when matching",
     "Att9": "Custom collection filtering rules",
     "SkipEnter": "Skip Enter key processing",
-    "SkipEsc": "Skip Esc key processing"
+    "SkipEsc": "Skip Esc key processing",
+    "OnSelectedItemChanged": "Callback for the selected item changed",
+    "OnSelectedItemChangedTitle": "OnSelectedItemChanged",
+    "OnSelectedItemChangedIntro": "Click the dropdown item or <kbd>Enter</kbd> trigger the callback",
+    "OnValueChanged": "Callback for the Value changed"
   },
   "BootstrapBlazor.Shared.Samples.FullScreens": {
     "Title": "FullScreen",

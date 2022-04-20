@@ -52,4 +52,9 @@
     </div>
 </DemoBlock>
 
+<DemoBlock Title="@Localizer["OnSelectedItemChangedTitle"]" Introduction="@Localizer["OnSelectedItemChangedIntro"]" Name="OnSelectedItemChanged">
+    <AutoComplete Items="@StaticItems" OnSelectedItemChanged="OnSelectedItemChanged"></AutoComplete>
+    <BlockLogger @ref="Trace" class="mt-3" />
+</DemoBlock>
+
 <AttributeTable Items="@GetAttributes()" />

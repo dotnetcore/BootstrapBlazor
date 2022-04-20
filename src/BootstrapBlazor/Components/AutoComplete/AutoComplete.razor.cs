@@ -13,15 +13,16 @@ namespace BootstrapBlazor.Components;
 /// </summary>
 public partial class AutoComplete
 {
-    private bool _isLoading;
-    private bool _isShown;
+    private bool IsLoading { get; set; }
+
+    private bool IsShown { get; set; }
 
     /// <summary>
     /// 获得 组件样式
     /// </summary>
     protected virtual string? ClassString => CssBuilder.Default("auto-complete")
-        .AddClass("is-loading", _isLoading)
-        .AddClass("is-complete", _isShown)
+        .AddClass("is-loading", IsLoading)
+        .AddClass("is-complete", IsShown)
         .Build();
 
     /// <summary>
@@ -70,6 +71,12 @@ public partial class AutoComplete
     public Func<string, Task<IEnumerable<string>>>? OnCustomFilter { get; set; }
 
     /// <summary>
+    /// 获得/设置 下拉菜单选择回调方法 默认 null
+    /// </summary>
+    [Parameter]
+    public Func<string, Task>? OnSelectedItemChanged { get; set; }
+
+    /// <summary>
     /// 获得/设置 防抖时间 默认为 0 即不开启
     /// </summary>
     [Parameter]
@@ -88,21 +95,21 @@ public partial class AutoComplete
     public bool SkipEsc { get; set; }
 
     /// <summary>
-    /// 
+    /// IStringLocalizer 服务实例
     /// </summary>
     [Inject]
     [NotNull]
     private IStringLocalizer<AutoComplete>? Localizer { get; set; }
 
-    private string _selectedItem = "";
+    private string CurrentSelectedItem { get; set; } = "";
 
     /// <summary>
-    /// 
+    /// ElementReference 实例
     /// </summary>
     protected ElementReference AutoCompleteElement { get; set; }
 
     /// <summary>
-    /// 
+    /// CurrentItemIndex 当前选中项索引
     /// </summary>
     protected int? CurrentItemIndex { get; set; }
 
@@ -147,17 +154,20 @@ public partial class AutoComplete
     /// </summary>
     protected void OnBlur()
     {
-        _selectedItem = "";
-        _isShown = false;
+        CurrentSelectedItem = "";
+        IsShown = false;
     }
 
     /// <summary>
     /// 鼠标点击候选项时回调此方法
     /// </summary>
-    protected virtual Task OnClickItem(string val)
+    protected virtual async Task OnClickItem(string val)
     {
         CurrentValue = val;
-        return Task.CompletedTask;
+        if (OnSelectedItemChanged != null)
+        {
+            await OnSelectedItemChanged(val);
+        }
     }
 
     /// <summary>
@@ -167,9 +177,9 @@ public partial class AutoComplete
     /// <returns></returns>
     protected virtual async Task OnKeyUp(KeyboardEventArgs args)
     {
-        if (!_isLoading)
+        if (!IsLoading)
         {
-            _isLoading = true;
+            IsLoading = true;
             if (OnCustomFilter != null)
             {
                 var items = await OnCustomFilter(CurrentValueAsString);
@@ -183,33 +193,33 @@ public partial class AutoComplete
                     Items.Where(s => s.StartsWith(CurrentValueAsString, comparison));
                 FilterItems = DisplayCount == null ? items.ToList() : items.Take(DisplayCount.Value).ToList();
             }
-            _isLoading = false;
+            IsLoading = false;
         }
 
         var source = FilterItems;
         if (source.Any())
         {
-            _isShown = true;
+            IsShown = true;
 
             // 键盘向上选择
             if (args.Key == "ArrowUp")
             {
-                var index = source.IndexOf(_selectedItem) - 1;
+                var index = source.IndexOf(CurrentSelectedItem) - 1;
                 if (index < 0)
                 {
                     index = source.Count - 1;
                 }
-                _selectedItem = source[index];
+                CurrentSelectedItem = source[index];
                 CurrentItemIndex = index;
             }
             else if (args.Key == "ArrowDown")
             {
-                var index = source.IndexOf(_selectedItem) + 1;
+                var index = source.IndexOf(CurrentSelectedItem) + 1;
                 if (index > source.Count - 1)
                 {
                     index = 0;
                 }
-                _selectedItem = source[index];
+                CurrentSelectedItem = source[index];
                 CurrentItemIndex = index;
             }
             else if (args.Key == "Escape")
@@ -222,9 +232,13 @@ public partial class AutoComplete
             }
             else if (args.Key == "Enter")
             {
-                if (!string.IsNullOrEmpty(_selectedItem))
+                if (!string.IsNullOrEmpty(CurrentSelectedItem))
                 {
-                    CurrentValueAsString = _selectedItem;
+                    CurrentValueAsString = CurrentSelectedItem;
+                    if (OnSelectedItemChanged != null)
+                    {
+                        await OnSelectedItemChanged(CurrentSelectedItem);
+                    }
                     OnBlur();
                     if (!SkipEnter && OnEnterAsync != null)
                     {

@@ -84,6 +84,35 @@ public class AutoCompleteTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public async Task ItemSelect_Test()
+    {
+        var clicked = false;
+        IEnumerable<string> items = new List<string>() { "test1", "test2" };
+        var cut = Context.RenderComponent<AutoComplete>(builder =>
+        {
+            builder.Add(a => a.Items, items);
+            builder.Add(a => a.OnSelectedItemChanged, new Func<string, Task>(str =>
+            {
+                clicked = true;
+                return Task.CompletedTask;
+            }));
+        });
+
+        var input = cut.Find(".form-control");
+        await cut.InvokeAsync(() => input.KeyUp(new KeyboardEventArgs() { Key = "t" }));
+        await cut.InvokeAsync(() => input.KeyUp(new KeyboardEventArgs() { Key = "ArrowDown" }));
+        Assert.False(clicked);
+
+        await cut.InvokeAsync(() => input.KeyUp(new KeyboardEventArgs() { Key = "Enter" }));
+        Assert.True(clicked);
+
+        clicked = false;
+        var item = cut.Find(".dropdown-item");
+        await cut.InvokeAsync(() => item.MouseDown(new MouseEventArgs()));
+        Assert.True(clicked);
+    }
+
+    [Fact]
     public void Esc_Test()
     {
         var esc = false;

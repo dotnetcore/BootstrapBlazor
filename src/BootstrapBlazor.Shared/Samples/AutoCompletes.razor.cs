@@ -4,6 +4,7 @@
 
 using BootstrapBlazor.Components;
 using BootstrapBlazor.Shared.Common;
+using BootstrapBlazor.Shared.Components;
 
 namespace BootstrapBlazor.Shared.Samples;
 
@@ -19,6 +20,15 @@ public sealed partial class AutoCompletes
     private Foo Model { get; set; } = new Foo() { Name = "" };
 
     private static List<string> StaticItems => new() { "1", "12", "123", "1234", "12345", "123456", "abc", "abcdef", "ABC", "aBcDeFg", "ABCDEFG" };
+
+    [NotNull]
+    private BlockLogger? Trace { get; set; }
+
+    private Task OnSelectedItemChanged(string val)
+    {
+        Trace.Log($"Value: {val}");
+        return Task.CompletedTask;
+    }
 
     private Task OnValueChanged(string val)
     {
@@ -125,6 +135,22 @@ public sealed partial class AutoCompletes
             Type = "bool",
             ValueList = "true/false",
             DefaultValue = "false"
+        },
+        new AttributeItem()
+        {
+            Name = nameof(AutoComplete.OnValueChanged),
+            Description = Localizer[nameof(AutoComplete.OnValueChanged)],
+            Type = "Func<string, Task>",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new AttributeItem()
+        {
+            Name = nameof(AutoComplete.OnSelectedItemChanged),
+            Description = Localizer[nameof(AutoComplete.OnSelectedItemChanged)],
+            Type = "Func<string, Task>",
+            ValueList = " — ",
+            DefaultValue = " — "
         }
     };
 }
