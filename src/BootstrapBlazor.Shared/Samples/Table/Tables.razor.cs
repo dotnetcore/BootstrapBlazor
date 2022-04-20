@@ -454,6 +454,14 @@ public partial class Tables
         },
         new()
         {
+            Name = "ShowAdvancedSearch",
+            Description = "是否显示高级搜索",
+            Type = "boolean",
+            ValueList = "true / false",
+            DefaultValue = "true"
+        },
+        new()
+        {
             Name = "SearchTemplate",
             Description = "高级搜索模板",
             Type = "RenderFragment<TItem>",
