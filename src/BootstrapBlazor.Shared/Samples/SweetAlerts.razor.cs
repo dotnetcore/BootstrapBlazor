@@ -177,13 +177,6 @@ public sealed partial class SweetAlerts
             DefaultValue = "false"
         },
         new AttributeItem() {
-            Name = "KeepChildrenState",
-            Description = "是否保持弹窗内组件状态",
-            Type = "boolean",
-            ValueList = "true|false",
-            DefaultValue = "false"
-        },
-        new AttributeItem() {
             Name = "BodyContext",
             Description = "弹窗传参",
             Type = "object",

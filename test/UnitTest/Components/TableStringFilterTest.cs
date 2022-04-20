@@ -84,6 +84,19 @@ public class TableStringFilterTest : BootstrapBlazorTestBase
         Assert.Equal("1", condtion.First().FieldValue);
         Assert.Equal(FilterAction.NotEqual, condtion.First().FilterAction);
         Assert.Equal(FilterLogic.And, condtion.First().FilterLogic);
+
+        searchFilterAction.Reset();
+        Assert.Null(searchFilterAction.Value);
+
+        searchFilterAction.SetFilterConditionsAsync(new List<FilterKeyValueAction>()
+        {
+            new FilterKeyValueAction()
+            {
+                FieldKey = "Test-Search",
+                FieldValue = "test"
+            }
+        });
+        Assert.Equal("test", searchFilterAction.Value);
     }
 
     [Fact]
