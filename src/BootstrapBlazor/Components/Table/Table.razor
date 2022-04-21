@@ -239,7 +239,7 @@
             }
         </div>
 
-        if (ActiveRenderMode == TableRenderMode.Table && !ShowFilterHeader)
+        @if (ActiveRenderMode == TableRenderMode.Table && !ShowFilterHeader)
         {
             if (FilterColumns == null) FilterColumns = Columns.Where(i => i.Filterable);
             if (FilterColumns.Any())
@@ -315,7 +315,7 @@
                                 <div class="table-cell is-wrap">
                                     @if (DetailRows.Contains(item))
                                     {
-                                        @DetailRowTemplate?.Invoke(item)
+                                        @DetailRowTemplate!(item)
                                     }
                                     else
                                     {
