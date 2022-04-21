@@ -171,7 +171,7 @@ public sealed partial class NavMenu
                 Url = "speechwaves"
             }
         };
-        AddBadge(item, count: 7);
+        AddBadge(item);
     }
 
     private void AddQuickStar(DemoMenuItem item)

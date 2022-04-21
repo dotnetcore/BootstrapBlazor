@@ -29,7 +29,7 @@ public static class BrowserNotification
     /// <param name="model">NotificationItem 实例</param>
     /// <param name="callbackMethodName">发送结果回调方法</param>
     /// <returns></returns>
-    public static async Task<bool> Dispatch<TComponent>(JSInterop<TComponent> interop, TComponent component, NotificationItem model, string? callbackMethodName) where TComponent : class
+    public static async Task<bool> Dispatch<TComponent>(JSInterop<TComponent> interop, TComponent component, NotificationItem model, string? callbackMethodName = null) where TComponent : class
     {
         var ret = await interop.Dispatch(component, model, callbackMethodName);
         return ret;

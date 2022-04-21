@@ -221,11 +221,11 @@ public class UploadTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void AvatarUpload_ListValue_Ok()
+    public async Task AvatarUpload_ListValue_Ok()
     {
         var cut = Context.RenderComponent<AvatarUpload<List<IBrowserFile>>>();
         var input = cut.FindComponent<InputFile>();
-        cut.InvokeAsync(() => input.Instance.OnChange.InvokeAsync(new InputFileChangeEventArgs(new List<MockBrowserFile>()
+        await cut.InvokeAsync(() => input.Instance.OnChange.InvokeAsync(new InputFileChangeEventArgs(new List<MockBrowserFile>()
         {
             new MockBrowserFile()
         })));
