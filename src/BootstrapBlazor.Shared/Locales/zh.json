@@ -1205,6 +1205,8 @@
     "Block1Title": "基础用法",
     "Block1Intro": "提供基本的文本录入组件",
     "P1": "可通过设置 <code>IsAutoFocus</code> 是否自动获取焦点，多个文本框设置自动获取焦点时最后执行的组件将会获得焦点",
+    "IsSelectAllTextOnFocusLabel": "获得焦点时全选",
+    "IsSelectAllTextOnEnterLabel": "回车时全选",
     "Span1": "基本用法",
     "Block2Title": "颜色",
     "Block2Intro": "通过设置 <code>Color</code> 更改文本框边框颜色",

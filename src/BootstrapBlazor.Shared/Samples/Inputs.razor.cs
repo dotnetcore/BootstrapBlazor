@@ -27,7 +27,8 @@ public partial class Inputs
     [NotNull]
     private BlockLogger? Trace { get; set; }
 
-    BootstrapInput<string>? input1;
+    [NotNull]
+    private BootstrapInput<string>? Input1 { get; set; }
 
     /// <summary>
     /// 
@@ -51,11 +52,11 @@ public partial class Inputs
         Trace.Log($"Esc {Localizer["Log"]}: {val}");
         return Task.CompletedTask;
     }
-    
+
     private async Task OnEnterSelectAllAsync(string val)
     {
         Trace.Log($"Enter call SelectAllText {Localizer["Log"]}: {val}");
-        await input1!.SelectAllTextAsync();   
+        await Input1.SelectAllTextAsync();
     }
 
     private IEnumerable<AttributeItem> GetAttributes() => new[]

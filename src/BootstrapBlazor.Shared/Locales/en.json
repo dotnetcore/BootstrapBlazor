@@ -1204,6 +1204,8 @@
     "Block1Title": "Basic usage",
     "Block1Intro": "Provides basic text entry components",
     "P1": "You can set the <code>IsAutoFocus</code> whether to automatically get focus, and the components that are last executed when multiple text boxes set auto-focus will get focus",
+    "IsSelectAllTextOnFocusLabel": "Select all on focus",
+    "IsSelectAllTextOnEnterLabel": "Select all on enter",
     "Span1": "Basic usage",
     "Block2Title": "Color",
     "Block2Intro": "Change the color of the text border by setting <code>Color</code>",
