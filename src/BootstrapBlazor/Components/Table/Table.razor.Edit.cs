@@ -37,7 +37,7 @@ public partial class Table<TItem>
     /// </summary>
     protected TableRenderMode ActiveRenderMode => RenderMode switch
     {
-        TableRenderMode.Auto => ScreenSize < RenderModelResponsiveWidth ? TableRenderMode.CardView : TableRenderMode.Table,
+        TableRenderMode.Auto => ScreenSize < RenderModeResponsiveWidth ? TableRenderMode.CardView : TableRenderMode.Table,
         _ => RenderMode
     };
 
@@ -68,7 +68,7 @@ public partial class Table<TItem>
     /// 获得/设置 组件布局自适应切换阈值 默认为 768
     /// </summary>
     [Parameter]
-    public decimal RenderModelResponsiveWidth { get; set; } = 768;
+    public decimal RenderModeResponsiveWidth { get; set; } = 768;
 
     /// <summary>
     /// 获得/设置 编辑弹框是否 Body 出现滚动条 默认 false

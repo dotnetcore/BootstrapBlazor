@@ -382,7 +382,7 @@ public partial class Tables
         },
         new()
         {
-            Name = "RenderModelResponsiveWidth",
+            Name = "RenderModeResponsiveWidth",
             Description = "组件布局模式自动切换阈值",
             Type = "int",
             ValueList = " — ",
