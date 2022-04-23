@@ -252,7 +252,9 @@
         },
         bb_table_tooltip: function (el) {
             var $ele = $(el);
-            $ele.find('.is-tips').tooltip({
+            var $tooltips = $ele.find('.is-tips');
+            $tooltips.tooltip('dispose');
+            $tooltips.tooltip({
                 container: 'body',
                 title: function () {
                     return $(this).text();

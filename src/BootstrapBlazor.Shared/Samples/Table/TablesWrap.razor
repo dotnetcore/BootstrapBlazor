@@ -45,7 +45,8 @@
         <li>单元格内文本被省略后，可以通过 <code>ShowTips</code> 属性来控制鼠标悬停是否显示全部文本，默认为 <code>false</code></li>
         <li>拖动地址列，单元格显示内容自动增加与减少</li>
     </ul>
-    <Table TItem="Foo" IsBordered="true" IsStriped="true" Items="@CellItems" AllowResizing="true">
+    <Table TItem="Foo" IsBordered="true" IsStriped="true" AllowResizing="true" IsPagination="true"
+           OnQueryAsync="OnQueryAsync" PageItemsSource="new int[] {4, 8, 20}">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" Text="时间" />
             <TableColumn @bind-Field="@context.Name" Text="姓名" />

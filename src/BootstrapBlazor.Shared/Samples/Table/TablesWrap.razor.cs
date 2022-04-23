@@ -31,6 +31,26 @@ public sealed partial class TablesWrap
         CellItems = Foo.GenerateFoo(Localizer, 4);
     }
 
+    private Task<QueryData<Foo>> OnQueryAsync(QueryPageOptions options)
+    {
+        var items = Foo.GenerateFoo(Localizer);
+
+        // 设置记录总数
+        var total = items.Count;
+
+        // 内存分页
+        items = items.Skip((options.PageIndex - 1) * options.PageItems).Take(options.PageItems).ToList();
+
+        return Task.FromResult(new QueryData<Foo>()
+        {
+            Items = items,
+            TotalCount = total,
+            IsSorted = true,
+            IsFiltered = true,
+            IsSearch = true
+        });
+    }
+
     /// <summary>
     /// OnAfterRenderAsync 方法
     /// </summary>
