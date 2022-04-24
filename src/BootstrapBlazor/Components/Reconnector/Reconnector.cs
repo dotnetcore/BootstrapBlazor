@@ -39,9 +39,6 @@ public class Reconnector : ComponentBase, IReconnector
     /// <param name="firstRender"></param>
     protected override void OnAfterRender(bool firstRender)
     {
-        if (firstRender)
-        {
-            Provider.NotifyContentChanged(this);
-        }
+        Provider.NotifyContentChanged(this);
     }
 }

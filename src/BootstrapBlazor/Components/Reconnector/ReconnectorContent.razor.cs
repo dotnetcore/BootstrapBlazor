@@ -41,8 +41,7 @@ public partial class ReconnectorContent
     public override Task SetParametersAsync(ParameterView parameters)
     {
         Provider.Register(ContentChanged);
-        parameters.SetParameterProperties(this);
-        return Task.CompletedTask;
+        return base.SetParametersAsync(parameters);
     }
 
     /// <summary>

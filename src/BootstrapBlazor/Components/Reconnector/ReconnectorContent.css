@@ -1,18 +1,35 @@
-﻿#components-reconnect-modal,
-#components-reconnect-modal.components-reconnect-hide,
-#components-reconnect-modal .reconnect-state {
-    display: none;
+﻿#components-reconnect-modal {
+    position: fixed;
+    z-index: 2000;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
 }
 
-    #components-reconnect-modal.components-reconnect-show,
-    #components-reconnect-modal.components-reconnect-failed,
-    #components-reconnect-modal.components-reconnect-rejected,
-    #components-reconnect-modal.components-reconnect-show .reconnect-state.show,
-    #components-reconnect-modal.components-reconnect-failed .reconnect-state.failed,
-    #components-reconnect-modal.components-reconnect-rejected .reconnect-state.rejected {
-        display: block;
+    #components-reconnect-modal,
+    #components-reconnect-modal.components-reconnect-hide,
+    #components-reconnect-modal .reconnect-state {
+        display: none;
     }
 
-#components-reconnect-modal {
-    position: fixed;
+        #components-reconnect-modal.components-reconnect-show,
+        #components-reconnect-modal.components-reconnect-failed,
+        #components-reconnect-modal.components-reconnect-rejected,
+        #components-reconnect-modal.components-reconnect-show .reconnect-state.show,
+        #components-reconnect-modal.components-reconnect-failed .reconnect-state.failed,
+        #components-reconnect-modal.components-reconnect-rejected .reconnect-state.rejected {
+            display: block;
+        }
+
+.reconnect-state > span {
+    background-color: var(--bs-info);
+    display: block;
+    padding: 1rem;
+    color: #fff;
 }
+
+    .reconnect-state > span > a {
+        text-decoration: underline;
+        color: #fff;
+    }
