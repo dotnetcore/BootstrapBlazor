@@ -81,7 +81,7 @@
             <TableColumn @bind-Field="@context.DateTime" Width="180" Filterable="true" />
             <TableColumn @bind-Field="@context.Name" Searchable="true" />
             <TableColumn @bind-Field="@context.Address" Searchable="true" />
-            <TableColumn @bind-Field="@context.Education" />
+            <TableColumn @bind-Field="@context.Education" Searchable="true" />
         </TableColumns>
     </Table>
 </DemoBlock>
@@ -102,17 +102,9 @@
             <TableColumn @bind-Field="@context.DateTime" Width="180" Filterable="true" />
             <TableColumn @bind-Field="@context.Name" Searchable="true">
                 <SearchTemplate Context="model">
-                    @{
-                        var items = new List<SelectedItem>()
-                    {
-                    new SelectedItem { Text = "请选择 ...", Value = "" },
-                    new SelectedItem { Text = "姓名1", Value = "姓名1" },
-                    new SelectedItem { Text = "姓名2", Value = "姓名2" },
-                    };
-                        <div class="col-12 col-sm-6">
-                            <Select Items="items" @bind-Value="@model!.Name" ShowLabel="true" DisplayText="姓名" />
-                        </div>
-                    }
+                    <div class="col-12 col-sm-6">
+                        <Select Items="SearchItems" @bind-Value="@model!.Name" ShowLabel="true" DisplayText="姓名" />
+                    </div>
                 </SearchTemplate>
             </TableColumn>
             <TableColumn @bind-Field="@context.Address" Searchable="true" />

@@ -78,8 +78,8 @@ partial class TablesDynamicExcel
     {
         DataTableDynamicContext = new(UserData, (context, col) =>
         {
-                // 设置 Enum 类型渲染成 Select
-                if (col.GetFieldName() == nameof(Foo.Education))
+            // 设置 Enum 类型渲染成 Select
+            if (col.GetFieldName() == nameof(Foo.Education))
             {
                 col.ComponentType = typeof(Select<string>);
                 col.Items = typeof(EnumEducation).ToSelectList(new SelectedItem("", Localizer["NullItemText"].Value));
@@ -89,20 +89,20 @@ partial class TablesDynamicExcel
         var method = DataTableDynamicContext.OnValueChanged;
         DataTableDynamicContext.OnValueChanged = async (model, col, val) =>
         {
-                // 调用内部提供的方法
-                if (method != null)
+            // 调用内部提供的方法
+            if (method != null)
             {
-                    // 内部方法会更新原始数据源 DataTable
-                    await method(model, col, val);
+                // 内部方法会更新原始数据源 DataTable
+                await method(model, col, val);
             }
 
-                // 输出日志信息
-                Trace.Log($"单元格变化通知 列: {col.GetFieldName()} - 值: {val?.ToString()}");
+            // 输出日志信息
+            Trace.Log($"单元格变化通知 列: {col.GetFieldName()} - 值: {val?.ToString()}");
         };
         DataTableDynamicContext.OnChanged = args =>
         {
-                // 输出日志信息
-                Trace.Log($"集合值变化通知 行: {args.Items.Count()} - 类型: {args.ChangedType}");
+            // 输出日志信息
+            Trace.Log($"集合值变化通知 行: {args.Items.Count()} - 类型: {args.ChangedType}");
             return Task.CompletedTask;
         };
     }

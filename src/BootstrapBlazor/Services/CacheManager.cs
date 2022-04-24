@@ -257,7 +257,7 @@ internal class CacheManager : ICacheManager
             {
                 ret = stringLocalizer.Value;
             }
-            else if (Utility.TryGetProperty(modelType, fieldName, out var propertyInfo))
+            else if (TryGetProperty(modelType, fieldName, out var propertyInfo))
             {
                 var placeHolderAttribute = propertyInfo.GetCustomAttribute<PlaceHolderAttribute>(true);
                 if (placeHolderAttribute != null)

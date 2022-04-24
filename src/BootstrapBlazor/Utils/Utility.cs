@@ -117,7 +117,7 @@ public static class Utility
         : CacheManager.GetPlaceholder(modelType, fieldName);
 
     /// <summary>
-    /// 
+    /// 通过 数据类型与字段名称获取 PropertyInfo 实例方法
     /// </summary>
     /// <param name="modelType"></param>
     /// <param name="fieldName"></param>

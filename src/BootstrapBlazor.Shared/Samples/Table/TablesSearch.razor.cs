@@ -44,6 +44,13 @@ public sealed partial class TablesSearch
 
     private SearchMode SearchModeValue { get; set; }
 
+    private IEnumerable<SelectedItem> SearchItems { get; } = new List<SelectedItem>()
+    {
+        new SelectedItem { Text = "请选择 ...", Value = "" },
+        new SelectedItem { Text = "姓名1", Value = "姓名1" },
+        new SelectedItem { Text = "姓名2", Value = "姓名2" },
+    };
+
     [NotNull]
     private ITableSearchModel CustomerSearchModel { get; set; } = new FooSearchModel();
 
