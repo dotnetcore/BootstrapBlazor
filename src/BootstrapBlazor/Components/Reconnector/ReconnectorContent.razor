@@ -1,0 +1,37 @@
+﻿@namespace BootstrapBlazor.Components
+@inherits ComponentBase
+
+<div id="components-reconnect-modal">
+    <div class="reconnect-state show">
+        @if (ReconnectingTemplate != null)
+        {
+            @ReconnectingTemplate
+        }
+        else
+        {
+            <span>Seems like the connection with the server has been lost. It can be due to poor or broken network. Please hang on while we're trying to reconnect...</span>
+        }
+    </div>
+
+    <div class="reconnect-state failed">
+        @if (ReconnectFailedTemplate != null)
+        {
+            @ReconnectFailedTemplate
+        }
+        else
+        {
+            <span>Oh snap! Failed to reconnect with the server. This is typically caused by a longer network outage, or if the server has been taken down. You can try to <a href="javascript:window.Blazor.reconnect()">reconnect</a>, but if that does not work, you need to <a href="javascript:location.reload()">reload</a> the page.</span>
+        }
+    </div>
+
+    <div class="reconnect-state rejected">
+        @if (ReconnectRejectedTemplate != null)
+        {
+            @ReconnectRejectedTemplate
+        }
+        else
+        {
+            <span>Oh man! The server rejected the attempt to reconnect. The only option now is to <a href="javascript:location.reload()">reload</a> the page, but be prepared that it won't work, since this is typically caused by a failure on the server.</span>
+        }
+    </div>
+</div>

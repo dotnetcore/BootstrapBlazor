@@ -409,6 +409,7 @@
     "LightText": "Light",
     "PopconfirmText": "Popconfirm",
     "ProgressText": "Progress",
+    "ReconnectorText": "Reconnector",
     "ResponsiveText": "Responsive",
     "SpinnerText": "Spinner",
     "SweetAlertText": "SweetAlert",
@@ -2720,6 +2721,7 @@
     "Title": "Title",
     "Download": "Download",
     "Tooltip": "Tooltip",
+    "Reconnector": "Reconnector",
     "Tree": "Tree",
     "Table": "Table",
     "TableBase": "Base",
@@ -2911,6 +2913,28 @@
     "P2": "This component relies on <a href='https://www.nuget.org/packages?q-BootstrapBlazor.SignaturePad' target'_blank'><code>BootstrapBlazor.SignaturePad</code></a>, which needs to reference its component package when using this component",
     "P3": "Nuget package installation",
     "P4": "Install the</code> components of <code>BootstrapBlazor.SignaturePad using <a href='https://www.nuget.org/packages?q-BootstrapBlazor.SignaturePad' target'_blank'>nuget.org</a>"
-
+  },
+  "BootstrapBlazor.Shared.Samples.Reconnectors": {
+    "Title": "Reconnector",
+    "SubTitle": "Reflect the connection state in the UI (Blazor Server)",
+    "ReconnectingTemplateAttr": "Template for attempting to reconnect",
+    "ReconnectFailedTemplateAttr": "Template for reconnection failed",
+    "ReconnectRejectedTemplateAttr": "Template for reconnection rejected",
+    "ReconnectingTemplateText": "attempting to reconnect",
+    "ReconnectFailedTemplateText": "reconnection failed",
+    "ReconnectRejectedTemplateText": "reconnection rejected",
+    "Intro": "The following table describes the <b>CSS</b> classes applied to the <code>components-reconnect-modal</code> element by the Blazor framework.",
+    "IntroTitle": "Template",
+    "Usage": "Usage",
+    "Step1": "1. Add code in <code>_Layout.cshtml</code>",
+    "Step2": "2. Add code in <code>App.razor</code>",
+    "TableHeader1": "CSS class",
+    "TableHeader2": "Indicates",
+    "TableRow1": "A lost connection. The client is attempting to reconnect. Show the modal.",
+    "TableRow2": "An active connection is re-established to the server. Hide the modal.",
+    "TableRow3": "Reconnection failed, probably due to a network failure. To attempt reconnection, call <code>window.Blazor.reconnect()</code> in JavaScript.",
+    "TableRow4": "Reconnection rejected. The server was reached but refused the connection, and the user's state on the server is lost. To reload the app, call <code>location.reload()</code> in JavaScript. This connection state may result when:",
+    "TableRow5": "<li>A crash in the server-side circuit occurs.</li><li>The client is disconnected long enough for the server to drop the user's state. Instances of the user's components are disposed.</li><li>The server is restarted, or the app's worker process is recycled.</li>",
+    "Application": "Application"
   }
 }

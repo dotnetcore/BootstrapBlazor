@@ -59,6 +59,8 @@ public static class BootstrapBlazorServiceCollectionExtensions
 
         services.TryAddSingleton<IIPLocatorProvider, DefaultIPLocatorProvider>();
         services.TryAddSingleton<IConfigureOptions<IPLocatorOption>, ConfigureOptions<IPLocatorOption>>();
+
+        services.TryAddScoped<IReconnectorProvider, ReconnectorProvider>();
         return services;
     }
 

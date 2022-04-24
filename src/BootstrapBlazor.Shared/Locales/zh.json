@@ -409,6 +409,7 @@
     "LightText": "指示灯 Light",
     "PopconfirmText": "确认框 Popconfirm",
     "ProgressText": "进度条 Progress",
+    "ReconnectorText": "重连组件 Reconnector",
     "ResponsiveText": "断点通知 Responsive",
     "SpinnerText": "旋转图标 Spinner",
     "SweetAlertText": "模态弹窗 SweetAlert",
@@ -2730,6 +2731,7 @@
     "Title": "网站标题 Title",
     "Download": "文件下载 Download",
     "Tooltip": "工具条 Tooltip",
+    "Reconnector": "重连组件 Reconnector",
     "Tree": "树形组件 Tree",
     "Table": "表格组件",
     "TableBase": "基本功能",
@@ -2927,5 +2929,28 @@
     "P3": "Nuget 包安装",
     "P4": "使用 <a href='https://www.nuget.org/packages?q=BootstrapBlazor.SignaturePad' target='_blank'>nuget.org</a> 进行 <code>BootstrapBlazor.SignaturePad</code> 组件的安装"
 
+  },
+  "BootstrapBlazor.Shared.Samples.Reconnectors": {
+    "Title": "Reconnector 重连组件",
+    "SubTitle": "用于自定义连接失败时各种状态信息",
+    "ReconnectingTemplateAttr": "正在尝试重试连接对话框的模板",
+    "ReconnectFailedTemplateAttr": "连接失败对话框的模板",
+    "ReconnectRejectedTemplateAttr": "连接被拒绝对话框的模板",
+    "ReconnectingTemplateText": "正在连接模板",
+    "ReconnectFailedTemplateText": "连接失败模板",
+    "ReconnectRejectedTemplateText": "连接拒绝模板",
+    "Intro": "组件内置了默认样式如果不满意可根据自己需求进行样式覆盖，组件应用于 <code>components-reconnect-modal</code> 元素的 <code>CSS</code> 类",
+    "IntroTitle": "可单独设置不同状态模板",
+    "Usage": "使用方法",
+    "Step1": "1. <code>_Layout.cshtml</code> 文件中增加如下代码",
+    "Step2": "2. <code>App.razor</code> 文件中增加如下代码",
+    "TableHeader1": "CSS 类",
+    "TableHeader2": "说明",
+    "TableRow1": "连接已丢失。 客户端正在尝试重新连接。显示模式。",
+    "TableRow2": "将为服务器重新建立活动连接。隐藏模式。",
+    "TableRow3": "重新连接失败，可能是由于网络故障引起的。 若要尝试重新连接，请在 <b>JavaScript</b> 中调用 <code>window.Blazor.reconnect()</code>",
+    "TableRow4": "已拒绝重新连接。 已达到服务器，但拒绝连接，服务器上的用户状态丢失。 若要重新加载应用，请在 <b>JavaScript</b> 中调用 <code>location.reload()</code>。当出现以下情况时，可能会导致此连接状态：",
+    "TableRow5": "<li>服务器端线路发生故障。</li><li>客户端断开连接的时间足以使服务器删除用户的状态。用户组件的实例已被处置。</li><li>服务器已重启，或者应用的工作进程被回收。</li>",
+    "Application": "实战应用"
   }
 }

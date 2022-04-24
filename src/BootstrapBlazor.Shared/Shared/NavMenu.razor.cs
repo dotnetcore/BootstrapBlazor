@@ -839,6 +839,12 @@ public sealed partial class NavMenu
             new()
             {
                 IsNew = true,
+                Text = Localizer["Reconnector"],
+                Url = "reconnectors"
+            },
+            new()
+            {
+                IsNew = true,
                 Text = Localizer["Responsive"],
                 Url = "responsives"
             },
