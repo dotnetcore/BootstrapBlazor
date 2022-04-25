@@ -8,7 +8,7 @@ using Microsoft.JSInterop;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// WebClient 服务类
 /// </summary>
 public class WebClientService : IDisposable
 {
@@ -33,7 +33,7 @@ public class WebClientService : IDisposable
     public WebClientService(IJSRuntime runtime, NavigationManager navigation) => (_runtime, _navigation) = (runtime, navigation);
 
     /// <summary>
-    /// 
+    /// 获得 ClientInfo 实例方法
     /// </summary>
     /// <returns></returns>
     public async Task<ClientInfo> GetClientInfo()
@@ -54,7 +54,7 @@ public class WebClientService : IDisposable
     }
 
     /// <summary>
-    /// 
+    /// SetData 方法由 JS 调用
     /// </summary>
     /// <param name="id"></param>
     /// <param name="ip"></param>
@@ -73,7 +73,7 @@ public class WebClientService : IDisposable
             Client.Ip = ip;
             Client.OS = os;
             Client.Browser = browser;
-            Client.Device = ParseDeviceType(device);
+            Client.Device = WebClientService.ParseDeviceType(device);
             Client.Language = language;
             Client.Engine = engine;
             Client.UserAgent = agent;
@@ -81,7 +81,7 @@ public class WebClientService : IDisposable
         ReturnTask?.TrySetResult(true);
     }
 
-    private WebClientDeviceType ParseDeviceType(string device)
+    private static WebClientDeviceType ParseDeviceType(string device)
     {
         var ret = WebClientDeviceType.PC;
         if (Enum.TryParse<WebClientDeviceType>(device, true, out var d))

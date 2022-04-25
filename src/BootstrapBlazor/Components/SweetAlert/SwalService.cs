@@ -9,9 +9,8 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// SweetAlert 弹窗服务
 /// </summary>
-public class SwalService : BootstrapServiceBase<SwalOption>, IDisposable
+public class SwalService : BootstrapServiceBase<SwalOption>
 {
-    private readonly IDisposable _optionsReloadToken;
     private BootstrapBlazorOptions _option;
 
     /// <summary>
@@ -21,7 +20,6 @@ public class SwalService : BootstrapServiceBase<SwalOption>, IDisposable
     public SwalService(IOptionsMonitor<BootstrapBlazorOptions> option)
     {
         _option = option.CurrentValue;
-        _optionsReloadToken = option.OnChange(op => _option = op);
     }
 
     /// <summary>
@@ -37,26 +35,5 @@ public class SwalService : BootstrapServiceBase<SwalOption>, IDisposable
         }
 
         await Invoke(option, swal);
-    }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="disposing"></param>
-    protected virtual void Dispose(bool disposing)
-    {
-        if (disposing)
-        {
-            _optionsReloadToken.Dispose();
-        }
-    }
-
-    /// <summary>
-    /// Dispose 方法
-    /// </summary>
-    public void Dispose()
-    {
-        Dispose(true);
-        GC.SuppressFinalize(this);
     }
 }

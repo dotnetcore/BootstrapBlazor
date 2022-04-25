@@ -131,6 +131,5 @@ public static class BootstrapBlazorServiceCollectionExtensions
         services.TryAddSingleton<IOptionsChangeTokenSource<TOptions>, ConfigurationChangeTokenSource<TOptions>>();
         services.TryAddSingleton<IConfigureOptions<TOptions>, ConfigureOptions<TOptions>>();
         return services;
-
     }
 }

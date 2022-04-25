@@ -25,7 +25,7 @@ public class BootstrapServiceBaseTest
 
     private class MockBootstrapService<TOption> : BootstrapServiceBase<TOption>
     {
-        private Alert Alert { get; set; } = new Alert();
+        private Alert Alert { get; } = new Alert();
 
         public async Task Test1(TOption option, Func<TOption, Task> callback)
         {
