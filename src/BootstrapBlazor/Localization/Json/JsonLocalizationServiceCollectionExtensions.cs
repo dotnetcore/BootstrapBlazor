@@ -38,6 +38,9 @@ internal static class JsonLocalizationServiceCollectionExtensions
         services.AddSingleton(typeof(IStringLocalizer<>), typeof(StringLocalizer<>));
         services.AddSingleton(typeof(IStringLocalizer), typeof(StringLocalizer));
 
-        if (localizationAction != null) services.Configure(localizationAction);
+        if (localizationAction != null)
+        {
+            services.Configure(localizationAction);
+        }
     }
 }

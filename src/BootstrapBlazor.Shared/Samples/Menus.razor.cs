@@ -111,50 +111,50 @@ public sealed partial class Menus
 
     private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
-            new AttributeItem()
-            {
-                Name = "Items",
-                Description = Localizer["Desc1"],
-                Type = "IEnumerable<MenuItem>",
-                ValueList = " — ",
-                DefaultValue = " — "
-            },
-            new AttributeItem()
-            {
-                Name = "IsVertical",
-                Description = Localizer["Desc2"],
-                Type = "bool",
-                ValueList = "true|false",
-                DefaultValue = "false"
-            },
-            new AttributeItem()
-            {
-                Name = "IsBottom",
-                Description = Localizer["Desc3"],
-                Type = "bool",
-                ValueList = "true|false",
-                DefaultValue = "false"
-            },
-            new AttributeItem() {
-                Name = "IsAccordion",
-                Description = Localizer["Desc4"],
-                Type = "bool",
-                ValueList = "true|false",
-                DefaultValue = "false"
-            },
-            new AttributeItem() {
-                Name = "DisableNavigation",
-                Description = Localizer["Desc5"],
-                Type = "bool",
-                ValueList = "true|false",
-                DefaultValue = "false"
-            },
-            new AttributeItem() {
-                Name = "OnClick",
-                Description = Localizer["Desc6"],
-                Type = "Func<MenuItem, Task>",
-                ValueList = " — ",
-                DefaultValue = " — "
-            }
+        new AttributeItem()
+        {
+            Name = "Items",
+            Description = Localizer["Desc1"],
+            Type = "IEnumerable<MenuItem>",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new AttributeItem()
+        {
+            Name = "IsVertical",
+            Description = Localizer["Desc2"],
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "false"
+        },
+        new AttributeItem()
+        {
+            Name = "IsBottom",
+            Description = Localizer["Desc3"],
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "false"
+        },
+        new AttributeItem() {
+            Name = "IsAccordion",
+            Description = Localizer["Desc4"],
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "false"
+        },
+        new AttributeItem() {
+            Name = "DisableNavigation",
+            Description = Localizer["Desc5"],
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "false"
+        },
+        new AttributeItem() {
+            Name = "OnClick",
+            Description = Localizer["Desc6"],
+            Type = "Func<MenuItem, Task>",
+            ValueList = " — ",
+            DefaultValue = " — "
+        }
     };
 }

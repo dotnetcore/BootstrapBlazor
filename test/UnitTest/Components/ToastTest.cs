@@ -12,8 +12,8 @@ public class ToastTest : BootstrapBlazorTestBase
     [Fact]
     public void Placement_Ok()
     {
-        var options = Context.Services.GetRequiredService<IOptions<BootstrapBlazorOptions>>();
-        options.Value.ToastPlacement = Placement.TopStart;
+        var options = Context.Services.GetRequiredService<IOptionsMonitor<BootstrapBlazorOptions>>();
+        options.CurrentValue.ToastPlacement = Placement.TopStart;
 
         var cut = Context.RenderComponent<BootstrapBlazorRoot>();
 
@@ -21,7 +21,7 @@ public class ToastTest : BootstrapBlazorTestBase
         service.Success("Test", "test content");
 
         // 恢复设置
-        options.Value.ToastPlacement = Placement.Auto;
+        options.CurrentValue.ToastPlacement = Placement.Auto;
 
         Assert.NotNull(cut.Instance.ToastContainer);
     }

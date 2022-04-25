@@ -263,7 +263,7 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
 
     [Inject]
     [NotNull]
-    private IOptions<BootstrapBlazorOptions>? Options { get; set; }
+    private IOptionsMonitor<BootstrapBlazorOptions>? Options { get; set; }
 
     [Inject]
     [NotNull]
@@ -711,29 +711,30 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
 
     private void OnInitParameters()
     {
+        var op = Options.CurrentValue;
         if (ShowCheckboxTextColumnWidth == 0)
         {
-            ShowCheckboxTextColumnWidth = Options.Value.TableSettings.ShowCheckboxTextColumnWidth;
+            ShowCheckboxTextColumnWidth = op.TableSettings.ShowCheckboxTextColumnWidth;
         }
 
         if (DetailColumnWidth == 0)
         {
-            DetailColumnWidth = Options.Value.TableSettings.DetailColumnWidth;
+            DetailColumnWidth = op.TableSettings.DetailColumnWidth;
         }
 
         if (LineNoColumnWidth == 0)
         {
-            LineNoColumnWidth = Options.Value.TableSettings.LineNoColumnWidth;
+            LineNoColumnWidth = op.TableSettings.LineNoColumnWidth;
         }
 
         if (CheckboxColumnWidth == 0)
         {
-            CheckboxColumnWidth = Options.Value.TableSettings.CheckboxColumnWidth;
+            CheckboxColumnWidth = op.TableSettings.CheckboxColumnWidth;
         }
 
-        if (Options.Value.TableSettings.TableRenderMode != null && RenderMode == TableRenderMode.Auto)
+        if (op.TableSettings.TableRenderMode != null && RenderMode == TableRenderMode.Auto)
         {
-            RenderMode = Options.Value.TableSettings.TableRenderMode.Value;
+            RenderMode = op.TableSettings.TableRenderMode.Value;
         }
     }
 

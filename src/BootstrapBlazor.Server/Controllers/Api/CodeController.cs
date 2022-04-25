@@ -24,10 +24,10 @@ public class CodeController : ControllerBase
     /// <param name="options"></param>
     /// <returns></returns>
     [HttpGet]
-    public async Task<string> Get([FromQuery] string fileName, [FromServices] HttpClient client, [FromServices] IOptions<WebsiteOptions> options)
+    public async Task<string> Get([FromQuery] string fileName, [FromServices] HttpClient client, [FromServices] IOptionsMonitor<WebsiteOptions> options)
     {
         var ret = "";
-        client.BaseAddress = new Uri(options.Value.RepositoryUrl);
+        client.BaseAddress = new Uri(options.CurrentValue.RepositoryUrl);
         try
         {
             ret = await client.GetStringAsync(fileName);

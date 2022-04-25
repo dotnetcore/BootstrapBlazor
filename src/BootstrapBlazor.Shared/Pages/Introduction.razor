@@ -11,7 +11,7 @@
 
 <h3>@Localizer["UpdateTitle"]</h3>
 
-<p>@((MarkupString)Localizer["UpdateLog", WebsiteOption.Value.WikiUrl].Value)</p>
+<p>@((MarkupString)Localizer["UpdateLog", WebsiteOption.CurrentValue.WikiUrl].Value)</p>
 
 <h3>@Localizer["LearnTitle"]</h3>
 
@@ -45,7 +45,7 @@
 
 <p>@((MarkupString)Localizer["P5", LocalizerUrls].Value)</p>
 
-<p>@Localizer["ShowWebSiteTitle"]：<a href="@($"{WebsiteOption.Value.AdminUrl}/Pages")" target="_blank">@WebsiteOption.Value.AdminUrl</a></p>
+<p>@Localizer["ShowWebSiteTitle"]：<a href="@($"{WebsiteOption.CurrentValue.AdminUrl}/Pages")" target="_blank">@WebsiteOption.CurrentValue.AdminUrl</a></p>
 
 <h4>@Localizer["GetStarted"]</h4>
 

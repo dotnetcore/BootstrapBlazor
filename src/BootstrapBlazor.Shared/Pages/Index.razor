@@ -11,7 +11,7 @@
                     <h4>
                         @Localizer["HeaderTitle"]
                     </h4>
-                    <div>@((MarkupString)Localizer["HeaderDesc", Options.Value.TotalCount].Value)</div>
+                    <div>@((MarkupString)Localizer["HeaderDesc", Options.CurrentValue.TotalCount].Value)</div>
                     <div class="@BodyClassString">
                         @Localizer["HeaderBody"]<span @ref="TypeElement" class="typed"></span><span class="typed-cursor">|</span>
                         <div>@Localizer["HeaderBody1"]</div>
@@ -124,7 +124,7 @@
                         <img src="_content/BootstrapBlazor.Shared/images/components.svg" alt="components" />
                     </p>
                     <h3>@Localizer["ContainerH1"]</h3>
-                    <div>@((MarkupString)Localizer["ContainerD1", Options.Value.TotalCount].Value)</div>
+                    <div>@((MarkupString)Localizer["ContainerD1", Options.CurrentValue.TotalCount].Value)</div>
                 </div>
             </div>
             <div class="col-12 col-sm-6 col-md-4">

@@ -9,12 +9,12 @@
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["LinkButtonUrlTitle"]" Introduction="@Localizer["LinkButtonUrlIntro"]" Name="Url">
-    <LinkButton Text="@Localizer["LinkButtonText"]" Url="@WebsiteOption.Value.ServerUrl" />
+    <LinkButton Text="@Localizer["LinkButtonText"]" Url="@WebsiteOption.CurrentValue.ServerUrl" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["LinkButtonTitleTitle"]" Introduction="@Localizer["LinkButtonTitleIntro"]" Name="Title">
     <p>@((MarkupString)Localizer["LinkButtonTitleDetail"].Value)</p>
-    <LinkButton Text="@Localizer["LinkButtonText"]" Url="@WebsiteOption.Value.ServerUrl" Title="@Localizer["LinkButtonTitleTooltip"]" />
+    <LinkButton Text="@Localizer["LinkButtonText"]" Url="@WebsiteOption.CurrentValue.ServerUrl" Title="@Localizer["LinkButtonTitleTooltip"]" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["LinkButtonImageTitle"]" Introduction="@Localizer["LinkButtonImageIntro"]" Name="Image">

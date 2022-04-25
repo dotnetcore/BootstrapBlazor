@@ -52,11 +52,6 @@ public class SpeechTestHost : IDisposable
         services.TryAddScoped<IRecognizerProvider, MockRecognizerProvider>();
         services.TryAddScoped<SynthesizerService>();
         services.TryAddScoped<ISynthesizerProvider, MockSynthesizerProvider>();
-        services.ConfigureIPLocatorOption(options =>
-        {
-            options.LocatorFactory = provider => new BaiDuIPLocator();
-        });
-        services.ConfigureJsonLocalizationOptions(op => op.AdditionalJsonAssemblies = new[] { typeof(Alert).Assembly });
     }
 
     protected virtual void ConfigureConfigration(IServiceCollection services)

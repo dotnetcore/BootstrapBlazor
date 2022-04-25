@@ -26,7 +26,7 @@ public sealed partial class Uploads : IDisposable
 
     [Inject]
     [NotNull]
-    private IOptions<WebsiteOptions>? SiteOptions { get; set; }
+    private IOptionsMonitor<WebsiteOptions>? SiteOptions { get; set; }
 
     [Inject]
     [NotNull]
@@ -144,9 +144,9 @@ public sealed partial class Uploads : IDisposable
         // Web Assembly 模式下必须使用 webapi 方式去保存文件到服务器或者数据库中
         // 生成写入文件名称
         var ret = false;
-        if (!string.IsNullOrEmpty(SiteOptions.Value.WebRootPath))
+        if (!string.IsNullOrEmpty(SiteOptions.CurrentValue.WebRootPath))
         {
-            var uploaderFolder = Path.Combine(SiteOptions.Value.WebRootPath, $"images{Path.DirectorySeparatorChar}uploader");
+            var uploaderFolder = Path.Combine(SiteOptions.CurrentValue.WebRootPath, $"images{Path.DirectorySeparatorChar}uploader");
             file.FileName = $"{Path.GetFileNameWithoutExtension(file.OriginFileName)}-{DateTimeOffset.Now:yyyyMMddHHmmss}{Path.GetExtension(file.OriginFileName)}";
             var fileName = Path.Combine(uploaderFolder, file.FileName);
 
@@ -215,10 +215,6 @@ public sealed partial class Uploads : IDisposable
         public IBrowserFile? Picture { get; set; }
     }
 
-    /// <summary>
-    /// 获得属性方法
-    /// </summary>
-    /// <returns></returns>
     private IEnumerable<AttributeItem> GetInputAttributes() => new AttributeItem[]
     {
         new AttributeItem() {

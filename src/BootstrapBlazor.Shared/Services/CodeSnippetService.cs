@@ -33,17 +33,17 @@ class CodeSnippetService
     public CodeSnippetService(
         HttpClient client,
         ICacheManager cacheManager,
-        IOptions<WebsiteOptions> options,
+        IOptionsMonitor<WebsiteOptions> options,
         IOptions<JsonLocalizationOptions> option)
     {
         CacheManager = cacheManager;
         Client = client;
         Client.Timeout = TimeSpan.FromSeconds(5);
-        Client.BaseAddress = new Uri(options.Value.RepositoryUrl);
+        Client.BaseAddress = new Uri(options.CurrentValue.RepositoryUrl);
 
-        IsDevelopment = options.Value.IsDevelopment;
-        ContentRootPath = options.Value.ContentRootPath;
-        ServerUrl = options.Value.ServerUrl;
+        IsDevelopment = options.CurrentValue.IsDevelopment;
+        ContentRootPath = options.CurrentValue.ContentRootPath;
+        ServerUrl = options.CurrentValue.ServerUrl;
 
         Option = option.Value;
     }

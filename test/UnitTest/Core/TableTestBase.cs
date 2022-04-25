@@ -46,7 +46,7 @@ public class TableTestHost : IDisposable
 
     protected virtual void ConfigureServices(IServiceCollection services)
     {
-        services.AddBootstrapBlazor();
+        services.AddBootstrapBlazor(op => op.ToastDelay = 2000);
         services.ConfigureJsonLocalizationOptions(op => op.AdditionalJsonAssemblies = new[] { typeof(Alert).Assembly });
         services.AddSingleton<ILookUpService, FooLookupService>();
     }

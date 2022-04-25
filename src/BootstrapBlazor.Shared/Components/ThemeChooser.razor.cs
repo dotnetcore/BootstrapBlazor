@@ -32,11 +32,11 @@ public partial class ThemeChooser
 
     [Inject]
     [NotNull]
-    private IOptions<BootstrapBlazorOptions>? BootstrapOptions { get; set; }
+    private IOptionsMonitor<BootstrapBlazorOptions>? BootstrapOptions { get; set; }
 
     [Inject]
     [NotNull]
-    private IOptions<WebsiteOptions>? SiteOptions { get; set; }
+    private IOptionsMonitor<WebsiteOptions>? SiteOptions { get; set; }
 
     /// <summary>
     /// OnInitialized 方法
@@ -47,8 +47,8 @@ public partial class ThemeChooser
 
         Title ??= Localizer[nameof(Title)];
         HeaderText ??= Localizer[nameof(HeaderText)];
-        Themes = BootstrapOptions.Value.Themes.Select(kv => new SelectedItem(kv.Value, kv.Key));
-        SiteOptions.Value.CurrentTheme = Themes.FirstOrDefault(i => i.Text == "Motronic")?.Value ?? "";
+        Themes = BootstrapOptions.CurrentValue.Themes.Select(kv => new SelectedItem(kv.Value, kv.Key));
+        SiteOptions.CurrentValue.CurrentTheme = Themes.FirstOrDefault(i => i.Text == "Motronic")?.Value ?? "";
     }
 
     /// <summary>
@@ -68,24 +68,24 @@ public partial class ThemeChooser
 
     private async Task OnClickTheme(SelectedItem item)
     {
-        SiteOptions.Value.CurrentTheme = item.Value;
+        SiteOptions.CurrentValue.CurrentTheme = item.Value;
 
         await JSRuntime.InvokeVoidAsync("$.setTheme", LinksCache[item.Value]);
     }
 
     private string? GetThemeItemClass(SelectedItem item) => CssBuilder.Default("theme-item")
-        .AddClass("active", SiteOptions.Value.CurrentTheme == item.Value)
+        .AddClass("active", SiteOptions.CurrentValue.CurrentTheme == item.Value)
         .Build();
 
     private Dictionary<string, ICollection<string>> LinksCache { get; } = new(new KeyValuePair<string, ICollection<string>>[]
     {
-            new("bootstrap.blazor.bundle.min.css", new List<string>()),
-            new("motronic.min.css", new string[]
-            {
-                "_content/BootstrapBlazor/css/motronic.min.css",
-                "_content/BootstrapBlazor.Shared/css/motronic.css"
-            }),
-            new("ant", new List<string>()),
-            new("layui", new List<string>())
+        new("bootstrap.blazor.bundle.min.css", new List<string>()),
+        new("motronic.min.css", new string[]
+        {
+            "_content/BootstrapBlazor/css/motronic.min.css",
+            "_content/BootstrapBlazor.Shared/css/motronic.css"
+        }),
+        new("ant", new List<string>()),
+        new("layui", new List<string>())
     });
 }

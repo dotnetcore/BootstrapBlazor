@@ -18,7 +18,8 @@ internal static class ServicesExtensions
     /// 添加示例后台任务
     /// </summary>
     /// <param name="services"></param>
-    public static IServiceCollection AddBootstrapBlazorServices(this IServiceCollection services)
+    /// <param name="configureOptions"></param>
+    public static IServiceCollection AddBootstrapBlazorServices(this IServiceCollection services, Action<BootstrapBlazorOptions>? configureOptions = null)
     {
         // 增加错误日志
         services.AddLogging(logging => logging.AddFileLogger());
@@ -31,7 +32,7 @@ internal static class ServicesExtensions
         services.AddWebSiteServices();
 
         // 增加 BootstrapBlazor 组件
-        services.AddBootstrapBlazor();
+        services.AddBootstrapBlazor(configureOptions);
 
         // 增加 Azure 语音服务
         services.AddBootstrapBlazorAzureSpeech();
@@ -54,12 +55,17 @@ internal static class ServicesExtensions
         services.ConfigureIPLocatorOption(op => op.LocatorFactory = sp => new BaiDuIPLocator());
 
         // 增加多语言支持配置信息
-        services.AddRequestLocalization<IOptions<BootstrapBlazorOptions>>((localizerOption, blazorOption) =>
+        services.AddRequestLocalization<IOptionsMonitor<BootstrapBlazorOptions>>((localizerOption, blazorOption) =>
         {
-            var supportedCultures = blazorOption.Value.GetSupportedCultures();
+            blazorOption.OnChange(op => Invoke(op));
+            Invoke(blazorOption.CurrentValue);
 
-            localizerOption.SupportedCultures = supportedCultures;
-            localizerOption.SupportedUICultures = supportedCultures;
+            void Invoke(BootstrapBlazorOptions option)
+            {
+                var supportedCultures = option.GetSupportedCultures();
+                localizerOption.SupportedCultures = supportedCultures;
+                localizerOption.SupportedUICultures = supportedCultures;
+            }
         });
 
         // 增加 PetaPoco ORM 数据服务操作类

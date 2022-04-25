@@ -1,5 +1,5 @@
 ﻿@page "/menus"
-@inject IOptions<WebsiteOptions> WebsiteOption
+@inject IOptionsMonitor<WebsiteOptions> WebsiteOption
 
 <h3>@Localizer["Title"]</h3>
 
@@ -71,7 +71,7 @@
             <div style="padding: 10rem 1rem;">Main</div>
         </Main>
         <Footer>
-            <a href="@WebsiteOption.Value.BootstrapAdminLink" target="_blank">Bootstrap Admin</a>
+            <a href="@WebsiteOption.CurrentValue.BootstrapAdminLink" target="_blank">Bootstrap Admin</a>
         </Footer>
     </Layout>
 </DemoBlock>

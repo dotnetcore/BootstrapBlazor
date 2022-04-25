@@ -18,7 +18,7 @@ public sealed partial class LinkButtons
 {
     [Inject]
     [NotNull]
-    private IOptions<WebsiteOptions>? WebsiteOption { get; set; }
+    private IOptionsMonitor<WebsiteOptions>? WebsiteOption { get; set; }
 
     [Inject]
     [NotNull]
@@ -38,54 +38,54 @@ public sealed partial class LinkButtons
     /// <returns></returns>
     private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
-            new AttributeItem(){
-                Name = nameof(LinkButton.Text),
-                Description = Localizer[nameof(LinkButton.Text)],
-                Type = "string",
-                ValueList = " — ",
-                DefaultValue = " — "
-            },
-            new AttributeItem(){
-                Name = nameof(LinkButton.Url),
-                Description = Localizer[nameof(LinkButton.Url)],
-                Type = "string",
-                ValueList = " — ",
-                DefaultValue = "#"
-            },
-            new AttributeItem(){
-                Name = nameof(LinkButton.Title),
-                Description = Localizer[nameof(LinkButton.Title)],
-                Type = "string",
-                ValueList = " — ",
-                DefaultValue = " — "
-            },
-            new AttributeItem(){
-                Name = nameof(LinkButton.ImageUrl),
-                Description = Localizer[nameof(LinkButton.ImageUrl)],
-                Type = "string",
-                ValueList = " — ",
-                DefaultValue = " — "
-            },
-            new AttributeItem(){
-                Name = nameof(LinkButton.TooltipPlacement),
-                Description = Localizer[nameof(LinkButton.TooltipPlacement)],
-                Type = "Placement",
-                ValueList = "Top/Left/Right/Bottom",
-                DefaultValue = "Top"
-            },
-            new AttributeItem(){
-                Name = nameof(LinkButton.ChildContent),
-                Description = Localizer[nameof(LinkButton.ChildContent)],
-                Type = "RenderFragment",
-                ValueList = " — ",
-                DefaultValue = " — "
-            },
-            new AttributeItem() {
-                Name = nameof(LinkButton.OnClick),
-                Description = Localizer[nameof(LinkButton.OnClick)],
-                Type = "EventCallback<MouseEventArgs>",
-                ValueList = "—",
-                DefaultValue = " — "
-            }
+        new AttributeItem(){
+            Name = nameof(LinkButton.Text),
+            Description = Localizer[nameof(LinkButton.Text)],
+            Type = "string",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new AttributeItem(){
+            Name = nameof(LinkButton.Url),
+            Description = Localizer[nameof(LinkButton.Url)],
+            Type = "string",
+            ValueList = " — ",
+            DefaultValue = "#"
+        },
+        new AttributeItem(){
+            Name = nameof(LinkButton.Title),
+            Description = Localizer[nameof(LinkButton.Title)],
+            Type = "string",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new AttributeItem(){
+            Name = nameof(LinkButton.ImageUrl),
+            Description = Localizer[nameof(LinkButton.ImageUrl)],
+            Type = "string",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new AttributeItem(){
+            Name = nameof(LinkButton.TooltipPlacement),
+            Description = Localizer[nameof(LinkButton.TooltipPlacement)],
+            Type = "Placement",
+            ValueList = "Top/Left/Right/Bottom",
+            DefaultValue = "Top"
+        },
+        new AttributeItem(){
+            Name = nameof(LinkButton.ChildContent),
+            Description = Localizer[nameof(LinkButton.ChildContent)],
+            Type = "RenderFragment",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new AttributeItem() {
+            Name = nameof(LinkButton.OnClick),
+            Description = Localizer[nameof(LinkButton.OnClick)],
+            Type = "EventCallback<MouseEventArgs>",
+            ValueList = "—",
+            DefaultValue = " — "
+        }
     };
 }

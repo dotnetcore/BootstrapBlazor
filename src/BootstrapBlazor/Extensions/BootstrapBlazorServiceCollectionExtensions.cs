@@ -35,6 +35,7 @@ public static class BootstrapBlazorServiceCollectionExtensions
         services.TryAddSingleton<IComponentIdGenerator, DefaultIdGenerator>();
         services.TryAddSingleton(typeof(IDispatchService<>), typeof(DefaultDispatchService<>));
         services.TryAddSingleton(typeof(ILookUpService), typeof(NullLookUpService));
+
         services.TryAddScoped<ITableExcelExport, DefaultExcelExport>();
         services.TryAddScoped(typeof(IDataService<>), typeof(NullDataService<>));
         services.TryAddScoped<TabItemTextOptions>();
@@ -54,40 +55,26 @@ public static class BootstrapBlazorServiceCollectionExtensions
         services.TryAddScoped<ClipboardService>();
         services.TryAddScoped<ResizeNotificationService>();
 
-        services.TryAddSingleton<IConfigureOptions<BootstrapBlazorOptions>, ConfigureOptions<BootstrapBlazorOptions>>();
-        services.ConfigureBootstrapBlazorOption(configureOptions);
-
-        services.TryAddSingleton<IIPLocatorProvider, DefaultIPLocatorProvider>();
-        services.TryAddSingleton<IConfigureOptions<IPLocatorOption>, ConfigureOptions<IPLocatorOption>>();
-
+        services.TryAddScoped<IIPLocatorProvider, DefaultIPLocatorProvider>();
         services.TryAddScoped<IReconnectorProvider, ReconnectorProvider>();
+
+        services.ConfigureBootstrapBlazorOption(configureOptions);
+        services.ConfigureIPLocatorOption();
+        services.ConfigureJsonLocalizationOptions();
         return services;
     }
 
     /// <summary>
-    ///
+    /// BootstrapBlazorOptions 扩展配置方法
     /// </summary>
     /// <param name="services"></param>
-    /// <param name="locatorAction"></param>
+    /// <param name="configureOptions"></param>
     /// <returns></returns>
-    public static IServiceCollection ConfigureIPLocatorOption(this IServiceCollection services, Action<IPLocatorOption> locatorAction)
+    private static IServiceCollection ConfigureBootstrapBlazorOption(this IServiceCollection services, Action<BootstrapBlazorOptions>? configureOptions = null)
     {
-        services.Configure<IPLocatorOption>(locatorAction);
-        return services;
-    }
-
-    /// <summary>
-    ///
-    /// </summary>
-    /// <param name="services"></param>
-    /// <param name="options"></param>
-    /// <returns></returns>
-    public static IServiceCollection ConfigureBootstrapBlazorOption(this IServiceCollection services, Action<BootstrapBlazorOptions>? options = null)
-    {
+        services.AddOptionsMonitor<BootstrapBlazorOptions>();
         services.Configure<BootstrapBlazorOptions>(op =>
         {
-            options?.Invoke(op);
-
             // 设置默认文化信息
             if (op.DefaultCultureInfo != null)
             {
@@ -95,19 +82,55 @@ public static class BootstrapBlazorServiceCollectionExtensions
                 CultureInfo.DefaultThreadCurrentCulture = culture;
                 CultureInfo.DefaultThreadCurrentUICulture = culture;
             }
+            configureOptions?.Invoke(op);
         });
         return services;
     }
 
     /// <summary>
-    ///
+    /// IPLocatorOption 扩展配置方法
+    /// </summary>
+    /// <param name="services"></param>
+    /// <param name="locatorAction"></param>
+    /// <returns></returns>
+    public static IServiceCollection ConfigureIPLocatorOption(this IServiceCollection services, Action<IPLocatorOption>? locatorAction = null)
+    {
+        services.AddOptionsMonitor<IPLocatorOption>();
+        if (locatorAction != null)
+        {
+            services.Configure(locatorAction);
+        }
+        return services;
+    }
+
+    /// <summary>
+    /// JsonLocalizationOptions 扩展配置方法
     /// </summary>
     /// <param name="services"></param>
     /// <param name="localizationAction"></param>
     /// <returns></returns>
-    public static IServiceCollection ConfigureJsonLocalizationOptions(this IServiceCollection services, Action<JsonLocalizationOptions> localizationAction)
+    public static IServiceCollection ConfigureJsonLocalizationOptions(this IServiceCollection services, Action<JsonLocalizationOptions>? localizationAction = null)
     {
-        services.Configure(localizationAction);
+        services.AddOptionsMonitor<JsonLocalizationOptions>();
+        if (localizationAction != null)
+        {
+            services.Configure(localizationAction);
+        }
         return services;
+    }
+
+    /// <summary>
+    /// 增加支持热更新配置类
+    /// </summary>
+    /// <typeparam name="TOptions"></typeparam>
+    /// <param name="services"></param>
+    /// <returns></returns>
+    public static IServiceCollection AddOptionsMonitor<TOptions>(this IServiceCollection services) where TOptions : class
+    {
+        services.AddOptions();
+        services.TryAddSingleton<IOptionsChangeTokenSource<TOptions>, ConfigurationChangeTokenSource<TOptions>>();
+        services.TryAddSingleton<IConfigureOptions<TOptions>, ConfigureOptions<TOptions>>();
+        return services;
+
     }
 }

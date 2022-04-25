@@ -50,7 +50,7 @@ public partial class Toast : IDisposable
 
     [Inject]
     [NotNull]
-    private IOptions<BootstrapBlazorOptions>? Options { get; set; }
+    private IOptionsMonitor<BootstrapBlazorOptions>? Options { get; set; }
 
     /// <summary>
     /// OnInitialized 方法
@@ -59,7 +59,7 @@ public partial class Toast : IDisposable
     {
         base.OnInitialized();
 
-        Placement = Options.Value.ToastPlacement ?? Placement.BottomEnd;
+        Placement = Options.CurrentValue.ToastPlacement ?? Placement.BottomEnd;
 
         // 注册 Toast 弹窗事件
         if (ToastService != null)

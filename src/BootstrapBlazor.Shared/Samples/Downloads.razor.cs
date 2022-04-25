@@ -23,7 +23,7 @@ public partial class Downloads
 
     [Inject]
     [NotNull]
-    private IOptions<WebsiteOptions>? SiteOptions { get; set; }
+    private IOptionsMonitor<WebsiteOptions>? SiteOptions { get; set; }
 
     private string? TempUrl { get; set; }
 
@@ -43,7 +43,7 @@ public partial class Downloads
             }
             else
             {
-                var filePath = Path.Combine(SiteOptions.Value.WebRootPath, "favicon.png");
+                var filePath = Path.Combine(SiteOptions.CurrentValue.WebRootPath, "favicon.png");
                 TempUrl = await downloadService.CreateUrlAsync("favicon.png", File.OpenRead(filePath),
                     "image/jpeg");
                 StateHasChanged();
@@ -90,7 +90,7 @@ public partial class Downloads
     {
         try
         {
-            var filePath = Path.Combine(SiteOptions.Value.WebRootPath, "favicon.png");
+            var filePath = Path.Combine(SiteOptions.CurrentValue.WebRootPath, "favicon.png");
             await downloadService.DownloadAsync("favicon.png", filePath);
         }
         catch (FileNotFoundException msg)
@@ -105,7 +105,7 @@ public partial class Downloads
     {
         try
         {
-            await downloadService.DownloadFolderAsync("test.zip", SiteOptions.Value.WebRootPath);
+            await downloadService.DownloadFolderAsync("test.zip", SiteOptions.CurrentValue.WebRootPath);
         }
         catch (FileNotFoundException msg)
         {

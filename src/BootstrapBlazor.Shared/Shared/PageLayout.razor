@@ -1,5 +1,5 @@
 ﻿@inherits LayoutComponentBase
-@inject IOptions<WebsiteOptions> WebsiteOption
+@inject IOptionsMonitor<WebsiteOptions> WebsiteOption
 
 <CascadingValue Value="this" IsFixed="true">
     <Layout SideWidth="0" IsPage="true" IsFullSide="@IsFullSide" IsFixedHeader="@IsFixedHeader" IsFixedFooter="@IsFixedFooter"
@@ -32,7 +32,7 @@
         </Main>
         <Footer>
             <div class="text-center flex-fill">
-                <a class="page-layout-demo-footer-link" href="@WebsiteOption.Value.BootstrapAdminLink" target="_blank">Bootstrap Admin</a>
+                <a class="page-layout-demo-footer-link" href="@WebsiteOption.CurrentValue.BootstrapAdminLink" target="_blank">Bootstrap Admin</a>
             </div>
         </Footer>
     </Layout>

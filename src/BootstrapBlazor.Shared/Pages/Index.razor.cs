@@ -29,7 +29,7 @@ public sealed partial class Index
 
     [Inject]
     [NotNull]
-    private IOptions<WebsiteOptions>? Options { get; set; }
+    private IOptionsMonitor<WebsiteOptions>? Options { get; set; }
 
     /// <summary>
     /// 

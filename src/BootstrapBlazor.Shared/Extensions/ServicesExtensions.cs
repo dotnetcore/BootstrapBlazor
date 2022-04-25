@@ -6,7 +6,6 @@ using BootstrapBlazor.Components;
 using BootstrapBlazor.Shared;
 using BootstrapBlazor.Shared.Services;
 using Microsoft.AspNetCore.Components.Authorization;
-using Microsoft.Extensions.Options;
 
 namespace Microsoft.Extensions.DependencyInjection;
 
@@ -23,10 +22,12 @@ public static class ServicesExtensions
     {
         services.AddSingleton<WeatherForecastService>();
         services.AddSingleton<VersionService>();
-        services.AddSingleton<CodeSnippetService>();
-        services.AddSingleton<IConfigureOptions<WebsiteOptions>, ConfigureOptions<WebsiteOptions>>();
+        services.AddScoped<CodeSnippetService>();
         services.AddSingleton(typeof(IDataService<>), typeof(TableDemoDataService<>));
         services.AddSingleton(typeof(ILookUpService), typeof(DemoLookUpService));
+
+        // 增加示例网站配置
+        services.AddOptionsMonitor<WebsiteOptions>();
 
         // 增加模拟登录服务
         services.AddScoped<AuthenticationStateProvider, MockAuthenticationStateProvider>();

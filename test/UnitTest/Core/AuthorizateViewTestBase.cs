@@ -45,7 +45,6 @@ public class AuthorizateViewTestHost : IDisposable
         Instance.JSInterop.Mode = JSRuntimeMode.Loose;
 
         Instance.Services.AddBootstrapBlazor();
-
         Instance.Services.AddConfiguration();
 
         // 渲染 BootstrapBlazorRoot 组件 激活 ICacheManager 接口

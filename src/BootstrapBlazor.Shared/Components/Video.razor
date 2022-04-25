@@ -1,4 +1,4 @@
-﻿@inject IOptions<WebsiteOptions> Options
+﻿@inject IOptionsMonitor<WebsiteOptions> Options
 
 <p><b>B 站相关视频链接</b></p>
 
@@ -30,9 +30,9 @@ else
     {
         base.OnInitialized();
 
-        if (!string.IsNullOrEmpty(Name) && Options.Value.Videos.TryGetValue(Name, out var url))
+        if (!string.IsNullOrEmpty(Name) && Options.CurrentValue.Videos.TryGetValue(Name, out var url))
         {
-            VideoUrl.AddRange(url.Split(';').Select(a => $"{Options.Value.VideoUrl}{a}"));
+            VideoUrl.AddRange(url.Split(';').Select(a => $"{Options.CurrentValue.VideoUrl}{a}"));
         }
     }
 }

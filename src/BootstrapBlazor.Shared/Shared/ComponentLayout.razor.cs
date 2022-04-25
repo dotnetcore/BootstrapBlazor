@@ -39,7 +39,7 @@ public sealed partial class ComponentLayout
 
     [Inject]
     [NotNull]
-    private IOptions<WebsiteOptions>? SiteOptions { get; set; }
+    private IOptionsMonitor<WebsiteOptions>? SiteOptions { get; set; }
 
     [Inject]
     [NotNull]
@@ -71,7 +71,7 @@ public sealed partial class ComponentLayout
         var comNameWithHash = page.Split("/").LastOrDefault() ?? string.Empty;
         var comName = comNameWithHash.Split("#").FirstOrDefault() ?? string.Empty;
 
-        if (!string.IsNullOrEmpty(comName) && SiteOptions.Value.SourceCodes.TryGetValue(comName, out var fileName))
+        if (!string.IsNullOrEmpty(comName) && SiteOptions.CurrentValue.SourceCodes.TryGetValue(comName, out var fileName))
         {
             if (fileName.Contains(';'))
             {

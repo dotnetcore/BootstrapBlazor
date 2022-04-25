@@ -19,7 +19,7 @@ public partial class Introduction : IAsyncDisposable
     /// </summary>
     [Inject]
     [NotNull]
-    private IOptions<WebsiteOptions>? WebsiteOption { get; set; }
+    private IOptionsMonitor<WebsiteOptions>? WebsiteOption { get; set; }
 
     /// <summary>
     /// 
@@ -44,10 +44,10 @@ public partial class Introduction : IAsyncDisposable
 
         LocalizerUrls = new string[]
         {
-            WebsiteOption.Value.BootstrapAdminLink,
-            WebsiteOption.Value.BootstrapAdminLink + "/stargazers",
-            WebsiteOption.Value.BootstrapAdminLink + "/badge/star.svg?theme=gvp",
-            WebsiteOption.Value.BootstrapAdminLink
+            WebsiteOption.CurrentValue.BootstrapAdminLink,
+            WebsiteOption.CurrentValue.BootstrapAdminLink + "/stargazers",
+            WebsiteOption.CurrentValue.BootstrapAdminLink + "/badge/star.svg?theme=gvp",
+            WebsiteOption.CurrentValue.BootstrapAdminLink
         };
     }
 

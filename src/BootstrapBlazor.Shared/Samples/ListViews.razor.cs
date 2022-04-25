@@ -25,7 +25,7 @@ public sealed partial class ListViews
 
         Products = Enumerable.Range(1, 100).Select(i => new Product()
         {
-            ImageUrl = $"{WebsiteOption.Value.ImageLibUrl}/images/Pic{i}.jpg",
+            ImageUrl = $"{WebsiteOption.CurrentValue.ImageLibUrl}/images/Pic{i}.jpg",
             Description = $"Pic{i}.jpg",
             Category = $"Group{(i % 4) + 1}"
         });
@@ -45,10 +45,7 @@ public sealed partial class ListViews
         Trace?.Log($"ListViewItem: {item.Description} clicked");
         return Task.CompletedTask;
     }
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <returns></returns>
+
     private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
         new AttributeItem(){
@@ -121,23 +118,11 @@ public sealed partial class ListViews
     };
 }
 
-/// <summary>
-/// 
-/// </summary>
 internal class Product
 {
-    /// <summary>
-    /// 
-    /// </summary>
     public string ImageUrl { get; set; } = "";
 
-    /// <summary>
-    /// 
-    /// </summary>
     public string Description { get; set; } = "";
 
-    /// <summary>
-    /// 
-    /// </summary>
     public string Category { get; set; } = "";
 }
