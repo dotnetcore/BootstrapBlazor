@@ -7,7 +7,7 @@ namespace UnitTest.Components;
 public class SwalTest : SwalTestBase
 {
     [Fact]
-    public void Show_Ok()
+    public async Task Show_Ok()
     {
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
         {
@@ -16,7 +16,7 @@ public class SwalTest : SwalTestBase
 
         var swal = cut.FindComponent<MockSwalTest>().Instance.SwalService;
 
-        cut.InvokeAsync(async () => await swal.Show(new SwalOption()
+        await cut.InvokeAsync(async () => await swal.Show(new SwalOption()
         {
             BodyTemplate = builder => builder.AddContent(0, "Test-BodyTemplate"),
             FooterTemplate = builder => builder.AddContent(0, "Test-FooterTemplate"),
@@ -33,10 +33,10 @@ public class SwalTest : SwalTestBase
 
         // 测试关闭逻辑
         var modal = cut.FindComponent<Modal>();
-        cut.InvokeAsync(() => modal.Instance.Close());
+        await cut.InvokeAsync(() => modal.Instance.Close());
 
         //测试Content
-        cut.InvokeAsync(() => swal.Show(new SwalOption()
+        await cut.InvokeAsync(() => swal.Show(new SwalOption()
         {
             Content = "I am Swal",
         }));
@@ -44,10 +44,10 @@ public class SwalTest : SwalTestBase
         Assert.Contains("I am Swal", cut.Markup);
 
         modal = cut.FindComponent<Modal>();
-        cut.InvokeAsync(() => modal.Instance.Close());
+        await cut.InvokeAsync(() => modal.Instance.Close());
 
         //测试Title
-        cut.InvokeAsync(() => swal.Show(new SwalOption()
+        await cut.InvokeAsync(() => swal.Show(new SwalOption()
         {
             Content = "I am Title",
         }));
@@ -55,32 +55,34 @@ public class SwalTest : SwalTestBase
         Assert.Contains("I am Title", cut.Markup);
 
         modal = cut.FindComponent<Modal>();
-        cut.InvokeAsync(() => modal.Instance.Close());
+        await cut.InvokeAsync(() => modal.Instance.Close());
 
         //测试Title
-        cut.InvokeAsync(() => swal.Show(new SwalOption()
+        await cut.InvokeAsync(() => swal.Show(new SwalOption()
         {
             ForceDelay = true,
             Delay = 1000
         }));
 
         modal = cut.FindComponent<Modal>();
-        cut.InvokeAsync(() => modal.Instance.Close());
+        await cut.InvokeAsync(() => modal.Instance.Close());
 
         //测试Title
-        cut.InvokeAsync(() => swal.Show(new SwalOption()
+        await cut.InvokeAsync(() => swal.Show(new SwalOption()
         {
             ForceDelay = true,
             Delay = 1000,
         }));
 
         modal = cut.FindComponent<Modal>();
-        cut.InvokeAsync(() => modal.Instance.Close());
+        await cut.InvokeAsync(() => modal.Instance.Close());
 
         //测试关闭按钮
-        cut.InvokeAsync(() => swal.Show(new SwalOption()
+        await cut.InvokeAsync(() => swal.Show(new SwalOption()
         {
             Content = "I am Swal",
+            IsAutoHide = true,
+            Delay = 1000
         }));
 
         var button = cut.Find(".btn-secondary");
@@ -88,7 +90,7 @@ public class SwalTest : SwalTestBase
 
         //测试Modal取消
         var cancel = true;
-        cut.InvokeAsync(async () =>
+        _ = cut.InvokeAsync(async () =>
         {
             cancel = await swal.ShowModal(new SwalOption()
             {
@@ -102,7 +104,7 @@ public class SwalTest : SwalTestBase
 
         //测试Modal确认
         var confirm = false;
-        cut.InvokeAsync(async () =>
+        _ = cut.InvokeAsync(async () =>
         {
             confirm = await swal.ShowModal(new SwalOption()
             {
@@ -130,13 +132,33 @@ public class SwalTest : SwalTestBase
                 });
             });
         });
-        cut.InvokeAsync(() => cut.Find(".dropdown-item").Click());
+        await cut.InvokeAsync(() => cut.Find(".dropdown-item").Click());
         Assert.Contains("Test-Swal-Title", cut.Markup);
         Assert.Contains("Test-Swal-Content", cut.Markup);
         Assert.Contains("Test-Swal-Footer", cut.Markup);
 
-        cut.InvokeAsync(() => cut.Find(".swal2-actions button").Click());
+        await cut.InvokeAsync(() => cut.Find(".swal2-actions button").Click());
         Assert.DoesNotContain("Test-Swal-Content", cut.Markup);
+
+        // 测试自动关闭
+        await cut.InvokeAsync(() => swal.Show(new SwalOption()
+        {
+            Content = "I am Swal",
+            IsAutoHide = true,
+            Delay = 100
+        }));
+        while (cut.Markup.Contains("I am Swal"))
+        {
+            await Task.Delay(100);
+        }
+
+        // 不关闭弹窗测试 Dispose
+        await cut.InvokeAsync(() => swal.Show(new SwalOption()
+        {
+            Content = "I am Swal",
+            IsAutoHide = true,
+            Delay = 1000
+        }));
     }
 
 

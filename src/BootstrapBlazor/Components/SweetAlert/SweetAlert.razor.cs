@@ -55,7 +55,7 @@ public partial class SweetAlert : IDisposable
     {
         await base.OnAfterRenderAsync(firstRender);
 
-        if (ModalContainer != null && IsShowDialog)
+        if (IsShowDialog)
         {
             IsShowDialog = false;
             await ModalContainer.Show();
@@ -128,8 +128,12 @@ public partial class SweetAlert : IDisposable
     {
         if (disposing)
         {
-            DelayToken?.Dispose();
-            DelayToken = null;
+            if (DelayToken != null)
+            {
+                DelayToken.Cancel();
+                DelayToken.Dispose();
+                DelayToken = null;
+            }
             SwalService.UnRegister(this);
         }
     }
