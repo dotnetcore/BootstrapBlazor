@@ -599,6 +599,17 @@ public static class Utility
     });
 
     /// <summary>
+    /// 菜单树状数据层次化方法
+    /// </summary>
+    /// <param name="items">数据集合</param>
+    /// <param name="parentId">父级节点</param>
+    public static IEnumerable<MenuItem> CascadingMenu(this IEnumerable<MenuItem> items, string? parentId = null) => items.Where(i => i.ParentId == parentId).Select(i =>
+    {
+        i.Items = CascadingMenu(items, i.Id).ToList();
+        return i;
+    });
+
+    /// <summary>
     /// 
     /// </summary>
     /// <typeparam name="TValue"></typeparam>
