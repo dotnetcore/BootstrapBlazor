@@ -121,7 +121,7 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
         .AddClass("fa-rotate-90", ExpandRows.Contains(item))
         .Build();
 
-    private static string? GetColspan(int? colspan) => (colspan.HasValue && colspan.Value > 1) ? colspan.Value.ToString() : null;
+    private static string? GetColspan(int colspan) => colspan > 1 ? colspan.ToString() : null;
 
     /// <summary>
     /// 明细行集合用于数据懒加载

@@ -590,7 +590,7 @@ RenderFragment<TItem> RenderRow => item =>
                 continue;
             }
             var cellClass = "";
-            int? colspan = null;
+            int colspan = 0;
             string? value = null;
             @if (col.OnCellRender != null)
             {
@@ -599,7 +599,7 @@ RenderFragment<TItem> RenderRow => item =>
                 cellClass = args.Class;
                 colspan = args.Colspan;
                 value = args.Value;
-                prevColspan = colspan.HasValue ? colspan.Value : 0;
+                prevColspan = colspan;
             }
             <td colspan="@GetColspan(colspan)" class="@GetFixedCellClassString(col, cellClass)" style="@GetFixedCellStyleString(col)">
                 @{
