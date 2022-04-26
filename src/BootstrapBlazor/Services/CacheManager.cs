@@ -295,9 +295,9 @@ internal class CacheManager : ICacheManager
         var cacheKey = $"Placeholder-{CultureInfo.CurrentUICulture.Name}-{modelType.FullName}-{fieldName}";
         return Instance.GetOrCreate(cacheKey, entry =>
         {
+            // 通过资源文件查找 FieldName 项
             string? ret = null;
-        // 通过资源文件查找 FieldName 项
-        var localizer = CreateLocalizerByType(modelType);
+            var localizer = CreateLocalizerByType(modelType);
             var stringLocalizer = localizer?[$"{fieldName}.PlaceHolder"];
             if (stringLocalizer != null && !stringLocalizer.ResourceNotFound)
             {
@@ -327,8 +327,8 @@ internal class CacheManager : ICacheManager
         {
             var props = modelType.GetRuntimeProperties().AsEnumerable();
 
-        // 支持 MetadataType
-        var metadataType = modelType.GetCustomAttribute<MetadataTypeAttribute>(false);
+            // 支持 MetadataType
+            var metadataType = modelType.GetCustomAttribute<MetadataTypeAttribute>(false);
             if (metadataType != null)
             {
                 props = props.Concat(metadataType.MetadataClassType.GetRuntimeProperties());
