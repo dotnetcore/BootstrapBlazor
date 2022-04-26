@@ -218,6 +218,52 @@ internal class CacheManager : ICacheManager
         }
     }
 
+    public static IEnumerable<SelectedItem> GetNullableBoolItems(Type modelType, string fieldName)
+    {
+        var cacheKey = $"NullableBoolItems-{CultureInfo.CurrentUICulture.Name}-{modelType.FullName}-{fieldName}";
+        return Instance.GetOrCreate(cacheKey, entry =>
+        {
+            var items = new List<SelectedItem>();
+            var localizer = modelType.Assembly.IsDynamic ? null : CreateLocalizerByType(modelType);
+            IStringLocalizer? localizerAttr = null;
+            items.Add(new SelectedItem("", FindDisplayText(nameof(NullableBoolItemsAttribute.NullValueDisplayText), attr => attr.NullValueDisplayText)));
+            items.Add(new SelectedItem("True", FindDisplayText(nameof(NullableBoolItemsAttribute.TrueValueDisplayText), attr => attr.TrueValueDisplayText)));
+            items.Add(new SelectedItem("False", FindDisplayText(nameof(NullableBoolItemsAttribute.FalseValueDisplayText), attr => attr.FalseValueDisplayText)));
+            return items;
+
+            string FindDisplayText(string itemName, Func<NullableBoolItemsAttribute, string?> callback)
+            {
+                string? dn = null;
+
+                // 优先读取资源文件配置
+                var stringLocalizer = localizer?[$"{fieldName}-{itemName}"];
+                if (stringLocalizer != null && !stringLocalizer.ResourceNotFound)
+                {
+                    dn = stringLocalizer.Value;
+                }
+                else if (TryGetProperty(modelType, fieldName, out var propertyInfo))
+                {
+                    // 类资源文件未找到 回落查找标签
+                    var attr = propertyInfo.GetCustomAttribute<NullableBoolItemsAttribute>(true);
+                    if (attr != null && !modelType.Assembly.IsDynamic)
+                    {
+                        dn = callback(attr);
+                    }
+                }
+
+                // 回落读取 NullableBoolItemsAttribute 资源文件配置
+                return dn ?? FindDisplayTextByItemName(itemName);
+            }
+
+            string FindDisplayTextByItemName(string itemName)
+            {
+                localizerAttr ??= CreateLocalizerByType(typeof(NullableBoolItemsAttribute));
+                var stringLocalizer = localizerAttr![itemName];
+                return stringLocalizer.Value;
+            }
+        });
+    }
+
     /// <summary>
     /// 通过指定 Key 获取资源文件中的键值
     /// </summary>
@@ -250,8 +296,8 @@ internal class CacheManager : ICacheManager
         return Instance.GetOrCreate(cacheKey, entry =>
         {
             string? ret = null;
-            // 通过资源文件查找 FieldName 项
-            var localizer = CreateLocalizerByType(modelType);
+        // 通过资源文件查找 FieldName 项
+        var localizer = CreateLocalizerByType(modelType);
             var stringLocalizer = localizer?[$"{fieldName}.PlaceHolder"];
             if (stringLocalizer != null && !stringLocalizer.ResourceNotFound)
             {
@@ -281,8 +327,8 @@ internal class CacheManager : ICacheManager
         {
             var props = modelType.GetRuntimeProperties().AsEnumerable();
 
-            // 支持 MetadataType
-            var metadataType = modelType.GetCustomAttribute<MetadataTypeAttribute>(false);
+        // 支持 MetadataType
+        var metadataType = modelType.GetCustomAttribute<MetadataTypeAttribute>(false);
             if (metadataType != null)
             {
                 props = props.Concat(metadataType.MetadataClassType.GetRuntimeProperties());

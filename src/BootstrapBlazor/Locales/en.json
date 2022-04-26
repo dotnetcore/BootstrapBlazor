@@ -307,7 +307,7 @@
     "ClearButtonText": "Clear"
   },
   "BootstrapBlazor.Components.SignaturePad": {
-    "SignAboveLabel": "Sign above label",
+    "SignAboveLabel": "Sign in the box",
     "ClearBtnTitle": "Clear",
     "SignatureAlertText": "Please provide a signature first",
     "ChangeColorBtnTitle": "Change color",
@@ -317,5 +317,10 @@
     "SavePNGBtnTitle": "PNG",
     "SaveJPGBtnTitle": "JPG",
     "SaveSVGBtnTitle": "SVG"
+  },
+  "BootstrapBlazor.Components.NullableBoolItemsAttribute": {
+    "NullValueDisplayText": "Please select ...",
+    "TrueValueDisplayText": "True",
+    "FalseValueDisplayText": "False"
   }
 }

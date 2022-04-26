@@ -305,5 +305,22 @@
   "BootstrapBlazor.Components.Handwritten": {
     "SaveButtonText": "Speichern",
     "ClearButtonText": "Leeren"
+  },
+  "BootstrapBlazor.Components.SignaturePad": {
+    "SignAboveLabel": "In das Feld eintragen",
+    "ClearBtnTitle": "Löschen",
+    "SignatureAlertText": "Bitte geben Sie zuerst eine Unterschrift an",
+    "ChangeColorBtnTitle": "Farbe ändern",
+    "UndoBtnTitle": "Rückgängig",
+    "CloseBtnTitle": "Schließen",
+    "SaveBase64BtnTitle": "OK",
+    "SavePNGBtnTitle": "PNG",
+    "SaveJPGBtnTitle": "JPG",
+    "SaveSVGBtnTitle": "SVG"
+  },
+  "BootstrapBlazor.Components.NullableBoolItemsAttribute": {
+    "NullValueDisplayText": "Bitte wählen",
+    "TrueValueDisplayText": "Wahr",
+    "FalseValueDisplayText": "Falsch"
   }
 }

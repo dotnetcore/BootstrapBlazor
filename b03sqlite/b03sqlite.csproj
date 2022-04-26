@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<!--<PackageReference Include="BootstrapBlazor" Version="6.4.16" />-->
+		<!--<PackageReference Include="BootstrapBlazor.DataAcces.FreeSql" Version="6.0.0" />-->
+		<PackageReference Include="BootstrapBlazor.FontAwesome" Version="6.0.1" />
+		<PackageReference Include="Densen.Extensions.BootstrapBlazor" Version="6.3.2" />
+		<PackageReference Include="Densen.FreeSql.Extensions.BootstrapBlazor" Version="6.3.2" />
+		<PackageReference Include="FreeSql.Provider.Sqlite" Version="3.2.301" />
+		<PackageReference Include="Magicodes.IE.Core" Version="2.6.3" />
+		<PackageReference Include="Magicodes.IE.Excel" Version="2.6.3" />
+		<PackageReference Include="Magicodes.IE.Html" Version="2.6.3" />
+		<PackageReference Include="Magicodes.IE.Pdf" Version="2.6.3" />
+		<PackageReference Include="Magicodes.IE.Word" Version="2.6.3" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="wwwroot\Upload\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\src\BootstrapBlazor\BootstrapBlazor.csproj" />
+	</ItemGroup>
+
+</Project>

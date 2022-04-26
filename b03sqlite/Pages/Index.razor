@@ -1,0 +1,55 @@
+﻿@page "/"
+@using b03sqlite.Data
+<PageTitle>Index</PageTitle>
+
+<Tab>
+    <TabItem Text="导入导出">
+        <ImpExp />
+    </TabItem>
+    <TabItem Text="数据维护">
+        <Table TItem="WeatherForecast"
+               IsPagination="true"
+               IsStriped="true"
+               IsBordered="true"
+               AutoGenerateColumns="true"
+               ShowSearch="true"
+               ShowToolbar="true"
+               ShowExtendButtons="true"
+               DoubleClickToEdit=true
+               ShowColumnList=true
+               ShowCardView=true>
+        </Table>
+
+        @code{
+            // 增加 NullableBoolItems 标签
+            // 目前设置 可以通过以下几种方式来附件 bool? 类型数据源
+            // Items
+            // Lookup
+            // LookupService LookupServiceUp
+            // 设置 NullableBoolItems 标签
+
+            // 由于使用了FreeSql ORM 数据服务,可以直接取对象
+            [Inject] IFreeSql? fsql { get; set; }
+            [Inject] ToastService? toastService { get; set; }
+
+            //用演示服务的数据初始化数据库
+            [Inject] WeatherForecastService? ForecastService { get; set; }
+            protected override async Task OnAfterRenderAsync(bool firstRender)
+            {
+                if (firstRender)
+                {
+                    //懒的人,直接初始化一些数据用用
+                    var res = fsql!.Select<WeatherForecast>().Count();
+                    if (res == 0)
+                    {
+                        var forecasts = (await ForecastService!.GetForecastAsync(DateTime.Now)).ToList();
+                        fsql.Insert<WeatherForecast>().AppendData(forecasts).ExecuteAffrows();
+                    }
+                }
+            }
+
+
+        }
+
+    </TabItem>
+</Tab>

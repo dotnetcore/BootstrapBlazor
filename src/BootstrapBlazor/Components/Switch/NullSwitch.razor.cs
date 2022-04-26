@@ -8,7 +8,7 @@ using Microsoft.Extensions.Localization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// 可为空布尔值组件
 /// </summary>
 public partial class NullSwitch
 {
@@ -127,6 +127,11 @@ public partial class NullSwitch
 
         OnInnerText ??= Localizer[nameof(OnInnerText)];
         OffInnerText ??= Localizer[nameof(OffInnerText)];
+
+        if (CurrentValue == null)
+        {
+            CurrentValue = DefaultValueWhenNull;
+        }
     }
 
     /// <summary>

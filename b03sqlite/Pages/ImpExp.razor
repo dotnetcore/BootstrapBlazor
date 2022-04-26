@@ -1,0 +1,189 @@
+﻿@page "/impexp"
+@using b03sqlite.Data
+<PageTitle>导入导出</PageTitle>
+
+<InputFile OnChange="OnChange" style="max-width:400px" class="form-control"  />
+<br/>
+
+<Table @ref="list1"
+       TItem="WeatherForecast"
+       IsPagination="true"
+       IsStriped="true"
+       IsBordered="true"
+       AutoGenerateColumns="true"
+       ShowSearch="true"
+       ShowToolbar="true"
+       ShowExtendButtons="true"
+       DataService="LazyHeroDataService" 
+	   OnSaveAsync="LazyHeroDataService!.SaveAsync"
+	   OnDeleteAsync="LazyHeroDataService.DeleteAsync"
+       DoubleClickToEdit="@DoubleClickToEdit"
+       IsExcel="@IsExcel"
+       ScrollingDialogContent="true"
+       EditDialogIsDraggable="true"
+       EditDialogSize="Size.ExtraLarge"
+       EditDialogShowMaximizeButton="true">
+
+    <TableToolbarTemplate>
+        <TableToolbarButton TItem="WeatherForecast" Color="Color.Primary" Text="自由编辑" OnClick="@IsExcelToggle" />
+        <TableToolbarButton TItem="WeatherForecast" Color="Color.Warning" Text="随机数据" IsAsync OnClick="@GetDatasAsync" />
+        <TableToolbarButton TItem="WeatherForecast" Color="Color.Secondary" Text="导入" IsAsync OnClick="@ImportExcel" />
+        <TableToolbarButton TItem="WeatherForecast" Color="Color.Info" Text="导出" IsAsync OnClickCallback="ExportAsync" />
+        <TableToolbarButton TItem="WeatherForecast" Color="Color.Danger" Text="清空" IsAsync OnClick="EmptyAll" />
+        <TableToolbarButton TItem="WeatherForecast" Color="Color.Success" Text="模板" IsAsync OnClick="Export模板Async" />
+    </TableToolbarTemplate>
+
+</Table>
+
+@code{
+    [Inject] Microsoft.AspNetCore.Hosting.IWebHostEnvironment? HostEnvironment { get; set; }
+    [Inject] NavigationManager? navigationManager { get; set; }
+    [Inject] ImportExportsService? importExportsService { get; set; }
+    [Inject] ToastService? toastService { get; set; }
+    [Inject] WeatherForecastService? ForecastService { get; set; }
+    [Inject] LazyHeroDataService<WeatherForecast>? LazyHeroDataService { get; set; }
+
+    Table<WeatherForecast>? list1 { get; set; }
+
+    public bool IsExcel { get; set; }
+    public bool DoubleClickToEdit { get; set; } = true;
+    protected string UploadPath = "";
+    protected string? uploadstatus;
+    long maxFileSize = 1024 * 1024 * 15;
+    string? tempfilename;
+
+
+    //protected override async Task OnInitializedAsync()
+    //{
+    //LazyHeroDataService!.Items = (await ForecastService!.GetForecastAsync(DateTime.Now)).ToList();
+    //}
+    protected async Task GetDatasAsync()
+    {
+        LazyHeroDataService!.Items = (await ForecastService!.GetForecastAsync(DateTime.Now)).ToList();
+        await list1!.QueryAsync();
+    }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (firstRender)
+        {
+            UploadPath = Path.Combine(HostEnvironment!.WebRootPath, "Upload");
+            if (!Directory.Exists(UploadPath)) Directory.CreateDirectory(UploadPath);
+        }
+    }
+
+    private Task IsExcelToggle()
+    {
+        IsExcel = !IsExcel;
+        DoubleClickToEdit = !IsExcel;
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
+    public async Task<bool> Export模板Async()
+    {
+        await 模板下载();
+        return true;
+    }
+
+    private async Task 模板下载(List<WeatherForecast>? items = null)
+    {
+        var ufilename = LazyHeroDataService!.Items == null ? "模板" : "新数据";
+        var sFileName = ufilename + ".xlsx";
+        var filename = Path.Combine(UploadPath, ufilename);
+        await importExportsService!.ExportToExcel(filename, items);
+        toastService?.Success("提示", ufilename + "已生成");
+
+        //* 流化到前端处理也可以,不一定要用文件形式下载.
+        navigationManager?.NavigateTo($"Upload/{sFileName}", true);
+        //下载后清除文件
+        _ = Task.Run(() =>
+        {
+            Thread.Sleep(5000);
+            System.IO.File.Delete(filename);
+        });
+
+    }
+
+    public async Task<bool> ExportAsync(IEnumerable<WeatherForecast> Items)
+    {
+        await 模板下载(LazyHeroDataService!.Items);
+        return true;
+    }
+
+    public async Task<bool> EmptyAll()
+    {
+        LazyHeroDataService!.Items = new List<WeatherForecast>();
+        await toastService!.Show(new ToastOption()
+        {
+            Category = ToastCategory.Success,
+            Title = "提示",
+            Content = "已清空数据",
+        });
+
+        await list1!.QueryAsync();
+        return true;
+    }
+    private async Task ImportExcel()
+    {
+        if (string.IsNullOrEmpty(tempfilename))
+        {
+            toastService?.Error("提示", "请正确选择文件上传");
+            return;
+        }
+        var option = new ToastOption()
+        {
+            Category = ToastCategory.Information,
+            Title = "提示",
+            Content = "导入文件中,请稍等片刻...",
+            IsAutoHide = false
+        };
+        // 弹出 Toast
+        await toastService!.Show(option);
+        await Task.Delay(100);
+
+
+        // 开启后台进程进行数据处理
+        var isSuccess= await MockImportExcel();
+
+        // 关闭 option 相关联的弹窗
+        await option.Close();
+
+        // 弹窗告知下载完毕
+        await toastService.Show(new ToastOption()
+        {
+            Category = isSuccess? ToastCategory.Success : ToastCategory.Error,
+            Title = "提示",
+            Content = isSuccess ? "操作成功,请检查数据":"出现错误,请重试导入或者上传",
+            IsAutoHide = false
+        });
+
+        await list1!.QueryAsync();
+    }
+    private async Task<bool> MockImportExcel()
+    {
+        var items_temp = await importExportsService!.ImportFormExcel<WeatherForecast>(tempfilename!);
+        if (items_temp.items == null)
+        {
+            toastService?.Error("提示", "文件导入失败: "+ items_temp.error);
+            return false;
+        }
+        //items = SmartCombine(items_temp, items).ToList(); 新数据和老数据合并处理,略100字
+        LazyHeroDataService!.Items = items_temp!.items.ToList();
+        return true;
+    }
+
+    protected async Task OnChange(InputFileChangeEventArgs e)
+    {
+        if (e.File == null) return;
+        tempfilename = Path.Combine(UploadPath, e.File.Name);
+        await using FileStream fs = new(tempfilename, FileMode.Create);
+        using var stream = e.File.OpenReadStream(maxFileSize);
+        await stream.CopyToAsync(fs);
+
+        //正式工程此处是回调,简化版必须InvokeAsync一下,自由发挥
+        _ = Task.Run(async () => await InvokeAsync(async () => await ImportExcel()));
+
+    }
+
+
+}

@@ -317,5 +317,10 @@
     "SavePNGBtnTitle": "PNG",
     "SaveJPGBtnTitle": "JPG",
     "SaveSVGBtnTitle": "SVG"
+  },
+  "BootstrapBlazor.Components.NullableBoolItemsAttribute": {
+    "NullValueDisplayText": "请选择 ...",
+    "TrueValueDisplayText": "True",
+    "FalseValueDisplayText": "False"
   }
 }
