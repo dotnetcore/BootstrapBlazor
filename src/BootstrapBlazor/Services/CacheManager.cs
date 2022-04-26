@@ -149,7 +149,7 @@ internal class CacheManager : ICacheManager
             // search in Localization
             var localizer = CreateLocalizerByType(t);
             var stringLocalizer = localizer?[fieldName];
-            if (stringLocalizer != null && !stringLocalizer.ResourceNotFound)
+            if (stringLocalizer is { ResourceNotFound: false })
             {
                 dn = stringLocalizer.Value;
             }
@@ -187,7 +187,7 @@ internal class CacheManager : ICacheManager
             // 显示名称为空时通过资源文件查找 FieldName 项
             var localizer = modelType.Assembly.IsDynamic ? null : CreateLocalizerByType(modelType);
             var stringLocalizer = localizer?[fieldName];
-            if (stringLocalizer != null && !stringLocalizer.ResourceNotFound)
+            if (stringLocalizer is { ResourceNotFound: false })
             {
                 dn = stringLocalizer.Value;
             }
@@ -237,7 +237,7 @@ internal class CacheManager : ICacheManager
 
                 // 优先读取资源文件配置
                 var stringLocalizer = localizer?[$"{fieldName}-{itemName}"];
-                if (stringLocalizer != null && !stringLocalizer.ResourceNotFound)
+                if (stringLocalizer is { ResourceNotFound: false })
                 {
                     dn = stringLocalizer.Value;
                 }
@@ -276,13 +276,10 @@ internal class CacheManager : ICacheManager
         if (resxType.Value.ResourceManagerStringLocalizerType != null)
         {
             var localizer = CreateLocalizerByType(resxType.Value.ResourceManagerStringLocalizerType);
-            if (localizer != null)
+            var stringLocalizer = localizer?[key];
+            if (stringLocalizer is { ResourceNotFound: false })
             {
-                var stringLocalizer = localizer[key];
-                if (!stringLocalizer.ResourceNotFound)
-                {
-                    dn = stringLocalizer.Value;
-                }
+                dn = stringLocalizer.Value;
             }
         }
         return dn ?? key;
@@ -299,7 +296,7 @@ internal class CacheManager : ICacheManager
             string? ret = null;
             var localizer = CreateLocalizerByType(modelType);
             var stringLocalizer = localizer?[$"{fieldName}.PlaceHolder"];
-            if (stringLocalizer != null && !stringLocalizer.ResourceNotFound)
+            if (stringLocalizer is { ResourceNotFound: false })
             {
                 ret = stringLocalizer.Value;
             }
@@ -543,7 +540,7 @@ public static class ICacheManagerExtensions
             var v = sections
                 .FirstOrDefault(kv => typeName.Equals(kv.Key, StringComparison.OrdinalIgnoreCase))?
                 .GetChildren()
-                .SelectMany(c => new KeyValuePair<string, string>[] { new KeyValuePair<string, string>(c.Key, c.Value) });
+                .SelectMany(c => new[] { new KeyValuePair<string, string>(c.Key, c.Value) });
 
             return v ?? Enumerable.Empty<KeyValuePair<string, string>>();
         });

@@ -82,6 +82,13 @@ public static class BootstrapBlazorServiceCollectionExtensions
                 CultureInfo.DefaultThreadCurrentCulture = culture;
                 CultureInfo.DefaultThreadCurrentUICulture = culture;
             }
+
+            if (string.IsNullOrEmpty(CultureInfo.DefaultThreadCurrentUICulture?.Name))
+            {
+                var culture = new CultureInfo(op.FallbackCulture);
+                CultureInfo.DefaultThreadCurrentCulture = culture;
+                CultureInfo.DefaultThreadCurrentUICulture = culture;
+            }
             configureOptions?.Invoke(op);
         });
         return services;
