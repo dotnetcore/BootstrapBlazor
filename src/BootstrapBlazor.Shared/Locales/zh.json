@@ -250,7 +250,8 @@
     "Desc15": "额外程序集合，传递给 Tab 组件使用",
     "Desc16": "收缩展开回调委托",
     "Desc17": "点击菜单项时回调委托",
-    "TabDefaultUrl": "设置 Tab 组件默认标签页"
+    "TabDefaultUrl": "设置 Tab 组件默认标签页",
+    "IsAccordion": "是否设置手风琴菜单"
   },
   "BootstrapBlazor.Shared.Samples.Footers": {
     "Title": "Footer 页脚组件",

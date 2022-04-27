@@ -250,7 +250,8 @@
     "Desc15": "Collection of additional programs, passed to the Tab component for use",
     "Desc16": "Contract expand callback delegate",
     "Desc17": "Call back the delegate when the menu item is clicked",
-    "TabDefaultUrl": "Set the default url of Tab"
+    "TabDefaultUrl": "Set the default url of Tab",
+    "IsAccordion": "Whether to set the accordion menu"
   },
   "BootstrapBlazor.Shared.Samples.Footers": {
     "Title": "Footer",

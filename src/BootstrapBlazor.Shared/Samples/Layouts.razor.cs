@@ -109,6 +109,13 @@ public sealed partial class Layouts
                 DefaultValue = "false"
             },
             new AttributeItem() {
+                Name = "IsAccordion",
+                Description = Localizer["IsAccordion"],
+                Type = "bool",
+                ValueList = "true|false",
+                DefaultValue = "false"
+            },
+            new AttributeItem() {
                 Name = "ShowCollapseBar",
                 Description =  Localizer["Desc11"],
                 Type = "bool",
