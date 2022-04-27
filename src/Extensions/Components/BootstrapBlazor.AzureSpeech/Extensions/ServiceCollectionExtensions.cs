@@ -4,7 +4,6 @@
 
 using BootstrapBlazor.Components;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using Microsoft.Extensions.Options;
 
 namespace Microsoft.Extensions.DependencyInjection;
 
@@ -31,7 +30,7 @@ public static class ServiceCollectionExtensions
         services.TryAddScoped<SynthesizerService>();
         services.AddScoped<ISynthesizerProvider, AzureSynthesizerProvider>();
 
-        services.TryAddSingleton<IConfigureOptions<AzureSpeechOption>, ConfigureOptions<AzureSpeechOption>>();
+        services.AddOptionsMonitor<AzureSpeechOption>();
 
         services.Configure<AzureSpeechOption>(option =>
         {

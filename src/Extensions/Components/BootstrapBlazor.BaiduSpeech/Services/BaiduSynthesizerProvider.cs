@@ -30,10 +30,10 @@ public class BaiduSynthesizerProvider : ISynthesizerProvider, IAsyncDisposable
     /// </summary>
     /// <param name="options"></param>
     /// <param name="runtime"></param>
-    public BaiduSynthesizerProvider(IOptions<BaiduSpeechOption> options, IJSRuntime runtime)
+    public BaiduSynthesizerProvider(IOptionsMonitor<BaiduSpeechOption> options, IJSRuntime runtime)
     {
         JSRuntime = runtime;
-        SpeechOption = options.Value;
+        SpeechOption = options.CurrentValue;
         Client = new Baidu.Aip.Speech.Tts(SpeechOption.ApiKey, SpeechOption.Secret);
     }
 

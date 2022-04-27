@@ -4,7 +4,6 @@
 
 using BootstrapBlazor.Components;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using Microsoft.Extensions.Options;
 
 namespace Microsoft.Extensions.DependencyInjection;
 
@@ -31,7 +30,7 @@ public static class ServiceCollectionExtension
         services.TryAddScoped<SynthesizerService>();
         services.AddScoped<ISynthesizerProvider, BaiduSynthesizerProvider>();
 
-        services.TryAddSingleton<IConfigureOptions<BaiduSpeechOption>, ConfigureOptions<BaiduSpeechOption>>();
+        services.AddOptionsMonitor<BaiduSpeechOption>();
 
         services.Configure<BaiduSpeechOption>(option =>
         {

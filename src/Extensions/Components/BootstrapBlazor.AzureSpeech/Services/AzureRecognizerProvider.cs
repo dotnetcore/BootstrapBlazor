@@ -36,11 +36,11 @@ public class AzureRecognizerProvider : IRecognizerProvider, IAsyncDisposable
     /// <param name="runtime"></param>
     /// <param name="factory"></param>
     /// <param name="cache"></param>
-    public AzureRecognizerProvider(IOptions<AzureSpeechOption> options, IJSRuntime runtime, IHttpClientFactory factory, IMemoryCache cache)
+    public AzureRecognizerProvider(IOptionsMonitor<AzureSpeechOption> options, IJSRuntime runtime, IHttpClientFactory factory, IMemoryCache cache)
     {
         Cache = cache;
         JSRuntime = runtime;
-        SpeechOption = options.Value;
+        SpeechOption = options.CurrentValue;
         Client = factory.CreateClient();
         Client.BaseAddress = new Uri(string.Format(SpeechOption.AuthorizationTokenUrl, SpeechOption.Region));
         if (SpeechOption.Timeout > 0)
