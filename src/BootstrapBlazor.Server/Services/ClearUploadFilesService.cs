@@ -20,12 +20,12 @@ internal class ClearUploadFilesService : BackgroundService
     /// </summary>
     /// <param name="env"></param>
     /// <param name="websiteOption"></param>
-    public ClearUploadFilesService(IWebHostEnvironment env, IOptions<WebsiteOptions> websiteOption)
+    public ClearUploadFilesService(IWebHostEnvironment env, IOptionsMonitor<WebsiteOptions> websiteOption)
     {
         _env = env;
-        websiteOption.Value.WebRootPath = env.WebRootPath;
-        websiteOption.Value.ContentRootPath = env.ContentRootPath;
-        websiteOption.Value.IsDevelopment = env.IsDevelopment();
+        websiteOption.CurrentValue.WebRootPath = env.WebRootPath;
+        websiteOption.CurrentValue.ContentRootPath = env.ContentRootPath;
+        websiteOption.CurrentValue.IsDevelopment = env.IsDevelopment();
     }
 
     /// <summary>
