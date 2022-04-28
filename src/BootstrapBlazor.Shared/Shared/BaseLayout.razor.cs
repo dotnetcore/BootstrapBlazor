@@ -83,7 +83,7 @@ public partial class BaseLayout
 
         if (firstRender)
         {
-            await JSRuntime.InvokeVoidAsync("$.bb_tooltip_site", MsLearnElement);
+            await JSRuntime.InvokeVoidAsync("$.bb_site_load", MsLearnElement);
         }
     }
 
