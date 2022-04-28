@@ -273,7 +273,7 @@ public partial class Table<TItem>
     {
         if (OnEditAsync != null)
         {
-            EditModel = SelectedRows[0];
+            EditModel = IsTracking ? SelectedRows[0] : Utility.Clone(SelectedRows[0]);
             await OnEditAsync(EditModel);
         }
         else
