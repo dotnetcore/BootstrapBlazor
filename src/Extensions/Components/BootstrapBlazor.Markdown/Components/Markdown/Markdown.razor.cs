@@ -169,7 +169,7 @@ public partial class Markdown : IAsyncDisposable
             var hasChanged = !EqualityComparer<string>.Default.Equals(vals[0], Value);
             if (hasChanged)
             {
-                Value = vals[0];
+                _value = vals[0];
                 if (ValueChanged.HasDelegate)
                 {
                     await ValueChanged.InvokeAsync(Value);

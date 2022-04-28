@@ -58,4 +58,9 @@ internal class MarkdownOption
     /// 获得/设置 是否启用代码高亮
     /// </summary>
     public bool? EnableHighlight { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否自动获取焦点
+    /// </summary>
+    public bool Autofocus { get; set; } = false;
 }
