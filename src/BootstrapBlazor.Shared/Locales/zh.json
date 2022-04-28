@@ -428,6 +428,7 @@
     "DispatchText": "消息分发 Dispatch",
     "GeolocationText": "地理定位组件 Geolocation",
     "NotificationsText": "浏览器通知 Notification",
+    "OnScreenKeyboardText": "屏幕键盘 OnScreenKeyboard",
     "SignaturePadText": "手写签名 SignaturePad"
   },
   "BootstrapBlazor.Shared.Samples.GlobalException": {
@@ -2780,8 +2781,8 @@
     "SpeechIntro": "简介",
     "Recognizer": "语音识别 Recognizer",
     "Synthesizer": "语音合成 Synthesizer",
-    "SpeechWave": "语音波形图 SpeechWave"
-
+    "SpeechWave": "语音波形图 SpeechWave",
+    "OnScreenKeyboard": "屏幕键盘 OnScreenKeyboard"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesFooter": {
     "Left": "左对齐",
@@ -2929,7 +2930,6 @@
     "P2": "本组件依赖于 <a href='https://www.nuget.org/packages?q=BootstrapBlazor.SignaturePad' target='_blank'><code>BootstrapBlazor.SignaturePad</code></a>，使用本组件时需要引用其组件包",
     "P3": "Nuget 包安装",
     "P4": "使用 <a href='https://www.nuget.org/packages?q=BootstrapBlazor.SignaturePad' target='_blank'>nuget.org</a> 进行 <code>BootstrapBlazor.SignaturePad</code> 组件的安装"
-
   },
   "BootstrapBlazor.Shared.Samples.Reconnectors": {
     "Title": "Reconnector 重连组件",
@@ -2953,5 +2953,25 @@
     "TableRow4": "已拒绝重新连接。 已达到服务器，但拒绝连接，服务器上的用户状态丢失。 若要重新加载应用，请在 <b>JavaScript</b> 中调用 <code>location.reload()</code>。当出现以下情况时，可能会导致此连接状态：",
     "TableRow5": "<li>服务器端线路发生故障。</li><li>客户端断开连接的时间足以使服务器删除用户的状态。用户组件的实例已被处置。</li><li>服务器已重启，或者应用的工作进程被回收。</li>",
     "Application": "实战应用"
+  },
+  "BootstrapBlazor.Shared.Samples.OnScreenKeyboards": {
+    "Title": "On-Screen keyboard 屏幕键盘",
+    "P1": "注意事项",
+    "P2": "本组件依赖于 <a href='https://www.nuget.org/packages?q=BootstrapBlazor.OnScreenKeyboard' target='_blank'><code>BootstrapBlazor.SignaturePad</code></a>，使用本组件时需要引用其组件包",
+    "P3": "Nuget 包安装",
+    "P4": "使用 <a href='https://www.nuget.org/packages?q=BootstrapBlazor.OnScreenKeyboard' target='_blank'>nuget.org</a> 进行 <code>BootstrapBlazor.OnScreenKeyboard</code> 组件的安装",
+    "BaseUsageText": "基础用法",
+    "BlockKeyboardTypeAllTitle": "全键盘",
+    "BlockKeyboardTypekeyboard": "字母键盘",
+    "BlockKeyboardTypeNumpadTitle": "数字键盘",
+    "BlockKeyboardTypeSpanishTitle": "西班牙语键盘",
+    "BlockKeyboardThemeDarkTitle": "暗黑主题",
+    "BlockSpecialcharactersTitle": "特殊符号-欧洲",
+    "BlockSpecialcharactersCustomerTitle": "特殊符号自定义",
+    "BBUsageText": "BootstrapBlazor 组件",
+    "BBUsage2Text": "双绑",
+    "Tips": "如果表现不正常,可以加上这句 css 调试看看",
+    "P5": "<code> .kioskboard-body-padding { padding-top: unset !important;} </code>",
+    "P6": "基础用法"
   }
 }

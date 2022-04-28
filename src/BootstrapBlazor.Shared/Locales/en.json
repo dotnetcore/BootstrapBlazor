@@ -427,7 +427,8 @@
     "ChartBubbleText": "Bubble",
     "DispatchText": "Dispatch",
     "GeolocationText": "Geolocation",
-    "Notification": "Notification",
+    "OnScreenKeyboardText": "OnScreenKeyboard",
+    "NotificationText": "Notification",
     "SignaturePadText": "SignaturePad"
   },
   "BootstrapBlazor.Shared.Samples.GlobalException": {
@@ -2767,7 +2768,8 @@
     "SpeechIntro": "Introduction",
     "Recognizer": "Recognizer",
     "Synthesizer": "Synthesizer",
-    "SpeechWave": "SpeechWave"
+    "SpeechWave": "SpeechWave",
+    "OnScreenKeyboard": "OnScreenKeyboard"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesFooter": {
     "Left": "Left",
@@ -2937,5 +2939,25 @@
     "TableRow4": "Reconnection rejected. The server was reached but refused the connection, and the user's state on the server is lost. To reload the app, call <code>location.reload()</code> in JavaScript. This connection state may result when:",
     "TableRow5": "<li>A crash in the server-side circuit occurs.</li><li>The client is disconnected long enough for the server to drop the user's state. Instances of the user's components are disposed.</li><li>The server is restarted, or the app's worker process is recycled.</li>",
     "Application": "Application"
+  },
+  "BootstrapBlazor.Shared.Samples.OnScreenKeyboards": {
+    "Title": "On-Screen keyboard",
+    "P1": "Precautions",
+    "P2": "This component relies on <a href='https://www.nuget.org/packages?q-BootstrapBlazor.OnScreenKeyboard' target'_blank'><code>BootstrapBlazor.OnScreenKeyboard</code></a>, which needs to reference its component package when using this component",
+    "P3": "Nuget package installation",
+    "P4": "Install the</code> components of <code>BootstrapBlazor.OnScreenKeyboard using <a href='https://www.nuget.org/packages?q-BootstrapBlazor.OnScreenKeyboard' target'_blank'>nuget.org</a>",
+    "BaseUsageText": "Basic usage",
+    "BlockKeyboardTypeAllTitle": "Full Keyboard",
+    "BlockKeyboardTypekeyboard": "Keyboard",
+    "BlockKeyboardTypeNumpadTitle": "Numpad",
+    "BlockKeyboardTypeSpanishTitle": "Spanish keyboard",
+    "BlockKeyboardThemeDarkTitle": "Theme dark",
+    "BlockSpecialcharactersTitle": "Special characters europe",
+    "BlockSpecialcharactersCustomerTitle": "Special characters in customer",
+    "BBUsageText": "BootstrapBlazor component",
+    "BBUsage2Text": "Bind",
+    "Tips": "If the performance is not normal, you can add this css to debug",
+    "P5": "<code> .kioskboard-body-padding { padding-top: unset !important;} </code>",
+    "P6": "Basic"
   }
 }

@@ -346,6 +346,11 @@ public sealed partial class NavMenu
             },
             new()
             {
+                Text = Localizer["OnScreenKeyboard"],
+                Url = "onscreenkeyboards"
+            },
+            new()
+            {
                 Text = Localizer["Radio"],
                 Url = "radios"
             },

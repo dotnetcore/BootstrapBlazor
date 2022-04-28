@@ -59,6 +59,7 @@
     "validateforms": "ValidateForms",
     "wrap": "Table/TablesWrap",
     "virtualization": "Table/TablesVirtualization",
+    "onscreenkeyboards": "OnScreenKeyboards",
     "signaturepads": "SignaturePad/SignaturePads",
     "imageviewers": "ImageViewers",
     "speechwaves": "Speechs/SpeechWaves",
