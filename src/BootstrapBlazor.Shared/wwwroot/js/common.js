@@ -198,22 +198,25 @@
         bb_site_load: function (el) {
             $(el).tooltip();
 
-            // Intro 弹窗
-            var $intro = $('.blazor-intro');
-            $('.blazor-intro-close').on('click', function () {
-                if (handler != null) {
-                    window.clearInterval(handler);
+            var width = $(window).width();
+            if (width >= 768) {
+                // Intro 弹窗
+                var $intro = $('.blazor-intro');
+                $('.blazor-intro-close').on('click', function () {
+                    if (handler != null) {
+                        window.clearInterval(handler);
+                        $intro.slideToggle('fade');
+                    }
+                });
+                var count = 0;
+                var handler = window.setInterval(function () {
+                    count++;
                     $intro.slideToggle('fade');
-                }
-            });
-            var count = 0;
-            var handler = window.setInterval(function () {
-                count++;
-                $intro.slideToggle('fade');
-                if (count >= 2) {
-                    window.clearInterval(handler);
-                }
-            }, 5000);
+                    if (count >= 2) {
+                        window.clearInterval(handler);
+                    }
+                }, 15000);
+            }
         },
         bb_block: function (el) {
             var $el = $(el);

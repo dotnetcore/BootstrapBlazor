@@ -1,4 +1,4 @@
-﻿header {
+header {
     background-color: #7952b3;
     box-shadow: 0 0.5rem 1rem rgba(0,0,0,.05), inset 0 -1px 0 rgba(0,0,0,.1);
     font-size: 1rem;
@@ -8,6 +8,10 @@
 .navbar-dark .navbar-nav .nav-link {
     color: rgba(255,255,255,.85);
 }
+
+    .navbar-dark .navbar-nav .nav-link:hover {
+        color: #fff;
+    }
 
 @media (min-width: 768px) {
     header.hide {
@@ -111,7 +115,7 @@ section {
     }
 
 .sidebar .navbar {
-    background-color: rgb(60, 40, 97);
+    background-color: #8864ca;
 }
 
 .sidebar .sidebar-title {
