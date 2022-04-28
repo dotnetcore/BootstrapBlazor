@@ -60,7 +60,6 @@ public static class BootstrapBlazorServiceCollectionExtensions
 
         services.ConfigureBootstrapBlazorOption(configureOptions);
         services.ConfigureIPLocatorOption();
-        services.ConfigureJsonLocalizationOptions();
         return services;
     }
 
@@ -116,13 +115,9 @@ public static class BootstrapBlazorServiceCollectionExtensions
     /// <param name="services"></param>
     /// <param name="localizationAction"></param>
     /// <returns></returns>
-    public static IServiceCollection ConfigureJsonLocalizationOptions(this IServiceCollection services, Action<JsonLocalizationOptions>? localizationAction = null)
+    public static IServiceCollection ConfigureJsonLocalizationOptions(this IServiceCollection services, Action<JsonLocalizationOptions> localizationAction)
     {
-        services.AddOptionsMonitor<JsonLocalizationOptions>();
-        if (localizationAction != null)
-        {
-            services.Configure(localizationAction);
-        }
+        services.Configure(localizationAction);
         return services;
     }
 

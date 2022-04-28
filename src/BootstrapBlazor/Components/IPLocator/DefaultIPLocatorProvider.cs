@@ -23,10 +23,10 @@ internal class DefaultIPLocatorProvider : IIPLocatorProvider
     /// <param name="factory"></param>
     /// <param name="logger"></param>
     /// <param name="option"></param>
-    public DefaultIPLocatorProvider(IServiceProvider provider, IHttpClientFactory factory, ILogger<DefaultIPLocatorProvider> logger, IOptions<IPLocatorOption> option)
+    public DefaultIPLocatorProvider(IServiceProvider provider, IHttpClientFactory factory, ILogger<DefaultIPLocatorProvider> logger, IOptionsMonitor<IPLocatorOption> option)
     {
         _provider = provider;
-        _option = option.Value;
+        _option = option.CurrentValue;
         _option.HttpClient = factory.CreateClient();
         _option.Logger = logger;
     }

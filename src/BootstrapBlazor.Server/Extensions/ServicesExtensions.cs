@@ -40,10 +40,10 @@ internal static class ServicesExtensions
         // 增加 Baidu 语音服务
         services.AddBootstrapBlazorBaiduSpeech();
 
-        services.ConfigureJsonLocalizationOptions(options =>
+        services.ConfigureJsonLocalizationOptions(op =>
         {
             // 附加自己的 json 多语言文化资源文件 如 zh-TW.json
-            options.AdditionalJsonAssemblies = new Assembly[]
+            op.AdditionalJsonAssemblies = new Assembly[]
             {
                 typeof(BootstrapBlazor.Shared.App).Assembly,
                 typeof(BootstrapBlazor.Components.Chart).Assembly,

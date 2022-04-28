@@ -93,7 +93,7 @@ public class RequiredValidator : ValidatorBase
             {
                 // 查找微软格式 resx 格式资源文件
                 var isResx = false;
-                if (options != null && options.ResourceManagerStringLocalizerType != null)
+                if (options is { ResourceManagerStringLocalizerType: not null })
                 {
                     var localizer = localizerFactory.Create(options.ResourceManagerStringLocalizerType);
                     if (localizer.TryGetLocalizerString(errorMesssage, out var resx))

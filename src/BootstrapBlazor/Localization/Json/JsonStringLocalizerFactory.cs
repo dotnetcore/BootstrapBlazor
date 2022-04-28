@@ -31,15 +31,23 @@ internal class JsonStringLocalizerFactory : ResourceManagerStringLocalizerFactor
     public JsonStringLocalizerFactory(
         IOptions<JsonLocalizationOptions> jsonOptions,
         IOptions<LocalizationOptions> resxOptions,
-        IOptions<BootstrapBlazorOptions> options, ILoggerFactory loggerFactory,
+        IOptionsMonitor<BootstrapBlazorOptions> options,
+        ILoggerFactory loggerFactory,
         IServiceProvider provider) : base(resxOptions, loggerFactory)
     {
         _jsonOptions = jsonOptions.Value;
-        _jsonOptions.FallbackCulture = options.Value.FallbackCulture;
-        _jsonOptions.FallBackToParentUICultures = options.Value.FallBackToParentUICultures;
-        _jsonOptions.SupportedCultures.AddRange(options.Value.GetSupportedCultures());
+        _jsonOptions.FallbackCulture = options.CurrentValue.FallbackCulture;
+        _jsonOptions.FallBackToParentUICultures = options.CurrentValue.FallBackToParentUICultures;
+        _jsonOptions.SupportedCultures.AddRange(options.CurrentValue.GetSupportedCultures());
         _loggerFactory = loggerFactory;
         _provider = provider;
+
+        options.OnChange(op =>
+        {
+            _jsonOptions.FallbackCulture = op.FallbackCulture;
+            _jsonOptions.FallBackToParentUICultures = op.FallBackToParentUICultures;
+            _jsonOptions.SupportedCultures.AddRange(op.GetSupportedCultures());
+        });
     }
 
     protected override string GetResourcePrefix(TypeInfo typeInfo)
