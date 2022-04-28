@@ -26,7 +26,7 @@ public partial class Responsives
         new AttributeItem()
         {
             Name = nameof(Responsive.OnBreakPointChanged),
-            Description = "断电阀值改变时回调方法",
+            Description = "断点阀值改变时回调方法",
             Type = "Func<BreakPoint, Task<bool>>",
             ValueList = " — ",
             DefaultValue = " — "
