@@ -6,6 +6,17 @@
 
 <h4>提供轻量级 Toast 弹窗</h4>
 
+<p>组件使用介绍：</p>
+
+<p class="code-label">1. 注入服务 <code>ToastService</code></p>
+<Pre>@@inject ToastService ToastService</Pre>
+<Pre>[Inject]
+[NotNull]
+private ToastService? ToastService { get; set; }
+</Pre>
+<p class="code-label">2. 调用其实例 <code>api</code></p>
+<Pre>await ToastService.Success("Title", "Content", autoHide: true);</Pre>
+
 <DemoBlock Title="基础用法" Introduction="用户操作时，右下角给予适当的提示信息" Name="Normal">
     <div class="row g-3 overflow-hidden">
         <div class="col-12 col-lg-6 col-xl-3">
@@ -89,14 +100,6 @@
     });
 }
 </Pre>
-
-<Tips class="mt-3">
-    <p>
-        需要在使用本组件的页面中内置 <code>Toast</code> 组件，或者在 <code>MainLayout</code> 主布局组件中内置，示例代码如下：
-    </p>
-</Tips>
-
-<Pre>&lt;Toast /&gt;</Pre>
 
 <Tips>特别说明: 可以通过 <code>BootstrapBlazorOptions</code> 全局统一配置参数可以设置整个系统内的 <code>Toast</code> 组件 <code>Delay</code> 参数值</Tips>
 

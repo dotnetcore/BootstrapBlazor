@@ -4,6 +4,24 @@
 
 <h4>模态对话框，多用于动作过程中进行询问后继续，或者显示执行结果</h4>
 
+<p>组件使用介绍：</p>
+
+<p class="code-label">1. 注入服务 <code>SwalService</code></p>
+<Pre>@@inject SwalService SwalService</Pre>
+<Pre>[Inject]
+[NotNull]
+private SwalService? SwalService { get; set; }
+</Pre>
+<p class="code-label">2. 调用其实例 <code>api</code></p>
+<Pre>var op = new SwalOption()
+{
+    Category = SwalCategory.Success,
+    Title = "我是 Title",
+    Content = "我是 Content",
+    ShowClose = false
+};
+await SwalService.Show(op);</Pre>
+
 <DemoBlock Title="基础用法" Introduction="通过注入服务调用 <code>Swal</code> 来弹出一个对话框" Name="Normal">
     <div class="row g-3">
         <div class="col-4 align-self-center text-center">

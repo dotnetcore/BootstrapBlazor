@@ -4,6 +4,27 @@
 
 <h4>通过注入服务调用 <code>Show</code> 方法弹出窗口进行人机交互</h4>
 
+<p>组件使用介绍：</p>
+
+<p class="code-label">1. 注入服务 <code>DialogService</code></p>
+<Pre>@@inject DialogService DialogService</Pre>
+<Pre>[Inject]
+[NotNull]
+private DialogService? DialogService { get; set; }
+</Pre>
+<p class="code-label">2. 调用其实例 <code>api</code></p>
+<Pre>var op = new DialogOption()
+{
+    Title = "数据查询窗口",
+    ShowFooter = false,
+    BodyContext = DataPrimaryId
+};
+op.Component = BootstrapDynamicComponent.CreateComponent&lt;DataDialogComponent&gt;(new Dictionary&lt;string, object?&gt;
+{
+    [nameof(DataDialogComponent.OnClose)] = new Action(async () => await op.Dialog.Close())
+});
+await DialogService.Show(op);</Pre>
+
 <DemoBlock Title="基本用法" Introduction="通过设置 <code>DialogOption</code> 属性对模态框进行基本属性设置" Name="Keyboard">
     <div>
         <p>通过设置 <code>DialogOption</code> <code>IsKeyboard</code> 参数，开启弹窗是否支持 <kbd>ESC</kbd>，请点击后面按钮设置后再点击 <b>弹窗</b> 按钮测试效果</p>
