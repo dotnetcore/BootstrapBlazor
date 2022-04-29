@@ -31,13 +31,57 @@ public class TreeTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void OnClick_Ok()
+    public async Task OnClick_Checkbox_Ok()
+    {
+        var tcs = new TaskCompletionSource<bool>();
+        bool itemChecked = false;
+        var cut = Context.RenderComponent<Tree>(pb =>
+        {
+            pb.Add(a => a.IsAccordion, true);
+            pb.Add(a => a.ShowCheckbox, true);
+            pb.Add(a => a.OnTreeItemChecked, items =>
+            {
+                itemChecked = items.FirstOrDefault()?.Checked ?? false;
+                tcs.SetResult(true);
+                return Task.CompletedTask;
+            });
+            pb.Add(a => a.Items, new List<TreeItem>()
+            {
+                new TreeItem()
+                {
+                    Text = "Test1",
+                    Items = new List<TreeItem>()
+                    {
+                        new TreeItem()
+                        {
+                            Text = "Test11",
+                        }
+                    }
+                }
+            });
+        });
+
+        // 测试点击选中
+        await cut.InvokeAsync(() => cut.Find(".tree-node").Click());
+        await tcs.Task;
+        Assert.True(itemChecked);
+
+        // 测试取消选中
+        tcs = new TaskCompletionSource<bool>();
+        await cut.InvokeAsync(() => cut.Find(".tree-node").Click());
+        await tcs.Task;
+        Assert.False(itemChecked);
+    }
+
+    [Fact]
+    public async Task OnClick_Ok()
     {
         var clicked = false;
         var expanded = false;
         var cut = Context.RenderComponent<Tree>(pb =>
         {
             pb.Add(a => a.IsAccordion, true);
+            pb.Add(a => a.ShowRadio, true);
             pb.Add(a => a.ClickToggleNode, true);
             pb.Add(a => a.OnTreeItemClick, item =>
             {
@@ -77,7 +121,7 @@ public class TreeTest : BootstrapBlazorTestBase
             });
         });
 
-        cut.InvokeAsync(() => cut.Find(".tree-node").Click());
+        await cut.InvokeAsync(() => cut.Find(".tree-node").Click());
         Assert.True(clicked);
         Assert.True(expanded);
     }
