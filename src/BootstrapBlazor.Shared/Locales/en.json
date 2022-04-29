@@ -808,6 +808,7 @@
     "Att7": "Whether to turn on fuzzy matching",
     "Att8": "Whether case is ignored when matching",
     "Att9": "Custom collection filtering rules",
+    "Debounce": "Debounce interval default Zero",
     "SkipEnter": "Skip Enter key processing",
     "SkipEsc": "Skip Esc key processing",
     "OnSelectedItemChanged": "Callback for the selected item changed",

@@ -193,7 +193,7 @@ public class AutoFillTest : BootstrapBlazorTestBase
             pb.Add(a => a.Template, v => builder =>
             {
                 builder.OpenElement(0, "div");
-                builder.AddContent(1, v?.Value);
+                builder.AddContent(1, v!.Value);
                 builder.CloseElement();
             });
         });
@@ -212,6 +212,17 @@ public class AutoFillTest : BootstrapBlazorTestBase
         });
         cut.Find(".form-control").KeyUp(new KeyboardEventArgs() { Key = "2" });
         Assert.Equal(2, cut.FindAll(".dropdown-item").Count);
+    }
+
+    [Fact]
+    public void Debounce_Ok()
+    {
+        var cut = Context.RenderComponent<AutoFill<Foo>>(pb =>
+        {
+            pb.Add(a => a.Value, Model);
+            pb.Add(a => a.Items, Items);
+            pb.Add(a => a.Debounce, 200);
+        });
     }
 
     class AutoFillNullStringMock

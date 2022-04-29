@@ -101,6 +101,12 @@ public partial class AutoFill<TValue>
     public Func<TValue, Task>? OnSelectedItemChanged { get; set; }
 
     /// <summary>
+    /// 获得/设置 防抖时间 默认为 0 即不开启
+    /// </summary>
+    [Parameter]
+    public int Debounce { get; set; }
+
+    /// <summary>
     /// 
     /// </summary>
     [Inject]
@@ -147,6 +153,14 @@ public partial class AutoFill<TValue>
         if (CurrentItemIndex.HasValue)
         {
             await JSRuntime.InvokeVoidAsync(AutoFillElement, "bb_autoScrollItem", CurrentItemIndex.Value);
+        }
+
+        if (firstRender)
+        {
+            if (Debounce > 0)
+            {
+                await JSRuntime.InvokeVoidAsync(AutoFillElement, "bb_setDebounce", Debounce);
+            }
         }
     }
 

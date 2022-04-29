@@ -91,6 +91,14 @@ partial class AutoFills
             ValueList = " — ",
             DefaultValue = " — "
         },
+        new AttributeItem()
+        {
+            Name = "Debounce",
+            Description = "防抖时间",
+            Type = "int",
+            ValueList = " — ",
+            DefaultValue = "0"
+        },
         new AttributeItem() {
             Name = "OnCustomFilter",
             Description = "自定义集合过滤规则",

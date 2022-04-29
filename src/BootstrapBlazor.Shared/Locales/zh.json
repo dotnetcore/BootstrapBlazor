@@ -808,7 +808,7 @@
     "Att7": "是否开启模糊匹配",
     "Att8": "匹配时是否忽略大小写",
     "Att9": "自定义集合过滤规则",
-    "Att10": "js 防抖时间，毫秒",
+    "Debounce": "js 防抖时间，毫秒",
     "SkipEnter": "是否跳过 Enter 按键处理",
     "SkipEsc": "是否跳过 Esc 按键处理",
     "OnSelectedItemChanged": "下拉菜单选择回调方法",

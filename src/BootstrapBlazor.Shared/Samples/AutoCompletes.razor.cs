@@ -115,7 +115,7 @@ public sealed partial class AutoCompletes
         new AttributeItem()
         {
             Name = "Debounce",
-            Description = Localizer["Att10"],
+            Description = Localizer["Debounce"],
             Type = "int",
             ValueList = " — ",
             DefaultValue = "0"
