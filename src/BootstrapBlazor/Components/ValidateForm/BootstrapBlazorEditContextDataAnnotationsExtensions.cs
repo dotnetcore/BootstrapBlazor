@@ -39,12 +39,6 @@ internal static class BootstrapBlazorEditContextDataAnnotationsExtensions
             messages.Clear();
             foreach (var validationResult in validationResults.Where(v => !string.IsNullOrEmpty(v.ErrorMessage)))
             {
-                if (!validationResult.MemberNames.Any())
-                {
-                    messages.Add(new FieldIdentifier(editContext.Model, fieldName: string.Empty), validationResult.ErrorMessage!);
-                    continue;
-                }
-
                 foreach (var memberName in validationResult.MemberNames)
                 {
                     messages.Add(editContext.Field(memberName), validationResult.ErrorMessage!);

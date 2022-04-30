@@ -1247,6 +1247,242 @@ public class TableTest : TableTestBase
         });
     }
 
+    [Fact]
+    public async Task ClickToSelect_Ok()
+    {
+        var clicked = false;
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var items = Foo.GenerateFoo(localizer);
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.ClickToSelect, true);
+                pb.Add(a => a.RenderMode, TableRenderMode.CardView);
+                pb.Add(a => a.Items, items);
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+                });
+                pb.Add(a => a.OnClickRowCallback, foo =>
+                {
+                    clicked = true;
+                    return Task.CompletedTask;
+                });
+            });
+        });
+        var row = cut.Find(".table-row");
+        await cut.InvokeAsync(() => row.Click());
+        Assert.True(clicked);
+
+        // 设置 非多选模式
+        var table = cut.FindComponent<Table<Foo>>();
+        table.SetParametersAndRender(pb => pb.Add(a => a.IsMultipleSelect, true));
+
+        clicked = false;
+        await cut.InvokeAsync(() => row.Click());
+        Assert.True(clicked);
+
+        clicked = false;
+        await cut.InvokeAsync(() => row.Click());
+        Assert.True(clicked);
+
+        // 设置 Table 模式
+        table.SetParametersAndRender(pb => pb.Add(a => a.RenderMode, TableRenderMode.Table));
+
+        clicked = false;
+        row = cut.Find("tbody tr");
+        await cut.InvokeAsync(() => row.Click());
+        Assert.True(clicked);
+    }
+
+
+    [Fact]
+    public async Task DoubleClickRow_Ok()
+    {
+        var clicked = false;
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var items = Foo.GenerateFoo(localizer);
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.DoubleClickToEdit, true);
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.Items, items);
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+                });
+                pb.Add(a => a.OnDoubleClickRowCallback, foo =>
+                {
+                    clicked = true;
+                    return Task.CompletedTask;
+                });
+            });
+        });
+        var row = cut.Find("tbody tr");
+        await cut.InvokeAsync(() => row.DoubleClick());
+        Assert.True(clicked);
+    }
+
+    [Fact]
+    public async Task OnFilterClick_Ok()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var items = Foo.GenerateFoo(localizer, 2);
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.Items, items);
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.AddAttribute(3, "Filterable", true);
+                    builder.CloseComponent();
+                });
+            });
+        });
+        var row = cut.Find(".fa-filter");
+        await cut.InvokeAsync(() => row.Click());
+        cut.Contains("card table-filter-item shadow show");
+    }
+
+    [Fact]
+    public async Task SaveAsync_Ok()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var items = Foo.GenerateFoo(localizer, 2);
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.EditMode, EditMode.EditForm);
+                pb.Add(a => a.ShowToolbar, true);
+                pb.Add(a => a.ShowExtendButtons, true);
+                pb.Add(a => a.Items, items);
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+                });
+            });
+        });
+
+        // 点击编辑按钮
+        var btn = cut.Find("tr .btn-primary");
+        await cut.InvokeAsync(() => btn.Click());
+
+        var btnSave = cut.Find(".form-footer .btn-primary");
+        await cut.InvokeAsync(() => btnSave.Click());
+
+        // 卡片模式下点击编辑按钮
+        var table = cut.FindComponent<Table<Foo>>();
+        table.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.RenderMode, TableRenderMode.CardView);
+        });
+        btn = cut.Find(".table-row .btn-primary");
+        await cut.InvokeAsync(() => btn.Click());
+    }
+
+    [Theory]
+    [InlineData(".btn-test0")]
+    [InlineData(".btn-test1")]
+    public async Task OnClickExtensionButton_Ok(string selector)
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var items = Foo.GenerateFoo(localizer, 2);
+        var index = 0;
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.EditMode, EditMode.EditForm);
+                pb.Add(a => a.ShowToolbar, true);
+                pb.Add(a => a.IsMultipleSelect, true);
+                pb.Add(a => a.ShowExtendButtons, true);
+                pb.Add(a => a.Items, items);
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+                });
+
+                // <TableCellButton Color="Color.Primary" Icon="fa fa-edit" Text="明细" OnClick="@(() => OnRowButtonClick(context, "明细"))" />
+                pb.Add(a => a.RowButtonTemplate, foo => builder =>
+                {
+                    builder.OpenComponent<TableCellButton>(0);
+                    builder.AddAttribute(2, "Text", "test-extend-button");
+                    builder.AddAttribute(3, "class", $"btn-test{index++}");
+                    builder.CloseComponent();
+                });
+                pb.Add(a => a.BeforeRowButtonTemplate, foo => builder =>
+                {
+                    builder.OpenComponent<TableCellButton>(0);
+                    builder.AddAttribute(2, "Text", "test-extend-button");
+                    builder.AddAttribute(3, "class", $"btn-test{index++}");
+                    builder.CloseComponent();
+                });
+            });
+        });
+
+        var btn = cut.Find(selector);
+        await cut.InvokeAsync(() => btn.Click());
+    }
+
+    [Fact]
+    public async Task OnClickExtensionButton_InRowHeader_Ok()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var items = Foo.GenerateFoo(localizer, 2);
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.CardView);
+                pb.Add(a => a.EditMode, EditMode.EditForm);
+                pb.Add(a => a.IsExtendButtonsInRowHeader, true);
+                pb.Add(a => a.ShowToolbar, true);
+                pb.Add(a => a.ShowExtendButtons, true);
+                pb.Add(a => a.Items, items);
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+                });
+
+                // <TableCellButton Color="Color.Primary" Icon="fa fa-edit" Text="明细" OnClick="@(() => OnRowButtonClick(context, "明细"))" />
+                pb.Add(a => a.RowButtonTemplate, foo => builder =>
+                {
+                    builder.OpenComponent<TableCellButton>(0);
+                    builder.AddAttribute(2, "Text", "test-extend-button");
+                    builder.CloseComponent();
+                });
+            });
+        });
+
+        var btn = cut.FindComponent<TableExtensionButton>();
+        await cut.InvokeAsync(() => btn.Instance.OnClickButton!(new TableCellButtonArgs() { AutoRenderTableWhenClick = true, AutoSelectedRowWhenClick = true }));
+    }
     private static Func<QueryPageOptions, Task<QueryData<Foo>>> OnQueryAsync(IStringLocalizer<Foo> localizer) => new(op =>
     {
         var items = Foo.GenerateFoo(localizer);
