@@ -44,7 +44,6 @@ public partial class DragDrops
             "9",
             "10"
         };
-
     }
 
     private void OnReplacedItemDrop(string item)

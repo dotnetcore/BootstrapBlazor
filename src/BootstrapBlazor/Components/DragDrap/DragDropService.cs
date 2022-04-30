@@ -23,7 +23,7 @@ internal class DragDropService<T>
     /// <summary>
     /// 被拖拽的Items
     /// </summary>
-    public IList<T?>? Items { get; set; }
+    public List<T>? Items { get; set; }
 
     /// <summary>
     /// 活动的Id
@@ -56,6 +56,9 @@ internal class DragDropService<T>
         Items = null;
         DragTargetItem = default;
 
-        StateHasChanged?.Invoke(this, EventArgs.Empty);
+        if (StateHasChanged != null)
+        {
+            StateHasChanged.Invoke(this, EventArgs.Empty);
+        }
     }
 }
