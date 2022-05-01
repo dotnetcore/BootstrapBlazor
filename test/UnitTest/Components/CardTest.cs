@@ -68,6 +68,20 @@ public class CardTest : TestBase
         Assert.Contains("card-collapse", cut.Markup);
     }
 
+    [Fact]
+    public void Collapsed_Ok()
+    {
+        var cut = Context.RenderComponent<Card>(builder =>
+        {
+            builder.Add(a => a.IsCollapsible, true);
+            builder.Add(a => a.HeaderText, "Header");
+            builder.Add(a => a.Collapsed, false);
+        });
+        Assert.Contains("is-open", cut.Markup);
+
+        cut.SetParametersAndRender(pb => pb.Add(a => a.Collapsed, true));
+        cut.Contains("data-bs-collapsed=\"true\"");
+    }
 
     private static RenderFragment CreateComponent() => builder =>
     {

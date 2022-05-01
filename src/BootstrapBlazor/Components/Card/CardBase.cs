@@ -78,13 +78,24 @@ public abstract class CardBase : BootstrapComponentBase
     public bool IsCollapsible { get; set; }
 
     /// <summary>
+    /// 获得/设置 是否收缩 默认 false 展开
+    /// </summary>
+    [Parameter]
+    public bool Collapsed { get; set; }
+
+    /// <summary>
     /// 获得/设置 是否显示阴影 默认 false
     /// </summary>
     [Parameter]
     public bool IsShadow { get; set; }
 
     /// <summary>
-    /// 
+    /// 获得 当前状态文字
+    /// </summary>
+    protected string CollapsedString => Collapsed ? "true" : "false";
+
+    /// <summary>
+    /// 获得/设置 元素实例
     /// </summary>
     protected ElementReference CardEelement { get; set; }
 

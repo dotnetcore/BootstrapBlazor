@@ -1995,6 +1995,7 @@
     "ColorIntro": "By setting, <code>The</code> makes the border and Body color appropriate",
     "CollapsibleTitle": "Collapsible",
     "CollapsibleIntro": "Card body can collapse/expand by set <code>IsCollapsible</code> to true",
+    "CollapsibleIntro2": "Set <code>Collapsed</code> value to <code>true</code> for default collapsed card body.",
     "CollapsibleBody": "Click card hader for collapse/expand card body",
     "ShadowTitle": "Shadow effect",
     "ShadowIntro": "Enable shadow effect by set <code>IsShadow</code> to true",
@@ -2006,6 +2007,7 @@
     "Color": "Set the color of the card border",
     "IsCenter": "Make align center by set IsCenter to true",
     "IsCollapsible": "Collapse card body by set IsCollapsible to true",
+    "Collapsed": "Collapsed by default",
     "IsShadow": "Add shadow effect by set IsShadow to true"
   },
   "BootstrapBlazor.Shared.Samples.Calendars": {

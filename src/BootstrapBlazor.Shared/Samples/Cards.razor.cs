@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using BootstrapBlazor.Components;
 using BootstrapBlazor.Shared.Common;
 
 namespace BootstrapBlazor.Shared.Samples;
@@ -66,6 +67,14 @@ public sealed partial class Cards
         {
             Name = "IsCollapsible",
             Description = Localizer["IsCollapsible"],
+            Type = "boolean",
+            ValueList = "true / false",
+            DefaultValue = "false"
+        },
+        new AttributeItem
+        {
+            Name = nameof(Card.Collapsed),
+            Description = Localizer["Collapsed"],
             Type = "boolean",
             ValueList = "true / false",
             DefaultValue = "false"

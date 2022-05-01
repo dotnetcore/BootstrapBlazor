@@ -2,6 +2,11 @@
     $.extend({
         bb_card_collapse: function (el) {
             var $ele = $(el);
+            var status = $ele.attr("data-bs-collapsed") === "true";
+            if (status) {
+                $ele.removeClass('is-open');
+                $ele.closest('.card').find('.card-body').css({ display: "none" });
+            }
             $ele.on('click', function (e) {
                 var $card = $(this).toggleClass('is-open');
                 var $body = $card.closest('.card').find('.card-body');

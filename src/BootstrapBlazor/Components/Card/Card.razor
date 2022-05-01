@@ -7,11 +7,10 @@
         <div class="card-header">
             @if (IsCollapsible)
             {
-                <div class="card-collapse is-open" @ref="CardEelement">
+                <div class="card-collapse is-open" data-bs-collapsed="@CollapsedString" @ref="CardEelement">
                     <i class="card-collapse-arrow fa fa-chevron-circle-right"></i>
                     <div class="ms-2">@HeaderText</div>
                 </div>
-
             }
             else
             {
