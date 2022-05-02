@@ -9,7 +9,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 
 /// </summary>
-public partial class TableExtensionButton
+public partial class TableExtensionButton : IDisposable
 {
     /// <summary>
     /// 获得 Toolbar 扩展按钮集合
@@ -71,5 +71,32 @@ public partial class TableExtensionButton
                 AutoSelectedRowWhenClick = b.AutoSelectedRowWhenClick
             });
         }
+    }
+
+    /// <summary>
+    /// Dispose 方法
+    /// </summary>
+    /// <param name="disposing"></param>
+    protected virtual void Dispose(bool disposing)
+    {
+        if (disposing)
+        {
+            foreach (var button in Buttons)
+            {
+                if (button is IDisposable disposable)
+                {
+                    disposable.Dispose();
+                }
+            }
+        }
+    }
+
+    /// <summary>
+    /// Dispose 方法
+    /// </summary>
+    public void Dispose()
+    {
+        Dispose(disposing: true);
+        GC.SuppressFinalize(this);
     }
 }

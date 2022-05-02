@@ -7,29 +7,29 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace UnitTest.Core;
 
-[Collection("TableTestContext")]
-public class TableTestBase
+[Collection("TableConfirmTestContext")]
+public class TableConfirmTestBase
 {
     protected TestContext Context { get; }
 
-    public TableTestBase()
+    public TableConfirmTestBase()
     {
-        Context = TableTestHost.Instance;
+        Context = TableConfirmTestHost.Instance;
     }
 }
 
-[CollectionDefinition("TableTestContext")]
-public class TableTestCollection : ICollectionFixture<TableTestHost>
+[CollectionDefinition("TableConfirmTestContext")]
+public class TableConfirmTestCollection : ICollectionFixture<TableConfirmTestHost>
 {
 
 }
 
-public class TableTestHost : IDisposable
+public class TableConfirmTestHost : IDisposable
 {
     [NotNull]
     internal static TestContext? Instance { get; private set; }
 
-    public TableTestHost()
+    public TableConfirmTestHost()
     {
         Instance = new TestContext();
 

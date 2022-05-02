@@ -60,10 +60,11 @@ public partial class Table<TItem>
     public bool IsMultipleSelect { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否显示选择框文字
+    /// 获得/设置 是否显示选择框文字 默认为 false
     /// </summary>
     /// <value></value>
-    [Parameter] public bool ShowCheckboxText { get; set; }
+    [Parameter]
+    public bool ShowCheckboxText { get; set; }
 
     /// <summary>
     /// 获得/设置 显示选择框文字 默认为 选择

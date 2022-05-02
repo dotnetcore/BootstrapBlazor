@@ -197,7 +197,7 @@ public class ValidateTest : BootstrapBlazorTestBase
     private string? Test { get; set; }
 
     [Fact]
-    public void IsRequired_Ok()
+    public async Task IsRequired_Ok()
     {
         // 组件绑定非公开模型属性
         Test = "test";
@@ -221,7 +221,7 @@ public class ValidateTest : BootstrapBlazorTestBase
         Assert.Contains("required", input.Markup);
 
         // 更改值测试
-        input.Find("input").Change("test1");
+        await cut.InvokeAsync(() => input.Find("input").Change("test1"));
         Assert.Equal(Test, input.Instance.Value);
         Assert.Equal("test1", input.Instance.Value);
 

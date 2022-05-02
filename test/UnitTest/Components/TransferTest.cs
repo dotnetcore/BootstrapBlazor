@@ -49,7 +49,7 @@ public class TransferTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void SelectedItem_Value()
+    public async Task SelectedItem_Value()
     {
         var cut = Context.RenderComponent<Transfer<IEnumerable<SelectedItem>>>(pb =>
         {
@@ -62,9 +62,9 @@ public class TransferTest : BootstrapBlazorTestBase
 
         // 选中右侧第一项
         var checkbox = cut.FindComponents<Checkbox<SelectedItem>>().First(i => i.Instance.DisplayText == "Test1");
-        cut.InvokeAsync(() => checkbox.Instance.SetState(CheckboxState.Checked));
+        await cut.InvokeAsync(() => checkbox.Instance.SetState(CheckboxState.Checked));
         var button = cut.FindComponents<Button>()[1];
-        cut.InvokeAsync(() => button.Instance.OnClick.InvokeAsync());
+        await cut.InvokeAsync(() => button.Instance.OnClick.InvokeAsync());
         Assert.Equal("1", cut.Instance.Value.First().Value);
     }
 
@@ -128,7 +128,7 @@ public class TransferTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void ValidateForm_Ok()
+    public async Task ValidateForm_Ok()
     {
         var foo = new Foo();
         var cut = Context.RenderComponent<ValidateForm>(pb =>
@@ -147,9 +147,9 @@ public class TransferTest : BootstrapBlazorTestBase
             });
         });
         var checkbox = cut.FindComponent<Checkbox<SelectedItem>>();
-        cut.InvokeAsync(() => checkbox.Instance.SetState(CheckboxState.Checked));
+        await cut.InvokeAsync(() => checkbox.Instance.SetState(CheckboxState.Checked));
         var button = cut.FindComponents<Button>()[1];
-        cut.InvokeAsync(() => button.Instance.OnClick.InvokeAsync());
+        await cut.InvokeAsync(() => button.Instance.OnClick.InvokeAsync());
 
         Assert.Equal("1,2", foo.Name);
     }

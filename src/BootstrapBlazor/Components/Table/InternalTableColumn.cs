@@ -7,6 +7,7 @@ using System.Reflection;
 
 namespace BootstrapBlazor.Components;
 
+[ExcludeFromCodeCoverage]
 internal class InternalTableColumn : ITableColumn
 {
     private string FieldName { get; }

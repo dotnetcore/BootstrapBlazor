@@ -64,25 +64,25 @@ public partial class Table<TItem>
     public bool ShowSearchText { get; set; } = true;
 
     /// <summary>
-    /// 获得/设置 是否显示搜索框提示文本 默认true
+    /// 获得/设置 是否显示搜索框提示文本 默认 true
     /// </summary>
     [Parameter]
     public bool ShowSearchTextTooltip { get; set; } = true;
 
     /// <summary>
-    /// 获得/设置 是否显示清空搜索按钮 默认显示 <see cref="ShowSearch" />
+    /// 获得/设置 是否显示清空搜索按钮 默认 true 显示 <see cref="ShowSearch" />
     /// </summary>
     [Parameter]
     public bool ShowResetButton { get; set; } = true;
 
     /// <summary>
-    /// 获得/设置 是否显示搜索按钮 默认显示 <see cref="ShowSearch" />
+    /// 获得/设置 是否显示搜索按钮 默认 true 显示 <see cref="ShowSearch" />
     /// </summary>
     [Parameter]
     public bool ShowSearchButton { get; set; } = true;
 
     /// <summary>
-    /// 获得/设置 是否显示高级搜索按钮 默认显示 <see cref="ShowSearch" />
+    /// 获得/设置 是否显示高级搜索按钮 默认 true 显示 <see cref="ShowSearch" />
     /// </summary>
     [Parameter]
     public bool ShowAdvancedSearch { get; set; } = true;

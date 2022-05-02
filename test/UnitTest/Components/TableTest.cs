@@ -3,6 +3,7 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using BootstrapBlazor.Shared;
+using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
 
@@ -348,8 +349,10 @@ public class TableTest : TableTestBase
         cut.Contains("table-fixed-header");
     }
 
-    [Fact]
-    public void FixedExtendButtonsColumn_Ok()
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void FixedExtendButtonsColumn_Ok(bool inHeaderRow)
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
@@ -358,6 +361,8 @@ public class TableTest : TableTestBase
             {
                 pb.Add(a => a.RenderMode, TableRenderMode.Table);
                 pb.Add(a => a.FixedExtendButtonsColumn, true);
+                pb.Add(a => a.IsExtendButtonsInRowHeader, inHeaderRow);
+                pb.Add(a => a.ShowExtendButtons, true);
                 pb.Add(a => a.Items, Foo.GenerateFoo(localizer));
                 pb.Add(a => a.TableColumns, foo => builder =>
                 {
@@ -371,8 +376,10 @@ public class TableTest : TableTestBase
         cut.Contains("overflow-auto");
     }
 
-    [Fact]
-    public void ColumnFixed_Ok()
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void TextEllipsis_Ok(bool ellipsis)
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
@@ -380,23 +387,169 @@ public class TableTest : TableTestBase
             pb.AddChildContent<Table<Foo>>(pb =>
             {
                 pb.Add(a => a.RenderMode, TableRenderMode.Table);
-                pb.Add(a => a.Items, Foo.GenerateFoo(localizer));
+                pb.Add(a => a.Items, Foo.GenerateFoo(localizer, 1));
+                pb.Add(a => a.AllowResizing, false);
                 pb.Add(a => a.TableColumns, foo => builder =>
                 {
                     builder.OpenComponent<TableColumn<Foo, string>>(0);
                     builder.AddAttribute(1, "Field", "Name");
                     builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
-                    builder.CloseComponent();
-
-                    builder.OpenComponent<TableColumn<Foo, string>>(3);
-                    builder.AddAttribute(4, "Field", "Address");
-                    builder.AddAttribute(5, "FieldExpression", Utility.GenerateValueExpression(foo, "Address", typeof(string)));
-                    builder.AddAttribute(6, nameof(TableColumn<Foo, string>.Fixed), true);
+                    builder.AddAttribute(3, "TextEllipsis", ellipsis);
                     builder.CloseComponent();
                 });
             });
         });
-        cut.Contains("overflow-auto");
+
+        if (ellipsis)
+        {
+            cut.Contains("is-ellips");
+        }
+        else
+        {
+            cut.DoesNotContain("is-ellips");
+        }
+    }
+
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void AllowResizing_Ok(bool resizing)
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.Items, Foo.GenerateFoo(localizer, 1));
+                pb.Add(a => a.AllowResizing, resizing);
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.AddAttribute(4, "TextEllipsis", true);
+                    builder.CloseComponent();
+                });
+            });
+        });
+
+        if (resizing)
+        {
+            cut.Contains("is-resizable");
+        }
+        else
+        {
+            cut.DoesNotContain("is-resizable");
+        }
+    }
+
+    [Theory]
+    [InlineData(null)]
+    [InlineData(100)]
+    public void ColWidth_Ok(int? width)
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.Items, Foo.GenerateFoo(localizer, 1));
+                pb.Add(a => a.AllowResizing, false);
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.AddAttribute(4, "TextEllipsis", true);
+                    builder.AddAttribute(4, "Width", width);
+                    builder.CloseComponent();
+                });
+            });
+        });
+
+        if (width.HasValue)
+        {
+            cut.Contains("width: 100px");
+        }
+        else
+        {
+            cut.DoesNotContain("width: 100px");
+        }
+    }
+
+    [Theory]
+    [InlineData(true, true)]
+    [InlineData(false, true)]
+    [InlineData(true, false)]
+    [InlineData(false, false)]
+    public void ColumnFixed_Ok(bool showExtendButton, bool isFixedHeader)
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.Items, Foo.GenerateFoo(localizer, 2));
+                pb.Add(a => a.ShowExtendButtons, showExtendButton);
+                pb.Add(a => a.FixedExtendButtonsColumn, true);
+                pb.Add(a => a.IsFixedHeader, isFixedHeader);
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", foo.Name);
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.AddAttribute(3, nameof(TableColumn<Foo, string>.Fixed), true);
+                    builder.CloseComponent();
+
+                    builder.OpenComponent<TableColumn<Foo, int>>(4);
+                    builder.AddAttribute(5, "Field", foo.Count);
+                    builder.AddAttribute(6, "FieldExpression", Utility.GenerateValueExpression(foo, "Count", typeof(int)));
+                    builder.AddAttribute(3, nameof(TableColumn<Foo, string>.Fixed), true);
+                    builder.AddAttribute(3, "Width", 100);
+                    builder.CloseComponent();
+
+                    builder.OpenComponent<TableColumn<Foo, string>>(10);
+                    builder.AddAttribute(11, "Field", foo.Address);
+                    builder.AddAttribute(12, "FieldExpression", Utility.GenerateValueExpression(foo, "Address", typeof(string)));
+                    builder.CloseComponent();
+
+                    builder.OpenComponent<TableColumn<Foo, string>>(10);
+                    builder.AddAttribute(11, "Field", foo.Address);
+                    builder.AddAttribute(12, "FieldExpression", Utility.GenerateValueExpression(foo, "Address", typeof(string)));
+                    builder.AddAttribute(13, nameof(TableColumn<Foo, string>.Fixed), true);
+                    builder.CloseComponent();
+
+                    builder.OpenComponent<TableColumn<Foo, string>>(10);
+                    builder.AddAttribute(11, "Field", foo.Address);
+                    builder.AddAttribute(12, "FieldExpression", Utility.GenerateValueExpression(foo, "Address", typeof(string)));
+                    builder.AddAttribute(13, nameof(TableColumn<Foo, string>.Fixed), true);
+                    builder.AddAttribute(3, "Width", 100);
+                    builder.CloseComponent();
+
+                    builder.OpenComponent<TableColumn<Foo, string>>(10);
+                    builder.AddAttribute(11, "Field", foo.Address);
+                    builder.AddAttribute(12, "FieldExpression", Utility.GenerateValueExpression(foo, "Address", typeof(string)));
+                    builder.AddAttribute(13, nameof(TableColumn<Foo, string>.Fixed), true);
+                    builder.CloseComponent();
+                });
+            });
+        });
+
+        cut.Contains("left: 300px;");
+
+        if (showExtendButton)
+        {
+            cut.Contains("right: 230px;");
+            cut.Contains("right: 130px;");
+        }
+        if (!showExtendButton)
+        {
+            cut.Contains("right: 300px;");
+            cut.Contains("right: 100px;");
+        }
     }
 
     [Theory]
@@ -789,7 +942,7 @@ public class TableTest : TableTestBase
     }
 
     [Fact]
-    public void ScrollMode_Query_Ok()
+    public async Task ScrollMode_Query_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
@@ -804,10 +957,18 @@ public class TableTest : TableTestBase
                     builder.OpenComponent<TableColumn<Foo, string>>(0);
                     builder.AddAttribute(1, "Field", "Name");
                     builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.AddAttribute(3, "Sortable", true);
                     builder.CloseComponent();
                 });
             });
         });
+
+        var th = cut.Find("th");
+        await cut.InvokeAsync(() => th.Click());
+        // desc
+        await cut.InvokeAsync(() => th.Click());
+        // desc
+        await cut.InvokeAsync(() => th.Click());
     }
 
     [Theory]
@@ -947,8 +1108,9 @@ public class TableTest : TableTestBase
     }
 
     [Fact]
-    public void Sortable_Ok()
+    public async void Sortable_Ok()
     {
+        var sorted = false;
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
         {
@@ -956,6 +1118,13 @@ public class TableTest : TableTestBase
             {
                 pb.Add(a => a.RenderMode, TableRenderMode.Table);
                 pb.Add(a => a.OnQueryAsync, OnQueryAsync(localizer));
+                pb.Add(a => a.SortIconAsc, "fa fa-sort-asc");
+                pb.Add(a => a.SortIconDesc, "fa fa-sort-desc");
+                pb.Add(a => a.OnSort, (_, _) =>
+                {
+                    sorted = true;
+                    return "";
+                });
                 pb.Add(a => a.TableColumns, foo => builder =>
                 {
                     builder.OpenComponent<TableColumn<Foo, string>>(0);
@@ -968,33 +1137,16 @@ public class TableTest : TableTestBase
             });
         });
         cut.Contains("fa fa-sort");
+
+        var th = cut.Find("th");
+        await cut.InvokeAsync(() => th.Click());
+        Assert.True(sorted);
     }
 
-    [Fact]
-    public void AllowResizing_Ok()
-    {
-        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
-        {
-            pb.AddChildContent<Table<Foo>>(pb =>
-            {
-                pb.Add(a => a.RenderMode, TableRenderMode.Table);
-                pb.Add(a => a.OnQueryAsync, OnQueryAsync(localizer));
-                pb.Add(a => a.TableColumns, foo => builder =>
-                {
-                    builder.OpenComponent<TableColumn<Foo, string>>(0);
-                    builder.AddAttribute(1, "Field", "Name");
-                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
-                    builder.CloseComponent();
-                });
-                pb.Add(a => a.AllowResizing, true);
-            });
-        });
-        cut.Contains("col-resizer");
-    }
-
-    [Fact]
-    public void ShowFilterHeader_Ok()
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void ShowFilterHeader_Ok(bool showCheckboxText)
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
@@ -1009,6 +1161,7 @@ public class TableTest : TableTestBase
                 pb.Add(a => a.ShowLineNo, true);
                 pb.Add(a => a.ShowExtendButtons, true);
                 pb.Add(a => a.IsExtendButtonsInRowHeader, true);
+                pb.Add(a => a.ShowCheckboxText, showCheckboxText);
                 pb.Add(a => a.OnQueryAsync, OnQueryAsync(localizer));
                 pb.Add(a => a.TableColumns, foo => builder =>
                 {
@@ -1232,6 +1385,7 @@ public class TableTest : TableTestBase
             pb.AddChildContent<Table<Foo>>(pb =>
             {
                 pb.Add(a => a.ShowSearch, true);
+                pb.Add(a => a.SearchModel, new Foo());
                 pb.Add(a => a.SearchMode, SearchMode.Top);
                 pb.Add(a => a.RenderMode, TableRenderMode.Table);
                 pb.Add(a => a.SearchTemplate, foo => builder => builder.AddContent(0, "test_SearchTemplate"));
@@ -1245,6 +1399,179 @@ public class TableTest : TableTestBase
                 });
             });
         });
+
+        cut.Contains("test_SearchTemplate");
+    }
+
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void CollapsedTopSearch_Ok(bool collapsed)
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.ShowSearch, true);
+                pb.Add(a => a.SearchMode, SearchMode.Top);
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.CollapsedTopSearch, collapsed);
+                pb.Add(a => a.OnQueryAsync, OnQueryAsync(localizer));
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+                });
+            });
+        });
+
+        if (collapsed)
+        {
+            cut.DoesNotContain("is-open");
+            cut.Contains("display: none;");
+        }
+        else
+        {
+            cut.Contains("is-open");
+            cut.DoesNotContain("display: none;");
+        }
+    }
+
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void ShowSearchTextTooltip_Ok(bool showTooltip)
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.ShowSearch, true);
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.ShowSearchTextTooltip, showTooltip);
+                pb.Add(a => a.SearchTooltip, "test_tooltip");
+                pb.Add(a => a.OnQueryAsync, OnQueryAsync(localizer));
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+                });
+            });
+        });
+
+        if (showTooltip)
+        {
+            var tooltip = cut.FindComponent<Tooltip>();
+            Assert.Equal("test_tooltip", tooltip.Instance.Title);
+        }
+        else
+        {
+            cut.DoesNotContain("test_tooltip");
+        }
+    }
+
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void ShowResetButton_Ok(bool showResetbutton)
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.ShowSearch, true);
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.ShowResetButton, showResetbutton);
+                pb.Add(a => a.ResetSearchButtonText, "test_reset");
+                pb.Add(a => a.OnQueryAsync, OnQueryAsync(localizer));
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+                });
+            });
+        });
+
+        if (showResetbutton)
+        {
+            cut.Contains("test_reset");
+        }
+        else
+        {
+            cut.DoesNotContain("test_reset");
+        }
+    }
+
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void ShowSearchButton_Ok(bool showSearchbutton)
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.ShowSearch, true);
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.ShowSearchButton, showSearchbutton);
+                pb.Add(a => a.SearchMode, SearchMode.Top);
+                pb.Add(a => a.ShowSearchText, false);
+                pb.Add(a => a.SearchButtonText, "test_search");
+                pb.Add(a => a.OnQueryAsync, OnQueryAsync(localizer));
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+                });
+            });
+        });
+
+        // 仅在 Top 模式下不显示 ShowSearchText 时可切换是否显示搜索按钮
+        if (showSearchbutton)
+        {
+            cut.Contains("test_search");
+        }
+        else
+        {
+            cut.DoesNotContain("test_search");
+        }
+    }
+
+    [Fact]
+    public void SearchText_Ok()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.ShowSearch, true);
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.SearchText, "test_search_text");
+                pb.Add(a => a.OnQueryAsync, OnQueryAsync(localizer));
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+                });
+            });
+        });
+
+        cut.Contains("test_search_text");
     }
 
     [Fact]
@@ -1483,9 +1810,96 @@ public class TableTest : TableTestBase
         var btn = cut.FindComponent<TableExtensionButton>();
         await cut.InvokeAsync(() => btn.Instance.OnClickButton!(new TableCellButtonArgs() { AutoRenderTableWhenClick = true, AutoSelectedRowWhenClick = true }));
     }
+
+    [Fact]
+    public async Task AutoSelectedRowWhenClick_Ok()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var items = Foo.GenerateFoo(localizer, 2);
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.ShowToolbar, true);
+                pb.Add(a => a.ShowExtendButtons, true);
+                pb.Add(a => a.Items, items);
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+                });
+
+                // <TableCellButton Color="Color.Primary" Icon="fa fa-edit" Text="明细" OnClick="@(() => OnRowButtonClick(context, "明细"))" />
+                pb.Add(a => a.RowButtonTemplate, foo => builder =>
+                {
+                    builder.OpenComponent<TableCellButton>(0);
+                    builder.AddAttribute(1, "Text", "test-extend-button");
+                    builder.AddAttribute(2, "AutoSelectedRowWhenClick", true);
+                    builder.AddAttribute(3, "AutoRenderTableWhenClick", false);
+                    builder.AddAttribute(4, "IsShow", true);
+                    builder.CloseComponent();
+                });
+            });
+        });
+
+        var btn = cut.FindComponent<TableExtensionButton>();
+        await cut.InvokeAsync(() => btn.Instance.OnClickButton!(new TableCellButtonArgs() { AutoRenderTableWhenClick = true, AutoSelectedRowWhenClick = true }));
+    }
+
+    [Fact]
+    public async Task TableCellButton_Ok()
+    {
+        var cut = Context.RenderComponent<TableCellButton>();
+        cut.Instance.Dispose();
+        cut.Dispose();
+
+        var clicked = false;
+        var clicked2 = false;
+        var cut1 = Context.RenderComponent<TableExtensionButton>(pb =>
+        {
+            pb.Add(a => a.ChildContent, builder =>
+            {
+                builder.OpenComponent<TableCellButton>(0);
+                builder.AddAttribute(1, "OnClick", EventCallback.Factory.Create<MouseEventArgs>(this, () =>
+                {
+                    clicked = true;
+                }));
+                builder.AddAttribute(1, "OnClickWithoutRender", () =>
+                {
+                    clicked2 = true;
+                    return Task.CompletedTask;
+                });
+                builder.CloseComponent();
+            });
+        });
+        var btn = cut1.Find("button");
+        await cut1.InvokeAsync(() => btn.Click());
+        Assert.True(clicked);
+        Assert.True(clicked2);
+    }
+
+    [Fact]
+    public void TableCellNormalButton_Ok()
+    {
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<TableExtensionButton>(pb =>
+            {
+                pb.Add(a => a.ChildContent, builder =>
+                {
+                    builder.OpenComponent<MockButton>(0);
+                    builder.CloseComponent();
+                });
+            });
+        });
+    }
+
     private static Func<QueryPageOptions, Task<QueryData<Foo>>> OnQueryAsync(IStringLocalizer<Foo> localizer) => new(op =>
     {
-        var items = Foo.GenerateFoo(localizer);
+        var items = Foo.GenerateFoo(localizer, 5);
         return Task.FromResult(new QueryData<Foo>()
         {
             Items = items,
@@ -1496,6 +1910,18 @@ public class TableTest : TableTestBase
             IsSorted = true
         });
     });
+
+    private class MockButton : ButtonBase
+    {
+        [CascadingParameter]
+        [NotNull]
+        protected TableExtensionButton? Buttons { get; set; }
+
+        protected override void OnInitialized()
+        {
+            Buttons.AddButton(this);
+        }
+    }
 
     private class FooTree : Foo
     {
