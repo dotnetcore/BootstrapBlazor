@@ -124,6 +124,8 @@ public partial class AutoComplete
         PlaceHolder ??= Localizer[nameof(PlaceHolder)];
         Items ??= Enumerable.Empty<string>();
         FilterItems ??= new List<string>();
+
+        SkipRegisterEnterEscJSInvoke = true;
     }
 
     /// <summary>

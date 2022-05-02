@@ -108,6 +108,11 @@ public abstract class BootstrapInputBase<TValue> : ValidateBase<TValue>
     private JSInterop<BootstrapInputBase<TValue>>? Interop { get; set; }
 
     /// <summary>
+    /// 获得/设置 是否不注册 js 脚本处理 Enter/ESC 键盘处理函数 默认 false
+    /// </summary>
+    protected bool SkipRegisterEnterEscJSInvoke { get; set; }
+
+    /// <summary>
     /// OnInitialized 方法
     /// </summary>
     protected override void OnInitialized()
@@ -140,7 +145,7 @@ public abstract class BootstrapInputBase<TValue> : ValidateBase<TValue>
 
         if (firstRender)
         {
-            if (OnEnterAsync != null || OnEscAsync != null)
+            if (!SkipRegisterEnterEscJSInvoke && (OnEnterAsync != null || OnEscAsync != null))
             {
                 Interop ??= new JSInterop<BootstrapInputBase<TValue>>(JSRuntime);
                 await Interop.InvokeVoidAsync(this, FocusElement, "bb_input", OnEnterAsync != null, nameof(EnterCallback), OnEscAsync != null, nameof(EscCallback));
