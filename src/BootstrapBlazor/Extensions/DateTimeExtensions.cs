@@ -96,19 +96,7 @@ internal static class DateTimeExtensions
     /// <param name="dt"></param>
     /// <param name="day"></param>
     /// <returns></returns>
-    public static bool IsDayOverflow(this DateTime dt, int day)
-    {
-        var ret = false;
-        if (day < 0)
-        {
-            ret = DateTime.MinValue.AddDays(0 - day) > dt;
-        }
-        else if (day > 0)
-        {
-            ret = DateTime.MaxValue.AddDays(0 - day) < dt;
-        }
-        return ret;
-    }
+    public static bool IsDayOverflow(this DateTime dt, int day) => DateTime.MaxValue.AddDays(0 - day) < dt;
 
     /// <summary>
     /// 

@@ -192,6 +192,26 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void IsYearOverflow_Ok()
+    {
+        var cut = Context.RenderComponent<DatePickerBody>(builder =>
+        {
+            builder.Add(a => a.Value, DateTime.MinValue.AddDays(1));
+            builder.Add(a => a.ViewMode, DatePickerViewMode.Year);
+        });
+    }
+
+    [Fact]
+    public void IsDayOverflow()
+    {
+        var cut = Context.RenderComponent<DatePickerBody>(builder =>
+        {
+            builder.Add(a => a.Value, DateTime.MaxValue.AddDays(-1));
+            builder.Add(a => a.ViewMode, DatePickerViewMode.Date);
+        });
+    }
+
+    [Fact]
     public void ShowSidebar_Ok()
     {
         var cut = Context.RenderComponent<DatePickerBody>(builder =>
@@ -282,7 +302,12 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         {
             builder.Add(a => a.Value, DateTime.Now);
             builder.Add(a => a.MinValue, DateTime.Today.AddDays(-1));
-            builder.Add(a => a.MaxValue, DateTime.Today.AddDays(7));
+        });
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.MinValue, null);
+            pb.Add(a => a.MaxValue, DateTime.Today.AddDays(7));
         });
     }
 

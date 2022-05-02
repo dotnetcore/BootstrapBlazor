@@ -69,7 +69,7 @@ public sealed partial class DatePickerBody
         .AddClass("disabled", IsDisabled(day) || overflow)
         .Build();
 
-    private bool IsDisabled(DateTime day) => (MinValue != null && day < MinValue) || (MaxValue != null && day > MaxValue);
+    private bool IsDisabled(DateTime day) => (MinValue.HasValue && day < MinValue.Value) || (MaxValue.HasValue && day > MaxValue.Value);
 
     /// <summary>
     /// 获得 年月日时分秒视图样式
@@ -333,6 +333,31 @@ public sealed partial class DatePickerBody
     [NotNull]
     private string? Weekago { get; set; }
 
+    private Dictionary<DatePickerViewMode, List<DatePickerViewMode>> AllowSwitchModes { get; } = new Dictionary<DatePickerViewMode, List<DatePickerViewMode>>
+    {
+        [DatePickerViewMode.DateTime] = new List<DatePickerViewMode>()
+        {
+            DatePickerViewMode.DateTime,
+            DatePickerViewMode.Month,
+            DatePickerViewMode.Year
+        },
+        [DatePickerViewMode.Date] = new List<DatePickerViewMode>()
+        {
+            DatePickerViewMode.Date,
+            DatePickerViewMode.Month,
+            DatePickerViewMode.Year
+        },
+        [DatePickerViewMode.Month] = new List<DatePickerViewMode>()
+        {
+            DatePickerViewMode.Month,
+            DatePickerViewMode.Year
+        },
+        [DatePickerViewMode.Year] = new List<DatePickerViewMode>()
+        {
+            DatePickerViewMode.Year
+        }
+    };
+
     /// <summary>
     /// OnInitialized 方法
     /// </summary>
@@ -452,7 +477,10 @@ public sealed partial class DatePickerBody
     private Task SwitchView(DatePickerViewMode view)
     {
         ShowTimePicker = false;
-        CurrentViewMode = view;
+        if (AllowSwitchModes[ViewMode].Contains(view))
+        {
+            CurrentViewMode = view;
+        }
         StateHasChanged();
         return Task.CompletedTask;
     }

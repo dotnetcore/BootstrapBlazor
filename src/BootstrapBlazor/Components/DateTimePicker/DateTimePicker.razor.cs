@@ -105,7 +105,7 @@ public sealed partial class DateTimePicker<TValue>
     /// 获得/设置 组件显示模式 默认为显示年月日模式
     /// </summary>
     [Parameter]
-    public DatePickerViewMode ViewMode { get; set; }
+    public DatePickerViewMode ViewMode { get; set; } = DatePickerViewMode.Date;
 
     /// <summary>
     /// 获得/设置 是否显示快捷侧边栏 默认不显示
