@@ -64,11 +64,8 @@ public sealed partial class App : IDisposable
             {
                 Category = ToastCategory.Information,
                 Title = "代码提交推送通知",
-                Delay = 30 * 1000,
+                Delay = 120 * 1000,
                 ForceDelay = true,
-#if DEBUG
-                IsAutoHide = false,
-#endif
                 ChildContent = BootstrapDynamicComponent.CreateComponent<CommitItem>(new Dictionary<string, object?>
                 {
                     [nameof(CommitItem.Item)] = payload.Entry
