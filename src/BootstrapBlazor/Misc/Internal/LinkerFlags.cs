@@ -6,6 +6,7 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace Microsoft.AspNetCore.Internal;
 
+[ExcludeFromCodeCoverage]
 internal static class LinkerFlags
 {
     /// <summary>

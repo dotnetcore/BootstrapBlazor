@@ -70,7 +70,7 @@ public class TableTest : TableTestBase
     }
 
     [Fact]
-    public void ShowSearch_Ok()
+    public async Task ShowSearch_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
@@ -89,10 +89,13 @@ public class TableTest : TableTestBase
             });
         });
         cut.Contains("float-end table-toolbar-button btn-group");
+
+        var searchButton = cut.Find(".fa-search");
+        await cut.InvokeAsync(() => searchButton.Click());
     }
 
     [Fact]
-    public void ShowAdvancedSearch_Ok()
+    public async Task ShowAdvancedSearch_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
@@ -101,25 +104,60 @@ public class TableTest : TableTestBase
             {
                 pb.Add(a => a.ShowSearch, true);
                 pb.Add(a => a.ShowSearchText, false);
+                pb.Add(a => a.SearchDialogSize, Size.ExtraExtraLarge);
+                pb.Add(a => a.SearchDialogIsDraggable, true);
+                pb.Add(a => a.SearchDialogShowMaximizeButton, true);
+                pb.Add(a => a.SearchDialogItemsPerRow, 2);
+                pb.Add(a => a.SearchDialogRowType, RowType.Inline);
+                pb.Add(a => a.SearchDialogLabelAlign, Alignment.Right);
                 pb.Add(a => a.ShowAdvancedSearch, true);
-                pb.Add(a => a.Items, Foo.GenerateFoo(localizer));
+                pb.Add(a => a.Items, Foo.GenerateFoo(localizer, 1));
                 pb.Add(a => a.TableColumns, foo => builder =>
                 {
                     builder.OpenComponent<TableColumn<Foo, string>>(0);
                     builder.AddAttribute(1, "Field", "Name");
                     builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.AddAttribute(3, "Searchable", true);
                     builder.CloseComponent();
                 });
             });
         });
 
-        // 不显示模糊查询框
-        // 显示高级搜索按钮
-        cut.Contains("fa fa-search-plus");
+        var searchButton = cut.Find(".fa-search-plus");
+        await cut.InvokeAsync(() => searchButton.Click());
     }
 
     [Fact]
-    public void ShowTopSearch_Ok()
+    public async Task ShowAdvancedSearch_CustomerModel_Ok()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var searchModel = new FooSearchModel();
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.ShowSearch, true);
+                pb.Add(a => a.CustomerSearchModel, searchModel);
+                pb.Add(a => a.CustomerSearchTemplate, foo => builder => builder.AddContent(0, "test_CustomerSearchTemplate"));
+                pb.Add(a => a.ShowAdvancedSearch, true);
+                pb.Add(a => a.Items, Foo.GenerateFoo(localizer, 1));
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", foo.Name);
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.AddAttribute(3, "Searchable", true);
+                    builder.CloseComponent();
+                });
+            });
+        });
+
+        var searchButton = cut.Find(".fa-search-plus");
+        await cut.InvokeAsync(() => searchButton.Click());
+    }
+
+    [Fact]
+    public async Task ShowTopSearch_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
@@ -128,17 +166,56 @@ public class TableTest : TableTestBase
             {
                 pb.Add(a => a.ShowSearch, true);
                 pb.Add(a => a.SearchMode, SearchMode.Top);
-                pb.Add(a => a.Items, Foo.GenerateFoo(localizer));
+                pb.Add(a => a.OnQueryAsync, OnQueryAsync(localizer));
                 pb.Add(a => a.TableColumns, foo => builder =>
                 {
                     builder.OpenComponent<TableColumn<Foo, string>>(0);
                     builder.AddAttribute(1, "Field", "Name");
                     builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.AddAttribute(3, "Searchable", true);
+                    builder.CloseComponent();
+                });
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, int>>(0);
+                    builder.AddAttribute(1, "Field", foo.Count);
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Count", typeof(int)));
+                    builder.AddAttribute(3, "Searchable", true);
                     builder.CloseComponent();
                 });
             });
         });
         cut.Contains("table-search");
+
+        var searchButton = cut.Find(".fa-search");
+        await cut.InvokeAsync(() => searchButton.Click());
+    }
+
+    [Fact]
+    public async Task Search_JSInvoke()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.ShowSearch, true);
+                pb.Add(a => a.SearchMode, SearchMode.Top);
+                pb.Add(a => a.OnQueryAsync, OnQueryAsync(localizer));
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.AddAttribute(3, "Searchable", true);
+                    builder.CloseComponent();
+                });
+            });
+        });
+
+        var table = cut.FindComponent<Table<Foo>>();
+        await cut.InvokeAsync(() => table.Instance.OnSearch());
+        await cut.InvokeAsync(() => table.Instance.OnClearSearch());
     }
 
     [Fact]
@@ -1352,8 +1429,12 @@ public class TableTest : TableTestBase
     }
 
     [Fact]
-    public void CustomerSearchTemplate_Ok()
+    public async Task CustomerSearchTemplate_Ok()
     {
+        var searchModel = new FooSearchModel()
+        {
+            Name = "test_name"
+        };
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
         {
@@ -1362,7 +1443,7 @@ public class TableTest : TableTestBase
                 pb.Add(a => a.ShowSearch, true);
                 pb.Add(a => a.SearchMode, SearchMode.Top);
                 pb.Add(a => a.RenderMode, TableRenderMode.Table);
-                pb.Add(a => a.CustomerSearchModel, new FooSearchModel());
+                pb.Add(a => a.CustomerSearchModel, searchModel);
                 pb.Add(a => a.CustomerSearchTemplate, foo => builder => builder.AddContent(0, "test_CustomerSearchTemplate"));
                 pb.Add(a => a.OnQueryAsync, OnQueryAsync(localizer));
                 pb.Add(a => a.TableColumns, foo => builder =>
@@ -1374,6 +1455,10 @@ public class TableTest : TableTestBase
                 });
             });
         });
+
+        var resetButton = cut.Find(".fa-trash");
+        await cut.InvokeAsync(() => resetButton.Click());
+        Assert.Null(searchModel.Name);
     }
 
     [Fact]
@@ -1401,6 +1486,37 @@ public class TableTest : TableTestBase
         });
 
         cut.Contains("test_SearchTemplate");
+    }
+
+    [Fact]
+    public async Task SearchTemplate_Null()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.ShowSearch, true);
+                pb.Add(a => a.SearchModel, new Foo());
+                pb.Add(a => a.SearchMode, SearchMode.Top);
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.OnQueryAsync, OnQueryAsync(localizer));
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+                });
+            });
+        });
+
+        var table = cut.FindComponent<Table<Foo>>();
+        table.Instance.SearchModel.Name = "Test";
+
+        var resetButton = cut.Find(".fa-trash");
+        await cut.InvokeAsync(() => resetButton.Click());
+        Assert.Null(table.Instance.SearchModel.Name);
     }
 
     [Theory]
@@ -1550,7 +1666,7 @@ public class TableTest : TableTestBase
     }
 
     [Fact]
-    public void SearchText_Ok()
+    public async Task SearchText_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
@@ -1559,8 +1675,52 @@ public class TableTest : TableTestBase
             {
                 pb.Add(a => a.ShowSearch, true);
                 pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.SearchMode, SearchMode.Top);
                 pb.Add(a => a.SearchText, "test_search_text");
                 pb.Add(a => a.OnQueryAsync, OnQueryAsync(localizer));
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.AddAttribute(3, "Searchable", true);
+                    builder.CloseComponent();
+                });
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, int>>(0);
+                    builder.AddAttribute(1, "Field", foo.Count);
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Count", typeof(int)));
+                    builder.AddAttribute(3, "Searchable", true);
+                    builder.CloseComponent();
+                });
+            });
+        });
+
+        cut.Contains("test_search_text");
+
+        var searchButton = cut.Find(".fa-search");
+        await cut.InvokeAsync(() => searchButton.Click());
+    }
+
+    [Fact]
+    public async Task ResetSearch_Ok()
+    {
+        var reset = false;
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.ShowSearch, true);
+                pb.Add(a => a.SearchMode, SearchMode.Top);
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.OnQueryAsync, OnQueryAsync(localizer));
+                pb.Add(a => a.OnResetSearchAsync, foo =>
+                {
+                    reset = true;
+                    return Task.CompletedTask;
+                });
                 pb.Add(a => a.TableColumns, foo => builder =>
                 {
                     builder.OpenComponent<TableColumn<Foo, string>>(0);
@@ -1571,7 +1731,10 @@ public class TableTest : TableTestBase
             });
         });
 
-        cut.Contains("test_search_text");
+        var resetButton = cut.Find(".fa-trash");
+        await cut.InvokeAsync(() => resetButton.Click());
+
+        Assert.True(reset);
     }
 
     [Fact]

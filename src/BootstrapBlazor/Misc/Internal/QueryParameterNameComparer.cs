@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace Microsoft.AspNetCore.Components.Routing;
 
+[ExcludeFromCodeCoverage]
 internal sealed class QueryParameterNameComparer : IComparer<ReadOnlyMemory<char>>, IEqualityComparer<ReadOnlyMemory<char>>
 {
     public static readonly QueryParameterNameComparer Instance = new();

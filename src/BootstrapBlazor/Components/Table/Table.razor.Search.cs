@@ -284,7 +284,7 @@ public partial class Table<TItem>
         var searchs = new List<IFilterAction>();
         if (!string.IsNullOrEmpty(SearchText))
         {
-            searchs.AddRange(columns.Where(col => col.Searchable && ((Nullable.GetUnderlyingType(col.PropertyType) ?? col.PropertyType) == typeof(string))).Select(col => new SearchFilterAction(col.GetFieldName(), SearchText)));
+            searchs.AddRange(columns.Where(col => (Nullable.GetUnderlyingType(col.PropertyType) ?? col.PropertyType) == typeof(string)).Select(col => new SearchFilterAction(col.GetFieldName(), SearchText)));
         }
         return searchs;
     }

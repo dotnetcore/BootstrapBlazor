@@ -11,6 +11,7 @@ using static Microsoft.AspNetCore.Internal.LinkerFlags;
 
 namespace Microsoft.AspNetCore.Components.Reflection;
 
+[ExcludeFromCodeCoverage]
 internal class MemberAssignment
 {
     public static IEnumerable<PropertyInfo> GetPropertiesIncludingInherited(

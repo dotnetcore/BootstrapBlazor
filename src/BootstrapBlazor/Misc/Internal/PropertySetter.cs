@@ -8,6 +8,7 @@ using System.Reflection;
 
 namespace Microsoft.AspNetCore.Components.Reflection;
 
+[ExcludeFromCodeCoverage]
 internal sealed class PropertySetter
 {
     private static readonly MethodInfo CallPropertySetterOpenGenericMethod =

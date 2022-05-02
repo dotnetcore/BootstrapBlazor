@@ -15,6 +15,7 @@ using static Microsoft.AspNetCore.Internal.LinkerFlags;
 
 namespace Microsoft.AspNetCore.Components.Routing;
 
+[ExcludeFromCodeCoverage]
 internal sealed class QueryParameterValueSupplier
 {
     public static void ClearCache() => _cacheByType.Clear();
