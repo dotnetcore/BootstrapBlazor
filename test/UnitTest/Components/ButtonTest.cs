@@ -6,7 +6,6 @@ using BootstrapBlazor.Shared;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
-using UnitTest.Extensions;
 
 namespace UnitTest.Components;
 
@@ -334,5 +333,14 @@ public class ButtonTest : BootstrapBlazorTestBase
     {
         var cut = Context.RenderComponent<Button>();
         await cut.InvokeAsync(() => cut.Instance.RemoveTooltip());
+    }
+
+    [Fact]
+    public void IsAutoFocus_Ok()
+    {
+        var cut = Context.RenderComponent<Button>(pb =>
+        {
+            pb.Add(a => a.IsAutoFocus, true);
+        });
     }
 }

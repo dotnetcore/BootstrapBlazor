@@ -13,6 +13,12 @@ namespace BootstrapBlazor.Components;
 public partial class Button
 {
     /// <summary>
+    /// 获得/设置 是否自动获取焦点 默认 false 不自动获取焦点
+    /// </summary>
+    [Parameter]
+    public bool IsAutoFocus { get; set; }
+
+    /// <summary>
     /// 按钮点击回调方法，内置支持 IsAsync 开关
     /// </summary>
     protected EventCallback<MouseEventArgs> OnClickButton { get; set; }
@@ -22,6 +28,11 @@ public partial class Button
     /// </summary>
     [CascadingParameter]
     protected ValidateForm? ValidateForm { get; set; }
+
+    /// <summary>
+    /// 获得/设置 html button 实例
+    /// </summary>
+    protected ElementReference ButtonElement { get; set; }
 
     /// <summary>
     /// OnInitialized 方法
@@ -79,6 +90,30 @@ public partial class Button
             ValidateForm.RegisterAsyncSubmitButton(this);
         }
     }
+
+    /// <summary>
+    /// OnAfterRenderAsync 方法
+    /// </summary>
+    /// <param name="firstRender"></param>
+    /// <returns></returns>
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+
+        if (firstRender)
+        {
+            if (IsAutoFocus)
+            {
+                await FocusAsync();
+            }
+        }
+    }
+
+    /// <summary>
+    /// 自动获得焦点方法
+    /// </summary>
+    /// <returns></returns>
+    public ValueTask FocusAsync() => ButtonElement.FocusAsync();
 
     /// <summary>
     /// 处理点击方法
