@@ -110,7 +110,7 @@ console.log('test');
         },
         new AttributeItem(){
             Name = "EnableHighlight",
-            Description = "是否启用代码高亮插件，启用前需要引入插件对应的js css",
+            Description = "是否启用代码高亮",
             Type = "bool",
             ValueList = " true/false ",
             DefaultValue = " false "
