@@ -3,11 +3,11 @@
 
 @if (IsMobileMode)
 {
-    <td @attributes="@AdditionalAttributes">
-        <div class="@ClassString">@GetText()</div>
-    </td>
+    <div @attributes="@AdditionalAttributes" class="@ClassString">@GetText()</div>
 }
 else
 {
-    <div @attributes="@AdditionalAttributes" class="@ClassString">@GetText()</div>
+    <td @attributes="@AdditionalAttributes">
+        <div class="@ClassString">@GetText()</div>
+    </td>
 }

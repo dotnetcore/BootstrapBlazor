@@ -39,7 +39,13 @@ public partial class TableFooterCell
     public AggregateType Aggregate { get; set; }
 
     /// <summary>
-    /// 
+    /// 获得/设置 自定义统计列回调方法
+    /// </summary>
+    [Parameter]
+    public Func<object?, string?, string>? CustomerAggregateCallback { get; set; }
+
+    /// <summary>
+    /// 获得/设置 统计列名称 默认为 null 不参与统计仅作为显示单元格
     /// </summary>
     [Parameter]
     public string? Field { get; set; }
@@ -72,75 +78,105 @@ public partial class TableFooterCell
             // 数据源泛型 TModel 类型
             var modelType = type.GenericTypeArguments[0];
 
-            var mi = GetType().GetMethod(nameof(CreateCountMethod), BindingFlags.NonPublic | BindingFlags.Static)
-                            ?.MakeGenericMethod(modelType);
+            var mi = GetType().GetMethod(nameof(CreateCountMethod), BindingFlags.NonPublic | BindingFlags.Static)!.MakeGenericMethod(modelType);
 
             if (mi != null)
             {
-                v = mi.Invoke(null, new object[] { DataSource })?.ToString();
+                var obj = mi.Invoke(null, new object[] { DataSource });
+                if (obj != null)
+                {
+                    v = obj.ToString();
+                }
             }
         }
         return v;
     }
 
-    private string GetAggegateValue()
+    private string? GetAggegateValue()
     {
-        var v = "";
-        if (!string.IsNullOrEmpty(Field) && DataSource != null)
+        return Aggregate == AggregateType.Customer ? AggregateCustomerValue() : AggregateNumberValue();
+
+        string? AggregateCustomerValue()
         {
-            // 绑定数据源类型
-            var type = DataSource.GetType();
-            // 数据源泛型 TModel 类型
-            var modelType = type.GenericTypeArguments[0];
-
-            // 通过 Field 获取到 TModel 属性
-            var propertyInfo = modelType.GetProperty(Field);
-            if (propertyInfo != null)
+            string? v = null;
+            if (CustomerAggregateCallback != null)
             {
-                // @context.Sum(i => i.Count)
-                // Count 属性类型
-                var propertyType = propertyInfo.PropertyType;
+                v = CustomerAggregateCallback(DataSource, Field);
+            }
+            return v;
+        }
 
-                // 构建 Aggegate
-                // @context.Sum(i => i.Count)
-                var aggegateMethod = Aggregate switch
+        string? AggregateNumberValue()
+        {
+            string? v = null;
+            if (!string.IsNullOrEmpty(Field) && DataSource != null)
+            {
+                // 绑定数据源类型
+                var type = DataSource.GetType();
+                // 数据源泛型 TModel 类型
+                var modelType = type.GenericTypeArguments[0];
+
+                // 通过 Field 获取到 TModel 属性
+                var propertyInfo = modelType.GetProperty(Field);
+                if (propertyInfo != null)
                 {
-                    AggregateType.Average => propertyType.Name switch
+                    // @context.Sum(i => i.Count)
+                    // Count 属性类型
+                    var propertyType = propertyInfo.PropertyType;
+
+                    // 构建 Aggegate
+                    // @context.Sum(i => i.Count)
+                    var aggegateMethod = Aggregate switch
                     {
-                        nameof(Int32) or nameof(Int64) => GetType()
-                            .GetMethod(nameof(CreateAggregateLambda), BindingFlags.NonPublic | BindingFlags.Static)
-                            ?.MakeGenericMethod(typeof(Double)),
-                        nameof(Decimal) or nameof(Double) or nameof(Single) => GetType()
-                            .GetMethod(nameof(CreateAggregateLambda), BindingFlags.NonPublic | BindingFlags.Static)
-                            ?.MakeGenericMethod(propertyType),
-                        _ => null
-                    },
-                    _ => GetType().GetMethod(nameof(CreateAggregateLambda), BindingFlags.NonPublic | BindingFlags.Static)
-                        ?.MakeGenericMethod(propertyType)
-                };
-                if (aggegateMethod != null)
-                {
-                    var invoker = aggegateMethod.Invoke(null, new object[] { Aggregate, type, modelType, propertyType });
-                    if (invoker != null)
-                    {
-                        // 构建 Selector
-                        var methodInfo = GetType().GetMethod(nameof(CreateSelector), BindingFlags.NonPublic | BindingFlags.Static)
-                            ?.MakeGenericMethod(modelType, propertyType);
-                        if (methodInfo != null)
+                        AggregateType.Average => propertyType.Name switch
                         {
-                            var selector = methodInfo.Invoke(null, new object[] { Field });
-                            if (selector != null)
+                            nameof(Int32) or nameof(Int64) or nameof(Double) => GetType()
+                                .GetMethod(nameof(CreateAggregateLambda), BindingFlags.NonPublic | BindingFlags.Static)!
+                                .MakeGenericMethod(typeof(Double)),
+                            _ => GetType()
+                                .GetMethod(nameof(CreateAggregateLambda), BindingFlags.NonPublic | BindingFlags.Static)!
+                                .MakeGenericMethod(propertyType),
+                        },
+                        _ => GetType().GetMethod(nameof(CreateAggregateLambda), BindingFlags.NonPublic | BindingFlags.Static)!
+                            .MakeGenericMethod(propertyType)
+                    };
+                    if (aggegateMethod != null)
+                    {
+                        v = AggregateMethodInvoker(aggegateMethod, type, modelType, propertyType);
+                    }
+                }
+            }
+            return v;
+        }
+
+        string? AggregateMethodInvoker(MethodInfo aggegateMethod, Type type, Type modelType, Type propertyType)
+        {
+            string? v = null;
+            var invoker = aggegateMethod.Invoke(null, new object[] { Aggregate, type, modelType, propertyType });
+            if (invoker != null)
+            {
+                // 构建 Selector
+                var methodInfo = GetType().GetMethod(nameof(CreateSelector), BindingFlags.NonPublic | BindingFlags.Static)!
+                    .MakeGenericMethod(modelType, propertyType);
+                if (methodInfo != null)
+                {
+                    var selector = methodInfo.Invoke(null, new object[] { Field });
+                    if (selector != null)
+                    {
+                        // 执行委托
+                        if (invoker is Delegate d)
+                        {
+                            var val = d.DynamicInvoke(DataSource, selector);
+                            if (val != null)
                             {
-                                // 执行委托
-                                var val = (invoker as Delegate)?.DynamicInvoke(DataSource, selector);
-                                v = val?.ToString() ?? "";
+                                v = val.ToString();
                             }
                         }
                     }
                 }
             }
+            return v;
         }
-        return v;
     }
 
     /// <summary>
@@ -155,13 +191,7 @@ public partial class TableFooterCell
         var type = typeof(TModel);
         var p1 = Expression.Parameter(type);
         var propertyInfo = type.GetProperty(field);
-
-        if (propertyInfo == null)
-        {
-            throw new InvalidOperationException();
-        }
-
-        var fieldExpression = Expression.Property(p1, propertyInfo);
+        var fieldExpression = Expression.Property(p1, propertyInfo!);
         return Expression.Lambda<Func<TModel, TValue>>(fieldExpression, p1).Compile();
     }
 
@@ -196,8 +226,18 @@ public partial class TableFooterCell
                     .FirstOrDefault(m => m.Name == aggregate.ToString() && m.IsGenericMethod
                         && m.ReturnType == typeof(Double) && m.GetParameters().Length == 2
                         && m.GetParameters()[1].ParameterType.GenericTypeArguments[1] == typeof(Int64)),
-                nameof(Decimal) or nameof(Double) or nameof(Single) => typeof(Enumerable).GetMethods()
-                    .FirstOrDefault(m => m.Name == aggregate.ToString() && m.IsGenericMethod && m.ReturnType == propertyType),
+                nameof(Double) => typeof(Enumerable).GetMethods()
+                    .FirstOrDefault(m => m.Name == aggregate.ToString() && m.IsGenericMethod
+                        && m.ReturnType == typeof(Double) && m.GetParameters().Length == 2
+                        && m.GetParameters()[1].ParameterType.GenericTypeArguments[1] == typeof(Double)),
+                nameof(Decimal) => typeof(Enumerable).GetMethods()
+                    .FirstOrDefault(m => m.Name == aggregate.ToString() && m.IsGenericMethod
+                        && m.ReturnType == typeof(Decimal) && m.GetParameters().Length == 2
+                        && m.GetParameters()[1].ParameterType.GenericTypeArguments[1] == typeof(Decimal)),
+                nameof(Single) => typeof(Enumerable).GetMethods()
+                    .FirstOrDefault(m => m.Name == aggregate.ToString() && m.IsGenericMethod
+                        && m.ReturnType == typeof(Single) && m.GetParameters().Length == 2
+                        && m.GetParameters()[1].ParameterType.GenericTypeArguments[1] == typeof(Single)),
                 _ => null
             },
             _ => typeof(Enumerable).GetMethods()
@@ -219,13 +259,16 @@ public partial class TableFooterCell
             // 数据源泛型 TModel 类型
             var modelType = type.GenericTypeArguments[0];
 
-            var mi = typeof(TableFooterCell).GetMethod(nameof(CreateCountMethod), BindingFlags.NonPublic | BindingFlags.Static)
-                            ?.MakeGenericMethod(modelType);
+            var mi = typeof(TableFooterCell).GetMethod(nameof(CreateCountMethod), BindingFlags.NonPublic | BindingFlags.Static)!.MakeGenericMethod(modelType);
 
             if (mi != null)
             {
-                var v = mi.Invoke(null, new object[] { source })?.ToString();
-                _ = int.TryParse(v, out ret);
+                var obj = mi.Invoke(null, new object[] { source });
+                if (obj != null)
+                {
+                    var v = obj.ToString();
+                    _ = int.TryParse(v, out ret);
+                }
             }
         }
         return ret;
