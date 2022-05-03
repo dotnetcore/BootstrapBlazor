@@ -1,7 +1,6 @@
 ﻿.ipaddress {
     display: flex;
     flex-wrap: nowrap;
-    min-width: 138px;
 }
 
     .ipaddress.disabled {
@@ -11,5 +10,6 @@
 
     .ipaddress .ipv4-cell {
         border: none;
-        max-width: 26px;
+        max-width: 30px;
+        text-align: right;
     }
