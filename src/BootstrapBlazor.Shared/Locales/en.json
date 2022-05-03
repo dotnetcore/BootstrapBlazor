@@ -2622,6 +2622,7 @@
     "ClientBlazor": "Client-side Blazor",
     "Labels": "Labels",
     "ZIndex": "Layout",
+    "Breakpoints": "Breakpoints",
     "Theme": "Theme",
     "GlobalException": "Global Exception",
     "LayoutPage": "Admin Template",

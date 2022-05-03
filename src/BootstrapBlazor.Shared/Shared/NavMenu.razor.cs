@@ -228,6 +228,12 @@ public sealed partial class NavMenu
             },
             new()
             {
+                IsNew = true,
+                Text = Localizer["Breakpoints"],
+                Url = "breakpoints"
+            },
+            new()
+            {
                 Text = Localizer["ZIndex"],
                 Url = "layout"
             },
