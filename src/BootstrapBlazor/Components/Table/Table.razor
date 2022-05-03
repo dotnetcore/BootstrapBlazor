@@ -229,8 +229,8 @@
                 @if (ShowFooter && !IsHideFooterWhenNoData)
                 {
                     <div class="table-row table-footer">
-                        <CascadingValue Value="@ScreenSize" Name="ScreenSize">
-                            <CascadingValue Value="@RenderModeResponsiveWidth" Name="RenderModeResponsiveWidth">
+                        <CascadingValue Value="true" Name="IsMobileMode" IsFixed="true">
+                            <CascadingValue Value="@RowItems" Name="TableFooterContext" IsFixed="true">
                                 @TableFooter?.Invoke(RowItems)
                             </CascadingValue>
                         </CascadingValue>
@@ -346,8 +346,8 @@
         @if (ShowFooter && !IsHideFooterWhenNoData)
         {
             <tfoot>
-                <CascadingValue Value="@(ScreenSize > RenderModeResponsiveWidth)" Name="IsMobileMode">
-                    <CascadingValue Value="@RowItems" Name="TableFooterContext">
+                <CascadingValue Value="false" Name="IsMobileMode" IsFixed="true">
+                    <CascadingValue Value="@RowItems" Name="TableFooterContext" IsFixed="true">
                         @if (FooterTemplate != null)
                         {
                             @FooterTemplate(RowItems)
