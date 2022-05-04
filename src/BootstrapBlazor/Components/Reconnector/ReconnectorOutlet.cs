@@ -13,12 +13,19 @@ namespace Microsoft.AspNetCore.Components.Web;
 public class ReconnectorOutlet : ComponentBase
 {
     /// <summary>
+    /// 获得/设置 是否自动尝试重连 默认 true
+    /// </summary>
+    [Parameter]
+    public bool AutoReconnect { get; set; } = true;
+
+    /// <summary>
     /// BuildRenderTree 方法
     /// </summary>
     /// <param name="builder"></param>
     protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
         builder.OpenComponent<ReconnectorContent>(0);
+        builder.AddAttribute(1, nameof(ReconnectorContent.AutoReconnect), AutoReconnect);
         builder.CloseComponent();
     }
 }

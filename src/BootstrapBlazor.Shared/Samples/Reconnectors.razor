@@ -15,7 +15,9 @@
 &lt/div&gt;
 
 // add ReconnectorOutlet component
-<b><i>&lt;component type="typeof(ReconnectorOutlet)" render-mode="ServerPrerendered" /&gt;</i></b></Pre>
+<b><i>&lt;component type="typeof(ReconnectorOutlet)" param-AutoReconnect="true" render-mode="ServerPrerendered" /&gt;</i></b></Pre>
+
+<p>组件参数 <code>AutoReconnect</code> 用于控制是否开启网络重连，默认 <code>true</code> 已开启，可以通过 <code>param-AutoReconnect="false"</code> 关闭</p>
 
 <p>@((MarkupString)Localizer["Step2"].Value)</p>
 
