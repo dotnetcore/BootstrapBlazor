@@ -30,7 +30,8 @@ public partial class Table<TItem>
     /// 获得/设置 行号列标题文字 默认为 行号
     /// </summary>
     [Parameter]
-    public string LineNoText { get; set; } = "行号";
+    [NotNull]
+    public string? LineNoText { get; set; }
 
     private bool PageItemsSourceChanged { get; set; }
 

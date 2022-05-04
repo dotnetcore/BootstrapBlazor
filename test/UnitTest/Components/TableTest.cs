@@ -404,6 +404,38 @@ public class TableTest : TableTestBase
     }
 
     [Fact]
+    public async Task PageItemsSource_Ok()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.PageItemsSource, new int[] { 2, 4, 8 });
+                pb.Add(a => a.IsPagination, true);
+                pb.Add(a => a.OnQueryAsync, OnQueryAsync(localizer));
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+                });
+            });
+        });
+
+        var pager = cut.FindComponent<Pagination>();
+        await cut.InvokeAsync(() => pager.Instance.OnPageItemsChanged!.Invoke(2));
+        var activePage = cut.Find(".page-item.active");
+        Assert.Equal("1", activePage.TextContent);
+
+        await cut.InvokeAsync(() => pager.Instance.OnPageClick!.Invoke(2, 2));
+        activePage = cut.Find(".page-item.active");
+        Assert.Equal("2", activePage.TextContent);
+    }
+
+    [Fact]
     public void IsFixedHeader_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();

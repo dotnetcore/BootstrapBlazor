@@ -325,5 +325,6 @@ public partial class Table<TItem>
         SortAscText ??= Localizer[nameof(SortAscText)];
         SortDescText ??= Localizer[nameof(SortDescText)];
         EmptyText ??= Localizer[nameof(EmptyText)];
+        LineNoText ??= Localizer[nameof(LineNoText)];
     }
 }

@@ -223,6 +223,7 @@
     "CheckboxDisplayText": "Todos",
     "EditModalTitle": "Editar Registro",
     "AddModalTitle": "Novo Registro",
+    "LineNoText": "Número",
     "ColumnButtonTemplateHeaderText": "",
     "SearchTooltip": "<div class='search-input-tooltip'>Tecle ...</br><kbd>Enter</kbd> Pesquisar <kbd>ESC</kbd> Limpar</div>",
     "SearchModalTitle": "Procurando",

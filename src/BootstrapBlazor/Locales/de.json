@@ -223,6 +223,7 @@
     "CheckboxDisplayText": "Alle",
     "EditModalTitle": "Bearbeiten",
     "AddModalTitle": "Neu",
+    "LineNoText": "Zeilen",
     "ColumnButtonTemplateHeaderText": "",
     "SearchTooltip": "<div class='search-input-tooltip'>Bitte eingeben ...</br><kbd>Enter</kbd> Suche <kbd>ESC</kbd> Leeren</div>",
     "SearchModalTitle": "Suche",

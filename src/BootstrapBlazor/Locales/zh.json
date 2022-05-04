@@ -223,6 +223,7 @@
     "CheckboxDisplayText": "选择",
     "EditModalTitle": "编辑窗口",
     "AddModalTitle": "新建窗口",
+    "LineNoText": "行号",
     "ColumnButtonTemplateHeaderText": "操作",
     "SearchTooltip": "<div class='search-input-tooltip'>输入任意字符串全局搜索</br><kbd>Enter</kbd> 搜索 <kbd>ESC</kbd> 清除搜索</div>",
     "SearchModalTitle": "搜索条件",
