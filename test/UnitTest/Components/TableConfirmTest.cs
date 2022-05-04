@@ -9,10 +9,6 @@ public class TableConfirmTest : TableConfirmTestBase
     [Fact]
     public async Task TableCellPopconfirmButton_Ok()
     {
-        var cut = Context.RenderComponent<TableCellPopconfirmButton>();
-        cut.Instance.Dispose();
-        cut.Dispose();
-
         var clicked = false;
         var trigger = false;
         var cut1 = Context.RenderComponent<BootstrapBlazorRoot>(pb =>

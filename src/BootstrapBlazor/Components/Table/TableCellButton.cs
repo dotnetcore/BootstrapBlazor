@@ -9,7 +9,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 单元格内按钮组件
 /// </summary>
-public class TableCellButton : ButtonBase, IDisposable
+public class TableCellButton : ButtonBase
 {
     /// <summary>
     /// 获得/设置 Table 扩展按钮集合实例
@@ -49,26 +49,5 @@ public class TableCellButton : ButtonBase, IDisposable
         {
             Size = Size.ExtraSmall;
         }
-    }
-
-    /// <summary>
-    /// Dispose 方法
-    /// </summary>
-    /// <param name="disposing"></param>
-    protected virtual void Dispose(bool disposing)
-    {
-        if (disposing)
-        {
-            Buttons?.RemoveButton(this);
-        }
-    }
-
-    /// <summary>
-    /// Dispose 方法
-    /// </summary>
-    public void Dispose()
-    {
-        Dispose(disposing: true);
-        GC.SuppressFinalize(this);
     }
 }

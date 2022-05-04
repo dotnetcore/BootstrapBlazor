@@ -18,9 +18,9 @@ public partial class TableToolbar<TItem> : ComponentBase
     /// <summary>
     /// 获得 Toolbar 按钮集合
     /// </summary>
-    private List<IToolbarButton<TItem>> Buttons { get; } = new List<IToolbarButton<TItem>>();
+    private List<ButtonBase> Buttons { get; } = new();
 
-    private readonly ConcurrentDictionary<IToolbarButton<TItem>, bool> _asyncButtonStateCache = new();
+    private readonly ConcurrentDictionary<ButtonBase, bool> _asyncButtonStateCache = new();
 
     /// <summary>
     /// Specifies the content to be rendered inside this
@@ -40,9 +40,9 @@ public partial class TableToolbar<TItem> : ComponentBase
         if (!disabled)
         {
             _asyncButtonStateCache.TryAdd(button, true);
-            if (button.OnClick != null)
+            if (button.OnClick.HasDelegate)
             {
-                await button.OnClick();
+                await button.OnClick.InvokeAsync();
             }
 
             // 传递当前选中行给回调委托方法
@@ -71,10 +71,5 @@ public partial class TableToolbar<TItem> : ComponentBase
     /// <summary>
     /// 添加按钮到工具栏方法
     /// </summary>
-    public void AddButton(IToolbarButton<TItem> button) => Buttons.Add(button);
-
-    /// <summary>
-    /// 添加按钮到工具栏方法
-    /// </summary>
-    public void RemoveButton(IToolbarButton<TItem> button) => Buttons.Remove(button);
+    public void AddButton(ButtonBase button) => Buttons.Add(button);
 }
