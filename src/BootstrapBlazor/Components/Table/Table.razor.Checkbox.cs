@@ -48,11 +48,6 @@ public partial class Table<TItem>
     protected CheckboxState RowCheckState(TItem item) => SelectedRows.Contains(item) ? CheckboxState.Checked : CheckboxState.UnChecked;
 
     /// <summary>
-    /// 获得/设置 表头上的复选框
-    /// </summary>
-    protected Checkbox<TItem>? HeaderCheckbox { get; set; }
-
-    /// <summary>
     /// 获得/设置 是否为多选模式 默认为 false
     /// </summary>
     /// <remarks>此参数在 <see cref="IsExcel"/> 模式下为 true</remarks>
@@ -91,12 +86,11 @@ public partial class Table<TItem>
                 StateHasChanged();
                 break;
             case CheckboxState.UnChecked:
+            default:
                 // unselect all
                 SelectedRows.Clear();
                 await OnSelectedRowsChanged();
                 StateHasChanged();
-                break;
-            default:
                 break;
         }
     }
