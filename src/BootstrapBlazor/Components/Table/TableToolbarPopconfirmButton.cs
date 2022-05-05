@@ -13,11 +13,6 @@ namespace BootstrapBlazor.Components;
 public class TableToolbarPopconfirmButton<TItem> : PopConfirmButtonBase
 {
     /// <summary>
-    /// 
-    /// </summary>
-    public Func<IEnumerable<TItem>, Task>? OnClickCallback { get; set; }
-
-    /// <summary>
     /// 获得/设置 是否显示 默认 true 显示
     /// </summary>
     [Parameter]

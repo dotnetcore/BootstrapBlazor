@@ -426,13 +426,44 @@ public class TableTest : TableTestBase
         });
 
         var pager = cut.FindComponent<Pagination>();
-        await cut.InvokeAsync(() => pager.Instance.OnPageItemsChanged!.Invoke(2));
+        await cut.InvokeAsync(() => pager.Instance.OnPageItemsChanged!.Invoke(4));
         var activePage = cut.Find(".page-item.active");
         Assert.Equal("1", activePage.TextContent);
 
-        await cut.InvokeAsync(() => pager.Instance.OnPageClick!.Invoke(2, 2));
+        await cut.InvokeAsync(() => pager.Instance.OnPageClick!.Invoke(2, 4));
         activePage = cut.Find(".page-item.active");
         Assert.Equal("2", activePage.TextContent);
+    }
+
+    [Fact]
+    public void PageItemsSource_null()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.IsPagination, true);
+                pb.Add(a => a.OnQueryAsync, OnQueryAsync(localizer));
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+                });
+            });
+        });
+
+        var table = cut.FindComponent<Table<Foo>>();
+        Assert.Equal(20, table.Instance.PageItems);
+
+        table.SetParametersAndRender(pb => pb.Add(a => a.PageItemsSource, new int[] { 4, 6, 8 }));
+        Assert.Equal(4, table.Instance.PageItems);
+
+        table.SetParametersAndRender(pb => pb.Add(a => a.PageItemsSource, null));
+        Assert.Equal(20, table.Instance.PageItems);
     }
 
     [Fact]
@@ -445,6 +476,7 @@ public class TableTest : TableTestBase
             {
                 pb.Add(a => a.RenderMode, TableRenderMode.Table);
                 pb.Add(a => a.IsFixedHeader, true);
+                pb.Add(a => a.Height, 200);
                 pb.Add(a => a.Items, Foo.GenerateFoo(localizer));
                 pb.Add(a => a.TableColumns, foo => builder =>
                 {
@@ -456,6 +488,7 @@ public class TableTest : TableTestBase
             });
         });
         cut.Contains("table-fixed-header");
+        cut.Contains("height: 200px;");
     }
 
     [Theory]
@@ -969,6 +1002,167 @@ public class TableTest : TableTestBase
                 await btnAdd.Instance.OnClick.InvokeAsync();
             }
         });
+    }
+
+    [Fact]
+    public async Task CustomerToolbarButton_Ok()
+    {
+        var clicked = false;
+        var clickCallback = false;
+        var selected = 0;
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.ShowToolbar, true);
+                pb.Add(a => a.IsMultipleSelect, true);
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.Items, Foo.GenerateFoo(localizer));
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+                });
+                pb.Add(a => a.TableToolbarTemplate, builder =>
+                {
+                    builder.OpenComponent<TableToolbarButton<Foo>>(0);
+                    builder.AddAttribute(1, nameof(TableToolbarButton<Foo>.Text), "test");
+                    builder.AddAttribute(2, nameof(TableToolbarButton<Foo>.OnClickCallback), new Func<IEnumerable<Foo>, Task>(foos =>
+                    {
+                        clickCallback = true;
+                        return Task.CompletedTask;
+                    }));
+                    builder.AddAttribute(3, nameof(TableToolbarButton<Foo>.OnClick), EventCallback.Factory.Create<MouseEventArgs>(this, e =>
+                    {
+                        clicked = true;
+                    }));
+                    builder.AddAttribute(4, nameof(TableToolbarButton<Foo>.IsEnableWhenSelectedOneRow), true);
+                    builder.CloseComponent();
+
+                    builder.OpenComponent<TableToolbarButton<Foo>>(0);
+                    builder.AddAttribute(1, nameof(TableToolbarButton<Foo>.Text), "test-async");
+                    builder.AddAttribute(2, nameof(TableToolbarButton<Foo>.IsAsync), true);
+                    builder.AddAttribute(2, nameof(TableToolbarButton<Foo>.IsShow), true);
+                    builder.AddAttribute(3, nameof(TableToolbarButton<Foo>.OnClickCallback), new Func<IEnumerable<Foo>, Task>(foos =>
+                    {
+                        selected = foos.Count();
+                        return Task.CompletedTask;
+                    }));
+                    builder.CloseComponent();
+
+                    builder.OpenComponent<TableToolbarPopconfirmButton<Foo>>(0);
+                    builder.AddAttribute(1, nameof(TableToolbarPopconfirmButton<Foo>.Text), "test-confirm");
+                    builder.AddAttribute(2, nameof(TableToolbarPopconfirmButton<Foo>.IsShow), true);
+                    builder.CloseComponent();
+
+                    builder.OpenComponent<MockToolbarButton<Foo>>(0);
+                    builder.AddAttribute(1, nameof(MockToolbarButton<Foo>.Text), "test-confirm-mock");
+                    builder.CloseComponent();
+                });
+            });
+        });
+
+        var button = cut.FindComponents<Button>().First(b => b.Instance.Text == "test");
+        await cut.InvokeAsync(() => button.Instance.OnClickWithoutRender!.Invoke());
+        Assert.True(clicked);
+        Assert.True(clickCallback);
+
+        // 选中一行
+        var input = cut.Find("tbody tr input");
+        await cut.InvokeAsync(() => input.Click());
+
+        button = cut.FindComponents<Button>().First(b => b.Instance.Text == "test-async");
+        await cut.InvokeAsync(async () =>
+        {
+            await button.Instance.OnClickWithoutRender!.Invoke();
+        });
+        Assert.Equal(1, selected);
+    }
+
+    [Fact]
+    public async Task CardViewToolbarButton_Ok()
+    {
+        var clickCallback = false;
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.ShowToolbar, true);
+                pb.Add(a => a.RenderMode, TableRenderMode.CardView);
+                pb.Add(a => a.Items, Foo.GenerateFoo(localizer));
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+                });
+                pb.Add(a => a.TableToolbarTemplate, builder =>
+                {
+                    builder.OpenComponent<TableToolbarButton<Foo>>(0);
+                    builder.AddAttribute(1, nameof(TableToolbarButton<Foo>.Text), "test");
+                    builder.AddAttribute(2, nameof(TableToolbarButton<Foo>.OnClickCallback), new Func<IEnumerable<Foo>, Task>(foos =>
+                    {
+                        clickCallback = true;
+                        return Task.CompletedTask;
+                    }));
+                    builder.CloseComponent();
+                });
+            });
+        });
+
+        var item = cut.FindAll(".dropdown-item").First(i => i.TextContent == "test");
+        await cut.InvokeAsync(() => item.Click());
+        Assert.True(clickCallback);
+    }
+
+    [Fact]
+    public void CustomerToolbarButton_Disable()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.ShowToolbar, true);
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.Items, Foo.GenerateFoo(localizer));
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+                });
+                pb.Add(a => a.TableToolbarTemplate, builder =>
+                {
+                    builder.OpenComponent<TableToolbarButton<Foo>>(0);
+                    builder.AddAttribute(1, nameof(TableToolbarButton<Foo>.Text), "test-async");
+                    builder.AddAttribute(2, nameof(TableToolbarButton<Foo>.IsAsync), true);
+                    builder.AddAttribute(3, nameof(TableToolbarButton<Foo>.OnClickCallback), new Func<IEnumerable<Foo>, Task>(foos => Task.Delay(2000)));
+                    builder.CloseComponent();
+                });
+            });
+        });
+
+        var button = cut.FindComponents<Button>().First(b => b.Instance.Text == "test-async");
+        cut.InvokeAsync(() => button.Instance.OnClickWithoutRender!.Invoke());
+        var toolbar = cut.FindComponent<TableToolbar<Foo>>();
+        toolbar.SetParametersAndRender();
+    }
+
+    [Fact]
+    public void TableToolbar_Null()
+    {
+        var cut = Context.RenderComponent<TableToolbarButton<Foo>>();
+        Assert.Equal("", cut.Markup);
+
+        var cut1 = Context.RenderComponent<TableToolbarPopconfirmButton<Foo>>();
+        Assert.Equal("", cut1.Markup);
     }
 
     [Fact]
@@ -2178,6 +2372,18 @@ public class TableTest : TableTestBase
         [CascadingParameter]
         [NotNull]
         protected TableExtensionButton? Buttons { get; set; }
+
+        protected override void OnInitialized()
+        {
+            Buttons.AddButton(this);
+        }
+    }
+
+    private class MockToolbarButton<TItem> : ButtonBase
+    {
+        [CascadingParameter]
+        [NotNull]
+        protected TableToolbar<TItem>? Buttons { get; set; }
 
         protected override void OnInitialized()
         {

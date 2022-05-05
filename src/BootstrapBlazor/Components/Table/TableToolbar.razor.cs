@@ -32,7 +32,8 @@ public partial class TableToolbar<TItem> : ComponentBase
     /// 获得/设置 按钮点击后回调委托
     /// </summary>
     [Parameter]
-    public Func<IEnumerable<TItem>> OnGetSelectedRows { get; set; } = () => Enumerable.Empty<TItem>();
+    [NotNull]
+    public Func<IEnumerable<TItem>>? OnGetSelectedRows { get; set; }
 
     private async Task OnToolbarButtonClick(TableToolbarButton<TItem> button)
     {

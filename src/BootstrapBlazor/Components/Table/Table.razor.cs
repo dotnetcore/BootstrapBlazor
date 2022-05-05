@@ -752,12 +752,6 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
     {
         base.OnParametersSet();
 
-        if (IsPagination && PageItemsSourceChanged)
-        {
-            PageItemsSourceChanged = false;
-            PageItems = PageItemsSource.FirstOrDefault();
-        }
-
         if (ScrollMode == ScrollMode.Virtual)
         {
             IsFixedHeader = true;
