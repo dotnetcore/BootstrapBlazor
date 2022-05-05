@@ -680,17 +680,34 @@ public class TableTest : TableTestBase
             });
         });
 
-        cut.Contains("left: 300px;");
-
+        cut.Contains("left: 0px;");
+        cut.Contains("left: 200px;");
+        cut.Contains("left: 500px;");
         if (showExtendButton)
         {
-            cut.Contains("right: 230px;");
-            cut.Contains("right: 130px;");
+            if (isFixedHeader)
+            {
+                cut.Contains("right: 236px;");
+                cut.Contains("right: 136px;");
+                cut.Contains("right: 6px;");
+            }
+            else
+            {
+                cut.Contains("right: 230px;");
+                cut.Contains("right: 130px;");
+                cut.Contains("right: 0px;");
+            }
         }
         if (!showExtendButton)
         {
-            cut.Contains("right: 300px;");
             cut.Contains("right: 100px;");
+            cut.Contains("right: 0px;");
+
+            if (isFixedHeader)
+            {
+                cut.Contains("right: 106px;");
+                cut.Contains("right: 6px;");
+            }
         }
     }
 

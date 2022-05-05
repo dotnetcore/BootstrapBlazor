@@ -153,9 +153,9 @@ public partial class Table<TItem>
 
     private bool IsTail(ITableColumn col)
     {
-        var middle = Math.Ceiling(Columns.Count * 1.0 / 2) - 1;
+        var middle = Math.Ceiling(Columns.Count * 1.0 / 2);
         var index = Columns.IndexOf(col);
-        return middle <= index;
+        return middle < index;
     }
 
     /// <summary>
@@ -203,7 +203,7 @@ public partial class Table<TItem>
             }
             else
             {
-                while (index >= start)
+                while (index > start)
                 {
                     width += Columns[start++].Width ?? defaultWidth;
                 };
