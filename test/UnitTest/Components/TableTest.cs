@@ -2413,6 +2413,281 @@ public class TableTest : TableTestBase
         Assert.Equal(0, checkboxs.Count);
     }
 
+    [Fact]
+    public void TableColumn_Ok()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var items = Foo.GenerateFoo(localizer, 2);
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.Items, items);
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.AddAttribute(3, "ComponentType", typeof(BootstrapInput<string>));
+                    builder.CloseComponent();
+                });
+            });
+        });
+        var column = cut.FindComponent<TableColumn<Foo, string>>();
+        Assert.Equal("Name", column.Instance.Field);
+    }
+
+    [Fact]
+    public void TableColumn_DefaultSort()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var items = Foo.GenerateFoo(localizer, 2);
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.Items, items);
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.AddAttribute(3, "DefaultSort", true);
+                    builder.CloseComponent();
+                });
+            });
+        });
+        var column = cut.FindComponent<TableColumn<Foo, string>>();
+        Assert.True(column.Instance.DefaultSort);
+    }
+
+    [Fact]
+    public void TableColumn_TextWrap()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var items = Foo.GenerateFoo(localizer, 2);
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.Items, items);
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.AddAttribute(3, "TextWrap", true);
+                    builder.CloseComponent();
+                });
+            });
+        });
+        var column = cut.FindComponent<TableColumn<Foo, string>>();
+        cut.Contains("table-cell is-wrap");
+    }
+
+    [Fact]
+    public void TableColumn_ShowLabelTooltip()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var items = Foo.GenerateFoo(localizer, 2);
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.Items, items);
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.AddAttribute(3, "ShowLabelTooltip", true);
+                    builder.CloseComponent();
+                });
+            });
+        });
+        var column = cut.FindComponent<TableColumn<Foo, string>>();
+        Assert.True(column.Instance.ShowLabelTooltip);
+    }
+
+    [Fact]
+    public void TableColumn_DefaultSortOrder()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var items = Foo.GenerateFoo(localizer, 2);
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.Items, items);
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.AddAttribute(3, "DefaultSortOrder", SortOrder.Asc);
+                    builder.CloseComponent();
+                });
+            });
+        });
+        var column = cut.FindComponent<TableColumn<Foo, string>>();
+        Assert.Equal(SortOrder.Asc, column.Instance.DefaultSortOrder);
+    }
+
+    [Fact]
+    public void TableColumn_Editable()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var items = Foo.GenerateFoo(localizer, 2);
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.Items, items);
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.AddAttribute(3, "Editable", true);
+                    builder.CloseComponent();
+                });
+            });
+        });
+        var column = cut.FindComponent<TableColumn<Foo, string>>();
+        Assert.True(column.Instance.Editable);
+    }
+
+    [Fact]
+    public void TableColumn_Property()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var items = Foo.GenerateFoo(localizer, 2);
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.Items, items);
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.AddAttribute(3, "Readonly", true);
+                    builder.AddAttribute(4, "IsReadonlyWhenAdd", true);
+                    builder.AddAttribute(5, "IsReadonlyWhenEdit", true);
+                    builder.AddAttribute(6, "SkipValidate", true);
+                    builder.AddAttribute(7, "Text", "test");
+                    builder.AddAttribute(8, "Visible", true);
+                    builder.AddAttribute(9, "ShowTips", true);
+                    builder.AddAttribute(10, "CssClass", "test");
+                    builder.AddAttribute(11, "Align", Alignment.Right);
+                    builder.AddAttribute(12, "FormatString", "test");
+                    builder.AddAttribute(13, "Formatter", new Func<object?, Task<string>>(obj => Task.FromResult("test-Formatter")));
+                    builder.AddAttribute(14, "Step", "1");
+                    builder.AddAttribute(15, "Template", new RenderFragment<TableColumnContext<Foo, string>>(context => builder =>
+                    {
+
+                    }));
+                    builder.AddAttribute(16, "Rows", 1);
+                    builder.AddAttribute(17, "EditTemplate", new RenderFragment<Foo>(context => builder =>
+                    {
+
+                    }));
+                    builder.AddAttribute(18, "SearchTemplate", new RenderFragment<Foo>(context => builder =>
+                    {
+
+                    }));
+                    builder.AddAttribute(19, "FilterTemplate", new RenderFragment(builder =>
+                    {
+
+                    }));
+                    builder.AddAttribute(20, "ShownWithBreakPoint", BreakPoint.ExtraSmall);
+                    builder.AddAttribute(21, "Items", Array.Empty<SelectedItem>());
+                    builder.AddAttribute(22, "Order", 2);
+                    builder.AddAttribute(23, "Lookup", Array.Empty<SelectedItem>());
+                    builder.AddAttribute(24, "LookupStringComparison", StringComparison.OrdinalIgnoreCase);
+                    builder.AddAttribute(25, "LookUpServiceKey", "test");
+                    builder.AddAttribute(26, "ValidateRules", new List<IValidator>());
+                    builder.AddAttribute(27, "GroupName", "test");
+                    builder.AddAttribute(28, "GroupOrder", 1);
+                    builder.CloseComponent();
+                });
+            });
+        });
+        var column = cut.FindComponent<TableColumn<Foo, string>>();
+        Assert.True(column.Instance.Readonly);
+        Assert.True(column.Instance.IsReadonlyWhenAdd);
+        Assert.True(column.Instance.IsReadonlyWhenEdit);
+        Assert.True(column.Instance.SkipValidate);
+        Assert.Equal("test", column.Instance.Text);
+        Assert.True(column.Instance.Visible);
+        Assert.True(column.Instance.ShowTips);
+        Assert.Equal("test", column.Instance.CssClass);
+        Assert.Equal(Alignment.Right, column.Instance.Align);
+        Assert.Equal("test", column.Instance.FormatString);
+        Assert.NotNull(column.Instance.Formatter);
+        Assert.NotNull(column.Instance.Step);
+        Assert.NotNull(column.Instance.Template);
+        Assert.Equal(1, column.Instance.Rows);
+        Assert.NotNull(column.Instance.EditTemplate);
+        Assert.NotNull(column.Instance.SearchTemplate);
+        Assert.NotNull(column.Instance.FilterTemplate);
+        Assert.Equal(BreakPoint.ExtraSmall, column.Instance.ShownWithBreakPoint);
+        Assert.NotNull(column.Instance.Items);
+        Assert.Equal(2, column.Instance.Order);
+        Assert.NotNull(column.Instance.Lookup);
+        Assert.Equal(StringComparison.OrdinalIgnoreCase, column.Instance.LookupStringComparison);
+        Assert.Equal("test", column.Instance.LookUpServiceKey);
+        Assert.NotNull(column.Instance.ValidateRules);
+        Assert.Equal("test", column.Instance.GroupName);
+        Assert.Equal(1, column.Instance.GroupOrder);
+
+        var col = column.Instance as ITableColumn;
+        Assert.NotNull(col.Template);
+        Assert.NotNull(col.EditTemplate);
+        Assert.NotNull(col.SearchTemplate);
+
+        col.Template = null;
+        col.EditTemplate = null;
+        col.SearchTemplate = null;
+    }
+
+    [Fact]
+    public void TableColumn_GetDisplayName()
+    {
+        var cut = Context.RenderComponent<TableColumn<Foo, string>>(pb =>
+        {
+            pb.Add(a => a.Text, null);
+            pb.Add(a => a.FieldName, null);
+        });
+        Assert.Equal("", cut.Instance.GetDisplayName());
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.FieldName, "FieldName");
+        });
+        Assert.Equal("FieldName", cut.Instance.GetDisplayName());
+    }
+
+    [Fact]
+    public void TableColumn_EditTemplate()
+    {
+        var cut = Context.RenderComponent<TableColumn<Foo, string>>(pb =>
+        {
+            pb.Add(a => a.EditTemplate, (RenderFragment<Foo>)null!);
+        });
+
+        var col = cut.Instance as ITableColumn;
+        Assert.Null(col.EditTemplate);
+    }
+
     private static Func<QueryPageOptions, Task<QueryData<Foo>>> OnQueryAsync(IStringLocalizer<Foo> localizer) => new(op =>
     {
         var items = Foo.GenerateFoo(localizer, 5);
