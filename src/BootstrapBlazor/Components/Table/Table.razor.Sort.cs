@@ -153,7 +153,7 @@ public partial class Table<TItem>
 
     private bool IsTail(ITableColumn col)
     {
-        var middle = Math.Ceiling(Columns.Count * 1.0 / 2);
+        var middle = Math.Floor(Columns.Count * 1.0 / 2);
         var index = Columns.IndexOf(col);
         return middle < index;
     }
