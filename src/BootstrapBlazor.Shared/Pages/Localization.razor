@@ -15,15 +15,31 @@
 
 <p>
     <div>
-        <code>BootstrapBlazor</code> 组件额外支持使用 <code>Json</code> 类型的键值信息作为资源文件，将其解析为 <code>UI</code> 中呈现的字符串。<a href="https://www.nuget.org/packages/BootstrapBlazor/" target="_blank">BootstrapBalzor</a> 包自带中文（zh）、英语（en）两种资源文件。组件内置本地化语言回退机制，如请求文化为 <code>zh-CN</code> 时，如未提供相对应的文化资源文件时，内置逻辑通过父级文化进行尝试本地化，以 <code>zh-CN</code> 为例回退机制如下：
+        <code>BootstrapBlazor</code> 组件额外支持使用 <code>Json</code> 类型的键值信息作为资源文件，将其解析为 <code>UI</code> 中呈现的字符串。<a href="https://www.nuget.org/packages/BootstrapBlazor/" target="_blank">BootstrapBalzor</a> 包自带以下资源文件。
     </div>
-    <div>
-        <code>zh-CN</code> 到 <code>zh</code>
+    <ul class="ul-demo mt-2">
+        <li>中文（zh）</li>
+        <li>英语（en）</li>
+        <li>德语（de）</li>
+        <li>葡萄牙语（pu）</li>
+    </ul>
+    <div class="mt-2">
+        组件内置本地化语言回退机制，如请求文化为 <code>zh-CN</code> 时，如未提供相对应的文化资源文件时，内置逻辑通过父级文化进行尝试本地化，以 <code>zh-CN</code> 为例回退机制如下：<code>zh-CN</code> 到 <code>zh</code>
     </div>
-    <div>
+    <div class="mt-2">
         如果设置的本地化语言未提供资源文件回落后仍无法找到资源文件后，使用 <code>FallbackCulture</code> 参数设置的文化信息进行本地化，默认为 <code>en</code>
     </div>
+
+    <div class=mt-2><b>特别注意：</b></div>
+
+    <div class="mt-2">由于某些系统如 <code>Centos</code> <code>Ubuntu</code> <code>mac</code> 等程序运行后线程无法获得文化信息，可以通过配置文件设置默认文化信息：</div>
 </p>
+
+<Pre>{
+  "BootstrapBlazorOptions": {
+    "DefaultCultureInfo": "en"
+  }
+}</Pre>
 
 <p><b>开启本地化功能</b></p>
 
@@ -41,8 +57,7 @@
       "en-US"
     ]
   }
-}
-</Pre>
+}</Pre>
 
 <p><b>2. 启用 .NET 核心本地化服务</b></p>
 <Pre>public class Startup
@@ -168,7 +183,7 @@ public class CultureController : Controller
 
 <Pre>public void ConfigureServices(IServiceCollection services)
 {
-    services.AddBootstrapBlazor(setupAction: options =>
+    services.AddBootstrapBlazor(localizationAction: options =>
     {
         // 设置 RESX 格式多语言资源文件 如 Program.{CultureName}.resx
         options.ResourceManagerStringLocalizerType = typeof(Program);
@@ -185,6 +200,28 @@ public class CultureController : Controller
     });
 }
 </Pre>
+
+<p>或者使用服务扩展方法 <code>ConfigureJsonLocalizationOptions</code></p>
+
+<Pre>public void ConfigureServices(IServiceCollection services)
+{
+    services.AddBootstrapBlazor();
+    services.ConfigureJsonLocalizationOptions(op =>
+    {
+        // 附加自己的 json 多语言文化资源文件 如 zh-TW.json
+        op.AdditionalJsonAssemblies = new Assembly[]
+        {
+            typeof(BootstrapBlazor.Shared.App).Assembly,
+        };
+
+        // 设置 Json 物理路径文件
+        options.AdditionalJsonFiles = new string[]
+        {
+            @@"D:\Argo\src\BootstrapBlazor\src\BootstrapBlazor.Server\Locales\zh-TW.json",
+            @@"D:\Argo\src\BootstrapBlazor\src\BootstrapBlazor.Server\Locales\zh-CN.json"
+        };
+    });
+}</Pre>
 
 <p><b>Web Assembly</b></p>
 
