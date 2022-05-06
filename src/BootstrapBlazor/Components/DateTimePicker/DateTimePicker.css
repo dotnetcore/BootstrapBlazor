@@ -287,12 +287,6 @@
         border-radius: 18px;
     }
 
-@media (min-width: 576px) {
-    .input-group input.form-control {
-        width: 1%;
-    }
-}
-
 .picker-panel-footer {
     border-top: 1px solid #e4e4e4;
     padding: 4px;
@@ -324,3 +318,21 @@
         .picker-panel-footer .picker-panel-link-btn.is-now {
             color: #409eff;
         }
+
+
+.input-group > .datetime-picker,
+.input-group > .select {
+    width: 1%;
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+    .input-group > .datetime-picker .form-control {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+    }
+
+    .input-group > .datetime-picker:not(:last-child) .form-control {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+    }
