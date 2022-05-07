@@ -2681,11 +2681,83 @@ public class TableTest : TableTestBase
     {
         var cut = Context.RenderComponent<TableColumn<Foo, string>>(pb =>
         {
-            pb.Add(a => a.EditTemplate, (RenderFragment<Foo>)null!);
+            pb.Add(a => a.EditTemplate, new RenderFragment<Foo>(foo => builder =>
+            {
+                builder.OpenElement(0, "div");
+                builder.AddContent(1, foo.Name);
+                builder.CloseElement();
+            }));
         });
 
         var col = cut.Instance as ITableColumn;
-        Assert.Null(col.EditTemplate);
+        Assert.NotNull(col.EditTemplate);
+
+        var cut1 = Context.Render(new RenderFragment(builder =>
+        {
+            builder.OpenElement(0, "div");
+            builder.AddContent(1, col.EditTemplate!.Invoke(new Foo() { Name = "test-table-column" }));
+            builder.CloseElement();
+        }));
+        Assert.Contains("test-table-column", cut1.Markup);
+    }
+
+    [Fact]
+    public void TableColumn_SearchTemplate()
+    {
+        var cut = Context.RenderComponent<TableColumn<Foo, string>>(pb =>
+        {
+            pb.Add(a => a.SearchTemplate, new RenderFragment<Foo>(foo => builder =>
+            {
+                builder.OpenElement(0, "div");
+                builder.AddContent(1, foo.Name);
+                builder.CloseElement();
+            }));
+        });
+
+        var col = cut.Instance as ITableColumn;
+        Assert.NotNull(col.SearchTemplate);
+
+        var cut1 = Context.Render(new RenderFragment(builder =>
+        {
+            builder.OpenElement(0, "div");
+            builder.AddContent(1, col.SearchTemplate!.Invoke(new Foo() { Name = "test-table-column" }));
+            builder.CloseElement();
+        }));
+        Assert.Contains("test-table-column", cut1.Markup);
+    }
+
+    [Fact]
+    public void TableColumn_GetFieldName()
+    {
+        var cut = Context.RenderComponent<TableColumn<Foo, string>>(pb =>
+        {
+            pb.Add(a => a.FieldName, "Name");
+        });
+        var col = cut.Instance;
+        var v = col.GetFieldName();
+        Assert.Equal("Name", v);
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.FieldName, "");
+            pb.Add(a => a.Field, "Name");
+            pb.Add(a => a.FieldExpression, Utility.GenerateValueExpression(new Foo(), "Name", typeof(string)));
+        });
+        v = col.GetFieldName();
+        Assert.Equal("", v);
+    }
+
+    [Fact]
+    public void TableColumn_ComplexObject()
+    {
+        var cut = Context.RenderComponent<TableColumn<MockComplexFoo, string>>(pb =>
+        {
+            pb.Add(a => a.Field, "Foo.Name");
+            pb.Add(a => a.FieldExpression, Utility.GenerateValueExpression(new MockComplexFoo(), "Foo.Name", typeof(string)));
+        });
+        var col = cut.Instance;
+        var v = col.GetFieldName();
+        Assert.Equal("Name", v);
     }
 
     private static Func<QueryPageOptions, Task<QueryData<Foo>>> OnQueryAsync(IStringLocalizer<Foo> localizer) => new(op =>
@@ -2724,6 +2796,13 @@ public class TableTest : TableTestBase
         {
             Buttons.AddButton(this);
         }
+    }
+
+    private class MockComplexFoo
+    {
+        public string? Name { get; set; }
+
+        public Foo Foo { get; set; } = new Foo();
     }
 
     private class FooTree : Foo
