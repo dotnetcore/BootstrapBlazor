@@ -14,16 +14,15 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="BootstrapBlazor.AzureSpeech" Version="6.*" />
     <PackageReference Include="BootstrapBlazor.BaiduSpeech" Version="6.*" />
     <PackageReference Include="BootstrapBlazor.Chart" Version="6.*" />
     <PackageReference Include="BootstrapBlazor.Markdown" Version="6.*" />
-    <PackageReference Include="BootstrapBlazor.SignaturePad" Version="6.*" >
+    <PackageReference Include="BootstrapBlazor.SignaturePad" Version="6.*">
       <ExcludeAssets>contentFiles</ExcludeAssets>
     </PackageReference>
     <PackageReference Include="BootstrapBlazor.TableExport" Version="6.*">
       <ExcludeAssets>contentFiles</ExcludeAssets>
-    </PackageReference>                   
+    </PackageReference>
     <PackageReference Include="BootstrapBlazor.OnScreenKeyboard" Version="6.*" />
   </ItemGroup>
 

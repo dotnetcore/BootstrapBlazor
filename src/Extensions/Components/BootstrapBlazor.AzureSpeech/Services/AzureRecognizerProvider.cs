@@ -102,16 +102,17 @@ public class AzureRecognizerProvider : IRecognizerProvider, IAsyncDisposable
     });
 
     /// <summary>
-    /// 
+    /// 客户端回调方法
     /// </summary>
+    /// <param name="status"></param>
     /// <param name="result"></param>
     /// <returns></returns>
     [JSInvokable]
-    public async Task Callback(string result)
+    public async Task Callback(RecognizerStatus status, string result)
     {
         if (Option.Callback != null)
         {
-            await Option.Callback(result);
+            await Option.Callback(status, result);
         }
     }
 

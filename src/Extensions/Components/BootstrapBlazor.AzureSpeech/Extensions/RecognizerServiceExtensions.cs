@@ -15,7 +15,7 @@ public static class RecognizerServiceExtensions
     /// <param name="service"></param>
     /// <param name="callback"></param>
     /// <returns></returns>
-    public static async Task AzureRecognizeOnceAsync(this RecognizerService service, Func<string, Task> callback)
+    public static async Task RecognizeOnceAsync(this RecognizerService service, Func<RecognizerStatus, string?, Task> callback)
     {
         var option = new RecognizerOption()
         {
@@ -31,7 +31,7 @@ public static class RecognizerServiceExtensions
     /// <param name="provider"></param>
     /// <param name="callback"></param>
     /// <returns></returns>
-    public static async Task AzureRecognizeOnceAsync(this IRecognizerProvider provider, Func<string, Task> callback)
+    public static async Task RecognizeOnceAsync(this IRecognizerProvider provider, Func<RecognizerStatus, string?, Task> callback)
     {
         var option = new RecognizerOption()
         {
@@ -47,7 +47,7 @@ public static class RecognizerServiceExtensions
     /// <param name="service"></param>
     /// <param name="callback"></param>
     /// <returns></returns>
-    public static async Task AzureCloseAsync(this RecognizerService service, Func<string, Task> callback)
+    public static async Task CloseAsync(this RecognizerService service, Func<RecognizerStatus, string?, Task> callback)
     {
         var option = new RecognizerOption()
         {
@@ -63,7 +63,7 @@ public static class RecognizerServiceExtensions
     /// <param name="provider"></param>
     /// <param name="callback"></param>
     /// <returns></returns>
-    public static async Task AzureCloseAsync(this IRecognizerProvider provider, Func<string, Task> callback)
+    public static async Task CloseAsync(this IRecognizerProvider provider, Func<RecognizerStatus, string?, Task> callback)
     {
         var option = new RecognizerOption()
         {

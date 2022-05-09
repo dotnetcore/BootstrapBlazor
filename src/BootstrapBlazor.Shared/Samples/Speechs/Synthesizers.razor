@@ -1,12 +1,10 @@
 ﻿@page "/synthesizers"
-@inherits SpeechBase
+@inherits BootstrapComponentBase
 @namespace BootstrapBlazor.Shared.Samples
 
 <h3>Synthesizer 语音合成</h3>
 
 <h4>将文本内容转化为语音</h4>
-
-<RadioList Items="@SpeechItems" Value="@SpeechItem" OnValueChanged="OnSpeechProviderChanged" class="my-3" />
 
 <DemoBlock Title="普通用法" Introduction="点击开始合成后对文本内容进行语音合成" Name="Normal">
     <div class="row">
@@ -15,7 +13,7 @@
         </div>
         <div class="col-12 col-sm-6 text-center">
             <SpeechWave Show="Start" ShowUsedTime="false" class="my-3" />
-            <Button Text="@ButtonText" OnClick="OnStart" IsDisabled="@IsDisabled" Icon="@ButtonIcon" />
+            <Button Text="@ButtonText" OnClick="OnStart" Icon="fa fa-fw fa-microphone" />
         </div>
     </div>
 </DemoBlock>

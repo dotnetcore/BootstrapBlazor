@@ -35,7 +35,7 @@ internal static class ServicesExtensions
         services.AddBootstrapBlazor(configureOptions);
 
         // 增加 Azure 语音服务
-        services.AddBootstrapBlazorAzureSpeech();
+        //services.AddBootstrapBlazorAzureSpeech();
 
         // 增加 Baidu 语音服务
         services.AddBootstrapBlazorBaiduSpeech();

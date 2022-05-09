@@ -23,6 +23,11 @@ public enum RecognizerStatus
     Finished,
 
     /// <summary>
+    /// 关闭
+    /// </summary>
+    Close,
+
+    /// <summary>
     /// 出错
     /// </summary>
     Error

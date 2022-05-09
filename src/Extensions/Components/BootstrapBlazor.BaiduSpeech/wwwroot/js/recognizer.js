@@ -2,19 +2,21 @@
 let isStart;
 let handler;
 
-export function bb_baidu_speech_recognizeOnce(obj, beginRecognize, recognizeCallback) {
+export function bb_baidu_speech_recognizeOnce(obj, recognizeCallback, interval) {
     var baidu_recognizer = function () {
-        isStart = true;
+        Recorder.TrafficImgUrl = "";
         rec = new Recorder({ type: "wav", sampleRate: 16000, bitRate: 16 });
         rec.open(function () {
+            isStart = true;
             rec.start();
             // 通知 UI 开始接收语音
-            obj.invokeMethodAsync(beginRecognize, "Start");
+            obj.invokeMethodAsync(recognizeCallback, "Start", "");
             handler = setTimeout(function () {
-                bb_baidu_speech_close(obj, "Finished", recognizeCallback);
-            }, 5000);
+                bb_baidu_speech_close(obj, recognizeCallback, interval);
+            }, interval);
         }, function (msg, isUserNotAllow) {
             console.log((isUserNotAllow ? "UserNotAllow，" : "") + "无法录音:" + msg);
+            obj.invokeMethodAsync(recognizeCallback, "Error", "UserNotAllow");
         });
     }
 
@@ -22,11 +24,12 @@ export function bb_baidu_speech_recognizeOnce(obj, beginRecognize, recognizeCall
     BootstrapBlazorModules.load('Recorder', baidu_recognizer);
 };
 
-export function bb_baidu_speech_close(obj, recognizerStatus, recognizeCallback) {
+export function bb_baidu_speech_close(obj, recognizeCallback, interval) {
     if (handler != 0) {
         clearTimeout(handler);
         handler = 0;
     }
+
     if (isStart) {
         isStart = false;
         rec.stop((blob, duration) => {
@@ -35,7 +38,10 @@ export function bb_baidu_speech_close(obj, recognizerStatus, recognizeCallback) 
                 obj.invokeMethodAsync(recognizeCallback, "Finished", value.value);
             });
         }, msg => {
-            obj.invokeMethodAsync(recognizeCallback, "Error", null);
+            obj.invokeMethodAsync(recognizeCallback, "Error", msg);
         });
+    }
+    else {
+        obj.invokeMethodAsync(recognizeCallback, "Close", "");
     }
 };
