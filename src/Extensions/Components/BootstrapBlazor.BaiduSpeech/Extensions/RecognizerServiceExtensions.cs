@@ -59,7 +59,7 @@ public static class RecognizerServiceExtensions
     /// <param name="service"></param>
     /// <param name="callback"></param>
     /// <returns></returns>
-    public static async Task CloseAsync(this RecognizerService service, Func<RecognizerStatus, string?, Task> callback)
+    public static async Task CloseAsync(this RecognizerService service, Func<RecognizerStatus, string?, Task>? callback = null)
     {
         var option = new RecognizerOption()
         {
@@ -75,7 +75,7 @@ public static class RecognizerServiceExtensions
     /// <param name="provider"></param>
     /// <param name="callback"></param>
     /// <returns></returns>
-    public static async Task CloseAsync(this IRecognizerProvider provider, Func<RecognizerStatus, string?, Task> callback)
+    public static async Task CloseAsync(this IRecognizerProvider provider, Func<RecognizerStatus, string?, Task>? callback = null)
     {
         var option = new RecognizerOption()
         {
