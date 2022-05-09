@@ -17,7 +17,7 @@ public class RecognizerOption
     /// <summary>
     /// 获得/设置 回调方法 默认 null
     /// </summary>
-    public Func<string, Task>? Callback { get; set; }
+    public Func<RecognizerStatus, string?, Task>? Callback { get; set; }
 
     /// <summary>
     /// 获得/设置 识别语音文化 默认 zh-CN
@@ -28,4 +28,9 @@ public class RecognizerOption
     /// 获得/设置 结果文化 默认 zh-CN
     /// </summary>
     public string TargetLanguage { get; set; } = "zh-CN";
+
+    /// <summary>
+    /// 获得/设置 自动识别时间 默认 5000 设置 0 时禁用需要手动关闭
+    /// </summary>
+    public int AutoRecoginzerElapsedMilliseconds { get; set; } = 5000;
 }
