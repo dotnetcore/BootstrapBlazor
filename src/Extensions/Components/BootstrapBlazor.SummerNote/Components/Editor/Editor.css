@@ -1,0 +1,54 @@
+﻿.editor .editor-body {
+    cursor: pointer;
+    min-height: 50px;
+    height: auto;
+}
+
+    .editor .editor-body:focus:before {
+        content: none;
+    }
+
+    .editor .editor-body:empty:before {
+        content: attr(placeholder);
+    }
+
+.editor .note-editor {
+    background-color: #fff;
+}
+
+    .editor .note-editor .note-right {
+        float: right;
+    }
+
+.editor .note-btn-close {
+    background-image: -webkit-linear-gradient(top, #5bc0de 0%, #2aabd2 100%);
+    background-image: -o-linear-gradient(top, #5bc0de 0%, #2aabd2 100%);
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#5bc0de), to(#2aabd2));
+    background-image: linear-gradient(to bottom, #5bc0de 0%, #2aabd2 100%);
+    background-repeat: repeat-x;
+    border-color: #28a4c9;
+    color: #fff;
+}
+
+.editor .dropdown-menu {
+    overflow: unset;
+    max-height: unset;
+    max-width: unset;
+}
+
+.editor .btn-light {
+    border-color: #00000032;
+}
+
+    .editor .btn-light:hover {
+        background-color: #e2e6ea;
+        border-color: #dae0e5;
+    }
+
+    .editor .btn-light:not(:disabled):not(.disabled).active,
+    .editor .btn-light:not(:disabled):not(.disabled):active,
+    .editor .show > .btn-light.dropdown-toggle {
+        color: #212529;
+        background-color: #dae0e5;
+        border-color: #d3d9df;
+    }

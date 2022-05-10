@@ -1,0 +1,20 @@
+﻿[
+  {
+    "outputFileName": "wwwroot/css/bootstrap.blazor.editor.min.css",
+    "inputFiles": [
+      "wwwroot/css/summernote-bs5.min.css",
+      "Components/**/*.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/bootstrap.blazor.editor.min.js",
+    "inputFiles": [
+      "Components/Editor/Editor.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  }
+]
