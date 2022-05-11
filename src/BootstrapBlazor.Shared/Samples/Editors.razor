@@ -1,5 +1,6 @@
 ﻿@page "/editors"
 @inject SwalService SwalService
+@inject VersionService VersionManager
 @inject IStringLocalizer<Editors> Localizer
 
 <h3>@Localizer["Title"]</h3>
@@ -7,6 +8,15 @@
 <h4>@((MarkupString)Localizer["H1"].Value)</h4>
 
 <p>@((MarkupString)Localizer["P1"].Value)</p>
+
+<div class="code-label">.NET CLI</div>
+<Pre class="no-highlight">dotnet add package BootstrapBlazor.SummerNote --version @Version</Pre>
+
+<div class="code-label">PackageReference</div>
+<Pre class="no-highlight">&lt;PackageReference Include="BootstrapBlazor.SummerNote" Version="@Version" /&gt;</Pre>
+
+<div class="code-label">Package Manager</div>
+<Pre class="no-highlight">Install-Package BootstrapBlazor.SummerNote -Version @Version</Pre>
 
 <DemoBlock Title="@Localizer["Block1Title"]" Introduction="@Localizer["Block1Intro"]" Name="Normal">
     <p>@((MarkupString)Localizer["P2"].Value)</p>

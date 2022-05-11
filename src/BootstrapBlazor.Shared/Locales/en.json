@@ -1070,7 +1070,7 @@
   "BootstrapBlazor.Shared.Samples.Editors": {
     "Title": "Editor",
     "H1": "Convert the entered text into <code>html</code> code snippets",
-    "P1": "The <code>Editor</code> component is a secondary package of <a href='https://summernote.org/' target='_blank'><code>Summernote component</code></a>, such as If you need to use the localization function, please download the corresponding language pack from the official website and quote it by yourself",
+    "P1": "The <code>Editor</code> component is a secondary package of <a href='https://summernote.org/' target='_blank'><code>Summernote component</code></a>, such as If you need to use the localization function, please download the corresponding language pack from the official website and quote it by yourself. <code>zh-CN</code> <code>en-US</code> has been built in；the required <code>css</code> <code>javascript</code> dynamically loaded on demand",
     "Block1Title": "Basic usage",
     "Block1Intro": "The default rendering is <code>div</code> and it becomes a rich text edit box when clicked",
     "P2": "Set the <code>IsEditor</code> attribute value to control whether the component defaults to <code>div</code> or <code>editor</code>",

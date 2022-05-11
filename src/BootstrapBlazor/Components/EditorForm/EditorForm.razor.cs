@@ -14,7 +14,7 @@ namespace BootstrapBlazor.Components;
 #if NET6_0_OR_GREATER
 [CascadingTypeParameter(nameof(TModel))]
 #endif
-public sealed partial class EditorForm<TModel> : IShowLabel
+public partial class EditorForm<TModel> : IShowLabel
 {
     /// <summary>
     /// 支持每行多少个控件功能

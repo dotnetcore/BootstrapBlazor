@@ -1070,7 +1070,7 @@
   "BootstrapBlazor.Shared.Samples.Editors": {
     "Title": "Editor 富文本框",
     "H1": "将输入的文字转化为 <code>html</code> 代码片段",
-    "P1": "<code>Editor</code> 组件是对 <a href='https://summernote.org/' target='_blank'><code>Summernote 组件</code></a> 的二次封装，如需使用本地化功能请自行官网下载相对应语言包，自行引用即可",
+    "P1": "<code>Editor</code> 组件是对 <a href='https://summernote.org/' target='_blank'><code>Summernote 组件</code></a> 的二次封装，如需使用本地化功能请自行官网下载相对应语言包，自行引用即可，<code>zh-CN</code> <code>en-US</code> 已内置；组件所需 <code>css</code> <code>javascript</code> 均按需动态加载，使用者无需设置",
     "Block1Title": "基础用法",
     "Block1Intro": "默认呈现为 <code>div</code> 点击后变为富文本编辑框",
     "P2": "通过设置 <code>IsEditor</code> 属性值来控制组件默认是 <code>div</code> 还是 <code>editor</code>",

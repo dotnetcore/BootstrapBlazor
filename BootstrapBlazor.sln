@@ -120,7 +120,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BootstrapBlazor.AzureSpeech
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BootstrapBlazor.BaiduSpeech", "src\Extensions\Components\BootstrapBlazor.BaiduSpeech\BootstrapBlazor.BaiduSpeech.csproj", "{4ED606D8-D252-4573-8F0F-B69502ADB7ED}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BootstrapBlazor.SummerNote", "src\Extensions\Components\BootstrapBlazor.SummerNote\BootstrapBlazor.SummerNote.csproj", "{2FFC1564-EF75-454B-9D8E-A437A1737CEC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BootstrapBlazor.SummerNote", "src\Extensions\Components\BootstrapBlazor.SummerNote\BootstrapBlazor.SummerNote.csproj", "{2FFC1564-EF75-454B-9D8E-A437A1737CEC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTestEditor", "test\UnitTestEditor\UnitTestEditor.csproj", "{9552B649-17E2-4BCA-8774-664C83A960CB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -200,6 +202,10 @@ Global
 		{2FFC1564-EF75-454B-9D8E-A437A1737CEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2FFC1564-EF75-454B-9D8E-A437A1737CEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2FFC1564-EF75-454B-9D8E-A437A1737CEC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9552B649-17E2-4BCA-8774-664C83A960CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9552B649-17E2-4BCA-8774-664C83A960CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9552B649-17E2-4BCA-8774-664C83A960CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9552B649-17E2-4BCA-8774-664C83A960CB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -233,6 +239,7 @@ Global
 		{42108A8A-C773-4F35-A870-3673BDD383E4} = {CD062AB6-244D-402A-8F33-C37DAC5856CC}
 		{4ED606D8-D252-4573-8F0F-B69502ADB7ED} = {CD062AB6-244D-402A-8F33-C37DAC5856CC}
 		{2FFC1564-EF75-454B-9D8E-A437A1737CEC} = {CD062AB6-244D-402A-8F33-C37DAC5856CC}
+		{9552B649-17E2-4BCA-8774-664C83A960CB} = {7C1D79F1-87BC-42C1-BD5A-CDE4044AC1BD}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0DCB0756-34FA-4FD0-AE1D-D3F08B5B3A6B}
