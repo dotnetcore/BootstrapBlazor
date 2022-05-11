@@ -2375,7 +2375,7 @@ public class TableTest : TableTestBase
         Assert.Equal(0, checkboxs.Count);
 
         var table = cut.FindComponent<Table<Foo>>();
-        table.SetParametersAndRender(pb => pb.Add(a => a.Items, new Foo[] { }));
+        table.SetParametersAndRender(pb => pb.Add(a => a.Items, Array.Empty<Foo>()));
         btn = cut.Find("thead tr th input");
         await cut.InvokeAsync(() => btn.Click());
     }

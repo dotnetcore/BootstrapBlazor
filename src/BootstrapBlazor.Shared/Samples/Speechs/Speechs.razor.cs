@@ -32,7 +32,7 @@ public partial class Speechs
     private bool Show { get; set; }
 
     [NotNull]
-    private string NugetPackageName => "BootstrapBlazor.BaiduSpeech";
+    private static string NugetPackageName => "BootstrapBlazor.BaiduSpeech";
 
     /// <summary>
     /// OnInitializedAsync 方法

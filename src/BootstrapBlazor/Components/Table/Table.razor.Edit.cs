@@ -22,7 +22,7 @@ public partial class Table<TItem>
     public List<TItem> SelectedRows { get; set; } = new List<TItem>();
 
     /// <summary>
-    /// 获得/设置 选中行改变时的回调委托
+    /// 获得/设置 选中行变化回调方法
     /// </summary>
     [Parameter]
     public EventCallback<List<TItem>> SelectedRowsChanged { get; set; }

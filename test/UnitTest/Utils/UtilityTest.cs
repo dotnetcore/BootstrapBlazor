@@ -139,7 +139,7 @@ public class UtilityTest : BootstrapBlazorTestBase
         };
         var GetTreeItems = items.CascadingTree();
         Assert.NotNull(GetTreeItems);
-        Assert.Equal(2, GetTreeItems.First().Items.Count());
+        Assert.Equal(2, GetTreeItems.First().Items.Count);
     }
 
 
