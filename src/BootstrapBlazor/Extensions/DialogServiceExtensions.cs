@@ -179,6 +179,10 @@ public static class DialogServiceExtensions
                 await option.Dialog.Close();
                 option.ReturnTask.SetResult(result);
             }
+            else
+            {
+                result = DialogResult.Close;
+            }
         };
 
         await service.Show(option, dialog);
