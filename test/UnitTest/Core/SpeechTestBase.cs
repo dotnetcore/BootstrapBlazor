@@ -75,7 +75,7 @@ public class SpeechTestHost : IDisposable
             var recognitionLanguage = option.SpeechRecognitionLanguage;
             if (option.Callback != null)
             {
-                await option.Callback("MockSpeechProvider");
+                await option.Callback(RecognizerStatus.Start, "MockSpeechProvider");
             }
         }
     }

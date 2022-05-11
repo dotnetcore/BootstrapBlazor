@@ -14,19 +14,22 @@ public class RecognizerTest : SpeechTestBase
     {
         var result = "";
         var recognizerService = Context.Services.GetRequiredService<RecognizerService>();
-        await recognizerService.InvokeAsync(new RecognizerOption()
+        var option = new RecognizerOption()
         {
             MethodName = "Test",
             TargetLanguage = "zh-CN",
             SpeechRecognitionLanguage = "zh-CN",
-            Callback = new Func<string, Task>(v =>
+            AutoRecoginzerElapsedMilliseconds = 5000,
+            Callback = new Func<RecognizerStatus, string?, Task>((status, v) =>
             {
                 result = v;
                 return Task.CompletedTask;
             })
-        });
+        };
+        await recognizerService.InvokeAsync(option);
 
         Assert.Equal("MockSpeechProvider", result);
+        Assert.Equal(5000, option.AutoRecoginzerElapsedMilliseconds);
     }
 
     [Fact]
