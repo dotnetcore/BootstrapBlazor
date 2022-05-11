@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.JSInterop;
 
@@ -25,16 +26,20 @@ public class BaiduSynthesizerProvider : ISynthesizerProvider, IAsyncDisposable
 
     private Baidu.Aip.Speech.Tts Client { get; }
 
+    private ILogger Logger { get; }
+
     /// <summary>
     /// 构造函数
     /// </summary>
     /// <param name="options"></param>
     /// <param name="runtime"></param>
-    public BaiduSynthesizerProvider(IOptionsMonitor<BaiduSpeechOption> options, IJSRuntime runtime)
+    /// <param name="logger"></param>
+    public BaiduSynthesizerProvider(IOptionsMonitor<BaiduSpeechOption> options, IJSRuntime runtime, ILogger<BaiduSynthesizerProvider> logger)
     {
         JSRuntime = runtime;
         SpeechOption = options.CurrentValue;
         Client = new Baidu.Aip.Speech.Tts(SpeechOption.ApiKey, SpeechOption.Secret);
+        Logger = logger;
     }
 
     /// <summary>
@@ -49,19 +54,34 @@ public class BaiduSynthesizerProvider : ISynthesizerProvider, IAsyncDisposable
         // 加载模块
         if (Module == null)
         {
-            Module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/BootstrapBlazor.BaiduSpeech/js/synthesizer.js");
+            var moduleName = "./_content/BootstrapBlazor.BaiduSpeech/js/synthesizer.js";
+            Logger.LogInformation($"load module {moduleName}");
+            Module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", moduleName);
         }
         Interop ??= DotNetObjectReference.Create(this);
 
         if (Option.MethodName == "bb_baidu_speech_synthesizerOnce" && !string.IsNullOrEmpty(Option.Text))
         {
             var result = Client.Synthesis(Option.Text);
-            await Module.InvokeVoidAsync(Option.MethodName, Interop, nameof(Callback), result.Data);
+            if (result.Success)
+            {
+                await Module.InvokeVoidAsync(Option.MethodName, Interop, nameof(Callback), result.Data);
+            }
+            else
+            {
+
+            }
+            Logger.LogInformation($"bb_baidu_speech_synthesizerOnce {result.Success}");
+            if (!result.Success)
+            {
+                Logger.LogError($"{result.ErrorCode}: {result.ErrorMsg}");
+            }
         }
         else if (Option.MethodName == "bb_baidu_close_synthesizer")
         {
             // 停止语音
             await Module.InvokeVoidAsync(Option.MethodName, Interop, nameof(Callback));
+            Logger.LogInformation("bb_baidu_close_synthesizer");
         }
     }
 
