@@ -50,6 +50,20 @@ console.log('test');
         AsyncValue = $"### {DateTime.Now}";
     }
 
+    private Task OnValueChanged(string value)
+    {
+        MarkdownString = value;
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
+
+    private Task OnHtmlChanged(string value)
+    {
+        HtmlString = value;
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
+
     private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
         new AttributeItem(){

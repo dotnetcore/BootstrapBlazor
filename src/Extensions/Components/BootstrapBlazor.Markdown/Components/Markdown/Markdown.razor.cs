@@ -76,7 +76,7 @@ public partial class Markdown : IAsyncDisposable
     /// 获得/设置 组件值回调
     /// </summary>
     [Parameter]
-    public EventCallback<string?> ValueChanged { get; set; }
+    public Func<string?, Task>? OnValueChanged { get; set; }
 
     /// <summary>
     /// 获得/设置 组件 Html 代码
@@ -88,7 +88,7 @@ public partial class Markdown : IAsyncDisposable
     /// 获得/设置 组件 Html 代码回调
     /// </summary>
     [Parameter]
-    public EventCallback<string?> HtmlChanged { get; set; }
+    public Func<string?, Task>? OnHtmlChanged { get; set; }
 
     /// <summary>
     /// 获取/设置 组件是否为浏览器模式
@@ -170,9 +170,9 @@ public partial class Markdown : IAsyncDisposable
             if (hasChanged)
             {
                 _value = vals[0];
-                if (ValueChanged.HasDelegate)
+                if (OnValueChanged != null)
                 {
-                    await ValueChanged.InvokeAsync(Value);
+                    await OnValueChanged(Value);
                 }
             }
 
@@ -180,9 +180,9 @@ public partial class Markdown : IAsyncDisposable
             if (hasChanged)
             {
                 Html = vals[1];
-                if (HtmlChanged.HasDelegate)
+                if (OnHtmlChanged != null)
                 {
-                    await HtmlChanged.InvokeAsync(Html);
+                    await OnHtmlChanged(Html);
                 }
             }
         }
