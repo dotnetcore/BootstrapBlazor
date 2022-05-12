@@ -175,7 +175,7 @@ public partial class Editor : IAsyncDisposable
         else if (_renderValue)
         {
             _renderValue = false;
-            await Module.InvokeVoidAsync("bb_editor", EditorElement, "code", "", "", Height, Value ?? "", Language);
+            await Module.InvokeVoidAsync("bb_editor_code", EditorElement, Value ?? "");
         }
     }
 

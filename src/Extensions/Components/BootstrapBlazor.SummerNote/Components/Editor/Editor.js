@@ -15,26 +15,27 @@
     };
 };
 
+export function bb_editor_code(el, obj, value) {
+    $.bb_editor_code(el, obj, value);
+};
+
 export function bb_editor_method(el, method, parameter) {
     $.bb_editor_method(el, method, parameter);
 };
 
 (function ($) {
     $.extend({
-        bb_html5edit: function (el, options) {
+        bb_html5edit: function ($el, options) {
             if (!$.isFunction($.fn.summernote)) {
                 return;
             }
 
-            var $this = $(el);
+            var $this = $el;
             var op = typeof options == 'object' && options;
 
             $.bb_lang();
 
             op = $.extend({ focus: true, height: 80, dialogsInBody: true }, op);
-
-            console.log(op);
-            console.log($.fn.summernote.lang);
 
             if (/destroy|hide/.test(options)) {
                 return $this.toggleClass('open').summernote(op);
@@ -82,24 +83,23 @@ export function bb_editor_method(el, method, parameter) {
             }
             return this;
         },
+        bb_editor_code: function (el, obj, value) {
+            var $editor = $(el).find(".editor-body");
+            if ($editor.hasClass('open')) {
+                $editor.summernote('code', value);
+            }
+            else {
+                $editor.html(value);
+            }
+        },
         bb_editor: function (el, obj, attrMethod, callback, method, height, value, lang) {
             var invoker = function () {
-                var editor = el.getElementsByClassName("editor-body");
-
-                if (obj === 'code') {
-                    if ($(editor).hasClass('open')) {
-                        $(editor).summernote('code', value);
-                    }
-                    else {
-                        $(editor).html(value);
-                    }
+                var $editor = $(el).find(".editor-body");
+                var option = { obj: obj, method: method, height: height, lang };
+                if (value) {
+                    option.value = value;
                 }
-                else {
-                    var option = { obj: obj, method: method, height: height, lang };
-                    if (value) option.value = value;
-
-                    $.bb_html5edit(editor, option);
-                }
+                $.bb_html5edit($editor, option);
             }
 
             if (attrMethod !== "") {
@@ -138,8 +138,8 @@ export function bb_editor_method(el, method, parameter) {
             }
         },
         bb_editor_method: function (el, method, parameter) {
-            var editor = el.getElementsByClassName("editor-body");
-            $(editor).toggleClass('open').summernote(method, ...parameter);
+            var $editor = $(el).find(".editor-body");
+            $editor.toggleClass('open').summernote(method, ...parameter);
         },
         bb_lang: function () {
             $.extend($.summernote.lang, {

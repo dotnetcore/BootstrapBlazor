@@ -329,7 +329,7 @@ public class MultiSelectTest : BootstrapBlazorTestBase
             pb.Add(a => a.ItemTemplate, item => builder =>
             {
                 builder.OpenElement(0, "div");
-                builder.AddContent(1, $"test-{item.Value}-test");
+                builder.AddContent(1, $"test-{item.Text}-test");
                 builder.CloseElement();
             });
         });
