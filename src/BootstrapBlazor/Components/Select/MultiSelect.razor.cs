@@ -93,6 +93,12 @@ public partial class MultiSelect<TValue>
     public IEnumerable<SelectedItem>? Items { get; set; }
 
     /// <summary>
+    /// 获得/设置 选项模板
+    /// </summary>
+    [Parameter]
+    public RenderFragment<SelectedItem>? ItemTemplate { get; set; }
+
+    /// <summary>
     /// 获得/设置 搜索文本发生变化时回调此方法
     /// </summary>
     [Parameter]

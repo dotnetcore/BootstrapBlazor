@@ -70,12 +70,13 @@
     "autorefresh": "BV1ap4y1x7Qn?p=8",
     "column": "BV1ap4y1x7Qn?p=2",
     "edit": "BV1ap4y1x7Qn?p=9;BV1ap4y1x7Qn?p=10;BV1ap4y1x7Qn?p=11;BV1ap4y1x7Qn?p=12;BV12P4y137Ar",
+    "editors": "BV13B4y1y7cS",
     "editdialogs": "BV1bT4y1N78e?p=10",
     "export": "BV1ap4y1x7Qn?p=6",
     "drawers": "BV1bT4y1N78e?p=7",
     "detail": "BV1ap4y1x7Qn?p=3",
     "dialog": "BV1bT4y1N78e?p=1",
-    "dialogs": "BV1bT4y1N78e?p=1",
+    "dialogs": "BV1bT4y1N78e?p=1;BV17v4y1K7Ho",
     "header": "BV15o4y1f7eN",
     "localizer": "BV1Kz4y1U7FR?p=1",
     "filter": "BV1ap4y1x7Qn?p=4",
@@ -105,7 +106,7 @@
     "globalexception": "BV1xq4y1z7K2",
     "recognizers": "BV1aR4y1N7UP",
     "synthesizers": "BV1aR4y1N7UP",
-    "reconnectors": "BV1Dr4y1J7Z5",
+    "reconnectors": "BV1Dr4y1J7Z5;BV193411P7Dz",
     "speechwaves": "BV1Dr4y1J7Z5"
   }
 }

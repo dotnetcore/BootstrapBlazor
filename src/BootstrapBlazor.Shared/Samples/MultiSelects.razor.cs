@@ -370,6 +370,14 @@ public partial class MultiSelects
             Type = "RenderFragment<IEnumerable<SelectedItem>>",
             ValueList = " — ",
             DefaultValue = " — "
+        },
+        new AttributeItem()
+        {
+            Name = "ItemTemplate",
+            Description = Localizer["ItemTemplate"],
+            Type = "RenderFragment<SelectedItem>",
+            ValueList = " — ",
+            DefaultValue = " — "
         }
     };
 }

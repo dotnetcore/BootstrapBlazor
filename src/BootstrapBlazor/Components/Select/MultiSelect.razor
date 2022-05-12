@@ -52,7 +52,14 @@
         {
             <DynamicElement OnClick="() => ToggleRow(item, true)" TriggerClick="@CheckCanTrigger(item)" class="@GetItemClassString(item)">
                 <Checkbox Value="GetCheckedState(item)" IsDisabled="@CheckCanSelect(item)"></Checkbox>
-                <span>@item.Text</span>
+                @if (ItemTemplate == null)
+                {
+                    <span>@item.Text</span>
+                }
+                else
+                {
+                    @ItemTemplate(item)
+                }
             </DynamicElement>
         }
     </div>

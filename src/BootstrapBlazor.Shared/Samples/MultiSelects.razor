@@ -180,6 +180,22 @@
     </div>
 </DemoBlock>
 
+<DemoBlock Title="@Localizer["ItemTemplateTitle"]" Introduction="@Localizer["ItemTemplateIntro"]" Name="ItemTemplate">
+    <div class="row g-3">
+        <div class="col-12 col-sm-6">
+            <MultiSelect TValue="string" Items="@Items">
+                <ItemTemplate>
+                    <div class="mul-select-item">
+                        <i class="fa fa-fa"></i>
+                        <span>@context.Text</span>
+                        <i class="fa fa-fa"></i>
+                    </div>
+                </ItemTemplate>
+            </MultiSelect>
+        </div>
+    </div>
+</DemoBlock>
+
 <AttributeTable Items="@GetAttributes()" />
 
 <EventTable Items="@GetEvents()" />
