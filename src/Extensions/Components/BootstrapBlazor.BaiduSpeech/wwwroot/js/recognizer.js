@@ -39,7 +39,7 @@ export function bb_baidu_speech_close(obj, recognizeCallback, interval) {
             });
         }, msg => {
             obj.invokeMethodAsync(recognizeCallback, "Error", msg);
-        });
+        }, true);
     }
     else {
         obj.invokeMethodAsync(recognizeCallback, "Close", "");
