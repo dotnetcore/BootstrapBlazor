@@ -1349,6 +1349,16 @@
     "PlaceHolder": "This is Markdown",
     "Block4Title": "Browser mode",
     "Block4Intro": "Simple browsing mode, not editable",
+    "IsDarkBlockTitle": "Dark mode",
+    "IsDarkBlockIntro": "Enable dark mode",
+    "EnableHighlightBlcokTitle": "Enable the code highlighting plugin",
+    "EnableHighlightBlcokIntro": "Enable plugins with <code>EnableHighlight=true</code>, highlighting using ``` followed by code formatting, and js highlight syntax for example ```js",
+    "BrowserBlcokTitle": "External operation Markdown",
+    "BrowserBlcokIntro": "Using APIs to manipulate the Editor from the outside, the specific API reference <a href='https://nhn.github.io/tui.editor/latest/ToastUIEditorCore'>tui.editor api</a>",
+    "BrowserButtonText1": "Insert a line of text",
+    "BrowserButtonText2": "Insert a picture",
+    "BrowserButtonText3": "The cursor moves to the end",
+    "BrowserText": "coconut palm",
     "P7": "Set the <code>markdown</code> editor to browse-only mode, <code>IsViewer='true'</code>",
     "Att1": "Control height",
     "Att2": "The minimum height of the control",
@@ -1356,7 +1366,9 @@
     "Att4": "Preview mode",
     "Att5": "UI language",
     "Att6": "Prompt information",
-    "Att7": "Whether it is pure browsing mode"
+    "Att7": "Whether it is pure browsing mode",
+    "Att8": "Whether it is dark mode",
+    "Att9": "Whether code highlighting is enabled"
   },
   "BootstrapBlazor.Shared.Samples.MultiSelects": {
     "Title": "MultiSelect",

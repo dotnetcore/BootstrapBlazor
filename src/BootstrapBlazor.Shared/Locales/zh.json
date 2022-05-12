@@ -1350,6 +1350,16 @@
     "PlaceHolder": "这是 Markdown",
     "Block4Title": "浏览器模式",
     "Block4Intro": "单纯浏览模式，不可编辑",
+    "IsDarkBlockTitle": "暗黑模式",
+    "IsDarkBlockIntro": "启用暗黑模式",
+    "EnableHighlightBlcokTitle": "启用代码高亮插件",
+    "EnableHighlightBlcokIntro": "使用 <code>EnableHighlight=true</code> 启用插件，使用```后加代码格式的方式使用高亮，如```js 则使用 js 高亮语法",
+    "BrowserBlcokTitle": "外部操作 Markdown",
+    "BrowserBlcokIntro": "使用 Api 从外部操作 Editor，具体的Api参照 <a href='https://nhn.github.io/tui.editor/latest/ToastUIEditorCore'>tui.editor api</a>",
+    "BrowserButtonText1": "插入一行文字",
+    "BrowserButtonText2": "插入一张图片",
+    "BrowserButtonText3": "光标移动到最后",
+    "BrowserText": "椰子树",
     "P7": "设置<code>Markdown</code> 编辑器为纯浏览模式，<code>IsViewer='true'</code>",
     "MarkdownString": "测试",
     "Att1": "控件高度",
@@ -1358,7 +1368,9 @@
     "Att4": "预览模式",
     "Att5": "UI 语言",
     "Att6": "提示信息",
-    "Att7": "是否为纯浏览模式"
+    "Att7": "是否为纯浏览模式",
+    "Att8": "是否为暗黑模式",
+    "Att9": "是否启用代码高亮"
   },
   "BootstrapBlazor.Shared.Samples.MultiSelects": {
     "Title": "MultiSelect 多项选择器",
