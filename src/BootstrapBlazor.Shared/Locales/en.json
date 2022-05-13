@@ -2954,6 +2954,22 @@
     "P3": "Nuget package installation",
     "P4": "Install the</code> components of <code>BootstrapBlazor.SignaturePad using <a href='https://www.nuget.org/packages?q-BootstrapBlazor.SignaturePad' target'_blank'>nuget.org</a>"
   },
+  "BootstrapBlazor.Shared.Samples.SpeechWaves": {
+    "SpeechWaveTitle": "SpeechWave",
+    "H4": "The dynamic plot of the waveform that is displayed when you start acquiring speech",
+    "NormalTitle": "Basic usage",
+    "NormalIntro": "Displays the waveform plot",
+    "ShowUsedTimeTitle": "The length of the display",
+    "ShowUsedTimeIntro": "Via <code>ShowUsedTime</code>",
+    "ValueTitle": "Parameters control whether it is displayed",
+    "ValueIntro": "Use the <code>Show</code> value to control whether the waveform plot is displayed",
+    "ValueButtonText1": "Hide",
+    "ValueButtonText2": "Display",
+    "ShowAttr": "Whether to start",
+    "ShowUsedTimeAttr": "Whether to display the duration",
+    "OnTimeoutAttr": "Identify the end-of-timeout callback method",
+    "TotalTimeSecondAttr": "Speech recognition is set for a total time longer than calling the OnTimeout callback"
+  },
   "BootstrapBlazor.Shared.Samples.Reconnectors": {
     "Title": "Reconnector",
     "SubTitle": "Reflect the connection state in the UI (Blazor Server)",

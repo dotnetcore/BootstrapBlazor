@@ -1,19 +1,20 @@
 ﻿@page "/speechwaves"
 @namespace BootstrapBlazor.Shared.Samples
+@inject IStringLocalizer<SpeechWaves> Localizer
 
-<h3>SpeechWave 语音波形图</h3>
+<h3>@Localizer["SpeechWaveTitle"]</h3>
 
-<h4>开始采集语音时显示的波形动态图</h4>
+<h4>@Localizer["H4"]</h4>
 
-<DemoBlock Title="基础用法" Introduction="显示波形图" Name="Normal">
+<DemoBlock Title="@Localizer["NormalTitle"]" Introduction="@Localizer["NormalIntro"]" Name="Normal">
     <SpeechWave Show="@true" ShowUsedTime="false" />
 </DemoBlock>
 
-<DemoBlock Title="显示时长" Introduction="通过 <code>ShowUsedTime</code>" Name="ShowUsedTime">
+<DemoBlock Title="@Localizer["ShowUsedTimeTitle"]" Introduction="@Localizer["ShowUsedTimeIntro"]" Name="ShowUsedTime">
     <SpeechWave Show="@true" ShowUsedTime="true" />
 </DemoBlock>
 
-<DemoBlock Title="参数控制是否显示" Introduction="通过 <code>Show</code> 值控制是否显示波形图" Name="Value">
+<DemoBlock Title="@Localizer["ValueTitle"]" Introduction="@Localizer["ValueIntro"]" Name="Value">
     <div class="row g-3">
         <div class="col-12">
             <SpeechWave Show="IsShow" />
