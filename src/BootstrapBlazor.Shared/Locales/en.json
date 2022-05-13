@@ -1426,6 +1426,8 @@
     "P10": "In this example, clicking on the first drop-down box allows you to get the data source for the second multi-box by asynchronous means, and after assigning, call <code>StateHasChanged</code> to re-render the <b>multi-box </b>",
     "ItemTemplateTitle": "Item Template",
     "ItemTemplateIntro": "customer item template by set <code>ItemTemplate</code>",
+    "BlockGroupTitle": "Grouping",
+    "BlockGroupIntro": "Alternatives are presented in groups",
     "Att1": "Whether to display the front label",
     "Att2": "Whether to display the close button from label",
     "Att3": "Whether to display the function button",

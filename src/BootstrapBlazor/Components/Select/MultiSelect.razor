@@ -48,19 +48,26 @@
                 @ButtonTemplate
             </div>
         }
-        @foreach (var item in GetData())
+        @foreach (var itemGroup in GetData().GroupBy(i => i.GroupName))
         {
-            <DynamicElement OnClick="() => ToggleRow(item, true)" TriggerClick="@CheckCanTrigger(item)" class="@GetItemClassString(item)">
-                <Checkbox Value="GetCheckedState(item)" IsDisabled="@CheckCanSelect(item)"></Checkbox>
-                @if (ItemTemplate == null)
-                {
-                    <span>@item.Text</span>
-                }
-                else
-                {
-                    @ItemTemplate(item)
-                }
-            </DynamicElement>
+            if (!string.IsNullOrEmpty(itemGroup.Key))
+            {
+                <Divider Text="@itemGroup.Key" />
+            }
+            @foreach (var item in itemGroup)
+            {
+                <DynamicElement OnClick="() => ToggleRow(item, true)" TriggerClick="@CheckCanTrigger(item)" class="@GetItemClassString(item)">
+                    <Checkbox Value="GetCheckedState(item)" IsDisabled="@CheckCanSelect(item)"></Checkbox>
+                    @if (ItemTemplate == null)
+                    {
+                        <span>@item.Text</span>
+                    }
+                    else
+                    {
+                        @ItemTemplate(item)
+                    }
+                </DynamicElement>
+            }
         }
     </div>
     <div class="dropdown-menu-arrow"></div>

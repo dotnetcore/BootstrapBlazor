@@ -204,6 +204,29 @@ public partial class MultiSelects
         new SelectedItem ("Lianyungang", "连云港")
     };
 
+    private IEnumerable<SelectedItem> TemplateItems { get; set; } = new[]
+    {
+        new SelectedItem ("Beijing", "北京"),
+        new SelectedItem ("Shanghai", "上海"),
+        new SelectedItem ("Guangzhou", "广州"),
+        new SelectedItem ("Shenzhen", "深圳"),
+        new SelectedItem ("Chengdu", "成都"),
+        new SelectedItem ("Wuhan", "武汉"),
+        new SelectedItem ("Dalian", "大连"),
+        new SelectedItem ("Hangzhou", "杭州"),
+        new SelectedItem ("Lianyungang", "连云港")
+    };
+
+    private IEnumerable<SelectedItem> GroupItems { get; } = new SelectedItem[]
+    {
+        new SelectedItem ("Jilin", "吉林") { GroupName = "东北"},
+        new SelectedItem ("Liaoning", "辽宁") {GroupName = "东北", Active = true },
+        new SelectedItem ("Beijing", "北京") { GroupName = "华中"},
+        new SelectedItem ("Shijiazhuang", "石家庄") { GroupName = "华中"},
+        new SelectedItem ("Shanghai", "上海") {GroupName = "华东", Active = true },
+        new SelectedItem ("Ningbo", "宁波") {GroupName = "华东", Active = true }
+    };
+
     private List<SelectedItem> Items2 { get; set; } = new List<SelectedItem>();
 
     private readonly List<SelectedItem> Items3 = new SelectedItem[]

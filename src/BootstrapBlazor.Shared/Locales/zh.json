@@ -1428,6 +1428,8 @@
     "P10": "本例中点击第一个下拉框，可以通过异步方法获取第二个多选框的数据源，进行赋值后，调用 <code>StateHasChanged</code> 进行对 <b>多选框</b> 重新渲染",
     "ItemTemplateTitle": "选项模板",
     "ItemTemplateIntro": "通过设置 <code>ItemTemplate</code> 设置下拉框中选项模板，可以自定义样式",
+    "BlockGroupTitle": "分组",
+    "BlockGroupIntro": "通过设置 <code>GroupName</code> 将下拉框中的备选项进行分组显示",
     "Att1": "是否显示前置标签",
     "Att2": "是否显示前置标签关闭按钮",
     "Att3": "是否显示功能按钮",

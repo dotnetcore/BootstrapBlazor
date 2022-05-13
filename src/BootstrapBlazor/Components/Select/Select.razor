@@ -26,34 +26,24 @@
                     <i class="fa fa-search"></i>
                 </div>
             }
-            @if (ItemTemplate != null)
+            @foreach (var itemGroup in DataSource.GroupBy(i => i.GroupName))
             {
-                foreach (var itemGroup in DataSource.GroupBy(i => i.GroupName))
+                if (!string.IsNullOrEmpty(itemGroup.Key))
                 {
-                    if (!string.IsNullOrEmpty(itemGroup.Key))
-                    {
-                        <Divider Text="@itemGroup.Key" />
-                    }
-                    @foreach (var item in itemGroup)
-                    {
-                        <div class="@ActiveItem(item)" @onclick="@(e => OnItemClick(item))">
-                            @ItemTemplate.Invoke(item)
-                        </div>
-                    }
+                    <Divider Text="@itemGroup.Key" />
                 }
-            }
-            else
-            {
-                @foreach (var itemGroup in DataSource.GroupBy(i => i.GroupName))
+                @foreach (var item in itemGroup)
                 {
-                    if (!string.IsNullOrEmpty(itemGroup.Key))
-                    {
-                        <Divider Text="@itemGroup.Key" />
-                    }
-                    @foreach (var item in itemGroup)
-                    {
-                        <div class="@ActiveItem(item)" @onclick="@(e => OnItemClick(item))">@item.Text</div>
-                    }
+                    <div class="@ActiveItem(item)" @onclick="@(e => OnItemClick(item))">
+                        @if (ItemTemplate != null)
+                        {
+                            @ItemTemplate(item)
+                        }
+                        else
+                        {
+                            @item.Text
+                        }
+                    </div>
                 }
             }
         </div>

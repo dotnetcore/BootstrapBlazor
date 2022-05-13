@@ -15,7 +15,7 @@
                 <EditorItem @bind-Field="@context.Hobby" Items="@Hobbys" />
             </FieldItems>
         </EditorForm>
-        <div class="modal-footer mt-3">
+        <div class="form-footer mt-3">
             <button type="button" class="btn btn-secondary" @onclick="@(e => OnClose?.Invoke())">
                 <i class="fa fa-times"></i>
                 <span>关闭</span>
