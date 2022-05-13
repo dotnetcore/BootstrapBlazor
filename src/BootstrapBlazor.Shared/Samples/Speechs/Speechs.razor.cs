@@ -34,6 +34,8 @@ public partial class Speechs
     [NotNull]
     private static string NugetPackageName => "BootstrapBlazor.BaiduSpeech";
 
+    private int TotalTime { get; set; } = 5000;
+
     /// <summary>
     /// OnInitializedAsync 方法
     /// </summary>
@@ -45,7 +47,8 @@ public partial class Speechs
 
     private async Task OnStart()
     {
-        await RecognizerService.RecognizeOnceAsync(Recognizer);
+        TotalTime = 5000;
+        await RecognizerService.RecognizeOnceAsync(Recognizer, TotalTime);
     }
 
     private Task Recognizer(RecognizerStatus status, string? result)
@@ -84,7 +87,7 @@ public partial class Speechs
                         Message = text,
                         Color = Color.Warning
                     });
-                    await InvokeAsync(StateHasChanged);
+                    StateHasChanged();
                 }
                 if (status == SynthesizerStatus.Finished)
                 {
@@ -92,14 +95,15 @@ public partial class Speechs
                 }
             });
         }
-    }).ConfigureAwait(false);
+    });
 
     private async Task RecognizerConfirm()
     {
         Show = true;
-        await InvokeAsync(StateHasChanged);
+        TotalTime = 3000;
+        StateHasChanged();
         await Task.Delay(300);
-        await RecognizerService.RecognizeOnceAsync(Confirm);
+        await RecognizerService.RecognizeOnceAsync(Confirm, TotalTime);
     }
 
     private async Task Confirm(RecognizerStatus status, string? result)
@@ -112,7 +116,7 @@ public partial class Speechs
         else
         {
             Show = false;
-            await InvokeAsync(StateHasChanged);
+            StateHasChanged();
         }
 
         result ??= "";
@@ -129,12 +133,12 @@ public partial class Speechs
                 Message = "指令发送中...",
                 Color = Color.Warning
             });
-            await InvokeAsync(StateHasChanged);
+            StateHasChanged();
 
             //模拟后台执行任务
             await Task.Delay(2000);
 
-            await SynthesizerService.SynthesizerOnceAsync("已经为您打开", async status =>
+            await SynthesizerService.SynthesizerOnceAsync("已经为您打开", status =>
             {
                 if (status == SynthesizerStatus.Synthesizer)
                 {
@@ -143,8 +147,9 @@ public partial class Speechs
                         Message = "已经为您打开",
                         Color = Color.Danger
                     });
-                    await InvokeAsync(StateHasChanged);
+                    StateHasChanged();
                 }
+                return Task.CompletedTask;
             });
         }
     }

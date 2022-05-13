@@ -26,7 +26,7 @@ public partial class Recognizers
     {
         if (ButtonText == "开始识别")
         {
-            await RecognizerService.RecognizeOnceAsync(Recognize);
+            await RecognizerService.RecognizeOnceAsync(Recognize, 5000);
         }
         else
         {
@@ -55,11 +55,13 @@ public partial class Recognizers
             Start = false;
             ButtonText = "开始识别";
         }
-
-        if (status != RecognizerStatus.Close)
+        else
         {
-            StateHasChanged();
+            Result = "";
+            Start = false;
+            ButtonText = "开始识别";
         }
+        StateHasChanged();
         return Task.CompletedTask;
     }
 }

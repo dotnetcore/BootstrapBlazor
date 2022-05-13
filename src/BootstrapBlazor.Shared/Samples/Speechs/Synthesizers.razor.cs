@@ -26,15 +26,18 @@ public partial class Synthesizers
     {
         if (ButtonText == "开始合成")
         {
-            await SynthesizerService.SynthesizerOnceAsync(InputText, Recognize);
+            if (!string.IsNullOrEmpty(InputText))
+            {
+                await SynthesizerService.SynthesizerOnceAsync(InputText, Synthesizer);
+            }
         }
         else
         {
-            await SynthesizerService.CloseAsync(Recognize);
+            await SynthesizerService.CloseAsync(Synthesizer);
         }
     }
 
-    private Task Recognize(SynthesizerStatus status)
+    private Task Synthesizer(SynthesizerStatus status)
     {
         if (status == SynthesizerStatus.Synthesizer)
         {

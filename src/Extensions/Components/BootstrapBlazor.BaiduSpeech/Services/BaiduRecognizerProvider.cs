@@ -62,7 +62,6 @@ public class BaiduRecognizerProvider : IRecognizerProvider, IAsyncDisposable
             }
             Interop ??= DotNetObjectReference.Create(this);
             await Module.InvokeVoidAsync(Option.MethodName, Interop, nameof(RecognizeCallback), Option.AutoRecoginzerElapsedMilliseconds);
-            Logger.LogInformation($"{Option.MethodName}");
         }
     }
 
@@ -73,26 +72,30 @@ public class BaiduRecognizerProvider : IRecognizerProvider, IAsyncDisposable
     public async Task RecognizeCallback(RecognizerStatus status, byte[]? bytes)
     {
         Logger.LogInformation($"RecognizerStatus: {status}");
-        string data = "Error";
+        string data = "";
         if (status == RecognizerStatus.Finished)
         {
-            var result = Client.Recognize(bytes, "wav", 16000);
-            var err_no = result.Value<int>("err_no");
-            if (err_no == 0)
+            // 此处同步调用卡 UI 改为异步
+            await Task.Run(() =>
             {
-                var sb = new StringBuilder();
-                var text = result["result"].ToArray();
-                foreach (var item in text)
+                var result = Client.Recognize(bytes, "wav", 16000);
+                var err_no = result.Value<int>("err_no");
+                if (err_no == 0)
                 {
-                    sb.Append(item.ToString());
+                    var sb = new StringBuilder();
+                    var text = result["result"].ToArray();
+                    foreach (var item in text)
+                    {
+                        sb.Append(item.ToString());
+                    }
+                    data = sb.ToString();
+                    Logger.LogInformation($"recognizer: {data}");
                 }
-                data = sb.ToString();
-                Logger.LogInformation($"recognizer: {data}");
-            }
-            else
-            {
-                Logger.LogError($"err_no: {err_no}");
-            }
+                else
+                {
+                    Logger.LogError($"err_no: {err_no}");
+                }
+            });
         }
 
         if (Option.Callback != null)

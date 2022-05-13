@@ -3,6 +3,7 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.JSInterop;
 using System.Net.Http.Json;
@@ -29,6 +30,8 @@ public class AzureRecognizerProvider : IRecognizerProvider, IAsyncDisposable
 
     private IMemoryCache Cache { get; }
 
+    private ILogger Logger { get; }
+
     /// <summary>
     /// 构造函数
     /// </summary>
@@ -36,11 +39,13 @@ public class AzureRecognizerProvider : IRecognizerProvider, IAsyncDisposable
     /// <param name="runtime"></param>
     /// <param name="factory"></param>
     /// <param name="cache"></param>
-    public AzureRecognizerProvider(IOptionsMonitor<AzureSpeechOption> options, IJSRuntime runtime, IHttpClientFactory factory, IMemoryCache cache)
+    /// <param name="logger"></param>
+    public AzureRecognizerProvider(IOptionsMonitor<AzureSpeechOption> options, IJSRuntime runtime, IHttpClientFactory factory, IMemoryCache cache, ILogger<AzureRecognizerProvider> logger)
     {
         Cache = cache;
         JSRuntime = runtime;
         SpeechOption = options.CurrentValue;
+        Logger = logger;
         Client = factory.CreateClient();
         Client.BaseAddress = new Uri(string.Format(SpeechOption.AuthorizationTokenUrl, SpeechOption.Region));
         if (SpeechOption.Timeout > 0)
@@ -57,21 +62,19 @@ public class AzureRecognizerProvider : IRecognizerProvider, IAsyncDisposable
     /// <returns></returns>
     public async Task InvokeAsync(RecognizerOption option)
     {
-        if (string.IsNullOrEmpty(option.MethodName))
+        if (!string.IsNullOrEmpty(option.MethodName))
         {
-            throw new InvalidOperationException();
-        }
+            // 通过 SubscriptionKey 交换 Token
+            var token = await ExchangeToken();
 
-        // 通过 SubscriptionKey 交换 Token
-        var token = await ExchangeToken();
-
-        Option = option;
-        if (Module == null)
-        {
-            Module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/BootstrapBlazor.AzureSpeech/js/speech.js");
+            Option = option;
+            if (Module == null)
+            {
+                Module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/BootstrapBlazor.AzureSpeech/js/speech.js");
+            }
+            Interop ??= DotNetObjectReference.Create(this);
+            await Module.InvokeVoidAsync(Option.MethodName, Interop, nameof(Callback), token, SpeechOption.Region, option.SpeechRecognitionLanguage, option.TargetLanguage, option.AutoRecoginzerElapsedMilliseconds);
         }
-        Interop ??= DotNetObjectReference.Create(this);
-        await Module.InvokeVoidAsync(Option.MethodName, Interop, nameof(Callback), token, SpeechOption.Region, option.SpeechRecognitionLanguage, option.TargetLanguage);
     }
 
     private Task<string> ExchangeToken() => Cache.GetOrCreateAsync(SpeechOption.SubscriptionKey, async entry =>
@@ -80,6 +83,8 @@ public class AzureRecognizerProvider : IRecognizerProvider, IAsyncDisposable
         var ret = "";
         try
         {
+            entry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMilliseconds(50);
+            Logger.LogInformation($"request url: {url}");
             var result = await Client.PostAsJsonAsync<string>(url, "");
             if (result.IsSuccessStatusCode)
             {
@@ -89,14 +94,10 @@ public class AzureRecognizerProvider : IRecognizerProvider, IAsyncDisposable
                     entry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(9);
                 }
             }
-            else
-            {
-                entry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMilliseconds(50);
-            }
         }
-        catch
+        catch (Exception ex)
         {
-
+            Logger.LogError(ex, "ExchangeToken");
         }
         return ret;
     });
@@ -110,6 +111,7 @@ public class AzureRecognizerProvider : IRecognizerProvider, IAsyncDisposable
     [JSInvokable]
     public async Task Callback(RecognizerStatus status, string result)
     {
+        Logger.LogInformation($"RecognizerStatus: {status} Result: {result}");
         if (Option.Callback != null)
         {
             await Option.Callback(status, result);

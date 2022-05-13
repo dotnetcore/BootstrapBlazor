@@ -30,10 +30,10 @@ public partial class SpeechWave : IDisposable
     public Func<Task>? OnTimeout { get; set; }
 
     /// <summary>
-    /// 获得/设置 总时长 默认 60 秒
+    /// 获得/设置 总时长 默认 60000 毫秒
     /// </summary>
     [Parameter]
-    public int TotalTimeSecond { get; set; } = 60;
+    public int TotalTime { get; set; } = 60000;
 
     private TimeSpan UsedTimeSpan { get; set; }
 
@@ -48,7 +48,7 @@ public partial class SpeechWave : IDisposable
         .AddClass("line", Show)
         .Build();
 
-    private string? TotalTimeSpanString => $"{TimeSpan.FromSeconds(TotalTimeSecond):mm\\:ss}";
+    private string? TotalTimeSpanString => $"{TimeSpan.FromMilliseconds(TotalTime):mm\\:ss}";
 
     private string? UsedTimeSpanString => $"{UsedTimeSpan:mm\\:ss}";
 
@@ -90,18 +90,15 @@ public partial class SpeechWave : IDisposable
             {
                 await Task.Delay(1000, Token.Token);
                 UsedTimeSpan = UsedTimeSpan.Add(TimeSpan.FromSeconds(1));
-                if (UsedTimeSpan.TotalSeconds >= TotalTimeSecond)
+                if (UsedTimeSpan.TotalMilliseconds >= TotalTime)
                 {
                     Show = false;
                     if (OnTimeout != null)
                     {
-                        await OnTimeout();
+                        _ = OnTimeout();
                     }
                 }
-                if (Show)
-                {
-                    await InvokeAsync(StateHasChanged);
-                }
+                StateHasChanged();
             }
             catch
             {

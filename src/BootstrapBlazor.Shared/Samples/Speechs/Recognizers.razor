@@ -11,7 +11,7 @@
     <p>点击 <b>开始识别</b> 后，脚本运行可能会提示要求录音权限，授权后开始讲话，5秒后（可配置）右侧文本框显示语音识别结果，请勿讲完话后直接点击 <b>结束识别</b></p>
     <div class="row">
         <div class="col-12 col-sm-6 text-center">
-            <SpeechWave Show="Start" OnTimeout="OnTimeout" class="my-3" />
+            <SpeechWave Show="Start" TotalTime="5000" OnTimeout="OnTimeout" class="my-3" />
             <Button Text="@ButtonText" Icon="fa fa-fw fa-microphone" OnClick="OnStart" />
         </div>
         <div class="col-12 col-sm-6">

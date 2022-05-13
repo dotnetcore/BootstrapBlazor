@@ -7,7 +7,7 @@
 
 <h4>通过麦克风语音采集转换为文字（STT），或者通过文字通过语音朗读出来（TTS）</h4>
 
-<p>本组件依赖于 <a href="https://www.nuget.org/packages?q=@NugetPackageName" target="_blank"><code>@NugetPackageName</code></a>，使用本组件时需要引用其组件包</p>
+<p>本套组件内置 <code>Azure</code> 与 <code>Baidu</code> 语音服务，本示例依赖于 <a href="https://www.nuget.org/packages?q=@NugetPackageName" target="_blank"><code>@NugetPackageName</code></a>，使用本组件时需要引用其组件包</p>
 
 <p><b>Nuget 包安装</b></p>
 
@@ -36,7 +36,7 @@
         <Button Text="开始体验" Icon="fa fa-fw fa-microphone" OnClick="OnStart" style="margin: 1.5rem 0;" />
     </div>
     <div class="col-12 col-sm-auto">
-        <SpeechWave Show="Show" class="my-3" />
+        <SpeechWave Show="Show" TotalTime="@TotalTime" class="my-3" />
     </div>
 </div>
 
@@ -48,10 +48,7 @@
 
 <div class="mb-2"><b>Program.cs</b></div>
 
-<Pre>// 增加 Azure 语音服务
-<b><i>builder.Services.AddBootstrapBlazorAzureSpeech();</i></b>
-
-// 增加 Baidu 语音服务
+<Pre>// 增加 Baidu 语音服务
 <b><i>builder.Services.AddBootstrapBlazorBaiduSpeech();</i></b></Pre>
 
 <div class="code-label mb-2">2. 使用服务</div>

@@ -50,11 +50,11 @@ public partial class SpeechWaves
             DefaultValue = " — "
         },
         new AttributeItem() {
-            Name = nameof(SpeechWave.TotalTimeSecond),
+            Name = nameof(SpeechWave.TotalTime),
             Description = Localizer["TotalTimeSecondAttr"],
             Type = "int",
             ValueList = " — ",
-            DefaultValue = "60"
+            DefaultValue = "60000"
         }
     };
 }

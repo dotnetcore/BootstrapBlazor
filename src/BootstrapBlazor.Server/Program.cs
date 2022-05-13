@@ -15,7 +15,6 @@ Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 builder.Services.AddCors();
 builder.Services.AddResponseCompression();
 
-builder.Services.AddControllers();
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 

@@ -3,6 +3,7 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.JSInterop;
 using System.Net.Http.Json;
@@ -29,6 +30,8 @@ public class AzureSynthesizerProvider : ISynthesizerProvider, IAsyncDisposable
 
     private IMemoryCache Cache { get; }
 
+    private ILogger Logger { get; }
+
     /// <summary>
     /// 构造函数
     /// </summary>
@@ -36,11 +39,13 @@ public class AzureSynthesizerProvider : ISynthesizerProvider, IAsyncDisposable
     /// <param name="runtime"></param>
     /// <param name="factory"></param>
     /// <param name="cache"></param>
-    public AzureSynthesizerProvider(IOptionsMonitor<AzureSpeechOption> options, IJSRuntime runtime, IHttpClientFactory factory, IMemoryCache cache)
+    /// <param name="logger"></param>
+    public AzureSynthesizerProvider(IOptionsMonitor<AzureSpeechOption> options, IJSRuntime runtime, IHttpClientFactory factory, IMemoryCache cache, ILogger<AzureSynthesizerProvider> logger)
     {
         Cache = cache;
         JSRuntime = runtime;
         SpeechOption = options.CurrentValue;
+        Logger = logger;
         Client = factory.CreateClient();
         Client.BaseAddress = new Uri(string.Format(SpeechOption.AuthorizationTokenUrl, SpeechOption.Region));
         if (SpeechOption.Timeout > 0)
@@ -51,7 +56,7 @@ public class AzureSynthesizerProvider : ISynthesizerProvider, IAsyncDisposable
     }
 
     /// <summary>
-    /// 
+    /// InvokeAsync 方法
     /// </summary>
     /// <param name="option"></param>
     /// <returns></returns>
@@ -83,6 +88,7 @@ public class AzureSynthesizerProvider : ISynthesizerProvider, IAsyncDisposable
         var ret = "";
         try
         {
+            Logger.LogInformation($"request url: {url}");
             var result = await Client.PostAsJsonAsync<string>(url, "");
             if (result.IsSuccessStatusCode)
             {
@@ -93,21 +99,22 @@ public class AzureSynthesizerProvider : ISynthesizerProvider, IAsyncDisposable
                 }
             }
         }
-        catch
+        catch (Exception ex)
         {
-
+            Logger.LogError(ex, "ExchangeToken");
         }
         return ret;
     });
 
     /// <summary>
-    /// 
+    /// Callback 回调方法 由 Javascript 调用
     /// </summary>
     /// <param name="status"></param>
     /// <returns></returns>
     [JSInvokable]
     public async Task Callback(SynthesizerStatus status)
     {
+        Logger.LogInformation($"SynthesizerStatus: {status}");
         if (Option.Callback != null)
         {
             await Option.Callback(status);
@@ -134,7 +141,7 @@ public class AzureSynthesizerProvider : ISynthesizerProvider, IAsyncDisposable
     }
 
     /// <summary>
-    /// 
+    /// DisposeAsync 方法
     /// </summary>
     /// <returns></returns>
     public async ValueTask DisposeAsync()

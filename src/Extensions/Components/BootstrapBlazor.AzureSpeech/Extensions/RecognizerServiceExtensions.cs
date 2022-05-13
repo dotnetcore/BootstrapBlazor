@@ -14,14 +14,20 @@ public static class RecognizerServiceExtensions
     /// </summary>
     /// <param name="service"></param>
     /// <param name="callback"></param>
-    /// <returns></returns>
-    public static async Task RecognizeOnceAsync(this RecognizerService service, Func<RecognizerStatus, string?, Task> callback)
+    /// <param name="autoRecoginzerElapsedMilliseconds">默认 5000 毫秒后自动识别，设置 0 时禁用</param>
+    public static async Task RecognizeOnceAsync(this RecognizerService service, Func<RecognizerStatus, string?, Task> callback, int? autoRecoginzerElapsedMilliseconds = null)
     {
         var option = new RecognizerOption()
         {
             MethodName = "bb_azure_speech_recognizeOnce",
             Callback = callback
         };
+
+        // 设置自动识别时间
+        if (autoRecoginzerElapsedMilliseconds.HasValue)
+        {
+            option.AutoRecoginzerElapsedMilliseconds = autoRecoginzerElapsedMilliseconds.Value;
+        }
         await service.InvokeAsync(option);
     }
 
@@ -30,14 +36,20 @@ public static class RecognizerServiceExtensions
     /// </summary>
     /// <param name="provider"></param>
     /// <param name="callback"></param>
-    /// <returns></returns>
-    public static async Task RecognizeOnceAsync(this IRecognizerProvider provider, Func<RecognizerStatus, string?, Task> callback)
+    /// <param name="autoRecoginzerElapsedMilliseconds">默认 5000 毫秒后自动识别，设置 0 时禁用</param>
+    public static async Task RecognizeOnceAsync(this IRecognizerProvider provider, Func<RecognizerStatus, string?, Task> callback, int? autoRecoginzerElapsedMilliseconds = null)
     {
         var option = new RecognizerOption()
         {
             MethodName = "bb_azure_speech_recognizeOnce",
             Callback = callback
         };
+
+        // 设置自动识别时间
+        if (autoRecoginzerElapsedMilliseconds.HasValue)
+        {
+            option.AutoRecoginzerElapsedMilliseconds = autoRecoginzerElapsedMilliseconds.Value;
+        }
         await provider.InvokeAsync(option);
     }
 
