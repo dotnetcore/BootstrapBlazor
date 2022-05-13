@@ -1,24 +1,23 @@
 ﻿@page "/ajaxs"
+@inject IStringLocalizer<Ajaxs> Localizer
 
-<h3>Ajax调用</h3>
+<h3>@Localizer["AjaxTitle"]</h3>
 
-<h4>用于直接在浏览器使用 js 的 ajax 方法与服务器交互，目前只支持输入输出皆为json，返回值为 json 字符串，可以自行转换处理。</h4>
+<h4>@Localizer["H4"]</h4>
 
-<DemoBlock Introduction="模拟登录" Title="基本用法" Name="Normal">
+<DemoBlock Introduction="@Localizer["NormalIntro"]" Title="@Localizer["NormalTitle"]" Name="Normal">
     <p>
-        <b>特别注意：</b>
-        <div>
-            这里只是进行了登录模拟，并没有真正的调用 <code>HttpContext.SignInAsync</code>，真实使用时需要在登录完成后对页面进行刷新，否则无法真正的登录成功。
-        </div>
+        <b>@Localizer["NormalB"]</b>
+        <div>@((MarkupString)Localizer["NormalDiv"].Value)</div>
     </p>
     <div class="mb-3">@ResultMessage</div>
-    <Button OnClick="Success">登录成功</Button>
-    <Button OnClick="Fail">登录失败</Button>
+    <Button OnClick="Success">@Localizer["NormalButtonText1"]</Button>
+    <Button OnClick="Fail">@Localizer["NormalButtonText2"]</Button>
 </DemoBlock>
 
-<DemoBlock Introduction="用 <code>Js</code> 实现页面跳转，解决了 <code>Blazor</code> 页面作为 <b>SPA</b> 跳转时不会真正刷新页面的问题" Title="页面跳转" Name="Goto">
-    <Button OnClick="Goto">跳转到文档首页</Button>
-    <Button OnClick="GotoSelf">跳转到自己（刷新页面）</Button>
+<DemoBlock Introduction="@Localizer["GotoIntro"]" Title="@Localizer["GotoTitle"]" Name="Goto">
+    <Button OnClick="Goto">@Localizer["GotoButtonText1"]</Button>
+    <Button OnClick="GotoSelf">@Localizer["GotoButtonText2"]</Button>
 </DemoBlock>
 
 <Ajax></Ajax>

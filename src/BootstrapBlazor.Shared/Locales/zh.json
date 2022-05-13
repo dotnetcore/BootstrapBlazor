@@ -1885,6 +1885,20 @@
     "LongDisplayDescription": "本例中通过设置 <code>form-inline</code> 样式内的 <code>BootstrapInput</code> 组件 <code>ShowLabelTooltip</code> 为 <code>true</code> 使鼠标悬停在被裁剪的 <code>label</code> 时显示完整信息",
     "ShowLabelTooltip": "鼠标悬停标签时显示完整信息"
   },
+  "BootstrapBlazor.Shared.Samples.Ajaxs": {
+    "AjaxTitle": "Ajax调用",
+    "H4": "用于直接在浏览器使用 js 的 ajax 方法与服务器交互，目前只支持输入输出皆为json，返回值为 json 字符串，可以自行转换处理。",
+    "NormalTitle": "基本用法",
+    "NormalIntro": "模拟登录",
+    "NormalB": "特别注意：",
+    "NormalDiv": "这里只是进行了登录模拟，并没有真正的调用 <code>HttpContext.SignInAsync</code>，真实使用时需要在登录完成后对页面进行刷新，否则无法真正的登录成功。",
+    "NormalButtonText1": "登录成功",
+    "NormalButtonText2": "登录失败",
+    "GotoTitle": "页面跳转",
+    "GotoIntro": "用 <code>Js</code> 实现页面跳转，解决了 <code>Blazor</code> 页面作为 <b>SPA</b> 跳转时不会真正刷新页面的问题",
+    "GotoButtonText1": "跳转到文档首页",
+    "GotoButtonText2": "跳转到自己（刷新页面）"
+  },
   "BootstrapBlazor.Shared.Samples.Avatars": {
     "Title": "Avatar 头像",
     "SubTitle": "用图标、图片或者字符的形式展示用户或事物信息。",
