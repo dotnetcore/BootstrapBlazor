@@ -44,7 +44,7 @@ public class RecognizerTest : SpeechTestBase
         cut.SetParametersAndRender(pb =>
         {
             pb.Add(a => a.Show, true);
-            pb.Add(a => a.TotalTimeSecond, 60);
+            pb.Add(a => a.TotalTime, 60);
         });
         cut.Contains("speech-wave");
         cut.Contains("<span>01:00</span>");
@@ -67,7 +67,7 @@ public class RecognizerTest : SpeechTestBase
         var cut = Context.RenderComponent<SpeechWave>(pb =>
         {
             pb.Add(a => a.Show, true);
-            pb.Add(a => a.TotalTimeSecond, 1);
+            pb.Add(a => a.TotalTime, 1);
             pb.Add(a => a.OnTimeout, new Func<Task>(() =>
             {
                 timeout = true;
