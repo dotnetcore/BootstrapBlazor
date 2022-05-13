@@ -44,7 +44,7 @@ public class RecognizerTest : SpeechTestBase
         cut.SetParametersAndRender(pb =>
         {
             pb.Add(a => a.Show, true);
-            pb.Add(a => a.TotalTime, 60);
+            pb.Add(a => a.TotalTime, 60000);
         });
         cut.Contains("speech-wave");
         cut.Contains("<span>01:00</span>");
