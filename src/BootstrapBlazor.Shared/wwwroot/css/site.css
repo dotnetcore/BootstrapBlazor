@@ -1,5 +1,15 @@
-﻿header {
-    background-color: #7952b3;
+﻿:root {
+    --bb-logo: #732cf9;
+    --bb-purple: #732cf9;
+    --bb-violet: #712cf9;
+    --bb-violet-rgb: 112.520718,44.062154,249.437846;
+    --bb-bg-violet: #7a5cff;
+    --bb-bg-navbar: #8548ff;
+}
+
+header {
+    background-color: transparent;
+    background-image: linear-gradient(to bottom, rgba(var(--bb-violet-rgb), 1), rgba(var(--bb-violet-rgb), 0.95));
     box-shadow: 0 0.5rem 1rem rgba(0,0,0,.05), inset 0 -1px 0 rgba(0,0,0,.1);
     font-size: 1rem;
     transition: transform .3s ease;
@@ -37,9 +47,10 @@ header .nav-link img {
 
     .header-img img,
     .bb-icon {
-        width: 40px;
+        width: 42px;
         height: auto;
         border-radius: var(--bs-border-radius);
+        background-color: var(--bb-logo);
         border: solid 1px #fff;
         margin-right: 1rem;
     }
@@ -115,7 +126,7 @@ section {
     }
 
 .sidebar .navbar {
-    background-color: #8864ca;
+    background-color: var(--bb-bg-navbar);
 }
 
 .sidebar .sidebar-title {

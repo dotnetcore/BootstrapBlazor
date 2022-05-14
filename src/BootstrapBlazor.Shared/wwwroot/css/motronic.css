@@ -40,3 +40,8 @@
 .page-layout-demo-footer-link {
     color: #3f4254;
 }
+
+.menu .nav .dropdown-menu .nav-link:not(.disabled):hover, .menu .nav .dropdown-menu .nav-link.active, .menu .submenu .nav-link.active, .menu .submenu .nav-link:not(.disabled):hover, .cascade .dropdown-item:not(.disabled):hover, .cascade .dropdown-item.active, .cascade .nav .nav-link:not(.disabled):hover, .cascade .nav .nav-link.active {
+    background-color: var(--bb-bg-violet);
+    color: var(--bs-white);
+}
