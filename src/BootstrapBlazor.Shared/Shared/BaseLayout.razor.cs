@@ -52,6 +52,8 @@ public partial class BaseLayout
     [NotNull]
     private static Action? OnInstallable { get; set; }
 
+    private string? BBVersion { get; set; }
+
     /// <summary>
     /// OnInitialized 方法
     /// </summary>
@@ -59,6 +61,15 @@ public partial class BaseLayout
     protected override void OnInitialized()
     {
         base.OnInitialized();
+
+        if (OperatingSystem.IsBrowser())
+        {
+            BBVersion = typeof(BootstrapComponentBase).Assembly.GetName().Version?.ToString();
+        }
+        else
+        {
+            BBVersion = System.Diagnostics.FileVersionInfo.GetVersionInfo(typeof(BootstrapComponentBase).Assembly.Location).ProductVersion;
+        }
 
         DownloadText ??= Localizer[nameof(DownloadText)];
         HomeText ??= Localizer[nameof(HomeText)];
@@ -83,7 +94,7 @@ public partial class BaseLayout
 
         if (firstRender)
         {
-            await JSRuntime.InvokeVoidAsync("$.bb_site_load", MsLearnElement);
+            await JSRuntime.InvokeVoidAsync("$.bb_site_load", MsLearnElement, BBVersion);
         }
     }
 

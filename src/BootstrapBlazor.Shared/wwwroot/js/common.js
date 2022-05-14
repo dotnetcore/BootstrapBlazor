@@ -195,27 +195,32 @@
                 }).trigger('click');
             }
         },
-        bb_site_load: function (el) {
+        bb_site_load: function (el, version) {
             $(el).tooltip();
 
             var width = $(window).width();
             if (width >= 768) {
                 // Intro 弹窗
-                var $intro = $('.blazor-intro');
-                $('.blazor-intro-close').on('click', function () {
-                    if (handler != null) {
-                        window.clearInterval(handler);
-                        $intro.slideToggle('fade');
-                    }
-                });
-                var count = 0;
-                var handler = window.setInterval(function () {
-                    count++;
+                var key = 'bb_intro_popup:' + version;
+                var isShown = localStorage.getItem(key);
+                if (!isShown) {
+                    var $intro = $('.blazor-intro');
+                    $intro.find('.version').text(version);
+                    $('.blazor-intro-button').on('click', function () {
+                        $intro.slideToggle('fade', function () {
+                            localStorage.setItem(key, false);
+                        });
+                    });
                     $intro.slideToggle('fade');
-                    if (count >= 2) {
-                        window.clearInterval(handler);
+
+                    // clean
+                    for (var index = localStorage.length; index > 0; index--) {
+                        var k = localStorage.key(index - 1);
+                        if (k.indexOf('bb_intro_popup:') > -1) {
+                            localStorage.removeItem(k);
+                        }
                     }
-                }, 15000);
+                }
             }
         },
         bb_block: function (el) {

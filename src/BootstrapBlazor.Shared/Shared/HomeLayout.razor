@@ -111,7 +111,7 @@
     [NotNull]
     private string? OS { get; set; }
 
-    [NotNull]
+    [CascadingParameter(Name = "BBVersion")]
     private string? BBVersion { get; set; }
 
     [Inject]
@@ -126,15 +126,6 @@
 
     protected override void OnInitialized()
     {
-        if (OperatingSystem.IsBrowser())
-        {
-            BBVersion = typeof(BootstrapComponentBase).Assembly.GetName().Version?.ToString() ?? "";
-        }
-        else
-        {
-            BBVersion = System.Diagnostics.FileVersionInfo.GetVersionInfo(typeof(BootstrapComponentBase).Assembly.Location).ProductVersion ?? "";
-        }
-
         if (System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(System.Runtime.InteropServices.OSPlatform.Windows))
         {
             OS = "Windows";

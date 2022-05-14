@@ -1902,7 +1902,7 @@ header .bb-fs {
     }
 
 .connection-body img {
-    height: 114px;
+    height: 110px;
     margin-left: 1rem;
 }
 
@@ -1912,7 +1912,7 @@ header .bb-fs {
     left: 0;
     right: 0;
     bottom: 0;
-    z-index: 2000;
+    z-index: 1900;
     color: #ffffff;
     background: linear-gradient(54.4deg,#771f89 -28.5%,#834cef 30.36%,#636cea 99.19%);
     padding: 1rem;
@@ -1934,31 +1934,31 @@ header .bb-fs {
 
     .blazor-intro .blazor-intro-barcode {
         text-align: center;
+        margin: 1rem 1rem 0 2rem;
     }
 
         .blazor-intro .blazor-intro-barcode img {
-            margin: 0 1rem 0 2rem;
-            width: 120px;
-            border-radius: var(--bs-border-radius);
+            width: 110px;
         }
 
-    .blazor-intro .blazor-intro-close {
-        position: absolute;
-        top: -26px;
-        padding: 1rem;
-        left: calc(50% + 26px);
-        background-color: #7239ea;
-        transition: background-color .3s linear;
-        border-radius: 50%;
-        cursor: pointer;
+.blazor-intro-button {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    color: #fff;
+    background-color: #4b4df6;
+    cursor: pointer;
+    border-radius: 50%;
+    padding: 6px;
+    transition: background-color .3s linear;
+}
+
+    .blazor-intro-button:hover {
+        background-color: #3c3de2;
     }
 
-        .blazor-intro .blazor-intro-close:hover {
-            background-color: #5c2bc4;
-        }
-
-    .blazor-intro .blazor-intro-btn {
-        width: 20px;
-        height: 20px;
-        background: transparent url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23fff'%3e%3cpath d='M.293.293a1 1 0 011.414 0L8 6.586 14.293.293a1 1 0 111.414 1.414L9.414 8l6.293 6.293a1 1 0 01-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 01-1.414-1.414L6.586 8 .293 1.707a1 1 0 010-1.414z'/%3e%3c/svg%3e") center/1em auto no-repeat;
+    .blazor-intro-button svg {
+        width: 24px;
+        height: 24px;
+        fill: currentcolor;
     }
