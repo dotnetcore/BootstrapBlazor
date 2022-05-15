@@ -254,7 +254,7 @@ public class ValidateTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void SetLabel_Ok()
+    public async Task SetLabel_Ok()
     {
         var cut = Context.RenderComponent<BootstrapInput<string>>(builder =>
         {
@@ -262,7 +262,7 @@ public class ValidateTest : BootstrapBlazorTestBase
             builder.Add(a => a.ShowLabel, true);
         });
         Assert.Equal("test", cut.Instance.DisplayText);
-        cut.InvokeAsync(() => cut.Instance.SetLabel("test1"));
+        await cut.InvokeAsync(() => cut.Instance.SetLabel("test1"));
         Assert.Equal("test1", cut.Instance.DisplayText);
     }
 

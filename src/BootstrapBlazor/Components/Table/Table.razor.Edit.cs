@@ -180,16 +180,6 @@ public partial class Table<TItem>
     [NotNull]
     private IDataService<TItem>? InjectDataService { get; set; }
 
-    private IDataService<TItem> GetDataService()
-    {
-        var ds = DataService ?? InjectDataService;
-        if (ds == null)
-        {
-            throw new InvalidOperationException(DataServiceInvalidOperationText);
-        }
-        return ds;
-    }
-
     private async Task<QueryData<TItem>> InternalOnQueryAsync(QueryPageOptions options)
     {
         QueryData<TItem>? ret = null;
@@ -200,20 +190,9 @@ public partial class Table<TItem>
         else
         {
             var d = DataService ?? InjectDataService;
-            if (d != null)
-            {
-                ret = await d.QueryAsync(options);
-            }
+            ret = await d.QueryAsync(options);
         }
-        return ret ?? new QueryData<TItem>
-        {
-            Items = Enumerable.Empty<TItem>(),
-            TotalCount = 0,
-            IsAdvanceSearch = false,
-            IsFiltered = false,
-            IsSearch = false,
-            IsSorted = false
-        };
+        return ret;
     }
 
     private async Task<bool> InternalOnDeleteAsync()
@@ -226,10 +205,7 @@ public partial class Table<TItem>
         else
         {
             var d = DataService ?? InjectDataService;
-            if (d != null)
-            {
-                ret = await d.DeleteAsync(SelectedRows);
-            }
+            ret = await d.DeleteAsync(SelectedRows);
         }
         return ret;
     }
@@ -244,10 +220,7 @@ public partial class Table<TItem>
         else
         {
             var d = DataService ?? InjectDataService;
-            if (d != null)
-            {
-                ret = await d.SaveAsync(item, changedType);
-            }
+            ret = await d.SaveAsync(item, changedType);
         }
         return ret;
     }
@@ -262,10 +235,7 @@ public partial class Table<TItem>
         {
             EditModel = new TItem();
             var d = DataService ?? InjectDataService;
-            if (d != null)
-            {
-                await d.AddAsync(EditModel);
-            }
+            await d.AddAsync(EditModel);
         }
     }
 
@@ -430,6 +400,10 @@ public partial class Table<TItem>
                 await OnQuery();
             }
         }
+        else
+        {
+            RowItemsCache = null;
+        }
 
         async Task OnQuery()
         {
@@ -457,28 +431,24 @@ public partial class Table<TItem>
             }
 
             queryData = await InternalOnQueryAsync(queryOption);
+            RowItemsCache = null;
+            Items = null;
+            QueryItems = queryData.Items;
+            TotalCount = queryData.TotalCount;
+            IsAdvanceSearch = queryData.IsAdvanceSearch;
 
-            if (queryData != null)
+            // 处理选中行逻辑
+            ProcessSelectedRows();
+
+            // 分页情况下内部不做处理防止页码错乱
+            if (!queryOption.IsPage)
             {
-                RowItemsCache = null;
-                Items = null;
-                QueryItems = queryData.Items;
-                TotalCount = queryData.TotalCount;
-                IsAdvanceSearch = queryData.IsAdvanceSearch;
+                ProcessPageData(queryData, queryOption);
+            }
 
-                // 处理选中行逻辑
-                ProcessSelectedRows();
-
-                // 分页情况下内部不做处理防止页码错乱
-                if (!queryOption.IsPage)
-                {
-                    ProcessPageData(queryData, queryOption);
-                }
-
-                if (IsTree)
-                {
-                    await ProcessTreeData();
-                }
+            if (IsTree)
+            {
+                await ProcessTreeData();
             }
 
             void ProcessSelectedRows()

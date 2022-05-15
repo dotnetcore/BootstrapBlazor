@@ -5,7 +5,6 @@
       "src\\BootstrapBlazor.Server\\BootstrapBlazor.Server.csproj",
       "src\\BootstrapBlazor.Shared\\BootstrapBlazor.Shared.csproj",
       "src\\BootstrapBlazor\\BootstrapBlazor.csproj",
-      "test\\UnitTest.Localization\\UnitTest.Localization.csproj",
       "test\\UnitTest\\UnitTest.csproj"
     ]
   }

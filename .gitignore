@@ -354,6 +354,7 @@ src/**/*.xml
 # Coverage
 coverage*.xml
 tools/
+*.lutconfig
 
 # Upload Folder
 src/**/wwwroot/**/uploader
