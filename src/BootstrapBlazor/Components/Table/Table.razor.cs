@@ -1082,13 +1082,10 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
 
         void SetEditTemplate()
         {
-            if (CanSave)
-            {
-                var onValueChanged = Utility.CreateOnValueChanged<TItem>(col.PropertyType).Compile();
-                var parameters = col.ComponentParameters?.ToList() ?? new List<KeyValuePair<string, object>>();
-                parameters.Add(new(nameof(ValidateBase<string>.OnValueChanged), onValueChanged.Invoke(item, col, (model, column, val) => InternalOnSaveAsync(model, ItemChangedType.Update))));
-                col.ComponentParameters = parameters;
-            }
+            var onValueChanged = Utility.CreateOnValueChanged<TItem>(col.PropertyType).Compile();
+            var parameters = col.ComponentParameters?.ToList() ?? new List<KeyValuePair<string, object>>();
+            parameters.Add(new(nameof(ValidateBase<string>.OnValueChanged), onValueChanged.Invoke(item, col, (model, column, val) => InternalOnSaveAsync(model, ItemChangedType.Update))));
+            col.ComponentParameters = parameters;
         }
     }
 

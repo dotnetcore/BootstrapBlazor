@@ -233,24 +233,9 @@ public partial class Table<TItem>
         {
             await AddDynamicOjbectExcelModelAsync();
         }
-        else if (IsTracking || CanSave)
-        {
-            await AddItemAsync();
-        }
         else
         {
-            await ShowAddToastAsync(SaveButtonToastContent);
-        }
-
-        async Task ShowAddToastAsync(string content)
-        {
-            var option = new ToastOption
-            {
-                Category = ToastCategory.Error,
-                Title = AddButtonToastTitle,
-                Content = content
-            };
-            await Toast.Show(option);
+            await AddItemAsync();
         }
 
         async Task AddItemAsync()
@@ -316,60 +301,53 @@ public partial class Table<TItem>
     /// </summary>
     public async Task EditAsync()
     {
-        if (IsTracking || CanSave || DynamicContext != null)
+        if (SelectedRows.Count == 1)
         {
-            if (SelectedRows.Count == 1)
+            // 检查是否选中了不可编辑行（行内无编辑按钮）
+            if (ShowEditButtonCallback != null && !ShowEditButtonCallback(SelectedRows[0]))
             {
-                // 检查是否选中了不可编辑行（行内无编辑按钮）
-                if (ShowEditButtonCallback != null && !ShowEditButtonCallback(SelectedRows[0]))
-                {
-                    // 提示不可编辑
-                    await ShowToastAsync(ToastCategory.Information, EditButtonToastReadonlyContent);
-                }
-                else
-                {
-                    await ToggleLoading(true);
-                    await InternalOnEditAsync();
-                    EditModalTitleString = EditModalTitle;
-
-                    // 显示编辑框
-                    if (EditMode == EditMode.Popup)
-                    {
-                        await ShowEditDialog(ItemChangedType.Update);
-                    }
-                    else if (EditMode == EditMode.EditForm)
-                    {
-                        ShowEditForm = true;
-                        ShowAddForm = false;
-                        await UpdateAsync();
-
-                    }
-                    else if (EditMode == EditMode.InCell)
-                    {
-                        AddInCell = false;
-                        EditInCell = true;
-                        await UpdateAsync();
-
-                    }
-                    await ToggleLoading(false);
-                }
+                // 提示不可编辑
+                await ShowToastAsync(EditButtonToastReadonlyContent);
             }
             else
             {
-                var content = SelectedRows.Count == 0 ? EditButtonToastNotSelectContent : EditButtonToastMoreSelectContent;
-                await ShowToastAsync(ToastCategory.Information, content);
+                await ToggleLoading(true);
+                await InternalOnEditAsync();
+                EditModalTitleString = EditModalTitle;
+
+                // 显示编辑框
+                if (EditMode == EditMode.Popup)
+                {
+                    await ShowEditDialog(ItemChangedType.Update);
+                }
+                else if (EditMode == EditMode.EditForm)
+                {
+                    ShowEditForm = true;
+                    ShowAddForm = false;
+                    await UpdateAsync();
+
+                }
+                else if (EditMode == EditMode.InCell)
+                {
+                    AddInCell = false;
+                    EditInCell = true;
+                    await UpdateAsync();
+
+                }
+                await ToggleLoading(false);
             }
         }
         else
         {
-            await ShowToastAsync(ToastCategory.Error, EditButtonToastNoSaveMethodContent);
+            var content = SelectedRows.Count == 0 ? EditButtonToastNotSelectContent : EditButtonToastMoreSelectContent;
+            await ShowToastAsync(content);
         }
 
-        async Task ShowToastAsync(ToastCategory category, string content)
+        async Task ShowToastAsync(string content)
         {
             var option = new ToastOption
             {
-                Category = category,
+                Category = ToastCategory.Information,
                 Title = EditButtonToastTitle,
                 Content = content
             };
@@ -449,45 +427,32 @@ public partial class Table<TItem>
     /// <param name="changedType"></param>
     protected async Task SaveAsync(EditContext context, ItemChangedType changedType)
     {
-        if (DynamicContext != null || CanSave)
+        await ToggleLoading(true);
+        if (await SaveModelAsync(context, changedType))
         {
-            await ToggleLoading(true);
-            if (await SaveModelAsync(context, changedType))
+            if (EditMode == EditMode.Popup)
             {
-                if (EditMode == EditMode.Popup)
-                {
-                    await QueryAsync();
-                }
-                else if (EditMode == EditMode.EditForm)
-                {
-                    if (ShowAddForm)
-                    {
-                        await QueryData();
-                        ShowAddForm = false;
-                    }
-                    ShowEditForm = false;
-                    StateHasChanged();
-                }
-                else if (EditMode == EditMode.InCell)
-                {
-                    SelectedRows.Clear();
-                    EditInCell = false;
-                    AddInCell = false;
-                    await QueryAsync();
-                }
+                await QueryAsync();
             }
-            await ToggleLoading(false);
-        }
-        else
-        {
-            var option = new ToastOption
+            else if (EditMode == EditMode.EditForm)
             {
-                Category = ToastCategory.Error,
-                Title = SaveButtonToastTitle,
-                Content = SaveButtonToastContent
-            };
-            await Toast.Show(option);
+                if (ShowAddForm)
+                {
+                    await QueryData();
+                    ShowAddForm = false;
+                }
+                ShowEditForm = false;
+                StateHasChanged();
+            }
+            else if (EditMode == EditMode.InCell)
+            {
+                SelectedRows.Clear();
+                EditInCell = false;
+                AddInCell = false;
+                await QueryAsync();
+            }
         }
+        await ToggleLoading(false);
     }
 
     /// <summary>
@@ -676,11 +641,8 @@ public partial class Table<TItem>
             }
             else
             {
-                if (CanDelete)
-                {
-                    await InternalOnDeleteAsync();
-                    await QueryAsync();
-                }
+                await InternalOnDeleteAsync();
+                await QueryAsync();
             }
         }
     }

@@ -261,10 +261,6 @@ public partial class Table<TItem>
         }
     }
 
-    private bool CanDelete => OnDeleteAsync != null || DataService != null || InjectDataService != null;
-
-    private bool CanSave => OnSaveAsync != null || DataService != null || InjectDataService != null;
-
     /// <summary>
     /// 单选模式下选择行时调用此方法
     /// </summary>
