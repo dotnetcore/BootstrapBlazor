@@ -1,4 +1,4 @@
 ﻿@namespace BootstrapBlazor.Components
-@inherits BootstrapComponentBase
+@inherits ValidateBase<string>
 
-<div @attributes="@AdditionalAttributes" @ref="MarkdownElement" />
+<div @attributes="@AdditionalAttributes" id="@Id" class="@GetClassString()" @ref="MarkdownElement" />

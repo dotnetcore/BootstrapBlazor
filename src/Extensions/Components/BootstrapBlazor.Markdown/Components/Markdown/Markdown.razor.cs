@@ -54,30 +54,6 @@ public partial class Markdown : IAsyncDisposable
     [Parameter]
     public string? Placeholder { get; set; }
 
-    private string? _value;
-    /// <summary>
-    /// 获得/设置 组件值
-    /// </summary>
-    [Parameter]
-    public string? Value
-    {
-        get => _value;
-        set
-        {
-            if (_value != value)
-            {
-                _value = value;
-                IsRender = true;
-            }
-        }
-    }
-
-    /// <summary>
-    /// 获得/设置 组件值回调
-    /// </summary>
-    [Parameter]
-    public Func<string?, Task>? OnValueChanged { get; set; }
-
     /// <summary>
     /// 获得/设置 组件 Html 代码
     /// </summary>
@@ -88,7 +64,7 @@ public partial class Markdown : IAsyncDisposable
     /// 获得/设置 组件 Html 代码回调
     /// </summary>
     [Parameter]
-    public Func<string?, Task>? OnHtmlChanged { get; set; }
+    public EventCallback<string> HtmlChanged { get; set; }
 
     /// <summary>
     /// 获取/设置 组件是否为浏览器模式
@@ -108,12 +84,17 @@ public partial class Markdown : IAsyncDisposable
     [Parameter]
     public bool EnableHighlight { get; set; } = false;
 
-    private readonly MarkdownOption _markdownOption = new();
-
-    private bool IsRender { get; set; }
+    private MarkdownOption Option { get; } = new();
 
     [NotNull]
     private JSModule<Markdown>? Module { get; set; }
+
+    /// <summary>
+    /// 获得 组件样式
+    /// </summary>
+    protected string? GetClassString() => CssBuilder.Default()
+        .AddClass(CssClass).AddClass(ValidCss)
+        .Build();
 
     /// <summary>
     /// OnInitialized 方法
@@ -122,16 +103,16 @@ public partial class Markdown : IAsyncDisposable
     {
         base.OnInitialized();
 
-        _markdownOption.PreviewStyle = PreviewStyle.ToDescriptionString();
-        _markdownOption.InitialEditType = InitialEditType.ToDescriptionString();
-        _markdownOption.Language = Language;
-        _markdownOption.Placeholder = Placeholder;
-        _markdownOption.Height = $"{Height}px";
-        _markdownOption.MinHeight = $"{MinHeight}px";
-        _markdownOption.InitialValue = Value ?? "";
-        _markdownOption.Viewer = IsViewer;
-        _markdownOption.Theme = IsDark ? "dark" : "light";
-        _markdownOption.EnableHighlight = EnableHighlight;
+        Option.PreviewStyle = PreviewStyle.ToDescriptionString();
+        Option.InitialEditType = InitialEditType.ToDescriptionString();
+        Option.Language = Language;
+        Option.Placeholder = Placeholder;
+        Option.Height = $"{Height}px";
+        Option.MinHeight = $"{MinHeight}px";
+        Option.InitialValue = Value ?? "";
+        Option.Viewer = IsViewer;
+        Option.Theme = IsDark ? "dark" : "light";
+        Option.EnableHighlight = EnableHighlight;
     }
 
     /// <summary>
@@ -145,14 +126,8 @@ public partial class Markdown : IAsyncDisposable
 
         if (firstRender)
         {
-            IsRender = false;
             Module = await JSRuntime.LoadModule<Markdown>("./_content/BootstrapBlazor.Markdown/js/bootstrap.blazor.markdown.min.js", this, false);
-            await Module.InvokeVoidAsync("bb_markdown", MarkdownElement, _markdownOption, nameof(Update));
-        }
-
-        if (IsRender)
-        {
-            await Module.InvokeVoidAsync("bb_markdown", MarkdownElement, Value ?? "", "setMarkdown");
+            await Module.InvokeVoidAsync("bb_markdown", MarkdownElement, Option, nameof(Update));
         }
     }
 
@@ -166,26 +141,33 @@ public partial class Markdown : IAsyncDisposable
     {
         if (vals.Length == 2)
         {
-            var hasChanged = !EqualityComparer<string>.Default.Equals(vals[0], Value);
-            if (hasChanged)
-            {
-                _value = vals[0];
-                if (OnValueChanged != null)
-                {
-                    await OnValueChanged(Value);
-                }
-            }
+            CurrentValueAsString = vals[0];
 
-            hasChanged = !EqualityComparer<string>.Default.Equals(vals[1], Html);
+            var hasChanged = !EqualityComparer<string>.Default.Equals(vals[1], Html);
             if (hasChanged)
             {
                 Html = vals[1];
-                if (OnHtmlChanged != null)
+                if (HtmlChanged.HasDelegate)
                 {
-                    await OnHtmlChanged(Html);
+                    await HtmlChanged.InvokeAsync(Html);
                 }
             }
+
+            if (ValidateForm != null)
+            {
+                StateHasChanged();
+            }
         }
+    }
+
+    /// <summary>
+    /// 设置 Value 方法
+    /// </summary>
+    /// <returns></returns>
+    public new ValueTask SetValue(string value)
+    {
+        CurrentValueAsString = value;
+        return Module.InvokeVoidAsync("bb_markdown", MarkdownElement, Value ?? "", "setMarkdown");
     }
 
     /// <summary>
@@ -200,7 +182,7 @@ public partial class Markdown : IAsyncDisposable
     /// Dispose 方法
     /// </summary>
     /// <param name="disposing"></param>
-    protected virtual async ValueTask DisposeAsync(bool disposing)
+    protected override async ValueTask DisposeAsyncCore(bool disposing)
     {
         if (disposing)
         {
@@ -209,14 +191,5 @@ public partial class Markdown : IAsyncDisposable
                 await Module.DisposeAsync();
             }
         }
-    }
-
-    /// <summary>
-    /// Dispose 方法
-    /// </summary>
-    public async ValueTask DisposeAsync()
-    {
-        await DisposeAsync(true);
-        GC.SuppressFinalize(this);
     }
 }

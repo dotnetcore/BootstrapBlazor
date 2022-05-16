@@ -33,12 +33,20 @@ console.log('test');
     [NotNull]
     private Markdown? Markdown { get; set; }
 
+    [NotNull]
+    private Markdown? MarkdownSetValue { get; set; }
+
+    [NotNull]
+    private Foo? Model { get; set; }
+
     /// <summary>
     /// OnInitializedAsync 方法
     /// </summary>
     /// <returns></returns>
     protected override async Task OnInitializedAsync()
     {
+        Model = new() { Name = "Name", Education = EnumEducation.Primary, DateTime = DateTime.Now };
+
         Language = CultureInfo.CurrentUICulture.Name;
         MarkdownString = $"### {Localizer["MarkdownString"]}";
         Version = await VersionManager.GetVersionAsync("bootstrapblazor.markdown");
@@ -48,20 +56,7 @@ console.log('test');
     {
         await Task.Delay(600);
         AsyncValue = $"### {DateTime.Now}";
-    }
-
-    private Task OnValueChanged(string value)
-    {
-        MarkdownString = value;
-        StateHasChanged();
-        return Task.CompletedTask;
-    }
-
-    private Task OnHtmlChanged(string value)
-    {
-        HtmlString = value;
-        StateHasChanged();
-        return Task.CompletedTask;
+        await MarkdownSetValue.SetValue(AsyncValue);
     }
 
     private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]

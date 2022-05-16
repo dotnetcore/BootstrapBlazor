@@ -11,3 +11,11 @@
     border-radius: unset;
     white-space: pre-wrap;
 }
+
+.is-invalid > .toastui-editor-defaultUI {
+    border: 1px solid var(--bs-danger);
+}
+
+.is-valid > .toastui-editor-defaultUI {
+    border: 1px solid var(--bs-success);
+}
