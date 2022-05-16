@@ -2073,6 +2073,8 @@
   "BootstrapBlazor.Shared.Samples.Cameras": {
     "Title": "Camera",
     "SubTitle": "This component takes pictures by calling the camera",
+    "Attention": "Pay special attention to:",
+    "Li1": "The site wants to enable <code>https</code>, which is required by browser vendors",
     "BasicUsageTitle": "Basic usage",
     "BasicUsageIntro": "Take pictures through the camera",
     "BasicUsageStep": "Steps:",

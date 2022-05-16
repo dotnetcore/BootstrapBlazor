@@ -2077,6 +2077,8 @@
   "BootstrapBlazor.Shared.Samples.Cameras": {
     "Title": "Camera 摄像头拍照组件",
     "SubTitle": "本组件通过调用摄像头进行拍照操作",
+    "Attention": "特别注意：",
+    "Li1": "站点要启用 <code>https</code>，这是浏览器厂商要求的",
     "BasicUsageTitle": "基本用法",
     "BasicUsageIntro": "通过摄像头进行拍照",
     "BasicUsageStep": "操作步骤：",

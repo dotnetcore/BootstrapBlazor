@@ -1,9 +1,16 @@
 ﻿@page "/cameras"
-@inject IStringLocalizer<Cameras> Localizer        
+@inject IStringLocalizer<Cameras> Localizer
 
 <h3>@Localizer["Title"]</h3>
 
 <h4>@Localizer["SubTitle"]</h4>
+
+<p><b>@Localizer["Attention"]</b></p>
+<ul class="ul-demo">
+    <li>@((MarkupString)Localizer["Li1"].Value )</li>
+    <li>@((MarkupString)Localizer["Li1"].Value )</li>
+    <li>@((MarkupString)Localizer["Li1"].Value )</li>
+</ul>
 
 <DemoBlock Title="@Localizer["BasicUsageTitle"]" Introduction="@Localizer["BasicUsageIntro"]" Name="Normal">
     <p>@Localizer["BasicUsageStep"]</p>
