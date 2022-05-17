@@ -1,23 +1,23 @@
 ﻿@page "/tables"
 
-<h3>Table 表格</h3>
+<h3>@TablesLocalizer["TableTitle"]</h3>
 
-<h4>用于展示多条结构类似的数据，可对数据进行排序、筛选、对比或其他自定义操作。</h4>
+<h4>@TablesLocalizer["H4"]</h4>
 
-<p><code>Table</code> 组件已经支持移动端适配，当屏幕小于 <code>RenderModeResponsiveWidth</code> 设定值时，组件渲染成卡片式方便查看数据，其默认值为 <code>768</code></p>
+<p>@((MarkupString)TablesLocalizer["TableP1"].Value)</p>
 
-<p><code>Table</code> 组件有一个 <code>RenderMode</code> 属性，其默认值为 <code>Auto</code> 其他值定义如下</p>
+<p>@((MarkupString)TablesLocalizer["TableP2"].Value)</p>
 
 <ul class="ul-demo">
-    <li><code>Auto</code>: 当屏幕小于 768px 时使用 <code>CardView</code> 模式，否则使用 <code>Table</code> 模式</li>
-    <li><code>Table</code>: 表格渲染模式，使用 <code>table</code> 元素进行数据渲染，适合宽屏幕下查看数据</li>
-    <li><code>CardView</code>：卡片式渲染模式，使用 <code>div</code> 元素进行数据渲染，适合窄屏幕下查看数据</li>
+    <li>@((MarkupString)TablesLocalizer["TableLi1"].Value)</li>
+    <li>@((MarkupString)TablesLocalizer["TableLi2"].Value)</li>
+    <li>@((MarkupString)TablesLocalizer["TableLi3"].Value)</li>
 </ul>
 
-<p><code>Table</code> 组件有一个 <code>UseComponentWidth</code> 属性，其默认值为 <code>false</code>，表示使用 <code>window</code> 宽度来进行判断，当设置值为 <code>true</code> 时，表示使用组件自身宽度进行判断</p>
+<p>@((MarkupString)TablesLocalizer["TableP3"].Value)</p>
 
-<DemoBlock Title="基础表格" Introduction="基础的表格展示用法。" Name="Normal">
-    <div>点击按钮时更新数据源 <code>Items</code> 组件 <code>Table</code> 显示数据自动更新</div>
+<DemoBlock Title="@TablesLocalizer["NormalTitle"]" Introduction="@TablesLocalizer["NormalIntro"]" Name="Normal">
+    <div>@((MarkupString)TablesLocalizer["NormalDiv"].Value)</div>
     <Button Icon="fa fa-refresh" Text="@RefreshText" OnClick="OnClick" class="my-2" />
     <Table TItem="Foo" Items="@Items.Take(3)">
         <TableColumns>
@@ -28,7 +28,7 @@
     </Table>
 </DemoBlock>
 
-<DemoBlock Title="带斑马纹表格" Introduction="使用带斑马纹的表格，可以更容易区分出不同行的数据。设置 <code>IsStriped=true</code> 即可" Name="Striped">
+<DemoBlock Title="@TablesLocalizer["StripedTitle"]" Introduction="@TablesLocalizer["StripedIntro"]" Name="Striped">
     <Table TItem="Foo" Items="@Items.Take(3)" IsStriped="true">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" />
@@ -38,7 +38,7 @@
     </Table>
 </DemoBlock>
 
-<DemoBlock Title="带边框表格" Introduction="通过设置 <code>IsBordered</code> 属性，增加表格表框效果" Name="Bordered">
+<DemoBlock Title="@TablesLocalizer["BorderedTitle"]" Introduction="@TablesLocalizer["BorderedIntro"]" Name="Bordered">
     <Table TItem="Foo" Items="@Items.Take(3)" IsBordered="true">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" />
@@ -48,8 +48,8 @@
     </Table>
 </DemoBlock>
 
-<DemoBlock Title="紧凑型表格" Introduction="通过设置 <code>TableSize</code> 属性，设定表格内间隙变小适合大数据展示" Name="Size">
-    <p><code>TableSize</code> 为表格大小枚举类型，默认值为 <code>Normal</code>，紧奏型值为 <code>Compact</code></p>
+<DemoBlock Title="@TablesLocalizer["SizeTitle"]" Introduction="@TablesLocalizer["SizeIntro"]" Name="Size">
+    <p>@((MarkupString)TablesLocalizer["SizeP"].Value)</p>
     <Table TItem="Foo" Items="@Items.Take(3)" IsBordered="true" IsStriped="true" TableSize="TableSize.Compact">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" Filterable="true" Sortable="true" />
@@ -59,9 +59,9 @@
     </Table>
 </DemoBlock>
 
-<DemoBlock Title="表头样式" Introduction="通过设置 <code>HeaderStyle</code> 属性，" Name="HeaderStyle">
-    <p><code>HeaderStyle</code> 为表格表头样式，默认值为 <code>None</code></p>
-    <div class="code-label"><code>Light</code> 模式</div>
+<DemoBlock Title="@TablesLocalizer["HeaderStyleTitle"]" Introduction="@TablesLocalizer["HeaderStyleIntro"]" Name="HeaderStyle">
+    <p>@((MarkupString)TablesLocalizer["HeaderStyleP"].Value)</p>
+    <div class="code-label"><code>Light</code> @TablesLocalizer["HeaderStyleMode"]</div>
     <Table TItem="Foo" Items="@Items.Take(3)" HeaderStyle="TableHeaderStyle.Light" IsBordered="true">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" />
@@ -69,7 +69,7 @@
             <TableColumn @bind-Field="@context.Address" />
         </TableColumns>
     </Table>
-    <div class="code-label mt-3"><code>Dark</code> 模式</div>
+    <div class="code-label mt-3"><code>Dark</code> @TablesLocalizer["HeaderStyleMode"]</div>
     <Table TItem="Foo" Items="@Items.Take(3)" HeaderStyle="TableHeaderStyle.Dark" IsBordered="true">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" />
@@ -83,4 +83,4 @@
 
 <MethodTable Items="GetMethods()"></MethodTable>
 
-<AttributeTable Items="GetTableColumnAttributes()" Title="TableColumn 属性" />
+<AttributeTable Items="GetTableColumnAttributes()" Title="@TablesLocalizer["AttributeTitle"]" />

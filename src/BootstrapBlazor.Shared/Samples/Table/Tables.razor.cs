@@ -45,12 +45,12 @@ public partial class Tables
         Items = Foo.GenerateFoo(Localizer);
     }
 
-    private static IEnumerable<AttributeItem> GetTableColumnAttributes() => new AttributeItem[]
+    private IEnumerable<AttributeItem> GetTableColumnAttributes() => new AttributeItem[]
     {
         new()
         {
             Name = "TextWrap",
-            Description = "是否允许换行",
+            Description = TablesLocalizer["TextWrapAttr"],
             Type = "boolean",
             ValueList = "true|false",
             DefaultValue = "false"
@@ -58,7 +58,7 @@ public partial class Tables
         new()
         {
             Name = "AutoGenerateColumns",
-            Description = "是否自动生成列",
+            Description = TablesLocalizer["AutoGenerateColumnsAttr"],
             Type = "boolean",
             ValueList = "true|false",
             DefaultValue = "false"
@@ -66,7 +66,7 @@ public partial class Tables
         new()
         {
             Name = "CssClass",
-            Description = "自定义单元格样式",
+            Description = TablesLocalizer["CssClassAttr"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
@@ -74,7 +74,7 @@ public partial class Tables
         new()
         {
             Name = "Editable",
-            Description = "是否生成编辑组件",
+            Description = TablesLocalizer["EditableAttr"],
             Type = "boolean",
             ValueList = "true|false",
             DefaultValue = "true"
@@ -82,7 +82,7 @@ public partial class Tables
         new()
         {
             Name = "EditTemplate",
-            Description = "模板",
+            Description = TablesLocalizer["EditTemplateColumnAttr"],
             Type = "RenderFragment<object>",
             ValueList = " — ",
             DefaultValue = " — "
@@ -90,7 +90,7 @@ public partial class Tables
         new()
         {
             Name = "Filterable",
-            Description = "是否可过滤数据",
+            Description = TablesLocalizer["FilterableAttr"],
             Type = "boolean",
             ValueList = "true|false",
             DefaultValue = "false"
@@ -98,7 +98,7 @@ public partial class Tables
         new()
         {
             Name = "FilterTemplate",
-            Description = "过滤模板",
+            Description = TablesLocalizer["FilterTemplateAttr"],
             Type = "RenderFragment?",
             ValueList = " — ",
             DefaultValue = " — "
@@ -106,7 +106,7 @@ public partial class Tables
         new()
         {
             Name = "Filter",
-            Description = "列过滤器",
+            Description = TablesLocalizer["FilterAttr"],
             Type = "IFilter?",
             ValueList = " — ",
             DefaultValue = " — "
@@ -114,7 +114,7 @@ public partial class Tables
         new()
         {
             Name = "HeaderTemplate",
-            Description = "表头模板",
+            Description = TablesLocalizer["HeaderTemplateAttr"],
             Type = "RenderFragment<ITableColumn>?",
             ValueList = " — ",
             DefaultValue = " — "
@@ -122,7 +122,7 @@ public partial class Tables
         new()
         {
             Name = nameof(IEditorItem.IsReadonlyWhenAdd),
-            Description = "新建时此列只读",
+            Description = TablesLocalizer["IsReadonlyWhenAddAttr"],
             Type = "boolean",
             ValueList = "true|false",
             DefaultValue = "false"
@@ -130,7 +130,7 @@ public partial class Tables
         new()
         {
             Name = nameof(IEditorItem.IsReadonlyWhenEdit),
-            Description = "编辑时此列只读",
+            Description = TablesLocalizer["IsReadonlyWhenEditAttr"],
             Type = "boolean",
             ValueList = "true|false",
             DefaultValue = "false"
@@ -138,7 +138,7 @@ public partial class Tables
         new()
         {
             Name = nameof(IEditorItem.Lookup),
-            Description = "字典数据源",
+            Description = TablesLocalizer["LookupAttr"],
             Type = "IEnumerable<SelectedItem>",
             ValueList = " — ",
             DefaultValue = " — "
@@ -146,7 +146,7 @@ public partial class Tables
         new()
         {
             Name = nameof(IEditorItem.LookupStringComparison),
-            Description = "字典数据源比较规则",
+            Description = TablesLocalizer["LookupStringComparisonAttr"],
             Type = "StringComparison",
             ValueList = " — ",
             DefaultValue = "OrdinalIgnoreCase"
@@ -154,7 +154,7 @@ public partial class Tables
         new()
         {
             Name = nameof(IEditorItem.LookUpServiceKey),
-            Description = "LookupService 服务获取 Lookup 数据集合键值",
+            Description = TablesLocalizer["LookUpServiceKeyAttr"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
@@ -162,7 +162,7 @@ public partial class Tables
         new()
         {
             Name = "Readonly",
-            Description = "编辑时是否只读模式",
+            Description = TablesLocalizer["ReadonlyAttr"],
             Type = "boolean",
             ValueList = "true|false",
             DefaultValue = "false"
@@ -170,7 +170,7 @@ public partial class Tables
         new()
         {
             Name = "SearchTemplate",
-            Description = "模板",
+            Description = TablesLocalizer["SearchTemplateColumnAttr"],
             Type = "RenderFragment<object>",
             ValueList = " — ",
             DefaultValue = " — "
@@ -178,7 +178,7 @@ public partial class Tables
         new()
         {
             Name = "ShowTips",
-            Description = "显示单元格 Tooltips",
+            Description = TablesLocalizer["ShowTipsAttr"],
             Type = "boolean",
             ValueList = "true|false",
             DefaultValue = "false"
@@ -186,7 +186,7 @@ public partial class Tables
         new()
         {
             Name = "Searchable",
-            Description = "是否参与搜索",
+            Description = TablesLocalizer["SearchableAttr"],
             Type = "boolean",
             ValueList = "true|false",
             DefaultValue = "false"
@@ -194,7 +194,7 @@ public partial class Tables
         new()
         {
             Name = "Sortable",
-            Description = "是否排序",
+            Description = TablesLocalizer["SortableAttr"],
             Type = "boolean",
             ValueList = "true|false",
             DefaultValue = "false"
@@ -202,7 +202,7 @@ public partial class Tables
         new()
         {
             Name = "DefaultSort",
-            Description = "是否为默认排序列",
+            Description = TablesLocalizer["DefaultSortAttr"],
             Type = "boolean",
             ValueList = "true|false",
             DefaultValue = "false"
@@ -210,7 +210,7 @@ public partial class Tables
         new()
         {
             Name = "DefaultSortOrder",
-            Description = "默认排序规则",
+            Description = TablesLocalizer["DefaultSortOrderAttr"],
             Type = "SortOrder",
             ValueList = "Unset|Asc|Desc",
             DefaultValue = "Unset"
@@ -218,7 +218,7 @@ public partial class Tables
         new()
         {
             Name = "Text",
-            Description = "表头显示文字",
+            Description = TablesLocalizer["TextAttr"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
@@ -226,7 +226,7 @@ public partial class Tables
         new()
         {
             Name = "TextEllipsis",
-            Description = "是否文本超出时省略",
+            Description = TablesLocalizer["TextEllipsisAttr"],
             Type = "boolean",
             ValueList = "true|false",
             DefaultValue = "false"
@@ -234,7 +234,7 @@ public partial class Tables
         new()
         {
             Name = "Template",
-            Description = "模板",
+            Description = TablesLocalizer["TemplateAttr"],
             Type = "RenderFragment<TableColumnContext<object, TItem>>",
             ValueList = " — ",
             DefaultValue = " — "
@@ -242,7 +242,7 @@ public partial class Tables
         new()
         {
             Name = "Visible",
-            Description = "是否显示此列",
+            Description = TablesLocalizer["VisibleAttr"],
             Type = "boolean",
             ValueList = "true|false",
             DefaultValue = "true"
@@ -250,7 +250,7 @@ public partial class Tables
         new()
         {
             Name = "Width",
-            Description = "列宽度（像素px）",
+            Description = TablesLocalizer["WidthAttr"],
             Type = "int",
             ValueList = " — ",
             DefaultValue = " — "
@@ -258,7 +258,7 @@ public partial class Tables
         new()
         {
             Name = "Fixed",
-            Description = "是否固定本列",
+            Description = TablesLocalizer["FixedAttr"],
             Type = "boolean",
             ValueList = "true|false",
             DefaultValue = "false"
@@ -266,7 +266,7 @@ public partial class Tables
         new()
         {
             Name = nameof(TableColumn<Foo, string>.GroupName),
-            Description = "当前属性分组",
+            Description = TablesLocalizer["GroupNameAttr"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
@@ -274,7 +274,7 @@ public partial class Tables
         new()
         {
             Name = nameof(TableColumn<Foo, string>.GroupOrder),
-            Description = "当前属性分组顺序",
+            Description = TablesLocalizer["GroupOrderAttr"],
             Type = "int",
             ValueList = " — ",
             DefaultValue = " — "
@@ -282,7 +282,7 @@ public partial class Tables
         new()
         {
             Name = "ShownWithBreakPoint",
-            Description = "显示节点阈值",
+            Description = TablesLocalizer["ShownWithBreakPointAttr"],
             Type = "BreakPoint",
             ValueList = "None|ExtraSmall|...",
             DefaultValue = "None"
@@ -290,7 +290,7 @@ public partial class Tables
         new()
         {
             Name = "FormatString",
-            Description = "格式化字符串",
+            Description = TablesLocalizer["FormatStringAttr"],
             Type = "string?",
             ValueList = " — ",
             DefaultValue = " — "
@@ -298,7 +298,7 @@ public partial class Tables
         new()
         {
             Name = "Formatter",
-            Description = "列格式化回调委托",
+            Description = TablesLocalizer["FormatterAttr"],
             Type = "Func<object?, Task<string>>?",
             ValueList = " — ",
             DefaultValue = " — "
@@ -306,7 +306,7 @@ public partial class Tables
         new()
         {
             Name = "Align",
-            Description = "文字对齐方式",
+            Description = TablesLocalizer["AlignAttr"],
             Type = "Alignment",
             ValueList = "None|Left|Center|Right",
             DefaultValue = "None"
@@ -314,7 +314,7 @@ public partial class Tables
         new()
         {
             Name = "Order",
-            Description = "顺序号",
+            Description = TablesLocalizer["OrderAttr"],
             Type = "int",
             ValueList = " - ",
             DefaultValue = " - "
@@ -322,20 +322,20 @@ public partial class Tables
         new()
         {
             Name = "OnCellRender",
-            Description = "单元格回调方法",
+            Description = TablesLocalizer["OnCellRenderAttr"],
             Type = "Action<TableCellArgs>?",
             ValueList = " - ",
             DefaultValue = " - "
         },
     };
 
-    private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
         // TODO: 移动到数据库中
         new()
         {
             Name = "TableSize",
-            Description = "表格大小",
+            Description = TablesLocalizer["TableSizeAttr"],
             Type = "TableSize",
             ValueList = "Normal|Compact",
             DefaultValue = "Normal"
@@ -343,7 +343,7 @@ public partial class Tables
         new()
         {
             Name = "HeaderStyle",
-            Description = "表格 Header 样式",
+            Description = TablesLocalizer["HeaderStyleAttr"],
             Type = "TableHeaderStyle",
             ValueList = "None|Light|Dark",
             DefaultValue = "None"
@@ -351,7 +351,7 @@ public partial class Tables
         new()
         {
             Name = "Height",
-            Description = "固定表头",
+            Description = TablesLocalizer["HeightAttr"],
             Type = "int",
             ValueList = " — ",
             DefaultValue = " — "
@@ -359,7 +359,7 @@ public partial class Tables
         new()
         {
             Name = "PageItems",
-            Description = "IsPagination=true 设置每页显示数据数量",
+            Description = TablesLocalizer["PageItemsAttr"],
             Type = "int",
             ValueList = " — ",
             DefaultValue = " — "
@@ -367,7 +367,7 @@ public partial class Tables
         new()
         {
             Name = "AutoRefreshInterval",
-            Description = "自动刷新时间间隔",
+            Description = TablesLocalizer["AutoRefreshIntervalAttr"],
             Type = "int",
             ValueList = " — ",
             DefaultValue = "2000"
@@ -375,7 +375,7 @@ public partial class Tables
         new()
         {
             Name = "ExtendButtonColumnWidth",
-            Description = "行操作按钮列宽度",
+            Description = TablesLocalizer["ExtendButtonColumnWidthAttr"],
             Type = "int",
             ValueList = " — ",
             DefaultValue = "130"
@@ -383,7 +383,7 @@ public partial class Tables
         new()
         {
             Name = "RenderModeResponsiveWidth",
-            Description = "组件布局模式自动切换阈值",
+            Description = TablesLocalizer["RenderModeResponsiveWidthAttr"],
             Type = "int",
             ValueList = " — ",
             DefaultValue = "768"
@@ -391,7 +391,7 @@ public partial class Tables
         new()
         {
             Name = "IndentSize",
-            Description = "树状数据缩进宽度（像素px）",
+            Description = TablesLocalizer["IndentSizeAttr"],
             Type = "int",
             ValueList = " — ",
             DefaultValue = "16"
@@ -399,7 +399,7 @@ public partial class Tables
         new()
         {
             Name = "Items",
-            Description = "数据集合",
+            Description = TablesLocalizer["ItemsAttr"],
             Type = "IEnumerable<TItem>",
             ValueList = " — ",
             DefaultValue = " — "
@@ -407,7 +407,7 @@ public partial class Tables
         new()
         {
             Name = "PageItemsSource",
-            Description = "IsPagination=true 设置每页显示数据数量的外部数据源",
+            Description = TablesLocalizer["PageItemsSourceAttr"],
             Type = "IEnumerable<int>",
             ValueList = " — ",
             DefaultValue = " — "
@@ -415,7 +415,7 @@ public partial class Tables
         new()
         {
             Name = "EditMode",
-            Description = "设置编辑行数据模式",
+            Description = TablesLocalizer["EditModeAttr"],
             Type = "EditMode",
             ValueList = "Popup|Inline|InCell",
             DefaultValue = "Popup"
@@ -423,7 +423,7 @@ public partial class Tables
         new()
         {
             Name = "MultiHeaderTemplate",
-            Description = "表头分组模板",
+            Description = TablesLocalizer["MultiHeaderTemplateAttr"],
             Type = "RenderFragment",
             ValueList = " — ",
             DefaultValue = " — "
@@ -431,7 +431,7 @@ public partial class Tables
         new()
         {
             Name = "TableFooter",
-            Description = "Table Footer 模板",
+            Description = TablesLocalizer["TableFooterAttr"],
             Type = "RenderFragment",
             ValueList = " — ",
             DefaultValue = " — "
@@ -439,7 +439,7 @@ public partial class Tables
         new()
         {
             Name = "TableToolbarTemplate",
-            Description = "自定义按钮模板",
+            Description = TablesLocalizer["TableToolbarTemplateAttr"],
             Type = "RenderFragment",
             ValueList = " — ",
             DefaultValue = " — "
@@ -447,7 +447,7 @@ public partial class Tables
         new()
         {
             Name = "EditTemplate",
-            Description = "编辑弹窗模板",
+            Description = TablesLocalizer["EditTemplateAttr"],
             Type = "RenderFragment<TItem?>",
             ValueList = " — ",
             DefaultValue = " — "
@@ -455,7 +455,7 @@ public partial class Tables
         new()
         {
             Name = "ShowAdvancedSearch",
-            Description = "是否显示高级搜索",
+            Description = TablesLocalizer["ShowAdvancedSearchAttr"],
             Type = "boolean",
             ValueList = "true / false",
             DefaultValue = "true"
@@ -463,7 +463,7 @@ public partial class Tables
         new()
         {
             Name = "SearchTemplate",
-            Description = "高级搜索模板",
+            Description = TablesLocalizer["SearchTemplateAttr"],
             Type = "RenderFragment<TItem>",
             ValueList = " — ",
             DefaultValue = " — "
@@ -471,7 +471,7 @@ public partial class Tables
         new()
         {
             Name = "BeforeRowButtonTemplate",
-            Description = "Table 行按钮模板 放置到按钮前",
+            Description = TablesLocalizer["BeforeRowButtonTemplateAttr"],
             Type = "RenderFragment<TItem>",
             ValueList = " — ",
             DefaultValue = " — "
@@ -479,7 +479,7 @@ public partial class Tables
         new()
         {
             Name = "RowButtonTemplate",
-            Description = "Table 行按钮模板 默认放置到按钮后",
+            Description = TablesLocalizer["RowButtonTemplateAttr"],
             Type = "RenderFragment<TItem>",
             ValueList = " — ",
             DefaultValue = " — "
@@ -487,7 +487,7 @@ public partial class Tables
         new()
         {
             Name = "DetailRowTemplate",
-            Description = "Table 明细行模板",
+            Description = TablesLocalizer["DetailRowTemplateAttr"],
             Type = "RenderFragment<TItem>",
             ValueList = " — ",
             DefaultValue = " — "
@@ -495,7 +495,7 @@ public partial class Tables
         new()
         {
             Name = "IsBordered",
-            Description = "边框",
+            Description = TablesLocalizer["IsBorderedAttr"],
             Type = "boolean",
             ValueList = "true / false",
             DefaultValue = " — "
@@ -503,7 +503,7 @@ public partial class Tables
         new()
         {
             Name = "IsPagination",
-            Description = "显示分页",
+            Description = TablesLocalizer["IsPaginationAttr"],
             Type = "boolean",
             ValueList = "true / false",
             DefaultValue = " — "
@@ -511,7 +511,7 @@ public partial class Tables
         new()
         {
             Name = "IsStriped",
-            Description = "斑马纹",
+            Description = TablesLocalizer["IsStripedAttr"],
             Type = "boolean",
             ValueList = "true / false",
             DefaultValue = " — "
@@ -519,7 +519,7 @@ public partial class Tables
         new()
         {
             Name = "IsRendered",
-            Description = "组件是否渲染完毕",
+            Description = TablesLocalizer["IsRenderedAttr"],
             Type = "boolean",
             ValueList = "true / false",
             DefaultValue = "false"
@@ -527,7 +527,7 @@ public partial class Tables
         new()
         {
             Name = "IsMultipleSelect",
-            Description = "是否为多选模式，为 true 时第一列自动为复选框列",
+            Description = TablesLocalizer["IsMultipleSelectAttr"],
             Type = "boolean",
             ValueList = "true / false",
             DefaultValue = "false"
@@ -535,7 +535,7 @@ public partial class Tables
         new()
         {
             Name = "IsAutoRefresh",
-            Description = "是否自动刷新表格",
+            Description = TablesLocalizer["IsAutoRefreshAttr"],
             Type = "boolean",
             ValueList = "true / false",
             DefaultValue = "false"
@@ -543,7 +543,7 @@ public partial class Tables
         new()
         {
             Name = "IsTree",
-            Description = "是否为树形数据",
+            Description = TablesLocalizer["IsTreeAttr"],
             Type = "boolean",
             ValueList = "true / false",
             DefaultValue = "false"
@@ -551,7 +551,7 @@ public partial class Tables
         new()
         {
             Name = "IsDetails",
-            Description = "是否为明细行表格，未设置时使用 DetailRowTemplate 进行逻辑判断",
+            Description = TablesLocalizer["IsDetailsAttr"],
             Type = "boolean",
             ValueList = "true / false / null",
             DefaultValue = "null"
@@ -559,7 +559,7 @@ public partial class Tables
         new()
         {
             Name = nameof(Table<Foo>.IsHideFooterWhenNoData),
-            Description = "无数据时是否显示 Footer",
+            Description = TablesLocalizer["IsHideFooterWhenNoDataAttr"],
             Type = "boolean",
             ValueList = "true / false",
             DefaultValue = "false"
@@ -567,7 +567,7 @@ public partial class Tables
         new()
         {
             Name = "ClickToSelect",
-            Description = "点击行即选中本行",
+            Description = TablesLocalizer["ClickToSelectAttr"],
             Type = "boolean",
             ValueList = "true|false",
             DefaultValue = "false"
@@ -575,7 +575,7 @@ public partial class Tables
         new()
         {
             Name = "ShowCheckboxText",
-            Description = "显示文字的选择列",
+            Description = TablesLocalizer["ShowCheckboxTextAttr"],
             Type = "boolean",
             ValueList = "true / false",
             DefaultValue = " — "
@@ -583,7 +583,7 @@ public partial class Tables
         new()
         {
             Name = "ShowFooter",
-            Description = "是否显示表脚",
+            Description = TablesLocalizer["ShowFooterAttr"],
             Type = "boolean",
             ValueList = "true / false",
             DefaultValue = "false"
@@ -591,7 +591,7 @@ public partial class Tables
         new()
         {
             Name = nameof(Table<Foo>.ShowFilterHeader),
-            Description = "是否显示过滤行",
+            Description = TablesLocalizer["ShowFilterHeaderAttr"],
             Type = "boolean",
             ValueList = "true / false",
             DefaultValue = "false"
@@ -599,7 +599,7 @@ public partial class Tables
         new()
         {
             Name = nameof(Table<Foo>.ShowMultiFilterHeader),
-            Description = "是否显示多级表头的过滤行",
+            Description = TablesLocalizer["ShowMultiFilterHeaderAttr"],
             Type = "boolean",
             ValueList = "true / false",
             DefaultValue = "false"
@@ -607,7 +607,7 @@ public partial class Tables
         new()
         {
             Name = "ShowSearch",
-            Description = "显示搜索栏",
+            Description = TablesLocalizer["ShowSearchAttr"],
             Type = "boolean",
             ValueList = "true / false",
             DefaultValue = "false"
@@ -615,7 +615,7 @@ public partial class Tables
         new()
         {
             Name = "ShowSearchText",
-            Description = "显示搜索文本框",
+            Description = TablesLocalizer["ShowSearchTextAttr"],
             Type = "boolean",
             ValueList = "true / false",
             DefaultValue = "true"
@@ -623,7 +623,7 @@ public partial class Tables
         new()
         {
             Name = "ShowSearchTextTooltip",
-            Description = "是否显示搜索框文本提示栏",
+            Description = TablesLocalizer["ShowSearchTextTooltipAttr"],
             Type = "boolean",
             ValueList = "true / false",
             DefaultValue = "true"
@@ -631,7 +631,7 @@ public partial class Tables
         new()
         {
             Name = "ShowResetButton",
-            Description = "显示清空搜索按钮",
+            Description = TablesLocalizer["ShowResetButtonAttr"],
             Type = "boolean",
             ValueList = "true / false",
             DefaultValue = "true"
@@ -639,15 +639,7 @@ public partial class Tables
         new()
         {
             Name = "ShowSearchButton",
-            Description = "显示搜索按钮",
-            Type = "boolean",
-            ValueList = "true / false",
-            DefaultValue = "true"
-        },
-        new()
-        {
-            Name = "ShowSearchButton",
-            Description = "显示搜索按钮",
+            Description = TablesLocalizer["ShowSearchButtonAttr"],
             Type = "boolean",
             ValueList = "true / false",
             DefaultValue = "true"
@@ -655,7 +647,7 @@ public partial class Tables
         new()
         {
             Name = "SearchMode",
-            Description = "搜索栏渲染方式",
+            Description = TablesLocalizer["SearchModeAttr"],
             Type = "SearchMode",
             ValueList = "Popup / Top",
             DefaultValue = "Popup"
@@ -663,7 +655,7 @@ public partial class Tables
         new()
         {
             Name = nameof(Table<Foo>.CollapsedTopSearch),
-            Description = "是否收缩顶部搜索框",
+            Description = TablesLocalizer["CollapsedTopSearchAttr"],
             Type = "boolean",
             ValueList = "true / false",
             DefaultValue = "false"
@@ -671,7 +663,7 @@ public partial class Tables
         new()
         {
             Name = "ShowToolbar",
-            Description = "显示 Toolbar",
+            Description = TablesLocalizer["ShowToolbarAttr"],
             Type = "boolean",
             ValueList = "true / false",
             DefaultValue = "false"
@@ -679,7 +671,7 @@ public partial class Tables
         new()
         {
             Name = "ShowLineNo",
-            Description = "显示 行号",
+            Description = TablesLocalizer["ShowLineNoAttr"],
             Type = "boolean",
             ValueList = "true / false",
             DefaultValue = "false"
@@ -687,7 +679,7 @@ public partial class Tables
         new()
         {
             Name = "ShowDefaultButtons",
-            Description = "显示默认按钮 增加编辑删除",
+            Description = TablesLocalizer["ShowDefaultButtonsAttr"],
             Type = "boolean",
             ValueList = "true / false",
             DefaultValue = "true"
@@ -695,7 +687,7 @@ public partial class Tables
         new()
         {
             Name = "ShowAddButton",
-            Description = "显示增加按钮",
+            Description = TablesLocalizer["ShowAddButtonAttr"],
             Type = "boolean",
             ValueList = "true / false",
             DefaultValue = "true"
@@ -703,7 +695,7 @@ public partial class Tables
         new()
         {
             Name = "ShowEditButton",
-            Description = "显示编辑按钮",
+            Description = TablesLocalizer["ShowEditButtonAttr"],
             Type = "boolean",
             ValueList = "true / false",
             DefaultValue = "true"
@@ -711,7 +703,7 @@ public partial class Tables
         new()
         {
             Name = "ShowEditButtonCallback",
-            Description = "显示行内编辑按钮，未设置时使用 ShowEditButton 值",
+            Description = TablesLocalizer["ShowEditButtonCallbackAttr"],
             Type = "boolean",
             ValueList = "true / false",
             DefaultValue = "true"
@@ -719,7 +711,7 @@ public partial class Tables
         new()
         {
             Name = "ShowDeleteButton",
-            Description = "显示删除按钮",
+            Description = TablesLocalizer["ShowDeleteButtonAttr"],
             Type = "boolean",
             ValueList = "true / false",
             DefaultValue = "true"
@@ -727,7 +719,7 @@ public partial class Tables
         new()
         {
             Name = "ShowDeleteButtonCallback",
-            Description = "显示行内删除按钮未设置时使用 ShowEditButton 值",
+            Description = TablesLocalizer["ShowDeleteButtonCallbackAttr"],
             Type = "boolean",
             ValueList = "true / false",
             DefaultValue = "true"
@@ -735,7 +727,7 @@ public partial class Tables
         new()
         {
             Name = "ShowExtendButtons",
-            Description = "显示行操作按钮",
+            Description = TablesLocalizer["ShowExtendButtonsAttr"],
             Type = "boolean",
             ValueList = "true / false",
             DefaultValue = "false"
@@ -743,7 +735,7 @@ public partial class Tables
         new()
         {
             Name = nameof(Table<Foo>.ShowExtendEditButton),
-            Description = "显示行编辑操作按钮",
+            Description = TablesLocalizer["ShowExtendEditButtonAttr"],
             Type = "boolean",
             ValueList = "true / false",
             DefaultValue = "true"
@@ -751,7 +743,7 @@ public partial class Tables
         new()
         {
             Name = nameof(Table<Foo>.ShowExtendDeleteButton),
-            Description = "显示行删除操作按钮",
+            Description = TablesLocalizer["ShowExtendDeleteButtonAttr"],
             Type = "boolean",
             ValueList = "true / false",
             DefaultValue = "true"
@@ -759,7 +751,7 @@ public partial class Tables
         new()
         {
             Name = nameof(Table<Foo>.ShowUnsetGroupItemsOnTop),
-            Description = "未分组编辑项是否在开头渲染",
+            Description = TablesLocalizer["ShowUnsetGroupItemsOnTopAttr"],
             Type = "boolean",
             ValueList = "true / false",
             DefaultValue = "false"
@@ -767,7 +759,7 @@ public partial class Tables
         new()
         {
             Name = "ShowSkeleton",
-            Description = "加载时是否显示骨架屏",
+            Description = TablesLocalizer["ShowSkeletonAttr"],
             Type = "boolean",
             ValueList = "true / false",
             DefaultValue = "false"
@@ -775,7 +767,7 @@ public partial class Tables
         new()
         {
             Name = "ShowColumnList",
-            Description = "是否显示列显示/隐藏控制按钮",
+            Description = TablesLocalizer["ShowColumnListAttr"],
             Type = "boolean",
             ValueList = "true / false",
             DefaultValue = "false"
@@ -783,7 +775,7 @@ public partial class Tables
         new()
         {
             Name = "ShowEmpty",
-            Description = "是否显示无数据提示",
+            Description = TablesLocalizer["ShowEmptyAttr"],
             Type = "boolean",
             ValueList = "true / false",
             DefaultValue = "false"
@@ -791,7 +783,7 @@ public partial class Tables
         new()
         {
             Name = "ShowToastAfterSaveOrDeleteModel",
-            Description = "保存/删除失败后是否显示 Toast 提示框",
+            Description = TablesLocalizer["ShowToastAfterSaveOrDeleteModelAttr"],
             Type = "boolean",
             ValueList = "true / false",
             DefaultValue = "true"
@@ -799,7 +791,7 @@ public partial class Tables
         new()
         {
             Name = "TreeIcon",
-            Description = "树形数据行小箭头",
+            Description = TablesLocalizer["TreeIconAttr"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = "fa-caret-right"
@@ -807,7 +799,7 @@ public partial class Tables
         new()
         {
             Name = "UseComponentWidth",
-            Description = "组件渲染模式是否使用组件宽度来判断",
+            Description = TablesLocalizer["UseComponentWidthAttr"],
             Type = "boolean",
             ValueList = "true|false",
             DefaultValue = "false"
@@ -815,7 +807,7 @@ public partial class Tables
         new()
         {
             Name = "ScrollingDialogContent",
-            Description = "编辑弹窗框是否为内部出现滚动条",
+            Description = TablesLocalizer["ScrollingDialogContentAttr"],
             Type = "boolean",
             ValueList = "true / false",
             DefaultValue = "false"
@@ -823,7 +815,7 @@ public partial class Tables
         new()
         {
             Name = "FixedExtendButtonsColumn",
-            Description = "是否固定扩展按钮列",
+            Description = TablesLocalizer["FixedExtendButtonsColumnAttr"],
             Type = "boolean",
             ValueList = "true / false",
             DefaultValue = "false"
@@ -831,7 +823,7 @@ public partial class Tables
         new()
         {
             Name = "OnQueryAsync",
-            Description = "异步查询回调方法",
+            Description = TablesLocalizer["OnQueryAsyncAttr"],
             Type = "Func<QueryPageOptions, Task<QueryData<TItem>>>",
             ValueList = " — ",
             DefaultValue = " — "
@@ -839,7 +831,7 @@ public partial class Tables
         new()
         {
             Name = "OnAddAsync",
-            Description = "新建按钮回调方法",
+            Description = TablesLocalizer["OnAddAsyncAttr"],
             Type = "Func<Task<TItem>>",
             ValueList = " — ",
             DefaultValue = " — "
@@ -847,7 +839,7 @@ public partial class Tables
         new()
         {
             Name = nameof(Table<Foo>.OnColumnCreating),
-            Description = "列创建时回调委托方法",
+            Description = TablesLocalizer["OnColumnCreatingAttr"],
             Type = "Func<List<ITableColumn>,Task>",
             ValueList = " — ",
             DefaultValue = " — "
@@ -855,7 +847,7 @@ public partial class Tables
         new()
         {
             Name = nameof(Table<Foo>.OnDoubleClickCellCallback),
-            Description = "设置单元格双击事件",
+            Description = TablesLocalizer["OnDoubleClickCellCallbackAttr"],
             Type = "Func<string, object, object?, Task>",
             ValueList = " — ",
             DefaultValue = " — "
@@ -863,7 +855,7 @@ public partial class Tables
         new()
         {
             Name = "OnDeleteAsync",
-            Description = "删除按钮异步回调方法",
+            Description = TablesLocalizer["OnDeleteAsyncAttr"],
             Type = "Func<IEnumerable<TItem>, Task<bool>>",
             ValueList = " — ",
             DefaultValue = " — "
@@ -871,7 +863,7 @@ public partial class Tables
         new()
         {
             Name = "OnEditAsync",
-            Description = "编辑按钮异步回调方法",
+            Description = TablesLocalizer["OnEditAsyncAttr"],
             Type = "Func<TItem, Task>",
             ValueList = " — ",
             DefaultValue = " — "
@@ -879,7 +871,7 @@ public partial class Tables
         new()
         {
             Name = "OnSaveAsync",
-            Description = "保存按钮异步回调方法",
+            Description = TablesLocalizer["OnSaveAsyncAttr"],
             Type = "Func<TItem, Task>",
             ValueList = " — ",
             DefaultValue = " — "
@@ -887,7 +879,7 @@ public partial class Tables
         new()
         {
             Name = "OnResetSearchAsync",
-            Description = "重置搜索按钮异步回调方法",
+            Description = TablesLocalizer["OnResetSearchAsyncAttr"],
             Type = "Func<TItem, Task>",
             ValueList = " — ",
             DefaultValue = " — "
@@ -895,7 +887,7 @@ public partial class Tables
         new()
         {
             Name = "OnClickRowCallback",
-            Description = "点击行回调委托方法",
+            Description = TablesLocalizer["OnClickRowCallbackAttr"],
             Type = "Func<TItem, Task>",
             ValueList = " — ",
             DefaultValue = " — "
@@ -903,15 +895,15 @@ public partial class Tables
         new()
         {
             Name = "OnAfterSaveAsync",
-            Description = "保存数据后异步回调方法",
+            Description = TablesLocalizer["OnAfterSaveAsyncAttr"],
             Type = "Func<TItem, Task>",
             ValueList = " — ",
             DefaultValue = " — "
         },
         new()
         {
-            Name = nameof(BootstrapBlazor.Components.Table<Foo>.OnAfterRenderCallback),
-            Description = "表格渲染完毕后回调方法",
+            Name = nameof(Table<Foo>.OnAfterRenderCallback),
+            Description = TablesLocalizer["OnAfterRenderCallbackAttr"],
             Type = "Func<Table<TItem>, Task>",
             ValueList = " — ",
             DefaultValue = " — "
@@ -919,7 +911,7 @@ public partial class Tables
         new()
         {
             Name = "OnTreeExpand",
-            Description = "树形数据节点展开式回调委托方法",
+            Description = TablesLocalizer["OnTreeExpandAttr"],
             Type = "Func<TItem, Task<IEnumerable<TItem>>>",
             ValueList = " — ",
             DefaultValue = " — "
@@ -927,7 +919,7 @@ public partial class Tables
         new()
         {
             Name = "OnDoubleClickRowCallback",
-            Description = "双击行回调委托方法",
+            Description = TablesLocalizer["OnDoubleClickRowCallbackAttr"],
             Type = "Func<TItem, Task>",
             ValueList = " — ",
             DefaultValue = " — "
@@ -935,7 +927,7 @@ public partial class Tables
         new()
         {
             Name = "SortIcon",
-            Description = "排序默认图标",
+            Description = TablesLocalizer["SortIconAttr"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = "fa fa-sort"
@@ -943,7 +935,7 @@ public partial class Tables
         new()
         {
             Name = "SortIconAsc",
-            Description = "排序升序图标",
+            Description = TablesLocalizer["SortIconAscAttr"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = "fa fa-sort-asc"
@@ -951,7 +943,7 @@ public partial class Tables
         new()
         {
             Name = "SortIconDesc",
-            Description = "排序降序图标",
+            Description = TablesLocalizer["SortIconDescAttr"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = "fa fa-sort-desc"
@@ -959,7 +951,7 @@ public partial class Tables
         new()
         {
             Name = "EditDialogSaveButtonText",
-            Description = "编辑弹窗中保存按钮文字",
+            Description = TablesLocalizer["EditDialogSaveButtonTextAttr"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
@@ -967,7 +959,7 @@ public partial class Tables
         new()
         {
             Name = nameof(Table<Foo>.EditDialogIsDraggable),
-            Description = "编辑弹窗是否可拖拽",
+            Description = TablesLocalizer["EditDialogIsDraggableAttr"],
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
@@ -975,7 +967,7 @@ public partial class Tables
         new()
         {
             Name = nameof(Table<Foo>.EditDialogShowMaximizeButton),
-            Description = "编辑弹窗是否显示最大化按钮",
+            Description = TablesLocalizer["EditDialogShowMaximizeButtonAttr"],
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "true"
@@ -983,7 +975,7 @@ public partial class Tables
         new()
         {
             Name = "EditDialogSize",
-            Description = "编辑弹窗大小",
+            Description = TablesLocalizer["EditDialogSizeAttr"],
             Type = "Size",
             ValueList = " — ",
             DefaultValue = "Large"
@@ -991,7 +983,7 @@ public partial class Tables
         new()
         {
             Name = nameof(Table<Foo>.SearchDialogIsDraggable),
-            Description = "搜索弹窗是否可拖拽",
+            Description = TablesLocalizer["SearchDialogIsDraggableAttr"],
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
@@ -999,7 +991,7 @@ public partial class Tables
         new()
         {
             Name = nameof(Table<Foo>.SearchDialogShowMaximizeButton),
-            Description = "搜索弹窗是否显示最大化按钮",
+            Description = TablesLocalizer["SearchDialogShowMaximizeButtonAttr"],
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "true"
@@ -1007,7 +999,7 @@ public partial class Tables
         new()
         {
             Name = "SearchDialogSize",
-            Description = "搜索弹窗大小",
+            Description = TablesLocalizer["SearchDialogSizeAttr"],
             Type = "Size",
             ValueList = " — ",
             DefaultValue = "Large"
@@ -1015,7 +1007,7 @@ public partial class Tables
         new()
         {
             Name = "AddModalTitle",
-            Description = "新建数据弹窗 Title",
+            Description = TablesLocalizer["AddModalTitleAttr"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
@@ -1023,7 +1015,7 @@ public partial class Tables
         new()
         {
             Name = "EditModalTitle",
-            Description = "编辑数据弹窗 Title",
+            Description = TablesLocalizer["EditModalTitleAttr"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
@@ -1031,31 +1023,31 @@ public partial class Tables
         new()
         {
             Name = "UnsetText",
-            Description = "未设置排序时 tooltip 显示文字",
+            Description = TablesLocalizer["UnsetTextAttr"],
             Type = "string",
             ValueList = " — ",
-            DefaultValue = "点击升序"
+            DefaultValue = TablesLocalizer["UnsetTextValue"]
         },
         new()
         {
             Name = "SortAscText",
-            Description = "升序排序时 tooltip 显示文字",
+            Description = TablesLocalizer["SortAscTextAttr"],
             Type = "string",
             ValueList = " — ",
-            DefaultValue = "点击降序"
+            DefaultValue = TablesLocalizer["SortAscTextValue"]
         },
         new()
         {
             Name = "SortDescText",
-            Description = "降序排序时 tooltip 显示文字",
+            Description = TablesLocalizer["SortDescTextAttr"],
             Type = "string",
             ValueList = " — ",
-            DefaultValue = "取消排序"
+            DefaultValue = TablesLocalizer["SortDescTextValue"]
         },
         new()
         {
             Name = "RenderMode",
-            Description = "Table 组件布局模式设置",
+            Description = TablesLocalizer["RenderModeAttr"],
             Type = "TableRenderMode",
             ValueList = "Auto|Table|CardView",
             DefaultValue = "Auto"
@@ -1063,7 +1055,7 @@ public partial class Tables
         new()
         {
             Name = "EmptyText",
-            Description = "无数据时显示文本",
+            Description = TablesLocalizer["EmptyTextAttr"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
@@ -1071,7 +1063,7 @@ public partial class Tables
         new()
         {
             Name = nameof(Table<MethodItem>.EmptyImage),
-            Description = "无数据时显示图片链接地址",
+            Description = TablesLocalizer["EmptyImageAttr"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
@@ -1079,7 +1071,7 @@ public partial class Tables
         new()
         {
             Name = "EmptyTemplate",
-            Description = "无数据时显示模板",
+            Description = TablesLocalizer["EmptyTemplateAttr"],
             Type = "RenderFragment",
             ValueList = " — ",
             DefaultValue = " — "
@@ -1087,7 +1079,7 @@ public partial class Tables
         new()
         {
             Name = "EditDialogItemsPerRow",
-            Description = "每行显示组件数量",
+            Description = TablesLocalizer["EditDialogItemsPerRowAttr"],
             Type = "int?",
             ValueList = " — ",
             DefaultValue = " — "
@@ -1095,7 +1087,7 @@ public partial class Tables
         new()
         {
             Name = "EditDialogRowType",
-            Description = "设置组件布局方式",
+            Description = TablesLocalizer["EditDialogRowTypeAttr"],
             Type = "RowType",
             ValueList = "Row|Inline",
             DefaultValue = "Row"
@@ -1103,33 +1095,33 @@ public partial class Tables
         new()
         {
             Name = "EditDialogLabelAlign",
-            Description = "Inline 布局模式下标签对齐方式",
+            Description = TablesLocalizer["EditDialogLabelAlignAttr"],
             Type = "Alignment",
             ValueList = "None|Left|Center|Right",
             DefaultValue = "None"
         }
     };
 
-    private static IEnumerable<MethodItem> GetMethods() => new MethodItem[]
+    private IEnumerable<MethodItem> GetMethods() => new MethodItem[]
     {
         new()
         {
             Name = nameof(Table<MethodItem>.AddAsync),
-            Description = "手工添加数据方法",
+            Description = TablesLocalizer["AddAsyncMethod"],
             Parameters = " — ",
             ReturnValue = "Task"
         },
         new()
         {
             Name = nameof(Table<MethodItem>.EditAsync),
-            Description = "手工编辑数据方法",
+            Description = TablesLocalizer["EditAsyncMethod"],
             Parameters = " — ",
             ReturnValue = " — "
         },
         new()
         {
             Name = nameof(Table<MethodItem>.QueryAsync),
-            Description = "手工查询数据方法",
+            Description = TablesLocalizer["QueryAsyncMethod"],
             Parameters = " — ",
             ReturnValue = "Task"
         }
