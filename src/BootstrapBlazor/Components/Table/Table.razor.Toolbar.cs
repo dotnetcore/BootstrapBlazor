@@ -196,7 +196,7 @@ public partial class Table<TItem>
     /// 获得/设置 各列是否显示状态集合
     /// </summary>
     [NotNull]
-    private IEnumerable<ColumnVisibleItem>? ColumnVisibles { get; set; }
+    private List<ColumnVisibleItem>? ColumnVisibles { get; set; }
 
     private class ColumnVisibleItem
     {
@@ -209,8 +209,8 @@ public partial class Table<TItem>
     private IEnumerable<ITableColumn> GetColumns()
     {
         // https://gitee.com/LongbowEnterprise/BootstrapBlazor/issues/I2LBM8
-        var items = ColumnVisibles?.Where(i => i.Visible);
-        return Columns.Where(i => items?.Any(v => v.FieldName == i.GetFieldName()) ?? true);
+        var items = ColumnVisibles.Where(i => i.Visible);
+        return Columns.Where(i => items.Any(v => v.FieldName == i.GetFieldName()));
     }
 
     private bool GetColumnsListState(ITableColumn col)
@@ -382,29 +382,12 @@ public partial class Table<TItem>
     /// <returns></returns>
     protected async Task<bool> SaveModelAsync(EditContext context, ItemChangedType changedType)
     {
-        bool valid;
-        if (DynamicContext != null)
+        bool valid= await InternalOnSaveAsync((TItem)context.Model, changedType);
+
+        // 回调外部自定义方法
+        if (OnAfterSaveAsync != null)
         {
-            await DynamicContext.SetValue(context.Model);
-
-            // 回调外部自定义方法
-            if (OnAfterSaveAsync != null)
-            {
-                await OnAfterSaveAsync((TItem)context.Model);
-            }
-
-            RowItemsCache = null;
-            valid = true;
-        }
-        else
-        {
-            valid = await InternalOnSaveAsync((TItem)context.Model, changedType);
-
-            // 回调外部自定义方法
-            if (OnAfterSaveAsync != null)
-            {
-                await OnAfterSaveAsync((TItem)context.Model);
-            }
+            await OnAfterSaveAsync((TItem)context.Model);
         }
 
         if (ShowToastAfterSaveOrDeleteModel)

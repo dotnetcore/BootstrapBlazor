@@ -44,4 +44,16 @@ public class TableToolbarButton<TItem> : ButtonBase
 
         Toolbar?.AddButton(this);
     }
+
+    /// <summary>
+    /// DisposeAsyncCore 方法
+    /// </summary>
+    /// <param name="disposing"></param>
+    /// <returns></returns>
+    protected override async ValueTask DisposeAsyncCore(bool disposing)
+    {
+        await base.DisposeAsyncCore(disposing);
+
+        Toolbar?.RemoveButton(this);
+    }
 }

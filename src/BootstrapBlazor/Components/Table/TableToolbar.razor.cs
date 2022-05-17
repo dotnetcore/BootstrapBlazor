@@ -73,4 +73,9 @@ public partial class TableToolbar<TItem> : ComponentBase
     /// 添加按钮到工具栏方法
     /// </summary>
     public void AddButton(ButtonBase button) => Buttons.Add(button);
+
+    /// <summary>
+    /// 移除按钮到工具栏方法
+    /// </summary>
+    public void RemoveButton(ButtonBase button) => Buttons.Remove(button);
 }

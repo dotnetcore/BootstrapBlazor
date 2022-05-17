@@ -107,6 +107,7 @@ public class TableTest : TableTestBase
                 pb.Add(a => a.ShowSearchText, false);
                 pb.Add(a => a.SearchDialogSize, Size.ExtraExtraLarge);
                 pb.Add(a => a.SearchDialogIsDraggable, true);
+                pb.Add(a => a.ScrollingDialogContent, true);
                 pb.Add(a => a.SearchDialogShowMaximizeButton, true);
                 pb.Add(a => a.SearchDialogItemsPerRow, 2);
                 pb.Add(a => a.SearchDialogRowType, RowType.Inline);
@@ -1025,44 +1026,6 @@ public class TableTest : TableTestBase
             });
         });
         cut.Contains("table-filter");
-    }
-
-    [Theory]
-    [InlineData(EditMode.EditForm)]
-    [InlineData(EditMode.InCell)]
-    public async Task EditForm_Ok(EditMode mode)
-    {
-        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
-        {
-            pb.AddChildContent<Table<Foo>>(pb =>
-            {
-                pb.Add(a => a.ShowToolbar, true);
-                pb.Add(a => a.IsMultipleSelect, true);
-                pb.Add(a => a.ShowLineNo, true);
-                pb.Add(a => a.DetailRowTemplate, foo => builder => builder.AddContent(0, foo.Name));
-                pb.Add(a => a.RenderMode, TableRenderMode.Table);
-                pb.Add(a => a.EditMode, mode);
-                pb.Add(a => a.Items, Foo.GenerateFoo(localizer));
-                pb.Add(a => a.TableColumns, foo => builder =>
-                {
-                    builder.OpenComponent<TableColumn<Foo, string>>(0);
-                    builder.AddAttribute(1, "Field", "Name");
-                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
-                    builder.CloseComponent();
-                });
-            });
-        });
-
-        // 获得 Add 按钮
-        var btnAdd = cut.FindComponent<TableToolbarButton<Foo>>();
-        await cut.InvokeAsync(async () =>
-        {
-            if (btnAdd.Instance.OnClick.HasDelegate)
-            {
-                await btnAdd.Instance.OnClick.InvokeAsync();
-            }
-        });
     }
 
     [Fact]
@@ -2969,6 +2932,7 @@ public class TableTest : TableTestBase
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
         var itemChagned = ItemChangedType.Add;
+        var afterSave = false;
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
@@ -2979,10 +2943,16 @@ public class TableTest : TableTestBase
                 pb.Add(a => a.ShowToolbar, true);
                 pb.Add(a => a.ShowExtendButtons, true);
                 pb.Add(a => a.EditMode, EditMode.InCell);
+                pb.Add(a => a.ShowToastAfterSaveOrDeleteModel, false);
                 pb.Add(a => a.OnSaveAsync, (foo, changedType) =>
                 {
                     itemChagned = changedType;
                     return Task.FromResult(true);
+                });
+                pb.Add(a => a.OnAfterSaveAsync, foo =>
+                {
+                    afterSave = true;
+                    return Task.CompletedTask;
                 });
                 pb.Add(a => a.TableColumns, foo => builder =>
                 {
@@ -3001,10 +2971,14 @@ public class TableTest : TableTestBase
         var update = cut.Find("tbody tr button");
         await cut.InvokeAsync(() => update.Click());
         Assert.Equal(ItemChangedType.Update, itemChagned);
+
+        Assert.True(afterSave);
     }
 
-    [Fact]
-    public async Task OnAddAsync_Ok()
+    [Theory]
+    [InlineData(EditMode.EditForm)]
+    [InlineData(EditMode.InCell)]
+    public async Task OnAddAsync_Ok(EditMode mode)
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
@@ -3019,7 +2993,7 @@ public class TableTest : TableTestBase
                 pb.Add(a => a.IsMultipleSelect, true);
                 pb.Add(a => a.ShowToolbar, true);
                 pb.Add(a => a.ShowExtendButtons, true);
-                pb.Add(a => a.EditMode, EditMode.InCell);
+                pb.Add(a => a.EditMode, mode);
                 pb.Add(a => a.OnAddAsync, () =>
                 {
                     added = true;
@@ -3045,10 +3019,22 @@ public class TableTest : TableTestBase
         await cut.InvokeAsync(() => button.Instance.OnClick.InvokeAsync());
         Assert.True(added);
 
-        // test update button
-        var update = cut.Find("tbody tr button");
-        await cut.InvokeAsync(() => update.Click());
-        Assert.Equal(ItemChangedType.Add, itemChagned);
+        if (mode == EditMode.InCell)
+        {
+            // test update button
+            var update = cut.Find("tbody tr button");
+            await cut.InvokeAsync(() => update.Click());
+            Assert.Equal(ItemChangedType.Add, itemChagned);
+        }
+        else if (mode == EditMode.EditForm)
+        {
+            var input = cut.Find("tbody form input");
+            await cut.InvokeAsync(() => input.Change("test_name"));
+
+            var form = cut.Find("tbody form");
+            await cut.InvokeAsync(() => form.Submit());
+            Assert.Equal(ItemChangedType.Add, itemChagned);
+        }
     }
 
     [Theory]
@@ -3250,6 +3236,426 @@ public class TableTest : TableTestBase
                 });
             });
         });
+    }
+
+    [Fact]
+    public void ShowButtons_Ok()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var items = Foo.GenerateFoo(localizer, 2);
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.Items, items);
+                pb.Add(a => a.ShowToolbar, false);
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+                });
+            });
+        });
+
+        var table = cut.FindComponent<Table<Foo>>();
+        Assert.Contains("<div class=\"table-toolbar\"></div>", table.Markup);
+
+        table.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ShowToolbar, true);
+        });
+        Assert.Contains("float-start table-toolbar-button", table.Markup);
+    }
+
+    [Fact]
+    public void ShowDefaultButtons_Ok()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var items = Foo.GenerateFoo(localizer, 2);
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.Items, items);
+                pb.Add(a => a.ShowToolbar, true);
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+                });
+            });
+        });
+
+        var table = cut.FindComponent<Table<Foo>>();
+        Assert.Contains("fa fa-plus", table.Markup);
+        Assert.Contains("fa fa-pencil", table.Markup);
+        Assert.Contains("fa fa-remove", table.Markup);
+
+        table.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ShowDefaultButtons, false);
+        });
+        Assert.DoesNotContain("fa fa-plus", table.Markup);
+        Assert.DoesNotContain("fa fa-pencil", table.Markup);
+        Assert.DoesNotContain("fa fa-remove", table.Markup);
+    }
+
+    [Fact]
+    public void ShowAddButton_Ok()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var items = Foo.GenerateFoo(localizer, 2);
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.Items, items);
+                pb.Add(a => a.ShowToolbar, true);
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+                });
+            });
+        });
+
+        var table = cut.FindComponent<Table<Foo>>();
+        Assert.Contains("fa fa-plus", table.Markup);
+
+        table.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ShowAddButton, false);
+        });
+        Assert.DoesNotContain("fa fa-plus", table.Markup);
+    }
+
+    [Fact]
+    public void ShowRefreshButton_Ok()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var items = Foo.GenerateFoo(localizer, 2);
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.Items, items);
+                pb.Add(a => a.ShowToolbar, true);
+                pb.Add(a => a.ShowRefresh, true);
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+                });
+            });
+        });
+
+        var table = cut.FindComponent<Table<Foo>>();
+        Assert.Contains("fa fa-refresh", table.Markup);
+
+        table.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ShowRefresh, false);
+        });
+        Assert.DoesNotContain("fa fa-refresh", table.Markup);
+    }
+
+    [Fact]
+    public void ShowEditButton_Ok()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var items = Foo.GenerateFoo(localizer, 2);
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.Items, items);
+                pb.Add(a => a.ShowToolbar, true);
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+                });
+            });
+        });
+
+        var table = cut.FindComponent<Table<Foo>>();
+        Assert.Contains("fa fa-pencil", table.Markup);
+
+        table.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ShowEditButton, false);
+        });
+        Assert.DoesNotContain("fa fa-pencil", table.Markup);
+    }
+
+    [Fact]
+    public void ShowDeleteButton_Ok()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var items = Foo.GenerateFoo(localizer, 2);
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.Items, items);
+                pb.Add(a => a.ShowToolbar, true);
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+                });
+            });
+        });
+
+        var table = cut.FindComponent<Table<Foo>>();
+        Assert.Contains("fa fa-remove", table.Markup);
+
+        table.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ShowDeleteButton, false);
+        });
+        Assert.DoesNotContain("fa fa-remove", table.Markup);
+    }
+
+    [Fact]
+    public void ShowEditButtonCallback_Ok()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var items = Foo.GenerateFoo(localizer, 2);
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.Items, items);
+                pb.Add(a => a.ShowToolbar, true);
+                pb.Add(a => a.ShowExtendButtons, true);
+                pb.Add(a => a.ShowEditButtonCallback, foo => true);
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+                });
+            });
+        });
+
+        var table = cut.FindComponent<Table<Foo>>();
+        Assert.Contains("fa fa-edit", table.Find("tbody").ToMarkup());
+
+        table.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ShowEditButtonCallback, foo => false);
+        });
+        Assert.DoesNotContain("fa fa-edit", table.Find("tbody").ToMarkup());
+    }
+
+    [Fact]
+    public void ShowDeleteButtonCallback_Ok()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var items = Foo.GenerateFoo(localizer, 2);
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.Items, items);
+                pb.Add(a => a.ShowToolbar, true);
+                pb.Add(a => a.ShowExtendButtons, true);
+                pb.Add(a => a.ShowDeleteButtonCallback, foo => true);
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+                });
+            });
+        });
+
+        var table = cut.FindComponent<Table<Foo>>();
+        Assert.Contains("fa fa-remove", table.Find("tbody").ToMarkup());
+
+        table.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ShowDeleteButtonCallback, foo => false);
+        });
+        Assert.DoesNotContain("fa fa-remove", table.Find("tbody").ToMarkup());
+    }
+
+
+    [Fact]
+    public void ShowExtendEditButton_Ok()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var items = Foo.GenerateFoo(localizer, 2);
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.Items, items);
+                pb.Add(a => a.ShowToolbar, true);
+                pb.Add(a => a.ExtendButtonColumnWidth, 130);
+                pb.Add(a => a.ShowExtendButtons, true);
+                pb.Add(a => a.ShowExtendEditButton, true);
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+                });
+            });
+        });
+
+        var table = cut.FindComponent<Table<Foo>>();
+        Assert.Contains("fa fa-edit", table.Find("tbody").ToMarkup());
+
+        table.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ShowExtendEditButton, false);
+        });
+        Assert.DoesNotContain("fa fa-edit", table.Find("tbody").ToMarkup());
+    }
+
+    [Fact]
+    public void ShowExtendDeleteButton_Ok()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var items = Foo.GenerateFoo(localizer, 2);
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.Items, items);
+                pb.Add(a => a.ShowToolbar, true);
+                pb.Add(a => a.ShowExtendButtons, true);
+                pb.Add(a => a.ShowExtendDeleteButton, true);
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+                });
+            });
+        });
+
+        var table = cut.FindComponent<Table<Foo>>();
+        Assert.Contains("fa fa-remove", table.Find("tbody").ToMarkup());
+
+        table.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ShowExtendDeleteButton, false);
+        });
+        Assert.DoesNotContain("fa fa-remove", table.Find("tbody").ToMarkup());
+    }
+
+    [Fact]
+    public async Task EditAsync_Ok()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var items = Foo.GenerateFoo(localizer, 2);
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.Items, items);
+                pb.Add(a => a.IsMultipleSelect, true);
+                pb.Add(a => a.ShowToolbar, true);
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+                });
+            });
+        });
+
+        var table = cut.FindComponent<Table<Foo>>();
+        await cut.InvokeAsync(() => table.Instance.EditAsync());
+
+        // 选一个
+        var input = cut.Find("tbody tr input");
+        await cut.InvokeAsync(() => input.Click());
+        await cut.InvokeAsync(() => table.Instance.EditAsync());
+
+        table.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ShowEditButtonCallback, foo => false);
+        });
+        await cut.InvokeAsync(() => table.Instance.EditAsync());
+
+        // 选两个
+        input = cut.Find("thead input");
+        await cut.InvokeAsync(() => input.Click());
+        await cut.InvokeAsync(() => table.Instance.EditAsync());
+    }
+
+    [Theory]
+    [InlineData(EditMode.EditForm)]
+    [InlineData(EditMode.InCell)]
+    public async Task CancelSave_Ok(EditMode mode)
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var items = Foo.GenerateFoo(localizer, 2);
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.Items, items);
+                pb.Add(a => a.IsMultipleSelect, true);
+                pb.Add(a => a.ShowToolbar, true);
+                pb.Add(a => a.ShowExtendButtons, true);
+                pb.Add(a => a.EditMode, mode);
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+                });
+            });
+        });
+
+        // test update button
+        var update = cut.Find("tbody tr button");
+        await cut.InvokeAsync(() => update.Click());
+        if (mode == EditMode.InCell)
+        {
+            var cancel = cut.Find("tbody tr .btn-warning");
+            await cut.InvokeAsync(() => cancel.Click());
+        }
+        else if (mode == EditMode.EditForm)
+        {
+            var button = cut.Find("tbody form .form-footer .btn-secondary");
+            await cut.InvokeAsync(() => button.Click());
+        }
     }
 
     private static DataTable CreateDataTable(IStringLocalizer<Foo> localizer)
