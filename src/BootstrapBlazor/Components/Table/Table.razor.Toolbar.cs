@@ -431,11 +431,7 @@ public partial class Table<TItem>
         await ToggleLoading(true);
         if (await SaveModelAsync(context, changedType))
         {
-            if (EditMode == EditMode.Popup)
-            {
-                await QueryAsync();
-            }
-            else if (EditMode == EditMode.EditForm)
+            if (EditMode == EditMode.EditForm)
             {
                 if (ShowAddForm)
                 {
@@ -485,6 +481,7 @@ public partial class Table<TItem>
     /// </summary>
     protected async Task ShowEditDialog(ItemChangedType changedType)
     {
+        var saved = false;
         var option = new EditDialogOption<TItem>()
         {
             Class = "modal-dialog-table",
@@ -508,26 +505,29 @@ public partial class Table<TItem>
             ShowUnsetGroupItemsOnTop = ShowUnsetGroupItemsOnTop,
             OnCloseAsync = async () =>
             {
-                var d = DataService ?? InjectDataService;
-                if (d is IEntityFrameworkCoreDataService ef)
+                if (!saved)
                 {
-                    // EFCore
-                    await ToggleLoading(true);
-                    await ef.CancelAsync();
-                    await ToggleLoading(false);
+                    // EFCore 模式保存失败后调用 CancelAsync 回调
+                    var d = DataService ?? InjectDataService;
+                    if (d is IEntityFrameworkCoreDataService ef)
+                    {
+                        // EFCore
+                        await ToggleLoading(true);
+                        await ef.CancelAsync();
+                        await ToggleLoading(false);
+                    }
                 }
-                StateHasChanged();
             },
             OnEditAsync = async context =>
             {
                 await ToggleLoading(true);
-                var valid = await SaveModelAsync(context, changedType);
-                if (valid)
+                saved = await SaveModelAsync(context, changedType);
+                if (saved)
                 {
                     await QueryAsync();
                 }
                 await ToggleLoading(false);
-                return valid;
+                return saved;
             }
         };
         await DialogService.ShowEditDialog(option);

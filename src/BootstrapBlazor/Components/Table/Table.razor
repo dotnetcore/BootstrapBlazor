@@ -75,7 +75,7 @@
                                     var poco = ColumnVisibles.First(i => i.FieldName == item.GetFieldName());
                                     <div class="dropdown-item">
                                         <Checkbox ShowAfterLabel="true" IsDisabled="@GetColumnsListState(item)"
-                                                    DisplayText="@item.GetDisplayName()" @bind-Value="@poco.Visible">
+                                                  DisplayText="@item.GetDisplayName()" @bind-Value="@poco.Visible">
                                         </Checkbox>
                                     </div>
                                 }

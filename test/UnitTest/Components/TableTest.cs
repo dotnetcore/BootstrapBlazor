@@ -113,6 +113,7 @@ public class TableTest : TableTestBase
                 pb.Add(a => a.SearchDialogRowType, RowType.Inline);
                 pb.Add(a => a.SearchDialogLabelAlign, Alignment.Right);
                 pb.Add(a => a.ShowAdvancedSearch, true);
+                pb.Add(a => a.ShowUnsetGroupItemsOnTop, true);
                 pb.Add(a => a.Items, Foo.GenerateFoo(localizer, 1));
                 pb.Add(a => a.TableColumns, foo => builder =>
                 {
@@ -304,7 +305,7 @@ public class TableTest : TableTestBase
     }
 
     [Fact]
-    public void ShowColumnList_Ok()
+    public async Task ShowColumnList_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
@@ -314,17 +315,26 @@ public class TableTest : TableTestBase
                 pb.Add(a => a.ShowToolbar, true);
                 pb.Add(a => a.ShowColumnList, true);
                 pb.Add(a => a.ColumnButtonText, "Test_Column_List");
-                pb.Add(a => a.Items, Foo.GenerateFoo(localizer));
+                pb.Add(a => a.Items, Foo.GenerateFoo(localizer, 2));
                 pb.Add(a => a.TableColumns, foo => builder =>
                 {
                     builder.OpenComponent<TableColumn<Foo, string>>(0);
                     builder.AddAttribute(1, "Field", "Name");
                     builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.AddAttribute(3, "Visible", false);
+                    builder.CloseComponent();
+
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Address");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Address", typeof(string)));
                     builder.CloseComponent();
                 });
             });
         });
         cut.Contains("Test_Column_List");
+
+        var item = cut.Find(".dropdown-item");
+        await cut.InvokeAsync(() => item.Click());
     }
 
     [Fact]
@@ -3198,7 +3208,7 @@ public class TableTest : TableTestBase
     }
 
     [Fact]
-    public void DynamicContext_Ok()
+    public async Task DynamicContext_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
@@ -3206,10 +3216,17 @@ public class TableTest : TableTestBase
         {
             pb.AddChildContent<Table<DynamicObject>>(pb =>
             {
+                pb.Add(a => a.ShowToolbar, true);
                 pb.Add(a => a.SortString, "Name desc");
                 pb.Add(a => a.DynamicContext, CreateDynamicContext(localizer));
             });
         });
+
+        var table = cut.FindComponent<Table<DynamicObject>>();
+        await cut.InvokeAsync(() => table.Instance.AddAsync());
+
+        var delete = cut.FindComponent<TableToolbarPopconfirmButton<DynamicObject>>();
+        await cut.InvokeAsync(() => delete.Instance.OnConfirm());
     }
 
     [Fact]
@@ -3791,6 +3808,82 @@ public class TableTest : TableTestBase
         await cut.InvokeAsync(() => button.Click());
     }
 
+    [Fact]
+    public void TableRender_Ok()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<MockTable>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+            });
+        });
+
+        var table = cut.FindComponent<MockTable>();
+        Assert.Equal(TableRenderMode.Table, table.Instance.ShouldBeTable());
+        Assert.Equal(TableRenderMode.CardView, table.Instance.ShouldBeCardView());
+    }
+
+    [Fact]
+    public async Task EFCoreDataService_Ok()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.DataService, new MockEFCoreDataService(localizer));
+                pb.Add(a => a.IsMultipleSelect, true);
+                pb.Add(a => a.ShowToolbar, true);
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+                });
+            });
+        });
+        var table = cut.FindComponent<Table<Foo>>();
+        // 选一个
+        var input = cut.Find("tbody tr input");
+        await cut.InvokeAsync(() => input.Click());
+        await cut.InvokeAsync(() => table.Instance.EditAsync());
+    }
+
+    [Fact]
+    public async Task IsExcel_Ok()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var items = Foo.GenerateFoo(localizer, 2);
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.Items, items);
+                pb.Add(a => a.IsExcel, true);
+                pb.Add(a => a.IsMultipleSelect, true);
+                pb.Add(a => a.ShowToolbar, true);
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+                });
+            });
+        });
+
+        var table = cut.FindComponent<Table<Foo>>();
+        await cut.InvokeAsync(() => table.Instance.AddAsync());
+
+        var delete = cut.FindComponent<TableToolbarPopconfirmButton<Foo>>();
+        await cut.InvokeAsync(() => delete.Instance.OnConfirm());
+    }
+
     private static DataTable CreateDataTable(IStringLocalizer<Foo> localizer)
     {
         var userData = new DataTable();
@@ -3854,6 +3947,18 @@ public class TableTest : TableTestBase
         }
 
         public Task<bool> SaveAsync(Foo model, ItemChangedType changedType) => Task.FromResult(true);
+    }
+
+    private class MockEFCoreDataService : MockNullDataService, IEntityFrameworkCoreDataService
+    {
+        public MockEFCoreDataService(IStringLocalizer<Foo> localizer) : base(localizer)
+        {
+
+        }
+
+        public Task CancelAsync() => Task.CompletedTask;
+
+        public Task EditAsync(object model) => Task.CompletedTask;
     }
 
     private class MockButton : ButtonBase
@@ -3966,5 +4071,26 @@ public class TableTest : TableTestBase
         }
 
         public Task SetFilterConditionsAsync(IEnumerable<FilterKeyValueAction> conditions) => Task.CompletedTask;
+    }
+
+    private class MockTable : Table<Foo>
+    {
+        public TableRenderMode ShouldBeTable()
+        {
+            // ScreenSize < RenderModeResponsiveWidth ? TableRenderMode.CardView : TableRenderMode.Table
+            ScreenSize = 10;
+            RenderModeResponsiveWidth = 5;
+            RenderMode = TableRenderMode.Auto;
+            return base.ActiveRenderMode;
+        }
+
+        public TableRenderMode ShouldBeCardView()
+        {
+            // ScreenSize < RenderModeResponsiveWidth ? TableRenderMode.CardView : TableRenderMode.Table
+            ScreenSize = 1;
+            RenderModeResponsiveWidth = 5;
+            RenderMode = TableRenderMode.Auto;
+            return base.ActiveRenderMode;
+        }
     }
 }
