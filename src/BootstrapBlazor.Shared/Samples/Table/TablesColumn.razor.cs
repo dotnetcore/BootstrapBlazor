@@ -22,6 +22,10 @@ public partial class TablesColumn
 
     [Inject]
     [NotNull]
+    private IStringLocalizer<TablesColumn>? ColumnLocalizer { get; set; }
+
+    [Inject]
+    [NotNull]
     private ToastService? ToastService { get; set; }
 
     private static IEnumerable<int> PageItemsSource => new int[] { 5, 10, 20 };
@@ -96,8 +100,8 @@ public partial class TablesColumn
     private async Task CustomerButton(IEnumerable<Foo> items)
     {
         var cate = ToastCategory.Information;
-        var title = "自定义按钮处理方法";
-        var content = $"通过不同的函数区分按钮处理逻辑，参数 Items 为 Table 组件中选中的行数据集合，当前选择数据 {items.Count()} 条";
+        var title = ColumnLocalizer["CustomerButtonTitle"];
+        var content = ColumnLocalizer["CustomerButtonContent", items.Count()];
         await ToastService.Show(new ToastOption()
         {
             Category = cate,
@@ -113,7 +117,7 @@ public partial class TablesColumn
     {
         var cate = ToastCategory.Success;
         var title = $"{text} {item.Name}";
-        var content = "通过不同的函数区分按钮处理逻辑，参数 Item 为当前行数据";
+        var content = ColumnLocalizer["OnRowButtonClickContent"];
         await ToastService.Show(new ToastOption()
         {
             Category = cate,
