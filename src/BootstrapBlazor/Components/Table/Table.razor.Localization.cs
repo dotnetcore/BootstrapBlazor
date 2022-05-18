@@ -326,5 +326,8 @@ public partial class Table<TItem>
         SortDescText ??= Localizer[nameof(SortDescText)];
         EmptyText ??= Localizer[nameof(EmptyText)];
         LineNoText ??= Localizer[nameof(LineNoText)];
+        ExportToastTitle ??= Localizer[nameof(ExportToastTitle)];
+        ExportToastContent ??= Localizer[nameof(ExportToastContent)];
+        ExportToastInProgressContent ??= Localizer[nameof(ExportToastInProgressContent)];
     }
 }

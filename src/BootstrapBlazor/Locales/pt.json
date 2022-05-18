@@ -248,7 +248,10 @@
     "UnsetText": "Asc",
     "SortAscText": "Desc",
     "SortDescText": "Nenhum",
-    "EmptyText": "Vazio"
+    "EmptyText": "Vazio",
+    "ExportToastTitle": "Exportar dados",
+    "ExportToastContent": "Exportar dados {0}, Fechamento automático em {0} segundos",
+    "ExportToastInProgressContent": "Exportar dados, Fechamento automático em {0} segundos"
   },
   "BootstrapBlazor.Components.EditDialog": {
     "CloseButtonText": "Fechar",

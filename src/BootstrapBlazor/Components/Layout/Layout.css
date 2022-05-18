@@ -4,6 +4,7 @@
     --bb-layout-footer-height: 90px;
     --bb-layout-side-width: 214px;
     --bb-layout-sidebar-collapse-width: 70px;
+    --bb-layout-sidebar-banner-bg: #367fa9;
 }
 
 .layout {
@@ -123,7 +124,7 @@
     display: flex;
     align-items: center;
     padding: 0 0.625rem;
-    background-color: #367fa9;
+    background-color: var(--bb-layout-sidebar-banner-bg);
     height: var(--bb-layout-header-height);
     font-size: 1.5rem;
 }
@@ -135,7 +136,7 @@
 }
 
 .layout.is-page .layout-side .layout-banner .layout-logo {
-    width: 44px;
+    width: 42px;
     border-radius: var(--bs-border-radius);
 }
 

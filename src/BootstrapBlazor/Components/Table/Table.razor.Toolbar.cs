@@ -175,6 +175,27 @@ public partial class Table<TItem>
     public string? EditDialogCloseButtonText { get; set; }
 
     /// <summary>
+    /// 获得/设置 导出数据弹窗 Title 默认为资源文件 导出数据
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public string? ExportToastTitle { get; set; }
+
+    /// <summary>
+    /// 获得/设置 导出数据提示内容 默认为资源文件
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public string? ExportToastContent { get; set; }
+
+    /// <summary>
+    /// 获得/设置 正在导出数据提示内容 默认为资源文件
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public string? ExportToastInProgressContent { get; set; }
+
+    /// <summary>
     /// ToastService 服务实例
     /// </summary>
     [Inject]
@@ -259,16 +280,14 @@ public partial class Table<TItem>
             {
                 ShowAddForm = true;
                 ShowEditForm = false;
-
-                await UpdateAsync();
+                StateHasChanged();
             }
             else if (EditMode == EditMode.InCell)
             {
                 AddInCell = true;
                 EditInCell = true;
                 SelectedRows.Add(EditModel);
-
-                await UpdateAsync();
+                StateHasChanged();
             }
             await OnSelectedRowsChanged();
             await ToggleLoading(false);
@@ -324,15 +343,14 @@ public partial class Table<TItem>
                 {
                     ShowEditForm = true;
                     ShowAddForm = false;
-                    await UpdateAsync();
+                    StateHasChanged();
 
                 }
                 else if (EditMode == EditMode.InCell)
                 {
                     AddInCell = false;
                     EditInCell = true;
-                    await UpdateAsync();
-
+                    StateHasChanged();
                 }
                 await ToggleLoading(false);
             }
@@ -382,7 +400,7 @@ public partial class Table<TItem>
     /// <returns></returns>
     protected async Task<bool> SaveModelAsync(EditContext context, ItemChangedType changedType)
     {
-        bool valid= await InternalOnSaveAsync((TItem)context.Model, changedType);
+        bool valid = await InternalOnSaveAsync((TItem)context.Model, changedType);
 
         // 回调外部自定义方法
         if (OnAfterSaveAsync != null)
@@ -498,7 +516,7 @@ public partial class Table<TItem>
                     await ef.CancelAsync();
                     await ToggleLoading(false);
                 }
-                await UpdateAsync();
+                StateHasChanged();
             },
             OnEditAsync = async context =>
             {
@@ -513,18 +531,6 @@ public partial class Table<TItem>
             }
         };
         await DialogService.ShowEditDialog(option);
-    }
-
-    private async Task UpdateAsync()
-    {
-        if (ItemsChanged.HasDelegate)
-        {
-            await ItemsChanged.InvokeAsync(RowItems);
-        }
-        else
-        {
-            StateHasChanged();
-        }
     }
 
     /// <summary>
@@ -575,14 +581,14 @@ public partial class Table<TItem>
         {
             RowItems.RemoveAll(i => SelectedRows.Contains(i));
             SelectedRows.Clear();
-            await UpdateAsync();
+            StateHasChanged();
         }
         else
         {
             await ToggleLoading(true);
             var ret = await DelteItemsAsync();
 
-            if (ret && ShowToastAfterSaveOrDeleteModel && !IsTracking)
+            if (ShowToastAfterSaveOrDeleteModel)
             {
                 var option = new ToastOption()
                 {
@@ -590,7 +596,6 @@ public partial class Table<TItem>
                     Category = ret ? ToastCategory.Success : ToastCategory.Error
                 };
                 option.Content = string.Format(DeleteButtonToastResultContent, ret ? SuccessText : FailText, Math.Ceiling(option.Delay / 1000.0));
-
                 await Toast.Show(option);
             }
             await ToggleLoading(false);
@@ -601,13 +606,16 @@ public partial class Table<TItem>
             var ret = await InternalOnDeleteAsync();
             if (ret)
             {
-                // 删除成功 重新查询
-                // 由于数据删除导致页码会改变，尤其是最后一页
-                // 重新计算页码
-                // https://gitee.com/LongbowEnterprise/BootstrapBlazor/issues/I1UJSL
-                PageIndex = Math.Max(1, Math.Min(PageIndex, int.Parse(Math.Ceiling((TotalCount - SelectedRows.Count) * 1d / PageItems).ToString())));
-                var items = PageItemsSource.Where(item => item >= (TotalCount - SelectedRows.Count));
-                PageItems = Math.Min(PageItems, items.Any() ? items.Min() : PageItems);
+                if (IsPagination)
+                {
+                    // 删除成功 重新查询
+                    // 由于数据删除导致页码会改变，尤其是最后一页
+                    // 重新计算页码
+                    // https://gitee.com/LongbowEnterprise/BootstrapBlazor/issues/I1UJSL
+                    PageIndex = Math.Max(1, Math.Min(PageIndex, int.Parse(Math.Ceiling((TotalCount - SelectedRows.Count) * 1d / PageItems).ToString())));
+                    var items = PageItemsSource.Where(item => item >= (TotalCount - SelectedRows.Count));
+                    PageItems = Math.Min(PageItems, items.Any() ? items.Min() : PageItems);
+                }
                 SelectedRows.Clear();
                 await QueryAsync();
             }
@@ -647,68 +655,38 @@ public partial class Table<TItem>
     }
 
     /// <summary>
-    /// 确认导出按钮方法
-    /// </summary>
-    protected async Task<bool> ConfirmExport()
-    {
-        var ret = false;
-        if (!RowItems.Any())
-        {
-            var option = new ToastOption
-            {
-                Category = ToastCategory.Information,
-                Title = "导出数据"
-            };
-            option.Content = $"没有需要导出的数据, {Math.Ceiling(option.Delay / 1000.0)} 秒后自动关闭";
-            await Toast.Show(option);
-        }
-        else
-        {
-            ret = true;
-        }
-        return ret;
-    }
-
-    /// <summary>
     /// 导出数据方法
     /// </summary>
     protected async Task ExportAsync()
     {
-        var ret = false;
-
-        _ = Task.Run(async () =>
+        var option = new ToastOption
         {
-            if (OnExportAsync != null)
-            {
-                ret = await OnExportAsync(RowItems);
-            }
-            else
-            {
-                // 如果未提供 OnExportAsync 回调委托使用注入服务来尝试解析
-                // TODO: 这里将本页数据作为参数传递给导出服务，服务本身可以利用自身优势获取全部所需数据，如果获取全部数据呢？
-                ret = await ExcelExport.ExportAsync(RowItems, Columns, JSRuntime);
-            }
-
-            var option = new ToastOption()
-            {
-                Title = "导出数据"
-            };
-            option.Category = ret ? ToastCategory.Success : ToastCategory.Error;
-            option.Content = $"导出数据{(ret ? "成功" : "失败")}, {Math.Ceiling(option.Delay / 1000.0)} 秒后自动关闭";
-
-            await Toast.Show(option);
-        });
-
-        var option = new ToastOption()
-        {
-            Title = "导出数据"
+            Title = ExportToastTitle,
+            Category = ToastCategory.Information
         };
-        option.Category = ToastCategory.Information;
-        option.Content = $"正在导出数据，请稍候, {Math.Ceiling(option.Delay / 1000.0)} 秒后自动关闭";
-
+        option.Content = string.Format(ExportToastInProgressContent, Math.Ceiling(option.Delay / 1000.0));
         await Toast.Show(option);
 
-        await Task.CompletedTask;
+        var ret = false;
+        if (OnExportAsync != null)
+        {
+            ret = await OnExportAsync(RowItems);
+        }
+        else
+        {
+            // 如果未提供 OnExportAsync 回调委托使用注入服务来尝试解析
+            // TODO: 这里将本页数据作为参数传递给导出服务，服务本身可以利用自身优势获取全部所需数据，如果获取全部数据呢？
+            ret = await ExcelExport.ExportAsync(RowItems, Columns, JSRuntime);
+        }
+
+        option = new ToastOption
+        {
+            Title = ExportToastTitle,
+            Category = ret ? ToastCategory.Success : ToastCategory.Error
+        };
+        //$"导出数据{(ret ? "成功" : "失败")}, {Math.Ceiling(option.Delay / 1000.0)} 秒后自动关闭";
+        option.Content = string.Format(ExportToastContent, ret ? SuccessText : FailText, Math.Ceiling(option.Delay / 1000.0));
+        await Toast.Show(option);
     }
 
     /// <summary>

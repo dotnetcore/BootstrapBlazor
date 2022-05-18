@@ -3503,7 +3503,6 @@ public class TableTest : TableTestBase
         Assert.DoesNotContain("fa fa-remove", table.Find("tbody").ToMarkup());
     }
 
-
     [Fact]
     public void ShowExtendEditButton_Ok()
     {
@@ -3537,6 +3536,14 @@ public class TableTest : TableTestBase
             pb.Add(a => a.ShowExtendEditButton, false);
         });
         Assert.DoesNotContain("fa fa-edit", table.Find("tbody").ToMarkup());
+
+        table.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ShowExtendEditButton, true);
+            pb.Add(a => a.ShowDefaultButtons, false);
+            pb.Add(a => a.ShowEditButtonCallback, foo => true);
+        });
+        Assert.Contains("fa fa-edit", table.Find("tbody").ToMarkup());
     }
 
     [Fact]
@@ -3571,6 +3578,14 @@ public class TableTest : TableTestBase
             pb.Add(a => a.ShowExtendDeleteButton, false);
         });
         Assert.DoesNotContain("fa fa-remove", table.Find("tbody").ToMarkup());
+
+        table.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ShowExtendDeleteButton, true);
+            pb.Add(a => a.ShowDefaultButtons, false);
+            pb.Add(a => a.ShowDeleteButtonCallback, foo => true);
+        });
+        Assert.Contains("fa fa-remove", table.Find("tbody").ToMarkup());
     }
 
     [Fact]
@@ -3656,6 +3671,124 @@ public class TableTest : TableTestBase
             var button = cut.Find("tbody form .form-footer .btn-secondary");
             await cut.InvokeAsync(() => button.Click());
         }
+    }
+
+    [Fact]
+    public async Task ConfirmDelete_Ok()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var items = Foo.GenerateFoo(localizer, 2);
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.Items, items);
+                pb.Add(a => a.IsMultipleSelect, true);
+                pb.Add(a => a.ShowToolbar, true);
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+                });
+            });
+        });
+
+        var table = cut.FindComponent<Table<Foo>>();
+        var deleteButton = table.FindComponent<TableToolbarPopconfirmButton<Foo>>();
+        await cut.InvokeAsync(() => deleteButton.Instance.OnBeforeClick());
+
+        // 选一个
+        var input = cut.Find("tbody tr input");
+        await cut.InvokeAsync(() => input.Click());
+        await cut.InvokeAsync(() => deleteButton.Instance.OnBeforeClick());
+
+        table.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ShowDeleteButtonCallback, foo => false);
+        });
+        await cut.InvokeAsync(() => deleteButton.Instance.OnBeforeClick());
+    }
+
+    [Fact]
+    public async Task OnConfirm_Ok()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.OnQueryAsync, OnQueryAsync(localizer));
+                pb.Add(a => a.IsMultipleSelect, true);
+                pb.Add(a => a.ShowToolbar, true);
+                pb.Add(a => a.IsPagination, true);
+                pb.Add(a => a.PageItemsSource, new int[] { 1 });
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+                });
+                pb.Add(a => a.OnDeleteAsync, foos => Task.FromResult(true));
+            });
+        });
+
+        var table = cut.FindComponent<Table<Foo>>();
+        var deleteButton = table.FindComponent<TableToolbarPopconfirmButton<Foo>>();
+        // 选一个
+        var input = cut.Find("tbody tr input");
+        await cut.InvokeAsync(() => input.Click());
+        await cut.InvokeAsync(() => deleteButton.Instance.OnConfirm());
+
+        table.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.PageItemsSource, new int[] { 1, 2, 4, 8 });
+        });
+        await cut.InvokeAsync(() => deleteButton.Instance.OnConfirm());
+
+        table.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.IsTracking, true);
+        });
+        await cut.InvokeAsync(() => deleteButton.Instance.OnConfirm());
+    }
+
+    [Fact]
+    public async Task ExportAsync_Ok()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.OnQueryAsync, OnQueryAsync(localizer));
+                pb.Add(a => a.ShowToolbar, true);
+                pb.Add(a => a.ShowExportButton, true);
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+                });
+            });
+        });
+
+        var button = cut.Find(".dropdown-menu-right .dropdown-item");
+        await cut.InvokeAsync(() => button.Click());
+
+        // 
+        var table = cut.FindComponent<Table<Foo>>();
+        table.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.OnExportAsync, foos => Task.FromResult(true));
+        });
+        await cut.InvokeAsync(() => button.Click());
     }
 
     private static DataTable CreateDataTable(IStringLocalizer<Foo> localizer)
