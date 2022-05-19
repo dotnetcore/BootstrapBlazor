@@ -51,42 +51,42 @@ public partial class TablesCell
     private async Task OnDoubleClickCellCallback(string columnName, object row, object value)
     {
         var displayName = Utility.GetDisplayName(typeof(Foo), columnName);
-        await ToastService.Show(new ToastOption() { Title = "双击单元格回调", Content = $"当前单元格名称：{displayName} 当前值：{value}" });
+        await ToastService.Show(new ToastOption() { Title = CellLocalizer["ToastTitle"], Content = $"{CellLocalizer["CurrentCellName"]}{displayName} {CellLocalizer["CurrentValue"]}{value}" });
     }
 
-    private static IEnumerable<AttributeItem> GetAttributes() => new[]
+    private IEnumerable<AttributeItem> GetAttributes() => new[]
     {
             new AttributeItem() {
                 Name = "Row",
-                Description = "当前单元格行数据 请自行转化为绑定模型",
+                Description = CellLocalizer["RowAttr"],
                 Type = "object",
                 ValueList = " — ",
                 DefaultValue = "<TModel>"
             },
             new AttributeItem() {
                 Name = "ColumnName",
-                Description = "当前单元格绑定列名称",
+                Description = CellLocalizer["ColumnNameAttr"],
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "Colspan",
-                Description = "合并单元格数量",
+                Description = CellLocalizer["ColspanAttr"],
                 Type = "int",
                 ValueList = " — ",
                 DefaultValue = "0"
             },
             new AttributeItem() {
                 Name = "Class",
-                Description = "当前单元格样式",
+                Description = CellLocalizer["ClassAttr"],
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "Value",
-                Description = "当前单元格显示内容",
+                Description = CellLocalizer["ValueAttr"],
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = " — "

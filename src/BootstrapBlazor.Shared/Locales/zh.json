@@ -3081,6 +3081,24 @@
     "CustomerButtonContent": "通过不同的函数区分按钮处理逻辑，参数 Items 为 Table 组件中选中的行数据集合，当前选择数据 {0} 条",
     "OnRowButtonClickContent": "通过不同的函数区分按钮处理逻辑，参数 Item 为当前行数据"
   },
+  "BootstrapBlazor.Shared.Samples.Table.TablesCell": {
+    "Title": "Table 表格",
+    "H4": "单元格相关操作示例",
+    "MergeCellTitle": "合并单元格",
+    "MergeCellIntro": "基础的表格展示用法",
+    "MergeCellP": "本例中通过设置 <code>OnCellRenderHandler</code> 回调委托，通过判断条件对 <code>Name</code> 与 <code>Address</code> 两列进行单元格合并操作，并且通过设置 <code>TableCellArgs</code> 属性 <code>Class</code> 值为 <code>cell-demo</code> 样式表名称对合并后单元格进行背景色设置",
+    "OnDoubleClickCellTitle": "双击单元格",
+    "OnDoubleClickCellIntro": "通过设置 <code>OnDoubleClickColumn</code> 回调，设置当前单元格的双击事件",
+    "OnDoubleClickCellP": "设置双击单元格回调后，鼠标悬停单元格后单元格出现下标横线，以作提示可通过 <code>.table-cell .is-dbcell</code> 样式覆盖",
+    "RowAttr": "当前单元格行数据 请自行转化为绑定模型",
+    "ColumnNameAttr": "当前单元格绑定列名称",
+    "ColspanAttr": "合并单元格数量",
+    "ClassAttr": "当前单元格样式",
+    "ValueAttr": "当前单元格显示内容",
+    "ToastTitle": "双击单元格回调",
+    "CurrentCellName": "当前单元格名称：",
+    "CurrentValue": "当前值："
+  },
   "BootstrapBlazor.Shared.Pages.Introduction": {
     "Title": "简介",
     "P1": "BootstrapBlazor 是一套基于 Bootstrap 和 Blazor 的企业级组件库，可以认为是 Bootstrap 项目的 Blazor 版实现。",

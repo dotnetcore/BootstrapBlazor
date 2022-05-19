@@ -3068,6 +3068,24 @@
     "CustomerButtonContent": "The button processing logic is distinguished by different functions. The parameter Items is the selected row data collection in the Table component, and the currently selected data is {0}",
     "OnRowButtonClickContent": "The button processing logic is distinguished by different functions, and the parameter Item is the current row data"
   },
+  "BootstrapBlazor.Shared.Samples.Table.TablesCell": {
+    "Title": "Table Cell",
+    "H4": "Cell related operation example",
+    "MergeCellTitle": "Merge Cells",
+    "MergeCellIntro": "Basic table display usage",
+    "MergeCellP": "In this example, by setting the <code>OnCellRenderHandler</code> callback delegate, the cell merge operation is performed on the two columns <code>Name</code> and <code>Address</code> through the judgment condition, And set the background color of the merged cell by setting the <code>TableCellArgs</code> attribute <code>Class</code> value to <code>cell-demo</code> style sheet name",
+    "OnDoubleClickCellTitle": "Double-click cell",
+    "OnDoubleClickCellIntro": "Set the double-click event of the current cell by setting the <code>OnDoubleClickColumn</code> callback",
+    "OnDoubleClickCellP": "After setting the double-click cell callback, a subscript horizontal line appears in the cell after the mouse hovers over the cell, as a reminder, which can be overridden by the <code>.table-cell .is-dbcell</code> style",
+    "RowAttr": "The current cell row data, please convert it into a binding model",
+    "ColumnNameAttr": "Current cell binding column name",
+    "ColspanAttr": "Number of merged cells",
+    "ClassAttr": "Current cell style",
+    "ValueAttr": "Current cell display content",
+    "ToastTitle": "Double-click cell callback",
+    "CurrentCellName": "Current cell name:",
+    "CurrentValue": "Current Value:"
+  },
   "BootstrapBlazor.Shared.Pages.Introduction": {
     "Title": "Introduction",
     "P1": "BootstrapBlazor is an enterprise-level component library based on Bootstrap and Blazor, which can be considered as the Blazor version of the Bootstrap project.",
