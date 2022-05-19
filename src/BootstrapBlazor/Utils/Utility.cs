@@ -265,10 +265,7 @@ public static class Utility
         var fieldType = item.PropertyType;
         var fieldName = item.GetFieldName();
         var displayName = item.GetDisplayName() ?? GetDisplayName(model, fieldName);
-
         var fieldValue = GenerateValue(model, fieldName);
-        var valueExpression = GenerateValueExpression(model, fieldName, fieldType);
-
         var type = (Nullable.GetUnderlyingType(fieldType) ?? fieldType);
         if (type == typeof(bool) || fieldValue?.GetType() == typeof(bool))
         {
@@ -279,14 +276,22 @@ public static class Utility
             builder.AddAttribute(4, nameof(Switch.ShowLabelTooltip), item.ShowLabelTooltip);
             builder.CloseComponent();
         }
+        else if (item.ComponentType == typeof(Textarea))
+        {
+            builder.OpenComponent(0, typeof(Textarea));
+            builder.AddAttribute(1, nameof(Textarea.DisplayText), displayName);
+            builder.AddAttribute(2, nameof(Textarea.Value), fieldValue);
+            builder.AddAttribute(3, nameof(Textarea.ShowLabelTooltip), item.ShowLabelTooltip);
+            builder.AddAttribute(4, "readonly", true);
+            builder.CloseComponent();
+        }
         else
         {
             builder.OpenComponent(0, typeof(Display<>).MakeGenericType(fieldType));
             builder.AddAttribute(1, nameof(Display<string>.DisplayText), displayName);
             builder.AddAttribute(2, nameof(Display<string>.Value), fieldValue);
-            builder.AddAttribute(3, nameof(Display<string>.ValueExpression), valueExpression);
-            builder.AddAttribute(4, nameof(Display<string>.LookUpServiceKey), item.LookUpServiceKey);
-            builder.AddAttribute(5, nameof(Display<string>.ShowLabelTooltip), item.ShowLabelTooltip);
+            builder.AddAttribute(3, nameof(Display<string>.LookUpServiceKey), item.LookUpServiceKey);
+            builder.AddAttribute(4, nameof(Display<string>.ShowLabelTooltip), item.ShowLabelTooltip);
             builder.CloseComponent();
         }
     }
