@@ -69,15 +69,9 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
         {
             // support drag
             Module = await JSRuntime.LoadModule("upload.js");
-            await Module.InvokeVoidAsync("bb_upload_drag_init", UploaderElement, InputFileId);
+            await Module.InvokeVoidAsync("bb_upload_drag_init", UploaderElement);
         }
     }
-
-    /// <summary>
-    /// 获得 InputFile 组件 Id 方法
-    /// </summary>
-    /// <returns></returns>
-    protected string InputFileId => $"{Id}_InputFile";
 
     /// <summary>
     /// 
@@ -168,7 +162,6 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
         {
             ret.Add("accept", Accept);
         }
-        ret.Add("id", InputFileId);
         return ret;
     }
 

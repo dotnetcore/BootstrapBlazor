@@ -1,15 +1,10 @@
-﻿export function bb_upload_drag_init(element, id) {
+﻿export function bb_upload_drag_init(element) {
     var $el = $(element);
+    var $inputFile = $el.find(':file');
+    var inputFile = $inputFile[0];
     $el.on('click', '.btn-browser', function (e) {
-        var $this = $(this);
-        var $file = $el.find(':file');
-        $file.trigger('click');
+        $inputFile.trigger('click');
     });
-
-    var inputFile = document.getElementById(id);
-    if (inputFile === null) {
-        return;
-    }
 
     //阻止浏览器默认行为
     document.addEventListener("dragleave", function (e) {
