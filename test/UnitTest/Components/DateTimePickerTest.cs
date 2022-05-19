@@ -568,4 +568,26 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         Assert.Equal(new TimeSpan(23, 59, 59), ts);
     }
     #endregion
+
+    [Fact]
+    public async Task ViewMode_DateTime()
+    {
+        var cut = Context.RenderComponent<DatePickerBody>(builder =>
+        {
+            builder.Add(a => a.ViewMode, DatePickerViewMode.DateTime);
+            builder.Add(a => a.Value, DateTime.Today.AddDays(-10));
+        });
+
+        // 选择年
+        var buttons = cut.FindAll(".date-picker-header button");
+        await cut.InvokeAsync(() => buttons[2].Click());
+
+        var button = cut.Find(".year-table tbody .cell");
+        await cut.InvokeAsync(() => button.Click());
+
+        button = cut.Find(".month-table tbody .cell");
+        await cut.InvokeAsync(() => button.Click());
+
+        cut.Contains("class=\"date-table\"");
+    }
 }

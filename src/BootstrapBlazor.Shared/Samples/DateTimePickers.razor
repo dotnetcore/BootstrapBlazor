@@ -70,7 +70,20 @@
 
 <DemoBlock Title="@Localizer["Block7Title"]" Introduction="@Localizer["Block7Intro"]" Name="ViewMode">
     <p>@((MarkupString)Localizer["P1"].Value)</p>
-    <DateTimePicker TValue="DateTime" ViewMode="DatePickerViewMode.DateTime" />
+    <div class="row g-3">
+        <div class="col-12 col-sm-6">
+            <DateTimePicker TValue="DateTime" ShowLabel="true" DisplayText="Year" ViewMode="DatePickerViewMode.Year" />
+        </div>
+        <div class="col-12 col-sm-6">
+            <DateTimePicker TValue="DateTime" ShowLabel="true" DisplayText="Month" ViewMode="DatePickerViewMode.Month" />
+        </div>
+        <div class="col-12 col-sm-6">
+            <DateTimePicker TValue="DateTime" ShowLabel="true" DisplayText="Date" ViewMode="DatePickerViewMode.Date" />
+        </div>
+        <div class="col-12 col-sm-6">
+            <DateTimePicker TValue="DateTime" ShowLabel="true" DisplayText="DateTime" ViewMode="DatePickerViewMode.DateTime" />
+        </div>
+    </div>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["Block8Title"]" Introduction="@Localizer["Block8Intro"]" Name="NullValue">

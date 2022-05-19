@@ -70,7 +70,7 @@
                                     var isOverflow = week.IsDayOverflow(index);
                                     <td class="@GetDayClass(day, isOverflow)">
                                         <div>
-                                            @if(isOverflow)
+                                            @if (isOverflow)
                                             {
                                                 <span class="cell"> - </span>
                                             }
@@ -99,7 +99,7 @@
                                     var year = index + row * 4;
                                     var isOverflow = CurrentDate.IsYearOverflow(year - (CurrentDate.Year % 20));
                                     <td class="@GetYearClassName(year, isOverflow)">
-                                        @if(isOverflow)
+                                        @if (isOverflow)
                                         {
                                             <div>
                                                 <span class="cell"> - </span>
@@ -127,7 +127,7 @@
                                     var month = index + row * 4 + 1;
                                     <td class="@GetMonthClassName(month)">
                                         <div>
-                                            <DatePickerCell Value="@GetMonth(month)" Text="@GetMonthText(month)" OnClick="d => SwitchView(DatePickerViewMode.Date, d)" />
+                                            <DatePickerCell Value="@GetMonth(month)" Text="@GetMonthText(month)" OnClick="d => SwitchView(ViewMode == DatePickerViewMode.Date ? DatePickerViewMode.Date : DatePickerViewMode.DateTime, d)" />
                                         </div>
                                     </td>
                                 }
