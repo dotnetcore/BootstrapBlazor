@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Razor">
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <Import Project="..\Framework.props" />
 
@@ -10,7 +10,9 @@
     <Content Remove="Locales\*.json" />
     <EmbeddedResource Include="Locales\*.json" />
     <Content Remove="docs.json" />
+    <Content Remove="links.json" />
     <EmbeddedResource Include="docs.json" />
+    <EmbeddedResource Include="links.json" />
   </ItemGroup>
 
   <ItemGroup>

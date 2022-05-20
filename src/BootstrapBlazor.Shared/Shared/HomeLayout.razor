@@ -30,30 +30,12 @@
         <div>
             <h4>@Localizer["FriendLink"]</h4>
             <ul>
-                <li>
-                    <a class="footer-link" href="https://blog.lindexi.com" target="_blank">@Localizer["FriendLi1"]</a>
-                </li>
-                <li>
-                    <a class="footer-link" href="https://gitee.com/dotnetchina/Furion" target="_blank">Furion</a>
-                </li>
-                <li>
-                    <a class="footer-link" href="http://ccflow.org/?from=blazor" target="_blank">@Localizer["FriendLi2"]</a>
-                </li>
-                <li>
-                    <a class="footer-link" href="https://gitee.com/loogn/bulmarazor" target="_blank">Bulma</a>
-                </li>
-                <li>
-                    <a class="footer-link" href="http://www.pearadmin.com" target="_blank">Pear Admin</a>
-                </li>
-                <li>
-                    <a class="footer-link" href="https://ant-design-blazor.github.io/" target="_blank">Ant design of blazor</a>
-                </li>
-                <li>
-                    <a class="footer-link" href="https://dotnet9.com/" target="_blank">Dotnet9</a>
-                </li>
-                <li>
-                    <a class="footer-link" href="http://www.mrhuo.com/" target="_blank">M&J</a>
-                </li>
+                @foreach (var link in WebsiteOption.CurrentValue.Links)
+                {
+                    <li>
+                        <a class="footer-link" href="@link.Value" target="_blank">@link.Key</a>
+                    </li>
+                }
             </ul>
         </div>
         <div>

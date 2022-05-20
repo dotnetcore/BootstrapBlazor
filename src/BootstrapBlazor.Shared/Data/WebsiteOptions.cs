@@ -1,4 +1,4 @@
-// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
+﻿// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
@@ -111,16 +111,41 @@ public class WebsiteOptions
     public bool IsDevelopment { get; set; }
 
     /// <summary>
+    /// 获得/设置 当前网站友联集合
+    /// </summary>
+    [NotNull]
+    public Dictionary<string, string>? Links { get; set; }
+
+    /// <summary>
     /// 构造函数
     /// </summary>
     public WebsiteOptions()
     {
-        using var res = GetType().Assembly.GetManifestResourceStream($"{GetType().Assembly.GetName().Name}.docs.json");
+        var config = GetConfiguration("docs.json");
+        SourceCodes = config.GetSection("src").GetChildren().SelectMany(c => new KeyValuePair<string, string>[]
+        {
+            new(c.Key, c.Value)
+        }).ToDictionary(item => item.Key, item => item.Value);
+        Videos = config.GetSection("video").GetChildren().SelectMany(c => new KeyValuePair<string, string>[]
+        {
+            new(c.Key, c.Value)
+        }).ToDictionary(item => item.Key, item => item.Value);
 
-        var config = new ConfigurationBuilder()
+        config = GetConfiguration("links.json");
+        Links = config.GetChildren().SelectMany(c => new KeyValuePair<string, string>[]
+        {
+            new (c.Key, c.Value)
+        }).ToDictionary(item => item.Key, item => item.Value);
+    }
+
+    private IConfiguration GetConfiguration(string jsonFileName)
+    {
+        var assembly = GetType().Assembly;
+        var assemlbyName = assembly.GetName().Name;
+        using var res = assembly.GetManifestResourceStream($"{assemlbyName}.{jsonFileName}");
+
+        return new ConfigurationBuilder()
             .AddJsonStream(res)
             .Build();
-        SourceCodes = config.GetSection("src").GetChildren().SelectMany(c => new KeyValuePair<string, string>[] { new KeyValuePair<string, string>(c.Key, c.Value) }).ToDictionary(item => item.Key, item => item.Value);
-        Videos = config.GetSection("video").GetChildren().SelectMany(c => new KeyValuePair<string, string>[] { new KeyValuePair<string, string>(c.Key, c.Value) }).ToDictionary(item => item.Key, item => item.Value);
     }
 }
