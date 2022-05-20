@@ -38,6 +38,15 @@ public class JSModule : IAsyncDisposable
     /// InvokeVoidAsync 方法
     /// </summary>
     /// <param name="identifier"></param>
+    /// <param name="token"></param>
+    /// <param name="args"></param>
+    /// <returns></returns>
+    public virtual ValueTask InvokeVoidAsync(string identifier, CancellationToken token, params object?[] args) => Module.InvokeVoidAsync(identifier, token, args);
+
+    /// <summary>
+    /// InvokeVoidAsync 方法
+    /// </summary>
+    /// <param name="identifier"></param>
     /// <param name="args"></param>
     /// <returns></returns>
     public virtual ValueTask<TValue> InvokeAsync<TValue>(string identifier, params object?[] args) => Module.InvokeAsync<TValue>(identifier, args);

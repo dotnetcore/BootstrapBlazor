@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+  <PropertyGroup>
+    <Version>6.0.1</Version>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <PackageTags>Bootstrap Blazor WebAssembly wasm UI Components Topology FlowChart</PackageTags>
+    <Description>Bootstrap UI components extensions of FlowChart</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\..\..\BootstrapBlazor\Extensions\JSRuntimeExtensions.cs" Link="JSRuntimeExtensions.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="logo.png">
+      <PackagePath></PackagePath>
+      <Pack>true</Pack>
+    </None>
+  </ItemGroup>
+
+</Project>

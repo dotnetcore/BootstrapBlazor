@@ -124,6 +124,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BootstrapBlazor.SummerNote"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTestEditor", "test\UnitTestEditor\UnitTestEditor.csproj", "{9552B649-17E2-4BCA-8774-664C83A960CB}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BootstrapBlazor.Topology", "src\Extensions\Components\BootstrapBlazor.Topology\BootstrapBlazor.Topology.csproj", "{6312863E-771D-4EFE-9B9D-071A01222E7A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -206,6 +208,10 @@ Global
 		{9552B649-17E2-4BCA-8774-664C83A960CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9552B649-17E2-4BCA-8774-664C83A960CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9552B649-17E2-4BCA-8774-664C83A960CB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6312863E-771D-4EFE-9B9D-071A01222E7A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6312863E-771D-4EFE-9B9D-071A01222E7A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6312863E-771D-4EFE-9B9D-071A01222E7A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6312863E-771D-4EFE-9B9D-071A01222E7A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -240,6 +246,7 @@ Global
 		{4ED606D8-D252-4573-8F0F-B69502ADB7ED} = {CD062AB6-244D-402A-8F33-C37DAC5856CC}
 		{2FFC1564-EF75-454B-9D8E-A437A1737CEC} = {CD062AB6-244D-402A-8F33-C37DAC5856CC}
 		{9552B649-17E2-4BCA-8774-664C83A960CB} = {7C1D79F1-87BC-42C1-BD5A-CDE4044AC1BD}
+		{6312863E-771D-4EFE-9B9D-071A01222E7A} = {CD062AB6-244D-402A-8F33-C37DAC5856CC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0DCB0756-34FA-4FD0-AE1D-D3F08B5B3A6B}

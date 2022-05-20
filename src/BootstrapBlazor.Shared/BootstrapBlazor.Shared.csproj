@@ -27,6 +27,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BootstrapBlazor\BootstrapBlazor.csproj" />
+    <ProjectReference Include="..\Extensions\Components\BootstrapBlazor.Topology\BootstrapBlazor.Topology.csproj" />
   </ItemGroup>
 
 </Project>
