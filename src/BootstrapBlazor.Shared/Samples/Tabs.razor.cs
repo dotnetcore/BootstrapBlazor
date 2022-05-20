@@ -20,6 +20,9 @@ public sealed partial class Tabs
     [NotNull]
     private Tab? TabSet2 { get; set; }
 
+    [NotNull]
+    private TabItem? TabItemElement { get; set; }
+
     /// <summary>
     /// OnInitialized 方法
     /// </summary>
@@ -113,6 +116,12 @@ public sealed partial class Tabs
         [nameof(TabItem.IsActive)] = true,
         [nameof(TabItem.ChildContent)] = text == Localizer["BackText1"] ? BootstrapDynamicComponent.CreateComponent<Counter>().Render() : BootstrapDynamicComponent.CreateComponent<FetchData>().Render()
     });
+
+    private Task SetTabItemText()
+    {
+        TabItemElement.SetText(DateTime.Now.ToString());
+        return Task.CompletedTask;
+    }
 
     /// <summary>
     /// 获得属性方法
