@@ -1,6 +1,6 @@
 ﻿var topology = undefined;
 
-export function init(id, data) {
+export function init(id, data, method, obj) {
     BootstrapBlazorModules.addScript('_content/BootstrapBlazor.Topology/js/topology.js');
 
     var handle = setInterval(function () {
@@ -18,6 +18,7 @@ export function init(id, data) {
             };
             topology.open(JSON.parse(data));
             topology.lock(1);
+            obj.invokeMethodAsync(method);
         }
     }, 200);
 }

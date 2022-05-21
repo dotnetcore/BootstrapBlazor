@@ -3,6 +3,7 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 
 namespace BootstrapBlazor.Components;
 
@@ -22,11 +23,23 @@ public partial class Topology : IDisposable
     public string? Content { get; set; }
 
     /// <summary>
+    /// 获得/设置 推送数据间隔时间 最小值 100 默认 2000 毫秒
+    /// </summary>
+    [Parameter]
+    public int Interval { get; set; } = 2000;
+
+    /// <summary>
     /// 获得/设置 获取推送数据回调委托方法
     /// </summary>
     [Parameter]
     [NotNull]
     public Func<CancellationToken, Task<IEnumerable<TopologyItem>>>? OnQueryAsync { get; set; }
+
+    /// <summary>
+    /// 获得/设置 开始推送数据前回调方法
+    /// </summary>
+    [Parameter]
+    public Func<Task>? OnBeforePushData { get; set; }
 
     [NotNull]
     private JSModule? Module { get; set; }
@@ -51,30 +64,40 @@ public partial class Topology : IDisposable
             if (!string.IsNullOrEmpty(Content))
             {
                 isInited = true;
-                Module = await JSRuntime.LoadModule("./_content/BootstrapBlazor.Topology/js/topology_bundle.js", false);
-                await Module.InvokeVoidAsync("init", Id, Content);
+                Module = await JSRuntime.LoadModule<Topology>("./_content/BootstrapBlazor.Topology/js/topology_bundle.js", this, false);
+                await Module.InvokeVoidAsync("init", Id, Content, nameof(PushData));
+            }
+        }
+    }
 
-                _ = Task.Run(async () =>
+    /// <summary>
+    /// 开始推送数据方法
+    /// </summary>
+    /// <returns></returns>
+    [JSInvokable]
+    public async Task PushData()
+    {
+        if (!disposing)
+        {
+            if (OnBeforePushData != null)
+            {
+                await OnBeforePushData();
+            }
+            Interval = Math.Max(100, Interval);
+            CancelToken = new CancellationTokenSource();
+            while (CancelToken != null && !CancelToken.IsCancellationRequested)
+            {
+                try
                 {
-                    if (!disposing)
-                    {
-                        CancelToken = new CancellationTokenSource();
-                        while (CancelToken != null && !CancelToken.IsCancellationRequested)
-                        {
-                            try
-                            {
-                                await Task.Delay(2000, CancelToken.Token);
+                    var data = await OnQueryAsync(CancelToken.Token);
+                    await Module.InvokeVoidAsync("push_data", CancelToken.Token, Id, data);
 
-                                var data = await OnQueryAsync(CancelToken.Token);
-                                await Module.InvokeVoidAsync("push_data", CancelToken.Token, Id, data);
-                            }
-                            catch (TaskCanceledException)
-                            {
+                    await Task.Delay(Interval, CancelToken.Token);
+                }
+                catch (TaskCanceledException)
+                {
 
-                            }
-                        }
-                    }
-                });
+                }
             }
         }
     }
