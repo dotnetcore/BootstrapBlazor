@@ -19,15 +19,15 @@
     <PackageReference Include="BootstrapBlazor.BaiduSpeech" Version="6.*" />
     <PackageReference Include="BootstrapBlazor.Chart" Version="6.*" />
     <PackageReference Include="BootstrapBlazor.Markdown" Version="6.*" />
+    <PackageReference Include="BootstrapBlazor.OnScreenKeyboard" Version="6.*" />
     <PackageReference Include="BootstrapBlazor.SignaturePad" Version="6.*" />
     <PackageReference Include="BootstrapBlazor.SummerNote" Version="6.*" />
     <PackageReference Include="BootstrapBlazor.TableExport" Version="6.*" />
-    <PackageReference Include="BootstrapBlazor.OnScreenKeyboard" Version="6.*" />
+    <PackageReference Include="BootstrapBlazor.Topology" Version="6.*" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\BootstrapBlazor\BootstrapBlazor.csproj" />
-    <ProjectReference Include="..\Extensions\Components\BootstrapBlazor.Topology\BootstrapBlazor.Topology.csproj" />
   </ItemGroup>
 
 </Project>
