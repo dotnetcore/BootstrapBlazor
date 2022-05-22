@@ -37,6 +37,12 @@ public partial class ImageViewer
     public string? Url { get; set; }
 
     /// <summary>
+    /// 获得/设置 图片是否异步加载
+    /// </summary>
+    [Parameter]
+    public bool IsAsync { get; set; }
+
+    /// <summary>
     /// 获得/设置 原生 alt 属性 默认 null 未设置
     /// </summary>
     [Parameter]
@@ -102,13 +108,29 @@ public partial class ImageViewer
 
     private bool IsError { get; set; }
 
+    /// <summary>
+    /// OnAfterRenderAsync 方法
+    /// </summary>
+    /// <param name="firstRender"></param>
+    /// <returns></returns>
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            if (IsAsync)
+            {
+                await JSRuntime.InvokeVoidAsync(ImageElement, "bb_image_load_async", Url);
+            }
+        }
+    }
+
     private RenderFragment RenderChildContent() => builder =>
     {
         if (!IsError)
         {
             builder.OpenElement(0, "img");
             builder.AddAttribute(1, "class", ImageClassString);
-            if (!string.IsNullOrEmpty(Url))
+            if (!string.IsNullOrEmpty(Url) && !IsAsync)
             {
                 builder.AddAttribute(2, "src", Url);
             }

@@ -1,5 +1,12 @@
 ﻿(function ($) {
     $.extend({
+        bb_image_load_async: function (el, url) {
+            if (url) {
+                var $el = $(el);
+                var $img = $el.children('img');
+                $img.attr('src', url);
+            }
+        },
         bb_image_preview: function (el, prevList) {
             var $el = $(el);
             var $wrapper = $el.children('.bb-viewer-wrapper');
