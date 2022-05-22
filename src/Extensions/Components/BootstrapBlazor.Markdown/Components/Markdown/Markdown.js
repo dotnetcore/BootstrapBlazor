@@ -4,7 +4,7 @@
 
     var $el = $(el);
     if (method === "setMarkdown") {
-        var editor = $.data(el, 'editor');
+        var editor = $.data(el, 'bb_md_editor');
         editor.setMarkdown(value);
     }
     else {
@@ -20,7 +20,7 @@
                 }
                 delete value.enableHighlight;
                 const editor = toastui.Editor.factory(value);
-                $.data(el, 'editor', editor);
+                $.data(el, 'bb_md_editor', editor);
                 var timer;
                 editor.on('blur', function () {
                     var val = editor.getMarkdown();
@@ -33,7 +33,7 @@
 };
 
 export function bb_markdown_method(el, method, parameter, obj) {
-    var editor = $.data(el, 'editor');
+    var editor = $.data(el, 'bb_md_editor');
     if (editor) {
         editor[method](...parameter);
         var val = editor.getMarkdown();

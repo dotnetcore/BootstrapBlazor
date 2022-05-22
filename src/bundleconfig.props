@@ -1,7 +1,7 @@
 <Project>
 
   <ItemGroup>
-    <PackageReference Include="BuildBundlerMinifierPlus" Version="5.0.0" Condition="'$(Configuration)'=='Debug'" />
+    <PackageReference Include="BuildBundlerMinifierPlus" Version="5.1.0" Condition="'$(Configuration)'=='Debug'" />
   </ItemGroup>
 
 </Project>
