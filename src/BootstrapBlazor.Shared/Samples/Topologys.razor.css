@@ -1,4 +1,6 @@
 ﻿.topology {
     height: calc(100vh - 278px);
     width: 100%;
+    border: 1px solid #ddd;
+    border-radius: var(--bs-border-radius);
 }

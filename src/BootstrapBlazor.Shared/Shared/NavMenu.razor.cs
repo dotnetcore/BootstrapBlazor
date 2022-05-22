@@ -492,6 +492,11 @@ public sealed partial class NavMenu
             },
             new()
             {
+                Text = Localizer["Download"],
+                Url = "downloads"
+            },
+            new()
+            {
                 Text = Localizer["DropdownWidget"],
                 Url = "dropdownwidgets"
             },
@@ -583,8 +588,9 @@ public sealed partial class NavMenu
             },
             new()
             {
-                Text = Localizer["Download"],
-                Url = "downloads"
+                IsNew = true,
+                Text = Localizer["Topology"],
+                Url = "Topologys"
             },
             new()
             {
