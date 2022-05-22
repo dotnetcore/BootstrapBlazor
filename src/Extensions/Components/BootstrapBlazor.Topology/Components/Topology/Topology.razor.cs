@@ -64,7 +64,7 @@ public partial class Topology : IDisposable
             if (!string.IsNullOrEmpty(Content))
             {
                 isInited = true;
-                Module = await JSRuntime.LoadModule<Topology>("./_content/BootstrapBlazor.Topology/js/topology_bundle.js", this, false);
+                Module = await JSRuntime.LoadModule<Topology>("./_content/BootstrapBlazor.Topology/js/bootstrap.blazor.topology.min.js", this, false);
                 await Module.InvokeVoidAsync("init", Id, Content, nameof(PushData));
             }
         }
