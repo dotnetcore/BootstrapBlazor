@@ -135,7 +135,7 @@ public partial class EditorForm<TModel> : IShowLabel
 
     [Inject]
     [NotNull]
-    private ILookUpService? LookUpService { get; set; }
+    private ILookupService? LookupService { get; set; }
 
     /// <summary>
     /// 获得/设置 配置编辑项目集合
@@ -249,7 +249,7 @@ public partial class EditorForm<TModel> : IShowLabel
                                 item.Items = el.Items;
                                 item.Lookup = el.Lookup;
                                 item.LookupStringComparison = el.LookupStringComparison;
-                                item.LookUpServiceKey = el.LookUpServiceKey;
+                                item.LookupServiceKey = el.LookupServiceKey;
                                 item.ComponentType = el.ComponentType;
                                 item.ComponentParameters = el.ComponentParameters;
                                 item.SkipValidate = el.SkipValidate;
@@ -277,7 +277,7 @@ public partial class EditorForm<TModel> : IShowLabel
         else
         {
             item.PlaceHolder ??= PlaceHolderText;
-            builder.CreateComponentByFieldType(this, item, Model, ItemChangedType, IsSearch.Value, LookUpService);
+            builder.CreateComponentByFieldType(this, item, Model, ItemChangedType, IsSearch.Value, LookupService);
         }
 
         bool CanWrite(IEditorItem item) => item.CanWrite(typeof(TModel)) && item.IsEditable(ItemChangedType, IsSearch.Value);

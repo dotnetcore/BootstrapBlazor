@@ -2969,7 +2969,7 @@
     "IsReadonlyWhenEditAttr": "This column is read-only when editing",
     "LookupAttr": "Dictionary Data Source",
     "LookupStringComparisonAttr": "Dictionary Data Source Comparison Rules",
-    "LookUpServiceKeyAttr": "The LookupService service gets the Lookup data collection key value",
+    "LookupServiceKeyAttr": "The LookupService service gets the Lookup data collection key value",
     "ReadonlyAttr": "Is it read-only mode when editing",
     "SearchTemplateColumnAttr": "Template",
     "ShowTipsAttr": "Show cell Tooltips",

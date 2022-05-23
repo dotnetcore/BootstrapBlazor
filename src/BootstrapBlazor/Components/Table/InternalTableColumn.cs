@@ -130,7 +130,7 @@ internal class InternalTableColumn : ITableColumn
     /// <summary>
     /// 获得/设置 LookupService 服务获取 Lookup 数据集合键值 常用于外键自动转换为名称操作
     /// </summary>
-    public string? LookUpServiceKey { get; set; }
+    public string? LookupServiceKey { get; set; }
 
     /// <summary>
     /// 获得/设置 单元格回调方法
@@ -278,7 +278,7 @@ internal class InternalTableColumn : ITableColumn
         if (source.Items != null) dest.Items = source.Items;
         if (source.Lookup != null) dest.Lookup = source.Lookup;
         dest.LookupStringComparison = source.LookupStringComparison;
-        if (source.LookUpServiceKey != null) dest.LookUpServiceKey = source.LookUpServiceKey;
+        if (source.LookupServiceKey != null) dest.LookupServiceKey = source.LookupServiceKey;
         if (source.IsReadonlyWhenAdd) dest.IsReadonlyWhenAdd = source.IsReadonlyWhenAdd;
         if (source.IsReadonlyWhenEdit) dest.IsReadonlyWhenEdit = source.IsReadonlyWhenEdit;
         if (source.OnCellRender != null) dest.OnCellRender = source.OnCellRender;

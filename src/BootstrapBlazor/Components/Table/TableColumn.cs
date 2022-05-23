@@ -350,7 +350,7 @@ public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn
     /// 获得/设置 字典数据源服务的类别 常用于外键自动转换为名称操作
     /// </summary>
     [Parameter]
-    public string? LookUpServiceKey { get; set; }
+    public string? LookupServiceKey { get; set; }
 
     /// <summary>
     /// 获得/设置 单元格回调方法

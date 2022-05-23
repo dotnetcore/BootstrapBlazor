@@ -329,7 +329,7 @@ public class EditorFormTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void LookUpServiceKey_Ok()
+    public void LookupServiceKey_Ok()
     {
         var foo = new Foo();
         var cut = Context.RenderComponent<EditorForm<Foo>>(pb =>
@@ -343,13 +343,13 @@ public class EditorFormTest : BootstrapBlazorTestBase
                 builder.AddAttribute(index++, nameof(EditorItem<Foo, string>.Field), f.Name);
                 builder.AddAttribute(index++, nameof(EditorItem<Foo, string>.FieldExpression), Utility.GenerateValueExpression(foo, nameof(Foo.Name), typeof(string)));
                 builder.AddAttribute(index++, nameof(EditorItem<Foo, string>.Text), "Test-Text");
-                builder.AddAttribute(index++, nameof(EditorItem<Foo, string>.LookUpServiceKey), "FooLookup");
+                builder.AddAttribute(index++, nameof(EditorItem<Foo, string>.LookupServiceKey), "FooLookup");
                 builder.AddAttribute(index++, nameof(EditorItem<Foo, string>.LookupStringComparison), StringComparison.OrdinalIgnoreCase);
                 builder.CloseComponent();
             });
         });
         var select = cut.FindComponent<Select<string>>();
-        var lookupService = Context.Services.GetRequiredService<ILookUpService>();
+        var lookupService = Context.Services.GetRequiredService<ILookupService>();
         var lookup = lookupService.GetItemsByKey("FooLookup");
         Assert.Equal(lookup!.Count(), select.Instance.Items.Count());
     }

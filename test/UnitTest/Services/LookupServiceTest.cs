@@ -11,7 +11,7 @@ public class LookupServiceTest : MessageTestBase
     [Fact]
     public void LookupService_Null()
     {
-        var service = Context.Services.GetRequiredService<ILookUpService>();
+        var service = Context.Services.GetRequiredService<ILookupService>();
         Assert.Null(service.GetItemsByKey(""));
     }
 }

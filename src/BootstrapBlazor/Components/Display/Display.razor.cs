@@ -45,11 +45,11 @@ public partial class Display<TValue>
     /// 获得/设置 LookupService 服务获取 Lookup 数据集合键值 常用于外键自动转换为名称操作
     /// </summary>
     [Parameter]
-    public string? LookUpServiceKey { get; set; }
+    public string? LookupServiceKey { get; set; }
 
     [Inject]
     [NotNull]
-    private ILookUpService? LookUpService { get; set; }
+    private ILookupService? LookupService { get; set; }
 
     /// <summary>
     /// 获得/设置 类型解析回调方法 组件泛型为 Array 时内部调用
@@ -67,9 +67,9 @@ public partial class Display<TValue>
     {
         parameters.SetParameterProperties(this);
 
-        if (!string.IsNullOrEmpty(LookUpServiceKey))
+        if (!string.IsNullOrEmpty(LookupServiceKey))
         {
-            Lookup = LookUpService.GetItemsByKey(LookUpServiceKey);
+            Lookup = LookupService.GetItemsByKey(LookupServiceKey);
         }
 
         // For derived components, retain the usual lifecycle with OnInit/OnParametersSet/etc.

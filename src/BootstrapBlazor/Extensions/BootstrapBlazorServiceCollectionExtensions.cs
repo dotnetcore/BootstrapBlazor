@@ -34,7 +34,7 @@ public static class BootstrapBlazorServiceCollectionExtensions
 
         services.TryAddSingleton<IComponentIdGenerator, DefaultIdGenerator>();
         services.TryAddSingleton(typeof(IDispatchService<>), typeof(DefaultDispatchService<>));
-        services.TryAddSingleton(typeof(ILookUpService), typeof(NullLookUpService));
+        services.TryAddSingleton(typeof(ILookupService), typeof(NullLookupService));
 
         services.TryAddScoped<ITableExcelExport, DefaultExcelExport>();
         services.TryAddScoped(typeof(IDataService<>), typeof(NullDataService<>));

@@ -99,7 +99,7 @@ internal class MockTableColumn : ITableColumn
 
     public StringComparison LookupStringComparison { get; set; } = StringComparison.OrdinalIgnoreCase;
 
-    public string? LookUpServiceKey { get; set; }
+    public string? LookupServiceKey { get; set; }
 
     public bool? ShowLabelTooltip { get; set; }
 

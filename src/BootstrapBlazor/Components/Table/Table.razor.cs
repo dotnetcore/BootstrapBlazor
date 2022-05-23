@@ -267,7 +267,7 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
 
     [Inject]
     [NotNull]
-    private ILookUpService? LookUpService { get; set; }
+    private ILookupService? LookupService { get; set; }
 
     [NotNull]
     private string? NotSetOnTreeExpandErrorMessage { get; set; }
@@ -947,11 +947,11 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
             var content = "";
             var val = GetItemValue(col.GetFieldName(), item);
 
-            if (col.Lookup == null && !string.IsNullOrEmpty(col.LookUpServiceKey))
+            if (col.Lookup == null && !string.IsNullOrEmpty(col.LookupServiceKey))
             {
                 // 未设置 Lookup
                 // 设置 LookupService 键值
-                col.Lookup = LookUpService.GetItemsByKey(col.LookUpServiceKey);
+                col.Lookup = LookupService.GetItemsByKey(col.LookupServiceKey);
             }
 
             if (col.Lookup == null && val is bool v1)
@@ -1034,7 +1034,7 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
 
     private RenderFragment RenderCell(ITableColumn col, TItem item, ItemChangedType changedType) => col.CanWrite(typeof(TItem)) && col.IsEditable(changedType)
         ? (col.EditTemplate == null
-            ? builder => builder.CreateComponentByFieldType(this, col, item, changedType, false, LookUpService)
+            ? builder => builder.CreateComponentByFieldType(this, col, item, changedType, false, LookupService)
             : col.EditTemplate(item))
         : (col.Template == null
             ? builder => builder.CreateDisplayByFieldType(col, item)
@@ -1070,7 +1070,7 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
                     parameters.Add(new(nameof(ValidateBase<string>.OnValueChanged), onValueChanged.Invoke(d, col, (model, column, val) => DynamicContext.OnValueChanged(model, column, val))));
                     col.ComponentParameters = parameters;
                 }
-                builder.CreateComponentByFieldType(this, col, row, changedType, false, LookUpService);
+                builder.CreateComponentByFieldType(this, col, row, changedType, false, LookupService);
             };
         }
 

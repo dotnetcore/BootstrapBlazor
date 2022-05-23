@@ -2,18 +2,16 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using BootstrapBlazor.Components;
-
-namespace BootstrapBlazor.Services;
+namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 内部默认字典服务实现类
+/// 获取 Select 的 Items 的接口
 /// </summary>
-internal class NullLookUpService : ILookUpService
+public interface ILookupService
 {
     /// <summary>
     /// 根据指定键值获取 Lookup 集合方法
     /// </summary>
     /// <param name="key">获得 Lookup 数据集合键值</param>
-    public IEnumerable<SelectedItem>? GetItemsByKey(string? key) => null;
+    IEnumerable<SelectedItem>? GetItemsByKey(string? key);
 }

@@ -2981,7 +2981,7 @@
     "IsReadonlyWhenEditAttr": "编辑时此列只读",
     "LookupAttr": "字典数据源",
     "LookupStringComparisonAttr": "字典数据源比较规则",
-    "LookUpServiceKeyAttr": "LookupService 服务获取 Lookup 数据集合键值",
+    "LookupServiceKeyAttr": "LookupService 服务获取 Lookup 数据集合键值",
     "ReadonlyAttr": "编辑时是否只读模式",
     "SearchTemplateColumnAttr": "模板",
     "ShowTipsAttr": "显示单元格 Tooltips",

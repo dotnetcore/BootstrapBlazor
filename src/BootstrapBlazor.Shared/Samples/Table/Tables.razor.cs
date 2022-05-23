@@ -153,8 +153,8 @@ public partial class Tables
         },
         new()
         {
-            Name = nameof(IEditorItem.LookUpServiceKey),
-            Description = TablesLocalizer["LookUpServiceKeyAttr"],
+            Name = nameof(IEditorItem.LookupServiceKey),
+            Description = TablesLocalizer["LookupServiceKeyAttr"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "

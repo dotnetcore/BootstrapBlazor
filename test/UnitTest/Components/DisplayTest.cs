@@ -48,7 +48,7 @@ public class DisplayTest : BootstrapBlazorTestBase
     {
         var cut = Context.RenderComponent<Display<List<string>>>(pb =>
         {
-            pb.Add(a => a.LookUpServiceKey, "FooLookup");
+            pb.Add(a => a.LookupServiceKey, "FooLookup");
             pb.Add(a => a.Value, new List<string> { "v1", "v2" });
         });
         Assert.Contains("LookupService-Test-1,LookupService-Test-2", cut.Markup);

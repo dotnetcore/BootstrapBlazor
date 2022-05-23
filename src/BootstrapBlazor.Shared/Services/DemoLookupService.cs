@@ -11,11 +11,11 @@ namespace Microsoft.Extensions.DependencyInjection;
 /// <summary>
 /// 演示网站示例数据注入服务实现类
 /// </summary>
-internal class DemoLookUpService : ILookUpService
+internal class DemoLookupService : ILookupService
 {
     private IServiceProvider Provider { get; }
 
-    public DemoLookUpService(IServiceProvider provider) => Provider = provider;
+    public DemoLookupService(IServiceProvider provider) => Provider = provider;
 
     public IEnumerable<SelectedItem>? GetItemsByKey(string? key)
     {

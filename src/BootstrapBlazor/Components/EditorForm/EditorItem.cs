@@ -165,7 +165,7 @@ public class EditorItem<TValue> : ComponentBase, IEditorItem
     /// 获得/设置 LookupService 服务获取 Lookup 数据集合键值 常用于外键自动转换为名称操作
     /// </summary>
     [Parameter]
-    public string? LookUpServiceKey { get; set; }
+    public string? LookupServiceKey { get; set; }
 
     /// <summary>
     /// 获得/设置 自定义验证集合

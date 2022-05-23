@@ -192,7 +192,7 @@ public class AutoGenerateColumnAttribute : AutoGenerateBaseAttribute, ITableColu
     /// <summary>
     /// 获得/设置 LookupService 服务指定数据集合键值 常用于外键自动转换为名称操作
     /// </summary>
-    public string? LookUpServiceKey { get; set; }
+    public string? LookupServiceKey { get; set; }
 
     /// <summary>
     /// 获得/设置 单元格回调方法

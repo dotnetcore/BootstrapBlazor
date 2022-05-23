@@ -2598,7 +2598,7 @@ public class TableTest : TableTestBase
                     builder.AddAttribute(22, "Order", 2);
                     builder.AddAttribute(23, "Lookup", Array.Empty<SelectedItem>());
                     builder.AddAttribute(24, "LookupStringComparison", StringComparison.OrdinalIgnoreCase);
-                    builder.AddAttribute(25, "LookUpServiceKey", "test");
+                    builder.AddAttribute(25, "LookupServiceKey", "test");
                     builder.AddAttribute(26, "ValidateRules", new List<IValidator>());
                     builder.AddAttribute(27, "GroupName", "test");
                     builder.AddAttribute(28, "GroupOrder", 1);
@@ -2629,7 +2629,7 @@ public class TableTest : TableTestBase
         Assert.Equal(2, column.Instance.Order);
         Assert.NotNull(column.Instance.Lookup);
         Assert.Equal(StringComparison.OrdinalIgnoreCase, column.Instance.LookupStringComparison);
-        Assert.Equal("test", column.Instance.LookUpServiceKey);
+        Assert.Equal("test", column.Instance.LookupServiceKey);
         Assert.NotNull(column.Instance.ValidateRules);
         Assert.Equal("test", column.Instance.GroupName);
         Assert.Equal(1, column.Instance.GroupOrder);
