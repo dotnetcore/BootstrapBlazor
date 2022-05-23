@@ -6,10 +6,10 @@
 {
     <BootstrapLabel required="@Required" ShowLabelTooltip="ShowLabelTooltip" Value="@DisplayText" />
 }
-<div @attributes="@AdditionalAttributes" class="@GetClassString("radio-list")">
+<div @attributes="@AdditionalAttributes" class="@GetClassString(RadioClassString)">
     @foreach (var item in Items)
     {
-        <Radio TValue="SelectedItem" Value="@item" Color="@Color" GroupName="@GroupName" IsDisabled="@IsDisabled" ShowAfterLabel="true" ShowLabel="false" DisplayText="@item.Text" State="@CheckState(item)" OnClick="OnClick" />
+        <Radio TValue="SelectedItem" IsButton="IsButton" Value="@item" Color="@Color" GroupName="@GroupName" IsDisabled="@IsDisabled" ShowAfterLabel="true" ShowLabel="false" DisplayText="@item.Text" State="@CheckState(item)" OnClick="OnClick" />
     }
 </div>
 @ChildContent

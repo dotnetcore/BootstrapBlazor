@@ -127,6 +127,17 @@ public class Foo
     public static string GetAvatarUrl(int id) => $"_content/BootstrapBlazor.Shared/images/avatars/150-{Math.Max(1, id % 25)}.jpg";
 
     /// <summary>
+    /// 获取 Complete 转化为 SelectedItem 方法
+    /// </summary>
+    /// <param name="localizer"></param>
+    /// <returns></returns>
+    public static List<SelectedItem> GetCompleteItems(IStringLocalizer<Foo> localizer) => new()
+    {
+        new("True", localizer["True"]),
+        new("False", localizer["False"])
+    };
+
+    /// <summary>
     /// 通过 Count 获得颜色
     /// </summary>
     /// <param name="count"></param>

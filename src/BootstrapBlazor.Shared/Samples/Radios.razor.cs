@@ -5,6 +5,8 @@
 using BootstrapBlazor.Components;
 using BootstrapBlazor.Shared.Common;
 using BootstrapBlazor.Shared.Components;
+using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Localization;
 
 namespace BootstrapBlazor.Shared.Samples;
 
@@ -47,6 +49,16 @@ public sealed partial class Radios
     [NotNull]
     private EnumEducation? SelectedEnumItem2 { get; set; }
 
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<Foo>? LocalizerFoo { get; set; }
+
+    [NotNull]
+    private Foo? Model { get; set; }
+
+    [NotNull]
+    private List<SelectedItem>? FooItems { get; set; }
+
     /// <summary>
     /// OnInitialized 方法
     /// </summary>
@@ -64,6 +76,8 @@ public sealed partial class Radios
             new SelectedItem("1", Localizer["Add1"]) { Active = true },
             new SelectedItem("2", Localizer["Add2"])
         };
+        Model = Foo.Generate(LocalizerFoo);
+        FooItems = Foo.GetCompleteItems(LocalizerFoo);
     }
 
     private IEnumerable<AttributeItem> GetAttributes() => new[]
@@ -99,6 +113,13 @@ public sealed partial class Radios
         new AttributeItem() {
             Name = "IsVertical",
             Description = Localizer["Att4"],
+            Type = "boolean",
+            ValueList = "true / false",
+            DefaultValue = "false"
+        },
+        new AttributeItem() {
+            Name = nameof(RadioList<string>.IsButton),
+            Description = Localizer["IsButton"],
             Type = "boolean",
             ValueList = "true / false",
             DefaultValue = "false"

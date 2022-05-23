@@ -18,7 +18,7 @@ public partial class CheckboxList<TValue>
     /// <summary>
     /// 获得 组件样式
     /// </summary>
-    protected string? GetClassString(string defaultClass = "checkbox-list") => CssBuilder.Default("form-control")
+    protected string? GetClassString(string? defaultClass = "checkbox-list form-control") => CssBuilder.Default()
         .AddClass(defaultClass)
         .AddClass("no-border", !ShowBorder && ValidCss != "is-invalid")
         .AddClass("is-vertical", IsVertical)

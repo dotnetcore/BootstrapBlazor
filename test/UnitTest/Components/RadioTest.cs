@@ -157,6 +157,24 @@ public class RadioTest : BootstrapBlazorTestBase
         cut.Contains("class=\"form-label\"");
     }
 
+    [Fact]
+    public void IsButton_Ok()
+    {
+        var cut = Context.RenderComponent<RadioList<EnumEducation>>(pb =>
+        {
+            pb.Add(a => a.IsButton, true);
+            pb.Add(a => a.Items, typeof(EnumEducation).ToSelectList());
+            pb.Add(a => a.Value, EnumEducation.Middel);
+        });
+        cut.Contains("is-button");
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.Color, Color.Danger);
+        });
+        cut.Contains("form-check is-checked bg-danger");
+    }
+
     private class RadioListGenericMock<T>
     {
 

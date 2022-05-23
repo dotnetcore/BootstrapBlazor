@@ -18,6 +18,12 @@ public partial class Radio<TValue>
     public Func<TValue, Task>? OnClick { get; set; }
 
     /// <summary>
+    /// 获得/设置 是否为按钮样式 默认 false
+    /// </summary>
+    [Parameter]
+    public bool IsButton { get; set; }
+
+    /// <summary>
     /// 获得/设置 Radio 组名称一般来讲需要设置 默认为 null 未设置
     /// </summary>
     [Parameter]
@@ -26,8 +32,11 @@ public partial class Radio<TValue>
 #endif
     public string? GroupName { get; set; }
 
-    private void OnClickHandler()
+    private async Task OnClickHandler()
     {
-        OnClick?.Invoke(Value);
+        if (OnClick != null)
+        {
+            await OnClick(Value);
+        }
     }
 }
