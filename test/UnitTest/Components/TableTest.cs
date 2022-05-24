@@ -3,6 +3,7 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using BootstrapBlazor.Shared;
+using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
@@ -3208,7 +3209,7 @@ public class TableTest : TableTestBase
     }
 
     [Fact]
-    public async Task DynamicContext_Ok()
+    public async Task DynamicContext_Add()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
@@ -3227,6 +3228,30 @@ public class TableTest : TableTestBase
 
         var delete = cut.FindComponent<TableToolbarPopconfirmButton<DynamicObject>>();
         await cut.InvokeAsync(() => delete.Instance.OnConfirm());
+    }
+
+    [Fact]
+    public async Task DynamicContext_Edit()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var items = Foo.GenerateFoo(localizer, 2);
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<MockDynamicTable>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.IsMultipleSelect, true);
+                pb.Add(a => a.ShowToolbar, true);
+                pb.Add(a => a.DynamicContext, CreateDynamicContext(localizer));
+            });
+        });
+
+        var input = cut.Find("tbody tr input");
+        await cut.InvokeAsync(() => input.Click());
+
+        var table = cut.FindComponent<MockDynamicTable>();
+        var saved = await table.Instance.SaveModelTest();
+        Assert.True(saved);
     }
 
     [Fact]
@@ -3897,7 +3922,7 @@ public class TableTest : TableTestBase
         return userData;
     }
 
-    private static DataTableDynamicContext CreateDynamicContext(IStringLocalizer<Foo> localizer)
+    public static DataTableDynamicContext CreateDynamicContext(IStringLocalizer<Foo> localizer)
     {
         var UserData = CreateDataTable(localizer);
         return new DataTableDynamicContext(UserData, (context, col) =>
@@ -4091,6 +4116,15 @@ public class TableTest : TableTestBase
             RenderModeResponsiveWidth = 5;
             RenderMode = TableRenderMode.Auto;
             return base.ActiveRenderMode;
+        }
+    }
+
+    private class MockDynamicTable : Table<DynamicObject>
+    {
+        public async Task<bool> SaveModelTest()
+        {
+            var context = new EditContext(SelectedRows[0]);
+            return await base.SaveModelAsync(context, ItemChangedType.Update);
         }
     }
 }

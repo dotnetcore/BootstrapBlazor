@@ -400,14 +400,23 @@ public partial class Table<TItem>
     /// <returns></returns>
     protected async Task<bool> SaveModelAsync(EditContext context, ItemChangedType changedType)
     {
-        bool valid = await InternalOnSaveAsync((TItem)context.Model, changedType);
+        bool valid;
+        if (DynamicContext != null)
+        {
+            await DynamicContext.SetValue(context.Model);
+            RowItemsCache = null;
+            valid = true;
+        }
+        else
+        {
+            valid = await InternalOnSaveAsync((TItem)context.Model, changedType);
+        }
 
         // 回调外部自定义方法
         if (OnAfterSaveAsync != null)
         {
             await OnAfterSaveAsync((TItem)context.Model);
         }
-
         if (ShowToastAfterSaveOrDeleteModel)
         {
             var option = new ToastOption
