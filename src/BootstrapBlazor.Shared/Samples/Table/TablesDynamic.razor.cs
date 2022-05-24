@@ -32,6 +32,8 @@ public partial class TablesDynamic
 
     private string? ButtonRemoveColumnText { get; set; }
 
+    private List<DynamicObject> SelectedItems { get; set; } = new List<DynamicObject>();
+
     /// <summary>
     /// OnInitialized 方法
     /// </summary>

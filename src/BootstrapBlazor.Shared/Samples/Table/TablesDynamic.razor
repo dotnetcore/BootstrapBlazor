@@ -11,7 +11,7 @@
 <DemoBlock Title="编辑功能" Introduction="增加编辑维护功能" Name="Edit">
     <p>通过设置 <code>DataTableDynamicContext</code> 实例的 <code>OnChanged</code> 回调方法，新建行时自动设置值</p>
     <Table TItem="DynamicObject" DynamicContext="DataTableDynamicContext"
-           IsMultipleSelect="true" IsBordered="true" IsStriped="true"
+           IsMultipleSelect="true" IsBordered="true" IsStriped="true" @bind-SelectedRows="SelectedItems"
            ShowToolbar="true" ShowExtendButtons="true" />
 </DemoBlock>
 
