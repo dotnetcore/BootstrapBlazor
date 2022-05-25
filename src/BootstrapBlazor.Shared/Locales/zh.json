@@ -2333,6 +2333,8 @@
     "LinkButtonImageIntro": "通过 <code>ImageUrl</code> 值设置图片地址",
     "LinkButtonChildTitle": "模板",
     "LinkButtonChildIntro": "通过 <code>ChildContent</code> 模板自定义显示内容",
+    "LinkButtonIconTitle": "图标按钮",
+    "LinkButtonIconIntro": "通过设置 <code>Icon</code> 显示图标",
     "LinkButtonOnClickTitle": "点击事件",
     "LinkButtonOnClickIntro": "通过 <code>OnClick</code> 回调方法响应点击事件",
     "Text": "显示文本",
@@ -2341,7 +2343,8 @@
     "ImageUrl": "显示图片地址",
     "TooltipPlacement": "Tooltip 显示位置",
     "ChildContent": "子组件",
-    "OnClick": "点击事件回调方法"
+    "OnClick": "点击事件回调方法",
+    "Icon": "按钮 Icon"
   },
   "BootstrapBlazor.Shared.Samples.ListViews": {
     "Title": "ListView 列表视图",

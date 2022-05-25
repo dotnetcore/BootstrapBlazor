@@ -2330,13 +2330,16 @@
     "LinkButtonChildIntro": "Set <code>ChildContent</code> for customer template",
     "LinkButtonOnClickTitle": "OnClick",
     "LinkButtonOnClickIntro": "Set <code>OnClick</code> handler onclick event",
+    "LinkButtonIconTitle": "Icon",
+    "LinkButtonIconIntro": "Set <code>Icon</code> for display as icon button",
     "Text": "Text",
     "Url": "Url",
     "Title": "Tooltip Title",
     "ImageUrl": "ImageUrl",
     "TooltipPlacement": "Tooltip placement",
     "ChildContent": "ChildContent",
-    "OnClick": "OnClick"
+    "OnClick": "OnClick",
+    "Icon": "Icon"
   },
   "BootstrapBlazor.Shared.Samples.ListViews": {
     "Title": "ListView",
