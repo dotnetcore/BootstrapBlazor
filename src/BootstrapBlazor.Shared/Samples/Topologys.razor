@@ -1,5 +1,13 @@
 ﻿@page "/topologys"
 
-<div class="topology">
-    <Topology Content="@Content" OnQueryAsync="@GetData"></Topology>
-</div>
+<h3>Topology 人机交互界面</h3>
+
+<h4>通过 <code>Topology</code> 开源组件进行人机交互界面的渲染</h4>
+
+<DemoBlock Title="基础用法" Introduction="加载网站导出的 <code>Json</code> 文件即可，点击风扇下方数字框可进行控制操作" Name="Nomal">
+    <div class="topology">
+        <Topology @ref="TopologyElement" Content="@Content" OnBeforePushData="OnBeforePushData"></Topology>
+    </div>
+</DemoBlock>
+
+<AttributeTable Items="@GetAttributes()" />

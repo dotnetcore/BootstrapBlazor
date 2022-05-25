@@ -22,6 +22,7 @@ public static class ServicesExtensions
     {
         services.AddSingleton<WeatherForecastService>();
         services.AddSingleton<VersionService>();
+        services.AddSingleton<FanControllerDataService>();
         services.AddScoped<CodeSnippetService>();
         services.AddSingleton(typeof(IDataService<>), typeof(TableDemoDataService<>));
         services.AddSingleton(typeof(ILookupService), typeof(DemoLookupService));
