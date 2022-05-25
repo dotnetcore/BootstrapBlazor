@@ -20,6 +20,10 @@ public partial class TablesLookup
     [NotNull]
     private IStringLocalizer<Foo>? Localizer { get; set; }
 
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<TablesLookup>? LookupLocalizer { get; set; }
+
     /// <summary>
     /// OnInitialized 方法
     /// </summary>

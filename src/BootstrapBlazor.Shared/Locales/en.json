@@ -3095,6 +3095,15 @@
     "CurrentCellName": "Current cell name:",
     "CurrentValue": "Current Value:"
   },
+  "BootstrapBlazor.Shared.Samples.Table.TablesLookup": {
+    "Title": "Table Lookup",
+    "Desc": "Used to automatically convert foreign key columns to <code>Text</code> display text",
+    "LookupTitle": "Lookup external data source",
+    "LookupIntro": "Auto-translate display text by setting <code>Lookup</code>",
+    "LookupP1": "In this example, by setting the <code>Lookup</code> value of the <code>Complete</code> column to the value",
+    "LookupP2": "The component automatically converts <code>Complete</code> to a preset in the <code>DataSource</code> collection",
+    "LookupP3": "In this example, the <code>ILookupService</code> service is used for unified processing, and the <code>Lookup</code> data collection is obtained from the service by setting the <code>LookupServiceKey</code> value"
+  },
   "BootstrapBlazor.Shared.Pages.Introduction": {
     "Title": "Introduction",
     "P1": "BootstrapBlazor is an enterprise-level component library based on Bootstrap and Blazor, which can be considered as the Blazor version of the Bootstrap project.",
