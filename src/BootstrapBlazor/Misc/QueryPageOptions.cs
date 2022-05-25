@@ -65,7 +65,7 @@ public class QueryPageOptions
     public int PageIndex { get; set; } = 1;
 
     /// <summary>
-    /// 获得/设置 请求读取数据开始行 默认 1
+    /// 获得/设置 请求读取数据开始行 默认 0
     /// </summary>
     /// <remarks><see cref="Table{TItem}.ScrollMode"/> 开启虚拟滚动时使用</remarks>
     public int StartIndex { get; set; }

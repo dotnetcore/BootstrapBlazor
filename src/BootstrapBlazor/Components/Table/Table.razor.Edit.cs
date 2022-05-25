@@ -342,9 +342,16 @@ public partial class Table<TItem>
     /// <returns></returns>
     public async Task QueryAsync()
     {
-        await InternalToggleLoading(true);
-        await QueryData();
-        await InternalToggleLoading(false);
+        if (ScrollMode == ScrollMode.Virtual && VirtualizeElement != null)
+        {
+            await VirtualizeElement.RefreshDataAsync();
+        }
+        else
+        {
+            await InternalToggleLoading(true);
+            await QueryData();
+            await InternalToggleLoading(false);
+        }
         StateHasChanged();
     }
 
