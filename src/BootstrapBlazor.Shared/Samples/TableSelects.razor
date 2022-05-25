@@ -1,0 +1,10 @@
+﻿@page "/tableselects"
+
+<h3>TableSelect 表格选择器</h3>
+
+<h4>下拉框为表格用于展示复杂类型的选择需求</h4>
+
+<DemoBlock Title="基本用法" Introduction="@Localizer["Block1Intro"]" Name="Normal">
+    <TableSelect TValue="Foo" @bind-Value="@Foo" Items="Items" TextExpresion="f => f.Name" />
+    <div>@Foo?.Name</div>
+</DemoBlock>
