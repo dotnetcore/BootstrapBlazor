@@ -29,10 +29,9 @@ public partial class Topology : IDisposable
     public int Interval { get; set; } = 2000;
 
     /// <summary>
-    /// 获得/设置 获取推送数据回调委托方法
+    /// 获得/设置 获取推送数据回调委托方法 默认 null 赋值后开启轮训模式
     /// </summary>
     [Parameter]
-    [NotNull]
     public Func<CancellationToken, Task<IEnumerable<TopologyItem>>>? OnQueryAsync { get; set; }
 
     /// <summary>
@@ -83,22 +82,41 @@ public partial class Topology : IDisposable
             {
                 await OnBeforePushData();
             }
-            Interval = Math.Max(100, Interval);
-            CancelToken = new CancellationTokenSource();
-            while (CancelToken != null && !CancelToken.IsCancellationRequested)
+
+            // 判断工作模式
+            if (OnQueryAsync != null)
             {
-                try
+                // 轮训模式
+                Interval = Math.Max(100, Interval);
+                CancelToken = new CancellationTokenSource();
+                while (CancelToken != null && !CancelToken.IsCancellationRequested)
                 {
-                    var data = await OnQueryAsync(CancelToken.Token);
-                    await Module.InvokeVoidAsync("push_data", CancelToken.Token, Id, data);
+                    try
+                    {
+                        var data = await OnQueryAsync(CancelToken.Token);
+                        await PushData(data, CancelToken.Token);
+                        await Task.Delay(Interval, CancelToken.Token);
+                    }
+                    catch (TaskCanceledException)
+                    {
 
-                    await Task.Delay(Interval, CancelToken.Token);
-                }
-                catch (TaskCanceledException)
-                {
-
+                    }
                 }
             }
+        }
+    }
+
+    /// <summary>
+    /// 推送数据到客户端
+    /// </summary>
+    /// <param name="items"></param>
+    /// <param name="token"></param>
+    /// <returns></returns>
+    public async ValueTask PushData(IEnumerable<TopologyItem> items, CancellationToken token = default)
+    {
+        if (Module != null)
+        {
+            await Module.InvokeVoidAsync("push_data", token, Id, items);
         }
     }
 
