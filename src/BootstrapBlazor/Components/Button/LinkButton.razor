@@ -1,10 +1,14 @@
 ﻿@namespace BootstrapBlazor.Components
 @inherits TooltipComponentBase
 
-<a @attributes="AdditionalAttributes" id="@Id" href="@Url" @onclick:preventDefault="@Prevent" @onclick="OnClick">
+<a @attributes="AdditionalAttributes" class="@ClassString" id="@Id" href="@Url" @onclick:preventDefault="@Prevent" @onclick="OnClick">
+    @if (!string.IsNullOrEmpty(Icon))
+    {
+        <i class="@Icon"></i>
+    }
     @if (!string.IsNullOrEmpty(Text))
     {
-        @Text
+        <span>@Text</span>
     }
     @if (!string.IsNullOrEmpty(ImageUrl))
     {

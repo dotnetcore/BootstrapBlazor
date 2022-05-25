@@ -20,7 +20,9 @@
     font-size: 1.5rem;
 }
 
-.btn .badge, .btn i + span, .badge i + span {
+.btn .badge, .btn i + span,
+.badge i + span,
+.link-button > i + span {
     margin-left: 4px;
 }
 

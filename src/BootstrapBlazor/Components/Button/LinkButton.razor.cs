@@ -37,6 +37,12 @@ public partial class LinkButton
     public string? ImageUrl { get; set; }
 
     /// <summary>
+    /// 获得/设置 显示图标
+    /// </summary>
+    [Parameter]
+    public string? Icon { get; set; }
+
+    /// <summary>
     /// 获得/设置 Tooltip 显示位置 默认为 Top
     /// </summary>
     [Parameter]
@@ -55,4 +61,8 @@ public partial class LinkButton
     public EventCallback<MouseEventArgs> OnClick { get; set; }
 
     private bool Prevent => Url.StartsWith('#');
+
+    private string? ClassString => CssBuilder.Default("link-button")
+        .AddClassFromAttributes(AdditionalAttributes)
+        .Build();
 }
