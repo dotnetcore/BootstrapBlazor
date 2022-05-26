@@ -19,6 +19,10 @@ public partial class TablesRow
 
     [Inject]
     [NotNull]
+    private IStringLocalizer<TablesRow>? RowLocalizer { get; set; }
+
+    [Inject]
+    [NotNull]
     private ToastService? ToastService { get; set; }
 
     private static IEnumerable<int> PageItemsSource => new int[] { 4, 10, 20 };
