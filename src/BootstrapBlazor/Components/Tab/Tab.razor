@@ -24,12 +24,9 @@ else
                         {
                             <div class="tabs-active-bar"></div>
                         }
-                        @if (FirstRender)
-                        {
-                            <CascadingValue Value="this" IsFixed="true">
-                                @ChildContent
-                            </CascadingValue>
-                        }
+                        <CascadingValue Value="this" IsFixed="true">
+                            @ChildContent
+                        </CascadingValue>
                         <RenderTemplate>
                             @if (!Items.Any() && !string.IsNullOrEmpty(DefaultUrl))
                             {
@@ -86,29 +83,29 @@ else
         <div class="tabs-body">
             <CascadingValue Value="this" IsFixed="true">
                 @if (IsOnlyRenderActiveTab)
-            {
-                var item = Items.FirstOrDefault(i => i.IsActive);
-                if (item != null)
                 {
-                    <div class="@GetContentClassString(item)">
-                        <CascadingValue Value="item" IsFixed="true">
-                            @RenderTabItemContent(item.ChildContent)
-                        </CascadingValue>
-                    </div>
+                    var item = Items.FirstOrDefault(i => i.IsActive);
+                    if (item != null)
+                    {
+                        <div class="@GetContentClassString(item)">
+                            <CascadingValue Value="item" IsFixed="true">
+                                @RenderTabItemContent(item.ChildContent)
+                            </CascadingValue>
+                        </div>
+                    }
                 }
-            }
-            else
-            {
-                foreach (var item in Items)
+                else
                 {
-                    <div @key="@item" class="@GetContentClassString(item)">
-                        <CascadingValue Value="item" IsFixed="true">
-                            @RenderTabItemContent(item.ChildContent)
-                        </CascadingValue>
-                    </div>
+                    foreach (var item in Items)
+                    {
+                        <div @key="@item" class="@GetContentClassString(item)">
+                            <CascadingValue Value="item" IsFixed="true">
+                                @RenderTabItemContent(item.ChildContent)
+                            </CascadingValue>
+                        </div>
+                    }
                 }
-            }
-        </CascadingValue>
+            </CascadingValue>
+        </div>
     </div>
-</div>
 }
