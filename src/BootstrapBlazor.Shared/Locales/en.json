@@ -3146,6 +3146,17 @@
     "SetRowClassFormatterIntro": "By setting the <code>SetRowClassFormatter</code> attribute value, you can set the row style through the row data logic, and realize the function of your own highlighting requirements",
     "SetRowClassFormatterP": "In this example, the <code>SetRowClassFormatter</code> method will highlight the row by judging the <code>Count > 60</code> of the bound data"
   },
+  "BootstrapBlazor.Shared.Samples.Table.TablesDynamic": {
+    "Title": "Table Dynamic",
+    "Desc": "Supports dynamically adding columns",
+    "DataTableTitle": "Common usage",
+    "DataTableIntro": "Only show <code>DataTable</code> data",
+    "EditTitle": "Edit function",
+    "EditIntro": "Add editing and maintenance functions",
+    "EditP": "By setting the <code>OnChanged</code> callback method of the <code>DataTableDynamicContext</code> instance, the value is automatically set when a new row is created",
+    "DynamicColTitle": "Dynamic Column",
+    "DynamicColIntro": "Dynamic adjustment of the <code>DataTable</code> table component automatically updates via code"
+  },
   "BootstrapBlazor.Shared.Pages.Introduction": {
     "Title": "Introduction",
     "P1": "BootstrapBlazor is an enterprise-level component library based on Bootstrap and Blazor, which can be considered as the Blazor version of the Bootstrap project.",

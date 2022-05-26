@@ -3159,6 +3159,17 @@
     "SetRowClassFormatterIntro": "通过设置 <code>SetRowClassFormatter</code> 属性值可以实现通过行数据逻辑对行样式进行设置,实现自己高亮需求功能",
     "SetRowClassFormatterP": "本例中 <code>SetRowClassFormatter</code> 方法通过判断绑定数据的 <code>Count > 60</code> 时行高亮显示"
   },
+  "BootstrapBlazor.Shared.Samples.Table.TablesDynamic": {
+    "Title": "Table 表格",
+    "Desc": "支持动态添加列",
+    "DataTableTitle": "普通用法",
+    "DataTableIntro": "仅展示 <code>DataTable</code> 数据",
+    "EditTitle": "编辑功能",
+    "EditIntro": "增加编辑维护功能",
+    "EditP": "通过设置 <code>DataTableDynamicContext</code> 实例的 <code>OnChanged</code> 回调方法，新建行时自动设置值",
+    "DynamicColTitle": "动态列",
+    "DynamicColIntro": "通过代码动态调整 <code>DataTable</code> 表格组件自动更新"
+  },
   "BootstrapBlazor.Shared.Pages.Introduction": {
     "Title": "简介",
     "P1": "BootstrapBlazor 是一套基于 Bootstrap 和 Blazor 的企业级组件库，可以认为是 Bootstrap 项目的 Blazor 版实现。",
