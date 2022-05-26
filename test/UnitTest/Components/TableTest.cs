@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
+using System.ComponentModel.DataAnnotations;
 using System.Data;
 
 namespace UnitTest.Components;
@@ -1612,7 +1613,7 @@ public class TableTest : TableTestBase
     }
 
     [Fact]
-    public void IsTree_Ok()
+    public void IsTree_Items()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
@@ -1622,7 +1623,6 @@ public class TableTest : TableTestBase
                 pb.Add(a => a.RenderMode, TableRenderMode.Table);
                 pb.Add(a => a.IsTree, true);
                 pb.Add(a => a.Items, FooTree.Generate(localizer));
-                pb.Add(a => a.OnTreeExpand, foo => Task.FromResult(FooTree.Generate(localizer).AsEnumerable()));
                 pb.Add(a => a.TableColumns, foo => builder =>
                 {
                     builder.OpenComponent<TableColumn<Foo, string>>(0);
@@ -1633,6 +1633,121 @@ public class TableTest : TableTestBase
             });
         });
         cut.Contains("is-node");
+    }
+
+    [Fact]
+    public async void IsTree_OnQuery()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<FooTree>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.IsTree, true);
+                pb.Add(a => a.IsMultipleSelect, true);
+                pb.Add(a => a.OnQueryAsync, op => OnQueryAsync(op, localizer));
+                pb.Add(a => a.OnTreeExpand, foo => Task.FromResult(FooTree.Generate(localizer, foo.Id < 2, foo.Id).AsEnumerable()));
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+                });
+            });
+        });
+        var input = cut.Find("tbody tr input");
+        await cut.InvokeAsync(() => input.Click());
+
+        // 点击展开
+        var node = cut.Find("tbody .is-node");
+        await cut.InvokeAsync(() => node.Click());
+
+        node = cut.FindAll("tbody .is-node").Skip(1).First();
+        await cut.InvokeAsync(() => node.Click());
+
+        var table = cut.FindComponent<Table<FooTree>>();
+        await cut.InvokeAsync(() => table.Instance.QueryAsync());
+
+        var nodes = cut.FindAll("tbody tr");
+        Assert.Equal(8, nodes.Count);
+    }
+
+    private static Task<QueryData<FooTree>> OnQueryAsync(QueryPageOptions options, IStringLocalizer<Foo> localizer)
+    {
+        var items = FooTree.Generate(localizer);
+        var data = new QueryData<FooTree>()
+        {
+            Items = items,
+            TotalCount = items.Count(),
+        };
+        return Task.FromResult(data);
+    }
+
+    [Fact]
+    public void IsTree_Exception()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<FooTree>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.IsTree, true);
+                pb.Add(a => a.OnQueryAsync, op => OnQueryAsync(op, localizer));
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+                });
+            });
+        });
+        // 点击展开
+        var node = cut.Find("tbody .table-cell.is-tree .is-node");
+        Assert.ThrowsAsync<InvalidOperationException>(() => cut.InvokeAsync(() => node.Click()));
+    }
+
+    [Fact]
+    public async void IsTree_OnQuery_NoKey()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<FooNoKeyTree>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.IsTree, true);
+                pb.Add(a => a.OnQueryAsync, OnQueryAsync);
+                pb.Add(a => a.IsMultipleSelect, true);
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+                });
+            });
+        });
+        cut.Contains("is-node");
+        var input = cut.Find("tbody tr input");
+        await cut.InvokeAsync(() => input.Click());
+
+        var table = cut.FindComponent<Table<FooNoKeyTree>>();
+        await cut.InvokeAsync(() => table.Instance.QueryAsync());
+
+        Task<QueryData<FooNoKeyTree>> OnQueryAsync(QueryPageOptions options)
+        {
+            var items = FooNoKeyTree.Generate(localizer);
+            var data = new QueryData<FooNoKeyTree>()
+            {
+                Items = items,
+                TotalCount = items.Count(),
+            };
+            return Task.FromResult(data);
+        }
     }
 
     [Fact]
@@ -4026,6 +4141,27 @@ public class TableTest : TableTestBase
         public bool HasChildren { get; set; }
 
         public static IEnumerable<FooTree> Generate(IStringLocalizer<Foo> localizer, bool hasChildren = true, int seed = 0) => Enumerable.Range(1, 2).Select(i => new FooTree()
+        {
+            Id = i + seed,
+            Name = localizer["Foo.Name", $"{seed:d2}{(i + seed):d2}"],
+            DateTime = System.DateTime.Now.AddDays(i - 1),
+            Address = localizer["Foo.Address", $"{random.Next(1000, 2000)}"],
+            Count = random.Next(1, 100),
+            Complete = random.Next(1, 100) > 50,
+            Education = random.Next(1, 100) > 50 ? EnumEducation.Primary : EnumEducation.Middel,
+            HasChildren = hasChildren
+        }).ToList();
+    }
+
+    private class FooNoKeyTree : FooTree
+    {
+        [Display(Name = "主键")]
+        [AutoGenerateColumn(Ignore = true)]
+        public new int Id { get; set; }
+
+        private static readonly Random random = new();
+
+        public new static IEnumerable<FooNoKeyTree> Generate(IStringLocalizer<Foo> localizer, bool hasChildren = true, int seed = 0) => Enumerable.Range(1, 2).Select(i => new FooNoKeyTree()
         {
             Id = i + seed,
             Name = localizer["Foo.Name", $"{seed:d2}{(i + seed):d2}"],

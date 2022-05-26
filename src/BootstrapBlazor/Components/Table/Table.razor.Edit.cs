@@ -463,10 +463,10 @@ public partial class Table<TItem>
                     // 更新选中行逻辑
                     foreach (var item in SelectedRows)
                     {
-                        var key = Utility.GetKeyValue<TItem, object?>(item);
+                        var key = Utility.GetKeyValue<TItem, object>(item);
                         if (key != null)
                         {
-                            var row = QueryItems.FirstOrDefault(i => Utility.GetKeyValue<TItem, object?>(i)?.ToString() == key.ToString());
+                            var row = QueryItems.FirstOrDefault(i => Utility.GetKeyValue<TItem, object>(i).ToString() == key.ToString());
                             if (row != null)
                             {
                                 rows.Add(row);
@@ -542,7 +542,7 @@ public partial class Table<TItem>
                         {
                             HasChildren = CheckTreeChildren(item),
                         };
-                        node.IsExpand = node.HasChildren && node.Key != null && KeySet.Contains(node.Key);
+                        node.IsExpand = IsExpandRow(node);
                         if (node.IsExpand)
                         {
                             await RestoreIsExpand(node);
@@ -563,6 +563,8 @@ public partial class Table<TItem>
 
     private HashSet<object> KeySet { get; } = new();
 
+    private bool IsExpandRow(TableTreeNode<TItem> node) => node.HasChildren && node.Key != null && KeySet.Contains(node.Key);
+
     private void CheckExpandKeys(List<TableTreeNode<TItem>> tableTreeNodes)
     {
         foreach (var node in tableTreeNodes)
@@ -577,24 +579,22 @@ public partial class Table<TItem>
 
     private async Task RestoreIsExpand(TableTreeNode<TItem> parentNode)
     {
-        if (OnTreeExpand == null)
+        if (OnTreeExpand != null)
         {
-            throw new InvalidOperationException(NotSetOnTreeExpandErrorMessage);
-        }
-
-        foreach (var item in (await OnTreeExpand(parentNode.Value)))
-        {
-            var node = new TableTreeNode<TItem>(item)
+            foreach (var item in (await OnTreeExpand(parentNode.Value)))
             {
-                HasChildren = CheckTreeChildren(item),
-                Parent = parentNode
-            };
-            node.IsExpand = node.HasChildren && node.Key != null && KeySet.Contains(node.Key);
-            if (node.IsExpand)
-            {
-                await RestoreIsExpand(node);
+                var node = new TableTreeNode<TItem>(item)
+                {
+                    HasChildren = CheckTreeChildren(item),
+                    Parent = parentNode
+                };
+                node.IsExpand = IsExpandRow(node);
+                if (node.IsExpand)
+                {
+                    await RestoreIsExpand(node);
+                }
+                parentNode.Children.Add(node);
             }
-            parentNode.Children.Add(node);
         }
     }
 

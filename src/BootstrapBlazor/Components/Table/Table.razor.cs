@@ -320,30 +320,28 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
             throw new InvalidOperationException(NotSetOnTreeExpandErrorMessage);
         }
 
-        if (IsLoadChildren)
+        if (!IsLoadChildren)
         {
-            return;
-        }
-
-        if (TryGetTreeNodeByItem(item, out var node))
-        {
-            node.IsExpand = !node.IsExpand;
-
-            // 无子项时通过回调方法延时加载
-            if (node.Children.Count == 0)
+            if (TryGetTreeNodeByItem(item, out var node))
             {
-                IsLoadChildren = true;
-                var nodes = await OnTreeExpand(item);
-                IsLoadChildren = false;
+                node.IsExpand = !node.IsExpand;
 
-                node.Children.AddRange(nodes.Select(i => new TableTreeNode<TItem>(i)
+                // 无子项时通过回调方法延时加载
+                if (node.Children.Count == 0)
                 {
-                    HasChildren = CheckTreeChildren(i),
-                    Parent = node
-                }));
+                    IsLoadChildren = true;
+                    var nodes = await OnTreeExpand(item);
+                    IsLoadChildren = false;
+
+                    node.Children.AddRange(nodes.Select(i => new TableTreeNode<TItem>(i)
+                    {
+                        HasChildren = CheckTreeChildren(i),
+                        Parent = node
+                    }));
+                }
+                StateHasChanged();
             }
         }
-        StateHasChanged();
     };
 
     private bool TryGetTreeNodeByItem(TItem item, [MaybeNullWhen(false)] out TableTreeNode<TItem> node)
