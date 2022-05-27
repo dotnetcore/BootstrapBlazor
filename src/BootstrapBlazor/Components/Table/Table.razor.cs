@@ -87,7 +87,7 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
     /// </summary>
     /// <param name="item"></param>
     /// <returns></returns>
-    protected string? GetTreeClassString(TItem item) => CssBuilder.Default("is-tree fa fa-fw")
+    protected string? GetTreeClassString(TItem item) => CssBuilder.Default("is-tree")
         .AddClass(TreeIcon, CheckTreeChildren(item) && !IsLoadChildren)
         .AddClass("fa-rotate-90", TryGetTreeNodeByItem(item, out var node) && node.IsExpand)
         .AddClass("fa-spin fa-spinner", IsLoadChildren)
@@ -143,7 +143,7 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
     /// 获得/设置 数型结构小箭头图标 默认 fa fa-caret-right
     /// </summary>
     [Parameter]
-    public string TreeIcon { get; set; } = "fa-caret-right";
+    public string TreeIcon { get; set; } = "fa fa-fw fa-caret-right";
 
     /// <summary>
     /// 获得/设置 树形数据节点展开式回调委托方法
@@ -253,13 +253,6 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
     /// <remarks>需要设置 <see cref="ScrollMode"/> 值为 Virtual 时生效</remarks>
     [Parameter]
     public float RowHeight { get; set; } = 39.5f;
-
-    /// <summary>
-    /// 获得/设置 滚动时是否显示虚拟行 默认为 true 显示
-    /// </summary>
-    /// <remarks>需要设置 <see cref="ScrollMode"/> 值为 Virtual 时生效</remarks>
-    [Parameter]
-    public bool ShowVirtualRowMask { get; set; } = true;
 
     [Inject]
     [NotNull]
@@ -855,7 +848,6 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
 
             try
             {
-                AutoRefreshInterval = 3000;
                 // 自动刷新功能
                 await Task.Delay(AutoRefreshInterval, AutoRefreshCancelTokenSource.Token);
 
@@ -885,6 +877,7 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
         BreakPoint.Medium => ScreenSize >= 768,
         BreakPoint.Large => ScreenSize >= 992,
         BreakPoint.ExtraLarge => ScreenSize >= 1200,
+        BreakPoint.ExtraExtraLarge => ScreenSize >= 1400,
         _ => true
     };
 
@@ -930,7 +923,6 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
         }
         else
         {
-            var content = "";
             var val = GetItemValue(col.GetFieldName(), item);
 
             if (col.Lookup == null && !string.IsNullOrEmpty(col.LookupServiceKey))
@@ -947,19 +939,19 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
                 builder.AddAttribute(1, "Value", v1);
                 builder.AddAttribute(2, "IsDisabled", true);
                 builder.CloseComponent();
-                return;
             }
-            if (col.Lookup != null && val != null)
+            else if (col.Lookup != null && val != null)
             {
                 // 转化 Lookup 数据源
                 var lookupVal = col.Lookup.FirstOrDefault(l => l.Value.Equals(val.ToString(), col.LookupStringComparison));
                 if (lookupVal != null)
                 {
-                    content = lookupVal.Text;
+                    builder.AddContent(0, lookupVal.Text);
                 }
             }
             else
             {
+                var content = "";
                 if (col.Formatter != null)
                 {
                     // 格式化回调委托
@@ -986,8 +978,8 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
                 {
                     content = val?.ToString() ?? "";
                 }
+                builder.AddContent(0, content);
             }
-            builder.AddContent(0, content);
         }
     };
 
@@ -1121,19 +1113,6 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
 
     private bool IsShowEmpty => ShowEmpty && !RowItems.Any();
 
-    private RenderFragment RenderEmpty() => builder =>
-    {
-        var index = 0;
-        builder.OpenComponent<Empty>(index++);
-        builder.AddAttribute(index++, nameof(Empty.Text), EmptyText);
-        builder.AddAttribute(index++, nameof(Empty.Image), EmptyImage);
-        if (EmptyTemplate != null)
-        {
-            builder.AddAttribute(index++, nameof(Empty.Template), EmptyTemplate);
-        }
-        builder.CloseComponent();
-    };
-
     private int GetColumnCount()
     {
         var colspan = ColumnVisibles.Count(col => col.Visible);
@@ -1172,7 +1151,10 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
     {
         foreach (var column in Columns)
         {
-            column.Filter?.FilterAction?.Reset();
+            if (column.Filter != null)
+            {
+                column.Filter.FilterAction.Reset();
+            }
         }
         Filters.Clear();
         await OnFilterAsync();
@@ -1187,12 +1169,18 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
     {
         if (disposing)
         {
-            AutoRefreshCancelTokenSource?.Cancel();
-            AutoRefreshCancelTokenSource?.Dispose();
-            AutoRefreshCancelTokenSource = null;
+            if (AutoRefreshCancelTokenSource != null)
+            {
+                AutoRefreshCancelTokenSource.Cancel();
+                AutoRefreshCancelTokenSource.Dispose();
+                AutoRefreshCancelTokenSource = null;
+            }
 
-            Interop?.Dispose();
-            Interop = null;
+            if (Interop != null)
+            {
+                Interop.Dispose();
+                Interop = null;
+            }
         }
     }
 

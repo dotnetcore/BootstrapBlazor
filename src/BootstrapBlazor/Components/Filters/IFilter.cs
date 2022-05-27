@@ -18,5 +18,6 @@ public interface IFilter
     /// <summary>
     /// 获得/设置 本过滤器相关 IFilterAction 实例
     /// </summary>
+    [NotNull]
     IFilterAction? FilterAction { get; set; }
 }
