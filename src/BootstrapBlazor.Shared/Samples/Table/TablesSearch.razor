@@ -1,24 +1,24 @@
 ﻿@page "/tables/search"
 
-<h3>Table 表格</h3>
+<h3>@SearchLocalizer["Title"]</h3>
 
-<h4>常用于单表维护，通过属性配置实现简单的增、删、改、查、排序、过滤、搜索等常用功能，通过 <code>Template</code> 的高级用法能实现非常复杂的业务需求功能</h4>
+<h4>@SearchLocalizer["Desc"]</h4>
 
 <Tips>
-    <p><code>Table</code> 组件的搜索功能提供两种模式，可通过 <code>SearchMode</code> 进行设置，默认为 <code>Popup</code> 即弹窗模式，<b>Top</b> 模式下搜索栏会内置到表格上方，此模式下 <b>刷新</b> 按钮与 <b>搜索</b> 按钮二合一，可以通过设置 <code>ShowSearchButton=false</code> 关闭搜索按钮</p>
+    <p>@((MarkupString)SearchLocalizer["SearchTableTips"].Value)</p>
 </Tips>
 
-<DemoBlock Title="具有搜索功能的表格" Introduction="设置 <code>ShowSearch</code> 显示查询组件，通过设置 <code>SearchTemplate</code> 模板自定义搜索 UI" Name="SearchTable">
+<DemoBlock Title="@SearchLocalizer["SearchTableTitle"]" Introduction="@SearchLocalizer["SearchTableIntro"]" Name="SearchTable">
     <ul class="ul-demo mb-3">
-        <li>通过设置 <code>ShowEmpty="true"</code> 开启无数据显示功能</li>
-        <li><code>EmptyText</code> 参数用于设置无数据时显示文字，默认取资源文件中的内置文字</li>
-        <li><code>EmptyTemplate</code> 参数用于自定义无数据显示模板</li>
+        <li>@((MarkupString)SearchLocalizer["SearchTableLi1"].Value)</li>
+        <li>@((MarkupString)SearchLocalizer["SearchTableLi2"].Value)</li>
+        <li>@((MarkupString)SearchLocalizer["SearchTableLi3"].Value)</li>
     </ul>
     <Table TItem="Foo"
            IsPagination="true" PageItemsSource="@PageItemsSource"
            IsStriped="true" IsBordered="true"
            ShowToolbar="true" ShowSearch="true" IsMultipleSelect="true" ShowExtendButtons="true"
-           AddModalTitle="增加测试数据窗口" EditModalTitle="编辑测试数据窗口"
+           AddModalTitle="@SearchLocalizer["AddModelTitle"]" EditModalTitle="@SearchLocalizer["EditModelTitle"]"
            SearchModel="@SearchModel" ShowEmpty="true" SearchMode="SearchMode.Top"
            OnQueryAsync="@OnSearchModelQueryAsync" OnResetSearchAsync="@OnResetSearchAsync"
            OnAddAsync="@OnAddAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync">
@@ -29,13 +29,13 @@
             <TableColumn @bind-Field="@context.Education" />
         </TableColumns>
         <SearchTemplate>
-            <GroupBox Title="搜索条件">
+            <GroupBox Title="@SearchLocalizer["SearchTableGroupBoxText"]">
                 <div class="row g-3 form-inline">
                     <div class="col-12 col-sm-6">
-                        <BootstrapInput @bind-Value="@context.Name" placeholder="请输入姓名，50字以内" maxlength="50" ShowLabel="true" DisplayText="@Localizer[nameof(context.Name)]" />
+                        <BootstrapInput @bind-Value="@context.Name" PlaceHolder="@SearchLocalizer["NamePlaceholder"]" maxlength="50" ShowLabel="true" DisplayText="@Localizer[nameof(context.Name)]" />
                     </div>
                     <div class="col-12 col-sm-6">
-                        <BootstrapInput @bind-Value="@context.Address" placeholder="请输入地址，500字以内" maxlength="500" ShowLabel="true" DisplayText="@Localizer[nameof(context.Address)]" />
+                        <BootstrapInput @bind-Value="@context.Address" PlaceHolder="@SearchLocalizer["AddressPlaceholder"]" maxlength="500" ShowLabel="true" DisplayText="@Localizer[nameof(context.Address)]" />
                     </div>
                 </div>
             </GroupBox>
@@ -43,30 +43,27 @@
     </Table>
 </DemoBlock>
 
-<DemoBlock Title="自动生成搜索功能的表格" Introduction="当设置了 <code>ShowSearch</code> 时，如果未设置 <code>SearchTemplate</code> 编辑模板时，组件会尝试自动生成搜索条件 UI" Name="AutoGenerateSearch">
-    <p>列信息绑定时通过设置 <code>Searchable</code> 属性，设置搜索条件自动构建 UI，可通过设置 <code>SearchDialogShowMaximizeButton</code> 使搜索弹窗显示 <b>最大化</b> 按钮</p>
-    <Tips>
-        <p>自动构建搜索弹窗时，由于各列设置 <code>Searchable</code> 此时组件会通过 <code>SearchText</code> 与设置 <code>Searchable</code> 值为 <code>true</code> 的各列自动构建搜索拉姆达表达式，通过 <code>QueryPageOptions</code> 的属性 <code>Searchs</code> 获得</p>
-
-    </Tips>
+<DemoBlock Title="@SearchLocalizer["AutoGenerateSearchTitle"]" Introduction="@SearchLocalizer["AutoGenerateSearchIntro"]" Name="AutoGenerateSearch">
+    <p>@((MarkupString)SearchLocalizer["AutoGenerateSearchP"].Value)</p>
+    <Tips>@((MarkupString)SearchLocalizer["AutoGenerateSearchTips"].Value)</Tips>
     <Pre>if (options.Searchs.Any())
 {
-    // 逻辑关系使用 FilterLogic.Or
+    // @SearchLocalizer["AutoGenerateSearchCommnt"] FilterLogic.Or
     items = items.Where(options.Searchs.GetFilterFunc&lt;Foo&gt;(FilterLogic.Or));
 }</Pre>
-    <GroupBox Title="搜索功能体验区" class="mb-2">
+    <GroupBox Title="@SearchLocalizer["AutoGenerateSearchGroupBoxTitle"]" class="mb-2">
         <div class="row g-3 form-inline">
             <div class="col-12 col-sm-3">
-                <Switch DisplayText="搜索模式" ShowLabel="true" @bind-Value="SearchModeFlag" />
+                <Switch DisplayText="@SearchLocalizer["DisplayText1"]" ShowLabel="true" @bind-Value="SearchModeFlag" />
             </div>
             <div class="col-12 col-sm-3">
-                <Switch DisplayText="模糊搜索" ShowLabel="true" @bind-Value="ShowSearchText" />
+                <Switch DisplayText="@SearchLocalizer["DisplayText2"]" ShowLabel="true" @bind-Value="ShowSearchText" />
             </div>
             <div class="col-12 col-sm-3">
-                <Switch DisplayText="显示重置" ShowLabel="true" @bind-Value="ShowResetButton" />
+                <Switch DisplayText="@SearchLocalizer["DisplayText3"]" ShowLabel="true" @bind-Value="ShowResetButton" />
             </div>
             <div class="col-12 col-sm-3">
-                <Switch DisplayText="显示搜索" ShowLabel="true" @bind-Value="ShowSearchButton" IsDisabled="SearchModeFlag" />
+                <Switch DisplayText="@SearchLocalizer["DisplayText4"]" ShowLabel="true" @bind-Value="ShowSearchButton" IsDisabled="SearchModeFlag" />
             </div>
         </div>
     </GroupBox>
@@ -75,7 +72,7 @@
            IsStriped="true" IsBordered="true" SearchModel="@SearchModel" ShowSearch="true"
            SearchMode="SearchModeValue" ShowResetButton="ShowResetButton" ShowSearchButton="ShowSearchButton"
            ShowToolbar="true" IsMultipleSelect="true" ShowExtendButtons="true" ShowSearchText="ShowSearchText"
-           AddModalTitle="增加测试数据窗口" EditModalTitle="编辑测试数据窗口"
+           AddModalTitle="@SearchLocalizer["AddModelTitle"]" EditModalTitle="@SearchLocalizer["EditModelTitle"]"
            OnQueryAsync="@OnQueryAsync" OnAddAsync="@OnAddAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" Filterable="true" />
@@ -86,17 +83,17 @@
     </Table>
 </DemoBlock>
 
-<DemoBlock Title="自定义列搜索模板" Introduction="当设置了 <code>SearchTemplate</code> 时，组件自动生成搜索 UI 时使用此模板作为呈现 UI" Name="CutomColSearch">
-    <p>通过设置姓名列的 <code>SearchTemplate</code> 自定义编辑时使用下拉框来选择姓名</p>
-    <p>由于是搜索条件，本例中姓名搜索列下拉框增加了 请选择... 项</p>
-    <p>生成列搜索模板是查找顺序为 SearchTemplate -> AutoGenerate 优先查找是否设置了搜索模板，然后根据绑定字段类型自动生成</p>
-    <p>通过设置 <code>ShowSearch="true"</code> <code>ShowSearchText="false"</code> 设置搜索栏仅显示 <b>高级搜索</b></p>
-    <p>通过设置 <code>SearchDialogDraggable="true"</code> 使搜索弹出框可拖拽</p>
+<DemoBlock Title="@SearchLocalizer["CustomColSearchTitle"]" Introduction="@SearchLocalizer["CustomColSearchIntro"]" Name="CustomColSearch">
+    <p>@((MarkupString)SearchLocalizer["CustomColSearchP"].Value)</p>
+    <p>@((MarkupString)SearchLocalizer["CustomColSearchP1"].Value)</p>
+    <p>@((MarkupString)SearchLocalizer["CustomColSearchP2"].Value)</p>
+    <p>@((MarkupString)SearchLocalizer["CustomColSearchP3"].Value)</p>
+    <p>@((MarkupString)SearchLocalizer["CustomColSearchP4"].Value)</p>
     <Table TItem="Foo"
            IsPagination="true" PageItemsSource="@PageItemsSource"
            IsStriped="true" IsBordered="true" SearchModel="@SearchModel" ShowSearch="true" ShowSearchText="false"
            ShowToolbar="true" IsMultipleSelect="true" ShowExtendButtons="true" SearchDialogIsDraggable="true"
-           AddModalTitle="增加测试数据窗口" EditModalTitle="编辑测试数据窗口" SearchDialogShowMaximizeButton="true"
+           AddModalTitle="@SearchLocalizer["AddModelTitle"]" EditModalTitle="@SearchLocalizer["EditModelTitle"]" SearchDialogShowMaximizeButton="true"
            OnQueryAsync="@OnQueryAsync" OnAddAsync="@OnAddAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" Filterable="true" />
@@ -113,8 +110,8 @@
     </Table>
 </DemoBlock>
 
-<DemoBlock Title="自定义搜索模型" Introduction="设置了 <code>CustomerSearchModel</code> 与 <code>CustomerSearchTemplate</code>，完全自主控制搜索条件 UI" Name="CustomerSearchModel">
-    <p>由于某种应用场景我们的表格实体类 <code>TItem</code> 来充当搜索模型时并不理想，比如我们有一个属性是 <code>int</code> 或者 <code>enum</code> 时，我们作为搜索条件时需要有一个 <b>全部</b> 或者 <b>请选择 ...</b> 的空白条件项。此时使用默认模型时非常难用，就可以使用自定义搜索模型 <code>CustomerSearchModel</code> 与 <code>CustomerSearchTemplate</code> 来自定义控制搜索界面</p>
+<DemoBlock Title="@SearchLocalizer["CustomerSearchModelTitle"]" Introduction="@SearchLocalizer["CustomerSearchModelIntro"]" Name="CustomerSearchModel">
+    <p>@((MarkupString)SearchLocalizer["CustomerSearchModelP"].Value)</p>
     <Table TItem="Foo"
            IsPagination="true" PageItemsSource="@PageItemsSource" SearchMode="SearchMode.Top"
            IsStriped="true" IsBordered="true" CustomerSearchModel="@CustomerSearchModel" ShowSearch="true" ShowSearchText="true"
