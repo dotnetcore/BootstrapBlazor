@@ -1967,3 +1967,9 @@ header .bb-fs {
         height: 24px;
         fill: currentcolor;
     }
+
+.shields .bb-img {
+    display: inline-block;
+    height: 21px;
+    margin-bottom: 0.75rem;
+}
