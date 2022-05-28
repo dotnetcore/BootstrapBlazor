@@ -347,6 +347,12 @@ public sealed partial class NavMenu
             },
             new()
             {
+                IsNew = true,
+                Text = Localizer["CherryMarkdown"],
+                Url = "cherry-markdowns"
+            },
+            new()
+            {
                 Text = Localizer["MultiSelect"],
                 Url = "multiselects"
             },

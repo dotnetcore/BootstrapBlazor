@@ -2744,6 +2744,7 @@
     "InputGroup": "输入组 InputGroup",
     "Ip": "IP 地址 IpAddress",
     "Markdown": "富文本框 Markdown",
+    "CherryMarkdown": "腾讯文本框 Markdown",
     "MultiSelect": "多项选择器 MultiSelect",
     "Radio": "单选框 Radio",
     "Rate": "评分 Rate",

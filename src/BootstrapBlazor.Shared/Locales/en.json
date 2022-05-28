@@ -2735,6 +2735,7 @@
     "InputNumber": "InputNumber",
     "Ip": "IpAddress",
     "Markdown": "Markdown",
+    "CherryMarkdown": "Cherry-Markdown",
     "MultiSelect": "MultiSelect",
     "Radio": "Radio",
     "Rate": "Rate",
