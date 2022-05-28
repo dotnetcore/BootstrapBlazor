@@ -89,9 +89,19 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
     /// <returns></returns>
     protected string? GetTreeClassString(TItem item) => CssBuilder.Default("is-tree")
         .AddClass(TreeIcon, CheckTreeChildren(item) && !IsLoadChildren)
-        .AddClass("fa-rotate-90", TryGetTreeNodeByItem(item, out var node) && node.IsExpand)
+        .AddClass("fa-rotate-90", IsExpand(item))
         .AddClass("fa-spin fa-spinner", IsLoadChildren)
         .Build();
+
+    private bool IsExpand(TItem item)
+    {
+        var ret = false;
+        if (TryGetTreeNodeByItem(item, out var node))
+        {
+            ret = node.IsExpand;
+        }
+        return ret;
+    }
 
     /// <summary>
     /// 树形数据展开小箭头
@@ -674,7 +684,7 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
 
         if (IsTree)
         {
-            var rows = Items ?? QueryItems ?? Enumerable.Empty<TItem>();
+            var rows = Items ?? Enumerable.Empty<TItem>();
             TreeRows = rows.Select(item => new TableTreeNode<TItem>(item)
             {
                 HasChildren = CheckTreeChildren(item)
@@ -716,7 +726,10 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
     /// </summary>
     protected bool FirstRender { get; set; } = true;
 
-    private CancellationTokenSource? AutoRefreshCancelTokenSource { get; set; }
+    /// <summary>
+    /// 获得/设置 自动刷新 CancellationTokenSource 实例
+    /// </summary>
+    protected CancellationTokenSource? AutoRefreshCancelTokenSource { get; set; }
 
     /// <summary>
     /// OnParametersSet 方法
@@ -843,23 +856,30 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
         if (!_loop && IsAutoRefresh && AutoRefreshInterval > 500)
         {
             _loop = true;
+            await LoopQueryAsync();
+            _loop = false;
+        }
+    }
 
+    /// <summary>
+    /// 周期性查询方法
+    /// </summary>
+    /// <returns></returns>
+    protected async Task LoopQueryAsync()
+    {
+        try
+        {
             AutoRefreshCancelTokenSource ??= new();
+            // 自动刷新功能
+            await Task.Delay(AutoRefreshInterval, AutoRefreshCancelTokenSource.Token);
 
-            try
-            {
-                // 自动刷新功能
-                await Task.Delay(AutoRefreshInterval, AutoRefreshCancelTokenSource.Token);
+            // 不调用 QueryAsync 防止出现 Loading 动画 保持屏幕静止
+            await QueryData();
+            StateHasChanged();
+        }
+        catch (TaskCanceledException)
+        {
 
-                // 不调用 QueryAsync 防止出现 Loading 动画 保持屏幕静止
-                await QueryData();
-                StateHasChanged();
-                _loop = false;
-            }
-            catch (TaskCanceledException)
-            {
-
-            }
         }
     }
 
@@ -915,7 +935,7 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
             // 自动化处理 ColorPicker 组件
             var val = GetItemValue(col.GetFieldName(), item);
             var v = val?.ToString() ?? "#000";
-            var style = string.IsNullOrEmpty(v) ? null : $"background-color: {v};";
+            var style = $"background-color: {v};";
             builder.OpenElement(0, "div");
             builder.AddAttribute(1, "class", "is-color");
             builder.AddAttribute(2, "style", style);
@@ -1010,7 +1030,14 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
     }
     #endregion
 
-    private RenderFragment RenderCell(ITableColumn col, TItem item, ItemChangedType changedType) => col.CanWrite(typeof(TItem)) && col.IsEditable(changedType)
+    /// <summary>
+    /// 渲染单元格方法
+    /// </summary>
+    /// <param name="col"></param>
+    /// <param name="item"></param>
+    /// <param name="changedType"></param>
+    /// <returns></returns>
+    protected RenderFragment RenderCell(ITableColumn col, TItem item, ItemChangedType changedType) => col.CanWrite(typeof(TItem)) && col.IsEditable(changedType)
         ? (col.EditTemplate == null
             ? builder => builder.CreateComponentByFieldType(this, col, item, changedType, false, LookupService)
             : col.EditTemplate(item))
@@ -1018,7 +1045,14 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
             ? builder => builder.CreateDisplayByFieldType(col, item)
             : col.Template(item));
 
-    private RenderFragment RenderExcelCell(ITableColumn col, TItem item, ItemChangedType changedType)
+    /// <summary>
+    /// 渲染 Excel 单元格方法 
+    /// </summary>
+    /// <param name="col"></param>
+    /// <param name="item"></param>
+    /// <param name="changedType"></param>
+    /// <returns></returns>
+    protected RenderFragment RenderExcelCell(ITableColumn col, TItem item, ItemChangedType changedType)
     {
         col.PlaceHolder ??= "";
 
@@ -1169,12 +1203,9 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
     {
         if (disposing)
         {
-            if (AutoRefreshCancelTokenSource != null)
-            {
-                AutoRefreshCancelTokenSource.Cancel();
-                AutoRefreshCancelTokenSource.Dispose();
-                AutoRefreshCancelTokenSource = null;
-            }
+            AutoRefreshCancelTokenSource?.Cancel();
+            AutoRefreshCancelTokenSource?.Dispose();
+            AutoRefreshCancelTokenSource = null;
 
             if (Interop != null)
             {

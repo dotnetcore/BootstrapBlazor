@@ -9,6 +9,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// Step 组件类
 /// </summary>
+[ExcludeFromCodeCoverage]
 public partial class Steps
 {
     /// <summary>

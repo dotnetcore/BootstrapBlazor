@@ -247,7 +247,7 @@ public class TreeTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void ShowRadio_Ok()
+    public async Task ShowRadio_Ok()
     {
         List<TreeItem>? checkedLists = null;
         var cut = Context.RenderComponent<Tree>(pb =>
@@ -268,7 +268,8 @@ public class TreeTest : BootstrapBlazorTestBase
         Assert.Single(checkedLists);
         Assert.Equal("Test1", checkedLists![0].Text);
 
-        cut.FindAll("[type=\"radio\"]")[1].Click();
+        var radio = cut.FindAll("[type=\"radio\"]")[1];
+        await cut.InvokeAsync(() => radio.Click());
         Assert.Equal("Test2", checkedLists![0].Text);
 
         cut.SetParametersAndRender(pb =>
