@@ -1227,9 +1227,9 @@ public class TableTest : TableTestBase
                 pb.Add(a => a.IsTracking, true);
                 pb.Add(a => a.RenderMode, TableRenderMode.Table);
                 pb.Add(a => a.EditMode, EditMode.EditForm);
-                pb.Add(a => a.EditDialogItemsPerRow, 2);
-                pb.Add(a => a.EditDialogRowType, RowType.Inline);
-                pb.Add(a => a.EditDialogLabelAlign, Alignment.Center);
+                pb.Add(a => a.ShowLineNo, true);
+                pb.Add(a => a.IsDetails, true);
+                pb.Add(a => a.DetailRowTemplate, foo => builder => builder.AddContent(0, "test-detail"));
                 pb.Add(a => a.Items, Foo.GenerateFoo(localizer));
                 pb.Add(a => a.TableColumns, foo => builder =>
                 {
@@ -4788,6 +4788,41 @@ public class TableTest : TableTestBase
     }
 
     [Fact]
+    public void PlaceHolder_Ok()
+    {
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<MockTable>(pb =>
+            {
+                pb.Add(a => a.ScrollMode, ScrollMode.Virtual);
+                pb.Add(a => a.IsMultipleSelect, true);
+                pb.Add(a => a.ShowExtendButtons, true);
+                pb.Add(a => a.IsExtendButtonsInRowHeader, true);
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "ReadonlyValue");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+                });
+            });
+        });
+
+        var table = cut.FindComponent<MockTable>();
+        var cut1 = Context.Render(table.Instance.RenderVirtualPlaceHolder());
+        var tds = cut1.FindAll("td");
+        Assert.Equal(3, tds.Count);
+
+        table.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.IsExtendButtonsInRowHeader, false);
+        });
+        cut1 = Context.Render(table.Instance.RenderVirtualPlaceHolder());
+        tds = cut1.FindAll("td");
+        Assert.Equal(3, tds.Count);
+    }
+
+    [Fact]
     public void RenderCell_Editable_True()
     {
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
@@ -5108,6 +5143,14 @@ public class TableTest : TableTestBase
             await Task.Delay(200);
             AutoRefreshCancelTokenSource.Cancel();
         }
+
+        public RenderFragment RenderVirtualPlaceHolder() => new RenderFragment(builder =>
+        {
+            if (ScrollMode == ScrollMode.Virtual && VirtualizeElement != null)
+            {
+                builder.AddContent(0, VirtualizeElement.Placeholder?.Invoke(new Microsoft.AspNetCore.Components.Web.Virtualization.PlaceholderContext()));
+            }
+        });
     }
 
     private class MockRenderCellTable : Table<ReadonlyFoo>

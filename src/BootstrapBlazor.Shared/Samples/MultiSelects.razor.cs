@@ -287,7 +287,7 @@ public partial class MultiSelects
     {
         new EventItem()
         {
-            Name = "OnSelectedItemChanged",
+            Name = "OnSelectedItemsChanged",
             Description = Localizer["Event1"],
             Type = "Func<SelectedItem, Task>"
         },

@@ -19,7 +19,10 @@ namespace BootstrapBlazor.Components;
 #endif
 public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable where TItem : class, new()
 {
-    private Virtualize<TItem>? VirtualizeElement { get; set; }
+    /// <summary>
+    /// 获得/设置 内置虚拟化组件实例
+    /// </summary>
+    protected Virtualize<TItem>? VirtualizeElement { get; set; }
 
     [NotNull]
     private JSInterop<Table<TItem>>? Interop { get; set; }
