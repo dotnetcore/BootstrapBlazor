@@ -72,12 +72,15 @@
                             <div class="dropdown-menu dropdown-menu-right shadow">
                                 @foreach (var item in Columns)
                                 {
-                                    var poco = ColumnVisibles.First(i => i.FieldName == item.GetFieldName());
-                                    <div class="dropdown-item">
-                                        <Checkbox ShowAfterLabel="true" IsDisabled="@GetColumnsListState(item)"
+                                    var poco = ColumnVisibles.FirstOrDefault(i => i.FieldName == item.GetFieldName());
+                                    if (poco != null)
+                                    {
+                                        <div class="dropdown-item">
+                                            <Checkbox ShowAfterLabel="true" IsDisabled="@GetColumnsListState(item)"
                                                   DisplayText="@item.GetDisplayName()" @bind-Value="@poco.Visible">
-                                        </Checkbox>
-                                    </div>
+                                            </Checkbox>
+                                        </div>
+                                    }
                                 }
                             </div>
                         </div>

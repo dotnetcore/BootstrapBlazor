@@ -216,7 +216,7 @@ public partial class Table<TItem>
     /// <summary>
     /// 获得/设置 各列是否显示状态集合
     /// </summary>
-    protected List<ColumnVisibleItem> ColumnVisibles { get; } = new();
+    private List<ColumnVisibleItem> ColumnVisibles { get; } = new();
 
     private class ColumnVisibleItem
     {
