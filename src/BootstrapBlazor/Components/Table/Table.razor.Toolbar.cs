@@ -216,8 +216,7 @@ public partial class Table<TItem>
     /// <summary>
     /// 获得/设置 各列是否显示状态集合
     /// </summary>
-    [NotNull]
-    private List<ColumnVisibleItem>? ColumnVisibles { get; set; }
+    protected List<ColumnVisibleItem> ColumnVisibles { get; } = new();
 
     private class ColumnVisibleItem
     {
@@ -229,14 +228,8 @@ public partial class Table<TItem>
 
     private IEnumerable<ITableColumn> GetColumns()
     {
-        // https://gitee.com/LongbowEnterprise/BootstrapBlazor/issues/I2LBM8
-        IEnumerable<ITableColumn> cols = Columns;
-        if (ColumnVisibles != null)
-        {
-            var items = ColumnVisibles.Where(i => i.Visible);
-            cols = Columns.Where(i => items.Any(v => v.FieldName == i.GetFieldName()));
-        }
-        return cols;
+        var items = ColumnVisibles.Where(i => i.Visible);
+        return Columns.Where(i => items.Any(v => v.FieldName == i.GetFieldName()));
     }
 
     private bool GetColumnsListState(ITableColumn col)

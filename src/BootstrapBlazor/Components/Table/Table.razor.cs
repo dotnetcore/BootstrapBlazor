@@ -762,7 +762,7 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
             // 动态列模式
             ResetDynamicContext();
 
-            ColumnVisibles = Columns.Select(i => new ColumnVisibleItem { FieldName = i.GetFieldName(), Visible = i.Visible }).ToList();
+            ColumnVisibles.AddRange(Columns.Select(i => new ColumnVisibleItem { FieldName = i.GetFieldName(), Visible = i.Visible }));
 
             // set default sortName
             var col = Columns.FirstOrDefault(i => i.Sortable && i.DefaultSort);
@@ -780,8 +780,6 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
     /// <param name="firstRender"></param>
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        await base.OnAfterRenderAsync(firstRender);
-
         if (firstRender)
         {
             if (ShowSearch)
@@ -817,7 +815,7 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
                 await OnColumnCreating(Columns);
             }
 
-            ColumnVisibles = Columns.Select(i => new ColumnVisibleItem { FieldName = i.GetFieldName(), Visible = i.Visible }).ToList();
+            ColumnVisibles.AddRange(Columns.Select(i => new ColumnVisibleItem { FieldName = i.GetFieldName(), Visible = i.Visible }));
 
             // set default sortName
             var col = Columns.FirstOrDefault(i => i.Sortable && i.DefaultSort);

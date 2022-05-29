@@ -1714,7 +1714,7 @@ public class TableTest : TableTestBase
         Assert.Equal(8, nodes.Count);
     }
 
-    private static Task<QueryData<FooTree>> OnQueryAsync(QueryPageOptions options, IStringLocalizer<Foo> localizer)
+    private static Task<QueryData<FooTree>> OnQueryAsync(QueryPageOptions _, IStringLocalizer<Foo> localizer)
     {
         var items = FooTree.Generate(localizer);
         var data = new QueryData<FooTree>()
@@ -4453,11 +4453,13 @@ public class TableTest : TableTestBase
     {
         var creating = false;
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var items = Foo.GenerateFoo(localizer, 2);
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
                 pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.Items, items);
                 pb.Add(a => a.OnColumnCreating, cols =>
                 {
                     creating = true;
@@ -5018,7 +5020,7 @@ public class TableTest : TableTestBase
 
         private static readonly Random random = new();
 
-        public new static IEnumerable<FooNoKeyTree> Generate(IStringLocalizer<Foo> localizer, bool hasChildren = true, int seed = 0) => Enumerable.Range(1, 2).Select(i => new FooNoKeyTree()
+        public static new IEnumerable<FooNoKeyTree> Generate(IStringLocalizer<Foo> localizer, bool hasChildren = true, int seed = 0) => Enumerable.Range(1, 2).Select(i => new FooNoKeyTree()
         {
             Id = i + seed,
             Name = localizer["Foo.Name", $"{seed:d2}{(i + seed):d2}"],
@@ -5145,7 +5147,7 @@ public class TableTest : TableTestBase
             AutoRefreshCancelTokenSource.Cancel();
         }
 
-        public RenderFragment RenderVirtualPlaceHolder() => new RenderFragment(builder =>
+        public RenderFragment RenderVirtualPlaceHolder() => new(builder =>
         {
             if (ScrollMode == ScrollMode.Virtual && VirtualizeElement != null)
             {
