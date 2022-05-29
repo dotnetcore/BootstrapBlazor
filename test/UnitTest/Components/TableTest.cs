@@ -1227,10 +1227,11 @@ public class TableTest : TableTestBase
                 pb.Add(a => a.IsTracking, true);
                 pb.Add(a => a.RenderMode, TableRenderMode.Table);
                 pb.Add(a => a.EditMode, EditMode.EditForm);
+                pb.Add(a => a.EditDialogLabelAlign, Alignment.Center);
                 pb.Add(a => a.ShowLineNo, true);
                 pb.Add(a => a.IsDetails, true);
                 pb.Add(a => a.DetailRowTemplate, foo => builder => builder.AddContent(0, "test-detail"));
-                pb.Add(a => a.Items, Foo.GenerateFoo(localizer));
+                pb.Add(a => a.Items, Foo.GenerateFoo(localizer, 2));
                 pb.Add(a => a.TableColumns, foo => builder =>
                 {
                     builder.OpenComponent<TableColumn<Foo, string>>(0);
