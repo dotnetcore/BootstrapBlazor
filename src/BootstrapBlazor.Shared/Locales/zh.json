@@ -2325,7 +2325,7 @@
     "LinkButtonText": "链接按钮",
     "LinkButtonUrlTitle": "导航地址",
     "LinkButtonUrlIntro": "通过 <code>Url</code> 值设置导航地址",
-    "LinkButtonTitleTitle": "导航地址",
+    "LinkButtonTitleTitle": "提示信息",
     "LinkButtonTitleTooltip": "我是提示信息条",
     "LinkButtonTitleIntro": "通过 <code>Title</code> 值设置链接按钮 <code>Tooltip</code>",
     "LinkButtonTitleDetail": "鼠标悬停到按钮上时显示 <code>Tooltip</code>",

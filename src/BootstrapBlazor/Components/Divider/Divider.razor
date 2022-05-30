@@ -2,17 +2,15 @@
 @inherits BootstrapComponentBase
 
 <div @attributes="@AdditionalAttributes" class="@ClassString">
-    <div class="divider-wrap">
-        <div class="@TextClassString">
-            @if (!string.IsNullOrEmpty(Icon))
-            {
-                <i class="@Icon"></i>
-            }
-            @if (!string.IsNullOrEmpty(Text))
-            {
-                <span>@Text</span>
-            }
-            @ChildContent
-        </div>
+    <div class="@TextClassString">
+        @if (!string.IsNullOrEmpty(Icon))
+        {
+            <i class="@Icon"></i>
+        }
+        @if (!string.IsNullOrEmpty(Text))
+        {
+            <span>@Text</span>
+        }
+        @ChildContent
     </div>
 </div>

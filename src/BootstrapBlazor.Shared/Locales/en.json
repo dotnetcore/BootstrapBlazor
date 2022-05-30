@@ -2320,7 +2320,7 @@
     "LinkButtonText": "LinkButton",
     "LinkButtonUrlTitle": "Navigation Url",
     "LinkButtonUrlIntro": "Set <code>Url</code> for navigation Url",
-    "LinkButtonTitleTitle": "Navigation Url",
+    "LinkButtonTitleTitle": "Tooltip",
     "LinkButtonTitleTooltip": "this is Tooltip title",
     "LinkButtonTitleIntro": "Set <code>Title</code> for tooltip",
     "LinkButtonTitleDetail": "show <code>Tooltip</code> when hover on this button",

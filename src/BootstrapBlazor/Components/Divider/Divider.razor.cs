@@ -15,7 +15,6 @@ public partial class Divider
     /// 获得 class 样式集合
     /// </summary>
     protected virtual string? ClassString => CssBuilder.Default("divider")
-        .AddClass("divider-horizontal", !IsVertical)
         .AddClass("divider-vertical", IsVertical)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
