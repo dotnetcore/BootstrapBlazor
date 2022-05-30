@@ -37,4 +37,62 @@ public partial class Light
     /// </summary>
     [Parameter]
     public Color Color { get; set; } = Color.Success;
+
+    /// <summary>
+    /// 获得/设置 位置 默认为底部 Bottom
+    /// </summary>
+    [Parameter]
+    public Placement Placement { get; set; } = Placement.Bottom;
+
+    /// <summary>
+    /// 获得/设置 触发方式 可组合 click focus hover 默认为 focus hover
+    /// </summary>
+    [Parameter]
+    public string Trigger { get; set; } = "focus hover";
+
+    private bool Rendered { get; set; }
+
+    /// <summary>
+    /// OnParametersSetAsync 方法
+    /// </summary>
+    /// <returns></returns>
+    protected override async Task OnParametersSetAsync()
+    {
+        if (Rendered)
+        {
+            if (string.IsNullOrEmpty(Title))
+            {
+                await ShowTooltip("", "dispose");
+            }
+            else
+            {
+                await ShowTooltip(Title, "");
+            }
+        }
+    }
+
+    /// <summary>
+    /// OnAfterRenderAsync 方法
+    /// </summary>
+    /// <param name="firstRender"></param>
+    /// <returns></returns>
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            Rendered = true;
+            if (!string.IsNullOrEmpty(Title))
+            {
+                await ShowTooltip(Title, "");
+            }
+        }
+    }
+
+    private async ValueTask ShowTooltip(string title, string method)
+    {
+        if (!string.IsNullOrEmpty(Id))
+        {
+            await JSRuntime.InvokeVoidAsync(null, "bb_tooltip", Id, method, title, Placement.ToDescriptionString(), false, Trigger);
+        }
+    }
 }

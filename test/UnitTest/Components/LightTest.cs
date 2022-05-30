@@ -4,7 +4,7 @@
 
 namespace UnitTest.Components;
 
-public class LightTest : TestBase
+public class LightTest : BootstrapBlazorTestBase
 {
     [Fact]
     public void IsFlash_Ok()
@@ -17,9 +17,24 @@ public class LightTest : TestBase
     [Fact]
     public void Title_Ok()
     {
-        var cut = Context.RenderComponent<Light>(builder => builder.Add(s => s.Title, "I am Light"));
+        var cut = Context.RenderComponent<Light>(pb =>
+        {
+            pb.Add(s => s.Title, "I am Light");
+            pb.Add(s => s.Trigger, "focus");
+            pb.Add(s => s.Placement, Placement.Top);
+        });
 
         Assert.Contains("I am Light", cut.Markup);
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.Color, Color.Primary);
+        });
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.Title, null);
+        });
     }
 
     [Fact]

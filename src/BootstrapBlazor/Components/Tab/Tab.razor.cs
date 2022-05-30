@@ -145,7 +145,7 @@ public partial class Tab
     public IEnumerable<string>? ExcludeUrls { get; set; }
 
     /// <summary>
-    /// 获得/设置 默认标签页 关闭所以标签页时自动打开此地址 默认 null 未设置
+    /// 获得/设置 默认标签页 关闭所有标签页时自动打开此地址 默认 null 未设置
     /// </summary>
     [Parameter]
     public string? DefaultUrl { get; set; }
