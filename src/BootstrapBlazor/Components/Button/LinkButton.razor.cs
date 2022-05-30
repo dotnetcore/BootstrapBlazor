@@ -13,12 +13,6 @@ namespace BootstrapBlazor.Components;
 public partial class LinkButton
 {
     /// <summary>
-    /// 获得/设置 显示文本 默认为 null
-    /// </summary>
-    [Parameter]
-    public string? Text { get; set; }
-
-    /// <summary>
     /// 获得/设置 Url 默认为 #
     /// </summary>
     [Parameter]
@@ -37,10 +31,10 @@ public partial class LinkButton
     public string? ImageUrl { get; set; }
 
     /// <summary>
-    /// 获得/设置 显示图标
+    /// 获得/设置 是否为垂直布局 默认 false
     /// </summary>
     [Parameter]
-    public string? Icon { get; set; }
+    public bool IsVertical { get; set; }
 
     /// <summary>
     /// 获得/设置 Tooltip 显示位置 默认为 Top
@@ -48,21 +42,16 @@ public partial class LinkButton
     [Parameter]
     public Placement TooltipPlacement { get; set; } = Placement.Top;
 
-    /// <summary>
-    /// 获得/设置 子组件
-    /// </summary>
-    [Parameter]
-    public RenderFragment? ChildContent { get; set; }
-
-    /// <summary>
-    /// 获得/设置 点击事件回调方法
-    /// </summary>
-    [Parameter]
-    public EventCallback<MouseEventArgs> OnClick { get; set; }
-
     private bool Prevent => Url.StartsWith('#');
 
     private string? ClassString => CssBuilder.Default("link-button")
+        .AddClass("is-vertical", IsVertical)
+        .AddClass($"btn-outline-{Color.ToDescriptionString()}", IsOutline)
+        .AddClass($"text-{Color.ToDescriptionString()}", Color != Color.None && !IsOutline)
+        .AddClass($"btn-{Size.ToDescriptionString()}", Size != Size.None)
+        .AddClass("btn-block", IsBlock)
+        .AddClass("is-round", ButtonStyle == ButtonStyle.Round)
+        .AddClass("is-circle", ButtonStyle == ButtonStyle.Circle)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 }

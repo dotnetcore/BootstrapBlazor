@@ -37,4 +37,28 @@
     <BlockLogger @ref="Trace" class="mt-3" />
 </DemoBlock>
 
+<DemoBlock Title="@Localizer["LinkButtonIsDisabledTitle"]" Introduction="@Localizer["LinkButtonIsDisabledIntro"]" Name="IsDisabled">
+    <div class="row g-3">
+        <div class="col-6 col-sm-4 col-md-3 col-lg-auto">
+            <LinkButton IsDisabled="true" Color="Color.Primary">@Localizer["LinkButtonIsDisabledText"]</LinkButton>
+        </div>
+    </div>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["LinkButtonColorTitle"]" Introduction="@Localizer["LinkButtonColorIntro"]" Name="Color">
+    <div class="row g-3">
+        <div class="col-6 col-sm-4 col-md-3 col-lg-auto">
+            <LinkButton Color="Color.Danger">@Localizer["LinkButtonColorText"]</LinkButton>
+        </div>
+    </div>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["LinkButtonVerticalTitle"]" Introduction="@Localizer["LinkButtonVerticalIntro"]" Name="IsVertical">
+    <div class="row g-3">
+        <div class="col-6 col-sm-4 col-md-3 col-lg-auto">
+            <LinkButton IsVertical="true" Icon="fa fa-edit" Text="@Localizer["LinkButtonVerticalText"]" />
+        </div>
+    </div>
+</DemoBlock>
+
 <AttributeTable Items="GetAttributes()"></AttributeTable>
