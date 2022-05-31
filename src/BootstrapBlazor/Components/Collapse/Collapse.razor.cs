@@ -28,6 +28,10 @@ public partial class Collapse
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
+    private string? GetItemClassString(CollapseItem item) => CssBuilder.Default("accordion-item")
+        .AddClass(item.Class, !string.IsNullOrEmpty(item.Class))
+        .Build();
+
     private readonly List<CollapseItem> _items = new();
 
     /// <summary>

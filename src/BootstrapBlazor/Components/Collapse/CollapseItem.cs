@@ -36,6 +36,12 @@ public class CollapseItem : ComponentBase
     public Color TitleColor { get; set; }
 
     /// <summary>
+    /// 获得/设置 CSS 样式名称 默认 null
+    /// </summary>
+    [Parameter]
+    public string? Class { get; set; }
+
+    /// <summary>
     /// 获得/设置 组件内容
     /// </summary>
     [Parameter]
