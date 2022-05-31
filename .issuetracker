@@ -4,7 +4,7 @@
 
 [issuetracker "Gitee-Issue"]
   regex = "#(.+?)\\)"
-  url = "https://gitee.com/LongbowEnterprise/BootstrapBlazor/issues/$1"
+  url = "https://gitee.com/Longbow/BootstrapBlazor/issues/$1"
 
 [issuetracker "Gitee-Url"]
   regex = "([a-zA-z]+://[^\\s]*)"
@@ -12,8 +12,8 @@
 
 [issuetracker "Gitee-Commit"]
   regex = "[C|c]ommit:([^\\s]*)"
-  url = "https://gitee.com/LongbowEnterprise/BootstrapBlazor/commit/$1"
+  url = "https://gitee.com/Longbow/BootstrapBlazor/commit/$1"
 
 [issuetracker "Gitee-PR"]
   regex = "!([\\d]+)"
-  url = "https://gitee.com/LongbowEnterprise/BootstrapBlazor/pulls/$1"
+  url = "https://gitee.com/Longbow/BootstrapBlazor/pulls/$1"

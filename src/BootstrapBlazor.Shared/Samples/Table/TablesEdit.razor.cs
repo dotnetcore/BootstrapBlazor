@@ -6,6 +6,7 @@ using BootstrapBlazor.Components;
 using BootstrapBlazor.Shared.Services;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
+using Microsoft.Extensions.Options;
 
 namespace BootstrapBlazor.Shared.Samples.Table;
 
@@ -18,6 +19,10 @@ public partial class TablesEdit
     [NotNull]
     private IStringLocalizer<Foo>? Localizer { get; set; }
 
+    [Inject]
+    [NotNull]
+    private IOptionsMonitor<WebsiteOptions>? WebsiteOption { get; set; }
+
     private static IEnumerable<int> PageItemsSource => new int[] { 4, 10, 20 };
 
     [NotNull]
@@ -25,6 +30,8 @@ public partial class TablesEdit
 
     [NotNull]
     private List<Foo>? Items { get; set; }
+
+    private string DataServiceUrl => $"{WebsiteOption.CurrentValue.BootstrapBlazorLink}/wikis/Table%20%E7%BB%84%E4%BB%B6%E6%95%B0%E6%8D%AE%E6%9C%8D%E5%8A%A1%E4%BB%8B%E7%BB%8D?sort_id=3207977";
 
     /// <summary>
     /// OnInitialized 方法

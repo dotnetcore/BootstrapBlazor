@@ -108,7 +108,7 @@ public partial class Table<TItem>
         AddInCell = false;
         EditInCell = false;
 
-        // https://gitee.com/LongbowEnterprise/BootstrapBlazor/issues/I1UYQG
+        // https://gitee.com/Longbow/BootstrapBlazor/issues/I1UYQG
         StateHasChanged();
     }
 }

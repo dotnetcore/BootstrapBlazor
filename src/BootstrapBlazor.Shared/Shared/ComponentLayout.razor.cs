@@ -48,6 +48,8 @@ public sealed partial class ComponentLayout
     [NotNull]
     private Tab? TabSet { get; set; }
 
+    private string GVPUrl => $"{WebsiteOption.CurrentValue.BootstrapBlazorLink}/badge/star.svg?theme=gvp";
+
     /// <summary>
     /// OnInitialized 方法
     /// </summary>

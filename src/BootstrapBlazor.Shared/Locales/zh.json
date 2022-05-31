@@ -104,7 +104,7 @@
     "EnvBuildTitle": "项目环境搭建",
     "EnvLi1": "安装 .net core sdk <a href='http://www.microsoft.com/net/download' target='_blan'>官方网址</a>",
     "EnvLi2": "安装 Visual Studio 2019 以上 <a href='https://visualstudio.microsoft.com/vs/getting-started' target='_blank'>官方网址</a>",
-    "EnvLi3": "拉取项目代码 BootstrapBlazor <a href='https://gitee.com/LongbowEnterprise/BootstrapBlazor' target='_blank'>仓库网址</a>"
+    "EnvLi3": "拉取项目代码 BootstrapBlazor <a href='{0}' target='_blank'>仓库网址</a>"
   },
   "BootstrapBlazor.Shared.Pages.Template": {
     "Title": "项目模板",
@@ -3103,7 +3103,7 @@
     "AutoGenerateColumnsP1": "本例中通过设置 <code>AutoGenerateColumns</code> 值为 <code>true</code> 开启自动生成列功能，默认绑定模型实体类所有属性全部生成，实体类可以通过 <code>AutoGenerateColumnAttribute</code> 标签类进行功能设置，如：",
     "AutoGenerateColumnsLi1": "<code>Ignore</code> 表示忽略此属性，即不生成",
     "AutoGenerateColumnsLi2": "<code>Readonly</code> 表示只读",
-    "AutoGenerateColumnsLi3": "更多属性详见 <a href=\"https://gitee.com/LongbowEnterprise/BootstrapBlazor/blob/master/src/BootstrapBlazor/Attributes/AutoGenerateColumnAttribute.cs\" target=\"_blank\">源码</a>",
+    "AutoGenerateColumnsLi3": "更多属性详见 <a href=\"{0}/blob/master/src/BootstrapBlazor/Attributes/AutoGenerateColumnAttribute.cs\" target=\"_blank\">源码</a>",
     "AutoGenerateColumnsP2": " 本例中通过 <code>[AutoGenerateColumn(Order = 1, FormatString = \"yyyy-MM-dd\")]</code> 标签格式化 <code>日期</code> 列；通过代码中设置模板列对 <code>Complete</code> 列进行自定义使用 <code>Switch</code> 组件进行渲染；通过 <code>[AutoGenerateColumn(Order = 10)]</code> 标签中的 <code>Order</code> 对显示顺序进行设定",
     "OnColumnCreatingTitle": "设置当前列属性",
     "OnColumnCreatingIntro": "通过指定 <code>OnColumnCreating</code>回调，对列集合进行数据二次更改",

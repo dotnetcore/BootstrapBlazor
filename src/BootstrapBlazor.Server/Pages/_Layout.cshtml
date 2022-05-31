@@ -1,4 +1,5 @@
-﻿@using Microsoft.AspNetCore.Components.Web
+﻿@using BootstrapBlazor.Shared.Components
+@using Microsoft.AspNetCore.Components.Web
 @namespace BootstrapBlazor.Server
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
@@ -54,25 +55,7 @@
     </div>
 
     <component type="typeof(ReconnectorOutlet)" param-AutoReconnect="true" render-mode="ServerPrerendered" />
-
-    <div class="blazor-intro">
-        <h5><b>Bootstrap Blazor</b> 组件库 更新到 <span class="version">6.6.0</span></h5>
-        <div class="d-flex">
-            <div class="blazor-intro-body">
-                <p>首先感谢您对本套组件的关注，本目前本套组件已经拥有超过 120 个组件，本组件是基于 <b>Bootstrap</b> 风格的 <b>Blazor</b> 企业级组件库，提供如布局、导航、表单、数据、通知、图标、语音等几大类通用组件，每一个组件都经过静心设计，具有模块化、响应式和优秀的性能。从更多实际场景出发，满足多种场景的需求，极大的减少开发者时间成本，大大缩短开发周期，大幅提高开发效率，并提供了一套 <a href="https://admin.blazor.zone" target="_blank"><b>通用权限管理系统</b></a> 示例工程。<b>Bootstrap Blazor</b> 产品是由一支专业的全职技术团队进行维护，高效的响应速度，多元化的解决方案，长期提供支持，并提供企业级支持。目前已在多家知名国企内部使用，项目最高在线 <b>1200</b> 人稳定运行。右侧为国内人数最多的中文 Blazor QQ 社区二维码，欢迎扫描加群。</p>
-                <p>组件更新到 <span class="version">6.6.0</span> 更新日志 <a target="_blank" href="https://gitee.com/LongbowEnterprise/BootstrapBlazor/wikis/%E6%9B%B4%E6%96%B0%E6%97%A5%E5%BF%97?sort_id=4062034"><b>[传送门]</b></a> 如果组件给您带来了方便，请您帮忙给项目点亮 <b>Star</b>
-                    <a class="px-2" href="https://github.com/ArgoZhang/BootstrapBlazor" target="_blank"><img src="_content/BootstrapBlazor.Shared/images/git.svg" alt="github" /></a>
-                    <a href="https://gitee.com/LongbowEnterprise/BootstrapBlazor" target="_blank"><img src="_content/BootstrapBlazor.Shared/images/gitee.svg" alt="gitee" /></a></p>
-            </div>
-            <div class="blazor-intro-barcode">
-                <img src="_content/BootstrapBlazor.Shared/images/QQGroup@2x.png" alt="QQGroup" />
-                <div>QQ 795206915</div>
-            </div>
-        </div>
-        <div class="blazor-intro-button">
-            <svg viewBox="0 0 24 24"><path d="M19.707 5.707l-1.414-1.414L12 10.586 5.707 4.293 4.293 5.707 10.586 12l-6.293 6.293 1.414 1.414L12 13.414l6.293 6.293 1.414-1.414L13.414 12l6.293-6.293z"></path></svg>
-        </div>
-    </div>
+    <component type="typeof(UpdateIntro)" render-mode="ServerPrerendered" />
 
     <script src="_content/BootstrapBlazor/js/bootstrap.blazor.bundle.min.js" asp-append-version="true"></script>
     <script src="_content/BootstrapBlazor.Chart/js/bootstrap.blazor.chart.bundle.min.js" asp-append-version="true"></script>

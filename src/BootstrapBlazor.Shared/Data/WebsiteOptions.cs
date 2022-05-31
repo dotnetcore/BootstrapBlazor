@@ -34,27 +34,27 @@ public class WebsiteOptions
     /// <summary>
     /// 
     /// </summary>
-    public string BootstrapAdminLink { get; set; } = "https://gitee.com/LongbowEnterprise/BootstrapAdmin";
+    public string BootstrapAdminLink { get; set; } = "https://gitee.com/Longbow/BootstrapAdmin";
 
     /// <summary>
     /// 
     /// </summary>
-    public string BootstrapBlazorLink { get; set; } = "https://gitee.com/LongbowEnterprise/BootstrapBlazor";
+    public string BootstrapBlazorLink { get; set; } = "https://gitee.com/Longbow/BootstrapBlazor";
 
     /// <summary>
     /// 
     /// </summary>
-    public string VideoLibUrl { get; set; } = "https://gitee.com/LongbowEnterprise/BootstrapBlazor/wikis/%E8%A7%86%E9%A2%91%E8%B5%84%E6%BA%90?sort_id=3300624";
+    public string VideoLibUrl { get; set; } = "https://gitee.com/Longbow/BootstrapBlazor/wikis/%E8%A7%86%E9%A2%91%E8%B5%84%E6%BA%90?sort_id=3300624";
 
     /// <summary>
     /// 
     /// </summary>
-    public string RepositoryUrl { get; set; } = "https://gitee.com/LongbowEnterprise/BootstrapBlazor/raw/main/src/BootstrapBlazor.Shared/Samples/";
+    public string RepositoryUrl { get; set; } = "https://gitee.com/Longbow/BootstrapBlazor/raw/main/src/BootstrapBlazor.Shared/Samples/";
 
     /// <summary>
     /// 
     /// </summary>
-    public string WikiUrl { get; set; } = "https://gitee.com/LongbowEnterprise/BootstrapBlazor/wikis/%E6%9B%B4%E6%96%B0%E6%97%A5%E5%BF%97?sort_id=4062034";
+    public string WikiUrl { get; set; } = "https://gitee.com/Longbow/BootstrapBlazor/wikis/%E6%9B%B4%E6%96%B0%E6%97%A5%E5%BF%97?sort_id=4062034";
 
     /// <summary>
     /// 获得 QQ 1 群链接地址

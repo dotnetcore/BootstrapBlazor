@@ -1,10 +1,11 @@
 ﻿@inherits LayoutComponentBase
 @layout MainLayout
+@inject IOptionsMonitor<WebsiteOptions> WebsiteOption
 
 <div class="bb-title"><img class="bb-icon" src="_content/BootstrapBlazor.Shared/images/logo.png" /><span>@Title</span></div>
 
 <div class="text-center shields">
-    <ImageViewer Alt="gitee" IsAsync="true" Url="https://gitee.com/LongbowEnterprise/BootstrapBlazor/badge/star.svg?theme=gvp" />
+    <ImageViewer Alt="gitee" IsAsync="true" Url="@GVPUrl" />
     <span class="d-none d-sm-inline">
         <ImageViewer Alt="version" IsAsync="true" Url="https://img.shields.io/nuget/vpre/BootstrapBlazor.svg?logo=nuget&logoColor=green" />
         <ImageViewer Alt="license" IsAsync="true" Url="https://img.shields.io/github/license/argozhang/bootstrapblazor.svg?logo=git&logoColor=red" />

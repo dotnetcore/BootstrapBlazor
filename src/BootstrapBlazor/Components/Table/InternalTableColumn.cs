@@ -194,7 +194,7 @@ internal class InternalTableColumn : ITableColumn
             var attr = prop.GetCustomAttribute<AutoGenerateColumnAttribute>(true);
 
             // Issue: 增加定义设置标签 AutoGenerateClassAttribute
-            // https://gitee.com/LongbowEnterprise/BootstrapBlazor/issues/I381ED
+            // https://gitee.com/Longbow/BootstrapBlazor/issues/I381ED
             var displayName = attr?.Text ?? Utility.GetDisplayName(type, prop.Name);
             if (attr == null)
             {

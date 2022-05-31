@@ -15,7 +15,7 @@
     <IsPackable>true</IsPackable>
     <PackageIcon>logo.png</PackageIcon>
     <PackageReadmeFile>readme.md</PackageReadmeFile>
-    <PackageReleaseNotes>https://gitee.com/LongbowEnterprise/BootstrapBlazor/wikis</PackageReleaseNotes>
+    <PackageReleaseNotes>https://gitee.com/Longbow/BootstrapBlazor/wikis</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>

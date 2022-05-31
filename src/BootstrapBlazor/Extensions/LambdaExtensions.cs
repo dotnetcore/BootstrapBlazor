@@ -240,7 +240,7 @@ public static class LambdaExtensions
 
     private static Expression Contains(this Expression left, Expression right)
     {
-        // https://gitee.com/LongbowEnterprise/BootstrapBlazor/issues/I2DIR4
+        // https://gitee.com/Longbow/BootstrapBlazor/issues/I2DIR4
         // 兼容 EFCore 与普通逻辑 EFCore 内自动处理空问题
         var method = typeof(string).GetMethod("Contains", new Type[1] { typeof(string) })!;
         return Expression.AndAlso(Expression.NotEqual(left, Expression.Constant(null)), Expression.Call(left, method, right));

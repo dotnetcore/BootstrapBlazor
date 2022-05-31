@@ -1,4 +1,5 @@
 ﻿@page "/tables/column"
+@inject IOptionsMonitor<WebsiteOptions> WebsiteOption
 
 <h3>@ColumnLocalizer["Title"]</h3>
 
@@ -243,7 +244,7 @@
         <ul class="ul-demo mb-3">
             <li>@((MarkupString)ColumnLocalizer["AutoGenerateColumnsLi1"].Value)</li>
             <li>@((MarkupString)ColumnLocalizer["AutoGenerateColumnsLi2"].Value)</li>
-            <li>@((MarkupString)ColumnLocalizer["AutoGenerateColumnsLi3"].Value)</li>
+            <li>@((MarkupString)string.Format(ColumnLocalizer["AutoGenerateColumnsLi3"].Value, WebsiteOption.CurrentValue.BootstrapBlazorLink))</li>
         </ul>
         @((MarkupString)ColumnLocalizer["AutoGenerateColumnsP2"].Value)
     </p>
