@@ -47,12 +47,12 @@ WTM 快速开发框架，设计的核心理念就是 "尽一切可能提高开�
 
 1. 安装 .net core sdk 最新版 [官方网址](http://www.microsoft.com/net/download)
 2. 安装 Visual Studio 2022 最新版 [官方网址](https://visualstudio.microsoft.com/vs/getting-started/)
-3. 获取本项目代码 [BootstrapBlazor](https://gitee.com/Longbow/BootstrapBlazor)
+3. 获取本项目代码 [BootstrapBlazor](https://gitee.com/LongbowEnterprise/BootstrapBlazor)
 
 ### 克隆代码
 
 ```shell
-git clone https://gitee.com/Longbow/BootstrapBlazor.git
+git clone https://gitee.com/LongbowEnterprise/BootstrapBlazor.git
 cd BootstrapBlazor/src/BootstrapBlazor.Server
 dotnet run
 ```
@@ -80,7 +80,7 @@ dotnet run
 ### 项目模板
 
 - [微软市场](https://marketplace.visualstudio.com/items?itemName=Longbow.BootstrapBlazorUITemplate)
-- [码云镜像](https://gitee.com/Longbow/BootstrapBlazorVsix/raw/master/dist/BootstrapBlazor.UITemplate.vsix)
+- [码云镜像](https://gitee.com/LongbowEnterprise/BootstrapBlazorVsix/raw/master/dist/BootstrapBlazor.UITemplate.vsix)
 
 ### 更多文档
 
@@ -179,7 +179,7 @@ Blazor 应用基于组件。 Blazor 中的组件是指 UI 元素，例如页面�
 ![登录可查看](https://gitee.com/Longbow/Pictures/raw/master/BootstrapBlazor/Doughnut.png "Doughnut.png")
 
 ## 开源协议
-[![Gitee license](https://img.shields.io/github/license/argozhang/bootstrapblazor.svg?logo=git&logoColor=red)](https://gitee.com/Longbow/BootstrapBlazor/blob/master/LICENSE)
+[![Gitee license](https://img.shields.io/github/license/argozhang/bootstrapblazor.svg?logo=git&logoColor=red)](https://gitee.com/LongbowEnterprise/BootstrapBlazor/blob/master/LICENSE)
 
 ## 特别鸣谢
 
