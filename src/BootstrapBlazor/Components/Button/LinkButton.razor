@@ -6,13 +6,13 @@
     {
         <i class="@Icon"></i>
     }
-    @if (!string.IsNullOrEmpty(Text))
-    {
-        <span>@Text</span>
-    }
     @if (!string.IsNullOrEmpty(ImageUrl))
     {
         <img alt="img" src="@ImageUrl" />
+    }
+    @if (!string.IsNullOrEmpty(Text))
+    {
+        <span>@Text</span>
     }
     @ChildContent
     @if (!string.IsNullOrEmpty(Title))
