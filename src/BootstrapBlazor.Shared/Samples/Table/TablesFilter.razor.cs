@@ -25,6 +25,10 @@ public partial class TablesFilter
 
     [Inject]
     [NotNull]
+    private IStringLocalizer<TablesFilter>? FilterLocalizer { get; set; }
+
+    [Inject]
+    [NotNull]
     private IOptionsMonitor<WebsiteOptions>? WebsiteOption { get; set; }
 
     private string SortString { get; set; } = "DateTime desc, Address";

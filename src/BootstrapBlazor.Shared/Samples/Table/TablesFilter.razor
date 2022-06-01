@@ -1,28 +1,24 @@
 ﻿@page "/tables/filter"
 
-<h3>筛选和排序功能</h3>
+<h3>@FilterLocalizer["Title"]</h3>
 
-<h4>筛选可快速查找到自己想看的数据；排序可快速查找或对比数据。</h4>
+<h4>@FilterLocalizer["Desc"]</h4>
 
 <ul class="ul-demo mt-3">
-    <li>对某一列数据进行筛选，通过指定列的 <code>Filterable</code> 属性来指定需要筛选的列</li>
-    <li>对某一列数据进行排序，通过指定列的 <code>Sortable</code> 属性来指定需要排序的列，通过多次点击更改排序规则</li>
+    <li>@((MarkupString)FilterLocalizer["DescLi1"].Value)</li>
+    <li>@((MarkupString)FilterLocalizer["DescLi2"].Value)</li>
 </ul>
 
-<DemoBlock Title="可筛选数据的表格" Introduction="设置 <code>TableColumn</code> 列的 <code>Filterable</code> 属性，控制列头是否开启数据筛选功能" Name="Filterable">
-    <p>
-        <code>Filterable</code> 目前支持两种应用方式：
-    </p>
+<DemoBlock Title="@FilterLocalizer["FilterableTitle"]" Introduction="@FilterLocalizer["FilterableIntro"]" Name="Filterable">
+    <p>@((MarkupString)FilterLocalizer["FilterableP"].Value)</p>
     <ul class="ul-demo mb-3">
-        <li>查询方法参数中的 <code>Filters</code> 是筛选条件，数据库查询数据时可以通过此属性自行进行数据筛选</li>
-        <li>无感使用，正常查询数据，对筛选不进行任何处理，组件内部将根据 <code>Filter</code> 进行内部处理</li>
-        <li>外部已经进行了筛选时请设置 <code>QueryData&lt;TItem&gt;</code> 参数的 <code>IsFiltered</code> 属性值为 <code>true</code></li>
-        <li>各列可分别设置筛选条件，各列之间筛选条件为 <code>And</code> 并且的关系</li>
+        <li>@((MarkupString)FilterLocalizer["FilterableLi1"].Value)</li>
+        <li>@((MarkupString)FilterLocalizer["FilterableLi2"].Value)</li>
+        <li>@((MarkupString)FilterLocalizer["FilterableLi3"].Value)</li>
+        <li>@((MarkupString)FilterLocalizer["FilterableLi4"].Value)</li>
     </ul>
-    <div>
-        本示例分别为 <code>DateTime、string、bool、enum、int</code> 类型，弹出筛选框也分别不同
-    </div>
-    <Alert ShowBar="true" Color="Color.Info" class="mt-3">开启筛选功能仅需要设置 <code>TableColumn</code> 的 <code>Filterable</code> 值为 <code>true</code>，无需额外任何代码</Alert>
+    <div>@((MarkupString)FilterLocalizer["FilterableDiv"].Value)</div>
+    <Alert ShowBar="true" Color="Color.Info" class="mt-3">@((MarkupString)FilterLocalizer["FilterableAlert"].Value)</Alert>
     <Table TItem="Foo"
            IsPagination="true" PageItemsSource="@PageItemsSource"
            IsStriped="true" IsBordered="true" IsMultipleSelect="true"
@@ -39,12 +35,8 @@
     </Table>
 </DemoBlock>
 
-<DemoBlock Title="自定义筛选模板" Introduction="设置 <code>FilterTemplate</code> 模板值，自定义列筛选模板，非常适用于复杂类型的筛选弹窗" Name="FilterTemplate">
-    <p>
-        <code>FilterTemplate</code> 类型为 <code>RenderFragment</code>：
-        <span>其值为自定义组件，组件必须继承</span> <code>FilterBase</code> 本例中最后一列 <b>数量列</b> 通过筛选模板使用自定义组件 <code>CustomerFilter</code>
-        <a href="@ComponentSourceCodeUrl" target="_blank">[传送门] CustomerFilter 组件源码</a>
-    </p>
+<DemoBlock Title="@FilterLocalizer["FilterTemplateTitle"]" Introduction="@FilterLocalizer["FilterTemplateIntro"]" Name="FilterTemplate">
+    <p>@((MarkupString)FilterLocalizer["FilterTemplateP", ComponentSourceCodeUrl].Value)</p>
     <Table TItem="Foo"
            IsPagination="true" PageItemsSource="@PageItemsSource"
            IsStriped="true" IsBordered="true" IsMultipleSelect="true"
@@ -68,7 +60,7 @@
     </Table>
 </DemoBlock>
 
-<DemoBlock Title="显示过滤表头" Introduction="设置 <code>ShowFilterHeader</code> 属性值为 <code>true</code> 时显示过滤表头" Name="ShowFilterHeader">
+<DemoBlock Title="@FilterLocalizer["ShowFilterHeaderTitle"]" Introduction="@FilterLocalizer["ShowFilterHeaderIntro"]" Name="ShowFilterHeader">
     <Table TItem="Foo"
            IsPagination="true" PageItemsSource="@PageItemsSource"
            IsStriped="true" IsBordered="true" IsMultipleSelect="true"
@@ -85,12 +77,12 @@
     </Table>
 </DemoBlock>
 
-<DemoBlock Title="默认排序功能" Introduction="设置 <code>DefaultSort</code> 属性值为 <code>true</code> 时作为默认排序列" Name="DefaultSort">
+<DemoBlock Title="@FilterLocalizer["DefaultSortTitle"]" Introduction="@FilterLocalizer["DefaultSortIntro"]" Name="DefaultSort">
     <ul class="ul-demo mb-3">
-        <li>设置 <code>DefaultSort=true</code> 开启默认排序功能，当多列设置此属性时，第一列起作用</li>
-        <li>设置 <code>DefaultSortOrder</code> 值，设置默认排序规则</li>
+        <li>@((MarkupString)FilterLocalizer["DefaultSortLi1"].Value)</li>
+        <li>@((MarkupString)FilterLocalizer["DefaultSortLi2"].Value)</li>
     </ul>
-    <p>本例中默认排序为最后一列倒序排序</p>
+    <p>@FilterLocalizer["DefaultSortP"]</p>
     <Table TItem="Foo"
            IsPagination="true" PageItemsSource="@PageItemsSource"
            IsStriped="true" IsBordered="true" IsMultipleSelect="true"
@@ -105,8 +97,8 @@
     </Table>
 </DemoBlock>
 
-<DemoBlock Title="多列排序" Introduction="设置 <code>SortList</code> 属性，表格加载时使用此参数进行多列排序" Name="SortList">
-    <p>本例中默认排序规则为：<code>DeteTime desc</code> <code>Address</code>，无需自己处理排序逻辑，组件内部已经内置</p>
+<DemoBlock Title="@FilterLocalizer["SortListTitle"]" Introduction="@FilterLocalizer["SortListIntro"]" Name="SortList">
+    <p>@((MarkupString)FilterLocalizer["SortListP"].Value)</p>
     <Table TItem="Foo"
            IsPagination="true" PageItemsSource="@PageItemsSource"
            IsStriped="true" IsBordered="true" IsMultipleSelect="true"
@@ -121,8 +113,8 @@
     </Table>
 </DemoBlock>
 
-<DemoBlock Title="动态多列排序" Introduction="设置 <code>OnSort</code> 参数" Name="OnSort">
-    <p>点击列头进行排序时，组件内部调用 <code>OnSort</code> 回调，可以在此处根据业务逻辑设置其返回值即可实现动态多列排序功能，本例中点击 <b>时间</b> 列头进行正序排序时，内部使用 <code>DateTime, Count</code> 倒序时使用 <code>DateTime desc, Count desc</code></p>
+<DemoBlock Title="@FilterLocalizer["OnSortTitle"]" Introduction="@FilterLocalizer["OnSortIntro"]" Name="OnSort">
+    <p>@((MarkupString)FilterLocalizer["OnSortP"].Value)</p>
     <Table TItem="Foo"
            IsPagination="true" PageItemsSource="@PageItemsSource"
            IsStriped="true" IsBordered="true" IsMultipleSelect="true"
@@ -137,10 +129,10 @@
     </Table>
 </DemoBlock>
 
-<DemoBlock Title="Set filter in code" Introduction="Example how to set filter in code" Name="SetFilterInCode">
+<DemoBlock Title="@FilterLocalizer["SetFilterInCodeTitle"]" Introduction="@FilterLocalizer["SetFilterInCodeIntro"]" Name="SetFilterInCode">
     <div class="mb-2">
-        <Button Text="Name Contains 01" OnClickWithoutRender="SetFilterInCode" />
-        <Button Text="Reset all filters" OnClickWithoutRender="ResetAllFilters" />
+        <Button Text="@FilterLocalizer["SetFilterInCodeButtonText1"]" OnClickWithoutRender="SetFilterInCode" />
+        <Button Text="@FilterLocalizer["SetFilterInCodeButtonText2"]" OnClickWithoutRender="ResetAllFilters" />
     </div>
     <Table TItem="Foo" @ref="TableSetFilter"
            IsPagination="true" PageItemsSource="@PageItemsSource"
