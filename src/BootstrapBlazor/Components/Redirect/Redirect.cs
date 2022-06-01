@@ -16,12 +16,11 @@ public class Redirect : ComponentBase
     private NavigationManager? Navigation { get; set; }
 
     /// <summary>
-    /// 
+    /// 获得/设置 登录地址 默认 Account/Login
     /// </summary>
     [Parameter]
     public string Url { get; set; } = "Account/Login";
 
-#if DEBUG
     /// <summary>
     /// OnAfterRender 方法
     /// </summary>
@@ -30,13 +29,4 @@ public class Redirect : ComponentBase
     {
         Navigation.NavigateTo(Url, true);
     }
-#else
-    /// <summary>
-    /// OnInitialized 方法
-    /// </summary>
-    protected override void OnInitialized()
-    {
-        Navigation.NavigateTo(Url, true);
-    }
-#endif
 }
