@@ -16,7 +16,7 @@ public partial class LinkButton
     /// 获得/设置 Url 默认为 #
     /// </summary>
     [Parameter]
-    public string Url { get; set; } = "#";
+    public string? Url { get; set; }
 
     /// <summary>
     /// 获得/设置 Tooltip 显示文字 默认为 null
@@ -42,16 +42,28 @@ public partial class LinkButton
     [Parameter]
     public Placement TooltipPlacement { get; set; } = Placement.Top;
 
-    private bool Prevent => Url.StartsWith('#');
+    private bool Prevent => (Url?.StartsWith('#') ?? true) || IsDisabled;
+
+    private string TagName => IsDisabled ? "button" : "a";
+
+    private string? UrlString => IsDisabled ? null : Url;
 
     private string? ClassString => CssBuilder.Default("link-button")
         .AddClass("is-vertical", IsVertical)
         .AddClass($"btn-outline-{Color.ToDescriptionString()}", IsOutline)
-        .AddClass($"text-{Color.ToDescriptionString()}", Color != Color.None && !IsOutline)
+        .AddClass($"text-{Color.ToDescriptionString()}", Color != Color.None && !IsOutline && !IsDisabled)
         .AddClass($"btn-{Size.ToDescriptionString()}", Size != Size.None)
         .AddClass("btn-block", IsBlock)
         .AddClass("is-round", ButtonStyle == ButtonStyle.Round)
         .AddClass("is-circle", ButtonStyle == ButtonStyle.Circle)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
+
+    private async Task OnClickButton()
+    {
+        if (OnClick.HasDelegate)
+        {
+            await OnClick.InvokeAsync();
+        }
+    }
 }

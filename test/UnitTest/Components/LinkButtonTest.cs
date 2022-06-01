@@ -31,6 +31,30 @@ public class LinkButtonTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void Icon_Ok()
+    {
+        var cut = Context.RenderComponent<LinkButton>(builder => builder.Add(s => s.Icon, "fa fa-fa"));
+
+        Assert.Contains("fa fa-fa", cut.Markup);
+
+        Assert.Contains("text-primary", cut.Markup);
+    }
+
+    [Fact]
+    public void Color_Ok()
+    {
+        var cut = Context.RenderComponent<LinkButton>(builder => builder.Add(s => s.Color, Color.None));
+
+        Assert.DoesNotContain("text-primary", cut.Markup);
+
+        cut.SetParametersAndRender(pb => pb.Add(a => a.Color, Color.Danger));
+        Assert.Contains("text-danger", cut.Markup);
+
+        cut.SetParametersAndRender(pb => pb.Add(a => a.IsDisabled, true));
+        Assert.DoesNotContain("text-danger", cut.Markup);
+    }
+
+    [Fact]
     public void Title_Ok()
     {
         var cut = Context.RenderComponent<LinkButton>(builder =>
@@ -59,5 +83,25 @@ public class LinkButtonTest : BootstrapBlazorTestBase
 
         cut.Find("a").Click();
         Assert.True(click);
+    }
+
+    [Fact]
+    public void IsVertical_Ok()
+    {
+        var cut = Context.RenderComponent<LinkButton>(pb =>
+        {
+            pb.Add(a => a.IsVertical, true);
+        });
+        cut.Contains("is-vertical");
+    }
+
+    [Fact]
+    public void Disabled_Ok()
+    {
+        var cut = Context.RenderComponent<LinkButton>(pb =>
+        {
+            pb.Add(a => a.IsDisabled, true);
+        });
+        cut.Contains("button");
     }
 }

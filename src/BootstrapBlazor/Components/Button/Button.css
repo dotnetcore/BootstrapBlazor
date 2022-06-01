@@ -49,3 +49,14 @@
     .link-button.is-vertical > i + span {
         margin-left: 0;
     }
+
+
+.link-button:disabled {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+}
+
+    .link-button:disabled img {
+        opacity: .4;
+    }
