@@ -32,6 +32,11 @@ public abstract class ButtonBase : TooltipComponentBase
     protected string? Disabled => IsDisabled ? "disabled" : null;
 
     /// <summary>
+    /// 获得 按钮 aria-disabled 属性
+    /// </summary>
+    protected string DisabledString => IsDisabled ? "true" : "false";
+
+    /// <summary>
     /// 获得 按钮 tabindex 属性
     /// </summary>
     protected string? Tab => IsDisabled ? "-1" : null;

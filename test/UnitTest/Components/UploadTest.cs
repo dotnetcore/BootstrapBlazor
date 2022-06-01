@@ -346,14 +346,14 @@ public class UploadTest : BootstrapBlazorTestBase
             pb.Add(a => a.IsDisabled, false);
             pb.Add(a => a.IsSingle, false);
         });
-        Assert.DoesNotContain("disabled", button.ToMarkup());
+        Assert.DoesNotContain("disabled=\"disabled\"", button.ToMarkup());
 
         cut.SetParametersAndRender(pb =>
         {
             pb.Add(a => a.IsDisabled, false);
             pb.Add(a => a.IsSingle, true);
         });
-        Assert.DoesNotContain("disabled", button.ToMarkup());
+        Assert.DoesNotContain("disabled=\"disabled\"", button.ToMarkup());
 
         cut.SetParametersAndRender(pb =>
         {

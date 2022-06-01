@@ -233,13 +233,15 @@ public class ButtonTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void SetDisable_Ok()
+    public async Task SetDisable_Ok()
     {
         var cut = Context.RenderComponent<Button>();
-        Assert.DoesNotContain("disabled", cut.Markup);
+        Assert.DoesNotContain("disabled=\"disabled\"", cut.Markup);
+        Assert.Contains("aria-disabled=\"false\"", cut.Markup);
 
-        cut.InvokeAsync(() => cut.Instance.SetDisable(true));
+        await cut.InvokeAsync(() => cut.Instance.SetDisable(true));
         Assert.Contains("disabled=\"disabled\"", cut.Markup);
+        Assert.Contains("aria-disabled=\"true\"", cut.Markup);
     }
 
     [Fact]
