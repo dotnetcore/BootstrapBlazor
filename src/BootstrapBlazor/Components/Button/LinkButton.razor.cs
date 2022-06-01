@@ -3,7 +3,6 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
 
 namespace BootstrapBlazor.Components;
 
@@ -61,6 +60,10 @@ public partial class LinkButton
 
     private async Task OnClickButton()
     {
+        if (OnClickWithoutRender != null)
+        {
+            await OnClickWithoutRender();
+        }
         if (OnClick.HasDelegate)
         {
             await OnClick.InvokeAsync();

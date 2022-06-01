@@ -86,6 +86,20 @@ public class LinkButtonTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void OnClickWithoutRender_Ok()
+    {
+        var click = false;
+        var cut = Context.RenderComponent<LinkButton>(builder => builder.Add(s => s.OnClickWithoutRender, () =>
+        {
+            click = true;
+            return Task.CompletedTask;
+        }));
+
+        cut.Find("a").Click();
+        Assert.True(click);
+    }
+
+    [Fact]
     public void IsVertical_Ok()
     {
         var cut = Context.RenderComponent<LinkButton>(pb =>
