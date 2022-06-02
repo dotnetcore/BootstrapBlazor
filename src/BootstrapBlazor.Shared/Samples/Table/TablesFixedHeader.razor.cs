@@ -19,6 +19,11 @@ public partial class TablesFixedHeader
     [NotNull]
     private IStringLocalizer<Foo>? Localizer { get; set; }
 
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<TablesFixedHeader>? FixheaderLocalizer { get; set; }
+
+
     /// <summary>
     /// OnInitialized 方法
     /// </summary>

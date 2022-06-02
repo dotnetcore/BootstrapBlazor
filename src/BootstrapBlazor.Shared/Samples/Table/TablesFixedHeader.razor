@@ -1,18 +1,14 @@
 ﻿@page "/tables/header"
 
-<h3>固定表头功能</h3>
+<h3>@FixheaderLocalizer["Title"]</h3>
 
-<h4>滚动数据时表头固定方便查看各列表头信息</h4>
+<h4>@FixheaderLocalizer["Desc"]</h4>
 
-<p>
-    本组件固定表头做法采用的是 <code>双表头</code> 做法，常见问题时出现列不对齐的问题，根据自己实际情况请自行添加部分样式
-    <br />
-    固定表头用法请尽可能的设置每列宽度，以避免列宽不对齐的问题
-</p>
+<p>@((MarkupString)FixheaderLocalizer["DescP"].Value)</p>
 
-<DemoBlock Title="宽度自适应" Introduction="设置 <code>Height=200</code> 固定表头" Name="FixedHeader">
-    <p>数据比较多加载后即出现纵向滚动条示例</p>
-    <p>请设置个列宽度，允许一列宽度不设置，进行自动填充</p>
+<DemoBlock Title="@FixheaderLocalizer["FixedHeaderTitle"]" Introduction="@FixheaderLocalizer["FixedHeaderIntro"]" Name="FixedHeader">
+    <p>@FixheaderLocalizer["FixedHeaderP"]</p>
+    <p>@FixheaderLocalizer["FixedHeaderP1"]</p>
     <Table TItem="Foo" Items="@Items.Take(10)" Height="200" IsBordered="true" IsFixedHeader="true">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" />
@@ -22,10 +18,8 @@
     </Table>
 </DemoBlock>
 
-<DemoBlock Title="宽度固定" Introduction="设置 <code>Height=200</code> 固定表头，当每页显示数据为 <code>10</code> 行时高度超出设置值 <code>200</code> 后，Table 组件出现纵向滚动条" Name="FixedWidth">
-    <p>
-        所有列均设置宽度，当屏幕过小时会自动出现横向滚动条
-    </p>
+<DemoBlock Title="@FixheaderLocalizer["FixedWidthTitle"]" Introduction="@FixheaderLocalizer["FixedWidthIntro"]" Name="FixedWidth">
+    <p>@FixheaderLocalizer["FixedWidthP"]</p>
     <Table TItem="Foo" Items="@Items.Take(10)" IsBordered="true" IsMultipleSelect="true" Height="200" IsFixedHeader="true">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" />
@@ -35,12 +29,8 @@
     </Table>
 </DemoBlock>
 
-<DemoBlock Title="宽度可调整" Introduction="固定表头的同时设置 <code>AllowResizing</code> 属性，使列宽可以调整" Name="AllowResizing">
-    <p>
-        通过设置 <code>Height</code> 参数固定表头
-        <br />
-        通过设置 <code>AllowResizing</code> 参数允许调整列宽
-    </p>
+<DemoBlock Title="@FixheaderLocalizer["AllowResizingTitle"]" Introduction="@FixheaderLocalizer["AllowResizingIntro"]" Name="AllowResizing">
+    <p>@((MarkupString)FixheaderLocalizer["AllowResizingP"].Value)</p>
     <Table TItem="Foo" Items="@Items.Take(10)"
            IsBordered="true" IsMultipleSelect="true" IsPagination="true" IsFixedHeader="true"
            Height="200" AllowResizing="true">
@@ -52,8 +42,8 @@
     </Table>
 </DemoBlock>
 
-<DemoBlock Title="自适应高度" Introduction="不设置 <code>Height</code> 值通过父容器自适应高度" Name="AutoHeight">
-    <p>本例中 <code>Table</code> 表格组件由于可能未知高度，所以无法设置高度，父级容器可能通过样式得到高度，此时 <code>Table</code> 组件会尝试使用自适应填充满高度，实战中这种应用场景是最多的，本例模拟父级高度为 <code>300px</code></p>
+<DemoBlock Title="@FixheaderLocalizer["AutoHeightTitle"]" Introduction="@FixheaderLocalizer["AutoHeightIntro"]" Name="AutoHeight">
+    <p>@((MarkupString)FixheaderLocalizer["AutoHeightP"].Value)</p>
     <div style="height: 300px;">
         <Table TItem="Foo" Items="@Items.Take(10)" ShowColumnList="true" ShowToolbar="true" ShowDefaultButtons="false" ShowRefresh="false"
                IsBordered="true" IsMultipleSelect="true" IsPagination="true" IsFixedHeader="true" AllowResizing="true">
