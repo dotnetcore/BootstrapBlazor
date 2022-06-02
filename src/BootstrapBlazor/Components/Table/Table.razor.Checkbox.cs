@@ -35,8 +35,8 @@ public partial class Table<TItem>
     protected CheckboxState HeaderCheckState()
     {
         var ret = CheckboxState.UnChecked;
-        if (RowItems.Any() && RowItems.All(i => SelectedRows.Contains(i))) ret = CheckboxState.Checked;
-        else if (RowItems.Any(i => SelectedRows.Contains(i))) ret = CheckboxState.Mixed;
+        if (Rows.Any() && Rows.All(i => SelectedRows.Contains(i))) ret = CheckboxState.Checked;
+        else if (Rows.Any(i => SelectedRows.Contains(i))) ret = CheckboxState.Mixed;
         return ret;
     }
 
@@ -81,7 +81,7 @@ public partial class Table<TItem>
             case CheckboxState.Checked:
                 // select all
                 SelectedRows.Clear();
-                SelectedRows.AddRange(RowItems);
+                SelectedRows.AddRange(Rows);
                 await OnSelectedRowsChanged();
                 StateHasChanged();
                 break;

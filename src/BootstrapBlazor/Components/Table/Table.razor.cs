@@ -747,7 +747,7 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
             RenderMode = TableRenderMode.Table;
         }
 
-        RowItemsCache = null;
+        RowsCache = null;
 
         if (IsExcel)
         {
@@ -907,14 +907,17 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
     /// </summary>
     private IEnumerable<TItem>? QueryItems { get; set; }
 
-    private List<TItem>? RowItemsCache { get; set; }
+    private List<TItem>? RowsCache { get; set; }
 
-    private List<TItem> RowItems
+    /// <summary>
+    /// 获得 当前表格所有 Rows 集合
+    /// </summary>
+    public List<TItem> Rows
     {
         get
         {
-            RowItemsCache ??= Items?.ToList() ?? QueryItems?.ToList() ?? new List<TItem>();
-            return IsTree ? GetTreeRows() : RowItemsCache;
+            RowsCache ??= Items?.ToList() ?? QueryItems?.ToList() ?? new List<TItem>();
+            return IsTree ? GetTreeRows() : RowsCache;
         }
     }
 
@@ -1146,7 +1149,7 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
         .AddClass("is-dbcell", trigger)
         .Build();
 
-    private bool IsShowEmpty => ShowEmpty && !RowItems.Any();
+    private bool IsShowEmpty => ShowEmpty && !Rows.Any();
 
     private int GetColumnCount()
     {

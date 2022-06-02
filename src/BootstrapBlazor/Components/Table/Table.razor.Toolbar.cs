@@ -268,7 +268,7 @@ public partial class Table<TItem>
             EditModalTitleString = AddModalTitle;
             if (IsTracking)
             {
-                RowItems.Insert(0, EditModel);
+                Rows.Insert(0, EditModel);
             }
             if (EditMode == EditMode.Popup)
             {
@@ -305,7 +305,7 @@ public partial class Table<TItem>
             {
                 await InternalOnAddAsync();
                 SelectedRows.Clear();
-                RowItemsCache = null;
+                RowsCache = null;
                 await OnSelectedRowsChanged();
                 await QueryAsync();
             }
@@ -403,7 +403,7 @@ public partial class Table<TItem>
         if (DynamicContext != null)
         {
             await DynamicContext.SetValue(context.Model);
-            RowItemsCache = null;
+            RowsCache = null;
             valid = true;
         }
         else
@@ -587,7 +587,7 @@ public partial class Table<TItem>
         }
         else if (IsTracking)
         {
-            RowItems.RemoveAll(i => SelectedRows.Contains(i));
+            Rows.RemoveAll(i => SelectedRows.Contains(i));
             SelectedRows.Clear();
             StateHasChanged();
         }
@@ -658,7 +658,7 @@ public partial class Table<TItem>
             Columns.AddRange(cols);
 
             QueryItems = DynamicContext.GetItems().Cast<TItem>();
-            RowItemsCache = null;
+            RowsCache = null;
         }
     }
 
@@ -678,13 +678,13 @@ public partial class Table<TItem>
         var ret = false;
         if (OnExportAsync != null)
         {
-            ret = await OnExportAsync(RowItems);
+            ret = await OnExportAsync(Rows);
         }
         else
         {
             // 如果未提供 OnExportAsync 回调委托使用注入服务来尝试解析
             // TODO: 这里将本页数据作为参数传递给导出服务，服务本身可以利用自身优势获取全部所需数据，如果获取全部数据呢？
-            ret = await ExcelExport.ExportAsync(RowItems, Columns, JSRuntime);
+            ret = await ExcelExport.ExportAsync(Rows, Columns, JSRuntime);
         }
 
         option = new ToastOption

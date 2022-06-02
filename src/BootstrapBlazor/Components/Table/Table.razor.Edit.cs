@@ -405,7 +405,7 @@ public partial class Table<TItem>
         }
         else
         {
-            RowItemsCache = null;
+            RowsCache = null;
         }
 
         async Task OnQuery()
@@ -434,7 +434,7 @@ public partial class Table<TItem>
             }
 
             queryData = await InternalOnQueryAsync(queryOption);
-            RowItemsCache = null;
+            RowsCache = null;
             Items = null;
             QueryItems = queryData.Items;
             TotalCount = queryData.TotalCount;

@@ -172,7 +172,7 @@
             }
             else
             {
-                foreach (var item in RowItems)
+                foreach (var item in Rows)
                 {
                     <DynamicElement class="@GetRowClassString(item, "table-row")"
                                     TriggerClick="@(ClickToSelect || OnClickRowCallback != null)" OnClick="() => ClickRow(item)">
@@ -187,7 +187,7 @@
                         {
                             <div class="table-cell">
                                 <label>@LineNoText</label>
-                                <span>@(RowItems.IndexOf(item) + 1 + (PageIndex -1) * PageItems)</span>
+                                <span>@(Rows.IndexOf(item) + 1 + (PageIndex -1) * PageItems)</span>
                             </div>
                         }
                         @if (!IsExcel && ShowExtendButtons && IsExtendButtonsInRowHeader)
@@ -233,8 +233,8 @@
                 {
                     <div class="table-row table-footer">
                         <CascadingValue Value="true" Name="IsMobileMode" IsFixed="true">
-                            <CascadingValue Value="@RowItems" Name="TableFooterContext" IsFixed="true">
-                                @TableFooter?.Invoke(RowItems)
+                            <CascadingValue Value="@Rows" Name="TableFooterContext" IsFixed="true">
+                                @TableFooter?.Invoke(Rows)
                             </CascadingValue>
                         </CascadingValue>
                     </div>
@@ -307,7 +307,7 @@
             }
             else
             {
-                @foreach (var item in RowItems)
+                @foreach (var item in Rows)
                 {
                     @RenderRow(item)
                     if (!IsExcel && ShowDetails())
@@ -350,15 +350,15 @@
         {
             <tfoot>
                 <CascadingValue Value="false" Name="IsMobileMode" IsFixed="true">
-                    <CascadingValue Value="@RowItems" Name="TableFooterContext" IsFixed="true">
+                    <CascadingValue Value="@Rows" Name="TableFooterContext" IsFixed="true">
                         @if (FooterTemplate != null)
                         {
-                            @FooterTemplate(RowItems)
+                            @FooterTemplate(Rows)
                         }
                         else
                         {
                             <tr>
-                                @TableFooter?.Invoke(RowItems)
+                                @TableFooter?.Invoke(Rows)
                             </tr>
                         }
                     </CascadingValue>
@@ -571,7 +571,7 @@ RenderFragment<TItem> RenderRow => item =>
     @if (ShowLineNo)
     {
         <td>
-            <div class="table-cell">@(RowItems.IndexOf(item) + 1 + (PageIndex -1) * PageItems)</div>
+            <div class="table-cell">@(Rows.IndexOf(item) + 1 + (PageIndex -1) * PageItems)</div>
         </td>
     }
     @{
