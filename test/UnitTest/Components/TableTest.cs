@@ -440,6 +440,7 @@ public class TableTest : TableTestBase
             pb.AddChildContent<Table<Foo>>(pb =>
             {
                 pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.HeaderTextWrap, true);
                 pb.Add(a => a.PageItemsSource, new int[] { 2, 4, 8 });
                 pb.Add(a => a.IsPagination, true);
                 pb.Add(a => a.OnQueryAsync, OnQueryAsync(localizer));

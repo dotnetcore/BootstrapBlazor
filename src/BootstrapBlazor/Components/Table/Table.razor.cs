@@ -48,6 +48,7 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
         .AddClass("table-excel", IsExcel)
         .AddClass("table-bordered", IsBordered)
         .AddClass("table-striped table-hover", IsStriped)
+        .AddClass("table-wrap", HeaderTextWrap && !IsFixedHeader)
         .Build();
 
     /// <summary>
@@ -540,6 +541,12 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
     /// </summary>
     [Parameter]
     public bool AllowResizing { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否表头允许折行 默认 false 不折行
+    /// </summary>
+    [Parameter]
+    public bool HeaderTextWrap { get; set; }
 
     /// <summary>
     /// 获得/设置 是否斑马线样式 默认为 false

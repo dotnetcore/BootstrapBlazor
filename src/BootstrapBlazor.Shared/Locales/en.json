@@ -2889,6 +2889,7 @@
     "AttributeTitle": "Table Attribute",
     "TableSizeAttr": "Table Size",
     "HeaderStyleAttr": "Table Header Style",
+    "HeaderTextWrap": "Table header text wrap",
     "HeightAttr": "Fixed Header",
     "PageItemsAttr": "IsPagination=true Sets the number of data to display per page",
     "AutoRefreshIntervalAttr": "Auto Refresh Interval",

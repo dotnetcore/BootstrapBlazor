@@ -1,7 +1,7 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+<Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
-    <Version>6.7.1</Version>
+    <Version>6.7.2</Version>
   </PropertyGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'net5.0'">

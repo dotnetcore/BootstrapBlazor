@@ -350,6 +350,14 @@ public partial class Tables
         },
         new()
         {
+            Name = "HeaderTextWrap",
+            Description = TablesLocalizer["HeaderTextWrap"],
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "false"
+        },
+        new()
+        {
             Name = "Height",
             Description = TablesLocalizer["HeightAttr"],
             Type = "int",

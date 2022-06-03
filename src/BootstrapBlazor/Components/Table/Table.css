@@ -783,3 +783,7 @@ form .table .table-cell > textarea {
         margin: 0;
         padding: 1rem;
     }
+
+.table-wrap thead th .table-cell .table-text {
+    white-space: pre-wrap;
+}

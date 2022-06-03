@@ -2901,6 +2901,7 @@
     "AttributeTitle": "Table 属性",
     "TableSizeAttr": "表格大小",
     "HeaderStyleAttr": "表格 Header 样式",
+    "HeaderTextWrap": "表头是否折行",
     "HeightAttr": "固定表头",
     "PageItemsAttr": "IsPagination=true 设置每页显示数据数量",
     "AutoRefreshIntervalAttr": "自动刷新时间间隔",
