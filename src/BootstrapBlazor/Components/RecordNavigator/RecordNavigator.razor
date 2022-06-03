@@ -1,0 +1,114 @@
+﻿@namespace BootstrapBlazor.Components
+@inherits BootstrapComponentBase
+<style>
+.nav-records {
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+recordnavigator {
+    margin: 0;
+    flex: 1 1 auto;
+    justify-content: flex-end;
+}
+
+.record-link:focus {
+    box-shadow: none;
+}
+ .record-items-active{
+        z-index:3;
+        color:#fff;
+        background-color:#0d6efd;
+        border-color:#0d6efd;
+    }
+
+.record-items {
+    display: inline-block;
+     
+}
+
+    .record-items .active{
+        z-index:3;
+        color:#fff;
+        background-color:#0d6efd;
+        border-color:#0d6efd;
+    }
+
+    .record-items .select {
+        width: 120px;
+        margin: 0 10px;
+    }
+
+        .record-items .select .dropdown-menu {
+            min-width: unset;
+            text-align: center;
+        }
+
+        .record-items .select .form-select {
+            text-align: center;
+        }
+        #fff
+.record-item:hover .record-link-prev .fa-ellipsis-h:before {
+    content: "\f100";
+}
+.record-item:hover .record-link-next .fa-ellipsis-h:before {
+    content: "\f101";
+}
+
+.record-link-active {
+    padding: 0.5rem 0.35rem;
+    line-height: 1;
+    z-index:3;
+    color:#fff;
+    background-color:#0d6efd;
+    border-color:#0d6efd;
+}
+.record-link {
+    padding: 0.5rem 0.35rem;
+    line-height: 1;
+}
+
+    .record-link .fa {
+        width: 11px;
+        height: 11px;
+        text-align: center;
+    }
+     
+
+</style>
+<nav class="nav nav-records" aria-label="@AiraIndexLabel">
+    <div class="@NavigatorBarClass">  
+        <div class="d-sm-inline-block">@GetIndexInfoText()</div> 
+    </div>
+    <ul class="@RecordClass">
+        <li class="record-items">
+            <a class="record-link" aria-label="@AiraPrevIndexText" href="#" @onclick:preventDefault @onclick="e => MovePrev(1)">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        </li> 
+        @for (int i = StartIndex; i <= RecordCount; i++)
+        { 
+            @RenderRecordItem(new RecordItem() { RowNumber = i, Active = Index == i })
+        }
+        
+        <li class="record-items">
+            <a class="record-link" aria-label="@AiraNextIndexText" href="#" @onclick:preventDefault @onclick="e => MoveNext(1)">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        </li>
+    </ul>
+</nav>
+
+@code {
+    record RecordItem
+    {
+        public int RowNumber { get; init; }
+        public bool Active { get; init; }
+    }
+
+    RenderFragment<RecordItem> RenderRecordItem => item =>
+    @<li class="@RecordNavigator.GetRecordItemClassName(item.Active)">
+        <a class="@RecordNavigator.GetRecordLinkClassName(item.Active)" @onclick:preventDefault @onclick="e => OnIndexItemClick(item.RowNumber)">@item.RowNumber</a>
+    </li>;
+}
