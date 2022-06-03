@@ -104,7 +104,7 @@ public static class Utility
     public static void SetPropertyValue<TModel, TValue>(TModel model, string fieldName, TValue value) => CacheManager.SetPropertyValue(model, fieldName, value);
 
     /// <summary>
-    /// 
+    /// 获得 排序方法
     /// </summary>
     /// <returns></returns>
     public static Func<IEnumerable<T>, string, SortOrder, IEnumerable<T>> GetSortFunc<T>() => CacheManager.GetSortFunc<T>();

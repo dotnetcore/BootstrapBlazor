@@ -47,26 +47,29 @@ public static class LambdaExtensions
     public static Expression<Func<TItem, bool>> GetFilterLambda<TItem>(this IEnumerable<FilterKeyValueAction> filters)
     {
         Expression<Func<TItem, bool>>? ret = null;
-        var exp_p = Expression.Parameter(typeof(TItem));
-        var visitor = new ComboExpressionVisitor(exp_p);
-
-        foreach (var filter in filters)
+        if (filters.Any())
         {
-            var exp = filter.GetFilterLambda<TItem>();
-            if (ret == null)
+            var exp_p = Expression.Parameter(typeof(TItem));
+            var visitor = new ComboExpressionVisitor(exp_p);
+
+            foreach (var filter in filters)
             {
-                ret = exp;
-                continue;
+                var exp = filter.GetFilterLambda<TItem>();
+                if (ret == null)
+                {
+                    ret = exp;
+                    continue;
+                }
+
+                var left = visitor.Visit(ret.Body);
+                var right = visitor.Visit(exp.Body);
+
+                ret = filter.FilterLogic switch
+                {
+                    FilterLogic.And => Expression.Lambda<Func<TItem, bool>>(Expression.AndAlso(left, right), exp_p),
+                    _ => Expression.Lambda<Func<TItem, bool>>(Expression.OrElse(left, right), exp_p),
+                };
             }
-
-            var left = visitor.Visit(ret.Body);
-            var right = visitor.Visit(exp.Body);
-
-            ret = filter.FilterLogic switch
-            {
-                FilterLogic.And => Expression.Lambda<Func<TItem, bool>>(Expression.AndAlso(left, right), exp_p),
-                _ => Expression.Lambda<Func<TItem, bool>>(Expression.OrElse(left, right), exp_p),
-            };
         }
         return ret ?? (r => true);
     }
@@ -81,22 +84,25 @@ public static class LambdaExtensions
     private static Expression<Func<TItem, bool>> ExpressionAndLambda<TItem>(this IEnumerable<Expression<Func<TItem, bool>>> expressions, FilterLogic logic = FilterLogic.And)
     {
         Expression<Func<TItem, bool>>? ret = null;
-        var exp_p = Expression.Parameter(typeof(TItem));
-        var visitor = new ComboExpressionVisitor(exp_p);
-
-        foreach (var exp in expressions)
+        if (expressions.Any())
         {
-            if (ret == null)
-            {
-                ret = exp;
-                continue;
-            }
+            var exp_p = Expression.Parameter(typeof(TItem));
+            var visitor = new ComboExpressionVisitor(exp_p);
 
-            var left = visitor.Visit(ret.Body);
-            var right = visitor.Visit(exp.Body);
-            ret = logic == FilterLogic.And
-                ? Expression.Lambda<Func<TItem, bool>>(Expression.AndAlso(left, right), exp_p)
-                : Expression.Lambda<Func<TItem, bool>>(Expression.OrElse(left, right), exp_p);
+            foreach (var exp in expressions)
+            {
+                if (ret == null)
+                {
+                    ret = exp;
+                    continue;
+                }
+
+                var left = visitor.Visit(ret.Body);
+                var right = visitor.Visit(exp.Body);
+                ret = logic == FilterLogic.And
+                    ? Expression.Lambda<Func<TItem, bool>>(Expression.AndAlso(left, right), exp_p)
+                    : Expression.Lambda<Func<TItem, bool>>(Expression.OrElse(left, right), exp_p);
+            }
         }
         return ret ?? (r => true);
     }
@@ -144,7 +150,7 @@ public static class LambdaExtensions
 
         Expression<Func<TItem, bool>> GetSimpleFilterExpression()
         {
-            var prop = typeof(TItem).GetPropertyByName(filter.FieldKey);
+            var prop = typeof(TItem).GetPropertyByName(filter.FieldKey) ?? throw new InvalidOperationException($"the model {type.Name} not found the property {filter.FieldKey}"); ;
             if (prop != null)
             {
                 var p = Expression.Parameter(type);
@@ -188,21 +194,16 @@ public static class LambdaExtensions
                 }
             }
 
-            if (fieldExpression == null)
-            {
-                throw new InvalidOperationException();
-            }
-
             // 可为空类型转化为具体类型
             if (pInfo!.PropertyType.IsGenericType && pInfo.PropertyType.GetGenericTypeDefinition() == typeof(Nullable<>))
             {
-                fieldExpression = Expression.Convert(fieldExpression, pInfo.PropertyType.GenericTypeArguments[0]);
+                fieldExpression = Expression.Convert(fieldExpression!, pInfo.PropertyType.GenericTypeArguments[0]);
             }
             else if (pInfo.PropertyType.IsEnum && filter.FieldValue is string)
             {
                 fieldExpression = Expression.Call(fieldExpression, pInfo.PropertyType.GetMethod("ToString", Array.Empty<Type>())!);
             }
-            fieldExpression = filter.GetExpression(fieldExpression);
+            fieldExpression = filter.GetExpression(fieldExpression!);
             return Expression.Lambda<Func<TItem, bool>>(fieldExpression, p);
         }
     }
@@ -228,13 +229,12 @@ public static class LambdaExtensions
             FilterAction.LessThanOrEqual => Expression.LessThanOrEqual(left, right),
             FilterAction.Contains => left.Contains(right),
             FilterAction.NotContains => Expression.Not(left.Contains(right)),
-            FilterAction.CustomPredicate => filter.FieldValue switch
+            _ => filter.FieldValue switch
             {
                 LambdaExpression t => Expression.Invoke(t, left),
                 Delegate _ => Expression.Invoke(right, left),
-                _ => throw new ArgumentException(nameof(FilterKeyValueAction.FieldValue))
+                _ => throw new InvalidOperationException(nameof(FilterKeyValueAction.FieldValue))
             },
-            _ => Expression.Empty()
         };
     }
 

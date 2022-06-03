@@ -42,7 +42,7 @@ public class UtilityTest : BootstrapBlazorTestBase
     {
         var foos = new List<Foo>
         {
-            new Foo { Count = 10},
+            new Foo { Count = 10 },
             new Foo { Count = 20 }
         };
         var invoker = Utility.GetSortFunc<Foo>();
@@ -50,6 +50,34 @@ public class UtilityTest : BootstrapBlazorTestBase
         Assert.True(orderFoos[0].Count < orderFoos[1].Count);
         orderFoos = invoker.Invoke(foos, nameof(Foo.Count), SortOrder.Desc).ToList();
         Assert.True(orderFoos[0].Count > orderFoos[1].Count);
+    }
+
+    [Fact]
+    public void ElementCount_Ok()
+    {
+        var p1 = new List<string>() { "1", "2" };
+        Assert.Equal(2, LambdaExtensions.ElementCount(p1));
+
+        var p2 = new string[] { "1", "2" };
+        Assert.Equal(2, LambdaExtensions.ElementCount(p2));
+    }
+
+    [Fact]
+    public void GetSortListFunc_Ok()
+    {
+        var p1 = Utility.GetSortListFunc<Foo>();
+        var foos = new Foo[]
+        {
+            new() { Count = 2, Name = "1" },
+            new() { Count = 1, Name = "1" },
+            new() { Count = 4, Name = "2" },
+            new() { Count = 3, Name = "2" }
+        };
+        var sortedFoos = p1(foos, new List<string>() { "Name desc", "Count" });
+        Assert.Equal(3, sortedFoos.ElementAt(0).Count);
+        Assert.Equal(4, sortedFoos.ElementAt(1).Count);
+        Assert.Equal(1, sortedFoos.ElementAt(2).Count);
+        Assert.Equal(2, sortedFoos.ElementAt(3).Count);
     }
 
     [Fact]
@@ -95,9 +123,25 @@ public class UtilityTest : BootstrapBlazorTestBase
         Assert.Equal(o.Name, mo.Name);
     }
 
+    [Fact]
+    public void GetNullableBoolItems_Ok()
+    {
+        var dummy = new Dummy();
+        var items = Utility.GetNullableBoolItems(dummy, nameof(Dummy.Complete));
+        Assert.Equal("请选择 ...", items.ElementAt(0).Text);
+        Assert.Equal("True", items.ElementAt(1).Text);
+        Assert.Equal("False", items.ElementAt(2).Text);
+
+        items = Utility.GetNullableBoolItems(typeof(Dummy), nameof(Dummy.Complete));
+        Assert.Equal("请选择 ...", items.ElementAt(0).Text);
+        Assert.Equal("True", items.ElementAt(1).Text);
+        Assert.Equal("False", items.ElementAt(2).Text);
+    }
+
     private class Dummy
     {
         public string? Name { get; set; }
+        public bool? Complete { get; set; }
     }
 
     private class MockClone : ICloneable
