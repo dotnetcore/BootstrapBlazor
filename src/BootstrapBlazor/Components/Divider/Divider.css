@@ -33,7 +33,10 @@
         }
 
 .divider-vertical {
+    display: inline-block;
+    align-self: stretch;
     width: 1px;
+    min-width: 1px;
     height: 100%;
     margin: 0 1rem;
 }
