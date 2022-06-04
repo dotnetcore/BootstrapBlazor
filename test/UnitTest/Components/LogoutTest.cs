@@ -35,6 +35,18 @@ public class LogoutTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void ShowUserName_Ok()
+    {
+        // 未设置 Items
+        var cut = Context.RenderComponent<Logout>(pb =>
+        {
+            pb.Add(a => a.UserName, "admin");
+            pb.Add(a => a.ShowUserName, false);
+        });
+        Assert.DoesNotContain("logout-text", cut.Markup);
+    }
+
+    [Fact]
     public void DisplayName_Ok()
     {
         // 未设置 Items

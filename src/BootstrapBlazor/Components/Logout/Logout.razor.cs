@@ -41,6 +41,12 @@ public partial class Logout
     public string? UserName { get; set; }
 
     /// <summary>
+    /// 获得/设置 是否显示用户名 默认 true 显示
+    /// </summary>
+    [Parameter]
+    public bool ShowUserName { get; set; } = true;
+
+    /// <summary>
     /// 获得/设置 组件当前用户登录账号前置文本 默认 当前账号
     /// </summary>
     [Parameter]
