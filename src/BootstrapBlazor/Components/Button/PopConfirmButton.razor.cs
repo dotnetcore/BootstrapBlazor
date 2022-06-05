@@ -15,7 +15,7 @@ public partial class PopConfirmButton
     private string? PopButtonClassName => IsLink ? InternalClassName : ClassName;
 
     private string? InternalClassName => CssBuilder.Default()
-        .AddClass($"text-{Color.ToDescriptionString()}", Color != Color.None)
+        .AddClass($"link-{Color.ToDescriptionString()}", Color != Color.None)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
@@ -105,7 +105,7 @@ public partial class PopConfirmButton
             Icon = LoadingIcon;
             StateHasChanged();
 
-            await OnConfirm();
+            await Task.Run(() => OnConfirm());
 
             IsDisabled = false;
             Icon = icon;
