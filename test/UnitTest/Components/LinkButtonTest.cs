@@ -37,7 +37,7 @@ public class LinkButtonTest : BootstrapBlazorTestBase
 
         Assert.Contains("fa fa-fa", cut.Markup);
 
-        Assert.Contains("text-primary", cut.Markup);
+        Assert.Contains("link-primary", cut.Markup);
     }
 
     [Fact]
@@ -45,13 +45,13 @@ public class LinkButtonTest : BootstrapBlazorTestBase
     {
         var cut = Context.RenderComponent<LinkButton>(builder => builder.Add(s => s.Color, Color.None));
 
-        Assert.DoesNotContain("text-primary", cut.Markup);
+        Assert.DoesNotContain("link-primary", cut.Markup);
 
         cut.SetParametersAndRender(pb => pb.Add(a => a.Color, Color.Danger));
-        Assert.Contains("text-danger", cut.Markup);
+        Assert.Contains("link-danger", cut.Markup);
 
         cut.SetParametersAndRender(pb => pb.Add(a => a.IsDisabled, true));
-        Assert.DoesNotContain("text-danger", cut.Markup);
+        Assert.DoesNotContain("link-danger", cut.Markup);
     }
 
     [Fact]
