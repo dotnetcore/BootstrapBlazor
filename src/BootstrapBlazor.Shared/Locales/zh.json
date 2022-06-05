@@ -1559,6 +1559,8 @@
     "BlockShowSearchIntro": "通过设置 <code>ShowSearch</code> 属性控制是否显示搜索框，默认为 false 不显示搜索框",
     "Block15Title": "带确认的下拉框",
     "Block15Intro": "通过设置 <code>OnBeforeSelectedItemChange</code> 委托，阻止当前值的改变",
+    "TimezoneTitle": "时区下拉框",
+    "TimezoneIntro": "下拉框展现时区数据",
     "SwalTitle": "下拉框值变更",
     "SwalContent": "您确认要改变选项值吗？",
     "SwalFooter": "点击确认改变选项值，选择取消后值不变",
