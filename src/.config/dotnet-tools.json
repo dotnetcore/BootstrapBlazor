@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "isRoot": true,
+  "tools": {
+    "bundlerminifier.core.tool": {
+      "version": "4.5.15",
+      "commands": [
+        "bundle"
+      ]
+    }
+  }
+}

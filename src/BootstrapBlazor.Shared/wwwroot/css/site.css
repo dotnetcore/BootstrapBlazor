@@ -5,7 +5,7 @@
     --bb-violet-rgb: 112.520718,44.062154,249.437846;
     --bb-bg-violet: #7a5cff;
     --bb-bg-navbar: #8548ff;
-    --bb-layout-sidebar-banner-bg: #702cf8;
+    --bb-layout-sidebar-banner-background: #702cf8;
 }
 
 header {
@@ -933,7 +933,7 @@ section {
     display: flex;
     align-items: center;
     padding: 0 .625rem;
-    background-color: var(--bb-layout-sidebar-banner-bg);
+    background-color: var(--bb-layout-sidebar-banner-background);
     height: 50px;
     font-size: 1.5rem;
 }
@@ -1314,7 +1314,7 @@ section {
 
         .layout-item .layout-left .layout-left-header {
             height: 16px;
-            background-color: var(--bb-layout-sidebar-banner-bg);
+            background-color: var(--bb-layout-sidebar-banner-background);
         }
 
         .layout-item .layout-left .layout-left-body,
