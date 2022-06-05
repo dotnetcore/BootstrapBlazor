@@ -82,6 +82,18 @@ public class RibbonTabTest : BootstrapBlazorTestBase
         Assert.Contains("test-content", cut.Markup);
     }
 
+    [Fact]
+    public void RibbonTabItem_Ok()
+    {
+        var item = new RibbonTabItem()
+        {
+            ImageUrl = "test-image-url",
+            Command = "test-command"
+        };
+        Assert.Equal("test-image-url", item.ImageUrl);
+        Assert.Equal("test-command", item.Command);
+    }
+
     private static IEnumerable<RibbonTabItem> GetItems() => new List<RibbonTabItem>()
     {
         new()

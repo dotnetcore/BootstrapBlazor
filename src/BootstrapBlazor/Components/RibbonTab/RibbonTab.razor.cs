@@ -117,14 +117,18 @@ public partial class RibbonTab : IDisposable
         }
     }
 
-    private Task OnClickTab(TabItem item)
+    private async Task OnClickTab(TabItem item)
     {
+        if (OnTabItemClickAsync != null)
+        {
+            var tab = GetItems().First(i => i.Text == item.Text);
+            await OnTabItemClickAsync(tab);
+        }
         if (IsFloat)
         {
             IsExpand = true;
             StateHasChanged();
         }
-        return Task.CompletedTask;
     }
 
     private IEnumerable<RibbonTabItem> GetItems() => Items ?? Enumerable.Empty<RibbonTabItem>();
