@@ -2844,7 +2844,8 @@
     "Recognizer": "语音识别 Recognizer",
     "Synthesizer": "语音合成 Synthesizer",
     "SpeechWave": "语音波形图 SpeechWave",
-    "OnScreenKeyboard": "屏幕键盘 OnScreenKeyboard"
+    "OnScreenKeyboard": "屏幕键盘 OnScreenKeyboard",
+    "RibbonTab": "选项卡菜单 RibbonTab"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesFooter": {
     "Left": "左对齐",

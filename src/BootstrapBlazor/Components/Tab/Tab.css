@@ -1,4 +1,8 @@
-﻿.tabs {
+﻿:root {
+    --bb-tab-item-height: 40px;
+}
+
+.tabs {
     display: flex;
 }
 
@@ -107,8 +111,7 @@
     .tabs .tabs-nav-next, .tabs .tabs-nav-prev {
         position: absolute;
         cursor: pointer;
-        line-height: 40px;
-        height: 40px;
+        height: var(--bb-tab-item-height);
         font-size: 16px;
         color: #909399;
         width: 30px;
@@ -305,8 +308,7 @@
 
 .tabs-item {
     padding: 0 20px;
-    height: 40px;
-    line-height: 40px;
+    height: var(--bb-tab-item-height);
     display: flex;
     list-style: none;
     font-weight: 500;

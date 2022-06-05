@@ -22,8 +22,7 @@
 }
 
 .dropdown-logout .dropdown-toggle {
-    height: 42px;
-    display: block;
+    display: inline-block;
 }
 
     .dropdown-logout .dropdown-toggle:after {

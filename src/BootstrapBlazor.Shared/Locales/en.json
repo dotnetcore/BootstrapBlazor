@@ -2832,7 +2832,8 @@
     "Recognizer": "Recognizer",
     "Synthesizer": "Synthesizer",
     "SpeechWave": "SpeechWave",
-    "OnScreenKeyboard": "OnScreenKeyboard"
+    "OnScreenKeyboard": "OnScreenKeyboard",
+    "RibbonTab": "RibbonTab"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesFooter": {
     "Left": "Left",
