@@ -962,6 +962,7 @@ public sealed partial class NavMenu
             },
             new()
             {
+                IsNew = true,
                 Text = Localizer["RibbonTab"],
                 Url = "ribbontabs"
             },

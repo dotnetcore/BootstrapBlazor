@@ -13,46 +13,36 @@ namespace BootstrapBlazor.Components;
 public partial class RibbonTab : IDisposable
 {
     /// <summary>
-    /// 获得/设置 是否悬浮 默认 false
+    /// 获得/设置 是否显示悬浮小箭头 默认 false 不显示
     /// </summary>
     [Parameter]
-    public bool IsFloat { get; set; }
+    public bool ShowFloatButton { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否悬浮回调委托
-    /// </summary>
-    [Parameter]
-    public EventCallback<bool> IsFloatChanged { get; set; }
-
-    /// <summary>
-    /// 获得/设置 是否显示悬浮小箭头 默认 true 显示
-    /// </summary>
-    [Parameter]
-    public bool ShowFloatButton { get; set; } = true;
-
-    /// <summary>
-    /// 获得/设置 IsFloat 改变时回调方法 默认 null
+    /// 获得/设置 组件是否悬浮状态改变时回调方法 默认 null
     /// </summary>
     [Parameter]
     public Func<bool, Task>? OnFloatChanged { get; set; }
 
     /// <summary>
-    /// 
+    /// 获得/设置 选项卡向上箭头图标
     /// </summary>
     [Parameter]
     public string RibbonArrowUpIcon { get; set; } = "fa fa-angle-up fa-2x";
 
     /// <summary>
-    /// 
+    /// 获得/设置 选项卡向下箭头图标
     /// </summary>
     [Parameter]
     public string RibbonArrowDownIcon { get; set; } = "fa fa-angle-down fa-2x";
 
     /// <summary>
-    /// 
+    /// 获得/设置 选项卡可固定图标
     /// </summary>
     [Parameter]
     public string RibbonArrowPinIcon { get; set; } = "fa fa-thumb-tack fa-rotate-90";
+
+    private bool IsFloat { get; set; }
 
     private string? ArrowIconClassString => CssBuilder.Default()
         .AddClass(RibbonArrowUpIcon, !IsFloat)
@@ -145,10 +135,6 @@ public partial class RibbonTab : IDisposable
         if (!IsFloat)
         {
             IsExpand = false;
-        }
-        if (IsFloatChanged.HasDelegate)
-        {
-            await IsFloatChanged.InvokeAsync(IsFloat);
         }
         if (OnFloatChanged != null)
         {

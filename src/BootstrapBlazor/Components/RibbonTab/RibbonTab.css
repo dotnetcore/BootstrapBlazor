@@ -158,3 +158,18 @@
         .ribbon-tab .ribbon-buttons > * {
             cursor: pointer;
         }
+
+    .ribbon-tab .ribbon-customer-buttons {
+        margin-right: 1rem;
+    }
+
+    .ribbon-tab .ribbon-button {
+        padding: 1px 8px;
+        cursor: pointer;
+        border-radius: var(--bs-border-radius);
+        transition: background-color .3s ease-in-out;
+    }
+
+        .ribbon-tab .ribbon-button:hover {
+            background-color: var(--bb-tab-item-hover-color);
+        }

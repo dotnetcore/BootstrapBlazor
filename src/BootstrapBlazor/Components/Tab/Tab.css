@@ -1,5 +1,6 @@
 ﻿:root {
     --bb-tab-item-height: 40px;
+    --bb-tab-item-hover-color: #e9ecef;
 }
 
 .tabs {
@@ -450,7 +451,7 @@
             }
 
             .tabs-border-card > .tabs-header .tabs-item:not(.active):hover {
-                background-color: #e9ecef;
+                background-color: var(--bb-tab-item-hover-color);
             }
 
     .tabs-border-card.tabs-top .tabs-header {
