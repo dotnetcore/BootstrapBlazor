@@ -86,12 +86,30 @@ recordnavigator {
             <a class="record-link" aria-label="@AiraPrevIndexText" href="#" @onclick:preventDefault @onclick="e => MovePrev(1)">
                 <i class="fa fa-angle-left"></i>
             </a>
-        </li> 
-        @for (int i = StartIndex; i <= RecordCount; i++)
+        </li>
+		
+	    @RenderRecordItem(new RecordItem() { RowNumber = 1, Active = Index == 1 })
+		@if (StartIndex>2)
+		{
+			  <li class="record-items">
+                <a class="record-link" href="#" @onclick:preventDefault @onclick="e => MovePrev(DisplayRecords)">
+                    <i class="fa fa-ellipsis-h"></i>
+                </a>
+            </li> 
+		}
+        @for (int i = StartIndex; i < EndIndex; i++)
         { 
             @RenderRecordItem(new RecordItem() { RowNumber = i, Active = Index == i })
         }
-        
+        @if (EndIndex<RecordCount -1)
+		{
+			  <li class="record-items">
+                <a class="record-link" href="#" @onclick:preventDefault @onclick="e => MoveNext(DisplayRecords)">
+                    <i class="fa fa-ellipsis-h"></i>
+                </a>
+            </li> 
+		}
+		   @RenderRecordItem(new RecordItem() { RowNumber = RecordCount, Active = Index == RecordCount })
         <li class="record-items">
             <a class="record-link" aria-label="@AiraNextIndexText" href="#" @onclick:preventDefault @onclick="e => MoveNext(1)">
                 <i class="fa fa-angle-right"></i>

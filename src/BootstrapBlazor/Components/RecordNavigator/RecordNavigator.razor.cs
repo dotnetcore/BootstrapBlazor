@@ -20,13 +20,19 @@ public partial class RecordNavigator
     /// </summary>
     [Parameter]
     public int RecordCount { set; get; }
+    /// <summary>
+    /// 获得/设置 显示记录数，其余用...切换
+    /// </summary>
+    [Parameter]
+    public int DisplayRecords { set; get; }
+
 
     /// <summary>
     /// 获得 Navigator 样式
     /// </summary>
     /// <returns></returns>
     protected string? RecordClass => CssBuilder.Default("recordnavigator")
-        .AddClass("d-none", RecordCount == 0)
+        .AddClass("d-none", RecordCount <= 1)
         .Build();
 
     /// <summary>
@@ -36,6 +42,7 @@ public partial class RecordNavigator
     protected string? NavigatorBarClass => CssBuilder.Default("navigator-bar")
         .AddClass("d-none", !ShowNavigatorInfo)
         .Build();
+
 
     /// <summary>
     /// 获得 RecordItem 样式
@@ -59,12 +66,34 @@ public partial class RecordNavigator
     /// <summary>
     /// 获得/设置 开始记录索引
     /// </summary>
-    protected int StartIndex { set; get; } =1;
+    protected int StartIndex {  get
+
+        {
+            int _start = 0;
+            
+        
+            if ((Index+ DisplayRecords / 2) > RecordCount)
+            {
+                _start = RecordCount - DisplayRecords;
+            }
+            else
+            {
+                _start = Index - DisplayRecords / 2;
+            }
+            return _start > 1 ? _start : 2; 
+        }
+    }
 
     /// <summary>
     /// 获得/设置 结束记录索引
     /// </summary>
-    protected int EndIndex =>RecordCount;
+    protected int EndIndex {
+        get
+        {
+            int _end = StartIndex+DisplayRecords;
+            return _end < RecordCount ? _end :RecordCount ;
+        }
+    }
      
 
     /// <summary>
