@@ -365,4 +365,21 @@ public class TabTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(() => item.Instance.SetText("Text", "fa fa-fa", true));
         cut.Contains("<span class=\"tabs-item-text\">Text</span>");
     }
+
+    [Fact]
+    public async Task TabItemOption_Ok()
+    {
+        var cut = Context.RenderComponent<Tab>(pb =>
+        {
+            pb.Add(a => a.AdditionalAssemblies, new Assembly[] { GetType().Assembly });
+            pb.Add(a => a.ShowExtendButtons, true);
+            pb.Add(a => a.Placement, Placement.Top);
+            pb.Add(a => a.ClickTabToNavigation, true);
+            pb.Add(a => a.ShowClose, true);
+            pb.Add(a => a.DefaultUrl, "/Dog");
+        });
+        await cut.InvokeAsync(() => cut.Instance.AddTab("/Dog", "Dog"));
+        var tabItem = cut.FindComponents<DynamicElement>().First(i => i.Markup.Contains("Dog"));
+        Assert.DoesNotContain("tabs-item-close", tabItem.Markup);
+    }
 }

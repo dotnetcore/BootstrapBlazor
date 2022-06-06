@@ -462,13 +462,13 @@ public partial class Tab
         if (context.Handler != null)
         {
             // 检查 Options 优先
+            var option = context.Handler.GetCustomAttribute<TabItemOptionAttribute>(false);
             if (Options.Valid())
             {
-                AddParameters();
+                AddParameters(option);
             }
             else
             {
-                var option = context.Handler.GetCustomAttribute<TabItemOptionAttribute>(false);
                 if (option != null)
                 {
                     parameters.Add(nameof(TabItem.Icon), option.Icon);
@@ -499,12 +499,12 @@ public partial class Tab
 
         AddTabItem(parameters);
 
-        void AddParameters()
+        void AddParameters(TabItemOptionAttribute? option)
         {
-            var text = Options.Text;
-            var icon = Options.Icon ?? string.Empty;
+            var text = option?.Text ?? Options.Text;
+            var icon = option?.Icon ?? Options.Icon ?? string.Empty;
             var active = Options.IsActive;
-            var closable = Options.Closable;
+            var closable = option?.Closable ?? Options.Closable;
             Options.Reset();
 
             parameters.Add(nameof(TabItem.Url), url);
