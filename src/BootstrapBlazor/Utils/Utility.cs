@@ -283,6 +283,10 @@ public static class Utility
             builder.AddAttribute(2, nameof(Textarea.Value), fieldValue);
             builder.AddAttribute(3, nameof(Textarea.ShowLabelTooltip), item.ShowLabelTooltip);
             builder.AddAttribute(4, "readonly", true);
+            if (item.Rows > 0)
+            {
+                builder.AddAttribute(5, "rows", item.Rows);
+            }
             builder.CloseComponent();
         }
         else
