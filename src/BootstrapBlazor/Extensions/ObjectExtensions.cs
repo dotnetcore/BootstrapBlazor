@@ -113,7 +113,7 @@ public static class ObjectExtensions
         else
         {
             var methodInfo = typeof(ObjectExtensions).GetMethods().FirstOrDefault(m => m.IsGenericMethod)!.MakeGenericMethod(type);
-            var v = type == typeof(string) ? null : Activator.CreateInstance(type);
+            var v = Activator.CreateInstance(type);
             var args = new object?[] { source, v };
             ret = (bool)methodInfo.Invoke(null, args)!;
             val = ret ? args[1] : null;
@@ -170,7 +170,7 @@ public static class ObjectExtensions
     /// </summary>
     /// <param name="fileSize"></param>
     /// <returns></returns>
-    internal static string ToFileSizeString(this long fileSize) => fileSize switch
+    public static string ToFileSizeString(this long fileSize) => fileSize switch
     {
         >= 1024 and < 1024 * 1024 => $"{Math.Round(fileSize / 1024D, 0, MidpointRounding.AwayFromZero)} KB",
         >= 1024 * 1024 and < 1024 * 1024 * 1024 => $"{Math.Round(fileSize / 1024 / 1024D, 0, MidpointRounding.AwayFromZero)} MB",
@@ -202,14 +202,13 @@ public static class ObjectExtensions
     {
         var fieldName = col.GetFieldName();
         var canWrite = IsDynamicObject();
-        return canWrite || (fieldName.Contains('.')
-            ? modelType.GetPropertyByName(fieldName)?.CanWrite ?? false
-            : ComplexCanWrite());
+        return canWrite || ComplexCanWrite();
 
         bool IsDynamicObject() => modelType == typeof(DynamicObject);
 
         bool ComplexCanWrite()
         {
+            var ret = false;
             var propertyNames = fieldName.Split('.');
             PropertyInfo? propertyInfo = null;
             Type? propertyType = null;
@@ -226,7 +225,11 @@ public static class ObjectExtensions
                     propertyType = propertyInfo.PropertyType;
                 }
             }
-            return propertyInfo?.CanWrite ?? false;
+            if (propertyInfo != null)
+            {
+                ret = propertyInfo.CanWrite;
+            }
+            return ret;
         }
     }
 }
