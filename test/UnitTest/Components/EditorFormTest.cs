@@ -105,6 +105,36 @@ public class EditorFormTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void Textarea_Ok()
+    {
+        var foo = new Foo();
+        var cut = Context.RenderComponent<EditorForm<Foo>>(pb =>
+        {
+            pb.Add(a => a.IsDisplay, true);
+            pb.Add(a => a.Model, foo);
+            pb.Add(a => a.AutoGenerateAllItem, false);
+            pb.Add(a => a.FieldItems, CreateTextAreaItem());
+        });
+
+        RenderFragment<Foo> CreateTextAreaItem() => f => builder =>
+        {
+            builder.OpenComponent<EditorItem<Foo, string>>(0);
+            builder.AddAttribute(1, nameof(EditorItem<Foo, string>.Field), f.Name);
+            builder.AddAttribute(2, nameof(EditorItem<Foo, string>.FieldExpression), Utility.GenerateValueExpression(foo, nameof(Foo.Name), typeof(string)));
+            builder.AddAttribute(3, nameof(EditorItem<Foo, string>.ComponentType), typeof(Textarea));
+            builder.AddAttribute(4, nameof(EditorItem<Foo, string>.Rows), 0);
+            builder.CloseComponent();
+
+            builder.OpenComponent<EditorItem<Foo, string>>(0);
+            builder.AddAttribute(1, nameof(EditorItem<Foo, string>.Field), f.Address);
+            builder.AddAttribute(2, nameof(EditorItem<Foo, string>.FieldExpression), Utility.GenerateValueExpression(foo, nameof(Foo.Address), typeof(string)));
+            builder.AddAttribute(3, nameof(EditorItem<Foo, string>.ComponentType), typeof(Textarea));
+            builder.AddAttribute(4, nameof(EditorItem<Foo, string>.Rows), 3);
+            builder.CloseComponent();
+        };
+    }
+
+    [Fact]
     public void IsSearch_Ok()
     {
         var foo = new Foo();

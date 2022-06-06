@@ -12,9 +12,12 @@ public class BootstrapBlazorTestBase
 {
     protected TestContext Context { get; }
 
+    protected ICacheManager Cache { get; }
+
     public BootstrapBlazorTestBase()
     {
         Context = BootstrapBlazorTestHost.Instance;
+        Cache = BootstrapBlazorTestHost.Cache;
     }
 }
 
@@ -29,6 +32,9 @@ public class BootstrapBlazorTestHost : IDisposable
     [NotNull]
     internal static TestContext? Instance { get; private set; }
 
+    [NotNull]
+    internal static ICacheManager? Cache { get; private set; }
+
     public BootstrapBlazorTestHost()
     {
         Instance = new TestContext();
@@ -41,7 +47,7 @@ public class BootstrapBlazorTestHost : IDisposable
         ConfigureConfigration(Instance.Services);
 
         // 渲染 BootstrapBlazorRoot 组件 激活 ICacheManager 接口
-        Instance.Services.GetRequiredService<ICacheManager>();
+        Cache = Instance.Services.GetRequiredService<ICacheManager>();
     }
 
     protected virtual void ConfigureServices(IServiceCollection services)
