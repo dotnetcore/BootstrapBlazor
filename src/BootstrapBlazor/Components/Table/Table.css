@@ -1,4 +1,8 @@
-﻿.table-container {
+﻿:root {
+    --bb-table-cardview-label-width: 30%;
+}
+
+.table-container {
     position: relative;
 }
 
@@ -376,8 +380,7 @@
 
     .table-row .table-cell label:not(.form-checkbox) {
         font-weight: bold;
-        width: 30%;
-        min-width: 30%;
+        width: var(--bb-table-cardview-label-width);
         margin-bottom: 0;
         color: #212529;
         overflow: hidden;
