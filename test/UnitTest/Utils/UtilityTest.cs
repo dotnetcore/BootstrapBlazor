@@ -151,6 +151,16 @@ public class UtilityTest : BootstrapBlazorTestBase
         var editor = new MockNullDisplayNameColumn("Name", typeof(string));
         var fragment = new RenderFragment(builder => builder.CreateDisplayByFieldType(editor, new Foo() { Name = "Test-Display" }));
         var cut = Context.Render(builder => builder.AddContent(0, fragment));
+        Assert.Equal("<div class=\"form-control is-display\">Test-Display</div>", cut.Markup);
+    }
+
+    [Fact]
+    public void CreateComponentByFieldType_Ok()
+    {
+        var editor = new MockNullDisplayNameColumn("Name", typeof(string));
+        var fragment = new RenderFragment(builder => builder.CreateComponentByFieldType(new BootstrapBlazorRoot(), editor, new Foo() { Name = "Test-Component" }));
+        var cut = Context.Render(builder => builder.AddContent(0, fragment));
+        Assert.Contains("class=\"form-control\" disabled=\"disabled\" value=\"Test-Component\"", cut.Markup);
     }
 
     private class Dummy

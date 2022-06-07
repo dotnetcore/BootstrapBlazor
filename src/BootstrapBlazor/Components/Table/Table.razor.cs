@@ -1048,7 +1048,7 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
     /// <param name="item"></param>
     /// <param name="changedType"></param>
     /// <returns></returns>
-    protected RenderFragment RenderCell(ITableColumn col, TItem item, ItemChangedType changedType) => col.CanWrite(typeof(TItem)) && col.IsEditable(changedType)
+    protected RenderFragment RenderCell(ITableColumn col, TItem item, ItemChangedType changedType) => col.CanWrite(typeof(TItem), changedType)
         ? (col.EditTemplate == null
             ? builder => builder.CreateComponentByFieldType(this, col, item, changedType, false, LookupService)
             : col.EditTemplate(item))

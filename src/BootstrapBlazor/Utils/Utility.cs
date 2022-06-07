@@ -329,7 +329,7 @@ public static class Utility
             builder.AddAttribute(3, nameof(ValidateBase<string>.ValueChanged), fieldValueChanged);
             builder.AddAttribute(4, nameof(ValidateBase<string>.ValueExpression), valueExpression);
 
-            if (!item.IsEditable(changedType, isSearch))
+            if (!item.CanWrite(model.GetType(), changedType, isSearch))
             {
                 builder.AddAttribute(5, nameof(ValidateBase<string>.IsDisabled), true);
             }
@@ -362,7 +362,7 @@ public static class Utility
         }
 
         // Nullabl<bool?>
-        if (fieldType == typeof(bool?) && lookup == null && item.Items == null)
+        if (item.ComponentType == typeof(Select<bool?>) && fieldType == typeof(bool?) && lookup == null && item.Items == null)
         {
             builder.AddAttribute(10, nameof(Select<bool?>.Items), GetNullableBoolItems(model, fieldName));
         }
@@ -474,7 +474,7 @@ public static class Utility
         }
         else if (fieldType == typeof(bool?))
         {
-            ret = typeof(Select<bool?>);
+            ret = typeof(NullSwitch);
         }
         else
         {

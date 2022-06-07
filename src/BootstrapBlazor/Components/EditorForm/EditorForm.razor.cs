@@ -243,17 +243,50 @@ public partial class EditorForm<TModel> : IShowLabel
                             {
                                 // 设置只读属性与列模板
                                 item.Editable = true;
-                                item.Readonly = el.Readonly;
-                                item.EditTemplate = el.EditTemplate;
-                                item.Text = el.Text;
-                                item.Items = el.Items;
-                                item.Lookup = el.Lookup;
-                                item.LookupStringComparison = el.LookupStringComparison;
-                                item.LookupServiceKey = el.LookupServiceKey;
-                                item.ComponentType = el.ComponentType;
-                                item.ComponentParameters = el.ComponentParameters;
-                                item.SkipValidate = el.SkipValidate;
-                                item.ValidateRules = el.ValidateRules;
+                                if (el.Readonly)
+                                {
+                                    item.Readonly = el.Readonly;
+                                }
+                                if (el.EditTemplate != null)
+                                {
+                                    item.EditTemplate = el.EditTemplate;
+                                }
+                                if (!string.IsNullOrEmpty(el.Text))
+                                {
+                                    item.Text = el.Text;
+                                }
+                                if (el.Items != null)
+                                {
+                                    item.Items = el.Items;
+                                }
+                                if (el.Lookup != null)
+                                {
+                                    item.Lookup = el.Lookup;
+                                }
+                                if (el.LookupStringComparison != StringComparison.OrdinalIgnoreCase)
+                                {
+                                    item.LookupStringComparison = el.LookupStringComparison;
+                                }
+                                if (!string.IsNullOrEmpty(el.LookupServiceKey))
+                                {
+                                    item.LookupServiceKey = el.LookupServiceKey;
+                                }
+                                if (el.ComponentType != null)
+                                {
+                                    item.ComponentType = el.ComponentType;
+                                }
+                                if (el.ComponentParameters != null)
+                                {
+                                    item.ComponentParameters = el.ComponentParameters;
+                                }
+                                if (el.SkipValidate)
+                                {
+                                    item.SkipValidate = el.SkipValidate;
+                                }
+                                if (el.ValidateRules != null)
+                                {
+                                    item.ValidateRules = el.ValidateRules;
+                                }
                             }
                         }
                     }
@@ -270,7 +303,7 @@ public partial class EditorForm<TModel> : IShowLabel
 
     private RenderFragment AutoGenerateTemplate(IEditorItem item) => builder =>
     {
-        if (IsDisplay || !CanWrite(item))
+        if (IsDisplay || !item.CanWrite(typeof(TModel), ItemChangedType, IsSearch.Value))
         {
             builder.CreateDisplayByFieldType(item, Model);
         }
@@ -279,8 +312,6 @@ public partial class EditorForm<TModel> : IShowLabel
             item.PlaceHolder ??= PlaceHolderText;
             builder.CreateComponentByFieldType(this, item, Model, ItemChangedType, IsSearch.Value, LookupService);
         }
-
-        bool CanWrite(IEditorItem item) => item.CanWrite(typeof(TModel)) && item.IsEditable(ItemChangedType, IsSearch.Value);
     };
 
     private RenderFragment<object>? GetRenderTemplate(IEditorItem item) => IsSearch.Value && item is ITableColumn col

@@ -4,6 +4,7 @@
 
 using BootstrapBlazor.Shared;
 using Microsoft.Extensions.DependencyInjection;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace UnitTest.Components;
@@ -246,16 +247,16 @@ public class EditorFormTest : BootstrapBlazorTestBase
                     {
                         new("type", "text")
                     });
-                    builder.AddAttribute(index++, nameof(EditorItem<Foo, string>.ValidateRules), new List<IValidator>
-                    {
-                        new FormItemValidator(new RequiredAttribute())
-                    });
                     builder.CloseComponent();
 
                     builder.OpenComponent<EditorItem<Foo, string>>(index++);
                     builder.AddAttribute(index++, nameof(EditorItem<Foo, string>.Field), f.Address);
                     builder.AddAttribute(index++, nameof(EditorItem<Foo, string>.FieldExpression), Utility.GenerateValueExpression(foo, nameof(Foo.Address), typeof(string)));
                     builder.AddAttribute(index++, nameof(EditorItem<Foo, string>.Rows), 3);
+                    builder.AddAttribute(index++, nameof(EditorItem<Foo, string>.ValidateRules), new List<IValidator>
+                    {
+                        new FormItemValidator(new RequiredAttribute())
+                    });
                     builder.CloseComponent();
 
                     builder.OpenComponent<EditorItem<Foo, int>>(index++);
@@ -447,9 +448,136 @@ public class EditorFormTest : BootstrapBlazorTestBase
         builder.CloseComponent();
     };
 
+    [Fact]
+    public void CheckboxList_Manual()
+    {
+        var dummy = new Dummy();
+        var cut = Context.RenderComponent<EditorForm<Dummy>>(pb =>
+        {
+            pb.Add(a => a.Model, dummy);
+            pb.Add(a => a.AutoGenerateAllItem, false);
+            pb.Add(a => a.FieldItems, new RenderFragment<Dummy>(dummy => builder =>
+            {
+                builder.OpenComponent<EditorItem<Dummy, List<string>>>(0);
+                builder.AddAttribute(1, nameof(EditorItem<Dummy, List<string>>.Field), dummy.Names);
+                builder.AddAttribute(2, nameof(EditorItem<Dummy, List<string>>.FieldExpression), Utility.GenerateValueExpression(dummy, nameof(Dummy.Names), typeof(List<string>)));
+                builder.AddAttribute(2, nameof(EditorItem<Dummy, List<string>>.Items), new List<SelectedItem>()
+                {
+                    new("1", "Test1"),
+                    new("2", "Test2")
+                });
+                builder.CloseComponent();
+            }));
+        });
+    }
+
+    [Fact]
+    public void CheckboxList_Auto()
+    {
+        var dummy = new Dummy();
+        var cut = Context.RenderComponent<EditorForm<Dummy>>(pb =>
+        {
+            pb.Add(a => a.Model, dummy);
+            pb.Add(a => a.FieldItems, new RenderFragment<Dummy>(dummy => builder =>
+            {
+                builder.OpenComponent<EditorItem<Dummy, List<string>>>(0);
+                builder.AddAttribute(1, nameof(EditorItem<Dummy, List<string>>.Field), dummy.Names);
+                builder.AddAttribute(2, nameof(EditorItem<Dummy, List<string>>.FieldExpression), Utility.GenerateValueExpression(dummy, nameof(Dummy.Names), typeof(List<string>)));
+                builder.AddAttribute(3, nameof(EditorItem<Dummy, List<string>>.Items), new List<SelectedItem>()
+                {
+                    new("1", "Test1"),
+                    new("2", "Test2")
+                });
+                builder.CloseComponent();
+            }));
+        });
+        Assert.Contains("checkbox-list form-control", cut.Markup);
+    }
+
+    [Fact]
+    public void Select_Ok()
+    {
+        var dummy = new Dummy();
+        var cut = Context.RenderComponent<EditorForm<Dummy>>(pb =>
+        {
+            pb.Add(a => a.Model, dummy);
+            pb.Add(a => a.FieldItems, new RenderFragment<Dummy>(dummy => builder =>
+            {
+                builder.OpenComponent<EditorItem<Dummy, string>>(0);
+                builder.AddAttribute(1, nameof(EditorItem<Dummy, string>.Field), dummy.Select);
+                builder.AddAttribute(2, nameof(EditorItem<Dummy, string>.FieldExpression), Utility.GenerateValueExpression(dummy, nameof(Dummy.Select), typeof(string)));
+                builder.AddAttribute(3, nameof(EditorItem<Dummy, List<string>>.Items), new List<SelectedItem>()
+                {
+                    new("1", "Test1"),
+                    new("2", "Test2")
+                });
+                builder.CloseComponent();
+            }));
+        });
+        Assert.Contains("data-bs-toggle=\"lgbSelect\"", cut.Markup);
+    }
+
+    [Fact]
+    public void Select_NullableBool_Items()
+    {
+        var dummy = new Dummy();
+        var cut = Context.RenderComponent<EditorForm<Dummy>>(pb =>
+        {
+            pb.Add(a => a.Model, dummy);
+            pb.Add(a => a.AutoGenerateAllItem, false);
+            pb.Add(a => a.FieldItems, new RenderFragment<Dummy>(dummy => builder =>
+            {
+                builder.OpenComponent<EditorItem<Dummy, bool?>>(0);
+                builder.AddAttribute(1, nameof(EditorItem<Dummy, bool?>.Field), true);
+                builder.AddAttribute(2, nameof(EditorItem<Dummy, bool?>.FieldExpression), Utility.GenerateValueExpression(dummy, nameof(Dummy.Test2), typeof(bool?)));
+                builder.AddAttribute(3, nameof(EditorItem<Dummy, bool?>.ComponentType), typeof(Select<bool?>));
+                builder.CloseComponent();
+            }));
+        });
+        Assert.Contains("data-bs-toggle=\"lgbSelect\"", cut.Markup);
+        Assert.Contains("test-null", cut.Markup);
+        Assert.Contains("test-true", cut.Markup);
+        Assert.Contains("test-false", cut.Markup);
+    }
+
+    [Fact]
+    public void Select_NullableBool_Ok()
+    {
+        var dummy = new Dummy();
+        var cut = Context.RenderComponent<EditorForm<Dummy>>(pb =>
+        {
+            pb.Add(a => a.Model, dummy);
+            pb.Add(a => a.AutoGenerateAllItem, false);
+            pb.Add(a => a.FieldItems, new RenderFragment<Dummy>(dummy => builder =>
+            {
+                builder.OpenComponent<EditorItem<Dummy, bool?>>(0);
+                builder.AddAttribute(1, nameof(EditorItem<Dummy, bool?>.Field), true);
+                builder.AddAttribute(2, nameof(EditorItem<Dummy, bool?>.FieldExpression), Utility.GenerateValueExpression(dummy, nameof(Dummy.Test3), typeof(bool?)));
+                builder.CloseComponent();
+            }));
+        });
+        Assert.Contains("class=\"switch\"", cut.Markup);
+    }
+
     private class Dummy
     {
         public string? Name { get; }
+
+        [DefaultValue(false)]
+        [AutoGenerateColumn(ComponentType = typeof(NullSwitch))]
+        public bool? Test { get; set; }
+
+        [DefaultValue("1")]
+        [AutoGenerateColumn(ComponentType = typeof(NullSwitch))]
+        [NullableBoolItems(FalseValueDisplayText = "test-false", NullValueDisplayText = "test-null", TrueValueDisplayText = "test-true")]
+        public bool? Test2 { get; set; }
+
+        public bool? Test3 { get; set; }
+
+        public List<string>? Names { get; set; }
+
+        [AutoGenerateColumn(ComponentType = typeof(Select<string>))]
+        public string? Select { get; set; }
     }
 
     private class MockEditorItem : EditorItem<Foo, string>

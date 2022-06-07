@@ -193,14 +193,24 @@ public static class ObjectExtensions
         } || search;
 
     /// <summary>
+    /// 判断当前 IEditorItem 示例是否可以编辑
+    /// </summary>
+    /// <param name="item"></param>
+    /// <param name="modelType"></param>
+    /// <param name="changedType"></param>
+    /// <param name="search"></param>
+    /// <returns></returns>
+    public static bool CanWrite(this IEditorItem item, Type modelType, ItemChangedType changedType, bool search = false) => item.CanWrite(modelType) && item.IsEditable(changedType, search);
+
+    /// <summary>
     /// 判断模型是否可写
     /// </summary>
-    /// <param name="col"></param>
+    /// <param name="item"></param>
     /// <param name="modelType"></param>
     /// <returns></returns>
-    public static bool CanWrite(this IEditorItem col, Type modelType)
+    public static bool CanWrite(this IEditorItem item, Type modelType)
     {
-        var fieldName = col.GetFieldName();
+        var fieldName = item.GetFieldName();
         var canWrite = IsDynamicObject();
         return canWrite || ComplexCanWrite();
 
