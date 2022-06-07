@@ -457,9 +457,9 @@ public partial class Table<TItem>
             void ProcessSelectedRows()
             {
                 // 判断模型是否有 [Key] Id 等可识别字段尝试重构
+                var rows = new List<TItem>();
                 if (HasKeyAttribute)
                 {
-                    var rows = new List<TItem>();
                     // 更新选中行逻辑
                     foreach (var item in SelectedRows)
                     {
@@ -473,12 +473,18 @@ public partial class Table<TItem>
                             }
                         }
                     }
-                    SelectedRows = rows;
                 }
                 else
                 {
-                    SelectedRows.Clear();
+                    foreach (var row in SelectedRows)
+                    {
+                        if (QueryItems.Any(i => i == row))
+                        {
+                            rows.Add(row);
+                        }
+                    }
                 }
+                SelectedRows = rows;
             }
 
             void ProcessPageData(QueryData<TItem> queryData, QueryPageOptions queryOption)

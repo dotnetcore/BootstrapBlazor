@@ -38,25 +38,22 @@ public partial class ResultDialogDemo2 : ComponentBase, IResultDialog
     [NotNull]
     private MessageService? MessageService { get; set; }
 
-    /// <summary>
-    /// 
-    /// </summary>
-    protected override void OnInitialized()
+    private Task<QueryData<Foo>> OnQueryAsync(QueryPageOptions option)
     {
-        base.OnInitialized();
-
+        // 模拟查询数据
         var context = BodyContext as FooContext;
         Items = GenerateItems(context?.Count ?? 10);
+        var data = new QueryData<Foo>()
+        {
+            TotalCount = Items.Count,
+            Items = Items
+        };
+
+        // 处理选中行
         Emails = context?.Emails?.Split(";") ?? Array.Empty<string>();
-
-        SelectedRows = Items.Where(i => Emails.Any(mail => mail == i.Email)).ToList();
+        SelectedRows.AddRange(Items.Where(i => Emails.Any(mail => mail == i.Email)));
+        return Task.FromResult(data);
     }
-
-    private Task<QueryData<Foo>> OnQueryAsync(QueryPageOptions option) => Task.FromResult(new QueryData<Foo>()
-    {
-        TotalCount = Items.Count,
-        Items = Items
-    });
 
     /// <summary>
     /// 

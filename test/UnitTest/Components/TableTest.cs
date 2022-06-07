@@ -2978,6 +2978,40 @@ public class TableTest : TableTestBase
     }
 
     [Fact]
+    public void SelectedRows_Bind()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var items = FooNoKeyTree.Generate(localizer);
+        var selectedRows = new List<FooNoKeyTree>();
+        selectedRows.AddRange(items.Take(2));
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<FooNoKeyTree>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.OnQueryAsync, options =>
+                {
+                    var data = new QueryData<FooNoKeyTree>()
+                    {
+                        Items = items,
+                        TotalCount = 80
+                    };
+                    return Task.FromResult(data);
+                });
+                pb.Add(a => a.SelectedRows, selectedRows);
+                pb.Add(a => a.IsMultipleSelect, true);
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+                });
+            });
+        });
+    }
+
+    [Fact]
     public void SetRowClassFormatter_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
