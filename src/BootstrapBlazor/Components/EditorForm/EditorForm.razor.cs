@@ -243,50 +243,7 @@ public partial class EditorForm<TModel> : IShowLabel
                             {
                                 // 设置只读属性与列模板
                                 item.Editable = true;
-                                if (el.Readonly)
-                                {
-                                    item.Readonly = el.Readonly;
-                                }
-                                if (el.EditTemplate != null)
-                                {
-                                    item.EditTemplate = el.EditTemplate;
-                                }
-                                if (!string.IsNullOrEmpty(el.Text))
-                                {
-                                    item.Text = el.Text;
-                                }
-                                if (el.Items != null)
-                                {
-                                    item.Items = el.Items;
-                                }
-                                if (el.Lookup != null)
-                                {
-                                    item.Lookup = el.Lookup;
-                                }
-                                if (el.LookupStringComparison != StringComparison.OrdinalIgnoreCase)
-                                {
-                                    item.LookupStringComparison = el.LookupStringComparison;
-                                }
-                                if (!string.IsNullOrEmpty(el.LookupServiceKey))
-                                {
-                                    item.LookupServiceKey = el.LookupServiceKey;
-                                }
-                                if (el.ComponentType != null)
-                                {
-                                    item.ComponentType = el.ComponentType;
-                                }
-                                if (el.ComponentParameters != null)
-                                {
-                                    item.ComponentParameters = el.ComponentParameters;
-                                }
-                                if (el.SkipValidate)
-                                {
-                                    item.SkipValidate = el.SkipValidate;
-                                }
-                                if (el.ValidateRules != null)
-                                {
-                                    item.ValidateRules = el.ValidateRules;
-                                }
+                                item.CopyValue(el);
                             }
                         }
                     }

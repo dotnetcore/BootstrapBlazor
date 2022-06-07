@@ -163,6 +163,15 @@ public class UtilityTest : BootstrapBlazorTestBase
         Assert.Contains("class=\"form-control\" disabled=\"disabled\" value=\"Test-Component\"", cut.Markup);
     }
 
+    [Fact]
+    public void CreateComponentByFieldType_Customer()
+    {
+        var editor = new MockNullDisplayNameColumn("TimeSpan", typeof(TimeSpan));
+        var fragment = new RenderFragment(builder => builder.CreateComponentByFieldType(new BootstrapBlazorRoot(), editor, new Dummy() { TimeSpan = TimeSpan.FromMinutes(1) }));
+        var cut = Context.Render(builder => builder.AddContent(0, fragment));
+        Assert.Contains("input type=\"text\"", cut.Markup);
+    }
+
     private class Dummy
     {
         public string? Name { get; set; }
@@ -170,6 +179,8 @@ public class UtilityTest : BootstrapBlazorTestBase
         public bool? Complete { get; set; }
 
         public string Field = "";
+
+        public TimeSpan TimeSpan { get; set; }
     }
 
     private class MockClone : ICloneable
@@ -235,6 +246,13 @@ public class UtilityTest : BootstrapBlazorTestBase
         Assert.Equal(2, GetMenuItems.First().Items.Count());
     }
 
+    [Fact]
+    public void GenerateValueExpression_Exception()
+    {
+        Assert.Throws<InvalidOperationException>(() => Utility.GenerateValueExpression(new Cat(), "Test", typeof(string)));
+        Assert.Throws<InvalidOperationException>(() => Utility.GenerateValueExpression(new Cat(), "Foo.Test", typeof(string)));
+    }
+
     private class MockNullDisplayNameColumn : MockTableColumn, IEditorItem
     {
         public MockNullDisplayNameColumn(string fieldName, Type propertyType) : base(fieldName, propertyType)
@@ -243,5 +261,10 @@ public class UtilityTest : BootstrapBlazorTestBase
         }
 
         string IEditorItem.GetDisplayName() => null!;
+    }
+
+    private class Cat
+    {
+        public Foo Foo { get; set; } = new Foo();
     }
 }

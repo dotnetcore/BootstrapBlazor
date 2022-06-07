@@ -50,7 +50,7 @@ public abstract class AutoGenerateBaseAttribute : Attribute
     public Alignment Align { get; set; }
 
     /// <summary>
-    /// 获得/设置 字段鼠标悬停提示
+    /// 获得/设置 字段鼠标悬停提示 默认为 false
     /// </summary>
     public bool ShowTips { get; set; }
 }
