@@ -136,6 +136,11 @@ public abstract class DisplayBase<TValue> : TooltipComponentBase
         else
         {
             IsShowLabel = false;
+
+            if(DisplayText == null && FieldIdentifier.HasValue)
+            {
+                DisplayText = FieldIdentifier.Value.GetDisplayName();
+            }
         }
 
         if (ShowLabelTooltip == null && EditorForm != null)

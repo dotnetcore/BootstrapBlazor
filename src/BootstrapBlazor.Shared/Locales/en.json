@@ -286,7 +286,9 @@
     "Desc1": "Set a row to display several controls",
     "Desc2": "Set the layout format, if the child Row is not specified, the parent Row’s settings will be used",
     "Desc3": "Set the number of columns of child Row across parent Row",
-    "Desc4": "Set the maximum number of controls displayed in a row"
+    "Desc4": "Set the maximum number of controls displayed in a row",
+    "Normal": "Normal",
+    "Inline": "Inline"
   },
   "BootstrapBlazor.Shared.Samples.Skeletons": {
     "Title": "Skeleton",

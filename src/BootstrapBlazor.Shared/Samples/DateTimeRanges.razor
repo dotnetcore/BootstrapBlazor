@@ -50,6 +50,20 @@
     <DateTimeRange Value="@DateTimeRangeValue4" ShowToday="true" />
 </DemoBlock>
 
+<DemoBlock Title="表单中使用" Introduction="将组件内置到 <code>ValidateForm</code> 中使用" Name="ValidateForm">
+    <FormInlineSwitch @bind-Value="@FormRowType" class="mb-3"></FormInlineSwitch>
+    <ValidateForm Model="@Model">
+        <div class="@GroupFormClassString">
+            <div class="col-12 col-sm-6">
+                <DateTimePicker @bind-Value="@Model.DateTime" />
+            </div>
+            <div class="col-12 col-sm-6">
+                <DateTimeRange @bind-Value="@DateTimeRangeValue4" ShowLabel="true" DisplayText="时间范围" />
+            </div>
+        </div>
+    </ValidateForm>
+</DemoBlock>
+
 <AttributeTable Items="@GetAttributes()" />
 
 <EventTable Items="@GetEvents()" />

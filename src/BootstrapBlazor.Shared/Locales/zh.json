@@ -286,7 +286,9 @@
     "Desc1": "设置一行显示几个控件",
     "Desc2": "设置排版格式，子Row如果不指定，会使用父Row的设置",
     "Desc3": "设置子Row跨父Row列数",
-    "Desc4": "设置行内最多显示的控件数"
+    "Desc4": "设置行内最多显示的控件数",
+    "Normal": "正常",
+    "Inline": "行内"
   },
   "BootstrapBlazor.Shared.Samples.Skeletons": {
     "Title": "Skeleton 骨架屏",

@@ -1,10 +1,15 @@
 ﻿:root {
     --bs-row-label-width: 120px;
+    --bs-row-control-padding: 7px;
 }
 
 @media (min-width: 576px) {
+    .form-inline > * {
+        display: flex;
+    }
+
     .form-inline .form-label {
-        padding: 7px 0;
+        padding: var(--bs-row-control-padding) 0;
         margin-bottom: 0;
         padding-right: 10px;
         width: var(--bs-row-label-width);
@@ -16,20 +21,12 @@
     }
 
         .form-inline .form-label + * {
-            width: calc(100% - var(--bs-row-label-width));
-        }
-
-            .form-inline .form-label + *:not(.input-group):not(.switch) {
-                display: inline-block;
-            }
-
-        .form-inline .form-label + .input-group {
-            display: inline-flex;
+            flex: 1;
         }
 
         .form-inline .form-label + .switch,
         .form-inline .form-label + .form-checkbox {
-            padding: 7px 0;
+            padding: var(--bs-row-control-padding) 0;
         }
 
     .form-inline.is-end > div > .form-label {

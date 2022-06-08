@@ -17,10 +17,6 @@
             margin-bottom: .5rem;
         }
 
-.form-inline .radio-list .form-check {
-    display: inline-block;
-}
-
 .is-button {
     flex-wrap: nowrap;
     white-space: nowrap;

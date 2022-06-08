@@ -106,7 +106,3 @@
 .datetime-range:hover:not(.disabled) .range-clear {
     display: flex;
 }
-
-.form-inline > * > .datetime-range {
-    display: block;
-}
