@@ -44,25 +44,17 @@ public partial class RadioList<TValue>
         .Build();
 
     /// <summary>
-    /// OnInitialized 方法
-    /// </summary>
-    protected override void OnInitialized()
-    {
-        base.OnInitialized();
-
-        var t = NullableUnderlyingType ?? typeof(TValue);
-        if (t.IsEnum)
-        {
-            Items = t.ToSelectList((NullableUnderlyingType != null && IsAutoAddNullItem) ? new SelectedItem("", NullItemText) : null);
-        }
-    }
-
-    /// <summary>
     /// OnParametersSet 方法
     /// </summary>
     protected override void OnParametersSet()
     {
         base.OnParametersSet();
+
+        var t = NullableUnderlyingType ?? typeof(TValue);
+        if (t.IsEnum && Items == null)
+        {
+            Items = t.ToSelectList((NullableUnderlyingType != null && IsAutoAddNullItem) ? new SelectedItem("", NullItemText) : null);
+        }
 
         if (!Items.Any(i => i.Value == CurrentValueAsString))
         {
