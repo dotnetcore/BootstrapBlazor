@@ -1326,7 +1326,9 @@
     "Block3Title": "Add Select",
     "Block3Intro": "Add <code>Select</code> component to the <code>InputGroup</code>",
     "UserName": "UserName",
-    "Distance": "Distance"
+    "Distance": "Distance",
+    "ValidateFormTitle": "ValidateForm",
+    "ValidateFormIntro": "Inside <code>ValidateForm</code>"
   },
   "BootstrapBlazor.Shared.Samples.Markdowns": {
     "Title": "Markdown",

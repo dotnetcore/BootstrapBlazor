@@ -1327,7 +1327,9 @@
     "Block3Title": "增加Select",
     "Block3Intro": "往<code>InputGroup</code>里面增加<code>Select</code>",
     "UserName": "用户名",
-    "Distance": "距离"
+    "Distance": "距离",
+    "ValidateFormTitle": "验证表单中",
+    "ValidateFormIntro": "内置到 <code>ValidateForm</code> 中使用"
   },
   "BootstrapBlazor.Shared.Samples.Markdowns": {
     "Title": "Markdown 编辑器",

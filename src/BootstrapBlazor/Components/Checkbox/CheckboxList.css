@@ -3,7 +3,7 @@
     height: auto;
     display: flex;
     flex-flow: row wrap;
-    padding-bottom: 0;
+    padding: 0 0.75rem;
     overflow: hidden;
     vertical-align: top;
 }
@@ -15,7 +15,7 @@
     .checkbox-list .checkbox-item {
         display: inline-flex;
         width: 120px;
-        margin-bottom: 0.375rem;
+        height: 33px;
     }
 
         .checkbox-list .checkbox-item .form-check-label {

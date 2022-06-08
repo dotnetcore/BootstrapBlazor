@@ -19,6 +19,17 @@ public class CheckboxListTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void Checkbox_Ok()
+    {
+        var cut = Context.RenderComponent<Checkbox<string>>(builder =>
+        {
+            builder.Add(a => a.ShowLabel, true);
+            builder.Add(a => a.DisplayText, "Test");
+        });
+        Assert.DoesNotContain("is-label", cut.Markup);
+    }
+
+    [Fact]
     public void EditorForm_Ok()
     {
         var foo = Foo.Generate(Localizer);
@@ -33,7 +44,7 @@ public class CheckboxListTest : BootstrapBlazorTestBase
             });
         });
         // 断言生成 CheckboxList
-        Assert.Contains("form-check", cut.Markup);
+        Assert.Contains("form-check is-label", cut.Markup);
 
         // 提交表单触发客户端验证
         var form = cut.Find("form");

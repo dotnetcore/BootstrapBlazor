@@ -9,6 +9,19 @@ namespace UnitTest.Components;
 public class RadioTest : BootstrapBlazorTestBase
 {
     [Fact]
+    public void Enum_NoItems()
+    {
+        var v = EnumEducation.Middel;
+        var cut = Context.RenderComponent<RadioList<EnumEducation>>(pb =>
+        {
+            pb.Add(a => a.Value, v);
+        });
+        Assert.Contains("radio-list form-control", cut.Markup);
+        Assert.Contains("form-check is-label", cut.Markup);
+        Assert.Contains("form-check-input", cut.Markup);
+    }
+
+    [Fact]
     public void EnumValue_Ok()
     {
         var v = EnumEducation.Middel;
@@ -26,11 +39,13 @@ public class RadioTest : BootstrapBlazorTestBase
         EnumEducation? v = null;
         var cut = Context.RenderComponent<RadioList<EnumEducation?>>(pb =>
         {
-            pb.Add(a => a.Items, typeof(EnumEducation).ToSelectList());
             pb.Add(a => a.Value, v);
-            pb.Add(a => a.NullItemText, "");
+            pb.Add(a => a.NullItemText, "Test-Null");
             pb.Add(a => a.IsAutoAddNullItem, true);
         });
+        var items = cut.FindComponents<Radio<SelectedItem>>();
+        Assert.Equal(3, items.Count);
+        Assert.Contains("Test-Null", cut.Markup);
         Assert.Contains("form-check-input", cut.Markup);
     }
 
@@ -167,12 +182,13 @@ public class RadioTest : BootstrapBlazorTestBase
             pb.Add(a => a.Value, EnumEducation.Middel);
         });
         cut.Contains("is-button");
+        cut.Contains("form-check is-label is-checked");
 
         cut.SetParametersAndRender(pb =>
         {
             pb.Add(a => a.Color, Color.Danger);
         });
-        cut.Contains("form-check is-checked bg-danger");
+        cut.Contains("form-check is-label is-checked bg-danger");
     }
 
     private class RadioListGenericMock<T>

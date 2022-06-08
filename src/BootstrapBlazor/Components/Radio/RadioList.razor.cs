@@ -48,13 +48,13 @@ public partial class RadioList<TValue>
     /// </summary>
     protected override void OnParametersSet()
     {
-        base.OnParametersSet();
-
         var t = NullableUnderlyingType ?? typeof(TValue);
         if (t.IsEnum && Items == null)
         {
             Items = t.ToSelectList((NullableUnderlyingType != null && IsAutoAddNullItem) ? new SelectedItem("", NullItemText) : null);
         }
+
+        base.OnParametersSet();
 
         if (!Items.Any(i => i.Value == CurrentValueAsString))
         {
