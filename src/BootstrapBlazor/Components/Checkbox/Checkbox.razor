@@ -8,7 +8,7 @@
 }
 <div @attributes="AdditionalAttributes" class="@GetClassString()" aria-checked="@StateString">
     <input class="@InputClassString" type="checkbox" id="@Id" disabled="@Disabled" checked="@CheckedString" @onclick="@OnToggleClick" />
-    @if (ShowAfterLabel && !string.IsNullOrEmpty(DisplayText))
+    @if (IsShowAfterLabel)
     {
         <label class="form-check-label" for="@Id">@DisplayText</label>
     }

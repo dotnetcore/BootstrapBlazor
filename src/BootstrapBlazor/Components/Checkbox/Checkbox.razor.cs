@@ -16,6 +16,7 @@ public partial class Checkbox<TValue>
     /// 获得 class 样式集合
     /// </summary>
     protected string? GetClassString(bool isButton = false) => CssBuilder.Default("form-check")
+        .AddClass("is-label", IsShowAfterLabel)
         .AddClass("is-checked", State == CheckboxState.Checked)
         .AddClass("is-indeterminate", State == CheckboxState.Mixed)
         .AddClass($"form-check-{Color.ToDescriptionString()}", Color != Color.None && !isButton)
@@ -25,6 +26,8 @@ public partial class Checkbox<TValue>
         .AddClass(ValidCss)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
+
+    private bool IsShowAfterLabel => ShowAfterLabel && !string.IsNullOrEmpty(DisplayText);
 
     /// <summary>
     /// 

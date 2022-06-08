@@ -76,7 +76,26 @@
 
 <DemoBlock Title="@Localizer["Block5Title"]" Introduction="@Localizer["Block5Intro"]" Name="ShowAfterLabel">
     <p>@((MarkupString)Localizer["P1"].Value)</p>
-    <Checkbox TValue="string" DisplayText="@Localizer["Checkbox1Text"]" ShowAfterLabel="true"></Checkbox>
+    <div class="row g-3 form-inline">
+        <div class="col-12 col-md-3">
+            <Checkbox TValue="string" State="CheckboxState.Checked" DisplayText="Default" ShowAfterLabel="true"></Checkbox>
+        </div>
+        <div class="col-12 col-md-3">
+            <Checkbox TValue="string" State="CheckboxState.Checked" DisplayText="Small" ShowAfterLabel="true" Size="Size.Small"></Checkbox>
+        </div>
+        <div class="col-12 col-md-3">
+            <Checkbox TValue="string" State="CheckboxState.Checked" DisplayText="Medium" ShowAfterLabel="true" Size="Size.Medium"></Checkbox>
+        </div>
+        <div class="col-12 col-md-3">
+            <Checkbox TValue="string" State="CheckboxState.Checked" DisplayText="Large" ShowAfterLabel="true" Size="Size.Large"></Checkbox>
+        </div>
+        <div class="col-12 col-md-3">
+            <Checkbox TValue="string" State="CheckboxState.Checked" DisplayText="ExtraLarge" ShowAfterLabel="true" Size="Size.ExtraLarge"></Checkbox>
+        </div>
+        <div class="col-12 col-md-3">
+            <Checkbox TValue="string" State="CheckboxState.Checked" DisplayText="ExtraExtraLarge" ShowAfterLabel="true" Size="Size.ExtraExtraLarge"></Checkbox>
+        </div>
+    </div>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["Block6Title"]" Introduction="@Localizer["Block6Intro"]" Name="OnStateChanged">
