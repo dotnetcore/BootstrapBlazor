@@ -7,6 +7,17 @@ namespace UnitTest.Components;
 public class LogoutTest : BootstrapBlazorTestBase
 {
     [Fact]
+    public void ChildContent_Ok()
+    {
+        // 未设置 Items
+        var cut = Context.RenderComponent<Logout>(pb =>
+        {
+            pb.Add(a => a.ChildContent, builder => builder.AddContent(0, "test_content"));
+        });
+        Assert.Contains("test_content", cut.Markup);
+    }
+
+    [Fact]
     public void ImageUrl_Ok()
     {
         // 未设置 Items

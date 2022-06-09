@@ -3,10 +3,17 @@
 
 <div @attributes="AdditionalAttributes" class="@LogoutClassString">
     <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#" id="@Id" aria-expanded="false">
-        <img class="logout-avatar" alt="avatar" src="@ImageUrl" />
-        @if (ShowUserName)
+        @if (ChildContent == null)
         {
-            <span class="logout-text">@DisplayName</span>
+            <img class="logout-avatar" alt="avatar" src="@ImageUrl" />
+            @if (ShowUserName)
+            {
+                <span class="logout-text">@DisplayName</span>
+            }
+        }
+        else
+        {
+            @ChildContent
         }
     </a>
     <div class="dropdown-menu dropdown-menu-right shadow" aria-labelledby="@Id">

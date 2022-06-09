@@ -16,7 +16,7 @@ public partial class BootstrapBlazorRoot
     private ICacheManager? Cache { get; set; }
 
     /// <summary>
-    /// 获得/设置 自组件
+    /// 获得/设置 子组件
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }

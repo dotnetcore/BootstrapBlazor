@@ -41,6 +41,12 @@ public partial class Logout
     public string? UserName { get; set; }
 
     /// <summary>
+    /// 获得/设置 子组件
+    /// </summary>
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    /// <summary>
     /// 获得/设置 是否显示用户名 默认 true 显示
     /// </summary>
     [Parameter]
