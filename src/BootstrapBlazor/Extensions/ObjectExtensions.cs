@@ -210,15 +210,12 @@ public static class ObjectExtensions
     /// <returns></returns>
     public static bool CanWrite(this IEditorItem item, Type modelType)
     {
-        var fieldName = item.GetFieldName();
-        var canWrite = IsDynamicObject();
-        return canWrite || ComplexCanWrite();
-
-        bool IsDynamicObject() => modelType == typeof(DynamicObject);
+        return modelType == typeof(DynamicObject) || modelType.IsSubclassOf(typeof(DynamicObject)) || ComplexCanWrite();
 
         bool ComplexCanWrite()
         {
             var ret = false;
+            var fieldName = item.GetFieldName();
             var propertyNames = fieldName.Split('.');
             PropertyInfo? propertyInfo = null;
             Type? propertyType = null;
