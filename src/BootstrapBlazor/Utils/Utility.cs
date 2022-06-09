@@ -717,6 +717,7 @@ public static class Utility
     /// <summary>
     /// 获得指定泛型的 IEditorItem 集合
     /// </summary>
+    /// <param name="source"></param>
     /// <returns></returns>
-    public static IEnumerable<IEditorItem> GenerateEditorItems<TModel>() => InternalTableColumn.GetProperties<TModel>();
+    public static IEnumerable<IEditorItem> GenerateEditorItems<TModel>(IEnumerable<ITableColumn>? source = null) => InternalTableColumn.GetProperties<TModel>(source);
 }

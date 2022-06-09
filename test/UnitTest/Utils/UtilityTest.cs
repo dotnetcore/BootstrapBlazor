@@ -253,6 +253,31 @@ public class UtilityTest : BootstrapBlazorTestBase
         Assert.Throws<InvalidOperationException>(() => Utility.GenerateValueExpression(new Cat(), "Foo.Test", typeof(string)));
     }
 
+    [Fact]
+    public void ConvertValueToString_Ok()
+    {
+        var v = new List<int>() { 1, 2, 3 };
+        var actual = Utility.ConvertValueToString(v);
+        Assert.Equal("1,2,3", actual);
+
+        var val = new double[] { 1.1, 2.0, 3.1 };
+        var actual1 = Utility.ConvertValueToString(val);
+        Assert.Equal("1.1,2,3.1", actual1);
+    }
+
+    [Fact]
+    public void GenerateEditorItems_Ok()
+    {
+        var cols = Utility.GenerateEditorItems<Foo>();
+        Assert.Equal(7, cols.Count());
+
+        cols = Utility.GenerateEditorItems<Foo>(new MockTableColumn[]
+        {
+            new("Name", typeof(string)) { Text = "test-Name" }
+        });
+        Assert.Equal("test-Name", cols.First(i => i.GetFieldName() == "Name").Text);
+    }
+
     private class MockNullDisplayNameColumn : MockTableColumn, IEditorItem
     {
         public MockNullDisplayNameColumn(string fieldName, Type propertyType) : base(fieldName, propertyType)
