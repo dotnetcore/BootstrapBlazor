@@ -2,7 +2,7 @@
     display: flex;
     justify-content: space-between;
     padding: 12px 20px;
-    border-bottom: 1px solid var(--bs-border-color);
+    border-bottom: 1px solid var(--bb-border-color);
 }
 
 .calendar-title {
@@ -54,16 +54,16 @@
     }
 
     .calendar-table tr td:first-child {
-        border-left: 1px solid var(--bs-border-color);
+        border-left: 1px solid var(--bb-border-color);
     }
 
     .calendar-table tr:first-child td {
-        border-top: 1px solid var(--bs-border-color);
+        border-top: 1px solid var(--bb-border-color);
     }
 
     .calendar-table td {
-        border-bottom: 1px solid var(--bs-border-color);
-        border-right: 1px solid var(--bs-border-color);
+        border-bottom: 1px solid var(--bb-border-color);
+        border-right: 1px solid var(--bb-border-color);
         vertical-align: top;
         transition: background-color .2s ease;
         cursor: pointer;

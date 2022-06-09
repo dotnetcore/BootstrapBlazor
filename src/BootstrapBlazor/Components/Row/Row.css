@@ -1,6 +1,6 @@
 ﻿:root {
-    --bs-row-label-width: 120px;
-    --bs-row-control-padding: 7px;
+    --bb-row-label-width: 120px;
+    --bb-row-control-padding: 7px;
 }
 
 @media (min-width: 576px) {
@@ -9,10 +9,10 @@
     }
 
     .form-inline .form-label {
-        padding: var(--bs-row-control-padding) 0;
+        padding: var(--bb-row-control-padding) 0;
         margin-bottom: 0;
         padding-right: 10px;
-        width: var(--bs-row-label-width);
+        width: var(--bb-row-label-width);
         text-overflow: ellipsis;
         white-space: nowrap;
         overflow: hidden;
@@ -26,7 +26,7 @@
 
         .form-inline .form-label + .switch,
         .form-inline .form-label + .form-checkbox {
-            padding: var(--bs-row-control-padding) 0;
+            padding: var(--bb-row-control-padding) 0;
         }
 
     .form-inline.is-end > div > .form-label {

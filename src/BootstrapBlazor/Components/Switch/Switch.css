@@ -1,7 +1,7 @@
 ﻿.switch {
     display: inline-flex;
     align-items: center;
-    height: 35px;
+    height: var(--bb-height);
     width: 100%;
 }
 

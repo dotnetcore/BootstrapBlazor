@@ -1850,7 +1850,7 @@
     "BasicUsageLi7": "通过设置提交按钮 <code>Button</code> 属性 <code>IsAsync</code> 值，设置异步提交表单",
     "BasicUsageLi8": "表单内组件通常用法都是使用双向绑定技术对 <code>Model</code> 的属性值进行双向绑定，当其值改变时会导致所在组件 <code>StateHasChanged</code> 方法被调用，即其所在组件或者页面进行刷新重新渲染",
     "BasicUsageLi9": "表单内组件控件的值修改后 <code>OnFieldChanged</code> 方法被调用",
-    "FormLabelWidth": "组件前置标签默认宽度为 <code>120px</code> 六个汉字，如需要更多汉字请在项目样式文件中更改样式变量 <code>--bs-row-label-width</code> 即可，或者设置表单显示标签在组件上方",
+    "FormLabelWidth": "组件前置标签默认宽度为 <code>120px</code> 六个汉字，如需要更多汉字请在项目样式文件中更改样式变量 <code>--bb-row-label-width</code> 即可，或者设置表单显示标签在组件上方",
     "BasicUsageP2": "注意事项：",
     "InnerComponentTitle": "内置组件",
     "InnerComponentIntro": "放置支持表单组件到 <code>ValidateForm</code> 中",

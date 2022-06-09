@@ -1,5 +1,11 @@
 ﻿:root {
     --bb-checkbox-label-padding: 7px;
+    --bb-checkbox-height: 1rem;
+    --bb-checkbox-sm-height: 1.25rem;
+    --bb-checkbox-md-height: 1.5rem;
+    --bb-checkbox-lg-height: 1.75rem;
+    --bb-checkbox-xl-height: 2rem;
+    --bb-checkbox-xxl-height: var(--bb-height);
 }
 
 .form-check {
@@ -9,8 +15,8 @@
 }
 
     .form-check .form-check-input {
-        width: 1rem;
-        height: 1rem;
+        width: var(--bb-checkbox-height);
+        height: var(--bb-checkbox-height);
         float: none;
         margin: 3px 0 1px 0;
         transition: background-color .15s ease-in-out,background-position .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
@@ -111,8 +117,8 @@
 }
 
 .form-check.form-check-sm .form-check-input {
-    height: 1.25rem;
-    width: 1.25rem;
+    height: var(--bb-checkbox-sm-height);
+    width: var(--bb-checkbox-sm-height);
     margin: 0;
 }
 
@@ -121,8 +127,8 @@
 }
 
     .form-check.form-check-md .form-check-input {
-        height: 1.5rem;
-        width: 1.5rem;
+        height: var(--bb-checkbox-md-height);
+        width: var(--bb-checkbox-md-height);
     }
 
 .form-check.form-check-lg {
@@ -130,8 +136,8 @@
 }
 
     .form-check.form-check-lg .form-check-input {
-        height: 1.75rem;
-        width: 1.75rem;
+        height: var(--bb-checkbox-lg-height);
+        width: var(--bb-checkbox-lg-height);
     }
 
 .form-check.form-check-xl {
@@ -139,8 +145,8 @@
 }
 
     .form-check.form-check-xl .form-check-input {
-        height: 2rem;
-        width: 2rem;
+        height: var(--bb-checkbox-xl-height);
+        width: var(--bb-checkbox-xl-height);
         margin: 0;
     }
 
@@ -149,8 +155,8 @@
 }
 
     .form-check.form-check-xxl .form-check-input {
-        height: 35px;
-        width: 35px;
+        height: var(--bb-checkbox-xxl-height);
+        width: var(--bb-checkbox-xxl-height);
         margin: 0;
     }
 

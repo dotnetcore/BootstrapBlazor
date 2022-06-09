@@ -30,8 +30,8 @@
     --bs-black-rgb: 0,0,0;
     --bs-body-rgb: 24,28,50;
     --bs-body-color: #181C32;
-    --bs-border-radius: .475rem;
-    --bs-bg-disabled: #f5f8fa;
+    --bb-border-radius: .475rem;
+    --bb-bg-disabled: #f5f8fa;
 }
 
 .btn,
@@ -42,7 +42,7 @@
 .modal-content,
 .popover,
 .form-select {
-    border-radius: var(--bs-border-radius);
+    border-radius: var(--bb-border-radius);
 }
 
 .popover,
@@ -62,8 +62,8 @@
 
 .picker-panel-footer,
 .popover-body {
-    border-bottom-left-radius: var(--bs-border-radius);
-    border-bottom-right-radius: var(--bs-border-radius);
+    border-bottom-left-radius: var(--bb-border-radius);
+    border-bottom-right-radius: var(--bb-border-radius);
 }
 
 .bs-popover-auto[data-popper-placement^=bottom].has-header > .popover-arrow::after,
@@ -831,13 +831,13 @@
 }
 
 .page-item:first-child .page-link {
-    border-top-left-radius: var(--bs-border-radius);
-    border-bottom-left-radius: var(--bs-border-radius);
+    border-top-left-radius: var(--bb-border-radius);
+    border-bottom-left-radius: var(--bb-border-radius);
 }
 
 .page-item:last-child .page-link {
-    border-top-right-radius: var(--bs-border-radius);
-    border-bottom-right-radius: var(--bs-border-radius);
+    border-top-right-radius: var(--bb-border-radius);
+    border-bottom-right-radius: var(--bb-border-radius);
 }
 
 .page-link:hover {
@@ -912,5 +912,5 @@
 }
 
     .card-header:first-child {
-        border-radius: var(--bs-border-radius) var(--bs-border-radius) 0 0;
+        border-radius: var(--bb-border-radius) var(--bb-border-radius) 0 0;
     }

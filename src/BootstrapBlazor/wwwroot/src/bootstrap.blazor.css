@@ -5,10 +5,10 @@
  */
 
 :root {
-    --bs-border-radius: .25rem;
-    --bs-bg-disabled: #ebeef5;
-    --bs-border-color: #ebeef5;
-    --bb-control-height: 35px;
+    --bb-border-radius: .25rem;
+    --bb-bg-disabled: #ebeef5;
+    --bb-border-color: #ebeef5;
+    --bb-height: 35px;
 }
 
 :fullscreen {
@@ -47,7 +47,7 @@ a {
 }
 
 .form-control.is-display {
-    height: 35px;
+    height: var(--bb-height);
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -55,7 +55,7 @@ a {
 
 .table-cell .form-control.is-display,
 form .form-control.is-display {
-    background-color: var(--bs-bg-disabled);
+    background-color: var(--bb-bg-disabled);
 }
 
 [disabled],

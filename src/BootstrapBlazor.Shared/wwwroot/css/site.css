@@ -50,7 +50,7 @@ header .nav-link img {
     .bb-icon {
         width: 42px;
         height: auto;
-        border-radius: var(--bs-border-radius);
+        border-radius: var(--bb-border-radius);
         background-color: var(--bb-logo);
         border: solid 1px #fff;
         margin-right: 1rem;
@@ -119,7 +119,7 @@ section {
 
     .sidebar .nav-item a {
         color: #444;
-        border-radius: var(--bs-border-radius);
+        border-radius: var(--bb-border-radius);
         display: flex;
         align-items: center;
         padding: .25rem 1.5rem;
@@ -270,7 +270,7 @@ section {
             padding: 0px 8px;
             background-color: #e9ecef;
             margin: 0;
-            border-radius: var(--bs-border-radius);
+            border-radius: var(--bb-border-radius);
             line-height: 20px;
         }
 
@@ -290,7 +290,7 @@ section {
         border: solid 1px #ddd;
         display: block;
         padding: 6px 10px;
-        border-radius: var(--bs-border-radius);
+        border-radius: var(--bb-border-radius);
     }
 
     .content .git .git-fork img {
@@ -332,7 +332,7 @@ section {
 .badge-widget {
     display: inline-block;
     border: solid 1px #ddd;
-    border-radius: var(--bs-border-radius);
+    border-radius: var(--bb-border-radius);
     padding: 6px 12px;
     position: relative;
     transition: all .25s linear;
@@ -354,7 +354,7 @@ section {
 .card-log {
     overflow: hidden auto;
     border: solid 1px #ddd;
-    border-radius: var(--bs-border-radius);
+    border-radius: var(--bb-border-radius);
     padding: 0.5rem 1rem;
     background-color: #174482;
     color: #fff;
@@ -402,7 +402,7 @@ section {
         color: #007bff;
         background-color: #fff;
         border: 1px solid;
-        border-radius: var(--bs-border-radius);
+        border-radius: var(--bb-border-radius);
     }
 
         .pre-code .btn-clipboard:hover {
@@ -414,7 +414,7 @@ section {
         line-height: 1.8;
         font-size: 0.75rem;
         border: 1px solid #eaeefb;
-        border-radius: var(--bs-border-radius);
+        border-radius: var(--bb-border-radius);
         padding: 10px 65px 10px 16px;
         -webkit-font-smoothing: auto;
         display: block;
@@ -508,7 +508,7 @@ section {
     height: 200px;
     width: 240px;
     border-color: rgba(0,0,0,.125);
-    border-radius: var(--bs-border-radius);
+    border-radius: var(--bb-border-radius);
 }
 
 .split-demo-horizontal {
@@ -669,7 +669,7 @@ section {
     }
 
     .welcome .carousel {
-        border-radius: var(--bs-border-radius);
+        border-radius: var(--bb-border-radius);
         border: 1px solid #dce3e8;
         padding: 1rem;
     }
@@ -920,7 +920,7 @@ section {
 }
 
 .layout-menu-demo .layout-side {
-    background-color: var(--bs-bg-disabled);
+    background-color: var(--bb-bg-disabled);
     color: #dcdfe6;
     height: 100%;
 }
@@ -940,7 +940,7 @@ section {
 
     .layout-menu-demo .layout-banner img {
         width: 38px;
-        border-radius: var(--bs-border-radius);
+        border-radius: var(--bb-border-radius);
         margin-right: .5rem;
     }
 
@@ -996,7 +996,7 @@ section {
 }
 
 .calendar .table-week tbody .less {
-    border-radius: var(--bs-border-radius);
+    border-radius: var(--bb-border-radius);
     position: absolute;
     left: 0;
     right: 0;
@@ -1030,7 +1030,7 @@ section {
 .page-layout-demo-option {
     margin-top: 1.5rem;
     border: 1px solid rgba(0,0,0,.125);
-    border-radius: var(--bs-border-radius);
+    border-radius: var(--bb-border-radius);
     padding: 1.5rem 1rem 1rem 1rem;
     position: relative;
 }
@@ -1147,7 +1147,7 @@ section {
 
     .listview-demo img {
         margin-bottom: 1rem;
-        border-radius: var(--bs-border-radius);
+        border-radius: var(--bb-border-radius);
     }
 
     .listview-demo .listview-demo-desc {
@@ -1166,7 +1166,7 @@ section {
     .textarea-demo {
         word-break: break-all;
         height: auto;
-        min-height: 35px;
+        min-height: var(--bb-height);
         width: calc(100% - 100px);
     }
 }
@@ -1254,7 +1254,7 @@ section {
     padding: 0.5rem;
     display: flex;
     font-size: 1.5rem;
-    border-radius: var(--bs-border-radius);
+    border-radius: var(--bb-border-radius);
 }
 
     .install-prompt-body .installButton {
@@ -1297,7 +1297,7 @@ section {
     cursor: pointer;
     border: 2px solid #e9ecef;
     padding: 4px;
-    border-radius: var(--bs-border-radius);
+    border-radius: var(--bb-border-radius);
     height: 80px;
     width: 120px;
     transition: border .3s linear;
@@ -1346,7 +1346,7 @@ section {
     display: block;
     cursor: pointer;
     border: 2px solid #e9ecef;
-    border-radius: var(--bs-border-radius);
+    border-radius: var(--bb-border-radius);
     transition: border .3s linear;
 }
 
@@ -1389,7 +1389,7 @@ section {
 
 .layout.is-page.color1 .layout-side {
     background-color: #212529;
-    color: var(--bs-bg-disabled);
+    color: var(--bb-bg-disabled);
 }
 
 .layout.is-page.color1 .layout-footer {
@@ -1416,7 +1416,7 @@ section {
 
 .layout.is-page.color2 .layout-side {
     background-color: #212529;
-    color: var(--bs-bg-disabled);
+    color: var(--bb-bg-disabled);
 }
 
 .layout.is-page.color2 .layout-footer {
@@ -1443,7 +1443,7 @@ section {
 
 .layout.is-page.color3 .layout-side {
     background-color: #212529;
-    color: var(--bs-bg-disabled);
+    color: var(--bb-bg-disabled);
 }
 
 .layout.is-page.color3 .layout-footer {
@@ -1470,7 +1470,7 @@ section {
 
 .layout.is-page.color4 .layout-side {
     background-color: #212529;
-    color: var(--bs-bg-disabled);
+    color: var(--bb-bg-disabled);
 }
 
 .layout.is-page.color4 .layout-footer {
@@ -1502,7 +1502,7 @@ section {
 
 .layout.is-page.color6 .layout-side {
     background-color: #212529;
-    color: var(--bs-bg-disabled);
+    color: var(--bb-bg-disabled);
 }
 
 .layout.is-page.color6 .layout-footer {
@@ -1619,7 +1619,7 @@ section {
             font-size: 65%;
             color: #fff;
             background: #8759ff;
-            border-radius: var(--bs-border-radius);
+            border-radius: var(--bb-border-radius);
             position: absolute;
             right: 1rem;
             margin-top: -2px;
@@ -1694,7 +1694,7 @@ section {
     right: 1rem;
     background: #FFFFFF;
     box-shadow: 0 5px 24px 0 rgba(0,0,0,0.2);
-    border-radius: var(--bs-border-radius);
+    border-radius: var(--bb-border-radius);
     width: 260px;
     padding: 1rem;
     box-shadow: 0 0 12px #211b50;
@@ -1830,7 +1830,7 @@ header .bb-fs {
 
 .bb-avatar {
     width: 46px;
-    border-radius: var(--bs-border-radius);
+    border-radius: var(--bb-border-radius);
 }
 
 .table-cell .progress {
@@ -1893,7 +1893,7 @@ header .bb-fs {
 }
 
 .connection-box {
-    border-radius: var(--bs-border-radius);
+    border-radius: var(--bb-border-radius);
     border: 1px solid #ddd;
     margin-bottom: 1rem;
     position: relative;

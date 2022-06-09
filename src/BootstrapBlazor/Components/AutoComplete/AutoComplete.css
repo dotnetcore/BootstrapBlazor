@@ -24,7 +24,7 @@
             background-color: #fff;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.176);
             border: 1px solid rgba(0,0,0,.15);
-            border-radius: var(--bs-border-radius);
+            border-radius: var(--bb-border-radius);
         }
 
             .auto-complete .select-dropdown .dropdown-list .dropdown-item {

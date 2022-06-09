@@ -1848,7 +1848,7 @@
     "BasicUsageLi7": "Set the asynchronous submission form by setting the value of the Button <code>Button</code> property <code>IsAsync</code>",
     "BasicUsageLi8": "Components within a form are typically used to bind the property values of <code>Model</code> in both directions using bidirectional binding techniques, causing the component to refresh and re-render when its value changes <code>StateHasChanged</code>, and the method is called, i.e. its component or page is refreshed and re-rendered",
     "BasicUsageLi9": "After the value of the component control in the form is modified, the <code>OnFieldChanged</code> method is called",
-    "FormLabelWidth": "The default width of component front label is <code>120px</code>. If you need more, please change the style variable <code>--bs-row-label-width</code> in the project style file or remove <code>RowType.Inline</code>",
+    "FormLabelWidth": "The default width of component front label is <code>120px</code>. If you need more, please change the style variable <code>--bb-row-label-width</code> in the project style file or remove <code>RowType.Inline</code>",
     "BasicUsageP2": "Note:",
     "InnerComponentTitle": "Built-in components",
     "InnerComponentIntro": "Place the support form components into the <code>ValidateForm</code>",

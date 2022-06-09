@@ -1,39 +1,54 @@
-﻿.btn:focus,
+﻿:root {
+    --bb-button-label-margin-left: 4px;
+    --bb-button-round-radius: 20px;
+    --bb-button-xs-radius: 0.2rem;
+    --bb-button-xs-padding: 0.0625rem 0.3125rem;
+    --bb-button-xs-fontsize: 0.75rem;
+    --bb-button-circle-radius: 50%;
+    --bb-button-circle-width: 45px;
+    --bb-button-circle-height: 45px;
+    --bb-button-xl-padding: 0.8rem 1.25rem;
+    --bb-button-xl-fontsize: 1.35rem;
+    --bb-button-xxl-padding: 0.8rem 1.25rem;
+    --bb-button-xxl-fontsize: 1.5rem;
+}
+
+.btn:focus,
 .btn:active:focus,
 .show > .dropdown-toggle:focus {
     box-shadow: none !important;
 }
 
 .btn-xs, .btn-group-xs > .btn {
-    border-radius: 0.2rem;
-    padding: 0.0625rem 0.3125rem;
-    font-size: 0.75rem;
+    border-radius: var(--bb-button-xs-radius);
+    padding: var(--bb-button-xs-padding);
+    font-size: var(--bb-button-xs-fontsize);
 }
 
 .btn-xl, .btn-group-xl > .btn {
-    padding: 0.8rem 1.25rem;
-    font-size: 1.35rem;
+    padding: var(--bb-button-xl-padding);
+    font-size: var(--bb-button-xl-fontsize);
 }
 
 .btn-xxl, .btn-group-xxl > .btn {
-    padding: 0.8rem 1.25rem;
-    font-size: 1.5rem;
+    padding: var(--bb-button-xxl-padding);
+    font-size: var(--bb-button-xxl-fontsize);
 }
 
 .btn .badge, .btn i + span,
 .badge i + span,
 .link-button > i + span {
-    margin-left: 4px;
+    margin-left: var(--bb-button-label-margin-left);
 }
 
 .btn.is-circle {
-    border-radius: 50%;
-    width: 45px;
-    height: 45px;
+    border-radius: var(--bb-button-circle-radius);
+    width: var(--bb-button-circle-width);
+    height: var(--bb-button-circle-height);
 }
 
 .btn.is-round {
-    border-radius: 20px;
+    border-radius: var(--bb-button-round-radius);
 }
 
 .btn-block {

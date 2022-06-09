@@ -3,8 +3,8 @@
 }
 
 .transfer-panel {
-    border: 1px solid var(--bs-border-color);
-    border-radius: var(--bs-border-radius);
+    border: 1px solid var(--bb-border-color);
+    border-radius: var(--bb-border-radius);
     overflow: hidden;
     background: #fff;
     display: inline-block;
@@ -29,7 +29,7 @@
         background: #f5f7fa;
         margin: 0;
         padding-left: 15px;
-        border-bottom: 1px solid var(--bs-border-color);
+        border-bottom: 1px solid var(--bb-border-color);
         color: #000;
     }
 
@@ -96,7 +96,7 @@
         line-height: 32px;
         width: 100%;
         display: inline-block;
-        border-radius: var(--bs-border-radius);
+        border-radius: var(--bb-border-radius);
         padding-right: 10px;
         padding-left: 30px;
         border: 1px solid #dcdfe6;

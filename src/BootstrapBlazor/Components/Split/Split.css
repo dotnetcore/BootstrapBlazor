@@ -48,7 +48,7 @@
 
             .split .split-bar:hover .split-trigger-bar,
             .split.dragging > .split-wrapper > .split-bar .split-trigger-bar {
-                background-color: var(--bs-bg-disabled);
+                background-color: var(--bb-bg-disabled);
             }
 
     .split .split-trigger {

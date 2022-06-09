@@ -43906,17 +43906,17 @@ code:not([class*=language-]) {
 
     .symbol.symbol-35px.symbol-fixed > img {
         width: 35px;
-        height: 35px;
+        height: var(--bb-height);
         max-width: auto
     }
 
     .symbol.symbol-35px.symbol-2by3 .symbol-label {
-        height: 35px;
+        height: var(--bb-height);
         width: 52.5px
     }
 
     .symbol.symbol-35px.symbol-2by3 > img {
-        height: 35px;
+        height: var(--bb-height);
         width: 52.5px;
         max-width: auto
     }
@@ -44483,17 +44483,17 @@ code:not([class*=language-]) {
 
     .symbol.symbol-sm-35px.symbol-fixed > img {
         width: 35px;
-        height: 35px;
+        height: var(--bb-height);
         max-width: auto
     }
 
     .symbol.symbol-sm-35px.symbol-2by3 .symbol-label {
-        height: 35px;
+        height: var(--bb-height);
         width: 52.5px
     }
 
     .symbol.symbol-sm-35px.symbol-2by3 > img {
-        height: 35px;
+        height: var(--bb-height);
         width: 52.5px;
         max-width: auto
     }
@@ -45061,17 +45061,17 @@ code:not([class*=language-]) {
 
     .symbol.symbol-md-35px.symbol-fixed > img {
         width: 35px;
-        height: 35px;
+        height: var(--bb-height);
         max-width: auto
     }
 
     .symbol.symbol-md-35px.symbol-2by3 .symbol-label {
-        height: 35px;
+        height: var(--bb-height);
         width: 52.5px
     }
 
     .symbol.symbol-md-35px.symbol-2by3 > img {
-        height: 35px;
+        height: var(--bb-height);
         width: 52.5px;
         max-width: auto
     }
@@ -45639,17 +45639,17 @@ code:not([class*=language-]) {
 
     .symbol.symbol-lg-35px.symbol-fixed > img {
         width: 35px;
-        height: 35px;
+        height: var(--bb-height);
         max-width: auto
     }
 
     .symbol.symbol-lg-35px.symbol-2by3 .symbol-label {
-        height: 35px;
+        height: var(--bb-height);
         width: 52.5px
     }
 
     .symbol.symbol-lg-35px.symbol-2by3 > img {
-        height: 35px;
+        height: var(--bb-height);
         width: 52.5px;
         max-width: auto
     }
@@ -46217,17 +46217,17 @@ code:not([class*=language-]) {
 
     .symbol.symbol-xl-35px.symbol-fixed > img {
         width: 35px;
-        height: 35px;
+        height: var(--bb-height);
         max-width: auto
     }
 
     .symbol.symbol-xl-35px.symbol-2by3 .symbol-label {
-        height: 35px;
+        height: var(--bb-height);
         width: 52.5px
     }
 
     .symbol.symbol-xl-35px.symbol-2by3 > img {
-        height: 35px;
+        height: var(--bb-height);
         width: 52.5px;
         max-width: auto
     }
@@ -46795,17 +46795,17 @@ code:not([class*=language-]) {
 
     .symbol.symbol-xxl-35px.symbol-fixed > img {
         width: 35px;
-        height: 35px;
+        height: var(--bb-height);
         max-width: auto
     }
 
     .symbol.symbol-xxl-35px.symbol-2by3 .symbol-label {
-        height: 35px;
+        height: var(--bb-height);
         width: 52.5px
     }
 
     .symbol.symbol-xxl-35px.symbol-2by3 > img {
-        height: 35px;
+        height: var(--bb-height);
         width: 52.5px;
         max-width: auto
     }

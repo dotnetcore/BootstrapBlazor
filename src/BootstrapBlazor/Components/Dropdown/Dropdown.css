@@ -10,7 +10,7 @@
 }
 
 .dropdown-menu {
-    border-radius: var(--bs-border-radius);
+    border-radius: var(--bb-border-radius);
 }
 
 .dropdown-item {

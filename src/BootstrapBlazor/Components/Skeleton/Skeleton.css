@@ -18,7 +18,7 @@
 
 .skeleton-content.round .skeleton-col,
 .skeleton-content.round .tree-node {
-    border-radius: var(--bs-border-radius);
+    border-radius: var(--bb-border-radius);
 }
 
 .skeleton-content.active .skeleton-col,
@@ -76,7 +76,7 @@
 
 .skeleton-table,
 .skeleton-buttons {
-    border-radius: var(--bs-border-radius);
+    border-radius: var(--bb-border-radius);
     border: 1px solid #dee2e6;
     overflow: hidden;
 }
@@ -110,7 +110,7 @@
     }
 
 .skeleton-toolbar {
-    height: 35px;
+    height: var(--bb-height);
     display: flex;
     margin-bottom: .5rem;
 }
@@ -121,7 +121,7 @@
 }
 
 .skeleton-button {
-    height: 35px;
+    height: var(--bb-height);
     width: 70px;
     background-color: var(--bs-secondary);
     border-color: var(--bs-secondary);

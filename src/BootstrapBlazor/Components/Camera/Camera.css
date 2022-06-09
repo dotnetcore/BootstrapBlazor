@@ -1,6 +1,6 @@
 ﻿.camera .camera-header {
     border: 1px solid #ddd;
-    border-radius: var(--bs-border-radius);
+    border-radius: var(--bb-border-radius);
 }
 
 .camera canvas {

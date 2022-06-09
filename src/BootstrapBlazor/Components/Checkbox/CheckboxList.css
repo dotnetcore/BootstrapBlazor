@@ -1,5 +1,5 @@
 ﻿.checkbox-list {
-    min-height: 35px;
+    min-height: var(--bb-height);
     height: auto;
     display: flex;
     flex-flow: row wrap;
