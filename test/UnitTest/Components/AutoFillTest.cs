@@ -215,6 +215,19 @@ public class AutoFillTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void OnGetDisplayText_Ok()
+    {
+        var cut = Context.RenderComponent<AutoFill<Foo>>(pb =>
+        {
+            pb.Add(a => a.Value, Model);
+            pb.Add(a => a.Items, Items);
+            pb.Add(a => a.OnGetDisplayText, foo => foo.Name ?? "");
+        });
+        var input = cut.Find("input");
+        Assert.Equal("张三 1000", input.Attributes["value"]?.Value);
+    }
+
+    [Fact]
     public void Debounce_Ok()
     {
         var cut = Context.RenderComponent<AutoFill<Foo>>(pb =>

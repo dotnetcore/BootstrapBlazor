@@ -139,6 +139,7 @@ public partial class AutoFill<TValue>
         Items ??= Enumerable.Empty<TValue>();
         FilterItems ??= new List<TValue>();
         OnGetDisplayText ??= v => v?.ToString() ?? "";
+        InputString = OnGetDisplayText(Value);
     }
 
     /// <summary>
