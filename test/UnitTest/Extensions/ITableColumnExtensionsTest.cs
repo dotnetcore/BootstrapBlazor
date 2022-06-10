@@ -171,13 +171,13 @@ public class ITableColumnExtensionsTest
 
         // Number
         filters = cols.ToSearchs("1");
-        Assert.Equal(2, filters.Count(f => f.GetFilterConditions().Any(f => f.FieldValue is int)));
-        Assert.Equal(2, filters.Count(f => f.GetFilterConditions().Any(f => f.FieldValue is short)));
-        Assert.Equal(2, filters.Count(f => f.GetFilterConditions().Any(f => f.FieldValue is long)));
+        Assert.Equal(2, filters.Count(f => f.GetFilterConditions().Any(f => f.FieldValue?.GetType() == typeof(int))));
+        Assert.Equal(2, filters.Count(f => f.GetFilterConditions().Any(f => f.FieldValue?.GetType() == typeof(short))));
+        Assert.Equal(2, filters.Count(f => f.GetFilterConditions().Any(f => f.FieldValue?.GetType() == typeof(long))));
 
         filters = cols.ToSearchs("2.1");
-        Assert.Equal(2, filters.Count(f => f.GetFilterConditions().Any(f => f.FieldValue is float)));
-        Assert.Equal(2, filters.Count(f => f.GetFilterConditions().Any(f => f.FieldValue is double)));
-        Assert.Equal(2, filters.Count(f => f.GetFilterConditions().Any(f => f.FieldValue is decimal)));
+        Assert.Equal(2, filters.Count(f => f.GetFilterConditions().Any(f => f.FieldValue?.GetType() == typeof(float))));
+        Assert.Equal(2, filters.Count(f => f.GetFilterConditions().Any(f => f.FieldValue?.GetType() == typeof(double))));
+        Assert.Equal(2, filters.Count(f => f.GetFilterConditions().Any(f => f.FieldValue?.GetType() == typeof(decimal))));
     }
 }

@@ -114,7 +114,7 @@ public static class IEditItemExtensions
                 {
                     searchs.Add(new SearchFilterAction(col.GetFieldName(), @long, FilterAction.Equal));
                 }
-                else if (type == typeof(short) && long.TryParse(searchText, out var @short))
+                else if (type == typeof(short) && short.TryParse(searchText, out var @short))
                 {
                     searchs.Add(new SearchFilterAction(col.GetFieldName(), @short, FilterAction.Equal));
                 }
@@ -125,6 +125,10 @@ public static class IEditItemExtensions
                 else if (type == typeof(float) && float.TryParse(searchText, out var @float))
                 {
                     searchs.Add(new SearchFilterAction(col.GetFieldName(), @float, FilterAction.Equal));
+                }
+                else if(type == typeof(decimal) && decimal.TryParse(searchText, out var @decimal))
+                {
+                    searchs.Add(new SearchFilterAction(col.GetFieldName(), @decimal, FilterAction.Equal));
                 }
             }
         }
