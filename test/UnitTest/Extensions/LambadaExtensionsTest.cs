@@ -358,6 +358,47 @@ public class LambadaExtensionsTest
         Assert.Equal(10, orderFoos.ElementAt(0).Foo!.Count);
     }
 
+    [Fact]
+    public void GetPropertyValueLambda_Null()
+    {
+        Foo? foo = null;
+        Assert.Throws<ArgumentNullException>(() => LambdaExtensions.GetPropertyValueLambda<object?, string>(foo, "Name"));
+    }
+
+    [Fact]
+    public void SetPropertyValueLambda_Null()
+    {
+        Foo? foo = null;
+        Assert.Throws<ArgumentNullException>(() => LambdaExtensions.SetPropertyValueLambda<object?, string>(foo, "Name"));
+
+        foo = new Foo() { Name = "Test1" };
+        Assert.Throws<InvalidOperationException>(() => LambdaExtensions.SetPropertyValueLambda<Foo, string>(foo, "Test1"));
+
+        var dummy = new Dummy() { Foo = foo };
+        var invoker1 = LambdaExtensions.SetPropertyValueLambda<Dummy, string>(dummy, "Foo.Name").Compile();
+        Assert.Throws<InvalidOperationException>(() => LambdaExtensions.SetPropertyValueLambda<Dummy, string>(dummy, "Foo.Test1"));
+    }
+
+    [Fact]
+    public void GetPropertyValueLambda_Ok()
+    {
+        var foo = new Foo() { Name = "Test1" };
+        var invoker = LambdaExtensions.GetPropertyValueLambda<Foo, string>(foo, "Name").Compile();
+        Assert.Equal("Test1", invoker(foo));
+        Assert.Throws<InvalidOperationException>(() => LambdaExtensions.GetPropertyValueLambda<Foo, string>(foo, "Test1"));
+
+        var dummy = new Dummy() { Foo = foo };
+        var invoker1 = LambdaExtensions.GetPropertyValueLambda<Dummy, string>(dummy, "Foo.Name").Compile();
+        Assert.Equal("Test1", invoker1(dummy));
+        Assert.Throws<InvalidOperationException>(() => LambdaExtensions.GetPropertyValueLambda<Dummy, string>(dummy, "Foo.Test1"));
+    }
+
+    [Fact]
+    public void GetKeyValue_Ok()
+    {
+        Assert.Throws<InvalidOperationException>(() => LambdaExtensions.GetKeyValue<Foo?, string>(null));
+    }
+
     private abstract class MockFilterActionBase : IFilterAction
     {
         public abstract IEnumerable<FilterKeyValueAction> GetFilterConditions();

@@ -41,28 +41,28 @@ public class UtilityTest : BootstrapBlazorTestBase
             if (propertyName == nameof(Foo.DateTime))
             {
                 context.AddRequiredAttribute(nameof(Foo.DateTime));
-                    // 使用 AutoGenerateColumnAttribute 设置显示名称示例
-                    context.AddAutoGenerateColumnAttribute(nameof(Foo.DateTime), new KeyValuePair<string, object?>[] {
+                // 使用 AutoGenerateColumnAttribute 设置显示名称示例
+                context.AddAutoGenerateColumnAttribute(nameof(Foo.DateTime), new KeyValuePair<string, object?>[] {
                         new(nameof(AutoGenerateColumnAttribute.Text), Localizer[nameof(Foo.DateTime)].Value)
                 });
             }
             else if (propertyName == nameof(Foo.Name))
             {
                 context.AddRequiredAttribute(nameof(Foo.Name), Localizer["Name.Required"].Value);
-                    // 使用 Text 设置显示名称示例
-                    col.Text = Localizer[nameof(Foo.Name)];
+                // 使用 Text 设置显示名称示例
+                col.Text = Localizer[nameof(Foo.Name)];
             }
             else if (propertyName == nameof(Foo.Count))
             {
                 context.AddRequiredAttribute(nameof(Foo.Count));
-                    // 使用 DisplayNameAttribute 设置显示名称示例
-                    context.AddDisplayNameAttribute(nameof(Foo.Count), Localizer[nameof(Foo.Count)].Value);
+                // 使用 DisplayNameAttribute 设置显示名称示例
+                context.AddDisplayNameAttribute(nameof(Foo.Count), Localizer[nameof(Foo.Count)].Value);
             }
             else if (propertyName == nameof(Foo.Complete))
             {
                 col.Filterable = true;
-                    // 使用 DisplayAttribute 设置显示名称示例
-                    context.AddDisplayAttribute(nameof(Foo.Complete), new KeyValuePair<string, object?>[] {
+                // 使用 DisplayAttribute 设置显示名称示例
+                context.AddDisplayAttribute(nameof(Foo.Complete), new KeyValuePair<string, object?>[] {
                         new(nameof(DisplayAttribute.Name), Localizer[nameof(Foo.Complete)].Value)
                 });
             }
@@ -106,6 +106,13 @@ public class UtilityTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void GetPropertyValue_Null()
+    {
+        Foo? foo = null;
+        Assert.Throws<ArgumentNullException>(() => Utility.GetPropertyValue<object?, string>(foo, nameof(Foo.Name)));
+    }
+
+    [Fact]
     public void SetPropertyValue_Ok()
     {
         var foo = Foo.Generate(Localizer);
@@ -125,6 +132,13 @@ public class UtilityTest : BootstrapBlazorTestBase
         foo.Name = v1;
         Utility.SetPropertyValue<object, object>(foo, nameof(Foo.Name), val);
         Assert.Equal(foo.Name, val);
+    }
+
+    [Fact]
+    public void SetPropertyValue_Null()
+    {
+        Foo? foo = null;
+        Assert.Throws<ArgumentNullException>(() => Utility.SetPropertyValue<object?, object>(foo, nameof(Foo.Name), "1"));
     }
 
     [Fact]

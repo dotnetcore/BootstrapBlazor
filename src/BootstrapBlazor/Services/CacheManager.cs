@@ -342,7 +342,11 @@ internal class CacheManager : ICacheManager
 
     public static TResult GetPropertyValue<TModel, TResult>(TModel model, string fieldName)
     {
-        var type = model is object o ? o.GetType() : typeof(TModel);
+        if(model == null)
+        {
+            throw new ArgumentNullException(nameof(model));
+        }
+        var type = model.GetType();
         var cacheKey = ($"Lambda-Get-{type.FullName}", typeof(TModel), fieldName, typeof(TResult));
         var invoker = Instance.GetOrCreate(cacheKey, entry =>
         {
@@ -354,7 +358,11 @@ internal class CacheManager : ICacheManager
 
     public static void SetPropertyValue<TModel, TValue>(TModel model, string fieldName, TValue value)
     {
-        var type = model is object o ? o.GetType() : typeof(TModel);
+        if (model == null)
+        {
+            throw new ArgumentNullException(nameof(model));
+        }
+        var type = model.GetType();
         var cacheKey = ($"Lambda-Set-{type.FullName}", typeof(TModel), fieldName, typeof(TValue));
         var invoker = Instance.GetOrCreate(cacheKey, entry =>
         {
@@ -373,7 +381,11 @@ internal class CacheManager : ICacheManager
     /// <returns></returns>
     public static TValue GetKeyValue<TModel, TValue>(TModel model)
     {
-        var type = model is object o ? o.GetType() : typeof(TModel);
+        if (model == null)
+        {
+            throw new ArgumentNullException(nameof(model));
+        }
+        var type = model.GetType();
         var cacheKey = ($"Lambda-GetKeyValue-{type.FullName}", typeof(TModel));
         var invoker = Instance.GetOrCreate(cacheKey, entry =>
         {

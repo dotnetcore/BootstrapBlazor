@@ -589,11 +589,6 @@ public static class LambdaExtensions
 
     private static Expression<Func<TItem, TKey>> GetPropertyLambda<TItem, TKey>(PropertyInfo pi)
     {
-        if (pi.PropertyType != typeof(TKey))
-        {
-            throw new InvalidOperationException();
-        }
-
         var exp_p1 = Expression.Parameter(typeof(TItem));
         return Expression.Lambda<Func<TItem, TKey>>(Expression.Property(exp_p1, pi), exp_p1);
     }
@@ -619,37 +614,6 @@ public static class LambdaExtensions
         return Expression.Lambda<Func<TItem, TKey>>(expression!, exp_p1);
     }
     #endregion
-
-    /// <summary>
-    /// 大于等于 Lambda 表达式
-    /// </summary>
-    /// <typeparam name="TValue"></typeparam>
-    /// <param name="v"></param>
-    /// <returns></returns>
-    private static Expression<Func<TValue, object, bool>> GetGreaterThanOrEqualLambda<TValue>(TValue v)
-    {
-        if (v == null)
-        {
-            throw new ArgumentNullException(nameof(v));
-        }
-
-        var left = Expression.Parameter(v.GetType());
-        var right = Expression.Parameter(typeof(object));
-        return Expression.Lambda<Func<TValue, object, bool>>(Expression.GreaterThanOrEqual(left, Expression.Convert(right, v.GetType())), left, right);
-    }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <typeparam name="TValue"></typeparam>
-    /// <param name="v1"></param>
-    /// <param name="v2"></param>
-    /// <returns></returns>
-    public static bool GreaterThanOrEqual<TValue>(TValue v1, object v2)
-    {
-        var invoker = GetGreaterThanOrEqualLambda(v1).Compile();
-        return invoker(v1, v2);
-    }
 
     /// <summary>
     /// 获取属性方法 Lambda 表达式
@@ -781,6 +745,7 @@ public static class LambdaExtensions
     /// 尝试使用 TryParse 进行数据转换
     /// </summary>
     /// <returns></returns>
+    [ExcludeFromCodeCoverage]
     internal static Expression<FuncEx<string, TValue, bool>> TryParse<TValue>()
     {
         var t = typeof(TValue);
@@ -791,6 +756,7 @@ public static class LambdaExtensions
         return Expression.Lambda<FuncEx<string, TValue, bool>>(body, p1, p2);
     }
 
+    [ExcludeFromCodeCoverage]
     private static bool TryParseEmpty<TValue>(string source, out TValue val)
     {
         // TODO: 代码未完善
@@ -807,7 +773,11 @@ public static class LambdaExtensions
     /// <returns></returns>
     public static Expression<Func<TModel, TValue>> GetKeyValue<TModel, TValue>(TModel model)
     {
-        var type = model is not null ? model.GetType() : typeof(TModel);
+        if (model == null)
+        {
+            throw new ArgumentNullException(nameof(model));
+        }
+        var type = model.GetType();
         Expression<Func<TModel, TValue>> ret = _ => default!;
         var property = type.GetRuntimeProperties().FirstOrDefault(p => p.IsDefined(typeof(KeyAttribute)));
         if (property != null)

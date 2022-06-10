@@ -31,6 +31,13 @@ public class UtilityTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void GetKeyValue_Null()
+    {
+        Foo? foo = null;
+        Assert.Throws<ArgumentNullException>(() => Utility.GetKeyValue<object?, int>(foo));
+    }
+
+    [Fact]
     public void GetPropertyValue_Ok()
     {
         var v = Utility.GetPropertyValue(Model, nameof(Foo.Name));
