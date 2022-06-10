@@ -1,5 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk.Razor">
 
+  <Import Project="..\Framework.props" Condition="'$(Configuration)'=='Debug'" />
+
   <PropertyGroup>
     <Version>6.7.9</Version>
   </PropertyGroup>
