@@ -130,4 +130,54 @@ public class ITableColumnExtensionsTest
         Assert.False(attr.Visible);
         Assert.Equal(100, attr.Width);
     }
+
+    [Fact]
+    public void ToSearchs_Ok()
+    {
+        var cols = new MockTableColumn[]
+        {
+            new("Test_Name", typeof(string)),
+            new("Test_Bool", typeof(bool)),
+            new("Test_NullBool", typeof(bool?)),
+            new("Test_Enum", typeof(SortOrder)),
+            new("Test_NullEnum", typeof(SortOrder?)),
+            new("Test_Int", typeof(int)),
+            new("Test_NullInt", typeof(int?)),
+            new("Test_Long", typeof(long)),
+            new("Test_NullLong", typeof(long?)),
+            new("Test_Short", typeof(short)),
+            new("Test_NullShort", typeof(short?)),
+            new("Test_Float", typeof(float)),
+            new("Test_NullFloat", typeof(float?)),
+            new("Test_Double", typeof(double)),
+            new("Test_NullDouble", typeof(double?)),
+            new("Test_Decimal", typeof(decimal)),
+            new("Test_Decimal", typeof(decimal?)),
+        };
+
+        // NullOrEmpty
+        var filters = cols.ToSearchs(null);
+        Assert.Empty(filters);
+        filters = cols.ToSearchs("");
+        Assert.Empty(filters);
+
+        // bool
+        filters = cols.ToSearchs("true");
+        Assert.Equal(2, filters.Count(f => f.GetFilterConditions().Any(f => f.FieldValue is bool)));
+
+        // Enum
+        filters = cols.ToSearchs("Asc");
+        Assert.Equal(2, filters.Count(f => f.GetFilterConditions().Any(f => f.FieldValue is SortOrder)));
+
+        // Number
+        filters = cols.ToSearchs("1");
+        Assert.Equal(2, filters.Count(f => f.GetFilterConditions().Any(f => f.FieldValue is int)));
+        Assert.Equal(2, filters.Count(f => f.GetFilterConditions().Any(f => f.FieldValue is short)));
+        Assert.Equal(2, filters.Count(f => f.GetFilterConditions().Any(f => f.FieldValue is long)));
+
+        filters = cols.ToSearchs("2.1");
+        Assert.Equal(2, filters.Count(f => f.GetFilterConditions().Any(f => f.FieldValue is float)));
+        Assert.Equal(2, filters.Count(f => f.GetFilterConditions().Any(f => f.FieldValue is double)));
+        Assert.Equal(2, filters.Count(f => f.GetFilterConditions().Any(f => f.FieldValue is decimal)));
+    }
 }

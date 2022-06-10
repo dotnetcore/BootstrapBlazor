@@ -396,7 +396,7 @@ public class LambadaExtensionsTest
     [Fact]
     public void GetKeyValue_Ok()
     {
-        Assert.Throws<InvalidOperationException>(() => LambdaExtensions.GetKeyValue<Foo?, string>(null));
+        Assert.Throws<ArgumentNullException>(() => LambdaExtensions.GetKeyValue<Foo?, string>(null));
     }
 
     private abstract class MockFilterActionBase : IFilterAction
