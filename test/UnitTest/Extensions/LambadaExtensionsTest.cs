@@ -214,6 +214,150 @@ public class LambadaExtensionsTest
         Assert.Throws<InvalidOperationException>(() => filter.GetFilterLambda<Foo>());
     }
 
+    [Fact]
+    public void Sort_Queryable()
+    {
+        var foos = new List<Foo>
+        {
+            new Foo { Name = "10", Count = 10 },
+            new Foo { Name = "10", Count = 20 },
+            new Foo { Name = "20", Count = 20 },
+        }.AsQueryable();
+        var orderFoos = LambdaExtensions.Sort(foos, new List<string>() { "Count desc", "Name" });
+        Assert.Equal(20, orderFoos.ElementAt(0).Count);
+        Assert.Equal("20", orderFoos.ElementAt(1).Name);
+
+        orderFoos = LambdaExtensions.Sort(foos, "Count", SortOrder.Unset);
+        Assert.Equal(10, orderFoos.ElementAt(0).Count);
+
+        orderFoos = LambdaExtensions.Sort(foos, "Count", SortOrder.Desc);
+        Assert.Equal(20, orderFoos.ElementAt(0).Count);
+
+        orderFoos = LambdaExtensions.Sort(foos, "Count", SortOrder.Asc);
+        Assert.Equal(10, orderFoos.ElementAt(0).Count);
+
+        orderFoos = LambdaExtensions.Sort(foos, "Test", SortOrder.Asc);
+        Assert.Equal(10, orderFoos.ElementAt(0).Count);
+    }
+
+    [Fact]
+    public void Sort_Enumerable()
+    {
+        var foos = new List<Foo>
+        {
+            new Foo { Name = "10", Count = 10 },
+            new Foo { Name = "10", Count = 20 },
+            new Foo { Name = "20", Count = 20 },
+        };
+        var orderFoos = LambdaExtensions.Sort(foos, "Count", SortOrder.Unset);
+        Assert.Equal(10, orderFoos.ElementAt(0).Count);
+
+        orderFoos = LambdaExtensions.Sort(foos, "Count", SortOrder.Desc);
+        Assert.Equal(20, orderFoos.ElementAt(0).Count);
+
+        orderFoos = LambdaExtensions.Sort(foos, "Count", SortOrder.Asc);
+        Assert.Equal(10, orderFoos.ElementAt(0).Count);
+
+        orderFoos = LambdaExtensions.Sort(foos, "Test", SortOrder.Asc);
+        Assert.Equal(10, orderFoos.ElementAt(0).Count);
+
+        orderFoos = LambdaExtensions.Sort(foos, new List<string>() { "Count desc", "Name" });
+        Assert.Equal(20, orderFoos.ElementAt(0).Count);
+
+        orderFoos = LambdaExtensions.Sort(foos, new List<string>() { "Count", "Name desc" });
+        Assert.Equal(10, orderFoos.ElementAt(0).Count);
+
+        orderFoos = LambdaExtensions.Sort(foos, new List<string>() { "Count", "Test desc" });
+        Assert.Equal(10, orderFoos.ElementAt(0).Count);
+    }
+
+    [Fact]
+    public void Sort_Queryable_Enumerable()
+    {
+        var foos = new List<Foo>
+        {
+            new Foo { Name = "10", Count = 10 },
+            new Foo { Name = "10", Count = 20 },
+            new Foo { Name = "20", Count = 20 },
+        }.AsQueryable();
+        var orderFoos = LambdaExtensions.Sort(foos, "Count", SortOrder.Unset);
+        Assert.Equal(10, orderFoos.ElementAt(0).Count);
+
+        orderFoos = LambdaExtensions.Sort(foos, "Count", SortOrder.Desc);
+        Assert.Equal(20, orderFoos.ElementAt(0).Count);
+
+        orderFoos = LambdaExtensions.Sort(foos, "Count", SortOrder.Asc);
+        Assert.Equal(10, orderFoos.ElementAt(0).Count);
+
+        orderFoos = LambdaExtensions.Sort(foos, "Test", SortOrder.Asc);
+        Assert.Equal(10, orderFoos.ElementAt(0).Count);
+
+        orderFoos = LambdaExtensions.Sort(foos, new List<string>() { "Count desc", "Name" });
+        Assert.Equal(20, orderFoos.ElementAt(0).Count);
+
+        orderFoos = LambdaExtensions.Sort(foos, new List<string>() { "Count", "Name desc" });
+        Assert.Equal(10, orderFoos.ElementAt(0).Count);
+
+        orderFoos = LambdaExtensions.Sort(foos, new List<string>() { "Count", "Test desc" });
+        Assert.Equal(10, orderFoos.ElementAt(0).Count);
+    }
+
+    [Fact]
+    public void Sort_Complex()
+    {
+        var foos = new List<Dummy>
+        {
+            new() { Foo = new() { Name = "10", Count = 10 } },
+            new() { Foo = new() { Name = "10", Count = 20 } },
+            new() { Foo = new() { Name = "20", Count = 20 } }
+        };
+        var orderFoos = LambdaExtensions.Sort(foos, "Foo.Count", SortOrder.Asc);
+        Assert.Equal(10, orderFoos.ElementAt(0).Foo!.Count);
+
+        orderFoos = LambdaExtensions.Sort(foos, "Foo.Count", SortOrder.Desc);
+        Assert.Equal(20, orderFoos.ElementAt(0).Foo!.Count);
+
+        orderFoos = LambdaExtensions.Sort(foos, "Foo1.Count", SortOrder.Desc);
+        Assert.Equal(10, orderFoos.ElementAt(0).Foo!.Count);
+
+        orderFoos = LambdaExtensions.Sort(foos, new List<string>() { "Foo.Count desc", "Foo.Name" });
+        Assert.Equal(20, orderFoos.ElementAt(0).Foo!.Count);
+
+        orderFoos = LambdaExtensions.Sort(foos, new List<string>() { "Foo.Count", "Foo.Name Desc" });
+        Assert.Equal(10, orderFoos.ElementAt(0).Foo!.Count);
+
+        orderFoos = LambdaExtensions.Sort(foos, new List<string>() { "Foo.Count", "Foo.Test Desc" });
+        Assert.Equal(10, orderFoos.ElementAt(0).Foo!.Count);
+    }
+
+    [Fact]
+    public void Sort_Queryable_Complex()
+    {
+        var foos = new List<Dummy>
+        {
+            new() { Foo = new() { Name = "10", Count = 10 } },
+            new() { Foo = new() { Name = "10", Count = 20 } },
+            new() { Foo = new() { Name = "20", Count = 20 } }
+        }.AsQueryable();
+        var orderFoos = LambdaExtensions.Sort(foos, "Foo.Count", SortOrder.Asc);
+        Assert.Equal(10, orderFoos.ElementAt(0).Foo!.Count);
+
+        orderFoos = LambdaExtensions.Sort(foos, "Foo.Count", SortOrder.Desc);
+        Assert.Equal(20, orderFoos.ElementAt(0).Foo!.Count);
+
+        orderFoos = LambdaExtensions.Sort(foos, "Foo1.Count", SortOrder.Desc);
+        Assert.Equal(10, orderFoos.ElementAt(0).Foo!.Count);
+
+        orderFoos = LambdaExtensions.Sort(foos, new List<string>() { "Foo.Count desc", "Foo.Name" });
+        Assert.Equal(20, orderFoos.ElementAt(0).Foo!.Count);
+
+        orderFoos = LambdaExtensions.Sort(foos, new List<string>() { "Foo.Count", "Foo.Name Desc" });
+        Assert.Equal(10, orderFoos.ElementAt(0).Foo!.Count);
+
+        orderFoos = LambdaExtensions.Sort(foos, new List<string>() { "Foo.Count", "Foo.Test Desc" });
+        Assert.Equal(10, orderFoos.ElementAt(0).Foo!.Count);
+    }
+
     private abstract class MockFilterActionBase : IFilterAction
     {
         public abstract IEnumerable<FilterKeyValueAction> GetFilterConditions();

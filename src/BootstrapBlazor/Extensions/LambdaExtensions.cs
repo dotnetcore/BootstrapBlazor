@@ -410,6 +410,35 @@ public static class LambdaExtensions
         return sortOrder == SortOrder.Unset ? items : QueryableOrderBy(items, sortName, sortOrder);
     }
 
+    private static IQueryable<TItem>? InvokeSortByPropertyInfo<TItem>(this IQueryable<TItem> query, string methodName, PropertyInfo pi)
+    {
+        var mi = typeof(LambdaExtensions)
+            .GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Static)!
+            .MakeGenericMethod(typeof(TItem), pi.PropertyType);
+        return mi!.Invoke(null, new object[] { query.AsQueryable(), pi }) as IOrderedQueryable<TItem>;
+    }
+
+    private static IQueryable<TItem>? InvokeSortByPropertyName<TItem>(this IQueryable<TItem> query, string methodName, PropertyInfo pi, string propertyName)
+    {
+        var mi = typeof(LambdaExtensions)
+            .GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Static)!
+            .MakeGenericMethod(typeof(TItem), pi.PropertyType);
+        return mi!.Invoke(null, new object[] { query.AsQueryable(), propertyName }) as IOrderedQueryable<TItem>;
+    }
+
+    private static PropertyInfo? GetPropertyInfoByName<TItem>(this PropertyInfo? pi, string propertyName)
+    {
+        if (pi == null)
+        {
+            pi = typeof(TItem).GetPropertyByName(propertyName);
+        }
+        else
+        {
+            pi = pi.PropertyType.GetPropertyByName(propertyName);
+        }
+        return pi;
+    }
+
     private static IEnumerable<TItem> EnumerableOrderBy<TItem>(IEnumerable<TItem> query, string propertyName, SortOrder sortOrder)
     {
         return propertyName.Contains('.') ? EnumerableOrderByComplex() : EnumerableOrderBySimple();
@@ -421,10 +450,7 @@ public static class LambdaExtensions
             if (pi != null)
             {
                 var methodName = sortOrder == SortOrder.Desc ? nameof(OrderByDescendingInternal) : nameof(OrderByInternal);
-                var mi = typeof(LambdaExtensions)
-                    .GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Static)?
-                    .MakeGenericMethod(typeof(TItem), pi.PropertyType);
-                ret = mi?.Invoke(null, new object[] { query.AsQueryable(), pi }) as IOrderedQueryable<TItem>;
+                ret = query.AsQueryable().InvokeSortByPropertyInfo(methodName, pi);
             }
             return ret ?? query;
         }
@@ -435,22 +461,12 @@ public static class LambdaExtensions
             PropertyInfo? pi = null;
             foreach (var name in propertyName.Split('.'))
             {
-                if (pi == null)
-                {
-                    pi = typeof(TItem).GetPropertyByName(name);
-                }
-                else
-                {
-                    pi = pi.PropertyType.GetPropertyByName(name);
-                }
+                pi = pi.GetPropertyInfoByName<TItem>(name);
             }
             if (pi != null)
             {
                 var methodName = sortOrder == SortOrder.Desc ? nameof(OrderByDescendingInternalByName) : nameof(OrderByInternalByName);
-                var mi = typeof(LambdaExtensions)
-                    .GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Static)?
-                    .MakeGenericMethod(typeof(TItem), pi.PropertyType);
-                ret = mi?.Invoke(null, new object[] { query.AsQueryable(), propertyName }) as IOrderedQueryable<TItem>;
+                ret = query.AsQueryable().InvokeSortByPropertyName(methodName, pi, propertyName);
             }
             return ret ?? query;
         }
@@ -462,41 +478,28 @@ public static class LambdaExtensions
 
         IEnumerable<TItem> EnumerableThenBySimple()
         {
-            var methodName = sortOrder == SortOrder.Desc ? nameof(ThenByDescendingInternal) : nameof(ThenByInternal);
             IEnumerable<TItem>? ret = null;
             var pi = typeof(TItem).GetPropertyByName(propertyName);
             if (pi != null)
             {
-                var mi = typeof(LambdaExtensions)
-                    .GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Static)?
-                    .MakeGenericMethod(typeof(TItem), pi.PropertyType);
-                ret = mi?.Invoke(null, new object[] { query.AsQueryable(), pi }) as IOrderedQueryable<TItem>;
+                var methodName = sortOrder == SortOrder.Desc ? nameof(ThenByDescendingInternal) : nameof(ThenByInternal);
+                ret = query.AsQueryable().InvokeSortByPropertyInfo(methodName, pi);
             }
             return ret ?? query;
         }
 
         IEnumerable<TItem> EnumerableThenByComplex()
         {
-            var methodName = sortOrder == SortOrder.Desc ? nameof(ThenByDescendingInternalByName) : nameof(ThenByInternalByName);
             IEnumerable<TItem>? ret = null;
             PropertyInfo? pi = null;
             foreach (var name in propertyName.Split('.'))
             {
-                if (pi == null)
-                {
-                    pi = typeof(TItem).GetPropertyByName(name);
-                }
-                else
-                {
-                    pi = pi.PropertyType.GetPropertyByName(name);
-                }
+                pi = pi.GetPropertyInfoByName<TItem>(name);
             }
             if (pi != null)
             {
-                var mi = typeof(LambdaExtensions)
-                    .GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Static)?
-                    .MakeGenericMethod(typeof(TItem), pi.PropertyType);
-                ret = mi?.Invoke(null, new object[] { query.AsQueryable(), propertyName }) as IOrderedQueryable<TItem>;
+                var methodName = sortOrder == SortOrder.Desc ? nameof(ThenByDescendingInternalByName) : nameof(ThenByInternalByName);
+                ret = query.AsQueryable().InvokeSortByPropertyName(methodName, pi, propertyName);
             }
             return ret ?? query;
         }
@@ -508,15 +511,12 @@ public static class LambdaExtensions
 
         IQueryable<TItem> QueryableOrderBySimple()
         {
-            var methodName = sortOrder == SortOrder.Desc ? nameof(OrderByDescendingInternal) : nameof(OrderByInternal);
             IQueryable<TItem>? ret = null;
             var pi = typeof(TItem).GetPropertyByName(propertyName);
             if (pi != null)
             {
-                var mi = typeof(LambdaExtensions)
-                    .GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Static)?
-                    .MakeGenericMethod(typeof(TItem), pi.PropertyType);
-                ret = mi?.Invoke(null, new object[] { query, pi }) as IOrderedQueryable<TItem>;
+                var methodName = sortOrder == SortOrder.Desc ? nameof(OrderByDescendingInternal) : nameof(OrderByInternal);
+                ret = query.AsQueryable().InvokeSortByPropertyInfo(methodName, pi);
             }
             return ret ?? query;
         }
@@ -527,22 +527,12 @@ public static class LambdaExtensions
             PropertyInfo? pi = null;
             foreach (var name in propertyName.Split('.'))
             {
-                if (pi == null)
-                {
-                    pi = typeof(TItem).GetPropertyByName(name);
-                }
-                else
-                {
-                    pi = pi?.PropertyType.GetPropertyByName(name);
-                }
+                pi = pi.GetPropertyInfoByName<TItem>(name);
             }
             if (pi != null)
             {
                 var methodName = sortOrder == SortOrder.Desc ? nameof(OrderByDescendingInternalByName) : nameof(OrderByInternalByName);
-                var mi = typeof(LambdaExtensions)
-                    .GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Static)?
-                    .MakeGenericMethod(typeof(TItem), pi.PropertyType);
-                ret = mi?.Invoke(null, new object[] { query, propertyName }) as IOrderedQueryable<TItem>;
+                ret = query.AsQueryable().InvokeSortByPropertyName(methodName, pi, propertyName);
             }
             return ret ?? query;
         }
@@ -554,15 +544,12 @@ public static class LambdaExtensions
 
         IQueryable<TItem> QueryableThenBySimple()
         {
-            var methodName = sortOrder == SortOrder.Desc ? nameof(ThenByDescendingInternal) : nameof(ThenByInternal);
             IQueryable<TItem>? ret = null;
             var pi = typeof(TItem).GetPropertyByName(propertyName);
             if (pi != null)
             {
-                var mi = typeof(LambdaExtensions)
-                    .GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Static)?
-                    .MakeGenericMethod(typeof(TItem), pi.PropertyType);
-                ret = mi?.Invoke(null, new object[] { query, pi }) as IOrderedQueryable<TItem>;
+                var methodName = sortOrder == SortOrder.Desc ? nameof(ThenByDescendingInternal) : nameof(ThenByInternal);
+                ret = query.AsQueryable().InvokeSortByPropertyInfo(methodName, pi);
             }
             return ret ?? query;
         }
@@ -573,22 +560,12 @@ public static class LambdaExtensions
             PropertyInfo? pi = null;
             foreach (var name in propertyName.Split('.'))
             {
-                if (pi == null)
-                {
-                    pi = typeof(TItem).GetPropertyByName(name);
-                }
-                else
-                {
-                    pi = pi.PropertyType.GetPropertyByName(name);
-                }
+                pi = pi.GetPropertyInfoByName<TItem>(name);
             }
             if (pi != null)
             {
                 var methodName = sortOrder == SortOrder.Desc ? nameof(ThenByDescendingInternalByName) : nameof(ThenByInternalByName);
-                var mi = typeof(LambdaExtensions)
-                    .GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Static)?
-                    .MakeGenericMethod(typeof(TItem), pi.PropertyType);
-                ret = mi?.Invoke(null, new object[] { query, propertyName }) as IOrderedQueryable<TItem>;
+                ret = query.AsQueryable().InvokeSortByPropertyName(methodName, pi, propertyName);
             }
             return ret ?? query;
         }
