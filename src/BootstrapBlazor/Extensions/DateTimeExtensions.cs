@@ -17,7 +17,7 @@ internal static class DateTimeExtensions
             }
             else
             {
-                @base = DateTime.MinValue;
+                @base = DateTime.MinValue.Date;
             }
         }
         else if (year > 0)
@@ -28,7 +28,7 @@ internal static class DateTimeExtensions
             }
             else
             {
-                @base = DateTime.MaxValue;
+                @base = DateTime.MaxValue.Date;
             }
         }
         return @base;
@@ -45,7 +45,7 @@ internal static class DateTimeExtensions
             }
             else
             {
-                @base = DateTime.MinValue;
+                @base = DateTime.MinValue.Date;
             }
         }
         else if (month > 0)
@@ -56,7 +56,7 @@ internal static class DateTimeExtensions
             }
             else
             {
-                @base = DateTime.MaxValue;
+                @base = DateTime.MaxValue.Date;
             }
         }
         return @base;

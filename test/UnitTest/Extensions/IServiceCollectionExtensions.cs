@@ -11,9 +11,7 @@ internal static class IServiceCollectionExtensions
     public static IServiceCollection AddConfiguration(this IServiceCollection services, string? cultureName = null)
     {
         var builder = new ConfigurationBuilder();
-        var dirSeparator = Path.DirectorySeparatorChar;
-        var file = Path.Combine(AppContext.BaseDirectory, $"..{dirSeparator}..{dirSeparator}..{dirSeparator}appsettings.json");
-        builder.AddJsonFile(file, true, true);
+        builder.AddJsonFile("appsettings.json");
         if (cultureName != null)
         {
             builder.AddInMemoryCollection(new Dictionary<string, string>()

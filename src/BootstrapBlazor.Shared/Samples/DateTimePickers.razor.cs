@@ -55,9 +55,6 @@ public sealed partial class DateTimePickers
         SubmitText ??= Localizer[nameof(SubmitText)];
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
     private string BindValueString
     {
         get
@@ -77,10 +74,6 @@ public sealed partial class DateTimePickers
         }
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="d"></param>
     private Task DateValueChanged(DateTime d)
     {
         DateLogger.Log($"{Localizer["Log1Text"]}: {d:yyyy-MM-dd}");
@@ -94,29 +87,17 @@ public sealed partial class DateTimePickers
 
     private TimeSpan TimeNow { get; set; } = DateTime.Now - DateTime.Today;
 
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="d"></param>
     private void TimeValueChanged(TimeSpan d)
     {
         TimeLogger.Log($"{Localizer["Log2Text"]}: {d:hh\\:mm\\:ss}");
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="d"></param>
     private Task DateTimeValueChanged(DateTime? d)
     {
         BindValue = d;
         return Task.CompletedTask;
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="ts"></param>
     private void OnValueChange(TimeSpan ts)
     {
         SpanValue2 = ts.ToString("hh\\:mm\\:ss");

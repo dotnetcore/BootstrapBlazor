@@ -9,6 +9,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// ICacheEntry 扩展类
 /// </summary>
+[ExcludeFromCodeCoverage]
 internal static class ICacheEntryExtensions
 {
     /// <summary>

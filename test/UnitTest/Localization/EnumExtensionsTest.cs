@@ -14,9 +14,5 @@ public class EnumExtensionsTest : BootstrapBlazorTestBase
     {
         var dn = EnumEducation.Middel.ToDisplayName();
         Assert.Equal("中学", dn);
-
-        CultureInfo.CurrentUICulture = new CultureInfo("en-US");
-        dn = EnumEducation.Middel.ToDisplayName();
-        Assert.Equal(EnumEducation.Middel.ToString(), dn);
     }
 }

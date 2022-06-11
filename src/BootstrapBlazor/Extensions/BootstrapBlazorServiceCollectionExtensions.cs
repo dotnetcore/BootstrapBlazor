@@ -85,7 +85,7 @@ public static class BootstrapBlazorServiceCollectionExtensions
             if (string.IsNullOrEmpty(CultureInfo.CurrentUICulture.Name))
             {
                 var culture = new CultureInfo(op.FallbackCulture);
-                CultureInfo.CurrentUICulture = culture;
+                CultureInfo.CurrentCulture = culture;
                 CultureInfo.CurrentUICulture = culture;
             }
             configureOptions?.Invoke(op);
