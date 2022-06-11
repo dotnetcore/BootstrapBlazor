@@ -10,6 +10,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// JSRuntime 扩展操作类
 /// </summary>
+[ExcludeFromCodeCoverage]
 internal static class JSRuntimeExtensions
 {
     /// <summary>

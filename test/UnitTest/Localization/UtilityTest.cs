@@ -5,8 +5,10 @@
 using BootstrapBlazor.Shared;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Data;
+using System.Reflection;
 
 namespace UnitTest.Localization;
 
@@ -65,6 +67,7 @@ public class UtilityTest : BootstrapBlazorTestBase
                 context.AddDisplayAttribute(nameof(Foo.Complete), new KeyValuePair<string, object?>[] {
                         new(nameof(DisplayAttribute.Name), Localizer[nameof(Foo.Complete)].Value)
                 });
+                context.AddDescriptionAttribute(nameof(Foo.Complete), "Test-Desc");
             }
         });
 
@@ -87,6 +90,58 @@ public class UtilityTest : BootstrapBlazorTestBase
         // 动态类
         dn = Utility.GetDisplayName(context.GetItems().First(), nameof(Foo.Education));
         Assert.Equal("Education", dn);
+
+        var pi = context.GetItems().First().GetType().GetProperties().FirstOrDefault(i => i.CustomAttributes.Any(a => a.AttributeType == typeof(DescriptionAttribute)));
+        var attr = pi?.GetCustomAttribute<DescriptionAttribute>();
+        Assert.Equal("Test-Desc", attr?.Description);
+    }
+
+    [Fact]
+    public void SetValue_Null()
+    {
+        var model = new MockDynamicObject();
+        var context = new MockDynamicObjectContext();
+
+        // 内部走 null 逻辑
+        _ = context.SetValue(model);
+    }
+
+    private class MockDynamicObject : IDynamicObject
+    {
+        public Guid DynamicObjectPrimaryKey { get; set; }
+
+        public object? GetValue(string propertyName)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void SetValue(string propertyName, object? value)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    private class MockDynamicObjectContext : IDynamicObjectContext
+    {
+        public Func<IDynamicObject, ITableColumn, object?, Task>? OnValueChanged { get; set; }
+        public Func<DynamicObjectContextArgs, Task>? OnChanged { get; set; }
+
+        public Task AddAsync(IEnumerable<IDynamicObject> selectedItems)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> DeleteAsync(IEnumerable<IDynamicObject> items)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<ITableColumn> GetColumns()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<IDynamicObject> GetItems() => new MockDynamicObject[] { new() { DynamicObjectPrimaryKey = Guid.NewGuid() } };
     }
 
     [Fact]

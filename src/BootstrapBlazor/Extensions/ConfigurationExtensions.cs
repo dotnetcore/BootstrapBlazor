@@ -10,6 +10,7 @@ namespace Microsoft.Extensions.Configuration;
 /// <summary>
 /// IConfiguration 扩展类
 /// </summary>
+[ExcludeFromCodeCoverage]
 internal static class ConfigurationExtensions
 {
     public static NameValueCollection GetEnvironmentInformation(this IConfiguration configuration)

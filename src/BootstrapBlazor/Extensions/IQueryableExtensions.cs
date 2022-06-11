@@ -12,42 +12,42 @@ namespace BootstrapBlazor.Components;
 public static class IQueryableExtensions
 {
     /// <summary>
-    /// 条件
+    /// BootstrapBolazor 扩展 Where 方法
     /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="queryable"></param>
-    /// <param name="condition"></param>
-    /// <param name="predicate"></param>
+    /// <typeparam name="T">泛型</typeparam>
+    /// <param name="queryable">数据源</param>
+    /// <param name="predicate">过滤条件</param>
+    /// <param name="condition">是否查询条件</param>
     /// <returns></returns>
     public static IQueryable<T> Where<T>(this IQueryable<T> queryable, Expression<Func<T, bool>> predicate, bool condition) => condition ? queryable.Where(predicate) : queryable;
 
     /// <summary>
-    /// 排序
+    /// BootstrapBolazor 扩展 Sort 方法
     /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="queryable"></param>
-    /// <param name="sortName"></param>
-    /// <param name="sortOrder"></param>
-    /// <param name="condition"></param>
+    /// <typeparam name="T">泛型</typeparam>
+    /// <param name="queryable">数据源</param>
+    /// <param name="sortName">排序名称</param>
+    /// <param name="sortOrder">排序策略</param>
+    /// <param name="condition">是否排序</param>
     /// <returns></returns>
     public static IQueryable<T> Sort<T>(this IQueryable<T> queryable, string sortName, SortOrder sortOrder, bool condition) => condition ? queryable.Sort(sortName, sortOrder) : queryable;
 
     /// <summary>
-    /// 分页
+    /// BootstrapBolazor 扩展 Page 方法
     /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="queryable"></param>
-    /// <param name="skipCount"></param>
-    /// <param name="maxResultCount"></param>
+    /// <typeparam name="T">泛型</typeparam>
+    /// <param name="queryable">数据源</param>
+    /// <param name="skipCount">Skip 数量</param>
+    /// <param name="maxResultCount">Take 数量</param>
     /// <returns></returns>
     public static IQueryable<T> Page<T>(this IQueryable<T> queryable, int skipCount, int maxResultCount) => queryable.Skip(skipCount).Take(maxResultCount);
 
     /// <summary>
-    /// 总数
+    /// BootstrapBolazor 扩展 Count 方法
     /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="queryable"></param>
-    /// <param name="totalCount"></param>
+    /// <typeparam name="T">泛型</typeparam>
+    /// <param name="queryable">数据源</param>
+    /// <param name="totalCount">结果数量</param>
     /// <returns></returns>
     public static IQueryable<T> Count<T>(this IQueryable<T> queryable, out int totalCount)
     {
