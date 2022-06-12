@@ -771,20 +771,33 @@ public static class LambdaExtensions
     /// <typeparam name="TModel"></typeparam>
     /// <typeparam name="TValue"></typeparam>
     /// <returns></returns>
-    public static Expression<Func<TModel, TValue>> GetKeyValue<TModel, TValue>(TModel model)
+    public static Expression<Func<TModel, TValue>> GetKeyValue<TModel, TValue>(TModel model, Type? customAttribute = null)
     {
-        if (model == null)
-        {
-            throw new ArgumentNullException(nameof(model));
-        }
-        var type = model.GetType();
+        var type = model is not null ? model.GetType() : typeof(TModel);
         Expression<Func<TModel, TValue>> ret = _ => default!;
-        var property = type.GetRuntimeProperties().FirstOrDefault(p => p.IsDefined(typeof(KeyAttribute)));
-        if (property != null)
+        var properties = type.GetRuntimeProperties()
+                             .Where(p => p.IsDefined(customAttribute ?? typeof(KeyAttribute)))
+                             .ToList();
+        if (properties.Any())
         {
             var param = Expression.Parameter(typeof(TModel));
-            var body = Expression.Property(Expression.Convert(param, type), property);
-            ret = Expression.Lambda<Func<TModel, TValue>>(Expression.Convert(body, typeof(TValue)), param);
+            var tupleType = Type.GetType($"System.Tuple`{properties.Count}");
+            if (properties.Count >= 2 && properties.Count <= 8 && tupleType != null && tupleType.IsSubclassOf(typeof(TValue)))
+            {
+                var keyPropertyTypes = properties.Select(x => x.PropertyType).ToArray();
+                var tupleConstructor = tupleType.MakeGenericType(keyPropertyTypes).GetConstructor(keyPropertyTypes);
+                if (tupleConstructor == null)
+                    throw new InvalidOperationException($"No tuple constructor found for key in {type}");
+
+                var newTupleExpression = Expression.New(tupleConstructor, properties.Select(p => Expression.Property(param, p)));
+                var body = Expression.Convert(newTupleExpression, typeof(TValue));
+                ret = Expression.Lambda<Func<TModel, TValue>>(Expression.Convert(body, typeof(TValue)), param);
+            }
+            else
+            {
+                var body = Expression.Property(Expression.Convert(param, type), properties.First());
+                ret = Expression.Lambda<Func<TModel, TValue>>(Expression.Convert(body, typeof(TValue)), param);
+            }
         }
         return ret;
     }
