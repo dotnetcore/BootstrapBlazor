@@ -12,10 +12,12 @@ public class LocalizationOptionsExtensionsTest
     [Fact]
     public void GetJsonStringConfig_Ok()
     {
-        var option = new JsonLocalizationOptions();
-        option.AdditionalJsonFiles = new string[]
+        var option = new JsonLocalizationOptions
         {
-            "zh-CN.json"
+            AdditionalJsonFiles = new string[]
+            {
+                "zh-CN.json"
+            }
         };
         var configs = option.GetJsonStringConfig(this.GetType().Assembly);
         var section = configs.FirstOrDefault(i => i.Key == "BootstrapBlazor.Shared.Foo");

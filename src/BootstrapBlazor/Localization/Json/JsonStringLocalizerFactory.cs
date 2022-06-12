@@ -15,10 +15,14 @@ namespace BootstrapBlazor.Localization.Json;
 /// </summary>
 internal class JsonStringLocalizerFactory : ResourceManagerStringLocalizerFactory
 {
-    private readonly JsonLocalizationOptions _jsonOptions;
-    private readonly ILoggerFactory _loggerFactory;
-    private string? _typeName;
-    private readonly IServiceProvider _provider;
+    private JsonLocalizationOptions Options { get; set; }
+
+    private ILoggerFactory LoggerFactory { get; set; }
+
+    [NotNull]
+    private string? TypeName { get; set; }
+
+    private IServiceProvider ServiceProvider { get; set; }
 
     /// <summary>
     /// 构造函数
@@ -28,6 +32,7 @@ internal class JsonStringLocalizerFactory : ResourceManagerStringLocalizerFactor
     /// <param name="options"></param>
     /// <param name="loggerFactory"></param>
     /// <param name="provider"></param>
+    [ExcludeFromCodeCoverage]
     public JsonStringLocalizerFactory(
         IOptions<JsonLocalizationOptions> jsonOptions,
         IOptions<LocalizationOptions> resxOptions,
@@ -35,21 +40,25 @@ internal class JsonStringLocalizerFactory : ResourceManagerStringLocalizerFactor
         ILoggerFactory loggerFactory,
         IServiceProvider provider) : base(resxOptions, loggerFactory)
     {
-        _jsonOptions = jsonOptions.Value;
-        _jsonOptions.FallbackCulture = options.CurrentValue.FallbackCulture;
-        _jsonOptions.FallBackToParentUICultures = options.CurrentValue.FallBackToParentUICultures;
-        _jsonOptions.SupportedCultures.AddRange(options.CurrentValue.GetSupportedCultures());
-        _loggerFactory = loggerFactory;
-        _provider = provider;
+        Options = jsonOptions.Value;
+        Options.FallbackCulture = options.CurrentValue.FallbackCulture;
+        Options.EnableFallbackCulture = options.CurrentValue.EnableFallbackCulture;
+        LoggerFactory = loggerFactory;
+        ServiceProvider = provider;
 
         options.OnChange(op =>
         {
-            _jsonOptions.FallbackCulture = op.FallbackCulture;
-            _jsonOptions.FallBackToParentUICultures = op.FallBackToParentUICultures;
-            _jsonOptions.SupportedCultures.AddRange(op.GetSupportedCultures());
+            Options.FallbackCulture = op.FallbackCulture;
+            Options.EnableFallbackCulture = op.EnableFallbackCulture;
         });
     }
 
+    /// <summary>
+    /// GetResourcePrefix 方法
+    /// </summary>
+    /// <param name="typeInfo"></param>
+    /// <returns></returns>
+    /// <exception cref="InvalidOperationException"></exception>
     protected override string GetResourcePrefix(TypeInfo typeInfo)
     {
         var typeName = typeInfo.FullName;
@@ -63,7 +72,7 @@ internal class JsonStringLocalizerFactory : ResourceManagerStringLocalizerFactor
             var index = typeName.IndexOf('`');
             typeName = typeName[..index];
         }
-        _typeName = TryFixInnerClassPath(typeName);
+        TypeName = TryFixInnerClassPath(typeName);
 
         return base.GetResourcePrefix(typeInfo);
     }
@@ -90,11 +99,11 @@ internal class JsonStringLocalizerFactory : ResourceManagerStringLocalizerFactor
     protected override ResourceManagerStringLocalizer CreateResourceManagerStringLocalizer(Assembly assembly, string baseName) => new JsonStringLocalizer(
             this,
             assembly,
-            _typeName ?? "",
+            TypeName,
             baseName,
-            _loggerFactory.CreateLogger<JsonStringLocalizer>(),
-            _jsonOptions,
-            _provider);
+            LoggerFactory.CreateLogger<JsonStringLocalizer>(),
+            Options,
+            ServiceProvider);
 
     /// <summary>
     /// 获得 IResourceNamesCache 实例
@@ -102,8 +111,8 @@ internal class JsonStringLocalizerFactory : ResourceManagerStringLocalizerFactor
     /// <returns></returns>
     internal IResourceNamesCache GetCache()
     {
-        var field = this.GetType().BaseType?.GetField("_resourceNamesCache", BindingFlags.NonPublic | BindingFlags.Instance);
-        var ret = field?.GetValue(this) as IResourceNamesCache;
+        var field = this.GetType().BaseType!.GetField("_resourceNamesCache", BindingFlags.NonPublic | BindingFlags.Instance);
+        var ret = field!.GetValue(this) as IResourceNamesCache;
         return ret!;
     }
 }

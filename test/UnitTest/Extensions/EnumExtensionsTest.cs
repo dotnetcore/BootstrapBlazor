@@ -3,9 +3,8 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using BootstrapBlazor.Shared;
-using System.Globalization;
 
-namespace UnitTest.Localization;
+namespace UnitTest.Extensions;
 
 public class EnumExtensionsTest : BootstrapBlazorTestBase
 {

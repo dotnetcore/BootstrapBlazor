@@ -3,6 +3,7 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using BootstrapBlazor.Localization.Json;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Localization;
 
 namespace Microsoft.Extensions.DependencyInjection;
@@ -20,23 +21,13 @@ internal static class JsonLocalizationServiceCollectionExtensions
     /// <returns></returns>
     public static IServiceCollection AddJsonLocalization(this IServiceCollection services, Action<JsonLocalizationOptions>? localizationAction = null)
     {
-        services.AddOptions();
-
-        AddJsonLocalizationServices(services, localizationAction);
-
-        return services;
-    }
-
-    private static void AddJsonLocalizationServices(IServiceCollection services, Action<JsonLocalizationOptions>? localizationAction = null)
-    {
         // 防止被 AddLocalization 覆盖掉
         services.AddSingleton<IStringLocalizerFactory, JsonStringLocalizerFactory>();
-        services.AddSingleton(typeof(IStringLocalizer<>), typeof(StringLocalizer<>));
-        services.AddSingleton(typeof(IStringLocalizer), typeof(StringLocalizer));
-
+        services.TryAddTransient(typeof(IStringLocalizer<>), typeof(StringLocalizer<>));
         if (localizationAction != null)
         {
             services.Configure(localizationAction);
         }
+        return services;
     }
 }

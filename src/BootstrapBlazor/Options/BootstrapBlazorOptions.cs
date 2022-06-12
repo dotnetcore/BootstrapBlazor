@@ -42,9 +42,9 @@ public class BootstrapBlazorOptions
     public List<string>? SupportedCultures { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否回落到 UI 父文化 默认为 true
+    /// 获得/设置 是否回落到 Fallback 文化 默认为 true
     /// </summary>
-    public bool FallBackToParentUICultures { get; set; } = true;
+    public bool EnableFallbackCulture { get; set; } = true;
 
     /// <summary>
     /// 获得/设置 默认文化信息
