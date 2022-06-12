@@ -30,10 +30,6 @@ internal static class JsonLocalizationServiceCollectionExtensions
     private static void AddJsonLocalizationServices(IServiceCollection services, Action<JsonLocalizationOptions>? localizationAction = null)
     {
         // 防止被 AddLocalization 覆盖掉
-        services.AddSingleton<IHtmlLocalizerFactory, JsonHtmlLocalizerFactory>();
-        services.AddSingleton(typeof(IHtmlLocalizer<>), typeof(HtmlLocalizer<>));
-        services.AddSingleton(typeof(IHtmlLocalizer), typeof(HtmlLocalizer));
-
         services.AddSingleton<IStringLocalizerFactory, JsonStringLocalizerFactory>();
         services.AddSingleton(typeof(IStringLocalizer<>), typeof(StringLocalizer<>));
         services.AddSingleton(typeof(IStringLocalizer), typeof(StringLocalizer));
