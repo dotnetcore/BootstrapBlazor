@@ -37,7 +37,7 @@ public partial class Table<TItem>
     /// 获得/设置 数型结构小箭头图标 默认 fa fa-caret-right
     /// </summary>
     [Parameter]
-    public string TreeIcon { get; set; } = "fa fa-fw fa-caret-right";
+    public string TreeIcon { get; set; } = "fa-caret-right";
 
     /// <summary>
     /// 树形数据小箭头缩进
@@ -68,7 +68,7 @@ public partial class Table<TItem>
     /// </summary>
     /// <param name="item"></param>
     /// <returns></returns>
-    protected string? GetTreeClassString(TItem item) => CssBuilder.Default("is-tree")
+    protected string? GetTreeClassString(TItem item) => CssBuilder.Default("is-tree fa fa-fw ")
         .AddClass(TreeIcon, CheckTreeChildren(item) && !IsLoadChildren)
         .AddClass("fa-rotate-90", IsExpand(item))
         .AddClass("fa-spin fa-spinner", IsLoadChildren)
