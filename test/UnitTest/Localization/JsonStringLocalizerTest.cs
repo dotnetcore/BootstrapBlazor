@@ -58,7 +58,7 @@ public class JsonStringLocalizerTest : BootstrapBlazorTestBase
         sc.AddBootstrapBlazor();
 
         var provider = sc.BuildServiceProvider();
-        var localizer = provider.GetRequiredService<IStringLocalizer<Foo>>();
+        var localizer = provider.GetRequiredService<IStringLocalizer<Dummy>>();
         var items = localizer.GetAllStrings(false);
         Assert.NotEmpty(items);
     }
@@ -82,7 +82,7 @@ public class JsonStringLocalizerTest : BootstrapBlazorTestBase
         sc.AddBootstrapBlazor();
 
         var provider = sc.BuildServiceProvider();
-        var localizer = provider.GetRequiredService<IStringLocalizer<Foo>>();
+        var localizer = provider.GetRequiredService<IStringLocalizer<Dummy>>();
         var v = localizer["Name"];
         Assert.Equal("Test-Name", v);
 

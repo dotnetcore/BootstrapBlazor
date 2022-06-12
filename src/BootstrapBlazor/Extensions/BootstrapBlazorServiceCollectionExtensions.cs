@@ -82,13 +82,21 @@ public static class BootstrapBlazorServiceCollectionExtensions
                 CultureInfo.DefaultThreadCurrentUICulture = culture;
             }
 
-            if (string.IsNullOrEmpty(CultureInfo.CurrentUICulture.Name))
-            {
-                var culture = new CultureInfo(op.FallbackCulture);
-                CultureInfo.CurrentCulture = culture;
-                CultureInfo.CurrentUICulture = culture;
-            }
+            // 设置 FallbackCulture
+            ConfigureFallbackCulture();
+
             configureOptions?.Invoke(op);
+
+            [ExcludeFromCodeCoverage]
+            void ConfigureFallbackCulture()
+            {
+                if (string.IsNullOrEmpty(CultureInfo.CurrentUICulture.Name))
+                {
+                    var culture = new CultureInfo(op.FallbackCulture);
+                    CultureInfo.CurrentCulture = culture;
+                    CultureInfo.CurrentUICulture = culture;
+                }
+            }
         });
         return services;
     }

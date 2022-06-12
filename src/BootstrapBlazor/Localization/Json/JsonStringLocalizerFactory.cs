@@ -72,22 +72,9 @@ internal class JsonStringLocalizerFactory : ResourceManagerStringLocalizerFactor
             var index = typeName.IndexOf('`');
             typeName = typeName[..index];
         }
-        TypeName = TryFixInnerClassPath(typeName);
+        TypeName = typeName;
 
         return base.GetResourcePrefix(typeInfo);
-    }
-
-    private const char InnerClassSeparator = '+';
-    private static string TryFixInnerClassPath(string path)
-    {
-        var fixedPath = path;
-
-        if (path.Contains(InnerClassSeparator.ToString()))
-        {
-            fixedPath = path.Replace(InnerClassSeparator, '.');
-        }
-
-        return fixedPath;
     }
 
     /// <summary>
