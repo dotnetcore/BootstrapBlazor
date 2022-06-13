@@ -3191,7 +3191,9 @@
     "EditIntro": "增加编辑维护功能",
     "EditP": "通过设置 <code>DataTableDynamicContext</code> 实例的 <code>OnChanged</code> 回调方法，新建行时自动设置值",
     "DynamicColTitle": "动态列",
-    "DynamicColIntro": "通过代码动态调整 <code>DataTable</code> 表格组件自动更新"
+    "DynamicColIntro": "通过代码动态调整 <code>DataTable</code> 表格组件自动更新",
+    "DataTablePageTitle": "分页",
+    "DataTablePageIntro": "通过与 <code>Pagination</code> 组件配合实现分页功能"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesSearch": {
     "Title": "Table 表格",

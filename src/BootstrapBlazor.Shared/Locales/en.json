@@ -3178,7 +3178,9 @@
     "EditIntro": "Add editing and maintenance functions",
     "EditP": "By setting the <code>OnChanged</code> callback method of the <code>DataTableDynamicContext</code> instance, the value is automatically set when a new row is created",
     "DynamicColTitle": "Dynamic Column",
-    "DynamicColIntro": "Dynamic adjustment of the <code>DataTable</code> table component automatically updates via code"
+    "DynamicColIntro": "Dynamic adjustment of the <code>DataTable</code> table component automatically updates via code",
+    "DataTablePageTitle": "Pagination",
+    "DataTablePageIntro": "Use <code>Pagination</code> component"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesSearch": {
     "Title": "Table Search",
