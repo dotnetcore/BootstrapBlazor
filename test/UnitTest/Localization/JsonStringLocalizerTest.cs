@@ -49,6 +49,16 @@ public class JsonStringLocalizerTest : BootstrapBlazorTestBase
         Assert.NotEmpty(items);
     }
 
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void GetAllStrings_Resource(bool include)
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var items = localizer.GetAllStrings(include);
+        Assert.NotEmpty(items);
+    }
+
     [Fact]
     public void GetAllStrings_FromInject()
     {
@@ -63,16 +73,6 @@ public class JsonStringLocalizerTest : BootstrapBlazorTestBase
         Assert.NotEmpty(items);
     }
 
-    [Theory]
-    [InlineData(true)]
-    [InlineData(false)]
-    public void GetAllStrings_Resource(bool include)
-    {
-        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Dummy>>();
-        var items = localizer.GetAllStrings(include);
-        Assert.NotEmpty(items);
-    }
-
     [Fact]
     public void GetStringFromInject_Ok()
     {
@@ -83,12 +83,12 @@ public class JsonStringLocalizerTest : BootstrapBlazorTestBase
 
         var provider = sc.BuildServiceProvider();
         var localizer = provider.GetRequiredService<IStringLocalizer<Dummy>>();
-        var v = localizer["Name"];
-        Assert.Equal("Test-Name", v);
+        var v = localizer["Mock-Name"];
+        Assert.Equal("Mock-Test-Name", v);
 
-        v = localizer["Test"];
+        v = localizer["Mock-Test"];
         Assert.True(v.ResourceNotFound);
-        Assert.Equal("Test", v);
+        Assert.Equal("Mock-Test", v);
     }
 
     private class MockTypeInfo : TypeDelegator
@@ -105,19 +105,19 @@ public class JsonStringLocalizerTest : BootstrapBlazorTestBase
 
     private class MockStringLocalizer : IStringLocalizer
     {
-        public LocalizedString this[string name] => name == "Name" ? new(name, "Test-Name") : new(name, "", true);
+        public LocalizedString this[string name] => name == "Mock-Name" ? new(name, "Mock-Test-Name") : new(name, "", true);
 
-        public LocalizedString this[string name, params object[] arguments] => new("Name", string.Format("{0}", arguments));
+        public LocalizedString this[string name, params object[] arguments] => new("Mock-Name", string.Format("{0}", arguments));
 
         public IEnumerable<LocalizedString> GetAllStrings(bool includeParentCultures) => new List<LocalizedString>()
         {
-            new LocalizedString("Name", "Test-Name"),
-            new LocalizedString("Address", "Test-Address")
+            new LocalizedString("Mock-Name", "Mock-Test-Name"),
+            new LocalizedString("Mock-Address", "Mock-Test-Address")
         };
     }
 
     private class Dummy
     {
-        public string? Name { get; set; }
+        public string? DummyName { get; set; }
     }
 }
