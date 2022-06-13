@@ -113,12 +113,6 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
     protected List<TItem> ExpandRows { get; } = new List<TItem>();
 
     /// <summary>
-    /// 获得/设置 是否有子节点回调方法 默认为 null 用于未提供 <see cref="HasChildrenColumnName"/> 列名时使用
-    /// </summary>
-    [Parameter]
-    public Func<TItem, bool>? HasChildrenCallback { get; set; }
-
-    /// <summary>
     /// 获得/设置 组件是否采用 Tracking 模式对编辑项进行直接更新 默认 false
     /// </summary>
     [Parameter]
@@ -129,12 +123,6 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
     /// </summary>
     [Parameter]
     public bool IsExcel { get; set; }
-
-    /// <summary>
-    /// 获得/设置 缩进大小 默认为 16 单位 px
-    /// </summary>
-    [Parameter]
-    public int IndentSize { get; set; } = 16;
 
     /// <summary>
     /// 获得/设置 是否显示明细行 默认为 null 为空时使用 <see cref="DetailRowTemplate" /> 进行逻辑判断
@@ -399,13 +387,6 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
     /// <remarks>此参数在 <see cref="IsExcel"/> 模式下不生效</remarks>
     [Parameter]
     public Func<TItem, bool>? ShowDetailRow { get; set; }
-
-    /// <summary>
-    /// 获得/设置 树形数据模式子项字段是否有子节点属性名称 默认为 HasChildren 无法提供时请设置 <see cref="HasChildrenCallback"/> 回调方法
-    /// </summary>
-    /// <remarks>此参数在 <see cref="IsExcel"/> 模式下不生效</remarks>
-    [Parameter]
-    public string HasChildrenColumnName { get; set; } = "HasChildren";
 
     /// <summary>
     /// 获得/设置 动态数据上下文实例

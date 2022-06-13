@@ -5,6 +5,7 @@
 using Microsoft.AspNetCore.Components;
 
 namespace BootstrapBlazor.Components;
+
 public partial class Table<TItem>
 {
     /// <summary>
@@ -13,6 +14,20 @@ public partial class Table<TItem>
     /// <remarks>是否有子项请使用 <seealso cref="HasChildrenColumnName"/> 树形进行设置，此参数在 <see cref="IsExcel"/> 模式下不生效</remarks>
     [Parameter]
     public bool IsTree { get; set; }
+
+    /// <summary>
+    /// 获得/设置 树形数据模式子项字段是否有子节点属性名称 默认为 HasChildren 无法提供时请设置 <see cref="HasChildrenCallback"/> 回调方法
+    /// </summary>
+    /// <remarks>此参数在 <see cref="IsExcel"/> 模式下不生效</remarks>
+    [Parameter]
+    public string HasChildrenColumnName { get; set; } = "HasChildren";
+
+    /// <summary>
+    /// 获得/设置 是否有子节点回调方法 默认为 null 用于未提供 <see cref="HasChildrenColumnName"/> 列名时使用
+    /// </summary>
+    [Parameter]
+    public Func<TItem, bool>? HasChildrenCallback { get; set; }
+
     /// <summary>
     /// 获得/设置 树形数据节点展开式回调委托方法
     /// </summary>
@@ -38,6 +53,12 @@ public partial class Table<TItem>
     /// </summary>
     [Parameter]
     public string TreeIcon { get; set; } = "fa-caret-right";
+
+    /// <summary>
+    /// 获得/设置 缩进大小 默认为 16 单位 px
+    /// </summary>
+    [Parameter]
+    public int IndentSize { get; set; } = 16;
 
     /// <summary>
     /// 树形数据小箭头缩进
