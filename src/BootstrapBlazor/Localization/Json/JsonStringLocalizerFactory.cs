@@ -32,7 +32,6 @@ internal class JsonStringLocalizerFactory : ResourceManagerStringLocalizerFactor
     /// <param name="options"></param>
     /// <param name="loggerFactory"></param>
     /// <param name="provider"></param>
-    [ExcludeFromCodeCoverage]
     public JsonStringLocalizerFactory(
         IOptions<JsonLocalizationOptions> jsonOptions,
         IOptions<LocalizationOptions> resxOptions,
@@ -46,11 +45,14 @@ internal class JsonStringLocalizerFactory : ResourceManagerStringLocalizerFactor
         LoggerFactory = loggerFactory;
         ServiceProvider = provider;
 
-        options.OnChange(op =>
+        options.OnChange(OnChange);
+
+        [ExcludeFromCodeCoverage]
+        void OnChange(BootstrapBlazorOptions op)
         {
             Options.FallbackCulture = op.FallbackCulture;
             Options.EnableFallbackCulture = op.EnableFallbackCulture;
-        });
+        }
     }
 
     /// <summary>
