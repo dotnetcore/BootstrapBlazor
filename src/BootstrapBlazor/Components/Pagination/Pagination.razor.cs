@@ -43,6 +43,13 @@ public partial class Pagination
         .Build();
 
     /// <summary>
+    /// 获得 组件 样式
+    /// </summary>
+    protected string? ClassString => CssBuilder.Default("nav nav-pages")
+        .AddClassFromAttributes(AdditionalAttributes)
+        .Build();
+
+    /// <summary>
     /// 获得 起始记录索引
     /// </summary>
     protected int StarIndex => (PageIndex - 1) * PageItems + 1;
