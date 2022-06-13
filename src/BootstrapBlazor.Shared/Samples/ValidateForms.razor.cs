@@ -82,6 +82,15 @@ public partial class ValidateForms
         };
     }
 
+    [NotNull]
+    private ValidateForm? ValidatorForm { get; set; }
+
+    private Task OnValidator()
+    {
+        ValidatorForm.Validate();
+        return Task.CompletedTask;
+    }
+
     private Task OnInvalidSubmit1(EditContext context)
     {
         Trace.Log(Localizer["OnInvalidSubmitLog"]);
@@ -255,6 +264,13 @@ public partial class ValidateForms
             Description = Localizer["SetError"],
             Parameters = "PropertyName, ErrorMessage",
             ReturnValue = " — "
+        },
+        new MethodItem()
+        {
+            Name = "Validate",
+            Description = Localizer["Validate"],
+            Parameters = " — ",
+            ReturnValue = "boolean"
         }
     };
     #endregion

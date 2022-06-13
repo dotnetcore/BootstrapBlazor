@@ -454,8 +454,22 @@ public partial class ValidateForm : IAsyncDisposable
         }
     }
 
+    [NotNull]
+    private BootstrapBlazorDataAnnotationsValidator? Validator { get; set; }
+
     /// <summary>
-    /// 
+    /// 验证方法 用于代码调用触发表单验证
+    /// </summary>
+    /// <returns></returns>
+    public bool Validate()
+    {
+        var ret = Validator.Validate();
+        StateHasChanged();
+        return ret;
+    }
+
+    /// <summary>
+    /// 通知属性改变方法
     /// </summary>
     /// <param name="fieldIdentifier"></param>
     /// <param name="value"></param>

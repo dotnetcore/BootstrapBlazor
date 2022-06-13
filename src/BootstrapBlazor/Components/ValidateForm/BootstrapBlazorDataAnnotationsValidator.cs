@@ -39,4 +39,10 @@ public class BootstrapBlazorDataAnnotationsValidator : ComponentBase
 
         CurrentEditContext.AddEditContextDataAnnotationsValidation(ValidateForm);
     }
+
+    /// <summary>
+    /// 手动验证表单方法
+    /// </summary>
+    /// <returns></returns>
+    internal bool Validate() => CurrentEditContext.Validate();
 }
