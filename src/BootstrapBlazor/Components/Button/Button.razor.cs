@@ -56,7 +56,7 @@ public partial class Button
                 if (IsAsync)
                 {
 
-                    await Task.Run(async () => await InvokeAsync(HandlerClick));
+                    await Task.Run(() => InvokeAsync(HandlerClick));
                 }
                 else
                 {
