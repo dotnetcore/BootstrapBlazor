@@ -69,6 +69,12 @@ public partial class Carousel
     public Func<string, Task>? OnClick { get; set; }
 
     /// <summary>
+    /// 获得/设置 子组件 要求使用 <see cref="CarouselItem"/>
+    /// </summary>
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    /// <summary>
     /// OnAfterRenderAsync 方法
     /// </summary>
     /// <param name="firstRender"></param>
@@ -88,4 +94,18 @@ public partial class Carousel
     {
         if (OnClick != null) await OnClick(imageUrl);
     }
+
+    private List<CarouselItem> Items { get; } = new(10);
+
+    /// <summary>
+    /// 添加子项
+    /// </summary>
+    /// <param name="item"></param>
+    internal void AddItem(CarouselItem item) => Items.Add(item);
+
+    /// <summary>
+    /// 移除子项
+    /// </summary>
+    /// <param name="item"></param>
+    internal void RemoveItem(CarouselItem item) => Items.Remove(item);
 }
