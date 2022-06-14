@@ -222,6 +222,10 @@ public partial class Table<TItem>
             var d = DataService ?? InjectDataService;
             ret = await d.SaveAsync(item, changedType);
         }
+        if (ret)
+        {
+            await InvokeItemsChanged();
+        }
         return ret;
     }
 

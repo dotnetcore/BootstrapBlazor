@@ -614,6 +614,7 @@ public partial class Table<TItem>
             var ret = await InternalOnDeleteAsync();
             if (ret)
             {
+                await InvokeItemsChanged();
                 if (IsPagination)
                 {
                     // 删除成功 重新查询
