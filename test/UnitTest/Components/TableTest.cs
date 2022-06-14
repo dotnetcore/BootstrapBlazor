@@ -16,7 +16,7 @@ namespace UnitTest.Components;
 public class TableTest : TableTestBase
 {
     [Fact]
-    public void Table_Ok()
+    public void Items_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
@@ -28,6 +28,35 @@ public class TableTest : TableTestBase
         });
 
         cut.Contains("table");
+    }
+
+    [Fact]
+    public async void Items_Bind()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var items = Foo.GenerateFoo(localizer, 2);
+        var binded = false;
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.Items, items);
+                pb.Add(a => a.ItemsChanged, EventCallback.Factory.Create<IEnumerable<Foo>>(this, rows =>
+                {
+                    binded = true;
+                }));
+                pb.Add(a => a.EditMode, EditMode.InCell);
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.ShowExtendButtons, true);
+                pb.Add(a => a.OnSaveAsync, (foo, itemChanged) => Task.FromResult(true));
+            });
+        });
+        var button = cut.Find("button");
+        await cut.InvokeAsync(() => button.Click());
+
+        button = cut.Find("button");
+        await cut.InvokeAsync(() => button.Click());
+        Assert.True(binded);
     }
 
     [Fact]
