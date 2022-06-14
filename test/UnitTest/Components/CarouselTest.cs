@@ -64,4 +64,38 @@ public class CarouselTest : BootstrapBlazorTestBase
         cut.InvokeAsync(() => cut.FindAll("img")[1].Click());
         Assert.Equal("", url);
     }
+
+    [Fact]
+    public void CarouselItem_Ok()
+    {
+        var cut = Context.RenderComponent<Carousel>(pb =>
+        {
+            pb.Add(b => b.ChildContent, new RenderFragment(builder =>
+            {
+                builder.OpenComponent<CarouselItem>(0);
+                builder.AddAttribute(1, nameof(CarouselItem.ChildContent), new RenderFragment(builder => builder.AddContent(0, "Test-1")));
+                builder.CloseComponent();
+
+                builder.OpenComponent<CarouselItem>(2);
+                builder.AddAttribute(3, nameof(CarouselItem.ChildContent), new RenderFragment(builder => builder.AddContent(0, "Test-2")));
+                builder.CloseComponent();
+            }));
+        });
+
+        Assert.Contains("Test-1", cut.Markup);
+        Assert.Contains("Test-2", cut.Markup);
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(b => b.ChildContent, new RenderFragment(builder =>
+            {
+                builder.OpenComponent<CarouselItem>(0);
+                builder.AddAttribute(1, nameof(CarouselItem.ChildContent), new RenderFragment(builder => builder.AddContent(0, "Test-1")));
+                builder.CloseComponent();
+            }));
+        });
+
+        Assert.Contains("Test-1", cut.Markup);
+        Assert.DoesNotContain("Test-2", cut.Markup);
+    }
 }

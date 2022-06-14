@@ -2165,6 +2165,8 @@
     "FadeIntro": "通过设置 <code>IsFade</code> 属性，图片切换时采用淡入淡出效果",
     "OnClickTitle": "点击图片回调事件",
     "OnClickIntro": "通过设置 <code>OnClick</code> 属性后，点击 <code>Image</code> 后触发 <code>OnClick</code> 回调委托",
+    "ChildContentTitle": "子组件",
+    "ChildContentIntro": "使用 <code>ChildContent</code> 渲染自定义组件",
     "Images": "Images 集合",
     "IsFade": "是否淡入淡出",
     "Width": "设置图片宽度",

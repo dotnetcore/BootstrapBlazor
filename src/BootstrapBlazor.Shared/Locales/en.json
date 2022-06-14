@@ -2160,6 +2160,8 @@
     "FadeIntro": "By setting the <code>IsFade</code> property, the picture switches with a fade-in and fade-out effect",
     "OnClickTitle": "Click on the image to call back the event",
     "OnClickIntro": "After you set the <code>OnClick</code> property by setting, click <code>Image</code> to trigger the <code>OnClick</code> callback delegate",
+    "ChildContentTitle": "ChildContent",
+    "ChildContentIntro": "Use <code>ChildContent</code> render the customer content",
     "Images": "Images collection",
     "IsFade": "Whether to fade in and out",
     "Width": "Set the width of the picture",
