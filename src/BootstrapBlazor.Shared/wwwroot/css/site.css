@@ -1973,3 +1973,11 @@ header .bb-fs {
     height: 21px;
     margin-bottom: 0.75rem;
 }
+
+.carousel-item-demo {
+    text-align: center;
+}
+
+    .carousel-item-demo > h3 + div {
+        margin: 1rem 0;
+    }
