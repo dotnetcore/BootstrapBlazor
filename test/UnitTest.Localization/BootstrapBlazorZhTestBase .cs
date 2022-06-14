@@ -29,7 +29,7 @@ public class BootstrapBlazorZhTestHost : BootstrapBlazorTestHost
     {
         // 支持 微软 resx 格式资源文件
         services.AddLocalization(option => option.ResourcesPath = "Resources");
-        services.AddBootstrapBlazor(localizationAction: options =>
+        services.AddBootstrapBlazor(localizationConfigure: options =>
         {
             options.ResourceManagerStringLocalizerType = typeof(BootstrapBlazorZhTestHost);
         });

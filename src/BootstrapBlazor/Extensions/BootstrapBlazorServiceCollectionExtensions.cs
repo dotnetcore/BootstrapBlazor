@@ -21,15 +21,15 @@ public static class BootstrapBlazorServiceCollectionExtensions
     /// </summary>
     /// <param name="services"></param>
     /// <param name="configureOptions"></param>
-    /// <param name="localizationAction"></param>
+    /// <param name="localizationConfigure"></param>
     /// <returns></returns>
-    public static IServiceCollection AddBootstrapBlazor(this IServiceCollection services, Action<BootstrapBlazorOptions>? configureOptions = null, Action<JsonLocalizationOptions>? localizationAction = null)
+    public static IServiceCollection AddBootstrapBlazor(this IServiceCollection services, Action<BootstrapBlazorOptions>? configureOptions = null, Action<JsonLocalizationOptions>? localizationConfigure = null)
     {
         services.AddMemoryCache();
         services.AddHttpClient();
 
         services.AddAuthorizationCore();
-        services.AddJsonLocalization(localizationAction);
+        services.AddJsonLocalization(localizationConfigure);
         services.AddSingleton<ICacheManager, CacheManager>();
 
         services.TryAddSingleton<IComponentIdGenerator, DefaultIdGenerator>();

@@ -17,16 +17,17 @@ internal static class JsonLocalizationServiceCollectionExtensions
     /// 注入 Json 格式多语言服务
     /// </summary>
     /// <param name="services">IServiceCollection 实例</param>
-    /// <param name="localizationAction">JsonLocalizationOptions 配置回调方法</param>
+    /// <param name="localizationConfigure">JsonLocalizationOptions 配置回调方法</param>
     /// <returns></returns>
-    public static IServiceCollection AddJsonLocalization(this IServiceCollection services, Action<JsonLocalizationOptions>? localizationAction = null)
+    public static IServiceCollection AddJsonLocalization(this IServiceCollection services, Action<JsonLocalizationOptions>? localizationConfigure = null)
     {
         // 防止被 AddLocalization 覆盖掉
         services.AddSingleton<IStringLocalizerFactory, JsonStringLocalizerFactory>();
         services.TryAddTransient(typeof(IStringLocalizer<>), typeof(StringLocalizer<>));
-        if (localizationAction != null)
+        services.TryAddTransient(typeof(IStringLocalizer), typeof(StringLocalizer));
+        if (localizationConfigure != null)
         {
-            services.Configure(localizationAction);
+            services.Configure(localizationConfigure);
         }
         return services;
     }
