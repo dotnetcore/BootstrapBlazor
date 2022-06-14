@@ -186,6 +186,19 @@ public partial class Modal : IAsyncDisposable
     }
 
     /// <summary>
+    /// 设置 Header 文字方法
+    /// </summary>
+    /// <param name="text"></param>
+    public void SetHeaderText(string text)
+    {
+        var dialog = Dialogs.FirstOrDefault(d => d.IsShown);
+        if (dialog != null)
+        {
+            dialog.SetHeaderText(text);
+        }
+    }
+
+    /// <summary>
     /// Dispose
     /// </summary>
     /// <param name="disposing"></param>

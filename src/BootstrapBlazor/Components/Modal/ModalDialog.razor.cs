@@ -232,6 +232,16 @@ public partial class ModalDialog : IDisposable
         }
     }
 
+    /// <summary>
+    /// 设置 Header 文字方法
+    /// </summary>
+    /// <param name="text"></param>
+    public void SetHeaderText(string text)
+    {
+        Title = text;
+        StateHasChanged();
+    }
+
     private async Task OnClickClose()
     {
         Modal.RemoveDialog(this);
