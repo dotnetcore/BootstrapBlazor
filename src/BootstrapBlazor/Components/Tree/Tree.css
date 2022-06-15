@@ -62,9 +62,6 @@
 
     .tree .tree-node {
         flex: 1;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
         display: flex;
         align-items: center;
     }
