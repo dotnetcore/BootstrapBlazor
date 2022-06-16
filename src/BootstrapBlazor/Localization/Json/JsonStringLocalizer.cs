@@ -27,6 +27,7 @@ internal class JsonStringLocalizer : ResourceManagerStringLocalizer
 
     private IServiceProvider ServiceProvider { get; set; }
 
+    private ILocalizationResolve LocalizerResolver { get; set; }
 
     private readonly string _searchedLocation = "";
 
@@ -54,6 +55,7 @@ internal class JsonStringLocalizer : ResourceManagerStringLocalizer
         Logger = logger;
         Options = options;
         ServiceProvider = provider;
+        LocalizerResolver = provider.GetRequiredService<ILocalizationResolve>();
     }
 
     /// <summary>
@@ -201,8 +203,14 @@ internal class JsonStringLocalizer : ResourceManagerStringLocalizer
         var cultureName = GetCultureName(culture);
         var resources = GetJsonStringByCulture(cultureName);
         var resource = resources.FirstOrDefault(s => s.Key == name);
-        Logger.LogDebug($"{nameof(JsonStringLocalizer)} searched for '{name}' in '{_searchedLocation}' with culture '{culture}'.");
-        return resource.Value;
+
+        // localization resolve
+        var value = resource.Value ?? LocalizerResolver.GetJsonStringByCulture(culture, name);
+        if (value == null)
+        {
+            Logger.LogInformation($"{nameof(JsonStringLocalizer)} searched for '{name}' in '{_searchedLocation}' with culture '{culture}' not found.");
+        }
+        return value;
     }
 
     private IEnumerable<string> GetAllStringsFromCultureHierarchy(CultureInfo culture)

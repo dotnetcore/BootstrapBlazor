@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using BootstrapBlazor.Localization;
 using BootstrapBlazor.Localization.Json;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Localization;
@@ -24,7 +25,8 @@ internal static class JsonLocalizationServiceCollectionExtensions
         // 防止被 AddLocalization 覆盖掉
         services.AddSingleton<IStringLocalizerFactory, JsonStringLocalizerFactory>();
         services.TryAddTransient(typeof(IStringLocalizer<>), typeof(StringLocalizer<>));
-        services.TryAddTransient(typeof(IStringLocalizer), typeof(StringLocalizer));
+        services.TryAddTransient<IStringLocalizer, StringLocalizer>();
+        services.TryAddSingleton<ILocalizationResolve, NullLocalizationResolve>();
         if (localizationConfigure != null)
         {
             services.Configure(localizationConfigure);
