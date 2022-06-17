@@ -87,6 +87,7 @@ public partial class TablesLoading
     {
         // 模拟延时
         await Task.Delay(1000);
+
         IEnumerable<Foo> items = Items;
 
         // 处理高级搜索

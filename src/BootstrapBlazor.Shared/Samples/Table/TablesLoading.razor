@@ -7,7 +7,31 @@
 <DemoBlock Title="基础用法" Introduction="设置 <code>ShowLoading</code> 即可" Name="ShowLoading">
     <Table TItem="Foo" PageItemsSource="@PageItemsSource" AutoGenerateColumns="true"
            IsPagination="true" IsStriped="true" IsBordered="true" IsMultipleSelect="true"
-           ShowToolbar="true" ShowExtendButtons="true" ShowSkeleton="true" ShowLoading="true" ShowSearch="true"
+           ShowToolbar="true" ShowExtendButtons="true" ShowLoading="true" ShowSearch="true"
+           OnAddAsync="@OnAddAsync" OnEditAsync="@OnEditAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync"
+           OnQueryAsync="@OnQueryAsync">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.Hobby" Items="@Hobbys" />
+        </TableColumns>
+    </Table>
+</DemoBlock>
+
+<DemoBlock Title="骨架屏" Introduction="设置 <code>ShowSkeleton</code> 即可" Name="ShowSkeleton">
+    <Table TItem="Foo" PageItemsSource="@PageItemsSource" AutoGenerateColumns="true"
+           IsPagination="true" IsStriped="true" IsBordered="true" IsMultipleSelect="true"
+           ShowToolbar="true" ShowExtendButtons="true" ShowSkeleton="true" ShowSearch="true"
+           OnAddAsync="@OnAddAsync" OnEditAsync="@OnEditAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync"
+           OnQueryAsync="@OnQueryAsync">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.Hobby" Items="@Hobbys" />
+        </TableColumns>
+    </Table>
+</DemoBlock>
+
+<DemoBlock Title="关闭加载动画" Introduction="设置 <code>ShowLoadingInFirstRender</code> 即可" Name="ShowLoadingInFirstRender">
+    <Table TItem="Foo" PageItemsSource="@PageItemsSource" AutoGenerateColumns="true"
+           IsPagination="true" IsStriped="true" IsBordered="true" IsMultipleSelect="true"
+           ShowToolbar="true" ShowExtendButtons="true" ShowLoadingInFirstRender="false" ShowLoading="false" ShowSearch="true"
            OnAddAsync="@OnAddAsync" OnEditAsync="@OnEditAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync"
            OnQueryAsync="@OnQueryAsync">
         <TableColumns>

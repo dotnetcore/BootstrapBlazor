@@ -774,6 +774,14 @@ public partial class Tables
         },
         new()
         {
+            Name = "ShowLoadingInFirstRender",
+            Description = TablesLocalizer["ShowLoadingInFirstRenderAttr"],
+            Type = "boolean",
+            ValueList = "true / false",
+            DefaultValue = "true"
+        },
+        new()
+        {
             Name = "ShowColumnList",
             Description = TablesLocalizer["ShowColumnListAttr"],
             Type = "boolean",
