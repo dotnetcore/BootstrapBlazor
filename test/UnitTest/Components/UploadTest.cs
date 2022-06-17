@@ -627,6 +627,65 @@ public class UploadTest : BootstrapBlazorTestBase
         cut.Contains("form-label");
     }
 
+    [Fact]
+    public void FileSize_Ok()
+    {
+        var validator = new FileValidationAttribute()
+        {
+            FileSize = 5
+        };
+        var p = new Person()
+        {
+            Picture = new MockBrowserFile("test.log")
+        };
+        var result = validator.GetValidationResult(p.Picture, new ValidationContext(p));
+        Assert.NotEqual(ValidationResult.Success, result);
+    }
+
+    [Fact]
+    public void FileExtensions_Ok()
+    {
+        var validator = new FileValidationAttribute()
+        {
+            Extensions = new string[] { "jpg" }
+        };
+        var p = new Person()
+        {
+            Picture = new MockBrowserFile("test.log")
+        };
+        var result = validator.GetValidationResult(p.Picture, new ValidationContext(p));
+        Assert.NotEqual(ValidationResult.Success, result);
+    }
+
+    [Fact]
+    public void IsValid_Ok()
+    {
+        var validator = new FileValidationAttribute()
+        {
+            Extensions = new string[] { "jpg" }
+        };
+        var p = new Person()
+        {
+            Picture = new MockBrowserFile("test.log")
+        };
+        Assert.False(validator.IsValid(p.Picture));
+    }
+
+    [Fact]
+    public void Validate_Ok()
+    {
+        var validator = new FileValidationAttribute()
+        {
+            Extensions = new string[] { "jpg" }
+        };
+        var p = new Person()
+        {
+            Picture = new MockBrowserFile("test.log")
+        };
+        Assert.Throws<ValidationException>(() => validator.Validate(p.Picture, "Picture"));
+        Assert.Throws<ValidationException>(() => validator.Validate(p.Picture, new ValidationContext(p)));
+    }
+
     private class Person
     {
         [Required]
