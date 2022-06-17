@@ -204,8 +204,16 @@ public partial class Table<TItem>
         }
         else
         {
-            var d = DataService ?? InjectDataService;
-            ret = await d.DeleteAsync(SelectedRows);
+            if (Items != null)
+            {
+                // always return true if use Items as datasource
+                ret = true;
+            }
+            else
+            {
+                var d = DataService ?? InjectDataService;
+                ret = await d.DeleteAsync(SelectedRows);
+            }
         }
         return ret;
     }
@@ -219,12 +227,16 @@ public partial class Table<TItem>
         }
         else
         {
-            var d = DataService ?? InjectDataService;
-            ret = await d.SaveAsync(item, changedType);
-        }
-        if (ret)
-        {
-            await InvokeItemsChanged();
+            if (Items != null)
+            {
+                // always return true if use Items as datasource
+                ret = true;
+            }
+            else
+            {
+                var d = DataService ?? InjectDataService;
+                ret = await d.SaveAsync(item, changedType);
+            }
         }
         return ret;
     }
@@ -238,8 +250,11 @@ public partial class Table<TItem>
         else
         {
             EditModel = new TItem();
-            var d = DataService ?? InjectDataService;
-            await d.AddAsync(EditModel);
+            if (Items == null)
+            {
+                var d = DataService ?? InjectDataService;
+                await d.AddAsync(EditModel);
+            }
         }
     }
 
@@ -247,7 +262,7 @@ public partial class Table<TItem>
     {
         if (OnEditAsync != null)
         {
-            EditModel = IsTracking ? SelectedRows[0] : Utility.Clone(SelectedRows[0]);
+            EditModel = Utility.Clone(SelectedRows[0]);
             await OnEditAsync(EditModel);
         }
         else
@@ -260,7 +275,7 @@ public partial class Table<TItem>
             }
             else
             {
-                EditModel = IsTracking ? SelectedRows[0] : Utility.Clone(SelectedRows[0]);
+                EditModel = Utility.Clone(SelectedRows[0]);
             }
         }
     }

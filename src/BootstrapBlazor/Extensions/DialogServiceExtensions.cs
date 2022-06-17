@@ -88,7 +88,6 @@ public static class DialogServiceExtensions
             }),
             [nameof(EditDialog<TModel>.RowType)] = option.RowType,
             [nameof(EditDialog<TModel>.LabelAlign)] = option.LabelAlign,
-            [nameof(EditDialog<TModel>.IsTracking)] = option.IsTracking,
             [nameof(EditDialog<TModel>.ItemChangedType)] = option.ItemChangedType,
             [nameof(ItemsPerRow)] = option.ItemsPerRow,
             [nameof(EditDialog<TModel>.CloseButtonText)] = option.CloseButtonText,

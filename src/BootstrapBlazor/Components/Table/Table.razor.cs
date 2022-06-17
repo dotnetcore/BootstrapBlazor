@@ -172,12 +172,6 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
     public Func<TItem, bool>? HasChildrenCallback { get; set; }
 
     /// <summary>
-    /// 获得/设置 组件是否采用 Tracking 模式对编辑项进行直接更新 默认 false
-    /// </summary>
-    [Parameter]
-    public bool IsTracking { get; set; }
-
-    /// <summary>
     /// 获得/设置 组件工作模式为 Excel 模式 默认 false
     /// </summary>
     [Parameter]
@@ -1209,14 +1203,6 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
         }
         Filters.Clear();
         await OnFilterAsync();
-    }
-
-    private async Task InvokeItemsChanged()
-    {
-        if (ItemsChanged.HasDelegate)
-        {
-            await ItemsChanged.InvokeAsync(Rows);
-        }
     }
 
     #region Dispose

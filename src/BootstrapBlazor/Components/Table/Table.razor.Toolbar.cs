@@ -266,16 +266,9 @@ public partial class Table<TItem>
         async Task AddItemAsync()
         {
             await ToggleLoading(true);
-
             await InternalOnAddAsync();
-
             SelectedRows.Clear();
-
             EditModalTitleString = AddModalTitle;
-            if (IsTracking)
-            {
-                Rows.Insert(0, EditModel);
-            }
             if (EditMode == EditMode.Popup)
             {
                 await ShowEditDialog(ItemChangedType.Add);
@@ -457,10 +450,20 @@ public partial class Table<TItem>
             }
             else if (EditMode == EditMode.InCell)
             {
-                SelectedRows.Clear();
                 EditInCell = false;
                 AddInCell = false;
-                await QueryAsync();
+                if (ItemsChanged.HasDelegate)
+                {
+                    // 通过 EditModel 恢复 编辑数据
+                    Rows.Insert(0, EditModel);
+                    SelectedRows.Clear();
+                    await ItemsChanged.InvokeAsync(Rows);
+                }
+                else
+                {
+                    SelectedRows.Clear();
+                    await QueryAsync();
+                }
             }
         }
         await ToggleLoading(false);
@@ -499,7 +502,6 @@ public partial class Table<TItem>
         var option = new EditDialogOption<TItem>()
         {
             Class = "modal-dialog-table",
-            IsTracking = IsTracking,
             IsScrolling = ScrollingDialogContent,
             IsKeyboard = IsKeyboard,
             ShowLoading = ShowLoading,
@@ -591,12 +593,6 @@ public partial class Table<TItem>
         {
             await DeleteDynamicObjectExcelModelAsync();
         }
-        else if (IsTracking)
-        {
-            Rows.RemoveAll(i => SelectedRows.Contains(i));
-            SelectedRows.Clear();
-            StateHasChanged();
-        }
         else
         {
             await ToggleLoading(true);
@@ -620,19 +616,27 @@ public partial class Table<TItem>
             var ret = await InternalOnDeleteAsync();
             if (ret)
             {
-                await InvokeItemsChanged();
-                if (IsPagination)
+                if (ItemsChanged.HasDelegate)
                 {
-                    // 删除成功 重新查询
-                    // 由于数据删除导致页码会改变，尤其是最后一页
-                    // 重新计算页码
-                    // https://gitee.com/LongbowEnterprise/BootstrapBlazor/issues/I1UJSL
-                    PageIndex = Math.Max(1, Math.Min(PageIndex, int.Parse(Math.Ceiling((TotalCount - SelectedRows.Count) * 1d / PageItems).ToString())));
-                    var items = PageItemsSource.Where(item => item >= (TotalCount - SelectedRows.Count));
-                    PageItems = Math.Min(PageItems, items.Any() ? items.Min() : PageItems);
+                    Rows.RemoveAll(i => SelectedRows.Contains(i));
+                    SelectedRows.Clear();
+                    await ItemsChanged.InvokeAsync(Rows);
                 }
-                SelectedRows.Clear();
-                await QueryAsync();
+                else
+                {
+                    if (IsPagination)
+                    {
+                        // 删除成功 重新查询
+                        // 由于数据删除导致页码会改变，尤其是最后一页
+                        // 重新计算页码
+                        // https://gitee.com/LongbowEnterprise/BootstrapBlazor/issues/I1UJSL
+                        PageIndex = Math.Max(1, Math.Min(PageIndex, int.Parse(Math.Ceiling((TotalCount - SelectedRows.Count) * 1d / PageItems).ToString())));
+                        var items = PageItemsSource.Where(item => item >= (TotalCount - SelectedRows.Count));
+                        PageItems = Math.Min(PageItems, items.Any() ? items.Min() : PageItems);
+                    }
+                    SelectedRows.Clear();
+                    await QueryAsync();
+                }
             }
             return ret;
         }
