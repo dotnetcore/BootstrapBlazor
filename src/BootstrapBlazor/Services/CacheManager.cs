@@ -295,22 +295,24 @@ internal class CacheManager : ICacheManager
             // 通过资源文件查找 FieldName 项
             string? ret = null;
             var localizer = CreateLocalizerByType(modelType);
-            var stringLocalizer = localizer?[$"{fieldName}.PlaceHolder"];
-            if (stringLocalizer is { ResourceNotFound: false })
+            if (localizer != null)
             {
-                ret = stringLocalizer.Value;
-            }
-            else if (TryGetProperty(modelType, fieldName, out var propertyInfo))
-            {
-                var placeHolderAttribute = propertyInfo.GetCustomAttribute<PlaceHolderAttribute>(true);
-                if (placeHolderAttribute != null)
+                var stringLocalizer = localizer[$"{fieldName}.PlaceHolder"];
+                if (stringLocalizer is { ResourceNotFound: false })
                 {
-                    ret = placeHolderAttribute.Text;
+                    ret = stringLocalizer.Value;
                 }
+                else if (TryGetProperty(modelType, fieldName, out var propertyInfo))
+                {
+                    var placeHolderAttribute = propertyInfo.GetCustomAttribute<PlaceHolderAttribute>(true);
+                    if (placeHolderAttribute != null)
+                    {
+                        ret = placeHolderAttribute.Text;
+                    }
+                }
+
+                entry.SetDynamicAssemblyPolicy(modelType);
             }
-
-            entry.SetDynamicAssemblyPolicy(modelType);
-
             return ret;
         });
     }
@@ -342,7 +344,7 @@ internal class CacheManager : ICacheManager
 
     public static TResult GetPropertyValue<TModel, TResult>(TModel model, string fieldName)
     {
-        if(model == null)
+        if (model == null)
         {
             throw new ArgumentNullException(nameof(model));
         }

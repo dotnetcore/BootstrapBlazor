@@ -466,6 +466,17 @@ public class UtilityTest : BootstrapBlazorTestBase
         Assert.Equal("test-Name", cols.First(i => i.GetFieldName() == "Name").Text);
     }
 
+    [Fact]
+    public void GetPlaceholder_Ok()
+    {
+        var text = Utility.GetPlaceHolder<Cat>("Name");
+        Assert.Equal("Test-PlaceHolder", text);
+
+        // from resource file
+        text = Utility.GetPlaceHolder<Cat>("PlaceHolder");
+        Assert.Equal("test-PlaceHolder", text);
+    }
+
     private class MockNullDisplayNameColumn : MockTableColumn, IEditorItem
     {
         public MockNullDisplayNameColumn(string fieldName, Type propertyType) : base(fieldName, propertyType)
@@ -479,5 +490,10 @@ public class UtilityTest : BootstrapBlazorTestBase
     private class Cat
     {
         public Foo Foo { get; set; } = new Foo();
+
+        [PlaceHolder("Test-PlaceHolder")]
+        public string? Name { get; set; }
+
+        public string? PlaceHolder { get; set; }
     }
 }

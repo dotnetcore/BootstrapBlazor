@@ -34,5 +34,8 @@
   },
   "System.ComponentModel.DataAnnotations.RequiredAttribute": {
     "ErrorMessage": "{0} is Required"
+  },
+  "UnitTest.Utils.UtilityTest+Cat": {
+    "PlaceHolder.PlaceHolder": "test-PlaceHolder"
   }
 }
