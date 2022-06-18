@@ -406,7 +406,7 @@ public partial class ValidateForm : IAsyncDisposable
             else
             {
                 // 未选择文件
-                ValidateDataAnnotations(null, context, messages, pi);
+                ValidateDataAnnotations(propertyValue, context, messages, pi);
             }
         }
         else
