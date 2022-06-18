@@ -326,5 +326,9 @@
     "NullValueDisplayText": "请选择 ...",
     "TrueValueDisplayText": "True",
     "FalseValueDisplayText": "False"
+  },
+  "BootstrapBlazor.Components.InsertRowMode": {
+    "Last": "最后",
+    "First": "最前"
   }
 }

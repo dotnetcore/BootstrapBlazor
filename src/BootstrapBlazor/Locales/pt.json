@@ -326,5 +326,9 @@
     "NullValueDisplayText": "Seleccione por favor",
     "TrueValueDisplayText": "Verdade",
     "FalseValueDisplayText": "Falso"
+  },
+  "BootstrapBlazor.Components.InsertRowMode": {
+    "Last": "Último",
+    "First": "Primeiro"
   }
 }

@@ -58,6 +58,72 @@ public class TableTest : TableTestBase
         Assert.True(binded);
     }
 
+    [Theory]
+    [InlineData(InsertRowMode.First)]
+    [InlineData(InsertRowMode.Last)]
+    public async Task Items_Add(InsertRowMode insertMode)
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var items = Foo.GenerateFoo(localizer, 2);
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.Items, items);
+                pb.Add(a => a.ItemsChanged, EventCallback.Factory.Create<IEnumerable<Foo>>(this, rows =>
+                {
+                    items = rows.ToList();
+                }));
+                pb.Add(a => a.EditMode, EditMode.InCell);
+                pb.Add(a => a.InsertRowMode, insertMode);
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.ShowExtendButtons, true);
+            });
+        });
+        var table = cut.FindComponent<Table<Foo>>();
+        await cut.InvokeAsync(() => table.Instance.AddAsync());
+
+        if (insertMode == InsertRowMode.First)
+        {
+            var button = cut.Find("tbody tr button");
+            await cut.InvokeAsync(() => button.Click());
+            Assert.Null(items.First().Name);
+        }
+        else if (insertMode == InsertRowMode.Last)
+        {
+            var button = cut.FindAll("tbody tr button").Last(i => i.ClassList.Contains("btn-success"));
+            await cut.InvokeAsync(() => button.Click());
+            Assert.Null(items.Last().Name);
+        }
+    }
+
+
+    [Fact]
+    public async void Items_EditForm_Add()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var items = Foo.GenerateFoo(localizer, 2);
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.Items, items);
+                pb.Add(a => a.ItemsChanged, EventCallback.Factory.Create<IEnumerable<Foo>>(this, rows =>
+                {
+                    items = rows.ToList();
+                }));
+                pb.Add(a => a.EditMode, EditMode.EditForm);
+                pb.Add(a => a.InsertRowMode, InsertRowMode.First);
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.ShowExtendButtons, true);
+            });
+        });
+        var table = cut.FindComponent<Table<Foo>>();
+        await cut.InvokeAsync(() => table.Instance.AddAsync());
+        var tr = cut.Find("tbody tr");
+        Assert.Contains("<form ", tr.InnerHtml);
+    }
+
     [Fact]
     public async void Items_Delete()
     {

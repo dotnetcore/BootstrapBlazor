@@ -10,12 +10,12 @@ namespace BootstrapBlazor.Components;
 public enum InsertRowMode
 {
     /// <summary>
-    /// 最后一行
-    /// </summary>
-    Last,
-
-    /// <summary>
     /// 第一行
     /// </summary>
-    First
+    First,
+
+    /// <summary>
+    /// 最后一行
+    /// </summary>
+    Last
 }

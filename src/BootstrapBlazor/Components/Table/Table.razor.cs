@@ -1205,6 +1205,18 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
         await OnFilterAsync();
     }
 
+    /// <summary>
+    /// 返回 true 时按钮禁用
+    /// </summary>
+    /// <returns></returns>
+    private bool GetEditButtonStatus() => ShowAddForm || AddInCell || SelectedRows.Count != 1;
+
+    /// <summary>
+    /// 返回 true 时按钮禁用
+    /// </summary>
+    /// <returns></returns>
+    private bool GetDeleteButtonStatus() => ShowAddForm || AddInCell || !SelectedRows.Any();
+
     #region Dispose
     /// <summary>
     /// Dispose 方法

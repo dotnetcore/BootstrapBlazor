@@ -28,10 +28,10 @@ public partial class Table<TItem>
     public EventCallback<List<TItem>> SelectedRowsChanged { get; set; }
 
     /// <summary>
-    /// 获得/设置 新建行位置枚举 默认为 选中行后面
+    /// 获得/设置 新建行位置枚举 默认为 Last 最后
     /// </summary>
     [Parameter]
-    public InsertRowMode InsertRowMode { get; set; }
+    public InsertRowMode InsertRowMode { get; set; } = InsertRowMode.Last;
 
     /// <summary>
     /// 获得/设置 是否正在查询数据
