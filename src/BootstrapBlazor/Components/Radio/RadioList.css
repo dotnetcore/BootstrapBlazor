@@ -1,10 +1,14 @@
-﻿.radio-list {
+﻿:root {
+    --bb-radio-item-width: 120px;
+}
+
+.radio-list {
     display: flex;
     flex-wrap: wrap;
 }
 
     .radio-list .form-check {
-        width: 120px;
+        width: var(--bb-radio-item-width);
     }
 
     .radio-list.is-vertical {

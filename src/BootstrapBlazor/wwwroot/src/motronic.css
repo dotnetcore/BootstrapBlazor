@@ -193,8 +193,8 @@
 
 .btn-primary {
     color: #fff;
-    background-color: #009ef7;
-    border-color: #009ef7;
+    background-color: var(--bs-primary);
+    border-color: var(--bs-primary);
 }
 
     .btn-primary:hover {
@@ -217,8 +217,8 @@
 
     .btn-primary.disabled, .btn-primary:disabled {
         color: #fff;
-        background-color: #009ef7;
-        border-color: #009ef7;
+        background-color: var(--bs-primary);
+        border-color: var(--bs-primary);
     }
 
 .btn-secondary {
@@ -446,24 +446,24 @@
     }
 
 .btn-outline-primary {
-    color: #009ef7;
-    border-color: #009ef7;
+    color: var(--bs-primary);
+    border-color: var(--bs-primary);
 }
 
     .btn-outline-primary:hover {
         color: #fff;
-        background-color: #009ef7;
-        border-color: #009ef7;
+        background-color: var(--bs-primary);
+        border-color: var(--bs-primary);
     }
 
     .btn-check:active + .btn-outline-primary, .btn-check:checked + .btn-outline-primary, .btn-outline-primary.active, .btn-outline-primary.dropdown-toggle.show, .btn-outline-primary:active {
         color: #000;
-        background-color: #009ef7;
-        border-color: #009ef7;
+        background-color: var(--bs-primary);
+        border-color: var(--bs-primary);
     }
 
     .btn-outline-primary.disabled, .btn-outline-primary:disabled {
-        color: #009ef7;
+        color: var(--bs-primary);
         background-color: transparent;
     }
 
@@ -601,7 +601,7 @@
 
 .btn-link {
     font-weight: 400;
-    color: #009ef7;
+    color: var(--bs-primary);
     text-decoration: none;
 }
 
@@ -841,7 +841,7 @@
 }
 
 .page-link:hover {
-    color: #009ef7;
+    color: var(--bs-primary);
     background-color: #f1faff;
 }
 
@@ -871,7 +871,7 @@
 
 .menu .nav .dropdown-menu .nav-link:not(.disabled):hover, .menu .nav .dropdown-menu .nav-link.active, .menu .submenu .nav-link.active, .menu .submenu .nav-link:not(.disabled):hover, .cascade .dropdown-item:not(.disabled):hover, .cascade .dropdown-item.active, .cascade .nav .nav-link:not(.disabled):hover, .cascade .nav .nav-link.active {
     background-color: transparent;
-    color: #009ef7;
+    color: var(--bs-primary);
 }
 
 .form-control.is-valid, .was-validated .form-control:valid {
@@ -903,7 +903,7 @@
 
 .tree .tree-item > .tree-content > .tree-node:hover,
 .tree .tree-item.active > .tree-content > .tree-node {
-    color: #009ef7;
+    color: var(--bs-primary);
 }
 
 .card-header {

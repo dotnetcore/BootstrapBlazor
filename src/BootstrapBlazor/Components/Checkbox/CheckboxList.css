@@ -1,4 +1,8 @@
-﻿.checkbox-list {
+﻿:root {
+    --bb-checkbox-item-width: 120px;
+}
+
+.checkbox-list {
     min-height: var(--bb-height);
     height: auto;
     display: flex;
@@ -14,12 +18,11 @@
 
     .checkbox-list .checkbox-item {
         display: inline-flex;
-        width: 120px;
-        height: 33px;
+        width: var(--bb-checkbox-item-width);
     }
 
-        .checkbox-list .checkbox-item .form-check-label {
-            max-width: 104px;
+        .checkbox-list .checkbox-item .form-check {
+            width: var(--bb-checkbox-item-width);
         }
 
     .checkbox-list.form-control.no-border {
