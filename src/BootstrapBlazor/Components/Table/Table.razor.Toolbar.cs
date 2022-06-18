@@ -455,7 +455,23 @@ public partial class Table<TItem>
                 if (ItemsChanged.HasDelegate)
                 {
                     // 通过 EditModel 恢复 编辑数据
-                    Rows.Insert(0, EditModel);
+                    if (changedType == ItemChangedType.Add)
+                    {
+                        if (InsertRowMode == InsertRowMode.Last)
+                        {
+                            Rows.Add(EditModel);
+                        }
+                        else if (InsertRowMode == InsertRowMode.First)
+                        {
+                            Rows.Insert(0, EditModel);
+                        }
+                    }
+                    else
+                    {
+                        var index = Rows.IndexOf(SelectedRows[0]);
+                        Rows.RemoveAt(index);
+                        Rows.Insert(index, EditModel);
+                    }
                     SelectedRows.Clear();
                     await ItemsChanged.InvokeAsync(Rows);
                 }
