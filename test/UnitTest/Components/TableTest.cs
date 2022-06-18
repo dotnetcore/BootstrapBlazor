@@ -98,8 +98,10 @@ public class TableTest : TableTestBase
     }
 
 
-    [Fact]
-    public async void Items_EditForm_Add()
+    [Theory]
+    [InlineData(InsertRowMode.First)]
+    [InlineData(InsertRowMode.Last)]
+    public async void Items_EditForm_Add(InsertRowMode insertMode)
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
@@ -113,15 +115,14 @@ public class TableTest : TableTestBase
                     items = rows.ToList();
                 }));
                 pb.Add(a => a.EditMode, EditMode.EditForm);
-                pb.Add(a => a.InsertRowMode, InsertRowMode.First);
+                pb.Add(a => a.InsertRowMode, insertMode);
                 pb.Add(a => a.RenderMode, TableRenderMode.Table);
                 pb.Add(a => a.ShowExtendButtons, true);
             });
         });
         var table = cut.FindComponent<Table<Foo>>();
         await cut.InvokeAsync(() => table.Instance.AddAsync());
-        var tr = cut.Find("tbody tr");
-        Assert.Contains("<form ", tr.InnerHtml);
+        Assert.Contains("<form ", table.Markup);
     }
 
     [Fact]
