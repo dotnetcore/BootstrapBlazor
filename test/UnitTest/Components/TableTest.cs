@@ -3309,6 +3309,7 @@ public class TableTest : TableTestBase
                 pb.Add(a => a.ShowToolbar, true);
                 pb.Add(a => a.ShowExtendButtons, true);
                 pb.Add(a => a.EditMode, mode);
+                pb.Add(a => a.InsertRowMode, InsertRowMode.First);
                 pb.Add(a => a.OnAddAsync, () =>
                 {
                     added = true;
