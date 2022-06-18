@@ -105,7 +105,7 @@ public partial class PopConfirmButton
             Icon = LoadingIcon;
             StateHasChanged();
 
-            await Task.Run(() => OnConfirm());
+            await Task.Run(() => InvokeAsync(OnConfirm));
 
             IsDisabled = false;
             Icon = icon;

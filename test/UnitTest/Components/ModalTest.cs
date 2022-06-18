@@ -59,4 +59,19 @@ public class ModalTest : BootstrapBlazorTestBase
         });
         cut.InvokeAsync(async () => await cut.Instance.Close());
     }
+
+    [Fact]
+    public async Task SetHeaderText_Ok()
+    {
+        var cut = Context.RenderComponent<Modal>(pb =>
+        {
+            pb.AddChildContent<ModalDialog>();
+        });
+        var header = cut.Find(".modal-title");
+        Assert.Equal("", header.TextContent);
+
+        await cut.InvokeAsync(() => cut.Instance.SetHeaderText("Test-Header"));
+        header = cut.Find(".modal-title");
+        Assert.Equal("Test-Header", header.TextContent);
+    }
 }

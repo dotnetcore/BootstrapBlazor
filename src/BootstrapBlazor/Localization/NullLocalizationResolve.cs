@@ -2,17 +2,11 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using BootstrapBlazor.Shared;
 using System.Globalization;
 
-namespace UnitTest.Localization;
+namespace BootstrapBlazor.Localization;
 
-public class EnumExtensionsTest : BootstrapBlazorTestBase
+internal class NullLocalizationResolve : ILocalizationResolve
 {
-    [Fact]
-    public void ToDisplayName_Ok()
-    {
-        var dn = EnumEducation.Middel.ToDisplayName();
-        Assert.Equal("中学", dn);
-    }
+    public string? GetJsonStringByCulture(CultureInfo culture, string name) => null;
 }

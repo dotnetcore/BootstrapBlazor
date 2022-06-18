@@ -1,11 +1,16 @@
 ﻿:root {
-    --bb-checkbox-label-padding: 7px;
+    --bb-checkbox-label-padding-y: 6px;
     --bb-checkbox-height: 1rem;
     --bb-checkbox-sm-height: 1.25rem;
     --bb-checkbox-md-height: 1.5rem;
     --bb-checkbox-lg-height: 1.75rem;
     --bb-checkbox-xl-height: 2rem;
     --bb-checkbox-xxl-height: var(--bb-height);
+    --bb-checkbox-input-focus-border-color: #b5b5c3;
+    --bb-checkbox-item-disabled-opacity: 0.5;
+    --bb-checkbox-item-padding-md: 4px 0 3px 0;
+    --bb-checkbox-item-padding-lg: 2px 0 1px 0;
+    --bb-checkbox-item-padding-xl: 2px 0 1px 0;
 }
 
 .form-check {
@@ -17,21 +22,21 @@
     .form-check .form-check-input {
         width: var(--bb-checkbox-height);
         height: var(--bb-checkbox-height);
-        float: none;
         margin: 3px 0 1px 0;
         transition: background-color .15s ease-in-out,background-position .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
     }
 
         .form-check .form-check-input + .form-check-label {
-            padding: var(--bb-checkbox-label-padding) .5rem;
+            padding: var(--bb-checkbox-label-padding-y) .5rem;
             text-overflow: ellipsis;
             white-space: nowrap;
             overflow: hidden;
             vertical-align: top;
+            flex: 1;
         }
 
 .form-label + .form-check {
-    padding: var(--bb-checkbox-label-padding) 0;
+    padding: var(--bb-checkbox-label-padding-y) 0;
 }
 
 .form-check-input:active {
@@ -45,13 +50,13 @@
 }
 
 .form-check-input:focus {
-    border-color: #b5b5c3;
+    border-color: var(--bb-checkbox-input-focus-border-color);
     box-shadow: none
 }
 
 .form-check-input:checked {
-    background-color: #009ef7;
-    border-color: #009ef7
+    background-color: var(--bs-primary);
+    border-color: var(--bs-primary)
 }
 
     .form-check-input:checked[type=checkbox] {
@@ -63,20 +68,20 @@
     }
 
 .form-check-input[type=checkbox]:indeterminate {
-    background-color: #009ef7;
-    border-color: #009ef7;
+    background-color: var(--bs-primary);
+    border-color: var(--bs-primary);
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%23FFFFFF' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='M6 10h8'/%3e%3c/svg%3e")
 }
 
 .form-check-input:disabled {
     pointer-events: none;
     filter: none;
-    opacity: .5
+    opacity: var(--bb-checkbox-item-disabled-opacity);
 }
 
     .form-check-input:disabled ~ .form-check-label,
     .form-check-input[disabled] ~ .form-check-label {
-        opacity: .5
+        opacity: var(--bb-checkbox-item-disabled-opacity);
     }
 
 .form-check .form-check-label,
@@ -123,7 +128,7 @@
 }
 
 .form-check.form-check-md {
-    padding: 4px 0 3px 0;
+    padding: var(--bb-checkbox-item-padding-md);
 }
 
     .form-check.form-check-md .form-check-input {
@@ -132,7 +137,7 @@
     }
 
 .form-check.form-check-lg {
-    padding: 2px 0 1px 0;
+    padding: var(--bb-checkbox-item-padding-lg);
 }
 
     .form-check.form-check-lg .form-check-input {
@@ -141,7 +146,7 @@
     }
 
 .form-check.form-check-xl {
-    padding: 2px 0 1px 0;
+    padding: var(--bb-checkbox-item-padding-xl);
 }
 
     .form-check.form-check-xl .form-check-input {

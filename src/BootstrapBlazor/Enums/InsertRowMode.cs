@@ -5,22 +5,17 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// PlaceHolderAttribute 占位符标签类
+/// Table 组件 <see cref="EditMode"/> 为非弹窗模式时新建行模式
 /// </summary>
-[AttributeUsage(AttributeTargets.Property)]
-public class PlaceHolderAttribute : Attribute
+public enum InsertRowMode
 {
     /// <summary>
-    /// 获得 Text 属性
+    /// 最后一行
     /// </summary>
-    public string Text { get; }
+    Last,
 
     /// <summary>
-    /// 构造函数
+    /// 第一行
     /// </summary>
-    /// <param name="placeholder"></param>
-    public PlaceHolderAttribute(string placeholder)
-    {
-        Text = placeholder;
-    }
+    First
 }

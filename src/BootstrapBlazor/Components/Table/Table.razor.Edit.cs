@@ -28,6 +28,12 @@ public partial class Table<TItem>
     public EventCallback<List<TItem>> SelectedRowsChanged { get; set; }
 
     /// <summary>
+    /// 获得/设置 新建行位置枚举 默认为 选中行后面
+    /// </summary>
+    [Parameter]
+    public InsertRowMode InsertRowMode { get; set; }
+
+    /// <summary>
     /// 获得/设置 是否正在查询数据
     /// </summary>
     private bool IsLoading { get; set; }
@@ -204,8 +210,16 @@ public partial class Table<TItem>
         }
         else
         {
-            var d = DataService ?? InjectDataService;
-            ret = await d.DeleteAsync(SelectedRows);
+            if (Items != null)
+            {
+                // always return true if use Items as datasource
+                ret = true;
+            }
+            else
+            {
+                var d = DataService ?? InjectDataService;
+                ret = await d.DeleteAsync(SelectedRows);
+            }
         }
         return ret;
     }
@@ -219,8 +233,16 @@ public partial class Table<TItem>
         }
         else
         {
-            var d = DataService ?? InjectDataService;
-            ret = await d.SaveAsync(item, changedType);
+            if (Items != null)
+            {
+                // always return true if use Items as datasource
+                ret = true;
+            }
+            else
+            {
+                var d = DataService ?? InjectDataService;
+                ret = await d.SaveAsync(item, changedType);
+            }
         }
         return ret;
     }
@@ -234,8 +256,11 @@ public partial class Table<TItem>
         else
         {
             EditModel = new TItem();
-            var d = DataService ?? InjectDataService;
-            await d.AddAsync(EditModel);
+            if (Items == null)
+            {
+                var d = DataService ?? InjectDataService;
+                await d.AddAsync(EditModel);
+            }
         }
     }
 
@@ -243,7 +268,7 @@ public partial class Table<TItem>
     {
         if (OnEditAsync != null)
         {
-            EditModel = IsTracking ? SelectedRows[0] : Utility.Clone(SelectedRows[0]);
+            EditModel = Utility.Clone(SelectedRows[0]);
             await OnEditAsync(EditModel);
         }
         else
@@ -256,7 +281,7 @@ public partial class Table<TItem>
             }
             else
             {
-                EditModel = IsTracking ? SelectedRows[0] : Utility.Clone(SelectedRows[0]);
+                EditModel = Utility.Clone(SelectedRows[0]);
             }
         }
     }

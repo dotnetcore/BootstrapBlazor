@@ -278,6 +278,12 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
     public IEnumerable<TItem>? Items { get; set; }
 
     /// <summary>
+    /// 获得/设置 数据集合回调方法
+    /// </summary>
+    [Parameter]
+    public EventCallback<IEnumerable<TItem>> ItemsChanged { get; set; }
+
+    /// <summary>
     /// 获得/设置 表格组件大小 默认为 Normal 正常模式
     /// </summary>
     [Parameter]

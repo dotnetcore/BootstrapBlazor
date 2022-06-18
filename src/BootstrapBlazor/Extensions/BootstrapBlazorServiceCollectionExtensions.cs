@@ -21,15 +21,15 @@ public static class BootstrapBlazorServiceCollectionExtensions
     /// </summary>
     /// <param name="services"></param>
     /// <param name="configureOptions"></param>
-    /// <param name="localizationAction"></param>
+    /// <param name="localizationConfigure"></param>
     /// <returns></returns>
-    public static IServiceCollection AddBootstrapBlazor(this IServiceCollection services, Action<BootstrapBlazorOptions>? configureOptions = null, Action<JsonLocalizationOptions>? localizationAction = null)
+    public static IServiceCollection AddBootstrapBlazor(this IServiceCollection services, Action<BootstrapBlazorOptions>? configureOptions = null, Action<JsonLocalizationOptions>? localizationConfigure = null)
     {
         services.AddMemoryCache();
         services.AddHttpClient();
 
         services.AddAuthorizationCore();
-        services.AddJsonLocalization(localizationAction);
+        services.AddJsonLocalization(localizationConfigure);
         services.AddSingleton<ICacheManager, CacheManager>();
 
         services.TryAddSingleton<IComponentIdGenerator, DefaultIdGenerator>();
@@ -82,13 +82,21 @@ public static class BootstrapBlazorServiceCollectionExtensions
                 CultureInfo.DefaultThreadCurrentUICulture = culture;
             }
 
-            if (string.IsNullOrEmpty(CultureInfo.CurrentUICulture.Name))
-            {
-                var culture = new CultureInfo(op.FallbackCulture);
-                CultureInfo.CurrentCulture = culture;
-                CultureInfo.CurrentUICulture = culture;
-            }
+            // 设置 FallbackCulture
+            ConfigureFallbackCulture();
+
             configureOptions?.Invoke(op);
+
+            [ExcludeFromCodeCoverage]
+            void ConfigureFallbackCulture()
+            {
+                if (string.IsNullOrEmpty(CultureInfo.CurrentUICulture.Name))
+                {
+                    var culture = new CultureInfo(op.FallbackCulture);
+                    CultureInfo.CurrentCulture = culture;
+                    CultureInfo.CurrentUICulture = culture;
+                }
+            }
         });
         return services;
     }

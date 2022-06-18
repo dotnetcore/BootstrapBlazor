@@ -17,11 +17,17 @@ namespace BootstrapBlazor.Localization.Json;
 /// </summary>
 internal class JsonStringLocalizer : ResourceManagerStringLocalizer
 {
-    private readonly Assembly _assembly;
-    private readonly string _typeName;
-    private readonly ILogger _logger;
-    private readonly JsonLocalizationOptions _options;
-    private readonly IServiceProvider _provider;
+    private Assembly Assembly { get; set; }
+
+    private string TypeName { get; set; }
+
+    private ILogger Logger { get; set; }
+
+    private JsonLocalizationOptions Options { get; set; }
+
+    private IServiceProvider ServiceProvider { get; set; }
+
+    private ILocalizationResolve LocalizerResolver { get; set; }
 
     private readonly string _searchedLocation = "";
 
@@ -44,11 +50,12 @@ internal class JsonStringLocalizer : ResourceManagerStringLocalizer
         JsonLocalizationOptions options,
         IServiceProvider provider) : base(new ResourceManager(baseName, assembly), assembly, baseName, factory.GetCache(), logger)
     {
-        _assembly = assembly;
-        _typeName = typeName;
-        _logger = logger;
-        _options = options;
-        _provider = provider;
+        Assembly = assembly;
+        TypeName = typeName;
+        Logger = logger;
+        Options = options;
+        ServiceProvider = provider;
+        LocalizerResolver = provider.GetRequiredService<ILocalizationResolve>();
     }
 
     /// <summary>
@@ -71,13 +78,13 @@ internal class JsonStringLocalizer : ResourceManagerStringLocalizer
     private string? GetStringFromInject(string name)
     {
         string? ret = null;
-        var factorys = _provider.GetService<IEnumerable<IStringLocalizerFactory>>();
+        var factorys = ServiceProvider.GetService<IEnumerable<IStringLocalizerFactory>>();
         if (factorys != null)
         {
             var factory = factorys.LastOrDefault(a => a is not JsonStringLocalizerFactory);
             if (factory != null)
             {
-                var type = _assembly.GetType(_typeName);
+                var type = Assembly.GetType(TypeName);
                 if (type != null)
                 {
                     var localizer = factory.Create(type);
@@ -119,6 +126,7 @@ internal class JsonStringLocalizer : ResourceManagerStringLocalizer
         {
             try
             {
+                // 从 Resource 文件中获取
                 ret = base.GetAllStrings(includeParentCultures).ToList();
             }
             catch (MissingManifestResourceException)
@@ -136,13 +144,13 @@ internal class JsonStringLocalizer : ResourceManagerStringLocalizer
     private IEnumerable<LocalizedString>? GetAllStringFromInject(bool includeParentCultures)
     {
         IEnumerable<LocalizedString>? ret = null;
-        var factorys = _provider.GetService<IEnumerable<IStringLocalizerFactory>>();
+        var factorys = ServiceProvider.GetService<IEnumerable<IStringLocalizerFactory>>();
         if (factorys != null)
         {
             var factory = factorys.LastOrDefault(a => a is not JsonStringLocalizerFactory);
             if (factory != null)
             {
-                var type = _assembly.GetType(_typeName);
+                var type = Assembly.GetType(TypeName);
                 if (type != null)
                 {
                     var localizer = factory.Create(type);
@@ -154,30 +162,31 @@ internal class JsonStringLocalizer : ResourceManagerStringLocalizer
     }
 
     /// <summary>
-    /// 
+    /// GetAllJsonStrings 方法
     /// </summary>
     /// <param name="includeParentCultures"></param>
     /// <returns></returns>
+    [ExcludeFromCodeCoverage]
     protected virtual IEnumerable<LocalizedString> GetAllJsonStrings(bool includeParentCultures)
     {
-        var cultureInfoName = GetCultureName(CultureInfo.CurrentUICulture);
         var resourceNames = includeParentCultures
             ? GetAllStringsFromCultureHierarchy(CultureInfo.CurrentUICulture)
-            : GetAllResourceStrings(cultureInfoName);
+            : GetAllResourceStrings(GetCultureName(CultureInfo.CurrentUICulture));
 
         foreach (var name in resourceNames)
         {
             var value = GetJsonStringSafely(name);
-            yield return new LocalizedString(name, value ?? name, resourceNotFound: value == null, searchedLocation: _searchedLocation);
+            yield return new LocalizedString(name, value!, false, _searchedLocation);
         }
     }
 
+    [ExcludeFromCodeCoverage]
     private string GetCultureName(CultureInfo culture)
     {
         var cultureInfoName = culture.Name;
-        if (string.IsNullOrEmpty(cultureInfoName) && _options.FallBackToParentUICultures)
+        if (string.IsNullOrEmpty(cultureInfoName) && Options.EnableFallbackCulture)
         {
-            cultureInfoName = _options.FallbackCulture;
+            cultureInfoName = Options.FallbackCulture;
         }
         return cultureInfoName;
     }
@@ -194,8 +203,14 @@ internal class JsonStringLocalizer : ResourceManagerStringLocalizer
         var cultureName = GetCultureName(culture);
         var resources = GetJsonStringByCulture(cultureName);
         var resource = resources.FirstOrDefault(s => s.Key == name);
-        _logger.LogDebug($"{nameof(JsonStringLocalizer)} searched for '{name}' in '{_searchedLocation}' with culture '{culture}'.");
-        return resource.Value;
+
+        // localization resolve
+        var value = resource.Value ?? LocalizerResolver.GetJsonStringByCulture(culture, name);
+        if (value == null)
+        {
+            Logger.LogInformation($"{nameof(JsonStringLocalizer)} searched for '{name}' in '{_searchedLocation}' with culture '{culture}' not found.");
+        }
+        return value;
     }
 
     private IEnumerable<string> GetAllStringsFromCultureHierarchy(CultureInfo culture)
@@ -221,6 +236,6 @@ internal class JsonStringLocalizer : ResourceManagerStringLocalizer
     }
 
     private IEnumerable<KeyValuePair<string, string>> GetJsonStringByCulture(string cultureName) =>
-        _provider.GetRequiredService<ICacheManager>()
-        .GetJsonStringByCulture(cultureName, _options, _assembly, _typeName);
+        ServiceProvider.GetRequiredService<ICacheManager>()
+        .GetJsonStringByCulture(cultureName, Options, Assembly, TypeName);
 }

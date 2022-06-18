@@ -232,6 +232,29 @@
     </ValidateForm>
 </DemoBlock>
 
+<DemoBlock Title="@Localizer["ValidateTitle"]" Introduction="@Localizer["ValidateIntro"]" Name="Validate">
+    <p>@((MarkupString)Localizer["ValidateP1"].Value)</p>
+    <ValidateForm Model="@Model" @ref="ValidatorForm">
+        <div class="row g-3">
+            <div class="col-12 col-sm-6">
+                <BootstrapInput @bind-Value="@Model.Name" />
+            </div>
+            <div class="col-12 col-sm-6">
+                <BootstrapInput @bind-Value="@Model.Address" />
+            </div>
+        </div>
+    </ValidateForm>
+    <Button Icon="fa fa-save" Text="@Localizer["ValidateButtonText"]" OnClickWithoutRender="OnValidator" class="my-3"></Button>
+    <Pre>[NotNull]
+private ValidateForm? ValidatorForm { get; set; }
+
+private Task OnClickValidate()
+{
+    ValidatorForm.Validate();
+    return Task.CompletedTask;
+}</Pre>
+</DemoBlock>
+
 <AttributeTable Items="@GetAttributes()" />
 
 <MethodTable Items="@GetMethods()" />

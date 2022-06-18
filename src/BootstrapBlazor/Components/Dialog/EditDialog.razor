@@ -8,23 +8,17 @@
         <div class="form-body">
             @BodyTemplate.Invoke(Model)
         </div>
-        @if (!IsTracking)
-        {
-            <div class="form-footer">
-                <Button Color="Color.Secondary" Icon="fa fa-times" Text="@CloseButtonText" OnClickWithoutRender="OnClose" />
-                <Button Color="Color.Primary" ButtonType="ButtonType.Submit" Icon="fa fa-save" Text="@SaveButtonText" />
-            </div>
-        }
+        <div class="form-footer">
+            <Button Color="Color.Secondary" Icon="fa fa-times" Text="@CloseButtonText" OnClickWithoutRender="OnClose" />
+            <Button Color="Color.Primary" ButtonType="ButtonType.Submit" Icon="fa fa-save" Text="@SaveButtonText" />
+        </div>
     }
     else
     {
         <EditorForm TModel="TModel" Items="Items" ItemChangedType="ItemChangedType" ItemsPerRow="ItemsPerRow" RowType="RowType" LabelAlign="LabelAlign" ShowLabel="ShowLabel">
             <Buttons>
-                @if (!IsTracking)
-                {
-                    <Button Color="Color.Secondary" Icon="fa fa-times" Text="@CloseButtonText" OnClickWithoutRender="OnClose" />
-                    <Button Color="Color.Primary" ButtonType="ButtonType.Submit" Icon="fa fa-save" Text="@SaveButtonText" />
-                }
+                <Button Color="Color.Secondary" Icon="fa fa-times" Text="@CloseButtonText" OnClickWithoutRender="OnClose" />
+                <Button Color="Color.Primary" ButtonType="ButtonType.Submit" Icon="fa fa-save" Text="@SaveButtonText" />
             </Buttons>
         </EditorForm>
     }

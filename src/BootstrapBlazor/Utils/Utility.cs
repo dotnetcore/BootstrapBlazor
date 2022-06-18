@@ -118,6 +118,14 @@ public static class Utility
     /// <summary>
     /// 获取 PlaceHolder 方法
     /// </summary>
+    /// <typeparam name="TModel">模型类型</typeparam>
+    /// <param name="fieldName">字段名称</param>
+    /// <returns></returns>
+    public static string? GetPlaceHolder<TModel>(string fieldName) => GetPlaceHolder(typeof(TModel), fieldName);
+
+    /// <summary>
+    /// 获取 PlaceHolder 方法
+    /// </summary>
     /// <param name="model">模型实例</param>
     /// <param name="fieldName">字段名称</param>
     /// <returns></returns>

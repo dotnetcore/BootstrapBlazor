@@ -76,7 +76,7 @@
     }
 
     .dropdown-logout .dropdown-item a:hover {
-        color: #009ef7;
+        color: var(--bs-primary);
     }
 
     .dropdown-logout .dropdown-item a .fa {

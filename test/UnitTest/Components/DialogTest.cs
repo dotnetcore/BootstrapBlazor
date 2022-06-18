@@ -124,8 +124,8 @@ public class DialogTest : DialogTestBase
             ItemsPerRow = 2,
             RowType = RowType.Inline,
             ItemChangedType = ItemChangedType.Add,
-            IsTracking = false,
-            LabelAlign = Alignment.Left
+            LabelAlign = Alignment.Left,
+            ShowLabel = true
         };
         cut.InvokeAsync(() => dialog.ShowEditDialog(editOption));
         cut.InvokeAsync(() => modal.Instance.Close());

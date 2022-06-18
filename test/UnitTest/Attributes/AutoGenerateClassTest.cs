@@ -57,6 +57,7 @@ public class AutoGenerateClassTest
             Step = 1,
             Rows = 1,
             LookupStringComparison = StringComparison.Ordinal,
+            LookupServiceKey = "test-lookup",
             GroupName = "Test",
             GroupOrder = 1
         };
@@ -82,6 +83,7 @@ public class AutoGenerateClassTest
         Assert.Equal(StringComparison.Ordinal, attr.LookupStringComparison);
         Assert.Equal("Test", attr.GroupName);
         Assert.Equal(1, attr.GroupOrder);
+        Assert.Equal("test-lookup", attr.LookupServiceKey);
 
         var attrInterface = (ITableColumn)attr;
         attrInterface.ShowLabelTooltip = true;

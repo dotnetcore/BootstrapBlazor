@@ -3,7 +3,7 @@
   <Import Project="..\Framework.props" Condition="'$(Configuration)'=='Debug'" />
 
   <PropertyGroup>
-    <Version>6.7.9</Version>
+    <Version>6.7.17</Version>
   </PropertyGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'net5.0'">

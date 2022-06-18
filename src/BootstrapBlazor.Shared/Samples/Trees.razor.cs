@@ -79,14 +79,7 @@ public sealed partial class Trees
         return ret;
     }
 
-    private static List<TreeItem> GetIconItems()
-    {
-        var ret = TreeDataFoo.GetTreeItems();
-        ret[1].Items[0].Icon = "fa fa-fa";
-        ret[1].Items[1].Icon = "fa fa-fa";
-        ret[1].Items[2].Icon = "fa fa-fa";
-        return ret;
-    }
+    private static List<TreeItem> GetIconItems() => TreeDataFoo.GetTreeItems();
 
     private static List<TreeItem> GetLazyItems()
     {

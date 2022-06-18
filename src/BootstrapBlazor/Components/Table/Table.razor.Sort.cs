@@ -78,10 +78,7 @@ public partial class Table<TItem>
         SortName = col.GetFieldName();
 
         // 通知 Table 组件刷新数据
-        if (IntenralOnSortAsync != null)
-        {
-            await IntenralOnSortAsync(SortName, SortOrder);
-        }
+        await IntenralOnSortAsync(SortName, SortOrder);
     };
 
     /// <summary>

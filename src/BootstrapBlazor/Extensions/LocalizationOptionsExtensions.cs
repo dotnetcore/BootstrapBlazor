@@ -72,7 +72,7 @@ public static class LocalizationOptionsExtensions
         List<Stream> GetResourceStream(Assembly assembly, string cultureInfoName)
         {
             var ret = new List<Stream>();
-            if (option.FallBackToParentUICultures)
+            if (option.EnableFallbackCulture)
             {
                 // 查找回落资源
                 var parentName = GetParentCultureName(cultureInfoName).Value;

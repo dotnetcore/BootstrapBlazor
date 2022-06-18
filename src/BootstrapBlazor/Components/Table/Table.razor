@@ -12,7 +12,7 @@
         {
             <SkeletonTable ShowToolbar="@ShowToolbar"></SkeletonTable>
         }
-        else
+        else if(ShowLoadingInFirstRender)
         {
             <div class="table-loading">
                 <Spinner Color="Color.Primary" />
@@ -279,13 +279,16 @@
             @RenderHeader.Invoke(false)
         }
         <tbody>
-            @if (!IsExcel && EditMode == EditMode.EditForm && ShowAddForm)
+            @if (InsertRowMode == InsertRowMode.First)
             {
-                @RenderEditForm.Invoke((EditModel, ItemChangedType.Add))
-            }
-            @if (AddInCell && !IsTracking)
-            {
-                @RenderRow(EditModel)
+                if (!IsExcel && EditMode == EditMode.EditForm && ShowAddForm)
+                {
+                    @RenderEditForm.Invoke((EditModel, ItemChangedType.Add))
+                }
+                if (AddInCell)
+                {
+                    @RenderRow(EditModel)
+                }
             }
             @if(ScrollMode == ScrollMode.Virtual)
             {
@@ -330,7 +333,7 @@
                             </td>
                         </tr>
                     }
-                    if (!IsExcel && EditMode == EditMode.EditForm && ShowEditForm && SelectedRows.FirstOrDefault() == item)
+                    if (!IsExcel && EditMode == EditMode.EditForm && ShowEditForm && SelectedRows.LastOrDefault() == item)
                     {
                         @RenderEditForm((EditModel, ItemChangedType.Update))
                     }
@@ -343,6 +346,17 @@
                             </Empty>
                         </td>
                     </tr>
+                }
+            }
+            @if (InsertRowMode == InsertRowMode.Last)
+            {
+                if (!IsExcel && EditMode == EditMode.EditForm && ShowAddForm)
+                {
+                    @RenderEditForm.Invoke((EditModel, ItemChangedType.Add))
+                }
+                if (AddInCell)
+                {
+                    @RenderRow(EditModel)
                 }
             }
         </tbody>
@@ -697,15 +711,8 @@ RenderFragment<(TItem Item, ItemChangedType ChangedType)> RenderEditForm => item
                     <EditorForm TModel="TItem" Items="Columns.Where(c => c.Editable)" ItemsPerRow="EditDialogItemsPerRow" RowType="EditDialogRowType" LabelAlign="EditDialogLabelAlign">
                         <Buttons>
                             <div class="text-end">
-                                @if (IsTracking)
-                                {
-                                    <Button Color="Color.Primary" Icon="fa fa-save" Text="@CloseButtonText" OnClick="CancelSave" />
-                                }
-                                else
-                                {
-                                    <Button Color="Color.Secondary" Icon="fa fa-times" Text="@CancelDeleteButtonText" OnClick="CancelSave" />
-                                    <Button Color="Color.Primary" ButtonType="ButtonType.Submit" Icon="fa fa-save" Text="@SaveButtonText" />
-                                }
+                                <Button Color="Color.Secondary" Icon="fa fa-times" Text="@CancelDeleteButtonText" OnClick="CancelSave" />
+                                <Button Color="Color.Primary" ButtonType="ButtonType.Submit" Icon="fa fa-save" Text="@SaveButtonText" />
                             </div>
                         </Buttons>
                     </EditorForm>
@@ -769,15 +776,8 @@ RenderFragment<TItem> RenderRowExtendButtons => item =>
             {
                 @if (isInCell)
                 {
-                    @if (IsTracking)
-                    {
-                        <Button Size="Size.ExtraSmall" OnClick="@CancelSave" Color="Color.Success" Icon="fa fa-edit" Text="@CloseButtonText" />
-                    }
-                    else
-                    {
-                        <Button Size="Size.ExtraSmall" OnClick="ClickUpdateButtonCallback" Color="Color.Success" Icon="fa fa-edit" Text="@UpdateButtonText" />
-                        <Button Size="Size.ExtraSmall" OnClick="@CancelSave" Color="Color.Warning" Icon="fa fa-times" Text="@CancelButtonText" />
-                    }
+                    <Button Size="Size.ExtraSmall" OnClick="ClickUpdateButtonCallback" Color="Color.Success" Icon="fa fa-edit" Text="@UpdateButtonText" />
+                    <Button Size="Size.ExtraSmall" OnClick="@CancelSave" Color="Color.Warning" Icon="fa fa-times" Text="@CancelButtonText" />
                 }
                 else
                 {

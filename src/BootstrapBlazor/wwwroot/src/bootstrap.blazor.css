@@ -513,7 +513,7 @@ form .form-label[required]:before {
     }
 
     .pulse.pulse-primary .pulse-ring {
-        border-color: #009ef7
+        border-color: var(--bs-primary);
     }
 
     .pulse.pulse-secondary .pulse-ring {
