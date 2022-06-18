@@ -342,7 +342,7 @@ internal class CacheManager : ICacheManager
 
     public static TResult GetPropertyValue<TModel, TResult>(TModel model, string fieldName)
     {
-        if(model == null)
+        if (model == null)
         {
             throw new ArgumentNullException(nameof(model));
         }
@@ -379,7 +379,7 @@ internal class CacheManager : ICacheManager
     /// <typeparam name="TValue"></typeparam>
     /// <param name="model"></param>
     /// <returns></returns>
-    public static TValue GetKeyValue<TModel, TValue>(TModel model)
+    public static TValue GetKeyValue<TModel, TValue>(TModel model, Type? customAttribute = null)
     {
         if (model == null)
         {
@@ -390,7 +390,7 @@ internal class CacheManager : ICacheManager
         var invoker = Instance.GetOrCreate(cacheKey, entry =>
         {
             entry.SetDynamicAssemblyPolicy(type);
-            return LambdaExtensions.GetKeyValue<TModel, TValue>(model).Compile();
+            return LambdaExtensions.GetKeyValue<TModel, TValue>(model, customAttribute).Compile();
         });
         return invoker(model);
     }

@@ -456,32 +456,12 @@ public partial class Table<TItem>
 
             void ProcessSelectedRows()
             {
-                // 判断模型是否有 [Key] Id 等可识别字段尝试重构
                 var rows = new List<TItem>();
-                if (HasKeyAttribute)
+                foreach (var row in SelectedRows)
                 {
-                    // 更新选中行逻辑
-                    foreach (var item in SelectedRows)
+                    if (QueryItems.Any(i => IsEqualItems(i, row)))
                     {
-                        var key = Utility.GetKeyValue<TItem, object>(item);
-                        if (key != null)
-                        {
-                            var row = QueryItems.FirstOrDefault(i => Utility.GetKeyValue<TItem, object>(i).ToString() == key.ToString());
-                            if (row != null)
-                            {
-                                rows.Add(row);
-                            }
-                        }
-                    }
-                }
-                else
-                {
-                    foreach (var row in SelectedRows)
-                    {
-                        if (QueryItems.Any(i => i == row))
-                        {
-                            rows.Add(row);
-                        }
+                        rows.Add(row);
                     }
                 }
                 SelectedRows = rows;
@@ -565,6 +545,22 @@ public partial class Table<TItem>
                 }
             }
         }
+    }
+
+    /// <summary>
+    /// 比较数据是否相同
+    /// </summary>
+    /// <param name="a"></param>
+    /// <param name="b"></param>
+    /// <returns></returns>
+    protected bool IsEqualItems(TItem a, TItem b)
+    {
+        if (IsEqualsCallback != null)
+            return IsEqualsCallback.Invoke(a, b);
+        else if (HasKeyAttribute)
+            return Utility.GetKeyValue<TItem, object>(a, CustomKeyAttribute)?.Equals(Utility.GetKeyValue<TItem, object>(b, CustomKeyAttribute)) ?? false;
+        else
+            return a == b;
     }
 
     private HashSet<object> KeySet { get; } = new();

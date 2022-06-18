@@ -428,9 +428,22 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
     private bool OnAfterRenderIsTriggered { get; set; }
 
     /// <summary>
-    /// 获得/设置 模型是否有 [KeyAttribute] 标签
+    /// 获得/设置 是否有设置<see cref="IsEqualsCallback"/> 模型是否有 <see cref="CustomKeyAttribute"/> 标签
     /// </summary>
-    protected bool HasKeyAttribute { get; set; }
+    protected bool HasKeyAttribute
+        => CustomKeyAttribute.IsAssignableTo(typeof(Attribute))
+           && typeof(TItem).GetRuntimeProperties().Any(p => p.IsDefined(CustomKeyAttribute));
+
+    /// <summary>
+    /// 获得/设置 比较数据相同依据的标签 默认为 <see cref="KeyAttribute"/> 无法提供时请设置 <see cref="IsEqualsCallback"/> 回调方法
+    /// </summary>
+    /// <remarks>此参数在 <see cref="IsExcel"/> 模式下不生效</remarks>
+    protected Type CustomKeyAttribute { get; set; } = typeof(KeyAttribute);
+
+    /// <summary>
+    /// 获得/设置 比较数据相同回调方法 默认为 null 用于无法提供 <see cref="CustomKeyAttribute"/> 列名时使用
+    /// </summary>
+    protected Func<TItem, TItem, bool>? IsEqualsCallback { get; set; }
 
     /// <summary>
     /// OnInitialized 方法
@@ -464,8 +477,6 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
             PageIndex = 1;
             await QueryAsync();
         };
-
-        HasKeyAttribute = typeof(TItem).GetRuntimeProperties().Any(p => p.IsDefined(typeof(KeyAttribute)));
 
         if (IsTree)
         {
