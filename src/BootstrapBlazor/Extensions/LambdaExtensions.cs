@@ -773,7 +773,11 @@ public static class LambdaExtensions
     /// <returns></returns>
     public static Expression<Func<TModel, TValue>> GetKeyValue<TModel, TValue>(TModel model, Type? customAttribute = null)
     {
-        var type = model is not null ? model.GetType() : typeof(TModel);
+        if (model == null)
+        {
+            throw new ArgumentNullException(nameof(model));
+        }
+        var type = model.GetType();
         Expression<Func<TModel, TValue>> ret = _ => default!;
         var properties = type.GetRuntimeProperties()
                              .Where(p => p.IsDefined(customAttribute ?? typeof(KeyAttribute)))
