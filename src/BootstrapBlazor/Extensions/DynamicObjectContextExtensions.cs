@@ -3,7 +3,6 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
 using System.Reflection;
 
 namespace BootstrapBlazor.Components;

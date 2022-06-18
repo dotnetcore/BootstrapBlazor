@@ -3,7 +3,6 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using BootstrapBlazor.Shared;
-using UnitTest.Extensions;
 
 namespace UnitTest.Components;
 

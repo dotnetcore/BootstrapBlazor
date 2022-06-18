@@ -5,7 +5,6 @@
 using BootstrapBlazor.Shared;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
-using UnitTest.Extensions;
 
 namespace UnitTest.Components;
 

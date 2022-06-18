@@ -6,7 +6,6 @@ using BootstrapBlazor.Localization.Json;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.Extensions.Localization;
 using System.Collections;
-using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 
 namespace BootstrapBlazor.Components;
