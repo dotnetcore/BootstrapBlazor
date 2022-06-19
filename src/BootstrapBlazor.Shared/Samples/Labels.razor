@@ -38,7 +38,7 @@
                 <BootstrapInput TValue="string" ShowLabel="true" DisplayText="" />
             </div>
             <div class="col-sm-12 col-md-3">
-                <BootstrapInput TValue="string" ShowLabel="true" DisplayText="@Localizer[nameof(Foo.Name)]" />
+                <BootstrapInput TValue="string" ShowLabel="true" DisplayText="@LocalizerFoo[nameof(Foo.Name)]" />
             </div>
             <div class="col-sm-12 col-md-3">
                 <BootstrapInput TValue="string" ShowLabel="true" DisplayText="@null" />
@@ -57,7 +57,7 @@
                 <BootstrapInput @bind-Value="Dummy.Name" />
             </div>
             <div class="col-sm-12 col-md-3">
-                <BootstrapInput @bind-Value="Dummy.Name" ShowLabel="true" DisplayText="@Localizer[nameof(Foo.Address)]" />
+                <BootstrapInput @bind-Value="Dummy.Name" ShowLabel="true" DisplayText="@LocalizerFoo[nameof(Foo.Address)]" />
             </div>
             <div class="col-sm-12 col-md-3">
                 <BootstrapInput @bind-Value="Dummy.Name" ShowLabel="true" DisplayText="" />
