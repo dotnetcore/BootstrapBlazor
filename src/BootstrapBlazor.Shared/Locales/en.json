@@ -1292,7 +1292,7 @@
     "Block4Intro": "Set the <code>Step</code> parameter to control the increase or decrease in steps",
     "P2": "The step defaults to 1",
     "P3": "The step defaults to 10",
-    "p4": "The step defaults to 0.1",
+    "P4": "The step defaults to 0.1",
     "Block5Title": "Color",
     "Block5Intro": "Set the <code>Color</code> parameter to customize the button color",
     "P5": "Show button",
