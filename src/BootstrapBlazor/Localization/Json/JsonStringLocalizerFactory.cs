@@ -14,43 +14,34 @@ namespace BootstrapBlazor.Localization.Json;
 /// </summary>
 internal class JsonStringLocalizerFactory : ResourceManagerStringLocalizerFactory
 {
-    private JsonLocalizationOptions Options { get; set; }
-
     private ILoggerFactory LoggerFactory { get; set; }
 
     [NotNull]
     private string? TypeName { get; set; }
 
-    private IServiceProvider ServiceProvider { get; set; }
-
     /// <summary>
     /// 构造函数
     /// </summary>
-    /// <param name="jsonOptions"></param>
-    /// <param name="resxOptions"></param>
     /// <param name="options"></param>
+    /// <param name="jsonLocalizationOptions"></param>
+    /// <param name="localizationOptions"></param>
     /// <param name="loggerFactory"></param>
-    /// <param name="provider"></param>
     public JsonStringLocalizerFactory(
-        IOptions<JsonLocalizationOptions> jsonOptions,
-        IOptions<LocalizationOptions> resxOptions,
         IOptionsMonitor<BootstrapBlazorOptions> options,
-        ILoggerFactory loggerFactory,
-        IServiceProvider provider) : base(resxOptions, loggerFactory)
+        IOptions<JsonLocalizationOptions> jsonLocalizationOptions,
+        IOptions<LocalizationOptions> localizationOptions,
+        ILoggerFactory loggerFactory) : base(localizationOptions, loggerFactory)
     {
-        Options = jsonOptions.Value;
-        Options.FallbackCulture = options.CurrentValue.FallbackCulture;
-        Options.EnableFallbackCulture = options.CurrentValue.EnableFallbackCulture;
+        jsonLocalizationOptions.Value.FallbackCulture = options.CurrentValue.FallbackCulture;
+        jsonLocalizationOptions.Value.EnableFallbackCulture = options.CurrentValue.EnableFallbackCulture;
         LoggerFactory = loggerFactory;
-        ServiceProvider = provider;
-
         options.OnChange(OnChange);
 
         [ExcludeFromCodeCoverage]
         void OnChange(BootstrapBlazorOptions op)
         {
-            Options.FallbackCulture = op.FallbackCulture;
-            Options.EnableFallbackCulture = op.EnableFallbackCulture;
+            jsonLocalizationOptions.Value.EnableFallbackCulture = op.EnableFallbackCulture;
+            jsonLocalizationOptions.Value.FallbackCulture = op.FallbackCulture;
         }
     }
 
@@ -78,29 +69,18 @@ internal class JsonStringLocalizerFactory : ResourceManagerStringLocalizerFactor
         return base.GetResourcePrefix(typeInfo);
     }
 
+    private IResourceNamesCache ResourceNamesCache { get; } = new ResourceNamesCache();
+
     /// <summary>
-    /// 
+    /// Creates a <see cref="ResourceManagerStringLocalizer"/> for the given input
     /// </summary>
-    /// <param name="assembly"></param>
-    /// <param name="baseName"></param>
+    /// <param name="assembly">The assembly to create a <see cref="ResourceManagerStringLocalizer"/> for</param>
+    /// <param name="baseName">The base name of the resource to search for</param>
     /// <returns></returns>
     protected override ResourceManagerStringLocalizer CreateResourceManagerStringLocalizer(Assembly assembly, string baseName) => new JsonStringLocalizer(
-            this,
             assembly,
             TypeName,
             baseName,
             LoggerFactory.CreateLogger<JsonStringLocalizer>(),
-            Options,
-            ServiceProvider);
-
-    /// <summary>
-    /// 获得 IResourceNamesCache 实例
-    /// </summary>
-    /// <returns></returns>
-    internal IResourceNamesCache GetCache()
-    {
-        var field = this.GetType().BaseType!.GetField("_resourceNamesCache", BindingFlags.NonPublic | BindingFlags.Instance);
-        var ret = field!.GetValue(this) as IResourceNamesCache;
-        return ret!;
-    }
+            ResourceNamesCache);
 }

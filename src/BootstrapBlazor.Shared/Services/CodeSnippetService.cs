@@ -3,7 +3,6 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using BootstrapBlazor.Components;
-using BootstrapBlazor.Localization.Json;
 using BootstrapBlazor.Shared.Exntensions;
 using Microsoft.Extensions.Options;
 
@@ -19,8 +18,6 @@ class CodeSnippetService
 
     private string ContentRootPath { get; }
 
-    private JsonLocalizationOptions Option { get; }
-
     private ICacheManager CacheManager { get; set; }
 
     /// <summary>
@@ -29,12 +26,10 @@ class CodeSnippetService
     /// <param name="client"></param>
     /// <param name="cacheManager"></param>
     /// <param name="options"></param>
-    /// <param name="option"></param>
     public CodeSnippetService(
         HttpClient client,
         ICacheManager cacheManager,
-        IOptionsMonitor<WebsiteOptions> options,
-        IOptions<JsonLocalizationOptions> option)
+        IOptionsMonitor<WebsiteOptions> options)
     {
         CacheManager = cacheManager;
         Client = client;
@@ -44,8 +39,6 @@ class CodeSnippetService
         IsDevelopment = options.CurrentValue.IsDevelopment;
         ContentRootPath = options.CurrentValue.ContentRootPath;
         ServerUrl = options.CurrentValue.ServerUrl;
-
-        Option = option.Value;
     }
 
     /// <summary>
@@ -175,7 +168,7 @@ class CodeSnippetService
         List<KeyValuePair<string, string>> GetLocalizers() => CacheManager.GetLocalizers(codeFile, entry =>
         {
             var typeName = Path.GetFileNameWithoutExtension(codeFile);
-            var sections = CacheManager.GetJsonStringConfig(typeof(CodeSnippetService).Assembly, Option);
+            var sections = CacheManager.GetJsonStringFromAssembly(typeof(CodeSnippetService).Assembly);
             var v = sections.FirstOrDefault(s => $"BootstrapBlazor.Shared.Samples.{typeName}".Equals(s.Key, StringComparison.OrdinalIgnoreCase))?
                 .GetChildren()
                 .SelectMany(c => new KeyValuePair<string, string>[]

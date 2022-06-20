@@ -16,7 +16,11 @@ internal class StringLocalizer : IStringLocalizer
 
     public StringLocalizer(IStringLocalizerFactory factory, IOptions<JsonLocalizationOptions> options)
     {
-        _localizer = factory.Create(options.Value.ResourceManagerStringLocalizerType!);
+        if (options.Value.ResourceManagerStringLocalizerType == null)
+        {
+            throw new InvalidOperationException();
+        }
+        _localizer = factory.Create(options.Value.ResourceManagerStringLocalizerType);
     }
 
     public LocalizedString this[string name] => _localizer[name];
