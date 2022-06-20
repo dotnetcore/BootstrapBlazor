@@ -6,7 +6,6 @@
     display: block;
     height: 1px;
     width: 100%;
-    min-height: 21px;
 }
 
     .divider .divider-text {
@@ -40,6 +39,7 @@
     min-width: 1px;
     height: 100%;
     margin: 0 1rem;
+    min-height: 21px;
 }
 
 .divider.divider-vertical .divider-text {
