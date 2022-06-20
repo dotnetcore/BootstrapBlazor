@@ -17,4 +17,12 @@
     <Compile Include="..\..\..\BootstrapBlazor\Extensions\JSRuntimeExtensions.cs" Link="JSRuntimeExtensions.cs" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="BootstrapBlazor" Version="6.7.18" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Using Include="Microsoft.JSInterop" />
+  </ItemGroup>
+
 </Project>

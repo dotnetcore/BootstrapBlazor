@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="BootstrapBlazor" Version="6.7.18" />
     <PackageReference Include="Longbow.PetaPoco" Version="5.*" />
     <PackageReference Include="PetaPoco.Extensions" Version="5.*" />
   </ItemGroup>
