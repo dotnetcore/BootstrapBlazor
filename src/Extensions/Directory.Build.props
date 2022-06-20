@@ -18,8 +18,4 @@
     <None Include="logo.png" Pack="true" PackagePath="" />
   </ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="BootstrapBlazor" Version="6.*" />
-  </ItemGroup>
-
 </Project>

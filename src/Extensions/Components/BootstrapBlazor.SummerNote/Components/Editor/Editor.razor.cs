@@ -19,7 +19,6 @@ public partial class Editor : IAsyncDisposable
     /// </summary>
     private ElementReference EditorElement { get; set; }
 
-    [NotNull]
     private JSModule<Editor>? Module { get; set; }
 
     /// <summary>
@@ -112,7 +111,13 @@ public partial class Editor : IAsyncDisposable
     /// <summary>
     /// 执行editor的方法
     /// </summary>
-    public ValueTask DoMethodAysnc(string method, params object[] value) => Module.InvokeVoidAsync("bb_editor_method", EditorElement, method, value);
+    public async ValueTask DoMethodAysnc(string method, params object[] value)
+    {
+        if (Module != null)
+        {
+            await Module.InvokeVoidAsync("bb_editor_method", EditorElement, method, value);
+        }
+    }
 
     /// <summary>
     /// OnInitialized 方法
@@ -175,7 +180,10 @@ public partial class Editor : IAsyncDisposable
         else if (_renderValue)
         {
             _renderValue = false;
-            await Module.InvokeVoidAsync("bb_editor_code", EditorElement, Value ?? "");
+            if (Module != null)
+            {
+                await Module.InvokeVoidAsync("bb_editor_code", EditorElement, Value ?? "");
+            }
         }
     }
 
@@ -257,6 +265,7 @@ public partial class Editor : IAsyncDisposable
             if (Module != null)
             {
                 await Module.DisposeAsync();
+                Module = null;
             }
         }
     }
