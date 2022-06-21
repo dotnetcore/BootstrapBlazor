@@ -546,7 +546,7 @@ internal class CacheManager : ICacheManager
 /// <summary>
 /// ICacheManager 扩展操作类
 /// </summary>
-internal static class ICacheManagerExtensions
+public static class ICacheManagerExtensions
 {
     /// <summary>
     /// 通过 JsonLocalizationOptions 配置项实例获取资源文件配置集合
