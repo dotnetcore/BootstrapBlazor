@@ -3,6 +3,7 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.AspNetCore.Components.Rendering;
+using Microsoft.Extensions.Localization;
 using System.ComponentModel;
 using System.Data;
 using System.Linq.Expressions;
@@ -11,7 +12,7 @@ using System.Reflection;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// Utility 帮助类
 /// </summary>
 public static class Utility
 {
@@ -108,7 +109,7 @@ public static class Utility
     public static Func<IEnumerable<T>, string, SortOrder, IEnumerable<T>> GetSortFunc<T>() => CacheManager.GetSortFunc<T>();
 
     /// <summary>
-    /// 
+    /// 获得 通过排序集合进行排序 Func 方法
     /// </summary>
     /// <returns></returns>
     public static Func<IEnumerable<T>, List<string>, IEnumerable<T>> GetSortListFunc<T>() => CacheManager.GetSortListFunc<T>();
@@ -726,4 +727,18 @@ public static class Utility
     /// <param name="source"></param>
     /// <returns></returns>
     public static IEnumerable<IEditorItem> GenerateEditorItems<TModel>(IEnumerable<ITableColumn>? source = null) => InternalTableColumn.GetProperties<TModel>(source);
+
+    /// <summary>
+    /// 通过指定类型创建 IStringLocalizer 实例
+    /// </summary>
+    /// <typeparam name="TType"></typeparam>
+    /// <returns></returns>
+    public static IStringLocalizer? CreateLocalizer<TType>() => CreateLocalizer(typeof(TType));
+
+    /// <summary>
+    /// 通过指定类型创建 IStringLocalizer 实例
+    /// </summary>
+    /// <param name="type"></param>
+    /// <returns></returns>
+    public static IStringLocalizer? CreateLocalizer(Type type) => CacheManager.CreateLocalizerByType(type);
 }

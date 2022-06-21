@@ -122,13 +122,6 @@ internal class CacheManager : ICacheManager
 
     #region Localizer
     /// <summary>
-    /// 通过指定类型创建 IStringLocalizer 实例
-    /// </summary>
-    /// <typeparam name="TType"></typeparam>
-    /// <returns></returns>
-    public static IStringLocalizer? CreateLocalizer<TType>() => CreateLocalizerByType(typeof(TType));
-
-    /// <summary>
     /// 
     /// </summary>
     /// <param name="resourceSource"></param>
@@ -185,22 +178,28 @@ internal class CacheManager : ICacheManager
     /// <param name="typeName"></param>
     /// <param name="includeParentCultures"></param>
     /// <returns></returns>
-    public static IEnumerable<KeyValuePair<string, string>> GetAllStringsByCulture(Assembly assembly, string typeName, bool includeParentCultures = true)
-    {
-        var cacheKey = $"{nameof(GetAllStringsByCulture)}-{CultureInfo.CurrentUICulture.Name}-{assembly.GetName().Name}-{typeName}";
-        return Instance.GetOrCreate(cacheKey, entry =>
-        {
-            // 获得程序集中的资源文件 stream
-            var sections = Instance.GetJsonStringFromAssembly(assembly);
-            var v = sections
-                .FirstOrDefault(kv => typeName.Equals(kv.Key, StringComparison.OrdinalIgnoreCase))?
-                .GetChildren()
-                .SelectMany(c => new[] { new KeyValuePair<string, string>(c.Key, c.Value) });
-            return v ?? Instance.Provider.GetRequiredService<ILocalizationResolve>().GetAllStringsByCulture(includeParentCultures);
-        });
-    }
+    public static IEnumerable<LocalizedString>? GetAllStringsByCulture(Assembly assembly, string typeName, bool includeParentCultures = true) => assembly.IsDynamic
+        ? null
+        : Instance.GetOrCreate($"{nameof(GetAllStringsByCulture)}-{CultureInfo.CurrentUICulture.Name}-{assembly.GetName().Name}-{typeName}",
+            entry =>
+            {
+                // 获得程序集中的资源文件 stream
+                var sections = Instance.GetJsonStringFromAssembly(assembly);
+                var v = sections
+                    .FirstOrDefault(kv => typeName.Equals(kv.Key, StringComparison.OrdinalIgnoreCase))?
+                    .GetChildren()
+                    .SelectMany(kv => new[] { new LocalizedString(kv.Key, kv.Value) });
+                return v;
+            });
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="includeParentCultures"></param>
+    /// <returns></returns>
+    public static IEnumerable<KeyValuePair<string, string>> GetAllStringsFromResolve(bool includeParentCultures = true) => Instance.GetOrCreate($"{nameof(GetAllStringsFromResolve)}-{CultureInfo.CurrentUICulture.Name}", entry => Instance.Provider.GetRequiredService<ILocalizationResolve>().GetAllStringsByCulture(includeParentCultures));
     #endregion
+
     #region DisplayName
     public static string? GetEnumDisplayName(Type type, string fieldName)
     {

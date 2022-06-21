@@ -100,25 +100,39 @@ internal class JsonStringLocalizer : ResourceManagerStringLocalizer
         }
     }
 
-    private string? GetValueFromCache(IEnumerable<KeyValuePair<string, string>> localizerStrings, string name)
+    private string? GetValueFromCache(IEnumerable<LocalizedString>? localizerStrings, string name)
     {
         string? ret = null;
         var cultureName = CultureInfo.CurrentUICulture.Name;
         var cacheKey = $"{nameof(GetValueFromCache)}&name={name}&{Assembly.GetName().Name}&type={TypeName}&culture={cultureName}";
         if (!MissingLocalizerCache.ContainsKey(cacheKey))
         {
-            var l = localizerStrings.FirstOrDefault(i => i.Key == name);
-            if (string.IsNullOrEmpty(l.Value))
+            var l = GetLocalizedString();
+            if (l is { ResourceNotFound: false })
+            {
+                ret = l.Value;
+            }
+            else
             {
                 LogSearchedLocation(name);
                 MissingLocalizerCache.TryAdd(cacheKey, null);
             }
-            else
-            {
-                ret = l.Value;
-            }
         }
         return ret;
+
+        LocalizedString? GetLocalizedString()
+        {
+            LocalizedString? localizer = null;
+            if (localizerStrings != null)
+            {
+                localizer = localizerStrings.FirstOrDefault(i => i.Name == name);
+            }
+            if (localizer == null)
+            {
+                localizer = GetAllStringsFromResolve().FirstOrDefault(i => i.Name == name);
+            }
+            return localizer;
+        }
     }
 
     private string? GetLocalizerValueFromCache(IStringLocalizer localizer, string name)
@@ -190,12 +204,26 @@ internal class JsonStringLocalizer : ResourceManagerStringLocalizer
         // get all strings from json localization file
         IEnumerable<LocalizedString> GetAllStringsFromJson(bool includeParentCultures)
         {
-            var localStrings = CacheManager.GetAllStringsByCulture(Assembly, TypeName, includeParentCultures);
+            var localStrings = CacheManager.GetAllStringsByCulture(Assembly, TypeName, includeParentCultures)
+                ?? GetAllStringsFromResolve(includeParentCultures);
 
-            foreach (var kv in localStrings)
+            if (localStrings != null)
             {
-                yield return new LocalizedString(kv.Key, kv.Value);
+                foreach (var localizer in localStrings)
+                {
+                    yield return localizer;
+                }
             }
+        }
+    }
+
+    private static IEnumerable<LocalizedString> GetAllStringsFromResolve(bool includeParentCultures = true)
+    {
+        var localStrings = CacheManager.GetAllStringsFromResolve(includeParentCultures);
+
+        foreach (var kv in localStrings)
+        {
+            yield return new LocalizedString(kv.Key, kv.Value);
         }
     }
 }
