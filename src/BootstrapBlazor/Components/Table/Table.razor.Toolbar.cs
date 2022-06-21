@@ -686,6 +686,11 @@ public partial class Table<TItem>
 
             QueryItems = DynamicContext.GetItems().Cast<TItem>();
             RowsCache = null;
+            SelectedRows.Clear();
+            if (DynamicContext.OnGetSelectedRows != null)
+            {
+                SelectedRows.AddRange(DynamicContext.OnGetSelectedRows().Cast<TItem>());
+            }
         }
     }
 

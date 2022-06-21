@@ -290,27 +290,24 @@ public class UtilityTest : BootstrapBlazorTestBase
         }
     }
 
-    private class MockDynamicObjectContext : IDynamicObjectContext
+    private class MockDynamicObjectContext : DynamicObjectContext
     {
-        public Func<IDynamicObject, ITableColumn, object?, Task>? OnValueChanged { get; set; }
-        public Func<DynamicObjectContextArgs, Task>? OnChanged { get; set; }
-
-        public Task AddAsync(IEnumerable<IDynamicObject> selectedItems)
+        public override Task AddAsync(IEnumerable<IDynamicObject> selectedItems)
         {
             throw new NotImplementedException();
         }
 
-        public Task<bool> DeleteAsync(IEnumerable<IDynamicObject> items)
+        public override Task<bool> DeleteAsync(IEnumerable<IDynamicObject> items)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<ITableColumn> GetColumns()
+        public override IEnumerable<ITableColumn> GetColumns()
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<IDynamicObject> GetItems() => new MockDynamicObject[] { new() { DynamicObjectPrimaryKey = Guid.NewGuid() } };
+        public override IEnumerable<IDynamicObject> GetItems() => new MockDynamicObject[] { new() { DynamicObjectPrimaryKey = Guid.NewGuid() } };
     }
 
     [Fact]
