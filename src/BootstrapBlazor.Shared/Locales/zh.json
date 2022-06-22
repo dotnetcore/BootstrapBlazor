@@ -2936,6 +2936,7 @@
     "BeforeRowButtonTemplateAttr": "Table 行按钮模板 放置到按钮前",
     "RowButtonTemplateAttr": "Table 行按钮模板 默认放置到按钮后",
     "DetailRowTemplateAttr": "Table 明细行模板",
+    "IsAutoCollapsedToolbarButtonAttr": "小屏时是否自动收缩工具栏按钮",
     "IsBorderedAttr": "边框",
     "IsPaginationAttr": "显示分页",
     "IsStripedAttr": "斑马纹",

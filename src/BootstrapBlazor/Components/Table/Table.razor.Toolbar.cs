@@ -76,6 +76,12 @@ public partial class Table<TItem>
     public bool ShowExtendButtons { get; set; }
 
     /// <summary>
+    /// 获得/设置 是否自动收缩工具栏按钮 默认 true
+    /// </summary>
+    [Parameter]
+    public bool IsAutoCollapsedToolbarButton { get; set; } = true;
+
+    /// <summary>
     /// 获得/设置 扩展按钮是否在前面 默认 false 在行尾
     /// </summary>
     [Parameter]
@@ -296,7 +302,6 @@ public partial class Table<TItem>
                 // 数据源为 DataTable 新建后重建行与列
                 await DynamicContext.AddAsync(SelectedRows.OfType<IDynamicObject>());
                 ResetDynamicContext();
-                SelectedRows.Clear();
                 StateHasChanged();
             }
             else
@@ -663,7 +668,6 @@ public partial class Table<TItem>
             {
                 await DynamicContext.DeleteAsync(SelectedRows.AsEnumerable().OfType<IDynamicObject>());
                 ResetDynamicContext();
-                SelectedRows.Clear();
                 StateHasChanged();
             }
             else
@@ -686,11 +690,6 @@ public partial class Table<TItem>
 
             QueryItems = DynamicContext.GetItems().Cast<TItem>();
             RowsCache = null;
-            SelectedRows.Clear();
-            if (DynamicContext.OnGetSelectedRows != null)
-            {
-                SelectedRows.AddRange(DynamicContext.OnGetSelectedRows().Cast<TItem>());
-            }
         }
     }
 

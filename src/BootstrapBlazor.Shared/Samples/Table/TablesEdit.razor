@@ -6,7 +6,7 @@
 
 <DemoBlock Title="具有单表维护功能的表格" Introduction="设置 <code>ShowSearch</code> 显示查询组件" Name="ShowSearch">
     <p>本例中设置 <code>Count</code> 右侧对齐，<code>Complete</code> 列设置为居中对齐，布尔类型列自动渲染成 <code>Switch</code> 组件</p>
-    <Table TItem="Foo"
+    <Table TItem="Foo" IsAutoCollapsedToolbarButton="false"
            IsPagination="true" PageItemsSource="@PageItemsSource"
            IsStriped="true" IsBordered="true" IsMultipleSelect="true"
            ShowToolbar="true" ShowExtendButtons="true" ShowSkeleton="true" IsExtendButtonsInRowHeader="true"

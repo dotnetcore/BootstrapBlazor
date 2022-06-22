@@ -2924,6 +2924,7 @@
     "BeforeRowButtonTemplateAttr": "Table Row Button Template Before Button",
     "RowButtonTemplateAttr": "Table Row Button Templates are placed after buttons by default",
     "DetailRowTemplateAttr": "Table Detail Line Template",
+    "IsAutoCollapsedToolbarButtonAttr": "Whether auto collapsed the buttons on toolbar",
     "IsBorderedAttr": "Border",
     "IsPaginationAttr": "Display pagination",
     "IsStripedAttr": "Zebra stripe",

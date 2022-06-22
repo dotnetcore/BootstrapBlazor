@@ -419,6 +419,10 @@ public partial class Table<TItem>
                 // 动态数据
                 SelectedRows.Clear();
                 QueryItems = DynamicContext.GetItems().Cast<TItem>();
+                if (DynamicContext.OnGetSelectedRows != null)
+                {
+                    SelectedRows.AddRange(DynamicContext.OnGetSelectedRows().Cast<TItem>());
+                }
                 TotalCount = QueryItems.Count();
             }
             else
@@ -646,6 +650,7 @@ public partial class Table<TItem>
     {
         SelectedRows.Clear();
         SelectedRows.Add(item);
+        await OnSelectedRowsChanged();
 
         // 更新行选中状态
         await EditAsync();

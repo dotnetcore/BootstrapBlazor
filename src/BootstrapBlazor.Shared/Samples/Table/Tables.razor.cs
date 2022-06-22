@@ -502,6 +502,14 @@ public partial class Tables
         },
         new()
         {
+            Name = "IsAutoCollapsedToolbarButton",
+            Description = TablesLocalizer["IsAutoCollapsedToolbarButtonAttr"],
+            Type = "boolean",
+            ValueList = "true / false",
+            DefaultValue = "true"
+        },
+        new()
+        {
             Name = "IsBordered",
             Description = TablesLocalizer["IsBorderedAttr"],
             Type = "boolean",
