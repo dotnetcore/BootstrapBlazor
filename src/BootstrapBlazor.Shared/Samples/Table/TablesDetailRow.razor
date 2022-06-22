@@ -9,10 +9,10 @@
     <Tips>
         <p>@((MarkupString)LocalizerDetailRow["DetailRowTemplateP1"].Value)</p>
     </Tips>
-    <Table TItem="Foo"
+    <Table TItem="Foo" @ref="@Table"
            IsPagination="true" PageItemsSource="@PageItemsSource"
            IsStriped="true" IsBordered="true" IsDetails="@IsDetails"
-           ShowToolbar="true" ShowDefaultButtons="false"
+           ShowToolbar="true" ShowDefaultButtons="false" OnDoubleClickRowCallback="OnDoubleClickRowCallback"
            OnQueryAsync="@OnQueryAsync">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" />

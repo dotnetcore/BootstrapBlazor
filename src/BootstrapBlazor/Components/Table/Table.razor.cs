@@ -188,7 +188,7 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
     public bool? IsDetails { get; set; }
 
     /// <summary>
-    /// 获得/设置 无数据时是否隐藏表格 Footer 默认为 false 不隐藏 
+    /// 获得/设置 无数据时是否隐藏表格 Footer 默认为 false 不隐藏
     /// </summary>
     [Parameter]
     public bool IsHideFooterWhenNoData { get; set; }
@@ -294,7 +294,7 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
     /// 明细行功能中切换行状态时调用此方法
     /// </summary>
     /// <param name="item"></param>
-    protected void ExpandDetailRow(TItem item)
+    public void ExpandDetailRow(TItem item)
     {
         DetailRows.Add(item);
         if (ExpandRows.Contains(item))
@@ -1055,7 +1055,7 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
             : col.Template(item));
 
     /// <summary>
-    /// 渲染 Excel 单元格方法 
+    /// 渲染 Excel 单元格方法
     /// </summary>
     /// <param name="col"></param>
     /// <param name="item"></param>

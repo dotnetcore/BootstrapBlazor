@@ -2874,7 +2874,7 @@
     "Desc": "用于展示父子关系表数据",
     "DetailRowTemplateTitle": "简单应用",
     "DetailRowTemplateIntro": "通过设置 <code>DetailRowTemplate</code> 模板设置明细行内容",
-    "DetailRowTemplateP": "明细行内显示绑定行的另外一个字段 <code>学历</code> 以普通文字形式呈现",
+    "DetailRowTemplateP": "明细行内显示绑定行的另外一个字段 <code>学历</code> 以普通文字形式呈现。支持双击展开明细行的功能，双击回调仅 <b>PC</b> 端支持，请在<b>PC</b> 端测试。",
     "DetailRowTemplateP1": "通过 <code>IsDetails</code> 参数可以实现动态切换是否显示明细行功能",
     "EducationText": "学历:",
     "DetailRowTemplate2Title": "嵌套 Table 组件应用",

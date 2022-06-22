@@ -34,6 +34,9 @@ public sealed partial class TablesDetailRow
     [NotNull]
     private string? DetailText { get; set; }
 
+    [NotNull]
+    private Table<Foo>? Table { get; set; }
+
     /// <summary>
     /// OnInitialized 方法
     /// </summary>
@@ -52,6 +55,12 @@ public sealed partial class TablesDetailRow
         DateTime = DateTime.Now.AddDays(i - 1),
         Complete = random.Next(1, 100) > 50
     });
+
+    private Task OnDoubleClickRowCallback(Foo arg)
+    {
+        Table.ExpandDetailRow(arg);
+        return Task.CompletedTask;
+    }
 
     private Task<QueryData<Foo>> OnQueryAsync(QueryPageOptions options)
     {
