@@ -13,12 +13,7 @@ public class TableTreeNode<TItem> where TItem : class
     /// <summary>
     /// 获得/设置 当前节点值
     /// </summary>
-    public TItem Value { get; }
-
-    /// <summary>
-    /// 获得/设置 当前节点唯一标识
-    /// </summary>
-    public object? Key { get; }
+    public TItem Value { get; set; }
 
     /// <summary>
     /// 获得/设置 是否展开
@@ -46,6 +41,5 @@ public class TableTreeNode<TItem> where TItem : class
     public TableTreeNode(TItem item)
     {
         Value = item;
-        Key = Utility.GetKeyValue<TItem, object?>(item);
     }
 }

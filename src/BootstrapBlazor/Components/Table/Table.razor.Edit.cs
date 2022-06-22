@@ -476,7 +476,7 @@ public partial class Table<TItem>
 
             if (IsTree)
             {
-                await ProcessTreeData();
+                ProcessTreeData();
             }
 
             void ProcessSelectedRows()
@@ -537,37 +537,23 @@ public partial class Table<TItem>
                 }
             }
 
-            async Task ProcessTreeData()
+            void ProcessTreeData()
             {
-                KeySet.Clear();
-                if (HasKeyAttribute)
+                var newTreeRows = new List<TableTreeNode<TItem>>();
+                foreach (var row in QueryItems)
                 {
-                    CheckExpandKeys(TreeRows);
-                }
-                if (KeySet.Count > 0)
-                {
-                    TreeRows = new List<TableTreeNode<TItem>>();
-                    foreach (var item in QueryItems)
+                    var treeRow = TreeRows.FirstOrDefault(r => IsEqualItems(r.Value, row));
+                    if (treeRow != null)
                     {
-                        var node = new TableTreeNode<TItem>(item)
-                        {
-                            HasChildren = CheckTreeChildren(item),
-                        };
-                        node.IsExpand = IsExpandRow(node);
-                        if (node.IsExpand)
-                        {
-                            await RestoreIsExpand(node);
-                        }
-                        TreeRows.Add(node);
+                        treeRow.Value = row;
                     }
-                }
-                else
-                {
-                    TreeRows = QueryItems.Select(item => new TableTreeNode<TItem>(item)
+                    treeRow ??= new TableTreeNode<TItem>(row)
                     {
-                        HasChildren = CheckTreeChildren(item)
-                    }).ToList();
+                        HasChildren = CheckTreeChildren(row)
+                    };
+                    newTreeRows.Add(treeRow);
                 }
+                TreeRows = newTreeRows;
             }
         }
     }
@@ -586,43 +572,6 @@ public partial class Table<TItem>
             return Utility.GetKeyValue<TItem, object>(a, CustomKeyAttribute)?.Equals(Utility.GetKeyValue<TItem, object>(b, CustomKeyAttribute)) ?? false;
         else
             return a == b;
-    }
-
-    private HashSet<object> KeySet { get; } = new();
-
-    private bool IsExpandRow(TableTreeNode<TItem> node) => node.HasChildren && node.Key != null && KeySet.Contains(node.Key);
-
-    private void CheckExpandKeys(List<TableTreeNode<TItem>> tableTreeNodes)
-    {
-        foreach (var node in tableTreeNodes)
-        {
-            if (node.IsExpand && node.Key != null)
-            {
-                KeySet.Add(node.Key);
-            }
-            CheckExpandKeys(node.Children);
-        }
-    }
-
-    private async Task RestoreIsExpand(TableTreeNode<TItem> parentNode)
-    {
-        if (OnTreeExpand != null)
-        {
-            foreach (var item in (await OnTreeExpand(parentNode.Value)))
-            {
-                var node = new TableTreeNode<TItem>(item)
-                {
-                    HasChildren = CheckTreeChildren(item),
-                    Parent = parentNode
-                };
-                node.IsExpand = IsExpandRow(node);
-                if (node.IsExpand)
-                {
-                    await RestoreIsExpand(node);
-                }
-                parentNode.Children.Add(node);
-            }
-        }
     }
 
     private async Task OnClickExtensionButton(TItem item, TableCellButtonArgs args)
