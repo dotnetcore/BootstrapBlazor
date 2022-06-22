@@ -13,7 +13,7 @@
                 {
                     @if (button is TableToolbarButton<TItem> b && b.IsShow)
                     {
-                        <Button AdditionalAttributes="b.AdditionalAttributes"
+                        <Button AdditionalAttributes="b.AdditionalAttributes" Size="b.Size"
                             Color="@b.Color" Icon="@b.Icon" Text="@b.Text" IsAsync="@b.IsAsync"
                             OnClickWithoutRender="() => OnToolbarButtonClick(b)"
                             IsDisabled="GetDisabled(b)"></Button>
@@ -21,7 +21,7 @@
                     else if (button is TableToolbarPopconfirmButton<TItem> pb && pb.IsShow)
                     {
                         <PopConfirmButton AdditionalAttributes="pb.AdditionalAttributes"
-                              Color="@pb.Color" Icon="@pb.Icon" Text="@pb.Text"
+                              Color="@pb.Color" Icon="@pb.Icon" Text="@pb.Text" Size="pb.Size"
                               IsDisabled="@pb.IsDisabled" IsBlock="@pb.IsBlock" IsOutline="@pb.IsOutline"
                               OnBeforeClick="@pb.OnBeforeClick" OnClose="@pb.OnClose" OnConfirm="@pb.OnConfirm"
                               ConfirmIcon="@pb.ConfirmIcon" ConfirmButtonColor="@pb.ConfirmButtonColor"
