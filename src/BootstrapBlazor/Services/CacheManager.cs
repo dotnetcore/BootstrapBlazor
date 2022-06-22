@@ -23,8 +23,6 @@ internal class CacheManager : ICacheManager
 {
     private IMemoryCache Cache { get; set; }
 
-    private IStringLocalizerFactory Localizer { get; set; }
-
     private IServiceProvider Provider { get; set; }
 
     [NotNull]
@@ -35,15 +33,12 @@ internal class CacheManager : ICacheManager
     /// </summary>
     /// <param name="provider"></param>
     /// <param name="memoryCache"></param>
-    /// <param name="localizerFactory"></param>
     public CacheManager(
         IServiceProvider provider,
-        IMemoryCache memoryCache,
-        IStringLocalizerFactory localizerFactory)
+        IMemoryCache memoryCache)
     {
         Provider = provider;
         Cache = memoryCache;
-        Localizer = localizerFactory;
         Instance = this;
     }
 
@@ -128,7 +123,7 @@ internal class CacheManager : ICacheManager
     /// <returns></returns>
     public static IStringLocalizer? CreateLocalizerByType(Type resourceSource) => resourceSource.Assembly.IsDynamic
         ? null
-        : Instance.Localizer.Create(resourceSource);
+        : Instance.Provider.GetRequiredService<IStringLocalizerFactory>().Create(resourceSource);
 
     /// <summary>
     /// 
@@ -139,6 +134,37 @@ internal class CacheManager : ICacheManager
         var localizationOptions = Instance.Provider.GetRequiredService<IOptions<JsonLocalizationOptions>>();
         return localizationOptions.Value;
     }
+
+    /// <summary>
+    /// 通过 程序集与类型获得 IStringLocalizer 实例
+    /// </summary>
+    /// <param name="assembly"></param>
+    /// <param name="typeName"></param>
+    /// <returns></returns>
+    public static IStringLocalizer? GetStringLocalizerFromService(Assembly assembly, string typeName) => Instance.GetOrCreate($"{nameof(GetStringLocalizerFromService)}-{CultureInfo.CurrentUICulture.Name}-{assembly.GetName().Name}-{typeName}", entry =>
+    {
+        IStringLocalizer? ret = null;
+        var factories = Instance.Provider.GetServices<IStringLocalizerFactory>();
+        if (factories != null)
+        {
+            var factory = factories.LastOrDefault(a => a is not JsonStringLocalizerFactory);
+            if (factory != null)
+            {
+                var type = assembly.GetType(typeName);
+                if (type != null)
+                {
+                    ret = factory.Create(type);
+                }
+            }
+        }
+
+        if (assembly.IsDynamic)
+        {
+            entry.SetSlidingExpirationForDynamicAssembly();
+        }
+
+        return ret;
+    });
 
     /// <summary>
     /// 获取指定文化本地化资源集合
@@ -153,7 +179,7 @@ internal class CacheManager : ICacheManager
             entry =>
             {
                 // 获得程序集中的资源文件 stream
-                var sections = Instance.GetJsonStringFromAssembly(assembly);
+                var sections = GetJsonLocalizationOption().GetJsonStringFromAssembly(assembly);
                 var v = sections
                     .FirstOrDefault(kv => typeName.Equals(kv.Key, StringComparison.OrdinalIgnoreCase))?
                     .GetChildren()
@@ -541,60 +567,4 @@ internal class CacheManager : ICacheManager
         }
     }
     #endregion
-}
-
-/// <summary>
-/// ICacheManager 扩展操作类
-/// </summary>
-public static class ICacheManagerExtensions
-{
-    /// <summary>
-    /// 通过 JsonLocalizationOptions 配置项实例获取资源文件配置集合
-    /// </summary>
-    /// <param name="cache"></param>
-    /// <param name="assembly"></param>
-    /// <returns></returns>
-    public static IEnumerable<IConfigurationSection> GetJsonStringFromAssembly(this ICacheManager cache, Assembly assembly)
-    {
-        var cacheKey = $"{nameof(GetJsonStringFromAssembly)}-{CultureInfo.CurrentUICulture.Name}-{assembly.GetName().Name}";
-        return cache.GetOrCreate(cacheKey, entry => CacheManager.GetJsonLocalizationOption().GetJsonStringFromAssembly(assembly));
-    }
-
-    /// <summary>
-    /// 通过 程序集与类型获得 IStringLocalizer 实例
-    /// </summary>
-    /// <param name="provider"></param>
-    /// <param name="assembly"></param>
-    /// <param name="typeName"></param>
-    /// <returns></returns>
-    public static IStringLocalizer? GetStringLocalizerFromService(this IServiceProvider provider, Assembly assembly, string typeName)
-    {
-        // 方便统一维护缓存 Key 将扩展方法放到此处
-        // WTM 系统未实例化 ICacheManager 时有可能使用 IStringLocalizerFactory
-        var cache = provider.GetRequiredService<ICacheManager>();
-        return cache.GetOrCreate($"{nameof(GetStringLocalizerFromService)}-{CultureInfo.CurrentUICulture.Name}-{assembly.GetName().Name}-{typeName}", entry =>
-        {
-            IStringLocalizer? ret = null;
-            var factories = provider.GetServices<IStringLocalizerFactory>();
-            if (factories != null)
-            {
-                var factory = factories.LastOrDefault(a => a is not JsonStringLocalizerFactory);
-                if (factory != null)
-                {
-                    var type = assembly.GetType(typeName);
-                    if (type != null)
-                    {
-                        ret = factory.Create(type);
-                    }
-                }
-            }
-
-            if (assembly.IsDynamic)
-            {
-                entry.SetSlidingExpirationForDynamicAssembly();
-            }
-
-            return ret;
-        });
-    }
 }

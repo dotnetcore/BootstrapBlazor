@@ -19,24 +19,25 @@ internal class JsonStringLocalizerFactory : ResourceManagerStringLocalizerFactor
     [NotNull]
     private string? TypeName { get; set; }
 
-    private IServiceProvider ServiceProvider { get; set; }
-
     /// <summary>
     /// 构造函数
     /// </summary>
-    /// <param name="provider"></param>
+    /// <param name="cacheManager"></param>
     /// <param name="options"></param>
     /// <param name="jsonLocalizationOptions"></param>
     /// <param name="localizationOptions"></param>
     /// <param name="loggerFactory"></param>
     public JsonStringLocalizerFactory(
-        IServiceProvider provider,
+        ICacheManager cacheManager,
         IOptionsMonitor<BootstrapBlazorOptions> options,
         IOptions<JsonLocalizationOptions> jsonLocalizationOptions,
         IOptions<LocalizationOptions> localizationOptions,
         ILoggerFactory loggerFactory) : base(localizationOptions, loggerFactory)
     {
-        ServiceProvider = provider;
+        // 由于某些应用场景如 (WTM) Blazor 还未加载时 Localizer 模块先开始工作了
+        // 为了保证 CacheManager 内部 Instance 可用这里需要使 ICacheManager 先实例化
+        cacheManager.SetStartTime();
+
         jsonLocalizationOptions.Value.FallbackCulture = options.CurrentValue.FallbackCulture;
         jsonLocalizationOptions.Value.EnableFallbackCulture = options.CurrentValue.EnableFallbackCulture;
         LoggerFactory = loggerFactory;
@@ -83,7 +84,6 @@ internal class JsonStringLocalizerFactory : ResourceManagerStringLocalizerFactor
     /// <param name="baseName">The base name of the resource to search for</param>
     /// <returns></returns>
     protected override ResourceManagerStringLocalizer CreateResourceManagerStringLocalizer(Assembly assembly, string baseName) => new JsonStringLocalizer(
-            ServiceProvider,
             assembly,
             TypeName,
             baseName,

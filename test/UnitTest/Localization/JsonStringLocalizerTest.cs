@@ -32,7 +32,7 @@ public class JsonStringLocalizerTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void GetString_FromInject()
+    public void GetString_FromService()
     {
         var sc = new ServiceCollection();
         sc.AddConfiguration();
@@ -41,9 +41,6 @@ public class JsonStringLocalizerTest : BootstrapBlazorTestBase
         sc.AddBootstrapBlazor();
 
         var provider = sc.BuildServiceProvider();
-        var cache = provider.GetRequiredService<ICacheManager>();
-        cache.SetStartTime();
-
         var localizer = provider.GetRequiredService<IStringLocalizer<Dummy>>();
         var v = localizer["Mock-Name"];
         Assert.Equal("Mock-Test-Name", v);
@@ -67,9 +64,6 @@ public class JsonStringLocalizerTest : BootstrapBlazorTestBase
         });
 
         var provider = sc.BuildServiceProvider();
-        var cache = provider.GetRequiredService<ICacheManager>();
-        cache.SetStartTime();
-
         var localizer = provider.GetRequiredService<IStringLocalizer>();
 
         Assert.Equal("Mock-Test-Name", localizer["Mock-Name"]);
@@ -90,9 +84,6 @@ public class JsonStringLocalizerTest : BootstrapBlazorTestBase
         sc.AddSingleton<IStringLocalizerFactory, MockLocalizerFactory>();
 
         var provider = sc.BuildServiceProvider();
-        var cache = provider.GetRequiredService<ICacheManager>();
-        cache.SetStartTime();
-
         var localizer = provider.GetRequiredService<IStringLocalizer>();
 
         Assert.Equal("Mock-Test-Name", localizer["Mock-Name"]);
@@ -110,9 +101,6 @@ public class JsonStringLocalizerTest : BootstrapBlazorTestBase
         sc.AddBootstrapBlazor();
 
         var provider = sc.BuildServiceProvider();
-        var cache = provider.GetRequiredService<ICacheManager>();
-        cache.SetStartTime();
-
         Assert.Throws<InvalidOperationException>(() => provider.GetRequiredService<IStringLocalizer>());
     }
 
@@ -135,9 +123,6 @@ public class JsonStringLocalizerTest : BootstrapBlazorTestBase
         sc.AddBootstrapBlazor();
 
         var provider = sc.BuildServiceProvider();
-        var cache = provider.GetRequiredService<ICacheManager>();
-        cache.SetStartTime();
-
         var localizer = provider.GetRequiredService<IStringLocalizer<Dummy>>();
         var items = localizer.GetAllStrings(false);
         Assert.NotEmpty(items);
@@ -155,9 +140,6 @@ public class JsonStringLocalizerTest : BootstrapBlazorTestBase
         });
 
         var provider = sc.BuildServiceProvider();
-        var cache = provider.GetRequiredService<ICacheManager>();
-        cache.SetStartTime();
-
         var localizer = provider.GetRequiredService<IStringLocalizer>();
 
         var items = localizer.GetAllStrings(false);
@@ -175,9 +157,6 @@ public class JsonStringLocalizerTest : BootstrapBlazorTestBase
         });
 
         var provider = sc.BuildServiceProvider();
-        var cache = provider.GetRequiredService<ICacheManager>();
-        cache.SetStartTime();
-
         var localizer = provider.GetRequiredService<IStringLocalizer>();
 
         var items = localizer.GetAllStrings(false);
@@ -195,9 +174,6 @@ public class JsonStringLocalizerTest : BootstrapBlazorTestBase
         });
 
         var provider = sc.BuildServiceProvider();
-        var cache = provider.GetRequiredService<ICacheManager>();
-        cache.SetStartTime();
-
         var localizer = provider.GetRequiredService<IStringLocalizer>();
         var items = localizer.GetAllStrings(false);
 
@@ -215,9 +191,6 @@ public class JsonStringLocalizerTest : BootstrapBlazorTestBase
         sc.AddBootstrapBlazor();
 
         var provider = sc.BuildServiceProvider();
-        var cache = provider.GetRequiredService<ICacheManager>();
-        cache.SetStartTime();
-
         var localizer = provider.GetRequiredService<IStringLocalizer<Foo>>();
 
         var items = localizer.GetAllStrings(false);
@@ -234,9 +207,6 @@ public class JsonStringLocalizerTest : BootstrapBlazorTestBase
         sc.AddBootstrapBlazor();
 
         var provider = sc.BuildServiceProvider();
-        var cache = provider.GetRequiredService<ICacheManager>();
-        cache.SetStartTime();
-
         var localizer = provider.GetRequiredService<IStringLocalizer<Foo>>();
         Assert.Equal("name", localizer["test-localizer-name"]);
         Assert.Equal("test-name", localizer["test-name"]);
@@ -286,5 +256,24 @@ public class JsonStringLocalizerTest : BootstrapBlazorTestBase
             new("test-localizer-name", "name"),
             new("test-localizer-age", "age")
         };
+    }
+}
+
+public class JsonStringLocalizerFactoryTest
+{
+    [Fact]
+    public void GetAllStrings_FromInject()
+    {
+        // 由于某些应用场景如 (WTM) Blazor 还未加载时 Localizer 模块先开始工作了
+        // 为了保证 CacheManager 内部 Instance 可用这里需要使 ICacheManager 先实例化
+
+        var sc = new ServiceCollection();
+        sc.AddConfiguration();
+        sc.AddBootstrapBlazor();
+
+        var provider = sc.BuildServiceProvider();
+        var localizer = provider.GetRequiredService<IStringLocalizer<Foo>>();
+        var item = localizer["Foo.Name"];
+        Assert.NotEqual("Foo.Name", item);
     }
 }

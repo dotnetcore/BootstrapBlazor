@@ -3,6 +3,7 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using BootstrapBlazor.Components;
+using BootstrapBlazor.Localization.Json;
 using BootstrapBlazor.Shared.Exntensions;
 using Microsoft.Extensions.Options;
 
@@ -20,17 +21,23 @@ class CodeSnippetService
 
     private ICacheManager CacheManager { get; set; }
 
+    private JsonLocalizationOptions LocalizerOptions { get; }
+
     /// <summary>
     /// 构造方法
     /// </summary>
     /// <param name="client"></param>
     /// <param name="cacheManager"></param>
     /// <param name="options"></param>
+    /// <param name="localizerOptions"></param>
     public CodeSnippetService(
         HttpClient client,
         ICacheManager cacheManager,
-        IOptionsMonitor<WebsiteOptions> options)
+        IOptionsMonitor<WebsiteOptions> options,
+        IOptionsMonitor<JsonLocalizationOptions> localizerOptions)
     {
+        LocalizerOptions = localizerOptions.CurrentValue;
+
         CacheManager = cacheManager;
         Client = client;
         Client.Timeout = TimeSpan.FromSeconds(5);
@@ -168,7 +175,7 @@ class CodeSnippetService
         List<KeyValuePair<string, string>> GetLocalizers() => CacheManager.GetLocalizers(codeFile, entry =>
         {
             var typeName = Path.GetFileNameWithoutExtension(codeFile);
-            var sections = CacheManager.GetJsonStringFromAssembly(typeof(CodeSnippetService).Assembly);
+            var sections = LocalizerOptions.GetJsonStringFromAssembly(typeof(CodeSnippetService).Assembly);
             var v = sections.FirstOrDefault(s => $"BootstrapBlazor.Shared.Samples.{typeName}".Equals(s.Key, StringComparison.OrdinalIgnoreCase))?
                 .GetChildren()
                 .SelectMany(c => new KeyValuePair<string, string>[]

@@ -2,7 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
 using System.Collections.Concurrent;
@@ -25,26 +24,21 @@ internal class JsonStringLocalizer : ResourceManagerStringLocalizer
 
     private ConcurrentDictionary<string, object?> MissingLocalizerCache { get; } = new();
 
-    private IServiceProvider ServiceProvider { get; set; }
-
     /// <summary>
     /// 构造函数
     /// </summary>
-    /// <param name="provider"></param>
     /// <param name="assembly"></param>
     /// <param name="typeName"></param>
     /// <param name="baseName"></param>
     /// <param name="logger"></param>
     /// <param name="resourceNamesCache"></param>
     public JsonStringLocalizer(
-        IServiceProvider provider,
         Assembly assembly,
         string typeName,
         string baseName,
         ILogger logger,
         IResourceNamesCache resourceNamesCache) : base(new ResourceManager(baseName, assembly), assembly, baseName, resourceNamesCache, logger)
     {
-        ServiceProvider = provider;
         Assembly = assembly;
         TypeName = typeName;
         Logger = logger;
@@ -90,7 +84,7 @@ internal class JsonStringLocalizer : ResourceManagerStringLocalizer
         string? GetStringFromService(string name)
         {
             string? ret = null;
-            var localizer = ServiceProvider.GetStringLocalizerFromService(Assembly, TypeName);
+            var localizer = CacheManager.GetStringLocalizerFromService(Assembly, TypeName);
             if (localizer != null)
             {
                 ret = GetLocalizerValueFromCache(localizer, name);
@@ -182,7 +176,7 @@ internal class JsonStringLocalizer : ResourceManagerStringLocalizer
         IEnumerable<LocalizedString>? GetAllStringsFromService(bool includeParentCultures)
         {
             IEnumerable<LocalizedString>? ret = null;
-            var localizer = ServiceProvider.GetStringLocalizerFromService(Assembly, TypeName);
+            var localizer = CacheManager.GetStringLocalizerFromService(Assembly, TypeName);
             if (localizer != null)
             {
                 ret = localizer.GetAllStrings(includeParentCultures);
