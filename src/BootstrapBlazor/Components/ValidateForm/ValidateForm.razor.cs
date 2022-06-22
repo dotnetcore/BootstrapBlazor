@@ -3,12 +3,10 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using BootstrapBlazor.Localization.Json;
-using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Options;
 using System.Collections.Concurrent;
-using System.ComponentModel.DataAnnotations;
 using System.Linq.Expressions;
 using System.Reflection;
 
@@ -408,7 +406,7 @@ public partial class ValidateForm : IAsyncDisposable
             else
             {
                 // 未选择文件
-                ValidateDataAnnotations(null, context, messages, pi);
+                ValidateDataAnnotations(propertyValue, context, messages, pi);
             }
         }
         else

@@ -19,9 +19,29 @@ public class LocalizationOptionsExtensionsTest
                 "zh-CN.json"
             }
         };
-        var configs = option.GetJsonStringConfig(this.GetType().Assembly);
+        var configs = option.GetJsonStringFromAssembly(this.GetType().Assembly);
         var section = configs.FirstOrDefault(i => i.Key == "BootstrapBlazor.Shared.Foo");
         var v = section.GetValue("Name", "");
         Assert.NotEmpty(v);
+    }
+
+    [Fact]
+    public void GetJsonStringConfig_Fallback()
+    {
+        // 获得 it-it 文化信息
+        // 回落默认语音为 en 测试用例为 zh 找不到资源文件
+        var option = new JsonLocalizationOptions();
+        var configs = option.GetJsonStringFromAssembly(this.GetType().Assembly, "it-it");
+        Assert.Empty(configs);
+    }
+
+    [Fact]
+    public void GetJsonStringConfig_Culture()
+    {
+        // 获得 it-it 文化信息
+        // 回落默认语音为 en 测试用例为 zh 找不到资源文件
+        var option = new JsonLocalizationOptions();
+        var configs = option.GetJsonStringFromAssembly(this.GetType().Assembly, "en-US");
+        Assert.NotEmpty(configs);
     }
 }

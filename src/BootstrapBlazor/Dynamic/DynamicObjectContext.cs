@@ -58,14 +58,6 @@ public abstract class DynamicObjectContext : IDynamicObjectContext
     }
 
     /// <summary>
-    /// 对象配置方法
-    /// </summary>
-    protected internal virtual void OnConfigurating()
-    {
-
-    }
-
-    /// <summary>
     /// 列创建回调方法 入口参数为 ITableColumn 实例 返回值为 CustomAttributeBuilder 集合
     /// </summary>
     protected internal virtual IEnumerable<CustomAttributeBuilder> OnColumnCreating(ITableColumn col) => CustomerAttributeBuilderCache.TryGetValue(col.GetFieldName(), out var builders)
@@ -97,4 +89,9 @@ public abstract class DynamicObjectContext : IDynamicObjectContext
     /// </summary>
     /// <returns></returns>
     public Func<DynamicObjectContextArgs, Task>? OnChanged { get; set; }
+
+    /// <summary>
+    /// 获得所有选中行回调委托
+    /// </summary>
+    public Func<IEnumerable<IDynamicObject>>? OnGetSelectedRows { get; set; }
 }

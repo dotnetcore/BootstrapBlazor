@@ -2,10 +2,8 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web.Virtualization;
 using Microsoft.Extensions.Options;
-using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 using System.Reflection;
 
@@ -125,7 +123,7 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
     public bool? IsDetails { get; set; }
 
     /// <summary>
-    /// 获得/设置 无数据时是否隐藏表格 Footer 默认为 false 不隐藏 
+    /// 获得/设置 无数据时是否隐藏表格 Footer 默认为 false 不隐藏
     /// </summary>
     [Parameter]
     public bool IsHideFooterWhenNoData { get; set; }
@@ -213,7 +211,7 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
     /// 明细行功能中切换行状态时调用此方法
     /// </summary>
     /// <param name="item"></param>
-    protected void ExpandDetailRow(TItem item)
+    public void ExpandDetailRow(TItem item)
     {
         DetailRows.Add(item);
         if (ExpandRows.Contains(item))
@@ -843,7 +841,7 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
             : col.Template(item));
 
     /// <summary>
-    /// 渲染 Excel 单元格方法 
+    /// 渲染 Excel 单元格方法
     /// </summary>
     /// <param name="col"></param>
     /// <param name="item"></param>
@@ -990,6 +988,18 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
         Filters.Clear();
         await OnFilterAsync();
     }
+
+    /// <summary>
+    /// 返回 true 时按钮禁用
+    /// </summary>
+    /// <returns></returns>
+    private bool GetEditButtonStatus() => ShowAddForm || AddInCell || SelectedRows.Count != 1;
+
+    /// <summary>
+    /// 返回 true 时按钮禁用
+    /// </summary>
+    /// <returns></returns>
+    private bool GetDeleteButtonStatus() => ShowAddForm || AddInCell || !SelectedRows.Any();
 
     #region Dispose
     /// <summary>

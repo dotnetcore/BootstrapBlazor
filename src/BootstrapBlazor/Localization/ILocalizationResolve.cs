@@ -2,8 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using System.Globalization;
-
 namespace BootstrapBlazor.Localization;
 
 /// <summary>
@@ -12,10 +10,9 @@ namespace BootstrapBlazor.Localization;
 public interface ILocalizationResolve
 {
     /// <summary>
-    /// 通过文化信息与语言键值获取值方法
+    /// 获得所有文化信息集合
     /// </summary>
-    /// <param name="culture"></param>
-    /// <param name="name"></param>
+    /// <param name="includeParentCultures"></param>
     /// <returns></returns>
-    string? GetJsonStringByCulture(CultureInfo culture, string name);
+    IEnumerable<KeyValuePair<string, string>> GetAllStringsByCulture(bool includeParentCultures);
 }

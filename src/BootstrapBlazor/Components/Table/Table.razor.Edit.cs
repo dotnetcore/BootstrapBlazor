@@ -2,7 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 
 namespace BootstrapBlazor.Components;
@@ -28,10 +27,10 @@ public partial class Table<TItem>
     public EventCallback<List<TItem>> SelectedRowsChanged { get; set; }
 
     /// <summary>
-    /// 获得/设置 新建行位置枚举 默认为 选中行后面
+    /// 获得/设置 新建行位置枚举 默认为 Last 最后
     /// </summary>
     [Parameter]
-    public InsertRowMode InsertRowMode { get; set; }
+    public InsertRowMode InsertRowMode { get; set; } = InsertRowMode.Last;
 
     /// <summary>
     /// 获得/设置 是否正在查询数据
@@ -420,6 +419,10 @@ public partial class Table<TItem>
                 // 动态数据
                 SelectedRows.Clear();
                 QueryItems = DynamicContext.GetItems().Cast<TItem>();
+                if (DynamicContext.OnGetSelectedRows != null)
+                {
+                    SelectedRows.AddRange(DynamicContext.OnGetSelectedRows().Cast<TItem>());
+                }
                 TotalCount = QueryItems.Count();
             }
             else
@@ -592,6 +595,7 @@ public partial class Table<TItem>
     {
         SelectedRows.Clear();
         SelectedRows.Add(item);
+        await OnSelectedRowsChanged();
 
         // 更新行选中状态
         await EditAsync();

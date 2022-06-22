@@ -2,8 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using Microsoft.JSInterop;
-
 namespace BootstrapBlazor.Components;
 
 /// <summary>
@@ -61,7 +59,12 @@ public class JSModule : IAsyncDisposable
         {
             if (Module != null)
             {
-                await Module.DisposeAsync().ConfigureAwait(false);
+                // TODO: 微软的代码这里加上 await 就会线程死锁
+                try
+                {
+                    await Module.DisposeAsync().AsTask();
+                }
+                catch { }
                 Module = null;
             }
         }
@@ -72,7 +75,7 @@ public class JSModule : IAsyncDisposable
     /// </summary>
     public async ValueTask DisposeAsync()
     {
-        await DisposeAsyncCore(true).ConfigureAwait(false);
+        await DisposeAsyncCore(true);
         GC.SuppressFinalize(this);
     }
 }

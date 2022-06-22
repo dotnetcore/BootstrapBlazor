@@ -290,27 +290,24 @@ public class UtilityTest : BootstrapBlazorTestBase
         }
     }
 
-    private class MockDynamicObjectContext : IDynamicObjectContext
+    private class MockDynamicObjectContext : DynamicObjectContext
     {
-        public Func<IDynamicObject, ITableColumn, object?, Task>? OnValueChanged { get; set; }
-        public Func<DynamicObjectContextArgs, Task>? OnChanged { get; set; }
-
-        public Task AddAsync(IEnumerable<IDynamicObject> selectedItems)
+        public override Task AddAsync(IEnumerable<IDynamicObject> selectedItems)
         {
             throw new NotImplementedException();
         }
 
-        public Task<bool> DeleteAsync(IEnumerable<IDynamicObject> items)
+        public override Task<bool> DeleteAsync(IEnumerable<IDynamicObject> items)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<ITableColumn> GetColumns()
+        public override IEnumerable<ITableColumn> GetColumns()
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<IDynamicObject> GetItems() => new MockDynamicObject[] { new() { DynamicObjectPrimaryKey = Guid.NewGuid() } };
+        public override IEnumerable<IDynamicObject> GetItems() => new MockDynamicObject[] { new() { DynamicObjectPrimaryKey = Guid.NewGuid() } };
     }
 
     [Fact]
@@ -475,6 +472,30 @@ public class UtilityTest : BootstrapBlazorTestBase
         // from resource file
         text = Utility.GetPlaceHolder<Cat>("PlaceHolder");
         Assert.Equal("test-PlaceHolder", text);
+    }
+
+    [Fact]
+    public void CreateLocalizer_Ok()
+    {
+        var localizer = Utility.CreateLocalizer<Foo>();
+        Assert.NotNull(localizer);
+        if (localizer != null)
+        {
+            Assert.Equal("姓名", localizer["Name"]);
+        }
+
+        localizer = Utility.CreateLocalizer<Cat>();
+        Assert.NotNull(localizer);
+        if (localizer != null)
+        {
+            Assert.Equal("Name", localizer["Name"]);
+            Assert.True(localizer["Name"].ResourceNotFound);
+        }
+
+        // dynamic assembly
+        var dynamicType = EmitHelper.CreateTypeByName("test_type", new MockTableColumn[] { new("Name", typeof(string)) });
+        localizer = Utility.CreateLocalizer(dynamicType!);
+        Assert.Null(localizer);
     }
 
     private class MockNullDisplayNameColumn : MockTableColumn, IEditorItem

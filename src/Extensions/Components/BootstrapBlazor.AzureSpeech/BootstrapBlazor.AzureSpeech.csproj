@@ -10,4 +10,8 @@
     <RootNamespace>BootstrapBlazor.Components</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="BootstrapBlazor" Version="6.7.18" />
+  </ItemGroup>
+
 </Project>

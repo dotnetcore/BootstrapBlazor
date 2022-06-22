@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using BootstrapBlazor.Localization;
 using BootstrapBlazor.Localization.Json;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
@@ -9,7 +10,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Options;
 using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 using System.Linq.Expressions;
 using System.Reflection;
@@ -23,8 +23,6 @@ internal class CacheManager : ICacheManager
 {
     private IMemoryCache Cache { get; set; }
 
-    private IStringLocalizerFactory Localizer { get; set; }
-
     private IServiceProvider Provider { get; set; }
 
     [NotNull]
@@ -35,15 +33,12 @@ internal class CacheManager : ICacheManager
     /// </summary>
     /// <param name="provider"></param>
     /// <param name="memoryCache"></param>
-    /// <param name="localizerFactory"></param>
     public CacheManager(
         IServiceProvider provider,
-        IMemoryCache memoryCache,
-        IStringLocalizerFactory localizerFactory)
+        IMemoryCache memoryCache)
     {
         Provider = provider;
         Cache = memoryCache;
-        Localizer = localizerFactory;
         Instance = this;
     }
 
@@ -53,7 +48,7 @@ internal class CacheManager : ICacheManager
     public T GetOrCreate<T>(object key, Func<ICacheEntry, T> factory) => Cache.GetOrCreate(key, entry =>
     {
 #if DEBUG
-        entry.SlidingExpiration = TimeSpan.FromSeconds(5);
+        entry.SlidingExpiration = TimeSpan.FromSeconds(500000);
 #endif
 
         if (key is not string)
@@ -122,27 +117,89 @@ internal class CacheManager : ICacheManager
 
     #region Localizer
     /// <summary>
-    /// 通过指定类型创建 IStringLocalizer 实例
-    /// </summary>
-    /// <typeparam name="TType"></typeparam>
-    /// <returns></returns>
-    public static IStringLocalizer? CreateLocalizer<TType>() => CreateLocalizerByType(typeof(TType));
-
-    /// <summary>
     /// 
     /// </summary>
     /// <param name="resourceSource"></param>
     /// <returns></returns>
     public static IStringLocalizer? CreateLocalizerByType(Type resourceSource) => resourceSource.Assembly.IsDynamic
         ? null
-        : Instance.Localizer.Create(resourceSource);
+        : Instance.Provider.GetRequiredService<IStringLocalizerFactory>().Create(resourceSource);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
+    public static JsonLocalizationOptions GetJsonLocalizationOption()
+    {
+        var localizationOptions = Instance.Provider.GetRequiredService<IOptions<JsonLocalizationOptions>>();
+        return localizationOptions.Value;
+    }
+
+    /// <summary>
+    /// 通过 程序集与类型获得 IStringLocalizer 实例
+    /// </summary>
+    /// <param name="assembly"></param>
+    /// <param name="typeName"></param>
+    /// <returns></returns>
+    public static IStringLocalizer? GetStringLocalizerFromService(Assembly assembly, string typeName) => Instance.GetOrCreate($"{nameof(GetStringLocalizerFromService)}-{CultureInfo.CurrentUICulture.Name}-{assembly.GetName().Name}-{typeName}", entry =>
+    {
+        IStringLocalizer? ret = null;
+        var factories = Instance.Provider.GetServices<IStringLocalizerFactory>();
+        if (factories != null)
+        {
+            var factory = factories.LastOrDefault(a => a is not JsonStringLocalizerFactory);
+            if (factory != null)
+            {
+                var type = assembly.GetType(typeName);
+                if (type != null)
+                {
+                    ret = factory.Create(type);
+                }
+            }
+        }
+
+        if (assembly.IsDynamic)
+        {
+            entry.SetSlidingExpirationForDynamicAssembly();
+        }
+
+        return ret;
+    });
+
+    /// <summary>
+    /// 获取指定文化本地化资源集合
+    /// </summary>
+    /// <param name="assembly"></param>
+    /// <param name="typeName"></param>
+    /// <param name="includeParentCultures"></param>
+    /// <returns></returns>
+    public static IEnumerable<LocalizedString>? GetAllStringsByCulture(Assembly assembly, string typeName, bool includeParentCultures = true) => assembly.IsDynamic
+        ? null
+        : Instance.GetOrCreate($"{nameof(GetAllStringsByCulture)}-{CultureInfo.CurrentUICulture.Name}-{assembly.GetName().Name}-{typeName}",
+            entry =>
+            {
+                // 获得程序集中的资源文件 stream
+                var sections = GetJsonLocalizationOption().GetJsonStringFromAssembly(assembly);
+                var v = sections
+                    .FirstOrDefault(kv => typeName.Equals(kv.Key, StringComparison.OrdinalIgnoreCase))?
+                    .GetChildren()
+                    .SelectMany(kv => new[] { new LocalizedString(kv.Key, kv.Value) });
+                return v;
+            });
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="includeParentCultures"></param>
+    /// <returns></returns>
+    public static IEnumerable<KeyValuePair<string, string>> GetAllStringsFromResolve(bool includeParentCultures = true) => Instance.GetOrCreate($"{nameof(GetAllStringsFromResolve)}-{CultureInfo.CurrentUICulture.Name}", entry => Instance.Provider.GetRequiredService<ILocalizationResolve>().GetAllStringsByCulture(includeParentCultures));
     #endregion
 
     #region DisplayName
     public static string? GetEnumDisplayName(Type type, string fieldName)
     {
         var t = Nullable.GetUnderlyingType(type) ?? type;
-        var cacheKey = $"EnumDisplayName-{CultureInfo.CurrentUICulture.Name}-{t.FullName}-{fieldName}";
+        var cacheKey = $"{nameof(GetEnumDisplayName)}-{CultureInfo.CurrentUICulture.Name}-{t.FullName}-{fieldName}";
         return Instance.GetOrCreate(cacheKey, entry =>
         {
             var dn = "";
@@ -157,19 +214,13 @@ internal class CacheManager : ICacheManager
             {
                 var field = t.GetField(fieldName);
                 dn = field?.GetCustomAttribute<DisplayAttribute>(true)?.Name
-                ?? field?.GetCustomAttribute<DescriptionAttribute>(true)?.Description;
+                    ?? field?.GetCustomAttribute<DescriptionAttribute>(true)?.Description;
 
                 // search in Localization again
                 if (!string.IsNullOrEmpty(dn))
                 {
-                    dn = GetLocalizerValueByKey(dn);
+                    dn = GetLocalizerValueFromResourceManager(dn);
                 }
-            }
-
-            // add display name into cache
-            if (type.Assembly.IsDynamic)
-            {
-                entry.SetSlidingExpirationForDynamicAssembly();
             }
 
             entry.SetDynamicAssemblyPolicy(type);
@@ -180,7 +231,7 @@ internal class CacheManager : ICacheManager
 
     public static string GetDisplayName(Type modelType, string fieldName)
     {
-        var cacheKey = $"DisplayName-{CultureInfo.CurrentUICulture.Name}-{modelType.FullName}-{fieldName}";
+        var cacheKey = $"{nameof(GetDisplayName)}-{CultureInfo.CurrentUICulture.Name}-{modelType.FullName}-{fieldName}";
         var displayName = Instance.GetOrCreate(cacheKey, entry =>
         {
             string? dn = null;
@@ -212,7 +263,7 @@ internal class CacheManager : ICacheManager
             // 回退查找资源文件通过 dn 查找匹配项 用于支持 Validation
             if (!modelType.Assembly.IsDynamic && !string.IsNullOrEmpty(dn))
             {
-                dn = GetLocalizerValueByKey(dn);
+                dn = GetLocalizerValueFromResourceManager(dn);
             }
             return dn;
         }
@@ -220,7 +271,7 @@ internal class CacheManager : ICacheManager
 
     public static IEnumerable<SelectedItem> GetNullableBoolItems(Type modelType, string fieldName)
     {
-        var cacheKey = $"NullableBoolItems-{CultureInfo.CurrentUICulture.Name}-{modelType.FullName}-{fieldName}";
+        var cacheKey = $"{nameof(GetNullableBoolItems)}-{CultureInfo.CurrentUICulture.Name}-{modelType.FullName}-{fieldName}";
         return Instance.GetOrCreate(cacheKey, entry =>
         {
             var items = new List<SelectedItem>();
@@ -269,13 +320,13 @@ internal class CacheManager : ICacheManager
     /// </summary>
     /// <param name="key"></param>
     /// <returns></returns>
-    private static string? GetLocalizerValueByKey(string key)
+    private static string? GetLocalizerValueFromResourceManager(string key)
     {
         string? dn = null;
-        var resxType = Instance.Provider.GetRequiredService<IOptions<JsonLocalizationOptions>>();
-        if (resxType.Value.ResourceManagerStringLocalizerType != null)
+        var options = GetJsonLocalizationOption();
+        if (options.ResourceManagerStringLocalizerType != null)
         {
-            var localizer = CreateLocalizerByType(resxType.Value.ResourceManagerStringLocalizerType);
+            var localizer = CreateLocalizerByType(options.ResourceManagerStringLocalizerType);
             var stringLocalizer = localizer?[key];
             if (stringLocalizer is { ResourceNotFound: false })
             {
@@ -289,7 +340,7 @@ internal class CacheManager : ICacheManager
     #region Placeholder
     public static string? GetPlaceholder(Type modelType, string fieldName)
     {
-        var cacheKey = $"Placeholder-{CultureInfo.CurrentUICulture.Name}-{modelType.FullName}-{fieldName}";
+        var cacheKey = $"{nameof(GetPlaceholder)}-{CultureInfo.CurrentUICulture.Name}-{modelType.FullName}-{fieldName}";
         return Instance.GetOrCreate(cacheKey, entry =>
         {
             // 通过资源文件查找 FieldName 项
@@ -321,7 +372,7 @@ internal class CacheManager : ICacheManager
     #region Lambda Property
     public static bool TryGetProperty(Type modelType, string fieldName, [NotNullWhen(true)] out PropertyInfo? propertyInfo)
     {
-        var cacheKey = $"GetProperty-{modelType.FullName}-{fieldName}";
+        var cacheKey = $"{nameof(TryGetProperty)}-{modelType.FullName}-{fieldName}";
         propertyInfo = Instance.GetOrCreate(cacheKey, entry =>
         {
             var props = modelType.GetRuntimeProperties().AsEnumerable();
@@ -448,7 +499,7 @@ internal class CacheManager : ICacheManager
     #region Format
     public static Func<object, string, IFormatProvider?, string> GetFormatInvoker(Type type)
     {
-        var cacheKey = $"Lambda-{nameof(GetFormatLambda)}-{type.FullName}";
+        var cacheKey = $"{nameof(GetFormatInvoker)}-{nameof(GetFormatLambda)}-{type.FullName}";
         return Instance.GetOrCreate(cacheKey, entry =>
         {
             entry.SetDynamicAssemblyPolicy(type);
@@ -487,7 +538,7 @@ internal class CacheManager : ICacheManager
 
     public static Func<object, IFormatProvider?, string> GetFormatProviderInvoker(Type type)
     {
-        var cacheKey = $"Lambda-{nameof(GetFormatProviderLambda)}-{type.FullName}";
+        var cacheKey = $"{nameof(GetFormatProviderInvoker)}-{nameof(GetFormatProviderLambda)}-{type.FullName}";
         return Instance.GetOrCreate(cacheKey, entry =>
         {
             entry.SetDynamicAssemblyPolicy(type);
@@ -516,48 +567,4 @@ internal class CacheManager : ICacheManager
         }
     }
     #endregion
-}
-
-/// <summary>
-/// ICacheManager 扩展操作类
-/// </summary>
-public static class ICacheManagerExtensions
-{
-    /// <summary>
-    /// 通过 JsonLocalizationOptions 配置项实例获取资源文件配置集合
-    /// </summary>
-    /// <param name="cache"></param>
-    /// <param name="assembly"></param>
-    /// <param name="option"></param>
-    /// <returns></returns>
-    public static IEnumerable<IConfigurationSection> GetJsonStringConfig(this ICacheManager cache, Assembly assembly, JsonLocalizationOptions option)
-    {
-        var cacheKey = $"Localizer-Sections-{CultureInfo.CurrentUICulture.Name}-{assembly.GetName().Name}-{nameof(GetJsonStringConfig)}";
-        return cache.GetOrCreate(cacheKey, entry => option.GetJsonStringConfig(assembly));
-    }
-
-    /// <summary>
-    /// 获取指定文化本地化资源集合
-    /// </summary>
-    /// <param name="cache"></param>
-    /// <param name="cultureName"></param>
-    /// <param name="option"></param>
-    /// <param name="assembly"></param>
-    /// <param name="typeName"></param>
-    /// <returns></returns>
-    public static IEnumerable<KeyValuePair<string, string>> GetJsonStringByCulture(this ICacheManager cache, string cultureName, JsonLocalizationOptions option, Assembly assembly, string typeName)
-    {
-        var cacheKey = $"Localizer-{cultureName}-{assembly.GetName().Name}-{typeName}";
-        return cache.GetOrCreate(cacheKey, entry =>
-        {
-            // 获得程序集中的资源文件 stream
-            var sections = option.GetJsonStringConfig(assembly);
-            var v = sections
-                .FirstOrDefault(kv => typeName.Equals(kv.Key, StringComparison.OrdinalIgnoreCase))?
-                .GetChildren()
-                .SelectMany(c => new[] { new KeyValuePair<string, string>(c.Key, c.Value) });
-
-            return v ?? Enumerable.Empty<KeyValuePair<string, string>>();
-        });
-    }
 }

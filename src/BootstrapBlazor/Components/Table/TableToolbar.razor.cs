@@ -2,7 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using Microsoft.AspNetCore.Components;
 using System.Collections.Concurrent;
 
 namespace BootstrapBlazor.Components;
@@ -34,6 +33,16 @@ public partial class TableToolbar<TItem> : ComponentBase
     [Parameter]
     [NotNull]
     public Func<IEnumerable<TItem>>? OnGetSelectedRows { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否自动收缩工具栏按钮 默认 true
+    /// </summary>
+    [Parameter]
+    public bool IsAutoCollapsedToolbarButton { get; set; } = true;
+
+    private string? ToolbarClassString => CssBuilder.Default("btn-toolbar btn-group")
+        .AddClass("d-none d-sm-inline-flex", IsAutoCollapsedToolbarButton)
+        .Build();
 
     private async Task OnToolbarButtonClick(TableToolbarButton<TItem> button)
     {

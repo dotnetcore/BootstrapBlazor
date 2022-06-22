@@ -276,6 +276,36 @@ public class UploadTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public async Task AvatarUpload_Validate_Ok()
+    {
+        var invalid = true;
+        var foo = new Foo
+        {
+            Name = "abc"
+        };
+        var cut = Context.RenderComponent<ValidateForm>(pb =>
+        {
+            pb.Add(a => a.Model, foo);
+            pb.AddChildContent<AvatarUpload<string>>(pb =>
+            {
+                pb.Add(a => a.Accept, "Image");
+                pb.Add(a => a.Value, foo.Name);
+                pb.Add(a => a.ValueExpression, foo.GenerateValueExpression());
+            });
+            pb.Add(a => a.OnValidSubmit, context =>
+            {
+                invalid = false;
+                return Task.CompletedTask;
+            });
+        });
+
+        // 由于设置了属性 Name 值 Validate 方法通过
+        var form = cut.Find("form");
+        await cut.InvokeAsync(() => form.Submit());
+        Assert.False(invalid);
+    }
+
+    [Fact]
     public void AvatarUpload_FileValidate_Ok()
     {
         var foo = new Person();
@@ -382,6 +412,36 @@ public class UploadTest : BootstrapBlazorTestBase
             });
         });
         cut.Contains("form-label");
+    }
+
+    [Fact]
+    public async Task ButtonUpload_Validate_Ok()
+    {
+        var invalid = true;
+        var foo = new Foo
+        {
+            Name = "abc"
+        };
+        var cut = Context.RenderComponent<ValidateForm>(pb =>
+        {
+            pb.Add(a => a.Model, foo);
+            pb.AddChildContent<ButtonUpload<string>>(pb =>
+            {
+                pb.Add(a => a.Accept, "Image");
+                pb.Add(a => a.Value, foo.Name);
+                pb.Add(a => a.ValueExpression, foo.GenerateValueExpression());
+            });
+            pb.Add(a => a.OnValidSubmit, context =>
+            {
+                invalid = false;
+                return Task.CompletedTask;
+            });
+        });
+
+        // 由于设置了属性 Name 值 Validate 方法通过
+        var form = cut.Find("form");
+        await cut.InvokeAsync(() => form.Submit());
+        Assert.False(invalid);
     }
 
     [Fact]

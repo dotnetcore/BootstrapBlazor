@@ -5,7 +5,6 @@
 using BootstrapBlazor.Shared;
 using Microsoft.AspNetCore.Components.Forms;
 using System.ComponentModel.DataAnnotations;
-using UnitTest.Extensions;
 
 namespace UnitTest.Components;
 

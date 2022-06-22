@@ -3,7 +3,6 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.Extensions.Localization;
-using System.Globalization;
 using System.Reflection;
 
 namespace BootstrapBlazor.Localization.Json;
@@ -31,12 +30,12 @@ public class JsonLocalizationOptions : LocalizationOptions
     /// <summary>
     /// 获得/设置 回落默认文化 默认为 en 英文
     /// </summary>
-    public string FallbackCulture { get; set; } = "en";
+    internal string FallbackCulture { get; set; } = "en";
 
     /// <summary>
     /// 获得/设置 是否回落到 UI 父文化 默认为 true
     /// </summary>
-    public bool EnableFallbackCulture { get; set; } = true;
+    internal bool EnableFallbackCulture { get; set; } = true;
 
     /// <summary>
     /// 构造方法

@@ -8,12 +8,12 @@
     <RenderTemplate>
         @if (Buttons.Count > 0)
         {
-            <div class="btn-toolbar btn-group d-none d-sm-inline-flex">
+            <div class="@ToolbarClassString">
                 @foreach (var button in Buttons)
                 {
                     @if (button is TableToolbarButton<TItem> b && b.IsShow)
                     {
-                        <Button AdditionalAttributes="b.AdditionalAttributes"
+                        <Button AdditionalAttributes="b.AdditionalAttributes" Size="b.Size"
                             Color="@b.Color" Icon="@b.Icon" Text="@b.Text" IsAsync="@b.IsAsync"
                             OnClickWithoutRender="() => OnToolbarButtonClick(b)"
                             IsDisabled="GetDisabled(b)"></Button>
@@ -21,7 +21,7 @@
                     else if (button is TableToolbarPopconfirmButton<TItem> pb && pb.IsShow)
                     {
                         <PopConfirmButton AdditionalAttributes="pb.AdditionalAttributes"
-                              Color="@pb.Color" Icon="@pb.Icon" Text="@pb.Text"
+                              Color="@pb.Color" Icon="@pb.Icon" Text="@pb.Text" Size="pb.Size"
                               IsDisabled="@pb.IsDisabled" IsBlock="@pb.IsBlock" IsOutline="@pb.IsOutline"
                               OnBeforeClick="@pb.OnBeforeClick" OnClose="@pb.OnClose" OnConfirm="@pb.OnConfirm"
                               ConfirmIcon="@pb.ConfirmIcon" ConfirmButtonColor="@pb.ConfirmButtonColor"
@@ -31,42 +31,45 @@
                     }
                 }
             </div>
-            <div class="btn-gear btn-group d-sm-none">
-                <button class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" type="button">
-                    <i class="fa fa-fw fa-gear"></i>
-                </button>
-                <div class="dropdown-menu">
-                    @foreach (var button in Buttons)
-                    {
-                        @if (button is TableToolbarButton<TItem> b && b.IsShow)
+            @if (IsAutoCollapsedToolbarButton)
+            {
+                <div class="btn-gear btn-group d-sm-none">
+                    <button class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" type="button">
+                        <i class="fa fa-fw fa-gear"></i>
+                    </button>
+                    <div class="dropdown-menu">
+                        @foreach (var button in Buttons)
                         {
-                            <div class="dropdown-item" @onclick="e => OnToolbarButtonClick(b)">
-                                @if (string.IsNullOrEmpty(b.Icon))
-                                {
-                                    <span>@b.Text</span>
-                                }
-                                else
-                                {
-                                    <i class="@b.Icon"></i>
-                                }
-                            </div>
+                            @if (button is TableToolbarButton<TItem> b && b.IsShow)
+                            {
+                                <div class="dropdown-item" @onclick="e => OnToolbarButtonClick(b)">
+                                    @if (string.IsNullOrEmpty(b.Icon))
+                                    {
+                                        <span>@b.Text</span>
+                                    }
+                                    else
+                                    {
+                                        <i class="@b.Icon"></i>
+                                    }
+                                </div>
+                            }
+                            else if (button is TableToolbarPopconfirmButton<TItem> pb && pb.IsShow)
+                            {
+                                <div class="dropdown-item" @onclick="pb.OnConfirm">
+                                    @if (string.IsNullOrEmpty(pb.Icon))
+                                    {
+                                        <span>@pb.Text</span>
+                                    }
+                                    else
+                                    {
+                                        <i class="@pb.Icon"></i>
+                                    }
+                                </div>
+                            }
                         }
-                        else if (button is TableToolbarPopconfirmButton<TItem> pb && pb.IsShow)
-                        {
-                            <div class="dropdown-item" @onclick="pb.OnConfirm">
-                                @if (string.IsNullOrEmpty(pb.Icon))
-                                {
-                                    <span>@pb.Text</span>
-                                }
-                                else
-                                {
-                                    <i class="@pb.Icon"></i>
-                                }
-                            </div>
-                        }
-                    }
+                    </div>
                 </div>
-            </div>
+            }
         }
     </RenderTemplate>
 </div>

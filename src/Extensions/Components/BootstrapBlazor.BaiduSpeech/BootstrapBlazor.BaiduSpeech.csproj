@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <PackageReference Include="Baidu.AI" Version="3.6.14" />
+    <PackageReference Include="BootstrapBlazor" Version="6.7.18" />
   </ItemGroup>
 
 </Project>

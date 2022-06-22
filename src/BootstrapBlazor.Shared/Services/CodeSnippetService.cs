@@ -19,9 +19,9 @@ class CodeSnippetService
 
     private string ContentRootPath { get; }
 
-    private JsonLocalizationOptions Option { get; }
-
     private ICacheManager CacheManager { get; set; }
+
+    private JsonLocalizationOptions LocalizerOptions { get; }
 
     /// <summary>
     /// 构造方法
@@ -29,13 +29,15 @@ class CodeSnippetService
     /// <param name="client"></param>
     /// <param name="cacheManager"></param>
     /// <param name="options"></param>
-    /// <param name="option"></param>
+    /// <param name="localizerOptions"></param>
     public CodeSnippetService(
         HttpClient client,
         ICacheManager cacheManager,
         IOptionsMonitor<WebsiteOptions> options,
-        IOptions<JsonLocalizationOptions> option)
+        IOptionsMonitor<JsonLocalizationOptions> localizerOptions)
     {
+        LocalizerOptions = localizerOptions.CurrentValue;
+
         CacheManager = cacheManager;
         Client = client;
         Client.Timeout = TimeSpan.FromSeconds(5);
@@ -44,8 +46,6 @@ class CodeSnippetService
         IsDevelopment = options.CurrentValue.IsDevelopment;
         ContentRootPath = options.CurrentValue.ContentRootPath;
         ServerUrl = options.CurrentValue.ServerUrl;
-
-        Option = option.Value;
     }
 
     /// <summary>
@@ -175,7 +175,7 @@ class CodeSnippetService
         List<KeyValuePair<string, string>> GetLocalizers() => CacheManager.GetLocalizers(codeFile, entry =>
         {
             var typeName = Path.GetFileNameWithoutExtension(codeFile);
-            var sections = CacheManager.GetJsonStringConfig(typeof(CodeSnippetService).Assembly, Option);
+            var sections = LocalizerOptions.GetJsonStringFromAssembly(typeof(CodeSnippetService).Assembly);
             var v = sections.FirstOrDefault(s => $"BootstrapBlazor.Shared.Samples.{typeName}".Equals(s.Key, StringComparison.OrdinalIgnoreCase))?
                 .GetChildren()
                 .SelectMany(c => new KeyValuePair<string, string>[]

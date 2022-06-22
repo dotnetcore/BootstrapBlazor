@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="BootstrapBlazor" Version="6.7.18" />
     <PackageReference Include="FreeSql.Repository" Version="2.*" />
   </ItemGroup>
 

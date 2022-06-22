@@ -59,6 +59,102 @@ public class TableTest : TableTestBase
     }
 
     [Fact]
+    public async void SelectedRowsChanged_Bind()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var items = Foo.GenerateFoo(localizer, 2);
+        var selectedRows = new List<Foo>();
+        var count = 0;
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.Items, items);
+                pb.Add(a => a.SelectedRows, selectedRows);
+                pb.Add(a => a.SelectedRowsChanged, EventCallback.Factory.Create<List<Foo>>(this, rows => count = rows.Count));
+                pb.Add(a => a.EditMode, EditMode.InCell);
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.ShowExtendButtons, true);
+            });
+        });
+
+        // 编辑时触发 SelectedRow
+        var button = cut.Find("button");
+        await cut.InvokeAsync(() => button.Click());
+
+        button = cut.Find("button");
+        await cut.InvokeAsync(() => button.Click());
+        Assert.Equal(1, count);
+    }
+
+    [Theory]
+    [InlineData(InsertRowMode.First)]
+    [InlineData(InsertRowMode.Last)]
+    public async Task Items_Add(InsertRowMode insertMode)
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var items = Foo.GenerateFoo(localizer, 2);
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.Items, items);
+                pb.Add(a => a.ItemsChanged, EventCallback.Factory.Create<IEnumerable<Foo>>(this, rows =>
+                {
+                    items = rows.ToList();
+                }));
+                pb.Add(a => a.EditMode, EditMode.InCell);
+                pb.Add(a => a.InsertRowMode, insertMode);
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.ShowExtendButtons, true);
+            });
+        });
+        var table = cut.FindComponent<Table<Foo>>();
+        await cut.InvokeAsync(() => table.Instance.AddAsync());
+
+        if (insertMode == InsertRowMode.First)
+        {
+            var button = cut.Find("tbody tr button");
+            await cut.InvokeAsync(() => button.Click());
+            Assert.Null(items.First().Name);
+        }
+        else if (insertMode == InsertRowMode.Last)
+        {
+            var button = cut.FindAll("tbody tr button").Last(i => i.ClassList.Contains("btn-success"));
+            await cut.InvokeAsync(() => button.Click());
+            Assert.Null(items.Last().Name);
+        }
+    }
+
+
+    [Theory]
+    [InlineData(InsertRowMode.First)]
+    [InlineData(InsertRowMode.Last)]
+    public async void Items_EditForm_Add(InsertRowMode insertMode)
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var items = Foo.GenerateFoo(localizer, 2);
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.Items, items);
+                pb.Add(a => a.ItemsChanged, EventCallback.Factory.Create<IEnumerable<Foo>>(this, rows =>
+                {
+                    items = rows.ToList();
+                }));
+                pb.Add(a => a.EditMode, EditMode.EditForm);
+                pb.Add(a => a.InsertRowMode, insertMode);
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.ShowExtendButtons, true);
+            });
+        });
+        var table = cut.FindComponent<Table<Foo>>();
+        await cut.InvokeAsync(() => table.Instance.AddAsync());
+        Assert.Contains("<form ", table.Markup);
+    }
+
+    [Fact]
     public async void Items_Delete()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
@@ -3243,6 +3339,7 @@ public class TableTest : TableTestBase
                 pb.Add(a => a.ShowToolbar, true);
                 pb.Add(a => a.ShowExtendButtons, true);
                 pb.Add(a => a.EditMode, mode);
+                pb.Add(a => a.InsertRowMode, InsertRowMode.First);
                 pb.Add(a => a.OnAddAsync, () =>
                 {
                     added = true;
@@ -4982,6 +5079,56 @@ public class TableTest : TableTestBase
         // trigger delete button
         var table = cut.FindComponent<Table<Foo>>();
         await cut.InvokeAsync(() => table.Instance.AddAsync());
+    }
+
+    [Fact]
+    public void IsAutoCollapsedToolbarButton_Ok()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.CardView);
+                pb.Add(a => a.IsAutoCollapsedToolbarButton, false);
+                pb.Add(a => a.ShowToolbar, true);
+                pb.Add(a => a.ShowExtendButtons, true);
+                pb.Add(a => a.OnQueryAsync, OnQueryAsync(localizer));
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+                });
+            });
+        });
+
+        Assert.DoesNotContain("btn-gear", cut.Markup);
+        Assert.Contains("btn-toolbar btn-group", cut.Markup);
+    }
+
+    [Fact]
+    public void OnSelectedRows_Ok()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var items = Foo.GenerateFoo(localizer, 2);
+        var context = CreateDynamicContext(localizer);
+        var rows = context.GetItems().Take(1);
+        context.OnGetSelectedRows = () => rows;
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<DynamicObject>>(pb =>
+            {
+                pb.Add(a => a.ShowToolbar, true);
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.IsMultipleSelect, true);
+                pb.Add(a => a.DynamicContext, context);
+            });
+        });
+
+        var check = cut.FindComponents<Checkbox<DynamicObject>>().FirstOrDefault(i => i.Instance.State == CheckboxState.Checked);
+        Assert.NotNull(check);
     }
 
     private static DataTable CreateDataTable(IStringLocalizer<Foo> localizer)

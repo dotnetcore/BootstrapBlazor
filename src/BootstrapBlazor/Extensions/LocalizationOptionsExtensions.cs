@@ -11,7 +11,7 @@ using System.Reflection;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// JsonLocalizationOptions 扩展方法
 /// </summary>
 public static class LocalizationOptionsExtensions
 {
@@ -20,10 +20,11 @@ public static class LocalizationOptionsExtensions
     /// </summary>
     /// <param name="option"></param>
     /// <param name="assembly"></param>
+    /// <param name="cultureName"></param>
     /// <returns></returns>
-    public static IEnumerable<IConfigurationSection> GetJsonStringConfig(this JsonLocalizationOptions option, Assembly assembly)
+    public static IEnumerable<IConfigurationSection> GetJsonStringFromAssembly(this JsonLocalizationOptions option, Assembly assembly, string? cultureName = null)
     {
-        var cultureName = CultureInfo.CurrentUICulture.Name;
+        cultureName ??= CultureInfo.CurrentUICulture.Name;
         var langHandler = GetLangHandlers(cultureName);
 
         var builder = new ConfigurationBuilder();
@@ -55,46 +56,62 @@ public static class LocalizationOptionsExtensions
         }
         return config.GetChildren();
 
-        List<Stream> GetLangHandlers(string cultureInfoName)
+        List<Stream> GetLangHandlers(string cultureName)
         {
             // 获取程序集中的资源文件
-            var langHandler = GetResourceStream(assembly, cultureInfoName);
-
-            // 获取外部设置程序集中的资源文件
-            if (option.AdditionalJsonAssemblies != null)
-            {
-                langHandler.AddRange(option.AdditionalJsonAssemblies
-                    .SelectMany(i => GetResourceStream(i, cultureInfoName)));
-            }
+            var langHandler = GetResourceStream(assembly, cultureName);
+            AddResourceStream();
             return langHandler;
+
+            [ExcludeFromCodeCoverage]
+            void AddResourceStream()
+            {
+                // 获取外部设置程序集中的资源文件
+                if (option.AdditionalJsonAssemblies != null)
+                {
+                    langHandler.AddRange(option.AdditionalJsonAssemblies
+                        .SelectMany(i => GetResourceStream(i, cultureName)));
+                }
+            }
         }
 
-        List<Stream> GetResourceStream(Assembly assembly, string cultureInfoName)
+        List<Stream> GetResourceStream(Assembly assembly, string cultureName)
         {
             var ret = new List<Stream>();
+
             if (option.EnableFallbackCulture)
             {
                 // 查找回落资源
-                var parentName = GetParentCultureName(cultureInfoName).Value;
+                var parentName = GetParentCultureName(cultureName).Value;
                 if (!string.IsNullOrEmpty(parentName))
                 {
-                    var fallbackJson = $"{assembly.GetName().Name}.{option.ResourcesPath}.{parentName}.json";
-                    var stream = assembly.GetManifestResourceStream(fallbackJson);
-                    if (stream != null)
+                    if (!AddStream(parentName))
                     {
-                        ret.Add(stream);
+                        // 使用回落资源文件
+                        AddStream(option.FallbackCulture);
                     }
                 }
             }
 
             // 当前文化资源
-            var json = $"{assembly.GetName().Name}.{option.ResourcesPath}.{cultureInfoName}.json";
+            var json = $"{assembly.GetName().Name}.{option.ResourcesPath}.{cultureName}.json";
             var s = assembly.GetManifestResourceStream(json);
             if (s != null)
             {
                 ret.Add(s);
             }
             return ret;
+
+            bool AddStream(string cultureName)
+            {
+                var fallbackJson = $"{assembly.GetName().Name}.{option.ResourcesPath}.{cultureName}.json";
+                var stream = assembly.GetManifestResourceStream(fallbackJson);
+                if (stream != null)
+                {
+                    ret.Add(stream);
+                }
+                return stream != null;
+            }
         }
 
         StringSegment GetParentCultureName(StringSegment cultureInfoName)

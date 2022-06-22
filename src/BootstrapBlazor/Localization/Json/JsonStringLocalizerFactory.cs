@@ -2,7 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using BootstrapBlazor.Components;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -15,43 +14,40 @@ namespace BootstrapBlazor.Localization.Json;
 /// </summary>
 internal class JsonStringLocalizerFactory : ResourceManagerStringLocalizerFactory
 {
-    private JsonLocalizationOptions Options { get; set; }
-
     private ILoggerFactory LoggerFactory { get; set; }
 
     [NotNull]
     private string? TypeName { get; set; }
 
-    private IServiceProvider ServiceProvider { get; set; }
-
     /// <summary>
     /// 构造函数
     /// </summary>
-    /// <param name="jsonOptions"></param>
-    /// <param name="resxOptions"></param>
+    /// <param name="cacheManager"></param>
     /// <param name="options"></param>
+    /// <param name="jsonLocalizationOptions"></param>
+    /// <param name="localizationOptions"></param>
     /// <param name="loggerFactory"></param>
-    /// <param name="provider"></param>
     public JsonStringLocalizerFactory(
-        IOptions<JsonLocalizationOptions> jsonOptions,
-        IOptions<LocalizationOptions> resxOptions,
+        ICacheManager cacheManager,
         IOptionsMonitor<BootstrapBlazorOptions> options,
-        ILoggerFactory loggerFactory,
-        IServiceProvider provider) : base(resxOptions, loggerFactory)
+        IOptions<JsonLocalizationOptions> jsonLocalizationOptions,
+        IOptions<LocalizationOptions> localizationOptions,
+        ILoggerFactory loggerFactory) : base(localizationOptions, loggerFactory)
     {
-        Options = jsonOptions.Value;
-        Options.FallbackCulture = options.CurrentValue.FallbackCulture;
-        Options.EnableFallbackCulture = options.CurrentValue.EnableFallbackCulture;
-        LoggerFactory = loggerFactory;
-        ServiceProvider = provider;
+        // 由于某些应用场景如 (WTM) Blazor 还未加载时 Localizer 模块先开始工作了
+        // 为了保证 CacheManager 内部 Instance 可用这里需要使 ICacheManager 先实例化
+        cacheManager.SetStartTime();
 
+        jsonLocalizationOptions.Value.FallbackCulture = options.CurrentValue.FallbackCulture;
+        jsonLocalizationOptions.Value.EnableFallbackCulture = options.CurrentValue.EnableFallbackCulture;
+        LoggerFactory = loggerFactory;
         options.OnChange(OnChange);
 
         [ExcludeFromCodeCoverage]
         void OnChange(BootstrapBlazorOptions op)
         {
-            Options.FallbackCulture = op.FallbackCulture;
-            Options.EnableFallbackCulture = op.EnableFallbackCulture;
+            jsonLocalizationOptions.Value.EnableFallbackCulture = op.EnableFallbackCulture;
+            jsonLocalizationOptions.Value.FallbackCulture = op.FallbackCulture;
         }
     }
 
@@ -79,29 +75,18 @@ internal class JsonStringLocalizerFactory : ResourceManagerStringLocalizerFactor
         return base.GetResourcePrefix(typeInfo);
     }
 
+    private IResourceNamesCache ResourceNamesCache { get; } = new ResourceNamesCache();
+
     /// <summary>
-    /// 
+    /// Creates a <see cref="ResourceManagerStringLocalizer"/> for the given input
     /// </summary>
-    /// <param name="assembly"></param>
-    /// <param name="baseName"></param>
+    /// <param name="assembly">The assembly to create a <see cref="ResourceManagerStringLocalizer"/> for</param>
+    /// <param name="baseName">The base name of the resource to search for</param>
     /// <returns></returns>
     protected override ResourceManagerStringLocalizer CreateResourceManagerStringLocalizer(Assembly assembly, string baseName) => new JsonStringLocalizer(
-            this,
             assembly,
             TypeName,
             baseName,
             LoggerFactory.CreateLogger<JsonStringLocalizer>(),
-            Options,
-            ServiceProvider);
-
-    /// <summary>
-    /// 获得 IResourceNamesCache 实例
-    /// </summary>
-    /// <returns></returns>
-    internal IResourceNamesCache GetCache()
-    {
-        var field = this.GetType().BaseType!.GetField("_resourceNamesCache", BindingFlags.NonPublic | BindingFlags.Instance);
-        var ret = field!.GetValue(this) as IResourceNamesCache;
-        return ret!;
-    }
+            ResourceNamesCache);
 }

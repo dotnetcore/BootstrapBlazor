@@ -4,7 +4,6 @@
 
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.Extensions.Localization;
-using System.ComponentModel.DataAnnotations;
 
 namespace BootstrapBlazor.Components;
 
@@ -38,7 +37,7 @@ public class FileValidationAttribute : ValidationAttribute
 
         if (value is IBrowserFile file)
         {
-            Localizer = CacheManager.CreateLocalizer<UploadBase<object>>();
+            Localizer = Utility.CreateLocalizer<UploadBase<object>>();
             if (Localizer != null)
             {
                 if (Extensions.Any() && !Extensions.Contains(Path.GetExtension(file.Name), StringComparer.OrdinalIgnoreCase))

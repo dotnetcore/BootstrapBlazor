@@ -30,7 +30,7 @@
         <div class="table-toolbar">
             @if (IsExcel || ShowToolbar)
             {
-                <TableToolbar OnGetSelectedRows="@GetSelectedRows">
+                <TableToolbar OnGetSelectedRows="@GetSelectedRows" IsAutoCollapsedToolbarButton="IsAutoCollapsedToolbarButton">
                     @if (IsExcel || ShowDefaultButtons)
                     {
                         @if (ShowAddButton)
@@ -39,12 +39,12 @@
                         }
                         @if (!IsExcel && ShowEditButton)
                         {
-                            <TableToolbarButton TItem="TItem" IsDisabled="SelectedRows.Count != 1" Color="Color.Primary" OnClick="EditAsync" Icon="fa fa-pencil" Text="@EditButtonText" />
+                            <TableToolbarButton TItem="TItem" IsDisabled="GetEditButtonStatus()" Color="Color.Primary" OnClick="EditAsync" Icon="fa fa-pencil" Text="@EditButtonText" />
                         }
                         @if (ShowDeleteButton)
                         {
                             <TableToolbarPopconfirmButton TItem="TItem" Color="Color.Danger"
-                                                          Icon="fa fa-remove" Text="@DeleteButtonText" IsDisabled="!SelectedRows.Any()"
+                                                          Icon="fa fa-remove" Text="@DeleteButtonText" IsDisabled="GetDeleteButtonStatus()"
                                                           OnBeforeClick="ConfirmDelete" OnConfirm="DeleteAsync"
                                                           CloseButtonText="@CancelDeleteButtonText" Content="@ConfirmDeleteContentText"
                                                           ConfirmButtonText="@ConfirmDeleteButtonText" ConfirmButtonColor="Color.Danger" />

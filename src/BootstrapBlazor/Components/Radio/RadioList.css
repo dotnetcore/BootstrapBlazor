@@ -1,5 +1,6 @@
 ﻿:root {
     --bb-radio-item-width: 120px;
+    --bb-radio-item-padding: 0 0.75rem;
 }
 
 .radio-list {
@@ -20,6 +21,10 @@
         .radio-list.is-vertical .form-check:not(:last-child) {
             margin-bottom: .5rem;
         }
+
+    .radio-list.form-control {
+        padding: var(--bb-radio-item-padding);
+    }
 
 .is-button {
     flex-wrap: nowrap;

@@ -24,7 +24,7 @@
     <PackageReference Include="BootstrapBlazor.Markdown" Version="6.*" />
     <PackageReference Include="BootstrapBlazor.OnScreenKeyboard" Version="6.*" />
     <PackageReference Include="BootstrapBlazor.SignaturePad" Version="6.*" />
-    <PackageReference Include="BootstrapBlazor.SummerNote" Version="6.*" />
+    <PackageReference Include="BootstrapBlazor.SummerNote" Version="6.0.2" />
     <PackageReference Include="BootstrapBlazor.TableExport" Version="6.*" />
     <PackageReference Include="BootstrapBlazor.Topology" Version="6.*" />
   </ItemGroup>

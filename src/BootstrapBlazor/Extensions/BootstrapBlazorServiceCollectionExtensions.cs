@@ -2,7 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using BootstrapBlazor.Components;
 using BootstrapBlazor.Localization.Json;
 using BootstrapBlazor.Services;
 using Microsoft.Extensions.DependencyInjection.Extensions;
@@ -83,12 +82,12 @@ public static class BootstrapBlazorServiceCollectionExtensions
             }
 
             // 设置 FallbackCulture
-            ConfigureFallbackCulture();
+            SetFallbackCulture();
 
             configureOptions?.Invoke(op);
 
             [ExcludeFromCodeCoverage]
-            void ConfigureFallbackCulture()
+            void SetFallbackCulture()
             {
                 if (string.IsNullOrEmpty(CultureInfo.CurrentUICulture.Name))
                 {
@@ -121,11 +120,11 @@ public static class BootstrapBlazorServiceCollectionExtensions
     /// JsonLocalizationOptions 扩展配置方法
     /// </summary>
     /// <param name="services"></param>
-    /// <param name="localizationAction"></param>
+    /// <param name="localizationConfigure"></param>
     /// <returns></returns>
-    public static IServiceCollection ConfigureJsonLocalizationOptions(this IServiceCollection services, Action<JsonLocalizationOptions> localizationAction)
+    public static IServiceCollection ConfigureJsonLocalizationOptions(this IServiceCollection services, Action<JsonLocalizationOptions> localizationConfigure)
     {
-        services.Configure(localizationAction);
+        services.Configure(localizationConfigure);
         return services;
     }
 
