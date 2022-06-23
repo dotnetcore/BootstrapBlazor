@@ -2603,11 +2603,11 @@ public class TableTest : TableTestBase
 
                 // <TableCellButton Color="Color.Primary" Icon="fa fa-edit" Text="明细" OnClick="@(() => OnRowButtonClick(context, "明细"))" />
                 pb.Add(a => a.RowButtonTemplate, foo => builder =>
-            {
-                builder.OpenComponent<TableCellButton>(0);
-                builder.AddAttribute(2, "Text", "test-extend-button");
-                builder.CloseComponent();
-            });
+                {
+                    builder.OpenComponent<TableCellButton>(0);
+                    builder.AddAttribute(2, "Text", "test-extend-button");
+                    builder.CloseComponent();
+                });
             });
         });
 
@@ -2638,14 +2638,14 @@ public class TableTest : TableTestBase
 
                 // <TableCellButton Color="Color.Primary" Icon="fa fa-edit" Text="明细" OnClick="@(() => OnRowButtonClick(context, "明细"))" />
                 pb.Add(a => a.RowButtonTemplate, foo => builder =>
-            {
-                builder.OpenComponent<TableCellButton>(0);
-                builder.AddAttribute(1, "Text", "test-extend-button");
-                builder.AddAttribute(2, "AutoSelectedRowWhenClick", true);
-                builder.AddAttribute(3, "AutoRenderTableWhenClick", false);
-                builder.AddAttribute(4, "IsShow", true);
-                builder.CloseComponent();
-            });
+                {
+                    builder.OpenComponent<TableCellButton>(0);
+                    builder.AddAttribute(1, "Text", "test-extend-button");
+                    builder.AddAttribute(2, "AutoSelectedRowWhenClick", true);
+                    builder.AddAttribute(3, "AutoRenderTableWhenClick", false);
+                    builder.AddAttribute(4, "IsShow", true);
+                    builder.CloseComponent();
+                });
             });
         });
 
