@@ -1654,6 +1654,88 @@ public class TableTest : TableTestBase
     }
 
     [Theory]
+    [InlineData(false, SortOrder.Asc)]
+    [InlineData(false, SortOrder.Desc)]
+    [InlineData(true, SortOrder.Asc)]
+    [InlineData(true, SortOrder.Desc)]
+    [InlineData(true, SortOrder.Unset)]
+    public async void OnSort_Ok(bool hasOnSort, SortOrder sortOrder)
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.OnQueryAsync, OnQueryAsync(localizer, isSorted: false));
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.AddAttribute(3, "Sortable", true);
+                    builder.AddAttribute(4, "DefaultSort", true);
+                    builder.CloseComponent();
+                });
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, int>>(0);
+                    builder.AddAttribute(1, "Field", foo.Count);
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Count", typeof(int)));
+                    builder.CloseComponent();
+                });
+                pb.Add(a => a.OnSort, !hasOnSort ? null : (sortName, sortOrder) =>
+                      {
+                          //不管sortName 都用Count排序
+                          return "Count" + (sortOrder == SortOrder.Desc ? " desc" : "");
+                      });
+                pb.Add(a => a.SortIcon, "sort-unset-icon");
+                pb.Add(a => a.SortIconAsc, "sort-asc-icon");
+                pb.Add(a => a.SortIconDesc, "sort-desc-icon");
+            });
+        });
+        int click = 0;
+        var sortNameBtn = cut.Find("th.sortable");
+        while (click < 5)
+        {
+            click++;
+            await cut.InvokeAsync(() => cut.Find(".sortable").Click());
+            if (sortOrder == SortOrder.Unset && cut.Markup.Contains("sort-unset-icon"))
+                break;
+            if (sortOrder == SortOrder.Asc && cut.Markup.Contains("sort-asc-icon"))
+                break;
+            if (sortOrder == SortOrder.Desc && cut.Markup.Contains("sort-desc-icon"))
+                break;
+        }
+        if (click == 5)
+        {
+            throw new Xunit.Sdk.XunitException("can not fond sort icon.");
+        }
+        var rows = cut.FindAll("tbody tr")
+                      .Select(e => e.GetElementsByClassName("table-cell"))
+                      .Select(e => (name: e[0].TextContent, count: int.Parse(e[1].TextContent)));
+        var order = rows;
+        if (sortOrder == SortOrder.Asc && !hasOnSort)
+        {
+            order = order.OrderBy(r => r.name);
+        }
+        else if (sortOrder == SortOrder.Asc && hasOnSort)
+        {
+            order = order.OrderBy(r => r.count);
+        }
+        else if (sortOrder == SortOrder.Desc && !hasOnSort)
+        {
+            order = order.OrderByDescending(r => r.name);
+        }
+        else if (sortOrder == SortOrder.Desc && hasOnSort)
+        {
+            order = order.OrderByDescending(r => r.count);
+        }
+
+        Assert.Equal(rows, order);
+    }
+
+    [Theory]
     [InlineData(true)]
     [InlineData(false)]
     public void ShowFilterHeader_Ok(bool showCheckboxText)
@@ -2476,12 +2558,12 @@ public class TableTest : TableTestBase
 
                 // <TableCellButton Color="Color.Primary" Icon="fa fa-edit" Text="明细" OnClick="@(() => OnRowButtonClick(context, "明细"))" />
                 pb.Add(a => a.RowButtonTemplate, foo => builder =>
-                {
-                    builder.OpenComponent<TableCellButton>(0);
-                    builder.AddAttribute(2, "Text", "test-extend-button");
-                    builder.AddAttribute(3, "class", $"btn-test{index++}");
-                    builder.CloseComponent();
-                });
+            {
+                builder.OpenComponent<TableCellButton>(0);
+                builder.AddAttribute(2, "Text", "test-extend-button");
+                builder.AddAttribute(3, "class", $"btn-test{index++}");
+                builder.CloseComponent();
+            });
                 pb.Add(a => a.BeforeRowButtonTemplate, foo => builder =>
                 {
                     builder.OpenComponent<TableCellButton>(0);
@@ -2521,11 +2603,11 @@ public class TableTest : TableTestBase
 
                 // <TableCellButton Color="Color.Primary" Icon="fa fa-edit" Text="明细" OnClick="@(() => OnRowButtonClick(context, "明细"))" />
                 pb.Add(a => a.RowButtonTemplate, foo => builder =>
-                {
-                    builder.OpenComponent<TableCellButton>(0);
-                    builder.AddAttribute(2, "Text", "test-extend-button");
-                    builder.CloseComponent();
-                });
+            {
+                builder.OpenComponent<TableCellButton>(0);
+                builder.AddAttribute(2, "Text", "test-extend-button");
+                builder.CloseComponent();
+            });
             });
         });
 
@@ -2556,14 +2638,14 @@ public class TableTest : TableTestBase
 
                 // <TableCellButton Color="Color.Primary" Icon="fa fa-edit" Text="明细" OnClick="@(() => OnRowButtonClick(context, "明细"))" />
                 pb.Add(a => a.RowButtonTemplate, foo => builder =>
-                {
-                    builder.OpenComponent<TableCellButton>(0);
-                    builder.AddAttribute(1, "Text", "test-extend-button");
-                    builder.AddAttribute(2, "AutoSelectedRowWhenClick", true);
-                    builder.AddAttribute(3, "AutoRenderTableWhenClick", false);
-                    builder.AddAttribute(4, "IsShow", true);
-                    builder.CloseComponent();
-                });
+            {
+                builder.OpenComponent<TableCellButton>(0);
+                builder.AddAttribute(1, "Text", "test-extend-button");
+                builder.AddAttribute(2, "AutoSelectedRowWhenClick", true);
+                builder.AddAttribute(3, "AutoRenderTableWhenClick", false);
+                builder.AddAttribute(4, "IsShow", true);
+                builder.CloseComponent();
+            });
             });
         });
 
