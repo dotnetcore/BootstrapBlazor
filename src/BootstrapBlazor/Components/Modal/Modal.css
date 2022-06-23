@@ -37,6 +37,12 @@
     color: #6c757d;
 }
 
+.modal-header-buttons {
+    position: absolute;
+    top: 0.5rem;
+    right: 1rem;
+}
+
 @media screen {
     .bb-printview {
         display: none;
