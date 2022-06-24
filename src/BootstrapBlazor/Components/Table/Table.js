@@ -269,7 +269,7 @@
             if (!$thead) {
                 $thead = $ele.find('.table-fixed-header');
             }
-            var searchHeight = $ele.find('.table-search:first').outerHeight();
+            var searchHeight = $ele.find('.table-search:first').outerHeight(true);
             if (!searchHeight) {
                 searchHeight = 0;
             }
