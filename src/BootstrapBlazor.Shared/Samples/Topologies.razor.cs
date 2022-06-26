@@ -13,7 +13,7 @@ namespace BootstrapBlazor.Shared.Samples;
 /// <summary>
 /// 图标库
 /// </summary>
-public partial class Topologys : IDisposable
+public partial class Topologies : IDisposable
 {
     [Inject]
     [NotNull]
@@ -32,7 +32,7 @@ public partial class Topologys : IDisposable
     [NotNull]
     private Topology? TopologyElement { get; set; }
 
-    private JSInterop<Topologys>? Interop { get; set; }
+    private JSInterop<Topologies>? Interop { get; set; }
 
     /// <summary>
     /// OnInitialized 方法
@@ -40,7 +40,7 @@ public partial class Topologys : IDisposable
     protected override void OnInitialized()
     {
         base.OnInitialized();
-        var assembly = typeof(Topologys).Assembly;
+        var assembly = typeof(Topologies).Assembly;
         string strName = assembly.GetName().Name + ".topology.json";
         var stream = assembly.GetManifestResourceStream(strName);
         if (stream != null)
@@ -59,7 +59,7 @@ public partial class Topologys : IDisposable
     {
         if (firstRender)
         {
-            Interop = new JSInterop<Topologys>(JSRuntime);
+            Interop = new JSInterop<Topologies>(JSRuntime);
             await Interop.InvokeVoidAsync(this, null, "bb_topology_demo", nameof(ToggleFan));
 
             // 推送数据
