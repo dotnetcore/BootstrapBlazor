@@ -297,6 +297,15 @@
             }
         },
         bb_table: function (el, obj, method, args) {
+            var handler = window.setInterval(function () {
+                var $table = $(el).find('.table');
+                if ($table.length !== 0) {
+                    window.clearInterval(handler);
+                    $.bb_table_init(el, obj, method, args);
+                }
+            }, 100);
+        },
+        bb_table_init: function (el, obj, method, args) {
             var $ele = $(el);
             var fixedHeader = $ele.find('.table-fixed').length > 0;
             if (fixedHeader) {
