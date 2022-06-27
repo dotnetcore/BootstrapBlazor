@@ -34,6 +34,20 @@ public abstract class CardBase : BootstrapComponentBase
         .Build();
 
     /// <summary>
+    /// 获得 Header Class 样式
+    /// </summary>
+    protected string? HeaderClassString => CssBuilder.Default("card-collapse")
+        .AddClass("is-open", !Collapsed)
+        .Build();
+
+    /// <summary>
+    /// 
+    /// </summary>
+    protected string? CardBodyStyleString => CssBuilder.Default()
+        .AddClass("display: none;", IsCollapsible && Collapsed)
+        .Build();
+
+    /// <summary>
     /// 获得/设置 CardHeader 显示文本
     /// </summary>
     [Parameter]
@@ -95,7 +109,7 @@ public abstract class CardBase : BootstrapComponentBase
     /// <summary>
     /// 获得/设置 元素实例
     /// </summary>
-    protected ElementReference CardEelement { get; set; }
+    protected ElementReference CardElement { get; set; }
 
     /// <summary>
     /// OnAfterRenderAsync 方法
@@ -110,7 +124,7 @@ public abstract class CardBase : BootstrapComponentBase
         {
             if (IsCollapsible)
             {
-                await JSRuntime.InvokeVoidAsync(CardEelement, "bb_card_collapse");
+                await JSRuntime.InvokeVoidAsync(CardElement, "bb_card_collapse");
             }
         }
     }
