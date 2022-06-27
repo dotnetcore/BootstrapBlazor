@@ -479,10 +479,7 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
         if (IsTree)
         {
             var rows = Items ?? Enumerable.Empty<TItem>();
-            TreeRows = rows.Select(item => new TableTreeNode<TItem>(item)
-            {
-                HasChildren = CheckTreeChildren(item)
-            }).ToList();
+            TreeRows = rows.Select(item => new TableTreeNode<TItem>(item)).ToList();
         }
     }
 
@@ -708,7 +705,7 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
         get
         {
             RowsCache ??= Items?.ToList() ?? QueryItems?.ToList() ?? new List<TItem>();
-            return IsTree ? GetTreeRows() : RowsCache;
+            return IsTree ? TreeRows.GetAllRows<TItem>().ToList() : RowsCache;
         }
     }
 

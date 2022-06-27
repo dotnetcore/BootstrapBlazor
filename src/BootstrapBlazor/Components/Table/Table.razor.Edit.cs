@@ -542,19 +542,18 @@ public partial class Table<TItem>
 
             void ProcessTreeData()
             {
-                var newTreeRows = new List<TableTreeNode<TItem>>();
+                var newTreeRows = new List<ITableTreeItem<TItem>>();
                 foreach (var row in QueryItems)
                 {
-                    var treeRow = TreeRows.FirstOrDefault(r => IsEqualItems(r.Value, row));
+                    var newTreeRow = ITableTreeItem<TItem>.New(row);
+                    var treeRow = TreeRows.FirstOrDefault(r => IsEqualItems(r.GetValue(), row));
                     if (treeRow != null)
                     {
-                        treeRow.Value = row;
+                        newTreeRow.IsExpand = treeRow.IsExpand;
+                        if (treeRow.Children != null)
+                            newTreeRow.SetChildren(treeRow.Children);
                     }
-                    treeRow ??= new TableTreeNode<TItem>(row)
-                    {
-                        HasChildren = CheckTreeChildren(row)
-                    };
-                    newTreeRows.Add(treeRow);
+                    newTreeRows.Add(newTreeRow);
                 }
                 TreeRows = newTreeRows;
             }

@@ -38,7 +38,7 @@ public partial class Table<TItem>
     /// 获得/设置 树形数据已展开集合
     /// </summary>
     [NotNull]
-    private List<TableTreeNode<TItem>>? TreeRows { get; set; }
+    private IEnumerable<ITableTreeItem<TItem>>? TreeRows { get; set; }
 
     /// <summary>
     /// 获得/设置 是否正在加载子项 默认为 false
@@ -65,24 +65,9 @@ public partial class Table<TItem>
     /// </summary>
     /// <param name="item"></param>
     /// <returns></returns>
-    protected string? GetTreeStyleString(TItem item) => CssBuilder.Default()
-        .AddClass($"margin-left: {GetIndentSize(item)}px;")
+    protected string? GetTreeStyleString(int degree) => CssBuilder.Default()
+        .AddClass($"margin-left: {degree * IndentSize}px;")
         .Build();
-
-    private string GetIndentSize(TItem item)
-    {
-        // 查找递归层次
-        var indent = 0;
-        if (TryGetTreeNodeByItem(item, out var node))
-        {
-            while (node.Parent != null)
-            {
-                indent += IndentSize;
-                node = node.Parent;
-            }
-        }
-        return indent.ToString();
-    }
 
     /// <summary>
     /// 树形数据展开小箭头
@@ -90,15 +75,15 @@ public partial class Table<TItem>
     /// <param name="item"></param>
     /// <returns></returns>
     protected string? GetTreeClassString(TItem item) => CssBuilder.Default("is-tree fa fa-fw ")
-        .AddClass(TreeIcon, CheckTreeChildren(item) && !IsLoadChildren)
-        .AddClass("fa-rotate-90", IsExpand(item))
+        .AddClass(TreeIcon, !IsLoadChildren && CheckTreeChildren(item))
+        .AddClass("fa-rotate-90", !IsLoadChildren && IsExpand(item))
         .AddClass("fa-spin fa-spinner", IsLoadChildren)
         .Build();
 
     private bool IsExpand(TItem item)
     {
         var ret = false;
-        if (TryGetTreeNodeByItem(item, out var node))
+        if (TreeRows.TryFind(item, out var node, IsEqualItems))
         {
             ret = node.IsExpand;
         }
@@ -112,83 +97,34 @@ public partial class Table<TItem>
     /// <returns></returns>
     protected Func<Task> ToggleTreeRow(TItem item) => async () =>
     {
-        if (OnTreeExpand == null)
-        {
-            throw new InvalidOperationException(NotSetOnTreeExpandErrorMessage);
-        }
+        //if (OnTreeExpand == null)
+        //{
+        //    throw new InvalidOperationException(NotSetOnTreeExpandErrorMessage);
+        //}
 
         if (!IsLoadChildren)
         {
-            if (TryGetTreeNodeByItem(item, out var node))
+            if (TreeRows.TryFind(item, out var node, IsEqualItems))
             {
-                node.IsExpand = !node.IsExpand;
-
+                IsLoadChildren = true;
                 // 无子项时通过回调方法延时加载
-                if (node.Children.Count == 0)
+                if (!node.IsExpand)
                 {
-                    IsLoadChildren = true;
-                    var nodes = await OnTreeExpand(item);
-                    IsLoadChildren = false;
-
-                    node.Children.AddRange(nodes.Select(i => new TableTreeNode<TItem>(i)
-                    {
-                        HasChildren = CheckTreeChildren(i),
-                        Parent = node
-                    }));
+                    
+                    node.IsExpand = true;
+                    if (OnTreeExpand != null)
+                        node.SetChildren(await OnTreeExpand(item));
+                    
                 }
+                else
+                {
+                    node.IsExpand = false;
+                }
+                IsLoadChildren = false;
                 StateHasChanged();
             }
         }
     };
-
-    private bool TryGetTreeNodeByItem(TItem item, [MaybeNullWhen(false)] out TableTreeNode<TItem> node)
-    {
-        TableTreeNode<TItem>? n = null;
-        foreach (var v in TreeRows)
-        {
-            if (v.Value == item)
-            {
-                n = v;
-                break;
-            }
-
-            if (v.Children != null)
-            {
-                n = GetTreeNodeByItem(item, v.Children);
-            }
-
-            if (n != null)
-            {
-                break;
-            }
-        }
-        node = n;
-        return n != null;
-    }
-
-    private TableTreeNode<TItem>? GetTreeNodeByItem(TItem item, IEnumerable<TableTreeNode<TItem>> nodes)
-    {
-        TableTreeNode<TItem>? ret = null;
-        foreach (var node in nodes)
-        {
-            if (node.Value == item)
-            {
-                ret = node;
-                break;
-            }
-
-            if (node.Children.Any())
-            {
-                ret = GetTreeNodeByItem(item, node.Children);
-            }
-
-            if (ret != null)
-            {
-                break;
-            }
-        }
-        return ret;
-    }
 
     /// <summary>
     /// 通过设置的 HasChildren 属性得知是否有子节点用于显示 UI
@@ -211,25 +147,5 @@ public partial class Table<TItem>
             }
         }
         return ret;
-    }
-
-    private List<TItem> GetTreeRows()
-    {
-        var ret = new List<TItem>();
-        ReloadTreeNodes(ret, TreeRows);
-        return ret;
-    }
-
-    private void ReloadTreeNodes(List<TItem> items, IEnumerable<TableTreeNode<TItem>> nodes)
-    {
-        foreach (var node in nodes)
-        {
-            items.Add(node.Value);
-
-            if (node.IsExpand && node.Children.Any())
-            {
-                ReloadTreeNodes(items, node.Children);
-            }
-        }
     }
 }

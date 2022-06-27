@@ -620,16 +620,24 @@ RenderFragment<TItem> RenderRow => item =>
             }
             <td colspan="@GetColspan(colspan)" class="@GetFixedCellClassString(col, cellClass)" style="@GetFixedCellStyleString(col)">
                 @{
-                    var showArrow = IsTree && index++ == 0;
-                    var triggerClick = showArrow && CheckTreeChildren(item);
-                }
-                <DynamicElement TagName="div" TriggerClick="@triggerClick"
-                                OnClick="@ToggleTreeRow(item)" StopPropagation="showArrow"
-                                class="@GetCellClassString(col, triggerClick, isInCell)" style="@GetCellStyleString(col)">
-                    @if (showArrow)
+                    var isFirstColOfTree = IsTree && index++ == 0;
+                    int degree = 0;
+                    if (isFirstColOfTree)
                     {
-                        <div class="is-node" style="@GetTreeStyleString(item)">
+                        var treeItems = TreeRows.Find(item, out degree);
+                    }
+                    bool hesTreeChildren = isFirstColOfTree && CheckTreeChildren(item);
+                }
+                <DynamicElement TagName="div" TriggerClick="@hesTreeChildren"
+                                OnClick="@ToggleTreeRow(item)" StopPropagation="hesTreeChildren"
+                                class="@GetCellClassString(col, hesTreeChildren, isInCell)" style="@GetCellStyleString(col)">
+                    @if (isFirstColOfTree)
+                    {
+                        <div class="is-node" style="@GetTreeStyleString(degree)">
+                        @if (hesTreeChildren)
+                        {
                             <i class="@GetTreeClassString(item)"></i>
+                        }
                         </div>
                     }
                     @if (IsExcel)
