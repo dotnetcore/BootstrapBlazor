@@ -240,11 +240,12 @@ public partial class AutoComplete
                     {
                         await OnSelectedItemChanged(CurrentSelectedItem);
                     }
-                    OnBlur();
-                    if (!SkipEnter && OnEnterAsync != null)
-                    {
-                        await OnEnterAsync(Value);
-                    }
+                }
+
+                OnBlur();
+                if (!SkipEnter && OnEnterAsync != null)
+                {
+                    await OnEnterAsync(Value);
                 }
             }
         }
