@@ -162,7 +162,8 @@ form .form-control.is-display {
     z-index: 1070;
 }
 
-    .swal .modal-header {
+    .swal .modal-header,
+    .swal .modal-header-buttons {
         display: none;
     }
 
