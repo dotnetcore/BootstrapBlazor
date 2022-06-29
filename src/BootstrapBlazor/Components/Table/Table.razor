@@ -622,9 +622,11 @@ RenderFragment<TItem> RenderRow => item =>
                 @{
                     var isFirstColOfTree = IsTree && index++ == 0;
                     int degree = 0;
+                    bool isExpend = false;
                     if (isFirstColOfTree)
                     {
                         var treeItems = TreeRows.Find(item, out degree);
+                        isExpend = treeItems?.IsExpand ?? false;
                     }
                     bool hesTreeChildren = isFirstColOfTree && CheckTreeChildren(item);
                 }
@@ -636,7 +638,7 @@ RenderFragment<TItem> RenderRow => item =>
                         <div class="is-node" style="@GetTreeStyleString(degree)">
                         @if (hesTreeChildren)
                         {
-                            <i class="@GetTreeClassString(item)"></i>
+                            <i class="@GetTreeClassString(isExpend)"></i>
                         }
                         </div>
                     }

@@ -2,8 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using Microsoft.AspNetCore.Components;
-
 namespace BootstrapBlazor.Components;
 
 public partial class Table<TItem>
@@ -63,31 +61,27 @@ public partial class Table<TItem>
     /// <summary>
     /// 树形数据小箭头缩进
     /// </summary>
-    /// <param name="item"></param>
+    /// <param name="degree"></param>
     /// <returns></returns>
-    protected string? GetTreeStyleString(int degree) => CssBuilder.Default()
+    protected string? GetTreeStyleString(int degree)
+    {
+        return CssBuilder.Default()
         .AddClass($"margin-left: {degree * IndentSize}px;")
         .Build();
+    }
 
     /// <summary>
     /// 树形数据展开小箭头
     /// </summary>
-    /// <param name="item"></param>
+    /// <param name="isExpand"></param>
     /// <returns></returns>
-    protected string? GetTreeClassString(TItem item) => CssBuilder.Default("is-tree fa fa-fw ")
-        .AddClass(TreeIcon, !IsLoadChildren && CheckTreeChildren(item))
-        .AddClass("fa-rotate-90", !IsLoadChildren && IsExpand(item))
+    protected string? GetTreeClassString(bool isExpand)
+    {
+        return CssBuilder.Default("is-tree fa fa-fw ")
+        .AddClass(TreeIcon, !IsLoadChildren)
+        .AddClass("fa-rotate-90", !IsLoadChildren && isExpand)
         .AddClass("fa-spin fa-spinner", IsLoadChildren)
         .Build();
-
-    private bool IsExpand(TItem item)
-    {
-        var ret = false;
-        if (TreeRows.TryFind(item, out var node, IsEqualItems))
-        {
-            ret = node.IsExpand;
-        }
-        return ret;
     }
 
     /// <summary>
@@ -97,11 +91,6 @@ public partial class Table<TItem>
     /// <returns></returns>
     protected Func<Task> ToggleTreeRow(TItem item) => async () =>
     {
-        //if (OnTreeExpand == null)
-        //{
-        //    throw new InvalidOperationException(NotSetOnTreeExpandErrorMessage);
-        //}
-
         if (!IsLoadChildren)
         {
             if (TreeRows.TryFind(item, out var node, IsEqualItems))
@@ -110,11 +99,11 @@ public partial class Table<TItem>
                 // 无子项时通过回调方法延时加载
                 if (!node.IsExpand)
                 {
-                    
                     node.IsExpand = true;
                     if (OnTreeExpand != null)
+                    {
                         node.SetChildren(await OnTreeExpand(item));
-                    
+                    }
                 }
                 else
                 {
