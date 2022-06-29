@@ -14,7 +14,7 @@ public partial class Table<TItem>
     public bool IsTree { get; set; }
 
     /// <summary>
-    /// 获得/设置 树形数据模式子项字段是否有子节点属性名称 默认为 HasChildren 无法提供时请设置 <see cref="HasChildrenCallback"/> 回调方法
+    /// 获得/设置 树形数据模式子项字段是否有子节点属性名称 默认为 HasChildren 无法提供时请设置 <see cref="HasChildrenCallback"/> 回调方法 都没设时默认为全都可展开
     /// </summary>
     /// <remarks>此参数在 <see cref="IsExcel"/> 模式下不生效</remarks>
     [Parameter]
@@ -122,19 +122,17 @@ public partial class Table<TItem>
     /// <returns></returns>
     private bool CheckTreeChildren(TItem item)
     {
-        var ret = false;
+        if (!IsTree)
+            return false;
         if (HasChildrenCallback != null)
         {
-            ret = HasChildrenCallback(item);
+            return HasChildrenCallback(item);
         }
-        else
+        var prop = typeof(TItem).GetProperty(HasChildrenColumnName);
+        if (prop != null && prop.GetValue(item) is bool ret)
         {
-            var v = Utility.GetPropertyValue<TItem, object?>(item, HasChildrenColumnName);
-            if (v is bool b)
-            {
-                ret = b;
-            }
+            return ret;
         }
-        return ret;
+        return true;
     }
 }

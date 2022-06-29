@@ -61,6 +61,7 @@ public static class ITableTreeItemExtensions
     /// <param name="ret">查询结果 查无资料时为 null</param>
     /// <param name="equals">比较函示 为null时判断方式为位址相同</param>
     /// <returns>是否存在 <paramref name="target"/></returns>
+    /// <remarks>采广度优先搜寻</remarks>
     public static bool TryFind<TItem>(this IEnumerable<ITableTreeItem<TItem>> items, TItem target, [MaybeNullWhen(false)] out ITableTreeItem<TItem> ret, Func<TItem, TItem, bool>? equals = null) where TItem : class
     {
         ret = items.Find(target, equals);
@@ -75,6 +76,7 @@ public static class ITableTreeItemExtensions
     /// <param name="target"></param>
     /// <param name="equals">比较函示 为null时判断方式为位址相同</param>
     /// <returns>查询结果 查无资料时为 null</returns>
+    /// <remarks>采广度优先搜寻</remarks>
     public static ITableTreeItem<TItem>? Find<TItem>(this IEnumerable<ITableTreeItem<TItem>> items, TItem target, Func<TItem, TItem, bool>? equals = null) where TItem : class
     {
         return Find(items, target, out _, equals);
@@ -89,6 +91,7 @@ public static class ITableTreeItemExtensions
     /// <param name="degree">树状阶层，起始为0</param>
     /// <param name="equals">比较函示 为null时判断方式为位址相同</param>
     /// <returns>查询结果 查无资料时为 null</returns>
+    /// <remarks>采广度优先搜寻</remarks>
     public static ITableTreeItem<TItem>? Find<TItem>(this IEnumerable<ITableTreeItem<TItem>> items, TItem target, out int degree, Func<TItem, TItem, bool>? equals = null) where TItem : class
     {
         degree = -1;
@@ -113,26 +116,25 @@ public static class ITableTreeItemExtensions
     /// </summary>
     /// <typeparam name="TItem"></typeparam>
     /// <param name="items"></param>
+    /// <param name="results"></param>
     /// <param name="expandOnly">是否要排除未展开资料</param>
     /// <returns></returns>
-    public static IEnumerable<TItem> GetAllRows<TItem>(this IEnumerable<ITableTreeItem<TItem>> items, bool expandOnly = true) where TItem : class
+    public static List<TItem> GetAllRows<TItem>(this IEnumerable<ITableTreeItem<TItem>> items, List<TItem>? results = null, bool expandOnly = true) where TItem : class
     {
+        results ??= new();
         foreach (var item in items)
         {
-            yield return item.GetValue();
-            if (expandOnly && !item.IsExpand)
+            results.Add(item.GetValue());
+            if (!expandOnly || item.IsExpand)
             {
-                yield break;
-            }
-            var children = item.Children;
-            if (children != null)
-            {
-                foreach (var child in GetAllRows(children))
+                var children = item.Children;
+                if (children != null)
                 {
-                    yield return child;
+                    GetAllRows(children, results, expandOnly);
                 }
             }
         }
+        return results;
     }
 
     /// <summary>
