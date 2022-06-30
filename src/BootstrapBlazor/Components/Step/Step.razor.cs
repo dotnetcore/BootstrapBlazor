@@ -7,6 +7,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// Step 组件
 /// </summary>
+[ExcludeFromCodeCoverage]
 public sealed partial class Step
 {
     private string? ClassString => CssBuilder.Default("step is-horizontal")
