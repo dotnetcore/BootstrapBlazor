@@ -705,7 +705,7 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
         get
         {
             RowsCache ??= Items?.ToList() ?? QueryItems?.ToList() ?? new List<TItem>();
-            return IsTree ? TreeRows.GetAllRows().ToList() : RowsCache;
+            return IsTree ? TreeRows.GetAllRows() : RowsCache;
         }
     }
 
