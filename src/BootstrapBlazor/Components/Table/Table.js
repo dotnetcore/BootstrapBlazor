@@ -90,7 +90,7 @@
             // filter
             var $toolbar = $ele.find('.table-toolbar');
             var marginTop = 0;
-            if ($toolbar.length > 0) marginTop = $toolbar.outerHeight();
+            if ($toolbar.length > 0) marginTop = $toolbar.outerHeight(true);
 
             // position
             var $this = $(this);
@@ -99,8 +99,8 @@
             var $body = $ele.find('.table-filter-item[data-field="' + field + '"]');
             var $th = $this.closest('th');
             var $thead = $th.closest('thead');
-            var rowHeight = $thead.outerHeight() - $th.outerHeight();
-            var left = $th.outerWidth() + $th.position().left - $body.outerWidth() / 2;
+            var rowHeight = $thead.outerHeight(true) - $th.outerHeight(true);
+            var left = $th.outerWidth(true) + $th.position().left - $body.outerWidth(true) / 2;
             var marginRight = 0;
             var isFixed = $th.hasClass('fixed');
             if ($th.hasClass('sortable')) marginRight = 24;
@@ -111,7 +111,7 @@
             if (!isFixed) {
                 scrollLeft = $th.closest('table').parent().scrollLeft();
             }
-            var margin = $th.offset().left + $th.outerWidth() - marginRight + $body.outerWidth() / 2 - $(window).width();
+            var margin = $th.offset().left + $th.outerWidth(true) - marginRight + $body.outerWidth(true) / 2 - $(window).width();
             marginRight = marginRight + scrollLeft;
             if (margin > 0) {
                 left = left - margin - 16;
@@ -121,7 +121,7 @@
                 $arrow.css({ 'left': 'calc(50% - 0.5rem + ' + (margin + 16) + 'px)' });
             }
 
-            var searchHeight = $ele.find('.table-search').outerHeight();
+            var searchHeight = $ele.find('.table-search').outerHeight(true);
             if (searchHeight === undefined) {
                 searchHeight = 0;
             }
@@ -269,15 +269,15 @@
             if (!$thead) {
                 $thead = $ele.find('.table-fixed-header');
             }
-            var searchHeight = $ele.find('.table-search:first').outerHeight();
+            var searchHeight = $ele.find('.table-search:first').outerHeight(true);
             if (!searchHeight) {
                 searchHeight = 0;
             }
-            var paginationHeight = $ele.find('.table-pagination:first').outerHeight();
+            var paginationHeight = $ele.find('.table-pagination:first').outerHeight(true);
             if (!paginationHeight) {
                 paginationHeight = 0;
             }
-            var toolbarHeight = $ele.find('.table-toolbar:first').outerHeight();
+            var toolbarHeight = $ele.find('.table-toolbar:first').outerHeight(true);
             var bodyHeight = paginationHeight + toolbarHeight + searchHeight;
             if (bodyHeight > 0) {
                 if (searchHeight > 0) {
@@ -291,12 +291,21 @@
                 $body.parent().css({ height: "calc(100% - " + bodyHeight + "px)" });
             }
 
-            var headerHeight = $thead.outerHeight();
+            var headerHeight = $thead.outerHeight(true);
             if (headerHeight > 0) {
                 $body.css({ height: "calc(100% - " + headerHeight + "px)" })
             }
         },
         bb_table: function (el, obj, method, args) {
+            var handler = window.setInterval(function () {
+                var $table = $(el).find('.table');
+                if ($table.length !== 0) {
+                    window.clearInterval(handler);
+                    $.bb_table_init(el, obj, method, args);
+                }
+            }, 100);
+        },
+        bb_table_init: function (el, obj, method, args) {
             var $ele = $(el);
             var fixedHeader = $ele.find('.table-fixed').length > 0;
             if (fixedHeader) {

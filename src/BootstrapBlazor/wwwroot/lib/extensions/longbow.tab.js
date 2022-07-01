@@ -6,10 +6,10 @@
      */
     var Tab = function (element, options) {
         this.$element = $(element);
-        this.$header = this.$element.find('.tabs-header');
-        this.$wrap = this.$header.find('.tabs-nav-wrap');
-        this.$scroll = this.$wrap.find('.tabs-nav-scroll');
-        this.$tab = this.$scroll.find('.tabs-nav');
+        this.$header = this.$element.children('.tabs-header');
+        this.$wrap = this.$header.children('.tabs-nav-wrap');
+        this.$scroll = this.$wrap.children('.tabs-nav-scroll');
+        this.$tab = this.$scroll.children('.tabs-nav');
         this.options = $.extend({}, options);
         this.init();
     };
@@ -60,8 +60,8 @@
         // check scrollable
         this.resize();
 
-        var $bar = this.$element.find('.tabs-active-bar');
-        var $activeTab = this.$element.find('.tabs-item.active');
+        var $bar = this.$tab.children('.tabs-active-bar');
+        var $activeTab = this.$tab.children('.tabs-item.active');
         if ($activeTab.length === 0) return;
 
         if (this.vertical) {

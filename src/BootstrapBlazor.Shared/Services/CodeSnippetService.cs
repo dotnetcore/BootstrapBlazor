@@ -4,7 +4,7 @@
 
 using BootstrapBlazor.Components;
 using BootstrapBlazor.Localization.Json;
-using BootstrapBlazor.Shared.Exntensions;
+using BootstrapBlazor.Shared.Extensions;
 using Microsoft.Extensions.Options;
 
 namespace BootstrapBlazor.Shared.Services;

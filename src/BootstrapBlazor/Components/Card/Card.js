@@ -8,6 +8,13 @@
                 $ele.closest('.card').find('.card-body').css({ display: "none" });
             }
             $ele.on('click', function (e) {
+                if (e.target.nodeName === 'BUTTON') {
+                    return;
+                }
+                var parentButton = $(e.target).closest('button');
+                if (parentButton.length !== 0) {
+                    return;
+                }
                 var $card = $(this).toggleClass('is-open');
                 var $body = $card.closest('.card').find('.card-body');
                 if ($body.length === 1) {

@@ -7,9 +7,18 @@
         <div class="card-header">
             @if (IsCollapsible)
             {
-                <div class="card-collapse is-open" data-bs-collapsed="@CollapsedString" @ref="CardEelement">
+                <div class="@HeaderClassString" data-bs-collapsed="@CollapsedString" @ref="CardElement">
                     <i class="card-collapse-arrow fa fa-chevron-circle-right"></i>
-                    <div class="ms-2">@HeaderText</div>
+                    <div class="card-collapse-body">
+                        @if (CardHeader != null)
+                        {
+                            @CardHeader
+                        }
+                        else
+                        {
+                            @HeaderText
+                        }
+                    </div>
                 </div>
             }
             else
@@ -25,7 +34,7 @@
             }
         </div>
     }
-    <div class="@BodyClassName">
+    <div class="@BodyClassName" style="@CardBodyStyleString">
         @CardBody
     </div>
     @if (CardFooter != null)

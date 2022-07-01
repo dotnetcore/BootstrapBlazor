@@ -107,7 +107,7 @@ public class JSModule<TValue> : JSModule where TValue : class
     /// <param name="identifier"></param>
     /// <param name="args"></param>
     /// <returns></returns>
-    public override ValueTask InvokeVoidAsync(string identifier, params object?[] args)
+    public override async ValueTask InvokeVoidAsync(string identifier, params object?[] args)
     {
         var paras = new List<object?>();
         if (args != null)
@@ -115,7 +115,12 @@ public class JSModule<TValue> : JSModule where TValue : class
             paras.AddRange(args);
         }
         paras.Add(DotNetReference);
-        return Module.InvokeVoidAsync(identifier, paras.ToArray());
+
+        try
+        {
+            await Module.InvokeVoidAsync(identifier, paras.ToArray());
+        }
+        catch { }
     }
 
     /// <summary>

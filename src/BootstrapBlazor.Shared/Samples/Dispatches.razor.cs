@@ -10,7 +10,7 @@ namespace BootstrapBlazor.Shared.Samples;
 /// <summary>
 /// 消息分发示例
 /// </summary>
-public partial class Dispatchs
+public partial class Dispatches
 {
     [Inject]
     [NotNull]

@@ -5,6 +5,13 @@
     cursor: pointer;
 }
 
+    .card .card-collapse .card-collapse-body {
+        display: flex;
+        flex: 1;
+        align-items: center;
+        margin-left: .5rem;
+    }
+
 .card .card-collapse-arrow {
     transition: transform .3s linear;
 }
