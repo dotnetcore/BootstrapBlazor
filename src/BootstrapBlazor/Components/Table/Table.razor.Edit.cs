@@ -472,10 +472,7 @@ public partial class Table<TItem>
             ProcessSelectedRows();
 
             // 分页情况下内部不做处理防止页码错乱
-            if (!queryOption.IsPage)
-            {
-                ProcessPageData(queryData, queryOption);
-            }
+            ProcessData(queryData, queryOption);
 
             if (IsTree)
             {
@@ -515,7 +512,7 @@ public partial class Table<TItem>
                 SelectedRows = rows;
             }
 
-            void ProcessPageData(QueryData<TItem> queryData, QueryPageOptions queryOption)
+            void ProcessData(QueryData<TItem> queryData, QueryPageOptions queryOption)
             {
                 var filtered = queryData.IsFiltered;
                 var sorted = queryData.IsSorted;
