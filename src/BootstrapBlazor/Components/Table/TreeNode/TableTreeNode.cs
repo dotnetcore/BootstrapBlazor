@@ -8,7 +8,7 @@ namespace BootstrapBlazor.Components;
 /// 
 /// </summary>
 /// <typeparam name="TItem"></typeparam>
-public class TableTreeNode<TItem> : ITableTreeItem<TItem> where TItem : class
+internal class TableTreeNode<TItem> : ITableTreeItem<TItem> where TItem : class
 {
     /// <summary>
     /// 获得/设置 当前节点值
