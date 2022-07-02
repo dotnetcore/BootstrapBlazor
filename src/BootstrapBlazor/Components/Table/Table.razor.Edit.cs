@@ -445,7 +445,7 @@ public partial class Table<TItem>
                 PageIndex = PageIndex,
                 PageItems = PageItems,
                 SearchText = SearchText,
-                SortOrder = (OnSort != null && SortString != null) ? SortOrder.Unset : SortOrder,
+                SortOrder = SortOrder,
                 SortName = SortName,
                 SortList = string.IsNullOrEmpty(SortString) ? null : new List<string>(SortString.Split(",", StringSplitOptions.RemoveEmptyEntries)),
                 Filters = Filters.Values,
