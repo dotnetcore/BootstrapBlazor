@@ -19,6 +19,9 @@ public partial class TablesTree
     [NotNull]
     private IEnumerable<FooTree>? TreeItems { get; set; }
 
+    [NotNull]
+    private IEnumerable<ExpandFooTree>? ExpandTreeItems { get; set; }
+
     [Inject]
     [NotNull]
     private IStringLocalizer<Foo>? Localizer { get; set; }
@@ -41,6 +44,18 @@ public partial class TablesTree
         AllItems.AddRange(EditFooTree.Generate(Localizer, AllItems, 40, 12));
         AllItems.AddRange(EditFooTree.Generate(Localizer, AllItems, 50, 21));
         AllItems.AddRange(EditFooTree.Generate(Localizer, AllItems, 60, 22));
+
+        ExpandTreeItems = ExpandFooTree.Generate(20, 1);
+    }
+
+    private async Task<IEnumerable<ExpandFooTree>> OnExpandTreeExpand(ExpandFooTree foo)
+    {
+        await Task.Delay(1000);
+        return ExpandFooTree.Generate(2, foo.Id * 10 + 10).Select(i =>
+        {
+            i.Name = Localizer["Foo.Name", $"{foo.Id:d2}{i.Id:d2}"];
+            return i;
+        });
     }
 
     private async Task<IEnumerable<FooTree>> OnTreeExpand(FooTree foo)
@@ -141,5 +156,47 @@ public partial class TablesTree
             Count = random.Next(1, 100),
             AllItems = list
         }).ToList();
+    }
+
+    private class ExpandFooTree : Foo, ITableTreeItem<ExpandFooTree>
+    {
+        public List<ExpandFooTree> Children { get; set; } = new();
+
+        public bool IsExpand
+        {
+            get => Children.Any();
+            set
+            {
+                if (!value) Children.Clear();
+            }
+        }
+
+        public void SetChildren(IEnumerable<ExpandFooTree> items)
+        {
+            Children = items.ToList();
+        }
+
+        IEnumerable<ITableTreeItem<ExpandFooTree>>? ITableTreeItem<ExpandFooTree>.Children => Children;
+
+        private static readonly Random random = new();
+
+        public static IEnumerable<ExpandFooTree> Generate(int count, int id = 1)
+        {
+            while (count > 0)
+            {
+                int n = random.Next(Math.Max(1, count / 8), count);
+                count -= n;
+                yield return new ExpandFooTree()
+                {
+                    Id = id,
+                    Name = "Foo" + id,
+                    DateTime = System.DateTime.Now,
+                    Count = random.Next(1, 100),
+                    Complete = random.Next(1, 100) > 50,
+                    Education = random.Next(1, 100) > 50 ? EnumEducation.Primary : EnumEducation.Middel,
+                    Children = Generate(n - 1, (id++) * 10).ToList()
+                };
+            }
+        }
     }
 }

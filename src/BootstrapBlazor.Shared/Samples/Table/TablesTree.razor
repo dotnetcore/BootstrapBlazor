@@ -74,3 +74,15 @@
         </TableColumns>
     </Table>
 </DemoBlock>
+
+<DemoBlock Title="默认展开树状结构" Introduction="通过设置 <code>TreeIcon</code> 更改指示小箭头图标" Name="IsExpand">
+    <p>本例中更改缩进宽度为 <code>8px</code></p>
+    <Table TItem="ExpandFooTree" IsBordered="true" IsStriped="true" Items="@ExpandTreeItems" IsTree="true" OnTreeExpand="@OnExpandTreeExpand">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.Name" Width="360" />
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Address" />
+            <TableColumn @bind-Field="@context.Count" />
+        </TableColumns>
+    </Table>
+</DemoBlock>
