@@ -431,6 +431,7 @@ internal class CacheManager : ICacheManager
     /// <typeparam name="TModel"></typeparam>
     /// <typeparam name="TValue"></typeparam>
     /// <param name="model"></param>
+    /// <param name="customAttribute"></param>
     /// <returns></returns>
     public static TValue GetKeyValue<TModel, TValue>(TModel model, Type? customAttribute = null)
     {

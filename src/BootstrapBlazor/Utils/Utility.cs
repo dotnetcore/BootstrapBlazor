@@ -54,6 +54,7 @@ public static class Utility
     /// <typeparam name="TModel"></typeparam>
     /// <typeparam name="TValue"></typeparam>
     /// <param name="model"></param>
+    /// <param name="customAttribute"></param>
     /// <returns></returns>
     public static TValue GetKeyValue<TModel, TValue>(TModel model, Type? customAttribute = null) => CacheManager.GetKeyValue<TModel, TValue>(model, customAttribute);
 
