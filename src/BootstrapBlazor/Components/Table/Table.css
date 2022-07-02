@@ -618,6 +618,7 @@ form .table .table-cell > textarea {
         cursor: pointer;
         margin-left: .5rem;
         flex: 1;
+        padding: .5rem 0;
     }
 
 .table-search .collapsed .card-header {

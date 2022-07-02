@@ -89,7 +89,7 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
     /// </summary>
     /// <param name="item"></param>
     /// <returns></returns>
-    protected string? GetTreeClassString(TItem item) => CssBuilder.Default("is-tree")
+    protected string? GetTreeClassString(TItem item) => CssBuilder.Default("is-tree fa fa-fw")
         .AddClass(TreeIcon, CheckTreeChildren(item) && !IsLoadChildren)
         .AddClass("fa-rotate-90", IsExpand(item))
         .AddClass("fa-spin fa-spinner", IsLoadChildren)
@@ -155,7 +155,7 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
     /// 获得/设置 数型结构小箭头图标 默认 fa fa-caret-right
     /// </summary>
     [Parameter]
-    public string TreeIcon { get; set; } = "fa fa-fw fa-caret-right";
+    public string TreeIcon { get; set; } = "fa-caret-right";
 
     /// <summary>
     /// 获得/设置 树形数据节点展开式回调委托方法
@@ -669,7 +669,7 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
         Interop = new JSInterop<Table<TItem>>(JSRuntime);
 
         // 设置 OnSort 回调方法
-        IntenralOnSortAsync = async (sortName, sortOrder) =>
+        InternalOnSortAsync = async (sortName, sortOrder) =>
         {
             // 调用 OnSort 回调方法
             if (OnSort != null)

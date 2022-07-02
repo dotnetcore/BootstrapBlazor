@@ -1,6 +1,6 @@
 ﻿@namespace BootstrapBlazor.Components
 @inherits ProgressBase
 
-<div @attributes="AdditionalAttributes" class="progress" style="@ProgressStyle">
+<div @attributes="AdditionalAttributes" class="@ClassString" style="@ProgressStyle">
     <div class="@ClassName" role="progressbar" style="@StyleName" aria-valuenow="@ValueString" aria-valuemin="0"  aria-valuemax="100">@ValueLabelString</div>
 </div>

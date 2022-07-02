@@ -20,6 +20,10 @@ public partial class Labels : ComponentBase
     [NotNull]
     private IStringLocalizer<Labels>? Localizer { get; set; }
 
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<ValidateForms>? LocalizerForm { get; set; }
+
     [NotNull]
     private Foo? Dummy { get; set; }
 

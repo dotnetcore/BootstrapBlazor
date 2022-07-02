@@ -93,7 +93,8 @@
     "Block4Intro": "默认自动开启显示标签",
     "P8": "<b>显示标签</b><div>未设置 <coe>EditorForm</coe> 组件的 <code>ShowLabel</code> 属性，未设置时等同于设置为 <code>true</code>，所有组件 <b>显示</b> 标签</div>",
     "P9": "<b>不显示标签</b><div>设置 <code>ShowLabel='false'</code>，组件内的所有表单组件 <b>不显示</b> 标签</div>",
-    "P10": "<b>显示标签</b><div>设置样式 <code>form-inline</code>，组件内的所有表单组件标签前置</div>"
+    "P10": "<b>显示标签</b><div>设置样式 <code>form-inline</code>，组件内的所有表单组件标签前置</div>",
+    "P11": "<b>标签提示</b>"
   },
   "BootstrapBlazor.Shared.Pages.Install": {
     "InstallTitle": "安装",
@@ -2055,6 +2056,7 @@
     "CollapsibleIntro": "通过设置 <code>IsCollapsible</code> 使 <code>Body</code> 可以伸缩",
     "CollapsibleIntro2": "通过设置 <code>Collapsed</code> 使 <code>Body</code> 默认收缩 参数默认值 <code>false</code> 展开",
     "CollapsibleBody": "点击 Header 收缩/展开",
+    "CollapsibleHeaderTemplate": "这里是模板",
     "ShadowTitle": "带有阴影的卡片",
     "ShadowIntro": "通过设置 <code>IsShadow</code> 开启阴影特效",
     "ShadowBody": "阴影特效示例",

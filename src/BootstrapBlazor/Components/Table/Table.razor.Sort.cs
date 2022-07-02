@@ -53,7 +53,7 @@ public partial class Table<TItem>
     /// 获得/设置 内部表头排序时回调方法
     /// </summary>
     [NotNull]
-    protected Func<string, SortOrder, Task>? IntenralOnSortAsync { get; set; }
+    protected Func<string, SortOrder, Task>? InternalOnSortAsync { get; set; }
 
     /// <summary>
     /// 点击列进行排序方法
@@ -76,7 +76,7 @@ public partial class Table<TItem>
         SortName = col.GetFieldName();
 
         // 通知 Table 组件刷新数据
-        await IntenralOnSortAsync(SortName, SortOrder);
+        await InternalOnSortAsync(SortName, SortOrder);
     };
 
     /// <summary>

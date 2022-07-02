@@ -472,10 +472,7 @@ public partial class Table<TItem>
             ProcessSelectedRows();
 
             // 分页情况下内部不做处理防止页码错乱
-            if (!queryOption.IsPage)
-            {
-                ProcessPageData(queryData, queryOption);
-            }
+            ProcessData(queryData, queryOption);
 
             if (IsTree)
             {
@@ -515,7 +512,7 @@ public partial class Table<TItem>
                 SelectedRows = rows;
             }
 
-            void ProcessPageData(QueryData<TItem> queryData, QueryPageOptions queryOption)
+            void ProcessData(QueryData<TItem> queryData, QueryPageOptions queryOption)
             {
                 var filtered = queryData.IsFiltered;
                 var sorted = queryData.IsSorted;
@@ -547,7 +544,7 @@ public partial class Table<TItem>
                 // 先处理列头排序 再处理默认多列排序
                 if (!sorted)
                 {
-                    if (queryOption.SortOrder != SortOrder.Unset && !string.IsNullOrEmpty(queryOption.SortName))
+                    if (OnSort == null && queryOption.SortOrder != SortOrder.Unset && !string.IsNullOrEmpty(queryOption.SortName))
                     {
                         var invoker = Utility.GetSortFunc<TItem>();
                         QueryItems = invoker(QueryItems, queryOption.SortName, queryOption.SortOrder);

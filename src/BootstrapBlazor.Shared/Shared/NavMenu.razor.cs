@@ -597,7 +597,7 @@ public sealed partial class NavMenu
             {
                 IsNew = true,
                 Text = Localizer["Topology"],
-                Url = "Topologys"
+                Url = "Topologies"
             },
             new()
             {
@@ -813,7 +813,7 @@ public sealed partial class NavMenu
             new()
             {
                 Text = Localizer["Dispatch"],
-                Url = "dispatchs"
+                Url = "dispatches"
             },
             new()
             {

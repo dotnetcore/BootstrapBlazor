@@ -1653,6 +1653,42 @@ public class TableTest : TableTestBase
         await cut.InvokeAsync(() => table.Instance.QueryAsync());
     }
 
+    [Fact]
+    public async Task OnSort_Ok()
+    {
+        // 外部未排序，组件内部自动排序
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.OnQueryAsync, OnQueryAsync(localizer, isSorted: false));
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.AddAttribute(3, "Sortable", true);
+                    builder.AddAttribute(4, "DefaultSort", true);
+                    builder.AddAttribute(4, "DefaultSortOrder", SortOrder.Desc);
+                    builder.CloseComponent();
+                });
+                pb.Add(a => a.SortIcon, "fa fa-sort");
+            });
+        });
+
+        var name = cut.Find("td").TextContent;
+        Assert.Contains("0005", name);
+
+        // click sort
+        var sort = cut.Find("th");
+        await cut.InvokeAsync(() => sort.Click());
+
+        name = name = cut.Find("td").TextContent;
+        Assert.Contains("0001", name);
+    }
+
     [Theory]
     [InlineData(false, SortOrder.Asc)]
     [InlineData(false, SortOrder.Desc)]

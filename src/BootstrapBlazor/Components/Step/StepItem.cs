@@ -7,6 +7,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// Step 组件项类
 /// </summary>
+[ExcludeFromCodeCoverage]
 public class StepItem
 {
     /// <summary>

@@ -93,7 +93,8 @@
     "Block4Intro": "Show labels are automatically turned on by default",
     "P8": "<b>Show label</b><div>The <code>ShowLabel</code> property of the <coe>EditorForm</coe> component is not set. If it is not set, it is equivalent to set to <code>true</code>. All components <b>display</b> tags</div>",
     "P9": "<b>Do not display labels</b><div>Set <code>ShowLabel='false'</code>, all form components in the component <b>Do not display</b> tags</div>",
-    "P10": "<b>Show labels</b><div>set class <code>form-inline</code> for the all labels within the component are prefixed</div>"
+    "P10": "<b>Show labels</b><div>set class <code>form-inline</code> for the all labels within the component are prefixed</div>",
+    "P11": "<b>Tooltip</b>"
   },
   "BootstrapBlazor.Shared.Pages.Install": {
     "InstallTitle": "Install",
@@ -846,7 +847,7 @@
     "Button7Text": "Dark",
     "Button8Text": "Highlight",
     "Button9Text": "Link",
-    "Button10Tetx": "Ultra-small",
+    "Button10Text": "ExtraSmall",
     "Button11Text": "Small",
     "Button12Text": "Button",
     "Button13Text": "Medium",
@@ -2051,6 +2052,7 @@
     "CollapsibleIntro": "Card body can collapse/expand by set <code>IsCollapsible</code> to true",
     "CollapsibleIntro2": "Set <code>Collapsed</code> value to <code>true</code> for default collapsed card body.",
     "CollapsibleBody": "Click card hader for collapse/expand card body",
+    "CollapsibleHeaderTemplate": "Header Template",
     "ShadowTitle": "Shadow effect",
     "ShadowIntro": "Enable shadow effect by set <code>IsShadow</code> to true",
     "ShadowBody": "Shadow effect sample",
