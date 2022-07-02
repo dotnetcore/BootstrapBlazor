@@ -11,7 +11,7 @@ namespace BootstrapBlazor.Components;
 /// <remarks>
 /// <code>接口实作方式:<br/> class <typeparamref name="TItem"/> : <see cref="ITableTreeItem{TItem}"/> </code>
 /// </remarks>
-internal interface ITableTreeItem<TItem>
+public interface ITableTreeItem<TItem>
 {
     /// <summary>
     /// 实例化接口
