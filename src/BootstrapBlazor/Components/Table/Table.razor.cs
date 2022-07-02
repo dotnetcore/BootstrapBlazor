@@ -457,7 +457,7 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
         Interop = new JSInterop<Table<TItem>>(JSRuntime);
 
         // 设置 OnSort 回调方法
-        IntenralOnSortAsync = async (sortName, sortOrder) =>
+        InternalOnSortAsync = async (sortName, sortOrder) =>
         {
             // 调用 OnSort 回调方法
             if (OnSort != null)
