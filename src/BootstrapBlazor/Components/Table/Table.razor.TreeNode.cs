@@ -63,26 +63,20 @@ public partial class Table<TItem>
     /// </summary>
     /// <param name="degree"></param>
     /// <returns></returns>
-    protected string? GetTreeStyleString(int degree)
-    {
-        return CssBuilder.Default()
+    protected string? GetTreeStyleString(int degree) => CssBuilder.Default()
         .AddClass($"margin-left: {degree * IndentSize}px;")
         .Build();
-    }
 
     /// <summary>
     /// 树形数据展开小箭头
     /// </summary>
     /// <param name="isExpand"></param>
     /// <returns></returns>
-    protected string? GetTreeClassString(bool isExpand)
-    {
-        return CssBuilder.Default("is-tree fa fa-fw ")
+    protected string? GetTreeClassString(bool isExpand) => CssBuilder.Default("is-tree fa fa-fw")
         .AddClass(TreeIcon, !IsLoadChildren)
         .AddClass("fa-rotate-90", !IsLoadChildren && isExpand)
         .AddClass("fa-spin fa-spinner", IsLoadChildren)
         .Build();
-    }
 
     /// <summary>
     /// 展开收缩树形数据节点方法
