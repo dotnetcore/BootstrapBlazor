@@ -47,7 +47,7 @@ public partial class Table<TItem>
     /// 获得/设置 点击表头排序时回调方法 回传null时则做预设处理
     /// </summary>
     [Parameter]
-    public Func<string, SortOrder, string?>? OnSort { get; set; }
+    public Func<string, SortOrder, string>? OnSort { get; set; }
 
     /// <summary>
     /// 获得/设置 内部表头排序时回调方法
