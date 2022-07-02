@@ -97,12 +97,12 @@
     </Table>
 </DemoBlock>
 
-<DemoBlock Title="@FilterLocalizer["SortListTitle"]" Introduction="@FilterLocalizer["SortListIntro"]" Name="SortList">
+<DemoBlock Title="@FilterLocalizer["SortListTitle"]" Introduction="@FilterLocalizer["SortListIntro"]" Name="SortString">
     <p>@((MarkupString)FilterLocalizer["SortListP"].Value)</p>
     <Table TItem="Foo"
            IsPagination="true" PageItemsSource="@PageItemsSource"
            IsStriped="true" IsBordered="true" IsMultipleSelect="true"
-           ShowSkeleton="true" SortList="SortList"
+           ShowSkeleton="true" SortString="SortList"
            OnQueryAsync="@OnQueryAsync">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" Sortable="true" />
