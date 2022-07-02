@@ -44,7 +44,7 @@ public partial class Table<TItem>
     public string? SortString { get; set; }
 
     /// <summary>
-    /// 获得/设置 点击表头排序时回调方法 回传null时则做预设处理
+    /// 获得/设置 点击表头排序时回调方法
     /// </summary>
     [Parameter]
     public Func<string, SortOrder, string>? OnSort { get; set; }
