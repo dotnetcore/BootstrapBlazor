@@ -2512,12 +2512,12 @@ public class TableTest : TableTestBase
 
                 // <TableCellButton Color="Color.Primary" Icon="fa fa-edit" Text="明细" OnClick="@(() => OnRowButtonClick(context, "明细"))" />
                 pb.Add(a => a.RowButtonTemplate, foo => builder =>
-            {
-                builder.OpenComponent<TableCellButton>(0);
-                builder.AddAttribute(2, "Text", "test-extend-button");
-                builder.AddAttribute(3, "class", $"btn-test{index++}");
-                builder.CloseComponent();
-            });
+                {
+                    builder.OpenComponent<TableCellButton>(0);
+                    builder.AddAttribute(2, "Text", "test-extend-button");
+                    builder.AddAttribute(3, "class", $"btn-test{index++}");
+                    builder.CloseComponent();
+                });
                 pb.Add(a => a.BeforeRowButtonTemplate, foo => builder =>
                 {
                     builder.OpenComponent<TableCellButton>(0);
