@@ -440,7 +440,7 @@ internal class CacheManager : ICacheManager
             throw new ArgumentNullException(nameof(model));
         }
         var type = model.GetType();
-        var cacheKey = ($"Lambda-GetKeyValue-{type.FullName}", typeof(TModel));
+        var cacheKey = $"Lambda-GetKeyValue-{type.FullName}-{customAttribute?.FullName}";
         var invoker = Instance.GetOrCreate(cacheKey, entry =>
         {
             entry.SetDynamicAssemblyPolicy(type);
