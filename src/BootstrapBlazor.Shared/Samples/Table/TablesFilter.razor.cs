@@ -59,6 +59,8 @@ public partial class TablesFilter
 
         // 排序
         var isSorted = false;
+
+        // 此段代码可不写，组件内部自行处理
         if (options.SortName == nameof(Foo.DateTime) && options.SortList != null)
         {
             var sortInvoker = Utility.GetSortListFunc<Foo>();

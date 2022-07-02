@@ -544,7 +544,7 @@ public partial class Table<TItem>
                 // 先处理列头排序 再处理默认多列排序
                 if (!sorted)
                 {
-                    if (queryOption.SortOrder != SortOrder.Unset && !string.IsNullOrEmpty(queryOption.SortName))
+                    if (OnSort == null && queryOption.SortOrder != SortOrder.Unset && !string.IsNullOrEmpty(queryOption.SortName))
                     {
                         var invoker = Utility.GetSortFunc<TItem>();
                         QueryItems = invoker(QueryItems, queryOption.SortName, queryOption.SortOrder);
