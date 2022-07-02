@@ -563,15 +563,10 @@ public partial class Table<TItem>
     /// <param name="a"></param>
     /// <param name="b"></param>
     /// <returns></returns>
-    protected bool IsEqualItems(TItem a, TItem b)
-    {
-        if (IsEqualsCallback != null)
-            return IsEqualsCallback.Invoke(a, b);
-        else if (HasKeyAttribute)
-            return Utility.GetKeyValue<TItem, object>(a, CustomKeyAttribute)?.Equals(Utility.GetKeyValue<TItem, object>(b, CustomKeyAttribute)) ?? false;
-        else
-            return a == b;
-    }
+    protected bool IsEqualItems(TItem a, TItem b) => IsEqualsCallback?.Invoke(a, b)
+        ?? Utility.GetKeyValue<TItem, object>(a, CustomKeyAttribute)
+            ?.Equals(Utility.GetKeyValue<TItem, object>(b, CustomKeyAttribute))
+        ?? a == b;
 
     private async Task OnClickExtensionButton(TItem item, TableCellButtonArgs args)
     {
