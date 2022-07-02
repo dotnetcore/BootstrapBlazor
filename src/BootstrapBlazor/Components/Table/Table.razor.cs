@@ -5,7 +5,6 @@
 using Microsoft.AspNetCore.Components.Web.Virtualization;
 using Microsoft.Extensions.Options;
 using System.Globalization;
-using System.Reflection;
 
 namespace BootstrapBlazor.Components;
 
@@ -426,22 +425,17 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
     private bool OnAfterRenderIsTriggered { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否有设置<see cref="IsEqualsCallback"/> 模型是否有 <see cref="CustomKeyAttribute"/> 标签
+    /// 获得/设置 数据主键标识标签 默认为 <see cref="KeyAttribute"/>
     /// </summary>
-    protected bool HasKeyAttribute
-        => CustomKeyAttribute.IsAssignableTo(typeof(Attribute))
-           && typeof(TItem).GetRuntimeProperties().Any(p => p.IsDefined(CustomKeyAttribute));
+    /// <remarks>用于判断数据主键标签，如果模型未设置主键时可使用 <see cref="IsEqualsCallback"/> 参数自定义判断 <code><br /></code>数据模型支持联合主键</remarks>
+    [Parameter]
+    public Type CustomKeyAttribute { get; set; } = typeof(KeyAttribute);
 
     /// <summary>
-    /// 获得/设置 比较数据相同依据的标签 默认为 <see cref="KeyAttribute"/> 无法提供时请设置 <see cref="IsEqualsCallback"/> 回调方法
+    /// 获得/设置 比较数据是否相同回调方法 默认为 null
     /// </summary>
-    /// <remarks>此参数在 <see cref="IsExcel"/> 模式下不生效</remarks>
-    protected Type CustomKeyAttribute { get; set; } = typeof(KeyAttribute);
-
-    /// <summary>
-    /// 获得/设置 比较数据相同回调方法 默认为 null 用于无法提供 <see cref="CustomKeyAttribute"/> 列名时使用
-    /// </summary>
-    protected Func<TItem, TItem, bool>? IsEqualsCallback { get; set; }
+    /// <remarks>提供此回调方法时忽略 <see cref="CustomKeyAttribute"/> 属性</remarks>
+    public Func<TItem, TItem, bool>? IsEqualsCallback { get; set; }
 
     /// <summary>
     /// OnInitialized 方法
