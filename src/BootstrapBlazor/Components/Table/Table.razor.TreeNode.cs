@@ -13,7 +13,7 @@ public partial class Table<TItem>
     public bool IsTree { get; set; }
 
     /// <summary>
-    /// 获得/设置 生成树桩结构回调方法
+    /// 获得/设置 生成树状结构回调方法
     /// </summary>
     [Parameter]
     public Func<IEnumerable<TItem>, Task<IEnumerable<TableTreeNode<TItem>>>>? OnBuildTreeAsync { get; set; }
