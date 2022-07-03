@@ -16,7 +16,7 @@ public partial class Table<TItem>
     /// 获得/设置 生成树状结构回调方法
     /// </summary>
     [Parameter]
-    public Func<IEnumerable<TItem>, Task<IEnumerable<TableTreeNode<TItem>>>>? TableTreeNodeConverter { get; set; }
+    public Func<IEnumerable<TItem>, Task<IEnumerable<TableTreeNode<TItem>>>>? TreeNodeConverter { get; set; }
 
     /// <summary>
     /// 获得/设置 树形数据节点展开式回调委托方法
