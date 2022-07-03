@@ -539,10 +539,10 @@ public partial class Table<TItem>
 
             async Task ProcessTreeData()
             {
-                var treeNodes = Enumerable.Empty<TableTreeNode<TItem>>();
+                var treeNodes = new List<TableTreeNode<TItem>>();
                 if (OnBuildTreeAsync != null)
                 {
-                    treeNodes = await OnBuildTreeAsync(QueryItems);
+                    treeNodes.AddRange(await OnBuildTreeAsync(QueryItems));
                 }
 
                 if (treeNodes.Any())

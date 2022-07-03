@@ -1999,6 +1999,57 @@ public class TableTest : TableTestBase
         Assert.True(ret);
     }
 
+    [Fact]
+    public async Task IsTree_KeepExpand()
+    {
+        // 展开树状节点
+        // 重新查询后节点依然展开
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<FooTree>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.IsTree, true);
+                pb.Add(a => a.OnQueryAsync, op =>
+                {
+                    var items = FooTree.Generate(localizer);
+                    return Task.FromResult(new QueryData<FooTree>()
+                    {
+                        Items = items
+                    });
+                });
+                pb.Add(a => a.OnBuildTreeAsync, items =>
+                {
+                    var ret = items.Select(i => new TableTreeNode<FooTree>(i) { HasChildren = true });
+                    return Task.FromResult(ret);
+                });
+                pb.Add(a => a.OnTreeExpand, foo => Task.FromResult(FooTree.Generate(localizer, foo.Id, 100).Select(foo => new TableTreeNode<FooTree>(foo))));
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+                });
+            });
+        });
+
+        // 点击展开
+        var node = cut.Find("tbody .is-tree");
+        await cut.InvokeAsync(() => node.Click());
+        var nodes = cut.FindAll("tbody tr");
+        Assert.Equal(4, nodes.Count);
+
+        // 查询
+        var table = cut.FindComponent<Table<FooTree>>();
+        await cut.InvokeAsync(() => table.Instance.QueryAsync());
+        Assert.Contains("is-tree fa fa-fw fa-caret-right fa-rotate-90", cut.Markup);
+
+        table.SetParametersAndRender(pb => pb.Add(a => a.OnTreeExpand, null));
+        await Assert.ThrowsAsync<InvalidOperationException>(() => table.Instance.QueryAsync());
+    }
+
     private static Task<QueryData<FooTree>> OnQueryAsync(QueryPageOptions _, IStringLocalizer<Foo> localizer)
     {
         var items = FooTree.Generate(localizer);
