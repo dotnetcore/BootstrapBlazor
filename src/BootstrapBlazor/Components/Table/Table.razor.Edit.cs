@@ -547,10 +547,22 @@ public partial class Table<TItem>
     /// <param name="a"></param>
     /// <param name="b"></param>
     /// <returns></returns>
-    protected bool IsEqualItems(TItem a, TItem b) => TreeNodeEqualityComparer?.Invoke(a, b)
+    protected bool IsEqualItems(TItem a, TItem b) => TableRowEqualityComparer?.Invoke(a, b)
+        ?? EqualityComparer(a, b)
         ?? Utility.GetKeyValue<TItem, object>(a, CustomKeyAttribute)
             ?.Equals(Utility.GetKeyValue<TItem, object>(b, CustomKeyAttribute))
         ?? a == b;
+
+
+    private static bool? EqualityComparer(TItem a, TItem b)
+    {
+        bool? ret = null;
+        if (a is IEqualityComparer<TItem> comparer)
+        {
+            ret = comparer.Equals(b);
+        }
+        return ret;
+    }
 
     private async Task OnClickExtensionButton(TItem item, TableCellButtonArgs args)
     {

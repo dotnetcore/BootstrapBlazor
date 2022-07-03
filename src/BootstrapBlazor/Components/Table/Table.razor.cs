@@ -435,7 +435,8 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
     /// 获得/设置 比较数据是否相同回调方法 默认为 null
     /// </summary>
     /// <remarks>提供此回调方法时忽略 <see cref="CustomKeyAttribute"/> 属性</remarks>
-    public Func<TItem, TItem, bool>? TreeNodeEqualityComparer { get; set; }
+    [Parameter]
+    public Func<TItem, TItem, bool>? TableRowEqualityComparer { get; set; }
 
     /// <summary>
     /// OnInitialized 方法
