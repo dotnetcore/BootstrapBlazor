@@ -1947,6 +1947,49 @@ public class TableTest : TableTestBase
         Assert.ThrowsAsync<InvalidOperationException>(() => cut.InvokeAsync(() => node.Click()));
     }
 
+    [Fact]
+    public void IsTree_CustomKeyAttribute()
+    {
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Cat>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.IsTree, true);
+                pb.Add(a => a.CustomKeyAttribute, typeof(CatKeyAttribute));
+                pb.Add(a => a.OnQueryAsync, op =>
+                {
+                    var ret = new QueryData<Cat>()
+                    {
+                        Items = new Cat[]
+                        {
+                            new Cat() { Id = 1, Name = "Cat 1" },
+                            new Cat() { Id = 2, Name = "Cat 2" }
+                        },
+                        TotalCount = 2
+                    };
+                    return Task.FromResult(ret);
+                });
+                pb.Add(a => a.OnBuildTreeAsync, items =>
+                {
+                    var ret = items.Select(cat => new TableTreeNode<Cat>(cat) { HasChildren = true });
+                    return Task.FromResult(ret);
+                });
+                pb.Add(a => a.TableColumns, cat => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Cat, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(cat, "Name", typeof(string)));
+                    builder.CloseComponent();
+                });
+            });
+        });
+
+        // 点击展开
+        var nodes = cut.FindAll("tbody .table-cell.is-tree");
+        Assert.Equal(2, nodes.Count);
+    }
+
     private static Task<QueryData<FooTree>> OnQueryAsync(QueryPageOptions _, IStringLocalizer<Foo> localizer)
     {
         var items = FooTree.Generate(localizer);
@@ -5376,7 +5419,7 @@ public class TableTest : TableTestBase
         [AutoGenerateColumn(Ignore = true)]
         public new int Id { get; set; }
 
-        public static new IEnumerable<FooNoKeyTree> Generate(IStringLocalizer<Foo> localizer, int seed = 0) => Enumerable.Range(1, 2).Select(i => new FooNoKeyTree()
+        public static IEnumerable<FooNoKeyTree> Generate(IStringLocalizer<Foo> localizer, int seed = 0) => Enumerable.Range(1, 2).Select(i => new FooNoKeyTree()
         {
             Id = i + seed,
             Name = localizer["Foo.Name", $"{seed:d2}{(i + seed):d2}"],
@@ -5391,6 +5434,19 @@ public class TableTest : TableTestBase
     private class ReadonlyFoo : Foo
     {
         public string? ReadonlyValue { get; }
+    }
+
+    private class Cat
+    {
+        [CatKey]
+        public int Id { get; set; }
+
+        public string? Name { get; set; }
+    }
+
+    private class CatKeyAttribute : Attribute
+    {
+
     }
 
     private class FooSearchModel : ITableSearchModel
@@ -5457,7 +5513,6 @@ public class TableTest : TableTestBase
     {
         public TableRenderMode ShouldBeTable()
         {
-            // ScreenSize < RenderModeResponsiveWidth ? TableRenderMode.CardView : TableRenderMode.Table
             ScreenSize = 10;
             RenderModeResponsiveWidth = 5;
             RenderMode = TableRenderMode.Auto;
