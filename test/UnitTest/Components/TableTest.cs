@@ -1909,6 +1909,7 @@ public class TableTest : TableTestBase
                 pb.Add(a => a.RenderMode, TableRenderMode.Table);
                 pb.Add(a => a.IsTree, true);
                 pb.Add(a => a.OnQueryAsync, op => OnQueryAsync(op, localizer));
+                pb.Add(a => a.OnBuildTreeAsync, items => BuildTreeAsync(items));
                 pb.Add(a => a.TableColumns, foo => builder =>
                 {
                     builder.OpenComponent<TableColumn<Foo, string>>(0);
@@ -1920,7 +1921,7 @@ public class TableTest : TableTestBase
         });
 
         // 点击展开
-        var node = cut.Find("tbody .table-cell.is-tree .is-node");
+        var node = cut.Find("tbody .table-cell.is-tree");
         Assert.ThrowsAsync<InvalidOperationException>(() => cut.InvokeAsync(() => node.Click()));
     }
 
