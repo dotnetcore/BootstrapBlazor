@@ -54,11 +54,11 @@ public partial class TablesTree
                 node.Items = CacheManager.GetOrCreate($"TableTree-Foos-{CultureInfo.CurrentUICulture.Name}-{foo.Id}", entry =>
                 {
                     entry.SlidingExpiration = TimeSpan.FromMinutes(5);
-                    var foos = Foo.GenerateFoo(Localizer, 4).Select((foo, index) =>
+                    var foos = Foo.GenerateFoo(Localizer, 2).Select((i, index) =>
                     {
-                        foo.Id = 1000 + index;
-                        foo.Name = Localizer["Foo.Name", $"{foo.Id:d4}"];
-                        return new TableTreeNode<Foo>(foo);
+                        i.Id = foo.Id * 100 + index;
+                        i.Name = Localizer["Foo.Name", $"{i.Id:d4}"];
+                        return new TableTreeNode<Foo>(i);
                     });
                     return foos;
                 });
@@ -84,9 +84,9 @@ public partial class TablesTree
         });
     }
 
-    private bool TreeNodeEqualityComparer(Foo a, Foo b) => a.Id == b.Id;
+    private static bool TreeNodeEqualityComparer(Foo a, Foo b) => a.Id == b.Id;
 
-    private Task<Foo> OnAddAsync() => Task.FromResult(new Foo() { DateTime = DateTime.Now });
+    private static Task<Foo> OnAddAsync() => Task.FromResult(new Foo() { DateTime = DateTime.Now });
 
     private Task<bool> OnSaveAsync(Foo item, ItemChangedType changedType)
     {
