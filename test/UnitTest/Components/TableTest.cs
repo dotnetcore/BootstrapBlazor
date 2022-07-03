@@ -1972,6 +1972,19 @@ public class TableTest : TableTestBase
         var ret = table.Instance.TestIsEqualItems(new Cat() { Id = 1 }, new Cat() { Id = 1 });
         Assert.True(ret);
     }
+
+    [Fact]
+    public void IsTree_EqualityComparer()
+    {
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<MockTreeTable<Dummy>>();
+        });
+
+        var table = cut.FindComponent<MockTreeTable<Dummy>>();
+        var ret = table.Instance.TestIsEqualItems(new Dummy() { Id = 1 }, new Dummy() { Id = 1 });
+        Assert.True(ret);
+    }
     }
 
     private static Task<QueryData<FooTree>> OnQueryAsync(QueryPageOptions _, IStringLocalizer<Foo> localizer)
