@@ -1959,6 +1959,19 @@ public class TableTest : TableTestBase
         var ret = table.Instance.TestIsEqualItems(new Cat() { Id = 1 }, new Cat() { Id = 1 });
         Assert.True(ret);
     }
+
+    [Fact]
+    public void IsTree_KeyAttribute()
+    {
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<MockTreeTable<Cat>>(pb => pb.Add(a => a.CustomKeyAttribute, typeof(CatKeyAttribute)));
+        });
+
+        var table = cut.FindComponent<MockTreeTable<Cat>>();
+        var ret = table.Instance.TestIsEqualItems(new Cat() { Id = 1 }, new Cat() { Id = 1 });
+        Assert.True(ret);
+    }
     }
 
     private static Task<QueryData<FooTree>> OnQueryAsync(QueryPageOptions _, IStringLocalizer<Foo> localizer)
