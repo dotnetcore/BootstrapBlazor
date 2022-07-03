@@ -5,7 +5,7 @@
 
 <h4>表格支持树形数据的展示</h4>
 
-<Tips>
+<Tips class="mt-3">
     <div>通过 <code>IsTree</code> 参数控制是否为树形数据</div>
     <ul class="ul-demo mt-3">
         <li>通过 <code>OnBuildTreeAsync</code> 回调委托对数据集进行树状结构转换</li>
@@ -16,7 +16,7 @@
 </Tips>
 
 <DemoBlock Title="树形数据展示" Introduction="通过设置 <code>IsTree</code> 开启树形表格" Name="TreeData">
-    <Table TItem="Foo" IsBordered="true" IsStriped="true" HeaderStyle="@TableHeaderStyle.Light"
+    <Table TItem="TreeFoo" IsBordered="true" IsStriped="true" HeaderStyle="@TableHeaderStyle.Light"
            Items="@TreeItems" IsTree="true" OnBuildTreeAsync="@OnBuildFooTreeAsync" OnTreeExpand="@OnTreeExpand">
         <TableColumns>
             <TableColumn @bind-Field="@context.Name" Width="360" />
@@ -32,7 +32,7 @@
         <div>默认层次缩进宽度为 <code>16px</code> 通过设置 <code>Indent</code> 更改缩进宽度</div>
     </Tips>
     <p>本例中更改缩进宽度为 <code>8px</code></p>
-    <Table TItem="Foo" IsBordered="true" IsStriped="true" HeaderStyle="@TableHeaderStyle.Light" IndentSize="8"
+    <Table TItem="TreeFoo" IsBordered="true" IsStriped="true" HeaderStyle="@TableHeaderStyle.Light" IndentSize="8"
            Items="@TreeItems" IsTree="true" OnBuildTreeAsync="@OnBuildFooTreeAsync" OnTreeExpand="@OnTreeExpand">
         <TableColumns>
             <TableColumn @bind-Field="@context.Name" Width="360" />
@@ -47,7 +47,7 @@
     <Tips>
         <div>通过在实体的唯一标识字段上定义 <code>[Key]</code> 特性，来保持展开状态</div>
     </Tips>
-    <Table TItem="Foo" IsBordered="true" HeaderStyle="@TableHeaderStyle.Light"
+    <Table TItem="TreeFoo" IsBordered="true" HeaderStyle="@TableHeaderStyle.Light"
            ShowToolbar="true" ShowExtendButtons="true" ShowSkeleton="true" IsStriped="true"
            OnQueryAsync="@OnQueryAsync" OnAddAsync="@OnAddAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync"
            IsTree="true" OnBuildTreeAsync="@OnBuildFooTreeAsync" OnTreeExpand="@OnTreeExpand">
@@ -66,7 +66,7 @@
         <div>默认层次缩进宽度为 <code>16px</code> 通过设置 <code>Indent</code> 更改缩进宽度</div>
     </Tips>
     <p>本例中更改缩进宽度为 <code>8px</code></p>
-    <Table TItem="Foo" IsBordered="true" IsStriped="true" HeaderStyle="@TableHeaderStyle.Light" TreeIcon="fa fa-chevron-circle-right"
+    <Table TItem="TreeFoo" IsBordered="true" IsStriped="true" HeaderStyle="@TableHeaderStyle.Light" TreeIcon="fa fa-chevron-circle-right"
            Items="@TreeItems" IsTree="true" OnBuildTreeAsync="@OnBuildFooTreeAsync" OnTreeExpand="@OnTreeExpand">
         <TableColumns>
             <TableColumn @bind-Field="@context.Name" Width="360" />

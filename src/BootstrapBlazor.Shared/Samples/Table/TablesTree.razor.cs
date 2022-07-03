@@ -5,7 +5,6 @@
 using BootstrapBlazor.Components;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
-using System.Globalization;
 
 namespace BootstrapBlazor.Shared.Samples.Table;
 
@@ -15,15 +14,11 @@ namespace BootstrapBlazor.Shared.Samples.Table;
 public partial class TablesTree
 {
     [NotNull]
-    private List<Foo>? TreeItems { get; set; }
+    private List<TreeFoo>? TreeItems { get; set; }
 
     [Inject]
     [NotNull]
     private IStringLocalizer<Foo>? Localizer { get; set; }
-
-    [Inject]
-    [NotNull]
-    private ICacheManager? CacheManager { get; set; }
 
     /// <summary>
     /// OnInitialized 方法
@@ -32,63 +27,51 @@ public partial class TablesTree
     {
         base.OnInitialized();
 
-        TreeItems = CacheManager.GetOrCreate($"TableTree-Foos-{CultureInfo.CurrentUICulture.Name}", entry =>
-        {
-            entry.SlidingExpiration = TimeSpan.FromMinutes(5);
-            var foos = Foo.GenerateFoo(Localizer, 10);
-            return foos;
-        });
+        // 模拟数据从数据库中获得
+        TreeItems = TreeFoo.GenerateFoos(Localizer, 10);
+
+        // 插入 Id 为 1 的子项
+        TreeItems.AddRange(TreeFoo.GenerateFoos(Localizer, 2, 1, 100));
+
+        // 插入 Id 为 101 的子项
+        TreeItems.AddRange(TreeFoo.GenerateFoos(Localizer, 3, 101, 1010));
     }
 
-    private Task<IEnumerable<TableTreeNode<Foo>>> OnBuildFooTreeAsync(IEnumerable<Foo> items)
+    private Task<IEnumerable<TableTreeNode<TreeFoo>>> OnBuildFooTreeAsync(IEnumerable<TreeFoo> items)
     {
-        var nodes = items.Select((foo, index) =>
+        // 构造树状数据结构
+        var ret = BuildTreeNodes(items, 0);
+        return Task.FromResult(ret);
+
+        IEnumerable<TableTreeNode<TreeFoo>> BuildTreeNodes(IEnumerable<TreeFoo> items, int parentId)
         {
-            var node = new TableTreeNode<Foo>(foo)
+            var ret = new List<TableTreeNode<TreeFoo>>();
+            ret.AddRange(items.Where(i => i.ParentId == parentId).Select((foo, index) => new TableTreeNode<TreeFoo>(foo)
             {
+                // 此处为示例，假设偶行数据都有子数据
                 HasChildren = index % 2 == 0,
-                IsExpand = index == 2
-            };
-            if (index == 2)
-            {
-                node.Items = CacheManager.GetOrCreate($"TableTree-Foos-{CultureInfo.CurrentUICulture.Name}-{foo.Id}", entry =>
-                {
-                    entry.SlidingExpiration = TimeSpan.FromMinutes(5);
-                    var foos = Foo.GenerateFoo(Localizer, 2).Select((i, index) =>
-                    {
-                        i.Id = foo.Id * 100 + index;
-                        i.Name = Localizer["Foo.Name", $"{i.Id:d4}"];
-                        return new TableTreeNode<Foo>(i);
-                    });
-                    return foos;
-                });
-            }
-            return node;
-        });
-        return Task.FromResult(nodes);
+                // 如果子项集合有值 则默认展开此节点
+                IsExpand = items.Any(i => i.ParentId == foo.Id),
+                // 获得子项集合
+                Items = BuildTreeNodes(items.Where(i => i.ParentId == foo.Id), foo.Id)
+            }));
+            return ret;
+        }
     }
 
-    private async Task<IEnumerable<TableTreeNode<Foo>>> OnTreeExpand(Foo foo)
+    private async Task<IEnumerable<TableTreeNode<TreeFoo>>> OnTreeExpand(TreeFoo foo)
     {
         await Task.Delay(1000);
-        return CacheManager.GetOrCreate($"TableTree-Foos-Children-{CultureInfo.CurrentUICulture.Name}-{foo.Id}", entry =>
-        {
-            entry.SlidingExpiration = TimeSpan.FromMinutes(5);
-            var foos = Foo.GenerateFoo(Localizer, 4).Select((i, index) =>
-            {
-                i.Id = foo.Id * 100 + index;
-                i.Name = Localizer["Foo.Name", $"{i.Id:d4}"];
-                return new TableTreeNode<Foo>(i);
-            });
-            return foos;
-        });
+
+        // 模拟从数据库中查询
+        return TreeFoo.GenerateFoos(Localizer, 4, foo.Id, foo.Id * 100).Select(i => new TableTreeNode<TreeFoo>(i));
     }
 
-    private static bool TreeNodeEqualityComparer(Foo a, Foo b) => a.Id == b.Id;
+    //private static bool TreeNodeEqualityComparer(Foo a, Foo b) => a.Id == b.Id;
 
-    private static Task<Foo> OnAddAsync() => Task.FromResult(new Foo() { DateTime = DateTime.Now });
+    private static Task<TreeFoo> OnAddAsync() => Task.FromResult(new TreeFoo() { DateTime = DateTime.Now });
 
-    private Task<bool> OnSaveAsync(Foo item, ItemChangedType changedType)
+    private Task<bool> OnSaveAsync(TreeFoo item, ItemChangedType changedType)
     {
         if (changedType == ItemChangedType.Add)
         {
@@ -109,17 +92,38 @@ public partial class TablesTree
         return Task.FromResult(true);
     }
 
-    private Task<bool> OnDeleteAsync(IEnumerable<Foo> items)
+    private Task<bool> OnDeleteAsync(IEnumerable<TreeFoo> items)
     {
         TreeItems.RemoveAll(foo => items.Any(i => i.Id == foo.Id));
         return Task.FromResult(true);
     }
 
-    private Task<QueryData<Foo>> OnQueryAsync(QueryPageOptions _)
+    private Task<QueryData<TreeFoo>> OnQueryAsync(QueryPageOptions _)
     {
-        return Task.FromResult(new QueryData<Foo>()
+        return Task.FromResult(new QueryData<TreeFoo>()
         {
             Items = TreeItems
         });
+    }
+
+    private class TreeFoo : Foo
+    {
+        public int ParentId { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public static List<TreeFoo> GenerateFoos(IStringLocalizer<Foo> localizer, int count = 80, int parentId = 0, int id = 0) => Enumerable.Range(1, count).Select(i => new TreeFoo()
+        {
+            Id = id + i,
+            ParentId = parentId,
+            Name = localizer["Foo.Name", $"{id + i:d4}"],
+            DateTime = System.DateTime.Now.AddDays(i - 1),
+            Address = localizer["Foo.Address", $"{Random.Next(1000, 2000)}"],
+            Count = Random.Next(1, 100),
+            Complete = Random.Next(1, 100) > 50,
+            Education = Random.Next(1, 100) > 50 ? EnumEducation.Primary : EnumEducation.Middel
+        }).ToList();
     }
 }

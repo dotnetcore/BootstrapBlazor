@@ -79,7 +79,10 @@ public class Foo
     public IEnumerable<string> Hobby { get; set; } = new List<string>();
 
     #region Static methods
-    private static readonly Random random = new();
+    /// <summary>
+    /// 
+    /// </summary>
+    protected static readonly Random Random = new();
 
     /// <summary>
     /// 
@@ -91,10 +94,10 @@ public class Foo
         Id = 1,
         Name = localizer["Foo.Name", "1000"],
         DateTime = System.DateTime.Now,
-        Address = localizer["Foo.Address", $"{random.Next(1000, 2000)}"],
-        Count = random.Next(1, 100),
-        Complete = random.Next(1, 100) > 50,
-        Education = random.Next(1, 100) > 50 ? EnumEducation.Primary : EnumEducation.Middel
+        Address = localizer["Foo.Address", $"{Random.Next(1000, 2000)}"],
+        Count = Random.Next(1, 100),
+        Complete = Random.Next(1, 100) > 50,
+        Education = Random.Next(1, 100) > 50 ? EnumEducation.Primary : EnumEducation.Middel
     };
 
     /// <summary>
@@ -106,10 +109,10 @@ public class Foo
         Id = i,
         Name = localizer["Foo.Name", $"{i:d4}"],
         DateTime = System.DateTime.Now.AddDays(i - 1),
-        Address = localizer["Foo.Address", $"{random.Next(1000, 2000)}"],
-        Count = random.Next(1, 100),
-        Complete = random.Next(1, 100) > 50,
-        Education = random.Next(1, 100) > 50 ? EnumEducation.Primary : EnumEducation.Middel
+        Address = localizer["Foo.Address", $"{Random.Next(1000, 2000)}"],
+        Count = Random.Next(1, 100),
+        Complete = Random.Next(1, 100) > 50,
+        Education = Random.Next(1, 100) > 50 ? EnumEducation.Primary : EnumEducation.Middel
     }).ToList();
 
     /// <summary>
@@ -156,7 +159,7 @@ public class Foo
     /// 通过 Id 获取 Title
     /// </summary>
     /// <returns></returns>
-    private static string GetTitle() => random.Next(1, 80) switch
+    private static string GetTitle() => Random.Next(1, 80) switch
     {
         >= 1 and < 10 => "Clerk",
         >= 10 and < 50 => "Engineer",
