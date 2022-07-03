@@ -6,15 +6,18 @@
 <h4>表格支持树形数据的展示</h4>
 
 <Tips>
-    <div>通过 <code>IsTree</code> 参数控制是否为树形数据，通过 <code>HasChildrenColumnName</code> 参数控制当前行是否有子数据，点击子项展开小箭头时，通过 <code>OnTreeExpand</code> 回调委托方法获取子项数据</div>
+    <div>通过 <code>IsTree</code> 参数控制是否为树形数据</div>
+    <ul class="ul-demo mt-3">
+        <li>通过 <code>OnBuildTreeAsync</code> 回调委托对数据集进行树状结构转换</li>
+        <li>设置 <code>TableTreeNode</code> 其 <code>IsExpand</code> 参数控制当前子节点是否展开</li>
+        <li>点击子项展开小箭头时，通过 <code>OnTreeExpand</code> 回调委托方法获取子项数据</li>
+        <li>通过设置 <code>TableRowEqualityComparer</code> 参数比对行对象是否相等</li>
+    </ul>
 </Tips>
 
 <DemoBlock Title="树形数据展示" Introduction="通过设置 <code>IsTree</code> 开启树形表格" Name="TreeData">
-    <Tips>
-        <div>出于性能考虑，默认子项未展开，点击小箭头后，触发 <code>OnTreeExpand</code> 回调委托方法，再此方法中对当前行的子数据进行赋值，<code>Table</code> 组件进行渲染新数据</div>
-    </Tips>
     <Table TItem="Foo" IsBordered="true" IsStriped="true" HeaderStyle="@TableHeaderStyle.Light"
-           Items="@TreeItems" IsTree="true" OnBuildTreeAsync="@OnBuildFooTreeAsync" OnTreeExpand="@OnTreeExpand" TreeNodeEqualityComparer="TreeNodeEqualityComparer">
+           Items="@TreeItems" IsTree="true" OnBuildTreeAsync="@OnBuildFooTreeAsync" OnTreeExpand="@OnTreeExpand">
         <TableColumns>
             <TableColumn @bind-Field="@context.Name" Width="360" />
             <TableColumn @bind-Field="@context.DateTime" Width="180" />
@@ -30,7 +33,7 @@
     </Tips>
     <p>本例中更改缩进宽度为 <code>8px</code></p>
     <Table TItem="Foo" IsBordered="true" IsStriped="true" HeaderStyle="@TableHeaderStyle.Light" IndentSize="8"
-           Items="@TreeItems" IsTree="true" OnBuildTreeAsync="@OnBuildFooTreeAsync" OnTreeExpand="@OnTreeExpand" TreeNodeEqualityComparer="TreeNodeEqualityComparer">
+           Items="@TreeItems" IsTree="true" OnBuildTreeAsync="@OnBuildFooTreeAsync" OnTreeExpand="@OnTreeExpand">
         <TableColumns>
             <TableColumn @bind-Field="@context.Name" Width="360" />
             <TableColumn @bind-Field="@context.DateTime" Width="180" />
@@ -47,7 +50,7 @@
     <Table TItem="Foo" IsBordered="true" HeaderStyle="@TableHeaderStyle.Light"
            ShowToolbar="true" ShowExtendButtons="true" ShowSkeleton="true" IsStriped="true"
            OnQueryAsync="@OnQueryAsync" OnAddAsync="@OnAddAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync"
-           IsTree="true" OnBuildTreeAsync="@OnBuildFooTreeAsync" OnTreeExpand="@OnTreeExpand" TreeNodeEqualityComparer="TreeNodeEqualityComparer">
+           IsTree="true" OnBuildTreeAsync="@OnBuildFooTreeAsync" OnTreeExpand="@OnTreeExpand">
         <TableColumns>
             <TableColumn @bind-Field="@context.Id" />
             <TableColumn @bind-Field="@context.Name" Width="360" />
