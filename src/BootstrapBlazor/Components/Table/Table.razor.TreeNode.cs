@@ -82,11 +82,6 @@ public partial class Table<TItem>
     /// <returns></returns>
     protected Func<Task> ToggleTreeRow(TItem item) => async () =>
     {
-        if (OnTreeExpand == null)
-        {
-            throw new InvalidOperationException(NotSetOnTreeExpandErrorMessage);
-        }
-
         if (!IsLoadChildren)
         {
             if (TreeRows.TryFind(item, out var node, IsEqualItems))
@@ -100,7 +95,7 @@ public partial class Table<TItem>
 
                     if (!node.Items.Any())
                     {
-                        node.Items = await OnTreeExpand(item);
+                        await GetChildrenRow(node, item);
                     }
                 }
                 else
@@ -113,4 +108,14 @@ public partial class Table<TItem>
             }
         }
     };
+
+    private async Task GetChildrenRow(TableTreeNode<TItem> node, TItem item)
+    {
+        if (OnTreeExpand == null)
+        {
+            throw new InvalidOperationException(NotSetOnTreeExpandErrorMessage);
+        }
+
+        node.Items = await OnTreeExpand(item);
+    }
 }

@@ -561,9 +561,9 @@ public partial class Table<TItem>
                         {
                             // 原来是展开状态
                             node.IsExpand = true;
-                            if (!node.Items.Any() && OnTreeExpand != null)
+                            if (!node.Items.Any())
                             {
-                                node.Items = await OnTreeExpand(node.Value);
+                                await GetChildrenRow(node, node.Value);
                             }
                         }
                         else
