@@ -13,8 +13,8 @@
     <Tips>
         <div>出于性能考虑，默认子项未展开，点击小箭头后，触发 <code>OnTreeExpand</code> 回调委托方法，再此方法中对当前行的子数据进行赋值，<code>Table</code> 组件进行渲染新数据</div>
     </Tips>
-    <Table TItem="FooTree" IsBordered="true" IsStriped="true" HeaderStyle="@TableHeaderStyle.Light"
-           Items="@TreeItems" IsTree="true" OnTreeExpand="@OnTreeExpand">
+    <Table TItem="Foo" IsBordered="true" IsStriped="true" HeaderStyle="@TableHeaderStyle.Light"
+           Items="@TreeItems" IsTree="true" OnBuildTreeAsync="@OnBuildFooTreeAsync" OnTreeExpand="@OnTreeExpand" TreeNodeEqualityComparer="TreeNodeEqualityComparer">
         <TableColumns>
             <TableColumn @bind-Field="@context.Name" Width="360" />
             <TableColumn @bind-Field="@context.DateTime" Width="180" />
@@ -24,7 +24,7 @@
     </Table>
 </DemoBlock>
 
-<DemoBlock Title="层次缩进" Introduction="通过设置 <code>IndentSize</code> 以控制每一层的缩进宽度。" Name="Level">
+@*<DemoBlock Title="层次缩进" Introduction="通过设置 <code>IndentSize</code> 以控制每一层的缩进宽度。" Name="Level">
     <Tips>
         <div>默认层次缩进宽度为 <code>16px</code> 通过设置 <code>Indent</code> 更改缩进宽度</div>
     </Tips>
@@ -76,7 +76,6 @@
 </DemoBlock>
 
 <DemoBlock Title="默认展开树状结构" Introduction="通过设置 <code>TreeIcon</code> 更改指示小箭头图标" Name="IsExpand">
-    <p>本例中更改缩进宽度为 <code>8px</code></p>
     <Table TItem="ExpandFooTree" IsBordered="true" IsStriped="true" Items="@ExpandTreeItems" IsTree="true" OnTreeExpand="@OnExpandTreeExpand">
         <TableColumns>
             <TableColumn @bind-Field="@context.Name" Width="360" />
@@ -86,3 +85,4 @@
         </TableColumns>
     </Table>
 </DemoBlock>
+*@

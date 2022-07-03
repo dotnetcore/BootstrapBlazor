@@ -5,6 +5,8 @@
 using BootstrapBlazor.Components;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
+using System.Globalization;
+using System.Xml.Linq;
 
 namespace BootstrapBlazor.Shared.Samples.Table;
 
@@ -17,16 +19,18 @@ public partial class TablesTree
     private List<EditFooTree>? AllItems { get; set; }
 
     [NotNull]
-    private IEnumerable<FooTree>? TreeItems { get; set; }
+    private IEnumerable<Foo>? TreeItems { get; set; }
 
     [NotNull]
-    private IEnumerable<ExpandFooTree>? ExpandTreeItems { get; set; }
+    private IEnumerable<Foo>? ExpandTreeItems { get; set; }
 
     [Inject]
     [NotNull]
     private IStringLocalizer<Foo>? Localizer { get; set; }
 
-    private int level = 0;
+    [Inject]
+    [NotNull]
+    private ICacheManager? CacheManager { get; set; }
 
     /// <summary>
     /// OnInitialized 方法
@@ -35,7 +39,13 @@ public partial class TablesTree
     {
         base.OnInitialized();
 
-        TreeItems = FooTree.Generate(Localizer);
+        TreeItems = CacheManager.GetOrCreate($"TableTree-Foos-{CultureInfo.CurrentUICulture.Name}", entry =>
+        {
+            entry.SlidingExpiration = TimeSpan.FromMinutes(5);
+            var foos = Foo.GenerateFoo(Localizer, 10);
+            return foos;
+        });
+
         AllItems = new List<EditFooTree>();
         AllItems.AddRange(EditFooTree.Generate(Localizer, AllItems));
         AllItems.AddRange(EditFooTree.Generate(Localizer, AllItems, 10, 1));
@@ -45,28 +55,64 @@ public partial class TablesTree
         AllItems.AddRange(EditFooTree.Generate(Localizer, AllItems, 50, 21));
         AllItems.AddRange(EditFooTree.Generate(Localizer, AllItems, 60, 22));
 
-        ExpandTreeItems = ExpandFooTree.Generate(20, 1);
+        //ExpandTreeItems = FooTree.Generate(Localizer);
     }
 
-    private async Task<IEnumerable<ExpandFooTree>> OnExpandTreeExpand(ExpandFooTree foo)
+    private Task<IEnumerable<TableTreeNode<Foo>>> OnBuildFooTreeAsync(IEnumerable<Foo> items)
+    {
+        var nodes = items.Select((foo, index) =>
+        {
+            var node = new TableTreeNode<Foo>(foo)
+            {
+                HasChildren = index % 2 == 0,
+                IsExpand = index == 2
+            };
+            if (index == 2)
+            {
+                node.Items = CacheManager.GetOrCreate($"TableTree-Foos-{CultureInfo.CurrentUICulture.Name}-{foo.Id}", entry =>
+                {
+                    entry.SlidingExpiration = TimeSpan.FromMinutes(5);
+                    var foos = Foo.GenerateFoo(Localizer, 4).Select((foo, index) =>
+                    {
+                        foo.Id = 1000 + index;
+                        foo.Name = Localizer["Foo.Name", $"{foo.Id:d4}"];
+                        return new TableTreeNode<Foo>(foo);
+                    });
+                    return foos;
+                });
+            }
+            return node;
+        });
+        return Task.FromResult(nodes);
+    }
+
+    //private async Task<IEnumerable<FooTree>> OnExpandTreeExpand(FooTree foo)
+    //{
+    //    await Task.Delay(1000);
+    //    return FooTree.Generate(Localizer, level++ < 2, foo.Id + 10).Select(i =>
+    //    {
+    //        i.Name = Localizer["Foo.Name", $"{foo.Id:d2}{i.Id:d2}"];
+    //        return i;
+    //    });
+    //}
+
+    private async Task<IEnumerable<TableTreeNode<Foo>>> OnTreeExpand(Foo foo)
     {
         await Task.Delay(1000);
-        return ExpandFooTree.Generate(2, foo.Id * 10 + 10).Select(i =>
+        return CacheManager.GetOrCreate($"TableTree-Foos-Children-{CultureInfo.CurrentUICulture.Name}-{foo.Id}", entry =>
         {
-            i.Name = Localizer["Foo.Name", $"{foo.Id:d2}{i.Id:d2}"];
-            return i;
+            entry.SlidingExpiration = TimeSpan.FromMinutes(5);
+            var foos = Foo.GenerateFoo(Localizer, 4).Select((i, index) =>
+            {
+                i.Id = foo.Id * 100 + index;
+                i.Name = Localizer["Foo.Name", $"{i.Id:d4}"];
+                return new TableTreeNode<Foo>(i);
+            });
+            return foos;
         });
     }
 
-    private async Task<IEnumerable<FooTree>> OnTreeExpand(FooTree foo)
-    {
-        await Task.Delay(1000);
-        return FooTree.Generate(Localizer, level++ < 2, foo.Id + 10).Select(i =>
-        {
-            i.Name = Localizer["Foo.Name", $"{foo.Id:d2}{i.Id:d2}"];
-            return i;
-        });
-    }
+    private bool TreeNodeEqualityComparer(Foo a, Foo b) => a.Id == b.Id;
 
     private Task<EditFooTree> OnAddAsync() => Task.FromResult(new EditFooTree() { AllItems = AllItems, DateTime = DateTime.Now });
 
@@ -112,26 +158,21 @@ public partial class TablesTree
         return AllItems.Where(f => f.ParentId == foo.Id);
     }
 
-    private class FooTree : Foo
-    {
-        private static readonly Random random = new();
+    //private class FooTree : Foo
+    //{
+    //    private static readonly Random random = new();
 
-        public IEnumerable<FooTree>? Children { get; set; }
-
-        public bool HasChildren { get; set; }
-
-        public static IEnumerable<FooTree> Generate(IStringLocalizer<Foo> localizer, bool hasChildren = true, int seed = 0) => Enumerable.Range(1, 2).Select(i => new FooTree()
-        {
-            Id = i + seed,
-            Name = localizer["Foo.Name", $"{seed:d2}{(i + seed):d2}"],
-            DateTime = System.DateTime.Now.AddDays(i - 1),
-            Address = localizer["Foo.Address", $"{random.Next(1000, 2000)}"],
-            Count = random.Next(1, 100),
-            Complete = random.Next(1, 100) > 50,
-            Education = random.Next(1, 100) > 50 ? EnumEducation.Primary : EnumEducation.Middel,
-            HasChildren = hasChildren
-        }).ToList();
-    }
+    //    public static IEnumerable<FooTree> Generate(IStringLocalizer<Foo> localizer, int seed = 0) => Enumerable.Range(1, 2).Select(i => new FooTree()
+    //    {
+    //        Id = i + seed,
+    //        Name = localizer["Foo.Name", $"{seed:d2}{(i + seed):d2}"],
+    //        DateTime = System.DateTime.Now.AddDays(i - 1),
+    //        Address = localizer["Foo.Address", $"{random.Next(1000, 2000)}"],
+    //        Count = random.Next(1, 100),
+    //        Complete = random.Next(1, 100) > 50,
+    //        Education = random.Next(1, 100) > 50 ? EnumEducation.Primary : EnumEducation.Middel,
+    //    });
+    //}
 
     private class EditFooTree : Foo
     {
@@ -156,47 +197,5 @@ public partial class TablesTree
             Count = random.Next(1, 100),
             AllItems = list
         }).ToList();
-    }
-
-    private class ExpandFooTree : Foo, ITableTreeItem<ExpandFooTree>
-    {
-        public List<ExpandFooTree> Children { get; set; } = new();
-
-        public bool IsExpand
-        {
-            get => Children.Any();
-            set
-            {
-                if (!value) Children.Clear();
-            }
-        }
-
-        public void SetChildren(IEnumerable<ExpandFooTree> items)
-        {
-            Children = items.ToList();
-        }
-
-        IEnumerable<ITableTreeItem<ExpandFooTree>>? ITableTreeItem<ExpandFooTree>.Children => Children;
-
-        private static readonly Random random = new();
-
-        public static IEnumerable<ExpandFooTree> Generate(int count, int id = 1)
-        {
-            while (count > 0)
-            {
-                int n = random.Next(Math.Max(1, count / 8), count);
-                count -= n;
-                yield return new ExpandFooTree()
-                {
-                    Id = id,
-                    Name = "Foo" + id,
-                    DateTime = System.DateTime.Now,
-                    Count = random.Next(1, 100),
-                    Complete = random.Next(1, 100) > 50,
-                    Education = random.Next(1, 100) > 50 ? EnumEducation.Primary : EnumEducation.Middel,
-                    Children = Generate(n - 1, (id++) * 10).ToList()
-                };
-            }
-        }
     }
 }
