@@ -1860,7 +1860,7 @@ public class TableTest : TableTestBase
                 pb.Add(a => a.IsTree, true);
                 pb.Add(a => a.IsMultipleSelect, true);
                 pb.Add(a => a.OnQueryAsync, op => OnQueryAsync(op, localizer));
-                pb.Add(a => a.OnTreeExpand, foo => Task.FromResult(FooTree.Generate(localizer, foo.Id < 2, foo.Id).AsEnumerable()));
+                pb.Add(a => a.OnTreeExpand, foo => Task.FromResult(FooTree.Generate(localizer, foo.Id < 2, foo.Id).Select(foo => new TableTreeNode<FooTree>(foo))));
                 pb.Add(a => a.TableColumns, foo => builder =>
                 {
                     builder.OpenComponent<TableColumn<Foo, string>>(0);
@@ -1887,35 +1887,6 @@ public class TableTest : TableTestBase
         Assert.Equal(8, nodes.Count);
     }
 
-    [Theory]
-    [InlineData(0)]
-    [InlineData(1)]
-    [InlineData(25)]
-    public void ITableTreeItem_Ok(int number)
-    {
-        var items = treeFoo.Generate(number).ToList();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
-        {
-            pb.AddChildContent<Table<treeFoo>>(pb =>
-            {
-                pb.Add(a => a.RenderMode, TableRenderMode.Table);
-                pb.Add(a => a.IsTree, true);
-                pb.Add(a => a.IsMultipleSelect, true);
-                pb.Add(a => a.Items, items);
-                pb.Add(a => a.TableColumns, foo => builder =>
-                {
-                    builder.OpenComponent<TableColumn<Foo, string>>(0);
-                    builder.AddAttribute(1, "Field", "Name");
-                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
-                    builder.CloseComponent();
-                });
-            });
-        });
-
-        var nodes = cut.FindAll("tbody tr");
-        Assert.Equal(number, nodes.Count);
-    }
-
     private static Task<QueryData<FooTree>> OnQueryAsync(QueryPageOptions _, IStringLocalizer<Foo> localizer)
     {
         var items = FooTree.Generate(localizer);
@@ -1937,7 +1908,6 @@ public class TableTest : TableTestBase
             {
                 pb.Add(a => a.RenderMode, TableRenderMode.Table);
                 pb.Add(a => a.IsTree, true);
-                pb.Add(a => a.HasChildrenColumnName, "HasChildren");
                 pb.Add(a => a.OnQueryAsync, op => OnQueryAsync(op, localizer));
                 pb.Add(a => a.TableColumns, foo => builder =>
                 {
@@ -1948,15 +1918,10 @@ public class TableTest : TableTestBase
                 });
             });
         });
+
         // 点击展开
         var node = cut.Find("tbody .table-cell.is-tree .is-node");
         Assert.ThrowsAsync<InvalidOperationException>(() => cut.InvokeAsync(() => node.Click()));
-
-        var table = cut.FindComponent<Table<FooTree>>();
-        table.SetParametersAndRender(pb =>
-        {
-            pb.Add(a => a.HasChildrenColumnName, "Name");
-        });
     }
 
     [Fact]
@@ -3652,7 +3617,7 @@ public class TableTest : TableTestBase
     }
 
     [Fact]
-    public void CustomerSearchs_Ok()
+    public void CustomerSearches_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
@@ -4381,7 +4346,6 @@ public class TableTest : TableTestBase
                 pb.Add(a => a.RenderMode, TableRenderMode.Table);
                 pb.Add(a => a.IsTree, true);
                 pb.Add(a => a.IndentSize, 32);
-                pb.Add(a => a.HasChildrenCallback, foo => foo.Id < 2);
                 pb.Add(a => a.OnQueryAsync, op => OnQueryAsync(op, localizer));
                 pb.Add(a => a.TableColumns, foo => builder =>
                 {
@@ -5323,48 +5287,6 @@ public class TableTest : TableTestBase
         public string? Name { get; set; }
 
         public Foo Foo { get; set; } = new Foo();
-    }
-
-    private class treeFoo : Foo, ITableTreeItem<treeFoo>
-    {
-        public List<treeFoo> Children { get; set; } = new();
-
-        public bool IsExpand
-        {
-            get => Children.Any();
-            set
-            {
-                if (!value) Children.Clear();
-            }
-        }
-
-        public void SetChildren(IEnumerable<treeFoo> items)
-        {
-            Children = items.ToList();
-        }
-
-        IEnumerable<ITableTreeItem<treeFoo>>? ITableTreeItem<treeFoo>.Children => Children;
-
-        private static readonly Random random = new();
-
-        public static IEnumerable<treeFoo> Generate(int count, int id = 1)
-        {
-            while (count > 0)
-            {
-                int n = random.Next(Math.Max(1, count / 8), count);
-                count -= n;
-                yield return new treeFoo()
-                {
-                    Id = id,
-                    Name = "Foo" + id,
-                    DateTime = System.DateTime.Now,
-                    Count = random.Next(1, 100),
-                    Complete = random.Next(1, 100) > 50,
-                    Education = random.Next(1, 100) > 50 ? EnumEducation.Primary : EnumEducation.Middel,
-                    Children = Generate(n - 1, (id++) * 10).ToList()
-                };
-            }
-        }
     }
 
     private class FooTree : Foo

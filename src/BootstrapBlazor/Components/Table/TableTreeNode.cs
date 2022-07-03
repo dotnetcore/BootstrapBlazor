@@ -27,7 +27,7 @@ public class TableTreeNode<TItem>
     public bool IsExpand { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否有子节点 默认 false
+    /// 获得/设置 是否有子节点 默认 false 用于控制是否显示行首小箭头
     /// </summary>
     /// <remarks>有子节点时如果 <see cref="Items"/> 为空时，展开行时会回调 <see cref="Table{TItem}.OnTreeExpand"/> 方法</remarks>
     public bool HasChildren { get; set; }
