@@ -476,7 +476,7 @@ public partial class Table<TItem>
 
             if (IsTree)
             {
-                ProcessTreeData();
+                TreeRows = OnBuildTreeAsync == null ? Enumerable.Empty<TableTreeNode<TItem>>() : await OnBuildTreeAsync(QueryItems);
             }
 
             void ProcessSelectedRows()
@@ -535,29 +535,6 @@ public partial class Table<TItem>
                         QueryItems = invoker(QueryItems, queryOption.SortList);
                     }
                 }
-            }
-
-            void ProcessTreeData()
-            {
-                var newTreeRows = new List<TableTreeNode<TItem>>();
-                foreach (var row in QueryItems)
-                {
-                    var newTreeRow = new TableTreeNode<TItem>(row);
-                    var treeRow = TreeRows.FirstOrDefault(r => IsEqualItems(r.GetValue(), row));
-                    if (treeRow != null)
-                    {
-                        // 处理展开逻辑
-                        newTreeRow.IsExpand = treeRow.IsExpand;
-
-                        // 判断是否已给子节点数据
-                        if (treeRow.Children != null)
-                        {
-                            newTreeRow.SetChildren(treeRow.Children);
-                        }
-                    }
-                    newTreeRows.Add(newTreeRow);
-                }
-                TreeRows = newTreeRows;
             }
         }
     }

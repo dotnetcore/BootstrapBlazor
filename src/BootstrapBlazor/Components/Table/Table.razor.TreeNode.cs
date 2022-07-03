@@ -14,10 +14,10 @@ public partial class Table<TItem>
     public bool IsTree { get; set; }
 
     /// <summary>
-    /// 获得/设置 
+    /// 获得/设置 生成树桩结构回调方法
     /// </summary>
     [Parameter]
-    public Func<IEnumerable<TItem>, Task<IEnumerable<TableTreeNode<TItem>>>>? OnInitializeTreeAsync { get; set; }
+    public Func<IEnumerable<TItem>, Task<IEnumerable<TableTreeNode<TItem>>>>? OnBuildTreeAsync { get; set; }
 
     /// <summary>
     /// 获得/设置 树形数据模式子项字段是否有子节点属性名称 默认为 HasChildren 无法提供时请设置 <see cref="HasChildrenCallback"/> 回调方法 都没设时默认为全都可展开
