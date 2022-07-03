@@ -28,7 +28,7 @@ public partial class TablesTree
         base.OnInitialized();
 
         // 模拟数据从数据库中获得
-        TreeItems = TreeFoo.GenerateFoos(Localizer, 10);
+        TreeItems = TreeFoo.GenerateFoos(Localizer, 3);
 
         // 插入 Id 为 1 的子项
         TreeItems.AddRange(TreeFoo.GenerateFoos(Localizer, 2, 1, 100));
@@ -59,12 +59,19 @@ public partial class TablesTree
         }
     }
 
-    private async Task<IEnumerable<TableTreeNode<TreeFoo>>> OnTreeExpand(TreeFoo foo)
-    {
-        await Task.Delay(1000);
+    [Inject]
+    [NotNull]
+    private ICacheManager? CacheManager { get; set; }
 
+    private Task<IEnumerable<TableTreeNode<TreeFoo>>> OnTreeExpand(TreeFoo foo)
+    {
         // 模拟从数据库中查询
-        return TreeFoo.GenerateFoos(Localizer, 4, foo.Id, foo.Id * 100).Select(i => new TableTreeNode<TreeFoo>(i));
+        return CacheManager.GetOrCreateAsync($"{foo.Id}", async entry =>
+        {
+            await Task.Delay(1000);
+            entry.SlidingExpiration = TimeSpan.FromMinutes(10);
+            return TreeFoo.GenerateFoos(Localizer, 2, foo.Id, foo.Id * 100).Select(i => new TableTreeNode<TreeFoo>(i));
+        });
     }
 
     //private static bool TreeNodeEqualityComparer(Foo a, Foo b) => a.Id == b.Id;
