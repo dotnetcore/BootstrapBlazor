@@ -2,12 +2,14 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using BootstrapBlazor.Components;
+
 namespace BootstrapBlazor.Components;
 
 /// <summary>
 /// 
 /// </summary>
-internal static class ITableTreeItemExtensions
+internal static class TableTreeNodeExtensions
 {
     /// <summary>
     /// 尝试在全部树状结构 <paramref name="items"/> 中寻找指定 <paramref name="target"/>
@@ -19,7 +21,7 @@ internal static class ITableTreeItemExtensions
     /// <param name="equals">比较函示 为null时判断方式为位址相同</param>
     /// <returns>是否存在 <paramref name="target"/></returns>
     /// <remarks>采广度优先搜寻</remarks>
-    public static bool TryFind<TItem>(this IEnumerable<ITableTreeItem<TItem>> items, TItem target, [MaybeNullWhen(false)] out ITableTreeItem<TItem> ret, Func<TItem, TItem, bool>? equals = null) where TItem : class
+    public static bool TryFind<TItem>(this IEnumerable<TableTreeNode<TItem>> items, TItem target, [MaybeNullWhen(false)] out TableTreeNode<TItem> ret, Func<TItem, TItem, bool>? equals = null)
     {
         ret = items.Find(target, equals);
         return ret != null;
@@ -34,7 +36,7 @@ internal static class ITableTreeItemExtensions
     /// <param name="equals">比较函示 为null时判断方式为位址相同</param>
     /// <returns>查询结果 查无资料时为 null</returns>
     /// <remarks>采广度优先搜寻</remarks>
-    public static ITableTreeItem<TItem>? Find<TItem>(this IEnumerable<ITableTreeItem<TItem>> items, TItem target, Func<TItem, TItem, bool>? equals = null) where TItem : class
+    public static TableTreeNode<TItem>? Find<TItem>(this IEnumerable<TableTreeNode<TItem>> items, TItem target, Func<TItem, TItem, bool>? equals = null)
     {
         return items.Find(target, out _, equals);
     }
@@ -49,7 +51,7 @@ internal static class ITableTreeItemExtensions
     /// <param name="equals">比较函示 为null时判断方式为位址相同</param>
     /// <returns>查询结果 查无资料时为 null</returns>
     /// <remarks>采广度优先搜寻</remarks>
-    public static ITableTreeItem<TItem>? Find<TItem>(this IEnumerable<ITableTreeItem<TItem>> items, TItem target, out int degree, Func<TItem, TItem, bool>? equals = null) where TItem : class
+    public static TableTreeNode<TItem>? Find<TItem>(this IEnumerable<TableTreeNode<TItem>> items, TItem target, out int degree, Func<TItem, TItem, bool>? equals = null)
     {
         degree = -1;
         if (equals == null)
@@ -76,7 +78,7 @@ internal static class ITableTreeItemExtensions
     /// <param name="results"></param>
     /// <param name="expandOnly">是否要排除未展开资料</param>
     /// <returns></returns>
-    public static List<TItem> GetAllRows<TItem>(this IEnumerable<ITableTreeItem<TItem>> items, List<TItem>? results = null, bool expandOnly = true) where TItem : class
+    public static List<TItem> GetAllRows<TItem>(this IEnumerable<TableTreeNode<TItem>> items, List<TItem>? results = null, bool expandOnly = true)
     {
         results ??= new();
         foreach (var item in items)
@@ -101,7 +103,7 @@ internal static class ITableTreeItemExtensions
     /// <param name="item"></param>
     /// <returns></returns>
     /// <exception cref="InvalidOperationException"></exception>
-    public static TItem GetValue<TItem>(this ITableTreeItem<TItem> item) where TItem : class
+    public static TItem GetValue<TItem>(this TableTreeNode<TItem> item) where TItem : class
     {
         if (item is TableTreeNode<TItem> tableTreeNode)
         {
@@ -123,7 +125,7 @@ internal static class ITableTreeItemExtensions
     /// <typeparam name="TItem"></typeparam>
     /// <param name="item"></param>
     /// <param name="items"></param>
-    public static void SetChildren<TItem>(this ITableTreeItem<TItem> item, IEnumerable<ITableTreeItem<TItem>> items) where TItem : class
+    public static void SetChildren<TItem>(this TableTreeNode<TItem> item, IEnumerable<TableTreeNode<TItem>> items) where TItem : class
     {
         if (item is TableTreeNode<TItem> tableTreeNode)
         {
