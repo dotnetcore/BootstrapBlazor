@@ -427,7 +427,6 @@ public partial class Table<TItem>
             }
             else
             {
-                // 数据集合
                 await OnQuery();
             }
         }
@@ -461,9 +460,10 @@ public partial class Table<TItem>
                 queryOption.SearchModel = CustomerSearchModel;
             }
 
-            queryData = await InternalOnQueryAsync(queryOption);
             RowsCache = null;
             Items = null;
+
+            queryData = await InternalOnQueryAsync(queryOption);
             QueryItems = queryData.Items;
             TotalCount = queryData.TotalCount;
             IsAdvanceSearch = queryData.IsAdvanceSearch;
@@ -539,16 +539,21 @@ public partial class Table<TItem>
 
             void ProcessTreeData()
             {
-                var newTreeRows = new List<ITableTreeItem<TItem>>();
+                var newTreeRows = new List<TableTreeNode<TItem>>();
                 foreach (var row in QueryItems)
                 {
-                    var newTreeRow = ITableTreeItem<TItem>.New(row);
+                    var newTreeRow = new TableTreeNode<TItem>(row);
                     var treeRow = TreeRows.FirstOrDefault(r => IsEqualItems(r.GetValue(), row));
                     if (treeRow != null)
                     {
+                        // 处理展开逻辑
                         newTreeRow.IsExpand = treeRow.IsExpand;
+
+                        // 判断是否已给子节点数据
                         if (treeRow.Children != null)
+                        {
                             newTreeRow.SetChildren(treeRow.Children);
+                        }
                     }
                     newTreeRows.Add(newTreeRow);
                 }
