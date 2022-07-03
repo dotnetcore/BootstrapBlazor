@@ -789,8 +789,9 @@ public static class LambdaExtensions
                 var keyPropertyTypes = properties.Select(x => x.PropertyType).ToArray();
                 var tupleConstructor = tupleType.MakeGenericType(keyPropertyTypes).GetConstructor(keyPropertyTypes);
                 if (tupleConstructor == null)
+                {
                     throw new InvalidOperationException($"No tuple constructor found for key in {type}");
-
+                }
                 var newTupleExpression = Expression.New(tupleConstructor, properties.Select(p => Expression.Property(param, p)));
                 var body = Expression.Convert(newTupleExpression, typeof(TValue));
                 ret = Expression.Lambda<Func<TModel, TValue>>(Expression.Convert(body, typeof(TValue)), param);
