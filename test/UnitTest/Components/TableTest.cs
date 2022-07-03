@@ -1985,6 +1985,18 @@ public class TableTest : TableTestBase
         var ret = table.Instance.TestIsEqualItems(new Dummy() { Id = 1 }, new Dummy() { Id = 1 });
         Assert.True(ret);
     }
+
+    [Fact]
+    public void IsTree_Equality()
+    {
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<MockTreeTable<Dog>>();
+        });
+
+        var table = cut.FindComponent<MockTreeTable<Dog>>();
+        var ret = table.Instance.TestIsEqualItems(new Dog() { Id = 1 }, new Dog() { Id = 1 });
+        Assert.True(ret);
     }
 
     private static Task<QueryData<FooTree>> OnQueryAsync(QueryPageOptions _, IStringLocalizer<Foo> localizer)
