@@ -1888,6 +1888,39 @@ public class TableTest : TableTestBase
     }
 
     [Fact]
+    public async void IsTree_OnTreeExpand()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<FooTree>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.IsTree, true);
+                pb.Add(a => a.Items, FooTree.Generate(localizer));
+                pb.Add(a => a.OnBuildTreeAsync, items =>
+                {
+                    var ret = items.Select(i => new TableTreeNode<FooTree>(i) { HasChildren = true });
+                    return Task.FromResult(ret);
+                });
+                pb.Add(a => a.OnTreeExpand, foo => Task.FromResult(FooTree.Generate(localizer, foo.Id, 100).Select(foo => new TableTreeNode<FooTree>(foo))));
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+                });
+            });
+        });
+        // 点击展开
+        var node = cut.Find("tbody .is-tree");
+        await cut.InvokeAsync(() => node.Click());
+        var nodes = cut.FindAll("tbody tr");
+        Assert.Equal(4, nodes.Count);
+    }
+
+    [Fact]
     public void IsTree_Exception()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
