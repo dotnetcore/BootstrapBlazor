@@ -1836,6 +1836,7 @@ public class TableTest : TableTestBase
                 pb.Add(a => a.RenderMode, TableRenderMode.Table);
                 pb.Add(a => a.IsTree, true);
                 pb.Add(a => a.Items, FooTree.Generate(localizer));
+                pb.Add(a => a.OnBuildTreeAsync, items => BuildTreeAsync(items));
                 pb.Add(a => a.TableColumns, foo => builder =>
                 {
                     builder.OpenComponent<TableColumn<Foo, string>>(0);
@@ -1860,7 +1861,8 @@ public class TableTest : TableTestBase
                 pb.Add(a => a.IsTree, true);
                 pb.Add(a => a.IsMultipleSelect, true);
                 pb.Add(a => a.OnQueryAsync, op => OnQueryAsync(op, localizer));
-                pb.Add(a => a.OnTreeExpand, foo => Task.FromResult(FooTree.Generate(localizer, foo.Id < 2, foo.Id).Select(foo => new TableTreeNode<FooTree>(foo))));
+                pb.Add(a => a.OnBuildTreeAsync, items => BuildTreeAsync(items));
+                pb.Add(a => a.OnTreeExpand, foo => Task.FromResult(FooTree.Generate(localizer, foo.Id, 100).Select(foo => new TableTreeNode<FooTree>(foo))));
                 pb.Add(a => a.TableColumns, foo => builder =>
                 {
                     builder.OpenComponent<TableColumn<Foo, string>>(0);
@@ -1874,28 +1876,15 @@ public class TableTest : TableTestBase
         await cut.InvokeAsync(() => input.Click());
 
         // 点击展开
-        var node = cut.Find("tbody .is-node");
+        var node = cut.Find("tbody .is-tree");
         await cut.InvokeAsync(() => node.Click());
-
-        node = cut.FindAll("tbody .is-node").Skip(1).First();
         await cut.InvokeAsync(() => node.Click());
 
         var table = cut.FindComponent<Table<FooTree>>();
         await cut.InvokeAsync(() => table.Instance.QueryAsync());
 
         var nodes = cut.FindAll("tbody tr");
-        Assert.Equal(8, nodes.Count);
-    }
-
-    private static Task<QueryData<FooTree>> OnQueryAsync(QueryPageOptions _, IStringLocalizer<Foo> localizer)
-    {
-        var items = FooTree.Generate(localizer);
-        var data = new QueryData<FooTree>()
-        {
-            Items = items,
-            TotalCount = items.Count(),
-        };
-        return Task.FromResult(data);
+        Assert.Equal(4, nodes.Count);
     }
 
     [Fact]
@@ -1925,6 +1914,42 @@ public class TableTest : TableTestBase
         Assert.ThrowsAsync<InvalidOperationException>(() => cut.InvokeAsync(() => node.Click()));
     }
 
+    private static Task<QueryData<FooTree>> OnQueryAsync(QueryPageOptions _, IStringLocalizer<Foo> localizer)
+    {
+        var items = FooTree.Generate(localizer);
+        // 生成第一行子项数据集合
+        items.AddRange(FooTree.Generate(localizer, 1, 10));
+
+        var data = new QueryData<FooTree>()
+        {
+            Items = items,
+            TotalCount = items.Count,
+        };
+        return Task.FromResult(data);
+    }
+
+    private static Task<IEnumerable<TableTreeNode<FooTree>>> BuildTreeAsync(IEnumerable<FooTree> items)
+    {
+        // 构造树状数据结构
+        var ret = BuildTreeNodes(items, 0);
+        return Task.FromResult(ret);
+
+        IEnumerable<TableTreeNode<FooTree>> BuildTreeNodes(IEnumerable<FooTree> items, int parentId)
+        {
+            var ret = new List<TableTreeNode<FooTree>>();
+            ret.AddRange(items.Where(i => i.ParentId == parentId).Select((foo, index) => new TableTreeNode<FooTree>(foo)
+            {
+                // 此处为示例，假设偶行数据都有子数据
+                HasChildren = index % 2 == 0,
+                // 如果子项集合有值 则默认展开此节点
+                IsExpand = items.Any(i => i.ParentId == foo.Id),
+                // 获得子项集合
+                Items = BuildTreeNodes(items.Where(i => i.ParentId == foo.Id), foo.Id)
+            }));
+            return ret;
+        }
+    }
+
     [Fact]
     public async void IsTree_OnQuery_NoKey()
     {
@@ -1936,6 +1961,11 @@ public class TableTest : TableTestBase
                 pb.Add(a => a.RenderMode, TableRenderMode.Table);
                 pb.Add(a => a.IsTree, true);
                 pb.Add(a => a.OnQueryAsync, OnQueryAsync);
+                pb.Add(a => a.OnBuildTreeAsync, items =>
+                {
+                    var ret = items.Select(i => new TableTreeNode<FooNoKeyTree>(i));
+                    return Task.FromResult(ret);
+                });
                 pb.Add(a => a.IsMultipleSelect, true);
                 pb.Add(a => a.TableColumns, foo => builder =>
                 {
@@ -4337,7 +4367,7 @@ public class TableTest : TableTestBase
     }
 
     [Fact]
-    public void HasChildrenCallback_Ok()
+    public void OnBuildTreeAsync_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
@@ -4348,6 +4378,7 @@ public class TableTest : TableTestBase
                 pb.Add(a => a.IsTree, true);
                 pb.Add(a => a.IndentSize, 32);
                 pb.Add(a => a.OnQueryAsync, op => OnQueryAsync(op, localizer));
+                pb.Add(a => a.OnBuildTreeAsync, items => BuildTreeAsync(items));
                 pb.Add(a => a.TableColumns, foo => builder =>
                 {
                     builder.OpenComponent<TableColumn<Foo, string>>(0);
@@ -4357,11 +4388,10 @@ public class TableTest : TableTestBase
                 });
             });
         });
-        var nodes = cut.FindAll("tbody .is-tree .is-node");
-        Assert.Equal(1, nodes.Count);
 
-        var table = cut.FindComponent<Table<FooTree>>();
-        Assert.Equal(32, table.Instance.IndentSize);
+        // 有子节点所以有两个 .is-node
+        var nodes = cut.FindAll("tbody .is-tree .is-node");
+        Assert.Equal(2, nodes.Count);
     }
 
     [Fact]
@@ -5292,22 +5322,18 @@ public class TableTest : TableTestBase
 
     private class FooTree : Foo
     {
-        private static readonly Random random = new();
+        public int ParentId { get; set; }
 
-        public IEnumerable<FooTree>? Children { get; set; }
-
-        public bool HasChildren { get; set; }
-
-        public static IEnumerable<FooTree> Generate(IStringLocalizer<Foo> localizer, bool hasChildren = true, int seed = 0) => Enumerable.Range(1, 2).Select(i => new FooTree()
+        public static List<FooTree> Generate(IStringLocalizer<Foo> localizer, int parentId = 0, int seed = 0) => Enumerable.Range(1, 2).Select(i => new FooTree()
         {
             Id = i + seed,
+            ParentId = parentId,
             Name = localizer["Foo.Name", $"{seed:d2}{(i + seed):d2}"],
             DateTime = System.DateTime.Now.AddDays(i - 1),
-            Address = localizer["Foo.Address", $"{random.Next(1000, 2000)}"],
-            Count = random.Next(1, 100),
-            Complete = random.Next(1, 100) > 50,
-            Education = random.Next(1, 100) > 50 ? EnumEducation.Primary : EnumEducation.Middel,
-            HasChildren = hasChildren
+            Address = localizer["Foo.Address", $"{Random.Next(1000, 2000)}"],
+            Count = Random.Next(1, 100),
+            Complete = Random.Next(1, 100) > 50,
+            Education = Random.Next(1, 100) > 50 ? EnumEducation.Primary : EnumEducation.Middel
         }).ToList();
     }
 
@@ -5317,18 +5343,15 @@ public class TableTest : TableTestBase
         [AutoGenerateColumn(Ignore = true)]
         public new int Id { get; set; }
 
-        private static readonly Random random = new();
-
-        public static new IEnumerable<FooNoKeyTree> Generate(IStringLocalizer<Foo> localizer, bool hasChildren = true, int seed = 0) => Enumerable.Range(1, 2).Select(i => new FooNoKeyTree()
+        public static new IEnumerable<FooNoKeyTree> Generate(IStringLocalizer<Foo> localizer, int seed = 0) => Enumerable.Range(1, 2).Select(i => new FooNoKeyTree()
         {
             Id = i + seed,
             Name = localizer["Foo.Name", $"{seed:d2}{(i + seed):d2}"],
             DateTime = System.DateTime.Now.AddDays(i - 1),
-            Address = localizer["Foo.Address", $"{random.Next(1000, 2000)}"],
-            Count = random.Next(1, 100),
-            Complete = random.Next(1, 100) > 50,
-            Education = random.Next(1, 100) > 50 ? EnumEducation.Primary : EnumEducation.Middel,
-            HasChildren = hasChildren
+            Address = localizer["Foo.Address", $"{Random.Next(1000, 2000)}"],
+            Count = Random.Next(1, 100),
+            Complete = Random.Next(1, 100) > 50,
+            Education = Random.Next(1, 100) > 50 ? EnumEducation.Primary : EnumEducation.Middel
         }).ToList();
     }
 
