@@ -1948,46 +1948,17 @@ public class TableTest : TableTestBase
     }
 
     [Fact]
-    public void IsTree_CustomKeyAttribute()
+    public void IsTree_TableRowEqualityComparer()
     {
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
         {
-            pb.AddChildContent<Table<Cat>>(pb =>
-            {
-                pb.Add(a => a.RenderMode, TableRenderMode.Table);
-                pb.Add(a => a.IsTree, true);
-                pb.Add(a => a.CustomKeyAttribute, typeof(CatKeyAttribute));
-                pb.Add(a => a.OnQueryAsync, op =>
-                {
-                    var ret = new QueryData<Cat>()
-                    {
-                        Items = new Cat[]
-                        {
-                            new Cat() { Id = 1, Name = "Cat 1" },
-                            new Cat() { Id = 2, Name = "Cat 2" }
-                        },
-                        TotalCount = 2
-                    };
-                    return Task.FromResult(ret);
-                });
-                pb.Add(a => a.OnBuildTreeAsync, items =>
-                {
-                    var ret = items.Select(cat => new TableTreeNode<Cat>(cat) { HasChildren = true });
-                    return Task.FromResult(ret);
-                });
-                pb.Add(a => a.TableColumns, cat => builder =>
-                {
-                    builder.OpenComponent<TableColumn<Cat, string>>(0);
-                    builder.AddAttribute(1, "Field", "Name");
-                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(cat, "Name", typeof(string)));
-                    builder.CloseComponent();
-                });
-            });
+            pb.AddChildContent<MockTreeTable<Cat>>(pb => pb.Add(a => a.TableRowEqualityComparer, (x, y) => x.Id == y.Id));
         });
 
-        // 点击展开
-        var nodes = cut.FindAll("tbody .table-cell.is-tree");
-        Assert.Equal(2, nodes.Count);
+        var table = cut.FindComponent<MockTreeTable<Cat>>();
+        var ret = table.Instance.TestIsEqualItems(new Cat() { Id = 1 }, new Cat() { Id = 1 });
+        Assert.True(ret);
+    }
     }
 
     private static Task<QueryData<FooTree>> OnQueryAsync(QueryPageOptions _, IStringLocalizer<Foo> localizer)
@@ -5588,6 +5559,51 @@ public class TableTest : TableTestBase
         {
             var context = new EditContext(SelectedRows[0]);
             return await base.SaveModelAsync(context, ItemChangedType.Update);
+        }
+    }
+
+    private class MockTreeTable<TItem> : Table<TItem> where TItem : class, new()
+    {
+        public bool TestIsEqualItems(TItem a, TItem b)
+        {
+            return IsEqualItems(a, b);
+        }
+    }
+
+    private class Dummy : IEqualityComparer<Dummy>
+    {
+        public int Id { get; set; }
+
+        public bool Equals(Dummy? x, Dummy? y)
+        {
+            var ret = false;
+            if (x != null && y != null)
+            {
+                ret = x.Id == y.Id;
+            }
+            return ret;
+        }
+
+        public int GetHashCode([DisallowNull] Dummy obj) => obj.GetHashCode();
+    }
+
+    private class Dog
+    {
+        public int Id { get; set; }
+
+        public override bool Equals(object? obj)
+        {
+            var ret = false;
+            if (obj is Dog d)
+            {
+                ret = d.Id == Id;
+            }
+            return ret;
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
         }
     }
 }
