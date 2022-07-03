@@ -11,7 +11,7 @@
         <li>通过 <code>OnBuildTreeAsync</code> 回调委托对数据集进行树状结构转换</li>
         <li>设置 <code>TableTreeNode</code> 其 <code>IsExpand</code> 参数控制当前子节点是否展开</li>
         <li>点击子项展开小箭头时，通过 <code>OnTreeExpand</code> 回调委托方法获取子项数据</li>
-        <li>通过设置 <code>TableRowEqualityComparer</code> 参数比对行对象是否相等</li>
+        <li>保持行状态回落机制，<code>ModelEqualityComparer</code> <code>CustomKeyAttribute</code> <code>IEqualityComparer&lt;TItem&gt;</code> <code>Equals</code> 重载方法</li>
     </ul>
 </Tips>
 
