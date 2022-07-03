@@ -31,6 +31,11 @@ public partial class Table<TItem>
     private List<TableTreeNode<TItem>> TreeRows { get; } = new List<TableTreeNode<TItem>>();
 
     /// <summary>
+    /// 获得 所有已展开行集合 作为缓存使用
+    /// </summary>
+    private List<TItem> ExpandedRows { get; set; } = new();
+
+    /// <summary>
     /// 获得/设置 是否正在加载子项 默认为 false
     /// </summary>
     private bool IsLoadChildren { get; set; }
@@ -85,6 +90,7 @@ public partial class Table<TItem>
                 // 无子项时通过回调方法延时加载
                 if (!node.IsExpand)
                 {
+                    ExpandedRows.Add(node.Value);
                     node.IsExpand = true;
                     if (!node.Items.Any() && OnTreeExpand != null)
                     {
@@ -93,6 +99,7 @@ public partial class Table<TItem>
                 }
                 else
                 {
+                    ExpandedRows.Remove(node.Value);
                     node.IsExpand = false;
                 }
                 IsLoadChildren = false;

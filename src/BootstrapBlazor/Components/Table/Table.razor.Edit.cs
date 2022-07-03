@@ -3,7 +3,6 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.AspNetCore.Components.Forms;
-using System.Collections.Generic;
 
 namespace BootstrapBlazor.Components;
 
@@ -475,10 +474,9 @@ public partial class Table<TItem>
             // 分页情况下内部不做处理防止页码错乱
             ProcessData(queryData, queryOption);
 
-            if (IsTree && OnBuildTreeAsync != null)
+            if (IsTree)
             {
-                TreeRows.Clear();
-                TreeRows.AddRange(await OnBuildTreeAsync(QueryItems));
+                await ProcessTreeData();
             }
 
             void ProcessSelectedRows()
@@ -535,6 +533,47 @@ public partial class Table<TItem>
                     {
                         var invoker = Utility.GetSortListFunc<TItem>();
                         QueryItems = invoker(QueryItems, queryOption.SortList);
+                    }
+                }
+            }
+
+            async Task ProcessTreeData()
+            {
+                var treeNodes = Enumerable.Empty<TableTreeNode<TItem>>();
+                if (OnBuildTreeAsync != null)
+                {
+                    treeNodes = await OnBuildTreeAsync(QueryItems);
+                }
+
+                if (treeNodes.Any())
+                {
+                    await CheckExpand(treeNodes);
+                }
+
+                TreeRows.Clear();
+                TreeRows.AddRange(treeNodes);
+
+                async Task CheckExpand(IEnumerable<TableTreeNode<TItem>> nodes)
+                {
+                    foreach (var node in nodes)
+                    {
+                        if (ExpandedRows.Any(i => IsEqualItems(i, node.Value)))
+                        {
+                            // 原来是展开状态
+                            node.IsExpand = true;
+                            if (!node.Items.Any() && OnTreeExpand != null)
+                            {
+                                node.Items = await OnTreeExpand(node.Value);
+                            }
+                        }
+                        else
+                        {
+                            ExpandedRows.RemoveAll(i => IsEqualItems(i, node.Value));
+                        }
+                        if (node.Items.Any())
+                        {
+                            await CheckExpand(node.Items);
+                        }
                     }
                 }
             }
