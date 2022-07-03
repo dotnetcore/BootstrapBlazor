@@ -627,8 +627,11 @@ RenderFragment<TItem> RenderRow => item =>
                     if (isFirstColOfTree)
                     {
                         var treeItem = TreeRows.Find(item, out degree, IsEqualItems);
-                        isExpend = treeItem?.IsExpand ?? false;
-                        hasChildren = treeItem?.HasChildren ?? false;
+                        if(treeItem != null)
+                        {
+                            isExpend = treeItem.IsExpand;
+                            hasChildren = treeItem.HasChildren;
+                        }
                     }
                     bool hesTreeChildren = isFirstColOfTree && hasChildren;
                 }
