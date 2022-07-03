@@ -5,10 +5,10 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// Table 组件树状结构类
 /// </summary>
 /// <typeparam name="TItem"></typeparam>
-public class TableTreeNode<TItem> where TItem : class
+public class TableTreeNode<TItem>
 {
     /// <summary>
     /// 获得/设置 当前节点值
@@ -16,29 +16,21 @@ public class TableTreeNode<TItem> where TItem : class
     public TItem Value { get; }
 
     /// <summary>
-    /// 获得/设置 当前节点唯一标识
+    /// 获得/设置 子节点集合
     /// </summary>
-    public object? Key { get; }
+    public IEnumerable<TableTreeNode<TItem>> Items { get; set; } = Enumerable.Empty<TableTreeNode<TItem>>();
 
     /// <summary>
-    /// 获得/设置 是否展开
+    /// 获得/设置 是否展开 默认 false
     /// </summary>
+    /// <remarks>设置 值为 true 时，并且 <see cref="Items"/> 不为空时首次加载自动展开</remarks>
     public bool IsExpand { get; set; }
 
     /// <summary>
-    /// 获得/设置 子节点集合
+    /// 获得/设置 是否有子节点 默认 false 用于控制是否显示行首小箭头
     /// </summary>
-    public List<TableTreeNode<TItem>> Children { get; } = new();
-
-    /// <summary>
-    /// 获得/设置 是否有子节点
-    /// </summary>
+    /// <remarks>有子节点时如果 <see cref="Items"/> 为空时，展开行时会回调 <see cref="Table{TItem}.OnTreeExpand"/> 方法</remarks>
     public bool HasChildren { get; set; }
-
-    /// <summary>
-    /// 获得/设置 父级节点对象实例
-    /// </summary>
-    public TableTreeNode<TItem>? Parent { get; set; }
 
     /// <summary>
     /// 构造函数
@@ -46,6 +38,5 @@ public class TableTreeNode<TItem> where TItem : class
     public TableTreeNode(TItem item)
     {
         Value = item;
-        Key = Utility.GetKeyValue<TItem, object?>(item);
     }
 }

@@ -3,6 +3,7 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using BootstrapBlazor.Shared;
+using System.ComponentModel.DataAnnotations;
 using System.Linq.Expressions;
 
 namespace UnitTest.Extensions;
@@ -396,7 +397,24 @@ public class LambadaExtensionsTest
     [Fact]
     public void GetKeyValue_Ok()
     {
-        Assert.Throws<ArgumentNullException>(() => LambdaExtensions.GetKeyValue<Foo?, string>(null));
+        Foo? foo1 = null, foo2 = null;
+        Assert.Throws<ArgumentNullException>(() => LambdaExtensions.GetKeyValue<Foo?, string>(foo1));
+
+        foo1 = new Foo() { Id = 123, Name = "Test", Count = 20 };
+        foo2 = new Foo() { Id = 234, Name = "Test", Count = 20 };
+
+        var invoker1 = LambdaExtensions.GetKeyValue<Foo?, int>(foo1).Compile();
+        Assert.Equal(123, invoker1(foo1));
+
+        var invoker2 = LambdaExtensions.GetKeyValue<Foo?, object>(foo1).Compile();
+        Assert.Equal(123, invoker2(foo1));
+
+        Assert.Throws<InvalidOperationException>(() => LambdaExtensions.GetKeyValue<Foo?, DateTime>(foo1));
+
+        var invoker3 = LambdaExtensions.GetKeyValue<Foo?, object>(foo1, typeof(RequiredAttribute)).Compile();
+        Assert.Equal(invoker3(foo1), invoker3(foo2));
+        foo1.Address = "Test";
+        Assert.NotEqual(invoker3(foo1), invoker3(foo2));
     }
 
     private abstract class MockFilterActionBase : IFilterAction

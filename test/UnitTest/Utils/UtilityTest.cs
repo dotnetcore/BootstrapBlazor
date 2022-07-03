@@ -27,6 +27,18 @@ public class UtilityTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void GetKeyValue_CustomKeyAttribute()
+    {
+        var foo = new Cat() { Id = 1 };
+        var v = Utility.GetKeyValue<Cat, int>(foo, typeof(CatKeyAttribute));
+        Assert.Equal(1, v);
+
+        object foo1 = new Cat() { Id = 2 };
+        v = Utility.GetKeyValue<object, int>(foo1, typeof(CatKeyAttribute));
+        Assert.Equal(2, v);
+    }
+
+    [Fact]
     public void GetKeyValue_Null()
     {
         Foo? foo = null;
@@ -516,5 +528,13 @@ public class UtilityTest : BootstrapBlazorTestBase
         public string? Name { get; set; }
 
         public string? PlaceHolder { get; set; }
+
+        [CatKey]
+        public int Id { get; set; }
+    }
+
+    private class CatKeyAttribute : Attribute
+    {
+
     }
 }

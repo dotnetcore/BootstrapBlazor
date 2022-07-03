@@ -431,19 +431,21 @@ internal class CacheManager : ICacheManager
     /// <typeparam name="TModel"></typeparam>
     /// <typeparam name="TValue"></typeparam>
     /// <param name="model"></param>
+    /// <param name="customAttribute"></param>
     /// <returns></returns>
-    public static TValue GetKeyValue<TModel, TValue>(TModel model)
+    public static TValue GetKeyValue<TModel, TValue>(TModel model, Type? customAttribute = null)
     {
         if (model == null)
         {
             throw new ArgumentNullException(nameof(model));
         }
         var type = model.GetType();
-        var cacheKey = ($"Lambda-GetKeyValue-{type.FullName}", typeof(TModel));
+        var cacheKey = ($"Lambda-GetKeyValue-{type.FullName}-{customAttribute?.FullName}", typeof(TModel));
         var invoker = Instance.GetOrCreate(cacheKey, entry =>
         {
             entry.SetDynamicAssemblyPolicy(type);
-            return LambdaExtensions.GetKeyValue<TModel, TValue>(model).Compile();
+
+            return LambdaExtensions.GetKeyValue<TModel, TValue>(model, customAttribute).Compile();
         });
         return invoker(model);
     }

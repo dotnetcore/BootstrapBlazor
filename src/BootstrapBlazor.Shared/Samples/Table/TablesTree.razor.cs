@@ -14,16 +14,11 @@ namespace BootstrapBlazor.Shared.Samples.Table;
 public partial class TablesTree
 {
     [NotNull]
-    private List<EditFooTree>? AllItems { get; set; }
-
-    [NotNull]
-    private IEnumerable<FooTree>? TreeItems { get; set; }
+    private List<TreeFoo>? TreeItems { get; set; }
 
     [Inject]
     [NotNull]
     private IStringLocalizer<Foo>? Localizer { get; set; }
-
-    private int level = 0;
 
     /// <summary>
     /// OnInitialized 方法
@@ -32,42 +27,69 @@ public partial class TablesTree
     {
         base.OnInitialized();
 
-        TreeItems = FooTree.Generate(Localizer);
-        AllItems = new List<EditFooTree>();
-        AllItems.AddRange(EditFooTree.Generate(Localizer, AllItems));
-        AllItems.AddRange(EditFooTree.Generate(Localizer, AllItems, 10, 1));
-        AllItems.AddRange(EditFooTree.Generate(Localizer, AllItems, 20, 2));
-        AllItems.AddRange(EditFooTree.Generate(Localizer, AllItems, 30, 11));
-        AllItems.AddRange(EditFooTree.Generate(Localizer, AllItems, 40, 12));
-        AllItems.AddRange(EditFooTree.Generate(Localizer, AllItems, 50, 21));
-        AllItems.AddRange(EditFooTree.Generate(Localizer, AllItems, 60, 22));
+        // 模拟数据从数据库中获得
+        TreeItems = TreeFoo.GenerateFoos(Localizer, 3);
+
+        // 插入 Id 为 1 的子项
+        TreeItems.AddRange(TreeFoo.GenerateFoos(Localizer, 2, 1, 100));
+
+        // 插入 Id 为 101 的子项
+        TreeItems.AddRange(TreeFoo.GenerateFoos(Localizer, 3, 101, 1010));
     }
 
-    private async Task<IEnumerable<FooTree>> OnTreeExpand(FooTree foo)
+    private static Task<IEnumerable<TableTreeNode<TreeFoo>>> TreeNodeConverter(IEnumerable<TreeFoo> items)
     {
-        await Task.Delay(1000);
-        return FooTree.Generate(Localizer, level++ < 2, foo.Id + 10).Select(i =>
+        // 构造树状数据结构
+        var ret = BuildTreeNodes(items, 0);
+        return Task.FromResult(ret);
+
+        IEnumerable<TableTreeNode<TreeFoo>> BuildTreeNodes(IEnumerable<TreeFoo> items, int parentId)
         {
-            i.Name = Localizer["Foo.Name", $"{foo.Id:d2}{i.Id:d2}"];
-            return i;
+            var ret = new List<TableTreeNode<TreeFoo>>();
+            ret.AddRange(items.Where(i => i.ParentId == parentId).Select((foo, index) => new TableTreeNode<TreeFoo>(foo)
+            {
+                // 此处为示例，假设偶行数据都有子数据
+                HasChildren = index % 2 == 0,
+                // 如果子项集合有值 则默认展开此节点
+                IsExpand = items.Any(i => i.ParentId == foo.Id),
+                // 获得子项集合
+                Items = BuildTreeNodes(items.Where(i => i.ParentId == foo.Id), foo.Id)
+            }));
+            return ret;
+        }
+    }
+
+    [Inject]
+    [NotNull]
+    private ICacheManager? CacheManager { get; set; }
+
+    private Task<IEnumerable<TableTreeNode<TreeFoo>>> OnTreeExpand(TreeFoo foo)
+    {
+        // 模拟从数据库中查询
+        return CacheManager.GetOrCreateAsync($"{foo.Id}", async entry =>
+        {
+            await Task.Delay(1000);
+            entry.SlidingExpiration = TimeSpan.FromMinutes(10);
+            return TreeFoo.GenerateFoos(Localizer, 2, foo.Id, foo.Id * 100).Select(i => new TableTreeNode<TreeFoo>(i));
         });
     }
 
-    private Task<EditFooTree> OnAddAsync() => Task.FromResult(new EditFooTree() { AllItems = AllItems, DateTime = DateTime.Now });
+    //private static bool TreeNodeEqualityComparer(Foo a, Foo b) => a.Id == b.Id;
 
-    private Task<bool> OnSaveAsync(EditFooTree item, ItemChangedType changedType)
+    private static Task<TreeFoo> OnAddAsync() => Task.FromResult(new TreeFoo() { DateTime = DateTime.Now });
+
+    private Task<bool> OnSaveAsync(TreeFoo item, ItemChangedType changedType)
     {
         if (changedType == ItemChangedType.Add)
         {
-            item.Id = AllItems.Max(i => i.Id) + 1;
-            AllItems.Add(item);
+            item.Id = TreeItems.Max(i => i.Id) + 1;
+            TreeItems.Add(item);
         }
         else
         {
-            var oldItem = AllItems.FirstOrDefault(i => i.Id == item.Id);
+            var oldItem = TreeItems.FirstOrDefault(i => i.Id == item.Id);
             if (oldItem != null)
             {
-                oldItem.ParentId = item.ParentId;
                 oldItem.Name = item.Name;
                 oldItem.DateTime = item.DateTime;
                 oldItem.Address = item.Address;
@@ -77,69 +99,38 @@ public partial class TablesTree
         return Task.FromResult(true);
     }
 
-    private Task<bool> OnDeleteAsync(IEnumerable<EditFooTree> items)
+    private Task<bool> OnDeleteAsync(IEnumerable<TreeFoo> items)
     {
-        items.ToList().ForEach(i => AllItems.Remove(i));
+        TreeItems.RemoveAll(foo => items.Any(i => i.Id == foo.Id));
         return Task.FromResult(true);
     }
 
-    private Task<QueryData<EditFooTree>> OnQueryAsync(QueryPageOptions _)
+    private Task<QueryData<TreeFoo>> OnQueryAsync(QueryPageOptions _)
     {
-        return Task.FromResult(new QueryData<EditFooTree>()
+        return Task.FromResult(new QueryData<TreeFoo>()
         {
-            Items = AllItems.Where(f => f.ParentId == 0)
+            Items = TreeItems
         });
     }
 
-    private async Task<IEnumerable<EditFooTree>> OnTreeExpandQuery(EditFooTree foo)
+    private class TreeFoo : Foo
     {
-        await Task.Delay(50);
-        return AllItems.Where(f => f.ParentId == foo.Id);
-    }
-
-    private class FooTree : Foo
-    {
-        private static readonly Random random = new();
-
-        public IEnumerable<FooTree>? Children { get; set; }
-
-        public bool HasChildren { get; set; }
-
-        public static IEnumerable<FooTree> Generate(IStringLocalizer<Foo> localizer, bool hasChildren = true, int seed = 0) => Enumerable.Range(1, 2).Select(i => new FooTree()
-        {
-            Id = i + seed,
-            Name = localizer["Foo.Name", $"{seed:d2}{(i + seed):d2}"],
-            DateTime = System.DateTime.Now.AddDays(i - 1),
-            Address = localizer["Foo.Address", $"{random.Next(1000, 2000)}"],
-            Count = random.Next(1, 100),
-            Complete = random.Next(1, 100) > 50,
-            Education = random.Next(1, 100) > 50 ? EnumEducation.Primary : EnumEducation.Middel,
-            HasChildren = hasChildren
-        }).ToList();
-    }
-
-    private class EditFooTree : Foo
-    {
-        private static readonly Random random = new();
-
-        [NotNull]
-        public List<EditFooTree>? AllItems { get; set; }
-
         public int ParentId { get; set; }
 
-        public IEnumerable<EditFooTree>? Children { get; set; }
-
-        public bool HasChildren => AllItems.Any(i => i.ParentId == Id);
-
-        public static IEnumerable<EditFooTree> Generate(IStringLocalizer<Foo> localizer, List<EditFooTree> list, int seed = 0, int parentId = 0) => Enumerable.Range(1, 2).Select(i => new EditFooTree()
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public static List<TreeFoo> GenerateFoos(IStringLocalizer<Foo> localizer, int count = 80, int parentId = 0, int id = 0) => Enumerable.Range(1, count).Select(i => new TreeFoo()
         {
-            Id = i + seed,
+            Id = id + i,
             ParentId = parentId,
-            Name = localizer["Foo.Name", $"{seed:d2}{(i + seed):d2}"],
+            Name = localizer["Foo.Name", $"{id + i:d4}"],
             DateTime = System.DateTime.Now.AddDays(i - 1),
-            Address = localizer["Foo.Address", $"{random.Next(1000, 2000)}"],
-            Count = random.Next(1, 100),
-            AllItems = list
+            Address = localizer["Foo.Address", $"{Random.Next(1000, 2000)}"],
+            Count = Random.Next(1, 100),
+            Complete = Random.Next(1, 100) > 50,
+            Education = Random.Next(1, 100) > 50 ? EnumEducation.Primary : EnumEducation.Middel
         }).ToList();
     }
 }
