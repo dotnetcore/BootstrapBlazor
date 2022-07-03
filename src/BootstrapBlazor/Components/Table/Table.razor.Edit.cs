@@ -587,10 +587,10 @@ public partial class Table<TItem>
     /// <param name="b"></param>
     /// <returns></returns>
     protected bool IsEqualItems(TItem a, TItem b) => TableRowEqualityComparer?.Invoke(a, b)
-        ?? EqualityComparer(a, b)
         ?? Utility.GetKeyValue<TItem, object>(a, CustomKeyAttribute)
             ?.Equals(Utility.GetKeyValue<TItem, object>(b, CustomKeyAttribute))
-        ?? a == b;
+        ?? EqualityComparer(a, b)
+        ?? a.Equals(b);
 
 
     private static bool? EqualityComparer(TItem a, TItem b)
@@ -598,7 +598,7 @@ public partial class Table<TItem>
         bool? ret = null;
         if (a is IEqualityComparer<TItem> comparer)
         {
-            ret = comparer.Equals(b);
+            ret = comparer.Equals(a, b);
         }
         return ret;
     }
