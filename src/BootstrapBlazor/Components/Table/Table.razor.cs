@@ -478,9 +478,9 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
     /// <returns></returns>
     protected override async Task OnInitializedAsync()
     {
-        if (IsTree && Items != null && OnBuildTreeAsync != null)
+        if (IsTree && Items != null && TableTreeNodeConverter != null)
         {
-            TreeRows.AddRange(await OnBuildTreeAsync(Items));
+            TreeRows.AddRange(await TableTreeNodeConverter(Items));
         }
     }
 

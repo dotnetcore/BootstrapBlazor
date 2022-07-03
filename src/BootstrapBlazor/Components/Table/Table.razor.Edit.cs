@@ -540,9 +540,9 @@ public partial class Table<TItem>
             async Task ProcessTreeData()
             {
                 var treeNodes = new List<TableTreeNode<TItem>>();
-                if (OnBuildTreeAsync != null)
+                if (TableTreeNodeConverter != null)
                 {
-                    treeNodes.AddRange(await OnBuildTreeAsync(QueryItems));
+                    treeNodes.AddRange(await TableTreeNodeConverter(QueryItems));
                 }
 
                 if (treeNodes.Any())

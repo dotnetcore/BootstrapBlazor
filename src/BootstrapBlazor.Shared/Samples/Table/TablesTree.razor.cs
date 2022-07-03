@@ -37,7 +37,7 @@ public partial class TablesTree
         TreeItems.AddRange(TreeFoo.GenerateFoos(Localizer, 3, 101, 1010));
     }
 
-    private static Task<IEnumerable<TableTreeNode<TreeFoo>>> OnBuildFooTreeAsync(IEnumerable<TreeFoo> items)
+    private static Task<IEnumerable<TableTreeNode<TreeFoo>>> TableTreeNodeConverter(IEnumerable<TreeFoo> items)
     {
         // 构造树状数据结构
         var ret = BuildTreeNodes(items, 0);

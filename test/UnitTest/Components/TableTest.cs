@@ -1836,7 +1836,7 @@ public class TableTest : TableTestBase
                 pb.Add(a => a.RenderMode, TableRenderMode.Table);
                 pb.Add(a => a.IsTree, true);
                 pb.Add(a => a.Items, FooTree.Generate(localizer));
-                pb.Add(a => a.OnBuildTreeAsync, items => BuildTreeAsync(items));
+                pb.Add(a => a.TableTreeNodeConverter, items => BuildTreeAsync(items));
                 pb.Add(a => a.TableColumns, foo => builder =>
                 {
                     builder.OpenComponent<TableColumn<Foo, string>>(0);
@@ -1861,7 +1861,7 @@ public class TableTest : TableTestBase
                 pb.Add(a => a.IsTree, true);
                 pb.Add(a => a.IsMultipleSelect, true);
                 pb.Add(a => a.OnQueryAsync, op => OnQueryAsync(op, localizer));
-                pb.Add(a => a.OnBuildTreeAsync, items => BuildTreeAsync(items));
+                pb.Add(a => a.TableTreeNodeConverter, items => BuildTreeAsync(items));
                 pb.Add(a => a.OnTreeExpand, foo => Task.FromResult(FooTree.Generate(localizer, foo.Id, 100).Select(foo => new TableTreeNode<FooTree>(foo))));
                 pb.Add(a => a.TableColumns, foo => builder =>
                 {
@@ -1898,7 +1898,7 @@ public class TableTest : TableTestBase
                 pb.Add(a => a.RenderMode, TableRenderMode.Table);
                 pb.Add(a => a.IsTree, true);
                 pb.Add(a => a.Items, FooTree.Generate(localizer));
-                pb.Add(a => a.OnBuildTreeAsync, items =>
+                pb.Add(a => a.TableTreeNodeConverter, items =>
                 {
                     var ret = items.Select(i => new TableTreeNode<FooTree>(i) { HasChildren = true });
                     return Task.FromResult(ret);
@@ -1931,7 +1931,7 @@ public class TableTest : TableTestBase
                 pb.Add(a => a.RenderMode, TableRenderMode.Table);
                 pb.Add(a => a.IsTree, true);
                 pb.Add(a => a.OnQueryAsync, op => OnQueryAsync(op, localizer));
-                pb.Add(a => a.OnBuildTreeAsync, items => BuildTreeAsync(items));
+                pb.Add(a => a.TableTreeNodeConverter, items => BuildTreeAsync(items));
                 pb.Add(a => a.TableColumns, foo => builder =>
                 {
                     builder.OpenComponent<TableColumn<Foo, string>>(0);
@@ -2019,7 +2019,7 @@ public class TableTest : TableTestBase
                         Items = items
                     });
                 });
-                pb.Add(a => a.OnBuildTreeAsync, items =>
+                pb.Add(a => a.TableTreeNodeConverter, items =>
                 {
                     var ret = items.Select(i => new TableTreeNode<FooTree>(i) { HasChildren = true });
                     return Task.FromResult(ret);
@@ -2097,7 +2097,7 @@ public class TableTest : TableTestBase
                 pb.Add(a => a.RenderMode, TableRenderMode.Table);
                 pb.Add(a => a.IsTree, true);
                 pb.Add(a => a.OnQueryAsync, OnQueryAsync);
-                pb.Add(a => a.OnBuildTreeAsync, items =>
+                pb.Add(a => a.TableTreeNodeConverter, items =>
                 {
                     var ret = items.Select(i => new TableTreeNode<FooNoKeyTree>(i));
                     return Task.FromResult(ret);
@@ -4503,7 +4503,7 @@ public class TableTest : TableTestBase
     }
 
     [Fact]
-    public void OnBuildTreeAsync_Ok()
+    public void TableTreeNodeConverter_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
@@ -4514,7 +4514,7 @@ public class TableTest : TableTestBase
                 pb.Add(a => a.IsTree, true);
                 pb.Add(a => a.IndentSize, 32);
                 pb.Add(a => a.OnQueryAsync, op => OnQueryAsync(op, localizer));
-                pb.Add(a => a.OnBuildTreeAsync, items => BuildTreeAsync(items));
+                pb.Add(a => a.TableTreeNodeConverter, items => BuildTreeAsync(items));
                 pb.Add(a => a.TableColumns, foo => builder =>
                 {
                     builder.OpenComponent<TableColumn<Foo, string>>(0);
