@@ -33,7 +33,7 @@ public partial class Table<TItem>
     /// <summary>
     /// 获得 所有已展开行集合 作为缓存使用
     /// </summary>
-    private List<TItem> ExpandedRows { get; set; } = new();
+    private List<TItem> ExpandedRows { get; } = new();
 
     /// <summary>
     /// 获得/设置 是否正在加载子项 默认为 false
