@@ -427,7 +427,7 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
     /// <summary>
     /// 获得/设置 数据主键标识标签 默认为 <see cref="KeyAttribute"/>
     /// </summary>
-    /// <remarks>用于判断数据主键标签，如果模型未设置主键时可使用 <see cref="IsEqualsCallback"/> 参数自定义判断 <code><br /></code>数据模型支持联合主键</remarks>
+    /// <remarks>用于判断数据主键标签，如果模型未设置主键时可使用 <see cref="TreeNodeEqualityComparer"/> 参数自定义判断 <code><br /></code>数据模型支持联合主键</remarks>
     [Parameter]
     public Type CustomKeyAttribute { get; set; } = typeof(KeyAttribute);
 
@@ -435,7 +435,7 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
     /// 获得/设置 比较数据是否相同回调方法 默认为 null
     /// </summary>
     /// <remarks>提供此回调方法时忽略 <see cref="CustomKeyAttribute"/> 属性</remarks>
-    public Func<TItem, TItem, bool>? IsEqualsCallback { get; set; }
+    public Func<TItem, TItem, bool>? TreeNodeEqualityComparer { get; set; }
 
     /// <summary>
     /// OnInitialized 方法
@@ -469,11 +469,17 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
             PageIndex = 1;
             await QueryAsync();
         };
+    }
 
-        if (IsTree)
+    /// <summary>
+    /// OnInitializedAsync 方法
+    /// </summary>
+    /// <returns></returns>
+    protected override async Task OnInitializedAsync()
+    {
+        if (IsTree && Items != null && OnBuildTreeAsync != null)
         {
-            var rows = Items ?? Enumerable.Empty<TItem>();
-            TreeRows = rows.Select(item => ITableTreeItem<TItem>.New(item)).ToList();
+            TreeRows.AddRange(await OnBuildTreeAsync(Items));
         }
     }
 

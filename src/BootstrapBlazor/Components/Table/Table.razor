@@ -623,12 +623,14 @@ RenderFragment<TItem> RenderRow => item =>
                     var isFirstColOfTree = IsTree && index++ == 0;
                     int degree = 0;
                     bool isExpend = false;
+                    bool hasChildren = false;
                     if (isFirstColOfTree)
                     {
-                        var treeItems = TreeRows.Find(item, out degree);
-                        isExpend = treeItems?.IsExpand ?? false;
+                        var treeItem = TreeRows.Find(item, out degree, IsEqualItems);
+                        isExpend = treeItem?.IsExpand ?? false;
+                        hasChildren = treeItem?.HasChildren ?? false;
                     }
-                    bool hesTreeChildren = isFirstColOfTree && CheckTreeChildren(item);
+                    bool hesTreeChildren = isFirstColOfTree && hasChildren;
                 }
                 <DynamicElement TagName="div" TriggerClick="@hesTreeChildren"
                                 OnClick="@ToggleTreeRow(item)" StopPropagation="hesTreeChildren"

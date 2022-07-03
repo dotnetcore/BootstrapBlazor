@@ -3,6 +3,7 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.AspNetCore.Components.Forms;
+using System.Collections.Generic;
 
 namespace BootstrapBlazor.Components;
 
@@ -474,9 +475,10 @@ public partial class Table<TItem>
             // 分页情况下内部不做处理防止页码错乱
             ProcessData(queryData, queryOption);
 
-            if (IsTree)
+            if (IsTree && OnBuildTreeAsync != null)
             {
-                TreeRows = OnBuildTreeAsync == null ? Enumerable.Empty<TableTreeNode<TItem>>() : await OnBuildTreeAsync(QueryItems);
+                TreeRows.Clear();
+                TreeRows.AddRange(await OnBuildTreeAsync(QueryItems));
             }
 
             void ProcessSelectedRows()
@@ -545,7 +547,7 @@ public partial class Table<TItem>
     /// <param name="a"></param>
     /// <param name="b"></param>
     /// <returns></returns>
-    protected bool IsEqualItems(TItem a, TItem b) => IsEqualsCallback?.Invoke(a, b)
+    protected bool IsEqualItems(TItem a, TItem b) => TreeNodeEqualityComparer?.Invoke(a, b)
         ?? Utility.GetKeyValue<TItem, object>(a, CustomKeyAttribute)
             ?.Equals(Utility.GetKeyValue<TItem, object>(b, CustomKeyAttribute))
         ?? a == b;

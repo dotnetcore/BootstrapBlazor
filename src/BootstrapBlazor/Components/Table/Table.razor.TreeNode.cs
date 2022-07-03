@@ -9,7 +9,6 @@ public partial class Table<TItem>
     /// <summary>
     /// 获得/设置 是否为树形数据 默认为 false
     /// </summary>
-    /// <remarks>是否有子项请使用 <seealso cref="HasChildrenColumnName"/> 树形进行设置，此参数在 <see cref="IsExcel"/> 模式下不生效</remarks>
     [Parameter]
     public bool IsTree { get; set; }
 
@@ -20,30 +19,16 @@ public partial class Table<TItem>
     public Func<IEnumerable<TItem>, Task<IEnumerable<TableTreeNode<TItem>>>>? OnBuildTreeAsync { get; set; }
 
     /// <summary>
-    /// 获得/设置 树形数据模式子项字段是否有子节点属性名称 默认为 HasChildren 无法提供时请设置 <see cref="HasChildrenCallback"/> 回调方法 都没设时默认为全都可展开
-    /// </summary>
-    /// <remarks>此参数在 <see cref="IsExcel"/> 模式下不生效</remarks>
-    [Parameter]
-    public string HasChildrenColumnName { get; set; } = "HasChildren";
-
-    /// <summary>
-    /// 获得/设置 是否有子节点回调方法 默认为 null 用于未提供 <see cref="HasChildrenColumnName"/> 列名时使用
-    /// </summary>
-    /// <remarks>如果 有子节点并且子节点数据不为空时 默认展开</remarks>
-    [Parameter]
-    public Func<TItem, bool>? HasChildrenCallback { get; set; }
-
-    /// <summary>
     /// 获得/设置 树形数据节点展开式回调委托方法
     /// </summary>
     [Parameter]
-    public Func<TItem, Task<IEnumerable<TItem>>>? OnTreeExpand { get; set; }
+    public Func<TItem, Task<IEnumerable<TableTreeNode<TItem>>>>? OnTreeExpand { get; set; }
 
     /// <summary>
     /// 获得/设置 树形数据集合
     /// </summary>
     [NotNull]
-    private IEnumerable<TableTreeNode<TItem>>? TreeRows { get; set; }
+    private List<TableTreeNode<TItem>> TreeRows { get; } = new List<TableTreeNode<TItem>>();
 
     /// <summary>
     /// 获得/设置 是否正在加载子项 默认为 false
@@ -101,9 +86,9 @@ public partial class Table<TItem>
                 if (!node.IsExpand)
                 {
                     node.IsExpand = true;
-                    if (OnTreeExpand != null)
+                    if (!node.Items.Any() && OnTreeExpand != null)
                     {
-                        node.SetChildren(await OnTreeExpand(item));
+                        node.Items = await OnTreeExpand(item);
                     }
                 }
                 else
@@ -115,12 +100,4 @@ public partial class Table<TItem>
             }
         }
     };
-
-    /// <summary>
-    /// 通过设置的 HasChildren 属性得知是否有子节点用于显示 UI
-    /// </summary>
-    /// <param name="item"></param>
-    /// <returns></returns>
-    private bool CheckTreeChildren(TItem item) => HasChildrenCallback?.Invoke(item)
-        ?? Utility.GetPropertyValue<TItem, bool>(item, HasChildrenColumnName);
 }
