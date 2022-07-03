@@ -6,7 +6,6 @@ using BootstrapBlazor.Components;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using System.Globalization;
-using System.Xml.Linq;
 
 namespace BootstrapBlazor.Shared.Samples.Table;
 
@@ -16,13 +15,7 @@ namespace BootstrapBlazor.Shared.Samples.Table;
 public partial class TablesTree
 {
     [NotNull]
-    private List<EditFooTree>? AllItems { get; set; }
-
-    [NotNull]
-    private IEnumerable<Foo>? TreeItems { get; set; }
-
-    [NotNull]
-    private IEnumerable<Foo>? ExpandTreeItems { get; set; }
+    private List<Foo>? TreeItems { get; set; }
 
     [Inject]
     [NotNull]
@@ -45,17 +38,6 @@ public partial class TablesTree
             var foos = Foo.GenerateFoo(Localizer, 10);
             return foos;
         });
-
-        AllItems = new List<EditFooTree>();
-        AllItems.AddRange(EditFooTree.Generate(Localizer, AllItems));
-        AllItems.AddRange(EditFooTree.Generate(Localizer, AllItems, 10, 1));
-        AllItems.AddRange(EditFooTree.Generate(Localizer, AllItems, 20, 2));
-        AllItems.AddRange(EditFooTree.Generate(Localizer, AllItems, 30, 11));
-        AllItems.AddRange(EditFooTree.Generate(Localizer, AllItems, 40, 12));
-        AllItems.AddRange(EditFooTree.Generate(Localizer, AllItems, 50, 21));
-        AllItems.AddRange(EditFooTree.Generate(Localizer, AllItems, 60, 22));
-
-        //ExpandTreeItems = FooTree.Generate(Localizer);
     }
 
     private Task<IEnumerable<TableTreeNode<Foo>>> OnBuildFooTreeAsync(IEnumerable<Foo> items)
@@ -86,16 +68,6 @@ public partial class TablesTree
         return Task.FromResult(nodes);
     }
 
-    //private async Task<IEnumerable<FooTree>> OnExpandTreeExpand(FooTree foo)
-    //{
-    //    await Task.Delay(1000);
-    //    return FooTree.Generate(Localizer, level++ < 2, foo.Id + 10).Select(i =>
-    //    {
-    //        i.Name = Localizer["Foo.Name", $"{foo.Id:d2}{i.Id:d2}"];
-    //        return i;
-    //    });
-    //}
-
     private async Task<IEnumerable<TableTreeNode<Foo>>> OnTreeExpand(Foo foo)
     {
         await Task.Delay(1000);
@@ -114,21 +86,20 @@ public partial class TablesTree
 
     private bool TreeNodeEqualityComparer(Foo a, Foo b) => a.Id == b.Id;
 
-    private Task<EditFooTree> OnAddAsync() => Task.FromResult(new EditFooTree() { AllItems = AllItems, DateTime = DateTime.Now });
+    private Task<Foo> OnAddAsync() => Task.FromResult(new Foo() { DateTime = DateTime.Now });
 
-    private Task<bool> OnSaveAsync(EditFooTree item, ItemChangedType changedType)
+    private Task<bool> OnSaveAsync(Foo item, ItemChangedType changedType)
     {
         if (changedType == ItemChangedType.Add)
         {
-            item.Id = AllItems.Max(i => i.Id) + 1;
-            AllItems.Add(item);
+            item.Id = TreeItems.Max(i => i.Id) + 1;
+            TreeItems.Add(item);
         }
         else
         {
-            var oldItem = AllItems.FirstOrDefault(i => i.Id == item.Id);
+            var oldItem = TreeItems.FirstOrDefault(i => i.Id == item.Id);
             if (oldItem != null)
             {
-                oldItem.ParentId = item.ParentId;
                 oldItem.Name = item.Name;
                 oldItem.DateTime = item.DateTime;
                 oldItem.Address = item.Address;
@@ -138,64 +109,17 @@ public partial class TablesTree
         return Task.FromResult(true);
     }
 
-    private Task<bool> OnDeleteAsync(IEnumerable<EditFooTree> items)
+    private Task<bool> OnDeleteAsync(IEnumerable<Foo> items)
     {
-        items.ToList().ForEach(i => AllItems.Remove(i));
+        TreeItems.RemoveAll(foo => items.Any(i => i.Id == foo.Id));
         return Task.FromResult(true);
     }
 
-    private Task<QueryData<EditFooTree>> OnQueryAsync(QueryPageOptions _)
+    private Task<QueryData<Foo>> OnQueryAsync(QueryPageOptions _)
     {
-        return Task.FromResult(new QueryData<EditFooTree>()
+        return Task.FromResult(new QueryData<Foo>()
         {
-            Items = AllItems.Where(f => f.ParentId == 0)
+            Items = TreeItems
         });
-    }
-
-    private async Task<IEnumerable<EditFooTree>> OnTreeExpandQuery(EditFooTree foo)
-    {
-        await Task.Delay(50);
-        return AllItems.Where(f => f.ParentId == foo.Id);
-    }
-
-    //private class FooTree : Foo
-    //{
-    //    private static readonly Random random = new();
-
-    //    public static IEnumerable<FooTree> Generate(IStringLocalizer<Foo> localizer, int seed = 0) => Enumerable.Range(1, 2).Select(i => new FooTree()
-    //    {
-    //        Id = i + seed,
-    //        Name = localizer["Foo.Name", $"{seed:d2}{(i + seed):d2}"],
-    //        DateTime = System.DateTime.Now.AddDays(i - 1),
-    //        Address = localizer["Foo.Address", $"{random.Next(1000, 2000)}"],
-    //        Count = random.Next(1, 100),
-    //        Complete = random.Next(1, 100) > 50,
-    //        Education = random.Next(1, 100) > 50 ? EnumEducation.Primary : EnumEducation.Middel,
-    //    });
-    //}
-
-    private class EditFooTree : Foo
-    {
-        private static readonly Random random = new();
-
-        [NotNull]
-        public List<EditFooTree>? AllItems { get; set; }
-
-        public int ParentId { get; set; }
-
-        public IEnumerable<EditFooTree>? Children { get; set; }
-
-        public bool HasChildren => AllItems.Any(i => i.ParentId == Id);
-
-        public static IEnumerable<EditFooTree> Generate(IStringLocalizer<Foo> localizer, List<EditFooTree> list, int seed = 0, int parentId = 0) => Enumerable.Range(1, 2).Select(i => new EditFooTree()
-        {
-            Id = i + seed,
-            ParentId = parentId,
-            Name = localizer["Foo.Name", $"{seed:d2}{(i + seed):d2}"],
-            DateTime = System.DateTime.Now.AddDays(i - 1),
-            Address = localizer["Foo.Address", $"{random.Next(1000, 2000)}"],
-            Count = random.Next(1, 100),
-            AllItems = list
-        }).ToList();
     }
 }
