@@ -427,7 +427,7 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
     /// <summary>
     /// 获得/设置 数据主键标识标签 默认为 <see cref="KeyAttribute"/>
     /// </summary>
-    /// <remarks>用于判断数据主键标签，如果模型未设置主键时可使用 <see cref="TableRowEqualityComparer"/> 参数自定义判断 <code><br /></code>数据模型支持联合主键</remarks>
+    /// <remarks>用于判断数据主键标签，如果模型未设置主键时可使用 <see cref="ModelEqualityComparer"/> 参数自定义判断 <code><br /></code>数据模型支持联合主键</remarks>
     [Parameter]
     public Type CustomKeyAttribute { get; set; } = typeof(KeyAttribute);
 
@@ -436,7 +436,7 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
     /// </summary>
     /// <remarks>提供此回调方法时忽略 <see cref="CustomKeyAttribute"/> 属性</remarks>
     [Parameter]
-    public Func<TItem, TItem, bool>? TableRowEqualityComparer { get; set; }
+    public Func<TItem, TItem, bool>? ModelEqualityComparer { get; set; }
 
     /// <summary>
     /// OnInitialized 方法

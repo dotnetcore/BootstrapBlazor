@@ -586,7 +586,7 @@ public partial class Table<TItem>
     /// <param name="a"></param>
     /// <param name="b"></param>
     /// <returns></returns>
-    protected bool IsEqualItems(TItem a, TItem b) => TableRowEqualityComparer?.Invoke(a, b)
+    protected bool IsEqualItems(TItem a, TItem b) => ModelEqualityComparer?.Invoke(a, b)
         ?? Utility.GetKeyValue<TItem, object>(a, CustomKeyAttribute)
             ?.Equals(Utility.GetKeyValue<TItem, object>(b, CustomKeyAttribute))
         ?? EqualityComparer(a, b)

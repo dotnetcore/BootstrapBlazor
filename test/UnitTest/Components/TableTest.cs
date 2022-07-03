@@ -1952,7 +1952,7 @@ public class TableTest : TableTestBase
     {
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
         {
-            pb.AddChildContent<MockTreeTable<Cat>>(pb => pb.Add(a => a.TableRowEqualityComparer, (x, y) => x.Id == y.Id));
+            pb.AddChildContent<MockTreeTable<Cat>>(pb => pb.Add(a => a.ModelEqualityComparer, (x, y) => x.Id == y.Id));
         });
 
         var table = cut.FindComponent<MockTreeTable<Cat>>();
