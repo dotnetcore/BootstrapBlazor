@@ -58,4 +58,15 @@ public class TableCellPopconfirmButton : PopConfirmButtonBase
         CloseButtonText ??= Localizer[nameof(CloseButtonText)];
         Content ??= Localizer[nameof(Content)];
     }
+
+    /// <summary>
+    /// DisposeAsyncCore
+    /// </summary>
+    /// <param name="disposing"></param>
+    /// <returns></returns>
+    protected override ValueTask DisposeAsyncCore(bool disposing)
+    {
+        Buttons?.RemoveButton(this);
+        return base.DisposeAsyncCore(disposing);
+    }
 }

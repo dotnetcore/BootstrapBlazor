@@ -48,4 +48,15 @@ public class TableCellButton : ButtonBase
             Size = Size.ExtraSmall;
         }
     }
+
+    /// <summary>
+    /// DisposeAsyncCore
+    /// </summary>
+    /// <param name="disposing"></param>
+    /// <returns></returns>
+    protected override ValueTask DisposeAsyncCore(bool disposing)
+    {
+        Buttons?.RemoveButton(this);
+        return base.DisposeAsyncCore(disposing);
+    }
 }

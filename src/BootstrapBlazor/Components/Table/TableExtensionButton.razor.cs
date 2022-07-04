@@ -31,6 +31,11 @@ public partial class TableExtensionButton
     /// </summary>
     public void AddButton(ButtonBase button) => Buttons.Add(button);
 
+    /// <summary>
+    ///从工具栏中移除按钮
+    /// </summary>
+    public void RemoveButton(ButtonBase button) => Buttons.Remove(button);
+
     private async Task OnClick(TableCellButton b)
     {
         if (b.OnClick.HasDelegate)
