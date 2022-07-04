@@ -126,4 +126,22 @@ public class CascaderTest : BootstrapBlazorTestBase
         var input = cut.Find(".dropdown > input");
         Assert.True(input.HasAttribute("disabled"));
     }
+
+    [Fact]
+    public void SubCascader_NullItems()
+    {
+        var items = new List<CascaderItem>()
+        {
+            new CascaderItem() { Text = "test1", Value = "1" }
+        };
+        var cut = Context.RenderComponent<CascadingValue<List<CascaderItem>>>(pb =>
+        {
+            pb.Add(a => a.Value, items);
+            pb.AddChildContent<SubCascader>(pb =>
+            {
+                pb.Add(a => a.Items, null);
+            });
+        });
+        Assert.Equal("", cut.Markup);
+    }
 }

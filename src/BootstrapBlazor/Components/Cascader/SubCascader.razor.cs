@@ -25,11 +25,13 @@ public partial class SubCascader
     [Parameter]
     public Func<CascaderItem, Task>? OnClick { get; set; }
 
-    /// <summary>
-    /// 获得/设置 选择项是否 Active 回调委托
-    /// </summary>
-    [Parameter]
-    public Func<string, CascaderItem, string?> ActiveItem { get; set; } = (className, _) => CssBuilder.Default(className).Build();
+    [CascadingParameter]
+    [NotNull]
+    private List<CascaderItem>? SelectedItems { get; set; }
+
+    private string? GetClassString(string classString, CascaderItem item) => CssBuilder.Default(classString)
+        .AddClass("active", SelectedItems.Contains(item))
+        .Build();
 
     /// <summary>
     /// OnParametersSet 方法

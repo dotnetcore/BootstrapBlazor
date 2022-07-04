@@ -15,7 +15,7 @@ public partial class Cascader<TValue>
     /// <summary>
     /// 当前选中节点集合
     /// </summary>
-    private readonly List<CascaderItem> _selectedItems = new();
+    private List<CascaderItem> SelectedItems { get; } = new();
 
     /// <summary>
     /// 获得/设置 Cascader 内部 Input 组件 Id
@@ -87,11 +87,11 @@ public partial class Cascader<TValue>
     /// <param name="defaultValue"></param>
     private void SetDefaultValue(string defaultValue)
     {
-        _selectedItems.Clear();
+        SelectedItems.Clear();
         var item = GetNodeByValue(Items, defaultValue);
         if (item != null)
         {
-            SetSelectedNodeWithParent(item, _selectedItems);
+            SetSelectedNodeWithParent(item, SelectedItems);
         }
         else
         {
@@ -159,7 +159,7 @@ public partial class Cascader<TValue>
     /// <param name="item"></param>
     /// <returns></returns>
     private string? ActiveItem(string className, CascaderItem item) => CssBuilder.Default(className)
-        .AddClass("active", () => _selectedItems.Contains(item))
+        .AddClass("active", () => SelectedItems.Contains(item))
         .Build();
 
     /// <summary>
@@ -169,15 +169,15 @@ public partial class Cascader<TValue>
 
     private async Task SetSelectedItem(CascaderItem item)
     {
-        _selectedItems.Clear();
-        SetSelectedNodeWithParent(item, _selectedItems);
+        SelectedItems.Clear();
+        SetSelectedNodeWithParent(item, SelectedItems);
         await SetValue(item.Value);
     }
 
     private async Task SetValue(string value)
     {
         RefreshDisplayValue();
-        if (_selectedItems.Count != 1)
+        if (SelectedItems.Count != 1)
         {
             StateHasChanged();
         }
@@ -186,11 +186,11 @@ public partial class Cascader<TValue>
 
         if (OnSelectedItemChanged != null)
         {
-            await OnSelectedItemChanged.Invoke(_selectedItems.ToArray());
+            await OnSelectedItemChanged.Invoke(SelectedItems.ToArray());
         }
     }
 
-    private void RefreshDisplayValue() => DisplayTextString = string.Join("/", _selectedItems.Select(item => item.Text));
+    private void RefreshDisplayValue() => DisplayTextString = string.Join("/", SelectedItems.Select(item => item.Text));
 
     /// <summary>
     /// 设置选中所有父节点
