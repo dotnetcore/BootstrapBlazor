@@ -132,7 +132,7 @@ public partial class Cascader<TValue>
     /// </summary>
     private string? ClassName => CssBuilder.Default("dropdown")
         .AddClass("disabled", IsDisabled)
-        .AddClassFromAttributes(AdditionalAttributes)
+        .AddClass(CssClass).AddClass(ValidCss)
         .Build();
 
     /// <summary>
@@ -140,7 +140,7 @@ public partial class Cascader<TValue>
     /// </summary>
     private string? InputClassName => CssBuilder.Default("form-control form-select")
         .AddClass($"border-{Color.ToDescriptionString()}", Color != Color.None && !IsDisabled)
-        .AddClass(CssClass).AddClass(ValidCss)
+        .AddClass(ValidCss)
         .Build();
 
     private string? BackgroundColor => IsDisabled ? null : "background-color: #fff;";
