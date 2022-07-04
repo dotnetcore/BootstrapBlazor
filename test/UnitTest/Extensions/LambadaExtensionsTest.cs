@@ -397,24 +397,41 @@ public class LambadaExtensionsTest
     [Fact]
     public void GetKeyValue_Ok()
     {
-        Foo? foo1 = null, foo2 = null;
-        Assert.Throws<ArgumentNullException>(() => LambdaExtensions.GetKeyValue<Foo?, string>(foo1));
+        var foo1 = new Foo() { Id = 123, Name = "Test", Count = 20 };
+        var foo2 = new Foo() { Id = 234, Name = "Test", Count = 20 };
 
-        foo1 = new Foo() { Id = 123, Name = "Test", Count = 20 };
-        foo2 = new Foo() { Id = 234, Name = "Test", Count = 20 };
-
-        var invoker1 = LambdaExtensions.GetKeyValue<Foo?, int>(foo1).Compile();
+        var invoker1 = LambdaExtensions.GetKeyValue<Foo?, int>().Compile();
         Assert.Equal(123, invoker1(foo1));
 
-        var invoker2 = LambdaExtensions.GetKeyValue<Foo?, object>(foo1).Compile();
+        var invoker2 = LambdaExtensions.GetKeyValue<Foo?, object>().Compile();
         Assert.Equal(123, invoker2(foo1));
 
-        Assert.Throws<InvalidOperationException>(() => LambdaExtensions.GetKeyValue<Foo?, DateTime>(foo1));
+        Assert.Throws<InvalidOperationException>(() => LambdaExtensions.GetKeyValue<Foo?, DateTime>());
 
-        var invoker3 = LambdaExtensions.GetKeyValue<Foo?, object>(foo1, typeof(RequiredAttribute)).Compile();
+        var invoker3 = LambdaExtensions.GetKeyValue<Foo?, object>(typeof(RequiredAttribute)).Compile();
         Assert.Equal(invoker3(foo1), invoker3(foo2));
+
         foo1.Address = "Test";
         Assert.NotEqual(invoker3(foo1), invoker3(foo2));
+    }
+
+    [Fact]
+    public void GetKeyValue_Tuple()
+    {
+        var val = new Tuple<int, string, int>(1, "Test1", 2);
+        var dog1 = new Dog()
+        {
+            Id = 1,
+            Age = 2,
+            Name = "Test1"
+        };
+        var invoker1 = LambdaExtensions.GetKeyValue<Dog, object>(typeof(DogKeyAttribute)).Compile();
+        var val1 = invoker1(dog1);
+        Assert.Equal(val, val1);
+
+        var invoker2 = LambdaExtensions.GetKeyValue<Dog, Tuple<int, string, int>>(typeof(DogKeyAttribute)).Compile();
+        var val2 = invoker1(dog1);
+        Assert.Equal(val, val2);
     }
 
     private abstract class MockFilterActionBase : IFilterAction
@@ -527,5 +544,22 @@ public class LambadaExtensionsTest
     private class Cat
     {
         public EnumEducation Education { get; set; }
+    }
+
+    private class Dog
+    {
+        [DogKey]
+        public int Id { get; set; }
+
+        [DogKey]
+        public string? Name { get; set; }
+
+        [DogKey]
+        public int Age { get; set; }
+    }
+
+    private class DogKeyAttribute : Attribute
+    {
+
     }
 }

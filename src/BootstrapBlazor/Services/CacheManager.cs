@@ -445,7 +445,7 @@ internal class CacheManager : ICacheManager
         {
             entry.SetDynamicAssemblyPolicy(type);
 
-            return LambdaExtensions.GetKeyValue<TModel, TValue>(model, customAttribute).Compile();
+            return LambdaExtensions.GetKeyValue<TModel, TValue>(customAttribute).Compile();
         });
         return invoker(model);
     }

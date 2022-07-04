@@ -48,8 +48,7 @@ public class TableToolbarPopconfirmButton<TItem> : PopConfirmButtonBase
     /// <returns></returns>
     protected override async ValueTask DisposeAsyncCore(bool disposing)
     {
-        await base.DisposeAsyncCore(disposing);
-
         Toolbar?.RemoveButton(this);
+        await base.DisposeAsyncCore(disposing);
     }
 }
