@@ -36,9 +36,19 @@ public class LambadaExtensionsTest
     [Fact]
     public void GetFilterLambda_Nullable()
     {
-        var filters = new FilterKeyValueAction() { FieldKey = nameof(Foo.DateTime), FieldValue = DateTime.MinValue };
-        var exp = filters.GetFilterLambda<Foo>();
-        Assert.True(exp.Compile().Invoke(new Foo() { DateTime = DateTime.MinValue }));
+        var filters = new FilterKeyValueAction() { FieldKey = nameof(Foo.DateTime), FieldValue = null };
+        var invoker = filters.GetFilterLambda<Foo>().Compile();
+
+        // FieldValue 为 null 值 直接返回 true
+        Assert.True(invoker.Invoke(new Foo() { DateTime = DateTime.MinValue }));
+
+        // 过滤条件更改为 MinValue
+        filters = new FilterKeyValueAction() { FieldKey = nameof(Foo.DateTime), FieldValue = DateTime.MinValue };
+        invoker = filters.GetFilterLambda<Foo>().Compile();
+
+        Assert.True(invoker.Invoke(new Foo() { DateTime = DateTime.MinValue }));
+        Assert.False(invoker.Invoke(new Foo() { DateTime = DateTime.Now }));
+        Assert.False(invoker.Invoke(new Foo() { DateTime = null }));
     }
 
     [Fact]
@@ -98,9 +108,13 @@ public class LambadaExtensionsTest
     [Fact]
     public void FilterKeyValueAction_FieldKey_Null()
     {
-        var filter = new FilterKeyValueAction();
+        // FieldValue 为 null 时 均返回 true
+        var filter = new FilterKeyValueAction() { FieldKey = "Name", FieldValue = null };
         var invoker = filter.GetFilterLambda<Foo>().Compile();
+
+        // 符合条件
         Assert.True(invoker.Invoke(new Foo()));
+        Assert.True(invoker.Invoke(new Foo() { Name = "Test" }));
     }
 
     [Fact]
@@ -109,6 +123,7 @@ public class LambadaExtensionsTest
         var filter = new FilterKeyValueAction() { FieldKey = "Name", FieldValue = "Name" };
         var invoker = filter.GetFilterLambda<Foo>().Compile();
         Assert.True(invoker.Invoke(new Foo() { Name = "Name" }));
+        Assert.False(invoker.Invoke(new Foo() { Name = "Name1" }));
     }
 
     [Fact]
@@ -139,9 +154,21 @@ public class LambadaExtensionsTest
     [Fact]
     public void FilterKeyValueAction_ComplexFilterExpression_Nullable()
     {
-        var filter = new FilterKeyValueAction() { FieldKey = "Foo.DateTime", FieldValue = DateTime.MinValue };
+        // 搜索条件为 DateTime.Now
+        var filter = new FilterKeyValueAction() { FieldKey = "Foo.DateTime", FieldValue = DateTime.Now };
         var invoker = filter.GetFilterLambda<Dummy>().Compile();
+
+        // 均不符合条件
+        Assert.False(invoker.Invoke(new Dummy() { Foo = new Foo() { DateTime = DateTime.MinValue } }));
+        Assert.False(invoker.Invoke(new Dummy() { Foo = new Foo() { DateTime = null } }));
+
+        // 搜索条件为 Null
+        filter = new FilterKeyValueAction() { FieldKey = "Foo.DateTime", FieldValue = null };
+        invoker = filter.GetFilterLambda<Dummy>().Compile();
+
+        // 均符合条件
         Assert.True(invoker.Invoke(new Dummy() { Foo = new Foo() { DateTime = DateTime.MinValue } }));
+        Assert.True(invoker.Invoke(new Dummy() { Foo = new Foo() { DateTime = null } }));
     }
 
     [Fact]
@@ -432,6 +459,22 @@ public class LambadaExtensionsTest
         var invoker2 = LambdaExtensions.GetKeyValue<Dog, Tuple<int, string, int>>(typeof(DogKeyAttribute)).Compile();
         var val2 = invoker1(dog1);
         Assert.Equal(val, val2);
+    }
+
+    [Fact]
+    public void TryParse_Ok()
+    {
+        Func<int?, bool> func = _ => false;
+        var exp = Expression.Parameter(typeof(int?));
+        var pi = typeof(int?).GetProperty("HasValue");
+
+        if (pi != null)
+        {
+            var exp_p = Expression.Property(exp, pi);
+            func = Expression.Lambda<Func<int?, bool>>(exp_p, exp).Compile();
+        }
+        Assert.True(func.Invoke(10));
+        Assert.False(func.Invoke(null));
     }
 
     private abstract class MockFilterActionBase : IFilterAction
