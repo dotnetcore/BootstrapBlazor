@@ -15,6 +15,14 @@
     </ul>
 </Tips>
 
+<p>第一步：设置 <code>IsTree</code> 为 <code>true</code></p>
+
+<p>第二步：设置 <code>Items</code> 或者 <code>OnQueryAsync</code> 获得组件数据集合</p>
+
+<p>第三步：设置 <code>TreeNodeConverter</code> 将组件数据集合转化为树状结构</p>
+
+<p>第四步：设置 <code>OnTreeExpand</code> 回调委托响应行展开获取子项数据集合</p>
+
 <DemoBlock Title="树形数据展示" Introduction="通过设置 <code>IsTree</code> 开启树形表格" Name="TreeData">
     <Table TItem="TreeFoo" IsBordered="true" IsStriped="true" HeaderStyle="@TableHeaderStyle.Light"
            Items="@TreeItems" IsTree="true" TreeNodeConverter="@TreeNodeConverter" OnTreeExpand="@OnTreeExpand">
@@ -44,9 +52,6 @@
 </DemoBlock>
 
 <DemoBlock Title="具有单表维护功能的树形数据" Introduction="实现简单的增、删、改、查功能。" Name="EditTree">
-    <Tips>
-        <div>通过在实体的唯一标识字段上定义 <code>[Key]</code> 特性，来保持展开状态</div>
-    </Tips>
     <Table TItem="TreeFoo" IsBordered="true" HeaderStyle="@TableHeaderStyle.Light"
            ShowToolbar="true" ShowExtendButtons="true" ShowSkeleton="true" IsStriped="true"
            OnQueryAsync="@OnQueryAsync" OnAddAsync="@OnAddAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync"
