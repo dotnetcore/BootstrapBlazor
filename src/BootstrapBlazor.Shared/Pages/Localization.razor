@@ -60,6 +60,40 @@
 }</Pre>
 
 <p><b>2. 启用 .NET 核心本地化服务</b></p>
+
+<Tab>
+    <TabItem Text="NET6.0" Icon="fa fa-code" Closable="false">
+<Pre>builder.Services.AddRazorPages();
+builder.Services.AddServerSideBlazor();
+
+// 增加 Bootstrap Blazor 组件
+builder.Services.AddBootstrapBlazor();
+
+// 增加多语言支持配置信息
+builder.Services.AddRequestLocalization&lt;IOptionsMonitor&lt;BootstrapBlazorOptions&gt;&gt;((localizerOption, blazorOption)=>
+{
+    blazorOption.OnChange(op => Invoke(op));
+    Invoke(blazorOption.CurrentValue);
+
+    void Invoke(BootstrapBlazorOptions option)
+    {
+        var supportedCultures = option.GetSupportedCultures();
+        localizerOption.SupportedCultures = supportedCultures;
+        localizerOption.SupportedUICultures = supportedCultures;
+    }
+});
+
+var app = builder.Build();
+
+// 启用本地化
+var option = app.Services.GetService&lt;IOptions&lt;RequestLocalizationOptions&gt;&gt;();
+if (option != null)
+{
+    app.UseRequestLocalization(option.Value);
+}
+</Pre>
+    </TabItem>
+    <TabItem Text="NET5.0" Icon="fa fa-code" Closable="false">
 <Pre>public class Startup
 {
     public void ConfigureServices(IServiceCollection services)
@@ -83,6 +117,8 @@
         app.UseRequestLocalization(app.ApplicationServices.GetService&lt;IOptions&lt;RequestLocalizationOptions&gt;&gt;()!.Value);
     }
 }</Pre>
+    </TabItem>
+</Tab>
 
 <p><b>3. 实现 UI 本地化信息存储（例如，cookie）</b></p>
 <Pre>[Route("[controller]/[action]")]
