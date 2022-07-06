@@ -151,7 +151,6 @@ public sealed partial class NavMenu
         {
             new()
             {
-                IsNew = true,
                 Text = Localizer["SpeechIntro"],
                 Url = "speechs"
             },
@@ -228,7 +227,6 @@ public sealed partial class NavMenu
             },
             new()
             {
-                IsNew = true,
                 Text = Localizer["Breakpoints"],
                 Url = "breakpoints"
             },
@@ -347,7 +345,6 @@ public sealed partial class NavMenu
             },
             new()
             {
-                IsNew = true,
                 Text = Localizer["CherryMarkdown"],
                 Url = "cherry-markdowns"
             },
@@ -363,7 +360,6 @@ public sealed partial class NavMenu
             },
             new()
             {
-                IsUpdate = true,
                 Text = Localizer["Radio"],
                 Url = "radios"
             },
@@ -595,7 +591,6 @@ public sealed partial class NavMenu
             },
             new()
             {
-                IsNew = true,
                 Text = Localizer["Topology"],
                 Url = "Topologies"
             },
@@ -862,13 +857,11 @@ public sealed partial class NavMenu
             },
             new()
             {
-                IsNew = true,
                 Text = Localizer["Reconnector"],
                 Url = "reconnectors"
             },
             new()
             {
-                IsNew = true,
                 Text = Localizer["Responsive"],
                 Url = "responsives"
             },
@@ -962,7 +955,6 @@ public sealed partial class NavMenu
             },
             new()
             {
-                IsNew = true,
                 Text = Localizer["RibbonTab"],
                 Url = "ribbontabs"
             },
@@ -992,7 +984,6 @@ public sealed partial class NavMenu
             },
             new()
             {
-                IsNew = true,
                 Text = Localizer["Dragdrop"],
                 Url = "dragdrops"
             },
