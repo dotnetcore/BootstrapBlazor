@@ -492,15 +492,21 @@ public class TableTest : TableTestBase
     [Fact]
     public async Task ShowColumnList_Ok()
     {
+        var show = true;
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
         {
-            pb.AddChildContent<Table<Foo>>(pb =>
+            pb.AddChildContent<Table<Foo>>(async pb =>
             {
                 pb.Add(a => a.ShowToolbar, true);
                 pb.Add(a => a.ShowColumnList, true);
                 pb.Add(a => a.ColumnButtonText, "Test_Column_List");
                 pb.Add(a => a.Items, Foo.GenerateFoo(localizer, 2));
+                pb.Add(a => a.OnColumnVisibleChanged, (colName, visible) =>
+                {
+                    show = visible;
+                    return Task.CompletedTask;
+                });
                 pb.Add(a => a.TableColumns, foo => builder =>
                 {
                     builder.OpenComponent<TableColumn<Foo, string>>(0);
@@ -520,6 +526,8 @@ public class TableTest : TableTestBase
 
         var item = cut.Find(".dropdown-item");
         await cut.InvokeAsync(() => item.Click());
+
+        Assert.False(show);
     }
 
     [Fact]

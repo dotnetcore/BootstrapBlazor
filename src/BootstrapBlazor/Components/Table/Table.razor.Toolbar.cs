@@ -128,6 +128,7 @@ public partial class Table<TItem>
     /// <summary>
     /// 获得/设置 是否显示列选择下拉框 默认为 false 不显示
     /// </summary>
+    /// <remarks>点击下拉框内列控制是否显示后触发 <see cref="OnColumnVisibleChanged"/> 回调方法</remarks>
     [Parameter]
     public bool ShowColumnList { get; set; }
 

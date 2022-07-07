@@ -109,4 +109,18 @@ public partial class Table<TItem>
         // https://gitee.com/LongbowEnterprise/BootstrapBlazor/issues/I1UYQG
         StateHasChanged();
     }
+
+    /// <summary>
+    /// 获得/设置 列改变显示状态回调方法
+    /// </summary>
+    [Parameter]
+    public Func<string, bool, Task>? OnColumnVisibleChanged { get; set; }
+
+    private async Task OnToggleColumnVisible(string columnName, bool visible)
+    {
+        if (OnColumnVisibleChanged != null)
+        {
+            await OnColumnVisibleChanged(columnName, visible);
+        }
+    }
 }

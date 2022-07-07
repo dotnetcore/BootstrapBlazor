@@ -798,6 +798,14 @@ public partial class Tables
         },
         new()
         {
+            Name = "OnColumnVisibleChanged",
+            Description = TablesLocalizer["OnColumnVisibleChangedAttr"],
+            Type = "Func<string, bool>",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
             Name = "ShowEmpty",
             Description = TablesLocalizer["ShowEmptyAttr"],
             Type = "boolean",

@@ -77,7 +77,7 @@
                                     {
                                         <div class="dropdown-item">
                                             <Checkbox ShowAfterLabel="true" IsDisabled="@GetColumnsListState(item)"
-                                                  DisplayText="@item.GetDisplayName()" @bind-Value="@poco.Visible">
+                                                  DisplayText="@item.GetDisplayName()" @bind-Value="@poco.Visible" OnValueChanged="visible => OnToggleColumnVisible(poco.FieldName, visible)">
                                             </Checkbox>
                                         </div>
                                     }
