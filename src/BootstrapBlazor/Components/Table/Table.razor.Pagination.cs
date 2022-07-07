@@ -31,24 +31,19 @@ public partial class Table<TItem>
     [NotNull]
     public string? LineNoText { get; set; }
 
-    private IEnumerable<int>? _pageItemsSource;
     /// <summary>
     /// 获得/设置 每页显示数据数量的外部数据源
     /// </summary>
     [Parameter]
     [NotNull]
-    public IEnumerable<int>? PageItemsSource
-    {
-        get
-        {
-            return _pageItemsSource ?? new int[] { 20, 50, 100, 200, 500, 1000 };
-        }
-        set
-        {
-            _pageItemsSource = value;
-            PageItems = _pageItemsSource?.FirstOrDefault() ?? 20;
-        }
-    }
+    public IEnumerable<int> PageItemsSource { get; set; } = new int[] { 20, 50, 100, 200, 500, 1000 };
+
+    /// <summary>
+    /// 获得/设置 默认每页数据数量 默认 null 使用 <see cref="PageItemsSource"/> 第一个值
+    /// </summary>
+    /// <remarks>此参数仅首次加载时生效</remarks>
+    [Parameter]
+    public int? PageItems { get; set; }
 
     /// <summary>
     /// 异步查询回调方法，设置 <see cref="Items"/> 后无法触发此回调方法
@@ -67,15 +62,14 @@ public partial class Table<TItem>
     protected int PageIndex { get; set; } = 1;
 
     /// <summary>
+    /// 当前分页组件每页显示数量
+    /// </summary>
+    protected int CurrentPageItems { get; set; }
+
+    /// <summary>
     /// 获得/设置 当前行
     /// </summary>
     protected int StartIndex { get; set; }
-
-    /// <summary>
-    /// 获得/设置 每页数据数量
-    /// </summary>
-    [Parameter]
-    public int PageItems { get; set; } = QueryPageOptions.DefaultPageItems;
 
     /// <summary>
     /// 点击页码调用此方法
@@ -89,7 +83,7 @@ public partial class Table<TItem>
             SelectedRows.Clear();
             await OnSelectedRowsChanged();
             PageIndex = pageIndex;
-            PageItems = pageItems;
+            CurrentPageItems = pageItems;
             await QueryAsync();
         }
     }
@@ -99,10 +93,10 @@ public partial class Table<TItem>
     /// </summary>
     protected async Task OnPageItemsChanged(int pageItems)
     {
-        if (PageItems != pageItems)
+        if (CurrentPageItems != pageItems)
         {
             PageIndex = 1;
-            PageItems = pageItems;
+            CurrentPageItems = pageItems;
             await QueryAsync();
         }
     }

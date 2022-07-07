@@ -655,12 +655,32 @@ public class TableTest : TableTestBase
         });
 
         var table = cut.FindComponent<Table<Foo>>();
-        Assert.Equal(20, table.Instance.PageItems);
+        Assert.Equal(20, table.Instance.PageItemsSource.First());
+    }
 
-        table.SetParametersAndRender(pb => pb.Add(a => a.PageItemsSource, new int[] { 4, 6, 8 }));
-        Assert.Equal(4, table.Instance.PageItems);
+    [Fact]
+    public void PageItems_Ok()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.IsPagination, true);
+                pb.Add(a => a.OnQueryAsync, OnQueryAsync(localizer));
+                pb.Add(a => a.PageItems, 20);
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+                });
+            });
+        });
 
-        table.SetParametersAndRender(pb => pb.Add(a => a.PageItemsSource, null));
+        var table = cut.FindComponent<Table<Foo>>();
         Assert.Equal(20, table.Instance.PageItems);
     }
 

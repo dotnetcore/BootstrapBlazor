@@ -651,9 +651,9 @@ public partial class Table<TItem>
                         // 由于数据删除导致页码会改变，尤其是最后一页
                         // 重新计算页码
                         // https://gitee.com/LongbowEnterprise/BootstrapBlazor/issues/I1UJSL
-                        PageIndex = Math.Max(1, Math.Min(PageIndex, int.Parse(Math.Ceiling((TotalCount - SelectedRows.Count) * 1d / PageItems).ToString())));
+                        PageIndex = Math.Max(1, Math.Min(PageIndex, int.Parse(Math.Ceiling((TotalCount - SelectedRows.Count) * 1d / CurrentPageItems).ToString())));
                         var items = PageItemsSource.Where(item => item >= (TotalCount - SelectedRows.Count));
-                        PageItems = Math.Min(PageItems, items.Any() ? items.Min() : PageItems);
+                        CurrentPageItems = Math.Min(CurrentPageItems, items.Any() ? items.Min() : CurrentPageItems);
                     }
                     SelectedRows.Clear();
                     await QueryAsync();

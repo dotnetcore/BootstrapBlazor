@@ -442,7 +442,7 @@ public partial class Table<TItem>
             {
                 IsPage = IsPagination,
                 PageIndex = PageIndex,
-                PageItems = PageItems,
+                PageItems = CurrentPageItems,
                 SearchText = SearchText,
                 SortOrder = SortOrder,
                 SortName = SortName,

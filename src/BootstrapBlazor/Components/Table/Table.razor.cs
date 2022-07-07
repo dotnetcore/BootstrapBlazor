@@ -511,6 +511,8 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
         {
             RenderMode = op.TableSettings.TableRenderMode.Value;
         }
+
+        CurrentPageItems = PageItems ?? PageItemsSource.First();
     }
 
     /// <summary>
@@ -919,7 +921,7 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
         StartIndex = request.StartIndex;
         if (TotalCount > 0)
         {
-            PageItems = Math.Min(request.Count, TotalCount - request.StartIndex);
+            CurrentPageItems = Math.Min(request.Count, TotalCount - request.StartIndex);
         }
         await QueryData();
         return new ItemsProviderResult<TItem>(QueryItems ?? Enumerable.Empty<TItem>(), TotalCount);

@@ -141,7 +141,7 @@
         @if (ShowTopPagination && TotalCount > 0 && IsPagination)
         {
             <div class="table-pagination is-top">
-                <Pagination PageItemsSource="@PageItemsSource" PageItems="@PageItems" TotalCount="@TotalCount" PageIndex="@PageIndex" OnPageClick="@OnPageClick" OnPageItemsChanged="@OnPageItemsChanged"></Pagination>
+                <Pagination PageItemsSource="@PageItemsSource" PageItems="@CurrentPageItems" TotalCount="@TotalCount" PageIndex="@PageIndex" OnPageClick="@OnPageClick" OnPageItemsChanged="@OnPageItemsChanged"></Pagination>
             </div>
         }
         <div class="@WrapperClassName">
@@ -187,7 +187,7 @@
                         {
                             <div class="table-cell">
                                 <label>@LineNoText</label>
-                                <span>@(Rows.IndexOf(item) + 1 + (PageIndex -1) * PageItems)</span>
+                                <span>@(Rows.IndexOf(item) + 1 + (PageIndex -1) * CurrentPageItems)</span>
                             </div>
                         }
                         @if (!IsExcel && ShowExtendButtons && IsExtendButtonsInRowHeader)
@@ -261,7 +261,7 @@
         @if (!ShowTopPagination && TotalCount > 0 && IsPagination)
         {
             <div class="table-pagination">
-                <Pagination PageItemsSource="@PageItemsSource" PageItems="@PageItems" TotalCount="@TotalCount" PageIndex="@PageIndex" OnPageClick="@OnPageClick" OnPageItemsChanged="@OnPageItemsChanged"></Pagination>
+                <Pagination PageItemsSource="@PageItemsSource" PageItems="@CurrentPageItems" TotalCount="@TotalCount" PageIndex="@PageIndex" OnPageClick="@OnPageClick" OnPageItemsChanged="@OnPageItemsChanged"></Pagination>
             </div>
         }
         <div class="table-loader">
@@ -585,7 +585,7 @@ RenderFragment<TItem> RenderRow => item =>
     @if (ShowLineNo)
     {
         <td>
-            <div class="table-cell">@(Rows.IndexOf(item) + 1 + (PageIndex -1) * PageItems)</div>
+            <div class="table-cell">@(Rows.IndexOf(item) + 1 + (PageIndex -1) * CurrentPageItems)</div>
         </td>
     }
     @{
