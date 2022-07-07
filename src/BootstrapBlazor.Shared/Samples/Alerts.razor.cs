@@ -116,12 +116,12 @@ public sealed partial class Alerts
     /// <returns></returns>
     private static IEnumerable<EventItem> GetEvents() => new EventItem[]
     {
-            new EventItem()
-            {
-                Name = "OnDismiss",
-                Description="关闭警告框回调方法",
-                Type ="EventCallback<MouseEventArgs>"
-            }
+        new EventItem()
+        {
+            Name = "OnDismiss",
+            Description="关闭警告框回调方法",
+            Type ="EventCallback<MouseEventArgs>"
+        }
     };
 
     /// <summary>

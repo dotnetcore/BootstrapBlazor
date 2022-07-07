@@ -942,7 +942,7 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
 
     private int GetColumnCount()
     {
-        var colspan = ColumnVisibles.Count(col => col.Visible);
+        var colspan = GetColumns().Count(col => col.Visible);
         if (IsMultipleSelect)
         {
             colspan++;

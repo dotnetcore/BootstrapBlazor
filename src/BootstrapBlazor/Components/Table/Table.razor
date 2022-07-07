@@ -708,7 +708,7 @@ RenderFragment RenderPlaceHolderRow =>
 RenderFragment<(TItem Item, ItemChangedType ChangedType)> RenderEditForm => item =>
 @<tr class="is-editform">
     @{
-        var colspanCount = Columns.Count;
+        var colspanCount = GetColumnCount();
         if (IsMultipleSelect) colspanCount++;
         if (ShowLineNo) colspanCount++;
         if (ShowDetails()) colspanCount++;
