@@ -22,19 +22,10 @@
         margin-right: .5rem;
     }
 
-.modal-header .btn-print {
-    padding: 3px 8px 4px 8px;
-    margin: 0 6px;
-}
-
 .bb-printview {
     background-color: #fff;
     padding: 1rem;
     min-height: calc(100vh);
-}
-
-.modal-header .btn-maximize {
-    color: #6c757d;
 }
 
 .modal-header-buttons {
@@ -42,6 +33,16 @@
     top: 11px;
     right: 1rem;
 }
+
+    .modal-header-buttons .btn-maximize {
+        color: #6c757d;
+        padding: 0 1rem 0 0;
+    }
+
+    .modal-header-buttons .btn-print {
+        padding: 3px 8px 4px 8px;
+        margin: 0 6px;
+    }
 
 @media screen {
     .bb-printview {
