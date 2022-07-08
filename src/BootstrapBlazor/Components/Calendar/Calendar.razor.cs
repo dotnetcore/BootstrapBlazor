@@ -76,6 +76,14 @@ public partial class Calendar
             .AddClass("is-today", Value.AddDays(offset - (int)Value.DayOfWeek) == DateTime.Today)
             .Build();
 
+    private static string? GetCalendarCellString(CalendarCellValue item) => CssBuilder.Default()
+            .AddClass("prev", item.CellValue.Month < item.CalendarValue.Month)
+            .AddClass("next", item.CellValue.Month > item.CalendarValue.Month)
+            .AddClass("current", item.CellValue.Month == item.CalendarValue.Month)
+            .AddClass("is-selected", item.CellValue.Ticks == item.CalendarValue.Ticks)
+            .AddClass("is-today", item.CellValue.Ticks == DateTime.Today.Ticks)
+            .Build();
+
     /// <summary>
     /// OnInitialized 方法
     /// </summary>
@@ -102,6 +110,7 @@ public partial class Calendar
         WeekNumberText = Localizer[nameof(WeekNumberText), GetWeekCount()];
         Months = Localizer[nameof(Months)].Value.Split(',').ToList();
     }
+
     /// <summary>
     /// 获得/设置 日历框开始时间
     /// </summary>
@@ -152,6 +161,12 @@ public partial class Calendar
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
+
+    /// <summary>
+    /// 获得/设置 单元格模板
+    /// </summary>
+    [Parameter]
+    public RenderFragment<CalendarCellValue>? CellTemplate { get; set; }
 
     /// <summary>
     /// 选中日期时回调此方法
@@ -208,5 +223,16 @@ public partial class Calendar
             Value = Value.AddDays(offset);
         }
         WeekNumberText = Localizer[nameof(WeekNumberText), GetWeekCount()];
+    }
+
+    private CalendarCellValue CreateCellValue(DateTime cellValue)
+    {
+        var val = new CalendarCellValue()
+        {
+            CellValue = cellValue,
+            CalendarValue = Value
+        };
+        val.DefaultCss = GetCalendarCellString(val);
+        return val;
     }
 }

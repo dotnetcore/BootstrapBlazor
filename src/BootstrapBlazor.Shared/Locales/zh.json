@@ -2079,6 +2079,8 @@
     "BindIntro": "日历框选择时间时数据自动更新文本框",
     "ViewModeTitle": "按周展示",
     "ViewModeIntro": "通过设置属性 <code>CalendarViewMode.Week</code>",
+    "CellTemplateTitle": "单元格模板",
+    "CellTemplateIntro": "通过设置属性 <code>CellTemplate</code> 自定义单元格模板",
     "AppTitle": "实战应用",
     "AppIntro": "课堂表",
     "AppText": "目前按周内组件暂时为统一使用 <code>ChildContext</code> 来进行渲染，所有单元格内的数据相关操作组件均未进行封装，稍后完善",

@@ -15,7 +15,19 @@
     <BootstrapInput @bind-Value="@BindValue" Formatter="@Formatter" style="margin-top: 1rem;" />
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["ViewModelTitle"]" Introduction="@Localizer["ViewModelIntro"]" Name="ViewModel">
+<DemoBlock Title="@Localizer["CellTemplateTitle"]" Introduction="@Localizer["CellTemplateIntro"]" Name="CellTemplate">
+    <Calendar>
+        <CellTemplate>
+            <td class="@context.DefaultCss">
+                <div class="calendar-day">
+                    <div>@context.CellValue.Day</div>
+                </div>
+            </td>
+        </CellTemplate>
+    </Calendar>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["ViewModeTitle"]" Introduction="@Localizer["ViewModeIntro"]" Name="ViewModel">
     <Calendar ViewMode="CalendarViewMode.Week" />
 </DemoBlock>
 

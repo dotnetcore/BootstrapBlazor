@@ -2075,6 +2075,8 @@
     "BindIntro": "The calendar box automatically updates the text box when the time is selected",
     "ViewModeTitle": "Show by week",
     "ViewModeIntro": "By setting the property <code>CalendarViewMode.Week</code>",
+    "CellTemplateTitle": "Cell Template",
+    "CellTemplateIntro": "customer the cell template via <code>CellTemplate</code>",
     "AppTitle": "Practical applications",
     "AppIntro": "Curriculum",
     "AppText": "Currently, the <code>ChildContext</code> is temporarily rendered by the week component, and the data-related operating components in all cells are not encapsulated and will be refined later",
