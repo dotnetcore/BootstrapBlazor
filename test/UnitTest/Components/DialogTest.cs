@@ -184,6 +184,18 @@ public class DialogTest : DialogTestBase
         var result = false;
         var resultOption = new ResultDialogOption()
         {
+            ShowYesButton = true,
+            ButtonYesText = "Test-Yes",
+            ButtonYesIcon = "test test-yes-icon",
+            ButtonYesColor = Color.Primary,
+            ShowNoButton = true,
+            ButtonNoText = "Test-No",
+            ButtonNoIcon = "test test-no-icon",
+            ButtonNoColor = Color.Danger,
+            ShowCloseButton = true,
+            ButtonCloseText = "Test-Close",
+            ButtonCloseIcon = "test test-close-icon",
+            ButtonCloseColor = Color.Secondary,
             ComponentParamters = new Dictionary<string, object>()
             {
                 [nameof(MockModalDialog.Value)] = result,
@@ -193,7 +205,7 @@ public class DialogTest : DialogTestBase
 
         // 点击的是 Yes 按钮
         cut.InvokeAsync(() => dialog.ShowModal<MockModalDialog>(resultOption));
-        button = cut.FindComponents<Button>().First(b => b.Instance.Text == "确认");
+        button = cut.FindComponents<Button>().First(b => b.Instance.Text == "Test-Yes");
         cut.InvokeAsync(() => button.Instance.OnClick.InvokeAsync());
         Assert.True(result);
 

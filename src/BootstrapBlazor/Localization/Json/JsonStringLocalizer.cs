@@ -191,13 +191,16 @@ internal class JsonStringLocalizer : ResourceManagerStringLocalizer
             IEnumerable<LocalizedString>? ret = base.GetAllStrings(includeParentCultures);
             try
             {
-                _ = ret.Any();
+                CheckMissing();
             }
             catch (MissingManifestResourceException)
             {
                 ret = null;
             }
             return ret;
+
+            [ExcludeFromCodeCoverage]
+            void CheckMissing() => _ = ret.Any();
         }
 
         // 3. 从 Json 文件中获取资源信息
