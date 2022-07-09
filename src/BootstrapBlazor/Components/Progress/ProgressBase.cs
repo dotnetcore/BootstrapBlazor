@@ -20,19 +20,19 @@ public abstract class ProgressBase : BootstrapComponentBase
     [Parameter] public Color Color { get; set; } = Color.Primary;
 
     /// <summary>
-    /// 获得/设置 是否显示进度条值
+    /// 获得/设置 是否显示进度条值 默认 false
     /// </summary>
     /// <value></value>
     [Parameter] public bool IsShowValue { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否显示为条纹
+    /// 获得/设置 是否显示为条纹 默认 false
     /// </summary>
     /// <value></value>
     [Parameter] public bool IsStriped { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否动画
+    /// 获得/设置 是否动画 默认 false
     /// </summary>
     /// <value></value>
     [Parameter] public bool IsAnimated { get; set; }
