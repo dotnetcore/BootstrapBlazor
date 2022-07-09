@@ -128,7 +128,7 @@ public partial class ImageViewer
         {
             builder.OpenElement(0, "img");
             builder.AddAttribute(1, "class", ImageClassString);
-            if (!string.IsNullOrEmpty(Url) && !IsAsync)
+            if (!IsAsync)
             {
                 builder.AddAttribute(2, "src", Url);
             }
