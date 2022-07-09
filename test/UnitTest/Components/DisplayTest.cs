@@ -171,6 +171,34 @@ public class DisplayTest : BootstrapBlazorTestBase
         Assert.Contains("Test Label", cut.Markup);
     }
 
+    [Fact]
+    public void Bind_Ok()
+    {
+        var foo = new BootstrapBlazor.Shared.Foo();
+        var cut = Context.RenderComponent<ValidateForm>(pb =>
+        {
+            pb.Add(a => a.Model, foo);
+            pb.AddChildContent<BootstrapInputGroup>(pb =>
+            {
+                pb.Add(a => a.ChildContent, builder =>
+                {
+                    builder.OpenComponent<Display<string>>(0);
+                    builder.AddAttribute(1, "Value", foo.Name);
+                    builder.AddAttribute(2, "ValueExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+
+                    builder.OpenComponent<BootstrapInputGroupLabel>(3);
+                    builder.AddAttribute(4, "Value", "Name");
+                    builder.AddAttribute(5, "ValueExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+                });
+            });
+        });
+        Assert.Contains("is-display", cut.Markup);
+        Assert.Contains("input-group-text", cut.Markup);
+        Assert.Contains("<span>&#x59D3;&#x540D;</span>", cut.Markup);
+    }
+
     class DisplayGenericValueMock<T>
     {
         [NotNull]

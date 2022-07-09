@@ -136,7 +136,7 @@ public abstract class DisplayBase<TValue> : TooltipComponentBase
         {
             IsShowLabel = false;
 
-            if(DisplayText == null && FieldIdentifier.HasValue)
+            if (DisplayText == null && FieldIdentifier.HasValue)
             {
                 DisplayText = FieldIdentifier.Value.GetDisplayName();
             }
