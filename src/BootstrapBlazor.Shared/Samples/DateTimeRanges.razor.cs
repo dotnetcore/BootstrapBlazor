@@ -25,6 +25,7 @@ public sealed partial class DateTimeRanges
     private DateTimeRangeValue DateTimeRangeValue3 { get; set; } = new DateTimeRangeValue() { Start = DateTime.Today, End = DateTime.Today.AddDays(3) };
 
     private DateTimeRangeValue DateTimeRangeValue4 { get; set; } = new DateTimeRangeValue();
+    private DateTimeRangeValue DateTimeRangeValue5 { get; set; } = new DateTimeRangeValue() { Start = DateTime.Today, End = DateTime.Today.AddDays(3) };
 
     private bool IsDisabled { get; set; } = true;
 

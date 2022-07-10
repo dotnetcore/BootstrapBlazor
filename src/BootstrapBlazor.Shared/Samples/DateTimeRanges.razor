@@ -29,6 +29,26 @@
     </div>
 </DemoBlock>
 
+<DemoBlock Title="最大值和最小值" Introduction="设置时间的取值范围" Name="MaxMinValue">
+    <div class="row g-3">
+        <div class="col-12 col-sm-6">
+            <DateTimeRange @bind-Value="@DateTimeRangeValue5" MinValue=DateTime.Today.AddDays(-7) MaxValue=DateTime.Today.AddDays(7) />
+        </div>
+        <div class="col-12 col-sm-6">
+            <div>
+                @if (DateTimeRangeValue5.Start != DateTime.MinValue)
+                {
+                    <span>时间范围：</span> @DateTimeRangeValue5.Start.ToString("yyyy-MM-dd");
+                }
+                @if (DateTimeRangeValue5.End != DateTime.MinValue)
+                {
+                    <span> - </span> @DateTimeRangeValue5.End.ToString("yyyy-MM-dd");
+                }
+            </div>
+        </div>
+    </div>
+</DemoBlock>
+
 <DemoBlock Title="禁用" Introduction="设置 <code>IsDisabled</code> 属性值为 <code>true</code> 时，组件禁止输入" Name="Disabled">
 	<div class="row g-3">
 		<div class="col-12 col-sm-6">

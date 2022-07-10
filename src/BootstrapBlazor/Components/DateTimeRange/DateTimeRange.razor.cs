@@ -99,6 +99,17 @@ public partial class DateTimeRange
     public string? ConfirmButtonText { get; set; }
 
     /// <summary>
+    /// 获得/设置 最大值
+    /// </summary>
+    [Parameter]
+    public DateTime MaxValue { get; set; } = DateTime.MaxValue;
+    /// <summary>
+    /// 获得/设置 最小值
+    /// </summary>
+    [Parameter]
+    public DateTime MinValue { get; set; } = DateTime.MinValue;
+
+    /// <summary>
     /// 获得/设置 弹窗位置 默认为 Auto
     /// </summary>
     [Parameter]
