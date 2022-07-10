@@ -10,11 +10,6 @@ namespace BootstrapBlazor.Components;
 public class QueryPageOptions
 {
     /// <summary>
-    /// 每页数据数量 默认 20 行
-    /// </summary>
-    internal const int DefaultPageItems = 20;
-
-    /// <summary>
     /// 获得/设置 查询关键字
     /// </summary>
     public string? SearchText { get; set; }
@@ -73,7 +68,7 @@ public class QueryPageOptions
     /// <summary>
     /// 获得/设置 每页条目数量
     /// </summary>
-    public int PageItems { get; set; } = DefaultPageItems;
+    public int PageItems { get; set; } = 20;
 
     /// <summary>
     /// 获得/设置 是否是分页查询 默认为 false

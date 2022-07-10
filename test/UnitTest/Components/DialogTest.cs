@@ -413,16 +413,15 @@ public class DialogTest : DialogTestBase
         var btn = cut.Find(".btn-close");
         cut.InvokeAsync(() => btn.Click());
 
-        Func<DialogOption, Dictionary<string, object?>> parameterFactory = op => new Dictionary<string, object?>();
-        Action<DialogOption> configureOption = op => op.Class = "ValidateFormDialog-Class";
-        cut.InvokeAsync(() => dialog.ShowValidateFormDialog<MockValidateFormDialog>("ValidateFormDialog", parameterFactory, configureOption));
+        Dictionary<string, object?> parameterFactory(DialogOption op) => new();
+        void ConfigureOption(DialogOption op) => op.Class = "ValidateFormDialog-Class";
+        cut.InvokeAsync(() => dialog.ShowValidateFormDialog<MockValidateFormDialog>("ValidateFormDialog", parameterFactory, ConfigureOption));
         btn = cut.Find(".btn-close");
         cut.InvokeAsync(() => btn.Click());
         #endregion
 
         #region ShowCloseDialog
-        Action<Dictionary<string, object?>> closeDialogParameterFactory = op => new Dictionary<string, object?>();
-        cut.InvokeAsync(() => dialog.ShowCloseDialog<MockValidateFormDialog>("CloseDialog", closeDialogParameterFactory, configureOption));
+        cut.InvokeAsync(() => dialog.ShowCloseDialog<MockValidateFormDialog>("CloseDialog", null, ConfigureOption));
         btn = cut.Find(".btn-close");
         cut.InvokeAsync(() => btn.Click());
         cut.InvokeAsync(() => dialog.ShowCloseDialog<MockValidateFormDialog>("CloseDialog"));

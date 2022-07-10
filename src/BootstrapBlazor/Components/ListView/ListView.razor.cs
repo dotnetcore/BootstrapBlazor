@@ -89,7 +89,7 @@ public partial class ListView<TItem> : BootstrapComponentBase where TItem : clas
     /// <summary>
     /// 获得/设置 每页数据数量
     /// </summary>
-    protected int PageItems { get; set; } = QueryPageOptions.DefaultPageItems;
+    protected int PageItems { get; set; } = 20;
 
     /// <summary>
     /// OnInitialized 方法
