@@ -512,6 +512,8 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
             RenderMode = op.TableSettings.TableRenderMode.Value;
         }
 
+        PageItemsSource ??= new int[] { 20, 50, 100, 200, 500, 1000 };
+
         CurrentPageItems = PageItems ?? PageItemsSource.First();
     }
 

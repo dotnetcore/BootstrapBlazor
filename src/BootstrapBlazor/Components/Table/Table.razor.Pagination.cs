@@ -36,7 +36,7 @@ public partial class Table<TItem>
     /// </summary>
     [Parameter]
     [NotNull]
-    public IEnumerable<int> PageItemsSource { get; set; } = new int[] { 20, 50, 100, 200, 500, 1000 };
+    public IEnumerable<int>? PageItemsSource { get; set; }
 
     /// <summary>
     /// 获得/设置 默认每页数据数量 默认 null 使用 <see cref="PageItemsSource"/> 第一个值
