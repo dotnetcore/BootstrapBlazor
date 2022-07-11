@@ -447,8 +447,6 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
 
         OnInitLocalization();
 
-        OnInitParameters();
-
         Interop = new JSInterop<Table<TItem>>(JSRuntime);
 
         // 设置 OnSort 回调方法
@@ -514,7 +512,11 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
 
         PageItemsSource ??= new int[] { 20, 50, 100, 200, 500, 1000 };
 
-        CurrentPageItems = PageItems ?? PageItemsSource.First();
+        if (PageItems == 0)
+        {
+            // 如果未设置 PageItems 取默认值第一个
+            PageItems = PageItemsSource.First();
+        }
     }
 
     /// <summary>
@@ -533,6 +535,8 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
     protected override void OnParametersSet()
     {
         base.OnParametersSet();
+
+        OnInitParameters();
 
         if (ScrollMode == ScrollMode.Virtual)
         {
@@ -923,7 +927,7 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
         StartIndex = request.StartIndex;
         if (TotalCount > 0)
         {
-            CurrentPageItems = Math.Min(request.Count, TotalCount - request.StartIndex);
+            PageItems = Math.Min(request.Count, TotalCount - request.StartIndex);
         }
         await QueryData();
         return new ItemsProviderResult<TItem>(QueryItems ?? Enumerable.Empty<TItem>(), TotalCount);

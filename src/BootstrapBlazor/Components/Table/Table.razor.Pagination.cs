@@ -39,13 +39,6 @@ public partial class Table<TItem>
     public IEnumerable<int>? PageItemsSource { get; set; }
 
     /// <summary>
-    /// 获得/设置 默认每页数据数量 默认 null 使用 <see cref="PageItemsSource"/> 第一个值
-    /// </summary>
-    /// <remarks>此参数仅首次加载时生效</remarks>
-    [Parameter]
-    public int? PageItems { get; set; }
-
-    /// <summary>
     /// 异步查询回调方法，设置 <see cref="Items"/> 后无法触发此回调方法
     /// </summary>
     [Parameter]
@@ -62,9 +55,10 @@ public partial class Table<TItem>
     protected int PageIndex { get; set; } = 1;
 
     /// <summary>
-    /// 当前分页组件每页显示数量
+    /// 获得/设置 默认每页数据数量 默认 0 使用 <see cref="PageItemsSource"/> 第一个值
     /// </summary>
-    protected int CurrentPageItems { get; set; }
+    [Parameter]
+    public int PageItems { get; set; }
 
     /// <summary>
     /// 获得/设置 当前行
@@ -83,7 +77,7 @@ public partial class Table<TItem>
             SelectedRows.Clear();
             await OnSelectedRowsChanged();
             PageIndex = pageIndex;
-            CurrentPageItems = pageItems;
+            PageItems = pageItems;
             await QueryAsync();
         }
     }
@@ -93,10 +87,10 @@ public partial class Table<TItem>
     /// </summary>
     protected async Task OnPageItemsChanged(int pageItems)
     {
-        if (CurrentPageItems != pageItems)
+        if (PageItems != pageItems)
         {
             PageIndex = 1;
-            CurrentPageItems = pageItems;
+            PageItems = pageItems;
             await QueryAsync();
         }
     }
