@@ -559,8 +559,6 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
             // 动态列模式
             ResetDynamicContext();
 
-            ColumnVisibles.AddRange(Columns.Select(i => new ColumnVisibleItem { FieldName = i.GetFieldName(), Visible = i.Visible }));
-
             // set default sortName
             var col = Columns.FirstOrDefault(i => i.Sortable && i.DefaultSort);
             if (col != null)

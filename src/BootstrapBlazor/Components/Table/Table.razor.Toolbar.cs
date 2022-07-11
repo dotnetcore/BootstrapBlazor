@@ -244,10 +244,7 @@ public partial class Table<TItem>
         return Columns.Where(i => items.Any(v => v.FieldName == i.GetFieldName()));
     }
 
-    private bool GetColumnsListState(ITableColumn col)
-    {
-        return ColumnVisibles.First(i => i.FieldName == col.GetFieldName()).Visible && ColumnVisibles.Count(i => i.Visible) == 1;
-    }
+    private bool GetColumnsListState(ITableColumn col) => ColumnVisibles.First(i => i.FieldName == col.GetFieldName()).Visible && ColumnVisibles.Count(i => i.Visible) == 1;
 
     private bool ShowAddForm { get; set; }
 
@@ -688,6 +685,9 @@ public partial class Table<TItem>
             var cols = DynamicContext.GetColumns();
             Columns.Clear();
             Columns.AddRange(cols);
+
+            ColumnVisibles.Clear();
+            ColumnVisibles.AddRange(Columns.Select(i => new ColumnVisibleItem { FieldName = i.GetFieldName(), Visible = i.Visible }));
 
             QueryItems = DynamicContext.GetItems().Cast<TItem>();
             RowsCache = null;
