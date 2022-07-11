@@ -20,6 +20,8 @@ internal class JsonStringLocalizer : ResourceManagerStringLocalizer
 
     private string TypeName { get; set; }
 
+    private bool IgnoreLocalizerMissing { get; set; }
+
     private ILogger Logger { get; set; }
 
     private ConcurrentDictionary<string, object?> MissingLocalizerCache { get; } = new();
@@ -30,17 +32,20 @@ internal class JsonStringLocalizer : ResourceManagerStringLocalizer
     /// <param name="assembly"></param>
     /// <param name="typeName"></param>
     /// <param name="baseName"></param>
+    /// <param name="ignoreLocalizerMissing"></param>
     /// <param name="logger"></param>
     /// <param name="resourceNamesCache"></param>
     public JsonStringLocalizer(
         Assembly assembly,
         string typeName,
         string baseName,
+        bool ignoreLocalizerMissing,
         ILogger logger,
         IResourceNamesCache resourceNamesCache) : base(new ResourceManager(baseName, assembly), assembly, baseName, resourceNamesCache, logger)
     {
         Assembly = assembly;
         TypeName = typeName;
+        IgnoreLocalizerMissing = ignoreLocalizerMissing;
         Logger = logger;
     }
 
@@ -156,7 +161,13 @@ internal class JsonStringLocalizer : ResourceManagerStringLocalizer
         return ret;
     }
 
-    private void LogSearchedLocation(string name) => Logger.LogInformation($"{nameof(JsonStringLocalizer)} searched for '{name}' in '{TypeName}' with culture '{CultureInfo.CurrentUICulture.Name}' not found.");
+    private void LogSearchedLocation(string name)
+    {
+        if (!IgnoreLocalizerMissing)
+        {
+            Logger.LogInformation($"{nameof(JsonStringLocalizer)} searched for '{name}' in '{TypeName}' with culture '{CultureInfo.CurrentUICulture.Name}' not found.");
+        }
+    }
 
     /// <summary>
     /// 获取当前语言的所有资源信息

@@ -19,6 +19,8 @@ internal class JsonStringLocalizerFactory : ResourceManagerStringLocalizerFactor
     [NotNull]
     private string? TypeName { get; set; }
 
+    private bool IgnoreLocalizerMissing { get; set; }
+
     /// <summary>
     /// 构造函数
     /// </summary>
@@ -40,6 +42,7 @@ internal class JsonStringLocalizerFactory : ResourceManagerStringLocalizerFactor
 
         jsonLocalizationOptions.Value.FallbackCulture = options.CurrentValue.FallbackCulture;
         jsonLocalizationOptions.Value.EnableFallbackCulture = options.CurrentValue.EnableFallbackCulture;
+        IgnoreLocalizerMissing = jsonLocalizationOptions.Value.IgnoreLocalizerMissing;
         LoggerFactory = loggerFactory;
         options.OnChange(OnChange);
 
@@ -87,6 +90,7 @@ internal class JsonStringLocalizerFactory : ResourceManagerStringLocalizerFactor
             assembly,
             TypeName,
             baseName,
+            IgnoreLocalizerMissing,
             LoggerFactory.CreateLogger<JsonStringLocalizer>(),
             ResourceNamesCache);
 }

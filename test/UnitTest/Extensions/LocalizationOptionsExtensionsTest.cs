@@ -26,6 +26,16 @@ public class LocalizationOptionsExtensionsTest
     }
 
     [Fact]
+    public void IgnoreLocalizerMissing_Ok()
+    {
+        var option = new JsonLocalizationOptions
+        {
+            IgnoreLocalizerMissing = true
+        };
+        Assert.True(option.IgnoreLocalizerMissing);
+    }
+
+    [Fact]
     public void GetJsonStringConfig_Fallback()
     {
         // 获得 it-it 文化信息

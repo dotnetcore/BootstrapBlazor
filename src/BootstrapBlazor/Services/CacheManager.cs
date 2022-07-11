@@ -37,6 +37,7 @@ internal class CacheManager : ICacheManager
         IServiceProvider provider,
         IMemoryCache memoryCache)
     {
+        // 为了避免依赖导致的报错，构造函数避免使用其他服务
         Provider = provider;
         Cache = memoryCache;
         Instance = this;

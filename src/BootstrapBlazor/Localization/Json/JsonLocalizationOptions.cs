@@ -38,6 +38,11 @@ public class JsonLocalizationOptions : LocalizationOptions
     internal bool EnableFallbackCulture { get; set; } = true;
 
     /// <summary>
+    /// 获得/设置 是否忽略丢失文化日志信息 默认 false 不忽略
+    /// </summary>
+    public bool IgnoreLocalizerMissing { get; set; }
+
+    /// <summary>
     /// 构造方法
     /// </summary>
     public JsonLocalizationOptions()
