@@ -43,7 +43,7 @@ public partial class Table<TItem>
     /// </summary>
     /// <param name="item"></param>
     /// <returns></returns>
-    protected CheckboxState RowCheckState(TItem item) => SelectedRows.Contains(item) ? CheckboxState.Checked : CheckboxState.UnChecked;
+    protected CheckboxState RowCheckState(TItem item) => SelectedRows.Any(i => IsEqualItems(i, item)) ? CheckboxState.Checked : CheckboxState.UnChecked;
 
     /// <summary>
     /// 获得/设置 是否为多选模式 默认为 false

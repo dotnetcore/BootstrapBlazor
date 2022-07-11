@@ -50,4 +50,9 @@ public interface IDynamicObjectContext
     /// 获得/设置 选中行集合回调方法 默认为 null
     /// </summary>
     Func<IEnumerable<IDynamicObject>>? OnGetSelectedRows { get; set; }
+
+    /// <summary>
+    /// 获得/设置 选中行是否相等判断逻辑 默认为 null
+    /// </summary>
+    Func<IDynamicObject, IDynamicObject, bool>? EqualityComparer { get; set; }
 }

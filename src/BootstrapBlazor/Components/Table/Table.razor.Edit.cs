@@ -417,8 +417,10 @@ public partial class Table<TItem>
             if (OnQueryAsync == null && DynamicContext != null && typeof(TItem).IsAssignableTo(typeof(IDynamicObject)))
             {
                 // 动态数据
-                SelectedRows.Clear();
                 QueryItems = DynamicContext.GetItems().Cast<TItem>();
+
+                // 设置默认选中行
+                SelectedRows.Clear();
                 if (DynamicContext.OnGetSelectedRows != null)
                 {
                     SelectedRows.AddRange(DynamicContext.OnGetSelectedRows().Cast<TItem>());
@@ -587,11 +589,11 @@ public partial class Table<TItem>
     /// <param name="b"></param>
     /// <returns></returns>
     protected bool IsEqualItems(TItem a, TItem b) => ModelEqualityComparer?.Invoke(a, b)
+        ?? DynamicContext?.EqualityComparer?.Invoke((IDynamicObject)a, (IDynamicObject)b)
         ?? Utility.GetKeyValue<TItem, object>(a, CustomKeyAttribute)
             ?.Equals(Utility.GetKeyValue<TItem, object>(b, CustomKeyAttribute))
         ?? EqualityComparer(a, b)
         ?? a.Equals(b);
-
 
     private static bool? EqualityComparer(TItem a, TItem b)
     {
