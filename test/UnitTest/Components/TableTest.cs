@@ -3767,6 +3767,34 @@ public class TableTest : TableTestBase
     }
 
     [Fact]
+    public async Task DynamicContext_EqualityComparer()
+    {
+        var comparered = false;
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var items = Foo.GenerateFoo(localizer, 2);
+        var context = CreateDynamicContext(localizer);
+        context.EqualityComparer = (x, y) =>
+        {
+            comparered = true;
+            return x.GetValue("Id") == y.GetValue("Id");
+        };
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<DynamicObject>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.IsMultipleSelect, true);
+                pb.Add(a => a.DynamicContext, context);
+            });
+        });
+
+        // 选中行
+        var input = cut.Find("tbody input");
+        await cut.InvokeAsync(() => input.Click());
+        Assert.True(comparered);
+    }
+
+    [Fact]
     public async Task DynamicContext_Add()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
@@ -5360,10 +5388,12 @@ public class TableTest : TableTestBase
     {
         var userData = new DataTable();
         userData.Columns.Add(nameof(Foo.Name), typeof(string));
+        userData.Columns.Add("Id", typeof(int));
 
+        var index = 0;
         Foo.GenerateFoo(localizer, 2).ForEach(f =>
         {
-            userData.Rows.Add(f.Name);
+            userData.Rows.Add(f.Name, index++);
         });
 
         return userData;
