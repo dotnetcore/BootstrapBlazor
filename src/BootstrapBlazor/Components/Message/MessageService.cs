@@ -9,10 +9,9 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 
 /// </summary>
-public class MessageService : BootstrapServiceBase<MessageOption>, IDisposable
+public class MessageService : BootstrapServiceBase<MessageOption>
 {
-    private readonly IDisposable _optionsReloadToken;
-    private BootstrapBlazorOptions _option;
+    private BootstrapBlazorOptions Options { get; }
 
     /// <summary>
     /// 构造方法
@@ -20,8 +19,7 @@ public class MessageService : BootstrapServiceBase<MessageOption>, IDisposable
     /// <param name="option"></param>
     public MessageService(IOptionsMonitor<BootstrapBlazorOptions> option)
     {
-        _option = option.CurrentValue;
-        _optionsReloadToken = option.OnChange(op => _option = op);
+        Options = option.CurrentValue;
     }
 
     /// <summary>
@@ -33,32 +31,11 @@ public class MessageService : BootstrapServiceBase<MessageOption>, IDisposable
     {
         if (!option.ForceDelay)
         {
-            if (_option.MessageDelay != 0)
+            if (Options.MessageDelay != 0)
             {
-                option.Delay = _option.MessageDelay;
+                option.Delay = Options.MessageDelay;
             }
         }
         await Invoke(option, message);
-    }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="disposing"></param>
-    protected virtual void Dispose(bool disposing)
-    {
-        if (disposing)
-        {
-            _optionsReloadToken.Dispose();
-        }
-    }
-
-    /// <summary>
-    /// Dispose 方法
-    /// </summary>
-    public void Dispose()
-    {
-        Dispose(true);
-        GC.SuppressFinalize(this);
     }
 }

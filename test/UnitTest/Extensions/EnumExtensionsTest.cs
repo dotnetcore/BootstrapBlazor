@@ -14,4 +14,32 @@ public class EnumExtensionsTest : BootstrapBlazorTestBase
         var dn = EnumEducation.Middel.ToDisplayName();
         Assert.Equal("中学", dn);
     }
+
+    [Fact]
+    public void ToDescriptionString()
+    {
+        Type? type = null;
+        var actual = type.ToDescriptionString(nameof(SortOrder.Desc));
+        Assert.Equal("", actual);
+
+        type = typeof(EnumEducation);
+        actual = type.ToDescriptionString(null);
+        Assert.Equal("", actual);
+    }
+
+    [Fact]
+    public void ToSelectList_Ok()
+    {
+        var type = typeof(EnumEducation);
+        var ret = type.ToSelectList();
+
+        Assert.Equal(2, ret.Count);
+        Assert.Equal("小学", ret[0].Text);
+        Assert.Equal("中学", ret[1].Text);
+
+        ret = type.ToSelectList(new SelectedItem("", "全部"));
+        Assert.Equal(3, ret.Count);
+        Assert.Equal("小学", ret[1].Text);
+        Assert.Equal("中学", ret[2].Text);
+    }
 }

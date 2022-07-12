@@ -820,7 +820,12 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
                     var t = ret.GetType();
                     if (t.IsEnum)
                     {
-                        ret = t.ToEnumDisplayName(ret.ToString());
+                        // 如果是枚举这里返回 枚举的描述信息
+                        var itemName = ret.ToString();
+                        if (!string.IsNullOrEmpty(itemName))
+                        {
+                            ret = Utility.GetDisplayName(t, itemName);
+                        }
                     }
                 }
             }

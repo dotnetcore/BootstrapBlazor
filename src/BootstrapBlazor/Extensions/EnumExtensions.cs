@@ -43,23 +43,7 @@ public static class EnumExtensions
     /// <typeparam name="TEnum"></typeparam>
     /// <param name="enum"></param>
     /// <returns></returns>
-    public static string ToDisplayName<TEnum>(this TEnum @enum) where TEnum : Enum => ToEnumDisplayName(typeof(TEnum), @enum.ToString());
-
-    /// <summary>
-    /// 通过字段名称获取 DisplayAttribute/DescriptionAttribute 标签值
-    /// </summary>
-    /// <param name="type"></param>
-    /// <param name="fieldName"></param>
-    /// <returns></returns>
-    internal static string ToEnumDisplayName(this Type? type, string? fieldName)
-    {
-        string? displayName = null;
-        if (type != null && !string.IsNullOrEmpty(fieldName))
-        {
-            displayName = CacheManager.GetEnumDisplayName(type, fieldName);
-        }
-        return displayName ?? fieldName ?? string.Empty;
-    }
+    public static string ToDisplayName<TEnum>(this TEnum @enum) where TEnum : Enum => Utility.GetDisplayName(typeof(TEnum), @enum.ToString());
 
     /// <summary>
     /// 获取指定枚举类型的枚举值集合，默认通过 DisplayAttribute DescriptionAttribute 标签显示 DisplayName 支持资源文件 回退机制显示字段名称
@@ -67,7 +51,7 @@ public static class EnumExtensions
     /// <param name="type"></param>
     /// <param name="addtionalItem"></param>
     /// <returns></returns>
-    public static IEnumerable<SelectedItem> ToSelectList(this Type type, SelectedItem? addtionalItem = null)
+    public static List<SelectedItem> ToSelectList(this Type type, SelectedItem? addtionalItem = null)
     {
         var ret = new List<SelectedItem>();
         if (addtionalItem != null)
@@ -80,12 +64,7 @@ public static class EnumExtensions
             var t = Nullable.GetUnderlyingType(type) ?? type;
             foreach (var field in Enum.GetNames(t))
             {
-                var desc = t.ToEnumDisplayName(field);
-                if (string.IsNullOrEmpty(desc))
-                {
-                    desc = field;
-                }
-
+                var desc = Utility.GetDisplayName(t, field);
                 ret.Add(new SelectedItem(field, desc));
             }
         }

@@ -105,7 +105,7 @@ public partial class Display<TValue>
         var type = typeof(TValue);
         if (type.IsEnum())
         {
-            ret = type.ToEnumDisplayName(value!.ToString());
+            ret = Utility.GetDisplayName(type, value!.ToString()!);
         }
         else if (type.IsArray)
         {

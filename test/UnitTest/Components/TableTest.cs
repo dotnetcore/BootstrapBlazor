@@ -1985,7 +1985,7 @@ public class TableTest : TableTestBase
         });
 
         var table = cut.FindComponent<MockTreeTable<Cat>>();
-        var ret = table.Instance.TestIsEqualItems(new Cat() { Id = 1 }, new Cat() { Id = 1 });
+        var ret = table.Instance.TestComparerItem(new Cat() { Id = 1 }, new Cat() { Id = 1 });
         Assert.True(ret);
     }
 
@@ -1998,7 +1998,7 @@ public class TableTest : TableTestBase
         });
 
         var table = cut.FindComponent<MockTreeTable<Cat>>();
-        var ret = table.Instance.TestIsEqualItems(new Cat() { Id = 1 }, new Cat() { Id = 1 });
+        var ret = table.Instance.TestComparerItem(new Cat() { Id = 1 }, new Cat() { Id = 1 });
         Assert.True(ret);
     }
 
@@ -2011,7 +2011,7 @@ public class TableTest : TableTestBase
         });
 
         var table = cut.FindComponent<MockTreeTable<Dummy>>();
-        var ret = table.Instance.TestIsEqualItems(new Dummy() { Id = 1 }, new Dummy() { Id = 1 });
+        var ret = table.Instance.TestComparerItem(new Dummy() { Id = 1 }, new Dummy() { Id = 1 });
         Assert.True(ret);
     }
 
@@ -2024,7 +2024,7 @@ public class TableTest : TableTestBase
         });
 
         var table = cut.FindComponent<MockTreeTable<Dog>>();
-        var ret = table.Instance.TestIsEqualItems(new Dog() { Id = 1 }, new Dog() { Id = 1 });
+        var ret = table.Instance.TestComparerItem(new Dog() { Id = 1 }, new Dog() { Id = 1 });
         Assert.True(ret);
     }
 
@@ -5723,9 +5723,9 @@ public class TableTest : TableTestBase
 
     private class MockTreeTable<TItem> : Table<TItem> where TItem : class, new()
     {
-        public bool TestIsEqualItems(TItem a, TItem b)
+        public bool TestComparerItem(TItem a, TItem b)
         {
-            return IsEqualItems(a, b);
+            return ComparerItem(a, b);
         }
     }
 

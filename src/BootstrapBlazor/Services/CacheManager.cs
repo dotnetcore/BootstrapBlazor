@@ -197,39 +197,12 @@ internal class CacheManager : ICacheManager
     #endregion
 
     #region DisplayName
-    public static string? GetEnumDisplayName(Type type, string fieldName)
-    {
-        var t = Nullable.GetUnderlyingType(type) ?? type;
-        var cacheKey = $"{nameof(GetEnumDisplayName)}-{CultureInfo.CurrentUICulture.Name}-{t.FullName}-{fieldName}";
-        return Instance.GetOrCreate(cacheKey, entry =>
-        {
-            var dn = "";
-            // search in Localization
-            var localizer = CreateLocalizerByType(t);
-            var stringLocalizer = localizer?[fieldName];
-            if (stringLocalizer is { ResourceNotFound: false })
-            {
-                dn = stringLocalizer.Value;
-            }
-            else
-            {
-                var field = t.GetField(fieldName);
-                dn = field?.GetCustomAttribute<DisplayAttribute>(true)?.Name
-                    ?? field?.GetCustomAttribute<DescriptionAttribute>(true)?.Description;
-
-                // search in Localization again
-                if (!string.IsNullOrEmpty(dn))
-                {
-                    dn = GetLocalizerValueFromResourceManager(dn);
-                }
-            }
-
-            entry.SetDynamicAssemblyPolicy(type);
-
-            return dn;
-        });
-    }
-
+    /// <summary>
+    /// 获得类型属性的描述信息
+    /// </summary>
+    /// <param name="modelType"></param>
+    /// <param name="fieldName"></param>
+    /// <returns></returns>
     public static string GetDisplayName(Type modelType, string fieldName)
     {
         var cacheKey = $"{nameof(GetDisplayName)}-{CultureInfo.CurrentUICulture.Name}-{modelType.FullName}-{fieldName}";
