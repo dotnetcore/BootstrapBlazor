@@ -486,7 +486,7 @@ public partial class Table<TItem>
                 var rows = new List<TItem>();
                 foreach (var row in SelectedRows)
                 {
-                    if (QueryItems.Any(i => IsEqualItems(i, row)))
+                    if (QueryItems.Any(i => ComparerItem(i, row)))
                     {
                         rows.Add(row);
                     }
@@ -559,7 +559,7 @@ public partial class Table<TItem>
                 {
                     foreach (var node in nodes)
                     {
-                        if (ExpandedRows.Any(i => IsEqualItems(i, node.Value)))
+                        if (ExpandedRows.Any(i => ComparerItem(i, node.Value)))
                         {
                             // 原来是展开状态
                             node.IsExpand = true;
@@ -570,7 +570,7 @@ public partial class Table<TItem>
                         }
                         else
                         {
-                            ExpandedRows.RemoveAll(i => IsEqualItems(i, node.Value));
+                            ExpandedRows.RemoveAll(i => ComparerItem(i, node.Value));
                         }
                         if (node.Items.Any())
                         {
@@ -588,7 +588,7 @@ public partial class Table<TItem>
     /// <param name="a"></param>
     /// <param name="b"></param>
     /// <returns></returns>
-    protected bool IsEqualItems(TItem a, TItem b) => ModelEqualityComparer?.Invoke(a, b)
+    protected bool ComparerItem(TItem a, TItem b) => ModelEqualityComparer?.Invoke(a, b)
         ?? DynamicContext?.EqualityComparer?.Invoke((IDynamicObject)a, (IDynamicObject)b)
         ?? Utility.GetKeyValue<TItem, object>(a, CustomKeyAttribute)
             ?.Equals(Utility.GetKeyValue<TItem, object>(b, CustomKeyAttribute))

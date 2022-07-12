@@ -84,7 +84,7 @@ public partial class Table<TItem>
     {
         if (!IsLoadChildren)
         {
-            if (TreeRows.TryFind(item, out var node, IsEqualItems))
+            if (TreeRows.TryFind(item, out var node, ComparerItem))
             {
                 IsLoadChildren = true;
                 // 无子项时通过回调方法延时加载
