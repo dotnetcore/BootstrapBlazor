@@ -1520,17 +1520,10 @@ public class TableTest : TableTestBase
             });
         });
 
-        if (isExcel)
-        {
-            cut.DoesNotContain("is-master");
-        }
-        else
-        {
-            cut.Contains("table-cell is-bar");
-            var btn = cut.Find(".is-master .is-bar > i");
-            await cut.InvokeAsync(() => btn.Click());
-            Assert.True(showDetail);
-        }
+        cut.Contains("table-cell is-bar");
+        var btn = cut.Find(".is-master .is-bar > i");
+        await cut.InvokeAsync(() => btn.Click());
+        Assert.True(showDetail);
     }
 
     [Theory]
@@ -1805,6 +1798,42 @@ public class TableTest : TableTestBase
         await cut.InvokeAsync(() => bar.Click());
         cut.Contains("fa fa-fw fa-caret-right fa-rotate-90");
         await cut.InvokeAsync(() => bar.Click());
+    }
+
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    [InlineData(null)]
+    public void IsDetails_Ok(bool? isDetails)
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.IsDetails, isDetails);
+                pb.Add(a => a.DetailRowTemplate, foo => builder => builder.AddContent(0, foo.Name));
+                pb.Add(a => a.OnQueryAsync, OnQueryAsync(localizer));
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+                });
+            });
+        });
+
+        if (isDetails.HasValue && isDetails.Value == false)
+        {
+            // 无明细行
+            cut.DoesNotContain("is-master");
+        }
+        else
+        {
+            cut.Contains("is-master");
+        }
     }
 
     [Fact]

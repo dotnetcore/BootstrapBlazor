@@ -166,20 +166,16 @@
         color: #adb5bd;
     }
 
-.form-select {
-    width: 100%;
+.form-select.is-valid:not([multiple]):not([size]),
+.form-select.is-valid:not([multiple])[size="1"],
+.was-validated .form-select:valid:not([multiple]):not([size]),
+.was-validated .form-select:valid:not([multiple])[size="1"],
+.form-select.is-invalid:not([multiple]):not([size]),
+.form-select.is-invalid:not([multiple])[size="1"],
+.was-validated .form-select:invalid:not([multiple]):not([size]),
+.was-validated .form-select:invalid:not([multiple])[size="1"] {
+    background-position: right -1rem center, center right 1.5rem;
 }
-
-    .form-select.is-valid:not([multiple]):not([size]),
-    .form-select.is-valid:not([multiple])[size="1"],
-    .was-validated .form-select:valid:not([multiple]):not([size]),
-    .was-validated .form-select:valid:not([multiple])[size="1"],
-    .form-select.is-invalid:not([multiple]):not([size]),
-    .form-select.is-invalid:not([multiple])[size="1"],
-    .was-validated .form-select:invalid:not([multiple]):not([size]),
-    .was-validated .form-select:invalid:not([multiple])[size="1"] {
-        background-position: right -1rem center, center right 1.5rem;
-    }
 
 .input-group > .select:not(:first-child) .form-select {
     border-top-left-radius: 0;

@@ -2878,7 +2878,9 @@
     "DetailRowTemplate3Title": "Use Tab component in detail row",
     "DetailRowTemplate3Intro": "Set the detail row content by setting the <code>DetailRowTemplate</code> template",
     "DetailRowTemplate3P": "In this example, the <code>Tab</code> component is used in the detail row to split the data into two <code>TabItem</code> contents again to demonstrate the data splitting again",
-    "TabItemText": "Associated Data"
+    "TabItemText": "Associated Data",
+    "DynamicTitle": "Detail row of dynamic data",
+    "DynamicIntro": "Data source is <code>DataTable</code>"
   },
   "BootstrapBlazor.Shared.Samples.Table.Tables": {
     "RefreshText": "Refresh",

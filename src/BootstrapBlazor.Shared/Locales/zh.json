@@ -2890,7 +2890,9 @@
     "DetailRowTemplate3Title": "明细行中使用 Tab 组件",
     "DetailRowTemplate3Intro": "通过设置 <code>DetailRowTemplate</code> 模板设置明细行内容",
     "DetailRowTemplate3P": "本例中明细行内使用 <code>Tab</code> 组件再次将数据分割成两个 <code>TabItem</code> 内容，进行再次数据拆分演示",
-    "TabItemText": "关联数据"
+    "TabItemText": "关联数据",
+    "DynamicTitle": "动态数据明细行",
+    "DynamicIntro": "数据源为 <code>DataTable</code>"
   },
   "BootstrapBlazor.Shared.Samples.Table.Tables": {
     "RefreshText": "刷新",

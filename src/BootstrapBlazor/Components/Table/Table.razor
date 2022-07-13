@@ -313,7 +313,7 @@
                 @foreach (var item in Rows)
                 {
                     @RenderRow(item)
-                    if (!IsExcel && ShowDetails())
+                    if (ShowDetails())
                     {
                         <tr class="@GetDetailRowClassString(item)">
                             <td>&nbsp;</td>
@@ -440,7 +440,7 @@ RenderFragment<bool> RenderHeader => hasScroll =>
             }
             @if (IsMultipleSelect)
             {
-                <th class="@CheckboxColumnClass">
+                <th>
                     <div class="table-cell">
                         <Checkbox TValue="TItem" DisplayText="@CheckboxDisplayTextString" ShowAfterLabel="@ShowCheckboxText"
                                   State="@HeaderCheckState()" OnStateChanged="OnHeaderCheck"></Checkbox>
@@ -563,7 +563,7 @@ RenderFragment<TItem> RenderRow => item =>
 @<DynamicElement TagName="tr" class="@GetRowClassString(item)"
                  TriggerClick="@(ClickToSelect || OnClickRowCallback != null)" OnClick="() => ClickRow(item)"
                  TriggerDoubleClick="@(DoubleClickToEdit || OnDoubleClickRowCallback != null)" OnDoubleClick="() => DoubleClickRow(item)">
-    @if (!IsExcel && ShowDetails())
+    @if (ShowDetails())
     {
         <td>
             <div class="@GetDetailBarClassString(item)">

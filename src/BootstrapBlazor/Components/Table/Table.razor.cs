@@ -551,7 +551,6 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
             IsStriped = false;
             IsMultipleSelect = true;
             IsTree = false;
-            IsDetails = false;
         }
 
         if (!FirstRender)

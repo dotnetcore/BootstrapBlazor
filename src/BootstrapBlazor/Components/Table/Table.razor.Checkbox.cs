@@ -12,14 +12,6 @@ public partial class Table<TItem>
     protected string? CheckboxDisplayTextString => ShowCheckboxText ? CheckboxDisplayText : null;
 
     /// <summary>
-    /// 获得 Checkbox 样式表集合
-    /// </summary>
-    /// <returns></returns>
-    protected string? CheckboxColumnClass => CssBuilder.Default("table-th-checkbox")
-        .AddClass("show-text", ShowCheckboxText)
-        .Build();
-
-    /// <summary>
     /// 获得 thead 样式表集合
     /// </summary>
     protected string? HeaderClass => CssBuilder.Default()

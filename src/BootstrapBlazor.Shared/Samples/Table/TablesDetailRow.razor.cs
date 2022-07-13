@@ -3,6 +3,7 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using BootstrapBlazor.Components;
+using BootstrapBlazor.Shared.Services;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using System.ComponentModel;
@@ -34,8 +35,14 @@ public sealed partial class TablesDetailRow
     [NotNull]
     private string? DetailText { get; set; }
 
+    [Inject]
+    [NotNull]
+    private MockDataTableDynamicService? DataTableDynamicService { get; set; }
+
     [NotNull]
     private Table<Foo>? Table { get; set; }
+
+    private DataTableDynamicContext? DataTableDynamicContext { get; set; }
 
     /// <summary>
     /// OnInitialized 方法
@@ -46,6 +53,7 @@ public sealed partial class TablesDetailRow
 
         DetailText ??= LocalizerDetailRow[$"{nameof(DetailText)}{!IsDetails}"];
         Items = Foo.GenerateFoo(Localizer);
+        DataTableDynamicContext = DataTableDynamicService.CreateContext();
     }
 
     private static IEnumerable<DetailRow> GetDetailRowsByName(string name) => Enumerable.Range(1, 4).Select(i => new DetailRow()
@@ -56,10 +64,18 @@ public sealed partial class TablesDetailRow
         Complete = random.Next(1, 100) > 50
     });
 
-    private Task OnDoubleClickRowCallback(Foo arg)
+    private Func<Foo, Task>? OnDoubleClickRowCallback()
     {
-        Table.ExpandDetailRow(arg);
-        return Task.CompletedTask;
+        Func<Foo, Task>? ret = null;
+        if (IsDetails)
+        {
+            ret = foo =>
+            {
+                Table.ExpandDetailRow(foo);
+                return Task.CompletedTask;
+            };
+        }
+        return ret;
     }
 
     private Task<QueryData<Foo>> OnQueryAsync(QueryPageOptions options)
@@ -118,4 +134,6 @@ public sealed partial class TablesDetailRow
     }
 
     private static bool ShowDetailRow(Foo item) => item.Complete;
+
+    private DynamicObjectContext GetDetailDataTableDynamicContext(DynamicObject context) => DataTableDynamicService.CreateDetailContext(context);
 }
