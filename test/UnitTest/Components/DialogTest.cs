@@ -78,7 +78,8 @@ public class DialogTest : DialogTestBase
             ResetButtonText = null,
             QueryButtonText = null,
             ShowLabel = true,
-            Items = null
+            Items = null,
+            ShowUnsetGroupItemsOnTop = false
         };
         cut.InvokeAsync(() => dialog.ShowSearchDialog(option));
 
