@@ -77,6 +77,7 @@ public class DialogTest : DialogTestBase
             LabelAlign = Alignment.Left,
             ResetButtonText = null,
             QueryButtonText = null,
+            ShowLabel = true,
             Items = null
         };
         cut.InvokeAsync(() => dialog.ShowSearchDialog(option));
