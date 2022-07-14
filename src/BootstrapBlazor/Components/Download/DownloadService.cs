@@ -160,7 +160,7 @@ public class DownloadService
     /// <param name="option">文件下载选项</param>
     public async Task DownloadAsync(DownloadOption option)
     {
-        var cb = Cache.FirstOrDefault().Callback;
+        var cb = Cache.LastOrDefault().Callback;
         if (cb != null)
         {
             await cb.Invoke(option);
@@ -173,7 +173,12 @@ public class DownloadService
     /// <param name="option">文件下载选项</param>
     public async Task<string> CreateUrlAsync(DownloadOption option)
     {
-        var cb = CacheUrl.FirstOrDefault().Callback;
-        return cb == null ? "" : await cb.Invoke(option);
+        var ret = "";
+        var cb = CacheUrl.LastOrDefault().Callback;
+        if (cb != null)
+        {
+            ret = await cb.Invoke(option);
+        }
+        return ret;
     }
 }

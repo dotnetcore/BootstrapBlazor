@@ -24,7 +24,12 @@ public class Download : BootstrapComponentBase, IDisposable
         DownloadService.RegisterUrl(this, CreateUrl);
     }
 
-    private async Task DownloadFile(DownloadOption option)
+    /// <summary>
+    /// 调用 download 方法
+    /// </summary>
+    /// <param name="option"></param>
+    /// <returns></returns>
+    protected virtual async Task DownloadFile(DownloadOption option)
     {
         if (JSRuntime is IJSUnmarshalledRuntime webAssemblyJsRuntime)
         {
@@ -37,7 +42,12 @@ public class Download : BootstrapComponentBase, IDisposable
         }
     }
 
-    private async Task<string> CreateUrl(DownloadOption option)
+    /// <summary>
+    /// 调用 CreateUrl 方法
+    /// </summary>
+    /// <param name="option"></param>
+    /// <returns></returns>
+    protected virtual async Task<string> CreateUrl(DownloadOption option)
     {
         if (JSRuntime is IJSUnmarshalledRuntime webAssemblyJsRuntime)
         {

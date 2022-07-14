@@ -19,7 +19,7 @@ public partial class Downloads
 
     [Inject]
     [NotNull]
-    private DownloadService? downloadService { get; set; }
+    private DownloadService? DownloadService { get; set; }
 
     [Inject]
     [NotNull]
@@ -44,7 +44,7 @@ public partial class Downloads
             else
             {
                 var filePath = Path.Combine(SiteOptions.CurrentValue.WebRootPath, "favicon.png");
-                TempUrl = await downloadService.CreateUrlAsync("favicon.png", File.OpenRead(filePath),
+                TempUrl = await DownloadService.CreateUrlAsync("favicon.png", File.OpenRead(filePath),
                     "image/jpeg");
                 StateHasChanged();
             }
@@ -54,7 +54,7 @@ public partial class Downloads
     private async Task DownloadFileAsync()
     {
         var content = await GenerateFileAsync();
-        await downloadService.DownloadAsync("测试文件.txt", content);
+        await DownloadService.DownloadAsync("测试文件.txt", content);
 
         static async Task<byte[]> GenerateFileAsync()
         {
@@ -70,7 +70,7 @@ public partial class Downloads
     private Task DownloadLargeFileAsync() => Task.Run(async () =>
     {
         using var stream = await GenerateFileStreamAsync();
-        await downloadService.DownloadAsync("测试大文件.txt", stream);
+        await DownloadService.DownloadAsync("测试大文件.txt", stream);
 
         static async Task<Stream> GenerateFileStreamAsync()
         {
@@ -91,27 +91,25 @@ public partial class Downloads
         try
         {
             var filePath = Path.Combine(SiteOptions.CurrentValue.WebRootPath, "favicon.png");
-            await downloadService.DownloadAsync("favicon.png", filePath);
+            await DownloadService.DownloadAsync("favicon.png", filePath);
         }
         catch (FileNotFoundException msg)
         {
 
             await ToastService.Error("下载", msg.Message);
         }
-
     });
 
     private Task DownloadFolderAsync() => Task.Run(async () =>
     {
         try
         {
-            await downloadService.DownloadFolderAsync("test.zip", SiteOptions.CurrentValue.WebRootPath);
+            await DownloadService.DownloadFolderAsync("test.zip", SiteOptions.CurrentValue.WebRootPath);
         }
         catch (FileNotFoundException msg)
         {
 
             await ToastService.Error("下载", msg.Message);
         }
-
     });
 }
