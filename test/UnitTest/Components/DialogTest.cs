@@ -78,9 +78,9 @@ public class DialogTest : DialogTestBase
             ResetButtonText = null,
             QueryButtonText = null,
             ShowLabel = true,
-            Items = null,
-            ShowUnsetGroupItemsOnTop = false
+            Items = null
         };
+
         cut.InvokeAsync(() => dialog.ShowSearchDialog(option));
 
         // 重置按钮委托为空 null

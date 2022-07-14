@@ -15,7 +15,7 @@
 else
 {
     <CascadingValue Value="true" IsFixed="true" Name="IsSearch">
-        <EditorForm TModel="TModel" Model="Model" Items="Items" RowType="RowType" ItemsPerRow="ItemsPerRow" LabelAlign="LabelAlign" ShowLabel="ShowLabel">
+        <EditorForm TModel="TModel" Model="Model" Items="Items" RowType="RowType" ItemsPerRow="ItemsPerRow" LabelAlign="LabelAlign" ShowLabel="ShowLabel" ShowUnsetGroupItemsOnTop="ShowUnsetGroupItemsOnTop">
             <Buttons>
                 <Button Color="Color.Secondary" Icon="fa fa-trash-o" Text="@ResetButtonText" OnClickWithoutRender="@OnResetSearchClick" />
                 <Button Color="Color.Primary" Icon="fa fa-search" Text="@QueryButtonText" OnClickWithoutRender="@OnSearchClick" />

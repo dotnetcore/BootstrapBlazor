@@ -25,7 +25,7 @@ public sealed partial class DropdownWidget
     [Parameter]
     public IEnumerable<DropdownWidgetItem>? Items { get; set; }
 
-    private List<DropdownWidgetItem> Childs { get; set; } = new List<DropdownWidgetItem>(20);
+    private List<DropdownWidgetItem> Childs { get; } = new List<DropdownWidgetItem>(20);
 
     /// <summary>
     /// 添加 DropdownWidgetItem 方法
