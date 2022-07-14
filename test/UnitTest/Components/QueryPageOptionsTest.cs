@@ -67,4 +67,14 @@ public class QueryPageOptionsTest
         };
         Assert.True(option.IsPage);
     }
+
+    [Fact]
+    public void AdvanceSearch_Ok()
+    {
+        var option = new QueryPageOptions()
+        {
+            AdvanceSearchs = Enumerable.Empty<IFilterAction>()
+        };
+        Assert.Empty(option.AdvanceSearchs);
+    }
 }
