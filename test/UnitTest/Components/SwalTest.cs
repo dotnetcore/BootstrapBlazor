@@ -35,6 +35,18 @@ public class SwalTest : SwalTestBase
         var modal = cut.FindComponent<Modal>();
         await cut.InvokeAsync(() => modal.Instance.Close());
 
+        // 测试 Category
+        await cut.InvokeAsync(() => swal.Show(new SwalOption()
+        {
+            Content = "I am Eror",
+            Category = SwalCategory.Error
+        }));
+
+        Assert.Contains("swal2-x-mark-line-left", cut.Markup);
+
+        modal = cut.FindComponent<Modal>();
+        await cut.InvokeAsync(() => modal.Instance.Close());
+
         //测试Content
         await cut.InvokeAsync(() => swal.Show(new SwalOption()
         {
