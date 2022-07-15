@@ -21,23 +21,35 @@ public static class FreeSqlExtensions
     {
         var ret = new DynamicFilterInfo() { Filters = new List<DynamicFilterInfo>() };
 
-        foreach (var filter in option.Filters.Concat(option.Searchs))
+        foreach (var filter in option.Filters)
         {
-            var item = new DynamicFilterInfo() { Filters = new List<DynamicFilterInfo>() };
-            var actions = filter.GetFilterConditions();
-            foreach (var f in actions)
-            {
-                item.Logic = f.FilterLogic.ToDynamicFilterLogic();
-                item.Filters.Add(new DynamicFilterInfo()
-                {
-                    Field = f.FieldKey,
-                    Value = f.FieldValue,
-                    Operator = f.FilterAction.ToDynamicFilterOperator()
-                });
-            }
-            ret.Filters.Add(item);
+            // Filter 之间默认为 and
+            ret.Filters.Add(filter.ToDynamicFilter());
+        }
+
+        foreach (var search in option.Searchs)
+        {
+            // Searchs 之间默认为 or
+            ret.Filters.Add(search.ToDynamicFilter(FilterLogic.Or));
         }
         return ret;
+    }
+
+    private static DynamicFilterInfo ToDynamicFilter(this IFilterAction filter, FilterLogic? logic = null)
+    {
+        var item = new DynamicFilterInfo() { Filters = new List<DynamicFilterInfo>() };
+        var actions = filter.GetFilterConditions();
+        foreach (var f in actions)
+        {
+            item.Logic = (logic ?? f.FilterLogic).ToDynamicFilterLogic();
+            item.Filters.Add(new DynamicFilterInfo()
+            {
+                Field = f.FieldKey,
+                Value = f.FieldValue,
+                Operator = f.FilterAction.ToDynamicFilterOperator()
+            });
+        }
+        return item;
     }
 
     private static DynamicFilterLogic ToDynamicFilterLogic(this FilterLogic logic) => logic switch
