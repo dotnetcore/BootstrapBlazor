@@ -41,11 +41,11 @@ public static class FreeSqlExtensions
         var actions = filter.GetFilterConditions();
         foreach (var f in actions)
         {
-            item.Logic = (logic ?? f.FilterLogic).ToDynamicFilterLogic();
             item.Filters.Add(new DynamicFilterInfo()
             {
                 Field = f.FieldKey,
                 Value = f.FieldValue,
+                Logic = (logic ?? f.FilterLogic).ToDynamicFilterLogic(),
                 Operator = f.FilterAction.ToDynamicFilterOperator()
             });
         }
