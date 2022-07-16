@@ -278,6 +278,25 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
         cut.InvokeAsync(() => buttons[0].Click());
     }
 
+    [Fact]
+    public void MaxValue_Ok()
+    {
+        var currentToday = DateTime.Today.AddDays(7 - DateTime.Today.Day);
+        var cut = Context.RenderComponent<DateTimeRange>(builder =>
+        {
+            builder.Add(a => a.MinValue, currentToday.AddDays(-2));
+            builder.Add(a => a.MaxValue, currentToday.AddDays(2));
+            builder.Add(a => a.Value, new DateTimeRangeValue());
+        });
+        var components = cut.FindComponents<DatePickerBody>();
+        Assert.Equal(2, components.Count);
+        foreach (var comp in components)
+        {
+            Assert.Equal(currentToday.AddDays(-2), comp.Instance.MinValue);
+            Assert.Equal(currentToday.AddDays(2), comp.Instance.MaxValue);
+        }
+    }
+
     private class Dummy
     {
         [Required]
