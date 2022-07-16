@@ -240,6 +240,10 @@ public class DialogTest : DialogTestBase
         cut.InvokeAsync(() => dialog.ShowModal<MockModalDialog>(resultOption));
         button = cut.FindComponents<Button>().First(b => b.Instance.Text == "关闭");
         cut.InvokeAsync(() => button.Instance.OnClick.InvokeAsync());
+
+        cut.InvokeAsync(() => dialog.ShowModal<MockModalDialogClosingFalse>(resultOption));
+        button = cut.FindComponents<Button>().First(b => b.Instance.Text == "关闭");
+        cut.InvokeAsync(() => button.Instance.OnClick.InvokeAsync());
         #endregion
 
         #region 弹窗中的弹窗测试
@@ -471,5 +475,10 @@ public class DialogTest : DialogTestBase
                 }
             }
         }
+    }
+
+    private class MockModalDialogClosingFalse : MockModalDialog, IResultDialog
+    {
+        public Task<bool> OnClosing(DialogResult result) => Task.FromResult(false);
     }
 }
