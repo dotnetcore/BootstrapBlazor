@@ -86,7 +86,7 @@ public static class IEditItemExtensions
     /// <param name="columns"></param>
     /// <param name="searchText"></param>
     /// <returns></returns>
-    public static IEnumerable<IFilterAction> ToSearchs(this IEnumerable<ITableColumn> columns, string? searchText)
+    public static List<IFilterAction> ToSearchs(this IEnumerable<ITableColumn> columns, string? searchText)
     {
         var searchs = new List<IFilterAction>();
         if (!string.IsNullOrEmpty(searchText))
@@ -126,7 +126,7 @@ public static class IEditItemExtensions
                 {
                     searchs.Add(new SearchFilterAction(col.GetFieldName(), @float, FilterAction.Equal));
                 }
-                else if(type == typeof(decimal) && decimal.TryParse(searchText, out var @decimal))
+                else if (type == typeof(decimal) && decimal.TryParse(searchText, out var @decimal))
                 {
                     searchs.Add(new SearchFilterAction(col.GetFieldName(), @decimal, FilterAction.Equal));
                 }

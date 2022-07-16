@@ -250,7 +250,7 @@ public partial class Table<TItem>
     /// 获得 <see cref="SearchModel"/> 中过滤条件
     /// </summary>
     /// <returns></returns>
-    protected IEnumerable<IFilterAction> GetAdvanceSearchs()
+    protected List<IFilterAction> GetAdvanceSearchs()
     {
         var searchs = new List<IFilterAction>();
         if (ShowAdvancedSearch && CustomerSearchModel == null && SearchModel != null)
@@ -272,7 +272,7 @@ public partial class Table<TItem>
     /// 通过列集合中的 <see cref="ITableColumn.Searchable"/> 列与 <see cref="SearchText"/> 拼装 IFilterAction 集合
     /// </summary>
     /// <returns></returns>
-    protected IEnumerable<IFilterAction> GetSearchs() => Columns.Where(col => col.Searchable).ToSearchs(SearchText);
+    protected List<IFilterAction> GetSearchs() => Columns.Where(col => col.Searchable).ToSearchs(SearchText);
 
     /// <summary>
     /// 重置搜索按钮调用此方法

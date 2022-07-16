@@ -448,14 +448,19 @@ public partial class Table<TItem>
                 SearchText = SearchText,
                 SortOrder = SortOrder,
                 SortName = SortName,
-                SortList = string.IsNullOrEmpty(SortString) ? null : new List<string>(SortString.Split(",", StringSplitOptions.RemoveEmptyEntries)),
-                Filters = Filters.Values,
-                Searchs = GetSearchs(),
-                AdvanceSearchs = GetAdvanceSearchs(),
-                CustomerSearchs = GetCustomerSearchs(),
                 SearchModel = SearchModel,
                 StartIndex = StartIndex
             };
+
+            queryOption.Filters.AddRange(Filters.Values);
+            queryOption.Searchs.AddRange(GetSearchs());
+            queryOption.AdvanceSearchs.AddRange(GetAdvanceSearchs());
+            queryOption.CustomerSearchs.AddRange(GetCustomerSearchs());
+
+            if (!string.IsNullOrEmpty(SortString))
+            {
+                queryOption.SortList.AddRange(SortString.Split(",", StringSplitOptions.RemoveEmptyEntries));
+            }
 
             if (CustomerSearchModel != null)
             {
@@ -531,7 +536,7 @@ public partial class Table<TItem>
                         var invoker = Utility.GetSortFunc<TItem>();
                         QueryItems = invoker(QueryItems, queryOption.SortName, queryOption.SortOrder);
                     }
-                    else if (queryOption.SortList != null && queryOption.SortList.Any())
+                    else if (queryOption.SortList.Any())
                     {
                         var invoker = Utility.GetSortListFunc<TItem>();
                         QueryItems = invoker(QueryItems, queryOption.SortList);

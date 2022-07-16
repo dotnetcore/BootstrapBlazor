@@ -2465,6 +2465,12 @@ public class TableTest : TableTestBase
                 pb.Add(a => a.SearchText, "test_search_text");
                 pb.Add(a => a.OnQueryAsync, op =>
                 {
+                    Assert.Equal("test_search_text", op.SearchText);
+                    Assert.Equal(1, op.PageIndex);
+                    Assert.Equal(0, op.StartIndex);
+                    Assert.Equal(20, op.PageItems);
+                    Assert.False(op.IsPage);
+                    Assert.NotNull(op.SearchModel);
                     return OnQueryAsync(localizer, isSearch: false)(op);
                 });
                 pb.Add(a => a.TableColumns, foo => builder =>
@@ -3880,8 +3886,8 @@ public class TableTest : TableTestBase
                 pb.Add(a => a.RenderMode, TableRenderMode.Table);
                 pb.Add(a => a.OnQueryAsync, op =>
                 {
-                    op.CustomerSearchs = new List<IFilterAction>() { new MockFilterAction() };
-                    op.Filters = new List<IFilterAction>() { new MockFilterAction() };
+                    op.CustomerSearchs.AddRange(new List<IFilterAction>() { new MockFilterAction() });
+                    op.Filters.AddRange(new List<IFilterAction>() { new MockFilterAction() });
                     return OnQueryAsync(localizer, isAdvanceSearch: false, isFilter: false)(op);
                 });
                 pb.Add(a => a.TableColumns, foo => builder =>
@@ -5603,6 +5609,7 @@ public class TableTest : TableTestBase
         public string? Name { get; set; }
     }
 
+    [AttributeUsage(AttributeTargets.Property)]
     private class CatKeyAttribute : Attribute
     {
 

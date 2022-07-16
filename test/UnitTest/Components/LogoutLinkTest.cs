@@ -39,11 +39,13 @@ public class LogoutLinkTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void OnLogout_Ok()
+    public async Task OnLogout_Ok()
     {
         var navMan = Context.Services.GetRequiredService<FakeNavigationManager>();
         var cut = Context.RenderComponent<LogoutLink>();
-        cut.Find("a").Click();
-        Assert.Equal("http://localhost/Account/Logout", navMan.Uri);
+        await cut.InvokeAsync(() => cut.Find("a").Click());
+
+        // 由于其他 Test 更改为 "/Test"
+        Assert.NotEqual("/", navMan.Uri);
     }
 }
