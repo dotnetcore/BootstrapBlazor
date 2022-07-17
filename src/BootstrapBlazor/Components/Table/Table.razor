@@ -94,10 +94,17 @@
                                 <span class="caret"></span>
                             </button>
                             <div class="dropdown-menu dropdown-menu-right shadow">
-                                <div class="dropdown-item" @onclick="@ExportAsync">
-                                    <i class="fa fa-file-excel-o"></i>
-                                    <span>MS-Excel</span>
-                                </div>
+                                @if(ExportButtonDropdownTemplate != null)
+                                {
+                                    @ExportButtonDropdownTemplate
+                                }
+                                else
+                                {
+                                    <div class="dropdown-item" @onclick="@ExportAsync">
+                                        <i class="fa fa-file-excel-o"></i>
+                                        <span>@ExportExcelDropdownItemText</span>
+                                    </div>
+                                }
                             </div>
                         </div>
                     }

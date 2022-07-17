@@ -251,7 +251,8 @@
     "EmptyText": "无数据",
     "ExportToastTitle": "导出数据",
     "ExportToastContent": "导出数据 {0}，{1} 秒后自动关闭",
-    "ExportToastInProgressContent": "正在导出数据，请稍后, {0} 秒后自动关闭"
+    "ExportToastInProgressContent": "正在导出数据，请稍后, {0} 秒后自动关闭",
+    "ExportExcelDropdownItemText": "微软 Excel 格式"
   },
   "BootstrapBlazor.Components.EditDialog": {
     "CloseButtonText": "关闭",

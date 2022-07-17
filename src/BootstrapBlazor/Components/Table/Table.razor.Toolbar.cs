@@ -70,6 +70,18 @@ public partial class Table<TItem>
     public bool ShowExportButton { get; set; }
 
     /// <summary>
+    /// 获得/设置 导出按钮下拉菜单模板 默认 null
+    /// </summary>
+    [Parameter]
+    public RenderFragment? ExportButtonDropdownTemplate { get; set; }
+
+    /// <summary>
+    /// 获得/设置 内置导出微软 Excel 按钮文本 默认 null 读取资源文件
+    /// </summary>
+    [Parameter]
+    public string? ExportExcelDropdownItemText { get; set; }
+
+    /// <summary>
     /// 获得/设置 是否显示扩展按钮 默认为 false
     /// </summary>
     [Parameter]
@@ -724,7 +736,6 @@ public partial class Table<TItem>
             Title = ExportToastTitle,
             Category = ret ? ToastCategory.Success : ToastCategory.Error
         };
-        //$"导出数据{(ret ? "成功" : "失败")}, {Math.Ceiling(option.Delay / 1000.0)} 秒后自动关闭";
         option.Content = string.Format(ExportToastContent, ret ? SuccessText : FailText, Math.Ceiling(option.Delay / 1000.0));
         await Toast.Show(option);
     }

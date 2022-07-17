@@ -32,6 +32,10 @@ public partial class TablesExport
     [NotNull]
     private VersionService? VersionManager { get; set; }
 
+    [Inject]
+    [NotNull]
+    private ToastService? ToastService { get; set; }
+
     /// <summary>
     /// OnInitialized 方法
     /// </summary>
@@ -60,6 +64,16 @@ public partial class TablesExport
     }
 
     private static Task<bool> ExportAsync(IEnumerable<Foo> Items) => Task.FromResult(true);
+
+    private async Task ExcelExportAsync()
+    {
+        await ToastService.Success("Excel 导出", "导出 Excel 数据成功");
+    }
+
+    private async Task CsvExportAsync()
+    {
+        await ToastService.Success("CSV 导出", "导出 CSV 数据成功");
+    }
 
     /// <summary>
     /// OnInitializedAsync 方法

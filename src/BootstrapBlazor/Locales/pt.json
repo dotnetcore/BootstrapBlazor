@@ -251,7 +251,8 @@
     "EmptyText": "Vazio",
     "ExportToastTitle": "Exportar dados",
     "ExportToastContent": "Exportar dados {0}, Fechamento automático em {0} segundos",
-    "ExportToastInProgressContent": "Exportar dados, Fechamento automático em {0} segundos"
+    "ExportToastInProgressContent": "Exportar dados, Fechamento automático em {0} segundos",
+    "ExportExcelDropdownItemText": "MS-Excel"
   },
   "BootstrapBlazor.Components.EditDialog": {
     "CloseButtonText": "Fechar",

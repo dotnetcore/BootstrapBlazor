@@ -2925,6 +2925,7 @@
     "TableFooterAttr": "Table Footer Template",
     "TableToolbarTemplateAttr": "Custom Button Template",
     "EditTemplateAttr": "Edit Pop-up Template",
+    "ExportButtonDropdownTemplateAttr": "The template of Export dropdown button item",
     "ShowAdvancedSearchAttr": "Show advanced search",
     "SearchTemplateAttr": "Advanced Search Template",
     "BeforeRowButtonTemplateAttr": "Table Row Button Template Before Button",

@@ -1014,6 +1014,14 @@ public partial class Tables
         },
         new()
         {
+            Name = "ExportButtonDropdownTemplate",
+            Description = TablesLocalizer["ExportButtonDropdownTemplateAttr"],
+            Type = "RenderFragment",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
             Name = nameof(Table<Foo>.SearchDialogIsDraggable),
             Description = TablesLocalizer["SearchDialogIsDraggableAttr"],
             Type = "bool",
