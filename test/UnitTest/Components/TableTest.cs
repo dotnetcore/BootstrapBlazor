@@ -579,6 +579,36 @@ public class TableTest : TableTestBase
         cut.Contains("Test_Export");
     }
 
+    [Fact]
+    public void ExportButtonDropdownTemplate_Ok()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.ShowToolbar, true);
+                pb.Add(a => a.ShowExportButton, true);
+                pb.Add(a => a.ExportButtonText, "Test_Export");
+                pb.Add(a => a.ExportButtonDropdownTemplate, builder =>
+                {
+                    builder.OpenElement(0, "div");
+                    builder.AddContent(1, "test-export-dropdown-item");
+                    builder.CloseElement();
+                });
+                pb.Add(a => a.Items, Foo.GenerateFoo(localizer));
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+                });
+            });
+        });
+        cut.Contains("test-export-dropdown-item");
+    }
+
     [Theory]
     [InlineData(true)]
     [InlineData(false)]
