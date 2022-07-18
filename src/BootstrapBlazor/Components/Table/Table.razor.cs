@@ -780,10 +780,6 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
                     // 格式化字符串
                     content = Utility.Format(val, col.FormatString);
                 }
-                else if (col.PropertyType.IsEnum())
-                {
-                    content = col.PropertyType.ToDescriptionString(val?.ToString());
-                }
                 else if (col.PropertyType.IsDateTime())
                 {
                     content = Utility.Format(val, CultureInfo.CurrentUICulture.DateTimeFormat);

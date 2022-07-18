@@ -216,6 +216,14 @@ internal class CacheManager : ICacheManager
             {
                 dn = stringLocalizer.Value;
             }
+            else if (modelType.IsEnum)
+            {
+                var info = modelType.GetFieldByName(fieldName);
+                if (info != null)
+                {
+                    dn = FindDisplayAttribute(info);
+                }
+            }
             else if (TryGetProperty(modelType, fieldName, out var propertyInfo))
             {
                 dn = FindDisplayAttribute(propertyInfo);
@@ -228,11 +236,11 @@ internal class CacheManager : ICacheManager
 
         return displayName ?? fieldName;
 
-        string? FindDisplayAttribute(PropertyInfo propertyInfo)
+        string? FindDisplayAttribute(MemberInfo memberInfo)
         {
             // 回退查找 Display 标签
-            var dn = propertyInfo.GetCustomAttribute<DisplayAttribute>(true)?.Name
-                ?? propertyInfo.GetCustomAttribute<DisplayNameAttribute>(true)?.DisplayName;
+            var dn = memberInfo.GetCustomAttribute<DisplayAttribute>(true)?.Name
+                ?? memberInfo.GetCustomAttribute<DisplayNameAttribute>(true)?.DisplayName;
 
             // 回退查找资源文件通过 dn 查找匹配项 用于支持 Validation
             if (!modelType.Assembly.IsDynamic && !string.IsNullOrEmpty(dn))
