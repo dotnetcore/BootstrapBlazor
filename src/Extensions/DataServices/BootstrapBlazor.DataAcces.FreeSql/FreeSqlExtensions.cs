@@ -27,6 +27,18 @@ public static class FreeSqlExtensions
             ret.Filters.Add(filter.ToDynamicFilter());
         }
 
+        foreach (var search in option.CustomerSearchs)
+        {
+            // 自定义搜索条件 之间默认为 and
+            ret.Filters.Add(search.ToDynamicFilter());
+        }
+
+        foreach (var search in option.AdvanceSearchs)
+        {
+            // 高级搜索条件 之间默认为 and
+            ret.Filters.Add(search.ToDynamicFilter());
+        }
+
         foreach (var search in option.Searchs)
         {
             // Searchs 之间默认为 or
@@ -45,9 +57,12 @@ public static class FreeSqlExtensions
             {
                 Field = f.FieldKey,
                 Value = f.FieldValue,
-                Logic = (logic ?? f.FilterLogic).ToDynamicFilterLogic(),
                 Operator = f.FilterAction.ToDynamicFilterOperator()
             });
+        }
+        if (actions.Any())
+        {
+            item.Logic = (logic ?? FilterLogic.And).ToDynamicFilterLogic();
         }
         return item;
     }
