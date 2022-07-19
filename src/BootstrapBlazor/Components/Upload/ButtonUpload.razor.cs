@@ -41,6 +41,18 @@ public sealed partial class ButtonUpload<TValue>
     private IStringLocalizer<UploadBase<TValue>>? Localizer { get; set; }
 
     /// <summary>
+    /// 获得/设置 是否显示下载按钮 默认 false
+    /// </summary>
+    [Parameter]
+    public bool ShowDownloadButton { get; set; }
+
+    /// <summary>
+    /// 获得/设置 点击下载按钮回调方法 默认 null
+    /// </summary>
+    [Parameter]
+    public Func<UploadFile, Task>? OnDownload { get; set; }
+
+    /// <summary>
     /// OnInitialized 方法
     /// </summary>
     protected override void OnInitialized()
@@ -48,5 +60,13 @@ public sealed partial class ButtonUpload<TValue>
         base.OnInitialized();
 
         BrowserButtonText ??= Localizer[nameof(BrowserButtonText)];
+    }
+
+    private async Task OnClickDownload(UploadFile item)
+    {
+        if (OnDownload != null)
+        {
+            await OnDownload(item);
+        }
     }
 }

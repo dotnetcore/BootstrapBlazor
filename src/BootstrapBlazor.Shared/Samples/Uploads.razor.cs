@@ -204,6 +204,11 @@ public sealed partial class Uploads : IDisposable
         return Task.CompletedTask;
     }
 
+    private async Task OnDownload(UploadFile item)
+    {
+        await ToastService.Success("文件下载", $"下载 {item.FileName} 成功");
+    }
+
     private class Person
     {
         [Required]
@@ -387,7 +392,14 @@ public sealed partial class Uploads : IDisposable
             Description = Localizer["OnChange"],
             Type = "Func<UploadFile, Task>",
             ValueList = " — ",
-            DefaultValue = " - "
+            DefaultValue = " — "
+        },
+        new AttributeItem() {
+            Name = "OnDownload",
+            Description = Localizer["OnDownload"],
+            Type = "Func<UploadFile, Task>",
+            ValueList = " — ",
+            DefaultValue = " — "
         }
     };
 
