@@ -9,7 +9,7 @@ using UnitTest.Misc;
 
 namespace UnitTest.Components;
 
-public class TabTest : BootstrapBlazorTestBase
+public class TabTest : TabTestBase
 {
     [Fact]
     public void TabItem_Ok()
@@ -259,52 +259,6 @@ public class TabTest : BootstrapBlazorTestBase
         });
         var item = cut.Instance.GetActiveTab();
         Assert.Contains("Index", cut.Markup);
-    }
-
-    [Fact]
-    public void ExcludeUrls_Ok()
-    {
-        var cut = Context.RenderComponent<Tab>(pb =>
-        {
-            pb.Add(a => a.AdditionalAssemblies, new Assembly[] { GetType().Assembly });
-            pb.Add(a => a.ExcludeUrls, new String[] { "/" });
-            pb.Add(a => a.ClickTabToNavigation, true);
-            pb.AddChildContent<TabItem>(pb =>
-            {
-                pb.Add(a => a.Text, "Tab1");
-                pb.Add(a => a.Url, "/Cat");
-                pb.Add(a => a.ChildContent, "Tab1-Content");
-            });
-        });
-
-        // 增加代码覆盖率
-    }
-
-    [Fact]
-    public void ActiveTabItem_Ok()
-    {
-        var cut = Context.RenderComponent<Tab>(pb =>
-        {
-            pb.Add(a => a.AdditionalAssemblies, new Assembly[] { GetType().Assembly });
-            pb.Add(a => a.ClickTabToNavigation, true);
-            pb.AddChildContent<TabItem>(pb =>
-            {
-                pb.Add(a => a.Text, "Tab1");
-                pb.Add(a => a.Url, "/Cat");
-                pb.Add(a => a.ChildContent, "Tab1-Content");
-            });
-        });
-
-        // 增加代码覆盖率
-        var navi = Context.Services.GetRequiredService<NavigationManager>();
-        navi.NavigateTo("/Cat");
-
-        cut.SetParametersAndRender(pb =>
-        {
-            pb.Add(a => a.DefaultUrl, "/Cat");
-        });
-
-        // TabItem 导航到 Cat 网页
     }
 
     [Fact]
