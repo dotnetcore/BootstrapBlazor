@@ -42,4 +42,19 @@ public partial class BootstrapBlazorRoot
 
         await base.SetParametersAsync(parameters);
     }
+
+    [ExcludeFromCodeCoverage]
+    private RenderFragment RenderBody() => builder =>
+    {
+        if (OperatingSystem.IsBrowser())
+        {
+            builder.AddContent(0, RenderChildContent);
+        }
+        else
+        {
+            builder.OpenElement(1, "app");
+            builder.AddContent(2, RenderChildContent);
+            builder.CloseElement();
+        }
+    };
 }
