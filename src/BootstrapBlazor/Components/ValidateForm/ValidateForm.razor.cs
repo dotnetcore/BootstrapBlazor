@@ -297,11 +297,17 @@ public partial class ValidateForm : IAsyncDisposable
                 if (!string.IsNullOrEmpty(rule.ErrorMessage))
                 {
                     var resxType = Options.Value.ResourceManagerStringLocalizerType;
-                    if (resxType != null
-                        && LocalizerFactory.Create(resxType).TryGetLocalizerString(rule.ErrorMessage, out var resx))
+                    ProcessResourceManagerLocalizerType();
+
+                    [ExcludeFromCodeCoverage]
+                    void ProcessResourceManagerLocalizerType()
                     {
-                        rule.ErrorMessage = resx;
-                        find = true;
+                        if (resxType != null
+    && LocalizerFactory.Create(resxType).TryGetLocalizerString(rule.ErrorMessage, out var resx))
+                        {
+                            rule.ErrorMessage = resx;
+                            find = true;
+                        }
                     }
                 }
 
