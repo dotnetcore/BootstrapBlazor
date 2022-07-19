@@ -240,7 +240,8 @@ internal class CacheManager : ICacheManager
         {
             // 回退查找 Display 标签
             var dn = memberInfo.GetCustomAttribute<DisplayAttribute>(true)?.Name
-                ?? memberInfo.GetCustomAttribute<DisplayNameAttribute>(true)?.DisplayName;
+                ?? memberInfo.GetCustomAttribute<DisplayNameAttribute>(true)?.DisplayName
+                ?? memberInfo.GetCustomAttribute<DescriptionAttribute>(true)?.Description;
 
             // 回退查找资源文件通过 dn 查找匹配项 用于支持 Validation
             if (!modelType.Assembly.IsDynamic && !string.IsNullOrEmpty(dn))
