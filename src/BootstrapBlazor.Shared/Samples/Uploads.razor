@@ -134,7 +134,7 @@
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["FileIconTitle"]" Introduction="@Localizer["FileIconIntro"]" Name="FileIcon">
-    <CardUpload TValue="string" DefaultFileList="@DefaultFormatFileList" OnChange="@OnCardUpload" OnDelete="@(fileName => Task.FromResult(true))"></CardUpload>
+    <CardUpload TValue="string" ShowDownloadButton="true" DefaultFileList="@DefaultFormatFileList" OnChange="@OnCardUpload" OnDelete="@(fileName => Task.FromResult(true))"></CardUpload>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["Base64FormatTitle"]" Introduction="@Localizer["Base64FormatIntro"]" Name="Base64">

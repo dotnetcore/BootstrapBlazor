@@ -30,6 +30,18 @@ public abstract class ButtonUploadBase<TValue> : SingleUploadBase<TValue>
     public Func<string?, string>? OnGetFileFormat { get; set; }
 
     /// <summary>
+    /// 获得/设置 是否显示下载按钮 默认 false
+    /// </summary>
+    [Parameter]
+    public bool ShowDownloadButton { get; set; }
+
+    /// <summary>
+    /// 获得/设置 点击下载按钮回调方法 默认 null
+    /// </summary>
+    [Parameter]
+    public Func<UploadFile, Task>? OnDownload { get; set; }
+
+    /// <summary>
     /// OnInitialized 方法
     /// </summary>
     protected override void OnInitialized()
@@ -148,5 +160,18 @@ public abstract class ButtonUploadBase<TValue> : SingleUploadBase<TValue>
             ret.Add("webkitdirectory", "webkitdirectory");
         }
         return ret;
+    }
+
+    /// <summary>
+    /// 点击下载按钮回调此方法
+    /// </summary>
+    /// <param name="item"></param>
+    /// <returns></returns>
+    protected async Task OnClickDownload(UploadFile item)
+    {
+        if (OnDownload != null)
+        {
+            await OnDownload(item);
+        }
     }
 }
