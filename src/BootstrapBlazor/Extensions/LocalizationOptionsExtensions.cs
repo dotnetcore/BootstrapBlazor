@@ -116,13 +116,12 @@ public static class LocalizationOptionsExtensions
 
         StringSegment GetParentCultureName(StringSegment cultureInfoName)
         {
-            var ret = new StringSegment();
             var index = cultureInfoName.IndexOf('-');
             if (index > 0)
             {
-                ret = cultureInfoName.Subsegment(0, index);
+                return cultureInfoName.Subsegment(0, index);
             }
-            return ret;
+            return cultureInfoName;
         }
     }
 }
