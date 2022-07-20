@@ -2,9 +2,11 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using BootstrapBlazor.Localization.Json;
 using BootstrapBlazor.Shared;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
+using Microsoft.Extensions.Options;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Data;
@@ -277,6 +279,21 @@ public class UtilityTest : BootstrapBlazorTestBase
 
         // 内部走 null 逻辑
         _ = context.SetValue(model);
+    }
+
+    [Fact]
+    public void GetJsonStringFromAssembly_Ok()
+    {
+        var option = Context.Services.GetRequiredService<IOptions<JsonLocalizationOptions>>().Value;
+        var sections = Utility.GetJsonStringFromAssembly(option, this.GetType().Assembly, null, true);
+
+        // 加载 UnitTest.Locals.en-US.json
+        // 加载 BootstrapBlazor.Locals.en.json
+        Assert.NotEmpty(sections);
+
+        // dynamic
+        var dynamicType = EmitHelper.CreateTypeByName("test_type", new MockTableColumn[] { new("Name", typeof(string)) });
+        Utility.GetJsonStringFromAssembly(option, dynamicType!.Assembly);
     }
 
     private class MockDynamicObject : IDynamicObject
