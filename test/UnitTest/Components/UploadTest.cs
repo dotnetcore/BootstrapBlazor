@@ -414,6 +414,30 @@ public class UploadTest : BootstrapBlazorTestBase
         cut.Contains("form-label");
     }
 
+
+    [Fact]
+    public async Task ButtonUpload_ShowDownload()
+    {
+        var clicked = false;
+        var cut = Context.RenderComponent<ButtonUpload<string>>(pb =>
+        {
+            pb.Add(a => a.ShowDownloadButton, true);
+            pb.Add(a => a.OnDownload, file =>
+            {
+                clicked = true;
+                return Task.CompletedTask;
+            });
+            pb.Add(a => a.DefaultFileList, new List<UploadFile>()
+            {
+                new UploadFile() { FileName  = "Test-File1.text" }
+            });
+        });
+
+        var button = cut.Find(".fa-download");
+        await cut.InvokeAsync(() => button.Click());
+        Assert.True(clicked);
+    }
+
     [Fact]
     public async Task ButtonUpload_Validate_Ok()
     {
@@ -615,7 +639,7 @@ public class UploadTest : BootstrapBlazorTestBase
         cut.Contains("bb-viewer-wrapper active");
 
         // OnZoom
-        await cut.InvokeAsync(() => cut.Find(".btn-outline-secondary").Click());
+        await cut.InvokeAsync(() => cut.Find(".btn-secondary").Click());
         Assert.False(zoom);
 
         cut.SetParametersAndRender(pb =>
@@ -626,7 +650,7 @@ public class UploadTest : BootstrapBlazorTestBase
                 return Task.CompletedTask;
             });
         });
-        await cut.InvokeAsync(() => cut.Find(".btn-outline-secondary").Click());
+        await cut.InvokeAsync(() => cut.Find(".btn-secondary").Click());
         Assert.True(zoom);
 
         // OnDelete
@@ -669,6 +693,29 @@ public class UploadTest : BootstrapBlazorTestBase
         });
         await cut.InvokeAsync(() => cut.Instance.Reset());
         Assert.Empty(cut.Instance.DefaultFileList);
+    }
+
+    [Fact]
+    public async Task CardUpload_ShowDownload()
+    {
+        var clicked = false;
+        var cut = Context.RenderComponent<CardUpload<string>>(pb =>
+        {
+            pb.Add(a => a.ShowDownloadButton, true);
+            pb.Add(a => a.OnDownload, file =>
+            {
+                clicked = true;
+                return Task.CompletedTask;
+            });
+            pb.Add(a => a.DefaultFileList, new List<UploadFile>()
+            {
+                new UploadFile() { FileName  = "Test-File1.text" }
+            });
+        });
+
+        var button = cut.FindAll(".btn-secondary");
+        await cut.InvokeAsync(() => button[1].Click());
+        Assert.True(clicked);
     }
 
     [Fact]
