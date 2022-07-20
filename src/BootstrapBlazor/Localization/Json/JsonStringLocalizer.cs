@@ -218,7 +218,7 @@ internal class JsonStringLocalizer : ResourceManagerStringLocalizer
         // get all strings from json localization file
         IEnumerable<LocalizedString> GetAllStringsFromJson(bool includeParentCultures)
         {
-            var localStrings = CacheManager.GetAllStringsByCulture(Assembly, TypeName, includeParentCultures)
+            var localStrings = CacheManager.GetAllStringsByCulture(Assembly, TypeName)
                 ?? GetAllStringsFromResolve(includeParentCultures);
 
             if (localStrings != null)

@@ -175,7 +175,7 @@ class CodeSnippetService
         List<KeyValuePair<string, string>> GetLocalizers() => CacheManager.GetLocalizers(codeFile, entry =>
         {
             var typeName = Path.GetFileNameWithoutExtension(codeFile);
-            var sections = LocalizerOptions.GetJsonStringFromAssembly(typeof(CodeSnippetService).Assembly);
+            var sections = Utility.GetJsonStringFromAssembly(LocalizerOptions, typeof(CodeSnippetService).Assembly);
             var v = sections.FirstOrDefault(s => $"BootstrapBlazor.Shared.Samples.{typeName}".Equals(s.Key, StringComparison.OrdinalIgnoreCase))?
                 .GetChildren()
                 .SelectMany(c => new KeyValuePair<string, string>[]

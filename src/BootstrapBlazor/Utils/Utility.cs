@@ -2,7 +2,9 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using BootstrapBlazor.Localization.Json;
 using Microsoft.AspNetCore.Components.Rendering;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Localization;
 using System.ComponentModel;
 using System.Data;
@@ -114,6 +116,16 @@ public static class Utility
     /// </summary>
     /// <returns></returns>
     public static Func<IEnumerable<T>, List<string>, IEnumerable<T>> GetSortListFunc<T>() => CacheManager.GetSortListFunc<T>();
+
+    /// <summary>
+    /// 通过指定程序集获取所有本地化信息键值集合
+    /// </summary>
+    /// <param name="option">JsonLocalizationOptions 实例</param>
+    /// <param name="assembly">Assembly 程序集实例</param>
+    /// <param name="cultureName">cultureName 未空时使用 CultureInfo.CurrentUICulture.Name</param>
+    /// <param name="forceLoad">默认 false 使用缓存值 设置 true 时内部强制重新加载</param>
+    /// <returns></returns>
+    public static IEnumerable<IConfigurationSection> GetJsonStringFromAssembly(JsonLocalizationOptions option, Assembly assembly, string? cultureName = null, bool forceLoad = false) => CacheManager.GetJsonStringFromAssembly(option, assembly, cultureName, forceLoad);
 
     /// <summary>
     /// 获取 PlaceHolder 方法

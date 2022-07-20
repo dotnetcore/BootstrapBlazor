@@ -172,21 +172,32 @@ internal class CacheManager : ICacheManager
     /// </summary>
     /// <param name="assembly"></param>
     /// <param name="typeName"></param>
-    /// <param name="includeParentCultures"></param>
     /// <returns></returns>
-    public static IEnumerable<LocalizedString>? GetAllStringsByCulture(Assembly assembly, string typeName, bool includeParentCultures = true) => assembly.IsDynamic
-        ? null
-        : Instance.GetOrCreate($"{nameof(GetAllStringsByCulture)}-{CultureInfo.CurrentUICulture.Name}-{assembly.GetName().Name}-{typeName}",
-            entry =>
-            {
-                // 获得程序集中的资源文件 stream
-                var sections = GetJsonLocalizationOption().GetJsonStringFromAssembly(assembly);
-                var v = sections
-                    .FirstOrDefault(kv => typeName.Equals(kv.Key, StringComparison.OrdinalIgnoreCase))?
-                    .GetChildren()
-                    .SelectMany(kv => new[] { new LocalizedString(kv.Key, kv.Value) });
-                return v;
-            });
+    public static IEnumerable<LocalizedString>? GetAllStringsByCulture(Assembly assembly, string typeName) => GetJsonStringFromAssembly(GetJsonLocalizationOption(), assembly, CultureInfo.CurrentUICulture.Name)
+        .FirstOrDefault(kv => typeName.Equals(kv.Key, StringComparison.OrdinalIgnoreCase))?
+        .GetChildren()
+        .SelectMany(kv => new[] { new LocalizedString(kv.Key, kv.Value) });
+
+    /// <summary>
+    /// 通过指定程序集获取所有本地化信息键值集合
+    /// </summary>
+    /// <param name="option">JsonLocalizationOptions 实例</param>
+    /// <param name="assembly">Assembly 程序集实例</param>
+    /// <param name="cultureName">cultureName 未空时使用 CultureInfo.CurrentUICulture.Name</param>
+    /// <param name="forceLoad">默认 false 使用缓存值 设置 true 时内部强制重新加载</param>
+    /// <returns></returns>
+    public static IEnumerable<IConfigurationSection> GetJsonStringFromAssembly(JsonLocalizationOptions option, Assembly assembly, string? cultureName = null, bool forceLoad = false)
+    {
+        cultureName ??= CultureInfo.CurrentUICulture.Name;
+        var key = $"{nameof(GetJsonStringFromAssembly)}-{assembly.GetName().Name}-{cultureName}";
+        if (forceLoad)
+        {
+            Instance.Cache.Remove(key);
+        }
+        return assembly.IsDynamic
+            ? Enumerable.Empty<IConfigurationSection>()
+            : Instance.GetOrCreate(key, entry => option.GetJsonStringFromAssembly(assembly, cultureName));
+    }
 
     /// <summary>
     /// 
