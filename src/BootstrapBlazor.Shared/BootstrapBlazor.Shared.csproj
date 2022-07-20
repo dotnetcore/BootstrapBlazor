@@ -18,7 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="BootstrapBlazor.BaiduSpeech" Version="6.*" />
+    <PackageReference Include="BootstrapBlazor.BaiduSpeech" Version="6.0.9" />
     <PackageReference Include="BootstrapBlazor.Chart" Version="6.*" />
     <PackageReference Include="BootstrapBlazor.CherryMarkdown" Version="6.*" />
     <PackageReference Include="BootstrapBlazor.Markdown" Version="6.*" />
