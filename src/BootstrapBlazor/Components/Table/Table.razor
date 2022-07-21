@@ -53,7 +53,7 @@
                     @TableToolbarTemplate
                 </TableToolbar>
                 <div class="float-end table-toolbar-button btn-group table-column-right">
-                    @if (!IsExcel && ShowRefresh)
+                    @if (ShowRefresh)
                     {
                         <Button Icon="fa fa-refresh" Text="@RefreshButtonText" Color="@Color.Secondary" OnClickWithoutRender="@OnClickRefreshAsync" />
                     }

@@ -426,6 +426,8 @@ public partial class Table<TItem>
                     SelectedRows.AddRange(DynamicContext.OnGetSelectedRows().Cast<TItem>());
                 }
                 TotalCount = QueryItems.Count();
+
+                RowsCache = null;
             }
             else
             {
@@ -595,8 +597,7 @@ public partial class Table<TItem>
     /// <returns></returns>
     protected bool ComparerItem(TItem a, TItem b) => ModelEqualityComparer?.Invoke(a, b)
         ?? DynamicContext?.EqualityComparer?.Invoke((IDynamicObject)a, (IDynamicObject)b)
-        ?? Utility.GetKeyValue<TItem, object>(a, CustomKeyAttribute)
-            ?.Equals(Utility.GetKeyValue<TItem, object>(b, CustomKeyAttribute))
+        ?? Utility.GetKeyValue<TItem, object>(a, CustomKeyAttribute)?.Equals(Utility.GetKeyValue<TItem, object>(b, CustomKeyAttribute))
         ?? EqualityComparer(a, b)
         ?? a.Equals(b);
 
