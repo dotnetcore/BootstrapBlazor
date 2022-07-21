@@ -97,7 +97,7 @@ public class Foo
         Address = localizer["Foo.Address", $"{Random.Next(1000, 2000)}"],
         Count = Random.Next(1, 100),
         Complete = Random.Next(1, 100) > 50,
-        Education = Random.Next(1, 100) > 50 ? EnumEducation.Primary : EnumEducation.Middel
+        Education = Random.Next(1, 100) > 50 ? EnumEducation.Primary : EnumEducation.Middle
     };
 
     /// <summary>
@@ -112,7 +112,7 @@ public class Foo
         Address = localizer["Foo.Address", $"{Random.Next(1000, 2000)}"],
         Count = Random.Next(1, 100),
         Complete = Random.Next(1, 100) > 50,
-        Education = Random.Next(1, 100) > 50 ? EnumEducation.Primary : EnumEducation.Middel
+        Education = Random.Next(1, 100) > 50 ? EnumEducation.Primary : EnumEducation.Middle
     }).ToList();
 
     /// <summary>
@@ -200,5 +200,5 @@ public enum EnumEducation
     ///
     /// </summary>
     [Display(Name = "中学")]
-    Middel
+    Middle
 }

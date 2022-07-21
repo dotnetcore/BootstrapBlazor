@@ -54,9 +54,9 @@ public class LambadaExtensionsTest
     [Fact]
     public void GetFilterLambda_Enum()
     {
-        var filters = new FilterKeyValueAction() { FieldKey = nameof(Dummy.Education), FieldValue = "Middel" };
+        var filters = new FilterKeyValueAction() { FieldKey = nameof(Dummy.Education), FieldValue = "Middle" };
         var exp = filters.GetFilterLambda<Dummy>();
-        Assert.True(exp.Compile().Invoke(new Dummy() { Education = EnumEducation.Middel }));
+        Assert.True(exp.Compile().Invoke(new Dummy() { Education = EnumEducation.Middle }));
     }
 
     [Fact]
@@ -174,9 +174,9 @@ public class LambadaExtensionsTest
     [Fact]
     public void FilterKeyValueAction_ComplexFilterExpression_Enum()
     {
-        var filter = new FilterKeyValueAction() { FieldKey = "Cat.Education", FieldValue = "Middel" };
+        var filter = new FilterKeyValueAction() { FieldKey = "Cat.Education", FieldValue = "Middle" };
         var invoker = filter.GetFilterLambda<Dummy>().Compile();
-        Assert.True(invoker.Invoke(new Dummy() { Cat = new Cat() { Education = EnumEducation.Middel } }));
+        Assert.True(invoker.Invoke(new Dummy() { Cat = new Cat() { Education = EnumEducation.Middle } }));
     }
 
     [Fact]

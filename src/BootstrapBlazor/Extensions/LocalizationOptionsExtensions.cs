@@ -24,11 +24,17 @@ public static class LocalizationOptionsExtensions
     /// <returns></returns>
     public static IEnumerable<IConfigurationSection> GetJsonStringFromAssembly(this JsonLocalizationOptions option, Assembly assembly, string? cultureName = null)
     {
+        // 获得当前文化名称
         cultureName ??= CultureInfo.CurrentUICulture.Name;
-        var langHandler = GetLangHandlers(cultureName);
 
+        // 获得程序集内 Json 文件流集合
+        var langHandlers = option.GetJsonHanlders(assembly, cultureName).ToList();
+
+        // 创建配置 ConfigurationBuilder
         var builder = new ConfigurationBuilder();
-        foreach (var h in langHandler)
+
+        // 添加 Json 文件流到配置
+        foreach (var h in langHandlers)
         {
             builder.AddJsonStream(h);
         }
@@ -47,72 +53,68 @@ public static class LocalizationOptionsExtensions
             }
         }
 
+        // 生成 IConfigurationRoot
         var config = builder.Build();
 
         // dispose json stream
-        foreach (var h in langHandler)
+        foreach (var h in langHandlers)
         {
             h.Dispose();
         }
         return config.GetChildren();
+    }
 
-        List<Stream> GetLangHandlers(string cultureName)
+    private static IEnumerable<Stream> GetJsonHanlders(this JsonLocalizationOptions option, Assembly assembly, string cultureName)
+    {
+        // 获取程序集中的资源文件
+        var assemblies = new List<Assembly>()
         {
-            // 获取程序集中的资源文件
-            var langHandler = GetResourceStream(assembly, cultureName);
-            AddResourceStream();
-            return langHandler;
+            assembly
+        };
+        if (option.AdditionalJsonAssemblies != null)
+        {
+            assemblies.AddRange(option.AdditionalJsonAssemblies);
+        }
+        return assemblies.SelectMany(i => option.GetResourceStream(i, cultureName));
+    }
 
-            [ExcludeFromCodeCoverage]
-            void AddResourceStream()
+    private static List<Stream> GetResourceStream(this JsonLocalizationOptions option, Assembly assembly, string cultureName)
+    {
+        var ret = new List<Stream>();
+
+        // 如果开启回落机制优先增加回落语言
+        if (option.EnableFallbackCulture)
+        {
+            AddStream(option.FallbackCulture);
+        }
+
+        // 查找父资源
+        var parentName = GetParentCultureName(cultureName).Value;
+        if (!string.IsNullOrEmpty(parentName) && !EqualFallbackCulture(parentName))
+        {
+            AddStream(parentName);
+        }
+
+        // 当前文化资源
+        if (!EqualFallbackCulture(cultureName))
+        {
+            AddStream(cultureName);
+        }
+
+        return ret;
+
+        void AddStream(string name)
+        {
+            var json = $"{assembly.GetName().Name}.{option.ResourcesPath}.{name}.json";
+            var stream = assembly.GetManifestResourceStream(json);
+            if (stream != null)
             {
-                // 获取外部设置程序集中的资源文件
-                if (option.AdditionalJsonAssemblies != null)
-                {
-                    langHandler.AddRange(option.AdditionalJsonAssemblies
-                        .SelectMany(i => GetResourceStream(i, cultureName)));
-                }
+                ret.Add(stream);
             }
         }
 
-        List<Stream> GetResourceStream(Assembly assembly, string cultureName)
-        {
-            var ret = new List<Stream>();
-
-            if (option.EnableFallbackCulture)
-            {
-                // 查找回落资源
-                var parentName = GetParentCultureName(cultureName).Value;
-                if (!string.IsNullOrEmpty(parentName))
-                {
-                    if (!AddStream(parentName))
-                    {
-                        // 使用回落资源文件
-                        AddStream(option.FallbackCulture);
-                    }
-                }
-            }
-
-            // 当前文化资源
-            var json = $"{assembly.GetName().Name}.{option.ResourcesPath}.{cultureName}.json";
-            var s = assembly.GetManifestResourceStream(json);
-            if (s != null)
-            {
-                ret.Add(s);
-            }
-            return ret;
-
-            bool AddStream(string cultureName)
-            {
-                var fallbackJson = $"{assembly.GetName().Name}.{option.ResourcesPath}.{cultureName}.json";
-                var stream = assembly.GetManifestResourceStream(fallbackJson);
-                if (stream != null)
-                {
-                    ret.Add(stream);
-                }
-                return stream != null;
-            }
-        }
+        // 开启回落机制并且当前文化信息与回落语言相同
+        bool EqualFallbackCulture(string name) => option.EnableFallbackCulture && option.FallbackCulture == name;
 
         StringSegment GetParentCultureName(StringSegment cultureInfoName)
         {

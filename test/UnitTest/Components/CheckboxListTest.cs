@@ -157,7 +157,7 @@ public class CheckboxListTest : BootstrapBlazorTestBase
     [Fact]
     public void EnumValue_Ok()
     {
-        var selectedEnumValues = new List<EnumEducation> { EnumEducation.Middel, EnumEducation.Primary };
+        var selectedEnumValues = new List<EnumEducation> { EnumEducation.Middle, EnumEducation.Primary };
         var cut = Context.RenderComponent<CheckboxList<IEnumerable<EnumEducation>>>(pb =>
         {
             pb.Add(a => a.Value, selectedEnumValues);

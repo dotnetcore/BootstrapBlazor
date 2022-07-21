@@ -132,11 +132,7 @@ internal class JsonStringLocalizer : ResourceManagerStringLocalizer
             {
                 localizer = localizerStrings.FirstOrDefault(i => i.Name == name);
             }
-            if (localizer == null)
-            {
-                localizer = GetAllStringsFromResolve().FirstOrDefault(i => i.Name == name);
-            }
-            return localizer;
+            return localizer ?? GetAllStringsFromResolve().FirstOrDefault(i => i.Name == name);
         }
     }
 

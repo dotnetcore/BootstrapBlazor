@@ -54,14 +54,14 @@ public sealed partial class EditorForms
             Count = 23,
             Address = Localizer["TestAddr"],
             DateTime = new DateTime(1997, 12, 05),
-            Education = EnumEducation.Middel
+            Education = EnumEducation.Middle
         };
         ValidateModel = new Foo()
         {
             Name = Localizer["TestName"],
             Count = 23,
             DateTime = new DateTime(1997, 12, 05),
-            Education = EnumEducation.Middel
+            Education = EnumEducation.Middle
         };
     }
 

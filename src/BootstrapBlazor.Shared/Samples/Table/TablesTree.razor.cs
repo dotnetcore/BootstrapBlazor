@@ -130,7 +130,7 @@ public partial class TablesTree
             Address = localizer["Foo.Address", $"{Random.Next(1000, 2000)}"],
             Count = Random.Next(1, 100),
             Complete = Random.Next(1, 100) > 50,
-            Education = Random.Next(1, 100) > 50 ? EnumEducation.Primary : EnumEducation.Middel
+            Education = Random.Next(1, 100) > 50 ? EnumEducation.Primary : EnumEducation.Middle
         }).ToList();
     }
 }

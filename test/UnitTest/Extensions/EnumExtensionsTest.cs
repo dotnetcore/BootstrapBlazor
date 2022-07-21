@@ -11,7 +11,7 @@ public class EnumExtensionsTest : BootstrapBlazorTestBase
     [Fact]
     public void ToDisplayName_Ok()
     {
-        var dn = EnumEducation.Middel.ToDisplayName();
+        var dn = EnumEducation.Middle.ToDisplayName();
         Assert.Equal("中学", dn);
     }
 

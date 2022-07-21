@@ -37,7 +37,7 @@ public partial class CheckboxLists
     [NotNull]
     private IStringLocalizer<CheckboxLists>? Localizer { get; set; }
 
-    private IEnumerable<EnumEducation> SelectedEnumValues { get; set; } = new List<EnumEducation> { EnumEducation.Middel, EnumEducation.Primary };
+    private IEnumerable<EnumEducation> SelectedEnumValues { get; set; } = new List<EnumEducation> { EnumEducation.Middle, EnumEducation.Primary };
 
     private string Value1 { get; set; } = "1,3";
 

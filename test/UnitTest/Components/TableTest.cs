@@ -5119,7 +5119,7 @@ public class TableTest : TableTestBase
                 pb.Add(a => a.TableColumns, foo => builder =>
                 {
                     builder.OpenComponent<TableColumn<Foo, EnumEducation?>>(0);
-                    builder.AddAttribute(1, "Field", EnumEducation.Middel);
+                    builder.AddAttribute(1, "Field", EnumEducation.Middle);
                     builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Education", typeof(EnumEducation?)));
                     builder.CloseComponent();
                 });
@@ -5604,7 +5604,7 @@ public class TableTest : TableTestBase
             Address = localizer["Foo.Address", $"{Random.Next(1000, 2000)}"],
             Count = Random.Next(1, 100),
             Complete = Random.Next(1, 100) > 50,
-            Education = Random.Next(1, 100) > 50 ? EnumEducation.Primary : EnumEducation.Middel
+            Education = Random.Next(1, 100) > 50 ? EnumEducation.Primary : EnumEducation.Middle
         }).ToList();
     }
 
@@ -5622,7 +5622,7 @@ public class TableTest : TableTestBase
             Address = localizer["Foo.Address", $"{Random.Next(1000, 2000)}"],
             Count = Random.Next(1, 100),
             Complete = Random.Next(1, 100) > 50,
-            Education = Random.Next(1, 100) > 50 ? EnumEducation.Primary : EnumEducation.Middel
+            Education = Random.Next(1, 100) > 50 ? EnumEducation.Primary : EnumEducation.Middle
         }).ToList();
     }
 

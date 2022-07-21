@@ -4,6 +4,7 @@
 
 using BootstrapBlazor.Localization.Json;
 using Microsoft.Extensions.Configuration;
+using System.Reflection;
 
 namespace UnitTest.Extensions;
 
@@ -38,8 +39,7 @@ public class LocalizationOptionsExtensionsTest
     [Fact]
     public void GetJsonStringConfig_Fallback()
     {
-        // 获得 it-it 文化信息
-        // 回落默认语音为 en 测试用例为 zh 找不到资源文件
+        // 回落默认语言为 en 测试用例为 zh 找不到资源文件
         var option = new JsonLocalizationOptions();
         var configs = option.GetJsonStringFromAssembly(this.GetType().Assembly, "it-it");
         Assert.Empty(configs);
@@ -48,10 +48,17 @@ public class LocalizationOptionsExtensionsTest
     [Fact]
     public void GetJsonStringConfig_Culture()
     {
-        // 获得 it-it 文化信息
-        // 回落默认语音为 en 测试用例为 zh 找不到资源文件
+        // 回落默认语音为 en 测试用例为 en-US 找不到资源文件
         var option = new JsonLocalizationOptions();
         var configs = option.GetJsonStringFromAssembly(this.GetType().Assembly, "en-US");
         Assert.NotEmpty(configs);
+
+        var pi = option.GetType().GetProperty("EnableFallbackCulture", BindingFlags.NonPublic | BindingFlags.Instance);
+        pi!.SetValue(option, false);
+        configs = option.GetJsonStringFromAssembly(this.GetType().Assembly, "en");
+
+        // 禁用回落机制
+        // UniTest 未提供 en 资源文件 断言为 Empty
+        Assert.Empty(configs);
     }
 }

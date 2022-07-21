@@ -150,7 +150,7 @@ public partial class MultiSelects
 
     private int[] SelectedIntArrayValues { get; set; } = Array.Empty<int>();
     private IEnumerable<string> SelectedArrayValues { get; set; } = Enumerable.Empty<string>();
-    private IEnumerable<EnumEducation> SelectedEnumValues { get; set; } = new List<EnumEducation> { EnumEducation.Middel, EnumEducation.Primary };
+    private IEnumerable<EnumEducation> SelectedEnumValues { get; set; } = new List<EnumEducation> { EnumEducation.Middle, EnumEducation.Primary };
 
     private IEnumerable<SelectedItem> OnSearch(string searchText)
     {

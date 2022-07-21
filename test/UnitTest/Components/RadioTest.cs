@@ -11,7 +11,7 @@ public class RadioTest : BootstrapBlazorTestBase
     [Fact]
     public void Enum_NoItems()
     {
-        var v = EnumEducation.Middel;
+        var v = EnumEducation.Middle;
         var cut = Context.RenderComponent<RadioList<EnumEducation>>(pb =>
         {
             pb.Add(a => a.Value, v);
@@ -24,7 +24,7 @@ public class RadioTest : BootstrapBlazorTestBase
     [Fact]
     public void EnumValue_Ok()
     {
-        var v = EnumEducation.Middel;
+        var v = EnumEducation.Middle;
         var cut = Context.RenderComponent<RadioList<EnumEducation>>(pb =>
         {
             pb.Add(a => a.Items, typeof(EnumEducation).ToSelectList());
@@ -73,7 +73,7 @@ public class RadioTest : BootstrapBlazorTestBase
     public void OnSelectedChanged_Ok()
     {
         var selected = false;
-        var v = EnumEducation.Middel;
+        var v = EnumEducation.Middle;
         var cut = Context.RenderComponent<RadioList<EnumEducation>>(pb =>
         {
             pb.Add(a => a.Items, typeof(EnumEducation).ToSelectList());
@@ -179,7 +179,7 @@ public class RadioTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.IsButton, true);
             pb.Add(a => a.Items, typeof(EnumEducation).ToSelectList());
-            pb.Add(a => a.Value, EnumEducation.Middel);
+            pb.Add(a => a.Value, EnumEducation.Middle);
         });
         cut.Contains("is-button");
         cut.Contains("form-check is-label is-checked");

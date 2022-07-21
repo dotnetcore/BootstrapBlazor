@@ -259,7 +259,7 @@ public class UtilityTest : BootstrapBlazorTestBase
         Assert.Equal("学历", dn);
 
         // 静态类
-        dn = Utility.GetDisplayName(new Foo() { Education = EnumEducation.Middel }, nameof(Foo.Education));
+        dn = Utility.GetDisplayName(new Foo() { Education = EnumEducation.Middle }, nameof(Foo.Education));
         Assert.Equal("学历", dn);
 
         // 动态类
