@@ -467,9 +467,6 @@ public partial class Table<TItem>
                 queryOption.SearchModel = CustomerSearchModel;
             }
 
-            RowsCache = null;
-            Items = null;
-
             queryData = await InternalOnQueryAsync(queryOption);
             QueryItems = queryData.Items;
             TotalCount = queryData.TotalCount;
@@ -485,6 +482,9 @@ public partial class Table<TItem>
             {
                 await ProcessTreeData();
             }
+
+            // 更新数据后清楚缓存防止新数据不显示
+            RowsCache = null;
 
             void ProcessSelectedRows()
             {
