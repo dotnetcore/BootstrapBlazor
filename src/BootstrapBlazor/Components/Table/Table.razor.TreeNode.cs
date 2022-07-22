@@ -33,7 +33,12 @@ public partial class Table<TItem>
     /// <summary>
     /// 获得 所有已展开行集合 作为缓存使用
     /// </summary>
-    private List<TItem> ExpandedRows { get; } = new();
+    private List<TItem> ExpandedRows { get; } = new(50);
+
+    /// <summary>
+    /// 获得 所有已收缩行集合 作为缓存使用
+    /// </summary>
+    private List<TItem> CollapsedRows { get; } = new(50);
 
     /// <summary>
     /// 获得/设置 是否正在加载子项 默认为 false
@@ -75,6 +80,9 @@ public partial class Table<TItem>
         .AddClass("fa-spin fa-spinner", IsLoadChildren)
         .Build();
 
+    [NotNull]
+    private IEqualityComparer<TItem>? TItemComparer { get; set; }
+
     /// <summary>
     /// 展开收缩树形数据节点方法
     /// </summary>
@@ -84,14 +92,20 @@ public partial class Table<TItem>
     {
         if (!IsLoadChildren)
         {
-            if (TreeRows.TryFind(item, out var node, ComparerItem))
+            if (TreeRows.TryFind(item, out var node, TItemComparer))
             {
                 IsLoadChildren = true;
+
                 // 无子项时通过回调方法延时加载
                 if (!node.IsExpand)
                 {
-                    ExpandedRows.Add(node.Value);
+                    if (!ExpandedRows.Any(i => ComparerItem(i, node.Value)))
+                    {
+                        ExpandedRows.Add(node.Value);
+                    }
                     node.IsExpand = true;
+
+                    CollapsedRows.RemoveAll(i => ComparerItem(i, node.Value));
 
                     if (!node.Items.Any())
                     {
@@ -100,10 +114,20 @@ public partial class Table<TItem>
                 }
                 else
                 {
-                    ExpandedRows.Remove(node.Value);
+                    ExpandedRows.RemoveAll(i => ComparerItem(i, node.Value));
                     node.IsExpand = false;
+
+                    if (!CollapsedRows.Any(i => ComparerItem(i, node.Value)))
+                    {
+                        CollapsedRows.Add(node.Value);
+                    }
                 }
                 IsLoadChildren = false;
+
+                // 清除缓存
+                RowsCache = null;
+
+                // 更新 UI
                 StateHasChanged();
             }
         }

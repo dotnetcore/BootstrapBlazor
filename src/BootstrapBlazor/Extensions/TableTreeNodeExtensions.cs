@@ -5,7 +5,7 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// TableTreeNode 扩展方法
 /// </summary>
 internal static class TableTreeNodeExtensions
 {
@@ -19,7 +19,7 @@ internal static class TableTreeNodeExtensions
     /// <param name="equalityComparer">比较函示 为null时判断方式为位址相同</param>
     /// <returns>是否存在 <paramref name="target"/></returns>
     /// <remarks>采广度优先搜寻</remarks>
-    public static bool TryFind<TItem>(this IEnumerable<TableTreeNode<TItem>> items, TItem target, [MaybeNullWhen(false)] out TableTreeNode<TItem> ret, Func<TItem, TItem, bool> equalityComparer)
+    public static bool TryFind<TItem>(this IEnumerable<TableTreeNode<TItem>> items, TItem target, [MaybeNullWhen(false)] out TableTreeNode<TItem> ret, IEqualityComparer<TItem> equalityComparer)
     {
         ret = items.Find(target, equalityComparer);
         return ret != null;
@@ -34,7 +34,7 @@ internal static class TableTreeNodeExtensions
     /// <param name="equalityComparer">比较函示 为null时判断方式为位址相同</param>
     /// <returns>查询结果 查无资料时为 null</returns>
     /// <remarks>采广度优先搜寻</remarks>
-    public static TableTreeNode<TItem>? Find<TItem>(this IEnumerable<TableTreeNode<TItem>> items, TItem target, Func<TItem, TItem, bool> equalityComparer) => items.Find(target, out _, equalityComparer);
+    public static TableTreeNode<TItem>? Find<TItem>(this IEnumerable<TableTreeNode<TItem>> items, TItem target, IEqualityComparer<TItem> equalityComparer) => items.Find(target, out _, equalityComparer);
 
     /// <summary>
     /// 在全部树状结构 <paramref name="source"/> 中寻找指定 <paramref name="target"/>
@@ -46,10 +46,10 @@ internal static class TableTreeNodeExtensions
     /// <param name="equalityComparer">比较函示 为null时判断方式为位址相同</param>
     /// <returns>查询结果 查无资料时为 null</returns>
     /// <remarks>采广度优先搜寻</remarks>
-    public static TableTreeNode<TItem>? Find<TItem>(this IEnumerable<TableTreeNode<TItem>> source, TItem target, out int degree, Func<TItem, TItem, bool> equalityComparer)
+    public static TableTreeNode<TItem>? Find<TItem>(this IEnumerable<TableTreeNode<TItem>> source, TItem target, out int degree, IEqualityComparer<TItem> equalityComparer)
     {
         degree = -1;
-        var ret = source.FirstOrDefault(item => equalityComparer(item.Value, target));
+        var ret = source.FirstOrDefault(item => equalityComparer.Equals(item.Value, target));
         if (ret == null)
         {
             var children = source.SelectMany(e => e.Items);

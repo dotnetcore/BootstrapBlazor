@@ -200,7 +200,7 @@ internal class CacheManager : ICacheManager
     }
 
     /// <summary>
-    /// 
+    /// 通过 ILocalizationResolve 接口实现类获得本地化键值集合
     /// </summary>
     /// <param name="includeParentCultures"></param>
     /// <returns></returns>

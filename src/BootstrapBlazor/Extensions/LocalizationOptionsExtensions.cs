@@ -13,7 +13,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// JsonLocalizationOptions 扩展方法
 /// </summary>
-public static class LocalizationOptionsExtensions
+internal static class LocalizationOptionsExtensions
 {
     /// <summary>
     /// 通过系统 JsonLocalizationOptions 获取当前 Json 格式资源配置集合

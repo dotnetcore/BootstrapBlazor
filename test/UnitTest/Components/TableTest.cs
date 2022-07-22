@@ -2123,10 +2123,13 @@ public class TableTest : TableTestBase
             });
         });
 
+        var nodes = cut.FindAll("tbody tr");
+        Assert.Equal(2, nodes.Count);
+
         // 点击展开
         var node = cut.Find("tbody .is-tree");
         await cut.InvokeAsync(() => node.Click());
-        var nodes = cut.FindAll("tbody tr");
+        nodes = cut.FindAll("tbody tr");
         Assert.Equal(4, nodes.Count);
 
         // 查询
@@ -2134,8 +2137,79 @@ public class TableTest : TableTestBase
         await cut.InvokeAsync(() => table.Instance.QueryAsync());
         Assert.Contains("is-tree fa fa-fw fa-caret-right fa-rotate-90", cut.Markup);
 
+        nodes = cut.FindAll("tbody tr");
+        Assert.Equal(4, nodes.Count);
+
         table.SetParametersAndRender(pb => pb.Add(a => a.OnTreeExpand, null));
         await Assert.ThrowsAsync<InvalidOperationException>(() => table.Instance.QueryAsync());
+    }
+
+
+    [Fact]
+    public async Task IsTree_KeepCollapsed()
+    {
+        // 收起树状节点
+        // 重新查询后节点依然收起
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<FooTree>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.IsTree, true);
+                pb.Add(a => a.OnQueryAsync, op =>
+                {
+                    var items = FooTree.Generate(localizer);
+                    items.AddRange(FooTree.Generate(localizer, 1, 100));
+                    return Task.FromResult(new QueryData<FooTree>()
+                    {
+                        Items = items
+                    });
+                });
+                pb.Add(a => a.TreeNodeConverter, items =>
+                {
+                    var ret = items.Where(i => i.ParentId == 0).Select(i =>
+                    {
+                        var node = new TableTreeNode<FooTree>(i)
+                        {
+                            HasChildren = i.Id == 1,
+                            IsExpand = i.Id == 1
+                        };
+                        if (i.Id == 1)
+                        {
+                            node.Items = items.Where(i => i.ParentId == 1).Select(i => new TableTreeNode<FooTree>(i));
+                        }
+                        return node;
+                    });
+                    return Task.FromResult(ret);
+                });
+                pb.Add(a => a.OnTreeExpand, foo => Task.FromResult(FooTree.Generate(localizer, foo.Id, 100).Select(foo => new TableTreeNode<FooTree>(foo))));
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+                });
+            });
+        });
+
+        var nodes = cut.FindAll("tbody tr");
+        Assert.Equal(4, nodes.Count);
+
+        // 点击收缩
+        var node = cut.Find("tbody .is-tree");
+        await cut.InvokeAsync(() => node.Click());
+        nodes = cut.FindAll("tbody tr");
+        Assert.Equal(2, nodes.Count);
+
+        // 查询
+        var table = cut.FindComponent<Table<FooTree>>();
+        await cut.InvokeAsync(() => table.Instance.QueryAsync());
+        Assert.Contains("is-tree fa fa-fw fa-caret-right", cut.Markup);
+
+        nodes = cut.FindAll("tbody tr");
+        Assert.Equal(2, nodes.Count);
     }
 
     private static Task<QueryData<FooTree>> OnQueryAsync(QueryPageOptions _, IStringLocalizer<Foo> localizer)
@@ -2216,6 +2290,79 @@ public class TableTest : TableTestBase
                 TotalCount = items.Count(),
             };
             return Task.FromResult(data);
+        }
+    }
+
+
+    [Fact]
+    public async void IsTree_ToggleTreeRow()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<FooTree>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.IsTree, true);
+                pb.Add(a => a.TreeNodeConverter, _ =>
+                {
+                    var items = FooTree.Generate(localizer);
+                    items.AddRange(FooTree.Generate(localizer, 1, 100));
+                    items.AddRange(FooTree.Generate(localizer, 2, 100));
+
+                    var ret = BuildTreeNodes(items, 0);
+                    return Task.FromResult(ret);
+                });
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+                });
+            });
+        });
+
+        var nodes = cut.FindAll("tbody tr");
+        Assert.Equal(6, nodes.Count);
+
+        // 点击收缩第一个节点
+        var node = cut.Find("tbody .table-cell.is-tree");
+        await cut.InvokeAsync(() => node.Click());
+        nodes = cut.FindAll("tbody tr");
+        Assert.Equal(4, nodes.Count);
+
+        // 点击收缩第二个节点
+        node = cut.FindAll("tbody .table-cell.is-tree").Skip(1).First();
+        await cut.InvokeAsync(() => node.Click());
+        nodes = cut.FindAll("tbody tr");
+        Assert.Equal(2, nodes.Count);
+
+        // 点击展开第一个节点
+        node = cut.Find("tbody .table-cell.is-tree");
+        await cut.InvokeAsync(() => node.Click());
+        nodes = cut.FindAll("tbody tr");
+        Assert.Equal(4, nodes.Count);
+
+        // 点击展开第二个节点
+        node = cut.FindAll("tbody .table-cell.is-tree").Skip(1).First();
+        await cut.InvokeAsync(() => node.Click());
+        nodes = cut.FindAll("tbody tr");
+        Assert.Equal(6, nodes.Count);
+
+        IEnumerable<TableTreeNode<FooTree>> BuildTreeNodes(IEnumerable<FooTree> items, int parentId)
+        {
+            var ret = new List<TableTreeNode<FooTree>>();
+            ret.AddRange(items.Where(i => i.ParentId == parentId).Select((foo, index) => new TableTreeNode<FooTree>(foo)
+            {
+                // 此处为示例，假设偶行数据都有子数据
+                HasChildren = parentId == 0,
+                // 如果子项集合有值 则默认展开此节点
+                IsExpand = items.Any(i => i.ParentId == foo.Id),
+                // 获得子项集合
+                Items = BuildTreeNodes(items.Where(i => i.ParentId == foo.Id), foo.Id)
+            }));
+            return ret;
         }
     }
 

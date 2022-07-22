@@ -566,18 +566,34 @@ public partial class Table<TItem>
                 {
                     foreach (var node in nodes)
                     {
-                        if (ExpandedRows.Any(i => ComparerItem(i, node.Value)))
+                        if (node.IsExpand)
                         {
-                            // 原来是展开状态
-                            node.IsExpand = true;
-                            if (!node.Items.Any())
+                            // 已收缩
+                            if (CollapsedRows.Contains(node.Value, TItemComparer))
                             {
-                                await GetChildrenRow(node, node.Value);
+                                node.IsExpand = false;
+                            }
+                            else if (!ExpandedRows.Contains(node.Value, TItemComparer))
+                            {
+                                // 状态为 展开
+                                ExpandedRows.Add(node.Value);
                             }
                         }
                         else
                         {
-                            ExpandedRows.RemoveAll(i => ComparerItem(i, node.Value));
+                            if (ExpandedRows.Any(i => ComparerItem(i, node.Value)))
+                            {
+                                // 原来是展开状态
+                                node.IsExpand = true;
+                                if (!node.Items.Any())
+                                {
+                                    await GetChildrenRow(node, node.Value);
+                                }
+                            }
+                            else
+                            {
+                                ExpandedRows.RemoveAll(i => ComparerItem(i, node.Value));
+                            }
                         }
                         if (node.Items.Any())
                         {

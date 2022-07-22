@@ -107,10 +107,19 @@ public partial class TablesTree
 
     private Task<QueryData<TreeFoo>> OnQueryAsync(QueryPageOptions _)
     {
-        return Task.FromResult(new QueryData<TreeFoo>()
+        var items = TreeFoo.GenerateFoos(Localizer, 4);
+
+        // 插入 Id 为 1 的子项
+        items.AddRange(TreeFoo.GenerateFoos(Localizer, 2, 1, 100));
+
+        // 插入 Id 为 101 的子项
+        items.AddRange(TreeFoo.GenerateFoos(Localizer, 3, 101, 1010));
+
+        var data = new QueryData<TreeFoo>()
         {
-            Items = TreeItems
-        });
+            Items = items
+        };
+        return Task.FromResult(data);
     }
 
     private class TreeFoo : Foo

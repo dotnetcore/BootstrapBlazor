@@ -4,6 +4,7 @@
 
 using BootstrapBlazor.Localization.Json;
 using BootstrapBlazor.Shared;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Options;
@@ -517,6 +518,58 @@ public class UtilityTest : BootstrapBlazorTestBase
         var dynamicType = EmitHelper.CreateTypeByName("test_type", new MockTableColumn[] { new("Name", typeof(string)) });
         localizer = Utility.CreateLocalizer(dynamicType!);
         Assert.Null(localizer);
+    }
+
+    [Fact]
+    public void GetJsonStringConfig_Ok()
+    {
+        var option = new JsonLocalizationOptions
+        {
+            AdditionalJsonFiles = new string[]
+            {
+                "zh-CN.json"
+            }
+        };
+        var configs = Utility.GetJsonStringFromAssembly(option, this.GetType().Assembly, null, true);
+        var section = configs.FirstOrDefault(i => i.Key == "BootstrapBlazor.Shared.Foo");
+        var v = section.GetValue("Name", "");
+        Assert.NotEmpty(v);
+    }
+
+    [Fact]
+    public void IgnoreLocalizerMissing_Ok()
+    {
+        var option = new JsonLocalizationOptions
+        {
+            IgnoreLocalizerMissing = true
+        };
+        Assert.True(option.IgnoreLocalizerMissing);
+    }
+
+    [Fact]
+    public void GetJsonStringConfig_Fallback()
+    {
+        // 回落默认语言为 en 测试用例为 zh 找不到资源文件
+        var option = new JsonLocalizationOptions();
+        var configs = Utility.GetJsonStringFromAssembly(option, this.GetType().Assembly, "it-it", true);
+        Assert.Empty(configs);
+    }
+
+    [Fact]
+    public void GetJsonStringConfig_Culture()
+    {
+        // 回落默认语音为 en 测试用例为 en-US 找不到资源文件
+        var option = new JsonLocalizationOptions();
+        var configs = Utility.GetJsonStringFromAssembly(option, this.GetType().Assembly, "en-US", true);
+        Assert.NotEmpty(configs);
+
+        var pi = option.GetType().GetProperty("EnableFallbackCulture", BindingFlags.NonPublic | BindingFlags.Instance);
+        pi!.SetValue(option, false);
+        configs = Utility.GetJsonStringFromAssembly(option, this.GetType().Assembly, "en");
+
+        // 禁用回落机制
+        // UniTest 未提供 en 资源文件 断言为 Empty
+        Assert.Empty(configs);
     }
 
     private class MockNullDisplayNameColumn : MockTableColumn, IEditorItem
