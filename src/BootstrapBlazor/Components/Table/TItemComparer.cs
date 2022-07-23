@@ -4,7 +4,7 @@
 
 namespace BootstrapBlazor.Components;
 
-internal class TItemComparer<TItem> : IEqualityComparer<TItem> where TItem : notnull
+internal class TItemComparer<TItem> : IEqualityComparer<TItem>
 {
     private readonly Func<TItem, TItem, bool> _comparer;
     /// <summary>

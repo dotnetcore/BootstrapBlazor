@@ -29,7 +29,7 @@ internal static class ICacheEntryExtensions
     /// </summary>
     /// <param name="entry"></param>
     /// <param name="type"></param>
-    internal static void SetDynamicAssemblyPolicy(this ICacheEntry entry, Type? type)
+    public static void SetDynamicAssemblyPolicy(this ICacheEntry entry, Type? type)
     {
         if (type?.Assembly.IsDynamic ?? false)
         {

@@ -483,7 +483,6 @@ internal class CacheManager : ICacheManager
 
             entry.SetDynamicAssemblyPolicy(type);
             return Expression.Lambda<Func<object, IEnumerable<string?>>>(body, para_exp).Compile();
-
         });
     }
 

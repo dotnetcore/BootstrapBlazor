@@ -470,6 +470,14 @@ public class UtilityTest : BootstrapBlazorTestBase
         var val = new double[] { 1.1, 2.0, 3.1 };
         var actual1 = Utility.ConvertValueToString(val);
         Assert.Equal("1.1,2,3.1", actual1);
+
+        var items = new List<SelectedItem>() { new SelectedItem("Test1", "Test1"), new SelectedItem("Test2", "Test2") };
+        var actual2 = Utility.ConvertValueToString(items);
+        Assert.Equal("Test1,Test2", actual2);
+
+        var objs = new List<object?>() { 1, null, "Test" };
+        var actual3 = Utility.ConvertValueToString(objs);
+        Assert.Equal("1,,Test", actual3);
     }
 
     [Fact]
