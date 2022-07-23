@@ -221,6 +221,9 @@ public class CultureController : Controller
 {
     services.AddBootstrapBlazor(null, options =>
     {
+        // 忽略文化信息丢失日志
+        options.IgnoreLocalizerMissing = true;
+
         // 设置 RESX 格式多语言资源文件 如 Program.{CultureName}.resx
         options.ResourceManagerStringLocalizerType = typeof(Program);
 
@@ -242,16 +245,19 @@ public class CultureController : Controller
 <Pre>public void ConfigureServices(IServiceCollection services)
 {
     services.AddBootstrapBlazor();
-    services.ConfigureJsonLocalizationOptions(op =>
+    services.ConfigureJsonLocalizationOptions(options =>
     {
+        // 忽略本地化键值文化信息丢失
+        options.IgnoreLocalizerMissing = true;
+
         // 附加自己的 json 多语言文化资源文件 如 zh-TW.json
-        op.AdditionalJsonAssemblies = new Assembly[]
+        options.AdditionalJsonAssemblies = new Assembly[]
         {
             typeof(BootstrapBlazor.Shared.App).Assembly,
         };
 
         // 设置 Json 物理路径文件
-        op.AdditionalJsonFiles = new string[]
+        options.AdditionalJsonFiles = new string[]
         {
             @@"D:\Argo\src\BootstrapBlazor\src\BootstrapBlazor.Server\Locales\zh-TW.json",
             @@"D:\Argo\src\BootstrapBlazor\src\BootstrapBlazor.Server\Locales\zh-CN.json"
