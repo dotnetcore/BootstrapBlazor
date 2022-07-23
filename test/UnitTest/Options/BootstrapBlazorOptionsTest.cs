@@ -12,11 +12,24 @@ public class BootstrapBlazorOptionsTest
         var options = new BootstrapBlazorOptions();
         Assert.NotNull(options.GetSupportedCultures());
     }
+
     [Fact]
     public void Options_Single_Ok()
     {
-        var options = new BootstrapBlazorOptions();
-        options.SupportedCultures = new List<string> { "zh-CN" };
+        var options = new BootstrapBlazorOptions
+        {
+            SupportedCultures = new List<string> { "zh-CN" }
+        };
         Assert.Single(options.GetSupportedCultures());
+    }
+
+    [Fact]
+    public void Options_IgnoreLocalizerMissing_Null()
+    {
+        var options = new BootstrapBlazorOptions();
+        Assert.False(options.IgnoreLocalizerMissing.HasValue);
+
+        options.IgnoreLocalizerMissing = true;
+        Assert.True(options.IgnoreLocalizerMissing.Value);
     }
 }
