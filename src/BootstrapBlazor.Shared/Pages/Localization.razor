@@ -332,4 +332,24 @@ internal class DefaultCultureStorage : ICultureStorage
 }
 </Pre>
 
+<p><b>配置是否显示缺失本地化资源信息</b></p>
+
+<Tab>
+    <TabItem Text="appsettings.json" Icon="fa fa-code" Closable="false">
+<Pre>"BootstrapBlazorOptions": {
+    "IgnoreLocalizerMissing": true
+}</Pre>
+    </TabItem>
+    <TabItem Text="C#" Icon="fa fa-code" Closable="false">
+<Pre>var builder = WebApplication.CreateBuilder(args);
+
+// 增加 BootstrapBlazor 服务
+builder.Services.AddBootstrapBlazor(null, options =>
+{
+    // 忽略本地化键值文化信息丢失
+    options.IgnoreLocalizerMissing = true;
+});</Pre>
+    </TabItem>
+</Tab>
+
 <Video Name="localizer" />

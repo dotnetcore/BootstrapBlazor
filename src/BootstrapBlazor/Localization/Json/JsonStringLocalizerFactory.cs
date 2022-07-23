@@ -42,6 +42,10 @@ internal class JsonStringLocalizerFactory : ResourceManagerStringLocalizerFactor
 
         jsonLocalizationOptions.Value.FallbackCulture = options.CurrentValue.FallbackCulture;
         jsonLocalizationOptions.Value.EnableFallbackCulture = options.CurrentValue.EnableFallbackCulture;
+        if (options.CurrentValue.IgnoreLocalizerMissing.HasValue)
+        {
+            jsonLocalizationOptions.Value.IgnoreLocalizerMissing = options.CurrentValue.IgnoreLocalizerMissing.Value;
+        }
         IgnoreLocalizerMissing = jsonLocalizationOptions.Value.IgnoreLocalizerMissing;
         LoggerFactory = loggerFactory;
         options.OnChange(OnChange);
@@ -51,6 +55,11 @@ internal class JsonStringLocalizerFactory : ResourceManagerStringLocalizerFactor
         {
             jsonLocalizationOptions.Value.EnableFallbackCulture = op.EnableFallbackCulture;
             jsonLocalizationOptions.Value.FallbackCulture = op.FallbackCulture;
+            if (op.IgnoreLocalizerMissing.HasValue)
+            {
+                jsonLocalizationOptions.Value.IgnoreLocalizerMissing = op.IgnoreLocalizerMissing.Value;
+                IgnoreLocalizerMissing = op.IgnoreLocalizerMissing.Value;
+            }
         }
     }
 
