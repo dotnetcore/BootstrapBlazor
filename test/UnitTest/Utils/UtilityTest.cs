@@ -556,6 +556,15 @@ public class UtilityTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void GetStringLocalizerFromService_Ok()
+    {
+        // 动态程序集
+        var dynamicType = EmitHelper.CreateTypeByName("test-Type", new MockTableColumn[] { new("Name", typeof(string)) });
+        var localizer = Utility.GetStringLocalizerFromService(dynamicType!.Assembly, dynamicType.Name);
+        Assert.Null(localizer);
+    }
+
+    [Fact]
     public void GetJsonStringConfig_Ok()
     {
         var option = new JsonLocalizationOptions

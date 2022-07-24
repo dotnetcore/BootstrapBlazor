@@ -128,6 +128,13 @@ public static class Utility
     public static IEnumerable<IConfigurationSection> GetJsonStringFromAssembly(JsonLocalizationOptions option, Assembly assembly, string? cultureName = null, bool forceLoad = false) => CacheManager.GetJsonStringFromAssembly(option, assembly, cultureName, forceLoad);
 
     /// <summary>
+    /// 通过指定程序集与类型获得 IStringLocalizer 实例
+    /// </summary>
+    /// <param name="assembly"></param>
+    /// <param name="typeName"></param>
+    public static IStringLocalizer? GetStringLocalizerFromService(Assembly assembly, string typeName) => CacheManager.GetStringLocalizerFromService(assembly, typeName);
+
+    /// <summary>
     /// 获取 PlaceHolder 方法
     /// </summary>
     /// <typeparam name="TModel">模型类型</typeparam>

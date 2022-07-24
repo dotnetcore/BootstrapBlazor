@@ -142,7 +142,9 @@ internal class CacheManager : ICacheManager
     /// <param name="assembly"></param>
     /// <param name="typeName"></param>
     /// <returns></returns>
-    public static IStringLocalizer? GetStringLocalizerFromService(Assembly assembly, string typeName) => Instance.GetOrCreate($"{nameof(GetStringLocalizerFromService)}-{CultureInfo.CurrentUICulture.Name}-{assembly.GetName().Name}-{typeName}", entry =>
+    public static IStringLocalizer? GetStringLocalizerFromService(Assembly assembly, string typeName) => assembly.IsDynamic
+        ? null
+        : Instance.GetOrCreate($"{nameof(GetStringLocalizerFromService)}-{CultureInfo.CurrentUICulture.Name}-{assembly.GetName().Name}-{typeName}", entry =>
     {
         IStringLocalizer? ret = null;
         var factories = Instance.Provider.GetServices<IStringLocalizerFactory>();
@@ -158,12 +160,6 @@ internal class CacheManager : ICacheManager
                 }
             }
         }
-
-        if (assembly.IsDynamic)
-        {
-            entry.SetSlidingExpirationForDynamicAssembly();
-        }
-
         return ret;
     });
 
