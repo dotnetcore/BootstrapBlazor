@@ -32,7 +32,7 @@ public static class Utility
     /// <param name="modelType">模型类型</param>
     /// <param name="fieldName">字段名称</param>
     /// <returns></returns>
-    public static string GetDisplayName(Type modelType, string fieldName) => CacheManager.GetDisplayName(modelType, fieldName);
+    public static string GetDisplayName(Type modelType, string fieldName) => CacheManager.GetDisplayName(Nullable.GetUnderlyingType(modelType) ?? modelType, fieldName);
 
     /// <summary>
     /// 获取资源文件中 NullableBoolItemsAttribute 标签名称方法
