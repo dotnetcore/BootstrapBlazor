@@ -199,6 +199,21 @@ public class DisplayTest : BootstrapBlazorTestBase
         Assert.Contains("<span>&#x59D3;&#x540D;</span>", cut.Markup);
     }
 
+    [Fact]
+    public void Nullable_Enum()
+    {
+        var model = new BootstrapBlazor.Shared.Foo() { Education = EnumEducation.Middle };
+        var cut = Context.RenderComponent<Display<EnumEducation?>>(pb =>
+        {
+            pb.Add(a => a.ShowLabel, true);
+            pb.Add(a => a.Value, model.Education);
+            pb.Add(a => a.ValueExpression, Utility.GenerateValueExpression(model, "Education", typeof(Nullable<EnumEducation>)));
+        });
+
+        // 获得中学 DisplayName
+        Assert.Contains("&#x5B66;&#x5386;", cut.Markup);
+    }
+
     class DisplayGenericValueMock<T>
     {
         [NotNull]

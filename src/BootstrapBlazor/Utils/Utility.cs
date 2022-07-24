@@ -40,7 +40,7 @@ public static class Utility
     /// <param name="model">模型实例</param>
     /// <param name="fieldName">字段名称</param>
     /// <returns></returns>
-    public static IEnumerable<SelectedItem> GetNullableBoolItems(object model, string fieldName) => GetNullableBoolItems(model.GetType(), fieldName);
+    public static List<SelectedItem> GetNullableBoolItems(object model, string fieldName) => GetNullableBoolItems(model.GetType(), fieldName);
 
     /// <summary>
     /// 获取资源文件中 NullableBoolItemsAttribute 标签名称方法
@@ -48,7 +48,7 @@ public static class Utility
     /// <param name="modelType">模型实例</param>
     /// <param name="fieldName">字段名称</param>
     /// <returns></returns>
-    public static IEnumerable<SelectedItem> GetNullableBoolItems(Type modelType, string fieldName) => CacheManager.GetNullableBoolItems(modelType, fieldName);
+    public static List<SelectedItem> GetNullableBoolItems(Type modelType, string fieldName) => CacheManager.GetNullableBoolItems(modelType, fieldName);
 
     /// <summary>
     /// 获得 指定模型标记 <see cref="KeyAttribute"/> 的属性值

@@ -152,14 +152,21 @@ public class UtilityTest : BootstrapBlazorTestBase
     {
         var dummy = new Dummy();
         var items = Utility.GetNullableBoolItems(dummy, nameof(Dummy.Complete));
-        Assert.Equal("请选择 ...", items.ElementAt(0).Text);
-        Assert.Equal("True", items.ElementAt(1).Text);
-        Assert.Equal("False", items.ElementAt(2).Text);
+        Assert.Equal("请选择 ...", items[0].Text);
+        Assert.Equal("True", items[1].Text);
+        Assert.Equal("False", items[2].Text);
 
         items = Utility.GetNullableBoolItems(typeof(Dummy), nameof(Dummy.Complete));
-        Assert.Equal("请选择 ...", items.ElementAt(0).Text);
-        Assert.Equal("True", items.ElementAt(1).Text);
-        Assert.Equal("False", items.ElementAt(2).Text);
+        Assert.Equal("请选择 ...", items[0].Text);
+        Assert.Equal("True", items[1].Text);
+        Assert.Equal("False", items[2].Text);
+
+        // 动态类型
+        var dynamicType = EmitHelper.CreateTypeByName("test_type", new MockTableColumn[] { new("Name", typeof(string)) });
+        items = Utility.GetNullableBoolItems(dynamicType!, "Name");
+        Assert.Equal("请选择 ...", items[0].Text);
+        Assert.Equal("True", items[1].Text);
+        Assert.Equal("False", items[2].Text);
     }
 
     [Fact]
@@ -268,8 +275,21 @@ public class UtilityTest : BootstrapBlazorTestBase
         Assert.Equal("Education", dn);
 
         var pi = context.GetItems().First().GetType().GetProperties().FirstOrDefault(i => i.CustomAttributes.Any(a => a.AttributeType == typeof(DescriptionAttribute)));
-        var attr = pi?.GetCustomAttribute<DescriptionAttribute>();
-        Assert.Equal("Test-Desc", attr?.Description);
+        var attr = pi!.GetCustomAttribute<DescriptionAttribute>();
+        Assert.Equal("Test-Desc", attr!.Description);
+
+        // 类 Desc
+        dn = Utility.GetDisplayName(new Cat(), nameof(Cat.Name));
+        Assert.Equal("Cat-Desc", dn);
+
+        dn = Utility.GetDisplayName(typeof(TestEnum), nameof(TestEnum.Name));
+        Assert.Equal("Test-Enum-Name", dn);
+
+        dn = Utility.GetDisplayName(typeof(TestEnum), nameof(TestEnum.Address));
+        Assert.Equal("Test-Enum-Address", dn);
+
+        dn = Utility.GetDisplayName(typeof(Nullable<TestEnum>), nameof(TestEnum.Name));
+        Assert.Equal("Test-Enum-Name", dn);
     }
 
     [Fact]
@@ -595,12 +615,22 @@ public class UtilityTest : BootstrapBlazorTestBase
         public Foo Foo { get; set; } = new Foo();
 
         [PlaceHolder("Test-PlaceHolder")]
+        [Description("Cat-Desc")]
         public string? Name { get; set; }
 
         public string? PlaceHolder { get; set; }
 
         [CatKey]
         public int Id { get; set; }
+    }
+
+    private enum TestEnum
+    {
+        [Description("Test-Enum-Name")]
+        Name,
+
+        [Display(Name = "Test-Enum-Address")]
+        Address
     }
 
     private class CatKeyAttribute : Attribute

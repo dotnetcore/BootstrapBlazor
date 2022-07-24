@@ -263,7 +263,7 @@ internal class CacheManager : ICacheManager
         }
     }
 
-    public static IEnumerable<SelectedItem> GetNullableBoolItems(Type modelType, string fieldName)
+    public static List<SelectedItem> GetNullableBoolItems(Type modelType, string fieldName)
     {
         var cacheKey = $"{nameof(GetNullableBoolItems)}-{CultureInfo.CurrentUICulture.Name}-{modelType.FullName}-{fieldName}";
         return Instance.GetOrCreate(cacheKey, entry =>

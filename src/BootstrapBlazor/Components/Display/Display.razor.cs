@@ -99,13 +99,13 @@ public partial class Display<TValue>
                 ? FormatValueString()
                 : FormatText(value));
 
-    private string FormatText(TValue value)
+    private string FormatText([DisallowNull] TValue value)
     {
         string ret;
         var type = typeof(TValue);
         if (type.IsEnum())
         {
-            ret = Utility.GetDisplayName(type, value!.ToString()!);
+            ret = Utility.GetDisplayName(type, value.ToString()!);
         }
         else if (type.IsArray)
         {
