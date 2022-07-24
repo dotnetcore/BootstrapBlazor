@@ -167,6 +167,13 @@ public class UtilityTest : BootstrapBlazorTestBase
         Assert.Equal("请选择 ...", items[0].Text);
         Assert.Equal("True", items[1].Text);
         Assert.Equal("False", items[2].Text);
+
+        // 读取资源文件中的配置值
+        var cat = new Cat();
+        items = Utility.GetNullableBoolItems(cat, nameof(cat.Name));
+        Assert.Equal("test-Name-NullValue", items[0].Text);
+        Assert.Equal("True", items[1].Text);
+        Assert.Equal("False", items[2].Text);
     }
 
     [Fact]

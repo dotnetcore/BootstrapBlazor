@@ -36,6 +36,7 @@
     "ErrorMessage": "{0} is Required"
   },
   "UnitTest.Utils.UtilityTest+Cat": {
-    "PlaceHolder.PlaceHolder": "test-PlaceHolder"
+    "PlaceHolder.PlaceHolder": "test-PlaceHolder",
+    "Name-NullValueDisplayText": "test-Name-NullValue"
   }
 }
