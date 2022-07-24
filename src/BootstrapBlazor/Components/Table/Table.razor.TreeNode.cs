@@ -140,6 +140,7 @@ public partial class Table<TItem>
             throw new InvalidOperationException(NotSetOnTreeExpandErrorMessage);
         }
 
-        node.Items = await OnTreeExpand(item);
+        var items = await OnTreeExpand(item);
+        node.Items = items.ToList();
     }
 }
