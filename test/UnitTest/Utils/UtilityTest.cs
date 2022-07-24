@@ -11,6 +11,7 @@ using Microsoft.Extensions.Options;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Data;
+using System.Globalization;
 using System.Reflection;
 
 namespace UnitTest.Utils;
@@ -406,7 +407,7 @@ public class UtilityTest : BootstrapBlazorTestBase
         Assert.False(condition);
     }
 
-    private class Dummy
+    private class Dummy : IFormattable
     {
         public string? Name { get; set; }
 
@@ -415,6 +416,13 @@ public class UtilityTest : BootstrapBlazorTestBase
         public string Field = "";
 
         public TimeSpan TimeSpan { get; set; }
+
+        public int Id { get; set; }
+
+        public string ToString(string? format, IFormatProvider? formatProvider)
+        {
+            return Id.ToString(format, formatProvider);
+        }
     }
 
     private class MockClone : ICloneable
@@ -616,6 +624,26 @@ public class UtilityTest : BootstrapBlazorTestBase
         Assert.Empty(configs);
     }
 
+    [Fact]
+    public void Format_Ok()
+    {
+        var actual = Utility.Format(new Cat() { Name = "test" }, CultureInfo.CurrentCulture);
+        Assert.Equal("test", actual);
+    }
+
+    [Fact]
+    public void Format_Format()
+    {
+        var actual = Utility.Format(1, "D2");
+        Assert.Equal("01", actual);
+
+        actual = Utility.Format(new Cat(), "D2");
+        Assert.Equal("", actual);
+
+        actual = Utility.Format(new Dummy() { Id = 1 }, "D2");
+        Assert.Equal("01", actual);
+    }
+
     private class MockNullDisplayNameColumn : MockTableColumn, IEditorItem
     {
         public MockNullDisplayNameColumn(string fieldName, Type propertyType) : base(fieldName, propertyType)
@@ -638,6 +666,8 @@ public class UtilityTest : BootstrapBlazorTestBase
 
         [CatKey]
         public int Id { get; set; }
+
+        public override string ToString() => Name ?? "";
     }
 
     private enum TestEnum

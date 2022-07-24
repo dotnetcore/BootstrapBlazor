@@ -317,13 +317,21 @@ internal class CacheManager : ICacheManager
         if (options.ResourceManagerStringLocalizerType != null)
         {
             var localizer = CreateLocalizerByType(options.ResourceManagerStringLocalizerType);
-            var stringLocalizer = localizer?[key];
-            if (stringLocalizer is { ResourceNotFound: false })
-            {
-                dn = stringLocalizer.Value;
-            }
+            dn = GetValueByKey(localizer);
         }
         return dn ?? key;
+
+        [ExcludeFromCodeCoverage]
+        string? GetValueByKey(IStringLocalizer? l)
+        {
+            string? val = null;
+            var stringLocalizer = l?[key];
+            if (stringLocalizer is { ResourceNotFound: false })
+            {
+                val = stringLocalizer.Value;
+            }
+            return val;
+        }
     }
     #endregion
 
@@ -503,7 +511,7 @@ internal class CacheManager : ICacheManager
             var exp_p2 = Expression.Parameter(typeof(string));
             var exp_p3 = Expression.Parameter(typeof(IFormatProvider));
             Expression? body = null;
-            if (type.IsSubclassOf(typeof(IFormattable)))
+            if (type.IsAssignableTo(typeof(IFormattable)))
             {
                 // 通过 IFormattable 接口格式化
                 var mi = type.GetMethod("ToString", new Type[] { typeof(string), typeof(IFormatProvider) });
@@ -514,11 +522,11 @@ internal class CacheManager : ICacheManager
             }
             else
             {
-                // 通过 ToString(string format) 方法格式化
-                var mi = type.GetMethod("ToString", new Type[] { typeof(string) });
+                // 通过 ToString() 方法格式化
+                var mi = type.GetMethod("ToString");
                 if (mi != null)
                 {
-                    body = Expression.Call(Expression.Convert(exp_p1, type), mi, exp_p2);
+                    body = Expression.Call(Expression.Convert(exp_p1, type), mi);
                 }
             }
             return body == null
@@ -551,7 +559,7 @@ internal class CacheManager : ICacheManager
             else
             {
                 // 通过 ToString() 方法格式化
-                mi = type.GetMethod("ToString", new Type[] { typeof(string) });
+                mi = type.GetMethod("ToString");
                 body = Expression.Call(Expression.Convert(exp_p1, type), mi!);
             }
             return Expression.Lambda<Func<object, IFormatProvider?, string>>(body, exp_p1, exp_p2);
