@@ -32,6 +32,11 @@ public abstract class NodeItem
     public string? Icon { get; set; }
 
     /// <summary>
+    /// 获得/设置 自定义样式名
+    /// </summary>
+    public string? Class { get; set; }
+
+    /// <summary>
     /// 获得/设置 是否被禁用 默认 false
     /// </summary>
     public bool IsDisabled { get; set; }

@@ -1981,3 +1981,12 @@ header .bb-fs {
     .carousel-item-demo > h3 + div {
         margin: 1rem 0;
     }
+
+.menu .nav-link.nav-table {
+    color: var(--bb-bg-violet);
+    font-weight: bold;
+}
+
+    .menu .nav-link.nav-table:hover {
+        color: unset;
+    }
