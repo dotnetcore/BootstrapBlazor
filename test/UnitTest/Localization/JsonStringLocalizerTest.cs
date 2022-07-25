@@ -269,7 +269,10 @@ public class JsonStringLocalizerFactoryTest
 
         var sc = new ServiceCollection();
         sc.AddConfiguration();
-        sc.AddBootstrapBlazor();
+        sc.AddBootstrapBlazor(op =>
+        {
+            op.IgnoreLocalizerMissing = true;
+        });
 
         var provider = sc.BuildServiceProvider();
         var localizer = provider.GetRequiredService<IStringLocalizer<Foo>>();
