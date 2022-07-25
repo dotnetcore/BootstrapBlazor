@@ -440,7 +440,7 @@ public partial class Table<TItem>
             RowsCache = null;
         }
 
-        void ProcessSelectedRows() => QueryItems.Where(i => SelectedRows.Any(row => ComparerItem(i, row))).ToList();
+        void ProcessSelectedRows() => QueryItems?.Where(i => SelectedRows.Any(row => ComparerItem(i, row))).ToList();
 
         async Task OnQuery()
         {
@@ -473,15 +473,15 @@ public partial class Table<TItem>
             }
 
             queryData = await InternalOnQueryAsync(queryOption);
-            QueryItems = queryData.Items;
             TotalCount = queryData.TotalCount;
             IsAdvanceSearch = queryData.IsAdvanceSearch;
+            QueryItems = queryData.Items ?? Enumerable.Empty<TItem>();
 
             // 处理选中行逻辑
             ProcessSelectedRows();
 
             // 分页情况下内部不做处理防止页码错乱
-            ProcessData(queryData, queryOption);
+            ProcessData();
 
             if (IsTree)
             {
@@ -491,7 +491,7 @@ public partial class Table<TItem>
             // 更新数据后清楚缓存防止新数据不显示
             RowsCache = null;
 
-            void ProcessData(QueryData<TItem> queryData, QueryPageOptions queryOption)
+            void ProcessData()
             {
                 var filtered = queryData.IsFiltered;
                 var sorted = queryData.IsSorted;
