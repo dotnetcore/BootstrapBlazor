@@ -308,9 +308,6 @@ public partial class Table<TItem>
                 SelectedRows.Add(val);
             }
             await OnSelectedRowsChanged();
-
-            // 更新 设置选中状态
-            StateHasChanged();
         }
 
         if (OnClickRowCallback != null)
@@ -324,6 +321,10 @@ public partial class Table<TItem>
         if (SelectedRowsChanged.HasDelegate)
         {
             await SelectedRowsChanged.InvokeAsync(SelectedRows);
+        }
+        else
+        {
+            StateHasChanged();
         }
     }
 
@@ -356,15 +357,10 @@ public partial class Table<TItem>
             TableRenderMode.Table => TableRenderMode.CardView,
             _ => TableRenderMode.Table
         };
-
         StateHasChanged();
     }
 
-    /// <summary>
-    /// 查询按钮调用此方法
-    /// </summary>
-    /// <returns></returns>
-    public async Task QueryAsync()
+    private async Task QueryAsync(bool shouldRender)
     {
         if (ScrollMode == ScrollMode.Virtual && VirtualizeElement != null)
         {
@@ -376,8 +372,18 @@ public partial class Table<TItem>
             await QueryData();
             await InternalToggleLoading(false);
         }
-        StateHasChanged();
+
+        if (shouldRender)
+        {
+            StateHasChanged();
+        }
     }
+
+    /// <summary>
+    /// 查询按钮调用此方法
+    /// </summary>
+    /// <returns></returns>
+    public Task QueryAsync() => QueryAsync(true);
 
     /// <summary>
     /// 显示/隐藏 Loading 遮罩

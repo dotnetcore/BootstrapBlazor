@@ -74,11 +74,17 @@ public partial class Table<TItem>
     {
         if (pageIndex != PageIndex)
         {
-            SelectedRows.Clear();
-            await OnSelectedRowsChanged();
             PageIndex = pageIndex;
             PageItems = pageItems;
-            await QueryAsync();
+
+            // 清空选中行
+            SelectedRows.Clear();
+
+            // 无刷新查询数据
+            await QueryAsync(false);
+
+            // 通知 SelectedRow 双向绑定集合改变
+            await OnSelectedRowsChanged();
         }
     }
 

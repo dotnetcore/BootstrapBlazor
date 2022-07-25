@@ -292,14 +292,12 @@ public partial class Table<TItem>
             {
                 ShowAddForm = true;
                 ShowEditForm = false;
-                StateHasChanged();
             }
             else if (EditMode == EditMode.InCell)
             {
                 AddInCell = true;
                 EditInCell = true;
                 SelectedRows.Add(EditModel);
-                StateHasChanged();
             }
             await OnSelectedRowsChanged();
             await ToggleLoading(false);
@@ -321,8 +319,8 @@ public partial class Table<TItem>
                 await InternalOnAddAsync();
                 RowsCache = null;
                 SelectedRows.Clear();
+                await QueryAsync(false);
                 await OnSelectedRowsChanged();
-                await QueryAsync();
             }
         }
     }

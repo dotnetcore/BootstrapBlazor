@@ -83,14 +83,12 @@ public partial class Table<TItem>
                 SelectedRows.Clear();
                 SelectedRows.AddRange(Rows);
                 await OnSelectedRowsChanged();
-                StateHasChanged();
                 break;
             case CheckboxState.UnChecked:
             default:
                 // unselect all
                 SelectedRows.Clear();
                 await OnSelectedRowsChanged();
-                StateHasChanged();
                 break;
         }
     }
@@ -112,14 +110,12 @@ public partial class Table<TItem>
                 SelectedRows.Remove(item);
             }
         }
-        await OnSelectedRowsChanged();
 
         // auto quit edit in cell mode
         AddInCell = false;
         EditInCell = false;
 
-        // https://gitee.com/LongbowEnterprise/BootstrapBlazor/issues/I1UYQG
-        StateHasChanged();
+        await OnSelectedRowsChanged();
     }
 
     /// <summary>
