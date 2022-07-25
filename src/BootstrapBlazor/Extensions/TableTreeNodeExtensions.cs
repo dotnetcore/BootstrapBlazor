@@ -68,7 +68,7 @@ internal static class TableTreeNodeExtensions
     /// <typeparam name="TItem"></typeparam>
     /// <param name="items"></param>
     /// <returns></returns>
-    public static List<TItem> GetAllRows<TItem>(this IEnumerable<TableTreeNode<TItem>> items) => GetAllRows(items, new List<TItem>());
+    public static List<TItem> GetAllRows<TItem>(this IEnumerable<TableTreeNode<TItem>> items) => items.GetAllRows(new List<TItem>());
 
     /// <summary>
     /// 展开树状结构

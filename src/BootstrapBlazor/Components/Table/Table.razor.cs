@@ -701,8 +701,10 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
     /// <summary>
     /// OnQueryAsync 查询结果数据集合
     /// </summary>
+    [NotNull]
     private IEnumerable<TItem>? QueryItems { get; set; }
 
+    [NotNull]
     private List<TItem>? RowsCache { get; set; }
 
     /// <summary>
@@ -712,9 +714,7 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
     {
         get
         {
-            RowsCache ??= IsTree
-                ? TreeRows.GetAllRows()
-                : (Items?.ToList() ?? QueryItems?.ToList() ?? new List<TItem>());
+            RowsCache ??= IsTree ? TreeRows.GetAllRows() : (Items ?? QueryItems).ToList();
             return RowsCache;
         }
     }
@@ -932,7 +932,7 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
             PageItems = Math.Min(request.Count, TotalCount - request.StartIndex);
         }
         await QueryData();
-        return new ItemsProviderResult<TItem>(QueryItems ?? Enumerable.Empty<TItem>(), TotalCount);
+        return new ItemsProviderResult<TItem>(QueryItems, TotalCount);
     }
 
     private Func<Task> TriggerDoubleClickCell(ITableColumn col, TItem item) => async () =>

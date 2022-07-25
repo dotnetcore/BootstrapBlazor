@@ -428,7 +428,7 @@ public partial class Table<TItem>
                 RowsCache = null;
 
                 // 设置默认选中行
-                ProcessSelectedRows();
+                ResetSelectedRows(QueryItems);
             }
             else
             {
@@ -437,10 +437,11 @@ public partial class Table<TItem>
         }
         else
         {
+            ResetSelectedRows(Items);
             RowsCache = null;
         }
 
-        void ProcessSelectedRows() => QueryItems?.Where(i => SelectedRows.Any(row => ComparerItem(i, row))).ToList();
+        void ResetSelectedRows(IEnumerable<TItem> items) => SelectedRows = items.Where(i => SelectedRows.Any(row => ComparerItem(i, row))).ToList();
 
         async Task OnQuery()
         {
@@ -478,7 +479,7 @@ public partial class Table<TItem>
             QueryItems = queryData.Items ?? Enumerable.Empty<TItem>();
 
             // 处理选中行逻辑
-            ProcessSelectedRows();
+            ResetSelectedRows(QueryItems);
 
             // 分页情况下内部不做处理防止页码错乱
             ProcessData();
