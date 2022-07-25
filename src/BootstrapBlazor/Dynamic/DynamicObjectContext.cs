@@ -91,11 +91,6 @@ public abstract class DynamicObjectContext : IDynamicObjectContext
     public Func<DynamicObjectContextArgs, Task>? OnChanged { get; set; }
 
     /// <summary>
-    /// 获得所有选中行回调委托
-    /// </summary>
-    public Func<IEnumerable<IDynamicObject>>? OnGetSelectedRows { get; set; }
-
-    /// <summary>
     /// 获得选中行比对回调方法
     /// </summary>
     public Func<IDynamicObject, IDynamicObject, bool>? EqualityComparer { get; set; }

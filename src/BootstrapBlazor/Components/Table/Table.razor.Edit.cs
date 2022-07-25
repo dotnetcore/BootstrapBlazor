@@ -418,16 +418,11 @@ public partial class Table<TItem>
             {
                 // 动态数据
                 QueryItems = DynamicContext.GetItems().Cast<TItem>();
+                TotalCount = QueryItems.Count();
+                RowsCache = null;
 
                 // 设置默认选中行
-                SelectedRows.Clear();
-                if (DynamicContext.OnGetSelectedRows != null)
-                {
-                    SelectedRows.AddRange(DynamicContext.OnGetSelectedRows().Cast<TItem>());
-                }
-                TotalCount = QueryItems.Count();
-
-                RowsCache = null;
+                ProcessSelectedRows();
             }
             else
             {
@@ -438,6 +433,8 @@ public partial class Table<TItem>
         {
             RowsCache = null;
         }
+
+        void ProcessSelectedRows() => QueryItems.Where(i => SelectedRows.Any(row => ComparerItem(i, row))).ToList();
 
         async Task OnQuery()
         {
@@ -487,19 +484,6 @@ public partial class Table<TItem>
 
             // 更新数据后清楚缓存防止新数据不显示
             RowsCache = null;
-
-            void ProcessSelectedRows()
-            {
-                var rows = new List<TItem>();
-                foreach (var row in SelectedRows)
-                {
-                    if (QueryItems.Any(i => ComparerItem(i, row)))
-                    {
-                        rows.Add(row);
-                    }
-                }
-                SelectedRows = rows;
-            }
 
             void ProcessData(QueryData<TItem> queryData, QueryPageOptions queryOption)
             {

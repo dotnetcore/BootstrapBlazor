@@ -5580,7 +5580,6 @@ public class TableTest : TableTestBase
         var items = Foo.GenerateFoo(localizer, 2);
         var context = CreateDynamicContext(localizer);
         var rows = context.GetItems().Take(1);
-        context.OnGetSelectedRows = () => rows;
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<DynamicObject>>(pb =>

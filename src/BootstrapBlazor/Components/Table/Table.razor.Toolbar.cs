@@ -310,15 +310,17 @@ public partial class Table<TItem>
             if (DynamicContext != null)
             {
                 // 数据源为 DataTable 新建后重建行与列
+                // TODO: 新建行在数据源 DataTable 中
                 await DynamicContext.AddAsync(SelectedRows.OfType<IDynamicObject>());
                 ResetDynamicContext();
-                StateHasChanged();
+                SelectedRows.Clear();
+                await OnSelectedRowsChanged();
             }
             else
             {
                 await InternalOnAddAsync();
-                SelectedRows.Clear();
                 RowsCache = null;
+                SelectedRows.Clear();
                 await OnSelectedRowsChanged();
                 await QueryAsync();
             }
@@ -678,7 +680,8 @@ public partial class Table<TItem>
             {
                 await DynamicContext.DeleteAsync(SelectedRows.AsEnumerable().OfType<IDynamicObject>());
                 ResetDynamicContext();
-                StateHasChanged();
+                SelectedRows.Clear();
+                await OnSelectedRowsChanged();
             }
             else
             {

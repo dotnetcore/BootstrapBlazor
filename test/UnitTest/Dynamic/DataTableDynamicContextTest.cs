@@ -78,17 +78,6 @@ public class DataTableDynamicContextTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void OnGetSelectedRows_Ok()
-    {
-        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var fooData = GenerateDataTable(localizer);
-        var context = new DataTableDynamicContext(fooData);
-        var items = context.GetItems().Take(1);
-        context.OnGetSelectedRows = () => items;
-        Assert.Equal(items, context.OnGetSelectedRows());
-    }
-
-    [Fact]
     public void AddAttribute_Null()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();

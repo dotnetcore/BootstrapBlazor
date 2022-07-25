@@ -58,6 +58,8 @@ public partial class TablesDynamic
         InitPageDataTable();
     }
 
+    private static bool ModelEqualityComparer(IDynamicObject x, IDynamicObject y) => x.GetValue("Id")?.ToString() == y.GetValue("Id")?.ToString();
+
     private void CreateContext()
     {
         // 初始化动态类型上下文实例

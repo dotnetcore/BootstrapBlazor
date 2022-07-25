@@ -10,7 +10,7 @@
 
 <DemoBlock Title="@DynamicLocalizer["EditTitle"]" Introduction="@DynamicLocalizer["EditIntro"]" Name="Edit">
     <p>@((MarkupString)DynamicLocalizer["EditP"].Value)</p>
-    <Table TItem="DynamicObject" DynamicContext="DataTableDynamicContext"
+    <Table TItem="DynamicObject" DynamicContext="DataTableDynamicContext" ModelEqualityComparer="ModelEqualityComparer"
            IsMultipleSelect="true" IsBordered="true" IsStriped="true" @bind-SelectedRows="SelectedItems"
            ShowToolbar="true" ShowExtendButtons="true" />
     <div class="mt-3">
@@ -22,7 +22,7 @@
 </DemoBlock>
 
 <DemoBlock Title="@DynamicLocalizer["DynamicColTitle"]" Introduction="@DynamicLocalizer["DynamicColIntro"]" Name="DynamicCol">
-    <Table TItem="DynamicObject" DynamicContext="DataTableDynamicContext"
+    <Table TItem="DynamicObject" DynamicContext="DataTableDynamicContext" ModelEqualityComparer="ModelEqualityComparer"
            IsMultipleSelect="true" IsBordered="true" IsStriped="true"
            ShowToolbar="true" ShowExtendButtons="true">
         <TableToolbarTemplate>
