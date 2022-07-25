@@ -34,7 +34,7 @@ public abstract class NodeItem
     /// <summary>
     /// 获得/设置 自定义样式名
     /// </summary>
-    public string? Class { get; set; }
+    public string? CssClass { get; set; }
 
     /// <summary>
     /// 获得/设置 是否被禁用 默认 false

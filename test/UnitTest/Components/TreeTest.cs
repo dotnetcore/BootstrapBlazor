@@ -277,4 +277,18 @@ public class TreeTest : BootstrapBlazorTestBase
             pb.Add(a => a.ShowSkeleton, false);
         });
     }
+
+    [Fact]
+    public void Tree_CssClass()
+    {
+        var cut = Context.RenderComponent<Tree>(pb =>
+        {
+            pb.Add(a => a.Items, new List<TreeItem>()
+            {
+                new() { Text = "Test1", Icon = "fa fa-fa", CssClass="test-tree-css-class" },
+                new() { Text = "Test2", Icon = "fa fa-fa" }
+            });
+        });
+        Assert.Contains("test-tree-css-class", cut.Markup);
+    }
 }

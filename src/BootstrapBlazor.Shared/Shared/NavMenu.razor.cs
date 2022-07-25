@@ -743,7 +743,7 @@ public sealed partial class NavMenu
                 Url = "tables/virtualization"
             }
         };
-        item.Class = "nav-table";
+        item.CssClass = "nav-table";
         AddBadge(item, count: 1);
     }
 

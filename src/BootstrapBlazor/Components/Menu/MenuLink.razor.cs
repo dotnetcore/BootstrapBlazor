@@ -13,7 +13,7 @@ namespace BootstrapBlazor.Components;
 public sealed partial class MenuLink
 {
     private string? ClassString => CssBuilder.Default("nav-link")
-        .AddClass(Item.Class, !string.IsNullOrEmpty(Item.Class))
+        .AddClass(Item.CssClass, !string.IsNullOrEmpty(Item.CssClass))
         .AddClass("active", Parent.DisableNavigation && Item.IsActive && !Item.IsDisabled)
         .AddClass("disabled", Item.IsDisabled)
         .AddClass("expand", Parent.IsVertical && !Item.IsCollapsed)

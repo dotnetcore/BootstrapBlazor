@@ -40,11 +40,6 @@ public class TreeItem : NodeItem
     public bool HasChildNode { get; set; }
 
     /// <summary>
-    /// 获取/设置 节点样色样式 默认 null 未设置
-    /// </summary>
-    public string? CssClass { get; set; }
-
-    /// <summary>
     /// 获得 所有子项集合
     /// </summary>
     /// <returns></returns>
