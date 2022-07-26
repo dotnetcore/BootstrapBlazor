@@ -1,8 +1,8 @@
 ﻿@inherits BootstrapComponentBase
 @inject IStringLocalizer<Tips> Localizer
 
-<Alert AdditionalAttributes="@AdditionalAttributes" ShowBar="true" Color="@Color">
-    <h4><i class="@Icon"></i>@Localizer["Title"]</h4>
+<Alert AdditionalAttributes="@AdditionalAttributes" ShowBar="true" ShowBorder="true" Color="@Color">
+    <h4><i class="alert-icon @Icon"></i>@Localizer["Title"]</h4>
     @ChildContent
 </Alert>
 
@@ -25,4 +25,4 @@
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
-} 
+}

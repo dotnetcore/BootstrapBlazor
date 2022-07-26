@@ -15,7 +15,7 @@ public partial class Alert
     protected override string? ClassName => CssBuilder.Default(base.ClassName)
         .AddClass("d-none", !IsShown)
         .AddClass("shadow", ShowShadow)
-        .AddClass($"border-{Color.ToDescriptionString()}", ShowBorder || ShowBar)
+        .AddClass($"border-{Color.ToDescriptionString()}", ShowBorder)
         .Build();
 
     private bool IsShown { get; set; } = true;

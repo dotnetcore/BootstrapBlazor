@@ -20,10 +20,20 @@ public class AlertTest : TestBase
     public void ShowBar_Ok()
     {
         var cut = Context.RenderComponent<Alert>(builder => builder.Add(a => a.ShowBar, true));
-        Assert.Contains("is-bar", cut.Markup);
+        Assert.Contains("alert-bar", cut.Markup);
 
         cut = Context.RenderComponent<Alert>(builder => builder.Add(a => a.ShowBar, false));
-        Assert.DoesNotContain("is-bar", cut.Markup);
+        Assert.DoesNotContain("alert-bar", cut.Markup);
+    }
+
+    [Fact]
+    public void ShowShadow_Ok()
+    {
+        var cut = Context.RenderComponent<Alert>(builder => builder.Add(a => a.ShowShadow, true));
+        Assert.Contains("shadow", cut.Markup);
+
+        cut = Context.RenderComponent<Alert>(builder => builder.Add(a => a.ShowBar, false));
+        Assert.DoesNotContain("shadow", cut.Markup);
     }
 
     [Fact]

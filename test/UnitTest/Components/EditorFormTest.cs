@@ -163,7 +163,7 @@ public class EditorFormTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void Misc_Ok()
+    public void Alignment_Right()
     {
         var foo = new Foo();
         var cut = Context.RenderComponent<EditorForm<Foo>>(pb =>
@@ -174,8 +174,14 @@ public class EditorFormTest : BootstrapBlazorTestBase
             pb.Add(a => a.RowType, RowType.Inline);
             pb.Add(a => a.LabelAlign, Alignment.Right);
         });
-        cut.Contains("row g-3 form-inline is-end");
+        cut.Contains("row g-3 form-inline form-inline-end");
         cut.Contains("col-12");
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.LabelAlign, Alignment.Center);
+        });
+        cut.Contains("row g-3 form-inline form-inline-center");
     }
 
     [Fact]
