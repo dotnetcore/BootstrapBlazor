@@ -15,4 +15,13 @@ public class TooltipTest : BootstrapBlazorTestBase
             pb.Add(a => a.Trigger, "test_trigger");
         });
     }
+
+    [Fact]
+    public void CssClass_Ok()
+    {
+        var cut = Context.RenderComponent<Tooltip>(pb =>
+        {
+            pb.Add(a => a.CssClass, "test-custom-class");
+        });
+    }
 }

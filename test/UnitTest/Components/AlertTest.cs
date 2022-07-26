@@ -27,6 +27,16 @@ public class AlertTest : TestBase
     }
 
     [Fact]
+    public void ShowBorder_Ok()
+    {
+        var cut = Context.RenderComponent<Alert>(builder => builder.Add(a => a.ShowBorder, true));
+        Assert.Contains("border-primary", cut.Markup);
+
+        cut = Context.RenderComponent<Alert>(builder => builder.Add(a => a.ShowBorder, false));
+        Assert.DoesNotContain("border-primary", cut.Markup);
+    }
+
+    [Fact]
     public void ShowShadow_Ok()
     {
         var cut = Context.RenderComponent<Alert>(builder => builder.Add(a => a.ShowShadow, true));

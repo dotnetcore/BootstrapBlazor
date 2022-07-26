@@ -93,6 +93,7 @@ public partial class PopConfirmButton
                 Icon = ConfirmIcon,
                 OnConfirm = Confirm,
                 OnClose = OnClose,
+                CssClass = CssClass,
                 Callback = async () => await JSRuntime.InvokeVoidAsync(Id, "bb_confirm")
             });
         }
