@@ -41,7 +41,7 @@ public class AutoFillTest : BootstrapBlazorTestBase
     public void NullItems_Ok()
     {
         var cut = Context.RenderComponent<AutoFill<Foo>>();
-        Assert.Contains("dropdown-list", cut.Markup);
+        Assert.Contains("dropdown-menu", cut.Markup);
     }
 
     [Fact]

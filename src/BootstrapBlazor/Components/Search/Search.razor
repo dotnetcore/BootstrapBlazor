@@ -11,23 +11,21 @@
             }
             <Button Color="SearchButtonColor" Text="@SearchButtonText" Icon="@ButtonIcon" OnClick="OnSearchClick" />
         </div>
-        <div class="select-dropdown">
-            <ul class="dropdown-list">
-                @if (FilterItems.Any())
+        <ul class="@DropdownMenuClassString">
+            @if (FilterItems.Any())
+            {
+                @foreach (var item in FilterItems)
                 {
-                    @foreach (var item in FilterItems)
-                    {
-                        <li class="dropdown-item" @onmousedown="e => OnClickItem(item)">
-                            <div>@item</div>
-                        </li>
-                    }
+                    <li class="dropdown-item" @onmousedown="e => OnClickItem(item)">
+                        <div>@item</div>
+                    </li>
                 }
-                else
-                {
-                    <li class="dropdown-item">@NoDataTip</li>
-                }
-            </ul>
-        </div>
+            }
+            else
+            {
+                <li class="dropdown-item">@NoDataTip</li>
+            }
+        </ul>
     </div>
     <CascadingValue Value="this" IsFixed="true">
         @ChildContent

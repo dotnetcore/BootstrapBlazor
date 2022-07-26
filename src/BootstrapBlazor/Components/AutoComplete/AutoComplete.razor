@@ -8,23 +8,21 @@
 <div class="@ClassString" @ref="AutoCompleteElement">
     <input @attributes="AdditionalAttributes" id="@Id" class="@ClassName" autocomplete="off" type="@Type" placeholder="@PlaceHolder" disabled="@Disabled" @bind-value="@CurrentValueAsString" @bind-value:event="oninput" @onblur="OnBlur" @onkeyup="OnKeyUp" @ref="FocusElement" />
     <i class="fa fa-fw fa-spinner fa-spin"></i>
-    <div class="select-dropdown">
-        <ul class="dropdown-list">
-            @if (FilterItems.Any())
+    <ul class="@DropdownMenuClassString">
+        @if (FilterItems.Any())
+        {
+            @foreach (var item in FilterItems)
             {
-                @foreach (var item in FilterItems)
-                {
-                    <li class="dropdown-item" @onmousedown="e => OnClickItem(item)">
-                        <div>@item</div>
-                    </li>
-                }
+                <li class="dropdown-item" @onmousedown="e => OnClickItem(item)">
+                    <div>@item</div>
+                </li>
             }
-            else
-            {
-                <li class="dropdown-item">@NoDataTip</li>
-            }
-        </ul>
-    </div>
+        }
+        else
+        {
+            <li class="dropdown-item">@NoDataTip</li>
+        }
+    </ul>
 </div>
 <CascadingValue Value="this" IsFixed="true">
     @ChildContent

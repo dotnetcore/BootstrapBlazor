@@ -164,7 +164,7 @@
         initTheme: function (el) {
             var $el = $(el);
             $el.find('[data-bs-toggle="tooltip"]').tooltip();
-            $el.on('click', '.btn-theme, .theme-close, .theme-item', function (e) {
+            $el.on('click', '.btn-theme, .btn-close, .theme-item', function (e) {
                 var $theme = $el.find('.theme-list');
                 $theme.toggleClass('is-open').slideToggle('fade');
             });

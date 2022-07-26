@@ -777,3 +777,10 @@
     .card-header:first-child {
         border-radius: var(--bs-border-radius) var(--bs-border-radius) 0 0;
     }
+
+/*dropdonw*/
+.dropdown-menu {
+    --bs-dropdown-item-padding-y: 6px;
+    --bs-dropdown-item-padding-x: 20px;
+}
+/*end dropdown*/

@@ -1649,6 +1649,9 @@ section {
 }
 
 .btn-theme {
+    --bs-btn-bg: #034995;
+    --bs-btn-hover-bg: #034995;
+    --bs-btn-active-bg: #034995;
     width: 40px;
     height: 40px;
     border-radius: 50% !important;
@@ -1657,7 +1660,6 @@ section {
     z-index: 12;
     right: 1rem;
     bottom: 9rem;
-    background-color: #034995;
     padding: 11px;
 }
 
@@ -1707,22 +1709,8 @@ section {
         border-top-left-radius: 5px;
         border-top-right-radius: 5px;
         margin: -1rem -1rem 1rem -1rem;
-        position: relative;
+        display: flex;
     }
-
-        .theme-list .theme-header .theme-close {
-            font-size: 1.25rem;
-            cursor: pointer;
-            position: absolute;
-            right: 1rem;
-            top: 7px;
-            padding: 0 3px;
-            transition: color .3s linear;
-        }
-
-            .theme-list .theme-header .theme-close:hover {
-                color: #005980;
-            }
 
     .theme-list .theme-item {
         cursor: pointer;

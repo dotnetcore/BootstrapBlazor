@@ -2,7 +2,7 @@
     $.extend({
         bb_autoScrollItem: function (el, index) {
             var $el = $(el);
-            var $menu = $el.find('.dropdown-list');
+            var $menu = $el.find('.dropdown-menu');
             var maxHeight = parseInt($menu.css('max-height').replace('px', '')) / 2;
             var itemHeight = $menu.children('li:first').outerHeight();
             var height = itemHeight * index;

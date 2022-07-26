@@ -20,7 +20,13 @@ public partial class AutoFill<TValue>
     /// </summary>
     protected virtual string? ClassString => CssBuilder.Default("auto-complete")
         .AddClass("is-loading", _isLoading)
-        .AddClass("is-complete", _isShown)
+        .Build();
+
+    /// <summary>
+    /// Dropdown Menu 下拉菜单样式
+    /// </summary>
+    protected string? DropdownMenuClassString => CssBuilder.Default("dropdown-menu")
+        .AddClass("show", _isShown)
         .Build();
 
     /// <summary>

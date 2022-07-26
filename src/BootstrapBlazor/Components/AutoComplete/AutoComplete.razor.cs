@@ -21,7 +21,13 @@ public partial class AutoComplete
     /// </summary>
     protected virtual string? ClassString => CssBuilder.Default("auto-complete")
         .AddClass("is-loading", IsLoading)
-        .AddClass("is-complete", IsShown)
+        .Build();
+
+    /// <summary>
+    /// Dropdown Menu 下拉菜单样式
+    /// </summary>
+    protected string? DropdownMenuClassString => CssBuilder.Default("dropdown-menu")
+        .AddClass("show", IsShown)
         .Build();
 
     /// <summary>
