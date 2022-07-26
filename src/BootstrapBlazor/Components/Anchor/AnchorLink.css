@@ -1,15 +1,19 @@
 ﻿.anchor-link {
+    --bb-anchor-link-margin-left: .5rem;
+    --bb-anchor-link-opacity: 0;
+    --bb-anchor-link-opacity-hover: 1;
+    --bb-anchor-link-opacity-transition: opacity .3s linear;
     cursor: pointer;
     display: inline-block;
 }
 
-    .anchor-link > i {
-        opacity: 0;
-        margin-left: .5rem;
-        color: var(--bs-primary);
-        transition: opacity .3s linear;
-    }
+.anchor-link-icon {
+    opacity: var(--bb-anchor-link-opacity);
+    margin-left: var(--bb-anchor-link-margin-left);
+    color: var(--bs-primary);
+    transition: var(--bb-anchor-link-opacity-transition);
+}
 
-    .anchor-link:hover > i {
-        opacity: 1;
-    }
+.anchor-link:hover .anchor-link-icon {
+    opacity: var(--bb-anchor-link-opacity-hover);
+}
