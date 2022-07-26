@@ -38,14 +38,14 @@
     }
 
         .is-button .form-check:first-child {
-            border-top-left-radius: var(--bb-border-radius);
-            border-bottom-left-radius: var(--bb-border-radius);
+            border-top-left-radius: var(--bs-border-radius);
+            border-bottom-left-radius: var(--bs-border-radius);
             border-right: none;
         }
 
         .is-button .form-check:last-child {
-            border-top-right-radius: var(--bb-border-radius);
-            border-bottom-right-radius: var(--bb-border-radius);
+            border-top-right-radius: var(--bs-border-radius);
+            border-bottom-right-radius: var(--bs-border-radius);
             border-left: none;
         }
 

@@ -172,6 +172,20 @@ public sealed partial class Alerts
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
+        },
+        new AttributeItem() {
+            Name = "ShowBorder",
+            Description = "是否显示边框",
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "false"
+        },
+        new AttributeItem() {
+            Name = "ShowShadow",
+            Description = "是否显示阴影",
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "false"
         }
     };
 }

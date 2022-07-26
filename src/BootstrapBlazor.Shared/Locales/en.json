@@ -84,17 +84,21 @@
     "Block2Title": "Used in EditorForm",
     "Block2Intro": "Not used in <code>ValidateForm</code>",
     "P4": "<b>Show label</b><div>The <code>ShowLabel</code> property of the <coe>EditorForm</coe> component is not set. If it is not set, it is equivalent to set to <code>true</code>. All components <b>display</b> tags</div>",
-    "P5": "<b>Do not display labels</b><div>Set <code>ShowLabel='false'</code>, all form components in the component <b>Do not display</b> tags</div>",
+    "P5": "<b>Do not display labels</b><div>Set <code>ShowLabel=\"false\"</code>, all form components in the component <b>Do not display</b> tags</div>",
     "Block3Title": "Use in EditorForm built-in ValidateForm",
     "Block3Intro": "Used in external <code>ValidateForm</code>",
     "P6": "<b>Show label</b><div>The <code>ShowLabel</code> property of the <coe>EditorForm</coe> component is not set. If it is not set, it is equivalent to set to <code>true</code>. All components <b>display</b> tags</div>",
-    "P7": "<b>Do not display labels</b><div>Set <code>ShowLabel='false'</code>, all form components in the component <b>Do not display</b> tags</div>",
+    "P7": "<b>Do not display labels</b><div>Set <code>ShowLabel=\"false\"</code>, all form components in the component <b>Do not display</b> tags</div>",
     "Block4Title": "Used in ValidateForm",
     "Block4Intro": "Show labels are automatically turned on by default",
     "P8": "<b>Show label</b><div>The <code>ShowLabel</code> property of the <coe>EditorForm</coe> component is not set. If it is not set, it is equivalent to set to <code>true</code>. All components <b>display</b> tags</div>",
-    "P9": "<b>Do not display labels</b><div>Set <code>ShowLabel='false'</code>, all form components in the component <b>Do not display</b> tags</div>",
+    "P9": "<b>Do not display labels</b><div>Set <code>ShowLabel=\"false\"</code>, all form components in the component <b>Do not display</b> tags</div>",
     "P10": "<b>Show labels</b><div>set class <code>form-inline</code> for the all labels within the component are prefixed</div>",
-    "P11": "<b>Tooltip</b>"
+    "P11": "<b>Tooltip</b>",
+    "EditorFormLabelAlignRight": "<b>Alignment</b><div><code>LabelAlign=\"Alignment.Right\"</code> set the label alignment is right</div>",
+    "EditorFormLabelAlignCenter": "<b>Alignment</b><div><code>LabelAlign=\"Alignment.Center\"</code> set the label alignment is center</div>",
+    "ValidateFormAlignRight": "<b>Right</b><div><code>form-inline-end</code> set the label alignment is right</div>",
+    "ValidateFormAlignCenter": "<b>Center</b><div><code>form-inline-center</code> set the label alignment is center</div>"
   },
   "BootstrapBlazor.Shared.Pages.Install": {
     "InstallTitle": "Install",
@@ -2598,7 +2602,11 @@
     "WithIconUsageText": "With Icon",
     "IntroText3": "Displaying an icon improves readability.",
     "ShowBarUsageText": "With Bar",
-    "IntroText4": "Show <code>Tip</code>"
+    "IntroText4": "Show <code>Tip</code>",
+    "ShowBorderTitle": "Border",
+    "ShowBorderIntro": "Set <code>ShowBorder=\"true\"</code> show border",
+    "ShowShadowTitle": "Shadow",
+    "ShowShadowIntro": "Set <code>ShowShadow=\"true\"</code> Show shadow"
   },
   "BootstrapBlazor.Shared.Samples.QRCodes": {
     "Title": "QRCode",
@@ -3311,7 +3319,7 @@
     "LearnLi8": "Exercise-Data binding and Events",
     "Summarize": "Summarize",
     "ProjectsShow": "Exhibition",
-    "P5": "The largest code hosting collaborative development platform in China <b><a href='{0}' target='_blank'>Gitee</a></b> C# The highest star in the sector <a href='{1}'><img src='{2}' alt='star' style='margin-bottom': '1px;' ></a> Works <b><a href='{3}' target=''_blank'>Universal background management system BootstrapAdmin</a></b> Ready to use this component to achieve all functions",
+    "P5": "The largest code hosting collaborative development platform in China <b><a href='{0}' target='_blank'>Gitee</a></b> C# The highest star in the sector <a href='{1}' target='_blank'><img src='{2}' alt='star'></a> Works <b><a href='{3}' target='_blank'>Universal background management system BootstrapAdmin</a></b> Ready to use this component to achieve all functions",
     "ShowWebSiteTitle": "Demo Site",
     "GetStarted": "Get Started",
     "QuikStart": "Quick Start",

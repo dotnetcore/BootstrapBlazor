@@ -1,7 +1,7 @@
 ﻿.groupbox {
     border: 1px solid #ddd;
     padding: 1.5rem 1rem 1rem 1rem;
-    border-radius: var(--bb-border-radius);
+    border-radius: var(--bs-border-radius);
     position: relative;
     margin-top: 0.5rem;
 }

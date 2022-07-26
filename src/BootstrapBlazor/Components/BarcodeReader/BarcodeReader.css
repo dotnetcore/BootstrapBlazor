@@ -2,7 +2,7 @@
     width: 300px;
     height: 170px;
     border: 1px solid #ddd;
-    border-radius: var(--bb-border-radius);
+    border-radius: var(--bs-border-radius);
 }
 
 .scanner .scanner-image {

@@ -5,7 +5,7 @@
 
     .multi-select .dropdown-menu-toggle {
         border: solid 1px #ddd;
-        border-radius: var(--bb-border-radius);
+        border-radius: var(--bs-border-radius);
         cursor: pointer;
         min-height: var(--bb-height);
         max-height: 70px;
@@ -24,7 +24,7 @@
 
             .multi-select .dropdown-menu-toggle .clear:hover {
                 background-color: #ddd;
-                border-radius: var(--bb-border-radius);
+                border-radius: var(--bs-border-radius);
             }
 
         .multi-select .dropdown-menu-toggle .dropdown {
@@ -77,7 +77,7 @@
 
         .multi-select .multi-select-items span {
             border: solid 1px #ddd;
-            border-radius: var(--bb-border-radius);
+            border-radius: var(--bs-border-radius);
             padding: 2px 6px;
             background-color: #e9ecef;
             margin-bottom: 3px;

@@ -64,6 +64,7 @@ public partial class PopoverConfirm : IDisposable
             builder.AddAttribute(index++, nameof(PopoverConfirmBox.ConfirmButtonText), option.ConfirmButtonText);
             builder.AddAttribute(index++, nameof(PopoverConfirmBox.ConfirmButtonColor), option.ConfirmButtonColor);
             builder.AddAttribute(index++, nameof(PopoverConfirmBox.Icon), option.Icon);
+            builder.AddAttribute(index++, nameof(PopoverConfirmBox.CssClass), option.CssClass);
 
             builder.CloseComponent();
         };

@@ -10,7 +10,6 @@
 
             $menu.children().removeClass('active');
             var len = $menu.children().length;
-            debugger;
             if (index < len) {
                 $menu.children()[index].classList.add('active');
             }

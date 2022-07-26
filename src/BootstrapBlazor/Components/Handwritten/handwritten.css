@@ -1,7 +1,7 @@
 ﻿.handwritten .hw-body {
     height: 300px;
     border: 1px solid rgba(0,0,0,.125);
-    border-radius: var(--bb-border-radius);
+    border-radius: var(--bs-border-radius);
     overflow: hidden;
 }
 

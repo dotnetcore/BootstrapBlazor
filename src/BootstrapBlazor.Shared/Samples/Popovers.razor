@@ -4,7 +4,7 @@
 
 <h4>点击/鼠标移入元素，弹出气泡式的卡片浮层</h4>
 
-<DemoBlock Title="基础用法" Introduction=" 点击文本输入框弹出 Popover 弹出框，<code>Placement</code> 设置弹出框的位置 二次点击时关闭弹出框" Name="Normal">
+<DemoBlock Title="基础用法" Introduction=" 点击文本输入框弹出 <code>Popover</code> 弹出框，<code>Placement</code> 设置弹出框的位置 二次点击时关闭弹出框" Name="Normal">
     <div class="d-flex flex-column w-100 popover-demo">
         <div class="d-flex justify-content-center">
             <BootstrapInput Value="@ValueString">
@@ -27,10 +27,26 @@
     </div>
 </DemoBlock>
 
-<DemoBlock Title="Popover 按钮激活弹出框" Introduction="点击按钮后弹出 Popover 弹出框" Name="Button">
+<DemoBlock Title="按钮激活弹出框" Introduction="点击按钮后弹出 <code>Popover</code> 弹出框" Name="Button">
     <Button>
         <span>Click 激活/关闭</span>
         <Popover Placement="Placement.Auto" Title="@Title" Content="@Content" IsHtml="true" Trigger="click" />
+    </Button>
+</DemoBlock>
+
+<DemoBlock Title="自定义样式" Introduction="通过设置 <code>Popover</code> 参数 <code>CssClass</code> 对弹窗进行自定义样式" Name="CssClass">
+    <p>设置 <code>Popover</code> 参数 <code>CssClass="custom-popover"</code> 进行自定义样式</p>
+    <Pre>.custom-popover {
+    --bs-popover-border-color: var(--bs-primary);
+    --bs-popover-header-bg: var(--bs-primary);
+    --bs-popover-header-color: var(--bs-white);
+    --bs-popover-body-padding-x: 1rem;
+    --bs-popover-body-padding-y: 1rem;
+}
+</Pre>
+    <Button>
+        <span>Click 激活/关闭</span>
+        <Popover Placement="Placement.Auto" Title="@Title" Content="@Content" IsHtml="true" Trigger="click" CssClass="custom-popover" />
     </Button>
 </DemoBlock>
 

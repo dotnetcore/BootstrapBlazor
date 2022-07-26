@@ -1,31 +1,25 @@
 ﻿.popover {
-    min-width: 240px;
+    --bs-popover-min-width: 240px;
+    --bb-popover-buttons-justify-content: flex-end;
+    --bb-popover-buttons-margin-left: 0.5rem;
+    --bb-popover-buttons-padding: 0.25rem 1rem;
+    --bb-popover-body-span-margin-left: 0.25rem;
+    min-width: var(--bs-popover-min-width);
 }
 
-.popover-confirm-body {
-    margin: 14px 0;
+.popover-confirm-body .fa + span {
+    margin-left: var(--bb-popover-body-span-margin-left);
 }
-
-    .popover-confirm-body .fa + span {
-        margin-left: 0.25rem;
-    }
 
 .popover-confirm-buttons {
     display: flex;
-    justify-content: flex-end;
-    margin-bottom: 4px;
+    justify-content: var(--bb-popover-buttons-justify-content);
 }
 
     .popover-confirm-buttons .btn {
-        padding: 7px 15px;
-        line-height: 12px;
+        padding: var(--bb-popover-buttons-padding);
     }
 
         .popover-confirm-buttons .btn:last-child {
-            margin-left: 0.5rem;
+            margin-left: var(--bb-popover-buttons-margin-left);
         }
-
-.bs-popover-auto[data-popper-placement^=bottom].has-header > .popover-arrow::after,
-.bs-popover-bottom.has-header > .popover-arrow::after {
-    border-bottom-color: #f0f0f0;
-}

@@ -3,7 +3,7 @@
     padding: 0 10px;
     line-height: 30px;
     font-size: 12px;
-    border-radius: var(--bb-border-radius);
+    border-radius: var(--bs-border-radius);
     white-space: nowrap;
     align-items: center;
 }

@@ -26,7 +26,8 @@ public partial class EditorForm<TModel> : IShowLabel
 
     private string? FormClassString => CssBuilder.Default("row g-3")
         .AddClass("form-inline", RowType == RowType.Inline)
-        .AddClass($"is-{LabelAlign.ToDescriptionString()}", RowType == RowType.Inline && LabelAlign != Alignment.None)
+        .AddClass("form-inline-end", RowType == RowType.Inline && LabelAlign == Alignment.Right)
+        .AddClass("form-inline-center", RowType == RowType.Inline && LabelAlign == Alignment.Center)
         .Build();
 
     /// <summary>

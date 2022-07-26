@@ -35,7 +35,7 @@
 .widget .dropdown-header {
     color: #fff;
     padding: 0.5rem 0.625rem;
-    border-radius: var(--bb-border-radius) var(--bb-border-radius) 0 0;
+    border-radius: var(--bs-border-radius) var(--bs-border-radius) 0 0;
 }
 
 .widget .dropdown-body {
@@ -46,7 +46,7 @@
 .widget .dropdown-footer {
     padding: 0.5rem 0.625rem;
     background-color: #dcdfe6;
-    border-radius: 0 0 var(--bb-border-radius) var(--bb-border-radius);
+    border-radius: 0 0 var(--bs-border-radius) var(--bs-border-radius);
 }
 
 .widget .dropdown-item {

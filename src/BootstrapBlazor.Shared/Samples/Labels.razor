@@ -70,9 +70,9 @@
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["Block2Title"]" Introduction="@(((MarkupString)Localizer["Block2Intro"].Value).ToString())" Name="EditorForm">
-    <p>@((MarkupString)Localizer["P4"].Value)</p>
+    <p>@((MarkupString)Localizer["P5"].Value)</p>
     <GroupBox>
-        <EditorForm Model="@Dummy">
+        <EditorForm Model="@Dummy" ShowLabel="false" RowType="RowType.Inline" ItemsPerRow="2">
             <FieldItems>
                 <EditorItem @bind-Field="context.Hobby" Items="@Foo.GenerateHobbys(LocalizerFoo)">
                 </EditorItem>
@@ -80,9 +80,29 @@
         </EditorForm>
     </GroupBox>
 
-    <p class="mt-3">@((MarkupString)Localizer["P5"].Value)</p>
+    <p class="mt-3">@((MarkupString)Localizer["P4"].Value)</p>
     <GroupBox>
-        <EditorForm Model="@Dummy" ShowLabel="false">
+        <EditorForm Model="@Dummy" RowType="RowType.Inline" ItemsPerRow="2">
+            <FieldItems>
+                <EditorItem @bind-Field="context.Hobby" Items="@Foo.GenerateHobbys(LocalizerFoo)">
+                </EditorItem>
+            </FieldItems>
+        </EditorForm>
+    </GroupBox>
+
+    <p class="mt-3">@((MarkupString)Localizer["EditorFormLabelAlignRight"].Value)</p>
+    <GroupBox>
+        <EditorForm Model="@Dummy" ShowLabel="true" RowType="RowType.Inline" ItemsPerRow="2" LabelAlign="Alignment.Right">
+            <FieldItems>
+                <EditorItem @bind-Field="context.Hobby" Items="@Foo.GenerateHobbys(LocalizerFoo)">
+                </EditorItem>
+            </FieldItems>
+        </EditorForm>
+    </GroupBox>
+
+    <p class="mt-3">@((MarkupString)Localizer["EditorFormLabelAlignCenter"].Value)</p>
+    <GroupBox>
+        <EditorForm Model="@Dummy" ShowLabel="true" RowType="RowType.Inline" ItemsPerRow="2" LabelAlign="Alignment.Center">
             <FieldItems>
                 <EditorItem @bind-Field="context.Hobby" Items="@Foo.GenerateHobbys(LocalizerFoo)">
                 </EditorItem>
@@ -95,7 +115,7 @@
     <p>@((MarkupString)Localizer["P6"].Value)</p>
     <GroupBox>
         <ValidateForm Model="@Dummy">
-            <EditorForm TModel="Foo">
+            <EditorForm TModel="Foo" RowType="RowType.Inline" ItemsPerRow="2">
                 <FieldItems>
                     <EditorItem @bind-Field="context.Hobby" Items="@Foo.GenerateHobbys(LocalizerFoo)">
                     </EditorItem>
@@ -107,7 +127,7 @@
     <p class="mt-3">@((MarkupString)Localizer["P7"].Value)</p>
     <GroupBox>
         <ValidateForm Model="@Dummy" ShowLabel="false">
-            <EditorForm TModel="Foo">
+            <EditorForm TModel="Foo" RowType="RowType.Inline" ItemsPerRow="2">
                 <FieldItems>
                     <EditorItem @bind-Field="context.Hobby" Items="@Foo.GenerateHobbys(LocalizerFoo)">
                     </EditorItem>
@@ -145,6 +165,29 @@
     <p class="mt-3">@((MarkupString)Localizer["P10"].Value)</p>
     <ValidateForm Model="@Dummy">
         <div class="row g-3 form-inline">
+            <div class="col-sm-12 col-md-6">
+                <BootstrapInput @bind-Value="Dummy.Name" />
+            </div>
+            <div class="col-sm-12 col-md-6">
+                <BootstrapInput @bind-Value="Dummy.Address" />
+            </div>
+        </div>
+    </ValidateForm>
+
+    <p class="mt-3">@((MarkupString)Localizer["ValidateFormAlignRight"].Value)</p>
+    <ValidateForm Model="@Dummy">
+        <div class="row g-3 form-inline form-inline-end">
+            <div class="col-sm-12 col-md-6">
+                <BootstrapInput @bind-Value="Dummy.Name" />
+            </div>
+            <div class="col-sm-12 col-md-6">
+                <BootstrapInput @bind-Value="Dummy.Address" />
+            </div>
+        </div>
+    </ValidateForm>
+    <p class="mt-3">@((MarkupString)Localizer["ValidateFormAlignCenter"].Value)</p>
+    <ValidateForm Model="@Dummy">
+        <div class="row g-3 form-inline form-inline-center">
             <div class="col-sm-12 col-md-6">
                 <BootstrapInput @bind-Value="Dummy.Name" />
             </div>

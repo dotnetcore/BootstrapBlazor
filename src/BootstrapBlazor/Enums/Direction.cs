@@ -26,12 +26,12 @@ public enum Direction
     /// <summary>
     /// Dropleft
     /// </summary>
-    [Description("dropleft")]
+    [Description("dropstart")]
     Dropleft,
 
     /// <summary>
     /// Dropright
     /// </summary>
-    [Description("dropright")]
+    [Description("dropend")]
     Dropright
 }

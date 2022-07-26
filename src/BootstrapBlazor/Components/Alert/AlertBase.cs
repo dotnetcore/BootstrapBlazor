@@ -15,9 +15,16 @@ public abstract class AlertBase : BootstrapComponentBase
     /// <returns></returns>
     protected virtual string? ClassName => CssBuilder.Default("alert fade show")
         .AddClass($"alert-{Color.ToDescriptionString()}", Color != Color.None)
-        .AddClass("is-bar", ShowBar)
-        .AddClass("is-close", ShowDismiss)
+        .AddClass("alert-bar", ShowBar)
+        .AddClass("alert-dismissible", ShowDismiss)
         .AddClassFromAttributes(AdditionalAttributes)
+        .Build();
+
+    /// <summary>
+    /// 获得 图标样式字符串
+    /// </summary>
+    protected string? IconString => CssBuilder.Default("alert-icon")
+        .AddClass(Icon)
         .Build();
 
     /// <summary>

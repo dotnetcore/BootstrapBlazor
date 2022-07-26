@@ -4,7 +4,7 @@
 
 .transfer-panel {
     border: 1px solid var(--bb-border-color);
-    border-radius: var(--bb-border-radius);
+    border-radius: var(--bs-border-radius);
     overflow: hidden;
     background: #fff;
     display: inline-block;
@@ -96,7 +96,7 @@
         line-height: 32px;
         width: 100%;
         display: inline-block;
-        border-radius: var(--bb-border-radius);
+        border-radius: var(--bs-border-radius);
         padding-right: 10px;
         padding-left: 30px;
         border: 1px solid #dcdfe6;

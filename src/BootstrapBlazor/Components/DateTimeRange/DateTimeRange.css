@@ -1,7 +1,7 @@
 ﻿.datetime-range {
     background-color: #fff;
     background-image: none;
-    border-radius: var(--bb-border-radius);
+    border-radius: var(--bs-border-radius);
     border: 1px solid #dcdfe6;
     color: #606266;
     display: inline-block;

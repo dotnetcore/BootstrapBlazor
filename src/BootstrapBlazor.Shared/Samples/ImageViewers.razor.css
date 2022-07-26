@@ -1,7 +1,7 @@
 ﻿.images ::deep .bb-img {
     width: 100px;
     height: 100px;
-    border-radius: var(--bb-border-radius);
+    border-radius: var(--bs-border-radius);
     border: 1px solid var(--bs-secondary);
     margin: 0 auto;
 }

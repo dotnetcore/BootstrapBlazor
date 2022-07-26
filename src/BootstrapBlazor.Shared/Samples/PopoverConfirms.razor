@@ -53,6 +53,17 @@
                       ConfirmButtonColor="Color.Danger" Text="我是超链接" Content="确定删除数据吗？" IsLink="true" />
 </DemoBlock>
 
+<DemoBlock Title="自定义样式" Introduction="设置 <code>CssClass</code> 自定义组件样式" Name="CssClass">
+    <Pre>.custom-popover {
+    --bs-popover-border-color: var(--bs-primary);
+    --bs-popover-body-padding-x: 1rem;
+    --bs-popover-body-padding-y: 1rem;
+}
+</Pre>
+    <PopConfirmButton Placement="Placement.Top" ConfirmIcon="fa fa-exclamation-triangle text-danger" Color="Color.Danger"
+                      ConfirmButtonColor="Color.Danger" Text="自定义样式按钮" Content="确定删除数据吗？" CssClass="custom-popover" />
+</DemoBlock>
+
 <AttributeTable Items="@GetAttributes()" />
 
 <EventTable Items="@GetEvents()" />

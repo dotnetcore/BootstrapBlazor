@@ -1,6 +1,6 @@
 ﻿(function ($) {
     $.extend({
-        bb_tooltip: function (id, method, title, placement, html, trigger) {
+        bb_tooltip: function (id, method, title, placement, html, trigger, css) {
             var ele = document.getElementById(id);
             if (ele !== null) {
                 var instance = bootstrap.Tooltip.getInstance(ele);
@@ -9,6 +9,9 @@
                 }
                 if (method !== 'dispose') {
                     var op = { html: html, sanitize: !html, title: title, placement: placement, trigger: trigger };
+                    if (css !== '') {
+                        op.customClass = css;
+                    }
                     instance = new bootstrap.Tooltip(ele, op);
                     var $ele = $(ele);
                     if (method === 'enable') {

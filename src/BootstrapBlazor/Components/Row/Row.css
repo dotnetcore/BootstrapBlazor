@@ -29,11 +29,11 @@
             padding: var(--bb-row-control-padding) 0;
         }
 
-    .form-inline.is-end > div > .form-label {
+    .form-inline-end > div > .form-label {
         text-align: right;
     }
 
-    .form-inline.is-center > div > .form-label {
+    .form-inline-center > div > .form-label {
         text-align: center;
     }
 }

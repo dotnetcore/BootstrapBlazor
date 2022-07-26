@@ -8,7 +8,7 @@
 
     .timer .time-panel-btn {
         border: 1px solid transparent;
-        border-radius: var(--bb-border-radius);
+        border-radius: var(--bs-border-radius);
         transition: border .3s linear;
         padding: 0 0.65rem;
     }

@@ -11,7 +11,7 @@
             display: flex;
             align-items: center;
             padding: 3px 5px;
-            border-radius: var(--bb-border-radius);
+            border-radius: var(--bs-border-radius);
             transition: background-color .3s linear;
             cursor: pointer;
             position: relative;
@@ -163,7 +163,7 @@
         }
 
         .upload .upload-body.is-card .upload-item-body {
-            border-radius: var(--bb-border-radius);
+            border-radius: var(--bs-border-radius);
             width: 168px;
             height: 168px;
             border: 1px solid #d9d9d9;

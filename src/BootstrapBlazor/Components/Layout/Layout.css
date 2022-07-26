@@ -88,7 +88,7 @@
     color: #fff;
     background-color: var(--bb-layout-headerbar-backgound);
     border-color: var(--bb-layout-headerbar-border-color);
-    border-radius: var(--bb-border-radius);
+    border-radius: var(--bs-border-radius);
 }
 
     .layout-header-bar .fa-bars {
@@ -145,7 +145,7 @@
 
 .layout.is-page .layout-side .layout-banner .layout-logo {
     width: 42px;
-    border-radius: var(--bb-border-radius);
+    border-radius: var(--bs-border-radius);
 }
 
 .layout.is-page .layout-side .layout-banner span {

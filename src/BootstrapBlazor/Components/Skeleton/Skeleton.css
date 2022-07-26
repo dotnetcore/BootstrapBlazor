@@ -18,7 +18,7 @@
 
 .skeleton-content.round .skeleton-col,
 .skeleton-content.round .tree-node {
-    border-radius: var(--bb-border-radius);
+    border-radius: var(--bs-border-radius);
 }
 
 .skeleton-content.active .skeleton-col,
@@ -76,7 +76,7 @@
 
 .skeleton-table,
 .skeleton-buttons {
-    border-radius: var(--bb-border-radius);
+    border-radius: var(--bs-border-radius);
     border: 1px solid #dee2e6;
     overflow: hidden;
 }

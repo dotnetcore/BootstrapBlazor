@@ -166,7 +166,7 @@
     .ribbon-tab .ribbon-button {
         padding: 1px 8px;
         cursor: pointer;
-        border-radius: var(--bb-border-radius);
+        border-radius: var(--bs-border-radius);
         transition: background-color .3s ease-in-out;
     }
 

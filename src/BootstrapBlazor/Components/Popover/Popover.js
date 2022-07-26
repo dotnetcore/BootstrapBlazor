@@ -26,7 +26,7 @@
             $submit.trigger('click');
             $submit.remove();
         },
-        bb_popover: function (id, method, title, content, placement, html, trigger) {
+        bb_popover: function (id, method, title, content, placement, html, trigger, css) {
             var ele = document.getElementById(id);
             var instance = bootstrap.Popover.getInstance(ele);
             if (instance) {
@@ -34,6 +34,9 @@
             }
             if (method !== 'dispose') {
                 var op = { html, sanitize: false, title, content, placement, trigger };
+                if (css !== '') {
+                    op.customClass = css;
+                }
                 instance = new bootstrap.Popover(ele, op);
                 if (method !== '') {
                     $(ele).popover(method);
@@ -134,15 +137,15 @@
 
     $(function () {
         // popover confirm
-        $.fn.popover.Constructor.prototype.isWithContent = function () {
+        $.fn.popover.Constructor.prototype._isWithContent = function () {
             var components = ['', 'confirm', 'datetime-picker', 'datetime-range'];
             var toggle = this._config.toggle;
             return components.indexOf(toggle) || this.getTitle() || this._getContent();
         }
 
         // add shadow
-        var getTipElement = $.fn.popover.Constructor.prototype.getTipElement;
-        $.fn.popover.Constructor.prototype.getTipElement = function () {
+        var getTipElement = $.fn.popover.Constructor.prototype._getTipElement;
+        $.fn.popover.Constructor.prototype._getTipElement = function () {
             var toggle = this._config.toggle;
             var tip = getTipElement.call(this);
             var $tip = $(tip).addClass('shadow');

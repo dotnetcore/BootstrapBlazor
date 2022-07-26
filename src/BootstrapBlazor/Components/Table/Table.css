@@ -7,7 +7,7 @@
 }
 
 .table-wrapper {
-    border-radius: var(--bb-border-radius);
+    border-radius: var(--bs-border-radius);
     border: 1px solid #dee2e6;
 }
 
@@ -282,8 +282,8 @@
 
 .table-fixed-header {
     overflow: hidden;
-    border-top-left-radius: var(--bb-border-radius);
-    border-top-right-radius: var(--bb-border-radius);
+    border-top-left-radius: var(--bs-border-radius);
+    border-top-right-radius: var(--bs-border-radius);
 }
 
 .table-fixed-body {
@@ -319,7 +319,7 @@
     justify-content: center;
     align-items: center;
     border: 1px solid #ddd;
-    border-radius: var(--bb-border-radius);
+    border-radius: var(--bs-border-radius);
     padding: 2rem;
     flex: 1;
 }
@@ -717,7 +717,7 @@ form .table .table-cell > textarea {
 .table-cell.is-ph {
     height: 12.5px;
     background-color: #e9ecef;
-    border-radius: var(--bb-border-radius);
+    border-radius: var(--bs-border-radius);
     margin: 5px 0;
 }
 

@@ -16,6 +16,7 @@ public partial class Dropdown<TValue>
     private string? DirectionClassName => CssBuilder.Default()
         .AddClass($"btn-group", DropdownType == DropdownType.ButtonGroup)
         .AddClass(Direction.ToDescriptionString(), DropdownType == DropdownType.DropdownMenu)
+        .AddClass($"{Direction.ToDescriptionString()}-center", MenuAlignment == Alignment.Center && (Direction == Direction.Dropup || Direction == Direction.Dropdown))
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 

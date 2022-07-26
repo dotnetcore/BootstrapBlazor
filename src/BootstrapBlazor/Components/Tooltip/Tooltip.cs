@@ -39,6 +39,13 @@ public class Tooltip : BootstrapComponentBase, ITooltip
     public string? Title { get; set; }
 
     /// <summary>
+    /// 获得/设置 自定义样式 默认 null
+    /// </summary>
+    /// <remarks>由 data-bs-custom-class 实现</remarks>
+    [Parameter]
+    public string? CssClass { get; set; }
+
+    /// <summary>
     /// 获得/设置 触发方式 可组合 click focus hover 默认为 focus hover
     /// </summary>
     [Parameter]

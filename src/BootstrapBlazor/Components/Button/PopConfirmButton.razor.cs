@@ -25,6 +25,13 @@ public partial class PopConfirmButton
     public override Color Color { get; set; } = Color.None;
 
     /// <summary>
+    /// 获得/设置 自定义样式 默认 null
+    /// </summary>
+    /// <remarks>由 data-bs-custom-class 实现</remarks>
+    [Parameter]
+    public string? CssClass { get; set; }
+
+    /// <summary>
     /// 获得/设置 PopoverConfirm 服务实例
     /// </summary>
     [Inject]
