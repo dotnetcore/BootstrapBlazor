@@ -100,7 +100,7 @@ internal class JsonStringLocalizer : ResourceManagerStringLocalizer
         // get string from json localization file
         string? GetStringSafelyFromJson(string name)
         {
-            var localizerStrings = CacheManager.GetAllStringsByCulture(Assembly, TypeName);
+            var localizerStrings = CacheManager.GetAllStringsByTypeName(Assembly, TypeName);
             return GetValueFromCache(localizerStrings, name);
         }
     }
@@ -132,7 +132,7 @@ internal class JsonStringLocalizer : ResourceManagerStringLocalizer
             {
                 localizer = localizerStrings.FirstOrDefault(i => i.Name == name);
             }
-            return localizer ?? GetAllStringsFromResolve().FirstOrDefault(i => i.Name == name);
+            return localizer ?? CacheManager.GetAllStringsFromResolve().FirstOrDefault(i => i.Name == name);
         }
     }
 
@@ -212,16 +212,7 @@ internal class JsonStringLocalizer : ResourceManagerStringLocalizer
 
         // 3. 从 Json 文件中获取资源信息
         // get all strings from json localization file
-        IEnumerable<LocalizedString> GetAllStringsFromJson(bool includeParentCultures) => CacheManager.GetAllStringsByCulture(Assembly, TypeName) ?? GetAllStringsFromResolve(includeParentCultures);
-    }
-
-    private static IEnumerable<LocalizedString> GetAllStringsFromResolve(bool includeParentCultures = true)
-    {
-        var localStrings = CacheManager.GetAllStringsFromResolve(includeParentCultures);
-
-        foreach (var kv in localStrings)
-        {
-            yield return new LocalizedString(kv.Key, kv.Value);
-        }
+        IEnumerable<LocalizedString> GetAllStringsFromJson(bool includeParentCultures) => CacheManager.GetAllStringsByTypeName(Assembly, TypeName)
+            ?? CacheManager.GetAllStringsFromResolve(includeParentCultures);
     }
 }

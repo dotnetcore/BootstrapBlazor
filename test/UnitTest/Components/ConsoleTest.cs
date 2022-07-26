@@ -133,7 +133,7 @@ public class ConsoleTest : BootstrapBlazorTestBase
             builder.Add(a => a.ShowAutoScroll, true);
         });
 
-        Assert.Contains("style=\"cursor: pointer;\"", cut.Markup);
+        Assert.Contains("form-check", cut.Markup);
     }
 
     [Fact]
@@ -192,15 +192,14 @@ public class ConsoleTest : BootstrapBlazorTestBase
     {
         var cut = Context.RenderComponent<Console>(builder =>
         {
-            builder.Add(a => a.Items,
-                new List<ConsoleMessageItem>()
-                {
-                    new ConsoleMessageItem() {Message = "Test1"}, new ConsoleMessageItem() {Message = "Test2"}
-                });
+            builder.Add(a => a.Items, new List<ConsoleMessageItem>()
+            {
+                new ConsoleMessageItem() {Message = "Test1"}, new ConsoleMessageItem() {Message = "Test2"}
+            });
             builder.Add(a => a.ShowAutoScroll, true);
         });
 
-        cut.Find(".card-footer .btn").Click();
+        cut.Find(".card-footer input").Click();
         var res = cut.Instance.IsAutoScroll;
         Assert.False(res);
     }

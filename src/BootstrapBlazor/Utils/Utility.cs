@@ -4,7 +4,6 @@
 
 using BootstrapBlazor.Localization.Json;
 using Microsoft.AspNetCore.Components.Rendering;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Localization;
 using System.ComponentModel;
 using System.Data;
@@ -122,10 +121,11 @@ public static class Utility
     /// </summary>
     /// <param name="option">JsonLocalizationOptions 实例</param>
     /// <param name="assembly">Assembly 程序集实例</param>
+    /// <param name="typeName">类名称</param>
     /// <param name="cultureName">cultureName 未空时使用 CultureInfo.CurrentUICulture.Name</param>
     /// <param name="forceLoad">默认 false 使用缓存值 设置 true 时内部强制重新加载</param>
     /// <returns></returns>
-    public static IEnumerable<IConfigurationSection> GetJsonStringFromAssembly(JsonLocalizationOptions option, Assembly assembly, string? cultureName = null, bool forceLoad = false) => CacheManager.GetJsonStringFromAssembly(option, assembly, cultureName, forceLoad);
+    public static IEnumerable<LocalizedString> GetJsonStringByTypeName(JsonLocalizationOptions option, Assembly assembly, string typeName, string? cultureName = null, bool forceLoad = false) => CacheManager.GetJsonStringByTypeName(option, assembly, typeName, cultureName, forceLoad) ?? Enumerable.Empty<LocalizedString>();
 
     /// <summary>
     /// 通过指定程序集与类型获得 IStringLocalizer 实例

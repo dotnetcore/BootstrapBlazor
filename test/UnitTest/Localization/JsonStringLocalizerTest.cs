@@ -251,7 +251,7 @@ public class JsonStringLocalizerTest : BootstrapBlazorTestBase
 
     internal class MockLocalizationResolve : ILocalizationResolve
     {
-        public IEnumerable<KeyValuePair<string, string>> GetAllStringsByCulture(bool includeParentCultures) => new KeyValuePair<string, string>[]
+        public IEnumerable<LocalizedString> GetAllStringsByCulture(bool includeParentCultures) => new LocalizedString[]
         {
             new("test-localizer-name", "name"),
             new("test-localizer-age", "age")

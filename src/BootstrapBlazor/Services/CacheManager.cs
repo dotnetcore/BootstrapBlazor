@@ -169,30 +169,39 @@ internal class CacheManager : ICacheManager
     /// <param name="assembly"></param>
     /// <param name="typeName"></param>
     /// <returns></returns>
-    public static IEnumerable<LocalizedString>? GetAllStringsByCulture(Assembly assembly, string typeName) => GetJsonStringFromAssembly(GetJsonLocalizationOption(), assembly, CultureInfo.CurrentUICulture.Name)
-        .FirstOrDefault(kv => typeName.Equals(kv.Key, StringComparison.OrdinalIgnoreCase))?
-        .GetChildren()
-        .SelectMany(kv => new[] { new LocalizedString(kv.Key, kv.Value) });
+    public static IEnumerable<LocalizedString>? GetAllStringsByTypeName(Assembly assembly, string typeName) => GetJsonStringByTypeName(GetJsonLocalizationOption(), assembly, typeName, CultureInfo.CurrentUICulture.Name);
 
     /// <summary>
     /// 通过指定程序集获取所有本地化信息键值集合
     /// </summary>
     /// <param name="option">JsonLocalizationOptions 实例</param>
     /// <param name="assembly">Assembly 程序集实例</param>
+    /// <param name="typeName">类型名称</param>
     /// <param name="cultureName">cultureName 未空时使用 CultureInfo.CurrentUICulture.Name</param>
     /// <param name="forceLoad">默认 false 使用缓存值 设置 true 时内部强制重新加载</param>
     /// <returns></returns>
-    public static IEnumerable<IConfigurationSection> GetJsonStringFromAssembly(JsonLocalizationOptions option, Assembly assembly, string? cultureName = null, bool forceLoad = false)
+    public static IEnumerable<LocalizedString>? GetJsonStringByTypeName(JsonLocalizationOptions option, Assembly assembly, string typeName, string? cultureName = null, bool forceLoad = false)
     {
-        cultureName ??= CultureInfo.CurrentUICulture.Name;
-        var key = $"{nameof(GetJsonStringFromAssembly)}-{assembly.GetName().Name}-{cultureName}";
-        if (forceLoad)
+        return assembly.IsDynamic ? null : GetJsonStringByTypeName();
+
+        IEnumerable<LocalizedString>? GetJsonStringByTypeName()
         {
-            Instance.Cache.Remove(key);
+            cultureName ??= CultureInfo.CurrentUICulture.Name;
+            var key = $"{nameof(GetJsonStringByTypeName)}-{assembly.GetName().Name}-{cultureName}";
+            var typeKey = $"{key}-{typeName}";
+            if (forceLoad)
+            {
+                Instance.Cache.Remove(key);
+                Instance.Cache.Remove(typeKey);
+            }
+            return Instance.GetOrCreate(typeKey, entry =>
+            {
+                var sections = Instance.GetOrCreate(key, entry => option.GetJsonStringFromAssembly(assembly, cultureName));
+                return sections.FirstOrDefault(kv => typeName.Equals(kv.Key, StringComparison.OrdinalIgnoreCase))?
+                    .GetChildren()
+                    .SelectMany(kv => new[] { new LocalizedString(kv.Key, kv.Value) });
+            });
         }
-        return assembly.IsDynamic
-            ? Enumerable.Empty<IConfigurationSection>()
-            : Instance.GetOrCreate(key, entry => option.GetJsonStringFromAssembly(assembly, cultureName));
     }
 
     /// <summary>
@@ -200,7 +209,7 @@ internal class CacheManager : ICacheManager
     /// </summary>
     /// <param name="includeParentCultures"></param>
     /// <returns></returns>
-    public static IEnumerable<KeyValuePair<string, string>> GetAllStringsFromResolve(bool includeParentCultures = true) => Instance.GetOrCreate($"{nameof(GetAllStringsFromResolve)}-{CultureInfo.CurrentUICulture.Name}", entry => Instance.Provider.GetRequiredService<ILocalizationResolve>().GetAllStringsByCulture(includeParentCultures));
+    public static IEnumerable<LocalizedString> GetAllStringsFromResolve(bool includeParentCultures = true) => Instance.GetOrCreate($"{nameof(GetAllStringsFromResolve)}-{CultureInfo.CurrentUICulture.Name}", entry => Instance.Provider.GetRequiredService<ILocalizationResolve>().GetAllStringsByCulture(includeParentCultures));
     #endregion
 
     #region DisplayName

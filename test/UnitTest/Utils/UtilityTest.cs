@@ -4,7 +4,6 @@
 
 using BootstrapBlazor.Localization.Json;
 using BootstrapBlazor.Shared;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Options;
@@ -314,7 +313,7 @@ public class UtilityTest : BootstrapBlazorTestBase
     public void GetJsonStringFromAssembly_Ok()
     {
         var option = Context.Services.GetRequiredService<IOptions<JsonLocalizationOptions>>().Value;
-        var sections = Utility.GetJsonStringFromAssembly(option, this.GetType().Assembly, null, true);
+        var sections = Utility.GetJsonStringByTypeName(option, this.GetType().Assembly, "UnitTest.Utils.UtilityTest+Cat", null, true);
 
         // 加载 UnitTest.Locals.en-US.json
         // 加载 BootstrapBlazor.Locals.en.json
@@ -322,7 +321,7 @@ public class UtilityTest : BootstrapBlazorTestBase
 
         // dynamic
         var dynamicType = EmitHelper.CreateTypeByName("test_type", new MockTableColumn[] { new("Name", typeof(string)) });
-        Utility.GetJsonStringFromAssembly(option, dynamicType!.Assembly);
+        Utility.GetJsonStringByTypeName(option, dynamicType!.Assembly, "Test");
     }
 
     private class MockDynamicObject : IDynamicObject
@@ -582,10 +581,8 @@ public class UtilityTest : BootstrapBlazorTestBase
                 "zh-CN.json"
             }
         };
-        var configs = Utility.GetJsonStringFromAssembly(option, this.GetType().Assembly, null, true);
-        var section = configs.FirstOrDefault(i => i.Key == "BootstrapBlazor.Shared.Foo");
-        var v = section.GetValue("Name", "");
-        Assert.NotEmpty(v);
+        var localizedStrings = Utility.GetJsonStringByTypeName(option, this.GetType().Assembly, "BootstrapBlazor.Shared.Foo", "zh-CN", true);
+        Assert.Equal("Test-Name", localizedStrings.First(i => i.Name == "Name").Value);
     }
 
     [Fact]
@@ -603,7 +600,7 @@ public class UtilityTest : BootstrapBlazorTestBase
     {
         // 回落默认语言为 en 测试用例为 zh 找不到资源文件
         var option = new JsonLocalizationOptions();
-        var configs = Utility.GetJsonStringFromAssembly(option, this.GetType().Assembly, "it-it", true);
+        var configs = Utility.GetJsonStringByTypeName(option, this.GetType().Assembly, "BootstrapBlazor.Shared.Foo", "it-it", true);
         Assert.Empty(configs);
     }
 
@@ -612,12 +609,12 @@ public class UtilityTest : BootstrapBlazorTestBase
     {
         // 回落默认语音为 en 测试用例为 en-US 找不到资源文件
         var option = new JsonLocalizationOptions();
-        var configs = Utility.GetJsonStringFromAssembly(option, this.GetType().Assembly, "en-US", true);
+        var configs = Utility.GetJsonStringByTypeName(option, this.GetType().Assembly, "BootstrapBlazor.Shared.Foo", "en-US", true);
         Assert.NotEmpty(configs);
 
         var pi = option.GetType().GetProperty("EnableFallbackCulture", BindingFlags.NonPublic | BindingFlags.Instance);
         pi!.SetValue(option, false);
-        configs = Utility.GetJsonStringFromAssembly(option, this.GetType().Assembly, "en");
+        configs = Utility.GetJsonStringByTypeName(option, this.GetType().Assembly, "BootstrapBlazor.Shared.Foo", "en", true);
 
         // 禁用回落机制
         // UniTest 未提供 en 资源文件 断言为 Empty

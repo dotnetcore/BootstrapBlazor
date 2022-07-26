@@ -5,7 +5,6 @@
 using BootstrapBlazor.Localization.Json;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Primitives;
-using System.Globalization;
 using System.Reflection;
 
 namespace BootstrapBlazor.Components;
@@ -22,11 +21,8 @@ internal static class LocalizationOptionsExtensions
     /// <param name="assembly"></param>
     /// <param name="cultureName"></param>
     /// <returns></returns>
-    public static IEnumerable<IConfigurationSection> GetJsonStringFromAssembly(this JsonLocalizationOptions option, Assembly assembly, string? cultureName = null)
+    public static IEnumerable<IConfigurationSection> GetJsonStringFromAssembly(this JsonLocalizationOptions option, Assembly assembly, string cultureName)
     {
-        // 获得当前文化名称
-        cultureName ??= CultureInfo.CurrentUICulture.Name;
-
         // 获得程序集内 Json 文件流集合
         var langHandlers = option.GetJsonHanlders(assembly, cultureName).ToList();
 
