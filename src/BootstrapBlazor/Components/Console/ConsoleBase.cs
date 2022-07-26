@@ -40,7 +40,7 @@ public abstract class ConsoleBase : BootstrapComponentBase
     public bool ShowAutoScroll { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否自动滚屏默认 true
+    /// 获得/设置 是否自动滚屏 默认 true
     /// </summary>
     [Parameter]
     public bool IsAutoScroll { get; set; } = true;

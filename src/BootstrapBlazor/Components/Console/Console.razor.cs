@@ -50,7 +50,7 @@ public sealed partial class Console
     /// <summary>
     /// 获得 客户端是否自动滚屏标识
     /// </summary>
-    private string? AutoScrollString => (IsAutoScroll && ShowAutoScroll) ? "auto" : null;
+    private string? AutoScrollString => (IsAutoScroll || ShowAutoScroll) ? "auto" : null;
 
     /// <summary>
     /// 获得 Console 组件客户端引用实例
@@ -83,18 +83,10 @@ public sealed partial class Console
     {
         await base.OnAfterRenderAsync(firstRender);
 
-        if (IsAutoScroll && ShowAutoScroll)
+        if (IsAutoScroll)
         {
             await JSRuntime.InvokeVoidAsync(ConsoleElement, "bb_console");
         }
-    }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    private void ClickAutoScroll()
-    {
-        IsAutoScroll = !IsAutoScroll;
     }
 
     /// <summary>
@@ -102,7 +94,7 @@ public sealed partial class Console
     /// </summary>
     /// <param name="item"></param>
     /// <returns></returns>
-    private string? GetClassString(ConsoleMessageItem item) => CssBuilder.Default()
+    private static string? GetClassString(ConsoleMessageItem item) => CssBuilder.Default()
         .AddClass($"text-{item.Color.ToDescriptionString()}", item.Color != Color.None)
         .Build();
 

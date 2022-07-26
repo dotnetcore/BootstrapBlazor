@@ -81,100 +81,101 @@ public sealed partial class Consoles : IDisposable
         _locker.Set();
     }
 
-    private static IEnumerable<AttributeItem> GetItemAttributes()
+    private static IEnumerable<AttributeItem> GetItemAttributes() => new AttributeItem[]
     {
-        return new AttributeItem[]
-        {
-            new AttributeItem(){
-                Name = "Message",
-                Description = "控制台输出消息",
-                Type = "string",
-                ValueList = " — ",
-                DefaultValue = " — "
-            },
-            new AttributeItem(){
-                Name = "Color",
-                Description = "消息颜色",
-                Type = "Color",
-                ValueList = "None / Active / Primary / Secondary / Success / Danger / Warning / Info / Light / Dark / Link",
-                DefaultValue = "None"
-            }
-        };
-    }
+        new AttributeItem(){
+            Name = "Message",
+            Description = "控制台输出消息",
+            Type = "string",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new AttributeItem(){
+            Name = "Color",
+            Description = "消息颜色",
+            Type = "Color",
+            ValueList = "None / Active / Primary / Secondary / Success / Danger / Warning / Info / Light / Dark / Link",
+            DefaultValue = "None"
+        }
+    };
 
     /// <summary>
     /// 
     /// </summary>
     /// <returns></returns>
-    private static IEnumerable<AttributeItem> GetAttributes()
+    private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
-        return new AttributeItem[]
-        {
-            new AttributeItem(){
-                Name = "Items",
-                Description = "组件数据源",
-                Type = "IEnumerable<ConsoleMessageItem>",
-                ValueList = " — ",
-                DefaultValue = " — "
-            },
-            new AttributeItem(){
-                Name = "Height",
-                Description = "组件高度",
-                Type = "int",
-                ValueList = " — ",
-                DefaultValue = "0"
-            },
-            new AttributeItem(){
-                Name = "ShowAutoScroll",
-                Description = "是否显示自动滚屏选项",
-                Type = "bool",
-                ValueList = "true|false",
-                DefaultValue = "false"
-            },
-            new AttributeItem(){
-                Name = "OnClear",
-                Description = "组件清屏回调方法",
-                Type = "int",
-                ValueList = " — ",
-                DefaultValue = "0"
-            },
-            new AttributeItem(){
-                Name = "HeaderText",
-                Description = "Header 显示文字",
-                Type = "string",
-                ValueList = " — ",
-                DefaultValue = "系统监控"
-            },
-            new AttributeItem(){
-                Name = "LightTitle",
-                Description = "指示灯 Title",
-                Type = "string",
-                ValueList = " — ",
-                DefaultValue = "通讯指示灯"
-            },
-            new AttributeItem(){
-                Name = "ClearButtonText",
-                Description = "按钮显示文字",
-                Type = "string",
-                ValueList = " — ",
-                DefaultValue = "清屏"
-            },
-            new AttributeItem(){
-                Name = "ClearButtonIcon",
-                Description = "按钮显示图标",
-                Type = "string",
-                ValueList = " — ",
-                DefaultValue = "fa fa-fw fa-times"
-            },
-            new AttributeItem(){
-                Name = "ClearButtonColor",
-                Description = "按钮颜色",
-                Type = "Color",
-                ValueList = "None / Active / Primary / Secondary / Success / Danger / Warning / Info / Light / Dark / Link",
-                DefaultValue = "Secondary"
-            }
-        };
-    }
+        new AttributeItem(){
+            Name = nameof(BootstrapBlazor.Components.Console.Items),
+            Description = "组件数据源",
+            Type = "IEnumerable<ConsoleMessageItem>",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new AttributeItem(){
+            Name = "Height",
+            Description = "组件高度",
+            Type = "int",
+            ValueList = " — ",
+            DefaultValue = "0"
+        },
+        new AttributeItem(){
+            Name = nameof(BootstrapBlazor.Components.Console.IsAutoScroll),
+            Description = "是否自动滚屏",
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "false"
+        },
+        new AttributeItem(){
+            Name = "ShowAutoScroll",
+            Description = "是否显示自动滚屏选项",
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "false"
+        },
+        new AttributeItem(){
+            Name = "OnClear",
+            Description = "组件清屏回调方法",
+            Type = "int",
+            ValueList = " — ",
+            DefaultValue = "0"
+        },
+        new AttributeItem(){
+            Name = "HeaderText",
+            Description = "Header 显示文字",
+            Type = "string",
+            ValueList = " — ",
+            DefaultValue = "系统监控"
+        },
+        new AttributeItem(){
+            Name = "LightTitle",
+            Description = "指示灯 Title",
+            Type = "string",
+            ValueList = " — ",
+            DefaultValue = "通讯指示灯"
+        },
+        new AttributeItem(){
+            Name = "ClearButtonText",
+            Description = "按钮显示文字",
+            Type = "string",
+            ValueList = " — ",
+            DefaultValue = "清屏"
+        },
+        new AttributeItem(){
+            Name = "ClearButtonIcon",
+            Description = "按钮显示图标",
+            Type = "string",
+            ValueList = " — ",
+            DefaultValue = "fa fa-fw fa-times"
+        },
+        new AttributeItem(){
+            Name = "ClearButtonColor",
+            Description = "按钮颜色",
+            Type = "Color",
+            ValueList = "None / Active / Primary / Secondary / Success / Danger / Warning / Info / Light / Dark / Link",
+            DefaultValue = "Secondary"
+        }
+    };
 
     private void Dispose(bool disposing)
     {

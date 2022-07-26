@@ -17,10 +17,7 @@
     <div class="@FooterClassString">
         @if (ShowAutoScroll)
         {
-            <a class="btn" style="cursor: pointer;" @onclick="@ClickAutoScroll">
-                <i class="@AutoScrollClassString" style="width: 13px;"></i>
-                <span>@AutoScrollText</span>
-            </a>
+            <Checkbox @bind-Value="@IsAutoScroll" ShowAfterLabel="true" DisplayText="@AutoScrollText" />
         }
         @if (OnClear != null)
         {
