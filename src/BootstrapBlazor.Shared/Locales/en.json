@@ -943,6 +943,7 @@
     "H1": "Multiple-select in a set of alternatives",
     "StatusText1": "Selected",
     "StatusText2": "Not selected",
+    "StatusText3": "Indeterminate",
     "Block1Title": "Basic usage",
     "Block1Intro": "Using alone can represent a switch between two states, and column head or header can represent a switch between three states when used. Components support generic data binding, setting the binding data type the <code>TValue</code>, and setting the component state by <code>State</code>",
     "Block2Title": "Disable the check box",

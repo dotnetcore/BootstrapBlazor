@@ -113,7 +113,7 @@ public partial class TransferPanel
     /// </summary>
     protected CheckboxState HeaderCheckState()
     {
-        var ret = CheckboxState.Mixed;
+        var ret = CheckboxState.Indeterminate;
         if (Items != null && Items.Any() && Items.All(i => i.Active))
         {
             ret = CheckboxState.Checked;

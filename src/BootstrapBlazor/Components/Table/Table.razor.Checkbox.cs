@@ -35,7 +35,7 @@ public partial class Table<TItem>
         {
             // 任意一行被选中
             // any one row is selected
-            ret = CheckboxState.Mixed;
+            ret = CheckboxState.Indeterminate;
         }
         return ret;
     }

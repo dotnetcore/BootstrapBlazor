@@ -7,11 +7,14 @@
 
 <DemoBlock Title="@Localizer["Block1Title"]" Introduction="@Localizer["Block1Intro"]" Name="Normal">
     <div class="row g-3 form-inline">
-        <div class="col-12 col-sm-6">
+        <div class="col-12 col-sm-4">
             <Checkbox TValue="string" State="CheckboxState.Checked" OnStateChanged="@OnStateChanged" DisplayText="@Localizer["StatusText1"]" ShowLabel="true"></Checkbox>
         </div>
-        <div class="col-12 col-sm-6">
+        <div class="col-12 col-sm-4">
             <Checkbox TValue="string" State="CheckboxState.UnChecked" OnStateChanged="@OnStateChanged" DisplayText="@Localizer["StatusText2"]" ShowLabel="true"></Checkbox>
+        </div>
+        <div class="col-12 col-sm-4">
+            <Checkbox TValue="string" State="CheckboxState.Indeterminate" OnStateChanged="@OnStateChanged" DisplayText="@Localizer["StatusText3"]" ShowLabel="true"></Checkbox>
         </div>
     </div>
     <BlockLogger @ref="Trace" class="mt-3" />
@@ -19,10 +22,10 @@
 
 <DemoBlock Title="@Localizer["Block2Title"]" Introduction="@Localizer["Block2Intro"]" Name="Disabled">
     <div class="row g-3 form-inline">
-        <div class="col-12 col-md-4">
+        <div class="col-12 col-sm-4">
             <Checkbox TValue="string" State="CheckboxState.Checked" IsDisabled="true" DisplayText="@Localizer["StatusText1"]" ShowLabel="true"></Checkbox>
         </div>
-        <div class="col-12 col-md-4">
+        <div class="col-12 col-sm-4">
             <Checkbox TValue="string" State="CheckboxState.UnChecked" IsDisabled="true" DisplayText="@Localizer["StatusText2"]" ShowLabel="true"></Checkbox>
         </div>
     </div>

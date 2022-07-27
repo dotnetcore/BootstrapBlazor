@@ -17,7 +17,7 @@ public partial class Checkbox<TValue>
     protected string? GetClassString(bool isButton = false) => CssBuilder.Default("form-check")
         .AddClass("is-label", IsShowAfterLabel)
         .AddClass("is-checked", State == CheckboxState.Checked)
-        .AddClass("is-indeterminate", State == CheckboxState.Mixed)
+        .AddClass("is-indeterminate", State == CheckboxState.Indeterminate)
         .AddClass($"form-check-{Color.ToDescriptionString()}", Color != Color.None && !isButton)
         .AddClass($"bg-{Color.ToDescriptionString()}", Color != Color.None && isButton && State == CheckboxState.Checked)
         .AddClass($"form-check-{Size.ToDescriptionString()}", Size != Size.None)
@@ -138,6 +138,21 @@ public partial class Checkbox<TValue>
         base.OnAfterRender(firstRender);
 
         _peddingStateChanged = false;
+    }
+
+    /// <summary>
+    /// OnAfterRenderAsync 方法
+    /// </summary>
+    /// <param name="firstRender"></param>
+    /// <returns></returns>
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+
+        if (State == CheckboxState.Indeterminate)
+        {
+            await JSRuntime.InvokeVoidAsync(Id, "bb_setIndeterminate");
+        }
     }
 
     /// <summary>

@@ -943,6 +943,7 @@
     "H1": "一组备选项中进行多选",
     "StatusText1": "选中",
     "StatusText2": "未选",
+    "StatusText3": "不确定",
     "Block1Title": "基础用法",
     "Block1Intro": "单独使用可以表示两种状态之间的切换，列头或者表头使用时可以表示三种状态之间的切换。组件支持泛型数据绑定，通过 <code>TValue</code> 设置绑定数据类型，通过 <code>State</code> 设置组件状态",
     "Block2Title": "禁用复选框",

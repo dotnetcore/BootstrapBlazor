@@ -13,12 +13,14 @@ public enum CheckboxState
     /// 未选中
     /// </summary>
     UnChecked,
+
     /// <summary>
     /// 选中
     /// </summary>
     Checked,
+
     /// <summary>
-    /// 混合模式
+    /// 不确定
     /// </summary>
-    Mixed
+    Indeterminate
 }

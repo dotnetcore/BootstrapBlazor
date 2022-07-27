@@ -123,6 +123,10 @@
                     window.navigator.vibrate([]);
                 }, 1000);
             }
+        },
+        bb_setIndeterminate: function (id) {
+            console.log(id);
+            document.getElementById(id).indeterminate = true;
         }
     });
 
