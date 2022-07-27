@@ -675,10 +675,6 @@
     --bs-alert-bg: #fcd9e2;
 }
 
-[data-bs-toggle="lgbSelect"] .form-select {
-    box-shadow: none !important;
-}
-
 .modal-backdrop.show {
     opacity: .3;
 }
@@ -784,3 +780,9 @@
     --bs-dropdown-item-padding-x: 20px;
 }
 /*end dropdown*/
+
+/*select*/
+.select {
+    --bb-select-disabled-bg: #f5f7fa;
+}
+/*end select*/

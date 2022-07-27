@@ -1575,7 +1575,7 @@
     "SwalFooter": "点击确认改变选项值，选择取消后值不变",
     "ShowLabel": "是否显示前置标签",
     "ShowSearch": "是否显示搜索框",
-    "AutoClearSearchTextIntro": "默认情况下组件会保持 SearchText 内容，可以通过设置 <code>AutoClearSearchText</code> 参数来控制选中候选项时自动清空搜索内容",
+    "AutoClearSearchTextIntro": "默认情况下组件会保持 <code>SearchText</code> 内容，可以通过设置 <code>AutoClearSearchText</code> 参数来控制选中候选项时自动清空搜索内容",
     "DisplayText": "前置标签显示文本",
     "Class": "样式",
     "Color": "颜色",

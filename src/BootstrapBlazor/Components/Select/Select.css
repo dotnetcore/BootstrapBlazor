@@ -1,6 +1,13 @@
 ﻿.select {
     --bb-dropdown-link-pre-active-bg: #498ff7;
     --bb-select-dropdown-max-height: 274px;
+    --bb-select-focus-shadow: none;
+    --bb-select-focus-border-color: #c0c4cc;
+    --bb-select-hover-border-color: #c0c4cc;
+    --bb-select-bg: #fff;
+    --bb-select-disabled-bg: #e9ecef;
+    --bb-select-disabled-border-color: #e4e7ed;
+    --bb-select-disabled-color: #c0c4cc;
 }
 
     .select .dropdown-menu {
@@ -9,73 +16,24 @@
         width: 100%;
     }
 
-.form-select:focus {
-    box-shadow: none;
-}
-
-.form-select:hover,
-.form-select:focus {
-    border-color: #c0c4cc;
-}
-
-.form-select.border-primary:hover {
-    box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6);
-}
-
-.form-select.border-info:hover {
-    box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(23, 162, 184, 0.5);
-}
-
-.form-select.border-warning:hover {
-    box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(255, 193, 7, 0.5);
-}
-
-.form-select.border-danger:hover {
-    box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(220, 53, 69, 0.5);
-}
-
-.form-select.is-valid,
-.form-select.is-invalid {
-    background-image: none;
-}
-
-[data-bs-toggle="lgbSelect"] .dropdown-toggle::after {
-    content: none;
-}
-
-[data-bs-toggle="lgbSelect"] .form-select {
-    background-image: none;
-    color: #606266;
-    outline: none;
-    padding-right: calc(1.5em + 0.75rem);
-    cursor: pointer;
-}
-
-[data-bs-toggle="lgbSelect"] .dropdown-menu {
-    margin-top: 8px !important;
-    font-size: inherit;
-    cursor: pointer;
-}
-
-    [data-bs-toggle="lgbSelect"] .dropdown-menu .dropdown-item.disabled {
-        color: #c0c4cc;
-        cursor: not-allowed;
+    .select .dropdown-toggle::after {
+        content: none;
     }
 
-        [data-bs-toggle="lgbSelect"] .dropdown-menu .dropdown-item.disabled:active {
-            background-color: #f8f9fa;
-        }
+    .select .form-select {
+        background-image: none;
+        background-color: var(--bb-select-bg);
+        cursor: pointer;
+    }
 
-[data-bs-toggle="lgbSelect"] .form-select.is-valid:focus,
-[data-bs-toggle="lgbSelect"] .was-validated .form-select:valid:focus,
-.form-select.border-success:hover {
-    box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(40, 167, 69, 0.5);
-}
+    .select .dropdown-menu {
+        margin-top: 8px !important;
+    }
 
-[data-bs-toggle="lgbSelect"] .form-select.is-invalid:focus,
-[data-bs-toggle="lgbSelect"] .was-validated .form-select:invalid:focus,
-.form-select.border-danger:hover {
-    box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(220, 53, 69, 0.5);
+.form-select:disabled {
+    background-color: var(--bb-select-disabled-bg);
+    border-color: var(--bb-select-disabled-border-color);
+    color: var(--bb-select-disabled-color);
 }
 
 .dropdown-menu-arrow {
@@ -103,6 +61,15 @@
         left: -6px;
     }
 
+.form-select:focus {
+    box-shadow: var(--bb-select-focus-shadow);
+    border-color: var(--bb-select-focus-border-color);
+}
+
+.form-select:not(:disabled):hover {
+    border-color: var(--bb-select-hover-border-color);
+}
+
 .form-select.show + .form-select-append i {
     transform: rotate(0);
 }
@@ -122,17 +89,6 @@
     background-color: var(--bb-dropdown-link-pre-active-bg);
 }
 
-.disabled .form-select {
-    background-color: #f5f7fa;
-    border-color: #e4e7ed;
-    color: #c0c4cc;
-    cursor: not-allowed;
-}
-
-.disabled .form-select-append {
-    color: #c0c4cc;
-}
-
 .form-select-append {
     position: absolute;
     height: 100%;
@@ -150,6 +106,10 @@
         transition: all .3s;
         transform: rotate(180deg);
     }
+
+.show > .form-select-append i {
+    transform: rotate(0);
+}
 
 .select .search {
     padding: 7px 10px;
@@ -171,15 +131,11 @@
         color: #adb5bd;
     }
 
-.form-select.is-valid:not([multiple]):not([size]),
-.form-select.is-valid:not([multiple])[size="1"],
-.was-validated .form-select:valid:not([multiple]):not([size]),
-.was-validated .form-select:valid:not([multiple])[size="1"],
-.form-select.is-invalid:not([multiple]):not([size]),
-.form-select.is-invalid:not([multiple])[size="1"],
-.was-validated .form-select:invalid:not([multiple]):not([size]),
-.was-validated .form-select:invalid:not([multiple])[size="1"] {
-    background-position: right -1rem center, center right 1.5rem;
+.form-select.is-valid:focus,
+.was-validated .form-select:valid:focus,
+.form-select.is-invalid:focus,
+.was-validated .form-select:invalid:focus {
+    box-shadow: none;
 }
 
 .input-group > .select:not(:first-child) .form-select {

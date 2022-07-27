@@ -27,7 +27,6 @@ public partial class Select<TValue> : ISelect
     /// 获得 样式集合
     /// </summary>
     private string? ClassName => CssBuilder.Default("select dropdown")
-        .AddClass("disabled", IsDisabled)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
