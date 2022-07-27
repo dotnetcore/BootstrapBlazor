@@ -124,9 +124,8 @@
                 }, 1000);
             }
         },
-        bb_setIndeterminate: function (id) {
-            console.log(id);
-            document.getElementById(id).indeterminate = true;
+        bb_setIndeterminate: function (id, state) {
+            document.getElementById(id).indeterminate = state;
         }
     });
 

@@ -51,9 +51,8 @@ public partial class Checkbox<TValue>
     /// </summary>
     protected string? CheckedString => State switch
     {
-        CheckboxState.UnChecked => null,
         CheckboxState.Checked => "checked",
-        _ => "mixed"
+        _ => null
     };
 
     /// <summary>
@@ -120,7 +119,7 @@ public partial class Checkbox<TValue>
             ShowLabel = false;
         }
 
-        if (IsBoolean && Value != null)
+        if (IsBoolean && Value != null && State != CheckboxState.Indeterminate)
         {
             if (BindConverter.TryConvertToBool(Value, CultureInfo.InvariantCulture, out var v))
             {
@@ -148,11 +147,7 @@ public partial class Checkbox<TValue>
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         await base.OnAfterRenderAsync(firstRender);
-
-        if (State == CheckboxState.Indeterminate)
-        {
-            await JSRuntime.InvokeVoidAsync(Id, "bb_setIndeterminate");
-        }
+        await JSRuntime.InvokeVoidAsync(Id, "bb_setIndeterminate", State == CheckboxState.Indeterminate);
     }
 
     /// <summary>

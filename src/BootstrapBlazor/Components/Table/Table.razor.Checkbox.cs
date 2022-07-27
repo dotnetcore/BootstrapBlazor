@@ -25,19 +25,24 @@ public partial class Table<TItem>
     protected CheckboxState HeaderCheckState()
     {
         var ret = CheckboxState.UnChecked;
-        if (Rows.Any() && Rows.All(row => SelectedRows.Any(i => ComparerItem(i, row))))
+        if (Rows.Any())
         {
-            // 所有行被选中
-            // all rows are selected
-            ret = CheckboxState.Checked;
-        }
-        else if (Rows.Any(row => SelectedRows.Any(i => ComparerItem(i, row))))
-        {
-            // 任意一行被选中
-            // any one row is selected
-            ret = CheckboxState.Indeterminate;
+            if (Rows.All(AnyRow))
+            {
+                // 所有行被选中
+                // all rows are selected
+                ret = CheckboxState.Checked;
+            }
+            else if (Rows.Any(AnyRow))
+            {
+                // 任意一行被选中
+                // any one row is selected
+                ret = CheckboxState.Indeterminate;
+            }
         }
         return ret;
+
+        bool AnyRow(TItem row) => SelectedRows.Any(i => ComparerItem(i, row));
     }
 
     /// <summary>
