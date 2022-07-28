@@ -11,7 +11,7 @@
            IsPagination="true" PageItemsSource="@(new int[] { 2, 4 })"
            IsStriped="true" IsBordered="true" IsMultipleSelect="true"
            IsAutoRefresh="true" AutoRefreshInterval="2000"
-           OnQueryAsync="@OnRefreshQueryAsync">
+           OnQueryAsync="@OnAutoQueryAsync">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" />
             <TableColumn @bind-Field="@context.Name" Width="100" />
@@ -25,13 +25,13 @@
 <DemoBlock Title="通过设置变量控制是否自动更新" Introduction="本示例通过设置变量控制是否自动更新" Name="Control">
     <p>
         <div>通过点击按钮开始/关闭是否自动更新功能</div>
-        <Button Text="更改 Auto" OnClick="@ClickIsAutoRefresh" /> <span>IsAutoRefresh 当前值：@IsAutoRefresh</span>
+        <Button Text="更改 Auto" OnClick="@ToggleAuto" /> <span><code>IsAutoRefresh</code> 当前值：<code>@IsAutoRefresh</code></span>
     </p>
     <Table TItem="Foo"
            IsPagination="true" PageItemsSource="@(new int[] { 2, 4 })"
            IsStriped="true" IsBordered="true" IsMultipleSelect="true"
            IsAutoRefresh="@IsAutoRefresh" AutoRefreshInterval="2000"
-           OnQueryAsync="@OnRefreshQueryAsync">
+           OnQueryAsync="@OnManualQueryAsync">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" />
             <TableColumn @bind-Field="@context.Name" Width="100" />

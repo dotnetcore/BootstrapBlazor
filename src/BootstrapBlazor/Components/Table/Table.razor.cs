@@ -578,13 +578,14 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
     {
         if (firstRender)
         {
+            // 设置渲染完毕
+            FirstRender = false;
+
             if (ShowSearch)
             {
                 // 注册 SeachBox 回调事件
                 await Interop.InvokeVoidAsync(this, TableElement, "bb_table_search", nameof(OnSearch), nameof(OnClearSearch));
             }
-
-            FirstRender = false;
 
             ScreenSize = await JSRuntime.InvokeAsync<decimal>(TableElement, "bb_table_width", UseComponentWidth);
 
@@ -701,8 +702,7 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
     /// <summary>
     /// OnQueryAsync 查询结果数据集合
     /// </summary>
-    [NotNull]
-    private IEnumerable<TItem>? QueryItems { get; set; }
+    private IEnumerable<TItem> QueryItems { get; set; } = Enumerable.Empty<TItem>();
 
     [NotNull]
     private List<TItem>? RowsCache { get; set; }
@@ -714,6 +714,9 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
     {
         get
         {
+            // https://gitee.com/LongbowEnterprise/BootstrapBlazor/issues/I5JG5D
+            // 如果 QueryItems 无默认值
+            // 页面 OnInitializedAsync 二刷再 OnAfterRender 过程中导致 QueryItems 变量为空 ToList 报错
             RowsCache ??= IsTree ? TreeRows.GetAllRows() : (Items ?? QueryItems).ToList();
             return RowsCache;
         }
