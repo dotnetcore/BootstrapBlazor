@@ -120,24 +120,25 @@ public class TreeNodeCache<TNode, TItem> : ExpandableNodeCache<TNode, TItem> whe
     }
 
     /// <summary>
-    /// 
+    /// 通过指定节点查找父节点
     /// </summary>
-    /// <param name="nodes"></param>
-    /// <param name="item"></param>
+    /// <param name="nodes">数据集合</param>
+    /// <param name="node">指定节点</param>
     /// <returns></returns>
-    public TNode? FindParentNode(IEnumerable<TNode> nodes, TNode item)
+    public TNode? FindParentNode(IEnumerable<TNode> nodes, TNode node)
     {
         TNode? ret = default;
-        foreach (var node in nodes)
+        foreach (var treeNode in nodes)
         {
-            if (equalityComparer.Equals(node.Value, item.Value))
+            var subNodes = treeNode.Items.OfType<TNode>();
+            if (subNodes.Any(i => equalityComparer.Equals(i.Value, node.Value)))
             {
-                ret = node;
+                ret = treeNode;
                 break;
             }
-            else if (node.Items.Any())
+            if (ret == null && subNodes.Any())
             {
-                ret = FindParentNode(node.Items.OfType<TNode>(), item);
+                ret = FindParentNode(subNodes, node);
             }
         }
         return ret;

@@ -89,6 +89,7 @@ public partial class Table<TItem>
             {
                 // 重建当前节点缓存
                 IsLoadChildren = true;
+                node.IsExpand = !node.IsExpand;
                 await treeNodeCache.ToggleNodeAsync(node, GetChildrenRow);
                 IsLoadChildren = false;
 

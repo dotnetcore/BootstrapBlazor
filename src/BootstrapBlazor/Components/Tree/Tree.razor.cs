@@ -317,33 +317,48 @@ public partial class Tree<TItem> where TItem : class
     /// 更改节点是否展开方法
     /// </summary>
     /// <param name="item"></param>
-    private async Task OnToggleNodeAsync(TreeItem<TItem> item)
+    /// <param name="shouldRender"></param>
+    private async Task OnToggleNodeAsync(TreeItem<TItem> item, bool shouldRender = false)
     {
         // 手风琴效果逻辑
         if (IsAccordion)
         {
-            //if (!item.IsExpand)
-            //{
-            //    // 通过 item 找到父节点
-            //    var node = treeNodeCache.FindParentNode(Items, item);
-            //    if (node != null)
-            //    {
-            //        foreach (var subNode in node.Items)
-            //        {
-            //            if (subNode != item)
-            //            {
-            //                subNode.IsExpand = false;
-            //            }
-            //        }
-            //    }
-            //}
+            item.IsExpand = !item.IsExpand;
+            await treeNodeCache.ToggleNodeAsync(item, GetChildrenRowAsync);
+
+            // 展开此节点关闭其他同级节点
+            if (item.IsExpand)
+            {
+                // 通过 item 找到父节点
+                var nodes = treeNodeCache.FindParentNode(Items, item)?.Items ?? Items;
+                foreach (var node in nodes)
+                {
+                    if (node != item)
+                    {
+                        // 收缩同级节点
+                        node.IsExpand = false;
+                        await treeNodeCache.ToggleNodeAsync(node, GetChildrenRowAsync);
+                    }
+                }
+            }
+        }
+        else
+        {
+            await ToggleNodeAsync();
         }
 
-        if (item.HasChildren || item.Items.Any())
+        if (shouldRender)
         {
-            // 重建缓存 并且更改节点展开状态
-            await treeNodeCache.ToggleNodeAsync(item, GetChildrenRowAsync);
             StateHasChanged();
+        }
+
+        async Task ToggleNodeAsync()
+        {
+            if (item.HasChildren || item.Items.Any())
+            {
+                // 重建缓存 并且更改节点展开状态
+                await treeNodeCache.ToggleNodeAsync(item, GetChildrenRowAsync);
+            }
         }
     }
 

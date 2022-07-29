@@ -45,24 +45,11 @@ public class ExpandableNodeCache<TNode, TItem> where TNode : IExpandableNode<TIt
     {
         if (node.IsExpand)
         {
-            // 展开节点缓存移除此节点
-            expandedNodeCache.RemoveAll(i => equalityComparer.Equals(i, node.Value));
-            node.IsExpand = false;
-
-            // 收缩节点缓存添加此节点
-            if (!collapsedNodeCache.Any(i => equalityComparer.Equals(i, node.Value)))
-            {
-                collapsedNodeCache.Add(node.Value);
-            }
-        }
-        else
-        {
             // 展开节点缓存增加此节点
             if (!expandedNodeCache.Any(i => equalityComparer.Equals(i, node.Value)))
             {
                 expandedNodeCache.Add(node.Value);
             }
-            node.IsExpand = true;
 
             // 收缩节点缓存移除此节点
             collapsedNodeCache.RemoveAll(i => equalityComparer.Equals(i, node.Value));
@@ -71,6 +58,17 @@ public class ExpandableNodeCache<TNode, TItem> where TNode : IExpandableNode<TIt
             if (node.Items == null || !node.Items.Any())
             {
                 node.Items = await callback(node, node.Value);
+            }
+        }
+        else
+        {
+            // 展开节点缓存移除此节点
+            expandedNodeCache.RemoveAll(i => equalityComparer.Equals(i, node.Value));
+
+            // 收缩节点缓存添加此节点
+            if (!collapsedNodeCache.Any(i => equalityComparer.Equals(i, node.Value)))
+            {
+                collapsedNodeCache.Add(node.Value);
             }
         }
     }

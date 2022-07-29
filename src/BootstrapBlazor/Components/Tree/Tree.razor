@@ -39,7 +39,7 @@ else
 private RenderFragment<TreeItem<TItem>> RenderTreeItem => item =>
 @<li role="treeitem" class="@GetItemClassString(item)">
     <div class="tree-content">
-        <DynamicElement TagName="i" class="@GetCaretClassString(item)" TriggerClick="TriggerNodeArrow(item)"  OnClick="() => OnToggleNodeAsync(item)"></DynamicElement>
+        <DynamicElement TagName="i" class="@GetCaretClassString(item)" TriggerClick="TriggerNodeArrow(item)"  OnClick="() => OnToggleNodeAsync(item, true)"></DynamicElement>
         @if (ShowCheckbox)
         {
             <Checkbox @bind-Value="@item.Checked" IsDisabled="@item.IsDisabled" SkipValidate="true"
