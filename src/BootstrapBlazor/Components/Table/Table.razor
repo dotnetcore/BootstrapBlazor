@@ -633,7 +633,7 @@ RenderFragment<TItem> RenderRow => item =>
                     bool hasChildren = false;
                     if (isFirstColOfTree)
                     {
-                        var treeItem = TreeRows.Find(item, out degree, TItemComparer);
+                        var treeItem = treeNodeCache.Find(TreeRows, item, out degree);
                         if(treeItem != null)
                         {
                             isExpend = treeItem.IsExpand;

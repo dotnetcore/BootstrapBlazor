@@ -1,5 +1,6 @@
 ﻿@namespace BootstrapBlazor.Components
 @inherits BootstrapComponentBase
+@typeparam TItem
 
 @if (Items == null)
 {
@@ -27,31 +28,31 @@ else
 }
 
 @code {
-    private RenderFragment<TreeItem> RenderTreeNode => item =>
-    @<ul class="@GetTreeNodeClassString(item)" role="group">
+    private RenderFragment<TreeItem<TItem>> RenderTreeNode => item =>
+    @<ul class="@GetTreeClassString(item)" role="group">
         @foreach (var node in item.Items)
         {
             @RenderTreeItem(node)
         }
     </ul>;
 
-private RenderFragment<TreeItem> RenderTreeItem => item =>
+private RenderFragment<TreeItem<TItem>> RenderTreeItem => item =>
 @<li role="treeitem" class="@GetItemClassString(item)">
     <div class="tree-content">
-        <i class="@GetCaretClassString(item)" @onclick="() => OnExpandRowAsync(item)"></i>
+        <DynamicElement TagName="i" class="@GetCaretClassString(item)" TriggerClick="TriggerNodeArrow(item)"  OnClick="() => OnToggleNodeAsync(item)"></DynamicElement>
         @if (ShowCheckbox)
         {
             <Checkbox @bind-Value="@item.Checked" IsDisabled="@item.IsDisabled" SkipValidate="true"
-                      ShowLabel="false" ShowAfterLabel="false"
-                      OnStateChanged="(state, v) => OnStateChanged(state, item)" />
+                      ShowLabel="false" ShowAfterLabel="false" State="@CheckCascadeState(item)"
+                      OnStateChanged="(state, v) => OnCheckStateChanged(item)" StopPropagation="true" />
         }
         else if (ShowRadio)
         {
             <Radio @bind-Value="@item.Checked" IsDisabled="@item.IsDisabled" SkipValidate="true"
                    ShowLabel="false" ShowAfterLabel="false" GroupName="@GroupName"
-                   OnClick="p => OnRadioClick(item)" State="@Tree.CheckState(item)" />
+                   OnClick="p => OnRadioClick(item)" State="@CheckState(item)" />
         }
-        <div class="tree-node" @onclick="() => OnClick(item)">
+        <DynamicElement class="@GetNodeClassString(item)" TriggerClick="TriggerNodeLabel(item)" OnClick="() => OnClick(item)">
             @if (ShowIcon)
             {
                 <i class="@GetIconClassString(item)"></i>
@@ -62,9 +63,9 @@ private RenderFragment<TreeItem> RenderTreeItem => item =>
             }
             else
             {
-                @item.Template    
+                @item.Template.Invoke(item.Value)    
             }
-        </div>
+        </DynamicElement>
     </div>
     @if (item.ShowLoading)
     {

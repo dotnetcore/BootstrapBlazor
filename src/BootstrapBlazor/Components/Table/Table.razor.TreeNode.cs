@@ -28,17 +28,7 @@ public partial class Table<TItem>
     /// 获得/设置 树形数据集合
     /// </summary>
     [NotNull]
-    private List<TableTreeNode<TItem>> TreeRows { get; } = new List<TableTreeNode<TItem>>();
-
-    /// <summary>
-    /// 获得 所有已展开行集合 作为缓存使用
-    /// </summary>
-    private List<TItem> ExpandedRows { get; } = new(50);
-
-    /// <summary>
-    /// 获得 所有已收缩行集合 作为缓存使用
-    /// </summary>
-    private List<TItem> CollapsedRows { get; } = new(50);
+    private List<TableTreeNode<TItem>> TreeRows { get; } = new(100);
 
     /// <summary>
     /// 获得/设置 是否正在加载子项 默认为 false
@@ -80,8 +70,11 @@ public partial class Table<TItem>
         .AddClass("fa-spin fa-spinner", IsLoadChildren)
         .Build();
 
+    /// <summary>
+    /// 节点缓存类实例
+    /// </summary>
     [NotNull]
-    private IEqualityComparer<TItem>? TItemComparer { get; set; }
+    protected ExpandableNodeCache<TableTreeNode<TItem>, TItem>? treeNodeCache = null;
 
     /// <summary>
     /// 展开收缩树形数据节点方法
@@ -92,36 +85,11 @@ public partial class Table<TItem>
     {
         if (!IsLoadChildren)
         {
-            if (TreeRows.TryFind(item, out var node, TItemComparer))
+            if (treeNodeCache.TryFind(TreeRows, item, out var node))
             {
+                // 重建当前节点缓存
                 IsLoadChildren = true;
-
-                // 无子项时通过回调方法延时加载
-                if (!node.IsExpand)
-                {
-                    if (!ExpandedRows.Any(i => ComparerItem(i, node.Value)))
-                    {
-                        ExpandedRows.Add(node.Value);
-                    }
-                    node.IsExpand = true;
-
-                    CollapsedRows.RemoveAll(i => ComparerItem(i, node.Value));
-
-                    if (!node.Items.Any())
-                    {
-                        await GetChildrenRow(node, item);
-                    }
-                }
-                else
-                {
-                    ExpandedRows.RemoveAll(i => ComparerItem(i, node.Value));
-                    node.IsExpand = false;
-
-                    if (!CollapsedRows.Any(i => ComparerItem(i, node.Value)))
-                    {
-                        CollapsedRows.Add(node.Value);
-                    }
-                }
+                await treeNodeCache.ToggleNodeAsync(node, GetChildrenRow);
                 IsLoadChildren = false;
 
                 // 清除缓存
@@ -133,14 +101,12 @@ public partial class Table<TItem>
         }
     };
 
-    private async Task GetChildrenRow(TableTreeNode<TItem> node, TItem item)
+    private async Task<IEnumerable<IExpandableNode<TItem>>> GetChildrenRow(TableTreeNode<TItem> node, TItem item)
     {
         if (OnTreeExpand == null)
         {
             throw new InvalidOperationException(NotSetOnTreeExpandErrorMessage);
         }
-
-        var items = await OnTreeExpand(item);
-        node.Items = items.ToList();
+        return await OnTreeExpand(item);
     }
 }

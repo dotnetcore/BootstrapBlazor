@@ -98,6 +98,12 @@ public partial class Checkbox<TValue>
     public Func<CheckboxState, TValue, Task>? OnStateChanged { get; set; }
 
     /// <summary>
+    /// 获得/设置 是否事件冒泡 默认为 false
+    /// </summary>
+    [Parameter]
+    public bool StopPropagation { get; set; }
+
+    /// <summary>
     /// OnInitialized 方法
     /// </summary>
     protected override void OnInitialized()

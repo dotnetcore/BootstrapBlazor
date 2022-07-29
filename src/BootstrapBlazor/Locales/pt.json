@@ -301,6 +301,9 @@
     "SearchPlaceHolderString": "Digite ...",
     "Text": "Lista"
   },
+  "BootstrapBlazor.Components.Tree": {
+    "NotSetOnTreeExpandErrorMessage": "parâmetro OnExpandNodeAsync não atribuído"
+  },
   "BootstrapBlazor.Components.UploadBase": {
     "DeleteButtonText": "Excluir",
     "BrowserButtonText": "Browser",

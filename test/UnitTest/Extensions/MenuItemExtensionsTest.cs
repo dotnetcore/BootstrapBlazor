@@ -9,16 +9,6 @@ public class MenuItemExtensionsTest
     [Fact]
     public void CascadingSetActive_Ok()
     {
-        var menu = new MenuItem()
-        {
-            Parent = new MenuItem()
-            {
-                ParentId = "0"
-            }
-        };
-        menu.CascadingSetActive(true);
 
-        Assert.True(menu.Parent.IsActive);
-        Assert.False(menu.Parent.IsCollapsed);
     }
 }

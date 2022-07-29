@@ -555,37 +555,11 @@ public partial class Table<TItem>
 
                 async Task CheckExpand(IEnumerable<TableTreeNode<TItem>> nodes)
                 {
+                    // 恢复当前节点状态
                     foreach (var node in nodes)
                     {
-                        if (node.IsExpand)
-                        {
-                            // 已收缩
-                            if (CollapsedRows.Contains(node.Value, TItemComparer))
-                            {
-                                node.IsExpand = false;
-                            }
-                            else if (!ExpandedRows.Contains(node.Value, TItemComparer))
-                            {
-                                // 状态为 展开
-                                ExpandedRows.Add(node.Value);
-                            }
-                        }
-                        else
-                        {
-                            if (ExpandedRows.Any(i => ComparerItem(i, node.Value)))
-                            {
-                                // 原来是展开状态
-                                node.IsExpand = true;
-                                if (!node.Items.Any())
-                                {
-                                    await GetChildrenRow(node, node.Value);
-                                }
-                            }
-                            else
-                            {
-                                ExpandedRows.RemoveAll(i => ComparerItem(i, node.Value));
-                            }
-                        }
+                        await treeNodeCache.CheckExpand(node, GetChildrenRow);
+
                         if (node.Items.Any())
                         {
                             await CheckExpand(node.Items);
@@ -597,26 +571,13 @@ public partial class Table<TItem>
     }
 
     /// <summary>
-    /// 比较数据是否相同
+    /// <inheritdoc/>
     /// </summary>
-    /// <param name="a"></param>
-    /// <param name="b"></param>
-    /// <returns></returns>
-    protected bool ComparerItem(TItem a, TItem b) => ModelEqualityComparer?.Invoke(a, b)
+    public bool ComparerItem(TItem a, TItem b) => ModelEqualityComparer?.Invoke(a, b)
         ?? DynamicContext?.EqualityComparer?.Invoke((IDynamicObject)a, (IDynamicObject)b)
         ?? Utility.GetKeyValue<TItem, object>(a, CustomKeyAttribute)?.Equals(Utility.GetKeyValue<TItem, object>(b, CustomKeyAttribute))
-        ?? EqualityComparer(a, b)
+        ?? ModelComparer.EqualityComparer(a, b)
         ?? a.Equals(b);
-
-    private static bool? EqualityComparer(TItem a, TItem b)
-    {
-        bool? ret = null;
-        if (a is IEqualityComparer<TItem> comparer)
-        {
-            ret = comparer.Equals(a, b);
-        }
-        return ret;
-    }
 
     private async Task OnClickExtensionButton(TItem item, TableCellButtonArgs args)
     {

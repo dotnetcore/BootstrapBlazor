@@ -425,16 +425,15 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
     private bool OnAfterRenderIsTriggered { get; set; }
 
     /// <summary>
-    /// 获得/设置 数据主键标识标签 默认为 <see cref="KeyAttribute"/>
+    /// 获得/设置 数据主键标识标签 默认为 <see cref="KeyAttribute"/><code><br /></code>用于判断数据主键标签，如果模型未设置主键时可使用 <see cref="ModelEqualityComparer"/> 参数自定义判断 <code><br /></code>数据模型支持联合主键
     /// </summary>
-    /// <remarks>用于判断数据主键标签，如果模型未设置主键时可使用 <see cref="ModelEqualityComparer"/> 参数自定义判断 <code><br /></code>数据模型支持联合主键</remarks>
     [Parameter]
-    public Type CustomKeyAttribute { get; set; } = typeof(KeyAttribute);
+    [NotNull]
+    public Type? CustomKeyAttribute { get; set; } = typeof(KeyAttribute);
 
     /// <summary>
-    /// 获得/设置 比较数据是否相同回调方法 默认为 null
+    /// 获得/设置 比较数据是否相同回调方法 默认为 null<code><br /></code>提供此回调方法时忽略 <see cref="CustomKeyAttribute"/> 属性
     /// </summary>
-    /// <remarks>提供此回调方法时忽略 <see cref="CustomKeyAttribute"/> 属性</remarks>
     [Parameter]
     public Func<TItem, TItem, bool>? ModelEqualityComparer { get; set; }
 
@@ -445,9 +444,10 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
     {
         base.OnInitialized();
 
-        OnInitLocalization();
+        // 初始化节点缓存
+        treeNodeCache ??= new(ComparerItem);
 
-        TItemComparer = new TItemComparer<TItem>(ComparerItem);
+        OnInitLocalization();
 
         Interop = new JSInterop<Table<TItem>>(JSRuntime);
 
@@ -717,7 +717,7 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
             // https://gitee.com/LongbowEnterprise/BootstrapBlazor/issues/I5JG5D
             // 如果 QueryItems 无默认值
             // 页面 OnInitializedAsync 二刷再 OnAfterRender 过程中导致 QueryItems 变量为空 ToList 报错
-            RowsCache ??= IsTree ? TreeRows.GetAllRows() : (Items ?? QueryItems).ToList();
+            RowsCache ??= IsTree ? TreeRows.GetAllItems() : (Items ?? QueryItems).ToList();
             return RowsCache;
         }
     }

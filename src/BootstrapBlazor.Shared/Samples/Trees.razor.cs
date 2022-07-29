@@ -32,13 +32,15 @@ public sealed partial class Trees
 
     private Foo Model => Foo.Generate(Localizer);
 
-    private List<TreeItem> Items { get; set; } = TreeDataFoo.GetTreeItems();
+    private List<TreeItem<TreeFoo>> Items { get; set; } = TreeFoo.GetTreeItems();
 
-    private List<TreeItem> CheckedItems { get; set; } = GetCheckedItems();
+    private List<TreeItem<TreeFoo>> CheckedItems { get; set; } = GetCheckedItems();
 
-    private List<TreeItem> ExpandItems { get; set; } = GetExpandItems();
+    private List<TreeItem<TreeFoo>> RadioItems { get; set; } = GetCheckedItems();
 
-    private List<TreeItem>? AsyncItems { get; set; }
+    private List<TreeItem<TreeFoo>> ExpandItems { get; set; } = GetExpandItems();
+
+    private List<TreeItem<TreeFoo>>? AsyncItems { get; set; }
 
     /// <summary>
     /// OnInitializedAsync 方法
@@ -49,61 +51,81 @@ public sealed partial class Trees
         await OnLoadAsyncItems();
     }
 
+    private void OnRefresh()
+    {
+        CheckedItems = GetCheckedItems();
+    }
+
+    private bool IsReset { get; set; }
+
+    private void OnReset() => IsReset = !IsReset;
+
+    private MarkupString GetState() => new(IsReset ? "<span class=\"text-danger\">强制重置</span>" : "<span class=\"text-primary\">状态保持</span>");
+
     private async Task OnLoadAsyncItems()
     {
         AsyncItems = null;
         await Task.Delay(2000);
-        AsyncItems = TreeDataFoo.GetTreeItems();
+        AsyncItems = TreeFoo.GetTreeItems();
+        AsyncItems[2].Text = "延时加载";
+        AsyncItems[2].HasChildren = true;
     }
 
-    private static List<TreeItem> GetCheckedItems()
+    private static List<TreeItem<TreeFoo>> GetCheckedItems()
     {
-        var ret = TreeDataFoo.GetTreeItems();
+        var ret = TreeFoo.GetTreeItems();
+        ret[1].IsActive = true;
         ret[1].Items[1].Checked = true;
         return ret;
     }
 
-    private static List<TreeItem> GetExpandItems()
+    private static List<TreeItem<TreeFoo>> GetExpandItems()
     {
-        var ret = TreeDataFoo.GetTreeItems();
-        ret[1].IsCollapsed = false;
+        var ret = TreeFoo.GetTreeItems();
+        ret[1].IsExpand = true;
         return ret;
     }
 
-    private List<TreeItem> DisabledItems { get; set; } = GetDisabledItems();
+    private List<TreeItem<TreeFoo>> DisabledItems { get; set; } = GetDisabledItems();
 
-    private static List<TreeItem> GetDisabledItems()
+    private static List<TreeItem<TreeFoo>> GetDisabledItems()
     {
-        var ret = TreeDataFoo.GetTreeItems();
+        var ret = TreeFoo.GetTreeItems();
         ret[1].Items[1].IsDisabled = true;
         return ret;
     }
 
-    private static List<TreeItem> GetIconItems() => TreeDataFoo.GetTreeItems();
-
-    private static List<TreeItem> GetLazyItems()
+    private static List<TreeItem<TreeFoo>> GetAccordionItems()
     {
-        var ret = TreeDataFoo.GetTreeItems();
-        ret[1].Items[0].IsCollapsed = false;
-        ret[1].Items[1].Text = "懒加载";
-        ret[1].Items[1].HasChildNode = true;
-        ret[1].Items[2].Text = "懒加载延时";
-        ret[1].Items[2].HasChildNode = true;
-        ret[1].Items[2].Key = "Delay";
-
+        var ret = TreeFoo.GetTreeItems();
+        ret[1].Items[0].HasChildren = true;
         return ret;
     }
 
-    private static List<TreeItem> GetTemplateItems()
+    private static List<TreeItem<TreeFoo>> GetIconItems() => TreeFoo.GetTreeItems();
+
+    private static List<TreeItem<TreeFoo>> GetLazyItems()
     {
-        var ret = TreeDataFoo.GetTreeItems();
-        ret[0].Template = BootstrapDynamicComponent.CreateComponent<CustomerTreeItem>().Render();
+        var ret = TreeFoo.GetTreeItems();
+        ret[1].Items[0].IsExpand = true;
+        ret[2].Text = "懒加载延时";
+        ret[2].HasChildren = true;
         return ret;
     }
 
-    private static List<TreeItem> GetColorItems()
+    private static List<TreeItem<TreeFoo>> GetTemplateItems()
     {
-        var ret = TreeDataFoo.GetTreeItems();
+        var ret = TreeFoo.GetTreeItems();
+        ret[0].Template = foo => BootstrapDynamicComponent.CreateComponent<CustomerTreeItem>(new Dictionary<string, object?>()
+        {
+            [nameof(CustomerTreeItem.Foo)] = foo
+        }).Render();
+        return ret;
+    }
+
+    private static List<TreeItem<TreeFoo>> GetColorItems()
+    {
+        var ret = TreeFoo.GetTreeItems();
         ret[0].CssClass = "text-primary";
         ret[1].CssClass = "text-success";
         ret[2].CssClass = "text-danger";
@@ -116,12 +138,21 @@ public sealed partial class Trees
         [NotNull]
         private ToastService? ToastService { get; set; }
 
+        [Parameter]
+        [NotNull]
+        public TreeFoo? Foo { get; set; }
+
         /// <summary>
         /// 
         /// </summary>
         /// <param name="builder"></param>
         protected override void BuildRenderTree(RenderTreeBuilder builder)
         {
+            builder.OpenElement(3, "span");
+            builder.AddAttribute(4, "class", "me-3");
+            builder.AddContent(5, Foo.Text);
+            builder.CloseElement();
+
             builder.OpenComponent<Button>(0);
             builder.AddAttribute(1, nameof(Button.Icon), "fa fa-fa");
             builder.AddAttribute(2, nameof(Button.Text), "Click");
@@ -133,42 +164,37 @@ public sealed partial class Trees
         }
     }
 
-    private Task OnTreeItemClick(TreeItem item)
+    private Task OnTreeItemClick(TreeItem<TreeFoo> item)
     {
         Trace.Log($"TreeItem: {item.Text} clicked");
         return Task.CompletedTask;
     }
 
-    private Task OnTreeItemChecked(TreeItem item)
+    private Task OnTreeItemChecked(TreeItem<TreeFoo> item)
     {
         var state = item.Checked ? "选中" : "未选中";
         TraceChecked.Log($"TreeItem: {item.Text} {state}");
         return Task.CompletedTask;
     }
 
-    private static async Task OnExpandNode(TreeItem item)
+    private static async Task<IEnumerable<TreeItem<TreeFoo>>> OnExpandNodeAsync(TreeFoo item)
     {
-        if (!item.Items.Any() && item.HasChildNode && !item.ShowLoading)
+        await Task.Delay(800);
+        return new TreeItem<TreeFoo>[]
         {
-            item.ShowLoading = true;
-            if (item.Key?.ToString() == "Delay")
+            new TreeItem<TreeFoo>(new TreeFoo() { Id = $"{item.Id}-101", ParentId = item.Id })
             {
-                await Task.Delay(800);
+                Text = "懒加载子节点1",
+                HasChildren = true
+            },
+            new TreeItem<TreeFoo>(new TreeFoo(){ Id = $"{item.Id}-102", ParentId = item.Id })
+            {
+                Text = "懒加载子节点2"
             }
-            item.Items.AddRange(new TreeItem[]
-            {
-                    new TreeItem()
-                    {
-                        Text = "懒加载子节点1",
-                        HasChildNode = true
-                    },
-                    new TreeItem() { Text = "懒加载子节点2" }
-            });
-            item.ShowLoading = false;
-        }
+        };
     }
 
-    private Task OnTreeItemChecked(List<TreeItem> items)
+    private Task OnTreeItemChecked(List<TreeItem<TreeFoo>> items)
     {
         TraceCheckedItems.Log($"当前共选中{items.Count}项");
         return Task.CompletedTask;
@@ -248,79 +274,64 @@ public sealed partial class Trees
 
     private static IEnumerable<AttributeItem> GetTreeItemAttributes() => new AttributeItem[]
     {
-        // TODO: 移动到数据库中
         new AttributeItem() {
-            Name = nameof(TreeItem.Key),
-            Description = "TreeItem 标识",
-            Type = "object?",
-            ValueList = " — ",
-            DefaultValue = " — "
-        },
-        new AttributeItem() {
-            Name = "Items",
+            Name = nameof(TreeItem<TreeFoo>.Items),
             Description = "子节点数据源",
-            Type = "IEnumerable<TreeItem>",
+            Type = "List<TreeItem<TItem>>",
             ValueList = " — ",
-            DefaultValue = "new List<TreeItem>(20)"
+            DefaultValue = "new ()"
         },
         new AttributeItem() {
-            Name = "Text",
+            Name = nameof(TreeItem<TreeFoo>.Text),
             Description = "显示文字",
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
         },
         new AttributeItem() {
-            Name = "Icon",
+            Name = nameof(TreeItem<TreeFoo>.Icon),
             Description = "显示图标",
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
         },
         new AttributeItem() {
-            Name = "CssClass",
+            Name = nameof(TreeItem<TreeFoo>.CssClass),
             Description = "节点自定义样式",
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
         },
         new AttributeItem() {
-            Name = "Checked",
+            Name = nameof(TreeItem<TreeFoo>.Checked),
             Description = "是否被选中",
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
         },
         new AttributeItem() {
-            Name = nameof(TreeItem.IsDisabled),
+            Name = nameof(TreeItem<TreeFoo>.IsDisabled),
             Description = "是否被禁用",
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
         },
         new AttributeItem() {
-            Name = "IsCollapsed",
+            Name = nameof(TreeItem<TreeFoo>.IsExpand),
             Description = "是否展开",
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "true"
         },
         new AttributeItem() {
-            Name = nameof(TreeItem.Tag),
-            Description = "TreeItem 附加数据",
-            Type = "object?",
-            ValueList = " — ",
-            DefaultValue = " — "
-        },
-        new AttributeItem() {
-            Name = nameof(TreeItem.HasChildNode),
+            Name = nameof(TreeItem<TreeFoo>.HasChildren),
             Description = "是否有子节点",
             Type = "bool",
             ValueList = " true|false ",
             DefaultValue = " false "
         },
         new AttributeItem() {
-            Name = nameof(TreeItem.ShowLoading),
+            Name = nameof(TreeItem<TreeFoo>.ShowLoading),
             Description = "是否显示子节点加载动画",
             Type = "bool",
             ValueList = " true|false ",
@@ -328,7 +339,7 @@ public sealed partial class Trees
         },
         new AttributeItem()
         {
-            Name = nameof(TreeItem.Template),
+            Name = nameof(TreeItem<TreeFoo>.Template),
             Description = "子节点模板",
             Type = nameof(RenderFragment),
             ValueList = " — ",

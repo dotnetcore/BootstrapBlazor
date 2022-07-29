@@ -4,13 +4,17 @@
 
 namespace BootstrapBlazor.Components;
 
-internal class TItemComparer<TItem> : IEqualityComparer<TItem>
+/// <summary>
+/// 模型比较器
+/// </summary>
+/// <typeparam name="TItem"></typeparam>
+public class ModelComparer<TItem> : IEqualityComparer<TItem>
 {
     private readonly Func<TItem, TItem, bool> _comparer;
     /// <summary>
     /// 构造函数
     /// </summary>
-    public TItemComparer(Func<TItem, TItem, bool> comparer)
+    public ModelComparer(Func<TItem, TItem, bool> comparer)
     {
         _comparer = comparer;
     }
@@ -32,4 +36,17 @@ internal class TItemComparer<TItem> : IEqualityComparer<TItem>
     /// <param name="obj"></param>
     /// <returns></returns>
     public int GetHashCode([DisallowNull] TItem obj) => obj.GetHashCode();
+}
+
+internal static class ModelComparer
+{
+    public static bool? EqualityComparer<TItem>(TItem x, TItem y)
+    {
+        bool? ret = null;
+        if (x is IEqualityComparer<TItem> comparer)
+        {
+            ret = comparer.Equals(x, y);
+        }
+        return ret;
+    }
 }

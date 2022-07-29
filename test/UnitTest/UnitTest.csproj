@@ -25,6 +25,7 @@
 
   <ItemGroup>
     <Compile Include="..\..\src\BootstrapBlazor.Shared\Data\Foo.cs" Link="Misc\Foo.cs" />
+    <Compile Include="..\..\src\BootstrapBlazor.Shared\Data\TreeFoo.cs" Link="Misc\TreeFoo.cs" />
   </ItemGroup>
 
   <ItemGroup>

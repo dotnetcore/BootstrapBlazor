@@ -2,6 +2,8 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using BootstrapBlazor.Shared;
+
 namespace UnitTest.Components;
 
 public class TreeTest : BootstrapBlazorTestBase
@@ -9,7 +11,7 @@ public class TreeTest : BootstrapBlazorTestBase
     [Fact]
     public void Items_Ok()
     {
-        var cut = Context.RenderComponent<Tree>();
+        var cut = Context.RenderComponent<Tree<TreeFoo>>();
         cut.DoesNotContain("tree-root");
 
         // 由于 Items 为空不生成 TreeItem 显示 loading
@@ -22,10 +24,7 @@ public class TreeTest : BootstrapBlazorTestBase
         // 设置 Items
         cut.SetParametersAndRender(pb =>
         {
-            pb.Add(a => a.Items, new List<TreeItem>()
-            {
-                new TreeItem() { Text = "Test1" }
-            });
+            pb.Add(a => a.Items, TreeFoo.GetTreeItems());
         });
         cut.Contains("li");
     }
@@ -35,7 +34,7 @@ public class TreeTest : BootstrapBlazorTestBase
     {
         var tcs = new TaskCompletionSource<bool>();
         bool itemChecked = false;
-        var cut = Context.RenderComponent<Tree>(pb =>
+        var cut = Context.RenderComponent<Tree<TreeFoo>>(pb =>
         {
             pb.Add(a => a.IsAccordion, true);
             pb.Add(a => a.ShowCheckbox, true);
@@ -45,20 +44,7 @@ public class TreeTest : BootstrapBlazorTestBase
                 tcs.SetResult(true);
                 return Task.CompletedTask;
             });
-            pb.Add(a => a.Items, new List<TreeItem>()
-            {
-                new TreeItem()
-                {
-                    Text = "Test1",
-                    Items = new List<TreeItem>()
-                    {
-                        new TreeItem()
-                        {
-                            Text = "Test11",
-                        }
-                    }
-                }
-            });
+            pb.Add(a => a.Items, TreeFoo.GetTreeItems());
         });
 
         // 测试点击选中
@@ -74,63 +60,13 @@ public class TreeTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public async Task OnClick_Ok()
-    {
-        var clicked = false;
-        var expanded = false;
-        var cut = Context.RenderComponent<Tree>(pb =>
-        {
-            pb.Add(a => a.IsAccordion, true);
-            pb.Add(a => a.ShowRadio, true);
-            pb.Add(a => a.ClickToggleNode, true);
-            pb.Add(a => a.OnTreeItemClick, item =>
-            {
-                clicked = true;
-                return Task.CompletedTask;
-            });
-            pb.Add(a => a.OnExpandNode, item =>
-            {
-                expanded = true;
-                return Task.CompletedTask;
-            });
-            pb.Add(a => a.Items, new List<TreeItem>()
-            {
-                new TreeItem()
-                {
-                    Text = "Test1",
-                    Items = new List<TreeItem>()
-                    {
-                        new TreeItem()
-                        {
-                            Text = "Test11",
-                        }
-                    }
-                },
-                new TreeItem()
-                {
-                    Text = "Test2",
-                    IsCollapsed = false,
-                    Items = new List<TreeItem>()
-                    {
-                        new TreeItem()
-                        {
-                            Text = "Test21",
-                        }
-                    }
-                }
-            });
-        });
-
-        await cut.InvokeAsync(() => cut.Find(".tree-node").Click());
-        Assert.True(clicked);
-        Assert.True(expanded);
-    }
-
-    [Fact]
     public void OnStateChanged_Ok()
     {
-        List<TreeItem>? checkedLists = null;
-        var cut = Context.RenderComponent<Tree>(pb =>
+        var items = TreeFoo.GetTreeItems();
+        items[0].CssClass = "Test-Class";
+
+        List<TreeItem<TreeFoo>>? checkedLists = null;
+        var cut = Context.RenderComponent<Tree<TreeFoo>>(pb =>
         {
             pb.Add(a => a.ShowCheckbox, true);
             pb.Add(a => a.OnTreeItemChecked, items =>
@@ -138,29 +74,7 @@ public class TreeTest : BootstrapBlazorTestBase
                 checkedLists = items;
                 return Task.CompletedTask;
             });
-            pb.Add(a => a.Items, new List<TreeItem>()
-            {
-                new TreeItem()
-                {
-                    Text = "Test1",
-                    Icon = "fa fa-fa",
-                    CssClass = "Test-Class",
-                    Items = new List<TreeItem>()
-                    {
-                        new()
-                        {
-                            Text = "Test1-1",
-                            Items = new List<TreeItem>()
-                            {
-                                new()
-                                {
-                                    Text = "Test1-1-1"
-                                }
-                            }
-                        }
-                    }
-                }
-            });
+            pb.Add(a => a.Items, items);
         });
 
         cut.InvokeAsync(() => cut.Find("[type=\"checkbox\"]").Click());
@@ -177,69 +91,47 @@ public class TreeTest : BootstrapBlazorTestBase
     [Fact]
     public void Template_Ok()
     {
-        var item = new TreeItem()
+        var items = TreeFoo.GetTreeItems();
+        items[0].Template = foo => builder => builder.AddContent(0, "Test-Template");
+        var cut = Context.RenderComponent<Tree<TreeFoo>>(pb =>
         {
-            Text = "Test1",
-            Key = "TestKey",
-            Tag = "TestTag",
-            Template = builder => builder.AddContent(0, "Test-Template")
-        };
-        var cut = Context.RenderComponent<Tree>(pb =>
-        {
-            pb.Add(a => a.Items, new List<TreeItem>()
-            {
-                item
-            });
+            pb.Add(a => a.Items, items);
         });
         cut.Contains("Test-Template");
-        Assert.Equal("TestKey", item.Key);
-        Assert.Equal("TestTag", item.Tag);
     }
 
     [Fact]
     public async Task OnExpandRowAsync_Ok()
     {
+        var items = TreeFoo.GetTreeItems();
+        items[0].HasChildren = true;
+
         var expanded = false;
-        var cut = Context.RenderComponent<Tree>(pb =>
+        var cut = Context.RenderComponent<Tree<TreeFoo>>(pb =>
         {
-            pb.Add(a => a.OnExpandNode, item =>
+            pb.Add(a => a.OnExpandNodeAsync, item =>
             {
                 expanded = true;
-                return Task.CompletedTask;
+                return OnExpandNodeAsync(item);
             });
-            pb.Add(a => a.Items, new List<TreeItem>()
-            {
-                new TreeItem()
-                {
-                    Text = "Test1",
-                    Items = new List<TreeItem>()
-                    {
-                        new TreeItem()
-                        {
-                            Text = "Test11",
-                            HasChildNode = true,
-                            ShowLoading = true
-                        }
-                    }
-                }
-            });
+            pb.Add(a => a.Items, items);
         });
 
-        await cut.InvokeAsync(() => cut.Find(".fa-caret-right").Click());
+        await cut.InvokeAsync(() => cut.Find(".fa-caret-right.visible").Click());
         Assert.True(expanded);
     }
 
     [Fact]
     public void GetAllSubItems_Ok()
     {
-        var items = new List<TreeItem>()
+        var items = new List<TreeFoo>()
         {
-            new TreeItem() { Text = "Test1", Id = "01" },
-            new TreeItem() { Text = "Test2", Id = "02", ParentId = "01" },
-            new TreeItem() { Text = "Test3", Id = "03", ParentId = "02" },
+            new TreeFoo() { Text = "Test1", Id = "01" },
+            new TreeFoo() { Text = "Test2", Id = "02", ParentId = "01" },
+            new TreeFoo() { Text = "Test3", Id = "03", ParentId = "02" }
         };
 
-        var data = items.CascadingTree();
+        var data = TreeFoo.CascadingTree(items);
         Assert.Single(data);
 
         var subs = data.First().GetAllSubItems();
@@ -249,8 +141,8 @@ public class TreeTest : BootstrapBlazorTestBase
     [Fact]
     public async Task ShowRadio_Ok()
     {
-        List<TreeItem>? checkedLists = null;
-        var cut = Context.RenderComponent<Tree>(pb =>
+        List<TreeItem<TreeFoo>>? checkedLists = null;
+        var cut = Context.RenderComponent<Tree<TreeFoo>>(pb =>
         {
             pb.Add(a => a.ShowRadio, true);
             pb.Add(a => a.OnTreeItemChecked, items =>
@@ -258,19 +150,15 @@ public class TreeTest : BootstrapBlazorTestBase
                 checkedLists = items;
                 return Task.CompletedTask;
             });
-            pb.Add(a => a.Items, new List<TreeItem>()
-            {
-                new() { Text = "Test1", Icon = "fa fa-fa" },
-                new() { Text = "Test2", Icon = "fa fa-fa" }
-            });
+            pb.Add(a => a.Items, TreeFoo.GetTreeItems());
         });
         cut.Find("[type=\"radio\"]").Click();
         Assert.Single(checkedLists);
-        Assert.Equal("Test1", checkedLists![0].Text);
+        Assert.Equal("导航一", checkedLists![0].Text);
 
         var radio = cut.FindAll("[type=\"radio\"]")[1];
         await cut.InvokeAsync(() => radio.Click());
-        Assert.Equal("Test2", checkedLists![0].Text);
+        Assert.Equal("导航二", checkedLists![0].Text);
 
         cut.SetParametersAndRender(pb =>
         {
@@ -281,14 +169,29 @@ public class TreeTest : BootstrapBlazorTestBase
     [Fact]
     public void Tree_CssClass()
     {
-        var cut = Context.RenderComponent<Tree>(pb =>
+        var items = TreeFoo.GetTreeItems();
+        items[0].CssClass = "test-tree-css-class";
+        var cut = Context.RenderComponent<Tree<TreeFoo>>(pb =>
         {
-            pb.Add(a => a.Items, new List<TreeItem>()
-            {
-                new() { Text = "Test1", Icon = "fa fa-fa", CssClass="test-tree-css-class" },
-                new() { Text = "Test2", Icon = "fa fa-fa" }
-            });
+            pb.Add(a => a.Items, items);
         });
         Assert.Contains("test-tree-css-class", cut.Markup);
+    }
+
+    private static async Task<IEnumerable<TreeItem<TreeFoo>>> OnExpandNodeAsync(TreeFoo item)
+    {
+        await Task.Yield();
+        return new TreeItem<TreeFoo>[]
+        {
+            new TreeItem<TreeFoo>(new TreeFoo() { Id = $"{item.Id}-101", ParentId = item.Id })
+            {
+                Text = "懒加载子节点1",
+                HasChildren = true
+            },
+            new TreeItem<TreeFoo>(new TreeFoo(){ Id = $"{item.Id}-102", ParentId = item.Id })
+            {
+                Text = "懒加载子节点2"
+            }
+        };
     }
 }

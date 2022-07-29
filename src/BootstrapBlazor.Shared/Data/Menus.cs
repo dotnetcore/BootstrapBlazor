@@ -284,7 +284,7 @@ internal static class MenusDataGerator
             },
             new(localizer["Authorize"].Value, icon: "fa fa-users")
             {
-                IsCollapsed = false,
+                IsExpand = true,
                 Items = new List<MenuItem>
                 {
                     new(localizer["User"].Value, icon: "fa fa-user"),

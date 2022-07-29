@@ -755,16 +755,6 @@
     border-color: var(--bs-secondary);
 }
 
-.tree .tree-item.hover:before,
-.tree .tree-item.active:before {
-    background-color: transparent;
-}
-
-.tree .tree-item > .tree-content > .tree-node:hover,
-.tree .tree-item.active > .tree-content > .tree-node {
-    color: var(--bs-primary);
-}
-
 .card-header {
     background-color: var(--bs-secondary);
     border-color: var(--bs-secondary);
@@ -786,3 +776,10 @@
     --bb-select-disabled-bg: #f5f7fa;
 }
 /*end select*/
+
+/*tree*/
+.tree {
+    --bb-tree-item-hover-color: var(--bs-primary);
+    --bb-tree-item-hover-bg: transparent;
+}
+/*end tree*/

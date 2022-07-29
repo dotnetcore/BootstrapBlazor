@@ -301,6 +301,9 @@
     "SearchPlaceHolderString": "请输入 ...",
     "Text": "列表"
   },
+  "BootstrapBlazor.Components.Tree": {
+    "NotSetOnTreeExpandErrorMessage": "未设置 OnExpandNodeAsync 回调委托方法"
+  },
   "BootstrapBlazor.Components.UploadBase": {
     "DeleteButtonText": "删除",
     "BrowserButtonText": "浏览",

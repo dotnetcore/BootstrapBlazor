@@ -301,6 +301,9 @@
     "SearchPlaceHolderString": "Bitte eingeben ...",
     "Text": "Liste"
   },
+  "BootstrapBlazor.Components.Tree": {
+    "NotSetOnTreeExpandErrorMessage": "not set OnExpandNodeAsync parameter"
+  },
   "BootstrapBlazor.Components.UploadBase": {
     "DeleteButtonText": "Löschen",
     "BrowserButtonText": "Browser",

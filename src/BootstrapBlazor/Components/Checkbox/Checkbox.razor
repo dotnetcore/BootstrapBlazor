@@ -7,7 +7,7 @@
     <BootstrapLabel required="@Required" for="@Id" ShowLabelTooltip="ShowLabelTooltip" Value="@DisplayText" />
 }
 <div @attributes="AdditionalAttributes" class="@GetClassString()" aria-checked="@StateString">
-    <input class="@InputClassString" type="checkbox" id="@Id" disabled="@Disabled" checked="@CheckedString" @onclick="@OnToggleClick" />
+    <DynamicElement TagName="input" class="@InputClassString" type="checkbox" id="@Id" disabled="@Disabled" checked="@CheckedString" TriggerClick="!IsDisabled" OnClick="OnToggleClick" StopPropagation="StopPropagation" />
     @if (IsShowAfterLabel)
     {
         <label class="form-check-label" for="@Id">@DisplayText</label>
