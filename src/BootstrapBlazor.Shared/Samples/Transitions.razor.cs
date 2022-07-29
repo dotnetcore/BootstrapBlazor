@@ -8,7 +8,7 @@ using BootstrapBlazor.Shared.Components;
 namespace BootstrapBlazor.Shared.Samples;
 
 /// <summary>
-/// 
+///
 /// </summary>
 public partial class Transitions
 {
@@ -65,7 +65,7 @@ public partial class Transitions
                 Name = "TransitionType",
                 Description = "动画效果名称",
                 Type = "TransitionType",
-                ValueList = "FadeIn/FadeOut",
+                ValueList = "FadeIn/FadeOut/Bounce/Flash/Pulse/RubberBand/Shake/ShakeX/ShakeY/HeadShake/Swing/Tada/Wobble/Jello/BounceIn/BounceInDown/BounceInLeft/BounceInRight/BounceInUp/BounceOut/BounceOutDown/BounceOutLeft/BounceOutRight/BounceOutUp/FadeInDown/FadeInDownBig/FadeInLeft/FadeInLeftBig/FadeInRight/FadeInRightBig/FadeInUp/FadeInUpBig/FadeOutDown/FadeOutDownBig/FadeOutLeft/FadeOutLeftBig/FadeOutRight/FadeOutRightBig/FadeOutUp/FadeOutUpBig/FlipInX/FlipInY/FlipOutX/FlipOutY/LightSpeedIn/LightSpeedOut/LightSpeedInRight/LightSpeedInLeft/LightSpeedOutRight/LightSpeedOutLeft/RotateIn/RotateInDownLeft/RotateInDownRight/RotateInUpLeft/RotateInUpRight/RotateOut/RotateOutDownLeft/RotateOutDownRight/RotateOutUpLeft/RotateOutUpRight/Hinge/JackInTheBox/RollIn/RollOut/ZoomIn/ZoomInDown/ZoomInLeft/ZoomInRight/ZoomInUp/ZoomOut/ZoomOutDown/ZoomOutLeft/ZoomOutRight/ZoomOutUp/SlideInDown/SlideInLeft/SlideInRight/SlideInUp/SlideOutDown/SlideOutLeft/SlideOutRight/SlideOutUp/HeartBeat/FadeInTopLeft/FadeInTopRight/FadeInBottomLeft/FadeInBottomRight/FadeOutTopLeft/FadeOutTopRight/FadeOutBottomRight/FadeOutBottomLeft/BackOutDown/BackOutLeft/BackOutRight/BackOutUp",
                 DefaultValue = "FadeIn"
             },
             new AttributeItem() {
