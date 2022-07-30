@@ -30,6 +30,38 @@ public class TreeTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void Items_Disabled()
+    {
+        var items = TreeFoo.GetTreeItems();
+        items[0].IsDisabled = true;
+        var cut = Context.RenderComponent<Tree<TreeFoo>>(pb =>
+        {
+            pb.Add(a => a.ShowCheckbox, true);
+            pb.Add(a => a.Items, items);
+        });
+
+        cut.Contains("tree-item disabled");
+        cut.Contains("form-check disabled");
+        cut.Contains("tree-node disabled");
+        cut.Contains("form-check-input disabled");
+    }
+
+    [Fact]
+    public void Items_IsActive()
+    {
+        var items = TreeFoo.GetTreeItems();
+        items[0].IsActive = true;
+        var cut = Context.RenderComponent<Tree<TreeFoo>>(pb =>
+        {
+            pb.Add(a => a.Items, items);
+        });
+
+        var nodes = cut.FindAll(".tree > .tree-root > .tree-item");
+        Assert.Equal(3, nodes.Count);
+        Assert.Equal("tree-item active", nodes.First().ClassName);
+    }
+
+    [Fact]
     public async Task OnClick_Checkbox_Ok()
     {
         var tcs = new TaskCompletionSource<bool>();

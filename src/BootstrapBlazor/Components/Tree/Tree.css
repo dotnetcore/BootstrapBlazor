@@ -68,7 +68,8 @@
         align-items: center;
     }
 
-        .tree .tree-node.disabled {
+        .tree .tree-node.disabled,
+        .tree .tree-item.disabled > .tree-content > .fa-caret-right {
             opacity: var(--bb-checkbox-item-disabled-opacity);
         }
 
