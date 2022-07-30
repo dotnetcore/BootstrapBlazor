@@ -29,11 +29,10 @@ public class ConsoleTest : BootstrapBlazorTestBase
     {
         var cut = Context.RenderComponent<Console>(builder =>
         {
-            builder.Add(a => a.Items,
-                new List<ConsoleMessageItem>()
-                {
-                    new ConsoleMessageItem() {Message = "Test1"}, new ConsoleMessageItem() {Message = "Test2"}
-                });
+            builder.Add(a => a.Items, new List<ConsoleMessageItem>()
+            {
+                new ConsoleMessageItem() {Message = "Test1"}, new ConsoleMessageItem() {Message = "Test2"}
+            });
         });
 
         var res = cut.Find(".console-window").HasChildNodes;
@@ -73,11 +72,10 @@ public class ConsoleTest : BootstrapBlazorTestBase
     {
         var cut = Context.RenderComponent<Console>(builder =>
         {
-            builder.Add(a => a.Items,
-                new List<ConsoleMessageItem>()
-                {
-                    new ConsoleMessageItem() {Message = "Test1"}, new ConsoleMessageItem() {Message = "Test2"}
-                });
+            builder.Add(a => a.Items, new List<ConsoleMessageItem>()
+            {
+                new ConsoleMessageItem() {Message = "Test1"}, new ConsoleMessageItem() {Message = "Test2"}
+            });
             builder.Add(a => a.OnClear, new Action(() => { }));
             builder.Add(a => a.ClearButtonText, "Console Clear");
         });
@@ -90,11 +88,10 @@ public class ConsoleTest : BootstrapBlazorTestBase
     {
         var cut = Context.RenderComponent<Console>(builder =>
         {
-            builder.Add(a => a.Items,
-                new List<ConsoleMessageItem>()
-                {
-                    new ConsoleMessageItem() {Message = "Test1"}, new ConsoleMessageItem() {Message = "Test2"}
-                });
+            builder.Add(a => a.Items, new List<ConsoleMessageItem>()
+            {
+                new ConsoleMessageItem() {Message = "Test1"}, new ConsoleMessageItem() {Message = "Test2"}
+            });
             builder.Add(a => a.OnClear, new Action(() => { }));
             builder.Add(a => a.ClearButtonIcon, "fa fa-times");
         });
@@ -108,11 +105,10 @@ public class ConsoleTest : BootstrapBlazorTestBase
     {
         var cut = Context.RenderComponent<Console>(builder =>
         {
-            builder.Add(a => a.Items,
-                new List<ConsoleMessageItem>()
-                {
-                    new ConsoleMessageItem() {Message = "Test1"}, new ConsoleMessageItem() {Message = "Test2"}
-                });
+            builder.Add(a => a.Items, new List<ConsoleMessageItem>()
+            {
+                new ConsoleMessageItem() {Message = "Test1"}, new ConsoleMessageItem() {Message = "Test2"}
+            });
             builder.Add(a => a.OnClear, new Action(() => { }));
             builder.Add(a => a.ClearButtonColor, Color.Primary);
         });
@@ -125,11 +121,10 @@ public class ConsoleTest : BootstrapBlazorTestBase
     {
         var cut = Context.RenderComponent<Console>(builder =>
         {
-            builder.Add(a => a.Items,
-                new List<ConsoleMessageItem>()
-                {
-                    new ConsoleMessageItem() {Message = "Test1"}, new ConsoleMessageItem() {Message = "Test2"}
-                });
+            builder.Add(a => a.Items, new List<ConsoleMessageItem>()
+            {
+                new ConsoleMessageItem() {Message = "Test1"}, new ConsoleMessageItem() {Message = "Test2"}
+            });
             builder.Add(a => a.ShowAutoScroll, true);
         });
 
@@ -141,11 +136,10 @@ public class ConsoleTest : BootstrapBlazorTestBase
     {
         var cut = Context.RenderComponent<Console>(builder =>
         {
-            builder.Add(a => a.Items,
-                new List<ConsoleMessageItem>()
-                {
-                    new ConsoleMessageItem() {Message = "Test1"}, new ConsoleMessageItem() {Message = "Test2"}
-                });
+            builder.Add(a => a.Items, new List<ConsoleMessageItem>()
+            {
+                new ConsoleMessageItem() {Message = "Test1"}, new ConsoleMessageItem() {Message = "Test2"}
+            });
             builder.Add(a => a.ShowAutoScroll, true);
             builder.Add(a => a.IsAutoScroll, true);
         });
@@ -155,15 +149,47 @@ public class ConsoleTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void AutoScrollString_OK()
+    {
+        var cut = Context.RenderComponent<Console>(builder =>
+        {
+            builder.Add(a => a.Items, new List<ConsoleMessageItem>()
+            {
+                new ConsoleMessageItem() {Message = "Test1"}, new ConsoleMessageItem() {Message = "Test2"}
+            });
+            builder.Add(a => a.IsAutoScroll, true);
+        });
+        Assert.Contains("data-scroll=\"auto\"", cut.Markup);
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.IsAutoScroll, false);
+        });
+        Assert.DoesNotContain("data-scroll=\"auto\"", cut.Markup);
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.IsAutoScroll, false);
+            pb.Add(a => a.ShowAutoScroll, false);
+        });
+        Assert.DoesNotContain("data-scroll", cut.Markup);
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ShowAutoScroll, true);
+        });
+        Assert.Contains("data-scroll=\"auto\"", cut.Markup);
+    }
+
+    [Fact]
     public void AutoScrollText_OK()
     {
         var cut = Context.RenderComponent<Console>(builder =>
         {
-            builder.Add(a => a.Items,
-                new List<ConsoleMessageItem>()
-                {
-                    new ConsoleMessageItem() {Message = "Test1"}, new ConsoleMessageItem() {Message = "Test2"}
-                });
+            builder.Add(a => a.Items, new List<ConsoleMessageItem>()
+            {
+                new ConsoleMessageItem() {Message = "Test1"}, new ConsoleMessageItem() {Message = "Test2"}
+            });
             builder.Add(a => a.AutoScrollText, "AutoScrollText");
             builder.Add(a => a.ShowAutoScroll, true);
         });
@@ -176,11 +202,10 @@ public class ConsoleTest : BootstrapBlazorTestBase
     {
         var cut = Context.RenderComponent<Console>(builder =>
         {
-            builder.Add(a => a.Items,
-                new List<ConsoleMessageItem>()
-                {
-                    new ConsoleMessageItem() {Message = "Test1"}, new ConsoleMessageItem() {Message = "Test2"}
-                });
+            builder.Add(a => a.Items, new List<ConsoleMessageItem>()
+            {
+                new ConsoleMessageItem() {Message = "Test1"}, new ConsoleMessageItem() {Message = "Test2"}
+            });
             builder.Add(a => a.LightTitle, "LightTitle");
         });
 
@@ -209,13 +234,11 @@ public class ConsoleTest : BootstrapBlazorTestBase
     {
         var cut = Context.RenderComponent<Console>(builder =>
         {
-            builder.Add(a => a.Items,
-                new List<ConsoleMessageItem>()
-                {
-                    new ConsoleMessageItem() {Message = "Test1", Color = Color.Danger}, new ConsoleMessageItem() {Message = "Test2"}
-                });
+            builder.Add(a => a.Items, new List<ConsoleMessageItem>()
+            {
+                new ConsoleMessageItem() {Message = "Test1", Color = Color.Danger}, new ConsoleMessageItem() {Message = "Test2"}
+            });
         });
-
 
         Assert.Contains("text-danger", cut.Markup);
     }

@@ -7,9 +7,9 @@ using Microsoft.Extensions.Localization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// 控制台消息组件
 /// </summary>
-public sealed partial class Console
+public partial class Console
 {
     /// <summary>
     /// 获得 组件样式
@@ -37,14 +37,6 @@ public sealed partial class Console
     /// </summary>
     private string? ClearButtonClassString => CssBuilder.Default("btn btn-secondary")
         .AddClass($"btn-{ClearButtonColor.ToDescriptionString()}", ClearButtonColor != Color.None)
-        .Build();
-
-    /// <summary>
-    /// 获得 客户端是否自动滚屏样式字符串
-    /// </summary>
-    private string? AutoScrollClassString => CssBuilder.Default("fa text-start")
-        .AddClass("fa-check-square-o", IsAutoScroll)
-        .AddClass("fa-square-o", !IsAutoScroll)
         .Build();
 
     /// <summary>

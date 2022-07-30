@@ -78,9 +78,9 @@ public partial class Tree<TItem> where TItem : class
         .AddClass("disabled", item.IsDisabled)
         .Build();
 
-    private bool TriggerNodeArrow(TreeItem<TItem> item) => !item.IsDisabled && (item.HasChildren || item.Items.Any());
+    private static bool TriggerNodeArrow(TreeItem<TItem> item) => !item.IsDisabled && (item.HasChildren || item.Items.Any());
 
-    private bool TriggerNodeLabel(TreeItem<TItem> item) => !item.IsDisabled;
+    private static bool TriggerNodeLabel(TreeItem<TItem> item) => !item.IsDisabled;
 
     /// <summary>
     /// 获得/设置 选中节点 默认 null
