@@ -116,7 +116,7 @@ public partial class Tree<TItem> where TItem : class
     /// </summary>
     [Parameter]
     [NotNull]
-    public IEnumerable<TreeItem<TItem>>? Items { get; set; }
+    public List<TreeItem<TItem>>? Items { get; set; }
 
     /// <summary>
     /// 获得/设置 是否显示 CheckBox 默认 false 不显示
@@ -158,8 +158,7 @@ public partial class Tree<TItem> where TItem : class
     /// <inheritdoc/>
     /// </summary>
     [Parameter]
-    [NotNull]
-    public Type? CustomKeyAttribute { get; set; } = typeof(KeyAttribute);
+    public Type CustomKeyAttribute { get; set; } = typeof(KeyAttribute);
 
     /// <summary>
     /// 获得/设置 比较数据是否相同回调方法 默认为 null
@@ -244,7 +243,7 @@ public partial class Tree<TItem> where TItem : class
                 // 恢复当前节点状态
                 foreach (var node in nodes)
                 {
-                    await treeNodeCache.CheckExpand(node, GetChildrenRowAsync);
+                    await treeNodeCache.CheckExpandAsync(node, GetChildrenRowAsync);
 
                     if (node.Items.Any())
                     {

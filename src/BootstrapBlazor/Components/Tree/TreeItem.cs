@@ -57,7 +57,7 @@ public class TreeItem<TItem> : NodeBase<TItem>, ICheckableNode<TItem>
     /// <summary>
     /// 获得/设置 子节点集合
     /// </summary>
-    IEnumerable<IExpandableNode<TItem>> IExpandableNode<TItem>.Items { get => Items; set => Items = value.OfType<TreeItem<TItem>>().ToList() ?? new(); }
+    IEnumerable<IExpandableNode<TItem>> IExpandableNode<TItem>.Items { get => Items; set => Items = value.OfType<TreeItem<TItem>>().ToList(); }
 
     /// <summary>
     /// 获得 所有子项集合

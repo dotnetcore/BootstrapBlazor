@@ -79,7 +79,7 @@ public class ExpandableNodeCache<TNode, TItem> where TNode : IExpandableNode<TIt
     /// <param name="node"></param>
     /// <param name="callback"></param>
     /// <returns></returns>
-    public async Task CheckExpand(TNode node, Func<TNode, TItem, Task<IEnumerable<IExpandableNode<TItem>>>> callback)
+    public async Task CheckExpandAsync(TNode node, Func<TNode, TItem, Task<IEnumerable<IExpandableNode<TItem>>>> callback)
     {
         if (node.IsExpand)
         {
@@ -101,7 +101,7 @@ public class ExpandableNodeCache<TNode, TItem> where TNode : IExpandableNode<TIt
                 // 原来是展开状态
                 node.IsExpand = true;
 
-                if (node.Items == null || !node.Items.Any())
+                if (!node.Items.Any())
                 {
                     node.Items = await callback(node, node.Value);
                 }
@@ -150,7 +150,7 @@ public class ExpandableNodeCache<TNode, TItem> where TNode : IExpandableNode<TIt
         var ret = source.FirstOrDefault(item => equalityComparer.Equals(item.Value, target));
         if (ret == null)
         {
-            var children = source.SelectMany(e => e.Items?.Cast<TNode>() ?? Enumerable.Empty<TNode>());
+            var children = source.SelectMany(e => e.Items.OfType<TNode>());
             ret = Find(children, target, out degree);
         }
         if (ret != null)

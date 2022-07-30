@@ -31,7 +31,7 @@ public class CultureController : Controller
                 CookieRequestCultureProvider.DefaultCookieName,
                 CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(culture, culture)), new CookieOptions()
                 {
-                    Expires = DateTimeOffset.Now.AddDays(1)
+                    Expires = DateTimeOffset.Now.AddYears(1)
                 });
         }
 
