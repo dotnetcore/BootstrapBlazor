@@ -321,9 +321,9 @@ public partial class Tree<TItem> where TItem : class
     private async Task OnToggleNodeAsync(TreeItem<TItem> item, bool shouldRender = false)
     {
         // 手风琴效果逻辑
+        item.IsExpand = !item.IsExpand;
         if (IsAccordion)
         {
-            item.IsExpand = !item.IsExpand;
             await treeNodeCache.ToggleNodeAsync(item, GetChildrenRowAsync);
 
             // 展开此节点关闭其他同级节点
@@ -344,21 +344,13 @@ public partial class Tree<TItem> where TItem : class
         }
         else
         {
-            await ToggleNodeAsync();
+            // 重建缓存 并且更改节点展开状态
+            await treeNodeCache.ToggleNodeAsync(item, GetChildrenRowAsync);
         }
 
         if (shouldRender)
         {
             StateHasChanged();
-        }
-
-        async Task ToggleNodeAsync()
-        {
-            if (item.HasChildren || item.Items.Any())
-            {
-                // 重建缓存 并且更改节点展开状态
-                await treeNodeCache.ToggleNodeAsync(item, GetChildrenRowAsync);
-            }
         }
     }
 

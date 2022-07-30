@@ -55,7 +55,7 @@ public class ExpandableNodeCache<TNode, TItem> where TNode : IExpandableNode<TIt
             collapsedNodeCache.RemoveAll(i => equalityComparer.Equals(i, node.Value));
 
             // 无子项时通过回调方法延时加载
-            if (node.Items == null || !node.Items.Any())
+            if (!node.Items.Any())
             {
                 node.Items = await callback(node, node.Value);
             }
