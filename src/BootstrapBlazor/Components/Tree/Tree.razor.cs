@@ -181,6 +181,12 @@ public partial class Tree<TItem> where TItem : class
     protected TreeNodeCache<TreeItem<TItem>, TItem>? treeNodeCache = null;
 
     /// <summary>
+    /// 改变节点状态后自动更新子节点 默认 false
+    /// </summary>
+    [Parameter]
+    public bool AutoCheckChildren { get; set; }
+
+    /// <summary>
     /// OnInitialized 方法
     /// </summary>
     protected override void OnInitialized()
@@ -306,11 +312,17 @@ public partial class Tree<TItem> where TItem : class
         }
         else if (ShowCheckbox)
         {
-            item.Checked = !item.Checked;
+            item.CheckedState = ToggleCheckState(item.CheckedState);
             await OnCheckStateChanged(item);
         }
         StateHasChanged();
     }
+
+    private static CheckboxState ToggleCheckState(CheckboxState state) => state switch
+    {
+        CheckboxState.Checked => CheckboxState.UnChecked,
+        _ => CheckboxState.Checked
+    };
 
     /// <summary>
     /// 更改节点是否展开方法
@@ -360,10 +372,16 @@ public partial class Tree<TItem> where TItem : class
     /// <returns></returns>
     private async Task OnCheckStateChanged(TreeItem<TItem> item)
     {
-        // 向下级联操作
-        item.CascadeSetCheck(item.Checked);
+        item.CheckedState = ToggleCheckState(item.CheckedState);
 
-        // TODO: 向上级联操作
+        if (AutoCheckChildren)
+        {
+            // 向下级联操作
+            item.CascadeSetCheck<TreeItem<TItem>, TItem>(item.CheckedState, item => treeNodeCache.ToggleCheck(item));
+        }
+
+        // 向上级联操作
+        //item.SetParentCheck(item.CheckedState);
 
         // 更新 选中状态缓存
         treeNodeCache.ToggleCheck(item);
@@ -372,6 +390,8 @@ public partial class Tree<TItem> where TItem : class
         {
             await OnTreeItemChecked(GetCheckedItems().ToList());
         }
+
+        StateHasChanged();
     }
 
     /// <summary>
@@ -381,20 +401,22 @@ public partial class Tree<TItem> where TItem : class
     public IEnumerable<TreeItem<TItem>> GetCheckedItems() => Items.Aggregate(new List<TreeItem<TItem>>(), (t, item) =>
     {
         t.Add(item);
-        t.AddRange(item.GetAllSubItems());
+        t.AddRange(item.GetAllSubItems().OfType<TreeItem<TItem>>());
         return t;
-    }).Where(i => i.Checked);
+    }).Where(i => i.CheckedState == CheckboxState.Checked);
 
     private async Task OnRadioClick(TreeItem<TItem> item)
     {
+        item.CheckedState = ToggleCheckState(item.CheckedState);
+
         // 单选移除已选择
         if (ActiveItem != null)
         {
-            ActiveItem.Checked = false;
+            ActiveItem.CheckedState = CheckboxState.UnChecked;
             treeNodeCache.ToggleCheck(ActiveItem);
         }
         ActiveItem = item;
-        ActiveItem.Checked = true;
+        ActiveItem.CheckedState = CheckboxState.Checked;
         treeNodeCache.ToggleCheck(item);
 
         // 其他设置为 false
@@ -402,27 +424,8 @@ public partial class Tree<TItem> where TItem : class
         {
             await OnTreeItemChecked(new List<TreeItem<TItem>> { item });
         }
-    }
 
-    private static CheckboxState CheckState(TreeItem<TItem> item) => item.Checked ? CheckboxState.Checked : CheckboxState.UnChecked;
-
-    private static CheckboxState CheckCascadeState(TreeItem<TItem> item)
-    {
-        var ret = item.Checked ? CheckboxState.Checked : CheckboxState.UnChecked;
-        if (item.Items.Any())
-        {
-            if (item.Items.All(i => i.Checked))
-            {
-                item.Checked = true;
-                ret = CheckboxState.Checked;
-            }
-            else if (item.Items.Any(i => i.Checked))
-            {
-                item.Checked = false;
-                ret = CheckboxState.Indeterminate;
-            }
-        }
-        return ret;
+        StateHasChanged();
     }
 
     /// <summary>

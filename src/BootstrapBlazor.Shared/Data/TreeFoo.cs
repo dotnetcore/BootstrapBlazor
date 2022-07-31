@@ -57,15 +57,16 @@ class TreeFoo
     /// 树状数据层次化方法
     /// </summary>
     /// <param name="items">数据集合</param>
-    /// <param name="parentId">父级节点</param>
-    public static IEnumerable<TreeItem<TreeFoo>> CascadingTree(IEnumerable<TreeFoo> items, string? parentId = null) => items.Where(i => i.ParentId == parentId).Select(i =>
+    /// <param name="parent">父级节点</param>
+    public static IEnumerable<TreeItem<TreeFoo>> CascadingTree(IEnumerable<TreeFoo> items, TreeItem<TreeFoo>? parent = null) => items.Where(i => i.ParentId == parent?.Value.Id).Select(i =>
     {
         var item = new TreeItem<TreeFoo>(i)
         {
             Text = i.Text,
-            Icon = i.Icon,
-            Items = CascadingTree(items, i.Id).ToList()
+            Icon = i.Icon
         };
+        item.Items = CascadingTree(items, item).ToList();
+        item.Parent = parent;
         return item;
     });
 }

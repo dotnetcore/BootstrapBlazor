@@ -19,3 +19,16 @@ public abstract class NodeBase
     /// </summary>
     public bool HasChildren { get; set; }
 }
+
+/// <summary>
+/// NodeBase 泛型基类
+/// </summary>
+/// <typeparam name="TItem"></typeparam>
+public abstract class NodeBase<TItem> : NodeBase
+{
+    /// <summary>
+    /// 获得/设置 当前节点值
+    /// </summary>
+    [NotNull]
+    public TItem? Value { get; set; }
+}

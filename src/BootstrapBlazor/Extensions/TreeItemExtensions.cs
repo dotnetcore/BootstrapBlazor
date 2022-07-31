@@ -10,7 +10,7 @@ namespace BootstrapBlazor.Components;
 public static class TreeItemExtensions
 {
     /// <summary>
-    /// 在全部树状结构 <paramref name="source"/> 中寻找第一个 <see cref="TreeItem{TItem}.IsActive"/> 节点/>
+    /// 在全部树状结构 <paramref name="source"/> 中寻找第一个 Active 节点/>
     /// </summary>
     /// <param name="source"></param>
     public static TreeItem<TItem>? FirstOrDefaultActiveItem<TItem>(this IEnumerable<TreeItem<TItem>> source)

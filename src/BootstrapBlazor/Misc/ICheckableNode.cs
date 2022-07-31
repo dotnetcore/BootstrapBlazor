@@ -13,5 +13,5 @@ public interface ICheckableNode<TItem> : IExpandableNode<TItem>
     /// <summary>
     /// 获得/设置 是否被选中
     /// </summary>
-    bool Checked { get; set; }
+    CheckboxState CheckedState { get; set; }
 }

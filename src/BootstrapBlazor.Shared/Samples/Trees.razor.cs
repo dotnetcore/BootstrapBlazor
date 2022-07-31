@@ -42,6 +42,8 @@ public sealed partial class Trees
 
     private List<TreeItem<TreeFoo>>? AsyncItems { get; set; }
 
+    private bool AutoCheckChildren { get; set; }
+
     /// <summary>
     /// OnInitializedAsync 方法
     /// </summary>
@@ -75,7 +77,7 @@ public sealed partial class Trees
     {
         var ret = TreeFoo.GetTreeItems();
         ret[1].IsActive = true;
-        ret[1].Items[1].Checked = true;
+        ret[1].Items[1].CheckedState = CheckboxState.Checked;
         return ret;
     }
 
@@ -172,7 +174,7 @@ public sealed partial class Trees
 
     private Task OnTreeItemChecked(TreeItem<TreeFoo> item)
     {
-        var state = item.Checked ? "选中" : "未选中";
+        var state = item.CheckedState == CheckboxState.Checked ? "选中" : "未选中";
         TraceChecked.Log($"TreeItem: {item.Text} {state}");
         return Task.CompletedTask;
     }
@@ -303,7 +305,7 @@ public sealed partial class Trees
             DefaultValue = " — "
         },
         new AttributeItem() {
-            Name = nameof(TreeItem<TreeFoo>.Checked),
+            Name = nameof(TreeItem<TreeFoo>.CheckedState),
             Description = "是否被选中",
             Type = "bool",
             ValueList = "true|false",

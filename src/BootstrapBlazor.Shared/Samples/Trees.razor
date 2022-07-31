@@ -41,10 +41,10 @@
             <span class="me-3">当前状态：@GetState()</span>
             <Button Text="重置" OnClick="OnReset" class="me-3" />
             <Button Text="刷新" OnClick="OnRefresh" />
+            <Checkbox DisplayText="自动选中子节点" ShowAfterLabel="true" @bind-Value="@AutoCheckChildren" />
         </div>
-
     </p>
-    <Tree TItem="TreeFoo" Items="@CheckedItems" ShowCheckbox="true" OnTreeItemChecked="@OnTreeItemChecked" IsReset="@IsReset" />
+    <Tree TItem="TreeFoo" Items="@CheckedItems" ShowCheckbox="true" OnTreeItemChecked="@OnTreeItemChecked" IsReset="@IsReset" AutoCheckChildren="@AutoCheckChildren" />
     <BlockLogger @ref="TraceChecked" class="mt-3" />
 </DemoBlock>
 

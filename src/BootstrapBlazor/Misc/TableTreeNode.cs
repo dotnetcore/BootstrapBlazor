@@ -22,6 +22,27 @@ public class TableTreeNode<TItem> : NodeBase<TItem>, IExpandableNode<TItem>
     IEnumerable<IExpandableNode<TItem>> IExpandableNode<TItem>.Items { get => Items; set => Items = value.OfType<TableTreeNode<TItem>>(); }
 
     /// <summary>
+    /// 获得/设置 父级节点
+    /// </summary>
+    public TableTreeNode<TItem>? Parent { get; set; }
+
+    /// <summary>
+    /// 获得/设置 父级节点
+    /// </summary>
+    IExpandableNode<TItem>? IExpandableNode<TItem>.Parent
+    {
+        get => Parent;
+        set
+        {
+            Parent = null;
+            if (value is TableTreeNode<TItem> item)
+            {
+                Parent = item;
+            }
+        }
+    }
+
+    /// <summary>
     /// 构造函数
     /// </summary>
     public TableTreeNode([DisallowNull] TItem item)

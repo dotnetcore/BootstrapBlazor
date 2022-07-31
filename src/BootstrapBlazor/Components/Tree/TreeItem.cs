@@ -7,33 +7,8 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// TreeItem 组件
 /// </summary>
-public class TreeItem<TItem> : NodeBase<TItem>, ICheckableNode<TItem>
+public class TreeItem<TItem> : TreeNodeBase<TItem>, ICheckableNode<TItem>
 {
-    /// <summary>
-    /// 获得/设置 显示文字
-    /// </summary>
-    public string? Text { get; set; }
-
-    /// <summary>
-    /// 获得/设置 图标
-    /// </summary>
-    public string? Icon { get; set; }
-
-    /// <summary>
-    /// 获得/设置 自定义样式名
-    /// </summary>
-    public string? CssClass { get; set; }
-
-    /// <summary>
-    /// 获得/设置 是否被禁用 默认 false
-    /// </summary>
-    public bool IsDisabled { get; set; }
-
-    /// <summary>
-    /// 获得/设置 是否选中当前节点 默认 false
-    /// </summary>
-    public bool IsActive { get; set; }
-
     /// <summary>
     /// 获得/设置 是否显示正在加载动画 默认为 false
     /// </summary>
@@ -42,12 +17,7 @@ public class TreeItem<TItem> : NodeBase<TItem>, ICheckableNode<TItem>
     /// <summary>
     /// 获得/设置 是否被选中
     /// </summary>
-    public bool Checked { get; set; }
-
-    /// <summary>
-    /// 获得/设置 子组件模板 默认为 null
-    /// </summary>
-    public RenderFragment<TItem>? Template { get; set; }
+    public CheckboxState CheckedState { get; set; }
 
     /// <summary>
     /// 获得/设置 子节点数据源
@@ -60,12 +30,25 @@ public class TreeItem<TItem> : NodeBase<TItem>, ICheckableNode<TItem>
     IEnumerable<IExpandableNode<TItem>> IExpandableNode<TItem>.Items { get => Items; set => Items = value.OfType<TreeItem<TItem>>().ToList(); }
 
     /// <summary>
-    /// 获得 所有子项集合
+    /// 获得/设置 父级节点
     /// </summary>
-    /// <returns></returns>
-    public IEnumerable<TreeItem<TItem>> GetAllSubItems() => Items.Concat(GetSubItems(Items));
+    public TreeItem<TItem>? Parent { get; set; }
 
-    private static IEnumerable<TreeItem<TItem>> GetSubItems(IEnumerable<TreeItem<TItem>> items) => items.SelectMany(i => i.Items.Any() ? i.Items.Concat(GetSubItems(i.Items)) : i.Items);
+    /// <summary>
+    /// 获得/设置 父级节点
+    /// </summary>
+    IExpandableNode<TItem>? IExpandableNode<TItem>.Parent
+    {
+        get => Parent;
+        set
+        {
+            Parent = null;
+            if (value is TreeItem<TItem> item)
+            {
+                Parent = item;
+            }
+        }
+    }
 
     /// <summary>
     /// 构造函数
@@ -73,21 +56,6 @@ public class TreeItem<TItem> : NodeBase<TItem>, ICheckableNode<TItem>
     public TreeItem([DisallowNull] TItem item)
     {
         Value = item;
-    }
-
-    /// <summary>
-    /// 级联设置复选状态
-    /// </summary>
-    public void CascadeSetCheck(bool isChecked)
-    {
-        foreach (var item in Items)
-        {
-            item.Checked = isChecked;
-            if (item.Items.Any())
-            {
-                item.CascadeSetCheck(isChecked);
-            }
-        }
     }
 
     ///// <summary>

@@ -27,4 +27,9 @@ public interface IExpandableNode<TItem>
     [DisallowNull]
     [NotNull]
     TItem? Value { get; set; }
+
+    /// <summary>
+    /// 获得/设置 父级节点
+    /// </summary>
+    IExpandableNode<TItem>? Parent { get; set; }
 }

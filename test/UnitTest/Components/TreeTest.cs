@@ -65,14 +65,14 @@ public class TreeTest : BootstrapBlazorTestBase
     public async Task OnClick_Checkbox_Ok()
     {
         var tcs = new TaskCompletionSource<bool>();
-        bool itemChecked = false;
+        CheckboxState itemChecked = CheckboxState.UnChecked;
         var cut = Context.RenderComponent<Tree<TreeFoo>>(pb =>
         {
             pb.Add(a => a.IsAccordion, true);
             pb.Add(a => a.ShowCheckbox, true);
             pb.Add(a => a.OnTreeItemChecked, items =>
             {
-                itemChecked = items.FirstOrDefault()?.Checked ?? false;
+                itemChecked = items.FirstOrDefault()?.CheckedState ?? CheckboxState.UnChecked;
                 tcs.SetResult(true);
                 return Task.CompletedTask;
             });
@@ -82,13 +82,13 @@ public class TreeTest : BootstrapBlazorTestBase
         // 测试点击选中
         await cut.InvokeAsync(() => cut.Find(".tree-node").Click());
         await tcs.Task;
-        Assert.True(itemChecked);
+        Assert.Equal(CheckboxState.Checked, itemChecked);
 
         // 测试取消选中
         tcs = new TaskCompletionSource<bool>();
         await cut.InvokeAsync(() => cut.Find(".tree-node").Click());
         await tcs.Task;
-        Assert.False(itemChecked);
+        Assert.Equal(CheckboxState.UnChecked, itemChecked);
     }
 
     [Fact]
@@ -219,7 +219,7 @@ public class TreeTest : BootstrapBlazorTestBase
         var data = TreeFoo.CascadingTree(items);
         Assert.Single(data);
 
-        var subs = data.First().GetAllSubItems();
+        var subs = data.First().GetAllTreeSubItems();
         Assert.Equal(2, subs.Count());
     }
 
@@ -298,8 +298,8 @@ public class TreeTest : BootstrapBlazorTestBase
         var node = TreeFoo.CascadingTree(items).First();
 
         // 设置当前几点所有子项选中状态
-        node.CascadeSetCheck(true);
-        Assert.True(node.GetAllSubItems().All(i => i.Checked));
+        node.CascadeSetCheck(CheckboxState.Checked);
+        Assert.True(node.GetAllTreeSubItems().All(i => i.CheckedState == CheckboxState.Checked));
     }
 
     [Fact]
@@ -414,6 +414,32 @@ public class TreeTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void EqualityComparer_Ok()
+    {
+        var cut = Context.RenderComponent<MockTree<Dummy>>();
+
+        var ret = cut.Instance.TestComparerItem(new Dummy() { Id = 1 }, new Dummy() { Id = 1 });
+        Assert.True(ret);
+    }
+
+    [Fact]
+    public void Equality_Ok()
+    {
+        var cut = Context.RenderComponent<MockTree<CatKeyAttribute>>();
+
+        var ret = cut.Instance.TestComparerItem(new CatKeyAttribute(), new CatKeyAttribute());
+        Assert.True(ret);
+    }
+
+    [Fact]
+    public void Equality_False()
+    {
+        var cut = Context.RenderComponent<MockTree<Dog>>();
+        var ret = cut.Instance.TestComparerItem(new Dog(), new Dog());
+        Assert.False(ret);
+    }
+
+    [Fact]
     public async Task IsAccordion_Ok()
     {
         var items = new List<TreeFoo>
@@ -497,6 +523,11 @@ public class TreeTest : BootstrapBlazorTestBase
     {
         public bool IsExpand { get; set; }
 
+        /// <summary>
+        /// 获得/设置 父级节点
+        /// </summary>
+        public IExpandableNode<TreeFoo>? Parent { get; set; }
+
         [NotNull]
         public IEnumerable<IExpandableNode<TreeFoo>>? Items { get; set; }
 
@@ -527,5 +558,27 @@ public class TreeTest : BootstrapBlazorTestBase
                 Text = "懒加载子节点2"
             }
         };
+    }
+
+    private class Dummy : IEqualityComparer<Dummy>
+    {
+        public int Id { get; set; }
+
+        public bool Equals(Dummy? x, Dummy? y)
+        {
+            var ret = false;
+            if (x != null && y != null)
+            {
+                ret = x.Id == y.Id;
+            }
+            return ret;
+        }
+
+        public int GetHashCode([DisallowNull] Dummy obj) => obj.GetHashCode();
+    }
+
+    private class Dog
+    {
+        public int Id { get; set; }
     }
 }

@@ -31,9 +31,9 @@ public static class ExpandableNodeExtensions
             if (item.Value != null)
             {
                 results.Add(item.Value);
-                if (item.Items != null)
+                if (item.Items.Any())
                 {
-                    if (item.IsExpand && item.Items.Any())
+                    if (item.IsExpand)
                     {
                         GetAllItems(item.Items, results);
                     }
@@ -41,5 +41,67 @@ public static class ExpandableNodeExtensions
             }
         }
         return results;
+    }
+
+    /// <summary>
+    /// 获得 所有子项集合
+    /// </summary>
+    /// <returns></returns>
+    public static IEnumerable<IExpandableNode<TItem>> GetAllSubItems<TItem>(this IExpandableNode<TItem> item) => item.Items.Concat(GetSubItems(item.Items));
+
+    private static IEnumerable<IExpandableNode<TItem>> GetSubItems<TItem>(IEnumerable<IExpandableNode<TItem>> items) => items.SelectMany(i => i.Items.Any() ? i.Items.Concat(GetSubItems(i.Items)) : i.Items);
+
+    /// <summary>
+    /// 获得 所有 TreeItem 子项集合
+    /// </summary>
+    /// <typeparam name="TItem"></typeparam>
+    /// <param name="item"></param>
+    /// <returns></returns>
+    public static IEnumerable<TreeItem<TItem>> GetAllTreeSubItems<TItem>(this IExpandableNode<TItem> item) => item.GetAllSubItems().OfType<TreeItem<TItem>>();
+
+    /// <summary>
+    /// 向下级联设置复选状态
+    /// </summary>
+    internal static void CascadeSetCheck<TNode, TItem>(this TNode node, CheckboxState state, Action<TNode> callback) where TNode : ICheckableNode<TItem>
+    {
+        foreach (var item in node.Items.OfType<TNode>())
+        {
+            item.CheckedState = state;
+            callback(item);
+
+            // 设置子节点
+            if (item.Items.Any())
+            {
+                item.CascadeSetCheck<TNode, TItem>(state, callback);
+            }
+        }
+    }
+
+    /// <summary>
+    /// 向上级联设置复选状态
+    /// </summary>
+    /// <typeparam name="TItem"></typeparam>
+    /// <param name="node"></param>
+    /// <param name="state"></param>
+    public static void SetParentCheck<TItem>(this ICheckableNode<TItem> node, CheckboxState state)
+    {
+        if (node.Parent is ICheckableNode<TItem> p)
+        {
+            var nodes = p.Items.OfType<ICheckableNode<TItem>>();
+            if (nodes.All(i => i.CheckedState == CheckboxState.Checked))
+            {
+                p.CheckedState = CheckboxState.Checked;
+            }
+            else if (nodes.Any(i => i.CheckedState == CheckboxState.Checked || i.CheckedState == CheckboxState.Indeterminate))
+            {
+                p.CheckedState = CheckboxState.Indeterminate;
+            }
+            else
+            {
+                p.CheckedState = CheckboxState.UnChecked;
+            }
+
+            SetParentCheck(p, state);
+        }
     }
 }

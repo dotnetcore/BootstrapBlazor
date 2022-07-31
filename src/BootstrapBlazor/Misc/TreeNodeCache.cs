@@ -5,7 +5,7 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// Tree 组件节点缓存类
 /// </summary>
 /// <typeparam name="TNode"></typeparam>
 /// <typeparam name="TItem"></typeparam>
@@ -36,7 +36,7 @@ public class TreeNodeCache<TNode, TItem> : ExpandableNodeCache<TNode, TItem> whe
     /// <returns></returns>
     public virtual void ToggleCheck(TNode node)
     {
-        if (node.Checked)
+        if (node.CheckedState == CheckboxState.Checked)
         {
             // 未选中节点缓存移除此节点
             uncheckedNodeCache.RemoveAll(i => equalityComparer.Equals(i, node.Value));
@@ -67,12 +67,12 @@ public class TreeNodeCache<TNode, TItem> : ExpandableNodeCache<TNode, TItem> whe
     /// <returns></returns>
     private void IsChecked(TNode node)
     {
-        if (node.Checked)
+        if (node.CheckedState == CheckboxState.Checked)
         {
             // 已选中
             if (uncheckedNodeCache.Contains(node.Value, equalityComparer))
             {
-                node.Checked = false;
+                node.CheckedState = CheckboxState.UnChecked;
             }
             else if (!checkedNodeCache.Contains(node.Value, equalityComparer))
             {
@@ -84,7 +84,7 @@ public class TreeNodeCache<TNode, TItem> : ExpandableNodeCache<TNode, TItem> whe
             if (checkedNodeCache.Any(i => equalityComparer.Equals(i, node.Value)))
             {
                 // 原来是展开状态
-                node.Checked = true;
+                node.CheckedState = CheckboxState.Checked;
             }
             else if (!uncheckedNodeCache.Contains(node.Value, equalityComparer))
             {

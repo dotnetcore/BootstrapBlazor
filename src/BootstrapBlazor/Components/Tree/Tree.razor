@@ -42,15 +42,15 @@ private RenderFragment<TreeItem<TItem>> RenderTreeItem => item =>
         <DynamicElement TagName="i" class="@GetCaretClassString(item)" TriggerClick="TriggerNodeArrow(item)"  OnClick="() => OnToggleNodeAsync(item, true)"></DynamicElement>
         @if (ShowCheckbox)
         {
-            <Checkbox @bind-Value="@item.Checked" IsDisabled="@item.IsDisabled" SkipValidate="true"
-                      ShowLabel="false" ShowAfterLabel="false" State="@CheckCascadeState(item)"
+            <Checkbox Value="@item.CheckedState" IsDisabled="@item.IsDisabled" SkipValidate="true"
+                      ShowLabel="false" ShowAfterLabel="false" State="@item.CheckedState"
                       OnStateChanged="(state, v) => OnCheckStateChanged(item)" StopPropagation="true" />
         }
         else if (ShowRadio)
         {
-            <Radio @bind-Value="@item.Checked" IsDisabled="@item.IsDisabled" SkipValidate="true"
+            <Radio Value="@item.CheckedState" IsDisabled="@item.IsDisabled" SkipValidate="true"
                    ShowLabel="false" ShowAfterLabel="false" GroupName="@GroupName"
-                   OnClick="p => OnRadioClick(item)" State="@CheckState(item)" />
+                   OnClick="p => OnRadioClick(item)" State="@item.CheckedState" />
         }
         <DynamicElement class="@GetNodeClassString(item)" TriggerClick="TriggerNodeLabel(item)" OnClick="() => OnClick(item)">
             @if (ShowIcon)
