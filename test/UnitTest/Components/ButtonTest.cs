@@ -18,20 +18,20 @@ public class ButtonTest : BootstrapBlazorTestBase
         {
             pb.Add(b => b.ButtonStyle, ButtonStyle.None);
         });
-        Assert.DoesNotContain("is-round", cut.Markup);
-        Assert.DoesNotContain("is-circle", cut.Markup);
+        Assert.DoesNotContain("btn-round", cut.Markup);
+        Assert.DoesNotContain("btn-circle", cut.Markup);
 
         cut.SetParametersAndRender(pb =>
         {
             pb.Add(b => b.ButtonStyle, ButtonStyle.Circle);
         });
-        Assert.Contains("is-circle", cut.Markup);
+        Assert.Contains("btn-circle", cut.Markup);
 
         cut.SetParametersAndRender(pb =>
         {
             pb.Add(b => b.ButtonStyle, ButtonStyle.Round);
         });
-        Assert.Contains("is-round", cut.Markup);
+        Assert.Contains("btn-round", cut.Markup);
     }
 
     [Fact]

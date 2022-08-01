@@ -49,23 +49,20 @@
     width: 100%
 }
 
-.link-button.is-vertical {
+.btn-vertical {
     display: flex;
     flex-direction: column;
     align-items: center;
+    --bb-button-label-margin-left: 0;
 }
 
-    .link-button.is-vertical > i + span {
-        margin-left: 0;
-    }
-
-
-.link-button:disabled {
+.link-button {
     background-color: transparent;
     border: none;
     padding: 0;
+    --bb-link-btn-disabled-opacity: 0.65;
 }
 
     .link-button:disabled img {
-        opacity: .4;
+        opacity: var(--bb-link-btn-disabled-opacity);
     }

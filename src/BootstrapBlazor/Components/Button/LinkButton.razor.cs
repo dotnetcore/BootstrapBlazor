@@ -46,13 +46,13 @@ public partial class LinkButton
     private string? UrlString => IsDisabled ? null : Url;
 
     private string? ClassString => CssBuilder.Default("link-button")
-        .AddClass("is-vertical", IsVertical)
+        .AddClass("btn-vertical", IsVertical)
         .AddClass($"btn-outline-{Color.ToDescriptionString()}", IsOutline)
         .AddClass($"link-{Color.ToDescriptionString()}", Color != Color.None && !IsOutline && !IsDisabled)
         .AddClass($"btn-{Size.ToDescriptionString()}", Size != Size.None)
         .AddClass("btn-block", IsBlock)
-        .AddClass("is-round", ButtonStyle == ButtonStyle.Round)
-        .AddClass("is-circle", ButtonStyle == ButtonStyle.Circle)
+        .AddClass("btn-round", ButtonStyle == ButtonStyle.Round)
+        .AddClass("btn-circle", ButtonStyle == ButtonStyle.Circle)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
