@@ -182,6 +182,7 @@ public partial class Cascader<TValue>
         SelectedItems.Clear();
         SetSelectedNodeWithParent(item, SelectedItems);
         await SetValue(item.Value);
+        await JSRuntime.InvokeVoidAsync(InputId, "bb_cascader_hide");
     }
 
     private async Task SetValue(string value)
