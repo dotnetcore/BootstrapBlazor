@@ -44,6 +44,8 @@ public sealed partial class Trees
 
     private bool AutoCheckChildren { get; set; }
 
+    private bool AutoCheckParent { get; set; }
+
     /// <summary>
     /// OnInitializedAsync 方法
     /// </summary>

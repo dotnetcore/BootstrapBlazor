@@ -187,6 +187,12 @@ public partial class Tree<TItem> where TItem : class
     public bool AutoCheckChildren { get; set; }
 
     /// <summary>
+    /// 改变节点状态后自动更新父节点 默认 false
+    /// </summary>
+    [Parameter]
+    public bool AutoCheckParent { get; set; }
+
+    /// <summary>
     /// OnInitialized 方法
     /// </summary>
     protected override void OnInitialized()
@@ -377,11 +383,14 @@ public partial class Tree<TItem> where TItem : class
         if (AutoCheckChildren)
         {
             // 向下级联操作
-            item.CascadeSetCheck<TreeItem<TItem>, TItem>(item.CheckedState, item => treeNodeCache.ToggleCheck(item));
+            item.CascadeSetCheck<TreeItem<TItem>, TItem>(item.CheckedState, treeNodeCache);
         }
 
-        // 向上级联操作
-        //item.SetParentCheck(item.CheckedState);
+        if (AutoCheckParent)
+        {
+            // 向上级联操作
+            item.SetParentCheck(item.CheckedState, treeNodeCache);
+        }
 
         // 更新 选中状态缓存
         treeNodeCache.ToggleCheck(item);
