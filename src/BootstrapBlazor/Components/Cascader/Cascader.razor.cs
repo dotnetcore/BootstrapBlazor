@@ -49,6 +49,12 @@ public partial class Cascader<TValue>
     [Parameter]
     public Func<CascaderItem[], Task>? OnSelectedItemChanged { get; set; }
 
+    /// <summary>
+    /// 是否只能选择最后一级，默认为false
+    /// </summary>
+    [Parameter]
+    public bool OnlySelectLast { get; set; } = false;
+
     [Inject]
     [NotNull]
     private IStringLocalizer<Cascader<TValue>>? Localizer { get; set; }
@@ -169,6 +175,10 @@ public partial class Cascader<TValue>
 
     private async Task SetSelectedItem(CascaderItem item)
     {
+        if (OnlySelectLast && item.HasChildren)
+        {
+            return;
+        }
         SelectedItems.Clear();
         SetSelectedNodeWithParent(item, SelectedItems);
         await SetValue(item.Value);
