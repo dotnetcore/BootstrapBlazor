@@ -298,7 +298,7 @@ public class TreeTest : BootstrapBlazorTestBase
         var node = TreeFoo.CascadingTree(items).First();
 
         // 设置当前几点所有子项选中状态
-        node.CascadeSetCheck(CheckboxState.Checked);
+        node.SetChildrenCheck<TreeItem<TreeFoo>, TreeFoo>(CheckboxState.Checked);
         Assert.True(node.GetAllTreeSubItems().All(i => i.CheckedState == CheckboxState.Checked));
     }
 

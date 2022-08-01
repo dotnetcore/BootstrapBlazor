@@ -62,17 +62,17 @@ public static class ExpandableNodeExtensions
     /// <summary>
     /// 向下级联设置复选状态
     /// </summary>
-    internal static void CascadeSetCheck<TNode, TItem>(this TNode node, CheckboxState state, TreeNodeCache<TNode, TItem> cache) where TNode : ICheckableNode<TItem>
+    public static void SetChildrenCheck<TNode, TItem>(this TNode node, CheckboxState state, TreeNodeCache<TNode, TItem>? cache = null) where TNode : ICheckableNode<TItem>
     {
         foreach (var item in node.Items.OfType<TNode>())
         {
             item.CheckedState = state;
-            cache.ToggleCheck(item);
+            cache?.ToggleCheck(item);
 
             // 设置子节点
             if (item.Items.Any())
             {
-                item.CascadeSetCheck<TNode, TItem>(state, cache);
+                item.SetChildrenCheck<TNode, TItem>(state, cache);
             }
         }
     }
@@ -80,7 +80,7 @@ public static class ExpandableNodeExtensions
     /// <summary>
     /// 向上级联设置复选状态
     /// </summary>
-    public static void SetParentCheck<TNode, TItem>(this TNode node, CheckboxState state, TreeNodeCache<TNode, TItem> cache) where TNode : ICheckableNode<TItem>
+    public static void SetParentCheck<TNode, TItem>(this TNode node, CheckboxState state, TreeNodeCache<TNode, TItem>? cache = null) where TNode : ICheckableNode<TItem>
     {
         if (node.Parent is TNode p)
         {
@@ -97,7 +97,7 @@ public static class ExpandableNodeExtensions
             {
                 p.CheckedState = CheckboxState.UnChecked;
             }
-            cache.ToggleCheck(p);
+            cache?.ToggleCheck(p);
 
             p.SetParentCheck(state, cache);
         }

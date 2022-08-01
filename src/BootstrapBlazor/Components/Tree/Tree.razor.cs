@@ -383,7 +383,7 @@ public partial class Tree<TItem> where TItem : class
         if (AutoCheckChildren)
         {
             // 向下级联操作
-            item.CascadeSetCheck<TreeItem<TItem>, TItem>(item.CheckedState, treeNodeCache);
+            item.SetChildrenCheck<TreeItem<TItem>, TItem>(item.CheckedState, treeNodeCache);
         }
 
         if (AutoCheckParent)
