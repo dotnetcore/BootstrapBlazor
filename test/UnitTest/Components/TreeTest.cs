@@ -114,17 +114,19 @@ public class TreeTest : BootstrapBlazorTestBase
 
         var cut = Context.RenderComponent<Tree<TreeFoo>>(pb =>
         {
+            pb.Add(a => a.AutoCheckChildren, true);
+            pb.Add(a => a.AutoCheckParent, true);
             pb.Add(a => a.Items, nodes);
             pb.Add(a => a.ShowCheckbox, true);
         });
-        var checkboxs = cut.FindComponents<Checkbox<bool>>();
+        var checkboxs = cut.FindComponents<Checkbox<CheckboxState>>();
         await cut.InvokeAsync(() => checkboxs[1].Instance.SetState(CheckboxState.Checked));
         await cut.InvokeAsync(() => checkboxs[2].Instance.SetState(CheckboxState.Checked));
 
         // Indeterminate
         await cut.InvokeAsync(() => checkboxs[4].Instance.SetState(CheckboxState.Checked));
 
-        checkboxs = cut.FindComponents<Checkbox<bool>>();
+        checkboxs = cut.FindComponents<Checkbox<CheckboxState>>();
         Assert.Equal(CheckboxState.Checked, checkboxs[0].Instance.State);
         Assert.Equal(CheckboxState.Indeterminate, checkboxs[3].Instance.State);
         Assert.Equal(CheckboxState.UnChecked, checkboxs[5].Instance.State);

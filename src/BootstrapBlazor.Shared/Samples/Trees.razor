@@ -37,14 +37,19 @@
     <p>
         <div>通过设置 <code>OnTreeItemChecked</code> 属性监控树形控件节点被勾选时的事件，选中树形控件节点前复选框时下面日志显示选中节点的数据</div>
         <div><code>Tree</code> 组件数据加载内部将会保持各个节点状态，改变节点选中状态点击 <b>刷新</b> 按钮，组件节点状态保持不变，可通过参数 <code>IsReset</code> 强制数据重置</div>
-        <div>
-            <span class="me-3">当前状态：@GetState()</span>
-            <Button Text="重置" OnClick="OnReset" class="me-3" />
-            <Button Text="刷新" OnClick="OnRefresh" />
-            <Checkbox DisplayText="自动选中子节点" ShowAfterLabel="true" @bind-Value="@AutoCheckChildren" />
-            <Checkbox DisplayText="自动选中父节点" ShowAfterLabel="true" @bind-Value="@AutoCheckParent" />
-        </div>
     </p>
+    <div class="row form-inline">
+        <div class="col-12 col-lg-auto">
+            <RadioList IsButton="true" @bind-Value="@IsReset" Items="@ResetItems" Color="Color.Success" ShowLabel="true" DisplayText="是否重置"></RadioList>
+        </div>
+        <div class="col-12 col-lg-auto">
+            <Checkbox DisplayText="自动选中子节点" ShowAfterLabel="true" @bind-Value="@AutoCheckChildren" />
+            <Checkbox DisplayText="自动选中父节点" ShowAfterLabel="true" @bind-Value="@AutoCheckParent" class="ms-3" />
+        </div>
+        <div class="col-12 col-lg-auto">
+            <Button Text="刷新" OnClick="OnRefresh" />
+        </div>
+    </div>
     <Tree TItem="TreeFoo" Items="@CheckedItems" ShowCheckbox="true" OnTreeItemChecked="@OnTreeItemChecked" IsReset="@IsReset" AutoCheckChildren="@AutoCheckChildren" AutoCheckParent="@AutoCheckParent" />
     <BlockLogger @ref="TraceChecked" class="mt-3" />
 </DemoBlock>

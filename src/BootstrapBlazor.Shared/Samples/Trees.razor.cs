@@ -46,6 +46,12 @@ public sealed partial class Trees
 
     private bool AutoCheckParent { get; set; }
 
+    private List<SelectedItem> ResetItems { get; } = new List<SelectedItem>()
+    {
+        new("True", "重置"),
+        new("False", "保持")
+    };
+
     /// <summary>
     /// OnInitializedAsync 方法
     /// </summary>
@@ -61,10 +67,6 @@ public sealed partial class Trees
     }
 
     private bool IsReset { get; set; }
-
-    private void OnReset() => IsReset = !IsReset;
-
-    private MarkupString GetState() => new(IsReset ? "<span class=\"text-danger\">强制重置</span>" : "<span class=\"text-primary\">状态保持</span>");
 
     private async Task OnLoadAsyncItems()
     {

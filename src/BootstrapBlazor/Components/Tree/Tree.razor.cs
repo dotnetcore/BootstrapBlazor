@@ -302,7 +302,7 @@ public partial class Tree<TItem> where TItem : class
     private async Task OnClick(TreeItem<TItem> item)
     {
         ActiveItem = item;
-        if (ClickToggleNode)
+        if (ClickToggleNode && TriggerNodeArrow(item))
         {
             await OnToggleNodeAsync(item);
         }
@@ -318,7 +318,6 @@ public partial class Tree<TItem> where TItem : class
         }
         else if (ShowCheckbox)
         {
-            item.CheckedState = ToggleCheckState(item.CheckedState);
             await OnCheckStateChanged(item);
         }
         StateHasChanged();
