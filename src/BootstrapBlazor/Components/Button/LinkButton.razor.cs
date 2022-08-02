@@ -16,6 +16,12 @@ public partial class LinkButton
     public string? Url { get; set; }
 
     /// <summary>
+    /// 获得/设置 A 标签 target 参数 默认 null
+    /// </summary>
+    [Parameter]
+    public string? Target { get; set; }
+
+    /// <summary>
     /// 获得/设置 Tooltip 显示文字 默认为 null
     /// </summary>
     [Parameter]
@@ -46,15 +52,17 @@ public partial class LinkButton
     private string? UrlString => IsDisabled ? null : Url;
 
     private string? ClassString => CssBuilder.Default("link-button")
-        .AddClass("is-vertical", IsVertical)
+        .AddClass("btn-vertical", IsVertical)
         .AddClass($"btn-outline-{Color.ToDescriptionString()}", IsOutline)
         .AddClass($"link-{Color.ToDescriptionString()}", Color != Color.None && !IsOutline && !IsDisabled)
         .AddClass($"btn-{Size.ToDescriptionString()}", Size != Size.None)
         .AddClass("btn-block", IsBlock)
-        .AddClass("is-round", ButtonStyle == ButtonStyle.Round)
-        .AddClass("is-circle", ButtonStyle == ButtonStyle.Circle)
+        .AddClass("btn-round", ButtonStyle == ButtonStyle.Round)
+        .AddClass("btn-circle", ButtonStyle == ButtonStyle.Circle)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
+
+    private bool TriggerClick => !IsDisabled || (string.IsNullOrEmpty(Url));
 
     private async Task OnClickButton()
     {

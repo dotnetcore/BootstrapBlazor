@@ -21,7 +21,7 @@ public static class MenuItemExtensions
         while (current.Parent != null)
         {
             current.Parent.IsActive = active;
-            current.Parent.IsExpand = true;
+            current.Parent.IsCollapsed = false;
             current = current.Parent;
         }
     }

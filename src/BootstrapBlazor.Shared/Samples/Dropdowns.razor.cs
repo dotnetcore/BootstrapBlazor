@@ -168,7 +168,7 @@ public sealed partial class Dropdowns
             Name = "Responsive",
             Description = Localizer["ADesc8"],
             Type = "string",
-            ValueList = "dropdown-menu-right / dropdown-menu-right / dropdown-menu-{lg | md | sm }-{right | left}",
+            ValueList = "dropdown-menu / dropdown-menu-end / dropdown-menu-{lg | md | sm }-{right | left}",
             DefaultValue = " — "
         },
         new AttributeItem() {

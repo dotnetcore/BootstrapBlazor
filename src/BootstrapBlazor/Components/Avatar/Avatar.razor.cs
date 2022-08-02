@@ -14,11 +14,11 @@ public partial class Avatar
     /// </summary>
     /// <returns></returns>
     private string? ClassName => CssBuilder.Default("avatar")
-        .AddClass("is-circle", IsCircle)
+        .AddClass("avatar-circle", IsCircle)
+        .AddClass($"avatar-{Size.ToDescriptionString()}", Size != Size.None && Size != Size.Medium)
         .AddClass("border border-info", IsBorder)
         .AddClass("border-success", IsBorder && IsLoaded.HasValue && IsLoaded.Value && !IsIcon && !IsText)
         .AddClass("border-danger", IsBorder && IsLoaded.HasValue && !IsLoaded.Value)
-        .AddClass($"is-{Size.ToDescriptionString()}", Size != Size.None && Size != Size.Medium)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 

@@ -39,30 +39,50 @@ public static class FreeSqlExtensions
             ret.Filters.Add(search.ToDynamicFilter());
         }
 
-        foreach (var search in option.Searchs)
+        if (option.Searchs.Any())
         {
             // Searchs 之间默认为 or
-            ret.Filters.Add(search.ToDynamicFilter(FilterLogic.Or));
+            var searchTextFilter = new DynamicFilterInfo()
+            {
+                Logic = DynamicFilterLogic.Or,
+                Filters = new List<DynamicFilterInfo>()
+            };
+            foreach (var search in option.Searchs)
+            {
+                searchTextFilter.Filters.Add(search.ToDynamicFilter());
+            }
+            ret.Filters.Add(searchTextFilter);
         }
         return ret;
     }
 
-    private static DynamicFilterInfo ToDynamicFilter(this IFilterAction filter, FilterLogic? logic = null)
+    private static DynamicFilterInfo ToDynamicFilter(this IFilterAction filter)
     {
-        var item = new DynamicFilterInfo() { Filters = new List<DynamicFilterInfo>() };
+        // TableFilter 最多仅两个条件
         var actions = filter.GetFilterConditions();
-        foreach (var f in actions)
+
+        var item = new DynamicFilterInfo() { Filters = new List<DynamicFilterInfo>() };
+        if (actions.Any())
         {
+            var f = actions.First();
             item.Filters.Add(new DynamicFilterInfo()
             {
                 Field = f.FieldKey,
                 Value = f.FieldValue,
                 Operator = f.FilterAction.ToDynamicFilterOperator()
             });
-        }
-        if (actions.Any())
-        {
-            item.Logic = (logic ?? FilterLogic.And).ToDynamicFilterLogic();
+
+            if (actions.Count() > 1)
+            {
+                var c = actions.ElementAt(1);
+                item.Logic = c.FilterLogic.ToDynamicFilterLogic();
+                item.Filters.Add(new DynamicFilterInfo()
+                {
+                    Field = c.FieldKey,
+                    Value = c.FieldValue,
+                    Operator = c.FilterAction.ToDynamicFilterOperator()
+                });
+            }
         }
         return item;
     }

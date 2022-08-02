@@ -9,33 +9,8 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// MenuItem 组件
 /// </summary>
-public class MenuItem : NodeBase
+public class MenuItem : NodeItem
 {
-    /// <summary>
-    /// 获得/设置 显示文字
-    /// </summary>
-    public string? Text { get; set; }
-
-    /// <summary>
-    /// 获得/设置 图标
-    /// </summary>
-    public string? Icon { get; set; }
-
-    /// <summary>
-    /// 获得/设置 自定义样式名
-    /// </summary>
-    public string? CssClass { get; set; }
-
-    /// <summary>
-    /// 获得/设置 是否被禁用 默认 false
-    /// </summary>
-    public bool IsDisabled { get; set; }
-
-    /// <summary>
-    /// 获得/设置 是否选中当前节点 默认 false
-    /// </summary>
-    public bool IsActive { get; set; }
-
     /// <summary>
     /// 获得 父级菜单
     /// </summary>
@@ -65,11 +40,6 @@ public class MenuItem : NodeBase
     /// 获得 当前菜单所在层次 从 0 开始
     /// </summary>
     public int Indent { get; private set; }
-
-    /// <summary>
-    /// 获得/设置 子组件模板 默认为 null
-    /// </summary>
-    public RenderFragment? Template { get; set; }
 
     /// <summary>
     /// 默认构造函数

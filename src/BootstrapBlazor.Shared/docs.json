@@ -65,7 +65,8 @@
     "imageviewers": "ImageViewers",
     "speechwaves": "Speechs/SpeechWaves",
     "recognizers": "Speechs/Recognizers",
-    "synthesizers": "Speechs/Synthesizers"
+    "synthesizers": "Speechs/Synthesizers",
+    "treeviews": "TreeViews"
   },
   "video": {
     "autorefresh": "BV1ap4y1x7Qn?p=8",

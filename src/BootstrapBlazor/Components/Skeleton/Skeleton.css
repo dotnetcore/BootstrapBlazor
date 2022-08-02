@@ -51,12 +51,6 @@
     }
 }
 
-@media (min-width: 576px) {
-    .skeleton-content .control-label.skeleton-row {
-        margin-bottom: 0;
-    }
-}
-
 .skeleton-content .form-control.skeleton-row {
     flex: 1;
 }

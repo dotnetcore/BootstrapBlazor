@@ -57,7 +57,7 @@ public static class ExpandableNodeExtensions
     /// <typeparam name="TItem"></typeparam>
     /// <param name="item"></param>
     /// <returns></returns>
-    public static IEnumerable<TreeItem<TItem>> GetAllTreeSubItems<TItem>(this IExpandableNode<TItem> item) => item.GetAllSubItems().OfType<TreeItem<TItem>>();
+    public static IEnumerable<TreeViewItem<TItem>> GetAllTreeSubItems<TItem>(this IExpandableNode<TItem> item) => item.GetAllSubItems().OfType<TreeViewItem<TItem>>();
 
     /// <summary>
     /// 向下级联设置复选状态

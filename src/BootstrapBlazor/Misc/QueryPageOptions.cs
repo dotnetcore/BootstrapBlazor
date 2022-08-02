@@ -12,17 +12,17 @@ public class QueryPageOptions
     /// <summary>
     /// 获得/设置 模糊查询关键字
     /// </summary>
-    public string? SearchText { get; internal set; }
+    public string? SearchText { get; set; }
 
     /// <summary>
     /// 获得 排序字段名称 由 <see cref="Table{TItem}.SortName"/> 设置
     /// </summary>
-    public string? SortName { get; internal set; }
+    public string? SortName { get; set; }
 
     /// <summary>
     /// 获得 排序方式 由 <see cref="Table{TItem}.SortOrder"/> 设置
     /// </summary>
-    public SortOrder SortOrder { get; internal set; }
+    public SortOrder SortOrder { get; set; }
 
     /// <summary>
     /// 获得/设置 多列排序集合 默认为 Empty 内部为 "Name" "Age desc" 由 <see cref="Table{TItem}.SortString"/> 设置
@@ -32,28 +32,28 @@ public class QueryPageOptions
     /// <summary>
     /// 获得 搜索条件绑定模型 未设置 <see cref="Table{TItem}.CustomerSearchModel"/> 时为 <see cref="Table{TItem}"/> 泛型模型
     /// </summary>
-    public object? SearchModel { get; internal set; }
+    public object? SearchModel { get; set; }
 
     /// <summary>
     /// 获得 当前页码 首页为 第一页
     /// </summary>
-    public int PageIndex { get; internal set; } = 1;
+    public int PageIndex { get; set; } = 1;
 
     /// <summary>
     /// 获得 请求读取数据开始行 默认 0
     /// </summary>
     /// <remarks><see cref="Table{TItem}.ScrollMode"/> 开启虚拟滚动 <see cref="ScrollMode.Virtual"/> 时使用</remarks>
-    public int StartIndex { get; internal set; }
+    public int StartIndex { get; set; }
 
     /// <summary>
     /// 获得 每页条目数量 由 <see cref="Table{TItem}.PageItems"/> 与 <see cref="Table{TItem}.PageItemsSource"/> 设置
     /// </summary>
-    public int PageItems { get; internal set; } = 20;
+    public int PageItems { get; set; } = 20;
 
     /// <summary>
     /// 获得 是否是分页查询 默认为 false 由 <see cref="Table{TItem}.IsPagination"/> 设置
     /// </summary>
-    public bool IsPage { get; internal set; }
+    public bool IsPage { get; set; }
 
     /// <summary>
     /// 获得 通过列集合中的 <see cref="ITableColumn.Searchable"/> 列与 <see cref="SearchText"/> 拼装 IFilterAction 集合

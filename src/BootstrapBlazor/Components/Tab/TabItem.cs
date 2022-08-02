@@ -16,6 +16,12 @@ public class TabItem : ComponentBase
     public string? Text { get; set; }
 
     /// <summary>
+    /// 获得/设置 TabItem Header 模板
+    /// </summary>
+    [Parameter]
+    public RenderFragment<Tab>? HeaderTemplate { get; set; }
+
+    /// <summary>
     /// 获得/设置 请求地址
     /// </summary>
     [Parameter]
@@ -27,12 +33,6 @@ public class TabItem : ComponentBase
     /// </summary>
     [Parameter]
     public bool IsActive { get; set; }
-
-    /// <summary>
-    /// 获得/设置 当前是否显示
-    /// </summary>
-    [Parameter]
-    public bool IsShow { get; set; } = true;
 
     /// <summary>
     /// 获得/设置 当前 TabItem 是否可关闭 默认为 true 可关闭
@@ -87,6 +87,8 @@ public class TabItem : ComponentBase
     /// <param name="text"></param>
     /// <param name="icon"></param>
     /// <param name="closable"></param>
+    [Obsolete("please Set the varible of TabItem Text paramter. see example https://www.blazor.zone/tabs#SetText")]
+    [ExcludeFromCodeCoverage]
     public void SetText(string text, string? icon = null, bool? closable = null)
     {
         if (TabSet != null)

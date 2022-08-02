@@ -20,8 +20,8 @@ public abstract class ButtonBase : TooltipComponentBase
         .AddClass($"btn-{Color.ToDescriptionString()}", Color != Color.None && !IsOutline)
         .AddClass($"btn-{Size.ToDescriptionString()}", Size != Size.None)
         .AddClass("btn-block", IsBlock)
-        .AddClass("is-round", ButtonStyle == ButtonStyle.Round)
-        .AddClass("is-circle", ButtonStyle == ButtonStyle.Circle)
+        .AddClass("btn-round", ButtonStyle == ButtonStyle.Round)
+        .AddClass("btn-circle", ButtonStyle == ButtonStyle.Circle)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 

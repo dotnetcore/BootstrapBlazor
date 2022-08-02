@@ -1,0 +1,133 @@
+﻿@page "/treeviews"
+
+<h3>Tree 树形控件</h3>
+
+<h4>用清晰的层级结构展示信息，可展开或折叠</h4>
+
+<Tips class="mt-3">
+    <div><code>Tree</code> 组件为泛型组件需要使用 <code>TItem</code> 指定绑定的数据模型，本例中模型为 <code>TreeFoo</code> 需要设置 <code>TItem="TreeFoo"</code></div>
+    <ul class="ul-demo mt-3">
+        <li>设置 <code>TreeItem</code> 其 <code>IsExpand</code> 参数控制当前子节点是否展开</li>
+        <li>点击子项展开小箭头时，通过 <code>OnExpandNodeAsync</code> 回调委托方法获取子项数据集合</li>
+        <li>保持节点状态回落机制，<code>ModelEqualityComparer</code> <code>CustomKeyAttribute</code> <code>IEqualityComparer&lt;TItem&gt;</code> <code>Equals</code> 重载方法</li>
+        <li>组件将会保持 <code>展开</code> <code>收缩</code> <code>选中</code> 状态</li>
+        <li>通过 <code>TreeItem&lt;TItem&gt;.IsExpand</code> 设置节点是否 <b>展开</b> 状态</li>
+        <li>通过 <code>TreeItem&lt;TItem&gt;.IsActive</code> 设置节点是否 <b>选中</b> 状态</li>
+        <li>通过 <code>TreeItem&lt;TItem&gt;.Checked</code> 设置节点是否 <b>复选/单选</b> 状态</li>
+    </ul>
+</Tips>
+
+<p>第一步：设置 <code>TItem</code> 泛型模型</p>
+
+<p>第二步：设置 <code>Items</code> 获得组件数据源 <b>注意</b> 数据源类型为 <code>IEnumerable&lt;TreeItem&lt;TItem&gt;&gt;</code></p>
+
+<p>第三步：设置 <code>OnExpandNodeAsync</code> 回调委托响应节点展开获取子项数据源集合</p>
+
+<p>第四步：设置 <code>ModelEqualityComparer</code> 提供组件识别模型比较委托方法，<b>注意</b> 本设置为可选项 通过上面讲解的回落机制进行降级搜索</p>
+
+<DemoBlock Title="基础用法" Introduction="基础的树形结构展示" Name="Normal">
+    <p>
+        通过设置 <code>OnTreeItemClick</code> 属性监控树形控件节点被点击时的事件，点击树形控件节点时下面日志显示选中节点的数据
+    </p>
+    <TreeView TItem="TreeFoo" Items="@Items" OnTreeItemClick="@OnTreeItemClick" />
+    <BlockLogger @ref="Trace" class="mt-3" />
+</DemoBlock>
+
+<DemoBlock Title="多选框" Introduction="适用于需要选择层级时使用" Name="Checkbox">
+    <p>
+        <div>通过设置 <code>OnTreeItemChecked</code> 属性监控树形控件节点被勾选时的事件，选中树形控件节点前复选框时下面日志显示选中节点的数据</div>
+        <div><code>Tree</code> 组件数据加载内部将会保持各个节点状态，改变节点选中状态点击 <b>刷新</b> 按钮，组件节点状态保持不变，可通过参数 <code>IsReset</code> 强制数据重置</div>
+    </p>
+    <div class="row form-inline">
+        <div class="col-12 col-lg-auto">
+            <RadioList IsButton="true" @bind-Value="@IsReset" Items="@ResetItems" Color="Color.Success" ShowLabel="true" DisplayText="是否重置"></RadioList>
+        </div>
+        <div class="col-12 col-lg-auto">
+            <Checkbox DisplayText="自动选中子节点" ShowAfterLabel="true" @bind-Value="@AutoCheckChildren" />
+            <Checkbox DisplayText="自动选中父节点" ShowAfterLabel="true" @bind-Value="@AutoCheckParent" class="ms-3" />
+        </div>
+        <div class="col-12 col-lg-auto">
+            <Button Text="刷新" OnClick="OnRefresh" />
+        </div>
+    </div>
+    <TreeView TItem="TreeFoo" Items="@CheckedItems" ShowCheckbox="true" OnTreeItemChecked="@OnTreeItemChecked" IsReset="@IsReset" AutoCheckChildren="@AutoCheckChildren" AutoCheckParent="@AutoCheckParent" />
+    <BlockLogger @ref="TraceChecked" class="mt-3" />
+</DemoBlock>
+
+<DemoBlock Title="单选框" Introduction="适用于单选节点" Name="ShowRadio">
+    <p>
+        通过设置 <code>ShowRadio</code> 属性节点前面显示 <code>Radio</code> 组件
+    </p>
+    <TreeView TItem="TreeFoo" Items="@RadioItems" ShowRadio="true" />
+</DemoBlock>
+
+<DemoBlock Title="禁用状态" Introduction="可将 Tree 的某些节点设置为禁用状态" Name="TreeDisable">
+    <p>
+        通过设置数据源 <code>TreeItem</code> 对象的 <code>Disabled</code> 属性，来控制此节点是否可以进行勾选动作，设置为 <code>false</code> 时不影响节点展开/收缩功能
+    </p>
+    <TreeView TItem="TreeFoo" Items="@DisabledItems" ShowCheckbox="true" />
+</DemoBlock>
+
+<DemoBlock Title="手风琴模式" Introduction="对于同一级的节点，每次只能展开一个" Name="AccordionModel">
+    <p>通过设置 <code>Tree</code> 组件的 <code>IsAccordion</code> 属性开启手风琴效果</p>
+    <TreeView TItem="TreeFoo" Items="@GetAccordionItems()" OnExpandNodeAsync="OnExpandNodeAsync" ShowCheckbox="true" IsAccordion="true" />
+</DemoBlock>
+
+<DemoBlock Title="默认展开和默认选中" Introduction="可将 <code>Tree</code> 的某些节点设置为默认展开或默认选中" Name="DefauleExpand">
+    <p>
+        通过设置 <code>TreeItem</code> 对象的 <code>IsExpand</code> 属性，来控制此节点是否默认为展开状态，本例中 <b>导航二</b> 默认为展开状态，其余节点默认为收缩状态
+    </p>
+    <TreeView TItem="TreeFoo" Items="@ExpandItems" ShowCheckbox="true" />
+</DemoBlock>
+
+<DemoBlock Title="显示图标" Introduction="通过设置 <code>ShowIcon</code> 来控制组件是否显示图标" Name="TreeDisplayIcon">
+    <p>
+        通过设置 <code>TreeItem</code> 对象的 <code>ShowIcon</code> 属性，来控制此节点是否显示图标
+    </p>
+    <TreeView TItem="TreeFoo" Items="@GetIconItems()" ShowIcon="true" ShowCheckbox="true" />
+</DemoBlock>
+
+<DemoBlock Title="点击节点展开收缩功能" Introduction="通过设置 <code>ClickToggleNode</code> 来控制点击节点时是否进行展开收缩操作" Name="TreeClickExpand">
+    <p>
+        通过设置 <code>TreeItem</code> 对象的 <code>ClickToggleNode</code> 属性，来控制此节点是否通过点击来实现展开收缩操作
+    </p>
+    <TreeView TItem="TreeFoo" Items="@Items" ShowIcon="true" ShowCheckbox="true" ClickToggleNode="true" />
+</DemoBlock>
+
+<DemoBlock Title="Tree 组件内置到验证表单中" Introduction="<code>Tree</code> 组件内部可开启 <code>Checkbox</code> 内置到验证表单时会显示 <code>DisplayName</code> 此功能在树状组件内需要禁止" Name="TreeValidationForm">
+    <p>
+        通过设置 <code>ShowCheckbox</code> 属性显示 <code>Checkbox</code> 内置到验证组件 <code>ValidateForm</code> 中不显示 <code>DisplayName</code>
+    </p>
+    <ValidateForm Model="@Model">
+        <TreeView TItem="TreeFoo" Items="@Items" OnTreeItemClick="@OnTreeItemClick" ShowCheckbox="true" />
+    </ValidateForm>
+</DemoBlock>
+
+<DemoBlock Title="懒加载" Introduction="展开节点时动态添加子节点" Name="TreeLazyLoading">
+    <p>
+        通过设置节点 <code>HasChildNode</code> 控制是否显示节点小箭头图片 。通过Tree的 <code>OnExpandNodeAsync</code> 委托添加节点
+    </p>
+    <TreeView TItem="TreeFoo" ClickToggleNode="true" Items="@GetLazyItems()" OnExpandNodeAsync="OnExpandNodeAsync" />
+</DemoBlock>
+
+<DemoBlock Title="自定义节点" Introduction="通过设置 <code>TreeItem</code> <code>Template</code> 来实现自己的节点模板" Name="TreeCustomNode">
+    <TreeView TItem="TreeFoo" ClickToggleNode="true" Items="GetTemplateItems()" />
+</DemoBlock>
+
+<DemoBlock Title="节点颜色" Introduction="通过设置 <code>TreeItem</code> <code>CssClass</code> 来实现自己的节点样式" Name="TreeNodeColor">
+    <TreeView TItem="TreeFoo" ClickToggleNode="true" Items="GetColorItems()" />
+</DemoBlock>
+
+<DemoBlock Title="获取所有选中节点" Introduction="通过设置 <code>OnTreeItemChecked</code> 回调委托获取所有节点" Name="CheckedItems">
+    <TreeView TItem="TreeFoo" ShowCheckbox="true" Items="@Items" OnTreeItemChecked="@OnTreeItemChecked" />
+    <BlockLogger @ref="TraceCheckedItems" class="mt-3" />
+</DemoBlock>
+
+<DemoBlock Title="加载骨架屏" Introduction="通过设置 <code>ShowSkeleton</code> 使异步加载数据时组件显示骨架屏" Name="ShowSkeleton">
+    <Button Text="异步加载" IsAsync="true" Icon="fa fa-fa" OnClick="OnLoadAsyncItems" />
+    <TreeView TItem="TreeFoo" Items="@AsyncItems" ShowSkeleton="true" OnExpandNodeAsync="OnExpandNodeAsync" class="mt-3" />
+</DemoBlock>
+
+<AttributeTable Items="@GetAttributes()" />
+
+<AttributeTable Items="@GetTreeItemAttributes()" Title="TreeItem 属性" />

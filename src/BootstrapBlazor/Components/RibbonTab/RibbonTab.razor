@@ -13,7 +13,17 @@
                             <div class="d-flex">
                                 @foreach (var group in groups)
                                 {
-                                    <LinkButton Icon="@group.Icon" ImageUrl="@group.ImageUrl" IsDisabled="@group.IsDisabled" Text="@group.Text" IsVertical="true" Color="Color.Secondary" class="@GetClassString(group)" StopPropagation="true" OnClick="() => OnClick(group)" />
+                                    if (group.Template != null)
+                                    {
+                                        @group.Template
+                                    }
+                                    else
+                                    {
+                                        <LinkButton Icon="@group.Icon" ImageUrl="@group.ImageUrl" IsDisabled="@group.IsDisabled"
+                                                    Url="@group.Url" Target="@group.Target"
+                                                    Text="@group.Text" IsVertical="true" Color="Color.Secondary"
+                                                    class="@GetClassString(group)" StopPropagation="true" OnClick="() => OnClick(group)" />
+                                    }
                                 }
                             </div>
                             <div class="link-group-name">

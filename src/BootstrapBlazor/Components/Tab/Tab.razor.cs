@@ -16,7 +16,7 @@ public partial class Tab
     private bool FirstRender { get; set; } = true;
 
     private static string? GetContentClassString(TabItem item) => CssBuilder.Default("tabs-body-content")
-        .AddClass("d-none", !item.IsActive || !item.IsShow)
+        .AddClass("d-none", !item.IsActive)
         .Build();
 
     private string? WrapClassString => CssBuilder.Default("tabs-nav-wrap")
@@ -26,7 +26,6 @@ public partial class Tab
     private string? GetClassString(TabItem item) => CssBuilder.Default("tabs-item")
         .AddClass("active", item.IsActive)
         .AddClass("is-closeable", ShowClose)
-        .AddClass("d-none", !item.IsShow)
         .Build();
 
     private static string? GetIconClassString(string icon) => CssBuilder.Default()
@@ -518,13 +517,14 @@ public partial class Tab
     /// 添加 TabItem 方法
     /// </summary>
     /// <param name="parameters"></param>
-    public void AddTab(Dictionary<string, object?> parameters)
+    /// <param name="index"></param>
+    public void AddTab(Dictionary<string, object?> parameters, int? index = null)
     {
-        AddTabItem(parameters);
+        AddTabItem(parameters, index);
         StateHasChanged();
     }
 
-    private void AddTabItem(Dictionary<string, object?> parameters)
+    private void AddTabItem(Dictionary<string, object?> parameters, int? index = null)
     {
         var item = TabItem.Create(parameters);
         item.TabSet = this;
@@ -533,7 +533,15 @@ public partial class Tab
             _items.ForEach(i => i.SetActive(false));
         }
 
-        _items.Add(item);
+        if (index.HasValue)
+        {
+            _items.Insert(index.Value, item);
+        }
+        else
+        {
+            _items.Add(item);
+        }
+
     }
 
     /// <summary>
@@ -590,7 +598,7 @@ public partial class Tab
     }
 
     /// <summary>
-    /// 设置指定 TabItem 为激活状态设置指定 TabItem 为激活状态
+    /// 设置指定 TabItem 为激活状态
     /// </summary>
     /// <param name="index"></param>
     public void ActiveTab(int index)

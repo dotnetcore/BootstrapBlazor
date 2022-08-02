@@ -94,6 +94,30 @@ public class RibbonTabTest : BootstrapBlazorTestBase
         Assert.Equal("test-command", item.Command);
     }
 
+    [Fact]
+    public void RibbonTabItem_Template()
+    {
+        var cut = Context.RenderComponent<RibbonTab>(pb =>
+        {
+            pb.Add(a => a.Items, new RibbonTabItem[]
+            {
+                new RibbonTabItem()
+                {
+                    Text = "test",
+                    Items = new RibbonTabItem[]
+                    {
+                        new RibbonTabItem()
+                        {
+                            Text = "Item",
+                            Template = builder => builder.AddContent(0, "Test-Template")
+                        }
+                    }
+                }
+            });
+        });
+        Assert.Contains("Test-Template", cut.Markup);
+    }
+
     private static IEnumerable<RibbonTabItem> GetItems() => new List<RibbonTabItem>()
     {
         new()

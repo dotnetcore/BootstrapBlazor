@@ -13,7 +13,7 @@ public static class TreeItemExtensions
     /// 在全部树状结构 <paramref name="source"/> 中寻找第一个 Active 节点/>
     /// </summary>
     /// <param name="source"></param>
-    public static TreeItem<TItem>? FirstOrDefaultActiveItem<TItem>(this IEnumerable<TreeItem<TItem>> source)
+    public static TreeViewItem<TItem>? FirstOrDefaultActiveItem<TItem>(this IEnumerable<TreeViewItem<TItem>> source)
     {
         var ret = source.FirstOrDefault(item => item.IsActive);
         if (ret == null)

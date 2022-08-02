@@ -7,8 +7,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// TreeItem 组件
 /// </summary>
-[ExcludeFromCodeCoverage]
-public class TreeItem : NodeItem
+public class TreeViewItem<TItem> : TreeNodeBase<TItem>, ICheckableNode<TItem>
 {
     /// <summary>
     /// 获得/设置 是否显示正在加载动画 默认为 false
@@ -16,51 +15,47 @@ public class TreeItem : NodeItem
     public bool ShowLoading { get; set; }
 
     /// <summary>
-    /// 获得/设置 子节点数据源
-    /// </summary>
-    public List<TreeItem> Items { get; set; } = new List<TreeItem>();
-
-    /// <summary>
-    /// 获得/设置 TreeItem 标识
-    /// </summary>
-    public object? Key { get; set; }
-
-    /// <summary>
-    /// 获得/设置 TreeItem 相关额外信息
-    /// </summary>
-    public object? Tag { get; set; }
-
-    /// <summary>
     /// 获得/设置 是否被选中
     /// </summary>
-    public bool Checked { get; set; }
+    public CheckboxState CheckedState { get; set; }
 
     /// <summary>
-    /// 获取/设置 是否有子节点 默认 false 
+    /// 获得/设置 子节点数据源
     /// </summary>
-    public bool HasChildNode { get; set; }
+    public List<TreeViewItem<TItem>> Items { get; set; } = new();
 
     /// <summary>
-    /// 获得 所有子项集合
+    /// 获得/设置 子节点集合
     /// </summary>
-    /// <returns></returns>
-    public IEnumerable<TreeItem> GetAllSubItems() => Items.Concat(GetSubItems(Items));
-
-    private static IEnumerable<TreeItem> GetSubItems(List<TreeItem> items) => items.SelectMany(i => i.Items.Any() ? i.Items.Concat(GetSubItems(i.Items)) : i.Items);
+    IEnumerable<IExpandableNode<TItem>> IExpandableNode<TItem>.Items { get => Items; set => Items = value.OfType<TreeViewItem<TItem>>().ToList(); }
 
     /// <summary>
-    /// 级联设置复选状态
+    /// 获得/设置 父级节点
     /// </summary>
-    public void CascadeSetCheck(bool isChecked)
+    public TreeViewItem<TItem>? Parent { get; set; }
+
+    /// <summary>
+    /// 获得/设置 父级节点
+    /// </summary>
+    IExpandableNode<TItem>? IExpandableNode<TItem>.Parent
     {
-        foreach (var item in Items)
+        get => Parent;
+        set
         {
-            item.Checked = isChecked;
-            if (item.Items.Any())
+            Parent = null;
+            if (value is TreeViewItem<TItem> item)
             {
-                item.CascadeSetCheck(isChecked);
+                Parent = item;
             }
         }
+    }
+
+    /// <summary>
+    /// 构造函数
+    /// </summary>
+    public TreeViewItem([DisallowNull] TItem item)
+    {
+        Value = item;
     }
 
     ///// <summary>

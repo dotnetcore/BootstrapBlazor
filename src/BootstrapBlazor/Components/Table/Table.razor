@@ -69,7 +69,7 @@
                                 <span class="d-none d-sm-inline-block">@ColumnButtonText</span>
                                 <span class="caret"></span>
                             </button>
-                            <div class="dropdown-menu dropdown-menu-right shadow scroll">
+                            <div class="dropdown-menu dropdown-menu-end shadow">
                                 @foreach (var item in Columns)
                                 {
                                     var poco = ColumnVisibles.FirstOrDefault(i => i.FieldName == item.GetFieldName());
@@ -93,7 +93,7 @@
                                 <span class="d-none d-sm-inline-block">@ExportButtonText</span>
                                 <span class="caret"></span>
                             </button>
-                            <div class="dropdown-menu dropdown-menu-right shadow">
+                            <div class="dropdown-menu dropdown-menu-end shadow">
                                 @if(ExportButtonDropdownTemplate != null)
                                 {
                                     @ExportButtonDropdownTemplate

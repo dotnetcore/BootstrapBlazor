@@ -106,7 +106,7 @@ public class LinkButtonTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.IsVertical, true);
         });
-        cut.Contains("is-vertical");
+        cut.Contains("btn-vertical");
     }
 
     [Fact]

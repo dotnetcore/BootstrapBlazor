@@ -16,7 +16,7 @@ public sealed partial class MenuLink
         .AddClass(Item.CssClass, !string.IsNullOrEmpty(Item.CssClass))
         .AddClass("active", Parent.DisableNavigation && Item.IsActive && !Item.IsDisabled)
         .AddClass("disabled", Item.IsDisabled)
-        .AddClass("expand", Parent.IsVertical && Item.IsExpand)
+        .AddClass("expand", Parent.IsVertical && !Item.IsCollapsed)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
