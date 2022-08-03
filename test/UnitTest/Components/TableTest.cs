@@ -4613,7 +4613,7 @@ public class TableTest : TableTestBase
             });
         });
 
-        var button = cut.Find(".dropdown-menu-right .dropdown-item");
+        var button = cut.Find(".dropdown-menu-end .dropdown-item");
         await cut.InvokeAsync(() => button.Click());
 
         // 
