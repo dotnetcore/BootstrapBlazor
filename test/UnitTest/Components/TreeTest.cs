@@ -499,6 +499,14 @@ public class TreeTest : BootstrapBlazorTestBase
         Assert.Contains("fa-rotate-90", bars[1].ClassName);
     }
 
+    [Fact]
+    public void TreeItem_Parent()
+    {
+        IExpandableNode<TreeFoo> item = new TreeItem<TreeFoo>(new TreeFoo());
+        item.Parent = new TreeItem<TreeFoo>(new TreeFoo());
+        Assert.NotNull(item.Parent);
+    }
+
     class MockTree<TItem> : Tree<TItem> where TItem : class
     {
         public bool TestComparerItem(TItem a, TItem b)
