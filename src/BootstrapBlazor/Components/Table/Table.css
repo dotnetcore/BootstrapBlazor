@@ -228,7 +228,6 @@
         max-height: var(--bb-table-toolbar-dropdown-menu-max-height);
         height: auto;
         overflow: auto;
-        border: none;
     }
 
         .table-toolbar .dropdown-menu .dropdown-item span {

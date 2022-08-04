@@ -9,8 +9,20 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// MenuItem 组件
 /// </summary>
-public class MenuItem : NodeBase
+public class MenuItem
 {
+    /// <summary>
+    /// 获得/设置 当前节点 Id 默认为 null
+    /// </summary>
+    /// <remarks>一般配合数据库使用</remarks>
+    public string? Id { get; set; }
+
+    /// <summary>
+    /// 获得/设置 父级节点 Id 默认为 null
+    /// </summary>
+    /// <remarks>一般配合数据库使用</remarks>
+    public string? ParentId { get; set; }
+
     /// <summary>
     /// 获得/设置 显示文字
     /// </summary>
@@ -35,6 +47,16 @@ public class MenuItem : NodeBase
     /// 获得/设置 是否选中当前节点 默认 false
     /// </summary>
     public bool IsActive { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否收缩 默认 true 收缩 
+    /// </summary>
+    public bool IsCollapsed { get; set; } = true;
+
+    /// <summary>
+    /// 获得/设置 子组件模板 默认为 null
+    /// </summary>
+    public RenderFragment? Template { get; set; }
 
     /// <summary>
     /// 获得 父级菜单
@@ -65,11 +87,6 @@ public class MenuItem : NodeBase
     /// 获得 当前菜单所在层次 从 0 开始
     /// </summary>
     public int Indent { get; private set; }
-
-    /// <summary>
-    /// 获得/设置 子组件模板 默认为 null
-    /// </summary>
-    public RenderFragment? Template { get; set; }
 
     /// <summary>
     /// 默认构造函数
