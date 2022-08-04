@@ -138,7 +138,7 @@ public class TreeTest : BootstrapBlazorTestBase
         var items = TreeFoo.GetTreeItems();
         items[0].CssClass = "Test-Class";
 
-        List<TreeItem<TreeFoo>>? checkedLists = null;
+        List<TreeViewItem<TreeFoo>>? checkedLists = null;
         var cut = Context.RenderComponent<Tree<TreeFoo>>(pb =>
         {
             pb.Add(a => a.ShowCheckbox, true);
@@ -228,7 +228,7 @@ public class TreeTest : BootstrapBlazorTestBase
     [Fact]
     public async Task ShowRadio_Ok()
     {
-        List<TreeItem<TreeFoo>>? checkedLists = null;
+        List<TreeViewItem<TreeFoo>>? checkedLists = null;
         var cut = Context.RenderComponent<Tree<TreeFoo>>(pb =>
         {
             pb.Add(a => a.ShowRadio, true);
@@ -268,7 +268,7 @@ public class TreeTest : BootstrapBlazorTestBase
     [Fact]
     public void Items_OfType()
     {
-        IExpandableNode<TreeFoo> item = new TreeItem<TreeFoo>(new TreeFoo());
+        IExpandableNode<TreeFoo> item = new TreeViewItem<TreeFoo>(new TreeFoo());
         item.Items = new MockTreeItem[]
         {
             new MockTreeItem(new TreeFoo())
@@ -278,9 +278,9 @@ public class TreeTest : BootstrapBlazorTestBase
         // 显式转换无对象，集合数量为 0
         Assert.Empty(item.Items);
 
-        item.Items = new TreeItem<TreeFoo>[]
+        item.Items = new TreeViewItem<TreeFoo>[]
         {
-            new TreeItem<TreeFoo>(new MockTreeFoo())
+            new TreeViewItem<TreeFoo>(new MockTreeFoo())
         };
         // MockTreeFoo 转化成 TreeFoo
         // 显式转换，集合数量为 1
@@ -300,7 +300,7 @@ public class TreeTest : BootstrapBlazorTestBase
         var node = TreeFoo.CascadingTree(items).First();
 
         // 设置当前几点所有子项选中状态
-        node.SetChildrenCheck<TreeItem<TreeFoo>, TreeFoo>(CheckboxState.Checked);
+        node.SetChildrenCheck<TreeViewItem<TreeFoo>, TreeFoo>(CheckboxState.Checked);
         Assert.True(node.GetAllTreeSubItems().All(i => i.CheckedState == CheckboxState.Checked));
     }
 
@@ -324,7 +324,7 @@ public class TreeTest : BootstrapBlazorTestBase
         Assert.True(clicked);
 
         // 显示 Radio 组件
-        List<TreeItem<TreeFoo>>? selectedItems = null;
+        List<TreeViewItem<TreeFoo>>? selectedItems = null;
         cut.SetParametersAndRender(pb =>
         {
             pb.Add(a => a.ShowRadio, true);
@@ -364,9 +364,9 @@ public class TreeTest : BootstrapBlazorTestBase
             pb.Add(a => a.IsReset, false);
             pb.Add(a => a.OnExpandNodeAsync, item =>
             {
-                var ret = new List<TreeItem<TreeFoo>>
+                var ret = new List<TreeViewItem<TreeFoo>>
                 {
-                    new TreeItem<TreeFoo>(new TreeFoo() { Id = item.Id + "10", ParentId = item.Id })
+                    new TreeViewItem<TreeFoo>(new TreeFoo() { Id = item.Id + "10", ParentId = item.Id })
                 };
                 return Task.FromResult(ret.AsEnumerable());
             });
@@ -502,8 +502,8 @@ public class TreeTest : BootstrapBlazorTestBase
     [Fact]
     public void TreeItem_Parent()
     {
-        IExpandableNode<TreeFoo> item = new TreeItem<TreeFoo>(new TreeFoo());
-        item.Parent = new TreeItem<TreeFoo>(new TreeFoo());
+        IExpandableNode<TreeFoo> item = new TreeViewItem<TreeFoo>(new TreeFoo());
+        item.Parent = new TreeViewItem<TreeFoo>(new TreeFoo());
         Assert.NotNull(item.Parent);
     }
 
@@ -553,17 +553,17 @@ public class TreeTest : BootstrapBlazorTestBase
 
     class MockTreeFoo : TreeFoo { }
 
-    private static async Task<IEnumerable<TreeItem<TreeFoo>>> OnExpandNodeAsync(TreeFoo item)
+    private static async Task<IEnumerable<TreeViewItem<TreeFoo>>> OnExpandNodeAsync(TreeFoo item)
     {
         await Task.Yield();
-        return new TreeItem<TreeFoo>[]
+        return new TreeViewItem<TreeFoo>[]
         {
-            new TreeItem<TreeFoo>(new TreeFoo() { Id = $"{item.Id}-101", ParentId = item.Id })
+            new TreeViewItem<TreeFoo>(new TreeFoo() { Id = $"{item.Id}-101", ParentId = item.Id })
             {
                 Text = "懒加载子节点1",
                 HasChildren = true
             },
-            new TreeItem<TreeFoo>(new TreeFoo(){ Id = $"{item.Id}-102", ParentId = item.Id })
+            new TreeViewItem<TreeFoo>(new TreeFoo(){ Id = $"{item.Id}-102", ParentId = item.Id })
             {
                 Text = "懒加载子节点2"
             }

@@ -1,24 +1,15 @@
 ﻿.tree {
     position: relative;
-    --bb-tree-padding: 0;
-    --bb-tree-margin: 0;
-    --bb-tree-ul-padding-left: 20px;
-    --bb-tree-item-margin: 1px 0;
-    --bb-tree-item-height: 29px;
-    --bb-tree-icon-width: 18px;
-    --bb-tree-check-margin: 0 4px;
-    --bb-tree-content-padding: .25rem 0;
-    --bb-tree-item-hover-color: #1e2125;
-    --bb-tree-item-hover-bg: #e9ecef;
 }
 
     .tree .tree-root {
-        padding: var(--bb-tree-padding);
-        margin: var(--bb-tree-margin);
+        padding: 0;
+        margin: 0;
     }
 
     .tree .tree-ul {
-        padding: 0 0 0 var(--bb-tree-ul-padding-left);
+        padding: 0 0 0 20px;
+        margin: 0;
         display: none;
     }
 
@@ -29,7 +20,7 @@
     .tree .tree-item {
         list-style: none;
         cursor: pointer;
-        margin: var(--bb-tree-item-margin);
+        margin: 1px 0;
     }
 
         .tree .tree-item:before {
@@ -37,14 +28,22 @@
             position: absolute;
             left: 0;
             width: 100%;
-            height: var(--bb-tree-item-height);
+            height: 29px;
             transition: background-color .3s linear;
+        }
+
+        .tree .tree-item.hover:before {
+            background-color: #66a2e0a1;
+        }
+
+        .tree .tree-item.active:before {
+            background-color: #409effa1;
         }
 
         .tree .tree-item .tree-content {
             position: relative;
             display: flex;
-            padding: var(--bb-tree-content-padding);
+            padding: 0.25rem 0;
             align-items: center;
         }
 
@@ -55,7 +54,6 @@
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                visibility: hidden;
             }
 
             .tree .tree-item .tree-content .show .fa-caret-right {
@@ -68,25 +66,10 @@
         align-items: center;
     }
 
-        .tree .tree-node.disabled,
-        .tree .tree-item.disabled > .tree-content > .fa-caret-right {
-            opacity: var(--bb-checkbox-item-disabled-opacity);
-        }
-
     .tree .form-check {
-        margin: var(--bb-tree-check-margin);
+        margin: 0 4px;
     }
 
-    .tree .tree-icon {
-        width: var(--bb-tree-icon-width);
-    }
-
-    .tree .tree-item:not(.disabled).hover:before {
-        background-color: var(--bb-tree-item-hover-bg);
-    }
-
-
-    .tree .tree-item:not(.disabled).active > .tree-content > .tree-node {
-        color: var(--bb-tree-item-hover-color);
-        background-color: var(--bb-tree-item-hover-bg);
-    }
+.tree-icon {
+    width: 18px;
+}

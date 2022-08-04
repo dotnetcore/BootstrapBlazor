@@ -24,7 +24,7 @@ class TreeFoo
     /// 
     /// </summary>
     /// <returns></returns>
-    public static List<TreeItem<TreeFoo>> GetTreeItems()
+    public static List<TreeViewItem<TreeFoo>> GetTreeItems()
     {
         var items = new List<TreeFoo>
         {
@@ -58,9 +58,9 @@ class TreeFoo
     /// </summary>
     /// <param name="items">数据集合</param>
     /// <param name="parent">父级节点</param>
-    public static IEnumerable<TreeItem<TreeFoo>> CascadingTree(IEnumerable<TreeFoo> items, TreeItem<TreeFoo>? parent = null) => items.Where(i => i.ParentId == parent?.Value.Id).Select(i =>
+    public static IEnumerable<TreeViewItem<TreeFoo>> CascadingTree(IEnumerable<TreeFoo> items, TreeViewItem<TreeFoo>? parent = null) => items.Where(i => i.ParentId == parent?.Value.Id).Select(i =>
     {
-        var item = new TreeItem<TreeFoo>(i)
+        var item = new TreeViewItem<TreeFoo>(i)
         {
             Text = i.Text,
             Icon = i.Icon

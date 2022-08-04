@@ -2,17 +2,12 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using Microsoft.Extensions.Localization;
-
 namespace BootstrapBlazor.Components;
 
 /// <summary>
 /// Tree 组件
 /// </summary>
-#if NET6_0_OR_GREATER
-[CascadingTypeParameter(nameof(TItem))]
-#endif
-public partial class Tree<TItem> where TItem : class
+public partial class Tree
 {
     /// <summary>
     /// 获得/设置 Tree 组件实例引用
@@ -41,7 +36,7 @@ public partial class Tree<TItem> where TItem : class
     /// </summary>
     /// <param name="item"></param>
     /// <returns></returns>
-    private static string? GetIconClassString(TreeItem<TItem> item) => CssBuilder.Default("tree-icon")
+    private static string? GetIconClassString(TreeItem item) => CssBuilder.Default("tree-icon")
         .AddClass(item.Icon)
         .Build();
 
@@ -50,9 +45,9 @@ public partial class Tree<TItem> where TItem : class
     /// </summary>
     /// <param name="item"></param>
     /// <returns></returns>
-    private static string? GetCaretClassString(TreeItem<TItem> item) => CssBuilder.Default("fa fa-caret-right")
-        .AddClass("visible", item.HasChildren || item.Items.Any())
-        .AddClass("fa-rotate-90", item.IsExpand)
+    private static string? GetCaretClassString(TreeItem item) => CssBuilder.Default("fa fa-caret-right")
+        .AddClass("invisible", !item.HasChildNode && !item.Items.Any())
+        .AddClass("fa-rotate-90", !item.IsCollapsed)
         .Build();
 
     /// <summary>
@@ -60,32 +55,24 @@ public partial class Tree<TItem> where TItem : class
     /// </summary>
     /// <param name="item"></param>
     /// <returns></returns>
-    private string? GetItemClassString(TreeItem<TItem> item) => CssBuilder.Default("tree-item")
+    private string? GetItemClassString(TreeItem item) => CssBuilder.Default("tree-item")
         .AddClass("active", ActiveItem == item)
-        .AddClass("disabled", item.IsDisabled)
         .Build();
 
     /// <summary>
-    /// 获得/设置 Tree 样式
+    /// 获得/设置 TreeNode 样式
     /// </summary>
     /// <param name="item"></param>
     /// <returns></returns>
-    private static string? GetTreeClassString(TreeItem<TItem> item) => CssBuilder.Default("tree-ul")
-        .AddClass("show", item.IsExpand)
+    private static string? GetTreeNodeClassString(TreeItem item) => CssBuilder.Default("tree-ul")
+        .AddClass("show", !item.IsCollapsed)
         .Build();
-
-    private static string? GetNodeClassString(TreeItem<TItem> item) => CssBuilder.Default("tree-node")
-        .AddClass("disabled", item.IsDisabled)
-        .Build();
-
-    private static bool TriggerNodeArrow(TreeItem<TItem> item) => !item.IsDisabled && (item.HasChildren || item.Items.Any());
-
-    private static bool TriggerNodeLabel(TreeItem<TItem> item) => !item.IsDisabled;
 
     /// <summary>
     /// 获得/设置 选中节点 默认 null
     /// </summary>
-    private TreeItem<TItem>? ActiveItem { get; set; }
+    [Parameter]
+    public TreeItem? ActiveItem { get; set; }
 
     /// <summary>
     /// 获得/设置 是否为手风琴效果 默认为 false
@@ -106,17 +93,11 @@ public partial class Tree<TItem> where TItem : class
     public bool ShowSkeleton { get; set; }
 
     /// <summary>
-    /// 获得/设置 页面刷新是否重置已加载数据 默认 false
-    /// </summary>
-    [Parameter]
-    public bool IsReset { get; set; }
-
-    /// <summary>
-    /// 获得/设置 带层次数据集合
+    /// 获得/设置 菜单数据集合
     /// </summary>
     [Parameter]
     [NotNull]
-    public List<TreeItem<TItem>>? Items { get; set; }
+    public List<TreeItem>? Items { get; set; }
 
     /// <summary>
     /// 获得/设置 是否显示 CheckBox 默认 false 不显示
@@ -140,57 +121,19 @@ public partial class Tree<TItem> where TItem : class
     /// 获得/设置 树形控件节点点击时回调委托
     /// </summary>
     [Parameter]
-    public Func<TreeItem<TItem>, Task>? OnTreeItemClick { get; set; }
+    public Func<TreeItem, Task>? OnTreeItemClick { get; set; }
 
     /// <summary>
     /// 获得/设置 树形控件节点选中时回调委托
     /// </summary>
     [Parameter]
-    public Func<List<TreeItem<TItem>>, Task>? OnTreeItemChecked { get; set; }
+    public Func<List<TreeItem>, Task>? OnTreeItemChecked { get; set; }
 
     /// <summary>
-    /// 获得/设置 点击节点获取子数据集合回调方法
+    /// 获得/设置 节点展开前回调委托
     /// </summary>
     [Parameter]
-    public Func<TItem, Task<IEnumerable<TreeItem<TItem>>>>? OnExpandNodeAsync { get; set; }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    [Parameter]
-    public Type CustomKeyAttribute { get; set; } = typeof(KeyAttribute);
-
-    /// <summary>
-    /// 获得/设置 比较数据是否相同回调方法 默认为 null
-    /// </summary>
-    /// <remarks>提供此回调方法时忽略 <see cref="CustomKeyAttribute"/> 属性</remarks>
-    [Parameter]
-    public Func<TItem, TItem, bool>? ModelEqualityComparer { get; set; }
-
-    [NotNull]
-    private string? NotSetOnTreeExpandErrorMessage { get; set; }
-
-    [Inject]
-    [NotNull]
-    private IStringLocalizer<Tree<TItem>>? Localizer { get; set; }
-
-    /// <summary>
-    /// 节点缓存类实例
-    /// </summary>
-    [NotNull]
-    protected TreeNodeCache<TreeItem<TItem>, TItem>? treeNodeCache = null;
-
-    /// <summary>
-    /// 改变节点状态后自动更新子节点 默认 false
-    /// </summary>
-    [Parameter]
-    public bool AutoCheckChildren { get; set; }
-
-    /// <summary>
-    /// 改变节点状态后自动更新父节点 默认 false
-    /// </summary>
-    [Parameter]
-    public bool AutoCheckParent { get; set; }
+    public Func<TreeItem, Task>? OnExpandNode { get; set; }
 
     /// <summary>
     /// OnInitialized 方法
@@ -199,11 +142,7 @@ public partial class Tree<TItem> where TItem : class
     {
         base.OnInitialized();
 
-        // 初始化节点缓存
-        treeNodeCache ??= new(ComparerItem);
-
         GroupName = this.GetHashCode().ToString();
-        NotSetOnTreeExpandErrorMessage = Localizer[nameof(NotSetOnTreeExpandErrorMessage)];
     }
 
     /// <summary>
@@ -213,71 +152,15 @@ public partial class Tree<TItem> where TItem : class
     {
         base.OnParametersSet();
 
-        if (Items != null)
-        {
-            if (!IsReset)
-            {
-                treeNodeCache.IsChecked(Items);
-
-                // 从数据源中恢复当前 active 节点
-                if (ActiveItem != null)
-                {
-                    ActiveItem = treeNodeCache.Find(Items, ActiveItem.Value, out _);
-                }
-            }
-            else
-            {
-                treeNodeCache.Reset();
-            }
-
-            // 设置 ActiveItem 默认值
-            ActiveItem ??= Items.FirstOrDefaultActiveItem();
-        }
-    }
-
-    /// <summary>
-    /// OnParametersSetAsync 方法
-    /// </summary>
-    /// <returns></returns>
-    protected override async Task OnParametersSetAsync()
-    {
-        await base.OnParametersSetAsync();
-
-        if (Items != null)
-        {
-            if (Items.Any())
-            {
-                await CheckExpand(Items);
-            }
-
-            async Task CheckExpand(IEnumerable<TreeItem<TItem>> nodes)
-            {
-                // 恢复当前节点状态
-                foreach (var node in nodes)
-                {
-                    await treeNodeCache.CheckExpandAsync(node, GetChildrenRowAsync);
-
-                    if (node.Items.Any())
-                    {
-                        await CheckExpand(node.Items);
-                    }
-                }
-            }
-        }
-    }
-
-    private async Task<IEnumerable<IExpandableNode<TItem>>> GetChildrenRowAsync(TreeItem<TItem> node, TItem item)
-    {
-        if (OnExpandNodeAsync == null)
-        {
-            throw new InvalidOperationException(NotSetOnTreeExpandErrorMessage);
-        }
-        node.ShowLoading = true;
-        StateHasChanged();
-
-        var ret = await OnExpandNodeAsync(item);
-        node.ShowLoading = false;
-        return ret;
+        //if (ActiveItem != null)
+        //{
+        //    var item = ActiveItem;
+        //    while (item.Parent != null)
+        //    {
+        //        item.Parent.IsExpanded = true;
+        //        item = item.Parent;
+        //    }
+        //}
     }
 
     /// <summary>
@@ -299,12 +182,12 @@ public partial class Tree<TItem> where TItem : class
     /// 选中节点时触发此方法
     /// </summary>
     /// <returns></returns>
-    private async Task OnClick(TreeItem<TItem> item)
+    private async Task OnClick(TreeItem item)
     {
         ActiveItem = item;
-        if (ClickToggleNode && TriggerNodeArrow(item))
+        if (ClickToggleNode)
         {
-            await OnToggleNodeAsync(item);
+            await OnExpandRowAsync(item);
         }
 
         if (OnTreeItemClick != null)
@@ -318,132 +201,78 @@ public partial class Tree<TItem> where TItem : class
         }
         else if (ShowCheckbox)
         {
-            await OnCheckStateChanged(item);
+            item.Checked = !item.Checked;
+            var status = item.Checked ? CheckboxState.Checked : CheckboxState.UnChecked;
+            await OnStateChanged(status, item);
         }
-        StateHasChanged();
     }
-
-    private static CheckboxState ToggleCheckState(CheckboxState state) => state switch
-    {
-        CheckboxState.Checked => CheckboxState.UnChecked,
-        _ => CheckboxState.Checked
-    };
 
     /// <summary>
     /// 更改节点是否展开方法
     /// </summary>
     /// <param name="item"></param>
-    /// <param name="shouldRender"></param>
-    private async Task OnToggleNodeAsync(TreeItem<TItem> item, bool shouldRender = false)
+    private async Task OnExpandRowAsync(TreeItem item)
     {
-        // 手风琴效果逻辑
-        item.IsExpand = !item.IsExpand;
         if (IsAccordion)
         {
-            await treeNodeCache.ToggleNodeAsync(item, GetChildrenRowAsync);
-
-            // 展开此节点关闭其他同级节点
-            if (item.IsExpand)
+            foreach (var rootNode in Items.Where(p => !p.IsCollapsed && p != item))
             {
-                // 通过 item 找到父节点
-                var nodes = treeNodeCache.FindParentNode(Items, item)?.Items ?? Items;
-                foreach (var node in nodes)
-                {
-                    if (node != item)
-                    {
-                        // 收缩同级节点
-                        node.IsExpand = false;
-                        await treeNodeCache.ToggleNodeAsync(node, GetChildrenRowAsync);
-                    }
-                }
+                rootNode.IsCollapsed = true;
             }
         }
-        else
+        item.IsCollapsed = !item.IsCollapsed;
+        if (OnExpandNode != null)
         {
-            // 重建缓存 并且更改节点展开状态
-            await treeNodeCache.ToggleNodeAsync(item, GetChildrenRowAsync);
-        }
-
-        if (shouldRender)
-        {
-            StateHasChanged();
+            await OnExpandNode(item);
         }
     }
 
     /// <summary>
     /// 节点 Checkbox 状态改变时触发此方法
     /// </summary>
+    /// <param name="state"></param>
     /// <param name="item"></param>
     /// <returns></returns>
-    private async Task OnCheckStateChanged(TreeItem<TItem> item)
+    private async Task OnStateChanged(CheckboxState state, TreeItem item)
     {
-        item.CheckedState = ToggleCheckState(item.CheckedState);
-
-        if (AutoCheckChildren)
-        {
-            // 向下级联操作
-            item.SetChildrenCheck<TreeItem<TItem>, TItem>(item.CheckedState, treeNodeCache);
-        }
-
-        if (AutoCheckParent)
-        {
-            // 向上级联操作
-            item.SetParentCheck(item.CheckedState, treeNodeCache);
-        }
-
-        // 更新 选中状态缓存
-        treeNodeCache.ToggleCheck(item);
+        // 向下级联操作
+        item.CascadeSetCheck(item.Checked);
 
         if (OnTreeItemChecked != null)
         {
             await OnTreeItemChecked(GetCheckedItems().ToList());
         }
-
-        StateHasChanged();
     }
 
     /// <summary>
     /// 获得 所有选中节点集合
     /// </summary>
     /// <returns></returns>
-    public IEnumerable<TreeItem<TItem>> GetCheckedItems() => Items.Aggregate(new List<TreeItem<TItem>>(), (t, item) =>
+    public IEnumerable<TreeItem> GetCheckedItems() => Items.Aggregate(new List<TreeItem>(), (t, item) =>
     {
         t.Add(item);
-        t.AddRange(item.GetAllSubItems().OfType<TreeItem<TItem>>());
+        t.AddRange(item.GetAllSubItems());
         return t;
-    }).Where(i => i.CheckedState == CheckboxState.Checked);
+    }).Where(i => i.Checked);
 
-    private async Task OnRadioClick(TreeItem<TItem> item)
+    private async Task OnRadioClick(TreeItem item)
     {
-        item.CheckedState = ToggleCheckState(item.CheckedState);
-
-        // 单选移除已选择
         if (ActiveItem != null)
         {
-            ActiveItem.CheckedState = CheckboxState.UnChecked;
-            treeNodeCache.ToggleCheck(ActiveItem);
+            ActiveItem.Checked = false;
         }
         ActiveItem = item;
-        ActiveItem.CheckedState = CheckboxState.Checked;
-        treeNodeCache.ToggleCheck(item);
+        ActiveItem.Checked = true;
 
         // 其他设置为 false
         if (OnTreeItemChecked != null)
         {
-            await OnTreeItemChecked(new List<TreeItem<TItem>> { item });
+            await OnTreeItemChecked(new List<TreeItem> { item });
         }
-
-        StateHasChanged();
     }
 
-    /// <summary>
-    /// 比较数据是否相同
-    /// </summary>
-    /// <param name="a"></param>
-    /// <param name="b"></param>
-    /// <returns></returns>
-    protected bool ComparerItem(TItem a, TItem b) => ModelEqualityComparer?.Invoke(a, b)
-        ?? Utility.GetKeyValue<TItem, object>(a, CustomKeyAttribute)?.Equals(Utility.GetKeyValue<TItem, object>(b, CustomKeyAttribute))
-        ?? ModelComparer.EqualityComparer(a, b)
-        ?? a.Equals(b);
+    private static CheckboxState CheckState(TreeItem item)
+    {
+        return item.Checked ? CheckboxState.Checked : CheckboxState.UnChecked;
+    }
 }
