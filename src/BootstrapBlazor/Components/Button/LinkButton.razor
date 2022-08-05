@@ -1,7 +1,7 @@
 ﻿@namespace BootstrapBlazor.Components
 @inherits ButtonBase
 
-<DynamicElement TagName="@TagName" @attributes="AdditionalAttributes" class="@ClassString" id="@Id" href="@UrlString" disabled="@Disabled" role="button" aria-disabled="@DisabledString" tabindex="@Tab" StopPropagation="@StopPropagation" PreventDefault="@Prevent" OnClick="OnClickButton" TriggerClick="!IsDisabled">
+<DynamicElement TagName="@TagName" @attributes="AdditionalAttributes" class="@ClassString" id="@Id" href="@UrlString" disabled="@Disabled" role="button" aria-disabled="@DisabledString" tabindex="@Tab" target="@Target" StopPropagation="@StopPropagation" PreventDefault="@Prevent" OnClick="OnClickButton" TriggerClick="TriggerClick">
     @if (!string.IsNullOrEmpty(Icon))
     {
         <i class="@Icon"></i>

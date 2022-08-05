@@ -16,6 +16,12 @@ public partial class LinkButton
     public string? Url { get; set; }
 
     /// <summary>
+    /// 获得/设置 A 标签 target 参数 默认 null
+    /// </summary>
+    [Parameter]
+    public string? Target { get; set; }
+
+    /// <summary>
     /// 获得/设置 Tooltip 显示文字 默认为 null
     /// </summary>
     [Parameter]
@@ -55,6 +61,8 @@ public partial class LinkButton
         .AddClass("btn-circle", ButtonStyle == ButtonStyle.Circle)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
+
+    private bool TriggerClick => !IsDisabled || (string.IsNullOrEmpty(Url));
 
     private async Task OnClickButton()
     {
