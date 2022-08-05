@@ -7,6 +7,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// Tree 组件
 /// </summary>
+[ExcludeFromCodeCoverage]
 public partial class Tree
 {
     /// <summary>
