@@ -25,7 +25,7 @@ public partial class TreeView<TItem> where TItem : class
     /// <summary>
     /// 获得 按钮样式集合
     /// </summary>
-    private string? ClassString => CssBuilder.Default("tree")
+    private string? ClassString => CssBuilder.Default("tree-view")
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
