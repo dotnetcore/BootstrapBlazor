@@ -56,7 +56,7 @@ public class TreeViewTest : BootstrapBlazorTestBase
             pb.Add(a => a.Items, items);
         });
 
-        var nodes = cut.FindAll(".tree > .tree-root > .tree-item");
+        var nodes = cut.FindAll(".tree-view > .tree-root > .tree-item");
         Assert.Equal(3, nodes.Count);
         Assert.Equal("tree-item active", nodes.First().ClassName);
     }

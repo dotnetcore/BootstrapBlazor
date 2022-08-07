@@ -365,4 +365,25 @@ public class MenuTest : BootstrapBlazorTestBase
     {
         Assert.ThrowsAny<InvalidOperationException>(() => Context.RenderComponent<SubMenu>());
     }
+
+    [Fact]
+    public void MenuItem_Parent()
+    {
+        var parent = new MenuItem()
+        {
+            Id = "01",
+            Text = "Test01"
+        };
+
+        var item = new MenuItem()
+        {
+            Id = "01",
+            Text = "Test01",
+            Parent = parent
+        };
+
+        item.CascadingSetActive(true);
+        Assert.True(item.IsActive);
+        Assert.True(parent.IsActive);
+    }
 }
