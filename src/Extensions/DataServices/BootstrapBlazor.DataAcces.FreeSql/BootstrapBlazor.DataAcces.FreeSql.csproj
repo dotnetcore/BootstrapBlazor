@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <Version>6.0.4</Version>
+    <Version>6.0.5</Version>
     <PackageTags>Bootstrap Blazor WebAssembly wasm UI Components FreeSql</PackageTags>
     <Description>Bootstrap UI components extensions of FreeSql</Description>
   </PropertyGroup>
