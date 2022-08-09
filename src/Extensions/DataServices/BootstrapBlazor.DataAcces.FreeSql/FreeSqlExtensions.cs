@@ -39,10 +39,19 @@ public static class FreeSqlExtensions
             ret.Filters.Add(search.ToDynamicFilter());
         }
 
-        foreach (var search in option.Searchs)
+        if (option.Searchs.Any())
         {
             // Searchs 之间默认为 or
-            ret.Filters.Add(search.ToDynamicFilter(FilterLogic.Or));
+            var searchTextFilter = new DynamicFilterInfo()
+            {
+                Logic = DynamicFilterLogic.Or,
+                Filters = new List<DynamicFilterInfo>()
+            };
+            foreach (var search in option.Searchs)
+            {
+                searchTextFilter.Filters.Add(search.ToDynamicFilter());
+            }
+            ret.Filters.Add(searchTextFilter);
         }
         return ret;
     }
