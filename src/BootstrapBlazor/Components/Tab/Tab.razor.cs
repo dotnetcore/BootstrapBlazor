@@ -518,13 +518,14 @@ public partial class Tab
     /// 添加 TabItem 方法
     /// </summary>
     /// <param name="parameters"></param>
-    public void AddTab(Dictionary<string, object?> parameters)
+    /// <param name="index"></param>
+    public void AddTab(Dictionary<string, object?> parameters, int? index = null)
     {
-        AddTabItem(parameters);
+        AddTabItem(parameters, index);
         StateHasChanged();
     }
 
-    private void AddTabItem(Dictionary<string, object?> parameters)
+    private void AddTabItem(Dictionary<string, object?> parameters, int? index = null)
     {
         var item = TabItem.Create(parameters);
         item.TabSet = this;
@@ -533,7 +534,15 @@ public partial class Tab
             _items.ForEach(i => i.SetActive(false));
         }
 
-        _items.Add(item);
+        if (index == null)
+        {
+            _items.Add(item);
+        }
+        else
+        {
+            _items.Insert(index.Value, item);
+        }
+
     }
 
     /// <summary>
@@ -590,7 +599,7 @@ public partial class Tab
     }
 
     /// <summary>
-    /// 设置指定 TabItem 为激活状态设置指定 TabItem 为激活状态
+    /// 设置指定 TabItem 为激活状态
     /// </summary>
     /// <param name="index"></param>
     public void ActiveTab(int index)
@@ -599,6 +608,54 @@ public partial class Tab
         if (item != null)
         {
             ActiveTab(item);
+        }
+    }
+
+    /// <summary>
+    /// 设置指定 TabItem 为隐藏状态
+    /// </summary>
+    /// <param name="item"></param>
+    public void HideTab(TabItem item)
+    {
+        item.SetShow(false);
+        StateHasChanged();
+    }
+
+
+    /// <summary>
+    /// 设置指定 TabItem 为隐藏状态
+    /// </summary>
+    /// <param name="index"></param>
+    public void HideTab(int index)
+    {
+        var item = _items.ElementAtOrDefault(index);
+        if (item != null)
+        {
+            HideTab(item);
+        }
+    }
+
+    /// <summary>
+    /// 设置指定 TabItem 为显示状态
+    /// </summary>
+    /// <param name="item"></param>
+    public void ShowTab(TabItem item)
+    {
+        item.SetShow(true);
+        StateHasChanged();
+    }
+
+
+    /// <summary>
+    /// 设置指定 TabItem 为显示状态
+    /// </summary>
+    /// <param name="index"></param>
+    public void ShowTab(int index)
+    {
+        var item = _items.ElementAtOrDefault(index);
+        if (item != null)
+        {
+            ShowTab(item);
         }
     }
 

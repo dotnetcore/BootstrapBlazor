@@ -82,6 +82,12 @@ public class TabItem : ComponentBase
     public virtual void SetActive(bool active) => IsActive = active;
 
     /// <summary>
+    /// 设置是否显示方法
+    /// </summary>
+    /// <param name="show"></param>
+    public virtual void SetShow(bool show) => IsShow = show;
+
+    /// <summary>
     /// 重新设置标签文字等参数
     /// </summary>
     /// <param name="text"></param>
