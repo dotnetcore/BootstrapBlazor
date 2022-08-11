@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using BootstrapBlazor.Components;
 using Bunit.TestDoubles;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
@@ -189,65 +190,27 @@ public class TabTest : TabTestBase
     }
 
     [Fact]
-    public void AddTab_Nominated_Position_Ok()
+    public async Task AddTab_Index()
     {
         var cut = Context.RenderComponent<Tab>(pb =>
         {
             pb.Add(a => a.ShowClose, true);
             pb.Add(a => a.AdditionalAssemblies, new Assembly[] { GetType().Assembly });
-            pb.Add(a => a.NotFoundTabText, "NotFound-Tab");
         });
         var tab = cut.Instance;
-        cut.InvokeAsync(() => tab.AddTab(new Dictionary<string, object?>
+        await cut.InvokeAsync(() => tab.AddTab(new Dictionary<string, object?>
         {
-            ["Url"] = "/Tab1",
-            ["IsActive"] = true,
-            ["Text"] = "Tab1",
-            ["ChildContent"] = new RenderFragment(builder => builder.AddContent(0, "Tab1-Body"))
+            ["Text"] = "Cat",
+            ["Url"] = "Cat"
         }));
-        cut.InvokeAsync(() => tab.AddTab(new Dictionary<string, object?>
+        await cut.InvokeAsync(() => tab.AddTab(new Dictionary<string, object?>
         {
-            ["Url"] = "/Tab3",
-            ["IsActive"] = true,
-            ["Text"] = "Tab3",
-            ["ChildContent"] = new RenderFragment(builder => builder.AddContent(0, "Tab3-Body"))
-        }));
-        cut.InvokeAsync(() => tab.AddTab(new Dictionary<string, object?>
-        {
-            ["Url"] = "/Tab2",
-            ["IsActive"] = true,
-            ["Text"] = "Tab2",
-            ["ChildContent"] = new RenderFragment(builder => builder.AddContent(0, "Tab2-Body"))
-        }, 1));
-        var tab2Item = tab.Items.First(t => t.Text == "Tab2");
-        var tab2Index = tab.Items.ToList().IndexOf(tab2Item);
-        Assert.Contains("Tab2-Body", cut.Markup);
-        Assert.Equal(1, tab2Index);
-
-    }
-
-    [Fact]
-    public void Tab_Hide_Or_Show_Ok()
-    {
-        var cut = Context.RenderComponent<Tab>(pb =>
-        {
-            pb.Add(a => a.ShowClose, true);
-            pb.Add(a => a.AdditionalAssemblies, new Assembly[] { GetType().Assembly });
-            pb.Add(a => a.NotFoundTabText, "NotFound-Tab");
-        });
-        var tab = cut.Instance;
-        cut.InvokeAsync(() => tab.AddTab(new Dictionary<string, object?>
-        {
-            ["Url"] = "/Tab1",
-            ["IsActive"] = true,
-            ["Text"] = "Tab1",
-            ["ChildContent"] = new RenderFragment(builder => builder.AddContent(0, "Tab1-Body"))
-        }));
-        cut.InvokeAsync(() => tab.HideTab(0));
-        Assert.Contains("d-none", cut.Markup);
-        cut.InvokeAsync(() => tab.ShowTab(0));
-        Assert.DoesNotContain("d-none", cut.Markup);
-
+            ["Text"] = "Dog",
+            ["Url"] = "Dog"
+        }, 0));
+        var tabItems = tab.Items.ToList();
+        Assert.Equal("Dog", tabItems[0].Text);
+        Assert.Equal("Cat", tabItems[1].Text);
     }
 
     [Fact]
