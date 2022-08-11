@@ -57,6 +57,17 @@ public class IPLocatorTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public async Task BaiduIPLocator_Ok()
+    {
+        var locator = new BaiDuIPLocator();
+        var ret = await locator.Locate(new IPLocatorOption()
+        {
+            RequestTimeout = 3000
+        });
+        Assert.Null(ret);
+    }
+
+    [Fact]
     public async Task DefaultIPLocator_Ok()
     {
         var locator = new DefaultIPLocator();
@@ -83,6 +94,7 @@ public class IPLocatorTest : BootstrapBlazorTestBase
     {
         var locator = new MockLocator();
         await locator.Test("223.91.188.112", new HttpClient());
+        await locator.TestMock("223.91.188.112", null);
         await locator.TestMock("223.91.188.112", new HttpClient(), new MockLogger());
     }
 
