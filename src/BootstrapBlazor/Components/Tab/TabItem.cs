@@ -87,6 +87,7 @@ public class TabItem : ComponentBase
     /// <param name="text"></param>
     /// <param name="icon"></param>
     /// <param name="closable"></param>
+    [Obsolete("please Set the varible of TabItem Text paramter. see example https://www.blazor.zone/tabs#SetText")]
     public void SetText(string text, string? icon = null, bool? closable = null)
     {
         if (TabSet != null)

@@ -298,9 +298,9 @@
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["BlockSetTextTitle"]" Introduction="@Localizer["BlockSetTextIntro"]" Name="SetText">
-    <Button Text="@Localizer["BlockSetTextButtonText"]" OnClickWithoutRender="SetTabItemText" class="mb-2"></Button>
+    <Button Text="@Localizer["BlockSetTextButtonText"]" OnClick="SetTabItemText" class="mb-2"></Button>
     <Tab IsBorderCard="true">
-        <TabItem Text="@Localizer["TabItem8Text"]" @ref="TabItemElement">
+        <TabItem Text="@TabText">
             <div>@((MarkupString)Localizer["BlockSetTextDesc"].Value)</div>
         </TabItem>
     </Tab>

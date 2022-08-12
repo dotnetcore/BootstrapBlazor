@@ -21,7 +21,20 @@ public sealed partial class Tabs
     private Tab? TabSet2 { get; set; }
 
     [NotNull]
+    private string? TabText { get; set; }
+
+    [NotNull]
     private TabItem? TabItemElement { get; set; }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        TabText = @Localizer["TabItem8Text"];
+    }
 
     /// <summary>
     /// OnInitialized 方法
@@ -117,10 +130,9 @@ public sealed partial class Tabs
         [nameof(TabItem.ChildContent)] = text == Localizer["BackText1"] ? BootstrapDynamicComponent.CreateComponent<Counter>().Render() : BootstrapDynamicComponent.CreateComponent<FetchData>().Render()
     });
 
-    private Task SetTabItemText()
+    private void SetTabItemText()
     {
-        TabItemElement.SetText(DateTime.Now.ToString());
-        return Task.CompletedTask;
+        TabText = DateTime.Now.ToString();
     }
 
     /// <summary>

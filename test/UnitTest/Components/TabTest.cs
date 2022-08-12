@@ -373,21 +373,30 @@ public class TabTest : TabTestBase
     }
 
     [Fact]
-    public async Task SetText_Ok()
+    public void SetText_Ok()
     {
+        var text = "Tab1";
         var cut = Context.RenderComponent<Tab>(pb =>
         {
             pb.Add(a => a.AdditionalAssemblies, new Assembly[] { GetType().Assembly });
             pb.Add(a => a.ClickTabToNavigation, true);
             pb.AddChildContent<TabItem>(pb =>
             {
-                pb.Add(a => a.Text, "Tab1");
+                pb.Add(a => a.Text, text);
                 pb.Add(a => a.Url, "/Cat");
             });
         });
         cut.Contains("<span class=\"tabs-item-text\">Tab1</span>");
-        var item = cut.FindComponent<TabItem>();
-        await cut.InvokeAsync(() => item.Instance.SetText("Text", "fa fa-fa", true));
+
+        text = "Text";
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.AddChildContent<TabItem>(pb =>
+            {
+                pb.Add(a => a.Text, text);
+                pb.Add(a => a.Url, "/Cat");
+            });
+        });
         cut.Contains("<span class=\"tabs-item-text\">Text</span>");
     }
 
