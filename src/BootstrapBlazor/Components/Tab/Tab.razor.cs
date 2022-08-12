@@ -16,7 +16,7 @@ public partial class Tab
     private bool FirstRender { get; set; } = true;
 
     private static string? GetContentClassString(TabItem item) => CssBuilder.Default("tabs-body-content")
-        .AddClass("d-none", !item.IsActive || !item.IsShow)
+        .AddClass("d-none", !item.IsActive)
         .Build();
 
     private string? WrapClassString => CssBuilder.Default("tabs-nav-wrap")
@@ -26,7 +26,6 @@ public partial class Tab
     private string? GetClassString(TabItem item) => CssBuilder.Default("tabs-item")
         .AddClass("active", item.IsActive)
         .AddClass("is-closeable", ShowClose)
-        .AddClass("d-none", !item.IsShow)
         .Build();
 
     private static string? GetIconClassString(string icon) => CssBuilder.Default()
