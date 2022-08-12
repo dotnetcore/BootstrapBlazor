@@ -41,19 +41,28 @@ else
                             }
                             @foreach (var item in Items)
                             {
-                                <DynamicElement href="@item.Url" role="tab" tabindex="-1" class="@GetClassString(item)" TagName="a" TriggerClick="!ClickTabToNavigation" PreventDefault="@(!ClickTabToNavigation)" OnClick="@(() => OnClickTabItem(item))">
-                                    @if (!string.IsNullOrEmpty(item.Icon))
-                                    {
-                                        <i class="@GetIconClassString(item.Icon)"></i>
-                                    }
-                                    <span class="tabs-item-text">@item.Text</span>
-                                    @if (ShowClose && item.Closable)
-                                    {
-                                        <span class="tabs-item-close" @onclick:stopPropagation @onclick:preventDefault @onclick="@(e => RemoveTab(item))">
-                                            <i class="fa fa-fw fa-close"></i>
-                                        </span>
-                                    }
-                                </DynamicElement>
+                                if (item.HeaderTemplate != null)
+                                {
+                                    @item.HeaderTemplate.Invoke(this)
+                                }
+                                else
+                                {
+                                    <DynamicElement href="@item.Url" role="tab" tabindex="-1" class="@GetClassString(item)"
+                                                    TagName="a" TriggerClick="!ClickTabToNavigation" OnClick="@(() => OnClickTabItem(item))"
+                                                    PreventDefault="@(!ClickTabToNavigation)">
+                                        @if (!string.IsNullOrEmpty(item.Icon))
+                                        {
+                                            <i class="@GetIconClassString(item.Icon)"></i>
+                                        }
+                                        <span class="tabs-item-text">@item.Text</span>
+                                        @if (ShowClose && item.Closable)
+                                        {
+                                            <span class="tabs-item-close" @onclick:stopPropagation @onclick:preventDefault @onclick="@(e => RemoveTab(item))">
+                                                <i class="fa fa-fw fa-close"></i>
+                                            </span>
+                                        }
+                                    </DynamicElement>
+                                }
                             }
                         </RenderTemplate>
                     </div>

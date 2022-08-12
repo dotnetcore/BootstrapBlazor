@@ -135,6 +135,12 @@ public sealed partial class Tabs
         TabText = DateTime.Now.ToString();
     }
 
+    private static void OnClickTabItem(Tab tab) => tab.ActiveTab(0);
+
+    private static string? GetClassString(Tab tab) => CssBuilder.Default("tabs-item")
+        .AddClass("active", tab.Items.ElementAt(0).IsActive)
+        .Build();
+
     /// <summary>
     /// 获得属性方法
     /// </summary>
@@ -209,6 +215,13 @@ public sealed partial class Tabs
             Name = "DefaultUrl",
             Description = Localizer["DefaultUrl"].Value,
             Type = "string",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new AttributeItem() {
+            Name = "HeaderTemplate",
+            Description = Localizer["AttHeaderTemplate"].Value,
+            Type = "RenderFragment",
             ValueList = " — ",
             DefaultValue = " — "
         },
