@@ -283,18 +283,6 @@ public sealed partial class Tabs
             Description = Localizer["Method9"].Value,
             Parameters = "",
             ReturnValue = "Tabitem"
-        },
-        new MethodItem() {
-            Name = nameof(Tab.ShowTab),
-            Description = Localizer["Method10"].Value,
-            Parameters = "bool",
-            ReturnValue = " — "
-        },
-        new MethodItem() {
-            Name = nameof(Tab.HideTab),
-            Description = Localizer["Method11"].Value,
-            Parameters = "bool",
-            ReturnValue = " — "
         }
     };
 }
