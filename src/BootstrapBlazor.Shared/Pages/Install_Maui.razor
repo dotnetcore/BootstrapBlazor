@@ -1,0 +1,233 @@
+﻿@page "/install-maui"
+@inject IStringLocalizer<Install_Maui> Localizer
+@inject VersionService VersionManager
+
+<h3>@Title</h3>
+
+<h4>环境准备</h4>
+
+<p class="mt-3">确保系统安装</p>
+<ul>
+    <li><code>visual studio 2022 17.3.0</code> 版本 </li>
+    <li><code>net6</code></li>
+</ul>
+
+<h4>使用 Visual Studio 创建项目</h4>
+
+<h5 class="mb-3">步骤一、创建项目</h5>
+<div class="code-label mb-2">1.Visual Studio 2022</div>
+<div class="code-label mb-2">2. 创建一个新项目</div>
+<div class="code-label mb-2">3. 选择 <b>.NET MAUI Blazor 应用</b> 并单击 <b>下一步</b>, 为项目选择一个名称和位置，然后点击 <b>下一步</b>, <b>创建</b></div>
+<img src="_content/BootstrapBlazor.Shared/images/choose-project-template-maui-blazor.png" style="border-radius: 6px;" class="d-none d-sm-block" />
+<h5 class="mb-3">步骤二、将 BootstrapBlazor 组件添加到现有项目</h5>
+<div class="code-label mb-2">1. 通过 <b>nuget.org</b> 源搜索 <code>BootstrapBlazor</code></div>
+<div class="mb-2">右键点击解决方案中的项目并选择 <b>Manage Nuget Packages</b></div>
+<Pre class="no-highlight">dotnet add package BootstrapBlazor --version @Version</Pre>
+<img src="_content/BootstrapBlazor.Shared/images/manage-nuget-packages-for-maui-app.png" style="border-radius: 6px;" class="d-none d-sm-block" />
+<div class="code-label mt-3 mb-2">2. 安装 BootstrapBlazor 包</div>
+<img src="_content/BootstrapBlazor.Shared/images/nuget_install.png" style="width: 1000px; border-radius: 6px;" class="d-none d-sm-block" />
+<div class="code-label mt-3 mb-2">3. 添加样式表文件</div>
+<div class="mb-3">在宿主文件中增加主题样式表</div>
+<ul>
+    <li><code>~/wwwroot/index.html</code> </li>
+</ul>
+<Tips>
+    <div>@((MarkupString)"请移除默认的 <code>Bootstrap</code> 样式链接 <code>&lt;link rel='stylesheet' href='css/bootstrap/bootstrap.min.css' /&gt;</code>; 本项目图标使用 <code>FontAwesome</code> 图标库，请自行引用 <b>4.7.0</b> 以上版本或者引用 <code>BootstrapBlazor.FontAwesome</code> 包")</div>
+</Tips>
+<Pre>&lt;head&gt;
+    ...
+<b>
+    &lt;!-- 需引用 BootstrapBlazor.FontAwesome 包 !--&gt;
+    &lt;link href="_content/BootstrapBlazor.FontAwesome/css/font-awesome.min.css" rel="stylesheet"&gt;
+    &lt;link href="_content/BootstrapBlazor/css/bootstrap.blazor.bundle.min.css" rel="stylesheet"&gt;
+</b>
+    ...
+    &lt;link href="css/app.css" rel="stylesheet"&gt;
+    &lt;link href="MauiApp1.styles.css" rel="stylesheet"&gt;
+&lt;/head&gt;</Pre>
+<div class="code-label mb-3">4. 添加 Javascript 文件</div>
+<ul>
+    <li><code>~/wwwroot/index.html</code> </li>
+</ul>
+<Pre>&lt;body&gt;
+    ...
+    &lt;!-- 增加代码 !--&gt;
+<b>&lt;script src="_content/BootstrapBlazor/js/bootstrap.blazor.bundle.min.js"&gt;&lt;/script&gt;</b>
+    ...
+    &lt;script src="_framework/blazor.webview.js" autostart="false" &gt;&lt;/script&gt;
+&lt;/body&gt;</Pre>
+<div class="code-label mb-2">5. 注册 BootstrapBlazor 服务</div>
+<ul>
+    <li><code>MauiProgram.cs</code></li>
+</ul>
+<div class="mb-2"><b>MauiProgram.cs</b></div>
+<Pre>var builder = MauiApp.CreateBuilder();
+
+builder.Services.AddMauiBlazorWebView();
+
+// @Localizer["CodeComment"]
+<b><i>builder.Services.AddBootstrapBlazor();</i></b>
+
+return builder.Build();
+</Pre>
+<div class="code-label mb-2">6. 增加命名空间引用</div>
+<div class="mb-1">将以下内容添加到 <code>~/_Imports.razor</code> 文件中，以便 <code>Razor</code> 文件中能识别组件</div>
+<Pre><b>@@using BootstrapBlazor.Components</b></Pre>
+
+<div class="code-label mb-2">7. 增加 <code>BootstrapBlazorRoot</code> 组件到 <code>~/Main.razor</code> 文件中</div>
+<Pre>&lt;BootstrapBlazorRoot&gt;
+    &lt;Router AppAssembly="@@typeof(App).Assembly"&gt;
+        &lt;Found Context="routeData"&gt;
+            &lt;PageTitle&gt;Title&lt;/PageTitle&gt;
+            &lt;RouteView RouteData="@@routeData" DefaultLayout="@@typeof(MainLayout)" /&gt;
+            &lt;FocusOnNavigate RouteData="@@routeData" Selector="h1" /&gt;
+        &lt;/Found&gt;
+    &lt;NotFound&gt;
+            &lt;PageTitle&gt;Not found&lt;/PageTitle&gt;
+                &lt;LayoutView Layout="@@typeof(MainLayout)"&gt;
+                &lt;p&gt;正在玩命开发中 ...&lt;/p&gt;
+            &lt;/LayoutView&gt;
+        &lt;/NotFound&gt;
+    &lt;/Router&gt;
+&lt;/BootstrapBlazorRoot&gt;</Pre>
+
+<h5 class="mb-3">步骤三、页面中使用组件</h5>
+<div class="mb-1">最后一步是在页面中使用 <code>BootstrapBlazor</code> 组件并在浏览器中运行它。例如：</div>
+<div class="code-label mb-2">1. 在页面中增加一个 <code>Button</code> 按钮</div>
+<Pre>&lt;Button Color="Color.Primary" Icon="fa fa-fa" Text="测试" /&gt;</Pre>
+<div class="code-label mb-2">2. 在 <b>Visual studio 2022</b> 中 <kbd>F5</kbd> 运行应用程序</div>
+<img src="_content/BootstrapBlazor.Shared/images/preview-maui.png" style="border-radius: 6px;" class="d-none d-sm-block" />
+
+
+<h4 class="code-label mb-2">同时使用 Razor 和 Xaml 的混合模式</h4>
+<div class="code-label mb-2">1. Pages文件夹中添加一个名为 <code>NativeContent.xaml</code> 的 MAUI ContentView 控件文件</div>
+<ul>
+    <li><code>NativeContent.xaml</code></li>
+</ul>
+<Pre>&lt;ContentView
+    x:Class="MauiApp1.Pages.NativeContent"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"&gt;
+    &lt;VerticalStackLayout
+        Padding="30,0"
+        Spacing="25"
+        VerticalOptions="Center"&gt;
+
+        &lt;Image
+            HeightRequest="200"
+            HorizontalOptions="Center"
+            SemanticProperties.Description="Cute dot net bot waving hi to you!"
+            Source="dotnet_bot.png" /&gt;
+
+        &lt;Label
+            FontSize="32"
+            HorizontalOptions="Center"
+            SemanticProperties.HeadingLevel="Level1"
+            Text="Hello, World!" /&gt;
+
+        &lt;Label
+            FontSize="18"
+            HorizontalOptions="Center"
+            SemanticProperties.Description="Welcome to dot net Multi platform App U I"
+            SemanticProperties.HeadingLevel="Level2"
+            Text="Welcome to .NET Multi-platform App UI" /&gt;
+
+        &lt;Button
+            x:Name="CounterBtn"
+            Clicked="OnCounterClicked"
+            HorizontalOptions="Center"
+            SemanticProperties.Hint="Counts the number of times you click"
+            Text="Click me" /&gt;
+
+    &lt;/VerticalStackLayout&gt;
+&lt;/ContentView&gt;</Pre>
+<ul>
+    <li><code>NativeContent.xaml.cs</code></li>
+</ul>
+<Pre>public partial class NativeContent : ContentView
+{
+    public NativeContent()
+    {
+        InitializeComponent();
+    }
+
+    int count = 0;
+
+    private void OnCounterClicked(object sender, EventArgs e)
+    {
+        count++;
+
+        if (count == 1)
+            CounterBtn.Text = $"Clicked {count} time";
+        else
+            CounterBtn.Text = $"Clicked {count} times";
+    }
+}</Pre>
+<div class="code-label mb-2">2. 修改 <code>MainPage.xaml</code> 文件中的 <code>ContentPage</code> 为  <code>TabbedPage</code>（也可使用 <code>NavigationPage</code> 等其他导航组件）  </div>
+<ul>
+    <li><code>MainPage.xaml</code></li>
+</ul>
+<Pre>
+    &lt;TabbedPage
+    x:Class="MauiApp1.MainPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:MauiApp1"
+    xmlns:pages="clr-namespace:MauiApp1.Pages"
+    BackgroundColor="{DynamicResource PageBackgroundColor}"&gt;
+    &lt;ContentPage Title="Home"&gt;
+        &lt;BlazorWebView HostPage="wwwroot/index.html"&gt;
+            &lt;BlazorWebView.RootComponents&gt;
+                &lt;RootComponent ComponentType="{x:Type pages:Index}" Selector="#app" /&gt;
+            &lt;/BlazorWebView.RootComponents&gt;
+        &lt;/BlazorWebView&gt;
+    &lt;/ContentPage&gt;
+    &lt;ContentPage Title="NativeContent"&gt;
+        &lt;pages:NativeContent /&gt;
+    &lt;/ContentPage&gt;
+    &lt;ContentPage Title="Counter"&gt;
+        &lt;BlazorWebView HostPage="wwwroot/index.html"&gt;
+            &lt;BlazorWebView.RootComponents&gt;
+                &lt;RootComponent ComponentType="{x:Type pages:Counter}" Selector="#app" /&gt;
+            &lt;/BlazorWebView.RootComponents&gt;
+        &lt;/BlazorWebView&gt;
+    &lt;/ContentPage&gt;
+    &lt;ContentPage Title="Weather"&gt;
+        &lt;BlazorWebView HostPage="wwwroot/index.html"&gt;
+            &lt;BlazorWebView.RootComponents&gt;
+                &lt;RootComponent ComponentType="{x:Type pages:FetchData}" Selector="#app" /&gt;
+            &lt;/BlazorWebView.RootComponents&gt;
+        &lt;/BlazorWebView&gt;
+    &lt;/ContentPage&gt;
+&lt;/TabbedPage&gt;
+</Pre>
+<ul>
+    <li><code>MainPage.xaml.cs</code></li>
+</ul>
+<Pre>
+public partial class MainPage : TabbedPage
+{
+    public MainPage()
+    {
+        InitializeComponent();
+    }
+}
+</Pre>
+<div class="code-label mb-2">在 <b>Visual studio 2022</b> 中 <kbd>F5</kbd> 运行应用程序</div>
+
+<img src="_content/BootstrapBlazor.Shared/images/maui-blazor.gif" style="border-radius: 6px;width: 320px;" class="d-none d-sm-block" />
+
+
+
+@code
+{
+    private string Version { get; set; } = "latest";
+
+    [Parameter]
+    public string Title { get; set; } = "MAUI Blazor 安装教程";
+
+    protected override async Task OnInitializedAsync()
+    {
+        Version = await VersionManager.GetVersionAsync();
+    }
+}
