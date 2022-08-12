@@ -2,7 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using BootstrapBlazor.Components;
 using Bunit.TestDoubles;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
@@ -21,7 +20,6 @@ public class TabTest : TabTestBase
             {
                 pb.Add(a => a.Text, "Tab1");
                 pb.Add(a => a.Url, "/Index");
-                pb.Add(a => a.IsShow, true);
                 pb.Add(a => a.Closable, true);
                 pb.Add(a => a.Icon, "fa fa-fa");
                 pb.Add(a => a.Key, "TabItem-Key");
@@ -398,6 +396,23 @@ public class TabTest : TabTestBase
             });
         });
         cut.Contains("<span class=\"tabs-item-text\">Text</span>");
+    }
+
+    [Fact]
+    public void TabItem_HeaderTemplate()
+    {
+        var cut = Context.RenderComponent<Tab>(pb =>
+        {
+            pb.AddChildContent<TabItem>(pb =>
+            {
+                pb.Add(a => a.HeaderTemplate, tab => builder =>
+                {
+                    builder.AddContent(0, "test-HeaderTemplate");
+                });
+                pb.Add(a => a.Url, "/Cat");
+            });
+        });
+        cut.Contains("test-HeaderTemplate");
     }
 
     [Fact]
