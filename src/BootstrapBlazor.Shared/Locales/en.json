@@ -2712,6 +2712,7 @@
     "Localization": "Localization",
     "ServerBlazor": "Server-side Blazor",
     "ClientBlazor": "Client-side Blazor",
+    "MauiBlazor": "Maui Blazor",
     "Labels": "Labels",
     "ZIndex": "Layout",
     "Breakpoints": "Breakpoints",

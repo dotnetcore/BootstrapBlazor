@@ -234,6 +234,12 @@ public sealed partial class NavMenu
             },
             new()
             {
+                Text = Localizer["MauiBlazor"],
+                Url = "install-maui",
+                Match = NavLinkMatch.All
+            },
+            new()
+            {
                 Text = Localizer["Breakpoints"],
                 Url = "breakpoints"
             },
