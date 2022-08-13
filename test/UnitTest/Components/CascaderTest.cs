@@ -146,7 +146,7 @@ public class CascaderTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public async Task SelectLast_Ok()
+    public async Task ParentSelectable_Ok()
     {
         var value = "";
         var selectedItems = new List<CascaderItem>();
@@ -164,7 +164,7 @@ public class CascaderTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.Items, items);
             pb.Add(a => a.Value, value);
-            pb.Add(a => a.OnlySelectLast, true);
+            pb.Add(a => a.ParentSelectable, false);
             pb.Add(a => a.OnValueChanged, v =>
             {
                 value = v;
@@ -179,5 +179,4 @@ public class CascaderTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(() => linkItems[2].Click());
         Assert.Equal("111", value);
     }
-
 }
