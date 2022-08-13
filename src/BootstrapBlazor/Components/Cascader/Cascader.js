@@ -1,9 +1,9 @@
-﻿(function ($) {
+﻿(function () {
     $.extend({
         bb_cascader_hide: function (el) {
             const dropdownEl = document.getElementById(el);
-            const dropdown = new bootstrap.Dropdown(dropdownEl);
+            const dropdown = bootstrap.Dropdown.getInstance(dropdownEl);
             dropdown.hide();
         }
     });
-})(jQuery);
+})();
