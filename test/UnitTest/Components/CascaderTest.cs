@@ -144,4 +144,39 @@ public class CascaderTest : BootstrapBlazorTestBase
         });
         Assert.Equal("", cut.Markup);
     }
+
+    [Fact]
+    public async Task ParentSelectable_Ok()
+    {
+        var value = "";
+        var selectedItems = new List<CascaderItem>();
+        var items = new List<CascaderItem>()
+        {
+            new() { Text = "Test1", Value = "1" },
+            new() { Text = "Test2", Value = "2" }
+        };
+        items[1].AddItem(new("11", "Test11"));
+        items[1].AddItem(new() { Text = "Test12", Value = "12" });
+
+        items[1].Items.ElementAt(1).AddItem(new() { Text = "Test111", Value = "111" });
+
+        var cut = Context.RenderComponent<Cascader<string>>(pb =>
+        {
+            pb.Add(a => a.Items, items);
+            pb.Add(a => a.Value, value);
+            pb.Add(a => a.ParentSelectable, false);
+            pb.Add(a => a.OnValueChanged, v =>
+            {
+                value = v;
+                return Task.CompletedTask;
+            });
+        });
+        var dropdownItems = cut.FindAll(".dropdown-item");
+        await cut.InvokeAsync(() => dropdownItems[1].Click());
+        Assert.Equal("", value);
+
+        var linkItems = cut.FindAll(".nav-link");
+        await cut.InvokeAsync(() => linkItems[2].Click());
+        Assert.Equal("111", value);
+    }
 }

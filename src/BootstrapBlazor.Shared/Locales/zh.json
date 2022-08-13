@@ -928,6 +928,8 @@
     "Block5Intro": "组件绑定值为 Guid 结构体示例",
     "Block6Title": "显示标签",
     "Block6Intro": "组件双向绑定时会根据条件自动判断是否显示标签文字",
+    "BlockParentSelectableTitle": "不允许选中父节点",
+    "BlockParentSelectableIntro": "组件只允许选中最后一级节点，点击父节点后不会触发事件",
     "P1": "前置标签显式规则与 <code>BootstrapInput</code> 组件一致 <a href='inputs'>[传送门]</a>",
     "Divider1": "双向绑定显示标签",
     "Divider2": "双向绑定不显示标签",

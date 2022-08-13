@@ -44,10 +44,16 @@ public partial class Cascader<TValue>
     public IEnumerable<CascaderItem>? Items { get; set; }
 
     /// <summary>
-    /// ValueChanged 方法
+    /// 获得/设置 ValueChanged 方法
     /// </summary>
     [Parameter]
     public Func<CascaderItem[], Task>? OnSelectedItemChanged { get; set; }
+
+    /// <summary>
+    /// 获得/设置 父节点是否可选择 默认 true
+    /// </summary>
+    [Parameter]
+    public bool ParentSelectable { get; set; } = true;
 
     [Inject]
     [NotNull]
@@ -169,9 +175,13 @@ public partial class Cascader<TValue>
 
     private async Task SetSelectedItem(CascaderItem item)
     {
-        SelectedItems.Clear();
-        SetSelectedNodeWithParent(item, SelectedItems);
-        await SetValue(item.Value);
+        if (ParentSelectable || !item.HasChildren)
+        {
+            SelectedItems.Clear();
+            SetSelectedNodeWithParent(item, SelectedItems);
+            await SetValue(item.Value);
+            await JSRuntime.InvokeVoidAsync(InputId, "bb_cascader_hide");
+        }
     }
 
     private async Task SetValue(string value)

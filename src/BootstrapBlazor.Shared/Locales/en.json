@@ -928,6 +928,8 @@
     "Block5Intro": "The component binding value is an example of a Guid structure",
     "Block6Title": "The label is displayed",
     "Block6Intro": "When a component binds in both directions, it automatically determines whether label text is displayed based on the conditions",
+    "BlockParentSelectableTitle": "Parent selectable",
+    "BlockParentSelectableIntro": "Whether can select on the parent node",
     "P1": "The pre-label explicit rules are consistent with the <code>BootstrapInput</code> component of the <a href='inputs'>[portal]</a>",
     "Divider1": "Bidirectional binding displays labels",
     "Divider2": "Bidirectional bindings do not display labels",

@@ -7,8 +7,8 @@
     <BootstrapLabel required="@Required" for="@Id" ShowLabelTooltip="ShowLabelTooltip" Value="@DisplayText" />
 }
 <div class="cascade menu">
-    <div @attributes="AdditionalAttributes" id="@Id" data-bs-toggle="lgbSelect" class="@ClassName" tabindex="-1">
-        <input type="text" id="@InputId" readonly disabled="@Disabled" class="@InputClassName" style="@BackgroundColor" data-bs-toggle="dropdown" placeholder="@PlaceHolder" value="@DisplayTextString" />
+    <div @attributes="AdditionalAttributes" id="@Id" class="@ClassName" tabindex="-1">
+        <input type="text" id="@InputId" readonly disabled="@Disabled" class="@InputClassName" style="@BackgroundColor" data-bs-toggle="dropdown" data-bs-auto-close="outside" placeholder="@PlaceHolder" value="@DisplayTextString" />
         <span class="@AppendClassName"><i class="fa fa-angle-up"></i></span>
         @if (!IsDisabled)
         {
