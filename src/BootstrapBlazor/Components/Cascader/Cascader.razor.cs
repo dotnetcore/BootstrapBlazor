@@ -22,7 +22,10 @@ public partial class Cascader<TValue>
     /// </summary>
     private string? InputId => $"{Id}_input";
 
-    private string? DisplayTextString { get; set; }
+    /// <summary>
+    /// 获得/设置 组件显示文字
+    /// </summary>
+    protected string? DisplayTextString { get; set; }
 
     /// <summary>
     /// 获得/设置 按钮颜色
@@ -54,6 +57,12 @@ public partial class Cascader<TValue>
     /// </summary>
     [Parameter]
     public bool ParentSelectable { get; set; } = true;
+
+    /// <summary>
+    /// 获得/设置 是否显示全路径 默认 true
+    /// </summary>
+    [Parameter]
+    public bool ShowFullLevels { get; set; } = true;
 
     [Inject]
     [NotNull]
@@ -103,7 +112,7 @@ public partial class Cascader<TValue>
         {
             CurrentValueAsString = Items.FirstOrDefault()?.Value ?? string.Empty;
         }
-        RefreshDisplayValue();
+        RefreshDisplayText();
     }
 
     /// <summary>
@@ -186,21 +195,21 @@ public partial class Cascader<TValue>
 
     private async Task SetValue(string value)
     {
-        RefreshDisplayValue();
-        if (SelectedItems.Count != 1)
-        {
-            StateHasChanged();
-        }
-
+        RefreshDisplayText();
         CurrentValueAsString = value;
-
         if (OnSelectedItemChanged != null)
         {
             await OnSelectedItemChanged.Invoke(SelectedItems.ToArray());
         }
+        if (SelectedItems.Count != 1)
+        {
+            StateHasChanged();
+        }
     }
 
-    private void RefreshDisplayValue() => DisplayTextString = string.Join("/", SelectedItems.Select(item => item.Text));
+    private void RefreshDisplayText() => DisplayTextString = ShowFullLevels
+        ? string.Join("/", SelectedItems.Select(item => item.Text))
+        : SelectedItems.LastOrDefault()?.Text;
 
     /// <summary>
     /// 设置选中所有父节点

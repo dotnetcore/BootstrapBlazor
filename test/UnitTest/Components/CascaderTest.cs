@@ -179,4 +179,39 @@ public class CascaderTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(() => linkItems[2].Click());
         Assert.Equal("111", value);
     }
+
+    [Fact]
+    public async Task ShowFullLevels_Ok()
+    {
+        var selectedItems = new List<CascaderItem>();
+        var items = new List<CascaderItem>()
+        {
+            new() { Text = "Test1", Value = "1" },
+            new() { Text = "Test2", Value = "2" }
+        };
+        items[0].AddItem(new("11", "Test11"));
+        items[1].AddItem(new("21", "Test21"));
+
+        var cut = Context.RenderComponent<MockCascader>(pb =>
+        {
+            pb.Add(a => a.Items, items);
+            pb.Add(a => a.ShowFullLevels, false);
+        });
+        var dropdownItems = cut.FindAll(".nav-link");
+        await cut.InvokeAsync(() => dropdownItems[0].Click());
+        Assert.Equal("Test11", cut.Instance.MockDisplayText);
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ShowFullLevels, true);
+        });
+        dropdownItems = cut.FindAll(".nav-link");
+        await cut.InvokeAsync(() => dropdownItems[0].Click());
+        Assert.Equal("Test1/Test11", cut.Instance.MockDisplayText);
+    }
+
+    class MockCascader : Cascader<string>
+    {
+        public string? MockDisplayText => DisplayTextString;
+    }
 }
