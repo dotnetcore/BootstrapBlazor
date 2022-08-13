@@ -10,6 +10,11 @@
     --bb-select-disabled-color: #c0c4cc;
 }
 
+.cascade,
+.select {
+    --bb-select-dropdown-menu-margin-top: 8px;
+}
+
     .select .dropdown-menu {
         max-height: var(--bb-select-dropdown-max-height);
         overflow-x: hidden;
@@ -26,8 +31,9 @@
         cursor: pointer;
     }
 
-    .select .dropdown-menu {
-        margin-top: 8px !important;
+    .select .dropdown-menu,
+    .cascade .dropdown-menu {
+        margin-top: var(--bb-select-dropdown-menu-margin-top) !important;
     }
 
 .form-select:disabled {
