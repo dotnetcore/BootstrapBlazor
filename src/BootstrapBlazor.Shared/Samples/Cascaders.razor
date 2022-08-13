@@ -94,10 +94,10 @@
     </div>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["Block7Title"]" Introduction="@Localizer["Block7Intro"]" Name="Last">
+<DemoBlock Title="@Localizer["BlockParentSelectableTitle"]" Introduction="@Localizer["BlockParentSelectableIntro"]" Name="ParentSelectable">
     <div class="row g-3">
         <div class="col-12 col-sm-6">
-            <Cascader Color="Color.Primary" Items="@Items" @bind-Value="@CurrentGuid" OnlySelectLast="true" />
+            <Cascader Color="Color.Primary" Items="@Items" @bind-Value="@CurrentGuid" ParentSelectable="false" />
         </div>
     </div>
 </DemoBlock>
