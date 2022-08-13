@@ -37,6 +37,7 @@
     .modal-header-buttons .btn-maximize {
         color: #6c757d;
         padding: 0 1rem 0 0;
+        border: 0;
     }
 
     .modal-header-buttons .btn-print {
