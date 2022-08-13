@@ -44,7 +44,7 @@ public partial class Cascader<TValue>
     public IEnumerable<CascaderItem>? Items { get; set; }
 
     /// <summary>
-    /// ValueChanged 方法
+    /// 获得/设置 ValueChanged 方法
     /// </summary>
     [Parameter]
     public Func<CascaderItem[], Task>? OnSelectedItemChanged { get; set; }
