@@ -326,7 +326,7 @@
     min-width: 0;
 }
 
-    .input-group > .datetime-picker .form-control {
+    .input-group > .datetime-picker:not(:first-child) .form-control {
         border-top-left-radius: 0;
         border-bottom-left-radius: 0;
     }
