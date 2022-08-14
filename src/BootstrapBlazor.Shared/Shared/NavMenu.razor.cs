@@ -308,6 +308,7 @@ public sealed partial class NavMenu
             },
             new()
             {
+                IsUpdate = true,
                 Text = Localizer["DateTimePicker"],
                 Url = "datetimepickers"
             },

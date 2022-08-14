@@ -614,4 +614,25 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
 
         cut.Contains("class=\"date-table\"");
     }
+
+    [Fact]
+    public async Task AutoClose_OK()
+    {
+        DateTime val = DateTime.MinValue;
+        var cut = Context.RenderComponent<DateTimePicker<DateTime>>(builder =>
+        {
+            builder.Add(a => a.Value, DateTime.Today);
+            builder.Add(a => a.AutoClose, true);
+            builder.Add(a => a.OnDateTimeChanged, dt =>
+            {
+                val = dt;
+                return Task.CompletedTask;
+            });
+        });
+
+        var button = cut.Find(".picker-panel-content .cell");
+        await cut.InvokeAsync(() => button.Click());
+
+        Assert.NotEqual(val, DateTime.MinValue);
+    }
 }

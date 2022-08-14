@@ -193,6 +193,13 @@ public sealed partial class DateTimePickers
             Type = "DatePickerViewMode",
             ValueList = " Date / DateTime / Year / Month",
             DefaultValue = "Date"
+        },
+        new AttributeItem() {
+            Name = "AutoClose",
+            Description = Localizer["AttrAutoClose"],
+            Type = "bool",
+            ValueList = "true/false",
+            DefaultValue = "false"
         }
     };
 }

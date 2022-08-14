@@ -130,6 +130,12 @@ public sealed partial class DateTimePicker<TValue>
     [Parameter]
     public Func<TValue, Task>? OnDateTimeChanged { get; set; }
 
+    /// <summary>
+    /// 获得/设置 是否点击确认关闭弹窗 默认 false
+    /// </summary>
+    [Parameter]
+    public bool AutoClose { get; set; }
+
     [Inject]
     [NotNull]
     private IStringLocalizer<DateTimePicker<DateTime>>? Localizer { get; set; }
