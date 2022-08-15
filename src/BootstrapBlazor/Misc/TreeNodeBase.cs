@@ -20,6 +20,11 @@ public abstract class TreeNodeBase<TItem> : NodeBase<TItem>
     public string? Icon { get; set; }
 
     /// <summary>
+    /// 获得/设置 展开节点状态下的 Icon 图标
+    /// </summary>
+    public string? ExpandIcon { get; set; }
+
+    /// <summary>
     /// 获得/设置 自定义样式名
     /// </summary>
     public string? CssClass { get; set; }

@@ -43,6 +43,7 @@ public partial class TreeView<TItem> where TItem : class
     /// <returns></returns>
     private static string? GetIconClassString(TreeViewItem<TItem> item) => CssBuilder.Default("tree-icon")
         .AddClass(item.Icon)
+        .AddClass(item.ExpandIcon, item.IsExpand && !string.IsNullOrEmpty(item.ExpandIcon))
         .Build();
 
     /// <summary>
