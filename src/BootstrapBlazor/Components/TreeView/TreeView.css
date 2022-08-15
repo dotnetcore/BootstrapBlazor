@@ -46,6 +46,7 @@
             display: flex;
             padding: var(--bb-tree-content-padding);
             align-items: center;
+            width: max-content;
         }
 
             .tree-view .tree-item .tree-content .fa-caret-right {
