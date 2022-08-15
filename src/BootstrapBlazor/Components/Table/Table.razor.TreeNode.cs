@@ -102,12 +102,12 @@ public partial class Table<TItem>
         }
     };
 
-    private async Task<IEnumerable<IExpandableNode<TItem>>> GetChildrenRow(TableTreeNode<TItem> node, TItem item)
+    private async Task<IEnumerable<IExpandableNode<TItem>>> GetChildrenRow(TableTreeNode<TItem> node)
     {
         if (OnTreeExpand == null)
         {
             throw new InvalidOperationException(NotSetOnTreeExpandErrorMessage);
         }
-        return await OnTreeExpand(item);
+        return await OnTreeExpand(node.Value);
     }
 }

@@ -70,6 +70,7 @@ public class TreeViewTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.IsAccordion, true);
             pb.Add(a => a.ShowCheckbox, true);
+            pb.Add(a => a.ClickToggleCheck, true);
             pb.Add(a => a.OnTreeItemChecked, items =>
             {
                 itemChecked = items.FirstOrDefault()?.CheckedState ?? CheckboxState.UnChecked;
@@ -185,7 +186,7 @@ public class TreeViewTest : BootstrapBlazorTestBase
             pb.Add(a => a.OnExpandNodeAsync, item =>
             {
                 expanded = true;
-                return OnExpandNodeAsync(item);
+                return OnExpandNodeAsync(item.Value);
             });
             pb.Add(a => a.Items, items);
         });
@@ -366,7 +367,7 @@ public class TreeViewTest : BootstrapBlazorTestBase
             {
                 var ret = new List<TreeViewItem<TreeFoo>>
                 {
-                    new TreeViewItem<TreeFoo>(new TreeFoo() { Id = item.Id + "10", ParentId = item.Id })
+                    new TreeViewItem<TreeFoo>(new TreeFoo() { Id = item.Value.Id + "10", ParentId = item.Value.Id })
                 };
                 return Task.FromResult(ret.AsEnumerable());
             });

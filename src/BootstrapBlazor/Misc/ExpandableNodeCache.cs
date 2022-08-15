@@ -41,7 +41,7 @@ public class ExpandableNodeCache<TNode, TItem> where TNode : IExpandableNode<TIt
     /// <param name="callback"></param>
     /// <returns></returns>
     /// <exception cref="InvalidOperationException"></exception>
-    public virtual async Task ToggleNodeAsync(TNode node, Func<TNode, TItem, Task<IEnumerable<IExpandableNode<TItem>>>> callback)
+    public virtual async Task ToggleNodeAsync(TNode node, Func<TNode, Task<IEnumerable<IExpandableNode<TItem>>>> callback)
     {
         if (node.IsExpand)
         {
@@ -57,7 +57,11 @@ public class ExpandableNodeCache<TNode, TItem> where TNode : IExpandableNode<TIt
             // 无子项时通过回调方法延时加载
             if (!node.Items.Any())
             {
-                node.Items = await callback(node, node.Value);
+                node.Items = await callback(node);
+                foreach (var n in node.Items)
+                {
+                    n.Parent = node;
+                }
             }
         }
         else
@@ -79,7 +83,7 @@ public class ExpandableNodeCache<TNode, TItem> where TNode : IExpandableNode<TIt
     /// <param name="node"></param>
     /// <param name="callback"></param>
     /// <returns></returns>
-    public async Task CheckExpandAsync(TNode node, Func<TNode, TItem, Task<IEnumerable<IExpandableNode<TItem>>>> callback)
+    public async Task CheckExpandAsync(TNode node, Func<TNode, Task<IEnumerable<IExpandableNode<TItem>>>> callback)
     {
         if (node.IsExpand)
         {
@@ -103,7 +107,11 @@ public class ExpandableNodeCache<TNode, TItem> where TNode : IExpandableNode<TIt
 
                 if (!node.Items.Any())
                 {
-                    node.Items = await callback(node, node.Value);
+                    node.Items = await callback(node);
+                    foreach (var n in node.Items)
+                    {
+                        n.Parent = node;
+                    }
                 }
             }
             else

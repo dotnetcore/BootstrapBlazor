@@ -159,7 +159,7 @@ public partial class TreeView<TItem> where TItem : class
     /// 获得/设置 点击节点获取子数据集合回调方法
     /// </summary>
     [Parameter]
-    public Func<TItem, Task<IEnumerable<TreeViewItem<TItem>>>>? OnExpandNodeAsync { get; set; }
+    public Func<TreeViewItem<TItem>, Task<IEnumerable<TreeViewItem<TItem>>>>? OnExpandNodeAsync { get; set; }
 
     /// <summary>
     /// <inheritdoc/>
@@ -273,7 +273,7 @@ public partial class TreeView<TItem> where TItem : class
         }
     }
 
-    private async Task<IEnumerable<IExpandableNode<TItem>>> GetChildrenRowAsync(TreeViewItem<TItem> node, TItem item)
+    private async Task<IEnumerable<IExpandableNode<TItem>>> GetChildrenRowAsync(TreeViewItem<TItem> node)
     {
         if (OnExpandNodeAsync == null)
         {
@@ -282,7 +282,7 @@ public partial class TreeView<TItem> where TItem : class
         node.ShowLoading = true;
         StateHasChanged();
 
-        var ret = await OnExpandNodeAsync(item);
+        var ret = await OnExpandNodeAsync(node);
         node.ShowLoading = false;
         return ret;
     }

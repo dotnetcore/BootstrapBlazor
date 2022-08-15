@@ -183,9 +183,10 @@ public sealed partial class TreeViews
         return Task.CompletedTask;
     }
 
-    private static async Task<IEnumerable<TreeViewItem<TreeFoo>>> OnExpandNodeAsync(TreeFoo item)
+    private static async Task<IEnumerable<TreeViewItem<TreeFoo>>> OnExpandNodeAsync(TreeViewItem<TreeFoo> node)
     {
         await Task.Delay(800);
+        var item = node.Value;
         return new TreeViewItem<TreeFoo>[]
         {
             new TreeViewItem<TreeFoo>(new TreeFoo() { Id = $"{item.Id}-101", ParentId = item.Id })
