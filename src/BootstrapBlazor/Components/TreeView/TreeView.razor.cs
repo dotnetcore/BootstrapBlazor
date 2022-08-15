@@ -100,6 +100,12 @@ public partial class TreeView<TItem> where TItem : class
     public bool ClickToggleNode { get; set; }
 
     /// <summary>
+    /// 获得/设置 是否点击节点自动切换 Checkbox 状态 默认 false <see cref="ShowCheckbox"/> 时生效
+    /// </summary>
+    [Parameter]
+    public bool ClickToggleCheck { get; set; }
+
+    /// <summary>
     /// 获得/设置 是否显示加载骨架屏 默认 false 不显示
     /// </summary>
     [Parameter]
@@ -316,7 +322,7 @@ public partial class TreeView<TItem> where TItem : class
         {
             await OnRadioClick(item);
         }
-        else if (ShowCheckbox)
+        else if (ShowCheckbox && ClickToggleCheck)
         {
             await OnCheckStateChanged(item);
         }
