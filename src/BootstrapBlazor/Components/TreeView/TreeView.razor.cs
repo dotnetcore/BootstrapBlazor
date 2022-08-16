@@ -339,28 +339,28 @@ public partial class TreeView<TItem> where TItem : class
     /// <summary>
     /// 更改节点是否展开方法
     /// </summary>
-    /// <param name="item"></param>
+    /// <param name="node"></param>
     /// <param name="shouldRender"></param>
-    private async Task OnToggleNodeAsync(TreeViewItem<TItem> item, bool shouldRender = false)
+    private async Task OnToggleNodeAsync(TreeViewItem<TItem> node, bool shouldRender = false)
     {
         // 手风琴效果逻辑
-        item.IsExpand = !item.IsExpand;
+        node.IsExpand = !node.IsExpand;
         if (IsAccordion)
         {
-            await treeNodeCache.ToggleNodeAsync(item, GetChildrenRowAsync);
+            await treeNodeCache.ToggleNodeAsync(node, GetChildrenRowAsync);
 
             // 展开此节点关闭其他同级节点
-            if (item.IsExpand)
+            if (node.IsExpand)
             {
                 // 通过 item 找到父节点
-                var nodes = treeNodeCache.FindParentNode(Items, item)?.Items ?? Items;
-                foreach (var node in nodes)
+                var nodes = treeNodeCache.FindParentNode(Items, node)?.Items ?? Items;
+                foreach (var n in nodes)
                 {
-                    if (node != item)
+                    if (n != node)
                     {
                         // 收缩同级节点
-                        node.IsExpand = false;
-                        await treeNodeCache.ToggleNodeAsync(node, GetChildrenRowAsync);
+                        n.IsExpand = false;
+                        await treeNodeCache.ToggleNodeAsync(n, GetChildrenRowAsync);
                     }
                 }
             }
@@ -368,7 +368,7 @@ public partial class TreeView<TItem> where TItem : class
         else
         {
             // 重建缓存 并且更改节点展开状态
-            await treeNodeCache.ToggleNodeAsync(item, GetChildrenRowAsync);
+            await treeNodeCache.ToggleNodeAsync(node, GetChildrenRowAsync);
         }
 
         if (shouldRender)
