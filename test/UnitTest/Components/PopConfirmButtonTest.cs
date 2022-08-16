@@ -7,7 +7,7 @@ namespace UnitTest.Components;
 public class PopConfirmButtonTest : PopoverTestBase
 {
     [Fact]
-    public void Show_Ok()
+    public async Task Show_Ok()
     {
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
         {
@@ -25,15 +25,15 @@ public class PopConfirmButtonTest : PopoverTestBase
 
         // Show
         var button = cut.Find("button");
-        cut.InvokeAsync(() => button.Click());
+        await cut.InvokeAsync(() => button.Click());
 
         // Close
         var buttons = cut.FindAll(".popover-confirm-buttons button");
-        cut.InvokeAsync(() => buttons[0].Click());
+        await cut.InvokeAsync(() => buttons[0].Click());
 
         // Confirm
-        cut.InvokeAsync(() => button.Click());
-        cut.InvokeAsync(() => buttons[1].Click());
+        await cut.InvokeAsync(() => button.Click());
+        await cut.InvokeAsync(() => buttons[1].Click());
 
         // 重置增加 按钮回调方法
         var confirm = false;
@@ -45,6 +45,7 @@ public class PopConfirmButtonTest : PopoverTestBase
             pb.Add(a => a.Content, "Test_Cotent");
             pb.Add(a => a.ConfirmButtonText, "Test_Confirm_Text");
             pb.Add(a => a.CloseButtonText, "Test_Close_Text");
+            pb.Add(a => a.CssClass, "test-custom-class");
             pb.Add(a => a.OnConfirm, () =>
             {
                 confirm = true;
@@ -63,19 +64,18 @@ public class PopConfirmButtonTest : PopoverTestBase
         });
 
         button = cut.Find("button");
-        cut.InvokeAsync(() => button.Click());
-
-        var bs = cut.FindComponents<Button>();
+        await cut.InvokeAsync(() => button.Click());
+        Assert.Contains("data-bs-custom-class=\"test-custom-class\"", cut.Markup);
 
         // Close
         buttons = cut.FindAll(".popover-confirm-buttons button");
-        cut.InvokeAsync(() => buttons[0].Click());
+        await cut.InvokeAsync(() => buttons[0].Click());
         Assert.True(beforeClose);
         Assert.True(close);
 
         // Confirm
-        cut.InvokeAsync(() => button.Click());
-        cut.InvokeAsync(() => buttons[1].Click());
+        await cut.InvokeAsync(() => button.Click());
+        await cut.InvokeAsync(() => buttons[1].Click());
         Assert.True(confirm);
 
         // Submit
@@ -86,11 +86,11 @@ public class PopConfirmButtonTest : PopoverTestBase
 
         // Show
         button = cut.Find("button");
-        cut.InvokeAsync(() => button.Click());
+        await cut.InvokeAsync(() => button.Click());
 
         // Confirm
         buttons = cut.FindAll(".popover-confirm-buttons button");
-        cut.InvokeAsync(() => buttons[1].Click());
+        await cut.InvokeAsync(() => buttons[1].Click());
 
         // IsAsync
         popButton.SetParametersAndRender(pb =>
@@ -100,17 +100,17 @@ public class PopConfirmButtonTest : PopoverTestBase
 
         // Show
         button = cut.Find("button");
-        cut.InvokeAsync(() => button.Click());
+        await cut.InvokeAsync(() => button.Click());
 
         // Confirm
         buttons = cut.FindAll(".popover-confirm-buttons button");
-        cut.InvokeAsync(() => buttons[1].Click());
+        await cut.InvokeAsync(() => buttons[1].Click());
 
         // IsLink
         popButton.SetParametersAndRender(pb =>
         {
             pb.Add(a => a.IsLink, true);
         });
-        Assert.Contains("a data-bs-toggle=\"confirm\"", popButton.Markup);
+        Assert.Contains("data-bs-toggle=\"confirm\"", popButton.Markup);
     }
 }

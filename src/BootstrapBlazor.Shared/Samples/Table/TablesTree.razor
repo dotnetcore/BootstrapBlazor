@@ -5,16 +5,27 @@
 
 <h4>表格支持树形数据的展示</h4>
 
-<Tips>
-    <div>通过 <code>IsTree</code> 参数控制是否为树形数据，通过 <code>HasChildrenColumnName</code> 参数控制当前行是否有子数据，点击子项展开小箭头时，通过 <code>OnTreeExpand</code> 回调委托方法获取子项数据</div>
+<Tips class="mt-3">
+    <div>通过 <code>IsTree</code> 参数控制是否为树形数据</div>
+    <ul class="ul-demo mt-3">
+        <li>通过 <code>TreeNodeConverter</code> 对数据集进行树状结构转换</li>
+        <li>设置 <code>TableTreeNode</code> 其 <code>IsExpand</code> 参数控制当前子节点是否展开</li>
+        <li>点击子项展开小箭头时，通过 <code>OnTreeExpand</code> 回调委托方法获取子项数据</li>
+        <li>保持行状态回落机制，<code>ModelEqualityComparer</code> <code>CustomKeyAttribute</code> <code>IEqualityComparer&lt;TItem&gt;</code> <code>Equals</code> 重载方法</li>
+    </ul>
 </Tips>
 
+<p>第一步：设置 <code>IsTree</code> 为 <code>true</code></p>
+
+<p>第二步：设置 <code>Items</code> 或者 <code>OnQueryAsync</code> 获得组件数据集合</p>
+
+<p>第三步：设置 <code>TreeNodeConverter</code> 将组件数据集合转化为树状结构</p>
+
+<p>第四步：设置 <code>OnTreeExpand</code> 回调委托响应行展开获取子项数据集合</p>
+
 <DemoBlock Title="树形数据展示" Introduction="通过设置 <code>IsTree</code> 开启树形表格" Name="TreeData">
-    <Tips>
-        <div>出于性能考虑，默认子项未展开，点击小箭头后，触发 <code>OnTreeExpand</code> 回调委托方法，再此方法中对当前行的子数据进行赋值，<code>Table</code> 组件进行渲染新数据</div>
-    </Tips>
-    <Table TItem="FooTree" IsBordered="true" IsStriped="true" HeaderStyle="@TableHeaderStyle.Light"
-           Items="@TreeItems" IsTree="true" OnTreeExpand="@OnTreeExpand">
+    <Table TItem="TreeFoo" IsBordered="true" IsStriped="true" HeaderStyle="@TableHeaderStyle.Light"
+           Items="@TreeItems" IsTree="true" TreeNodeConverter="@TreeNodeConverter" OnTreeExpand="@OnTreeExpand">
         <TableColumns>
             <TableColumn @bind-Field="@context.Name" Width="360" />
             <TableColumn @bind-Field="@context.DateTime" Width="180" />
@@ -29,8 +40,8 @@
         <div>默认层次缩进宽度为 <code>16px</code> 通过设置 <code>Indent</code> 更改缩进宽度</div>
     </Tips>
     <p>本例中更改缩进宽度为 <code>8px</code></p>
-    <Table TItem="FooTree" IsBordered="true" IsStriped="true" HeaderStyle="@TableHeaderStyle.Light"
-           Items="@TreeItems" IsTree="true" OnTreeExpand="@OnTreeExpand" IndentSize="8">
+    <Table TItem="TreeFoo" IsBordered="true" IsStriped="true" HeaderStyle="@TableHeaderStyle.Light" IndentSize="8"
+           Items="@TreeItems" IsTree="true" TreeNodeConverter="@TreeNodeConverter" OnTreeExpand="@OnTreeExpand">
         <TableColumns>
             <TableColumn @bind-Field="@context.Name" Width="360" />
             <TableColumn @bind-Field="@context.DateTime" Width="180" />
@@ -41,20 +52,16 @@
 </DemoBlock>
 
 <DemoBlock Title="具有单表维护功能的树形数据" Introduction="实现简单的增、删、改、查功能。" Name="EditTree">
-    <Tips>
-        <div>通过在实体的唯一标识字段上定义 <code>[Key]</code> 特性，来保持展开状态</div>
-    </Tips>
-    <Table TItem="EditFooTree" IsBordered="true" HeaderStyle="@TableHeaderStyle.Light"
+    <Table TItem="TreeFoo" IsBordered="true" HeaderStyle="@TableHeaderStyle.Light"
            ShowToolbar="true" ShowExtendButtons="true" ShowSkeleton="true" IsStriped="true"
-           OnQueryAsync="@OnQueryAsync" OnAddAsync="@OnAddAsync" OnSaveAsync="@OnSaveAsync"
-           OnDeleteAsync="@OnDeleteAsync" IsTree="true" OnTreeExpand="@OnTreeExpandQuery">
+           OnQueryAsync="@OnQueryAsync" OnAddAsync="@OnAddAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync"
+           IsTree="true" TreeNodeConverter="@TreeNodeConverter" OnTreeExpand="@OnTreeExpand">
         <TableColumns>
             <TableColumn @bind-Field="@context.Id" />
             <TableColumn @bind-Field="@context.Name" Width="360" />
             <TableColumn @bind-Field="@context.DateTime" Width="180" />
             <TableColumn @bind-Field="@context.Address" />
             <TableColumn @bind-Field="@context.Count" />
-            <TableColumn @bind-Field="@context.ParentId" />
         </TableColumns>
     </Table>
 </DemoBlock>
@@ -64,8 +71,8 @@
         <div>默认层次缩进宽度为 <code>16px</code> 通过设置 <code>Indent</code> 更改缩进宽度</div>
     </Tips>
     <p>本例中更改缩进宽度为 <code>8px</code></p>
-    <Table TItem="FooTree" IsBordered="true" IsStriped="true" HeaderStyle="@TableHeaderStyle.Light" TreeIcon="fa fa-chevron-circle-right"
-           Items="@TreeItems" IsTree="true" OnTreeExpand="@OnTreeExpand" IndentSize="8">
+    <Table TItem="TreeFoo" IsBordered="true" IsStriped="true" HeaderStyle="@TableHeaderStyle.Light" TreeIcon="fa fa-chevron-circle-right"
+           Items="@TreeItems" IsTree="true" TreeNodeConverter="@TreeNodeConverter" OnTreeExpand="@OnTreeExpand">
         <TableColumns>
             <TableColumn @bind-Field="@context.Name" Width="360" />
             <TableColumn @bind-Field="@context.DateTime" Width="180" />

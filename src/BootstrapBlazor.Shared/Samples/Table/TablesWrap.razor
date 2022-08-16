@@ -20,6 +20,17 @@
     </div>
 </DemoBlock>
 
+<DemoBlock Title="表头超长折行" Introduction="通过设置 <code>HeaderTextWrap</code> 使超长表头折行" Name="HeaderTextWrap">
+    <p>可以拖动窗口大小，窗口过小时自动出现横向滚动条后，表头会自动折行</p>
+    <Table TItem="Foo" IsBordered="true" IsStriped="true" Items="@CellItems" HeaderTextWrap="true">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" Text="我是超级长的时间表头" />
+            <TableColumn @bind-Field="@context.Name" Text="我是超级长的姓名表头" />
+            <TableColumn @bind-Field="@context.Address" Text="我是超级长的地址表头" />
+        </TableColumns>
+    </Table>
+</DemoBlock>
+
 <DemoBlock Title="单元格数据超长折行示例" Introduction="在某种特殊情况下可能单元格内容比较长，需要进行折行处理" Name="LongData">
     <ul class="ul-demo mb-3">
         <li>可以拖动窗口大小，窗口过小时 <b>地址</b> 列自动进行折行处理</li>

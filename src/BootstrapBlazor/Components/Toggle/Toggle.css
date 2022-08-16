@@ -3,7 +3,7 @@
     overflow: hidden;
     border: 1px solid #c0c4cc;
     min-width: 70px;
-    min-height: 35px;
+    min-height: var(--bb-height);
 }
 
     .btn-toggle.off .toggle-group {

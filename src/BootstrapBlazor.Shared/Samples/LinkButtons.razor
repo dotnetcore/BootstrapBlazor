@@ -14,7 +14,7 @@
 
 <DemoBlock Title="@Localizer["LinkButtonTitleTitle"]" Introduction="@Localizer["LinkButtonTitleIntro"]" Name="Title">
     <p>@((MarkupString)Localizer["LinkButtonTitleDetail"].Value)</p>
-    <LinkButton Text="@Localizer["LinkButtonText"]" Url="@WebsiteOption.CurrentValue.ServerUrl" Title="@Localizer["LinkButtonTitleTooltip"]" />
+    <LinkButton Text="@Localizer["LinkButtonText"]" Title="@Localizer["LinkButtonTitleTooltip"]" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["LinkButtonImageTitle"]" Introduction="@Localizer["LinkButtonImageIntro"]" Name="Image">
@@ -35,6 +35,33 @@
 <DemoBlock Title="@Localizer["LinkButtonOnClickTitle"]" Introduction="@Localizer["LinkButtonOnClickIntro"]" Name="OnClick">
     <LinkButton Text="@Localizer["LinkButtonText"]" OnClick="@OnClick" />
     <BlockLogger @ref="Trace" class="mt-3" />
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["LinkButtonIsDisabledTitle"]" Introduction="@Localizer["LinkButtonIsDisabledIntro"]" Name="IsDisabled">
+    <div class="row g-3">
+        <div class="col-6 col-sm-4 col-md-3 col-lg-auto">
+            <LinkButton IsDisabled="true" Color="Color.Primary">@Localizer["LinkButtonIsDisabledText"]</LinkButton>
+        </div>
+    </div>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["LinkButtonColorTitle"]" Introduction="@Localizer["LinkButtonColorIntro"]" Name="Color">
+    <div class="row g-3">
+        <div class="col-6 col-sm-4 col-md-3 col-lg-auto">
+            <LinkButton Color="Color.Danger">@Localizer["LinkButtonColorText"]</LinkButton>
+        </div>
+    </div>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["LinkButtonVerticalTitle"]" Introduction="@Localizer["LinkButtonVerticalIntro"]" Name="IsVertical">
+    <div class="row g-3">
+        <div class="col-6 col-sm-4 col-md-3 col-lg-auto">
+            <LinkButton IsVertical="true" Icon="fa fa-edit" Text="@Localizer["LinkButtonVerticalText"]" />
+        </div>
+        <div class="col-6 col-sm-4 col-md-3 col-lg-auto">
+            <LinkButton IsVertical="true" Icon="fa fa-edit" Text="@Localizer["LinkButtonVerticalText"]" IsDisabled="true" />
+        </div>
+    </div>
 </DemoBlock>
 
 <AttributeTable Items="GetAttributes()"></AttributeTable>

@@ -65,7 +65,7 @@ public partial class Transitions
                 Name = "TransitionType",
                 Description = "动画效果名称",
                 Type = "TransitionType",
-                ValueList = "FadeIn/FadeOut",
+                ValueList = " — ",
                 DefaultValue = "FadeIn"
             },
             new AttributeItem() {

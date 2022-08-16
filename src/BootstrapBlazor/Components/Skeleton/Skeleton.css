@@ -51,12 +51,6 @@
     }
 }
 
-@media (min-width: 576px) {
-    .skeleton-content .control-label.skeleton-row {
-        margin-bottom: 0;
-    }
-}
-
 .skeleton-content .form-control.skeleton-row {
     flex: 1;
 }
@@ -110,7 +104,7 @@
     }
 
 .skeleton-toolbar {
-    height: 35px;
+    height: var(--bb-height);
     display: flex;
     margin-bottom: .5rem;
 }
@@ -121,7 +115,7 @@
 }
 
 .skeleton-button {
-    height: 35px;
+    height: var(--bb-height);
     width: 70px;
     background-color: var(--bs-secondary);
     border-color: var(--bs-secondary);

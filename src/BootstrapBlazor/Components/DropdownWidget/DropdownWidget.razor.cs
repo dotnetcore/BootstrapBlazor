@@ -2,8 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using Microsoft.AspNetCore.Components;
-
 namespace BootstrapBlazor.Components;
 
 /// <summary>
@@ -27,7 +25,7 @@ public sealed partial class DropdownWidget
     [Parameter]
     public IEnumerable<DropdownWidgetItem>? Items { get; set; }
 
-    private List<DropdownWidgetItem> Childs { get; set; } = new List<DropdownWidgetItem>(20);
+    private List<DropdownWidgetItem> Childs { get; } = new List<DropdownWidgetItem>(20);
 
     /// <summary>
     /// 添加 DropdownWidgetItem 方法

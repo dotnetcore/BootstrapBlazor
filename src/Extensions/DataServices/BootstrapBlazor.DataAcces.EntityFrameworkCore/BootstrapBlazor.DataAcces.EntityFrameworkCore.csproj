@@ -12,5 +12,9 @@
   <ItemGroup Condition="'$(TargetFramework)' == 'net6.0'">
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.*" />
   </ItemGroup>
-  
+
+  <ItemGroup>
+    <PackageReference Include="BootstrapBlazor" Version="6.7.18" />
+  </ItemGroup>
+
 </Project>

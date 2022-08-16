@@ -297,11 +297,22 @@
     </Tab>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["BlockSetTextTitle"]" Introduction="@Localizer["BlockSetTextIntro"]" Name="SetText">
-    <Button Text="@Localizer["BlockSetTextButtonText"]" OnClickWithoutRender="SetTabItemText" class="mb-2"></Button>
+<DemoBlock Title="@Localizer["BlockHeaderTemplateTitle"]" Introduction="@Localizer["BlockHeaderTemplateIntro"]" Name="HeaderTemplate">
     <Tab IsBorderCard="true">
-        <TabItem Text="@Localizer["TabItem8Text"]" @ref="TabItemElement">
-            <div>@((MarkupString)Localizer["BlockSetTextDesc"].Value)</div>
+        <TabItem>
+            <HeaderTemplate>
+                <div class="@GetClassString(context)" @onclick="() => OnClickTabItem(context)">
+                    <i class="fa fa-tv"></i>
+                    <span class="mx-2">@Localizer["BlockHeaderTemplateHeaderText"]</span>
+                    <Badge Color="Color.Danger" style="position: absolute; right: 2px; top: 2px;">9</Badge>
+                </div>
+            </HeaderTemplate>
+            <ChildContent>
+                <div>@((MarkupString)Localizer["BlockHeaderTemplateDesc"].Value)</div>
+            </ChildContent>
+        </TabItem>
+        <TabItem Text="@Localizer["TabItem8Text"]">
+            <Counter></Counter>
         </TabItem>
     </Tab>
 </DemoBlock>

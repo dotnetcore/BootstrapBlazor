@@ -21,42 +21,35 @@ public partial class TablesAutoRefresh
 
     private List<Foo> AutoItems { get; set; } = new List<Foo>();
 
-    private bool IsAutoRefresh { get; set; } = false;
+    private List<Foo> ManualItems { get; set; } = new List<Foo>();
 
-    /// <summary>
-    /// OnInitialized 方法
-    /// </summary>
-    protected override async Task OnInitializedAsync()
-    {
-        await base.OnInitializedAsync();
+    private bool IsAutoRefresh { get; set; }
 
-        // 模拟异步获取数据耗时 100ms
-        await Task.Delay(100);
+    private void ToggleAuto() => IsAutoRefresh = !IsAutoRefresh;
 
-        AutoItems = Foo.GenerateFoo(Localizer).Take(2).ToList();
-    }
+    private Task<QueryData<Foo>> OnAutoQueryAsync(QueryPageOptions options) => GenerateFoos(options, AutoItems);
 
-    private void ClickIsAutoRefresh() => IsAutoRefresh = !IsAutoRefresh;
+    private Task<QueryData<Foo>> OnManualQueryAsync(QueryPageOptions options) => GenerateFoos(options, ManualItems);
 
-    private Task<QueryData<Foo>> OnRefreshQueryAsync(QueryPageOptions options)
+    private Task<QueryData<Foo>> GenerateFoos(QueryPageOptions options, List<Foo> foos)
     {
         // 设置记录总数
-        var total = AutoItems.Count;
+        var total = foos.Count;
         var foo = Foo.Generate(Localizer);
         foo.Id = total++;
         foo.Name = Localizer["Foo.Name", total.ToString("D4")];
         foo.Address = Localizer["Foo.Address", $"{random.Next(1000, 2000)}"];
 
-        AutoItems.Insert(0, foo);
+        foos.Insert(0, foo);
 
-        if (AutoItems.Count > 10)
+        if (foos.Count > 10)
         {
-            AutoItems.RemoveRange(10, 1);
+            foos.RemoveRange(10, 1);
             total = 10;
         }
 
         // 内存分页
-        var items = AutoItems.Skip((options.PageIndex - 1) * options.PageItems).Take(options.PageItems).ToList();
+        var items = foos.Skip((options.PageIndex - 1) * options.PageItems).Take(options.PageItems).ToList();
 
         return Task.FromResult(new QueryData<Foo>()
         {

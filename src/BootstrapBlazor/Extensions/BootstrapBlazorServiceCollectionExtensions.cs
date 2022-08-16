@@ -2,7 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using BootstrapBlazor.Components;
 using BootstrapBlazor.Localization.Json;
 using BootstrapBlazor.Services;
 using Microsoft.Extensions.DependencyInjection.Extensions;
@@ -21,15 +20,15 @@ public static class BootstrapBlazorServiceCollectionExtensions
     /// </summary>
     /// <param name="services"></param>
     /// <param name="configureOptions"></param>
-    /// <param name="localizationAction"></param>
+    /// <param name="localizationConfigure"></param>
     /// <returns></returns>
-    public static IServiceCollection AddBootstrapBlazor(this IServiceCollection services, Action<BootstrapBlazorOptions>? configureOptions = null, Action<JsonLocalizationOptions>? localizationAction = null)
+    public static IServiceCollection AddBootstrapBlazor(this IServiceCollection services, Action<BootstrapBlazorOptions>? configureOptions = null, Action<JsonLocalizationOptions>? localizationConfigure = null)
     {
         services.AddMemoryCache();
         services.AddHttpClient();
 
         services.AddAuthorizationCore();
-        services.AddJsonLocalization(localizationAction);
+        services.AddJsonLocalization(localizationConfigure);
         services.AddSingleton<ICacheManager, CacheManager>();
 
         services.TryAddSingleton<IComponentIdGenerator, DefaultIdGenerator>();
@@ -82,13 +81,21 @@ public static class BootstrapBlazorServiceCollectionExtensions
                 CultureInfo.DefaultThreadCurrentUICulture = culture;
             }
 
-            if (string.IsNullOrEmpty(CultureInfo.CurrentUICulture.Name))
-            {
-                var culture = new CultureInfo(op.FallbackCulture);
-                CultureInfo.CurrentUICulture = culture;
-                CultureInfo.CurrentUICulture = culture;
-            }
+            // 设置 FallbackCulture
+            SetFallbackCulture();
+
             configureOptions?.Invoke(op);
+
+            [ExcludeFromCodeCoverage]
+            void SetFallbackCulture()
+            {
+                if (string.IsNullOrEmpty(CultureInfo.CurrentUICulture.Name))
+                {
+                    var culture = new CultureInfo(op.FallbackCulture);
+                    CultureInfo.CurrentCulture = culture;
+                    CultureInfo.CurrentUICulture = culture;
+                }
+            }
         });
         return services;
     }
@@ -113,11 +120,11 @@ public static class BootstrapBlazorServiceCollectionExtensions
     /// JsonLocalizationOptions 扩展配置方法
     /// </summary>
     /// <param name="services"></param>
-    /// <param name="localizationAction"></param>
+    /// <param name="localizationConfigure"></param>
     /// <returns></returns>
-    public static IServiceCollection ConfigureJsonLocalizationOptions(this IServiceCollection services, Action<JsonLocalizationOptions> localizationAction)
+    public static IServiceCollection ConfigureJsonLocalizationOptions(this IServiceCollection services, Action<JsonLocalizationOptions> localizationConfigure)
     {
-        services.Configure(localizationAction);
+        services.Configure(localizationConfigure);
         return services;
     }
 

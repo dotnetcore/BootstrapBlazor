@@ -2,8 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using Microsoft.AspNetCore.Components;
-
 namespace BootstrapBlazor.Components;
 
 /// <summary>
@@ -32,6 +30,11 @@ public partial class TableExtensionButton
     /// 添加按钮到工具栏方法
     /// </summary>
     public void AddButton(ButtonBase button) => Buttons.Add(button);
+
+    /// <summary>
+    ///从工具栏中移除按钮
+    /// </summary>
+    public void RemoveButton(ButtonBase button) => Buttons.Remove(button);
 
     private async Task OnClick(TableCellButton b)
     {

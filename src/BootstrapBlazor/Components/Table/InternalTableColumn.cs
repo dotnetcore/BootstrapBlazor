@@ -2,7 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using Microsoft.AspNetCore.Components;
 using System.Reflection;
 
 namespace BootstrapBlazor.Components;
@@ -202,7 +201,7 @@ internal class InternalTableColumn : ITableColumn
 
                 if (attrModel != null)
                 {
-                    InheritValue(attrModel, tc);
+                    tc.InheritValue(attrModel);
                 }
             }
             else
@@ -215,7 +214,7 @@ internal class InternalTableColumn : ITableColumn
 
                 if (attrModel != null)
                 {
-                    InheritValue(attrModel, attr);
+                    attr.InheritValue(attrModel);
                 }
                 tc = attr;
             }
@@ -224,7 +223,7 @@ internal class InternalTableColumn : ITableColumn
             var col = source?.FirstOrDefault(c => c.GetFieldName() == tc.GetFieldName());
             if (col != null)
             {
-                CopyValue(col, tc);
+                tc.CopyValue(col);
             }
             cols.Add(tc);
         }
@@ -232,72 +231,5 @@ internal class InternalTableColumn : ITableColumn
         return cols.Where(a => a.Order > 0).OrderBy(a => a.Order)
             .Concat(cols.Where(a => a.Order == 0))
             .Concat(cols.Where(a => a.Order < 0).OrderBy(a => a.Order));
-    }
-
-    /// <summary>
-    /// 集成 class 标签中设置的参数值
-    /// </summary>
-    /// <param name="source"></param>
-    /// <param name="dest"></param>
-    private static void InheritValue(AutoGenerateClassAttribute source, ITableColumn dest)
-    {
-        if (source.Align != Alignment.None) dest.Align = source.Align;
-        if (source.TextWrap) dest.TextWrap = source.TextWrap;
-        if (!source.Editable) dest.Editable = source.Editable;
-        if (source.Filterable) dest.Filterable = source.Filterable;
-        if (source.Readonly) dest.Readonly = source.Readonly;
-        if (source.Searchable) dest.Searchable = source.Searchable;
-        if (source.ShowTips) dest.ShowTips = source.ShowTips;
-        if (source.Sortable) dest.Sortable = source.Sortable;
-        if (source.TextEllipsis) dest.TextEllipsis = source.TextEllipsis;
-    }
-
-    /// <summary>
-    /// 属性赋值方法
-    /// </summary>
-    /// <param name="source"></param>
-    /// <param name="dest"></param>
-    private static void CopyValue(ITableColumn source, ITableColumn dest)
-    {
-        if (source.Align != Alignment.None) dest.Align = source.Align;
-        if (source.TextWrap) dest.TextWrap = source.TextWrap;
-        if (source.ComponentType != null) dest.ComponentType = source.ComponentType;
-        if (source.ComponentParameters != null) dest.ComponentParameters = source.ComponentParameters;
-        if (!string.IsNullOrEmpty(source.CssClass)) dest.CssClass = source.CssClass;
-        if (source.DefaultSort) dest.DefaultSort = source.DefaultSort;
-        if (source.DefaultSortOrder != SortOrder.Unset) dest.DefaultSortOrder = source.DefaultSortOrder;
-        if (!source.Editable) dest.Editable = source.Editable;
-        if (source.EditTemplate != null) dest.EditTemplate = source.EditTemplate;
-        if (source.Filter != null) dest.Filter = source.Filter;
-        if (source.Filterable) dest.Filterable = source.Filterable;
-        if (source.FilterTemplate != null) dest.FilterTemplate = source.FilterTemplate;
-        if (source.Fixed) dest.Fixed = source.Fixed;
-        if (source.FormatString != null) dest.FormatString = source.FormatString;
-        if (source.Formatter != null) dest.Formatter = source.Formatter;
-        if (source.HeaderTemplate != null) dest.HeaderTemplate = source.HeaderTemplate;
-        if (source.Items != null) dest.Items = source.Items;
-        if (source.Lookup != null) dest.Lookup = source.Lookup;
-        dest.LookupStringComparison = source.LookupStringComparison;
-        if (source.LookupServiceKey != null) dest.LookupServiceKey = source.LookupServiceKey;
-        if (source.IsReadonlyWhenAdd) dest.IsReadonlyWhenAdd = source.IsReadonlyWhenAdd;
-        if (source.IsReadonlyWhenEdit) dest.IsReadonlyWhenEdit = source.IsReadonlyWhenEdit;
-        if (source.OnCellRender != null) dest.OnCellRender = source.OnCellRender;
-        if (source.Readonly) dest.Readonly = source.Readonly;
-        if (source.Rows > 0) dest.Rows = source.Rows;
-        if (source.Searchable) dest.Searchable = source.Searchable;
-        if (source.SearchTemplate != null) dest.SearchTemplate = source.SearchTemplate;
-        if (source.ShownWithBreakPoint != BreakPoint.None) dest.ShownWithBreakPoint = source.ShownWithBreakPoint;
-        if (source.ShowTips) dest.ShowTips = source.ShowTips;
-        if (source.SkipValidate) dest.SkipValidate = source.SkipValidate;
-        if (source.Sortable) dest.Sortable = source.Sortable;
-        if (source.Template != null) dest.Template = source.Template;
-        if (!string.IsNullOrEmpty(source.Text)) dest.Text = source.Text;
-        if (source.TextEllipsis) dest.TextEllipsis = source.TextEllipsis;
-        if (!source.Visible) dest.Visible = source.Visible;
-        if (source.Width != null) dest.Width = source.Width;
-        if (source.ValidateRules != null) dest.ValidateRules = source.ValidateRules;
-        if (source.ShowLabelTooltip != null) dest.ShowLabelTooltip = source.ShowLabelTooltip;
-        if (!string.IsNullOrEmpty(source.GroupName)) dest.GroupName = source.GroupName;
-        if (source.GroupOrder != 0) dest.GroupOrder = source.GroupOrder;
     }
 }

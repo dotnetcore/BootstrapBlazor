@@ -17,6 +17,10 @@ public sealed partial class TablesSearch
     [NotNull]
     private IStringLocalizer<Foo>? Localizer { get; set; }
 
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<TablesSearch>? SearchLocalizer { get; set; }
+
     private Foo SearchModel { get; set; } = new Foo();
 
     private static IEnumerable<int> PageItemsSource => new int[] { 4, 10, 20 };
@@ -44,12 +48,7 @@ public sealed partial class TablesSearch
 
     private SearchMode SearchModeValue { get; set; }
 
-    private IEnumerable<SelectedItem> SearchItems { get; } = new List<SelectedItem>()
-    {
-        new SelectedItem { Text = "请选择 ...", Value = "" },
-        new SelectedItem { Text = "姓名1", Value = "姓名1" },
-        new SelectedItem { Text = "姓名2", Value = "姓名2" },
-    };
+    private IEnumerable<SelectedItem>? SearchItems { get; set; }
 
     [NotNull]
     private ITableSearchModel CustomerSearchModel { get; set; } = new FooSearchModel();
@@ -62,6 +61,13 @@ public sealed partial class TablesSearch
         base.OnInitialized();
 
         Items = Foo.GenerateFoo(Localizer);
+
+        SearchItems = new List<SelectedItem>()
+        {
+            new SelectedItem { Text = SearchLocalizer["SelectedItemText"].Value, Value = "" },
+            new SelectedItem { Text = SearchLocalizer["SelectedItemText1"].Value, Value = SearchLocalizer["SelectedItemValue1"].Value },
+            new SelectedItem { Text = SearchLocalizer["SelectedItemText2"].Value, Value = SearchLocalizer["SelectedItemValue2"].Value },
+        };
     }
 
     private static Task<Foo> OnAddAsync() => Task.FromResult(new Foo() { DateTime = DateTime.Now });

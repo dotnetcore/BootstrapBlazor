@@ -22,8 +22,7 @@
 }
 
 .dropdown-logout .dropdown-toggle {
-    height: 42px;
-    display: block;
+    display: inline-block;
 }
 
     .dropdown-logout .dropdown-toggle:after {
@@ -77,7 +76,7 @@
     }
 
     .dropdown-logout .dropdown-item a:hover {
-        color: #009ef7;
+        color: var(--bs-primary);
     }
 
     .dropdown-logout .dropdown-item a .fa {

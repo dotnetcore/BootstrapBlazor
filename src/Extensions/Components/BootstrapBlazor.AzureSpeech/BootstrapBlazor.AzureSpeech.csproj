@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
-    <Version>6.0.3</Version>
+    <Version>6.0.4</Version>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -9,5 +9,9 @@
     <Description>Bootstrap UI components extensions of Azure Speech</Description>
     <RootNamespace>BootstrapBlazor.Components</RootNamespace>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BootstrapBlazor" Version="6.8.0" />
+  </ItemGroup>
 
 </Project>

@@ -14,87 +14,87 @@ public class MenuTest : BootstrapBlazorTestBase
     private List<MenuItem> Items { get; set; }
 
     public MenuTest() => Items = new List<MenuItem>
+    {
+        new("Menu1")
         {
-            new("Menu1")
+            IsActive = true,
+            Icon = "fa fa-fa",
+            Url = "https://www.blazor.zone"
+        },
+        new("Menu2")
+        {
+            Icon = "fa fa-fw fa-fa",
+            Items = new List<MenuItem>
             {
-                IsActive = true,
-                Icon = "fa fa-fa",
-                Url = "https://www.blazor.zone"
-            },
-            new("Menu2")
-            {
-                Icon = "fa fa-fw fa-fa",
-                Items = new List<MenuItem>
+                new("Menu21")
                 {
-                    new("Menu21")
+                    Icon = "fa fa-fa",
+                    IsDisabled = true
+                },
+                new("Menu22")
+                {
+                    Url = "/menu22",
+                    Icon = "fa fa-fw fa-fa"
+                },
+                new("Menu23")
+                {
+                    Icon = "fa fa-fw fa-fa",
+                    Items = new List<MenuItem>
                     {
-                        Icon = "fa fa-fa",
-                        IsDisabled = true
-                    },
-                    new("Menu22")
-                    {
-                        Url = "/menu22",
-                        Icon = "fa fa-fw fa-fa"
-                    },
-                    new("Menu23")
-                    {
-                        Icon = "fa fa-fw fa-fa",
-                        Items = new List<MenuItem>
+                        new("Menu231"),
+                        new("Menu232")
                         {
-                            new("Menu231"),
-                            new("Menu232")
+                            Template = BootstrapDynamicComponent.CreateComponent<Button>().Render(),
+                            Items = new List<MenuItem>()
                             {
-                                Template = BootstrapDynamicComponent.CreateComponent<Button>().Render(),
-                                Items = new List<MenuItem>()
+                                new MenuItem("Menu2321")
                                 {
-                                    new MenuItem("Menu2321")
-                                    {
-                                        Icon = "fa fa-fa",
-                                        Url = "/Menu2321"
-                                    },
-                                    new MenuItem("Menu2322")
-                                    {
-                                        Icon = "fa fa-fw fa-fa"
-                                    },
-                                    new MenuItem("Menu2323")
-                                }
-                            }
-                        }
-                    },
-                    new("Menu24")
-                    {
-                        Icon = "fa fa-fa",
-                        Target = "_blank",
-                        Match = NavLinkMatch.All
-                    },
-                    new("Menu25")
-                    {
-                        Icon = "fa fa-fa",
-                        Items = new List<MenuItem>
-                        {
-                            new MenuItem("Menu251")
-                            {
-                                Icon = "fa fa-fa"
+                                    Icon = "fa fa-fa",
+                                    Url = "/Menu2321"
+                                },
+                                new MenuItem("Menu2322")
+                                {
+                                    Icon = "fa fa-fw fa-fa"
+                                },
+                                new MenuItem("Menu2323")
                             }
                         }
                     }
-                }
-            },
-            new("Menu3")
-            {
-                Icon = "fa fa-fa",
-                Items = new List<MenuItem>
+                },
+                new("Menu24")
                 {
-                    new MenuItem("Menu31")
+                    Icon = "fa fa-fa",
+                    Target = "_blank",
+                    Match = NavLinkMatch.All
+                },
+                new("Menu25")
+                {
+                    Icon = "fa fa-fa",
+                    Items = new List<MenuItem>
+                    {
+                        new MenuItem("Menu251")
+                        {
+                            Icon = "fa fa-fa"
+                        }
+                    }
                 }
-            },
-            new("Menu4")
-            {
-                IsActive = true,
-                Icon = "fa fa-fw fa-fa",
-                Url = "https://www.blazor.zone"
             }
-        };
+        },
+        new("Menu3")
+        {
+            Icon = "fa fa-fa",
+            Items = new List<MenuItem>
+            {
+                new MenuItem("Menu31")
+            }
+        },
+        new("Menu4")
+        {
+            IsActive = true,
+            Icon = "fa fa-fw fa-fa",
+            Url = "https://www.blazor.zone"
+        }
+    };
 
     [Fact]
     public void Items_Ok()
@@ -147,6 +147,21 @@ public class MenuTest : BootstrapBlazorTestBase
         });
 
         Assert.Contains("is-bottom", cut.Markup);
+    }
+
+    [Fact]
+    public void CssClass_Ok()
+    {
+        var items = new List<MenuItem>
+        {
+            new() { Text = "Menu", CssClass="Test-Class" }
+        };
+        var cut = Context.RenderComponent<Menu>(pb =>
+        {
+            pb.Add(m => m.Items, items);
+        });
+
+        Assert.Contains("Test-Class", cut.Markup);
     }
 
     [Fact]
@@ -349,5 +364,26 @@ public class MenuTest : BootstrapBlazorTestBase
     public void SubMenu_Erorr()
     {
         Assert.ThrowsAny<InvalidOperationException>(() => Context.RenderComponent<SubMenu>());
+    }
+
+    [Fact]
+    public void MenuItem_Parent()
+    {
+        var parent = new MenuItem()
+        {
+            Id = "01",
+            Text = "Test01"
+        };
+
+        var item = new MenuItem()
+        {
+            Id = "01",
+            Text = "Test01",
+            Parent = parent
+        };
+
+        item.CascadingSetActive(true);
+        Assert.True(item.IsActive);
+        Assert.True(parent.IsActive);
     }
 }

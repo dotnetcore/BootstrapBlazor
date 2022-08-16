@@ -1,0 +1,39 @@
+﻿@page "/cherry-markdowns"
+
+<h3>CherryMarkdown 腾讯富文本框</h3>
+
+<h4>基于 CherryMarkdown 的富文本框组件</h4>
+
+<DemoBlock Title="基础用法" Introduction="使用双向绑定获取对应的 <code>html</code> 和 <code>markdown</code> 内容">
+    <CherryMarkdown @bind-Value="MarkdownString" @bind-Html="HtmlString" style="height: 400px"></CherryMarkdown>
+    <div class="mt-3">
+        <textarea class="form-control" rows="6" disabled="disabled">
+            @MarkdownString
+            </textarea>
+    </div>
+    <div class="mt-3">
+        <textarea class="form-control" rows="6" disabled="disabled">
+            @HtmlString
+            </textarea>
+    </div>
+</DemoBlock>
+
+<DemoBlock Title="自行处理文件上传事件" Introduction="使用<code>OnFileUpload</code>事件处理文件上传事件，支持直接粘贴图片到浏览器">
+    <CherryMarkdown OnFileUpload="OnFileUpload"></CherryMarkdown>
+</DemoBlock>
+
+<DemoBlock Title="自定义内容" Introduction="通过<code>ToolbarSettings</code>自定义工具栏，通过<code>EditorSettings</code>自定义编辑器样式">
+    <CherryMarkdown ToolbarSettings="@ToolbarSettings" EditorSettings="@EditorSettings"></CherryMarkdown>
+</DemoBlock>
+
+<DemoBlock Title="浏览模式" Introduction="纯浏览模式，没有编辑器">
+    <CherryMarkdown @bind-Value="MarkdownString" @bind-Html="HtmlString" style="height: 400px" IsViewer="true"></CherryMarkdown>
+</DemoBlock>
+
+<DemoBlock Title="外部控制组件" Introduction="使用CherryMarkdown的Api在外部控制内容">
+    <CherryMarkdown @ref="@MarkdownElement"></CherryMarkdown>
+    <Button OnClick="@(async () => { await MarkdownElement.DoMethodAsync("toolbar.toolbarHandlers.insert", "checklist");})">插入一个CheckList</Button>
+    <Button OnClick="@(async () => { await MarkdownElement.DoMethodAsync("insert", "![一张图片](https://i.niupic.com/images/2022/04/01/9Y6T.jpg)", false, false, true);})">插入一张图片</Button>
+</DemoBlock>
+
+<AttributeTable Items="GetAttributes()"></AttributeTable>

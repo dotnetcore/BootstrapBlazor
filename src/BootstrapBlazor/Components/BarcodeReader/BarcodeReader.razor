@@ -6,12 +6,13 @@
     {
         <div class="row g-3">
             <div class="col-12">
-                <div class="scanner-buttons btn-group">
-                    <Button data-method="scan" Color="Color.Primary" Text="@ButtonScanText" IsDisabled="@IsDisabled"></Button>
-                    <Button data-method="close" Color="Color.Danger" Text="@ButtonStopText" IsDisabled="@IsDisabled"></Button>
+                <div class="d-flex">
+                    <div class="scanner-buttons btn-group">
+                        <Button data-method="scan" Color="Color.Primary" Text="@ButtonScanText" IsDisabled="@IsDisabled"></Button>
+                        <Button data-method="close" Color="Color.Danger" Text="@ButtonStopText" IsDisabled="@IsDisabled"></Button>
+                    </div>
+                    <Checkbox DisplayText="@AutoStopText" ShowAfterLabel="true" @bind-Value="@AutoStop" class="ms-3" />
                 </div>
-
-                <Checkbox DisplayText="@AutoStopText" ShowAfterLabel="true" @bind-Value="@AutoStop" class="mt-3" />
             </div>
             <div class="col-12 scanner-devices">
                 <Select TValue="string" Items="@Devices" DisplayText="@DeviceLabel" OnSelectedItemChanged="OnSelectedItemChanged" ShowLabel="true" placeholder="@InitDevicesString" />
@@ -20,7 +21,6 @@
                 <video id="@GetHashCode()"></video>
             </div>
         </div>
-
     }
     else
     {

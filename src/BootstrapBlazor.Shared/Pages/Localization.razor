@@ -60,6 +60,40 @@
 }</Pre>
 
 <p><b>2. 启用 .NET 核心本地化服务</b></p>
+
+<Tab>
+    <TabItem Text="NET6.0" Icon="fa fa-code" Closable="false">
+<Pre>builder.Services.AddRazorPages();
+builder.Services.AddServerSideBlazor();
+
+// 增加 Bootstrap Blazor 组件
+builder.Services.AddBootstrapBlazor();
+
+// 增加多语言支持配置信息
+builder.Services.AddRequestLocalization&lt;IOptionsMonitor&lt;BootstrapBlazorOptions&gt;&gt;((localizerOption, blazorOption)=>
+{
+    blazorOption.OnChange(op => Invoke(op));
+    Invoke(blazorOption.CurrentValue);
+
+    void Invoke(BootstrapBlazorOptions option)
+    {
+        var supportedCultures = option.GetSupportedCultures();
+        localizerOption.SupportedCultures = supportedCultures;
+        localizerOption.SupportedUICultures = supportedCultures;
+    }
+});
+
+var app = builder.Build();
+
+// 启用本地化
+var option = app.Services.GetService&lt;IOptions&lt;RequestLocalizationOptions&gt;&gt;();
+if (option != null)
+{
+    app.UseRequestLocalization(option.Value);
+}
+</Pre>
+    </TabItem>
+    <TabItem Text="NET5.0" Icon="fa fa-code" Closable="false">
 <Pre>public class Startup
 {
     public void ConfigureServices(IServiceCollection services)
@@ -83,6 +117,8 @@
         app.UseRequestLocalization(app.ApplicationServices.GetService&lt;IOptions&lt;RequestLocalizationOptions&gt;&gt;()!.Value);
     }
 }</Pre>
+    </TabItem>
+</Tab>
 
 <p><b>3. 实现 UI 本地化信息存储（例如，cookie）</b></p>
 <Pre>[Route("[controller]/[action]")]
@@ -183,13 +219,16 @@ public class CultureController : Controller
 
 <Pre>public void ConfigureServices(IServiceCollection services)
 {
-    services.AddBootstrapBlazor(localizationAction: options =>
+    services.AddBootstrapBlazor(null, options =>
     {
+        // 忽略文化信息丢失日志
+        options.IgnoreLocalizerMissing = true;
+
         // 设置 RESX 格式多语言资源文件 如 Program.{CultureName}.resx
         options.ResourceManagerStringLocalizerType = typeof(Program);
 
         // 设置 Json 格式嵌入式资源文件
-        options.AdditionalAssemblies = new[] { typeof(BootstrapBlazor.Shared.App).Assembly };
+        options.AdditionalJsonAssemblies = new[] { typeof(BootstrapBlazor.Shared.App).Assembly };
 
         // 设置 Json 物理路径文件
         options.AdditionalJsonFiles = new string[]
@@ -206,10 +245,13 @@ public class CultureController : Controller
 <Pre>public void ConfigureServices(IServiceCollection services)
 {
     services.AddBootstrapBlazor();
-    services.ConfigureJsonLocalizationOptions(op =>
+    services.ConfigureJsonLocalizationOptions(options =>
     {
+        // 忽略本地化键值文化信息丢失
+        options.IgnoreLocalizerMissing = true;
+
         // 附加自己的 json 多语言文化资源文件 如 zh-TW.json
-        op.AdditionalJsonAssemblies = new Assembly[]
+        options.AdditionalJsonAssemblies = new Assembly[]
         {
             typeof(BootstrapBlazor.Shared.App).Assembly,
         };
@@ -289,5 +331,25 @@ internal class DefaultCultureStorage : ICultureStorage
     await host.RunAsync();
 }
 </Pre>
+
+<p><b>配置是否显示缺失本地化资源信息</b></p>
+
+<Tab>
+    <TabItem Text="appsettings.json" Icon="fa fa-code" Closable="false">
+<Pre>"BootstrapBlazorOptions": {
+    "IgnoreLocalizerMissing": true
+}</Pre>
+    </TabItem>
+    <TabItem Text="C#" Icon="fa fa-code" Closable="false">
+<Pre>var builder = WebApplication.CreateBuilder(args);
+
+// 增加 BootstrapBlazor 服务
+builder.Services.AddBootstrapBlazor(null, options =>
+{
+    // 忽略本地化键值文化信息丢失
+    options.IgnoreLocalizerMissing = true;
+});</Pre>
+    </TabItem>
+</Tab>
 
 <Video Name="localizer" />

@@ -27,12 +27,16 @@
     "Primary": "小学",
     "Middel": "中学"
   },
-  "UnitTest.Components.ValidateFormTest.MockFoo": {
+  "UnitTest.Components.ValidateFormTest+MockFoo": {
     "{0} is Required": "Name is Required",
     "Member.EmailAddress": "Member is Required",
     "Email": "Age msg"
   },
   "System.ComponentModel.DataAnnotations.RequiredAttribute": {
     "ErrorMessage": "{0} is Required"
+  },
+  "UnitTest.Utils.UtilityTest+Cat": {
+    "PlaceHolder.PlaceHolder": "test-PlaceHolder",
+    "Name-NullValueDisplayText": "test-Name-NullValue"
   }
 }

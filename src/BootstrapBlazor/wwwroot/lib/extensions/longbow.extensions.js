@@ -123,6 +123,9 @@
                     window.navigator.vibrate([]);
                 }, 1000);
             }
+        },
+        bb_setIndeterminate: function (id, state) {
+            document.getElementById(id).indeterminate = state;
         }
     });
 

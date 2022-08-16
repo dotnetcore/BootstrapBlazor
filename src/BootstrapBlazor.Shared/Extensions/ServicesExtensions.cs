@@ -26,6 +26,7 @@ public static class ServicesExtensions
         services.AddScoped<CodeSnippetService>();
         services.AddSingleton(typeof(IDataService<>), typeof(TableDemoDataService<>));
         services.AddSingleton(typeof(ILookupService), typeof(DemoLookupService));
+        services.AddScoped<MockDataTableDynamicService>();
 
         // 增加示例网站配置
         services.AddOptionsMonitor<WebsiteOptions>();

@@ -9,7 +9,7 @@ namespace UnitTest.Pages;
 
 [Route("/Dog")]
 [Authorize]
-[TabItemOption(Icon = "fa fa-fa", Closable = true, Text = "Cat")]
+[TabItemOption(Icon = "fa fa-fa", Closable = false, Text = "Dog")]
 public class Dog : ComponentBase
 {
     [Parameter]

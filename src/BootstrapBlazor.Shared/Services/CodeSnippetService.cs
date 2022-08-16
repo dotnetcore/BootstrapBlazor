@@ -4,7 +4,8 @@
 
 using BootstrapBlazor.Components;
 using BootstrapBlazor.Localization.Json;
-using BootstrapBlazor.Shared.Exntensions;
+using BootstrapBlazor.Shared.Extensions;
+using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Options;
 
 namespace BootstrapBlazor.Shared.Services;
@@ -19,9 +20,9 @@ class CodeSnippetService
 
     private string ContentRootPath { get; }
 
-    private JsonLocalizationOptions Option { get; }
-
     private ICacheManager CacheManager { get; set; }
+
+    private JsonLocalizationOptions LocalizerOptions { get; }
 
     /// <summary>
     /// 构造方法
@@ -29,13 +30,15 @@ class CodeSnippetService
     /// <param name="client"></param>
     /// <param name="cacheManager"></param>
     /// <param name="options"></param>
-    /// <param name="option"></param>
+    /// <param name="localizerOptions"></param>
     public CodeSnippetService(
         HttpClient client,
         ICacheManager cacheManager,
         IOptionsMonitor<WebsiteOptions> options,
-        IOptions<JsonLocalizationOptions> option)
+        IOptionsMonitor<JsonLocalizationOptions> localizerOptions)
     {
+        LocalizerOptions = localizerOptions.CurrentValue;
+
         CacheManager = cacheManager;
         Client = client;
         Client.Timeout = TimeSpan.FromSeconds(5);
@@ -44,8 +47,6 @@ class CodeSnippetService
         IsDevelopment = options.CurrentValue.IsDevelopment;
         ContentRootPath = options.CurrentValue.ContentRootPath;
         ServerUrl = options.CurrentValue.ServerUrl;
-
-        Option = option.Value;
     }
 
     /// <summary>
@@ -160,30 +161,19 @@ class CodeSnippetService
         if (Path.GetExtension(codeFile) == ".razor")
         {
             // 将资源文件信息替换
-            GetLocalizers().ForEach(kv =>
-            {
-                payload = payload.Replace($"@(((MarkupString)Localizer[\"{kv.Key}\"].Value).ToString())", kv.Value);
-                payload = payload.Replace($"@((MarkupString)Localizer[\"{kv.Key}\"].Value)", kv.Value);
-                payload = payload.Replace($"@Localizer[\"{kv.Key}\"]", kv.Value);
-            });
-            payload = payload.Replace("@@", "@");
-            payload = payload.Replace("&lt;", "<");
-            payload = payload.Replace("&gt;", ">");
+            CacheManager.GetLocalizedStrings(codeFile, LocalizerOptions).ToList().ForEach(ReplacePayload);
+            payload = payload.Replace("@@", "@")
+                .Replace("&lt;", "<")
+                .Replace("&gt;", ">");
         }
         return payload;
 
-        List<KeyValuePair<string, string>> GetLocalizers() => CacheManager.GetLocalizers(codeFile, entry =>
+        void ReplacePayload(LocalizedString l)
         {
-            var typeName = Path.GetFileNameWithoutExtension(codeFile);
-            var sections = CacheManager.GetJsonStringConfig(typeof(CodeSnippetService).Assembly, Option);
-            var v = sections.FirstOrDefault(s => $"BootstrapBlazor.Shared.Samples.{typeName}".Equals(s.Key, StringComparison.OrdinalIgnoreCase))?
-                .GetChildren()
-                .SelectMany(c => new KeyValuePair<string, string>[]
-                {
-                    new KeyValuePair<string, string>(c.Key, c.Value)
-                }).ToList();
-            return v ?? new List<KeyValuePair<string, string>>();
-        });
+            payload = payload.Replace($"@(((MarkupString)Localizer[\"{l.Name}\"].Value).ToString())", l.Value)
+                .Replace($"@((MarkupString)Localizer[\"{l.Name}\"].Value)", l.Value)
+                .Replace($"@Localizer[\"{l.Name}\"]", l.Value);
+        }
     });
 
     private async Task<string> ReadFileTextAsync(string codeFile)

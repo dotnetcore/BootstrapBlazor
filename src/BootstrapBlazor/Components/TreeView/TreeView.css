@@ -1,0 +1,93 @@
+﻿.tree-view {
+    position: relative;
+    --bb-tree-padding: 0;
+    --bb-tree-margin: 0;
+    --bb-tree-ul-padding-left: 20px;
+    --bb-tree-item-margin: 1px 0;
+    --bb-tree-item-height: 29px;
+    --bb-tree-icon-width: 18px;
+    --bb-tree-check-margin: 0 4px;
+    --bb-tree-content-padding: .25rem 0;
+    --bb-tree-item-hover-color: #1e2125;
+    --bb-tree-item-hover-bg: #e9ecef;
+}
+
+    .tree-view .tree-root {
+        padding: var(--bb-tree-padding);
+        margin: var(--bb-tree-margin);
+    }
+
+    .tree-view .tree-ul {
+        padding: 0 0 0 var(--bb-tree-ul-padding-left);
+        display: none;
+    }
+
+        .tree-view .tree-ul.show {
+            display: block;
+        }
+
+    .tree-view .tree-item {
+        list-style: none;
+        cursor: pointer;
+        margin: var(--bb-tree-item-margin);
+    }
+
+        .tree-view .tree-item:before {
+            content: "";
+            position: absolute;
+            left: 0;
+            width: 100%;
+            height: var(--bb-tree-item-height);
+            transition: background-color .3s linear;
+        }
+
+        .tree-view .tree-item .tree-content {
+            position: relative;
+            display: flex;
+            padding: var(--bb-tree-content-padding);
+            align-items: center;
+            width: max-content;
+        }
+
+            .tree-view .tree-item .tree-content .fa-caret-right {
+                width: 18px;
+                height: 18px;
+                transition: transform .3s linear;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                visibility: hidden;
+            }
+
+            .tree-view .tree-item .tree-content .show .fa-caret-right {
+                transform: rotate(90deg);
+            }
+
+    .tree-view .tree-node {
+        flex: 1;
+        display: flex;
+        align-items: center;
+    }
+
+        .tree-view .tree-node.disabled,
+        .tree-view .tree-item.disabled > .tree-content > .fa-caret-right {
+            opacity: var(--bb-checkbox-item-disabled-opacity);
+        }
+
+    .tree-view .form-check {
+        margin: var(--bb-tree-check-margin);
+    }
+
+    .tree-view .tree-icon {
+        width: var(--bb-tree-icon-width);
+    }
+
+    .tree-view .tree-item:not(.disabled).hover:before {
+        background-color: var(--bb-tree-item-hover-bg);
+    }
+
+
+    .tree-view .tree-item:not(.disabled).active > .tree-content > .tree-node {
+        color: var(--bb-tree-item-hover-color);
+        background-color: var(--bb-tree-item-hover-bg);
+    }

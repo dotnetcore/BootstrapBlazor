@@ -32,6 +32,7 @@ partial class AutoFills
         base.OnInitialized();
 
         Items = Foo.GenerateFoo(LocalizerFoo);
+        Model = Items.First();
     }
 
     private Task OnSelectedItemChanged(Foo foo)

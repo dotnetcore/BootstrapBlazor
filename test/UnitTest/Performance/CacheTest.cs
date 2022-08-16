@@ -62,6 +62,6 @@ public class CacheTest : BootstrapBlazorTestBase
         Address = Localizer["Foo.Address", $"{random.Next(1000, 2000)}"],
         Count = random.Next(1, 100),
         Complete = random.Next(1, 100) > 50,
-        Education = random.Next(1, 100) > 50 ? EnumEducation.Primary : EnumEducation.Middel
+        Education = random.Next(1, 100) > 50 ? EnumEducation.Primary : EnumEducation.Middle
     });
 }

@@ -185,6 +185,33 @@ public sealed partial class Selects
 
     private EnumEducation? SelectedEnumItem1 { get; set; }
 
+    [NotNull]
+    private IEnumerable<SelectedItem>? TimezoneItems { get; set; }
+
+    private string? TimezoneId { get; set; }
+
+    [NotNull]
+    private TimeSpan TimezoneValue { get; set; }
+
+    private Task OnTimezoneValueChanged(string timezoneId)
+    {
+        TimezoneId = timezoneId;
+        TimezoneValue = TimeZoneInfo.GetSystemTimeZones().First(i => i.Id == timezoneId).BaseUtcOffset;
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        TimeZoneInfo.ClearCachedData();
+        TimezoneItems = TimeZoneInfo.GetSystemTimeZones().Select(i => new SelectedItem(i.Id, i.DisplayName));
+        TimezoneId = TimeZoneInfo.Local.Id;
+        TimezoneValue = TimeZoneInfo.Local.BaseUtcOffset;
+    }
+
     /// <summary>
     /// 获得事件方法
     /// </summary>

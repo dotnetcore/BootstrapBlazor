@@ -330,7 +330,7 @@ public class DragDropTest : BootstrapBlazorTestBase
     {
         var cut = Context.RenderComponent<Dropzone<string>>(pb =>
         {
-            pb.Add(a => a.Items, new List<string?> { null, "2" });
+            pb.Add(a => a.Items, new List<string> { null!, "2" });
             pb.Add(a => a.ChildContent, v => builder => builder.AddContent(0, (object?)null));
         });
         var cut1 = Context.RenderComponent<Dropzone<string>>(pb =>

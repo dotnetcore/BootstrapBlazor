@@ -43,6 +43,13 @@ public partial class Logouts
             DefaultValue = " — "
         },
         new AttributeItem() {
+            Name = nameof(Logout.ShowUserName),
+            Description = "是否显示用户名",
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "true"
+        },
+        new AttributeItem() {
             Name = nameof(Logout.PrefixUserNameText),
             Description = "登出组件当前用户登录账号前置文字",
             Type = "string",

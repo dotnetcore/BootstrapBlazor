@@ -2,7 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 
 namespace BootstrapBlazor.Components;
@@ -40,6 +39,13 @@ public partial class Pagination
     /// <returns></returns>
     protected static string? GetPaginationItemClassName(bool active) => CssBuilder.Default("page-item")
         .AddClass("active", active)
+        .Build();
+
+    /// <summary>
+    /// 获得 组件 样式
+    /// </summary>
+    protected string? ClassString => CssBuilder.Default("nav nav-pages")
+        .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
     /// <summary>

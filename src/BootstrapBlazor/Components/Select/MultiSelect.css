@@ -7,7 +7,7 @@
         border: solid 1px #ddd;
         border-radius: var(--bs-border-radius);
         cursor: pointer;
-        min-height: 35px;
+        min-height: var(--bb-height);
         max-height: 70px;
         overflow: auto;
     }
@@ -194,7 +194,7 @@
     .multi-select .multi-select-ph {
         padding: 0 1rem;
         color: #c0c4cc;
-        line-height: 35px;
+        line-height: var(--bb-height);
         position: absolute;
     }
 

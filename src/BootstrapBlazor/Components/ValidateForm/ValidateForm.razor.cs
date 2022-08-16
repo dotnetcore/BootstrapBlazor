@@ -3,12 +3,10 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using BootstrapBlazor.Localization.Json;
-using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Options;
 using System.Collections.Concurrent;
-using System.ComponentModel.DataAnnotations;
 using System.Linq.Expressions;
 using System.Reflection;
 
@@ -299,11 +297,17 @@ public partial class ValidateForm : IAsyncDisposable
                 if (!string.IsNullOrEmpty(rule.ErrorMessage))
                 {
                     var resxType = Options.Value.ResourceManagerStringLocalizerType;
-                    if (resxType != null
-                        && LocalizerFactory.Create(resxType).TryGetLocalizerString(rule.ErrorMessage, out var resx))
+                    ProcessResourceManagerLocalizerType();
+
+                    [ExcludeFromCodeCoverage]
+                    void ProcessResourceManagerLocalizerType()
                     {
-                        rule.ErrorMessage = resx;
-                        find = true;
+                        if (resxType != null
+    && LocalizerFactory.Create(resxType).TryGetLocalizerString(rule.ErrorMessage, out var resx))
+                        {
+                            rule.ErrorMessage = resx;
+                            find = true;
+                        }
                     }
                 }
 
@@ -408,7 +412,7 @@ public partial class ValidateForm : IAsyncDisposable
             else
             {
                 // 未选择文件
-                ValidateDataAnnotations(null, context, messages, pi);
+                ValidateDataAnnotations(propertyValue, context, messages, pi);
             }
         }
         else
@@ -454,8 +458,22 @@ public partial class ValidateForm : IAsyncDisposable
         }
     }
 
+    [NotNull]
+    private BootstrapBlazorDataAnnotationsValidator? Validator { get; set; }
+
     /// <summary>
-    /// 
+    /// 验证方法 用于代码调用触发表单验证
+    /// </summary>
+    /// <returns></returns>
+    public bool Validate()
+    {
+        var ret = Validator.Validate();
+        StateHasChanged();
+        return ret;
+    }
+
+    /// <summary>
+    /// 通知属性改变方法
     /// </summary>
     /// <param name="fieldIdentifier"></param>
     /// <param name="value"></param>

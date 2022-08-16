@@ -36,13 +36,18 @@ public interface IDynamicObjectContext
     Task<bool> DeleteAsync(IEnumerable<IDynamicObject> items);
 
     /// <summary>
-    /// 动态类型属性值变化时回调方法
+    /// 获得/设置 动态类型属性值变化时回调方法 默认为 null
     /// </summary>
     /// <returns></returns>
     Func<IDynamicObject, ITableColumn, object?, Task>? OnValueChanged { get; set; }
 
     /// <summary>
-    /// 动态类型集合变化时回调方法
+    /// 获得/设置 动态类型集合变化时回调方法 默认为 null
     /// </summary>
     Func<DynamicObjectContextArgs, Task>? OnChanged { get; set; }
+
+    /// <summary>
+    /// 获得/设置 选中行是否相等判断逻辑 默认为 null
+    /// </summary>
+    Func<IDynamicObject, IDynamicObject, bool>? EqualityComparer { get; set; }
 }

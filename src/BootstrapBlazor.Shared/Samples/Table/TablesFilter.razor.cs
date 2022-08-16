@@ -5,6 +5,7 @@
 using BootstrapBlazor.Components;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
+using Microsoft.Extensions.Options;
 
 namespace BootstrapBlazor.Shared.Samples.Table;
 
@@ -22,7 +23,17 @@ public partial class TablesFilter
     [NotNull]
     private IStringLocalizer<Foo>? Localizer { get; set; }
 
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<TablesFilter>? FilterLocalizer { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IOptionsMonitor<WebsiteOptions>? WebsiteOption { get; set; }
+
     private string SortString { get; set; } = "DateTime desc, Address";
+
+    private string ComponentSourceCodeUrl => $"{WebsiteOption.CurrentValue.BootstrapBlazorLink}/blob/main/src/BootstrapBlazor.Shared/Samples/Table/CustomerFilter.razor";
 
     /// <summary>
     /// OnInitialized 方法
@@ -48,6 +59,8 @@ public partial class TablesFilter
 
         // 排序
         var isSorted = false;
+
+        // 此段代码可不写，组件内部自行处理
         if (options.SortName == nameof(Foo.DateTime) && options.SortList != null)
         {
             var sortInvoker = Utility.GetSortListFunc<Foo>();

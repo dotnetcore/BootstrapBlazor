@@ -2,8 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using Microsoft.AspNetCore.Components;
-
 namespace BootstrapBlazor.Components;
 
 /// <summary>
@@ -26,6 +24,10 @@ public partial class Collapse
     private string? ClassString => CssBuilder.Default("accordion")
         .AddClass("is-accordion", IsAccordion)
         .AddClassFromAttributes(AdditionalAttributes)
+        .Build();
+
+    private static string? GetItemClassString(CollapseItem item) => CssBuilder.Default("accordion-item")
+        .AddClass(item.Class, !string.IsNullOrEmpty(item.Class))
         .Build();
 
     private readonly List<CollapseItem> _items = new();

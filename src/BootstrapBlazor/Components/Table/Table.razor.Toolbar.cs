@@ -2,7 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 
 namespace BootstrapBlazor.Components;
@@ -16,10 +15,16 @@ public partial class Table<TItem>
     public bool ShowToolbar { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否显示加载骨架屏 默认 false 不显示
+    /// 获得/设置 首次加载是否显示加载骨架屏 默认 false 不显示 使用 <see cref="ShowLoadingInFirstRender" /> 参数值
     /// </summary>
     [Parameter]
     public bool ShowSkeleton { get; set; }
+
+    /// <summary>
+    /// 获得/设置 首次加载是否显示加载动画 默认 true 显示 设置 <see cref="ShowSkeleton"/> 值覆盖此参数
+    /// </summary>
+    [Parameter]
+    public bool ShowLoadingInFirstRender { get; set; } = true;
 
     /// <summary>
     /// 获得/设置 是否显示按钮列 默认为 true
@@ -65,10 +70,28 @@ public partial class Table<TItem>
     public bool ShowExportButton { get; set; }
 
     /// <summary>
+    /// 获得/设置 导出按钮下拉菜单模板 默认 null
+    /// </summary>
+    [Parameter]
+    public RenderFragment? ExportButtonDropdownTemplate { get; set; }
+
+    /// <summary>
+    /// 获得/设置 内置导出微软 Excel 按钮文本 默认 null 读取资源文件
+    /// </summary>
+    [Parameter]
+    public string? ExportExcelDropdownItemText { get; set; }
+
+    /// <summary>
     /// 获得/设置 是否显示扩展按钮 默认为 false
     /// </summary>
     [Parameter]
     public bool ShowExtendButtons { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否自动收缩工具栏按钮 默认 true
+    /// </summary>
+    [Parameter]
+    public bool IsAutoCollapsedToolbarButton { get; set; } = true;
 
     /// <summary>
     /// 获得/设置 扩展按钮是否在前面 默认 false 在行尾
@@ -117,6 +140,7 @@ public partial class Table<TItem>
     /// <summary>
     /// 获得/设置 是否显示列选择下拉框 默认为 false 不显示
     /// </summary>
+    /// <remarks>点击下拉框内列控制是否显示后触发 <see cref="OnColumnVisibleChanged"/> 回调方法</remarks>
     [Parameter]
     public bool ShowColumnList { get; set; }
 
@@ -216,8 +240,7 @@ public partial class Table<TItem>
     /// <summary>
     /// 获得/设置 各列是否显示状态集合
     /// </summary>
-    [NotNull]
-    private List<ColumnVisibleItem>? ColumnVisibles { get; set; }
+    private List<ColumnVisibleItem> ColumnVisibles { get; } = new();
 
     private class ColumnVisibleItem
     {
@@ -229,15 +252,11 @@ public partial class Table<TItem>
 
     private IEnumerable<ITableColumn> GetColumns()
     {
-        // https://gitee.com/LongbowEnterprise/BootstrapBlazor/issues/I2LBM8
         var items = ColumnVisibles.Where(i => i.Visible);
         return Columns.Where(i => items.Any(v => v.FieldName == i.GetFieldName()));
     }
 
-    private bool GetColumnsListState(ITableColumn col)
-    {
-        return ColumnVisibles.First(i => i.FieldName == col.GetFieldName()).Visible && ColumnVisibles.Count(i => i.Visible) == 1;
-    }
+    private bool GetColumnsListState(ITableColumn col) => ColumnVisibles.First(i => i.FieldName == col.GetFieldName()).Visible && ColumnVisibles.Count(i => i.Visible) == 1;
 
     private bool ShowAddForm { get; set; }
 
@@ -262,16 +281,9 @@ public partial class Table<TItem>
         async Task AddItemAsync()
         {
             await ToggleLoading(true);
-
             await InternalOnAddAsync();
-
             SelectedRows.Clear();
-
             EditModalTitleString = AddModalTitle;
-            if (IsTracking)
-            {
-                RowItems.Insert(0, EditModel);
-            }
             if (EditMode == EditMode.Popup)
             {
                 await ShowEditDialog(ItemChangedType.Add);
@@ -280,14 +292,12 @@ public partial class Table<TItem>
             {
                 ShowAddForm = true;
                 ShowEditForm = false;
-                StateHasChanged();
             }
             else if (EditMode == EditMode.InCell)
             {
                 AddInCell = true;
                 EditInCell = true;
                 SelectedRows.Add(EditModel);
-                StateHasChanged();
             }
             await OnSelectedRowsChanged();
             await ToggleLoading(false);
@@ -298,18 +308,19 @@ public partial class Table<TItem>
             if (DynamicContext != null)
             {
                 // 数据源为 DataTable 新建后重建行与列
+                // TODO: 新建行在数据源 DataTable 中
                 await DynamicContext.AddAsync(SelectedRows.OfType<IDynamicObject>());
                 ResetDynamicContext();
                 SelectedRows.Clear();
-                StateHasChanged();
+                await OnSelectedRowsChanged();
             }
             else
             {
                 await InternalOnAddAsync();
+                RowsCache = null;
                 SelectedRows.Clear();
-                RowItemsCache = null;
+                await QueryAsync(false);
                 await OnSelectedRowsChanged();
-                await QueryAsync();
             }
         }
     }
@@ -405,7 +416,7 @@ public partial class Table<TItem>
         if (DynamicContext != null)
         {
             await DynamicContext.SetValue(context.Model);
-            RowItemsCache = null;
+            RowsCache = null;
             valid = true;
         }
         else
@@ -445,6 +456,7 @@ public partial class Table<TItem>
             {
                 if (ShowAddForm)
                 {
+                    // TODO: 未支持双向绑定 Items
                     await QueryData();
                     ShowAddForm = false;
                 }
@@ -453,10 +465,36 @@ public partial class Table<TItem>
             }
             else if (EditMode == EditMode.InCell)
             {
-                SelectedRows.Clear();
                 EditInCell = false;
                 AddInCell = false;
-                await QueryAsync();
+                if (ItemsChanged.HasDelegate)
+                {
+                    // 通过 EditModel 恢复 编辑数据
+                    if (changedType == ItemChangedType.Add)
+                    {
+                        if (InsertRowMode == InsertRowMode.Last)
+                        {
+                            Rows.Add(EditModel);
+                        }
+                        else if (InsertRowMode == InsertRowMode.First)
+                        {
+                            Rows.Insert(0, EditModel);
+                        }
+                    }
+                    else
+                    {
+                        var index = Rows.IndexOf(SelectedRows[0]);
+                        Rows.RemoveAt(index);
+                        Rows.Insert(index, EditModel);
+                    }
+                    SelectedRows.Clear();
+                    await ItemsChanged.InvokeAsync(Rows);
+                }
+                else
+                {
+                    SelectedRows.Clear();
+                    await QueryAsync();
+                }
             }
         }
         await ToggleLoading(false);
@@ -495,7 +533,6 @@ public partial class Table<TItem>
         var option = new EditDialogOption<TItem>()
         {
             Class = "modal-dialog-table",
-            IsTracking = IsTracking,
             IsScrolling = ScrollingDialogContent,
             IsKeyboard = IsKeyboard,
             ShowLoading = ShowLoading,
@@ -587,12 +624,6 @@ public partial class Table<TItem>
         {
             await DeleteDynamicObjectExcelModelAsync();
         }
-        else if (IsTracking)
-        {
-            RowItems.RemoveAll(i => SelectedRows.Contains(i));
-            SelectedRows.Clear();
-            StateHasChanged();
-        }
         else
         {
             await ToggleLoading(true);
@@ -616,18 +647,27 @@ public partial class Table<TItem>
             var ret = await InternalOnDeleteAsync();
             if (ret)
             {
-                if (IsPagination)
+                if (ItemsChanged.HasDelegate)
                 {
-                    // 删除成功 重新查询
-                    // 由于数据删除导致页码会改变，尤其是最后一页
-                    // 重新计算页码
-                    // https://gitee.com/LongbowEnterprise/BootstrapBlazor/issues/I1UJSL
-                    PageIndex = Math.Max(1, Math.Min(PageIndex, int.Parse(Math.Ceiling((TotalCount - SelectedRows.Count) * 1d / PageItems).ToString())));
-                    var items = PageItemsSource.Where(item => item >= (TotalCount - SelectedRows.Count));
-                    PageItems = Math.Min(PageItems, items.Any() ? items.Min() : PageItems);
+                    Rows.RemoveAll(i => SelectedRows.Contains(i));
+                    SelectedRows.Clear();
+                    await ItemsChanged.InvokeAsync(Rows);
                 }
-                SelectedRows.Clear();
-                await QueryAsync();
+                else
+                {
+                    if (IsPagination)
+                    {
+                        // 删除成功 重新查询
+                        // 由于数据删除导致页码会改变，尤其是最后一页
+                        // 重新计算页码
+                        // https://gitee.com/LongbowEnterprise/BootstrapBlazor/issues/I1UJSL
+                        PageIndex = Math.Max(1, Math.Min(PageIndex, int.Parse(Math.Ceiling((TotalCount - SelectedRows.Count) * 1d / PageItems).ToString())));
+                        var items = PageItemsSource.Where(item => item >= (TotalCount - SelectedRows.Count));
+                        PageItems = Math.Min(PageItems, items.Any() ? items.Min() : PageItems);
+                    }
+                    SelectedRows.Clear();
+                    await QueryAsync();
+                }
             }
             return ret;
         }
@@ -639,7 +679,7 @@ public partial class Table<TItem>
                 await DynamicContext.DeleteAsync(SelectedRows.AsEnumerable().OfType<IDynamicObject>());
                 ResetDynamicContext();
                 SelectedRows.Clear();
-                StateHasChanged();
+                await OnSelectedRowsChanged();
             }
             else
             {
@@ -659,8 +699,11 @@ public partial class Table<TItem>
             Columns.Clear();
             Columns.AddRange(cols);
 
+            ColumnVisibles.Clear();
+            ColumnVisibles.AddRange(Columns.Select(i => new ColumnVisibleItem { FieldName = i.GetFieldName(), Visible = i.Visible }));
+
             QueryItems = DynamicContext.GetItems().Cast<TItem>();
-            RowItemsCache = null;
+            RowsCache = null;
         }
     }
 
@@ -680,13 +723,13 @@ public partial class Table<TItem>
         var ret = false;
         if (OnExportAsync != null)
         {
-            ret = await OnExportAsync(RowItems);
+            ret = await OnExportAsync(Rows);
         }
         else
         {
             // 如果未提供 OnExportAsync 回调委托使用注入服务来尝试解析
             // TODO: 这里将本页数据作为参数传递给导出服务，服务本身可以利用自身优势获取全部所需数据，如果获取全部数据呢？
-            ret = await ExcelExport.ExportAsync(RowItems, Columns, JSRuntime);
+            ret = await ExcelExport.ExportAsync(Rows, Columns, JSRuntime);
         }
 
         option = new ToastOption
@@ -694,7 +737,6 @@ public partial class Table<TItem>
             Title = ExportToastTitle,
             Category = ret ? ToastCategory.Success : ToastCategory.Error
         };
-        //$"导出数据{(ret ? "成功" : "失败")}, {Math.Ceiling(option.Delay / 1000.0)} 秒后自动关闭";
         option.Content = string.Format(ExportToastContent, ret ? SuccessText : FailText, Math.Ceiling(option.Delay / 1000.0));
         await Toast.Show(option);
     }

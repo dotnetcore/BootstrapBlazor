@@ -136,6 +136,15 @@
     </div>
 </DemoBlock>
 
+<DemoBlock Title="@Localizer["BlockAutoCloseTitle"]" Introduction="@Localizer["BlockAutoCloseIntro"]" Name="AutoClose">
+    <div class="row g-3">
+        <div class="col-12">
+            <DateTimePicker TValue="DateTime" ViewMode="DatePickerViewMode.Date" Value="@(DateTime.Today.AddDays(3 - DateTime.Today.Day))"
+                            AutoClose="true" />
+        </div>
+    </div>
+</DemoBlock>
+
 <DemoBlock Title="@Localizer["BlockGroupTitle"]" Introduction="@Localizer["BlockGroupIntro"]" Name="Group">
     <div class="row g-3">
         <div class="col-12 col-sm-6 col-md-4">

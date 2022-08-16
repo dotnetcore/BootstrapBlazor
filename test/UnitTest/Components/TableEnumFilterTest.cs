@@ -88,12 +88,12 @@ public class TableEnumFilterTest : BootstrapBlazorTestBase
 
         var newConditions = new List<FilterKeyValueAction>
         {
-            new FilterKeyValueAction() { FieldValue = EnumEducation.Middel }
+            new FilterKeyValueAction() { FieldValue = EnumEducation.Middle }
         };
         await filter.SetFilterConditionsAsync(newConditions);
 
         conditions = filter.GetFilterConditions();
-        Assert.Equal(EnumEducation.Middel, conditions.First().FieldValue);
+        Assert.Equal(EnumEducation.Middle, conditions.First().FieldValue);
 
         newConditions = new List<FilterKeyValueAction>
         {

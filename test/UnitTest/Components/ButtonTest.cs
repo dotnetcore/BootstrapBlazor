@@ -18,20 +18,20 @@ public class ButtonTest : BootstrapBlazorTestBase
         {
             pb.Add(b => b.ButtonStyle, ButtonStyle.None);
         });
-        Assert.DoesNotContain("is-round", cut.Markup);
-        Assert.DoesNotContain("is-circle", cut.Markup);
+        Assert.DoesNotContain("btn-round", cut.Markup);
+        Assert.DoesNotContain("btn-circle", cut.Markup);
 
         cut.SetParametersAndRender(pb =>
         {
             pb.Add(b => b.ButtonStyle, ButtonStyle.Circle);
         });
-        Assert.Contains("is-circle", cut.Markup);
+        Assert.Contains("btn-circle", cut.Markup);
 
         cut.SetParametersAndRender(pb =>
         {
             pb.Add(b => b.ButtonStyle, ButtonStyle.Round);
         });
-        Assert.Contains("is-round", cut.Markup);
+        Assert.Contains("btn-round", cut.Markup);
     }
 
     [Fact]
@@ -233,13 +233,15 @@ public class ButtonTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void SetDisable_Ok()
+    public async Task SetDisable_Ok()
     {
         var cut = Context.RenderComponent<Button>();
-        Assert.DoesNotContain("disabled", cut.Markup);
+        Assert.DoesNotContain("disabled=\"disabled\"", cut.Markup);
+        Assert.Contains("aria-disabled=\"false\"", cut.Markup);
 
-        cut.InvokeAsync(() => cut.Instance.SetDisable(true));
+        await cut.InvokeAsync(() => cut.Instance.SetDisable(true));
         Assert.Contains("disabled=\"disabled\"", cut.Markup);
+        Assert.Contains("aria-disabled=\"true\"", cut.Markup);
     }
 
     [Fact]

@@ -68,3 +68,28 @@
         </TableColumns>
     </Table>
 </DemoBlock>
+
+<DemoBlock Title="自定义导出下拉框按钮" Introduction="通过设置 <code>ExportButtonDropdownTemplate</code> 模板自定义导出按钮下拉框内容" Name="ExportButtonDropdownTemplate">
+    <Table TItem="Foo"
+           IsPagination="true" PageItemsSource="@PageItemsSource"
+           IsStriped="true" IsBordered="true" IsMultipleSelect="true"
+           ShowToolbar="true" ShowDefaultButtons="false" ShowExportButton="true"
+           OnQueryAsync="@OnQueryAsync">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Name" Width="100" />
+            <TableColumn @bind-Field="@context.Address" />
+            <TableColumn @bind-Field="@context.Count" />
+        </TableColumns>
+        <ExportButtonDropdownTemplate>
+            <div class="dropdown-item" @onclick="@ExcelExportAsync">
+                <i class="fa fa-file-excel-o"></i>
+                <span>MS-Excel</span>
+            </div>
+            <div class="dropdown-item" @onclick="@CsvExportAsync">
+                <i class="fa fa-file-excel-o"></i>
+                <span>MS-CSV</span>
+            </div>
+        </ExportButtonDropdownTemplate>
+    </Table>
+</DemoBlock>

@@ -2,7 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Extensions.Localization;
 
@@ -114,7 +113,7 @@ public partial class TransferPanel
     /// </summary>
     protected CheckboxState HeaderCheckState()
     {
-        var ret = CheckboxState.Mixed;
+        var ret = CheckboxState.Indeterminate;
         if (Items != null && Items.Any() && Items.All(i => i.Active))
         {
             ret = CheckboxState.Checked;

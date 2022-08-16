@@ -2,7 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using Microsoft.AspNetCore.Components;
 using System.Collections;
 using System.Linq.Expressions;
 using System.Reflection;
@@ -100,13 +99,13 @@ public partial class Display<TValue>
                 ? FormatValueString()
                 : FormatText(value));
 
-    private string FormatText(TValue value)
+    private string FormatText([DisallowNull] TValue value)
     {
         string ret;
         var type = typeof(TValue);
         if (type.IsEnum())
         {
-            ret = type.ToEnumDisplayName(value!.ToString());
+            ret = Utility.GetDisplayName(type, value.ToString()!);
         }
         else if (type.IsArray)
         {

@@ -2,7 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 
 namespace BootstrapBlazor.Components;
@@ -20,11 +19,6 @@ public class EditDialogOption<TModel> : DialogOption
         ShowCloseButton = false;
         ShowFooter = false;
     }
-
-    /// <summary>
-    /// 获得/设置 组件是否采用 Tracking 模式对编辑项进行直接更新 默认 false
-    /// </summary>
-    public bool IsTracking { get; set; }
 
     /// <summary>
     /// 获得/设置 是否显示标签 默认为 true 显示标签

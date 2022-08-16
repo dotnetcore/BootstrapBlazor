@@ -276,6 +276,36 @@ public class UploadTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public async Task AvatarUpload_Validate_Ok()
+    {
+        var invalid = true;
+        var foo = new Foo
+        {
+            Name = "abc"
+        };
+        var cut = Context.RenderComponent<ValidateForm>(pb =>
+        {
+            pb.Add(a => a.Model, foo);
+            pb.AddChildContent<AvatarUpload<string>>(pb =>
+            {
+                pb.Add(a => a.Accept, "Image");
+                pb.Add(a => a.Value, foo.Name);
+                pb.Add(a => a.ValueExpression, foo.GenerateValueExpression());
+            });
+            pb.Add(a => a.OnValidSubmit, context =>
+            {
+                invalid = false;
+                return Task.CompletedTask;
+            });
+        });
+
+        // 由于设置了属性 Name 值 Validate 方法通过
+        var form = cut.Find("form");
+        await cut.InvokeAsync(() => form.Submit());
+        Assert.False(invalid);
+    }
+
+    [Fact]
     public void AvatarUpload_FileValidate_Ok()
     {
         var foo = new Person();
@@ -346,14 +376,14 @@ public class UploadTest : BootstrapBlazorTestBase
             pb.Add(a => a.IsDisabled, false);
             pb.Add(a => a.IsSingle, false);
         });
-        Assert.DoesNotContain("disabled", button.ToMarkup());
+        Assert.DoesNotContain("disabled=\"disabled\"", button.ToMarkup());
 
         cut.SetParametersAndRender(pb =>
         {
             pb.Add(a => a.IsDisabled, false);
             pb.Add(a => a.IsSingle, true);
         });
-        Assert.DoesNotContain("disabled", button.ToMarkup());
+        Assert.DoesNotContain("disabled=\"disabled\"", button.ToMarkup());
 
         cut.SetParametersAndRender(pb =>
         {
@@ -382,6 +412,60 @@ public class UploadTest : BootstrapBlazorTestBase
             });
         });
         cut.Contains("form-label");
+    }
+
+
+    [Fact]
+    public async Task ButtonUpload_ShowDownload()
+    {
+        var clicked = false;
+        var cut = Context.RenderComponent<ButtonUpload<string>>(pb =>
+        {
+            pb.Add(a => a.ShowDownloadButton, true);
+            pb.Add(a => a.OnDownload, file =>
+            {
+                clicked = true;
+                return Task.CompletedTask;
+            });
+            pb.Add(a => a.DefaultFileList, new List<UploadFile>()
+            {
+                new UploadFile() { FileName  = "Test-File1.text" }
+            });
+        });
+
+        var button = cut.Find(".fa-download");
+        await cut.InvokeAsync(() => button.Click());
+        Assert.True(clicked);
+    }
+
+    [Fact]
+    public async Task ButtonUpload_Validate_Ok()
+    {
+        var invalid = true;
+        var foo = new Foo
+        {
+            Name = "abc"
+        };
+        var cut = Context.RenderComponent<ValidateForm>(pb =>
+        {
+            pb.Add(a => a.Model, foo);
+            pb.AddChildContent<ButtonUpload<string>>(pb =>
+            {
+                pb.Add(a => a.Accept, "Image");
+                pb.Add(a => a.Value, foo.Name);
+                pb.Add(a => a.ValueExpression, foo.GenerateValueExpression());
+            });
+            pb.Add(a => a.OnValidSubmit, context =>
+            {
+                invalid = false;
+                return Task.CompletedTask;
+            });
+        });
+
+        // 由于设置了属性 Name 值 Validate 方法通过
+        var form = cut.Find("form");
+        await cut.InvokeAsync(() => form.Submit());
+        Assert.False(invalid);
     }
 
     [Fact]
@@ -555,7 +639,7 @@ public class UploadTest : BootstrapBlazorTestBase
         cut.Contains("bb-viewer-wrapper active");
 
         // OnZoom
-        await cut.InvokeAsync(() => cut.Find(".btn-outline-secondary").Click());
+        await cut.InvokeAsync(() => cut.Find(".btn-secondary").Click());
         Assert.False(zoom);
 
         cut.SetParametersAndRender(pb =>
@@ -566,7 +650,7 @@ public class UploadTest : BootstrapBlazorTestBase
                 return Task.CompletedTask;
             });
         });
-        await cut.InvokeAsync(() => cut.Find(".btn-outline-secondary").Click());
+        await cut.InvokeAsync(() => cut.Find(".btn-secondary").Click());
         Assert.True(zoom);
 
         // OnDelete
@@ -612,6 +696,29 @@ public class UploadTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public async Task CardUpload_ShowDownload()
+    {
+        var clicked = false;
+        var cut = Context.RenderComponent<CardUpload<string>>(pb =>
+        {
+            pb.Add(a => a.ShowDownloadButton, true);
+            pb.Add(a => a.OnDownload, file =>
+            {
+                clicked = true;
+                return Task.CompletedTask;
+            });
+            pb.Add(a => a.DefaultFileList, new List<UploadFile>()
+            {
+                new UploadFile() { FileName  = "Test-File1.text" }
+            });
+        });
+
+        var button = cut.FindAll(".btn-secondary");
+        await cut.InvokeAsync(() => button[1].Click());
+        Assert.True(clicked);
+    }
+
+    [Fact]
     public void CardUpload_ValidateForm_Ok()
     {
         var foo = new Foo();
@@ -625,6 +732,65 @@ public class UploadTest : BootstrapBlazorTestBase
             });
         });
         cut.Contains("form-label");
+    }
+
+    [Fact]
+    public void FileSize_Ok()
+    {
+        var validator = new FileValidationAttribute()
+        {
+            FileSize = 5
+        };
+        var p = new Person()
+        {
+            Picture = new MockBrowserFile("test.log")
+        };
+        var result = validator.GetValidationResult(p.Picture, new ValidationContext(p));
+        Assert.NotEqual(ValidationResult.Success, result);
+    }
+
+    [Fact]
+    public void FileExtensions_Ok()
+    {
+        var validator = new FileValidationAttribute()
+        {
+            Extensions = new string[] { "jpg" }
+        };
+        var p = new Person()
+        {
+            Picture = new MockBrowserFile("test.log")
+        };
+        var result = validator.GetValidationResult(p.Picture, new ValidationContext(p));
+        Assert.NotEqual(ValidationResult.Success, result);
+    }
+
+    [Fact]
+    public void IsValid_Ok()
+    {
+        var validator = new FileValidationAttribute()
+        {
+            Extensions = new string[] { "jpg" }
+        };
+        var p = new Person()
+        {
+            Picture = new MockBrowserFile("test.log")
+        };
+        Assert.False(validator.IsValid(p.Picture));
+    }
+
+    [Fact]
+    public void Validate_Ok()
+    {
+        var validator = new FileValidationAttribute()
+        {
+            Extensions = new string[] { "jpg" }
+        };
+        var p = new Person()
+        {
+            Picture = new MockBrowserFile("test.log")
+        };
+        Assert.Throws<ValidationException>(() => validator.Validate(p.Picture, "Picture"));
+        Assert.Throws<ValidationException>(() => validator.Validate(p.Picture, new ValidationContext(p)));
     }
 
     private class Person

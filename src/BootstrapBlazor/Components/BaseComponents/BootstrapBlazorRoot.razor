@@ -1,16 +1,7 @@
 ﻿@inherits ComponentBase
 @namespace BootstrapBlazor.Components
 
-@if (OperatingSystem.IsBrowser())
-{
-    @RenderChildContent
-}
-else
-{
-    <app>
-        @RenderChildContent
-    </app>
-}
+@RenderBody()
 
 <Dialog />
 <PopoverConfirm />

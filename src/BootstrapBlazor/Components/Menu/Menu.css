@@ -183,6 +183,9 @@
     display: none;
 }
 
+.cascade .form-select {
+    background-image: none;
+}
 
 @media (min-width: 768px) {
     .layout-side.is-collapsed:not(:hover) .menu.is-collapsed .submenu .text {

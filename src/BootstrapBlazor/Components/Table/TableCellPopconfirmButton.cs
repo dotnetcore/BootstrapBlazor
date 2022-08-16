@@ -2,7 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 
 namespace BootstrapBlazor.Components;
@@ -58,5 +57,16 @@ public class TableCellPopconfirmButton : PopConfirmButtonBase
         ConfirmButtonText ??= Localizer[nameof(ConfirmButtonText)];
         CloseButtonText ??= Localizer[nameof(CloseButtonText)];
         Content ??= Localizer[nameof(Content)];
+    }
+
+    /// <summary>
+    /// DisposeAsyncCore
+    /// </summary>
+    /// <param name="disposing"></param>
+    /// <returns></returns>
+    protected override ValueTask DisposeAsyncCore(bool disposing)
+    {
+        Buttons?.RemoveButton(this);
+        return base.DisposeAsyncCore(disposing);
     }
 }

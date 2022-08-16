@@ -2,7 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using BootstrapBlazor.Components;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -15,41 +14,61 @@ namespace BootstrapBlazor.Localization.Json;
 /// </summary>
 internal class JsonStringLocalizerFactory : ResourceManagerStringLocalizerFactory
 {
-    private readonly JsonLocalizationOptions _jsonOptions;
-    private readonly ILoggerFactory _loggerFactory;
-    private string? _typeName;
-    private readonly IServiceProvider _provider;
+    private ILoggerFactory LoggerFactory { get; set; }
+
+    [NotNull]
+    private string? TypeName { get; set; }
+
+    private bool IgnoreLocalizerMissing { get; set; }
 
     /// <summary>
     /// 构造函数
     /// </summary>
-    /// <param name="jsonOptions"></param>
-    /// <param name="resxOptions"></param>
+    /// <param name="cacheManager"></param>
     /// <param name="options"></param>
+    /// <param name="jsonLocalizationOptions"></param>
+    /// <param name="localizationOptions"></param>
     /// <param name="loggerFactory"></param>
-    /// <param name="provider"></param>
     public JsonStringLocalizerFactory(
-        IOptions<JsonLocalizationOptions> jsonOptions,
-        IOptions<LocalizationOptions> resxOptions,
+        ICacheManager cacheManager,
         IOptionsMonitor<BootstrapBlazorOptions> options,
-        ILoggerFactory loggerFactory,
-        IServiceProvider provider) : base(resxOptions, loggerFactory)
+        IOptions<JsonLocalizationOptions> jsonLocalizationOptions,
+        IOptions<LocalizationOptions> localizationOptions,
+        ILoggerFactory loggerFactory) : base(localizationOptions, loggerFactory)
     {
-        _jsonOptions = jsonOptions.Value;
-        _jsonOptions.FallbackCulture = options.CurrentValue.FallbackCulture;
-        _jsonOptions.FallBackToParentUICultures = options.CurrentValue.FallBackToParentUICultures;
-        _jsonOptions.SupportedCultures.AddRange(options.CurrentValue.GetSupportedCultures());
-        _loggerFactory = loggerFactory;
-        _provider = provider;
+        // 由于某些应用场景如 (WTM) Blazor 还未加载时 Localizer 模块先开始工作了
+        // 为了保证 CacheManager 内部 Instance 可用这里需要使 ICacheManager 先实例化
+        cacheManager.SetStartTime();
 
-        options.OnChange(op =>
+        jsonLocalizationOptions.Value.FallbackCulture = options.CurrentValue.FallbackCulture;
+        jsonLocalizationOptions.Value.EnableFallbackCulture = options.CurrentValue.EnableFallbackCulture;
+        if (options.CurrentValue.IgnoreLocalizerMissing.HasValue)
         {
-            _jsonOptions.FallbackCulture = op.FallbackCulture;
-            _jsonOptions.FallBackToParentUICultures = op.FallBackToParentUICultures;
-            _jsonOptions.SupportedCultures.AddRange(op.GetSupportedCultures());
-        });
+            jsonLocalizationOptions.Value.IgnoreLocalizerMissing = options.CurrentValue.IgnoreLocalizerMissing.Value;
+        }
+        IgnoreLocalizerMissing = jsonLocalizationOptions.Value.IgnoreLocalizerMissing;
+        LoggerFactory = loggerFactory;
+        options.OnChange(OnChange);
+
+        [ExcludeFromCodeCoverage]
+        void OnChange(BootstrapBlazorOptions op)
+        {
+            jsonLocalizationOptions.Value.EnableFallbackCulture = op.EnableFallbackCulture;
+            jsonLocalizationOptions.Value.FallbackCulture = op.FallbackCulture;
+            if (op.IgnoreLocalizerMissing.HasValue)
+            {
+                jsonLocalizationOptions.Value.IgnoreLocalizerMissing = op.IgnoreLocalizerMissing.Value;
+                IgnoreLocalizerMissing = op.IgnoreLocalizerMissing.Value;
+            }
+        }
     }
 
+    /// <summary>
+    /// GetResourcePrefix 方法
+    /// </summary>
+    /// <param name="typeInfo"></param>
+    /// <returns></returns>
+    /// <exception cref="InvalidOperationException"></exception>
     protected override string GetResourcePrefix(TypeInfo typeInfo)
     {
         var typeName = typeInfo.FullName;
@@ -63,47 +82,24 @@ internal class JsonStringLocalizerFactory : ResourceManagerStringLocalizerFactor
             var index = typeName.IndexOf('`');
             typeName = typeName[..index];
         }
-        _typeName = TryFixInnerClassPath(typeName);
+        TypeName = typeName;
 
         return base.GetResourcePrefix(typeInfo);
     }
 
-    private const char InnerClassSeparator = '+';
-    private static string TryFixInnerClassPath(string path)
-    {
-        var fixedPath = path;
-
-        if (path.Contains(InnerClassSeparator.ToString()))
-        {
-            fixedPath = path.Replace(InnerClassSeparator, '.');
-        }
-
-        return fixedPath;
-    }
+    private IResourceNamesCache ResourceNamesCache { get; } = new ResourceNamesCache();
 
     /// <summary>
-    /// 
+    /// Creates a <see cref="ResourceManagerStringLocalizer"/> for the given input
     /// </summary>
-    /// <param name="assembly"></param>
-    /// <param name="baseName"></param>
+    /// <param name="assembly">The assembly to create a <see cref="ResourceManagerStringLocalizer"/> for</param>
+    /// <param name="baseName">The base name of the resource to search for</param>
     /// <returns></returns>
     protected override ResourceManagerStringLocalizer CreateResourceManagerStringLocalizer(Assembly assembly, string baseName) => new JsonStringLocalizer(
-            this,
             assembly,
-            _typeName ?? "",
+            TypeName,
             baseName,
-            _loggerFactory.CreateLogger<JsonStringLocalizer>(),
-            _jsonOptions,
-            _provider);
-
-    /// <summary>
-    /// 获得 IResourceNamesCache 实例
-    /// </summary>
-    /// <returns></returns>
-    internal IResourceNamesCache GetCache()
-    {
-        var field = this.GetType().BaseType?.GetField("_resourceNamesCache", BindingFlags.NonPublic | BindingFlags.Instance);
-        var ret = field?.GetValue(this) as IResourceNamesCache;
-        return ret!;
-    }
+            IgnoreLocalizerMissing,
+            LoggerFactory.CreateLogger<JsonStringLocalizer>(),
+            ResourceNamesCache);
 }

@@ -4,7 +4,7 @@
 
 using BootstrapBlazor.Components;
 
-namespace BootstrapBlazor.Shared.Exntensions;
+namespace BootstrapBlazor.Shared.Extensions;
 
 internal static class DispatchEntryExtensions
 {

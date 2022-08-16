@@ -212,10 +212,6 @@ public class LayoutTest : BootstrapBlazorTestBase
         });
         navMan.NavigateTo("/");
         Assert.Equal("http://localhost/Test", navMan.Uri);
-        cut.SetParametersAndRender(pb =>
-        {
-            pb.Add(a => a.OnAuthorizing, null);
-        });
     }
 
     [Fact]

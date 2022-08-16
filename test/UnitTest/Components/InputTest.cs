@@ -3,7 +3,6 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using BootstrapBlazor.Shared;
-using UnitTest.Extensions;
 
 namespace UnitTest.Components;
 
@@ -79,7 +78,7 @@ public class InputTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void IsTrim_Ok()
+    public async Task IsTrim_Ok()
     {
         var val = "    test    ";
         var cut = Context.RenderComponent<BootstrapInput<string>>(builder =>
@@ -88,7 +87,8 @@ public class InputTest : BootstrapBlazorTestBase
             builder.Add(a => a.Value, "");
         });
         Assert.Equal("", cut.Instance.Value);
-        cut.Find("input").Change(val);
+        var input = cut.Find("input");
+        await cut.InvokeAsync(() => input.Change(val));
         Assert.Equal(val.Trim(), cut.Instance.Value);
 
         cut.SetParametersAndRender(builder =>
@@ -97,7 +97,8 @@ public class InputTest : BootstrapBlazorTestBase
             builder.Add(a => a.Value, "");
         });
         Assert.Equal("", cut.Instance.Value);
-        cut.Find("input").Change(val);
+        input = cut.Find("input");
+        await cut.InvokeAsync(() => input.Change(val));
         Assert.Equal(val, cut.Instance.Value);
     }
 

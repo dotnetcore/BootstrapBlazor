@@ -12,7 +12,7 @@
         {
             <SkeletonTable ShowToolbar="@ShowToolbar"></SkeletonTable>
         }
-        else
+        else if(ShowLoadingInFirstRender)
         {
             <div class="table-loading">
                 <Spinner Color="Color.Primary" />
@@ -30,7 +30,7 @@
         <div class="table-toolbar">
             @if (IsExcel || ShowToolbar)
             {
-                <TableToolbar OnGetSelectedRows="@GetSelectedRows">
+                <TableToolbar OnGetSelectedRows="@GetSelectedRows" IsAutoCollapsedToolbarButton="IsAutoCollapsedToolbarButton">
                     @if (IsExcel || ShowDefaultButtons)
                     {
                         @if (ShowAddButton)
@@ -39,12 +39,12 @@
                         }
                         @if (!IsExcel && ShowEditButton)
                         {
-                            <TableToolbarButton TItem="TItem" IsDisabled="SelectedRows.Count != 1" Color="Color.Primary" OnClick="EditAsync" Icon="fa fa-pencil" Text="@EditButtonText" />
+                            <TableToolbarButton TItem="TItem" IsDisabled="GetEditButtonStatus()" Color="Color.Primary" OnClick="EditAsync" Icon="fa fa-pencil" Text="@EditButtonText" />
                         }
                         @if (ShowDeleteButton)
                         {
                             <TableToolbarPopconfirmButton TItem="TItem" Color="Color.Danger"
-                                                          Icon="fa fa-remove" Text="@DeleteButtonText" IsDisabled="!SelectedRows.Any()"
+                                                          Icon="fa fa-remove" Text="@DeleteButtonText" IsDisabled="GetDeleteButtonStatus()"
                                                           OnBeforeClick="ConfirmDelete" OnConfirm="DeleteAsync"
                                                           CloseButtonText="@CancelDeleteButtonText" Content="@ConfirmDeleteContentText"
                                                           ConfirmButtonText="@ConfirmDeleteButtonText" ConfirmButtonColor="Color.Danger" />
@@ -53,7 +53,7 @@
                     @TableToolbarTemplate
                 </TableToolbar>
                 <div class="float-end table-toolbar-button btn-group table-column-right">
-                    @if (!IsExcel && ShowRefresh)
+                    @if (ShowRefresh)
                     {
                         <Button Icon="fa fa-refresh" Text="@RefreshButtonText" Color="@Color.Secondary" OnClickWithoutRender="@OnClickRefreshAsync" />
                     }
@@ -69,15 +69,18 @@
                                 <span class="d-none d-sm-inline-block">@ColumnButtonText</span>
                                 <span class="caret"></span>
                             </button>
-                            <div class="dropdown-menu dropdown-menu-right shadow">
+                            <div class="dropdown-menu dropdown-menu-end shadow">
                                 @foreach (var item in Columns)
                                 {
-                                    var poco = ColumnVisibles.First(i => i.FieldName == item.GetFieldName());
-                                    <div class="dropdown-item">
-                                        <Checkbox ShowAfterLabel="true" IsDisabled="@GetColumnsListState(item)"
-                                                  DisplayText="@item.GetDisplayName()" @bind-Value="@poco.Visible">
-                                        </Checkbox>
-                                    </div>
+                                    var poco = ColumnVisibles.FirstOrDefault(i => i.FieldName == item.GetFieldName());
+                                    if (poco != null)
+                                    {
+                                        <div class="dropdown-item">
+                                            <Checkbox ShowAfterLabel="true" IsDisabled="@GetColumnsListState(item)"
+                                                  DisplayText="@item.GetDisplayName()" @bind-Value="@poco.Visible" OnValueChanged="visible => OnToggleColumnVisible(poco.FieldName, visible)">
+                                            </Checkbox>
+                                        </div>
+                                    }
                                 }
                             </div>
                         </div>
@@ -90,11 +93,18 @@
                                 <span class="d-none d-sm-inline-block">@ExportButtonText</span>
                                 <span class="caret"></span>
                             </button>
-                            <div class="dropdown-menu dropdown-menu-right shadow">
-                                <div class="dropdown-item" @onclick="@ExportAsync">
-                                    <i class="fa fa-file-excel-o"></i>
-                                    <span>MS-Excel</span>
-                                </div>
+                            <div class="dropdown-menu dropdown-menu-end shadow">
+                                @if(ExportButtonDropdownTemplate != null)
+                                {
+                                    @ExportButtonDropdownTemplate
+                                }
+                                else
+                                {
+                                    <div class="dropdown-item" @onclick="@ExportAsync">
+                                        <i class="fa fa-file-excel-o"></i>
+                                        <span>@ExportExcelDropdownItemText</span>
+                                    </div>
+                                }
                             </div>
                         </div>
                     }
@@ -169,7 +179,7 @@
             }
             else
             {
-                foreach (var item in RowItems)
+                foreach (var item in Rows)
                 {
                     <DynamicElement class="@GetRowClassString(item, "table-row")"
                                     TriggerClick="@(ClickToSelect || OnClickRowCallback != null)" OnClick="() => ClickRow(item)">
@@ -184,7 +194,7 @@
                         {
                             <div class="table-cell">
                                 <label>@LineNoText</label>
-                                <span>@(RowItems.IndexOf(item) + 1 + (PageIndex -1) * PageItems)</span>
+                                <span>@(Rows.IndexOf(item) + 1 + (PageIndex -1) * PageItems)</span>
                             </div>
                         }
                         @if (!IsExcel && ShowExtendButtons && IsExtendButtonsInRowHeader)
@@ -230,8 +240,8 @@
                 {
                     <div class="table-row table-footer">
                         <CascadingValue Value="true" Name="IsMobileMode" IsFixed="true">
-                            <CascadingValue Value="@RowItems" Name="TableFooterContext" IsFixed="true">
-                                @TableFooter?.Invoke(RowItems)
+                            <CascadingValue Value="@Rows" Name="TableFooterContext" IsFixed="true">
+                                @TableFooter?.Invoke(Rows)
                             </CascadingValue>
                         </CascadingValue>
                     </div>
@@ -276,13 +286,16 @@
             @RenderHeader.Invoke(false)
         }
         <tbody>
-            @if (!IsExcel && EditMode == EditMode.EditForm && ShowAddForm)
+            @if (InsertRowMode == InsertRowMode.First)
             {
-                @RenderEditForm.Invoke((EditModel, ItemChangedType.Add))
-            }
-            @if (AddInCell && !IsTracking)
-            {
-                @RenderRow(EditModel)
+                if (!IsExcel && EditMode == EditMode.EditForm && ShowAddForm)
+                {
+                    @RenderEditForm.Invoke((EditModel, ItemChangedType.Add))
+                }
+                if (AddInCell)
+                {
+                    @RenderRow(EditModel)
+                }
             }
             @if(ScrollMode == ScrollMode.Virtual)
             {
@@ -304,10 +317,10 @@
             }
             else
             {
-                @foreach (var item in RowItems)
+                @foreach (var item in Rows)
                 {
                     @RenderRow(item)
-                    if (!IsExcel && ShowDetails())
+                    if (ShowDetails())
                     {
                         <tr class="@GetDetailRowClassString(item)">
                             <td>&nbsp;</td>
@@ -327,7 +340,7 @@
                             </td>
                         </tr>
                     }
-                    if (!IsExcel && EditMode == EditMode.EditForm && ShowEditForm && SelectedRows.FirstOrDefault() == item)
+                    if (!IsExcel && EditMode == EditMode.EditForm && ShowEditForm && SelectedRows.LastOrDefault() == item)
                     {
                         @RenderEditForm((EditModel, ItemChangedType.Update))
                     }
@@ -342,20 +355,31 @@
                     </tr>
                 }
             }
+            @if (InsertRowMode == InsertRowMode.Last)
+            {
+                if (!IsExcel && EditMode == EditMode.EditForm && ShowAddForm)
+                {
+                    @RenderEditForm.Invoke((EditModel, ItemChangedType.Add))
+                }
+                if (AddInCell)
+                {
+                    @RenderRow(EditModel)
+                }
+            }
         </tbody>
         @if (ShowFooter && !IsHideFooterWhenNoData)
         {
             <tfoot>
                 <CascadingValue Value="false" Name="IsMobileMode" IsFixed="true">
-                    <CascadingValue Value="@RowItems" Name="TableFooterContext" IsFixed="true">
+                    <CascadingValue Value="@Rows" Name="TableFooterContext" IsFixed="true">
                         @if (FooterTemplate != null)
                         {
-                            @FooterTemplate(RowItems)
+                            @FooterTemplate(Rows)
                         }
                         else
                         {
                             <tr>
-                                @TableFooter?.Invoke(RowItems)
+                                @TableFooter?.Invoke(Rows)
                             </tr>
                         }
                     </CascadingValue>
@@ -423,7 +447,7 @@ RenderFragment<bool> RenderHeader => hasScroll =>
             }
             @if (IsMultipleSelect)
             {
-                <th class="@CheckboxColumnClass">
+                <th>
                     <div class="table-cell">
                         <Checkbox TValue="TItem" DisplayText="@CheckboxDisplayTextString" ShowAfterLabel="@ShowCheckboxText"
                                   State="@HeaderCheckState()" OnStateChanged="OnHeaderCheck"></Checkbox>
@@ -546,7 +570,7 @@ RenderFragment<TItem> RenderRow => item =>
 @<DynamicElement TagName="tr" class="@GetRowClassString(item)"
                  TriggerClick="@(ClickToSelect || OnClickRowCallback != null)" OnClick="() => ClickRow(item)"
                  TriggerDoubleClick="@(DoubleClickToEdit || OnDoubleClickRowCallback != null)" OnDoubleClick="() => DoubleClickRow(item)">
-    @if (!IsExcel && ShowDetails())
+    @if (ShowDetails())
     {
         <td>
             <div class="@GetDetailBarClassString(item)">
@@ -568,7 +592,7 @@ RenderFragment<TItem> RenderRow => item =>
     @if (ShowLineNo)
     {
         <td>
-            <div class="table-cell">@(RowItems.IndexOf(item) + 1 + (PageIndex -1) * PageItems)</div>
+            <div class="table-cell">@(Rows.IndexOf(item) + 1 + (PageIndex -1) * PageItems)</div>
         </td>
     }
     @{
@@ -603,16 +627,31 @@ RenderFragment<TItem> RenderRow => item =>
             }
             <td colspan="@GetColspan(colspan)" class="@GetFixedCellClassString(col, cellClass)" style="@GetFixedCellStyleString(col)">
                 @{
-                    var showArrow = IsTree && index++ == 0;
-                    var triggerClick = showArrow && CheckTreeChildren(item);
-                }
-                <DynamicElement TagName="div" TriggerClick="@triggerClick"
-                                OnClick="@ToggleTreeRow(item)" StopPropagation="showArrow"
-                                class="@GetCellClassString(col, triggerClick, isInCell)" style="@GetCellStyleString(col)">
-                    @if (showArrow)
+                    var isFirstColOfTree = IsTree && index++ == 0;
+                    int degree = 0;
+                    bool isExpend = false;
+                    bool hasChildren = false;
+                    if (isFirstColOfTree)
                     {
-                        <div class="is-node" style="@GetTreeStyleString(item)">
-                            <i class="@GetTreeClassString(item)"></i>
+                        var treeItem = treeNodeCache.Find(TreeRows, item, out degree);
+                        if(treeItem != null)
+                        {
+                            isExpend = treeItem.IsExpand;
+                            hasChildren = treeItem.HasChildren;
+                        }
+                    }
+                    bool hesTreeChildren = isFirstColOfTree && hasChildren;
+                }
+                <DynamicElement TagName="div" TriggerClick="@hesTreeChildren"
+                                OnClick="@ToggleTreeRow(item)" StopPropagation="hesTreeChildren"
+                                class="@GetCellClassString(col, hesTreeChildren, isInCell)" style="@GetCellStyleString(col)">
+                    @if (isFirstColOfTree)
+                    {
+                        <div class="is-node" style="@GetTreeStyleString(degree)">
+                        @if (hesTreeChildren)
+                        {
+                            <i class="@GetTreeClassString(isExpend)"></i>
+                        }
                         </div>
                     }
                     @if (IsExcel)
@@ -676,7 +715,7 @@ RenderFragment RenderPlaceHolderRow =>
 RenderFragment<(TItem Item, ItemChangedType ChangedType)> RenderEditForm => item =>
 @<tr class="is-editform">
     @{
-        var colspanCount = Columns.Count;
+        var colspanCount = GetColumnCount();
         if (IsMultipleSelect) colspanCount++;
         if (ShowLineNo) colspanCount++;
         if (ShowDetails()) colspanCount++;
@@ -694,15 +733,8 @@ RenderFragment<(TItem Item, ItemChangedType ChangedType)> RenderEditForm => item
                     <EditorForm TModel="TItem" Items="Columns.Where(c => c.Editable)" ItemsPerRow="EditDialogItemsPerRow" RowType="EditDialogRowType" LabelAlign="EditDialogLabelAlign">
                         <Buttons>
                             <div class="text-end">
-                                @if (IsTracking)
-                                {
-                                    <Button Color="Color.Primary" Icon="fa fa-save" Text="@CloseButtonText" OnClick="CancelSave" />
-                                }
-                                else
-                                {
-                                    <Button Color="Color.Secondary" Icon="fa fa-times" Text="@CancelDeleteButtonText" OnClick="CancelSave" />
-                                    <Button Color="Color.Primary" ButtonType="ButtonType.Submit" Icon="fa fa-save" Text="@SaveButtonText" />
-                                }
+                                <Button Color="Color.Secondary" Icon="fa fa-times" Text="@CancelDeleteButtonText" OnClick="CancelSave" />
+                                <Button Color="Color.Primary" ButtonType="ButtonType.Submit" Icon="fa fa-save" Text="@SaveButtonText" />
                             </div>
                         </Buttons>
                     </EditorForm>
@@ -766,15 +798,8 @@ RenderFragment<TItem> RenderRowExtendButtons => item =>
             {
                 @if (isInCell)
                 {
-                    @if (IsTracking)
-                    {
-                        <Button Size="Size.ExtraSmall" OnClick="@CancelSave" Color="Color.Success" Icon="fa fa-edit" Text="@CloseButtonText" />
-                    }
-                    else
-                    {
-                        <Button Size="Size.ExtraSmall" OnClick="ClickUpdateButtonCallback" Color="Color.Success" Icon="fa fa-edit" Text="@UpdateButtonText" />
-                        <Button Size="Size.ExtraSmall" OnClick="@CancelSave" Color="Color.Warning" Icon="fa fa-times" Text="@CancelButtonText" />
-                    }
+                    <Button Size="Size.ExtraSmall" OnClick="ClickUpdateButtonCallback" Color="Color.Success" Icon="fa fa-edit" Text="@UpdateButtonText" />
+                    <Button Size="Size.ExtraSmall" OnClick="@CancelSave" Color="Color.Warning" Icon="fa fa-times" Text="@CancelButtonText" />
                 }
                 else
                 {

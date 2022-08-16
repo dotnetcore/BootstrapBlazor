@@ -49,7 +49,7 @@ public abstract class TooltipComponentBase : IdComponentBase, ITooltipHost, IAsy
         var method = RetrieveMethod();
         if (!string.IsNullOrEmpty(id))
         {
-            await JSRuntime.InvokeVoidAsync(null, "bb_tooltip", id, method, RetrieveTitle(), RetrievePlacement(), RetrieveIsHtml(), RetrieveTrigger());
+            await JSRuntime.InvokeVoidAsync(null, "bb_tooltip", id, method, RetrieveTitle(), RetrievePlacement(), RetrieveIsHtml(), RetrieveTrigger(), RetrieveCustomClass());
         }
     }
 
@@ -63,7 +63,7 @@ public abstract class TooltipComponentBase : IdComponentBase, ITooltipHost, IAsy
         var method = RetrieveMethod();
         if (!string.IsNullOrEmpty(id))
         {
-            await JSRuntime.InvokeVoidAsync(null, "bb_popover", id, method, RetrieveTitle(), RetrieveContent(), RetrievePlacement(), RetrieveIsHtml(), RetrieveTrigger());
+            await JSRuntime.InvokeVoidAsync(null, "bb_popover", id, method, RetrieveTitle(), RetrieveContent(), RetrievePlacement(), RetrieveIsHtml(), RetrieveTrigger(), RetrieveCustomClass());
         }
     }
 
@@ -107,6 +107,12 @@ public abstract class TooltipComponentBase : IdComponentBase, ITooltipHost, IAsy
     /// </summary>
     /// <returns></returns>
     protected virtual string RetrieveTrigger() => Tooltip?.Trigger ?? "hover focus";
+
+    /// <summary>
+    /// 获得 自定义样式
+    /// </summary>
+    /// <returns></returns>
+    protected virtual string RetrieveCustomClass() => Tooltip?.CssClass ?? string.Empty;
 
     /// <summary>
     /// DisposeAsyncCore 方法

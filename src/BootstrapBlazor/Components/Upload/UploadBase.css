@@ -22,7 +22,7 @@
             }
 
             .upload .upload-body.is-list .upload-item:hover {
-                background-color: var(--bs-bg-disabled);
+                background-color: var(--bb-bg-disabled);
             }
 
             .upload .upload-body.is-list .upload-item:not(:last-child) {
@@ -244,3 +244,12 @@
 .upload .upload-body.is-card.is-single .upload-item {
     margin: 0;
 }
+
+.upload-buttons i {
+    width: 16px;
+    text-align: center;
+}
+
+    .upload-buttons i:not(:first-child) {
+        margin-left: 4px;
+    }

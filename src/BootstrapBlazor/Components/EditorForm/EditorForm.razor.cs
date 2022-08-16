@@ -2,7 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.Extensions.Localization;
 
@@ -27,7 +26,8 @@ public partial class EditorForm<TModel> : IShowLabel
 
     private string? FormClassString => CssBuilder.Default("row g-3")
         .AddClass("form-inline", RowType == RowType.Inline)
-        .AddClass($"is-{LabelAlign.ToDescriptionString()}", RowType == RowType.Inline && LabelAlign != Alignment.None)
+        .AddClass("form-inline-end", RowType == RowType.Inline && LabelAlign == Alignment.Right)
+        .AddClass("form-inline-center", RowType == RowType.Inline && LabelAlign == Alignment.Center)
         .Build();
 
     /// <summary>
@@ -243,17 +243,7 @@ public partial class EditorForm<TModel> : IShowLabel
                             {
                                 // 设置只读属性与列模板
                                 item.Editable = true;
-                                item.Readonly = el.Readonly;
-                                item.EditTemplate = el.EditTemplate;
-                                item.Text = el.Text;
-                                item.Items = el.Items;
-                                item.Lookup = el.Lookup;
-                                item.LookupStringComparison = el.LookupStringComparison;
-                                item.LookupServiceKey = el.LookupServiceKey;
-                                item.ComponentType = el.ComponentType;
-                                item.ComponentParameters = el.ComponentParameters;
-                                item.SkipValidate = el.SkipValidate;
-                                item.ValidateRules = el.ValidateRules;
+                                item.CopyValue(el);
                             }
                         }
                     }
@@ -270,7 +260,7 @@ public partial class EditorForm<TModel> : IShowLabel
 
     private RenderFragment AutoGenerateTemplate(IEditorItem item) => builder =>
     {
-        if (IsDisplay || !CanWrite(item))
+        if (IsDisplay || !item.CanWrite(typeof(TModel), ItemChangedType, IsSearch.Value))
         {
             builder.CreateDisplayByFieldType(item, Model);
         }
@@ -279,8 +269,6 @@ public partial class EditorForm<TModel> : IShowLabel
             item.PlaceHolder ??= PlaceHolderText;
             builder.CreateComponentByFieldType(this, item, Model, ItemChangedType, IsSearch.Value, LookupService);
         }
-
-        bool CanWrite(IEditorItem item) => item.CanWrite(typeof(TModel)) && item.IsEditable(ItemChangedType, IsSearch.Value);
     };
 
     private RenderFragment<object>? GetRenderTemplate(IEditorItem item) => IsSearch.Value && item is ITableColumn col

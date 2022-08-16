@@ -56,7 +56,7 @@
 <DemoBlock Title="@Localizer["UploadedFilesTitle"]" Introduction="@Localizer["UploadedFilesIntro"]" Name="UploadedFiles">
     <div class="row g-3">
         <div class="col-12 col-sm-6">
-            <ButtonUpload TValue="string" OnDelete="@(fileName => Task.FromResult(true))" DefaultFileList="@DefaultFormatFileList"></ButtonUpload>
+            <ButtonUpload TValue="string" ShowDownloadButton="true" OnDownload="OnDownload" OnDelete="@(fileName => Task.FromResult(true))" DefaultFileList="@DefaultFormatFileList"></ButtonUpload>
         </div>
     </div>
 </DemoBlock>
@@ -134,7 +134,7 @@
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["FileIconTitle"]" Introduction="@Localizer["FileIconIntro"]" Name="FileIcon">
-    <CardUpload TValue="string" DefaultFileList="@DefaultFormatFileList" OnChange="@OnCardUpload" OnDelete="@(fileName => Task.FromResult(true))"></CardUpload>
+    <CardUpload TValue="string" ShowDownloadButton="true" DefaultFileList="@DefaultFormatFileList" OnChange="@OnCardUpload" OnDelete="@(fileName => Task.FromResult(true))"></CardUpload>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["Base64FormatTitle"]" Introduction="@Localizer["Base64FormatIntro"]" Name="Base64">

@@ -2,8 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using Microsoft.AspNetCore.Components;
-
 namespace BootstrapBlazor.Components;
 
 public partial class Table<TItem>
@@ -33,24 +31,12 @@ public partial class Table<TItem>
     [NotNull]
     public string? LineNoText { get; set; }
 
-    private IEnumerable<int>? _pageItemsSource;
     /// <summary>
     /// 获得/设置 每页显示数据数量的外部数据源
     /// </summary>
     [Parameter]
     [NotNull]
-    public IEnumerable<int>? PageItemsSource
-    {
-        get
-        {
-            return _pageItemsSource ?? new int[] { 20, 50, 100, 200, 500, 1000 };
-        }
-        set
-        {
-            _pageItemsSource = value;
-            PageItems = _pageItemsSource?.FirstOrDefault() ?? 20;
-        }
-    }
+    public IEnumerable<int>? PageItemsSource { get; set; }
 
     /// <summary>
     /// 异步查询回调方法，设置 <see cref="Items"/> 后无法触发此回调方法
@@ -69,15 +55,15 @@ public partial class Table<TItem>
     protected int PageIndex { get; set; } = 1;
 
     /// <summary>
+    /// 获得/设置 默认每页数据数量 默认 0 使用 <see cref="PageItemsSource"/> 第一个值
+    /// </summary>
+    [Parameter]
+    public int PageItems { get; set; }
+
+    /// <summary>
     /// 获得/设置 当前行
     /// </summary>
     protected int StartIndex { get; set; }
-
-    /// <summary>
-    /// 获得/设置 每页数据数量
-    /// </summary>
-    [Parameter]
-    public int PageItems { get; set; } = QueryPageOptions.DefaultPageItems;
 
     /// <summary>
     /// 点击页码调用此方法
@@ -88,11 +74,17 @@ public partial class Table<TItem>
     {
         if (pageIndex != PageIndex)
         {
-            SelectedRows.Clear();
-            await OnSelectedRowsChanged();
             PageIndex = pageIndex;
             PageItems = pageItems;
-            await QueryAsync();
+
+            // 清空选中行
+            SelectedRows.Clear();
+
+            // 无刷新查询数据
+            await QueryAsync(false);
+
+            // 通知 SelectedRow 双向绑定集合改变
+            await OnSelectedRowsChanged();
         }
     }
 

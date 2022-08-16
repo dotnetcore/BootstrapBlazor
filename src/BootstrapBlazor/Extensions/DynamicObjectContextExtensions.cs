@@ -3,7 +3,6 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
 using System.Reflection;
 
 namespace BootstrapBlazor.Components;
@@ -46,7 +45,14 @@ public static class DynamicObjectContextExtensions
     /// <param name="parameters"></param>
     public static void AddDisplayAttribute(this DynamicObjectContext context, string columnName, IEnumerable<KeyValuePair<string, object?>> parameters) => context.AddMultipleParameterAttribute<DisplayAttribute>(columnName, parameters);
 
-    private static void AddMultipleParameterAttribute<TAttribute>(this DynamicObjectContext context, string columnName, IEnumerable<KeyValuePair<string, object?>> parameters) where TAttribute : Attribute
+    /// <summary>
+    /// 增加多参数自定义标签泛型方法
+    /// </summary>
+    /// <typeparam name="TAttribute"></typeparam>
+    /// <param name="context"></param>
+    /// <param name="columnName"></param>
+    /// <param name="parameters"></param>
+    public static void AddMultipleParameterAttribute<TAttribute>(this DynamicObjectContext context, string columnName, IEnumerable<KeyValuePair<string, object?>> parameters) where TAttribute : Attribute
     {
         var type = typeof(TAttribute);
         var propertyInfos = new List<PropertyInfo>();
@@ -69,11 +75,7 @@ public static class DynamicObjectContextExtensions
     /// <param name="context"></param>
     /// <param name="columnName"></param>
     /// <param name="displayName"></param>
-    public static void AddDisplayNameAttribute(this DynamicObjectContext context, string columnName, string displayName)
-    {
-        var type = typeof(DisplayNameAttribute);
-        context.AddAttribute(columnName, type, new Type[] { typeof(string) }, new object?[] { displayName });
-    }
+    public static void AddDisplayNameAttribute(this DynamicObjectContext context, string columnName, string displayName) => context.AddAttribute<DisplayNameAttribute>(columnName, new Type[] { typeof(string) }, new object?[] { displayName });
 
     /// <summary>
     /// 增加 DescriptionAttribute 扩展方法
@@ -81,10 +83,22 @@ public static class DynamicObjectContextExtensions
     /// <param name="context"></param>
     /// <param name="columnName"></param>
     /// <param name="description"></param>
-    public static void AddDescriptionAttribute(this DynamicObjectContext context, string columnName, string description)
+    public static void AddDescriptionAttribute(this DynamicObjectContext context, string columnName, string description) => context.AddAttribute<DescriptionAttribute>(columnName, new Type[] { typeof(string) }, new object?[] { description });
+
+    /// <summary>
+    /// 增加自定义标签泛型方法
+    /// </summary>
+    /// <typeparam name="TAttribute"></typeparam>
+    /// <param name="context"></param>
+    /// <param name="columnName"></param>
+    /// <param name="types"></param>
+    /// <param name="constructorArgs"></param>
+    /// <param name="propertyInfos"></param>
+    /// <param name="propertyValues"></param>
+    public static void AddAttribute<TAttribute>(this DynamicObjectContext context, string columnName, Type[] types, object?[] constructorArgs, PropertyInfo[]? propertyInfos = null, object?[]? propertyValues = null) where TAttribute : Attribute
     {
-        var type = typeof(DescriptionAttribute);
-        context.AddAttribute(columnName, type, new Type[] { typeof(string) }, new object?[] { description });
+        var type = typeof(TAttribute);
+        context.AddAttribute(columnName, type, types, constructorArgs, propertyInfos, propertyValues);
     }
 
     /// <summary>

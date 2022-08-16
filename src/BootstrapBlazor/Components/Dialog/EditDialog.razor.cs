@@ -2,10 +2,8 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.Extensions.Localization;
-using Microsoft.JSInterop;
 
 namespace BootstrapBlazor.Components;
 
@@ -35,12 +33,6 @@ public partial class EditDialog<TModel>
     /// </summary>
     [Parameter]
     public bool ShowLoading { get; set; }
-
-    /// <summary>
-    /// 获得/设置 组件是否采用 Tracking 模式对编辑项进行直接更新 默认 false
-    /// </summary>
-    [Parameter]
-    public bool IsTracking { get; set; }
 
     /// <summary>
     /// 获得/设置 实体类编辑模式 Add 还是 Update

@@ -2,9 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using Newtonsoft.Json.Linq;
-using UnitTest.Pages;
-
 namespace UnitTest.Components;
 
 public class CalendarTest : BootstrapBlazorTestBase
@@ -38,6 +35,23 @@ public class CalendarTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void CellTemplate_Ok()
+    {
+        var cut = Context.RenderComponent<Calendar>(builder =>
+        {
+            builder.Add(a => a.CellTemplate, context => builder =>
+            {
+                builder.OpenElement(0, "td");
+                builder.OpenElement(1, "div");
+                builder.AddAttribute(2, "class", context.DefaultCss);
+                builder.AddContent(3, context.CellValue.Day);
+                builder.CloseElement();
+                builder.CloseElement();
+            });
+        });
+    }
+
+    [Fact]
     public void ButtonClick_Ok()
     {
         var cut = Context.RenderComponent<Calendar>();
@@ -53,11 +67,11 @@ public class CalendarTest : BootstrapBlazorTestBase
 
         // btn 上一月
         buttons[1].Click();
-        Assert.Contains($"{DateTime.Now.Year} 年 {DateTime.Now.Month - 1 } 月", cut.Find(".calendar-title").ToMarkup());
+        Assert.Contains($"{DateTime.Now.Year} 年 {DateTime.Now.Month - 1} 月", cut.Find(".calendar-title").ToMarkup());
 
         // btn 下一月
         buttons[3].Click();
-        Assert.Contains($"{DateTime.Now.Year} 年 {DateTime.Now.Month } 月", cut.Find(".calendar-title").ToMarkup());
+        Assert.Contains($"{DateTime.Now.Year} 年 {DateTime.Now.Month} 月", cut.Find(".calendar-title").ToMarkup());
 
         // btn 今天
         buttons[2].Click();

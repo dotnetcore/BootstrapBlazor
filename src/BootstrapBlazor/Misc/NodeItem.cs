@@ -2,8 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using Microsoft.AspNetCore.Components;
-
 namespace BootstrapBlazor.Components;
 
 /// <summary>
@@ -32,6 +30,11 @@ public abstract class NodeItem
     /// 获得/设置 图标
     /// </summary>
     public string? Icon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 自定义样式名
+    /// </summary>
+    public string? CssClass { get; set; }
 
     /// <summary>
     /// 获得/设置 是否被禁用 默认 false

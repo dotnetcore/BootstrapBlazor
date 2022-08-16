@@ -39,6 +39,8 @@
             });
 
             $el.on('keyup', function (e) {
+                e.stopPropagation();
+
                 var $this = $(this);
                 if ($this.find('.dropdown-toggle').hasClass('show')) {
                     var $items = $this.find('.dropdown-menu.show > .dropdown-item').not('.disabled, .search');

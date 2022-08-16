@@ -1,19 +1,31 @@
 ﻿.tag {
+    --bb-tag-btn-close-margin-left: .5rem;
+    --bb-tag-btn-close-width: .25rem;
+    --bb-tag-btn-close-height: .25rem;
+    --bb-tag-text-margin-left: .25rem;
+    --bb-tag-padding-x: 0;
+    --bb-tag-padding-y: 10px;
+    --bb-tag-line-height: 30px;
+    --bb-tag-font-size: 12px;
+    --bb-tag-align: center;
     display: inline-flex;
-    padding: 0 10px;
-    line-height: 30px;
-    font-size: 12px;
+    padding: var(--bb-tag-padding-x) var(--bb-tag-padding-y);
+    line-height: var(--bb-tag-line-height);
+    font-size: var(--bb-tag-font-size);
     border-radius: var(--bs-border-radius);
+    align-items: var(--bb-tag-align);
+    color: var(--bs-alert-color);
+    background-color: var(--bs-alert-bg);
+    border: 1px solid var(--bs-alert-border-color);
     white-space: nowrap;
-    align-items: center;
 }
 
     .tag > i + .tag-text {
-        margin-left: 4px;
+        margin-left: var(--bb-tag-text-margin-left);
     }
 
     .tag > .btn-close {
-        margin-left: 8px;
-        width: 4px;
-        height: 4px;
+        margin-left: var(--bb-tag-btn-close-margin-left);
+        width: var(--bb-tag-btn-close-width);
+        height: var(--bb-tag-btn-close-height);
     }

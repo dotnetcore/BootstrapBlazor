@@ -2,7 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using Microsoft.AspNetCore.Components;
 using System.Globalization;
 
 namespace BootstrapBlazor.Components;
@@ -16,8 +15,9 @@ public partial class Checkbox<TValue>
     /// 获得 class 样式集合
     /// </summary>
     protected string? GetClassString(bool isButton = false) => CssBuilder.Default("form-check")
+        .AddClass("is-label", IsShowAfterLabel)
         .AddClass("is-checked", State == CheckboxState.Checked)
-        .AddClass("is-indeterminate", State == CheckboxState.Mixed)
+        .AddClass("is-indeterminate", State == CheckboxState.Indeterminate)
         .AddClass($"form-check-{Color.ToDescriptionString()}", Color != Color.None && !isButton)
         .AddClass($"bg-{Color.ToDescriptionString()}", Color != Color.None && isButton && State == CheckboxState.Checked)
         .AddClass($"form-check-{Size.ToDescriptionString()}", Size != Size.None)
@@ -25,6 +25,8 @@ public partial class Checkbox<TValue>
         .AddClass(ValidCss)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
+
+    private bool IsShowAfterLabel => ShowAfterLabel && !string.IsNullOrEmpty(DisplayText);
 
     /// <summary>
     /// 
@@ -49,9 +51,8 @@ public partial class Checkbox<TValue>
     /// </summary>
     protected string? CheckedString => State switch
     {
-        CheckboxState.UnChecked => null,
         CheckboxState.Checked => "checked",
-        _ => "mixed"
+        _ => null
     };
 
     /// <summary>
@@ -97,6 +98,12 @@ public partial class Checkbox<TValue>
     public Func<CheckboxState, TValue, Task>? OnStateChanged { get; set; }
 
     /// <summary>
+    /// 获得/设置 是否事件冒泡 默认为 false
+    /// </summary>
+    [Parameter]
+    public bool StopPropagation { get; set; }
+
+    /// <summary>
     /// OnInitialized 方法
     /// </summary>
     protected override void OnInitialized()
@@ -118,7 +125,7 @@ public partial class Checkbox<TValue>
             ShowLabel = false;
         }
 
-        if (IsBoolean && Value != null)
+        if (IsBoolean && Value != null && State != CheckboxState.Indeterminate)
         {
             if (BindConverter.TryConvertToBool(Value, CultureInfo.InvariantCulture, out var v))
             {
@@ -136,6 +143,17 @@ public partial class Checkbox<TValue>
         base.OnAfterRender(firstRender);
 
         _peddingStateChanged = false;
+    }
+
+    /// <summary>
+    /// OnAfterRenderAsync 方法
+    /// </summary>
+    /// <param name="firstRender"></param>
+    /// <returns></returns>
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+        await JSRuntime.InvokeVoidAsync(Id, "bb_setIndeterminate", State == CheckboxState.Indeterminate);
     }
 
     /// <summary>

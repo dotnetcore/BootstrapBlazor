@@ -43,4 +43,11 @@ public class TableConfirmTest : TableConfirmTestBase
         Assert.True(trigger);
         Assert.True(clicked);
     }
+
+    [Fact]
+    public void TableCellPopconfirmButton_Null()
+    {
+        var cut = Context.RenderComponent<TableCellPopconfirmButton>();
+        Assert.Equal("", cut.Markup);
+    }
 }

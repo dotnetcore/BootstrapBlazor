@@ -54,3 +54,24 @@
     </div>
 </DemoBlock>
 
+<DemoBlock Title="@Localizer["ValidateFormTitle"]" Introduction="@Localizer["ValidateFormIntro"]" Name="ValidateForm">
+    <FormInlineSwitch @bind-Value="@FormRowType" class="mb-3"></FormInlineSwitch>
+    <ValidateForm Model="@Model">
+        <div class="@GroupFormClassString">
+            <div class="col-12 col-sm-6">
+                <BootstrapInputGroupLabel @bind-Value="@Model.Name" required="true" />
+                <BootstrapInputGroup>
+                    <Display @bind-Value="@Model.Name"></Display>
+                    <BootstrapInputGroupLabel @bind-Value="@Model.Name" />
+                </BootstrapInputGroup>
+            </div>
+            <div class="col-12 col-sm-6">
+                <BootstrapInputGroupLabel @bind-Value="@Model.Address" required="true" />
+                <BootstrapInputGroup>
+                    <Display @bind-Value="@Model.Address"></Display>
+                    <BootstrapInputGroupLabel @bind-Value="@Model.Address" />
+                </BootstrapInputGroup>
+            </div>
+        </div>
+    </ValidateForm>
+</DemoBlock>

@@ -2,8 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using Microsoft.AspNetCore.Components;
-
 namespace BootstrapBlazor.Components;
 
 /// <summary>
@@ -16,7 +14,7 @@ public partial class BootstrapBlazorRoot
     private ICacheManager? Cache { get; set; }
 
     /// <summary>
-    /// 获得/设置 自组件
+    /// 获得/设置 子组件
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
@@ -44,4 +42,19 @@ public partial class BootstrapBlazorRoot
 
         await base.SetParametersAsync(parameters);
     }
+
+    [ExcludeFromCodeCoverage]
+    private RenderFragment RenderBody() => builder =>
+    {
+        if (OperatingSystem.IsBrowser())
+        {
+            builder.AddContent(0, RenderChildContent);
+        }
+        else
+        {
+            builder.OpenElement(1, "app");
+            builder.AddContent(2, RenderChildContent);
+            builder.CloseElement();
+        }
+    };
 }

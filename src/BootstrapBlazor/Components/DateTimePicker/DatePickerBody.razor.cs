@@ -3,7 +3,6 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using BootstrapBlazor.Extensions;
-using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 
 namespace BootstrapBlazor.Components;
@@ -224,6 +223,12 @@ public sealed partial class DatePickerBody
     /// </summary>
     [Parameter]
     public bool AllowNull { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否点击确认关闭弹窗 默认 false
+    /// </summary>
+    [Parameter]
+    public bool AutoClose { get; set; }
 
     /// <summary>
     /// 获得/设置 确认按钮回调委托
@@ -451,7 +456,7 @@ public sealed partial class DatePickerBody
         Ranger?.UpdateValue(d);
         if (Ranger == null)
         {
-            if (!ShowFooter)
+            if (!ShowFooter || AutoClose)
             {
                 await ClickConfirmButton();
             }

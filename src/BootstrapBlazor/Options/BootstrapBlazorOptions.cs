@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using BootstrapBlazor.Localization.Json;
 using System.Globalization;
 
 namespace BootstrapBlazor.Components;
@@ -42,9 +43,15 @@ public class BootstrapBlazorOptions
     public List<string>? SupportedCultures { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否回落到 UI 父文化 默认为 true
+    /// 获得/设置 是否回落到 Fallback 文化 默认为 true
     /// </summary>
-    public bool FallBackToParentUICultures { get; set; } = true;
+    public bool EnableFallbackCulture { get; set; } = true;
+
+    /// <summary>
+    /// 获得/设置 是否忽略丢失文化日志信息 默认 null 未设置
+    /// </summary>
+    /// <remarks>使用 <see cref="JsonLocalizationOptions.IgnoreLocalizerMissing"/> 默认值</remarks>
+    public bool? IgnoreLocalizerMissing { get; set; }
 
     /// <summary>
     /// 获得/设置 默认文化信息
@@ -55,7 +62,6 @@ public class BootstrapBlazorOptions
     /// <summary>
     /// 获得/设置 表格设置实例
     /// </summary>
-    [NotNull]
     public TableSettings TableSettings { get; set; } = new();
 
     /// <summary>

@@ -14,6 +14,16 @@ public class AnchorLinkTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void Icon_Ok()
+    {
+        var cut = Context.RenderComponent<AnchorLink>(builder => builder.Add(a => a.Icon, "test-icon"));
+        Assert.DoesNotContain("test-icon", cut.Markup);
+
+        cut.SetParametersAndRender(pb => pb.Add(a => a.Id, "anchorlink"));
+        Assert.Contains("test-icon", cut.Markup);
+    }
+
+    [Fact]
     public void Text_Ok()
     {
         var cut = Context.RenderComponent<AnchorLink>(builder => builder.Add(a => a.Text, "anchorlink"));

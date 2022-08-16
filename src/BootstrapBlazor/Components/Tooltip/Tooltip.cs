@@ -2,8 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using Microsoft.AspNetCore.Components;
-
 namespace BootstrapBlazor.Components;
 
 /// <summary>
@@ -39,6 +37,13 @@ public class Tooltip : BootstrapComponentBase, ITooltip
     /// </summary>
     [Parameter]
     public string? Title { get; set; }
+
+    /// <summary>
+    /// 获得/设置 自定义样式 默认 null
+    /// </summary>
+    /// <remarks>由 data-bs-custom-class 实现</remarks>
+    [Parameter]
+    public string? CssClass { get; set; }
 
     /// <summary>
     /// 获得/设置 触发方式 可组合 click focus hover 默认为 focus hover

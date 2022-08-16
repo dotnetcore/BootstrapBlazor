@@ -99,4 +99,21 @@ public class CollapseTest : BootstrapBlazorTestBase
             pb.Add(a => a.Icon, "fa fa-fa");
         });
     }
+
+    [Fact]
+    public void CollapseItem_Class()
+    {
+        var cut = Context.RenderComponent<Collapse>(pb =>
+        {
+            pb.Add(a => a.CollapseItems, new RenderFragment(builder =>
+            {
+                builder.OpenComponent<CollapseItem>(0);
+                builder.AddAttribute(1, nameof(CollapseItem.Text), "Item 1");
+                builder.AddAttribute(3, nameof(CollapseItem.Class), "test-class");
+                builder.AddAttribute(2, nameof(CollapseItem.ChildContent), new RenderFragment(b => b.AddContent(0, "1")));
+                builder.CloseComponent();
+            }));
+        });
+        cut.Contains("accordion-item test-class");
+    }
 }

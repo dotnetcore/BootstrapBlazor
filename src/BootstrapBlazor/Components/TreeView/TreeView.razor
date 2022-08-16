@@ -1,0 +1,81 @@
+﻿@namespace BootstrapBlazor.Components
+@inherits BootstrapComponentBase
+@typeparam TItem
+
+@if (Items == null)
+{
+    if (ShowSkeleton)
+    {
+        <SkeletonTree AdditionalAttributes="AdditionalAttributes"></SkeletonTree>
+    }
+    else
+    {
+        <div class="@LoadingClassString">
+            <Spinner Color="Color.Primary" />
+        </div>
+    }
+}
+else
+{
+    <div tabindex="0" role="tree" class="@ClassString" @ref="@TreeElement">
+        <ul class="tree-root" role="tree">
+            @foreach (var item in Items)
+            {
+                @RenderTreeItem(item)
+            }
+        </ul>
+    </div>
+}
+
+@code {
+    private RenderFragment<TreeViewItem<TItem>> RenderTreeNode => item =>
+    @<ul class="@GetTreeClassString(item)" role="group">
+        @foreach (var node in item.Items)
+        {
+            @RenderTreeItem(node)
+        }
+    </ul>;
+
+private RenderFragment<TreeViewItem<TItem>> RenderTreeItem => item =>
+@<li role="treeitem" class="@GetItemClassString(item)">
+    <div class="tree-content">
+        <DynamicElement TagName="i" class="@GetCaretClassString(item)" TriggerClick="TriggerNodeArrow(item)"  OnClick="() => OnToggleNodeAsync(item, true)"></DynamicElement>
+        @if (ShowCheckbox)
+        {
+            <Checkbox Value="@item.CheckedState" IsDisabled="@item.IsDisabled" SkipValidate="true"
+                      ShowLabel="false" ShowAfterLabel="false" State="@item.CheckedState"
+                      OnStateChanged="(state, v) => OnCheckStateChanged(item)" StopPropagation="true" />
+        }
+        else if (ShowRadio)
+        {
+            <Radio Value="@item.CheckedState" IsDisabled="@item.IsDisabled" SkipValidate="true"
+                   ShowLabel="false" ShowAfterLabel="false" GroupName="@GroupName"
+                   OnClick="p => OnRadioClick(item)" State="@item.CheckedState" />
+        }
+        <DynamicElement class="@GetNodeClassString(item)" TriggerClick="TriggerNodeLabel(item)" OnClick="() => OnClick(item)">
+            @if (ShowIcon)
+            {
+                <i class="@GetIconClassString(item)"></i>
+            }
+            @if (item.Template == null)
+            {
+                <span class="@item.CssClass">@item.Text</span>
+            }
+            else
+            {
+                @item.Template.Invoke(item.Value)    
+            }
+        </DynamicElement>
+    </div>
+    @if (item.ShowLoading)
+    {
+        <ul class="tree-ul show">
+            <Spinner Size="Size.Small" Color="Color.Primary" />
+        </ul>
+    }
+    else if (item.Items.Any())
+    {
+        @RenderTreeNode(item)
+    }
+</li>;
+}

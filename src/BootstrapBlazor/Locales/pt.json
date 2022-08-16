@@ -251,7 +251,8 @@
     "EmptyText": "Vazio",
     "ExportToastTitle": "Exportar dados",
     "ExportToastContent": "Exportar dados {0}, Fechamento automático em {0} segundos",
-    "ExportToastInProgressContent": "Exportar dados, Fechamento automático em {0} segundos"
+    "ExportToastInProgressContent": "Exportar dados, Fechamento automático em {0} segundos",
+    "ExportExcelDropdownItemText": "MS-Excel"
   },
   "BootstrapBlazor.Components.EditDialog": {
     "CloseButtonText": "Fechar",
@@ -300,6 +301,9 @@
     "SearchPlaceHolderString": "Digite ...",
     "Text": "Lista"
   },
+  "BootstrapBlazor.Components.Tree": {
+    "NotSetOnTreeExpandErrorMessage": "parâmetro OnExpandNodeAsync não atribuído"
+  },
   "BootstrapBlazor.Components.UploadBase": {
     "DeleteButtonText": "Excluir",
     "BrowserButtonText": "Browser",
@@ -326,5 +330,9 @@
     "NullValueDisplayText": "Seleccione por favor",
     "TrueValueDisplayText": "Verdade",
     "FalseValueDisplayText": "Falso"
+  },
+  "BootstrapBlazor.Components.InsertRowMode": {
+    "Last": "Último",
+    "First": "Primeiro"
   }
 }

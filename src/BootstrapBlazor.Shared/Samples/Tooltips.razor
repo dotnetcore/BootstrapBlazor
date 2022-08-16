@@ -29,25 +29,28 @@
 
 <DemoBlock Title="Button 组件提示框" Introduction="提供鼠标悬停或者获得焦点后显示提示框" Name="Button">
         <div class="row g-3">
-            <div class="col-6 col-sm-4 col-md-3 col-lg-auto">
+            <div class="col-6 col-sm-4 col-md-3">
                 <Button>
                     @TopString
-                    <Tooltip Placement="Placement.Top" Title="Tootip" />
+                    <Tooltip Placement="Placement.Top" Title="Tootip" Trigger="click" />
                 </Button>
             </div>
-            <div class="col-6 col-sm-4 col-md-3 col-lg-auto">
+            <div class="col-6 col-sm-4 col-md-3">
                 <Button>
-                    @LeftString<Tooltip Placement="Placement.Left" Title="Tootip" />
+                    @LeftString
+                    <Tooltip Placement="Placement.Left" Title="Tootip" Trigger="click" />
                 </Button>
             </div>
-            <div class="col-6 col-sm-4 col-md-3 col-lg-auto">
+            <div class="col-6 col-sm-4 col-md-3">
                 <Button>
-                    @BottomString<Tooltip Placement="Placement.Bottom" Title="Tootip" />
+                    @BottomString
+                    <Tooltip Placement="Placement.Bottom" Title="Tootip" Trigger="click" />
                 </Button>
             </div>
-            <div class="col-6 col-sm-4 col-md-3 col-lg-auto">
+            <div class="col-6 col-sm-4 col-md-3">
                 <Button>
-                    @RightString<Tooltip Placement="Placement.Right" Title="Tootip" />
+                    @RightString
+                    <Tooltip Placement="Placement.Right" Title="Tootip" Trigger="click" />
                 </Button>
             </div>
         </div>

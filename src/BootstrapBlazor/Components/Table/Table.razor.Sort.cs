@@ -2,8 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using Microsoft.AspNetCore.Components;
-
 namespace BootstrapBlazor.Components;
 
 /// <summary>
@@ -55,7 +53,7 @@ public partial class Table<TItem>
     /// 获得/设置 内部表头排序时回调方法
     /// </summary>
     [NotNull]
-    protected Func<string, SortOrder, Task>? IntenralOnSortAsync { get; set; }
+    protected Func<string, SortOrder, Task>? InternalOnSortAsync { get; set; }
 
     /// <summary>
     /// 点击列进行排序方法
@@ -78,10 +76,7 @@ public partial class Table<TItem>
         SortName = col.GetFieldName();
 
         // 通知 Table 组件刷新数据
-        if (IntenralOnSortAsync != null)
-        {
-            await IntenralOnSortAsync(SortName, SortOrder);
-        }
+        await InternalOnSortAsync(SortName, SortOrder);
     };
 
     /// <summary>

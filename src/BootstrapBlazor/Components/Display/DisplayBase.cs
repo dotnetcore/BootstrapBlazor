@@ -2,7 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using System.Linq.Expressions;
 
@@ -136,6 +135,11 @@ public abstract class DisplayBase<TValue> : TooltipComponentBase
         else
         {
             IsShowLabel = false;
+
+            if (DisplayText == null && FieldIdentifier.HasValue)
+            {
+                DisplayText = FieldIdentifier.Value.GetDisplayName();
+            }
         }
 
         if (ShowLabelTooltip == null && EditorForm != null)

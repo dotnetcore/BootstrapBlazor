@@ -26,6 +26,9 @@ public class TableDialogTest : TableDialogTestBase
                 pb.Add(a => a.EditDialogSize, Size.Large);
                 pb.Add(a => a.EditDialogSaveButtonText, "test-save");
                 pb.Add(a => a.EditDialogCloseButtonText, "test-close");
+                pb.Add(a => a.EditDialogItemsPerRow, 2);
+                pb.Add(a => a.EditDialogRowType, RowType.Inline);
+                pb.Add(a => a.EditDialogLabelAlign, Alignment.Center);
                 pb.Add(a => a.IsMultipleSelect, true);
                 pb.Add(a => a.ShowToolbar, true);
                 pb.Add(a => a.TableColumns, foo => builder =>

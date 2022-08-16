@@ -41,7 +41,7 @@ public class AutoFillTest : BootstrapBlazorTestBase
     public void NullItems_Ok()
     {
         var cut = Context.RenderComponent<AutoFill<Foo>>();
-        Assert.Contains("dropdown-list", cut.Markup);
+        Assert.Contains("dropdown-menu", cut.Markup);
     }
 
     [Fact]
@@ -212,6 +212,19 @@ public class AutoFillTest : BootstrapBlazorTestBase
         });
         cut.Find(".form-control").KeyUp(new KeyboardEventArgs() { Key = "2" });
         Assert.Equal(2, cut.FindAll(".dropdown-item").Count);
+    }
+
+    [Fact]
+    public void OnGetDisplayText_Ok()
+    {
+        var cut = Context.RenderComponent<AutoFill<Foo>>(pb =>
+        {
+            pb.Add(a => a.Value, Model);
+            pb.Add(a => a.Items, Items);
+            pb.Add(a => a.OnGetDisplayText, foo => foo.Name ?? "");
+        });
+        var input = cut.Find("input");
+        Assert.Equal("张三 1000", input.Attributes["value"]?.Value);
     }
 
     [Fact]

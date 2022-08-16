@@ -37,10 +37,10 @@
             }
             <CascadingValue Value="this" IsFixed="true">
                 <DatePickerBody @bind-Value="@StartValue" AllowNull="@AllowNull" IsShown="true"
-                                ViewMode="DatePickerViewMode.Date" ShowFooter="false" ShowRightButtons="false">
+                                ViewMode="DatePickerViewMode.Date" ShowFooter="false" ShowRightButtons="false" MaxValue=MaxValue MinValue=MinValue>
                 </DatePickerBody>
                 <DatePickerBody @bind-Value="@EndValue" AllowNull="@AllowNull" IsShown="true"
-                                ViewMode="DatePickerViewMode.Date" ShowFooter="false" ShowLeftButtons="false">
+                                ViewMode="DatePickerViewMode.Date" ShowFooter="false" ShowLeftButtons="false" MaxValue=MaxValue MinValue=MinValue>
                 </DatePickerBody>
             </CascadingValue>
         </div>

@@ -3,6 +3,8 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using BootstrapBlazor.Components;
+using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Localization;
 
 namespace BootstrapBlazor.Shared.Samples;
 
@@ -23,4 +25,25 @@ public sealed partial class InputGroups
         new SelectedItem ("Beijing", "北京"),
         new SelectedItem ("Shanghai", "上海")
     };
+
+    [NotNull]
+    private Foo? Model { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<Foo>? LocalizerFoo { get; set; }
+
+    private string? GroupFormClassString => CssBuilder.Default("row g-3")
+        .AddClass("form-inline", FormRowType == RowType.Inline)
+        .Build();
+
+    private RowType FormRowType { get; set; }
+
+    /// <summary>
+    /// OnInitialized 方法
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        Model = Foo.Generate(LocalizerFoo);
+    }
 }

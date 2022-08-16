@@ -116,12 +116,12 @@ public sealed partial class Alerts
     /// <returns></returns>
     private static IEnumerable<EventItem> GetEvents() => new EventItem[]
     {
-            new EventItem()
-            {
-                Name = "OnDismiss",
-                Description="关闭警告框回调方法",
-                Type ="EventCallback<MouseEventArgs>"
-            }
+        new EventItem()
+        {
+            Name = "OnDismiss",
+            Description="关闭警告框回调方法",
+            Type ="EventCallback<MouseEventArgs>"
+        }
     };
 
     /// <summary>
@@ -169,6 +169,20 @@ public sealed partial class Alerts
         new AttributeItem() {
             Name = "ShowBar",
             Description = "是否显示左侧 Bar",
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "false"
+        },
+        new AttributeItem() {
+            Name = "ShowBorder",
+            Description = "是否显示边框",
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "false"
+        },
+        new AttributeItem() {
+            Name = "ShowShadow",
+            Description = "是否显示阴影",
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"

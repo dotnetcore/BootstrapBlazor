@@ -1,18 +1,18 @@
 ﻿@namespace BootstrapBlazor.Components
-@inherits TooltipComponentBase
+@inherits ButtonBase
 
-<a @attributes="AdditionalAttributes" class="@ClassString" id="@Id" href="@Url" @onclick:preventDefault="@Prevent" @onclick="OnClick">
+<DynamicElement TagName="@TagName" @attributes="AdditionalAttributes" class="@ClassString" id="@Id" href="@UrlString" disabled="@Disabled" role="button" aria-disabled="@DisabledString" tabindex="@Tab" target="@Target" StopPropagation="@StopPropagation" PreventDefault="@Prevent" OnClick="OnClickButton" TriggerClick="TriggerClick">
     @if (!string.IsNullOrEmpty(Icon))
     {
         <i class="@Icon"></i>
     }
-    @if (!string.IsNullOrEmpty(Text))
-    {
-        <span>@Text</span>
-    }
     @if (!string.IsNullOrEmpty(ImageUrl))
     {
         <img alt="img" src="@ImageUrl" />
+    }
+    @if (!string.IsNullOrEmpty(Text))
+    {
+        <span>@Text</span>
     }
     @ChildContent
     @if (!string.IsNullOrEmpty(Title))
@@ -21,4 +21,4 @@
             <Tooltip Title="@Title" Placement="TooltipPlacement" />
         </CascadingValue>
     }
-</a>
+</DynamicElement>

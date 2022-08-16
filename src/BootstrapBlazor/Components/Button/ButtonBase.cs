@@ -2,7 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 
 namespace BootstrapBlazor.Components;
@@ -21,8 +20,8 @@ public abstract class ButtonBase : TooltipComponentBase
         .AddClass($"btn-{Color.ToDescriptionString()}", Color != Color.None && !IsOutline)
         .AddClass($"btn-{Size.ToDescriptionString()}", Size != Size.None)
         .AddClass("btn-block", IsBlock)
-        .AddClass("is-round", ButtonStyle == ButtonStyle.Round)
-        .AddClass("is-circle", ButtonStyle == ButtonStyle.Circle)
+        .AddClass("btn-round", ButtonStyle == ButtonStyle.Round)
+        .AddClass("btn-circle", ButtonStyle == ButtonStyle.Circle)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
@@ -30,6 +29,11 @@ public abstract class ButtonBase : TooltipComponentBase
     /// 获得 按钮 disabled 属性
     /// </summary>
     protected string? Disabled => IsDisabled ? "disabled" : null;
+
+    /// <summary>
+    /// 获得 按钮 aria-disabled 属性
+    /// </summary>
+    protected string DisabledString => IsDisabled ? "true" : "false";
 
     /// <summary>
     /// 获得 按钮 tabindex 属性

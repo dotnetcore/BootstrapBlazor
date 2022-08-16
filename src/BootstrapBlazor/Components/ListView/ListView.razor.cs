@@ -2,8 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using Microsoft.AspNetCore.Components;
-
 namespace BootstrapBlazor.Components;
 
 /// <summary>
@@ -91,7 +89,7 @@ public partial class ListView<TItem> : BootstrapComponentBase where TItem : clas
     /// <summary>
     /// 获得/设置 每页数据数量
     /// </summary>
-    protected int PageItems { get; set; } = QueryPageOptions.DefaultPageItems;
+    protected int PageItems { get; set; } = 20;
 
     /// <summary>
     /// OnInitialized 方法

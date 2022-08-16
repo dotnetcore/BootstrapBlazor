@@ -2,8 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using Microsoft.AspNetCore.Components;
-
 namespace BootstrapBlazor.Components;
 
 /// <summary>
@@ -66,6 +64,7 @@ public partial class PopoverConfirm : IDisposable
             builder.AddAttribute(index++, nameof(PopoverConfirmBox.ConfirmButtonText), option.ConfirmButtonText);
             builder.AddAttribute(index++, nameof(PopoverConfirmBox.ConfirmButtonColor), option.ConfirmButtonColor);
             builder.AddAttribute(index++, nameof(PopoverConfirmBox.Icon), option.Icon);
+            builder.AddAttribute(index++, nameof(PopoverConfirmBox.CssClass), option.CssClass);
 
             builder.CloseComponent();
         };

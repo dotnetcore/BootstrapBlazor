@@ -77,8 +77,10 @@ public class DialogTest : DialogTestBase
             LabelAlign = Alignment.Left,
             ResetButtonText = null,
             QueryButtonText = null,
+            ShowLabel = true,
             Items = null
         };
+
         cut.InvokeAsync(() => dialog.ShowSearchDialog(option));
 
         // 重置按钮委托为空 null
@@ -124,8 +126,8 @@ public class DialogTest : DialogTestBase
             ItemsPerRow = 2,
             RowType = RowType.Inline,
             ItemChangedType = ItemChangedType.Add,
-            IsTracking = false,
-            LabelAlign = Alignment.Left
+            LabelAlign = Alignment.Left,
+            ShowLabel = true
         };
         cut.InvokeAsync(() => dialog.ShowEditDialog(editOption));
         cut.InvokeAsync(() => modal.Instance.Close());
@@ -184,6 +186,18 @@ public class DialogTest : DialogTestBase
         var result = false;
         var resultOption = new ResultDialogOption()
         {
+            ShowYesButton = true,
+            ButtonYesText = "Test-Yes",
+            ButtonYesIcon = "test test-yes-icon",
+            ButtonYesColor = Color.Primary,
+            ShowNoButton = true,
+            ButtonNoText = "Test-No",
+            ButtonNoIcon = "test test-no-icon",
+            ButtonNoColor = Color.Danger,
+            ShowCloseButton = true,
+            ButtonCloseText = "Test-Close",
+            ButtonCloseIcon = "test test-close-icon",
+            ButtonCloseColor = Color.Secondary,
             ComponentParamters = new Dictionary<string, object>()
             {
                 [nameof(MockModalDialog.Value)] = result,
@@ -193,7 +207,7 @@ public class DialogTest : DialogTestBase
 
         // 点击的是 Yes 按钮
         cut.InvokeAsync(() => dialog.ShowModal<MockModalDialog>(resultOption));
-        button = cut.FindComponents<Button>().First(b => b.Instance.Text == "确认");
+        button = cut.FindComponents<Button>().First(b => b.Instance.Text == "Test-Yes");
         cut.InvokeAsync(() => button.Instance.OnClick.InvokeAsync());
         Assert.True(result);
 
@@ -224,6 +238,10 @@ public class DialogTest : DialogTestBase
             OnCloseAsync = () => Task.CompletedTask
         };
         cut.InvokeAsync(() => dialog.ShowModal<MockModalDialog>(resultOption));
+        button = cut.FindComponents<Button>().First(b => b.Instance.Text == "关闭");
+        cut.InvokeAsync(() => button.Instance.OnClick.InvokeAsync());
+
+        cut.InvokeAsync(() => dialog.ShowModal<MockModalDialogClosingFalse>(resultOption));
         button = cut.FindComponents<Button>().First(b => b.Instance.Text == "关闭");
         cut.InvokeAsync(() => button.Instance.OnClick.InvokeAsync());
         #endregion
@@ -401,16 +419,15 @@ public class DialogTest : DialogTestBase
         var btn = cut.Find(".btn-close");
         cut.InvokeAsync(() => btn.Click());
 
-        Func<DialogOption, Dictionary<string, object?>> parameterFactory = op => new Dictionary<string, object?>();
-        Action<DialogOption> configureOption = op => op.Class = "ValidateFormDialog-Class";
-        cut.InvokeAsync(() => dialog.ShowValidateFormDialog<MockValidateFormDialog>("ValidateFormDialog", parameterFactory, configureOption));
+        Dictionary<string, object?> parameterFactory(DialogOption op) => new();
+        void ConfigureOption(DialogOption op) => op.Class = "ValidateFormDialog-Class";
+        cut.InvokeAsync(() => dialog.ShowValidateFormDialog<MockValidateFormDialog>("ValidateFormDialog", parameterFactory, ConfigureOption));
         btn = cut.Find(".btn-close");
         cut.InvokeAsync(() => btn.Click());
         #endregion
 
         #region ShowCloseDialog
-        Action<Dictionary<string, object?>> closeDialogParameterFactory = op => new Dictionary<string, object?>();
-        cut.InvokeAsync(() => dialog.ShowCloseDialog<MockValidateFormDialog>("CloseDialog", closeDialogParameterFactory, configureOption));
+        cut.InvokeAsync(() => dialog.ShowCloseDialog<MockValidateFormDialog>("CloseDialog", null, ConfigureOption));
         btn = cut.Find(".btn-close");
         cut.InvokeAsync(() => btn.Click());
         cut.InvokeAsync(() => dialog.ShowCloseDialog<MockValidateFormDialog>("CloseDialog"));
@@ -458,5 +475,10 @@ public class DialogTest : DialogTestBase
                 }
             }
         }
+    }
+
+    private class MockModalDialogClosingFalse : MockModalDialog, IResultDialog
+    {
+        public Task<bool> OnClosing(DialogResult result) => Task.FromResult(false);
     }
 }

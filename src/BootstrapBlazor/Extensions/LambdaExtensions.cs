@@ -2,8 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using BootstrapBlazor.Components;
-using System.ComponentModel.DataAnnotations;
 using System.Linq.Expressions;
 using System.Reflection;
 
@@ -47,26 +45,29 @@ public static class LambdaExtensions
     public static Expression<Func<TItem, bool>> GetFilterLambda<TItem>(this IEnumerable<FilterKeyValueAction> filters)
     {
         Expression<Func<TItem, bool>>? ret = null;
-        var exp_p = Expression.Parameter(typeof(TItem));
-        var visitor = new ComboExpressionVisitor(exp_p);
-
-        foreach (var filter in filters)
+        if (filters.Any())
         {
-            var exp = filter.GetFilterLambda<TItem>();
-            if (ret == null)
+            var exp_p = Expression.Parameter(typeof(TItem));
+            var visitor = new ComboExpressionVisitor(exp_p);
+
+            foreach (var filter in filters)
             {
-                ret = exp;
-                continue;
+                var exp = filter.GetFilterLambda<TItem>();
+                if (ret == null)
+                {
+                    ret = exp;
+                    continue;
+                }
+
+                var left = visitor.Visit(ret.Body);
+                var right = visitor.Visit(exp.Body);
+
+                ret = filter.FilterLogic switch
+                {
+                    FilterLogic.And => Expression.Lambda<Func<TItem, bool>>(Expression.AndAlso(left, right), exp_p),
+                    _ => Expression.Lambda<Func<TItem, bool>>(Expression.OrElse(left, right), exp_p),
+                };
             }
-
-            var left = visitor.Visit(ret.Body);
-            var right = visitor.Visit(exp.Body);
-
-            ret = filter.FilterLogic switch
-            {
-                FilterLogic.And => Expression.Lambda<Func<TItem, bool>>(Expression.AndAlso(left, right), exp_p),
-                _ => Expression.Lambda<Func<TItem, bool>>(Expression.OrElse(left, right), exp_p),
-            };
         }
         return ret ?? (r => true);
     }
@@ -81,22 +82,25 @@ public static class LambdaExtensions
     private static Expression<Func<TItem, bool>> ExpressionAndLambda<TItem>(this IEnumerable<Expression<Func<TItem, bool>>> expressions, FilterLogic logic = FilterLogic.And)
     {
         Expression<Func<TItem, bool>>? ret = null;
-        var exp_p = Expression.Parameter(typeof(TItem));
-        var visitor = new ComboExpressionVisitor(exp_p);
-
-        foreach (var exp in expressions)
+        if (expressions.Any())
         {
-            if (ret == null)
-            {
-                ret = exp;
-                continue;
-            }
+            var exp_p = Expression.Parameter(typeof(TItem));
+            var visitor = new ComboExpressionVisitor(exp_p);
 
-            var left = visitor.Visit(ret.Body);
-            var right = visitor.Visit(exp.Body);
-            ret = logic == FilterLogic.And
-                ? Expression.Lambda<Func<TItem, bool>>(Expression.AndAlso(left, right), exp_p)
-                : Expression.Lambda<Func<TItem, bool>>(Expression.OrElse(left, right), exp_p);
+            foreach (var exp in expressions)
+            {
+                if (ret == null)
+                {
+                    ret = exp;
+                    continue;
+                }
+
+                var left = visitor.Visit(ret.Body);
+                var right = visitor.Visit(exp.Body);
+                ret = logic == FilterLogic.And
+                    ? Expression.Lambda<Func<TItem, bool>>(Expression.AndAlso(left, right), exp_p)
+                    : Expression.Lambda<Func<TItem, bool>>(Expression.OrElse(left, right), exp_p);
+            }
         }
         return ret ?? (r => true);
     }
@@ -144,11 +148,12 @@ public static class LambdaExtensions
 
         Expression<Func<TItem, bool>> GetSimpleFilterExpression()
         {
-            var prop = typeof(TItem).GetPropertyByName(filter.FieldKey);
+            var prop = typeof(TItem).GetPropertyByName(filter.FieldKey) ?? throw new InvalidOperationException($"the model {type.Name} not found the property {filter.FieldKey}");
             if (prop != null)
             {
                 var p = Expression.Parameter(type);
                 var fieldExpression = Expression.Property(p, prop);
+                var isNullable = false;
 
                 Expression eq = fieldExpression;
 
@@ -156,13 +161,16 @@ public static class LambdaExtensions
                 if (prop.PropertyType.IsGenericType &&
                     prop.PropertyType.GetGenericTypeDefinition() == typeof(Nullable<>))
                 {
+                    isNullable = true;
                     eq = Expression.Convert(fieldExpression, prop.PropertyType.GenericTypeArguments[0]);
                 }
                 else if (prop.PropertyType.IsEnum && filter.FieldValue is string)
                 {
                     eq = Expression.Call(fieldExpression, prop.PropertyType.GetMethod("ToString", Array.Empty<Type>())!);
                 }
-                eq = filter.GetExpression(eq);
+                eq = isNullable
+                    ? Expression.AndAlso(Expression.NotEqual(fieldExpression, Expression.Constant(null)), filter.GetExpression(eq))
+                    : filter.GetExpression(eq);
                 ret = Expression.Lambda<Func<TItem, bool>>(eq, p);
             }
             return ret;
@@ -170,8 +178,10 @@ public static class LambdaExtensions
 
         Expression<Func<TItem, bool>> GetComplexFilterExpression()
         {
+            Expression<Func<TItem, bool>> ret = t => true;
             var p = Expression.Parameter(type);
             var propertyNames = filter.FieldKey.Split('.');
+            var isNullable = false;
             PropertyInfo? pInfo = null;
             Expression? fieldExpression = null;
             foreach (var name in propertyNames)
@@ -188,22 +198,26 @@ public static class LambdaExtensions
                 }
             }
 
-            if (fieldExpression == null)
+            if (fieldExpression != null)
             {
-                throw new InvalidOperationException();
-            }
+                var eq = fieldExpression;
 
-            // 可为空类型转化为具体类型
-            if (pInfo!.PropertyType.IsGenericType && pInfo.PropertyType.GetGenericTypeDefinition() == typeof(Nullable<>))
-            {
-                fieldExpression = Expression.Convert(fieldExpression, pInfo.PropertyType.GenericTypeArguments[0]);
+                // 可为空类型转化为具体类型
+                if (pInfo!.PropertyType.IsGenericType && pInfo.PropertyType.GetGenericTypeDefinition() == typeof(Nullable<>))
+                {
+                    isNullable = true;
+                    eq = Expression.Convert(fieldExpression, pInfo.PropertyType.GenericTypeArguments[0]);
+                }
+                else if (pInfo.PropertyType.IsEnum && filter.FieldValue is string)
+                {
+                    eq = Expression.Call(fieldExpression, pInfo.PropertyType.GetMethod("ToString", Array.Empty<Type>())!);
+                }
+                eq = isNullable
+                    ? Expression.AndAlso(Expression.NotEqual(fieldExpression, Expression.Constant(null)), filter.GetExpression(eq))
+                    : filter.GetExpression(eq);
+                ret = Expression.Lambda<Func<TItem, bool>>(eq, p);
             }
-            else if (pInfo.PropertyType.IsEnum && filter.FieldValue is string)
-            {
-                fieldExpression = Expression.Call(fieldExpression, pInfo.PropertyType.GetMethod("ToString", Array.Empty<Type>())!);
-            }
-            fieldExpression = filter.GetExpression(fieldExpression);
-            return Expression.Lambda<Func<TItem, bool>>(fieldExpression, p);
+            return ret;
         }
     }
 
@@ -228,13 +242,12 @@ public static class LambdaExtensions
             FilterAction.LessThanOrEqual => Expression.LessThanOrEqual(left, right),
             FilterAction.Contains => left.Contains(right),
             FilterAction.NotContains => Expression.Not(left.Contains(right)),
-            FilterAction.CustomPredicate => filter.FieldValue switch
+            _ => filter.FieldValue switch
             {
                 LambdaExpression t => Expression.Invoke(t, left),
                 Delegate _ => Expression.Invoke(right, left),
-                _ => throw new ArgumentException(nameof(FilterKeyValueAction.FieldValue))
+                _ => throw new InvalidOperationException(nameof(FilterKeyValueAction.FieldValue))
             },
-            _ => Expression.Empty()
         };
     }
 
@@ -410,6 +423,35 @@ public static class LambdaExtensions
         return sortOrder == SortOrder.Unset ? items : QueryableOrderBy(items, sortName, sortOrder);
     }
 
+    private static IQueryable<TItem>? InvokeSortByPropertyInfo<TItem>(this IQueryable<TItem> query, string methodName, PropertyInfo pi)
+    {
+        var mi = typeof(LambdaExtensions)
+            .GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Static)!
+            .MakeGenericMethod(typeof(TItem), pi.PropertyType);
+        return mi!.Invoke(null, new object[] { query.AsQueryable(), pi }) as IOrderedQueryable<TItem>;
+    }
+
+    private static IQueryable<TItem>? InvokeSortByPropertyName<TItem>(this IQueryable<TItem> query, string methodName, PropertyInfo pi, string propertyName)
+    {
+        var mi = typeof(LambdaExtensions)
+            .GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Static)!
+            .MakeGenericMethod(typeof(TItem), pi.PropertyType);
+        return mi!.Invoke(null, new object[] { query.AsQueryable(), propertyName }) as IOrderedQueryable<TItem>;
+    }
+
+    private static PropertyInfo? GetPropertyInfoByName<TItem>(this PropertyInfo? pi, string propertyName)
+    {
+        if (pi == null)
+        {
+            pi = typeof(TItem).GetPropertyByName(propertyName);
+        }
+        else
+        {
+            pi = pi.PropertyType.GetPropertyByName(propertyName);
+        }
+        return pi;
+    }
+
     private static IEnumerable<TItem> EnumerableOrderBy<TItem>(IEnumerable<TItem> query, string propertyName, SortOrder sortOrder)
     {
         return propertyName.Contains('.') ? EnumerableOrderByComplex() : EnumerableOrderBySimple();
@@ -421,10 +463,7 @@ public static class LambdaExtensions
             if (pi != null)
             {
                 var methodName = sortOrder == SortOrder.Desc ? nameof(OrderByDescendingInternal) : nameof(OrderByInternal);
-                var mi = typeof(LambdaExtensions)
-                    .GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Static)?
-                    .MakeGenericMethod(typeof(TItem), pi.PropertyType);
-                ret = mi?.Invoke(null, new object[] { query.AsQueryable(), pi }) as IOrderedQueryable<TItem>;
+                ret = query.AsQueryable().InvokeSortByPropertyInfo(methodName, pi);
             }
             return ret ?? query;
         }
@@ -435,22 +474,12 @@ public static class LambdaExtensions
             PropertyInfo? pi = null;
             foreach (var name in propertyName.Split('.'))
             {
-                if (pi == null)
-                {
-                    pi = typeof(TItem).GetPropertyByName(name);
-                }
-                else
-                {
-                    pi = pi.PropertyType.GetPropertyByName(name);
-                }
+                pi = pi.GetPropertyInfoByName<TItem>(name);
             }
             if (pi != null)
             {
                 var methodName = sortOrder == SortOrder.Desc ? nameof(OrderByDescendingInternalByName) : nameof(OrderByInternalByName);
-                var mi = typeof(LambdaExtensions)
-                    .GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Static)?
-                    .MakeGenericMethod(typeof(TItem), pi.PropertyType);
-                ret = mi?.Invoke(null, new object[] { query.AsQueryable(), propertyName }) as IOrderedQueryable<TItem>;
+                ret = query.AsQueryable().InvokeSortByPropertyName(methodName, pi, propertyName);
             }
             return ret ?? query;
         }
@@ -462,41 +491,28 @@ public static class LambdaExtensions
 
         IEnumerable<TItem> EnumerableThenBySimple()
         {
-            var methodName = sortOrder == SortOrder.Desc ? nameof(ThenByDescendingInternal) : nameof(ThenByInternal);
             IEnumerable<TItem>? ret = null;
             var pi = typeof(TItem).GetPropertyByName(propertyName);
             if (pi != null)
             {
-                var mi = typeof(LambdaExtensions)
-                    .GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Static)?
-                    .MakeGenericMethod(typeof(TItem), pi.PropertyType);
-                ret = mi?.Invoke(null, new object[] { query.AsQueryable(), pi }) as IOrderedQueryable<TItem>;
+                var methodName = sortOrder == SortOrder.Desc ? nameof(ThenByDescendingInternal) : nameof(ThenByInternal);
+                ret = query.AsQueryable().InvokeSortByPropertyInfo(methodName, pi);
             }
             return ret ?? query;
         }
 
         IEnumerable<TItem> EnumerableThenByComplex()
         {
-            var methodName = sortOrder == SortOrder.Desc ? nameof(ThenByDescendingInternalByName) : nameof(ThenByInternalByName);
             IEnumerable<TItem>? ret = null;
             PropertyInfo? pi = null;
             foreach (var name in propertyName.Split('.'))
             {
-                if (pi == null)
-                {
-                    pi = typeof(TItem).GetPropertyByName(name);
-                }
-                else
-                {
-                    pi = pi.PropertyType.GetPropertyByName(name);
-                }
+                pi = pi.GetPropertyInfoByName<TItem>(name);
             }
             if (pi != null)
             {
-                var mi = typeof(LambdaExtensions)
-                    .GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Static)?
-                    .MakeGenericMethod(typeof(TItem), pi.PropertyType);
-                ret = mi?.Invoke(null, new object[] { query.AsQueryable(), propertyName }) as IOrderedQueryable<TItem>;
+                var methodName = sortOrder == SortOrder.Desc ? nameof(ThenByDescendingInternalByName) : nameof(ThenByInternalByName);
+                ret = query.AsQueryable().InvokeSortByPropertyName(methodName, pi, propertyName);
             }
             return ret ?? query;
         }
@@ -508,15 +524,12 @@ public static class LambdaExtensions
 
         IQueryable<TItem> QueryableOrderBySimple()
         {
-            var methodName = sortOrder == SortOrder.Desc ? nameof(OrderByDescendingInternal) : nameof(OrderByInternal);
             IQueryable<TItem>? ret = null;
             var pi = typeof(TItem).GetPropertyByName(propertyName);
             if (pi != null)
             {
-                var mi = typeof(LambdaExtensions)
-                    .GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Static)?
-                    .MakeGenericMethod(typeof(TItem), pi.PropertyType);
-                ret = mi?.Invoke(null, new object[] { query, pi }) as IOrderedQueryable<TItem>;
+                var methodName = sortOrder == SortOrder.Desc ? nameof(OrderByDescendingInternal) : nameof(OrderByInternal);
+                ret = query.AsQueryable().InvokeSortByPropertyInfo(methodName, pi);
             }
             return ret ?? query;
         }
@@ -527,22 +540,12 @@ public static class LambdaExtensions
             PropertyInfo? pi = null;
             foreach (var name in propertyName.Split('.'))
             {
-                if (pi == null)
-                {
-                    pi = typeof(TItem).GetPropertyByName(name);
-                }
-                else
-                {
-                    pi = pi?.PropertyType.GetPropertyByName(name);
-                }
+                pi = pi.GetPropertyInfoByName<TItem>(name);
             }
             if (pi != null)
             {
                 var methodName = sortOrder == SortOrder.Desc ? nameof(OrderByDescendingInternalByName) : nameof(OrderByInternalByName);
-                var mi = typeof(LambdaExtensions)
-                    .GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Static)?
-                    .MakeGenericMethod(typeof(TItem), pi.PropertyType);
-                ret = mi?.Invoke(null, new object[] { query, propertyName }) as IOrderedQueryable<TItem>;
+                ret = query.AsQueryable().InvokeSortByPropertyName(methodName, pi, propertyName);
             }
             return ret ?? query;
         }
@@ -554,15 +557,12 @@ public static class LambdaExtensions
 
         IQueryable<TItem> QueryableThenBySimple()
         {
-            var methodName = sortOrder == SortOrder.Desc ? nameof(ThenByDescendingInternal) : nameof(ThenByInternal);
             IQueryable<TItem>? ret = null;
             var pi = typeof(TItem).GetPropertyByName(propertyName);
             if (pi != null)
             {
-                var mi = typeof(LambdaExtensions)
-                    .GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Static)?
-                    .MakeGenericMethod(typeof(TItem), pi.PropertyType);
-                ret = mi?.Invoke(null, new object[] { query, pi }) as IOrderedQueryable<TItem>;
+                var methodName = sortOrder == SortOrder.Desc ? nameof(ThenByDescendingInternal) : nameof(ThenByInternal);
+                ret = query.AsQueryable().InvokeSortByPropertyInfo(methodName, pi);
             }
             return ret ?? query;
         }
@@ -573,22 +573,12 @@ public static class LambdaExtensions
             PropertyInfo? pi = null;
             foreach (var name in propertyName.Split('.'))
             {
-                if (pi == null)
-                {
-                    pi = typeof(TItem).GetPropertyByName(name);
-                }
-                else
-                {
-                    pi = pi.PropertyType.GetPropertyByName(name);
-                }
+                pi = pi.GetPropertyInfoByName<TItem>(name);
             }
             if (pi != null)
             {
                 var methodName = sortOrder == SortOrder.Desc ? nameof(ThenByDescendingInternalByName) : nameof(ThenByInternalByName);
-                var mi = typeof(LambdaExtensions)
-                    .GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Static)?
-                    .MakeGenericMethod(typeof(TItem), pi.PropertyType);
-                ret = mi?.Invoke(null, new object[] { query, propertyName }) as IOrderedQueryable<TItem>;
+                ret = query.AsQueryable().InvokeSortByPropertyName(methodName, pi, propertyName);
             }
             return ret ?? query;
         }
@@ -612,11 +602,6 @@ public static class LambdaExtensions
 
     private static Expression<Func<TItem, TKey>> GetPropertyLambda<TItem, TKey>(PropertyInfo pi)
     {
-        if (pi.PropertyType != typeof(TKey))
-        {
-            throw new InvalidOperationException();
-        }
-
         var exp_p1 = Expression.Parameter(typeof(TItem));
         return Expression.Lambda<Func<TItem, TKey>>(Expression.Property(exp_p1, pi), exp_p1);
     }
@@ -642,37 +627,6 @@ public static class LambdaExtensions
         return Expression.Lambda<Func<TItem, TKey>>(expression!, exp_p1);
     }
     #endregion
-
-    /// <summary>
-    /// 大于等于 Lambda 表达式
-    /// </summary>
-    /// <typeparam name="TValue"></typeparam>
-    /// <param name="v"></param>
-    /// <returns></returns>
-    private static Expression<Func<TValue, object, bool>> GetGreaterThanOrEqualLambda<TValue>(TValue v)
-    {
-        if (v == null)
-        {
-            throw new ArgumentNullException(nameof(v));
-        }
-
-        var left = Expression.Parameter(v.GetType());
-        var right = Expression.Parameter(typeof(object));
-        return Expression.Lambda<Func<TValue, object, bool>>(Expression.GreaterThanOrEqual(left, Expression.Convert(right, v.GetType())), left, right);
-    }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <typeparam name="TValue"></typeparam>
-    /// <param name="v1"></param>
-    /// <param name="v2"></param>
-    /// <returns></returns>
-    public static bool GreaterThanOrEqual<TValue>(TValue v1, object v2)
-    {
-        var invoker = GetGreaterThanOrEqualLambda(v1).Compile();
-        return invoker(v1, v2);
-    }
 
     /// <summary>
     /// 获取属性方法 Lambda 表达式
@@ -804,6 +758,7 @@ public static class LambdaExtensions
     /// 尝试使用 TryParse 进行数据转换
     /// </summary>
     /// <returns></returns>
+    [ExcludeFromCodeCoverage]
     internal static Expression<FuncEx<string, TValue, bool>> TryParse<TValue>()
     {
         var t = typeof(TValue);
@@ -814,6 +769,7 @@ public static class LambdaExtensions
         return Expression.Lambda<FuncEx<string, TValue, bool>>(body, p1, p2);
     }
 
+    [ExcludeFromCodeCoverage]
     private static bool TryParseEmpty<TValue>(string source, out TValue val)
     {
         // TODO: 代码未完善
@@ -828,16 +784,36 @@ public static class LambdaExtensions
     /// <typeparam name="TModel"></typeparam>
     /// <typeparam name="TValue"></typeparam>
     /// <returns></returns>
-    public static Expression<Func<TModel, TValue>> GetKeyValue<TModel, TValue>(TModel model)
+    public static Expression<Func<TModel, TValue>> GetKeyValue<TModel, TValue>(Type? customAttribute = null)
     {
-        var type = model is not null ? model.GetType() : typeof(TModel);
+        var type = typeof(TModel);
         Expression<Func<TModel, TValue>> ret = _ => default!;
-        var property = type.GetRuntimeProperties().FirstOrDefault(p => p.IsDefined(typeof(KeyAttribute)));
-        if (property != null)
+        var properties = type.GetRuntimeProperties()
+                             .Where(p => p.IsDefined(customAttribute ?? typeof(KeyAttribute)))
+                             .ToList();
+        if (properties.Any())
         {
-            var param = Expression.Parameter(typeof(TModel));
-            var body = Expression.Property(Expression.Convert(param, type), property);
-            ret = Expression.Lambda<Func<TModel, TValue>>(Expression.Convert(body, typeof(TValue)), param);
+            var param = Expression.Parameter(type);
+            var valueType = typeof(TValue);
+            if (properties.Count == 1)
+            {
+                // 单主键
+                var body = Expression.Property(Expression.Convert(param, type), properties.First());
+                ret = Expression.Lambda<Func<TModel, TValue>>(Expression.Convert(body, valueType), param);
+            }
+            else if (properties.Count < 9)
+            {
+                // 联合主键
+                var tupleType = Type.GetType($"System.Tuple`{properties.Count}")!;
+                var keyPropertyTypes = properties.Select(x => x.PropertyType).ToArray();
+                var tupleConstructor = tupleType.MakeGenericType(keyPropertyTypes).GetConstructor(keyPropertyTypes);
+                if (tupleConstructor != null)
+                {
+                    var newTupleExpression = Expression.New(tupleConstructor, properties.Select(p => Expression.Property(param, p)));
+                    var body = Expression.Convert(newTupleExpression, valueType);
+                    ret = Expression.Lambda<Func<TModel, TValue>>(Expression.Convert(body, valueType), param);
+                }
+            }
         }
         return ret;
     }

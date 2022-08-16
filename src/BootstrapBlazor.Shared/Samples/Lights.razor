@@ -56,4 +56,20 @@
     </div>
 </DemoBlock>
 
+<DemoBlock Title="变色" Introduction="通过设置属性 <code>Color</code> 值使指示灯进行变色" Name="Color">
+    <div class="row g-3">
+        <div class="col-12 col-sm-4 col-md-3 col-lg-auto">
+            <Light IsFlash="true" Color="@Color"></Light>
+        </div>
+    </div>
+</DemoBlock>
+
+<DemoBlock Title="提示文字" Introduction="通过设置属性 <code>Title</code> 值使鼠标悬浮指示灯上时提示 <code>tooltip</code> 文字" Name="Title">
+    <div class="row g-3">
+        <div class="col-12 col-sm-4 col-md-3 col-lg-auto">
+            <Light Color="Color.Danger" Title="我是提示文字信息"></Light>
+        </div>
+    </div>
+</DemoBlock>
+
 <AttributeTable Items="GetAttributes()"></AttributeTable>

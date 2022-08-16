@@ -5,18 +5,18 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// PlaceHolderAttribute 占位符标签类
 /// </summary>
 [AttributeUsage(AttributeTargets.Property)]
 public class PlaceHolderAttribute : Attribute
 {
     /// <summary>
-    /// 获得 Order 属性
+    /// 获得 Text 属性
     /// </summary>
     public string Text { get; }
 
     /// <summary>
-    /// 
+    /// 构造函数
     /// </summary>
     /// <param name="placeholder"></param>
     public PlaceHolderAttribute(string placeholder)

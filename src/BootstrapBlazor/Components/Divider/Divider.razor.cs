@@ -2,8 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using Microsoft.AspNetCore.Components;
-
 namespace BootstrapBlazor.Components;
 
 /// <summary>
@@ -15,7 +13,6 @@ public partial class Divider
     /// 获得 class 样式集合
     /// </summary>
     protected virtual string? ClassString => CssBuilder.Default("divider")
-        .AddClass("divider-horizontal", !IsVertical)
         .AddClass("divider-vertical", IsVertical)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();

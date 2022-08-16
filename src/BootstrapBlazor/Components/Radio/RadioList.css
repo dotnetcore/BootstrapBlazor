@@ -1,10 +1,15 @@
-﻿.radio-list {
+﻿:root {
+    --bb-radio-item-width: 120px;
+    --bb-radio-item-padding: 0 0.75rem;
+}
+
+.radio-list {
     display: flex;
     flex-wrap: wrap;
 }
 
     .radio-list .form-check {
-        width: 120px;
+        width: var(--bb-radio-item-width);
     }
 
     .radio-list.is-vertical {
@@ -17,9 +22,9 @@
             margin-bottom: .5rem;
         }
 
-.form-inline .radio-list .form-check {
-    display: inline-block;
-}
+    .radio-list.form-control {
+        padding: var(--bb-radio-item-padding);
+    }
 
 .is-button {
     flex-wrap: nowrap;
@@ -57,5 +62,5 @@
         }
 
     .is-button .disabled:not(.is-checked) > span {
-        background-color: var(--bs-bg-disabled);
+        background-color: var(--bb-bg-disabled);
     }

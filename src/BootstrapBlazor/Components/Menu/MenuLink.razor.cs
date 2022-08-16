@@ -2,7 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Routing;
 using Microsoft.Extensions.Localization;
 
@@ -14,6 +13,7 @@ namespace BootstrapBlazor.Components;
 public sealed partial class MenuLink
 {
     private string? ClassString => CssBuilder.Default("nav-link")
+        .AddClass(Item.CssClass, !string.IsNullOrEmpty(Item.CssClass))
         .AddClass("active", Parent.DisableNavigation && Item.IsActive && !Item.IsDisabled)
         .AddClass("disabled", Item.IsDisabled)
         .AddClass("expand", Parent.IsVertical && !Item.IsCollapsed)

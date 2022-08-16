@@ -2,7 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 
 namespace BootstrapBlazor.Components;
@@ -16,14 +15,17 @@ public partial class Cascader<TValue>
     /// <summary>
     /// 当前选中节点集合
     /// </summary>
-    private readonly List<CascaderItem> _selectedItems = new();
+    private List<CascaderItem> SelectedItems { get; } = new();
 
     /// <summary>
     /// 获得/设置 Cascader 内部 Input 组件 Id
     /// </summary>
     private string? InputId => $"{Id}_input";
 
-    private string? DisplayTextString { get; set; }
+    /// <summary>
+    /// 获得/设置 组件显示文字
+    /// </summary>
+    protected string? DisplayTextString { get; set; }
 
     /// <summary>
     /// 获得/设置 按钮颜色
@@ -45,10 +47,22 @@ public partial class Cascader<TValue>
     public IEnumerable<CascaderItem>? Items { get; set; }
 
     /// <summary>
-    /// ValueChanged 方法
+    /// 获得/设置 ValueChanged 方法
     /// </summary>
     [Parameter]
     public Func<CascaderItem[], Task>? OnSelectedItemChanged { get; set; }
+
+    /// <summary>
+    /// 获得/设置 父节点是否可选择 默认 true
+    /// </summary>
+    [Parameter]
+    public bool ParentSelectable { get; set; } = true;
+
+    /// <summary>
+    /// 获得/设置 是否显示全路径 默认 true
+    /// </summary>
+    [Parameter]
+    public bool ShowFullLevels { get; set; } = true;
 
     [Inject]
     [NotNull]
@@ -88,17 +102,17 @@ public partial class Cascader<TValue>
     /// <param name="defaultValue"></param>
     private void SetDefaultValue(string defaultValue)
     {
-        _selectedItems.Clear();
+        SelectedItems.Clear();
         var item = GetNodeByValue(Items, defaultValue);
         if (item != null)
         {
-            SetSelectedNodeWithParent(item, _selectedItems);
+            SetSelectedNodeWithParent(item, SelectedItems);
         }
         else
         {
             CurrentValueAsString = Items.FirstOrDefault()?.Value ?? string.Empty;
         }
-        RefreshDisplayValue();
+        RefreshDisplayText();
     }
 
     /// <summary>
@@ -133,7 +147,7 @@ public partial class Cascader<TValue>
     /// </summary>
     private string? ClassName => CssBuilder.Default("dropdown")
         .AddClass("disabled", IsDisabled)
-        .AddClassFromAttributes(AdditionalAttributes)
+        .AddClass(CssClass).AddClass(ValidCss)
         .Build();
 
     /// <summary>
@@ -141,7 +155,7 @@ public partial class Cascader<TValue>
     /// </summary>
     private string? InputClassName => CssBuilder.Default("form-control form-select")
         .AddClass($"border-{Color.ToDescriptionString()}", Color != Color.None && !IsDisabled)
-        .AddClass(CssClass).AddClass(ValidCss)
+        .AddClass(ValidCss)
         .Build();
 
     private string? BackgroundColor => IsDisabled ? null : "background-color: #fff;";
@@ -160,7 +174,7 @@ public partial class Cascader<TValue>
     /// <param name="item"></param>
     /// <returns></returns>
     private string? ActiveItem(string className, CascaderItem item) => CssBuilder.Default(className)
-        .AddClass("active", () => _selectedItems.Contains(item))
+        .AddClass("active", () => SelectedItems.Contains(item))
         .Build();
 
     /// <summary>
@@ -170,28 +184,32 @@ public partial class Cascader<TValue>
 
     private async Task SetSelectedItem(CascaderItem item)
     {
-        _selectedItems.Clear();
-        SetSelectedNodeWithParent(item, _selectedItems);
-        await SetValue(item.Value);
+        if (ParentSelectable || !item.HasChildren)
+        {
+            SelectedItems.Clear();
+            SetSelectedNodeWithParent(item, SelectedItems);
+            await SetValue(item.Value);
+            await JSRuntime.InvokeVoidAsync(InputId, "bb_cascader_hide");
+        }
     }
 
     private async Task SetValue(string value)
     {
-        RefreshDisplayValue();
-        if (_selectedItems.Count != 1)
+        RefreshDisplayText();
+        CurrentValueAsString = value;
+        if (OnSelectedItemChanged != null)
+        {
+            await OnSelectedItemChanged.Invoke(SelectedItems.ToArray());
+        }
+        if (SelectedItems.Count != 1)
         {
             StateHasChanged();
         }
-
-        CurrentValueAsString = value;
-
-        if (OnSelectedItemChanged != null)
-        {
-            await OnSelectedItemChanged.Invoke(_selectedItems.ToArray());
-        }
     }
 
-    private void RefreshDisplayValue() => DisplayTextString = string.Join("/", _selectedItems.Select(item => item.Text));
+    private void RefreshDisplayText() => DisplayTextString = ShowFullLevels
+        ? string.Join("/", SelectedItems.Select(item => item.Text))
+        : SelectedItems.LastOrDefault()?.Text;
 
     /// <summary>
     /// 设置选中所有父节点

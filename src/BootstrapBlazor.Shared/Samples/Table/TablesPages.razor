@@ -17,7 +17,7 @@
 
 <DemoBlock Title="显示在顶端" Introduction="设置 <code>ShowTopPagination</code> 为 <code>true</code> 是顶端显示分页组件" Name="ShowTopPagination">
     <Table TItem="Foo"
-           IsPagination="true" ShowTopPagination="true" PageItemsSource="@PageItemsSource" OnQueryAsync="@OnQueryAsync">
+           IsPagination="true" ShowTopPagination="true" PageItemsSource="@PageItemsSource" PageItems="10" OnQueryAsync="@OnQueryAsync">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" />
             <TableColumn @bind-Field="@context.Name" />

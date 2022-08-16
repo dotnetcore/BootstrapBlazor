@@ -5,7 +5,6 @@
 using BootstrapBlazor.Shared;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
-using UnitTest.Extensions;
 
 namespace UnitTest.Components;
 
@@ -16,6 +15,17 @@ public class CheckboxListTest : BootstrapBlazorTestBase
     public CheckboxListTest()
     {
         Localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+    }
+
+    [Fact]
+    public void Checkbox_Ok()
+    {
+        var cut = Context.RenderComponent<Checkbox<string>>(builder =>
+        {
+            builder.Add(a => a.ShowLabel, true);
+            builder.Add(a => a.DisplayText, "Test");
+        });
+        Assert.DoesNotContain("is-label", cut.Markup);
     }
 
     [Fact]
@@ -33,7 +43,7 @@ public class CheckboxListTest : BootstrapBlazorTestBase
             });
         });
         // 断言生成 CheckboxList
-        Assert.Contains("form-check", cut.Markup);
+        Assert.Contains("form-check is-label", cut.Markup);
 
         // 提交表单触发客户端验证
         var form = cut.Find("form");
@@ -147,7 +157,7 @@ public class CheckboxListTest : BootstrapBlazorTestBase
     [Fact]
     public void EnumValue_Ok()
     {
-        var selectedEnumValues = new List<EnumEducation> { EnumEducation.Middel, EnumEducation.Primary };
+        var selectedEnumValues = new List<EnumEducation> { EnumEducation.Middle, EnumEducation.Primary };
         var cut = Context.RenderComponent<CheckboxList<IEnumerable<EnumEducation>>>(pb =>
         {
             pb.Add(a => a.Value, selectedEnumValues);

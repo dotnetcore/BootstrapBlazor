@@ -6,7 +6,7 @@
 
 <DemoBlock Title="绑定集合" Introduction="通过 <code>OnQueryAsync</code> 回调获得数据集合" Name="OnQuery">
     <Table TItem="Foo" ShowColumnList="true"
-           IsExcel="true" IsPagination="true" PageItemsSource="@PageItemsSource"
+           IsExcel="true" IsPagination="true" PageItemsSource="@PageItemsSource" ShowRefresh="true"
            OnQueryAsync="@OnQueryAsync" OnAddAsync="@OnAddAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" />

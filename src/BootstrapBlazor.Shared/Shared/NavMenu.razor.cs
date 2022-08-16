@@ -110,6 +110,13 @@ public sealed partial class NavMenu
 
         item = new DemoMenuItem()
         {
+            Text = Localizer["TableComponents"],
+            Icon = "fa fa-fw fa-table"
+        };
+        AddTable(item);
+
+        item = new DemoMenuItem()
+        {
             Text = Localizer["DataComponents"],
             Icon = "fa fa-fw fa-database"
         };
@@ -151,7 +158,6 @@ public sealed partial class NavMenu
         {
             new()
             {
-                IsNew = true,
                 Text = Localizer["SpeechIntro"],
                 Url = "speechs"
             },
@@ -171,7 +177,7 @@ public sealed partial class NavMenu
                 Url = "speechwaves"
             }
         };
-        AddBadge(item);
+        AddBadge(item, count: 3);
     }
 
     private void AddQuickStar(DemoMenuItem item)
@@ -228,7 +234,12 @@ public sealed partial class NavMenu
             },
             new()
             {
-                IsNew = true,
+                Text = Localizer["MauiBlazor"],
+                Url = "install-maui",
+                Match = NavLinkMatch.All
+            },
+            new()
+            {
                 Text = Localizer["Breakpoints"],
                 Url = "breakpoints"
             },
@@ -297,6 +308,7 @@ public sealed partial class NavMenu
             },
             new()
             {
+                IsUpdate = true,
                 Text = Localizer["DateTimePicker"],
                 Url = "datetimepickers"
             },
@@ -347,6 +359,11 @@ public sealed partial class NavMenu
             },
             new()
             {
+                Text = Localizer["CherryMarkdown"],
+                Url = "cherry-markdowns"
+            },
+            new()
+            {
                 Text = Localizer["MultiSelect"],
                 Url = "multiselects"
             },
@@ -357,7 +374,6 @@ public sealed partial class NavMenu
             },
             new()
             {
-                IsUpdate = true,
                 Text = Localizer["Radio"],
                 Url = "radios"
             },
@@ -412,13 +428,6 @@ public sealed partial class NavMenu
 
     private void AddData(DemoMenuItem item)
     {
-        var tableItem = new DemoMenuItem()
-        {
-            Text = Localizer["Table"],
-            Items = TableItems()
-        };
-        AddBadge(tableItem, false);
-
         item.Items = new List<DemoMenuItem>
         {
             new()
@@ -571,7 +580,6 @@ public sealed partial class NavMenu
                 Text = Localizer["SpeechWave"],
                 Url = "speechwaves"
             },
-            tableItem,
             new()
             {
                 Text = Localizer["Tag"],
@@ -589,9 +597,8 @@ public sealed partial class NavMenu
             },
             new()
             {
-                IsNew = true,
                 Text = Localizer["Topology"],
-                Url = "Topologys"
+                Url = "Topologies"
             },
             new()
             {
@@ -600,6 +607,12 @@ public sealed partial class NavMenu
             },
             new()
             {
+                Text = Localizer["Tree"],
+                Url = "treeviews"
+            },
+            new()
+            {
+                IsNew = true,
                 Text = Localizer["Transition"],
                 Url = "transitions"
             }
@@ -607,47 +620,9 @@ public sealed partial class NavMenu
         AddBadge(item);
     }
 
-    private void AddChart(DemoMenuItem item)
+    private void AddTable(DemoMenuItem item)
     {
         item.Items = new List<DemoMenuItem>
-        {
-            new()
-            {
-                Text = Localizer["ChartSummary"],
-                Url = "charts/index"
-            },
-            new()
-            {
-                Text = Localizer["ChartLine"],
-                Url = "charts/line"
-            },
-            new()
-            {
-                Text = Localizer["ChartBar"],
-                Url = "charts/bar"
-            },
-            new()
-            {
-                Text = Localizer["ChartPie"],
-                Url = "charts/pie"
-            },
-            new()
-            {
-                Text = Localizer["ChartDoughnut"],
-                Url = "charts/doughnut"
-            },
-            new()
-            {
-                Text = Localizer["ChartBubble"],
-                Url = "charts/bubble"
-            }
-        };
-        AddBadge(item, count: 5);
-    }
-
-    private IEnumerable<DemoMenuItem> TableItems()
-    {
-        var item = new List<DemoMenuItem>
         {
             new()
             {
@@ -781,8 +756,46 @@ public sealed partial class NavMenu
                 Url = "tables/virtualization"
             }
         };
+        item.CssClass = "nav-table";
+        AddBadge(item, count: 1);
+    }
 
-        return item;
+    private void AddChart(DemoMenuItem item)
+    {
+        item.Items = new List<DemoMenuItem>
+        {
+            new()
+            {
+                Text = Localizer["ChartSummary"],
+                Url = "charts/index"
+            },
+            new()
+            {
+                Text = Localizer["ChartLine"],
+                Url = "charts/line"
+            },
+            new()
+            {
+                Text = Localizer["ChartBar"],
+                Url = "charts/bar"
+            },
+            new()
+            {
+                Text = Localizer["ChartPie"],
+                Url = "charts/pie"
+            },
+            new()
+            {
+                Text = Localizer["ChartDoughnut"],
+                Url = "charts/doughnut"
+            },
+            new()
+            {
+                Text = Localizer["ChartBubble"],
+                Url = "charts/bubble"
+            }
+        };
+        AddBadge(item, count: 5);
     }
 
     private void AddNotice(DemoMenuItem item)
@@ -807,7 +820,7 @@ public sealed partial class NavMenu
             new()
             {
                 Text = Localizer["Dispatch"],
-                Url = "dispatchs"
+                Url = "dispatches"
             },
             new()
             {
@@ -856,13 +869,11 @@ public sealed partial class NavMenu
             },
             new()
             {
-                IsNew = true,
                 Text = Localizer["Reconnector"],
                 Url = "reconnectors"
             },
             new()
             {
-                IsNew = true,
                 Text = Localizer["Responsive"],
                 Url = "responsives"
             },
@@ -956,6 +967,11 @@ public sealed partial class NavMenu
             },
             new()
             {
+                Text = Localizer["RibbonTab"],
+                Url = "ribbontabs"
+            },
+            new()
+            {
                 Text = Localizer["Steps"],
                 Url = "stepss"
             },
@@ -980,7 +996,6 @@ public sealed partial class NavMenu
             },
             new()
             {
-                IsNew = true,
                 Text = Localizer["Dragdrop"],
                 Url = "dragdrops"
             },
@@ -1022,19 +1037,20 @@ public sealed partial class NavMenu
     {
         // 计算组件总数
         var count = 0;
-        count = Menus.Aggregate(count, (c, item) => { c += item.Items.Count(); return c; }, c => c - Menus[0].Items.Count());
+        count = Menus.OfType<DemoMenuItem>().Sum(i => i.Count);
         AddBadge(item, false, count);
         Menus.Insert(1, item);
     }
 
     private void AddBadge(DemoMenuItem item, bool append = true, int? count = null)
     {
+        item.Count = count ?? item.Items.Count();
         item.Template = CreateBadge(count ?? item.Items.Count(),
            isNew: item.Items.OfType<DemoMenuItem>().Any(i => i.IsNew),
-           isUpdate: item.Items.OfType<DemoMenuItem>().Any(i => i.IsUpdate)).Render();
+           isUpdate: item.Items.OfType<DemoMenuItem>().Any(i => i.IsUpdate));
         foreach (var menu in item.GetAllSubItems().OfType<DemoMenuItem>().Where(i => ShouldBadge(i)))
         {
-            menu.Template = CreateBadge(0, menu.IsNew, menu.IsUpdate).Render();
+            menu.Template = CreateBadge(0, menu.IsNew, menu.IsUpdate);
         }
         if (append)
         {
@@ -1044,17 +1060,19 @@ public sealed partial class NavMenu
         static bool ShouldBadge(DemoMenuItem? item) => item != null && (item.IsNew || item.IsUpdate);
     }
 
-    private static BootstrapDynamicComponent CreateBadge(int count, bool isNew = false, bool isUpdate = false) => BootstrapDynamicComponent.CreateComponent<State>(new Dictionary<string, object?>
+    private static RenderFragment CreateBadge(int count, bool isNew = false, bool isUpdate = false) => BootstrapDynamicComponent.CreateComponent<State>(new Dictionary<string, object?>
     {
         [nameof(State.Count)] = count,
         [nameof(State.IsNew)] = isNew,
         [nameof(State.IsUpdate)] = isUpdate
-    });
+    }).Render();
 
     private class DemoMenuItem : MenuItem
     {
         public bool IsNew { get; set; }
 
         public bool IsUpdate { get; set; }
+
+        public int Count { get; set; }
     }
 }

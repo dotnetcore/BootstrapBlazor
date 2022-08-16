@@ -1,7 +1,7 @@
 ﻿@namespace BootstrapBlazor.Components
 @inherits BootstrapComponentBase
 
-<nav class="nav nav-pages" aria-label="@AiraPageLabel">
+<nav @attributes="AdditionalAttributes" class="@ClassString" aria-label="@AiraPageLabel">
     <div class="@PaginationBarClass">
         <div class="d-inline-block">@GetPageInfoText()</div>
         <div class="d-none d-sm-inline-block">@GetTotalInfoText()</div>
@@ -57,7 +57,7 @@
     }
 
     RenderFragment<PaginationItem> RenderPaginationItem => item =>
-    @<li class="@Pagination.GetPaginationItemClassName(item.Active)">
+    @<li @key="item" class="@Pagination.GetPaginationItemClassName(item.Active)">
         <a class="page-link" aria-label="@GetLabelString" @onclick:preventDefault @onclick="e => OnPageItemClick(item.PageIndex)">@item.PageIndex</a>
     </li>;
 }

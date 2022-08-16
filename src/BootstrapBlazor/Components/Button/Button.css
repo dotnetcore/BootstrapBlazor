@@ -1,41 +1,68 @@
-﻿.btn:focus,
+﻿:root {
+    --bb-button-label-margin-left: 4px;
+}
+
+.btn:focus,
 .btn:active:focus,
 .show > .dropdown-toggle:focus {
     box-shadow: none !important;
 }
 
 .btn-xs, .btn-group-xs > .btn {
-    border-radius: 0.2rem;
-    padding: 0.0625rem 0.3125rem;
-    font-size: 0.75rem;
+    --bs-btn-border-radius: 0.2rem;
+    --bs-btn-padding-x: .3125rem;
+    --bs-btn-padding-y: .0625rem;
+    --bs-btn-font-size: 0.75rem;
 }
 
 .btn-xl, .btn-group-xl > .btn {
-    padding: 0.8rem 1.25rem;
-    font-size: 1.35rem;
+    --bs-btn-padding-x: 1.25rem;
+    --bs-btn-padding-y: .8rem;
+    --bs-btn-font-size: 1.25rem;
 }
 
 .btn-xxl, .btn-group-xxl > .btn {
-    padding: 0.8rem 1.25rem;
-    font-size: 1.5rem;
+    --bs-btn-padding-x: 1.25rem;
+    --bs-btn-padding-y: .8rem;
+    --bs-btn-font-size: 1.5rem;
 }
 
 .btn .badge, .btn i + span,
 .badge i + span,
 .link-button > i + span {
-    margin-left: 4px;
+    margin-left: var(--bb-button-label-margin-left);
 }
 
-.btn.is-circle {
-    border-radius: 50%;
-    width: 45px;
-    height: 45px;
+.btn-circle {
+    --bs-btn-border-radius: 50%;
+    --bb-button-circle-width: 45px;
+    --bb-button-circle-height: 45px;
+    width: var(--bb-button-circle-width);
+    height: var(--bb-button-circle-height);
 }
 
-.btn.is-round {
-    border-radius: 20px;
+.btn-round {
+    --bs-btn-border-radius: 20px;
 }
 
 .btn-block {
     width: 100%
 }
+
+.btn-vertical {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    --bb-button-label-margin-left: 0;
+}
+
+.link-button {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    --bb-link-btn-disabled-opacity: 0.65;
+}
+
+    .link-button:disabled img {
+        opacity: var(--bb-link-btn-disabled-opacity);
+    }

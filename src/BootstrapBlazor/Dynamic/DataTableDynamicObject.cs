@@ -24,7 +24,7 @@ public class DataTableDynamicObject : DynamicObject
     public override object? GetValue(string propertyName)
     {
         object? ret = null;
-        if (Row != null && Row.Table.Columns.Contains(propertyName))
+        if (Row != null && Row.RowState != DataRowState.Deleted && Row.RowState != DataRowState.Detached && Row.Table.Columns.Contains(propertyName))
         {
             if (Row.RowState == DataRowState.Added)
             {

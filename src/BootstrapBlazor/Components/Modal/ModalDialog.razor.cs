@@ -2,9 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
-using Microsoft.JSInterop;
 
 namespace BootstrapBlazor.Components;
 
@@ -230,6 +228,16 @@ public partial class ModalDialog : IDisposable
         {
             await Interop.InvokeVoidAsync(this, DialogElement, "bb_modal_dialog", nameof(Close));
         }
+    }
+
+    /// <summary>
+    /// 设置 Header 文字方法
+    /// </summary>
+    /// <param name="text"></param>
+    public void SetHeaderText(string text)
+    {
+        Title = text;
+        StateHasChanged();
     }
 
     private async Task OnClickClose()

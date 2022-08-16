@@ -2,7 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Routing;
 
 namespace BootstrapBlazor.Components;
@@ -182,6 +181,8 @@ public abstract class LayoutBase : BootstrapComponentBase, IAsyncDisposable
     [NotNull]
     protected NavigationManager? Navigation { get; set; }
 
+    private bool SubscribedLocationChangedEvent { get; set; }
+
     /// <summary>
     /// OnInitializedAsync 方法
     /// </summary>
@@ -192,6 +193,7 @@ public abstract class LayoutBase : BootstrapComponentBase, IAsyncDisposable
 
         if (OnAuthorizing != null)
         {
+            SubscribedLocationChangedEvent = true;
             Navigation.LocationChanged += Navigation_LocationChanged;
         }
     }
@@ -253,7 +255,7 @@ public abstract class LayoutBase : BootstrapComponentBase, IAsyncDisposable
     {
         if (disposing)
         {
-            if (OnAuthorizing != null)
+            if (SubscribedLocationChangedEvent)
             {
                 Navigation.LocationChanged -= Navigation_LocationChanged;
             }

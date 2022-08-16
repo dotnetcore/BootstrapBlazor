@@ -3,10 +3,13 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using BootstrapBlazor.Components;
+using BootstrapBlazor.Localization.Json;
+using BootstrapBlazor.Shared.Services;
 using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.Localization;
 using System.Globalization;
 
-namespace BootstrapBlazor.Shared.Exntensions;
+namespace BootstrapBlazor.Shared.Extensions;
 
 /// <summary>
 /// CacheManager 扩展类
@@ -18,12 +21,16 @@ internal static class CacheManagerExtensions
     /// </summary>
     /// <param name="cache"></param>
     /// <param name="codeFile"></param>
-    /// <param name="factory"></param>
+    /// <param name="options"></param>
     /// <returns></returns>
-    public static List<KeyValuePair<string, string>> GetLocalizers(this ICacheManager cache, string codeFile, Func<ICacheEntry, List<KeyValuePair<string, string>>> factory)
+    public static IEnumerable<LocalizedString> GetLocalizedStrings(this ICacheManager cache, string codeFile, JsonLocalizationOptions options)
     {
-        var key = $"Localizer-{CultureInfo.CurrentUICulture.Name}-{nameof(GetLocalizers)}-{codeFile}";
-        return cache.GetOrCreate(key, entry => factory(entry));
+        var key = $"Snippet-{CultureInfo.CurrentUICulture.Name}-{nameof(GetLocalizedStrings)}-{codeFile}";
+        return cache.GetOrCreate(key, entry =>
+        {
+            var typeName = Path.GetFileNameWithoutExtension(codeFile);
+            return Utility.GetJsonStringByTypeName(options, typeof(CodeSnippetService).Assembly, $"BootstrapBlazor.Shared.Samples.{typeName}");
+        });
     }
 
     /// <summary>

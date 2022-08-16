@@ -1,4 +1,6 @@
-﻿<Reconnector>
+﻿@inject IOptionsMonitor<WebsiteOptions> WebsiteOption
+
+<Reconnector>
     <ReconnectingTemplate>
         <div class="connection-mask"></div>
         <div class="connection-body">
@@ -57,6 +59,8 @@
 </Reconnector>
 
 @code {
+    private string TemplateUrl => $"{WebsiteOption.CurrentValue.BootstrapBlazorLink}/wikis/%E9%A1%B9%E7%9B%AE%E6%A8%A1%E6%9D%BF%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B";
+
     RenderFragment RenderBootstrapBlazor =>
     @<div class="col-12 col-sm-5">
         <h5>Bootstrap Blazor UI 组件库</h5>
@@ -65,7 +69,7 @@
                 <div class="mb-2">一套基于 <b>Bootstrap</b> 样式的企业级 <b>Blazor UI</b> 组件库，支持 Server 与 WebAssembly</div>
                 <div class="mb-2">适配移动端支持各种主流浏览器以及移动端，适配 <b>ABP</b>，同时支持 <b>NET5/NET6</b></div>
                 <div class="mb-2"></div>
-                <div>已提供项目模板方便快速上手 <a class="connection-link" href="https://gitee.com/LongbowEnterprise/BootstrapBlazor/wikis/%E9%A1%B9%E7%9B%AE%E6%A8%A1%E6%9D%BF%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B" target="_blank">项目模板</a></div>
+                <div>已提供项目模板方便快速上手 <a class="connection-link" href="@TemplateUrl" target="_blank">项目模板</a></div>
             </div>
             <img src="_content/BootstrapBlazor.Shared/images/QQGroup@2x.png" alt="QQGroup" />
             <div class="connection-body-tail d-none d-sm-block"></div>

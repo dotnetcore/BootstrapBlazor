@@ -2,8 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using Microsoft.AspNetCore.Components;
-
 namespace BootstrapBlazor.Components;
 
 /// <summary>
@@ -18,6 +16,7 @@ public partial class Dropdown<TValue>
     private string? DirectionClassName => CssBuilder.Default()
         .AddClass($"btn-group", DropdownType == DropdownType.ButtonGroup)
         .AddClass(Direction.ToDescriptionString(), DropdownType == DropdownType.DropdownMenu)
+        .AddClass($"{Direction.ToDescriptionString()}-center", MenuAlignment == Alignment.Center && (Direction == Direction.Dropup || Direction == Direction.Dropdown))
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 

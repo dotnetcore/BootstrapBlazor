@@ -12,9 +12,6 @@ namespace BootstrapBlazor.Shared.Samples;
 /// </summary>
 public sealed partial class Calendars
 {
-    /// <summary>
-    /// 
-    /// </summary>
     private BlockLogger? Trace { get; set; }
 
     private DateTime BindValue { get; set; } = DateTime.Today;
@@ -32,12 +29,12 @@ public sealed partial class Calendars
     /// <returns></returns>
     private IEnumerable<EventItem> GetEvents() => new EventItem[]
     {
-            new EventItem()
-            {
-                Name = "ValueChanged",
-                Description = Localizer["ValueChanged"],
-                Type ="EventCallback<DateTime>"
-            }
+        new EventItem()
+        {
+            Name = "ValueChanged",
+            Description = Localizer["ValueChanged"],
+            Type ="EventCallback<DateTime>"
+        }
     };
 
     /// <summary>
@@ -46,20 +43,27 @@ public sealed partial class Calendars
     /// <returns></returns>
     private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
-            // TODO: 移动到数据库中
-            new AttributeItem() {
-                Name = "Value",
-                Description = Localizer["Value"],
-                Type = "DateTime",
-                ValueList = " — ",
-                DefaultValue = " — "
-            },
-            new AttributeItem() {
-                Name = "ChildContent",
-                Description = Localizer["ChildContent"],
-                Type = "RenderFragment",
-                ValueList = " — ",
-                DefaultValue = " — "
-            },
+        // TODO: 移动到数据库中
+        new AttributeItem() {
+            Name = "Value",
+            Description = Localizer["Value"],
+            Type = "DateTime",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new AttributeItem() {
+            Name = "ChildContent",
+            Description = Localizer["ChildContent"],
+            Type = "RenderFragment",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new AttributeItem() {
+            Name = "CellTemplate",
+            Description = Localizer["CellTemplate"],
+            Type = "RenderFragment<CalendarCellValue>",
+            ValueList = " — ",
+            DefaultValue = " — "
+        }
     };
 }

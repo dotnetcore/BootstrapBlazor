@@ -69,6 +69,19 @@ public class CardTest : TestBase
     }
 
     [Fact]
+    public void HeaderTemplate_Ok()
+    {
+        var cut = Context.RenderComponent<Card>(builder =>
+        {
+            builder.Add(a => a.IsCollapsible, true);
+            builder.Add(a => a.HeaderText, "Header");
+            builder.Add(a => a.CardHeader, CreateComponent());
+        });
+        Assert.Contains("card-collapse", cut.Markup);
+        Assert.Contains("TestComponent-Card", cut.Markup);
+    }
+
+    [Fact]
     public void Collapsed_Ok()
     {
         var cut = Context.RenderComponent<Card>(builder =>

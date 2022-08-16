@@ -170,13 +170,13 @@ Blazor 应用基于组件。 Blazor 中的组件是指 UI 元素，例如页面�
 
 ## 项目截图
 
-![登录可查看](https://gitee.com/LongbowEnterprise/Pictures/raw/master/BootstrapBlazor/Toggle.png "Toggle.png")
-![登录可查看](https://gitee.com/LongbowEnterprise/Pictures/raw/master/BootstrapBlazor/Toast.png "Toast.png")
-![登录可查看](https://gitee.com/LongbowEnterprise/Pictures/raw/master/BootstrapBlazor/Upload.png "Upload.png")
-![登录可查看](https://gitee.com/LongbowEnterprise/Pictures/raw/master/BootstrapBlazor/Upload2.png "Upload2.png")
-![登录可查看](https://gitee.com/LongbowEnterprise/Pictures/raw/master/BootstrapBlazor/Bar.png "Bar.png")
-![登录可查看](https://gitee.com/LongbowEnterprise/Pictures/raw/master/BootstrapBlazor/Pie.png "Pei.png")
-![登录可查看](https://gitee.com/LongbowEnterprise/Pictures/raw/master/BootstrapBlazor/Doughnut.png "Doughnut.png")
+![登录可查看](https://gitee.com/Longbow/Pictures/raw/master/BootstrapBlazor/Toggle.png "Toggle.png")
+![登录可查看](https://gitee.com/Longbow/Pictures/raw/master/BootstrapBlazor/Toast.png "Toast.png")
+![登录可查看](https://gitee.com/Longbow/Pictures/raw/master/BootstrapBlazor/Upload.png "Upload.png")
+![登录可查看](https://gitee.com/Longbow/Pictures/raw/master/BootstrapBlazor/Upload2.png "Upload2.png")
+![登录可查看](https://gitee.com/Longbow/Pictures/raw/master/BootstrapBlazor/Bar.png "Bar.png")
+![登录可查看](https://gitee.com/Longbow/Pictures/raw/master/BootstrapBlazor/Pie.png "Pei.png")
+![登录可查看](https://gitee.com/Longbow/Pictures/raw/master/BootstrapBlazor/Doughnut.png "Doughnut.png")
 
 ## 开源协议
 [![Gitee license](https://img.shields.io/github/license/argozhang/bootstrapblazor.svg?logo=git&logoColor=red)](https://gitee.com/LongbowEnterprise/BootstrapBlazor/blob/master/LICENSE)
@@ -187,7 +187,7 @@ Blazor 应用基于组件。 Blazor 中的组件是指 UI 元素，例如页面�
 
 特别鸣谢胡总对本项目的鼎力赞助 **10000** 元
 
-<img src="https://gitee.com/LongbowEnterprise/Pictures/raw/master/BootstrapBlazor/Donate@x2.png" width="552px;" />
+<img src="https://gitee.com/Longbow/Pictures/raw/master/BootstrapBlazor/Donate@x2.png" width="552px;" />
 
 ## 参与贡献
 
@@ -200,4 +200,4 @@ Blazor 应用基于组件。 Blazor 中的组件是指 UI 元素，例如页面�
 
 如果这个项目对您有所帮助，请扫下方二维码打赏一杯咖啡。
 
-<img src="https://gitee.com/LongbowEnterprise/Pictures/raw/master/WeChat/BarCode@2x.png" width="382px;" />
+<img src="https://gitee.com/Longbow/Pictures/raw/master/WeChat/BarCode@2x.png" width="382px;" />

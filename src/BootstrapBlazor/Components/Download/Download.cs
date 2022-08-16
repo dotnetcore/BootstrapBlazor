@@ -2,9 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using Microsoft.AspNetCore.Components;
-using Microsoft.JSInterop;
-
 namespace BootstrapBlazor.Components;
 
 /// <summary>
@@ -27,7 +24,12 @@ public class Download : BootstrapComponentBase, IDisposable
         DownloadService.RegisterUrl(this, CreateUrl);
     }
 
-    private async Task DownloadFile(DownloadOption option)
+    /// <summary>
+    /// 调用 download 方法
+    /// </summary>
+    /// <param name="option"></param>
+    /// <returns></returns>
+    protected virtual async Task DownloadFile(DownloadOption option)
     {
         if (JSRuntime is IJSUnmarshalledRuntime webAssemblyJsRuntime)
         {
@@ -40,7 +42,12 @@ public class Download : BootstrapComponentBase, IDisposable
         }
     }
 
-    private async Task<string> CreateUrl(DownloadOption option)
+    /// <summary>
+    /// 调用 CreateUrl 方法
+    /// </summary>
+    /// <param name="option"></param>
+    /// <returns></returns>
+    protected virtual async Task<string> CreateUrl(DownloadOption option)
     {
         if (JSRuntime is IJSUnmarshalledRuntime webAssemblyJsRuntime)
         {

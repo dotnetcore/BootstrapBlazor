@@ -1,17 +1,9 @@
 ﻿(function ($) {
     $.extend({
         bb_printview: function (el) {
-            var $modalHeader = $(el).parent();
-            var inHeader = $modalHeader.hasClass('modal-header');
-            var inFooter = $modalHeader.hasClass('modal-footer');
-            var $modalBody = null;
-            if (inHeader) {
-                $modalBody = $modalHeader.next();
-            }
-            else if (inFooter) {
-                $modalBody = $modalHeader.parentsUntil('.modal-content').parent().find('.modal-body');
-            }
-            if ($modalBody != null && $modalBody.length > 0) {
+            var $el = $(el);
+            var $modalBody = $el.parentsUntil('.modal-content').parent().find('.modal-body');
+            if ($modalBody.length > 0) {
                 $modalBody.find(":text, :checkbox, :radio").each(function (index, el) {
                     var $el = $(el);
                     var id = $el.attr('id');

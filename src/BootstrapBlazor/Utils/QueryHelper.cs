@@ -11,6 +11,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// Provides methods for parsing and manipulating query strings.
 /// </summary>
+[ExcludeFromCodeCoverage]
 public static class QueryHelper
 {
     /// <summary>

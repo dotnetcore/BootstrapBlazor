@@ -2,8 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using Microsoft.AspNetCore.Components;
-
 namespace BootstrapBlazor.Components;
 
 /// <summary>
@@ -34,6 +32,12 @@ public class CollapseItem : ComponentBase
     /// </summary>
     [Parameter]
     public Color TitleColor { get; set; }
+
+    /// <summary>
+    /// 获得/设置 CSS 样式名称 默认 null
+    /// </summary>
+    [Parameter]
+    public string? Class { get; set; }
 
     /// <summary>
     /// 获得/设置 组件内容

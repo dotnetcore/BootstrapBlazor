@@ -18,4 +18,36 @@
     <BlockLogger @ref="Trace" class="mt-3" />
 </DemoBlock>
 
+<DemoBlock Title="@Localizer["ChildContentTitle"]" Introduction="@Localizer["ChildContentIntro"]" Name="ChildContent">
+    <Carousel Width="280">
+        <CarouselItem>
+            <div class="carousel-item-demo">
+                <h3>Title-1</h3>
+                <div>Content-1</div>
+                <div>
+                    <Button Icon="fa fa-fa" Text="Button-1" />
+                </div>
+            </div>
+        </CarouselItem>
+        <CarouselItem>
+            <div class="carousel-item-demo">
+                <h3>Title-2</h3>
+                <div>Content-2</div>
+                <div>
+                    <Button Icon="fa fa-fa" Text="Button-2" />
+                </div>
+            </div>
+        </CarouselItem>
+        <CarouselItem>
+            <div class="carousel-item-demo">
+                <h3>Title-3</h3>
+                <div>Content-3</div>
+                <div>
+                    <Button Icon="fa fa-fa" Text="Button-3" />
+                </div>
+            </div>
+        </CarouselItem>
+    </Carousel>
+</DemoBlock>
+
 <AttributeTable Items="@GetAttributes()" />

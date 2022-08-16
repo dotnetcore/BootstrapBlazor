@@ -54,6 +54,8 @@ public partial class BaseLayout
 
     private string? BBVersion { get; set; }
 
+    private string DownloadUrl => $"{WebsiteOption.CurrentValue.BootstrapBlazorLink}/repository/archive/main.zip";
+
     /// <summary>
     /// OnInitialized 方法
     /// </summary>

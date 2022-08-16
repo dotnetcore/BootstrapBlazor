@@ -1,6 +1,7 @@
 ﻿@page "/template"
 @inject VersionService VersionManager
 @inject IStringLocalizer<Template> Localizer
+@inject IOptionsMonitor<WebsiteOptions> WebsiteOption
 
 <h3>@Localizer["Title"]</h3>
 
@@ -29,7 +30,7 @@
 
 <p class="code-label mb-3">1. 下载项目模板</p>
 
-<div class="mb-2">可以通过 <b>Visual Studio 2022 内置插件扩展</b> 或者 <b>微软插件扩展市场</b> <a href="https://marketplace.visualstudio.com/items?itemName=Longbow.BootstrapBlazorUITemplate" target="_blank">[传送门]</a> 直接下载; 国内访问微软插件市场速度比较慢，可以访问码云连接 <a href="https://gitee.com/LongbowEnterprise/BootstrapBlazor/wikis/%E9%A1%B9%E7%9B%AE%E6%A8%A1%E6%9D%BF%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B?sort_id=3059284" target="_blank">[传送门]</a></div>
+<div class="mb-2">可以通过 <b>Visual Studio 2022 内置插件扩展</b> 或者 <b>微软插件扩展市场</b> <a href="https://marketplace.visualstudio.com/items?itemName=Longbow.BootstrapBlazorUITemplate" target="_blank">[传送门]</a> 直接下载; 国内访问微软插件市场速度比较慢，可以访问码云连接 <a href="@TemplateUrl" target="_blank">[传送门]</a></div>
 
 <img src="_content/BootstrapBlazor.Shared/images/seach-extensions.png" style="width: 800px; border-radius: 6px;" class="d-none d-sm-block mb-3" />
 

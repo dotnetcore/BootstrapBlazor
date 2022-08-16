@@ -2,8 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using Microsoft.AspNetCore.Components;
-
 namespace BootstrapBlazor.Components;
 
 /// <summary>
@@ -182,6 +180,19 @@ public partial class Modal : IAsyncDisposable
         {
             // 全部关闭
             await JSRuntime.InvokeVoidAsync(ModalElement, "bb_modal", "hide");
+        }
+    }
+
+    /// <summary>
+    /// 设置 Header 文字方法
+    /// </summary>
+    /// <param name="text"></param>
+    public void SetHeaderText(string text)
+    {
+        var dialog = Dialogs.FirstOrDefault(d => d.IsShown);
+        if (dialog != null)
+        {
+            dialog.SetHeaderText(text);
         }
     }
 

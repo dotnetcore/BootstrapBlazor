@@ -7,6 +7,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// TreeItem 组件
 /// </summary>
+[ExcludeFromCodeCoverage]
 public class TreeItem : NodeItem
 {
     /// <summary>
@@ -38,11 +39,6 @@ public class TreeItem : NodeItem
     /// 获取/设置 是否有子节点 默认 false 
     /// </summary>
     public bool HasChildNode { get; set; }
-
-    /// <summary>
-    /// 获取/设置 节点样色样式 默认 null 未设置
-    /// </summary>
-    public string? CssClass { get; set; }
 
     /// <summary>
     /// 获得 所有子项集合

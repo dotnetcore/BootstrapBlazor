@@ -2,12 +2,9 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web.Virtualization;
 using Microsoft.Extensions.Options;
-using System.ComponentModel.DataAnnotations;
 using System.Globalization;
-using System.Reflection;
 
 namespace BootstrapBlazor.Components;
 
@@ -19,7 +16,10 @@ namespace BootstrapBlazor.Components;
 #endif
 public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable where TItem : class, new()
 {
-    private Virtualize<TItem>? VirtualizeElement { get; set; }
+    /// <summary>
+    /// 获得/设置 内置虚拟化组件实例
+    /// </summary>
+    protected Virtualize<TItem>? VirtualizeElement { get; set; }
 
     [NotNull]
     private JSInterop<Table<TItem>>? Interop { get; set; }
@@ -45,6 +45,7 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
         .AddClass("table-excel", IsExcel)
         .AddClass("table-bordered", IsBordered)
         .AddClass("table-striped table-hover", IsStriped)
+        .AddClass("table-wrap", HeaderTextWrap && !IsFixedHeader)
         .Build();
 
     /// <summary>
@@ -83,26 +84,6 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
         .Build();
 
     /// <summary>
-    /// 树形数据展开小箭头
-    /// </summary>
-    /// <param name="item"></param>
-    /// <returns></returns>
-    protected string? GetTreeClassString(TItem item) => CssBuilder.Default("is-tree fa fa-fw")
-        .AddClass(TreeIcon, CheckTreeChildren(item) && !IsLoadChildren)
-        .AddClass("fa-rotate-90", TryGetTreeNodeByItem(item, out var node) && node.IsExpand)
-        .AddClass("fa-spin fa-spinner", IsLoadChildren)
-        .Build();
-
-    /// <summary>
-    /// 树形数据展开小箭头
-    /// </summary>
-    /// <param name="item"></param>
-    /// <returns></returns>
-    protected string? GetTreeStyleString(TItem item) => CssBuilder.Default()
-        .AddClass($"margin-left: {GetIndentSize(item)}px;")
-        .Build();
-
-    /// <summary>
     /// 获得明细行样式
     /// </summary>
     /// <param name="item"></param>
@@ -129,51 +110,10 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
     protected List<TItem> ExpandRows { get; } = new List<TItem>();
 
     /// <summary>
-    /// 获得/设置 树形数据已展开集合
-    /// </summary>
-    [NotNull]
-    private List<TableTreeNode<TItem>>? TreeRows { get; set; }
-
-    /// <summary>
-    /// 获得/设置 是否正在加载子项 默认为 false
-    /// </summary>
-    private bool IsLoadChildren { get; set; }
-
-    /// <summary>
-    /// 获得/设置 数型结构小箭头图标 默认 fa fa-caret-right
-    /// </summary>
-    [Parameter]
-    public string TreeIcon { get; set; } = "fa-caret-right";
-
-    /// <summary>
-    /// 获得/设置 树形数据节点展开式回调委托方法
-    /// </summary>
-    [Parameter]
-    public Func<TItem, Task<IEnumerable<TItem>>>? OnTreeExpand { get; set; }
-
-    /// <summary>
-    /// 获得/设置 是否有子节点回调方法 默认为 null 用于未提供 <see cref="HasChildrenColumnName"/> 列名时使用
-    /// </summary>
-    [Parameter]
-    public Func<TItem, bool>? HasChildrenCallback { get; set; }
-
-    /// <summary>
-    /// 获得/设置 组件是否采用 Tracking 模式对编辑项进行直接更新 默认 false
-    /// </summary>
-    [Parameter]
-    public bool IsTracking { get; set; }
-
-    /// <summary>
     /// 获得/设置 组件工作模式为 Excel 模式 默认 false
     /// </summary>
     [Parameter]
     public bool IsExcel { get; set; }
-
-    /// <summary>
-    /// 获得/设置 缩进大小 默认为 16 单位 px
-    /// </summary>
-    [Parameter]
-    public int IndentSize { get; set; } = 16;
 
     /// <summary>
     /// 获得/设置 是否显示明细行 默认为 null 为空时使用 <see cref="DetailRowTemplate" /> 进行逻辑判断
@@ -182,7 +122,7 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
     public bool? IsDetails { get; set; }
 
     /// <summary>
-    /// 获得/设置 无数据时是否隐藏表格 Footer 默认为 false 不隐藏 
+    /// 获得/设置 无数据时是否隐藏表格 Footer 默认为 false 不隐藏
     /// </summary>
     [Parameter]
     public bool IsHideFooterWhenNoData { get; set; }
@@ -254,13 +194,6 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
     [Parameter]
     public float RowHeight { get; set; } = 39.5f;
 
-    /// <summary>
-    /// 获得/设置 滚动时是否显示虚拟行 默认为 true 显示
-    /// </summary>
-    /// <remarks>需要设置 <see cref="ScrollMode"/> 值为 Virtual 时生效</remarks>
-    [Parameter]
-    public bool ShowVirtualRowMask { get; set; } = true;
-
     [Inject]
     [NotNull]
     private IOptionsMonitor<BootstrapBlazorOptions>? Options { get; set; }
@@ -269,33 +202,15 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
     [NotNull]
     private ILookupService? LookupService { get; set; }
 
-    [NotNull]
-    private string? NotSetOnTreeExpandErrorMessage { get; set; }
-
     private bool ShowDetails() => IsDetails == null
         ? DetailRowTemplate != null
         : IsDetails.Value && DetailRowTemplate != null;
-
-    private string GetIndentSize(TItem item)
-    {
-        // 查找递归层次
-        var indent = 0;
-        if (TryGetTreeNodeByItem(item, out var node))
-        {
-            while (node.Parent != null)
-            {
-                indent += IndentSize;
-                node = node.Parent;
-            }
-        }
-        return indent.ToString();
-    }
 
     /// <summary>
     /// 明细行功能中切换行状态时调用此方法
     /// </summary>
     /// <param name="item"></param>
-    protected void ExpandDetailRow(TItem item)
+    public void ExpandDetailRow(TItem item)
     {
         DetailRows.Add(item);
         if (ExpandRows.Contains(item))
@@ -305,136 +220,6 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
         else
         {
             ExpandRows.Add(item);
-        }
-    }
-
-    /// <summary>
-    /// 展开收缩树形数据节点方法
-    /// </summary>
-    /// <param name="item"></param>
-    /// <returns></returns>
-    protected Func<Task> ToggleTreeRow(TItem item) => async () =>
-    {
-        if (OnTreeExpand == null)
-        {
-            throw new InvalidOperationException(NotSetOnTreeExpandErrorMessage);
-        }
-
-        if (IsLoadChildren)
-        {
-            return;
-        }
-
-        if (TryGetTreeNodeByItem(item, out var node))
-        {
-            node.IsExpand = !node.IsExpand;
-
-            // 无子项时通过回调方法延时加载
-            if (node.Children.Count == 0)
-            {
-                IsLoadChildren = true;
-                var nodes = await OnTreeExpand(item);
-                IsLoadChildren = false;
-
-                node.Children.AddRange(nodes.Select(i => new TableTreeNode<TItem>(i)
-                {
-                    HasChildren = CheckTreeChildren(i),
-                    Parent = node
-                }));
-            }
-        }
-        StateHasChanged();
-    };
-
-    private bool TryGetTreeNodeByItem(TItem item, [MaybeNullWhen(false)] out TableTreeNode<TItem> node)
-    {
-        TableTreeNode<TItem>? n = null;
-        foreach (var v in TreeRows)
-        {
-            if (v.Value == item)
-            {
-                n = v;
-                break;
-            }
-
-            if (v.Children != null)
-            {
-                n = GetTreeNodeByItem(item, v.Children);
-            }
-
-            if (n != null)
-            {
-                break;
-            }
-        }
-        node = n;
-        return n != null;
-    }
-
-    private TableTreeNode<TItem>? GetTreeNodeByItem(TItem item, IEnumerable<TableTreeNode<TItem>> nodes)
-    {
-        TableTreeNode<TItem>? ret = null;
-        foreach (var node in nodes)
-        {
-            if (node.Value == item)
-            {
-                ret = node;
-                break;
-            }
-
-            if (node.Children.Any())
-            {
-                ret = GetTreeNodeByItem(item, node.Children);
-            }
-
-            if (ret != null)
-            {
-                break;
-            }
-        }
-        return ret;
-    }
-
-    /// <summary>
-    /// 通过设置的 HasChildren 属性得知是否有子节点用于显示 UI
-    /// </summary>
-    /// <param name="item"></param>
-    /// <returns></returns>
-    private bool CheckTreeChildren(TItem item)
-    {
-        var ret = false;
-        if (HasChildrenCallback != null)
-        {
-            ret = HasChildrenCallback(item);
-        }
-        else
-        {
-            var v = Utility.GetPropertyValue<TItem, object?>(item, HasChildrenColumnName);
-            if (v is bool b)
-            {
-                ret = b;
-            }
-        }
-        return ret;
-    }
-
-    private List<TItem> GetTreeRows()
-    {
-        var ret = new List<TItem>();
-        ReloadTreeNodes(ret, TreeRows);
-        return ret;
-    }
-
-    private void ReloadTreeNodes(List<TItem> items, IEnumerable<TableTreeNode<TItem>> nodes)
-    {
-        foreach (var node in nodes)
-        {
-            items.Add(node.Value);
-
-            if (node.IsExpand && node.Children.Any())
-            {
-                ReloadTreeNodes(items, node.Children);
-            }
         }
     }
 
@@ -482,6 +267,12 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
     /// </summary>
     [Parameter]
     public IEnumerable<TItem>? Items { get; set; }
+
+    /// <summary>
+    /// 获得/设置 数据集合回调方法
+    /// </summary>
+    [Parameter]
+    public EventCallback<IEnumerable<TItem>> ItemsChanged { get; set; }
 
     /// <summary>
     /// 获得/设置 表格组件大小 默认为 Normal 正常模式
@@ -538,6 +329,12 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
     public bool AllowResizing { get; set; }
 
     /// <summary>
+    /// 获得/设置 是否表头允许折行 默认 false 不折行
+    /// </summary>
+    [Parameter]
+    public bool HeaderTextWrap { get; set; }
+
+    /// <summary>
     /// 获得/设置 是否斑马线样式 默认为 false
     /// </summary>
     /// <remarks>此参数在 <see cref="IsExcel"/> 模式下不生效</remarks>
@@ -589,20 +386,6 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
     public Func<TItem, bool>? ShowDetailRow { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否为树形数据 默认为 false
-    /// </summary>
-    /// <remarks>是否有子项请使用 <seealso cref="HasChildrenColumnName"/> 树形进行设置，此参数在 <see cref="IsExcel"/> 模式下不生效</remarks>
-    [Parameter]
-    public bool IsTree { get; set; }
-
-    /// <summary>
-    /// 获得/设置 树形数据模式子项字段是否有子节点属性名称 默认为 HasChildren 无法提供时请设置 <see cref="HasChildrenCallback"/> 回调方法
-    /// </summary>
-    /// <remarks>此参数在 <see cref="IsExcel"/> 模式下不生效</remarks>
-    [Parameter]
-    public string HasChildrenColumnName { get; set; } = "HasChildren";
-
-    /// <summary>
     /// 获得/设置 动态数据上下文实例
     /// </summary>
     [Parameter]
@@ -642,9 +425,17 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
     private bool OnAfterRenderIsTriggered { get; set; }
 
     /// <summary>
-    /// 获得/设置 模型是否有 [KeyAttribute] 标签
+    /// 获得/设置 数据主键标识标签 默认为 <see cref="KeyAttribute"/><code><br /></code>用于判断数据主键标签，如果模型未设置主键时可使用 <see cref="ModelEqualityComparer"/> 参数自定义判断 <code><br /></code>数据模型支持联合主键
     /// </summary>
-    protected bool HasKeyAttribute { get; set; }
+    [Parameter]
+    [NotNull]
+    public Type? CustomKeyAttribute { get; set; } = typeof(KeyAttribute);
+
+    /// <summary>
+    /// 获得/设置 比较数据是否相同回调方法 默认为 null<code><br /></code>提供此回调方法时忽略 <see cref="CustomKeyAttribute"/> 属性
+    /// </summary>
+    [Parameter]
+    public Func<TItem, TItem, bool>? ModelEqualityComparer { get; set; }
 
     /// <summary>
     /// OnInitialized 方法
@@ -653,14 +444,15 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
     {
         base.OnInitialized();
 
-        OnInitLocalization();
+        // 初始化节点缓存
+        treeNodeCache ??= new(ComparerItem);
 
-        OnInitParameters();
+        OnInitLocalization();
 
         Interop = new JSInterop<Table<TItem>>(JSRuntime);
 
         // 设置 OnSort 回调方法
-        IntenralOnSortAsync = async (sortName, sortOrder) =>
+        InternalOnSortAsync = async (sortName, sortOrder) =>
         {
             // 调用 OnSort 回调方法
             if (OnSort != null)
@@ -678,16 +470,17 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
             PageIndex = 1;
             await QueryAsync();
         };
+    }
 
-        HasKeyAttribute = typeof(TItem).GetRuntimeProperties().Any(p => p.IsDefined(typeof(KeyAttribute)));
-
-        if (IsTree)
+    /// <summary>
+    /// OnInitializedAsync 方法
+    /// </summary>
+    /// <returns></returns>
+    protected override async Task OnInitializedAsync()
+    {
+        if (IsTree && Items != null && TreeNodeConverter != null)
         {
-            var rows = Items ?? QueryItems ?? Enumerable.Empty<TItem>();
-            TreeRows = rows.Select(item => new TableTreeNode<TItem>(item)
-            {
-                HasChildren = CheckTreeChildren(item)
-            }).ToList();
+            TreeRows.AddRange(await TreeNodeConverter(Items));
         }
     }
 
@@ -718,6 +511,14 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
         {
             RenderMode = op.TableSettings.TableRenderMode.Value;
         }
+
+        PageItemsSource ??= new int[] { 20, 50, 100, 200, 500, 1000 };
+
+        if (PageItems == 0)
+        {
+            // 如果未设置 PageItems 取默认值第一个
+            PageItems = PageItemsSource.First();
+        }
     }
 
     /// <summary>
@@ -725,7 +526,10 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
     /// </summary>
     protected bool FirstRender { get; set; } = true;
 
-    private CancellationTokenSource? AutoRefreshCancelTokenSource { get; set; }
+    /// <summary>
+    /// 获得/设置 自动刷新 CancellationTokenSource 实例
+    /// </summary>
+    protected CancellationTokenSource? AutoRefreshCancelTokenSource { get; set; }
 
     /// <summary>
     /// OnParametersSet 方法
@@ -734,28 +538,27 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
     {
         base.OnParametersSet();
 
+        OnInitParameters();
+
         if (ScrollMode == ScrollMode.Virtual)
         {
             IsFixedHeader = true;
             RenderMode = TableRenderMode.Table;
         }
 
-        RowItemsCache = null;
+        RowsCache = null;
 
         if (IsExcel)
         {
             IsStriped = false;
             IsMultipleSelect = true;
             IsTree = false;
-            IsDetails = false;
         }
 
         if (!FirstRender)
         {
             // 动态列模式
             ResetDynamicContext();
-
-            ColumnVisibles = Columns.Select(i => new ColumnVisibleItem { FieldName = i.GetFieldName(), Visible = i.Visible }).ToList();
 
             // set default sortName
             var col = Columns.FirstOrDefault(i => i.Sortable && i.DefaultSort);
@@ -773,17 +576,16 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
     /// <param name="firstRender"></param>
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        await base.OnAfterRenderAsync(firstRender);
-
         if (firstRender)
         {
+            // 设置渲染完毕
+            FirstRender = false;
+
             if (ShowSearch)
             {
                 // 注册 SeachBox 回调事件
                 await Interop.InvokeVoidAsync(this, TableElement, "bb_table_search", nameof(OnSearch), nameof(OnClearSearch));
             }
-
-            FirstRender = false;
 
             ScreenSize = await JSRuntime.InvokeAsync<decimal>(TableElement, "bb_table_width", UseComponentWidth);
 
@@ -810,7 +612,7 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
                 await OnColumnCreating(Columns);
             }
 
-            ColumnVisibles = Columns.Select(i => new ColumnVisibleItem { FieldName = i.GetFieldName(), Visible = i.Visible }).ToList();
+            ColumnVisibles.AddRange(Columns.Select(i => new ColumnVisibleItem { FieldName = i.GetFieldName(), Visible = i.Visible }));
 
             // set default sortName
             var col = Columns.FirstOrDefault(i => i.Sortable && i.DefaultSort);
@@ -852,24 +654,30 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
         if (!_loop && IsAutoRefresh && AutoRefreshInterval > 500)
         {
             _loop = true;
+            await LoopQueryAsync();
+            _loop = false;
+        }
+    }
 
+    /// <summary>
+    /// 周期性查询方法
+    /// </summary>
+    /// <returns></returns>
+    protected async Task LoopQueryAsync()
+    {
+        try
+        {
             AutoRefreshCancelTokenSource ??= new();
+            // 自动刷新功能
+            await Task.Delay(AutoRefreshInterval, AutoRefreshCancelTokenSource.Token);
 
-            try
-            {
-                AutoRefreshInterval = 3000;
-                // 自动刷新功能
-                await Task.Delay(AutoRefreshInterval, AutoRefreshCancelTokenSource.Token);
+            // 不调用 QueryAsync 防止出现 Loading 动画 保持屏幕静止
+            await QueryData();
+            StateHasChanged();
+        }
+        catch (TaskCanceledException)
+        {
 
-                // 不调用 QueryAsync 防止出现 Loading 动画 保持屏幕静止
-                await QueryData();
-                StateHasChanged();
-                _loop = false;
-            }
-            catch (TaskCanceledException)
-            {
-
-            }
         }
     }
 
@@ -887,22 +695,30 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
         BreakPoint.Medium => ScreenSize >= 768,
         BreakPoint.Large => ScreenSize >= 992,
         BreakPoint.ExtraLarge => ScreenSize >= 1200,
+        BreakPoint.ExtraExtraLarge => ScreenSize >= 1400,
         _ => true
     };
 
     /// <summary>
     /// OnQueryAsync 查询结果数据集合
     /// </summary>
-    private IEnumerable<TItem>? QueryItems { get; set; }
+    private IEnumerable<TItem> QueryItems { get; set; } = Enumerable.Empty<TItem>();
 
-    private List<TItem>? RowItemsCache { get; set; }
+    [NotNull]
+    private List<TItem>? RowsCache { get; set; }
 
-    private List<TItem> RowItems
+    /// <summary>
+    /// 获得 当前表格所有 Rows 集合
+    /// </summary>
+    public List<TItem> Rows
     {
         get
         {
-            RowItemsCache ??= Items?.ToList() ?? QueryItems?.ToList() ?? new List<TItem>();
-            return IsTree ? GetTreeRows() : RowItemsCache;
+            // https://gitee.com/LongbowEnterprise/BootstrapBlazor/issues/I5JG5D
+            // 如果 QueryItems 无默认值
+            // 页面 OnInitializedAsync 二刷再 OnAfterRender 过程中导致 QueryItems 变量为空 ToList 报错
+            RowsCache ??= IsTree ? TreeRows.GetAllItems() : (Items ?? QueryItems).ToList();
+            return RowsCache;
         }
     }
 
@@ -924,7 +740,7 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
             // 自动化处理 ColorPicker 组件
             var val = GetItemValue(col.GetFieldName(), item);
             var v = val?.ToString() ?? "#000";
-            var style = string.IsNullOrEmpty(v) ? null : $"background-color: {v};";
+            var style = $"background-color: {v};";
             builder.OpenElement(0, "div");
             builder.AddAttribute(1, "class", "is-color");
             builder.AddAttribute(2, "style", style);
@@ -932,7 +748,6 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
         }
         else
         {
-            var content = "";
             var val = GetItemValue(col.GetFieldName(), item);
 
             if (col.Lookup == null && !string.IsNullOrEmpty(col.LookupServiceKey))
@@ -949,19 +764,19 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
                 builder.AddAttribute(1, "Value", v1);
                 builder.AddAttribute(2, "IsDisabled", true);
                 builder.CloseComponent();
-                return;
             }
-            if (col.Lookup != null && val != null)
+            else if (col.Lookup != null && val != null)
             {
                 // 转化 Lookup 数据源
                 var lookupVal = col.Lookup.FirstOrDefault(l => l.Value.Equals(val.ToString(), col.LookupStringComparison));
                 if (lookupVal != null)
                 {
-                    content = lookupVal.Text;
+                    builder.AddContent(0, lookupVal.Text);
                 }
             }
             else
             {
+                var content = "";
                 if (col.Formatter != null)
                 {
                     // 格式化回调委托
@@ -971,10 +786,6 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
                 {
                     // 格式化字符串
                     content = Utility.Format(val, col.FormatString);
-                }
-                else if (col.PropertyType.IsEnum())
-                {
-                    content = col.PropertyType.ToDescriptionString(val?.ToString());
                 }
                 else if (col.PropertyType.IsDateTime())
                 {
@@ -988,8 +799,8 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
                 {
                     content = val?.ToString() ?? "";
                 }
+                builder.AddContent(0, content);
             }
-            builder.AddContent(0, content);
         }
     };
 
@@ -1011,7 +822,12 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
                     var t = ret.GetType();
                     if (t.IsEnum)
                     {
-                        ret = t.ToEnumDisplayName(ret.ToString());
+                        // 如果是枚举这里返回 枚举的描述信息
+                        var itemName = ret.ToString();
+                        if (!string.IsNullOrEmpty(itemName))
+                        {
+                            ret = Utility.GetDisplayName(t, itemName);
+                        }
                     }
                 }
             }
@@ -1020,7 +836,14 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
     }
     #endregion
 
-    private RenderFragment RenderCell(ITableColumn col, TItem item, ItemChangedType changedType) => col.CanWrite(typeof(TItem)) && col.IsEditable(changedType)
+    /// <summary>
+    /// 渲染单元格方法
+    /// </summary>
+    /// <param name="col"></param>
+    /// <param name="item"></param>
+    /// <param name="changedType"></param>
+    /// <returns></returns>
+    protected RenderFragment RenderCell(ITableColumn col, TItem item, ItemChangedType changedType) => col.CanWrite(typeof(TItem), changedType)
         ? (col.EditTemplate == null
             ? builder => builder.CreateComponentByFieldType(this, col, item, changedType, false, LookupService)
             : col.EditTemplate(item))
@@ -1028,7 +851,14 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
             ? builder => builder.CreateDisplayByFieldType(col, item)
             : col.Template(item));
 
-    private RenderFragment RenderExcelCell(ITableColumn col, TItem item, ItemChangedType changedType)
+    /// <summary>
+    /// 渲染 Excel 单元格方法
+    /// </summary>
+    /// <param name="col"></param>
+    /// <param name="item"></param>
+    /// <param name="changedType"></param>
+    /// <returns></returns>
+    protected RenderFragment RenderExcelCell(ITableColumn col, TItem item, ItemChangedType changedType)
     {
         col.PlaceHolder ??= "";
 
@@ -1105,7 +935,7 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
             PageItems = Math.Min(request.Count, TotalCount - request.StartIndex);
         }
         await QueryData();
-        return new ItemsProviderResult<TItem>(QueryItems ?? Enumerable.Empty<TItem>(), TotalCount);
+        return new ItemsProviderResult<TItem>(QueryItems, TotalCount);
     }
 
     private Func<Task> TriggerDoubleClickCell(ITableColumn col, TItem item) => async () =>
@@ -1121,24 +951,11 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
         .AddClass("is-dbcell", trigger)
         .Build();
 
-    private bool IsShowEmpty => ShowEmpty && !RowItems.Any();
-
-    private RenderFragment RenderEmpty() => builder =>
-    {
-        var index = 0;
-        builder.OpenComponent<Empty>(index++);
-        builder.AddAttribute(index++, nameof(Empty.Text), EmptyText);
-        builder.AddAttribute(index++, nameof(Empty.Image), EmptyImage);
-        if (EmptyTemplate != null)
-        {
-            builder.AddAttribute(index++, nameof(Empty.Template), EmptyTemplate);
-        }
-        builder.CloseComponent();
-    };
+    private bool IsShowEmpty => ShowEmpty && !Rows.Any();
 
     private int GetColumnCount()
     {
-        var colspan = ColumnVisibles.Count(col => col.Visible);
+        var colspan = GetColumns().Count(col => col.Visible);
         if (IsMultipleSelect)
         {
             colspan++;
@@ -1174,11 +991,26 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
     {
         foreach (var column in Columns)
         {
-            column.Filter?.FilterAction?.Reset();
+            if (column.Filter != null)
+            {
+                column.Filter.FilterAction.Reset();
+            }
         }
         Filters.Clear();
         await OnFilterAsync();
     }
+
+    /// <summary>
+    /// 返回 true 时按钮禁用
+    /// </summary>
+    /// <returns></returns>
+    private bool GetEditButtonStatus() => ShowAddForm || AddInCell || SelectedRows.Count != 1;
+
+    /// <summary>
+    /// 返回 true 时按钮禁用
+    /// </summary>
+    /// <returns></returns>
+    private bool GetDeleteButtonStatus() => ShowAddForm || AddInCell || !SelectedRows.Any();
 
     #region Dispose
     /// <summary>
@@ -1193,8 +1025,11 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
             AutoRefreshCancelTokenSource?.Dispose();
             AutoRefreshCancelTokenSource = null;
 
-            Interop?.Dispose();
-            Interop = null;
+            if (Interop != null)
+            {
+                Interop.Dispose();
+                Interop = null;
+            }
         }
     }
 

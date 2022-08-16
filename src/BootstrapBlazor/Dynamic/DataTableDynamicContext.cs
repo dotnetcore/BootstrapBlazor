@@ -21,7 +21,7 @@ public class DataTableDynamicContext : DynamicObjectContext
 
     private Type DynamicObjectType { get; }
 
-    private IEnumerable<ITableColumn>? Columns { get; }
+    private IEnumerable<ITableColumn> Columns { get; }
 
     private List<IDynamicObject>? Items { get; set; }
 
@@ -59,17 +59,23 @@ public class DataTableDynamicContext : DynamicObjectContext
         var cols = InternalGetColumns();
 
         // Emit 生成动态类
-        var dynamicType = EmitHelper.CreateTypeByName($"BootstrapBlazor_{nameof(DataTableDynamicContext)}_{GetHashCode()}", cols, typeof(DataTableDynamicObject), OnColumnCreating);
-        if (dynamicType == null)
-        {
-            throw new InvalidOperationException();
-        }
-        DynamicObjectType = dynamicType;
+        DynamicObjectType = CreateType();
 
         // 获得显示列
-        Columns = InternalTableColumn.GetProperties(DynamicObjectType, cols).Where(col => GetShownColumns(col, invisibleColumns, shownColumns, hiddenColumns)).ToList();
+        Columns = InternalTableColumn.GetProperties(DynamicObjectType, cols).Where(col => GetShownColumns(col, invisibleColumns, shownColumns, hiddenColumns));
 
         OnValueChanged = OnCellValueChanged;
+
+        [ExcludeFromCodeCoverage]
+        Type CreateType()
+        {
+            var dynamicType = EmitHelper.CreateTypeByName($"BootstrapBlazor_{nameof(DataTableDynamicContext)}_{GetHashCode()}", cols, typeof(DataTableDynamicObject), OnColumnCreating);
+            if (dynamicType == null)
+            {
+                throw new InvalidOperationException();
+            }
+            return dynamicType;
+        }
     }
 
     private static bool GetShownColumns(ITableColumn col, IEnumerable<string>? invisibleColumns, IEnumerable<string>? shownColumns, IEnumerable<string>? hiddenColumns)
@@ -111,25 +117,24 @@ public class DataTableDynamicContext : DynamicObjectContext
         var ret = new List<IDynamicObject>();
         foreach (DataRow row in DataTable.Rows)
         {
-            if (row.RowState == DataRowState.Deleted || row.RowState == DataRowState.Detached)
+            if (row.RowState != DataRowState.Deleted)
             {
-                continue;
-            }
-            var dynamicObject = Activator.CreateInstance(DynamicObjectType);
-            if (dynamicObject is DataTableDynamicObject d)
-            {
-                foreach (DataColumn col in DataTable.Columns)
+                var dynamicObject = Activator.CreateInstance(DynamicObjectType);
+                if (dynamicObject is DataTableDynamicObject d)
                 {
-                    if (!row.IsNull(col))
+                    foreach (DataColumn col in DataTable.Columns)
                     {
-                        Utility.SetPropertyValue<object, object?>(d, col.ColumnName, row[col]);
+                        if (!row.IsNull(col))
+                        {
+                            Utility.SetPropertyValue<object, object?>(d, col.ColumnName, row[col]);
+                        }
                     }
-                }
 
-                d.Row = row;
-                d.DynamicObjectPrimaryKey = Guid.NewGuid();
-                Caches.TryAdd(d.DynamicObjectPrimaryKey, (d, row));
-                ret.Add(d);
+                    d.Row = row;
+                    d.DynamicObjectPrimaryKey = Guid.NewGuid();
+                    Caches.TryAdd(d.DynamicObjectPrimaryKey, (d, row));
+                    ret.Add(d);
+                }
             }
         }
         return ret;
@@ -139,7 +144,7 @@ public class DataTableDynamicContext : DynamicObjectContext
     /// GetItems 方法
     /// </summary>
     /// <returns></returns>
-    public override IEnumerable<ITableColumn> GetColumns() => Columns ?? Enumerable.Empty<ITableColumn>();
+    public override IEnumerable<ITableColumn> GetColumns() => Columns;
 
     /// <summary>
     /// 获得列信息方法
@@ -178,13 +183,8 @@ public class DataTableDynamicContext : DynamicObjectContext
         {
             await OnAddAsync(selectedItems);
         }
-        else
+        else if (Activator.CreateInstance(DynamicObjectType) is DataTableDynamicObject dynamicObject)
         {
-            if (Activator.CreateInstance(DynamicObjectType) is not DataTableDynamicObject dynamicObject)
-            {
-                throw new InvalidCastException($"{DynamicObjectType.Name} can not cast to {nameof(IDynamicObject)}");
-            }
-
             var row = DataTable.NewRow();
             var indexOfRow = 0;
             var item = selectedItems.FirstOrDefault();
@@ -215,7 +215,10 @@ public class DataTableDynamicContext : DynamicObjectContext
             }
 
             // Table 组件数据源更新数据
-            Items?.Insert(indexOfRow, dynamicObject);
+            if (Items != null)
+            {
+                Items.Insert(indexOfRow, dynamicObject);
+            }
 
             // 缓存更新数据
             Caches.TryAdd(dynamicObject.DynamicObjectPrimaryKey, (dynamicObject, row));
@@ -233,7 +236,10 @@ public class DataTableDynamicContext : DynamicObjectContext
         if (OnDeleteAsync != null)
         {
             ret = await OnDeleteAsync(items);
-            Items?.RemoveAll(i => items.Any(item => item == i));
+            if (Items != null)
+            {
+                Items.RemoveAll(i => items.Any(item => item == i));
+            }
         }
         else
         {
@@ -251,7 +257,10 @@ public class DataTableDynamicContext : DynamicObjectContext
                     Caches.TryRemove(item.DynamicObjectPrimaryKey, out _);
 
                     // 清理 Table 组件数据源
-                    Items?.Remove(item);
+                    if (Items != null)
+                    {
+                        Items.Remove(item);
+                    }
                 }
             }
             if (changed)

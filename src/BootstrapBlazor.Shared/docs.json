@@ -11,6 +11,7 @@
     "checkboxlists": "CheckboxLists",
     "column": "Table/TablesColumn",
     "colorpickers": "ColorPickers",
+    "cherry-markdowns": "CherryMarkdowns",
     "datetimepickers": "DateTimePickers",
     "datetimeranges": "DateTimeRanges",
     "doughnut": "Charts/Doughnut",
@@ -64,7 +65,8 @@
     "imageviewers": "ImageViewers",
     "speechwaves": "Speechs/SpeechWaves",
     "recognizers": "Speechs/Recognizers",
-    "synthesizers": "Speechs/Synthesizers"
+    "synthesizers": "Speechs/Synthesizers",
+    "treeviews": "TreeViews"
   },
   "video": {
     "autorefresh": "BV1ap4y1x7Qn?p=8",
@@ -96,7 +98,7 @@
     "template": "BV1Kp4y1B7pY",
     "toolbar": "BV1ap4y1x7Qn?p=6",
     "toasts": "BV1bT4y1N78e?p=6",
-    "tree": "BV1ap4y1x7Qn?p=14",
+    "tree": "BV1ap4y1x7Qn?p=14;BV1ZW4y1z7bB",
     "wrap": "BV1ap4y1x7Qn?p=7",
     "uploads": "BV1hK4y157Rj",
     "validateforms": "BV1TU4y1Y7CM",
@@ -108,6 +110,6 @@
     "synthesizers": "BV1aR4y1N7UP",
     "reconnectors": "BV1Dr4y1J7Z5;BV193411P7Dz",
     "speechwaves": "BV1Dr4y1J7Z5",
-    "topologys": "BV1eY4y167jn;BV13Z4y1h7MA"
+    "topologies": "BV1eY4y167jn;BV13Z4y1h7MA"
   }
 }

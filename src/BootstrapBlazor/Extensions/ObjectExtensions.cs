@@ -2,7 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using Microsoft.AspNetCore.Components;
 using System.Globalization;
 using System.Reflection;
 
@@ -113,7 +112,7 @@ public static class ObjectExtensions
         else
         {
             var methodInfo = typeof(ObjectExtensions).GetMethods().FirstOrDefault(m => m.IsGenericMethod)!.MakeGenericMethod(type);
-            var v = type == typeof(string) ? null : Activator.CreateInstance(type);
+            var v = Activator.CreateInstance(type);
             var args = new object?[] { source, v };
             ret = (bool)methodInfo.Invoke(null, args)!;
             val = ret ? args[1] : null;
@@ -170,7 +169,7 @@ public static class ObjectExtensions
     /// </summary>
     /// <param name="fileSize"></param>
     /// <returns></returns>
-    internal static string ToFileSizeString(this long fileSize) => fileSize switch
+    public static string ToFileSizeString(this long fileSize) => fileSize switch
     {
         >= 1024 and < 1024 * 1024 => $"{Math.Round(fileSize / 1024D, 0, MidpointRounding.AwayFromZero)} KB",
         >= 1024 * 1024 and < 1024 * 1024 * 1024 => $"{Math.Round(fileSize / 1024 / 1024D, 0, MidpointRounding.AwayFromZero)} MB",
@@ -193,23 +192,29 @@ public static class ObjectExtensions
         } || search;
 
     /// <summary>
+    /// 判断当前 IEditorItem 示例是否可以编辑
+    /// </summary>
+    /// <param name="item"></param>
+    /// <param name="modelType"></param>
+    /// <param name="changedType"></param>
+    /// <param name="search"></param>
+    /// <returns></returns>
+    public static bool CanWrite(this IEditorItem item, Type modelType, ItemChangedType changedType, bool search = false) => item.CanWrite(modelType) && item.IsEditable(changedType, search);
+
+    /// <summary>
     /// 判断模型是否可写
     /// </summary>
-    /// <param name="col"></param>
+    /// <param name="item"></param>
     /// <param name="modelType"></param>
     /// <returns></returns>
-    public static bool CanWrite(this IEditorItem col, Type modelType)
+    public static bool CanWrite(this IEditorItem item, Type modelType)
     {
-        var fieldName = col.GetFieldName();
-        var canWrite = IsDynamicObject();
-        return canWrite || (fieldName.Contains('.')
-            ? modelType.GetPropertyByName(fieldName)?.CanWrite ?? false
-            : ComplexCanWrite());
-
-        bool IsDynamicObject() => modelType == typeof(DynamicObject);
+        return modelType == typeof(DynamicObject) || modelType.IsSubclassOf(typeof(DynamicObject)) || ComplexCanWrite();
 
         bool ComplexCanWrite()
         {
+            var ret = false;
+            var fieldName = item.GetFieldName();
             var propertyNames = fieldName.Split('.');
             PropertyInfo? propertyInfo = null;
             Type? propertyType = null;
@@ -226,7 +231,11 @@ public static class ObjectExtensions
                     propertyType = propertyInfo.PropertyType;
                 }
             }
-            return propertyInfo?.CanWrite ?? false;
+            if (propertyInfo != null)
+            {
+                ret = propertyInfo.CanWrite;
+            }
+            return ret;
         }
     }
 }

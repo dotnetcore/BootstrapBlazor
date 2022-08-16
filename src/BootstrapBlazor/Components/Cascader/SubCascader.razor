@@ -6,11 +6,11 @@
     if (item.HasChildren)
     {
         <li>
-            <div class="@ActiveItem("has-leaf nav-link", item)" @onclick="@(e => OnClick(item))"   >
+            <div class="@GetClassString("has-leaf nav-link", item)" @onclick="@(e => OnClickItem(item))"   >
                 <span>@item.Text</span>
                 <i class="fa fa-angle-down nav-link-right"></i>
                 <ul class="nav sub-menu" @onclick:stopPropagation>
-                    <SubCascader Items="@item.Items" OnClick="@OnClick" ActiveItem="@ActiveItem" />
+                    <SubCascader Items="@item.Items" OnClick="@OnClickItem" />
                 </ul>
             </div>
         </li>
@@ -18,7 +18,7 @@
     else
     {
         <li>
-            <div class="@ActiveItem("nav-link", item)" @onclick="@(e => OnClick(item))" @onclick:stopPropagation><span>@item.Text</span></div>
+            <div class="@GetClassString("nav-link", item)" @onclick="@(e => OnClickItem(item))" @onclick:stopPropagation><span>@item.Text</span></div>
         </li>
     }
 }

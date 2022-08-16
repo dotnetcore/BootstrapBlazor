@@ -21,7 +21,20 @@ public sealed partial class Tabs
     private Tab? TabSet2 { get; set; }
 
     [NotNull]
+    private string? TabText { get; set; }
+
+    [NotNull]
     private TabItem? TabItemElement { get; set; }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        TabText = @Localizer["TabItem8Text"];
+    }
 
     /// <summary>
     /// OnInitialized 方法
@@ -117,11 +130,16 @@ public sealed partial class Tabs
         [nameof(TabItem.ChildContent)] = text == Localizer["BackText1"] ? BootstrapDynamicComponent.CreateComponent<Counter>().Render() : BootstrapDynamicComponent.CreateComponent<FetchData>().Render()
     });
 
-    private Task SetTabItemText()
+    private void SetTabItemText()
     {
-        TabItemElement.SetText(DateTime.Now.ToString());
-        return Task.CompletedTask;
+        TabText = DateTime.Now.ToString();
     }
+
+    private static void OnClickTabItem(Tab tab) => tab.ActiveTab(0);
+
+    private static string? GetClassString(Tab tab) => CssBuilder.Default("tabs-item")
+        .AddClass("active", tab.Items.ElementAt(0).IsActive)
+        .Build();
 
     /// <summary>
     /// 获得属性方法
@@ -201,6 +219,13 @@ public sealed partial class Tabs
             DefaultValue = " — "
         },
         new AttributeItem() {
+            Name = "HeaderTemplate",
+            Description = Localizer["AttHeaderTemplate"].Value,
+            Type = "RenderFragment",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new AttributeItem() {
             Name = "ChildContent",
             Description = Localizer["Att10"].Value,
             Type = "RenderFragment",
@@ -233,7 +258,7 @@ public sealed partial class Tabs
         new MethodItem() {
             Name = "AddTab",
             Description = Localizer["Method1"].Value,
-            Parameters = "TabItem",
+            Parameters = "TabItem, int? Index = null",
             ReturnValue = " — "
         },
         new MethodItem() {

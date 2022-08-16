@@ -8,12 +8,12 @@ namespace BootstrapBlazor.Components;
 /// 表格查询数据类
 /// </summary>
 /// <typeparam name="TItem"></typeparam>
-public class QueryData<TItem> where TItem : class, new()
+public class QueryData<TItem>
 {
     /// <summary>
     /// 获得/设置 要显示页码的数据集合
     /// </summary>
-    public IEnumerable<TItem> Items { get; set; } = new List<TItem>();
+    public IEnumerable<TItem>? Items { get; set; }
 
     /// <summary>
     /// 获得/设置 数据集合总数

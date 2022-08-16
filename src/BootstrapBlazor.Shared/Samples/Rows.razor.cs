@@ -29,7 +29,7 @@ public sealed partial class Rows
         Count = 23,
         Address = "测试地址",
         DateTime = new DateTime(1997, 12, 05),
-        Educations = new List<EnumEducation> { EnumEducation.Primary, EnumEducation.Middel }
+        Educations = new List<EnumEducation> { EnumEducation.Primary, EnumEducation.Middle }
     };
 
     [NotNull]

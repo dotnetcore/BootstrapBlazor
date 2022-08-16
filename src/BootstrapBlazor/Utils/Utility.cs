@@ -2,10 +2,10 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using Microsoft.AspNetCore.Components;
+using BootstrapBlazor.Localization.Json;
 using Microsoft.AspNetCore.Components.Rendering;
+using Microsoft.Extensions.Localization;
 using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
 using System.Data;
 using System.Linq.Expressions;
 using System.Reflection;
@@ -13,7 +13,7 @@ using System.Reflection;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// Utility 帮助类
 /// </summary>
 public static class Utility
 {
@@ -31,7 +31,7 @@ public static class Utility
     /// <param name="modelType">模型类型</param>
     /// <param name="fieldName">字段名称</param>
     /// <returns></returns>
-    public static string GetDisplayName(Type modelType, string fieldName) => CacheManager.GetDisplayName(modelType, fieldName);
+    public static string GetDisplayName(Type modelType, string fieldName) => CacheManager.GetDisplayName(Nullable.GetUnderlyingType(modelType) ?? modelType, fieldName);
 
     /// <summary>
     /// 获取资源文件中 NullableBoolItemsAttribute 标签名称方法
@@ -39,7 +39,7 @@ public static class Utility
     /// <param name="model">模型实例</param>
     /// <param name="fieldName">字段名称</param>
     /// <returns></returns>
-    public static IEnumerable<SelectedItem> GetNullableBoolItems(object model, string fieldName) => GetNullableBoolItems(model.GetType(), fieldName);
+    public static List<SelectedItem> GetNullableBoolItems(object model, string fieldName) => GetNullableBoolItems(model.GetType(), fieldName);
 
     /// <summary>
     /// 获取资源文件中 NullableBoolItemsAttribute 标签名称方法
@@ -47,7 +47,7 @@ public static class Utility
     /// <param name="modelType">模型实例</param>
     /// <param name="fieldName">字段名称</param>
     /// <returns></returns>
-    public static IEnumerable<SelectedItem> GetNullableBoolItems(Type modelType, string fieldName) => CacheManager.GetNullableBoolItems(modelType, fieldName);
+    public static List<SelectedItem> GetNullableBoolItems(Type modelType, string fieldName) => CacheManager.GetNullableBoolItems(modelType, fieldName);
 
     /// <summary>
     /// 获得 指定模型标记 <see cref="KeyAttribute"/> 的属性值
@@ -55,8 +55,9 @@ public static class Utility
     /// <typeparam name="TModel"></typeparam>
     /// <typeparam name="TValue"></typeparam>
     /// <param name="model"></param>
+    /// <param name="customAttribute"></param>
     /// <returns></returns>
-    public static TValue GetKeyValue<TModel, TValue>(TModel model) => CacheManager.GetKeyValue<TModel, TValue>(model);
+    public static TValue GetKeyValue<TModel, TValue>(TModel model, Type? customAttribute = null) => CacheManager.GetKeyValue<TModel, TValue>(model, customAttribute);
 
     /// <summary>
     /// 
@@ -104,16 +105,42 @@ public static class Utility
     public static void SetPropertyValue<TModel, TValue>(TModel model, string fieldName, TValue value) => CacheManager.SetPropertyValue(model, fieldName, value);
 
     /// <summary>
-    /// 
+    /// 获得 排序方法
     /// </summary>
     /// <returns></returns>
     public static Func<IEnumerable<T>, string, SortOrder, IEnumerable<T>> GetSortFunc<T>() => CacheManager.GetSortFunc<T>();
 
     /// <summary>
-    /// 
+    /// 获得 通过排序集合进行排序 Func 方法
     /// </summary>
     /// <returns></returns>
     public static Func<IEnumerable<T>, List<string>, IEnumerable<T>> GetSortListFunc<T>() => CacheManager.GetSortListFunc<T>();
+
+    /// <summary>
+    /// 通过指定程序集获取所有本地化信息键值集合
+    /// </summary>
+    /// <param name="option">JsonLocalizationOptions 实例</param>
+    /// <param name="assembly">Assembly 程序集实例</param>
+    /// <param name="typeName">类名称</param>
+    /// <param name="cultureName">cultureName 未空时使用 CultureInfo.CurrentUICulture.Name</param>
+    /// <param name="forceLoad">默认 false 使用缓存值 设置 true 时内部强制重新加载</param>
+    /// <returns></returns>
+    public static IEnumerable<LocalizedString> GetJsonStringByTypeName(JsonLocalizationOptions option, Assembly assembly, string typeName, string? cultureName = null, bool forceLoad = false) => CacheManager.GetJsonStringByTypeName(option, assembly, typeName, cultureName, forceLoad) ?? Enumerable.Empty<LocalizedString>();
+
+    /// <summary>
+    /// 通过指定程序集与类型获得 IStringLocalizer 实例
+    /// </summary>
+    /// <param name="assembly"></param>
+    /// <param name="typeName"></param>
+    public static IStringLocalizer? GetStringLocalizerFromService(Assembly assembly, string typeName) => CacheManager.GetStringLocalizerFromService(assembly, typeName);
+
+    /// <summary>
+    /// 获取 PlaceHolder 方法
+    /// </summary>
+    /// <typeparam name="TModel">模型类型</typeparam>
+    /// <param name="fieldName">字段名称</param>
+    /// <returns></returns>
+    public static string? GetPlaceHolder<TModel>(string fieldName) => GetPlaceHolder(typeof(TModel), fieldName);
 
     /// <summary>
     /// 获取 PlaceHolder 方法
@@ -283,6 +310,10 @@ public static class Utility
             builder.AddAttribute(2, nameof(Textarea.Value), fieldValue);
             builder.AddAttribute(3, nameof(Textarea.ShowLabelTooltip), item.ShowLabelTooltip);
             builder.AddAttribute(4, "readonly", true);
+            if (item.Rows > 0)
+            {
+                builder.AddAttribute(5, "rows", item.Rows);
+            }
             builder.CloseComponent();
         }
         else
@@ -325,7 +356,7 @@ public static class Utility
             builder.AddAttribute(3, nameof(ValidateBase<string>.ValueChanged), fieldValueChanged);
             builder.AddAttribute(4, nameof(ValidateBase<string>.ValueExpression), valueExpression);
 
-            if (!item.IsEditable(changedType, isSearch))
+            if (!item.CanWrite(model.GetType(), changedType, isSearch))
             {
                 builder.AddAttribute(5, nameof(ValidateBase<string>.IsDisabled), true);
             }
@@ -358,7 +389,7 @@ public static class Utility
         }
 
         // Nullabl<bool?>
-        if (fieldType == typeof(bool?) && lookup == null && item.Items == null)
+        if (item.ComponentType == typeof(Select<bool?>) && fieldType == typeof(bool?) && lookup == null && item.Items == null)
         {
             builder.AddAttribute(10, nameof(Select<bool?>.Items), GetNullableBoolItems(model, fieldName));
         }
@@ -366,27 +397,28 @@ public static class Utility
         // Lookup
         if (lookup != null && item.Items == null)
         {
-            builder.AddAttribute(11, nameof(Select<SelectedItem>.Items), lookup.Clone());
-            builder.AddAttribute(12, nameof(Select<SelectedItem>.StringComparison), item.LookupStringComparison);
+            builder.AddAttribute(11, nameof(Select<SelectedItem>.ShowSearch), true);
+            builder.AddAttribute(12, nameof(Select<SelectedItem>.Items), lookup.Clone());
+            builder.AddAttribute(13, nameof(Select<SelectedItem>.StringComparison), item.LookupStringComparison);
         }
 
         // 增加非枚举类,手动设定 ComponentType 为 Select 并且 Data 有值 自动生成下拉框
         if (item.Items != null && item.ComponentType == typeof(Select<>).MakeGenericType(fieldType))
         {
-            builder.AddAttribute(13, nameof(Select<SelectedItem>.Items), item.Items.Clone());
+            builder.AddAttribute(14, nameof(Select<SelectedItem>.Items), item.Items.Clone());
         }
 
         // 设置 SkipValidate 参数
         if (IsValidatableComponent(componentType))
         {
-            builder.AddAttribute(14, nameof(IEditorItem.SkipValidate), item.SkipValidate);
+            builder.AddAttribute(15, nameof(IEditorItem.SkipValidate), item.SkipValidate);
         }
 
-        builder.AddMultipleAttributes(15, CreateMultipleAttributes(fieldType, model, fieldName, item));
+        builder.AddMultipleAttributes(16, CreateMultipleAttributes(fieldType, model, fieldName, item));
 
         if (item.ComponentParameters != null)
         {
-            builder.AddMultipleAttributes(16, item.ComponentParameters);
+            builder.AddMultipleAttributes(17, item.ComponentParameters);
         }
         builder.CloseComponent();
     }
@@ -470,7 +502,7 @@ public static class Utility
         }
         else if (fieldType == typeof(bool?))
         {
-            ret = typeof(Select<bool?>);
+            ret = typeof(NullSwitch);
         }
         else
         {
@@ -631,28 +663,6 @@ public static class Utility
     #endregion
 
     /// <summary>
-    /// 树状数据层次化方法
-    /// </summary>
-    /// <param name="items">数据集合</param>
-    /// <param name="parentId">父级节点</param>
-    public static IEnumerable<TreeItem> CascadingTree(this IEnumerable<TreeItem> items, string? parentId = null) => items.Where(i => i.ParentId == parentId).Select(i =>
-    {
-        i.Items = CascadingTree(items, i.Id).ToList();
-        return i;
-    });
-
-    /// <summary>
-    /// 菜单树状数据层次化方法
-    /// </summary>
-    /// <param name="items">数据集合</param>
-    /// <param name="parentId">父级节点</param>
-    public static IEnumerable<MenuItem> CascadingMenu(this IEnumerable<MenuItem> items, string? parentId = null) => items.Where(i => i.ParentId == parentId).Select(i =>
-    {
-        i.Items = CascadingMenu(items, i.Id).ToList();
-        return i;
-    });
-
-    /// <summary>
     /// 
     /// </summary>
     /// <typeparam name="TValue"></typeparam>
@@ -713,6 +723,21 @@ public static class Utility
     /// <summary>
     /// 获得指定泛型的 IEditorItem 集合
     /// </summary>
+    /// <param name="source"></param>
     /// <returns></returns>
-    public static IEnumerable<IEditorItem> GenerateEditorItems<TModel>() => InternalTableColumn.GetProperties<TModel>();
+    public static IEnumerable<IEditorItem> GenerateEditorItems<TModel>(IEnumerable<ITableColumn>? source = null) => InternalTableColumn.GetProperties<TModel>(source);
+
+    /// <summary>
+    /// 通过指定类型创建 IStringLocalizer 实例
+    /// </summary>
+    /// <typeparam name="TType"></typeparam>
+    /// <returns></returns>
+    public static IStringLocalizer? CreateLocalizer<TType>() => CreateLocalizer(typeof(TType));
+
+    /// <summary>
+    /// 通过指定类型创建 IStringLocalizer 实例
+    /// </summary>
+    /// <param name="type"></param>
+    /// <returns></returns>
+    public static IStringLocalizer? CreateLocalizer(Type type) => CacheManager.CreateLocalizerByType(type);
 }

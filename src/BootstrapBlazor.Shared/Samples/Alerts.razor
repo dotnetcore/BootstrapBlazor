@@ -32,20 +32,36 @@
     <Alert Icon="fa fa-times-circle" Color="Color.Danger">@AlertDangerText</Alert>
 </DemoBlock>
 
+<DemoBlock Title="@Localizer["ShowBorderTitle"]" Introduction="@Localizer["ShowBorderIntro"]" Name="Shadow">
+    <Alert Icon="fa fa-check-circle" Color="Color.Primary" ShowBorder="true">@AlertPrimaryText</Alert>
+    <Alert Icon="fa fa-check-circle" Color="Color.Success" ShowBorder="true">@AlertPrimaryText</Alert>
+    <Alert Icon="fa fa-warning" Color="Color.Warning" ShowBorder="true">@AlertWarningText</Alert>
+    <Alert Icon="fa fa-question-circle" Color="Color.Info" ShowBorder="true">@AlertInfoText</Alert>
+    <Alert Icon="fa fa-times-circle" Color="Color.Danger" ShowBorder="true">@AlertDangerText</Alert>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["ShowShadowTitle"]" Introduction="@Localizer["ShowShadowIntro"]" Name="Shadow">
+    <Alert Icon="fa fa-check-circle" Color="Color.Primary" ShowBorder="true" ShowShadow="true">@AlertPrimaryText</Alert>
+    <Alert Icon="fa fa-check-circle" Color="Color.Success" ShowBorder="true" ShowShadow="true">@AlertPrimaryText</Alert>
+    <Alert Icon="fa fa-warning" Color="Color.Warning" ShowBorder="true" ShowShadow="true">@AlertWarningText</Alert>
+    <Alert Icon="fa fa-question-circle" Color="Color.Info" ShowBorder="true" ShowShadow="true">@AlertInfoText</Alert>
+    <Alert Icon="fa fa-times-circle" Color="Color.Danger" ShowBorder="true" ShowShadow="true">@AlertDangerText</Alert>
+</DemoBlock>
+
 <DemoBlock Title="@ShowBarUsageText" Introduction="@IntroText4" Name="ShowBar">
-    <Alert ShowBar="true" Color="Color.Info">
+    <Alert ShowBar="true" ShowBorder="true" Color="Color.Info">
         <div>@AlertInfoText</div>
     </Alert>
-    <Alert ShowBar="true" Color="Color.Success">
+    <Alert ShowBar="true" ShowBorder="true" Color="Color.Success">
         <div>@AlertSuccessText</div>
     </Alert>
-    <Alert ShowBar="true" Color="Color.Primary">
+    <Alert ShowBar="true" ShowBorder="true" Color="Color.Primary">
         <div>@AlertPrimaryText</div>
     </Alert>
-    <Alert ShowBar="true" Color="Color.Warning">
+    <Alert ShowBar="true" ShowBorder="true" Color="Color.Warning">
         <div>@AlertWarningText</div>
     </Alert>
-    <Alert ShowBar="true" Color="Color.Danger">
+    <Alert ShowBar="true" ShowBorder="true" Color="Color.Danger">
         <div>@AlertDangerText</div>
     </Alert>
 </DemoBlock>

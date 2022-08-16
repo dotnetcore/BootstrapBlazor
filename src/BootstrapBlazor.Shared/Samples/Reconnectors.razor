@@ -1,5 +1,6 @@
 ﻿@page "/reconnectors"
 @inject IStringLocalizer<Reconnectors> Localizer
+@inject IOptionsMonitor<WebsiteOptions> WebsiteOption
 
 <h3>@Localizer["Title"]</h3>
 
@@ -97,7 +98,7 @@
                     <div class="flex-fill">
                         <div class="mb-2">基于 <b>Bootstrap</b> 样式的 <b>Blazor UI</b> 组件库</div>
                         <div class="mb-2">适配移动端支持各种主流浏览器，适配 <b>ABP</b>，同时支持 <b>NET5/NET6</b>，交流群 <b>795206915</b></div>
-                        <div>已提供项目模板方便快速上手 <a class="connection-link" href="https://gitee.com/LongbowEnterprise/BootstrapBlazor/wikis/%E9%A1%B9%E7%9B%AE%E6%A8%A1%E6%9D%BF%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B">项目模板</a></div>
+                        <div>已提供项目模板方便快速上手 <a class="connection-link" href="@TemplateUrl">项目模板</a></div>
                     </div>
                     <div class="connection-body-tail d-none d-sm-block"></div>
                 </div>
@@ -126,7 +127,7 @@
                     &lt;div class="flex-fill"&gt;
                         &lt;div class="mb-2"&gt;基于 &lt;b&gt;Bootstrap&lt;/b&gt; 样式的 &lt;b&gt;Blazor UI&lt;/b&gt; 组件库&lt;/div&gt;
                         &lt;div class="mb-2"&gt;适配移动端支持各种主流浏览器，适配 &lt;b&gt;ABP&lt;/b&gt;，同时支持 &lt;b&gt;NET5/NET6&lt;/b&gt;，交流群 &lt;b&gt;795206915&lt;/b&gt;&lt;/div&gt;
-                        &lt;div&gt;已提供项目模板方便快速上手 &lt;a class="connection-link" href="https://gitee.com/LongbowEnterprise/BootstrapBlazor/wikis/%E9%A1%B9%E7%9B%AE%E6%A8%A1%E6%9D%BF%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B"&gt;项目模板&lt;/a&gt;&lt;/div&gt;
+                        &lt;div&gt;已提供项目模板方便快速上手 &lt;a class="connection-link" href="@TemplateUrl"&gt;项目模板&lt;/a&gt;&lt;/div&gt;
                     &lt;/div&gt;
                     &lt;div class="connection-body-tail d-none d-sm-block"&gt;&lt;/div&gt;
                 &lt;/div&gt;
@@ -157,7 +158,7 @@
                     <div class="flex-fill">
                         <div class="mb-2">基于 <b>Bootstrap</b> 样式的 <b>Blazor UI</b> 组件库</div>
                         <div class="mb-2">适配移动端支持各种主流浏览器，适配 <b>ABP</b>，同时支持 <b>NET5/NET6</b>，交流群 <b>795206915</b></div>
-                        <div>已提供项目模板方便快速上手 <a class="connection-link" href="https://gitee.com/LongbowEnterprise/BootstrapBlazor/wikis/%E9%A1%B9%E7%9B%AE%E6%A8%A1%E6%9D%BF%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B">项目模板</a></div>
+                        <div>已提供项目模板方便快速上手 <a class="connection-link" href="@TemplateUrl">项目模板</a></div>
                     </div>
                     <div class="connection-body-tail d-none d-sm-block"></div>
                 </div>
@@ -187,7 +188,7 @@
                     &lt;div class="flex-fill"&gt;
                         &lt;div class="mb-2"&gt;基于 &lt;b&gt;Bootstrap&lt;/b&gt; 样式的 &lt;b&gt;Blazor UI&lt;/b&gt; 组件库&lt;/div&gt;
                         &lt;div class="mb-2"&gt;适配移动端支持各种主流浏览器，适配 &lt;b&gt;ABP&lt;/b&gt;，同时支持 &lt;b&gt;NET5/NET6&lt;/b&gt;，交流群 &lt;b&gt;795206915&lt;/b&gt;&lt;/div&gt;
-                        &lt;div&gt;已提供项目模板方便快速上手 &lt;a class="connection-link" href="https://gitee.com/LongbowEnterprise/BootstrapBlazor/wikis/%E9%A1%B9%E7%9B%AE%E6%A8%A1%E6%9D%BF%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B"&gt;项目模板&lt;/a&gt;&lt;/div&gt;
+                        &lt;div&gt;已提供项目模板方便快速上手 &lt;a class="connection-link" href="@TemplateUrl"&gt;项目模板&lt;/a&gt;&lt;/div&gt;
                     &lt;/div&gt;
                     &lt;div class="connection-body-tail d-none d-sm-block"&gt;&lt;/div&gt;
                 &lt;/div&gt;
@@ -219,7 +220,7 @@
                     <div class="flex-fill">
                         <div class="mb-2">基于 <b>Bootstrap</b> 样式的 <b>Blazor UI</b> 组件库</div>
                         <div class="mb-2">适配移动端支持各种主流浏览器，适配 <b>ABP</b>，同时支持 <b>NET5/NET6</b>，交流群 <b>795206915</b></div>
-                        <div>已提供项目模板方便快速上手 <a class="connection-link" href="https://gitee.com/LongbowEnterprise/BootstrapBlazor/wikis/%E9%A1%B9%E7%9B%AE%E6%A8%A1%E6%9D%BF%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B">项目模板</a></div>
+                        <div>已提供项目模板方便快速上手 <a class="connection-link" href="@TemplateUrl">项目模板</a></div>
                     </div>
                     <div class="connection-body-tail d-none d-sm-block"></div>
                 </div>
@@ -248,7 +249,7 @@
                     &lt;div class="flex-fill"&gt;
                         &lt;div class="mb-2"&gt;基于 &lt;b&gt;Bootstrap&lt;/b&gt; 样式的 &lt;b&gt;Blazor UI&lt;/b&gt; 组件库&lt;/div&gt;
                         &lt;div class="mb-2"&gt;适配移动端支持各种主流浏览器，适配 &lt;b&gt;ABP&lt;/b&gt;，同时支持 &lt;b&gt;NET5/NET6&lt;/b&gt;，交流群 &lt;b&gt;795206915&lt;/b&gt;&lt;/div&gt;
-                        &lt;div&gt;已提供项目模板方便快速上手 &lt;a class="connection-link" href="https://gitee.com/LongbowEnterprise/BootstrapBlazor/wikis/%E9%A1%B9%E7%9B%AE%E6%A8%A1%E6%9D%BF%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B"&gt;项目模板&lt;/a&gt;&lt;/div&gt;
+                        &lt;div&gt;已提供项目模板方便快速上手 &lt;a class="connection-link" href="@TemplateUrl"&gt;项目模板&lt;/a&gt;&lt;/div&gt;
                     &lt;/div&gt;
                     &lt;div class="connection-body-tail d-none d-sm-block"&gt;&lt;/div&gt;
                 &lt;/div&gt;

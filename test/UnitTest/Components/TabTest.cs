@@ -9,7 +9,7 @@ using UnitTest.Misc;
 
 namespace UnitTest.Components;
 
-public class TabTest : BootstrapBlazorTestBase
+public class TabTest : TabTestBase
 {
     [Fact]
     public void TabItem_Ok()
@@ -20,7 +20,6 @@ public class TabTest : BootstrapBlazorTestBase
             {
                 pb.Add(a => a.Text, "Tab1");
                 pb.Add(a => a.Url, "/Index");
-                pb.Add(a => a.IsShow, true);
                 pb.Add(a => a.Closable, true);
                 pb.Add(a => a.Icon, "fa fa-fa");
                 pb.Add(a => a.Key, "TabItem-Key");
@@ -189,6 +188,30 @@ public class TabTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public async Task AddTab_Index()
+    {
+        var cut = Context.RenderComponent<Tab>(pb =>
+        {
+            pb.Add(a => a.ShowClose, true);
+            pb.Add(a => a.AdditionalAssemblies, new Assembly[] { GetType().Assembly });
+        });
+        var tab = cut.Instance;
+        await cut.InvokeAsync(() => tab.AddTab(new Dictionary<string, object?>
+        {
+            ["Text"] = "Cat",
+            ["Url"] = "Cat"
+        }));
+        await cut.InvokeAsync(() => tab.AddTab(new Dictionary<string, object?>
+        {
+            ["Text"] = "Dog",
+            ["Url"] = "Dog"
+        }, 0));
+        var tabItems = tab.Items.ToList();
+        Assert.Equal("Dog", tabItems[0].Text);
+        Assert.Equal("Cat", tabItems[1].Text);
+    }
+
+    [Fact]
     public void AddTabByUrl_Ok()
     {
         var navMan = Context.Services.GetRequiredService<FakeNavigationManager>();
@@ -348,21 +371,64 @@ public class TabTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public async Task SetText_Ok()
+    public void SetText_Ok()
     {
+        var text = "Tab1";
         var cut = Context.RenderComponent<Tab>(pb =>
         {
             pb.Add(a => a.AdditionalAssemblies, new Assembly[] { GetType().Assembly });
             pb.Add(a => a.ClickTabToNavigation, true);
             pb.AddChildContent<TabItem>(pb =>
             {
-                pb.Add(a => a.Text, "Tab1");
+                pb.Add(a => a.Text, text);
                 pb.Add(a => a.Url, "/Cat");
             });
         });
         cut.Contains("<span class=\"tabs-item-text\">Tab1</span>");
-        var item = cut.FindComponent<TabItem>();
-        await cut.InvokeAsync(() => item.Instance.SetText("Text", "fa fa-fa", true));
+
+        text = "Text";
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.AddChildContent<TabItem>(pb =>
+            {
+                pb.Add(a => a.Text, text);
+                pb.Add(a => a.Url, "/Cat");
+            });
+        });
         cut.Contains("<span class=\"tabs-item-text\">Text</span>");
+    }
+
+    [Fact]
+    public void TabItem_HeaderTemplate()
+    {
+        var cut = Context.RenderComponent<Tab>(pb =>
+        {
+            pb.AddChildContent<TabItem>(pb =>
+            {
+                pb.Add(a => a.HeaderTemplate, tab => builder =>
+                {
+                    builder.AddContent(0, "test-HeaderTemplate");
+                });
+                pb.Add(a => a.Url, "/Cat");
+            });
+        });
+        cut.Contains("test-HeaderTemplate");
+    }
+
+    [Fact]
+    public async Task TabItemOption_Ok()
+    {
+        var cut = Context.RenderComponent<Tab>(pb =>
+        {
+            pb.Add(a => a.AdditionalAssemblies, new Assembly[] { GetType().Assembly });
+            pb.Add(a => a.ShowExtendButtons, true);
+            pb.Add(a => a.Placement, Placement.Top);
+            pb.Add(a => a.ClickTabToNavigation, true);
+            pb.Add(a => a.ShowClose, true);
+            pb.Add(a => a.DefaultUrl, "/Dog");
+        });
+        await cut.InvokeAsync(() => cut.Instance.AddTab("/Dog", "Dog"));
+        var tabItem = cut.FindComponents<DynamicElement>().First(i => i.Markup.Contains("Dog"));
+        Assert.DoesNotContain("tabs-item-close", tabItem.Markup);
     }
 }

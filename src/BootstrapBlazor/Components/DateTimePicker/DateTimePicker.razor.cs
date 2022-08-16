@@ -2,7 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 
 namespace BootstrapBlazor.Components;
@@ -130,6 +129,12 @@ public sealed partial class DateTimePicker<TValue>
     /// </summary>
     [Parameter]
     public Func<TValue, Task>? OnDateTimeChanged { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否点击确认关闭弹窗 默认 false
+    /// </summary>
+    [Parameter]
+    public bool AutoClose { get; set; }
 
     [Inject]
     [NotNull]

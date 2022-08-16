@@ -2,7 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
 using System.Reflection;
@@ -17,7 +16,7 @@ public partial class Tab
     private bool FirstRender { get; set; } = true;
 
     private static string? GetContentClassString(TabItem item) => CssBuilder.Default("tabs-body-content")
-        .AddClass("d-none", !item.IsActive || !item.IsShow)
+        .AddClass("d-none", !item.IsActive)
         .Build();
 
     private string? WrapClassString => CssBuilder.Default("tabs-nav-wrap")
@@ -27,7 +26,6 @@ public partial class Tab
     private string? GetClassString(TabItem item) => CssBuilder.Default("tabs-item")
         .AddClass("active", item.IsActive)
         .AddClass("is-closeable", ShowClose)
-        .AddClass("d-none", !item.IsShow)
         .Build();
 
     private static string? GetIconClassString(string icon) => CssBuilder.Default()
@@ -145,7 +143,7 @@ public partial class Tab
     public IEnumerable<string>? ExcludeUrls { get; set; }
 
     /// <summary>
-    /// 获得/设置 默认标签页 关闭所以标签页时自动打开此地址 默认 null 未设置
+    /// 获得/设置 默认标签页 关闭所有标签页时自动打开此地址 默认 null 未设置
     /// </summary>
     [Parameter]
     public string? DefaultUrl { get; set; }
@@ -462,13 +460,13 @@ public partial class Tab
         if (context.Handler != null)
         {
             // 检查 Options 优先
+            var option = context.Handler.GetCustomAttribute<TabItemOptionAttribute>(false);
             if (Options.Valid())
             {
-                AddParameters();
+                AddParameters(option);
             }
             else
             {
-                var option = context.Handler.GetCustomAttribute<TabItemOptionAttribute>(false);
                 if (option != null)
                 {
                     parameters.Add(nameof(TabItem.Icon), option.Icon);
@@ -499,12 +497,12 @@ public partial class Tab
 
         AddTabItem(parameters);
 
-        void AddParameters()
+        void AddParameters(TabItemOptionAttribute? option)
         {
-            var text = Options.Text;
-            var icon = Options.Icon ?? string.Empty;
+            var text = option?.Text ?? Options.Text;
+            var icon = option?.Icon ?? Options.Icon ?? string.Empty;
             var active = Options.IsActive;
-            var closable = Options.Closable;
+            var closable = option?.Closable ?? Options.Closable;
             Options.Reset();
 
             parameters.Add(nameof(TabItem.Url), url);
@@ -519,13 +517,14 @@ public partial class Tab
     /// 添加 TabItem 方法
     /// </summary>
     /// <param name="parameters"></param>
-    public void AddTab(Dictionary<string, object?> parameters)
+    /// <param name="index"></param>
+    public void AddTab(Dictionary<string, object?> parameters, int? index = null)
     {
-        AddTabItem(parameters);
+        AddTabItem(parameters, index);
         StateHasChanged();
     }
 
-    private void AddTabItem(Dictionary<string, object?> parameters)
+    private void AddTabItem(Dictionary<string, object?> parameters, int? index = null)
     {
         var item = TabItem.Create(parameters);
         item.TabSet = this;
@@ -534,7 +533,15 @@ public partial class Tab
             _items.ForEach(i => i.SetActive(false));
         }
 
-        _items.Add(item);
+        if (index.HasValue)
+        {
+            _items.Insert(index.Value, item);
+        }
+        else
+        {
+            _items.Add(item);
+        }
+
     }
 
     /// <summary>
@@ -591,7 +598,7 @@ public partial class Tab
     }
 
     /// <summary>
-    /// 设置指定 TabItem 为激活状态设置指定 TabItem 为激活状态
+    /// 设置指定 TabItem 为激活状态
     /// </summary>
     /// <param name="index"></param>
     public void ActiveTab(int index)

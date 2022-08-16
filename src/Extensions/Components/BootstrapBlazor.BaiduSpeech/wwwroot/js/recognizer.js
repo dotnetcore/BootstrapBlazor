@@ -1,27 +1,24 @@
-﻿let rec;
+﻿import "./recorder.wav.min.js";
+
+let rec;
 let isStart;
 let handler;
 
 export function bb_baidu_speech_recognizeOnce(obj, recognizeCallback, interval) {
-    var baidu_recognizer = function () {
-        Recorder.TrafficImgUrl = "";
-        rec = new Recorder({ type: "wav", sampleRate: 16000, bitRate: 16 });
-        rec.open(function () {
-            isStart = true;
-            rec.start();
-            // 通知 UI 开始接收语音
-            obj.invokeMethodAsync(recognizeCallback, "Start", "");
-            handler = setTimeout(function () {
-                bb_baidu_speech_close(obj, recognizeCallback, interval);
-            }, interval);
-        }, function (msg, isUserNotAllow) {
-            console.log((isUserNotAllow ? "UserNotAllow，" : "") + "无法录音:" + msg);
-            obj.invokeMethodAsync(recognizeCallback, "Error", "UserNotAllow");
-        });
-    }
-
-    BootstrapBlazorModules.addScript('_content/BootstrapBlazor.BaiduSpeech/js/recorder.wav.min.js');
-    BootstrapBlazorModules.load('Recorder', baidu_recognizer);
+    Recorder.TrafficImgUrl = "";
+    rec = new Recorder({ type: "wav", sampleRate: 16000, bitRate: 16 });
+    rec.open(function () {
+        isStart = true;
+        rec.start();
+        // 通知 UI 开始接收语音
+        obj.invokeMethodAsync(recognizeCallback, "Start", "");
+        handler = setTimeout(function () {
+            bb_baidu_speech_close(obj, recognizeCallback, interval);
+        }, interval);
+    }, function (msg, isUserNotAllow) {
+        console.log((isUserNotAllow ? "UserNotAllow，" : "") + "无法录音:" + msg);
+        obj.invokeMethodAsync(recognizeCallback, "Error", "UserNotAllow");
+    });
 };
 
 export function bb_baidu_speech_close(obj, recognizeCallback, interval) {

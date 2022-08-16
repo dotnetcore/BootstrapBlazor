@@ -39,14 +39,14 @@ public class ChartOptions
     /// 获得/设置 数据显示颜色
     /// </summary>
     public Dictionary<string, string> Colors { get; set; } = new Dictionary<string, string>()
-        {
-            { "blue", "rgb(54, 162, 235)" },
-            { "green", "rgb(75, 192, 192)" },
-            { "red", "rgb(255, 99, 132)" },
-            { "orange", "rgb(255, 159, 64)" },
-            { "yellow", "rgb(255, 205, 86)" },
-            { "tomato", "rgb(255, 99, 71)" },
-            { "pink", "rgb(255, 192, 203)" },
-            { "violet", "rgb(238, 130, 238)" }
-        };
+    {
+        { "blue", "rgb(54, 162, 235)" },
+        { "green", "rgb(75, 192, 192)" },
+        { "red", "rgb(255, 99, 132)" },
+        { "orange", "rgb(255, 159, 64)" },
+        { "yellow", "rgb(255, 205, 86)" },
+        { "tomato", "rgb(255, 99, 71)" },
+        { "pink", "rgb(255, 192, 203)" },
+        { "violet", "rgb(238, 130, 238)" }
+    };
 }

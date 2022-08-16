@@ -5,7 +5,7 @@
     --bb-violet-rgb: 112.520718,44.062154,249.437846;
     --bb-bg-violet: #7a5cff;
     --bb-bg-navbar: #8548ff;
-    --bb-layout-sidebar-banner-bg: #702cf8;
+    --bb-layout-sidebar-banner-background: #702cf8;
 }
 
 header {
@@ -920,7 +920,7 @@ section {
 }
 
 .layout-menu-demo .layout-side {
-    background-color: var(--bs-bg-disabled);
+    background-color: var(--bb-bg-disabled);
     color: #dcdfe6;
     height: 100%;
 }
@@ -933,7 +933,7 @@ section {
     display: flex;
     align-items: center;
     padding: 0 .625rem;
-    background-color: var(--bb-layout-sidebar-banner-bg);
+    background-color: var(--bb-layout-sidebar-banner-background);
     height: 50px;
     font-size: 1.5rem;
 }
@@ -1166,7 +1166,7 @@ section {
     .textarea-demo {
         word-break: break-all;
         height: auto;
-        min-height: 35px;
+        min-height: var(--bb-height);
         width: calc(100% - 100px);
     }
 }
@@ -1314,7 +1314,7 @@ section {
 
         .layout-item .layout-left .layout-left-header {
             height: 16px;
-            background-color: var(--bb-layout-sidebar-banner-bg);
+            background-color: var(--bb-layout-sidebar-banner-background);
         }
 
         .layout-item .layout-left .layout-left-body,
@@ -1389,7 +1389,7 @@ section {
 
 .layout.is-page.color1 .layout-side {
     background-color: #212529;
-    color: var(--bs-bg-disabled);
+    color: var(--bb-bg-disabled);
 }
 
 .layout.is-page.color1 .layout-footer {
@@ -1416,7 +1416,7 @@ section {
 
 .layout.is-page.color2 .layout-side {
     background-color: #212529;
-    color: var(--bs-bg-disabled);
+    color: var(--bb-bg-disabled);
 }
 
 .layout.is-page.color2 .layout-footer {
@@ -1443,7 +1443,7 @@ section {
 
 .layout.is-page.color3 .layout-side {
     background-color: #212529;
-    color: var(--bs-bg-disabled);
+    color: var(--bb-bg-disabled);
 }
 
 .layout.is-page.color3 .layout-footer {
@@ -1470,7 +1470,7 @@ section {
 
 .layout.is-page.color4 .layout-side {
     background-color: #212529;
-    color: var(--bs-bg-disabled);
+    color: var(--bb-bg-disabled);
 }
 
 .layout.is-page.color4 .layout-footer {
@@ -1502,7 +1502,7 @@ section {
 
 .layout.is-page.color6 .layout-side {
     background-color: #212529;
-    color: var(--bs-bg-disabled);
+    color: var(--bb-bg-disabled);
 }
 
 .layout.is-page.color6 .layout-footer {
@@ -1649,6 +1649,9 @@ section {
 }
 
 .btn-theme {
+    --bs-btn-bg: #034995;
+    --bs-btn-hover-bg: #034995;
+    --bs-btn-active-bg: #034995;
     width: 40px;
     height: 40px;
     border-radius: 50% !important;
@@ -1657,7 +1660,6 @@ section {
     z-index: 12;
     right: 1rem;
     bottom: 9rem;
-    background-color: #034995;
     padding: 11px;
 }
 
@@ -1707,22 +1709,8 @@ section {
         border-top-left-radius: 5px;
         border-top-right-radius: 5px;
         margin: -1rem -1rem 1rem -1rem;
-        position: relative;
+        display: flex;
     }
-
-        .theme-list .theme-header .theme-close {
-            font-size: 1.25rem;
-            cursor: pointer;
-            position: absolute;
-            right: 1rem;
-            top: 7px;
-            padding: 0 3px;
-            transition: color .3s linear;
-        }
-
-            .theme-list .theme-header .theme-close:hover {
-                color: #005980;
-            }
 
     .theme-list .theme-item {
         cursor: pointer;
@@ -1967,3 +1955,34 @@ header .bb-fs {
         height: 24px;
         fill: currentcolor;
     }
+
+.shields .bb-img {
+    display: inline-block;
+    height: 21px;
+    margin-bottom: 0.75rem;
+}
+
+.carousel-item-demo {
+    text-align: center;
+}
+
+    .carousel-item-demo > h3 + div {
+        margin: 1rem 0;
+    }
+
+.menu .nav-link.nav-table {
+    color: var(--bb-bg-violet);
+    font-weight: bold;
+}
+
+    .menu .nav-link.nav-table:hover {
+        color: unset;
+    }
+
+.custom-popover {
+    --bs-popover-border-color: var(--bs-primary);
+    --bs-popover-header-bg: var(--bs-primary);
+    --bs-popover-header-color: var(--bs-white);
+    --bs-popover-body-padding-x: 1rem;
+    --bs-popover-body-padding-y: 1rem;
+}

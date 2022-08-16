@@ -45,7 +45,7 @@ public class PaginationTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void MovePage_Ok()
+    public async Task MovePage_Ok()
     {
         var pageClicked = false;
         var cut = Context.RenderComponent<Pagination>(pb =>
@@ -59,24 +59,24 @@ public class PaginationTest : BootstrapBlazorTestBase
             });
         });
         var items = cut.FindAll(".page-link-prev, .page-link-next");
-        cut.InvokeAsync(() => items[0].Click());
+        await cut.InvokeAsync(() => items[0].Click());
         Assert.True(pageClicked);
 
         pageClicked = false;
-        cut.InvokeAsync(() => items[1].Click());
+        await cut.InvokeAsync(() => items[1].Click());
         Assert.True(pageClicked);
 
         pageClicked = false;
         items = cut.FindAll(".page-item .page-link");
-        cut.InvokeAsync(() => items[3].Click());
+        await cut.InvokeAsync(() => items[3].Click());
         Assert.True(pageClicked);
 
         pageClicked = false;
-        cut.InvokeAsync(() => items[0].Click());
+        await cut.InvokeAsync(() => items[0].Click());
         Assert.True(pageClicked);
 
         pageClicked = false;
-        cut.InvokeAsync(() => items[8].Click());
+        await cut.InvokeAsync(() => items[8].Click());
         Assert.True(pageClicked);
     }
 

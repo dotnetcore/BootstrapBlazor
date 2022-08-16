@@ -350,6 +350,14 @@ public partial class Tables
         },
         new()
         {
+            Name = "HeaderTextWrap",
+            Description = TablesLocalizer["HeaderTextWrap"],
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "false"
+        },
+        new()
+        {
             Name = "Height",
             Description = TablesLocalizer["HeightAttr"],
             Type = "int",
@@ -491,6 +499,14 @@ public partial class Tables
             Type = "RenderFragment<TItem>",
             ValueList = " — ",
             DefaultValue = " — "
+        },
+        new()
+        {
+            Name = "IsAutoCollapsedToolbarButton",
+            Description = TablesLocalizer["IsAutoCollapsedToolbarButtonAttr"],
+            Type = "boolean",
+            ValueList = "true / false",
+            DefaultValue = "true"
         },
         new()
         {
@@ -766,11 +782,27 @@ public partial class Tables
         },
         new()
         {
+            Name = "ShowLoadingInFirstRender",
+            Description = TablesLocalizer["ShowLoadingInFirstRenderAttr"],
+            Type = "boolean",
+            ValueList = "true / false",
+            DefaultValue = "true"
+        },
+        new()
+        {
             Name = "ShowColumnList",
             Description = TablesLocalizer["ShowColumnListAttr"],
             Type = "boolean",
             ValueList = "true / false",
             DefaultValue = "false"
+        },
+        new()
+        {
+            Name = "OnColumnVisibleChanged",
+            Description = TablesLocalizer["OnColumnVisibleChangedAttr"],
+            Type = "Func<string, bool>",
+            ValueList = " — ",
+            DefaultValue = " — "
         },
         new()
         {
@@ -979,6 +1011,14 @@ public partial class Tables
             Type = "Size",
             ValueList = " — ",
             DefaultValue = "Large"
+        },
+        new()
+        {
+            Name = "ExportButtonDropdownTemplate",
+            Description = TablesLocalizer["ExportButtonDropdownTemplateAttr"],
+            Type = "RenderFragment",
+            ValueList = " — ",
+            DefaultValue = " — "
         },
         new()
         {

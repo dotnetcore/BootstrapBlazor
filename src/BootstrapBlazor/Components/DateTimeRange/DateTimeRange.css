@@ -9,6 +9,8 @@
     transition: border-color .2s cubic-bezier(.645,.045,.355,1);
     padding: 0px 10px;
     position: relative;
+    overflow: hidden;
+    white-space: nowrap;
 }
 
     .datetime-range:hover {
@@ -23,6 +25,10 @@
     .datetime-range.disabled input {
         background-color: #e9ecef;
     }
+
+.form-label + .datetime-range {
+    display: block;
+}
 
 .datetime-range-bar {
     display: inline-flex;
@@ -99,8 +105,4 @@
 
 .datetime-range:hover:not(.disabled) .range-clear {
     display: flex;
-}
-
-.form-inline > * > .datetime-range {
-    display: block;
 }

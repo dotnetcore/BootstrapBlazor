@@ -2,7 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 
 namespace BootstrapBlazor.Components;
@@ -98,6 +97,17 @@ public partial class DateTimeRange
     [Parameter]
     [NotNull]
     public string? ConfirmButtonText { get; set; }
+
+    /// <summary>
+    /// 获得/设置 最大值
+    /// </summary>
+    [Parameter]
+    public DateTime MaxValue { get; set; } = DateTime.MaxValue;
+    /// <summary>
+    /// 获得/设置 最小值
+    /// </summary>
+    [Parameter]
+    public DateTime MinValue { get; set; } = DateTime.MinValue;
 
     /// <summary>
     /// 获得/设置 弹窗位置 默认为 Auto

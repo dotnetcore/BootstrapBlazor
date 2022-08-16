@@ -4,7 +4,6 @@
 
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.Extensions.Localization;
-using System.ComponentModel.DataAnnotations;
 
 namespace BootstrapBlazor.Components;
 
@@ -36,25 +35,30 @@ public class FileValidationAttribute : ValidationAttribute
     {
         ValidationResult? ret = null;
 
-        if (value != null)
+        if (value is IBrowserFile file)
         {
-            var file = (IBrowserFile?)value;
-            if (file != null)
+            Localizer = Utility.CreateLocalizer<UploadBase<object>>();
+            if (Localizer != null)
             {
-                Localizer = CacheManager.CreateLocalizer<UploadBase<object>>();
                 if (Extensions.Any() && !Extensions.Contains(Path.GetExtension(file.Name), StringComparer.OrdinalIgnoreCase))
                 {
-                    var errorMessage = Localizer?["FileExtensions", string.Join(", ", Extensions)];
-                    ret = new ValidationResult(errorMessage?.Value, new[] { validationContext.MemberName! });
+                    var errorMessage = Localizer["FileExtensions", string.Join(", ", Extensions)];
+                    ret = new ValidationResult(errorMessage.Value, GetMemberNames(validationContext));
                 }
                 if (ret == null && FileSize > 0 && file.Size > FileSize)
                 {
-                    var errorMessage = Localizer?["FileSizeValidation", FileSize.ToFileSizeString()];
-                    ret = new ValidationResult(errorMessage?.Value, new[] { validationContext.MemberName! });
+                    var errorMessage = Localizer["FileSizeValidation", FileSize.ToFileSizeString()];
+                    ret = new ValidationResult(errorMessage.Value, GetMemberNames(validationContext));
                 }
             }
         }
-
         return ret;
+    }
+
+    private static IEnumerable<string>? GetMemberNames(ValidationContext validationContext)
+    {
+        return validationContext == null ? Enumerable.Empty<string>() : GetMemberNames();
+
+        IEnumerable<string> GetMemberNames() => string.IsNullOrWhiteSpace(validationContext.MemberName) ? Enumerable.Empty<string>() : new string[] { validationContext.MemberName };
     }
 }

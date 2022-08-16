@@ -357,6 +357,26 @@ public class ValidateFormTest : ValidateFormTestBase
         Assert.True(valid);
     }
 
+    [Fact]
+    public async Task ValidateFromCode_Ok()
+    {
+        var foo = new Foo();
+        var cut = Context.RenderComponent<ValidateForm>(pb =>
+        {
+            pb.Add(a => a.Model, foo);
+            pb.AddChildContent<BootstrapInput<string>>(pb =>
+            {
+                pb.Add(a => a.Value, foo.Address);
+                pb.Add(a => a.ValueExpression, Utility.GenerateValueExpression(foo, "Address", typeof(string)));
+            });
+        });
+        Assert.Contains("form-control valid", cut.Markup);
+
+        var form = cut.Instance;
+        await cut.InvokeAsync(() => form.Validate());
+        Assert.Contains("form-control invalid is-invalid", cut.Markup);
+    }
+
     [MetadataType(typeof(DummyMetadata))]
     private class Dummy
     {

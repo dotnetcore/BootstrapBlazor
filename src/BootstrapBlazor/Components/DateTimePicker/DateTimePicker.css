@@ -28,7 +28,7 @@
     position: absolute;
     left: 0;
     top: 0;
-    line-height: 35px;
+    line-height: var(--bb-height);
     cursor: pointer;
     padding: 0 .75rem;
 }
@@ -54,7 +54,6 @@
 .date-picker-time-header {
     position: relative;
     border-bottom: 1px solid #e4e4e4;
-    font-size: 12px;
     padding: 8px 5px 5px;
     display: table;
     width: 100%;
@@ -208,7 +207,7 @@
 .date-table th {
     padding: 5px;
     font-weight: 400;
-    border-bottom: 1px solid var(--bs-border-color);
+    border-bottom: 1px solid var(--bb-border-color);
     text-align: center;
 }
 
@@ -264,7 +263,7 @@
 }
 
     .year-table tr, .month-table tr {
-        border-top: 1px solid var(--bs-border-color);
+        border-top: 1px solid var(--bb-border-color);
     }
 
     .year-table td div {
@@ -327,7 +326,7 @@
     min-width: 0;
 }
 
-    .input-group > .datetime-picker .form-control {
+    .input-group > .datetime-picker:not(:first-child) .form-control {
         border-top-left-radius: 0;
         border-bottom-left-radius: 0;
     }

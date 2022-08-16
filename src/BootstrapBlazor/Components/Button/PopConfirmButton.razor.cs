@@ -2,7 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 
 namespace BootstrapBlazor.Components;
@@ -15,7 +14,7 @@ public partial class PopConfirmButton
     private string? PopButtonClassName => IsLink ? InternalClassName : ClassName;
 
     private string? InternalClassName => CssBuilder.Default()
-        .AddClass($"text-{Color.ToDescriptionString()}", Color != Color.None)
+        .AddClass($"link-{Color.ToDescriptionString()}", Color != Color.None)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
@@ -24,6 +23,13 @@ public partial class PopConfirmButton
     /// </summary>
     [Parameter]
     public override Color Color { get; set; } = Color.None;
+
+    /// <summary>
+    /// 获得/设置 自定义样式 默认 null
+    /// </summary>
+    /// <remarks>由 data-bs-custom-class 实现</remarks>
+    [Parameter]
+    public string? CssClass { get; set; }
 
     /// <summary>
     /// 获得/设置 PopoverConfirm 服务实例
@@ -87,6 +93,7 @@ public partial class PopConfirmButton
                 Icon = ConfirmIcon,
                 OnConfirm = Confirm,
                 OnClose = OnClose,
+                CssClass = CssClass,
                 Callback = async () => await JSRuntime.InvokeVoidAsync(Id, "bb_confirm")
             });
         }
@@ -105,7 +112,7 @@ public partial class PopConfirmButton
             Icon = LoadingIcon;
             StateHasChanged();
 
-            await OnConfirm();
+            await Task.Run(() => InvokeAsync(OnConfirm));
 
             IsDisabled = false;
             Icon = icon;

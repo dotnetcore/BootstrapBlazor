@@ -251,7 +251,8 @@
     "EmptyText": "No Data",
     "ExportToastTitle": "Export",
     "ExportToastContent": "Export data {0}, auto close after {1}s",
-    "ExportToastInProgressContent": "Exporting data, please waiting a moment, auto close after {0}s"
+    "ExportToastInProgressContent": "Exporting data, please waiting a moment, auto close after {0}s",
+    "ExportExcelDropdownItemText": "MS-Excel"
   },
   "BootstrapBlazor.Components.EditDialog": {
     "CloseButtonText": "Close",
@@ -300,6 +301,9 @@
     "SearchPlaceHolderString": "Please input ...",
     "Text": "List"
   },
+  "BootstrapBlazor.Components.Tree": {
+    "NotSetOnTreeExpandErrorMessage": "not set OnExpandNodeAsync parameter"
+  },
   "BootstrapBlazor.Components.UploadBase": {
     "DeleteButtonText": "Delete",
     "BrowserButtonText": "Browser",
@@ -326,5 +330,9 @@
     "NullValueDisplayText": "Please select ...",
     "TrueValueDisplayText": "True",
     "FalseValueDisplayText": "False"
+  },
+  "BootstrapBlazor.Components.InsertRowMode": {
+    "Last": "Last",
+    "First": "First"
   }
 }

@@ -3,7 +3,6 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using BootstrapBlazor.Shared;
-using UnitTest.Extensions;
 
 namespace UnitTest.Components;
 
@@ -37,6 +36,23 @@ public class MultiSelectTest : BootstrapBlazorTestBase
     {
         var cut = Context.RenderComponent<MultiSelect<EnumEducation>>();
         Assert.Contains("multi-select", cut.Markup);
+    }
+
+    [Fact]
+    public void Group_Ok()
+    {
+        var cut = Context.RenderComponent<MultiSelect<string>>(pb =>
+        {
+            pb.Add(a => a.Items, new List<SelectedItem>
+            {
+                new("1", "Test 1") { GroupName = "Group 1" },
+                new("2", "Test 2") { GroupName = "Group 1" },
+                new("3", "Test 3") { GroupName = "Group 2" },
+                new("4", "Test 4") { GroupName = "Group 2" }
+            });
+        });
+        Assert.Contains("Group 1", cut.Markup);
+        Assert.Contains("Group 2", cut.Markup);
     }
 
     [Fact]

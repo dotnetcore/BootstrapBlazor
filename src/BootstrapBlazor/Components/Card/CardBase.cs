@@ -2,8 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using Microsoft.AspNetCore.Components;
-
 namespace BootstrapBlazor.Components;
 
 /// <summary>
@@ -33,6 +31,20 @@ public abstract class CardBase : BootstrapComponentBase
     /// </summary>
     protected virtual string? FooterClassName => CssBuilder.Default("card-footer")
         .AddClass("text-muted", IsCenter)
+        .Build();
+
+    /// <summary>
+    /// 获得 Header Class 样式
+    /// </summary>
+    protected string? HeaderClassString => CssBuilder.Default("card-collapse")
+        .AddClass("is-open", !Collapsed)
+        .Build();
+
+    /// <summary>
+    /// 
+    /// </summary>
+    protected string? CardBodyStyleString => CssBuilder.Default()
+        .AddClass("display: none;", IsCollapsible && Collapsed)
         .Build();
 
     /// <summary>
@@ -97,7 +109,7 @@ public abstract class CardBase : BootstrapComponentBase
     /// <summary>
     /// 获得/设置 元素实例
     /// </summary>
-    protected ElementReference CardEelement { get; set; }
+    protected ElementReference CardElement { get; set; }
 
     /// <summary>
     /// OnAfterRenderAsync 方法
@@ -112,7 +124,7 @@ public abstract class CardBase : BootstrapComponentBase
         {
             if (IsCollapsible)
             {
-                await JSRuntime.InvokeVoidAsync(CardEelement, "bb_card_collapse");
+                await JSRuntime.InvokeVoidAsync(CardElement, "bb_card_collapse");
             }
         }
     }

@@ -10,7 +10,7 @@ public class AvatarTest : TestBase
     public void IsCircle_Ok()
     {
         var cut = Context.RenderComponent<Avatar>(builder => builder.Add(a => a.IsCircle, true));
-        Assert.Contains("is-circle", cut.Markup);
+        Assert.Contains("avatar-circle", cut.Markup);
     }
 
     [Fact]
@@ -58,10 +58,10 @@ public class AvatarTest : TestBase
     public void Size_Ok()
     {
         var cut = Context.RenderComponent<Avatar>(builder => builder.Add(a => a.Size, Size.None));
-        Assert.DoesNotContain("is-lg", cut.Markup);
+        Assert.DoesNotContain("avatar-lg", cut.Markup);
 
         cut = Context.RenderComponent<Avatar>(builder => builder.Add(a => a.Size, Size.Large));
-        Assert.Contains("is-lg", cut.Markup);
+        Assert.Contains("avatar-lg", cut.Markup);
     }
 
     [Fact]

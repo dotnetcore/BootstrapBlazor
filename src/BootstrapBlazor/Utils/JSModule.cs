@@ -2,8 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using Microsoft.JSInterop;
-
 namespace BootstrapBlazor.Components;
 
 /// <summary>
@@ -61,7 +59,12 @@ public class JSModule : IAsyncDisposable
         {
             if (Module != null)
             {
-                await Module.DisposeAsync().ConfigureAwait(false);
+                // TODO: 微软的代码这里加上 await 就会线程死锁
+                try
+                {
+                    await Module.DisposeAsync().AsTask();
+                }
+                catch { }
                 Module = null;
             }
         }
@@ -72,7 +75,7 @@ public class JSModule : IAsyncDisposable
     /// </summary>
     public async ValueTask DisposeAsync()
     {
-        await DisposeAsyncCore(true).ConfigureAwait(false);
+        await DisposeAsyncCore(true);
         GC.SuppressFinalize(this);
     }
 }
@@ -104,7 +107,7 @@ public class JSModule<TValue> : JSModule where TValue : class
     /// <param name="identifier"></param>
     /// <param name="args"></param>
     /// <returns></returns>
-    public override ValueTask InvokeVoidAsync(string identifier, params object?[] args)
+    public override async ValueTask InvokeVoidAsync(string identifier, params object?[] args)
     {
         var paras = new List<object?>();
         if (args != null)
@@ -112,7 +115,12 @@ public class JSModule<TValue> : JSModule where TValue : class
             paras.AddRange(args);
         }
         paras.Add(DotNetReference);
-        return Module.InvokeVoidAsync(identifier, paras.ToArray());
+
+        try
+        {
+            await Module.InvokeVoidAsync(identifier, paras.ToArray());
+        }
+        catch { }
     }
 
     /// <summary>

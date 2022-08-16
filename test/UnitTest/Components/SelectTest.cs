@@ -59,6 +59,26 @@ public class SelectTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void Disabled_Ok()
+    {
+        var cut = Context.RenderComponent<Select<string>>(pb =>
+        {
+            pb.Add(a => a.IsDisabled, true);
+            pb.Add(a => a.Options, builder =>
+            {
+                builder.OpenComponent<SelectOption>(0);
+                builder.AddAttribute(1, nameof(SelectOption.IsDisabled), true);
+                builder.CloseComponent();
+
+                builder.OpenComponent<SelectOption>(2);
+                builder.CloseComponent();
+            });
+        });
+        Assert.Contains("_input\" readonly disabled=\"disabled\"", cut.Markup);
+        Assert.Contains("dropdown-item active disabled", cut.Markup);
+    }
+
+    [Fact]
     public void SelectOption_Ok()
     {
         var cut = Context.RenderComponent<SelectOption>(pb =>

@@ -1,7 +1,11 @@
 ﻿/*divider*/
 .divider {
-    background-color: transparent;
+    background-color: #dcdfe6;
     position: relative;
+    margin: 1rem 0;
+    display: block;
+    height: 1px;
+    width: 100%;
 }
 
     .divider .divider-text {
@@ -13,35 +17,29 @@
         font-size: 14px;
     }
 
-    .divider.divider-horizontal {
-        display: block;
-        width: 100%;
-    }
-
-        .divider.divider-horizontal .divider-text.is-left {
+        .divider .divider-text.is-left {
             left: 20px;
             transform: translateY(-50%);
         }
 
-        .divider.divider-horizontal .divider-text.is-center {
+        .divider .divider-text.is-center {
             left: 50%;
             transform: translateX(-50%) translateY(-50%);
         }
 
-        .divider.divider-horizontal .divider-text.is-right {
+        .divider .divider-text.is-right {
             right: 20px;
             transform: translateY(-50%);
         }
 
-    .divider .divider-wrap {
-        height: 1px;
-        margin: 1rem 0;
-        background-color: #dcdfe6;
-    }
-
 .divider-vertical {
+    display: inline-block;
+    align-self: stretch;
     width: 1px;
+    min-width: 1px;
+    height: 100%;
     margin: 0 1rem;
+    min-height: 21px;
 }
 
 .divider.divider-vertical .divider-text {
@@ -50,15 +48,18 @@
 
     .divider.divider-vertical .divider-text.is-left {
         top: 20px;
+        left: 0;
+        transform: translateY(0);
         transform: translateX(-50%);
     }
 
     .divider.divider-vertical .divider-text.is-center {
         top: 50%;
-        transform: translateX(-50%) translateY(-50%);
     }
 
     .divider.divider-vertical .divider-text.is-right {
         bottom: 20px;
-        transform: translateX(-50%);
+        right: 0;
+        transform: translateY(0);
+        transform: translateX(50%);
     }

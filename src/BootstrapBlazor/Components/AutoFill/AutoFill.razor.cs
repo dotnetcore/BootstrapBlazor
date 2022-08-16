@@ -2,7 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Extensions.Localization;
 
@@ -21,7 +20,13 @@ public partial class AutoFill<TValue>
     /// </summary>
     protected virtual string? ClassString => CssBuilder.Default("auto-complete")
         .AddClass("is-loading", _isLoading)
-        .AddClass("is-complete", _isShown)
+        .Build();
+
+    /// <summary>
+    /// Dropdown Menu 下拉菜单样式
+    /// </summary>
+    protected string? DropdownMenuClassString => CssBuilder.Default("dropdown-menu")
+        .AddClass("show", _isShown)
         .Build();
 
     /// <summary>
@@ -139,6 +144,7 @@ public partial class AutoFill<TValue>
         Items ??= Enumerable.Empty<TValue>();
         FilterItems ??= new List<TValue>();
         OnGetDisplayText ??= v => v?.ToString() ?? "";
+        InputString = OnGetDisplayText(Value);
     }
 
     /// <summary>

@@ -192,13 +192,37 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void IsYearOverflow_Ok()
+    public async Task IsYearOverflow_Ok()
     {
         var cut = Context.RenderComponent<DatePickerBody>(builder =>
         {
             builder.Add(a => a.Value, DateTime.MinValue.AddDays(1));
             builder.Add(a => a.ViewMode, DatePickerViewMode.Year);
         });
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.Value, DateTime.MaxValue);
+            pb.Add(a => a.ViewMode, DatePickerViewMode.Date);
+        });
+
+        var buttons = cut.FindAll(".date-picker-header button");
+        // 下一月
+        await cut.InvokeAsync(() => buttons[2].Click());
+        // 下一年
+        await cut.InvokeAsync(() => buttons[3].Click());
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.Value, DateTime.MinValue);
+            pb.Add(a => a.ViewMode, DatePickerViewMode.Date);
+        });
+
+        buttons = cut.FindAll(".date-picker-header button");
+        // 上一年
+        await cut.InvokeAsync(() => buttons[0].Click());
+        // 上一月
+        await cut.InvokeAsync(() => buttons[1].Click());
     }
 
     [Fact]
@@ -589,5 +613,26 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(() => button.Click());
 
         cut.Contains("class=\"date-table\"");
+    }
+
+    [Fact]
+    public async Task AutoClose_OK()
+    {
+        DateTime val = DateTime.MinValue;
+        var cut = Context.RenderComponent<DateTimePicker<DateTime>>(builder =>
+        {
+            builder.Add(a => a.Value, DateTime.Today);
+            builder.Add(a => a.AutoClose, true);
+            builder.Add(a => a.OnDateTimeChanged, dt =>
+            {
+                val = dt;
+                return Task.CompletedTask;
+            });
+        });
+
+        var button = cut.Find(".picker-panel-content .cell");
+        await cut.InvokeAsync(() => button.Click());
+
+        Assert.NotEqual(val, DateTime.MinValue);
     }
 }

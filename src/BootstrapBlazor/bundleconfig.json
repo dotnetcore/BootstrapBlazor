@@ -28,7 +28,6 @@
     "inputFiles": [
       "wwwroot/core/jquery/jquery-3.5.1.min.js",
       "wwwroot/core/bootstrap/js/bootstrap.bundle.min.js",
-      "wwwroot/lib/**/*.min.js",
       "wwwroot/bundle/bootstrap.blazor.min.js"
     ],
     "minify": {

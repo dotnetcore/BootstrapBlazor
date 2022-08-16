@@ -5,6 +5,8 @@
 using BootstrapBlazor.Components;
 using BootstrapBlazor.Shared.Common;
 using BootstrapBlazor.Shared.Components;
+using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Localization;
 
 namespace BootstrapBlazor.Shared.Samples;
 
@@ -23,8 +25,30 @@ public sealed partial class DateTimeRanges
     private DateTimeRangeValue DateTimeRangeValue3 { get; set; } = new DateTimeRangeValue() { Start = DateTime.Today, End = DateTime.Today.AddDays(3) };
 
     private DateTimeRangeValue DateTimeRangeValue4 { get; set; } = new DateTimeRangeValue();
+    private DateTimeRangeValue DateTimeRangeValue5 { get; set; } = new DateTimeRangeValue() { Start = DateTime.Today, End = DateTime.Today.AddDays(3) };
 
     private bool IsDisabled { get; set; } = true;
+
+    [NotNull]
+    private Foo? Model { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<Foo>? LocalizerFoo { get; set; }
+
+    private RowType FormRowType { get; set; }
+
+    private string? GroupFormClassString => CssBuilder.Default("row g-3")
+        .AddClass("form-inline", FormRowType == RowType.Inline)
+        .Build();
+
+    /// <summary>
+    /// OnInitialized 方法
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        Model = Foo.Generate(LocalizerFoo);
+    }
 
     private Task OnConfirm(DateTimeRangeValue value)
     {
