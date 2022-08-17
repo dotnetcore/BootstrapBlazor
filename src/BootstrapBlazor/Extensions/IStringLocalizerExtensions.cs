@@ -18,7 +18,7 @@ internal static class IStringLocalizerExtensions
     /// <param name="key"></param>
     /// <param name="text"></param>
     /// <returns></returns>
-    public static bool TryGetLocalizerString(this IStringLocalizer localizer, string key, [MaybeNullWhen(false)] out string? text)
+    public static bool TryGetLocalizerString(this IStringLocalizer localizer, string key, [NotNullWhen(true)] out string? text)
     {
         var ret = false;
         text = null;

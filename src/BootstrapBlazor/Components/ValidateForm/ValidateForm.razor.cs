@@ -289,12 +289,18 @@ public partial class ValidateForm : IAsyncDisposable
             var result = rule.GetValidationResult(value, context);
             if (result != null && result != ValidationResult.Success)
             {
-                // 查找 resx 资源文件中的 ErrorMessage
                 var ruleNameSpan = rule.GetType().Name.AsSpan();
                 var index = ruleNameSpan.IndexOf(attributeSpan, StringComparison.OrdinalIgnoreCase);
                 var ruleName = ruleNameSpan[..index];
                 var find = false;
-                if (!string.IsNullOrEmpty(rule.ErrorMessage))
+
+                // ErrorMessage 为空时 使用则预设讯息查询
+                var originalErrorMessage = rule.ErrorMessage;
+                originalErrorMessage ??= rule.GetType().GetProperty("ErrorMessageString", BindingFlags.NonPublic | BindingFlags.Instance)?.GetValue(rule) as string;
+                originalErrorMessage ??= rule.FormatErrorMessage("{0}");
+
+                // 查找 resx 资源文件中的 ErrorMessage
+                if (!string.IsNullOrWhiteSpace(originalErrorMessage))
                 {
                     var resxType = Options.Value.ResourceManagerStringLocalizerType;
                     ProcessResourceManagerLocalizerType();
@@ -303,7 +309,7 @@ public partial class ValidateForm : IAsyncDisposable
                     void ProcessResourceManagerLocalizerType()
                     {
                         if (resxType != null
-    && LocalizerFactory.Create(resxType).TryGetLocalizerString(rule.ErrorMessage, out var resx))
+    && LocalizerFactory.Create(resxType).TryGetLocalizerString(originalErrorMessage, out var resx))
                         {
                             rule.ErrorMessage = resx;
                             find = true;
@@ -313,8 +319,8 @@ public partial class ValidateForm : IAsyncDisposable
 
                 // 通过设置 ErrorMessage 检索
                 if (!context.ObjectType.Assembly.IsDynamic && !find
-                    && !string.IsNullOrEmpty(rule.ErrorMessage)
-                    && LocalizerFactory.Create(context.ObjectType).TryGetLocalizerString(rule.ErrorMessage, out var msg))
+                    && !string.IsNullOrWhiteSpace(originalErrorMessage)
+                    && LocalizerFactory.Create(context.ObjectType).TryGetLocalizerString(originalErrorMessage, out var msg))
                 {
                     rule.ErrorMessage = msg;
                     find = true;
