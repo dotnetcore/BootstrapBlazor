@@ -607,12 +607,12 @@ public sealed partial class NavMenu
             },
             new()
             {
-                Text = Localizer["Tree"],
+                IsNew = true,
+                Text = Localizer["TreeView"],
                 Url = "treeviews"
             },
             new()
             {
-                IsNew = true,
                 Text = Localizer["Transition"],
                 Url = "transitions"
             }

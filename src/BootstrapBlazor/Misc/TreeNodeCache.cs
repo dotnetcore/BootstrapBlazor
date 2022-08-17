@@ -137,7 +137,7 @@ public class TreeNodeCache<TNode, TItem> : ExpandableNodeCache<TNode, TItem> whe
     }
 
     /// <summary>
-    /// 
+    /// 重置是否选中状态
     /// </summary>
     /// <param name="nodes"></param>
     public void IsChecked(IEnumerable<TNode> nodes)

@@ -4,12 +4,11 @@
     --bb-tree-margin: 0;
     --bb-tree-ul-padding-left: 20px;
     --bb-tree-item-margin: 1px 0;
-    --bb-tree-item-height: 29px;
     --bb-tree-icon-width: 18px;
     --bb-tree-check-margin: 0 4px;
     --bb-tree-content-padding: .25rem 0;
-    --bb-tree-item-hover-color: #1e2125;
-    --bb-tree-item-hover-bg: #e9ecef;
+    --bb-tree-item-active-color: #409eff;
+    --bb-tree-item-active-bg: #e9ecef;
 }
 
     .tree-view .tree-root {
@@ -31,15 +30,6 @@
         cursor: pointer;
         margin: var(--bb-tree-item-margin);
     }
-
-        .tree-view .tree-item:before {
-            content: "";
-            position: absolute;
-            left: 0;
-            width: 100%;
-            height: var(--bb-tree-item-height);
-            transition: background-color .3s linear;
-        }
 
         .tree-view .tree-item .tree-content {
             position: relative;
@@ -82,12 +72,7 @@
         width: var(--bb-tree-icon-width);
     }
 
-    .tree-view .tree-item:not(.disabled).hover:before {
-        background-color: var(--bb-tree-item-hover-bg);
-    }
-
-
     .tree-view .tree-item:not(.disabled).active > .tree-content > .tree-node {
-        color: var(--bb-tree-item-hover-color);
-        background-color: var(--bb-tree-item-hover-bg);
+        color: var(--bb-tree-item-active-color);
+        background-color: var(--bb-tree-item-active-bg);
     }

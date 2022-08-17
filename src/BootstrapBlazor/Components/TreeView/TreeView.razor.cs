@@ -12,7 +12,7 @@ namespace BootstrapBlazor.Components;
 #if NET6_0_OR_GREATER
 [CascadingTypeParameter(nameof(TItem))]
 #endif
-public partial class TreeView<TItem> where TItem : class
+public partial class TreeView<TItem>
 {
     /// <summary>
     /// 获得/设置 Tree 组件实例引用
@@ -132,12 +132,6 @@ public partial class TreeView<TItem> where TItem : class
     public bool ShowCheckbox { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否显示 Radio 默认 false 不显示
-    /// </summary>
-    [Parameter]
-    public bool ShowRadio { get; set; }
-
-    /// <summary>
     /// 获得/设置 是否显示 Icon 图标 默认 false 不显示
     /// </summary>
     [Parameter]
@@ -222,19 +216,23 @@ public partial class TreeView<TItem> where TItem : class
 
         if (Items != null)
         {
-            if (!IsReset)
+            if (IsReset)
             {
-                treeNodeCache.IsChecked(Items);
+                treeNodeCache.Reset();
+            }
+            else
+            {
+                if (ShowCheckbox)
+                {
+                    // 开启 Checkbox 功能时初始化选中节点
+                    treeNodeCache.IsChecked(Items);
+                }
 
                 // 从数据源中恢复当前 active 节点
                 if (ActiveItem != null)
                 {
                     ActiveItem = treeNodeCache.Find(Items, ActiveItem.Value, out _);
                 }
-            }
-            else
-            {
-                treeNodeCache.Reset();
             }
 
             // 设置 ActiveItem 默认值
@@ -319,14 +317,11 @@ public partial class TreeView<TItem> where TItem : class
             await OnTreeItemClick(item);
         }
 
-        if (ShowRadio)
-        {
-            await OnRadioClick(item);
-        }
-        else if (ShowCheckbox && ClickToggleCheck)
+        if (ShowCheckbox && ClickToggleCheck)
         {
             await OnCheckStateChanged(item);
         }
+
         StateHasChanged();
     }
 
@@ -381,8 +376,9 @@ public partial class TreeView<TItem> where TItem : class
     /// 节点 Checkbox 状态改变时触发此方法
     /// </summary>
     /// <param name="item"></param>
+    /// <param name="shouldRender"></param>
     /// <returns></returns>
-    private async Task OnCheckStateChanged(TreeViewItem<TItem> item)
+    private async Task OnCheckStateChanged(TreeViewItem<TItem> item, bool shouldRender = false)
     {
         item.CheckedState = ToggleCheckState(item.CheckedState);
 
@@ -406,7 +402,10 @@ public partial class TreeView<TItem> where TItem : class
             await OnTreeItemChecked(GetCheckedItems().ToList());
         }
 
-        StateHasChanged();
+        if (shouldRender)
+        {
+            StateHasChanged();
+        }
     }
 
     /// <summary>
@@ -420,29 +419,6 @@ public partial class TreeView<TItem> where TItem : class
         return t;
     }).Where(i => i.CheckedState == CheckboxState.Checked);
 
-    private async Task OnRadioClick(TreeViewItem<TItem> item)
-    {
-        item.CheckedState = ToggleCheckState(item.CheckedState);
-
-        // 单选移除已选择
-        if (ActiveItem != null)
-        {
-            ActiveItem.CheckedState = CheckboxState.UnChecked;
-            treeNodeCache.ToggleCheck(ActiveItem);
-        }
-        ActiveItem = item;
-        ActiveItem.CheckedState = CheckboxState.Checked;
-        treeNodeCache.ToggleCheck(item);
-
-        // 其他设置为 false
-        if (OnTreeItemChecked != null)
-        {
-            await OnTreeItemChecked(new List<TreeViewItem<TItem>> { item });
-        }
-
-        StateHasChanged();
-    }
-
     /// <summary>
     /// 比较数据是否相同
     /// </summary>
@@ -452,5 +428,6 @@ public partial class TreeView<TItem> where TItem : class
     protected bool ComparerItem(TItem a, TItem b) => ModelEqualityComparer?.Invoke(a, b)
         ?? Utility.GetKeyValue<TItem, object>(a, CustomKeyAttribute)?.Equals(Utility.GetKeyValue<TItem, object>(b, CustomKeyAttribute))
         ?? ModelComparer.EqualityComparer(a, b)
-        ?? a.Equals(b);
+        ?? a?.Equals(b)
+        ?? false;
 }

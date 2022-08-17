@@ -2830,6 +2830,7 @@
     "Tooltip": "Tooltip",
     "Reconnector": "Reconnector",
     "Tree": "Tree",
+    "TreeView": "TreeView",
     "TableComponents": "Table",
     "Table": "Table",
     "TableBase": "Base",

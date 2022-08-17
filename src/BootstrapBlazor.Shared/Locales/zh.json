@@ -2839,6 +2839,7 @@
     "Tooltip": "工具条 Tooltip",
     "Reconnector": "重连组件 Reconnector",
     "Tree": "树形组件 Tree",
+    "TreeView": "树形组件 TreeView",
     "TableComponents": "表格组件",
     "Table": "表格组件",
     "TableBase": "基本功能",
