@@ -558,7 +558,7 @@ public partial class Table<TItem>
                     // 恢复当前节点状态
                     foreach (var node in nodes)
                     {
-                        await treeNodeCache.CheckExpandAsync(node, GetChildrenRow);
+                        await treeNodeCache.CheckExpandAsync(node, GetChildrenRowAsync);
 
                         if (node.Items.Any())
                         {

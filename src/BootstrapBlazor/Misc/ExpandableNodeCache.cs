@@ -57,7 +57,8 @@ public class ExpandableNodeCache<TNode, TItem> where TNode : IExpandableNode<TIt
             // 无子项时通过回调方法延时加载
             if (!node.Items.Any())
             {
-                node.Items = await callback(node);
+                var items = await callback(node);
+                node.Items = items.ToList();
                 ICheckableNode<TItem>? checkNode = null;
                 if (node is ICheckableNode<TItem> c)
                 {
@@ -116,7 +117,8 @@ public class ExpandableNodeCache<TNode, TItem> where TNode : IExpandableNode<TIt
 
                 if (!node.Items.Any())
                 {
-                    node.Items = await callback(node);
+                    var items = await callback(node);
+                    node.Items = items.ToList();
                     foreach (var n in node.Items)
                     {
                         n.Parent = node;

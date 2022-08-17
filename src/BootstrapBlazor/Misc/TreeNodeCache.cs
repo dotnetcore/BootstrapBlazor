@@ -86,52 +86,46 @@ public class TreeNodeCache<TNode, TItem> : ExpandableNodeCache<TNode, TItem> whe
     /// <returns></returns>
     private void IsChecked(TNode node)
     {
-        if (node.CheckedState == CheckboxState.Checked)
+        // 当前节点状态为未确定状态
+        var nodes = node.Items.OfType<ICheckableNode<TItem>>();
+        if (checkedNodeCache.Any(i => equalityComparer.Equals(i, node.Value)))
         {
-            // 已选中
-            if (uncheckedNodeCache.Contains(node.Value, equalityComparer))
-            {
-                node.CheckedState = CheckboxState.UnChecked;
-            }
-            else if (indeterminateNodeCache.Contains(node.Value, equalityComparer))
-            {
-                node.CheckedState = CheckboxState.Indeterminate;
-            }
-            else if (!checkedNodeCache.Contains(node.Value, equalityComparer))
-            {
-                checkedNodeCache.Add(node.Value);
-            }
+            node.CheckedState = CheckboxState.Checked;
         }
-        else if (node.CheckedState == CheckboxState.UnChecked)
+        else if (uncheckedNodeCache.Contains(node.Value, equalityComparer))
         {
-            if (checkedNodeCache.Any(i => equalityComparer.Equals(i, node.Value)))
-            {
-                // 原来是展开状态
-                node.CheckedState = CheckboxState.Checked;
-            }
-            else if (indeterminateNodeCache.Contains(node.Value, equalityComparer))
-            {
-                node.CheckedState = CheckboxState.Indeterminate;
-            }
-            else if (!uncheckedNodeCache.Contains(node.Value, equalityComparer))
-            {
-                uncheckedNodeCache.Add(node.Value);
-            }
+            node.CheckedState = CheckboxState.UnChecked;
         }
-        else
+        else if (indeterminateNodeCache.Contains(node.Value, equalityComparer))
         {
-            if (checkedNodeCache.Any(i => equalityComparer.Equals(i, node.Value)))
+            node.CheckedState = CheckboxState.Indeterminate;
+        }
+        CheckChildren(nodes);
+
+        void CheckChildren(IEnumerable<ICheckableNode<TItem>> nodes)
+        {
+            if (nodes.Any())
             {
-                // 原来是展开状态
-                node.CheckedState = CheckboxState.Checked;
-            }
-            else if (uncheckedNodeCache.Contains(node.Value, equalityComparer))
-            {
-                node.CheckedState = CheckboxState.UnChecked;
-            }
-            else if (!indeterminateNodeCache.Contains(node.Value, equalityComparer))
-            {
-                indeterminateNodeCache.Add(node.Value);
+                checkedNodeCache.RemoveAll(i => equalityComparer.Equals(i, node.Value));
+                uncheckedNodeCache.RemoveAll(i => equalityComparer.Equals(i, node.Value));
+                indeterminateNodeCache.RemoveAll(i => equalityComparer.Equals(i, node.Value));
+
+                // 查看子节点状态
+                if (nodes.All(i => i.CheckedState == CheckboxState.Checked))
+                {
+                    node.CheckedState = CheckboxState.Checked;
+                    checkedNodeCache.Add(node.Value);
+                }
+                else if (nodes.All(i => i.CheckedState == CheckboxState.UnChecked))
+                {
+                    node.CheckedState = CheckboxState.UnChecked;
+                    uncheckedNodeCache.Add(node.Value);
+                }
+                else
+                {
+                    node.CheckedState = CheckboxState.Indeterminate;
+                    indeterminateNodeCache.Add(node.Value);
+                }
             }
         }
     }
@@ -152,12 +146,14 @@ public class TreeNodeCache<TNode, TItem> : ExpandableNodeCache<TNode, TItem> whe
             // 恢复当前节点状态
             foreach (var node in items)
             {
-                IsChecked(node);
-
+                // 恢复子节点
                 if (node.Items.Any())
                 {
                     IsChecked(node.Items.OfType<TNode>());
                 }
+
+                // 设置本节点
+                IsChecked(node);
             }
         }
     }

@@ -90,7 +90,7 @@ public partial class Table<TItem>
                 // 重建当前节点缓存
                 IsLoadChildren = true;
                 node.IsExpand = !node.IsExpand;
-                await treeNodeCache.ToggleNodeAsync(node, GetChildrenRow);
+                await treeNodeCache.ToggleNodeAsync(node, GetChildrenRowAsync);
                 IsLoadChildren = false;
 
                 // 清除缓存
@@ -102,7 +102,7 @@ public partial class Table<TItem>
         }
     };
 
-    private async Task<IEnumerable<IExpandableNode<TItem>>> GetChildrenRow(TableTreeNode<TItem> node)
+    private async Task<IEnumerable<IExpandableNode<TItem>>> GetChildrenRowAsync(TableTreeNode<TItem> node)
     {
         if (OnTreeExpand == null)
         {

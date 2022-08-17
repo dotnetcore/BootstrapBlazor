@@ -208,12 +208,11 @@ public partial class TreeView<TItem>
     }
 
     /// <summary>
-    /// OnParametersSet 方法
+    /// OnParametersSetAsync 方法
     /// </summary>
-    protected override void OnParametersSet()
+    /// <returns></returns>
+    protected override async Task OnParametersSetAsync()
     {
-        base.OnParametersSet();
-
         if (Items != null)
         {
             if (IsReset)
@@ -222,6 +221,11 @@ public partial class TreeView<TItem>
             }
             else
             {
+                if (Items.Any())
+                {
+                    await CheckExpand(Items);
+                }
+
                 if (ShowCheckbox)
                 {
                     // 开启 Checkbox 功能时初始化选中节点
@@ -237,23 +241,6 @@ public partial class TreeView<TItem>
 
             // 设置 ActiveItem 默认值
             ActiveItem ??= Items.FirstOrDefaultActiveItem();
-        }
-    }
-
-    /// <summary>
-    /// OnParametersSetAsync 方法
-    /// </summary>
-    /// <returns></returns>
-    protected override async Task OnParametersSetAsync()
-    {
-        await base.OnParametersSetAsync();
-
-        if (Items != null)
-        {
-            if (Items.Any())
-            {
-                await CheckExpand(Items);
-            }
 
             async Task CheckExpand(IEnumerable<TreeViewItem<TItem>> nodes)
             {
@@ -278,6 +265,7 @@ public partial class TreeView<TItem>
             throw new InvalidOperationException(NotSetOnTreeExpandErrorMessage);
         }
         node.ShowLoading = true;
+
         StateHasChanged();
 
         var ret = await OnExpandNodeAsync(node);
