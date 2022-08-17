@@ -19,7 +19,7 @@
 <div class="code-label mb-2">2. 创建一个新项目</div>
 <div class="code-label mb-2">3. 选择 <b>.NET MAUI Blazor 应用</b> 并单击 <b>下一步</b>, 为项目选择一个名称和位置，然后点击 <b>下一步</b>, <b>创建</b></div>
 <img src="_content/BootstrapBlazor.Shared/images/choose-project-template-maui-blazor.png" style="border-radius: 6px;" class="d-none d-sm-block" />
-<h5 class="mb-3">步骤二、将 BootstrapBlazor 组件添加到现有项目</h5>
+<h5 class="mt-3 mb-2">步骤二、将 BootstrapBlazor 组件添加到现有项目</h5>
 <div class="code-label mb-2">1. 通过 <b>nuget.org</b> 源搜索 <code>BootstrapBlazor</code></div>
 <div class="mb-2">右键点击解决方案中的项目并选择 <b>Manage Nuget Packages</b></div>
 <Pre class="no-highlight">dotnet add package BootstrapBlazor --version @Version</Pre>
@@ -52,7 +52,7 @@
 <Pre>&lt;body&gt;
     ...
     &lt;!-- 增加代码 !--&gt;
-<b>&lt;script src="_content/BootstrapBlazor/js/bootstrap.blazor.bundle.min.js"&gt;&lt;/script&gt;</b>
+    <b>&lt;script src="_content/BootstrapBlazor/js/bootstrap.blazor.bundle.min.js"&gt;&lt;/script&gt;</b>
     ...
     &lt;script src="_framework/blazor.webview.js" autostart="false" &gt;&lt;/script&gt;
 &lt;/body&gt;</Pre>
@@ -92,7 +92,7 @@ return builder.Build();
 &lt;/BootstrapBlazorRoot&gt;</Pre>
 
 <h5 class="mb-3">步骤三、页面中使用组件</h5>
-<div class="mb-1">最后一步是在页面中使用 <code>BootstrapBlazor</code> 组件并在浏览器中运行它。例如：</div>
+<div class="mt-2 mb-1">最后一步是在页面中使用 <code>BootstrapBlazor</code> 组件并在浏览器中运行它。例如：</div>
 <div class="code-label mb-2">1. 在页面中增加一个 <code>Button</code> 按钮</div>
 <Pre>&lt;Button Color="Color.Primary" Icon="fa fa-fa" Text="测试" /&gt;</Pre>
 <div class="code-label mb-2">2. 在 <b>Visual studio 2022</b> 中 <kbd>F5</kbd> 运行应用程序</div>
@@ -167,8 +167,7 @@ return builder.Build();
 <ul>
     <li><code>MainPage.xaml</code></li>
 </ul>
-<Pre>
-    &lt;TabbedPage
+<Pre>&lt;TabbedPage
     x:Class="MauiApp1.MainPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
@@ -199,25 +198,20 @@ return builder.Build();
             &lt;/BlazorWebView.RootComponents&gt;
         &lt;/BlazorWebView&gt;
     &lt;/ContentPage&gt;
-&lt;/TabbedPage&gt;
-</Pre>
+&lt;/TabbedPage&gt;</Pre>
 <ul>
     <li><code>MainPage.xaml.cs</code></li>
 </ul>
-<Pre>
-public partial class MainPage : TabbedPage
+<Pre>public partial class MainPage : TabbedPage
 {
     public MainPage()
     {
         InitializeComponent();
     }
-}
-</Pre>
+}</Pre>
 <div class="code-label mb-2">在 <b>Visual studio 2022</b> 中 <kbd>F5</kbd> 运行应用程序</div>
 
 <img src="_content/BootstrapBlazor.Shared/images/maui-blazor.gif" style="border-radius: 6px;width: 320px;" class="d-none d-sm-block" />
-
-
 
 @code
 {
