@@ -283,6 +283,10 @@
     "ResetButtonText": "重置",
     "QueryButtonText": "查询"
   },
+  "BootstrapBlazor.Components.SwitchButton": {
+    "OnText": "开",
+    "OffText": "关"
+  },
   "BootstrapBlazor.Components.Timer": {
     "PauseText": "暂停",
     "ResumeText": "继续",

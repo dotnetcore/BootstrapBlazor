@@ -58,7 +58,7 @@ public class TreeViewTest : BootstrapBlazorTestBase
 
         var nodes = cut.FindAll(".tree-view > .tree-root > .tree-item");
         Assert.Equal(3, nodes.Count);
-        Assert.Equal("tree-item active", nodes.First().ClassName);
+        Assert.Equal("tree-item active", nodes[0].ClassName);
     }
 
     [Fact]
@@ -227,34 +227,6 @@ public class TreeViewTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public async Task ShowRadio_Ok()
-    {
-        List<TreeViewItem<TreeFoo>>? checkedLists = null;
-        var cut = Context.RenderComponent<TreeView<TreeFoo>>(pb =>
-        {
-            pb.Add(a => a.ShowRadio, true);
-            pb.Add(a => a.OnTreeItemChecked, items =>
-            {
-                checkedLists = items;
-                return Task.CompletedTask;
-            });
-            pb.Add(a => a.Items, TreeFoo.GetTreeItems());
-        });
-        cut.Find("[type=\"radio\"]").Click();
-        Assert.Single(checkedLists);
-        Assert.Equal("导航一", checkedLists![0].Text);
-
-        var radio = cut.FindAll("[type=\"radio\"]")[1];
-        await cut.InvokeAsync(() => radio.Click());
-        Assert.Equal("导航二", checkedLists![0].Text);
-
-        cut.SetParametersAndRender(pb =>
-        {
-            pb.Add(a => a.ShowSkeleton, false);
-        });
-    }
-
-    [Fact]
     public void Tree_CssClass()
     {
         var items = TreeFoo.GetTreeItems();
@@ -323,21 +295,6 @@ public class TreeViewTest : BootstrapBlazorTestBase
         var node = cut.FindAll(".tree-node").Skip(1).First();
         await cut.InvokeAsync(() => node.Click());
         Assert.True(clicked);
-
-        // 显示 Radio 组件
-        List<TreeViewItem<TreeFoo>>? selectedItems = null;
-        cut.SetParametersAndRender(pb =>
-        {
-            pb.Add(a => a.ShowRadio, true);
-            pb.Add(a => a.OnTreeItemChecked, items =>
-            {
-                selectedItems = items;
-                return Task.CompletedTask;
-            });
-        });
-        node = cut.FindAll(".tree-node").Skip(1).First();
-        await cut.InvokeAsync(() => node.Click());
-        Assert.Single(selectedItems);
     }
 
     [Fact]
@@ -465,11 +422,11 @@ public class TreeViewTest : BootstrapBlazorTestBase
         });
 
         var bars = cut.FindAll(".tree-root > .tree-item > .tree-content > .fa-caret-right.visible");
-        await cut.InvokeAsync(() => bars.First().Click());
+        await cut.InvokeAsync(() => bars[0].Click());
         Assert.Contains("fa-rotate-90", cut.Markup);
 
         // 点击第二个节点箭头开展
-        await cut.InvokeAsync(() => bars.Last().Click());
+        await cut.InvokeAsync(() => bars[bars.Count - 1].Click());
         bars = cut.FindAll(".tree-root > .tree-item > .tree-content > .fa-caret-right.visible");
         Assert.DoesNotContain("fa-rotate-90", bars[0].ClassName);
         Assert.Contains("fa-rotate-90", bars[1].ClassName);
@@ -494,7 +451,7 @@ public class TreeViewTest : BootstrapBlazorTestBase
         Assert.Contains("fa-rotate-90", cut.Markup);
 
         // 点击第二个节点箭头开展
-        await cut.InvokeAsync(() => bars.Last().Click());
+        await cut.InvokeAsync(() => bars[bars.Count - 1].Click());
         bars = cut.FindAll(".tree-root > .tree-item > .tree-content + .tree-ul > .tree-item > .tree-content > .fa-caret-right.visible");
         Assert.DoesNotContain("fa-rotate-90", bars[0].ClassName);
         Assert.Contains("fa-rotate-90", bars[1].ClassName);

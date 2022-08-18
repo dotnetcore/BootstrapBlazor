@@ -6,22 +6,54 @@ using Microsoft.AspNetCore.Components.Web;
 
 namespace UnitTest.Components;
 
-public class SwitchButtonTest : TestBase
+public class SwitchButtonTest : BootstrapBlazorTestBase
 {
     [Fact]
-    public void Toggle_Ok()
+    public void Text_Ok()
+    {
+        var cut = Context.RenderComponent<SwitchButton>();
+        cut.Contains("&#x5173;");
+    }
+
+    [Fact]
+    public void ToggleState_Ok()
+    {
+        var cut = Context.RenderComponent<SwitchButton>(pb =>
+        {
+            pb.Add(a => a.ToggleState, true);
+        });
+        cut.Contains("&#x5F00;");
+    }
+
+    [Fact]
+    public async Task ToggleStateChanged_Ok()
     {
         var state = false;
+        var cut = Context.RenderComponent<SwitchButton>(pb =>
+        {
+            pb.Add(a => a.OnText, "Test_OnTest");
+            pb.Add(a => a.OffText, "Test_OffTest");
+            pb.Add(a => a.ToggleStateChanged, v =>
+            {
+                state = v;
+                return Task.CompletedTask;
+            });
+        });
+        cut.Contains("Test_OffTest");
+
+        // Click
+        await cut.InvokeAsync(() => cut.Find("a").Click());
+        Assert.True(state);
+    }
+
+    [Fact]
+    public async Task Click_Ok()
+    {
         var clicked = false;
         var cut = Context.RenderComponent<SwitchButton>(pb =>
         {
             pb.Add(a => a.OnText, "Test_OnTest");
             pb.Add(a => a.OffText, "Test_OffTest");
-            pb.Add(a => a.ToggleState, false);
-            pb.Add(a => a.ToggleStateChanged, EventCallback.Factory.Create<bool>(this, v =>
-            {
-                state = v;
-            }));
             pb.Add(a => a.OnClick, EventCallback.Factory.Create<MouseEventArgs>(this, e =>
             {
                 clicked = true;
@@ -30,7 +62,7 @@ public class SwitchButtonTest : TestBase
         cut.Contains("Test_OffTest");
 
         // Click
-        cut.InvokeAsync(() => cut.Find("a").Click());
+        await cut.InvokeAsync(() => cut.Find("a").Click());
         Assert.True(clicked);
     }
 }

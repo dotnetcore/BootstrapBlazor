@@ -13,7 +13,7 @@ namespace BootstrapBlazor.Shared.Samples;
 /// <summary>
 /// 
 /// </summary>
-public sealed partial class SweetAlerts
+public partial class SweetAlerts
 {
     private Task OnSwal(SwalCategory cate) => SwalService.Show(new SwalOption()
     {

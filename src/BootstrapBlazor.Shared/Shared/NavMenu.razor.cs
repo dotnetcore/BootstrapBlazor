@@ -582,6 +582,12 @@ public sealed partial class NavMenu
             },
             new()
             {
+                IsNew = true,
+                Text = Localizer["SwitchButton"],
+                Url = "switchbuttons"
+            },
+            new()
+            {
                 Text = Localizer["Tag"],
                 Url = "tags"
             },

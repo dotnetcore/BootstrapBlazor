@@ -283,6 +283,10 @@
     "ResetButtonText": "Zurücksetzen",
     "QueryButtonText": "Anfrage"
   },
+  "BootstrapBlazor.Components.SwitchButton": {
+    "OnText": "An",
+    "OffText": "Aus"
+  },
   "BootstrapBlazor.Components.Timer": {
     "PauseText": "Pause",
     "ResumeText": "Fortsetzen",
