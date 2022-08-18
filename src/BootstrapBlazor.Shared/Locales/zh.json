@@ -400,6 +400,7 @@
     "TimelineText": "时间线 Timeline",
     "TooltipText": "工具条 Tooltip",
     "TreeText": "树形控件 Tree",
+    "TreeViewText": "树形控件 TreeView",
     "BarcodeReaderText": "条码扫描 BarcodeReader",
     "BlockText": "条件块 Block",
     "CameraText": "摄像头组件 Camera",
