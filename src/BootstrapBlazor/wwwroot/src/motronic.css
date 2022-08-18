@@ -699,14 +699,14 @@
     border-bottom-right-radius: var(--bs-border-radius);
 }
 
-.page-link:hover {
-    color: var(--bs-primary);
-    background-color: #f1faff;
-}
-
 .page-item.active .page-link {
     background-color: var(--bs-primary);
     border-color: var(--bs-primary);
+}
+
+.page-item:not(.active) .page-link:hover {
+    color: var(--bs-primary);
+    background-color: #f1faff;
 }
 
 .table {
