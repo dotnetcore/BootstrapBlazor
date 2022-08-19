@@ -79,6 +79,17 @@
         bb_modal: function (el, method) {
             var $el = $(el);
 
+            function keyHandler() {
+                var e = event;
+                if (e.key === 'Escape') {
+                    var $dialog = $el.find('.modal-dialog');
+                    var invoker = $dialog.data('bb_dotnet_invoker');
+                    if (invoker != null) {
+                        invoker.obj.invokeMethodAsync(invoker.method);
+                    }
+                }
+            };
+
             if (method === 'dispose') {
                 $el.remove();
             }
@@ -90,24 +101,21 @@
                 $el.on('shown.bs.modal', function () {
                     var keyboard = $el.attr('data-bs-keyboard') === "true";
                     if (keyboard === true) {
-                        $(document).one('keyup', function (e) {
-                            if (e.key === 'Escape') {
-                                var $dialog = $el.find('.modal-dialog');
-                                var invoker = $dialog.data('bb_dotnet_invoker');
-                                if (invoker != null) {
-                                    invoker.obj.invokeMethodAsync(invoker.method);
-                                }
-                            }
-                        });
+                        document.addEventListener('keyup', keyHandler, false);
                     }
                 });
+                $el.on('hide.bs.modal', function () {
+                    var keyboard = $el.attr('data-bs-keyboard') === "true";
+                    if (keyboard === true) {
+                        document.removeEventListener('keyup', keyHandler, false);
+                    }
+                })
             }
             else {
                 if (method !== 'hide' && method !== 'dispose') {
-                    var keyboard = $el.attr('data-bs-keyboard') === "true";
                     var instance = bootstrap.Modal.getInstance(el);
                     if (instance != null) {
-                        instance._config.keyboard = keyboard;
+                        instance._config.keyboard = false;
                     }
                 }
                 $el.modal(method);
