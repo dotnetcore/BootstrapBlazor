@@ -17,7 +17,7 @@ public abstract class ButtonBase : TooltipComponentBase
     /// <returns></returns>
     protected string? ClassName => CssBuilder.Default("btn")
         .AddClass($"btn-outline-{Color.ToDescriptionString()}", IsOutline)
-        .AddClass($"btn-{Color.ToDescriptionString()}", Color != Color.None && !IsOutline)
+        .AddClass($"btn-{Color.ToDescriptionString()}", !IsOutline)
         .AddClass($"btn-{Size.ToDescriptionString()}", Size != Size.None)
         .AddClass("btn-block", IsBlock)
         .AddClass("btn-round", ButtonStyle == ButtonStyle.Round)

@@ -66,6 +66,7 @@ public class ButtonTest : BootstrapBlazorTestBase
     [InlineData(Color.Light, "btn-light")]
     [InlineData(Color.Dark, "btn-dark")]
     [InlineData(Color.Link, "btn-link")]
+    [InlineData(Color.None, "btn-none")]
     public void Color_Ok(Color color, string @class)
     {
         var cut = Context.RenderComponent<Button>(pb =>
@@ -73,16 +74,6 @@ public class ButtonTest : BootstrapBlazorTestBase
             pb.Add(b => b.Color, color);
         });
         Assert.Contains(@class, cut.Markup);
-    }
-
-    [Fact]
-    public void Color_None()
-    {
-        var cut = Context.RenderComponent<Button>(pb =>
-        {
-            pb.Add(b => b.Color, Color.None);
-        });
-        Assert.DoesNotContain("btn-primary", cut.Markup);
     }
 
     [Fact]

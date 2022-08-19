@@ -66,3 +66,7 @@
     .link-button:disabled img {
         opacity: var(--bb-link-btn-disabled-opacity);
     }
+
+.btn-none {
+    --bs-btn-hover-border-color: transparent;
+}
