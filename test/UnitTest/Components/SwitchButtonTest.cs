@@ -33,11 +33,10 @@ public class SwitchButtonTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.OnText, "Test_OnTest");
             pb.Add(a => a.OffText, "Test_OffTest");
-            pb.Add(a => a.ToggleStateChanged, v =>
+            pb.Add(a => a.ToggleStateChanged, EventCallback.Factory.Create<bool>(this, v =>
             {
                 state = v;
-                return Task.CompletedTask;
-            });
+            }));
         });
         cut.Contains("Test_OffTest");
 

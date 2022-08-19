@@ -36,7 +36,7 @@ public partial class SwitchButton
     /// 状态切换回调方法
     /// </summary>
     [Parameter]
-    public Func<bool, Task>? ToggleStateChanged { get; set; }
+    public EventCallback<bool> ToggleStateChanged { get; set; }
 
     /// <summary>
     /// 点击回调方法
@@ -62,9 +62,9 @@ public partial class SwitchButton
     private async Task OnToggle()
     {
         ToggleState = !ToggleState;
-        if (ToggleStateChanged != null)
+        if (ToggleStateChanged.HasDelegate)
         {
-            await ToggleStateChanged(ToggleState);
+            await ToggleStateChanged.InvokeAsync(ToggleState);
         }
         if (OnClick.HasDelegate)
         {
