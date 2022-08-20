@@ -77,7 +77,7 @@ public class SearchTest : BootstrapBlazorTestBase
         var cut = Context.RenderComponent<Search>(builder =>
         {
             builder.Add(s => s.Items, new string[] { "1", "12", "123", "1234" });
-            builder.Add(s => s.SearchButtonLoadingIcon, "fa fa-fw fa-spinner fa-spin");
+            builder.Add(s => s.SearchButtonLoadingIcon, "fa-fw fa-spin fa-solid fa-spinner");
         });
     }
 

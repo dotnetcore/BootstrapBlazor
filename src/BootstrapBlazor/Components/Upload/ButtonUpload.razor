@@ -31,7 +31,7 @@
                         }
                         @if (item.Code == 0)
                         {
-                            <i class="fa fa-check-circle-o text-success"></i>
+                            <i class="fa-regular fa-circle-check text-success"></i>
                             @if (!IsDisabled)
                             {
                                 <i class="fa fa-trash-o text-danger" @onclick:stopPropagation @onclick="@(e => OnFileDelete(item))"></i>
@@ -41,7 +41,7 @@
                         {
                             @if (!IsDisabled)
                             {
-                                <i class="fa fa-times-circle-o"></i>
+                                <i class="fa-regular fa-circle-xmark"></i>
                                 <i class="fa fa-trash-o text-danger" @onclick:stopPropagation @onclick="@(e => OnFileDelete(item))"></i>
                             }
                         }

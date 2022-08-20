@@ -299,10 +299,10 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
             builder.Add(a => a.Value, DateTime.Now);
             builder.Add(a => a.ShowLeftButtons, false);
         });
-        Assert.DoesNotContain("fa fa-angle-double-left", cut.Find(".date-picker-header").ToMarkup());
+        Assert.DoesNotContain("fa-solid fa-angles-left", cut.Find(".date-picker-header").ToMarkup());
 
         cut.SetParametersAndRender(pb => pb.Add(a => a.ShowRightButtons, false));
-        Assert.DoesNotContain("fa fa-angle-double-right", cut.Find(".date-picker-header").ToMarkup());
+        Assert.DoesNotContain("fa-solid fa-angles-right", cut.Find(".date-picker-header").ToMarkup());
     }
 
     [Fact]

@@ -88,7 +88,7 @@ internal static class MenusDataGerator
         await Task.Delay(1);
         return new List<MenuItem>
         {
-            new(localizer["Menu1"].Value, icon:"fa fa-life-bouy"),
+            new(localizer["Menu1"].Value, icon:"fa-solid fa-life-ring"),
             new(localizer["Menu2"].Value, icon:"fa fa-font-awesome")
             {
                 IsActive = true,
@@ -222,7 +222,7 @@ internal static class MenusDataGerator
                 Items = new List<MenuItem>
                 {
                     new(localizer["Access"].Value, icon: "fa fa-bars"),
-                    new(localizer["Login"].Value, icon: "fa fa-user-circle-o"),
+                    new(localizer["Login"].Value, icon: "fa-regular fa-circle-user"),
                     new(localizer["Operation"].Value, icon: "fa fa-edit")
                 }
             }
@@ -258,7 +258,7 @@ internal static class MenusDataGerator
                 Items = new List<MenuItem>
                 {
                     new(localizer["Access"].Value, icon: "fa fa-bars"),
-                    new(localizer["Login"].Value, icon: "fa fa-user-circle-o"),
+                    new(localizer["Login"].Value, icon: "fa-regular fa-circle-user"),
                     new(localizer["Operation"].Value, icon: "fa fa-edit")
                     {
                         Template = BuildDynamicComponent().Render()
@@ -297,7 +297,7 @@ internal static class MenusDataGerator
                 Items = new List<MenuItem>
                 {
                     new(localizer["Access"].Value, icon: "fa fa-bars"),
-                    new(localizer["Login"].Value, icon: "fa fa-user-circle-o"),
+                    new(localizer["Login"].Value, icon: "fa-regular fa-circle-user"),
                     new(localizer["Operation"].Value, icon: "fa fa-edit")
                 }
             }

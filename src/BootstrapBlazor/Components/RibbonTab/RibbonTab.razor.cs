@@ -25,13 +25,13 @@ public partial class RibbonTab : IDisposable
     /// 获得/设置 选项卡向上箭头图标
     /// </summary>
     [Parameter]
-    public string RibbonArrowUpIcon { get; set; } = "fa fa-angle-up fa-2x";
+    public string RibbonArrowUpIcon { get; set; } = "fa-solid fa-angle-up fa-2x";
 
     /// <summary>
     /// 获得/设置 选项卡向下箭头图标
     /// </summary>
     [Parameter]
-    public string RibbonArrowDownIcon { get; set; } = "fa fa-angle-down fa-2x";
+    public string RibbonArrowDownIcon { get; set; } = "fa-solid fa-angle-down fa-2x";
 
     /// <summary>
     /// 获得/设置 选项卡可固定图标

@@ -37,7 +37,7 @@ public sealed partial class Messages
         await MessageService.Show(new MessageOption()
         {
             Content = "这是一条提示消息",
-            Icon = "fa fa-info-circle"
+            Icon = "fa-solid fa-circle-info"
         });
     }
 
@@ -46,7 +46,7 @@ public sealed partial class Messages
         await MessageService.Show(new MessageOption()
         {
             Content = "这是一条提示消息",
-            Icon = "fa fa-info-circle",
+            Icon = "fa-solid fa-circle-info",
             ShowDismiss = true,
         });
     }
@@ -56,7 +56,7 @@ public sealed partial class Messages
         await MessageService.Show(new MessageOption()
         {
             Content = "这是一条提示消息",
-            Icon = "fa fa-info-circle",
+            Icon = "fa-solid fa-circle-info",
             ShowBar = true,
         });
     }
@@ -66,7 +66,7 @@ public sealed partial class Messages
         await MessageService.Show(new MessageOption()
         {
             Content = "这是带颜色的消息",
-            Icon = "fa fa-info-circle",
+            Icon = "fa-solid fa-circle-info",
             Color = color
         });
     }
@@ -76,7 +76,7 @@ public sealed partial class Messages
         await MessageService.Show(new MessageOption()
         {
             Content = "这是一条提示消息",
-            Icon = "fa fa-info-circle",
+            Icon = "fa-solid fa-circle-info",
         }, Message);
     }
 

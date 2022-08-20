@@ -90,7 +90,7 @@ public sealed partial class Searchs
                 Description = Localizer["SearchButtonLoadingIcon"],
                 Type = "string",
                 ValueList = " — ",
-                DefaultValue = "fa fa-fw fa-spinner fa-spin"
+                DefaultValue = "fa-fw fa-spin fa-solid fa-spinner"
             },
             new AttributeItem() {
                 Name = "ClearButtonIcon",

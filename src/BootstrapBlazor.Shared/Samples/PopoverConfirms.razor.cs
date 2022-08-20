@@ -147,7 +147,7 @@ public sealed partial class PopoverConfirms
             Description = "确认框图标",
             Type = "string",
             ValueList = "",
-            DefaultValue = "fa fa-exclamation-circle text-info"
+            DefaultValue = "fa-solid fa-circle-exclamation text-info"
         },
         new AttributeItem() {
             Name = "Content",

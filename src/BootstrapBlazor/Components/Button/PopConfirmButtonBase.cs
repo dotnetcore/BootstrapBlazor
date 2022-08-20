@@ -81,7 +81,7 @@ public abstract class PopConfirmButtonBase : ButtonBase
     /// 获得/设置 确认框图标
     /// </summary>
     [Parameter]
-    public string ConfirmIcon { get; set; } = "fa fa-exclamation-circle text-info";
+    public string ConfirmIcon { get; set; } = "fa-solid fa-circle-exclamation text-info";
 
     /// <summary>
     /// 

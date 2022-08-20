@@ -75,7 +75,7 @@ public partial class RibbonTabs
             Description = "选项卡向上箭头图标",
             Type = "string",
             ValueList = " — ",
-            DefaultValue = "fa fa-angle-up fa-2x"
+            DefaultValue = "fa-solid fa-angle-up fa-2x"
         },
         new AttributeItem()
         {
@@ -83,7 +83,7 @@ public partial class RibbonTabs
             Description = "选项卡向下箭头图标",
             Type = "string",
             ValueList = " — ",
-            DefaultValue = "fa fa-angle-down fa-2x"
+            DefaultValue = "fa-solid fa-angle-down fa-2x"
         },
         new AttributeItem()
         {
