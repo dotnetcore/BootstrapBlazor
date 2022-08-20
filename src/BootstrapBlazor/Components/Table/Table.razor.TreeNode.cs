@@ -39,7 +39,7 @@ public partial class Table<TItem>
     private string? NotSetOnTreeExpandErrorMessage { get; set; }
 
     /// <summary>
-    /// 获得/设置 数型结构小箭头图标 默认 fa fa-caret-right
+    /// 获得/设置 数型结构小箭头图标 默认 fa-solid fa-caret-right
     /// </summary>
     [Parameter]
     public string TreeIcon { get; set; } = "fa-caret-right";

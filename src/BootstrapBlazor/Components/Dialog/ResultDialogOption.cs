@@ -30,7 +30,7 @@ public class ResultDialogOption : DialogOption
     /// <summary>
     /// 确认按钮图标
     /// </summary>
-    public string ButtonYesIcon { get; set; } = "fa fa-check";
+    public string ButtonYesIcon { get; set; } = "fa-solid fa-check";
 
     /// <summary>
     /// 确认按钮颜色

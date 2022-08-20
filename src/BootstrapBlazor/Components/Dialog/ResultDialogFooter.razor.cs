@@ -30,7 +30,7 @@ public partial class ResultDialogFooter
     /// </summary>
     [Parameter]
     [NotNull]
-    public string? ButtonYesIcon { get; set; } = "fa fa-check";
+    public string? ButtonYesIcon { get; set; } = "fa-solid fa-check";
 
     /// <summary>
     /// 确认按钮颜色

@@ -213,15 +213,15 @@ internal static class MenusDataGerator
                 Items = new List<MenuItem>
                 {
                     new(localizer["User"].Value, icon: "fa fa-user"),
-                    new(localizer["Menu"].Value, icon: "fa fa-dashboard"),
+                    new(localizer["Menu"].Value, icon: "fa-solid fa-gauge-high"),
                     new(localizer["Role"].Value, icon: "fa fa-sitemap")
                 }
             },
-            new(localizer["Log"].Value, icon: "fa fa-database")
+            new(localizer["Log"].Value, icon: "fa-solid fa-database")
             {
                 Items = new List<MenuItem>
                 {
-                    new(localizer["Access"].Value, icon: "fa fa-bars"),
+                    new(localizer["Access"].Value, icon: "fa-solid fa-bars"),
                     new(localizer["Login"].Value, icon: "fa-regular fa-circle-user"),
                     new(localizer["Operation"].Value, icon: "fa fa-edit")
                 }
@@ -248,16 +248,16 @@ internal static class MenusDataGerator
                 Items = new List<MenuItem>
                 {
                     new(localizer["User"].Value, icon: "fa fa-user"),
-                    new(localizer["Menu"].Value, icon: "fa fa-dashboard"),
+                    new(localizer["Menu"].Value, icon: "fa-solid fa-gauge-high"),
                     new(localizer["Role"].Value, icon: "fa fa-sitemap")
                 }
             },
-            new(localizer["Log"].Value, icon: "fa fa-database")
+            new(localizer["Log"].Value, icon: "fa-solid fa-database")
             {
                 Template = BuildDynamicComponent().Render(),
                 Items = new List<MenuItem>
                 {
-                    new(localizer["Access"].Value, icon: "fa fa-bars"),
+                    new(localizer["Access"].Value, icon: "fa-solid fa-bars"),
                     new(localizer["Login"].Value, icon: "fa-regular fa-circle-user"),
                     new(localizer["Operation"].Value, icon: "fa fa-edit")
                     {
@@ -288,15 +288,15 @@ internal static class MenusDataGerator
                 Items = new List<MenuItem>
                 {
                     new(localizer["User"].Value, icon: "fa fa-user"),
-                    new(localizer["Menu"].Value, icon: "fa fa-dashboard"),
+                    new(localizer["Menu"].Value, icon: "fa-solid fa-gauge-high"),
                     new(localizer["Role"].Value, icon: "fa fa-sitemap")
                 }
             },
-            new(localizer["Log"].Value, icon: "fa fa-database")
+            new(localizer["Log"].Value, icon: "fa-solid fa-database")
             {
                 Items = new List<MenuItem>
                 {
-                    new(localizer["Access"].Value, icon: "fa fa-bars"),
+                    new(localizer["Access"].Value, icon: "fa-solid fa-bars"),
                     new(localizer["Login"].Value, icon: "fa-regular fa-circle-user"),
                     new(localizer["Operation"].Value, icon: "fa fa-edit")
                 }

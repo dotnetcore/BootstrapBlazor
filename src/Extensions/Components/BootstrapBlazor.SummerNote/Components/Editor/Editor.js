@@ -70,7 +70,7 @@ export function bb_editor_method(el, method, parameter) {
                                     break;
                             }
                         });
-                    var $done = $('<div class="note-btn-group btn-group note-view note-right"><button type="button" class="note-btn btn btn-sm note-btn-close" tabindex="-1" data-method="submit" title="完成" data-bs-placement="bottom"><i class="fa fa-check"></i></button></div>').appendTo($toolbar).find('button').tooltip({ container: 'body' });
+                    var $done = $('<div class="note-btn-group btn-group note-view note-right"><button type="button" class="note-btn btn btn-sm note-btn-close" tabindex="-1" data-method="submit" title="完成" data-bs-placement="bottom"><i class="fa-solid fa-check"></i></button></div>').appendTo($toolbar).find('button').tooltip({ container: 'body' });
                     $('body').find('.note-group-select-from-files [accept="image/*"]').attr('accept', 'image/bmp,image/png,image/jpg,image/jpeg,image/gif');
                 });
 

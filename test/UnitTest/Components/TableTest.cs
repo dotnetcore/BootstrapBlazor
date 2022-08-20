@@ -3933,7 +3933,7 @@ public class TableTest : TableTestBase
             });
         });
 
-        var button = cut.FindComponents<Button>().First(i => i.Instance.Icon == "fa fa-bars");
+        var button = cut.FindComponents<Button>().First(i => i.Instance.Icon == "fa-solid fa-bars");
         await cut.InvokeAsync(() => button.Instance.OnClick.InvokeAsync());
 
         var table = cut.FindComponent<Table<Foo>>();
