@@ -702,7 +702,7 @@
     "TipsP2": "This component adapts to width height, etc., and scroll arrows can appear left and right or up and down when appropriate",
     "InfoTitle": "Set additional information during tab navigation",
     "InfoItem2": "Tab properties can be set when navigating using the built-in extension method <code>Navigator.NavigateTo(\"url\", \"text\", \"icon\", \"closable\")</code>",
-    "InfoItem4": "Setting <code>@attribute [TabItemOption(Text = \"LayoutPage\", Icon = \"fa fa-fa\")]</code> in <code>razor</code> page",
+    "InfoItem4": "Setting <code>@attribute [TabItemOption(Text = \"LayoutPage\", Icon = \"fa fa-font-awesome\")]</code> in <code>razor</code> page",
     "TabItem1Text": "User",
     "TabItem1Content": "I am a user manager",
     "TabItem2Text": "Menu",

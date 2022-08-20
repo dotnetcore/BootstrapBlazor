@@ -14,6 +14,6 @@ public class NavigationManagerExtensionsTest : BootstrapBlazorTestBase
     {
         var nav = Context.Services.GetRequiredService<FakeNavigationManager>();
         var provider = Context.Services.GetRequiredService<IServiceProvider>();
-        nav.NavigateTo(provider, "/Cat", "Cat", "fa fa-fa", false);
+        nav.NavigateTo(provider, "/Cat", "Cat", "fa fa-font-awesome", false);
     }
 }

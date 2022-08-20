@@ -27,8 +27,8 @@ public class FAIconTest : BootstrapBlazorTestBase
     {
         var cut = Context.RenderComponent<IconDialog>(pb =>
         {
-            pb.Add(a => a.IconName, "fa fa-fa");
+            pb.Add(a => a.IconName, "fa fa-font-awesome");
         });
-        cut.Contains("fa fa-fa");
+        cut.Contains("fa fa-font-awesome");
     }
 }

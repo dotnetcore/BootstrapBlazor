@@ -83,7 +83,7 @@ public sealed partial class NavMenu
         var item = new DemoMenuItem()
         {
             Text = Localizer["GetStarted"],
-            Icon = "fa fa-fw fa-fa"
+            Icon = "fa fa-fw fa-font-awesome"
         };
         AddQuickStar(item);
 
@@ -146,7 +146,7 @@ public sealed partial class NavMenu
         item = new DemoMenuItem()
         {
             Text = Localizer["Components"],
-            Icon = "fa fa-fw fa-fa",
+            Icon = "fa fa-fw fa-font-awesome",
             Url = "components"
         };
         AddSummary(item);

@@ -123,7 +123,7 @@ public sealed partial class Trees
         protected override void BuildRenderTree(RenderTreeBuilder builder)
         {
             builder.OpenComponent<Button>(0);
-            builder.AddAttribute(1, nameof(Button.Icon), "fa fa-fa");
+            builder.AddAttribute(1, nameof(Button.Icon), "fa fa-font-awesome");
             builder.AddAttribute(2, nameof(Button.Text), "Click");
             builder.AddAttribute(3, nameof(Button.OnClick), EventCallback.Factory.Create<MouseEventArgs>(this, e =>
             {

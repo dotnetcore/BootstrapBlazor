@@ -25,7 +25,7 @@ public class MessageTest : MessageTestBase
                         Content = "Test Content",
                         Delay = 4000,
                         ForceDelay = false,
-                        Icon = "fa fa-fa",
+                        Icon = "fa fa-font-awesome",
                         IsAutoHide = true,
                         ShowBar = true,
                         ShowDismiss = true,

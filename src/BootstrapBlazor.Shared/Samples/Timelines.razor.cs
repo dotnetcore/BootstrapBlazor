@@ -127,7 +127,7 @@ public sealed partial class Timelines
         new TimelineItem
         {
             Color = Color.Danger,
-            Icon = "fa fa-fw fa-fa",
+            Icon = "fa fa-fw fa-font-awesome",
             Content = Localizer["TimelineItemContent6"],
             Description = DateTime.Now.AddDays(3).ToString("yyyy-MM-dd")
         }
