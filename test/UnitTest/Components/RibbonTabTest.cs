@@ -125,12 +125,12 @@ public class RibbonTabTest : BootstrapBlazorTestBase
             Text = "文件",
             Items = new List<RibbonTabItem>()
             {
-                new() { Text = "常规操作", Icon = "fa fa-font-awesome", GroupName = "操作组一" },
-                new() { Text = "常规操作", Icon = "fa fa-font-awesome", GroupName = "操作组一" },
-                new() { Text = "常规操作", Icon = "fa fa-font-awesome", GroupName = "操作组一" },
-                new() { Text = "打开", Icon = "fa fa-font-awesome", GroupName = "操作组二" },
-                new() { Text = "保存", Icon = "fa fa-font-awesome", GroupName = "操作组二" },
-                new() { Text = "另存为", Icon = "fa fa-font-awesome", GroupName = "操作组二" }
+                new() { Text = "常规操作", Icon = "fa-solid fa-font-awesome", GroupName = "操作组一" },
+                new() { Text = "常规操作", Icon = "fa-solid fa-font-awesome", GroupName = "操作组一" },
+                new() { Text = "常规操作", Icon = "fa-solid fa-font-awesome", GroupName = "操作组一" },
+                new() { Text = "打开", Icon = "fa-solid fa-font-awesome", GroupName = "操作组二" },
+                new() { Text = "保存", Icon = "fa-solid fa-font-awesome", GroupName = "操作组二" },
+                new() { Text = "另存为", Icon = "fa-solid fa-font-awesome", GroupName = "操作组二" }
             }
         },
         new()
@@ -138,12 +138,12 @@ public class RibbonTabTest : BootstrapBlazorTestBase
             Text = "编辑",
             Items = new List<RibbonTabItem>()
             {
-                new() { Text = "打开", Icon = "fa fa-font-awesome", GroupName = "操作组三" },
-                new() { Text = "保存", Icon = "fa fa-font-awesome", GroupName = "操作组三" },
-                new() { Text = "另存为", Icon = "fa fa-font-awesome", GroupName = "操作组三" },
-                new() { Text = "常规操作", Icon = "fa fa-font-awesome", GroupName = "操作组四" },
-                new() { Text = "常规操作", Icon = "fa fa-font-awesome", GroupName = "操作组四" },
-                new() { Text = "常规操作", Icon = "fa fa-font-awesome", GroupName = "操作组四" }
+                new() { Text = "打开", Icon = "fa-solid fa-font-awesome", GroupName = "操作组三" },
+                new() { Text = "保存", Icon = "fa-solid fa-font-awesome", GroupName = "操作组三" },
+                new() { Text = "另存为", Icon = "fa-solid fa-font-awesome", GroupName = "操作组三" },
+                new() { Text = "常规操作", Icon = "fa-solid fa-font-awesome", GroupName = "操作组四" },
+                new() { Text = "常规操作", Icon = "fa-solid fa-font-awesome", GroupName = "操作组四" },
+                new() { Text = "常规操作", Icon = "fa-solid fa-font-awesome", GroupName = "操作组四" }
             }
         }
     };

@@ -1821,12 +1821,12 @@ public class TableTest : TableTestBase
                 });
             });
         });
-        cut.Contains("fa fa-fw fa-caret-right");
+        cut.Contains("fa-fw fa fa-caret-right");
 
         // 点击展开明细行
         var bar = cut.Find("tbody .is-bar i");
         await cut.InvokeAsync(() => bar.Click());
-        cut.Contains("fa fa-fw fa-caret-right fa-rotate-90");
+        cut.Contains("fa-fw fa fa-caret-right fa-rotate-90");
         await cut.InvokeAsync(() => bar.Click());
     }
 
@@ -2135,7 +2135,7 @@ public class TableTest : TableTestBase
         // 查询
         var table = cut.FindComponent<Table<FooTree>>();
         await cut.InvokeAsync(() => table.Instance.QueryAsync());
-        Assert.Contains("is-tree fa fa-fw fa-caret-right fa-rotate-90", cut.Markup);
+        Assert.Contains("is-tree fa-fw fa fa-caret-right fa-rotate-90", cut.Markup);
 
         nodes = cut.FindAll("tbody tr");
         Assert.Equal(4, nodes.Count);
@@ -2206,7 +2206,7 @@ public class TableTest : TableTestBase
         // 查询
         var table = cut.FindComponent<Table<FooTree>>();
         await cut.InvokeAsync(() => table.Instance.QueryAsync());
-        Assert.Contains("is-tree fa fa-fw fa-caret-right", cut.Markup);
+        Assert.Contains("is-tree fa-fw fa fa-caret-right", cut.Markup);
 
         nodes = cut.FindAll("tbody tr");
         Assert.Equal(2, nodes.Count);
@@ -2912,7 +2912,7 @@ public class TableTest : TableTestBase
                     builder.CloseComponent();
                 });
 
-                // <TableCellButton Color="Color.Primary" Icon="fa fa-edit" Text="明细" OnClick="@(() => OnRowButtonClick(context, "明细"))" />
+                // <TableCellButton Color="Color.Primary" Icon="fa-solid fa-pen" Text="明细" OnClick="@(() => OnRowButtonClick(context, "明细"))" />
                 pb.Add(a => a.RowButtonTemplate, foo => builder =>
                 {
                     builder.OpenComponent<TableCellButton>(0);
@@ -2957,7 +2957,7 @@ public class TableTest : TableTestBase
                     builder.CloseComponent();
                 });
 
-                // <TableCellButton Color="Color.Primary" Icon="fa fa-edit" Text="明细" OnClick="@(() => OnRowButtonClick(context, "明细"))" />
+                // <TableCellButton Color="Color.Primary" Icon="fa-solid fa-pen" Text="明细" OnClick="@(() => OnRowButtonClick(context, "明细"))" />
                 pb.Add(a => a.RowButtonTemplate, foo => builder =>
                 {
                     builder.OpenComponent<TableCellButton>(0);
@@ -2992,7 +2992,7 @@ public class TableTest : TableTestBase
                     builder.CloseComponent();
                 });
 
-                // <TableCellButton Color="Color.Primary" Icon="fa fa-edit" Text="明细" OnClick="@(() => OnRowButtonClick(context, "明细"))" />
+                // <TableCellButton Color="Color.Primary" Icon="fa-solid fa-pen" Text="明细" OnClick="@(() => OnRowButtonClick(context, "明细"))" />
                 pb.Add(a => a.RowButtonTemplate, foo => builder =>
                 {
                     builder.OpenComponent<TableCellButton>(0);
@@ -4133,7 +4133,7 @@ public class TableTest : TableTestBase
         });
 
         var table = cut.FindComponent<Table<Foo>>();
-        Assert.Contains("fa fa-plus", table.Markup);
+        Assert.Contains("fa-solid fa-plus", table.Markup);
         Assert.Contains("fa fa-pencil", table.Markup);
         Assert.Contains("fa fa-remove", table.Markup);
 
@@ -4141,7 +4141,7 @@ public class TableTest : TableTestBase
         {
             pb.Add(a => a.ShowDefaultButtons, false);
         });
-        Assert.DoesNotContain("fa fa-plus", table.Markup);
+        Assert.DoesNotContain("fa-solid fa-plus", table.Markup);
         Assert.DoesNotContain("fa fa-pencil", table.Markup);
         Assert.DoesNotContain("fa fa-remove", table.Markup);
     }
@@ -4169,13 +4169,13 @@ public class TableTest : TableTestBase
         });
 
         var table = cut.FindComponent<Table<Foo>>();
-        Assert.Contains("fa fa-plus", table.Markup);
+        Assert.Contains("fa-solid fa-plus", table.Markup);
 
         table.SetParametersAndRender(pb =>
         {
             pb.Add(a => a.ShowAddButton, false);
         });
-        Assert.DoesNotContain("fa fa-plus", table.Markup);
+        Assert.DoesNotContain("fa-solid fa-plus", table.Markup);
     }
 
     [Fact]
@@ -4300,13 +4300,13 @@ public class TableTest : TableTestBase
         });
 
         var table = cut.FindComponent<Table<Foo>>();
-        Assert.Contains("fa fa-edit", table.Find("tbody").ToMarkup());
+        Assert.Contains("fa-solid fa-pen", table.Find("tbody").ToMarkup());
 
         table.SetParametersAndRender(pb =>
         {
             pb.Add(a => a.ShowEditButtonCallback, foo => false);
         });
-        Assert.DoesNotContain("fa fa-edit", table.Find("tbody").ToMarkup());
+        Assert.DoesNotContain("fa-solid fa-pen", table.Find("tbody").ToMarkup());
     }
 
     [Fact]
@@ -4369,13 +4369,13 @@ public class TableTest : TableTestBase
         });
 
         var table = cut.FindComponent<Table<Foo>>();
-        Assert.Contains("fa fa-edit", table.Find("tbody").ToMarkup());
+        Assert.Contains("fa-solid fa-pen", table.Find("tbody").ToMarkup());
 
         table.SetParametersAndRender(pb =>
         {
             pb.Add(a => a.ShowExtendEditButton, false);
         });
-        Assert.DoesNotContain("fa fa-edit", table.Find("tbody").ToMarkup());
+        Assert.DoesNotContain("fa-solid fa-pen", table.Find("tbody").ToMarkup());
 
         table.SetParametersAndRender(pb =>
         {
@@ -4383,7 +4383,7 @@ public class TableTest : TableTestBase
             pb.Add(a => a.ShowDefaultButtons, false);
             pb.Add(a => a.ShowEditButtonCallback, foo => true);
         });
-        Assert.Contains("fa fa-edit", table.Find("tbody").ToMarkup());
+        Assert.Contains("fa-solid fa-pen", table.Find("tbody").ToMarkup());
     }
 
     [Fact]

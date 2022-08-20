@@ -97,7 +97,7 @@ public sealed partial class Editors
             },
             new EditorToolbarButton()
             {
-                IconClass = "fa fa-home",
+                IconClass = "fa-solid fa-house",
                 ButtonName = "plugin2",
                 Tooltip = Localizer["ToolTip2"]
             }

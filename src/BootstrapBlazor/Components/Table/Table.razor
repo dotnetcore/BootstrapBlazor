@@ -35,7 +35,7 @@
                     {
                         @if (ShowAddButton)
                         {
-                            <TableToolbarButton TItem="TItem" Color="Color.Success" OnClick="AddAsync" Icon="fa fa-plus" Text="@AddButtonText" />
+                            <TableToolbarButton TItem="TItem" Color="Color.Success" OnClick="AddAsync" Icon="fa-solid fa-plus" Text="@AddButtonText" />
                         }
                         @if (!IsExcel && ShowEditButton)
                         {
@@ -89,7 +89,7 @@
                     {
                         <div class="btn-group" role="group">
                             <button class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" type="button" title="@ExportButtonText">
-                                <i class="fa fa-download"></i>
+                                <i class="fa-solid fa-download"></i>
                                 <span class="d-none d-sm-inline-block">@ExportButtonText</span>
                                 <span class="caret"></span>
                             </button>
@@ -122,12 +122,12 @@
                                     <Tooltip Placement="Placement.Top" Title="@SearchTooltip" IsHtml="true" />
                                 }
                             </BootstrapInput>
-                            <Button Color="@Color.Secondary" Icon="fa fa-search" OnClickWithoutRender="@SearchClick">
+                            <Button Color="@Color.Secondary" Icon="fa-solid fa-magnifying-glass" OnClickWithoutRender="@SearchClick">
                                 <span class="d-none d-sm-inline-block">@SearchButtonText</span>
                             </Button>
                             @if (ShowResetButton)
                             {
-                                <Button Color="@Color.Secondary" Icon="fa fa-trash" OnClickWithoutRender="@ClearSearchClick">
+                                <Button Color="@Color.Secondary" Icon="fa-solid fa-trash" OnClickWithoutRender="@ClearSearchClick">
                                     <span class="d-none d-sm-inline-block">@ResetSearchButtonText</span>
                                 </Button>
                             }
@@ -762,7 +762,7 @@ RenderFragment<TItem> RenderExtendButtons => item =>
     <span class="btn-group">
         @if (GetShowEditButton(item))
         {
-            <Button Size="Size.ExtraSmall" OnClick="() => ClickEditButton(item)" Icon="fa fa-edit" Text="@EditButtonText" />
+            <Button Size="Size.ExtraSmall" OnClick="() => ClickEditButton(item)" Icon="fa-solid fa-pen" Text="@EditButtonText" />
         }
         @if (GetShowDeleteButton(item))
         {
@@ -798,12 +798,12 @@ RenderFragment<TItem> RenderRowExtendButtons => item =>
             {
                 @if (isInCell)
                 {
-                    <Button Size="Size.ExtraSmall" OnClick="ClickUpdateButtonCallback" Color="Color.Success" Icon="fa fa-edit" Text="@UpdateButtonText" />
+                    <Button Size="Size.ExtraSmall" OnClick="ClickUpdateButtonCallback" Color="Color.Success" Icon="fa-solid fa-pen" Text="@UpdateButtonText" />
                     <Button Size="Size.ExtraSmall" OnClick="@CancelSave" Color="Color.Warning" Icon="fa fa-times" Text="@CancelButtonText" />
                 }
                 else
                 {
-                    <Button Size="Size.ExtraSmall" OnClick="() => ClickEditButton(item)" Icon="fa fa-edit" Text="@EditButtonText" />
+                    <Button Size="Size.ExtraSmall" OnClick="() => ClickEditButton(item)" Icon="fa-solid fa-pen" Text="@EditButtonText" />
                 }
             }
             @if (!isInCell && GetShowDeleteButton(item))
@@ -844,11 +844,11 @@ RenderFragment RenderSearch =>
                     </BootstrapInput>
                     @if (ShowResetButton)
                     {
-                        <Button Color="Color.Secondary" Icon="fa fa-trash" OnClickWithoutRender="ClearSearchClick">
+                        <Button Color="Color.Secondary" Icon="fa-solid fa-trash" OnClickWithoutRender="ClearSearchClick">
                             <span class="d-none d-sm-inline-block">@ResetSearchButtonText</span>
                         </Button>
                     }
-                    <Button Color="Color.Secondary" Icon="fa fa-search" OnClickWithoutRender="SearchClick">
+                    <Button Color="Color.Secondary" Icon="fa-solid fa-magnifying-glass" OnClickWithoutRender="SearchClick">
                         <span class="d-none d-sm-inline-block">@SearchButtonText</span>
                     </Button>
                 </div>
@@ -856,13 +856,13 @@ RenderFragment RenderSearch =>
             <div class="table-search-buttons">
                 @if (ShowResetButton)
                 {
-                    <Button Color="Color.Secondary" Icon="fa fa-trash" class="btn-xs ms-2" OnClickWithoutRender="ClearSearchClick">
+                    <Button Color="Color.Secondary" Icon="fa-solid fa-trash" class="btn-xs ms-2" OnClickWithoutRender="ClearSearchClick">
                         <span class="d-none d-sm-inline-block">@ResetSearchButtonText</span>
                     </Button>
                 }
                 @if (ShowSearchButton)
                 {
-                    <Button Color="Color.Primary" Icon="fa fa-search" class="btn-xs ms-2" OnClickWithoutRender="SearchClick">
+                    <Button Color="Color.Primary" Icon="fa-solid fa-magnifying-glass" class="btn-xs ms-2" OnClickWithoutRender="SearchClick">
                         <span class="d-none d-sm-inline-block">@SearchButtonText</span>
                     </Button>
                 }

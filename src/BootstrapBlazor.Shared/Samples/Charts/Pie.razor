@@ -7,8 +7,8 @@
             <button class="btn btn-primary" @onclick="e => Utility.RandomData(PieChart)"><i class="fa fa-pie-chart"></i><span>随机数据</span></button>
             <button class="btn btn-primary" @onclick="e => Utility.AddDataSet(PieChart, ref PieDatasetCount)"><i class="fa-solid fa-circle-plus"></i><span>添加数据集</span></button>
             <button class="btn btn-primary" @onclick="e => Utility.RemoveDataSet(PieChart, ref PieDatasetCount)"><i class="fa-solid fa-circle-minus"></i><span>移除数据集</span></button>
-            <button class="btn btn-primary" @onclick="e => Utility.AddData(PieChart, ref PieDataCount)"><i class="fa fa-plus"></i><span>添加数据</span></button>
-            <button class="btn btn-primary" @onclick="e => Utility.RemoveData(PieChart, ref PieDataCount)"><i class="fa fa-minus"></i><span>移除数据</span></button>
+            <button class="btn btn-primary" @onclick="e => Utility.AddData(PieChart, ref PieDataCount)"><i class="fa-solid fa-plus"></i><span>添加数据</span></button>
+            <button class="btn btn-primary" @onclick="e => Utility.RemoveData(PieChart, ref PieDataCount)"><i class="fa-solid fa-minus"></i><span>移除数据</span></button>
         </div>
     </div>
     <BlockLogger @ref="Logger" class="mt-3" />

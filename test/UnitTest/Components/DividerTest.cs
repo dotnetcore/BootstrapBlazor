@@ -12,10 +12,10 @@ public class DividerTest : TestBase
         var cut = Context.RenderComponent<Divider>(pb =>
         {
             pb.Add(a => a.Text, "Test");
-            pb.Add(a => a.Icon, "fa fa-font-awesome");
+            pb.Add(a => a.Icon, "fa-solid fa-font-awesome");
         });
         Assert.Contains("Test", cut.Markup);
-        Assert.Contains("fa fa-font-awesome", cut.Markup);
+        Assert.Contains("fa-solid fa-font-awesome", cut.Markup);
     }
 
     [Fact]

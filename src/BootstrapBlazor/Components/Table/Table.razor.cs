@@ -97,7 +97,7 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
     /// </summary>
     /// <param name="item"></param>
     /// <returns></returns>
-    protected string? GetDetailCaretClassString(TItem item) => CssBuilder.Default("fa fa-fw")
+    protected string? GetDetailCaretClassString(TItem item) => CssBuilder.Default("fa-fw fa")
         .AddClass(TreeIcon)
         .AddClass("fa-rotate-90", ExpandRows.Contains(item))
         .Build();
@@ -905,7 +905,7 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
     /// <summary>
     /// 获得 过滤小图标样式
     /// </summary>
-    protected string? GetFilterClassString(string fieldName) => CssBuilder.Default("fa fa-fw fa-filter")
+    protected string? GetFilterClassString(string fieldName) => CssBuilder.Default("fa-fw fa-solid fa-filter")
         .AddClass("active", Filters.ContainsKey(fieldName))
         .Build();
 

@@ -54,7 +54,7 @@
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["Block2Title"]" Introduction="@Localizer["Block2Intro"]" Name="Async">
-    <Button Text="@Localizer["ButtonText"]" IsAsync="true" OnClick="GetAsyncString" Icon="fa fa-font-awesome" class="mb-3" />
+    <Button Text="@Localizer["ButtonText"]" IsAsync="true" OnClick="GetAsyncString" Icon="fa-solid fa-font-awesome" class="mb-3" />
     <Markdown Value="@AsyncValue" @ref="MarkdownSetValue"></Markdown>
 </DemoBlock>
 
@@ -92,7 +92,7 @@
                 <Markdown @bind-Value="Model.Name"></Markdown>
             </div>
             <div class="col-12">
-                <Button ButtonType="ButtonType.Submit" Icon="fa fa-fw fa-save" Text="@Localizer["SubmitText"]" />
+                <Button ButtonType="ButtonType.Submit" Icon="fa-fw fa fa-save" Text="@Localizer["SubmitText"]" />
             </div>
         </div>
     </ValidateForm>

@@ -31,11 +31,11 @@ public class TimelineTest : BootstrapBlazorTestBase
         {
             new TimelineItem()
             {
-                Color = Color.Danger, Content = "first item", Description = "first description", Icon = "fa fa-home"
+                Color = Color.Danger, Content = "first item", Description = "first description", Icon = "fa-solid fa-house"
             },
             new TimelineItem()
             {
-                Color = Color.None, Content = "no color item", Description = "first description", Icon = "fa fa-home"
+                Color = Color.None, Content = "no color item", Description = "first description", Icon = "fa-solid fa-house"
             },
             new TimelineItem()
             {
@@ -57,7 +57,7 @@ public class TimelineTest : BootstrapBlazorTestBase
         Assert.Contains("first item", html);
         Assert.Contains("first description", html);
         Assert.Contains("text-danger", html);
-        Assert.Contains("fa fa-home", html);
+        Assert.Contains("fa-solid fa-house", html);
         Assert.Contains("card-body", html);
         Assert.Matches("bg-dark(.*?)text-danger", html.Replace("\r", "").Replace("\n", ""));
     }

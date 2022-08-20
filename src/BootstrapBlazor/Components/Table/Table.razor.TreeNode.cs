@@ -64,7 +64,7 @@ public partial class Table<TItem>
     /// </summary>
     /// <param name="isExpand"></param>
     /// <returns></returns>
-    protected string? GetTreeClassString(bool isExpand) => CssBuilder.Default("is-tree fa fa-fw")
+    protected string? GetTreeClassString(bool isExpand) => CssBuilder.Default("is-tree fa-fw fa")
         .AddClass(TreeIcon, !IsLoadChildren)
         .AddClass("fa-rotate-90", !IsLoadChildren && isExpand)
         .AddClass("fa-spin fa-spinner", IsLoadChildren)

@@ -58,7 +58,7 @@ else
                                         @if (ShowClose && item.Closable)
                                         {
                                             <span class="tabs-item-close" @onclick:stopPropagation @onclick:preventDefault @onclick="@(e => RemoveTab(item))">
-                                                <i class="fa fa-fw fa-close"></i>
+                                                <i class="fa-fw fa-solid fa-xmark"></i>
                                             </span>
                                         }
                                     </DynamicElement>

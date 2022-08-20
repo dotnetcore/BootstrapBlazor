@@ -25,7 +25,7 @@ public partial class Search
     /// Clear button icon
     /// </summary>
     [Parameter]
-    public string ClearButtonIcon { get; set; } = "fa fa-fw fa-trash";
+    public string ClearButtonIcon { get; set; } = "fa-fw fa-solid fa-trash";
 
     /// <summary>
     /// Clear button text
@@ -49,7 +49,7 @@ public partial class Search
     /// 获得/设置 搜索按钮图标
     /// </summary>
     [Parameter]
-    public string SearchButtonIcon { get; set; } = "fa fa-fw fa-search";
+    public string SearchButtonIcon { get; set; } = "fa-fw fa-solid fa-magnifying-glass";
 
     /// <summary>
     /// 获得/设置 正在搜索按钮图标

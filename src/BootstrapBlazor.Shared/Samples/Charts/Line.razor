@@ -4,11 +4,11 @@
     <Chart @ref="LineChart" OnInitAsync="() => OnInit(0.4f, false)" OnAfterInitAsync="@OnAfterInit" OnAfterUpdateAsync="@OnAfterUpdate" />
     <div class="text-center mt-2 chart">
         <div class="btn-group">
-            <button class="btn btn-primary" @onclick="e => Utility.RandomData(LineChart)"><i class="fa fa-line-chart"></i><span>随机数据</span></button>
+            <button class="btn btn-primary" @onclick="e => Utility.RandomData(LineChart)"><i class="fa-solid fa-chart-line"></i><span>随机数据</span></button>
             <button class="btn btn-primary" @onclick="e => Utility.AddDataSet(LineChart, ref LineDatasetCount)"><i class="fa-solid fa-circle-plus"></i><span>添加数据集</span></button>
             <button class="btn btn-primary" @onclick="e => Utility.RemoveDataSet(LineChart, ref LineDatasetCount)"><i class="fa-solid fa-circle-minus"></i><span>移除数据集</span></button>
-            <button class="btn btn-primary" @onclick="e => Utility.AddData(LineChart, ref LineDataCount)"><i class="fa fa-plus"></i><span>添加数据</span></button>
-            <button class="btn btn-primary" @onclick="e => Utility.RemoveData(LineChart, ref LineDataCount)"><i class="fa fa-minus"></i><span>移除数据</span></button>
+            <button class="btn btn-primary" @onclick="e => Utility.AddData(LineChart, ref LineDataCount)"><i class="fa-solid fa-plus"></i><span>添加数据</span></button>
+            <button class="btn btn-primary" @onclick="e => Utility.RemoveData(LineChart, ref LineDataCount)"><i class="fa-solid fa-minus"></i><span>移除数据</span></button>
         </div>
     </div>
     <BlockLogger @ref="Logger" class="mt-3" />

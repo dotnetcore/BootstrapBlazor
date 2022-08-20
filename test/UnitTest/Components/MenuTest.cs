@@ -18,27 +18,27 @@ public class MenuTest : BootstrapBlazorTestBase
         new("Menu1")
         {
             IsActive = true,
-            Icon = "fa fa-font-awesome",
+            Icon = "fa-solid fa-font-awesome",
             Url = "https://www.blazor.zone"
         },
         new("Menu2")
         {
-            Icon = "fa fa-fw fa-font-awesome",
+            Icon = "fa-solid fa-fw fa-font-awesome",
             Items = new List<MenuItem>
             {
                 new("Menu21")
                 {
-                    Icon = "fa fa-font-awesome",
+                    Icon = "fa-solid fa-font-awesome",
                     IsDisabled = true
                 },
                 new("Menu22")
                 {
                     Url = "/menu22",
-                    Icon = "fa fa-fw fa-font-awesome"
+                    Icon = "fa-solid fa-fw fa-font-awesome"
                 },
                 new("Menu23")
                 {
-                    Icon = "fa fa-fw fa-font-awesome",
+                    Icon = "fa-solid fa-fw fa-font-awesome",
                     Items = new List<MenuItem>
                     {
                         new("Menu231"),
@@ -49,12 +49,12 @@ public class MenuTest : BootstrapBlazorTestBase
                             {
                                 new MenuItem("Menu2321")
                                 {
-                                    Icon = "fa fa-font-awesome",
+                                    Icon = "fa-solid fa-font-awesome",
                                     Url = "/Menu2321"
                                 },
                                 new MenuItem("Menu2322")
                                 {
-                                    Icon = "fa fa-fw fa-font-awesome"
+                                    Icon = "fa-solid fa-fw fa-font-awesome"
                                 },
                                 new MenuItem("Menu2323")
                             }
@@ -63,18 +63,18 @@ public class MenuTest : BootstrapBlazorTestBase
                 },
                 new("Menu24")
                 {
-                    Icon = "fa fa-font-awesome",
+                    Icon = "fa-solid fa-font-awesome",
                     Target = "_blank",
                     Match = NavLinkMatch.All
                 },
                 new("Menu25")
                 {
-                    Icon = "fa fa-font-awesome",
+                    Icon = "fa-solid fa-font-awesome",
                     Items = new List<MenuItem>
                     {
                         new MenuItem("Menu251")
                         {
-                            Icon = "fa fa-font-awesome"
+                            Icon = "fa-solid fa-font-awesome"
                         }
                     }
                 }
@@ -82,7 +82,7 @@ public class MenuTest : BootstrapBlazorTestBase
         },
         new("Menu3")
         {
-            Icon = "fa fa-font-awesome",
+            Icon = "fa-solid fa-font-awesome",
             Items = new List<MenuItem>
             {
                 new MenuItem("Menu31")
@@ -91,7 +91,7 @@ public class MenuTest : BootstrapBlazorTestBase
         new("Menu4")
         {
             IsActive = true,
-            Icon = "fa fa-fw fa-font-awesome",
+            Icon = "fa-solid fa-fw fa-font-awesome",
             Url = "https://www.blazor.zone"
         }
     };

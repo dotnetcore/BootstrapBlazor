@@ -21,7 +21,7 @@ public class TabTest : TabTestBase
                 pb.Add(a => a.Text, "Tab1");
                 pb.Add(a => a.Url, "/Index");
                 pb.Add(a => a.Closable, true);
-                pb.Add(a => a.Icon, "fa fa-font-awesome");
+                pb.Add(a => a.Icon, "fa-solid fa-font-awesome");
                 pb.Add(a => a.Key, "TabItem-Key");
                 pb.Add(a => a.ChildContent, "Tab1-Content");
             });
@@ -178,12 +178,12 @@ public class TabTest : TabTestBase
             ["ChildContent"] = new RenderFragment(builder => builder.AddContent(0, "Tab1-Body"))
         }));
 
-        cut.InvokeAsync(() => tab.AddTab("/", "Tab2", "fa fa-font-awesome", false, true));
+        cut.InvokeAsync(() => tab.AddTab("/", "Tab2", "fa-solid fa-font-awesome", false, true));
         cut.InvokeAsync(() => tab.CloseOtherTabs());
         Assert.Equal("Tab1-Body", cut.Find(".tabs-body-content").InnerHtml);
 
         // NotFound
-        cut.InvokeAsync(() => tab.AddTab("/Test", "Tab3", "fa fa-font-awesome", false, true));
+        cut.InvokeAsync(() => tab.AddTab("/Test", "Tab3", "fa-solid fa-font-awesome", false, true));
         Assert.Contains("NotFound-Tab", cut.Markup);
     }
 

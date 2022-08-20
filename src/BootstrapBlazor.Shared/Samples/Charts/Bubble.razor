@@ -7,8 +7,8 @@
             <button class="btn btn-primary" @onclick="e => Utility.RandomData(BubbleChart)"><i class="fa fa-snowflake-o"></i><span>随机数据</span></button>
             <button class="btn btn-primary" @onclick="e => Utility.AddDataSet(BubbleChart, ref BubbleDatasetCount)"><i class="fa-solid fa-circle-plus"></i><span>添加数据集</span></button>
             <button class="btn btn-primary" @onclick="e => Utility.RemoveDataSet(BubbleChart, ref BubbleDatasetCount)"><i class="fa-solid fa-circle-minus"></i><span>移除数据集</span></button>
-            <button class="btn btn-primary" @onclick="e => Utility.AddData(BubbleChart, ref BubbleDataCount)"><i class="fa fa-plus"></i><span>添加数据</span></button>
-            <button class="btn btn-primary" @onclick="e => Utility.RemoveData(BubbleChart, ref BubbleDataCount)"><i class="fa fa-minus"></i><span>移除数据</span></button>
+            <button class="btn btn-primary" @onclick="e => Utility.AddData(BubbleChart, ref BubbleDataCount)"><i class="fa-solid fa-plus"></i><span>添加数据</span></button>
+            <button class="btn btn-primary" @onclick="e => Utility.RemoveData(BubbleChart, ref BubbleDataCount)"><i class="fa-solid fa-minus"></i><span>移除数据</span></button>
         </div>
     </div>
     <BlockLogger @ref="Logger" class="mt-3" />

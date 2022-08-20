@@ -33,9 +33,9 @@ public class LinkButtonTest : BootstrapBlazorTestBase
     [Fact]
     public void Icon_Ok()
     {
-        var cut = Context.RenderComponent<LinkButton>(builder => builder.Add(s => s.Icon, "fa fa-font-awesome"));
+        var cut = Context.RenderComponent<LinkButton>(builder => builder.Add(s => s.Icon, "fa-solid fa-font-awesome"));
 
-        Assert.Contains("fa fa-font-awesome", cut.Markup);
+        Assert.Contains("fa-solid fa-font-awesome", cut.Markup);
 
         Assert.Contains("link-primary", cut.Markup);
     }

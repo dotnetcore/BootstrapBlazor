@@ -97,7 +97,7 @@ public sealed partial class Searchs
                 Description = Localizer["ChildContent"],
                 Type = "string",
                 ValueList = " — ",
-                DefaultValue = "fa fa-trash"
+                DefaultValue = "fa-solid fa-trash"
             },
             new AttributeItem() {
                 Name = "ClearButtonText",

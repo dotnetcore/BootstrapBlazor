@@ -43,8 +43,8 @@
             <MultiSelect Items="@Items4" @bind-Value="@SelectedItemsValue"></MultiSelect>
         </div>
         <div class="col-12 col-sm-6">
-            <Button Icon="fa fa-plus" Text="@Localizer["ButtonText1"]" OnClick="@AddItems" class="me-1"></Button>
-            <Button Icon="fa fa-minus" Text="@Localizer["ButtonText2"]" OnClick="@RemoveItems"></Button>
+            <Button Icon="fa-solid fa-plus" Text="@Localizer["ButtonText1"]" OnClick="@AddItems" class="me-1"></Button>
+            <Button Icon="fa-solid fa-minus" Text="@Localizer["ButtonText2"]" OnClick="@RemoveItems"></Button>
             <Button Icon="fa fa-trash-o" Text="@Localizer["ButtonText3"]" OnClick="@ClearItems"></Button>
         </div>
     </div>
@@ -58,8 +58,8 @@
             <MultiSelect Items="@Items5" @bind-Value="@SelectedArrayValues"></MultiSelect>
         </div>
         <div class="col-12 col-sm-6">
-            <Button Icon="fa fa-plus" Text="@Localizer["ButtonText1"]" OnClick="@AddListItems" class="me-1"></Button>
-            <Button Icon="fa fa-minus" Text="@Localizer["ButtonText2"]" OnClick="@RemoveListItems"></Button>
+            <Button Icon="fa-solid fa-plus" Text="@Localizer["ButtonText1"]" OnClick="@AddListItems" class="me-1"></Button>
+            <Button Icon="fa-solid fa-minus" Text="@Localizer["ButtonText2"]" OnClick="@RemoveListItems"></Button>
             <Button Icon="fa fa-trash-o" Text="@Localizer["ButtonText3"]" OnClick="@ClearListItems"></Button>
         </div>
     </div>
@@ -73,8 +73,8 @@
             <MultiSelect Items="@LongItems" @bind-Value="@SelectedIntArrayValues"></MultiSelect>
         </div>
         <div class="col-12 col-sm-6">
-            <Button Icon="fa fa-plus" Text="@Localizer["ButtonText1"]" OnClick="@AddArrayItems" class="me-1"></Button>
-            <Button Icon="fa fa-minus" Text="@Localizer["ButtonText2"]" OnClick="@RemoveArrayItems"></Button>
+            <Button Icon="fa-solid fa-plus" Text="@Localizer["ButtonText1"]" OnClick="@AddArrayItems" class="me-1"></Button>
+            <Button Icon="fa-solid fa-minus" Text="@Localizer["ButtonText2"]" OnClick="@RemoveArrayItems"></Button>
             <Button Icon="fa fa-trash-o" Text="@Localizer["ButtonText3"]" OnClick="@ClearArrayItems"></Button>
         </div>
     </div>
@@ -194,9 +194,9 @@
             <MultiSelect TValue="string" Items="@TemplateItems">
                 <ItemTemplate>
                     <div class="mul-select-item">
-                        <i class="fa fa-font-awesome"></i>
+                        <i class="fa-solid fa-font-awesome"></i>
                         <span>@context.Text</span>
-                        <i class="fa fa-font-awesome"></i>
+                        <i class="fa-solid fa-font-awesome"></i>
                     </div>
                 </ItemTemplate>
             </MultiSelect>

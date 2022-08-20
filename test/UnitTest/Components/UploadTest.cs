@@ -32,7 +32,7 @@ public class UploadTest : BootstrapBlazorTestBase
             new MockBrowserFile()
         })));
         Assert.Equal("UploadTestFile", uploadFile!.OriginFileName);
-        cut.Contains("fa fa-folder-open-o");
+        cut.Contains("fa-regular fa-folder-open");
         cut.Contains("btn-primary");
         cut.Contains("TestPlaceHolder");
 

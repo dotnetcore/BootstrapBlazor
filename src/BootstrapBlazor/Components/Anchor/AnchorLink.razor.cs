@@ -30,10 +30,10 @@ public partial class AnchorLink
     public string? TooltipText { get; set; }
 
     /// <summary>
-    /// 获得/设置 锚点图标 默认 fa fa-link
+    /// 获得/设置 锚点图标 默认 fa-solid fa-link
     /// </summary>
     [Parameter]
-    public string Icon { get; set; } = "fa fa-link";
+    public string Icon { get; set; } = "fa-solid fa-link";
 
     private string? IconString => CssBuilder.Default("anchor-link-icon")
         .AddClass(Icon)

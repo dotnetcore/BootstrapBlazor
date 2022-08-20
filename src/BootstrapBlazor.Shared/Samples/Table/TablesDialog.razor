@@ -16,7 +16,7 @@
            ShowToolbar="true" ShowDefaultButtons="true" ShowAddButton="false" IsMultipleSelect="true" ShowExtendButtons="true"
            OnQueryAsync="@OnQueryEditAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync">
         <TableToolbarTemplate>
-            <TableToolbarButton TItem="Foo" Color="Color.Primary" Icon="fa fa-fw fa-edit" Text="选择" OnClickCallback="@ShowDialog" />
+            <TableToolbarButton TItem="Foo" Color="Color.Primary" Icon="fa-fw fa fa-edit" Text="选择" OnClickCallback="@ShowDialog" />
         </TableToolbarTemplate>
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Readonly="true" />

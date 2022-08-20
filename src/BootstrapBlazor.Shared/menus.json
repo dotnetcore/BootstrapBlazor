@@ -1,6 +1,6 @@
 ﻿{
   "GetStarted": {
-    "Icon": "fa fa-font-awesome",
+    "Icon": "fa-solid fa-font-awesome",
     "Items": [
       {
         "Introduction": {

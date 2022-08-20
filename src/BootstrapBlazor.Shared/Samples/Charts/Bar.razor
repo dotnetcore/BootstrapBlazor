@@ -19,8 +19,8 @@
             <button class="btn btn-primary" @onclick="e => Utility.RandomData(BarChart)"><i class="fa-solid fa-chart-column"></i><span>随机数据</span></button>
             <button class="btn btn-primary" @onclick="e => Utility.AddDataSet(BarChart, ref BarDatasetCount)"><i class="fa-solid fa-circle-plus"></i><span>添加数据集</span></button>
             <button class="btn btn-primary" @onclick="e => Utility.RemoveDataSet(BarChart, ref BarDatasetCount)"><i class="fa-solid fa-circle-minus"></i><span>移除数据集</span></button>
-            <button class="btn btn-primary" @onclick="e => Utility.AddData(BarChart, ref BarDataCount)"><i class="fa fa-plus"></i><span>添加数据</span></button>
-            <button class="btn btn-primary" @onclick="e => Utility.RemoveData(BarChart, ref BarDataCount)"><i class="fa fa-minus"></i><span>移除数据</span></button>
+            <button class="btn btn-primary" @onclick="e => Utility.AddData(BarChart, ref BarDataCount)"><i class="fa-solid fa-plus"></i><span>添加数据</span></button>
+            <button class="btn btn-primary" @onclick="e => Utility.RemoveData(BarChart, ref BarDataCount)"><i class="fa-solid fa-minus"></i><span>移除数据</span></button>
         </div>
     </div>
     <BlockLogger @ref="Logger" class="mt-3" />
