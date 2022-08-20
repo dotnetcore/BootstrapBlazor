@@ -778,8 +778,7 @@
 /*end select*/
 
 /*tree*/
-.tree {
+.tree-view {
     --bb-tree-item-hover-color: var(--bs-primary);
-    --bb-tree-item-hover-bg: transparent;
 }
 /*end tree*/
