@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
-    <Version>6.1.2</Version>
+    <Version>6.1.3</Version>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -10,11 +10,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="wwwroot\css\all.css" />
+    <Content Remove="wwwroot\css\font-awesome.css" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="wwwroot\css\all.css" />
+    <None Include="wwwroot\css\font-awesome.css" />
   </ItemGroup>
 
 </Project>
