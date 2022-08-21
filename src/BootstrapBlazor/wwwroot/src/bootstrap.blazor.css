@@ -548,7 +548,7 @@ form .form-label[required]:before {
 /*end pulse*/
 
 .fs-on,
-.fs-open .fs {
+.fs-open .fs-off {
     display: none;
 }
 
