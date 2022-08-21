@@ -90,35 +90,35 @@ public sealed partial class NavMenu
         item = new DemoMenuItem()
         {
             Text = Localizer["LayoutComponents"],
-            Icon = "fa-fw fa fa-desktop"
+            Icon = "fa-fw fa-solid fa-desktop"
         };
         AddLayout(item);
 
         item = new DemoMenuItem()
         {
             Text = Localizer["NavigationComponents"],
-            Icon = "fa-fw fa fa-bars"
+            Icon = "fa-fw fa-solid fa-bars"
         };
         AddNavigation(item);
 
         item = new DemoMenuItem()
         {
             Text = Localizer["FormsComponents"],
-            Icon = "fa-fw fa fa-cubes"
+            Icon = "fa-fw fa-solid fa-cubes"
         };
         AddForm(item);
 
         item = new DemoMenuItem()
         {
             Text = Localizer["TableComponents"],
-            Icon = "fa-fw fa fa-table"
+            Icon = "fa-fw fa-solid fa-table"
         };
         AddTable(item);
 
         item = new DemoMenuItem()
         {
             Text = Localizer["DataComponents"],
-            Icon = "fa-fw fa fa-database"
+            Icon = "fa-fw fa-solid fa-database"
         };
         AddData(item);
 
@@ -132,7 +132,7 @@ public sealed partial class NavMenu
         item = new DemoMenuItem()
         {
             Text = Localizer["NotificationComponents"],
-            Icon = "fa-fw fa fa-comments"
+            Icon = "fa-fw fa-solid fa-comments"
         };
         AddNotice(item);
 

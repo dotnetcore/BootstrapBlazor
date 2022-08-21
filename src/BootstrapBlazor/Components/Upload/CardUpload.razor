@@ -25,7 +25,7 @@
                 <div class="upload-item-actions">
                     <div class="btn-group">
                         <button type="button" class="btn btn-sm btn-secondary" disabled="@GetDiabledString(item)" @onclick="() => OnClickZoom(item)">
-                            <i class="fa fa-search-plus"></i>
+                            <i class="fa-solid fa-magnifying-glass-plus"></i>
                         </button>
                         @if(ShowDownloadButton)
                         {
@@ -36,7 +36,7 @@
                     </div>
                     <DynamicElement TagName="button" type="button" class="btn btn-sm btn-outline-danger" disabled="@GetDeleteButtonDiabledString(item)"
                                     TriggerClick="@(!IsDisabled)" OnClick="@(() => OnCardFileDelete(item))">
-                        <i class="fa fa-trash-o"></i>
+                        <i class="fa-regular fa-trash"></i>
                     </DynamicElement>
                 </div>
                 @if (GetShowProgress(item))
@@ -45,7 +45,7 @@
                 }
                 <span class="upload-item-label">
                     <i class="fa-solid fa-check"></i>
-                    <i class="fa fa-times"></i>
+                    <i class="fa-solid fa-xmark"></i>
                 </span>
             </div>
         }

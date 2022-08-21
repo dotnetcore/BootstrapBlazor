@@ -35,7 +35,7 @@
                 <BootstrapInput @bind-Value="@Model.Address" DisplayText="@Localizer["LongDisplayText"]" ShowLabelTooltip="true" />
             </div>
             <div class="col-12">
-                <Button ButtonType="ButtonType.Submit" Icon="fa-fw fa fa-save" Text="@Localizer["ButtonText"]" IsAsync="true" />
+                <Button ButtonType="ButtonType.Submit" Icon="fa-fw fa-solid fa-floppy-disk" Text="@Localizer["ButtonText"]" IsAsync="true" />
             </div>
         </div>
     </ValidateForm>
@@ -76,7 +76,7 @@
                 <CheckboxList @bind-Value="@Model.Hobby" Items="@Hobbys" />
             </div>
             <div class="col-12">
-                <Button ButtonType="@ButtonType.Submit" Icon="fa-fw fa fa-save" IsAsync="true" Text="@Localizer["ButtonText"]" />
+                <Button ButtonType="@ButtonType.Submit" Icon="fa-fw fa-solid fa-floppy-disk" IsAsync="true" Text="@Localizer["ButtonText"]" />
             </div>
         </div>
     </ValidateForm>
@@ -244,7 +244,7 @@
             </div>
         </div>
     </ValidateForm>
-    <Button Icon="fa fa-save" Text="@Localizer["ValidateButtonText"]" OnClickWithoutRender="OnValidator" class="my-3"></Button>
+    <Button Icon="fa-solid fa-floppy-disk" Text="@Localizer["ValidateButtonText"]" OnClickWithoutRender="OnValidator" class="my-3"></Button>
     <Pre>[NotNull]
 private ValidateForm? ValidatorForm { get; set; }
 

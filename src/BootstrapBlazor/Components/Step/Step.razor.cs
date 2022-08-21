@@ -33,7 +33,7 @@ public sealed partial class Step
 
     private string? IconClassString => CssBuilder.Default("step-icon-inner")
         .AddClass(Icon, IsIcon || Status == StepStatus.Finish || Status == StepStatus.Success)
-        .AddClass("fa fa-times", IsIcon || Status == StepStatus.Error)
+        .AddClass("fa-solid fa-xmark", IsIcon || Status == StepStatus.Error)
         .AddClass("is-status", !IsIcon && (Status == StepStatus.Finish || Status == StepStatus.Success || Status == StepStatus.Error))
         .Build();
 

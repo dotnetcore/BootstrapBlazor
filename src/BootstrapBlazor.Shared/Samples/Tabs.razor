@@ -83,13 +83,13 @@
 
 <DemoBlock Title="@Localizer["Block4Title"]" Introduction="@Localizer["Block4Intro"]" Name="Icon">
     <Tab IsCard="true">
-        <TabItem Text="@Localizer["TabItem1Text"]" Icon="fa fa-user">
+        <TabItem Text="@Localizer["TabItem1Text"]" Icon="fa-solid fa-user">
             <div>@Localizer["TabItem1Content"]</div>
         </TabItem>
         <TabItem Text="@Localizer["TabItem2Text"]" Icon="fa-solid fa-gauge-high">
             <div>@Localizer["TabItem2Content"]</div>
         </TabItem>
-        <TabItem Text="@Localizer["TabItem3Text"]" Icon="fa fa-sitemap">
+        <TabItem Text="@Localizer["TabItem3Text"]" Icon="fa-solid fa-sitemap">
             <div>@Localizer["TabItem3Content"]</div>
         </TabItem>
         <TabItem Text="@Localizer["TabItem4Text"]" Icon="fa-solid fa-building-columns">
@@ -103,13 +103,13 @@
         @((MarkupString)Localizer["Tips2"].Value)
     </Tips>
     <Tab IsCard="true" ShowClose="true">
-        <TabItem Text="@Localizer["TabItem1Text"]" Icon="fa fa-user" Closable="false">
+        <TabItem Text="@Localizer["TabItem1Text"]" Icon="fa-solid fa-user" Closable="false">
             <div>@Localizer["TabItem1Content"]</div>
         </TabItem>
         <TabItem Text="@Localizer["TabItem2Text"]" Icon="fa-solid fa-gauge-high">
             <div>@Localizer["TabItem2Content"]</div>
         </TabItem>
-        <TabItem Text="@Localizer["TabItem3Text"]" Icon="fa fa-sitemap">
+        <TabItem Text="@Localizer["TabItem3Text"]" Icon="fa-solid fa-sitemap">
             <div>@Localizer["TabItem3Content"]</div>
         </TabItem>
         <TabItem Text="@Localizer["TabItem4Text"]" Icon="fa-solid fa-building-columns">
@@ -302,7 +302,7 @@
         <TabItem>
             <HeaderTemplate>
                 <div class="@GetClassString(context)" @onclick="() => OnClickTabItem(context)">
-                    <i class="fa fa-tv"></i>
+                    <i class="fa-solid fa-tv"></i>
                     <span class="mx-2">@Localizer["BlockHeaderTemplateHeaderText"]</span>
                     <Badge Color="Color.Danger" style="position: absolute; right: 2px; top: 2px;">9</Badge>
                 </div>

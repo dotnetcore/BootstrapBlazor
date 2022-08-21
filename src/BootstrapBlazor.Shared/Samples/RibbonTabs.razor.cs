@@ -91,7 +91,7 @@ public partial class RibbonTabs
             Description = "选项卡可固定图标",
             Type = "string",
             ValueList = " — ",
-            DefaultValue = "fa fa-thumb-tack fa-rotate-90"
+            DefaultValue = "fa-solid fa-thumbtack fa-rotate-90"
         },
         new AttributeItem()
         {

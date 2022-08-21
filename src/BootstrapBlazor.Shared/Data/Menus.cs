@@ -99,7 +99,7 @@ internal static class MenusDataGerator
                     new(localizer["SubMenu3"].Value, icon:"fa-solid fa-font-awesome"),
                 }
             },
-            new(localizer["Menu3"].Value, icon:"fa fa-rebel fa-fw")
+            new(localizer["Menu3"].Value, icon:"fa-brands fa-rebel fa-fw")
         };
     }
 
@@ -205,16 +205,16 @@ internal static class MenusDataGerator
                 Items = new List<MenuItem>
                 {
                     new(localizer["Website"].Value, icon: "fa-solid fa-font-awesome"),
-                    new(localizer["Task"].Value, icon: "fa fa-tasks")
+                    new(localizer["Task"].Value, icon: "fa-solid fa-bars-progress")
                 }
             },
-            new(localizer["Authorize"].Value, icon: "fa fa-users")
+            new(localizer["Authorize"].Value, icon: "fa-solid fa-users")
             {
                 Items = new List<MenuItem>
                 {
-                    new(localizer["User"].Value, icon: "fa fa-user"),
+                    new(localizer["User"].Value, icon: "fa-solid fa-user"),
                     new(localizer["Menu"].Value, icon: "fa-solid fa-gauge-high"),
-                    new(localizer["Role"].Value, icon: "fa fa-sitemap")
+                    new(localizer["Role"].Value, icon: "fa-solid fa-sitemap")
                 }
             },
             new(localizer["Log"].Value, icon: "fa-solid fa-database")
@@ -240,16 +240,16 @@ internal static class MenusDataGerator
                 Items = new List<MenuItem>
                 {
                     new(localizer["Website"].Value, icon: "fa-solid fa-font-awesome"),
-                    new(localizer["Task"].Value, icon: "fa fa-tasks")
+                    new(localizer["Task"].Value, icon: "fa-solid fa-bars-progress")
                 }
             },
-            new(localizer["Authorize"].Value, icon: "fa fa-users")
+            new(localizer["Authorize"].Value, icon: "fa-solid fa-users")
             {
                 Items = new List<MenuItem>
                 {
-                    new(localizer["User"].Value, icon: "fa fa-user"),
+                    new(localizer["User"].Value, icon: "fa-solid fa-user"),
                     new(localizer["Menu"].Value, icon: "fa-solid fa-gauge-high"),
-                    new(localizer["Role"].Value, icon: "fa fa-sitemap")
+                    new(localizer["Role"].Value, icon: "fa-solid fa-sitemap")
                 }
             },
             new(localizer["Log"].Value, icon: "fa-solid fa-database")
@@ -279,17 +279,17 @@ internal static class MenusDataGerator
                 Items = new List<MenuItem>
                 {
                     new(localizer["Website"].Value, icon: "fa-solid fa-font-awesome"),
-                    new(localizer["Task"].Value, icon: "fa fa-tasks")
+                    new(localizer["Task"].Value, icon: "fa-solid fa-bars-progress")
                 }
             },
-            new(localizer["Authorize"].Value, icon: "fa fa-users")
+            new(localizer["Authorize"].Value, icon: "fa-solid fa-users")
             {
                 IsCollapsed = false,
                 Items = new List<MenuItem>
                 {
-                    new(localizer["User"].Value, icon: "fa fa-user"),
+                    new(localizer["User"].Value, icon: "fa-solid fa-user"),
                     new(localizer["Menu"].Value, icon: "fa-solid fa-gauge-high"),
-                    new(localizer["Role"].Value, icon: "fa fa-sitemap")
+                    new(localizer["Role"].Value, icon: "fa-solid fa-sitemap")
                 }
             },
             new(localizer["Log"].Value, icon: "fa-solid fa-database")

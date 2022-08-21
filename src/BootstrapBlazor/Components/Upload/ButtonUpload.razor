@@ -19,7 +19,7 @@
                 </div>
                 @if (GetShowProgress(item))
                 {
-                    <i class="fa fa-spinner fa-spin fa-fw text-success"></i>
+                    <i class="fa-solid fa-spinner fa-spin fa-fw text-success"></i>
                     <Progress Color="Color.Success" Height="2" Value="@item.ProgressPercent" />
                 }
                 else
@@ -34,7 +34,7 @@
                             <i class="fa-regular fa-circle-check text-success"></i>
                             @if (!IsDisabled)
                             {
-                                <i class="fa fa-trash-o text-danger" @onclick:stopPropagation @onclick="@(e => OnFileDelete(item))"></i>
+                                <i class="fa-regular fa-trash text-danger" @onclick:stopPropagation @onclick="@(e => OnFileDelete(item))"></i>
                             }
                         }
                         else
@@ -42,7 +42,7 @@
                             @if (!IsDisabled)
                             {
                                 <i class="fa-regular fa-circle-xmark"></i>
-                                <i class="fa fa-trash-o text-danger" @onclick:stopPropagation @onclick="@(e => OnFileDelete(item))"></i>
+                                <i class="fa-regular fa-trash text-danger" @onclick:stopPropagation @onclick="@(e => OnFileDelete(item))"></i>
                             }
                         }
                     </div>

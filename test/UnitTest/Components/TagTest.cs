@@ -25,9 +25,9 @@ public class TagTest : BootstrapBlazorTestBase
     [Fact]
     public void Icon_Ok()
     {
-        var cut = Context.RenderComponent<Tag>(builder => builder.Add(a => a.Icon, "fa-fw fa fa-check-circle"));
+        var cut = Context.RenderComponent<Tag>(builder => builder.Add(a => a.Icon, "fa-fw fa-solid fa-circle-check"));
 
-        Assert.Contains("fa-fw fa fa-check-circle", cut.Markup);
+        Assert.Contains("fa-fw fa-solid fa-circle-check", cut.Markup);
     }
 
     [Fact]

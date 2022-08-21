@@ -962,7 +962,7 @@ public partial class Tables
             Description = TablesLocalizer["SortIconAttr"],
             Type = "string",
             ValueList = " — ",
-            DefaultValue = "fa fa-sort"
+            DefaultValue = "fa-solid fa-sort"
         },
         new()
         {
@@ -970,7 +970,7 @@ public partial class Tables
             Description = TablesLocalizer["SortIconAscAttr"],
             Type = "string",
             ValueList = " — ",
-            DefaultValue = "fa fa-sort-asc"
+            DefaultValue = "fa-solid fa-sort-up"
         },
         new()
         {
@@ -978,7 +978,7 @@ public partial class Tables
             Description = TablesLocalizer["SortIconDescAttr"],
             Type = "string",
             ValueList = " — ",
-            DefaultValue = "fa fa-sort-desc"
+            DefaultValue = "fa-solid fa-sort-down"
         },
         new()
         {

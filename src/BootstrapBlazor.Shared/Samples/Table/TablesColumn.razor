@@ -64,10 +64,10 @@
            ShowExtendButtons="true" ExtendButtonColumnWidth="240"
            OnQueryAsync="@OnQueryAsync">
         <TableToolbarTemplate>
-            <TableToolbarButton TItem="Foo" Color="Color.Primary" Icon="fa-fw fa fa-edit" IsEnableWhenSelectedOneRow="true" Text="@ColumnLocalizer["WidthButtonText1"]" OnClickCallback="@CustomerButton" />
-            <TableToolbarButton TItem="Foo" Color="Color.Success" Icon="fa-fw fa fa-edit" IsEnableWhenSelectedOneRow="true" Text="@ColumnLocalizer["WidthButtonText2"]" OnClickCallback="@CustomerButton" />
-            <TableToolbarButton TItem="Foo" Color="Color.Warning" Icon="fa-fw fa fa-edit" IsEnableWhenSelectedOneRow="true" Text="@ColumnLocalizer["WidthButtonText3"]" OnClickCallback="@CustomerButton" />
-            <TableToolbarButton TItem="Foo" Color="Color.Danger" Icon="fa-fw fa fa-edit" IsEnableWhenSelectedOneRow="true" Text="@ColumnLocalizer["WidthButtonText4"]" OnClickCallback="@CustomerButton" />
+            <TableToolbarButton TItem="Foo" Color="Color.Primary" Icon="fa-fw fa-solid fa-pen-to-square" IsEnableWhenSelectedOneRow="true" Text="@ColumnLocalizer["WidthButtonText1"]" OnClickCallback="@CustomerButton" />
+            <TableToolbarButton TItem="Foo" Color="Color.Success" Icon="fa-fw fa-solid fa-pen-to-square" IsEnableWhenSelectedOneRow="true" Text="@ColumnLocalizer["WidthButtonText2"]" OnClickCallback="@CustomerButton" />
+            <TableToolbarButton TItem="Foo" Color="Color.Warning" Icon="fa-fw fa-solid fa-pen-to-square" IsEnableWhenSelectedOneRow="true" Text="@ColumnLocalizer["WidthButtonText3"]" OnClickCallback="@CustomerButton" />
+            <TableToolbarButton TItem="Foo" Color="Color.Danger" Icon="fa-fw fa-solid fa-pen-to-square" IsEnableWhenSelectedOneRow="true" Text="@ColumnLocalizer["WidthButtonText4"]" OnClickCallback="@CustomerButton" />
         </TableToolbarTemplate>
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" />

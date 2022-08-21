@@ -37,7 +37,7 @@ public partial class RibbonTab : IDisposable
     /// 获得/设置 选项卡可固定图标
     /// </summary>
     [Parameter]
-    public string RibbonArrowPinIcon { get; set; } = "fa fa-thumb-tack fa-rotate-90";
+    public string RibbonArrowPinIcon { get; set; } = "fa-solid fa-thumbtack fa-rotate-90";
 
     private bool IsFloat { get; set; }
 

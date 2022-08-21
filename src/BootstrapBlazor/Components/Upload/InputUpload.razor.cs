@@ -52,10 +52,10 @@ public partial class InputUpload<TValue>
     public string DeleteButtonClass { get; set; } = "btn-danger";
 
     /// <summary>
-    /// 获得/设置 删除按钮图标 默认 fa fa-trash-o
+    /// 获得/设置 删除按钮图标 默认 fa-regular fa-trash
     /// </summary>
     [Parameter]
-    public string DeleteButtonIcon { get; set; } = "fa fa-trash-o";
+    public string DeleteButtonIcon { get; set; } = "fa-regular fa-trash";
 
     /// <summary>
     /// 获得/设置 重置按钮显示文字

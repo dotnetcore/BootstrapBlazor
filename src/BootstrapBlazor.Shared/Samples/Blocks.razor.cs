@@ -71,7 +71,7 @@ public partial class Blocks
 
     private IEnumerable<string> Roles { get; } = new string[] { "User" };
 
-    private string GetUser() => IsAuth ? "fa fa-user-secret" : "fa fa-user";
+    private string GetUser() => IsAuth ? "fa-solid fa-user-secret" : "fa-solid fa-user";
 
     private string GetUserText() => IsAuth ? Localizer["Logout"] : Localizer["Login"];
 

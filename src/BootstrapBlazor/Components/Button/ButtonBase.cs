@@ -82,7 +82,7 @@ public abstract class ButtonBase : TooltipComponentBase
     public string? Icon { get; set; }
 
     /// <summary>
-    /// 获得/设置 正在加载动画图标 默认为 fa fa-spin fa-spinner
+    /// 获得/设置 正在加载动画图标 默认为 fa-solid fa-spin fa-spinner
     /// </summary>
     [Parameter]
     public string LoadingIcon { get; set; } = "fa-fw fa-spin fa-solid fa-spinner";

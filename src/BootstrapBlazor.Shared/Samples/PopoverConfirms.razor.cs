@@ -105,7 +105,7 @@ public sealed partial class PopoverConfirms
             Description = "按钮图标",
             Type = "string",
             ValueList = "",
-            DefaultValue = "fa fa-remove"
+            DefaultValue = "fa-solid fa-xmark"
         },
         new AttributeItem() {
             Name = "CloseButtonText",

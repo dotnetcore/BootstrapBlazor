@@ -77,7 +77,7 @@ public sealed partial class PageLayout
         Menus = new List<MenuItem>
         {
             new MenuItem() { Text = "返回组件库", Icon = "fa-fw fa-solid fa-house", Url = "layouts" },
-            new MenuItem() { Text = "后台模拟器", Icon = "fa-fw fa fa-desktop", Url = "layout-page" },
+            new MenuItem() { Text = "后台模拟器", Icon = "fa-fw fa-solid fa-desktop", Url = "layout-page" },
             new MenuItem() { Text = "示例网页", Icon = "fa-fw fa-solid fa-laptop", Url = "layout-demo/text=Parameter1" }
         };
     }

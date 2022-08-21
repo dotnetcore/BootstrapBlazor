@@ -4,7 +4,7 @@
     <Chart ChartType="ChartType.Doughnut" Angle="@Angle" OnInitAsync="@OnInit" OnAfterInitAsync="@OnAfterInit" OnAfterUpdateAsync="@OnAfterUpdate" @ref="DoughnutChart" class="pie" />
     <div class="text-center mt-2 chart">
         <div class="btn-group">
-            <button class="btn btn-primary" @onclick="e => Utility.RandomData(DoughnutChart)"><i class="fa fa-slack"></i><span>随机数据</span></button>
+            <button class="btn btn-primary" @onclick="e => Utility.RandomData(DoughnutChart)"><i class="fa-brands fa-slack"></i><span>随机数据</span></button>
             <button class="btn btn-primary" @onclick="e => Utility.AddDataSet(DoughnutChart, ref DoughnutDatasetCount)"><i class="fa-solid fa-circle-plus"></i><span>添加数据集</span></button>
             <button class="btn btn-primary" @onclick="e => Utility.RemoveDataSet(DoughnutChart, ref DoughnutDatasetCount)"><i class="fa-solid fa-circle-minus"></i><span>移除数据集</span></button>
             <button class="btn btn-primary" @onclick="e => Utility.AddData(DoughnutChart, ref DoughnutDataCount)"><i class="fa-solid fa-plus"></i><span>添加数据</span></button>
