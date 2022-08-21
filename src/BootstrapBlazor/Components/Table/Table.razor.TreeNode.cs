@@ -39,7 +39,7 @@ public partial class Table<TItem>
     private string? NotSetOnTreeExpandErrorMessage { get; set; }
 
     /// <summary>
-    /// 获得/设置 数型结构小箭头图标 默认 fa fa-caret-right
+    /// 获得/设置 数型结构小箭头图标 默认 fa-solid fa-caret-right
     /// </summary>
     [Parameter]
     public string TreeIcon { get; set; } = "fa-caret-right";
@@ -64,7 +64,7 @@ public partial class Table<TItem>
     /// </summary>
     /// <param name="isExpand"></param>
     /// <returns></returns>
-    protected string? GetTreeClassString(bool isExpand) => CssBuilder.Default("is-tree fa fa-fw")
+    protected string? GetTreeClassString(bool isExpand) => CssBuilder.Default("is-tree fa-fw fa")
         .AddClass(TreeIcon, !IsLoadChildren)
         .AddClass("fa-rotate-90", !IsLoadChildren && isExpand)
         .AddClass("fa-spin fa-spinner", IsLoadChildren)

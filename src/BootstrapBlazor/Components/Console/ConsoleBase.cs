@@ -55,7 +55,7 @@ public abstract class ConsoleBase : BootstrapComponentBase
     /// 获得/设置 按钮 显示图标 默认值为 fa-times
     /// </summary>
     [Parameter]
-    public string ClearButtonIcon { get; set; } = "fa fa-times";
+    public string ClearButtonIcon { get; set; } = "fa-solid fa-xmark";
 
     /// <summary>
     /// 获得/设置 按钮 显示图标 默认值为 fa-times

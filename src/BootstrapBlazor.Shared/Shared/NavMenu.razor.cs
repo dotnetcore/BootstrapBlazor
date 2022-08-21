@@ -83,70 +83,70 @@ public sealed partial class NavMenu
         var item = new DemoMenuItem()
         {
             Text = Localizer["GetStarted"],
-            Icon = "fa fa-fw fa-font-awesome"
+            Icon = "fa-solid fa-fw fa-font-awesome"
         };
         AddQuickStar(item);
 
         item = new DemoMenuItem()
         {
             Text = Localizer["LayoutComponents"],
-            Icon = "fa fa-fw fa-desktop"
+            Icon = "fa-fw fa-solid fa-desktop"
         };
         AddLayout(item);
 
         item = new DemoMenuItem()
         {
             Text = Localizer["NavigationComponents"],
-            Icon = "fa fa-fw fa-bars"
+            Icon = "fa-fw fa-solid fa-bars"
         };
         AddNavigation(item);
 
         item = new DemoMenuItem()
         {
             Text = Localizer["FormsComponents"],
-            Icon = "fa fa-fw fa-cubes"
+            Icon = "fa-fw fa-solid fa-cubes"
         };
         AddForm(item);
 
         item = new DemoMenuItem()
         {
             Text = Localizer["TableComponents"],
-            Icon = "fa fa-fw fa-table"
+            Icon = "fa-fw fa-solid fa-table"
         };
         AddTable(item);
 
         item = new DemoMenuItem()
         {
             Text = Localizer["DataComponents"],
-            Icon = "fa fa-fw fa-database"
+            Icon = "fa-fw fa-solid fa-database"
         };
         AddData(item);
 
         item = new DemoMenuItem()
         {
             Text = Localizer["Charts"],
-            Icon = "fa fa-fw fa-line-chart"
+            Icon = "fa-fw fa-solid fa-chart-line"
         };
         AddChart(item);
 
         item = new DemoMenuItem()
         {
             Text = Localizer["NotificationComponents"],
-            Icon = "fa fa-fw fa-comments"
+            Icon = "fa-fw fa-solid fa-comments"
         };
         AddNotice(item);
 
         item = new DemoMenuItem()
         {
             Text = Localizer["SpeechComponents"],
-            Icon = "fa fa-fw fa-microphone"
+            Icon = "fa-fw fa-solid fa-microphone"
         };
         AddSpeech(item);
 
         item = new DemoMenuItem()
         {
             Text = Localizer["Components"],
-            Icon = "fa fa-fw fa-font-awesome",
+            Icon = "fa-solid fa-fw fa-font-awesome",
             Url = "components"
         };
         AddSummary(item);

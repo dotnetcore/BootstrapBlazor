@@ -20,7 +20,7 @@ public partial class DropdownWidgets
                 Description = Localizer["Icon"],
                 Type = "string",
                 ValueList = " — ",
-                DefaultValue = "fa fa-bell-o"
+                DefaultValue = "fa-regular fa-bell"
             },
             new AttributeItem() {
                 Name = "BadgeColor",

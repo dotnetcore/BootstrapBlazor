@@ -82,10 +82,10 @@ public abstract class ButtonBase : TooltipComponentBase
     public string? Icon { get; set; }
 
     /// <summary>
-    /// 获得/设置 正在加载动画图标 默认为 fa fa-spin fa-spinner
+    /// 获得/设置 正在加载动画图标 默认为 fa-solid fa-spin fa-spinner
     /// </summary>
     [Parameter]
-    public string LoadingIcon { get; set; } = "fa fa-fw fa-spin fa-spinner";
+    public string LoadingIcon { get; set; } = "fa-fw fa-spin fa-solid fa-spinner";
 
     /// <summary>
     /// 获得/设置 是否为异步按钮，默认为 false 如果为 true 表示是异步按钮，点击按钮后禁用自身并且等待异步完成，过程中显示 loading 动画

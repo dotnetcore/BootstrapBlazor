@@ -10,13 +10,13 @@ namespace BootstrapBlazor.Components;
 public partial class FullScreenButton
 {
     /// <summary>
-    /// 获得/设置 按钮图标 默认 fa fa-arrows-alt
+    /// 获得/设置 按钮图标 默认 fa-solid fa-maximize
     /// </summary>
     [Parameter]
     public string? ButtonIcon { get; set; }
 
     /// <summary>
-    /// 获得/设置 全屏图标 默认 fa fa-arrows-alt
+    /// 获得/设置 全屏图标 默认 fa-solid fa-maximize
     /// </summary>
     [Parameter]
     public string? FullScreenIcon { get; set; }
@@ -51,7 +51,7 @@ public partial class FullScreenButton
     {
         base.OnInitialized();
 
-        ButtonIcon ??= "fa fa-arrows-alt";
+        ButtonIcon ??= "fa-solid fa-maximize";
     }
 
     private Task ToggleFullScreen() => FullScrenService.Toggle();

@@ -5,22 +5,22 @@
     <div class="text-center mt-2 chart">
         <div class="btn-group">
             <button class="btn btn-info" data-method="play" @onclick="@OnPlayChart">
-                <i class="fa fa-play-circle"></i>
+                <i class="fa-solid fa-circle-play"></i>
                 <span>开启动画</span>
             </button>
             <button class="btn btn-info" data-method="stop" @onclick="@OnStopChart">
-                <i class="fa fa-stop-circle"></i>
+                <i class="fa-solid fa-circle-stop"></i>
                 <span>关闭动画</span>
             </button>
         </div>
     </div>
     <div class="text-center mt-2 chart">
         <div class="btn-group">
-            <button class="btn btn-primary" @onclick="e => Utility.RandomData(BarChart)"><i class="fa fa-bar-chart"></i><span>随机数据</span></button>
-            <button class="btn btn-primary" @onclick="e => Utility.AddDataSet(BarChart, ref BarDatasetCount)"><i class="fa fa-plus-circle"></i><span>添加数据集</span></button>
-            <button class="btn btn-primary" @onclick="e => Utility.RemoveDataSet(BarChart, ref BarDatasetCount)"><i class="fa fa-minus-circle"></i><span>移除数据集</span></button>
-            <button class="btn btn-primary" @onclick="e => Utility.AddData(BarChart, ref BarDataCount)"><i class="fa fa-plus"></i><span>添加数据</span></button>
-            <button class="btn btn-primary" @onclick="e => Utility.RemoveData(BarChart, ref BarDataCount)"><i class="fa fa-minus"></i><span>移除数据</span></button>
+            <button class="btn btn-primary" @onclick="e => Utility.RandomData(BarChart)"><i class="fa-solid fa-chart-column"></i><span>随机数据</span></button>
+            <button class="btn btn-primary" @onclick="e => Utility.AddDataSet(BarChart, ref BarDatasetCount)"><i class="fa-solid fa-circle-plus"></i><span>添加数据集</span></button>
+            <button class="btn btn-primary" @onclick="e => Utility.RemoveDataSet(BarChart, ref BarDatasetCount)"><i class="fa-solid fa-circle-minus"></i><span>移除数据集</span></button>
+            <button class="btn btn-primary" @onclick="e => Utility.AddData(BarChart, ref BarDataCount)"><i class="fa-solid fa-plus"></i><span>添加数据</span></button>
+            <button class="btn btn-primary" @onclick="e => Utility.RemoveData(BarChart, ref BarDataCount)"><i class="fa-solid fa-minus"></i><span>移除数据</span></button>
         </div>
     </div>
     <BlockLogger @ref="Logger" class="mt-3" />

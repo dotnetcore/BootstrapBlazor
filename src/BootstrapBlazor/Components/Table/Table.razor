@@ -35,16 +35,16 @@
                     {
                         @if (ShowAddButton)
                         {
-                            <TableToolbarButton TItem="TItem" Color="Color.Success" OnClick="AddAsync" Icon="fa fa-plus" Text="@AddButtonText" />
+                            <TableToolbarButton TItem="TItem" Color="Color.Success" OnClick="AddAsync" Icon="fa-solid fa-plus" Text="@AddButtonText" />
                         }
                         @if (!IsExcel && ShowEditButton)
                         {
-                            <TableToolbarButton TItem="TItem" IsDisabled="GetEditButtonStatus()" Color="Color.Primary" OnClick="EditAsync" Icon="fa fa-pencil" Text="@EditButtonText" />
+                            <TableToolbarButton TItem="TItem" IsDisabled="GetEditButtonStatus()" Color="Color.Primary" OnClick="EditAsync" Icon="fa-solid fa-pencil" Text="@EditButtonText" />
                         }
                         @if (ShowDeleteButton)
                         {
                             <TableToolbarPopconfirmButton TItem="TItem" Color="Color.Danger"
-                                                          Icon="fa fa-remove" Text="@DeleteButtonText" IsDisabled="GetDeleteButtonStatus()"
+                                                          Icon="fa-solid fa-xmark" Text="@DeleteButtonText" IsDisabled="GetDeleteButtonStatus()"
                                                           OnBeforeClick="ConfirmDelete" OnConfirm="DeleteAsync"
                                                           CloseButtonText="@CancelDeleteButtonText" Content="@ConfirmDeleteContentText"
                                                           ConfirmButtonText="@ConfirmDeleteButtonText" ConfirmButtonColor="Color.Danger" />
@@ -55,17 +55,17 @@
                 <div class="float-end table-toolbar-button btn-group table-column-right">
                     @if (ShowRefresh)
                     {
-                        <Button Icon="fa fa-refresh" Text="@RefreshButtonText" Color="@Color.Secondary" OnClickWithoutRender="@OnClickRefreshAsync" />
+                        <Button Icon="fa-solid fa-arrows-rotate" Text="@RefreshButtonText" Color="@Color.Secondary" OnClickWithoutRender="@OnClickRefreshAsync" />
                     }
                     @if (!IsExcel && ShowCardView)
                     {
-                        <Button Icon="fa fa-bars" Text="@CardViewButtonText" Color="@Color.Secondary" OnClick="@OnClickCardView" />
+                        <Button Icon="fa-solid fa-bars" Text="@CardViewButtonText" Color="@Color.Secondary" OnClick="@OnClickCardView" />
                     }
                     @if (ShowColumnList)
                     {
                         <div class="btn-group btn-col" role="group">
                             <button class="btn btn-secondary dropdown-toggle" data-bs-auto-close="false" data-bs-toggle="dropdown" type="button" title="@ColumnButtonTitleText">
-                                <i class="fa fa-th-list"></i>
+                                <i class="fa-solid fa-table-list"></i>
                                 <span class="d-none d-sm-inline-block">@ColumnButtonText</span>
                                 <span class="caret"></span>
                             </button>
@@ -89,7 +89,7 @@
                     {
                         <div class="btn-group" role="group">
                             <button class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" type="button" title="@ExportButtonText">
-                                <i class="fa fa-download"></i>
+                                <i class="fa-solid fa-download"></i>
                                 <span class="d-none d-sm-inline-block">@ExportButtonText</span>
                                 <span class="caret"></span>
                             </button>
@@ -101,7 +101,7 @@
                                 else
                                 {
                                     <div class="dropdown-item" @onclick="@ExportAsync">
-                                        <i class="fa fa-file-excel-o"></i>
+                                        <i class="fa-regular fa-file-excel"></i>
                                         <span>@ExportExcelDropdownItemText</span>
                                     </div>
                                 }
@@ -122,12 +122,12 @@
                                     <Tooltip Placement="Placement.Top" Title="@SearchTooltip" IsHtml="true" />
                                 }
                             </BootstrapInput>
-                            <Button Color="@Color.Secondary" Icon="fa fa-search" OnClickWithoutRender="@SearchClick">
+                            <Button Color="@Color.Secondary" Icon="fa-solid fa-magnifying-glass" OnClickWithoutRender="@SearchClick">
                                 <span class="d-none d-sm-inline-block">@SearchButtonText</span>
                             </Button>
                             @if (ShowResetButton)
                             {
-                                <Button Color="@Color.Secondary" Icon="fa fa-trash" OnClickWithoutRender="@ClearSearchClick">
+                                <Button Color="@Color.Secondary" Icon="fa-solid fa-trash" OnClickWithoutRender="@ClearSearchClick">
                                     <span class="d-none d-sm-inline-block">@ResetSearchButtonText</span>
                                 </Button>
                             }
@@ -733,8 +733,8 @@ RenderFragment<(TItem Item, ItemChangedType ChangedType)> RenderEditForm => item
                     <EditorForm TModel="TItem" Items="Columns.Where(c => c.Editable)" ItemsPerRow="EditDialogItemsPerRow" RowType="EditDialogRowType" LabelAlign="EditDialogLabelAlign">
                         <Buttons>
                             <div class="text-end">
-                                <Button Color="Color.Secondary" Icon="fa fa-times" Text="@CancelDeleteButtonText" OnClick="CancelSave" />
-                                <Button Color="Color.Primary" ButtonType="ButtonType.Submit" Icon="fa fa-save" Text="@SaveButtonText" />
+                                <Button Color="Color.Secondary" Icon="fa-solid fa-xmark" Text="@CancelDeleteButtonText" OnClick="CancelSave" />
+                                <Button Color="Color.Primary" ButtonType="ButtonType.Submit" Icon="fa-solid fa-floppy-disk" Text="@SaveButtonText" />
                             </div>
                         </Buttons>
                     </EditorForm>
@@ -745,7 +745,7 @@ RenderFragment<(TItem Item, ItemChangedType ChangedType)> RenderEditForm => item
 </tr>;
 
 RenderFragment RenderAdvanceSearchButton =>
-@<Button class="@AdvanceSearchClass" Icon="fa fa-search-plus" OnClickWithoutRender="ShowSearchDialog">
+@<Button class="@AdvanceSearchClass" Icon="fa-solid fa-magnifying-glass-plus" OnClickWithoutRender="ShowSearchDialog">
     <span class="d-none d-sm-inline-block">@AdvanceButtonText</span>
 </Button>;
 
@@ -762,12 +762,12 @@ RenderFragment<TItem> RenderExtendButtons => item =>
     <span class="btn-group">
         @if (GetShowEditButton(item))
         {
-            <Button Size="Size.ExtraSmall" OnClick="() => ClickEditButton(item)" Icon="fa fa-edit" Text="@EditButtonText" />
+            <Button Size="Size.ExtraSmall" OnClick="() => ClickEditButton(item)" Icon="fa-solid fa-pen" Text="@EditButtonText" />
         }
         @if (GetShowDeleteButton(item))
         {
             <PopConfirmButton Placement="Placement.Left" Size="Size.ExtraSmall"
-                              Color="Color.Danger" Icon="fa fa-remove" Text="@DeleteButtonText"
+                              Color="Color.Danger" Icon="fa-solid fa-xmark" Text="@DeleteButtonText"
                               CloseButtonText="@CancelDeleteButtonText"
                               Content="@ConfirmDeleteContentText"
                               ConfirmButtonColor="Color.Danger"
@@ -798,18 +798,18 @@ RenderFragment<TItem> RenderRowExtendButtons => item =>
             {
                 @if (isInCell)
                 {
-                    <Button Size="Size.ExtraSmall" OnClick="ClickUpdateButtonCallback" Color="Color.Success" Icon="fa fa-edit" Text="@UpdateButtonText" />
-                    <Button Size="Size.ExtraSmall" OnClick="@CancelSave" Color="Color.Warning" Icon="fa fa-times" Text="@CancelButtonText" />
+                    <Button Size="Size.ExtraSmall" OnClick="ClickUpdateButtonCallback" Color="Color.Success" Icon="fa-solid fa-pen" Text="@UpdateButtonText" />
+                    <Button Size="Size.ExtraSmall" OnClick="@CancelSave" Color="Color.Warning" Icon="fa-solid fa-xmark" Text="@CancelButtonText" />
                 }
                 else
                 {
-                    <Button Size="Size.ExtraSmall" OnClick="() => ClickEditButton(item)" Icon="fa fa-edit" Text="@EditButtonText" />
+                    <Button Size="Size.ExtraSmall" OnClick="() => ClickEditButton(item)" Icon="fa-solid fa-pen" Text="@EditButtonText" />
                 }
             }
             @if (!isInCell && GetShowDeleteButton(item))
             {
                 <PopConfirmButton Placement="Placement.Left" Size="Size.ExtraSmall"
-                                  Color="Color.Danger" Icon="fa fa-remove" Text="@DeleteButtonText"
+                                  Color="Color.Danger" Icon="fa-solid fa-xmark" Text="@DeleteButtonText"
                                   CloseButtonText="@CancelDeleteButtonText" Content="@ConfirmDeleteContentText"
                                   ConfirmButtonColor="Color.Danger" ConfirmButtonText="@ConfirmDeleteButtonText"
                                   OnBeforeClick="@ClickBeforeDelete(item)"
@@ -830,7 +830,7 @@ RenderFragment RenderSearch =>
     <div class="card-header">
         <div class="d-flex">
             <div class="@TopSearchHeaderClassString">
-                <i class="table-search-collapse-arrow fa fa-chevron-circle-right"></i>
+                <i class="table-search-collapse-arrow fa-solid fa-circle-chevron-right"></i>
                 <div class="table-search-collapse-title">@SearchModalTitle</div>
             </div>
             @if (ShowSearchText)
@@ -844,11 +844,11 @@ RenderFragment RenderSearch =>
                     </BootstrapInput>
                     @if (ShowResetButton)
                     {
-                        <Button Color="Color.Secondary" Icon="fa fa-trash" OnClickWithoutRender="ClearSearchClick">
+                        <Button Color="Color.Secondary" Icon="fa-solid fa-trash" OnClickWithoutRender="ClearSearchClick">
                             <span class="d-none d-sm-inline-block">@ResetSearchButtonText</span>
                         </Button>
                     }
-                    <Button Color="Color.Secondary" Icon="fa fa-search" OnClickWithoutRender="SearchClick">
+                    <Button Color="Color.Secondary" Icon="fa-solid fa-magnifying-glass" OnClickWithoutRender="SearchClick">
                         <span class="d-none d-sm-inline-block">@SearchButtonText</span>
                     </Button>
                 </div>
@@ -856,13 +856,13 @@ RenderFragment RenderSearch =>
             <div class="table-search-buttons">
                 @if (ShowResetButton)
                 {
-                    <Button Color="Color.Secondary" Icon="fa fa-trash" class="btn-xs ms-2" OnClickWithoutRender="ClearSearchClick">
+                    <Button Color="Color.Secondary" Icon="fa-solid fa-trash" class="btn-xs ms-2" OnClickWithoutRender="ClearSearchClick">
                         <span class="d-none d-sm-inline-block">@ResetSearchButtonText</span>
                     </Button>
                 }
                 @if (ShowSearchButton)
                 {
-                    <Button Color="Color.Primary" Icon="fa fa-search" class="btn-xs ms-2" OnClickWithoutRender="SearchClick">
+                    <Button Color="Color.Primary" Icon="fa-solid fa-magnifying-glass" class="btn-xs ms-2" OnClickWithoutRender="SearchClick">
                         <span class="d-none d-sm-inline-block">@SearchButtonText</span>
                     </Button>
                 }

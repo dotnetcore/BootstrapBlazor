@@ -30,7 +30,7 @@ public class ResultDialogOption : DialogOption
     /// <summary>
     /// 确认按钮图标
     /// </summary>
-    public string ButtonYesIcon { get; set; } = "fa fa-check";
+    public string ButtonYesIcon { get; set; } = "fa-solid fa-check";
 
     /// <summary>
     /// 确认按钮颜色
@@ -50,7 +50,7 @@ public class ResultDialogOption : DialogOption
     /// <summary>
     /// 取消按钮图标
     /// </summary>
-    public string ButtonNoIcon { get; set; } = "fa fa-close";
+    public string ButtonNoIcon { get; set; } = "fa-regular fa-circle-xmark";
 
     /// <summary>
     /// 取消按钮颜色
@@ -65,7 +65,7 @@ public class ResultDialogOption : DialogOption
     /// <summary>
     /// 关闭按钮图标
     /// </summary>
-    public string ButtonCloseIcon { get; set; } = "fa fa-close";
+    public string ButtonCloseIcon { get; set; } = "fa-regular fa-circle-xmark";
 
     /// <summary>
     /// 

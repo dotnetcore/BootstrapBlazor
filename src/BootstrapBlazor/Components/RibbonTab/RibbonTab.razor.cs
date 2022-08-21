@@ -25,19 +25,19 @@ public partial class RibbonTab : IDisposable
     /// 获得/设置 选项卡向上箭头图标
     /// </summary>
     [Parameter]
-    public string RibbonArrowUpIcon { get; set; } = "fa fa-angle-up";
+    public string RibbonArrowUpIcon { get; set; } = "fa-solid fa-angle-up";
 
     /// <summary>
     /// 获得/设置 选项卡向下箭头图标
     /// </summary>
     [Parameter]
-    public string RibbonArrowDownIcon { get; set; } = "fa fa-angle-down";
+    public string RibbonArrowDownIcon { get; set; } = "fa-solid fa-angle-down";
 
     /// <summary>
     /// 获得/设置 选项卡可固定图标
     /// </summary>
     [Parameter]
-    public string RibbonArrowPinIcon { get; set; } = "fa fa-thumb-tack fa-rotate-90";
+    public string RibbonArrowPinIcon { get; set; } = "fa-solid fa-thumbtack fa-rotate-90";
 
     private bool IsFloat { get; set; }
 

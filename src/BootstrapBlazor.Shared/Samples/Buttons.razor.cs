@@ -101,7 +101,7 @@ public sealed partial class Buttons
                 Description = Localizer["Att3"],
                 Type = "string",
                 ValueList = "",
-                DefaultValue = "fa fa-fw fa-spin fa-spinner"
+                DefaultValue = "fa-fw fa-spin fa-solid fa-spinner"
             },
             new AttributeItem() {
                 Name = "Text",

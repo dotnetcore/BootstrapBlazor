@@ -88,18 +88,18 @@ internal static class MenusDataGerator
         await Task.Delay(1);
         return new List<MenuItem>
         {
-            new(localizer["Menu1"].Value, icon:"fa fa-life-bouy"),
-            new(localizer["Menu2"].Value, icon:"fa fa-font-awesome")
+            new(localizer["Menu1"].Value, icon:"fa-solid fa-life-ring"),
+            new(localizer["Menu2"].Value, icon:"fa-solid fa-font-awesome")
             {
                 IsActive = true,
                 Items = new List<MenuItem>
                 {
-                    new(localizer["SubMenu1"].Value, icon:"fa fa-font-awesome"),
-                    new(localizer["SubMenu2"].Value, icon:"fa fa-font-awesome"),
-                    new(localizer["SubMenu3"].Value, icon:"fa fa-font-awesome"),
+                    new(localizer["SubMenu1"].Value, icon:"fa-solid fa-font-awesome"),
+                    new(localizer["SubMenu2"].Value, icon:"fa-solid fa-font-awesome"),
+                    new(localizer["SubMenu3"].Value, icon:"fa-solid fa-font-awesome"),
                 }
             },
-            new(localizer["Menu3"].Value, icon:"fa fa-rebel fa-fw")
+            new(localizer["Menu3"].Value, icon:"fa-brands fa-rebel fa-fw")
         };
     }
 
@@ -109,7 +109,7 @@ internal static class MenusDataGerator
 
         return new List<MenuItem>
         {
-            new(localizer["Menu1"].Value, icon: "fa fa-font-awesome"),
+            new(localizer["Menu1"].Value, icon: "fa-solid fa-font-awesome"),
             new(localizer["Menu2"].Value)
             {
                 IsActive = true,
@@ -199,31 +199,31 @@ internal static class MenusDataGerator
         await Task.Delay(1);
         return new List<MenuItem>
         {
-            new(localizer["System"].Value, icon: "fa fa-gears")
+            new(localizer["System"].Value, icon: "fa-solid fa-gears")
             {
                 IsActive = true,
                 Items = new List<MenuItem>
                 {
-                    new(localizer["Website"].Value, icon: "fa fa-font-awesome"),
-                    new(localizer["Task"].Value, icon: "fa fa-tasks")
+                    new(localizer["Website"].Value, icon: "fa-solid fa-font-awesome"),
+                    new(localizer["Task"].Value, icon: "fa-solid fa-bars-progress")
                 }
             },
-            new(localizer["Authorize"].Value, icon: "fa fa-users")
+            new(localizer["Authorize"].Value, icon: "fa-solid fa-users")
             {
                 Items = new List<MenuItem>
                 {
-                    new(localizer["User"].Value, icon: "fa fa-user"),
-                    new(localizer["Menu"].Value, icon: "fa fa-dashboard"),
-                    new(localizer["Role"].Value, icon: "fa fa-sitemap")
+                    new(localizer["User"].Value, icon: "fa-solid fa-user"),
+                    new(localizer["Menu"].Value, icon: "fa-solid fa-gauge-high"),
+                    new(localizer["Role"].Value, icon: "fa-solid fa-sitemap")
                 }
             },
-            new(localizer["Log"].Value, icon: "fa fa-database")
+            new(localizer["Log"].Value, icon: "fa-solid fa-database")
             {
                 Items = new List<MenuItem>
                 {
-                    new(localizer["Access"].Value, icon: "fa fa-bars"),
-                    new(localizer["Login"].Value, icon: "fa fa-user-circle-o"),
-                    new(localizer["Operation"].Value, icon: "fa fa-edit")
+                    new(localizer["Access"].Value, icon: "fa-solid fa-bars"),
+                    new(localizer["Login"].Value, icon: "fa-regular fa-circle-user"),
+                    new(localizer["Operation"].Value, icon: "fa-solid fa-pen")
                 }
             }
         };
@@ -234,32 +234,32 @@ internal static class MenusDataGerator
         await Task.Delay(1);
         return new List<MenuItem>
         {
-            new(localizer["System"].Value, icon: "fa fa-gears")
+            new(localizer["System"].Value, icon: "fa-solid fa-gears")
             {
                 IsActive = true,
                 Items = new List<MenuItem>
                 {
-                    new(localizer["Website"].Value, icon: "fa fa-font-awesome"),
-                    new(localizer["Task"].Value, icon: "fa fa-tasks")
+                    new(localizer["Website"].Value, icon: "fa-solid fa-font-awesome"),
+                    new(localizer["Task"].Value, icon: "fa-solid fa-bars-progress")
                 }
             },
-            new(localizer["Authorize"].Value, icon: "fa fa-users")
+            new(localizer["Authorize"].Value, icon: "fa-solid fa-users")
             {
                 Items = new List<MenuItem>
                 {
-                    new(localizer["User"].Value, icon: "fa fa-user"),
-                    new(localizer["Menu"].Value, icon: "fa fa-dashboard"),
-                    new(localizer["Role"].Value, icon: "fa fa-sitemap")
+                    new(localizer["User"].Value, icon: "fa-solid fa-user"),
+                    new(localizer["Menu"].Value, icon: "fa-solid fa-gauge-high"),
+                    new(localizer["Role"].Value, icon: "fa-solid fa-sitemap")
                 }
             },
-            new(localizer["Log"].Value, icon: "fa fa-database")
+            new(localizer["Log"].Value, icon: "fa-solid fa-database")
             {
                 Template = BuildDynamicComponent().Render(),
                 Items = new List<MenuItem>
                 {
-                    new(localizer["Access"].Value, icon: "fa fa-bars"),
-                    new(localizer["Login"].Value, icon: "fa fa-user-circle-o"),
-                    new(localizer["Operation"].Value, icon: "fa fa-edit")
+                    new(localizer["Access"].Value, icon: "fa-solid fa-bars"),
+                    new(localizer["Login"].Value, icon: "fa-regular fa-circle-user"),
+                    new(localizer["Operation"].Value, icon: "fa-solid fa-pen")
                     {
                         Template = BuildDynamicComponent().Render()
                     }
@@ -273,32 +273,32 @@ internal static class MenusDataGerator
         await Task.Delay(1);
         return new List<MenuItem>
         {
-            new(localizer["System"].Value, icon: "fa fa-gears")
+            new(localizer["System"].Value, icon: "fa-solid fa-gears")
             {
                 IsActive = true,
                 Items = new List<MenuItem>
                 {
-                    new(localizer["Website"].Value, icon: "fa fa-font-awesome"),
-                    new(localizer["Task"].Value, icon: "fa fa-tasks")
+                    new(localizer["Website"].Value, icon: "fa-solid fa-font-awesome"),
+                    new(localizer["Task"].Value, icon: "fa-solid fa-bars-progress")
                 }
             },
-            new(localizer["Authorize"].Value, icon: "fa fa-users")
+            new(localizer["Authorize"].Value, icon: "fa-solid fa-users")
             {
                 IsCollapsed = false,
                 Items = new List<MenuItem>
                 {
-                    new(localizer["User"].Value, icon: "fa fa-user"),
-                    new(localizer["Menu"].Value, icon: "fa fa-dashboard"),
-                    new(localizer["Role"].Value, icon: "fa fa-sitemap")
+                    new(localizer["User"].Value, icon: "fa-solid fa-user"),
+                    new(localizer["Menu"].Value, icon: "fa-solid fa-gauge-high"),
+                    new(localizer["Role"].Value, icon: "fa-solid fa-sitemap")
                 }
             },
-            new(localizer["Log"].Value, icon: "fa fa-database")
+            new(localizer["Log"].Value, icon: "fa-solid fa-database")
             {
                 Items = new List<MenuItem>
                 {
-                    new(localizer["Access"].Value, icon: "fa fa-bars"),
-                    new(localizer["Login"].Value, icon: "fa fa-user-circle-o"),
-                    new(localizer["Operation"].Value, icon: "fa fa-edit")
+                    new(localizer["Access"].Value, icon: "fa-solid fa-bars"),
+                    new(localizer["Login"].Value, icon: "fa-regular fa-circle-user"),
+                    new(localizer["Operation"].Value, icon: "fa-solid fa-pen")
                 }
             }
         };

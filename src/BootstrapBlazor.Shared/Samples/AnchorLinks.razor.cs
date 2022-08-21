@@ -27,7 +27,7 @@ public partial class AnchorLinks
             Description = "组件锚点图标",
             Type = "string",
             ValueList = " — ",
-            DefaultValue = "fa fa-link"
+            DefaultValue = "fa-solid fa-link"
         },
         new AttributeItem() {
             Name = "Text",

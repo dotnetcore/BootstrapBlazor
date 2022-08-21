@@ -30,7 +30,7 @@ public partial class ResultDialogFooter
     /// </summary>
     [Parameter]
     [NotNull]
-    public string? ButtonYesIcon { get; set; } = "fa fa-check";
+    public string? ButtonYesIcon { get; set; } = "fa-solid fa-check";
 
     /// <summary>
     /// 确认按钮颜色
@@ -56,7 +56,7 @@ public partial class ResultDialogFooter
     /// </summary>
     [Parameter]
     [NotNull]
-    public string? ButtonNoIcon { get; set; } = "fa fa-close";
+    public string? ButtonNoIcon { get; set; } = "fa-regular fa-circle-xmark";
 
     /// <summary>
     /// 取消按钮颜色
@@ -83,7 +83,7 @@ public partial class ResultDialogFooter
     /// </summary>
     [Parameter]
     [NotNull]
-    public string? ButtonCloseIcon { get; set; } = "fa fa-close";
+    public string? ButtonCloseIcon { get; set; } = "fa-regular fa-circle-xmark";
 
     /// <summary>
     /// 关闭按钮颜色

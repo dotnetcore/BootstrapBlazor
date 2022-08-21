@@ -91,13 +91,13 @@ public sealed partial class Editors
         {
             new EditorToolbarButton()
             {
-                IconClass = "fa fa-pencil",
+                IconClass = "fa-solid fa-pencil",
                 ButtonName = "plugin1",
                 Tooltip = Localizer["ToolTip1"]
             },
             new EditorToolbarButton()
             {
-                IconClass = "fa fa-home",
+                IconClass = "fa-solid fa-house",
                 ButtonName = "plugin2",
                 Tooltip = Localizer["ToolTip2"]
             }

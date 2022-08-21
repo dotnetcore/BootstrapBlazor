@@ -18,18 +18,18 @@
     &lt;/app&gt;
 &lt;/body&gt;</Pre>
 
-<Pre>&lt;PrintButton Icon="fa fa-print" Text="@Localizer["PreButtonText"]" PreviewUrl="/printview" /&gt;</Pre>
+<Pre>&lt;PrintButton Icon="fa-solid fa-print" Text="@Localizer["PreButtonText"]" PreviewUrl="/printview" /&gt;</Pre>
 
 <DemoBlock Title="@Localizer["PrintButtonTitle"]" Introduction="@Localizer["PrintButtonIntro"]" Name="PrintButton">
     <p>@Localizer["PrintP1"]</p>
-    <PrintButton Icon="fa fa-print" Text="@Localizer["PreButtonText"]" PreviewUrl="/printview" />
+    <PrintButton Icon="fa-solid fa-print" Text="@Localizer["PreButtonText"]" PreviewUrl="/printview" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["PrintDialogTitle"]" Introduction="@Localizer["PrintDialogIntro"]" Name="PrintDialog">
     <p>@((MarkupString)Localizer["PrintDialogP", nameof(DataDialogComponent), nameof(DialogOption.ShowPrintButtonInHeader)].Value)</p>
-    <Button Icon="fa fa-print" Text="@Localizer["PreButtonText"]" OnClick="OnClickPrint" />
+    <Button Icon="fa-solid fa-print" Text="@Localizer["PreButtonText"]" OnClick="OnClickPrint" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["PrintServiceTitle"]" Introduction="@Localizer["PrintServiceIntro"]" Name="PrintService">
-    <Button Icon="fa fa-print" Text="@Localizer["PreButtonText"]" OnClick="OnClickPrintService" />
+    <Button Icon="fa-solid fa-print" Text="@Localizer["PreButtonText"]" OnClick="OnClickPrintService" />
 </DemoBlock>

@@ -15,7 +15,7 @@ public class BrowserNotificationTest : BootstrapBlazorTestBase
         cut.Instance.CheckPermission();
         var item = new NotificationItem()
         {
-            Icon = "fa fa-font-awesome",
+            Icon = "fa-solid fa-font-awesome",
             Message = "Test",
             OnClick = "",
             Silent = true,
@@ -23,7 +23,7 @@ public class BrowserNotificationTest : BootstrapBlazorTestBase
             Title = "Title"
         };
         cut.Instance.Dispatch(item);
-        Assert.Equal("fa fa-font-awesome", item.Icon);
+        Assert.Equal("fa-solid fa-font-awesome", item.Icon);
         Assert.Equal("Test", item.Message);
         Assert.Equal("", item.OnClick);
         Assert.True(item.Silent);

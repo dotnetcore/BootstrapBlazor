@@ -32,22 +32,22 @@ private ToastService? ToastService { get; set; }
             <ToastBox class="d-block" Options="@Options4" />
         </div>
         <div class="col-12 col-lg-6 col-xl-3">
-            <Button Color="Color.Success" Icon="fa fa-check-circle" OnClick="@OnSuccessClick" Text="成功通知"></Button>
+            <Button Color="Color.Success" Icon="fa-solid fa-circle-check" OnClick="@OnSuccessClick" Text="成功通知"></Button>
         </div>
         <div class="col-12 col-lg-6 col-xl-3">
-            <Button Color="Color.Danger" Icon="fa fa-times-circle" OnClick="@OnErrorClick" Text="失败通知"></Button>
+            <Button Color="Color.Danger" Icon="fa-solid fa-circle-xmark" OnClick="@OnErrorClick" Text="失败通知"></Button>
         </div>
         <div class="col-12 col-lg-6 col-xl-3">
-            <Button Color="Color.Info" Icon="fa fa-exclamation-circle" OnClick="@OnInfoClick" Text="信息通知"></Button>
+            <Button Color="Color.Info" Icon="fa-solid fa-circle-exclamation" OnClick="@OnInfoClick" Text="信息通知"></Button>
         </div>
         <div class="col-12 col-lg-6 col-xl-3">
-            <Button Color="Color.Warning" Icon="fa fa-exclamation-triangle" OnClick="@OnWarningClick" Text="警告通知"></Button>
+            <Button Color="Color.Warning" Icon="fa-solid fa-triangle-exclamation" OnClick="@OnWarningClick" Text="警告通知"></Button>
         </div>
     </div>
 </DemoBlock>
 
 <DemoBlock Title="Toast 手动关闭" Introduction="不会自动关闭，需要人工点击关闭按钮"  Name="Close">
-    <Button Icon="fa fa-exclamation-triangle" OnClick="@OnNotAutoHideClick" Text="成功通知"></Button>
+    <Button Icon="fa-solid fa-triangle-exclamation" OnClick="@OnNotAutoHideClick" Text="成功通知"></Button>
 </DemoBlock>
 
 <DemoBlock Title="Toast 显示位置" Introduction="提供设置 Toast 弹窗出现位置" Name="Position">

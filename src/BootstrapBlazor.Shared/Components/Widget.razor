@@ -1,5 +1,5 @@
 ﻿<DropdownWidget class="text-end flex-fill px-3">
-    <DropdownWidgetItem Icon="fa fa-envelope" BadgeNumber="4">
+    <DropdownWidgetItem Icon="fa-regular fa-envelope" BadgeNumber="4">
         <HeaderTemplate>
             <span>您有 4 个未读消息</span>
         </HeaderTemplate>
@@ -13,7 +13,7 @@
                     <div class="ms-2">
                         <div class="d-flex position-relative">
                             <h4>Argo Zhang</h4>
-                            <small><i class="fa fa-clock-o"></i> @(4 + index) mins</small>
+                            <small><i class="fa-regular fa-clock"></i> @(4 + index) mins</small>
                         </div>
                         <div class="text-truncate">Why not buy a new awesome theme?</div>
                     </div>
@@ -24,7 +24,7 @@
             <a href="#" @onclick:preventDefault>查看所有消息</a>
         </FooterTemplate>
     </DropdownWidgetItem>
-    <DropdownWidgetItem Icon="fa fa-bell" BadgeNumber="10" HeaderColor="Color.Success" BadgeColor="Color.Warning">
+    <DropdownWidgetItem Icon="fa-regular fa-bell" BadgeNumber="10" HeaderColor="Color.Success" BadgeColor="Color.Warning">
         <HeaderTemplate>
             <span>您有 10 个未读通知</span>
         </HeaderTemplate>
@@ -32,7 +32,7 @@
             @for (var index = 0; index < 10; index++)
             {
                 <a class="dropdown-item d-flex align-items-center" href="#" @onclick:preventDefault>
-                    <i class="fa fa-users text-primary"></i>
+                    <i class="fa-solid fa-users text-primary"></i>
                     <div class="ms-2">5 new members joined</div>
                 </a>
             }
@@ -41,7 +41,7 @@
             <a href="#" @onclick:preventDefault>查看所有通知</a>
         </FooterTemplate>
     </DropdownWidgetItem>
-    <DropdownWidgetItem Icon="fa fa-flag" BadgeNumber="9" HeaderColor="Color.Danger" BadgeColor="Color.Danger">
+    <DropdownWidgetItem Icon="fa-solid fa-flag" BadgeNumber="9" HeaderColor="Color.Danger" BadgeColor="Color.Danger">
         <HeaderTemplate>
             <span>您有 3 个任务</span>
         </HeaderTemplate>

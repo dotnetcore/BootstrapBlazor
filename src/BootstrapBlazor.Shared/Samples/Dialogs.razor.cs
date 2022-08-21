@@ -214,7 +214,7 @@ public sealed partial class Dialogs
             Title = "选择收件人",
             BodyContext = new ResultDialogDemo2.FooContext() { Count = 10, Emails = InputValue },
             ButtonYesText = "选择",
-            ButtonYesIcon = "fa fa-search",
+            ButtonYesIcon = "fa-solid fa-magnifying-glass",
             ComponentParamters = new Dictionary<string, object>
             {
                 // 用于初始化已选择的用户邮件

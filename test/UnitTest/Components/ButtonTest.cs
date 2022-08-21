@@ -81,16 +81,16 @@ public class ButtonTest : BootstrapBlazorTestBase
     {
         var cut = Context.RenderComponent<Button>(pb =>
         {
-            pb.Add(b => b.Icon, "fa fa-font-awesome");
+            pb.Add(b => b.Icon, "fa-solid fa-font-awesome");
         });
-        Assert.Contains("class=\"fa fa-font-awesome\"", cut.Markup);
-        Assert.Contains("fa fa-fw fa-spin fa-spinner", cut.Instance.LoadingIcon);
+        Assert.Contains("class=\"fa-solid fa-font-awesome\"", cut.Markup);
+        Assert.Contains("fa-fw fa-spin fa-solid fa-spinner", cut.Instance.LoadingIcon);
 
         cut.SetParametersAndRender(pb =>
         {
-            pb.Add(b => b.LoadingIcon, "fa fa-font-awesome");
+            pb.Add(b => b.LoadingIcon, "fa-solid fa-font-awesome");
         });
-        Assert.Contains("fa fa-font-awesome", cut.Instance.LoadingIcon);
+        Assert.Contains("fa-solid fa-font-awesome", cut.Instance.LoadingIcon);
     }
 
     [Fact]

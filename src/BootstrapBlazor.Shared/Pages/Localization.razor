@@ -62,7 +62,7 @@
 <p><b>2. 启用 .NET 核心本地化服务</b></p>
 
 <Tab>
-    <TabItem Text="NET6.0" Icon="fa fa-code" Closable="false">
+    <TabItem Text="NET6.0" Icon="fa-solid fa-code" Closable="false">
 <Pre>builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 
@@ -93,7 +93,7 @@ if (option != null)
 }
 </Pre>
     </TabItem>
-    <TabItem Text="NET5.0" Icon="fa fa-code" Closable="false">
+    <TabItem Text="NET5.0" Icon="fa-solid fa-code" Closable="false">
 <Pre>public class Startup
 {
     public void ConfigureServices(IServiceCollection services)
@@ -335,12 +335,12 @@ internal class DefaultCultureStorage : ICultureStorage
 <p><b>配置是否显示缺失本地化资源信息</b></p>
 
 <Tab>
-    <TabItem Text="appsettings.json" Icon="fa fa-code" Closable="false">
+    <TabItem Text="appsettings.json" Icon="fa-solid fa-code" Closable="false">
 <Pre>"BootstrapBlazorOptions": {
     "IgnoreLocalizerMissing": true
 }</Pre>
     </TabItem>
-    <TabItem Text="C#" Icon="fa fa-code" Closable="false">
+    <TabItem Text="C#" Icon="fa-solid fa-code" Closable="false">
 <Pre>var builder = WebApplication.CreateBuilder(args);
 
 // 增加 BootstrapBlazor 服务
