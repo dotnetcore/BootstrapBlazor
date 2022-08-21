@@ -12,7 +12,7 @@ public class FullScreenTest : BootstrapBlazorTestBase
     public void ButtonIcon_Ok()
     {
         var cut = Context.RenderComponent<FullScreenButton>(builder => builder.Add(s => s.ButtonIcon, "fa-solid fa-maximize"));
-        var ele = cut.Find(".fa-arrows-alt");
+        var ele = cut.Find(".fa-maximize");
         Assert.NotNull(ele);
     }
 

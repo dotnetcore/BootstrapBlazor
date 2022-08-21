@@ -42,7 +42,7 @@ public class DropdownWigetTest : BootstrapBlazorTestBase
             }));
         });
 
-        var ele = cut.Find(".fa-bell-o");
+        var ele = cut.Find(".fa-bell");
         Assert.NotNull(ele);
     }
 

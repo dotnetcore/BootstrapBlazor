@@ -97,7 +97,7 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
     /// </summary>
     /// <param name="item"></param>
     /// <returns></returns>
-    protected string? GetDetailCaretClassString(TItem item) => CssBuilder.Default("fa-fw fa")
+    protected string? GetDetailCaretClassString(TItem item) => CssBuilder.Default("fa-fw")
         .AddClass(TreeIcon)
         .AddClass("fa-rotate-90", ExpandRows.Contains(item))
         .Build();

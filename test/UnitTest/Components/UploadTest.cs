@@ -485,7 +485,7 @@ public class UploadTest : BootstrapBlazorTestBase
                 return Task.FromResult(true);
             });
         });
-        await cut.InvokeAsync(() => cut.Find(".fa-trash-o.text-danger").Click());
+        await cut.InvokeAsync(() => cut.Find(".fa-trash-can.text-danger").Click());
         Assert.NotNull(deleteFile);
         Assert.Null(deleteFile!.Error);
 
@@ -498,7 +498,7 @@ public class UploadTest : BootstrapBlazorTestBase
                 new UploadFile() { FileName  = "Test-File2", Code = 1001 }
             });
         });
-        await cut.InvokeAsync(() => cut.Find(".fa-trash-o.text-danger").Click());
+        await cut.InvokeAsync(() => cut.Find(".fa-trash-can.text-danger").Click());
         Assert.NotNull(deleteFile);
     }
 

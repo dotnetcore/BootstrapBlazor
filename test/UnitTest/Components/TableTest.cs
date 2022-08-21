@@ -1810,7 +1810,7 @@ public class TableTest : TableTestBase
             {
                 pb.Add(a => a.RenderMode, TableRenderMode.Table);
                 pb.Add(a => a.IsDetails, true);
-                pb.Add(a => a.TreeIcon, "fa-caret-right");
+                pb.Add(a => a.TreeIcon, "fa-solid fa-caret-right");
                 pb.Add(a => a.ShowDetailRow, foo => true);
                 pb.Add(a => a.DetailRowTemplate, foo => builder => builder.AddContent(0, foo.Name));
                 pb.Add(a => a.OnQueryAsync, OnQueryAsync(localizer));
@@ -1823,12 +1823,12 @@ public class TableTest : TableTestBase
                 });
             });
         });
-        cut.Contains("fa-fw fa-solid fa-caret-right");
+        cut.Contains("fa-solid fa-caret-right");
 
         // 点击展开明细行
         var bar = cut.Find("tbody .is-bar i");
         await cut.InvokeAsync(() => bar.Click());
-        cut.Contains("fa-fw fa-solid fa-caret-right fa-rotate-90");
+        cut.Contains("fa-solid fa-caret-right fa-rotate-90");
         await cut.InvokeAsync(() => bar.Click());
     }
 
@@ -2208,7 +2208,7 @@ public class TableTest : TableTestBase
         // 查询
         var table = cut.FindComponent<Table<FooTree>>();
         await cut.InvokeAsync(() => table.Instance.QueryAsync());
-        Assert.Contains("is-tree fa-fw fa-solid fa-caret-right", cut.Markup);
+        Assert.Contains("fa-solid fa-caret-right", cut.Markup);
 
         nodes = cut.FindAll("tbody tr");
         Assert.Equal(2, nodes.Count);
@@ -2421,7 +2421,7 @@ public class TableTest : TableTestBase
             });
         });
 
-        var resetButton = cut.Find(".fa-trash");
+        var resetButton = cut.Find(".fa-trash-can");
         await cut.InvokeAsync(() => resetButton.Click());
         Assert.Null(searchModel.Name);
     }
@@ -2479,7 +2479,7 @@ public class TableTest : TableTestBase
         var table = cut.FindComponent<Table<Foo>>();
         table.Instance.SearchModel.Name = "Test";
 
-        var resetButton = cut.Find(".fa-trash");
+        var resetButton = cut.Find(".fa-trash-can");
         await cut.InvokeAsync(() => resetButton.Click());
         Assert.Null(table.Instance.SearchModel.Name);
     }
@@ -2706,7 +2706,7 @@ public class TableTest : TableTestBase
             });
         });
 
-        var resetButton = cut.Find(".fa-trash");
+        var resetButton = cut.Find(".fa-trash-can");
         await cut.InvokeAsync(() => resetButton.Click());
 
         Assert.True(reset);
