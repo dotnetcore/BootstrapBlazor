@@ -40,8 +40,12 @@
 <DemoBlock Title="自定义链接模板" Introduction="设置 <code>LinkTemplate</code>" Name="LinkTemplate">
     <Logout ImageUrl="_content/BootstrapBlazor.Shared/images/Argo.png" DisplayName="Administrators" UserName="Admin" class="bg-primary">
         <LinkTemplate>
-            <a href="#">个人中心</a>
-            <a href="#">设置</a>
+            <a href="#">
+                <i class="fa fa-user"></i><span>个人中心</span>
+            </a>
+            <a href="#">
+                <i class="fa fa-gear"></i><span>设置</span>
+            </a>
             <LogoutLink />
         </LinkTemplate>
     </Logout>
