@@ -4,7 +4,7 @@
     position: relative;
 }
 
-.fa-icons > section {
+.bb-icons > section {
     padding-top: 1px;
 }
 
@@ -34,11 +34,11 @@
         text-decoration: none;
     }
 
-    .fontawesome-icon-list > div > a .fa {
+    .fontawesome-icon-list > div > a :where(.fa-solid, .fa-regular, .fa-brands) {
         margin-right: 10px;
     }
 
-    .fontawesome-icon-list > div > a:hover .fa {
+    .fontawesome-icon-list > div > a:hover :where(.fa-solid, .fa-regular, .fa-brands) {
         font-size: 1rem;
     }
 

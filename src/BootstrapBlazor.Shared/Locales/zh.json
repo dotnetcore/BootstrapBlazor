@@ -3439,7 +3439,7 @@
   },
   "BootstrapBlazor.Shared.Samples.FAIcons": {
     "Title": "FA 图标选择器",
-    "BaseUsageText": "目前 <code>BootstrapBlazor</code> 使用 <code>Font Awesome 4.7.0</code> 作为内置图标库，所有图标如下",
+    "BaseUsageText": "目前 <code>BootstrapBlazor</code> 使用 <code>Font Awesome 6.1.2</code> 作为内置图标库，所有图标如下",
     "SwitchButtonText": "",
     "SwitchButtonTextOff": "点击拷贝",
     "SwitchButtonTextOn": "显示高级拷贝"

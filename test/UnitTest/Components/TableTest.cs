@@ -479,6 +479,7 @@ public class TableTest : TableTestBase
         IEnumerable<FilterKeyValueAction>? condtions = null;
         await cut.InvokeAsync(() => items[1].Click());
         await cut.InvokeAsync(() => condtions = cut.FindComponent<StringFilter>().Instance.GetFilterConditions());
+        Assert.NotNull(condtions);
         Assert.Single(condtions);
 
         var table = cut.FindComponent<Table<Foo>>().Instance;
@@ -486,6 +487,7 @@ public class TableTest : TableTestBase
 
         condtions = null;
         await cut.InvokeAsync(() => condtions = cut.FindComponent<StringFilter>().Instance.GetFilterConditions());
+        Assert.NotNull(condtions);
         Assert.Empty(condtions);
     }
 

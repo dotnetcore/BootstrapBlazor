@@ -3426,7 +3426,7 @@
   },
   "BootstrapBlazor.Shared.Samples.FAIcons": {
     "Title": "Font Awesome Icons",
-    "BaseUsageText": "<code> bootstrapblazor </code> uses <code> font awesome 4.7.0 </code> as the built-in icon library. All icons are as follows",
+    "BaseUsageText": "<code> bootstrapblazor </code> uses <code> font awesome 6.1.2 </code> as the built-in icon library. All icons are as follows",
     "SwitchButtonTextOff": "Click to copy",
     "SwitchButtonTextOn": "Show Copy Dialog"
   },
