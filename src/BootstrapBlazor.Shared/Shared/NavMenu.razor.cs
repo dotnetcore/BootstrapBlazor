@@ -146,7 +146,7 @@ public sealed partial class NavMenu
         item = new DemoMenuItem()
         {
             Text = Localizer["Components"],
-            Icon = "fa-solid fa-fw fa-font-awesome",
+            Icon = "fa-solid fa-fw fa-heart fa-beat",
             Url = "components"
         };
         AddSummary(item);

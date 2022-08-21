@@ -502,6 +502,8 @@ public class TreeViewTest : BootstrapBlazorTestBase
         [NotNull]
         public TreeFoo? Value { get; set; }
 
+        public bool HasChildren { get; set; }
+
         public MockTreeItem(TreeFoo foo)
         {
             Value = foo;
