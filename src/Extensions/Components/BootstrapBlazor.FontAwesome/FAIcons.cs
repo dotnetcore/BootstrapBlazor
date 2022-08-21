@@ -740,11 +740,11 @@ public static class FAIcons
     public static readonly string Screwdriver = "fa-screwdriver";
     public static readonly string Scroll = "fa-scroll";
     public static readonly string SdCard = "fa-sd-card";
-    public static readonly string Search = "fa-search";
-    public static readonly string SearchDollar = "fa-search-dollar";
-    public static readonly string SearchLocation = "fa-search-location";
-    public static readonly string SearchMinus = "fa-search-minus";
-    public static readonly string SearchPlus = "fa-search-plus";
+    public static readonly string Search = "fa-magnifying-glass";
+    public static readonly string SearchDollar = "fa-magnifying-glass-dollar";
+    public static readonly string SearchLocation = "fa-magnifying-glass-location";
+    public static readonly string SearchMinus = "fa-magnifying-glass-minus";
+    public static readonly string SearchPlus = "fa-magnifying-glass-plus";
     public static readonly string Seedling = "fa-seedling";
     public static readonly string Server = "fa-server";
     public static readonly string Shapes = "fa-shapes";

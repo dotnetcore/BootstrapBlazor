@@ -263,7 +263,7 @@ public class TableTest : TableTestBase
         });
         cut.Contains("float-end table-toolbar-button btn-group");
 
-        var searchButton = cut.Find(".fa-search");
+        var searchButton = cut.Find(".fa-magnifying-glass");
         await cut.InvokeAsync(() => searchButton.Click());
     }
 
@@ -298,7 +298,7 @@ public class TableTest : TableTestBase
             });
         });
 
-        var searchButton = cut.Find(".fa-search-plus");
+        var searchButton = cut.Find(".fa-magnifying-glass-plus");
         await cut.InvokeAsync(() => searchButton.Click());
     }
 
@@ -327,7 +327,7 @@ public class TableTest : TableTestBase
             });
         });
 
-        var searchButton = cut.Find(".fa-search-plus");
+        var searchButton = cut.Find(".fa-magnifying-glass-plus");
         await cut.InvokeAsync(() => searchButton.Click());
     }
 
@@ -362,7 +362,7 @@ public class TableTest : TableTestBase
         });
         cut.Contains("table-search");
 
-        var searchButton = cut.Find(".fa-search");
+        var searchButton = cut.Find(".fa-magnifying-glass");
         await cut.InvokeAsync(() => searchButton.Click());
     }
 
@@ -2671,7 +2671,7 @@ public class TableTest : TableTestBase
 
         cut.Contains("test_search_text");
 
-        var searchButton = cut.Find(".fa-search");
+        var searchButton = cut.Find(".fa-magnifying-glass");
         await cut.InvokeAsync(() => searchButton.Click());
     }
 

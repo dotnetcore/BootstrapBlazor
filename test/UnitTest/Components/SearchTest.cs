@@ -67,7 +67,7 @@ public class SearchTest : BootstrapBlazorTestBase
         {
             builder.Add(s => s.SearchButtonIcon, "fa-fw fa-solid fa-magnifying-glass");
         });
-        var ele = cut.Find(".fa-search");
+        var ele = cut.Find(".fa-magnifying-glass");
         Assert.NotNull(ele);
     }
 

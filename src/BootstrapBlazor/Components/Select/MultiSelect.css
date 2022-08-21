@@ -153,7 +153,7 @@
                 padding-right: 30px;
             }
 
-            .multi-select .dropdown-menu .search .fa-search {
+            .multi-select .dropdown-menu .search .fa-magnifying-glass {
                 position: absolute;
                 left: calc(100% - 34px);
                 top: 18px;

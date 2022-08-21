@@ -130,7 +130,7 @@
         padding-right: 30px;
     }
 
-    .select .search .fa-search {
+    .select .search .fa-magnifying-glass {
         position: absolute;
         left: calc(100% - 34px);
         top: 18px;
