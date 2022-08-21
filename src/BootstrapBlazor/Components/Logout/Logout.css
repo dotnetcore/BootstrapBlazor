@@ -79,6 +79,6 @@
         color: var(--bs-primary);
     }
 
-    .dropdown-logout .dropdown-item a .fa {
+    .dropdown-logout .dropdown-item a :where(.fa, .fa-solid, .fa-regular) {
         margin-right: .5rem;
     }

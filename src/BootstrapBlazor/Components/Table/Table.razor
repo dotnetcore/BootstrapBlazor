@@ -127,7 +127,7 @@
                             </Button>
                             @if (ShowResetButton)
                             {
-                                <Button Color="@Color.Secondary" Icon="fa-solid fa-trash" OnClickWithoutRender="@ClearSearchClick">
+                                <Button Color="@Color.Secondary" Icon="fa-solid fa-trash-can" OnClickWithoutRender="@ClearSearchClick">
                                     <span class="d-none d-sm-inline-block">@ResetSearchButtonText</span>
                                 </Button>
                             }
@@ -844,7 +844,7 @@ RenderFragment RenderSearch =>
                     </BootstrapInput>
                     @if (ShowResetButton)
                     {
-                        <Button Color="Color.Secondary" Icon="fa-solid fa-trash" OnClickWithoutRender="ClearSearchClick">
+                        <Button Color="Color.Secondary" Icon="fa-solid fa-trash-can" OnClickWithoutRender="ClearSearchClick">
                             <span class="d-none d-sm-inline-block">@ResetSearchButtonText</span>
                         </Button>
                     }
@@ -856,7 +856,7 @@ RenderFragment RenderSearch =>
             <div class="table-search-buttons">
                 @if (ShowResetButton)
                 {
-                    <Button Color="Color.Secondary" Icon="fa-solid fa-trash" class="btn-xs ms-2" OnClickWithoutRender="ClearSearchClick">
+                    <Button Color="Color.Secondary" Icon="fa-solid fa-trash-can" class="btn-xs ms-2" OnClickWithoutRender="ClearSearchClick">
                         <span class="d-none d-sm-inline-block">@ResetSearchButtonText</span>
                     </Button>
                 }

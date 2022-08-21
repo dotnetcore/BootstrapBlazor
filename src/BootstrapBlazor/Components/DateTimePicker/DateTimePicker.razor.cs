@@ -95,6 +95,12 @@ public sealed partial class DateTimePicker<TValue>
     public string? Format { get; set; }
 
     /// <summary>
+    /// 获得/设置 组件图标 默认 "fa-regular fa-calendar-days"
+    /// </summary>
+    [Parameter]
+    public string Icon { get; set; } = "fa-regular fa-calendar-days";
+
+    /// <summary>
     /// 获得/设置 弹窗位置 默认为 Auto
     /// </summary>
     [Parameter]

@@ -25,7 +25,7 @@ public partial class Search
     /// Clear button icon
     /// </summary>
     [Parameter]
-    public string ClearButtonIcon { get; set; } = "fa-fw fa-solid fa-trash";
+    public string ClearButtonIcon { get; set; } = "fa-regular fa-trash-can";
 
     /// <summary>
     /// Clear button text
