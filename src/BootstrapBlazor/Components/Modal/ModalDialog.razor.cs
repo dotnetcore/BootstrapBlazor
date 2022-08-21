@@ -251,12 +251,12 @@ public partial class ModalDialog : IDisposable
 
     private bool MaximizeStatus { get; set; }
 
-    private string MaximizeIcon { get; set; } = "fa-solid fa-window-maximize";
+    private string MaximizeIcon { get; set; } = "fa-regular fa-window-maximize";
 
     private void OnToggleMaximize()
     {
         MaximizeStatus = !MaximizeStatus;
-        MaximizeIcon = MaximizeStatus ? "fa-solid fa-window-restore" : "fa-solid fa-window-maximize";
+        MaximizeIcon = MaximizeStatus ? "fa-regular fa-window-restore" : "fa-regular fa-window-maximize";
     }
 
     private async Task OnClickSave()
