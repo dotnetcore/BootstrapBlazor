@@ -18,10 +18,10 @@ public sealed partial class ButtonUpload<TValue>
         .Build();
 
     /// <summary>
-    /// 获得/设置 浏览按钮图标 默认 fa fa-folder-open-o
+    /// 获得/设置 浏览按钮图标 默认 fa-regular fa-folder-open
     /// </summary>
     [Parameter]
-    public string BrowserButtonIcon { get; set; } = "fa fa-folder-open-o";
+    public string BrowserButtonIcon { get; set; } = "fa-regular fa-folder-open";
 
     /// <summary>
     /// 获得/设置 上传按钮样式 默认 btn-primary

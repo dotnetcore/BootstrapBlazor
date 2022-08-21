@@ -51,7 +51,7 @@ public partial class TreeView<TItem>
     /// </summary>
     /// <param name="item"></param>
     /// <returns></returns>
-    private static string? GetCaretClassString(TreeViewItem<TItem> item) => CssBuilder.Default("fa fa-caret-right")
+    private static string? GetCaretClassString(TreeViewItem<TItem> item) => CssBuilder.Default("fa-solid fa-caret-right")
         .AddClass("visible", item.HasChildren || item.Items.Any())
         .AddClass("fa-rotate-90", item.IsExpand)
         .Build();

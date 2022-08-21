@@ -93,10 +93,10 @@ public class ConsoleTest : BootstrapBlazorTestBase
                 new ConsoleMessageItem() {Message = "Test1"}, new ConsoleMessageItem() {Message = "Test2"}
             });
             builder.Add(a => a.OnClear, new Action(() => { }));
-            builder.Add(a => a.ClearButtonIcon, "fa fa-times");
+            builder.Add(a => a.ClearButtonIcon, "fa-solid fa-xmark");
         });
 
-        Assert.Contains("fa fa-times", cut.Markup);
+        Assert.Contains("fa-solid fa-xmark", cut.Markup);
     }
 
 

@@ -19,7 +19,7 @@ public partial class Blocks
 
     private void ToggleCondition() => IsShow = !IsShow;
 
-    private string GetIcon() => IsShow ? "fa fa-eye-slash" : "fa fa-eye";
+    private string GetIcon() => IsShow ? "fa-solid fa-eye-slash" : "fa-solid fa-eye";
 
     private string GetText() => IsShow ? Localizer["IsHide"] : Localizer["IsShow"];
 
@@ -30,7 +30,7 @@ public partial class Blocks
 
     private void ToggleCondition2() => IsShow2 = !IsShow2;
 
-    private string GetIcon2() => IsShow2 ? "fa fa-eye-slash" : "fa fa-eye";
+    private string GetIcon2() => IsShow2 ? "fa-solid fa-eye-slash" : "fa-solid fa-eye";
 
     private string GetText2() => IsShow2 ? Localizer["IsHide"] : Localizer["IsShow"];
 
@@ -71,7 +71,7 @@ public partial class Blocks
 
     private IEnumerable<string> Roles { get; } = new string[] { "User" };
 
-    private string GetUser() => IsAuth ? "fa fa-user-secret" : "fa fa-user";
+    private string GetUser() => IsAuth ? "fa-solid fa-user-secret" : "fa-solid fa-user";
 
     private string GetUserText() => IsAuth ? Localizer["Logout"] : Localizer["Login"];
 

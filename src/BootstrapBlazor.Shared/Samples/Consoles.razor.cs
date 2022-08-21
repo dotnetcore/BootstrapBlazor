@@ -166,7 +166,7 @@ public sealed partial class Consoles : IDisposable
             Description = "按钮显示图标",
             Type = "string",
             ValueList = " — ",
-            DefaultValue = "fa fa-fw fa-times"
+            DefaultValue = "fa-fw fa-solid fa-xmark"
         },
         new AttributeItem(){
             Name = "ClearButtonColor",

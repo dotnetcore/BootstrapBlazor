@@ -64,10 +64,10 @@
            ShowExtendButtons="true" ExtendButtonColumnWidth="240"
            OnQueryAsync="@OnQueryAsync">
         <TableToolbarTemplate>
-            <TableToolbarButton TItem="Foo" Color="Color.Primary" Icon="fa fa-fw fa-edit" IsEnableWhenSelectedOneRow="true" Text="@ColumnLocalizer["WidthButtonText1"]" OnClickCallback="@CustomerButton" />
-            <TableToolbarButton TItem="Foo" Color="Color.Success" Icon="fa fa-fw fa-edit" IsEnableWhenSelectedOneRow="true" Text="@ColumnLocalizer["WidthButtonText2"]" OnClickCallback="@CustomerButton" />
-            <TableToolbarButton TItem="Foo" Color="Color.Warning" Icon="fa fa-fw fa-edit" IsEnableWhenSelectedOneRow="true" Text="@ColumnLocalizer["WidthButtonText3"]" OnClickCallback="@CustomerButton" />
-            <TableToolbarButton TItem="Foo" Color="Color.Danger" Icon="fa fa-fw fa-edit" IsEnableWhenSelectedOneRow="true" Text="@ColumnLocalizer["WidthButtonText4"]" OnClickCallback="@CustomerButton" />
+            <TableToolbarButton TItem="Foo" Color="Color.Primary" Icon="fa-fw fa-solid fa-pen-to-square" IsEnableWhenSelectedOneRow="true" Text="@ColumnLocalizer["WidthButtonText1"]" OnClickCallback="@CustomerButton" />
+            <TableToolbarButton TItem="Foo" Color="Color.Success" Icon="fa-fw fa-solid fa-pen-to-square" IsEnableWhenSelectedOneRow="true" Text="@ColumnLocalizer["WidthButtonText2"]" OnClickCallback="@CustomerButton" />
+            <TableToolbarButton TItem="Foo" Color="Color.Warning" Icon="fa-fw fa-solid fa-pen-to-square" IsEnableWhenSelectedOneRow="true" Text="@ColumnLocalizer["WidthButtonText3"]" OnClickCallback="@CustomerButton" />
+            <TableToolbarButton TItem="Foo" Color="Color.Danger" Icon="fa-fw fa-solid fa-pen-to-square" IsEnableWhenSelectedOneRow="true" Text="@ColumnLocalizer["WidthButtonText4"]" OnClickCallback="@CustomerButton" />
         </TableToolbarTemplate>
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" />
@@ -75,11 +75,11 @@
             <TableColumn @bind-Field="@context.Address" />
         </TableColumns>
         <RowButtonTemplate>
-            <TableCellButton Color="Color.Primary" Icon="fa fa-edit" Text="@ColumnLocalizer["WidthButtonText1"]" OnClick="@(() => OnRowButtonClick(context, ColumnLocalizer["WidthButtonText1"]))" />
-            <TableCellButton Color="Color.Success" Icon="fa fa-edit" Text="@ColumnLocalizer["WidthButtonText2"]" OnClick="@(() => OnRowButtonClick(context, ColumnLocalizer["WidthButtonText2"]))" />
-            <TableCellButton Color="Color.Warning" Icon="fa fa-edit" Text="@ColumnLocalizer["WidthButtonText3"]" OnClick="@(() => OnRowButtonClick(context, ColumnLocalizer["WidthButtonText3"]))" />
-            <TableCellButton Color="Color.Danger" Icon="fa fa-edit" Text="@ColumnLocalizer["WidthButtonText4"]" OnClick="@(() => OnRowButtonClick(context, ColumnLocalizer["WidthButtonText4"]))" />
-            <TableCellPopconfirmButton Color="Color.Info" Icon="fa fa-edit" Text="" OnConfirm="@(() => OnRowButtonClick(context, ColumnLocalizer["WidthConfirmButtonText"]))" />
+            <TableCellButton Color="Color.Primary" Icon="fa-solid fa-pen" Text="@ColumnLocalizer["WidthButtonText1"]" OnClick="@(() => OnRowButtonClick(context, ColumnLocalizer["WidthButtonText1"]))" />
+            <TableCellButton Color="Color.Success" Icon="fa-solid fa-pen" Text="@ColumnLocalizer["WidthButtonText2"]" OnClick="@(() => OnRowButtonClick(context, ColumnLocalizer["WidthButtonText2"]))" />
+            <TableCellButton Color="Color.Warning" Icon="fa-solid fa-pen" Text="@ColumnLocalizer["WidthButtonText3"]" OnClick="@(() => OnRowButtonClick(context, ColumnLocalizer["WidthButtonText3"]))" />
+            <TableCellButton Color="Color.Danger" Icon="fa-solid fa-pen" Text="@ColumnLocalizer["WidthButtonText4"]" OnClick="@(() => OnRowButtonClick(context, ColumnLocalizer["WidthButtonText4"]))" />
+            <TableCellPopconfirmButton Color="Color.Info" Icon="fa-solid fa-pen" Text="" OnConfirm="@(() => OnRowButtonClick(context, ColumnLocalizer["WidthConfirmButtonText"]))" />
         </RowButtonTemplate>
     </Table>
 </DemoBlock>

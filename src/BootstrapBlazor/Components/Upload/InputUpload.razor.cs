@@ -27,10 +27,10 @@ public partial class InputUpload<TValue>
         .Build();
 
     /// <summary>
-    /// 获得/设置 浏览按钮图标 默认 fa fa-folder-open-o
+    /// 获得/设置 浏览按钮图标 默认 fa-regular fa-folder-open
     /// </summary>
     [Parameter]
-    public string BrowserButtonIcon { get; set; } = "fa fa-folder-open-o";
+    public string BrowserButtonIcon { get; set; } = "fa-regular fa-folder-open";
 
     /// <summary>
     /// 获得/设置 上传按钮样式 默认 btn-primary
@@ -52,10 +52,10 @@ public partial class InputUpload<TValue>
     public string DeleteButtonClass { get; set; } = "btn-danger";
 
     /// <summary>
-    /// 获得/设置 删除按钮图标 默认 fa fa-trash-o
+    /// 获得/设置 删除按钮图标 默认 fa-regular fa-trash
     /// </summary>
     [Parameter]
-    public string DeleteButtonIcon { get; set; } = "fa fa-trash-o";
+    public string DeleteButtonIcon { get; set; } = "fa-regular fa-trash";
 
     /// <summary>
     /// 获得/设置 重置按钮显示文字

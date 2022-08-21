@@ -15,7 +15,7 @@
     <ul class="@PaginationClass">
         <li class="page-item">
             <a class="page-link" aria-label="@AiraPrevPageText" href="#" @onclick:preventDefault @onclick="e => MovePrev(1)">
-                <i class="fa fa-angle-left"></i>
+                <i class="fa-solid fa-angle-left"></i>
             </a>
         </li>
         @if (PageCount > 5)
@@ -23,7 +23,7 @@
             @RenderPaginationItem(new PaginationItem() { PageIndex = 1, Active = PageIndex == 1 })
             <li class="page-item">
                 <a class="page-link page-link-prev" aria-label="@AiraFirstPageText" href="#" @onclick:preventDefault @onclick="e => MovePrev(5)">
-                    <i class="fa fa-ellipsis-h"></i>
+                    <i class="fa-solid fa-ellipsis"></i>
                 </a>
             </li>
         }
@@ -36,14 +36,14 @@
         {
             <li class="page-item">
                 <a class="page-link page-link-next" href="#" @onclick:preventDefault @onclick="e => MoveNext(5)">
-                    <i class="fa fa-ellipsis-h"></i>
+                    <i class="fa-solid fa-ellipsis"></i>
                 </a>
             </li>
             @RenderPaginationItem(new PaginationItem() { PageIndex = PageCount, Active = PageIndex == PageCount })
         }
         <li class="page-item">
             <a class="page-link" aria-label="@AiraNextPageText" href="#" @onclick:preventDefault @onclick="e => MoveNext(1)">
-                <i class="fa fa-angle-right"></i>
+                <i class="fa-solid fa-angle-right"></i>
             </a>
         </li>
     </ul>

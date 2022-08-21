@@ -32,13 +32,13 @@ public class UploadTest : BootstrapBlazorTestBase
             new MockBrowserFile()
         })));
         Assert.Equal("UploadTestFile", uploadFile!.OriginFileName);
-        cut.Contains("fa fa-folder-open-o");
+        cut.Contains("fa-regular fa-folder-open");
         cut.Contains("btn-primary");
         cut.Contains("TestPlaceHolder");
 
         // 参数
-        cut.SetParametersAndRender(pb => pb.Add(a => a.BrowserButtonIcon, "fa fa-browser"));
-        cut.Contains("fa fa-browser");
+        cut.SetParametersAndRender(pb => pb.Add(a => a.BrowserButtonIcon, "fa-solid fa-chrome"));
+        cut.Contains("fa-solid fa-chrome");
 
         cut.SetParametersAndRender(pb => pb.Add(a => a.BrowserButtonClass, "btn btn-browser"));
         cut.Contains("btn btn-browser");
@@ -47,9 +47,9 @@ public class UploadTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.ShowDeleteButton, true);
             pb.Add(a => a.DeleteButtonText, "Delete-Test");
-            pb.Add(a => a.DeleteButtonIcon, "fa fa-delete-icon");
+            pb.Add(a => a.DeleteButtonIcon, "fa-solid fa-trash");
         });
-        cut.Contains("fa fa-delete-icon");
+        cut.Contains("fa-solid fa-trash");
         cut.Contains("btn-danger");
 
         // 删除逻辑
@@ -338,9 +338,9 @@ public class UploadTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.IsSingle, true);
             pb.Add(a => a.BrowserButtonClass, "browser-class");
-            pb.Add(a => a.BrowserButtonIcon, "fa fa-browser-icon");
+            pb.Add(a => a.BrowserButtonIcon, "fa-solid fa-chrome");
         });
-        cut.Contains("fa fa-browser-icon");
+        cut.Contains("fa-solid fa-chrome");
         cut.Contains("browser-class");
         cut.DoesNotContain("form-label");
 

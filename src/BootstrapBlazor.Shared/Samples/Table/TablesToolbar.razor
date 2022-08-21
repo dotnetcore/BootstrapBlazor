@@ -46,8 +46,8 @@
            ShowToolbar="true" ShowDefaultButtons="false" ShowSearch="false" ShowExtendButtons="false"
            OnQueryAsync="@OnQueryAsync">
         <TableToolbarTemplate>
-            <TableToolbarButton TItem="Foo" Color="Color.Primary" Icon="fa fa-fw fa-download" Text="下载1" IsAsync OnClickCallback="@DownloadAsync" />
-            <TableToolbarButton TItem="Foo" Color="Color.Success" Icon="fa fa-fw fa-edit" Text="下载2" IsAsync OnClickCallback="@DownloadAsync" />
+            <TableToolbarButton TItem="Foo" Color="Color.Primary" Icon="fa-fw fa-solid fa-floppy-disk" Text="下载1" IsAsync OnClickCallback="@DownloadAsync" />
+            <TableToolbarButton TItem="Foo" Color="Color.Success" Icon="fa-fw fa-solid fa-pen-to-square" Text="下载2" IsAsync OnClickCallback="@DownloadAsync" />
         </TableToolbarTemplate>
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" />

@@ -23,19 +23,19 @@ public partial class Table<TItem>
     /// 获得/设置 升序图标
     /// </summary>
     [Parameter]
-    public string SortIconAsc { get; set; } = "fa fa-sort-asc";
+    public string SortIconAsc { get; set; } = "fa-solid fa-sort-up";
 
     /// <summary>
     /// 获得/设置 降序图标
     /// </summary>
     [Parameter]
-    public string SortIconDesc { get; set; } = "fa fa-sort-desc";
+    public string SortIconDesc { get; set; } = "fa-solid fa-sort-down";
 
     /// <summary>
     /// 获得/设置 默认图标
     /// </summary>
     [Parameter]
-    public string SortIcon { get; set; } = "fa fa-sort";
+    public string SortIcon { get; set; } = "fa-solid fa-sort";
 
     /// <summary>
     /// 获得/设置 多列排序顺序 默认为空 多列时使用逗号分割 如："Name, Age desc"

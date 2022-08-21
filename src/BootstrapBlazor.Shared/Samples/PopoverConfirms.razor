@@ -23,12 +23,12 @@
 </DemoBlock>
 
 <DemoBlock Title="Content 更改确认弹窗显示文字" Introduction="通过设置<code>Content</code> 属性更改确认弹窗显示文字" Name="Content">
-    <PopConfirmButton Placement="Placement.Top" Color="Color.Danger" ConfirmIcon="fa fa-exclamation-triangle text-danger" ConfirmButtonColor="Color.Danger" Text="删除确认按钮" Content="确定删除数据吗？" />
+    <PopConfirmButton Placement="Placement.Top" Color="Color.Danger" ConfirmIcon="fa-solid fa-triangle-exclamation text-danger" ConfirmButtonColor="Color.Danger" Text="删除确认按钮" Content="确定删除数据吗？" />
 </DemoBlock>
 
 <DemoBlock Title="异步确认" Introduction="通过设置<code>IsAsync</code> 属性点击确认按钮时异步进行数据提交" Name="IsAsync">
-    <PopConfirmButton Placement="Placement.Top" Color="Color.Danger" ConfirmIcon="fa fa-exclamation-triangle text-danger"
-                      ConfirmButtonColor="Color.Danger" Text="异步确认" Content="确定删除数据吗？" Icon="fa fa-fa fa-fw" IsAsync="true"
+    <PopConfirmButton Placement="Placement.Top" Color="Color.Danger" ConfirmIcon="fa-solid fa-triangle-exclamation text-danger"
+                      ConfirmButtonColor="Color.Danger" Text="异步确认" Content="确定删除数据吗？" Icon="fa-solid fa-font-awesome fa-fw" IsAsync="true"
                       OnConfirm="OnAsyncConfirm" />
 </DemoBlock>
 
@@ -39,8 +39,8 @@
                 <BootstrapInput @bind-Value="@Model.Name" />
             </div>
             <div class="col-12">
-                <PopConfirmButton Placement="Placement.Top" Color="Color.Primary" ConfirmIcon="fa fa-exclamation-triangle text-info"
-                                  ConfirmButtonColor="Color.Success" Text="提交表单" Content="确定提交数据吗？" Icon="fa fa-save fa-fw"
+                <PopConfirmButton Placement="Placement.Top" Color="Color.Primary" ConfirmIcon="fa-solid fa-triangle-exclamation text-info"
+                                  ConfirmButtonColor="Color.Success" Text="提交表单" Content="确定提交数据吗？" Icon="fa-solid fa-floppy-disk fa-fw"
                                   ButtonType="ButtonType.Submit" IsAsync="true" OnConfirm="OnAsyncSubmit" />
             </div>
         </div>
@@ -49,7 +49,7 @@
 </DemoBlock>
 
 <DemoBlock Title="超链接按钮" Introduction="通过设置<code>IsLink</code> 属性组件使用 <code>A</code> 标签进行渲染" Name="IsLink">
-    <PopConfirmButton Placement="Placement.Top" ConfirmIcon="fa fa-exclamation-triangle text-danger" Color="Color.Danger"
+    <PopConfirmButton Placement="Placement.Top" ConfirmIcon="fa-solid fa-triangle-exclamation text-danger" Color="Color.Danger"
                       ConfirmButtonColor="Color.Danger" Text="我是超链接" Content="确定删除数据吗？" IsLink="true" />
 </DemoBlock>
 
@@ -60,7 +60,7 @@
     --bs-popover-body-padding-y: 1rem;
 }
 </Pre>
-    <PopConfirmButton Placement="Placement.Top" ConfirmIcon="fa fa-exclamation-triangle text-danger" Color="Color.Danger"
+    <PopConfirmButton Placement="Placement.Top" ConfirmIcon="fa-solid fa-triangle-exclamation text-danger" Color="Color.Danger"
                       ConfirmButtonColor="Color.Danger" Text="自定义样式按钮" Content="确定删除数据吗？" CssClass="custom-popover" />
 </DemoBlock>
 

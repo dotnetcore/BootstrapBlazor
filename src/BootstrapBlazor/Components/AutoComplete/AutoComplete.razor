@@ -7,7 +7,7 @@
 }
 <div class="@ClassString" @ref="AutoCompleteElement">
     <input @attributes="AdditionalAttributes" id="@Id" class="@ClassName" autocomplete="off" type="@Type" placeholder="@PlaceHolder" disabled="@Disabled" @bind-value="@CurrentValueAsString" @bind-value:event="oninput" @onblur="OnBlur" @onkeyup="OnKeyUp" @ref="FocusElement" />
-    <i class="fa fa-fw fa-spinner fa-spin"></i>
+    <i class="fa-fw fa-spin fa-solid fa-spinner"></i>
     <ul class="@DropdownMenuClassString">
         @if (FilterItems.Any())
         {

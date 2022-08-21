@@ -62,7 +62,7 @@ public class LayoutTest : BootstrapBlazorTestBase
             pb.Add(a => a.ShowCollapseBar, true);
             pb.Add(a => a.Side, CreateSide());
         });
-        Assert.Contains("<i class=\"fa fa-bars\"></i>", cut.Markup);
+        Assert.Contains("<i class=\"fa-solid fa-bars\"></i>", cut.Markup);
 
         var collapsed = false;
         cut.SetParametersAndRender(pb =>
@@ -78,7 +78,7 @@ public class LayoutTest : BootstrapBlazorTestBase
         Assert.True(collapsed);
 
         cut.SetParametersAndRender(pb => pb.Add(a => a.ShowCollapseBar, false));
-        Assert.DoesNotContain("<i class=\"fa fa-bars\"></i>", cut.Markup);
+        Assert.DoesNotContain("<i class=\"fa-solid fa-bars\"></i>", cut.Markup);
     }
 
     [Fact]

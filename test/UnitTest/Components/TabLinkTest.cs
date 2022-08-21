@@ -14,7 +14,7 @@ public class TabLinkTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.Url, "/Cat");
             pb.Add(a => a.Text, "Cat");
-            pb.Add(a => a.Icon, "fa fa-fa");
+            pb.Add(a => a.Icon, "fa-solid fa-font-awesome");
             pb.Add(a => a.Closable, false);
             pb.Add(a => a.OnClick, () =>
             {

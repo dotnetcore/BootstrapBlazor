@@ -49,7 +49,7 @@ public partial class Avatar
     /// 获得/设置 头像框显示图标
     /// </summary>
     [Parameter]
-    public string Icon { get; set; } = "fa fa-user";
+    public string Icon { get; set; } = "fa-solid fa-user";
 
     /// <summary>
     /// 获得/设置 是否为显示为文字

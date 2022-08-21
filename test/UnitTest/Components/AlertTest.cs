@@ -89,7 +89,7 @@ public class AlertTest : TestBase
     [Fact]
     public void Icon_Ok()
     {
-        var cut = Context.RenderComponent<Alert>(builder => builder.Add(a => a.Icon, "fa fa-check-circle"));
-        Assert.Contains("fa fa-check-circle", cut.Markup);
+        var cut = Context.RenderComponent<Alert>(builder => builder.Add(a => a.Icon, "fa-solid fa-circle-check"));
+        Assert.Contains("fa-solid fa-circle-check", cut.Markup);
     }
 }

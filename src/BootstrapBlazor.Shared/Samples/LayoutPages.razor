@@ -1,6 +1,6 @@
 ﻿@page "/layout-page"
 @layout PageLayout
-@attribute [TabItemOption(Text = "后台模拟器", Icon = "fa fa-fw fa-desktop")]
+@attribute [TabItemOption(Text = "后台模拟器", Icon = "fa-fw fa-solid fa-desktop")]
 
 <div style="@StyleString">
 
@@ -59,9 +59,9 @@
     {
         <div class="page-layout-demo-option">
             <p>Tab 测试</p>
-            <div>点击 <b><TabLink Text="测试" Url="layout-page1" Icon="fa fa-fa">测试</TabLink></b> 按钮后，会增加一个新的标签页</div>
+            <div>点击 <b><TabLink Text="测试" Url="layout-page1" Icon="fa-solid fa-font-awesome">测试</TabLink></b> 按钮后，会增加一个新的标签页</div>
             <br />
-            <div>以代码的形式导航到新标签页 <Button Text="导航" Icon="fa fa-fa" OnClickWithoutRender="OnNavigation" /></div>
+            <div>以代码的形式导航到新标签页 <Button Text="导航" Icon="fa-solid fa-font-awesome" OnClickWithoutRender="OnNavigation" /></div>
         </div>
     }
 </div>

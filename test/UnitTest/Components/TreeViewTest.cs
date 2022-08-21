@@ -152,14 +152,14 @@ public class TreeViewTest : BootstrapBlazorTestBase
         });
 
         cut.InvokeAsync(() => cut.Find("[type=\"checkbox\"]").Click());
-        cut.DoesNotContain("fa fa-fa");
+        cut.DoesNotContain("fa-solid fa-font-awesome");
         cut.Contains("Test-Class");
 
         cut.SetParametersAndRender(pb =>
         {
             pb.Add(a => a.ShowIcon, true);
         });
-        cut.Contains("fa fa-fa");
+        cut.Contains("fa-solid fa-font-awesome");
     }
 
     [Fact]

@@ -21,7 +21,7 @@ public class SearchTest : BootstrapBlazorTestBase
         var cut = Context.RenderComponent<Search>(builder =>
         {
             builder.Add(s => s.ShowClearButton, true);
-            builder.Add(s => s.ClearButtonIcon, "fa fa-fw fa-trash");
+            builder.Add(s => s.ClearButtonIcon, "fa-fw fa-solid fa-trash");
         });
         Assert.Contains("fa-trash", cut.Markup);
     }
@@ -65,7 +65,7 @@ public class SearchTest : BootstrapBlazorTestBase
     {
         var cut = Context.RenderComponent<Search>(builder =>
         {
-            builder.Add(s => s.SearchButtonIcon, "fa fa-fw fa-search");
+            builder.Add(s => s.SearchButtonIcon, "fa-fw fa-solid fa-magnifying-glass");
         });
         var ele = cut.Find(".fa-search");
         Assert.NotNull(ele);
@@ -77,7 +77,7 @@ public class SearchTest : BootstrapBlazorTestBase
         var cut = Context.RenderComponent<Search>(builder =>
         {
             builder.Add(s => s.Items, new string[] { "1", "12", "123", "1234" });
-            builder.Add(s => s.SearchButtonLoadingIcon, "fa fa-fw fa-spinner fa-spin");
+            builder.Add(s => s.SearchButtonLoadingIcon, "fa-fw fa-spin fa-solid fa-spinner");
         });
     }
 
