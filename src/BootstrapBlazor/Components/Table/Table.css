@@ -8,7 +8,7 @@
 
 .table-wrapper {
     border-radius: var(--bs-border-radius);
-    border: 1px solid #dee2e6;
+    border: 1px solid var(--bs-border-color);
 }
 
     .table-wrapper thead tr:first-child {
@@ -80,7 +80,7 @@
             flex: 1;
         }
 
-        .table thead th .table-cell > .fa {
+        .table thead th .table-cell > :where(.fa-solid, .fa-regular) {
             content: "";
             position: absolute;
             right: -8px;
@@ -93,7 +93,7 @@
             color: #ddd;
         }
 
-            .table thead th .table-cell > .fa:hover {
+            .table thead th .table-cell > :where(.fa-solid, .fa-regular):hover {
                 background-color: #ddd;
                 color: #606266;
             }
@@ -106,16 +106,16 @@
                 color: #409eff;
             }
 
-    .table thead.table-dark th .table-cell > .fa:hover {
+    .table thead.table-dark th .table-cell > :where(.fa-solid, .fa-regular):hover {
         background-color: #6c757d;
         color: #fff;
     }
 
-    .table thead.table-light th .table-cell > .fa {
+    .table thead.table-light th .table-cell > :where(.fa-solid, .fa-regular) {
         color: #c0c4cc;
     }
 
-        .table thead.table-light th .table-cell > .fa:hover {
+        .table thead.table-light th .table-cell > :where(.fa-solid, .fa-regular):hover {
             color: #495057;
         }
 
