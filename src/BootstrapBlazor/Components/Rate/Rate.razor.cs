@@ -24,11 +24,6 @@ public partial class Rate : IDisposable
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="i"></param>
-    /// <returns></returns>
     private string? GetItemClassString(int i) => CssBuilder.Default("rate-item")
         .AddClass("is-on", Value >= i)
         .Build();

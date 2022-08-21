@@ -37,7 +37,7 @@ public partial class FullScreenButton
 
     private string? ButtonIconString => CssBuilder.Default()
         .AddClass(ButtonIcon)
-        .AddClass("fs", !string.IsNullOrEmpty(FullScreenIcon))
+        .AddClass("fs-off", !string.IsNullOrEmpty(FullScreenIcon))
         .Build();
 
     private string? FullScreenIconString => CssBuilder.Default("fs-on")
