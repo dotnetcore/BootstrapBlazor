@@ -31,7 +31,7 @@ internal static class BootstrapBlazorEditContextDataAnnotationsExtensions
     {
         if (editContext != null)
         {
-            var validationContext = new ValidationContext(editContext.Model);
+            var validationContext = new ValidationContext(editContext.Model, editForm.serviceProvider, null);
             var validationResults = new List<ValidationResult>();
             await editForm.ValidateObject(validationContext, validationResults);
 
@@ -51,7 +51,7 @@ internal static class BootstrapBlazorEditContextDataAnnotationsExtensions
     {
         // 获取验证消息
         var validationResults = new List<ValidationResult>();
-        var validationContext = new ValidationContext(args.FieldIdentifier.Model)
+        var validationContext = new ValidationContext(args.FieldIdentifier.Model, editForm.serviceProvider, null)
         {
             MemberName = args.FieldIdentifier.FieldName,
             DisplayName = args.FieldIdentifier.GetDisplayName()
