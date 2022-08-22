@@ -3,6 +3,9 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using BootstrapBlazor.Shared;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Localization;
+using Microsoft.Extensions.Options;
 using System.ComponentModel.DataAnnotations;
 
 namespace UnitTest.Components;
@@ -375,6 +378,47 @@ public class ValidateFormTest : ValidateFormTestBase
         var form = cut.Instance;
         await cut.InvokeAsync(() => form.Validate());
         Assert.Contains("form-control invalid is-invalid", cut.Markup);
+    }
+
+    [Fact]
+    public async Task Validate_Servise_Ok()
+    {
+        var foo = new HasService();
+        var cut = Context.RenderComponent<ValidateForm>(pb =>
+        {
+            pb.Add(a => a.Model, foo);
+            pb.AddChildContent<MockInput<string>>(pb =>
+            {
+                pb.Add(a => a.Value, foo.Tag);
+                pb.Add(a => a.ValueExpression, Utility.GenerateValueExpression(foo, "Tag", typeof(string)));
+                pb.Add(a => a.ValidateRules, new List<IValidator>() { new FormItemValidator(new HasServiceAttribute()) });
+            });
+        });
+        var form = cut.Find("form");
+        await cut.InvokeAsync(() => form.Submit());
+        var msg = cut.FindComponent<MockInput<string>>().Instance.GetErrorMessage();
+        Assert.Equal(HasServiceAttribute.Success, msg);
+    }
+
+    private class HasServiceAttribute : ValidationAttribute
+    {
+        public const string Success = "Has Service";
+        public const string Error = "No Service";
+
+        protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
+        {
+            var hasService = validationContext.GetService<IServiceProvider>();
+            if (hasService is null)
+                return new(Error);
+            else
+                return new(Success);
+        }
+    }
+
+    private class HasService
+    {
+        [HasService]
+        public string? Tag { get; set; }
     }
 
     [MetadataType(typeof(DummyMetadata))]
