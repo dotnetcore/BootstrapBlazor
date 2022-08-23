@@ -31,7 +31,7 @@ public partial class FullScreenButton
     [NotNull]
     private FullScreenService? FullScrenService { get; set; }
 
-    private string? ClassString => CssBuilder.Default("bb-fs btn btn-outline-link")
+    private string? ClassString => CssBuilder.Default("bb-fs btn btn-none")
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
