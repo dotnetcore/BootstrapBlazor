@@ -8,38 +8,41 @@
     padding-top: 1px;
 }
 
-    .fa-icons > section:not(:first-child) {
-        margin-top: 1rem;
-    }
+.fa-icons > section:not(:first-child) {
+    margin-top: 1rem;
+}
 
 .fa-target {
     display: block;
 }
 
-.fontawesome-icon-list > div > a {
+.fontawesome-icon-list .icon-item {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    line-height: 32px;
-    display: block;
-    color: #222;
-    height: 32px;
-    border-radius: 4px;
-    padding: 0 6px;
+    display: flex;
+    align-items: center;
+    color: var(--bs-dark);
+    background-color: #f0f1f3;
+    border-radius: .5rem;
+    padding: .75rem;
 }
 
-    .fontawesome-icon-list > div > a:hover {
-        background-color: #1d9d74;
-        color: #fff;
+    .fontawesome-icon-list .icon-item:hover {
+        background-color: var(--bs-warning);
         text-decoration: none;
     }
 
-    .fontawesome-icon-list > div > a :where(.fa-solid, .fa-regular, .fa-brands) {
-        margin-right: 10px;
+    .fontawesome-icon-list .icon-item :where(.fa-solid, .fa-regular, .fa-brands) {
+        font-size: 1.25rem;
+        line-height: 1.25rem;
     }
 
-    .fontawesome-icon-list > div > a:hover :where(.fa-solid, .fa-regular, .fa-brands) {
-        font-size: 1rem;
+    .fontawesome-icon-list .icon-item .icon-text {
+        font-family: cera-round-pro, "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+        font-size: 11px;
+        margin-left: 10px;
+        line-height: 1.25rem;
     }
 
 .fa-nav {
