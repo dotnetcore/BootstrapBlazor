@@ -1,19 +1,14 @@
-﻿:root {
-    --bb-logo: #732cf9;
-    --bb-purple: #732cf9;
-    --bb-violet: #712cf9;
+﻿header {
     --bb-violet-rgb: 112.520718,44.062154,249.437846;
-    --bb-bg-violet: #7a5cff;
-    --bb-bg-navbar: #8548ff;
-    --bb-layout-sidebar-banner-background: #702cf8;
-}
-
-header {
     background-color: transparent;
     background-image: linear-gradient(to bottom, rgba(var(--bb-violet-rgb), 1), rgba(var(--bb-violet-rgb), 0.95));
     box-shadow: 0 0.5rem 1rem rgba(0,0,0,.05), inset 0 -1px 0 rgba(0,0,0,.1);
     font-size: 1rem;
     transition: transform .3s ease;
+}
+
+.layout {
+    --bb-layout-sidebar-banner-background: #702cf8;
 }
 
 .navbar-dark .navbar-nav .nav-link {
@@ -40,6 +35,7 @@ header .nav-link img {
 }
 
 .header-img {
+    --bb-logo: #732cf9;
     display: flex;
     align-items: center;
     padding: 0;
@@ -127,6 +123,7 @@ section {
     }
 
 .sidebar .navbar {
+    --bb-bg-navbar: #8548ff;
     background-color: var(--bb-bg-navbar);
 }
 
@@ -1971,7 +1968,7 @@ header .bb-fs {
     }
 
 .menu .nav-link.nav-table {
-    color: var(--bb-bg-violet);
+    color: var(--bs-info);
     font-weight: bold;
 }
 

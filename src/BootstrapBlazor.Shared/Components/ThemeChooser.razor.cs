@@ -86,6 +86,10 @@ public partial class ThemeChooser
             "_content/BootstrapBlazor.Shared/css/motronic.css"
         }),
         new("ant", new List<string>()),
-        new("layui", new List<string>())
+        new("layui", new List<string>()),
+        new("devui", new string[]
+        {
+            "_content/BootstrapBlazor.Shared/css/devui.css"
+        })
     });
 }
