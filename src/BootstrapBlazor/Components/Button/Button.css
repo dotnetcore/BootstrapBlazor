@@ -8,7 +8,6 @@
 }
 
 .btn-xs, .btn-group-xs > .btn {
-    --bs-btn-border-radius: 0.2rem;
     --bs-btn-padding-x: .3125rem;
     --bs-btn-padding-y: .0625rem;
     --bs-btn-font-size: 0.75rem;

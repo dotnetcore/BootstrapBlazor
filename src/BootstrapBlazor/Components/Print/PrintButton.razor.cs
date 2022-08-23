@@ -53,7 +53,7 @@ public partial class PrintButton
 
         if (string.IsNullOrEmpty(ButtonIcon))
         {
-            ButtonIcon = "fa-solid fa-print";
+            ButtonIcon = "fa-solid fa-fw fa-print";
         }
     }
 }

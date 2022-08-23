@@ -58,6 +58,7 @@
         align-items: center;
         padding: var(--bb-tree-node-padding);
         border-radius: var(--bb-tree-item-border-radius);
+        flex: 1;
     }
 
         .tree-view .tree-node.disabled,
