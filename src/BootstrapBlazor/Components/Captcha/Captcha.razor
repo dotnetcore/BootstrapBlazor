@@ -1,7 +1,7 @@
 ﻿@namespace BootstrapBlazor.Components
 @inherits BootstrapComponentBase
 
-<div @attributes="@AdditionalAttributes" class="captcha card" style="@StyleString" @ref="CaptchaElement">
+<div @attributes="@AdditionalAttributes" class="captcha card shadow-sm" style="@StyleString" @ref="CaptchaElement">
     <div class="card-header">
         <span>@HeaderText</span>
         <span class="captcha-refresh" @onclick="@OnClickRefresh">

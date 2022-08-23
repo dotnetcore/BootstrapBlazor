@@ -117,7 +117,7 @@ public abstract class ButtonUploadBase<TValue> : SingleUploadBase<TValue>
     /// <returns></returns>
     protected string? GetFileFormatClassString(UploadFile item)
     {
-        var builder = CssBuilder.Default("fa");
+        var builder = CssBuilder.Default("fa-regular");
         var fileExtension = Path.GetExtension(item.OriginFileName ?? item.FileName);
         if (!string.IsNullOrEmpty(fileExtension))
         {
@@ -125,17 +125,17 @@ public abstract class ButtonUploadBase<TValue> : SingleUploadBase<TValue>
         }
         var icon = OnGetFileFormat?.Invoke(fileExtension) ?? fileExtension switch
         {
-            ".csv" or ".xls" or ".xlsx" => "fa-file-excel-o",
-            ".doc" or ".docx" or ".dot" or ".dotx" => "fa-file-word-o",
-            ".ppt" or ".pptx" => "fa-file-powerpoint-o",
-            ".wav" or ".mp3" => "fa-file-audio-o",
-            ".mp4" or ".mov" or ".mkv" => "fa-file-video-o",
-            ".cs" or ".html" or ".vb" => "fa-file-code-o",
-            ".pdf" => "fa-file-pdf-o",
-            ".zip" or ".rar" or ".iso" => "fa-file-archive-o",
-            ".txt" or ".log" => "fa-file-text-o",
-            ".jpg" or ".jpeg" or ".png" or ".bmp" or ".gif" => "fa-file-image-o",
-            _ => "fa-file-o"
+            ".csv" or ".xls" or ".xlsx" => "fa-file-excel",
+            ".doc" or ".docx" or ".dot" or ".dotx" => "fa-file-word",
+            ".ppt" or ".pptx" => "fa-file-powerpoint",
+            ".wav" or ".mp3" => "fa-file-audio",
+            ".mp4" or ".mov" or ".mkv" => "fa-file-video",
+            ".cs" or ".html" or ".vb" => "fa-file-code",
+            ".pdf" => "fa-file-pdf",
+            ".zip" or ".rar" or ".iso" => "fa-file-archive",
+            ".txt" or ".log" => "fa-file-text",
+            ".jpg" or ".jpeg" or ".png" or ".bmp" or ".gif" => "fa-file-image",
+            _ => "fa-file"
         };
         builder.AddClass(icon);
         return builder.Build();

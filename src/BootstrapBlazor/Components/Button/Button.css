@@ -2,10 +2,9 @@
     --bb-button-label-margin-left: 4px;
 }
 
-.btn:focus,
-.btn:active:focus,
-.show > .dropdown-toggle:focus {
-    box-shadow: none !important;
+.btn {
+    --bs-btn-font-size: .875rem;
+    --bs-btn-focus-box-shadow: none;
 }
 
 .btn-xs, .btn-group-xs > .btn {
@@ -60,11 +59,10 @@
     background-color: transparent;
     border: none;
     padding: 0;
-    --bb-link-btn-disabled-opacity: 0.65;
 }
 
     .link-button:disabled img {
-        opacity: var(--bb-link-btn-disabled-opacity);
+        opacity: var(--bs-btn-disabled-opacity);
     }
 
 .btn-none {

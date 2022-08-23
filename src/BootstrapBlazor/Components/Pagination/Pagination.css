@@ -45,7 +45,7 @@
     line-height: 1;
 }
 
-    .page-link .fa {
+    .page-link :where(.fa-regular, .fa-solid, .fa-brands) {
         width: 11px;
         height: 11px;
         text-align: center;

@@ -27,7 +27,7 @@ public partial class BootstrapInputNumber<TValue>
     protected string? InputClassString => CssBuilder.Default("form-control")
         .AddClass(CssClass).AddClass(ValidCss)
         .AddClass("input-number-fix", ShowButton)
-        .AddClass($"border-{Color.ToDescriptionString()} shadow-{Color.ToDescriptionString()}", Color != Color.None)
+        .AddClass($"border-{Color.ToDescriptionString()}", Color != Color.None)
         .Build();
 
     [NotNull]

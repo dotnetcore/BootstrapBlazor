@@ -61,7 +61,7 @@ public class PopoverConfirmOption
     /// <summary>
     /// 获得/设置 确认框图标
     /// </summary>
-    public string Icon { get; set; } = "fa-exclamation-circle text-info";
+    public string Icon { get; set; } = "fa-solid fa-exclamation-circle text-info";
 
     /// <summary>
     /// 获得/设置 自定义样式 默认 null

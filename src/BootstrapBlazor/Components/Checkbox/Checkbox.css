@@ -75,7 +75,6 @@
         opacity: var(--bb-checkbox-item-disabled-opacity);
     }
 
-.form-check .form-check-label,
 .form-check .form-check-input {
     cursor: pointer;
 }

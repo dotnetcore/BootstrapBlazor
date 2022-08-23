@@ -7,7 +7,7 @@
     min-width: var(--bs-popover-min-width);
 }
 
-.popover-confirm-body .fa + span {
+.popover-confirm-body :where(.fa-regular, .fa-solid, .fa-brands) + span {
     margin-left: var(--bb-popover-body-span-margin-left);
 }
 

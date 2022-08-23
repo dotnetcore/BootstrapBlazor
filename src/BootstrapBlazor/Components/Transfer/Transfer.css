@@ -139,3 +139,9 @@
 .transfer-panel-body .form-check-label {
     max-width: 160px;
 }
+
+.transfer-panel-empty {
+    position: absolute;
+    top: 35%;
+    width: 100%;
+}

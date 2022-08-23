@@ -188,15 +188,15 @@ section {
             display: block;
         }
 
-            .content .card-footer .card-footer-control .fa {
+            .content .card-footer .card-footer-control :where(.fa-regular, .fa-solid, .fa-brands) {
                 transition: .3s linear;
             }
 
-            .content .card-footer .card-footer-control.collapsed .fa {
+            .content .card-footer .card-footer-control.collapsed :where(.fa-regular, .fa-solid, .fa-brands) {
                 transform: rotate(180deg);
             }
 
-    .content .card:hover .card-footer .card-footer-control .fa {
+    .content .card:hover .card-footer .card-footer-control :where(.fa-regular, .fa-solid, .fa-brands) {
         margin-left: -1.5rem;
         margin-left: -72px;
     }

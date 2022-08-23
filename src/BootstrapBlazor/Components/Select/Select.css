@@ -25,22 +25,22 @@
         content: none;
     }
 
-    .select .form-select {
-        background-image: none;
-        background-color: var(--bb-select-bg);
-        cursor: pointer;
-    }
-
     .select .dropdown-menu,
     .cascade .dropdown-menu {
         margin-top: var(--bb-select-dropdown-menu-margin-top) !important;
     }
 
-.form-select:disabled {
-    background-color: var(--bb-select-disabled-bg);
-    border-color: var(--bb-select-disabled-border-color);
-    color: var(--bb-select-disabled-color);
+.form-select {
+    background-image: none;
+    background-color: var(--bb-select-bg);
+    cursor: pointer;
 }
+
+    .form-select:disabled {
+        background-color: var(--bb-select-disabled-bg);
+        border-color: var(--bb-select-disabled-border-color);
+        color: var(--bb-select-disabled-color);
+    }
 
 .dropdown-menu-arrow {
     width: 0;
@@ -163,4 +163,24 @@
 .was-validated .form-select:invalid:not([multiple]):not([size]),
 .was-validated .form-select:invalid:not([multiple])[size="1"] {
     background-position: right -1rem center, center right 1.5rem;
+}
+
+.arrow-danger {
+    border-color: transparent transparent var(--bs-danger);
+}
+
+.arrow-success {
+    border-color: transparent transparent var(--bs-success);
+}
+
+.arrow-primary {
+    border-color: transparent transparent var(--bs-primary);
+}
+
+.arrow-warning {
+    border-color: transparent transparent var(--bs-warning);
+}
+
+.arrow-info {
+    border-color: transparent transparent var(--bs-info);
 }

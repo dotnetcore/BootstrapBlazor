@@ -125,7 +125,7 @@
                 justify-content: center;
             }
 
-                .upload .upload-body.is-avatar .upload-item .upload-item-actions .fa {
+                .upload .upload-body.is-avatar .upload-item .upload-item-actions :where(.fa-regular, .fa-solid, .fa-brands) {
                     font-size: 1rem;
                 }
 
@@ -180,7 +180,7 @@
                 display: none;
             }
 
-            .upload .upload-body.is-card .upload-item-body .fa {
+            .upload .upload-body.is-card .upload-item-body :where(.fa-regular, .fa-solid, .fa-brands) {
                 font-size: 1.5rem;
             }
 

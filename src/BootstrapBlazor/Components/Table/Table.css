@@ -62,7 +62,7 @@
             background-color: #e9ecef;
         }
 
-            .table thead th.sortable:hover > .fa {
+            .table thead th.sortable:hover > :where(.fa-regular, .fa-solid, .fa-brands) {
                 color: #999;
             }
 
@@ -157,7 +157,7 @@
         overflow: hidden;
     }
 
-.table-sm thead th .table-cell > .fa {
+.table-sm thead th .table-cell > :where(.fa-regular, .fa-solid, .fa-brands) {
     right: -4px;
     top: -4px;
     bottom: -4px;
