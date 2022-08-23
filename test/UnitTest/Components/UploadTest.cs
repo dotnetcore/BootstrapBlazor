@@ -590,17 +590,17 @@ public class UploadTest : BootstrapBlazorTestBase
                 new UploadFile() { FileName  = "1" }
             });
         });
-        cut.Contains("fa-file-excel-o");
-        cut.Contains("fa-file-word-o");
-        cut.Contains("fa-file-powerpoint-o");
-        cut.Contains("fa-file-audio-o");
-        cut.Contains("fa-file-video-o");
-        cut.Contains("fa-file-code-o");
-        cut.Contains("fa-file-pdf-o");
-        cut.Contains("fa-file-archive-o");
-        cut.Contains("fa-file-text-o");
-        cut.Contains("fa-file-image-o");
-        cut.Contains("fa-file-o");
+        cut.Contains("fa-regular fa-file-excel");
+        cut.Contains("fa-regular fa-file-word");
+        cut.Contains("fa-regular fa-file-powerpoint");
+        cut.Contains("fa-regular fa-file-audio");
+        cut.Contains("fa-regular fa-file-video");
+        cut.Contains("fa-regular fa-file-code");
+        cut.Contains("fa-regular fa-file-pdf");
+        cut.Contains("fa-regular fa-file-archive");
+        cut.Contains("fa-regular fa-file-text");
+        cut.Contains("fa-regular fa-file-image");
+        cut.Contains("fa-regular fa-file");
 
         cut.SetParametersAndRender(pb =>
         {
