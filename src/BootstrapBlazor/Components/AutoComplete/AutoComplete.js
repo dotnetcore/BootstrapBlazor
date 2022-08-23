@@ -21,6 +21,27 @@
                 $menu.scrollTop(0);
             }
         },
+        bb_composition: function (el, obj, method) {
+            var isInputZh = false;
+            var $el = $(el);
+            $el.on('compositionstart', function (e) {
+                isInputZh = true;
+            });
+            $el.on('compositionend', function (e) {
+                isInputZh = false;
+            });
+            $el.on('input', function (e) {
+                if (isInputZh) {
+                    e.stopPropagation();
+                    e.preventDefault();
+                    setTimeout(function () {
+                        if (!isInputZh) {
+                            obj.invokeMethodAsync(method, $el.val());
+                        }
+                    }, 15);
+                }
+            });
+        },
         bb_setDebounce: function (el, waitMs) {
             // ReaZhuang贡献
             var $el = $(el);

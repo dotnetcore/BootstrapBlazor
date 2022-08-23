@@ -106,6 +106,8 @@ public partial class AutoComplete
     [NotNull]
     private IStringLocalizer<AutoComplete>? Localizer { get; set; }
 
+    private JSInterop<AutoComplete>? Interop { get; set; }
+
     private string CurrentSelectedItem { get; set; } = "";
 
     /// <summary>
@@ -149,6 +151,17 @@ public partial class AutoComplete
 
         if (firstRender)
         {
+            // 汉字多次触发问题
+            if (ValidateForm != null)
+            {
+                if (Interop == null)
+                {
+                    Interop = new JSInterop<AutoComplete>(JSRuntime);
+                }
+
+                await Interop.InvokeVoidAsync(this, FocusElement, "bb_composition", nameof(TriggerOnChange));
+            }
+
             if (Debounce > 0)
             {
                 await JSRuntime.InvokeVoidAsync(FocusElement, "bb_setDebounce", Debounce);
@@ -255,5 +268,33 @@ public partial class AutoComplete
                 }
             }
         }
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="val"></param>
+    [JSInvokable]
+    public void TriggerOnChange(string val)
+    {
+        CurrentValueAsString = val;
+    }
+
+    /// <summary>
+    /// DisposeAsyncCore 方法
+    /// </summary>
+    /// <param name="disposing"></param>
+    /// <returns></returns>
+    protected override ValueTask DisposeAsyncCore(bool disposing)
+    {
+        if (disposing)
+        {
+            if (Interop != null)
+            {
+                Interop.Dispose();
+            }
+        }
+
+        return base.DisposeAsyncCore(disposing);
     }
 }

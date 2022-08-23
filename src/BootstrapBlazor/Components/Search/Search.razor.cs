@@ -92,6 +92,8 @@ public partial class Search
     [NotNull]
     private IStringLocalizer<Search>? Localizer { get; set; }
 
+    private JSInterop<Search>? Interop { get; set; }
+
     /// <summary>
     /// OnInitialized 方法
     /// </summary>
@@ -104,6 +106,30 @@ public partial class Search
 
         SkipEnter = true;
         SkipEsc = true;
+    }
+
+    /// <summary>
+    /// firstRender
+    /// </summary>
+    /// <param name="firstRender"></param>
+    /// <returns></returns>
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+
+        if (firstRender)
+        {
+            // 汉字多次触发问题
+            if (ValidateForm != null)
+            {
+                if (Interop == null)
+                {
+                    Interop = new JSInterop<Search>(JSRuntime);
+                }
+
+                await Interop.InvokeVoidAsync(this, FocusElement, "bb_composition", nameof(TriggerOnChange));
+            }
+        }
     }
 
     /// <summary>
@@ -188,5 +214,23 @@ public partial class Search
         {
             await OnSearchClick();
         }
+    }
+
+    /// <summary>
+    /// DisposeAsyncCore 方法
+    /// </summary>
+    /// <param name="disposing"></param>
+    /// <returns></returns>
+    protected override ValueTask DisposeAsyncCore(bool disposing)
+    {
+        if (disposing)
+        {
+            if (Interop != null)
+            {
+                Interop.Dispose();
+            }
+        }
+
+        return base.DisposeAsyncCore(disposing);
     }
 }

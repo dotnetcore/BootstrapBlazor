@@ -213,7 +213,7 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
         }
         else
         {
-            result = default!;
+            result = default;
             validationErrorMessage = FormatParsingErrorMessage();
         }
         return ret;

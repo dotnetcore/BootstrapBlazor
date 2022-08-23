@@ -122,6 +122,8 @@ public partial class AutoFill<TValue>
 
     private TValue? ActiveSelectedItem { get; set; }
 
+    private JSInterop<AutoFill<TValue>>? Interop { get; set; }
+
     /// <summary>
     /// 
     /// </summary>
@@ -163,6 +165,17 @@ public partial class AutoFill<TValue>
 
         if (firstRender)
         {
+            // 汉字多次触发问题
+            if (ValidateForm != null)
+            {
+                if (Interop == null)
+                {
+                    Interop = new JSInterop<AutoFill<TValue>>(JSRuntime);
+                }
+
+                await Interop.InvokeVoidAsync(this, FocusElement, "bb_composition", nameof(TriggerOnChange));
+            }
+
             if (Debounce > 0)
             {
                 await JSRuntime.InvokeVoidAsync(AutoFillElement, "bb_setDebounce", Debounce);
@@ -286,5 +299,33 @@ public partial class AutoFill<TValue>
                 Items.Where(s => OnGetDisplayText(s).Contains(InputString, comparison)) :
                 Items.Where(s => OnGetDisplayText(s).StartsWith(InputString, comparison));
         }
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="val"></param>
+    [JSInvokable]
+    public void TriggerOnChange(string val)
+    {
+        CurrentValueAsString = val;
+    }
+
+    /// <summary>
+    /// DisposeAsyncCore 方法
+    /// </summary>
+    /// <param name="disposing"></param>
+    /// <returns></returns>
+    protected override ValueTask DisposeAsyncCore(bool disposing)
+    {
+        if (disposing)
+        {
+            if (Interop != null)
+            {
+                Interop.Dispose();
+            }
+        }
+
+        return base.DisposeAsyncCore(disposing);
     }
 }
