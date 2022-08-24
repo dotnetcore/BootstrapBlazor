@@ -154,11 +154,7 @@ public partial class AutoComplete
             // 汉字多次触发问题
             if (ValidateForm != null)
             {
-                if (Interop == null)
-                {
-                    Interop = new JSInterop<AutoComplete>(JSRuntime);
-                }
-
+                Interop ??= new JSInterop<AutoComplete>(JSRuntime);
                 await Interop.InvokeVoidAsync(this, FocusElement, "bb_composition", nameof(TriggerOnChange));
             }
 

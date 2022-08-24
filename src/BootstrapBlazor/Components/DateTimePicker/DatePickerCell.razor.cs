@@ -27,5 +27,5 @@ public sealed partial class DatePickerCell
     /// </summary>
     [Parameter]
     [NotNull]
-    public Action<DateTime>? OnClick { get; set; }
+    public Func<DateTime, Task>? OnClick { get; set; }
 }

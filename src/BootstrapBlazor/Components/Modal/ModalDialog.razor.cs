@@ -201,18 +201,23 @@ public partial class ModalDialog : IDisposable
     {
         base.OnInitialized();
 
-        if (OnClose == null)
-        {
-            OnClose = async () => await Modal.CloseOrPopDialog();
-        }
+        Interop = new JSInterop<ModalDialog>(JSRuntime);
+
+        Modal.AddDialog(this);
+    }
+
+    /// <summary>
+    /// OnParametersSet 方法
+    /// </summary>
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
 
         CloseButtonText ??= Localizer[nameof(CloseButtonText)];
         SaveButtonText ??= Localizer[nameof(SaveButtonText)];
         PrintButtonText ??= Localizer[nameof(PrintButtonText)];
 
-        Interop = new JSInterop<ModalDialog>(JSRuntime);
-
-        Modal.AddDialog(this);
+        OnClose ??= async () => await Modal.CloseOrPopDialog();
     }
 
     /// <summary>
