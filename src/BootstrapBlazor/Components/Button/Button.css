@@ -1,10 +1,7 @@
-﻿:root {
-    --bb-button-label-margin-left: 4px;
-}
-
-.btn {
+﻿.btn {
     --bs-btn-font-size: .875rem;
     --bs-btn-focus-box-shadow: none;
+    --bb-button-label-margin-left: 4px;
 }
 
 .btn-xs, .btn-group-xs > .btn {
@@ -25,9 +22,10 @@
     --bs-btn-font-size: 1.5rem;
 }
 
-.btn .badge, .btn i + span,
+.btn .badge,
+.btn i + span,
 .badge i + span,
-.link-button > i + span {
+.link-button i + span {
     margin-left: var(--bb-button-label-margin-left);
 }
 
@@ -54,6 +52,15 @@
     --bb-button-label-margin-left: 0;
 }
 
+.btn-none {
+    --bs-btn-active-border-color: transparent;
+    --bs-btn-hover-border-color: transparent;
+}
+
+.btn-close:focus {
+    box-shadow: none;
+}
+
 .link-button {
     background-color: transparent;
     border: none;
@@ -63,8 +70,3 @@
     .link-button:disabled img {
         opacity: var(--bs-btn-disabled-opacity);
     }
-
-.btn-none {
-    --bs-btn-active-border-color: transparent;
-    --bs-btn-hover-border-color: transparent;
-}

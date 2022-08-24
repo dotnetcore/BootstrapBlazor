@@ -374,6 +374,12 @@ public sealed partial class NavMenu
             },
             new()
             {
+                IsNew = true,
+                Text = Localizer["PulseButton"],
+                Url = "pulsebuttons"
+            },
+            new()
+            {
                 Text = Localizer["Radio"],
                 Url = "radios"
             },

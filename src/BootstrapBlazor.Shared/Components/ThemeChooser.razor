@@ -1,13 +1,7 @@
 ﻿@inherits BootstrapComponentBase
 
 <div @ref="@ThemeElement" class="theme">
-    <div class="btn btn-theme" data-bs-toggle="tooltip" title="@Title" data-bs-placement="left">
-        <img src="_content/BootstrapBlazor.Shared/images/m.svg" class="m-logo" />
-        <div class="pulse pulse-warning">
-            <span class="pulse-ring"></span>
-        </div>
-    </div>
-
+    <PulseButton class="btn-theme" Color="Color.None" ImageUrl="_content/BootstrapBlazor.Shared/images/m.svg" Title="@Title" TooltipPlacement="Placement.Left" />
     <div class="theme-list">
         <div class="theme-header">
             <div class="flex-fill">@HeaderText</div>

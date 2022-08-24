@@ -475,3 +475,9 @@
     --bb-tree-item-hover-color: var(--bs-primary);
 }
 /*end tree*/
+
+/*btn*/
+.btn-xs, .btn-group-xs > .btn {
+    --bs-btn-border-radius: .375rem;
+}
+/*end btn*/

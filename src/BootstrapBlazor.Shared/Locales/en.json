@@ -2882,7 +2882,8 @@
     "Synthesizer": "Synthesizer",
     "SpeechWave": "SpeechWave",
     "OnScreenKeyboard": "OnScreenKeyboard",
-    "RibbonTab": "RibbonTab"
+    "RibbonTab": "RibbonTab",
+    "PulseButton": "PulseButton"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesFooter": {
     "Left": "Left",

@@ -67,7 +67,8 @@
     "recognizers": "Speechs/Recognizers",
     "synthesizers": "Speechs/Synthesizers",
     "treeviews": "TreeViews",
-    "switchbuttons": "SwitchButtons"
+    "switchbuttons": "SwitchButtons",
+    "pulsebuttons": "PulseButtons"
   },
   "video": {
     "autorefresh": "BV1ap4y1x7Qn?p=8",
