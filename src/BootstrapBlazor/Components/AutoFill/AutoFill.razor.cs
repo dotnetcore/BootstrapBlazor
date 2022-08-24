@@ -145,6 +145,15 @@ public partial class AutoFill<TValue>
         PlaceHolder ??= Localizer[nameof(PlaceHolder)];
         Items ??= Enumerable.Empty<TValue>();
         FilterItems ??= new List<TValue>();
+    }
+
+    /// <summary>
+    /// OnParametersSet 方法
+    /// </summary>
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
         OnGetDisplayText ??= v => v?.ToString() ?? "";
         InputString = OnGetDisplayText(Value);
     }
