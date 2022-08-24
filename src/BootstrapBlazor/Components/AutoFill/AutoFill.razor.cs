@@ -112,6 +112,12 @@ public partial class AutoFill<TValue>
     public int Debounce { get; set; }
 
     /// <summary>
+    /// 获得/设置 获得焦点时是否展开下拉候选菜单 默认 true
+    /// </summary>
+    [Parameter]
+    public bool ShowDropdownListOnFocus { get; set; } = true;
+
+    /// <summary>
     /// 
     /// </summary>
     [Inject]
@@ -216,6 +222,19 @@ public partial class AutoFill<TValue>
         if (OnSelectedItemChanged != null)
         {
             await OnSelectedItemChanged(val);
+        }
+    }
+
+    /// <summary>
+    /// OnFocus 方法
+    /// </summary>
+    /// <param name="args"></param>
+    /// <returns></returns>
+    protected virtual async Task OnFocus(FocusEventArgs args)
+    {
+        if (ShowDropdownListOnFocus)
+        {
+            await OnKeyUp(new KeyboardEventArgs());
         }
     }
 
