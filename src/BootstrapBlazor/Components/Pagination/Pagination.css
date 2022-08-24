@@ -45,7 +45,7 @@
     line-height: 1;
 }
 
-    .page-link :where(.fa-regular, .fa-solid, .fa-brands) {
+    .page-link :where(.fa,.fas,.fa-solid,.far,.fa-regular,.fal,.fa-light,.fat,.fa-thin,.fad,.fa-duotone,.fab,.fa-brands) {
         width: 11px;
         height: 11px;
         text-align: center;

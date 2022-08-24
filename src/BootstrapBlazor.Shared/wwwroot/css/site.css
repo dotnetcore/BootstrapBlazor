@@ -185,15 +185,15 @@ section {
             display: block;
         }
 
-            .content .card-footer .card-footer-control :where(.fa-regular, .fa-solid, .fa-brands) {
+            .content .card-footer .card-footer-control :where(.fa,.fas,.fa-solid,.far,.fa-regular,.fal,.fa-light,.fat,.fa-thin,.fad,.fa-duotone,.fab,.fa-brands) {
                 transition: .3s linear;
             }
 
-            .content .card-footer .card-footer-control.collapsed :where(.fa-regular, .fa-solid, .fa-brands) {
+            .content .card-footer .card-footer-control.collapsed :where(.fa,.fas,.fa-solid,.far,.fa-regular,.fal,.fa-light,.fat,.fa-thin,.fad,.fa-duotone,.fab,.fa-brands) {
                 transform: rotate(180deg);
             }
 
-    .content .card:hover .card-footer .card-footer-control :where(.fa-regular, .fa-solid, .fa-brands) {
+    .content .card:hover .card-footer .card-footer-control :where(.fa,.fas,.fa-solid,.far,.fa-regular,.fal,.fa-light,.fat,.fa-thin,.fad,.fa-duotone,.fab,.fa-brands) {
         margin-left: -1.5rem;
         margin-left: -72px;
     }
