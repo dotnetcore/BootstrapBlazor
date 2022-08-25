@@ -144,16 +144,6 @@
     box-shadow: none;
 }
 
-.input-group > .select:not(:first-child) .form-select {
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
-}
-
-.input-group > .select:not(:last-child) .form-select {
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
-}
-
 .form-select.is-valid:not([multiple]):not([size]),
 .form-select.is-valid:not([multiple])[size="1"],
 .was-validated .form-select:valid:not([multiple]):not([size]),
