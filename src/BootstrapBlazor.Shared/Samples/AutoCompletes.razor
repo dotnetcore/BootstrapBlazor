@@ -57,6 +57,17 @@
     <BlockLogger @ref="Trace" class="mt-3" />
 </DemoBlock>
 
+<DemoBlock Title="@Localizer["ItemTemplateTitle"]" Introduction="@Localizer["ItemTemplateIntro"]" Name="ItemTemplate">
+    <AutoComplete Items="@StaticItems">
+        <ItemTemplate>
+            <div class="d-flex align-items-center">
+                <i class="fa-solid fa-bell"></i>
+                <span class="flex-fill ms-2">@context</span>
+            </div>
+        </ItemTemplate>
+    </AutoComplete>
+</DemoBlock>
+
 <DemoBlock Title="@Localizer["BlockGroupTitle"]" Introduction="@Localizer["BlockGroupIntro"]" Name="Group">
     <div class="row g-3">
         <div class="col-12 col-sm-6 col-md-4">

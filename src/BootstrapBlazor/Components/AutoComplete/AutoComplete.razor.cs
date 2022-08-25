@@ -106,6 +106,12 @@ public partial class AutoComplete
     public bool ShowDropdownListOnFocus { get; set; } = true;
 
     /// <summary>
+    /// 获得/设置 候选项模板 默认 null
+    /// </summary>
+    [Parameter]
+    public RenderFragment<string>? ItemTemplate { get; set; }
+
+    /// <summary>
     /// IStringLocalizer 服务实例
     /// </summary>
     [Inject]

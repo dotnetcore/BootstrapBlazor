@@ -62,6 +62,13 @@ public sealed partial class AutoCompletes
             DefaultValue = " — "
         },
         new AttributeItem() {
+            Name = "ItemTemplate",
+            Description = Localizer["AttItemTemplate"],
+            Type = "RenderFragment<string>",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new AttributeItem() {
             Name = "Items",
             Description = Localizer["Att3"],
             Type = "IEnumerable<string>",

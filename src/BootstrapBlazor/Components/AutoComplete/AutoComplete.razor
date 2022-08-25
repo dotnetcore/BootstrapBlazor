@@ -14,7 +14,14 @@
             @foreach (var item in FilterItems)
             {
                 <li class="dropdown-item" @onmousedown="e => OnClickItem(item)">
-                    <div>@item</div>
+                    @if (ItemTemplate == null)
+                    {
+                        <div>@item</div>
+                    }
+                    else
+                    {
+                        @ItemTemplate(item)
+                    }
                 </li>
             }
         }

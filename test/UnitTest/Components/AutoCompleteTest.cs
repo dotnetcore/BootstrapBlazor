@@ -201,4 +201,25 @@ public class AutoCompleteTest : BootstrapBlazorTestBase
         menu = cut.Find("ul");
         Assert.Equal("dropdown-menu show", menu.ClassList.ToString());
     }
+
+    [Fact]
+    public async Task ItemTemplate_Ok()
+    {
+        IEnumerable<string> items = new List<string>() { "test1", "test2" };
+        var cut = Context.RenderComponent<AutoComplete>(pb =>
+        {
+            pb.Add(a => a.Items, items);
+            pb.Add(a => a.ItemTemplate, item => builder =>
+            {
+                builder.OpenElement(0, "div");
+                builder.AddContent(1, $"Template-{item}");
+                builder.CloseElement();
+            });
+        });
+
+        var input = cut.Find("input");
+        await cut.InvokeAsync(() => input.FocusAsync(new FocusEventArgs()));
+
+        Assert.Contains("Template-test1", cut.Markup);
+    }
 }
