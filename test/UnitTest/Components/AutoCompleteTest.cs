@@ -173,4 +173,32 @@ public class AutoCompleteTest : BootstrapBlazorTestBase
         cut.Find(".form-control").KeyUp(new KeyboardEventArgs() { Key = "Enter" });
         Assert.True(enter);
     }
+
+    [Fact]
+    public async Task ShowDropdownListOnFocus_Ok()
+    {
+        IEnumerable<string> items = new List<string>() { "test1", "test2" };
+        var cut = Context.RenderComponent<AutoComplete>(pb =>
+        {
+            pb.Add(a => a.Items, items);
+            pb.Add(a => a.ShowDropdownListOnFocus, false);
+        });
+
+        // 获得焦点时不会自动弹出下拉框
+        var input = cut.Find("input");
+        await cut.InvokeAsync(() => input.FocusAsync(new FocusEventArgs()));
+
+        var menu = cut.Find("ul");
+        Assert.Equal("dropdown-menu", menu.ClassList.ToString());
+
+        // 获得焦点时自动弹出下拉框
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ShowDropdownListOnFocus, true);
+        });
+        input = cut.Find("input");
+        await cut.InvokeAsync(() => input.FocusAsync(new FocusEventArgs()));
+        menu = cut.Find("ul");
+        Assert.Equal("dropdown-menu show", menu.ClassList.ToString());
+    }
 }
