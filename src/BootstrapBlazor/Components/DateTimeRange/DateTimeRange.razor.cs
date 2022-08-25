@@ -19,8 +19,9 @@ public partial class DateTimeRange
     /// <summary>
     /// 获得 组件样式名称
     /// </summary>
-    private string? ClassString => CssBuilder.Default("datetime-range")
+    private string? ClassString => CssBuilder.Default("datetime-range form-control")
         .AddClass("disabled", IsDisabled)
+        .AddClass(ValidCss)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
@@ -205,10 +206,10 @@ public partial class DateTimeRange
         {
             SidebarItems = new DateTimeRangeSidebarItem[]
             {
-                    new DateTimeRangeSidebarItem{ Text = Localizer["Last7Days"], StartDateTime = DateTime.Today.AddDays(-7), EndDateTime = DateTime.Today },
-                    new DateTimeRangeSidebarItem{ Text = Localizer["Last30Days"], StartDateTime = DateTime.Today.AddDays(-30), EndDateTime = DateTime.Today },
-                    new DateTimeRangeSidebarItem{ Text = Localizer["ThisMonth"], StartDateTime = DateTime.Today.AddDays(1- DateTime.Today.Day), EndDateTime = DateTime.Today.AddDays(1 - DateTime.Today.Day).AddMonths(1).AddDays(-1) },
-                    new DateTimeRangeSidebarItem{ Text = Localizer["LastMonth"], StartDateTime = DateTime.Today.AddDays(1- DateTime.Today.Day).AddMonths(-1), EndDateTime = DateTime.Today.AddDays(1- DateTime.Today.Day).AddDays(-1) },
+                new DateTimeRangeSidebarItem{ Text = Localizer["Last7Days"], StartDateTime = DateTime.Today.AddDays(-7), EndDateTime = DateTime.Today },
+                new DateTimeRangeSidebarItem{ Text = Localizer["Last30Days"], StartDateTime = DateTime.Today.AddDays(-30), EndDateTime = DateTime.Today },
+                new DateTimeRangeSidebarItem{ Text = Localizer["ThisMonth"], StartDateTime = DateTime.Today.AddDays(1- DateTime.Today.Day), EndDateTime = DateTime.Today.AddDays(1 - DateTime.Today.Day).AddMonths(1).AddDays(-1) },
+                new DateTimeRangeSidebarItem{ Text = Localizer["LastMonth"], StartDateTime = DateTime.Today.AddDays(1- DateTime.Today.Day).AddMonths(-1), EndDateTime = DateTime.Today.AddDays(1- DateTime.Today.Day).AddDays(-1) },
             };
         }
     }
@@ -242,7 +243,8 @@ public partial class DateTimeRange
     /// <returns></returns>
     private async Task ClickClearButton()
     {
-        Value = new DateTimeRangeValue();
+        Value = default;
+
         if (ValueChanged.HasDelegate)
         {
             await ValueChanged.InvokeAsync(Value);
@@ -251,12 +253,14 @@ public partial class DateTimeRange
         {
             await OnValueChanged(Value);
         }
-        if (OnClearValue != null) await OnClearValue(Value);
-
-        StartValue = DateTime.Today;
-        EndValue = StartValue.AddMonths(1);
-        SelectedValue.Start = DateTime.MinValue;
-        SelectedValue.End = DateTime.MinValue;
+        if (OnClearValue != null)
+        {
+            await OnClearValue(Value);
+        }
+        if (IsNeedValidate && FieldIdentifier != null)
+        {
+            EditContext?.NotifyFieldChanged(FieldIdentifier.Value);
+        }
     }
 
     /// <summary>
@@ -301,8 +305,17 @@ public partial class DateTimeRange
         {
             await OnValueChanged(Value);
         }
-        if (OnConfirm != null) await OnConfirm(Value);
+        if (OnConfirm != null)
+        {
+            await OnConfirm(Value);
+        }
+
         await JSRuntime.InvokeVoidAsync(PickerRange, "bb_datetimeRange", "hide");
+
+        if (IsNeedValidate && FieldIdentifier != null)
+        {
+            EditContext?.NotifyFieldChanged(FieldIdentifier.Value);
+        }
     }
 
     /// <summary>

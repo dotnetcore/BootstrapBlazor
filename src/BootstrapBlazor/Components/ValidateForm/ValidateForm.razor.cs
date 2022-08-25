@@ -302,8 +302,7 @@ public partial class ValidateForm : IAsyncDisposable
                     [ExcludeFromCodeCoverage]
                     void ProcessResourceManagerLocalizerType()
                     {
-                        if (resxType != null
-    && LocalizerFactory.Create(resxType).TryGetLocalizerString(rule.ErrorMessage, out var resx))
+                        if (resxType != null && LocalizerFactory.Create(resxType).TryGetLocalizerString(rule.ErrorMessage, out var resx))
                         {
                             rule.ErrorMessage = resx;
                             find = true;
@@ -417,6 +416,11 @@ public partial class ValidateForm : IAsyncDisposable
         }
         else
         {
+            // DateTimeRangeValue 单独判断
+            if (propertyValue is DateTimeRangeValue v && (v.Start == DateTime.MinValue || v.End == DateTime.MinValue))
+            {
+                propertyValue = null;
+            }
             ValidateDataAnnotations(propertyValue, context, messages, pi);
             if (messages.Count == 0)
             {

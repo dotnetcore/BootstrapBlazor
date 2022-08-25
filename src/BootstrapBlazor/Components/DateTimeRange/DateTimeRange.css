@@ -1,5 +1,4 @@
 ﻿.datetime-range {
-    --bb-datetime-padding: 6px 0;
     background-color: #fff;
     border-radius: var(--bs-border-radius);
     border: 1px solid var(--bb-border-color);
@@ -32,7 +31,6 @@
         text-align: center;
         cursor: pointer;
         width: 80px;
-        padding: var(--bb-datetime-padding);
     }
 
     .datetime-range-bar .range-separator {

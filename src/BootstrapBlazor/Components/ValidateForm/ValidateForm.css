@@ -15,7 +15,7 @@
         box-shadow: none;
     }
 
-    .form-control:not(.disabled):not(:disabled):hover {
+    .form-control:not(.disabled):not(:disabled):not(.is-valid):not(.is-invalid):hover {
         border: 1px solid var(--bb-hover-border-color);
     }
 

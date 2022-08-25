@@ -43,3 +43,7 @@ a,
     .form-control:disabled {
         opacity: var(--bb-disabled-opactiy);
     }
+
+:focus-visible {
+    outline: none;
+}
