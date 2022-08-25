@@ -31,7 +31,10 @@
     --bs-body-rgb: 24,28,50;
     --bs-body-color: #181C32;
     --bs-border-radius: .475rem;
-    --bb-bg-disabled: #f5f8fa;
+    --bb-disabled-bg: #f5f8fa;
+    --bb-border-color: var(--bs-secondary);
+    --bb-focus-border-color: #b5b5c3;
+    --bb-hover-border-color: #b5b5c3;
 }
 
 .table-filter .card-header {
@@ -263,16 +266,6 @@
     --bs-btn-hover-border-color: #B5B5C3;
     --bs-btn-active-border-color: #B5B5C3;
 }
-
-.form-control {
-    color: #181c32;
-    border: 1px solid var(--bs-secondary);
-}
-
-    .form-control:focus {
-        color: #181c32;
-        border-color: #b5b5c3;
-    }
 
 .input-group .form-control:not(.invalid):not(.valid):hover {
     border-color: #b5b5c3;

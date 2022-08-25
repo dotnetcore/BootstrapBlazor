@@ -38,7 +38,7 @@
 }
 
 .btn-round {
-    --bs-btn-border-radius: 20px;
+    --bs-btn-border-radius: var(--bs-border-radius-pill);
 }
 
 .btn-block {

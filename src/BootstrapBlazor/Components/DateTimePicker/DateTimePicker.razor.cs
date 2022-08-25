@@ -15,6 +15,7 @@ public sealed partial class DateTimePicker<TValue>
     /// 获得 组件样式名称
     /// </summary>
     private string? ClassString => CssBuilder.Default("datetime-picker")
+        .AddClass("disabled", IsDisabled)
         .AddClass(ValidCss)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
@@ -29,8 +30,8 @@ public sealed partial class DateTimePicker<TValue>
     /// <summary>
     /// 获得 组件小图标样式
     /// </summary>
-    private string? DateTimePickerIconClassString => CssBuilder.Default("datetime-picker-input-icon")
-        .AddClass("disabled", IsDisabled)
+    private string? DateTimePickerIconClassString => CssBuilder.Default("datetime-picker-bar")
+        .AddClass(Icon)
         .Build();
 
     /// <summary>
@@ -98,7 +99,7 @@ public sealed partial class DateTimePicker<TValue>
     /// 获得/设置 组件图标 默认 "fa-regular fa-calendar-days"
     /// </summary>
     [Parameter]
-    public string Icon { get; set; } = "fa-regular fa-calendar-days";
+    public string Icon { get; set; } = "fa-solid fa-calendar-days";
 
     /// <summary>
     /// 获得/设置 弹窗位置 默认为 Auto

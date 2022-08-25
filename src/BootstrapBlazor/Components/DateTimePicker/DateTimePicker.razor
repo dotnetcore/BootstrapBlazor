@@ -7,12 +7,8 @@
     <BootstrapLabel required="@Required" for="@Id" ShowLabelTooltip="ShowLabelTooltip" Value="@DisplayText" />
 }
 <div @attributes="@AdditionalAttributes" id="@Id" class="@ClassString" @ref="Picker" data-bs-placement="@PlacementString">
-    <div class="datetime-picker-bar">
-        <input readonly class="@InputClassName" value="@CurrentValueAsString" placeholder="@PlaceholderString" disabled="@Disabled" />
-        <span class="@DateTimePickerIconClassString">
-            <i class="@Icon"></i>
-        </span>
-    </div>
+    <input readonly class="@InputClassName" value="@CurrentValueAsString" placeholder="@PlaceholderString" disabled="@Disabled" />
+    <i class="@DateTimePickerIconClassString"></i>
     <DatePickerBody @bind-Value="@ComponentValue" AllowNull="@AllowNull" ShowSidebar="@ShowSidebar"
                     OnConfirm="@OnConfirm" OnClear="@OnClear" MinValue="@MinValue" MaxValue="@MaxValue"
                     AutoClose="AutoClose" ViewMode="@ViewMode">

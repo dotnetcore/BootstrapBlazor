@@ -5,9 +5,12 @@
  */
 
 :root {
-    --bb-bg-disabled: #ebeef5;
-    --bb-border-color: #ebeef5;
+    --bb-focus-border-color: #66afe9;
+    --bb-hover-border-color: #66afe9;
+    --bb-disabled-bg: #ebeef5;
+    --bb-border-color: #ced4da;
     --bb-height: 35px;
+    --bb-disabled-opactiy: .65;
 }
 
 body,
@@ -33,3 +36,10 @@ a,
 .disabled > * {
     cursor: not-allowed !important;
 }
+
+    .disabled :where(.fa,.fas,.fa-solid,.far,.fa-regular,.fal,.fa-light,.fat,.fa-thin,.fad,.fa-duotone,.fab,.fa-brands),
+    .disabled :where(.range-separator),
+    :disabled,
+    .form-control:disabled {
+        opacity: var(--bb-disabled-opactiy);
+    }

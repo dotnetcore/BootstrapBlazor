@@ -10,24 +10,23 @@
         border: none;
     }
 
-.datetime-picker-bar {
+.datetime-picker {
     position: relative;
-    color: #adb5bd;
 }
 
-.datetime-picker-input {
-    cursor: pointer;
-    padding-left: 2rem;
-}
-
-    .datetime-picker-input[readonly]:not([disabled]) {
-        background-color: #fff;
+    .datetime-picker .datetime-picker-input {
+        cursor: pointer;
+        --bb-form-control-padding: 6px 33px;
     }
 
-.datetime-picker-input-icon {
+        .datetime-picker .datetime-picker-input[readonly]:not([disabled]) {
+            background-color: #fff;
+        }
+
+.datetime-picker-bar {
     position: absolute;
-    left: 0;
     top: 0;
+    left: 0;
     line-height: var(--bb-height);
     cursor: pointer;
     padding: 0 .75rem;
@@ -316,6 +315,7 @@
 
         .picker-panel-footer .picker-panel-link-btn.is-now {
             color: #409eff;
+            margin-right: .25rem;
         }
 
 

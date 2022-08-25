@@ -680,7 +680,7 @@ form .table .table-cell > textarea {
 }
 
 .table-excel .table-cell > .disabled {
-    background-color: var(--bb-bg-disabled);
+    background-color: var(--bb-disabled-bg);
     width: 100%;
     padding: .375rem .1875rem;
 }

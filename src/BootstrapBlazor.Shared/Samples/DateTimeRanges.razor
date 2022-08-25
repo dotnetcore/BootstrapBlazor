@@ -18,11 +18,13 @@
             <div>
                 @if (DateTimeRangeValue2.Start != DateTime.MinValue)
                 {
-                    <span>时间范围：</span> @DateTimeRangeValue2.Start.ToString("yyyy-MM-dd");
+                    <span>时间范围：</span> @DateTimeRangeValue2.Start.ToString("yyyy-MM-dd")
+                    ;
                 }
                 @if (DateTimeRangeValue2.End != DateTime.MinValue)
                 {
-                    <span> - </span> @DateTimeRangeValue2.End.ToString("yyyy-MM-dd");
+                    <span> - </span> @DateTimeRangeValue2.End.ToString("yyyy-MM-dd")
+                    ;
                 }
             </div>
         </div>
@@ -35,29 +37,23 @@
             <DateTimeRange @bind-Value="@DateTimeRangeValue5" MinValue=DateTime.Today.AddDays(-7) MaxValue=DateTime.Today.AddDays(7) />
         </div>
         <div class="col-12 col-sm-6">
-            <div>
-                @if (DateTimeRangeValue5.Start != DateTime.MinValue)
-                {
-                    <span>时间范围：</span> @DateTimeRangeValue5.Start.ToString("yyyy-MM-dd");
-                }
-                @if (DateTimeRangeValue5.End != DateTime.MinValue)
-                {
-                    <span> - </span> @DateTimeRangeValue5.End.ToString("yyyy-MM-dd");
-                }
-            </div>
+            <BootstrapInputGroup>
+                <BootstrapInputGroupLabel DisplayText="时间范围" />
+                <Display TValue="string" Value="@range" />
+            </BootstrapInputGroup>
         </div>
     </div>
 </DemoBlock>
 
 <DemoBlock Title="禁用" Introduction="设置 <code>IsDisabled</code> 属性值为 <code>true</code> 时，组件禁止输入" Name="Disabled">
-	<div class="row g-3">
-		<div class="col-12 col-sm-6">
-			<DateTimeRange Value="@DateTimeRangeValue3" IsDisabled="@IsDisabled" />
-		</div>
-		<div class="col-12 col-sm-6">
-			<Switch @bind-Value="@IsDisabled" />
-		</div>
-	</div>
+    <div class="row g-3">
+        <div class="col-12 col-sm-6">
+            <DateTimeRange Value="@DateTimeRangeValue3" IsDisabled="@IsDisabled" />
+        </div>
+        <div class="col-12 col-sm-6">
+            <Switch @bind-Value="@IsDisabled" />
+        </div>
+    </div>
 </DemoBlock>
 
 <DemoBlock Title="带快捷键侧边栏" Introduction="设置 <code>ShowSidebar</code> 属性值为 <code>true</code> 时，组件显示快捷方式侧边栏" Name="Sidebar">

@@ -48,8 +48,8 @@ public partial class DateTimeRange
     /// <summary>
     /// 获得 组件小图标样式
     /// </summary>
-    private string? DateTimePickerIconClassString => CssBuilder.Default("datetime-range-input-icon")
-        .AddClass("disabled", IsDisabled)
+    private string? DateTimePickerIconClassString => CssBuilder.Default("range-bar")
+        .AddClass(Icon)
         .Build();
 
     /// <summary>
@@ -126,6 +126,12 @@ public partial class DateTimeRange
     /// </summary>
     [Parameter]
     public bool AllowNull { get; set; } = true;
+
+    /// <summary>
+    /// 获得/设置 组件图标 默认 "fa-regular fa-calendar-days"
+    /// </summary>
+    [Parameter]
+    public string Icon { get; set; } = "fa-solid fa-calendar-days";
 
     /// <summary>
     /// 获得/设置 是否显示今天按钮 默认为 false

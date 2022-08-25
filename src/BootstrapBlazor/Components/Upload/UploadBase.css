@@ -22,7 +22,7 @@
             }
 
             .upload .upload-body.is-list .upload-item:hover {
-                background-color: var(--bb-bg-disabled);
+                background-color: var(--bb-disabled-bg);
             }
 
             .upload .upload-body.is-list .upload-item:not(:last-child) {

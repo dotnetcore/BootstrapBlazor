@@ -62,5 +62,5 @@
         }
 
     .is-button .disabled:not(.is-checked) > span {
-        background-color: var(--bb-bg-disabled);
+        background-color: var(--bb-disabled-bg);
     }

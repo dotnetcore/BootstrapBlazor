@@ -1,9 +1,8 @@
 ﻿.datetime-range {
+    --bb-datetime-padding: 6px 0;
     background-color: #fff;
-    background-image: none;
     border-radius: var(--bs-border-radius);
-    border: 1px solid #dcdfe6;
-    color: #606266;
+    border: 1px solid var(--bb-border-color);
     display: inline-block;
     outline: none;
     transition: border-color .2s cubic-bezier(.645,.045,.355,1);
@@ -13,17 +12,9 @@
     white-space: nowrap;
 }
 
-    .datetime-range:hover {
-        border-color: #c0c4cc;
-    }
-
-    .datetime-range.active {
-        border-color: #409eff
-    }
-
     .datetime-range.disabled,
     .datetime-range.disabled input {
-        background-color: #e9ecef;
+        background-color: var(--bb-disabled-bg);
     }
 
 .form-label + .datetime-range {
@@ -37,24 +28,15 @@
 
     .datetime-range-bar .datetime-range-input {
         border: none;
-        outline: none;
         display: inline-block;
-        margin: 0;
-        padding: 0;
         text-align: center;
-        color: #606266;
         cursor: pointer;
         width: 80px;
-        padding: 6px 0;
-    }
-
-    .datetime-range-bar .datetime-range-input-icon {
-        cursor: pointer;
+        padding: var(--bb-datetime-padding);
     }
 
     .datetime-range-bar .range-separator {
         padding: 0 5px;
-        color: #303133;
     }
 
 .range-panel-body {
@@ -92,17 +74,20 @@
         padding: 0;
     }
 
+.range-bar {
+    cursor: pointer;
+}
+
+.disabled .range-bar {
+    cursor: not-allowed;
+}
+
 .range-clear {
-    border-radius: 50%;
-    border: 1px solid #9d9d9d;
-    padding: 1px;
     display: none;
     cursor: pointer;
-    position: absolute;
-    right: 10px;
-    top: 11px;
+    margin-left: -14px;
 }
 
 .datetime-range:hover:not(.disabled) .range-clear {
-    display: flex;
+    display: inline-block;
 }

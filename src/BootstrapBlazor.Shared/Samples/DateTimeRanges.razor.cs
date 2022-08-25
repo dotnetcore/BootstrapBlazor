@@ -27,6 +27,8 @@ public sealed partial class DateTimeRanges
     private DateTimeRangeValue DateTimeRangeValue4 { get; set; } = new DateTimeRangeValue();
     private DateTimeRangeValue DateTimeRangeValue5 { get; set; } = new DateTimeRangeValue() { Start = DateTime.Today, End = DateTime.Today.AddDays(3) };
 
+    private string? range;
+
     private bool IsDisabled { get; set; } = true;
 
     [NotNull]
@@ -48,6 +50,23 @@ public sealed partial class DateTimeRanges
     protected override void OnInitialized()
     {
         Model = Foo.Generate(LocalizerFoo);
+    }
+
+    /// <summary>
+    /// OnParametersSet 方法
+    /// </summary>
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
+        if (DateTimeRangeValue5.Start != DateTime.MinValue)
+        {
+            range = DateTimeRangeValue5.Start.ToString("yyyy-MM-dd");
+        }
+        if (DateTimeRangeValue5.End != DateTime.MinValue)
+        {
+            range = $"{range} - {DateTimeRangeValue5.End.ToString("yyyy-MM-dd")}";
+        }
     }
 
     private Task OnConfirm(DateTimeRangeValue value)
