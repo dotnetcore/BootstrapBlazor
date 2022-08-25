@@ -25,7 +25,7 @@
             width: var(--bb-checkbox-item-width);
         }
 
-    .checkbox-list.form-control.no-border {
+    .checkbox-list.form-control.no-border:not(.is-valid):not(.is-invalid) {
         border-color: transparent;
     }
 

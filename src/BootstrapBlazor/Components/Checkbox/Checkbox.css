@@ -1,4 +1,4 @@
-﻿:root {
+﻿.form-check {
     --bb-checkbox-label-padding-y: 6px;
     --bb-checkbox-height: 1rem;
     --bb-checkbox-sm-height: 1.25rem;
@@ -11,9 +11,6 @@
     --bb-checkbox-item-padding-md: 4px 0 3px 0;
     --bb-checkbox-item-padding-lg: 2px 0 1px 0;
     --bb-checkbox-item-padding-xl: 2px 0 1px 0;
-}
-
-.form-check {
     padding: 0;
     margin: 0;
     min-height: 1rem;
@@ -27,11 +24,11 @@
     }
 
         .form-check .form-check-input + .form-check-label {
-            padding: var(--bb-checkbox-label-padding-y) .5rem;
             text-overflow: ellipsis;
             white-space: nowrap;
             overflow: hidden;
             vertical-align: top;
+            margin-left: .5rem;
             flex: 1;
         }
 
