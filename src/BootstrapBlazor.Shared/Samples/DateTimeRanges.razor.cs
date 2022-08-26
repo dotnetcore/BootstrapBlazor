@@ -28,6 +28,7 @@ public sealed partial class DateTimeRanges
     private DateTimeRangeValue DateTimeRangeValue5 { get; set; } = new DateTimeRangeValue() { Start = DateTime.Today, End = DateTime.Today.AddDays(3) };
 
     private string? range;
+    private string? range2;
 
     private bool IsDisabled { get; set; } = true;
 
@@ -52,21 +53,26 @@ public sealed partial class DateTimeRanges
         Model = Foo.Generate(LocalizerFoo);
     }
 
-    /// <summary>
-    /// OnParametersSet 方法
-    /// </summary>
-    protected override void OnParametersSet()
+    private Task OnValueChanged(DateTimeRangeValue val, int index)
     {
-        base.OnParametersSet();
-
-        if (DateTimeRangeValue5.Start != DateTime.MinValue)
+        var ret = "";
+        if (val.Start != DateTime.MinValue)
         {
-            range = DateTimeRangeValue5.Start.ToString("yyyy-MM-dd");
+            ret = val.Start.ToString("yyyy-MM-dd");
         }
-        if (DateTimeRangeValue5.End != DateTime.MinValue)
+        if (val.End != DateTime.MinValue)
         {
-            range = $"{range} - {DateTimeRangeValue5.End.ToString("yyyy-MM-dd")}";
+            ret = $"{ret} - {val.End.ToString("yyyy-MM-dd")}";
         }
+        if (index == 1)
+        {
+            range2 = ret;
+        }
+        else
+        {
+            range = ret;
+        }
+        return Task.CompletedTask;
     }
 
     private Task OnConfirm(DateTimeRangeValue value)

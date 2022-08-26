@@ -46,7 +46,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
             builder.Add(a => a.Format, "yyyy/MM/dd");
         });
 
-        var value = cut.Find(".datetime-picker-bar").Children.First().GetAttribute("value");
+        var value = cut.Find(".datetime-picker-input").GetAttribute("value");
 
         Assert.Equal(value, DateTime.Now.ToString("yyyy/MM/dd"));
     }

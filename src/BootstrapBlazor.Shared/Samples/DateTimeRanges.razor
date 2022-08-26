@@ -12,21 +12,13 @@
 <DemoBlock Title="数据双向绑定" Introduction="点击确认按钮时间选择框值与文本框值一致" Name="BindValue">
     <div class="row g-3">
         <div class="col-12 col-sm-6">
-            <DateTimeRange @bind-Value="@DateTimeRangeValue2" />
+            <DateTimeRange @bind-Value="@DateTimeRangeValue2" OnValueChanged="v => OnValueChanged(v, 1)" />
         </div>
         <div class="col-12 col-sm-6">
-            <div>
-                @if (DateTimeRangeValue2.Start != DateTime.MinValue)
-                {
-                    <span>时间范围：</span> @DateTimeRangeValue2.Start.ToString("yyyy-MM-dd")
-                    ;
-                }
-                @if (DateTimeRangeValue2.End != DateTime.MinValue)
-                {
-                    <span> - </span> @DateTimeRangeValue2.End.ToString("yyyy-MM-dd")
-                    ;
-                }
-            </div>
+            <BootstrapInputGroup>
+                <BootstrapInputGroupLabel DisplayText="时间范围" />
+                <Display TValue="string" Value="@range2" />
+            </BootstrapInputGroup>
         </div>
     </div>
 </DemoBlock>
@@ -34,7 +26,7 @@
 <DemoBlock Title="最大值和最小值" Introduction="设置时间的取值范围" Name="MaxMinValue">
     <div class="row g-3">
         <div class="col-12 col-sm-6">
-            <DateTimeRange @bind-Value="@DateTimeRangeValue5" MinValue=DateTime.Today.AddDays(-7) MaxValue=DateTime.Today.AddDays(7) />
+            <DateTimeRange @bind-Value="@DateTimeRangeValue5" OnValueChanged="v => OnValueChanged(v, 2)" MinValue=DateTime.Today.AddDays(-7) MaxValue=DateTime.Today.AddDays(7) />
         </div>
         <div class="col-12 col-sm-6">
             <BootstrapInputGroup>

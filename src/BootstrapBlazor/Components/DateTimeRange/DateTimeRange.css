@@ -31,6 +31,7 @@
         text-align: center;
         cursor: pointer;
         width: 80px;
+        padding: 0;
     }
 
     .datetime-range-bar .range-separator {

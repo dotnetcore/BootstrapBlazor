@@ -243,19 +243,19 @@ public partial class DateTimeRange
     /// <returns></returns>
     private async Task ClickClearButton()
     {
-        Value = default;
+        Value = new DateTimeRangeValue();
 
-        if (ValueChanged.HasDelegate)
+        if (OnClearValue != null)
         {
-            await ValueChanged.InvokeAsync(Value);
+            await OnClearValue(Value);
         }
         if (OnValueChanged != null)
         {
             await OnValueChanged(Value);
         }
-        if (OnClearValue != null)
+        if (ValueChanged.HasDelegate)
         {
-            await OnClearValue(Value);
+            await ValueChanged.InvokeAsync(Value);
         }
         if (IsNeedValidate && FieldIdentifier != null)
         {
@@ -297,10 +297,6 @@ public partial class DateTimeRange
         {
             Value.End = Value.End.AddDays(1).AddSeconds(-1);
         }
-        if (ValueChanged.HasDelegate)
-        {
-            await ValueChanged.InvokeAsync(Value);
-        }
         if (OnValueChanged != null)
         {
             await OnValueChanged(Value);
@@ -308,6 +304,10 @@ public partial class DateTimeRange
         if (OnConfirm != null)
         {
             await OnConfirm(Value);
+        }
+        if (ValueChanged.HasDelegate)
+        {
+            await ValueChanged.InvokeAsync(Value);
         }
 
         await JSRuntime.InvokeVoidAsync(PickerRange, "bb_datetimeRange", "hide");
