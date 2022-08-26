@@ -1,8 +1,9 @@
 ﻿.switch {
     display: inline-flex;
     align-items: center;
-    height: var(--bb-height);
     width: 100%;
+    --bb-switch-padding: 7px 0;
+    padding: var(--bb-switch-padding);
 }
 
     .switch .switch-core {
@@ -65,5 +66,5 @@
     }
 
 td :not(.is-incell) .switch {
-    height: auto;
+    --bb-switch-padding: 0;
 }

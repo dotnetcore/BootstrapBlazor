@@ -2,6 +2,7 @@
     --bb-form-control-padding: 0.375rem 0.75rem;
     padding: var(--bb-form-control-padding);
     border: 1px solid var(--bb-border-color);
+    border-radius: var(--bs-border-radius);
 }
 
     .form-control.is-valid[type="number"],
@@ -68,7 +69,6 @@ form .form-label[required]:before {
 }
 
 .form-control.is-display {
-    height: var(--bb-height);
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;

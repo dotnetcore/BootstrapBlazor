@@ -663,17 +663,20 @@ form .table .table-cell > textarea {
     padding: 6px 8px;
 }
 
-.table-excel > tbody .table-cell .switch {
-    padding: .375rem .1875rem;
-    justify-content: center;
+.table-excel .table-cell .form-control,
+.table-excel .table-cell .select .form-select {
+    --bb-border-color: transparent;
+    --bs-border-radius: 0;
 }
 
-.table-excel .form-control,
-.table-excel .table-cell .select .form-select {
-    border: none;
-    border-radius: 0;
-    padding: .375rem .1875rem;
-}
+    .table-excel .table-cell .form-control:hover,
+    .table-excel .table-cell .select .form-select:hover {
+        --bb-hover-border-color: transparent;
+    }
+
+    .table-excel .table-cell .form-control:focus {
+        --bb-focus-border-color: transparent;
+    }
 
 .table-excel .table-cell .select {
     width: 100%;
