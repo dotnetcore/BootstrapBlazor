@@ -395,6 +395,12 @@ public sealed partial class NavMenu
             },
             new()
             {
+                IsNew = true,
+                Text = Localizer["SelectTree"],
+                Url = "select-trees"
+            },
+            new()
+            {
                 Text = Localizer["Slider"],
                 Url = "sliders"
             },

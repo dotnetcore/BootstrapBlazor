@@ -68,7 +68,8 @@
     "synthesizers": "Speechs/Synthesizers",
     "treeviews": "TreeViews",
     "switchbuttons": "SwitchButtons",
-    "pulsebuttons": "PulseButtons"
+    "pulsebuttons": "PulseButtons",
+    "select-trees": "SelectTrees"
   },
   "video": {
     "autorefresh": "BV1ap4y1x7Qn?p=8",

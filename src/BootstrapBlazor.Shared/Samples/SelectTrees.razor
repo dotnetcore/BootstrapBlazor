@@ -1,0 +1,83 @@
+﻿@page "/select-trees"
+
+<h3>树状选择器 SelectTree</h3>
+
+<h4>下拉框内呈现树状数据结构，供选择</h4>
+
+<DemoBlock Title="普通用法" Introduction="选中节点" Name="Normal">
+    <SelectTree TValue="TreeFoo" Items="Items" />
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["Block2Title"]" Introduction="@Localizer["Block2Intro"]" Name="Disable">
+    <div class="row g-3">
+        <div class="col-12 col-sm-6">
+            <SelectTree TValue="TreeFoo" Color="Color.Primary" Items="Items" IsDisabled="true"></SelectTree>
+        </div>
+        <div class="col-12 col-sm-6">
+            <SelectTree TValue="TreeFoo" Color="Color.Success" Items="Items" IsDisabled="true"></SelectTree>
+        </div>
+        <div class="col-12 col-sm-6">
+            <SelectTree TValue="TreeFoo" Color="Color.Danger" Items="Items" IsDisabled="true"></SelectTree>
+        </div>
+        <div class="col-12 col-sm-6">
+            <SelectTree TValue="TreeFoo" Color="Color.Warning" Items="Items" IsDisabled="true"></SelectTree>
+        </div>
+        <div class="col-12 col-sm-6">
+            <SelectTree TValue="TreeFoo" Color="Color.Info" Items="Items" IsDisabled="true"></SelectTree>
+        </div>
+        <div class="col-12 col-sm-6">
+            <SelectTree TValue="TreeFoo" Color="Color.Secondary" Items="Items" IsDisabled="true"></SelectTree>
+        </div>
+        <div class="col-12 col-sm-6">
+            <SelectTree TValue="TreeFoo" Color="Color.Dark" Items="Items" IsDisabled="true"></SelectTree>
+        </div>
+    </div>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["Block3Title"]" Introduction="@Localizer["Block3Intro"]" Name="Binding">
+    <div class="row g-3">
+        <div class="col-12 col-sm-6">
+            <SelectTree Items="Items" @bind-Value="Model"></SelectTree>
+        </div>
+        <div class="col-12 col-sm-6">
+            <BootstrapInput readonly @bind-Value="Model.Text" />
+        </div>
+    </div>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["Block5Title"]" Introduction="@Localizer["Block5Intro"]" Name="ClientValidation">
+    <ValidateForm Model="BindModel">
+        <div class="row g-3">
+            <div class="col-12 col-sm-6">
+                <SelectTree TValue="string" @bind-Value="BindModel.Text" ShowIcon="true" Items="BindItems" />
+            </div>
+            <div class="col-12 col-sm-6 align-self-end">
+                <Button ButtonType="ButtonType.Submit">@Localizer["ButtonText2"]</Button>
+            </div>
+        </div>
+    </ValidateForm>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["Block8Title"]" Introduction="@Localizer["Block8Intro"]" Name="DispalyLabel">
+    <p>@((MarkupString)Localizer["P3"].Value)</p>
+    <Divider Text="@Localizer["Divider1"]" Alignment="Alignment.Left" style="margin: 2rem 0;"></Divider>
+    <ValidateForm Model="Model">
+        <div class="row g-3">
+            <div class="col-12">
+                <SelectTree Color="Color.Primary" Items="Items" @bind-Value="Model" />
+            </div>
+        </div>
+    </ValidateForm>
+    <Divider Text="@Localizer["Divider2"]" Alignment="Alignment.Left" style="margin: 2rem 0;" />
+    <div class="row g-3">
+        <div class="col-12">
+            <SelectTree Color="Color.Primary" Items="Items" @bind-Value="Model" />
+        </div>
+    </div>
+    <Divider Text="@Localizer["Divider3"]" Alignment="Alignment.Left" style="margin: 2rem 0;"></Divider>
+    <div class="row g-3">
+        <div class="col-12">
+            <SelectTree Color="Color.Primary" Items="Items" @bind-Value="Model" DisplayText="@Localizer["SelectText"]" ShowLabel="true" />
+        </div>
+    </div>
+</DemoBlock>

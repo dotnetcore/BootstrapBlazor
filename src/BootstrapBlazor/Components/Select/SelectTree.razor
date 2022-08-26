@@ -1,0 +1,28 @@
+﻿@namespace BootstrapBlazor.Components
+@typeparam TValue
+@inherits ValidateBase<TValue>
+
+@if (IsShowLabel)
+{
+    <BootstrapLabel required="@Required" for="@InputId" ShowLabelTooltip="ShowLabelTooltip" Value="@DisplayText" />
+}
+<div @attributes="AdditionalAttributes" id="@Id" class="@ClassName" @ref="SelectElement">
+    @{
+        //ResetSelectedItem();
+    }
+    <div class="dropdown-toggle" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+        <input type="text" id="@InputId" readonly disabled="@Disabled" placeholder="@PlaceHolder" class="@InputClassName" value="@SelectedItem?.Text" />
+        <span class="@AppendClassName"><i class="fa fa-angle-up"></i></span>
+    </div>
+    <div class="dropdown-menu shadow">
+        @if (ShowSearch)
+        {
+            <div class="search">
+                <input type="text" class="search-text form-control" @bind="@SearchText" @bind:event="oninput" />
+                <i class="fa fa-search"></i>
+            </div>
+        }
+        <TreeView TItem="TValue" Items="@Items" ShowIcon="ShowIcon" OnTreeItemClick="OnItemClick" ModelEqualityComparer="@ModelEqualityComparer" CustomKeyAttribute="@CustomKeyAttribute" OnExpandNodeAsync="@OnExpandNodeAsync" />
+    </div>
+    <div class="dropdown-menu-arrow"></div>
+</div>

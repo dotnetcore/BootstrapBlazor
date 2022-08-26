@@ -14,11 +14,10 @@ class TreeFoo
 
     public string? ParentId { get; set; }
 
+    [Required]
     public string? Text { get; set; }
 
     public string Icon { get; set; } = "fa-solid fa-font-awesome";
-
-    public bool IsActive { get; set; }
 
     /// <summary>
     /// 
