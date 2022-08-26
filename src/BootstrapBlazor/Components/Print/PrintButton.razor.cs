@@ -28,8 +28,8 @@ public partial class PrintButton
     /// </summary>
     protected override void OnInitialized()
     {
-        // 不需要走 base.OnInitialized 方法
-        ButtonIcon = Icon;
+        base.OnInitialized();
+
         Text ??= Localizer[nameof(Text)];
     }
 
