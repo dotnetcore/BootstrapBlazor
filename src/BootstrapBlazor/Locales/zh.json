@@ -338,5 +338,11 @@
   "BootstrapBlazor.Components.InsertRowMode": {
     "Last": "最后",
     "First": "最前"
+  },
+  "BootstrapBlazor.Components.IconDialog": {
+    "LabelText": "选择图标",
+    "LabelFullText": "完整文本",
+    "ButtonText": "点击复制",
+    "DialogHeaderText": "请选择图标"
   }
 }

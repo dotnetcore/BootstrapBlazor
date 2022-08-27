@@ -338,5 +338,11 @@
   "BootstrapBlazor.Components.InsertRowMode": {
     "Last": "Last",
     "First": "First"
+  },
+  "BootstrapBlazor.Components.IconDialog": {
+    "LabelText": "Icon",
+    "LabelFullText": "Html",
+    "ButtonText": "Copy",
+    "DialogHeaderText": "Selected Icon"
   }
 }

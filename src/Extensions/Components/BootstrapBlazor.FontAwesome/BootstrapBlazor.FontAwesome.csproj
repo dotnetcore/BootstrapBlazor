@@ -17,4 +17,8 @@
     <None Include="wwwroot\css\font-awesome.css" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\BootstrapBlazor\BootstrapBlazor.csproj" />
+  </ItemGroup>
+
 </Project>

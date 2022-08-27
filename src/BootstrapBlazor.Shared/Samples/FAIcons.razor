@@ -16,15 +16,10 @@
     <span>首次加载有概率图标为乱码，原因是字库还未下载导致</span>
 </p>
 
-<p>
-    <b>解决办法：</b>
-    <span>使用本地静态资源</span>
-</p>
+<div class="row form-inline">
+    <div class="col-12">
+        <Switch ShowLabel="true" DisplayText="@DisplayText" @bind-Value="@ShowCopyDialog" />
+    </div>
+</div>
 
-<div><code>font-awesome</code> 4.0 升级到 6.1.2 注意事项</div>
-
-<div><code>font-awesome</code> 新增 <code>fa-solid</code> <code>fa-regular</code> <code>fa-light</code> <code>fa-thin</code> <code>fa-duotone</code> 几类图标</div>
-
-<div>样式由原来的 <code>fa</code> 更改为上面几类，原有一些名称的图标改名，如 <code>fa-fa</code> 改为 <code>fa-flag</code>，原有 <code>-o</code> 结尾的图标全部移除，改为 <code>fa-regular</code> 分类下如：<code>fa fa-bell-o</code> 改为 <code>fa-regular fa-bell</code></div>
-
-<div class="mt-3">最新版 <code>font-awesome</code> 图标地址 <a target="_blank" href="https://fontawesome.com/search">[传送门]</a></div>
+<FAIconList ShowCopyDialog="ShowCopyDialog" />

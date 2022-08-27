@@ -1,0 +1,101 @@
+﻿.icon-list {
+    overflow-y: auto;
+    overflow-x: hidden;
+    position: relative;
+}
+
+section > h2 {
+    margin: 2rem 0 1rem 0;
+}
+
+.fa-target {
+    display: block;
+}
+
+.fil a {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    color: var(--bs-dark);
+    background-color: #f0f1f3;
+    border-radius: .5rem;
+    padding: .75rem;
+    transition: .3s background-color ease-in-out;
+}
+
+    .fil a:hover {
+        background-color: var(--bs-warning);
+        text-decoration: none;
+    }
+
+        .fil a:hover > span {
+            color: inherit;
+        }
+
+    .fil a > span {
+        font-family: cera-round-pro, "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+        font-size: 11px;
+        margin-left: 10px;
+        line-height: 1.25rem;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        color: #919191;
+        transition: .3s color ease-in-out;
+    }
+
+    .fil a > i {
+        font-size: 1.25rem;
+        line-height: 1.25rem;
+    }
+
+.fa-nav {
+    display: none;
+}
+
+    .fa-nav h2 {
+        background: #FF6C60;
+        color: #fff;
+        margin-top: 0;
+        padding: 10px 15px;
+        font-size: 16px;
+        border-radius: 4px;
+        font-weight: 300;
+    }
+
+    .fa-nav .nav {
+        top: 44px;
+        bottom: 0;
+        position: absolute;
+        overflow-y: auto;
+        width: 100%;
+    }
+
+        .fa-nav .nav a {
+            color: #999797;
+            border-left: 4px solid #d3d7dd;
+            padding-left: 10px;
+            padding-top: 3px;
+            padding-bottom: 3px;
+            padding-right: 3px;
+            width: 100%;
+            margin-top: 1px;
+        }
+
+            .fa-nav .nav a:last-child {
+                margin-bottom: 5px;
+            }
+
+            .fa-nav .nav a.active {
+                color: #7a7a7a;
+                border-left: 4px solid #5bc0de;
+                padding-left: 10px;
+            }
+
+            .fa-nav .nav a:hover {
+                color: #999797;
+                border-left: 4px solid #d9534f;
+                padding-left: 10px;
+            }
