@@ -10,7 +10,6 @@
     --bb-tree-item-active-color: #409eff;
     --bb-tree-item-active-bg: #e9ecef;
     --bb-tree-item-hover-bg: var(--bs-secondary);
-    --bb-tree-item-border-radius: 0.25rem;
 }
 
     .tree-view .tree-root {
@@ -57,13 +56,13 @@
         display: inline-flex;
         align-items: center;
         padding: var(--bb-tree-node-padding);
-        border-radius: var(--bb-tree-item-border-radius);
+        border-radius: var(--bs-border-radius);
         flex: 1;
     }
 
         .tree-view .tree-node.disabled,
         .tree-view .tree-item.disabled > .tree-content > .fa-caret-right {
-            opacity: var(--bb-checkbox-item-disabled-opacity);
+            opacity: var(--bb-disabled-opactiy);
         }
 
         .tree-view .tree-node:hover {
