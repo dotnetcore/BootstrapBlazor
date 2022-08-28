@@ -9,7 +9,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 
 /// </summary>
-public partial class ModalDialog : IDisposable
+public partial class ModalDialog : IHandlerException, IDisposable
 {
     private ElementReference DialogElement { get; set; }
 
@@ -201,6 +201,8 @@ public partial class ModalDialog : IDisposable
     {
         base.OnInitialized();
 
+        ErrorLogger?.Register(this);
+
         Interop = new JSInterop<ModalDialog>(JSRuntime);
 
         Modal.AddDialog(this);
@@ -284,6 +286,28 @@ public partial class ModalDialog : IDisposable
     [JSInvokable]
     public Task Close() => OnClickClose();
 
+    private RenderFragment RenderBodyTemplate() => builder =>
+    {
+        builder.AddContent(0, _errorContent ?? BodyTemplate);
+        _errorContent = null;
+    };
+
+    /// <summary>
+    /// 上次渲染错误内容
+    /// </summary>
+    protected RenderFragment? _errorContent;
+
+    /// <summary>
+    /// HandlerException 错误处理方法
+    /// </summary>
+    /// <param name="ex"></param>
+    /// <param name="errorContent"></param>
+    public virtual void HandlerException(Exception ex, RenderFragment<Exception>? errorContent)
+    {
+        _errorContent = errorContent?.Invoke(ex);
+        StateHasChanged();
+    }
+
     /// <summary>
     /// Dispose 方法
     /// </summary>
@@ -292,6 +316,8 @@ public partial class ModalDialog : IDisposable
     {
         if (disposing)
         {
+            ErrorLogger?.UnRegister(this);
+
             Interop.Dispose();
             Interop = null;
         }

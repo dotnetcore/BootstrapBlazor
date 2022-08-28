@@ -99,14 +99,7 @@ public class ErrorLogger
 
         if (ShowErrorDetails)
         {
-            ErrorContent ??= ex => builder =>
-            {
-                var index = 0;
-                builder.OpenElement(index++, "div");
-                builder.AddAttribute(index++, "class", "error-stack");
-                builder.AddContent(index++, ex.FormatMarkupString(Configuration.GetEnvironmentInformation()));
-                builder.CloseElement();
-            };
+            ErrorContent ??= RenderException();
         }
     }
 
@@ -134,19 +127,41 @@ public class ErrorLogger
         builder.AddAttribute(2, nameof(CascadingValue<IErrorLogger>.IsFixed), true);
 
         var content = ChildContent;
-
 #if NET6_0_OR_GREATER
         var ex = Exception ?? CurrentException;
 #else
         var ex = Exception;
 #endif
-        if (ex != null && ErrorContent != null)
+        if (ex != null)
         {
-            content = ErrorContent.Invoke(ex);
+            if (Cache.Any())
+            {
+                var component = Cache.Last();
+                if (component is IHandlerException handler)
+                {
+                    handler.HandlerException(ex, ErrorContent);
+                }
+            }
+            else
+            {
+                if (ErrorContent != null)
+                {
+                    content = ErrorContent.Invoke(ex);
+                }
+            }
         }
         builder.AddAttribute(3, nameof(CascadingValue<IErrorLogger>.ChildContent), content);
         builder.CloseComponent();
     }
+
+    private RenderFragment<Exception> RenderException() => ex => builder =>
+    {
+        var index = 0;
+        builder.OpenElement(index++, "div");
+        builder.AddAttribute(index++, "class", "error-stack");
+        builder.AddContent(index++, ex.FormatMarkupString(Configuration.GetEnvironmentInformation()));
+        builder.CloseElement();
+    };
 
     /// <summary>
     /// 由接口调用
@@ -193,5 +208,25 @@ public class ErrorLogger
             Logger.LogError(exception, "");
 #endif
         }
+    }
+
+    private List<ComponentBase> Cache { get; } = new();
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="component"></param>
+    public void Register(ComponentBase component)
+    {
+        Cache.Add(component);
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="component"></param>
+    public void UnRegister(ComponentBase component)
+    {
+        Cache.Remove(component);
     }
 }

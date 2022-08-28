@@ -9,7 +9,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// Layout 组件基类
 /// </summary>
-public abstract class LayoutBase : BootstrapComponentBase, IAsyncDisposable
+public abstract class LayoutBase : BootstrapComponentBase, IHandlerException, IAsyncDisposable
 {
     /// <summary>
     /// 
@@ -196,6 +196,8 @@ public abstract class LayoutBase : BootstrapComponentBase, IAsyncDisposable
             SubscribedLocationChangedEvent = true;
             Navigation.LocationChanged += Navigation_LocationChanged;
         }
+
+        ErrorLogger?.Register(this);
     }
 
     private async void Navigation_LocationChanged(object? sender, LocationChangedEventArgs e)
@@ -247,6 +249,21 @@ public abstract class LayoutBase : BootstrapComponentBase, IAsyncDisposable
     };
 
     /// <summary>
+    /// 上次渲染错误内容
+    /// </summary>
+    protected RenderFragment? _errorContent;
+
+    /// <summary>
+    /// HandlerException 错误处理方法
+    /// </summary>
+    /// <param name="ex"></param>
+    /// <param name="errorContent"></param>
+    public virtual void HandlerException(Exception ex, RenderFragment<Exception>? errorContent)
+    {
+        _errorContent = errorContent?.Invoke(ex);
+    }
+
+    /// <summary>
     /// DisposeAsyncCore 方法
     /// </summary>
     /// <param name="disposing"></param>
@@ -255,6 +272,7 @@ public abstract class LayoutBase : BootstrapComponentBase, IAsyncDisposable
     {
         if (disposing)
         {
+            ErrorLogger?.UnRegister(this);
             if (SubscribedLocationChangedEvent)
             {
                 Navigation.LocationChanged -= Navigation_LocationChanged;

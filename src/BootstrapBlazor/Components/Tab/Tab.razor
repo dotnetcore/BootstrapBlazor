@@ -98,7 +98,7 @@ else
                     {
                         <div class="@GetContentClassString(item)">
                             <CascadingValue Value="item" IsFixed="true">
-                                @RenderTabItemContent(item.ChildContent)
+                                @RenderTabItemContent(item)
                             </CascadingValue>
                         </div>
                     }
@@ -109,7 +109,7 @@ else
                     {
                         <div @key="@item" class="@GetContentClassString(item)">
                             <CascadingValue Value="item" IsFixed="true">
-                                @RenderTabItemContent(item.ChildContent)
+                                @RenderTabItemContent(item)
                             </CascadingValue>
                         </div>
                     }

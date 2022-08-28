@@ -3,7 +3,6 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.Extensions.Localization;
-using Microsoft.Extensions.Logging;
 using System.Reflection;
 
 namespace BootstrapBlazor.Components;
@@ -11,7 +10,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// Tab 组件基类
 /// </summary>
-public partial class Tab
+public partial class Tab : IHandlerException, IDisposable
 {
     private bool FirstRender { get; set; } = true;
 
@@ -183,24 +182,6 @@ public partial class Tab
     public string? CloseOtherTabsText { get; set; }
 
     /// <summary>
-    /// 获得/设置 自定义错误处理回调方法
-    /// </summary>
-    [Parameter]
-    public Func<ILogger, Exception, Task>? OnErrorHandleAsync { get; set; }
-
-    /// <summary>
-    /// 获得/设置 是否显示 Error 提示弹窗 默认 true 显示
-    /// </summary>
-    [Parameter]
-    public bool ShowToast { get; set; } = true;
-
-    /// <summary>
-    /// 获得/设置 Error Toast 弹窗标题
-    /// </summary>
-    [Parameter]
-    public string? ToastTitle { get; set; }
-
-    /// <summary>
     /// 获得/设置 按钮模板 默认 null
     /// </summary>
     [Parameter]
@@ -224,6 +205,8 @@ public partial class Tab
     protected override void OnInitialized()
     {
         base.OnInitialized();
+
+        ErrorLogger?.Register(this);
 
         if (ShowExtendButtons)
         {
@@ -622,14 +605,50 @@ public partial class Tab
         item.SetActive(true);
     }
 
-    private RenderFragment? RenderTabItemContent(RenderFragment? content) => builder =>
+    private RenderFragment? RenderTabItemContent(TabItem item) => builder =>
     {
-        var index = 0;
-        builder.OpenComponent<ErrorLogger>(index++);
-        builder.AddAttribute(index++, nameof(Components.ErrorLogger.ShowToast), ErrorLogger?.ShowToast ?? ShowToast);
-        builder.AddAttribute(index++, nameof(Components.ErrorLogger.OnErrorHandleAsync), OnErrorHandleAsync);
-        builder.AddAttribute(index++, nameof(Components.ErrorLogger.ToastTitle), ErrorLogger?.ToastTitle ?? ToastTitle);
-        builder.AddAttribute(index++, nameof(Components.ErrorLogger.ChildContent), content);
-        builder.CloseComponent();
+        if (item.IsActive)
+        {
+            var content = _errorContent ?? item.ChildContent;
+            builder.AddContent(0, content);
+            _errorContent = null;
+        }
+        else
+        {
+            builder.AddContent(0, item.ChildContent);
+        }
     };
+
+    private RenderFragment? _errorContent;
+
+    /// <summary>
+    /// HandlerException 错误处理方法
+    /// </summary>
+    /// <param name="ex"></param>
+    /// <param name="errorContent"></param>
+    public virtual void HandlerException(Exception ex, RenderFragment<Exception>? errorContent)
+    {
+        _errorContent = errorContent?.Invoke(ex);
+    }
+
+    /// <summary>
+    /// Dispose 方法
+    /// </summary>
+    protected virtual void Dispose(bool disposing)
+    {
+        if (disposing)
+        {
+            ErrorLogger?.UnRegister(this);
+        }
+    }
+
+    /// <summary>
+    /// Dispose 方法
+    /// </summary>
+    /// <exception cref="NotImplementedException"></exception>
+    public void Dispose()
+    {
+        Dispose(true);
+        GC.SuppressFinalize(this);
+    }
 }

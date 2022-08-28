@@ -25,4 +25,16 @@ public interface IErrorLogger
     /// 获得 Error Toast 弹窗标题
     /// </summary>
     string? ToastTitle { get; }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="component"></param>
+    void Register(ComponentBase component);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="component"></param>
+    void UnRegister(ComponentBase component);
 }

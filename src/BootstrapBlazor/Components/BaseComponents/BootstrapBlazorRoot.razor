@@ -1,20 +1,24 @@
 ﻿@inherits ComponentBase
 @namespace BootstrapBlazor.Components
 
-@RenderBody()
+<ErrorLogger>
+    @RenderBody()
 
-<Dialog />
-<PopoverConfirm />
-<SweetAlert />
-<Message @ref="MessageContainer" />
-<Toast @ref="ToastContainer" />
-<Print />
+    <Dialog />
+    <PopoverConfirm />
+    <SweetAlert />
+    <Print />
 
-<Download />
+    <Download />
+</ErrorLogger>
+
 <FullScreen />
 <Clipboard />
 <Title />
 <ResizeNotification />
+
+<Message @ref="MessageContainer" />
+<Toast @ref="ToastContainer" />
 
 @code {
     RenderFragment RenderChildContent =>
