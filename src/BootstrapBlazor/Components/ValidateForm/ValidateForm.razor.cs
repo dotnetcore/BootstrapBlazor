@@ -87,6 +87,9 @@ public partial class ValidateForm : IAsyncDisposable
     [NotNull]
     private IStringLocalizerFactory? LocalizerFactory { get; set; }
 
+    [Inject]
+    internal IServiceProvider? serviceProvider { get; private set; }
+
     /// <summary>
     /// 验证组件缓存
     /// </summary>
@@ -217,7 +220,7 @@ public partial class ValidateForm : IAsyncDisposable
                     var pi = key.ModelType.GetPropertyByName(key.FieldName);
                     if (pi != null)
                     {
-                        var propertyValidateContext = new ValidationContext(fieldIdentifier.Model)
+                        var propertyValidateContext = new ValidationContext(fieldIdentifier.Model, context, null)
                         {
                             MemberName = fieldIdentifier.FieldName,
                             DisplayName = fieldIdentifier.GetDisplayName()
@@ -366,7 +369,7 @@ public partial class ValidateForm : IAsyncDisposable
                 && !propertyValue.GetType().IsAssignableTo(typeof(System.Collections.IEnumerable))
                 && propertyValue.GetType().IsClass)
             {
-                var fieldContext = new ValidationContext(propertyValue);
+                var fieldContext = new ValidationContext(propertyValue, context, null);
                 await ValidateProperty(fieldContext, results);
             }
             else
