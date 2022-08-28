@@ -24,6 +24,10 @@ public class BootstrapBlazorDataAnnotationsValidator : ComponentBase
     [CascadingParameter]
     private ValidateForm? ValidateForm { get; set; }
 
+    [Inject]
+    [NotNull]
+    private IServiceProvider? Provider { get; set; }
+
     /// <summary>
     /// 初始化方法
     /// </summary>
@@ -36,7 +40,7 @@ public class BootstrapBlazorDataAnnotationsValidator : ComponentBase
                 $"inside an {nameof(Components.ValidateForm)}.");
         }
 
-        CurrentEditContext.AddEditContextDataAnnotationsValidation(ValidateForm);
+        CurrentEditContext.AddEditContextDataAnnotationsValidation(ValidateForm, Provider);
     }
 
     /// <summary>

@@ -87,9 +87,6 @@ public partial class ValidateForm : IAsyncDisposable
     [NotNull]
     private IStringLocalizerFactory? LocalizerFactory { get; set; }
 
-    [Inject]
-    internal IServiceProvider? serviceProvider { get; private set; }
-
     /// <summary>
     /// 验证组件缓存
     /// </summary>
