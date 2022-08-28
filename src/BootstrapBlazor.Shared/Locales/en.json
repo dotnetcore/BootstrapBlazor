@@ -444,7 +444,7 @@
     "H1": "Instructions",
     "Step1": "1. Add <code>AddLogging</code> to the <code>Startup</code> file to enable the <code>net core</code> system log function",
     "Step1Introduce": "Use <code>AddFileLogger</code> need to reference <b>Longbow.Logging</b> component package",
-    "Step2": "2. Use <code>BlazorLogger</code> to wrap the content, such as: <code>Body</code> in <code>MainLayout</code>",
+    "Step2": "2. Use <code>BootstrapBlazorRoot</code> to wrap the content",
     "Step3": "3. Use cascading parameters in the code to get examples",
     "Step4": "4. Console or <b>IIS</b> output visible log information",
     "Step5": "5. Controls whether error details are displayed",
@@ -454,8 +454,7 @@
     "ExceptionTestIntroduce": "In this example code, an error code that divides by zero is written. Because <code>try/catch</code> is used to capture the exception, the error message is displayed in the console below",
     "ButtonText": "test",
     "Block2Title": "OnErrorHandleAsync",
-    "Block2Intro": "Set custom exception handling logic by setting <code>OnErrorHandleAsync</code> callback method",
-    "Tips": "Both the <code>Layout</code> component and the <code>Tab</code> component have built-in <code>ErrorLogger</code> components. Please do not add them in the above two components. The following is the simplified example code"
+    "Block2Intro": "Set custom exception handling logic by setting <code>OnErrorHandleAsync</code> callback method"
   },
   "BootstrapBlazor.Shared.Samples.Splits": {
     "Title": "Split",

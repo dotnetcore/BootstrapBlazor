@@ -49,22 +49,13 @@ public partial class Button
                 IsDisabled = true;
             }
 
-            Exception? exception = null;
-            try
+            if (IsAsync)
             {
-                if (IsAsync)
-                {
-
-                    await Task.Run(() => InvokeAsync(HandlerClick));
-                }
-                else
-                {
-                    await HandlerClick();
-                }
+                await Task.Run(() => InvokeAsync(HandlerClick));
             }
-            catch (Exception ex)
+            else
             {
-                exception = ex;
+                await HandlerClick();
             }
 
             // 恢复按钮
@@ -73,13 +64,6 @@ public partial class Button
                 ButtonIcon = Icon;
                 IsDisabled = false;
                 IsAsyncLoading = false;
-            }
-
-            if (exception != null)
-            {
-                // 如果有异常发生强制按钮恢复
-                StateHasChanged();
-                throw exception;
             }
         });
 

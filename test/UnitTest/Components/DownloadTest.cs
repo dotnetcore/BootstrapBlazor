@@ -127,6 +127,7 @@ public class DownloadTest : BootstrapBlazorTestBase
         var downloadService = Context.Services.GetRequiredService<DownloadService>();
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
         {
+            pb.Add(a => a.EnableErrorLogger, false);
             pb.AddChildContent<Button>(pb =>
             {
                 pb.Add(a => a.OnClick, async () =>
@@ -156,6 +157,7 @@ public class DownloadTest : BootstrapBlazorTestBase
         var downloadService = Context.Services.GetRequiredService<DownloadService>();
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
         {
+            pb.Add(a => a.EnableErrorLogger, false);
             pb.AddChildContent<Button>(pb =>
             {
                 pb.Add(a => a.OnClick, async () =>
