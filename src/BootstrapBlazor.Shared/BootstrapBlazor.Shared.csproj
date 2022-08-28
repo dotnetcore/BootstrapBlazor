@@ -8,11 +8,10 @@
 
   <ItemGroup>
     <Content Remove="Locales\*.json" />
-    <EmbeddedResource Include="Locales\*.json" />
     <Content Remove="docs.json" />
     <Content Remove="links.json" />
     <Content Remove="topology.json" />
-    <Content Remove="wwwroot\css\FAIconList.js" />
+    <EmbeddedResource Include="Locales\*.json" />
     <EmbeddedResource Include="docs.json" />
     <EmbeddedResource Include="links.json" />
     <EmbeddedResource Include="topology.json" />
@@ -22,7 +21,7 @@
     <PackageReference Include="BootstrapBlazor.BaiduSpeech" Version="6.0.9" />
     <PackageReference Include="BootstrapBlazor.Chart" Version="6.*" />
     <PackageReference Include="BootstrapBlazor.CherryMarkdown" Version="6.*" />
-    <!--<PackageReference Include="BootstrapBlazor.FontAwesome" Version="6.1.3" />-->
+    <PackageReference Include="BootstrapBlazor.FontAwesome" Version="6.1.4" />
     <PackageReference Include="BootstrapBlazor.Markdown" Version="6.*" />
     <PackageReference Include="BootstrapBlazor.OnScreenKeyboard" Version="6.*" />
     <PackageReference Include="BootstrapBlazor.SignaturePad" Version="6.*" />
@@ -33,7 +32,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BootstrapBlazor\BootstrapBlazor.csproj" />
-    <ProjectReference Include="..\Extensions\Components\BootstrapBlazor.FontAwesome\BootstrapBlazor.FontAwesome.csproj" />
   </ItemGroup>
 
 </Project>
