@@ -10,7 +10,9 @@ namespace BootstrapBlazor.Components;
 /// Select 组件实现类
 /// </summary>
 /// <typeparam name="TValue"></typeparam>
+#if NET6_0_OR_GREATER
 [CascadingTypeParameter(nameof(TValue))]
+#endif
 public partial class SelectTree<TValue>
 {
     private ElementReference SelectElement { get; set; }
