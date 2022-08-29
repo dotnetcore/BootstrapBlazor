@@ -154,6 +154,18 @@ public partial class MultiSelect<TValue>
     [NotNull]
     public string? MinErrorMessage { get; set; }
 
+    /// <summary>
+    /// 获得/设置 设置搜索图标 默认 fa-solid fa-magnifying-glass
+    /// </summary>
+    [Parameter]
+    public string SearchIcon { get; set; } = "fa-solid fa-magnifying-glass";
+
+    /// <summary>
+    /// 获得/设置 设置清除图标 默认 fa-solid fa-xmark
+    /// </summary>
+    [Parameter]
+    public string ClearIcon { get; set; } = "fa-solid fa-xmark";
+
     [Inject]
     [NotNull]
     private IStringLocalizer<MultiSelect<TValue>>? Localizer { get; set; }
