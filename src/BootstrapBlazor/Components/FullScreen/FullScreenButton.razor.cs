@@ -10,12 +10,6 @@ namespace BootstrapBlazor.Components;
 public partial class FullScreenButton
 {
     /// <summary>
-    /// 获得/设置 按钮图标 默认 fa-solid fa-maximize
-    /// </summary>
-    [Parameter]
-    public string? ButtonIcon { get; set; }
-
-    /// <summary>
     /// 获得/设置 全屏图标 默认 fa-solid fa-maximize
     /// </summary>
     [Parameter]
@@ -36,7 +30,7 @@ public partial class FullScreenButton
         .Build();
 
     private string? ButtonIconString => CssBuilder.Default()
-        .AddClass(ButtonIcon)
+        .AddClass(Icon)
         .AddClass("fs-off", !string.IsNullOrEmpty(FullScreenIcon))
         .Build();
 
@@ -51,7 +45,7 @@ public partial class FullScreenButton
     {
         base.OnInitialized();
 
-        ButtonIcon ??= "fa-solid fa-maximize";
+        Icon ??= "fa-solid fa-maximize";
     }
 
     private Task ToggleFullScreen() => FullScrenService.Toggle();

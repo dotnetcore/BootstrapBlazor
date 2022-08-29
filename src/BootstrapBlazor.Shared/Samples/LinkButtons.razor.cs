@@ -53,8 +53,8 @@ public sealed partial class LinkButtons
             DefaultValue = "#"
         },
         new AttributeItem(){
-            Name = nameof(LinkButton.Title),
-            Description = Localizer[nameof(LinkButton.Title)],
+            Name = nameof(LinkButton.TooltipText),
+            Description = Localizer[nameof(LinkButton.TooltipText)],
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "

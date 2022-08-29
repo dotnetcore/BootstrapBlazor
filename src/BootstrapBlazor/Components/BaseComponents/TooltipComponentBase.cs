@@ -68,11 +68,6 @@ public abstract class TooltipComponentBase : IdComponentBase, ITooltipHost, IAsy
     }
 
     /// <summary>
-    /// 获得 弹窗客户端 ID
-    /// </summary>
-    protected virtual string? RetrieveId() => Id;
-
-    /// <summary>
     /// 获得 弹窗脚本执行方法
     /// </summary>
     /// <returns></returns>

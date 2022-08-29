@@ -9,7 +9,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// Button 按钮组件
 /// </summary>
-public abstract class ButtonBase : TooltipComponentBase
+public abstract class ButtonBase : IdComponentBase, IAsyncDisposable
 {
     /// <summary>
     /// 获得 按钮样式集合
@@ -136,6 +136,24 @@ public abstract class ButtonBase : TooltipComponentBase
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
+    /// 获得/设置 TooltipText 显示文字 默认为 null
+    /// </summary>
+    [Parameter]
+    public string? TooltipText { get; set; }
+
+    /// <summary>
+    /// 获得/设置 Tooltip 显示位置 默认为 Top
+    /// </summary>
+    [Parameter]
+    public Placement TooltipPlacement { get; set; } = Placement.Top;
+
+    /// <summary>
+    /// 获得/设置 Tooltip 触发方式 默认为 hover focus
+    /// </summary>
+    [Parameter]
+    public string TooltipTrigger { get; set; } = "hover focus";
+
+    /// <summary>
     /// 获得/设置 是否当前正在异步执行操作
     /// </summary>
     protected bool IsAsyncLoading { get; set; }
@@ -173,35 +191,24 @@ public abstract class ButtonBase : TooltipComponentBase
     {
         await base.OnAfterRenderAsync(firstRender);
 
-        if (!firstRender && Tooltip != null)
+        if (firstRender)
         {
-            var id = RetrieveId();
-            if (_prevDisable != IsDisabled)
+            _prevDisable = IsDisabled;
+            if (!IsDisabled)
             {
-                _prevDisable = IsDisabled;
-                if (IsDisabled)
-                {
-                    // TODO: id 不可为空整理 主要是 AvatarUpload 的 Id 处理
-                    if (Tooltip.PopoverType == PopoverType.Tooltip)
-                    {
-                        await JSRuntime.InvokeVoidAsync(null, "bb_tooltip", id!, "dispose");
-                    }
-                    else
-                    {
-                        await JSRuntime.InvokeVoidAsync(null, "bb_popover", id!, "dispose");
-                    }
-                }
-                else
-                {
-                    if (Tooltip.PopoverType == PopoverType.Tooltip)
-                    {
-                        await ShowTooltip();
-                    }
-                    else
-                    {
-                        await ShowPopover();
-                    }
-                }
+                await ShowTooltip();
+            }
+        }
+        else if (_prevDisable != IsDisabled)
+        {
+            _prevDisable = IsDisabled;
+            if (IsDisabled)
+            {
+                await RemoveTooltip();
+            }
+            else
+            {
+                await ShowTooltip();
             }
         }
     }
@@ -219,13 +226,12 @@ public abstract class ButtonBase : TooltipComponentBase
     /// <summary>
     /// 显示 Tooltip 方法
     /// </summary>
-    /// <param name="message"></param>
     /// <returns></returns>
-    public virtual async Task ShowTooltip(string message)
+    public virtual async Task ShowTooltip()
     {
-        if (!string.IsNullOrEmpty(Id))
+        if (!string.IsNullOrEmpty(Id) && !string.IsNullOrEmpty(TooltipText))
         {
-            await JSRuntime.InvokeVoidAsync(null, "bb_tooltip", Id, "show", message, "top", false, "hover");
+            await JSRuntime.InvokeVoidAsync(null, "bb_tooltip", Id, "", TooltipText, TooltipPlacement.ToDescriptionString(), false, TooltipTrigger);
         }
     }
 
@@ -239,5 +245,27 @@ public abstract class ButtonBase : TooltipComponentBase
         {
             await JSRuntime.InvokeVoidAsync(null, "bb_tooltip", Id, "dispose");
         }
+    }
+
+    /// <summary>
+    /// DisposeAsyncCore 方法
+    /// </summary>
+    /// <param name="disposing"></param>
+    /// <returns></returns>
+    protected virtual async ValueTask DisposeAsyncCore(bool disposing)
+    {
+        if (disposing)
+        {
+            await RemoveTooltip();
+        }
+    }
+
+    /// <summary>
+    /// DisposeAsync 方法
+    /// </summary>
+    public async ValueTask DisposeAsync()
+    {
+        await DisposeAsyncCore(true);
+        GC.SuppressFinalize(this);
     }
 }

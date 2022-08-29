@@ -59,7 +59,7 @@ public class LinkButtonTest : BootstrapBlazorTestBase
     {
         var cut = Context.RenderComponent<LinkButton>(builder =>
         {
-            builder.Add(s => s.Title, "Tooltip");
+            builder.Add(s => s.TooltipText, "Tooltip");
             builder.Add(s => s.TooltipPlacement, Placement.Bottom);
         });
     }

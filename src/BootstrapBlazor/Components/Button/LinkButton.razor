@@ -15,10 +15,4 @@
         <span>@Text</span>
     }
     @ChildContent
-    @if (!string.IsNullOrEmpty(Title))
-    {
-        <CascadingValue Value="this" IsFixed="true">
-            <Tooltip Title="@Title" Placement="TooltipPlacement" />
-        </CascadingValue>
-    }
 </DynamicElement>

@@ -18,18 +18,6 @@ public partial class PulseButton
     public string? ImageUrl { get; set; }
 
     /// <summary>
-    /// 获得/设置 Tooltip 显示文字 默认为 null
-    /// </summary>
-    [Parameter]
-    public string? Title { get; set; }
-
-    /// <summary>
-    /// 获得/设置 Tooltip 显示位置 默认为 Top
-    /// </summary>
-    [Parameter]
-    public Placement TooltipPlacement { get; set; }
-
-    /// <summary>
     /// 获得/设置 心跳环颜色 默认 <see cref="Color.Warning"/>
     /// </summary>
     [Parameter]

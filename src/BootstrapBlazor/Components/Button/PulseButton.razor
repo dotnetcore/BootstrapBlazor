@@ -17,10 +17,4 @@
     @ChildContent
     <div class="@PulseColorString">
     </div>
-    @if (!string.IsNullOrEmpty(Title))
-    {
-        <CascadingValue Value="this" IsFixed="true">
-            <Tooltip Title="@Title" Placement="TooltipPlacement" />
-        </CascadingValue>
-    }
 </button>

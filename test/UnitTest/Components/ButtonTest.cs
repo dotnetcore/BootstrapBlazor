@@ -318,7 +318,7 @@ public class ButtonTest : BootstrapBlazorTestBase
     public async Task ShowTooltip_Ok()
     {
         var cut = Context.RenderComponent<Button>();
-        await cut.InvokeAsync(() => cut.Instance.ShowTooltip("Test"));
+        await cut.InvokeAsync(() => cut.Instance.ShowTooltip());
     }
 
     [Fact]
