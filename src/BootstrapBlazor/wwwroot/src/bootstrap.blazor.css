@@ -44,6 +44,7 @@ a,
         opacity: var(--bb-disabled-opactiy);
     }
 
-:focus-visible {
+:focus-visible,
+:focus {
     outline: none;
 }

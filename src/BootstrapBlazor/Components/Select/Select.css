@@ -4,6 +4,7 @@
     --bb-select-focus-shadow: none;
     --bb-select-bg: #fff;
     --bb-select-padding: 6px 2.25rem 6px 0.75rem;
+    --bb-dropdown-max-height: 300px;
 }
 
 .cascade,
@@ -38,6 +39,11 @@
         .select .form-select:disabled {
             background-color: var(--bb-disabled-bg);
         }
+
+.dropdown-menu {
+    overflow: auto;
+    max-height: var(--bb-dropdown-max-height, none);
+}
 
 .dropdown-menu-arrow {
     width: 0;

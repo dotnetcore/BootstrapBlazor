@@ -27,9 +27,10 @@
                 @RenderSearch
             </div>
         }
-        <div class="table-toolbar">
-            @if (IsExcel || ShowToolbar)
-            {
+
+        @if(ShowToolbar)
+        {
+            <div class="table-toolbar">
                 <TableToolbar OnGetSelectedRows="@GetSelectedRows" IsAutoCollapsedToolbarButton="IsAutoCollapsedToolbarButton">
                     @if (IsExcel || ShowDefaultButtons)
                     {
@@ -52,14 +53,52 @@
                     }
                     @TableToolbarTemplate
                 </TableToolbar>
-                <div class="float-end table-toolbar-button btn-group table-column-right">
+                <div class="flex-fill"></div>
+                @if (ShowSearch && SearchMode == SearchMode.Popup)
+                {
+                    <div class="table-toolbar-button btn-group">
+                        @if (ShowSearchText)
+                        {
+                            <div class="input-group">
+                                <BootstrapInput class="table-toolbar-search" placeholder="@SearchPlaceholderText" @bind-Value="@SearchText" ShowLabel="false">
+                                    @if (ShowSearchTextTooltip)
+                                    {
+                                        <Tooltip Placement="Placement.Top" Title="@SearchTooltip" IsHtml="true" />
+                                    }
+                                </BootstrapInput>
+                                <Button Color="@Color.Secondary" Icon="fa-solid fa-magnifying-glass" OnClickWithoutRender="@SearchClick">
+                                    <span class="d-none d-sm-inline-block">@SearchButtonText</span>
+                                </Button>
+                                @if (ShowResetButton)
+                                {
+                                    <Button Color="@Color.Secondary" Icon="fa-solid fa-trash-can" OnClickWithoutRender="@ClearSearchClick">
+                                        <span class="d-none d-sm-inline-block">@ResetSearchButtonText</span>
+                                    </Button>
+                                }
+                                @if (ShowAdvancedSearch)
+                                {
+                                    @RenderAdvanceSearchButton
+                                }
+                            </div>
+                        }
+                        else if (ShowAdvancedSearch)
+                        {
+                            @RenderAdvanceSearchButton
+                        }
+                    </div>
+                }
+                <div class="table-toolbar-button btn-group table-column-right">
                     @if (ShowRefresh)
                     {
-                        <Button Icon="fa-solid fa-arrows-rotate" Text="@RefreshButtonText" Color="@Color.Secondary" OnClickWithoutRender="@OnClickRefreshAsync" />
+                        <Button Icon="fa-solid fa-arrows-rotate" Color="@Color.Secondary" OnClickWithoutRender="@OnClickRefreshAsync">
+                            <span class="d-none d-sm-inline-block">@RefreshButtonText</span>
+                        </Button>
                     }
                     @if (!IsExcel && ShowCardView)
                     {
-                        <Button Icon="fa-solid fa-bars" Text="@CardViewButtonText" Color="@Color.Secondary" OnClick="@OnClickCardView" />
+                        <Button Icon="fa-solid fa-bars" Text="@CardViewButtonText" Color="@Color.Secondary" OnClick="@OnClickCardView">
+                            <span class="d-none d-sm-inline-block">@CardViewButtonText</span>
+                        </Button>
                     }
                     @if (ShowColumnList)
                     {
@@ -109,41 +148,8 @@
                         </div>
                     }
                 </div>
-            }
-            @if (ShowSearch && SearchMode == SearchMode.Popup)
-            {
-                <div class="float-end table-toolbar-button btn-group">
-                    @if (ShowSearchText)
-                    {
-                        <div class="input-group">
-                            <BootstrapInput class="table-toolbar-search" placeholder="@SearchPlaceholderText" @bind-Value="@SearchText" ShowLabel="false">
-                                @if (ShowSearchTextTooltip)
-                                {
-                                    <Tooltip Placement="Placement.Top" Title="@SearchTooltip" IsHtml="true" />
-                                }
-                            </BootstrapInput>
-                            <Button Color="@Color.Secondary" Icon="fa-solid fa-magnifying-glass" OnClickWithoutRender="@SearchClick">
-                                <span class="d-none d-sm-inline-block">@SearchButtonText</span>
-                            </Button>
-                            @if (ShowResetButton)
-                            {
-                                <Button Color="@Color.Secondary" Icon="fa-solid fa-trash-can" OnClickWithoutRender="@ClearSearchClick">
-                                    <span class="d-none d-sm-inline-block">@ResetSearchButtonText</span>
-                                </Button>
-                            }
-                            @if (ShowAdvancedSearch)
-                            {
-                                @RenderAdvanceSearchButton
-                            }
-                        </div>
-                    }
-                    else if (ShowAdvancedSearch)
-                    {
-                        @RenderAdvanceSearchButton
-                    }
-                </div>
-            }
-        </div>
+            </div>
+        }
 
         @if (ShowTopPagination && TotalCount > 0 && IsPagination)
         {
@@ -509,7 +515,7 @@ RenderFragment<bool> RenderHeader => hasScroll =>
     }
     @if (ShowFilterHeader)
     {
-        <tr>
+        <tr class="filter-header">
             @if (ShowDetails())
             {
                 <th>

@@ -64,7 +64,3 @@
     .switch .switch-inner-text {
         font-size: 80%;
     }
-
-td :not(.is-incell) .switch {
-    --bb-switch-padding: 0;
-}

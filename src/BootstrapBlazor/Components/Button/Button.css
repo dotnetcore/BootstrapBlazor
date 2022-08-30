@@ -1,7 +1,9 @@
 ﻿.btn {
     --bs-btn-font-size: .875rem;
     --bs-btn-focus-box-shadow: none;
-    --bb-button-label-margin-left: 4px;
+    --bb-btn-label-margin-left: 4px;
+    --bs-btn-active-border-color: transparent;
+    --bs-btn-hover-border-color: transparent;
 }
 
 .btn-xs, .btn-group-xs > .btn {
@@ -26,7 +28,7 @@
 .btn i + span,
 .badge i + span,
 .link-button i + span {
-    margin-left: var(--bb-button-label-margin-left);
+    margin-left: var(--bb-btn-label-margin-left);
 }
 
 .btn-circle {
@@ -46,15 +48,10 @@
 }
 
 .btn-vertical {
+    --bb-btn-label-margin-left: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
-    --bb-button-label-margin-left: 0;
-}
-
-.btn-none {
-    --bs-btn-active-border-color: transparent;
-    --bs-btn-hover-border-color: transparent;
 }
 
 .btn-close:focus {

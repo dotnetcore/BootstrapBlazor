@@ -62,11 +62,6 @@
         transform: rotate(0);
     }
 
-    .multi-select .dropdown-menu {
-        max-height: 300px;
-        overflow: auto;
-    }
-
     .multi-select .multi-select-items {
         display: flex;
         flex-wrap: wrap;

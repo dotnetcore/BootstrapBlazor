@@ -3,10 +3,10 @@
     --bb-ac-menu-top: 40px;
     --bb-ac-menu-left: 0;
     --bb-ac-menu-right: 0;
-    --bb-ac-menu-max-height: 300px;
     --bb-ac-menu-shadow: 0 2px 8px rgba(0, 0, 0, 0.176);
     --bb-ac-menu-spin-top: 10.5px;
     --bb-ac-menu-spin-right: .5rem;
+    --bb-dropdown-max-height: 300px;
     position: relative;
 }
 
@@ -18,9 +18,7 @@
         top: var(--bb-ac-menu-top);
         left: var(--bb-ac-menu-left);
         right: var(--bb-ac-menu-right);
-        max-height: var(--bb-ac-menu-max-height);
         box-shadow: var(--bb-ac-menu-shadow);
-        overflow: auto;
     }
 
     .auto-complete .fa-spin {

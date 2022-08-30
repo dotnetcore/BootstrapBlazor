@@ -19,6 +19,7 @@
     "dropdownlists": "DropdownLists",
     "dropdownwidgets": "DropdownWidgets",
     "fullscreens": "FullScreens",
+    "floatinglabels": "FloatingLabels",
     "detail": "Table/TablesDetailRow",
     "dialog": "Table/TablesDialog",
     "dynamic": "Table/TablesDynamic",

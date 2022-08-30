@@ -14,12 +14,12 @@
     position: relative;
 }
 
-    .datetime-picker .datetime-picker-input {
+    .datetime-picker .form-control {
         cursor: pointer;
         --bb-form-control-padding: 6px 33px;
     }
 
-        .datetime-picker .datetime-picker-input[readonly]:not([disabled]) {
+        .datetime-picker .form-control[readonly]:not([disabled]) {
             background-color: #fff;
         }
 

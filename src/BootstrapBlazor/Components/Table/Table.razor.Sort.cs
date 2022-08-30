@@ -253,14 +253,9 @@ public partial class Table<TItem>
     /// 获取指定列头样式字符串
     /// </summary>
     /// <returns></returns>
-    protected string? GetIconClassString(string fieldName)
-    {
-        var order = SortName == fieldName ? SortOrder : SortOrder.Unset;
-        return order switch
-        {
-            SortOrder.Asc => SortIconAsc,
-            SortOrder.Desc => SortIconDesc,
-            _ => SortIcon
-        };
-    }
+    protected string? GetIconClassString(string fieldName) => CssBuilder.Default("table-sort-icon")
+        .AddClass(SortIcon, SortName != fieldName || SortOrder == SortOrder.Unset)
+        .AddClass(SortIconAsc, SortName == fieldName && SortOrder == SortOrder.Asc)
+        .AddClass(SortIconDesc, SortName == fieldName && SortOrder == SortOrder.Desc)
+        .Build();
 }
