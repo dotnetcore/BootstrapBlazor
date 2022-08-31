@@ -292,7 +292,9 @@ public partial class DateTimeRange
                 SelectedValue.Start = DateTime.Now;
             }
         }
-        Value = SelectedValue;
+        Value.Start = SelectedValue.Start;
+        Value.End = SelectedValue.End;
+
         if (Value.End.Hour == 0)
         {
             Value.End = Value.End.AddDays(1).AddSeconds(-1);
