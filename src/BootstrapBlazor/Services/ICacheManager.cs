@@ -39,4 +39,10 @@ public interface ICacheManager
     /// </summary>
     /// <returns></returns>
     DateTimeOffset GetStartTime();
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="key"></param>
+    void Clear(string? key = null);
 }

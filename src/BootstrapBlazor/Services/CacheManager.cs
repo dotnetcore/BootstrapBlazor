@@ -76,6 +76,22 @@ internal class CacheManager : ICacheManager
     });
 
     /// <summary>
+    /// 清除指定 Key 缓存项
+    /// </summary>
+    /// <param name="key"></param>
+    public void Clear(string? key)
+    {
+        if (!string.IsNullOrEmpty(key))
+        {
+            Cache.Remove(key);
+        }
+        else if (Cache is MemoryCache c)
+        {
+            c.Compact(100);
+        }
+    }
+
+    /// <summary>
     /// 设置 App 开始时间
     /// </summary>
     public void SetStartTime()
