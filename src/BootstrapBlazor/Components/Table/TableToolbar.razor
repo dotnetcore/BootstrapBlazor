@@ -1,7 +1,7 @@
 ﻿@namespace BootstrapBlazor.Components
 @typeparam TItem
 
-<div class="table-toolbar-button">
+<div class="float-start table-toolbar-button">
     <CascadingValue Value="this" IsFixed="true">
         @ChildContent
     </CascadingValue>
@@ -14,19 +14,19 @@
                     @if (button is TableToolbarButton<TItem> b && b.IsShow)
                     {
                         <Button AdditionalAttributes="b.AdditionalAttributes" Size="b.Size"
-                            Color="@b.Color" Icon="@b.Icon" Text="@b.Text" IsAsync="@b.IsAsync"
-                            OnClickWithoutRender="() => OnToolbarButtonClick(b)"
-                            IsDisabled="GetDisabled(b)"></Button>
+                                Color="@b.Color" Icon="@b.Icon" Text="@b.Text" IsAsync="@b.IsAsync"
+                                OnClickWithoutRender="() => OnToolbarButtonClick(b)"
+                                IsDisabled="GetDisabled(b)"></Button>
                     }
                     else if (button is TableToolbarPopconfirmButton<TItem> pb && pb.IsShow)
                     {
                         <PopConfirmButton AdditionalAttributes="pb.AdditionalAttributes"
-                              Color="@pb.Color" Icon="@pb.Icon" Text="@pb.Text" Size="pb.Size"
-                              IsDisabled="@pb.IsDisabled" IsBlock="@pb.IsBlock" IsOutline="@pb.IsOutline"
-                              OnBeforeClick="@pb.OnBeforeClick" OnClose="@pb.OnClose" OnConfirm="@pb.OnConfirm"
-                              ConfirmIcon="@pb.ConfirmIcon" ConfirmButtonColor="@pb.ConfirmButtonColor"
-                              ConfirmButtonText="@pb.ConfirmButtonText" CloseButtonColor="@pb.CloseButtonColor"
-                              CloseButtonText="@pb.CloseButtonText" Content="@pb.Content">
+                                          Color="@pb.Color" Icon="@pb.Icon" Text="@pb.Text" Size="pb.Size"
+                                          IsDisabled="@pb.IsDisabled" IsBlock="@pb.IsBlock" IsOutline="@pb.IsOutline"
+                                          OnBeforeClick="@pb.OnBeforeClick" OnClose="@pb.OnClose" OnConfirm="@pb.OnConfirm"
+                                          ConfirmIcon="@pb.ConfirmIcon" ConfirmButtonColor="@pb.ConfirmButtonColor"
+                                          ConfirmButtonText="@pb.ConfirmButtonText" CloseButtonColor="@pb.CloseButtonColor"
+                                          CloseButtonText="@pb.CloseButtonText" Content="@pb.Content">
                         </PopConfirmButton>
                     }
                 }

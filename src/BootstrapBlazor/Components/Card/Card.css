@@ -1,24 +1,29 @@
-﻿.card .card-collapse {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    cursor: pointer;
+﻿.card {
+    --bs-card-border-radius: var(--bs-border-radius);
+    --bs-card-inner-border-radius: calc(var(--bs-border-radius) - 1px);
 }
 
-    .card .card-collapse .card-collapse-body {
-        display: flex;
+    .card .card-collapse {
         flex: 1;
+        display: flex;
         align-items: center;
-        margin-left: .5rem;
+        cursor: pointer;
     }
 
-.card .card-collapse-arrow {
-    transition: transform .3s linear;
-}
+        .card .card-collapse .card-collapse-body {
+            display: flex;
+            flex: 1;
+            align-items: center;
+            margin-left: .5rem;
+        }
 
-.card .is-open .card-collapse-arrow {
-    transform: rotate( 90deg);
-}
+    .card .card-collapse-arrow {
+        transition: transform .3s linear;
+    }
+
+    .card .is-open .card-collapse-arrow {
+        transform: rotate( 90deg);
+    }
 
 .card-shadow {
     transition: box-shadow .3s linear;

@@ -12,13 +12,14 @@
     --bb-table-footer-font-weight: blod;
     --bb-table-footer-border-top: 2px solid #dee2e6;
     --bb-table-loader-bg: #f8f9fa;
+    --bb-table-card-row-padding: .75rem 0;
 }
 
     .table-container .table:not(.table-excel) .switch {
         --bb-switch-padding: 0;
     }
 
-    .table-container > :not(:first-child):not(.table-loader) {
+    .table-container > :where(:not(:first-child):not(.table-loader):not(.table-wrapper), :not(.table-toolbar) + .table-wrapper) {
         margin-top: .5rem;
     }
 
@@ -30,7 +31,7 @@
 }
 
 .table > :not(caption) > * > * {
-    padding: var(--bb-table-td-padding-x) var(--bb-table-td-padding-y);
+    padding: var(--bb-table-td-padding-y) var(--bb-table-td-padding-x);
 }
 
 .table-dark {
@@ -196,21 +197,18 @@
     padding-right: 0;
 }
 
-.table-toolbar {
-    display: flex;
+.table-toolbar:after {
+    content: "";
+    display: block;
+    clear: both;
 }
 
-    .table-toolbar .table-toolbar-button .table-toolbar-search {
-        border-top-left-radius: var(--bs-border-radius);
-        border-bottom-left-radius: var(--bs-border-radius);
-    }
+.table-toolbar .table-toolbar-button {
+    margin-bottom: .5rem;
+}
 
-    .table-toolbar .dropdown-menu .dropdown-item span {
-        margin-left: 0.5rem;
-    }
-
-.table-pagination:not(.is-top) {
-    margin-top: 0.5rem;
+.table-toolbar .dropdown-menu .dropdown-item span {
+    margin-left: .5rem;
 }
 
 .btn-gear .dropdown-menu {
@@ -324,7 +322,7 @@
 }
 
 .table-row {
-    padding: 0.75rem;
+    padding: var(--bb-table-card-row-padding);
 }
 
     .table-row:not(:last-child) {
@@ -332,13 +330,13 @@
     }
 
     .table-row:first-child {
-        border-top-left-radius: 4px;
-        border-top-right-radius: 4px;
+        border-top-left-radius: var(--bs-border-radius);
+        border-top-right-radius: var(--bs-border-radius);
     }
 
     .table-row:last-child {
-        border-bottom-left-radius: 4px;
-        border-bottom-right-radius: 4px;
+        border-bottom-left-radius: var(--bs-border-radius);
+        border-bottom-right-radius: var(--bs-border-radius);
     }
 
     .table-row .table-cell:not(:last-child) {
