@@ -397,6 +397,24 @@ public partial class TreeView<TItem>
     }
 
     /// <summary>
+    /// 清除 所有选中节点
+    /// </summary>
+    public void ClrearCheckedItems()
+    {
+        Items.ForEach(item =>
+        {
+            item.CheckedState = CheckboxState.UnChecked;
+            treeNodeCache.ToggleCheck(item);
+            item.GetAllTreeSubItems().ToList().ForEach(s =>
+            {
+                s.CheckedState = CheckboxState.UnChecked;
+                treeNodeCache.ToggleCheck(s);
+            });
+            StateHasChanged();
+        });
+    }
+
+    /// <summary>
     /// 获得 所有选中节点集合
     /// </summary>
     /// <returns></returns>
