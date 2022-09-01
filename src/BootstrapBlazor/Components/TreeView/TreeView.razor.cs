@@ -399,7 +399,7 @@ public partial class TreeView<TItem>
     /// <summary>
     /// 清除 所有选中节点
     /// </summary>
-    public void ClrearCheckedItems()
+    public void ClearCheckedItems()
     {
         Items.ForEach(item =>
         {
