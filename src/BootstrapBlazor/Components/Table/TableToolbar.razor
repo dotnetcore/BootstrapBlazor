@@ -16,6 +16,7 @@
                         <Button AdditionalAttributes="b.AdditionalAttributes" Size="b.Size"
                                 Color="@b.Color" Icon="@b.Icon" Text="@b.Text" IsAsync="@b.IsAsync"
                                 OnClickWithoutRender="() => OnToolbarButtonClick(b)"
+                                TooltipText="@b.TooltipText" TooltipPlacement="@b.TooltipPlacement" TooltipTrigger="@b.TooltipTrigger"
                                 IsDisabled="GetDisabled(b)"></Button>
                     }
                     else if (button is TableToolbarPopconfirmButton<TItem> pb && pb.IsShow)
