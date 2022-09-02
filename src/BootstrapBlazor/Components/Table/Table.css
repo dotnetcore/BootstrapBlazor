@@ -23,15 +23,15 @@
         margin-top: .5rem;
     }
 
+    .table-container .table > :not(caption) > * > * {
+        padding: var(--bb-table-td-padding-y) var(--bb-table-td-padding-x);
+    }
+
 .table-excel {
     --bb-hover-border-color: transparent;
     --bb-focus-border-color: transparent;
     --bb-border-color: transparent;
     --bs-border-radius: 0;
-}
-
-.table > :not(caption) > * > * {
-    padding: var(--bb-table-td-padding-y) var(--bb-table-td-padding-x);
 }
 
 .table-dark {
