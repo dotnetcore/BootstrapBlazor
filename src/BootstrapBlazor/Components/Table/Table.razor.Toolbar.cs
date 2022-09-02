@@ -702,9 +702,18 @@ public partial class Table<TItem>
             ColumnVisibles.Clear();
             ColumnVisibles.AddRange(Columns.Select(i => new ColumnVisibleItem { FieldName = i.GetFieldName(), Visible = i.Visible }));
 
-            QueryItems = DynamicContext.GetItems().Cast<TItem>();
-            RowsCache = null;
+            QueryDynamicItems(DynamicContext);
         }
+    }
+
+    private void QueryDynamicItems(IDynamicObjectContext context)
+    {
+        QueryItems = context.GetItems().Cast<TItem>();
+        TotalCount = QueryItems.Count();
+        RowsCache = null;
+
+        // 重置选中行
+        ResetSelectedRows(QueryItems);
     }
 
     /// <summary>
