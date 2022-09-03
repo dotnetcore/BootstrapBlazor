@@ -1503,6 +1503,8 @@
     "Block7Intro": "Change the component background color by setting the <code>Color</code> property",
     "BlockIsButtonTitle": "Button Radio",
     "BlockIsButtonIntro": "Set <code>IsButton</code> to <code>True</code> make the radio item display as Button",
+    "ItemTemplateTitle": "ItemTemplate",
+    "ItemTemplateIntro": "Set <code>ItemTemplate</code> for customer the item UI",
     "Att1": "Displays text",
     "Att2": "The empty value displays the text",
     "Att3": "Whether to disable it",

@@ -1501,6 +1501,8 @@
     "Block6Intro": "通过双向绑定 <code>Value</code> 无需设置 <code>Items</code>",
     "BlockIsButtonTitle": "按钮样式",
     "BlockIsButtonIntro": "通过设定 <code>IsButton</code> 值为 <code>True</code> 将候选项更改为按钮样式",
+    "ItemTemplateTitle": "项目模板",
+    "ItemTemplateIntro": "通过设置 <code>ItemTemplate</code> 自定义显示 UI",
     "P1": "通过设置 <code>IsAutoAddNullItem</code> 自动添加 <b>空值</b> 选项，通过设置 <code>NullItemText</code> 自定义 <b>空值</b> 选项",
     "RadioText2": "空值",
     "Block7Title": "颜色",

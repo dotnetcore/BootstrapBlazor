@@ -9,7 +9,8 @@
 <div @attributes="@AdditionalAttributes" class="@GetClassString(RadioClassString)">
     @foreach (var item in Items)
     {
-        <Radio TValue="SelectedItem" IsButton="IsButton" Value="@item" Color="@Color" GroupName="@GroupName" IsDisabled="@IsDisabled" ShowAfterLabel="true" ShowLabel="false" DisplayText="@item.Text" State="@CheckState(item)" OnClick="OnClick" />
+        var content = GetChildContent(item);
+        <Radio TValue="SelectedItem" IsButton="IsButton" Value="@item" Color="@Color" GroupName="@GroupName" IsDisabled="@IsDisabled" ShowAfterLabel="true" ShowLabel="false" DisplayText="@item.Text" State="@CheckState(item)" OnClick="OnClick" ChildContent="content!" />
     }
 </div>
 @ChildContent

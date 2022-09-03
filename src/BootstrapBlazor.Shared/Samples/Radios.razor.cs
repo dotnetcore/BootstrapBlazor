@@ -24,6 +24,9 @@ public sealed partial class Radios
     [NotNull]
     private IEnumerable<SelectedItem>? DemoValues { get; set; }
 
+    [NotNull]
+    private IEnumerable<IconSelectedItem>? IconDemoValues { get; set; }
+
     private Task OnSelectedChanged(IEnumerable<SelectedItem> values, string val)
     {
         var value = values.FirstOrDefault();
@@ -78,6 +81,12 @@ public sealed partial class Radios
         };
         Model = Foo.Generate(LocalizerFoo);
         FooItems = Foo.GetCompleteItems(LocalizerFoo);
+
+        IconDemoValues = new List<IconSelectedItem>()
+        {
+            new IconSelectedItem() { Text = "Item1", Value = "1", Icon = "fa-solid fa-users" },
+            new IconSelectedItem() { Text = "Item2", Value = "2", Icon = "fa-solid fa-users-gear" }
+        };
     }
 
     private IEnumerable<AttributeItem> GetAttributes() => new[]
@@ -153,4 +162,9 @@ public sealed partial class Radios
             Type ="Func<IEnumerable<SelectedItem>, TValue, Task>"
         }
     };
+
+    class IconSelectedItem : SelectedItem
+    {
+        public string? Icon { get; set; }
+    }
 }
