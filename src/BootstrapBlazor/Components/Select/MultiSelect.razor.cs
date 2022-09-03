@@ -338,7 +338,7 @@ public partial class MultiSelect<TValue>
 
     private async Task SelectAll()
     {
-        foreach (var item in Items)
+        foreach (var item in GetData())
         {
             item.Active = true;
         }
@@ -350,7 +350,7 @@ public partial class MultiSelect<TValue>
 
     private async Task InvertSelect()
     {
-        foreach (var item in Items)
+        foreach (var item in GetData())
         {
             item.Active = !item.Active;
         }
