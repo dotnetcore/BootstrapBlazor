@@ -2253,6 +2253,8 @@
     "BasicUsageIntro": "可同时展开多个面板，面板之间不影响",
     "AccordionTitle": "手风琴效果",
     "AccordionIntro": "每次只能展开一个面板",
+    "IconTitle": "图标效果",
+    "IconIntro": "面板标题前置图标",
     "ColorTitle": "子项标题颜色",
     "ColorIntro": "每个面板设置不同颜色",
     "ItemsTitle": "动态更新",
@@ -2272,7 +2274,8 @@
     "ControllabilityItem2": "结果可控：用户可以自由的进行操作，包括撤销、回退和终止当前操作等。",
     "ButtonText": "切换",
     "CollapseItems": "内容",
-    "IsAccordion": "是否手风琴效果"
+    "IsAccordion": "是否手风琴效果",
+    "OnCollapseChanged": "项目收起展开状态改变回调方法"
   },
   "BootstrapBlazor.Shared.Samples.Displays": {
     "Title": "Display 显示组件",

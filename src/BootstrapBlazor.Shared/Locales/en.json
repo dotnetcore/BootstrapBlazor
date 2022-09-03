@@ -2248,6 +2248,8 @@
     "BasicUsageIntro": "Multiple panels can be expanded at the same time, with no effect between panels",
     "AccordionTitle": "Accordion effect",
     "AccordionIntro": "Only one panel can be expanded at a time",
+    "IconTitle": "Icon",
+    "IconIntro": "Show icon in header",
     "ColorTitle": "The child title color",
     "ColorIntro": "Each panel sets a different color",
     "ItemsTitle": "Dynamic updates",
@@ -2267,7 +2269,8 @@
     "ControllabilityItem2": "Results controllable: Users are free to perform actions, including undoing, falling back, and terminating the current operation.",
     "ButtonText": "Toggle",
     "CollapseItems": "Content",
-    "IsAccordion": "Whether the accordion effect"
+    "IsAccordion": "Whether the accordion effect",
+    "OnCollapseChanged": "The callback of switch expand/collapse item state"
   },
   "BootstrapBlazor.Shared.Samples.Displays": {
     "Title": "Display",

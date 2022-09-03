@@ -250,6 +250,8 @@ public class TableTest : TableTestBase
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.ShowToolbar, true);
                 pb.Add(a => a.ShowSearch, true);
                 pb.Add(a => a.Items, Foo.GenerateFoo(localizer));
                 pb.Add(a => a.TableColumns, foo => builder =>
@@ -275,6 +277,7 @@ public class TableTest : TableTestBase
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
+                pb.Add(a => a.ShowToolbar, true);
                 pb.Add(a => a.ShowSearch, true);
                 pb.Add(a => a.ShowSearchText, false);
                 pb.Add(a => a.SearchDialogSize, Size.ExtraExtraLarge);
@@ -311,6 +314,7 @@ public class TableTest : TableTestBase
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
+                pb.Add(a => a.ShowToolbar, true);
                 pb.Add(a => a.ShowSearch, true);
                 pb.Add(a => a.CustomerSearchModel, searchModel);
                 pb.Add(a => a.CustomerSearchTemplate, foo => builder => builder.AddContent(0, "test_CustomerSearchTemplate"));
@@ -2532,6 +2536,7 @@ public class TableTest : TableTestBase
             pb.AddChildContent<Table<Foo>>(pb =>
             {
                 pb.Add(a => a.ShowSearch, true);
+                pb.Add(a => a.ShowToolbar, true);
                 pb.Add(a => a.RenderMode, TableRenderMode.Table);
                 pb.Add(a => a.ShowSearchTextTooltip, showTooltip);
                 pb.Add(a => a.SearchTooltip, "test_tooltip");
@@ -2567,6 +2572,7 @@ public class TableTest : TableTestBase
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
+                pb.Add(a => a.ShowToolbar, true);
                 pb.Add(a => a.ShowSearch, true);
                 pb.Add(a => a.RenderMode, TableRenderMode.Table);
                 pb.Add(a => a.ShowResetButton, showResetbutton);
@@ -4103,7 +4109,7 @@ public class TableTest : TableTestBase
         });
 
         var table = cut.FindComponent<Table<Foo>>();
-        Assert.Contains("<div class=\"table-toolbar\"></div>", table.Markup);
+        Assert.DoesNotContain("<div class=\"table-toolbar\"></div>", table.Markup);
 
         table.SetParametersAndRender(pb =>
         {
