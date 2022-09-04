@@ -11,24 +11,43 @@ namespace BootstrapBlazor.Components;
 /// </summary>
 public interface ICacheManager
 {
+#if NET7_0_OR_GREATER
     /// <summary>
     /// 
     /// </summary>
-    /// <typeparam name="T"></typeparam>
+    /// <typeparam name="TItem"></typeparam>
     /// <param name="key"></param>
     /// <param name="factory"></param>
     /// <returns></returns>
-    T GetOrCreate<T>(object key, Func<ICacheEntry, T> factory);
+    TItem? GetOrCreate<TItem>(object key, Func<ICacheEntry, TItem> factory);
 
     /// <summary>
     /// 
     /// </summary>
-    /// <typeparam name="T"></typeparam>
+    /// <typeparam name="TItem"></typeparam>
     /// <param name="key"></param>
     /// <param name="factory"></param>
     /// <returns></returns>
-    Task<T> GetOrCreateAsync<T>(object key, Func<ICacheEntry, Task<T>> factory);
+    Task<TItem?> GetOrCreateAsync<TItem>(object key, Func<ICacheEntry, Task<TItem>> factory);
+#else
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <typeparam name="TItem"></typeparam>
+    /// <param name="key"></param>
+    /// <param name="factory"></param>
+    /// <returns></returns>
+    TItem GetOrCreate<TItem>(object key, Func<ICacheEntry, TItem> factory);
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <typeparam name="TItem"></typeparam>
+    /// <param name="key"></param>
+    /// <param name="factory"></param>
+    /// <returns></returns>
+    Task<TItem> GetOrCreateAsync<TItem>(object key, Func<ICacheEntry, Task<TItem>> factory);
+#endif
     /// <summary>
     /// 获取 App 开始时间
     /// </summary>

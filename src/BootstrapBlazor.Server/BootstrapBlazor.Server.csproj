@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
-  <Import Project="..\Framework.props" />
+  <Import Project="..\..\Framework.props" />
 
   <PropertyGroup>
     <IsWebProject>true</IsWebProject>
@@ -18,3 +18,4 @@
   </ItemGroup>
 
 </Project>
+

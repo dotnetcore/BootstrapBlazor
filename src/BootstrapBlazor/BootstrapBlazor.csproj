@@ -24,6 +24,16 @@
     <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="6.0" />
   </ItemGroup>
 
+  <ItemGroup Condition="'$(TargetFramework)' == 'net7.0'">
+    <PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="7.0.0-*" />
+    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="7.0.0-*" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="7.0.0-*" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="7.0.0-*" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="7.0.0-*" />
+    <PackageReference Include="Microsoft.Extensions.Localization" Version="7.0.0-*" />
+    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="7.0.0-*" />
+  </ItemGroup>
+
   <ItemGroup>
     <Content Remove="Locales\*.json" />
     <EmbeddedResource Include="Locales\*.json" />

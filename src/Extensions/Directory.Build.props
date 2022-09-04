@@ -2,20 +2,7 @@
 
   <Import Project="..\Directory.Build.props" />
   <Import Project="..\Frameworks.props" />
+  <Import Project="..\Logo.targets" />
   <Import Project="..\SourceLink.targets" />
-
-  <PropertyGroup>
-    <IsPackable>true</IsPackable>
-    <PackageIcon>logo.png</PackageIcon>
-    <Version>6.0.0</Version>
-  </PropertyGroup>
-
-  <ItemGroup>
-    <SupportedPlatform Include="browser" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="logo.png" Pack="true" PackagePath="" />
-  </ItemGroup>
 
 </Project>
