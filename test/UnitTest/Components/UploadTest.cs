@@ -692,6 +692,7 @@ public class UploadTest : BootstrapBlazorTestBase
             });
         });
         await cut.InvokeAsync(() => cut.Instance.Reset());
+        Assert.NotNull(cut.Instance.DefaultFileList);
         Assert.Empty(cut.Instance.DefaultFileList);
     }
 

@@ -59,6 +59,7 @@ public class EditorTest : Core.BootstrapBlazorTestBase
 
         IEnumerable<EditorToolbarButton>? btns = null;
         await cut.InvokeAsync(async () => btns = await cut.Instance.GetPluginAttrs());
+        Assert.NotNull(btns);
         Assert.Single(btns);
         Assert.Equal("Class1", btns!.First().IconClass);
         Assert.Equal("Tooltip1", btns!.First().Tooltip);
@@ -77,12 +78,12 @@ public class EditorTest : Core.BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void DoMethodAysnc_Ok()
+    public async Task DoMethodAysnc_Ok()
     {
         var cut = Context.RenderComponent<Editor>(pb =>
         {
             pb.Add(a => a.Value, "Test");
         });
-        cut.Instance.DoMethodAysnc("test", new object[] { "1" });
+        await cut.Instance.DoMethodAysnc("test", new object[] { "1" });
     }
 }

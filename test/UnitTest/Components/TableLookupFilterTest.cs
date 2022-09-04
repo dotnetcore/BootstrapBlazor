@@ -41,6 +41,7 @@ public class TableLookupFilterTest : BootstrapBlazorTestBase
         var filter = cut.Instance;
         IEnumerable<FilterKeyValueAction>? condtions = null;
         cut.InvokeAsync(() => condtions = filter.GetFilterConditions());
+        Assert.NotNull(condtions);
         Assert.Empty(condtions);
 
         // Set Value
@@ -92,6 +93,7 @@ public class TableLookupFilterTest : BootstrapBlazorTestBase
         IEnumerable<FilterKeyValueAction>? condtions = null;
         cut.InvokeAsync(() => items[1].Click());
         cut.InvokeAsync(() => condtions = cut.FindComponent<LookupFilter>().Instance.GetFilterConditions());
+        Assert.NotNull(condtions);
         Assert.Single(condtions);
     }
 

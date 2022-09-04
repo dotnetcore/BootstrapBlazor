@@ -25,6 +25,7 @@ public class TableBoolFilterTest : BootstrapBlazorTestBase
         var filter = cut.Instance;
         IEnumerable<FilterKeyValueAction>? condtions = null;
         cut.InvokeAsync(() => condtions = filter.GetFilterConditions());
+        Assert.NotNull(condtions);
         Assert.Empty(condtions);
 
         // Set Value
@@ -60,6 +61,7 @@ public class TableBoolFilterTest : BootstrapBlazorTestBase
         IEnumerable<FilterKeyValueAction>? condtions = null;
         cut.InvokeAsync(() => items[1].Click());
         cut.InvokeAsync(() => condtions = filter.GetFilterConditions());
+        Assert.NotNull(condtions);
         Assert.Single(condtions);
     }
 

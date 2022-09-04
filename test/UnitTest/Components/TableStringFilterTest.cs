@@ -69,6 +69,7 @@ public class TableStringFilterTest : BootstrapBlazorTestBase
         IEnumerable<FilterKeyValueAction>? condtions = null;
         cut.InvokeAsync(() => items[1].Click());
         cut.InvokeAsync(() => condtions = cut.FindComponent<StringFilter>().Instance.GetFilterConditions());
+        Assert.NotNull(condtions);
         Assert.Single(condtions);
     }
 

@@ -25,6 +25,7 @@ public class TableDateTimeFilterTest : BootstrapBlazorTestBase
         var filter = cut.Instance;
         IEnumerable<FilterKeyValueAction>? condtions = null;
         cut.InvokeAsync(() => condtions = filter.GetFilterConditions());
+        Assert.NotNull(condtions);
         Assert.Empty(condtions);
 
         // Set Value
@@ -102,6 +103,7 @@ public class TableDateTimeFilterTest : BootstrapBlazorTestBase
             logics[1].Click();
             condtions = filter.Instance.GetFilterConditions();
         });
+        Assert.NotNull(condtions);
         Assert.Single(condtions);
         Assert.Equal(FilterAction.LessThanOrEqual, condtions?.First().FilterAction);
 
@@ -111,6 +113,7 @@ public class TableDateTimeFilterTest : BootstrapBlazorTestBase
             dt.Find(".is-confirm").Click();
             condtions = filter.Instance.GetFilterConditions();
         });
+        Assert.NotNull(condtions);
         Assert.Empty(condtions);
     }
 

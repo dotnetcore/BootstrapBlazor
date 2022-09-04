@@ -2,7 +2,7 @@
 
   <Import Project="..\Directory.Build.props" />
   <Import Project="..\Frameworks.props" />
-  <Import Project="..\Logo.targets" />
+  <Import Project="..\Logo.props" />
   <Import Project="..\SourceLink.targets" />
 
 </Project>
