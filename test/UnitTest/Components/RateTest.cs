@@ -39,7 +39,8 @@ public class RateTest : BootstrapBlazorTestBase
             }));
         });
 
-        await cut.Instance.Clicked(1);
+        var span = cut.Find("span");
+        await cut.InvokeAsync(() => span.Click());
         Assert.True(ret);
     }
 
@@ -57,7 +58,32 @@ public class RateTest : BootstrapBlazorTestBase
             builder.Add(s => s.Value, 5);
         });
 
-        await cut.Instance.Clicked(1);
+        var span = cut.Find("span");
+        await cut.InvokeAsync(() => span.Click());
         Assert.True(ret);
+    }
+
+    [Fact]
+    public void ItemTemplate_Ok()
+    {
+        var cut = Context.RenderComponent<Rate>(pb =>
+        {
+            pb.Add(s => s.ItemTemplate, index => builder =>
+            {
+                builder.AddContent(index, $"<div>item-template-{index}</div>");
+            });
+        });
+        cut.Contains("item-template-1");
+        cut.Contains("item-template-5");
+    }
+
+    [Fact]
+    public void Max_Ok()
+    {
+        var cut = Context.RenderComponent<Rate>(pb =>
+        {
+            pb.Add(s => s.Max, 0);
+        });
+        Assert.Equal(5, cut.Instance.Max);
     }
 }

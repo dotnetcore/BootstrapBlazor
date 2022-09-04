@@ -1987,3 +1987,10 @@ header .bb-fs {
     --bs-popover-body-padding-x: 1rem;
     --bs-popover-body-padding-y: 1rem;
 }
+
+.custom-rate {
+    --bb-rate-font-size: 1.7rem;
+    --bb-rate-height: 30px;
+    --bb-rate-width: 30px;
+    --bb-rate-active-color: var(--bs-primary);
+}

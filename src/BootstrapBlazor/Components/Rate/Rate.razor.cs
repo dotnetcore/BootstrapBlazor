@@ -7,15 +7,8 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// Rate 组件
 /// </summary>
-public partial class Rate : IDisposable
+public partial class Rate
 {
-    private JSInterop<Rate>? Interop { get; set; }
-
-    /// <summary>
-    /// 获得/设置 Rate DOM 元素实例
-    /// </summary>
-    private ElementReference RateElement { get; set; }
-
     /// <summary>
     /// 获得 样式集合
     /// </summary>
@@ -27,6 +20,22 @@ public partial class Rate : IDisposable
     private string? GetItemClassString(int i) => CssBuilder.Default("rate-item")
         .AddClass("is-on", Value >= i)
         .Build();
+
+    private string? GetIcon(int i) => Value >= i ? StarIcon : UnStarIcon;
+
+    /// <summary>
+    /// 获得/设置 选中图标 内置 fa-solid fa-star
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public string? StarIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 未选中图标 内置 fa-regular fa-star
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public string? UnStarIcon { get; set; }
 
     /// <summary>
     /// 获得/设置 组件值
@@ -41,6 +50,12 @@ public partial class Rate : IDisposable
     public bool IsDisable { get; set; }
 
     /// <summary>
+    /// 获得/设置 子项模板
+    /// </summary>
+    [Parameter]
+    public RenderFragment<int>? ItemTemplate { get; set; }
+
+    /// <summary>
     /// 获得/设置 组件值变化时回调委托
     /// </summary>
     [Parameter]
@@ -53,53 +68,46 @@ public partial class Rate : IDisposable
     public Func<int, Task>? OnValueChanged { get; set; }
 
     /// <summary>
-    /// OnAfterRender 方法
+    /// 获得/设置 最大值 默认 5
     /// </summary>
-    /// <param name="firstRender"></param>
-    /// <returns></returns>
-    protected override async Task OnAfterRenderAsync(bool firstRender)
+    [Parameter]
+    public int Max { get; set; } = 5;
+
+    /// <summary>
+    /// OnParametersSet 方法
+    /// </summary>
+    protected override void OnParametersSet()
     {
-        await base.OnAfterRenderAsync(firstRender);
-        if (firstRender)
+        base.OnParametersSet();
+
+        StarIcon ??= "fa-solid fa-star";
+        UnStarIcon ??= "fa-regular fa-star";
+
+        if (Max < 1)
         {
-            if (Interop == null) Interop = new JSInterop<Rate>(JSRuntime);
-            if (Interop != null) await Interop.InvokeVoidAsync(this, RateElement, "bb_rate", nameof(Clicked));
+            Max = 5;
+        }
+
+        if (Value < 1)
+        {
+            Value = 1;
         }
     }
 
-    /// <summary>
-    /// 文件上传成功后回调此方法
-    /// </summary>
-    [JSInvokable]
-    public async Task Clicked(int val)
+    private async Task OnClickItem(int value)
     {
-        Value = val;
-        if (ValueChanged.HasDelegate) await ValueChanged.InvokeAsync(Value);
-        if (OnValueChanged != null) await OnValueChanged(Value);
-    }
-
-    /// <summary>
-    /// Dispose 方法
-    /// </summary>
-    /// <param name="disposing"></param>
-    protected virtual void Dispose(bool disposing)
-    {
-        if (disposing)
+        Value = value;
+        if (OnValueChanged != null)
         {
-            if (Interop != null)
-            {
-                Interop.Dispose();
-                Interop = null;
-            }
+            await OnValueChanged(Value);
         }
-    }
-
-    /// <summary>
-    /// Dispose 方法
-    /// </summary>
-    public void Dispose()
-    {
-        Dispose(disposing: true);
-        GC.SuppressFinalize(this);
+        if (ValueChanged.HasDelegate)
+        {
+            await ValueChanged.InvokeAsync(Value);
+        }
+        else
+        {
+            StateHasChanged();
+        }
     }
 }

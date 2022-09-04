@@ -87,7 +87,6 @@ public class CollapseTest : BootstrapBlazorTestBase
                 builder.CloseComponent();
             }));
         });
-        cut.Contains("accordion-button-secondary");
         cut.Contains("btn-secondary");
     }
 

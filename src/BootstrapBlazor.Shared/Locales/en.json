@@ -1529,12 +1529,19 @@
     "Block1Intro": "<code>Rate</code> component represents the numeric level with 1 - 5 stars, and the value can be bound in both directions in the background by <code>bind-Value</code> Through the <code>Rate</code> component changes its value, the mouse swipe changes the value, and confirms its value when you click on the star",
     "Block2Title": "Disable",
     "Block2Intro": "Disable components by setting <code>IsDisable</code> property values",
+    "IconTitle": "Item Template",
+    "IconIntro": "Set <code>ItemTemplate</code> and <code>custom-rate</code> custom the UI",
     "SwitchOn": "Disable",
     "SwitchOff": "Enable",
     "Att1": "The component value",
     "Att2": "Whether to disable Fasle by default",
     "Event1": "Call back the delegate when the value changes",
-    "Log": "Star rating:"
+    "Log": "Star rating:",
+    "Cry": "Cry",
+    "Tear": "Tear",
+    "Smile": "Smile",
+    "Surprise": "Surprise",
+    "Grin": "Grin"
   },
   "BootstrapBlazor.Shared.Samples.Selects": {
     "Title": "Select",

@@ -1,11 +1,19 @@
 ﻿@namespace BootstrapBlazor.Components
 @inherits BootstrapComponentBase
 
-<div @attributes="@AdditionalAttributes" class="@ClassString" role="slider" aria-valuetext="" aria-valuemin="1" aria-valuemax="5" tabindex="0" aria-valuenow="@(Value==0 ? 0 : Value - 1)" @ref="@RateElement">
-    @for (int i = 1; i < 6; i++)
+<div @attributes="@AdditionalAttributes" class="@ClassString" role="slider" aria-valuemin="1" aria-valuemax="5" tabindex="0" aria-valuenow="@Value">
+    @for (int index = 1; index <= Max; index++)
     {
-        <span class="@GetItemClassString(i)">
-            <i class="fa-regular fa-star"></i>
-        </span>
+        var i = index;
+        <DynamicElement TagName="span" class="@GetItemClassString(i)" OnClick="() => OnClickItem(i)" TriggerClick="!IsDisable">
+            @if (ItemTemplate != null)
+            {
+                @ItemTemplate(i)
+            }
+            else
+            {
+                <i class="@GetIcon(i)"></i>
+            }
+        </DynamicElement>
     }
 </div>
