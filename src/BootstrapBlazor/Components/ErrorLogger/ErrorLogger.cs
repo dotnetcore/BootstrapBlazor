@@ -132,7 +132,7 @@ public class ErrorLogger
 #else
         var ex = Exception;
 #endif
-        if (ex != null)
+        if (ex != null && ErrorContent != null)
         {
             if (Cache.Any())
             {
@@ -144,10 +144,7 @@ public class ErrorLogger
             }
             else
             {
-                if (ErrorContent != null)
-                {
-                    content = ErrorContent.Invoke(ex);
-                }
+                content = ErrorContent.Invoke(ex);
             }
         }
         builder.AddAttribute(3, nameof(CascadingValue<IErrorLogger>.ChildContent), content);

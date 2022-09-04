@@ -14,5 +14,5 @@ public interface IHandlerException
     /// </summary>
     /// <param name="ex"></param>
     /// <param name="ErrorContent"></param>
-    void HandlerException(Exception ex, RenderFragment<Exception>? ErrorContent);
+    Task HandlerException(Exception ex, RenderFragment<Exception> ErrorContent);
 }

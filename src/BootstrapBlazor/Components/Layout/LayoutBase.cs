@@ -258,9 +258,10 @@ public abstract class LayoutBase : BootstrapComponentBase, IHandlerException, IA
     /// </summary>
     /// <param name="ex"></param>
     /// <param name="errorContent"></param>
-    public virtual void HandlerException(Exception ex, RenderFragment<Exception>? errorContent)
+    public virtual Task HandlerException(Exception ex, RenderFragment<Exception> errorContent)
     {
-        _errorContent = errorContent?.Invoke(ex);
+        _errorContent = errorContent(ex);
+        return Task.CompletedTask;
     }
 
     /// <summary>
