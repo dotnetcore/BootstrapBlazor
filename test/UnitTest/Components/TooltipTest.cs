@@ -14,6 +14,7 @@ public class TooltipTest : BootstrapBlazorTestBase
             pb.Add(a => a.Content, "test_tooltip");
             pb.Add(a => a.Trigger, "test_trigger");
         });
+        Assert.Equal("test_tooltip", cut.Instance.Content);
     }
 
     [Fact]

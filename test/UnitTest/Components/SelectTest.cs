@@ -235,4 +235,21 @@ public class SelectTest : BootstrapBlazorTestBase
         // 候选项中无，导致默认选择第一个 Value 被更改为 true
         Assert.True(cut.Instance.Value);
     }
+
+    [Fact]
+    public void SearchIcon_Ok()
+    {
+        var cut = Context.RenderComponent<Select<string>>(pb =>
+        {
+            pb.Add(a => a.Items, new SelectedItem[]
+            {
+                new SelectedItem("1", "Test1"),
+                new SelectedItem("2", "Test2")
+            });
+            pb.Add(a => a.Value, "2");
+            pb.Add(a => a.ShowSearch, true);
+            pb.Add(a => a.SearchIcon, "search-icon");
+        });
+        Assert.Contains("search-icon", cut.Markup);
+    }
 }

@@ -105,20 +105,18 @@ public sealed partial class Dialogs
         await DialogService.Show(option);
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <returns></returns>
     private Task OnClickCounter() => DialogService.Show(new DialogOption()
     {
         Title = "自带的 Counter 组件",
         Component = BootstrapDynamicComponent.CreateComponent<Counter>()
     });
 
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <returns></returns>
+    private Task OnErrorDialog() => DialogService.Show(new DialogOption()
+    {
+        Title = "点击按钮报错测试",
+        Component = BootstrapDynamicComponent.CreateComponent<ErrorCounter>()
+    });
+
     private Task OnClickParameter() => DialogService.Show(new DialogOption()
     {
         Title = "自带的 Counter 组件",

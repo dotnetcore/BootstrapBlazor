@@ -25,12 +25,6 @@ public class FullScreenTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void Title_Ok()
-    {
-        var cut = Context.RenderComponent<FullScreenButton>(builder => builder.Add(s => s.Title, "FullScreen Title"));
-    }
-
-    [Fact]
     public void ToggleFullScreen_Ok()
     {
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(builder =>

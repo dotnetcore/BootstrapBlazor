@@ -15,12 +15,6 @@ public partial class FullScreenButton
     [Parameter]
     public string? FullScreenIcon { get; set; }
 
-    /// <summary>
-    /// 获得/设置 鼠标悬浮提示条信息
-    /// </summary>
-    [Parameter]
-    public string? Title { get; set; }
-
     [Inject]
     [NotNull]
     private FullScreenService? FullScrenService { get; set; }

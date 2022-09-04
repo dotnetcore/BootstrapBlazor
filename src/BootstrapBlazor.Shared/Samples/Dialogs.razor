@@ -155,6 +155,10 @@ await DialogService.Show(op);</Pre>
     <Button OnClick="@OnMaximizeDialogClick">点击打开 Dialog</Button>
 </DemoBlock>
 
+<DemoBlock Title="异常捕获" Introduction="通过 <code>BootstrapBlazorRoot</code> 内置 <code>ErrorLogger</code> 对弹窗内错误进行全局异常捕获" Name="ErrorLogger">
+    <Button OnClick="@OnErrorDialog" Text="全局异常测试" Icon="fa-solid fa-bug"></Button>
+</DemoBlock>
+
 <DemoBlock Title="实战演练" Introduction="模拟一个邮件应用，弹窗选择收件人后填入下方的收件人框。" Name="Email">
     <p>功能介绍</p>
     <ul class="ul-demo mb-3">

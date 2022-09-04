@@ -114,7 +114,6 @@ public partial class BootstrapBlazorRoot
         builder.CloseComponent();
     };
 
-
     [ExcludeFromCodeCoverage]
     private RenderFragment RenderContent() => builder =>
     {

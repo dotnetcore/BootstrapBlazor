@@ -30,12 +30,7 @@
     }
 </div>
 
-@if(_errorContent != null)
-{
-    @_errorContent
-    _errorContent = null;
-}
-else if (BodyTemplate != null)
+@if (BodyTemplate != null)
 {
     @BodyTemplate
 }

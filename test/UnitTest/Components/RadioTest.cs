@@ -152,6 +152,25 @@ public class RadioTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void ItemTemplate_Ok()
+    {
+        var cut = Context.RenderComponent<RadioList<IEnumerable<SelectedItem>>>(pb =>
+        {
+            pb.Add(a => a.Items, new List<SelectedItem>
+            {
+                new("1", "Test1"),
+                new("2", "Test2")
+            });
+            pb.Add(a => a.ItemTemplate, v => builder =>
+            {
+                builder.AddContent(0, $"<div>item-template-{v.Value}</div>");
+            });
+        });
+        cut.Contains("item-template-1");
+        cut.Contains("item-template-2");
+    }
+
+    [Fact]
     public void ValidateForm_Ok()
     {
         var foo = new Foo();

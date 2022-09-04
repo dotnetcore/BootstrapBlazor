@@ -9,7 +9,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 
 /// </summary>
-public partial class SweetAlertBody : IHandlerException, IDisposable
+public partial class SweetAlertBody
 {
     /// <summary>
     /// 获得/设置 关闭按钮文字 默认为 关闭
@@ -136,8 +136,6 @@ public partial class SweetAlertBody : IHandlerException, IDisposable
     {
         base.OnInitialized();
 
-        ErrorLogger?.Register(this);
-
         CloseButtonText ??= Localizer[nameof(CloseButtonText)];
         CancelButtonText ??= Localizer[nameof(CancelButtonText)];
         ConfirmButtonText ??= Localizer[nameof(ConfirmButtonText)];
@@ -160,39 +158,5 @@ public partial class SweetAlertBody : IHandlerException, IDisposable
             OnConfirm.Invoke();
         }
         return Task.CompletedTask;
-    }
-
-    private RenderFragment? _errorContent;
-
-    /// <summary>
-    /// HandlerException 错误处理方法
-    /// </summary>
-    /// <param name="ex"></param>
-    /// <param name="errorContent"></param>
-    public virtual void HandlerException(Exception ex, RenderFragment<Exception>? errorContent)
-    {
-        _errorContent = errorContent?.Invoke(ex);
-        StateHasChanged();
-    }
-
-    /// <summary>
-    /// Dispose 方法
-    /// </summary>
-    protected virtual void Dispose(bool disposing)
-    {
-        if (disposing)
-        {
-            ErrorLogger?.UnRegister(this);
-        }
-    }
-
-    /// <summary>
-    /// Dispose 方法
-    /// </summary>
-    /// <exception cref="NotImplementedException"></exception>
-    public void Dispose()
-    {
-        Dispose(true);
-        GC.SuppressFinalize(this);
     }
 }
