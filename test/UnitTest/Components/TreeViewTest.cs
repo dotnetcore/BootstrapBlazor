@@ -465,6 +465,39 @@ public class TreeViewTest : BootstrapBlazorTestBase
         Assert.NotNull(item.Parent);
     }
 
+    [Fact]
+    public async Task ClearCheckedItems_Ok()
+    {
+        var items = new List<TreeFoo>
+        {
+            new TreeFoo() { Text = "导航一", Id = "1010" },
+
+            new TreeFoo() { Text = "子菜单一", Id = "1011", ParentId = "1010" },
+        };
+
+        // 根节点
+        var nodes = TreeFoo.CascadingTree(items).ToList();
+
+        var cut = Context.RenderComponent<TreeView<TreeFoo>>(pb =>
+        {
+            pb.Add(a => a.Items, nodes);
+            pb.Add(a => a.ShowCheckbox, true);
+        });
+
+        var checkbox = cut.FindAll(".tree-root > .tree-item > .tree-content > .form-check > .form-check-input");
+
+        await cut.InvokeAsync(() => checkbox[0].Click());
+
+        Assert.Contains("is-checked", cut.Markup);
+        var ischecked = cut.Instance.GetCheckedItems().Count() != 0;
+        Assert.True(ischecked);
+
+        await cut.InvokeAsync(() => cut.Instance.ClearCheckedItems());
+        Assert.DoesNotContain("is-checked", cut.Markup);
+        var nochecked = cut.Instance.GetCheckedItems().Count() == 0;
+        Assert.True(nochecked);
+    }
+
     class MockTree<TItem> : TreeView<TItem> where TItem : class
     {
         public bool TestComparerItem(TItem a, TItem b)
