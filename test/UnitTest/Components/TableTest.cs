@@ -5123,7 +5123,7 @@ public class TableTest : TableTestBase
         });
 
         var table = cut.FindComponent<Table<Foo>>();
-        Assert.Equal(7, table.Instance.Columns.Count);
+        Assert.Equal(8, table.Instance.Columns.Count);
     }
 
     [Fact]

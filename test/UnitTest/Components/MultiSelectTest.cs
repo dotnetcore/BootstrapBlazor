@@ -131,7 +131,7 @@ public class MultiSelectTest : BootstrapBlazorTestBase
                 new("2", "Test2")
             });
         });
-        cut.Find(".search-text").Input("T");
+        cut.Find(".form-control").Input("T");
         Assert.Contains("multi-select", cut.Markup);
     }
 

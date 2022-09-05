@@ -424,21 +424,22 @@ public class LambadaExtensionsTest
     [Fact]
     public void GetKeyValue_Ok()
     {
-        var foo1 = new Foo() { Id = 123, Name = "Test", Count = 20 };
-        var foo2 = new Foo() { Id = 234, Name = "Test", Count = 20 };
+        var foo1 = new Dog() { Id = 123, Name = "Test", Age = 20 };
+        var foo2 = new Dog() { Id = 234, Name = "Test", Age = 20 };
 
-        var invoker1 = LambdaExtensions.GetKeyValue<Foo?, int>().Compile();
+        var invoker1 = LambdaExtensions.GetKeyValue<Dog?, int>().Compile();
         Assert.Equal(123, invoker1(foo1));
 
-        var invoker2 = LambdaExtensions.GetKeyValue<Foo?, object>().Compile();
+        var invoker2 = LambdaExtensions.GetKeyValue<Dog?, object>().Compile();
         Assert.Equal(123, invoker2(foo1));
 
-        Assert.Throws<InvalidOperationException>(() => LambdaExtensions.GetKeyValue<Foo?, DateTime>());
+        Assert.Throws<InvalidOperationException>(() => LambdaExtensions.GetKeyValue<Dog?, DateTime>());
 
-        var invoker3 = LambdaExtensions.GetKeyValue<Foo?, object>(typeof(RequiredAttribute)).Compile();
+        foo2.Id = 123;
+        var invoker3 = LambdaExtensions.GetKeyValue<Dog?, object>(typeof(DogKeyAttribute)).Compile();
         Assert.Equal(invoker3(foo1), invoker3(foo2));
 
-        foo1.Address = "Test";
+        foo1.Age = 40;
         Assert.NotEqual(invoker3(foo1), invoker3(foo2));
     }
 
@@ -592,6 +593,7 @@ public class LambadaExtensionsTest
     private class Dog
     {
         [DogKey]
+        [Key]
         public int Id { get; set; }
 
         [DogKey]
