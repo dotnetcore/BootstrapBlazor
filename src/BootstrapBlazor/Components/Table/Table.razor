@@ -542,7 +542,7 @@ RenderFragment<bool> RenderHeader => hasScroll =>
             <CascadingValue Value="this" IsFixed="true">
                 @foreach (var col in GetColumns())
                 {
-                    @if (CheckShownWithBreakpoint(col))
+                    if (CheckShownWithBreakpoint(col))
                     {
                         var fieldName = col.GetFieldName();
                         var displayName = col.GetDisplayName();
@@ -611,9 +611,9 @@ RenderFragment<TItem> RenderRow => item =>
     }
     @foreach (var col in GetColumns())
     {
-        @if (CheckShownWithBreakpoint(col))
+        if (CheckShownWithBreakpoint(col))
         {
-            @if (prevColspan > 1)
+            if (prevColspan > 1)
             {
                 prevColspan--;
                 continue;
@@ -621,7 +621,7 @@ RenderFragment<TItem> RenderRow => item =>
             var cellClass = "";
             int colspan = 0;
             string? value = null;
-            @if (col.OnCellRender != null)
+            if (col.OnCellRender != null)
             {
                 var args = new TableCellArgs { Row = item, ColumnName = col.GetFieldName() };
                 col.OnCellRender(args);
@@ -738,7 +738,10 @@ RenderFragment<(TItem Item, ItemChangedType ChangedType)> RenderEditForm => item
                     <EditorForm TModel="TItem" Items="Columns.Where(c => c.Editable)" ItemsPerRow="EditDialogItemsPerRow" RowType="EditDialogRowType" LabelAlign="EditDialogLabelAlign">
                         <Buttons>
                             <div class="text-end">
-                                <Button Color="Color.Secondary" Icon="fa-solid fa-xmark" Text="@CancelDeleteButtonText" OnClick="CancelSave" />
+                                @if(!IsTracking)
+                                {
+                                    <Button Color="Color.Secondary" Icon="fa-solid fa-xmark" Text="@CancelDeleteButtonText" OnClick="CancelSave" />
+                                }
                                 <Button Color="Color.Primary" ButtonType="ButtonType.Submit" Icon="fa-solid fa-floppy-disk" Text="@SaveButtonText" />
                             </div>
                         </Buttons>
@@ -803,8 +806,11 @@ RenderFragment<TItem> RenderRowExtendButtons => item =>
             {
                 @if (isInCell)
                 {
-                    <Button Size="Size.ExtraSmall" OnClick="ClickUpdateButtonCallback" Color="Color.Success" Icon="fa-solid fa-pen" Text="@UpdateButtonText" />
-                    <Button Size="Size.ExtraSmall" OnClick="@CancelSave" Color="Color.Warning" Icon="fa-solid fa-xmark" Text="@CancelButtonText" />
+                    <Button Size="Size.ExtraSmall" OnClick="ClickUpdateButtonCallback" Color="Color.Success" Icon="fa-solid fa-floppy-disk" Text="@SaveButtonText" />
+                    if (!IsTracking)
+                    {
+                        <Button Size="Size.ExtraSmall" OnClick="@CancelSave" Color="Color.Warning" Icon="fa-solid fa-xmark" Text="@CancelButtonText" />
+                    }
                 }
                 else
                 {

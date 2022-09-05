@@ -188,15 +188,21 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
     public ScrollMode ScrollMode { get; set; }
 
     /// <summary>
-    /// 获得/设置 虚拟滚动行高 默认为 39.5
+    /// 获得/设置 虚拟滚动行高 默认为 38
     /// </summary>
     /// <remarks>需要设置 <see cref="ScrollMode"/> 值为 Virtual 时生效</remarks>
     [Parameter]
-    public float RowHeight { get; set; } = 39.5f;
+    public float RowHeight { get; set; } = 38f;
 
     [Inject]
     [NotNull]
     private IOptionsMonitor<BootstrapBlazorOptions>? Options { get; set; }
+
+    /// <summary>
+    /// 获得/设置 组件是否采用 Tracking 模式对编辑项进行直接更新 默认 false
+    /// </summary>
+    [Parameter]
+    public bool IsTracking { get; set; }
 
     [Inject]
     [NotNull]
@@ -992,10 +998,7 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
     {
         foreach (var column in Columns)
         {
-            if (column.Filter != null)
-            {
-                column.Filter.FilterAction.Reset();
-            }
+            column.Filter?.FilterAction.Reset();
         }
         Filters.Clear();
         await OnFilterAsync();
@@ -1012,6 +1015,14 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
     /// </summary>
     /// <returns></returns>
     private bool GetDeleteButtonStatus() => ShowAddForm || AddInCell || !SelectedRows.Any();
+
+    private async Task InvokeItemsChanged()
+    {
+        if (ItemsChanged.HasDelegate)
+        {
+            await ItemsChanged.InvokeAsync(Rows);
+        }
+    }
 
     #region Dispose
     /// <summary>

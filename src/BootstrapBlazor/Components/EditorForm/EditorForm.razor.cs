@@ -15,6 +15,10 @@ namespace BootstrapBlazor.Components;
 #endif
 public partial class EditorForm<TModel> : IShowLabel
 {
+    private string? ClassString => CssBuilder.Default("form-body")
+        .AddClassFromAttributes(AdditionalAttributes)
+        .Build();
+
     /// <summary>
     /// 支持每行多少个控件功能
     /// </summary>

@@ -263,28 +263,6 @@ public partial class Table<TItem>
         }
     }
 
-    private async Task InternalOnEditAsync()
-    {
-        if (OnEditAsync != null)
-        {
-            EditModel = Utility.Clone(SelectedRows[0]);
-            await OnEditAsync(EditModel);
-        }
-        else
-        {
-            var d = DataService ?? InjectDataService;
-            if (d is IEntityFrameworkCoreDataService ef)
-            {
-                EditModel = SelectedRows[0];
-                await ef.EditAsync(EditModel);
-            }
-            else
-            {
-                EditModel = Utility.Clone(SelectedRows[0]);
-            }
-        }
-    }
-
     /// <summary>
     /// 单选模式下选择行时调用此方法
     /// </summary>

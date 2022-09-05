@@ -2880,6 +2880,7 @@
     "TablePage": "分页功能",
     "TableToolbar": "工具栏",
     "TableEdit": "表单维护",
+    "TableTracking": "跟踪模式",
     "TableDynamicExcel": "Excel-DataTable",
     "TableExcel": "Excel-Items",
     "TableExport": "导出功能",

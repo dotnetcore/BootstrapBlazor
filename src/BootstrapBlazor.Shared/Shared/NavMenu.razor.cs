@@ -720,6 +720,11 @@ public sealed partial class NavMenu
             },
             new()
             {
+                Text = Localizer["TableTracking"],
+                Url = "tables/tracking"
+            },
+            new()
+            {
                 Text = Localizer["TableExcel"],
                 Url = "tables/excel"
             },

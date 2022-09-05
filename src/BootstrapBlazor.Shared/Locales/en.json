@@ -2871,6 +2871,7 @@
     "TablePage": "Pagination",
     "TableToolbar": "Toolbar",
     "TableEdit": "Edit",
+    "TableTracking": "Tracking",
     "TableDynamicExcel": "Excel-DataTable",
     "TableExcel": "Excel-Items",
     "TableExport": "Export",

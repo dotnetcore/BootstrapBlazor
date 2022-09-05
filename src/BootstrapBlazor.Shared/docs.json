@@ -60,6 +60,7 @@
     "tree": "Table/TablesTree",
     "validateforms": "ValidateForms",
     "wrap": "Table/TablesWrap",
+    "tracking": "Table/TablesTracking",
     "virtualization": "Table/TablesVirtualization",
     "onscreenkeyboards": "OnScreenKeyboards",
     "signaturepads": "SignaturePad/SignaturePads",

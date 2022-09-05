@@ -373,6 +373,23 @@ public partial class Table<TItem>
             await ShowToastAsync(content);
         }
 
+        async Task InternalOnEditAsync()
+        {
+            EditModel = IsTracking ? SelectedRows[0] : Utility.Clone(SelectedRows[0]);
+            if (OnEditAsync != null)
+            {
+                await OnEditAsync(EditModel);
+            }
+            else
+            {
+                var d = DataService ?? InjectDataService;
+                if (d is IEntityFrameworkCoreDataService ef)
+                {
+                    await ef.EditAsync(EditModel);
+                }
+            }
+        }
+
         async Task ShowToastAsync(string content)
         {
             var option = new ToastOption
@@ -454,45 +471,50 @@ public partial class Table<TItem>
         {
             if (EditMode == EditMode.EditForm)
             {
+                ShowEditForm = false;
                 if (ShowAddForm)
                 {
-                    // TODO: 未支持双向绑定 Items
-                    await QueryData();
                     ShowAddForm = false;
+                    if (IsTracking)
+                    {
+                        var index = InsertRowMode == InsertRowMode.First ? 0 : Rows.Count;
+                        Rows.Insert(index, EditModel);
+                        await InvokeItemsChanged();
+                    }
+                    else
+                    {
+                        await QueryData();
+                    }
                 }
-                ShowEditForm = false;
-                StateHasChanged();
+                else
+                {
+                    StateHasChanged();
+                }
             }
             else if (EditMode == EditMode.InCell)
             {
                 EditInCell = false;
                 AddInCell = false;
+
+                // 通过 EditModel 恢复 编辑数据
+                if (changedType == ItemChangedType.Add)
+                {
+                    var index = InsertRowMode == InsertRowMode.First ? 0 : Rows.Count;
+                    Rows.Insert(index, EditModel);
+                }
+                else
+                {
+                    var index = Rows.IndexOf(SelectedRows[0]);
+                    Rows.RemoveAt(index);
+                    Rows.Insert(index, EditModel);
+                }
+                SelectedRows.Clear();
                 if (ItemsChanged.HasDelegate)
                 {
-                    // 通过 EditModel 恢复 编辑数据
-                    if (changedType == ItemChangedType.Add)
-                    {
-                        if (InsertRowMode == InsertRowMode.Last)
-                        {
-                            Rows.Add(EditModel);
-                        }
-                        else if (InsertRowMode == InsertRowMode.First)
-                        {
-                            Rows.Insert(0, EditModel);
-                        }
-                    }
-                    else
-                    {
-                        var index = Rows.IndexOf(SelectedRows[0]);
-                        Rows.RemoveAt(index);
-                        Rows.Insert(index, EditModel);
-                    }
-                    SelectedRows.Clear();
                     await ItemsChanged.InvokeAsync(Rows);
                 }
                 else
                 {
-                    SelectedRows.Clear();
                     await QueryAsync();
                 }
             }
@@ -550,6 +572,7 @@ public partial class Table<TItem>
             IsDraggable = EditDialogIsDraggable,
             ShowMaximizeButton = EditDialogShowMaximizeButton,
             ShowUnsetGroupItemsOnTop = ShowUnsetGroupItemsOnTop,
+            IsTracking = IsTracking,
             OnCloseAsync = async () =>
             {
                 if (!saved)
@@ -569,7 +592,16 @@ public partial class Table<TItem>
             {
                 await ToggleLoading(true);
                 saved = await SaveModelAsync(context, changedType);
-                if (saved)
+                if (IsTracking)
+                {
+                    if (changedType == ItemChangedType.Add)
+                    {
+                        var index = InsertRowMode == InsertRowMode.First ? 0 : Rows.Count;
+                        Rows.Insert(index, EditModel);
+                    }
+                    await InvokeItemsChanged();
+                }
+                else if (saved)
                 {
                     await QueryAsync();
                 }
