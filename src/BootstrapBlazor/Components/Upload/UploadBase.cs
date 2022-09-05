@@ -42,6 +42,12 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
     public string? Accept { get; set; }
 
     /// <summary>
+    /// 获得/设置 媒体捕获机制的首选面向模式，默认为 null
+    /// </summary>
+    [Parameter]
+    public string? Capture { get; set; }
+
+    /// <summary>
     /// 获得/设置 点击删除按钮时回调此方法
     /// </summary>
     [Parameter]
@@ -160,6 +166,10 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
         {
             ret.Add("accept", Accept);
         }
+        if (!string.IsNullOrEmpty(Capture))
+        {
+            ret.Add("capture", Capture);
+        }        
         return ret;
     }
 
