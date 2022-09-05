@@ -5,10 +5,9 @@
  */
 
 :root {
-    --bb-focus-border-color: #86b7fe;
-    --bb-hover-border-color: #86b7fe;
     --bb-disabled-bg: #ebeef5;
-    --bb-border-color: #ced4da;
+    --bb-border-focus-color: #86b7fe;
+    --bb-border-hover-color: #86b7fe;
     --bb-height: 35px;
     --bb-disabled-opactiy: .65;
 }

@@ -30,7 +30,7 @@
     .select .form-select {
         background-image: none;
         background-color: var(--bb-select-bg);
-        border: 1px solid var(--bb-border-color);
+        border: 1px solid var(--bs-border-color);
         border-radius: var(--bs-border-radius);
         padding: var(--bb-select-padding);
         cursor: pointer;
@@ -70,13 +70,17 @@
         left: -6px;
     }
 
+.show > :where(.dropdown-menu, .dropdown-menu-arrow) {
+    display: block;
+}
+
 .form-select:focus {
     box-shadow: var(--bb-select-focus-shadow);
-    border-color: var(--bb-focus-border-color);
+    border-color: var(--bb-border-focus-color);
 }
 
 .form-select:not(:disabled):hover {
-    border-color: var(--bb-hover-border-color);
+    border-color: var(--bb-border-hover-color);
 }
 
 .form-select.show + .form-select-append i {

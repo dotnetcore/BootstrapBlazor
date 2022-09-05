@@ -20,6 +20,7 @@ public partial class MultiSelect<TValue>
 
     private string? ClassString => CssBuilder.Default("multi-select")
         .AddClass("show", IsShow)
+        .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
     private string? ToggleClassString => CssBuilder.Default("dropdown-menu-toggle")
@@ -158,24 +159,26 @@ public partial class MultiSelect<TValue>
     /// 获得/设置 设置搜索图标 默认 fa-solid fa-magnifying-glass
     /// </summary>
     [Parameter]
-    public string SearchIcon { get; set; } = "fa-solid fa-magnifying-glass";
+    [NotNull]
+    public string? SearchIcon { get; set; }
 
     /// <summary>
     /// 获得/设置 设置清除图标 默认 fa-solid fa-xmark
     /// </summary>
     [Parameter]
-    public string ClearIcon { get; set; } = "fa-solid fa-xmark";
+    [NotNull]
+    public string? ClearIcon { get; set; }
 
     [Inject]
     [NotNull]
     private IStringLocalizer<MultiSelect<TValue>>? Localizer { get; set; }
 
     /// <summary>
-    /// OnInitialized 方法
+    /// OnParametersSet 方法
     /// </summary>
-    protected override void OnInitialized()
+    protected override void OnParametersSet()
     {
-        base.OnInitialized();
+        base.OnParametersSet();
 
         PlaceHolder ??= Localizer[nameof(PlaceHolder)];
         SelectAllText ??= Localizer[nameof(SelectAllText)];
@@ -183,6 +186,9 @@ public partial class MultiSelect<TValue>
         ClearText ??= Localizer[nameof(ClearText)];
         MinErrorMessage ??= Localizer[nameof(MinErrorMessage)];
         MaxErrorMessage ??= Localizer[nameof(MaxErrorMessage)];
+
+        SearchIcon ??= "fa-solid fa-magnifying-glass";
+        ClearIcon ??= "fa-solid fa-xmark";
 
         ResetItems();
 

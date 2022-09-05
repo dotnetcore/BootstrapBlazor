@@ -28,9 +28,9 @@
     }
 
 .table-excel {
-    --bb-hover-border-color: transparent;
-    --bb-focus-border-color: transparent;
-    --bb-border-color: transparent;
+    --bb-border-hover-color: transparent;
+    --bb-border-focus-color: transparent;
+    --bs-border-color: transparent;
     --bs-border-radius: 0;
 }
 

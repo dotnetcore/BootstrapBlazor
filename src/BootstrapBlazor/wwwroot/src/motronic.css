@@ -32,9 +32,9 @@
     --bs-body-color: #181C32;
     --bs-border-radius: .475rem;
     --bb-disabled-bg: #f5f8fa;
-    --bb-border-color: var(--bs-secondary);
-    --bb-focus-border-color: #b5b5c3;
-    --bb-hover-border-color: #b5b5c3;
+    --bs-border-color: var(--bs-secondary);
+    --bb-border-focus-color: #b5b5c3;
+    --bb-border-hover-color: #b5b5c3;
 }
 
 .table-filter .card-header {

@@ -1,92 +1,74 @@
 ﻿.multi-select {
     width: 100%;
     position: relative;
+    --bb-multi-select-min-height: 35px;
+    --bb-multi-select-max-height: 65px;
+    --bb-multi-select-button-bg-color: #e9ecef;
+    --bb-multi-select-button-hover-bg-color: #dee2e6;
+    --bb-multi-select-item-margin-x: 3px;
+    --bb-multi-select-item-margin-y: 3px;
+    --bb-multi-select-item-padding: 2px 6px;
+    --bb-multi-select-item-max-width: 130px;
+    --bb-multi-select-toolbar-padding: 6px 10px;
+    --bb-multi-select-toolbar-button-padding: 3px 10px;
+    --bb-multi-select-search-color: #ddd;
 }
 
-    .multi-select .dropdown-menu-toggle {
-        border: solid 1px #ddd;
-        border-radius: var(--bs-border-radius);
-        cursor: pointer;
-        min-height: var(--bb-height);
-        max-height: 70px;
-        overflow: auto;
+    .multi-select .dropdown-menu {
+        --bs-dropdown-item-padding-y: 0;
+        --bs-dropdown-item-padding-x: 10px;
     }
 
+    .multi-select .dropdown-menu-toggle {
+        border: 1px solid var(--bs-border-color);
+        border-radius: var(--bs-border-radius);
+        min-height: var(--bb-multi-select-min-height);
+        max-height: var(--bb-multi-select-max-height);
+        overflow: auto;
+        cursor: pointer;
+        transition: border 0.15s ease-in-out;
+    }
+
+        .multi-select .dropdown-menu-toggle:hover {
+            border: 1px solid var(--bb-border-hover-color);
+        }
+
         .multi-select .dropdown-menu-toggle.disabled {
-            background-color: #eee;
+            background-color: var(--bb-disabled-bg);
         }
 
-        .multi-select .dropdown-menu-toggle .clear {
-            padding: 7px 0.25rem;
-            display: none;
-            color: #adb5bd;
-        }
-
-            .multi-select .dropdown-menu-toggle .clear:hover {
-                background-color: #ddd;
-                border-radius: var(--bs-border-radius);
+            .multi-select .dropdown-menu-toggle.disabled .multi-select-item-group {
+                opacity: var(--bb-disabled-opactiy);
             }
 
-        .multi-select .dropdown-menu-toggle .dropdown {
-            padding: 7px 0.25rem;
-            display: block;
-        }
-
-        .multi-select .dropdown-menu-toggle.selected .clear {
-            display: block;
-        }
-
-        .multi-select .dropdown-menu-toggle.selected .dropdown,
-        .multi-select .dropdown-menu-toggle.disabled .clear {
-            display: none;
-        }
-
-        .multi-select .dropdown-menu-toggle .append {
-            position: absolute;
-            height: 100%;
-            width: 30px;
-            right: 0;
-            top: 0;
-            color: #c0c4cc;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-            .multi-select .dropdown-menu-toggle .append .dropdown {
-                transition: all .3s;
-                transform: rotate(180deg);
-            }
-
-    .multi-select.show .dropdown-menu-toggle .append .dropdown {
-        transform: rotate(0);
+    .multi-select .multi-select-item-group {
+        margin-right: var(--bb-multi-select-item-margin-x);
+        margin-bottom: var(--bb-multi-select-item-margin-y);
     }
 
     .multi-select .multi-select-items {
+        position: relative;
         display: flex;
         flex-wrap: wrap;
-        padding-top: 3px;
-        padding-left: 3px;
-        position: relative;
+        padding-top: var(--bb-multi-select-item-margin-y);
+        padding-left: var(--bb-multi-select-item-margin-x);
     }
 
         .multi-select .multi-select-items span {
-            border: solid 1px #ddd;
+            border: solid 1px var(--bs-border-color);
             border-radius: var(--bs-border-radius);
-            padding: 2px 6px;
-            background-color: #e9ecef;
-            margin-bottom: 3px;
+            padding: var(--bb-multi-select-item-padding);
+            background-color: var(--bb-multi-select-button-bg-color);
         }
 
         .multi-select .multi-select-items .multi-select-item {
             display: inline-block;
-            max-width: 130px;
             text-overflow: ellipsis;
             overflow: hidden;
             white-space: nowrap;
-            margin-right: 3px;
             border-top-left-radius: 0;
             border-bottom-left-radius: 0;
+            max-width: var(--bb-multi-select-item-max-width);
         }
 
         .multi-select .multi-select-items .multi-select-item-group {
@@ -94,82 +76,63 @@
             position: relative;
         }
 
-            .multi-select .multi-select-items .multi-select-item-group .multi-select-item {
-                padding-left: 9px;
-            }
-
         .multi-select .multi-select-items .multi-select-close {
             border-top-right-radius: 0;
             border-bottom-right-radius: 0;
-            margin-right: -3px;
-            z-index: 2;
+            margin-right: -1px;
             transition: color .3s linear, background-color .3s linear;
         }
 
     .multi-select :not(.disabled) .multi-select-items .multi-select-close:hover {
-        color: #333;
-        background-color: #ddd;
+        background-color: var(--bb-multi-select-button-hover-bg-color);
     }
 
     .multi-select .dropdown-menu {
         margin-top: 10px;
-        padding: 0.25rem 0;
         width: 100%;
     }
 
         .multi-select .dropdown-menu .toolbar {
-            padding: 6px 10px;
+            padding: var(--bb-multi-select-toolbar-padding);
             white-space: nowrap;
         }
 
             .multi-select .dropdown-menu .toolbar .btn {
-                line-height: 12px;
-                padding: 7px 15px;
-                border: 1px solid #dee2e6;
+                padding: var(--bb-multi-select-toolbar-button-padding);
+                border: 1px solid var(--bs-border-color);
                 transition: border-color .3s linear, color .3s linear;
             }
 
                 .multi-select .dropdown-menu .toolbar .btn:hover {
-                    border-color: #409eff;
-                    color: #409eff;
+                    border: 1px solid var(--bb-border-hover-color);
+                    color: var(--bs-primary);
                 }
 
                 .multi-select .dropdown-menu .toolbar .btn:not(:last-child) {
-                    margin-right: 1rem;
+                    margin-right: .5rem;
                 }
 
         .multi-select .dropdown-menu .search {
-            padding: 7px 10px;
+            padding: var(--bb-multi-select-toolbar-padding);
             position: relative;
         }
 
-            .multi-select .dropdown-menu .search .search-text {
+            .multi-select .dropdown-menu .search > input {
                 width: 100%;
                 padding-right: 30px;
             }
 
-            .multi-select .dropdown-menu .search .fa-magnifying-glass {
+            .multi-select .dropdown-menu .search > i {
                 position: absolute;
                 left: calc(100% - 34px);
                 top: 18px;
-                color: #adb5bd;
+                color: var(--bb-multi-select-search-color);
             }
 
     .multi-select .dropdown-item {
         display: flex;
-        padding: 0 10px;
         align-items: center;
-        transition: all .3s linear;
     }
-
-        .multi-select .dropdown-item.active {
-            background-color: #e9ecef;
-            color: inherit;
-        }
-
-        .multi-select .dropdown-item:hover {
-            background-color: #6fd6e6;
-        }
 
         .multi-select .dropdown-item > span {
             padding: 0.375rem 0.75rem;
@@ -177,30 +140,9 @@
             text-overflow: ellipsis;
         }
 
-        .multi-select .dropdown-item .checkbox-label {
-            display: none;
-        }
-
-    .multi-select.show .dropdown-menu,
-    .multi-select.show .dropdown-menu-arrow {
-        display: block;
-    }
-
     .multi-select .multi-select-ph {
         padding: 0 1rem;
         color: #c0c4cc;
         line-height: var(--bb-height);
         position: absolute;
-    }
-
-    .multi-select .dropdown-item .form-label {
-        display: none;
-    }
-
-    .multi-select .dropdown-item .form-check {
-        width: auto;
-    }
-
-    .multi-select .dropdown-item:hover {
-        background-color: #f1faff;
     }

@@ -3,7 +3,7 @@
 }
 
 .transfer-panel {
-    border: 1px solid var(--bb-border-color);
+    border: 1px solid var(--bs-border-color);
     border-radius: var(--bs-border-radius);
     overflow: hidden;
     background: #fff;
@@ -29,7 +29,7 @@
         background: #f5f7fa;
         margin: 0;
         padding-left: 15px;
-        border-bottom: 1px solid var(--bb-border-color);
+        border-bottom: 1px solid var(--bs-border-color);
         color: #000;
     }
 

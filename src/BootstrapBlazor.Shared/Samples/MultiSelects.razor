@@ -45,7 +45,7 @@
         <div class="col-12 col-sm-6">
             <Button Icon="fa-solid fa-plus" Text="@Localizer["ButtonText1"]" OnClick="@AddItems" class="me-1"></Button>
             <Button Icon="fa-solid fa-minus" Text="@Localizer["ButtonText2"]" OnClick="@RemoveItems"></Button>
-            <Button Icon="fa-regular fa-trash" Text="@Localizer["ButtonText3"]" OnClick="@ClearItems"></Button>
+            <Button Icon="fa-regular fa-trash-can" Text="@Localizer["ButtonText3"]" OnClick="@ClearItems"></Button>
         </div>
     </div>
     <div class="mt-3">@SelectedItemsValue</div>
@@ -60,7 +60,7 @@
         <div class="col-12 col-sm-6">
             <Button Icon="fa-solid fa-plus" Text="@Localizer["ButtonText1"]" OnClick="@AddListItems" class="me-1"></Button>
             <Button Icon="fa-solid fa-minus" Text="@Localizer["ButtonText2"]" OnClick="@RemoveListItems"></Button>
-            <Button Icon="fa-regular fa-trash" Text="@Localizer["ButtonText3"]" OnClick="@ClearListItems"></Button>
+            <Button Icon="fa-regular fa-trash-can" Text="@Localizer["ButtonText3"]" OnClick="@ClearListItems"></Button>
         </div>
     </div>
     <div class="mt-3">@(string.Join(",", SelectedArrayValues))</div>
@@ -75,7 +75,7 @@
         <div class="col-12 col-sm-6">
             <Button Icon="fa-solid fa-plus" Text="@Localizer["ButtonText1"]" OnClick="@AddArrayItems" class="me-1"></Button>
             <Button Icon="fa-solid fa-minus" Text="@Localizer["ButtonText2"]" OnClick="@RemoveArrayItems"></Button>
-            <Button Icon="fa-regular fa-trash" Text="@Localizer["ButtonText3"]" OnClick="@ClearArrayItems"></Button>
+            <Button Icon="fa-regular fa-trash-can" Text="@Localizer["ButtonText3"]" OnClick="@ClearArrayItems"></Button>
         </div>
     </div>
     <div class="mt-3">@(string.Join(",", SelectedIntArrayValues))</div>
