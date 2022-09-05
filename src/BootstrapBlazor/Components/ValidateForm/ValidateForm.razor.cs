@@ -360,26 +360,24 @@ public partial class ValidateForm : IAsyncDisposable
         {
             // 设置其关联属性字段
             var propertyValue = Utility.GetPropertyValue(context.ObjectInstance, pi.Name);
+            var fieldIdentifier = new FieldIdentifier(context.ObjectInstance, pi.Name);
+            context.DisplayName = fieldIdentifier.GetDisplayName();
+            context.MemberName = fieldIdentifier.FieldName;
 
-            // 检查当前值是否为 Class 不是 string 不是集合
-            if (propertyValue != null && propertyValue is not string
-                && !propertyValue.GetType().IsAssignableTo(typeof(System.Collections.IEnumerable))
-                && propertyValue.GetType().IsClass)
+            if (ValidatorCache.TryGetValue((fieldIdentifier.FieldName, fieldIdentifier.Model.GetType()), out var v))
             {
-                var fieldContext = new ValidationContext(propertyValue, context, null);
-                await ValidateProperty(fieldContext, results);
-            }
-            else
-            {
-                // 验证 DataAnnotations
-                var messages = new List<ValidationResult>();
-                var fieldIdentifier = new FieldIdentifier(context.ObjectInstance, pi.Name);
-                context.DisplayName = fieldIdentifier.GetDisplayName();
-                context.MemberName = fieldIdentifier.FieldName;
+                var validator = v.ValidateComponent;
 
-                if (ValidatorCache.TryGetValue((fieldIdentifier.FieldName, fieldIdentifier.Model.GetType()), out var v) && v.ValidateComponent != null)
+                // 检查当前值是否为 Class 即复杂类型 x.y.z 形式的属性值
+                if (validator.IsComplexValue(propertyValue) && propertyValue != null)
                 {
-                    var validator = v.ValidateComponent;
+                    var fieldContext = new ValidationContext(propertyValue, context, null);
+                    await ValidateProperty(fieldContext, results);
+                }
+                else
+                {
+                    // 验证 DataAnnotations
+                    var messages = new List<ValidationResult>();
                     if (validator.IsNeedValidate)
                     {
                         // 组件进行验证
@@ -388,8 +386,8 @@ public partial class ValidateForm : IAsyncDisposable
                         // 客户端提示
                         validator.ToggleMessage(messages, true);
                     }
+                    results.AddRange(messages);
                 }
-                results.AddRange(messages);
             }
         }
     }
@@ -416,11 +414,6 @@ public partial class ValidateForm : IAsyncDisposable
         }
         else
         {
-            // DateTimeRangeValue 单独判断
-            if (propertyValue is DateTimeRangeValue v && (v.Start == DateTime.MinValue || v.End == DateTime.MinValue))
-            {
-                propertyValue = null;
-            }
             ValidateDataAnnotations(propertyValue, context, messages, pi);
             if (messages.Count == 0)
             {

@@ -3,6 +3,7 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.Extensions.Localization;
+using System.Reflection;
 
 namespace BootstrapBlazor.Components;
 
@@ -169,6 +170,10 @@ public partial class DateTimeRange
     [NotNull]
     private IStringLocalizer<DateTimeRange>? Localizer { get; set; }
 
+    [Inject]
+    [NotNull]
+    private IStringLocalizerFactory? LocalizerFactory { get; set; }
+
     /// <summary>
     /// OnParametersSet 方法
     /// </summary>
@@ -211,6 +216,32 @@ public partial class DateTimeRange
                 new DateTimeRangeSidebarItem{ Text = Localizer["ThisMonth"], StartDateTime = DateTime.Today.AddDays(1- DateTime.Today.Day), EndDateTime = DateTime.Today.AddDays(1 - DateTime.Today.Day).AddMonths(1).AddDays(-1) },
                 new DateTimeRangeSidebarItem{ Text = Localizer["LastMonth"], StartDateTime = DateTime.Today.AddDays(1- DateTime.Today.Day).AddMonths(-1), EndDateTime = DateTime.Today.AddDays(1- DateTime.Today.Day).AddDays(-1) },
             };
+        }
+    }
+
+    /// <summary>
+    /// OnInitialized 方法
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        if (EditContext != null && FieldIdentifier != null)
+        {
+            var pi = FieldIdentifier.Value.Model.GetType().GetPropertyByName(FieldIdentifier.Value.FieldName);
+            if (pi != null)
+            {
+                var required = pi.GetCustomAttribute<RequiredAttribute>(true);
+                if (required != null)
+                {
+                    Rules.Add(new DateTimeRangeRangeRequiredValidator()
+                    {
+                        LocalizerFactory = LocalizerFactory,
+                        ErrorMessage = required.ErrorMessage,
+                        AllowEmptyString = required.AllowEmptyStrings
+                    });
+                }
+            }
         }
     }
 
@@ -379,4 +410,11 @@ public partial class DateTimeRange
             StateHasChanged();
         }
     }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="propertyValue"></param>
+    /// <returns></returns>
+    public override bool IsComplexValue(object? propertyValue) => false;
 }

@@ -336,6 +336,15 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
     public bool IsNeedValidate => !IsDisabled && !SkipValidate;
 
     /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    public virtual bool IsComplexValue(object? propertyValue) => propertyValue != null
+        && propertyValue is not string
+        && !propertyValue.GetType().IsAssignableTo(typeof(System.Collections.IEnumerable))
+        && propertyValue.GetType().IsClass;
+
+    /// <summary>
     /// 获得/设置 是否执行了自定义异步验证
     /// </summary>
     protected bool IsAsyncValidate { get; set; }

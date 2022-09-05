@@ -12,7 +12,13 @@ public interface IValidateComponent
     /// <summary>
     /// 获得/设置 是否不进行验证 默认为 false
     /// </summary>
-    public bool IsNeedValidate { get; }
+    bool IsNeedValidate { get; }
+
+    /// <summary>
+    /// 判断是否需要进行复杂类验证
+    /// </summary>
+    /// <returns></returns>
+    bool IsComplexValue(object? value); 
 
     /// <summary>
     /// 数据验证方法
