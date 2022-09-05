@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using BootstrapBlazor.Shared;
 using Microsoft.AspNetCore.Components.Web;
 
 namespace UnitTest.Components;
@@ -221,5 +222,25 @@ public class AutoCompleteTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(() => input.FocusAsync(new FocusEventArgs()));
 
         Assert.Contains("Template-test1", cut.Markup);
+    }
+
+    [Fact]
+    public void ValidateForm_Ok()
+    {
+        IEnumerable<string> items = new List<string>() { "test1", "test2" };
+        var cut = Context.RenderComponent<ValidateForm>(pb =>
+        {
+            pb.Add(a => a.Model, new Foo());
+            pb.AddChildContent<AutoComplete>(pb =>
+            {
+                pb.Add(a => a.Items, items);
+            });
+        });
+
+        // Trigger js invoke
+        var comp = cut.FindComponent<AutoComplete>().Instance;
+        comp.TriggerOnChange("v");
+
+        Assert.Equal("v", comp.Value);
     }
 }

@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using BootstrapBlazor.Shared;
 using Microsoft.AspNetCore.Components.Web;
 
 namespace UnitTest.Components;
@@ -218,5 +219,25 @@ public class SearchTest : BootstrapBlazorTestBase
         });
         cut.Find(".form-control").KeyUp(new KeyboardEventArgs() { Key = "Escape" });
         Assert.True(ret);
+    }
+
+    [Fact]
+    public void ValidateForm_Ok()
+    {
+        IEnumerable<string> items = new List<string>() { "test1", "test2" };
+        var cut = Context.RenderComponent<ValidateForm>(pb =>
+        {
+            pb.Add(a => a.Model, new Foo());
+            pb.AddChildContent<Search>(pb =>
+            {
+                pb.Add(a => a.Items, items);
+            });
+        });
+
+        // Trigger js invoke
+        var comp = cut.FindComponent<Search>().Instance;
+        comp.TriggerOnChange("v");
+
+        Assert.Equal("v", comp.Value);
     }
 }

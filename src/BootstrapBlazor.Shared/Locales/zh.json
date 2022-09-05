@@ -2550,6 +2550,8 @@
     "DispalyButtonIntro": "通过设置 <code>ShowClearButton</code> 参数控制是否显示清空按钮",
     "keyboardsTitle": "键盘输入即时搜索",
     "keyboardsIntro": "通过设置 <code>IsOnInputTrigger</code> 参数控制是否实时进行搜索操作",
+    "ValidateFormTitle": "验证表单内使用",
+    "ValidateFormIntro": "内置于 <code>ValidateForm</code> 使用，输入中文时不会多次触发搜索功能",
     "ChildContent": "内容",
     "Items": "数据源",
     "NoDataTip": "自动完成数据无匹配项时提示信息",

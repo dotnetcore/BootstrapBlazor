@@ -163,12 +163,7 @@ public partial class AutoComplete
 
         if (firstRender)
         {
-            // 汉字多次触发问题
-            if (ValidateForm != null)
-            {
-                Interop ??= new JSInterop<AutoComplete>(JSRuntime);
-                await Interop.InvokeVoidAsync(this, FocusElement, "bb_composition", nameof(TriggerOnChange));
-            }
+            await RegisterComposition();
 
             if (Debounce > 0)
             {
@@ -299,6 +294,20 @@ public partial class AutoComplete
     public void TriggerOnChange(string val)
     {
         CurrentValueAsString = val;
+    }
+
+    /// <summary>
+    /// 注册汉字多次触发问题脚本
+    /// </summary>
+    /// <returns></returns>
+    protected virtual async Task RegisterComposition()
+    {
+        // 汉字多次触发问题
+        if (ValidateForm != null)
+        {
+            Interop ??= new JSInterop<AutoComplete>(JSRuntime);
+            await Interop.InvokeVoidAsync(this, FocusElement, "bb_composition", nameof(TriggerOnChange));
+        }
     }
 
     /// <summary>

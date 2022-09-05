@@ -14,6 +14,9 @@ public sealed partial class Searchs
 {
     private static IEnumerable<string> Items => new string[] { "1", "12", "123", "1234" };
 
+    private Foo Model { get; set; } = new Foo() { Name = "" };
+    private static List<string> StaticItems => new() { "1", "12", "123", "1234", "12345", "123456", "abc", "abcdef", "ABC", "aBcDeFg", "ABCDEFG" };
+
     [NotNull]
     private BlockLogger? Trace { get; set; }
 

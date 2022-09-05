@@ -109,30 +109,6 @@ public partial class Search
     }
 
     /// <summary>
-    /// firstRender
-    /// </summary>
-    /// <param name="firstRender"></param>
-    /// <returns></returns>
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        await base.OnAfterRenderAsync(firstRender);
-
-        if (firstRender)
-        {
-            // 汉字多次触发问题
-            if (ValidateForm != null)
-            {
-                if (Interop == null)
-                {
-                    Interop = new JSInterop<Search>(JSRuntime);
-                }
-
-                await Interop.InvokeVoidAsync(this, FocusElement, "bb_composition", nameof(TriggerOnChange));
-            }
-        }
-    }
-
-    /// <summary>
     /// 点击搜索按钮时触发此方法
     /// </summary>
     /// <returns></returns>
@@ -213,6 +189,21 @@ public partial class Search
         if (IsOnInputTrigger)
         {
             await OnSearchClick();
+        }
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    protected override async Task RegisterComposition()
+    {
+        // 汉字多次触发问题
+        if (ValidateForm != null)
+        {
+            Interop ??= new JSInterop<Search>(JSRuntime);
+
+            await Interop.InvokeVoidAsync(this, FocusElement, "bb_composition", nameof(TriggerOnChange));
         }
     }
 

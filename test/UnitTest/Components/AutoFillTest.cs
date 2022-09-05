@@ -266,6 +266,26 @@ public class AutoFillTest : BootstrapBlazorTestBase
         Assert.Equal("dropdown-menu show", menu.ClassList.ToString());
     }
 
+    [Fact]
+    public void ValidateForm_Ok()
+    {
+        IEnumerable<string> items = new List<string>() { "test1", "test2" };
+        var cut = Context.RenderComponent<ValidateForm>(pb =>
+        {
+            pb.Add(a => a.Model, new Foo());
+            pb.AddChildContent<AutoFill<string>>(pb =>
+            {
+                pb.Add(a => a.Items, items);
+            });
+        });
+
+        // Trigger js invoke
+        var comp = cut.FindComponent<AutoFill<string>>().Instance;
+        comp.TriggerOnChange("v");
+
+        Assert.Equal("v", comp.Value);
+    }
+
     class AutoFillNullStringMock
     {
         [NotNull]

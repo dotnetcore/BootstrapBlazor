@@ -26,4 +26,10 @@
     <BlockLogger @ref="Trace4" class="mt-3" />
 </DemoBlock>
 
+<DemoBlock Title="@Localizer["ValidateFormTitle"]" Introduction="@Localizer["ValidateFormIntro"]" Name="ValidateForm">
+    <ValidateForm Model="@Model">
+        <Search Items="StaticItems" IsOnInputTrigger="true" @bind-Value="Model.Name" />
+    </ValidateForm>
+</DemoBlock>
+
 <AttributeTable Items="@GetAttributes()" />

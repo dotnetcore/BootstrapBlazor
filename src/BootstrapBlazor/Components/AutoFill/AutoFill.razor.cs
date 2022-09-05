@@ -183,10 +183,7 @@ public partial class AutoFill<TValue>
             // 汉字多次触发问题
             if (ValidateForm != null)
             {
-                if (Interop == null)
-                {
-                    Interop = new JSInterop<AutoFill<TValue>>(JSRuntime);
-                }
+                Interop ??= new JSInterop<AutoFill<TValue>>(JSRuntime);
 
                 await Interop.InvokeVoidAsync(this, FocusElement, "bb_composition", nameof(TriggerOnChange));
             }

@@ -2542,6 +2542,8 @@
     "DispalyButtonIntro": "Control whether the Empty button is displayed by setting the <code>ShowClearButton</code> parameter",
     "keyboardsTitle": "Keyboard input instant search",
     "keyboardsIntro": "Control whether search operations are performed in real time by setting <code>the IsOnInputTrigger</code> parameter",
+    "ValidateFormTitle": "ValidateForm",
+    "ValidateFormIntro": "Inside <code>ValidateForm</code>",
     "ChildContent": "Content",
     "Items": "Data source",
     "NoDataTip": "Auto-complete data prompts when there is no match",
