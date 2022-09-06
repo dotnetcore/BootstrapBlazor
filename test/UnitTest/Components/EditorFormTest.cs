@@ -520,7 +520,7 @@ public class EditorFormTest : BootstrapBlazorTestBase
                 builder.CloseComponent();
             }));
         });
-        Assert.Contains("data-bs-toggle=\"lgbSelect\"", cut.Markup);
+        Assert.Contains("select dropdown", cut.Markup);
     }
 
     [Fact]
@@ -540,7 +540,7 @@ public class EditorFormTest : BootstrapBlazorTestBase
                 builder.CloseComponent();
             }));
         });
-        Assert.Contains("data-bs-toggle=\"lgbSelect\"", cut.Markup);
+        Assert.Contains("select dropdown", cut.Markup);
         Assert.Contains("test-null", cut.Markup);
         Assert.Contains("test-true", cut.Markup);
         Assert.Contains("test-false", cut.Markup);

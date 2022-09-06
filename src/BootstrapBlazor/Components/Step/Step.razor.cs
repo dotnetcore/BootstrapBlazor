@@ -33,7 +33,7 @@ public sealed partial class Step
 
     private string? IconClassString => CssBuilder.Default("step-icon-inner")
         .AddClass(Icon, IsIcon || Status == StepStatus.Finish || Status == StepStatus.Success)
-        .AddClass("fa fa-times", IsIcon || Status == StepStatus.Error)
+        .AddClass("fa-solid fa-xmark", IsIcon || Status == StepStatus.Error)
         .AddClass("is-status", !IsIcon && (Status == StepStatus.Finish || Status == StepStatus.Success || Status == StepStatus.Error))
         .Build();
 
@@ -57,7 +57,7 @@ public sealed partial class Step
     /// 获得/设置 步骤显示图标
     /// </summary>
     [Parameter]
-    public string Icon { get; set; } = "fa fa-check";
+    public string Icon { get; set; } = "fa-solid fa-check";
 
     /// <summary>
     /// 获得/设置 步骤状态

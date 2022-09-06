@@ -8,17 +8,23 @@
         <div class="form-body">
             @BodyTemplate.Invoke(Model)
         </div>
-        <div class="form-footer">
-            <Button Color="Color.Secondary" Icon="fa fa-times" Text="@CloseButtonText" OnClickWithoutRender="OnClose" />
-            <Button Color="Color.Primary" ButtonType="ButtonType.Submit" Icon="fa fa-save" Text="@SaveButtonText" />
-        </div>
+            <div class="form-footer">
+                @if (!IsTracking)
+                {
+                    <Button Color="Color.Secondary" Icon="fa-solid fa-xmark" Text="@CloseButtonText" OnClickWithoutRender="OnClose" />
+                }
+                <Button Color="Color.Primary" ButtonType="ButtonType.Submit" Icon="fa-solid fa-floppy-disk" Text="@SaveButtonText" />
+            </div>
     }
     else
     {
         <EditorForm TModel="TModel" Items="Items" ItemChangedType="ItemChangedType" ItemsPerRow="ItemsPerRow" RowType="RowType" LabelAlign="LabelAlign" ShowLabel="ShowLabel" ShowUnsetGroupItemsOnTop="ShowUnsetGroupItemsOnTop">
             <Buttons>
-                <Button Color="Color.Secondary" Icon="fa fa-times" Text="@CloseButtonText" OnClickWithoutRender="OnClose" />
-                <Button Color="Color.Primary" ButtonType="ButtonType.Submit" Icon="fa fa-save" Text="@SaveButtonText" />
+                @if (!IsTracking)
+                {
+                    <Button Color="Color.Secondary" Icon="fa-solid fa-xmark" Text="@CloseButtonText" OnClickWithoutRender="OnClose" />
+                }
+                <Button Color="Color.Primary" ButtonType="ButtonType.Submit" Icon="fa-solid fa-floppy-disk" Text="@SaveButtonText" />
             </Buttons>
         </EditorForm>
     }

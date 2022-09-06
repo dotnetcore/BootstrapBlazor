@@ -19,6 +19,7 @@
     "dropdownlists": "DropdownLists",
     "dropdownwidgets": "DropdownWidgets",
     "fullscreens": "FullScreens",
+    "floatinglabels": "FloatingLabels",
     "detail": "Table/TablesDetailRow",
     "dialog": "Table/TablesDialog",
     "dynamic": "Table/TablesDynamic",
@@ -59,6 +60,7 @@
     "tree": "Table/TablesTree",
     "validateforms": "ValidateForms",
     "wrap": "Table/TablesWrap",
+    "tracking": "Table/TablesTracking",
     "virtualization": "Table/TablesVirtualization",
     "onscreenkeyboards": "OnScreenKeyboards",
     "signaturepads": "SignaturePad/SignaturePads",
@@ -66,7 +68,10 @@
     "speechwaves": "Speechs/SpeechWaves",
     "recognizers": "Speechs/Recognizers",
     "synthesizers": "Speechs/Synthesizers",
-    "treeviews": "TreeViews"
+    "treeviews": "TreeViews",
+    "switchbuttons": "SwitchButtons",
+    "pulsebuttons": "PulseButtons",
+    "select-trees": "SelectTrees"
   },
   "video": {
     "autorefresh": "BV1ap4y1x7Qn?p=8",

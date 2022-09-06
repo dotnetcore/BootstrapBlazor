@@ -95,14 +95,14 @@ internal static class ConfigurationExtensions
     /// <returns></returns>
     public static string GetUserName(this IConfiguration config, string defaultValue = "")
     {
-        var userName = config.GetValue("USERNAME", "");
+        var userName = config.GetValue<string>("USERNAME");
 
         // Mac CentOs 系统
         if (string.IsNullOrEmpty(userName))
         {
-            userName = config.GetValue("LOGNAME", defaultValue);
+            userName = config.GetValue<string>("LOGNAME");
         }
-        return userName;
+        return userName ?? defaultValue;
     }
 
     /// <summary>
@@ -113,7 +113,7 @@ internal static class ConfigurationExtensions
     /// <returns></returns>
     public static string GetEnvironmentName(this IConfiguration config, string defaultValue = "")
     {
-        return config.GetValue("ASPNETCORE_ENVIRONMENT", defaultValue);
+        return config.GetValue<string>("ASPNETCORE_ENVIRONMENT") ?? defaultValue;
     }
 
     /// <summary>
@@ -124,7 +124,7 @@ internal static class ConfigurationExtensions
     /// <returns></returns>
     public static string GetIISPath(this IConfiguration config, string defaultValue = "")
     {
-        return config.GetValue("ASPNETCORE_IIS_PHYSICAL_PATH", defaultValue);
+        return config.GetValue<string>("ASPNETCORE_IIS_PHYSICAL_PATH") ?? defaultValue;
     }
 
     /// <summary>
@@ -135,8 +135,8 @@ internal static class ConfigurationExtensions
     /// <returns></returns>
     public static string GetVisualStudioVersion(this IConfiguration config, string defaultValue = "")
     {
-        var edition = config.GetValue("VisualStudioEdition", "");
-        var version = config.GetValue("VisualStudioVersion", "");
+        var edition = config.GetValue<string>("VisualStudioEdition");
+        var version = config.GetValue<string>("VisualStudioVersion");
 
         var ret = $"{edition} {version}";
         if (ret == " ")

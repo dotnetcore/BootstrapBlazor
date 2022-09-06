@@ -1,0 +1,95 @@
+﻿.timeline {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+    .timeline .time-line-item {
+        position: relative;
+        padding-bottom: 1rem;
+    }
+
+        .timeline .time-line-item:last-child {
+            padding-bottom: 0;
+        }
+
+        .timeline .time-line-item .time-line-item-tail {
+            position: absolute;
+            left: 4px;
+            height: 100%;
+            border-left: 2px solid #e4e7ed;
+        }
+
+        .timeline .time-line-item:last-child .time-line-item-tail {
+            display: none
+        }
+
+    .timeline .timeline-item-node-normal {
+        left: -1px;
+        width: 12px;
+        height: 12px;
+    }
+
+    .timeline .timeline-item-node {
+        position: absolute;
+        background-color: #e4e7ed;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+        .timeline .timeline-item-node.is-icon {
+            background-color: transparent;
+        }
+
+    .timeline .timeline-item-wrapper {
+        position: relative;
+        padding-left: 1.5rem;
+        top: -4px;
+    }
+
+    .timeline .timeline-item-content {
+        color: #303133;
+    }
+
+    .timeline .timeline-item-timestamp {
+        margin-top: 0.5rem;
+        color: #909399;
+    }
+
+    .timeline.is-alternate .time-line-item-tail,
+    .timeline.is-alternate .timeline-item-node {
+        left: 50%;
+    }
+
+    .timeline.is-alternate .timeline-item-node {
+        margin-left: -5px;
+    }
+
+    .timeline.is-alternate .time-line-item:nth-child(odd) .timeline-item-wrapper {
+        left: calc(50% - 5px);
+        width: calc(50% - 1rem);
+        text-align: left;
+    }
+
+    .timeline.is-alternate .time-line-item:nth-child(even) .timeline-item-wrapper {
+        width: calc(50% - 1rem);
+        margin: 0;
+        text-align: right;
+    }
+
+    .timeline.is-left .time-line-item-tail,
+    .timeline.is-left .timeline-item-node {
+        left: 100%;
+    }
+
+    .timeline.is-left .timeline-item-node {
+        margin-left: -5px;
+    }
+
+    .timeline.is-left .time-line-item .timeline-item-wrapper {
+        width: calc(100% - 1rem);
+        margin: 0;
+        text-align: right;
+    }

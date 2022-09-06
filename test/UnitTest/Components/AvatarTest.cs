@@ -36,9 +36,9 @@ public class AvatarTest : TestBase
         var cut = Context.RenderComponent<Avatar>(builder =>
         {
             builder.Add(a => a.IsIcon, true);
-            builder.Add(a => a.Icon, "fa fa-fa");
+            builder.Add(a => a.Icon, "fa-solid fa-font-awesome");
         });
-        Assert.Contains("fa fa-fa", cut.Markup);
+        Assert.Contains("fa-solid fa-font-awesome", cut.Markup);
         Assert.True(cut.Instance.IsIcon);
     }
 

@@ -22,12 +22,6 @@ public partial class LinkButton
     public string? Target { get; set; }
 
     /// <summary>
-    /// 获得/设置 Tooltip 显示文字 默认为 null
-    /// </summary>
-    [Parameter]
-    public string? Title { get; set; }
-
-    /// <summary>
     /// 获得/设置 显示图片地址 默认为 null
     /// </summary>
     [Parameter]
@@ -38,12 +32,6 @@ public partial class LinkButton
     /// </summary>
     [Parameter]
     public bool IsVertical { get; set; }
-
-    /// <summary>
-    /// 获得/设置 Tooltip 显示位置 默认为 Top
-    /// </summary>
-    [Parameter]
-    public Placement TooltipPlacement { get; set; } = Placement.Top;
 
     private bool Prevent => (Url?.StartsWith('#') ?? true) || IsDisabled;
 

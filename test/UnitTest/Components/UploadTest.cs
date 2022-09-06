@@ -32,13 +32,13 @@ public class UploadTest : BootstrapBlazorTestBase
             new MockBrowserFile()
         })));
         Assert.Equal("UploadTestFile", uploadFile!.OriginFileName);
-        cut.Contains("fa fa-folder-open-o");
+        cut.Contains("fa-regular fa-folder-open");
         cut.Contains("btn-primary");
         cut.Contains("TestPlaceHolder");
 
         // 参数
-        cut.SetParametersAndRender(pb => pb.Add(a => a.BrowserButtonIcon, "fa fa-browser"));
-        cut.Contains("fa fa-browser");
+        cut.SetParametersAndRender(pb => pb.Add(a => a.BrowserButtonIcon, "fa-solid fa-chrome"));
+        cut.Contains("fa-solid fa-chrome");
 
         cut.SetParametersAndRender(pb => pb.Add(a => a.BrowserButtonClass, "btn btn-browser"));
         cut.Contains("btn btn-browser");
@@ -47,9 +47,9 @@ public class UploadTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.ShowDeleteButton, true);
             pb.Add(a => a.DeleteButtonText, "Delete-Test");
-            pb.Add(a => a.DeleteButtonIcon, "fa fa-delete-icon");
+            pb.Add(a => a.DeleteButtonIcon, "fa-solid fa-trash");
         });
-        cut.Contains("fa fa-delete-icon");
+        cut.Contains("fa-solid fa-trash");
         cut.Contains("btn-danger");
 
         // 删除逻辑
@@ -338,9 +338,9 @@ public class UploadTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.IsSingle, true);
             pb.Add(a => a.BrowserButtonClass, "browser-class");
-            pb.Add(a => a.BrowserButtonIcon, "fa fa-browser-icon");
+            pb.Add(a => a.BrowserButtonIcon, "fa-solid fa-chrome");
         });
-        cut.Contains("fa fa-browser-icon");
+        cut.Contains("fa-solid fa-chrome");
         cut.Contains("browser-class");
         cut.DoesNotContain("form-label");
 
@@ -485,7 +485,7 @@ public class UploadTest : BootstrapBlazorTestBase
                 return Task.FromResult(true);
             });
         });
-        await cut.InvokeAsync(() => cut.Find(".fa-trash-o.text-danger").Click());
+        await cut.InvokeAsync(() => cut.Find(".fa-trash-can.text-danger").Click());
         Assert.NotNull(deleteFile);
         Assert.Null(deleteFile!.Error);
 
@@ -498,7 +498,7 @@ public class UploadTest : BootstrapBlazorTestBase
                 new UploadFile() { FileName  = "Test-File2", Code = 1001 }
             });
         });
-        await cut.InvokeAsync(() => cut.Find(".fa-trash-o.text-danger").Click());
+        await cut.InvokeAsync(() => cut.Find(".fa-trash-can.text-danger").Click());
         Assert.NotNull(deleteFile);
     }
 
@@ -590,17 +590,17 @@ public class UploadTest : BootstrapBlazorTestBase
                 new UploadFile() { FileName  = "1" }
             });
         });
-        cut.Contains("fa-file-excel-o");
-        cut.Contains("fa-file-word-o");
-        cut.Contains("fa-file-powerpoint-o");
-        cut.Contains("fa-file-audio-o");
-        cut.Contains("fa-file-video-o");
-        cut.Contains("fa-file-code-o");
-        cut.Contains("fa-file-pdf-o");
-        cut.Contains("fa-file-archive-o");
-        cut.Contains("fa-file-text-o");
-        cut.Contains("fa-file-image-o");
-        cut.Contains("fa-file-o");
+        cut.Contains("fa-regular fa-file-excel");
+        cut.Contains("fa-regular fa-file-word");
+        cut.Contains("fa-regular fa-file-powerpoint");
+        cut.Contains("fa-regular fa-file-audio");
+        cut.Contains("fa-regular fa-file-video");
+        cut.Contains("fa-regular fa-file-code");
+        cut.Contains("fa-regular fa-file-pdf");
+        cut.Contains("fa-regular fa-file-archive");
+        cut.Contains("fa-regular fa-file-text");
+        cut.Contains("fa-regular fa-file-image");
+        cut.Contains("fa-regular fa-file");
 
         cut.SetParametersAndRender(pb =>
         {
@@ -692,6 +692,7 @@ public class UploadTest : BootstrapBlazorTestBase
             });
         });
         await cut.InvokeAsync(() => cut.Instance.Reset());
+        Assert.NotNull(cut.Instance.DefaultFileList);
         Assert.Empty(cut.Instance.DefaultFileList);
     }
 

@@ -28,8 +28,8 @@ public partial class PrintButton
     /// </summary>
     protected override void OnInitialized()
     {
-        // 不需要走 base.OnInitialized 方法
-        ButtonIcon = Icon;
+        base.OnInitialized();
+
         Text ??= Localizer[nameof(Text)];
     }
 
@@ -53,7 +53,7 @@ public partial class PrintButton
 
         if (string.IsNullOrEmpty(ButtonIcon))
         {
-            ButtonIcon = "fa fa-print";
+            ButtonIcon = "fa-solid fa-fw fa-print";
         }
     }
 }

@@ -66,6 +66,7 @@ public class ButtonTest : BootstrapBlazorTestBase
     [InlineData(Color.Light, "btn-light")]
     [InlineData(Color.Dark, "btn-dark")]
     [InlineData(Color.Link, "btn-link")]
+    [InlineData(Color.None, "btn-none")]
     public void Color_Ok(Color color, string @class)
     {
         var cut = Context.RenderComponent<Button>(pb =>
@@ -76,30 +77,20 @@ public class ButtonTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void Color_None()
-    {
-        var cut = Context.RenderComponent<Button>(pb =>
-        {
-            pb.Add(b => b.Color, Color.None);
-        });
-        Assert.DoesNotContain("btn-primary", cut.Markup);
-    }
-
-    [Fact]
     public void Icon_Ok()
     {
         var cut = Context.RenderComponent<Button>(pb =>
         {
-            pb.Add(b => b.Icon, "fa fa-fa");
+            pb.Add(b => b.Icon, "fa-solid fa-font-awesome");
         });
-        Assert.Contains("class=\"fa fa-fa\"", cut.Markup);
-        Assert.Contains("fa fa-fw fa-spin fa-spinner", cut.Instance.LoadingIcon);
+        Assert.Contains("class=\"fa-solid fa-font-awesome\"", cut.Markup);
+        Assert.Contains("fa-fw fa-spin fa-solid fa-spinner", cut.Instance.LoadingIcon);
 
         cut.SetParametersAndRender(pb =>
         {
-            pb.Add(b => b.LoadingIcon, "fa fa-fa");
+            pb.Add(b => b.LoadingIcon, "fa-solid fa-font-awesome");
         });
-        Assert.Contains("fa fa-fa", cut.Instance.LoadingIcon);
+        Assert.Contains("fa-solid fa-font-awesome", cut.Instance.LoadingIcon);
     }
 
     [Fact]
@@ -327,7 +318,7 @@ public class ButtonTest : BootstrapBlazorTestBase
     public async Task ShowTooltip_Ok()
     {
         var cut = Context.RenderComponent<Button>();
-        await cut.InvokeAsync(() => cut.Instance.ShowTooltip("Test"));
+        await cut.InvokeAsync(() => cut.Instance.ShowTooltip());
     }
 
     [Fact]

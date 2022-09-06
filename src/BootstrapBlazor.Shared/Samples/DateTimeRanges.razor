@@ -12,19 +12,13 @@
 <DemoBlock Title="数据双向绑定" Introduction="点击确认按钮时间选择框值与文本框值一致" Name="BindValue">
     <div class="row g-3">
         <div class="col-12 col-sm-6">
-            <DateTimeRange @bind-Value="@DateTimeRangeValue2" />
+            <DateTimeRange @bind-Value="@DateTimeRangeValue2" OnValueChanged="v => OnValueChanged(v, 1)" />
         </div>
         <div class="col-12 col-sm-6">
-            <div>
-                @if (DateTimeRangeValue2.Start != DateTime.MinValue)
-                {
-                    <span>时间范围：</span> @DateTimeRangeValue2.Start.ToString("yyyy-MM-dd");
-                }
-                @if (DateTimeRangeValue2.End != DateTime.MinValue)
-                {
-                    <span> - </span> @DateTimeRangeValue2.End.ToString("yyyy-MM-dd");
-                }
-            </div>
+            <BootstrapInputGroup>
+                <BootstrapInputGroupLabel DisplayText="时间范围" />
+                <Display TValue="string" Value="@range2" />
+            </BootstrapInputGroup>
         </div>
     </div>
 </DemoBlock>
@@ -32,32 +26,26 @@
 <DemoBlock Title="最大值和最小值" Introduction="设置时间的取值范围" Name="MaxMinValue">
     <div class="row g-3">
         <div class="col-12 col-sm-6">
-            <DateTimeRange @bind-Value="@DateTimeRangeValue5" MinValue=DateTime.Today.AddDays(-7) MaxValue=DateTime.Today.AddDays(7) />
+            <DateTimeRange @bind-Value="@DateTimeRangeValue5" OnValueChanged="v => OnValueChanged(v, 2)" MinValue=DateTime.Today.AddDays(-7) MaxValue=DateTime.Today.AddDays(7) />
         </div>
         <div class="col-12 col-sm-6">
-            <div>
-                @if (DateTimeRangeValue5.Start != DateTime.MinValue)
-                {
-                    <span>时间范围：</span> @DateTimeRangeValue5.Start.ToString("yyyy-MM-dd");
-                }
-                @if (DateTimeRangeValue5.End != DateTime.MinValue)
-                {
-                    <span> - </span> @DateTimeRangeValue5.End.ToString("yyyy-MM-dd");
-                }
-            </div>
+            <BootstrapInputGroup>
+                <BootstrapInputGroupLabel DisplayText="时间范围" />
+                <Display TValue="string" Value="@range" />
+            </BootstrapInputGroup>
         </div>
     </div>
 </DemoBlock>
 
 <DemoBlock Title="禁用" Introduction="设置 <code>IsDisabled</code> 属性值为 <code>true</code> 时，组件禁止输入" Name="Disabled">
-	<div class="row g-3">
-		<div class="col-12 col-sm-6">
-			<DateTimeRange Value="@DateTimeRangeValue3" IsDisabled="@IsDisabled" />
-		</div>
-		<div class="col-12 col-sm-6">
-			<Switch @bind-Value="@IsDisabled" />
-		</div>
-	</div>
+    <div class="row g-3">
+        <div class="col-12 col-sm-6">
+            <DateTimeRange Value="@DateTimeRangeValue3" IsDisabled="@IsDisabled" />
+        </div>
+        <div class="col-12 col-sm-6">
+            <Switch @bind-Value="@IsDisabled" />
+        </div>
+    </div>
 </DemoBlock>
 
 <DemoBlock Title="带快捷键侧边栏" Introduction="设置 <code>ShowSidebar</code> 属性值为 <code>true</code> 时，组件显示快捷方式侧边栏" Name="Sidebar">
@@ -78,7 +66,10 @@
                 <DateTimePicker @bind-Value="@Model.DateTime" />
             </div>
             <div class="col-12 col-sm-6">
-                <DateTimeRange @bind-Value="@DateTimeRangeValue4" ShowLabel="true" DisplayText="时间范围" />
+                <DateTimeRange @bind-Value="@Model.Range" />
+            </div>
+            <div class="col-12">
+                <Button ButtonType="ButtonType.Submit" Icon="fa-fw fa-solid fa-floppy-disk" Text="提交" />
             </div>
         </div>
     </ValidateForm>

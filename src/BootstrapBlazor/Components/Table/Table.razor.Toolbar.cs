@@ -106,6 +106,12 @@ public partial class Table<TItem>
     public int ExtendButtonColumnWidth { get; set; } = 130;
 
     /// <summary>
+    /// 获得/设置 行内操作列对齐方式 默认 center
+    /// </summary>
+    [Parameter]
+    public Alignment ExtendButtonColumnAlignment { get; set; }
+
+    /// <summary>
     /// 获得/设置 是否显示行内扩展编辑按钮 默认 true 显示
     /// </summary>
     [Parameter]
@@ -373,6 +379,23 @@ public partial class Table<TItem>
             await ShowToastAsync(content);
         }
 
+        async Task InternalOnEditAsync()
+        {
+            EditModel = IsTracking ? SelectedRows[0] : Utility.Clone(SelectedRows[0]);
+            if (OnEditAsync != null)
+            {
+                await OnEditAsync(EditModel);
+            }
+            else
+            {
+                var d = DataService ?? InjectDataService;
+                if (d is IEntityFrameworkCoreDataService ef)
+                {
+                    await ef.EditAsync(EditModel);
+                }
+            }
+        }
+
         async Task ShowToastAsync(string content)
         {
             var option = new ToastOption
@@ -454,45 +477,50 @@ public partial class Table<TItem>
         {
             if (EditMode == EditMode.EditForm)
             {
+                ShowEditForm = false;
                 if (ShowAddForm)
                 {
-                    // TODO: 未支持双向绑定 Items
-                    await QueryData();
                     ShowAddForm = false;
+                    if (IsTracking)
+                    {
+                        var index = InsertRowMode == InsertRowMode.First ? 0 : Rows.Count;
+                        Rows.Insert(index, EditModel);
+                        await InvokeItemsChanged();
+                    }
+                    else
+                    {
+                        await QueryData();
+                    }
                 }
-                ShowEditForm = false;
-                StateHasChanged();
+                else
+                {
+                    StateHasChanged();
+                }
             }
             else if (EditMode == EditMode.InCell)
             {
                 EditInCell = false;
                 AddInCell = false;
+
+                // 通过 EditModel 恢复 编辑数据
+                if (changedType == ItemChangedType.Add)
+                {
+                    var index = InsertRowMode == InsertRowMode.First ? 0 : Rows.Count;
+                    Rows.Insert(index, EditModel);
+                }
+                else
+                {
+                    var index = Rows.IndexOf(SelectedRows[0]);
+                    Rows.RemoveAt(index);
+                    Rows.Insert(index, EditModel);
+                }
+                SelectedRows.Clear();
                 if (ItemsChanged.HasDelegate)
                 {
-                    // 通过 EditModel 恢复 编辑数据
-                    if (changedType == ItemChangedType.Add)
-                    {
-                        if (InsertRowMode == InsertRowMode.Last)
-                        {
-                            Rows.Add(EditModel);
-                        }
-                        else if (InsertRowMode == InsertRowMode.First)
-                        {
-                            Rows.Insert(0, EditModel);
-                        }
-                    }
-                    else
-                    {
-                        var index = Rows.IndexOf(SelectedRows[0]);
-                        Rows.RemoveAt(index);
-                        Rows.Insert(index, EditModel);
-                    }
-                    SelectedRows.Clear();
                     await ItemsChanged.InvokeAsync(Rows);
                 }
                 else
                 {
-                    SelectedRows.Clear();
                     await QueryAsync();
                 }
             }
@@ -550,6 +578,7 @@ public partial class Table<TItem>
             IsDraggable = EditDialogIsDraggable,
             ShowMaximizeButton = EditDialogShowMaximizeButton,
             ShowUnsetGroupItemsOnTop = ShowUnsetGroupItemsOnTop,
+            IsTracking = IsTracking,
             OnCloseAsync = async () =>
             {
                 if (!saved)
@@ -569,7 +598,16 @@ public partial class Table<TItem>
             {
                 await ToggleLoading(true);
                 saved = await SaveModelAsync(context, changedType);
-                if (saved)
+                if (IsTracking)
+                {
+                    if (changedType == ItemChangedType.Add)
+                    {
+                        var index = InsertRowMode == InsertRowMode.First ? 0 : Rows.Count;
+                        Rows.Insert(index, EditModel);
+                    }
+                    await InvokeItemsChanged();
+                }
+                else if (saved)
                 {
                     await QueryAsync();
                 }
@@ -702,9 +740,18 @@ public partial class Table<TItem>
             ColumnVisibles.Clear();
             ColumnVisibles.AddRange(Columns.Select(i => new ColumnVisibleItem { FieldName = i.GetFieldName(), Visible = i.Visible }));
 
-            QueryItems = DynamicContext.GetItems().Cast<TItem>();
-            RowsCache = null;
+            QueryDynamicItems(DynamicContext);
         }
+    }
+
+    private void QueryDynamicItems(IDynamicObjectContext context)
+    {
+        QueryItems = context.GetItems().Cast<TItem>();
+        TotalCount = QueryItems.Count();
+        RowsCache = null;
+
+        // 重置选中行
+        ResetSelectedRows(QueryItems);
     }
 
     /// <summary>
@@ -751,11 +798,11 @@ public partial class Table<TItem>
     /// 是否显示行内编辑按钮
     /// </summary>
     /// <returns></returns>
-    protected bool GetShowEditButton(TItem item) => ShowExtendEditButton && (ShowEditButtonCallback?.Invoke(item) ?? (ShowDefaultButtons && ShowEditButton));
+    protected bool GetShowEditButton(TItem item) => ShowEditButtonCallback?.Invoke(item) ?? ShowExtendEditButton;
 
     /// <summary>
     /// 是否显示行内删除按钮
     /// </summary>
     /// <returns></returns>
-    protected bool GetShowDeleteButton(TItem item) => ShowExtendDeleteButton && (ShowDeleteButtonCallback?.Invoke(item) ?? (ShowDefaultButtons && ShowDeleteButton));
+    protected bool GetShowDeleteButton(TItem item) => ShowDeleteButtonCallback?.Invoke(item) ?? ShowExtendDeleteButton;
 }

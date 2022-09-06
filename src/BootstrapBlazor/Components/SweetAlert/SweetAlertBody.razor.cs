@@ -9,7 +9,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 
 /// </summary>
-public sealed partial class SweetAlertBody
+public partial class SweetAlertBody
 {
     /// <summary>
     /// 获得/设置 关闭按钮文字 默认为 关闭

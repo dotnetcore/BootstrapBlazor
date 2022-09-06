@@ -79,6 +79,6 @@
         color: var(--bs-primary);
     }
 
-    .dropdown-logout .dropdown-item a .fa {
+    .dropdown-logout .dropdown-item a :where(.fa,.fas,.fa-solid,.far,.fa-regular,.fal,.fa-light,.fat,.fa-thin,.fad,.fa-duotone,.fab,.fa-brands) {
         margin-right: .5rem;
     }

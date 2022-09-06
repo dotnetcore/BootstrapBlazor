@@ -33,7 +33,14 @@ public partial class RadioList<TValue>
     /// 获得/设置 空值项显示文字 默认为 "" 是否自动添加空值请参考 <see cref="IsAutoAddNullItem"/>
     /// </summary>
     [Parameter]
-    public string NullItemText { get; set; } = "";
+    [NotNull]
+    public string? NullItemText { get; set; }
+
+    /// <summary>
+    /// 获得/设置 项模板
+    /// </summary>
+    [Parameter]
+    public RenderFragment<SelectedItem>? ItemTemplate { get; set; }
 
     private string? GroupName => Id;
 
@@ -54,6 +61,8 @@ public partial class RadioList<TValue>
         }
 
         base.OnParametersSet();
+
+        NullItemText ??= "";
 
         if (!Items.Any(i => i.Value == CurrentValueAsString))
         {
@@ -76,7 +85,7 @@ public partial class RadioList<TValue>
     protected override void ProcessGenericItems(Type typeValue, IEnumerable? list) { }
 
     /// <summary>
-    /// 
+    /// <inheritdoc />
     /// </summary>
     protected override void EnsureParameterValid() { }
 
@@ -105,4 +114,8 @@ public partial class RadioList<TValue>
     }
 
     private CheckboxState CheckState(SelectedItem item) => item.Value == CurrentValueAsString ? CheckboxState.Checked : CheckboxState.UnChecked;
+
+    private RenderFragment? GetChildContent(SelectedItem item) => ItemTemplate == null
+        ? null
+        : ItemTemplate(item);
 }

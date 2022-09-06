@@ -9,7 +9,7 @@
                 }
                 if (method !== 'dispose') {
                     var op = { html: html, sanitize: !html, title: title, placement: placement, trigger: trigger };
-                    if (css !== '') {
+                    if (css != undefined && css !== '') {
                         op.customClass = css;
                     }
                     instance = new bootstrap.Tooltip(ele, op);

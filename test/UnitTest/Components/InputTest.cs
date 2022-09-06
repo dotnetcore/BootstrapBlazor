@@ -189,7 +189,7 @@ public class InputTest : BootstrapBlazorTestBase
     {
         var cut = Context.RenderComponent<BootstrapInputGroupIcon>(builder =>
         {
-            builder.Add(s => s.Icon, "fa fa-user");
+            builder.Add(s => s.Icon, "fa-solid fa-user");
         });
 
         var ele = cut.Find(".fa-user");

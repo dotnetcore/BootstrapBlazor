@@ -1,12 +1,24 @@
 <Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
-    <Version>6.0.1</Version>
+    <Version>6.1.4</Version>
   </PropertyGroup>
 
   <PropertyGroup>
     <PackageTags>Bootstrap Blazor WebAssembly wasm UI Components Icon</PackageTags>
     <Description>Bootstrap UI components extensions of FontAwesome</Description>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Content Remove="wwwroot\css\font-awesome.css" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\css\font-awesome.css" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BootstrapBlazor" Version="6.9.11" />
+  </ItemGroup>
 
 </Project>

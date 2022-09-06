@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
-  <Import Project="..\Framework.props" />
+  <Import Project="..\..\Framework.props" />
 
   <PropertyGroup>
     <IsWebProject>true</IsWebProject>
@@ -8,9 +8,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="BootstrapBlazor.FontAwesome" Version="6.*" />
     <PackageReference Include="BootstrapBlazor.Middleware" Version="1.*" />
-    <PackageReference Include="Longbow.Logging" Version="5.2.0" />
+    <PackageReference Include="Longbow.Logging" Version="6.0.6" />
     <PackageReference Include="Longbow.Tasks" Version="5.*" />
   </ItemGroup>
 
@@ -19,3 +18,4 @@
   </ItemGroup>
 
 </Project>
+

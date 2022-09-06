@@ -105,20 +105,18 @@ public sealed partial class Dialogs
         await DialogService.Show(option);
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <returns></returns>
     private Task OnClickCounter() => DialogService.Show(new DialogOption()
     {
         Title = "自带的 Counter 组件",
         Component = BootstrapDynamicComponent.CreateComponent<Counter>()
     });
 
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <returns></returns>
+    private Task OnErrorDialog() => DialogService.Show(new DialogOption()
+    {
+        Title = "点击按钮报错测试",
+        Component = BootstrapDynamicComponent.CreateComponent<ErrorCounter>()
+    });
+
     private Task OnClickParameter() => DialogService.Show(new DialogOption()
     {
         Title = "自带的 Counter 组件",
@@ -214,7 +212,7 @@ public sealed partial class Dialogs
             Title = "选择收件人",
             BodyContext = new ResultDialogDemo2.FooContext() { Count = 10, Emails = InputValue },
             ButtonYesText = "选择",
-            ButtonYesIcon = "fa fa-search",
+            ButtonYesIcon = "fa-solid fa-magnifying-glass",
             ComponentParamters = new Dictionary<string, object>
             {
                 // 用于初始化已选择的用户邮件

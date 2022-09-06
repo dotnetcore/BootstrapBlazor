@@ -174,13 +174,6 @@ public sealed partial class DateTimePickers
             DefaultValue = "false"
         },
         new AttributeItem() {
-            Name = "TimeFormat",
-            Description = Localizer["Att7"],
-            Type = "string",
-            ValueList = "",
-            DefaultValue = "hh:mm:ss"
-        },
-        new AttributeItem() {
             Name = "Value",
             Description = Localizer["Att8"],
             Type = "TValue",

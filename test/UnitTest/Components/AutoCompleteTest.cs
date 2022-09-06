@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using BootstrapBlazor.Shared;
 using Microsoft.AspNetCore.Components.Web;
 
 namespace UnitTest.Components;
@@ -172,5 +173,74 @@ public class AutoCompleteTest : BootstrapBlazorTestBase
         cut.Find(".form-control").KeyUp(new KeyboardEventArgs() { Key = "ArrowDown" });
         cut.Find(".form-control").KeyUp(new KeyboardEventArgs() { Key = "Enter" });
         Assert.True(enter);
+    }
+
+    [Fact]
+    public async Task ShowDropdownListOnFocus_Ok()
+    {
+        IEnumerable<string> items = new List<string>() { "test1", "test2" };
+        var cut = Context.RenderComponent<AutoComplete>(pb =>
+        {
+            pb.Add(a => a.Items, items);
+            pb.Add(a => a.ShowDropdownListOnFocus, false);
+        });
+
+        // 获得焦点时不会自动弹出下拉框
+        var input = cut.Find("input");
+        await cut.InvokeAsync(() => input.FocusAsync(new FocusEventArgs()));
+
+        var menu = cut.Find("ul");
+        Assert.Equal("dropdown-menu", menu.ClassList.ToString());
+
+        // 获得焦点时自动弹出下拉框
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ShowDropdownListOnFocus, true);
+        });
+        input = cut.Find("input");
+        await cut.InvokeAsync(() => input.FocusAsync(new FocusEventArgs()));
+        menu = cut.Find("ul");
+        Assert.Equal("dropdown-menu show", menu.ClassList.ToString());
+    }
+
+    [Fact]
+    public async Task ItemTemplate_Ok()
+    {
+        IEnumerable<string> items = new List<string>() { "test1", "test2" };
+        var cut = Context.RenderComponent<AutoComplete>(pb =>
+        {
+            pb.Add(a => a.Items, items);
+            pb.Add(a => a.ItemTemplate, item => builder =>
+            {
+                builder.OpenElement(0, "div");
+                builder.AddContent(1, $"Template-{item}");
+                builder.CloseElement();
+            });
+        });
+
+        var input = cut.Find("input");
+        await cut.InvokeAsync(() => input.FocusAsync(new FocusEventArgs()));
+
+        Assert.Contains("Template-test1", cut.Markup);
+    }
+
+    [Fact]
+    public void ValidateForm_Ok()
+    {
+        IEnumerable<string> items = new List<string>() { "test1", "test2" };
+        var cut = Context.RenderComponent<ValidateForm>(pb =>
+        {
+            pb.Add(a => a.Model, new Foo());
+            pb.AddChildContent<AutoComplete>(pb =>
+            {
+                pb.Add(a => a.Items, items);
+            });
+        });
+
+        // Trigger js invoke
+        var comp = cut.FindComponent<AutoComplete>().Instance;
+        comp.TriggerOnChange("v");
+
+        Assert.Equal("v", comp.Value);
     }
 }

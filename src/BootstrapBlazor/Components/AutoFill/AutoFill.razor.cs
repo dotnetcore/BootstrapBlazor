@@ -18,7 +18,7 @@ public partial class AutoFill<TValue>
     /// <summary>
     /// 获得 组件样式
     /// </summary>
-    protected virtual string? ClassString => CssBuilder.Default("auto-complete")
+    protected virtual string? ClassString => CssBuilder.Default("auto-complete auto-fill")
         .AddClass("is-loading", _isLoading)
         .Build();
 
@@ -112,6 +112,12 @@ public partial class AutoFill<TValue>
     public int Debounce { get; set; }
 
     /// <summary>
+    /// 获得/设置 获得焦点时是否展开下拉候选菜单 默认 true
+    /// </summary>
+    [Parameter]
+    public bool ShowDropdownListOnFocus { get; set; } = true;
+
+    /// <summary>
     /// 
     /// </summary>
     [Inject]
@@ -121,6 +127,8 @@ public partial class AutoFill<TValue>
     private string InputString { get; set; } = "";
 
     private TValue? ActiveSelectedItem { get; set; }
+
+    private JSInterop<AutoFill<TValue>>? Interop { get; set; }
 
     /// <summary>
     /// 
@@ -143,6 +151,15 @@ public partial class AutoFill<TValue>
         PlaceHolder ??= Localizer[nameof(PlaceHolder)];
         Items ??= Enumerable.Empty<TValue>();
         FilterItems ??= new List<TValue>();
+    }
+
+    /// <summary>
+    /// OnParametersSet 方法
+    /// </summary>
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
         OnGetDisplayText ??= v => v?.ToString() ?? "";
         InputString = OnGetDisplayText(Value);
     }
@@ -163,6 +180,14 @@ public partial class AutoFill<TValue>
 
         if (firstRender)
         {
+            // 汉字多次触发问题
+            if (ValidateForm != null)
+            {
+                Interop ??= new JSInterop<AutoFill<TValue>>(JSRuntime);
+
+                await Interop.InvokeVoidAsync(this, FocusElement, "bb_composition", nameof(TriggerOnChange));
+            }
+
             if (Debounce > 0)
             {
                 await JSRuntime.InvokeVoidAsync(AutoFillElement, "bb_setDebounce", Debounce);
@@ -194,6 +219,19 @@ public partial class AutoFill<TValue>
         if (OnSelectedItemChanged != null)
         {
             await OnSelectedItemChanged(val);
+        }
+    }
+
+    /// <summary>
+    /// OnFocus 方法
+    /// </summary>
+    /// <param name="args"></param>
+    /// <returns></returns>
+    protected virtual async Task OnFocus(FocusEventArgs args)
+    {
+        if (ShowDropdownListOnFocus)
+        {
+            await OnKeyUp(new KeyboardEventArgs());
         }
     }
 
@@ -286,5 +324,33 @@ public partial class AutoFill<TValue>
                 Items.Where(s => OnGetDisplayText(s).Contains(InputString, comparison)) :
                 Items.Where(s => OnGetDisplayText(s).StartsWith(InputString, comparison));
         }
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="val"></param>
+    [JSInvokable]
+    public void TriggerOnChange(string val)
+    {
+        CurrentValueAsString = val;
+    }
+
+    /// <summary>
+    /// DisposeAsyncCore 方法
+    /// </summary>
+    /// <param name="disposing"></param>
+    /// <returns></returns>
+    protected override ValueTask DisposeAsyncCore(bool disposing)
+    {
+        if (disposing)
+        {
+            if (Interop != null)
+            {
+                Interop.Dispose();
+            }
+        }
+
+        return base.DisposeAsyncCore(disposing);
     }
 }

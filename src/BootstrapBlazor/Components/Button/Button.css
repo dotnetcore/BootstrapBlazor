@@ -1,15 +1,12 @@
-﻿:root {
-    --bb-button-label-margin-left: 4px;
-}
-
-.btn:focus,
-.btn:active:focus,
-.show > .dropdown-toggle:focus {
-    box-shadow: none !important;
+﻿.btn {
+    --bs-btn-font-size: .875rem;
+    --bs-btn-focus-box-shadow: none;
+    --bb-btn-label-margin-left: 4px;
+    --bs-btn-active-border-color: transparent;
+    --bs-btn-hover-border-color: transparent;
 }
 
 .btn-xs, .btn-group-xs > .btn {
-    --bs-btn-border-radius: 0.2rem;
     --bs-btn-padding-x: .3125rem;
     --bs-btn-padding-y: .0625rem;
     --bs-btn-font-size: 0.75rem;
@@ -27,10 +24,11 @@
     --bs-btn-font-size: 1.5rem;
 }
 
-.btn .badge, .btn i + span,
+.btn .badge,
+.btn i + span,
 .badge i + span,
-.link-button > i + span {
-    margin-left: var(--bb-button-label-margin-left);
+.link-button i + span {
+    margin-left: var(--bb-btn-label-margin-left);
 }
 
 .btn-circle {
@@ -42,7 +40,7 @@
 }
 
 .btn-round {
-    --bs-btn-border-radius: 20px;
+    --bs-btn-border-radius: var(--bs-border-radius-pill);
 }
 
 .btn-block {
@@ -50,19 +48,22 @@
 }
 
 .btn-vertical {
+    --bb-btn-label-margin-left: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
-    --bb-button-label-margin-left: 0;
+}
+
+.btn-close:focus {
+    box-shadow: none;
 }
 
 .link-button {
     background-color: transparent;
     border: none;
     padding: 0;
-    --bb-link-btn-disabled-opacity: 0.65;
 }
 
     .link-button:disabled img {
-        opacity: var(--bb-link-btn-disabled-opacity);
+        opacity: var(--bs-btn-disabled-opacity);
     }

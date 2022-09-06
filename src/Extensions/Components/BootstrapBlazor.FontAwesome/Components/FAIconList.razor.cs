@@ -2,6 +2,10 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Localization;
+using Microsoft.JSInterop;
+
 namespace BootstrapBlazor.Components;
 
 /// <summary>
@@ -29,11 +33,32 @@ public partial class FAIconList
     [Parameter]
     public bool ShowCatalog { get; set; }
 
+    /// <summary>
+    /// 获得/设置 高级弹窗 Header 显示文字
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public string? DialogHeaderText { get; set; }
+
     [Inject]
     [NotNull]
     private DialogService? DialogService { get; set; }
 
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<IconDialog>? Localizer { get; set; }
+
     private JSInterop<FAIconList>? Interop { get; set; }
+
+    /// <summary>
+    /// OnParametersSet 方法
+    /// </summary>
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
+        DialogHeaderText ??= Localizer[nameof(DialogHeaderText)];
+    }
 
     /// <summary>
     /// OnAfterRenderAsync 方法
@@ -56,7 +81,7 @@ public partial class FAIconList
     /// </summary>
     /// <returns></returns>
     [JSInvokable]
-    public Task ShowDialog(string text) => DialogService.ShowCloseDialog<IconDialog>("请选择图标", parameters =>
+    public Task ShowDialog(string text) => DialogService.ShowCloseDialog<IconDialog>(DialogHeaderText, parameters =>
     {
         parameters.Add(nameof(IconDialog.IconName), text);
     });

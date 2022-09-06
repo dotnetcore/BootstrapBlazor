@@ -1,14 +1,21 @@
 <Project>
+
   <PropertyGroup>
     <Copyright>Argo Zhang</Copyright>
     <Authors>Argo Zhang(argo@163.com)</Authors>
     <Company>Longbow</Company>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)src\keys\Longbow.Utility.snk</AssemblyOriginatorKeyFile>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
   <PropertyGroup>
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Using Include="System.Diagnostics.CodeAnalysis"/>
+  </ItemGroup>
 
 </Project>

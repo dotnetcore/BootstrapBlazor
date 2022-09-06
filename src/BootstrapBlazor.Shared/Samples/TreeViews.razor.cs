@@ -36,15 +36,18 @@ public sealed partial class TreeViews
 
     private List<TreeViewItem<TreeFoo>> CheckedItems { get; set; } = GetCheckedItems();
 
-    private List<TreeViewItem<TreeFoo>> RadioItems { get; set; } = GetCheckedItems();
-
     private List<TreeViewItem<TreeFoo>> ExpandItems { get; set; } = GetExpandItems();
 
     private List<TreeViewItem<TreeFoo>>? AsyncItems { get; set; }
 
+    [NotNull]
+    private List<TreeViewItem<TreeFoo>>? SelectedItemsDataSource { get; set; }
+
     private bool AutoCheckChildren { get; set; }
 
     private bool AutoCheckParent { get; set; }
+
+    private List<TreeViewItem<TreeFoo>> SelectedItems { get; set; } = new();
 
     private List<SelectedItem> ResetItems { get; } = new List<SelectedItem>()
     {
@@ -59,6 +62,8 @@ public sealed partial class TreeViews
     protected override async Task OnInitializedAsync()
     {
         await OnLoadAsyncItems();
+
+        SelectedItemsDataSource = TreeFoo.GetTreeItems();
     }
 
     private void OnRefresh()
@@ -160,7 +165,7 @@ public sealed partial class TreeViews
             builder.CloseElement();
 
             builder.OpenComponent<Button>(0);
-            builder.AddAttribute(1, nameof(Button.Icon), "fa fa-fa");
+            builder.AddAttribute(1, nameof(Button.Icon), "fa-solid fa-font-awesome");
             builder.AddAttribute(2, nameof(Button.Text), "Click");
             builder.AddAttribute(3, nameof(Button.OnClick), EventCallback.Factory.Create<MouseEventArgs>(this, e =>
             {
@@ -250,30 +255,23 @@ public sealed partial class TreeViews
             DefaultValue = "false"
         },
         new AttributeItem() {
-            Name = "OnTreeItemClick",
+            Name = nameof(TreeView<string>.OnTreeItemClick),
             Description = "树形控件节点点击时回调委托",
             Type = "Func<TreeItem, Task>",
             ValueList = " — ",
             DefaultValue = " — "
         },
         new AttributeItem() {
-            Name = "OnTreeItemChecked",
+            Name = nameof(TreeView<string>.OnTreeItemChecked),
             Description = "树形控件节点选中时回调委托",
             Type = "Func<TreeItem, Task>",
             ValueList = " — ",
             DefaultValue = " — "
         },
         new AttributeItem() {
-            Name = "OnExpandNode",
+            Name = nameof(TreeView<string>.OnExpandNodeAsync),
             Description = "树形控件节点展开回调委托",
             Type = "Func<TreeItem, Task>",
-            ValueList = " — ",
-            DefaultValue = " — "
-        },
-        new AttributeItem() {
-            Name = "OnCheckedItems",
-            Description = "树形控件获取所有选中节点回调委托",
-            Type = "Func<List<TreeItem>, Task>",
             ValueList = " — ",
             DefaultValue = " — "
         }

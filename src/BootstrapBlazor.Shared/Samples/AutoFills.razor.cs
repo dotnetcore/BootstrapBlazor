@@ -122,6 +122,13 @@ partial class AutoFills
             DefaultValue = " — "
         },
         new AttributeItem() {
+            Name = nameof(AutoFill<Foo>.ShowDropdownListOnFocus),
+            Description = "获得焦点时是否展开下拉候选菜单",
+            Type = "bool",
+            ValueList = "true/false",
+            DefaultValue = "true"
+        },
+        new AttributeItem() {
             Name = "Template",
             Description = "候选项模板",
             Type = "RenderFragment<TValue>",

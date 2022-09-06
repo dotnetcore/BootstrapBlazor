@@ -22,14 +22,14 @@
             }
 
             .upload .upload-body.is-list .upload-item:hover {
-                background-color: var(--bb-bg-disabled);
+                background-color: var(--bb-disabled-bg);
             }
 
             .upload .upload-body.is-list .upload-item:not(:last-child) {
                 margin-bottom: 2px;
             }
 
-            .upload .upload-body.is-list .upload-item:hover .fa-trash-o {
+            .upload .upload-body.is-list .upload-item:hover .fa-trash-can {
                 display: inline-block;
             }
 
@@ -49,14 +49,14 @@
                     padding-right: 0.25rem;
                 }
 
-            .upload .upload-body.is-list .upload-item .fa-trash-o,
-            .upload .upload-body.is-list .upload-item:not(.disabled):hover .fa-check-circle-o,
-            .upload .upload-body.is-list .upload-item:hover .fa-times-circle-o,
+            .upload .upload-body.is-list .upload-item .fa-trash-can,
+            .upload .upload-body.is-list .upload-item:not(.disabled):hover .fa--circle-check,
+            .upload .upload-body.is-list .upload-item:hover .fa-xmark-circle,
             .upload .upload-body.is-avatar .upload-item .upload-item-delete,
             .upload .upload-body.is-avatar .upload-item.is-invalid .upload-item-spin,
             .upload .upload-body.is-avatar .upload-item.is-valid .upload-item-spin,
             .upload .upload-item.is-invalid .fa-check,
-            .upload .upload-item.is-valid .fa-times,
+            .upload .upload-item.is-valid .fa-xmark,
             .upload .upload-body.is-avatar .upload-item.disabled .upload-item-plus {
                 display: none;
             }
@@ -125,7 +125,7 @@
                 justify-content: center;
             }
 
-                .upload .upload-body.is-avatar .upload-item .upload-item-actions .fa {
+                .upload .upload-body.is-avatar .upload-item .upload-item-actions :where(.fa,.fas,.fa-solid,.far,.fa-regular,.fal,.fa-light,.fat,.fa-thin,.fad,.fa-duotone,.fab,.fa-brands) {
                     font-size: 1rem;
                 }
 
@@ -180,7 +180,7 @@
                 display: none;
             }
 
-            .upload .upload-body.is-card .upload-item-body .fa {
+            .upload .upload-body.is-card .upload-item-body :where(.fa,.fas,.fa-solid,.far,.fa-regular,.fal,.fa-light,.fat,.fa-thin,.fad,.fa-duotone,.fab,.fa-brands) {
                 font-size: 1.5rem;
             }
 

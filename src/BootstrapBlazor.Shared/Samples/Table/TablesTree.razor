@@ -71,7 +71,7 @@
         <div>默认层次缩进宽度为 <code>16px</code> 通过设置 <code>Indent</code> 更改缩进宽度</div>
     </Tips>
     <p>本例中更改缩进宽度为 <code>8px</code></p>
-    <Table TItem="TreeFoo" IsBordered="true" IsStriped="true" HeaderStyle="@TableHeaderStyle.Light" TreeIcon="fa fa-chevron-circle-right"
+    <Table TItem="TreeFoo" IsBordered="true" IsStriped="true" HeaderStyle="@TableHeaderStyle.Light" TreeIcon="fa-solid fa-circle-chevron-right"
            Items="@TreeItems" IsTree="true" TreeNodeConverter="@TreeNodeConverter" OnTreeExpand="@OnTreeExpand">
         <TableColumns>
             <TableColumn @bind-Field="@context.Name" Width="360" />

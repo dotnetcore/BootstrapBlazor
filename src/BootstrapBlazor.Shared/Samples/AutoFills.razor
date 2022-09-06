@@ -5,7 +5,7 @@
 <h4>通过智能感应提示选项，选中后自动填充表单</h4>
 
 <DemoBlock Title="基本用法" Introduction="填充表单" Name="Normal">
-    <div class="mb-3">录入 <code>Name</code> 姓名智能提示，选择提示项后自动填充下方表单 目前支持键盘 <kbd>Enter</kbd> <kbd>Spance</kbd> <kbd><i class="fa fa-arrow-up"></i></kbd> <kbd><i class="fa fa-arrow-down"></i></kbd></div>
+    <div class="mb-3">录入 <code>Name</code> 姓名智能提示，选择提示项后自动填充下方表单 目前支持键盘 <kbd>Enter</kbd> <kbd>Spance</kbd> <kbd><i class="fa-solid fa-arrow-up"></i></kbd> <kbd><i class="fa-solid fa-arrow-down"></i></kbd></div>
     <AutoFill TValue="Foo" Value="Model" Items="Items" IsLikeMatch="true" OnSelectedItemChanged="OnSelectedItemChanged" OnGetDisplayText="OnGetDisplayText" class="mb-3" IsSelectAllTextOnFocus="true">
         <Template>
             <div class="d-flex">
@@ -25,7 +25,25 @@
 
 <DemoBlock Title="自定义过滤条件" Introduction="通过设置自定义过滤条件回调委托 <code>OnCustomFilter</code> 过滤数据" Name="CustomFilter">
     <div class="mb-3">录入 <code>Name</code> 姓名智能提示，通过设置自定义过滤条件回调委托 <code>OnCustomFilter</code> 过滤数据，当前过滤条件为 <code>Name</code> 包含输入字符串 <b>并且</b> <code>Count</code> 值大于 50</div>
-    <AutoFill TValue="Foo" Value="Model" Items="Items" OnCustomFilter="OnCustomFilter"  OnSelectedItemChanged="OnSelectedItemChanged" OnGetDisplayText="OnGetDisplayText" class="mb-3">
+    <AutoFill TValue="Foo" Value="Model" Items="Items" OnCustomFilter="OnCustomFilter" OnSelectedItemChanged="OnSelectedItemChanged" OnGetDisplayText="OnGetDisplayText" class="mb-3">
+        <Template>
+            <div class="d-flex">
+                <div>
+                    <img src="@Foo.GetAvatarUrl(context.Id)" class="bb-avatar" />
+                </div>
+                <div class="ps-2">
+                    <div>@context.Name</div>
+                    <div class="bb-sub">@Foo.GetTitle(context.Id)</div>
+                </div>
+            </div>
+        </Template>
+    </AutoFill>
+    <EditorForm Model="@Model" RowType="RowType.Inline" ItemsPerRow="2" />
+</DemoBlock>
+
+<DemoBlock Title="关闭自动展开下拉框" Introduction="通过设置 <code>ShowDropdownListOnFocus=&quot;false&quot;</code>" Name="ShowDropdownListOnFocus">
+    <div class="mb-3">参数 <code>ShowDropdownListOnFocus</code> 默认值为 <code>true</code> 组件获得焦点后会自动展开候选项下拉框，设置为 <code>false</code> 后关闭这个特性</div>
+    <AutoFill TValue="Foo" Value="Model" Items="Items" ShowDropdownListOnFocus="false" OnGetDisplayText="OnGetDisplayText" class="mb-3">
         <Template>
             <div class="d-flex">
                 <div>

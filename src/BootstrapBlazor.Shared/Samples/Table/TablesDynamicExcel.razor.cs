@@ -84,6 +84,10 @@ partial class TablesDynamicExcel
                 col.ComponentType = typeof(Select<string>);
                 col.Items = typeof(EnumEducation).ToSelectList(new SelectedItem("", Localizer["NullItemText"].Value));
             }
+            if (col.GetFieldName() == nameof(Foo.Complete))
+            {
+                col.Align = Alignment.Center;
+            }
         });
 
         var method = DataTableDynamicContext.OnValueChanged;

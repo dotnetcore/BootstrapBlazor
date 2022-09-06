@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using BootstrapBlazor.Shared;
 using Microsoft.AspNetCore.Components.Web;
 
 namespace UnitTest.Components;
@@ -21,7 +22,7 @@ public class SearchTest : BootstrapBlazorTestBase
         var cut = Context.RenderComponent<Search>(builder =>
         {
             builder.Add(s => s.ShowClearButton, true);
-            builder.Add(s => s.ClearButtonIcon, "fa fa-fw fa-trash");
+            builder.Add(s => s.ClearButtonIcon, "fa-fw fa-solid fa-trash");
         });
         Assert.Contains("fa-trash", cut.Markup);
     }
@@ -65,9 +66,9 @@ public class SearchTest : BootstrapBlazorTestBase
     {
         var cut = Context.RenderComponent<Search>(builder =>
         {
-            builder.Add(s => s.SearchButtonIcon, "fa fa-fw fa-search");
+            builder.Add(s => s.SearchButtonIcon, "fa-fw fa-solid fa-magnifying-glass");
         });
-        var ele = cut.Find(".fa-search");
+        var ele = cut.Find(".fa-magnifying-glass");
         Assert.NotNull(ele);
     }
 
@@ -77,7 +78,7 @@ public class SearchTest : BootstrapBlazorTestBase
         var cut = Context.RenderComponent<Search>(builder =>
         {
             builder.Add(s => s.Items, new string[] { "1", "12", "123", "1234" });
-            builder.Add(s => s.SearchButtonLoadingIcon, "fa fa-fw fa-spinner fa-spin");
+            builder.Add(s => s.SearchButtonLoadingIcon, "fa-fw fa-spin fa-solid fa-spinner");
         });
     }
 
@@ -218,5 +219,25 @@ public class SearchTest : BootstrapBlazorTestBase
         });
         cut.Find(".form-control").KeyUp(new KeyboardEventArgs() { Key = "Escape" });
         Assert.True(ret);
+    }
+
+    [Fact]
+    public void ValidateForm_Ok()
+    {
+        IEnumerable<string> items = new List<string>() { "test1", "test2" };
+        var cut = Context.RenderComponent<ValidateForm>(pb =>
+        {
+            pb.Add(a => a.Model, new Foo());
+            pb.AddChildContent<Search>(pb =>
+            {
+                pb.Add(a => a.Items, items);
+            });
+        });
+
+        // Trigger js invoke
+        var comp = cut.FindComponent<Search>().Instance;
+        comp.TriggerOnChange("v");
+
+        Assert.Equal("v", comp.Value);
     }
 }

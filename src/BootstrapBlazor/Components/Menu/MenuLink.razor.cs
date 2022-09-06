@@ -21,7 +21,7 @@ public sealed partial class MenuLink
         .Build();
 
     private string? MenuArrowClassString => CssBuilder.Default("arrow")
-        .AddClass("fa fa-fw", Parent.IsVertical)
+        .AddClass("fa-fw fa", Parent.IsVertical)
         .AddClass("fa-angle-left", Item.Items.Any())
         .Build();
 
@@ -50,7 +50,7 @@ public sealed partial class MenuLink
         ? (Parent.IsVertical
             ? (Parent.IsCollapsed
                 ? "fa-none"
-                : "fa fa-fw")
+                : "fa-fw fa")
             : null)
         : Item.Icon.Contains("fa-fw", StringComparison.OrdinalIgnoreCase)
             ? Item.Icon

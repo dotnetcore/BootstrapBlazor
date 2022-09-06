@@ -25,6 +25,7 @@ public class TableNumberFilterTest : BootstrapBlazorTestBase
         var filter = cut.Instance;
         IEnumerable<FilterKeyValueAction>? condtions = null;
         cut.InvokeAsync(() => condtions = filter.GetFilterConditions());
+        Assert.NotNull(condtions);
         Assert.Empty(condtions);
 
         // Set Value
@@ -110,6 +111,7 @@ public class TableNumberFilterTest : BootstrapBlazorTestBase
             logics[1].Click();
             condtions = filter.Instance.GetFilterConditions();
         });
+        Assert.NotNull(condtions);
         Assert.Single(condtions);
         Assert.Equal(10, condtions!.First().FieldValue);
         Assert.Equal(FilterAction.LessThanOrEqual, condtions!.First().FilterAction);

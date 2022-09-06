@@ -40,7 +40,7 @@ public partial class ToastBox : IDisposable
     protected string? IconString => CssBuilder.Default("fa")
         .AddClass("fa-check-circle text-success", Options.Category == ToastCategory.Success)
         .AddClass("fa-exclamation-circle text-info", Options.Category == ToastCategory.Information)
-        .AddClass("fa-times-circle text-danger", Options.Category == ToastCategory.Error)
+        .AddClass("fa-xmark-circle text-danger", Options.Category == ToastCategory.Error)
         .AddClass("fa-exclamation-triangle text-warning", Options.Category == ToastCategory.Warning)
         .Build();
 

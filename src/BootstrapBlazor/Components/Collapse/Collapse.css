@@ -1,74 +1,39 @@
-﻿.accordion-button:not(.collapsed) {
-    box-shadow: inset 0 -1px 0 #00000020;
+﻿.accordion {
+    --bs-accordion-btn-focus-box-shadow: none;
 }
 
-.accordion .accordion-button-primary {
-    color: #fff;
-    background-color: var(--bs-primary);
-    border-color: #0d6efd;
-}
+    .accordion .accordion-button {
+        color: var(--bs-btn-color);
+    }
 
-.accordion .accordion-button-secondary {
-    color: #fff;
-    background-color: var(--bs-secondary);
-    border-color: #6c757d;
-}
+        .accordion .accordion-button.btn-primary {
+            background-color: var(--bs-primary);
+        }
 
-.accordion .accordion-button-success {
-    color: #fff;
-    background-color: var(--bs-success);
-    border-color: #198754;
-}
+        .accordion .accordion-button.btn-secondary {
+            background-color: var(--bs-secondary);
+        }
 
-.accordion .accordion-button-info {
-    color: #fff;
-    background-color: var(--bs-info);
-    border-color: #0dcaf0;
-}
+        .accordion .accordion-button.btn-success {
+            background-color: var(--bs-success);
+        }
 
-.accordion .accordion-button-warning {
-    color: #fff;
-    background-color: var(--bs-warning);
-    border-color: #ffc107;
-}
+        .accordion .accordion-button.btn-info {
+            background-color: var(--bs-info);
+        }
 
-.accordion .accordion-button-danger {
-    color: #fff;
-    background-color: var(--bs-danger);
-    border-color: #dc3545;
-}
+        .accordion .accordion-button.btn-warning {
+            background-color: var(--bs-warning);
+        }
 
-.accordion .accordion-button-light {
-    background-color: var(--bs-light);
-    border-color: #f8f9fa;
-}
+        .accordion .accordion-button.btn-danger {
+            background-color: var(--bs-danger);
+        }
 
-.accordion .accordion-button-dark {
-    color: #fff;
-    background-color: var(--bs-dark);
-    border-color: #212529;
-}
+        .accordion .accordion-button.btn-light {
+            background-color: var(--bs-light);
+        }
 
-.accordion .accordion-button:after {
-    width: .75rem;
-    height: .75rem;
-    background-size: .75rem;
-}
-
-.accordion .accordion-button-primary:after,
-.accordion .accordion-button-secondary:after,
-.accordion .accordion-button-success:after,
-.accordion .accordion-button-danger:after
-.accordion .accordion-button-dark:after {
-    color: #fff;
-}
-
-.accordion .accordion-button-light:after,
-.accordion .accordion-button-warning:after,
-.accordion .accordion-button-info:after {
-    color: #000;
-}
-
-.accordion .accordion-button {
-    border-radius: 0;
-}
+        .accordion .accordion-button.btn-dark {
+            background-color: var(--bs-dark);
+        }

@@ -238,6 +238,54 @@ public class AutoFillTest : BootstrapBlazorTestBase
         });
     }
 
+    [Fact]
+    public async Task ShowDropdownListOnFocus_Ok()
+    {
+        var cut = Context.RenderComponent<AutoFill<Foo>>(pb =>
+        {
+            pb.Add(a => a.Value, Model);
+            pb.Add(a => a.Items, Items);
+            pb.Add(a => a.ShowDropdownListOnFocus, false);
+        });
+
+        // 获得焦点时不会自动弹出下拉框
+        var input = cut.Find("input");
+        await cut.InvokeAsync(() => input.FocusAsync(new FocusEventArgs()));
+
+        var menu = cut.Find("ul");
+        Assert.Equal("dropdown-menu", menu.ClassList.ToString());
+
+        // 获得焦点时自动弹出下拉框
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ShowDropdownListOnFocus, true);
+        });
+        input = cut.Find("input");
+        await cut.InvokeAsync(() => input.FocusAsync(new FocusEventArgs()));
+        menu = cut.Find("ul");
+        Assert.Equal("dropdown-menu show", menu.ClassList.ToString());
+    }
+
+    [Fact]
+    public void ValidateForm_Ok()
+    {
+        IEnumerable<string> items = new List<string>() { "test1", "test2" };
+        var cut = Context.RenderComponent<ValidateForm>(pb =>
+        {
+            pb.Add(a => a.Model, new Foo());
+            pb.AddChildContent<AutoFill<string>>(pb =>
+            {
+                pb.Add(a => a.Items, items);
+            });
+        });
+
+        // Trigger js invoke
+        var comp = cut.FindComponent<AutoFill<string>>().Instance;
+        comp.TriggerOnChange("v");
+
+        Assert.Equal("v", comp.Value);
+    }
+
     class AutoFillNullStringMock
     {
         [NotNull]

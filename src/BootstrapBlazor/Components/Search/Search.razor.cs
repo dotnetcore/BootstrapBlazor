@@ -25,7 +25,7 @@ public partial class Search
     /// Clear button icon
     /// </summary>
     [Parameter]
-    public string ClearButtonIcon { get; set; } = "fa fa-fw fa-trash";
+    public string ClearButtonIcon { get; set; } = "fa-regular fa-trash-can";
 
     /// <summary>
     /// Clear button text
@@ -49,13 +49,13 @@ public partial class Search
     /// 获得/设置 搜索按钮图标
     /// </summary>
     [Parameter]
-    public string SearchButtonIcon { get; set; } = "fa fa-fw fa-search";
+    public string SearchButtonIcon { get; set; } = "fa-fw fa-solid fa-magnifying-glass";
 
     /// <summary>
     /// 获得/设置 正在搜索按钮图标
     /// </summary>
     [Parameter]
-    public string SearchButtonLoadingIcon { get; set; } = "fa fa-fw fa-spinner fa-spin";
+    public string SearchButtonLoadingIcon { get; set; } = "fa-fw fa-spin fa-solid fa-spinner";
 
     /// <summary>
     /// 获得/设置 点击搜索后是否自动清空搜索框
@@ -91,6 +91,8 @@ public partial class Search
     [Inject]
     [NotNull]
     private IStringLocalizer<Search>? Localizer { get; set; }
+
+    private JSInterop<Search>? Interop { get; set; }
 
     /// <summary>
     /// OnInitialized 方法
@@ -188,5 +190,38 @@ public partial class Search
         {
             await OnSearchClick();
         }
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    protected override async Task RegisterComposition()
+    {
+        // 汉字多次触发问题
+        if (ValidateForm != null)
+        {
+            Interop ??= new JSInterop<Search>(JSRuntime);
+
+            await Interop.InvokeVoidAsync(this, FocusElement, "bb_composition", nameof(TriggerOnChange));
+        }
+    }
+
+    /// <summary>
+    /// DisposeAsyncCore 方法
+    /// </summary>
+    /// <param name="disposing"></param>
+    /// <returns></returns>
+    protected override ValueTask DisposeAsyncCore(bool disposing)
+    {
+        if (disposing)
+        {
+            if (Interop != null)
+            {
+                Interop.Dispose();
+            }
+        }
+
+        return base.DisposeAsyncCore(disposing);
     }
 }

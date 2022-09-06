@@ -131,7 +131,7 @@ public class MultiSelectTest : BootstrapBlazorTestBase
                 new("2", "Test2")
             });
         });
-        cut.Find(".search-text").Input("T");
+        cut.Find(".form-control").Input("T");
         Assert.Contains("multi-select", cut.Markup);
     }
 
@@ -351,5 +351,51 @@ public class MultiSelectTest : BootstrapBlazorTestBase
         });
         Assert.Contains("test-Test1-test", cut.Markup);
         Assert.Contains("test-Test2-test", cut.Markup);
+    }
+
+    [Fact]
+    public void SearchIcon_Ok()
+    {
+        var cut = Context.RenderComponent<MultiSelect<string>>(pb =>
+        {
+            pb.Add(a => a.Value, "1");
+            pb.Add(a => a.ShowSearch, true);
+            pb.Add(a => a.Items, new List<SelectedItem>
+            {
+                new("1", "Test1"),
+                new("2", "Test2")
+            });
+            pb.Add(a => a.SearchIcon, "icon-search");
+        });
+        Assert.Contains("icon-search", cut.Markup);
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.SearchIcon, null);
+        });
+        Assert.Contains("fa-solid fa-magnifying-glass", cut.Markup);
+    }
+
+    [Fact]
+    public void ClearIcon_Ok()
+    {
+        var cut = Context.RenderComponent<MultiSelect<string>>(pb =>
+        {
+            pb.Add(a => a.Value, "1");
+            pb.Add(a => a.ShowCloseButton, true);
+            pb.Add(a => a.Items, new List<SelectedItem>
+            {
+                new("1", "Test1"),
+                new("2", "Test2")
+            });
+            pb.Add(a => a.ClearIcon, "icon-clear");
+        });
+        Assert.Contains("icon-clear", cut.Markup);
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ClearIcon, null);
+        });
+        Assert.Contains("fa-solid fa-xmark", cut.Markup);
     }
 }

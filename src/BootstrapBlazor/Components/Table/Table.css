@@ -1,14 +1,67 @@
-﻿:root {
+﻿.table-container {
+    position: relative;
+    --bb-table-td-padding-x: .5rem;
+    --bb-table-td-padding-y: .5rem;
     --bb-table-cardview-label-width: 30%;
+    --bb-table-header-hover-bg: #e9ecef;
+    --bb-table-header-icon-color: #ddd;
+    --bb-table-header-icon-active-color: #409eff;
+    --bb-table-header-icon-hover-bg: #ddd;
+    --bb-table-header-icon-hover-color: #606266;
+    --bb-table-footer-font-weight: blod;
+    --bb-table-footer-border-top: 2px solid #dee2e6;
+    --bb-table-loader-bg: #f8f9fa;
+    --bb-table-card-row-padding: .75rem 0;
+    --bb-table-columnlist-max-height: 780px;
 }
 
-.table-container {
-    position: relative;
+    .table-container .table:not(.table-excel) .switch {
+        --bb-switch-padding: 0;
+    }
+
+    .table-container > :where(:not(:first-child):not(.table-loader):not(.table-wrapper), :not(.table-toolbar) + .table-wrapper) {
+        margin-top: .5rem;
+    }
+
+    .table-container .table > :not(caption) > * > * {
+        padding: var(--bb-table-td-padding-y) var(--bb-table-td-padding-x);
+    }
+
+.table-excel {
+    --bb-border-hover-color: transparent;
+    --bb-border-focus-color: transparent;
+    --bs-border-color: transparent;
+    --bs-border-radius: 0;
 }
+
+.table-dark {
+    --bb-table-header-hover-bg: #343a40;
+    --bb-table-header-icon-hover-bg: #6c757d;
+    --bb-table-header-icon-hover-color: #495057;
+}
+
+.table-light {
+    --bb-table-header-icon-color: #c0c4cc;
+    --bb-table-header-icon-hover-color: #495057;
+}
+
+.table-sm {
+    --bb-table-td-padding-x: .25rem;
+    --bb-table-td-padding-y: .25rem;
+}
+
+.filter-header th {
+    --bb-table-td-padding-x: 0;
+    --bb-table-td-padding-y: 0;
+}
+
+    .filter-header th:hover {
+        --bb-table-header-hover-bg: transparent;
+    }
 
 .table-wrapper {
     border-radius: var(--bs-border-radius);
-    border: 1px solid #dee2e6;
+    border: 1px solid var(--bs-border-color);
 }
 
     .table-wrapper thead tr:first-child {
@@ -39,13 +92,8 @@
         border-right-width: 1px;
     }
 
-.table-th-button {
-    width: 130px;
-}
-
 .table {
     margin-bottom: 0;
-    --bb-table-selected-bg: #9ec6ef;
 }
 
     .table thead th, .table tbody td {
@@ -57,95 +105,57 @@
         vertical-align: top;
     }
 
-        .table thead th.sortable:hover,
-        .table thead th.filterable:hover {
-            background-color: #e9ecef;
+        .table thead th:where(.sortable, .filterable) .table-text {
+            padding-right: 1rem;
         }
 
-            .table thead th.sortable:hover > .fa {
-                color: #999;
-            }
+        .table thead th:where(.sortable, .filterable):hover {
+            background-color: var(--bb-table-header-hover-bg);
+        }
 
-    .table thead.table-dark th.sortable:hover,
-    .table thead.table-dark th.filterable:hover {
-        background-color: #343a40;
-    }
+        .table thead th .table-cell {
+            position: relative;
+        }
 
-    .table thead th .table-cell {
-        justify-content: space-between;
-        position: relative;
-    }
-
-        .table thead th .table-cell .table-text {
+        .table thead th .table-text {
             flex: 1;
         }
 
-        .table thead th .table-cell > .fa {
-            content: "";
+        .table thead th :where(.table-filter-icon, .table-sort-icon) {
             position: absolute;
-            right: -8px;
-            top: -8px;
-            bottom: -8px;
+            right: calc(0px - var(--bb-table-td-padding-x));
+            top: calc(0px - var(--bb-table-td-padding-y));
+            bottom: calc(0px - var(--bb-table-td-padding-y));
             width: 1.5rem;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #ddd;
-        }
-
-            .table thead th .table-cell > .fa:hover {
-                background-color: #ddd;
-                color: #606266;
-            }
-
-        .table thead th .table-cell .fa-filter {
+            color: var(--bb-table-header-icon-color);
             cursor: pointer;
         }
 
-            .table thead th .table-cell .fa-filter.active {
-                color: #409eff;
+            .table thead th :where(.table-filter-icon, .table-sort-icon):hover {
+                background-color: var(--bb-table-header-icon-hover-bg);
+                color: var(--bb-table-header-icon-hover-color);
             }
 
-    .table thead.table-dark th .table-cell > .fa:hover {
-        background-color: #6c757d;
-        color: #fff;
-    }
-
-    .table thead.table-light th .table-cell > .fa {
-        color: #c0c4cc;
-    }
-
-        .table thead.table-light th .table-cell > .fa:hover {
-            color: #495057;
+        .table thead th .table-filter-icon.active {
+            color: var(--bb-table-header-icon-active-color);
         }
 
-    .table thead th.sortable .fa-sort-asc,
-    .table thead th.sortable .fa-sort-desc {
-        color: inherit;
-    }
+        .table thead th.sortable.filterable .table-filter-icon {
+            right: calc(1.5rem - var(--bb-table-td-padding-x));
+        }
 
-    .table thead th.sortable .table-cell .table-text,
-    .table thead th.filterable .table-cell .table-text {
-        padding-right: 1rem;
-    }
-
-    .table thead th.filterable .table-cell .fa-filter {
-        right: -8px;
-    }
-
-    .table thead th.sortable.filterable .table-cell .fa-filter {
-        right: calc(1.5rem - 8px);
-    }
-
-    .table thead th.sortable.filterable .table-cell .table-text {
-        padding-right: 2.5rem;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
+        .table thead th.sortable.filterable .table-text {
+            padding-right: 2.5rem;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
 
     .table tfoot {
-        font-weight: bold;
-        border-top: 2px solid #dee2e6;
+        font-weight: var(--bb-table-footer-font-weight);
+        border-top: var(--bb-table-footer-border-top);
     }
 
     .table td, .table th {
@@ -156,20 +166,6 @@
     .table .is-editform .table-cell {
         overflow: hidden;
     }
-
-.table-sm thead th .table-cell > .fa {
-    right: -4px;
-    top: -4px;
-    bottom: -4px;
-}
-
-.table-sm thead th.filterable .table-cell .fa-filter {
-    right: -4px;
-}
-
-.table-sm thead th.sortable.filterable .table-cell .fa-filter {
-    right: calc(1.5rem - 4px);
-}
 
 .is-clickable tbody tr,
 .is-clickable .table-row {
@@ -182,12 +178,20 @@
     word-break: break-all;
 }
 
-    .table-cell.is-sort {
-        cursor: pointer;
+    .table-cell.center {
+        justify-content: center;
     }
 
-        .table-cell.is-sort .fa-sort {
-            color: #ddd;
+        .table-cell.center .table-text {
+            text-align: center;
+        }
+
+    .table-cell.end {
+        justify-content: right;
+    }
+
+        .table-cell.end .table-text {
+            text-align: right;
         }
 
     .table-cell .btn-group .btn {
@@ -205,48 +209,23 @@
     padding-right: 0;
 }
 
-.table-toolbar {
-    --bb-table-toolbar-dropdown-menu-max-height: 264px;
+.table-toolbar:after {
+    content: "";
+    display: block;
+    clear: both;
 }
 
-    .table-toolbar:after {
-        content: "";
-        display: block;
-        clear: both;
-    }
-
-    .table-toolbar .table-toolbar-button {
-        margin-bottom: 0.5rem;
-    }
-
-        .table-toolbar .table-toolbar-button .table-toolbar-search {
-            border-top-left-radius: 4px;
-            border-bottom-left-radius: 4px;
-        }
-
-    .table-toolbar .dropdown-menu {
-        max-height: var(--bb-table-toolbar-dropdown-menu-max-height);
-        height: auto;
-        overflow: auto;
-    }
-
-        .table-toolbar .dropdown-menu .dropdown-item span {
-            margin-left: 0.5rem;
-        }
-
-    .table-toolbar .dropdown-item.hover,
-    .table-toolbar .dropdown-item:hover {
-        color: #fff;
-        background-color: #007bff;
-    }
-
-.table-pagination.is-top {
-    margin-bottom: 0.5rem;
+.table-toolbar .table-toolbar-button {
+    margin-bottom: .5rem;
 }
 
-.table-pagination:not(.is-top) {
-    margin-top: 0.5rem;
+.table-toolbar .dropdown-menu {
+    max-height: var(--bb-table-columnlist-max-height);
 }
+
+    .table-toolbar .dropdown-menu .dropdown-item span {
+        margin-left: .5rem;
+    }
 
 .btn-gear .dropdown-menu {
     min-width: initial;
@@ -338,7 +317,7 @@
     right: 0;
     top: 0;
     bottom: 0;
-    background-color: #f8f9fa;
+    background-color: var(--bb-table-loader-bg);
     z-index: 4;
 }
 
@@ -349,7 +328,7 @@
 
 .table tbody tr.active:not(.is-edit),
 .table-row.active {
-    background-color: var(--bb-table-selected-bg);
+    background-color: var(--bs-table-active-bg);
 }
 
 .table-hover > tbody > tr.is-detail:hover,
@@ -359,7 +338,7 @@
 }
 
 .table-row {
-    padding: 0.75rem;
+    padding: var(--bb-table-card-row-padding);
 }
 
     .table-row:not(:last-child) {
@@ -367,13 +346,13 @@
     }
 
     .table-row:first-child {
-        border-top-left-radius: 4px;
-        border-top-right-radius: 4px;
+        border-top-left-radius: var(--bs-border-radius);
+        border-top-right-radius: var(--bs-border-radius);
     }
 
     .table-row:last-child {
-        border-bottom-left-radius: 4px;
-        border-bottom-right-radius: 4px;
+        border-bottom-left-radius: var(--bs-border-radius);
+        border-bottom-right-radius: var(--bs-border-radius);
     }
 
     .table-row .table-cell:not(:last-child) {
@@ -405,7 +384,7 @@
 
             .table-row.table-footer .table-cell:first-child {
                 font-weight: bold;
-                width: 30%;
+                width: var(--bb-table-cardview-label-width);
                 margin-bottom: 0;
                 color: #212529;
                 overflow: hidden;
@@ -552,14 +531,6 @@
     border-bottom-color: var(--bs-secondary);
 }
 
-.table-striped > tbody > tr.is-master:nth-of-type(odd) {
-    --bs-table-accent-bg: #fff;
-}
-
-    .table-striped > tbody > tr.is-master:nth-of-type(odd).active {
-        --bs-table-accent-bg: var(--bb-table-selected-bg);
-    }
-
 .table-striped > tbody > tr.is-master:nth-of-type(4n+1) {
     --bs-table-accent-bg: var(--bs-table-striped-bg);
     color: var(--bs-table-striped-color);
@@ -577,33 +548,30 @@ form .table .table-cell > textarea {
     width: 100%;
 }
 
-.table-search {
-    margin-bottom: .5rem;
+.table-search .card-header {
+    padding: 0;
 }
 
-    .table-search .card-header {
-        padding: 0;
+    .table-search .card-header .table-search-title {
+        padding: .5rem 1rem;
+        flex: 1;
+        cursor: pointer;
     }
 
-        .table-search .card-header .table-search-title {
-            padding: .5rem 1rem;
-            flex: 1;
-            cursor: pointer;
-        }
+    .table-search .card-header .table-search-buttons {
+        padding: .25rem 1rem;
+    }
 
-        .table-search .card-header .table-search-buttons {
-            padding: .25rem 1rem;
+        .table-search .card-header .table-search-buttons .btn {
+            padding: .275rem .5rem;
         }
-
-            .table-search .card-header .table-search-buttons .btn {
-                padding: .275rem .5rem;
-            }
 
 .table-search-collapse {
     flex: 1;
     display: flex;
     align-items: center;
     padding: 0 1rem;
+    white-space: nowrap;
 }
 
     .table-search-collapse .table-search-collapse-arrow {
@@ -663,16 +631,8 @@ form .table .table-cell > textarea {
     padding: 6px 8px;
 }
 
-.table-excel > tbody .table-cell .switch {
-    padding: .375rem .1875rem;
-    justify-content: center;
-}
-
-.table-excel .form-control,
-.table-excel .table-cell .select .form-select {
-    border: none;
-    border-radius: 0;
-    padding: .375rem .1875rem;
+.table-excel .active > td > .table-cell :is(.form-control, .form-select) {
+    background-color: transparent;
 }
 
 .table-excel .table-cell .select {
@@ -680,7 +640,7 @@ form .table .table-cell > textarea {
 }
 
 .table-excel .table-cell > .disabled {
-    background-color: var(--bb-bg-disabled);
+    background-color: var(--bb-disabled-bg);
     width: 100%;
     padding: .375rem .1875rem;
 }
@@ -691,10 +651,6 @@ form .table .table-cell > textarea {
 
 .table-excel .datetime-picker-input-icon {
     line-height: 32px;
-}
-
-.table-excel.table tbody tr.active {
-    background-color: transparent;
 }
 
 .table-cell.text-center,

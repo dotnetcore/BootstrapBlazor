@@ -12,7 +12,7 @@ public class LogoutLinkTest : BootstrapBlazorTestBase
     [Fact]
     public void Icon_Ok()
     {
-        var cut = Context.RenderComponent<LogoutLink>(builder => builder.Add(s => s.Icon, "fa fa-key"));
+        var cut = Context.RenderComponent<LogoutLink>(builder => builder.Add(s => s.Icon, "fa-solid fa-key"));
         var ele = cut.Find(".fa-key");
         Assert.NotNull(ele);
     }

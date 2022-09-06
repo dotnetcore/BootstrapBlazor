@@ -18,7 +18,7 @@
 
 <DemoBlock Title="@TablesLocalizer["NormalTitle"]" Introduction="@TablesLocalizer["NormalIntro"]" Name="Normal">
     <div>@((MarkupString)TablesLocalizer["NormalDiv"].Value)</div>
-    <Button Icon="fa fa-refresh" Text="@RefreshText" OnClick="OnClick" class="my-2" />
+    <Button Icon="fa-solid fa-arrows-rotate" Text="@RefreshText" OnClick="OnClick" class="my-2" />
     <Table TItem="Foo" Items="@Items.Take(3)">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" />

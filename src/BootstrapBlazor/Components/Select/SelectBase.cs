@@ -68,4 +68,10 @@ public abstract class SelectBase<TValue> : ValidateBase<TValue>
     /// </summary>
     [Parameter]
     public Func<SelectedItem, Task>? OnSelectedItemChanged { get; set; }
+
+    /// <summary>
+    /// 获得/设置 设置搜索图标 默认 fa-solid fa-magnifying-glass
+    /// </summary>
+    [Parameter]
+    public string SearchIcon { get; set; } = "fa-solid fa-magnifying-glass";
 }

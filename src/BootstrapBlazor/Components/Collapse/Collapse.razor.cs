@@ -13,8 +13,6 @@ public partial class Collapse
 
     private static string? GetButtonClassString(CollapseItem item) => CssBuilder.Default("accordion-button")
         .AddClass("collapsed", item.IsCollapsed)
-        .AddClass($"btn-{item.TitleColor.ToDescriptionString()}", item.TitleColor != Color.None)
-        .AddClass($"accordion-button-{item.TitleColor.ToDescriptionString()}", item.TitleColor != Color.None)
         .Build();
 
     private static string? GetClassString(bool collpased) => CssBuilder.Default("accordion-collapse collapse")
@@ -65,10 +63,16 @@ public partial class Collapse
     }
 
     /// <summary>
-    /// 添加 TabItem 方法 由 TabItem 方法加载时调用
+    /// 添加 CollapseItem 方法 由 CollapseItem 方法加载时调用
     /// </summary>
     /// <param name="item">TabItemBase 实例</param>
     internal void AddItem(CollapseItem item) => _items.Add(item);
+
+    /// <summary>
+    /// 移除 CollapseItem 方法 由 CollapseItem 方法 Dispose 时调用
+    /// </summary>
+    /// <param name="item">TabItemBase 实例</param>
+    internal void RemoveItem(CollapseItem item) => _items.Remove(item);
 
     /// <summary>
     /// OnAfterRender 方法

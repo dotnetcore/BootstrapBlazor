@@ -43,6 +43,11 @@ public class BootstrapBlazorOptions
     public List<string>? SupportedCultures { get; set; }
 
     /// <summary>
+    /// 获得/设置 是否开启全局异常捕获功能 默认为 true
+    /// </summary>
+    public bool EnableErrorLogger { get; set; } = true;
+
+    /// <summary>
     /// 获得/设置 是否回落到 Fallback 文化 默认为 true
     /// </summary>
     public bool EnableFallbackCulture { get; set; } = true;

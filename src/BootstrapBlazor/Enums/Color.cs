@@ -14,6 +14,7 @@ public enum Color
     /// <summary>
     /// 无颜色
     /// </summary>
+    [Description("none")]
     None,
 
     /// <summary>

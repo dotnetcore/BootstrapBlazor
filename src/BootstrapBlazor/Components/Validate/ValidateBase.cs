@@ -213,7 +213,7 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
         }
         else
         {
-            result = default!;
+            result = default;
             validationErrorMessage = FormatParsingErrorMessage();
         }
         return ret;
@@ -334,6 +334,15 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
     /// 获得/设置 是否不进行验证 默认为 false
     /// </summary>
     public bool IsNeedValidate => !IsDisabled && !SkipValidate;
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    public virtual bool IsComplexValue(object? propertyValue) => propertyValue != null
+        && propertyValue is not string
+        && !propertyValue.GetType().IsAssignableTo(typeof(System.Collections.IEnumerable))
+        && propertyValue.GetType().IsClass;
 
     /// <summary>
     /// 获得/设置 是否执行了自定义异步验证

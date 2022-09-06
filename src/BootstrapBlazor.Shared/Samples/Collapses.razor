@@ -79,10 +79,10 @@
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["ItemsTitle"]" Introduction="@Localizer["ItemsIntro"]" Name="Items">
-    @if (State)
-    {
-        <Collapse>
-            <CollapseItems>
+    <Collapse>
+        <CollapseItems>
+            @if (State)
+            {
                 <CollapseItem Text="@Localizer["Consistency"]">
                     <div>@Localizer["ConsistencyItem1"]</div>
                     <div>@Localizer["ConsistencyItem2"]</div>
@@ -91,34 +91,53 @@
                     <div>@Localizer["FeedbackItem1"]</div>
                     <div>@Localizer["FeedbackItem2"]</div>
                 </CollapseItem>
-            </CollapseItems>
-        </Collapse>
-    }
-    else
-    {
-        <Collapse>
-            <CollapseItems>
-                <CollapseItem Text="@Localizer["Consistency"]">
-                    <div>@Localizer["ConsistencyItem1"]</div>
-                    <div>@Localizer["ConsistencyItem2"]</div>
-                </CollapseItem>
-                <CollapseItem Text="@Localizer["Feedback"]">
-                    <div>@Localizer["FeedbackItem1"]</div>
-                    <div>@Localizer["FeedbackItem2"]</div>
-                </CollapseItem>
-                <CollapseItem Text="@Localizer["Efficiency"]">
-                    <div>@Localizer["EfficiencyItem1"]</div>
-                    <div>@Localizer["EfficiencyItem2"]</div>
-                    <div>@Localizer["EfficiencyItem3"]</div>
-                </CollapseItem>
-                <CollapseItem Text="@Localizer["Controllability"]">
-                    <div>@Localizer["ControllabilityItem1"]</div>
-                    <div>@Localizer["ControllabilityItem2"]</div>
-                </CollapseItem>
-            </CollapseItems>
-        </Collapse>
-    }
+            }
+            else
+            {
+                <Collapse>
+                    <CollapseItems>
+                        <CollapseItem Text="@Localizer["Consistency"]">
+                            <div>@Localizer["ConsistencyItem1"]</div>
+                            <div>@Localizer["ConsistencyItem2"]</div>
+                        </CollapseItem>
+                        <CollapseItem Text="@Localizer["Feedback"]">
+                            <div>@Localizer["FeedbackItem1"]</div>
+                            <div>@Localizer["FeedbackItem2"]</div>
+                        </CollapseItem>
+                        <CollapseItem Text="@Localizer["Efficiency"]">
+                            <div>@Localizer["EfficiencyItem1"]</div>
+                            <div>@Localizer["EfficiencyItem2"]</div>
+                            <div>@Localizer["EfficiencyItem3"]</div>
+                        </CollapseItem>
+                        <CollapseItem Text="@Localizer["Controllability"]">
+                            <div>@Localizer["ControllabilityItem1"]</div>
+                            <div>@Localizer["ControllabilityItem2"]</div>
+                        </CollapseItem>
+                    </CollapseItems>
+                </Collapse>
+            }
+        </CollapseItems>
+    </Collapse>
     <Button Text="@Localizer["ButtonText"]" OnClick="OnToggle" class="mt-3" />
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["IconTitle"]" Introduction="@Localizer["IconIntro"]" Name="Icon">
+    <Collapse IsAccordion="true">
+        <CollapseItems>
+            <CollapseItem Text="@Localizer["Consistency"]" Icon="fa-solid fa-people-roof">
+                <div>@Localizer["ConsistencyItem1"]</div>
+                <div>@Localizer["ConsistencyItem2"]</div>
+            </CollapseItem>
+            <CollapseItem Text="@Localizer["Feedback"]" Icon="fa-solid fa-users">
+                <div>@Localizer["FeedbackItem1"]</div>
+                <div>@Localizer["FeedbackItem2"]</div>
+            </CollapseItem>
+            <CollapseItem Text="@Localizer["Controllability"]" Icon="fa-solid fa-users-gear">
+                <div>@Localizer["ControllabilityItem1"]</div>
+                <div>@Localizer["ControllabilityItem2"]</div>
+            </CollapseItem>
+        </CollapseItems>
+    </Collapse>
 </DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" />

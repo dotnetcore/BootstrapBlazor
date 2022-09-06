@@ -20,6 +20,11 @@ public abstract class IdComponentBase : BootstrapComponentBase
     private IComponentIdGenerator? ComponentIdGenerator { get; set; }
 
     /// <summary>
+    /// 获得 弹窗客户端 ID
+    /// </summary>
+    protected virtual string? RetrieveId() => Id;
+
+    /// <summary>
     /// OnInitialized 方法
     /// </summary>
     protected override void OnInitialized()

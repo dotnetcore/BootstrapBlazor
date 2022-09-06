@@ -16,7 +16,7 @@ public class PrintTest : BootstrapBlazorTestBase
         {
             pb.AddChildContent<PrintButton>();
         });
-        Assert.Contains("<a onclick=\"$.bb_printview(this)\" class=\"btn btn-primary\" role=\"button\" aria-disabled=\"false\"><i class=\"fa fa-print\"></i><span>打印</span></a>", HttpUtility.HtmlDecode(cut.Markup));
+        Assert.Contains("fa-solid fa-fw fa-print", cut.Markup);
 
         var button = cut.FindComponent<PrintButton>();
         button.SetParametersAndRender(pb =>

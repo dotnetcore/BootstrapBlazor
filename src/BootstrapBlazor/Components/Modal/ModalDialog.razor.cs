@@ -9,7 +9,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 
 /// </summary>
-public partial class ModalDialog : IDisposable
+public partial class ModalDialog : IHandlerException, IDisposable
 {
     private ElementReference DialogElement { get; set; }
 
@@ -201,18 +201,25 @@ public partial class ModalDialog : IDisposable
     {
         base.OnInitialized();
 
-        if (OnClose == null)
-        {
-            OnClose = async () => await Modal.CloseOrPopDialog();
-        }
+        ErrorLogger?.Register(this);
+
+        Interop = new JSInterop<ModalDialog>(JSRuntime);
+
+        Modal.AddDialog(this);
+    }
+
+    /// <summary>
+    /// OnParametersSet 方法
+    /// </summary>
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
 
         CloseButtonText ??= Localizer[nameof(CloseButtonText)];
         SaveButtonText ??= Localizer[nameof(SaveButtonText)];
         PrintButtonText ??= Localizer[nameof(PrintButtonText)];
 
-        Interop = new JSInterop<ModalDialog>(JSRuntime);
-
-        Modal.AddDialog(this);
+        OnClose ??= async () => await Modal.CloseOrPopDialog();
     }
 
     /// <summary>
@@ -251,12 +258,12 @@ public partial class ModalDialog : IDisposable
 
     private bool MaximizeStatus { get; set; }
 
-    private string MaximizeIcon { get; set; } = "fa fa-window-maximize";
+    private string MaximizeIcon { get; set; } = "fa-regular fa-window-maximize";
 
     private void OnToggleMaximize()
     {
         MaximizeStatus = !MaximizeStatus;
-        MaximizeIcon = MaximizeStatus ? "fa fa-window-restore" : "fa fa-window-maximize";
+        MaximizeIcon = MaximizeStatus ? "fa-regular fa-window-restore" : "fa-regular fa-window-maximize";
     }
 
     private async Task OnClickSave()
@@ -279,6 +286,29 @@ public partial class ModalDialog : IDisposable
     [JSInvokable]
     public Task Close() => OnClickClose();
 
+    private RenderFragment RenderBodyTemplate() => builder =>
+    {
+        builder.AddContent(0, _errorContent ?? BodyTemplate);
+        _errorContent = null;
+    };
+
+    /// <summary>
+    /// 上次渲染错误内容
+    /// </summary>
+    protected RenderFragment? _errorContent;
+
+    /// <summary>
+    /// HandlerException 错误处理方法
+    /// </summary>
+    /// <param name="ex"></param>
+    /// <param name="errorContent"></param>
+    public virtual Task HandlerException(Exception ex, RenderFragment<Exception> errorContent)
+    {
+        _errorContent = errorContent(ex);
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
+
     /// <summary>
     /// Dispose 方法
     /// </summary>
@@ -287,6 +317,8 @@ public partial class ModalDialog : IDisposable
     {
         if (disposing)
         {
+            ErrorLogger?.UnRegister(this);
+
             Interop.Dispose();
             Interop = null;
         }

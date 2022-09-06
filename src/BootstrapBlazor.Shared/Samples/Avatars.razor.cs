@@ -64,7 +64,7 @@ public sealed partial class Avatars
             Description = Localizer["Icon"],
             Type = "string",
             ValueList = " — ",
-            DefaultValue = "fa fa-user"
+            DefaultValue = "fa-solid fa-user"
         },
         new AttributeItem() {
             Name = "Text",

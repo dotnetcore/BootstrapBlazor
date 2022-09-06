@@ -16,6 +16,7 @@
         <div class="col-6 col-sm-4 col-md-3 col-lg-auto"><Button OnClick="@ButtonClick" Color="Color.Dark">@Localizer["Button7Text"]</Button></div>
         <div class="col-6 col-sm-4 col-md-3 col-lg-auto"><Button OnClick="@ButtonClick" Color="Color.Light">@Localizer["Button8Text"]</Button></div>
         <div class="col-6 col-sm-4 col-md-3 col-lg-auto"><Button OnClick="@ButtonClick" Color="Color.Link">@Localizer["Button9Text"]</Button></div>
+        <div class="col-6 col-sm-4 col-md-3 col-lg-auto"><Button OnClick="@ButtonClick" Color="Color.None">@Localizer["ButtonColorNoneText"]</Button></div>
     </div>
     <BlockLogger @ref="Trace" class="mt-3" />
 </DemoBlock>
@@ -38,7 +39,7 @@
             <Button ButtonStyle="ButtonStyle.Round" Color="Color.Warning">@Localizer["Button5Text"]</Button>
         </div>
         <div class="col-6 col-sm-4 col-md-3 col-lg-auto">
-            <Button ButtonStyle="ButtonStyle.Circle" Icon="fa fa-fw fa-cubes">
+            <Button ButtonStyle="ButtonStyle.Circle" Icon="fa-fw fa-solid fa-cubes">
             </Button>
         </div>
     </div>
@@ -112,10 +113,10 @@
 <DemoBlock Title="@Localizer["Block7Title"]" Introduction="@Localizer["Block7Intro"]" Name="Icon">
     <div class="row g-3">
         <div class="col-auto">
-            <Button Color="Color.Primary" Icon="fa fa-fa" Text="@Localizer["Button20Text"]"></Button>
+            <Button Color="Color.Primary" Icon="fa-solid fa-font-awesome" Text="@Localizer["Button20Text"]"></Button>
         </div>
         <div class="col-auto">
-            <Button Color="Color.Info" Icon="fa fa-spinner fa-spin fa-fw" Text="@Localizer["Button21Text"]"></Button>
+            <Button Color="Color.Info" Icon="fa-solid fa-spinner fa-spin fa-fw" Text="@Localizer["Button21Text"]"></Button>
         </div>
     </div>
 </DemoBlock>
@@ -136,7 +137,7 @@
 
 <DemoBlock Title="@Localizer["Block9Title"]" Introduction="@Localizer["Block9Intro"]" Name="Async">
     <p>@((MarkupString)Localizer["P3"].Value)</p>
-    <Button Text="@Localizer["Button22Text"]" IsAsync="true" Icon="fa fa-fw fa-fa" OnClick="@ClickAsyncButton" />
+    <Button Text="@Localizer["Button22Text"]" IsAsync="true" Icon="fa-solid fa-fw fa-font-awesome" OnClick="@ClickAsyncButton" />
 </DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" />

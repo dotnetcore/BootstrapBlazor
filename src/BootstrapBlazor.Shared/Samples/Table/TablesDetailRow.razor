@@ -39,21 +39,7 @@
             <TableColumn @bind-Field="@context.Count" />
         </TableColumns>
         <DetailRowTemplate>
-            @{
-                // 此段代码为提高性能
-                var cacheKey = context.Name ?? "";
-                var DetailDataSource = Enumerable.Empty<DetailRow>();
-                if (Cache.ContainsKey(cacheKey))
-                {
-                    DetailDataSource = Cache[cacheKey];
-                }
-                else
-                {
-                    DetailDataSource = GetDetailRowsByName(cacheKey).ToList();
-                    Cache.Add(cacheKey, DetailDataSource);
-                }
-            }
-            <Table TItem="DetailRow" IsBordered="true" ShowToolbar="false" Items="@DetailDataSource">
+            <Table TItem="DetailRow" IsBordered="true" ShowToolbar="false" Items="@GetDetailDataSource(context)">
                 <TableColumns Context="Detail">
                     <TableColumn @bind-Field="@Detail.Name" />
                     <TableColumn @bind-Field="@Detail.DateTime" Width="180" />
@@ -97,21 +83,7 @@
         <DetailRowTemplate>
             <Tab>
                 <TabItem Text="明细数据">
-                    @{
-                        // 此段代码为提高性能
-                        var cacheKey = context.Name ?? "";
-                        var DetailDataSource = Enumerable.Empty<DetailRow>();
-                        if (Cache.ContainsKey(cacheKey))
-                        {
-                            DetailDataSource = Cache[cacheKey];
-                        }
-                        else
-                        {
-                            DetailDataSource = GetDetailRowsByName(cacheKey).ToList();
-                            Cache.Add(cacheKey, DetailDataSource);
-                        }
-                    }
-                    <Table TItem="DetailRow" IsBordered="true" ShowToolbar="false" Items="@DetailDataSource" AutoGenerateColumns="true" />
+                    <Table TItem="DetailRow" IsBordered="true" ShowToolbar="false" Items="@GetDetailDataSource(context)" AutoGenerateColumns="true" />
                 </TabItem>
                 <TabItem Text="@LocalizerDetailRow["TabItemText"]">
                     <div>@LocalizerDetailRow["EducationText"] @typeof(EnumEducation).ToDescriptionString(context.Education.ToString())</div>

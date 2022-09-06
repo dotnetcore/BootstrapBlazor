@@ -1,6 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+    <Version>6.0.0</Version>
     <PackageTags>Bootstrap Blazor WebAssembly wasm UI Components EFCore</PackageTags>
     <Description>Bootstrap UI components extensions of EFCore</Description>
   </PropertyGroup>
@@ -14,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="BootstrapBlazor" Version="6.7.18" />
+    <PackageReference Include="BootstrapBlazor" Version="6.9.5" />
   </ItemGroup>
 
 </Project>

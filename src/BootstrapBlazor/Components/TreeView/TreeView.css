@@ -4,12 +4,12 @@
     --bb-tree-margin: 0;
     --bb-tree-ul-padding-left: 20px;
     --bb-tree-item-margin: 1px 0;
-    --bb-tree-item-height: 29px;
-    --bb-tree-icon-width: 18px;
+    --bb-tree-icon-width: 22px;
     --bb-tree-check-margin: 0 4px;
-    --bb-tree-content-padding: .25rem 0;
-    --bb-tree-item-hover-color: #1e2125;
-    --bb-tree-item-hover-bg: #e9ecef;
+    --bb-tree-node-padding: .25rem .5rem;
+    --bb-tree-item-active-color: #409eff;
+    --bb-tree-item-active-bg: #e9ecef;
+    --bb-tree-item-hover-bg: var(--bs-secondary);
 }
 
     .tree-view .tree-root {
@@ -32,21 +32,10 @@
         margin: var(--bb-tree-item-margin);
     }
 
-        .tree-view .tree-item:before {
-            content: "";
-            position: absolute;
-            left: 0;
-            width: 100%;
-            height: var(--bb-tree-item-height);
-            transition: background-color .3s linear;
-        }
-
         .tree-view .tree-item .tree-content {
             position: relative;
             display: flex;
-            padding: var(--bb-tree-content-padding);
             align-items: center;
-            width: max-content;
         }
 
             .tree-view .tree-item .tree-content .fa-caret-right {
@@ -64,14 +53,20 @@
             }
 
     .tree-view .tree-node {
-        flex: 1;
-        display: flex;
+        display: inline-flex;
         align-items: center;
+        padding: var(--bb-tree-node-padding);
+        border-radius: var(--bs-border-radius);
+        flex: 1;
     }
 
         .tree-view .tree-node.disabled,
         .tree-view .tree-item.disabled > .tree-content > .fa-caret-right {
-            opacity: var(--bb-checkbox-item-disabled-opacity);
+            opacity: var(--bb-disabled-opactiy);
+        }
+
+        .tree-view .tree-node:hover {
+            background-color: var(--bb-tree-item-hover-bg);
         }
 
     .tree-view .form-check {
@@ -80,14 +75,10 @@
 
     .tree-view .tree-icon {
         width: var(--bb-tree-icon-width);
+        text-align: center;
     }
-
-    .tree-view .tree-item:not(.disabled).hover:before {
-        background-color: var(--bb-tree-item-hover-bg);
-    }
-
 
     .tree-view .tree-item:not(.disabled).active > .tree-content > .tree-node {
-        color: var(--bb-tree-item-hover-color);
-        background-color: var(--bb-tree-item-hover-bg);
+        color: var(--bb-tree-item-active-color);
+        background-color: var(--bb-tree-item-active-bg);
     }

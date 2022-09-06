@@ -33,7 +33,7 @@ public partial class PopoverConfirmBox
     /// <summary>
     /// 获得 图标样式
     /// </summary>
-    protected string? IconClass => CssBuilder.Default("fa")
+    protected string? IconClass => CssBuilder.Default()
         .AddClass(Icon)
         .Build();
 
@@ -83,7 +83,7 @@ public partial class PopoverConfirmBox
     /// 获得/设置 确认框图标
     /// </summary>
     [Parameter]
-    public string Icon { get; set; } = "fa-exclamation-circle text-info";
+    public string Icon { get; set; } = "fa-solid fa-exclamation-circle text-info";
 
     /// <summary>
     /// 获得/设置 自定义样式 默认 null

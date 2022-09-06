@@ -84,6 +84,10 @@
             $el.on('click', '.dropdown-item.disabled', function (e) {
                 e.stopImmediatePropagation();
             });
+        },
+        bb_select_tree(el) {
+            var $el = $(el);
+            $el.trigger('click');
         }
     });
 })(jQuery);

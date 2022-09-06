@@ -8,7 +8,7 @@
 <DemoBlock Title="@Localizer["BasicUsageTitle"]" Introduction="@Localizer["BasicUsageIntro"]" Name="Normal">
     <div style="background-color: #6c757d;">
         <DropdownWidget>
-            <DropdownWidgetItem Icon="fa fa-envelope-o" BadgeNumber="4">
+            <DropdownWidgetItem Icon="fa-regular fa-envelope" BadgeNumber="4">
                 <HeaderTemplate>
                     <span>@Localizer["BasicUsageMessage"]</span>
                 </HeaderTemplate>
@@ -22,7 +22,7 @@
                             <div class="ms-2">
                                 <div class="d-flex position-relative">
                                     <h4>Argo Zhang</h4>
-                                    <small><i class="fa fa-clock-o"></i> @(4 + index) mins</small>
+                                    <small><i class="fa-regular fa-clock"></i> @(4 + index) mins</small>
                                 </div>
                                 <div class="text-truncate">Why not buy a new awesome theme?</div>
                             </div>
@@ -33,7 +33,7 @@
                     <a href="#" @onclick:preventDefault>@Localizer["BasicUsageViewMessage"]</a>
                 </FooterTemplate>
             </DropdownWidgetItem>
-            <DropdownWidgetItem Icon="fa fa-bell-o" BadgeNumber="10" HeaderColor="Color.Success" BadgeColor="Color.Warning">
+            <DropdownWidgetItem Icon="fa-regular fa-bell" BadgeNumber="10" HeaderColor="Color.Success" BadgeColor="Color.Warning">
                 <HeaderTemplate>
                     <span>@Localizer["BasicUsageNotify"]</span>
                 </HeaderTemplate>
@@ -41,7 +41,7 @@
                     @for (var index = 0; index < 10; index++)
                     {
                         <a class="dropdown-item d-flex align-items-center" href="#" @onclick:preventDefault>
-                            <i class="fa fa-users text-primary"></i>
+                            <i class="fa-solid fa-users text-primary"></i>
                             <div class="ms-2">5 new members joined</div>
                         </a>
                     }
@@ -50,7 +50,7 @@
                     <a href="#" @onclick:preventDefault>@Localizer["BasicUsageViewNotify"]</a>
                 </FooterTemplate>
             </DropdownWidgetItem>
-            <DropdownWidgetItem Icon="fa fa-flag-o" BadgeNumber="9" HeaderColor="Color.Danger" BadgeColor="Color.Danger">
+            <DropdownWidgetItem Icon="fa-solid fa-flag" BadgeNumber="9" HeaderColor="Color.Danger" BadgeColor="Color.Danger">
                 <HeaderTemplate>
                     <span>@Localizer["BasicUsageTasks"]</span>
                 </HeaderTemplate>

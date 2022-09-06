@@ -4,42 +4,51 @@
     position: relative;
 }
 
-.fa-icons > section {
-    padding-top: 1px;
+section > h2 {
+    margin: 2rem 0 1rem 0;
 }
-
-    .fa-icons > section:not(:first-child) {
-        margin-top: 1rem;
-    }
 
 .fa-target {
     display: block;
 }
 
-.fontawesome-icon-list > div > a {
+.fil a {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    line-height: 32px;
-    display: block;
-    color: #222;
-    height: 32px;
-    border-radius: 4px;
-    padding: 0 6px;
+    display: flex;
+    align-items: center;
+    color: var(--bs-dark);
+    background-color: #f0f1f3;
+    border-radius: .5rem;
+    padding: .75rem;
+    transition: .3s background-color ease-in-out;
 }
 
-    .fontawesome-icon-list > div > a:hover {
-        background-color: #1d9d74;
-        color: #fff;
+    .fil a:hover {
+        background-color: var(--bs-warning);
         text-decoration: none;
     }
 
-    .fontawesome-icon-list > div > a .fa {
-        margin-right: 10px;
+        .fil a:hover > span {
+            color: inherit;
+        }
+
+    .fil a > span {
+        font-family: cera-round-pro, "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+        font-size: 11px;
+        margin-left: 10px;
+        line-height: 1.25rem;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        color: #919191;
+        transition: .3s color ease-in-out;
     }
 
-    .fontawesome-icon-list > div > a:hover .fa {
-        font-size: 1rem;
+    .fil a > i {
+        font-size: 1.25rem;
+        line-height: 1.25rem;
     }
 
 .fa-nav {

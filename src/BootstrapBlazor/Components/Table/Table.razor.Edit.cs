@@ -263,28 +263,6 @@ public partial class Table<TItem>
         }
     }
 
-    private async Task InternalOnEditAsync()
-    {
-        if (OnEditAsync != null)
-        {
-            EditModel = Utility.Clone(SelectedRows[0]);
-            await OnEditAsync(EditModel);
-        }
-        else
-        {
-            var d = DataService ?? InjectDataService;
-            if (d is IEntityFrameworkCoreDataService ef)
-            {
-                EditModel = SelectedRows[0];
-                await ef.EditAsync(EditModel);
-            }
-            else
-            {
-                EditModel = Utility.Clone(SelectedRows[0]);
-            }
-        }
-    }
-
     /// <summary>
     /// 单选模式下选择行时调用此方法
     /// </summary>
@@ -422,13 +400,7 @@ public partial class Table<TItem>
         {
             if (OnQueryAsync == null && DynamicContext != null && typeof(TItem).IsAssignableTo(typeof(IDynamicObject)))
             {
-                // 动态数据
-                QueryItems = DynamicContext.GetItems().Cast<TItem>();
-                TotalCount = QueryItems.Count();
-                RowsCache = null;
-
-                // 设置默认选中行
-                ResetSelectedRows(QueryItems);
+                QueryDynamicItems(DynamicContext);
             }
             else
             {
@@ -440,8 +412,6 @@ public partial class Table<TItem>
             ResetSelectedRows(Items);
             RowsCache = null;
         }
-
-        void ResetSelectedRows(IEnumerable<TItem> items) => SelectedRows = items.Where(i => SelectedRows.Any(row => ComparerItem(i, row))).ToList();
 
         async Task OnQuery()
         {
@@ -558,7 +528,7 @@ public partial class Table<TItem>
                     // 恢复当前节点状态
                     foreach (var node in nodes)
                     {
-                        await treeNodeCache.CheckExpandAsync(node, GetChildrenRow);
+                        await treeNodeCache.CheckExpandAsync(node, GetChildrenRowAsync);
 
                         if (node.Items.Any())
                         {
@@ -569,6 +539,8 @@ public partial class Table<TItem>
             }
         }
     }
+
+    private void ResetSelectedRows(IEnumerable<TItem> items) => SelectedRows = items.Where(i => SelectedRows.Any(row => ComparerItem(i, row))).ToList();
 
     /// <summary>
     /// <inheritdoc/>

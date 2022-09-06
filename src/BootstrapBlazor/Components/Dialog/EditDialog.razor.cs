@@ -35,6 +35,12 @@ public partial class EditDialog<TModel>
     public bool ShowLoading { get; set; }
 
     /// <summary>
+    /// 获得/设置 组件是否采用 Tracking 模式对编辑项进行直接更新 默认 false
+    /// </summary>
+    [Parameter]
+    public bool IsTracking { get; set; }
+
+    /// <summary>
     /// 获得/设置 实体类编辑模式 Add 还是 Update
     /// </summary>
     [Parameter]

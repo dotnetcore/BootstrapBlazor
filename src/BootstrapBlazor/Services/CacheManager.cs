@@ -43,10 +43,11 @@ internal class CacheManager : ICacheManager
         Instance = this;
     }
 
+#if NET7_0_OR_GREATER
     /// <summary>
     /// 获得或者创建指定 Key 缓存项
     /// </summary>
-    public T GetOrCreate<T>(object key, Func<ICacheEntry, T> factory) => Cache.GetOrCreate(key, entry =>
+    public TItem? GetOrCreate<TItem>(object key, Func<ICacheEntry, TItem> factory) => Cache.GetOrCreate(key, entry =>
     {
 #if DEBUG
         entry.SlidingExpiration = TimeSpan.FromSeconds(500000);
@@ -62,7 +63,7 @@ internal class CacheManager : ICacheManager
     /// <summary>
     /// 获得或者创建指定 Key 缓存项 异步重载方法
     /// </summary>
-    public Task<T> GetOrCreateAsync<T>(object key, Func<ICacheEntry, Task<T>> factory) => Cache.GetOrCreateAsync(key, async entry =>
+    public Task<TItem?> GetOrCreateAsync<TItem>(object key, Func<ICacheEntry, Task<TItem>> factory) => Cache.GetOrCreateAsync(key, async entry =>
     {
 #if DEBUG
         entry.SlidingExpiration = TimeSpan.FromSeconds(5);
@@ -74,6 +75,55 @@ internal class CacheManager : ICacheManager
         }
         return await factory(entry);
     });
+#else
+    /// <summary>
+    /// 获得或者创建指定 Key 缓存项
+    /// </summary>
+    public TItem GetOrCreate<TItem>(object key, Func<ICacheEntry, TItem> factory) => Cache.GetOrCreate(key, entry =>
+    {
+#if DEBUG
+        entry.SlidingExpiration = TimeSpan.FromSeconds(500000);
+#endif
+
+        if (key is not string)
+        {
+            entry.SetSlidingExpiration(TimeSpan.FromMinutes(5));
+        }
+        return factory(entry);
+    });
+
+    /// <summary>
+    /// 获得或者创建指定 Key 缓存项 异步重载方法
+    /// </summary>
+    public Task<TItem> GetOrCreateAsync<TItem>(object key, Func<ICacheEntry, Task<TItem>> factory) => Cache.GetOrCreateAsync(key, async entry =>
+    {
+#if DEBUG
+        entry.SlidingExpiration = TimeSpan.FromSeconds(5);
+#endif
+
+        if (key is not string)
+        {
+            entry.SetSlidingExpiration(TimeSpan.FromMinutes(5));
+        }
+        return await factory(entry);
+    });
+#endif
+
+    /// <summary>
+    /// 清除指定 Key 缓存项
+    /// </summary>
+    /// <param name="key"></param>
+    public void Clear(string? key)
+    {
+        if (!string.IsNullOrEmpty(key))
+        {
+            Cache.Remove(key);
+        }
+        else if (Cache is MemoryCache c)
+        {
+            c.Compact(100);
+        }
+    }
 
     /// <summary>
     /// 设置 App 开始时间
@@ -110,7 +160,10 @@ internal class CacheManager : ICacheManager
                 entry.SetDynamicAssemblyPolicy(type);
                 return LambdaExtensions.CountLambda(type).Compile();
             });
-            ret = invoker(value);
+            if (invoker != null)
+            {
+                ret = invoker(value);
+            }
         }
         return ret;
     }
@@ -197,9 +250,13 @@ internal class CacheManager : ICacheManager
             return Instance.GetOrCreate(typeKey, entry =>
             {
                 var sections = Instance.GetOrCreate(key, entry => option.GetJsonStringFromAssembly(assembly, cultureName));
-                return sections.FirstOrDefault(kv => typeName.Equals(kv.Key, StringComparison.OrdinalIgnoreCase))?
+                return sections?.FirstOrDefault(kv => typeName.Equals(kv.Key, StringComparison.OrdinalIgnoreCase))?
                     .GetChildren()
+#if NET7_0_OR_GREATER
+                    .SelectMany(kv => new[] { new LocalizedString(kv.Key, kv.Value ?? kv.Key) });
+#else
                     .SelectMany(kv => new[] { new LocalizedString(kv.Key, kv.Value) });
+#endif
             });
         }
     }
@@ -209,7 +266,11 @@ internal class CacheManager : ICacheManager
     /// </summary>
     /// <param name="includeParentCultures"></param>
     /// <returns></returns>
-    public static IEnumerable<LocalizedString> GetAllStringsFromResolve(bool includeParentCultures = true) => Instance.GetOrCreate($"{nameof(GetAllStringsFromResolve)}-{CultureInfo.CurrentUICulture.Name}", entry => Instance.Provider.GetRequiredService<ILocalizationResolve>().GetAllStringsByCulture(includeParentCultures));
+    public static IEnumerable<LocalizedString> GetAllStringsFromResolve(bool includeParentCultures = true) => Instance.GetOrCreate($"{nameof(GetAllStringsFromResolve)}-{CultureInfo.CurrentUICulture.Name}", entry => Instance.Provider.GetRequiredService<ILocalizationResolve>().GetAllStringsByCulture(includeParentCultures))
+#if NET7_0_OR_GREATER
+        ?? Enumerable.Empty<LocalizedString>()
+#endif
+        ;
     #endregion
 
     #region DisplayName

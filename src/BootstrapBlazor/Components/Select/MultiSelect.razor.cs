@@ -20,6 +20,7 @@ public partial class MultiSelect<TValue>
 
     private string? ClassString => CssBuilder.Default("multi-select")
         .AddClass("show", IsShow)
+        .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
     private string? ToggleClassString => CssBuilder.Default("dropdown-menu-toggle")
@@ -154,16 +155,30 @@ public partial class MultiSelect<TValue>
     [NotNull]
     public string? MinErrorMessage { get; set; }
 
+    /// <summary>
+    /// 获得/设置 设置搜索图标 默认 fa-solid fa-magnifying-glass
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public string? SearchIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 设置清除图标 默认 fa-solid fa-xmark
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public string? ClearIcon { get; set; }
+
     [Inject]
     [NotNull]
     private IStringLocalizer<MultiSelect<TValue>>? Localizer { get; set; }
 
     /// <summary>
-    /// OnInitialized 方法
+    /// OnParametersSet 方法
     /// </summary>
-    protected override void OnInitialized()
+    protected override void OnParametersSet()
     {
-        base.OnInitialized();
+        base.OnParametersSet();
 
         PlaceHolder ??= Localizer[nameof(PlaceHolder)];
         SelectAllText ??= Localizer[nameof(SelectAllText)];
@@ -171,6 +186,9 @@ public partial class MultiSelect<TValue>
         ClearText ??= Localizer[nameof(ClearText)];
         MinErrorMessage ??= Localizer[nameof(MinErrorMessage)];
         MaxErrorMessage ??= Localizer[nameof(MaxErrorMessage)];
+
+        SearchIcon ??= "fa-solid fa-magnifying-glass";
+        ClearIcon ??= "fa-solid fa-xmark";
 
         ResetItems();
 
@@ -326,7 +344,7 @@ public partial class MultiSelect<TValue>
 
     private async Task SelectAll()
     {
-        foreach (var item in Items)
+        foreach (var item in GetData())
         {
             item.Active = true;
         }
@@ -338,7 +356,7 @@ public partial class MultiSelect<TValue>
 
     private async Task InvertSelect()
     {
-        foreach (var item in Items)
+        foreach (var item in GetData())
         {
             item.Active = !item.Active;
         }

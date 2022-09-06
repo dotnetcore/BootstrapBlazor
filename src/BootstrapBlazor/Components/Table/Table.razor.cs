@@ -97,9 +97,17 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
     /// </summary>
     /// <param name="item"></param>
     /// <returns></returns>
-    protected string? GetDetailCaretClassString(TItem item) => CssBuilder.Default("fa fa-fw")
+    protected string? GetDetailCaretClassString(TItem item) => CssBuilder.Default("fa-fw")
         .AddClass(TreeIcon)
         .AddClass("fa-rotate-90", ExpandRows.Contains(item))
+        .Build();
+
+    private string? LineCellClassString => CssBuilder.Default("table-cell")
+        .AddClass(LineNoColumnAlignment.ToDescriptionString())
+        .Build();
+
+    private string? ExtendButtonsCellClassString => CssBuilder.Default("table-cell")
+        .AddClass(ExtendButtonColumnAlignment.ToDescriptionString())
         .Build();
 
     private static string? GetColspan(int colspan) => colspan > 1 ? colspan.ToString() : null;
@@ -170,6 +178,12 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
     public int LineNoColumnWidth { get; set; }
 
     /// <summary>
+    /// 获得/设置 行号内容位置
+    /// </summary>
+    [Parameter]
+    public Alignment LineNoColumnAlignment { get; set; }
+
+    /// <summary>
     /// 获得/设置 Table 组件渲染完毕回调
     /// </summary>
     [Parameter]
@@ -188,15 +202,21 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
     public ScrollMode ScrollMode { get; set; }
 
     /// <summary>
-    /// 获得/设置 虚拟滚动行高 默认为 39.5
+    /// 获得/设置 虚拟滚动行高 默认为 38
     /// </summary>
     /// <remarks>需要设置 <see cref="ScrollMode"/> 值为 Virtual 时生效</remarks>
     [Parameter]
-    public float RowHeight { get; set; } = 39.5f;
+    public float RowHeight { get; set; } = 38f;
 
     [Inject]
     [NotNull]
     private IOptionsMonitor<BootstrapBlazorOptions>? Options { get; set; }
+
+    /// <summary>
+    /// 获得/设置 组件是否采用 Tracking 模式对编辑项进行直接更新 默认 false
+    /// </summary>
+    [Parameter]
+    public bool IsTracking { get; set; }
 
     [Inject]
     [NotNull]
@@ -519,6 +539,16 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
             // 如果未设置 PageItems 取默认值第一个
             PageItems = PageItemsSource.First();
         }
+
+        if (ExtendButtonColumnAlignment == Alignment.None)
+        {
+            ExtendButtonColumnAlignment = Alignment.Center;
+        }
+
+        if (LineNoColumnAlignment == Alignment.None)
+        {
+            LineNoColumnAlignment = Alignment.Center;
+        }
     }
 
     /// <summary>
@@ -612,6 +642,7 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
                 await OnColumnCreating(Columns);
             }
 
+            ColumnVisibles.Clear();
             ColumnVisibles.AddRange(Columns.Select(i => new ColumnVisibleItem { FieldName = i.GetFieldName(), Visible = i.Visible }));
 
             // set default sortName
@@ -905,7 +936,7 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
     /// <summary>
     /// 获得 过滤小图标样式
     /// </summary>
-    protected string? GetFilterClassString(string fieldName) => CssBuilder.Default("fa fa-fw fa-filter")
+    protected string? GetFilterClassString(string fieldName) => CssBuilder.Default("table-filter-icon fa-fw fa-solid fa-filter")
         .AddClass("active", Filters.ContainsKey(fieldName))
         .Build();
 
@@ -991,10 +1022,7 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
     {
         foreach (var column in Columns)
         {
-            if (column.Filter != null)
-            {
-                column.Filter.FilterAction.Reset();
-            }
+            column.Filter?.FilterAction.Reset();
         }
         Filters.Clear();
         await OnFilterAsync();
@@ -1011,6 +1039,14 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
     /// </summary>
     /// <returns></returns>
     private bool GetDeleteButtonStatus() => ShowAddForm || AddInCell || !SelectedRows.Any();
+
+    private async Task InvokeItemsChanged()
+    {
+        if (ItemsChanged.HasDelegate)
+        {
+            await ItemsChanged.InvokeAsync(Rows);
+        }
+    }
 
     #region Dispose
     /// <summary>

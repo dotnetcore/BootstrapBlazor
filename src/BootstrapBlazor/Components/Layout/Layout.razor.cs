@@ -5,7 +5,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.Extensions.Localization;
-using Microsoft.Extensions.Logging;
 using System.Reflection;
 
 namespace BootstrapBlazor.Components;
@@ -98,24 +97,6 @@ public partial class Layout : IAsyncDisposable
     public string? TooltipText { get; set; }
 
     /// <summary>
-    /// 获得/设置 自定义错误处理回调方法
-    /// </summary>
-    [Parameter]
-    public Func<ILogger, Exception, Task>? OnErrorHandleAsync { get; set; }
-
-    /// <summary>
-    /// 获得/设置 是否显示 Error 提示弹窗 默认 true 显示
-    /// </summary>
-    [Parameter]
-    public bool ShowToast { get; set; } = true;
-
-    /// <summary>
-    /// 获得/设置 Error Toast 弹窗标题
-    /// </summary>
-    [Parameter]
-    public string? ToastTitle { get; set; }
-
-    /// <summary>
     /// 获得/设置 更新回调方法 默认 null
     /// </summary>
     [Parameter]
@@ -193,6 +174,16 @@ public partial class Layout : IAsyncDisposable
             await Interop.InvokeVoidAsync(this, null, "bb_layout", nameof(SetCollapsed));
         }
     }
+
+    /// <summary>
+    /// HandlerMain 方法
+    /// </summary>
+    /// <returns></returns>
+    protected virtual RenderFragment HandlerMain() => builder =>
+    {
+        builder.AddContent(0, _errorContent ?? Main);
+        _errorContent = null;
+    };
 
     /// <summary>
     /// 设置侧边栏收缩方法 客户端监控 window.onresize 事件回调此方法

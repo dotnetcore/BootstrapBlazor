@@ -15,6 +15,7 @@ public sealed partial class DateTimePicker<TValue>
     /// 获得 组件样式名称
     /// </summary>
     private string? ClassString => CssBuilder.Default("datetime-picker")
+        .AddClass("disabled", IsDisabled)
         .AddClass(ValidCss)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
@@ -29,8 +30,8 @@ public sealed partial class DateTimePicker<TValue>
     /// <summary>
     /// 获得 组件小图标样式
     /// </summary>
-    private string? DateTimePickerIconClassString => CssBuilder.Default("datetime-picker-input-icon")
-        .AddClass("disabled", IsDisabled)
+    private string? DateTimePickerIconClassString => CssBuilder.Default("datetime-picker-bar")
+        .AddClass(Icon)
         .Build();
 
     /// <summary>
@@ -93,6 +94,13 @@ public sealed partial class DateTimePicker<TValue>
     /// </summary>
     [Parameter]
     public string? Format { get; set; }
+
+    /// <summary>
+    /// 获得/设置 组件图标 默认 fa-regular fa-calendar-days
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public string? Icon { get; set; }
 
     /// <summary>
     /// 获得/设置 弹窗位置 默认为 Auto
@@ -162,12 +170,6 @@ public sealed partial class DateTimePicker<TValue>
     {
         base.OnInitialized();
 
-        DateTimePlaceHolderText ??= Localizer[nameof(DateTimePlaceHolderText)];
-        DatePlaceHolderText ??= Localizer[nameof(DatePlaceHolderText)];
-        GenericTypeErroMessage ??= Localizer[nameof(GenericTypeErroMessage)];
-        DateTimeFormat ??= Localizer[nameof(DateTimeFormat)];
-        DateFormat ??= Localizer[nameof(DateFormat)];
-
         // 判断泛型类型
         var isDateTime = typeof(TValue) == typeof(DateTime) || typeof(TValue) == typeof(DateTime?);
         if (!isDateTime) throw new InvalidOperationException(GenericTypeErroMessage);
@@ -182,6 +184,14 @@ public sealed partial class DateTimePicker<TValue>
     protected override void OnParametersSet()
     {
         base.OnParametersSet();
+
+        DateTimePlaceHolderText ??= Localizer[nameof(DateTimePlaceHolderText)];
+        DatePlaceHolderText ??= Localizer[nameof(DatePlaceHolderText)];
+        GenericTypeErroMessage ??= Localizer[nameof(GenericTypeErroMessage)];
+        DateTimeFormat ??= Localizer[nameof(DateTimeFormat)];
+        DateFormat ??= Localizer[nameof(DateFormat)];
+
+        Icon ??= "fa-regular fa-calendar-days";
 
         // Value 为 MinValue 时 设置 Value 默认值
         if (Value?.ToString() == DateTime.MinValue.ToString())

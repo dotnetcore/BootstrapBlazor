@@ -16,7 +16,7 @@
            ShowToolbar="true" ShowDefaultButtons="true" ShowAddButton="false" IsMultipleSelect="true" ShowExtendButtons="true"
            OnQueryAsync="@OnQueryEditAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync">
         <TableToolbarTemplate>
-            <TableToolbarButton TItem="Foo" Color="Color.Primary" Icon="fa fa-fw fa-edit" Text="选择" OnClickCallback="@ShowDialog" />
+            <TableToolbarButton TItem="Foo" Color="Color.Primary" Icon="fa-fw fa-solid fa-pen-to-square" Text="选择" OnClickCallback="@ShowDialog" />
         </TableToolbarTemplate>
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Readonly="true" />
@@ -39,7 +39,7 @@
                 </Table>
             </BodyTemplate>
             <FooterTemplate>
-                <Button Text="确定" Icon="fa fa-check-square-o" OnClick="@OnConfirm" />
+                <Button Text="确定" Icon="fa-regular fa-square-check" OnClick="@OnConfirm" />
             </FooterTemplate>
         </ModalDialog>
     </Modal>

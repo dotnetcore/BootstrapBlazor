@@ -19,10 +19,10 @@
             var $closeButton = $el.find('.bb-viewer-close');
             var $prevButton = $el.find('.bb-viewer-prev');
             var $nextButton = $el.find('.bb-viewer-next');
-            var $zoomOut = $el.find('.fa-search-plus');
-            var $zoomIn = $el.find('.fa-search-minus');
+            var $zoomOut = $el.find('.fa-magnifying-glass-plus');
+            var $zoomIn = $el.find('.fa-magnifying-glass-minus');
             var $fullScreen = $el.find('.btn-full-screen');
-            var $zoomOut = $el.find('.fa-search-plus');
+            var $zoomOut = $el.find('.fa-magnifying-glass-plus');
             var $rotateLeft = $el.find('.fa-rotate-left');
             var $rotateRight = $el.find('.fa-rotate-right');
             var $fullScreen = $el.find('.bb-viewer-full-screen');

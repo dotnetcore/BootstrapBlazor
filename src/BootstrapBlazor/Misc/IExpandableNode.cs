@@ -15,6 +15,11 @@ public interface IExpandableNode<TItem>
     public bool IsExpand { get; set; }
 
     /// <summary>
+    /// 获得/设置 是否有子节点 默认 false 用于判断是否有子节点
+    /// </summary>
+    public bool HasChildren { get; set; }
+
+    /// <summary>
     /// 获得/设置 子节点
     /// </summary>
     [DisallowNull]

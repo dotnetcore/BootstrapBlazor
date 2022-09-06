@@ -7,7 +7,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// CollapseItem 组件
 /// </summary>
-public class CollapseItem : ComponentBase
+public class CollapseItem : BootstrapComponentBase, IDisposable
 {
     /// <summary>
     /// 获得/设置 文本文字
@@ -22,7 +22,7 @@ public class CollapseItem : ComponentBase
     public bool IsCollapsed { get; set; } = true;
 
     /// <summary>
-    /// 获得/设置 图标字符串 如 "fa fa"
+    /// 获得/设置 图标字符串 如 "fa-solid fa-regular"
     /// </summary>
     [Parameter]
     public string? Icon { get; set; }
@@ -66,4 +66,32 @@ public class CollapseItem : ComponentBase
     /// </summary>
     /// <param name="collapsed"></param>
     public virtual void SetCollapsed(bool collapsed) => IsCollapsed = collapsed;
+
+    private bool disposedValue;
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="disposing"></param>
+    protected virtual void Dispose(bool disposing)
+    {
+        if (!disposedValue)
+        {
+            disposedValue = true;
+
+            if (disposing)
+            {
+                Collpase?.RemoveItem(this);
+            }
+        }
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public void Dispose()
+    {
+        Dispose(disposing: true);
+        GC.SuppressFinalize(this);
+    }
 }

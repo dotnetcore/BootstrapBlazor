@@ -14,6 +14,7 @@ public class DialogTest : DialogTestBase
         #region Show
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
         {
+            pb.Add(a => a.EnableErrorLogger, false);
             pb.AddChildContent<MockDialogTest>();
         });
         var dialog = cut.FindComponent<MockDialogTest>().Instance.DialogService;

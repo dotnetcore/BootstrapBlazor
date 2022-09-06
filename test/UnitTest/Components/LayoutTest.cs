@@ -62,7 +62,7 @@ public class LayoutTest : BootstrapBlazorTestBase
             pb.Add(a => a.ShowCollapseBar, true);
             pb.Add(a => a.Side, CreateSide());
         });
-        Assert.Contains("<i class=\"fa fa-bars\"></i>", cut.Markup);
+        Assert.Contains("<i class=\"fa-solid fa-bars\"></i>", cut.Markup);
 
         var collapsed = false;
         cut.SetParametersAndRender(pb =>
@@ -78,7 +78,7 @@ public class LayoutTest : BootstrapBlazorTestBase
         Assert.True(collapsed);
 
         cut.SetParametersAndRender(pb => pb.Add(a => a.ShowCollapseBar, false));
-        Assert.DoesNotContain("<i class=\"fa fa-bars\"></i>", cut.Markup);
+        Assert.DoesNotContain("<i class=\"fa-solid fa-bars\"></i>", cut.Markup);
     }
 
     [Fact]
@@ -137,8 +137,6 @@ public class LayoutTest : BootstrapBlazorTestBase
             pb.Add(a => a.Main, CreateMain());
             pb.Add(a => a.ExcludeUrls, new String[] { "/Index" });
             pb.Add(a => a.TabDefaultUrl, "/Index");
-            pb.Add(a => a.ShowToast, true);
-            pb.Add(a => a.ToastTitle, "Test");
             pb.Add(a => a.IsOnlyRenderActiveTab, true);
             pb.Add(a => a.NotFoundTabText, "Test");
             pb.Add(a => a.NotAuthorized, (RenderFragment?)null);
@@ -215,33 +213,6 @@ public class LayoutTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void OnErrorHandleAsync_Ok()
-    {
-        var error = false;
-        var cut = Context.RenderComponent<CascadingValue<Task<AuthenticationState>>>(pb =>
-        {
-            pb.Add(a => a.Value, Task.FromResult(new AuthenticationState(new ClaimsPrincipal())));
-            pb.AddChildContent<Layout>(pb =>
-            {
-                pb.Add(a => a.AdditionalAssemblies, new Assembly[] { GetType().Assembly });
-                pb.Add(a => a.OnErrorHandleAsync, (logger, ex) =>
-                {
-                    error = true;
-                    return Task.CompletedTask;
-                });
-                pb.Add(a => a.Main, RenderError());
-            });
-        });
-        Assert.True(error);
-
-        [ExcludeFromCodeCoverage]
-        RenderFragment RenderError() => builder =>
-        {
-            throw new Exception();
-        };
-    }
-
-    [Fact]
     public void Main_Ok()
     {
         var cut = Context.RenderComponent<CascadingValue<Task<AuthenticationState>>>(pb =>
@@ -252,7 +223,7 @@ public class LayoutTest : BootstrapBlazorTestBase
                 pb.Add(a => a.Main, builder => builder.AddContent(0, "Main"));
             });
         });
-        Assert.Equal("Main", cut.Markup);
+        Assert.Equal("<main class=\"layout-main\">Main</main>", cut.Markup);
     }
 
     [Fact]

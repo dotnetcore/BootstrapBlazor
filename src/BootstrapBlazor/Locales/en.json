@@ -283,6 +283,10 @@
     "ResetButtonText": "Reset",
     "QueryButtonText": "Query"
   },
+  "BootstrapBlazor.Components.SwitchButton": {
+    "OnText": "On",
+    "OffText": "Off"
+  },
   "BootstrapBlazor.Components.Timer": {
     "PauseText": "Pause",
     "ResumeText": "Resume",
@@ -334,5 +338,11 @@
   "BootstrapBlazor.Components.InsertRowMode": {
     "Last": "Last",
     "First": "First"
+  },
+  "BootstrapBlazor.Components.IconDialog": {
+    "LabelText": "Icon",
+    "LabelFullText": "Html",
+    "ButtonText": "Copy",
+    "DialogHeaderText": "Selected Icon"
   }
 }

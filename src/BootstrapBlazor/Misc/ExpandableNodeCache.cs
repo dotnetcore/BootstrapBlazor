@@ -57,7 +57,8 @@ public class ExpandableNodeCache<TNode, TItem> where TNode : IExpandableNode<TIt
             // 无子项时通过回调方法延时加载
             if (!node.Items.Any())
             {
-                node.Items = await callback(node);
+                var items = await callback(node);
+                node.Items = items.ToList();
                 ICheckableNode<TItem>? checkNode = null;
                 if (node is ICheckableNode<TItem> c)
                 {
@@ -109,21 +110,27 @@ public class ExpandableNodeCache<TNode, TItem> where TNode : IExpandableNode<TIt
         }
         else
         {
+            var needRemove = true;
             if (expandedNodeCache.Any(i => equalityComparer.Equals(i, node.Value)))
             {
-                // 原来是展开状态
-                node.IsExpand = true;
-
-                if (!node.Items.Any())
+                // 原来是展开状态，
+                if (node.HasChildren)
                 {
-                    node.Items = await callback(node);
-                    foreach (var n in node.Items)
+                    // 当前节点有子节点
+                    node.IsExpand = true;
+                    needRemove = false;
+                    if (!node.Items.Any())
                     {
-                        n.Parent = node;
+                        var items = await callback(node);
+                        node.Items = items.ToList();
+                        foreach (var n in node.Items)
+                        {
+                            n.Parent = node;
+                        }
                     }
                 }
             }
-            else
+            if (needRemove)
             {
                 expandedNodeCache.RemoveAll(i => equalityComparer.Equals(i, node.Value));
             }
@@ -168,7 +175,10 @@ public class ExpandableNodeCache<TNode, TItem> where TNode : IExpandableNode<TIt
         if (ret == null)
         {
             var children = source.SelectMany(e => e.Items.OfType<TNode>());
-            ret = Find(children, target, out degree);
+            if (children.Any())
+            {
+                ret = Find(children, target, out degree);
+            }
         }
         if (ret != null)
         {

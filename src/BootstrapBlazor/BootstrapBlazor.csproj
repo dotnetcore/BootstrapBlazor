@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
-    <Version>6.9.1</Version>
+    <Version>6.9.16</Version>
   </PropertyGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'net5.0'">
@@ -22,6 +22,16 @@
     <PackageReference Include="Microsoft.Extensions.Http" Version="6.0" />
     <PackageReference Include="Microsoft.Extensions.Localization" Version="6.0" />
     <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="6.0" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net7.0'">
+    <PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="7.0.0-*" />
+    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="7.0.0-*" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="7.0.0-*" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="7.0.0-*" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="7.0.0-*" />
+    <PackageReference Include="Microsoft.Extensions.Localization" Version="7.0.0-*" />
+    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="7.0.0-*" />
   </ItemGroup>
 
   <ItemGroup>

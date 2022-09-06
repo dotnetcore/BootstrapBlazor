@@ -11,6 +11,11 @@
 
 <Pre>&lt;link href="_content/BootstrapBlazor.FontAwesome/css/font-awesome.min.css" rel="stylesheet"&gt;</Pre>
 
+<p>
+    <b>已知问题：</b>
+    <span>首次加载有概率图标为乱码，原因是字库还未下载导致</span>
+</p>
+
 <div class="row form-inline">
     <div class="col-12">
         <Switch ShowLabel="true" DisplayText="@DisplayText" @bind-Value="@ShowCopyDialog" />

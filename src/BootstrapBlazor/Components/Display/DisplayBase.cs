@@ -86,6 +86,12 @@ public abstract class DisplayBase<TValue> : TooltipComponentBase
     protected BootstrapInputGroup? InputGroup { get; set; }
 
     /// <summary>
+    /// 获得 IFilter 实例
+    /// </summary>
+    [CascadingParameter]
+    protected IFilter? Filter { get; set; }
+
+    /// <summary>
     /// SetParametersAsync 方法
     /// </summary>
     /// <param name="parameters"></param>
@@ -115,9 +121,13 @@ public abstract class DisplayBase<TValue> : TooltipComponentBase
         // 显式设置显示标签时一定显示
         var showLabel = ShowLabel;
 
-        // 如果被 InputGroup 包裹不显示 Label
-        if (InputGroup == null)
+        if (Filter != null)
         {
+            IsShowLabel = false;
+        }
+        else if (InputGroup == null)
+        {
+            // 如果被 InputGroup 包裹不显示 Label
             // 组件自身未设置 ShowLabel 取 EditorForm/VaidateForm 级联值
             if (ShowLabel == null && (EditorForm != null || ValidateForm != null))
             {

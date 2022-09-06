@@ -65,12 +65,12 @@ public class CollapseTest : BootstrapBlazorTestBase
             {
                 builder.OpenComponent<CollapseItem>(0);
                 builder.AddAttribute(1, nameof(CollapseItem.Text), "Item 1");
-                builder.AddAttribute(3, nameof(CollapseItem.Icon), "fa fa-fa");
+                builder.AddAttribute(3, nameof(CollapseItem.Icon), "fa-solid fa-font-awesome");
                 builder.AddContent(2, "Content 1");
                 builder.CloseComponent();
             }));
         });
-        cut.Contains("fa fa-fa");
+        cut.Contains("fa-solid fa-font-awesome");
     }
 
     [Fact]
@@ -87,7 +87,6 @@ public class CollapseTest : BootstrapBlazorTestBase
                 builder.CloseComponent();
             }));
         });
-        cut.Contains("accordion-button-secondary");
         cut.Contains("btn-secondary");
     }
 
@@ -96,7 +95,7 @@ public class CollapseTest : BootstrapBlazorTestBase
     {
         var cut = Context.RenderComponent<CollapseItem>(pb =>
         {
-            pb.Add(a => a.Icon, "fa fa-fa");
+            pb.Add(a => a.Icon, "fa-solid fa-font-awesome");
         });
     }
 

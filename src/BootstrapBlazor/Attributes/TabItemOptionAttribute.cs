@@ -21,7 +21,7 @@ public class TabItemOptionAttribute : Attribute
     public bool Closable { get; set; } = true;
 
     /// <summary>
-    /// 获得/设置 图标字符串 如 "fa fa"
+    /// 获得/设置 图标字符串 如 "fa-solid fa-regular"
     /// </summary>
     public string? Icon { get; set; }
 }

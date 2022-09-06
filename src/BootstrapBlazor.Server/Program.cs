@@ -12,6 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 
+builder.Services.AddLogging(logBuilder => logBuilder.AddFileLogger());
 builder.Services.AddCors();
 builder.Services.AddResponseCompression();
 

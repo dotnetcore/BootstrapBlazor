@@ -37,12 +37,12 @@ public class DropdownWigetTest : BootstrapBlazorTestBase
             builder.Add(s => s.ChildContent, new RenderFragment(builder =>
             {
                 builder.OpenComponent<DropdownWidgetItem>(0);
-                builder.AddAttribute(1, nameof(DropdownWidgetItem.Icon), "fa fa-bell-o");
+                builder.AddAttribute(1, nameof(DropdownWidgetItem.Icon), "fa-regular fa-bell");
                 builder.CloseComponent();
             }));
         });
 
-        var ele = cut.Find(".fa-bell-o");
+        var ele = cut.Find(".fa-bell");
         Assert.NotNull(ele);
     }
 
@@ -187,7 +187,7 @@ public class DropdownWigetTest : BootstrapBlazorTestBase
         var wiget = new DropdownWidgetItem();
         var parameters = new Dictionary<string, object?>()
         {
-            ["Icon"] = "fa fa-bell-o",
+            ["Icon"] = "fa-regular fa-bell",
             ["Title"] = "Title",
             ["BadgeColor"] = Color.Success,
             ["HeaderColor"] = Color.Primary,

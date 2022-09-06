@@ -22,7 +22,7 @@ public sealed partial class TabLink
     public string? Url { get; set; }
 
     /// <summary>
-    /// 获得/设置 图标字符串 如 "fa fa"
+    /// 获得/设置 图标字符串 如 "fa-solid fa-regular"
     /// </summary>
     [Parameter]
     public string? Icon { get; set; }

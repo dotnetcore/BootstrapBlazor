@@ -39,10 +39,10 @@ public partial class Table<TItem>
     private string? NotSetOnTreeExpandErrorMessage { get; set; }
 
     /// <summary>
-    /// 获得/设置 数型结构小箭头图标 默认 fa fa-caret-right
+    /// 获得/设置 数型结构小箭头图标 默认 fa-solid fa-caret-right
     /// </summary>
     [Parameter]
-    public string TreeIcon { get; set; } = "fa-caret-right";
+    public string TreeIcon { get; set; } = "fa-solid fa-caret-right";
 
     /// <summary>
     /// 获得/设置 缩进大小 默认为 16 单位 px
@@ -64,7 +64,7 @@ public partial class Table<TItem>
     /// </summary>
     /// <param name="isExpand"></param>
     /// <returns></returns>
-    protected string? GetTreeClassString(bool isExpand) => CssBuilder.Default("is-tree fa fa-fw")
+    protected string? GetTreeClassString(bool isExpand) => CssBuilder.Default("is-tree fa-fw")
         .AddClass(TreeIcon, !IsLoadChildren)
         .AddClass("fa-rotate-90", !IsLoadChildren && isExpand)
         .AddClass("fa-spin fa-spinner", IsLoadChildren)
@@ -90,7 +90,7 @@ public partial class Table<TItem>
                 // 重建当前节点缓存
                 IsLoadChildren = true;
                 node.IsExpand = !node.IsExpand;
-                await treeNodeCache.ToggleNodeAsync(node, GetChildrenRow);
+                await treeNodeCache.ToggleNodeAsync(node, GetChildrenRowAsync);
                 IsLoadChildren = false;
 
                 // 清除缓存
@@ -102,7 +102,7 @@ public partial class Table<TItem>
         }
     };
 
-    private async Task<IEnumerable<IExpandableNode<TItem>>> GetChildrenRow(TableTreeNode<TItem> node)
+    private async Task<IEnumerable<IExpandableNode<TItem>>> GetChildrenRowAsync(TableTreeNode<TItem> node)
     {
         if (OnTreeExpand == null)
         {

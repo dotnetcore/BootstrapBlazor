@@ -3,23 +3,32 @@
 
 <div class="row g-3" @ref="IconDialogElement">
     <div class="col-12">
-        <label class="form-label">选择图标</label>
+        <RadioList Items="@Items" @bind-Value="@IconStyle" OnValueChanged="OnValueChanged"></RadioList>
+    </div>
+    <div class="col-12">
+        <label class="form-label">@LabelText</label>
         <div class="input-group">
             <div class="input-group-text">
                 <i class="@IconName"></i>
             </div>
             <div class="form-control is-display">@IconName</div>
-            <button type="button" class="btn btn-primary" role="button">点击复制</button>
+            <button type="button" class="btn btn-primary" role="button">
+                <i class="fa-regular fa-copy"></i>
+                <span>@ButtonText</span>
+            </button>
         </div>
     </div>
     <div class="col-12">
-        <label class="form-label">完整文本</label>
+        <label class="form-label">@LabelFullText</label>
         <div class="input-group">
             <div class="input-group-text">
                 <i class="@IconName"></i>
             </div>
             <div class="form-control is-display">@IconFullName</div>
-            <button type="button" class="btn btn-primary" role="button">点击复制</button>
+            <button type="button" class="btn btn-primary" role="button">
+                <i class="fa-regular fa-copy"></i>
+                <span>@ButtonText</span>
+            </button>
         </div>
     </div>
 </div>

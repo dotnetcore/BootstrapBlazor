@@ -23,19 +23,19 @@ public partial class Table<TItem>
     /// 获得/设置 升序图标
     /// </summary>
     [Parameter]
-    public string SortIconAsc { get; set; } = "fa fa-sort-asc";
+    public string SortIconAsc { get; set; } = "fa-solid fa-sort-up";
 
     /// <summary>
     /// 获得/设置 降序图标
     /// </summary>
     [Parameter]
-    public string SortIconDesc { get; set; } = "fa fa-sort-desc";
+    public string SortIconDesc { get; set; } = "fa-solid fa-sort-down";
 
     /// <summary>
     /// 获得/设置 默认图标
     /// </summary>
     [Parameter]
-    public string SortIcon { get; set; } = "fa fa-sort";
+    public string SortIcon { get; set; } = "fa-solid fa-sort";
 
     /// <summary>
     /// 获得/设置 多列排序顺序 默认为空 多列时使用逗号分割 如："Name, Age desc"
@@ -106,7 +106,7 @@ public partial class Table<TItem>
     /// 获得扩展按钮列固定列样式
     /// </summary>
     /// <returns></returns>
-    protected string? FixedExtendButtonsColumnClassString => CssBuilder.Default()
+    protected string? FixedExtendButtonsColumnClassString => CssBuilder.Default("table-column-button")
         .AddClass("fixed", FixedExtendButtonsColumn)
         .AddClass("fixed-right", !IsExtendButtonsInRowHeader)
         .Build();
@@ -115,7 +115,7 @@ public partial class Table<TItem>
     /// 获得 按钮列样式表集合
     /// </summary>
     /// <returns></returns>
-    protected string? ExtendButtonsColumnClass => CssBuilder.Default("table-th-button")
+    protected string? ExtendButtonsColumnClass => CssBuilder.Default()
         .AddClass("fixed", FixedExtendButtonsColumn)
         .AddClass("fixed-right", !IsExtendButtonsInRowHeader)
         .Build();
@@ -216,6 +216,7 @@ public partial class Table<TItem>
     protected string? GetHeaderWrapperClassString(ITableColumn col) => CssBuilder.Default("table-cell")
         .AddClass("is-sort", col.Sortable)
         .AddClass("is-filter", col.Filterable)
+        .AddClass(col.Align.ToDescriptionString(), col.Align == Alignment.Center || col.Align == Alignment.Right)
         .Build();
 
     /// <summary>
@@ -224,9 +225,6 @@ public partial class Table<TItem>
     /// <param name="col"></param>
     /// <returns></returns>
     protected string? GetHeaderTextClassString(ITableColumn col) => CssBuilder.Default("table-text")
-        .AddClass("text-start", col.Align == Alignment.Left)
-        .AddClass("text-end", col.Align == Alignment.Right)
-        .AddClass("text-center", col.Align == Alignment.Center)
         .Build();
 
     /// <summary>
@@ -237,9 +235,7 @@ public partial class Table<TItem>
     /// <param name="inCell"></param>
     /// <returns></returns>
     protected string? GetCellClassString(ITableColumn col, bool hasChildren, bool inCell) => CssBuilder.Default("table-cell")
-        .AddClass("text-star", col.Align == Alignment.Left)
-        .AddClass("text-end", col.Align == Alignment.Right)
-        .AddClass("text-center", col.Align == Alignment.Center)
+        .AddClass(col.Align.ToDescriptionString(), col.Align == Alignment.Center || col.Align == Alignment.Right)
         .AddClass("is-wrap", col.TextWrap)
         .AddClass("is-ellips", col.TextEllipsis)
         .AddClass("is-tips", col.ShowTips)
@@ -253,14 +249,9 @@ public partial class Table<TItem>
     /// 获取指定列头样式字符串
     /// </summary>
     /// <returns></returns>
-    protected string? GetIconClassString(string fieldName)
-    {
-        var order = SortName == fieldName ? SortOrder : SortOrder.Unset;
-        return order switch
-        {
-            SortOrder.Asc => SortIconAsc,
-            SortOrder.Desc => SortIconDesc,
-            _ => SortIcon
-        };
-    }
+    protected string? GetIconClassString(string fieldName) => CssBuilder.Default("table-sort-icon")
+        .AddClass(SortIcon, SortName != fieldName || SortOrder == SortOrder.Unset)
+        .AddClass(SortIconAsc, SortName == fieldName && SortOrder == SortOrder.Asc)
+        .AddClass(SortIconDesc, SortName == fieldName && SortOrder == SortOrder.Desc)
+        .Build();
 }

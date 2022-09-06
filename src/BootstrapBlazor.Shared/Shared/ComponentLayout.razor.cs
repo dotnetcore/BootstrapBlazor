@@ -105,6 +105,9 @@ public sealed partial class ComponentLayout
     {
         await base.OnAfterRenderAsync(firstRender);
 
-        TabSet.ActiveTab(TabSet.Items.First());
+        if (firstRender)
+        {
+            TabSet.ActiveTab(TabSet.Items.First());
+        }
     }
 }

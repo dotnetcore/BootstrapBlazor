@@ -23,7 +23,7 @@ public partial class LogoutLink
     /// 获得/设置 图标
     /// </summary>
     [Parameter]
-    public string Icon { get; set; } = "fa fa-key";
+    public string Icon { get; set; } = "fa-solid fa-key";
 
     /// <summary>
     /// 获得/设置 按钮文字

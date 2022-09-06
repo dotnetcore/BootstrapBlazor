@@ -4,21 +4,40 @@
 <CascadingValue Value="this" IsFixed="true">
     @if (IsInit)
     {
-        <ErrorLogger OnErrorHandleAsync="OnErrorHandleAsync!">
-            @if (IsAuthenticated)
-            {
-                <section @attributes="AdditionalAttributes" class="@ClassString">
-                    @if (Side == null)
+        @if (IsAuthenticated)
+        {
+            <section @attributes="AdditionalAttributes" class="@ClassString">
+                @if (Side == null)
+                {
+                    @RenderHeader.Invoke(false)
+                    @RenderMain
+                    @if (ShowFooter)
                     {
-                        @RenderHeader.Invoke(false)
+                        @RenderFooter
+                    }
+                }
+                else if (IsFullSide)
+                {
+                    <aside class="@SideClassString" style="@SideStyleString">
+                        @Side
+                        @if (Menus != null)
+                        {
+                            @RenderMenu.Invoke(IsFullSide)
+                        }
+                    </aside>
+                    <section class="layout-right">
+                        @RenderHeader.Invoke(ShowCollapseBar)
                         @RenderMain
                         @if (ShowFooter)
                         {
                             @RenderFooter
                         }
-                    }
-                    else if (IsFullSide)
-                    {
+                    </section>
+                }
+                else
+                {
+                    @RenderHeader.Invoke(ShowCollapseBar);
+                    <section class="has-sidebar">
                         <aside class="@SideClassString" style="@SideStyleString">
                             @Side
                             @if (Menus != null)
@@ -26,44 +45,23 @@
                                 @RenderMenu.Invoke(IsFullSide)
                             }
                         </aside>
-                        <section class="layout-right">
-                            @RenderHeader.Invoke(ShowCollapseBar)
-                            @RenderMain
-                            @if (ShowFooter)
-                            {
-                                @RenderFooter
-                            }
-                        </section>
-                    }
-                    else
+                        @RenderMain
+                    </section>
+                    @if (ShowFooter)
                     {
-                        @RenderHeader.Invoke(ShowCollapseBar);
-                        <section class="has-sidebar">
-                            <aside class="@SideClassString" style="@SideStyleString">
-                                @Side
-                                @if (Menus != null)
-                                {
-                                    @RenderMenu.Invoke(IsFullSide)
-                                }
-                            </aside>
-                            @RenderMain
-                        </section>
-                        @if (ShowFooter)
-                        {
-                            @RenderFooter
-                        }
+                        @RenderFooter
                     }
-                </section>
-            }
-            else if (NotAuthorized != null)
-            {
-                @NotAuthorized
-            }
-            else
-            {
-                @Main
-            }
-        </ErrorLogger>
+                }
+            </section>
+        }
+        else if (NotAuthorized != null)
+        {
+            @NotAuthorized
+        }
+        else
+        {
+            @RenderMain
+        }
     }
 </CascadingValue>
 
@@ -73,7 +71,7 @@
         @if (collapse)
         {
             <a title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="@TooltipText" class="@CollapseBarClassString" @onclick="CollapseMenu">
-                <i class="fa fa-bars"></i>
+                <i class="fa-solid fa-bars"></i>
             </a>
         }
         @Header
@@ -97,17 +95,14 @@ RenderFragment RenderMain =>
 @<main class="@MainClassString">
     @if (UseTabSet)
     {
-        <RenderTemplate>
-            <Tab ClickTabToNavigation="true" ShowExtendButtons="true" ShowClose="true"
-                 AdditionalAssemblies="@AdditionalAssemblies" NotFoundTabText="@NotFoundTabText"
-                 DefaultUrl="@TabDefaultUrl" ExcludeUrls="@ExcludeUrls" IsOnlyRenderActiveTab="IsOnlyRenderActiveTab"
-                 ShowToast="ShowToast" ToastTitle="@ToastTitle" OnErrorHandleAsync="OnErrorHandleAsync!"
-                 Body="@Main" NotAuthorized="NotAuthorized!" NotFound="NotFound!" />
-        </RenderTemplate>
+        <Tab ClickTabToNavigation="true" ShowExtendButtons="true" ShowClose="true"
+             AdditionalAssemblies="@AdditionalAssemblies" NotFoundTabText="@NotFoundTabText"
+             DefaultUrl="@TabDefaultUrl" ExcludeUrls="@ExcludeUrls" IsOnlyRenderActiveTab="IsOnlyRenderActiveTab"
+             Body="@Main" NotAuthorized="NotAuthorized!" NotFound="NotFound!" />
     }
     else
     {
-        @Main
+        @HandlerMain()
     }
 </main>;
 

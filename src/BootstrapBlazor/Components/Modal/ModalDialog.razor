@@ -29,14 +29,14 @@
         </div>
         <CascadingValue Name="BodyContext" Value="@BodyContext" IsFixed="true">
             <div class="modal-body">
-                @BodyTemplate
+                @RenderBodyTemplate()
             </div>
             @if (ShowFooter)
             {
                 <div class="modal-footer">
                     @if (ShowCloseButton)
                     {
-                        <Button Color="Color.Secondary" Text="@CloseButtonText" Icon="fa fa-times" OnClickWithoutRender="OnClickClose" />
+                        <Button Color="Color.Secondary" Text="@CloseButtonText" Icon="fa-solid fa-fw fa-xmark" OnClickWithoutRender="OnClickClose" />
                     }
                     @if (ShowPrintButton && !ShowPrintButtonInHeader)
                     {
@@ -44,7 +44,7 @@
                     }
                     @if (ShowSaveButton)
                     {
-                        <Button Color="Color.Primary" Text="@SaveButtonText" Icon="fa fa-save" OnClickWithoutRender="OnClickSave" />
+                        <Button Color="Color.Primary" Text="@SaveButtonText" Icon="fa-solid fa-fw fa-floppy-disk" OnClickWithoutRender="OnClickSave" />
                     }
                     @FooterTemplate
                 </div>

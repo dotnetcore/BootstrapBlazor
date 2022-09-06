@@ -283,6 +283,10 @@
     "ResetButtonText": "重置",
     "QueryButtonText": "查询"
   },
+  "BootstrapBlazor.Components.SwitchButton": {
+    "OnText": "开",
+    "OffText": "关"
+  },
   "BootstrapBlazor.Components.Timer": {
     "PauseText": "暂停",
     "ResumeText": "继续",
@@ -334,5 +338,11 @@
   "BootstrapBlazor.Components.InsertRowMode": {
     "Last": "最后",
     "First": "最前"
+  },
+  "BootstrapBlazor.Components.IconDialog": {
+    "LabelText": "选择图标",
+    "LabelFullText": "完整文本",
+    "ButtonText": "点击复制",
+    "DialogHeaderText": "请选择图标"
   }
 }

@@ -54,13 +54,6 @@
     <BlockLogger @ref="TraceChecked" class="mt-3" />
 </DemoBlock>
 
-<DemoBlock Title="单选框" Introduction="适用于单选节点" Name="ShowRadio">
-    <p>
-        通过设置 <code>ShowRadio</code> 属性节点前面显示 <code>Radio</code> 组件
-    </p>
-    <TreeView TItem="TreeFoo" Items="@RadioItems" ShowRadio="true" />
-</DemoBlock>
-
 <DemoBlock Title="禁用状态" Introduction="可将 Tree 的某些节点设置为禁用状态" Name="TreeDisable">
     <p>
         通过设置数据源 <code>TreeItem</code> 对象的 <code>Disabled</code> 属性，来控制此节点是否可以进行勾选动作，设置为 <code>false</code> 时不影响节点展开/收缩功能
@@ -124,7 +117,7 @@
 </DemoBlock>
 
 <DemoBlock Title="加载骨架屏" Introduction="通过设置 <code>ShowSkeleton</code> 使异步加载数据时组件显示骨架屏" Name="ShowSkeleton">
-    <Button Text="异步加载" IsAsync="true" Icon="fa fa-fa" OnClick="OnLoadAsyncItems" />
+    <Button Text="异步加载" IsAsync="true" Icon="fa-solid fa-font-awesome" OnClick="OnLoadAsyncItems" />
     <TreeView TItem="TreeFoo" Items="@AsyncItems" ShowSkeleton="true" OnExpandNodeAsync="OnExpandNodeAsync" class="mt-3" />
 </DemoBlock>
 

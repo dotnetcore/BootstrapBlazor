@@ -11,23 +11,17 @@ public class FullScreenTest : BootstrapBlazorTestBase
     [Fact]
     public void ButtonIcon_Ok()
     {
-        var cut = Context.RenderComponent<FullScreenButton>(builder => builder.Add(s => s.ButtonIcon, "fa fa-arrows-alt"));
-        var ele = cut.Find(".fa-arrows-alt");
+        var cut = Context.RenderComponent<FullScreenButton>(builder => builder.Add(s => s.Icon, "fa-solid fa-maximize"));
+        var ele = cut.Find(".fa-maximize");
         Assert.NotNull(ele);
     }
 
     [Fact]
     public void FullScreenIcon_Ok()
     {
-        var cut = Context.RenderComponent<FullScreenButton>(builder => builder.Add(s => s.FullScreenIcon, "fa"));
-        var ele = cut.Find(".fa");
+        var cut = Context.RenderComponent<FullScreenButton>(builder => builder.Add(s => s.FullScreenIcon, "fa-test"));
+        var ele = cut.Find(".fa-test");
         Assert.NotNull(ele);
-    }
-
-    [Fact]
-    public void Title_Ok()
-    {
-        var cut = Context.RenderComponent<FullScreenButton>(builder => builder.Add(s => s.Title, "FullScreen Title"));
     }
 
     [Fact]

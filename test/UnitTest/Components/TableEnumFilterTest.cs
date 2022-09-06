@@ -31,6 +31,7 @@ public class TableEnumFilterTest : BootstrapBlazorTestBase
         var filter = cut.Instance;
         IEnumerable<FilterKeyValueAction>? condtions = null;
         cut.InvokeAsync(() => condtions = filter.GetFilterConditions());
+        Assert.NotNull(condtions);
         Assert.Empty(condtions);
 
         // Set Value
@@ -72,6 +73,7 @@ public class TableEnumFilterTest : BootstrapBlazorTestBase
         IEnumerable<FilterKeyValueAction>? condtions = null;
         cut.InvokeAsync(() => items[1].Click());
         cut.InvokeAsync(() => condtions = cut.FindComponent<EnumFilter>().Instance.GetFilterConditions());
+        Assert.NotNull(condtions);
         Assert.Single(condtions);
     }
 

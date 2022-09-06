@@ -262,7 +262,7 @@ public sealed partial class Uploads : IDisposable
             Description = Localizer["BrowserButtonIcon"],
             Type = "string",
             ValueList = " — ",
-            DefaultValue = "fa fa-folder-open-o"
+            DefaultValue = "fa-regular fa-folder-open"
         },
         new AttributeItem() {
             Name = "BrowserButtonText",
@@ -283,7 +283,7 @@ public sealed partial class Uploads : IDisposable
             Description = Localizer["DeleteButtonIcon"],
             Type = "string",
             ValueList = " — ",
-            DefaultValue = "fa fa-trash-o"
+            DefaultValue = "fa-regular fa-trash"
         },
         new AttributeItem() {
             Name = "DeleteButtonText",
@@ -357,7 +357,7 @@ public sealed partial class Uploads : IDisposable
             Description = Localizer["BrowserButtonIcon"],
             Type = "string",
             ValueList = " — ",
-            DefaultValue = "fa fa-folder-open-o"
+            DefaultValue = "fa-regular fa-folder-open"
         },
         new AttributeItem() {
             Name = "BrowserButtonText",

@@ -6,6 +6,7 @@ using BootstrapBlazor.Components;
 using BootstrapBlazor.Shared.Services;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
+using System.Collections.Concurrent;
 using System.ComponentModel;
 
 namespace BootstrapBlazor.Shared.Samples.Table;
@@ -15,7 +16,7 @@ namespace BootstrapBlazor.Shared.Samples.Table;
 /// </summary>
 public sealed partial class TablesDetailRow
 {
-    private Dictionary<string, IEnumerable<DetailRow>> Cache { get; } = new();
+    private ConcurrentDictionary<string, List<DetailRow>> Cache { get; } = new();
 
     private static readonly Random random = new();
 
@@ -56,13 +57,13 @@ public sealed partial class TablesDetailRow
         DataTableDynamicContext = DataTableDynamicService.CreateContext();
     }
 
-    private static IEnumerable<DetailRow> GetDetailRowsByName(string name) => Enumerable.Range(1, 4).Select(i => new DetailRow()
+    private static List<DetailRow> GetDetailRowsByName(string name) => Enumerable.Range(1, 4).Select(i => new DetailRow()
     {
         Id = i,
         Name = name,
         DateTime = DateTime.Now.AddDays(i - 1),
         Complete = random.Next(1, 100) > 50
-    });
+    }).ToList();
 
     private Func<Foo, Task>? OnDoubleClickRowCallback()
     {
@@ -101,6 +102,12 @@ public sealed partial class TablesDetailRow
     {
         DetailText = LocalizerDetailRow[$"{nameof(DetailText)}{IsDetails}"];
         IsDetails = !IsDetails;
+    }
+
+    private List<DetailRow> GetDetailDataSource(Foo foo)
+    {
+        var cacheKey = foo.Name ?? "";
+        return Cache.GetOrAdd(cacheKey, key => GetDetailRowsByName(cacheKey));
     }
 
     private class DetailRow

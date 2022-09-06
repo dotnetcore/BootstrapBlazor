@@ -1,19 +1,14 @@
-﻿:root {
-    --bb-logo: #732cf9;
-    --bb-purple: #732cf9;
-    --bb-violet: #712cf9;
+﻿header {
     --bb-violet-rgb: 112.520718,44.062154,249.437846;
-    --bb-bg-violet: #7a5cff;
-    --bb-bg-navbar: #8548ff;
-    --bb-layout-sidebar-banner-background: #702cf8;
-}
-
-header {
     background-color: transparent;
     background-image: linear-gradient(to bottom, rgba(var(--bb-violet-rgb), 1), rgba(var(--bb-violet-rgb), 0.95));
     box-shadow: 0 0.5rem 1rem rgba(0,0,0,.05), inset 0 -1px 0 rgba(0,0,0,.1);
     font-size: 1rem;
     transition: transform .3s ease;
+}
+
+.layout {
+    --bb-layout-sidebar-banner-background: #702cf8;
 }
 
 .navbar-dark .navbar-nav .nav-link {
@@ -40,6 +35,7 @@ header .nav-link img {
 }
 
 .header-img {
+    --bb-logo: #732cf9;
     display: flex;
     align-items: center;
     padding: 0;
@@ -51,7 +47,7 @@ header .nav-link img {
         width: 42px;
         height: auto;
         border-radius: var(--bs-border-radius);
-        background-color: var(--bb-logo);
+        background-color: var(--bs-info);
         border: solid 1px #fff;
         margin-right: 1rem;
     }
@@ -127,11 +123,16 @@ section {
     }
 
 .sidebar .navbar {
+    --bb-bg-navbar: #8548ff;
     background-color: var(--bb-bg-navbar);
 }
 
 .sidebar .sidebar-title {
     display: none;
+}
+
+.sidebar-text {
+    font-weight: 700;
 }
 
 .tabs-body-content > h2,
@@ -188,15 +189,15 @@ section {
             display: block;
         }
 
-            .content .card-footer .card-footer-control .fa {
+            .content .card-footer .card-footer-control :where(.fa,.fas,.fa-solid,.far,.fa-regular,.fal,.fa-light,.fat,.fa-thin,.fad,.fa-duotone,.fab,.fa-brands) {
                 transition: .3s linear;
             }
 
-            .content .card-footer .card-footer-control.collapsed .fa {
+            .content .card-footer .card-footer-control.collapsed :where(.fa,.fas,.fa-solid,.far,.fa-regular,.fal,.fa-light,.fat,.fa-thin,.fad,.fa-duotone,.fab,.fa-brands) {
                 transform: rotate(180deg);
             }
 
-    .content .card:hover .card-footer .card-footer-control .fa {
+    .content .card:hover .card-footer .card-footer-control :where(.fa,.fas,.fa-solid,.far,.fa-regular,.fal,.fa-light,.fat,.fa-thin,.fad,.fa-duotone,.fab,.fa-brands) {
         margin-left: -1.5rem;
         margin-left: -72px;
     }
@@ -920,7 +921,7 @@ section {
 }
 
 .layout-menu-demo .layout-side {
-    background-color: var(--bb-bg-disabled);
+    background-color: var(--bb-disabled-bg);
     color: #dcdfe6;
     height: 100%;
 }
@@ -1389,7 +1390,7 @@ section {
 
 .layout.is-page.color1 .layout-side {
     background-color: #212529;
-    color: var(--bb-bg-disabled);
+    color: var(--bb-disabled-bg);
 }
 
 .layout.is-page.color1 .layout-footer {
@@ -1416,7 +1417,7 @@ section {
 
 .layout.is-page.color2 .layout-side {
     background-color: #212529;
-    color: var(--bb-bg-disabled);
+    color: var(--bb-disabled-bg);
 }
 
 .layout.is-page.color2 .layout-footer {
@@ -1443,7 +1444,7 @@ section {
 
 .layout.is-page.color3 .layout-side {
     background-color: #212529;
-    color: var(--bb-bg-disabled);
+    color: var(--bb-disabled-bg);
 }
 
 .layout.is-page.color3 .layout-footer {
@@ -1470,7 +1471,7 @@ section {
 
 .layout.is-page.color4 .layout-side {
     background-color: #212529;
-    color: var(--bb-bg-disabled);
+    color: var(--bb-disabled-bg);
 }
 
 .layout.is-page.color4 .layout-footer {
@@ -1502,7 +1503,7 @@ section {
 
 .layout.is-page.color6 .layout-side {
     background-color: #212529;
-    color: var(--bb-bg-disabled);
+    color: var(--bb-disabled-bg);
 }
 
 .layout.is-page.color6 .layout-footer {
@@ -1663,12 +1664,12 @@ section {
     padding: 11px;
 }
 
-.m-logo {
-    position: absolute;
-    width: 17px;
-    top: 10px;
-    left: 11px;
-}
+    .btn-theme img {
+        position: absolute;
+        width: 17px;
+        top: 10px;
+        left: 11px;
+    }
 
 .theme-bar {
     display: flex;
@@ -1971,7 +1972,7 @@ header .bb-fs {
     }
 
 .menu .nav-link.nav-table {
-    color: var(--bb-bg-violet);
+    color: var(--bs-info);
     font-weight: bold;
 }
 
@@ -1985,4 +1986,11 @@ header .bb-fs {
     --bs-popover-header-color: var(--bs-white);
     --bs-popover-body-padding-x: 1rem;
     --bs-popover-body-padding-y: 1rem;
+}
+
+.custom-rate {
+    --bb-rate-font-size: 1.7rem;
+    --bb-rate-height: 30px;
+    --bb-rate-width: 30px;
+    --bb-rate-active-color: var(--bs-primary);
 }

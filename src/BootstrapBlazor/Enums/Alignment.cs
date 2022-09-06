@@ -12,24 +12,24 @@ namespace BootstrapBlazor.Components;
 public enum Alignment
 {
     /// <summary>
-    /// 
+    /// 未设置
     /// </summary>
     None,
 
     /// <summary>
-    /// 
+    /// 左对齐
     /// </summary>
     [Description("start")]
     Left,
 
     /// <summary>
-    /// 
+    /// 居中对齐
     /// </summary>
     [Description("center")]
     Center,
 
     /// <summary>
-    /// 
+    /// 右对齐
     /// </summary>
     [Description("end")]
     Right

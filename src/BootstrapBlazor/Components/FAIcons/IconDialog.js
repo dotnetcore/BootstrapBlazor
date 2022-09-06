@@ -17,7 +17,7 @@
                 }
                 $(container).scrollTop(margin);
             });
-            $el.on('click', '.icon-item', function (e) {
+            $el.on('click', 'a', function (e) {
                 e.preventDefault();
                 e.stopPropagation();
 

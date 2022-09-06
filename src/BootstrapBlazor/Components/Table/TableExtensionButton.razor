@@ -10,6 +10,7 @@
         {
             <Button AdditionalAttributes="b.AdditionalAttributes" Size="b.Size"
                     Color="@b.Color" Icon="@b.Icon" Text="@b.Text" IsAsync="@b.IsAsync"
+                    TooltipText="@b.TooltipText" TooltipPlacement="@b.TooltipPlacement" TooltipTrigger="@b.TooltipTrigger"
                     OnClickWithoutRender="() => OnClick(b)" IsDisabled="b.IsDisabled"></Button>
         }
         else if (button is TableCellPopconfirmButton pb && pb.IsShow)

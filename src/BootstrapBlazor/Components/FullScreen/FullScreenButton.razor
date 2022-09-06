@@ -1,11 +1,7 @@
 ﻿@namespace BootstrapBlazor.Components
-@inherits TooltipComponentBase
+@inherits ButtonBase
 
 <a @attributes="AdditionalAttributes" id="@Id" class="@ClassString" @onclick="ToggleFullScreen">
     <i class="@ButtonIconString"></i>
     <i class="@FullScreenIconString"></i>
 </a>
-
-<CascadingValue Value="this" IsFixed="true">
-    <Tooltip Title="@Title" />
-</CascadingValue>

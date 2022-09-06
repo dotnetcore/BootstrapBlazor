@@ -1,45 +1,52 @@
 ﻿.select {
     --bb-dropdown-link-pre-active-bg: #498ff7;
-    --bb-select-dropdown-max-height: 274px;
     --bb-select-focus-shadow: none;
-    --bb-select-focus-border-color: #c0c4cc;
-    --bb-select-hover-border-color: #c0c4cc;
     --bb-select-bg: #fff;
-    --bb-select-disabled-bg: #e9ecef;
-    --bb-select-disabled-border-color: #e4e7ed;
-    --bb-select-disabled-color: #c0c4cc;
+    --bb-select-padding: 6px 2.25rem 6px 0.75rem;
+    --bb-select-dropdown-max-height: var(--bb-dropdown-max-height);
 }
 
-.cascade,
-.select {
+:where(.cascade, .select) {
     --bb-select-dropdown-menu-margin-top: 8px;
 }
 
-    .select .dropdown-menu {
-        max-height: var(--bb-select-dropdown-max-height);
-        overflow-x: hidden;
-        width: 100%;
+.select .dropdown-menu {
+    overflow-x: hidden;
+    width: 100%;
+}
+
+.select .dropdown-toggle::after {
+    content: none;
+}
+
+:where(.cascade, .select) .dropdown-menu {
+    margin-top: var(--bb-select-dropdown-menu-margin-top) !important;
+}
+
+.select .form-select {
+    background-image: none;
+    background-color: var(--bb-select-bg);
+    border: 1px solid var(--bs-border-color);
+    border-radius: var(--bs-border-radius);
+    padding: var(--bb-select-padding);
+    cursor: pointer;
+}
+
+    .select .form-select:disabled {
+        background-color: var(--bb-disabled-bg);
     }
 
-    .select .dropdown-toggle::after {
-        content: none;
-    }
+.dropdown-menu {
+    overflow: auto;
+}
 
-    .select .form-select {
-        background-image: none;
-        background-color: var(--bb-select-bg);
-        cursor: pointer;
-    }
+.dropdown-menu {
+    --bs-dropdown-border-radius: var(--bs-border-radius);
+    max-height: var(--bb-select-dropdown-max-height);
+}
 
-    .select .dropdown-menu,
-    .cascade .dropdown-menu {
-        margin-top: var(--bb-select-dropdown-menu-margin-top) !important;
-    }
-
-.form-select:disabled {
-    background-color: var(--bb-select-disabled-bg);
-    border-color: var(--bb-select-disabled-border-color);
-    color: var(--bb-select-disabled-color);
+.dropdown-item {
+    cursor: pointer;
 }
 
 .dropdown-menu-arrow {
@@ -67,13 +74,17 @@
         left: -6px;
     }
 
+.show > :where(.dropdown-menu, .dropdown-menu-arrow) {
+    display: block;
+}
+
 .form-select:focus {
     box-shadow: var(--bb-select-focus-shadow);
-    border-color: var(--bb-select-focus-border-color);
+    border-color: var(--bb-border-focus-color);
 }
 
 .form-select:not(:disabled):hover {
-    border-color: var(--bb-select-hover-border-color);
+    border-color: var(--bb-border-hover-color);
 }
 
 .form-select.show + .form-select-append i {
@@ -87,12 +98,6 @@
 
 .dropdown-menu[data-bs-popper="none"].show + .dropdown-menu-arrow {
     margin-top: 2px;
-}
-
-.dropdown-item.preActive {
-    color: var(--bs-dropdown-link-active-color);
-    text-decoration: none;
-    background-color: var(--bb-dropdown-link-pre-active-bg);
 }
 
 .form-select-append {
@@ -130,7 +135,7 @@
         padding-right: 30px;
     }
 
-    .select .search .fa-search {
+    .select .search .fa-magnifying-glass {
         position: absolute;
         left: calc(100% - 34px);
         top: 18px;
@@ -144,16 +149,6 @@
     box-shadow: none;
 }
 
-.input-group > .select:not(:first-child) .form-select {
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
-}
-
-.input-group > .select:not(:last-child) .form-select {
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
-}
-
 .form-select.is-valid:not([multiple]):not([size]),
 .form-select.is-valid:not([multiple])[size="1"],
 .was-validated .form-select:valid:not([multiple]):not([size]),
@@ -163,4 +158,24 @@
 .was-validated .form-select:invalid:not([multiple]):not([size]),
 .was-validated .form-select:invalid:not([multiple])[size="1"] {
     background-position: right -1rem center, center right 1.5rem;
+}
+
+.arrow-danger {
+    border-color: transparent transparent var(--bs-danger);
+}
+
+.arrow-success {
+    border-color: transparent transparent var(--bs-success);
+}
+
+.arrow-primary {
+    border-color: transparent transparent var(--bs-primary);
+}
+
+.arrow-warning {
+    border-color: transparent transparent var(--bs-warning);
+}
+
+.arrow-info {
+    border-color: transparent transparent var(--bs-info);
 }

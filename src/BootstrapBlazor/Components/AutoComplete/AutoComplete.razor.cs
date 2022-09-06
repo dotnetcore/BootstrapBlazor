@@ -100,11 +100,25 @@ public partial class AutoComplete
     public bool SkipEsc { get; set; }
 
     /// <summary>
+    /// 获得/设置 获得焦点时是否展开下拉候选菜单 默认 true
+    /// </summary>
+    [Parameter]
+    public bool ShowDropdownListOnFocus { get; set; } = true;
+
+    /// <summary>
+    /// 获得/设置 候选项模板 默认 null
+    /// </summary>
+    [Parameter]
+    public RenderFragment<string>? ItemTemplate { get; set; }
+
+    /// <summary>
     /// IStringLocalizer 服务实例
     /// </summary>
     [Inject]
     [NotNull]
     private IStringLocalizer<AutoComplete>? Localizer { get; set; }
+
+    private JSInterop<AutoComplete>? Interop { get; set; }
 
     private string CurrentSelectedItem { get; set; } = "";
 
@@ -149,6 +163,8 @@ public partial class AutoComplete
 
         if (firstRender)
         {
+            await RegisterComposition();
+
             if (Debounce > 0)
             {
                 await JSRuntime.InvokeVoidAsync(FocusElement, "bb_setDebounce", Debounce);
@@ -174,6 +190,19 @@ public partial class AutoComplete
         if (OnSelectedItemChanged != null)
         {
             await OnSelectedItemChanged(val);
+        }
+    }
+
+    /// <summary>
+    /// OnFocus 方法
+    /// </summary>
+    /// <param name="args"></param>
+    /// <returns></returns>
+    protected virtual async Task OnFocus(FocusEventArgs args)
+    {
+        if (ShowDropdownListOnFocus)
+        {
+            await OnKeyUp(new KeyboardEventArgs());
         }
     }
 
@@ -255,5 +284,47 @@ public partial class AutoComplete
                 }
             }
         }
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="val"></param>
+    [JSInvokable]
+    public void TriggerOnChange(string val)
+    {
+        CurrentValueAsString = val;
+    }
+
+    /// <summary>
+    /// 注册汉字多次触发问题脚本
+    /// </summary>
+    /// <returns></returns>
+    protected virtual async Task RegisterComposition()
+    {
+        // 汉字多次触发问题
+        if (ValidateForm != null)
+        {
+            Interop ??= new JSInterop<AutoComplete>(JSRuntime);
+            await Interop.InvokeVoidAsync(this, FocusElement, "bb_composition", nameof(TriggerOnChange));
+        }
+    }
+
+    /// <summary>
+    /// DisposeAsyncCore 方法
+    /// </summary>
+    /// <param name="disposing"></param>
+    /// <returns></returns>
+    protected override ValueTask DisposeAsyncCore(bool disposing)
+    {
+        if (disposing)
+        {
+            if (Interop != null)
+            {
+                Interop.Dispose();
+            }
+        }
+
+        return base.DisposeAsyncCore(disposing);
     }
 }

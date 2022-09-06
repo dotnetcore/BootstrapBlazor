@@ -44,13 +44,7 @@ private RenderFragment<TreeViewItem<TItem>> RenderTreeItem => item =>
         {
             <Checkbox Value="@item.CheckedState" IsDisabled="@item.IsDisabled" SkipValidate="true"
                       ShowLabel="false" ShowAfterLabel="false" State="@item.CheckedState"
-                      OnStateChanged="(state, v) => OnCheckStateChanged(item)" StopPropagation="true" />
-        }
-        else if (ShowRadio)
-        {
-            <Radio Value="@item.CheckedState" IsDisabled="@item.IsDisabled" SkipValidate="true"
-                   ShowLabel="false" ShowAfterLabel="false" GroupName="@GroupName"
-                   OnClick="p => OnRadioClick(item)" State="@item.CheckedState" />
+                      OnStateChanged="(state, v) => OnCheckStateChanged(item, true)" StopPropagation="true" />
         }
         <DynamicElement class="@GetNodeClassString(item)" TriggerClick="TriggerNodeLabel(item)" OnClick="() => OnClick(item)">
             @if (ShowIcon)

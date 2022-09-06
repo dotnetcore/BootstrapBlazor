@@ -14,6 +14,9 @@ public sealed partial class Searchs
 {
     private static IEnumerable<string> Items => new string[] { "1", "12", "123", "1234" };
 
+    private Foo Model { get; set; } = new Foo() { Name = "" };
+    private static List<string> StaticItems => new() { "1", "12", "123", "1234", "12345", "123456", "abc", "abcdef", "ABC", "aBcDeFg", "ABCDEFG" };
+
     [NotNull]
     private BlockLogger? Trace { get; set; }
 
@@ -90,14 +93,14 @@ public sealed partial class Searchs
                 Description = Localizer["SearchButtonLoadingIcon"],
                 Type = "string",
                 ValueList = " — ",
-                DefaultValue = "fa fa-fw fa-spinner fa-spin"
+                DefaultValue = "fa-fw fa-spin fa-solid fa-spinner"
             },
             new AttributeItem() {
                 Name = "ClearButtonIcon",
                 Description = Localizer["ChildContent"],
                 Type = "string",
                 ValueList = " — ",
-                DefaultValue = "fa fa-trash"
+                DefaultValue = "fa-solid fa-trash"
             },
             new AttributeItem() {
                 Name = "ClearButtonText",

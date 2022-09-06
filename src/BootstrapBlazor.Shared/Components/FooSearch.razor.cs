@@ -29,10 +29,10 @@ public partial class FooSearch
     /// 
     /// </summary>
     public List<SelectedItem> CountItems { get; } = new List<SelectedItem>()
-        {
-            new SelectedItem("", "全部"),
-            new SelectedItem("1", "小于 30"),
-            new SelectedItem("2", "大于等于 30 小于 70"),
-            new SelectedItem("3", "大于等于 70 小于 100")
-        };
+    {
+        new SelectedItem("", "全部"),
+        new SelectedItem("1", "小于 30"),
+        new SelectedItem("2", "大于等于 30 小于 70"),
+        new SelectedItem("3", "大于等于 70 小于 100")
+    };
 }

@@ -41,6 +41,20 @@
     <RadioList @bind-Value="@SelectedEnumItem2" IsAutoAddNullItem="true" NullItemText="@Localizer["RadioText2"]"></RadioList>
 </DemoBlock>
 
+<DemoBlock Title="@Localizer["ItemTemplateTitle"]" Introduction="@Localizer["ItemTemplateIntro"]" Name="ItemTemplate">
+    <RadioList TValue="string" Items="@IconDemoValues" IsVertical="true">
+        <ItemTemplate>
+            @if (context is IconSelectedItem item)
+            {
+                <div>
+                    <i class="@item.Icon"></i>
+                    <span>@item.Text</span>
+                </div>
+            }
+        </ItemTemplate>
+    </RadioList>
+</DemoBlock>
+
 <DemoBlock Title="@Localizer["Block7Title"]" Introduction="@Localizer["Block7Intro"]" Name="Color">
     <div class="row g-3">
         <div class="col-12">
