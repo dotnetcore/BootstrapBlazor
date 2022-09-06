@@ -178,6 +178,22 @@
     word-break: break-all;
 }
 
+    .table-cell.center {
+        justify-content: center;
+    }
+
+        .table-cell.center .table-text {
+            text-align: center;
+        }
+
+    .table-cell.end {
+        justify-content: right;
+    }
+
+        .table-cell.end .table-text {
+            text-align: right;
+        }
+
     .table-cell .btn-group .btn {
         white-space: nowrap;
     }
@@ -736,12 +752,4 @@ form .table .table-cell > textarea {
 
 .table-wrap thead th .table-cell .table-text {
     white-space: pre-wrap;
-}
-
-.table-btn-col-center > table > :where(thead, tbody) > :where(th, tr) > .table-column-button > .table-cell {
-    justify-content: center;
-}
-
-.table-btn-col-end > table > :where(thead, tbody) > :where(th, tr) > .table-column-button > .table-cell {
-    justify-content: right;
 }

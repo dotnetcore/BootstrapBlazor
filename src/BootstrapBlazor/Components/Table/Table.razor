@@ -462,7 +462,7 @@ RenderFragment<bool> RenderHeader => hasScroll =>
             @if (ShowLineNo)
             {
                 <th>
-                    <div class="table-cell">@LineNoText</div>
+                    <div class="@LineCellClassString">@LineNoText</div>
                 </th>
             }
             @if (!IsExcel && ShowExtendButtons && IsExtendButtonsInRowHeader)
@@ -597,7 +597,7 @@ RenderFragment<TItem> RenderRow => item =>
     @if (ShowLineNo)
     {
         <td>
-            <div class="table-cell">@(Rows.IndexOf(item) + 1 + (PageIndex -1) * PageItems)</div>
+            <div class="@LineCellClassString">@(Rows.IndexOf(item) + 1 + (PageIndex -1) * PageItems)</div>
         </td>
     }
     @{
@@ -759,7 +759,7 @@ RenderFragment RenderAdvanceSearchButton =>
 
 RenderFragment RenderExtendButtonsHeader =>
 @<th class="@ExtendButtonsColumnClass" style="@GetFixedExtendButtonsColumnStyleString(6)">
-    <div class="table-cell">
+    <div class="@ExtendButtonsCellClassString">
         @ColumnButtonTemplateHeaderText
     </div>
 </th>;
@@ -791,7 +791,7 @@ RenderFragment<TItem> RenderExtendButtons => item =>
 
 RenderFragment<TItem> RenderRowExtendButtons => item =>
 @<td class="@FixedExtendButtonsColumnClassString" style="@GetFixedExtendButtonsColumnStyleString()">
-    <div class="table-cell">
+    <div class="@ExtendButtonsCellClassString">
         <div class="btn-group" @onclick:stopPropagation="true">
             @{
                 var isInCell = EditInCell && SelectedRows.FirstOrDefault() == item;

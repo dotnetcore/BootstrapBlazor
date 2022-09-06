@@ -109,7 +109,7 @@ public partial class Table<TItem>
     /// 获得/设置 行内操作列对齐方式 默认 center
     /// </summary>
     [Parameter]
-    public Alignment ExtendButtonColumnAlignment { get; set; } = Alignment.Center;
+    public Alignment ExtendButtonColumnAlignment { get; set; }
 
     /// <summary>
     /// 获得/设置 是否显示行内扩展编辑按钮 默认 true 显示

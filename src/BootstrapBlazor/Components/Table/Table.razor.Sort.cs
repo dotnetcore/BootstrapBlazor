@@ -115,7 +115,7 @@ public partial class Table<TItem>
     /// 获得 按钮列样式表集合
     /// </summary>
     /// <returns></returns>
-    protected string? ExtendButtonsColumnClass => CssBuilder.Default("table-column-button")
+    protected string? ExtendButtonsColumnClass => CssBuilder.Default()
         .AddClass("fixed", FixedExtendButtonsColumn)
         .AddClass("fixed-right", !IsExtendButtonsInRowHeader)
         .Build();
@@ -216,6 +216,7 @@ public partial class Table<TItem>
     protected string? GetHeaderWrapperClassString(ITableColumn col) => CssBuilder.Default("table-cell")
         .AddClass("is-sort", col.Sortable)
         .AddClass("is-filter", col.Filterable)
+        .AddClass(col.Align.ToDescriptionString(), col.Align == Alignment.Center || col.Align == Alignment.Right)
         .Build();
 
     /// <summary>
@@ -224,9 +225,6 @@ public partial class Table<TItem>
     /// <param name="col"></param>
     /// <returns></returns>
     protected string? GetHeaderTextClassString(ITableColumn col) => CssBuilder.Default("table-text")
-        .AddClass("text-start", col.Align == Alignment.Left)
-        .AddClass("text-end", col.Align == Alignment.Right)
-        .AddClass("text-center", col.Align == Alignment.Center)
         .Build();
 
     /// <summary>
@@ -237,9 +235,7 @@ public partial class Table<TItem>
     /// <param name="inCell"></param>
     /// <returns></returns>
     protected string? GetCellClassString(ITableColumn col, bool hasChildren, bool inCell) => CssBuilder.Default("table-cell")
-        .AddClass("text-star", col.Align == Alignment.Left)
-        .AddClass("text-end", col.Align == Alignment.Right)
-        .AddClass("text-center", col.Align == Alignment.Center)
+        .AddClass(col.Align.ToDescriptionString(), col.Align == Alignment.Center || col.Align == Alignment.Right)
         .AddClass("is-wrap", col.TextWrap)
         .AddClass("is-ellips", col.TextEllipsis)
         .AddClass("is-tips", col.ShowTips)

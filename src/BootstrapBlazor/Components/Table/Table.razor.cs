@@ -59,7 +59,6 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
         .AddClass("table-fixed-column", Columns.Any(c => c.Fixed) || FixedExtendButtonsColumn)
         .AddClass("table-resize", AllowResizing)
         .AddClass("table-fixed-body", RenderMode == TableRenderMode.CardView && IsFixedHeader)
-        .AddClass($"table-btn-col-{ExtendButtonColumnAlignment.ToDescriptionString()}", ExtendButtonColumnAlignment == Alignment.Center || ExtendButtonColumnAlignment == Alignment.Right)
         .Build();
 
     /// <summary>
@@ -101,6 +100,14 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
     protected string? GetDetailCaretClassString(TItem item) => CssBuilder.Default("fa-fw")
         .AddClass(TreeIcon)
         .AddClass("fa-rotate-90", ExpandRows.Contains(item))
+        .Build();
+
+    private string? LineCellClassString => CssBuilder.Default("table-cell")
+        .AddClass(LineNoColumnAlignment.ToDescriptionString())
+        .Build();
+
+    private string? ExtendButtonsCellClassString => CssBuilder.Default("table-cell")
+        .AddClass(ExtendButtonColumnAlignment.ToDescriptionString())
         .Build();
 
     private static string? GetColspan(int colspan) => colspan > 1 ? colspan.ToString() : null;
@@ -169,6 +176,12 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
     /// </summary>
     [Parameter]
     public int LineNoColumnWidth { get; set; }
+
+    /// <summary>
+    /// 获得/设置 行号内容位置
+    /// </summary>
+    [Parameter]
+    public Alignment LineNoColumnAlignment { get; set; }
 
     /// <summary>
     /// 获得/设置 Table 组件渲染完毕回调
@@ -525,6 +538,16 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
         {
             // 如果未设置 PageItems 取默认值第一个
             PageItems = PageItemsSource.First();
+        }
+
+        if (ExtendButtonColumnAlignment == Alignment.None)
+        {
+            ExtendButtonColumnAlignment = Alignment.Center;
+        }
+
+        if (LineNoColumnAlignment == Alignment.None)
+        {
+            LineNoColumnAlignment = Alignment.Center;
         }
     }
 
