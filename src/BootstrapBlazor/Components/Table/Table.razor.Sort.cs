@@ -106,7 +106,7 @@ public partial class Table<TItem>
     /// 获得扩展按钮列固定列样式
     /// </summary>
     /// <returns></returns>
-    protected string? FixedExtendButtonsColumnClassString => CssBuilder.Default()
+    protected string? FixedExtendButtonsColumnClassString => CssBuilder.Default("table-column-button")
         .AddClass("fixed", FixedExtendButtonsColumn)
         .AddClass("fixed-right", !IsExtendButtonsInRowHeader)
         .Build();
@@ -115,7 +115,7 @@ public partial class Table<TItem>
     /// 获得 按钮列样式表集合
     /// </summary>
     /// <returns></returns>
-    protected string? ExtendButtonsColumnClass => CssBuilder.Default("table-th-button")
+    protected string? ExtendButtonsColumnClass => CssBuilder.Default("table-column-button")
         .AddClass("fixed", FixedExtendButtonsColumn)
         .AddClass("fixed-right", !IsExtendButtonsInRowHeader)
         .Build();

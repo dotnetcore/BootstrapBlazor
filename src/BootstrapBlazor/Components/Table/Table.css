@@ -3,7 +3,6 @@
     --bb-table-td-padding-x: .5rem;
     --bb-table-td-padding-y: .5rem;
     --bb-table-cardview-label-width: 30%;
-    --bb-table-button-column-width: 130px;
     --bb-table-header-hover-bg: #e9ecef;
     --bb-table-header-icon-color: #ddd;
     --bb-table-header-icon-active-color: #409eff;
@@ -91,10 +90,6 @@
     .table-wrapper .table-fixed-body td:last-child {
         border-right-width: 1px;
     }
-
-.table-th-button {
-    width: var(--bb-table-button-column-width);
-}
 
 .table {
     margin-bottom: 0;
@@ -736,4 +731,12 @@ form .table .table-cell > textarea {
 
 .table-wrap thead th .table-cell .table-text {
     white-space: pre-wrap;
+}
+
+.table-btn-col-center > table > :where(thead, tbody) > :where(th, tr) > .table-column-button > .table-cell {
+    justify-content: center;
+}
+
+.table-btn-col-end > table > :where(thead, tbody) > :where(th, tr) > .table-column-button > .table-cell {
+    justify-content: right;
 }

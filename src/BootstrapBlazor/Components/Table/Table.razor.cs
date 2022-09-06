@@ -59,6 +59,7 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
         .AddClass("table-fixed-column", Columns.Any(c => c.Fixed) || FixedExtendButtonsColumn)
         .AddClass("table-resize", AllowResizing)
         .AddClass("table-fixed-body", RenderMode == TableRenderMode.CardView && IsFixedHeader)
+        .AddClass($"table-btn-col-{ExtendButtonColumnAlignment.ToDescriptionString()}", ExtendButtonColumnAlignment == Alignment.Center || ExtendButtonColumnAlignment == Alignment.Right)
         .Build();
 
     /// <summary>
