@@ -454,7 +454,7 @@ RenderFragment<bool> RenderHeader => hasScroll =>
             {
                 <th>
                     <div class="table-cell">
-                        <Checkbox TValue="TItem" DisplayText="@CheckboxDisplayTextString" ShowAfterLabel="@ShowCheckboxText"
+                        <Checkbox TValue="TItem" DisplayText="@CheckboxDisplayTextString" ShowLabel="false" ShowAfterLabel="@ShowCheckboxText"
                                   State="@HeaderCheckState()" OnStateChanged="OnHeaderCheck"></Checkbox>
                     </div>
                 </th>
@@ -590,7 +590,7 @@ RenderFragment<TItem> RenderRow => item =>
     {
         <td>
             <div class="table-cell">
-                <Checkbox TValue="TItem" Value="@item" State="RowCheckState(item)" OnStateChanged="OnCheck" @onclick:stopPropagation></Checkbox>
+                <Checkbox TValue="TItem" Value="@item" ShowLabel="false" State="RowCheckState(item)" OnStateChanged="OnCheck" @onclick:stopPropagation></Checkbox>
             </div>
         </td>
     }
@@ -699,7 +699,7 @@ RenderFragment RenderPlaceHolderRow =>
     {
         <td>
             <div class="table-cell">
-                <Checkbox TValue="TItem" State="CheckboxState.UnChecked"></Checkbox>
+                <Checkbox TValue="TItem" ShowLabel="false" State="CheckboxState.UnChecked"></Checkbox>
             </div>
         </td>
     }
