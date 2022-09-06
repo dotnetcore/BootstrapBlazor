@@ -43,15 +43,12 @@ public partial class DateTimeRange
         .AddClass("right", Placement == Placement.Right)
         .Build();
 
-    private string? BarStyleString => CssBuilder.Default()
-        .AddClass("padding-right: 16px;", AllowNull)
-        .Build();
-
     /// <summary>
     /// 获得 组件小图标样式
     /// </summary>
     private string? DateTimePickerIconClassString => CssBuilder.Default("range-bar")
         .AddClass(Icon)
+        .AddClass("disabled", IsDisabled)
         .Build();
 
     /// <summary>
@@ -85,6 +82,13 @@ public partial class DateTimeRange
     [Parameter]
     [NotNull]
     public string? ClearButtonText { get; set; }
+
+    /// <summary>
+    /// 获得/设置 清空图标 默认 fa-solid fa-circle-xmark
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public string? ClearIcon { get; set; }
 
     /// <summary>
     /// 获得/设置 今天按钮文字
@@ -133,7 +137,8 @@ public partial class DateTimeRange
     /// 获得/设置 组件图标 默认 "fa-regular fa-calendar-days"
     /// </summary>
     [Parameter]
-    public string Icon { get; set; } = "fa-solid fa-calendar-days";
+    [NotNull]
+    public string? Icon { get; set; }
 
     /// <summary>
     /// 获得/设置 是否显示今天按钮 默认为 false
@@ -201,6 +206,9 @@ public partial class DateTimeRange
         TodayButtonText ??= Localizer[nameof(TodayButtonText)];
 
         DateFormat ??= Localizer[nameof(DateFormat)];
+
+        Icon ??= "fa-regular fa-calendar-days";
+        ClearIcon ??= "fa-solid fa-circle-xmark";
 
         if (StartValue.ToString("yyyy-MM") == EndValue.ToString("yyyy-MM"))
         {

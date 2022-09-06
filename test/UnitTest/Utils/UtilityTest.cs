@@ -477,7 +477,7 @@ public class UtilityTest : BootstrapBlazorTestBase
     public void GenerateEditorItems_Ok()
     {
         var cols = Utility.GenerateEditorItems<Foo>();
-        Assert.Equal(8, cols.Count());
+        Assert.Equal(7, cols.Count());
 
         cols = Utility.GenerateEditorItems<Foo>(new MockTableColumn[]
         {

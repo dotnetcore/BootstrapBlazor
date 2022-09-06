@@ -96,10 +96,11 @@ public sealed partial class DateTimePicker<TValue>
     public string? Format { get; set; }
 
     /// <summary>
-    /// 获得/设置 组件图标 默认 "fa-regular fa-calendar-days"
+    /// 获得/设置 组件图标 默认 fa-regular fa-calendar-days
     /// </summary>
     [Parameter]
-    public string Icon { get; set; } = "fa-solid fa-calendar-days";
+    [NotNull]
+    public string? Icon { get; set; }
 
     /// <summary>
     /// 获得/设置 弹窗位置 默认为 Auto
@@ -169,12 +170,6 @@ public sealed partial class DateTimePicker<TValue>
     {
         base.OnInitialized();
 
-        DateTimePlaceHolderText ??= Localizer[nameof(DateTimePlaceHolderText)];
-        DatePlaceHolderText ??= Localizer[nameof(DatePlaceHolderText)];
-        GenericTypeErroMessage ??= Localizer[nameof(GenericTypeErroMessage)];
-        DateTimeFormat ??= Localizer[nameof(DateTimeFormat)];
-        DateFormat ??= Localizer[nameof(DateFormat)];
-
         // 判断泛型类型
         var isDateTime = typeof(TValue) == typeof(DateTime) || typeof(TValue) == typeof(DateTime?);
         if (!isDateTime) throw new InvalidOperationException(GenericTypeErroMessage);
@@ -189,6 +184,14 @@ public sealed partial class DateTimePicker<TValue>
     protected override void OnParametersSet()
     {
         base.OnParametersSet();
+
+        DateTimePlaceHolderText ??= Localizer[nameof(DateTimePlaceHolderText)];
+        DatePlaceHolderText ??= Localizer[nameof(DatePlaceHolderText)];
+        GenericTypeErroMessage ??= Localizer[nameof(GenericTypeErroMessage)];
+        DateTimeFormat ??= Localizer[nameof(DateTimeFormat)];
+        DateFormat ??= Localizer[nameof(DateFormat)];
+
+        Icon ??= "fa-regular fa-calendar-days";
 
         // Value 为 MinValue 时 设置 Value 默认值
         if (Value?.ToString() == DateTime.MinValue.ToString())

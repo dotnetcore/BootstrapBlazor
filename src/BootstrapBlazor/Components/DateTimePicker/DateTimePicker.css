@@ -11,6 +11,7 @@
     }
 
 .datetime-picker {
+    --bb-dt-picker-bar-color: #b5b5c3;
     position: relative;
 }
 
@@ -30,6 +31,7 @@
     line-height: var(--bb-height);
     cursor: pointer;
     padding: 0 .75rem;
+    color: var(--bb-dt-picker-bar-color);
 }
 
 .picker-panel-body-wrapper {

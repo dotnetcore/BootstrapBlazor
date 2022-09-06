@@ -66,7 +66,10 @@
                 <DateTimePicker @bind-Value="@Model.DateTime" />
             </div>
             <div class="col-12 col-sm-6">
-                <DateTimeRange @bind-Value="@DateTimeRangeValue4" ShowLabel="true" DisplayText="时间范围" />
+                <DateTimeRange @bind-Value="@Model.Range" />
+            </div>
+            <div class="col-12">
+                <Button ButtonType="ButtonType.Submit" Icon="fa-fw fa-solid fa-floppy-disk" Text="提交" />
             </div>
         </div>
     </ValidateForm>

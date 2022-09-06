@@ -76,9 +76,6 @@
                 <CheckboxList @bind-Value="@Model.Hobby" Items="@Hobbys" />
             </div>
             <div class="col-12">
-                <DateTimeRange @bind-Value="@Model.DateTimeRange" />
-            </div>
-            <div class="col-12">
                 <Button ButtonType="@ButtonType.Submit" Icon="fa-fw fa-solid fa-floppy-disk" IsAsync="true" Text="@Localizer["ButtonText"]" />
             </div>
         </div>
@@ -131,11 +128,6 @@
             </div>
             <div class="col-12">
                 <CheckboxList @bind-Value="@Model.Hobby" Items="@Hobbys" />
-            </div>
-            <div class="row g-3">
-                <div class="col-12">
-                    <DateTimeRange @bind-Value="@Model.DateTimeRange" />
-                </div>
             </div>
             <div class="col-12">
                 <Button ButtonType="@ButtonType.Submit" Text="@Localizer["ButtonText"]" />

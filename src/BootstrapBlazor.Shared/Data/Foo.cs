@@ -78,14 +78,6 @@ public class Foo
     [AutoGenerateColumn(Order = 70, Editable = false)]
     public IEnumerable<string> Hobby { get; set; } = new List<string>();
 
-    /// <summary>
-    ///
-    /// </summary>
-    [Required(ErrorMessage = "请选择{0}")]
-    [Display(Name = "起止时间")]
-    [AutoGenerateColumn(Order = 70, Editable = false)]
-    public DateTimeRangeValue DateTimeRange { get; set; } = new();
-
     #region Static methods
     /// <summary>
     /// 

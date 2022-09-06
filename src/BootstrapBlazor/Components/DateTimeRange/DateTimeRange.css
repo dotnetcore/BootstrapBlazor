@@ -1,4 +1,5 @@
 ﻿.datetime-range {
+    --bb-dt-range-bar-color: #b5b5c3;
     background-color: #fff;
     border-radius: var(--bs-border-radius);
     border: 1px solid var(--bs-border-color);
@@ -75,16 +76,13 @@
 
 .range-bar {
     cursor: pointer;
-}
-
-.disabled .range-bar {
-    cursor: not-allowed;
+    color: var(--bb-dt-range-bar-color);
 }
 
 .range-clear {
     display: none;
     cursor: pointer;
-    margin-left: -14px;
+    color: var(--bb-dt-range-bar-color);
 }
 
 .datetime-range:hover:not(.disabled) .range-clear {

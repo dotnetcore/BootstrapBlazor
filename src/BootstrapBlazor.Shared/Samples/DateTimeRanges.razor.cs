@@ -7,6 +7,7 @@ using BootstrapBlazor.Shared.Common;
 using BootstrapBlazor.Shared.Components;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
+using System.ComponentModel.DataAnnotations;
 
 namespace BootstrapBlazor.Shared.Samples;
 
@@ -25,6 +26,7 @@ public sealed partial class DateTimeRanges
     private DateTimeRangeValue DateTimeRangeValue3 { get; set; } = new DateTimeRangeValue() { Start = DateTime.Today, End = DateTime.Today.AddDays(3) };
 
     private DateTimeRangeValue DateTimeRangeValue4 { get; set; } = new DateTimeRangeValue();
+
     private DateTimeRangeValue DateTimeRangeValue5 { get; set; } = new DateTimeRangeValue() { Start = DateTime.Today, End = DateTime.Today.AddDays(3) };
 
     private string? range;
@@ -33,7 +35,7 @@ public sealed partial class DateTimeRanges
     private bool IsDisabled { get; set; } = true;
 
     [NotNull]
-    private Foo? Model { get; set; }
+    private RangeFoo? Model { get; set; }
 
     [Inject]
     [NotNull]
@@ -50,7 +52,15 @@ public sealed partial class DateTimeRanges
     /// </summary>
     protected override void OnInitialized()
     {
-        Model = Foo.Generate(LocalizerFoo);
+        Model = new RangeFoo()
+        {
+            DateTime = DateTime.Now,
+            Range = new DateTimeRangeValue()
+            {
+                Start = DateTime.Today.AddMonths(-1),
+                End = DateTime.Today
+            }
+        };
     }
 
     private Task OnValueChanged(DateTimeRangeValue val, int index)
@@ -79,6 +89,13 @@ public sealed partial class DateTimeRanges
     {
         DateLogger?.Log($"选择的时间范围是: {value.Start:yyyy-MM-dd} - {value.End:yyyy-MM-dd}");
         return Task.CompletedTask;
+    }
+
+    private class RangeFoo : Foo
+    {
+        [Required(ErrorMessage = "{0}不可为空")]
+        [Display(Name = "时间范围")]
+        public DateTimeRangeValue Range { get; set; } = new();
     }
 
     /// <summary>
