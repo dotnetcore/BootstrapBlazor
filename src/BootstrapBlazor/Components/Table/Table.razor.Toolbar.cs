@@ -792,11 +792,11 @@ public partial class Table<TItem>
     /// 是否显示行内编辑按钮
     /// </summary>
     /// <returns></returns>
-    protected bool GetShowEditButton(TItem item) => ShowExtendEditButton && (ShowEditButtonCallback?.Invoke(item) ?? (ShowDefaultButtons && ShowEditButton));
+    protected bool GetShowEditButton(TItem item) => ShowEditButtonCallback?.Invoke(item) ?? ShowExtendEditButton;
 
     /// <summary>
     /// 是否显示行内删除按钮
     /// </summary>
     /// <returns></returns>
-    protected bool GetShowDeleteButton(TItem item) => ShowExtendDeleteButton && (ShowDeleteButtonCallback?.Invoke(item) ?? (ShowDefaultButtons && ShowDeleteButton));
+    protected bool GetShowDeleteButton(TItem item) => ShowDeleteButtonCallback?.Invoke(item) ?? ShowExtendDeleteButton;
 }
