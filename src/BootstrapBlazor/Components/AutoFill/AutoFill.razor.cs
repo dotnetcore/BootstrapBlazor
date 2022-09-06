@@ -18,7 +18,7 @@ public partial class AutoFill<TValue>
     /// <summary>
     /// 获得 组件样式
     /// </summary>
-    protected virtual string? ClassString => CssBuilder.Default("auto-complete")
+    protected virtual string? ClassString => CssBuilder.Default("auto-complete auto-fill")
         .AddClass("is-loading", _isLoading)
         .Build();
 

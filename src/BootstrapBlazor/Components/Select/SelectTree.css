@@ -1,0 +1,7 @@
+﻿.select-tree {
+    --bb-select-tree-dropdown-max-height: var(--bb-dropdown-max-height);
+}
+
+    .select-tree .dropdown-menu {
+        max-height: var(--bb-select-tree-dropdown-max-height);
+    }

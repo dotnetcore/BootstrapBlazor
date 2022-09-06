@@ -12,11 +12,13 @@
     --bb-multi-select-toolbar-padding: 6px 10px;
     --bb-multi-select-toolbar-button-padding: 3px 10px;
     --bb-multi-select-search-color: #ddd;
+    --bb-multi-select-dropdown-max-height: var(--bb-dropdown-max-height);
 }
 
     .multi-select .dropdown-menu {
         --bs-dropdown-item-padding-y: 0;
         --bs-dropdown-item-padding-x: 10px;
+        max-height: var(--bb-multi-select-dropdown-max-height);
     }
 
     .multi-select .dropdown-menu-toggle {

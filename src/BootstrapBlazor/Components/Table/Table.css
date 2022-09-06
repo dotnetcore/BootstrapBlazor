@@ -12,6 +12,7 @@
     --bb-table-footer-border-top: 2px solid #dee2e6;
     --bb-table-loader-bg: #f8f9fa;
     --bb-table-card-row-padding: .75rem 0;
+    --bb-table-columnlist-max-height: 780px;
 }
 
     .table-container .table:not(.table-excel) .switch {
@@ -202,9 +203,13 @@
     margin-bottom: .5rem;
 }
 
-.table-toolbar .dropdown-menu .dropdown-item span {
-    margin-left: .5rem;
+.table-toolbar .dropdown-menu {
+    max-height: var(--bb-table-columnlist-max-height);
 }
+
+    .table-toolbar .dropdown-menu .dropdown-item span {
+        margin-left: .5rem;
+    }
 
 .btn-gear .dropdown-menu {
     min-width: initial;

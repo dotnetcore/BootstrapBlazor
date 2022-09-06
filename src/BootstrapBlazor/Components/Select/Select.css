@@ -1,48 +1,52 @@
 ﻿.select {
     --bb-dropdown-link-pre-active-bg: #498ff7;
-    --bb-select-dropdown-max-height: 274px;
     --bb-select-focus-shadow: none;
     --bb-select-bg: #fff;
     --bb-select-padding: 6px 2.25rem 6px 0.75rem;
-    --bb-dropdown-max-height: 300px;
+    --bb-select-dropdown-max-height: var(--bb-dropdown-max-height);
 }
 
-.cascade,
-.select {
+:where(.cascade, .select) {
     --bb-select-dropdown-menu-margin-top: 8px;
 }
 
-    .select .dropdown-menu {
-        max-height: var(--bb-select-dropdown-max-height);
-        overflow-x: hidden;
-        width: 100%;
-    }
+.select .dropdown-menu {
+    overflow-x: hidden;
+    width: 100%;
+}
 
-    .select .dropdown-toggle::after {
-        content: none;
-    }
+.select .dropdown-toggle::after {
+    content: none;
+}
 
-    .select .dropdown-menu,
-    .cascade .dropdown-menu {
-        margin-top: var(--bb-select-dropdown-menu-margin-top) !important;
-    }
+:where(.cascade, .select) .dropdown-menu {
+    margin-top: var(--bb-select-dropdown-menu-margin-top) !important;
+}
 
-    .select .form-select {
-        background-image: none;
-        background-color: var(--bb-select-bg);
-        border: 1px solid var(--bs-border-color);
-        border-radius: var(--bs-border-radius);
-        padding: var(--bb-select-padding);
-        cursor: pointer;
-    }
+.select .form-select {
+    background-image: none;
+    background-color: var(--bb-select-bg);
+    border: 1px solid var(--bs-border-color);
+    border-radius: var(--bs-border-radius);
+    padding: var(--bb-select-padding);
+    cursor: pointer;
+}
 
-        .select .form-select:disabled {
-            background-color: var(--bb-disabled-bg);
-        }
+    .select .form-select:disabled {
+        background-color: var(--bb-disabled-bg);
+    }
 
 .dropdown-menu {
     overflow: auto;
-    max-height: var(--bb-dropdown-max-height, none);
+}
+
+.dropdown-menu {
+    --bs-dropdown-border-radius: var(--bs-border-radius);
+    max-height: var(--bb-select-dropdown-max-height);
+}
+
+.dropdown-item {
+    cursor: pointer;
 }
 
 .dropdown-menu-arrow {

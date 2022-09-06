@@ -29,7 +29,7 @@ public partial class SelectTree<TValue>
     /// <summary>
     /// 获得 样式集合
     /// </summary>
-    private string? ClassName => CssBuilder.Default("select dropdown")
+    private string? ClassName => CssBuilder.Default("select dropdown select-tree")
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 

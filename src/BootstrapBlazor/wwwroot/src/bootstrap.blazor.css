@@ -10,6 +10,7 @@
     --bb-border-hover-color: #86b7fe;
     --bb-height: 35px;
     --bb-disabled-opactiy: .65;
+    --bb-dropdown-max-height: 274px;
 }
 
 body,
