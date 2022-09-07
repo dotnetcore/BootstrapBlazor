@@ -390,7 +390,7 @@
     --bs-table-active-bg: #F5F8FA;
     --bs-table-hover-color: #181C32;
     --bs-table-hover-bg: #F5F8FA;
-    border-color: #eff2f5;
+    --bs-table-border-color: #eff2f5;
 }
 
     .table > :not(:last-child) > :last-child > * {

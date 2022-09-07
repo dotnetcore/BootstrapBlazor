@@ -447,6 +447,13 @@ public class TableTest : TableTestBase
                 });
             });
         });
+        cut.DoesNotContain("float-end table-toolbar-button");
+
+        var table = cut.FindComponent<Table<Foo>>();
+        table.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ShowToolbar, true);
+        });
         cut.Contains("float-end table-toolbar-button");
 
         // edit

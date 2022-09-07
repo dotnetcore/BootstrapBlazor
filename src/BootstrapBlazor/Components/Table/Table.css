@@ -30,7 +30,6 @@
 .table-excel {
     --bb-border-hover-color: transparent;
     --bb-border-focus-color: transparent;
-    --bs-border-color: transparent;
 }
 
 .table-dark {
@@ -207,6 +206,10 @@
 
     .table-cell > .form-control {
         --bs-border-radius: 0;
+    }
+
+    .table-cell > :where(.form-control, .select, .datetime-picker) {
+        --bs-border-color: transparent;
     }
 
 .table-hover tbody tr.is-detail:hover,
