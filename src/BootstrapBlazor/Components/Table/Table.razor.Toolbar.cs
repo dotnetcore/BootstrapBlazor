@@ -288,7 +288,6 @@ public partial class Table<TItem>
         {
             await ToggleLoading(true);
             await InternalOnAddAsync();
-            SelectedRows.Clear();
             EditModalTitleString = AddModalTitle;
             if (EditMode == EditMode.Popup)
             {
@@ -323,8 +322,6 @@ public partial class Table<TItem>
             else
             {
                 await InternalOnAddAsync();
-                RowsCache = null;
-                SelectedRows.Clear();
                 await QueryAsync(false);
                 await OnSelectedRowsChanged();
             }

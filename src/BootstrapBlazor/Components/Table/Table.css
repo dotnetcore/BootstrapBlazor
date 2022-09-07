@@ -31,7 +31,6 @@
     --bb-border-hover-color: transparent;
     --bb-border-focus-color: transparent;
     --bs-border-color: transparent;
-    --bs-border-radius: 0;
 }
 
 .table-dark {
@@ -182,20 +181,32 @@
         justify-content: center;
     }
 
-        .table-cell.center .table-text {
+        .table-cell.center > * {
             text-align: center;
+        }
+
+        .table-cell.center > .switch {
+            justify-content: center;
         }
 
     .table-cell.end {
         justify-content: right;
     }
 
-        .table-cell.end .table-text {
+        .table-cell.end > * {
             text-align: right;
+        }
+
+        .table-cell.end > .switch {
+            justify-content: flex-end;
         }
 
     .table-cell .btn-group .btn {
         white-space: nowrap;
+    }
+
+    .table-cell > .form-control {
+        --bs-border-radius: 0;
     }
 
 .table-hover tbody tr.is-detail:hover,
