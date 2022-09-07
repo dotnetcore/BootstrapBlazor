@@ -927,6 +927,7 @@ public sealed partial class NavMenu
             },
             new()
             {
+                IsUpdate = true,
                 Text = Localizer["Tooltip"],
                 Url = "tooltips"
             }
