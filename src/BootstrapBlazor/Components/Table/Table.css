@@ -634,6 +634,10 @@ form .table .table-cell > textarea {
     padding: 0;
 }
 
+.table-excel.table > :not(caption):not(thead) > * > .table-column-button {
+    padding: 6px 12px;
+}
+
 .table-excel > tbody .is-bar {
     padding: .5rem 0;
 }

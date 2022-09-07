@@ -40,25 +40,25 @@ public partial class Table<TItem>
     public bool ShowAddButton { get; set; } = true;
 
     /// <summary>
-    /// 获得/设置 是否显示编辑按钮 默认为 true 行内是否显示请使用 <see cref="ShowEditButtonCallback" />
+    /// 获得/设置 是否显示编辑按钮 默认为 true 行内是否显示请使用 <see cref="ShowExtendEditButton"/> 与 <see cref="ShowEditButtonCallback" />
     /// </summary>
     [Parameter]
     public bool ShowEditButton { get; set; } = true;
 
     /// <summary>
-    /// 获得/设置 是否显示行内编辑按钮 默认为 null 未设置时使用 <see cref="ShowEditButton"/> 值
+    /// 获得/设置 是否显示行内编辑按钮 默认为 null 未设置时使用 <see cref="ShowExtendEditButton"/> 值
     /// </summary>
     [Parameter]
     public Func<TItem, bool>? ShowEditButtonCallback { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否显示删除按钮 默认为 true 行内是否显示请使用 <see cref="ShowDeleteButtonCallback" />
+    /// 获得/设置 是否显示删除按钮 默认为 true 行内是否显示请使用 <see cref="ShowExtendDeleteButton"/> 与 <see cref="ShowDeleteButtonCallback" />
     /// </summary>
     [Parameter]
     public bool ShowDeleteButton { get; set; } = true;
 
     /// <summary>
-    /// 获得/设置 是否显示行内删除按钮 默认为 null 未设置时使用 <see cref="ShowDeleteButton"/> 值
+    /// 获得/设置 是否显示行内删除按钮 默认为 null 未设置时使用 <see cref="ShowExtendDeleteButton"/> 值
     /// </summary>
     [Parameter]
     public Func<TItem, bool>? ShowDeleteButtonCallback { get; set; }
@@ -132,21 +132,18 @@ public partial class Table<TItem>
     /// <summary>
     /// 获得/设置 是否显示刷新按钮 默认为 true
     /// </summary>
-    /// <remarks><see cref="IsExcel"/> 模式下此设置无效</remarks>
     [Parameter]
     public bool ShowRefresh { get; set; } = true;
 
     /// <summary>
-    /// 获得/设置 是否显示视图按钮 默认为 false
+    /// 获得/设置 是否显示视图按钮 默认为 false <see cref="IsExcel"/> 模式下此设置无效
     /// </summary>
-    /// <remarks><see cref="IsExcel"/> 模式下此设置无效</remarks>
     [Parameter]
     public bool ShowCardView { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否显示列选择下拉框 默认为 false 不显示
+    /// 获得/设置 是否显示列选择下拉框 默认为 false 不显示 点击下拉框内列控制是否显示后触发 <see cref="OnColumnVisibleChanged"/> 回调方法
     /// </summary>
-    /// <remarks>点击下拉框内列控制是否显示后触发 <see cref="OnColumnVisibleChanged"/> 回调方法</remarks>
     [Parameter]
     public bool ShowColumnList { get; set; }
 

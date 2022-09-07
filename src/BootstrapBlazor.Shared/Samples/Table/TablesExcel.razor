@@ -5,8 +5,8 @@
 <h4>常用于大数据单表维护</h4>
 
 <DemoBlock Title="绑定集合" Introduction="通过 <code>OnQueryAsync</code> 回调获得数据集合" Name="OnQuery">
-    <Table TItem="Foo" ShowColumnList="true"
-           IsExcel="true" IsPagination="true" PageItemsSource="@PageItemsSource" ShowRefresh="true"
+    <Table TItem="Foo" ShowToolbar="true" ShowRefresh="true" ShowColumnList="true" ShowExtendButtons="true"
+           IsExcel="true" IsPagination="true" PageItemsSource="@PageItemsSource" 
            OnQueryAsync="@OnQueryAsync" OnAddAsync="@OnAddAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" />
@@ -84,7 +84,7 @@
         <li><code>IsFixedHeader</code> 固定表头 高度设定为 <code>Height="500px"</code></li>
         <li><code>Name</code> 不可编辑显示头像</li>
     </ul>
-    <Table TItem="Foo" Items="@Items" IsBordered="true" IsExcel="true" IsFixedHeader="true" Height="500" ShowAddButton="false" ShowDeleteButton="false">
+    <Table TItem="Foo" Items="@Items" IsBordered="true" IsExcel="true" IsFixedHeader="true" Height="500">
         <TableColumns>
             <TableColumn @bind-Field="@context.Name" Width="200">
                 <EditTemplate Context="row">
