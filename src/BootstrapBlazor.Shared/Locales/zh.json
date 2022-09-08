@@ -1804,6 +1804,7 @@
     "ClickUploadIntro": "<code>ButtonUpload</code> 组件，经典款式，用户点击按钮弹出文件选择框。",
     "ClickUploadP1": "点击 <code>浏览按钮</code> 选择文件上传，本例中设置 <code>IsMultiple=true</code> 可多选文件进行上传",
     "ClickUploadP2": "设置 <code>IsSingle</code> 时，仅可以上传一张图片或者文件",
+    "ClickUploadP3ShowUploadList": "设置 <code>ShowUploadList</code> 值为 <b>false</b> 组件即与普通按钮一样，可自行处理上传文件逻辑",
     "UploadedFilesTitle": "已上传文件列表",
     "UploadedFilesIntro": "使用 <code>DefaultFileList</code> 设置已上传的内容",
     "UploadFolderTitle": "上传文件夹",
