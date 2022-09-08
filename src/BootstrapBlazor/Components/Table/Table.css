@@ -212,6 +212,12 @@
         --bs-border-color: transparent;
     }
 
+    .table-cell > .is-display {
+        --bs-border-color: var(--bb-disabled-bg);
+        --bb-border-hover-color: var(--bb-disabled-bg);
+        --bb-border-focus-color: var(--bb-disabled-bg);
+    }
+
 .table-hover tbody tr.is-detail:hover,
 .table-hover tbody tr.is-editform,
 .table-hover tbody tr.is-editform:hover {
