@@ -59,6 +59,12 @@ public partial class EditDialog<TModel>
     [Parameter]
     public Func<Task>? OnCloseAsync { get; set; }
 
+    /// <summary>
+    /// 获得/设置 是否禁用表单内回车自动提交功能 默认 null 未设置
+    /// </summary>
+    [Parameter]
+    public bool? DisableAutoSubmitFormByEnter { get; set; }
+
     [Inject]
     [NotNull]
     private IStringLocalizer<EditDialog<TModel>>? Localizer { get; set; }

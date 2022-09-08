@@ -79,9 +79,19 @@ public partial class ValidateForm : IAsyncDisposable
     [Parameter]
     public bool? ShowLabelTooltip { get; set; }
 
+    /// <summary>
+    /// 获得/设置 是否禁用表单内回车自动提交功能 默认 null 未设置
+    /// </summary>
+    [Parameter]
+    public bool? DisableAutoSubmitFormByEnter { get; set; }
+
     [Inject]
     [NotNull]
     private IOptions<JsonLocalizationOptions>? Options { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IOptionsMonitor<BootstrapBlazorOptions>? BootstrapBlazorOptions { get; set; }
 
     [Inject]
     [NotNull]
@@ -91,6 +101,21 @@ public partial class ValidateForm : IAsyncDisposable
     /// 验证组件缓存
     /// </summary>
     private ConcurrentDictionary<(string FieldName, Type ModelType), (FieldIdentifier FieldIdentifier, IValidateComponent ValidateComponent)> ValidatorCache { get; } = new();
+
+    private string? DisableAutoSubmitString => (DisableAutoSubmitFormByEnter.HasValue && DisableAutoSubmitFormByEnter.Value) ? "true" : null;
+
+    /// <summary>
+    /// OnParametersSet 方法
+    /// </summary>
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
+        if (!DisableAutoSubmitFormByEnter.HasValue && BootstrapBlazorOptions.CurrentValue.DisableAutoSubmitFormByEnter.HasValue)
+        {
+            DisableAutoSubmitFormByEnter = BootstrapBlazorOptions.CurrentValue.DisableAutoSubmitFormByEnter.Value;
+        }
+    }
 
     /// <summary>
     /// 添加数据验证组件到 EditForm 中

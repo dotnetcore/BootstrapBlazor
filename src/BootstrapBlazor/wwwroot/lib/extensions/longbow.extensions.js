@@ -350,4 +350,12 @@
         addLink: addLink,
         removeLink: removeLink
     };
+
+    $(function () {
+        $(document).on('keydown', 'form', function (e) {
+            if (e.keyCode == 13) {
+                return $(this).attr('data-bb-dissubmit') !== 'true';
+            }
+        });
+    });
 })(jQuery);

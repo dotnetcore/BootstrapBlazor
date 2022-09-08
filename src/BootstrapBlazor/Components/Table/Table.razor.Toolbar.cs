@@ -3,6 +3,7 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.AspNetCore.Components.Forms;
+using System.Runtime.CompilerServices;
 
 namespace BootstrapBlazor.Components;
 
@@ -572,6 +573,7 @@ public partial class Table<TItem>
             IsDraggable = EditDialogIsDraggable,
             ShowMaximizeButton = EditDialogShowMaximizeButton,
             ShowUnsetGroupItemsOnTop = ShowUnsetGroupItemsOnTop,
+            DisableAutoSubmitFormByEnter = DisableAutoSubmitFormByEnter,
             IsTracking = IsTracking,
             OnCloseAsync = async () =>
             {
