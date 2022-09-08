@@ -48,3 +48,7 @@ a,
 :focus {
     outline: none;
 }
+
+.btn {
+    --bs-btn-border-radius: var(--bs-border-radius);
+}
