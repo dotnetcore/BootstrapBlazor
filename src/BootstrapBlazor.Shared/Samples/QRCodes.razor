@@ -7,12 +7,12 @@
 <DemoBlock Title="@BaseUsageText" Introduction="@IntroText1" Name="Normal">
     <QRCode OnGenerated="@OnGenerated" ShowButtons="true"></QRCode>
     <BlockLogger @ref="Trace" class="mt-3" />
-    <Pre class="mt-3">&lt;QRCode OnGenerated="@@OnGenerated" ShowButtons="true"&gt;&lt;QRCode&gt;</Pre>
+    <Pre class="mt-3">&lt;QRCode OnGenerated="@@OnGenerated" ShowButtons="true"&gt;&lt;/QRCode&gt;</Pre>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["DirectTitle"]" Introduction="@Localizer["DirectIntro"]" Name="Direct">
     <QRCode Content="https://www.blazor.zone"></QRCode>
-    <Pre class="mt-3">&lt;QRCode Content="https://www.blazor.zone"&gt;&lt;QRCode&gt;</Pre>
+    <Pre class="mt-3">&lt;QRCode Content="https://www.blazor.zone"&gt;&lt;/QRCode&gt;</Pre>
 </DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" />
