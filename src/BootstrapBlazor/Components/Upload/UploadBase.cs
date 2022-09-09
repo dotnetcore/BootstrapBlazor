@@ -69,7 +69,7 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
     {
         await base.OnAfterRenderAsync(firstRender);
 
-        if (firstRender && !IsDisabled)
+        if (firstRender && !IsDisabled && UploaderElement.Context != null)
         {
             // support drag
             Module = await JSRuntime.LoadModule("upload.js");
@@ -169,7 +169,7 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
         if (!string.IsNullOrEmpty(Capture))
         {
             ret.Add("capture", Capture);
-        }        
+        }
         return ret;
     }
 
