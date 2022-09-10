@@ -6,6 +6,7 @@ using BootstrapBlazor.Shared;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Options;
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace UnitTest.Components;
@@ -398,6 +399,37 @@ public class ValidateFormTest : ValidateFormTestBase
         await cut.InvokeAsync(() => form.Submit());
         var msg = cut.FindComponent<MockInput<string>>().Instance.GetErrorMessage();
         Assert.Equal(HasServiceAttribute.Success, msg);
+    }
+
+    [Fact]
+    public void DisableAutoSubmitFormByEnter_Ok()
+    {
+        var options = Context.Services.GetRequiredService<IOptionsMonitor<BootstrapBlazorOptions>>();
+        options.CurrentValue.DisableAutoSubmitFormByEnter = true;
+
+        var foo = new Foo() { Name = "Test" };
+        var cut = Context.RenderComponent<ValidateForm>(pb =>
+        {
+            pb.Add(v => v.Model, foo);
+            pb.AddChildContent<BootstrapInput<string>>(pb =>
+            {
+                pb.Add(a => a.Value, foo.Name);
+                pb.Add(a => a.ValueExpression, foo.GenerateValueExpression());
+            });
+            pb.AddChildContent<Button>(pb =>
+            {
+                pb.Add(b => b.IsAsync, true);
+                pb.Add(b => b.ButtonType, ButtonType.Submit);
+            });
+        });
+
+        Assert.True(cut.Instance.DisableAutoSubmitFormByEnter);
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.DisableAutoSubmitFormByEnter, false);
+        });
+        Assert.False(cut.Instance.DisableAutoSubmitFormByEnter);
     }
 
     private class HasServiceAttribute : ValidationAttribute

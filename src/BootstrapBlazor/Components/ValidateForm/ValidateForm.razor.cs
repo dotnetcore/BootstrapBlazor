@@ -446,7 +446,11 @@ public partial class ValidateForm : IAsyncDisposable
                 await validator.ValidatePropertyAsync(propertyValue, context, messages);
             }
         }
+
+        _invalid = messages.Any();
     }
+
+    private bool _invalid = false;
 
     private List<Button> AsyncSubmitButtons { get; } = new List<Button>();
 
@@ -489,7 +493,8 @@ public partial class ValidateForm : IAsyncDisposable
     /// <returns></returns>
     public bool Validate()
     {
-        var ret = Validator.Validate();
+        _invalid = true;
+        var ret = Validator.Validate() && !_invalid;
         StateHasChanged();
         return ret;
     }

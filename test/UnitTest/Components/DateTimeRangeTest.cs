@@ -243,14 +243,15 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void InValidateForm_Ok()
+    public async Task InValidateForm_Ok()
     {
         var foo = new Dummy
         {
-            Value = new DateTimeRangeValue { Start = DateTime.Now.AddDays(1), End = DateTime.Now.AddDays(30) }
+            Value = new DateTimeRangeValue()
         };
         var cut = Context.RenderComponent<ValidateForm>(pb =>
         {
+            pb.Add(a => a.ValidateAllProperties, true);
             pb.Add(a => a.Model, foo);
             pb.AddChildContent<DateTimeRange>(pb =>
             {
@@ -258,7 +259,17 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
                 pb.Add(a => a.ValueExpression, Utility.GenerateValueExpression(foo, nameof(Dummy.Value), typeof(DateTimeRangeValue)));
             });
         });
+
+        // ValidateForm 自动自动生成标签
         cut.Contains("class=\"form-label\"");
+
+        var validate = true;
+        // 验证
+        await cut.InvokeAsync(() =>
+        {
+            validate = cut.Instance.Validate();
+        });
+        Assert.False(validate);
     }
 
     [Fact]
