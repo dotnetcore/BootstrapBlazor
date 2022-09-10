@@ -794,6 +794,16 @@ public class UploadTest : BootstrapBlazorTestBase
         Assert.Throws<ValidationException>(() => validator.Validate(p.Picture, new ValidationContext(p)));
     }
 
+    [Fact]
+    public void Capture_Ok()
+    {
+        var cut = Context.RenderComponent<ButtonUpload<string>>(pb =>
+        {
+            pb.Add(a => a.Capture, "camera");
+        });
+        cut.Contains("capture=\"camera\"");
+    }
+
     private class Person
     {
         [Required]
