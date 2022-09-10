@@ -49,14 +49,6 @@ public partial class BootstrapTooltip : IAsyncDisposable
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
-    /// OnInitialized 方法
-    /// </summary>
-    protected override void OnInitialized()
-    {
-        base.OnInitialized();
-    }
-
-    /// <summary>
     /// OnParametersSet 方法
     /// </summary>
     protected override void OnParametersSet()
