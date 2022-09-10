@@ -308,6 +308,19 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
         }
     }
 
+    [Fact]
+    public void ToString_Ok()
+    {
+        var v1 = new DateTimeRangeValue();
+        Assert.Equal("", v1.ToString());
+
+        v1.Start = DateTime.Today;
+        Assert.Equal($"{DateTime.Today}", v1.ToString());
+
+        v1.End = DateTime.Today;
+        Assert.Equal($"{DateTime.Today} - {DateTime.Today}", v1.ToString());
+    }
+
     private class Dummy
     {
         [Required]
