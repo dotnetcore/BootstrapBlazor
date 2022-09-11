@@ -85,6 +85,36 @@ public partial class Carousel
     public bool ShowIndicators { get; set; } = true;
 
     /// <summary>
+    /// OnParametersSet 方法
+    /// </summary>
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
+        if (Items.Count == 0)
+        {
+            foreach (var image in Images)
+            {
+                var item = new CarouselItem();
+                item.SetParametersAsync(ParameterView.FromDictionary(new Dictionary<string, object?>()
+                {
+                    [nameof(CarouselItem.ChildContent)] = new RenderFragment(builder =>
+                    {
+                        builder.OpenComponent<CarouselImage>(0);
+                        builder.AddAttribute(1, nameof(CarouselImage.ImageUrl), image);
+                        if (OnClick != null)
+                        {
+                            builder.AddAttribute(2, nameof(CarouselImage.OnClick), OnClickImage);
+                        }
+                        builder.CloseComponent();
+                    })
+                }));
+                Items.Add(item);
+            }
+        }
+    }
+
+    /// <summary>
     /// OnAfterRenderAsync 方法
     /// </summary>
     /// <param name="firstRender"></param>

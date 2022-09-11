@@ -10,10 +10,28 @@ namespace BootstrapBlazor.Components;
 public class CarouselItem : ComponentBase, IDisposable
 {
     /// <summary>
-    /// 获得/设置 子组件
+    /// 获得/设置 子组件 默认 null
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
+
+    /// <summary>
+    /// 获得/设置 Caption 文字 默认 null 可设置 <see cref="CaptionTemplate"/> 自定义
+    /// </summary>
+    [Parameter]
+    public string? Caption { get; set; }
+
+    /// <summary>
+    /// 获得/设置 Caption 样式 默认 null
+    /// </summary>
+    [Parameter]
+    public string? CaptionClass { get; set; }
+
+    /// <summary>
+    /// 获得/设置 Caption 模板 默认 null
+    /// </summary>
+    [Parameter]
+    public RenderFragment? CaptionTemplate { get; set; }
 
     [CascadingParameter]
     private Carousel? Carousel { get; set; }
@@ -25,6 +43,18 @@ public class CarouselItem : ComponentBase, IDisposable
     {
         Carousel?.AddItem(this);
     }
+
+    /// <summary>
+    /// 获得 当前 Item Caption 样式字符串
+    /// </summary>
+    public string? GetCaptionClassString => CssBuilder.Default("carousel-caption")
+        .AddClass(CaptionClass)
+        .Build();
+
+    /// <summary>
+    /// 获得 是否显示 Caption
+    /// </summary>
+    internal bool ShowCaption => CaptionTemplate != null || !string.IsNullOrEmpty(Caption);
 
     /// <summary>
     /// Dispose 方法

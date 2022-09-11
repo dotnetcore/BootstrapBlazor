@@ -9,10 +9,6 @@
         @if (ShowIndicators)
         {
             <ol class="carousel-indicators">
-                @for (var index = 0; index < Images.Count(); index++)
-                {
-                    <li data-bs-slide-to="@index" class="@CheckActive(index)" data-bs-target="@TargetId"></li>
-                }
                 @for (var index = 0; index < Items.Count; index++)
                 {
                     <li data-bs-slide-to="@index" class="@CheckActive(index)" data-bs-target="@TargetId"></li>
@@ -20,16 +16,24 @@
             </ol>
         }
         <div class="carousel-inner">
-            @for (var index = 0; index < Images.Count(); index++)
+            @for (var index = 0; index < Items.Count; index++)
             {
+                var item = Items[index];
                 <div class="@CheckActive(index, "carousel-item")">
-                    <CarouselImage ImageUrl="@Images.ElementAt(index)" OnClick="@OnClickImage"></CarouselImage>
-                </div>
-            }
-            @for (var index = 0; index < Items.Count(); index++)
-            {
-                <div class="@CheckActive(index, "carousel-item")">
-                    @Items[index].ChildContent
+                    @item.ChildContent
+                    @if (item.ShowCaption)
+                    {
+                        <div class="@item.GetCaptionClassString">
+                            @if (item.CaptionTemplate != null)
+                            {
+                                @item.CaptionTemplate
+                            }
+                            else
+                            {
+                                @item.Caption
+                            }
+                        </div>
+                    }
                 </div>
             }
         </div>
