@@ -41,6 +41,18 @@ public class CarouselTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void ShowControls_Ok()
+    {
+        var cut = Context.RenderComponent<Carousel>(pb =>
+        {
+            pb.Add(b => b.ShowControls, false);
+        });
+        Assert.DoesNotContain("carousel-indicators", cut.Markup);
+        Assert.DoesNotContain("carousel-control-prev", cut.Markup);
+        Assert.DoesNotContain("carousel-control-next", cut.Markup);
+    }
+
+    [Fact]
     public void OnClick_Ok()
     {
         var url = "";

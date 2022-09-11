@@ -73,6 +73,12 @@ public partial class Carousel
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
+    /// 获得/设置 是否显示控制按钮 默认 true
+    /// </summary>
+    [Parameter]
+    public bool ShowControls { get; set; } = true;
+
+    /// <summary>
     /// OnAfterRenderAsync 方法
     /// </summary>
     /// <param name="firstRender"></param>

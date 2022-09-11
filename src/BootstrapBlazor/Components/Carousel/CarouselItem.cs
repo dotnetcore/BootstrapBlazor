@@ -23,10 +23,7 @@ public class CarouselItem : ComponentBase, IDisposable
     /// </summary>
     protected override void OnInitialized()
     {
-        if (Carousel != null)
-        {
-            Carousel.AddItem(this);
-        }
+        Carousel?.AddItem(this);
     }
 
     /// <summary>
@@ -37,10 +34,7 @@ public class CarouselItem : ComponentBase, IDisposable
     {
         if (disposing)
         {
-            if (Carousel != null)
-            {
-                Carousel.RemoveItem(this);
-            }
+            Carousel?.RemoveItem(this);
         }
     }
 
