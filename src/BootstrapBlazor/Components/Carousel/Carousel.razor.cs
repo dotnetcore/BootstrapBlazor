@@ -79,6 +79,12 @@ public partial class Carousel
     public bool ShowControls { get; set; } = true;
 
     /// <summary>
+    /// 获得/设置 是否显示指示标志 默认 true
+    /// </summary>
+    [Parameter]
+    public bool ShowIndicators { get; set; } = true;
+
+    /// <summary>
     /// OnAfterRenderAsync 方法
     /// </summary>
     /// <param name="firstRender"></param>

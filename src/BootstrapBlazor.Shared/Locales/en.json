@@ -2199,6 +2199,8 @@
     "BasicUsageIntro": "A wide range of basic usages are used to bind components to an array of picture paths by setting the <code>Items</code> property values",
     "ShowControlsTitle": "Show Controls",
     "ShowControlsIntro": "Set <code>ShowControls</code> to <code>true</code> for show/hide the controls of Carousel",
+    "ShowIndicatorsTitle": "Indicator",
+    "ShowIndicatorsIntro": "Set <code>ShowIndicators</code> to <code>true</code> for show/hide the indicator of Carousel",
     "FadeTitle": "Fade in and out",
     "FadeIntro": "By setting the <code>IsFade</code> property, the picture switches with a fade-in and fade-out effect",
     "OnClickTitle": "Click on the image to call back the event",

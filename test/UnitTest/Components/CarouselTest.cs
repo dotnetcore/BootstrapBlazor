@@ -53,6 +53,16 @@ public class CarouselTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void ShowIndicators_Ok()
+    {
+        var cut = Context.RenderComponent<Carousel>(pb =>
+        {
+            pb.Add(b => b.ShowIndicators, false);
+        });
+        Assert.DoesNotContain("carousel-indicators", cut.Markup);
+    }
+
+    [Fact]
     public void OnClick_Ok()
     {
         var url = "";

@@ -6,11 +6,15 @@
 <h4>@Localizer["SubTitle"]</h4>
 
 <DemoBlock Title="@Localizer["BasicUsageTitle"]" Introduction="@Localizer["BasicUsageIntro"]" Name="Normal">
-    <Carousel Images="@Images" Width="280" ShowControls="false"></Carousel>
+    <Carousel Images="@Images" Width="280" ShowControls="false" ShowIndicators="false"></Carousel>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["ShowControlsTitle"]" Introduction="@Localizer["ShowControlsIntro"]" Name="ShowControl">
-    <Carousel Images="@Images" Width="280" ShowControls="true"></Carousel>
+<DemoBlock Title="@Localizer["ShowControlsTitle"]" Introduction="@Localizer["ShowControlsIntro"]" Name="ShowControls">
+    <Carousel Images="@Images" Width="280" ShowControls="true" ShowIndicators="false"></Carousel>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["ShowIndicatorsTitle"]" Introduction="@Localizer["ShowIndicatorsIntro"]" Name="ShowIndicators">
+    <Carousel Images="@Images" Width="280" ShowControls="true" ShowIndicators="true"></Carousel>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["FadeTitle"]" Introduction="@Localizer["FadeIntro"]" Name="Fade">
