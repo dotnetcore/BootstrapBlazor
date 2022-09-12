@@ -25,6 +25,40 @@ public class CarouselTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void Interval_Ok()
+    {
+        var cut = Context.RenderComponent<Carousel>(pb =>
+        {
+            pb.Add(b => b.ChildContent, new RenderFragment(builder =>
+            {
+                builder.OpenComponent<CarouselItem>(0);
+                builder.AddAttribute(1, nameof(CarouselItem.ChildContent), new RenderFragment(builder => builder.AddContent(0, "Test-1")));
+                builder.AddAttribute(2, nameof(CarouselItem.Interval), 5000);
+                builder.CloseComponent();
+
+                builder.OpenComponent<CarouselItem>(2);
+                builder.AddAttribute(3, nameof(CarouselItem.ChildContent), new RenderFragment(builder => builder.AddContent(0, "Test-2")));
+                builder.AddAttribute(4, nameof(CarouselItem.Interval), 2000);
+                builder.CloseComponent();
+            }));
+        });
+
+        Assert.DoesNotContain("data-bs-interval=\"5000\"", cut.Markup);
+        Assert.Contains("data-bs-interval=\"2000\"", cut.Markup);
+    }
+
+    [Fact]
+    public void DisableTouchSwiping_Ok()
+    {
+        var cut = Context.RenderComponent<Carousel>(pb =>
+        {
+            pb.Add(b => b.DisableTouchSwiping, true);
+        });
+
+        Assert.Contains("data-bs-touch=\"false\"", cut.Markup);
+    }
+
+    [Fact]
     public void IsFade_Ok()
     {
         var cut = Context.RenderComponent<Carousel>(pb =>
