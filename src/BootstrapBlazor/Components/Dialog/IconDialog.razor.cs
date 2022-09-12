@@ -66,7 +66,7 @@ public partial class IconDialog
         LabelFullText ??= Localizer[nameof(LabelFullText)];
         ButtonText ??= Localizer[nameof(ButtonText)];
 
-        IconName = IconName.Replace("fas", "fa-solid", StringComparison.OrdinalIgnoreCase)
+        IconName = IconName?.Replace("fas", "fa-solid", StringComparison.OrdinalIgnoreCase)
             .Replace("far", "fa-regular", StringComparison.OrdinalIgnoreCase);
     }
 
