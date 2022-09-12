@@ -2274,7 +2274,7 @@
     "ColorTitle": "The child title color",
     "ColorIntro": "Each panel sets a different color",
     "ItemsTitle": "Dynamic updates",
-    "ItemsIntro": "The</code> template <code>CollapseItems is set by conditional logic",
+    "ItemsIntro": "The <code>CollapseItems</code> is set by conditional logic",
     "Consistency": "Consistency",
     "ConsistencyItem1": "Consistent with real life: consistent with real-life processes, logic, follow the user's habits of language and concepts;",
     "ConsistencyItem2": "Consistent in the interface: All elements and structures need to be consistent, such as design styles, icons and text, the location of elements, and so on.",
