@@ -2024,7 +2024,7 @@ header .bb-fs {
 }
 
 @media (min-width: 992px) {
-    .scroll:hover > * {
+    .sidebar-content .scroll:hover > .menu {
         padding-right: .5rem;
     }
 }

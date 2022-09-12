@@ -177,10 +177,17 @@ public class DialogTest : DialogTestBase
         cut.InvokeAsync(() => dialog.ShowEditDialog(editOption));
         form.Submit();
 
+        // DisableAutoSubmitFormByEnter
+        editOption.DisableAutoSubmitFormByEnter = true;
+        cut.InvokeAsync(() => dialog.ShowEditDialog(editOption));
+        cut.Contains("data-bb-dissubmit=\"true\"");
+        form.Submit();
+
         // Modal is Null
         editOption.Model = null;
         Assert.ThrowsAsync<InvalidOperationException>(() => cut.InvokeAsync(() => dialog.ShowEditDialog(editOption)));
         cut.InvokeAsync(() => cut.Find(".btn-close").Click());
+
         #endregion
 
         #region ShowModal
