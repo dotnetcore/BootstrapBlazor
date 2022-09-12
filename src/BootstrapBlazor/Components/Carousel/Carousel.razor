@@ -19,7 +19,7 @@
             @for (var index = 0; index < Items.Count; index++)
             {
                 var item = Items[index];
-                <div class="@CheckActive(index, "carousel-item")">
+                <div class="@CheckActive(index, "carousel-item")" data-bs-interval="@item.IntervalString">
                     @item.ChildContent
                     @if (item.ShowCaption)
                     {

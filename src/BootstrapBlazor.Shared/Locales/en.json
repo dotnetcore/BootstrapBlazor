@@ -2205,6 +2205,8 @@
     "FadeIntro": "By setting the <code>IsFade</code> property, the picture switches with a fade-in and fade-out effect",
     "CaptionTitle": "Caption",
     "CaptionIntro": "Set <code>CarouselItem</code> parameter <code>Caption</code> for the content of caption",
+    "IntervalTitle": "Individual interval",
+    "IntervalIntro": "Set <code>Interval</code> to a <code>CarouselItem</code> to change the amount of time to delay between automatically cycling to the next item. the default value is <b>5000</b> ms",
     "CaptionTemplateTitle": "Caption Template",
     "CaptionTemplateIntro": "Set <code>CarouselItem</code> 的 <code>CaptionTemplate</code> custom the caption of item",
     "CaptionClassTitle": "Caption Class",

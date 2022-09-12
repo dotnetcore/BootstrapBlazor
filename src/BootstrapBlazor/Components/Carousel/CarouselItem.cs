@@ -33,8 +33,19 @@ public class CarouselItem : ComponentBase, IDisposable
     [Parameter]
     public RenderFragment? CaptionTemplate { get; set; }
 
+    /// <summary>
+    /// 获得/设置 Slider 切换时间间隔 默认 5000
+    /// </summary>
+    [Parameter]
+    public int Interval { get; set; } = 5000;
+
     [CascadingParameter]
     private Carousel? Carousel { get; set; }
+
+    /// <summary>
+    /// 获得 Interval 字符串
+    /// </summary>
+    internal string? IntervalString => Interval == 5000 ? null : Interval.ToString();
 
     /// <summary>
     /// OnInitialized 方法
