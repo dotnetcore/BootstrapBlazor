@@ -2212,6 +2212,8 @@
     "CaptionIntro": "通过设置 <code>CarouselItem</code> 的 <code>Caption</code> 属性，开启标题功能",
     "IntervalTitle": "切换间隔",
     "IntervalIntro": "通过设置 <code>CarouselItem</code> 的 <code>Interval</code> 属性，可以单独设置幻灯片单独切换时间间隔，间隔默认值 5000 毫秒",
+    "TouchSwipingTitle": "禁用手势滑动",
+    "TouchSwipingIntro": "通过设置 <code>DisableTouchSwiping</code> 属性，禁用移动端手势滑动功能",
     "CaptionTemplateTitle": "标题模板",
     "CaptionTemplateIntro": "通过设置 <code>CarouselItem</code> 的 <code>CaptionTemplate</code> 属性，自定义标题内容",
     "CaptionClassTitle": "标题样式",

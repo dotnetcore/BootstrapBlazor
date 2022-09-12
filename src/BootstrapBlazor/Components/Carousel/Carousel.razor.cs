@@ -85,6 +85,14 @@ public partial class Carousel
     public bool ShowIndicators { get; set; } = true;
 
     /// <summary>
+    /// 获得/设置 是否禁用移动端手势滑动 默认 false
+    /// </summary>
+    [Parameter]
+    public bool DisableTouchSwiping { get; set; }
+
+    private string? DisableTouchSwipingString => DisableTouchSwiping ? "false" : null;
+
+    /// <summary>
     /// OnParametersSet 方法
     /// </summary>
     protected override void OnParametersSet()
