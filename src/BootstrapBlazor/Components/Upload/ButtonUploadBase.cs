@@ -102,12 +102,6 @@ public abstract class ButtonUploadBase<TValue> : SingleUploadBase<TValue>
         }
     }
 
-    /// <summary>
-    /// 判断是否将上传文件添加到 UploadFiles 集合中
-    /// </summary>
-    /// <returns></returns>
-    protected virtual bool ShouldAddUploadFiles() => true;
-
     private void Update(UploadFile file)
     {
         if (GetShowProgress(file))

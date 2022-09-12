@@ -469,6 +469,23 @@ public class UploadTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void ShowUploadList_Ok()
+    {
+        var cut = Context.RenderComponent<ButtonUpload<string>>(pb =>
+        {
+            pb.Add(a => a.Accept, "Image");
+        });
+
+        cut.Contains("upload-body is-list");
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ShowUploadFileList, false);
+        });
+        cut.DoesNotContain("upload-body is-list");
+    }
+
+    [Fact]
     public async Task ButtonUpload_OnDeleteFile_Ok()
     {
         UploadFile? deleteFile = null;

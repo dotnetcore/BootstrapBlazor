@@ -47,18 +47,12 @@ public partial class ButtonUpload<TValue>
     private IStringLocalizer<UploadBase<TValue>>? Localizer { get; set; }
 
     /// <summary>
-    /// OnInitialized 方法
+    /// OnParametersSet 方法
     /// </summary>
-    protected override void OnInitialized()
+    protected override void OnParametersSet()
     {
-        base.OnInitialized();
+        base.OnParametersSet();
 
         BrowserButtonText ??= Localizer[nameof(BrowserButtonText)];
     }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <returns></returns>
-    protected override bool ShouldAddUploadFiles() => ShowUploadFileList;
 }
