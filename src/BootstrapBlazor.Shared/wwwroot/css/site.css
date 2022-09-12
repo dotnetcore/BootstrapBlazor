@@ -2022,3 +2022,9 @@ header .bb-fs {
     --bb-rate-width: 30px;
     --bb-rate-active-color: var(--bs-primary);
 }
+
+@media (min-width: 992px) {
+    .scroll:hover > * {
+        padding-right: .5rem;
+    }
+}

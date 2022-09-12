@@ -72,6 +72,7 @@ form .form-label[required]:before {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    min-height: var(--bb-height);
 }
 
 .table-cell .form-control.is-display,
