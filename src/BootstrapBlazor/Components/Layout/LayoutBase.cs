@@ -12,7 +12,7 @@ namespace BootstrapBlazor.Components;
 public abstract class LayoutBase : BootstrapComponentBase, IHandlerException, IAsyncDisposable
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     protected bool IsSmallScreen { get; set; }
 
@@ -72,7 +72,7 @@ public abstract class LayoutBase : BootstrapComponentBase, IHandlerException, IA
     public string? NotFoundTabText { get; set; }
 
     /// <summary>
-    /// 获得/设置 Footer 高度 支持百分比 默认宽度为 300px
+    /// 获得/设置 侧边栏宽度，支持百分比，设置 0 时关闭宽度功能
     /// </summary>
     [Parameter]
     public string SideWidth { get; set; } = "300";
@@ -175,7 +175,7 @@ public abstract class LayoutBase : BootstrapComponentBase, IHandlerException, IA
     public string NotAuthorizeUrl { get; set; } = "/Account/Login";
 
     /// <summary>
-    /// 
+    ///
     /// </summary>
     [Inject]
     [NotNull]
@@ -283,7 +283,7 @@ public abstract class LayoutBase : BootstrapComponentBase, IHandlerException, IA
     }
 
     /// <summary>
-    /// 
+    ///
     /// </summary>
     /// <returns></returns>
     public async ValueTask DisposeAsync()
