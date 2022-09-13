@@ -73,14 +73,14 @@ public partial class Slider : IDisposable
     /// 获得 Bar 位置样式
     /// </summary>
     private string? BarStyle => CssBuilder.Default("left: 0%;")
-        .AddClass($"width: {Value}%;")
+        .AddClass($"width: {Value / Max * 100}%;")
         .Build();
 
     /// <summary>
     /// 获得 按钮位置样式
     /// </summary>
     private string? ButtonStyle => CssBuilder.Default()
-        .AddClass($"left: {Value}%;")
+        .AddClass($"left: {Value / Max * 100}%;")
         .Build();
 
     /// <summary>
