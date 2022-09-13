@@ -10,6 +10,35 @@ namespace BootstrapBlazor.Components;
 public partial class Slider : IDisposable
 {
     /// <summary>
+    /// 获得/设置 组件当前值
+    /// </summary>
+    [Parameter]
+    public int Value { get; set; }
+
+    /// <summary>
+    /// ValueChanged 回调方法
+    /// </summary>
+    [Parameter]
+    public EventCallback<int> ValueChanged { get; set; }
+
+    /// <summary>
+    /// 获得/设置 值变化时回调方法
+    /// </summary>
+    [Parameter]
+    public Func<int, Task>? OnValueChanged { get; set; }
+
+    /// <summary>
+    /// 获得 按钮 disabled 属性
+    /// </summary>
+    protected string? Disabled => IsDisabled ? "disabled" : null;
+
+    /// <summary>
+    /// 获得/设置 是否禁用
+    /// </summary>
+    [Parameter]
+    public bool IsDisabled { get; set; }
+
+    /// <summary>
     /// 获得/设置 JSInterop 实例
     /// </summary>
     private JSInterop<Slider>? Interop { get; set; }
@@ -17,7 +46,8 @@ public partial class Slider : IDisposable
     /// <summary>
     /// 获得 样式集合
     /// </summary>
-    private static string? ClassName => CssBuilder.Default("slider")
+    private string? ClassName => CssBuilder.Default("slider")
+        .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
     /// <summary>
@@ -67,12 +97,17 @@ public partial class Slider : IDisposable
     /// </summary>
     /// <param name="val"></param>
     [JSInvokable]
-    public void SetValue(int val)
+    public async Task SetValue(int val)
     {
         Value = val;
+        if (OnValueChanged != null)
+        {
+            await OnValueChanged(Value);
+        }
+
         if (ValueChanged.HasDelegate)
         {
-            ValueChanged.InvokeAsync(val);
+            await ValueChanged.InvokeAsync(val);
         }
     }
 
