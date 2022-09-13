@@ -104,7 +104,11 @@ public partial class Carousel
             foreach (var image in Images)
             {
                 var item = new CarouselItem();
+#if NET5_0
+                item.SetParametersAsync(ParameterView.FromDictionary(new Dictionary<string, object>()
+#else
                 item.SetParametersAsync(ParameterView.FromDictionary(new Dictionary<string, object?>()
+#endif
                 {
                     [nameof(CarouselItem.ChildContent)] = new RenderFragment(builder =>
                     {

@@ -13,19 +13,19 @@ public partial class Slider : IDisposable
     /// 获得/设置 组件当前值
     /// </summary>
     [Parameter]
-    public int Value { get; set; }
+    public double Value { get; set; }
 
     /// <summary>
     /// ValueChanged 回调方法
     /// </summary>
     [Parameter]
-    public EventCallback<int> ValueChanged { get; set; }
+    public EventCallback<double> ValueChanged { get; set; }
 
     /// <summary>
     /// 获得/设置 值变化时回调方法
     /// </summary>
     [Parameter]
-    public Func<int, Task>? OnValueChanged { get; set; }
+    public Func<double, Task>? OnValueChanged { get; set; }
 
     /// <summary>
     /// 获得 按钮 disabled 属性
@@ -37,6 +37,18 @@ public partial class Slider : IDisposable
     /// </summary>
     [Parameter]
     public bool IsDisabled { get; set; }
+
+    /// <summary>
+    /// 获得/设置 最大值
+    /// </summary>
+    [Parameter]
+    public double Max { get; set; } = 100;
+
+    /// <summary>
+    /// 获得/设置 最小值
+    /// </summary>
+    [Parameter]
+    public double Min { get; set; } = 0;
 
     /// <summary>
     /// 获得/设置 JSInterop 实例
@@ -97,9 +109,9 @@ public partial class Slider : IDisposable
     /// </summary>
     /// <param name="val"></param>
     [JSInvokable]
-    public async Task SetValue(int val)
+    public async Task SetValue(double val)
     {
-        Value = val;
+        Value = Max * val / 100;
         if (OnValueChanged != null)
         {
             await OnValueChanged(Value);

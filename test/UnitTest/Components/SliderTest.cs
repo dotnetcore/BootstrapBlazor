@@ -13,7 +13,7 @@ public class SliderTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void ValueChanged_OK()
+    public async Task ValueChanged_OK()
     {
         var ret = false;
         var cut = Context.RenderComponent<Slider>(builder =>
@@ -24,8 +24,9 @@ public class SliderTest : BootstrapBlazorTestBase
                 ret = true;
             });
         });
-        cut.Instance.SetValue(20);
+        await cut.InvokeAsync(() => cut.Instance.SetValue(20));
         Assert.True(ret);
+        Assert.Equal(20, cut.Instance.Value);
     }
 
     [Fact]
