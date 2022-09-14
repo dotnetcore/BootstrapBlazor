@@ -429,11 +429,6 @@
     border-color: var(--bs-secondary);
 }
 
-.card-header {
-    background-color: var(--bs-secondary);
-    border-color: var(--bs-secondary);
-}
-
 /*dropdonw*/
 .dropdown-menu {
     --bs-dropdown-item-padding-y: 6px;

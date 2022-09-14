@@ -618,6 +618,12 @@ section {
                 width: var(--bs-sidebar-width);
             }
 
+    @media (min-width: 992px) {
+        .scroll:hover > * {
+            padding-right: .5rem;
+        }
+    }
+
     .main {
         width: calc(100% - var(--bs-sidebar-width));
     }
