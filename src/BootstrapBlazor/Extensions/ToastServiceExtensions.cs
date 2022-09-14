@@ -16,7 +16,7 @@ public static class ToastServiceExtensions
     /// <param name="title">Title 属性</param>
     /// <param name="content">Content 属性</param>
     /// <param name="autoHide">自动隐藏属性默认为 true</param>
-    public static Task Success(this ToastService service, string? title = null, string? content = null, bool autoHide = true) => Error(service, title, content, autoHide, true);
+    public static Task Success(this ToastService service, string? title = null, string? content = null, bool autoHide = true) => Success(service, title, content, autoHide, true);
 
     /// <summary>
     /// Toast 调用成功快捷方法

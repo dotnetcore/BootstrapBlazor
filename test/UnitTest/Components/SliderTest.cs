@@ -39,4 +39,23 @@ public class SliderTest : BootstrapBlazorTestBase
         });
         cut.Contains("slider-runway disabled");
     }
+
+    [Fact]
+    public async Task OnValueChanged_OK()
+    {
+        var expected = 0d;
+        var cut = Context.RenderComponent<Slider>(builder =>
+        {
+            builder.Add(s => s.Value, 10);
+            builder.Add(s => s.Min, 0);
+            builder.Add(s => s.Max, 100);
+            builder.Add(s => s.OnValueChanged, new Func<double, Task>(v =>
+            {
+                expected = v;
+                return Task.CompletedTask;
+            }));
+        });
+        await cut.InvokeAsync(() => cut.Instance.SetValue(1));
+        Assert.Equal(1, expected);
+    }
 }

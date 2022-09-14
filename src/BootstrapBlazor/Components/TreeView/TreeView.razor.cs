@@ -19,9 +19,6 @@ public partial class TreeView<TItem>
     /// </summary>
     private ElementReference TreeElement { get; set; }
 
-    [NotNull]
-    private string? GroupName { get; set; }
-
     /// <summary>
     /// 获得 按钮样式集合
     /// </summary>
@@ -202,8 +199,6 @@ public partial class TreeView<TItem>
 
         // 初始化节点缓存
         treeNodeCache ??= new(ComparerItem);
-
-        GroupName = this.GetHashCode().ToString();
         NotSetOnTreeExpandErrorMessage = Localizer[nameof(NotSetOnTreeExpandErrorMessage)];
     }
 
