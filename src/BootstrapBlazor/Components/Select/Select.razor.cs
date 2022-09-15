@@ -109,6 +109,12 @@ public partial class Select<TValue> : ISelect
     [Parameter]
     public StringComparison StringComparison { get; set; } = StringComparison.OrdinalIgnoreCase;
 
+    /// <summary>
+    /// 获得/设置 显示部分模板 默认 null
+    /// </summary>
+    [Parameter]
+    public RenderFragment<SelectedItem?>? DisplayTemplate { get; set; }
+
     [Inject]
     [NotNull]
     private IStringLocalizer<Select<TValue>>? Localizer { get; set; }

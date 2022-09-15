@@ -268,4 +268,23 @@ public class SelectTest : BootstrapBlazorTestBase
         });
         Assert.Contains("search-icon", cut.Markup);
     }
+
+    [Fact]
+    public void DisplayTemplate_Ok()
+    {
+        var cut = Context.RenderComponent<Select<string>>(pb =>
+        {
+            pb.Add(a => a.Items, new SelectedItem[]
+            {
+                new SelectedItem("1", "Test1"),
+                new SelectedItem("2", "Test2")
+            });
+            pb.Add(a => a.Value, "2");
+            pb.Add(a => a.DisplayTemplate, item => builder =>
+            {
+                builder.AddContent(0, $"test-display-template-{item?.Text}");
+            });
+        });
+        Assert.Contains("test-display-template-Test2", cut.Markup);
+    }
 }

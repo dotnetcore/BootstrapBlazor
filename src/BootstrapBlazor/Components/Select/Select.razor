@@ -15,8 +15,17 @@
             ResetSelectedItem();
         }
         <div class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-            <input type="text" id="@InputId" readonly disabled="@Disabled" placeholder="@PlaceHolder" class="@InputClassName" value="@SelectedItem?.Text" />
-            <span class="@AppendClassName"><i class="@DropdownIcon"></i></span>
+            @if (DisplayTemplate != null)
+            {
+                <div id="@InputId" class="@InputClassName" tabindex="0">
+                    @DisplayTemplate(SelectedItem)
+                </div>
+            }
+            else
+            {
+                <input type="text" id="@InputId" readonly disabled="@Disabled" placeholder="@PlaceHolder" class="@InputClassName" value="@SelectedItem?.Text" />
+                <span class="@AppendClassName"><i class="@DropdownIcon"></i></span>
+            }
         </div>
         <div class="dropdown-menu shadow">
             @if (ShowSearch)

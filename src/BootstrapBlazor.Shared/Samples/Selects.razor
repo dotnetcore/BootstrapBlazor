@@ -257,6 +257,19 @@
     </div>
 </DemoBlock>
 
+<DemoBlock Title="@Localizer["DisplayTemplateTitle"]" Introduction="@Localizer["DisplayTemplateIntro"]" Name="DisplayTemplate">
+    <div class="row g-3">
+        <div class="col-12 col-sm-6">
+            <Select TValue="string" Items="Items">
+                <DisplayTemplate>
+                    <i class="fa-solid fa-flag"></i>
+                    <span>@context?.Text</span>
+                </DisplayTemplate>
+            </Select>
+        </div>
+    </div>
+</DemoBlock>
+
 <DemoBlock Title="@Localizer["TimezoneTitle"]" Introduction="@Localizer["TimezoneIntro"]" Name="Timezone">
     <div class="row g-3">
         <div class="col-12 col-sm-6">
