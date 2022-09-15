@@ -252,4 +252,20 @@ public class SelectTest : BootstrapBlazorTestBase
         });
         Assert.Contains("search-icon", cut.Markup);
     }
+
+    [Fact]
+    public void DropdownIcon_Ok()
+    {
+        var cut = Context.RenderComponent<Select<string>>(pb =>
+        {
+            pb.Add(a => a.Items, new SelectedItem[]
+            {
+                new SelectedItem("1", "Test1"),
+                new SelectedItem("2", "Test2")
+            });
+            pb.Add(a => a.Value, "2");
+            pb.Add(a => a.DropdownIcon, "search-icon");
+        });
+        Assert.Contains("search-icon", cut.Markup);
+    }
 }

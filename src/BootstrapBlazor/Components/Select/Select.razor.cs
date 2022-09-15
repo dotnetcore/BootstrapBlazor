@@ -66,6 +66,13 @@ public partial class Select<TValue> : ISelect
     private List<SelectedItem>? Childs { get; set; }
 
     /// <summary>
+    /// 获得/设置 右侧下拉箭头图标 默认 fa-solid fa-angle-up
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public string? DropdownIcon { get; set; }
+
+    /// <summary>
     /// 获得/设置 搜索文本发生变化时回调此方法
     /// </summary>
     [Parameter]
@@ -149,6 +156,7 @@ public partial class Select<TValue> : ISelect
 
         Items ??= Enumerable.Empty<SelectedItem>();
         PlaceHolder ??= Localizer[nameof(PlaceHolder)];
+        DropdownIcon ??= "fa-solid fa-angle-up";
 
         // 内置对枚举类型的支持
         var t = NullableUnderlyingType ?? typeof(TValue);
