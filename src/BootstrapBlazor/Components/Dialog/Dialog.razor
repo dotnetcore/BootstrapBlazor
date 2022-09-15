@@ -1,7 +1,7 @@
 ﻿@namespace BootstrapBlazor.Components
 @inherits BootstrapComponentBase
 
-<Modal AdditionalAttributes="@AdditionalAttributes" @ref="ModalContainer" IsKeyboard="@IsKeyboard">
+<Modal AdditionalAttributes="@AdditionalAttributes" @ref="ModalContainer" IsKeyboard="@IsKeyboard" ShownCallbackAsync="@OnShownCallbackAsync">
     @foreach (var parameter in DialogParameters)
     {
         @RenderDialog(parameter)

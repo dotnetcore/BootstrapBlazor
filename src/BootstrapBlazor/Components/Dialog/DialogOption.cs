@@ -146,6 +146,11 @@ public class DialogOption
     public bool IsDraggable { get; set; }
 
     /// <summary>
+    /// 获得/设置 弹窗已显示时回调此方法
+    /// </summary>
+    public Func<Task>? ShownCallbackAsync { get; set; }
+
+    /// <summary>
     /// 将参数转换为组件属性方法
     /// </summary>
     /// <returns></returns>

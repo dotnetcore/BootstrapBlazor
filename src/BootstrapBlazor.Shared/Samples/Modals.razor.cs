@@ -4,6 +4,7 @@
 
 using BootstrapBlazor.Components;
 using BootstrapBlazor.Shared.Common;
+using BootstrapBlazor.Shared.Components;
 
 namespace BootstrapBlazor.Shared.Samples;
 
@@ -57,7 +58,19 @@ public sealed partial class Modals
     [NotNull]
     private Modal? MaximizeModal { get; set; }
 
+    [NotNull]
+    private Modal? ShownCallbackModal { get; set; }
+
     private bool IsKeyboard { get; set; }
+
+    [NotNull]
+    private BlockLogger? Trace { get; set; }
+
+    private Task OnShownCallbackAsync()
+    {
+        Trace.Log("弹窗已显示");
+        return Task.CompletedTask;
+    }
 
     private void OnClickKeyboard()
     {
@@ -181,6 +194,13 @@ public sealed partial class Modals
             Type = "boolean",
             ValueList = "true|false",
             DefaultValue = "false"
+        },
+        new AttributeItem() {
+            Name = "ShownCallbackAsync",
+            Description = "弹窗已显示回调方法",
+            Type = "Func<Task>",
+            ValueList = " — ",
+            DefaultValue = " — "
         }
     };
 }

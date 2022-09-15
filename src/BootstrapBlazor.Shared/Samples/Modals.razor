@@ -225,4 +225,16 @@
     </Modal>
 </DemoBlock>
 
+<DemoBlock Title="弹窗已显示回调方法" Introduction="通过设置 <code>ShownCallbackAsync</code> 回调委托，弹窗显示后回调此方法" Name="ShownCallbackAsync">
+    <Button OnClick="@(async e => await ShownCallbackModal.Toggle())">弹窗</Button>
+    <Modal @ref="ShownCallbackModal" ShownCallbackAsync="OnShownCallbackAsync">
+        <ModalDialog Title="ShownCallbackAsync 回调示例">
+            <BodyTemplate>
+                <div>我是弹窗内正文</div>
+            </BodyTemplate>
+        </ModalDialog>
+    </Modal>
+    <BlockLogger @ref="Trace" class="mt-3" />
+</DemoBlock>
+
 <AttributeTable Items="@GetAttributes()" />

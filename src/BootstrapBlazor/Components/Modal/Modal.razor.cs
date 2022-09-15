@@ -51,11 +51,19 @@ public partial class Modal : IAsyncDisposable
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
+    /// 获得/设置 弹窗已显示时回调此方法
+    /// </summary>
+    [Parameter]
+    public Func<Task>? ShownCallbackAsync { get; set; }
+
+    /// <summary>
     /// 获得 后台关闭弹窗设置
     /// </summary>
     private string? Backdrop => IsBackdrop ? null : "static";
 
     private string? KeyboardString => IsKeyboard ? "true" : "false";
+
+    private JSInterop<Modal>? Interop { get; set; }
 
     /// <summary>
     /// 添加对话框方法
@@ -80,10 +88,7 @@ public partial class Modal : IAsyncDisposable
         if (dialog == null)
         {
             dialog = Dialogs.LastOrDefault();
-            if (dialog != null)
-            {
-                dialog.Close();
-            }
+            dialog?.Close();
         }
         else
         {
@@ -97,10 +102,7 @@ public partial class Modal : IAsyncDisposable
     /// <param name="dialog"></param>
     internal void ShowDialog(ModalDialog? dialog = null)
     {
-        if (dialog == null)
-        {
-            dialog = Dialogs.LastOrDefault();
-        }
+        dialog ??= Dialogs.LastOrDefault();
         if (dialog != null)
         {
             Dialogs.ForEach(d => d.IsShown = d == dialog);
@@ -118,7 +120,21 @@ public partial class Modal : IAsyncDisposable
 
         if (firstRender)
         {
-            await JSRuntime.InvokeVoidAsync(ModalElement, "bb_modal", "init");
+            Interop ??= new(JSRuntime);
+            await Interop.InvokeVoidAsync(this, ModalElement, "bb_modal", "init", nameof(Shown));
+        }
+    }
+
+    /// <summary>
+    /// 弹窗已经弹出回调方法
+    /// </summary>
+    /// <returns></returns>
+    [JSInvokable]
+    public async Task Shown()
+    {
+        if (ShownCallbackAsync != null)
+        {
+            await ShownCallbackAsync();
         }
     }
 
@@ -132,7 +148,11 @@ public partial class Modal : IAsyncDisposable
         {
             dialog.IsShown = true;
         }
-        await JSRuntime.InvokeVoidAsync(ModalElement, "bb_modal", "toggle");
+
+        if (Interop != null)
+        {
+            await Interop.InvokeVoidAsync(this, ModalElement, "bb_modal", "toggle");
+        }
     }
 
     /// <summary>
@@ -146,7 +166,10 @@ public partial class Modal : IAsyncDisposable
         {
             Dialogs.ForEach(d => d.IsShown = dialog == d);
         }
-        await JSRuntime.InvokeVoidAsync(ModalElement, "bb_modal", "show");
+        if (Interop != null)
+        {
+            await Interop.InvokeVoidAsync(this, ModalElement, "bb_modal", "show");
+        }
     }
 
     /// <summary>
@@ -176,10 +199,10 @@ public partial class Modal : IAsyncDisposable
         {
             ShowDialog();
         }
-        else
+        else if (Interop != null)
         {
             // 全部关闭
-            await JSRuntime.InvokeVoidAsync(ModalElement, "bb_modal", "hide");
+            await Interop.InvokeVoidAsync(this, ModalElement, "bb_modal", "hide");
         }
     }
 
@@ -209,7 +232,12 @@ public partial class Modal : IAsyncDisposable
             await Task.Delay(300);
 
             // JS 清理 DOM
-            await JSRuntime.InvokeVoidAsync(ModalElement, "bb_modal", "dispose");
+            if (Interop != null)
+            {
+                await Interop.InvokeVoidAsync(this, ModalElement, "bb_modal", "dispose");
+                Interop.Dispose();
+                Interop = null;
+            }
         }
     }
 

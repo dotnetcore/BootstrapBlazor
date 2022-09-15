@@ -159,6 +159,10 @@ await DialogService.Show(op);</Pre>
     <Button OnClick="@OnErrorDialog" Text="全局异常测试" Icon="fa-solid fa-bug"></Button>
 </DemoBlock>
 
+<DemoBlock Title="弹窗已显示回调" Introduction="通过设置 <code>OnShownCallbackAsync</code> 回调方法，弹窗显示后回调此方法" Name="ShownCallbackAsync">
+    <Button OnClick="@OnShownCallbackDialog" Text="回调测试" Icon="fa-solid fa-home"></Button>
+</DemoBlock>
+
 <DemoBlock Title="实战演练" Introduction="模拟一个邮件应用，弹窗选择收件人后填入下方的收件人框。" Name="Email">
     <p>功能介绍</p>
     <ul class="ul-demo mb-3">
