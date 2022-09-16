@@ -20,7 +20,6 @@ public partial class MultiSelect<TValue>
 
     private string? ClassString => CssBuilder.Default("multi-select")
         .AddClass("show", IsShow)
-        .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
     private string? ToggleClassString => CssBuilder.Default("dropdown-menu-toggle")
