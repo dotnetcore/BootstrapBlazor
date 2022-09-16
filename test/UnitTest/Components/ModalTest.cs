@@ -2,6 +2,8 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using Microsoft.AspNetCore.Components.Rendering;
+
 namespace UnitTest.Components;
 
 public class ModalTest : BootstrapBlazorTestBase
@@ -73,5 +75,43 @@ public class ModalTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(() => cut.Instance.SetHeaderText("Test-Header"));
         header = cut.Find(".modal-title");
         Assert.Equal("Test-Header", header.TextContent);
+    }
+
+    [Fact]
+    public async Task ShownCallbackAsync_Ok()
+    {
+        var cut = Context.RenderComponent<MockComponent>();
+        var modal = cut.FindComponent<MockModal>();
+        await cut.InvokeAsync(() => modal.Instance.Show_Test());
+
+        Assert.True(cut.Instance.Value);
+    }
+
+    private class MockComponent : ComponentBase
+    {
+        public bool Value { get; set; }
+
+        protected override void BuildRenderTree(RenderTreeBuilder builder)
+        {
+            builder.OpenComponent<MockModal>(0);
+            builder.AddAttribute(1, nameof(Modal.ShownCallbackAsync), () =>
+            {
+                Value = true;
+                return Task.CompletedTask;
+            });
+            builder.CloseComponent();
+        }
+    }
+
+    private class MockModal : Modal
+    {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public async Task Show_Test()
+        {
+            await base.Shown();
+        }
     }
 }

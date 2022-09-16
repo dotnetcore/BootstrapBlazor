@@ -62,13 +62,14 @@ public partial class Dialog : IDisposable
 
     private Task Show(DialogOption option)
     {
-        ShownCallbackAsync = async () =>
+        if (option.ShownCallbackAsync != null)
         {
-            if (option.ShownCallbackAsync != null)
+            ShownCallbackAsync = async () =>
             {
                 await option.ShownCallbackAsync();
-            }
-        };
+            };
+        }
+
         IsKeyboard = option.IsKeyboard;
         option.Dialog = ModalContainer;
         var parameters = option.ToAttributes();
