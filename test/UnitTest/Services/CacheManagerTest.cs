@@ -49,4 +49,40 @@ public class CacheManagerTest : BootstrapBlazorTestBase
             return val;
         });
     }
+
+    [Fact]
+    public void Clear_Ok()
+    {
+        var key = "test_clear";
+        var val = 0;
+        var actual = GetOrCreate(key);
+        Assert.Equal(1, actual);
+
+        Cache.Clear(key);
+        Assert.Equal(1, actual);
+
+        int GetOrCreate(string key) => Cache.GetOrCreate<int>(key, entry =>
+        {
+            val++;
+            return val;
+        });
+    }
+
+    [Fact]
+    public void MemoryCacheClear_Ok()
+    {
+        var key = "test_clear";
+        var val = 0;
+        var actual = GetOrCreate(key);
+        Assert.Equal(1, actual);
+
+        Cache.Clear();
+        Assert.Equal(1, actual);
+
+        int GetOrCreate(string key) => Cache.GetOrCreate<int>(key, entry =>
+        {
+            val++;
+            return val;
+        });
+    }
 }
