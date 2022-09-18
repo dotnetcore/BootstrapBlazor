@@ -67,6 +67,25 @@ public class DialogTest : DialogTestBase
         cut.InvokeAsync(() => modal.Instance.Close());
         #endregion
 
+        #region ShownCallbackAsync
+        var shown = false;
+        var option1 = new DialogOption
+        {
+            BodyTemplate = builder => builder.AddContent(0, "Test-BodyTemplate"),
+            ShownCallbackAsync = () =>
+            {
+                shown = true;
+                return Task.CompletedTask;
+            }
+        };
+        cut.InvokeAsync(() => dialog.Show(option1));
+        modal = cut.FindComponent<Modal>();
+        cut.InvokeAsync(() => modal.Instance.ShownCallbackAsync!.Invoke());
+        Assert.True(shown);
+        var button = cut.FindComponents<Button>().First(b => b.Instance.Text == "关闭");
+        cut.InvokeAsync(() => button.Instance.OnClickWithoutRender!.Invoke());
+        #endregion
+
         #region ShowSearchDialog
         // 无按钮回调赋值
         var option = new SearchDialogOption<Foo>()
@@ -85,7 +104,7 @@ public class DialogTest : DialogTestBase
         cut.InvokeAsync(() => dialog.ShowSearchDialog(option));
 
         // 重置按钮委托为空 null
-        var button = cut.FindComponents<Button>().First(b => b.Instance.Text == "重置");
+        button = cut.FindComponents<Button>().First(b => b.Instance.Text == "重置");
         cut.InvokeAsync(() => button.Instance.OnClickWithoutRender!.Invoke());
 
         // 搜索按钮委托为空
