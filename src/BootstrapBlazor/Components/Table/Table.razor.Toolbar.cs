@@ -423,6 +423,19 @@ public partial class Table<TItem>
     }
 
     /// <summary>
+    /// 在 EditMode 等于 EditForm 情况下，关闭 EditFrom
+    /// </summary>
+    public void CloseEditForm()
+    {
+        if (EditMode == EditMode.EditForm)
+        {
+            ShowAddForm = false;
+            ShowEditForm = false;
+            StateHasChanged();
+        }
+    }
+
+    /// <summary>
     /// 保存数据方法
     /// </summary>
     /// <param name="context"></param>
