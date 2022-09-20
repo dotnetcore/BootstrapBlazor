@@ -1942,7 +1942,11 @@
     "DatabaseExistLog": "数据库中已存在",
     "LongDisplayText": "我是特别长的显示标签",
     "LongDisplayDescription": "本例中通过设置 <code>form-inline</code> 样式内的 <code>BootstrapInput</code> 组件 <code>ShowLabelTooltip</code> 为 <code>true</code> 使鼠标悬停在被裁剪的 <code>label</code> 时显示完整信息",
-    "ShowLabelTooltip": "鼠标悬停标签时显示完整信息"
+    "ShowLabelTooltip": "鼠标悬停标签时显示完整信息",
+    "DisableAutoSubmitFormByEnter": "是否禁用表单自动提交功能",
+    "DisableAutoSubmitFormByEnterTitle": "禁用自动提交功能",
+    "DisableAutoSubmitFormByEnterIntro": "当焦点在表单内输入框时，按 <kbd>Enter</kbd> 默认是自动提交表单的，通过设置 <code>DisableAutoSubmitFormByEnter=\"false\"</code> 禁止自动提交",
+    "DisableAutoSubmitFormByEnterDesc": "<code>form</code> 表单是 <code>web</code> 一个重要的元素，如果表单内有 <code>input</code> 元素当此元素获得焦点时，按下 <kbd>Enter</kbd> 会自动提交表单，这是表单元素的特性，并不是我们组件代码逻辑，如果不需要这个功能时通过设置 <code>DisableAutoSubmitFormByEnter=\"true\"</code> 禁用此功能，此例中文本框内按回车不会 <b>自动提交</b> 并且进行数据合规性检查，需要点击 <b>提交表单</b> 按钮提交表单"
   },
   "BootstrapBlazor.Shared.Samples.Ajaxs": {
     "AjaxTitle": "Ajax调用",

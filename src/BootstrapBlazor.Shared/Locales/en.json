@@ -1940,7 +1940,11 @@
     "DatabaseExistLog": "Exists in the database",
     "LongDisplayText": "I am very long display text",
     "LongDisplayDescription": "In this example, set the <code>ShowLabelTooltip</code> in the <code>form-inline</code> style to <code>true</code> to make the mouse hover over the cropped label to display the complete information",
-    "ShowLabelTooltip": "Show complete information when mouse hover over the label"
+    "ShowLabelTooltip": "Show complete information when mouse hover over the label",
+    "DisableAutoSubmitFormByEnter": "Disable automatic submit form",
+    "DisableAutoSubmitFormByEnterTitle": "Disable automatic submit form",
+    "DisableAutoSubmitFormByEnterIntro": "When the focus is in the input box in the form, pressing <kbd>Enter</kbd> will automatically submit the form by default. You can disable automatic submission by setting <code>DisableAutoSubmitFormByEnter=\"false\"</code>",
+    "DisableAutoSubmitFormByEnterDesc": "<code>form</code> form is an important element of<code>web</code>. If there is an <code>input</code> element in the form, when this element gets the focus, pressing <kbd>Enter</kbd> will automatically submit the form. This is a feature of the form element, not our component code logic. If this function is not needed, disable it by setting <code>DisableAutoSubmitFormByEnter=\"true\"</code>, In this example, pressing Enter in the text box will not automatically <b>submit</b> and perform data compliance check. You need to click the <b>Submit</b> button to submit the form"
   },
   "BootstrapBlazor.Shared.Samples.Ajaxs": {
     "AjaxTitle": "Ajax call",
