@@ -689,9 +689,13 @@ section {
 }
 
 .welcome-ad {
-    max-height: 200px;
+    max-height: 120px;
     overflow: hidden;
 }
+
+    .welcome-ad .wwads-horizontal {
+        margin-top: 10px;
+    }
 
 .welcome-body {
     font-size: 22px;
