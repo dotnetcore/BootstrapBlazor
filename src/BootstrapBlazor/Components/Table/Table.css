@@ -12,7 +12,7 @@
     --bb-table-footer-border-top: 2px solid #dee2e6;
     --bb-table-loader-bg: #f8f9fa;
     --bb-table-card-row-padding: .75rem 0;
-    --bb-table-columnlist-max-height: 780px;
+    --bb-table-columnlist-max-height: var(--bb-dropdown-max-height);
 }
 
     .table-container .table:not(.table-excel) .switch {
