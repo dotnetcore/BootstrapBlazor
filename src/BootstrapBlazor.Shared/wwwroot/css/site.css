@@ -688,6 +688,11 @@ section {
     line-height: 2;
 }
 
+.welcome-ad {
+    max-height: 200px;
+    overflow: hidden;
+}
+
 .welcome-body {
     font-size: 22px;
     margin-top: 1rem;
@@ -2027,15 +2032,6 @@ header .bb-fs {
     --bb-rate-height: 30px;
     --bb-rate-width: 30px;
     --bb-rate-active-color: var(--bs-primary);
-}
-
-.wwads-cn.wwads-horizontal {
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    z-index: 20;
-    border: 1px solid #c0c4cc;
 }
 
 @media (min-width: 992px) {

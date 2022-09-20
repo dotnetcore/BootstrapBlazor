@@ -329,12 +329,5 @@
         //        setInterval(attemptReload, 10000);
         //    }
         //}).observe(document.body, { childList: true, subtree: true });
-
-        // 消除 广告
-        var handler = window.setTimeout(function () {
-            window.clearTimeout(handler);
-
-            $('.wwads-cn').slideUp();
-        }, 5000);
     });
 })(jQuery);
