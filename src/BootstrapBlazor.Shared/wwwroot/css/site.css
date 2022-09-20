@@ -2029,6 +2029,15 @@ header .bb-fs {
     --bb-rate-active-color: var(--bs-primary);
 }
 
+.wwads-cn.wwads-horizontal {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 20;
+    border: 1px solid #c0c4cc;
+}
+
 @media (min-width: 992px) {
     .sidebar-content .scroll:hover > .menu {
         padding-right: .5rem;

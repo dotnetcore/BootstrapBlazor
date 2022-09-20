@@ -55,6 +55,10 @@
         <a class="dismiss"><i class="fa-solid fa-xmark"></i></a>
     </div>
 
+    <environment include="Staging,Production">
+    </environment>
+    <div class="wwads-cn wwads-horizontal" data-id="72">1234</div>
+
     <component type="typeof(ReconnectorOutlet)" param-AutoReconnect="true" render-mode="ServerPrerendered" />
     <component type="typeof(UpdateIntro)" render-mode="ServerPrerendered" />
 
@@ -64,5 +68,8 @@
     <script src="_content/BootstrapBlazor.Shared/lib/highlight/highlight.min.js" asp-append-version="true"></script>
     <script src="_content/BootstrapBlazor.Shared/js/common.js" asp-append-version="true"></script>
     <script src="_framework/blazor.server.js" asp-append-version="true"></script>
+    <environment include="Staging,Production">
+        <script type="text/javascript" charset="UTF-8" src="https://cdn.wwads.cn/js/makemoney.js" async></script>
+    </environment>
 </body>
 </html>
