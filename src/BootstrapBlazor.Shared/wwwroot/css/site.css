@@ -688,15 +688,6 @@ section {
     line-height: 2;
 }
 
-.welcome-ad {
-    max-height: 120px;
-    overflow: hidden;
-}
-
-    .welcome-ad .wwads-horizontal {
-        margin-top: 10px;
-    }
-
 .welcome-body {
     font-size: 22px;
     margin-top: 1rem;
