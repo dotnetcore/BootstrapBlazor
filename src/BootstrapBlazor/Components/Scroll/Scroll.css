@@ -24,10 +24,6 @@
             background-color: var(--bb-scorll-thumb-hover-bg);
         }
 
-    .scroll > * {
-        padding-right: var(--bb-scroll-width);
-    }
-
 @media (min-width: 992px) {
     .scroll {
         overflow: hidden;
@@ -36,8 +32,4 @@
         .scroll:hover {
             overflow-y: auto;
         }
-
-            .scroll:hover > * {
-                padding-right: 0;
-            }
 }
