@@ -23,4 +23,9 @@ public class RibbonTabItem : MenuItem
     /// 获得/设置 按钮标识
     /// </summary>
     public string? Command { get; set; }
+
+    /// <summary>
+    /// 获得/设置 动态组件实例
+    /// </summary>
+    public BootstrapDynamicComponent? Component { get; set; }
 }

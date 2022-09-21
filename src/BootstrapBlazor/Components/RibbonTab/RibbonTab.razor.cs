@@ -143,6 +143,8 @@ public partial class RibbonTab : IDisposable
         }
     }
 
+    private static RenderFragment? RenderTemplate(RibbonTabItem item) => item.Component?.Render() ?? item.Template;
+
     /// <summary>
     /// Dispose 方法
     /// </summary>
