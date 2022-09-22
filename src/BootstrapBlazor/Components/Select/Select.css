@@ -179,3 +179,8 @@
 .arrow-info {
     border-color: transparent transparent var(--bs-info);
 }
+
+.popover-body .dropdown-menu {
+    position: relative;
+    border: none;
+}

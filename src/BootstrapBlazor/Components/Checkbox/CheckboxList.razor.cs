@@ -166,10 +166,7 @@ public partial class CheckboxList<TValue>
         if (instance != null)
         {
             var mi = instance.GetType().GetMethod("AddRange");
-            if (mi != null)
-            {
-                mi.Invoke(instance, new object[] { Value });
-            }
+            mi?.Invoke(instance, new object[] { Value });
             list = instance as IEnumerable;
             if (list != null)
             {

@@ -1,6 +1,6 @@
 ﻿(function ($) {
     $.extend({
-        bb_select: function (el, obj, method) {
+        bb_select: function (el, obj, method, init) {
             var $el = $(el);
             var $search = $el.find('input.search-text');
 
@@ -84,6 +84,47 @@
             $el.on('click', '.dropdown-item.disabled', function (e) {
                 e.stopImmediatePropagation();
             });
+
+            var $input = $el.find('.dropdown-toggle');
+            var menu = ".dropdown-menu";
+            if (init === 'init') {
+                $input.popover({
+                    toggle: 'dropdown'
+                })
+                    .on('show.bs.popover', function () {
+                        var disabled = $(this).find('.form-select').is(":disabled");
+                        if (!disabled) {
+                            this.setAttribute('aria-expanded', 'true');
+                            this.classList.add('show');
+                        }
+                        return !disabled;
+                    })
+                    .on('inserted.bs.popover', function () {
+                        var pId = this.getAttribute('aria-describedby');
+                        if (pId) {
+                            var $pop = $('#' + pId);
+                            var $body = $pop.find('.popover-body');
+                            if ($body.length === 0) {
+                                $body = $('<div class="popover-body"></div>').appendTo($pop);
+                            }
+                            $body.addClass('show').append($el.find(menu));
+                        }
+                    })
+                    .on('hide.bs.popover', function () {
+                        var pId = this.getAttribute('aria-describedby');
+                        if (pId) {
+                            var $pop = $('#' + pId);
+                            var $picker = $pop.find(menu);
+                            $el.append($picker);
+
+                            this.setAttribute('aria-expanded', 'false');
+                            this.classList.remove('show');
+                        }
+                    });
+            }
+            else {
+                $input.popover(init);
+            }
         },
         bb_select_tree(el) {
             var $el = $(el);

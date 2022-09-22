@@ -2,10 +2,6 @@
     max-width: unset;
 }
 
-    .popover-datetime .popover-body {
-        padding: 0;
-    }
-
     .popover-datetime .date-picker {
         border: none;
     }
@@ -319,3 +315,8 @@
             color: #409eff;
             margin-right: .25rem;
         }
+
+.popover-p0 .popover-body {
+    --bs-popover-body-padding-x: 0;
+    --bs-popover-body-padding-y: 0;
+}

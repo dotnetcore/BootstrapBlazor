@@ -14,7 +14,7 @@
         @{
             ResetSelectedItem();
         }
-        <div class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+        <div class="dropdown-toggle" aria-expanded="false">
             @if (DisplayTemplate != null)
             {
                 <div id="@InputId" class="@InputClassName" tabindex="0">
@@ -27,7 +27,7 @@
                 <span class="@AppendClassName"><i class="@DropdownIcon"></i></span>
             }
         </div>
-        <div class="dropdown-menu shadow">
+        <div class="dropdown-menu">
             @if (ShowSearch)
             {
                 <div class="search">
@@ -56,7 +56,6 @@
                 }
             }
         </div>
-        <div class="dropdown-menu-arrow"></div>
     </RenderTemplate>
 </div>
 <CascadingValue Value="this" IsFixed="true">

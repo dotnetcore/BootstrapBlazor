@@ -145,11 +145,7 @@ public partial class Select<TValue> : ISelect
     {
         base.OnInitialized();
 
-        if (OnSearchTextChanged == null)
-        {
-            OnSearchTextChanged = text => Items.Where(i => i.Text.Contains(text, StringComparison));
-        }
-
+        OnSearchTextChanged ??= text => Items.Where(i => i.Text.Contains(text, StringComparison));
         Childs = new List<SelectedItem>();
     }
 
@@ -208,11 +204,8 @@ public partial class Select<TValue> : ISelect
 
         if (firstRender)
         {
-            if (Interop == null)
-            {
-                Interop = new JSInterop<Select<TValue>>(JSRuntime);
-            }
-            await Interop.InvokeVoidAsync(this, SelectElement, "bb_select", nameof(ConfirmSelectedItem));
+            Interop ??= new JSInterop<Select<TValue>>(JSRuntime);
+            await Interop.InvokeVoidAsync(this, SelectElement, "bb_select", nameof(ConfirmSelectedItem), "init");
 
             // 选项值不为 null 后者 string.Empty 时触发一次 OnSelectedItemChanged 回调
             if (SelectedItem != null && OnSelectedItemChanged != null && !string.IsNullOrEmpty(SelectedItem.Value))
@@ -271,6 +264,10 @@ public partial class Select<TValue> : ISelect
         }
         if (ret)
         {
+            if (Interop != null)
+            {
+                await Interop.InvokeVoidAsync(this, SelectElement, "bb_select", nameof(ConfirmSelectedItem), "hide");
+            }
             await ItemChanged(item);
         }
     }
@@ -302,4 +299,22 @@ public partial class Select<TValue> : ISelect
     /// </summary>
     /// <param name="item"></param>
     public void Add(SelectedItem item) => Childs.Add(item);
+
+    /// <summary>
+    /// DisposeAsyncCore 方法
+    /// </summary>
+    /// <param name="disposing"></param>
+    /// <returns></returns>
+    protected override async ValueTask DisposeAsyncCore(bool disposing)
+    {
+        await base.DisposeAsyncCore(disposing);
+
+        if (disposing)
+        {
+            if (Interop != null)
+            {
+                await Interop.InvokeVoidAsync(this, SelectElement, "bb_select", nameof(ConfirmSelectedItem), "dispose");
+            }
+        }
+    }
 }

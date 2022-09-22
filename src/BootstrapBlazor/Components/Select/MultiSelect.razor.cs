@@ -191,10 +191,7 @@ public partial class MultiSelect<TValue>
 
         ResetItems();
 
-        if (OnSearchTextChanged == null)
-        {
-            OnSearchTextChanged = text => Items.Where(i => i.Text.Contains(text, StringComparison.OrdinalIgnoreCase));
-        }
+        OnSearchTextChanged ??= text => Items.Where(i => i.Text.Contains(text, StringComparison.OrdinalIgnoreCase));
 
         if (Min > 0)
         {

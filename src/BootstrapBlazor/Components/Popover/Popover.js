@@ -153,10 +153,16 @@
                 $tip.addClass('has-header');
             }
             if (toggle === 'datetime-picker') {
-                $tip.addClass('popover-datetime');
+                $tip.addClass('popover-datetime popover-p0');
             }
-            if (toggle === 'datetime-range') {
-                $tip.addClass('popover-datetime-range');
+            else if (toggle === 'datetime-range') {
+                $tip.addClass('popover-datetime-range popover-p0');
+            }
+            else if (toggle === 'dropdown') {
+                $tip.addClass('popover-dropdown popover-p0');
+            }
+            else if (toggle === 'multi-select') {
+                $tip.addClass('popover-multi-select popover-p0');
             }
             return tip;
         }
@@ -215,6 +221,28 @@
                     if (pId) {
                         var $input = $('[aria-describedby="' + pId + '"]');
                         if ($el.parents('.datetime-range-bar').attr('aria-describedby') !== pId) $input.popover('hide');
+                    }
+                });
+            }
+
+            // select
+            if ($el.parents('.popover-dropdown.show').length === 0) {
+                $('.popover-dropdown.show').each(function (index, ele) {
+                    var pId = this.getAttribute('id');
+                    if (pId) {
+                        var $input = $('[aria-describedby="' + pId + '"]');
+                        if ($el.parents('.dropdown-toggle').attr('aria-describedby') !== pId) $input.popover('hide');
+                    }
+                });
+            }
+
+            // multi-select
+            if ($el.parents('.popover-multi-select.show').length === 0) {
+                $('.popover-multi-select.show').each(function (index, ele) {
+                    var pId = this.getAttribute('id');
+                    if (pId) {
+                        var $input = $('[aria-describedby="' + pId + '"]');
+                        if ($el.parents('.dropdown-toggle').attr('aria-describedby') !== pId) $input.popover('hide');
                     }
                 });
             }
