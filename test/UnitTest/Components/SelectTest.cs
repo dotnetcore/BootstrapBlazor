@@ -287,4 +287,21 @@ public class SelectTest : BootstrapBlazorTestBase
         });
         Assert.Contains("test-display-template-Test2", cut.Markup);
     }
+
+    [Fact]
+    public void IsPopover_Ok()
+    {
+        var cut = Context.RenderComponent<Select<string>>(pb =>
+        {
+            pb.Add(a => a.Items, new SelectedItem[]
+            {
+                new SelectedItem("1", "Test1"),
+                new SelectedItem("2", "Test2")
+            });
+            pb.Add(a => a.Value, "2");
+            pb.Add(a => a.IsPopover, true);
+        });
+        Assert.DoesNotContain("dropdown-menu-arrow", cut.Markup);
+        Assert.DoesNotContain("data-bs-toggle=\"dropdown\"", cut.Markup);
+    }
 }

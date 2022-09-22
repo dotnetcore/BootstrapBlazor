@@ -281,6 +281,14 @@
     </div>
 </DemoBlock>
 
+<DemoBlock Title="@Localizer["PopoverTitle"]" Introduction="@Localizer["PopoverIntro"]" Name="Popover">
+    <div class="row g-3">
+        <div class="col-12 col-sm-6 overflow-hidden">
+            <Select TValue="string" Items="Items" IsPopover="true" />
+        </div>
+    </div>
+</DemoBlock>
+
 <AttributeTable Items="@GetAttributes()" />
 
 <EventTable Items="@GetEvents()" />

@@ -1619,7 +1619,11 @@
     "ContentDefaultValue": "确定改变当前值吗？",
     "OnSelectedItemChanged": "下拉框选项改变时触发此事件",
     "OnBeforeSelectedItemChange": "下拉框选项改变前触发此事件",
-    "PlaceHolder": "未选择"
+    "PlaceHolder": "未选择",
+    "DisplayTemplateTitle": "显示模板",
+    "DisplayTemplateIntro": "自定义选项显示 <code>UI</code>",
+    "PopoverTitle": "悬浮弹窗",
+    "PopoverIntro": "通过设置 <code>IsPopover</code> 参数，组件使用 <code>popover</code> 渲染 <code>UI</code> 防止由于父容器设置 <code>overflow: hidden;</code> 使弹窗无法显示问题"
   },
   "BootstrapBlazor.Shared.Samples.Sliders": {
     "Title": "Slider 滑块",

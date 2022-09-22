@@ -17,6 +17,12 @@ public partial class Select<TValue> : ISelect
     private JSInterop<Select<TValue>>? Interop { get; set; }
 
     /// <summary>
+    /// 获得/设置 是否使用 Popover 渲染下拉框 默认 false
+    /// </summary>
+    [Parameter]
+    public bool IsPopover { get; set; }
+
+    /// <summary>
     /// 
     /// </summary>
     [Inject]
@@ -48,6 +54,10 @@ public partial class Select<TValue> : ISelect
         .AddClass($"text-success", IsValid.HasValue && IsValid.Value)
         .AddClass($"text-danger", IsValid.HasValue && !IsValid.Value)
         .Build();
+
+    private string? ToggleClassString => IsPopover ? null : "dropdown";
+
+    private string? DropdownMenuClassString => IsPopover ? "dropdown-menu" : "dropdown-menu shadow";
 
     /// <summary>
     /// 设置当前项是否 Active 方法

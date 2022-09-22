@@ -1617,7 +1617,11 @@
     "ContentDefaultValue": "Are you sure you want to change the current value?",
     "OnSelectedItemChanged": "This event is triggered when the drop-down option changes",
     "OnBeforeSelectedItemChange": "This event is triggered before the drop-down option changes",
-    "PlaceHolder": "Not selected"
+    "PlaceHolder": "Not selected",
+    "DisplayTemplateTitle": "Display Template",
+    "DisplayTemplateIntro": "Custom <code>UI</code> of display template",
+    "PopoverTitle": "Popover dropdown menu",
+    "PopoverIntro": "Set <code>IsPopover</code> to <b>true<b>, use <code>popover</code> render UI prevent The dropdown menu cannot be fully displayed because the parent container is set to <code>overflow: hidden</code>"
   },
   "BootstrapBlazor.Shared.Samples.Sliders": {
     "Title": "Slider",

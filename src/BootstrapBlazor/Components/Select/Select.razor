@@ -14,7 +14,7 @@
         @{
             ResetSelectedItem();
         }
-        <div class="dropdown-toggle" aria-expanded="false">
+        <div class="dropdown-toggle" data-bs-toggle="@ToggleClassString" aria-expanded="false">
             @if (DisplayTemplate != null)
             {
                 <div id="@InputId" class="@InputClassName" tabindex="0">
@@ -27,7 +27,7 @@
                 <span class="@AppendClassName"><i class="@DropdownIcon"></i></span>
             }
         </div>
-        <div class="dropdown-menu">
+        <div class="@DropdownMenuClassString">
             @if (ShowSearch)
             {
                 <div class="search">
@@ -56,6 +56,10 @@
                 }
             }
         </div>
+        @if (!IsPopover)
+        {
+            <div class="dropdown-menu-arrow"></div>
+        }
     </RenderTemplate>
 </div>
 <CascadingValue Value="this" IsFixed="true">

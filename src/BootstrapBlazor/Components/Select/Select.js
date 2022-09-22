@@ -87,40 +87,42 @@
                     e.stopImmediatePropagation();
                 });
 
-                var menu = ".dropdown-menu";
-                $input.popover({
-                    toggle: 'dropdown'
-                })
-                    .on('show.bs.popover', function () {
-                        var disabled = $(this).find('.form-select').is(":disabled");
-                        if (!disabled) {
-                            this.setAttribute('aria-expanded', 'true');
-                            this.classList.add('show');
-                        }
-                        return !disabled;
+                if (!$input.attr('data-bs-toggle')) {
+                    var menu = ".dropdown-menu";
+                    $input.popover({
+                        toggle: 'dropdown'
                     })
-                    .on('inserted.bs.popover', function () {
-                        var pId = this.getAttribute('aria-describedby');
-                        if (pId) {
-                            var $pop = $('#' + pId);
-                            var $body = $pop.find('.popover-body');
-                            if ($body.length === 0) {
-                                $body = $('<div class="popover-body"></div>').appendTo($pop);
+                        .on('show.bs.popover', function () {
+                            var disabled = $(this).find('.form-select').is(":disabled");
+                            if (!disabled) {
+                                this.setAttribute('aria-expanded', 'true');
+                                this.classList.add('show');
                             }
-                            $body.addClass('show').append($el.find(menu));
-                        }
-                    })
-                    .on('hide.bs.popover', function () {
-                        var pId = this.getAttribute('aria-describedby');
-                        if (pId) {
-                            var $pop = $('#' + pId);
-                            var $picker = $pop.find(menu);
-                            $el.append($picker);
+                            return !disabled;
+                        })
+                        .on('inserted.bs.popover', function () {
+                            var pId = this.getAttribute('aria-describedby');
+                            if (pId) {
+                                var $pop = $('#' + pId);
+                                var $body = $pop.find('.popover-body');
+                                if ($body.length === 0) {
+                                    $body = $('<div class="popover-body"></div>').appendTo($pop);
+                                }
+                                $body.addClass('show').append($el.find(menu));
+                            }
+                        })
+                        .on('hide.bs.popover', function () {
+                            var pId = this.getAttribute('aria-describedby');
+                            if (pId) {
+                                var $pop = $('#' + pId);
+                                var $picker = $pop.find(menu);
+                                $el.append($picker);
 
-                            this.setAttribute('aria-expanded', 'false');
-                            this.classList.remove('show');
-                        }
-                    });
+                                this.setAttribute('aria-expanded', 'false');
+                                this.classList.remove('show');
+                            }
+                        });
+                }
             }
             else {
                 $input.popover(init);
