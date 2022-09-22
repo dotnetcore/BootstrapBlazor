@@ -16,13 +16,10 @@ public partial class MultiSelect<TValue>
 
     private IEnumerable<SelectedItem> SelectedItems => Items.Where(i => i.Active);
 
-    private bool IsShow { get; set; }
-
-    private string? ClassString => CssBuilder.Default("multi-select")
-        .AddClass("show", IsShow)
+    private static string? ClassString => CssBuilder.Default("select dropdown multi-select")
         .Build();
 
-    private string? ToggleClassString => CssBuilder.Default("dropdown-menu-toggle")
+    private string? ToggleClassString => CssBuilder.Default("dropdown-toggle")
         .AddClass($"border-{Color.ToDescriptionString()}", Color != Color.None && !IsDisabled)
         .AddClass("disabled", IsDisabled)
         .AddClass("selected", SelectedItems.Any())
@@ -36,8 +33,6 @@ public partial class MultiSelect<TValue>
     private string? PlaceHolderClassString => CssBuilder.Default("multi-select-ph")
         .AddClass("d-none", SelectedItems.Any())
         .Build();
-
-    private JSInterop<MultiSelect<TValue>>? Interop { get; set; }
 
     /// <summary>
     /// 获得/设置 组件 PlaceHolder 文字 默认为 点击进行多选 ...
@@ -239,27 +234,7 @@ public partial class MultiSelect<TValue>
 
         if (firstRender)
         {
-            Interop = new JSInterop<MultiSelect<TValue>>(JSRuntime);
-            await Interop.InvokeVoidAsync(this, SelectElement, "bb_multi_select", nameof(Close));
-        }
-    }
-
-    /// <summary>
-    /// 客户端关闭下拉框方法
-    /// </summary>
-    [JSInvokable]
-    public void Close()
-    {
-        SearchText = "";
-        IsShow = false;
-        StateHasChanged();
-    }
-
-    private void ToggleMenu()
-    {
-        if (!IsDisabled)
-        {
-            IsShow = !IsShow;
+            await JSRuntime.InvokeVoidAsync(SelectElement, "bb_multi_select", "init");
         }
     }
 
@@ -445,10 +420,9 @@ public partial class MultiSelect<TValue>
 
         if (disposing)
         {
-            if (Interop != null)
+            if (JSRuntime != null)
             {
-                Interop.Dispose();
-                Interop = null;
+                await JSRuntime.InvokeVoidAsync(SelectElement, "bb_multi_select", "dispose");
             }
         }
     }

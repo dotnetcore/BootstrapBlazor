@@ -7,7 +7,7 @@
     <BootstrapLabel required="@Required" for="@Id" ShowLabelTooltip="ShowLabelTooltip" Value="@DisplayText" />
 }
 <div @attributes="@AdditionalAttributes" class="@ClassString" @ref="SelectElement">
-    <div class="@ToggleClassString" tabindex="0" hidefocus="true" outline="0" id="@Id" @onclick="@ToggleMenu">
+    <div class="@ToggleClassString" tabindex="0" id="@Id" aria-expanded="false">
         <div class="@PlaceHolderClassString">@PlaceHolder</div>
         <div class="multi-select-items">
             @foreach (var item in SelectedItems)
@@ -28,7 +28,7 @@
             }
         </div>
     </div>
-    <div class="dropdown-menu shadow">
+    <div class="dropdown-menu">
         @if (ShowSearch)
         {
             <div class="search">
@@ -70,5 +70,4 @@
             }
         }
     </div>
-    <div class="dropdown-menu-arrow"></div>
 </div>
