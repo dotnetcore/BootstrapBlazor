@@ -16,15 +16,6 @@ public partial class Select<TValue> : ISelect
 
     private JSInterop<Select<TValue>>? Interop { get; set; }
 
-    /// <summary>
-    /// 获得/设置 是否使用 Popover 渲染下拉框 默认 false
-    /// </summary>
-    [Parameter]
-    public bool IsPopover { get; set; }
-
-    /// <summary>
-    /// 
-    /// </summary>
     [Inject]
     [NotNull]
     private SwalService? SwalService { get; set; }
@@ -54,10 +45,6 @@ public partial class Select<TValue> : ISelect
         .AddClass($"text-success", IsValid.HasValue && IsValid.Value)
         .AddClass($"text-danger", IsValid.HasValue && !IsValid.Value)
         .Build();
-
-    private string? ToggleClassString => IsPopover ? null : "dropdown";
-
-    private string? DropdownMenuClassString => IsPopover ? "dropdown-menu" : "dropdown-menu shadow";
 
     /// <summary>
     /// 设置当前项是否 Active 方法
@@ -90,12 +77,6 @@ public partial class Select<TValue> : ISelect
     public Func<string, IEnumerable<SelectedItem>>? OnSearchTextChanged { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否显示搜索框 默认为 false 不显示
-    /// </summary>
-    [Parameter]
-    public bool ShowSearch { get; set; }
-
-    /// <summary>
     /// 获得/设置 选中候选项后是否自动清空搜索框内容 默认 false 不清空
     /// </summary>
     [Parameter]
@@ -112,12 +93,6 @@ public partial class Select<TValue> : ISelect
     /// </summary>
     [Parameter]
     public RenderFragment? Options { get; set; }
-
-    /// <summary>
-    /// 获得/设置 字符串比较规则 默认 StringComparison.OrdinalIgnoreCase 大小写不敏感 
-    /// </summary>
-    [Parameter]
-    public StringComparison StringComparison { get; set; } = StringComparison.OrdinalIgnoreCase;
 
     /// <summary>
     /// 获得/设置 显示部分模板 默认 null
@@ -142,11 +117,6 @@ public partial class Select<TValue> : ISelect
     /// 获得/设置 Select 内部 Input 组件 Id
     /// </summary>
     private string? InputId => $"{Id}_input";
-
-    /// <summary>
-    /// 获得/设置 搜索文字
-    /// </summary>
-    private string SearchText { get; set; } = "";
 
     /// <summary>
     /// OnInitialized 方法
@@ -237,14 +207,14 @@ public partial class Select<TValue> : ISelect
             ? DataSource
             : OnSearchTextChanged.Invoke(SearchText);
         var item = ds.ElementAt(index);
-        await OnItemClick(item);
+        await OnClickItem(item);
         StateHasChanged();
     }
 
     /// <summary>
     /// 下拉框选项点击时调用此方法
     /// </summary>
-    private async Task OnItemClick(SelectedItem item)
+    private async Task OnClickItem(SelectedItem item)
     {
         var ret = true;
         if (OnBeforeSelectedItemChange != null)
@@ -274,7 +244,7 @@ public partial class Select<TValue> : ISelect
         }
         if (ret)
         {
-            if (Interop != null)
+            if (Interop != null && IsPopover)
             {
                 await Interop.InvokeVoidAsync(this, SelectElement, "bb_select", nameof(ConfirmSelectedItem), "hide");
             }

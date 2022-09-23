@@ -5,22 +5,22 @@
     --bb-select-padding: 6px 2.25rem 6px 0.75rem;
 }
 
+    .select .dropdown-toggle::after {
+        content: none;
+    }
+
+    .select .dropdown-menu {
+        overflow-x: hidden;
+        width: 100%;
+    }
+
 :where(.cascade, .select) {
     --bb-select-dropdown-menu-margin-top: 8px;
 }
 
-.select .dropdown-toggle::after {
-    content: none;
-}
-
-.select .dropdown-menu {
-    overflow-x: hidden;
-    width: 100%;
-}
-
-:where(.cascade, .select) .dropdown-menu {
-    margin-top: var(--bb-select-dropdown-menu-margin-top) !important;
-}
+    :where(.cascade, .select) .dropdown-menu {
+        margin-top: var(--bb-select-dropdown-menu-margin-top) !important;
+    }
 
 .select .form-select {
     background-image: none;
@@ -38,7 +38,7 @@
 .dropdown-menu {
     --bs-dropdown-border-radius: var(--bs-border-radius);
     overflow: auto;
-    max-height: var(--bb-select-dropdown-max-height);
+    max-height: var(--bb-dropdown-max-height);
 }
 
 .dropdown-item {
@@ -156,31 +156,22 @@
     border-color: transparent transparent var(--bs-info);
 }
 
-:where(.select, .popover-body) .dropdown-menu {
-    --bb-select-dropdown-max-height: var(--bb-dropdown-max-height);
+.dropdown-menu .search {
+    padding: 7px 10px;
+    position: relative;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 0.625rem;
+    margin-bottom: 0.5rem;
 }
 
-    :where(.select, .popover-body) .dropdown-menu .search {
-        padding: 7px 10px;
-        position: relative;
-        border-bottom: 1px solid #ddd;
-        padding-bottom: 0.625rem;
-        margin-bottom: 0.5rem;
+    .dropdown-menu .search .search-text {
+        width: 100%;
+        padding-right: 30px;
     }
 
-        :where(.select, .popover-body) .dropdown-menu .search .search-text {
-            width: 100%;
-            padding-right: 30px;
-        }
-
-        :where(.select, .popover-body) .dropdown-menu .search .fa-magnifying-glass {
-            position: absolute;
-            left: calc(100% - 34px);
-            top: 18px;
-            color: #adb5bd;
-        }
-
-.popover-body .dropdown-menu {
-    position: relative;
-    border: none;
-}
+    .dropdown-menu .search .fa-magnifying-glass {
+        position: absolute;
+        left: calc(100% - 34px);
+        top: 18px;
+        color: #adb5bd;
+    }

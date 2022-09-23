@@ -234,7 +234,7 @@ public class MultiSelectTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void ToggleMenu_Ok()
+    public void IsPopover_Ok()
     {
         var cut = Context.RenderComponent<MultiSelect<string>>(pb =>
         {
@@ -244,12 +244,13 @@ public class MultiSelectTest : BootstrapBlazorTestBase
                 new("2", "Test2")
             });
         });
-        cut.Find(".dropdown-menu-toggle").Click();
-        Assert.Contains("show", cut.Markup);
+        Assert.Contains("data-bs-toggle", cut.Markup);
 
-        // 代码覆盖率 Close
-        //cut.InvokeAsync(() => cut.Instance.Close());
-        //Assert.DoesNotContain("show", cut.Markup);
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.IsPopover, true);
+        });
+        cut.DoesNotContain("data-bs-toggle");
     }
 
     [Fact]

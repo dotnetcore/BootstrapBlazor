@@ -64,9 +64,7 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
             builder.Add(a => a.Value, new DateTimeRangeValue { Start = DateTime.Now, End = DateTime.Now.AddDays(30) });
             builder.Add(a => a.Placement, Placement.Top);
         });
-        var placement = cut.FindAll("div").Select(s => s.GetAttribute("data-bs-placement")).FirstOrDefault();
-
-        Assert.Equal("top", placement);
+        cut.Contains($"data-bs-placement=\"{Placement.Top.ToDescriptionString()}\"");
     }
 
     [Fact]

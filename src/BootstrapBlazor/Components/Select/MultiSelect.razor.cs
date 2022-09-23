@@ -22,7 +22,6 @@ public partial class MultiSelect<TValue>
     private string? ToggleClassString => CssBuilder.Default("dropdown-toggle")
         .AddClass($"border-{Color.ToDescriptionString()}", Color != Color.None && !IsDisabled)
         .AddClass("disabled", IsDisabled)
-        .AddClass("selected", SelectedItems.Any())
         .AddClass(CssClass).AddClass(ValidCss)
         .Build();
 
@@ -40,12 +39,6 @@ public partial class MultiSelect<TValue>
     [Parameter]
     [NotNull]
     public string? PlaceHolder { get; set; }
-
-    /// <summary>
-    /// 获得/设置 是否显示搜索框 默认为 false 不显示
-    /// </summary>
-    [Parameter]
-    public bool ShowSearch { get; set; }
 
     /// <summary>
     /// 获得/设置 是否显示关闭按钮 默认为 true 显示
@@ -70,25 +63,6 @@ public partial class MultiSelect<TValue>
     /// </summary>
     [Parameter]
     public RenderFragment? ButtonTemplate { get; set; }
-
-    /// <summary>
-    /// 获得/设置 按钮颜色
-    /// </summary>
-    [Parameter]
-    public Color Color { get; set; } = Color.None;
-
-    /// <summary>
-    /// 获得/设置 绑定数据集
-    /// </summary>
-    [Parameter]
-    [NotNull]
-    public IEnumerable<SelectedItem>? Items { get; set; }
-
-    /// <summary>
-    /// 获得/设置 选项模板
-    /// </summary>
-    [Parameter]
-    public RenderFragment<SelectedItem>? ItemTemplate { get; set; }
 
     /// <summary>
     /// 获得/设置 搜索文本发生变化时回调此方法
@@ -148,13 +122,6 @@ public partial class MultiSelect<TValue>
     [Parameter]
     [NotNull]
     public string? MinErrorMessage { get; set; }
-
-    /// <summary>
-    /// 获得/设置 设置搜索图标 默认 fa-solid fa-magnifying-glass
-    /// </summary>
-    [Parameter]
-    [NotNull]
-    public string? SearchIcon { get; set; }
 
     /// <summary>
     /// 获得/设置 设置清除图标 默认 fa-solid fa-xmark
@@ -359,8 +326,6 @@ public partial class MultiSelect<TValue>
         return !ret;
     }
 
-    private string SearchText { get; set; } = "";
-
     private IEnumerable<SelectedItem> GetData()
     {
         var data = Items;
@@ -420,10 +385,7 @@ public partial class MultiSelect<TValue>
 
         if (disposing)
         {
-            if (JSRuntime != null)
-            {
-                await JSRuntime.InvokeVoidAsync(SelectElement, "bb_multi_select", "dispose");
-            }
+            await JSRuntime.InvokeVoidAsync(SelectElement, "bb_multi_select", "dispose");
         }
     }
 }

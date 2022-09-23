@@ -1,13 +1,13 @@
 ﻿@namespace BootstrapBlazor.Components
 @typeparam TValue
-@inherits ValidateBase<TValue>
+@inherits SelectBase<TValue>
 
 @if (IsShowLabel)
 {
     <BootstrapLabel required="@Required" for="@Id" ShowLabelTooltip="ShowLabelTooltip" Value="@DisplayText" />
 }
 <div @attributes="@AdditionalAttributes" class="@ClassString" @ref="SelectElement">
-    <div class="@ToggleClassString" tabindex="0" id="@Id" aria-expanded="false">
+    <div class="@ToggleClassString" data-bs-toggle="@ToggleString" data-bs-placement="@PlacementString" data-bs-auto-close="outside" tabindex="0" id="@Id" aria-expanded="false">
         <div class="@PlaceHolderClassString">@PlaceHolder</div>
         <div class="multi-select-items">
             @foreach (var item in SelectedItems)
@@ -57,17 +57,23 @@
             @foreach (var item in itemGroup)
             {
                 <DynamicElement OnClick="() => ToggleRow(item, true)" TriggerClick="@CheckCanTrigger(item)" class="@GetItemClassString(item)">
-                    <Checkbox Value="GetCheckedState(item)" ShowLabel="false" IsDisabled="@CheckCanSelect(item)"></Checkbox>
-                    @if (ItemTemplate == null)
-                    {
-                        <span>@item.Text</span>
-                    }
-                    else
-                    {
-                        @ItemTemplate(item)
-                    }
+                    <div class="multi-select-item">
+                        <Checkbox Value="GetCheckedState(item)" ShowLabel="false" IsDisabled="@CheckCanSelect(item)"></Checkbox>
+                        @if (ItemTemplate == null)
+                        {
+                            <span>@item.Text</span>
+                        }
+                        else
+                        {
+                            @ItemTemplate(item)
+                        }
+                    </div>
                 </DynamicElement>
             }
         }
     </div>
+    @if (!IsPopover)
+    {
+        <div class="dropdown-menu-arrow"></div>
+    }
 </div>

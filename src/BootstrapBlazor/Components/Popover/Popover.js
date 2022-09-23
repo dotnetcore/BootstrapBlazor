@@ -44,128 +44,58 @@
             }
         },
         bb_datetimePicker: function (el, method) {
-            var $el = $(el);
-            var placement = $el.attr('data-bs-placement') || 'auto';
-            var $input = $el.find('.datetime-picker-input');
-            if (!method) {
-                $input.popover({
-                    toggle: 'datetime-picker',
-                    placement: placement
-                })
-                    .on('show.bs.popover', function () {
-                        var disabled = $(this).parent().hasClass('disabled');
-                        return !disabled;
-                    })
-                    .on('inserted.bs.popover', function () {
-                        var pId = this.getAttribute('aria-describedby');
-                        if (pId) {
-                            var $pop = $('#' + pId);
-                            var $body = $pop.find('.popover-body');
-                            if ($body.length === 0) {
-                                $body = $('<div class="popover-body"></div>').appendTo($pop);
-                            }
-                            $body.append($el.find('.date-picker').removeClass('d-none'));
-                        }
-                    })
-                    .on('hide.bs.popover', function () {
-                        var pId = this.getAttribute('aria-describedby');
-                        if (pId) {
-                            var $pop = $('#' + pId);
-                            var $picker = $pop.find('.date-picker');
-                            $el.append($picker.addClass('d-none'));
-                        }
-                    });
+            var input = el.querySelector('.datetime-picker-input');
+            var p = bb.Popover.getOrCreateInstance(input, {
+                bodyElement: el.querySelector('.date-picker')
+            });
 
-                $el.find('.datetime-picker-input-icon').on('click', function (e) {
-                    // handler disabled event
-                    if ($(this).hasClass('disabled')) return;
-
-                    e.stopImmediatePropagation();
-                    var $input = $(this).parents('.datetime-picker-bar').find('.datetime-picker-input');
-                    $input.trigger('click');
-                });
-
-                $el.find('.date-table .cell').on('click', function (e) {
-                    if ($(e.target).parent().parent().hasClass('disabled')) {
-                        e.preventDefault();
-                        e.stopImmediatePropagation();
-                    }
-                });
+            if (method) {
+                p.invoke(method);
             }
-            else $input.popover(method);
         },
         bb_datetimeRange: function (el, method) {
-            var $el = $(el);
-            var placement = $el.attr('data-bs-placement') || 'auto';
-            var $input = $el.find('.datetime-range-bar');
-            if (!method) {
-                $input.popover({
-                    toggle: 'datetime-range',
-                    placement: placement
-                })
-                    .on('show.bs.popover', function () {
-                        var disabled = $(this).parent().hasClass('disabled');
-                        return !disabled;
-                    })
-                    .on('inserted.bs.popover', function () {
-                        var pId = this.getAttribute('aria-describedby');
-                        if (pId) {
-                            var $pop = $('#' + pId);
-                            var $body = $pop.find('.popover-body');
-                            if ($body.length === 0) {
-                                $body = $('<div class="popover-body"></div>').appendTo($pop);
-                            }
-                            $body.append($el.find('.datetime-range-body').removeClass('d-none'));
-                        }
-                    })
-                    .on('hide.bs.popover', function () {
-                        var pId = this.getAttribute('aria-describedby');
-                        if (pId) {
-                            var $pop = $('#' + pId);
-                            var $picker = $pop.find('.datetime-range-body');
-                            $el.append($picker.addClass('d-none'));
-                        }
-                    });
+            var input = el.querySelector('.datetime-range-control');
+            var p = bb.Popover.getOrCreateInstance(input, {
+                bodyElement: el.querySelector('.datetime-range-body')
+            });
 
-                $el.find('.is-clear').on('click', function () {
-                    $input.popover('hide');
-                });
+            if (method) {
+                p.invoke(method);
             }
-            else $input.popover(method);
         }
     });
 
     $(function () {
         // popover confirm
-        $.fn.popover.Constructor.prototype._isWithContent = function () {
-            var components = ['', 'confirm', 'datetime-picker', 'datetime-range'];
-            var toggle = this._config.toggle;
-            return components.indexOf(toggle) || this.getTitle() || this._getContent();
-        }
+        // $.fn.popover.Constructor.prototype._isWithContent = function () {
+        //     var components = ['', 'confirm', 'datetime-picker', 'datetime-range'];
+        //     var toggle = this._config.toggle;
+        //     return components.indexOf(toggle) || this.getTitle() || this._getContent();
+        // }
 
         // add shadow
-        var getTipElement = $.fn.popover.Constructor.prototype._getTipElement;
-        $.fn.popover.Constructor.prototype._getTipElement = function () {
-            var toggle = this._config.toggle;
-            var tip = getTipElement.call(this);
-            var $tip = $(tip).addClass('shadow');
-            if ($tip.find('.popover-header').length > 0) {
-                $tip.addClass('has-header');
-            }
-            if (toggle === 'datetime-picker') {
-                $tip.addClass('popover-datetime popover-p0');
-            }
-            else if (toggle === 'datetime-range') {
-                $tip.addClass('popover-datetime-range popover-p0');
-            }
-            else if (toggle === 'dropdown') {
-                $tip.addClass('popover-dropdown popover-p0');
-            }
-            else if (toggle === 'multi-select') {
-                $tip.addClass('popover-multi-select popover-p0');
-            }
-            return tip;
-        }
+        // var getTipElement = $.fn.popover.Constructor.prototype._getTipElement;
+        // $.fn.popover.Constructor.prototype._getTipElement = function () {
+        //     var toggle = this._config.toggle;
+        //     var tip = getTipElement.call(this);
+        //     var $tip = $(tip).addClass('shadow');
+        //     if ($tip.find('.popover-header').length > 0) {
+        //         $tip.addClass('has-header');
+        //     }
+        //     if (toggle === 'datetime-picker') {
+        //         $tip.addClass('popover-datetime popover-p0');
+        //     }
+        //     else if (toggle === 'datetime-range') {
+        //         $tip.addClass('popover-datetime-range popover-p0');
+        //     }
+        //     else if (toggle === 'dropdown') {
+        //         $tip.addClass('popover-dropdown popover-p0');
+        //     }
+        //     else if (toggle === 'multi-select') {
+        //         $tip.addClass('popover-multi-select popover-p0');
+        //     }
+        //     return tip;
+        // }
 
         var findConfirmButton = function ($el) {
             var button = null;
@@ -199,39 +129,6 @@
                     if ($target[0] !== ele) {
                         var $ele = $(ele);
                         disposePopup($ele);
-                    }
-                });
-            }
-
-            // datetime picker
-            if ($el.parents('.popover-datetime.show').length === 0) {
-                $('.popover-datetime.show').each(function (index, ele) {
-                    var pId = this.getAttribute('id');
-                    if (pId) {
-                        var $input = $('[aria-describedby="' + pId + '"]');
-                        if ($el.attr('aria-describedby') !== pId) $input.popover('hide');
-                    }
-                });
-            }
-
-            // datetime range
-            if ($el.parents('.popover-datetime-range.show').length === 0) {
-                $('.popover-datetime-range.show').each(function (index, ele) {
-                    var pId = this.getAttribute('id');
-                    if (pId) {
-                        var $input = $('[aria-describedby="' + pId + '"]');
-                        if ($el.parents('.datetime-range-bar').attr('aria-describedby') !== pId) $input.popover('hide');
-                    }
-                });
-            }
-
-            // select
-            if ($el.parents('.popover-dropdown.show').length === 0) {
-                $('.popover-dropdown.show').each(function (index, ele) {
-                    var pId = this.getAttribute('id');
-                    if (pId) {
-                        var $input = $('[aria-describedby="' + pId + '"]');
-                        if ($el.parents('.dropdown-toggle').attr('aria-describedby') !== pId) $input.popover('hide');
                     }
                 });
             }

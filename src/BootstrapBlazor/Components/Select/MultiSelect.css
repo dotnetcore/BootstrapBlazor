@@ -87,59 +87,40 @@
     }
 
 .popover-multi-select .dropdown-menu {
-    --bb-multi-select-toolbar-padding: 6px 10px;
-    --bb-multi-select-toolbar-button-padding: 3px 10px;
-    --bb-multi-select-search-color: #ddd;
-    --bb-multi-select-dropdown-max-height: var(--bb-dropdown-max-height);
-    --bs-dropdown-item-padding-y: 0;
-    --bs-dropdown-item-padding-x: 10px;
     max-height: var(--bb-multi-select-dropdown-max-height);
 }
 
-    .popover-multi-select .dropdown-menu .toolbar {
-        padding: var(--bb-multi-select-toolbar-padding);
-        white-space: nowrap;
+:where(.multi-select, .popover-multi-select) {
+    --bb-multi-select-toolbar-padding: 6px 10px;
+    --bb-multi-select-toolbar-button-padding: 3px 10px;
+    --bb-multi-select-dropdown-max-height: var(--bb-dropdown-max-height);
+}
+
+.dropdown-menu .toolbar {
+    padding: var(--bb-multi-select-toolbar-padding);
+    white-space: nowrap;
+}
+
+    .dropdown-menu .toolbar .btn {
+        padding: var(--bb-multi-select-toolbar-button-padding);
+        border: 1px solid var(--bs-border-color);
+        transition: border-color .3s linear, color .3s linear;
     }
 
-        .popover-multi-select .dropdown-menu .toolbar .btn {
-            padding: var(--bb-multi-select-toolbar-button-padding);
-            border: 1px solid var(--bs-border-color);
-            transition: border-color .3s linear, color .3s linear;
+        .dropdown-menu .toolbar .btn:hover {
+            border: 1px solid var(--bb-border-hover-color);
+            color: var(--bs-primary);
         }
 
-            .popover-multi-select .dropdown-menu .toolbar .btn:hover {
-                border: 1px solid var(--bb-border-hover-color);
-                color: var(--bs-primary);
-            }
-
-            .popover-multi-select .dropdown-menu .toolbar .btn:not(:last-child) {
-                margin-right: .5rem;
-            }
-
-    .popover-multi-select .dropdown-menu .search {
-        padding: var(--bb-multi-select-toolbar-padding);
-        position: relative;
-    }
-
-        .popover-multi-select .dropdown-menu .search > input {
-            width: 100%;
-            padding-right: 30px;
+        .dropdown-menu .toolbar .btn:not(:last-child) {
+            margin-right: .5rem;
         }
 
-        .popover-multi-select .dropdown-menu .search > i {
-            position: absolute;
-            left: calc(100% - 34px);
-            top: 18px;
-            color: var(--bb-multi-select-search-color);
-        }
-
-.popover-multi-select .dropdown-item {
+.dropdown-item .multi-select-item {
     display: flex;
     align-items: center;
 }
 
-    .popover-multi-select .dropdown-item > span {
-        padding: 0.375rem 0.75rem;
-        overflow: hidden;
-        text-overflow: ellipsis;
+    .dropdown-item .multi-select-item > span {
+        margin-left: 0.75rem;
     }

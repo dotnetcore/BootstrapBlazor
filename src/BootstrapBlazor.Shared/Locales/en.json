@@ -1479,7 +1479,9 @@
     "Event1": "This event is triggered when the drop-down option changes",
     "Event2": "Call back this method when the search text changes",
     "Log1": "Search for text",
-    "Log2": "Select the collection of items"
+    "Log2": "Select the collection of items",
+    "PopoverTitle": "Popover dropdown menu",
+    "PopoverIntro": "Set <code>IsPopover</code> to <b>true<b>, use <code>popover</code> render UI prevent The dropdown menu cannot be fully displayed because the parent container is set to <code>overflow: hidden</code>"
   },
   "BootstrapBlazor.Shared.Samples.Radios": {
     "Title": "Radio",

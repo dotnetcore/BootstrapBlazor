@@ -5,8 +5,8 @@
 {
     <BootstrapLabel required="@Required" ShowLabelTooltip="ShowLabelTooltip" Value="@DisplayText" />
 }
-<div @attributes="@AdditionalAttributes" id="@Id" tabindex="0" class="@ClassString" @ref="PickerRange" data-bs-placement="@PlacementString">
-    <div class="datetime-range-bar">
+<div @attributes="@AdditionalAttributes" id="@Id" tabindex="0" class="@ClassString" @ref="PickerRange">
+    <div class="datetime-range-control" data-bs-placement="@PlacementString">
         <div class="position-relative">
             <i class="@DateTimePickerIconClassString"></i>
             <input readonly="readonly" class="datetime-range-input" value="@StartValueString" placeholder="@StartPlaceHolderText" disabled="@Disabled" />

@@ -21,12 +21,12 @@
     display: block;
 }
 
-.datetime-range-bar {
+.datetime-range-control {
     display: inline-flex;
     align-items: center;
 }
 
-    .datetime-range-bar .datetime-range-input {
+    .datetime-range-control .datetime-range-input {
         border: none;
         display: inline-block;
         text-align: center;
@@ -35,7 +35,7 @@
         padding: 0;
     }
 
-    .datetime-range-bar .range-separator {
+    .datetime-range-control .range-separator {
         padding: 0 5px;
     }
 

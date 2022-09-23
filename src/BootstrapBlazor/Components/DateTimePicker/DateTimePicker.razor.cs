@@ -38,10 +38,7 @@ public sealed partial class DateTimePicker<TValue>
     /// 获得 组件弹窗位置
     /// </summary>
     private string? PlacementString => CssBuilder.Default()
-        .AddClass("top", Placement == Placement.Top)
-        .AddClass("bottom", Placement == Placement.Bottom)
-        .AddClass("left", Placement == Placement.Left)
-        .AddClass("right", Placement == Placement.Right)
+        .AddClass(Placement.ToDescriptionString(), Placement != Placement.Auto)
         .Build();
 
     /// <summary>
@@ -241,6 +238,7 @@ public sealed partial class DateTimePicker<TValue>
     {
         CurrentValue = default;
         await JSRuntime.InvokeVoidAsync(Picker, "bb_datetimePicker", "hide");
+
         if (OnDateTimeChanged != null)
         {
             await OnDateTimeChanged(Value);
@@ -254,9 +252,25 @@ public sealed partial class DateTimePicker<TValue>
     private async Task OnConfirm()
     {
         await JSRuntime.InvokeVoidAsync(Picker, "bb_datetimePicker", "hide");
+
         if (OnDateTimeChanged != null)
         {
             await OnDateTimeChanged(Value);
+        }
+    }
+
+    /// <summary>
+    /// DisposeAsyncCore 方法
+    /// </summary>
+    /// <param name="disposing"></param>
+    /// <returns></returns>
+    protected override async ValueTask DisposeAsyncCore(bool disposing)
+    {
+        await base.DisposeAsyncCore(disposing);
+
+        if (disposing)
+        {
+            await JSRuntime.InvokeVoidAsync(Picker, "bb_datetimePicker", "hide");
         }
     }
 }

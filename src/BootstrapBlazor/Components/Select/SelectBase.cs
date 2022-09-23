@@ -5,50 +5,15 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// Select 组件基类
+/// 
 /// </summary>
 public abstract class SelectBase<TValue> : ValidateBase<TValue>
 {
-    /// <summary>
-    /// 当前选择项实例
-    /// </summary>
-    protected SelectedItem? SelectedItem { get; set; }
-
     /// <summary>
     /// 获得/设置 颜色 默认 Color.None 无设置
     /// </summary>
     [Parameter]
     public Color Color { get; set; }
-
-    /// <summary>
-    /// 获得/设置 Swal 图标 默认 Question
-    /// </summary>
-    [Parameter]
-    public SwalCategory SwalCategory { get; set; } = SwalCategory.Question;
-
-    /// <summary>
-    /// 获得/设置 Swal 标题 默认 null
-    /// </summary>
-    [Parameter]
-    public string? SwalTitle { get; set; }
-
-    /// <summary>
-    /// 获得/设置 Swal 内容 默认 null
-    /// </summary>
-    [Parameter]
-    public string? SwalContent { get; set; }
-
-    /// <summary>
-    /// 获得/设置 Footer 默认 null
-    /// </summary>
-    [Parameter]
-    public string? SwalFooter { get; set; }
-
-    /// <summary>
-    /// 获得/设置 下拉框项目改变前回调委托方法 返回 true 时选项值改变，否则选项值不变
-    /// </summary>
-    [Parameter]
-    public Func<SelectedItem, Task<bool>>? OnBeforeSelectedItemChange { get; set; }
 
     /// <summary>
     /// 获得/设置 绑定数据集
@@ -58,20 +23,58 @@ public abstract class SelectBase<TValue> : ValidateBase<TValue>
     public IEnumerable<SelectedItem>? Items { get; set; }
 
     /// <summary>
-    /// 获得/设置 选项模板
+    /// 获得/设置 是否显示搜索框 默认为 false 不显示
     /// </summary>
     [Parameter]
-    public RenderFragment<SelectedItem>? ItemTemplate { get; set; }
-
-    /// <summary>
-    /// SelectedItemChanged 回调方法
-    /// </summary>
-    [Parameter]
-    public Func<SelectedItem, Task>? OnSelectedItemChanged { get; set; }
+    public bool ShowSearch { get; set; }
 
     /// <summary>
     /// 获得/设置 设置搜索图标 默认 fa-solid fa-magnifying-glass
     /// </summary>
     [Parameter]
     public string SearchIcon { get; set; } = "fa-solid fa-magnifying-glass";
+
+    /// <summary>
+    /// 获得/设置 字符串比较规则 默认 StringComparison.OrdinalIgnoreCase 大小写不敏感 
+    /// </summary>
+    [Parameter]
+    public StringComparison StringComparison { get; set; } = StringComparison.OrdinalIgnoreCase;
+
+    /// <summary>
+    /// 获得/设置 选项模板
+    /// </summary>
+    [Parameter]
+    public RenderFragment<SelectedItem>? ItemTemplate { get; set; }
+
+    /// <summary>
+    /// 获得/设置 弹窗位置 默认为 Bottom
+    /// </summary>
+    [Parameter]
+    public Placement Placement { get; set; } = Placement.Bottom;
+
+    /// <summary>
+    /// 获得/设置 是否使用 Popover 渲染下拉框 默认 false
+    /// </summary>
+    [Parameter]
+    public bool IsPopover { get; set; }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    protected string? ToggleString => IsPopover ? null : "dropdown";
+
+    /// <summary>
+    /// 
+    /// </summary>
+    protected string? DropdownMenuClassString => IsPopover ? "dropdown-menu" : "dropdown-menu shadow";
+
+    /// <summary>
+    /// 
+    /// </summary>
+    protected string? PlacementString => Placement == Placement.Auto ? null : Placement.ToDescriptionString();
+
+    /// <summary>
+    /// 
+    /// </summary>
+    protected string SearchText { get; set; } = "";
 }

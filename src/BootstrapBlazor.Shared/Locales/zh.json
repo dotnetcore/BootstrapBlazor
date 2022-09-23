@@ -1481,7 +1481,9 @@
     "Event1": "下拉框选项改变时触发此事件",
     "Event2": "搜索文本发生变化时回调此方法",
     "Log1": "搜索文字",
-    "Log2": "选中项集合"
+    "Log2": "选中项集合",
+    "PopoverTitle": "悬浮弹窗",
+    "PopoverIntro": "通过设置 <code>IsPopover</code> 参数，组件使用 <code>popover</code> 渲染 <code>UI</code> 防止由于父容器设置 <code>overflow: hidden;</code> 使弹窗无法显示问题"
   },
   "BootstrapBlazor.Shared.Samples.Radios": {
     "Title": "Radio 单选框",

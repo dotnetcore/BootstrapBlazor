@@ -32,6 +32,16 @@ public partial class MultiSelects
     {
         base.OnInitialized();
 
+        Items21 = GenerateItems();
+        Items22 = GenerateItems();
+        Items23 = GenerateItems();
+        Items24 = GenerateItems();
+        Items25 = GenerateItems();
+        Items26 = GenerateItems();
+        Items27 = GenerateItems();
+        Items28 = GenerateItems();
+        TemplateItems = GenerateItems();
+
         // 初始化数据
         DataSource = new List<SelectedItem>
         {
@@ -53,6 +63,7 @@ public partial class MultiSelects
             new SelectedItem ("9", "特别甜的土瓜(特别甜的土瓜)"),
         };
 
+        Items = GenerateItems();
         Items4 = GenerateDataSource(DataSource);
         Items5 = GenerateDataSource(DataSource);
         Items6 = GenerateDataSource(DataSource);
@@ -69,6 +80,19 @@ public partial class MultiSelects
         LongItems4 = GenerateDataSource(LongDataSource);
         LongItems5 = GenerateDataSource(LongDataSource);
     }
+
+    private static List<SelectedItem> GenerateItems() => new()
+    {
+        new ("Beijing", "北京"),
+        new ("Shanghai", "上海"),
+        new ("Guangzhou", "广州"),
+        new ("Shenzhen", "深圳"),
+        new ("Chengdu", "成都"),
+        new ("Wuhan", "武汉"),
+        new ("Dalian", "大连"),
+        new ("Hangzhou", "杭州"),
+        new ("Lianyungang", "连云港")
+    };
 
     private static List<SelectedItem> GenerateDataSource(List<SelectedItem> source) => source.Select(i => new SelectedItem(i.Value, i.Text)).ToList();
 
@@ -152,10 +176,13 @@ public partial class MultiSelects
     private IEnumerable<string> SelectedArrayValues { get; set; } = Enumerable.Empty<string>();
     private IEnumerable<EnumEducation> SelectedEnumValues { get; set; } = new List<EnumEducation> { EnumEducation.Middle, EnumEducation.Primary };
 
+    private List<SelectedItem>? SearchItemsSource { get; set; }
+
     private IEnumerable<SelectedItem> OnSearch(string searchText)
     {
         Trace.Log($"{Localizer["Log1"]}：{searchText}");
-        return Items.Where(i => i.Text.Contains(searchText, System.StringComparison.OrdinalIgnoreCase));
+        SearchItemsSource ??= GenerateItems();
+        return SearchItemsSource.Where(i => i.Text.Contains(searchText, System.StringComparison.OrdinalIgnoreCase));
     }
 
     private Task OnSelectedItemsChanged8(IEnumerable<SelectedItem> items)
@@ -191,31 +218,8 @@ public partial class MultiSelects
 
     private string SelectedItemsValue8 { get; set; } = "Beijing";
 
-    private IEnumerable<SelectedItem> Items { get; set; } = new[]
-    {
-        new SelectedItem ("Beijing", "北京"),
-        new SelectedItem ("Shanghai", "上海"),
-        new SelectedItem ("Guangzhou", "广州"),
-        new SelectedItem ("Shenzhen", "深圳"),
-        new SelectedItem ("Chengdu", "成都"),
-        new SelectedItem ("Wuhan", "武汉"),
-        new SelectedItem ("Dalian", "大连"),
-        new SelectedItem ("Hangzhou", "杭州"),
-        new SelectedItem ("Lianyungang", "连云港")
-    };
-
-    private IEnumerable<SelectedItem> TemplateItems { get; set; } = new[]
-    {
-        new SelectedItem ("Beijing", "北京"),
-        new SelectedItem ("Shanghai", "上海"),
-        new SelectedItem ("Guangzhou", "广州"),
-        new SelectedItem ("Shenzhen", "深圳"),
-        new SelectedItem ("Chengdu", "成都"),
-        new SelectedItem ("Wuhan", "武汉"),
-        new SelectedItem ("Dalian", "大连"),
-        new SelectedItem ("Hangzhou", "杭州"),
-        new SelectedItem ("Lianyungang", "连云港")
-    };
+    [NotNull]
+    private IEnumerable<SelectedItem>? TemplateItems { get; set; }
 
     private IEnumerable<SelectedItem> GroupItems { get; } = new SelectedItem[]
     {
@@ -236,6 +240,33 @@ public partial class MultiSelects
         new SelectedItem ("Shanghai", "上海"),
         new SelectedItem ("Hangzhou", "杭州")
     }.ToList();
+
+    [NotNull]
+    private List<SelectedItem>? Items { get; set; }
+
+    [NotNull]
+    private List<SelectedItem>? Items21 { get; set; }
+
+    [NotNull]
+    private List<SelectedItem>? Items22 { get; set; }
+
+    [NotNull]
+    private List<SelectedItem>? Items23 { get; set; }
+
+    [NotNull]
+    private List<SelectedItem>? Items24 { get; set; }
+
+    [NotNull]
+    private List<SelectedItem>? Items25 { get; set; }
+
+    [NotNull]
+    private List<SelectedItem>? Items26 { get; set; }
+
+    [NotNull]
+    private List<SelectedItem>? Items27 { get; set; }
+
+    [NotNull]
+    private List<SelectedItem>? Items28 { get; set; }
 
     [NotNull]
     private List<SelectedItem>? Items4 { get; set; }
