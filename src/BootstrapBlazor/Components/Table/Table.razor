@@ -28,11 +28,11 @@
             </div>
         }
 
-        @if(IsExcel || ShowToolbar)
+        @if (ShowToolbar)
         {
             <div class="table-toolbar">
                 <TableToolbar OnGetSelectedRows="@GetSelectedRows" IsAutoCollapsedToolbarButton="IsAutoCollapsedToolbarButton">
-                    @if (IsExcel || ShowDefaultButtons)
+                    @if (ShowDefaultButtons)
                     {
                         @if (ShowAddButton)
                         {
@@ -202,7 +202,7 @@
                                 <span>@(Rows.IndexOf(item) + 1 + (PageIndex -1) * PageItems)</span>
                             </div>
                         }
-                        @if (!IsExcel && ShowExtendButtons && IsExtendButtonsInRowHeader)
+                        @if (ShowExtendButtons && IsExtendButtonsInRowHeader)
                         {
                             @RenderExtendButtons(item)
                         }
@@ -235,7 +235,7 @@
                                 }
                             </div>
                         }
-                        @if (!IsExcel && ShowExtendButtons && !IsExtendButtonsInRowHeader)
+                        @if (ShowExtendButtons && !IsExtendButtonsInRowHeader)
                         {
                             @RenderExtendButtons(item)
                         }
@@ -414,7 +414,7 @@ RenderFragment<bool> RenderColgroup => hasScroll =>
     {
         <col width="@LineNoColumnWidth" />
     }
-    @if(!IsExcel && ShowExtendButtons && IsExtendButtonsInRowHeader)
+    @if (ShowExtendButtons && IsExtendButtonsInRowHeader)
     {
         <col width="@ExtendButtonColumnWidth" />
     }
@@ -425,7 +425,7 @@ RenderFragment<bool> RenderColgroup => hasScroll =>
             <col width="@col.Width" />
         }
     }
-    @if (!IsExcel && ShowExtendButtons && !IsExtendButtonsInRowHeader)
+    @if (ShowExtendButtons && !IsExtendButtonsInRowHeader)
     {
         <col width="@ExtendButtonColumnWidth" />
     }
@@ -465,7 +465,7 @@ RenderFragment<bool> RenderHeader => hasScroll =>
                     <div class="@LineCellClassString">@LineNoText</div>
                 </th>
             }
-            @if (!IsExcel && ShowExtendButtons && IsExtendButtonsInRowHeader)
+            @if (ShowExtendButtons && IsExtendButtonsInRowHeader)
             {
                 @RenderExtendButtonsHeader
             }
@@ -502,7 +502,7 @@ RenderFragment<bool> RenderHeader => hasScroll =>
                     </DynamicElement>
                 }
             }
-            @if (!IsExcel && ShowExtendButtons && !IsExtendButtonsInRowHeader)
+            @if (ShowExtendButtons && !IsExtendButtonsInRowHeader)
             {
                 @RenderExtendButtonsHeader
             }
@@ -533,7 +533,7 @@ RenderFragment<bool> RenderHeader => hasScroll =>
                     <div class="table-cell">&nbsp;</div>
                 </th>
             }
-            @if (!IsExcel && ShowExtendButtons && IsExtendButtonsInRowHeader)
+            @if (ShowExtendButtons && IsExtendButtonsInRowHeader)
             {
                 <th class="@ExtendButtonsColumnClass" style="@GetFixedExtendButtonsColumnStyleString(CalcMargin(0))">
                     <div class="table-cell">&nbsp;</div>
@@ -557,7 +557,7 @@ RenderFragment<bool> RenderHeader => hasScroll =>
                     }
                 }
             </CascadingValue>
-            @if (!IsExcel && ShowExtendButtons && !IsExtendButtonsInRowHeader)
+            @if (ShowExtendButtons && !IsExtendButtonsInRowHeader)
             {
                 <th class="@ExtendButtonsColumnClass" style="@GetFixedExtendButtonsColumnStyleString(6)">
                     <div class="table-cell">&nbsp;</div>
@@ -605,7 +605,7 @@ RenderFragment<TItem> RenderRow => item =>
         var prevColspan = 0;
         var isInCell = EditInCell && SelectedRows.FirstOrDefault() == item;
     }
-    @if (!IsExcel && ShowExtendButtons && IsExtendButtonsInRowHeader)
+    @if (ShowExtendButtons && IsExtendButtonsInRowHeader)
     {
         @RenderRowExtendButtons(item)
     }
@@ -687,7 +687,7 @@ RenderFragment<TItem> RenderRow => item =>
             </td>
         }
     }
-    @if (!IsExcel && ShowExtendButtons && !IsExtendButtonsInRowHeader)
+    @if (ShowExtendButtons && !IsExtendButtonsInRowHeader)
     {
         @RenderRowExtendButtons(item)
     }
@@ -703,7 +703,7 @@ RenderFragment RenderPlaceHolderRow =>
             </div>
         </td>
     }
-    @if (!IsExcel && ShowExtendButtons && IsExtendButtonsInRowHeader)
+    @if (ShowExtendButtons && IsExtendButtonsInRowHeader)
     {
         <td><div class="table-cell is-ph"></div></td>
     }
@@ -711,7 +711,7 @@ RenderFragment RenderPlaceHolderRow =>
     {
         <td><div class="table-cell is-ph"></div></td>
     }
-    @if (!IsExcel && ShowExtendButtons && !IsExtendButtonsInRowHeader)
+    @if (ShowExtendButtons && !IsExtendButtonsInRowHeader)
     {
         <td><div class="table-cell is-ph"></div></td>
     }
@@ -802,7 +802,7 @@ RenderFragment<TItem> RenderRowExtendButtons => item =>
                     @BeforeRowButtonTemplate?.Invoke(item)
                 </TableExtensionButton>
             }
-            @if (GetShowEditButton(item))
+            @if (!IsExcel && GetShowEditButton(item))
             {
                 @if (isInCell)
                 {

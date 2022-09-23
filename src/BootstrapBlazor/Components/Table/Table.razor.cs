@@ -154,6 +154,12 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
     public Alignment EditDialogLabelAlign { get; set; }
 
     /// <summary>
+    /// 获得/设置 是否禁用表单内回车自动提交功能 默认 null 未设置
+    /// </summary>
+    [Parameter]
+    public bool? DisableAutoSubmitFormByEnter { get; set; }
+
+    /// <summary>
     /// 获得/设置 明细行 Row Header 宽度 默认 24
     /// </summary>
     [Parameter]

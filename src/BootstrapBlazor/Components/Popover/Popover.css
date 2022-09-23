@@ -1,0 +1,13 @@
+﻿.popover-dropdown {
+    --bs-popover-max-width: unset;
+}
+
+    .popover-dropdown .popover-body {
+        --bs-popover-body-padding-x: 0;
+        --bs-popover-body-padding-y: 0;
+    }
+
+        .popover-dropdown .popover-body > * {
+            position: relative;
+            border: none;
+        }

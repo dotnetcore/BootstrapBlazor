@@ -252,4 +252,97 @@ public class SelectTest : BootstrapBlazorTestBase
         });
         Assert.Contains("search-icon", cut.Markup);
     }
+
+    [Fact]
+    public void DropdownIcon_Ok()
+    {
+        var cut = Context.RenderComponent<Select<string>>(pb =>
+        {
+            pb.Add(a => a.Items, new SelectedItem[]
+            {
+                new SelectedItem("1", "Test1"),
+                new SelectedItem("2", "Test2")
+            });
+            pb.Add(a => a.Value, "2");
+            pb.Add(a => a.DropdownIcon, "search-icon");
+        });
+        Assert.Contains("search-icon", cut.Markup);
+    }
+
+    [Fact]
+    public void DisplayTemplate_Ok()
+    {
+        var cut = Context.RenderComponent<Select<string>>(pb =>
+        {
+            pb.Add(a => a.Items, new SelectedItem[]
+            {
+                new SelectedItem("1", "Test1"),
+                new SelectedItem("2", "Test2")
+            });
+            pb.Add(a => a.Value, "2");
+            pb.Add(a => a.DisplayTemplate, item => builder =>
+            {
+                builder.AddContent(0, $"test-display-template-{item?.Text}");
+            });
+        });
+        Assert.Contains("test-display-template-Test2", cut.Markup);
+    }
+
+    [Fact]
+    public void IsPopover_Ok()
+    {
+        var cut = Context.RenderComponent<Select<string>>(pb =>
+        {
+            pb.Add(a => a.Items, new SelectedItem[]
+            {
+                new SelectedItem("1", "Test1"),
+                new SelectedItem("2", "Test2")
+            });
+            pb.Add(a => a.Value, "2");
+            pb.Add(a => a.IsPopover, true);
+        });
+        Assert.DoesNotContain("dropdown-menu-arrow", cut.Markup);
+        Assert.DoesNotContain("data-bs-toggle=\"dropdown\"", cut.Markup);
+    }
+
+    [Fact]
+    public void Placement_Ok()
+    {
+        var cut = Context.RenderComponent<Select<string>>(pb =>
+        {
+            pb.Add(a => a.Items, new SelectedItem[]
+            {
+                new SelectedItem("1", "Test1"),
+                new SelectedItem("2", "Test2")
+            });
+            pb.Add(a => a.Value, "2");
+            pb.Add(a => a.Placement, Placement.Top);
+        });
+        cut.Contains($"data-bs-placement=\"{Placement.Top.ToDescriptionString()}\"");
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.Placement, Placement.Auto);
+        });
+        cut.DoesNotContain("data-bs-placement");
+    }
+
+    [Fact]
+    public async Task ItemClick_Ok()
+    {
+        var cut = Context.RenderComponent<Select<string>>(pb =>
+        {
+            pb.Add(a => a.Items, new SelectedItem[]
+            {
+                new SelectedItem("1", "Test1"),
+                new SelectedItem("2", "Test2")
+            });
+            pb.Add(a => a.Value, "2");
+            pb.Add(a => a.IsPopover, true);
+        });
+
+        var item = cut.Find(".dropdown-item");
+        await cut.InvokeAsync(() => item.Click());
+        Assert.True(item.ClassList.Contains("active"));
+    }
 }

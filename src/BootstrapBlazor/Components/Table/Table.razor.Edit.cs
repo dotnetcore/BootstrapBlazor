@@ -248,6 +248,7 @@ public partial class Table<TItem>
 
     private async Task InternalOnAddAsync()
     {
+        SelectedRows.Clear();
         if (OnAddAsync != null)
         {
             EditModel = await OnAddAsync();
@@ -338,7 +339,7 @@ public partial class Table<TItem>
         StateHasChanged();
     }
 
-    private async Task QueryAsync(bool shouldRender)
+    private async Task QueryAsync(bool shouldRender, int? pageIndex = null)
     {
         if (ScrollMode == ScrollMode.Virtual && VirtualizeElement != null)
         {
@@ -347,6 +348,10 @@ public partial class Table<TItem>
         else
         {
             await InternalToggleLoading(true);
+            if(pageIndex.HasValue)
+            {
+                PageIndex = pageIndex.Value;
+            }
             await QueryData();
             await InternalToggleLoading(false);
         }
@@ -358,10 +363,10 @@ public partial class Table<TItem>
     }
 
     /// <summary>
-    /// 查询按钮调用此方法
+    /// 查询按钮调用此方法 参数 pageIndex 默认值 null 保持上次页码 第一页页码为 1
     /// </summary>
     /// <returns></returns>
-    public Task QueryAsync() => QueryAsync(true);
+    public Task QueryAsync(int? pageIndex = null) => QueryAsync(true, pageIndex);
 
     /// <summary>
     /// 显示/隐藏 Loading 遮罩

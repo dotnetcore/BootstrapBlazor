@@ -6,11 +6,112 @@
 <h4>@Localizer["SubTitle"]</h4>
 
 <DemoBlock Title="@Localizer["BasicUsageTitle"]" Introduction="@Localizer["BasicUsageIntro"]" Name="Normal">
-    <Carousel Images="@Images" Width="280"></Carousel>
+    <Carousel Images="@Images" Width="280" ShowControls="false" ShowIndicators="false"></Carousel>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["ShowControlsTitle"]" Introduction="@Localizer["ShowControlsIntro"]" Name="ShowControls">
+    <Carousel Images="@Images" Width="280" ShowControls="true" ShowIndicators="false"></Carousel>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["ShowIndicatorsTitle"]" Introduction="@Localizer["ShowIndicatorsIntro"]" Name="ShowIndicators">
+    <Carousel Images="@Images" Width="280" ShowControls="true" ShowIndicators="true"></Carousel>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["FadeTitle"]" Introduction="@Localizer["FadeIntro"]" Name="Fade">
     <Carousel Images="@Images" Width="280" IsFade="true"></Carousel>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["CaptionTitle"]" Introduction="@Localizer["CaptionIntro"]" Name="Caption">
+    <Carousel Width="280" IsFade="true">
+        <CarouselItem Caption="First slide label">
+            <img src="_content/BootstrapBlazor.Shared/images/Pic0.jpg" />
+        </CarouselItem>
+        <CarouselItem Caption="Second slide label">
+            <img src="_content/BootstrapBlazor.Shared/images/Pic1.jpg" />
+        </CarouselItem>
+        <CarouselItem Caption="Thrid slide label">
+            <img src="_content/BootstrapBlazor.Shared/images/Pic2.jpg" />
+        </CarouselItem>
+    </Carousel>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["IntervalTitle"]" Introduction="@Localizer["IntervalIntro"]" Name="Interval">
+    <Carousel Width="280" IsFade="true">
+        <CarouselItem Caption="First slide label" Interval="5000">
+            <img src="_content/BootstrapBlazor.Shared/images/Pic0.jpg" />
+        </CarouselItem>
+        <CarouselItem Caption="Second slide label" Interval="2000">
+            <img src="_content/BootstrapBlazor.Shared/images/Pic1.jpg" />
+        </CarouselItem>
+        <CarouselItem Caption="Thrid slide label">
+            <img src="_content/BootstrapBlazor.Shared/images/Pic2.jpg" />
+        </CarouselItem>
+    </Carousel>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["CaptionTemplateTitle"]" Introduction="@Localizer["CaptionTemplateIntro"]" Name="CaptionTemplate">
+    <Carousel Width="280" IsFade="true">
+        <CarouselItem>
+            <CaptionTemplate>
+                <h5>First slide label</h5>
+                <p>Pic0.jpg</p>
+            </CaptionTemplate>
+            <ChildContent>
+                <img src="_content/BootstrapBlazor.Shared/images/Pic0.jpg" />
+            </ChildContent>
+        </CarouselItem>
+        <CarouselItem>
+            <CaptionTemplate>
+                <h5>Second slide label</h5>
+                <p>Pic1.jpg</p>
+            </CaptionTemplate>
+            <ChildContent>
+                <img src="_content/BootstrapBlazor.Shared/images/Pic1.jpg" />
+            </ChildContent>
+        </CarouselItem>
+        <CarouselItem>
+            <CaptionTemplate>
+                <h5>Third slide label</h5>
+                <p>Pic2.jpg</p>
+            </CaptionTemplate>
+            <ChildContent>
+                <img src="_content/BootstrapBlazor.Shared/images/Pic2.jpg" />
+            </ChildContent>
+        </CarouselItem>
+    </Carousel>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["CaptionClassTitle"]" Introduction="@Localizer["CaptionClassIntro"]" Name="CaptionClass">
+    <p>@((MarkupString)Localizer["CaptionClassP1"].Value)</p>
+    <Carousel Width="280" IsFade="true">
+        <CarouselItem CaptionClass="d-none d-md-block">
+            <CaptionTemplate>
+                <h5>First slide label</h5>
+                <p>Pic0.jpg</p>
+            </CaptionTemplate>
+            <ChildContent>
+                <img src="_content/BootstrapBlazor.Shared/images/Pic0.jpg" />
+            </ChildContent>
+        </CarouselItem>
+        <CarouselItem CaptionClass="d-none d-md-block">
+            <CaptionTemplate>
+                <h5>Second slide label</h5>
+                <p>Pic1.jpg</p>
+            </CaptionTemplate>
+            <ChildContent>
+                <img src="_content/BootstrapBlazor.Shared/images/Pic1.jpg" />
+            </ChildContent>
+        </CarouselItem>
+        <CarouselItem CaptionClass="d-none d-md-block">
+            <CaptionTemplate>
+                <h5>Third slide label</h5>
+                <p>Pic2.jpg</p>
+            </CaptionTemplate>
+            <ChildContent>
+                <img src="_content/BootstrapBlazor.Shared/images/Pic2.jpg" />
+            </ChildContent>
+        </CarouselItem>
+    </Carousel>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["OnClickTitle"]" Introduction="@Localizer["OnClickIntro"]" Name="OnClick">
@@ -18,32 +119,87 @@
     <BlockLogger @ref="Trace" class="mt-3" />
 </DemoBlock>
 
+<DemoBlock Title="@Localizer["TouchSwipingTitle"]" Introduction="@Localizer["TouchSwipingIntro"]" Name="DisableTouchSwiping">
+    <Carousel Width="280" IsFade="true" DisableTouchSwiping="true">
+        <CarouselItem Caption="First slide label" Interval="5000">
+            <img src="_content/BootstrapBlazor.Shared/images/Pic0.jpg" />
+        </CarouselItem>
+        <CarouselItem Caption="Second slide label" Interval="2000">
+            <img src="_content/BootstrapBlazor.Shared/images/Pic1.jpg" />
+        </CarouselItem>
+        <CarouselItem Caption="Thrid slide label">
+            <img src="_content/BootstrapBlazor.Shared/images/Pic2.jpg" />
+        </CarouselItem>
+    </Carousel>
+</DemoBlock>
+
 <DemoBlock Title="@Localizer["ChildContentTitle"]" Introduction="@Localizer["ChildContentIntro"]" Name="ChildContent">
-    <Carousel Width="280">
+    <Carousel Width="720" ShowIndicators="false">
         <CarouselItem>
-            <div class="carousel-item-demo">
-                <h3>Title-1</h3>
-                <div>Content-1</div>
-                <div>
-                    <Button Icon="fa-solid fa-font-awesome" Text="Button-1" />
+            <div class="carousel-item-demo2">
+                <div class="demo-item">
+                    <div class="top">
+                        <div>Sales champion</div>
+                        <div>www.blazor.zone</div>
+                    </div>
+                    <img src="_content/BootstrapBlazor.Shared/images/avatars/150-5.jpg" />
+                    <div class="bottom">
+                        Carousel Item
+                    </div>
+                </div>
+                <div class="demo-item">
+                    <div class="top">
+                        <div>Sales champion</div>
+                        <div>www.blazor.zone</div>
+                    </div>
+                    <img src="_content/BootstrapBlazor.Shared/images/avatars/150-7.jpg" />
+                    <div class="bottom">
+                        Carousel Item
+                    </div>
+                </div>
+                <div class="demo-item">
+                    <div class="top">
+                        <div>Sales champion</div>
+                        <div>www.blazor.zone</div>
+                    </div>
+                    <img src="_content/BootstrapBlazor.Shared/images/avatars/150-11.jpg" />
+                    <div class="bottom">
+                        Carousel Item
+                    </div>
                 </div>
             </div>
         </CarouselItem>
         <CarouselItem>
-            <div class="carousel-item-demo">
-                <h3>Title-2</h3>
-                <div>Content-2</div>
-                <div>
-                    <Button Icon="fa-solid fa-font-awesome" Text="Button-2" />
+            <div class="carousel-item-demo2">
+                <div class="demo-item">
+                    <div class="top">
+                        <div>Sales champion</div>
+                        <div>www.blazor.zone</div>
+                    </div>
+                    <img src="_content/BootstrapBlazor.Shared/images/avatars/150-6.jpg" />
+                    <div class="bottom">
+                        Carousel Item
+                    </div>
                 </div>
-            </div>
-        </CarouselItem>
-        <CarouselItem>
-            <div class="carousel-item-demo">
-                <h3>Title-3</h3>
-                <div>Content-3</div>
-                <div>
-                    <Button Icon="fa-solid fa-font-awesome" Text="Button-3" />
+                <div class="demo-item">
+                    <div class="top">
+                        <div>Sales champion</div>
+                        <div>www.blazor.zone</div>
+                    </div>
+                    <img src="_content/BootstrapBlazor.Shared/images/avatars/150-12.jpg" />
+                    <div class="bottom">
+                        Carousel Item
+                    </div>
+                </div>
+                <div class="demo-item">
+                    <div class="top">
+                        <div>Sales champion</div>
+                        <div>www.blazor.zone</div>
+                    </div>
+                    <img src="_content/BootstrapBlazor.Shared/images/avatars/150-15.jpg" />
+                    <div class="bottom">
+                        Carousel Item
+                    </div>
                 </div>
             </div>
         </CarouselItem>

@@ -2,7 +2,7 @@
 @typeparam TModel
 @inherits DialogBase<TModel>
 
-<ValidateForm Model="@Model" OnValidSubmit="@OnValidSubmitAsync">
+<ValidateForm Model="@Model" OnValidSubmit="@OnValidSubmitAsync" DisableAutoSubmitFormByEnter="@DisableAutoSubmitFormByEnter">
     @if (BodyTemplate != null)
     {
         <div class="form-body">

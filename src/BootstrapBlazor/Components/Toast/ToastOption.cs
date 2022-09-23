@@ -30,6 +30,11 @@ public class ToastOption : PopupOptionBase
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
+    /// 获得/设置 是否显示关闭按钮 默认 true
+    /// </summary>
+    public bool ShowClose { get; set; } = true;
+
+    /// <summary>
     /// 关闭当前弹窗方法
     /// </summary>
     public async ValueTask Close()

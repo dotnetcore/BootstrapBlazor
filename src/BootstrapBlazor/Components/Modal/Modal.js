@@ -76,24 +76,24 @@
                 );
             }
         },
-        bb_modal: function (el, method) {
+        bb_modal: function (el, obj, method, callback) {
             var $el = $(el);
-
-            function keyHandler() {
-                var e = event;
-                if (e.key === 'Escape') {
-                    var $dialog = $el.find('.modal-dialog');
-                    var invoker = $dialog.data('bb_dotnet_invoker');
-                    if (invoker != null) {
-                        invoker.obj.invokeMethodAsync(invoker.method);
-                    }
-                }
-            };
 
             if (method === 'dispose') {
                 $el.remove();
             }
             else if (method === 'init') {
+                function keyHandler() {
+                    var e = event;
+                    if (e.key === 'Escape') {
+                        var $dialog = $el.find('.modal-dialog');
+                        var invoker = $dialog.data('bb_dotnet_invoker');
+                        if (invoker != null) {
+                            invoker.obj.invokeMethodAsync(invoker.method);
+                        }
+                    }
+                };
+
                 if ($el.closest('.swal').length === 0) {
                     // move self end of the body
                     $('body').append($el);
@@ -103,6 +103,7 @@
                     if (keyboard === true) {
                         document.addEventListener('keyup', keyHandler, false);
                     }
+                    obj.invokeMethodAsync(callback);
                 });
                 $el.on('hide.bs.modal', function () {
                     var keyboard = $el.attr('data-bs-keyboard') === "true";

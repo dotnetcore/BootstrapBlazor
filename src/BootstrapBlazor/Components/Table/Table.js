@@ -63,11 +63,13 @@
                                 col.width = colWidth + marginX;
 
                                 var $table = $(colgroup).closest('table');
+                                var width = tableWidth + marginX;
                                 if ($table.parent().hasClass('table-fixed-header')) {
-                                    $table.width(tableWidth + marginX);
+                                    $table.width(width);
                                 }
                                 else {
-                                    $table.width(tableWidth + marginX - 6);
+                                    // do not use $table.width it not work sometimes
+                                    colgroup.parentNode.style.width = (width - 6) + 'px';
                                 }
                             });
                         },

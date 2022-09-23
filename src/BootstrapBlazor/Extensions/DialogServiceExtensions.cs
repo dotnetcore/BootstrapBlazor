@@ -93,6 +93,7 @@ public static class DialogServiceExtensions
             [nameof(EditDialog<TModel>.CloseButtonText)] = option.CloseButtonText,
             [nameof(EditDialog<TModel>.SaveButtonText)] = option.SaveButtonText,
             [nameof(EditDialog<TModel>.Model)] = option.Model,
+            [nameof(EditDialog<TModel>.DisableAutoSubmitFormByEnter)] = option.DisableAutoSubmitFormByEnter,
             [nameof(EditDialog<TModel>.BodyTemplate)] = option.DialogBodyTemplate
         };
 

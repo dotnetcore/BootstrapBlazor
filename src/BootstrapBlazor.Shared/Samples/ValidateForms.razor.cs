@@ -216,6 +216,13 @@ public partial class ValidateForms
             DefaultValue = "false"
         },
         new AttributeItem() {
+            Name = nameof(ValidateForm.DisableAutoSubmitFormByEnter),
+            Description = Localizer[nameof(ValidateForm.DisableAutoSubmitFormByEnter)],
+            Type = "bool",
+            ValueList = "true/false",
+            DefaultValue = "false"
+        },
+        new AttributeItem() {
             Name = "ShowRequiredMark",
             Description = Localizer["ShowRequiredMark"],
             Type = "bool",

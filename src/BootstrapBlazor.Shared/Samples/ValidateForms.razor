@@ -255,6 +255,23 @@ private Task OnClickValidate()
 }</Pre>
 </DemoBlock>
 
+<DemoBlock Title="@Localizer["DisableAutoSubmitFormByEnterTitle"]" Introduction="@Localizer["DisableAutoSubmitFormByEnterIntro"]" Name="DisableAutoSubmitFormByEnter">
+    <p>@((MarkupString)Localizer["DisableAutoSubmitFormByEnterDesc"].Value)</p>
+    <ValidateForm Model="@Model" DisableAutoSubmitFormByEnter="true">
+        <div class="row g-3">
+            <div class="col-12 col-sm-6">
+                <BootstrapInput @bind-Value="@Model.Name" />
+            </div>
+            <div class="col-12 col-sm-6">
+                <BootstrapInput @bind-Value="@Model.Address" ValidateRules="@CustomerRules" />
+            </div>
+            <div class="col-12">
+                <Button ButtonType="@ButtonType.Submit" Text="@Localizer["ButtonText"]" />
+            </div>
+        </div>
+    </ValidateForm>
+</DemoBlock>
+
 <AttributeTable Items="@GetAttributes()" />
 
 <MethodTable Items="@GetMethods()" />

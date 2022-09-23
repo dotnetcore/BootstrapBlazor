@@ -469,6 +469,23 @@ public class UploadTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void ShowUploadList_Ok()
+    {
+        var cut = Context.RenderComponent<ButtonUpload<string>>(pb =>
+        {
+            pb.Add(a => a.Accept, "Image");
+        });
+
+        cut.Contains("upload-body is-list");
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ShowUploadFileList, false);
+        });
+        cut.DoesNotContain("upload-body is-list");
+    }
+
+    [Fact]
     public async Task ButtonUpload_OnDeleteFile_Ok()
     {
         UploadFile? deleteFile = null;
@@ -792,6 +809,16 @@ public class UploadTest : BootstrapBlazorTestBase
         };
         Assert.Throws<ValidationException>(() => validator.Validate(p.Picture, "Picture"));
         Assert.Throws<ValidationException>(() => validator.Validate(p.Picture, new ValidationContext(p)));
+    }
+
+    [Fact]
+    public void Capture_Ok()
+    {
+        var cut = Context.RenderComponent<ButtonUpload<string>>(pb =>
+        {
+            pb.Add(a => a.Capture, "camera");
+        });
+        cut.Contains("capture=\"camera\"");
     }
 
     private class Person

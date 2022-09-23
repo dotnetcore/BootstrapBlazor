@@ -10,6 +10,47 @@ namespace BootstrapBlazor.Components;
 public partial class Slider : IDisposable
 {
     /// <summary>
+    /// 获得/设置 组件当前值
+    /// </summary>
+    [Parameter]
+    public double Value { get; set; }
+
+    /// <summary>
+    /// ValueChanged 回调方法
+    /// </summary>
+    [Parameter]
+    public EventCallback<double> ValueChanged { get; set; }
+
+    /// <summary>
+    /// 获得/设置 值变化时回调方法
+    /// </summary>
+    [Parameter]
+    public Func<double, Task>? OnValueChanged { get; set; }
+
+    /// <summary>
+    /// 获得 按钮 disabled 属性
+    /// </summary>
+    protected string? Disabled => IsDisabled ? "disabled" : null;
+
+    /// <summary>
+    /// 获得/设置 是否禁用
+    /// </summary>
+    [Parameter]
+    public bool IsDisabled { get; set; }
+
+    /// <summary>
+    /// 获得/设置 最大值
+    /// </summary>
+    [Parameter]
+    public double Max { get; set; } = 100;
+
+    /// <summary>
+    /// 获得/设置 最小值
+    /// </summary>
+    [Parameter]
+    public double Min { get; set; } = 0;
+
+    /// <summary>
     /// 获得/设置 JSInterop 实例
     /// </summary>
     private JSInterop<Slider>? Interop { get; set; }
@@ -17,7 +58,8 @@ public partial class Slider : IDisposable
     /// <summary>
     /// 获得 样式集合
     /// </summary>
-    private static string? ClassName => CssBuilder.Default("slider")
+    private string? ClassName => CssBuilder.Default("slider")
+        .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
     /// <summary>
@@ -31,14 +73,14 @@ public partial class Slider : IDisposable
     /// 获得 Bar 位置样式
     /// </summary>
     private string? BarStyle => CssBuilder.Default("left: 0%;")
-        .AddClass($"width: {Value}%;")
+        .AddClass($"width: {Value / Max * 100}%;")
         .Build();
 
     /// <summary>
     /// 获得 按钮位置样式
     /// </summary>
     private string? ButtonStyle => CssBuilder.Default()
-        .AddClass($"left: {Value}%;")
+        .AddClass($"left: {Value / Max * 100}%;")
         .Build();
 
     /// <summary>
@@ -67,12 +109,17 @@ public partial class Slider : IDisposable
     /// </summary>
     /// <param name="val"></param>
     [JSInvokable]
-    public void SetValue(int val)
+    public async Task SetValue(double val)
     {
-        Value = val;
+        Value = Max * val / 100;
+        if (OnValueChanged != null)
+        {
+            await OnValueChanged(Value);
+        }
+
         if (ValueChanged.HasDelegate)
         {
-            ValueChanged.InvokeAsync(val);
+            await ValueChanged.InvokeAsync(val);
         }
     }
 

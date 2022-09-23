@@ -447,6 +447,13 @@ public class TableTest : TableTestBase
                 });
             });
         });
+        cut.DoesNotContain("float-end table-toolbar-button");
+
+        var table = cut.FindComponent<Table<Foo>>();
+        table.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ShowToolbar, true);
+        });
         cut.Contains("float-end table-toolbar-button");
 
         // edit
@@ -4446,6 +4453,7 @@ public class TableTest : TableTestBase
             pb.AddChildContent<Table<Foo>>(pb =>
             {
                 pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.DisableAutoSubmitFormByEnter, true);
                 pb.Add(a => a.Items, items);
                 pb.Add(a => a.IsMultipleSelect, true);
                 pb.Add(a => a.ShowToolbar, true);

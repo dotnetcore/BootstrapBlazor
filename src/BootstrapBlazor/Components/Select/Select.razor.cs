@@ -16,9 +16,6 @@ public partial class Select<TValue> : ISelect
 
     private JSInterop<Select<TValue>>? Interop { get; set; }
 
-    /// <summary>
-    /// 
-    /// </summary>
     [Inject]
     [NotNull]
     private SwalService? SwalService { get; set; }
@@ -33,7 +30,7 @@ public partial class Select<TValue> : ISelect
     /// <summary>
     /// 获得 样式集合
     /// </summary>
-    private string? InputClassName => CssBuilder.Default("form-select")
+    private string? InputClassName => CssBuilder.Default("form-select form-control")
         .AddClass($"border-{Color.ToDescriptionString()}", Color != Color.None && !IsDisabled && !IsValid.HasValue)
         .AddClass($"border-success", IsValid.HasValue && IsValid.Value)
         .AddClass($"border-danger", IsValid.HasValue && !IsValid.Value)
@@ -66,17 +63,18 @@ public partial class Select<TValue> : ISelect
     private List<SelectedItem>? Childs { get; set; }
 
     /// <summary>
+    /// 获得/设置 右侧下拉箭头图标 默认 fa-solid fa-angle-up
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public string? DropdownIcon { get; set; }
+
+    /// <summary>
     /// 获得/设置 搜索文本发生变化时回调此方法
     /// </summary>
     [Parameter]
     [NotNull]
     public Func<string, IEnumerable<SelectedItem>>? OnSearchTextChanged { get; set; }
-
-    /// <summary>
-    /// 获得/设置 是否显示搜索框 默认为 false 不显示
-    /// </summary>
-    [Parameter]
-    public bool ShowSearch { get; set; }
 
     /// <summary>
     /// 获得/设置 选中候选项后是否自动清空搜索框内容 默认 false 不清空
@@ -97,10 +95,10 @@ public partial class Select<TValue> : ISelect
     public RenderFragment? Options { get; set; }
 
     /// <summary>
-    /// 获得/设置 字符串比较规则 默认 StringComparison.OrdinalIgnoreCase 大小写不敏感 
+    /// 获得/设置 显示部分模板 默认 null
     /// </summary>
     [Parameter]
-    public StringComparison StringComparison { get; set; } = StringComparison.OrdinalIgnoreCase;
+    public RenderFragment<SelectedItem?>? DisplayTemplate { get; set; }
 
     [Inject]
     [NotNull]
@@ -121,22 +119,13 @@ public partial class Select<TValue> : ISelect
     private string? InputId => $"{Id}_input";
 
     /// <summary>
-    /// 获得/设置 搜索文字
-    /// </summary>
-    private string SearchText { get; set; } = "";
-
-    /// <summary>
     /// OnInitialized 方法
     /// </summary>
     protected override void OnInitialized()
     {
         base.OnInitialized();
 
-        if (OnSearchTextChanged == null)
-        {
-            OnSearchTextChanged = text => Items.Where(i => i.Text.Contains(text, StringComparison));
-        }
-
+        OnSearchTextChanged ??= text => Items.Where(i => i.Text.Contains(text, StringComparison));
         Childs = new List<SelectedItem>();
     }
 
@@ -149,6 +138,7 @@ public partial class Select<TValue> : ISelect
 
         Items ??= Enumerable.Empty<SelectedItem>();
         PlaceHolder ??= Localizer[nameof(PlaceHolder)];
+        DropdownIcon ??= "fa-solid fa-angle-up";
 
         // 内置对枚举类型的支持
         var t = NullableUnderlyingType ?? typeof(TValue);
@@ -194,11 +184,8 @@ public partial class Select<TValue> : ISelect
 
         if (firstRender)
         {
-            if (Interop == null)
-            {
-                Interop = new JSInterop<Select<TValue>>(JSRuntime);
-            }
-            await Interop.InvokeVoidAsync(this, SelectElement, "bb_select", nameof(ConfirmSelectedItem));
+            Interop ??= new JSInterop<Select<TValue>>(JSRuntime);
+            await Interop.InvokeVoidAsync(this, SelectElement, "bb_select", nameof(ConfirmSelectedItem), "init");
 
             // 选项值不为 null 后者 string.Empty 时触发一次 OnSelectedItemChanged 回调
             if (SelectedItem != null && OnSelectedItemChanged != null && !string.IsNullOrEmpty(SelectedItem.Value))
@@ -220,14 +207,14 @@ public partial class Select<TValue> : ISelect
             ? DataSource
             : OnSearchTextChanged.Invoke(SearchText);
         var item = ds.ElementAt(index);
-        await OnItemClick(item);
+        await OnClickItem(item);
         StateHasChanged();
     }
 
     /// <summary>
     /// 下拉框选项点击时调用此方法
     /// </summary>
-    private async Task OnItemClick(SelectedItem item)
+    private async Task OnClickItem(SelectedItem item)
     {
         var ret = true;
         if (OnBeforeSelectedItemChange != null)
@@ -257,6 +244,10 @@ public partial class Select<TValue> : ISelect
         }
         if (ret)
         {
+            if (Interop != null && IsPopover)
+            {
+                await Interop.InvokeVoidAsync(this, SelectElement, "bb_select", nameof(ConfirmSelectedItem), "hide");
+            }
             await ItemChanged(item);
         }
     }
@@ -288,4 +279,22 @@ public partial class Select<TValue> : ISelect
     /// </summary>
     /// <param name="item"></param>
     public void Add(SelectedItem item) => Childs.Add(item);
+
+    /// <summary>
+    /// DisposeAsyncCore 方法
+    /// </summary>
+    /// <param name="disposing"></param>
+    /// <returns></returns>
+    protected override async ValueTask DisposeAsyncCore(bool disposing)
+    {
+        await base.DisposeAsyncCore(disposing);
+
+        if (disposing)
+        {
+            if (Interop != null)
+            {
+                await Interop.InvokeVoidAsync(this, SelectElement, "bb_select", nameof(ConfirmSelectedItem), "dispose");
+            }
+        }
+    }
 }

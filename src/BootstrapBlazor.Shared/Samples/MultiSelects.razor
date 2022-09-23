@@ -8,28 +8,28 @@
 <DemoBlock Title="@Localizer["Block1Title"]" Introduction="@Localizer["Block1Intro"]" Name="Color">
     <div class="row g-3">
         <div class="col-12 col-sm-6">
-            <MultiSelect Items="@Items" @bind-Value="@Model.Address"></MultiSelect>
+            <MultiSelect TValue="string" Items="@Items21"></MultiSelect>
         </div>
         <div class="col-12 col-sm-6">
-            <MultiSelect Color="Color.Primary" Items="@Items" @bind-Value="@Model.Address"></MultiSelect>
+            <MultiSelect TValue="string" Color="Color.Primary" Items="@Items22"></MultiSelect>
         </div>
         <div class="col-12 col-sm-6">
-            <MultiSelect Color="Color.Success" Items="@Items" @bind-Value="@Model.Address"></MultiSelect>
+            <MultiSelect TValue="string" Color="Color.Success" Items="@Items23"></MultiSelect>
         </div>
         <div class="col-12 col-sm-6">
-            <MultiSelect Color="Color.Danger" Items="@Items" @bind-Value="@Model.Address"></MultiSelect>
+            <MultiSelect TValue="string" Color="Color.Danger" Items="@Items24"></MultiSelect>
         </div>
         <div class="col-12 col-sm-6">
-            <MultiSelect Color="Color.Warning" Items="@Items" @bind-Value="@Model.Address"></MultiSelect>
+            <MultiSelect TValue="string" Color="Color.Warning" Items="@Items25"></MultiSelect>
         </div>
         <div class="col-12 col-sm-6">
-            <MultiSelect Color="Color.Info" Items="@Items" @bind-Value="@Model.Address"></MultiSelect>
+            <MultiSelect TValue="string" Color="Color.Info" Items="@Items26"></MultiSelect>
         </div>
         <div class="col-12 col-sm-6">
-            <MultiSelect Color="Color.Secondary" Items="@Items" @bind-Value="@Model.Address"></MultiSelect>
+            <MultiSelect TValue="string" Color="Color.Secondary" Items="@Items27"></MultiSelect>
         </div>
         <div class="col-12 col-sm-6">
-            <MultiSelect Color="Color.Dark" Items="@Items" @bind-Value="@Model.Address"></MultiSelect>
+            <MultiSelect TValue="string" Color="Color.Dark" Items="@Items28"></MultiSelect>
         </div>
     </div>
 </DemoBlock>
@@ -109,7 +109,7 @@
 
 <DemoBlock Title="@Localizer["Block8Title"]" Introduction="@Localizer["Block8Intro"]" Name="OptionChange">
     <MultiSelect Items="@Items8" OnSelectedItemsChanged="@OnSelectedItemsChanged8" Value="@SelectedItemsValue8" />
-    <BlockLogger @ref="Trace2" />
+    <BlockLogger @ref="Trace2" class="mt-3" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["Block9Title"]" Introduction="@Localizer["Block9Intro"]" Name="ClientValidation">
@@ -189,7 +189,7 @@
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["ItemTemplateTitle"]" Introduction="@Localizer["ItemTemplateIntro"]" Name="ItemTemplate">
-    <div class="row g-3">
+    <div class="row">
         <div class="col-12 col-sm-6">
             <MultiSelect TValue="string" Items="@TemplateItems">
                 <ItemTemplate>
@@ -200,6 +200,14 @@
                     </div>
                 </ItemTemplate>
             </MultiSelect>
+        </div>
+    </div>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["PopoverTitle"]" Introduction="@Localizer["PopoverIntro"]" Name="Popover">
+    <div class="row">
+        <div class="col-12 col-sm-6 overflow-hidden">
+            <MultiSelect TValue="string" Items="@Items" IsPopover="true" />
         </div>
     </div>
 </DemoBlock>

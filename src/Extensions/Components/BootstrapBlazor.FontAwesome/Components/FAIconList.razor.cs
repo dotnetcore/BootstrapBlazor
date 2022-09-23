@@ -28,7 +28,7 @@ public partial class FAIconList
     public bool ShowCopyDialog { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否显示目录 默认 false 开启后需要自行增加样式
+    /// 获得/设置 是否显示目录 默认 false
     /// </summary>
     [Parameter]
     public bool ShowCatalog { get; set; }
@@ -39,6 +39,24 @@ public partial class FAIconList
     [Parameter]
     [NotNull]
     public string? DialogHeaderText { get; set; }
+
+    /// <summary>
+    /// 获得/设置 当前选择图标
+    /// </summary>
+    [Parameter]
+    public string? Icon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 当前选择图标回调方法
+    /// </summary>
+    [Parameter]
+    public EventCallback<string?> IconChanged { get; set; }
+
+    /// <summary>
+    /// 获得/设置 点击图标是否进行拷贝处理 默认 false
+    /// </summary>
+    [Parameter]
+    public bool IsCopy { get; set; }
 
     [Inject]
     [NotNull]
@@ -72,7 +90,25 @@ public partial class FAIconList
         if (firstRender)
         {
             Interop ??= new(JSRuntime);
-            await Interop.InvokeVoidAsync(this, IconListElement, "bb_iconList", nameof(ShowDialog));
+            await Interop.InvokeVoidAsync(this, IconListElement, "bb_iconList", nameof(UpdateIcon), nameof(ShowDialog), IsCopy);
+        }
+    }
+
+    /// <summary>
+    /// 更新当前选择图标值方法
+    /// </summary>
+    /// <param name="icon"></param>
+    [JSInvokable]
+    public async Task UpdateIcon(string icon)
+    {
+        Icon = icon;
+        if (IconChanged.HasDelegate)
+        {
+            await IconChanged.InvokeAsync(Icon);
+        }
+        else
+        {
+            StateHasChanged();
         }
     }
 

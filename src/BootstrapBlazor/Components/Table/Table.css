@@ -12,7 +12,7 @@
     --bb-table-footer-border-top: 2px solid #dee2e6;
     --bb-table-loader-bg: #f8f9fa;
     --bb-table-card-row-padding: .75rem 0;
-    --bb-table-columnlist-max-height: 780px;
+    --bb-table-columnlist-max-height: var(--bb-dropdown-max-height);
 }
 
     .table-container .table:not(.table-excel) .switch {
@@ -30,8 +30,6 @@
 .table-excel {
     --bb-border-hover-color: transparent;
     --bb-border-focus-color: transparent;
-    --bs-border-color: transparent;
-    --bs-border-radius: 0;
 }
 
 .table-dark {
@@ -182,20 +180,42 @@
         justify-content: center;
     }
 
-        .table-cell.center .table-text {
+        .table-cell.center > * {
             text-align: center;
+        }
+
+        .table-cell.center > .switch {
+            justify-content: center;
         }
 
     .table-cell.end {
         justify-content: right;
     }
 
-        .table-cell.end .table-text {
+        .table-cell.end > * {
             text-align: right;
+        }
+
+        .table-cell.end > .switch {
+            justify-content: flex-end;
         }
 
     .table-cell .btn-group .btn {
         white-space: nowrap;
+    }
+
+    .table-cell > .form-control {
+        --bs-border-radius: 0;
+    }
+
+    .table-cell > :where(.form-control, .select, .datetime-picker) {
+        --bs-border-color: transparent;
+    }
+
+    .table-cell > .is-display {
+        --bs-border-color: var(--bb-disabled-bg);
+        --bb-border-hover-color: var(--bb-disabled-bg);
+        --bb-border-focus-color: var(--bb-disabled-bg);
     }
 
 .table-hover tbody tr.is-detail:hover,
@@ -621,6 +641,10 @@ form .table .table-cell > textarea {
 
 .table-excel.table > :not(caption):not(thead) > * > * {
     padding: 0;
+}
+
+.table-excel.table > :not(caption):not(thead) > * > .table-column-button {
+    padding: 6px 12px;
 }
 
 .table-excel > tbody .is-bar {

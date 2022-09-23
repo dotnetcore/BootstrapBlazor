@@ -3,25 +3,24 @@
     --bb-select-focus-shadow: none;
     --bb-select-bg: #fff;
     --bb-select-padding: 6px 2.25rem 6px 0.75rem;
-    --bb-select-dropdown-max-height: var(--bb-dropdown-max-height);
 }
+
+    .select .dropdown-toggle::after {
+        content: none;
+    }
+
+    .select .dropdown-menu {
+        overflow-x: hidden;
+        width: 100%;
+    }
 
 :where(.cascade, .select) {
     --bb-select-dropdown-menu-margin-top: 8px;
 }
 
-.select .dropdown-menu {
-    overflow-x: hidden;
-    width: 100%;
-}
-
-.select .dropdown-toggle::after {
-    content: none;
-}
-
-:where(.cascade, .select) .dropdown-menu {
-    margin-top: var(--bb-select-dropdown-menu-margin-top) !important;
-}
+    :where(.cascade, .select) .dropdown-menu {
+        margin-top: var(--bb-select-dropdown-menu-margin-top) !important;
+    }
 
 .select .form-select {
     background-image: none;
@@ -37,12 +36,9 @@
     }
 
 .dropdown-menu {
-    overflow: auto;
-}
-
-.dropdown-menu {
     --bs-dropdown-border-radius: var(--bs-border-radius);
-    max-height: var(--bb-select-dropdown-max-height);
+    overflow: auto;
+    max-height: var(--bb-dropdown-max-height);
 }
 
 .dropdown-item {
@@ -122,26 +118,6 @@
     transform: rotate(0);
 }
 
-.select .search {
-    padding: 7px 10px;
-    position: relative;
-    border-bottom: 1px solid #ddd;
-    padding-bottom: 0.625rem;
-    margin-bottom: 0.5rem;
-}
-
-    .select .search .search-text {
-        width: 100%;
-        padding-right: 30px;
-    }
-
-    .select .search .fa-magnifying-glass {
-        position: absolute;
-        left: calc(100% - 34px);
-        top: 18px;
-        color: #adb5bd;
-    }
-
 .form-select.is-valid:focus,
 .was-validated .form-select:valid:focus,
 .form-select.is-invalid:focus,
@@ -179,3 +155,23 @@
 .arrow-info {
     border-color: transparent transparent var(--bs-info);
 }
+
+.dropdown-menu .search {
+    padding: 7px 10px;
+    position: relative;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 0.625rem;
+    margin-bottom: 0.5rem;
+}
+
+    .dropdown-menu .search .search-text {
+        width: 100%;
+        padding-right: 30px;
+    }
+
+    .dropdown-menu .search .fa-magnifying-glass {
+        position: absolute;
+        left: calc(100% - 34px);
+        top: 18px;
+        color: #adb5bd;
+    }

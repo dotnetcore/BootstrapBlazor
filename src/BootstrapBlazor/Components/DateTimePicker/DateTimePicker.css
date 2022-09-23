@@ -1,16 +1,4 @@
-﻿.popover-datetime {
-    max-width: unset;
-}
-
-    .popover-datetime .popover-body {
-        padding: 0;
-    }
-
-    .popover-datetime .date-picker {
-        border: none;
-    }
-
-.datetime-picker {
+﻿.datetime-picker {
     --bb-dt-picker-bar-color: #b5b5c3;
     position: relative;
 }

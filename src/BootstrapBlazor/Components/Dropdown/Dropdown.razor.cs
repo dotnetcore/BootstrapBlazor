@@ -63,6 +63,25 @@ public partial class Dropdown<TValue>
         .Build();
 
     /// <summary>
+    /// 获得/设置 颜色 默认 Color.None 无设置
+    /// </summary>
+    [Parameter]
+    public Color Color { get; set; }
+
+    /// <summary>
+    /// 获得/设置 绑定数据集
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public IEnumerable<SelectedItem>? Items { get; set; }
+
+    /// <summary>
+    /// 获得/设置 选项模板
+    /// </summary>
+    [Parameter]
+    public RenderFragment<SelectedItem>? ItemTemplate { get; set; }
+
+    /// <summary>
     /// 获得/设置 是否开启分裂式 默认 false
     /// </summary>
     [Parameter]
@@ -104,14 +123,25 @@ public partial class Dropdown<TValue>
     [Parameter]
     public DropdownType DropdownType { get; set; }
 
-    [NotNull]
-    private List<SelectedItem>? DataSource { get; set; }
-
     /// <summary>
     /// 获得/设置 固定按钮显示文字 默认 null
     /// </summary>
     [Parameter]
     public string? FixedButtonText { get; set; }
+
+    /// <summary>
+    /// SelectedItemChanged 回调方法
+    /// </summary>
+    [Parameter]
+    public Func<SelectedItem, Task>? OnSelectedItemChanged { get; set; }
+
+    [NotNull]
+    private List<SelectedItem>? DataSource { get; set; }
+
+    /// <summary>
+    /// 当前选择项实例
+    /// </summary>
+    private SelectedItem? SelectedItem { get; set; }
 
     /// <summary>
     /// OnParametersSet 方法

@@ -2,6 +2,8 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using Microsoft.AspNetCore.Components.Rendering;
+
 namespace UnitTest.Components;
 
 public class RibbonTabTest : BootstrapBlazorTestBase
@@ -118,6 +120,30 @@ public class RibbonTabTest : BootstrapBlazorTestBase
         Assert.Contains("Test-Template", cut.Markup);
     }
 
+    [Fact]
+    public void RibbonTabItem_Component()
+    {
+        var cut = Context.RenderComponent<RibbonTab>(pb =>
+        {
+            pb.Add(a => a.Items, new RibbonTabItem[]
+            {
+                new RibbonTabItem()
+                {
+                    Text = "test",
+                    Items = new RibbonTabItem[]
+                    {
+                        new RibbonTabItem()
+                        {
+                            Text = "Item",
+                            Component = BootstrapDynamicComponent.CreateComponent<MockCom>()
+                        }
+                    }
+                }
+            });
+        });
+        Assert.Contains("Test-Template", cut.Markup);
+    }
+
     private static IEnumerable<RibbonTabItem> GetItems() => new List<RibbonTabItem>()
     {
         new()
@@ -147,4 +173,12 @@ public class RibbonTabTest : BootstrapBlazorTestBase
             }
         }
     };
+
+    class MockCom : ComponentBase
+    {
+        protected override void BuildRenderTree(RenderTreeBuilder builder)
+        {
+            builder.AddContent(0, "Test-Template");
+        }
+    }
 }

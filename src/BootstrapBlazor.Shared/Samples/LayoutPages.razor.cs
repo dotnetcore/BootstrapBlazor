@@ -23,7 +23,7 @@ public sealed partial class LayoutPages
         .AddClass($"height: {Height * 100}px", Height > 0)
         .Build();
 
-    private int Height { get; set; }
+    private double Height { get; set; }
 
     /// <summary>
     /// 获得/设置 是否显示页脚

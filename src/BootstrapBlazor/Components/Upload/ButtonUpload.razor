@@ -8,47 +8,50 @@
 }
 <div @attributes="@AdditionalAttributes" class="@ClassString" @ref="UploaderElement">
     <Button class="@BrowserButtonClassString" IsDisabled="@IsUploadButtonDisabled" Icon="@BrowserButtonIcon" Text="@BrowserButtonText" />
-    <div class="upload-body is-list">
-        @foreach (var item in GetUploadFiles())
-        {
-            <div @key="item" class="@GetItemClassString(item)">
-                <i class="@GetFileFormatClassString(item)"></i>
-                <div class="fn">
-                    <span>@GetFileName(item)</span>
-                    <span>(@item.Size.ToFileSizeString())</span>
-                </div>
-                @if (GetShowProgress(item))
-                {
-                    <i class="fa-solid fa-spinner fa-spin fa-fw text-success"></i>
-                    <Progress Color="Color.Success" Height="2" Value="@item.ProgressPercent" />
-                }
-                else
-                {
-                    <div class="upload-buttons">
-                        @if (ShowDownloadButton)
-                        {
-                            <i class="fa-solid fa-download text-primary" @onclick="() => OnClickDownload(item)"></i>
-                        }
-                        @if (item.Code == 0)
-                        {
-                            <i class="fa-regular fa-circle-check text-success"></i>
-                            @if (!IsDisabled)
-                            {
-                                <i class="fa-regular fa-trash-can text-danger" @onclick:stopPropagation @onclick="@(e => OnFileDelete(item))"></i>
-                            }
-                        }
-                        else
-                        {
-                            @if (!IsDisabled)
-                            {
-                                <i class="fa-regular fa-circle-xmark"></i>
-                                <i class="fa-regular fa-trash-can text-danger" @onclick:stopPropagation @onclick="@(e => OnFileDelete(item))"></i>
-                            }
-                        }
+    @if (ShowUploadFileList)
+    {
+        <div class="upload-body is-list">
+            @foreach (var item in GetUploadFiles())
+            {
+                <div @key="item" class="@GetItemClassString(item)">
+                    <i class="@GetFileFormatClassString(item)"></i>
+                    <div class="fn">
+                        <span>@GetFileName(item)</span>
+                        <span>(@item.Size.ToFileSizeString())</span>
                     </div>
-                }
-            </div>
-        }
-    </div>
+                    @if (GetShowProgress(item))
+                    {
+                        <i class="fa-solid fa-spinner fa-spin fa-fw text-success"></i>
+                        <Progress Color="Color.Success" Height="2" Value="@item.ProgressPercent" />
+                    }
+                    else
+                    {
+                        <div class="upload-buttons">
+                            @if (ShowDownloadButton)
+                            {
+                                <i class="fa-solid fa-download text-primary" @onclick="() => OnClickDownload(item)"></i>
+                            }
+                            @if (item.Code == 0)
+                            {
+                                <i class="fa-regular fa-circle-check text-success"></i>
+                                @if (!IsDisabled)
+                                {
+                                    <i class="fa-regular fa-trash-can text-danger" @onclick:stopPropagation @onclick="@(e => OnFileDelete(item))"></i>
+                                }
+                            }
+                            else
+                            {
+                                @if (!IsDisabled)
+                                {
+                                    <i class="fa-regular fa-circle-xmark"></i>
+                                    <i class="fa-regular fa-trash-can text-danger" @onclick:stopPropagation @onclick="@(e => OnFileDelete(item))"></i>
+                                }
+                            }
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+    }
     <InputFile AdditionalAttributes="@GetUploadAdditionalAttributes()" OnChange="OnFileChange" />
 </div>

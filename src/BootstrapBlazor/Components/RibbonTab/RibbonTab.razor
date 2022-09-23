@@ -13,9 +13,9 @@
                             <div class="d-flex">
                                 @foreach (var group in groups)
                                 {
-                                    if (group.Template != null)
+                                    if (group.Component != null || group.Template != null)
                                     {
-                                        @group.Template
+                                        @RenderTemplate(group)
                                     }
                                     else
                                     {

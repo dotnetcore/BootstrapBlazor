@@ -78,6 +78,11 @@ public sealed partial class Uploads : IDisposable
         }
     }
 
+    private async Task OnClickToUploadNoUploadList(UploadFile file)
+    {
+        await ToastService.Success("Upload", $"{file.OriginFileName} uploaded success.");
+    }
+
     private CancellationTokenSource? UploadFolderToken { get; set; }
     private async Task OnUploadFolder(UploadFile file)
     {

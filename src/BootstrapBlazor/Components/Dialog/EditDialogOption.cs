@@ -66,6 +66,11 @@ public class EditDialogOption<TModel> : DialogOption
     public TModel? Model { get; set; }
 
     /// <summary>
+    /// 获得/设置 是否禁用表单内回车自动提交功能 默认 null 未设置
+    /// </summary>
+    public bool? DisableAutoSubmitFormByEnter { get; set; }
+
+    /// <summary>
     /// 获得 编辑项集合
     /// </summary>
     public IEnumerable<IEditorItem>? Items { get; set; }

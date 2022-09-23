@@ -1,42 +1,52 @@
 ﻿@namespace BootstrapBlazor.Components
 @inherits IdComponentBase
 
-<div @attributes="@AdditionalAttributes" id="@Id" class="@ClassName" style="@StyleName" data-bs-ride="carousel" @ref="CarouselElement">
+<div @attributes="@AdditionalAttributes" id="@Id" class="@ClassName" style="@StyleName" data-bs-ride="carousel" data-bs-touch="@DisableTouchSwipingString" @ref="CarouselElement">
     <CascadingValue Value="this" IsFixed="true">
         @ChildContent
     </CascadingValue>
     <RenderTemplate>
-        <ol class="carousel-indicators">
-            @for (var index = 0; index < Images.Count(); index++)
-            {
-                <li data-bs-slide-to="@index" class="@CheckActive(index)" data-bs-target="@TargetId"></li>
-            }
-            @for(var index = 0; index < Items.Count; index++)
-            {
-                <li data-bs-slide-to="@index" class="@CheckActive(index)" data-bs-target="@TargetId"></li>
-            }
-        </ol>
+        @if (ShowIndicators)
+        {
+            <ol class="carousel-indicators">
+                @for (var index = 0; index < Items.Count; index++)
+                {
+                    <li data-bs-slide-to="@index" class="@CheckActive(index)" data-bs-target="@TargetId"></li>
+                }
+            </ol>
+        }
         <div class="carousel-inner">
-            @for (var index = 0; index < Images.Count(); index++)
+            @for (var index = 0; index < Items.Count; index++)
             {
-                <div class="@CheckActive(index, "carousel-item")">
-                    <CarouselImage ImageUrl="@Images.ElementAt(index)" OnClick="@OnClickImage"></CarouselImage>
-                </div>
-            }
-            @for (var index = 0; index < Items.Count(); index++)
-            {
-                <div class="@CheckActive(index, "carousel-item")">
-                    @Items[index].ChildContent
+                var item = Items[index];
+                <div class="@CheckActive(index, "carousel-item")" data-bs-interval="@item.IntervalString">
+                    @item.ChildContent
+                    @if (item.ShowCaption)
+                    {
+                        <div class="@item.GetCaptionClassString">
+                            @if (item.CaptionTemplate != null)
+                            {
+                                @item.CaptionTemplate
+                            }
+                            else
+                            {
+                                @item.Caption
+                            }
+                        </div>
+                    }
                 </div>
             }
         </div>
-        <a class="carousel-control-prev d-none" data-bs-slide="prev" @onclick:preventDefault href="@TargetId">
-            <i class="fa-solid fa-angle-left"></i>
-            <span class="sr-only">Previous</span>
-        </a>
-        <a class="carousel-control-next d-none" data-bs-slide="next" @onclick:preventDefault href="@TargetId">
-            <i class="fa-solid fa-angle-right"></i>
-            <span class="sr-only">Next</span>
-        </a>
+        @if (ShowControls)
+        {
+            <a class="carousel-control-prev d-none" data-bs-slide="prev" @onclick:preventDefault href="@TargetId">
+                <i class="fa-solid fa-angle-left"></i>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next d-none" data-bs-slide="next" @onclick:preventDefault href="@TargetId">
+                <i class="fa-solid fa-angle-right"></i>
+                <span class="sr-only">Next</span>
+            </a>
+        }
     </RenderTemplate>
 </div>

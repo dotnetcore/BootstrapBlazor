@@ -2,6 +2,8 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using Microsoft.AspNetCore.Components.Web;
+
 namespace UnitTest.Components;
 
 public class ErrorLoggerTest : BootstrapBlazorTestBase
@@ -59,5 +61,40 @@ public class ErrorLoggerTest : BootstrapBlazorTestBase
         var button = cut.Find("button");
         button.TriggerEvent("onclick", EventArgs.Empty);
         Assert.True(tcs.Task.Result);
+    }
+
+    [Fact]
+    public void OnErrorHandleAsync_Tab()
+    {
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.Add(a => a.ChildContent, new RenderFragment(builder =>
+            {
+                builder.OpenComponent<Tab>(0);
+                builder.AddAttribute(1, nameof(Tab.ChildContent), new RenderFragment(builder =>
+                {
+                    builder.OpenComponent<TabItem>(0);
+                    builder.AddAttribute(1, nameof(TabItem.ChildContent), new RenderFragment(builder =>
+                    {
+                        builder.OpenComponent<Button>(0);
+                        builder.AddAttribute(1, nameof(Button.Text), "errorlogger-click");
+                        builder.AddAttribute(2, nameof(Button.OnClick), EventCallback.Factory.Create<MouseEventArgs>(this, e =>
+                        {
+                            var a = 0;
+                            _ = 1 / a;
+                        }));
+                        builder.CloseComponent();
+                    }));
+                    builder.CloseComponent();
+                }));
+                builder.CloseComponent();
+            }));
+        });
+
+        cut.Contains("errorlogger-click");
+        var button = cut.Find("button");
+        button.TriggerEvent("onclick", EventArgs.Empty);
+
+        cut.Contains("<div class=\"tabs-body-content\"><div class=\"error-stack\">TimeStamp:");
     }
 }

@@ -117,6 +117,28 @@ public sealed partial class Dialogs
         Component = BootstrapDynamicComponent.CreateComponent<ErrorCounter>()
     });
 
+    private async Task OnShownCallbackDialog()
+    {
+        var option = new DialogOption()
+        {
+            Title = "点击按钮报错测试"
+        };
+        option.Component = BootstrapDynamicComponent.CreateComponent<ShownCallbackDummy>(new Dictionary<string, object?>()
+        {
+            // ShownTodo 方法时组件 ShownCallbackDummy 已经渲染完毕后组件内部调用
+            // 此回调中给 Option 实例的 ShownCallbackAsync 回调委托赋值
+            // Modal 组件 ShownCallbackAsync 触发后调用 Option 实例的 ShownCallbackAsync
+            [nameof(ShownCallbackDummy.ShownTodo)] = new Action<Func<Task>>(cb =>
+            {
+                option.ShownCallbackAsync = async () =>
+                {
+                    await cb();
+                };
+            })
+        });
+        await DialogService.Show(option);
+    }
+
     private Task OnClickParameter() => DialogService.Show(new DialogOption()
     {
         Title = "自带的 Counter 组件",

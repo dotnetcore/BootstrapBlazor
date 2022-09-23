@@ -64,9 +64,7 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
             builder.Add(a => a.Value, new DateTimeRangeValue { Start = DateTime.Now, End = DateTime.Now.AddDays(30) });
             builder.Add(a => a.Placement, Placement.Top);
         });
-        var placement = cut.FindAll("div").Select(s => s.GetAttribute("data-bs-placement")).FirstOrDefault();
-
-        Assert.Equal("top", placement);
+        cut.Contains($"data-bs-placement=\"{Placement.Top.ToDescriptionString()}\"");
     }
 
     [Fact]
@@ -243,14 +241,15 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void InValidateForm_Ok()
+    public async Task InValidateForm_Ok()
     {
         var foo = new Dummy
         {
-            Value = new DateTimeRangeValue { Start = DateTime.Now.AddDays(1), End = DateTime.Now.AddDays(30) }
+            Value = new DateTimeRangeValue()
         };
         var cut = Context.RenderComponent<ValidateForm>(pb =>
         {
+            pb.Add(a => a.ValidateAllProperties, true);
             pb.Add(a => a.Model, foo);
             pb.AddChildContent<DateTimeRange>(pb =>
             {
@@ -258,7 +257,17 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
                 pb.Add(a => a.ValueExpression, Utility.GenerateValueExpression(foo, nameof(Dummy.Value), typeof(DateTimeRangeValue)));
             });
         });
+
+        // ValidateForm 自动自动生成标签
         cut.Contains("class=\"form-label\"");
+
+        var validate = true;
+        // 验证
+        await cut.InvokeAsync(() =>
+        {
+            validate = cut.Instance.Validate();
+        });
+        Assert.False(validate);
     }
 
     [Fact]
@@ -295,6 +304,19 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
             Assert.Equal(currentToday.AddDays(-2), comp.Instance.MinValue);
             Assert.Equal(currentToday.AddDays(2), comp.Instance.MaxValue);
         }
+    }
+
+    [Fact]
+    public void ToString_Ok()
+    {
+        var v1 = new DateTimeRangeValue();
+        Assert.Equal("", v1.ToString());
+
+        v1.Start = DateTime.Today;
+        Assert.Equal($"{DateTime.Today}", v1.ToString());
+
+        v1.End = DateTime.Today;
+        Assert.Equal($"{DateTime.Today} - {DateTime.Today}", v1.ToString());
     }
 
     private class Dummy

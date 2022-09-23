@@ -73,6 +73,60 @@ public partial class Carousel
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
+    /// 获得/设置 是否显示控制按钮 默认 true
+    /// </summary>
+    [Parameter]
+    public bool ShowControls { get; set; } = true;
+
+    /// <summary>
+    /// 获得/设置 是否显示指示标志 默认 true
+    /// </summary>
+    [Parameter]
+    public bool ShowIndicators { get; set; } = true;
+
+    /// <summary>
+    /// 获得/设置 是否禁用移动端手势滑动 默认 false
+    /// </summary>
+    [Parameter]
+    public bool DisableTouchSwiping { get; set; }
+
+    private string? DisableTouchSwipingString => DisableTouchSwiping ? "false" : null;
+
+    /// <summary>
+    /// OnParametersSet 方法
+    /// </summary>
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
+        if (Items.Count == 0)
+        {
+            foreach (var image in Images)
+            {
+                var item = new CarouselItem();
+#if NET5_0
+                item.SetParametersAsync(ParameterView.FromDictionary(new Dictionary<string, object>()
+#else
+                item.SetParametersAsync(ParameterView.FromDictionary(new Dictionary<string, object?>()
+#endif
+                {
+                    [nameof(CarouselItem.ChildContent)] = new RenderFragment(builder =>
+                    {
+                        builder.OpenComponent<CarouselImage>(0);
+                        builder.AddAttribute(1, nameof(CarouselImage.ImageUrl), image);
+                        if (OnClick != null)
+                        {
+                            builder.AddAttribute(2, nameof(CarouselImage.OnClick), OnClickImage);
+                        }
+                        builder.CloseComponent();
+                    })
+                }));
+                Items.Add(item);
+            }
+        }
+    }
+
+    /// <summary>
     /// OnAfterRenderAsync 方法
     /// </summary>
     /// <param name="firstRender"></param>

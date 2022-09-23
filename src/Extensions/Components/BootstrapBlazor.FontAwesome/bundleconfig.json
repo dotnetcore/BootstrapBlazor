@@ -1,0 +1,9 @@
+﻿[
+  {
+    "outputFileName": "wwwroot/css/font-awesome.min.css",
+    "inputFiles": [
+      "wwwroot/fa/*.min.css",
+      "Components/**/*.css"
+    ]
+  }
+]

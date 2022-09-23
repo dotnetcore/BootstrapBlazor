@@ -1,8 +1,8 @@
 ﻿(function ($) {
     $.extend({
-        bb_iconList: function (el, obj, method) {
+        bb_iconList: function (el, obj, method, showDialog, copy) {
             var $el = $(el);
-            $('body').scrollspy({ offset: 150, target: '.fa-nav' });
+            $el.find('[data-bs-spy="scroll"]').scrollspy();
             $el.on('click', '.nav-link', function (e) {
                 e.preventDefault();
                 e.stopPropagation();
@@ -17,18 +17,19 @@
                 }
                 $(container).scrollTop(margin);
             });
-            $el.on('click', 'a', function (e) {
+            $el.on('click', '.icons-body a', function (e) {
                 e.preventDefault();
                 e.stopPropagation();
 
                 var $this = $(this);
                 var $i = $(this).find('i');
                 var text = $i.attr('class');
+                obj.invokeMethodAsync(method, text);
                 var dialog = $el.hasClass('is-dialog');
                 if (dialog) {
-                    obj.invokeMethodAsync(method, text);
+                    obj.invokeMethodAsync(showDialog, text);
                 }
-                else {
+                else if (copy) {
                     $.bb_copyIcon($this, text);
                 }
             });
@@ -51,6 +52,10 @@
                 window.clearTimeout(handler);
                 $this.tooltip('dispose');
             }, 1000);
+        },
+        bb_scrollspy: function () {
+            var $el = $('.icon-list [data-bs-spy="scroll"]');
+            $el.scrollspy('refresh');
         }
     });
 })(jQuery);

@@ -37,10 +37,7 @@ public partial class DateTimeRange
     /// 获得 组件弹窗位置
     /// </summary>
     private string? PlacementString => CssBuilder.Default()
-        .AddClass("top", Placement == Placement.Top)
-        .AddClass("bottom", Placement == Placement.Bottom)
-        .AddClass("left", Placement == Placement.Left)
-        .AddClass("right", Placement == Placement.Right)
+        .AddClass(Placement.ToDescriptionString(), Placement != Placement.Auto)
         .Build();
 
     /// <summary>
@@ -282,6 +279,8 @@ public partial class DateTimeRange
     /// <returns></returns>
     private async Task ClickClearButton()
     {
+        await JSRuntime.InvokeVoidAsync(PickerRange, "bb_datetimeRange", "hide");
+
         Value = new DateTimeRangeValue();
 
         if (OnClearValue != null)
@@ -319,6 +318,8 @@ public partial class DateTimeRange
     /// </summary>
     private async Task ClickConfirmButton()
     {
+        await JSRuntime.InvokeVoidAsync(PickerRange, "bb_datetimeRange", "hide");
+
         if (SelectedValue.End == DateTime.MinValue)
         {
             if (SelectedValue.Start < DateTime.Now)
@@ -350,8 +351,6 @@ public partial class DateTimeRange
         {
             await ValueChanged.InvokeAsync(Value);
         }
-
-        await JSRuntime.InvokeVoidAsync(PickerRange, "bb_datetimeRange", "hide");
 
         if (IsNeedValidate && FieldIdentifier != null)
         {
@@ -425,4 +424,19 @@ public partial class DateTimeRange
     /// <param name="propertyValue"></param>
     /// <returns></returns>
     public override bool IsComplexValue(object? propertyValue) => false;
+
+    /// <summary>
+    /// DisposeAsyncCore 方法
+    /// </summary>
+    /// <param name="disposing"></param>
+    /// <returns></returns>
+    protected override async ValueTask DisposeAsyncCore(bool disposing)
+    {
+        await base.DisposeAsyncCore(disposing);
+
+        if (disposing)
+        {
+            await JSRuntime.InvokeVoidAsync(PickerRange, "bb_datetimeRange", "dispose");
+        }
+    }
 }

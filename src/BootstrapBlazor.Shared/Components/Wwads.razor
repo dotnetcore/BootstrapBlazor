@@ -1,0 +1,9 @@
+﻿<div class="@ClassString" data-id="72"></div>
+
+@code {
+    private string? ClassString => CssBuilder.Default("wwads-cn wwads-horizontal")
+#if DEBUG
+        .AddClass("debug")
+#endif
+        .Build();
+}

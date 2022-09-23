@@ -31,6 +31,8 @@ public partial class Dialog : IDisposable
 
     private bool IsShowDialog { get; set; }
 
+    private Func<Task>? ShownCallbackAsync { get; set; }
+
     /// <summary>
     /// OnInitialized 方法
     /// </summary>
@@ -60,6 +62,14 @@ public partial class Dialog : IDisposable
 
     private Task Show(DialogOption option)
     {
+        ShownCallbackAsync = async () =>
+        {
+            if (option.ShownCallbackAsync != null)
+            {
+                await option.ShownCallbackAsync();
+            }
+        };
+
         IsKeyboard = option.IsKeyboard;
         option.Dialog = ModalContainer;
         var parameters = option.ToAttributes();
@@ -135,6 +145,14 @@ public partial class Dialog : IDisposable
         });
         builder.CloseComponent();
     };
+
+    private async Task OnShownCallbackAsync()
+    {
+        if (ShownCallbackAsync != null)
+        {
+            await ShownCallbackAsync();
+        }
+    }
 
     /// <summary>
     /// Dispose 方法

@@ -70,6 +70,11 @@ public class BootstrapBlazorOptions
     public TableSettings TableSettings { get; set; } = new();
 
     /// <summary>
+    /// 获得/设置 是否禁用表单内回车自动提交功能 默认 null 未设置
+    /// </summary>
+    public bool? DisableAutoSubmitFormByEnter { get; set; }
+
+    /// <summary>
     /// 获得/设置 网站主题集合
     /// </summary>
     public List<KeyValuePair<string, string>> Themes { get; } = new()

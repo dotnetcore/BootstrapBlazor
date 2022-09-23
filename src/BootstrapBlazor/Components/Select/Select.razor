@@ -1,6 +1,6 @@
 ﻿@namespace BootstrapBlazor.Components
 @typeparam TValue
-@inherits SelectBase<TValue>
+@inherits SingleSelectBase<TValue>
 
 @if (IsShowLabel)
 {
@@ -14,11 +14,20 @@
         @{
             ResetSelectedItem();
         }
-        <div class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-            <input type="text" id="@InputId" readonly disabled="@Disabled" placeholder="@PlaceHolder" class="@InputClassName" value="@SelectedItem?.Text" />
-            <span class="@AppendClassName"><i class="fa-solid fa-angle-up"></i></span>
+        <div class="dropdown-toggle" data-bs-toggle="@ToggleString" data-bs-placement="@PlacementString" aria-expanded="false">
+            @if (DisplayTemplate != null)
+            {
+                <div id="@InputId" class="@InputClassName" tabindex="0">
+                    @DisplayTemplate(SelectedItem)
+                </div>
+            }
+            else
+            {
+                <input type="text" id="@InputId" readonly disabled="@Disabled" placeholder="@PlaceHolder" class="@InputClassName" value="@SelectedItem?.Text" />
+                <span class="@AppendClassName"><i class="@DropdownIcon"></i></span>
+            }
         </div>
-        <div class="dropdown-menu shadow">
+        <div class="@DropdownMenuClassString">
             @if (ShowSearch)
             {
                 <div class="search">
@@ -34,7 +43,7 @@
                 }
                 @foreach (var item in itemGroup)
                 {
-                    <div class="@ActiveItem(item)" @onclick="@(e => OnItemClick(item))">
+                    <div class="@ActiveItem(item)" @onclick="@(e => OnClickItem(item))">
                         @if (ItemTemplate != null)
                         {
                             @ItemTemplate(item)
@@ -47,7 +56,10 @@
                 }
             }
         </div>
-        <div class="dropdown-menu-arrow"></div>
+        @if (!IsPopover)
+        {
+            <div class="dropdown-menu-arrow"></div>
+        }
     </RenderTemplate>
 </div>
 <CascadingValue Value="this" IsFixed="true">

@@ -6,8 +6,8 @@
 
 <h4>@Localizer["SubTitle"]</h4>
 
-<DemoBlock Title="@Localizer["BasicUsageTitle"]" Introduction="" Name="Normal">
-    <p>@Localizer["BasicUsageP1"]</p>
+<DemoBlock Title="@Localizer["BasicUsageTitle"]" Introduction="@Localizer["BasicUsageIntro"]" Name="Normal">
+    <p>@((MarkupString)Localizer["BasicUsageP1"].Value)</p>
     <div class="listview-demo">
         <ListView TItem="Product" Items="@Products" OnListViewItemClick="OnListViewItemClick">
             <HeaderTemplate>

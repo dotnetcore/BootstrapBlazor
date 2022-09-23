@@ -1,0 +1,47 @@
+﻿.icon-list {
+    display: flex;
+}
+
+    .icon-list section:nth-child(2) > h2 {
+        margin-top: 0;
+    }
+
+.icons-body {
+    flex: 1;
+}
+
+.icons-nav {
+    position: fixed;
+    top: 5rem;
+    right: 2rem;
+    bottom: calc(1.75rem + 1rem + 52px);
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+    .icons-nav h5 {
+        padding-left: .5rem;
+        width: 182px;
+    }
+
+    .icons-nav .nav {
+        --bs-nav-link-padding-x: .5rem;
+        --bs-nav-link-padding-y: .25rem;
+        flex-direction: column;
+        flex-wrap: nowrap;
+    }
+
+    .icons-nav .nav-link:not(:last-child) {
+        margin-top: .125rem;
+    }
+
+    .icons-nav.nav-pills {
+        --bs-nav-pills-link-active-bg: var(--bs-warning);
+    }
+
+.is-catalog .icons-body {
+    margin-right: 190px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    max-height: calc(100vh - 4.5rem - 47px - 52px);
+}
