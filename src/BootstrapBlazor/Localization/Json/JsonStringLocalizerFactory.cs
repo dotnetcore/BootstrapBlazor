@@ -87,6 +87,21 @@ internal class JsonStringLocalizerFactory : ResourceManagerStringLocalizerFactor
         return base.GetResourcePrefix(typeInfo);
     }
 
+    /// <summary>
+    /// GetResourcePrefix 方法
+    /// </summary>
+    /// <param name="baseResourceName"></param>
+    /// <param name="baseNamespace"></param>
+    /// <returns></returns>
+    protected override string GetResourcePrefix(string baseResourceName, string baseNamespace)
+    {
+        // https://gitee.com/LongbowEnterprise/BootstrapBlazor/issues/I5SRA1
+        var resourcePrefix = base.GetResourcePrefix(baseResourceName, baseNamespace);
+        TypeName = $"{baseNamespace}.{baseResourceName}";
+
+        return resourcePrefix;
+    }
+
     private IResourceNamesCache ResourceNamesCache { get; } = new ResourceNamesCache();
 
     /// <summary>

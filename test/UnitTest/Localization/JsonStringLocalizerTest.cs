@@ -212,6 +212,26 @@ public class JsonStringLocalizerTest : BootstrapBlazorTestBase
         Assert.Equal("test-name", localizer["test-name"]);
     }
 
+    [Fact]
+    public void GetResourcePrefix_Ok()
+    {
+        // https://gitee.com/LongbowEnterprise/BootstrapBlazor/issues/I5SRA1
+        var builder = new TestContext();
+        builder.Services.AddConfiguration();
+
+        // 注入其他 Localization
+        builder.Services.AddLocalization();
+
+        // 注入 Bootstrap Localization
+        builder.Services.AddBootstrapBlazor();
+
+        var fac = builder.Services.GetRequiredService<IStringLocalizerFactory>();
+        var l = fac.Create("Lang", "UnitTest");
+        var result = l["test"];
+        Assert.True(result.ResourceNotFound);
+        Assert.Equal("test", result.Value);
+    }
+
     private class MockTypeInfo : TypeDelegator
     {
         public override string? FullName => null;
