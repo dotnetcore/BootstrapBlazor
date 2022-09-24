@@ -1,18 +1,21 @@
 ﻿@namespace BootstrapBlazor.Components
 @typeparam TValue
-@inherits ValidateBase<TValue>
+@inherits PopoverSelectBase<TValue>
 
 @if (IsShowLabel)
 {
     <BootstrapLabel required="@Required" for="@InputId" ShowLabelTooltip="ShowLabelTooltip" Value="@DisplayText" />
 }
 <div @attributes="AdditionalAttributes" id="@Id" class="@ClassName">
-    <div class="dropdown-toggle" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+    <div class="dropdown-toggle" data-bs-toggle="@ToggleString" data-bs-auto-close="outside" data-bs-placement="@PlacementString" aria-expanded="false">
         <input type="text" id="@InputId" readonly disabled="@Disabled" placeholder="@PlaceHolder" class="@InputClassName" value="@SelectedItem?.Text" />
         <span class="@AppendClassName"><i class="@DropdownIcon"></i></span>
     </div>
-    <div class="dropdown-menu shadow">
+    <div class="@DropdownMenuClassString">
         <TreeView TItem="TValue" Items="@Items" ShowIcon="ShowIcon" OnTreeItemClick="OnItemClick" ModelEqualityComparer="@ModelEqualityComparer" CustomKeyAttribute="@CustomKeyAttribute" OnExpandNodeAsync="@OnExpandNodeAsync" />
     </div>
-    <div class="dropdown-menu-arrow"></div>
+    @if (!IsPopover)
+    {
+        <div class="dropdown-menu-arrow"></div>
+    }
 </div>

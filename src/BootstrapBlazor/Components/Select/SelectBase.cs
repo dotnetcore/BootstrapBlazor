@@ -7,7 +7,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 
 /// </summary>
-public abstract class SelectBase<TValue> : ValidateBase<TValue>
+public abstract class SelectBase<TValue> : PopoverSelectBase<TValue>
 {
     /// <summary>
     /// 获得/设置 颜色 默认 Color.None 无设置
@@ -45,33 +45,6 @@ public abstract class SelectBase<TValue> : ValidateBase<TValue>
     /// </summary>
     [Parameter]
     public RenderFragment<SelectedItem>? ItemTemplate { get; set; }
-
-    /// <summary>
-    /// 获得/设置 弹窗位置 默认为 Bottom
-    /// </summary>
-    [Parameter]
-    public Placement Placement { get; set; } = Placement.Bottom;
-
-    /// <summary>
-    /// 获得/设置 是否使用 Popover 渲染下拉框 默认 false
-    /// </summary>
-    [Parameter]
-    public bool IsPopover { get; set; }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    protected string? ToggleString => IsPopover ? null : "dropdown";
-
-    /// <summary>
-    /// 
-    /// </summary>
-    protected string? DropdownMenuClassString => IsPopover ? "dropdown-menu" : "dropdown-menu shadow";
-
-    /// <summary>
-    /// 
-    /// </summary>
-    protected string? PlacementString => Placement == Placement.Auto ? null : Placement.ToDescriptionString();
 
     /// <summary>
     /// 

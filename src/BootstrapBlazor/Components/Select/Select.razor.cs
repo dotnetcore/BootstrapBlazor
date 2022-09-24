@@ -244,7 +244,7 @@ public partial class Select<TValue> : ISelect
         }
         if (ret)
         {
-            if (Interop != null && IsPopover)
+            if (IsPopover && Interop != null)
             {
                 await Interop.InvokeVoidAsync(this, SelectElement, "bb_select", nameof(ConfirmSelectedItem), "hide");
             }
@@ -289,12 +289,9 @@ public partial class Select<TValue> : ISelect
     {
         await base.DisposeAsyncCore(disposing);
 
-        if (disposing)
+        if (IsPopover && Interop != null && disposing)
         {
-            if (Interop != null)
-            {
-                await Interop.InvokeVoidAsync(this, SelectElement, "bb_select", nameof(ConfirmSelectedItem), "dispose");
-            }
+            await Interop.InvokeVoidAsync(this, SelectElement, "bb_select", nameof(ConfirmSelectedItem), "dispose");
         }
     }
 }

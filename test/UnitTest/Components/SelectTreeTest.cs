@@ -141,6 +141,22 @@ public class SelectTreeTest : BootstrapBlazorTestBase
         Assert.True(cut.Instance.TestRetrieveId());
     }
 
+    [Fact]
+    public void IsPopover_Ok()
+    {
+        var cut = Context.RenderComponent<SelectTree<string>>(builder =>
+        {
+            builder.Add(p => p.Items, BindItems);
+        });
+        cut.Contains("data-bs-toggle=\"dropdown\"");
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.IsPopover, true);
+        });
+        cut.DoesNotContain("data-bs-toggle=\"dropdown\"");
+    }
+
     private List<TreeViewItem<string>> BindItems { get; } = new List<TreeViewItem<string>>()
     {
         new TreeViewItem<string>("Test1")

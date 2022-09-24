@@ -234,23 +234,33 @@ public class MultiSelectTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void IsPopover_Ok()
+    public void IsPopover_True()
     {
         var cut = Context.RenderComponent<MultiSelect<string>>(pb =>
         {
+            pb.Add(a => a.IsPopover, true);
             pb.Add(a => a.Items, new List<SelectedItem>
             {
                 new("1", "Test1"),
                 new("2", "Test2")
             });
         });
-        Assert.Contains("data-bs-toggle", cut.Markup);
+        cut.DoesNotContain("data-bs-toggle=\"dropdown\"");
+    }
 
-        cut.SetParametersAndRender(pb =>
+    [Fact]
+    public void IsPopover_Flase()
+    {
+        var cut = Context.RenderComponent<MultiSelect<string>>(pb =>
         {
-            pb.Add(a => a.IsPopover, true);
+            pb.Add(a => a.IsPopover, false);
+            pb.Add(a => a.Items, new List<SelectedItem>
+            {
+                new("1", "Test1"),
+                new("2", "Test2")
+            });
         });
-        cut.DoesNotContain("data-bs-toggle");
+        cut.Contains("data-bs-toggle=\"dropdown\"");
     }
 
     [Fact]

@@ -73,6 +73,7 @@ public partial class SelectTree<TValue>
     /// 获得/设置 点击节点获取子数据集合回调方法
     /// </summary>
     [Parameter]
+    [NotNull]
     public Func<TreeViewItem<TValue>, Task<IEnumerable<TreeViewItem<TValue>>>>? OnExpandNodeAsync { get; set; }
 
     /// <summary>
@@ -86,6 +87,7 @@ public partial class SelectTree<TValue>
     /// </summary>
     /// <remarks>提供此回调方法时忽略 <see cref="CustomKeyAttribute"/> 属性</remarks>
     [Parameter]
+    [NotNull]
     public Func<TValue, TValue, bool>? ModelEqualityComparer { get; set; }
 
     /// <summary>
@@ -137,6 +139,11 @@ public partial class SelectTree<TValue>
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         await base.OnAfterRenderAsync(firstRender);
+
+        if (firstRender)
+        {
+            await JSRuntime.InvokeVoidAsync(Id, "bb_select_tree");
+        }
     }
 
     /// <summary>
@@ -163,6 +170,20 @@ public partial class SelectTree<TValue>
         if (OnSelectedItemChanged != null)
         {
             await OnSelectedItemChanged.Invoke(item.Value);
+        }
+    }
+
+    /// <summary>
+    /// Dispose 方法
+    /// </summary>
+    /// <param name="disposing"></param>
+    protected override async ValueTask DisposeAsyncCore(bool disposing)
+    {
+        await base.DisposeAsyncCore(disposing);
+
+        if (IsPopover && disposing)
+        {
+            await JSRuntime.InvokeVoidAsync(Id, "bb_select_tree", "dispose");
         }
     }
 }

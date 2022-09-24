@@ -199,7 +199,7 @@ public partial class MultiSelect<TValue>
     {
         await base.OnAfterRenderAsync(firstRender);
 
-        if (firstRender)
+        if (firstRender && IsPopover)
         {
             await JSRuntime.InvokeVoidAsync(SelectElement, "bb_multi_select", "init");
         }
@@ -383,7 +383,7 @@ public partial class MultiSelect<TValue>
     {
         await base.DisposeAsyncCore(disposing);
 
-        if (disposing)
+        if (IsPopover && disposing)
         {
             await JSRuntime.InvokeVoidAsync(SelectElement, "bb_multi_select", "dispose");
         }

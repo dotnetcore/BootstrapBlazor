@@ -99,9 +99,18 @@
                 }
             }
         },
-        bb_select_tree(el) {
-            var $el = $(el);
-            $el.trigger('click');
+        bb_select_tree(id, method) {
+            var el = document.getElementById(id);
+            var input = el.querySelector('.dropdown-toggle');
+            var isBootstrapDrop = input.getAttribute('data-bs-toggle') === 'dropdown';
+            if (!isBootstrapDrop) {
+                var placement = input.getAttribute('data-bs-placement');
+                var p = bb.Popover.getOrCreateInstance(input);
+
+                if (method) {
+                    p.invoke(method);
+                }
+            }
         }
     });
 })(jQuery);
