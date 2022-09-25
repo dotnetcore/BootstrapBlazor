@@ -621,16 +621,23 @@ RenderFragment<TItem> RenderRow => item =>
             var cellClass = "";
             int colspan = 0;
             string? value = null;
+            bool showCell = true;
+            int rowspan = 0;
             if (col.OnCellRender != null)
             {
-                var args = new TableCellArgs { Row = item, ColumnName = col.GetFieldName() };
+                var args = new TableCellArgs { Row = item, ColumnName = col.GetFieldName(), ShowCell = showCell };
                 col.OnCellRender(args);
                 cellClass = args.Class;
                 colspan = args.Colspan;
+                rowspan = args.Rowspan;
+                showCell = args.ShowCell;
                 value = args.Value;
                 prevColspan = colspan;
             }
-            <td colspan="@GetColspan(colspan)" class="@GetFixedCellClassString(col, cellClass)" style="@GetFixedCellStyleString(col)">
+            if(!showCell)
+                continue;
+
+            <td rowspan="@GetSpan(rowspan)" colspan="@GetSpan(colspan)" class="@GetFixedCellClassString(col, cellClass)" style="@GetFixedCellStyleString(col)">
                 @{
                     var isFirstColOfTree = IsTree && index++ == 0;
                     int degree = 0;

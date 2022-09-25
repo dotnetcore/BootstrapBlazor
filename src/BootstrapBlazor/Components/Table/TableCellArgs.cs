@@ -27,6 +27,16 @@ public class TableCellArgs
     public int Colspan { get; set; }
 
     /// <summary>
+    /// 获得/设置 合并行单元格数量 默认 0
+    /// </summary>
+    public int Rowspan { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否显示单元格 默认 true
+    /// </summary>
+    public bool ShowCell { get;set; } = true;
+
+    /// <summary>
     /// 获得/设置 当前单元格样式 默认 null
     /// </summary>
     public string? Class { get; set; }

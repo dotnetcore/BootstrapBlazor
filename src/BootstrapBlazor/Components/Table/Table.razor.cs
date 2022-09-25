@@ -110,7 +110,7 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
         .AddClass(ExtendButtonColumnAlignment.ToDescriptionString())
         .Build();
 
-    private static string? GetColspan(int colspan) => colspan > 1 ? colspan.ToString() : null;
+    private static string? GetSpan(int span) => span > 1 ? span.ToString() : null;
 
     /// <summary>
     /// 明细行集合用于数据懒加载
