@@ -14,7 +14,7 @@ public sealed partial class DateTimePicker<TValue>
     /// <summary>
     /// 获得 组件样式名称
     /// </summary>
-    private string? ClassString => CssBuilder.Default("datetime-picker")
+    private string? ClassString => CssBuilder.Default("select datetime-picker")
         .AddClass("disabled", IsDisabled)
         .AddClass(ValidCss)
         .AddClassFromAttributes(AdditionalAttributes)
@@ -23,7 +23,7 @@ public sealed partial class DateTimePicker<TValue>
     /// <summary>
     /// 获得 组件文本框样式名称
     /// </summary>
-    private string? InputClassName => CssBuilder.Default("form-control datetime-picker-input")
+    private string? InputClassName => CssBuilder.Default("dropdown-toggle form-control datetime-picker-input")
         .AddClass(ValidCss)
         .Build();
 
@@ -80,11 +80,6 @@ public sealed partial class DateTimePicker<TValue>
             CurrentValue = (TValue)(object)value;
         }
     }
-
-    /// <summary>
-    /// 获得 组件 DOM 实例
-    /// </summary>
-    private ElementReference Picker { get; set; }
 
     /// <summary>
     /// 获得/设置 时间格式化字符串 默认值为 "yyyy-MM-dd"
@@ -198,20 +193,6 @@ public sealed partial class DateTimePicker<TValue>
     }
 
     /// <summary>
-    /// OnAfterRender 方法
-    /// </summary>
-    /// <param name="firstRender"></param>
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        await base.OnAfterRenderAsync(firstRender);
-
-        if (firstRender)
-        {
-            await JSRuntime.InvokeVoidAsync(Picker, "bb_datetimePicker");
-        }
-    }
-
-    /// <summary>
     /// 格式化数值方法
     /// </summary>
     protected override string FormatValueAsString(TValue value)
@@ -237,8 +218,6 @@ public sealed partial class DateTimePicker<TValue>
     private async Task OnClear()
     {
         CurrentValue = default;
-        await JSRuntime.InvokeVoidAsync(Picker, "bb_datetimePicker", "hide");
-
         if (OnDateTimeChanged != null)
         {
             await OnDateTimeChanged(Value);
@@ -251,26 +230,14 @@ public sealed partial class DateTimePicker<TValue>
     /// </summary>
     private async Task OnConfirm()
     {
-        await JSRuntime.InvokeVoidAsync(Picker, "bb_datetimePicker", "hide");
+        if (AutoClose)
+        {
+            await JSRuntime.InvokeVoidAsync(identifier: "bb.Popover.invoke", $"#{Id}", "hide");
+        }
 
         if (OnDateTimeChanged != null)
         {
             await OnDateTimeChanged(Value);
-        }
-    }
-
-    /// <summary>
-    /// DisposeAsyncCore 方法
-    /// </summary>
-    /// <param name="disposing"></param>
-    /// <returns></returns>
-    protected override async ValueTask DisposeAsyncCore(bool disposing)
-    {
-        await base.DisposeAsyncCore(disposing);
-
-        if (disposing)
-        {
-            await JSRuntime.InvokeVoidAsync(Picker, "bb_datetimePicker", "hide");
         }
     }
 }

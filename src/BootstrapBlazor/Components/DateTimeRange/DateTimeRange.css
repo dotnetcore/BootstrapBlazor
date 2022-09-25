@@ -17,6 +17,11 @@
         background-color: var(--bb-disabled-bg);
     }
 
+
+    .datetime-range .datetime-range-body {
+        display: none;
+    }
+
 .form-label + .datetime-range {
     display: block;
 }

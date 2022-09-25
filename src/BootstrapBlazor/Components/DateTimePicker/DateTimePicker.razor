@@ -6,8 +6,8 @@
 {
     <BootstrapLabel required="@Required" for="@Id" ShowLabelTooltip="ShowLabelTooltip" Value="@DisplayText" />
 }
-<div @attributes="@AdditionalAttributes" id="@Id" class="@ClassString" @ref="Picker">
-    <input readonly class="@InputClassName" value="@CurrentValueAsString" placeholder="@PlaceholderString" disabled="@Disabled" data-bs-placement="@PlacementString" />
+<div @attributes="@AdditionalAttributes" id="@Id" class="@ClassString">
+    <input readonly class="@InputClassName" value="@CurrentValueAsString" placeholder="@PlaceholderString" disabled="@Disabled" data-bs-placement="@PlacementString" data-bs-dropdown=".picker-panel" data-bs-dismiss=".picker-panel-link-btn" />
     <i class="@DateTimePickerIconClassString"></i>
     <DatePickerBody @bind-Value="@ComponentValue" AllowNull="@AllowNull" ShowSidebar="@ShowSidebar"
                     OnConfirm="@OnConfirm" OnClear="@OnClear" MinValue="@MinValue" MaxValue="@MaxValue"

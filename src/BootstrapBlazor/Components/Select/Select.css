@@ -5,10 +5,6 @@
     --bb-select-padding: 6px 2.25rem 6px 0.75rem;
 }
 
-    .select .dropdown-toggle::after {
-        content: none;
-    }
-
     .select .dropdown-menu {
         overflow-x: hidden;
         width: 100%;
@@ -175,3 +171,11 @@
         top: 18px;
         color: #adb5bd;
     }
+
+:where(.select:not(.multi-select)) .dropdown-toggle {
+    position: relative;
+}
+
+:where(.select) .dropdown-toggle:after {
+    content: none;
+}

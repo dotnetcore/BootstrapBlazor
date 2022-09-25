@@ -6,7 +6,7 @@
             : (global = typeof globalThis !== 'undefined'
                 ? globalThis
                 : global || self, global.bb = factory());
-})(this, (function () {
+})(this, function () {
 
     class Config {
         static get Default() {
@@ -22,8 +22,10 @@
         }
 
         _getConfig(config) {
-            config = this._mergeConfigObj(config);
+            config = this._mergeConfigObj(config, this._element);
             config = this._configAfterMerge(config);
+
+            this._typeCheckConfig(config);
 
             return config;
         }
@@ -32,11 +34,28 @@
             return config;
         }
 
-        _mergeConfigObj(config) {
+        _mergeConfigObj(config, element) {
+            const jsonConfig = isElement$1(element) ? bootstrap.Manipulator.getDataAttribute(element, 'config') : {}; // try to parse
+            const dataConfig = isElement$1(element) ? bootstrap.Manipulator.getDataAttributes(element) : {};
+            config = typeof config === 'object' ? config : {}
             return {
                 ...this.constructor.Default,
-                ...(typeof config === 'object' ? config : {})
+                ...(typeof jsonConfig === 'object' ? jsonConfig : {}),
+                ...dataConfig,
+                ...config
             };
+        }
+
+        _typeCheckConfig(config, configTypes = this.constructor.DefaultType) {
+            for (const property of Object.keys(configTypes)) {
+                const expectedTypes = configTypes[property];
+                const value = config[property];
+                const valueType = isElement$1(value) ? 'element' : toType(value);
+
+                if (!new RegExp(expectedTypes).test(valueType)) {
+                    throw new TypeError(`${this.constructor.NAME.toUpperCase()}: Option "${property}" provided type "${valueType}" but expected type "${expectedTypes}".`);
+                }
+            }
         }
     }
 
@@ -93,82 +112,89 @@
         }
 
         _hackPopover() {
-            if (!this._popover.hacked) {
-                this._popover.hacked = true;
-                this._popover._isWithContent = () => true;
-                var getTipElement = this._popover._getTipElement;
-                var fn = tip => {
-                    if (this._config.css !== null) {
-                        tip.classList.add(this._config.css);
-                    }
+            this._popover._isWithContent = () => true;
+            let getTipElement = this._popover._getTipElement;
+            let fn = tip => {
+                if (this._config.css !== null) {
+                    tip.classList.add(this._config.css);
                 }
-                this._popover._getTipElement = function () {
-                    var tip = getTipElement.call(this);
-                    tip.classList.add('popover-dropdown');
-                    tip.classList.add('shadow');
-                    fn(tip);
-                    return tip;
-                }
+            }
+            this._popover._getTipElement = function () {
+                let tip = getTipElement.call(this);
+                tip.classList.add('popover-dropdown');
+                tip.classList.add('shadow');
+                fn(tip);
+                return tip;
             }
         }
 
         _setListeners() {
-            var that = this;
-            var hasDisplayNone = false;
-            this._element.addEventListener('show.bs.popover', function () {
-                var disabled = that._config.showCallback.call(that._element);
+            let hasDisplayNone = false;
+
+            this._show = () => {
+                let disabled = this._config.showCallback.call(this._element);
                 if (!disabled) {
-                    that._element.setAttribute('aria-expanded', 'true');
-                    that._element.classList.add('show');
+                    this._element.setAttribute('aria-expanded', 'true');
+                    this._element.classList.add('show');
                 }
                 if (disabled) {
                     event.preventDefault();
                 }
-            });
-            this._element.addEventListener('inserted.bs.popover', function () {
-                var pId = that._element.getAttribute('aria-describedby');
+            };
+
+            this._inserted = () => {
+                let pId = this._element.getAttribute('aria-describedby');
                 if (pId) {
-                    var pop = document.getElementById(pId);
-                    var body = pop.querySelector('.popover-body');
+                    let pop = document.getElementById(pId);
+                    let body = pop.querySelector('.popover-body');
                     if (!body) {
                         body = document.createElement('div');
                         body.classList.add('popover-body');
                         pop.append(body);
                     }
                     body.classList.add('show');
-                    var content = that._config.bodyElement;
+                    let content = this._config.bodyElement;
                     if (content.classList.contains("d-none")) {
                         hasDisplayNone = true;
                         content.classList.remove("d-none");
                     }
                     body.append(content);
                 }
-            });
-            this._element.addEventListener('hide.bs.popover', function () {
-                var pId = that._element.getAttribute('aria-describedby');
+            };
+
+            this._hide = () => {
+                let pId = this._element.getAttribute('aria-describedby');
                 if (pId) {
-                    var content = that._config.bodyElement;
+                    let content = this._config.bodyElement;
                     if (hasDisplayNone) {
                         content.classList.add("d-none");
                     }
-                    that._element.append(content);
+                    this._element.append(content);
                 }
-                that._element.classList.remove('show');
-            });
+                this._element.classList.remove('show');
+            }
+
+            bootstrap.EventHandler.on(this._element, 'show.bs.popover', this._show);
+            bootstrap.EventHandler.on(this._element, 'inserted.bs.popover', this._inserted);
+            bootstrap.EventHandler.on(this._element, 'hide.bs.popover', this._hide);
+
+            if (this._config.dismiss != null) {
+                bootstrap.EventHandler.on(document, 'click', this._config.dismiss, this._hide);
+            }
         }
 
         _getConfig(config) {
-            var fn = function () {
-                var disabled = this.classList.contains('disabled');
+            let fn = function () {
+                let disabled = this.classList.contains('disabled');
                 if (!disabled && this.parentNode != null) {
                     disabled = this.parentNode.classList.contains('disabled');
                 }
                 if (!disabled) {
-                    var ctl = this.querySelector('.form-control');
-                    if (ctl != null) {
-                        disabled = ctl.classList.contains('disabled');
+                    let el = this.querySelector('.form-control');
+                    if (el != null) {
+                        disabled = el.classList.contains('disabled');
                         if (!disabled) {
-                            disabled = ctl.getAttribute('disabled') === 'disabled';
+                            disabled = el.getAttribute('disabled') === 'disabled';
                         }
                     }
                 }
@@ -176,18 +202,20 @@
             };
             config = {
                 ...{
-                    css: null,
                     placement: this._element.getAttribute('bs-data-placement') || 'auto',
-                    bodyElement: this._element.parentNode.querySelector('.dropdown-menu'),
                     showCallback: fn
                 },
                 ...config
             };
-            return super._getConfig(config);
+            config = super._getConfig(config);
+            if (!isElement$1(config.bodyElement)) {
+                config.bodyElement = this._element.parentNode.querySelector(config.dropdown);
+            }
+            return config;
         }
 
         invoke(method) {
-            var fn = this._popover[method];
+            let fn = this._popover[method];
             if (typeof fn === 'function') {
                 fn.call(this._popover);
             }
@@ -204,19 +232,55 @@
             super.dispose();
         }
 
+        static invoke(el, method) {
+            el = getElement(el);
+            if (!el.classList.contains('dropdown-toggle')) {
+                el = el.querySelector('.dropdown-toggle');
+            }
+            let p = this.getInstance(el);
+            if (p !== null) {
+                p.invoke(method);
+            }
+        }
+
+        static get Default() {
+            return {
+                ...{
+                    dropdown: '.dropdown-menu'
+                },
+                ...super.Default
+            };
+        }
+
         static get NAME() {
             return NAME$Popover;
         }
     }
 
-    document.addEventListener('click', function (e) {
-        var el = e.target;
+    bootstrap.EventHandler.on(document, 'click', '.dropdown-toggle', function (e) {
+        let el = e.target;
+        if (!el.classList.contains('dropdown-toggle')) {
+            el = el.closest('.dropdown-toggle');
+        }
+        let isBootstrapDrop = el.getAttribute('data-bs-toggle') === 'dropdown';
+        if (!isBootstrapDrop) {
+            let p = bb.Popover.getInstance(el);
+            if (p == null) {
+                p = new bb.Popover(el);
+                p.invoke('show');
+                e.stopPropagation();
+            }
+        }
+    });
+
+    bootstrap.EventHandler.on(document, 'click', function (e) {
+        let el = e.target;
         if (el.closest('.popover-dropdown.show') === null) {
             document.querySelectorAll('.popover-dropdown.show').forEach(function (ele) {
-                var pId = ele.getAttribute('id');
+                let pId = ele.getAttribute('id');
                 if (pId) {
-                    var popover = document.querySelector('[aria-describedby="' + pId + '"]');
-                    var p = bootstrap.Popover.getInstance(popover);
+                    let popover = document.querySelector('[aria-describedby="' + pId + '"]');
+                    let p = bootstrap.Popover.getInstance(popover);
                     if (p !== null) {
                         p.hide();
                     }
@@ -225,7 +289,15 @@
         }
     });
 
-    const isElement = object => {
+    const toType = object => {
+        if (object === null || object === undefined) {
+            return `${object}`;
+        }
+
+        return Object.prototype.toString.call(object).match(/\s([a-z]+)/i)[1].toLowerCase();
+    };
+
+    const isElement$1 = object => {
         if (!object || typeof object !== 'object') {
             return false;
         }
@@ -238,7 +310,7 @@
     };
 
     const getElement = object => {
-        if (isElement(object)) {
+        if (isElement$1(object)) {
             return object.jquery ? object[0] : object;
         }
 
@@ -289,9 +361,7 @@
         }
     };
 
-    const index_umd = {
+    return {
         Popover
     };
-
-    return index_umd;
-}));
+});

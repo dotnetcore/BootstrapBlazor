@@ -5,8 +5,8 @@
 {
     <BootstrapLabel required="@Required" ShowLabelTooltip="ShowLabelTooltip" Value="@DisplayText" />
 }
-<div @attributes="@AdditionalAttributes" id="@Id" tabindex="0" class="@ClassString" @ref="PickerRange">
-    <div class="datetime-range-control" data-bs-placement="@PlacementString">
+<div @attributes="@AdditionalAttributes" id="@Id" tabindex="0" class="@ClassString">
+    <div class="dropdown-toggle datetime-range-control" data-bs-dropdown=".datetime-range-body" data-bs-dismiss=".picker-panel-link-btn" data-bs-placement="@PlacementString">
         <div class="position-relative">
             <i class="@DateTimePickerIconClassString"></i>
             <input readonly="readonly" class="datetime-range-input" value="@StartValueString" placeholder="@StartPlaceHolderText" disabled="@Disabled" />
@@ -18,7 +18,7 @@
     {
         <i class="range-clear @ClearIcon" @onclick:stopPropagation @onclick="@ClickClearButton"></i>
     }
-    <div class="@BodyClassString">
+    <div class="datetime-range-body">
         <div class="range-panel-body">
             @if (ShowSidebar)
             {

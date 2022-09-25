@@ -46,13 +46,6 @@ public sealed partial class DatePickerBody
     private bool ShowTimePicker { get; set; }
 
     /// <summary>
-    /// 获得/设置 组件样式
-    /// </summary>
-    private string? ClassName => CssBuilder.Default("picker-panel date-picker")
-        .AddClass("d-none", !IsShown)
-        .Build();
-
-    /// <summary>
     /// 获得/设置 日期样式
     /// </summary>
     private string? GetDayClass(DateTime day, bool overflow) => CssBuilder.Default("")
@@ -479,21 +472,15 @@ public sealed partial class DatePickerBody
     /// 设置组件显示视图方法
     /// </summary>
     /// <param name="view"></param>
-    private async Task SwitchView(DatePickerViewMode view)
+    private Task SwitchView(DatePickerViewMode view)
     {
         ShowTimePicker = false;
         if (AllowSwitchModes[ViewMode].Contains(view))
         {
             CurrentViewMode = view;
-        }
-        if (AutoClose)
-        {
-            await ClickConfirmButton();
-        }
-        else
-        {
             StateHasChanged();
         }
+        return Task.CompletedTask;
     }
 
     /// <summary>

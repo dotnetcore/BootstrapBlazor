@@ -8,29 +8,17 @@ using System.Reflection;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+///
 /// </summary>
 public partial class DateTimeRange
 {
     /// <summary>
-    /// 获得 组件 DOM 实例
-    /// </summary>
-    private ElementReference PickerRange { get; set; }
-
-    /// <summary>
     /// 获得 组件样式名称
     /// </summary>
-    private string? ClassString => CssBuilder.Default("datetime-range form-control")
+    private string? ClassString => CssBuilder.Default("select datetime-range form-control")
         .AddClass("disabled", IsDisabled)
         .AddClass(ValidCss)
         .AddClassFromAttributes(AdditionalAttributes)
-        .Build();
-
-    /// <summary>
-    /// 获得 组件弹窗样式名称
-    /// </summary>
-    private string? BodyClassString => CssBuilder.Default("datetime-range-body")
-        .AddClass("d-none", !IsShown)
         .Build();
 
     /// <summary>
@@ -117,12 +105,6 @@ public partial class DateTimeRange
     /// </summary>
     [Parameter]
     public Placement Placement { get; set; } = Placement.Auto;
-
-    /// <summary>
-    /// 获得/设置 是否显示本组件默认为 false 不显示
-    /// </summary>
-    [Parameter]
-    public bool IsShown { get; set; }
 
     /// <summary>
     /// 获得/设置 是否允许为空 默认为 true
@@ -250,20 +232,6 @@ public partial class DateTimeRange
         }
     }
 
-    /// <summary>
-    /// OnAfterRender 方法
-    /// </summary>
-    /// <param name="firstRender"></param>
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        await base.OnAfterRenderAsync(firstRender);
-
-        if (firstRender)
-        {
-            await JSRuntime.InvokeVoidAsync(PickerRange, "bb_datetimeRange");
-        }
-    }
-
     private async Task OnClickSidebarItem(DateTimeRangeSidebarItem item)
     {
         SelectedValue.Start = item.StartDateTime;
@@ -279,8 +247,6 @@ public partial class DateTimeRange
     /// <returns></returns>
     private async Task ClickClearButton()
     {
-        await JSRuntime.InvokeVoidAsync(PickerRange, "bb_datetimeRange", "hide");
-
         Value = new DateTimeRangeValue();
 
         if (OnClearValue != null)
@@ -318,8 +284,6 @@ public partial class DateTimeRange
     /// </summary>
     private async Task ClickConfirmButton()
     {
-        await JSRuntime.InvokeVoidAsync(PickerRange, "bb_datetimeRange", "hide");
-
         if (SelectedValue.End == DateTime.MinValue)
         {
             if (SelectedValue.Start < DateTime.Now)
@@ -424,19 +388,4 @@ public partial class DateTimeRange
     /// <param name="propertyValue"></param>
     /// <returns></returns>
     public override bool IsComplexValue(object? propertyValue) => false;
-
-    /// <summary>
-    /// DisposeAsyncCore 方法
-    /// </summary>
-    /// <param name="disposing"></param>
-    /// <returns></returns>
-    protected override async ValueTask DisposeAsyncCore(bool disposing)
-    {
-        await base.DisposeAsyncCore(disposing);
-
-        if (disposing)
-        {
-            await JSRuntime.InvokeVoidAsync(PickerRange, "bb_datetimeRange", "dispose");
-        }
-    }
 }

@@ -132,21 +132,6 @@ public partial class SelectTree<TValue>
     }
 
     /// <summary>
-    /// OnAfterRenderAsync 方法
-    /// </summary>
-    /// <param name="firstRender"></param>
-    /// <returns></returns>
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        await base.OnAfterRenderAsync(firstRender);
-
-        if (firstRender)
-        {
-            await JSRuntime.InvokeVoidAsync(Id, "bb_select_tree");
-        }
-    }
-
-    /// <summary>
     /// 下拉框选项点击时调用此方法
     /// </summary>
     private async Task OnItemClick(TreeViewItem<TValue> item)
@@ -170,20 +155,6 @@ public partial class SelectTree<TValue>
         if (OnSelectedItemChanged != null)
         {
             await OnSelectedItemChanged.Invoke(item.Value);
-        }
-    }
-
-    /// <summary>
-    /// Dispose 方法
-    /// </summary>
-    /// <param name="disposing"></param>
-    protected override async ValueTask DisposeAsyncCore(bool disposing)
-    {
-        await base.DisposeAsyncCore(disposing);
-
-        if (IsPopover && disposing)
-        {
-            await JSRuntime.InvokeVoidAsync(Id, "bb_select_tree", "dispose");
         }
     }
 }

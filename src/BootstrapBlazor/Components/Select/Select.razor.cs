@@ -185,7 +185,7 @@ public partial class Select<TValue> : ISelect
         if (firstRender)
         {
             Interop ??= new JSInterop<Select<TValue>>(JSRuntime);
-            await Interop.InvokeVoidAsync(this, SelectElement, "bb_select", nameof(ConfirmSelectedItem), "init");
+            await Interop.InvokeVoidAsync(this, SelectElement, "bb_select", nameof(ConfirmSelectedItem));
 
             // 选项值不为 null 后者 string.Empty 时触发一次 OnSelectedItemChanged 回调
             if (SelectedItem != null && OnSelectedItemChanged != null && !string.IsNullOrEmpty(SelectedItem.Value))
@@ -244,9 +244,9 @@ public partial class Select<TValue> : ISelect
         }
         if (ret)
         {
-            if (IsPopover && Interop != null)
+            if (IsPopover)
             {
-                await Interop.InvokeVoidAsync(this, SelectElement, "bb_select", nameof(ConfirmSelectedItem), "hide");
+                await JSRuntime.InvokeVoidAsync(identifier: "bb.Popover.invoke", SelectElement, "hide");
             }
             await ItemChanged(item);
         }
@@ -279,19 +279,4 @@ public partial class Select<TValue> : ISelect
     /// </summary>
     /// <param name="item"></param>
     public void Add(SelectedItem item) => Childs.Add(item);
-
-    /// <summary>
-    /// DisposeAsyncCore 方法
-    /// </summary>
-    /// <param name="disposing"></param>
-    /// <returns></returns>
-    protected override async ValueTask DisposeAsyncCore(bool disposing)
-    {
-        await base.DisposeAsyncCore(disposing);
-
-        if (IsPopover && Interop != null && disposing)
-        {
-            await Interop.InvokeVoidAsync(this, SelectElement, "bb_select", nameof(ConfirmSelectedItem), "dispose");
-        }
-    }
 }
