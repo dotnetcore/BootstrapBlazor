@@ -68,18 +68,6 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void IsShown_Ok()
-    {
-        var cut = Context.RenderComponent<DateTimeRange>(builder =>
-        {
-            builder.Add(a => a.Value, new DateTimeRangeValue { Start = DateTime.Now, End = DateTime.Now.AddDays(30) });
-            builder.Add(a => a.IsShown, true);
-        });
-
-        Assert.Contains("d-none", cut.Markup);
-    }
-
-    [Fact]
     public void AllowNull_Ok()
     {
         var cut = Context.RenderComponent<DateTimeRange>(builder =>
@@ -115,14 +103,18 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
         {
             builder.Add(a => a.Value, new DateTimeRangeValue { Start = DateTime.Now, End = DateTime.Now.AddDays(30) });
             builder.Add(a => a.ShowSidebar, true);
+            builder.Add(a => a.AutoCloseClickSideBar, true);
             builder.Add(a => a.SidebarItems, new DateTimeRangeSidebarItem[]
             {
                     new DateTimeRangeSidebarItem(){ Text = "Test" }
             });
         });
 
-        var text = cut.Find(".picker-panel-sidebar").TextContent;
+        var item = cut.Find(".sidebar-item > div");
+        var text = item.TextContent;
         Assert.Equal("Test", text);
+
+        cut.InvokeAsync(() => item.Click());
     }
 
     [Fact]
@@ -268,6 +260,47 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
             validate = cut.Instance.Validate();
         });
         Assert.False(validate);
+
+        var range = cut.FindComponent<DateTimeRange>();
+        var clear = range.Find(".is-clear");
+        await cut.InvokeAsync(() => clear.Click());
+
+        range.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.IsDisabled, true);
+            pb.Add(a => a.AllowNull, true);
+        });
+        await cut.InvokeAsync(() => clear.Click());
+    }
+
+    [Fact]
+    public async Task InValidateForm_Confirm()
+    {
+        var foo = new Dummy
+        {
+            Value = new DateTimeRangeValue()
+        };
+        var cut = Context.RenderComponent<ValidateForm>(pb =>
+        {
+            pb.Add(a => a.ValidateAllProperties, true);
+            pb.Add(a => a.Model, foo);
+            pb.AddChildContent<DateTimeRange>(pb =>
+            {
+                pb.Add(a => a.AllowNull, false);
+                pb.Add(a => a.Value, foo.Value);
+                pb.Add(a => a.ValueExpression, Utility.GenerateValueExpression(foo, nameof(Dummy.Value), typeof(DateTimeRangeValue)));
+            });
+        });
+
+        var range = cut.FindComponent<DateTimeRange>();
+        var confirm = range.Find(".is-confirm");
+        await cut.InvokeAsync(() => confirm.Click());
+
+        range.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.IsDisabled, true);
+        });
+        await cut.InvokeAsync(() => confirm.Click());
     }
 
     [Fact]

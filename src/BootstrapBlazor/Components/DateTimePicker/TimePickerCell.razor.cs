@@ -11,6 +11,10 @@ public partial class TimePickerCell : IDisposable
 {
     private ElementReference TimeCellElement { get; set; }
 
+    private string? ClassString => CssBuilder.Default("time-spinner-wrapper is-arrow")
+        .AddClassFromAttributes(AdditionalAttributes)
+        .Build();
+
     /// <summary>
     /// 获得 当前样式名称
     /// </summary>

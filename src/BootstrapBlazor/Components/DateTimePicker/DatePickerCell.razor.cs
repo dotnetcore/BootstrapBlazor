@@ -9,6 +9,10 @@ namespace BootstrapBlazor.Components;
 /// </summary>
 public sealed partial class DatePickerCell
 {
+    private string? ClassString => CssBuilder.Default("cell")
+        .AddClassFromAttributes(AdditionalAttributes)
+        .Build();
+
     /// <summary>
     /// 获得/设置 日期
     /// </summary>

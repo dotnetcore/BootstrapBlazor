@@ -75,6 +75,14 @@
     </ValidateForm>
 </DemoBlock>
 
+<DemoBlock Title="自动关闭" Introduction="点击侧边栏快捷方式自动关闭弹窗" Name="AutoClose">
+    <div class="row">
+        <div class="col-12 col-sm-6">
+            <DateTimeRange Value="@DateTimeRangeValue4" ShowSidebar="true" AutoCloseClickSideBar="true" />
+        </div>
+    </div>
+</DemoBlock>
+
 <AttributeTable Items="@GetAttributes()" />
 
 <EventTable Items="@GetEvents()" />

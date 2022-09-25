@@ -50,7 +50,7 @@
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["Block5Title"]" Introduction="@Localizer["Block5Intro"]" Name="Date">
-    <div class="row g-3">
+    <div class="row">
         <div class="col-sm-4">
             <DateTimePicker TValue="DateTime" Value="@DateTime.Today" />
         </div>
@@ -101,7 +101,7 @@
 <DemoBlock Title="@Localizer["Block9Title"]" Introduction="@Localizer["Block9Intro"]" Name="ShowLabel">
     <p>@((MarkupString)Localizer["P3"].Value)</p>
     <p>@((MarkupString)Localizer["P4"].Value)</p>
-    <div class="row g-3">
+    <div class="row">
         <div class="col-12">
             <DateTimePicker TValue="DateTime?" @bind-Value="@BindNullValue" DisplayText="@Localizer["DisplayText"]" ShowLabel="true" />
         </div>
@@ -120,7 +120,7 @@
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["Block11Title"]" Introduction="@Localizer["Block12Title"]" Name="ViewModel">
-    <div class="row g-3">
+    <div class="row">
         <div class="col-12">
             <DateTimePicker TValue="DateTime" ShowSidebar="true" ViewMode="DatePickerViewMode.DateTime" />
         </div>
@@ -128,7 +128,7 @@
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["Block12Title"]" Introduction="@Localizer["Block12Intro"]" Name="MinValue">
-    <div class="row g-3">
+    <div class="row">
         <div class="col-12">
             <DateTimePicker TValue="DateTime" ViewMode="DatePickerViewMode.Date" Value="@(DateTime.Today.AddDays(3 - DateTime.Today.Day))"
                             MinValue="@(DateTime.Today.AddDays(1 - DateTime.Today.Day))" MaxValue="@(DateTime.Today.AddDays(46 - DateTime.Today.Day))" />
@@ -137,7 +137,7 @@
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["BlockAutoCloseTitle"]" Introduction="@Localizer["BlockAutoCloseIntro"]" Name="AutoClose">
-    <div class="row g-3">
+    <div class="row">
         <div class="col-12">
             <DateTimePicker TValue="DateTime" ViewMode="DatePickerViewMode.Date" Value="@(DateTime.Today.AddDays(3 - DateTime.Today.Day))"
                             AutoClose="true" />

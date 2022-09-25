@@ -131,7 +131,7 @@ public sealed partial class DateTimePicker<TValue>
     public Func<TValue, Task>? OnDateTimeChanged { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否点击确认关闭弹窗 默认 false
+    /// 获得/设置 是否点击日期后自动关闭弹窗 默认 false
     /// </summary>
     [Parameter]
     public bool AutoClose { get; set; }

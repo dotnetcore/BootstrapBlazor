@@ -45,6 +45,10 @@ public sealed partial class DatePickerBody
     /// </summary>
     private bool ShowTimePicker { get; set; }
 
+    private string? ClassString => CssBuilder.Default("picker-panel")
+        .AddClassFromAttributes(AdditionalAttributes)
+        .Build();
+
     /// <summary>
     /// 获得/设置 日期样式
     /// </summary>
@@ -204,12 +208,6 @@ public sealed partial class DatePickerBody
     [Parameter]
     [NotNull]
     public string? DatePlaceHolder { get; set; }
-
-    /// <summary>
-    /// 获得/设置 是否显示本组件默认为 false 不显示
-    /// </summary>
-    [Parameter]
-    public bool IsShown { get; set; }
 
     /// <summary>
     /// 获得/设置 是否允许为空 默认 false 不允许为空

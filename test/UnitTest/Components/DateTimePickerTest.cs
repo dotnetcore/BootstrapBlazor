@@ -336,20 +336,6 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void IsShown_Ok()
-    {
-        var cut = Context.RenderComponent<DatePickerBody>(builder =>
-        {
-            builder.Add(a => a.Value, DateTime.Now);
-            builder.Add(a => a.IsShown, true);
-        });
-
-        var value = cut.Find(".picker-panel").ClassList.Contains("d-none");
-
-        Assert.False(value);
-    }
-
-    [Fact]
     public void ShowFooter_Ok()
     {
         var cut = Context.RenderComponent<DatePickerBody>(builder =>

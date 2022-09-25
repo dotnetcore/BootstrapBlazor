@@ -24,7 +24,7 @@ public sealed partial class TimePickerBody
     /// <summary>
     /// 获得/设置 样式
     /// </summary>
-    private string? ClassName => CssBuilder.Default("time-panel")
+    private string? ClassString => CssBuilder.Default("time-panel")
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 

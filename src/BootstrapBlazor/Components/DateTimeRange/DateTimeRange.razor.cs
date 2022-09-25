@@ -62,6 +62,12 @@ public partial class DateTimeRange
     private string? DateFormat { get; set; }
 
     /// <summary>
+    /// 获得/设置 是否点击快捷侧边栏自动关闭弹窗 默认 false
+    /// </summary>
+    [Parameter]
+    public bool AutoCloseClickSideBar { get; set; }
+
+    /// <summary>
     /// 获得/设置 清空按钮文字
     /// </summary>
     [Parameter]
@@ -239,6 +245,11 @@ public partial class DateTimeRange
         StartValue = item.StartDateTime;
         EndValue = StartValue.AddMonths(1);
         await ClickConfirmButton();
+
+        if (AutoCloseClickSideBar)
+        {
+            await JSRuntime.InvokeVoidAsync(identifier: "bb.Popover.invoke", $"#{Id}", "hide");
+        }
     }
 
     /// <summary>
@@ -261,9 +272,9 @@ public partial class DateTimeRange
         {
             await ValueChanged.InvokeAsync(Value);
         }
-        if (IsNeedValidate && FieldIdentifier != null)
+        if (IsNeedValidate && EditContext != null && FieldIdentifier != null)
         {
-            EditContext?.NotifyFieldChanged(FieldIdentifier.Value);
+            EditContext.NotifyFieldChanged(FieldIdentifier.Value);
         }
     }
 
@@ -316,9 +327,9 @@ public partial class DateTimeRange
             await ValueChanged.InvokeAsync(Value);
         }
 
-        if (IsNeedValidate && FieldIdentifier != null)
+        if (IsNeedValidate && EditContext != null && FieldIdentifier != null)
         {
-            EditContext?.NotifyFieldChanged(FieldIdentifier.Value);
+            EditContext.NotifyFieldChanged(FieldIdentifier.Value);
         }
     }
 
