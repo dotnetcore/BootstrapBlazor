@@ -1,7 +1,7 @@
 ﻿export function bb_qrcode(el, method, text, obj) {
     BootstrapBlazorModules.addScript('_content/BootstrapBlazor/modules/qrcode.min.js');
 
-    var handler = window.setInterval(function () {
+    const handler = window.setInterval(function () {
         if ($.isFunction(QRCode)) {
             window.clearInterval(handler);
 
@@ -9,12 +9,11 @@
         }
     }, 100);
 
-    var dowork = function () {
-        var $el = $(el);
-        var $qr = $el.find('.qrcode-img');
-        $qr.html('');
+    const dowork = function () {
+        var qr = el.querySelector('.qrcode-img');
+        qr.innerHTML = '';
         if (method === 'generate') {
-            new QRCode($qr[0], {
+            new QRCode(qr, {
                 text: text,
                 width: 128,
                 height: 128,
