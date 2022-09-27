@@ -608,7 +608,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         var cut = Context.RenderComponent<DateTimePicker<DateTime>>(builder =>
         {
             builder.Add(a => a.Value, DateTime.Today);
-            builder.Add(a => a.AutoClose, true);
+            builder.Add(a => a.AutoClose, false);
             builder.Add(a => a.OnDateTimeChanged, dt =>
             {
                 val = dt;
@@ -619,6 +619,14 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         var button = cut.Find(".picker-panel-content .cell");
         await cut.InvokeAsync(() => button.Click());
 
+        Assert.Equal(val, DateTime.MinValue);
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.AutoClose, true);
+        });
+        button = cut.Find(".picker-panel-content .cell");
+        await cut.InvokeAsync(() => button.Click());
         Assert.NotEqual(val, DateTime.MinValue);
     }
 }

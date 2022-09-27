@@ -111,6 +111,6 @@ public class PopConfirmButtonTest : PopoverTestBase
         {
             pb.Add(a => a.IsLink, true);
         });
-        Assert.Contains("data-bs-toggle=\"confirm\"", popButton.Markup);
+        popButton.Contains("<a id=");
     }
 }
