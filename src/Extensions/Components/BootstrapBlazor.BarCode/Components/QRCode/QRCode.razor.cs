@@ -46,11 +46,36 @@ public partial class QRCode : IAsyncDisposable
     public string? ClearButtonText { get; set; }
 
     /// <summary>
+    /// 获得/设置 清除按钮图标
+    /// </summary>
+    [Parameter]
+    public string? ClearButtonIcon { get; set; } = "fa-solid fa-xmark";
+
+    /// <summary>
     /// 获得/设置 生成按钮文字
     /// </summary>
     [Parameter]
     [NotNull]
     public string? GenerateButtonText { get; set; }
+
+    /// <summary>
+    /// 获得/设置 二维码白色区域颜色 默认 #ffffff
+    /// </summary>
+    [Parameter]
+    public string? LightColor { get; set; } = "#ffffff";
+
+    /// <summary>
+    /// 获得/设置 二维码黑色区域颜色 默认 #000000
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public string? DarkColor { get; set; } = "#000000";
+
+    /// <summary>
+    /// 获得/设置 生成按钮图标
+    /// </summary>
+    [Parameter]
+    public string? GenerateButtonIcon { get; set; } = "fa-solid fa-qrcode";
 
     /// <summary>
     /// 获得/设置 二维码内容信息
@@ -63,10 +88,6 @@ public partial class QRCode : IAsyncDisposable
     /// </summary>
     [Parameter]
     public int Width { get; set; } = 128;
-
-    [Inject]
-    [NotNull]
-    private IStringLocalizer<QRCode>? Localizer { get; set; }
 
     private string? MethodName { get; set; }
 
@@ -84,16 +105,8 @@ public partial class QRCode : IAsyncDisposable
         PlaceHolder ??= "Please input ...";
         ClearButtonText ??= "Clear";
         GenerateButtonText ??= "Generate";
-    }
 
-    /// <summary>
-    /// OnParametersSetAsync 方法
-    /// </summary>
-    protected override async Task OnParametersSetAsync()
-    {
-        await base.OnParametersSetAsync();
-
-        await Generate();
+        Generate();
     }
 
     /// <summary>
@@ -113,20 +126,12 @@ public partial class QRCode : IAsyncDisposable
         }
     }
 
-    private Task Clear()
-    {
-        MethodName = "clear";
-        return Task.CompletedTask;
-    }
+    private void Clear() => MethodName = "clear";
 
-    private Task Generate()
-    {
-        MethodName = string.IsNullOrEmpty(Content) ? "clear" : "generate";
-        return Task.CompletedTask;
-    }
+    private void Generate() => MethodName = string.IsNullOrEmpty(Content) ? "clear" : "generate";
 
     /// <summary>
-    /// 
+    ///
     /// </summary>
     /// <returns></returns>
     [JSInvokable]

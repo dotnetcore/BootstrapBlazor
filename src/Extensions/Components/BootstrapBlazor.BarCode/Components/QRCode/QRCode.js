@@ -9,19 +9,30 @@
         }
     }, 100);
 
+    const defaultConfig = {
+        width: 128,
+        height: 128,
+        colorDark: '#000000',
+        colorLight: '#ffffff'
+    };
+
     const dowork = function () {
-        var qr = el.querySelector('.qrcode-img');
+        const qr = el.querySelector('.qrcode-img');
         qr.innerHTML = '';
         if (method === 'generate') {
-            new QRCode(qr, {
-                text: text,
-                width: 128,
-                height: 128,
-                colorDark: '#000000',
-                colorLight: '#ffffff',
-                correctLevel: QRCode.CorrectLevel.H
-            });
+            const config = {
+                ...defaultConfig,
+                ...{
+                    width: el.getAttribute('data-bb-width'),
+                    height: el.getAttribute('data-bb-width'),
+                    colorDark: el.getAttribute('data-bb-dark-color'),
+                    colorLight: el.getAttribute('data-bb-light-color'),
+                    text: text,
+                    correctLevel: QRCode.CorrectLevel.H
+                }
+            }
+            new QRCode(qr, config);
             obj.invokeMethodAsync('Generated');
         }
     };
-};
+}

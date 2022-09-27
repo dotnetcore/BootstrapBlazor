@@ -2,10 +2,11 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using BootstrapBlazor.Components;
 using BootstrapBlazor.Shared.Common;
 using BootstrapBlazor.Shared.Components;
-using Microsoft.Extensions.Localization;
 using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Localization;
 
 namespace BootstrapBlazor.Shared.Samples;
 
@@ -24,13 +25,10 @@ public sealed partial class QRCodes
     private string? BaseUsageText { get; set; }
 
     [NotNull]
-    private string? IntroText1 { get; set; }
+    private string? IntroText { get; set; }
 
     [NotNull]
     private string? SuccessText { get; set; }
-
-    [NotNull]
-    private string? CallbackDescription { get; set; }
 
     [Inject]
     [NotNull]
@@ -47,10 +45,8 @@ public sealed partial class QRCodes
         Title ??= Localizer[nameof(Title)];
         SubTitle ??= Localizer[nameof(SubTitle)];
         BaseUsageText ??= Localizer[nameof(BaseUsageText)];
-        IntroText1 ??= Localizer[nameof(IntroText1)];
+        IntroText ??= Localizer[nameof(IntroText)];
         SuccessText ??= Localizer[nameof(SuccessText)];
-        CallbackDescription ??= Localizer[nameof(CallbackDescription)];
-
     }
 
     private Task OnGenerated()
@@ -65,13 +61,69 @@ public sealed partial class QRCodes
     /// <returns></returns>
     private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
-            // TODO: 移动到数据库中
-            new AttributeItem() {
-                Name = "OnGenerated",
-                Description = CallbackDescription,
-                Type = "Func<Task>",
-                ValueList = " — ",
-                DefaultValue = " — "
-            }
+        // TODO: 移动到数据库中
+        new AttributeItem() {
+            Name = nameof(QRCode.Width),
+            Description = Localizer[nameof(QRCode.Width)],
+            Type = "int",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new AttributeItem() {
+            Name = nameof(QRCode.ClearButtonText),
+            Description = Localizer[nameof(QRCode.ClearButtonText)],
+            Type = "string",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new AttributeItem() {
+            Name = nameof(QRCode.ClearButtonIcon),
+            Description = Localizer[nameof(QRCode.ClearButtonIcon)],
+            Type = "string",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new AttributeItem() {
+            Name = nameof(QRCode.GenerateButtonText),
+            Description = Localizer[nameof(QRCode.GenerateButtonText)],
+            Type = "string",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new AttributeItem() {
+            Name = nameof(QRCode.GenerateButtonIcon),
+            Description = Localizer[nameof(QRCode.GenerateButtonIcon)],
+            Type = "string",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new AttributeItem() {
+            Name = nameof(QRCode.ShowButtons),
+            Description = Localizer[nameof(QRCode.ShowButtons)],
+            Type = "boolean",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new AttributeItem() {
+            Name = nameof(QRCode.DarkColor),
+            Description = Localizer[nameof(QRCode.DarkColor)],
+            Type = "string",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new AttributeItem() {
+            Name = nameof(QRCode.LightColor),
+            Description = Localizer[nameof(QRCode.LightColor)],
+            Type = "string",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new AttributeItem() {
+            Name = nameof(QRCode.OnGenerated),
+            Description = Localizer[nameof(QRCode.OnGenerated)],
+            Type = "Func<Task>",
+            ValueList = " — ",
+            DefaultValue = " — "
+        }
     };
 }
