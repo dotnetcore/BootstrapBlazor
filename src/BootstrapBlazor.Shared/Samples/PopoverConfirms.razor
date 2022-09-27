@@ -33,7 +33,7 @@
 </DemoBlock>
 
 <DemoBlock Title="表单提交" Introduction="通过设置<code>ButtonType</code> 属性值为 <code>ButtonType.Submit</code> 使确认确认按钮点击后进行异步表单数据提交" Name="Form">
-    <ValidateForm Model="@Model" OnValidSubmit="OnValidSubmit" OnInvalidSubmit="OnInValidSubmit">
+    <ValidateForm Model="@Model" OnValidSubmit="OnValidSubmit" OnInvalidSubmit="OnInValidSubmit" DisableAutoSubmitFormByEnter="true">
         <div class="row g-3 form-inline">
             <div class="col-12">
                 <BootstrapInput @bind-Value="@Model.Name" />

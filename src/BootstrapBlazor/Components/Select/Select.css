@@ -176,6 +176,6 @@
     position: relative;
 }
 
-:where(.select) .dropdown-toggle:after {
+:is(.select .dropdown-toggle, .btn-popover-confirm.dropdown-toggle):after {
     content: none;
 }

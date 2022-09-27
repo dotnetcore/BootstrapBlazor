@@ -19,7 +19,13 @@ public abstract class PopConfirmButtonBase : ButtonBase
     /// 获得/设置 弹窗显示位置
     /// </summary>
     [Parameter]
-    public Placement Placement { get; set; } = Placement.Auto;
+    public Placement Placement { get; set; }
+
+    /// <summary>
+    /// 获得/设置 弹窗触发方式 默认 click
+    /// </summary>
+    [Parameter]
+    public string? Trigger { get; set; }
 
     /// <summary>
     /// 获得/设置 显示文字
@@ -43,7 +49,8 @@ public abstract class PopConfirmButtonBase : ButtonBase
     /// 获得/设置 点击确认弹窗前回调方法 返回真时弹出弹窗 返回假时不弹出
     /// </summary>
     [Parameter]
-    public Func<Task<bool>> OnBeforeClick { get; set; } = () => Task.FromResult(true);
+    [NotNull]
+    public Func<Task<bool>>? OnBeforeClick { get; set; }
 
     /// <summary>
     /// 获得/设置 显示标题
@@ -78,10 +85,11 @@ public abstract class PopConfirmButtonBase : ButtonBase
     public Color ConfirmButtonColor { get; set; } = Color.Primary;
 
     /// <summary>
-    /// 获得/设置 确认框图标
+    /// 获得/设置 确认框图标 默认 "fa-solid fa-circle-exclamation text-info"
     /// </summary>
     [Parameter]
-    public string ConfirmIcon { get; set; } = "fa-solid fa-circle-exclamation text-info";
+    [NotNull]
+    public string? ConfirmIcon { get; set; }
 
     /// <summary>
     /// 
@@ -92,4 +100,30 @@ public abstract class PopConfirmButtonBase : ButtonBase
     /// 
     /// </summary>
     protected string? ElementType => IsLink ? null : "button";
+
+    /// <summary>
+    /// 
+    /// </summary>
+    protected string? PlacementString => Placement == Placement.Auto ? null : Placement.ToDescriptionString();
+
+    /// <summary>
+    /// OnInitialized 方法
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        ConfirmIcon ??= "fa-solid fa-circle-exclamation text-info";
+        OnBeforeClick ??= () => Task.FromResult(true);
+    }
+
+    /// <summary>
+    /// OnParametersSet 方法
+    /// </summary>
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
+        Trigger ??= "click";
+    }
 }

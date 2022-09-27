@@ -25,7 +25,7 @@ public class PopoverSelectBase<TValue> : ValidateBase<TValue>
     /// <summary>
     /// 
     /// </summary>
-    protected string? ToggleString => IsPopover ? null : "dropdown";
+    protected string? ToggleString => IsPopover ? "bb.popover" : "dropdown";
 
     /// <summary>
     /// 

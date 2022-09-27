@@ -23,3 +23,7 @@
         .popover-confirm-buttons .btn:last-child {
             margin-left: var(--bb-popover-buttons-margin-left);
         }
+
+.popover-confirm-container [data-bs-target] {
+    display: none;
+}

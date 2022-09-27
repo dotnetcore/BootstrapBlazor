@@ -9,11 +9,8 @@ namespace BootstrapBlazor.Components;
 /// </summary>
 public partial class PopoverConfirmBox
 {
-    /// <summary>
-    /// 获得 组件样式
-    /// </summary>
-    protected string? ClassName => CssBuilder.Default("popover fade shadow d-none")
-        .AddClassFromAttributes(AdditionalAttributes)
+    private string? ClassString => CssBuilder.Default()
+        .AddClass(CssClass, !string.IsNullOrEmpty(CssClass))
         .Build();
 
     /// <summary>

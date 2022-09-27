@@ -6,7 +6,7 @@
     <BootstrapLabel required="@Required" ShowLabelTooltip="ShowLabelTooltip" Value="@DisplayText" />
 }
 <div @attributes="@AdditionalAttributes" id="@Id" tabindex="0" class="@ClassString">
-    <div class="dropdown-toggle datetime-range-control" data-bs-dropdown=".datetime-range-body" data-bs-dismiss=".picker-panel-link-btn" data-bs-placement="@PlacementString">
+    <div class="dropdown-toggle datetime-range-control" data-bs-toggle="bb.popover" data-bs-dropdown=".datetime-range-body" data-bs-dismiss=".picker-panel-link-btn" data-bs-placement="@PlacementString">
         <div class="position-relative">
             <i class="@DateTimePickerIconClassString"></i>
             <input readonly="readonly" class="datetime-range-input" value="@StartValueString" placeholder="@StartPlaceHolderText" disabled="@Disabled" />
