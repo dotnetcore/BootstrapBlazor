@@ -306,6 +306,23 @@ public class SelectTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void Offset_Ok()
+    {
+        var cut = Context.RenderComponent<Select<string>>(pb =>
+        {
+            pb.Add(a => a.Items, new SelectedItem[]
+            {
+                new SelectedItem("1", "Test1"),
+                new SelectedItem("2", "Test2")
+            });
+            pb.Add(a => a.Value, "2");
+            pb.Add(a => a.IsPopover, false);
+            pb.Add(a => a.Offset, "[0, 11]");
+        });
+        Assert.Contains("data-bs-offset=\"[0, 11]\"", cut.Markup);
+    }
+
+    [Fact]
     public void Placement_Ok()
     {
         var cut = Context.RenderComponent<Select<string>>(pb =>

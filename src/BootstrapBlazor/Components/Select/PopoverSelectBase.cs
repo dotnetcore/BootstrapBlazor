@@ -23,17 +23,38 @@ public class PopoverSelectBase<TValue> : ValidateBase<TValue>
     public bool IsPopover { get; set; }
 
     /// <summary>
-    /// 
+    /// 获得/设置 弹窗偏移量 默认 [0, 10]
+    /// </summary>
+    [Parameter]
+    public string? Offset { get; set; }
+
+    /// <summary>
+    /// data-bs-toggle 值
     /// </summary>
     protected string? ToggleString => IsPopover ? "bb.popover" : "dropdown";
 
     /// <summary>
-    /// 
+    /// 下拉菜单样式字符串
     /// </summary>
     protected string? DropdownMenuClassString => IsPopover ? "dropdown-menu" : "dropdown-menu shadow";
 
     /// <summary>
-    /// 
+    /// 弹窗位置字符串
     /// </summary>
     protected string? PlacementString => Placement == Placement.Auto ? null : Placement.ToDescriptionString();
+
+    /// <summary>
+    /// 偏移量字符串
+    /// </summary>
+    protected string? OffsetString => IsPopover ? null : Offset;
+
+    /// <summary>
+    /// OnParametersSet 方法
+    /// </summary>
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
+        Offset ??= "[0, 10]";
+    }
 }
