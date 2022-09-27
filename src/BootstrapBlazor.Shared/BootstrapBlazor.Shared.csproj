@@ -32,6 +32,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BootstrapBlazor\BootstrapBlazor.csproj" />
+    <ProjectReference Include="..\Extensions\Components\BootstrapBlazor.BarCode\BootstrapBlazor.BarCode.csproj" />
   </ItemGroup>
 
 </Project>
