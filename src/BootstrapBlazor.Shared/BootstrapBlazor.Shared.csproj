@@ -19,6 +19,7 @@
 
   <ItemGroup>
     <PackageReference Include="BootstrapBlazor.BaiduSpeech" Version="6.0.9" />
+    <PackageReference Include="BootstrapBlazor.BarCode" Version="6.0.1" />
     <PackageReference Include="BootstrapBlazor.Chart" Version="6.*" />
     <PackageReference Include="BootstrapBlazor.CherryMarkdown" Version="6.*" />
     <PackageReference Include="BootstrapBlazor.FontAwesome" Version="6.2.0" />
@@ -31,8 +32,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <!--<ProjectReference Include="..\BootstrapBlazor\BootstrapBlazor.csproj" />-->
-    <ProjectReference Include="..\Extensions\Components\BootstrapBlazor.BarCode\BootstrapBlazor.BarCode.csproj" />
+    <ProjectReference Include="..\BootstrapBlazor\BootstrapBlazor.csproj" />
   </ItemGroup>
 
 </Project>

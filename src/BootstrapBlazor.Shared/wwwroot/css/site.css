@@ -1780,6 +1780,11 @@ header .bb-fs {
     --bb-rate-active-color: var(--bs-primary);
 }
 
+.scanner-video video {
+    border: 1px solid #ddd;
+    border-radius: var(--bs-border-radius);
+}
+
 @media (max-width: 767.98px) {
     .main .top-row:not(.auth) {
         display: none;

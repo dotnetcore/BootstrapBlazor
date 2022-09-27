@@ -63,6 +63,13 @@ public sealed partial class QRCodes
     {
         // TODO: 移动到数据库中
         new AttributeItem() {
+            Name = nameof(QRCode.PlaceHolder),
+            Description = Localizer[nameof(QRCode.PlaceHolder)],
+            Type = "string",
+            ValueList = " — ",
+            DefaultValue = Localizer["PlaceHolderValue"]
+        },
+        new AttributeItem() {
             Name = nameof(QRCode.Width),
             Description = Localizer[nameof(QRCode.Width)],
             Type = "int",
@@ -74,7 +81,7 @@ public sealed partial class QRCodes
             Description = Localizer[nameof(QRCode.ClearButtonText)],
             Type = "string",
             ValueList = " — ",
-            DefaultValue = " — "
+            DefaultValue = Localizer["ClearButtonTextValue"]
         },
         new AttributeItem() {
             Name = nameof(QRCode.ClearButtonIcon),
@@ -88,7 +95,7 @@ public sealed partial class QRCodes
             Description = Localizer[nameof(QRCode.GenerateButtonText)],
             Type = "string",
             ValueList = " — ",
-            DefaultValue = " — "
+            DefaultValue = Localizer["GenerateButtonTextValue"]
         },
         new AttributeItem() {
             Name = nameof(QRCode.GenerateButtonIcon),

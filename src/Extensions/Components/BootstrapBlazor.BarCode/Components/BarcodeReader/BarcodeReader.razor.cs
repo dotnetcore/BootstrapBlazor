@@ -13,9 +13,17 @@ public partial class BarcodeReader : IAsyncDisposable
 {
     private JSModule<BarcodeReader>? Module { get; set; }
 
-    private string AutoStopString => AutoStop ? "true" : "false";
+    private string? AutoStopString => AutoStop ? "true" : null;
+
+    private string? AutoStartString => AutoStart ? "true" : null;
 
     private bool IsDisabled { get; set; } = true;
+
+    private string? SelectedDeviceId { get; set; }
+
+    private string VideoId => $"video_{Id}";
+
+    private string VideoStyleString => $"width: {VideoWidth}px; height: {VideoHeight}px;";
 
     /// <summary>
     /// 获得/设置 扫描按钮文字 默认为 扫描
@@ -66,6 +74,18 @@ public partial class BarcodeReader : IAsyncDisposable
     public ScanType ScanType { get; set; }
 
     /// <summary>
+    /// 获得/设置 视频宽度 默认 300
+    /// </summary>
+    [Parameter]
+    public int VideoWidth { get; set; } = 300;
+
+    /// <summary>
+    /// 获得/设置 视频宽度 默认 170
+    /// </summary>
+    [Parameter]
+    public int VideoHeight { get; set; } = 170;
+
+    /// <summary>
     /// 获得/设置 摄像头设备切换回调方法 默认 null
     /// </summary>
     [Parameter]
@@ -113,20 +133,18 @@ public partial class BarcodeReader : IAsyncDisposable
     [Parameter]
     public Func<Task>? OnClose { get; set; }
 
-    private ElementReference ScannerElement { get; set; }
-
-    private IEnumerable<SelectedItem> Devices { get; set; } = Enumerable.Empty<SelectedItem>();
+    private IEnumerable<SelectedItem>? Devices { get; set; }
 
     [Inject]
     [NotNull]
     private IStringLocalizer<BarcodeReader>? Localizer { get; set; }
 
     /// <summary>
-    /// OnInitialized 方法
+    /// OnParametersSet 方法
     /// </summary>
-    protected override void OnInitialized()
+    protected override void OnParametersSet()
     {
-        base.OnInitialized();
+        base.OnParametersSet();
 
         ButtonScanText ??= Localizer[nameof(ButtonScanText)];
         ButtonStopText ??= Localizer[nameof(ButtonStopText)];
@@ -134,6 +152,8 @@ public partial class BarcodeReader : IAsyncDisposable
         DeviceLabel ??= Localizer[nameof(DeviceLabel)];
         InitDevicesString ??= Localizer[nameof(InitDevicesString)];
         NotFoundDevicesString ??= Localizer[nameof(NotFoundDevicesString)];
+
+        Devices ??= Enumerable.Empty<SelectedItem>();
     }
 
     /// <summary>
@@ -145,9 +165,9 @@ public partial class BarcodeReader : IAsyncDisposable
     {
         if (firstRender)
         {
-            var jSObjectReference = await JSRuntime.InvokeAsync<IJSObjectReference>(identifier: "import", "./_content/BootstrapBlazor.BarCode/barcodereader.bundle.min.js");
+            var jSObjectReference = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/BootstrapBlazor.BarCode/barcodereader.bundle.min.js");
             Module = new JSModule<BarcodeReader>(jSObjectReference, this);
-            await Module.InvokeVoidAsync("bb_barcode", ScannerElement, "init", AutoStart);
+            await Module.InvokeVoidAsync("bb_barcode", $"#{Id}", "init");
         }
     }
 
@@ -175,7 +195,7 @@ public partial class BarcodeReader : IAsyncDisposable
     [JSInvokable]
     public async Task GetResult(string val)
     {
-        if (OnResult != null) await OnResult.Invoke(val);
+        if (OnResult != null) await OnResult(val);
     }
 
     /// <summary>
@@ -186,7 +206,7 @@ public partial class BarcodeReader : IAsyncDisposable
     [JSInvokable]
     public async Task GetError(string err)
     {
-        if (OnError != null) await OnError.Invoke(err);
+        if (OnError != null) await OnError(err);
     }
 
     /// <summary>
@@ -196,7 +216,7 @@ public partial class BarcodeReader : IAsyncDisposable
     [JSInvokable]
     public async Task Start()
     {
-        if (OnStart != null) await OnStart.Invoke();
+        if (OnStart != null) await OnStart();
     }
 
     /// <summary>
@@ -206,15 +226,18 @@ public partial class BarcodeReader : IAsyncDisposable
     [JSInvokable]
     public async Task Stop()
     {
-        if (OnClose != null) await OnClose.Invoke();
+        if (OnClose != null) await OnClose();
     }
 
     private async Task OnSelectedItemChanged(SelectedItem item)
     {
+        SelectedDeviceId = item.Value;
+
         if (OnDeviceChanged != null)
         {
             await OnDeviceChanged(new DeviceItem() { DeviceId = item.Value, Label = item.Text });
         }
+        StateHasChanged();
     }
 
     /// <summary>

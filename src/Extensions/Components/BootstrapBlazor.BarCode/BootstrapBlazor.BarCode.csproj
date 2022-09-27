@@ -3,7 +3,7 @@
   <Import Project="..\..\..\bundleconfig.props" />
 
   <PropertyGroup>
-    <Version>6.0.0</Version>
+    <Version>6.0.1</Version>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -19,11 +19,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <!--<PackageReference Include="BootstrapBlazor" Version="6.9.5" />-->
+    <Content Remove="Locales\*.json" />
+    <EmbeddedResource Include="Locales\*.json" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\BootstrapBlazor\BootstrapBlazor.csproj" />
+    <PackageReference Include="BootstrapBlazor" Version="6.10.8" />
   </ItemGroup>
 
   <ItemGroup>

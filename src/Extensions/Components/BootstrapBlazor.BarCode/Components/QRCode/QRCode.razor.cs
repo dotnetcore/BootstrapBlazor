@@ -94,6 +94,10 @@ public partial class QRCode : IAsyncDisposable
     [NotNull]
     private JSModule<QRCode>? Module { get; set; }
 
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<QRCode>? Localizer { get; set; }
+
     /// <summary>
     /// OnParametersSet 方法
     /// </summary>
@@ -102,9 +106,9 @@ public partial class QRCode : IAsyncDisposable
         base.OnParametersSet();
 
         Width = Math.Max(40, Width);
-        PlaceHolder ??= "Please input ...";
-        ClearButtonText ??= "Clear";
-        GenerateButtonText ??= "Generate";
+        PlaceHolder ??= Localizer[nameof(PlaceHolder)];
+        ClearButtonText ??= Localizer[nameof(ClearButtonText)];
+        GenerateButtonText ??= Localizer[nameof(GenerateButtonText)];
 
         Generate();
     }

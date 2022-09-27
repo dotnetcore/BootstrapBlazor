@@ -1,0 +1,15 @@
+﻿{
+  "BootstrapBlazor.Components.BarcodeReader": {
+    "ButtonScanText": "Scannen",
+    "ButtonStopText": "Schließen",
+    "AutoStopText": "Automatisch schließen",
+    "DeviceLabel": "Kamera",
+    "InitDevicesString": "Initialisiere ...",
+    "NotFoundDevicesString": "Kein Videogerät gefunden"
+  },
+  "BootstrapBlazor.Components.QRCode": {
+    "PlaceHolder": "Bitte eingeben ...",
+    "ClearButtonText": "Leeren",
+    "GenerateButtonText": "Generieren"
+  }
+}

@@ -6,14 +6,6 @@
     "NoDataTip": "No Data",
     "PlaceHolder": "Please Input"
   },
-  "BootstrapBlazor.Components.BarcodeReader": {
-    "ButtonScanText": "Scan",
-    "ButtonStopText": "Close",
-    "AutoStopText": "AutoClose",
-    "DeviceLabel": "Camera",
-    "InitDevicesString": "Initialzie ...",
-    "NotFoundDevicesString": "Not found video device"
-  },
   "BootstrapBlazor.Components.Captcha": {
     "HeaderText": "Captcha",
     "BarText": "Slide right to fill puzzle",
@@ -170,11 +162,6 @@
   },
   "BootstrapBlazor.Components.PrintButton": {
     "Text": "Print"
-  },
-  "BootstrapBlazor.Components.QRCode": {
-    "PlaceHolder": "Please input ...",
-    "ClearButtonText": "Clear",
-    "GenerateButtonText": "Generate"
   },
   "BootstrapBlazor.Components.Search": {
     "SearchButtonText": "Search"

@@ -2026,11 +2026,6 @@
     "ImageLi1": "点击扫码弹出选择文件框",
     "ImageLi2": "选取包含条码图片",
     "ImageLi3": "开始识别条码",
-    "AutoStartTitle": "自动开始",
-    "AutoStartIntro": "通过设置 <code>AutoStart</code> 参数设置自动开启摄像头",
-    "AutoStartLi1": "点击扫码弹出选择文件框",
-    "AutoStartLi2": "选取包含条码图片",
-    "AutoStartLi3": "开始识别条码",
     "ButtonScanText": "扫描按钮文字",
     "ButtonScanTextDefaultValue": "扫描",
     "ButtonStopText": "关闭按钮文字",
@@ -2697,7 +2692,10 @@
     "GenerateButtonIcon": "生成按钮图标",
     "ShowButtons": "是否显示按钮",
     "DarkColor": "黑色部分替代颜色",
-    "LightColor": "白色部分替代颜色"
+    "LightColor": "白色部分替代颜色",
+    "PlaceHolderValue": "请输入内容",
+    "ClearButtonTextValue": "清除",
+    "GenerateButtonTextValue": "生成"
   },
   "BootstrapBlazor.Shared.Samples.Anchors": {
     "Title": "Anchor 锚点",

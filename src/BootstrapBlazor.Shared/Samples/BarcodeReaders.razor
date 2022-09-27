@@ -8,8 +8,6 @@
 <p><b>@Localizer["Attention"]</b></p>
 <ul class="ul-demo">
     <li>@((MarkupString)Localizer["Li1"].Value )</li>
-    <li>@((MarkupString)Localizer["Li1"].Value )</li>
-    <li>@((MarkupString)Localizer["Li1"].Value )</li>
     <li>@Localizer["Li4"]</li>
 </ul>
 
@@ -32,17 +30,6 @@
         <li>@Localizer["ImageLi3"]</li>
     </ul>
     <BarcodeReader ScanType="@ScanType.Image" OnResult="@OnImageResult" OnError="@OnImageError" />
-    <BlockLogger @ref="Trace2" class="mt-3" />
-</DemoBlock>
-
-<DemoBlock Title="@Localizer["AutoStartTitle"]" Introduction="@Localizer["AutoStartIntro"]" Name="AutoStart">
-    <p>@Localizer["Step"]</p>
-    <ul class="ul-demo mb-3">
-        <li>@Localizer["AutoStartLi1"]</li>
-        <li>@Localizer["AutoStartLi2"]</li>
-        <li>@Localizer["AutoStartLi3"]</li>
-    </ul>
-    <BarcodeReader OnResult="@OnImageResult" OnError="@OnImageError" AutoStart="true" />
     <BlockLogger @ref="Trace2" class="mt-3" />
 </DemoBlock>
 

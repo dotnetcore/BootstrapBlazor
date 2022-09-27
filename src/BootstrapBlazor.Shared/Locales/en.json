@@ -2024,11 +2024,6 @@
     "ImageLi1": "Click the code to pop up the selection file box",
     "ImageLi2": "Select a picture that contains barcodes",
     "ImageLi3": "Start recognizing barcodes",
-    "AutoStartTitle": "Start automatically",
-    "AutoStartIntro": "Turn on the camera automatically by setting the <code>AutoStart</code> parameter settings",
-    "AutoStartLi1": "Click the code to pop up the selection file box",
-    "AutoStartLi2": "Select a picture that contains barcodes",
-    "AutoStartLi3": "Start recognizing barcodes",
     "ButtonScanText": "Scan button text",
     "ButtonScanTextDefaultValue": "Scan",
     "ButtonStopText": "Turn off button text",
@@ -2689,7 +2684,10 @@
     "GenerateButtonIcon": "The icon of Generate button",
     "ShowButtons": "Whether show the buttons",
     "DarkColor": "The color of black",
-    "LightColor": "The color of white"
+    "LightColor": "The color of white",
+    "PlaceHolderValue": "Please input ...",
+    "ClearButtonTextValue": "Clear",
+    "GenerateButtonTextValue": "Generate"
   },
   "BootstrapBlazor.Shared.Samples.Anchors": {
     "Title": "Anchor",
