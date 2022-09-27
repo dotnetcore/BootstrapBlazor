@@ -125,7 +125,7 @@
                 justify-content: center;
             }
 
-                .upload .upload-body.is-avatar .upload-item .upload-item-actions :where(.fa,.fas,.fa-solid,.far,.fa-regular,.fal,.fa-light,.fat,.fa-thin,.fad,.fa-duotone,.fab,.fa-brands) {
+                .upload .upload-body.is-avatar .upload-item .upload-item-actions i {
                     font-size: 1rem;
                 }
 
@@ -180,7 +180,7 @@
                 display: none;
             }
 
-            .upload .upload-body.is-card .upload-item-body :where(.fa,.fas,.fa-solid,.far,.fa-regular,.fal,.fa-light,.fat,.fa-thin,.fad,.fa-duotone,.fab,.fa-brands) {
+            .upload .upload-body.is-card .upload-item-body i {
                 font-size: 1.5rem;
             }
 

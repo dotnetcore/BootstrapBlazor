@@ -19,7 +19,8 @@
         --bb-switch-padding: 0;
     }
 
-    .table-container > :where(:not(:first-child):not(.table-loader):not(.table-wrapper), :not(.table-toolbar) + .table-wrapper) {
+    .table-container > :not(:first-child):not(.table-loader):not(.table-wrapper),
+    .table-container > :not(.table-toolbar) + .table-wrapper {
         margin-top: .5rem;
     }
 
@@ -103,11 +104,13 @@
         vertical-align: top;
     }
 
-        .table thead th:where(.sortable, .filterable) .table-text {
+        .table thead th.sortable .table-text,
+        .table thead th.filterable .table-text {
             padding-right: 1rem;
         }
 
-        .table thead th:where(.sortable, .filterable):hover {
+        .table thead th.sortable:hover,
+        .table thead th.filterable:hover {
             background-color: var(--bb-table-header-hover-bg);
         }
 
@@ -119,7 +122,8 @@
             flex: 1;
         }
 
-        .table thead th :where(.table-filter-icon, .table-sort-icon) {
+        .table thead th .table-filter-icon,
+        .table thead th .table-sort-icon {
             position: absolute;
             right: calc(0px - var(--bb-table-td-padding-x));
             top: calc(0px - var(--bb-table-td-padding-y));
@@ -132,14 +136,15 @@
             cursor: pointer;
         }
 
-            .table thead th :where(.table-filter-icon, .table-sort-icon):hover {
+            .table thead th .table-filter-icon:hover,
+            .table thead th .table-sort-icon:hover {
                 background-color: var(--bb-table-header-icon-hover-bg);
                 color: var(--bb-table-header-icon-hover-color);
             }
 
-        .table thead th .table-filter-icon.active {
-            color: var(--bb-table-header-icon-active-color);
-        }
+            .table thead th .table-filter-icon.active {
+                color: var(--bb-table-header-icon-active-color);
+            }
 
         .table thead th.sortable.filterable .table-filter-icon {
             right: calc(1.5rem - var(--bb-table-td-padding-x));
@@ -208,7 +213,9 @@
         --bs-border-radius: 0;
     }
 
-    .table-cell > :where(.form-control, .select, .datetime-picker) {
+    .table-cell > .form-control,
+    .table-cell > .select,
+    .table-cell > .datetime-picker {
         --bs-border-color: transparent;
     }
 
@@ -655,7 +662,8 @@ form .table .table-cell > textarea {
     padding: 6px 8px;
 }
 
-.table-excel .active > td > .table-cell :is(.form-control, .form-select) {
+.table-excel .active > td > .table-cell .form-control,
+.table-excel .active > td > .table-cell .form-select {
     background-color: transparent;
 }
 

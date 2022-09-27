@@ -37,8 +37,8 @@ a,
     cursor: not-allowed !important;
 }
 
-    .disabled :where(.fa,.fas,.fa-solid,.far,.fa-regular,.fal,.fa-light,.fat,.fa-thin,.fad,.fa-duotone,.fab,.fa-brands),
-    .disabled :where(.range-separator),
+    .disabled > i,
+    .disabled .range-separator,
     :disabled,
     .form-control:disabled {
         opacity: var(--bb-disabled-opactiy);
