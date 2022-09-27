@@ -34,25 +34,5 @@
       "enabled": false,
       "renameLocals": true
     }
-  },
-  {
-    "outputFileName": "wwwroot/modules/barcodereader.bundle.js",
-    "inputFiles": [
-      "Components/BarcodeReader/*.esm.js"
-    ],
-    "minify": {
-      "enabled": false,
-      "renameLocals": true
-    }
-  },
-  {
-    "outputFileName": "wwwroot/modules/qrcode.esm.min.js",
-    "inputFiles": [
-      "Components/QRCode/QRCode.esm.js"
-    ],
-    "minify": {
-      "enabled": true,
-      "renameLocals": true
-    }
   }
 ]

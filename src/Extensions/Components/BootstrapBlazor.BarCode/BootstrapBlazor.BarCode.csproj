@@ -1,0 +1,34 @@
+<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+  <Import Project="..\..\..\bundleconfig.props" />
+
+  <PropertyGroup>
+    <Version>6.0.0</Version>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <PackageTags>Bootstrap Blazor WebAssembly wasm UI Components Barcode</PackageTags>
+    <Description>Bootstrap UI components extensions of Barcode</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Remove="*.json" />
+    <Content Remove="Components\**\*.js" />
+    <None Include="*.json" />
+    <None Include="Components\**\*.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!--<PackageReference Include="BootstrapBlazor" Version="6.9.5" />-->
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\BootstrapBlazor\BootstrapBlazor.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Using Include="Microsoft.AspNetCore.Components" />
+    <Using Include="Microsoft.JSInterop" />
+  </ItemGroup>
+
+</Project>

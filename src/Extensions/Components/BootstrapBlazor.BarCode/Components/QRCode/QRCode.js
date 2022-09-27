@@ -1,8 +1,8 @@
 ﻿export function bb_qrcode(el, method, text, obj) {
-    BootstrapBlazorModules.addScript('_content/BootstrapBlazor/modules/qrcode.min.js');
+    BootstrapBlazorModules.addScript('./_content/BootstrapBlazor.BarCode/modules/qrcode.min.js');
 
     const handler = window.setInterval(function () {
-        if ($.isFunction(QRCode)) {
+        if (typeof QRCode === 'function') {
             window.clearInterval(handler);
 
             dowork();

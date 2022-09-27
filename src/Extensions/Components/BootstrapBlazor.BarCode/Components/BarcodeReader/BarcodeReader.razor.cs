@@ -145,7 +145,8 @@ public partial class BarcodeReader : IAsyncDisposable
     {
         if (firstRender)
         {
-            Module = await JSRuntime.LoadModule("barcodereader.bundle.js", this);
+            var jSObjectReference = await JSRuntime.InvokeAsync<IJSObjectReference>(identifier: "import", "./_content/BootstrapBlazor.BarCode/barcodereader.bundle.min.js");
+            Module = new JSModule<BarcodeReader>(jSObjectReference, this);
             await Module.InvokeVoidAsync("bb_barcode", ScannerElement, "init", AutoStart);
         }
     }

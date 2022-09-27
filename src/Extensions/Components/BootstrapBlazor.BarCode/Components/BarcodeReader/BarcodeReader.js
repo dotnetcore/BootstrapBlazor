@@ -1,10 +1,9 @@
 ﻿let codeReader = null;
 
 export function bb_barcode(el, method, auto, obj) {
-    var $el = $(el);
     codeReader = new ZXing.BrowserMultiFormatReader();
 
-    if ($el.attr('data-scan') === 'Camera') {
+    if (el.getAttrbite('data-scan') === 'Camera') {
         codeReader.getVideoInputDevices().then((videoInputDevices) => {
             obj.invokeMethodAsync("InitDevices", videoInputDevices).then(() => {
                 if (auto && videoInputDevices.length > 0) {

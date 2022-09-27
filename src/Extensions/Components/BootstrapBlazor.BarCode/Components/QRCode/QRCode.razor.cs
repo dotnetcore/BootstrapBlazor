@@ -92,7 +92,8 @@ public partial class QRCode : IAsyncDisposable
         {
             if (Module == null)
             {
-                Module = await JSRuntime.LoadModule("qrcode.esm.min.js", this);
+                var jSObjectReference = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/BootstrapBlazor.BarCode/qrcode.bundle.min.js");
+                Module = new JSModule<QRCode>(jSObjectReference, this);
             }
             await Module.InvokeVoidAsync("bb_qrcode", QRCodeElement, MethodName, Content ?? "");
             MethodName = null;
