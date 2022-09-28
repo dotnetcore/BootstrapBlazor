@@ -18,7 +18,7 @@ export function bb_barcode(id, method, obj) {
             const video = el.querySelector('video').getAttribute('id');
             codeReader.decodeFromVideoDevice(deviceId, video, (result, err) => {
                 if (result) {
-                    //$.bb_vibrate();
+                    bb.Utility.vibrate();
                     console.log(result.text);
                     obj.invokeMethodAsync("GetResult", result.text);
 
@@ -67,7 +67,7 @@ export function bb_barcode(id, method, obj) {
             reader.onloadend = function (e) {
                 codeReader.decodeFromImageUrl(e.target.result).then((result) => {
                     if (result) {
-                        //$.bb_vibrate();
+                        bb.Utility.vibrate();
                         console.log(result.text);
                         obj.invokeMethodAsync('GetResult', result.text);
                     }

@@ -23,12 +23,6 @@ public partial class Button
     protected EventCallback<MouseEventArgs> OnClickButton { get; set; }
 
     /// <summary>
-    /// 获得 ValidateForm 实例
-    /// </summary>
-    [CascadingParameter]
-    protected ValidateForm? ValidateForm { get; set; }
-
-    /// <summary>
     /// 获得/设置 html button 实例
     /// </summary>
     protected ElementReference ButtonElement { get; set; }
@@ -66,12 +60,6 @@ public partial class Button
                 IsAsyncLoading = false;
             }
         });
-
-        if (IsAsync && ValidateForm != null)
-        {
-            // 开启异步操作时与 ValidateForm 联动
-            ValidateForm.RegisterAsyncSubmitButton(this);
-        }
     }
 
     /// <summary>
@@ -116,16 +104,5 @@ public partial class Button
         {
             await OnClick.InvokeAsync();
         }
-    }
-
-    /// <summary>
-    /// 触发按钮异步操作方法
-    /// </summary>
-    /// <param name="loading">true 时显示正在操作 false 时表示结束</param>
-    internal void TriggerAsync(bool loading)
-    {
-        IsAsyncLoading = loading;
-        ButtonIcon = loading ? LoadingIcon : Icon;
-        SetDisable(loading);
     }
 }

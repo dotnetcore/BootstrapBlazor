@@ -160,15 +160,23 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
     [NotNull]
     public string? ParsingErrorMessage { get; set; }
 
-    private string? _id;
     /// <summary>
     /// 获得/设置 当前组件 Id
     /// </summary>
     [Parameter]
+    [NotNull]
     public override string? Id
     {
-        get { return (ValidateForm != null && !string.IsNullOrEmpty(ValidateForm.Id) && FieldIdentifier != null) ? $"{ValidateForm.Id}_{FieldIdentifier.Value.Model.GetHashCode()}_{FieldIdentifier.Value.FieldName}" : _id; }
-        set { _id = value; }
+        get
+        {
+            return (!string.IsNullOrEmpty(ValidateForm?.Id) && FieldIdentifier != null)
+                ? $"{ValidateForm.Id}_{FieldIdentifier.Value.Model.GetHashCode()}_{FieldIdentifier.Value.FieldName}"
+                : base.Id;
+        }
+        set
+        {
+            base.Id = value;
+        }
     }
 
     /// <summary>

@@ -138,7 +138,7 @@ public partial class Timer : IDisposable
         if (Vibrate)
         {
             Vibrate = false;
-            await JSRuntime.InvokeVoidAsync("", "bb_vibrate");
+            await JSRuntime.InvokeVoidAsync(identifier: "bb.Utility.vibrate");
         }
     }
 
@@ -184,13 +184,13 @@ public partial class Timer : IDisposable
                 if (!CancelTokenSource.IsCancellationRequested)
                 {
                     Value = TimeSpan.Zero;
-                    await InvokeAsync(() =>
+                    await InvokeAsync(async () =>
                     {
                         Vibrate = IsVibrate;
                         StateHasChanged();
                         if (OnTimeout != null)
                         {
-                            OnTimeout();
+                            await OnTimeout();
                         }
                     });
                 }
@@ -218,10 +218,7 @@ public partial class Timer : IDisposable
     private async Task OnClickCancel()
     {
         Value = TimeSpan.Zero;
-        if (CancelTokenSource != null)
-        {
-            CancelTokenSource.Cancel();
-        }
+        CancelTokenSource?.Cancel();
         if (OnCancel != null)
         {
             await OnCancel();

@@ -154,6 +154,12 @@ public abstract class ButtonBase : IdComponentBase, IAsyncDisposable
     public string TooltipTrigger { get; set; } = "hover focus";
 
     /// <summary>
+    /// 获得 ValidateForm 实例
+    /// </summary>
+    [CascadingParameter]
+    protected ValidateForm? ValidateForm { get; set; }
+
+    /// <summary>
     /// 获得/设置 是否当前正在异步执行操作
     /// </summary>
     protected bool IsAsyncLoading { get; set; }
@@ -166,6 +172,12 @@ public abstract class ButtonBase : IdComponentBase, IAsyncDisposable
         base.OnInitialized();
 
         ButtonIcon = Icon;
+
+        if (IsAsync && ValidateForm != null)
+        {
+            // 开启异步操作时与 ValidateForm 联动
+            ValidateForm.RegisterAsyncSubmitButton(this);
+        }
     }
 
     /// <summary>
@@ -221,6 +233,17 @@ public abstract class ButtonBase : IdComponentBase, IAsyncDisposable
     {
         IsDisabled = disable;
         StateHasChanged();
+    }
+
+    /// <summary>
+    /// 触发按钮异步操作方法
+    /// </summary>
+    /// <param name="loading">true 时显示正在操作 false 时表示结束</param>
+    internal void TriggerAsync(bool loading)
+    {
+        IsAsyncLoading = loading;
+        ButtonIcon = loading ? LoadingIcon : Icon;
+        SetDisable(loading);
     }
 
     /// <summary>

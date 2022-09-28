@@ -319,10 +319,7 @@ public partial class AutoComplete
     {
         if (disposing)
         {
-            if (Interop != null)
-            {
-                Interop.Dispose();
-            }
+            Interop?.Dispose();
         }
 
         return base.DisposeAsyncCore(disposing);

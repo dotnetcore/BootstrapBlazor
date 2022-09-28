@@ -444,6 +444,18 @@
         }
     });
 
+    class Utility {
+        static vibrate() {
+            if ('vibrate' in window.navigator) {
+                window.navigator.vibrate([200, 100, 200]);
+                const handler = window.setTimeout(function () {
+                    window.clearTimeout(handler);
+                    window.navigator.vibrate([]);
+                }, 1000);
+            }
+        }
+    }
+
     const MILLISECONDS_MULTIPLIER = 1000;
 
     const getTransitionDurationFromElement = (element, delay = 0) => {
@@ -559,6 +571,7 @@
 
     return {
         Popover,
-        Confirm
+        Confirm,
+        Utility
     };
 });

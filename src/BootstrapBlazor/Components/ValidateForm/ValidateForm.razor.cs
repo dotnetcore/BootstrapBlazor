@@ -452,13 +452,13 @@ public partial class ValidateForm : IAsyncDisposable
 
     private bool _invalid = false;
 
-    private List<Button> AsyncSubmitButtons { get; } = new List<Button>();
+    private List<ButtonBase> AsyncSubmitButtons { get; } = new();
 
     /// <summary>
     /// 注册提交按钮
     /// </summary>
     /// <param name="button"></param>
-    internal void RegisterAsyncSubmitButton(Button button)
+    internal void RegisterAsyncSubmitButton(ButtonBase button)
     {
         AsyncSubmitButtons.Add(button);
     }
