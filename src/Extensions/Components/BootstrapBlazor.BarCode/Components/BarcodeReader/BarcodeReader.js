@@ -1,6 +1,6 @@
 ﻿const barcode = {};
 
-export function bb_barcode(id, method, obj) {
+export function bb_barcode_init(id, obj) {
     const el = document.querySelector(id);
     barcode[id] = {
         codeReader: new ZXing.BrowserMultiFormatReader(),
@@ -136,5 +136,6 @@ export function bb_barcode_dispose(id) {
             bootstrap.EventHandler.off(codeReader.el, 'click', '[data-bb-method]', codeReader.eventHandler);
             codeReader.reset();
         }
+        delete barcode[id];
     }
 }
