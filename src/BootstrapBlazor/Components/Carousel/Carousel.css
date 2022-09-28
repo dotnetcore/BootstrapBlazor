@@ -40,14 +40,20 @@
         transition: all .2s linear;
     }
 
+        .carousel.carousel-indicators [data-bs-target] {
+            background-color: #606266;
+        }
+
+    .carousel .carousel-inner,
+    .carousel .carousel-item,
     .carousel .carousel-item img {
-        display: block;
+        height: 100%;
     }
 
-.carousel-indicators [data-bs-target] {
-    background-color: #606266;
-}
+        .carousel .carousel-item img {
+            display: block;
+        }
 
-.carousel-item img {
-    width: 100%;
-}
+        .carousel .carousel-item img {
+            width: 100%;
+        }
