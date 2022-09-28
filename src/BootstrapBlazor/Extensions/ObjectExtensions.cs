@@ -34,6 +34,10 @@ public static class ObjectExtensions
             {
                 ret = $"{d}px";
             }
+            else
+            {
+                ret = val;
+            }
         }
         return ret;
     }

@@ -29,7 +29,7 @@ public partial class Carousel
     /// 获得 Style 样式
     /// </summary>
     private string? StyleName => CssBuilder.Default()
-        .AddClass($"width: {Width}px;", Width.HasValue)
+        .AddClass($"width: {Width.ConvertToPercentString()};", !string.IsNullOrEmpty(Width))
         .Build();
 
     /// <summary>
@@ -52,7 +52,7 @@ public partial class Carousel
     /// 获得/设置 内部图片的宽度
     /// </summary>
     [Parameter]
-    public int? Width { get; set; }
+    public string? Width { get; set; }
 
     /// <summary>
     /// 获得/设置 是否采用淡入淡出效果 默认为 false

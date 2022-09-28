@@ -72,10 +72,10 @@ public abstract class LayoutBase : BootstrapComponentBase, IHandlerException, IA
     public string? NotFoundTabText { get; set; }
 
     /// <summary>
-    /// 获得/设置 Footer 高度 支持百分比 默认宽度为 300px
+    /// 获得/设置 侧边栏宽度，支持百分比，设置 0 时关闭宽度功能 默认值 300
     /// </summary>
     [Parameter]
-    public string SideWidth { get; set; } = "300";
+    public string? SideWidth { get; set; }
 
     /// <summary>
     /// 获得/设置 Main 模板
@@ -200,6 +200,16 @@ public abstract class LayoutBase : BootstrapComponentBase, IHandlerException, IA
         ErrorLogger?.Register(this);
     }
 
+    /// <summary>
+    /// OnParametersSet
+    /// </summary>
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
+        SideWidth ??= "300";
+    }
+
     private async void Navigation_LocationChanged(object? sender, LocationChangedEventArgs e)
     {
         if (OnAuthorizing != null)
@@ -283,7 +293,7 @@ public abstract class LayoutBase : BootstrapComponentBase, IHandlerException, IA
     }
 
     /// <summary>
-    /// 
+    /// DisposeAsyncCore 方法
     /// </summary>
     /// <returns></returns>
     public async ValueTask DisposeAsync()
