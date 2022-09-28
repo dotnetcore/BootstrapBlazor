@@ -646,7 +646,7 @@ public static class LambdaExtensions
         }
         var type = model.GetType();
         var param_p1 = Expression.Parameter(typeof(TModel));
-        return propertyName.Contains(".") ? GetComplexPropertyExpression() : GetSimplePropertyExpression();
+        return propertyName.Contains('.') ? GetComplexPropertyExpression() : GetSimplePropertyExpression();
 
         Expression<Func<TModel, TResult>> GetSimplePropertyExpression()
         {
@@ -655,6 +655,11 @@ public static class LambdaExtensions
             if (p != null)
             {
                 body = Expression.Property(Expression.Convert(param_p1, type), p);
+            }
+            else if (type.IsAssignableTo(typeof(IDynamicObject)))
+            {
+                var method = typeof(IDynamicObject).GetMethod(nameof(IDynamicObject.GetValue), new Type[] { typeof(string) })!;
+                body = Expression.Call(Expression.Convert(param_p1, type), method, Expression.Constant(propertyName));
             }
             else if (type.IsAssignableTo(typeof(IDynamicMetaObjectProvider)))
             {
