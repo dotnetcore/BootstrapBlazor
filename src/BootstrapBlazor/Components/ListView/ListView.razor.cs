@@ -51,7 +51,7 @@ public partial class ListView<TItem> : BootstrapComponentBase where TItem : clas
     /// 获得/设置 每页显示数据数量的外部数据源
     /// </summary>
     [Parameter]
-    public IEnumerable<int> PageItemsSource { get; set; } = new int[] { 20, 50, 100, 200, 500, 1000 };
+    public IEnumerable<int>? PageItemsSource { get; set; }
 
     /// <summary>
     /// 获得/设置 分组名称
@@ -89,7 +89,7 @@ public partial class ListView<TItem> : BootstrapComponentBase where TItem : clas
     /// <summary>
     /// 获得/设置 每页数据数量
     /// </summary>
-    protected int PageItems { get; set; } = 20;
+    protected int PageItems { get; set; }
 
     /// <summary>
     /// OnInitialized 方法
@@ -98,21 +98,26 @@ public partial class ListView<TItem> : BootstrapComponentBase where TItem : clas
     {
         await base.OnInitializedAsync();
 
-        // 初始化每页显示数量
-        if (Pageable)
-        {
-            PageItems = PageItemsSource.FirstOrDefault();
-
-            if (Items != null)
-            {
-                throw new InvalidOperationException($"Please set {nameof(OnQueryAsync)} instead set {nameof(Items)} property when {nameof(Pageable)} be set True.");
-            }
-        }
-
         // 如果未设置 Items 数据源 自动执行查询方法
-        if (Items == null)
+        if (!Pageable && Items == null)
         {
             await QueryData();
+        }
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
+        PageItemsSource ??= new int[] { 20, 50, 100, 200, 500, 1000 };
+
+        if (PageItems == 0)
+        {
+            // 如果未设置 PageItems 取默认值第一个
+            PageItems = PageItemsSource.First();
         }
     }
 
@@ -180,7 +185,7 @@ public partial class ListView<TItem> : BootstrapComponentBase where TItem : clas
     {
         if (OnListViewItemClick != null)
         {
-            await OnListViewItemClick.Invoke(item);
+            await OnListViewItemClick(item);
         }
     }
 }
