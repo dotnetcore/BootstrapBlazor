@@ -44,20 +44,20 @@
             <div class="flex-fill me-3">
                 @if (AllowNull)
                 {
-                    <button type="button" class="btn picker-panel-link-btn is-confirm is-clear" @onclick="@ClickClearButton">
+                    <Button class="picker-panel-link-btn is-confirm is-clear" Color="Color.None" OnClickWithoutRender="@ClickClearButton">
                         <span>@ClearButtonText</span>
-                    </button>
+                    </Button>
                 }
             </div>
             @if (ShowToday)
             {
-                <button type="button" class="btn picker-panel-link-btn is-confirm me-3" @onclick="@ClickTodayButton">
+                <Button class="picker-panel-link-btn is-confirm me-3" Color="Color.None" OnClickWithoutRender="@ClickTodayButton">
                     <span>@TodayButtonText</span>
-                </button>
+                </Button>
             }
-            <button type="button" class="btn picker-panel-link-btn is-confirm" @onclick="@ClickConfirmButton">
+            <Button class="picker-panel-link-btn is-confirm" Color="Color.None" OnClickWithoutRender="@ClickConfirmButton">
                 <span>@ConfirmButtonText</span>
-            </button>
+            </Button>
         </div>
     </div>
 </div>

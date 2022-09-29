@@ -302,15 +302,20 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
     {
         await base.OnAfterRenderAsync(firstRender);
 
-        if (!firstRender && !string.IsNullOrEmpty(ErrorMessage))
+        if (!firstRender)
         {
-            if (IsValid.HasValue && IsValid.Value)
+            if (IsValid.HasValue)
             {
-                await RemoveValidResult();
-            }
-            else
-            {
-                await ShowValidResult();
+                var valid = IsValid.Value;
+                IsValid = null;
+                if (valid)
+                {
+                    await RemoveValidResult();
+                }
+                else
+                {
+                    await ShowValidResult();
+                }
             }
         }
     }
@@ -449,20 +454,20 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
     }
 
     /// <summary>
-    /// 
+    /// 增加客户端 Tooltip 方法
     /// </summary>
     /// <returns></returns>
     protected virtual async ValueTask ShowValidResult()
     {
         var id = RetrieveId();
-        if (!string.IsNullOrEmpty(id))
+        if (!string.IsNullOrEmpty(id) && !string.IsNullOrEmpty(ErrorMessage))
         {
             await JSRuntime.InvokeVoidAsync(identifier: "bb.Tooltip.init", $"#{id}", ErrorMessage);
         }
     }
 
     /// <summary>
-    /// 
+    /// 移除客户端 Tooltip 方法
     /// </summary>
     /// <returns></returns>
     protected virtual async ValueTask RemoveValidResult()
@@ -501,7 +506,10 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
                 ValidateForm.TryRemoveValidator((FieldIdentifier.Value.FieldName, FieldIdentifier.Value.Model.GetType()), out _);
             }
 
-            await RemoveValidResult();
+            if (IsValid.HasValue && !IsValid.Value)
+            {
+                await RemoveValidResult();
+            }
         }
     }
 

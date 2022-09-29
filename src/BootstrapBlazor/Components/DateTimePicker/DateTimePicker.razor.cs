@@ -41,6 +41,8 @@ public sealed partial class DateTimePicker<TValue>
         .AddClass(Placement.ToDescriptionString(), Placement != Placement.Auto)
         .Build();
 
+    private string? TabIndexString => ValidateForm != null ? "0" : null;
+
     /// <summary>
     /// 获得 Placeholder 显示字符串
     /// </summary>
@@ -222,7 +224,6 @@ public sealed partial class DateTimePicker<TValue>
         {
             await OnDateTimeChanged(Value);
         }
-        StateHasChanged();
     }
 
     /// <summary>
@@ -230,14 +231,13 @@ public sealed partial class DateTimePicker<TValue>
     /// </summary>
     private async Task OnConfirm()
     {
-        if (AutoClose)
-        {
-            await JSRuntime.InvokeVoidAsync(identifier: "bb.Dropdown.invoke", $"#{Id}", "hide");
-        }
-
         if (OnDateTimeChanged != null)
         {
             await OnDateTimeChanged(Value);
+        }
+        if (AutoClose)
+        {
+            await JSRuntime.InvokeVoidAsync(identifier: "bb.Dropdown.invoke", $"#{Id}", "hide");
         }
     }
 }

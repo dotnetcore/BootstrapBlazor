@@ -102,11 +102,6 @@ public abstract class PopConfirmButtonBase : ButtonBase
     protected string? ElementType => IsLink ? null : "button";
 
     /// <summary>
-    /// 
-    /// </summary>
-    protected string? PlacementString => Placement == Placement.Auto ? null : Placement.ToDescriptionString();
-
-    /// <summary>
     /// OnInitialized 方法
     /// </summary>
     protected override void OnInitialized()

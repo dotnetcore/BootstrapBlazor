@@ -470,7 +470,7 @@ public sealed partial class DatePickerBody
     /// 设置组件显示视图方法
     /// </summary>
     /// <param name="view"></param>
-    private Task SwitchView(DatePickerViewMode view)
+    private async Task SwitchView(DatePickerViewMode view)
     {
         ShowTimePicker = false;
         if (AllowSwitchModes[ViewMode].Contains(view))
@@ -478,7 +478,10 @@ public sealed partial class DatePickerBody
             CurrentViewMode = view;
             StateHasChanged();
         }
-        return Task.CompletedTask;
+        else if (AutoClose)
+        {
+            await ClickConfirmButton();
+        }
     }
 
     /// <summary>
@@ -583,7 +586,7 @@ public sealed partial class DatePickerBody
         ShowTimePicker = false;
         if (OnClear != null)
         {
-            await OnClear.Invoke();
+            await OnClear();
         }
     }
 
@@ -599,7 +602,7 @@ public sealed partial class DatePickerBody
         }
         if (OnConfirm != null)
         {
-            await OnConfirm.Invoke();
+            await OnConfirm();
         }
     }
 

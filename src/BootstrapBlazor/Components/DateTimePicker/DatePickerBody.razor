@@ -80,7 +80,7 @@
                                             }
                                             else
                                             {
-                                                <DatePickerCell Value="@week.GetSafeDayDateTime(index)" Text="@text" OnClick="@(async d => await OnClickDateTime(d))" />
+                                                <DatePickerCell Value="@week.GetSafeDayDateTime(index)" Text="@text" OnClick="d => OnClickDateTime(d)" />
                                             }
                                         </div>
                                     </td>
@@ -144,20 +144,20 @@
             <div class="flex-fill">
                 @if (AllowNull)
                 {
-                    <button type="button" class="btn picker-panel-link-btn is-confirm" @onclick="@ClickClearButton">
+                    <Button class="picker-panel-link-btn is-confirm" Color="Color.None" OnClickWithoutRender="@ClickClearButton">
                         <span>@ClearButtonText</span>
-                    </button>
+                    </Button>
                 }
             </div>
             @if (MinValue == null && MaxValue == null)
             {
-                <button type="button" class="btn picker-panel-link-btn is-now" @onclick="@ClickNowButton">
+                <Button class="picker-panel-link-btn is-now" Color="Color.None" OnClickWithoutRender="@ClickNowButton">
                     <span>@NowButtonText</span>
-                </button>
+                </Button>
             }
-            <button type="button" class="btn picker-panel-link-btn is-confirm" @onclick="@ClickConfirmButton">
+            <Button class="picker-panel-link-btn is-confirm" Color="Color.None" OnClickWithoutRender="@ClickConfirmButton">
                 <span>@ConfirmButtonText</span>
-            </button>
+            </Button>
         </div>
     }
 </div>

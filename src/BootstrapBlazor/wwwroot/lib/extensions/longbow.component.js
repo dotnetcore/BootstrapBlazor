@@ -152,7 +152,7 @@
         }
 
         dispose() {
-            if (this._tooltip.tip !== null) {
+            if (this._tooltip != null && this._tooltip.tip !== null) {
                 this._tooltip.dispose();
             }
             super.dispose();
@@ -408,7 +408,7 @@
             bootstrap.EventHandler.on(this._element, 'hide.bs.popover', this._hide);
 
             if (this._config.dismiss != null) {
-                bootstrap.EventHandler.on(document, 'click', this._config.dismiss, this._hide);
+                bootstrap.EventHandler.on(document, 'click', this._config.dismiss, () => this.hide());
             }
         }
 
@@ -440,9 +440,12 @@
     });
 
     bootstrap.EventHandler.on(document, 'click', function (e) {
-        const el = e.target;
-        const owner = Utility.getDescribedElement(el.closest('.dropdown-toggle'));
         const selector = `.${Dropdown.Default.class}.show`;
+        const el = e.target;
+        if (el.closest(selector)) {
+            return;
+        }
+        const owner = Utility.getDescribedElement(el.closest('.dropdown-toggle'));
         document.querySelectorAll(selector).forEach(function (ele) {
             if (ele !== owner) {
                 const element = Utility.getDescribedOwner(ele);
