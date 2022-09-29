@@ -1,0 +1,41 @@
+﻿@page "/DynamicTableSample"
+
+<h3>TableColumn Template</h3>
+
+<Table TItem="NetDynamic" Items="netDynamics" ShowToolbar="true" ShowColumnList="true" ShowDefaultButtons="false" ShowRefresh="false">
+    <TableColumns>
+        <TableColumn @bind-Field="@context.Fix" Sortable="true" Filterable="true" />
+        @foreach (var element in DynamicList)
+        {
+            <TableColumn @bind-Field="@context.Dynamic" Text="@element" Sortable="true" Filterable="true">
+                <Template Context="value">
+                    <div>@(value.Value.TryGetValue(element, out string? v) ? v : "")</div>
+                </Template>
+            </TableColumn>
+        }
+    </TableColumns>
+</Table>
+
+<h3>Net Dynamic</h3>
+
+<Table TItem="NetDynamic" Items="netDynamics" ShowToolbar="true" ShowColumnList="true" ShowDefaultButtons="false" ShowRefresh="false">
+    <TableColumns>
+        <TableColumn @bind-Field="@context.Fix" Sortable="true" Filterable="true" />
+        @foreach (var element in DynamicList)
+        {
+            <TableColumn Field="@element" FieldName="@element" Text="@element" Sortable="true" Filterable="true" />
+        }
+    </TableColumns>
+</Table>
+
+<h3>BootstrapBlazor Dynamic</h3>
+
+<Table TItem="BBDynamic" Items="bbDynamics" ShowToolbar="true" ShowColumnList="true" ShowDefaultButtons="false" ShowRefresh="false">
+    <TableColumns>
+        <TableColumn @bind-Field="@context.Fix" Sortable="true" Filterable="true" />
+        @foreach (var element in DynamicList)
+        {
+            <TableColumn Field="@element" FieldName="@element" Text="@element" Sortable="true" Filterable="true" />
+        }
+    </TableColumns>
+</Table>
