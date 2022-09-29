@@ -3,12 +3,11 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using BootstrapBlazor.Components;
-using Newtonsoft.Json;
 using System.Dynamic;
 
-namespace BootstrapBlazor.Shared.Pages;
+namespace BootstrapBlazor.Shared.Samples.Table;
 
-public partial class DynamicTableSample
+public partial class TablesDynamicObject
 {
     private readonly string[] DynamicList = new[] { "A", "B", "C", "Z" };
 
