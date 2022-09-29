@@ -10,7 +10,7 @@ namespace BootstrapBlazor.Components;
 public partial class PopoverConfirmBox
 {
     private string? ClassString => CssBuilder.Default()
-        .AddClass(CssClass, !string.IsNullOrEmpty(CssClass))
+        .AddClass(CustomClass, !string.IsNullOrEmpty(CustomClass))
         .Build();
 
     /// <summary>
@@ -87,7 +87,7 @@ public partial class PopoverConfirmBox
     /// </summary>
     /// <remarks>由 data-bs-custom-class 实现</remarks>
     [Parameter]
-    public string? CssClass { get; set; }
+    public string? CustomClass { get; set; }
 
     /// <summary>
     /// 获得/设置 确认按钮回调方法

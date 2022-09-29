@@ -103,7 +103,6 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
                     if (msg != null)
                     {
                         ErrorMessage = msg.ErrorMessage;
-                        TooltipMethod = validProperty ? "show" : "enable";
                     }
                 }
             }
@@ -111,7 +110,6 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
             {
                 ErrorMessage = null;
                 IsValid = true;
-                TooltipMethod = "dispose";
             }
             OnValidate(IsValid);
         }
@@ -129,6 +127,7 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
         {
             ret = await OnDelete(item);
         }
+        ErrorMessage = null;
         return ret;
     }
 

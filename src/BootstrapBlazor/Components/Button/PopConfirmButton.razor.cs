@@ -32,7 +32,7 @@ public partial class PopConfirmButton
     /// </summary>
     /// <remarks>由 data-bs-custom-class 实现</remarks>
     [Parameter]
-    public string? CssClass { get; set; }
+    public string? CustomClass { get; set; }
 
     /// <summary>
     /// 获得/设置 PopoverConfirm 服务实例
@@ -78,7 +78,7 @@ public partial class PopConfirmButton
                 Icon = ConfirmIcon,
                 OnConfirm = Confirm,
                 OnClose = OnClose,
-                CssClass = CssClass,
+                CustomClass = CustomClass,
                 Callback = async () => await JSRuntime.InvokeVoidAsync(identifier: "bb.Confirm.init", $"#{Id}")
             });
         }
@@ -92,15 +92,14 @@ public partial class PopConfirmButton
     {
         if (IsAsync)
         {
-            var icon = Icon;
             IsDisabled = true;
-            Icon = LoadingIcon;
+            ButtonIcon = LoadingIcon;
             StateHasChanged();
 
             await Task.Run(() => InvokeAsync(OnConfirm));
 
             IsDisabled = false;
-            Icon = icon;
+            ButtonIcon = Icon;
             await TrySubmit();
             StateHasChanged();
         }

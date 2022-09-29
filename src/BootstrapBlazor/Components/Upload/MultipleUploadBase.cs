@@ -51,7 +51,7 @@ public abstract class MultipleUploadBase<TValue> : UploadBase<TValue>
             UploadFiles.Remove(item);
             if (!string.IsNullOrEmpty(item.ValidateId))
             {
-                await JSRuntime.InvokeVoidAsync(null, "bb_tooltip", item.ValidateId, "dispose");
+                await JSRuntime.InvokeVoidAsync(identifier: "bb.Tooltip.dispose", $"#{item.ValidateId}");
             }
             if (DefaultFileList != null)
             {

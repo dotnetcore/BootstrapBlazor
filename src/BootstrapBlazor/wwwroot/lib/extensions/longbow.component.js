@@ -100,13 +100,179 @@
         }
     }
 
-    class PopoverBase extends BaseComponent {
+    /* Tooltip */
+    const NAME$Tooltip = "Tooltip"
+
+    class Tooltip extends BaseComponent {
         constructor(element, config) {
             super(element, config);
 
-            this._popover = bootstrap.Popover.getOrCreateInstance(element, config);
-            this._hackPopover();
+            this._getOrCreateInstance()
             this._setListeners();
+        }
+
+        _configAfterMerge(config) {
+            let css = this._element.classList.contains(config.invalidClass)
+                ? config.invalidClass
+                : this._element.getAttribute('data-bs-customclass');
+            config = {
+                ...{
+                    customClass: css || ''
+                },
+                ...super._configAfterMerge(config)
+            };
+            return config;
+        }
+
+        _getOrCreateInstance() {
+            this._tooltip = bootstrap.Tooltip.getOrCreateInstance(this._element, this._config);
+        }
+
+        _setListeners() {
+            this._inserted = () => {
+                const tip = Utility.getDescribedElement(this._element);
+                if (tip !== null) {
+                    tip.classList.add(this._config.invalidClass);
+                }
+            };
+
+            bootstrap.EventHandler.on(this._element, 'inserted.bs.tooltip', `.${this._config.invalidClass}`, this._inserted);
+        }
+
+        show() {
+            if (!this._isShown()) {
+                this._tooltip.show();
+            }
+        }
+
+        hide() {
+            if (this._isShown()) {
+                this._tooltip.hide();
+            }
+        }
+
+        dispose() {
+            if (this._tooltip.tip !== null) {
+                this._tooltip.dispose();
+            }
+            super.dispose();
+        }
+
+        _isShown() {
+            return this._tooltip === null ? false : this._tooltip._isShown();
+        }
+
+        static _create(element, config) {
+            new bb.Tooltip(element, config);
+        }
+
+        static init(element, title) {
+            element = getElement(element);
+            if (element) {
+                const config = {
+                    title: title
+                }
+                const p = this.getInstance(element);
+                if (p !== null && p._isShown()) {
+                    p.hide();
+
+                    const duration = getTransitionDurationFromElement(element, 15);
+                    const handler = window.setTimeout(() => {
+                        window.clearTimeout(handler);
+                        p.dispose();
+
+                        this._create(element, config);
+                    }, duration);
+                } else {
+                    this._create(element, config);
+                }
+
+                // check the elment is the first child of form
+                const form = element.closest('form');
+                if (form) {
+                    const el = form.querySelector(`.${this.Default.invalidClass}`);
+                    if (element === el) {
+                        element.focus();
+                    }
+                }
+            }
+        }
+
+        static dispose(element) {
+            element = getElement(element);
+            if (element) {
+                const p = this.getInstance(element);
+                if (p) {
+                    p.dispose();
+                }
+            }
+        }
+
+        static get Default() {
+            return {
+                invalidClass: 'is-invalid'
+            }
+        }
+
+        static get NAME() {
+            return NAME$Tooltip;
+        }
+    }
+
+    class Popover extends Tooltip {
+        _getOrCreateInstance() {
+            this._tooltip = bootstrap.Popover.getOrCreateInstance(this._element, this._config);
+        }
+
+        _setListeners() {
+            this._inserted = () => {
+                const tip = Utility.getDescribedElement(this._element);
+                if (tip !== null) {
+                    tip.classList.add('is-invalid');
+                }
+            };
+
+            bootstrap.EventHandler.on(this._element, 'inserted.bs.popover', '.is-invalid', this._inserted);
+        }
+
+        static _create(element, config) {
+            new bb.Popover(element, config);
+        }
+
+        static init(element, title, content) {
+            element = getElement(element);
+            if (element) {
+                const config = {
+                    title: title,
+                    content: content
+                }
+                const p = bb.Popover.getInstance(element);
+                if (p) {
+                    p.hide();
+
+                    const duration = getTransitionDurationFromElement(element, 15);
+                    const handler = window.setTimeout(() => {
+                        window.clearTimeout(handler);
+                        p.dispose();
+
+                        Popover._create(element, config);
+                    }, duration);
+                } else {
+                    Popover._create(element, config);
+                }
+            }
+        }
+    }
+
+    class DropdownBase extends Tooltip {
+        constructor(element, config) {
+            super(element, config);
+
+            this._hackPopover();
+        }
+
+        _getOrCreateInstance() {
+            this._dropdown = bootstrap.Popover.getOrCreateInstance(this._element, this._config);
         }
 
         _isDisabled() {
@@ -120,50 +286,50 @@
         }
 
         _hackPopover() {
-            this._popover._isWithContent = () => true;
+            this._dropdown._isWithContent = () => true;
 
-            let getTipElement = this._popover._getTipElement;
+            let getTipElement = this._dropdown._getTipElement;
             let fn = tip => {
                 tip.classList.add(this._config.class);
                 tip.classList.add('shadow');
             }
-            this._popover._getTipElement = () => {
-                let tip = getTipElement.call(this._popover);
+            this._dropdown._getTipElement = () => {
+                let tip = getTipElement.call(this._dropdown);
                 fn(tip);
                 return tip;
             }
         }
 
         _isShown() {
-            return this._popover === null ? false : this._popover._isShown();
+            return this._dropdown === null ? false : this._dropdown._isShown();
         }
 
         hide() {
             if (this._isShown()) {
-                this._popover.hide();
+                this._dropdown.hide();
             }
         }
 
         show() {
             if (!this._isShown()) {
-                this._popover.show();
+                this._dropdown.show();
             }
         }
 
         invoke(method) {
-            let fn = this._popover[method];
+            let fn = this._dropdown[method];
             if (typeof fn === 'function') {
-                fn.call(this._popover);
+                fn.call(this._dropdown);
             }
             if (method === 'dispose') {
-                this._popover = null;
+                this._dropdown = null;
                 this.dispose();
             }
         }
 
         dispose() {
-            if (this._popover !== null) {
-                this._popover.dispose();
+            if (this._dropdown !== null) {
+                this._dropdown.dispose();
             }
             super.dispose();
         }
@@ -178,30 +344,12 @@
                 p.invoke(method);
             }
         }
-
-        static getPopoverElement(element) {
-            if (isElement$1(element)) {
-                const id = element.getAttribute('aria-describedby');
-                if (id) {
-                    return document.querySelector(`#${id}`);
-                }
-            }
-        }
-
-        static getPopoverOwner(element) {
-            if (isElement$1(element)) {
-                const id = element.getAttribute('id');
-                if (id) {
-                    return document.querySelector(`[aria-describedby="${id}"]`);
-                }
-            }
-        }
     }
 
-    /* Popover */
-    const NAME$Popover = 'Popover';
+    /* Dropdown */
+    const NAME$Dropdown = 'Dropdown';
 
-    class Popover extends PopoverBase {
+    class Dropdown extends DropdownBase {
         _configAfterMerge(config) {
             config = {
                 ...{
@@ -228,17 +376,16 @@
             };
 
             this._inserted = () => {
-                let pId = this._element.getAttribute('aria-describedby');
-                if (pId) {
-                    let pop = document.getElementById(pId);
-                    let body = pop.querySelector('.popover-body');
+                const dropdown = Utility.getDescribedElement(this._element);
+                if (dropdown) {
+                    let body = dropdown.querySelector('.popover-body');
                     if (!body) {
                         body = document.createElement('div');
                         body.classList.add('popover-body');
-                        pop.append(body);
+                        dropdown.append(body);
                     }
                     body.classList.add('show');
-                    let content = this._config.bodyElement;
+                    const content = this._config.bodyElement;
                     if (content.classList.contains("d-none")) {
                         hasDisplayNone = true;
                         content.classList.remove("d-none");
@@ -248,15 +395,12 @@
             };
 
             this._hide = () => {
-                const pId = this._element.getAttribute('aria-describedby');
-                if (pId) {
-                    let content = this._config.bodyElement;
-                    if (hasDisplayNone) {
-                        content.classList.add("d-none");
-                    }
-                    this._element.append(content);
+                const content = this._config.bodyElement;
+                if (hasDisplayNone) {
+                    content.classList.add("d-none");
                 }
                 this._element.classList.remove('show');
+                this._element.append(content);
             }
 
             bootstrap.EventHandler.on(this._element, 'show.bs.popover', this._show);
@@ -276,7 +420,7 @@
         }
 
         static get NAME() {
-            return NAME$Popover;
+            return NAME$Dropdown;
         }
     }
 
@@ -285,11 +429,11 @@
         if (!el.classList.contains('dropdown-toggle')) {
             el = el.closest('.dropdown-toggle');
         }
-        let bb_toggle_type = el.getAttribute('data-bs-toggle');
-        if (bb_toggle_type === 'bb.popover') {
-            let p = bb.Popover.getInstance(el);
+        const bb_toggle_type = el.getAttribute('data-bs-toggle');
+        if (bb_toggle_type === 'bb.dropdown') {
+            let p = bootstrap.Popover.getInstance(el);
             if (p == null) {
-                p = new bb.Popover(el);
+                p = new bb.Dropdown(el);
                 p.show();
             }
         }
@@ -297,13 +441,13 @@
 
     bootstrap.EventHandler.on(document, 'click', function (e) {
         const el = e.target;
-        const owner = PopoverBase.getPopoverElement(el.closest('.dropdown-toggle'));
-        const popoverSelector = `.${Popover.Default.class}.show`;
-        document.querySelectorAll(popoverSelector).forEach(function (ele) {
+        const owner = Utility.getDescribedElement(el.closest('.dropdown-toggle'));
+        const selector = `.${Dropdown.Default.class}.show`;
+        document.querySelectorAll(selector).forEach(function (ele) {
             if (ele !== owner) {
-                const popover = PopoverBase.getPopoverOwner(ele);
-                if (popover !== null) {
-                    let p = bootstrap.Popover.getInstance(popover);
+                const element = Utility.getDescribedOwner(ele);
+                if (element) {
+                    let p = bootstrap.Popover.getInstance(element);
                     if (p !== null) {
                         p.hide();
                     }
@@ -315,7 +459,7 @@
     /* Confirm */
     const NAME$Confirm = 'Confirm';
 
-    class Confirm extends PopoverBase {
+    class Confirm extends DropdownBase {
         constructor(element, config) {
             super(element, config);
 
@@ -339,21 +483,21 @@
             };
 
             this._inserted = () => {
-                const popover_body = this._getPopoverBodyElement();
-                const popover = PopoverBase.getPopoverElement(this._element);
-                popover.append(popover_body);
+                const body = this._getPopoverBodyElement();
+                const dorpdown = Utility.getDescribedElement(this._element);
+                dorpdown.append(body);
             };
 
             this._hide = () => {
-                const popover_body = this._getPopoverBodyElement();
-                if (popover_body) {
-                    const container = document.querySelector(this._config.container);
-                    container.append(popover_body);
+                const body = this._getPopoverBodyElement();
+                if (body) {
+                    const container = document.querySelector(this._config.confirm_container);
+                    container.append(body);
                 }
 
-                const popover = PopoverBase.getPopoverElement(this._element);
-                if (popover) {
-                    popover.classList.remove('show');
+                const dropdown = Utility.getDescribedElement(this._element);
+                if (dropdown) {
+                    dropdown.classList.remove('show');
                 }
 
                 this._element.classList.remove('show');
@@ -416,7 +560,7 @@
             return {
                 class: 'popover-confirm',
                 dismiss: '[data-bb-dismiss]',
-                container: '.popover-confirm-container'
+                confirm_container: '.popover-confirm-container'
             }
         }
 
@@ -427,15 +571,15 @@
 
     bootstrap.EventHandler.on(document, 'click', function (e) {
         const el = e.target;
-        if (el.closest(`.${Confirm.Default.class}.show`) === null && el.closest(`${Confirm.Default.container}`) === null) {
-            const owner = PopoverBase.getPopoverElement(el.closest('.dropdown-toggle'));
+        if (el.closest(`.${Confirm.Default.class}.show`) === null && el.closest(`${Confirm.Default.confirm_container}`) === null) {
+            const owner = Utility.getDescribedElement(el.closest('.dropdown-toggle'));
             const popoverSelector = `.${Confirm.Default.class}.show`;
             document.querySelectorAll(popoverSelector).forEach(function (ele) {
                 if (ele !== owner) {
-                    const popover = PopoverBase.getPopoverOwner(ele);
-                    if (popover !== null) {
-                        let p = Confirm.getInstance(popover);
-                        if (p !== null) {
+                    const element = Utility.getDescribedOwner(ele);
+                    if (element) {
+                        const p = bootstrap.Popover.getInstance(element);
+                        if (p) {
                             p.hide();
                         }
                     }
@@ -453,6 +597,26 @@
                     window.navigator.vibrate([]);
                 }, 1000);
             }
+        }
+
+        static getDescribedElement(element) {
+            if (isElement$1(element)) {
+                const id = element.getAttribute('aria-describedby');
+                if (id) {
+                    return document.querySelector(`#${id}`);
+                }
+            }
+            return null;
+        }
+
+        static getDescribedOwner(element) {
+            if (isElement$1(element)) {
+                const id = element.getAttribute('id');
+                if (id) {
+                    return document.querySelector(`[aria-describedby="${id}"]`);
+                }
+            }
+            return null;
         }
     }
 
@@ -570,7 +734,9 @@
     };
 
     return {
+        Tooltip,
         Popover,
+        Dropdown,
         Confirm,
         Utility
     };

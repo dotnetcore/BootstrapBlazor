@@ -1,4 +1,18 @@
 ﻿@namespace BootstrapBlazor.Components
 @inherits BootstrapComponentBase
 
-<label @attributes="AdditionalAttributes" class="@ClassString" @ref="LabelElement">@Value</label>
+@if (_showTooltip)
+{
+    <Tooltip Title="@Value">
+        @RenderLabel
+    </Tooltip>
+}
+else
+{
+    @RenderLabel
+}
+
+@code {
+    RenderFragment RenderLabel =>
+    @<label @attributes="AdditionalAttributes" class="@ClassString">@Value</label>;
+}

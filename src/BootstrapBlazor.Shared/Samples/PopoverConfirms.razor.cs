@@ -67,10 +67,10 @@ public sealed partial class PopoverConfirms
         Trace1.Log("异步提交");
     }
 
-    private Task OnValidSubmit(EditContext context)
+    private async Task OnValidSubmit(EditContext context)
     {
+        await Task.Delay(3000);
         Trace1.Log("数据合规");
-        return Task.CompletedTask;
     }
 
     private Task OnInValidSubmit(EditContext context)

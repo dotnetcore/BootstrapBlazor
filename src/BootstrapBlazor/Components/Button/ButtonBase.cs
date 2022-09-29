@@ -26,6 +26,11 @@ public abstract class ButtonBase : IdComponentBase, IAsyncDisposable
         .Build();
 
     /// <summary>
+    /// Tooltip 弹窗位置字符串
+    /// </summary>
+    protected string? PlacementString => TooltipPlacement == Placement.Auto ? null : TooltipPlacement.ToDescriptionString();
+
+    /// <summary>
     /// 获得 按钮 disabled 属性
     /// </summary>
     protected string? Disabled => IsDisabled ? "disabled" : null;
@@ -136,6 +141,12 @@ public abstract class ButtonBase : IdComponentBase, IAsyncDisposable
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
+    /// the instance of Tooltip component
+    /// </summary>
+    [CascadingParameter]
+    protected Tooltip? Tooltip { get; set; }
+
+    /// <summary>
     /// 获得/设置 TooltipText 显示文字 默认为 null
     /// </summary>
     [Parameter]
@@ -190,6 +201,11 @@ public abstract class ButtonBase : IdComponentBase, IAsyncDisposable
         if (!IsAsyncLoading)
         {
             ButtonIcon = Icon;
+        }
+
+        if (Tooltip != null && !string.IsNullOrEmpty(TooltipText))
+        {
+            Tooltip.SetParameters(TooltipText, TooltipPlacement, TooltipTrigger);
         }
     }
 
@@ -252,9 +268,9 @@ public abstract class ButtonBase : IdComponentBase, IAsyncDisposable
     /// <returns></returns>
     public virtual async Task ShowTooltip()
     {
-        if (!string.IsNullOrEmpty(Id) && !string.IsNullOrEmpty(TooltipText))
+        if (Tooltip == null && !string.IsNullOrEmpty(TooltipText))
         {
-            await JSRuntime.InvokeVoidAsync(null, "bb_tooltip", Id, "", TooltipText, TooltipPlacement.ToDescriptionString(), false, TooltipTrigger);
+            await JSRuntime.InvokeVoidAsync(identifier: "bb.Tooltip.init", $"#{Id}", TooltipText);
         }
     }
 
@@ -264,9 +280,9 @@ public abstract class ButtonBase : IdComponentBase, IAsyncDisposable
     /// <returns></returns>
     public virtual async Task RemoveTooltip()
     {
-        if (!string.IsNullOrEmpty(Id))
+        if (Tooltip == null)
         {
-            await JSRuntime.InvokeVoidAsync(null, "bb_tooltip", Id, "dispose");
+            await JSRuntime.InvokeVoidAsync("bb.Tooltip.dispose", $"#{Id}");
         }
     }
 

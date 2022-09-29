@@ -10,12 +10,30 @@ namespace BootstrapBlazor.Components;
 public class Popover : Tooltip
 {
     /// <summary>
-    /// OnInitialized 方法
+    /// 获得/设置 显示文字
+    /// </summary>
+    [Parameter]
+    public string? Content { get; set; }
+
+    /// <summary>
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
     {
         base.OnInitialized();
 
-        PopoverType = PopoverType.Popover;
+        ToggleString = "popover";
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    protected override async ValueTask JSInvokeAsync()
+    {
+        if (!string.IsNullOrEmpty(Content))
+        {
+            await JSRuntime.InvokeVoidAsync(identifier: "bb.Popover.init", $"#{Id}", Title, Content);
+        }
     }
 }

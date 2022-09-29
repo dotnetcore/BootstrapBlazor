@@ -920,7 +920,11 @@
     "Att11": "内容",
     "Att12": "按钮风格",
     "Att13": "按钮类型",
-    "MethodDesc1": "设置按钮是否可用"
+    "MethodDesc1": "设置按钮是否可用",
+    "TooltipTitle": "按钮提示栏",
+    "TooltipIntro": "通过设置 <code>TooltipText</code> <code>TooltipPlacement</code> <code>TooltipTrigger</code> 快捷设置按钮提示栏信息、位置、触发方式，更多功能请使用 <code>Tooltip</code> 组件实现，本例中第二个按钮是 <b>禁用</b> 状态，提示栏仍然可用",
+    "TooltipText": "按钮",
+    "TooltipDisabledText": "禁用按钮"
   },
   "BootstrapBlazor.Shared.Samples.Cascaders": {
     "Title": "Cascader 级联选择",

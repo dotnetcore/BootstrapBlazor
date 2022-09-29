@@ -671,11 +671,6 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
             await OnAfterRenderCallback(this);
         }
 
-        if (Columns.Any(col => col.ShowTips))
-        {
-            await JSRuntime.InvokeVoidAsync(TableElement, "bb_table_tooltip");
-        }
-
         if (_init)
         {
             _init = false;
@@ -770,7 +765,7 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
     {
         if (col.Template != null)
         {
-            builder.AddContent(0, col.Template.Invoke(item));
+            builder.AddContent(0, col.Template(item));
         }
         else if (col.ComponentType == typeof(ColorPicker))
         {
@@ -808,12 +803,12 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
                 var lookupVal = col.Lookup.FirstOrDefault(l => l.Value.Equals(val.ToString(), col.LookupStringComparison));
                 if (lookupVal != null)
                 {
-                    builder.AddContent(0, lookupVal.Text);
+                    builder.AddContent(0, RenderTooltip(lookupVal.Text));
                 }
             }
             else
             {
-                var content = "";
+                string? content;
                 if (col.Formatter != null)
                 {
                     // 格式化回调委托
@@ -834,11 +829,29 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
                 }
                 else
                 {
-                    content = val?.ToString() ?? "";
+                    content = val?.ToString();
                 }
-                builder.AddContent(0, content);
+                builder.AddContent(0, RenderTooltip(content));
             }
         }
+
+        RenderFragment RenderTooltip(string? text) => pb =>
+        {
+            if (col.ShowTips && !string.IsNullOrEmpty(text))
+            {
+                pb.OpenComponent<Tooltip>(0);
+                pb.SetKey(item);
+                pb.AddAttribute(1, nameof(Tooltip.Title), text);
+                pb.AddAttribute(2, nameof(Tooltip.ChildContent), RenderContent());
+                pb.CloseComponent();
+            }
+            else
+            {
+                pb.AddContent(3, text);
+            }
+
+            RenderFragment RenderContent() => context => context.AddContent(0, text);
+        };
     };
 
     private static object? GetItemValue(string fieldName, TItem item)

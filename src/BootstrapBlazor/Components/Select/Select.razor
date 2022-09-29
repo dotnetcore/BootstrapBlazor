@@ -6,7 +6,7 @@
 {
     <BootstrapLabel required="@Required" for="@InputId" ShowLabelTooltip="ShowLabelTooltip" Value="@DisplayText" />
 }
-<div @attributes="AdditionalAttributes" id="@Id" class="@ClassName" @ref="SelectElement">
+<div @attributes="AdditionalAttributes" id="@Id" class="@ClassString" @ref="SelectElement">
     <CascadingValue Value="this" IsFixed="true">
         @Options
     </CascadingValue>
@@ -17,14 +17,14 @@
         <div class="dropdown-toggle" data-bs-toggle="@ToggleString" data-bs-placement="@PlacementString" data-bs-offset="@OffsetString" aria-expanded="false">
             @if (DisplayTemplate != null)
             {
-                <div id="@InputId" class="@InputClassName" tabindex="0">
+                <div id="@InputId" class="@InputClassString" tabindex="0">
                     @DisplayTemplate(SelectedItem)
                 </div>
             }
             else
             {
-                <input type="text" id="@InputId" readonly disabled="@Disabled" placeholder="@PlaceHolder" class="@InputClassName" value="@SelectedItem?.Text" />
-                <span class="@AppendClassName"><i class="@DropdownIcon"></i></span>
+                <input type="text" id="@InputId" readonly disabled="@Disabled" placeholder="@PlaceHolder" class="@InputClassString" value="@SelectedItem?.Text" />
+                <span class="@AppendClassString"><i class="@DropdownIcon"></i></span>
             }
         </div>
         <div class="@DropdownMenuClassString">

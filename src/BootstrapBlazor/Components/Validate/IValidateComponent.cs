@@ -18,7 +18,7 @@ public interface IValidateComponent
     /// 判断是否需要进行复杂类验证
     /// </summary>
     /// <returns></returns>
-    bool IsComplexValue(object? value); 
+    bool IsComplexValue(object? value);
 
     /// <summary>
     /// 数据验证方法

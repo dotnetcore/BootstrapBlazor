@@ -6,7 +6,7 @@
     <BootstrapLabel required="@Required" ShowLabelTooltip="ShowLabelTooltip" Value="@DisplayText" />
 }
 <div @attributes="@AdditionalAttributes" id="@Id" tabindex="0" class="@ClassString">
-    <div class="dropdown-toggle datetime-range-control" data-bs-toggle="bb.popover" data-bs-dropdown=".datetime-range-body" data-bs-dismiss=".picker-panel-link-btn" data-bs-placement="@PlacementString">
+    <div class="dropdown-toggle datetime-range-control" data-bs-toggle="@Constants.DropdownToggleString" data-bs-dropdown=".datetime-range-body" data-bs-dismiss=".picker-panel-link-btn" data-bs-placement="@PlacementString">
         <div class="position-relative">
             <i class="@DateTimePickerIconClassString"></i>
             <input readonly="readonly" class="datetime-range-input" value="@StartValueString" placeholder="@StartPlaceHolderText" disabled="@Disabled" />
@@ -32,10 +32,10 @@
                 </div>
             }
             <CascadingValue Value="this" IsFixed="true">
-                <DatePickerBody @bind-Value="@StartValue" AllowNull="@AllowNull" IsShown="true"
+                <DatePickerBody @bind-Value="@StartValue" AllowNull="@AllowNull" AutoClose="false"
                                 ViewMode="DatePickerViewMode.Date" ShowFooter="false" ShowRightButtons="false" MaxValue=MaxValue MinValue=MinValue>
                 </DatePickerBody>
-                <DatePickerBody @bind-Value="@EndValue" AllowNull="@AllowNull" IsShown="true"
+                <DatePickerBody @bind-Value="@EndValue" AllowNull="@AllowNull" AutoClose="false"
                                 ViewMode="DatePickerViewMode.Date" ShowFooter="false" ShowLeftButtons="false" MaxValue=MaxValue MinValue=MinValue>
                 </DatePickerBody>
             </CascadingValue>

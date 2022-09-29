@@ -11,13 +11,15 @@ namespace BootstrapBlazor.Shared.Samples;
 /// </summary>
 public partial class Tooltips
 {
-    private static string TopString => "在上方";
+    private static readonly string TopString = "在上方";
 
-    private static string LeftString => "在左方";
+    private static readonly string LeftString = "在左方";
 
-    private static string RightString => "在右方";
+    private static readonly string RightString = "在右方";
 
-    private static string BottomString => "在下方";
+    private static readonly string BottomString = "在下方";
+
+    private static readonly string HtmlString = "This is <a href=\"www.blazor.zone\">Blazor</a> tooltip";
 
     /// <summary>
     /// 获得属性方法

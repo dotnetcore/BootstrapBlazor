@@ -2,7 +2,7 @@
 @inherits PopConfirmButtonBase
 
 <DynamicElement TagName="@TagName" OnClick="Show" id="@Id" type="@ElementType"
-                data-bs-custom-class="@CssClass" data-bs-trigger="@Trigger" data-bs-placement="@PlacementString"
+                data-bs-custom-class="@CustomClass" data-bs-trigger="@Trigger" data-bs-placement="@PlacementString"
                 class="@ClassString" disabled="@Disabled" role="button" tabindex="@Tab" aria-disabled="@DisabledString">
     @if (!string.IsNullOrEmpty(ButtonIcon))
     {

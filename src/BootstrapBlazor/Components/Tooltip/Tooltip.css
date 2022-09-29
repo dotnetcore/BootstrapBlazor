@@ -1,3 +1,7 @@
-﻿.tooltip.is-invalid {
+﻿:not(.is-tips) > span[data-bs-toggle="tooltip"] {
+    display: inline-block;
+}
+
+.tooltip.is-invalid {
     --bs-tooltip-bg: var(--bs-danger);
 }

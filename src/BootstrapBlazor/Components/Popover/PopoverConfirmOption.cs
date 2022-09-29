@@ -67,5 +67,5 @@ public class PopoverConfirmOption
     /// 获得/设置 自定义样式 默认 null
     /// </summary>
     /// <remarks>由 data-bs-custom-class 实现</remarks>
-    public string? CssClass { get; set; }
+    public string? CustomClass { get; set; }
 }

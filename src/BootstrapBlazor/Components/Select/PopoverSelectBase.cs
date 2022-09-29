@@ -31,7 +31,7 @@ public class PopoverSelectBase<TValue> : ValidateBase<TValue>
     /// <summary>
     /// data-bs-toggle 值
     /// </summary>
-    protected string? ToggleString => IsPopover ? "bb.popover" : "dropdown";
+    protected string? ToggleString => IsPopover ? Constants.DropdownToggleString : "dropdown";
 
     /// <summary>
     /// 下拉菜单样式字符串

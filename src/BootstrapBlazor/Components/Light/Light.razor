@@ -1,4 +1,6 @@
 ﻿@namespace BootstrapBlazor.Components
-@inherits IdComponentBase
+@inherits BootstrapComponentBase
 
-<span @attributes="@AdditionalAttributes" class="@ClassString" data-bs-toggle="tooltip" title="@Title" id="@Id"></span>
+<Tooltip Title="@Title">
+    <span @attributes="@AdditionalAttributes" class="@ClassString"></span>
+</Tooltip>

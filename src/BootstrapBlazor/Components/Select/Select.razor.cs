@@ -23,14 +23,14 @@ public partial class Select<TValue> : ISelect
     /// <summary>
     /// 获得 样式集合
     /// </summary>
-    private string? ClassName => CssBuilder.Default("select dropdown")
+    private string? ClassString => CssBuilder.Default("select dropdown")
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
     /// <summary>
     /// 获得 样式集合
     /// </summary>
-    private string? InputClassName => CssBuilder.Default("form-select form-control")
+    private string? InputClassString => CssBuilder.Default("form-select form-control")
         .AddClass($"border-{Color.ToDescriptionString()}", Color != Color.None && !IsDisabled && !IsValid.HasValue)
         .AddClass($"border-success", IsValid.HasValue && IsValid.Value)
         .AddClass($"border-danger", IsValid.HasValue && !IsValid.Value)
@@ -40,7 +40,7 @@ public partial class Select<TValue> : ISelect
     /// <summary>
     /// 获得 样式集合
     /// </summary>
-    private string? AppendClassName => CssBuilder.Default("form-select-append")
+    private string? AppendClassString => CssBuilder.Default("form-select-append")
         .AddClass($"text-{Color.ToDescriptionString()}", Color != Color.None && !IsDisabled && !IsValid.HasValue)
         .AddClass($"text-success", IsValid.HasValue && IsValid.Value)
         .AddClass($"text-danger", IsValid.HasValue && !IsValid.Value)
@@ -246,7 +246,7 @@ public partial class Select<TValue> : ISelect
         {
             if (IsPopover)
             {
-                await JSRuntime.InvokeVoidAsync(identifier: "bb.Popover.invoke", SelectElement, "hide");
+                await JSRuntime.InvokeVoidAsync(identifier: "bb.Dropdown.invoke", SelectElement, "hide");
             }
             await ItemChanged(item);
         }

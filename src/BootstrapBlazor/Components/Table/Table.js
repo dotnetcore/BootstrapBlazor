@@ -252,17 +252,6 @@
             else width = $(window).outerWidth(true);
             return width;
         },
-        bb_table_tooltip: function (el) {
-            var $ele = $(el);
-            var $tooltips = $ele.find('.is-tips');
-            $tooltips.tooltip('dispose');
-            $tooltips.tooltip({
-                container: 'body',
-                title: function () {
-                    return $(this).text();
-                }
-            });
-        },
         bb_table_fixedbody: function ($ele, $body, $thead) {
             // 尝试自适应高度
             if (!$body) {
@@ -387,7 +376,6 @@
             });
             $.bb_table_row_hover($ele);
 
-            $.bb_table_tooltip(el);
             $.bb_table_filter($ele);
             $.bb_table_resize($ele);
             $.bb_table_excel_keybord($ele);

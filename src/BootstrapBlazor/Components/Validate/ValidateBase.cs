@@ -10,7 +10,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 支持客户端验证的文本框基类
 /// </summary>
-public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateComponent
+public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateComponent, IAsyncDisposable
 {
     private ValidationMessageStore? _parsingValidationMessages;
 
@@ -38,11 +38,6 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
     /// 获得/设置 数据合规样式
     /// </summary>
     protected string? ValidCss => IsValid.HasValue ? (IsValid.Value ? "is-valid" : "is-invalid") : null;
-
-    /// <summary>
-    /// 获得/设置 Tooltip 命令
-    /// </summary>
-    protected string? TooltipMethod { get; set; }
 
     /// <summary>
     /// 获得/设置 组件是否合规 默认为 null 未检查
@@ -307,25 +302,18 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
     {
         await base.OnAfterRenderAsync(firstRender);
 
-        if (!firstRender && !string.IsNullOrEmpty(TooltipMethod))
+        if (!firstRender && !string.IsNullOrEmpty(ErrorMessage))
         {
-            await ShowTooltip();
-            TooltipMethod = null;
+            if (IsValid.HasValue && IsValid.Value)
+            {
+                await RemoveValidResult();
+            }
+            else
+            {
+                await ShowValidResult();
+            }
         }
     }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <returns></returns>
-    protected override string RetrieveMethod() => TooltipMethod ?? "";
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <returns></returns>
-    protected override string RetrieveTitle() => Tooltip?.Title ?? ErrorMessage ?? "";
-
     #region Validation
     /// <summary>
     /// 获得 数据验证方法集合
@@ -443,19 +431,11 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
             {
                 ErrorMessage = messages.First().ErrorMessage;
                 IsValid = false;
-
-                TooltipMethod = validProperty ? "show" : "enable";
             }
             else
             {
                 ErrorMessage = null;
                 IsValid = true;
-                TooltipMethod = "dispose";
-            }
-
-            if (Tooltip != null)
-            {
-                Tooltip.Title = ErrorMessage;
             }
 
             OnValidate(IsValid);
@@ -465,6 +445,32 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
         {
             IsAsyncValidate = false;
             StateHasChanged();
+        }
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
+    protected virtual async ValueTask ShowValidResult()
+    {
+        var id = RetrieveId();
+        if (!string.IsNullOrEmpty(id))
+        {
+            await JSRuntime.InvokeVoidAsync(identifier: "bb.Tooltip.init", $"#{id}", ErrorMessage);
+        }
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
+    protected virtual async ValueTask RemoveValidResult()
+    {
+        var id = RetrieveId();
+        if (!string.IsNullOrEmpty(id))
+        {
+            await JSRuntime.InvokeVoidAsync(identifier: "bb.Tooltip.dispose", $"#{id}");
         }
     }
 
@@ -486,7 +492,7 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
     /// </summary>
     /// <param name="disposing"></param>
     /// <returns></returns>
-    protected override async ValueTask DisposeAsyncCore(bool disposing)
+    protected virtual async ValueTask DisposeAsyncCore(bool disposing)
     {
         if (disposing)
         {
@@ -494,9 +500,19 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
             {
                 ValidateForm.TryRemoveValidator((FieldIdentifier.Value.FieldName, FieldIdentifier.Value.Model.GetType()), out _);
             }
-        }
 
-        await base.DisposeAsyncCore(disposing);
+            await RemoveValidResult();
+        }
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    public async ValueTask DisposeAsync()
+    {
+        await DisposeAsyncCore(true);
+        GC.SuppressFinalize(this);
     }
     #endregion
 

@@ -122,7 +122,7 @@
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["Block8Title"]" Introduction="@Localizer["Block8Intro"]" Name="Extension">
-    <div class="row g-3">
+    <div class="row">
         <div class="col-auto">
             <WinButton Text="@Localizer["Button18Tetx"]" OnClick="@ClickButtonShowText"></WinButton>
         </div>
@@ -138,6 +138,19 @@
 <DemoBlock Title="@Localizer["Block9Title"]" Introduction="@Localizer["Block9Intro"]" Name="Async">
     <p>@((MarkupString)Localizer["P3"].Value)</p>
     <Button Text="@Localizer["Button22Text"]" IsAsync="true" Icon="fa-solid fa-fw fa-font-awesome" OnClick="@ClickAsyncButton" />
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["TooltipTitle"]" Introduction="@Localizer["TooltipIntro"]" Name="Tooltip">
+    <div class="row row-cols-2">
+        <div class="col">
+            <Button Text="@Localizer["TooltipText"]" TooltipText="This is a Tooltip" TooltipPlacement="Placement.Top" TooltipTrigger="hover" />
+        </div>
+        <div class="col">
+            <Tooltip Trigger="hover" Title="This is a Tooltip">
+                <Button Text="@Localizer["TooltipDisabledText"]" IsDisabled="true" />
+            </Tooltip>
+        </div>
+    </div>
 </DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" />

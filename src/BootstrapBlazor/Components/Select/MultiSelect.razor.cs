@@ -190,21 +190,6 @@ public partial class MultiSelect<TValue>
         ? null
         : Utility.ConvertValueToString(value);
 
-    /// <summary>
-    /// OnAfterRenderAsync 方法
-    /// </summary>
-    /// <param name="firstRender"></param>
-    /// <returns></returns>
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        await base.OnAfterRenderAsync(firstRender);
-
-        if (firstRender && IsPopover)
-        {
-            await JSRuntime.InvokeVoidAsync(SelectElement, "bb_multi_select", "init");
-        }
-    }
-
     private async Task ToggleRow(SelectedItem item, bool force = false)
     {
         if (!IsDisabled)

@@ -142,13 +142,11 @@ public partial class InputUpload<TValue>
         {
             ErrorMessage = results.First().ErrorMessage;
             IsValid = false;
-            TooltipMethod = validProperty ? "show" : "enable";
         }
         else
         {
             ErrorMessage = null;
             IsValid = true;
-            TooltipMethod = "dispose";
         }
         OnValidate(IsValid);
     }
