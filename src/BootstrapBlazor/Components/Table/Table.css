@@ -19,7 +19,7 @@
         --bb-switch-padding: 0;
     }
 
-    .table-container > :not(:first-child):not(.table-loader):not(.table-wrapper),
+    .table-container > :not(:first-child):not(.table-loader):not(.table-wrapper):not(.table-filter),
     .table-container > :not(.table-toolbar) + .table-wrapper {
         margin-top: .5rem;
     }

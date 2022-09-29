@@ -8,7 +8,7 @@
     $(function () {
         $(document).on('click', function (e) {
             var $target = $(e.target);
-            var $pd = $target.closest('.popover-datetime');
+            var $pd = $target.closest('.popover-dropdown');
             if ($pd.length == 1) {
                 var pid = $pd.attr('id');
                 var $el = $('[aria-describedby="' + pid + '"]');
