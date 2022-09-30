@@ -2879,6 +2879,7 @@
     "TableCell": "Cell",
     "TableDetail": "Detail",
     "TableDynamic": "Dynamic",
+    "TableDynamicObject": "DynamicObject",
     "TableSearch": "Search",
     "TableFilter": "Sort/Filter",
     "TableFixHeader": "FixHeader",
