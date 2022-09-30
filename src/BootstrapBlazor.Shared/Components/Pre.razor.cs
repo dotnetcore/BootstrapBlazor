@@ -12,9 +12,11 @@ namespace BootstrapBlazor.Shared.Components;
 /// <summary>
 /// Pre 组件
 /// </summary>
-public sealed partial class Pre
+public partial class Pre : IAsyncDisposable
 {
-    private ElementReference PreElement { get; set; }
+    private IJSObjectReference? module;
+
+    private string ButtonId => $"{Id}_button";
 
     private bool Loaded { get; set; }
 
@@ -33,24 +35,10 @@ public sealed partial class Pre
     private CodeSnippetService? Example { get; set; }
 
     /// <summary>
-    /// 获得/设置 IJSRuntime 实例
-    /// </summary>
-    [Inject]
-    [NotNull]
-    private IJSRuntime? JSRuntime { get; set; }
-
-    /// <summary>
     /// 获得/设置 子组件 CodeFile 为空时生效
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
-
-    /// <summary>
-    /// 获得/设置 用户自定义属性
-    /// </summary>
-    /// <returns></returns>
-    [Parameter(CaptureUnmatchedValues = true)]
-    public IDictionary<string, object>? AdditionalAttributes { get; set; }
 
     /// <summary>
     /// 获得/设置 示例文档名称
@@ -89,9 +77,15 @@ public sealed partial class Pre
     /// <param name="firstRender"></param>
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
+        if (CanCopy)
+        {
+            module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/BootstrapBlazor.Shared/js/Pre.js");
+            await module.InvokeVoidAsync("copy", $"#{ButtonId}");
+        }
+
         if (Loaded)
         {
-            await JSRuntime.InvokeVoidAsync("$.highlight", PreElement);
+            await JSRuntime.InvokeVoidAsync("$.highlight", $"#{Id}");
         }
     }
 
@@ -110,5 +104,20 @@ public sealed partial class Pre
             CanCopy = !string.IsNullOrEmpty(code) && !code.StartsWith("Error: ");
         }
         Loaded = true;
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    public async ValueTask DisposeAsync()
+    {
+        if (module is not null)
+        {
+            await module.InvokeVoidAsync("dispose", $"#{ButtonId}");
+            await module.DisposeAsync();
+
+            GC.SuppressFinalize(this);
+        }
     }
 }

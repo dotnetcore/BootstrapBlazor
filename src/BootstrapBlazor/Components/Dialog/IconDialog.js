@@ -43,7 +43,7 @@
             });
         },
         bb_copyIcon: function ($this, text) {
-            $.bb_copyText(text);
+            bb.Utility.copy(text);
             $this.tooltip({
                 title: 'Copied!'
             });

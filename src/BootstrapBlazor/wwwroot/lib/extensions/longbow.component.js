@@ -591,6 +591,23 @@
         }
     });
 
+    bootstrap.EventHandler.on(document, 'click', '.anchor-link', function (e) {
+        const hash = this.getAttribute('id');
+        if (hash) {
+            const title = this.getAttribute('data-title');
+            const href = window.location.origin + window.location.pathname + '#' + hash;
+            Utility.copy(href);
+            const tooltip = bootstrap.Tooltip.getOrCreateInstance(this, {
+                title: title
+            });
+            tooltip.show();
+            const handler = window.setTimeout(function () {
+                window.clearTimeout(handler);
+                tooltip.dispose();
+            }, 1000);
+        }
+    });
+    
     class Utility {
         static vibrate() {
             if ('vibrate' in window.navigator) {
@@ -599,6 +616,21 @@
                     window.clearTimeout(handler);
                     window.navigator.vibrate([]);
                 }, 1000);
+            }
+        }
+
+        static copy(text = '') {
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(text);
+            } else {
+                const input = document.createElement('input');
+                input.setAttribute('type', 'text');
+                input.setAttribute('value', text);
+                input.setAttribute('hidden', 'true');
+                document.body.appendChild(input);
+                input.select();
+                document.execCommand('copy');
+                document.body.removeChild(input);
             }
         }
 

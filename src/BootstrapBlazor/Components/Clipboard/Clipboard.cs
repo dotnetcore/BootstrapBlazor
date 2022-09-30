@@ -5,7 +5,7 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// FullScreen 组件部分类
+/// Clipboard 组件部分类
 /// </summary>
 public class Clipboard : BootstrapComponentBase, IDisposable
 {
@@ -29,7 +29,7 @@ public class Clipboard : BootstrapComponentBase, IDisposable
 
     private async Task Copy(ClipboardOption option)
     {
-        await JSRuntime.InvokeVoidAsync(null, "bb_copyText", option.Text ?? string.Empty);
+        await JSRuntime.InvokeVoidAsync(identifier: "bb.Utility.copy", option.Text);
         if (option.Callback != null)
         {
             await option.Callback();

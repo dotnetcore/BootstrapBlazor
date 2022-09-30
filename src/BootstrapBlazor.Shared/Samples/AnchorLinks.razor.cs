@@ -4,6 +4,8 @@
 
 using BootstrapBlazor.Components;
 using BootstrapBlazor.Shared.Common;
+using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Localization;
 
 namespace BootstrapBlazor.Shared.Samples;
 
@@ -12,11 +14,15 @@ namespace BootstrapBlazor.Shared.Samples;
 /// </summary>
 public partial class AnchorLinks
 {
-    private static IEnumerable<AttributeItem> GetAttributes() => new[]
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<AnchorLink>? Localizer { get; set; }
+
+    private IEnumerable<AttributeItem> GetAttributes() => new[]
     {
         // TODO: 移动到数据库中
         new AttributeItem() {
-            Name = "Id",
+            Name = nameof(AnchorLink.Id),
             Description = "组件 Id 必填项",
             Type = "string",
             ValueList = " — ",
@@ -30,18 +36,18 @@ public partial class AnchorLinks
             DefaultValue = "fa-solid fa-link"
         },
         new AttributeItem() {
-            Name = "Text",
+            Name = nameof(AnchorLink.Text),
             Description = "组件 Text 显示文字",
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
         },
         new AttributeItem() {
-            Name = "TooltipText",
+            Name = nameof(AnchorLink.TooltipText),
             Description = "拷贝成功后 显示文字",
             Type = "string",
             ValueList = " — ",
-            DefaultValue = " — "
+            DefaultValue = Localizer[nameof(AnchorLink.TooltipText)]
         }
     };
 }

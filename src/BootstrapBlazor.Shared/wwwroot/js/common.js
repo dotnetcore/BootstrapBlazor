@@ -250,19 +250,6 @@
     });
 
     $(function () {
-        $(document)
-            .on('click', '.btn-clipboard', function (e) {
-                e.preventDefault();
-
-                var $el = $(this);
-                var text = $el.prev().find('code').text();
-                $.bb_copyText(text);
-
-                var tId = $el.attr('aria-describedby');
-                var $tooltip = $('#' + tId);
-                $tooltip.find('.tooltip-inner').html('拷贝代码成功');
-            });
-
         // chart animation
         $(document)
             .on('click', '[data-method]', function (e) {

@@ -1,4 +1,6 @@
-﻿<div class="pre-code" @ref="PreElement">
+﻿@inherits IdComponentBase
+
+<div class="pre-code" id="@Id">
     @if (!Loaded)
     {
         <p class="loading">正在加载 ...</p>
@@ -8,7 +10,7 @@
         <pre @attributes="@AdditionalAttributes" class="@ClassName"><code>@ChildContent</code></pre>
         @if (CanCopy)
         {
-            <button type="button" class="btn-clipboard" data-bs-toggle="tooltip" data-bs-placement="left" title="点击复制代码">Copy</button>
+            <button type="button" id="@ButtonId" class="btn-clipboard" data-bs-toggle="tooltip" data-bs-placement="left" title="点击复制代码">Copy</button>
         }
     }
 </div>
