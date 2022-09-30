@@ -9,7 +9,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// Button 按钮组件
 /// </summary>
-public abstract class ButtonBase : IdComponentBase, IAsyncDisposable
+public abstract class ButtonBase : TooltipWrapperBase, IAsyncDisposable
 {
     /// <summary>
     /// 获得 按钮样式集合
@@ -24,11 +24,6 @@ public abstract class ButtonBase : IdComponentBase, IAsyncDisposable
         .AddClass("btn-circle", ButtonStyle == ButtonStyle.Circle)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
-
-    /// <summary>
-    /// Tooltip 弹窗位置字符串
-    /// </summary>
-    protected string? PlacementString => TooltipPlacement == Placement.Auto ? null : TooltipPlacement.ToDescriptionString();
 
     /// <summary>
     /// 获得 按钮 disabled 属性
@@ -139,30 +134,6 @@ public abstract class ButtonBase : IdComponentBase, IAsyncDisposable
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
-
-    /// <summary>
-    /// the instance of Tooltip component
-    /// </summary>
-    [CascadingParameter]
-    protected Tooltip? Tooltip { get; set; }
-
-    /// <summary>
-    /// 获得/设置 TooltipText 显示文字 默认为 null
-    /// </summary>
-    [Parameter]
-    public string? TooltipText { get; set; }
-
-    /// <summary>
-    /// 获得/设置 Tooltip 显示位置 默认为 Top
-    /// </summary>
-    [Parameter]
-    public Placement TooltipPlacement { get; set; } = Placement.Top;
-
-    /// <summary>
-    /// 获得/设置 Tooltip 触发方式 默认为 hover focus
-    /// </summary>
-    [Parameter]
-    public string TooltipTrigger { get; set; } = "hover focus";
 
     /// <summary>
     /// 获得 ValidateForm 实例

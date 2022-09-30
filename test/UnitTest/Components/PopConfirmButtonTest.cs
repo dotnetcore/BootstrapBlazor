@@ -45,7 +45,7 @@ public class PopConfirmButtonTest : PopoverTestBase
             pb.Add(a => a.Content, "Test_Cotent");
             pb.Add(a => a.ConfirmButtonText, "Test_Confirm_Text");
             pb.Add(a => a.CloseButtonText, "Test_Close_Text");
-            pb.Add(a => a.CssClass, "test-custom-class");
+            pb.Add(a => a.CustomClass, "test-custom-class");
             pb.Add(a => a.OnConfirm, () =>
             {
                 confirm = true;

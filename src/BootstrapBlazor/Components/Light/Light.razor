@@ -1,6 +1,6 @@
 ﻿@namespace BootstrapBlazor.Components
-@inherits BootstrapComponentBase
+@inherits TooltipWrapperBase
 
-<Tooltip Title="@Title">
-    <span @attributes="@AdditionalAttributes" class="@ClassString"></span>
+<Tooltip Title="@TooltipText" Trigger="@TooltipTrigger" Placement="@TooltipPlacement">
+    <span @attributes="@AdditionalAttributes" tabindex="0" class="@ClassString"></span>
 </Tooltip>

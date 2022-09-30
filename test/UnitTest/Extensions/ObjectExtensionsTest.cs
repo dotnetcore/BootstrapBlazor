@@ -15,7 +15,7 @@ public class ObjectExtensionsTest
     [InlineData("95%", "95%")]
     [InlineData("95px", "95px")]
     [InlineData("95", "95px")]
-    [InlineData("test", "")]
+    [InlineData("auto", "auto")]
     public static void ConvertToPercentString_Ok(string? source, string expect)
     {
         var actual = source.ConvertToPercentString();

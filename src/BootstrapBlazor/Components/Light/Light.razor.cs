@@ -5,7 +5,7 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// 指示灯组件
 /// </summary>
 public partial class Light
 {
@@ -23,12 +23,6 @@ public partial class Light
     /// </summary>
     [Parameter]
     public bool IsFlash { get; set; }
-
-    /// <summary>
-    /// 获得/设置 指示灯 Tooltip 显示文字
-    /// </summary>
-    [Parameter]
-    public string? Title { get; set; }
 
     /// <summary>
     /// 获得/设置 指示灯颜色 默认为 Success 绿色

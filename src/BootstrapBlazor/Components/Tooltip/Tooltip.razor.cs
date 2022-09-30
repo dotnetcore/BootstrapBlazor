@@ -131,11 +131,11 @@ public partial class Tooltip : ITooltip, IAsyncDisposable
         Title = title;
         if (placement != Placement.Auto) Placement = placement;
         if (!string.IsNullOrEmpty(trigger)) Trigger = trigger;
-        if (!string.IsNullOrEmpty(customClass)) Trigger = customClass;
+        if (!string.IsNullOrEmpty(customClass)) CustomClass = customClass;
         if (isHtml.HasValue) IsHtml = isHtml.Value;
         if (sanitize.HasValue) Sanitize = sanitize.Value;
-        if (!string.IsNullOrEmpty(delay)) Trigger = delay;
-        if (!string.IsNullOrEmpty(selector)) Trigger = selector;
+        if (!string.IsNullOrEmpty(delay)) Delay = delay;
+        if (!string.IsNullOrEmpty(selector)) Selector = selector;
         StateHasChanged();
     }
 

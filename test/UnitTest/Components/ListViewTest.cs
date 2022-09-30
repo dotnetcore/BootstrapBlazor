@@ -51,22 +51,6 @@ public class ListViewTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void Pageable_Exception()
-    {
-        var items = Enumerable.Range(1, 6).Select(i => new Product()
-        {
-            ImageUrl = $"images/Pic{i}.jpg",
-            Description = $"Pic{i}.jpg",
-            Category = $"Group{(i % 4) + 1}"
-        });
-        Assert.Throws<InvalidOperationException>(() => Context.RenderComponent<ListView<Product>>(pb =>
-        {
-            pb.Add(a => a.Items, items);
-            pb.Add(a => a.Pageable, true);
-        }));
-    }
-
-    [Fact]
     public async Task Pageable_Ok()
     {
         var items = Enumerable.Range(1, 6).Select(i => new Product()

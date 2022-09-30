@@ -18,10 +18,22 @@ public class CarouselTest : BootstrapBlazorTestBase
     {
         var cut = Context.RenderComponent<Carousel>(pb =>
         {
-            pb.Add(b => b.Width, 100);
+            pb.Add(b => b.Width, "100");
         });
 
         Assert.Contains("width: 100px;", cut.Markup);
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(b => b.Width, "100%");
+        });
+        Assert.Contains("width: 100%;", cut.Markup);
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(b => b.Width, "auto");
+        });
+        Assert.Contains("width: auto", cut.Markup);
     }
 
     [Fact]
