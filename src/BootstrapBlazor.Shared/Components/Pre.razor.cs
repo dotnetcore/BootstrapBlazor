@@ -12,12 +12,8 @@ namespace BootstrapBlazor.Shared.Components;
 /// <summary>
 /// Pre 组件
 /// </summary>
-public partial class Pre : IAsyncDisposable
+public partial class Pre
 {
-    private IJSObjectReference? module;
-
-    private string ButtonId => $"{Id}_button";
-
     private bool Loaded { get; set; }
 
     private bool CanCopy { get; set; }
@@ -77,12 +73,6 @@ public partial class Pre : IAsyncDisposable
     /// <param name="firstRender"></param>
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        if (CanCopy)
-        {
-            module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/BootstrapBlazor.Shared/js/Pre.js");
-            await module.InvokeVoidAsync("copy", $"#{ButtonId}");
-        }
-
         if (Loaded)
         {
             await JSRuntime.InvokeVoidAsync("$.highlight", $"#{Id}");
@@ -104,20 +94,5 @@ public partial class Pre : IAsyncDisposable
             CanCopy = !string.IsNullOrEmpty(code) && !code.StartsWith("Error: ");
         }
         Loaded = true;
-    }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <returns></returns>
-    public async ValueTask DisposeAsync()
-    {
-        if (module is not null)
-        {
-            await module.InvokeVoidAsync("dispose", $"#{ButtonId}");
-            await module.DisposeAsync();
-
-            GC.SuppressFinalize(this);
-        }
     }
 }

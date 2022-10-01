@@ -65,8 +65,7 @@
                             if (!reverse) {
                                 var t1 = $this.text() + plant.shift();
                                 $this.text(t1);
-                            }
-                            else {
+                            } else {
                                 var t1 = plant.pop();
                                 $this.text(plant.join(''));
                             }
@@ -79,8 +78,7 @@
                                 window.clearTimeout(handler);
                                 if (reverse) {
                                     return resovle();
-                                }
-                                else {
+                                } else {
                                     typeChar(original, true).then(function () {
                                         return resovle();
                                     });
@@ -188,8 +186,7 @@
         bb_open: function (method) {
             if (method === 'dispose') {
                 $('#log').popover(method);
-            }
-            else {
+            } else {
                 $('#log').popover({ delay: { 'show': 1000 } }).one('click', function () {
                     $(this).popover('toggle');
                 }).trigger('click');
@@ -316,5 +313,14 @@
         //        setInterval(attemptReload, 10000);
         //    }
         //}).observe(document.body, { childList: true, subtree: true });
+
+        // Pre
+        bootstrap.EventHandler.on(document, 'click', '.pre-code .btn-clipboard', function () {
+            const text = this.previousElementSibling.querySelector('code').textContent;
+            bb.Utility.copy(text);
+
+            const tooltip = bb.Utility.getDescribedElement(this);
+            tooltip.querySelector('.tooltip-inner').innerHTML = '拷贝代码成功';
+        });
     });
 })(jQuery);
