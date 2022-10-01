@@ -34,6 +34,6 @@ public class AnchorLinkTest : BootstrapBlazorTestBase
     public void TooltipText_Ok()
     {
         var cut = Context.RenderComponent<AnchorLink>(builder => builder.Add(a => a.TooltipText, "anchorlink"));
-        Assert.Contains("anchorlink", cut.Markup);
+        Assert.Contains("data-bb-title=\"anchorlink\"", cut.Markup);
     }
 }

@@ -594,7 +594,7 @@
     bootstrap.EventHandler.on(document, 'click', '.anchor-link', function (e) {
         const hash = this.getAttribute('id');
         if (hash) {
-            const title = this.getAttribute('data-title');
+            const title = this.getAttribute('data-bb-title');
             const href = window.location.origin + window.location.pathname + '#' + hash;
             Utility.copy(href);
             const tooltip = bootstrap.Tooltip.getOrCreateInstance(this, {
