@@ -10,10 +10,11 @@ public class AnchorTest : TestBase
     public void Target_Ok()
     {
         var cut = Context.RenderComponent<Anchor>(builder => builder.Add(a => a.Target, "anchor"));
-        Assert.Contains("data-target=\"#anchor\"", cut.Markup);
+        Assert.Contains("data-toggle=\"anchor\"", cut.Markup);
+        Assert.Contains("data-bb-target=\"anchor\"", cut.Markup);
 
         cut = Context.RenderComponent<Anchor>(builder => builder.Add(a => a.Target, ""));
-        Assert.DoesNotContain("data-target", cut.Markup);
+        Assert.DoesNotContain("data-bb-target", cut.Markup);
     }
 
     [Fact]
@@ -29,13 +30,13 @@ public class AnchorTest : TestBase
                 builder.CloseElement();
             }));
         });
-        Assert.Contains("data-container=\"anchor\"", cut.Markup);
+        Assert.Contains("data-bb-container=\"anchor\"", cut.Markup);
     }
 
     [Fact]
     public void Offset_Ok()
     {
         var cut = Context.RenderComponent<Anchor>(builder => builder.Add(a => a.Offset, 20));
-        Assert.Contains("data-offset=\"20\"", cut.Markup);
+        Assert.Contains("data-bb-offset=\"20\"", cut.Markup);
     }
 }

@@ -1,6 +1,6 @@
 ﻿@namespace BootstrapBlazor.Components
 @inherits BootstrapComponentBase
 
-<a @attributes="@AdditionalAttributes" data-target="@GetTargetString" data-container="@Container" data-offset="@Offset" href="#" @ref="AnchorElement">
+<a @attributes="@AdditionalAttributes" class="@ClassString" data-toggle="anchor" data-bb-target="@GetTargetString" data-bb-container="@Container" data-bb-offset="@Offset" href="#">
     @ChildContent
 </a>

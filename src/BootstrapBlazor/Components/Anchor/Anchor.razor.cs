@@ -9,8 +9,6 @@ namespace BootstrapBlazor.Components;
 /// </summary>
 public sealed partial class Anchor
 {
-    private ElementReference AnchorElement { get; set; }
-
     /// <summary>
     /// 获得/设置 目标组件 Id
     /// </summary>
@@ -35,23 +33,9 @@ public sealed partial class Anchor
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
-    /// <summary>
-    /// OnAfterRenderAsync 方法
-    /// </summary>
-    /// <param name="firstRender"></param>
-    /// <returns></returns>
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        await base.OnAfterRenderAsync(firstRender);
+    private string? GetTargetString => string.IsNullOrEmpty(Target) ? null : Target;
 
-        if (firstRender)
-        {
-            if (!string.IsNullOrEmpty(Target))
-            {
-                await JSRuntime.InvokeVoidAsync(AnchorElement, "bb_anchor");
-            }
-        }
-    }
-
-    private string? GetTargetString => string.IsNullOrEmpty(Target) ? null : $"#{Target}";
+    private string? ClassString => CssBuilder.Default()
+        .AddClassFromAttributes(AdditionalAttributes)
+        .Build();
 }

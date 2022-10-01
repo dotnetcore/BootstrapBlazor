@@ -607,7 +607,28 @@
             }, 1000);
         }
     });
-    
+
+    bootstrap.EventHandler.on(document, 'click', '[data-toggle="anchor"]', function (e) {
+        e.preventDefault();
+        const target = Utility.getDescribedElement(this, 'data-bb-target');
+        if (target) {
+            const container = Utility.getDescribedElement(this, 'data-bb-container') || document.defaultView;
+            const rect = target.getBoundingClientRect();
+            let margin = rect.top;
+            let marginTop = getComputedStyle(target).getPropertyValue('margin-top').replace('px', '');
+            if (marginTop) {
+                margin = margin - parseInt(marginTop);
+            }
+            let offset = this.getAttribute('data-bb-offset');
+            if (offset) {
+                margin = margin - parseInt(offset);
+            }
+            const winScroll = Utility.getWindowScroll(container);
+            container.scrollTo(0, margin + winScroll.scrollTop);
+        }
+
+    });
+
     class Utility {
         static vibrate() {
             if ('vibrate' in window.navigator) {
@@ -634,9 +655,32 @@
             }
         }
 
-        static getDescribedElement(element) {
+        static getWindowScroll(node) {
+            const win = this.getWindow(node);
+            const scrollLeft = win.pageXOffset;
+            const scrollTop = win.pageYOffset;
+            return {
+                scrollLeft: scrollLeft,
+                scrollTop: scrollTop
+            };
+        }
+
+        static getWindow(node) {
+            if (node == null) {
+                return window;
+            }
+
+            if (node.toString() !== '[object Window]') {
+                const ownerDocument = node.ownerDocument;
+                return ownerDocument ? ownerDocument.defaultView || window : window;
+            }
+
+            return node;
+        }
+
+        static getDescribedElement(element, selector = 'aria-describedby') {
             if (isElement$1(element)) {
-                const id = element.getAttribute('aria-describedby');
+                const id = element.getAttribute(selector);
                 if (id) {
                     return document.querySelector(`#${id}`);
                 }
@@ -644,11 +688,11 @@
             return null;
         }
 
-        static getDescribedOwner(element) {
+        static getDescribedOwner(element, selector = 'aria-describedby') {
             if (isElement$1(element)) {
                 const id = element.getAttribute('id');
                 if (id) {
-                    return document.querySelector(`[aria-describedby="${id}"]`);
+                    return document.querySelector(`[${selector}="${id}"]`);
                 }
             }
             return null;
