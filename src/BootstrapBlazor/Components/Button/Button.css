@@ -4,6 +4,7 @@
     --bb-btn-label-margin-left: 4px;
     --bs-btn-active-border-color: transparent;
     --bs-btn-hover-border-color: transparent;
+    --bs-btn-border-radius: var(--bs-border-radius);
 }
 
 .btn-xs, .btn-group-xs > .btn {
