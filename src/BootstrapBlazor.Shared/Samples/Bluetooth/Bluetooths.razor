@@ -43,16 +43,26 @@
             <button data-action="btnConnect" class="btn btn-outline-primary">@Localizer["ConnectButtonText"]</button>
             <button data-action="btnDisconnect" class="btn btn-outline-danger">@Localizer["DisconnectButtonText"]</button>
             @*<button data-action="btnReconnect" class="btn btn-outline-secondary">@Localizer["ReconnectButtonText"]</button>*@
-            <button data-action="tools" class="btn btn-outline-primary" @onclick="printer.PrintQR">@Localizer["PrintButtonText"]</button>
+            <button data-action="tools" class="btn btn-outline-primary" @onclick="printer.Print">@Localizer["PrintButtonText"]</button>
         </div>
     }
     <hr />
     <pre>@message</pre>
     <pre style="color:green">@statusmessage</pre>
     <pre style="color:red">@errmessage</pre>
+    <p/>
+    <button class="btn btn-link" @onclick="SwitchUI ">切换界面</button>
 </DemoBlock>
 
-<BluetoothBatteryLevel/>
-<BluetoothHeartRate/>
+<BluetoothBatteryLevel />
+<BluetoothHeartRate />
 
-<AttributeTable Items="@GetAttributes()" />
+<AttributeTable Title="Printer 组件" Items="@GetAttributes()" />
+
+<AttributeTable Title="BatteryLevel 组件" Items="@GetAttributesBatteryLevel()" />
+
+<AttributeTable Title="Heartrate 组件" Items="@GetAttributesHeartrate()" />
+
+<AttributeTable Title="BluetoothDevice 类" Items="@GetBluetoothDeviceAttributes()" />
+
+<AttributeTable Title="PrinterOption 类" Items="@GetPrinterOptionAttributes()" />
