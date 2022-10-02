@@ -13,12 +13,20 @@ namespace BootstrapBlazor.Shared.Samples;
 /// </summary>
 public sealed partial class Stepss
 {
-    private IEnumerable<StepItem> Items { get; set; } = new StepItem[3]
+    private IEnumerable<StepItem> Items { get; set; } = new StepItem[3];
+
+    /// <summary>
+    /// OnInitialised method
+    /// </summary>
+    protected override void OnInitialized()
     {
-            new StepItem() { Title = "步骤一" , Template = builder => { builder.OpenElement(0, "div"); builder.AddContent(1, "步骤一"); builder.CloseElement(); } },
-            new StepItem() { Title = "步骤二", Template = builder => { builder.OpenElement(0, "div"); builder.AddContent(1, "步骤二"); builder.CloseElement(); } },
-            new StepItem() { Title = "步骤三", Template = builder => { builder.OpenElement(0, "div"); builder.AddContent(1, "步骤三"); builder.CloseElement(); } }
-    };
+        Items = new StepItem[3]
+        {
+            new StepItem() { Title = Localizer["I1Text"], Template = builder => { builder.OpenElement(0, "div"); builder.AddContent(1, Localizer["I1TextC"]); builder.CloseElement(); } },
+            new StepItem() { Title = Localizer["I2Text"], Template = builder => { builder.OpenElement(0, "div"); builder.AddContent(1, Localizer["I2TextC"]); builder.CloseElement(); } },
+            new StepItem() { Title = Localizer["I3Text"], Template = builder => { builder.OpenElement(0, "div"); builder.AddContent(1, Localizer["I3TextC"]); builder.CloseElement(); } }
+        };
+    }
 
     private void NextStep()
     {

@@ -88,5 +88,5 @@ public class BootstrapBlazorOptions
     /// </summary>
     /// <returns></returns>
     public IList<CultureInfo> GetSupportedCultures() => SupportedCultures?.Select(name => new CultureInfo(name)).ToList()
-        ?? new List<CultureInfo> { new("zh"), new("en") };
+        ?? new List<CultureInfo> { new("en-US"), new("th-TH"), new("zh-CH") };
 }

@@ -16,7 +16,7 @@ public partial class RibbonTabs
     private IEnumerable<RibbonTabItem>? Items { get; set; }
 
     /// <summary>
-    /// OnInitialized 方法
+    /// OnInitialized method
     /// </summary>
     protected override void OnInitialized()
     {
@@ -24,39 +24,39 @@ public partial class RibbonTabs
         {
             new()
             {
-                Text = "文件",
+                Text = Localizer["ItemsText1"],
                 Items = new List<RibbonTabItem>()
                 {
-                    new() { Text = "常规操作", Icon = "fa-solid fa-font-awesome", GroupName = "操作组一" },
-                    new() { Text = "常规操作", Icon = "fa-solid fa-font-awesome", GroupName = "操作组一" },
-                    new() { Text = "常规操作", Icon = "fa-solid fa-font-awesome", GroupName = "操作组一" },
-                    new() { Text = "打开", Icon = "fa-solid fa-font-awesome", GroupName = "操作组二" },
-                    new() { Text = "保存", Icon = "fa-solid fa-font-awesome", GroupName = "操作组二" },
-                    new() { Text = "另存为", Icon = "fa-solid fa-font-awesome", GroupName = "操作组二" }
+                    new() { Text = Localizer["Items1"], Icon = "fa-solid fa-font-awesome", GroupName = Localizer["ItemsGroupName1"] },
+                    new() { Text = Localizer["Items2"], Icon = "fa-solid fa-font-awesome", GroupName = Localizer["ItemsGroupName1"] },
+                    new() { Text = Localizer["Items3"], Icon = "fa-solid fa-font-awesome", GroupName = Localizer["ItemsGroupName1"] },
+                    new() { Text = Localizer["Items4"], Icon = "fa-solid fa-font-awesome", GroupName = Localizer["ItemsGroupName1"] },
+                    new() { Text = Localizer["Items5"], Icon = "fa-solid fa-font-awesome", GroupName = Localizer["ItemsGroupName1"] },
+                    new() { Text = Localizer["Items6"], Icon = "fa-solid fa-font-awesome", GroupName = Localizer["ItemsGroupName1"] }
                 }
             },
             new()
             {
-                Text = "编辑",
+                Text = Localizer["ItemsText2"],
                 Items = new List<RibbonTabItem>()
                 {
-                    new() { Text = "打开", Icon = "fa-solid fa-font-awesome", GroupName = "操作组三" },
-                    new() { Text = "保存", Icon = "fa-solid fa-font-awesome", GroupName = "操作组三" },
-                    new() { Text = "另存为", Icon = "fa-solid fa-font-awesome", GroupName = "操作组三" },
-                    new() { Text = "常规操作", Icon = "fa-solid fa-font-awesome", GroupName = "操作组四" },
-                    new() { Text = "常规操作", Icon = "fa-solid fa-font-awesome", GroupName = "操作组四" },
-                    new() { Text = "常规操作", Icon = "fa-solid fa-font-awesome", GroupName = "操作组四" }
+                    new() { Text = Localizer["Items7"], Icon = "fa-solid fa-font-awesome", GroupName = Localizer["ItemsGroupName2"] },
+                    new() { Text = Localizer["Items8"], Icon = "fa-solid fa-font-awesome", GroupName = Localizer["ItemsGroupName2"] },
+                    new() { Text = Localizer["Items9"], Icon = "fa-solid fa-font-awesome", GroupName = Localizer["ItemsGroupName2"] },
+                    new() { Text = Localizer["Items10"], Icon = "fa-solid fa-font-awesome", GroupName = Localizer["ItemsGroupName2"] },
+                    new() { Text = Localizer["Items11"], Icon = "fa-solid fa-font-awesome", GroupName = Localizer["ItemsGroupName2"] },
+                    new() { Text = Localizer["Items12"], Icon = "fa-solid fa-font-awesome", GroupName = Localizer["ItemsGroupName2"] }
                 }
             }
         };
     }
 
-    private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
         new AttributeItem()
         {
             Name = nameof(RibbonTab.ShowFloatButton),
-            Description = "是否显示悬浮小箭头",
+            Description = Localizer["Attr1"],
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
@@ -64,7 +64,7 @@ public partial class RibbonTabs
         new AttributeItem()
         {
             Name = nameof(RibbonTab.OnFloatChanged),
-            Description = "组件是否悬浮状态改变时回调方法",
+            Description = Localizer["Attr2"],
             Type = "bool",
             ValueList = "Func<bool, Task>",
             DefaultValue = " — "
@@ -72,7 +72,7 @@ public partial class RibbonTabs
         new AttributeItem()
         {
             Name = nameof(RibbonTab.RibbonArrowUpIcon),
-            Description = "选项卡向上箭头图标",
+            Description = Localizer["Attr3"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = "fa-solid fa-angle-up fa-2x"
@@ -80,7 +80,7 @@ public partial class RibbonTabs
         new AttributeItem()
         {
             Name = nameof(RibbonTab.RibbonArrowDownIcon),
-            Description = "选项卡向下箭头图标",
+            Description = Localizer["Attr4"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = "fa-solid fa-angle-down fa-2x"
@@ -88,7 +88,7 @@ public partial class RibbonTabs
         new AttributeItem()
         {
             Name = nameof(RibbonTab.RibbonArrowPinIcon),
-            Description = "选项卡可固定图标",
+            Description = Localizer["Attr5"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = "fa-solid fa-thumbtack fa-rotate-90"
@@ -96,7 +96,7 @@ public partial class RibbonTabs
         new AttributeItem()
         {
             Name = nameof(RibbonTab.ShowFloatButton),
-            Description = "是否显示悬浮小箭头",
+            Description = Localizer["Attr6"],
             Type = "bool",
             ValueList = " — ",
             DefaultValue = " — "
@@ -104,7 +104,7 @@ public partial class RibbonTabs
         new AttributeItem()
         {
             Name = nameof(RibbonTab.Items),
-            Description = "数据源",
+            Description = Localizer["Attr7"],
             Type = "IEnumerable<RibbonTabItem>",
             ValueList = " — ",
             DefaultValue = " — "
@@ -112,7 +112,7 @@ public partial class RibbonTabs
         new AttributeItem()
         {
             Name = nameof(RibbonTab.OnTabItemClickAsync),
-            Description = "点击命令按钮回调方法",
+            Description = Localizer["Attr8"],
             Type = "Func<RibbonTabItem, Task>",
             ValueList = " — ",
             DefaultValue = " — "
@@ -120,7 +120,7 @@ public partial class RibbonTabs
         new AttributeItem()
         {
             Name = nameof(RibbonTab.RightButtonsTemplate),
-            Description = "右侧按钮模板",
+            Description = Localizer["Attr9"],
             Type = "RenderFragment",
             ValueList = " — ",
             DefaultValue = " — "

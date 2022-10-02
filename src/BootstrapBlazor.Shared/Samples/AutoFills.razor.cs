@@ -25,7 +25,7 @@ partial class AutoFills
     private IStringLocalizer<Foo>? LocalizerFoo { get; set; }
 
     /// <summary>
-    /// OnInitialized 方法
+    /// OnInitialized method
     /// </summary>
     protected override void OnInitialized()
     {
@@ -51,43 +51,43 @@ partial class AutoFills
     }
 
     /// <summary>
-    /// 获得属性方法
+    /// Get property method
     /// </summary>
     /// <returns></returns>
-    private static IEnumerable<AttributeItem> GetAttributes() => new[]
+    private IEnumerable<AttributeItem> GetAttributes() => new[]
     {
-        // TODO: 移动到数据库中
+        // TODO: move to database
         new AttributeItem() {
             Name = "DisplayCount",
-            Description = "匹配数据时显示的数量",
+            Description = Localizer["Att1"],
             Type = "int",
             ValueList = " — ",
             DefaultValue = " — "
         },
         new AttributeItem() {
             Name = "NoDataTip",
-            Description = "无匹配数据时显示提示信息",
+            Description = Localizer["Att2"],
             Type = "string",
             ValueList = " — ",
-            DefaultValue = "无匹配数据"
+            DefaultValue = Localizer["Def2"]
         },
         new AttributeItem() {
             Name = "IgnoreCase",
-            Description = "匹配时是否忽略大小写",
+            Description = Localizer["Att3"],
             Type = "bool",
             ValueList = "true/false",
             DefaultValue = "true"
         },
         new AttributeItem() {
             Name = "IsLikeMatch",
-            Description = "是否开启模糊查询",
+            Description = Localizer["Att4"],
             Type = "bool",
             ValueList = "true/false",
             DefaultValue = "false"
         },
         new AttributeItem() {
             Name = "Items",
-            Description = "组件数据集合",
+            Description = Localizer["Att5"],
             Type = "IEnumerable<TValue>",
             ValueList = " — ",
             DefaultValue = " — "
@@ -95,42 +95,42 @@ partial class AutoFills
         new AttributeItem()
         {
             Name = "Debounce",
-            Description = "防抖时间",
+            Description = Localizer["Att6"],
             Type = "int",
             ValueList = " — ",
             DefaultValue = "0"
         },
         new AttributeItem() {
             Name = "OnCustomFilter",
-            Description = "自定义集合过滤规则",
+            Description = Localizer["Att7"],
             Type = "Func<string, Task<IEnumerable<TValue>>>",
             ValueList = " — ",
             DefaultValue = " — "
         },
         new AttributeItem() {
             Name = "OnGetDisplayText",
-            Description = "通过模型获得显示文本方法",
+            Description = Localizer["Att8"],
             Type = "Func<TValue, string>",
             ValueList = " — ",
             DefaultValue = " — "
         },
         new AttributeItem() {
             Name = "OnSelectedItemChanged",
-            Description = "选项改变回调方法",
+            Description = Localizer["Att9"],
             Type = "Func<TValue, Task>",
             ValueList = " — ",
             DefaultValue = " — "
         },
         new AttributeItem() {
             Name = nameof(AutoFill<Foo>.ShowDropdownListOnFocus),
-            Description = "获得焦点时是否展开下拉候选菜单",
+            Description = Localizer["Att10"],
             Type = "bool",
             ValueList = "true/false",
             DefaultValue = "true"
         },
         new AttributeItem() {
             Name = "Template",
-            Description = "候选项模板",
+            Description = Localizer["Att11"],
             Type = "RenderFragment<TValue>",
             ValueList = " — ",
             DefaultValue = " — "
@@ -138,7 +138,7 @@ partial class AutoFills
         new AttributeItem()
         {
             Name = nameof(AutoFill<string>.SkipEnter),
-            Description = "是否跳过 Enter 按键处理",
+            Description = Localizer["Att12"],
             Type = "bool",
             ValueList = "true/false",
             DefaultValue = "false"
@@ -146,7 +146,7 @@ partial class AutoFills
         new AttributeItem()
         {
             Name = nameof(AutoFill<string>.SkipEsc),
-            Description = "是否跳过 Esc 按键处理",
+            Description = Localizer["Att13"],
             Type = "bool",
             ValueList = "true/false",
             DefaultValue = "false"

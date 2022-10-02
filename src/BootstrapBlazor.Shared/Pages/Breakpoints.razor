@@ -1,55 +1,58 @@
 ﻿@page "/breakpoints"
+@inject IStringLocalizer<Breakpoints> Localizer
 
-<h3>断点</h3>
+<h3>@Localizer["Heading"]</h3>
 
-<h4>断点是可自定义的宽度，它决定了响应式布局在 Bootstrap 中跨设备或视口大小的行为方式</h4>
+<h4>@Localizer["Heading1"]</h4>
 
-<p>可用断点</p>
+<p>@Localizer["Paragraph1"]</p>
 
 <div class="mb-2">
-    Bootstrap 包括六个默认断点，有时称为网格层，用于响应式构建
+    @Localizer["Paragraph2"]
 </div>
 
 <table class="table">
     <thead>
         <tr>
-            <th>断点名称</th>
-            <th>类后缀</th>
-            <th>阈值</th>
+            <th>@Localizer["TableHeading1"]</th>
+            <th>@Localizer["TableHeading2"]</th>
+            <th>@Localizer["TableHeading3"]</th>
         </tr>
     </thead>
     <tbody>
         <tr>
-            <td>超小</td>
+            <td>@Localizer["Name1"]</td>
             <td><code>xs</code></td>
-            <td>&lt; 576 像素</td>
+            <td>&lt; 576 @Localizer["Amount"]</td>
         </tr>
         <tr>
-            <td>小号</td>
+            <td>@Localizer["Name2"]</td>
             <td><code>sm</code></td>
-            <td>&gt;= 576 像素</td>
+            <td>&gt;= 576 @Localizer["Amount"]</td>
         </tr>
         <tr>
-            <td>中号</td>
+            <td>@Localizer["Name3"]</td>
             <td><code>md</code></td>
-            <td>&gt;= 768 像素</td>
+            <td>&gt;= 768 @Localizer["Amount"]</td>
         </tr>
         <tr>
-            <td>大号</td>
+            <td>@Localizer["Name4"]</td>
             <td><code>lg</code></td>
-            <td>&gt;= 992 像素</td>
+            <td>&gt;= 992 @Localizer["Amount"]</td>
         </tr>
         <tr>
-            <td>超大</td>
+            <td>@Localizer["Name5"]</td>
             <td><code>xl</code></td>
-            <td>&gt;= 1200 像素</td>
+            <td>&gt;= 1200 @Localizer["Amount"]</td>
         </tr>
         <tr>
-            <td>特大</td>
+            <td>@Localizer["Name6"]</td>
             <td><code>xxl</code></td>
-            <td>&gt;= 1400 像素</td>
+            <td>&gt;= 1400 @Localizer["Amount"]</td>
         </tr>
     </tbody>
 </table>
 
-<div class="mt-3">组件内默认已经适配特大屏，很多默认都是 <code>xxl</code> 如 <code>Dialog</code> 默认弹窗大小为 <code>dialog-xxl</code></div>
+<div class="mt-3">
+    @Localizer["Footer1"] <code>xxl</code> @Localizer["Footer2"] <code>Dialog</code> @Localizer["Footer3"] <code>dialog-xxl</code>
+</div>

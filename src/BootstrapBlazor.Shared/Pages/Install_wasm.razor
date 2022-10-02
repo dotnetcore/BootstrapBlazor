@@ -1,9 +1,9 @@
 ﻿@page "/install-wasm"
 @inject IStringLocalizer<Install_wasm> Localizer
 
-<InstallContent Title="客户端 Blazor 安装教程">
+<InstallContent Title="@Localizer["Heading"]">
     <ChooseTemplate>
-        <div class="code-label mt-3 mb-2">4. 选择 <b>Blazor WebAssembly App</b> 项目类型，然后点击 <b>Create</b></div>
+        <div class="code-label mt-3 mb-2">4. @Localizer["P1"] <b>Blazor WebAssembly App</b> @Localizer["P2"] <b>Create</b></div>
         <img src="_content/BootstrapBlazor.Shared/images/choose-project-template.png" style="width: 800px; border-radius: 6px;" class="d-none d-sm-block mb-3" />
     </ChooseTemplate>
     <SheetTemplate>

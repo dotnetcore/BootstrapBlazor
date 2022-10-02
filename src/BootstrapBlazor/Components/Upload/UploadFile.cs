@@ -103,6 +103,37 @@ public class UploadFile
     }
 
     /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="format"></param>
+    /// <param name="maxWidth"></param>
+    /// <param name="maxHeight"></param>
+    /// <param name="maxAllowedSize"></param>
+    /// <param name="token"></param>
+    /// <returns></returns>
+    public async Task<byte[]?> GetByteArray(string format, int maxWidth, int maxHeight, long maxAllowedSize = 512000, CancellationToken token = default)
+    {
+        if (File != null)
+        {
+            try
+            {
+                var imageFile = await File.RequestImageFileAsync(format, maxWidth, maxHeight);
+                using var fileStream = imageFile.OpenReadStream(maxAllowedSize, token);
+                using var memoryStream = new MemoryStream();
+                await fileStream.CopyToAsync(memoryStream, token);
+                return memoryStream.ToArray();
+            }
+            catch (Exception ex)
+            {
+                Code = 1004;
+                Error = ex.Message;
+                PrevUrl = null;
+            }
+        }
+        return null;
+    }
+
+    /// <summary>
     /// 保存到文件
     /// </summary>
     /// <param name="fileName"></param>

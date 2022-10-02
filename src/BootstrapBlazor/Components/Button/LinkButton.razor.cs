@@ -27,6 +27,9 @@ public partial class LinkButton
     [Parameter]
     public string? ImageUrl { get; set; }
 
+    [Parameter]
+    public string? ImageCss { get; set; }
+
     /// <summary>
     /// 获得/设置 是否为垂直布局 默认 false
     /// </summary>

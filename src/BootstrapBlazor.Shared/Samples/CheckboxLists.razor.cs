@@ -44,11 +44,14 @@ public partial class CheckboxLists
     private IEnumerable<int> Value2 { get; set; } = new int[] { 9, 10 };
 
     private IEnumerable<string> Value3 { get; set; } = new string[] { "13", "15" };
+    private Foo Dummy { get; set; } = new Foo();
+    private Foo Dummy1 { get; set; } = new Foo();
+    private Foo Dummy2 { get; set; } = new Foo();
 
     private BlockLogger? Trace { get; set; }
 
     /// <summary>
-    /// OnInitialized 方法
+    /// OnInitialized method
     /// </summary>
     /// <returns></returns>
     protected override void OnInitialized()
@@ -65,10 +68,10 @@ public partial class CheckboxLists
 
         Items2 = new List<SelectedItem>(new List<SelectedItem>
         {
-            new SelectedItem { Text = "张三", Value = "张三" },
-            new SelectedItem { Text = "李四", Value = "李四" },
-            new SelectedItem { Text = "王五", Value = "王五" },
-            new SelectedItem { Text = "赵六", Value = "赵六" },
+            new SelectedItem { Text = Localizer["SL1"], Value = Localizer["SL1"] },
+            new SelectedItem { Text = Localizer["SL2"], Value = Localizer["SL2"] },
+            new SelectedItem { Text = Localizer["SL3"], Value = Localizer["SL3"] },
+            new SelectedItem { Text = Localizer["SL4"], Value = Localizer["SL4"] },
         });
 
         Items3 = new List<SelectedItem>(new List<SelectedItem>
@@ -89,32 +92,30 @@ public partial class CheckboxLists
 
         Items5 = new List<SelectedItem>(new List<SelectedItem>
         {
-            new SelectedItem { Text = "张三", Value = "张三" },
-            new SelectedItem { Text = "李四", Value = "李四" },
-            new SelectedItem { Text = "王五", Value = "王五" },
-            new SelectedItem { Text = "赵六", Value = "赵六" },
+            new SelectedItem { Text = Localizer["SL10"], Value = Localizer["SL10"] },
+            new SelectedItem { Text = Localizer["SL11"], Value = Localizer["SL11"] },
+            new SelectedItem { Text = Localizer["SL12"], Value = Localizer["SL12"] },
+            new SelectedItem { Text = Localizer["SL13"], Value = Localizer["SL13"] },
         });
 
         Items6 = new List<SelectedItem>(new List<SelectedItem>
         {
-            new SelectedItem { Text = "张三", Value = "张三" },
-            new SelectedItem { Text = "李四", Value = "李四" },
-            new SelectedItem { Text = "王五", Value = "王五" },
-            new SelectedItem { Text = "赵六", Value = "赵六" },
+            new SelectedItem { Text = Localizer["SL21"], Value = Localizer["SL21"] },
+            new SelectedItem { Text = Localizer["SL22"], Value = Localizer["SL22"] },
+            new SelectedItem { Text = Localizer["SL23"], Value = Localizer["SL23"] },
+            new SelectedItem { Text = Localizer["SL24"], Value = Localizer["SL24"] },
         });
+
+        Dummy = new Foo() { Name = Localizer["Foo1"] };
+        Dummy1 = new Foo() { Name = Localizer["Foo2"] };
+        Dummy2 = new Foo() { Name = Localizer["Foo3"] };
     }
 
     private Task OnSelectedChanged(IEnumerable<SelectedItem> items, string value)
     {
-        Trace?.Log($"共 {items.Where(i => i.Active).Count()} 项被选中 组件绑定值 value：{value}");
+        Trace?.Log($"{Localizer["Header"]} {items.Where(i => i.Active).Count()} {Localizer["Counter"]}：{value}");
         return Task.CompletedTask;
     }
-
-    private Foo Dummy { get; set; } = new Foo() { Name = "张三,李四" };
-
-    private Foo Dummy1 { get; set; } = new Foo() { Name = "张三,李四" };
-
-    private Foo Dummy2 { get; set; } = new Foo() { Name = "张三,李四" };
 
     private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
@@ -149,7 +150,7 @@ public partial class CheckboxLists
     };
 
     /// <summary>
-    /// 获得事件方法
+    /// Get event method
     /// </summary>
     /// <returns></returns>
     private IEnumerable<EventItem> GetEvents() => new EventItem[]

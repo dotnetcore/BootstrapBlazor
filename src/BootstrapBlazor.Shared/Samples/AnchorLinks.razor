@@ -1,16 +1,16 @@
 ﻿@page "/anchorlinks"
 
-<h3>AnchorLink 锚点链接</h3>
+<h3>@Localizer["H1"]</h3>
 
-<h4>应用于标题带 <b>Hash</b> 的锚点链接，点击拷贝方便分享</h4>
+<h4>@Localizer["P1"] <b>Hash</b> @Localizer["P2"]</h4>
 
-<DemoBlock Title="普通用法" Introduction="放置标签后点击拷贝锚点链接到粘贴板" Name="Normal">
-    <AnchorLink Text="我是一个可以点击的锚点链接" Id="AnchorLink1" class="anchor-link-demo" />
+<DemoBlock Title="@Localizer["P3"]" Introduction="@Localizer["P4"]" Name="Normal">
+    <AnchorLink Text="@Localizer["P5"]" Id="AnchorLink1" class="anchor-link-demo" />
 </DemoBlock>
 
 <Tips class="mt-3">
-    <div><code>AnchorLink</code> 锚点链接组件属性 <code>Id</code> 为必填项，不填写时不提供拷贝锚点链接功能</div>
-    <div>组件锚点图标可通过 <code>Icon</code> 参数进行自定义默认为 <i class="fa-solid fa-link"></i></div>
+    <div><code>AnchorLink</code> @Localizer["P6"] <code>Id</code> @Localizer["P7"]</div>
+    <div>@Localizer["P8"] <code>Icon</code> @Localizer["P9"] <i class="fa-solid fa-link"></i></div>
 </Tips>
 
 <AttributeTable Items="@GetAttributes()" />

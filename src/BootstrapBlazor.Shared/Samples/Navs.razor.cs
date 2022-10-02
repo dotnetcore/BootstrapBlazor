@@ -30,8 +30,14 @@ public sealed partial class Navs
             })
         };
         // TODO: NET6.0 移除 ! 断言
-        link.SetParametersAsync(ParameterView.FromDictionary(parameters!));
-        ret.Add(link);
+        try
+        {
+            link.SetParametersAsync(ParameterView.FromDictionary(parameters!));
+            ret.Add(link);
+        }
+        catch (Exception EX)
+        {
+        }
         return ret;
     }
 

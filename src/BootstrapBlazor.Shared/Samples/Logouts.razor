@@ -1,35 +1,36 @@
 ﻿@page "/logouts"
+@inject IStringLocalizer<Logouts> Localizer
 
-<h3>Logout 登出组件</h3>
+<h3>@Localizer["H1"]</h3>
 
-<h4>用于网站登出操作</h4>
+<h4>@Localizer["P1"]</h4>
 
-<DemoBlock Title="普通用法" Introduction="直接使用内置模板使用" Name="Normal">
+<DemoBlock Title="@Localizer["P2"]" Introduction="@Localizer["P3"]" Name="Normal">
     <Logout ImageUrl="_content/BootstrapBlazor.Shared/images/Argo.png" DisplayName="Administrators" UserName="Admin" class="bg-secondary" />
     <div style="height: 80px;"></div>
 </DemoBlock>
 
-<DemoBlock Title="仅显示头像" Introduction="设置 <code>ShowUserName</code> 值为 <code>false</code>" Name="ShowUserName">
+<DemoBlock Title="@Localizer["P4"]" Introduction="@Localizer["P5"]" Name="ShowUserName">
     <Logout ImageUrl="_content/BootstrapBlazor.Shared/images/Argo.png" DisplayName="Administrators" UserName="Admin" ShowUserName="false" class="bg-secondary" />
     <div style="height: 80px;"></div>
 </DemoBlock>
 
-<DemoBlock Title="自定义显示模板" Introduction="设置 <code>ChildContent</code> 或者在组件内部直接写其他组件即可" Name="ChildContent">
+<DemoBlock Title="@Localizer["P6"]" Introduction="@Localizer["P7"]" Name="ChildContent">
     <Logout ImageUrl="_content/BootstrapBlazor.Shared/images/Argo.png" DisplayName="Administrators" UserName="Admin">
         <i class="fa-fw fa-solid fa-user"></i>
-        <span>自定义显示内容</span>
+        <span>@Localizer["P8"]</span>
     </Logout>
     <div style="height: 80px;"></div>
 </DemoBlock>
 
-<DemoBlock Title="自定义登录信息模板" Introduction="设置 <code>HeaderTemplate</code>" Name="HeaderTemplate">
+<DemoBlock Title="@Localizer["P9"]" Introduction="@Localizer["P10"]" Name="HeaderTemplate">
     <Logout ImageUrl="_content/BootstrapBlazor.Shared/images/Argo.png" DisplayName="Administrators" UserName="Admin" class="bg-warning">
         <HeaderTemplate>
             <div class="d-flex flex-fill align-items-center">
                 <img alt="avatar" src="_content/BootstrapBlazor.Shared/images/Argo-C.png" style="border-radius: 50%;">
                 <div class="flex-fill">
-                    <div class="logout-dn">总经理</div>
-                    <div class="logout-un">Admin</div>
+                    <div class="logout-dn">@Localizer["P11"]</div>
+                    <div class="logout-un">@Localizer["P12"]</div>
                 </div>
             </div>
         </HeaderTemplate>
@@ -37,14 +38,14 @@
     <div style="height: 80px;"></div>
 </DemoBlock>
 
-<DemoBlock Title="自定义链接模板" Introduction="设置 <code>LinkTemplate</code>" Name="LinkTemplate">
+<DemoBlock Title="@Localizer["P13"]" Introduction="@Localizer["P14"]" Name="LinkTemplate">
     <Logout ImageUrl="_content/BootstrapBlazor.Shared/images/Argo.png" DisplayName="Administrators" UserName="Admin" class="bg-primary">
         <LinkTemplate>
             <a href="#">
-                <i class="fa-solid fa-user"></i><span>个人中心</span>
+                <i class="fa-solid fa-user"></i><span>@Localizer["P15"]</span>
             </a>
             <a href="#">
-                <i class="fa-solid fa-gear"></i><span>设置</span>
+                <i class="fa-solid fa-gear"></i><span>@Localizer["P16"]</span>
             </a>
             <LogoutLink />
         </LinkTemplate>

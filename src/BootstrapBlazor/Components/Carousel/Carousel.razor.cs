@@ -7,10 +7,8 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 
 /// </summary>
-public partial class Carousel
+public partial class Carousel : IAsyncDisposable
 {
-    private ElementReference CarouselElement { get; set; }
-
     /// <summary>
     /// 获得 class 样式集合
     /// </summary>
@@ -135,7 +133,10 @@ public partial class Carousel
     {
         await base.OnAfterRenderAsync(firstRender);
 
-        if (firstRender) await JSRuntime.InvokeVoidAsync(CarouselElement, "bb_carousel");
+        if (firstRender)
+        {
+            await JSRuntime.InvokeVoidAsync(identifier: "bb.Carousel.init", $"#{Id}");
+        }
     }
 
     /// <summary>
@@ -160,4 +161,27 @@ public partial class Carousel
     /// </summary>
     /// <param name="item"></param>
     internal void RemoveItem(CarouselItem item) => Items.Remove(item);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="disposing"></param>
+    /// <returns></returns>
+    protected virtual async ValueTask DisposeAsync(bool disposing)
+    {
+        if (disposing)
+        {
+            await JSRuntime.InvokeVoidAsync(identifier: "bb.Carousel.dispose", $"#{Id}");
+        }
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    public async ValueTask DisposeAsync()
+    {
+        await DisposeAsync(true);
+        GC.SuppressFinalize(this);
+    }
 }

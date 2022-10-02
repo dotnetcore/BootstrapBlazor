@@ -282,51 +282,59 @@ internal class CacheManager : ICacheManager
     /// <returns></returns>
     public static string GetDisplayName(Type modelType, string fieldName)
     {
-        var cacheKey = $"{nameof(GetDisplayName)}-{CultureInfo.CurrentUICulture.Name}-{modelType.FullName}-{fieldName}";
-        var displayName = Instance.GetOrCreate(cacheKey, entry =>
+        try
         {
-            string? dn = null;
-            // 显示名称为空时通过资源文件查找 FieldName 项
-            var localizer = modelType.Assembly.IsDynamic ? null : CreateLocalizerByType(modelType);
-            var stringLocalizer = localizer?[fieldName];
-            if (stringLocalizer is { ResourceNotFound: false })
+            var cacheKey = $"{nameof(GetDisplayName)}-{CultureInfo.CurrentUICulture.Name}-{modelType.FullName}-{fieldName}";
+            var displayName = Instance.GetOrCreate(cacheKey, entry =>
             {
-                dn = stringLocalizer.Value;
-            }
-            else if (modelType.IsEnum)
-            {
-                var info = modelType.GetFieldByName(fieldName);
-                if (info != null)
+                string? dn = null;
+                // 显示名称为空时通过资源文件查找 FieldName 项
+                var localizer = modelType.Assembly.IsDynamic ? null : CreateLocalizerByType(modelType);
+                var stringLocalizer = localizer?[fieldName];
+                if (stringLocalizer is { ResourceNotFound: false })
                 {
-                    dn = FindDisplayAttribute(info);
+                    dn = stringLocalizer.Value;
                 }
-            }
-            else if (TryGetProperty(modelType, fieldName, out var propertyInfo))
+                else if (modelType.IsEnum)
+                {
+                    var info = modelType.GetFieldByName(fieldName);
+                    if (info != null)
+                    {
+                        dn = FindDisplayAttribute(info);
+                    }
+                }
+                else if (TryGetProperty(modelType, fieldName, out var propertyInfo))
+                {
+                    dn = FindDisplayAttribute(propertyInfo);
+                }
+
+                entry.SetDynamicAssemblyPolicy(modelType);
+
+                return dn;
+            });
+
+            return displayName ?? fieldName;
+
+            string? FindDisplayAttribute(MemberInfo memberInfo)
             {
-                dn = FindDisplayAttribute(propertyInfo);
+                // 回退查找 Display 标签
+                var dn = memberInfo.GetCustomAttribute<DisplayAttribute>(true)?.Name
+                    ?? memberInfo.GetCustomAttribute<DisplayNameAttribute>(true)?.DisplayName
+                    ?? memberInfo.GetCustomAttribute<DescriptionAttribute>(true)?.Description;
+
+                // 回退查找资源文件通过 dn 查找匹配项 用于支持 Validation
+                if (!modelType.Assembly.IsDynamic && !string.IsNullOrEmpty(dn))
+                {
+                    dn = GetLocalizerValueFromResourceManager(dn);
+                }
+                return dn;
             }
-
-            entry.SetDynamicAssemblyPolicy(modelType);
-
-            return dn;
-        });
-
-        return displayName ?? fieldName;
-
-        string? FindDisplayAttribute(MemberInfo memberInfo)
-        {
-            // 回退查找 Display 标签
-            var dn = memberInfo.GetCustomAttribute<DisplayAttribute>(true)?.Name
-                ?? memberInfo.GetCustomAttribute<DisplayNameAttribute>(true)?.DisplayName
-                ?? memberInfo.GetCustomAttribute<DescriptionAttribute>(true)?.Description;
-
-            // 回退查找资源文件通过 dn 查找匹配项 用于支持 Validation
-            if (!modelType.Assembly.IsDynamic && !string.IsNullOrEmpty(dn))
-            {
-                dn = GetLocalizerValueFromResourceManager(dn);
-            }
-            return dn;
         }
+        catch (Exception ex)
+        {
+            System.Console.WriteLine(ex.Message);
+        }
+        return "";
     }
 
     public static List<SelectedItem> GetNullableBoolItems(Type modelType, string fieldName)

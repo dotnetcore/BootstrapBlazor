@@ -136,7 +136,7 @@
     "PrintButtonText": "Print"
   },
   "BootstrapBlazor.Components.MultiSelect": {
-    "PlaceHolder": "Click for select ...",
+    "PlaceHolder": "...",
     "SelectAllText": "All",
     "ReverseSelectText": "Reverse",
     "ClearText": "Clear",
@@ -167,7 +167,7 @@
     "SearchButtonText": "Search"
   },
   "BootstrapBlazor.Components.Select": {
-    "PlaceHolder": "Click for select ..."
+    "PlaceHolder": "..."
   },
   "BootstrapBlazor.Components.StringLengthValidator": {
     "ErrorMessage": "Please enter a value less than or equal to {{0}}"

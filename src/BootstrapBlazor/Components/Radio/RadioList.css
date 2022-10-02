@@ -1,5 +1,5 @@
 ﻿.radio-list {
-    --bb-radio-item-width: 120px;
+    --bb-radio-item-width: 200px;
     --bb-radio-item-padding: 6px 0.75rem;
     display: flex;
     flex-wrap: wrap;

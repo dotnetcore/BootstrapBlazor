@@ -77,6 +77,9 @@ public abstract class CardBase : BootstrapComponentBase
     [Parameter]
     public Color Color { get; set; }
 
+    [Parameter]
+    public string CardBodyStyle { get; set; }
+
     /// <summary>
     /// 获得/设置 是否居中 默认 false
     /// </summary>

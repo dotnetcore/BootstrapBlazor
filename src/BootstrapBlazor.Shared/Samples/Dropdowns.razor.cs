@@ -13,50 +13,63 @@ namespace BootstrapBlazor.Shared.Samples;
 /// </summary>
 public sealed partial class Dropdowns
 {
-    private List<SelectedItem> Items { get; set; } = new List<SelectedItem>
-    {
-        new SelectedItem{ Text="北京",Value="0"},
-        new SelectedItem{ Text="上海",Value="1"},
-        new SelectedItem{ Text="广州",Value="2"},
-    };
-
+    private List<SelectedItem> Items { get; set; } = new List<SelectedItem> { };
     private static List<SelectedItem> EmptyList => new();
-
-    private List<SelectedItem> Foos { get; set; } = new List<SelectedItem>
-    {
-        new SelectedItem{ Text="北京",Value="0"},
-        new SelectedItem{ Text="上海",Value="1"},
-        new SelectedItem{ Text="广州",Value="2"},
-    };
-
-    private List<SelectedItem> RadioItems { get; set; } = new List<SelectedItem>
-        {
-            new SelectedItem("1", "北京") { Active = true },
-            new SelectedItem("2", "上海")
-        };
-
-    private List<SelectedItem> RadioDropDownItems { get; set; } = new List<SelectedItem>
-    {
-        new SelectedItem("1", "北京") { Active = true },
-        new SelectedItem("2", "上海"),
-        new SelectedItem("3", "广州")
-    };
+    private List<SelectedItem> Foos { get; set; } = new List<SelectedItem>();
+    private List<SelectedItem> RadioItems { get; set; } = new List<SelectedItem>();
+    private List<SelectedItem> RadioDropDownItems { get; set; } = new List<SelectedItem>();
 
     private IEnumerable<SelectedItem>? Items2 { get; set; }
-
-    private readonly IEnumerable<SelectedItem> Items3 = new SelectedItem[]
-    {
-        new SelectedItem ("", "请选择 ..."),
-        new SelectedItem ("Beijing", "北京") { Active = true },
-        new SelectedItem ("Shanghai", "上海"),
-        new SelectedItem ("Hangzhou", "杭州")
-    };
+    private IEnumerable<SelectedItem> Items3 = new SelectedItem[] { };
 
     /// <summary>
-    /// 级联绑定菜单
+    /// 
     /// </summary>
-    /// <param name="item"></param>
-    private async Task OnCascadeBindSelectClick(SelectedItem item)
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        Items = new List<SelectedItem>
+        {
+            new SelectedItem{ Text=Localizer["V1"], Value="0"},
+            new SelectedItem{ Text=Localizer["V2"], Value="1"},
+            new SelectedItem{ Text=Localizer["V3"], Value="2"},
+        };
+
+        Foos = new List<SelectedItem>
+        {
+            new SelectedItem{ Text=Localizer["F1"], Value="0"},
+            new SelectedItem{ Text=Localizer["F2"], Value="1"},
+            new SelectedItem{ Text=Localizer["F3"], Value="2"},
+        };
+
+        Items3 = new SelectedItem[]
+        {
+            new SelectedItem ("", Localizer["I1"]),
+            new SelectedItem ("Beijing", Localizer["I2"]) { Active = true },
+            new SelectedItem ("Shanghai", Localizer["I3"]),
+            new SelectedItem ("Hangzhou", Localizer["I4"])
+        };
+
+        RadioDropDownItems = new List<SelectedItem>
+        {
+            new SelectedItem("1", Localizer["RI1"]) { Active = true },
+            new SelectedItem("2", Localizer["RI2"]),
+            new SelectedItem("3", Localizer["RI3"])
+        };
+
+        RadioItems = new List<SelectedItem>
+        {
+            new SelectedItem("1", Localizer["RI1"]) { Active = true },
+            new SelectedItem("2", Localizer["RI2"])
+        };
+    }
+
+/// <summary>
+/// 级联绑定菜单
+/// </summary>
+/// <param name="item"></param>
+private async Task OnCascadeBindSelectClick(SelectedItem item)
     {
         // 模拟异步通讯切换线程
         await Task.Delay(10);
