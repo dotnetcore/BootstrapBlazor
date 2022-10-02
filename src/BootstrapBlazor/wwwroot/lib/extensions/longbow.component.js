@@ -679,7 +679,7 @@
 
         static init(dotnetInvoker, interval, method) {
             if (typeof window.AutoRedirect === 'undefined') {
-                window.AutoRedirect = new AutoRedirect({dotnetInvoker, interval, method});
+                window.AutoRedirect = new AutoRedirect({dotnetInvoker, interval: interval / 1000, method});
             }
         }
 

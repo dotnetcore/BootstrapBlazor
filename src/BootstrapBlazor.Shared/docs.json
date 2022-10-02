@@ -2,6 +2,7 @@
   "src": {
     "anchorlinks": "AnchorLinks",
     "autocompletes": "AutoCompletes",
+    "autoredirects": "AutoRedirects",
     "autofills": "AutoFills",
     "autorefresh": "Table/TablesAutoRefresh",
     "bar": "Charts/Bar",

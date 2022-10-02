@@ -1,0 +1,12 @@
+﻿@page "/autoredirects"
+
+<h3>AutoRedirect 自动跳转组件</h3>
+
+<h4>通过设置的地址，当页面无鼠标或者键盘动作时自动跳转到指定页面</h4>
+
+<DemoBlock Title="普通用法" Introduction="通过设置 <code>Interval</code> 间隔，当无鼠标或者键盘动作时自动跳转到 <code>RedirectUrl</code> 设置的地址" Name="Normal">
+    <AutoRedirect Interval="3000" RedirectUrl="/" OnBeforeRedirectAsync="@OnBeforeRedirectAsync" />
+    <BlockLogger @ref="Trace" />
+</DemoBlock>
+
+<AttributeTable Items="@GetAttributes()" />

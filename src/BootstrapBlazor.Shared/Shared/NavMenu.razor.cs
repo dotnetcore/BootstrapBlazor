@@ -951,6 +951,11 @@ public sealed partial class NavMenu
             },
             new()
             {
+                Text = Localizer["AutoRedirect"],
+                Url = "autoredirects"
+            },
+            new()
+            {
                 Text = Localizer["Breadcrumb"],
                 Url = "breadcrumbs"
             },

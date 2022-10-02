@@ -2813,6 +2813,7 @@
     "NavigationComponents": "导航组件",
     "Anchor": "锚点 Anchor",
     "AnchorLink": "锚点链接 AnchorLink",
+    "AutoRedirect": "自动跳转 AutoRedirect",
     "Breadcrumb": "面包屑 Breadcrumb",
     "Dropdown": "下拉菜单 Dropdown",
     "GoTop": "跳转组件 GoTop",

@@ -2800,6 +2800,7 @@
     "NavigationComponents": "Navigations",
     "Anchor": "Anchor",
     "AnchorLink": "AnchorLink",
+    "AutoRedirect": "Auto Redirect",
     "Breadcrumb": "Breadcrumb",
     "Dropdown": "Dropdown",
     "Logout": "Logout",

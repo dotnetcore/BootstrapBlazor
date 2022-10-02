@@ -10,16 +10,28 @@ namespace BootstrapBlazor.Components;
 public class AutoRedirect : BootstrapComponentBase, IAsyncDisposable
 {
     /// <summary>
-    /// 获得/设置 登出 Controller Url
+    /// 获得/设置 重定向地址
     /// </summary>
     [Parameter]
-    public string? LogoutUrl { get; set; }
+    public string? RedirectUrl { get; set; }
 
     /// <summary>
-    /// 获得/设置 自动锁屏间隔单位 秒 默认 60 秒
+    /// 获得/设置 是否强制导航 默认 false
     /// </summary>
     [Parameter]
-    public int Interval { get; set; } = 60;
+    public bool IsForceLoad { get; set; }
+
+    /// <summary>
+    /// 获得/设置 自动锁屏间隔单位 秒 默认 60000 秒
+    /// </summary>
+    [Parameter]
+    public int Interval { get; set; } = 60000;
+
+    /// <summary>
+    /// 获得/设置 地址跳转前回调方法 返回 true 时中止跳转
+    /// </summary>
+    [Parameter]
+    public Func<Task<bool>>? OnBeforeRedirectAsync { get; set; }
 
     /// <summary>
     /// 获得/设置 NavigationManager 实例
@@ -48,11 +60,16 @@ public class AutoRedirect : BootstrapComponentBase, IAsyncDisposable
     /// 锁屏操作由 JS 调用
     /// </summary>
     [JSInvokable]
-    public void Lock()
+    public async Task Lock()
     {
-        if (!string.IsNullOrEmpty(LogoutUrl))
+        var interrupt = false;
+        if (OnBeforeRedirectAsync != null)
         {
-            NavigationManager.NavigateTo(LogoutUrl, true);
+            interrupt = await OnBeforeRedirectAsync();
+        }
+        if (!interrupt && !string.IsNullOrEmpty(RedirectUrl))
+        {
+            NavigationManager.NavigateTo(RedirectUrl, IsForceLoad);
         }
     }
 
