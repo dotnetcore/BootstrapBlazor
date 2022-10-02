@@ -436,7 +436,8 @@
     "GeolocationText": "Geolocation",
     "OnScreenKeyboardText": "OnScreenKeyboard",
     "NotificationText": "Notification",
-    "SignaturePadText": "SignaturePad"
+    "SignaturePadText": "SignaturePad",
+    "BluetoothText": "Bluetooth & Printer"
   },
   "BootstrapBlazor.Shared.Samples.GlobalException": {
     "Title": "Global exception",
@@ -2941,7 +2942,8 @@
     "SpeechWave": "SpeechWave",
     "OnScreenKeyboard": "OnScreenKeyboard",
     "RibbonTab": "RibbonTab",
-    "PulseButton": "PulseButton"
+    "PulseButton": "PulseButton",
+    "Bluetooth": "Bluetooth & Printer"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesFooter": {
     "Left": "Left",
@@ -3569,5 +3571,27 @@
     "Tips": "If the performance is not normal, you can add this css to debug",
     "P5": "<code> .kioskboard-body-padding { padding-top: unset !important;} </code>",
     "P6": "Basic"
+  },
+  "BootstrapBlazor.Shared.Samples.Bluetooths": {
+    "Title": "Bluetooth & Printer",
+    "BaseUsageText": "Basic usage",
+    "BaseUsageIntro": "After connecting the device, perform operations such as printing, and write the corresponding commands(ESC/POS/CPCL) according to the characteristics of the printer",
+    "BaseUsageIntro2": "Click to connect device",
+    "ConnectButtonText": "Connect",
+    "DisconnectButtonText": "Disconnect",
+    "ReconnectButtonText": "Reconnect",
+    "PrintButtonText": "Print",
+    "Url1": "1. Printer, for printable label/barcode/QR code",
+    "Title2": "Bluetooth Heart Rate",
+    "GetHeartrateButtonText": "Get heart rate",
+    "StopHeartrateButtonText": "Stop heart rate",
+    "Url2": "2. Heart Rate",
+    "Title3": "Bluetooth Battery Level",
+    "GetBatteryLevelButtonText": "Get Battery Level",
+    "Url3": "3. Battery Level",
+    "P1": "Precautions",
+    "P2": "This component relies on <a href='https://www.nuget.org/packages?q-BootstrapBlazor.SignaturePad' target'_blank'><code>BootstrapBlazor.SignaturePad</code></a>, which needs to reference its component package when using this component",
+    "P3": "Nuget package installation",
+    "P4": "Install the</code> components of <code>BootstrapBlazor.SignaturePad using <a href='https://www.nuget.org/packages?q-BootstrapBlazor.SignaturePad' target'_blank'>nuget.org</a>"
   }
 }

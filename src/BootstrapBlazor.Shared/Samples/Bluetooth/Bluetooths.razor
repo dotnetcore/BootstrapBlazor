@@ -1,0 +1,58 @@
+﻿@page "/bluetooths"
+@namespace BootstrapBlazor.Shared.Samples
+@inject IStringLocalizer<Bluetooths> Localizer
+
+<h3>@Localizer["Title"]</h3>
+
+<p><b>@Localizer["P1"] ：</b></p>
+
+<p>@((MarkupString)Localizer["P2"].Value)</p>
+
+<p><b>@Localizer["P3"]</b></p>
+
+<p>@((MarkupString)Localizer["P4"].Value)</p>
+
+<div class="code-label">.NET CLI</div>
+<Pre class="no-highlight">dotnet add package BootstrapBlazor.Bluetooth</Pre>
+
+<div class="code-label">PackageReference</div>
+<Pre class="no-highlight">&lt;PackageReference Include="BootstrapBlazor.Bluetooth" /&gt;</Pre>
+
+<div class="code-label">Package Manager</div>
+<Pre class="no-highlight">Install-Package BootstrapBlazor.Bluetooth</Pre>
+
+<h5><a href="/bluetooths">@Localizer["Url1"]</a></h5>
+<h5><a href="/bluetoothheartrates">@Localizer["Url2"]</a></h5>
+<h5><a href="/bluetoothbatterylevels">@Localizer["Url3"]</a></h5>
+
+<DemoBlock Title="@Localizer["BaseUsageText"]" Introduction="@Localizer["BaseUsageIntro"]" Name="Nomal">
+    @if (ShowUI)
+    {
+        <span>内置UI</span>
+
+        <Printer OnResult="OnResult" ShowUI="true" OnError="OnError" OnUpdateStatus="OnUpdateStatus" OnUpdateError="OnError" OnGetDevices="OnGetDevices" />
+
+    }
+    else
+    {
+        <span>
+            基本用法
+        </span>
+        <Printer @ref="printer" OnResult="OnResult" OnError="OnError" OnUpdateStatus="OnUpdateStatus" OnUpdateError="OnError" OnGetDevices="OnGetDevices" />
+        <div @ref="printer.PrinterElement">
+            <button data-action="btnConnect" class="btn btn-outline-primary">@Localizer["ConnectButtonText"]</button>
+            <button data-action="btnDisconnect" class="btn btn-outline-danger">@Localizer["DisconnectButtonText"]</button>
+            @*<button data-action="btnReconnect" class="btn btn-outline-secondary">@Localizer["ReconnectButtonText"]</button>*@
+            <button data-action="tools" class="btn btn-outline-primary" @onclick="printer.PrintQR">@Localizer["PrintButtonText"]</button>
+        </div>
+    }
+    <hr />
+    <pre>@message</pre>
+    <pre style="color:green">@statusmessage</pre>
+    <pre style="color:red">@errmessage</pre>
+</DemoBlock>
+
+<BluetoothBatteryLevel/>
+<BluetoothHeartRate/>
+
+<AttributeTable Items="@GetAttributes()" />

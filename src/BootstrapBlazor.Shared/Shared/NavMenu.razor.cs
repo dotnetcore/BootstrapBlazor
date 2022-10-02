@@ -633,6 +633,12 @@ public sealed partial class NavMenu
             {
                 Text = Localizer["Transition"],
                 Url = "transitions"
+            },
+            new()
+            {
+                IsNew = true,
+                Text = Localizer["Bluetooth"],
+                Url = "bluetooths"
             }
         };
         AddBadge(item);
