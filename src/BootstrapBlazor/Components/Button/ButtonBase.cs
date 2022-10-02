@@ -253,7 +253,7 @@ public abstract class ButtonBase : TooltipWrapperBase, IAsyncDisposable
     {
         if (Tooltip == null)
         {
-            await JSRuntime.InvokeVoidAsync("bb.Tooltip.dispose", $"#{Id}");
+            await JSRuntime.InvokeVoidAsync(identifier: "bb.Tooltip.dispose", $"#{Id}");
         }
     }
 

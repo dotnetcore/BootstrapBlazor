@@ -82,7 +82,10 @@
 
         dispose() {
             Data.remove(this._element, this.constructor.DATA_KEY);
-            //EventHandler.off(this._element, this.constructor.EVENT_KEY);
+
+            this.constructor.EVENT_KEY.forEach(key => {
+                bootstrap.EventHandler.off(this._element, key);
+            });
 
             super.dispose();
         }
@@ -97,6 +100,10 @@
 
         static get VERSION() {
             return VERSION;
+        }
+
+        static get EVENT_KEY() {
+            return [];
         }
 
         static get DATA_KEY() {
@@ -156,7 +163,7 @@
         }
 
         dispose() {
-            if (this._tooltip != null && this._tooltip.tip !== null) {
+            if (this._tooltip !== null && this._tooltip.tip !== null) {
                 this._tooltip.dispose();
             }
             super.dispose();
@@ -167,7 +174,7 @@
         }
 
         static _create(element, config) {
-            new bb.Tooltip(element, config);
+            new Tooltip(element, config);
         }
 
         static init(element, title) {
@@ -223,6 +230,9 @@
         }
     }
 
+    /* Popover */
+    const NAME$Popover = 'Popover';
+
     class Popover extends Tooltip {
         _getOrCreateInstance() {
             this._tooltip = bootstrap.Popover.getOrCreateInstance(this._element, this._config);
@@ -265,6 +275,10 @@
                     Popover._create(element, config);
                 }
             }
+        }
+
+        static get NAME() {
+            return NAME$Popover;
         }
     }
 
@@ -534,7 +548,7 @@
 
         static init(element) {
             element = getElement(element);
-            let p = bb.Confirm.getInstance(element);
+            let p = Confirm.getInstance(element);
             if (p !== null && p._isShown()) {
                 p.hide();
 
@@ -632,6 +646,77 @@
         }
 
     });
+
+    /* Carousel */
+    const NAME$Carousel = "Carousel"
+
+    class Carousel extends BaseComponent {
+        constructor(element, config = {}) {
+            super(element, config);
+
+            this._carousel = bootstrap.Carousel.getOrCreateInstance(this._element, this._config);
+            this._addEventListeners();
+        }
+
+        _addEventListeners() {
+            bootstrap.EventHandler.on(this._element, 'mouseenter', () => {
+                const bars = this._element.querySelectorAll('[data-bs-slide]');
+                bars.forEach(slide => {
+                    slide.classList.remove('d-none');
+                });
+                this._enterHandler = window.setTimeout(() => {
+                    window.clearTimeout(this._enterHandler);
+                    this._enterHandler = null;
+                    this._element.classList.add('hover');
+                }, 10);
+            });
+            bootstrap.EventHandler.on(this._element, 'mouseleave', () => {
+                const bars = this._element.querySelectorAll('[data-bs-slide]');
+                bars.forEach(slide => {
+                    slide.classList.add('d-none');
+                });
+                this._leaveHandler = window.setTimeout(() => {
+                    window.clearTimeout(this._leaveHandler);
+                    this._leaveHandler = null;
+                    this._element.classList.remove('hover');
+                }, 10);
+            });
+        }
+
+        dispose() {
+            if (this._carousel !== null) {
+                this._carousel.dispose();
+            }
+
+            if (this._enterHandler !== null) {
+                window.clearTimeout(this._enterHandler);
+            }
+            if (this._leaveHandler !== null) {
+                window.clearTimeout(this._leaveHandler);
+            }
+
+            super.dispose();
+        }
+
+        static init(element) {
+            element = getElement(element);
+            new Carousel(element);
+        }
+
+        static dispose(element) {
+            element = getElement(element);
+            if (element) {
+                const p = this.getInstance(element);
+                if (p) {
+                    p.dispose();
+                }
+            }
+        }
+
+        static get NAME() {
+            return NAME$Carousel;
+        }
+    }
 
     class AutoRedirect extends Config {
         constructor(config = {}) {
@@ -875,10 +960,11 @@
 
     return {
         AutoRedirect,
-        Tooltip,
-        Popover,
-        Dropdown,
+        Carousel,
         Confirm,
+        Dropdown,
+        Popover,
+        Tooltip,
         Utility
     };
 });
