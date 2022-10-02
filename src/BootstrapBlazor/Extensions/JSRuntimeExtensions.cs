@@ -87,7 +87,7 @@ internal static class JSRuntimeExtensions
     /// <returns></returns>
     public static async Task<JSModule> LoadModule(this IJSRuntime jsRuntime, string path, bool relative = true)
     {
-        var fileName = relative ? $"./_content/BootstrapBlazor/modules/{path}" : path;
+        var fileName = relative ? $"/_content/BootstrapBlazor/modules/{path}" : path;
         var jSObjectReference = await jsRuntime.InvokeAsync<IJSObjectReference>(identifier: "import", fileName);
         return new JSModule(jSObjectReference);
     }
@@ -103,7 +103,7 @@ internal static class JSRuntimeExtensions
     /// <returns></returns>
     public static async Task<JSModule<TValue>> LoadModule<TValue>(this IJSRuntime jsRuntime, string path, TValue value, bool relative = true) where TValue : class
     {
-        var fileName = relative ? $"./_content/BootstrapBlazor/modules/{path}" : path;
+        var fileName = relative ? $"/_content/BootstrapBlazor/modules/{path}" : path;
         var jSObjectReference = await jsRuntime.InvokeAsync<IJSObjectReference>(identifier: "import", fileName);
         return new JSModule<TValue>(jSObjectReference, value);
     }

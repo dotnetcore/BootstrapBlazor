@@ -1,9 +1,9 @@
 ﻿@page "/install-server"
 @inject IStringLocalizer<Install_Server> Localizer
 
-<InstallContent Title="服务器端 Blazor 安装教程">
+<InstallContent Title="@Localizer["Title"]">
     <ChooseTemplate>
-        <div class="code-label mt-3 mb-2">4. 选择 <b>Blazor Server App</b> 项目类型，然后点击 <b>Create</b></div>
+        <div class="code-label mt-3 mb-2">4. @Localizer["D1"] <b>Blazor Server App</b>@Localizer["D2"] <b>Create</b></div>
         <img src="_content/BootstrapBlazor.Shared/images/choose-project-template-server-blazor.png" style="border-radius: 6px;" class="d-none d-sm-block mb-3" />
     </ChooseTemplate>
     <SheetTemplate>

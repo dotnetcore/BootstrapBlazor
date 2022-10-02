@@ -107,46 +107,46 @@ public sealed partial class DateTimeRanges
         new EventItem()
         {
             Name = "OnConfirm",
-            Description="确认按钮回调委托",
+            Description="Confirm callback delegate",
             Type ="Action"
         },
         new EventItem()
         {
             Name = "OnClearValue",
-            Description="清空按钮回调委托",
+            Description="Clear callback delegate",
             Type ="Action"
         },
         new EventItem()
         {
             Name = "OnValueChanged",
-            Description="值改变回调委托",
+            Description="ValueChanged callback delegate",
             Type ="Func<DateTimeRangeValue,Task>"
         }
     };
 
     /// <summary>
-    /// 获得属性方法
+    /// Get property method
     /// </summary>
     /// <returns></returns>
     private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
         new AttributeItem() {
             Name = "ShowLabel",
-            Description = "是否显示前置标签",
+            Description = "Whether to show the pre-label",
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "true"
         },
         new AttributeItem() {
             Name = "ShowSidebar",
-            Description = "是否显示快捷侧边栏",
+            Description = "Whether to show the shortcut sidebar",
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
         },
         new AttributeItem() {
             Name = "ShowToday",
-            Description = "是否显示今天快捷按钮",
+            Description = "Whether to show today shortcut button",
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
@@ -154,7 +154,7 @@ public sealed partial class DateTimeRanges
         new AttributeItem()
         {
             Name = "IsDisabled",
-            Description = "是否禁用 默认为 fasle",
+            Description = "Whether to disable default is false",
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
@@ -162,7 +162,7 @@ public sealed partial class DateTimeRanges
         new AttributeItem()
         {
             Name = "ShowSidebar",
-            Description = "是否显示快捷侧边栏 默认为 fasle",
+            Description = "Whether to display the shortcut sidebar The default is fasle",
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
@@ -170,35 +170,35 @@ public sealed partial class DateTimeRanges
         new AttributeItem()
         {
             Name = "Placement",
-            Description = "设置弹窗出现位置",
+            Description = "Set the popup location",
             Type = "Placement",
             ValueList = "top|bottom|left|right",
             DefaultValue = "auto"
         },
         new AttributeItem() {
             Name = "DisplayText",
-            Description = "前置标签显示文本",
+            Description = "Pre-label display text",
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
         },
         new AttributeItem() {
             Name = "DateFormat",
-            Description = "日期格式字符串 默认为 yyyy-MM-dd",
+            Description = "Date format string defaults to yyyy-MM-dd",
             Type = "string",
             ValueList = " — ",
             DefaultValue = "yyyy-MM-dd"
         },
         new AttributeItem() {
             Name = "Value",
-            Description = "包含开始时间结束时间的自定义类",
+            Description = "Custom class containing start time end time",
             Type = "DateTimeRangeValue",
             ValueList = "",
             DefaultValue = " — "
         },
         new AttributeItem() {
             Name = "SidebarItems",
-            Description = "侧边栏快捷选项集合",
+            Description = "Sidebar shortcut options collection",
             Type = "IEnumerable<DateTimeRangeSidebarItem>",
             ValueList = "",
             DefaultValue = " — "

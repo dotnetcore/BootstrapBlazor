@@ -1,28 +1,29 @@
 ﻿@page "/ribbontabs"
+@inject IStringLocalizer<RibbonTabs> Localizer
 
-<h3>RibbonTab 选项卡</h3>
+<h3>@Localizer["H1"]</h3>
 
-<h4>Office 菜单选项卡</h4>
+<h4>@Localizer["P1"]</h4>
 
-<DemoBlock Title="基本用法" Introduction="通过设置 <code>Items</code> 初始化选项卡" Name="Normal">
+<DemoBlock Title="@Localizer["P2"]" Introduction="@Localizer["P3"]" Name="Normal">
     <RibbonTab Items="@Items" />
 </DemoBlock>
 
-<DemoBlock Title="可悬浮" Introduction="通过设置 <code>ShowFloatButton</code> 使选项卡右侧显示收缩按钮，不占用主窗体空间" Name="Float">
+<DemoBlock Title="@Localizer["P4"]" Introduction="@Localizer["P5"]" Name="Float">
     <div class="ribbon-demo">
         <RibbonTab Items="@Items" ShowFloatButton="true" />
         <div class="ribbon-demo-body">
-            我是正文内容，收起菜单后我会向上移动
+            @Localizer["P6"]
         </div>
     </div>
 </DemoBlock>
 
-<DemoBlock Title="右上角按钮模板" Introduction="通过设置 <code>RightButtonsTemplate</code> 可以在选项卡右上角增加一些快捷按钮" Name="RightButtonsTemplate">
+<DemoBlock Title="@Localizer["P7"]" Introduction="@Localizer["P8"]" Name="RightButtonsTemplate">
     <RibbonTab Items="@Items" ShowFloatButton="true">
         <RightButtonsTemplate>
             <div class="ribbon-button">
                 <i class="fa-regular fa-circle-question"></i>
-                <span>文档</span>
+                <span>@Localizer["P8"]</span>
             </div>
         </RightButtonsTemplate>
     </RibbonTab>

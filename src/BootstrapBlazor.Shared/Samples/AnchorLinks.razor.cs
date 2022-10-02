@@ -22,29 +22,29 @@ public partial class AnchorLinks
     {
         // TODO: 移动到数据库中
         new AttributeItem() {
-            Name = nameof(AnchorLink.Id),
-            Description = "组件 Id 必填项",
+            Name = "Id",
+            Description = "Component Id",
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
         },
         new AttributeItem() {
             Name = nameof(AnchorLink.Icon),
-            Description = "组件锚点图标",
+            Description = "Component Icon",
             Type = "string",
             ValueList = " — ",
             DefaultValue = "fa-solid fa-link"
         },
         new AttributeItem() {
-            Name = nameof(AnchorLink.Text),
-            Description = "组件 Text 显示文字",
+            Name = "Text",
+            Description = "Component display text",
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
         },
         new AttributeItem() {
-            Name = nameof(AnchorLink.TooltipText),
-            Description = "拷贝成功后 显示文字",
+            Name = "TooltipText",
+            Description = "Tooltip Text",
             Type = "string",
             ValueList = " — ",
             DefaultValue = Localizer[nameof(AnchorLink.TooltipText)]

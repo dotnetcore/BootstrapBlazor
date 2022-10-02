@@ -1,43 +1,44 @@
 ﻿@page "/datetimeranges"
+@inject IStringLocalizer<DateTimeRanges> Localizer
 
-<h3>DateTimeRange 日期时间段选择器</h3>
+<h3>@Localizer["H1"]</h3>
 
-<h4>在同一个选择器里选择一段日期</h4>
+<h4>@Localizer["H2"]</h4>
 
-<DemoBlock Title="基本功能" Introduction="以「日」为基本单位，选择一段时间" Name="Normal">
+<DemoBlock Title="@Localizer["P1"]" Introduction="@Localizer["P2"]" Name="Normal">
     <DateTimeRange @bind-Value="@DateTimeRangeValue1" OnConfirm="OnConfirm" />
     <BlockLogger @ref="DateLogger" class="mt-3" />
 </DemoBlock>
 
-<DemoBlock Title="数据双向绑定" Introduction="点击确认按钮时间选择框值与文本框值一致" Name="BindValue">
+<DemoBlock Title="@Localizer["P3"]" Introduction="@Localizer["P4"]" Name="BindValue">
     <div class="row g-3">
         <div class="col-12 col-sm-6">
             <DateTimeRange @bind-Value="@DateTimeRangeValue2" OnValueChanged="v => OnValueChanged(v, 1)" />
         </div>
         <div class="col-12 col-sm-6">
             <BootstrapInputGroup>
-                <BootstrapInputGroupLabel DisplayText="时间范围" />
+                <BootstrapInputGroupLabel DisplayText="@Localizer["P5"]" />
                 <Display TValue="string" Value="@range2" />
             </BootstrapInputGroup>
         </div>
     </div>
 </DemoBlock>
 
-<DemoBlock Title="最大值和最小值" Introduction="设置时间的取值范围" Name="MaxMinValue">
+<DemoBlock Title="@Localizer["P6"]" Introduction="@Localizer["P7"]" Name="MaxMinValue">
     <div class="row g-3">
         <div class="col-12 col-sm-6">
             <DateTimeRange @bind-Value="@DateTimeRangeValue5" OnValueChanged="v => OnValueChanged(v, 2)" MinValue=DateTime.Today.AddDays(-7) MaxValue=DateTime.Today.AddDays(7) />
         </div>
         <div class="col-12 col-sm-6">
             <BootstrapInputGroup>
-                <BootstrapInputGroupLabel DisplayText="时间范围" />
+                <BootstrapInputGroupLabel DisplayText="@Localizer["P8"]" />
                 <Display TValue="string" Value="@range" />
             </BootstrapInputGroup>
         </div>
     </div>
 </DemoBlock>
 
-<DemoBlock Title="禁用" Introduction="设置 <code>IsDisabled</code> 属性值为 <code>true</code> 时，组件禁止输入" Name="Disabled">
+<DemoBlock Title="@Localizer["P9"]" Introduction="@Localizer["P10"]" Name="Disabled">
     <div class="row g-3">
         <div class="col-12 col-sm-6">
             <DateTimeRange Value="@DateTimeRangeValue3" IsDisabled="@IsDisabled" />
@@ -48,17 +49,17 @@
     </div>
 </DemoBlock>
 
-<DemoBlock Title="带快捷键侧边栏" Introduction="设置 <code>ShowSidebar</code> 属性值为 <code>true</code> 时，组件显示快捷方式侧边栏" Name="Sidebar">
-    <p>通过设置 <code>ShowSidebar</code> 参数开启显示侧边栏快捷选项功能，通过设置 <code>SidebarItems</code> 参数集合替换组件内置的默认快捷项</p>
+<DemoBlock Title="@Localizer["P11"]" Introduction="@Localizer["P12"]" Name="Sidebar">
+    <p>@Localizer["P13"] <code>ShowSidebar</code> @Localizer["P14"] <code>SidebarItems</code> @Localizer["P15"]</p>
     <DateTimeRange Value="@DateTimeRangeValue4" ShowSidebar="true" />
 </DemoBlock>
 
-<DemoBlock Title="显示今天按钮" Introduction="设置 <code>ShowToday</code> 属性值为 <code>true</code> 时，组件下方显示今天快捷按钮" Name="Today">
-    <p>点击 <code>今天</code> 按钮时，时间范围为 <code>yyyy-MM-dd 00:00:00 到 yyyy-MM-dd 23:59:59</code></p>
+<DemoBlock Title="@Localizer["P16"]" Introduction="@Localizer["P17"]" Name="Today">
+    <p>@Localizer["P18"] <code>@Localizer["P19"] </code> @Localizer["P20"] <code>yyyy-MM-dd 00:00:00 到 yyyy-MM-dd 23:59:59</code></p>
     <DateTimeRange Value="@DateTimeRangeValue4" ShowToday="true" />
 </DemoBlock>
 
-<DemoBlock Title="表单中使用" Introduction="将组件内置到 <code>ValidateForm</code> 中使用" Name="ValidateForm">
+<DemoBlock Title="@Localizer["P21"]" Introduction="@Localizer["P22"]" Name="ValidateForm">
     <FormInlineSwitch @bind-Value="@FormRowType" class="mb-3"></FormInlineSwitch>
     <ValidateForm Model="@Model">
         <div class="@GroupFormClassString">
@@ -69,7 +70,7 @@
                 <DateTimeRange @bind-Value="@Model.Range" />
             </div>
             <div class="col-12">
-                <Button ButtonType="ButtonType.Submit" Icon="fa-fw fa-solid fa-floppy-disk" Text="提交" />
+                <Button ButtonType="ButtonType.Submit" Icon="fa-fw fa-solid fa-floppy-disk" Text="@Localizer["P23"]" />
             </div>
         </div>
     </ValidateForm>

@@ -1,23 +1,24 @@
 ﻿@page "/themes"
+@inject IStringLocalizer<Theme> Localizer
 
-<h3>组件主题</h3>
+<h3>@Localizer["H1"]</h3>
 
-<h4>测试</h4>
+<h4>@Localizer["H2"]</h4>
 
-<p>目前网站主题支持如下：</p>
+<p>@Localizer["P1"]：</p>
 
 <ul class="ul-demo">
-    <li>Motronic (已集成)</li>
-    <li>LayUI (完善中)</li>
-    <li>Bluma (完善中)</li>
-    <li>Ant Design (完善中) </li>
+    <li>@Localizer["P2"]</li>
+    <li>@Localizer["P3"]</li>
+    <li>@Localizer["P4"]</li>
+    <li>@Localizer["P5"]</li>
 </ul>
 
-<h4>主题切换</h4>
+<h4>@Localizer["P6"]</h4>
 
-<p>如切换为 <code>Motronic</code> 主题，则请在原有 <code>head</code> 内增加样式文件如下：</p>
+<p>@Localizer["P7"] <code>Motronic</code> @Localizer["P8"] <code>head</code> @Localizer["P9"]：</p>
 
 <Pre>&lt;link href="_content/BootstrapBlazor/css/bootstrap.blazor.bundle.min.css" rel="stylesheet"&gt;
 
-// 增加此行
+// @Localizer["P10"]
 &lt;link rel="stylesheet" href="_content/BootstrapBlazor/css/motronic.min.css"&gt;</Pre>

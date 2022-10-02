@@ -70,12 +70,12 @@ public partial class DragDrops
     ///
     /// </summary>
     /// <returns></returns>
-    private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
         new()
         {
             Name = "MaxItems",
-            Description = "最大数量,null为不限制",
+            Description = Localizer["A1"],
             Type = "int?",
             ValueList = " — ",
             DefaultValue = "null"
@@ -83,68 +83,68 @@ public partial class DragDrops
         new()
         {
             Name = "ChildContent",
-            Description = "内容组件",
+            Description = Localizer["A1"],
             Type = "RenderFragment<TItem>?",
             ValueList = " — ",
             DefaultValue = " — "
         },
     };
 
-    private static IEnumerable<MethodItem> GetMethods() => new MethodItem[]
+    private IEnumerable<MethodItem> GetMethods() => new MethodItem[]
     {
         new()
         {
             Name = nameof(Dropzone<MethodItem>.Accepts),
-            Description = "是否运行拖放",
+            Description = Localizer["M1"],
             Parameters = "Func<TItem?, TItem?, bool>",
             ReturnValue = "bool "
         },
         new()
         {
             Name = nameof(Dropzone<MethodItem>.AllowsDrag),
-            Description = "节点是否允许被拖拽",
+            Description = Localizer["M2"],
             Parameters = "TItem",
             ReturnValue = "bool"
         },
         new()
         {
             Name = nameof(Dropzone<MethodItem>.CopyItem),
-            Description = "复制一个新的 Item 到目标位置",
+            Description = Localizer["M3"],
             Parameters = "TItem, TItem",
             ReturnValue = "TItem"
         },
         new()
         {
             Name = nameof(Dropzone<MethodItem>.ItemWrapperClass),
-            Description = "针对 Item 添加特殊的 css class",
+            Description = Localizer["M4"],
             Parameters = "TItem",
             ReturnValue = "string"
         },
         new()
         {
             Name = nameof(Dropzone<MethodItem>.OnItemDrop),
-            Description = "Item 释放时的事件",
+            Description = Localizer["M5"],
             Parameters = " — ",
             ReturnValue = " — "
         },
         new()
         {
             Name = nameof(Dropzone<MethodItem>.OnItemDropRejected),
-            Description = "Item 释放被拒绝时的事件",
+            Description = Localizer["M6"],
             Parameters = " — ",
             ReturnValue = " — "
         },
         new()
         {
             Name = nameof(Dropzone<MethodItem>.OnReplacedItemDrop),
-            Description = "当 Item 在另一个 Item 上，不是空白处被释放时的事件",
+            Description = Localizer["M7"],
             Parameters = " — ",
             ReturnValue = " — "
         },
         new()
         {
             Name = nameof(Dropzone<MethodItem>.OnItemDropRejectedByMaxItemLimit),
-            Description = "Item 因为 Dropzone 内最大数量超限被拒绝时的事件",
+            Description = Localizer["M8"],
             Parameters = " — ",
             ReturnValue = " — "
         }
