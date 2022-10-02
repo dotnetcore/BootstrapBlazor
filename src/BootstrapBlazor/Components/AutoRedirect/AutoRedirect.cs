@@ -5,9 +5,9 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 自动锁定组件
+/// AutoRedirect component
 /// </summary>
-public class AutoRedirect : BootstrapComponentBase, IDisposable
+public class AutoRedirect : BootstrapComponentBase, IAsyncDisposable
 {
     /// <summary>
     /// 获得/设置 登出 Controller Url
@@ -31,16 +31,6 @@ public class AutoRedirect : BootstrapComponentBase, IDisposable
     private JSInterop<AutoRedirect>? Interop { get; set; }
 
     /// <summary>
-    /// OnInitialized 方法
-    /// </summary>
-    protected override void OnInitialized()
-    {
-        base.OnInitialized();
-
-        Interop = new JSInterop<AutoRedirect>(JSRuntime);
-    }
-
-    /// <summary>
     /// OnAfterRenderAsync 方法
     /// </summary>
     /// <param name="firstRender"></param>
@@ -49,10 +39,8 @@ public class AutoRedirect : BootstrapComponentBase, IDisposable
     {
         if (firstRender)
         {
-            if (Interop != null)
-            {
-                await Interop.InvokeVoidAsync(this, null, "bb_auto_redirect", Interval, nameof(Lock));
-            }
+            Interop ??= new JSInterop<AutoRedirect>(JSRuntime);
+            await Interop.InvokeVoidAsync("bb.AutoRedirect.init", this, Interval, nameof(Lock));
         }
     }
 
@@ -69,15 +57,16 @@ public class AutoRedirect : BootstrapComponentBase, IDisposable
     }
 
     /// <summary>
-    /// Dispose 方法
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="disposing"></param>
-    protected virtual void Dispose(bool disposing)
+    protected virtual async ValueTask DisposeAsync(bool disposing)
     {
         if (disposing)
         {
             if (Interop != null)
             {
+                await JSRuntime.InvokeVoidAsync(identifier: "bb.AutoRedirect.dispose");
                 Interop.Dispose();
                 Interop = null;
             }
@@ -85,11 +74,11 @@ public class AutoRedirect : BootstrapComponentBase, IDisposable
     }
 
     /// <summary>
-    /// 
+    /// <inheritdoc/>
     /// </summary>
-    public void Dispose()
+    public async ValueTask DisposeAsync()
     {
-        Dispose(true);
+        await DisposeAsync(true);
         GC.SuppressFinalize(this);
     }
 }

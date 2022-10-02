@@ -160,7 +160,7 @@ public partial class Tooltip : ITooltip, IAsyncDisposable
     {
         if (disposing)
         {
-            await JSRuntime.InvokeVoidAsync("bb.Tooltip.dispose", $"#{Id}");
+            await JSRuntime.InvokeVoidAsync(identifier: "bb.Tooltip.dispose", $"#{Id}");
         }
     }
 

@@ -21,6 +21,28 @@
             throw new Error('You have to implement the static method "NAME", for each component!');
         }
 
+        dispose() {
+            for (const propertyName of Object.getOwnPropertyNames(this)) {
+                this[propertyName] = null;
+            }
+        }
+    }
+
+    const VERSION = '1.0.0';
+
+    class BaseComponent extends Config {
+        constructor(element, config = {}) {
+            super();
+
+            if (!element) {
+                return;
+            }
+
+            this._element = element;
+            this._config = this._getConfig(config);
+            Data.set(this._element, this.constructor.DATA_KEY, this);
+        }
+
         _getConfig(config) {
             config = this._mergeConfigObj(config, this._element);
             config = this._configAfterMerge(config);
@@ -57,30 +79,12 @@
                 }
             }
         }
-    }
-
-    const VERSION = '1.0.0';
-
-    class BaseComponent extends Config {
-        constructor(element, config) {
-            super();
-
-            if (!element) {
-                return;
-            }
-
-            this._element = element;
-            this._config = this._getConfig(config);
-            Data.set(this._element, this.constructor.DATA_KEY, this);
-        }
 
         dispose() {
             Data.remove(this._element, this.constructor.DATA_KEY);
             //EventHandler.off(this._element, this.constructor.EVENT_KEY);
 
-            for (const propertyName of Object.getOwnPropertyNames(this)) {
-                this[propertyName] = null;
-            }
+            super.dispose();
         }
 
         static getInstance(element) {
@@ -104,7 +108,7 @@
     const NAME$Tooltip = "Tooltip"
 
     class Tooltip extends BaseComponent {
-        constructor(element, config) {
+        constructor(element, config = {}) {
             super(element, config);
 
             this._getOrCreateInstance()
@@ -265,7 +269,7 @@
     }
 
     class DropdownBase extends Tooltip {
-        constructor(element, config) {
+        constructor(element, config = {}) {
             super(element, config);
 
             this._hackPopover();
@@ -629,6 +633,63 @@
 
     });
 
+    class AutoRedirect extends Config {
+        constructor(config = {}) {
+            super();
+
+            this._config = config;
+            this._mousePosition = {};
+            this._count = 1;
+
+            this._fnMouseHandler = e => {
+                if (this._mousePosition.screenX !== e.screenX || this._mousePosition.screenY !== e.screenY) {
+                    this._mousePosition.screenX = e.screenX;
+                    this._mousePosition.screenY = e.screenY;
+                    this._count = 1;
+                }
+            }
+
+            this._fnKeyHandler = () => {
+                this._count = 1;
+            }
+
+            bootstrap.EventHandler.on(document, 'mousemove', this._fnMouseHandler);
+            bootstrap.EventHandler.on(document, 'keydown', this._fnKeyHandler)
+
+            this._lockHandler = window.setInterval(() => {
+                if (this._count++ > this._config.interval) {
+                    window.clearInterval(this._lockHandler);
+                    this._config.dotnetInvoker.invokeMethodAsync(this._config.method);
+
+                    this.dispose();
+                }
+            }, 1000);
+        }
+
+        dispose() {
+            bootstrap.EventHandler.off(document, 'mousemove', this._fnMouseHandler);
+            bootstrap.EventHandler.off(document, 'keydown', this._fnKeyHandler)
+
+            if (this._lockHandler) {
+                window.clearInterval(this._lockHandler);
+            }
+            delete window.AutoRedirect;
+            super.dispose();
+        }
+
+        static init(dotnetInvoker, interval, method) {
+            if (typeof window.AutoRedirect === 'undefined') {
+                window.AutoRedirect = new AutoRedirect({dotnetInvoker, interval, method});
+            }
+        }
+
+        static dispose() {
+            if (window.AutoRedirect) {
+                window.AutoRedirect.dispose();
+            }
+        }
+    }
+
     class Utility {
         static vibrate() {
             if ('vibrate' in window.navigator) {
@@ -813,6 +874,7 @@
     };
 
     return {
+        AutoRedirect,
         Tooltip,
         Popover,
         Dropdown,
