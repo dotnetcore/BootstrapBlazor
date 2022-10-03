@@ -21,16 +21,9 @@ internal static class BootstrapBlazorEditContextDataAnnotationsExtensions
     {
         var messages = new ValidationMessageStore(editContext);
 
-        try
-        {
-            editContext.OnValidationRequested += async (sender, eventArgs) => await editForm.ValidateModel(sender as EditContext, messages, provider);
-            editContext.OnFieldChanged += async (sender, eventArgs) => await editForm.ValidateField(editContext, messages, eventArgs, provider);
-            return editContext;
-        }
-        catch (Exception ex)
-        {
-            return null;
-        }
+        editContext.OnValidationRequested += async (sender, eventArgs) => await editForm.ValidateModel(sender as EditContext, messages, provider);
+        editContext.OnFieldChanged += async (sender, eventArgs) => await editForm.ValidateField(editContext, messages, eventArgs, provider);
+        return editContext;
     }
 
     private static async Task ValidateModel(this ValidateForm editForm, EditContext? editContext, ValidationMessageStore messages, IServiceProvider provider)
@@ -55,26 +48,19 @@ internal static class BootstrapBlazorEditContextDataAnnotationsExtensions
 
     private static async Task ValidateField(this ValidateForm editForm, EditContext editContext, ValidationMessageStore messages, FieldChangedEventArgs args, IServiceProvider provider)
     {
-        try
+        // 获取验证消息
+        var validationResults = new List<ValidationResult>();
+        var validationContext = new ValidationContext(args.FieldIdentifier.Model, provider, null)
         {
-            // 获取验证消息
-            var validationResults = new List<ValidationResult>();
-            var validationContext = new ValidationContext(args.FieldIdentifier.Model, provider, null)
-            {
-                MemberName = args.FieldIdentifier.FieldName,
-                DisplayName = args.FieldIdentifier.GetDisplayName()
-            };
+            MemberName = args.FieldIdentifier.FieldName,
+            DisplayName = args.FieldIdentifier.GetDisplayName()
+        };
 
-            await editForm.ValidateFieldAsync(validationContext, validationResults);
+        await editForm.ValidateFieldAsync(validationContext, validationResults);
 
-            messages.Clear(args.FieldIdentifier);
-            messages.Add(args.FieldIdentifier, validationResults.Where(v => !string.IsNullOrEmpty(v.ErrorMessage)).Select(result => result.ErrorMessage!));
+        messages.Clear(args.FieldIdentifier);
+        messages.Add(args.FieldIdentifier, validationResults.Where(v => !string.IsNullOrEmpty(v.ErrorMessage)).Select(result => result.ErrorMessage!));
 
-            editContext.NotifyValidationStateChanged();
-        }
-        catch (Exception ex)
-        {
-            System.Console.WriteLine(ex.Message);
-        }
+        editContext.NotifyValidationStateChanged();
     }
 }
