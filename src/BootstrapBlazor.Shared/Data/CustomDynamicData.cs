@@ -17,7 +17,7 @@ public class CustomDynamicData : DynamicObject
     public string Fix { get; set; } = "";
 
     /// <summary>
-    /// 
+    /// 存储每列值信息 Key 列名 Value 为列值
     /// </summary>
     public Dictionary<string, string> Dynamic { get; set; }
 
@@ -37,7 +37,6 @@ public class CustomDynamicData : DynamicObject
     /// </summary>
     public CustomDynamicData() : this("", new()) { }
 
-
     /// <inheritdoc/>
     public override IEnumerable<string> GetDynamicMemberNames()
     {
@@ -55,19 +54,17 @@ public class CustomDynamicData : DynamicObject
         if (binder.Name == nameof(Fix))
         {
             result = Fix;
-            return true;
         }
         else if (Dynamic.ContainsKey(binder.Name))
         {
             result = Dynamic[binder.Name];
-            return true;
         }
         else
         {
             // When property name not found, return empty
             result = "";
-            return true;
         }
+        return true;
     }
 
     /// <summary>
@@ -78,23 +75,18 @@ public class CustomDynamicData : DynamicObject
     /// <returns></returns>
     public override bool TrySetMember(SetMemberBinder binder, object? value)
     {
-        if (value is not string str)
+        var ret = false;
+        var v = value?.ToString() ?? string.Empty;
+        if (binder.Name == nameof(Fix))
         {
-            return false;
-        }
-        else if (binder.Name == nameof(Fix))
-        {
-            Fix = str;
-            return true;
+            Fix = v;
+            ret = true;
         }
         else if (Dynamic.ContainsKey(binder.Name))
         {
-            Dynamic[binder.Name] = str;
-            return true;
+            Dynamic[binder.Name] = v;
+            ret = true;
         }
-        else
-        {
-            return true;
-        }
+        return ret;
     }
 }
