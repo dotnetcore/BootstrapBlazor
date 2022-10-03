@@ -9,9 +9,9 @@
            IsStriped="true" IsBordered="true" ShowToolbar="true" ShowColumnList="true" ShowDefaultButtons="false" ShowRefresh="false">
         <TableColumns>
             <TableColumn @bind-Field="@context.Fix" Sortable="true" Filterable="true" />
-            @foreach (var element in Times)
+            @foreach (var element in DynamicColumnList)
             {
-                <TableColumn Field="@element.ToString()" FieldName="@element.ToString()" Text="@element.ToShortTimeString()" Sortable="true" Filterable="true" />
+                <TableColumn Field="@element.ToString()" FieldName="@element.ToString()" Text="@element" Sortable="true" Filterable="true" />
             }
         </TableColumns>
     </Table>
@@ -22,7 +22,7 @@
            IsStriped="true" IsBordered="true" ShowToolbar="true" ShowColumnList="true" ShowDefaultButtons="false" ShowRefresh="false">
         <TableColumns>
             <TableColumn @bind-Field="@context.Fix" Sortable="true" Filterable="true" />
-            @foreach (var element in DynamicList)
+            @foreach (var element in StaticColumnList)
             {
                 <TableColumn Field="@element" FieldName="@element" Text="@element" Sortable="true" Filterable="true" />
             }

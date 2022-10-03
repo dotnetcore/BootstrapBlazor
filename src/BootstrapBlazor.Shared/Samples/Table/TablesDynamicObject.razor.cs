@@ -11,12 +11,13 @@ namespace BootstrapBlazor.Shared.Samples.Table;
 /// </summary>
 public partial class TablesDynamicObject
 {
-    private readonly List<DateTime> Times = new();
+    [NotNull]
+    private IEnumerable<BootstrapBlazorDynamicObjectData>? BootstrapDynamicItems { get; set; }
 
-    private readonly string[] DynamicList = new[] { "A", "B", "C", "Z" };
+    private static List<string> StaticColumnList => new() { "A", "B", "C", "Z" };
 
     [NotNull]
-    private List<BootstrapBlazorDynamicObjectData>? BootstrapDynamicItems { get; set; }
+    private List<string>? DynamicColumnList { get; set; }
 
     /// <summary>
     /// <inheritdoc/>
@@ -25,27 +26,20 @@ public partial class TablesDynamicObject
     {
         base.OnInitialized();
 
-        const int count = 10;
-
+        // 构造动态列
         var now = DateTime.Now;
-        Times.AddRange(Enumerable.Range(1, 5).Select(e => now.AddMinutes(-1 * e)));
+        DynamicColumnList = Enumerable.Range(1, 5).Select(index => now.AddMinutes(-1 * index).ToString("HH:mm")).ToList();
 
-        BootstrapDynamicItems = Enumerable.Range(1, count)
-            .Select(e => new BootstrapBlazorDynamicObjectData(
-                e.ToString(),
-                DynamicList.ToDictionary(d => d, d => d.ToString() + e)))
-            .ToList();
+        BootstrapDynamicItems = Enumerable.Range(1, 10)
+            .Select(index => new BootstrapBlazorDynamicObjectData(index.ToString(), StaticColumnList.ToDictionary(d => d, d => $"{d}{index}")));
     }
+
+    private readonly static Random random = new();
 
     private Task<QueryData<CustomDynamicData>> OnQueryAsync(QueryPageOptions options)
     {
-        Random random = new();
-        const int count = 10;
-        var items = Enumerable.Range(1, count)
-            .Select(e => new CustomDynamicData(
-                e.ToString(),
-                Times.ToDictionary(d => d.ToString(), d => ((e * 1000) + d.Minute).ToString())))
-            .ToList();
+        var items = Enumerable.Range(1, 10)
+            .Select(index => new CustomDynamicData(index.ToString(), DynamicColumnList.ToDictionary(d => d.ToString(), d => $"{random.Next(1000, 9999)}")));
 
         // sort logic ...
         // filter logic ...
@@ -53,7 +47,7 @@ public partial class TablesDynamicObject
         return Task.FromResult(new QueryData<CustomDynamicData>()
         {
             Items = items,
-            TotalCount = count,
+            TotalCount = 10,
             IsSorted = true,
             IsFiltered = true
         });
