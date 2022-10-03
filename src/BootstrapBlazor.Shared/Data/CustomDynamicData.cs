@@ -37,6 +37,13 @@ public class CustomDynamicData : DynamicObject
     /// </summary>
     public CustomDynamicData() : this("", new()) { }
 
+
+    /// <inheritdoc/>
+    public override IEnumerable<string> GetDynamicMemberNames()
+    {
+        return Dynamic.Keys.Append(nameof(Fix));
+    }
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>

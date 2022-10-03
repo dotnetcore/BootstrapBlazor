@@ -5,17 +5,13 @@
 <h4>使用 <code>IDynamicMetaObjectProvider</code> 类作为数据源</h4>
 
 <DemoBlock Title="IDynamicMetaObjectProvider 集合" Introduction="通过设置 <code>Items</code> 数据源，使用 <code>IDynamicMetaObjectProvider</code> 数据集合作为数据源" Name="IDynamicMetaObjectProvider">
-    <Table TItem="CustomDynamicData" Items="DynamicItems"
+    <Table TItem="CustomDynamicData" OnQueryAsync="OnQueryAsync"
            IsStriped="true" IsBordered="true" ShowToolbar="true" ShowColumnList="true" ShowDefaultButtons="false" ShowRefresh="false">
         <TableColumns>
             <TableColumn @bind-Field="@context.Fix" Sortable="true" Filterable="true" />
-            @foreach (var element in DynamicList)
+            @foreach (var element in Times)
             {
-                <TableColumn @bind-Field="@context.Dynamic" Text="@element" Sortable="true" Filterable="true">
-                    <Template Context="value">
-                        <div>@(value.Value.TryGetValue(element, out string? v) ? v : "")</div>
-                    </Template>
-                </TableColumn>
+                <TableColumn Field="@element.ToString()" FieldName="@element.ToString()" Text="@element.ToShortTimeString()" Sortable="true" Filterable="true" />
             }
         </TableColumns>
     </Table>
