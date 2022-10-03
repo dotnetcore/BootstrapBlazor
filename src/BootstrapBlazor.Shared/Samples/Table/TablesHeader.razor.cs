@@ -18,23 +18,21 @@ public partial class TablesHeader
 
     [Inject]
     [NotNull]
-    private IStringLocalizer<Foo>? Localizer { get; set; }
+    private IStringLocalizer<Foo>? LocalizerFoo { get; set; }
 
     /// <summary>
-    /// OnInitialized 方法
+    /// OnInitialized
     /// </summary>
     protected override void OnInitialized()
     {
         base.OnInitialized();
-
-        Items = Foo.GenerateFoo(Localizer);
+        Items = Foo.GenerateFoo(LocalizerFoo);
     }
 
     private Task<QueryData<Foo>> OnQueryAsync(QueryPageOptions options)
     {
         IEnumerable<Foo> items = Items;
 
-        // 过滤
         var isFiltered = false;
         if (options.Filters.Any())
         {
@@ -42,7 +40,6 @@ public partial class TablesHeader
             isFiltered = true;
         }
 
-        // 排序
         var isSorted = false;
         if (!string.IsNullOrEmpty(options.SortName))
         {
@@ -51,12 +48,8 @@ public partial class TablesHeader
             isSorted = true;
         }
 
-        // 设置记录总数
         var total = items.Count();
-
-        // 内存分页
         items = items.Skip((options.PageIndex - 1) * options.PageItems).Take(options.PageItems).ToList();
-
         return Task.FromResult(new QueryData<Foo>()
         {
             Items = items,

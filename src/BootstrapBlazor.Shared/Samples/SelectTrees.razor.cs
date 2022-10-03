@@ -14,7 +14,6 @@ namespace BootstrapBlazor.Shared.Samples;
 public partial class SelectTrees
 {
     private List<TreeViewItem<TreeFoo>> Items { get; } = TreeFoo.GetTreeItems();
-
     private List<TreeViewItem<string>> BindItems { get; } = new List<TreeViewItem<string>>()
     {
         new TreeViewItem<string>("目录一")
@@ -38,13 +37,6 @@ public partial class SelectTrees
             }
         }
     };
-
     private TreeFoo Model { get; set; } = new TreeFoo();
-
     private TreeFoo BindModel { get; set; } = new TreeFoo() { Text = "" };
-
-    [Inject]
-    [NotNull]
-    private IStringLocalizer<Selects>? Localizer { get; set; }
-
 }
