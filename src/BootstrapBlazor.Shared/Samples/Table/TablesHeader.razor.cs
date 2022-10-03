@@ -18,6 +18,10 @@ public partial class TablesHeader
 
     [Inject]
     [NotNull]
+    private IStringLocalizer<TablesHeader>? Localizer { get; set; }
+
+    [Inject]
+    [NotNull]
     private IStringLocalizer<Foo>? LocalizerFoo { get; set; }
 
     /// <summary>
@@ -26,7 +30,7 @@ public partial class TablesHeader
     protected override void OnInitialized()
     {
         base.OnInitialized();
-        Items = Foo.GenerateFoo(LocalizerFoo);
+        Items = Foo.GenerateFoo(LocalizerFoo, 4);
     }
 
     private Task<QueryData<Foo>> OnQueryAsync(QueryPageOptions options)
