@@ -7,7 +7,8 @@
 }
 
     .message .alert {
-        display: block;
+        display: flex;
+        align-items: baseline;
         min-width: 160px;
         max-width: 480px;
         white-space: normal;
@@ -23,6 +24,16 @@
             opacity: 1;
             bottom: unset;
             top: 20px;
+        }
+
+        .message .alert > i + span {
+            margin-left: .5rem;
+        }
+
+        .message .alert > span {
+            flex: 1;
+            flex-wrap: wrap;
+            word-break: break-all;
         }
 
     .message.is-bottom .alert {
