@@ -27,6 +27,7 @@
     "edit": "Table/TablesEdit",
     "excel": "Table/TablesExcel",
     "dynamicexcel": "Table/TablesDynamicExcel",
+    "dynamicobject": "Table/TablesDynamicObject",
     "editdialogs": "EditDialogs",
     "editorforms": "EditorForms",
     "export": "Table/TablesExport",

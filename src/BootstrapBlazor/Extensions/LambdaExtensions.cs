@@ -2,6 +2,8 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using Microsoft.CSharp.RuntimeBinder;
+using System.Dynamic;
 using System.Linq.Expressions;
 using System.Reflection;
 
@@ -644,16 +646,35 @@ public static class LambdaExtensions
         }
         var type = model.GetType();
         var param_p1 = Expression.Parameter(typeof(TModel));
-        return propertyName.Contains(".") ? GetComplexPropertyExpression() : GetSimplePropertyExpression();
+        return propertyName.Contains('.') ? GetComplexPropertyExpression() : GetSimplePropertyExpression();
 
         Expression<Func<TModel, TResult>> GetSimplePropertyExpression()
         {
+            Expression body;
             var p = type.GetPropertyByName(propertyName);
-            if (p == null)
+            if (p != null)
+            {
+                body = Expression.Property(Expression.Convert(param_p1, type), p);
+            }
+            else if (type.IsAssignableTo(typeof(IDynamicObject)))
+            {
+                var method = typeof(IDynamicObject).GetMethod(nameof(IDynamicObject.GetValue), new Type[] { typeof(string) })!;
+                body = Expression.Call(Expression.Convert(param_p1, type), method, Expression.Constant(propertyName));
+            }
+            else if (type.IsAssignableTo(typeof(IDynamicMetaObjectProvider)))
+            {
+                var binder = Microsoft.CSharp.RuntimeBinder.Binder.GetMember(
+                    CSharpBinderFlags.None,
+                    propertyName,
+                    type,
+                    new[] { CSharpArgumentInfo.Create(CSharpArgumentInfoFlags.None, null) });
+                body = Expression.Dynamic(binder, typeof(object), param_p1);
+            }
+            else
             {
                 throw new InvalidOperationException($"类型 {type.Name} 未找到 {propertyName} 属性，无法获取其值");
             }
-            var body = Expression.Property(Expression.Convert(param_p1, type), p);
+
             return Expression.Lambda<Func<TModel, TResult>>(Expression.Convert(body, typeof(TResult)), param_p1);
         }
 

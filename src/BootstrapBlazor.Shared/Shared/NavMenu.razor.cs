@@ -680,6 +680,12 @@ public sealed partial class NavMenu
             },
             new()
             {
+                IsNew = true,
+                Text = Localizer["TableDynamicObject"],
+                Url = "tables/dynamicobject"
+            },
+            new()
+            {
                 Text = Localizer["TableSearch"],
                 Url = "tables/search"
             },

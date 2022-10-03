@@ -1,0 +1,31 @@
+﻿@page "/tables/dynamicobject"
+
+<h3>Table 表格</h3>
+
+<h4>使用 <code>IDynamicMetaObjectProvider</code> 类作为数据源</h4>
+
+<DemoBlock Title="IDynamicMetaObjectProvider 集合" Introduction="通过设置 <code>Items</code> 数据源，使用 <code>IDynamicMetaObjectProvider</code> 数据集合作为数据源" Name="IDynamicMetaObjectProvider">
+    <Table TItem="CustomDynamicData" OnQueryAsync="OnQueryAsync"
+           IsStriped="true" IsBordered="true" ShowToolbar="true" ShowColumnList="true" ShowDefaultButtons="false" ShowRefresh="false">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.Fix" Sortable="true" Filterable="true" />
+            @foreach (var element in DynamicColumnList)
+            {
+                <TableColumn Field="@element.ToString()" FieldName="@element.ToString()" Text="@element" Sortable="true" Filterable="true" />
+            }
+        </TableColumns>
+    </Table>
+</DemoBlock>
+
+<DemoBlock Title="IDynamicObject 集合" Introduction="通过设置 <code>Items</code> 数据源，使用 <code>IDynamicObject</code> 数据集合作为数据源" Name="IDynamicObject">
+    <Table TItem="BootstrapBlazorDynamicObjectData" Items="BootstrapDynamicItems"
+           IsStriped="true" IsBordered="true" ShowToolbar="true" ShowColumnList="true" ShowDefaultButtons="false" ShowRefresh="false">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.Fix" Sortable="true" Filterable="true" />
+            @foreach (var element in StaticColumnList)
+            {
+                <TableColumn Field="@element" FieldName="@element" Text="@element" Sortable="true" Filterable="true" />
+            }
+        </TableColumns>
+    </Table>
+</DemoBlock>
