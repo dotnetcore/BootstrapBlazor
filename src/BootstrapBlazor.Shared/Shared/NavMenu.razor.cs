@@ -58,6 +58,15 @@ public sealed partial class NavMenu
         ExpandAllText ??= Localizer["MenuExpandAll"];
     }
 
+    private Task OnValueChanged(bool accordion)
+    {
+        if (accordion)
+        {
+            IsExpandAll = false;
+        }
+        return Task.CompletedTask;
+    }
+
     private async Task OnClickMenu(MenuItem item)
     {
         if (!item.Items.Any())

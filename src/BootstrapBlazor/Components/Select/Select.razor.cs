@@ -68,7 +68,7 @@ public partial class Select<TValue> : ISelect
     /// Razor 文件中 Options 模板子项
     /// </summary>
     [NotNull]
-    private List<SelectedItem>? Childs { get; set; }
+    private List<SelectedItem>? Children { get; set; }
 
     /// <summary>
     /// 获得/设置 右侧下拉箭头图标 默认 fa-solid fa-angle-up
@@ -140,7 +140,7 @@ public partial class Select<TValue> : ISelect
         base.OnInitialized();
 
         OnSearchTextChanged ??= text => Items.Where(i => i.Text.Contains(text, StringComparison));
-        Childs = new List<SelectedItem>();
+        Children = new List<SelectedItem>();
     }
 
     /// <summary>
@@ -168,7 +168,7 @@ public partial class Select<TValue> : ISelect
         if (string.IsNullOrEmpty(SearchText))
         {
             DataSource = Items.ToList();
-            DataSource.AddRange(Childs);
+            DataSource.AddRange(Children);
         }
         else
         {
@@ -292,5 +292,5 @@ public partial class Select<TValue> : ISelect
     /// 添加静态下拉项方法
     /// </summary>
     /// <param name="item"></param>
-    public void Add(SelectedItem item) => Childs.Add(item);
+    public void Add(SelectedItem item) => Children.Add(item);
 }

@@ -775,6 +775,58 @@
         }
     }
 
+    class Collapse extends BaseComponent {
+        static _dispose(collapse, element) {
+            if (element._isShown()) {
+                element.hide();
+                const duration = getTransitionDurationFromElement(collapse, 15);
+                let handler = window.setTimeout(() => {
+                    window.clearTimeout(handler);
+                    element.dispose();
+                }, duration);
+            } else {
+                element.dispose();
+            }
+        }
+
+        static dispose(element) {
+            element = getElement(element);
+            const collapses = element.querySelectorAll('[data-bs-toggle="collapse"]');
+            collapses.forEach(element => {
+                const collapse = Utility.getTargetElement(element);
+                const c = bootstrap.Collapse.getInstance(collapse);
+                if (c !== null) {
+                    this._dispose(collapse, c);
+                }
+            });
+        }
+
+        static reset(element) {
+            element = getElement(element);
+            const expandAll = element.getAttribute('data-bb-expand') === 'true';
+            const collapses = element.querySelectorAll('[data-bs-toggle="collapse"]');
+            collapses.forEach(element => {
+                const collapse = Utility.getTargetElement(element);
+                const c = bootstrap.Collapse.getInstance(collapse);
+                if (c !== null) {
+                    if (expandAll) {
+                        if (!c._isShown()) {
+                            c.show();
+                        }
+                    } else {
+                        this._dispose(collapse, c);
+                    }
+                } else {
+                    if (expandAll) {
+                        new bootstrap.Collapse(collapse, {
+                            toggle: true
+                        });
+                    }
+                }
+            });
+        }
+    }
+
     class Utility {
         static vibrate() {
             if ('vibrate' in window.navigator) {
@@ -839,6 +891,16 @@
                 const id = element.getAttribute('id');
                 if (id) {
                     return document.querySelector(`[${selector}="${id}"]`);
+                }
+            }
+            return null;
+        }
+
+        static getTargetElement(element, selector = 'data-bs-target') {
+            if (isElement$1(element)) {
+                const id = element.getAttribute(selector);
+                if (id) {
+                    return document.querySelector(id);
                 }
             }
             return null;
@@ -962,6 +1024,7 @@
         AutoRedirect,
         Carousel,
         Confirm,
+        Collapse,
         Dropdown,
         Popover,
         Tooltip,

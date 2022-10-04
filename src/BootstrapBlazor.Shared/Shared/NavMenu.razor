@@ -9,7 +9,7 @@
 
 <div class="@NavMenuCssClass">
     <div class="menu-accordion">
-        <Switch @bind-Value="@IsAccordion" ShowLabel="true" DisplayText="@AccordionText" />
+        <Switch @bind-Value="@IsAccordion" ShowLabel="true" DisplayText="@AccordionText" OnValueChanged="@OnValueChanged" />
         <div style="width:1rem;"></div>
         <Switch @bind-Value="@IsExpandAll" IsDisabled="@IsAccordion" ShowLabel="true" DisplayText="@ExpandAllText" />
     </div>
