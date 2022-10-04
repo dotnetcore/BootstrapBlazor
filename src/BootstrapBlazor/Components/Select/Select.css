@@ -3,6 +3,14 @@
     --bb-select-focus-shadow: none;
     --bb-select-bg: #fff;
     --bb-select-padding: 6px 2.25rem 6px 0.75rem;
+    --bb-select-append-width: 30px;
+    --bb-select-append-color: #c0c4cc;
+    --bb-select-search-padding: 7px 10px;
+    --bb-select-search-border-color: var(--bs-border-color);
+    --bb-select-search-padding-right: 30px;
+    --bb-select-search-icon-color: var(--bb-select-search-border-color);
+    --bb-select-search-icon-right: 18px;
+    --bb-select-search-icon-top: 18px;
 }
 
     .select .dropdown-menu {
@@ -91,17 +99,13 @@
     display: block;
 }
 
-.dropdown-menu[data-bs-popper="none"].show + .dropdown-menu-arrow {
-    margin-top: 2px;
-}
-
 .form-select-append {
     position: absolute;
     height: 100%;
-    width: 30px;
+    width: var(--bb-select-append-width);
     right: 0;
     top: 0;
-    color: #c0c4cc;
+    color: var(--bb-select-append-color);
     pointer-events: none;
     display: flex;
     align-items: center;
@@ -156,23 +160,26 @@
 }
 
 .dropdown-menu .search {
-    padding: 7px 10px;
+    padding: var(--bb-select-search-padding);
     position: relative;
-    border-bottom: 1px solid #ddd;
-    padding-bottom: 0.625rem;
-    margin-bottom: 0.5rem;
+    border-bottom: 1px solid var(--bb-select-search-border-color);
 }
 
-    .dropdown-menu .search .search-text {
-        width: 100%;
-        padding-right: 30px;
+    .dropdown-menu .search.is-fixed {
+        position: sticky;
+        top: calc(-1 * var(--bs-dropdown-padding-y));
+        background-color: var(--bs-dropdown-bg);
     }
 
-    .dropdown-menu .search .fa-magnifying-glass {
+    .dropdown-menu .search .search-text {
+        padding-right: var(--bb-select-search-padding-right);
+    }
+
+    .dropdown-menu .search .icon {
         position: absolute;
-        left: calc(100% - 34px);
-        top: 18px;
-        color: #adb5bd;
+        right: var(--bb-select-search-icon-right);
+        top: var(--bb-select-search-icon-top);
+        color: var(--bb-select-search-icon-color);
     }
 
 .select:not(.multi-select) .dropdown-toggle {

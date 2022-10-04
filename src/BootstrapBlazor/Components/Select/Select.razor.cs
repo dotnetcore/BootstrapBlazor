@@ -56,6 +56,14 @@ public partial class Select<TValue> : ISelect
         .AddClass("disabled", item.IsDisabled)
         .Build();
 
+    private string? SearchClassString => CssBuilder.Default("search")
+        .AddClass("is-fixed", IsFixedSearch)
+        .Build();
+
+    private string? SearchIconString => CssBuilder.Default("icon")
+        .AddClass(SearchIcon)
+        .Build();
+
     /// <summary>
     /// Razor 文件中 Options 模板子项
     /// </summary>
@@ -81,6 +89,12 @@ public partial class Select<TValue> : ISelect
     /// </summary>
     [Parameter]
     public bool AutoClearSearchText { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否固定下拉框中的搜索栏 默认 false
+    /// </summary>
+    [Parameter]
+    public bool IsFixedSearch { get; set; }
 
     /// <summary>
     /// 获得 PlaceHolder 属性

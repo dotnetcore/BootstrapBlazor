@@ -254,6 +254,24 @@ public class SelectTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void IsFixedSearch_Ok()
+    {
+        var cut = Context.RenderComponent<Select<string>>(pb =>
+        {
+            pb.Add(a => a.Items, new SelectedItem[]
+            {
+                new SelectedItem("1", "Test1"),
+                new SelectedItem("2", "Test2")
+            });
+            pb.Add(a => a.Value, "2");
+            pb.Add(a => a.ShowSearch, true);
+            pb.Add(a => a.IsFixedSearch, true);
+        });
+        Assert.Contains("search is-fixed", cut.Markup);
+        Assert.Contains("class=\"icon", cut.Markup);
+    }
+
+    [Fact]
     public void DropdownIcon_Ok()
     {
         var cut = Context.RenderComponent<Select<string>>(pb =>
