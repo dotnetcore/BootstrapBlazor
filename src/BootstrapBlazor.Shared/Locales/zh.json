@@ -3052,7 +3052,8 @@
   },
   "BootstrapBlazor.Shared.Components.DemoBlock": {
     "Title": "未设置",
-    "SubTitle": "示例"
+    "SubTitle": "示例",
+    "TooltipText": "已拷贝到剪贴板"
   },
   "BootstrapBlazor.Shared.Components.Tips": {
     "Title": "小提示"
@@ -3178,7 +3179,11 @@
     "P6": "锚点链接组件属性",
     "P7": "为必填项，不填写时不提供拷贝锚点链接功能",
     "P8": "组件锚点图标可通过",
-    "P9": "参数进行自定义默认为"
+    "P9": "参数进行自定义默认为",
+    "AttrId": "Id",
+    "AttrIcon": "图标",
+    "AttrText": "文本",
+    "AttrTooltipText": "提示栏文本"
   },
   "BootstrapBlazor.Shared.Samples.QRCodes": {
     "Title": "QRCode 二维码",

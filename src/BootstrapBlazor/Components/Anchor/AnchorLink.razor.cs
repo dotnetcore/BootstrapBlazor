@@ -39,24 +39,7 @@ public partial class AnchorLink
         .AddClass(Icon)
         .Build();
 
-    /// <summary>
-    /// 
-    /// </summary>
-    [Inject]
-    [NotNull]
-    private IStringLocalizer<AnchorLink>? Localizer { get; set; }
-
     private string? ClassString => CssBuilder.Default("anchor-link")
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
-
-    /// <summary>
-    /// OnInitialized 方法
-    /// </summary>
-    protected override void OnInitialized()
-    {
-        base.OnInitialized();
-
-        TooltipText ??= Localizer[nameof(TooltipText)];
-    }
 }

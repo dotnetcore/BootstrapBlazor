@@ -16,38 +16,38 @@ public partial class AnchorLinks
 {
     [Inject]
     [NotNull]
-    private IStringLocalizer<AnchorLink>? Localizer { get; set; }
+    private IStringLocalizer<AnchorLinks>? Localizer { get; set; }
 
     private IEnumerable<AttributeItem> GetAttributes() => new[]
     {
         // TODO: 移动到数据库中
         new AttributeItem() {
-            Name = "Id",
-            Description = "Component Id",
+            Name = nameof(AnchorLink.Id),
+            Description = Localizer[$"Attr{nameof(AnchorLink.Id)}"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
         },
         new AttributeItem() {
             Name = nameof(AnchorLink.Icon),
-            Description = "Component Icon",
+            Description = Localizer[$"Attr{nameof(AnchorLink.Icon)}"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = "fa-solid fa-link"
         },
         new AttributeItem() {
-            Name = "Text",
-            Description = "Component display text",
+            Name = nameof(AnchorLink.Text),
+            Description = Localizer[$"Attr{nameof(AnchorLink.Text)}"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
         },
         new AttributeItem() {
-            Name = "TooltipText",
-            Description = "Tooltip Text",
+            Name = nameof(AnchorLink.TooltipText),
+            Description = Localizer[$"Attr{nameof(AnchorLink.TooltipText)}"],
             Type = "string",
             ValueList = " — ",
-            DefaultValue = Localizer[nameof(AnchorLink.TooltipText)]
+            DefaultValue = " — "
         }
     };
 }
