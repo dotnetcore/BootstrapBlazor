@@ -1,7 +1,4 @@
 ﻿{
-  "BootstrapBlazor.Components.AnchorLink": {
-    "TooltipText": "Kopiert"
-  },
   "BootstrapBlazor.Components.AutoComplete": {
     "NoDataTip": "Keine Daten",
     "PlaceHolder": "Bitte eingeben"

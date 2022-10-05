@@ -47,6 +47,12 @@ public sealed partial class DemoBlock
     [Parameter]
     public bool ShowCode { get; set; } = true;
 
+    /// <summary>
+    /// 获得/设置 Tooltip 提示信息文本
+    /// </summary>
+    [Parameter]
+    public string? TooltipText { get; set; }
+
     [NotNull]
     private string? SubTitle { get; set; }
 
@@ -63,14 +69,15 @@ public sealed partial class DemoBlock
     private string BlockTitle => Name ?? Title;
 
     /// <summary>
-    /// OnInitialized 方法
+    /// <inheritdoc/>
     /// </summary>
-    protected override void OnInitialized()
+    protected override void OnParametersSet()
     {
-        base.OnInitialized();
+        base.OnParametersSet();
 
         Title ??= Localizer[nameof(Title)];
         SubTitle ??= Localizer[nameof(SubTitle)];
+        TooltipText ??= Localizer[nameof(TooltipText)];
     }
 
     /// <summary>

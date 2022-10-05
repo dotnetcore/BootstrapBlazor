@@ -3055,7 +3055,8 @@
   },
   "BootstrapBlazor.Shared.Components.DemoBlock": {
     "Title": "",
-    "SubTitle": "Demo"
+    "SubTitle": "Demo",
+    "TooltipText": "Copied"
   },
   "BootstrapBlazor.Shared.Components.Tips": {
     "Title": "Tips"
@@ -3180,7 +3181,11 @@
     "P6": "Anchor Link Component Properties",
     "P7": "It is a required item, and the function of copying the anchor link will not be provided if it is not filled in",
     "P8": "Component anchor icons are available via",
-    "P9": "The parameter is customized and the default is"
+    "P9": "The parameter is customized and the default is",
+    "AttrId": "Id",
+    "AttrIcon": "Icon",
+    "AttrText": "Display text",
+    "AttrTooltipText": "Tooltip text"
   },
   "BootstrapBlazor.Shared.Samples.QRCodes": {
     "Title": "QRCode",
