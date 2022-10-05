@@ -79,7 +79,7 @@ public partial class PopConfirmButton
                 OnConfirm = Confirm,
                 OnClose = OnClose,
                 CustomClass = CustomClass,
-                Callback = async () => await JSRuntime.InvokeVoidAsync(identifier: "bb.Confirm.init", $"#{Id}")
+                Callback = async () => await JSRuntime.InvokeVoidByIdAsync(identifier: "bb.Confirm.init", Id)
             });
         }
     }
@@ -114,7 +114,7 @@ public partial class PopConfirmButton
     {
         if (ButtonType == ButtonType.Submit)
         {
-            await JSRuntime.InvokeVoidAsync(identifier: "bb.Confirm.submit", $"#{Id}");
+            await JSRuntime.InvokeVoidByIdAsync(identifier: "bb.Confirm.submit", Id);
         }
     }
 }

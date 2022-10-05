@@ -33,7 +33,7 @@ public class Popover : Tooltip
     {
         if (!string.IsNullOrEmpty(Content))
         {
-            await JSRuntime.InvokeVoidAsync(identifier: "bb.Popover.init", $"#{Id}", Title, Content);
+            await JSRuntime.InvokeVoidByIdAsync(identifier: "bb.Popover.init", Id, Title, Content);
         }
     }
 }

@@ -462,7 +462,7 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
         var id = RetrieveId();
         if (!string.IsNullOrEmpty(id) && !string.IsNullOrEmpty(ErrorMessage))
         {
-            await JSRuntime.InvokeVoidAsync(identifier: "bb.Tooltip.init", $"#{id}", ErrorMessage);
+            await JSRuntime.InvokeVoidByIdAsync(identifier: "bb.Tooltip.init", Id, ErrorMessage);
         }
     }
 
@@ -475,7 +475,7 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
         var id = RetrieveId();
         if (!string.IsNullOrEmpty(id))
         {
-            await JSRuntime.InvokeVoidAsync(identifier: "bb.Tooltip.dispose", $"#{id}");
+            await JSRuntime.InvokeVoidByIdAsync(identifier: "bb.Tooltip.dispose", id);
         }
     }
 

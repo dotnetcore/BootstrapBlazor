@@ -135,7 +135,7 @@ public partial class Carousel : IAsyncDisposable
 
         if (firstRender)
         {
-            await JSRuntime.InvokeVoidAsync(identifier: "bb.Carousel.init", $"#{Id}");
+            await JSRuntime.InvokeVoidByIdAsync(identifier: "bb.Carousel.init", Id);
         }
     }
 
@@ -171,7 +171,7 @@ public partial class Carousel : IAsyncDisposable
     {
         if (disposing)
         {
-            await JSRuntime.InvokeVoidAsync(identifier: "bb.Carousel.dispose", $"#{Id}");
+            await JSRuntime.InvokeVoidByIdAsync(identifier: "bb.Carousel.dispose", Id);
         }
     }
 

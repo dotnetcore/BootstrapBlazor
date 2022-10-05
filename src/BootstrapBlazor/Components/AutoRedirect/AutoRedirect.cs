@@ -83,7 +83,8 @@ public class AutoRedirect : BootstrapComponentBase, IAsyncDisposable
         {
             if (Interop != null)
             {
-                await JSRuntime.InvokeVoidAsync(identifier: "bb.AutoRedirect.dispose");
+                // UNDONE: 应该与 ID 关联进行销毁操作
+                await JSRuntime.InvokeVoidByIdAsync(identifier: "bb.AutoRedirect.dispose");
                 Interop.Dispose();
                 Interop = null;
             }

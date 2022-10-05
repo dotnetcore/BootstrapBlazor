@@ -140,7 +140,7 @@ public partial class Menu : IAsyncDisposable
         }
         else
         {
-            await JSRuntime.InvokeVoidAsync(identifier: "bb.Collapse.reset", $"#{Id}");
+            await JSRuntime.InvokeVoidByIdAsync(identifier: "bb.Collapse.reset", Id);
         }
     }
 
@@ -238,7 +238,7 @@ public partial class Menu : IAsyncDisposable
     {
         if (disposing)
         {
-            await JSRuntime.InvokeVoidAsync(identifier: "bb.Collapse.dispose", $"#{Id}");
+            await JSRuntime.InvokeVoidByIdAsync(identifier: "bb.Collapse.dispose", Id);
         }
     }
 

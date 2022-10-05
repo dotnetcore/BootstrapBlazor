@@ -29,7 +29,7 @@ public class Clipboard : BootstrapComponentBase, IDisposable
 
     private async Task Copy(ClipboardOption option)
     {
-        await JSRuntime.InvokeVoidAsync(identifier: "bb.Utility.copy", option.Text);
+        await JSRuntime.InvokeVoidByIdAsync(identifier: "bb.Utility.copy", null, option.Text);
         if (option.Callback != null)
         {
             await option.Callback();

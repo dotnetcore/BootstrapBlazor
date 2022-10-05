@@ -237,7 +237,7 @@ public sealed partial class DateTimePicker<TValue>
         }
         if (AutoClose)
         {
-            await JSRuntime.InvokeVoidAsync(identifier: "bb.Dropdown.invoke", $"#{Id}", "hide");
+            await JSRuntime.InvokeVoidByIdAsync(identifier: "bb.Dropdown.invoke", Id, "hide");
         }
     }
 }

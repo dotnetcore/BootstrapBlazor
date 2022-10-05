@@ -138,7 +138,7 @@ public partial class Timer : IDisposable
         if (Vibrate)
         {
             Vibrate = false;
-            await JSRuntime.InvokeVoidAsync(identifier: "bb.Utility.vibrate");
+            await JSRuntime.InvokeVoidByIdAsync(identifier: "bb.Utility.vibrate");
         }
     }
 

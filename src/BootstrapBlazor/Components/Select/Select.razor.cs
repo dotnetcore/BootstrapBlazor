@@ -260,7 +260,7 @@ public partial class Select<TValue> : ISelect
         {
             if (IsPopover)
             {
-                await JSRuntime.InvokeVoidAsync(identifier: "bb.Dropdown.invoke", SelectElement, "hide");
+                await JSRuntime.InvokeVoidByIdAsync(identifier: "bb.Dropdown.invoke", Id, "hide");
             }
             await ItemChanged(item);
         }

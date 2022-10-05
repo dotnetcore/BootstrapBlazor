@@ -248,7 +248,7 @@ public partial class DateTimeRange
 
         if (AutoCloseClickSideBar)
         {
-            await JSRuntime.InvokeVoidAsync(identifier: "bb.Dropdown.invoke", $"#{Id}", "hide");
+            await JSRuntime.InvokeVoidByIdAsync(identifier: "bb.Dropdown.invoke", Id, "hide");
         }
     }
 
