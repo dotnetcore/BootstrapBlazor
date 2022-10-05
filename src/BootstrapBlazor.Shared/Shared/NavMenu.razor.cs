@@ -15,8 +15,6 @@ namespace BootstrapBlazor.Shared.Shared;
 /// </summary>
 public sealed partial class NavMenu
 {
-    private bool collapseNavMenu = true;
-
     private bool IsAccordion { get; set; }
 
     private bool IsExpandAll { get; set; }
@@ -39,18 +37,14 @@ public sealed partial class NavMenu
     [NotNull]
     private IStringLocalizer<NavMenu>? Localizer { get; set; }
 
-    private string? NavMenuCssClass => CssBuilder.Default("sidebar-content")
-        .AddClass("collapse", collapseNavMenu)
-        .Build();
-
     private List<MenuItem> Menus { get; set; } = new List<MenuItem>(100);
 
     /// <summary>
     /// OnInitialized 方法
     /// </summary>
-    protected override void OnInitialized()
+    protected override void OnParametersSet()
     {
-        base.OnInitialized();
+        base.OnParametersSet();
 
         InitMenus();
 
@@ -69,21 +63,10 @@ public sealed partial class NavMenu
 
     private async Task OnClickMenu(MenuItem item)
     {
-        if (!item.Items.Any())
-        {
-            ToggleNavMenu();
-            StateHasChanged();
-        }
-
         if (!item.Items.Any() && !string.IsNullOrEmpty(item.Text))
         {
             await TitleService.SetTitle($"{item.Text} - {AppLocalizer["Title"]}");
         }
-    }
-
-    private void ToggleNavMenu()
-    {
-        collapseNavMenu = !collapseNavMenu;
     }
 
     private void InitMenus()

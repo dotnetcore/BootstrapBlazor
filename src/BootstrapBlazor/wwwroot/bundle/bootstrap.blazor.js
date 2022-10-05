@@ -1365,7 +1365,7 @@
         }
     }
 
-    class Collapse extends BaseComponent {
+    class Menu extends BaseComponent {
         static _dispose(collapse, element) {
             if (element._isShown()) {
                 element.hide();
@@ -1389,6 +1389,31 @@
                     this._dispose(collapse, c);
                 }
             });
+        }
+
+        static init(element) {
+            element = getElement(element);
+            if (element) {
+                let activeLink = element.querySelector('.nav-link.active');
+                if (activeLink === null) {
+                    const url = window.location.pathname.substring(1);
+                    activeLink = element.querySelector(`[href="${url}"]`);
+                    if (activeLink != null) {
+                        activeLink.classList.add('active');
+                    }
+                }
+                while (activeLink !== null) {
+                    const menu = activeLink.closest('.collapse.submenu');
+                    if (menu !== null && !menu.classList.contains('show')) {
+                        const id = menu.getAttribute('id');
+                        const triggerElement = element.querySelector(`[data-bs-toggle="collapse"][data-bs-target="#${id}"]`);
+                        if (triggerElement !== null) {
+                            triggerElement.click();
+                        }
+                    }
+                    activeLink = menu;
+                }
+            }
         }
 
         static reset(element) {
@@ -1614,8 +1639,8 @@
         AutoRedirect,
         Carousel,
         Confirm,
-        Collapse,
         Dropdown,
+        Menu,
         Popover,
         Tooltip,
         Utility

@@ -2,12 +2,12 @@
 
 <div class="navbar navbar-dark d-flex d-md-none px-3">
     <a class="navbar-brand" href="">Bootstrap Blazor</a>
-    <button class="navbar-toggler" @onclick="ToggleNavMenu">
+    <button class="navbar-toggler">
         <span class="navbar-toggler-icon"></span>
     </button>
 </div>
 
-<div class="@NavMenuCssClass">
+<div class="sidebar-content collapse d-md-block">
     <div class="menu-accordion">
         <Switch @bind-Value="@IsAccordion" ShowLabel="true" DisplayText="@AccordionText" OnValueChanged="@OnValueChanged" />
         <div style="width:1rem;"></div>

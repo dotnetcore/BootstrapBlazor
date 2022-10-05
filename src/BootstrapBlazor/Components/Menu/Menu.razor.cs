@@ -101,7 +101,22 @@ public partial class Menu : IAsyncDisposable
     [NotNull]
     private TabItemTextOptions? Options { get; set; }
 
-    private bool IsRendered { get; set; }
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        Items ??= Enumerable.Empty<MenuItem>();
+        InitMenus(null, Items, Navigator.ToBaseRelativePath(Navigator.Uri));
+        if (!DisableNavigation)
+        {
+            Options.Text = ActiveMenu?.Text;
+            Options.Icon = ActiveMenu?.Icon;
+            Options.IsActive = true;
+        }
+    }
 
     /// <summary>
     /// OnParametersSet 方法
@@ -111,18 +126,6 @@ public partial class Menu : IAsyncDisposable
         base.OnParametersSet();
 
         Items ??= Enumerable.Empty<MenuItem>();
-
-        // 参数变化时重新整理菜单
-        if (IsRendered)
-        {
-            InitMenus(null, Items, Navigator.ToBaseRelativePath(Navigator.Uri));
-            if (!DisableNavigation)
-            {
-                Options.Text = ActiveMenu?.Text;
-                Options.Icon = ActiveMenu?.Icon;
-                Options.IsActive = true;
-            }
-        }
     }
 
     /// <summary>
@@ -136,11 +139,11 @@ public partial class Menu : IAsyncDisposable
 
         if (firstRender)
         {
-            IsRendered = true;
+            await JSRuntime.InvokeVoidByIdAsync(identifier: "bb.Menu.init", Id);
         }
         else
         {
-            await JSRuntime.InvokeVoidByIdAsync(identifier: "bb.Collapse.reset", Id);
+            await JSRuntime.InvokeVoidByIdAsync(identifier: "bb.Menu.reset", Id);
         }
     }
 
@@ -238,7 +241,7 @@ public partial class Menu : IAsyncDisposable
     {
         if (disposing)
         {
-            await JSRuntime.InvokeVoidByIdAsync(identifier: "bb.Collapse.dispose", Id);
+            await JSRuntime.InvokeVoidByIdAsync(identifier: "bb.Menu.dispose", Id);
         }
     }
 

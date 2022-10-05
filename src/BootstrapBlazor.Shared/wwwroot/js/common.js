@@ -11,7 +11,7 @@
     $.extend({
         _showToast: function () {
             var $toast = $('.row .toast').toast('show');
-            $toast.find('.toast-progress').css({ "width": "100%" });
+            $toast.find('.toast-progress').css({"width": "100%"});
         },
         highlight: function (el) {
             var $el = $(el);
@@ -69,8 +69,7 @@
                                 var t1 = plant.pop();
                                 $this.text(plant.join(''));
                             }
-                        }
-                        else {
+                        } else {
                             window.clearInterval(eventHandler);
                             $cursor.removeClass('active');
 
@@ -187,7 +186,7 @@
             if (method === 'dispose') {
                 $('#log').popover(method);
             } else {
-                $('#log').popover({ delay: { 'show': 1000 } }).one('click', function () {
+                $('#log').popover({delay: {'show': 1000}}).one('click', function () {
                     $(this).popover('toggle');
                 }).trigger('click');
             }
@@ -242,7 +241,7 @@
             }
         },
         bb_topology_demo_setOptions: function () {
-            window.topology.setOptions({ hoverColor: '', hoverCursor: '', activeColor: '' });
+            window.topology.setOptions({hoverColor: '', hoverCursor: '', activeColor: ''});
         }
     });
 
@@ -292,8 +291,7 @@
             var currentScrollTop = $(document).scrollTop();
             if (currentScrollTop > prevScrollTop) {
                 $header.addClass('hide');
-            }
-            else {
+            } else {
                 $header.removeClass('hide');
             }
             prevScrollTop = currentScrollTop;
@@ -324,3 +322,32 @@
         });
     });
 })(jQuery);
+
+(function () {
+    document.addEventListener('click', () => {
+        // handler toggle button
+        const toggle = document.querySelector('.navbar-toggler');
+        const menu = document.querySelector('.sidebar-content');
+        for (let {
+            target
+        } = event; target && target !== this; target = target.parentNode) {
+            if (toggle !== target) {
+                continue;
+            }
+
+            menu.classList.toggle('show');
+        }
+
+        // handler menu nav-link
+        let link = event.target;
+        if (!link.classList.contains('nav-link')) {
+            link = link.closest('.nav-link');
+        }
+        if (link != null) {
+            const url = link.getAttribute('href');
+            if (url !== '#') {
+                menu.classList.remove('show');
+            }
+        }
+    })
+})();
