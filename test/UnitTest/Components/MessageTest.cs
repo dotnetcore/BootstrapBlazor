@@ -62,4 +62,15 @@ public class MessageTest : MessageTestBase
         await cut.InvokeAsync(() => cut.Instance.SetPlacement(Placement.Top));
         Assert.Equal(Placement.Top, cut.Instance.Placement);
     }
+
+    [Fact]
+    public void AutoHide_Ok()
+    {
+        var cut = Context.RenderComponent<MessageItem>(pb =>
+        {
+            pb.Add(a => a.IsAutoHide, false);
+        });
+
+        cut.DoesNotContain("data-autohide");
+    }
 }

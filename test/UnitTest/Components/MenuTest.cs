@@ -223,13 +223,21 @@ public class MenuTest : BootstrapBlazorTestBase
             pb.Add(m => m.Items, Items);
             pb.Add(m => m.IsExpandAll, true);
         });
-        Assert.DoesNotContain("expaned", cut.Markup);
+        Assert.DoesNotContain("data-bb-expand", cut.Markup);
 
         cut.SetParametersAndRender(pb =>
         {
             pb.Add(m => m.IsVertical, true);
+            pb.Add(m => m.IsExpandAll, false);
         });
-        Assert.Contains("expaned", cut.Markup);
+        Assert.DoesNotContain("data-bb-expand", cut.Markup);
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(m => m.IsVertical, true);
+            pb.Add(m => m.IsExpandAll, true);
+        });
+        Assert.Contains("data-bb-expand=\"true\"", cut.Markup);
     }
 
     [Fact]

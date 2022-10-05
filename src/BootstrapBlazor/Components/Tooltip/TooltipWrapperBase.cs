@@ -12,7 +12,12 @@ public abstract class TooltipWrapperBase : IdComponentBase
     /// <summary>
     /// Tooltip 弹窗位置字符串
     /// </summary>
-    protected string? PlacementString => TooltipPlacement == Placement.Auto ? null : TooltipPlacement.ToDescriptionString();
+    protected string? PlacementString => (!string.IsNullOrEmpty(TooltipText) && TooltipPlacement != Placement.Auto) ? TooltipPlacement.ToDescriptionString() : null;
+
+    /// <summary>
+    /// Tooltip Trigger 字符串
+    /// </summary>
+    protected string? TriggerString => TooltipTrigger == "hover focus" ? null : TooltipTrigger;
 
     /// <summary>
     /// the instance of Tooltip component

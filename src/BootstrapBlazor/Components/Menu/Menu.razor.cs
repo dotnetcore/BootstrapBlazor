@@ -7,10 +7,8 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// Menu 组件基类
 /// </summary>
-public partial class Menu
+public partial class Menu : IAsyncDisposable
 {
-    private ElementReference MenuElemenet { get; set; }
-
     /// <summary>
     /// 获得 组件样式
     /// </summary>
@@ -18,82 +16,42 @@ public partial class Menu
         .AddClass("is-bottom", IsBottom)
         .AddClass("is-vertical", IsVertical)
         .AddClass("is-collapsed", IsVertical && IsCollapsed)
-        .AddClass("accordion", IsVertical && IsAccordion)
-        .AddClass("expaned", IsVertical && IsExpandAll)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
+
+    private string? SideMenuClassString => CssBuilder.Default()
+        .AddClass("accordion", IsAccordion)
+        .Build();
+
+    private string? ExpandString => (IsVertical && IsExpandAll) ? "true" : null;
+
+    private string SideMenuId => $"{Id}_sub";
 
     /// <summary>
     /// 用于提高性能存储当前 active 状态的菜单
     /// </summary>
     private MenuItem? ActiveMenu { get; set; }
 
-    private IEnumerable<MenuItem>? _items;
-    /// <summary>
-    /// 菜单是否初始化
-    /// </summary>
-    private bool _init;
-    /// <summary>
-    /// 是否需要调用 JS
-    /// </summary>
-    private bool _invokeJs;
     /// <summary>
     /// 获得/设置 菜单数据集合
     /// </summary>
     [Parameter]
     [NotNull]
-    public IEnumerable<MenuItem>? Items
-    {
-        get => _items ?? Enumerable.Empty<MenuItem>();
-        set
-        {
-            if (_items != value)
-            {
-                _items = value;
-                _init = false;
-                _invokeJs = true;
-            }
-        }
-    }
+    public IEnumerable<MenuItem>? Items { get; set; }
 
-    private bool _accordion;
     /// <summary>
     /// 获得/设置 是否为手风琴效果 默认为 false
     /// </summary>
     /// <remarks>启用此功能时 <see cref="IsExpandAll" /> 参数不生效</remarks>
     [Parameter]
-    public bool IsAccordion
-    {
-        get => _accordion;
-        set
-        {
-            if (_accordion != value)
-            {
-                _accordion = value;
-                _invokeJs = true;
-            }
-        }
-    }
+    public bool IsAccordion { get; set; }
 
-    private bool _expand;
-    private bool _invokeExpandJs;
     /// <summary>
     /// 获得/设置 是否全部展开 默认为 false
     /// </summary>
     /// <remarks>手风琴效果 <see cref="IsAccordion" /> 时此参数不生效</remarks>
     [Parameter]
-    public bool IsExpandAll
-    {
-        get => _expand;
-        set
-        {
-            if (_expand != value)
-            {
-                _expand = value;
-                _invokeExpandJs = true;
-            }
-        }
-    }
+    public bool IsExpandAll { get; set; }
 
     /// <summary>
     /// 获得/设置 侧栏是否收起 默认 false 未收起
@@ -143,6 +101,8 @@ public partial class Menu
     [NotNull]
     private TabItemTextOptions? Options { get; set; }
 
+    private bool IsRendered { get; set; }
+
     /// <summary>
     /// OnParametersSet 方法
     /// </summary>
@@ -150,8 +110,10 @@ public partial class Menu
     {
         base.OnParametersSet();
 
+        Items ??= Enumerable.Empty<MenuItem>();
+
         // 参数变化时重新整理菜单
-        if (!_init && Items.Any())
+        if (IsRendered)
         {
             InitMenus(null, Items, Navigator.ToBaseRelativePath(Navigator.Uri));
             if (!DisableNavigation)
@@ -160,12 +122,11 @@ public partial class Menu
                 Options.Icon = ActiveMenu?.Icon;
                 Options.IsActive = true;
             }
-            _init = true;
         }
     }
 
     /// <summary>
-    /// OnAfterRenderAsync 方法
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="firstRender"></param>
     /// <returns></returns>
@@ -173,18 +134,13 @@ public partial class Menu
     {
         await base.OnAfterRenderAsync(firstRender);
 
-        if (IsVertical)
+        if (firstRender)
         {
-            if (_invokeJs)
-            {
-                _invokeJs = false;
-                await JSRuntime.InvokeVoidAsync(MenuElemenet, "bb_side_menu");
-            }
-            if (_invokeExpandJs)
-            {
-                _invokeExpandJs = false;
-                await JSRuntime.InvokeVoidAsync(MenuElemenet, "bb_side_menu_expand", IsExpandAll);
-            }
+            IsRendered = true;
+        }
+        else
+        {
+            await JSRuntime.InvokeVoidAsync(identifier: "bb.Collapse.reset", $"#{Id}");
         }
     }
 
@@ -271,5 +227,29 @@ public partial class Menu
                 StateHasChanged();
             }
         }
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="disposing"></param>
+    /// <returns></returns>
+    protected virtual async ValueTask DisposeAsync(bool disposing)
+    {
+        if (disposing)
+        {
+            await JSRuntime.InvokeVoidAsync(identifier: "bb.Collapse.dispose", $"#{Id}");
+        }
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    /// <exception cref="NotImplementedException"></exception>
+    public async ValueTask DisposeAsync()
+    {
+        await DisposeAsync(true);
+        GC.SuppressFinalize(this);
     }
 }

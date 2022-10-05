@@ -29,15 +29,8 @@ public sealed partial class Navs
                 builder.AddContent(0, "BootstrapAdmin");
             })
         };
-        // TODO: NET6.0 移除 ! 断言
-        try
-        {
-            link.SetParametersAsync(ParameterView.FromDictionary(parameters!));
-            ret.Add(link);
-        }
-        catch (Exception EX)
-        {
-        }
+        link.SetParametersAsync(ParameterView.FromDictionary(parameters));
+        ret.Add(link);
         return ret;
     }
 

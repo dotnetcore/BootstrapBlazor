@@ -5,12 +5,10 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// Collapse 组件
 /// </summary>
 public partial class Collapse
 {
-    private ElementReference CollapseElement { get; set; }
-
     private static string? GetButtonClassString(CollapseItem item) => CssBuilder.Default("accordion-button")
         .AddClass("collapsed", item.IsCollapsed)
         .Build();
@@ -28,12 +26,16 @@ public partial class Collapse
         .AddClass(item.Class, !string.IsNullOrEmpty(item.Class))
         .Build();
 
-    private readonly List<CollapseItem> _items = new();
+    private string GetTargetId(CollapseItem item) => ComponentIdGenerator.Generate(item);
+
+    private string? GetTargetIdString(CollapseItem item) => $"#{GetTargetId(item)}";
+
+    private string? ParentIdString => IsAccordion ? $"#{Id}" : null;
 
     /// <summary>
     /// 获得/设置 CollapseItem 集合
     /// </summary>
-    protected IEnumerable<CollapseItem> Items => _items;
+    protected List<CollapseItem> Children { get; } = new(10);
 
     /// <summary>
     /// 获得/设置 是否为手风琴效果 默认为 false
@@ -66,25 +68,11 @@ public partial class Collapse
     /// 添加 CollapseItem 方法 由 CollapseItem 方法加载时调用
     /// </summary>
     /// <param name="item">TabItemBase 实例</param>
-    internal void AddItem(CollapseItem item) => _items.Add(item);
+    internal void AddItem(CollapseItem item) => Children.Add(item);
 
     /// <summary>
     /// 移除 CollapseItem 方法 由 CollapseItem 方法 Dispose 时调用
     /// </summary>
     /// <param name="item">TabItemBase 实例</param>
-    internal void RemoveItem(CollapseItem item) => _items.Remove(item);
-
-    /// <summary>
-    /// OnAfterRender 方法
-    /// </summary>
-    /// <param name="firstRender"></param>
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        await base.OnAfterRenderAsync(firstRender);
-
-        if (firstRender)
-        {
-            await JSRuntime.InvokeVoidAsync(CollapseElement, "bb_collapse");
-        }
-    }
+    internal void RemoveItem(CollapseItem item) => Children.Remove(item);
 }

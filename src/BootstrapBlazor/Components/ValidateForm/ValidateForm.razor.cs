@@ -242,23 +242,16 @@ public partial class ValidateForm : IAsyncDisposable
                     var pi = key.ModelType.GetPropertyByName(key.FieldName);
                     if (pi != null)
                     {
-                        try
+                        var propertyValidateContext = new ValidationContext(fieldIdentifier.Model, context, null)
                         {
-                            var propertyValidateContext = new ValidationContext(fieldIdentifier.Model, context, null)
-                            {
-                                MemberName = fieldIdentifier.FieldName,
-                                DisplayName = fieldIdentifier.GetDisplayName()
-                            };
+                            MemberName = fieldIdentifier.FieldName,
+                            DisplayName = fieldIdentifier.GetDisplayName()
+                        };
 
-                            // 设置其关联属性字段
-                            var propertyValue = Utility.GetPropertyValue(fieldIdentifier.Model, fieldIdentifier.FieldName);
+                        // 设置其关联属性字段
+                        var propertyValue = Utility.GetPropertyValue(fieldIdentifier.Model, fieldIdentifier.FieldName);
 
-                            await ValidateAsync(validator, propertyValidateContext, messages, pi, propertyValue);
-                        }
-                        catch (Exception ex)
-                        {
-                            System.Console.WriteLine(ex.Message);
-                        }
+                        await ValidateAsync(validator, propertyValidateContext, messages, pi, propertyValue);
                     }
                     // 客户端提示
                     validator.ToggleMessage(messages, false);

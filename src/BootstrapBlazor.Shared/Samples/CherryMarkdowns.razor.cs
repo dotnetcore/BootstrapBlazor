@@ -5,6 +5,7 @@
 using BootstrapBlazor.Components;
 using BootstrapBlazor.Shared.Common;
 using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Options;
 
 namespace BootstrapBlazor.Shared.Samples;
@@ -14,6 +15,10 @@ namespace BootstrapBlazor.Shared.Samples;
 /// </summary>
 public partial class CherryMarkdowns
 {
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<CherryMarkdowns>? Localizer { get; set; }
+
     private string? MarkdownString { get; set; }
 
     private string? HtmlString { get; set; }

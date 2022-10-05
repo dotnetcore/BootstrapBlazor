@@ -27,6 +27,9 @@ public partial class LinkButton
     [Parameter]
     public string? ImageUrl { get; set; }
 
+    /// <summary>
+    /// The css class of img element defualt value null
+    /// </summary>
     [Parameter]
     public string? ImageCss { get; set; }
 

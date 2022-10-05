@@ -15,11 +15,18 @@ public partial class SideMenu
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
+    private string? ParentIdString => Parent.IsAccordion ? $"#{Id}" : null;
+
+    private string? GetTargetIdString(MenuItem item) => $"#{GetTargetId(item)}";
+
+    private string GetTargetId(MenuItem item) => ComponentIdGenerator.Generate(item);
+
     /// <summary>
     /// 获得/设置 菜单数据集合
     /// </summary>
     [Parameter]
-    public IEnumerable<MenuItem> Items { get; set; } = Array.Empty<MenuItem>();
+    [NotNull]
+    public IEnumerable<MenuItem>? Items { get; set; }
 
     /// <summary>
     /// 获得/设置 菜单项点击回调委托
@@ -29,6 +36,7 @@ public partial class SideMenu
     public Func<MenuItem, Task>? OnClick { get; set; }
 
     [CascadingParameter]
+    [NotNull]
     private Menu? Parent { get; set; }
 
     [Inject]
@@ -36,21 +44,27 @@ public partial class SideMenu
     private IStringLocalizer<Menu>? Localizer { get; set; }
 
     /// <summary>
-    /// SetParametersAsync 方法
+    /// <inheritdoc/>
     /// </summary>
-    /// <param name="parameters"></param>
-    /// <returns></returns>
-    public override Task SetParametersAsync(ParameterView parameters)
+    /// <exception cref="InvalidOperationException"></exception>
+    protected override void OnInitialized()
     {
-        parameters.SetParameterProperties(this);
+        base.OnInitialized();
 
         if (Parent == null)
         {
             throw new InvalidOperationException(Localizer["InvalidOperationExceptionMessage"]);
         }
+    }
 
-        // For derived components, retain the usual lifecycle with OnInit/OnParametersSet/etc.
-        return base.SetParametersAsync(ParameterView.Empty);
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
+        Items ??= Enumerable.Empty<MenuItem>();
     }
 
     private async Task OnClickItem(MenuItem item)

@@ -118,4 +118,25 @@ public class LinkButtonTest : BootstrapBlazorTestBase
         });
         cut.Contains("button");
     }
+
+    [Fact]
+    public void ImageCss_Ok()
+    {
+        var cut = Context.RenderComponent<LinkButton>(pb =>
+        {
+            pb.Add(a => a.ImageUrl, "test-img");
+            pb.Add(a => a.ImageCss, "image-css");
+        });
+        cut.Contains("image-css");
+    }
+
+    [Fact]
+    public void Target_Ok()
+    {
+        var cut = Context.RenderComponent<LinkButton>(pb =>
+        {
+            pb.Add(a => a.Target, "_blank");
+        });
+        cut.Contains("target=\"_blank\"");
+    }
 }
