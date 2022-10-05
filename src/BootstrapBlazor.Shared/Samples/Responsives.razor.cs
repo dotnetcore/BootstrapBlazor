@@ -8,7 +8,7 @@ using BootstrapBlazor.Shared.Common;
 namespace BootstrapBlazor.Shared.Samples;
 
 /// <summary>
-/// Responsives 示例类
+/// Responsives
 /// </summary>
 public partial class Responsives
 {
@@ -26,7 +26,7 @@ public partial class Responsives
         new AttributeItem()
         {
             Name = nameof(Responsive.OnBreakPointChanged),
-            Description = "断点阀值改变时回调方法",
+            Description = "Callback method when breakpoint threshold changes",
             Type = "Func<BreakPoint, Task<bool>>",
             ValueList = " — ",
             DefaultValue = " — "

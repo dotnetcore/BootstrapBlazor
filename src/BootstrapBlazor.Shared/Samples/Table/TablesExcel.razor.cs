@@ -17,7 +17,11 @@ partial class TablesExcel
 {
     [Inject]
     [NotNull]
-    private IStringLocalizer<Foo>? Localizer { get; set; }
+    private IStringLocalizer<Foo>? LocalizerFoo { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<TablesExcel>? Localizer { get; set; }
 
     [NotNull]
     private BlockLogger? Trace { get; set; }
@@ -29,7 +33,7 @@ partial class TablesExcel
     {
         base.OnInitialized();
 
-        Items = Foo.GenerateFoo(Localizer);
+        Items = Foo.GenerateFoo(LocalizerFoo);
     }
 
     // 绑定数据源代码

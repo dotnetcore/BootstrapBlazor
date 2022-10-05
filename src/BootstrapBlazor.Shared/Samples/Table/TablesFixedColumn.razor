@@ -1,15 +1,12 @@
 ﻿@page "/tables/fix-column"
 
-<h3>固定列功能</h3>
+<h3>@Localizer["H1"]</h3>
+<h4>@Localizer["H2"]</h4>
 
-<h4>对于列数很多的数据，可以固定前后的列，横向滚动查看其它数据</h4>
+<p>@Localizer["P1"]</p>
 
-<p>
-    固定列用法请尽可能的设置固定列宽度，未设置时按照 <code>200</code> 默认值设置
-</p>
-
-<DemoBlock Title="固定列头与列尾" Introduction="设置 <code>Fixed</code> 属性固定表头" Name="FixedColHeader">
-    <p>本例中设置 <code>Name</code> <code>DateTime</code> <code>Complete</code> 前两列和最后一列为固定列，中间各列进行水平滚动</p>
+<DemoBlock Title="@Localizer["P2"]" Introduction="@Localizer["P3"]" Name="FixedColHeader">
+    <p>@Localizer["P4"]</p>
     <Table TItem="Foo" Items="@Items.Take(4)" HeaderStyle="TableHeaderStyle.Light" IsBordered="true" IsStriped="true" class="table-fixed-column-demo">
         <TableColumns>
             <TableColumn @bind-Field="@context.Name" Width="100" Fixed="true" />
@@ -22,7 +19,7 @@
     </Table>
 </DemoBlock>
 
-<DemoBlock Title="固定表头与列" Introduction="设置 <code>Height=200</code> 固定表头，设置 <code>Fixed</code> 对列进行固定" Name="FixedColTableHeader">
+<DemoBlock Title="@Localizer["P5"]" Introduction="@Localizer["P6"]" Name="FixedColTableHeader">
     <Table TItem="Foo" Items="@Items.Take(10)" HeaderStyle="TableHeaderStyle.Dark" IsBordered="true" IsStriped="true" IsMultipleSelect="true" Height="200" class="table-fixed-column-demo2">
         <TableColumns>
             <TableColumn @bind-Field="@context.Name" Width="100" Fixed="true" />
@@ -35,7 +32,7 @@
     </Table>
 </DemoBlock>
 
-<DemoBlock Title="固定按钮操作列" Introduction="设置 <code>FixedExtendButtonsColumn</code> 对操作列进行固定" Name="FixedExtendButtonsColumn">
+<DemoBlock Title="@Localizer["P7"]" Introduction="@Localizer["P8"]" Name="FixedExtendButtonsColumn">
     <Table TItem="Foo" Items="@Items.Take(4)" IsBordered="true" IsStriped="true"
            ShowExtendButtons="true" FixedExtendButtonsColumn="true"
            class="table-fixed-column-demo">
@@ -50,7 +47,7 @@
     </Table>
 </DemoBlock>
 
-<DemoBlock Title="固定表头与按钮操作列" Introduction="设置 <code>Height=200</code> 固定表头，设置 <code>FixedExtendButtonsColumn</code> 对操作列进行固定" Name="FixedExtendButtonsColumn">
+<DemoBlock Title="@Localizer["P9"]" Introduction="@Localizer["P10"]" Name="FixedExtendButtonsColumn">
     <Table TItem="Foo" Items="@Items.Take(10)" IsBordered="true" IsStriped="true" IsMultipleSelect="true"
            IsFixedHeader="true" FixedExtendButtonsColumn="true" Height="200"
            ShowExtendButtons="true" class="table-fixed-column-demo2">

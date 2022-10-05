@@ -17,7 +17,11 @@ public partial class TablesEdit
 {
     [Inject]
     [NotNull]
-    private IStringLocalizer<Foo>? Localizer { get; set; }
+    private IStringLocalizer<Foo>? LocalizerFoo { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<TablesEdit>? Localizer { get; set; }
 
     [Inject]
     [NotNull]
@@ -45,19 +49,18 @@ public partial class TablesEdit
     {
         base.OnInitialized();
 
-        Hobbys = Foo.GenerateHobbys(Localizer);
-        Items = Foo.GenerateFoo(Localizer);
+        Hobbys = Foo.GenerateHobbys(LocalizerFoo);
+        Items = Foo.GenerateFoo(LocalizerFoo);
 
-        BindItems = Foo.GenerateFoo(Localizer).Take(5).ToList();
+        BindItems = Foo.GenerateFoo(LocalizerFoo).Take(5).ToList();
 
-        CustomerDataService = new FooDataService<Foo>(Localizer);
+        CustomerDataService = new FooDataService<Foo>(LocalizerFoo);
     }
 
-    private static Task<Foo> OnAddAsync() => Task.FromResult(new Foo() { DateTime = DateTime.Now, Address = $"自定义地址  {DateTime.Now.Second}" });
+    private static Task<Foo> OnAddAsync() => Task.FromResult(new Foo() { DateTime = DateTime.Now, Address = $"Custom address  {DateTime.Now.Second}" });
 
     private Task<bool> OnSaveAsync(Foo item, ItemChangedType changedType)
     {
-        // 增加数据演示代码
         if (changedType == ItemChangedType.Add)
         {
             item.Id = Items.Max(i => i.Id) + 1;

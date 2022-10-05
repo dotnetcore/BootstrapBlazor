@@ -1,67 +1,67 @@
 ﻿@page "/messages"
+@inject IStringLocalizer<Messages> Localizer
 
-<h3>Message 消息提示</h3>
+<h3>@Localizer["H1"]</h3>
+<h4>@Localizer["H2"]</h4>
 
-<h4>常用于主动操作后的反馈提示。与 Toast 的区别是后者更多用于系统级通知的被动提醒</h4>
+<p>@Localizer["P1"]</p>
 
-<p>组件使用介绍：</p>
-
-<p class="code-label">1. 注入服务 <code>MessageService</code></p>
+<p class="code-label">@Localizer["P2"]</p>
 <Pre>@@inject MessageService MessageService</Pre>
 <Pre>[Inject]
 [NotNull]
 private MessageService? MessageService { get; set; }
 </Pre>
-<p class="code-label">2. 调用其实例 <code>api</code></p>
+<p class="code-label">@Localizer["P3"]</p>
 <Pre>await MessageService.Show(new MessageOption()
 {
-    Content = "这是一条提示消息"
+    Content = "@Localizer["P4"]"
 });</Pre>
 
-<DemoBlock Title="基础用法" Introduction="从顶部出现，4 秒后自动消失" Name="Normal">
-    <button class="btn btn-primary" @onclick="@ShowMessage">打开消息提示</button>
+<DemoBlock Title="@Localizer["P5"]" Introduction="@Localizer["P6"]" Name="Normal">
+    <button class="btn btn-primary" @onclick="@ShowMessage">@Localizer["P7"]</button>
 </DemoBlock>
 
-<DemoBlock Title="带图标的消息框" Introduction="通过设置 <code>MessageOption</code> 的 <code>Icon</code> 属性，更改消息框左侧小图标" Name="Icon">
-    <button class="btn btn-primary" @onclick="@ShowIconMessage">打开消息提示</button>
+<DemoBlock Title="@Localizer["P8"]" Introduction="@Localizer["P9"]" Name="Icon">
+    <button class="btn btn-primary" @onclick="@ShowIconMessage">@Localizer["P10"]</button>
 </DemoBlock>
 
-<DemoBlock Title="带关闭按钮的消息框" Introduction="通过设置 <code>MessageOption</code> 的 <code>ShowDismiss</code> 属性，更改消息框右侧出现关闭按钮" Name="CloseButton">
-    <button class="btn btn-primary" @onclick="@ShowCloseMessage">打开消息提示</button>
+<DemoBlock Title="@Localizer["P11"]" Introduction="@Localizer["P12"]" Name="CloseButton">
+    <button class="btn btn-primary" @onclick="@ShowCloseMessage">@Localizer["P13"]</button>
 </DemoBlock>
 
-<DemoBlock Title="左侧带边框的消息框" Introduction="通过设置 <code>MessageOption</code> 的 <code>ShowBar</code> 属性，更改消息框左侧边框样式" Name="LeftBoard">
-    <button class="btn btn-primary" @onclick="@ShowBarMessage">打开消息提示</button>
+<DemoBlock Title="@Localizer["P14"]" Introduction="@Localizer["P15"]" Name="LeftBoard">
+    <button class="btn btn-primary" @onclick="@ShowBarMessage">@Localizer["P16"]</button>
 </DemoBlock>
 
-<DemoBlock Title="不同颜色的消息框" Introduction="通过设置 <code>MessageOption</code> 的 <code>Color</code> 属性，更改消息框颜色" Name="DifferentColor">
+<DemoBlock Title="@Localizer["P17"]" Introduction="@Localizer["P18"]" Name="DifferentColor">
     <div class="row g-3">
         <div class="col-6 col-sm-auto">
-            <button class="btn btn-primary" @onclick="@(e => ShowColorMessage(Color.Primary))">Primary 消息</button>
+            <button class="btn btn-primary" @onclick="@(e => ShowColorMessage(Color.Primary))">@Localizer["P19"]</button>
         </div>
         <div class="col-6 col-sm-auto">
-            <button class="btn btn-success" @onclick="@(e => ShowColorMessage(Color.Success))">Success 消息</button>
+            <button class="btn btn-success" @onclick="@(e => ShowColorMessage(Color.Success))">@Localizer["P20"]</button>
         </div>
         <div class="col-6 col-sm-auto">
-            <button class="btn btn-info" @onclick="@(e => ShowColorMessage(Color.Info))">Info 消息</button>
+            <button class="btn btn-info" @onclick="@(e => ShowColorMessage(Color.Info))">@Localizer["P21"]</button>
         </div>
         <div class="col-6 col-sm-auto">
-            <button class="btn btn-danger" @onclick="@(e => ShowColorMessage(Color.Danger))">Danger 消息</button>
+            <button class="btn btn-danger" @onclick="@(e => ShowColorMessage(Color.Danger))">@Localizer["P22"]</button>
         </div>
         <div class="col-6 col-sm-auto">
-            <button class="btn btn-warning" @onclick="@(e => ShowColorMessage(Color.Warning))">Warning 消息</button>
+            <button class="btn btn-warning" @onclick="@(e => ShowColorMessage(Color.Warning))">@Localizer["P23"]</button>
         </div>
         <div class="col-6 col-sm-auto">
-            <button class="btn btn-secondary" @onclick="@(e => ShowColorMessage(Color.Secondary))">Secondary 消息</button>
+            <button class="btn btn-secondary" @onclick="@(e => ShowColorMessage(Color.Secondary))">@Localizer["P24"]</button>
         </div>
     </div>
 </DemoBlock>
 
-<DemoBlock Title="消息框弹出位置" Introduction="通过设置 <code>MessageService</code> 服务的组件参数，指定已经设置底部显示位置的 <code>Message</code> 组件" Name="Position">
-    <button class="btn btn-primary" @onclick="@ShowBottomMessage">打开消息提示</button>
+<DemoBlock Title="@Localizer["P25"]" Introduction="@Localizer["P26"]" Name="Position">
+    <button class="btn btn-primary" @onclick="@ShowBottomMessage">@Localizer["P27"]</button>
     <Message @ref="Message" Placement="Placement.Bottom" />
 </DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" />
 
-<AttributeTable Title="MessageItem 属性" Items="@GetMessageItemAttributes()" />
+<AttributeTable Title="@Localizer["P28"]" Items="@GetMessageItemAttributes()" />

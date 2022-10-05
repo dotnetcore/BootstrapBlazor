@@ -26,7 +26,11 @@ public partial class TablesExport
 
     [Inject]
     [NotNull]
-    private IStringLocalizer<Foo>? Localizer { get; set; }
+    private IStringLocalizer<Foo>? LocalizerFoo { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<TablesExport>? Localizer { get; set; }
 
     [Inject]
     [NotNull]
@@ -43,7 +47,7 @@ public partial class TablesExport
     {
         base.OnInitialized();
 
-        Items = Foo.GenerateFoo(Localizer);
+        Items = Foo.GenerateFoo(LocalizerFoo);
     }
 
     private Task<QueryData<Foo>> OnQueryAsync(QueryPageOptions options)
@@ -67,12 +71,12 @@ public partial class TablesExport
 
     private async Task ExcelExportAsync()
     {
-        await ToastService.Success("Excel 导出", "导出 Excel 数据成功");
+        await ToastService.Success("Excel export", "Export Excel data successfully");
     }
 
     private async Task CsvExportAsync()
     {
-        await ToastService.Success("CSV 导出", "导出 CSV 数据成功");
+        await ToastService.Success("CSV export", "Export CSV data successfully");
     }
 
     /// <summary>

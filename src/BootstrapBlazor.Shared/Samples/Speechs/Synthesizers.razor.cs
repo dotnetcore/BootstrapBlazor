@@ -4,6 +4,7 @@
 
 using BootstrapBlazor.Components;
 using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Localization;
 
 namespace BootstrapBlazor.Shared.Samples;
 
@@ -15,6 +16,10 @@ public partial class Synthesizers
     [Inject]
     [NotNull]
     private SynthesizerService? SynthesizerService { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<Synthesizers>? Localizer { get; set; }
 
     private bool Start { get; set; }
 

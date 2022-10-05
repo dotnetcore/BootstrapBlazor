@@ -4,6 +4,8 @@
 
 using BootstrapBlazor.Components;
 using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Localization;
+using System;
 
 namespace BootstrapBlazor.Shared.Samples;
 
@@ -15,6 +17,10 @@ public partial class Recognizers
     [Inject]
     [NotNull]
     private RecognizerService? RecognizerService { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<Recognizers>? Localizer { get; set; }
 
     private bool Start { get; set; }
 

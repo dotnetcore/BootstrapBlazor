@@ -1,20 +1,20 @@
 ﻿@page "/spinners"
+@inject IStringLocalizer<Spinners> Localizer
 
-<h3>Spinner 旋转图标</h3>
-
-<h4>加载数据时显示动效</h4>
+<h3>@Localizer["H1"]</h3>
+<h4>@Localizer["H2"]</h4>
 
 <p>
-    <b>何时使用</b>
+    <b>@Localizer["P1"]</b>
     <br />
-    页面局部处于等待异步数据或正在渲染过程时，合适的加载动效会有效缓解用户的焦虑。
+    @Localizer["P2"]
 </p>
 
-<DemoBlock Title="基础用法" Introduction="默认旋转图标" Name="Normal">
+<DemoBlock Title="@Localizer["P3"]" Introduction="@Localizer["P4"]" Name="Normal">
     <Spinner></Spinner>
 </DemoBlock>
 
-<DemoBlock Title="Spinner 带有颜色的旋转图标" Introduction="提供基本颜色的旋转图标"  Name="Color">
+<DemoBlock Title="@Localizer["P5"]" Introduction="@Localizer["P6"]"  Name="Color">
     <div class="row g-3">
         <div class="col-6 col-sm-4 col-md-3 col-lg-auto"><Spinner Color="Color.Primary"></Spinner></div>
         <div class="col-6 col-sm-4 col-md-3 col-lg-auto"><Spinner Color="Color.Secondary"></Spinner></div>
@@ -27,11 +27,11 @@
     </div>
 </DemoBlock>
 
-<DemoBlock Title="Growing Spinner 旋转图标" Introduction="生长式旋转图标" Name="Growing">
+<DemoBlock Title="@Localizer["P7"]" Introduction="@Localizer["P8"]" Name="Growing">
     <Spinner SpinnerType="SpinnerType.Grow"></Spinner>
 </DemoBlock>
 
-<DemoBlock Title="Growing Spinner 带有颜色的旋转图标" Introduction="提供基本颜色的旋转图标" Name="GrowingColor">
+<DemoBlock Title="@Localizer["P9"]" Introduction="@Localizer["P10"]" Name="GrowingColor">
     <div class="row g-3">
         <div class="col-6 col-sm-4 col-md-3 col-lg-auto"><Spinner SpinnerType="SpinnerType.Grow" Color="Color.Primary"></Spinner></div>
         <div class="col-6 col-sm-4 col-md-3 col-lg-auto"><Spinner SpinnerType="SpinnerType.Grow" Color="Color.Secondary"></Spinner></div>
@@ -44,27 +44,27 @@
     </div>
 </DemoBlock>
 
-<DemoBlock Title="Spinner 旋转图标大小" Introduction="图标样式大小" Name="Size">
+<DemoBlock Title="@Localizer["P11"]" Introduction="@Localizer["P12"]" Name="Size">
     <div class="row g-3">
         <div class="col-6 col-sm-4 col-md-3 col-lg-auto"><Spinner Size="Size.Small"></Spinner></div>
         <div class="col-6 col-sm-4 col-md-3 col-lg-auto"><Spinner Size="Size.Small" SpinnerType="SpinnerType.Grow"></Spinner></div>
     </div>
 </DemoBlock>
 
-<DemoBlock Title="Spinner Flex" Introduction="自定义布局" Name="Flex">
+<DemoBlock Title="@Localizer["P13"]" Introduction="@Localizer["P14"]" Name="Flex">
     <div class="d-flex justify-content-center">
         <Spinner></Spinner>
     </div>
 </DemoBlock>
 
-<DemoBlock Title="Spinner Flex" Introduction="带有文字的自定义布局" Name="Custom">
+<DemoBlock Title="@Localizer["P15"]" Introduction="@Localizer["P16"]" Name="Custom">
     <div class="d-flex align-items-center">
-        <strong>Loading...</strong>
+        <strong>@Localizer["P17"]</strong>
         <Spinner Class="ms-auto"></Spinner>
     </div>
 </DemoBlock>
 
-<DemoBlock Title="Spinner Floats" Introduction="使用 Float 布局" Name="Float">
+<DemoBlock Title="@Localizer["P18"]" Introduction="@Localizer["P19"]" Name="Float">
     <Spinner Class="float-end"></Spinner>
 </DemoBlock>
 

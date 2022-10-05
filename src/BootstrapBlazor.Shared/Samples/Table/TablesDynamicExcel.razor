@@ -1,48 +1,47 @@
 ﻿@page "/tables/dynamicexcel"
 
-<h3>Table 表格</h3>
+<h3>@Localizer["H1"]</h3>
+<h4>@Localizer["H2"]</h4>
 
-<h4>常用于大数据单表维护</h4>
-
-<DemoBlock Title="Excel 模式" Introduction="通过设置表格的 <code>IsExcel</code> 属性，使组件呈现为类似 <code>Excel</code>" Name="Excel">
-    <p><code>Excel</code> 模式下绑定是 <b>动态类型</b> 时，无法使用 <code>TableColumn</code> 对列属性进行设置，本例中使用 <code>DynamicContext</code> 实例对象 <code>DataTableDynamicContext</code> 构造函数进行设置</p>
+<DemoBlock Title="@Localizer["P1"]" Introduction="@Localizer["P2"]" Name="Excel">
+    <p>@Localizer["P3"]</p>
     <Table TItem="DynamicObject" DynamicContext="DataTableDynamicContext"
            IsBordered="true" IsMultipleSelect="true" IsExcel="true" ShowToolbar="true">
     </Table>
     <BlockLogger @ref="Trace" class="mt-3" />
 </DemoBlock>
 
-<DemoBlock Title="枚举类型" Introduction="设置列 <code>Items</code> 值，将枚举类型渲染成 <code>Select</code> 组件" Name="Enum">
+<DemoBlock Title="@Localizer["P4"]" Introduction="@Localizer["P5"]" Name="Enum">
     <Pre>DataTableDynamicContext = new(UserData, (context, col) =>
 {
     if (col.GetFieldName() == nameof(Foo.Education))
     {
         col.ComponentType = typeof(Select&lt;string&gt;);
-        col.Items = typeof(EnumEducation).ToSelectList(new SelectedItem("", "未设置"));
+        col.Items = typeof(EnumEducation).ToSelectList(new SelectedItem("", @Localizer["P6"]));
     }
 });</Pre>
     <div>
-        通过上面代码将 <code>Education</code> 列使用 <code>Select</code> 组件渲染
+        @Localizer["P7"]
     </div>
 </DemoBlock>
 
-<DemoBlock Title="键盘支持" Introduction="本示例用于测试 <code>Excel</code> 模式下键盘支持" Name="Keyboard">
-    <p>目前支持 <kbd><i class="fa-solid fa-arrow-up"></i></kbd> <kbd><i class="fa-solid fa-arrow-down"></i></kbd> <kbd><i class="fa-solid fa-arrow-left"></i></kbd> <kbd><i class="fa-solid fa-arrow-right"></i></kbd> <kbd>Tab</kbd></p>
+<DemoBlock Title="@Localizer["P8"]" Introduction="@Localizer["P9"]" Name="Keyboard">
+    <p>@Localizer["P10"] <kbd><i class="fa-solid fa-arrow-up"></i></kbd> <kbd><i class="fa-solid fa-arrow-down"></i></kbd> <kbd><i class="fa-solid fa-arrow-left"></i></kbd> <kbd><i class="fa-solid fa-arrow-right"></i></kbd> <kbd>Tab</kbd></p>
     <Table TItem="DynamicObject" DynamicContext="DataTableKeyboardDynamicContext"
            IsBordered="true" IsMultipleSelect="true" IsExcel="true" ShowExtendButtons="true">
     </Table>
 </DemoBlock>
 
 <Tips class="mt-3">
-    <p>开启 <code>IsExcel</code> 模式后，部分参数将不再生效，斑马线 <code>IsStriped</code> 树形表格 <code>IsTree</code> 明细行 <code>IsDetails</code> 多选栏 <code>IsMultipleSelect</code></p>
+    <p>@Localizer["P11"]</p>
 </Tips>
 
-<p class="mt-3">使用 <code>DatTable</code> 为数据源时，需要按照下面的步骤进行设置</p>
+<p class="mt-3">@Localizer["P12"]</p>
 
 <p>
-    <div class="code-label">1. 设置数据源上下文</div>
-    <div class="mt-2">设置 <code>Table</code> 组件的 <code>TItem</code> 属性值为 <code>DynamicObject</code></div>
-    <div class="mt-2">设置 <code>Table</code> 组件的 <code>DynamicContext</code> 属性值为 <code>DataTableDynamicContext</code> 实例</div>
+    <div class="code-label">@Localizer["P13"]</div>
+    <div class="mt-2">@Localizer["P14"]</div>
+    <div class="mt-2">@Localizer["P15"]</div>
 </p>
 
 <Pre>protected override void OnInitialized()
@@ -51,52 +50,52 @@
 
     DataTableDynamicContext = new(UserData, (context, col) =>
     {
-        // 设置 Enum 类型渲染成 Select
+        // @Localizer["P16"]
         if (col.GetFieldName() == nameof(Foo.Education))
         {
             col.ComponentType = typeof(Select&lt;string&gt;);
 
-            // 将枚举转化为 List
+            // @Localizer["P17"]
             col.Items = typeof(EnumEducation).ToSelectList(new SelectedItem("", Localizer["NullItemText"].Value));
         }
     });
 }</Pre>
 
 <p>
-    <div class="code-label">2. 处理 <code>DataRow</code> 变化逻辑</div>
-    <div class="mt-2">设置 <code>OnChanged</code> 回调委托函数处理 <b>新建/删除</b> 逻辑</div>
+    <div class="code-label">@Localizer["P18"]</div>
+    <div class="mt-2">@Localizer["P19"]</div>
 </p>
 
 <Pre>protected override void OnInitialized()
 {
     DataTableDynamicContext.OnChanged = args =>
     {
-        // 输出日志信息
-        Trace.Log($"集合值变化通知 行: {args.Items.Count()} - 类型: {args.ChangedType}");
+        // @Localizer["P20"]
+        Trace.Log($"# valueS: {args.Items.Count()} - type: {args.ChangedType}");
         return Task.CompletedTask;
     };
 }</Pre>
 
 <p>
-    <div class="code-label">3. 处理 <code>DataCell</code> 变化逻辑</div>
-    <div class="mt-2">设置 <code>OnValueChanged</code> 回调委托函数处理单元格 <b>更新</b> 逻辑</div>
+    <div class="code-label">@Localizer["P21"]</div>
+    <div class="mt-2">@Localizer["P22"]</div>
 </p>
 
 <Pre>protected override void OnInitialized()
 {
-    // 获得内置 OnValueChanged 回调
+    // @Localizer["P23"]
     var method = DataTableDynamicContext.OnValueChanged;
 
     DataTableDynamicContext.OnValueChanged = async (model, col, val) =>
     {
-        // 调用内部提供的方法
+        // @Localizer["P24"]
         if (method != null)
         {
-            // 内部方法会更新原始数据源 DataTable
+            // @Localizer["P25"]
             await method(model, col, val);
         }
 
-        // 输出日志信息
-        Trace.Log($"单元格变化通知 列: {col.GetFieldName()} - 值: {val?.ToString()}");
+        // @Localizer["P26"]
+        Trace.Log($"Change Notification: {col.GetFieldName()} - Value: {val?.ToString()}");
     };
 }</Pre>

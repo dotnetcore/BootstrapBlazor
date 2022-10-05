@@ -4,6 +4,8 @@
 
 using BootstrapBlazor.Components;
 using BootstrapBlazor.Shared.Common;
+using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Localization;
 
 namespace BootstrapBlazor.Shared.Samples;
 
@@ -12,12 +14,16 @@ namespace BootstrapBlazor.Shared.Samples;
 /// </summary>
 public sealed partial class Drawers
 {
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<Drawers>? Localizer { get; set; }
+
     private IEnumerable<SelectedItem> DrawerDirection { get; } = new SelectedItem[] {
-            new SelectedItem("left", "从左向右") { Active = true },
-            new SelectedItem("right", "从右向左"),
-            new SelectedItem("top", "从上到下"),
-            new SelectedItem("bottom", "从下向上")
-        };
+        new SelectedItem("left", "left to right") { Active = true },
+        new SelectedItem("right", "right to left"),
+        new SelectedItem("top", "top to bottom"),
+        new SelectedItem("bottom", "bottom to top")
+    };
 
     private Placement DrawerAlign { get; set; }
 
@@ -45,60 +51,59 @@ public sealed partial class Drawers
     }
 
     /// <summary>
-    /// 获得属性方法
+    /// Get property method
     /// </summary>
     /// <returns></returns>
     private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
-            // TODO: 移动到数据库中
-            new AttributeItem() {
-                Name = "Width",
-                Description = "抽屉宽度",
-                Type = "string",
-                ValueList = " — ",
-                DefaultValue = "360px"
-            },
-            new AttributeItem() {
-                Name = "Height",
-                Description = "抽屉高度",
-                Type = "string",
-                ValueList = " — ",
-                DefaultValue = "290px"
-            },
-            new AttributeItem() {
-                Name = "IsOpen",
-                Description = "抽屉是否打开",
-                Type = "bool",
-                ValueList = "true|false",
-                DefaultValue = "false"
-            },
-            new AttributeItem() {
-                Name = "IsBackdrop",
-                Description = "点击遮罩是否关闭抽屉",
-                Type = "bool",
-                ValueList = "true|false",
-                DefaultValue = "true"
-            },
-            new AttributeItem() {
-                Name = "OnClickBackdrop",
-                Description = "点击背景遮罩时回调委托方法",
-                Type = "Action",
-                ValueList = " — ",
-                DefaultValue = " — "
-            },
-            new AttributeItem() {
-                Name = "Placement",
-                Description = "组件出现位置",
-                Type = "Placement",
-                ValueList = "Left|Right|Top|Bottom",
-                DefaultValue = "Left"
-            },
-            new AttributeItem() {
-                Name = "ChildContent",
-                Description = "子组件",
-                Type = "RenderFragment",
-                ValueList = " — ",
-                DefaultValue = " — "
-            },
+        new AttributeItem() {
+            Name = "Width",
+            Description = "drawer width",
+            Type = "string",
+            ValueList = " — ",
+            DefaultValue = "360px"
+        },
+        new AttributeItem() {
+            Name = "Height",
+            Description = "drawer height",
+            Type = "string",
+            ValueList = " — ",
+            DefaultValue = "290px"
+        },
+        new AttributeItem() {
+            Name = "IsOpen",
+            Description = "Is the drawer open?",
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "false"
+        },
+        new AttributeItem() {
+            Name = "IsBackdrop",
+            Description = "Whether click on the mask closes the drawer",
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "true"
+        },
+        new AttributeItem() {
+            Name = "OnClickBackdrop",
+            Description = "Callback delegate method when background mask is clicked",
+            Type = "Action",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new AttributeItem() {
+            Name = "Placement",
+            Description = "Where the component appears",
+            Type = "Placement",
+            ValueList = "Left|Right|Top|Bottom",
+            DefaultValue = "Left"
+        },
+        new AttributeItem() {
+            Name = "ChildContent",
+            Description = "Subassembly",
+            Type = "RenderFragment",
+            ValueList = " — ",
+            DefaultValue = " — "
+        }
     };
 }

@@ -17,7 +17,11 @@ public partial class TablesTracking
 
     [Inject]
     [NotNull]
-    private IStringLocalizer<Foo>? Localizer { get; set; }
+    private IStringLocalizer<Foo>? LocalizerFoo { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<TablesTracking>? Localizer { get; set; }
 
     /// <summary>
     /// OnInitialized 方法
@@ -26,6 +30,6 @@ public partial class TablesTracking
     {
         base.OnInitialized();
 
-        Items = Foo.GenerateFoo(Localizer, 4);
+        Items = Foo.GenerateFoo(LocalizerFoo, 4);
     }
 }

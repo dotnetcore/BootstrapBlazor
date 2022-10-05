@@ -5,6 +5,7 @@
 using BootstrapBlazor.Components;
 using BootstrapBlazor.Shared.Services;
 using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Localization;
 
 namespace BootstrapBlazor.Shared.Samples;
 
@@ -24,6 +25,10 @@ public partial class Speechs
     [Inject]
     [NotNull]
     private SynthesizerService? SynthesizerService { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<Speechs>? Localizer { get; set; }
 
     private List<ConsoleMessageItem> ConsoleMessages { get; } = new();
 

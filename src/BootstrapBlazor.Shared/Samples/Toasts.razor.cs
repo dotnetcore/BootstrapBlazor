@@ -10,7 +10,7 @@ using Microsoft.JSInterop;
 namespace BootstrapBlazor.Shared.Samples;
 
 /// <summary>
-/// Toasts 示例
+/// Toasts
 /// </summary>
 public sealed partial class Toasts
 {
@@ -34,16 +34,16 @@ public sealed partial class Toasts
     private BootstrapBlazorRoot? Root { get; set; }
 
     /// <summary>
-    /// OnInitialized 方法
+    /// OnInitialized
     /// </summary>
     protected override void OnInitialized()
     {
         base.OnInitialized();
 
-        Options1 = new ToastOption { Title = "保存数据", IsAutoHide = false, Content = "保存数据成功，4 秒后自动关闭" };
-        Options2 = new ToastOption { Category = ToastCategory.Error, Title = "保存数据", IsAutoHide = false, Content = "保存数据成功，4 秒后自动关闭" };
-        Options3 = new ToastOption { Category = ToastCategory.Information, Title = "提示信息", IsAutoHide = false, Content = "信息提示弹窗，4 秒后自动关闭" };
-        Options4 = new ToastOption { Category = ToastCategory.Warning, Title = "警告信息", IsAutoHide = false, Content = "信息提示弹窗，4 秒后自动关闭" };
+        Options1 = new ToastOption { Title = "save data", IsAutoHide = false, Content = "Save data successfully, automatically close after 4 seconds" };
+        Options2 = new ToastOption { Category = ToastCategory.Error, Title = "save data", IsAutoHide = false, Content = "Save data successfully, automatically close after 4 seconds" };
+        Options3 = new ToastOption { Category = ToastCategory.Information, Title = "prompt information", IsAutoHide = false, Content = "Information prompt pop-up window, automatically closes after 4 seconds" };
+        Options4 = new ToastOption { Category = ToastCategory.Warning, Title = "Warning message", IsAutoHide = false, Content = "Information prompt pop-up window, automatically closes after 4 seconds" };
 
         Toast = Root.ToastContainer;
     }
@@ -67,8 +67,8 @@ public sealed partial class Toasts
         await ToastService.Show(new ToastOption()
         {
             Category = ToastCategory.Information,
-            Title = "消息通知",
-            Content = "<b>Toast</b> 组件更改位置啦，4 秒后自动关闭"
+            Title = "notification",
+            Content = "<b>Toast</b> The component has changed position, it will automatically shut down after 4 seconds"
         });
     }
 
@@ -78,8 +78,8 @@ public sealed partial class Toasts
         await ToastService.Show(new ToastOption()
         {
             Category = ToastCategory.Success,
-            Title = "保存成功",
-            Content = "保存数据成功，4 秒后自动关闭"
+            Title = "Successfully saved",
+            Content = "Save data successfully, automatically close after 4 seconds"
         });
     }
 
@@ -89,8 +89,8 @@ public sealed partial class Toasts
         await ToastService.Show(new ToastOption()
         {
             Category = ToastCategory.Error,
-            Title = "保存失败",
-            Content = "保存数据失败，4 秒后自动关闭"
+            Title = "Failed to save",
+            Content = "Failed to save data, automatically closes after 4 seconds"
         });
     }
 
@@ -100,8 +100,8 @@ public sealed partial class Toasts
         await ToastService.Show(new ToastOption()
         {
             Category = ToastCategory.Information,
-            Title = "消息通知",
-            Content = "系统增加新组件啦，4 秒后自动关闭"
+            Title = "notification",
+            Content = "The system adds new components, it will automatically shut down after 4 seconds"
         });
     }
 
@@ -111,8 +111,8 @@ public sealed partial class Toasts
         await ToastService.Show(new ToastOption()
         {
             Category = ToastCategory.Warning,
-            Title = "警告通知",
-            Content = "系统发现异常请及时处理，4 秒后自动关闭"
+            Title = "Warning",
+            Content = "If the system finds abnormality, please deal with it in time, and it will automatically shut down after 4 seconds"
         });
     }
 
@@ -126,8 +126,8 @@ public sealed partial class Toasts
         {
             Category = ToastCategory.Warning,
             IsAutoHide = false,
-            Title = "消息通知",
-            Content = "我不会自动关闭哦，请点击右上角关闭按钮"
+            Title = "Notification",
+            Content = "I will not close automatically, please click the close button in the upper right corner"
         });
     }
 
@@ -137,55 +137,54 @@ public sealed partial class Toasts
     /// <returns></returns>
     private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
-            // TODO: 移动到数据库中
-            new AttributeItem() {
-                Name = "Category",
-                Description = "弹出框类型",
-                Type = "ToastCategory",
-                ValueList = "Success/Information/Error/Warning",
-                DefaultValue = "Success"
-            },
-            new AttributeItem() {
-                Name = "Cotent",
-                Description = "弹窗内容",
-                Type = "string",
-                ValueList = "—",
-                DefaultValue = ""
-            },
-            new AttributeItem() {
-                Name = "Delay",
-                Description = "自动隐藏时间间隔",
-                Type = "int",
-                ValueList = "—",
-                DefaultValue = "4000"
-            },
-            new AttributeItem() {
-                Name = "IsAutoHide",
-                Description = "是否自动隐藏",
-                Type = "boolean",
-                ValueList = "",
-                DefaultValue = "true"
-            },
-            new AttributeItem() {
-                Name = "IsHtml",
-                Description = "内容中是否包含 Html 代码",
-                Type = "boolean",
-                ValueList = "",
-                DefaultValue = "false"
-            },
-            new AttributeItem() {
-                Name = "Placement",
-                Description = "位置",
-                Type = "Placement",
-                ValueList = "Auto / Top / Left / Bottom / Right",
-                DefaultValue = "Auto"
-            },
-            new AttributeItem() {
-                Name = "Title",
-                Description = "弹窗标题",
-                Type = "string",
-                ValueList = "—",
-                DefaultValue = ""
-            },
+        new AttributeItem() {
+            Name = "Category",
+            Description = "Popover type",
+            Type = "ToastCategory",
+            ValueList = "Success/Information/Error/Warning",
+            DefaultValue = "Success"
+        },
+        new AttributeItem() {
+            Name = "Cotent",
+            Description = "Popup content",
+            Type = "string",
+            ValueList = "—",
+            DefaultValue = ""
+        },
+        new AttributeItem() {
+            Name = "Delay",
+            Description = "Auto hide interval",
+            Type = "int",
+            ValueList = "—",
+            DefaultValue = "4000"
+        },
+        new AttributeItem() {
+            Name = "IsAutoHide",
+            Description = "Whether to automatically hide",
+            Type = "boolean",
+            ValueList = "",
+            DefaultValue = "true"
+        },
+        new AttributeItem() {
+            Name = "IsHtml",
+            Description = "Whether the content contains Html code",
+            Type = "boolean",
+            ValueList = "",
+            DefaultValue = "false"
+        },
+        new AttributeItem() {
+            Name = "Placement",
+            Description = "Location",
+            Type = "Placement",
+            ValueList = "Auto / Top / Left / Bottom / Right",
+            DefaultValue = "Auto"
+        },
+        new AttributeItem() {
+            Name = "Title",
+            Description = "Popup title",
+            Type = "string",
+            ValueList = "—",
+            DefaultValue = ""
+        }
     };
 }

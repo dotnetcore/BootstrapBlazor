@@ -15,6 +15,10 @@ namespace BootstrapBlazor.Shared.Samples;
 /// </summary>
 public sealed partial class EditDialogs
 {
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<EditDialogs>? Localizer { get; set; }
+
     private Foo Model { get; set; } = new Foo()
     {
         Name = "Name 1234",
@@ -27,7 +31,7 @@ public sealed partial class EditDialogs
 
     [Inject]
     [NotNull]
-    private IStringLocalizer<Foo>? Localizer { get; set; }
+    private IStringLocalizer<Foo>? FooLocalizer { get; set; }
 
     [NotNull]
     private BlockLogger? Trace { get; set; }
@@ -36,23 +40,23 @@ public sealed partial class EditDialogs
     {
         var items = Utility.GenerateEditorItems<Foo>();
         var item = items.First(i => i.GetFieldName() == nameof(Foo.Hobby));
-        item.Items = Foo.GenerateHobbys(Localizer);
+        item.Items = Foo.GenerateHobbys(FooLocalizer);
 
         var option = new EditDialogOption<Foo>()
         {
-            Title = "编辑对话框",
+            Title = "edit dialog",
             Model = Model,
             Items = items,
             ItemsPerRow = 2,
             RowType = RowType.Inline,
             OnCloseAsync = () =>
             {
-                Trace.Log("关闭按钮被点击");
+                Trace.Log("close button is clicked");
                 return Task.CompletedTask;
             },
             OnEditAsync = context =>
             {
-                Trace.Log("保存按钮被点击");
+                Trace.Log("save button is clicked");
                 return Task.FromResult(true);
             }
         };
@@ -64,11 +68,11 @@ public sealed partial class EditDialogs
     {
         var items = Utility.GenerateEditorItems<Foo>();
         var item = items.First(i => i.GetFieldName() == nameof(Foo.Hobby));
-        item.Items = Foo.GenerateHobbys(Localizer);
+        item.Items = Foo.GenerateHobbys(FooLocalizer);
 
         var option = new EditDialogOption<Foo>()
         {
-            Title = "编辑对话框",
+            Title = "edit dialog",
             Model = Model,
             Items = items,
             ItemsPerRow = 2,
@@ -76,12 +80,12 @@ public sealed partial class EditDialogs
             LabelAlign = Alignment.Right,
             OnCloseAsync = () =>
             {
-                Trace.Log("关闭按钮被点击");
+                Trace.Log("close button is clicked");
                 return Task.CompletedTask;
             },
             OnEditAsync = context =>
             {
-                Trace.Log("保存按钮被点击");
+                Trace.Log("save button is clicked");
                 return Task.FromResult(true);
             }
         };
@@ -93,9 +97,8 @@ public sealed partial class EditDialogs
     {
         var items = Utility.GenerateEditorItems<Foo>();
         var item = items.First(i => i.GetFieldName() == nameof(Foo.Hobby));
-        item.Items = Foo.GenerateHobbys(Localizer);
+        item.Items = Foo.GenerateHobbys(FooLocalizer);
 
-        // 设置 地址与数量 不可编辑
         item = items.First(i => i.GetFieldName() == nameof(Foo.Address));
         item.Editable = false;
         item = items.First(i => i.GetFieldName() == nameof(Foo.Count));
@@ -103,19 +106,19 @@ public sealed partial class EditDialogs
 
         var option = new EditDialogOption<Foo>()
         {
-            Title = "编辑对话框",
+            Title = "edit dialog",
             Model = Model,
             Items = items,
             ItemsPerRow = 2,
             RowType = RowType.Inline,
             OnCloseAsync = () =>
             {
-                Trace.Log("关闭按钮被点击");
+                Trace.Log("close button is clicked");
                 return Task.CompletedTask;
             },
             OnEditAsync = context =>
             {
-                Trace.Log("保存按钮被点击");
+                Trace.Log("save button is clicked");
                 return Task.FromResult(true);
             }
         };
@@ -124,78 +127,77 @@ public sealed partial class EditDialogs
     }
 
     /// <summary>
-    /// 获得属性方法
+    /// get property method
     /// </summary>
     /// <returns></returns>
     private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
-            // TODO: 移动到数据库中
             new AttributeItem() {
                 Name = "ShowLabel",
-                Description = "是否显示标签",
+                Description = "Whether to show labels",
                 Type = "bool",
                 ValueList = "true|false",
                 DefaultValue = "true"
             },
             new AttributeItem() {
                 Name = "Model",
-                Description = "泛型参数用于呈现 UI",
+                Description = "Generic parameters are used to render the UI",
                 Type = "TModel",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "Items",
-                Description = "编辑项集合",
+                Description = "Edit item collection",
                 Type = "IEnumerable<IEditorItem>",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "DialogBodyTemplate",
-                Description = "EditDialog Body 模板",
+                Description = "EditDialog Body template",
                 Type = "RenderFragment<TModel>",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "CloseButtonText",
-                Description = "关闭按钮文本",
+                Description = "Close button text",
                 Type = "string",
                 ValueList = " — ",
-                DefaultValue = "关闭"
+                DefaultValue = "closure"
             },
             new AttributeItem() {
                 Name = "SaveButtonText",
-                Description = "保存按钮文本",
+                Description = "Save button text",
                 Type = "string",
                 ValueList = " — ",
-                DefaultValue = "保存"
+                DefaultValue = "save"
             },
             new AttributeItem() {
                 Name = "OnSaveAsync",
-                Description = "保存回调委托",
+                Description = "Save callback delegate",
                 Type = "Func<Task>",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "ItemsPerRow",
-                Description = "每行显示组件数量",
+                Description = "Displays the number of components per line",
                 Type = "int?",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "RowType",
-                Description = "设置组件布局方式",
+                Description = "Set the component layout",
                 Type = "RowType",
                 ValueList = "Row|Inline",
                 DefaultValue = "Row"
             },
             new AttributeItem() {
                 Name = "LabelAlign",
-                Description = "Inline 布局模式下标签对齐方式",
+                Description = "Inline Label alignment in layout mode",
                 Type = "Alignment",
                 ValueList = "None|Left|Center|Right",
                 DefaultValue = "None"

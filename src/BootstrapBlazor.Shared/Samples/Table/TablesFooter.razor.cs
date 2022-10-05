@@ -15,7 +15,11 @@ public sealed partial class TablesFooter
 {
     [Inject]
     [NotNull]
-    private IStringLocalizer<Foo>? Localizer { get; set; }
+    private IStringLocalizer<Foo>? LocalizerFoo { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<TablesFooter>? Localizer { get; set; }
 
     [Inject]
     [NotNull]
@@ -46,7 +50,7 @@ public sealed partial class TablesFooter
     {
         base.OnInitialized();
 
-        Items = Foo.GenerateFoo(Localizer);
+        Items = Foo.GenerateFoo(LocalizerFoo);
         Left ??= LocalizerFooter[nameof(Left)];
         Center ??= LocalizerFooter[nameof(Center)];
         Right ??= LocalizerFooter[nameof(Right)];

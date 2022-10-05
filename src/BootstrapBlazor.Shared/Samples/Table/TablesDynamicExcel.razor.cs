@@ -27,7 +27,11 @@ partial class TablesDynamicExcel
 
     [Inject]
     [NotNull]
-    private IStringLocalizer<Foo>? Localizer { get; set; }
+    private IStringLocalizer<Foo>? LocalizerFoo { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<TablesDynamicExcel>? Localizer { get; set; }
 
     [Inject]
     [NotNull]
@@ -68,7 +72,7 @@ partial class TablesDynamicExcel
         UserData.Columns.Add(nameof(Foo.Education), typeof(string));
         UserData.Columns.Add(nameof(Foo.Count), typeof(int));
 
-        Foo.GenerateFoo(Localizer, 10).ForEach(f =>
+        Foo.GenerateFoo(LocalizerFoo, 10).ForEach(f =>
         {
             UserData.Rows.Add(f.DateTime, f.Name, f.Complete, f.Education, f.Count);
         });
@@ -82,7 +86,7 @@ partial class TablesDynamicExcel
             if (col.GetFieldName() == nameof(Foo.Education))
             {
                 col.ComponentType = typeof(Select<string>);
-                col.Items = typeof(EnumEducation).ToSelectList(new SelectedItem("", Localizer["NullItemText"].Value));
+                col.Items = typeof(EnumEducation).ToSelectList(new SelectedItem("", LocalizerFoo["NullItemText"].Value));
             }
             if (col.GetFieldName() == nameof(Foo.Complete))
             {
@@ -120,7 +124,7 @@ partial class TablesDynamicExcel
         KeyboardData.Columns.Add("Column 5", typeof(string));
 
         var index = 0;
-        Foo.GenerateFoo(Localizer, 9).ForEach(f =>
+        Foo.GenerateFoo(LocalizerFoo, 9).ForEach(f =>
         {
             index++;
             KeyboardData.Rows.Add($"Cell {index}1", $"Cell {index}2", $"Cell {index}3", $"Cell {index}4", $"Cell {index}5");

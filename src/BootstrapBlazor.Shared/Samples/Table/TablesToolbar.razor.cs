@@ -15,7 +15,11 @@ public sealed partial class TablesToolbar
 {
     [Inject]
     [NotNull]
-    private IStringLocalizer<Foo>? Localizer { get; set; }
+    private IStringLocalizer<Foo>? LocalizerFoo { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<TablesToolbar>? Localizer { get; set; }
 
     private static IEnumerable<int> PageItemsSource => new int[] { 2, 4, 10, 20 };
 
@@ -29,15 +33,15 @@ public sealed partial class TablesToolbar
     {
         base.OnInitialized();
 
-        Items = Foo.GenerateFoo(Localizer);
+        Items = Foo.GenerateFoo(LocalizerFoo);
     }
 
     private Task<QueryData<Foo>> OnQueryAsync(QueryPageOptions options)
     {
-        // 设置记录总数
+        // Set the total number of records
         var total = Items.Count;
 
-        // 内存分页
+        // memory paging
         var items = Items.Skip((options.PageIndex - 1) * options.PageItems).Take(options.PageItems).ToList();
 
         return Task.FromResult(new QueryData<Foo>()
@@ -55,15 +59,15 @@ public sealed partial class TablesToolbar
         var items = Items.AsEnumerable();
         if (!string.IsNullOrEmpty(options.SearchText))
         {
-            // 针对 SearchText 进行模糊查询
+            // Fuzzy query against SearchText
             items = items.Where(i => (i.Address ?? "").Contains(options.SearchText)
                     || (i.Name ?? "").Contains(options.SearchText));
         }
 
-        // 设置记录总数
+        // Set the total number of records
         var total = items.Count();
 
-        // 内存分页
+        // memory paging
         items = items.Skip((options.PageIndex - 1) * options.PageItems).Take(options.PageItems).ToList();
 
         return Task.FromResult(new QueryData<Foo>()
@@ -84,14 +88,14 @@ public sealed partial class TablesToolbar
 
     private async Task DownloadAsync(IEnumerable<Foo> items)
     {
-        // 构造弹窗配置信息，进行弹窗操作
+        // Construct pop-up window configuration information and perform pop-up window operations
         var cate = ToastCategory.Information;
-        var title = "自定义下载示例";
-        var content = "请先选择数据，然后点击下载按钮";
+        var title = "Custom download example";
+        var content = "Please select the data first, then click the download button";
         if (items.Any())
         {
             cate = ToastCategory.Success;
-            content = $"开始打包选中的 {items.Count()} 条数据，完成后自动关闭本窗口";
+            content = $"start packing selected {items.Count()} data, this window will be closed automatically after completion";
         }
 
         var option = new ToastOption()
@@ -104,32 +108,32 @@ public sealed partial class TablesToolbar
         // 弹出 Toast
         await ToastService.Show(option);
 
-        // 如果已选择下载项进行打包下载操作
+        // If the download item is selected for package download operation
         if (items.Any())
         {
-            // 禁止自动关闭
+            // Disable automatic shutdown
             option.IsAutoHide = false;
 
-            // 开启后台进程进行数据处理
-            // 传递 Option 过去是为了异步操作结束后可以关闭弹窗
+            // Start a background process for data processing
+            // Passing Option used to be used to close the popup after the asynchronous operation
             await MockDownLoadAsync();
 
-            // 关闭 option 相关联的弹窗
+            // Close the popup associated with the option
             await option.Close();
 
-            // 弹窗告知下载完毕
+            // A pop-up window informs that the download is complete
             await ToastService.Show(new ToastOption()
             {
                 Category = ToastCategory.Success,
-                Title = "自定义下载示例",
-                Content = "数据下载完毕",
+                Title = "Custom download example",
+                Content = "data download complete",
             });
         }
     }
 
     private static async Task MockDownLoadAsync()
     {
-        // 此处模拟打包下载数据耗时 5 秒
+        // It takes 5 seconds to simulate the package download data here
         await Task.Delay(5000);
     }
 }

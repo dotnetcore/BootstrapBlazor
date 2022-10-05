@@ -14,53 +14,52 @@ public sealed partial class Progresss
     private int Value { get; set; } = 75;
 
     /// <summary>
-    /// 获得属性方法
+    /// Get property method
     /// </summary>
     /// <returns></returns>
     private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
-            // TODO: 移动到数据库中
-            new AttributeItem() {
-                Name = "Color",
-                Description = "颜色",
-                Type = "Color",
-                ValueList = "Primary / Secondary / Success / Danger / Warning / Info / Dark",
-                DefaultValue = "Primary"
-            },
-            new AttributeItem() {
-                Name = "Class",
-                Description = "样式",
-                Type = "string",
-                ValueList = " — ",
-                DefaultValue = " — "
-            },
-            new AttributeItem() {
-                Name = "Height",
-                Description = "进度条高度",
-                Type = "int",
-                ValueList = " — ",
-                DefaultValue = "15"
-            },
-            new AttributeItem() {
-                Name = "IsAnimated",
-                Description = "是否动态显示",
-                Type = "boolean",
-                ValueList = " — ",
-                DefaultValue = "false"
-            },
-            new AttributeItem() {
-                Name = "IsShowValue",
-                Description = "是否显示值",
-                Type = "boolean",
-                ValueList = " — ",
-                DefaultValue = "false"
-            },
-            new AttributeItem() {
-                Name = "IsStriped",
-                Description = "是否显示条纹",
-                Type = "boolean",
-                ValueList = " — ",
-                DefaultValue = "false"
-            },
+        new AttributeItem() {
+            Name = "Color",
+            Description = "Color",
+            Type = "Color",
+            ValueList = "Primary / Secondary / Success / Danger / Warning / Info / Dark",
+            DefaultValue = "Primary"
+        },
+        new AttributeItem() {
+            Name = "Class",
+            Description = "Style",
+            Type = "string",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new AttributeItem() {
+            Name = "Height",
+            Description = "Progress bar height",
+            Type = "int",
+            ValueList = " — ",
+            DefaultValue = "15"
+        },
+        new AttributeItem() {
+            Name = "IsAnimated",
+            Description = "Whether to display dynamically",
+            Type = "boolean",
+            ValueList = " — ",
+            DefaultValue = "false"
+        },
+        new AttributeItem() {
+            Name = "IsShowValue",
+            Description = "Whether to display the value",
+            Type = "boolean",
+            ValueList = " — ",
+            DefaultValue = "false"
+        },
+        new AttributeItem() {
+            Name = "IsStriped",
+            Description = "Whether to show stripes",
+            Type = "boolean",
+            ValueList = " — ",
+            DefaultValue = "false"
+        }
     };
 }

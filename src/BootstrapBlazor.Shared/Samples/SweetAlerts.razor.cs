@@ -18,19 +18,19 @@ public partial class SweetAlerts
     private Task OnSwal(SwalCategory cate) => SwalService.Show(new SwalOption()
     {
         Category = cate,
-        Title = "Sweet 弹窗"
+        Title = "Sweet"
     });
 
     private Task ShowTitle() => SwalService.Show(new SwalOption()
     {
         Category = SwalCategory.Success,
-        Title = "我是 Title"
+        Title = "Title"
     });
 
     private Task ShowContent() => SwalService.Show(new SwalOption()
     {
         Category = SwalCategory.Success,
-        Content = "我是 Content"
+        Content = "Content"
     });
 
     [Inject]
@@ -42,14 +42,14 @@ public partial class SweetAlerts
         var op = new SwalOption()
         {
             Category = SwalCategory.Success,
-            Title = "我是 Title",
-            Content = "我是 Content",
+            Title = "Title",
+            Content = "Content",
             ShowClose = false
         };
         op.ButtonTemplate = new RenderFragment(builder =>
         {
             builder.OpenComponent<Button>(0);
-            builder.AddAttribute(1, nameof(Button.Text), "自定义关闭按钮");
+            builder.AddAttribute(1, nameof(Button.Text), "custom close button");
             builder.AddAttribute(2, nameof(Button.OnClick), EventCallback.Factory.Create<MouseEventArgs>(this, async () => await op.Close()));
             builder.CloseComponent();
         });
@@ -100,6 +100,7 @@ public partial class SweetAlerts
         await SwalService.Show(op);
     }
 
+    [NotNull]
     private BlockLogger? Trace { get; set; }
 
     private async Task ShowModal()
@@ -111,7 +112,7 @@ public partial class SweetAlerts
         };
         var ret = await SwalService.ShowModal(op);
 
-        Trace?.Log($"模态弹窗返回值为：{ret}");
+        Trace.Log($"模态弹窗返回值为：{ret}");
     }
 
     /// <summary>
@@ -122,84 +123,84 @@ public partial class SweetAlerts
     {
         new AttributeItem() {
             Name = "Category",
-            Description = "弹出框类型",
+            Description = "popover type",
             Type = "SwalCategory",
             ValueList = "Success/Error/Information/Warning/Question",
             DefaultValue = "Success"
         },
         new AttributeItem() {
             Name = "Title",
-            Description = "弹窗标题",
+            Description = "Popup title",
             Type = "string",
             ValueList = "—",
             DefaultValue = ""
         },
         new AttributeItem() {
             Name = "Cotent",
-            Description = "弹窗内容",
+            Description = "popup content",
             Type = "string",
             ValueList = "—",
             DefaultValue = ""
         },
         new AttributeItem() {
             Name = "Delay",
-            Description = "自动隐藏时间间隔",
+            Description = "Auto hide interval",
             Type = "int",
             ValueList = "—",
             DefaultValue = "4000"
         },
         new AttributeItem() {
             Name = "IsAutoHide",
-            Description = "是否自动隐藏",
+            Description = "Whether to automatically hide",
             Type = "boolean",
             ValueList = "true|false",
             DefaultValue = "false"
         },
         new AttributeItem() {
             Name = "ShowClose",
-            Description = "是否显示关闭按钮",
+            Description = "Whether to show the close button",
             Type = "boolean",
             ValueList = "true|false",
             DefaultValue = "true"
         },
         new AttributeItem() {
             Name = "ShowFooter",
-            Description = "是否显示页脚模板",
+            Description = "Whether to show the footer template",
             Type = "boolean",
             ValueList = "true|false",
             DefaultValue = "false"
         },
         new AttributeItem() {
             Name = "IsConfirm",
-            Description = "是否为确认弹窗模式",
+            Description = "Whether it is confirmation popup mode",
             Type = "boolean",
             ValueList = "true|false",
             DefaultValue = "false"
         },
         new AttributeItem() {
             Name = "BodyContext",
-            Description = "弹窗传参",
+            Description = "pop-up window",
             Type = "object",
             ValueList = " — ",
             DefaultValue = " — "
         },
         new AttributeItem() {
             Name = "BodyTemplate",
-            Description = "模态主体显示组件",
+            Description = "Modal body display component",
             Type = "RenderFragment",
             ValueList = " — ",
             DefaultValue = " — "
         },
         new AttributeItem() {
             Name = "FooterTemplate",
-            Description = "模态主体页脚组件",
+            Description = "Modal body footer component",
             Type = "RenderFragment",
             ValueList = " — ",
             DefaultValue = " — "
         },
         new AttributeItem() {
             Name = "ButtonTemplate",
-            Description = "模态按钮模板",
+            Description = "Modal button template",
             Type = "RenderFragment",
             ValueList = " — ",
             DefaultValue = " — "

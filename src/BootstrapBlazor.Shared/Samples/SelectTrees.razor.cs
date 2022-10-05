@@ -42,8 +42,6 @@ public partial class SelectTrees
             }
         }
     };
-
     private TreeFoo Model { get; set; } = new TreeFoo();
-
     private TreeFoo BindModel { get; set; } = new TreeFoo() { Text = "" };
 }

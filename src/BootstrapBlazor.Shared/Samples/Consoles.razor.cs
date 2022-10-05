@@ -4,6 +4,8 @@
 
 using BootstrapBlazor.Components;
 using BootstrapBlazor.Shared.Common;
+using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Localization;
 using System.Collections.Concurrent;
 
 namespace BootstrapBlazor.Shared.Samples;
@@ -13,6 +15,10 @@ namespace BootstrapBlazor.Shared.Samples;
 /// </summary>
 public sealed partial class Consoles : IDisposable
 {
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<Consoles>? Localizer { get; set; }
+
     private ConcurrentQueue<ConsoleMessageItem> Messages { get; set; } = new();
     private ConcurrentQueue<ConsoleMessageItem> ColorMessages { get; set; } = new();
 

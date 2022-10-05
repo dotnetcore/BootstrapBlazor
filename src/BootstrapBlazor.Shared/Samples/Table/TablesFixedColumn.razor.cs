@@ -8,7 +8,7 @@ using Microsoft.Extensions.Localization;
 namespace BootstrapBlazor.Shared.Samples.Table;
 
 /// <summary>
-/// 固定列示例
+/// Fixed column example
 /// </summary>
 public partial class TablesFixedColumn
 {
@@ -17,15 +17,19 @@ public partial class TablesFixedColumn
 
     [Inject]
     [NotNull]
-    private IStringLocalizer<Foo>? Localizer { get; set; }
+    private IStringLocalizer<Foo>? LocalizerFoo { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<TablesFixedColumn>? Localizer { get; set; }
 
     /// <summary>
-    /// OnInitialized 方法
+    /// OnInitialized method
     /// </summary>
     protected override void OnInitialized()
     {
         base.OnInitialized();
 
-        Items = Foo.GenerateFoo(Localizer);
+        Items = Foo.GenerateFoo(LocalizerFoo);
     }
 }

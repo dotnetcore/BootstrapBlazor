@@ -4,6 +4,7 @@
 
 using BootstrapBlazor.Components;
 using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Localization;
 
 namespace BootstrapBlazor.Shared.Samples;
 
@@ -15,6 +16,10 @@ public partial class Dispatches
     [Inject]
     [NotNull]
     private IDispatchService<MessageItem>? DispatchService { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<Dispatches>? Localizer { get; set; }
 
     private async Task OnDispatch()
     {

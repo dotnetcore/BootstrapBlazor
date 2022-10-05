@@ -1,10 +1,10 @@
 ﻿@page "/tooltips"
+@inject IStringLocalizer<Tooltips> Localizer
 
-<h3>Tooltip 提示工具条</h3>
+<h3>@Localizer["H1"]</h3>
+<h4>@Localizer["H2"]</h4>
 
-<h4>提供鼠标悬停或者获得焦点后显示提示框</h4>
-
-<DemoBlock Title="基础用法" Introduction="常用于展示鼠标 hover 时的提示信息" Name="Nomal">
+<DemoBlock Title="@Localizer["P1"]" Introduction="@Localizer["P2"]" Name="Nomal">
     <div class="d-flex flex-column w-100 tooltip-demo">
         <div class="d-flex justify-content-center">
             <Tooltip Placement="Placement.Bottom" Title="Tootip">
@@ -27,7 +27,7 @@
     </div>
 </DemoBlock>
 
-<DemoBlock Title="Button 组件提示框" Introduction="提供鼠标悬停或者获得焦点后显示提示框" Name="Button">
+<DemoBlock Title="@Localizer["P3"]" Introduction="@Localizer["P4"]" Name="Button">
     <div class="row g-3">
         <div class="col-6 col-sm-4 col-md-3">
             <Tooltip Placement="Placement.Top" Title="Tootip" Trigger="click">
@@ -52,8 +52,13 @@
     </div>
 </DemoBlock>
 
-<DemoBlock Title="Html 提示信息" Introduction="通过设置 <code>IsHtml</code> 参数使提示信息使用 <code>Html</code> 字符串渲染" Name="IsHtml">
-    <Tooltip Title="@HtmlString" IsHtml="true" Sanitize="false">
+<DemoBlock Title="@Localizer["P5"]" Introduction="@Localizer["P6"]" Name="BootstrapTooltip">
+    <p>@Localizer["P7"]</p>
+    <p>@Localizer["P8"]</p>
+    <Pre>&lt;BootstrapTooltip Title="Test tooltip"&gt;
+    &lt;i class="fa-solid fa-flag" /&gt;
+&lt;/BootstrapTooltip&gt;</Pre>
+    <Tooltip Title="Test tooltip">
         <i class="fa-solid fa-flag" />
     </Tooltip>
 </DemoBlock>
