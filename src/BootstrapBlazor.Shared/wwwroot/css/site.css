@@ -1785,6 +1785,19 @@ header .bb-fs {
     border-radius: var(--bs-border-radius);
 }
 
+.wwads-cn {
+    --ad-min-height: 120px;
+    --ad-margin-bottom: 1rem;
+    min-height: var(--ad-min-height);
+    margin-bottom: var(--ad-margin-bottom);
+    overflow: hidden;
+}
+
+    .wwads-cn.debug {
+        --ad-min-height: 0;
+        --ad-margin-bottom: 0;
+    }
+
 @media (max-width: 767.98px) {
     .main .top-row:not(.auth) {
         display: none;
