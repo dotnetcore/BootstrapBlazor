@@ -207,7 +207,7 @@
     "P42": "Automatically close popups"
   },
   "BootstrapBlazor.Shared.Samples.Spinners": {
-    "H1": "Spinner spin icon",
+    "H1": "Spinner icon",
     "H2": "Show animation when loading data",
     "P1": "when to use",
     "P2": "When the page is partially waiting for asynchronous data or is being rendered, appropriate loading animations can effectively relieve the user's anxiety.",
