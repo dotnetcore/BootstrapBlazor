@@ -1,4 +1,4 @@
-/**
+﻿/**
  * 浏览器解析，浏览器、Node.js皆可
  * https://github.com/mumuy/browser
  */
@@ -44,7 +44,7 @@
             'Safari': u.indexOf('Safari') > -1,
             'Chrome': u.indexOf('Chrome') > -1 || u.indexOf('CriOS') > -1,
             'IE': u.indexOf('MSIE') > -1 || u.indexOf('Trident') > -1,
-            'Edge': u.indexOf('Edge') > -1||u.indexOf('Edg/') > -1,
+            'Edge': u.indexOf('Edge') > -1||u.indexOf('Edg/') > -1||u.indexOf('EdgA') > -1||u.indexOf('EdgiOS') > -1,
             'Firefox': u.indexOf('Firefox') > -1 || u.indexOf('FxiOS') > -1,
             'Firefox Focus': u.indexOf('Focus') > -1,
             'Chromium': u.indexOf('Chromium') > -1,
@@ -86,7 +86,7 @@
             'Suning': u.indexOf('SNEBUY-APP') > -1,
             'iQiYi': u.indexOf('IqiyiApp') > -1,
             'DingTalk': u.indexOf('DingTalk') > -1,
-            'Huawei': u.indexOf('HuaweiBrowser') > -1||u.indexOf('HUAWEI/') > -1||u.indexOf('HONOR') > -1,
+            'Huawei': u.indexOf('HuaweiBrowser') > -1||u.indexOf('HUAWEI/') > -1||u.indexOf('HONOR') > -1||u.indexOf('HBPC/') > -1,
             'Vivo': u.indexOf('VivoBrowser') > -1,
             //系统或平台
             'Windows': u.indexOf('Windows') > -1,
@@ -106,7 +106,9 @@
             'WebOS': u.indexOf('hpwOS') > -1,
             //设备
             'Mobile': u.indexOf('Mobi') > -1 || u.indexOf('iPh') > -1 || u.indexOf('480') > -1,
-            'Tablet': u.indexOf('Tablet') > -1 || u.indexOf('Pad') > -1 || u.indexOf('Nexus 7') > -1
+            'Tablet': u.indexOf('Tablet') > -1 || u.indexOf('Pad') > -1 || u.indexOf('Nexus 7') > -1 || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1),
+            //环境
+            'isWebview': u.indexOf('; wv)')>-1
         };
         var is360 = false;
         if(_window.chrome){
@@ -215,6 +217,17 @@
                 _this.osVersion = '';
             }
         }
+        //支持 win11
+        if (_this.osVersion === '10.0' && _navigator.userAgentData) {
+            _navigator.userAgentData.getHighEntropyValues(["platformVersion"])
+                .then(ua => {
+                    const majorPlatformVersion = parseInt(ua.platformVersion.split('.')[0]);
+                    if (majorPlatformVersion >= 13) {
+                        _this.osVersion = '11.0'
+                    }
+                });
+        }
+        _this.isWebview = match['isWebview'];
         //浏览器版本信息
         var version = {
             'Safari': function () {
@@ -227,7 +240,7 @@
                 return u.replace(/^.*MSIE ([\d.]+).*$/, '$1').replace(/^.*rv:([\d.]+).*$/, '$1');
             },
             'Edge': function () {
-                return u.replace(/^.*Edge\/([\d.]+).*$/, '$1').replace(/^.*Edg\/([\d.]+).*$/, '$1');
+                return u.replace(/^.*Edge\/([\d.]+).*$/, '$1').replace(/^.*Edg\/([\d.]+).*$/, '$1').replace(/^.*EdgA\/([\d.]+).*$/, '$1').replace(/^.*EdgiOS\/([\d.]+).*$/, '$1');
             },
             'Firefox': function () {
                 return u.replace(/^.*Firefox\/([\d.]+).*$/, '$1').replace(/^.*FxiOS\/([\d.]+).*$/, '$1');
@@ -286,7 +299,7 @@
                 return hash[chrome_version]||'';
             },
             '360EE': function(){
-                var hash = {'86':'13.0','78':'12.0','69':'11.0','63':'9.5','55':'9.0','50':'8.7','30':'7.5'};
+                var hash = {'95':'21','86':'13.0','78':'12.0','69':'11.0','63':'9.5','55':'9.0','50':'8.7','30':'7.5'};
                 var chrome_version = u.replace(/^.*Chrome\/([\d]+).*$/, '$1');
                 return hash[chrome_version]||'';
             },
@@ -368,7 +381,7 @@
                 return u.replace(/^.*DingTalk\/([\d.]+).*$/, '$1');
             },
             'Huawei': function () {
-                return u.replace(/^.*Version\/([\d.]+).*$/, '$1').replace(/^.*HuaweiBrowser\/([\d.]+).*$/, '$1');
+                return u.replace(/^.*Version\/([\d.]+).*$/, '$1').replace(/^.*HuaweiBrowser\/([\d.]+).*$/, '$1').replace(/^.*HBPC\/([\d.]+).*$/, '$1');
             }
         };
         _this.version = '';
@@ -383,11 +396,8 @@
             _this.browser = u.match(/\S+Browser/)[0];
             _this.version = u.replace(/^.*Browser\/([\d.]+).*$/, '$1');
         }
-        if(_this.browser == 'Firefox'&&(window.clientInformation||!window.u2f)){
-            _this.browser += ' Nightly';
-        }
         if (_this.browser == 'Edge') {
-            _this.engine = _this.version>'75'?'Blink':'EdgeHTML';
+            _this.engine = parseInt(_this.version)>75?'Blink':'EdgeHTML';
         } else if (match['Chrome']&& _this.engine=='WebKit' && parseInt(version['Chrome']()) > 27) {
             _this.engine = 'Blink';
         } else if (_this.browser == 'Opera' && parseInt(_this.version) > 12) {
