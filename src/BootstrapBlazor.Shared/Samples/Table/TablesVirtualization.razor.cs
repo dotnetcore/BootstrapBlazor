@@ -15,7 +15,7 @@ public partial class TablesVirtualization
 {
     [Inject]
     [NotNull]
-    private IStringLocalizer<Foo>? Localizer { get; set; }
+    private IStringLocalizer<Foo>? LocalizerFoo { get; set; }
 
     [NotNull]
     private List<Foo>? Items { get; set; }
@@ -27,7 +27,7 @@ public partial class TablesVirtualization
     {
         base.OnInitialized();
 
-        Items = Foo.GenerateFoo(Localizer);
+        Items = Foo.GenerateFoo(LocalizerFoo);
     }
 
     private async Task<QueryData<Foo>> OnQueryAsync(QueryPageOptions options)

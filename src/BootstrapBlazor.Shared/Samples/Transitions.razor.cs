@@ -39,7 +39,7 @@ public partial class Transitions
     private Task OnTransitionEndShow()
     {
         TransitionEndShow = false;
-        Trace.Log("动画结束");
+        Trace.Log("animation ends");
         StateHasChanged();
         return Task.CompletedTask;
     }
@@ -60,31 +60,30 @@ public partial class Transitions
 
     private static IEnumerable<AttributeItem> GetAttributes() => new[]
     {
-            // TODO: 移动到数据库中
             new AttributeItem() {
                 Name = "TransitionType",
-                Description = "动画效果名称",
+                Description = "Animation effect name",
                 Type = "TransitionType",
                 ValueList = " — ",
                 DefaultValue = "FadeIn"
             },
             new AttributeItem() {
                 Name = "Show",
-                Description = "控制动画执行",
+                Description = "Control animation execution",
                 Type = "Boolean",
                 ValueList = "true|false",
                 DefaultValue = "true"
             },
             new AttributeItem() {
                 Name = "Duration",
-                Description = "控制动画时长",
+                Description = "Control animation duration",
                 Type = "int",
                 ValueList = " — ",
                 DefaultValue = "0"
             },
             new AttributeItem() {
                 Name = "OnTransitionEnd",
-                Description = "动画执行完成回调",
+                Description = "Animation execution complete callback",
                 Type = "Func<Task>",
                 ValueList = " — ",
                 DefaultValue = " — "

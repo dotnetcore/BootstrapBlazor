@@ -105,31 +105,30 @@ public partial class Topologies : IDisposable
     /// <returns></returns>
     private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
-        // TODO: 移动到数据库中
         new AttributeItem() {
             Name = nameof(Topology.Content),
-            Description = "加载图形 Json 内容",
+            Description = "Load Graphical Json Content",
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
         },
         new AttributeItem() {
             Name = nameof(Topology.Interval),
-            Description = "轮询模式下轮询间隔",
+            Description = "Polling interval in polling mode",
             Type = "int",
             ValueList = " — ",
             DefaultValue = "2000"
         },
         new AttributeItem() {
             Name = nameof(Topology.OnQueryAsync),
-            Description = "获取推送数据回调委托方法",
+            Description = "Get push data callback delegate method",
             Type = "Func<CancellationToken, Task<IEnumerable<TopologyItem>>>",
             ValueList = " — ",
             DefaultValue = " — "
         },
         new AttributeItem() {
             Name = nameof(Topology.OnBeforePushData),
-            Description = "开始推送数据前回调方法",
+            Description = "Callback method before starting to push data",
             Type = "Func<Task>",
             ValueList = " — ",
             DefaultValue = " — "
@@ -137,7 +136,7 @@ public partial class Topologies : IDisposable
     };
 
     /// <summary>
-    /// Dispose 方法
+    /// Dispose
     /// </summary>
     /// <param name="disposing"></param>
     protected virtual void Dispose(bool disposing)
@@ -153,7 +152,7 @@ public partial class Topologies : IDisposable
     }
 
     /// <summary>
-    /// Dispose 方法
+    /// Dispose
     /// </summary>
     public void Dispose()
     {

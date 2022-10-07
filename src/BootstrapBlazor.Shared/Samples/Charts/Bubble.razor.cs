@@ -32,19 +32,19 @@ public partial class Bubble
 
         if (firstRender)
         {
-            Logger.Log("Bubble 正在加载数据 ...");
+            Logger.Log("Bubble is loading data ...");
         }
     }
 
     private Task OnAfterInit()
     {
-        Logger.Log("Bubble 初始化完毕");
+        Logger.Log("Bubble is initialized");
         return Task.CompletedTask;
     }
 
     private Task OnAfterUpdate(ChartAction action)
     {
-        Logger.Log($"Bubble 图更新数据操作完毕 -- {action}");
+        Logger.Log($"Bubble graph update data operation completed -- {action}");
         return Task.CompletedTask;
     }
 
@@ -54,13 +54,13 @@ public partial class Bubble
         {
             Labels = Enumerable.Range(1, BubbleDataCount).Select(i => i.ToString())
         };
-        ds.Options.Title = "Bubble 气泡图";
+        ds.Options.Title = "Bubble chart";
 
         for (var index = 0; index < BubbleDatasetCount; index++)
         {
             ds.Data.Add(new ChartDataset()
             {
-                Label = $"数据集 {index}",
+                Label = $"Set {index}",
                 Data = Enumerable.Range(1, BubbleDataCount).Select(i => new
                 {
                     x = Randomer.Next(10, 40),

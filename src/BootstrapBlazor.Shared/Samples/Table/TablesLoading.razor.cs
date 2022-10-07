@@ -15,7 +15,7 @@ public partial class TablesLoading
 {
     [Inject]
     [NotNull]
-    private IStringLocalizer<Foo>? Localizer { get; set; }
+    private IStringLocalizer<Foo>? LocalizerFoo { get; set; }
 
     private static IEnumerable<int> PageItemsSource => new int[] { 4, 10, 20 };
 
@@ -32,8 +32,8 @@ public partial class TablesLoading
     {
         base.OnInitialized();
 
-        Hobbys = Foo.GenerateHobbys(Localizer);
-        Items = Foo.GenerateFoo(Localizer);
+        Hobbys = Foo.GenerateHobbys(LocalizerFoo);
+        Items = Foo.GenerateFoo(LocalizerFoo);
     }
 
     private static async Task<Foo> OnAddAsync()

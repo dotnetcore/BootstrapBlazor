@@ -15,10 +15,6 @@ namespace BootstrapBlazor.Shared.Samples;
 /// </summary>
 public partial class AutoRedirects
 {
-    [Inject]
-    [NotNull]
-    private IStringLocalizer<AutoRedirects>? Localizer { get; set; }
-
     [NotNull]
     private BlockLogger? Trace { get; set; }
 
@@ -29,36 +25,35 @@ public partial class AutoRedirects
     }
 
     /// <summary>
-    /// 获得属性方法
+    /// Get property method
     /// </summary>
     /// <returns></returns>
     private IEnumerable<AttributeItem> GetAttributes() => new[]
     {
-        // TODO: 移动到数据库中
         new AttributeItem() {
             Name = nameof(AutoRedirect.Interval),
-            Description = "时间间隔",
+            Description = "Time interval",
             Type = "int",
             ValueList = " — ",
             DefaultValue = "60000"
         },
         new AttributeItem() {
             Name = nameof(AutoRedirect.RedirectUrl),
-            Description = "重定向地址",
+            Description = "Redirect address",
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
         },
         new AttributeItem() {
             Name = nameof(AutoRedirect.IsForceLoad),
-            Description = "是否强制重定向",
+            Description = "Whether to force redirection",
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
         },
         new AttributeItem() {
             Name = nameof(AutoRedirect.OnBeforeRedirectAsync),
-            Description = "地址跳转前回调方法",
+            Description = "Callback method before address jump",
             Type = "Func<Task<bool>>",
             ValueList = " — ",
             DefaultValue = " — "
