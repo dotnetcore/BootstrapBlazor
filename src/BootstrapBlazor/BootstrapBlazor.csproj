@@ -44,17 +44,19 @@
     <Content Remove="wwwroot\core\**\*.*" />
     <Content Remove="wwwroot\lib\**\*.*" />
     <Content Remove="wwwroot\bundle\*.*" />
-    <Content Remove="wwwroot\src\*.*" />
+    <Content Remove="wwwroot\src\**\*.*" />
     <None Include="bundleconfig.json" />
     <None Include="wwwroot\core\**\*.*" />
     <None Include="wwwroot\lib\**\*.*" />
     <None Include="wwwroot\bundle\*.*" />
-    <None Include="wwwroot\src\*.*" />
+    <None Include="wwwroot\src\**\*.*" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(Configuration)' == 'Release'">
     <Content Remove="wwwroot\js\bootstrap.blazor.bundle.js" />
     <None Include="wwwroot\js\bootstrap.blazor.bundle.js" />
+    <Content Remove="wwwroot\modules\**\*.map" />
+    <None Include="wwwroot\modules\**\*.map" />
   </ItemGroup>
 
   <ItemGroup>

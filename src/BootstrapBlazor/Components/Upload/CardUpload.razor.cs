@@ -67,7 +67,7 @@ public partial class CardUpload<TValue>
         }
         else
         {
-            await JSRuntime.InvokeVoidAsync(UploaderElement, "bb_image_preview", PreviewList);
+            await JSRuntime.InvokeVoidAsync($"#{Id}", "bb_image_preview", PreviewList);
         }
     }
 }

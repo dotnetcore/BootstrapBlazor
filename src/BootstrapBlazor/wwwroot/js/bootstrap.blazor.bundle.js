@@ -19362,83 +19362,6 @@ return jQuery;
         }
     }
 
-    class Menu extends BaseComponent {
-        static _dispose(collapse, element) {
-            if (element._isShown()) {
-                element.hide();
-                const duration = getTransitionDurationFromElement(collapse, 15);
-                let handler = window.setTimeout(() => {
-                    window.clearTimeout(handler);
-                    element.dispose();
-                }, duration);
-            } else {
-                element.dispose();
-            }
-        }
-
-        static dispose(element) {
-            element = getElement(element);
-            const collapses = element.querySelectorAll('[data-bs-toggle="collapse"]');
-            collapses.forEach(element => {
-                const collapse = Utility.getTargetElement(element);
-                const c = bootstrap.Collapse.getInstance(collapse);
-                if (c !== null) {
-                    this._dispose(collapse, c);
-                }
-            });
-        }
-
-        static init(element) {
-            element = getElement(element);
-            if (element) {
-                let activeLink = element.querySelector('.nav-link.active');
-                if (activeLink === null) {
-                    const url = window.location.pathname.substring(1);
-                    activeLink = element.querySelector(`[href="${url}"]`);
-                    if (activeLink != null) {
-                        activeLink.classList.add('active');
-                    }
-                }
-                while (activeLink !== null) {
-                    const menu = activeLink.closest('.collapse.submenu');
-                    if (menu !== null && !menu.classList.contains('show')) {
-                        const id = menu.getAttribute('id');
-                        const triggerElement = element.querySelector(`[data-bs-toggle="collapse"][data-bs-target="#${id}"]`);
-                        if (triggerElement !== null) {
-                            triggerElement.click();
-                        }
-                    }
-                    activeLink = menu;
-                }
-            }
-        }
-
-        static reset(element) {
-            element = getElement(element);
-            const expandAll = element.getAttribute('data-bb-expand') === 'true';
-            const collapses = element.querySelectorAll('[data-bs-toggle="collapse"]');
-            collapses.forEach(element => {
-                const collapse = Utility.getTargetElement(element);
-                const c = bootstrap.Collapse.getInstance(collapse);
-                if (c !== null) {
-                    if (expandAll) {
-                        if (!c._isShown()) {
-                            c.show();
-                        }
-                    } else {
-                        this._dispose(collapse, c);
-                    }
-                } else {
-                    if (expandAll) {
-                        new bootstrap.Collapse(collapse, {
-                            toggle: true
-                        });
-                    }
-                }
-            });
-        }
-    }
-
     class Utility {
         static vibrate() {
             if ('vibrate' in window.navigator) {
@@ -19637,7 +19560,6 @@ return jQuery;
         Carousel,
         Confirm,
         Dropdown,
-        Menu,
         Popover,
         Tooltip,
         Utility

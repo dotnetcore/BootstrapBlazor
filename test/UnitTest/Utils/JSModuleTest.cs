@@ -20,13 +20,16 @@ public class JSModuleTest
     }
 
     [Fact]
-    public void InvokeVoidAsync_Ok()
+    public async Task InvokeVoidAsync_Ok()
     {
         var js = new MockJSObjectReference();
         var module = new JSModule(js);
-        module.InvokeVoidAsync("$.test");
-        module.InvokeVoidAsync("$.test", CancellationToken.None);
-        module.InvokeAsync<object>("$.test");
+        await module.InvokeVoidAsync("Test.init", "bb_id");
+        await module.InvokeVoidAsync("Test.init", "bb_id", TimeSpan.Zero);
+        await module.InvokeVoidAsync("Test.init", "bb_id", CancellationToken.None);
+        await module.InvokeAsync<object>("Test.init", "bb_id");
+        await module.InvokeAsync<object>("Test.init", "bb_id", TimeSpan.Zero);
+        await module.InvokeAsync<object>("Test.init", "bb_id", CancellationToken.None);
     }
 
     [Fact]
@@ -52,7 +55,12 @@ public class JSModuleTest
         var module = new JSModule<object>(js, new Foo());
         Assert.NotNull(module);
 
-        await module.InvokeVoidAsync("$.text");
+        await module.InvokeVoidAsync("Test.init", "bb_id");
+        await module.InvokeVoidAsync("Test.init", "bb_id", TimeSpan.Zero);
+        await module.InvokeVoidAsync("Test.init", "bb_id", CancellationToken.None);
+        await module.InvokeAsync<object>("Test.init", "bb_id");
+        await module.InvokeAsync<object>("Test.init", "bb_id", TimeSpan.Zero);
+        await module.InvokeAsync<object>("Test.init", "bb_id", CancellationToken.None);
         await module.DisposeAsync();
     }
 
@@ -61,7 +69,7 @@ public class JSModuleTest
     {
         var js = new MockErrorJSObjectReference();
         var module = new JSModule<object>(js, new Foo());
-        await module.InvokeVoidAsync("$.text");
+        await module.InvokeVoidAsync("Test.init", "bb_id");
         await module.DisposeAsync();
     }
 

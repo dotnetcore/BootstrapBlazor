@@ -10,7 +10,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 支持客户端验证的文本框基类
 /// </summary>
-public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateComponent, IAsyncDisposable
+public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateComponent
 {
     private ValidationMessageStore? _parsingValidationMessages;
 
@@ -511,16 +511,8 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
                 await RemoveValidResult();
             }
         }
-    }
 
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <returns></returns>
-    public async ValueTask DisposeAsync()
-    {
-        await DisposeAsyncCore(true);
-        GC.SuppressFinalize(this);
+        await base.DisposeAsync(disposing);
     }
     #endregion
 

@@ -7,7 +7,8 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// Menu 组件基类
 /// </summary>
-public partial class Menu : IAsyncDisposable
+[JSModuleAutoLoader]
+public partial class Menu
 {
     /// <summary>
     /// 获得 组件样式
@@ -133,17 +134,15 @@ public partial class Menu : IAsyncDisposable
     /// </summary>
     /// <param name="firstRender"></param>
     /// <returns></returns>
-    protected override async Task OnAfterRenderAsync(bool firstRender)
+    protected override async Task ModuleInvokeVoidAsync(bool firstRender)
     {
-        await base.OnAfterRenderAsync(firstRender);
-
         if (firstRender)
         {
-            await JSRuntime.InvokeVoidByIdAsync(identifier: "bb.Menu.init", Id);
+            await base.ModuleInvokeVoidAsync(firstRender);
         }
-        else
+        else if (Module != null)
         {
-            await JSRuntime.InvokeVoidByIdAsync(identifier: "bb.Menu.reset", Id);
+            await Module.InvokeVoidAsync("Menu.reset", Id);
         }
     }
 
@@ -230,29 +229,5 @@ public partial class Menu : IAsyncDisposable
                 StateHasChanged();
             }
         }
-    }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <param name="disposing"></param>
-    /// <returns></returns>
-    protected virtual async ValueTask DisposeAsync(bool disposing)
-    {
-        if (disposing)
-        {
-            await JSRuntime.InvokeVoidByIdAsync(identifier: "bb.Menu.dispose", Id);
-        }
-    }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <returns></returns>
-    /// <exception cref="NotImplementedException"></exception>
-    public async ValueTask DisposeAsync()
-    {
-        await DisposeAsync(true);
-        GC.SuppressFinalize(this);
     }
 }
