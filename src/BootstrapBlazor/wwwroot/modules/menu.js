@@ -1,5 +1,5 @@
 ﻿import BlazorComponent from "./base/blazor-component.js";
-import { getTargetElement } from "./base/utility.js"
+import { getTargetElement, getTransitionDelayDurationFromElement } from "./base/utility.js"
 
 class Menu extends BlazorComponent {
     _init() {
@@ -42,7 +42,7 @@ class Menu extends BlazorComponent {
                     }
                 }
                 else {
-                    this._disposeCollapse(collapse, target)
+                    this._disposeCollapse(collapse, el)
                 }
             }
             else {
@@ -57,11 +57,17 @@ class Menu extends BlazorComponent {
 
     _disposeCollapse(collapse, target) {
         if (collapse._isShown()) {
-            collapse._element.classList.remove('show')
-            target.classList.remove('collapsed')
-            target.setAttribute('aria-expanded', 'false')
+            collapse.hide()
+
+            const duration = getTransitionDelayDurationFromElement(target);
+            const handler = window.setTimeout(() => {
+                window.clearTimeout(handler)
+                collapse.dispose()
+            }, duration)
         }
-        collapse.dispose()
+        else {
+            collapse.dispose()
+        }
     }
 
     _dispose() {
@@ -69,7 +75,7 @@ class Menu extends BlazorComponent {
             const target = getTargetElement(el)
             const collapse = bootstrap.Collapse.getInstance(target)
             if (collapse !== null) {
-                this._disposeCollapse(collapse, target)
+                this._disposeCollapse(collapse, el)
             }
         })
     }

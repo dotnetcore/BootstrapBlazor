@@ -55,7 +55,7 @@ const getTargetElement = (element, selector = 'data-bs-target') => {
     return null
 }
 
-const getTransitionDelayDurationFromElement = (element, delay = 20) => {
+const getTransitionDelayDurationFromElement = (element, delay = 80) => {
     return getTransitionDurationFromElement(element) + delay
 }
 
