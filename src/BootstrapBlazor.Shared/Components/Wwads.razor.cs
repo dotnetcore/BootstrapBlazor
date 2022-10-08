@@ -2,13 +2,14 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using Microsoft.JSInterop;
+using BootstrapBlazor.Components;
 
 namespace BootstrapBlazor.Shared.Components;
 
 /// <summary>
 /// 广告组件
 /// </summary>
+[JSModuleAutoLoader("./_content/BootstrapBlazor.Shared/modules/wwads.js", ModuleName = "Wwads", Relative = false)]
 public partial class Wwads
 {
     private string? DebugString { get; set; }
@@ -23,20 +24,5 @@ public partial class Wwads
 #if DEBUG
         DebugString = "true";
 #endif
-    }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <param name="firstRender"></param>
-    /// <returns></returns>
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        await base.OnAfterRenderAsync(firstRender);
-
-        if (firstRender)
-        {
-            await JSRuntime.InvokeVoidAsync("Wwads.init", $"#{Id}");
-        }
     }
 }

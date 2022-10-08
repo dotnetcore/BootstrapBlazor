@@ -13,7 +13,8 @@ namespace BootstrapBlazor.Shared.Shared;
 /// <summary>
 ///
 /// </summary>
-public sealed partial class NavMenu
+[JSModuleAutoLoader("./_content/BootstrapBlazor.Shared/modules/menu.js", ModuleName = "Menu", Relative = false)]
+public partial class NavMenu
 {
     private bool IsAccordion { get; set; }
 
@@ -37,7 +38,7 @@ public sealed partial class NavMenu
     [NotNull]
     private IStringLocalizer<NavMenu>? Localizer { get; set; }
 
-    private List<MenuItem> Menus { get; set; } = new List<MenuItem>(100);
+    private List<MenuItem> Menus { get; set; } = new(100);
 
     /// <summary>
     /// OnInitialized 方法
