@@ -20,6 +20,12 @@ public partial class QRCode : IAsyncDisposable
     private string? ImageStyleString => $"width: {Width}px; height: {Width}px;";
 
     /// <summary>
+    /// Instance of <see cref="JSModule"/>
+    /// </summary>
+    [NotNull]
+    protected JSModule<QRCode>? Module { get; set; }
+
+    /// <summary>
     /// 获得/设置 二维码生成后回调委托
     /// </summary>
     [Parameter]
@@ -89,10 +95,7 @@ public partial class QRCode : IAsyncDisposable
     [Parameter]
     public int Width { get; set; } = 128;
 
-    private string? MethodName { get; set; }
-
-    [NotNull]
-    private JSModule<QRCode>? Module { get; set; }
+    private string? MethodName { get; set; } = "generate";
 
     [Inject]
     [NotNull]
@@ -109,25 +112,25 @@ public partial class QRCode : IAsyncDisposable
         PlaceHolder ??= Localizer[nameof(PlaceHolder)];
         ClearButtonText ??= Localizer[nameof(ClearButtonText)];
         GenerateButtonText ??= Localizer[nameof(GenerateButtonText)];
-
-        Generate();
     }
 
     /// <summary>
-    /// OnParametersSet 方法
+    /// <inheritdoc/>
     /// </summary>
+    /// <param name="firstRender"></param>
+    /// <returns></returns>
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        if (!string.IsNullOrEmpty(MethodName))
+        if (firstRender)
         {
-            if (Module == null)
-            {
-                var jSObjectReference = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/BootstrapBlazor.BarCode/qrcode.bundle.min.js");
-                Module = new JSModule<QRCode>(jSObjectReference, this);
-            }
-            await Module.InvokeVoidAsync("bb_qrcode", QRCodeElement, MethodName, Content ?? "");
-            MethodName = null;
+            Module ??= await JSRuntime.LoadModule("./_content/BootstrapBlazor.BarCode/qrcode.bundle.min.js", this, false);
+            await Module.InvokeVoidAsync("BlazorQRCode.init", QRCodeElement, MethodName, Content, nameof(Generated));
         }
+        else
+        {
+            await Module.InvokeVoidAsync("BlazorQRCode.execute", QRCodeElement, MethodName, Content);
+        }
+        MethodName = "";
     }
 
     private void Clear() => MethodName = "clear";
@@ -143,28 +146,33 @@ public partial class QRCode : IAsyncDisposable
     {
         if (OnGenerated != null)
         {
-            await OnGenerated.Invoke();
+            await OnGenerated();
         }
     }
 
     /// <summary>
-    /// Dispose 方法
+    /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources asynchronously.
     /// </summary>
     /// <param name="disposing"></param>
+    /// <returns></returns>
     protected virtual async ValueTask DisposeAsync(bool disposing)
     {
         if (disposing)
         {
             if (Module != null)
             {
+                await Module.InvokeVoidAsync("BlazorQRCode.dispose", QRCodeElement);
                 await Module.DisposeAsync();
+                Module = null;
             }
         }
     }
 
     /// <summary>
-    /// Dispose 方法
+    /// <inheritdoc/>
     /// </summary>
+    /// <returns></returns>
+    /// <exception cref="NotImplementedException"></exception>
     public async ValueTask DisposeAsync()
     {
         await DisposeAsync(true);

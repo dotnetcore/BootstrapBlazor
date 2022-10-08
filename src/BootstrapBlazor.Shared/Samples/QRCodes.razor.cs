@@ -34,6 +34,7 @@ public sealed partial class QRCodes
     [NotNull]
     private IStringLocalizer<QRCodes>? Localizer { get; set; }
 
+    [NotNull]
     private BlockLogger? Trace { get; set; }
     /// <summary>
     /// OnInitialized 方法
@@ -51,7 +52,7 @@ public sealed partial class QRCodes
 
     private Task OnGenerated()
     {
-        Trace?.Log(SuccessText);
+        Trace.Log(SuccessText);
         return Task.CompletedTask;
     }
 
