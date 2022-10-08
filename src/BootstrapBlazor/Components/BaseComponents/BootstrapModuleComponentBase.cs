@@ -1,0 +1,96 @@
+﻿// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
+// Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
+// Website: https://www.blazor.zone or https://argozhang.github.io/
+
+using System.Reflection;
+
+namespace BootstrapBlazor.Components;
+
+/// <summary>
+/// Bootstrap blazor Javascript isoloation base class
+/// </summary>
+public abstract class BootstrapModuleComponentBase : IdComponentBase, IAsyncDisposable
+{
+    /// <summary>
+    /// Instance of <see cref="JSModule"/>
+    /// </summary>
+    protected JSModule? Module { get; set; }
+
+    [NotNull]
+    private string? ModulePath { get; set; }
+
+    [NotNull]
+    private string? ModuleName { get; set; }
+
+    private bool Relative { get; set; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        var type = this.GetType();
+        var attr = type.GetCustomAttribute<JSModuleAutoLoaderAttribute>();
+
+        if (attr != null)
+        {
+            ModulePath = attr.Path ?? type.Name.ToLowerInvariant();
+            ModuleName = attr.ModuleName ?? type.Name;
+            Relative = attr.Relative;
+        }
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="firstRender"></param>
+    /// <returns></returns>
+    protected override Task OnAfterRenderAsync(bool firstRender) => ModuleInvokeVoidAsync(firstRender);
+
+    /// <summary>
+    /// Load javascript module method
+    /// </summary>
+    /// <returns></returns>
+    protected virtual async Task ModuleInvokeVoidAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            if (!string.IsNullOrEmpty(ModulePath))
+            {
+                Module ??= await JSRuntime.LoadModule(ModulePath, Relative);
+                await Module.InvokeVoidAsync($"{ModuleName}.init", Id);
+            }
+        }
+    }
+
+    /// <summary>
+    /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources asynchronously.
+    /// </summary>
+    /// <param name="disposing"></param>
+    /// <returns></returns>
+    protected virtual async ValueTask DisposeAsync(bool disposing)
+    {
+        if (disposing)
+        {
+            if (Module != null)
+            {
+                await Module.InvokeVoidAsync($"{ModuleName}.dispose", Id);
+                await Module.DisposeAsync();
+                Module = null;
+            }
+        }
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    /// <exception cref="NotImplementedException"></exception>
+    public async ValueTask DisposeAsync()
+    {
+        await DisposeAsync(true);
+        GC.SuppressFinalize(this);
+    }
+}
