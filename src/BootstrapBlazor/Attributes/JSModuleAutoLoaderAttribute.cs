@@ -21,7 +21,7 @@ public class JSModuleAutoLoaderAttribute : Attribute
     public string? ModuleName { get; set; }
 
     /// <summary>
-    /// 获得/设置 脚本路径是否为相对路径 默认 false
+    /// 获得/设置 脚本路径是否为相对路径 默认 true
     /// </summary>
     public bool Relative { get; set; } = true;
 

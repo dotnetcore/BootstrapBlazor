@@ -19,8 +19,11 @@ public abstract class BootstrapModuleComponentBase : IdComponentBase, IAsyncDisp
     [NotNull]
     private string? ModulePath { get; set; }
 
+    /// <summary>
+    /// The javascript dynamic module name
+    /// </summary>
     [NotNull]
-    private string? ModuleName { get; set; }
+    protected string? ModuleName { get; set; }
 
     private bool Relative { get; set; }
 
@@ -47,7 +50,15 @@ public abstract class BootstrapModuleComponentBase : IdComponentBase, IAsyncDisp
     /// </summary>
     /// <param name="firstRender"></param>
     /// <returns></returns>
-    protected override Task OnAfterRenderAsync(bool firstRender) => ModuleInvokeVoidAsync(firstRender);
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender && !string.IsNullOrEmpty(ModulePath))
+        {
+            Module ??= await JSRuntime.LoadModule(ModulePath, this, Relative);
+        }
+
+        await ModuleInvokeVoidAsync(firstRender);
+    }
 
     /// <summary>
     /// Load javascript module method
@@ -57,13 +68,27 @@ public abstract class BootstrapModuleComponentBase : IdComponentBase, IAsyncDisp
     {
         if (firstRender)
         {
-            if (!string.IsNullOrEmpty(ModulePath))
-            {
-                Module ??= await JSRuntime.LoadModule(ModulePath, Relative);
-                await Module.InvokeVoidAsync($"{ModuleName}.init", Id);
-            }
+            await ModuleInitAsync();
         }
     }
+
+    /// <summary>
+    /// call javascript init method
+    /// </summary>
+    /// <returns></returns>
+    protected virtual async Task ModuleInitAsync()
+    {
+        if (Module != null)
+        {
+            await Module.InvokeVoidAsync($"{ModuleName}.init", Id);
+        }
+    }
+
+    /// <summary>
+    /// call javascript execute method
+    /// </summary>
+    /// <returns></returns>
+    protected virtual Task ModuleExecuteAsync() => Task.CompletedTask;
 
     /// <summary>
     /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources asynchronously.

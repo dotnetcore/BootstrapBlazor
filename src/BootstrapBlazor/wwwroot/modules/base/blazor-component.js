@@ -11,6 +11,10 @@ class BlazorComponent extends BaseComponent {
     _init() {
     }
 
+    _execute(args) {
+
+    }
+
     _dispose() {
     }
 
@@ -29,7 +33,15 @@ class BlazorComponent extends BaseComponent {
     static init(element) {
         element = getElement(element)
         if (element) {
-            this.getOrCreateInstance(element)
+            new this(element, { arguments: [].slice.call(arguments, 1) })
+        }
+    }
+
+    static execute(element) {
+        element = getElement(element)
+        if (element) {
+            var instance = this.getInstance(element)
+            instance._execute([].slice.call(arguments, 1))
         }
     }
 
