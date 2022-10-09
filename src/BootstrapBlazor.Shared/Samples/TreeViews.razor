@@ -5,33 +5,33 @@
 <h4>@Localizer["H2"]</h4>
 
 <Tips class="mt-3">
-    <div><code>Tree</code>@Localizer["P1"] <code>TItem="TreeFoo"</code></div>
+    <div><code>Tree</code> @((MarkupString)Localizer["P1"].Value) <code>TItem="TreeFoo"</code></div>
     <ul class="ul-demo mt-3">
-        <li>@Localizer["P2"]</li>
-        <li>@Localizer["P3"]</li>
-        <li>@Localizer["P4"]</li>
-        <li>@Localizer["P5"]</li>
-        <li>@Localizer["P6"]</li>
-        <li>@Localizer["P7"]</li>
-        <li>@Localizer["P8"]</li>
+        <li>@((MarkupString)Localizer["P2"].Value)</li>
+        <li>@((MarkupString)Localizer["P3"].Value)</li>
+        <li>@((MarkupString)Localizer["P4"].Value)</li>
+        <li>@((MarkupString)Localizer["P5"].Value)</li>
+        <li>@((MarkupString)Localizer["P6"].Value)</li>
+        <li>@((MarkupString)Localizer["P7"].Value)</li>
+        <li>@((MarkupString)Localizer["P8"].Value)</li>
     </ul>
 </Tips>
 
-<p>@Localizer["P9"]</p>
-<p>@Localizer["P10"]</p>
-<p>@Localizer["P11"]</p>
-<p>@Localizer["P12"]</p>
+<p>@((MarkupString)Localizer["P9"].Value)</p>
+<p>@((MarkupString)Localizer["P10"].Value)</p>
+<p>@((MarkupString)Localizer["P11"].Value)</p>
+<p>@((MarkupString)Localizer["P12"].Value)</p>
 
 <DemoBlock Title="@Localizer["P13"]" Introduction="@Localizer["P14"]" Name="Normal">
-    <p>@Localizer["P15"]</p>
+    <p>@((MarkupString)Localizer["P15"].Value)</p>
     <TreeView TItem="TreeFoo" Items="@Items" OnTreeItemClick="@OnTreeItemClick" />
     <BlockLogger @ref="Trace" class="mt-3" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["P16"]" Introduction="@Localizer["P17"]" Name="Checkbox">
     <p>
-        <div>@Localizer["P18"]</div>
-        <div>@Localizer["P19"]</div>
+        <div>@((MarkupString)Localizer["P18"].Value)</div>
+        <div>@((MarkupString)Localizer["P19"].Value)</div>
     </p>
     <div class="row form-inline">
         <div class="col-12 col-lg-auto">
@@ -50,38 +50,38 @@
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["P24"]" Introduction="@Localizer["P25"]" Name="TreeDisable">
-    <p>@Localizer["P26"]</p>
+    <p>@((MarkupString)Localizer["P26"].Value)</p>
     <TreeView TItem="TreeFoo" Items="@DisabledItems" ShowCheckbox="true" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["P27"]" Introduction="@Localizer["P28"]" Name="AccordionModel">
-    <p>@Localizer["P29"]</p>
+    <p>@((MarkupString)Localizer["P29"].Value)</p>
     <TreeView TItem="TreeFoo" Items="@GetAccordionItems()" OnExpandNodeAsync="OnExpandNodeAsync" ShowCheckbox="true" IsAccordion="true" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["P30"]" Introduction="@Localizer["P31"]" Name="DefauleExpand">
     <p>
-        @Localizer["P32"]
+        @((MarkupString)Localizer["P32"].Value)
     </p>
     <TreeView TItem="TreeFoo" Items="@ExpandItems" ShowCheckbox="true" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["P33"]" Introduction="@Localizer["P34"]" Name="TreeDisplayIcon">
     <p>
-        @Localizer["P35"]
+        @((MarkupString)Localizer["P35"].Value)
     </p>
     <TreeView TItem="TreeFoo" Items="@GetIconItems()" ShowIcon="true" ShowCheckbox="true" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["P36"]" Introduction="@Localizer["P37"]" Name="TreeClickExpand">
     <p>
-        @Localizer["P38"]
+        @((MarkupString)Localizer["P38"].Value)
     </p>
     <TreeView TItem="TreeFoo" Items="@Items" ShowIcon="true" ShowCheckbox="true" ClickToggleNode="true" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["P39"]" Introduction="@Localizer["P40"]" Name="TreeValidationForm">
-    <p>@Localizer["P41"]</p>
+    <p>@((MarkupString)Localizer["P41"].Value)</p>
     <ValidateForm Model="@Model">
         <TreeView TItem="TreeFoo" Items="@Items" OnTreeItemClick="@OnTreeItemClick" ShowCheckbox="true" />
     </ValidateForm>
@@ -89,7 +89,7 @@
 
 <DemoBlock Title="@Localizer["P42"]" Introduction="@Localizer["P43"]" Name="TreeLazyLoading">
     <p>
-        @Localizer["P44"]
+        @((MarkupString)Localizer["P44"].Value)
     </p>
     <TreeView TItem="TreeFoo" ClickToggleNode="true" Items="@GetLazyItems()" OnExpandNodeAsync="OnExpandNodeAsync" />
 </DemoBlock>

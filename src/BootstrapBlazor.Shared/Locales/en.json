@@ -564,7 +564,7 @@
     "P16": "Checkbox",
     "P17": "Suitable for use when you need to select a level",
     "P18": "By setting the <code>OnTreeItemChecked</code> property to monitor the event when the tree control node is checked, when the check box in front of the tree control node is selected, the following log displays the data of the selected node",
-    "P19": "<code>Tree</code> component data loading will keep the state of each node inside, change the node selected state and click the <b>refresh</b> button, the component node state will remain unchanged, you can pass the parameter <code>IsReset</b> code> Force data reset",
+    "P19": "<code>Tree</code> component data loading will keep the state of each node inside, change the node selected state and click the <b>refresh</b> button, the component node state will remain unchanged, you can pass the parameter <code>IsReset</code> Force data reset",
     "P20": "Whether to reset",
     "P21": "Automatically select child nodes",
     "P22": "Automatically select parent node",
