@@ -666,7 +666,7 @@
     "P4": "Example",
     "P5": "download file",
     "P6": "<code>Razor</code> code",
-    "P7": "&lt;Button OnClick=&quot;DownloadFile&quot;&gt;Click me to download the file&lt;/Button&gt;",
+    "P7": "<Button OnClick=\"DownloadFile\">Click me to download the file</Button>",
     "P8": "<code>C#</code> code",
     "P9": "test file",
     "P10": "Self-generated and written text, here can be replaced with pictures or other content",

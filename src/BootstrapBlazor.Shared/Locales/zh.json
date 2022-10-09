@@ -666,7 +666,7 @@
     "P4": "示例",
     "P5": "下载文件",
     "P6": "<code>Razor</code> 代码",
-    "P7": "&lt;Button OnClick=&quot;DownloadFile&quot;&gt;点我下载文件&lt;/Button&gt;",
+    "P7": "<Button OnClick=\"DownloadFile\">点我下载文件</Button>",
     "P8": "<code>C#</code> 代码",
     "P9": "测试文件",
     "P10": "自行生成并写入的文本，这里可以换成图片或其他内容",
