@@ -64,10 +64,6 @@ class Upload extends BlazorComponent {
         EventHandler.off(this._element, 'drop');
         EventHandler.off(this._element, 'paste');
     }
-
-    static get NAME() {
-        return 'upload'
-    }
 }
 
 export {

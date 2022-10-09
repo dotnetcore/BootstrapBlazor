@@ -29,22 +29,23 @@ public class JSModule<TCom> : JSModule where TCom : class
     /// InvokeVoidAsync 方法
     /// </summary>
     /// <param name="identifier"></param>
-    /// <param name="element"></param>
     /// <param name="cancellationToken"></param>
     /// <param name="args"></param>
     /// <returns></returns>
-    public override async ValueTask InvokeVoidAsync(string identifier, ElementReference element, CancellationToken cancellationToken = default, params object?[]? args)
+    public override async ValueTask InvokeVoidAsync(string identifier, CancellationToken cancellationToken = default, params object?[]? args)
     {
-#if NET5_0
-        var paras = new List<object>();
-#else
         var paras = new List<object?>();
-#endif
-        paras.Add(element);
-        paras.Add(DotNetReference);
         if (args != null)
         {
-            paras.AddRange(args!);
+            if (args.Length > 0)
+            {
+                paras.Add(args[0]);
+            }
+            paras.Add(DotNetReference);
+            if (args.Length > 1)
+            {
+                paras.AddRange(args.Skip(1).Take(args.Length - 1));
+            }
         }
         await InvokeVoidAsync();
 
@@ -68,101 +69,21 @@ public class JSModule<TCom> : JSModule where TCom : class
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public override async ValueTask<TValue> InvokeAsync<TValue>(string identifier, ElementReference element, CancellationToken cancellationToken = default, params object?[]? args)
+    public override async ValueTask<TValue> InvokeAsync<TValue>(string identifier, CancellationToken cancellationToken = default, params object?[]? args)
     {
-#if NET5_0
-        var paras = new List<object>();
-#else
         var paras = new List<object?>();
-#endif
-        paras.Add(element);
-        paras.Add(DotNetReference);
         if (args != null)
         {
-            paras.AddRange(args!);
-        }
-
-        return await InvokeAsync();
-
-        [ExcludeFromCodeCoverage]
-        async ValueTask<TValue> InvokeAsync()
-        {
-            TValue ret = default!;
-            try
+            if (args.Length > 0)
             {
-                ret = await Module.InvokeAsync<TValue>(identifier, cancellationToken, paras.ToArray());
+                paras.Add(args[0]);
             }
-#if NET6_0_OR_GREATER
-            catch (JSDisconnectedException) { }
-#endif
-            catch (JSException) { }
-            catch (AggregateException) { }
-            catch (InvalidOperationException) { }
-            catch (TaskCanceledException) { }
-
-            return ret;
-        }
-    }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    public override async ValueTask InvokeVoidAsync(string identifier, string? id, CancellationToken cancellationToken = default, params object?[]? args)
-    {
-#if NET5_0
-        var paras = new List<object>();
-#else
-        var paras = new List<object?>();
-#endif
-        if (!string.IsNullOrEmpty(id))
-        {
-            paras.Add($"#{id}");
-        }
-        paras.Add(DotNetReference);
-        if (args != null)
-        {
-            paras.AddRange(args!);
-        }
-
-        await InvokeVoidAsync();
-
-        [ExcludeFromCodeCoverage]
-        async ValueTask InvokeVoidAsync()
-        {
-            try
+            paras.Add(DotNetReference);
+            if (args.Length > 1)
             {
-                await Module.InvokeVoidAsync(identifier, cancellationToken, paras.ToArray());
+                paras.AddRange(args.Skip(1).Take(args.Length - 1));
             }
-#if NET6_0_OR_GREATER
-            catch (JSDisconnectedException) { }
-#endif
-            catch (JSException) { }
-            catch (AggregateException) { }
-            catch (InvalidOperationException) { }
-            catch (TaskCanceledException) { }
         }
-    }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    public override async ValueTask<TValue> InvokeAsync<TValue>(string identifier, string? id, CancellationToken cancellationToken = default, params object?[]? args)
-    {
-#if NET5_0
-        var paras = new List<object>();
-#else
-        var paras = new List<object?>();
-#endif
-        if (!string.IsNullOrEmpty(id))
-        {
-            paras.Add($"#{id}");
-        }
-        paras.Add(DotNetReference);
-        if (args != null)
-        {
-            paras.AddRange(args!);
-        }
-
         return await InvokeAsync();
 
         [ExcludeFromCodeCoverage]

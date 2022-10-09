@@ -151,22 +151,14 @@ public partial class Menu
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <param name="firstRender"></param>
     /// <returns></returns>
-    protected override async Task ModuleInvokeVoidAsync(bool firstRender)
+    protected override async Task ModuleExecuteAsync()
     {
-        if (IsVertical && Module != null)
+        if (IsVertical && InvokeJSInterop && Module != null)
         {
-            if (firstRender)
-            {
-                await base.ModuleInvokeVoidAsync(firstRender);
-            }
-            else if (InvokeJSInterop)
-            {
-                await Module.InvokeVoidAsync("Menu.reset", Id);
-            }
+            InvokeJSInterop = false;
+            await Module.InvokeVoidAsync($"{ModuleName}.execute", Id);
         }
-        InvokeJSInterop = false;
     }
 
     private void InitMenus(MenuItem? parent, IEnumerable<MenuItem> menus, string url)

@@ -1,6 +1,14 @@
 ﻿import BaseComponent from "./base-component.js"
 import { getElement } from "./index.js"
 
+const getElementById = object => {
+    if (typeof object === 'string' && object.length > 0) {
+        object= `#${object}`
+    }
+
+    return getElement(object);
+}
+
 class BlazorComponent extends BaseComponent {
     constructor(element, config) {
         super(element, config)
@@ -24,6 +32,7 @@ class BlazorComponent extends BaseComponent {
     }
 
     static dispose(element) {
+        element = getElementById(element)
         const component = this.getInstance(element)
         if (component) {
             component.dispose()
@@ -31,14 +40,14 @@ class BlazorComponent extends BaseComponent {
     }
 
     static init(element) {
-        element = getElement(element)
+        element = getElementById(element)
         if (element) {
             new this(element, { arguments: [].slice.call(arguments, 1) })
         }
     }
 
     static execute(element) {
-        element = getElement(element)
+        element = getElementById(element)
         if (element) {
             var instance = this.getInstance(element)
             instance._execute([].slice.call(arguments, 1))

@@ -30,7 +30,7 @@ class Menu extends BlazorComponent {
         }
     }
 
-    _reset() {
+    _execute() {
         const expandAll = this._element.getAttribute('data-bb-expand') === 'true'
         this._collapses.forEach(el => {
             const target = getTargetElement(el)
@@ -78,15 +78,6 @@ class Menu extends BlazorComponent {
                 this._disposeCollapse(collapse, el)
             }
         })
-    }
-
-    static reset(element) {
-        const menu = this.getInstance(element)
-        menu._reset()
-    }
-
-    static get NAME() {
-        return 'menu'
     }
 }
 

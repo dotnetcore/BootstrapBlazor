@@ -70,6 +70,10 @@ public abstract class BootstrapModuleComponentBase : IdComponentBase, IAsyncDisp
         {
             await ModuleInitAsync();
         }
+        else
+        {
+            await ModuleExecuteAsync();
+        }
     }
 
     /// <summary>
