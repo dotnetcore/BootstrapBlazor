@@ -86,9 +86,6 @@ public partial class Markdown : IAsyncDisposable
 
     private MarkdownOption Option { get; } = new();
 
-    [NotNull]
-    private JSModule<Markdown>? Module { get; set; }
-
     /// <summary>
     /// 获得 组件样式
     /// </summary>
@@ -164,10 +161,13 @@ public partial class Markdown : IAsyncDisposable
     /// 设置 Value 方法
     /// </summary>
     /// <returns></returns>
-    public new ValueTask SetValue(string value)
+    public new async ValueTask SetValue(string value)
     {
         CurrentValueAsString = value;
-        return Module.InvokeVoidAsync("bb_markdown", MarkdownElement, Value ?? "", "setMarkdown");
+        if (Module != null)
+        {
+            await Module.InvokeVoidAsync("bb_markdown", MarkdownElement, Value ?? "", "setMarkdown");
+        }
     }
 
     /// <summary>
@@ -176,7 +176,13 @@ public partial class Markdown : IAsyncDisposable
     /// <param name="method"></param>
     /// <param name="parameters"></param>
     /// <returns></returns>
-    public ValueTask DoMethodAsync(string method, params object[] parameters) => Module.InvokeVoidAsync("bb_markdown_method", MarkdownElement, method, parameters);
+    public async ValueTask DoMethodAsync(string method, params object[] parameters)
+    {
+        if (Module != null)
+        {
+            await Module.InvokeVoidAsync("bb_markdown_method", MarkdownElement, method, parameters);
+        }
+    }
 
     /// <summary>
     /// Dispose 方法
