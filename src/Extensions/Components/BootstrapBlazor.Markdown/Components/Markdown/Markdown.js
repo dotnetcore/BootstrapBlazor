@@ -1,4 +1,4 @@
-﻿export function bb_markdown(el, value, method, obj) {
+﻿export function bb_markdown(el, obj, value, method) {
     // 自动加载样式
     BootstrapBlazorModules.addLink('_content/BootstrapBlazor.Markdown/css/bootstrap.blazor.markdown.min.css');
 
@@ -32,7 +32,7 @@
     }
 };
 
-export function bb_markdown_method(el, method, parameter, obj) {
+export function bb_markdown_method(el, obj, method, parameter) {
     var editor = $.data(el, 'bb_md_editor');
     if (editor) {
         editor[method](...parameter);
