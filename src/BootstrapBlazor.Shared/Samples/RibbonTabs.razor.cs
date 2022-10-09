@@ -51,6 +51,23 @@ public partial class RibbonTabs
         };
     }
 
+    private string? ActiveTabText { get; set; }
+
+    private string? FileClassString => CssBuilder.Default("ribbon-body collapse")
+        .AddClass("show", ActiveTabText == Localizer["ItemsText1"])
+        .Build();
+
+    private string? EditClassString => CssBuilder.Default("ribbon-body collapse")
+        .AddClass("show", ActiveTabText == Localizer["ItemsText2"])
+        .Build();
+
+    private Task OnHeaderClickAsync(string text, string url)
+    {
+        ActiveTabText = text;
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
+
     private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
         new AttributeItem()
@@ -111,7 +128,7 @@ public partial class RibbonTabs
         },
         new AttributeItem()
         {
-            Name = nameof(RibbonTab.OnTabItemClickAsync),
+            Name = nameof(RibbonTab.OnItemClickAsync),
             Description = Localizer["Attr8"],
             Type = "Func<RibbonTabItem, Task>",
             ValueList = " — ",
