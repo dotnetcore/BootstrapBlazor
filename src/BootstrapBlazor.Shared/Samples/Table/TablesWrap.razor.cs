@@ -19,7 +19,7 @@ public sealed partial class TablesWrap
 
     [Inject]
     [NotNull]
-    private IStringLocalizer<Foo>? Localizer { get; set; }
+    private IStringLocalizer<Foo>? LocalizerFoo { get; set; }
 
     /// <summary>
     /// OnInitialized 方法
@@ -28,12 +28,12 @@ public sealed partial class TablesWrap
     {
         base.OnInitialized();
 
-        CellItems = Foo.GenerateFoo(Localizer, 4);
+        CellItems = Foo.GenerateFoo(LocalizerFoo, 4);
     }
 
     private Task<QueryData<Foo>> OnQueryAsync(QueryPageOptions options)
     {
-        var items = Foo.GenerateFoo(Localizer);
+        var items = Foo.GenerateFoo(LocalizerFoo);
 
         // 设置记录总数
         var total = items.Count;

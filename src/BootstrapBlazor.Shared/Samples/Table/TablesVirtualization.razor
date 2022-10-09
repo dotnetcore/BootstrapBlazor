@@ -1,12 +1,12 @@
 ﻿@inherits BootstrapComponentBase
 @page "/tables/virtualization"
+@inject IStringLocalizer<TablesVirtualization> Localizer
 
-<h3>Table 虚拟滚动行</h3>
+<h3>@Localizer["H1"]</h3>
+<h4>@Localizer["H2"]</h4>
 
-<h4>Table 组件显示大数据时通常采用分页加载数据，还有一种虚拟行的技术类似手机滚动到底部时后台自动加载数据</h4>
-
-<DemoBlock Title="正常使用" Introduction="无需分页滚动数据时后台按需加载" Name="Normal">
-    <p>需要设置 <code>ScrollMode</code> <code>Height</code> <code>RowHeight</code> <code>PageItems</code> 参数对虚拟滚动进行设置</p>
+<DemoBlock Title="@Localizer["P1"]" Introduction="@Localizer["P2"]" Name="Normal">
+    <p>@Localizer["P3"]</p>
     <div class="table-virtualize-demo">
         <Table TItem="Foo" IsBordered="true" IsStriped="true" Items="Items" ScrollMode="ScrollMode.Virtual">
             <TableColumns>
@@ -21,8 +21,8 @@
     </div>
 </DemoBlock>
 
-<DemoBlock Title="动态获取数据" Introduction="无需分页滚动数据时后台按需加载" Name="Dynamic">
-    <p>快速滚动时显示行占位，提升用户体验</p>
+<DemoBlock Title="@Localizer["P4"]" Introduction="@Localizer["P5"]" Name="Dynamic">
+    <p>@Localizer["P6"]</p>
     <div class="table-virtualize-demo">
         <Table TItem="Foo" IsBordered="true" IsStriped="true" ScrollMode="ScrollMode.Virtual" OnQueryAsync="OnQueryAsync">
             <TableColumns>

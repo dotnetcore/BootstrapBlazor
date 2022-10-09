@@ -28,9 +28,9 @@ public sealed partial class TreeViews
 
     [Inject]
     [NotNull]
-    private IStringLocalizer<Foo>? Localizer { get; set; }
+    private IStringLocalizer<Foo>? LocalizerFoo { get; set; }
 
-    private Foo Model => Foo.Generate(Localizer);
+    private Foo Model => Foo.Generate(LocalizerFoo);
 
     private List<TreeViewItem<TreeFoo>> Items { get; set; } = TreeFoo.GetTreeItems();
 
@@ -51,8 +51,8 @@ public sealed partial class TreeViews
 
     private List<SelectedItem> ResetItems { get; } = new List<SelectedItem>()
     {
-        new("True", "重置"),
-        new("False", "保持")
+        new("True", "Reset"),
+        new("False", "Keep")
     };
 
     /// <summary>
@@ -218,59 +218,58 @@ public sealed partial class TreeViews
     /// <returns></returns>
     private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
-        // TODO: 移动到数据库中
         new AttributeItem() {
             Name = "Items",
-            Description = "菜单数据集合",
+            Description = "menu data set",
             Type = "IEnumerable<TreeItem>",
             ValueList = " — ",
             DefaultValue = "new List<TreeItem>(20)"
         },
         new AttributeItem() {
             Name = "ClickToggleNode",
-            Description = "是否点击节点时展开或者收缩子项",
+            Description = "Whether to expand or contract children when a node is clicked",
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
         },
         new AttributeItem() {
             Name = "ShowCheckbox",
-            Description = "是否显示 CheckBox",
+            Description = "Whether to display CheckBox",
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
         },
         new AttributeItem() {
             Name = "ShowIcon",
-            Description = "是否显示 Icon",
+            Description = "Whether to display Icon",
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
         },
         new AttributeItem() {
             Name = "ShowSkeleton",
-            Description = "是否显示加载骨架屏",
+            Description = "Whether to display the loading skeleton screen",
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
         },
         new AttributeItem() {
             Name = nameof(TreeView<string>.OnTreeItemClick),
-            Description = "树形控件节点点击时回调委托",
+            Description = "Callback delegate when tree control node is clicked",
             Type = "Func<TreeItem, Task>",
             ValueList = " — ",
             DefaultValue = " — "
         },
         new AttributeItem() {
             Name = nameof(TreeView<string>.OnTreeItemChecked),
-            Description = "树形控件节点选中时回调委托",
+            Description = "Callback delegate when tree control node is selected",
             Type = "Func<TreeItem, Task>",
             ValueList = " — ",
             DefaultValue = " — "
         },
         new AttributeItem() {
             Name = nameof(TreeView<string>.OnExpandNodeAsync),
-            Description = "树形控件节点展开回调委托",
+            Description = "Tree control node expand callback delegate",
             Type = "Func<TreeItem, Task>",
             ValueList = " — ",
             DefaultValue = " — "
@@ -281,63 +280,63 @@ public sealed partial class TreeViews
     {
         new AttributeItem() {
             Name = nameof(TreeViewItem<TreeFoo>.Items),
-            Description = "子节点数据源",
+            Description = "Child node data source",
             Type = "List<TreeItem<TItem>>",
             ValueList = " — ",
             DefaultValue = "new ()"
         },
         new AttributeItem() {
             Name = nameof(TreeViewItem<TreeFoo>.Text),
-            Description = "显示文字",
+            Description = "Display text",
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
         },
         new AttributeItem() {
             Name = nameof(TreeViewItem<TreeFoo>.Icon),
-            Description = "显示图标",
+            Description = "Show icon",
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
         },
         new AttributeItem() {
             Name = nameof(TreeViewItem<TreeFoo>.CssClass),
-            Description = "节点自定义样式",
+            Description = "Node custom style",
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
         },
         new AttributeItem() {
             Name = nameof(TreeViewItem<TreeFoo>.CheckedState),
-            Description = "是否被选中",
+            Description = "Is selected",
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
         },
         new AttributeItem() {
             Name = nameof(TreeViewItem<TreeFoo>.IsDisabled),
-            Description = "是否被禁用",
+            Description = "Is disabled",
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
         },
         new AttributeItem() {
             Name = nameof(TreeViewItem<TreeFoo>.IsExpand),
-            Description = "是否展开",
+            Description = "Whether to expand",
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "true"
         },
         new AttributeItem() {
             Name = nameof(TreeViewItem<TreeFoo>.HasChildren),
-            Description = "是否有子节点",
+            Description = "Whether there are child nodes",
             Type = "bool",
             ValueList = " true|false ",
             DefaultValue = " false "
         },
         new AttributeItem() {
             Name = nameof(TreeViewItem<TreeFoo>.ShowLoading),
-            Description = "是否显示子节点加载动画",
+            Description = "Whether to show child node loading animation",
             Type = "bool",
             ValueList = " true|false ",
             DefaultValue = " false "
@@ -345,7 +344,7 @@ public sealed partial class TreeViews
         new AttributeItem()
         {
             Name = nameof(TreeViewItem<TreeFoo>.Template),
-            Description = "子节点模板",
+            Description = "Child node template",
             Type = nameof(RenderFragment),
             ValueList = " — ",
             DefaultValue = " — "

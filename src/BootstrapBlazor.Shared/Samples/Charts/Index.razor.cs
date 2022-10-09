@@ -37,19 +37,19 @@ public sealed partial class Index
         new EventItem()
         {
             Name = "OnInitAsync",
-            Description="组件数据初始化委托方法",
+            Description="Component data initialization delegate method",
             Type ="Func<Task<ChartDataSource>>"
         },
         new EventItem()
         {
             Name = "OnAfterInitAsync",
-            Description="客户端绘制图表完毕后回调此委托方法",
+            Description="This delegate method is called back after the client draws the chart",
             Type ="Func<Task>"
         },
         new EventItem()
         {
             Name = "OnAfterUpdateAsync",
-            Description="客户端更新图表完毕后回调此委托方法",
+            Description="This delegate method is called back after the client has finished updating the chart",
             Type ="Func<ChartAction, Task>"
         }
     };
@@ -60,17 +60,16 @@ public sealed partial class Index
     /// <returns></returns>
     private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
-        // TODO: 移动到数据库中
         new AttributeItem() {
             Name = "Width",
-            Description = "组件宽度支持单位 如: 100px 75%",
+            Description = "Component width supports units such as: 100px 75%",
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
         },
         new AttributeItem() {
             Name = "ChartType",
-            Description = "设置图表类型",
+            Description = "Set chart type",
             Type = "ChartType",
             ValueList = "Line|Bar|Pie|Doughnut|Bubble",
             DefaultValue = "Line"

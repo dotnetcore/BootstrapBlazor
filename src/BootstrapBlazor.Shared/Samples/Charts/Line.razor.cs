@@ -32,35 +32,35 @@ public partial class Line
 
         if (firstRender)
         {
-            Logger.Log("Line 正在加载数据 ...");
+            Logger.Log("Line loading data ...");
         }
     }
 
     private Task OnAfterInit()
     {
-        Logger.Log("Line 初始化完毕");
+        Logger.Log("Line initialization is complete");
         return Task.CompletedTask;
     }
 
     private Task OnAfterUpdate(ChartAction action)
     {
-        Logger.Log($"Line 图更新数据操作完毕 -- {action}");
+        Logger.Log($"Line Figure update data operation completed -- {action}");
         return Task.CompletedTask;
     }
 
     private Task<ChartDataSource> OnInit(float tension, bool hasNull)
     {
         var ds = new ChartDataSource();
-        ds.Options.Title = "Line 折线图";
-        ds.Options.X.Title = "天数";
-        ds.Options.Y.Title = "数值";
+        ds.Options.Title = "Line Chart";
+        ds.Options.X.Title = "days";
+        ds.Options.Y.Title = "Numerical value";
         ds.Labels = Enumerable.Range(1, LineDataCount).Select(i => i.ToString());
         for (var index = 0; index < LineDatasetCount; index++)
         {
             ds.Data.Add(new ChartDataset()
             {
                 Tension = tension,
-                Label = $"数据集 {index}",
+                Label = $"Set {index}",
                 Data = Enumerable.Range(1, LineDataCount).Select((i, index) => (index == 2 && hasNull) ? null! : (object)Randomer.Next(20, 37))
             });
         }

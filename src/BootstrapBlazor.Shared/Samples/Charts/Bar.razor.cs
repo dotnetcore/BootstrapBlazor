@@ -31,24 +31,24 @@ public partial class Bar
 
         if (firstRender)
         {
-            Logger.Log("Bar 正在加载数据 ...");
+            Logger.Log("Bar loading data ...");
         }
     }
 
     private Task OnAfterInit()
     {
-        Logger.Log("Bar 初始化完毕");
+        Logger.Log("Bar initialization is complete");
         return Task.CompletedTask;
     }
 
-    private Task OnAfterUpdate(ChartAction action) => InvokeAsync(() => Logger.Log($"Bar 图更新数据操作完毕 -- {action}"));
+    private Task OnAfterUpdate(ChartAction action) => InvokeAsync(() => Logger.Log($"Bar Figure update data operation completed -- {action}"));
 
     private Task<ChartDataSource> OnInit(bool stacked)
     {
         var ds = new ChartDataSource();
-        ds.Options.Title = "Bar 柱状图";
-        ds.Options.X.Title = "天数";
-        ds.Options.Y.Title = "数值";
+        ds.Options.Title = "Bar Histogram";
+        ds.Options.X.Title = "days";
+        ds.Options.Y.Title = "Numerical value";
         ds.Options.X.Stacked = stacked;
         ds.Options.Y.Stacked = stacked;
         ds.Labels = Enumerable.Range(1, BarDataCount).Select(i => i.ToString());
@@ -56,7 +56,7 @@ public partial class Bar
         {
             ds.Data.Add(new ChartDataset()
             {
-                Label = $"数据集 {index}",
+                Label = $"Set {index}",
                 Data = Enumerable.Range(1, BarDataCount).Select(i => Randomer.Next(20, 37)).Cast<object>()
             });
         }

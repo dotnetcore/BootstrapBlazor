@@ -1,10 +1,10 @@
 ﻿@page "/tables/dynamicobject"
+@inject IStringLocalizer<TablesDynamicObject> Localizer
 
-<h3>Table 表格</h3>
+<h3>@Localizer["H1"]</h3>
+<h4>@Localizer["H2"]</h4>
 
-<h4>使用 <code>IDynamicMetaObjectProvider</code> 类作为数据源</h4>
-
-<DemoBlock Title="IDynamicMetaObjectProvider 集合" Introduction="通过设置 <code>Items</code> 数据源，使用 <code>IDynamicMetaObjectProvider</code> 数据集合作为数据源" Name="IDynamicMetaObjectProvider">
+<DemoBlock Title="@Localizer["P1"]" Introduction="@Localizer["P2"]" Name="IDynamicMetaObjectProvider">
     <Table TItem="CustomDynamicData" OnQueryAsync="OnQueryAsync"
            IsStriped="true" IsBordered="true" ShowToolbar="true" ShowColumnList="true" ShowDefaultButtons="false" ShowRefresh="false">
         <TableColumns>
@@ -17,7 +17,7 @@
     </Table>
 </DemoBlock>
 
-<DemoBlock Title="IDynamicObject 集合" Introduction="通过设置 <code>Items</code> 数据源，使用 <code>IDynamicObject</code> 数据集合作为数据源" Name="IDynamicObject">
+<DemoBlock Title="@Localizer["P3"]" Introduction="@Localizer["P4"]" Name="IDynamicObject">
     <Table TItem="BootstrapBlazorDynamicObjectData" Items="BootstrapDynamicItems"
            IsStriped="true" IsBordered="true" ShowToolbar="true" ShowColumnList="true" ShowDefaultButtons="false" ShowRefresh="false">
         <TableColumns>
