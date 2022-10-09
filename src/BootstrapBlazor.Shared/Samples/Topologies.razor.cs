@@ -61,13 +61,6 @@ public partial class Topologies : IDisposable
         {
             Interop = new JSInterop<Topologies>(JSRuntime);
             await Interop.InvokeVoidAsync(this, null, "bb_topology_demo", nameof(ToggleFan));
-
-            // 推送数据
-            var data = DataService.GetDatas();
-            await TopologyElement.PushData(data);
-
-            // 数据订阅
-            DataService.OnDataChange = async datas => await TopologyElement.PushData(datas);
         }
     }
 
@@ -97,6 +90,13 @@ public partial class Topologies : IDisposable
     private async Task OnBeforePushData()
     {
         await JSRuntime.InvokeVoidAsync("$.bb_topology_demo_setOptions");
+
+        // 推送数据
+        var data = DataService.GetDatas();
+        await TopologyElement.PushData(data);
+
+        // 数据订阅
+        DataService.OnDataChange = async datas => await TopologyElement.PushData(datas);
     }
 
     /// <summary>
