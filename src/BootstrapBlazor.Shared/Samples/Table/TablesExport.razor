@@ -11,7 +11,7 @@
 
 <p><b>@Localizer["P4"]</b></p>
 
-<p>@Localizer["P5"] <a href="https://www.nuget.org/packages?q=BootstrapBlazor.TableExport" target="_blank">nuget.org</a> @Localizer["P6"]</p>
+<p>@((MarkupString)Localizer["P5"].Value) <a href="https://www.nuget.org/packages?q=BootstrapBlazor.TableExport" target="_blank">nuget.org</a> @Localizer["P6"]</p>
 
 <div class="code-label">.NET CLI</div>
 <Pre class="no-highlight">dotnet add package BootstrapBlazor.TableExport --version @Version</Pre>
@@ -36,7 +36,6 @@
 <h4>@Localizer["P10"]</h4>
 
 <Pre>&lt;script src="_content/BootstrapBlazor.TableExport/js/export.min.js"&gt;&lt;/script&gt;</Pre>
-
 
 <DemoBlock Title="@Localizer["P11"]" Introduction="@Localizer["P12"]" Name="ShowExportButton">
     <Table TItem="Foo"

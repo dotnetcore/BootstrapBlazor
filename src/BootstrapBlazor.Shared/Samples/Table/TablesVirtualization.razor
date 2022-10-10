@@ -6,7 +6,7 @@
 <h4>@Localizer["H2"]</h4>
 
 <DemoBlock Title="@Localizer["P1"]" Introduction="@Localizer["P2"]" Name="Normal">
-    <p>@Localizer["P3"]</p>
+    <p>@((MarkupString)Localizer["P3"].Value)</p>
     <div class="table-virtualize-demo">
         <Table TItem="Foo" IsBordered="true" IsStriped="true" Items="Items" ScrollMode="ScrollMode.Virtual">
             <TableColumns>

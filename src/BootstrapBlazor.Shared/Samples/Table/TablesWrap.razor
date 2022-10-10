@@ -5,7 +5,7 @@
 <h3>@Localizer["H1"]</h3>
 <h4>@Localizer["H2"]</h4>
 
-<p>@Localizer["P1"]</p>
+<p>@((MarkupString)Localizer["P1"].Value)</p>
 
 <DemoBlock Title="@Localizer["P2"]" Introduction="@Localizer["P3"]" Name="WarpHeader">
     <p>@Localizer["P4"]</p>
@@ -33,9 +33,9 @@
 
 <DemoBlock Title="@Localizer["P14"]" Introduction="@Localizer["P15"]" Name="LongData">
     <ul class="ul-demo mb-3">
-        <li>@Localizer["P16"]</li>
-        <li>@Localizer["P17"]</li>
-        <li>@Localizer["P18"]</li>
+        <li>@((MarkupString)Localizer["P16"].Value)</li>
+        <li>@((MarkupString)Localizer["P17"].Value)</li>
+        <li>@((MarkupString)Localizer["P18"].Value)</li>
     </ul>
     <Table TItem="Foo" IsBordered="true" IsStriped="true" Items="@CellItems">
         <TableColumns>
@@ -50,11 +50,11 @@
 
 <DemoBlock Title="@Localizer["P22"]" Introduction="@Localizer["P23"]" Name="DataResizing">
     <ul class="ul-demo mb-3">
-        <li>@Localizer["P24"]</li>
-        <li>@Localizer["P25"]</li>
-        <li>@Localizer["P26"]</li>
-        <li>@Localizer["P27"]</li>
-        <li>@Localizer["P28"]</li>
+        <li>@((MarkupString)Localizer["P24"].Value)</li>
+        <li>@((MarkupString)Localizer["P25"].Value)</li>
+        <li>@((MarkupString)Localizer["P26"].Value)</li>
+        <li>@((MarkupString)Localizer["P27"].Value)</li>
+        <li>@((MarkupString)Localizer["P28"].Value)</li>
     </ul>
     <Table TItem="Foo" IsBordered="true" IsStriped="true" AllowResizing="true" IsPagination="true"
            OnQueryAsync="OnQueryAsync" PageItemsSource="new int[] {4, 8, 20}">

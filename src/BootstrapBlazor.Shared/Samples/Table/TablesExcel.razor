@@ -20,11 +20,11 @@
     <BlockLogger @ref="Trace" class="mt-3" />
 </DemoBlock>
 
-<p class="mt-3">@Localizer["P3"]</p>
+<p class="mt-3">@((MarkupString)Localizer["P3"].Value)</p>
 
 <p>
-    <div class="code-label">@Localizer["P4"]</div>
-    <div class="mt-2">@Localizer["P5"]</div>
+    <div class="code-label">@((MarkupString)Localizer["P4"].Value)</div>
+    <div class="mt-2">@((MarkupString)Localizer["P5"].Value)</div>
 </p>
 
 <Pre>protected override void OnInitialized()
@@ -35,8 +35,8 @@
 }</Pre>
 
 <p>
-    <div class="code-label">@Localizer["P6"]</div>
-    <div class="mt-2">@Localizer["P7"]</div>
+    <div class="code-label">@((MarkupString)Localizer["P6"].Value)</div>
+    <div class="mt-2">@((MarkupString)Localizer["P7"].Value)</div>
 </p>
 
 <Pre>private Task&lt;Foo&gt; OnAddAsync()
@@ -51,8 +51,8 @@
 }</Pre>
 
 <p>
-    <div class="code-label">@Localizer["P12"]</div>
-    <div class="mt-2">@Localizer["P13"]</div>
+    <div class="code-label">@((MarkupString)Localizer["P12"].Value)</div>
+    <div class="mt-2">@((MarkupString)Localizer["P13"].Value)</div>
 </p>
 
 <Pre>private Task&lt;bool&gt; OnDeleteAsync(IEnumerable&lt;Foo&gt; items)
@@ -66,9 +66,9 @@
 }</Pre>
 
 <p>
-    <div class="code-label">@Localizer["P18"]</div>
-    <div class="mt-2">@Localizer["P19"]</div>
-    <div class="mt-2">@Localizer["P20"]</div>
+    <div class="code-label">@((MarkupString)Localizer["P18"].Value)</div>
+    <div class="mt-2">@((MarkupString)Localizer["P19"].Value)</div>
+    <div class="mt-2">@((MarkupString)Localizer["P20"].Value)</div>
 </p>
 
 <Pre>private Task&lt;bool&gt; OnDeleteAsync(Foo item, ItemChangedType changedType)
@@ -80,8 +80,8 @@
 
 <DemoBlock Title="@Localizer["P24"]" Introduction="@Localizer["P25"]" Name="CellRender">
     <ul class="ul-demo mb-3">
-        <li>@Localizer["P26"]</li>
-        <li>@Localizer["P27"]</li>
+        <li>@((MarkupString)Localizer["P26"].Value)</li>
+        <li>@((MarkupString)Localizer["P27"].Value)</li>
     </ul>
     <Table TItem="Foo" Items="@Items" IsBordered="true" IsExcel="true" IsFixedHeader="true" Height="500">
         <TableColumns>

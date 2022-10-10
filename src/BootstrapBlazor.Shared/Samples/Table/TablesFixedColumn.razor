@@ -3,10 +3,10 @@
 <h3>@Localizer["H1"]</h3>
 <h4>@Localizer["H2"]</h4>
 
-<p>@Localizer["P1"]</p>
+<p>@((MarkupString)Localizer["P1"].Value)</p>
 
 <DemoBlock Title="@Localizer["P2"]" Introduction="@Localizer["P3"]" Name="FixedColHeader">
-    <p>@Localizer["P4"]</p>
+    <p>@((MarkupString)Localizer["P4"].Value)</p>
     <Table TItem="Foo" Items="@Items.Take(4)" HeaderStyle="TableHeaderStyle.Light" IsBordered="true" IsStriped="true" class="table-fixed-column-demo">
         <TableColumns>
             <TableColumn @bind-Field="@context.Name" Width="100" Fixed="true" />

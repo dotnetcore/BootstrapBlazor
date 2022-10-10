@@ -18,7 +18,7 @@
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["P3"]" Introduction="@Localizer["P4"]" Name="QueryTabel">
-    <p>@Localizer["P5"]</p>
+    <p>@((MarkupString)Localizer["P5"].Value)</p>
     <Table TItem="Foo"
            IsBordered="true" IsPagination="true" PageItemsSource="@PageItemsSource"
            ShowToolbar="true" ShowSearch="true" ShowCardView="true" ShowAdvancedSearch="false" ShowDefaultButtons="false"
@@ -32,7 +32,7 @@
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["P6"]" Introduction="@Localizer["P7"]" Name="CustomButton">
-    <p>@Localizer["P8"]</p>
+    <p>@((MarkupString)Localizer["P8"].Value)</p>
     <ul class="ul-demo mb-3">
         <li>@Localizer["P9"]</li>
         <li>@Localizer["P10"]</li>

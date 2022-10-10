@@ -4,8 +4,8 @@
 <h4>@Localizer["H2"]</h4>
 
 <DemoBlock Title="@Localizer["P1"]" Introduction="@Localizer["P2"]" Name="IsTracking">
-    <p>@Localizer["P3"]</p>
-    <p>@Localizer["P4"]</p>
+    <p>@((MarkupString)Localizer["P3"].Value)</p>
+    <p>@((MarkupString)Localizer["P4"].Value)</p>
     <Table TItem="Foo" IsTracking="true" @bind-Items="Items" ShowToastAfterSaveOrDeleteModel="false"
            IsBordered="true" IsMultipleSelect="true" ShowToolbar="true" ShowExtendButtons="true">
         <TableColumns>
