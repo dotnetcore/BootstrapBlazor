@@ -10,6 +10,7 @@
     <input readonly class="@InputClassName" value="@CurrentValueAsString" placeholder="@PlaceholderString" disabled="@Disabled" data-bs-toggle="@Constants.DropdownToggleString" data-bs-placement="@PlacementString" data-bs-dropdown=".picker-panel" data-bs-dismiss=".picker-panel-link-btn" />
     <i class="@DateTimePickerIconClassString"></i>
     <DatePickerBody @bind-Value="@ComponentValue" AllowNull="@AllowNull" ShowSidebar="@ShowSidebar"
+                    DateFormat="@DateFormat"
                     OnConfirm="@OnConfirm" OnClear="@OnClear" MinValue="@MinValue" MaxValue="@MaxValue"
                     AutoClose="AutoClose" ViewMode="@ViewMode">
     </DatePickerBody>

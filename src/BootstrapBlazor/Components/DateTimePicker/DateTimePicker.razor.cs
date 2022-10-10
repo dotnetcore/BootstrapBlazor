@@ -182,6 +182,18 @@ public sealed partial class DateTimePicker<TValue>
         DateTimePlaceHolderText ??= Localizer[nameof(DateTimePlaceHolderText)];
         DatePlaceHolderText ??= Localizer[nameof(DatePlaceHolderText)];
         GenericTypeErroMessage ??= Localizer[nameof(GenericTypeErroMessage)];
+
+        if (!string.IsNullOrEmpty(Format))
+        {
+            DateTimeFormat = Format;
+
+            var index = Format.IndexOf(' ');
+            if (index > 0)
+            {
+                DateFormat = Format[..index];
+            }
+        }
+
         DateTimeFormat ??= Localizer[nameof(DateTimeFormat)];
         DateFormat ??= Localizer[nameof(DateFormat)];
 
