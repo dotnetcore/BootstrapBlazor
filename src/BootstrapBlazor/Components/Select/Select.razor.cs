@@ -163,7 +163,18 @@ public partial class Select<TValue> : ISelect
         }
     }
 
-    private void ResetSelectedItem()
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    protected override async Task OnParametersSetAsync()
+    {
+        await base.OnParametersSetAsync();
+
+        await ResetSelectedItem();
+    }
+
+    private async Task ResetSelectedItem()
     {
         if (string.IsNullOrEmpty(SearchText))
         {
@@ -183,7 +194,7 @@ public partial class Select<TValue> : ISelect
         // Value 不等于 选中值即不存在
         if (!string.IsNullOrEmpty(SelectedItem?.Value) && CurrentValueAsString != SelectedItem.Value)
         {
-            CurrentValueAsString = SelectedItem.Value;
+            await ItemChanged(SelectedItem);
         }
     }
 

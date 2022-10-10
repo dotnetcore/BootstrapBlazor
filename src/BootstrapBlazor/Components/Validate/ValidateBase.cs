@@ -462,7 +462,7 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
         var id = RetrieveId();
         if (!string.IsNullOrEmpty(id) && !string.IsNullOrEmpty(ErrorMessage))
         {
-            await JSRuntime.InvokeVoidByIdAsync(identifier: "bb.Tooltip.init", Id, ErrorMessage);
+            await JSRuntime.InvokeVoidByIdAsync(identifier: "bb.Tooltip.init", id, ErrorMessage);
         }
     }
 
