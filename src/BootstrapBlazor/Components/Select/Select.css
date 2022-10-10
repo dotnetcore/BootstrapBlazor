@@ -13,7 +13,7 @@
     --bb-select-search-icon-top: 18px;
 }
 
-    .select .dropdown-menu {
+    .select:not(.cascade) .dropdown-menu {
         overflow-x: hidden;
         width: 100%;
     }
