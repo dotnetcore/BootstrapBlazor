@@ -31,7 +31,7 @@
             @if (ShowSearch)
             {
                 <div class="@SearchClassString">
-                    <input type="text" class="search-text form-control" @bind="@SearchText" @bind:event="oninput" />
+                    <input type="text" class="search-text form-control" @bind="@SearchText" @bind:event="oninput" aria-label="Search" />
                     <i class="@SearchIconString"></i>
                 </div>
             }

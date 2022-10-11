@@ -1021,6 +1021,11 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
             colspan++;
         }
 
+        if (ShowDetails())
+        {
+            colspan++;
+        }
+
         return colspan;
     }
 
