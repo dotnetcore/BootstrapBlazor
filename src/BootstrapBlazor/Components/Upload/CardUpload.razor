@@ -14,7 +14,7 @@
                 <div class="upload-item-body">
                     @if (IsImage(item))
                     {
-                        <img src="@item.PrevUrl" />
+                        <img alt="prevUrl" src="@item.PrevUrl" />
                     }
                     else
                     {
@@ -24,17 +24,18 @@
                 <div class="upload-item-size"><span>@GetFileName(item)</span> (@item.Size.ToFileSizeString())</div>
                 <div class="upload-item-actions">
                     <div class="btn-group">
-                        <button type="button" class="btn btn-sm btn-secondary" disabled="@GetDiabledString(item)" @onclick="() => OnClickZoom(item)">
+                        <button type="button" class="btn btn-sm btn-secondary" disabled="@GetDiabledString(item)" @onclick="() => OnClickZoom(item)" aria-label="zoom">
                             <i class="fa-solid fa-magnifying-glass-plus"></i>
                         </button>
                         @if(ShowDownloadButton)
                         {
-                            <button type="button" class="btn btn-sm btn-secondary" disabled="@GetDiabledString(item)" @onclick="() => OnClickDownload(item)">
+                            <button type="button" class="btn btn-sm btn-secondary" disabled="@GetDiabledString(item)" @onclick="() => OnClickDownload(item)" aria-label="download">
                                 <i class="fa-solid fa-download"></i>
                             </button>
                         }
                     </div>
-                    <DynamicElement TagName="button" type="button" class="btn btn-sm btn-outline-danger" disabled="@GetDeleteButtonDiabledString(item)"
+                    <DynamicElement TagName="button" type="button" class="btn btn-sm btn-outline-danger"
+                                    disabled="@GetDeleteButtonDiabledString(item)" aria-label="delete"
                                     TriggerClick="@(!IsDisabled)" OnClick="@(() => OnCardFileDelete(item))">
                         <i class="fa-regular fa-trash-can"></i>
                     </DynamicElement>

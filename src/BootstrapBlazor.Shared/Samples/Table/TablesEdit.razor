@@ -21,10 +21,10 @@
         <EditTemplate>
             <div class="row g-3 form-inline">
                 <div class="col-12 col-sm-6">
-                    <BootstrapInput @bind-Value="@context.Name" placeholder="@Localizer["P4"]" maxlength="50" />
+                    <BootstrapInput @bind-Value="@context.Name" placeholder="@PlaceHolderString" maxlength="50" />
                 </div>
                 <div class="col-12 col-sm-6">
-                    <BootstrapInput @bind-Value="@context.Address" placeholder="@Localizer["P4"]" maxlength="50" />
+                    <BootstrapInput @bind-Value="@context.Address" placeholder="@PlaceHolderString" maxlength="50" />
                 </div>
                 <div class="col-12 col-sm-6">
                     <DateTimePicker @bind-Value="@context.DateTime" />

@@ -42,6 +42,8 @@ public partial class TablesEdit
 
     private string DataServiceUrl => $"{WebsiteOption.CurrentValue.BootstrapBlazorLink}/wikis/Table%20%E7%BB%84%E4%BB%B6%E6%95%B0%E6%8D%AE%E6%9C%8D%E5%8A%A1%E4%BB%8B%E7%BB%8D?sort_id=3207977";
 
+    private string? PlaceHolderString { get; set; }
+
     /// <summary>
     /// OnInitialized 方法
     /// </summary>
@@ -55,6 +57,8 @@ public partial class TablesEdit
         BindItems = Foo.GenerateFoo(LocalizerFoo).Take(5).ToList();
 
         CustomerDataService = new FooDataService<Foo>(LocalizerFoo);
+
+        PlaceHolderString ??= Localizer["P4"];
     }
 
     private static Task<Foo> OnAddAsync() => Task.FromResult(new Foo() { DateTime = DateTime.Now, Address = $"Custom address  {DateTime.Now.Second}" });

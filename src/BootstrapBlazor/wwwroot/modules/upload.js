@@ -4,17 +4,13 @@ import BlazorComponent from "./base/blazor-component.js"
 class Upload extends BlazorComponent {
     _init() {
         this._inputFile = this._element.querySelector('[type="file"]')
-        this._browserButton = this._element.querySelector('.btn-browser')
-
         this._setListeners()
     }
 
     _setListeners() {
-        if (this._browserButton !== null) {
-            EventHandler.on(this._browserButton, 'click', () => {
-                this._inputFile.click()
-            })
-        }
+        EventHandler.on(this._element, 'click', '.btn-browser', () => {
+            this._inputFile.click()
+        })
 
         //阻止浏览器默认行为
         EventHandler.on(document, "dragleave", e => {
@@ -41,7 +37,7 @@ class Upload extends BlazorComponent {
                 }
 
                 this._inputFile.files = e.dataTransfer.files;
-                const event = new Event('change', {bubbles: true});
+                const event = new Event('change', { bubbles: true });
                 this._inputFile.dispatchEvent(event);
             } catch (e) {
                 console.error(e);
@@ -50,13 +46,13 @@ class Upload extends BlazorComponent {
 
         EventHandler.on(this._element, 'paste', e => {
             this._inputFile.files = e.clipboardData.files;
-            const event = new Event('change', {bubbles: true});
+            const event = new Event('change', { bubbles: true });
             this._inputFile.dispatchEvent(event);
         });
     }
 
     _dispose() {
-        EventHandler.off(this._browserButton, 'click')
+        EventHandler.off(this._element, 'click', '.btn-browser')
         EventHandler.off(document, 'dragleave');
         EventHandler.off(document, 'drop');
         EventHandler.off(document, 'dragenter');
