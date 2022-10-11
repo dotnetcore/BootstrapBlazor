@@ -10,7 +10,7 @@ namespace BootstrapBlazor.Components;
 /// Select 组件实现类
 /// </summary>
 /// <typeparam name="TValue"></typeparam>
-[JSModuleAutoLoader]
+[JSModuleAutoLoader(JSObjectReference = true)]
 public partial class Select<TValue> : ISelect
 {
     [Inject]

@@ -2,13 +2,19 @@
 import BlazorComponent from "./base/blazor-component.js"
 
 export class Upload extends BlazorComponent {
+    static get Default() {
+        return {
+            browserClass: '.btn-browser'
+        }
+    }
+
     _init() {
         this._inputFile = this._element.querySelector('[type="file"]')
         this._setListeners()
     }
 
     _setListeners() {
-        EventHandler.on(this._element, 'click', '.btn-browser', () => {
+        EventHandler.on(this._element, 'click', this._config.browserClass, () => {
             this._inputFile.click()
         })
 
@@ -52,7 +58,7 @@ export class Upload extends BlazorComponent {
     }
 
     _dispose() {
-        EventHandler.off(this._element, 'click', '.btn-browser')
+        EventHandler.off(this._element, 'click', this._config.browserClass)
         EventHandler.off(document, 'dragleave');
         EventHandler.off(document, 'drop');
         EventHandler.off(document, 'dragenter');

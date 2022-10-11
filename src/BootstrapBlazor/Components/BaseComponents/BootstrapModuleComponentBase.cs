@@ -28,6 +28,11 @@ public abstract class BootstrapModuleComponentBase : IdComponentBase, IAsyncDisp
     private bool Relative { get; set; }
 
     /// <summary>
+    /// 获得/设置 是否需要 javascript invoke 默认 false
+    /// </summary>
+    protected bool JSObjectReference { get; set; }
+
+    /// <summary>
     /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
@@ -38,18 +43,19 @@ public abstract class BootstrapModuleComponentBase : IdComponentBase, IAsyncDisp
         var attr = type.GetCustomAttribute<JSModuleAutoLoaderAttribute>();
         if (attr != null)
         {
-            LoadModule(type, attr.Path, attr.ModuleName, attr.Relative);
+            LoadModule(type, attr.Path, attr.ModuleName, attr.JSObjectReference, attr.Relative);
         }
     }
 
     /// <summary>
     /// 加载本类模块
     /// </summary>
-    protected virtual void LoadModule(Type type, string? path, string? name, bool relative = true)
+    protected virtual void LoadModule(Type type, string? path, string? name, bool jsRef = false, bool relative = true)
     {
         string? typeName = null;
         ModulePath = path ?? GetTypeName().ToLowerInvariant();
         ModuleName = name ?? GetTypeName();
+        JSObjectReference = jsRef;
         Relative = relative;
 
         string GetTypeName()
@@ -68,7 +74,9 @@ public abstract class BootstrapModuleComponentBase : IdComponentBase, IAsyncDisp
     {
         if (firstRender && !string.IsNullOrEmpty(ModulePath))
         {
-            Module ??= await JSRuntime.LoadModule(ModulePath, this, Relative);
+            Module ??= JSObjectReference
+                ? await JSRuntime.LoadModule(ModulePath, this, Relative)
+                : await JSRuntime.LoadModule(ModulePath, Relative);
         }
 
         await ModuleInvokeVoidAsync(firstRender);

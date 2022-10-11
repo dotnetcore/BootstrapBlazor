@@ -3,9 +3,9 @@ import { getTransitionDelayDurationFromElement } from "./base/utility.js"
 
 export class Tooltip extends BlazorComponent {
     _init() {
-        this._config.title = this._config.arguments[1]
-        if (this._config.arguments.length > 2) {
-            const method = this._config.arguments[2]
+        this._config.title = this._config.arguments[0]
+        if (this._config.arguments.length > 1) {
+            const method = this._config.arguments[1]
             if (method === 'Valid') {
                 this._reset()
             }

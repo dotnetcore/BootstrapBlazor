@@ -40,7 +40,7 @@ public class TooltipTest : BootstrapBlazorTestBase
         Assert.Equal("title", tooltip.Title);
         Assert.Contains("data-bs-placement=\"top\"", cut.Markup);
         Assert.Contains("data-bs-trigger=\"trigger\"", cut.Markup);
-        Assert.Contains("data-bs-customclass=\"custom-class\"", cut.Markup);
+        Assert.Contains("data-bs-custom-class=\"custom-class\"", cut.Markup);
         Assert.Contains("data-bs-html=\"true\"", cut.Markup);
         Assert.Contains("data-bs-sanitize=\"false\"", cut.Markup);
         Assert.Contains("data-bs-delay=\"10\"", cut.Markup);
@@ -125,7 +125,7 @@ public class TooltipTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.CustomClass, "test-custom-class");
         });
-        Assert.Contains("data-bs-customclass=\"test-custom-class\"", cut.Markup);
+        Assert.Contains("data-bs-custom-class=\"test-custom-class\"", cut.Markup);
     }
 
     [Fact]

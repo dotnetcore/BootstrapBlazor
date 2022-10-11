@@ -1832,7 +1832,8 @@ header .bb-fs {
 @media (min-width: 576px) {
     .popover-demo input,
     .tooltip-demo input {
-        width: 100px;
+        width: 144px;
+        text-align: center;
     }
 
     .bb-icon {
