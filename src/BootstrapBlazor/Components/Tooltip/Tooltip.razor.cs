@@ -7,7 +7,8 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// BootstrapTooltip 组件
 /// </summary>
-public partial class Tooltip : ITooltip, IAsyncDisposable
+[JSModuleAutoLoader]
+public partial class Tooltip : ITooltip
 {
     /// <summary>
     /// 弹窗位置字符串
@@ -113,17 +114,6 @@ public partial class Tooltip : ITooltip, IAsyncDisposable
     }
 
     /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <param name="firstRender"></param>
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        await base.OnAfterRenderAsync(firstRender);
-
-        await JSInvokeAsync();
-    }
-
-    /// <summary>
     /// 设置参数方法
     /// </summary>
     public void SetParameters(string title, Placement placement = Placement.Auto, string? trigger = null, string? customClass = null, bool? isHtml = null, bool? sanitize = null, string? delay = null, string? selector = null)
@@ -143,34 +133,17 @@ public partial class Tooltip : ITooltip, IAsyncDisposable
     /// JavaScript invoke
     /// </summary>
     /// <returns></returns>
-    protected virtual async ValueTask JSInvokeAsync()
-    {
-        if (!string.IsNullOrEmpty(Title))
-        {
-            await JSRuntime.InvokeVoidByIdAsync(identifier: "bb.Tooltip.init", Id, Title);
-        }
-    }
+    protected virtual ValueTask JSInvokeAsync() => ValueTask.CompletedTask;
 
     /// <summary>
-    /// DisposeAsync 方法
+    /// <inheritdoc/>
     /// </summary>
-    /// <param name="disposing"></param>
     /// <returns></returns>
-    protected virtual async ValueTask DisposeAsync(bool disposing)
+    protected override async Task ModuleInitAsync()
     {
-        if (disposing)
+        if (Module != null)
         {
-            await JSRuntime.InvokeVoidByIdAsync(identifier: "bb.Tooltip.dispose", Id);
+            await Module.InvokeVoidAsync(identifier: $"{ModuleName}.init", Id, Title);
         }
-    }
-
-    /// <summary>
-    /// DisposeAsync 方法
-    /// </summary>
-    /// <returns></returns>
-    public async ValueTask DisposeAsync()
-    {
-        await DisposeAsync(true);
-        GC.SuppressFinalize(this);
     }
 }

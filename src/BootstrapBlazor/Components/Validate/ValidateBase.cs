@@ -281,6 +281,9 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
         if (ValidateForm != null && FieldIdentifier.HasValue)
         {
             ValidateForm.AddValidator((FieldIdentifier.Value.FieldName, ModelType: FieldIdentifier.Value.Model.GetType()), (FieldIdentifier.Value, this));
+
+            // auto load module
+            LoadModule(this.GetType(), "tooltip", "Tooltip");
         }
     }
 
@@ -302,23 +305,21 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
     {
         await base.OnAfterRenderAsync(firstRender);
 
-        if (!firstRender)
+        if (!firstRender && IsValid.HasValue)
         {
-            if (IsValid.HasValue)
+            var valid = IsValid.Value;
+            IsValid = null;
+            if (valid)
             {
-                var valid = IsValid.Value;
-                IsValid = null;
-                if (valid)
-                {
-                    await RemoveValidResult();
-                }
-                else
-                {
-                    await ShowValidResult();
-                }
+                await RemoveValidResult();
+            }
+            else
+            {
+                await ShowValidResult();
             }
         }
     }
+
     #region Validation
     /// <summary>
     /// 获得 数据验证方法集合
@@ -460,9 +461,9 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
     protected virtual async ValueTask ShowValidResult()
     {
         var id = RetrieveId();
-        if (!string.IsNullOrEmpty(id) && !string.IsNullOrEmpty(ErrorMessage))
+        if (!string.IsNullOrEmpty(id) && !string.IsNullOrEmpty(ErrorMessage) && Module != null)
         {
-            await JSRuntime.InvokeVoidByIdAsync(identifier: "bb.Tooltip.init", id, ErrorMessage);
+            await Module.InvokeVoidAsync($"{ModuleName}.init", id, ErrorMessage, "Valid");
         }
     }
 
@@ -473,9 +474,9 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
     protected virtual async ValueTask RemoveValidResult()
     {
         var id = RetrieveId();
-        if (!string.IsNullOrEmpty(id))
+        if (!string.IsNullOrEmpty(id) && Module != null)
         {
-            await JSRuntime.InvokeVoidByIdAsync(identifier: "bb.Tooltip.dispose", id);
+            await Module.InvokeVoidAsync($"{ModuleName}.dispose", id);
         }
     }
 
@@ -485,11 +486,7 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
     /// <param name="valid">检查结果</param>
     protected virtual void OnValidate(bool? valid)
     {
-        if (valid.HasValue)
-        {
-            AdditionalAttributes ??= new Dictionary<string, object>();
-            AdditionalAttributes["aria-invalid"] = valid.Value ? "false" : "true";
-        }
+
     }
 
     /// <summary>
@@ -504,11 +501,6 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
             if (ValidateForm != null && FieldIdentifier.HasValue)
             {
                 ValidateForm.TryRemoveValidator((FieldIdentifier.Value.FieldName, FieldIdentifier.Value.Model.GetType()), out _);
-            }
-
-            if (IsValid.HasValue && !IsValid.Value)
-            {
-                await RemoveValidResult();
             }
         }
 

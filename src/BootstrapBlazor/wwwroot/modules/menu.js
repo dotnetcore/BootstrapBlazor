@@ -1,7 +1,7 @@
 ﻿import BlazorComponent from "./base/blazor-component.js";
 import { getTargetElement, getTransitionDelayDurationFromElement } from "./base/utility.js"
 
-class Menu extends BlazorComponent {
+export class Menu extends BlazorComponent {
     _init() {
         this._collapses = this._element.querySelectorAll('[data-bs-toggle="collapse"]')
         this._activeLink()
@@ -79,8 +79,4 @@ class Menu extends BlazorComponent {
             }
         })
     }
-}
-
-export {
-    Menu
 }

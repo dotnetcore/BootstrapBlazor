@@ -1,7 +1,7 @@
 ﻿import EventHandler from "./base/event-handler.js"
 import BlazorComponent from "./base/blazor-component.js"
 
-class Upload extends BlazorComponent {
+export class Upload extends BlazorComponent {
     _init() {
         this._inputFile = this._element.querySelector('[type="file"]')
         this._setListeners()
@@ -60,8 +60,4 @@ class Upload extends BlazorComponent {
         EventHandler.off(this._element, 'drop');
         EventHandler.off(this._element, 'paste');
     }
-}
-
-export {
-    Upload
 }
