@@ -14,7 +14,10 @@ public partial class MultiSelect<TValue>
 {
     private ElementReference SelectElement { get; set; }
 
-    private IEnumerable<SelectedItem> SelectedItems => Items.Where(i => i.Active);
+    [NotNull]
+    private List<SelectedItem>? DataSource { get; set; }
+
+    private IEnumerable<SelectedItem> SelectedItems => DataSource.Where(i => i.Active);
 
     private static string? ClassString => CssBuilder.Default("select dropdown multi-select")
         .Build();
@@ -194,7 +197,7 @@ public partial class MultiSelect<TValue>
     {
         if (!IsDisabled)
         {
-            var d = Items.FirstOrDefault(i => i.Value == item.Value);
+            var d = DataSource.FirstOrDefault(i => i.Value == item.Value);
             if (d != null)
             {
                 d.Active = !d.Active;
@@ -358,6 +361,8 @@ public partial class MultiSelect<TValue>
                 Items = Enumerable.Empty<SelectedItem>();
             }
         }
+
+        DataSource = Items.ToList();
     }
 
     /// <summary>
