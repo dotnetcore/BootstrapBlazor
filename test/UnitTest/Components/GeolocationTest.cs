@@ -48,7 +48,7 @@ public class GeolocationTest : BootstrapBlazorTestBase
         Assert.Equal(10, item.Speed);
         Assert.Equal(10, item.Timestamp);
         Assert.Equal(10, item.TotalDistance);
-        Assert.Equal(1970, item.LastUpdateTime.Year);
+        Assert.NotEqual(1, item.LastUpdateTime.Year);
     }
 
     private class MockGeoTest : ComponentBase

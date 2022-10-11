@@ -11,17 +11,6 @@ namespace UnitTest.Components;
 public class ValidateTest : BootstrapBlazorTestBase
 {
     [Fact]
-    public void ChildContent_Ok()
-    {
-        var cut = Context.RenderComponent<BootstrapInput<string>>(builder =>
-        {
-            builder.AddChildContent("ChildContent-Test");
-            builder.Add(a => a.ShowLabelTooltip, true);
-        });
-        Assert.Contains("ChildContent-Test", cut.Markup);
-    }
-
-    [Fact]
     public async Task CascadedEditContext_Ok()
     {
         var model = new Foo() { Name = "Name-Test" };

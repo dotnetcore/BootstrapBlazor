@@ -120,12 +120,16 @@
                         @if (ShowSearchText)
                         {
                             <div class="input-group">
-                                <BootstrapInput class="table-toolbar-search" placeholder="@SearchPlaceholderText" @bind-Value="@SearchText" ShowLabel="false">
-                                    @if (ShowSearchTextTooltip)
-                                    {
-                                        <Tooltip Placement="Placement.Top" Title="@SearchTooltip" IsHtml="true" />
-                                    }
-                                </BootstrapInput>
+                                @if (ShowSearchTextTooltip)
+                                {
+                                    <Tooltip Placement="Placement.Top" Title="@SearchTooltip" Sanitize="false" IsHtml="true">
+                                        <BootstrapInput class="table-toolbar-search" placeholder="@SearchPlaceholderText" @bind-Value="@SearchText" ShowLabel="false" />
+                                    </Tooltip>
+                                }
+                                else
+                                {
+                                    <BootstrapInput class="table-toolbar-search" placeholder="@SearchPlaceholderText" @bind-Value="@SearchText" ShowLabel="false" />
+                                }
                                 <Button Color="@Color.Secondary" Icon="fa-solid fa-magnifying-glass" OnClickWithoutRender="@SearchClick">
                                     <span class="d-none d-sm-inline-block">@SearchButtonText</span>
                                 </Button>

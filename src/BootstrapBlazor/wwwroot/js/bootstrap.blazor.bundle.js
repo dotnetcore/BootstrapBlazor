@@ -18972,7 +18972,6 @@ return jQuery;
                 const disabled = this._isDisabled();
 
                 if (!disabled) {
-                    this._element.setAttribute('aria-expanded', 'true');
                     this._element.classList.add('show');
                 }
                 if (disabled) {
@@ -19081,7 +19080,6 @@ return jQuery;
                 if (disabled) {
                     event.preventDefault();
                 } else {
-                    this._element.setAttribute('aria-expanded', 'true');
                     this._element.classList.add('show');
                 }
 
@@ -19106,7 +19104,6 @@ return jQuery;
                 }
 
                 this._element.classList.remove('show');
-                this._element.setAttribute('aria-expanded', 'false');
             }
 
             bootstrap.EventHandler.on(this._element, 'show.bs.popover', this._show);
