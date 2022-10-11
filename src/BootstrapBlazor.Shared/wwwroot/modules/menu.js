@@ -22,8 +22,4 @@ export class Menu extends BlazorComponent {
         EventHandler.off(this._navbar, 'click');
         EventHandler.off(this._menu, 'click', '.nav-link');
     }
-
-    static get NAME() {
-        return 'app.menu'
-    }
 }

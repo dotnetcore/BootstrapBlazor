@@ -6,12 +6,15 @@
 {
     <BootstrapLabel required="@Required" for="@InputId" ShowLabelTooltip="ShowLabelTooltip" Value="@DisplayText" />
 }
-<div @attributes="AdditionalAttributes" id="@Id" class="@ClassString" @ref="SelectElement">
+<div @attributes="AdditionalAttributes" id="@Id" class="@ClassString">
     <CascadingValue Value="this" IsFixed="true">
         @Options
     </CascadingValue>
     <RenderTemplate>
-        <div class="dropdown-toggle" data-bs-toggle="@ToggleString" data-bs-placement="@PlacementString" data-bs-offset="@OffsetString" aria-expanded="false">
+        @{
+            ResetSelectedItem();
+        }
+        <div class="dropdown-toggle" data-bs-toggle="@ToggleString" data-bs-placement="@PlacementString" data-bs-offset="@OffsetString">
             @if (DisplayTemplate != null)
             {
                 <div id="@InputId" class="@InputClassString" tabindex="0">
@@ -59,6 +62,3 @@
         }
     </RenderTemplate>
 </div>
-<CascadingValue Value="this" IsFixed="true">
-    @ChildContent
-</CascadingValue>

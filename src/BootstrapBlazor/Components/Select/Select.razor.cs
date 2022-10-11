@@ -10,12 +10,9 @@ namespace BootstrapBlazor.Components;
 /// Select 组件实现类
 /// </summary>
 /// <typeparam name="TValue"></typeparam>
+[JSModuleAutoLoader]
 public partial class Select<TValue> : ISelect
 {
-    private ElementReference SelectElement { get; set; }
-
-    private JSInterop<Select<TValue>>? Interop { get; set; }
-
     [Inject]
     [NotNull]
     private SwalService? SwalService { get; set; }
@@ -163,18 +160,7 @@ public partial class Select<TValue> : ISelect
         }
     }
 
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <returns></returns>
-    protected override async Task OnParametersSetAsync()
-    {
-        await base.OnParametersSetAsync();
-
-        await ResetSelectedItem();
-    }
-
-    private async Task ResetSelectedItem()
+    private void ResetSelectedItem()
     {
         if (string.IsNullOrEmpty(SearchText))
         {
@@ -194,29 +180,25 @@ public partial class Select<TValue> : ISelect
         // Value 不等于 选中值即不存在
         if (!string.IsNullOrEmpty(SelectedItem?.Value) && CurrentValueAsString != SelectedItem.Value)
         {
-            await ItemChanged(SelectedItem);
+            _ = ItemChanged(SelectedItem);
         }
     }
 
     /// <summary>
-    /// OnAfterRenderAsync 方法
+    /// <inheritdoc/>
     /// </summary>
-    /// <param name="firstRender"></param>
     /// <returns></returns>
-    protected override async Task OnAfterRenderAsync(bool firstRender)
+    protected override async Task ModuleInitAsync()
     {
-        await base.OnAfterRenderAsync(firstRender);
-
-        if (firstRender)
+        // 选项值不为 null 后者 string.Empty 时触发一次 OnSelectedItemChanged 回调
+        if (SelectedItem != null && OnSelectedItemChanged != null && !string.IsNullOrEmpty(SelectedItem.Value))
         {
-            Interop ??= new JSInterop<Select<TValue>>(JSRuntime);
-            await Interop.InvokeVoidAsync(this, SelectElement, "bb_select", nameof(ConfirmSelectedItem));
+            await OnSelectedItemChanged.Invoke(SelectedItem);
+        }
 
-            // 选项值不为 null 后者 string.Empty 时触发一次 OnSelectedItemChanged 回调
-            if (SelectedItem != null && OnSelectedItemChanged != null && !string.IsNullOrEmpty(SelectedItem.Value))
-            {
-                await OnSelectedItemChanged.Invoke(SelectedItem);
-            }
+        if (Module != null)
+        {
+            await Module.InvokeVoidAsync($"{ModuleName}.init", Id, nameof(ConfirmSelectedItem));
         }
     }
 

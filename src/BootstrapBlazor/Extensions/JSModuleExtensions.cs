@@ -38,4 +38,20 @@ public static class JSModuleExtensions
         var jSObjectReference = await jsRuntime.InvokeAsync<IJSObjectReference>(identifier: "import", filePath);
         return new JSModule<TValue>(jSObjectReference, value);
     }
+
+    /// <summary>
+    /// 获得指定类型的加载 Module 名称
+    /// </summary>
+    /// <param name="type"></param>
+    /// <returns></returns>
+    public static string GetTypeModuleName(this Type type)
+    {
+        var name = type.Name;
+        if (type.IsGenericType)
+        {
+            var index = type.Name.IndexOf('`');
+            name = type.Name[..index];
+        }
+        return name;
+    }
 }

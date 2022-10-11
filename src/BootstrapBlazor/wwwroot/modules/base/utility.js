@@ -59,11 +59,28 @@ const getTransitionDelayDurationFromElement = (element, delay = 80) => {
     return getTransitionDurationFromElement(element) + delay
 }
 
+const getHeight = (element, self = false) => {
+    let height = element.offsetHeight
+    if(self) {
+        const styles = getComputedStyle(element)
+        const borderTopWidth = parseFloat(styles.borderTopWidth)
+        const borderBottomWidth = parseFloat(styles.borderBottomWidth)
+        const paddingTop = parseFloat(styles.paddingTop)
+        const paddingBottom = parseFloat(styles.paddingBottom)
+        height = height - borderBottomWidth - borderTopWidth - paddingTop - paddingBottom
+    }
+    return height
+}
+
+const getInnerHeight = element => getHeight(element, true)
+
 export {
     vibrate,
     copy,
     getDescribedElement,
     getDescribedOwner,
     getTargetElement,
-    getTransitionDelayDurationFromElement
+    getTransitionDelayDurationFromElement,
+    getHeight,
+    getInnerHeight
 }

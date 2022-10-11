@@ -443,10 +443,7 @@
     }
 
     bootstrap.EventHandler.on(document, 'click', '.dropdown-toggle', function (e) {
-        let el = e.target;
-        if (!el.classList.contains('dropdown-toggle')) {
-            el = el.closest('.dropdown-toggle');
-        }
+        const el = e.delegateTarget;
         const bb_toggle_type = el.getAttribute('data-bs-toggle');
         if (bb_toggle_type === 'bb.dropdown') {
             let p = bootstrap.Popover.getInstance(el);
