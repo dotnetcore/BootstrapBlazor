@@ -10,6 +10,10 @@ const vibrate = () => {
     }
 }
 
+const isFunction = object => {
+    return typeof object === 'function'
+}
+
 const copy = (text = '') => {
     if (navigator.clipboard) {
         navigator.clipboard.writeText(text)
@@ -61,7 +65,7 @@ const getTransitionDelayDurationFromElement = (element, delay = 80) => {
 
 const getHeight = (element, self = false) => {
     let height = element.offsetHeight
-    if(self) {
+    if (self) {
         const styles = getComputedStyle(element)
         const borderTopWidth = parseFloat(styles.borderTopWidth)
         const borderBottomWidth = parseFloat(styles.borderBottomWidth)
@@ -82,5 +86,6 @@ export {
     getTargetElement,
     getTransitionDelayDurationFromElement,
     getHeight,
-    getInnerHeight
+    getInnerHeight,
+    isFunction
 }

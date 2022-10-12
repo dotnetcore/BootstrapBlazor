@@ -1,25 +1,25 @@
-﻿import BlazorComponent from "./base/blazor-component.js";
-import EventHandler from "./base/event-handler.js";
+﻿import EventHandler from "./base/event-handler.js";
 import { isDisabled } from "./base/index.js";
 import { getHeight, getInnerHeight } from "./base/utility.js";
+import { DropdownBase } from "./base/base-dropdown.js";
 
-export class Select extends BlazorComponent {
+export class Select extends DropdownBase {
     _init() {
         // el, obj, method
-        this._toggle = this._element.querySelector('.dropdown-toggle')
-        this._toggleMenu = this._element.querySelector('.dropdown-menu')
         this._search = this._element.querySelector('input.search-text')
         this._input = this._element.querySelector('.form-select')
         this._invoker = this._config.arguments[0]
         this._invokeMethodName = this._config.arguments[1]
-        this._isPopover = this._toggle.getAttribute('data-bs-toggle') === 'bb.dropdown'
-        this._setListeners()
+
+        super._init()
     }
 
     _setListeners() {
+        super._setListeners()
+
         const show = e => {
             if (isDisabled(this._input)) {
-                e.preventDefault();
+                e.preventDefault()
             }
         }
 
@@ -31,19 +31,10 @@ export class Select extends BlazorComponent {
             if (prev) {
                 prev.classList.remove('preActive')
             }
-            this._scrollToActive();
+            this._scrollToActive()
         }
 
-        if(this._isPopover)
-        {
-            EventHandler.on(this._element, 'inserted.bs.popover', shown);
-        }
-        else {
-            EventHandler.on(this._element, 'show.bs.dropdown', show)
-            EventHandler.on(this._element, 'shown.bs.dropdown', shown);
-        }
-
-        EventHandler.on(this._element, 'keydown', e => {
+        const keydown = e => {
             e.stopPropagation()
             e.preventDefault()
 
@@ -82,7 +73,11 @@ export class Select extends BlazorComponent {
                     this._invoker.invokeMethodAsync(this._invokeMethodName, index)
                 }
             }
-        })
+        }
+
+        EventHandler.on(this._element, 'show.bs.dropdown', show)
+        EventHandler.on(this._element, 'shown.bs.dropdown', shown);
+        EventHandler.on(this._element, 'keydown', keydown)
     }
 
     _indexOf(element) {
@@ -107,13 +102,10 @@ export class Select extends BlazorComponent {
     }
 
     _dispose() {
-        if(this._isPopover){
-            EventHandler.off(this._element, 'inserted.bs.popover')
-        }
-        else {
-            EventHandler.off(this._element, 'show.bs.dropdown')
-            EventHandler.off(this._element, 'shown.bs.dropdown')
-        }
+        super._dispose()
+
+        EventHandler.off(this._element, 'show.bs.dropdown')
+        EventHandler.off(this._element, 'shown.bs.dropdown')
         EventHandler.off(this._element, 'keydown')
     }
 }

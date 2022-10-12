@@ -41,27 +41,20 @@ public abstract class BootstrapModuleComponentBase : IdComponentBase, IAsyncDisp
 
         var type = this.GetType();
         var attr = type.GetCustomAttribute<JSModuleAutoLoaderAttribute>();
+
         if (attr != null)
         {
-            LoadModule(type, attr.Path, attr.ModuleName, attr.JSObjectReference, attr.Relative);
-        }
-    }
+            string? typeName = null;
+            ModulePath = attr.Path ?? GetTypeName().ToLowerInvariant();
+            ModuleName = attr.ModuleName ?? GetTypeName();
+            JSObjectReference = attr.JSObjectReference;
+            Relative = attr.Relative;
 
-    /// <summary>
-    /// 加载本类模块
-    /// </summary>
-    protected virtual void LoadModule(Type type, string? path, string? name, bool jsRef = false, bool relative = true)
-    {
-        string? typeName = null;
-        ModulePath = path ?? GetTypeName().ToLowerInvariant();
-        ModuleName = name ?? GetTypeName();
-        JSObjectReference = jsRef;
-        Relative = relative;
-
-        string GetTypeName()
-        {
-            typeName ??= type.GetTypeModuleName();
-            return typeName;
+            string GetTypeName()
+            {
+                typeName ??= type.GetTypeModuleName();
+                return typeName;
+            }
         }
     }
 

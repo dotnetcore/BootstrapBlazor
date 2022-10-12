@@ -281,9 +281,6 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
         if (ValidateForm != null && FieldIdentifier.HasValue)
         {
             ValidateForm.AddValidator((FieldIdentifier.Value.FieldName, ModelType: FieldIdentifier.Value.Model.GetType()), (FieldIdentifier.Value, this));
-
-            // auto load module
-            LoadModule(this.GetType(), "validate", "Validate");
         }
     }
 
@@ -454,6 +451,10 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
         }
     }
 
+    private JSModule? ValidateModule { get; set; }
+
+    private Task<JSModule> LoadValidateModule() => JSRuntime.LoadModule("validate");
+
     /// <summary>
     /// 增加客户端 Tooltip 方法
     /// </summary>
@@ -461,9 +462,10 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
     protected virtual async ValueTask ShowValidResult()
     {
         var id = RetrieveId();
-        if (!string.IsNullOrEmpty(id) && !string.IsNullOrEmpty(ErrorMessage) && Module != null)
+        if (!string.IsNullOrEmpty(id) && !string.IsNullOrEmpty(ErrorMessage))
         {
-            await Module.InvokeVoidAsync($"{ModuleName}.init", id, ErrorMessage, "Invalid");
+            ValidateModule ??= await LoadValidateModule();
+            await ValidateModule.InvokeVoidAsync($"{ModuleName}.init", id, ErrorMessage, "Invalid");
         }
     }
 
@@ -474,9 +476,10 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
     protected virtual async ValueTask RemoveValidResult()
     {
         var id = RetrieveId();
-        if (!string.IsNullOrEmpty(id) && Module != null)
+        if (!string.IsNullOrEmpty(id))
         {
-            await Module.InvokeVoidAsync($"{ModuleName}.dispose", id);
+            ValidateModule ??= await LoadValidateModule();
+            await ValidateModule.InvokeVoidAsync($"{ModuleName}.dispose", id);
         }
     }
 

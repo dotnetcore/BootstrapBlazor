@@ -111,177 +111,6 @@
         }
     }
 
-    /* Tooltip */
-    const NAME$Tooltip = "Tooltip"
-
-    class Tooltip extends BaseComponent {
-        constructor(element, config = {}) {
-            super(element, config);
-
-            this._getOrCreateInstance()
-            this._setListeners();
-        }
-
-        _configAfterMerge(config) {
-            let css = this._element.classList.contains(config.invalidClass)
-                ? config.invalidClass
-                : this._element.getAttribute('data-bs-customclass');
-            config = {
-                ...{
-                    customClass: css || ''
-                },
-                ...super._configAfterMerge(config)
-            };
-            return config;
-        }
-
-        _getOrCreateInstance() {
-            this._tooltip = bootstrap.Tooltip.getOrCreateInstance(this._element, this._config);
-        }
-
-        _setListeners() {
-            this._inserted = () => {
-                const tip = Utility.getDescribedElement(this._element);
-                if (tip !== null) {
-                    tip.classList.add(this._config.invalidClass);
-                }
-            };
-
-            bootstrap.EventHandler.on(this._element, 'inserted.bs.tooltip', `.${this._config.invalidClass}`, this._inserted);
-        }
-
-        show() {
-            if (!this._isShown()) {
-                this._tooltip.show();
-            }
-        }
-
-        hide() {
-            if (this._isShown()) {
-                this._tooltip.hide();
-            }
-        }
-
-        dispose() {
-            if (this._tooltip !== null && this._tooltip.tip !== null) {
-                this._tooltip.dispose();
-            }
-            super.dispose();
-        }
-
-        _isShown() {
-            return this._tooltip === null ? false : this._tooltip._isShown();
-        }
-
-        static _create(element, config) {
-            new Tooltip(element, config);
-        }
-
-        static init(element, title) {
-            element = getElement(element);
-            if (element) {
-                const config = {
-                    title: title
-                }
-                const p = this.getInstance(element);
-                if (p !== null && p._isShown()) {
-                    p.hide();
-
-                    const duration = getTransitionDurationFromElement(element, 15);
-                    const handler = window.setTimeout(() => {
-                        window.clearTimeout(handler);
-                        p.dispose();
-
-                        this._create(element, config);
-                    }, duration);
-                } else {
-                    this._create(element, config);
-                }
-
-                // check the elment is the first child of form
-                const form = element.closest('form');
-                if (form) {
-                    const el = form.querySelector(`.${this.Default.invalidClass}`);
-                    if (element === el) {
-                        element.focus();
-                    }
-                }
-            }
-        }
-
-        static dispose(element) {
-            element = getElement(element);
-            if (element) {
-                const p = this.getInstance(element);
-                if (p) {
-                    p.dispose();
-                }
-            }
-        }
-
-        static get Default() {
-            return {
-                invalidClass: 'is-invalid'
-            }
-        }
-
-        static get NAME() {
-            return NAME$Tooltip;
-        }
-    }
-
-    /* Popover */
-    const NAME$Popover = 'Popover';
-
-    class Popover extends Tooltip {
-        _getOrCreateInstance() {
-            this._tooltip = bootstrap.Popover.getOrCreateInstance(this._element, this._config);
-        }
-
-        _setListeners() {
-            this._inserted = () => {
-                const tip = Utility.getDescribedElement(this._element);
-                if (tip !== null) {
-                    tip.classList.add('is-invalid');
-                }
-            };
-
-            bootstrap.EventHandler.on(this._element, 'inserted.bs.popover', '.is-invalid', this._inserted);
-        }
-
-        static _create(element, config) {
-            new bb.Popover(element, config);
-        }
-
-        static init(element, title, content) {
-            element = getElement(element);
-            if (element) {
-                const config = {
-                    title: title,
-                    content: content
-                }
-                const p = bb.Popover.getInstance(element);
-                if (p) {
-                    p.hide();
-
-                    const duration = getTransitionDurationFromElement(element, 15);
-                    const handler = window.setTimeout(() => {
-                        window.clearTimeout(handler);
-                        p.dispose();
-
-                        Popover._create(element, config);
-                    }, duration);
-                } else {
-                    Popover._create(element, config);
-                }
-            }
-        }
-
-        static get NAME() {
-            return NAME$Popover;
-        }
-    }
-
     class DropdownBase extends Tooltip {
         constructor(element, config = {}) {
             super(element, config);
@@ -363,115 +192,6 @@
             }
         }
     }
-
-    /* Dropdown */
-    const NAME$Dropdown = 'Dropdown';
-
-    class Dropdown extends DropdownBase {
-        _configAfterMerge(config) {
-            config = {
-                ...{
-                    bodyElement: this._element.parentNode.querySelector(config.dropdown)
-                },
-                ...super._configAfterMerge(config)
-            };
-            return config;
-        }
-
-        _setListeners() {
-            let hasDisplayNone = false;
-
-            this._show = () => {
-                const disabled = this._isDisabled();
-
-                if (!disabled) {
-                    this._element.classList.add('show');
-                }
-                if (disabled) {
-                    event.preventDefault();
-                }
-            };
-
-            this._inserted = () => {
-                const dropdown = Utility.getDescribedElement(this._element);
-                if (dropdown) {
-                    let body = dropdown.querySelector('.popover-body');
-                    if (!body) {
-                        body = document.createElement('div');
-                        body.classList.add('popover-body');
-                        dropdown.append(body);
-                    }
-                    body.classList.add('show');
-                    const content = this._config.bodyElement;
-                    if (content.classList.contains("d-none")) {
-                        hasDisplayNone = true;
-                        content.classList.remove("d-none");
-                    }
-                    body.append(content);
-                }
-            };
-
-            this._hide = () => {
-                const content = this._config.bodyElement;
-                if (hasDisplayNone) {
-                    content.classList.add("d-none");
-                }
-                this._element.classList.remove('show');
-                this._element.append(content);
-            }
-
-            bootstrap.EventHandler.on(this._element, 'show.bs.popover', this._show);
-            bootstrap.EventHandler.on(this._element, 'inserted.bs.popover', this._inserted);
-            bootstrap.EventHandler.on(this._element, 'hide.bs.popover', this._hide);
-
-            if (this._config.dismiss != null) {
-                bootstrap.EventHandler.on(document, 'click', this._config.dismiss, () => this.hide());
-            }
-        }
-
-        static get Default() {
-            return {
-                class: 'popover-dropdown',
-                dropdown: '.dropdown-menu'
-            }
-        }
-
-        static get NAME() {
-            return NAME$Dropdown;
-        }
-    }
-
-    bootstrap.EventHandler.on(document, 'click', '.dropdown-toggle', function (e) {
-        const el = e.delegateTarget;
-        const bb_toggle_type = el.getAttribute('data-bs-toggle');
-        if (bb_toggle_type === 'bb.dropdown') {
-            let p = bootstrap.Popover.getInstance(el);
-            if (p == null) {
-                p = new bb.Dropdown(el);
-                p.show();
-            }
-        }
-    });
-
-    bootstrap.EventHandler.on(document, 'click', function (e) {
-        const selector = `.${Dropdown.Default.class}.show`;
-        const el = e.target;
-        if (el.closest(selector)) {
-            return;
-        }
-        const owner = Utility.getDescribedElement(el.closest('.dropdown-toggle'));
-        document.querySelectorAll(selector).forEach(function (ele) {
-            if (ele !== owner) {
-                const element = Utility.getDescribedOwner(ele);
-                if (element) {
-                    let p = bootstrap.Popover.getInstance(element);
-                    if (p !== null) {
-                        p.hide();
-                    }
-                }
-            }
-        });
-    });
 
     /* Confirm */
     const NAME$Confirm = 'Confirm';
@@ -584,62 +304,62 @@
         }
     }
 
-    bootstrap.EventHandler.on(document, 'click', function (e) {
-        const el = e.target;
-        if (el.closest(`.${Confirm.Default.class}.show`) === null && el.closest(`${Confirm.Default.confirm_container}`) === null) {
-            const owner = Utility.getDescribedElement(el.closest('.dropdown-toggle'));
-            const popoverSelector = `.${Confirm.Default.class}.show`;
-            document.querySelectorAll(popoverSelector).forEach(function (ele) {
-                if (ele !== owner) {
-                    const element = Utility.getDescribedOwner(ele);
-                    if (element) {
-                        const p = bootstrap.Popover.getInstance(element);
-                        if (p) {
-                            p.hide();
-                        }
-                    }
-                }
-            });
-        }
-    });
-
-    bootstrap.EventHandler.on(document, 'click', '.anchor-link', function (e) {
-        const hash = this.getAttribute('id');
-        if (hash) {
-            const title = this.getAttribute('data-bb-title');
-            const href = window.location.origin + window.location.pathname + '#' + hash;
-            Utility.copy(href);
-            const tooltip = bootstrap.Tooltip.getOrCreateInstance(this, {
-                title: title
-            });
-            tooltip.show();
-            const handler = window.setTimeout(function () {
-                window.clearTimeout(handler);
-                tooltip.dispose();
-            }, 1000);
-        }
-    });
-
-    bootstrap.EventHandler.on(document, 'click', '[data-toggle="anchor"]', function (e) {
-        e.preventDefault();
-        const target = Utility.getDescribedElement(this, 'data-bb-target');
-        if (target) {
-            const container = Utility.getDescribedElement(this, 'data-bb-container') || document.defaultView;
-            const rect = target.getBoundingClientRect();
-            let margin = rect.top;
-            let marginTop = getComputedStyle(target).getPropertyValue('margin-top').replace('px', '');
-            if (marginTop) {
-                margin = margin - parseInt(marginTop);
-            }
-            let offset = this.getAttribute('data-bb-offset');
-            if (offset) {
-                margin = margin - parseInt(offset);
-            }
-            const winScroll = Utility.getWindowScroll(container);
-            container.scrollTo(0, margin + winScroll.scrollTop);
-        }
-
-    });
+    // bootstrap.EventHandler.on(document, 'click', function (e) {
+    //     const el = e.target;
+    //     if (el.closest(`.${Confirm.Default.class}.show`) === null && el.closest(`${Confirm.Default.confirm_container}`) === null) {
+    //         const owner = Utility.getDescribedElement(el.closest('.dropdown-toggle'));
+    //         const popoverSelector = `.${Confirm.Default.class}.show`;
+    //         document.querySelectorAll(popoverSelector).forEach(function (ele) {
+    //             if (ele !== owner) {
+    //                 const element = Utility.getDescribedOwner(ele);
+    //                 if (element) {
+    //                     const p = bootstrap.Popover.getInstance(element);
+    //                     if (p) {
+    //                         p.hide();
+    //                     }
+    //                 }
+    //             }
+    //         });
+    //     }
+    // });
+    //
+    // bootstrap.EventHandler.on(document, 'click', '.anchor-link', function (e) {
+    //     const hash = this.getAttribute('id');
+    //     if (hash) {
+    //         const title = this.getAttribute('data-bb-title');
+    //         const href = window.location.origin + window.location.pathname + '#' + hash;
+    //         Utility.copy(href);
+    //         const tooltip = bootstrap.Tooltip.getOrCreateInstance(this, {
+    //             title: title
+    //         });
+    //         tooltip.show();
+    //         const handler = window.setTimeout(function () {
+    //             window.clearTimeout(handler);
+    //             tooltip.dispose();
+    //         }, 1000);
+    //     }
+    // });
+    //
+    // bootstrap.EventHandler.on(document, 'click', '[data-toggle="anchor"]', function (e) {
+    //     e.preventDefault();
+    //     const target = Utility.getDescribedElement(this, 'data-bb-target');
+    //     if (target) {
+    //         const container = Utility.getDescribedElement(this, 'data-bb-container') || document.defaultView;
+    //         const rect = target.getBoundingClientRect();
+    //         let margin = rect.top;
+    //         let marginTop = getComputedStyle(target).getPropertyValue('margin-top').replace('px', '');
+    //         if (marginTop) {
+    //             margin = margin - parseInt(marginTop);
+    //         }
+    //         let offset = this.getAttribute('data-bb-offset');
+    //         if (offset) {
+    //             margin = margin - parseInt(offset);
+    //         }
+    //         const winScroll = Utility.getWindowScroll(container);
+    //         container.scrollTo(0, margin + winScroll.scrollTop);
+    //     }
+    //
+    // });
 
     /* Carousel */
     const NAME$Carousel = "Carousel"
