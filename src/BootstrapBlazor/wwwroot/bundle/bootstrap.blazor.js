@@ -711,92 +711,10 @@
         }
     }
 
-    class DropdownBase extends Tooltip {
-        constructor(element, config = {}) {
-            super(element, config);
-
-            this._hackPopover();
-        }
-
-        _getOrCreateInstance() {
-            this._dropdown = bootstrap.Popover.getOrCreateInstance(this._element, this._config);
-        }
-
-        _isDisabled() {
-            let disabled = isDisabled(this._element)
-                || isDisabled(this._element.parentNode)
-            if (!disabled) {
-                const el = this._element.querySelector('.form-control');
-                disabled = isElement$1(el) && isDisabled(el);
-            }
-            return disabled;
-        }
-
-        _hackPopover() {
-            this._dropdown._isWithContent = () => true;
-
-            let getTipElement = this._dropdown._getTipElement;
-            let fn = tip => {
-                tip.classList.add(this._config.class);
-                tip.classList.add('shadow');
-            }
-            this._dropdown._getTipElement = () => {
-                let tip = getTipElement.call(this._dropdown);
-                fn(tip);
-                return tip;
-            }
-        }
-
-        _isShown() {
-            return this._dropdown === null ? false : this._dropdown._isShown();
-        }
-
-        hide() {
-            if (this._isShown()) {
-                this._dropdown.hide();
-            }
-        }
-
-        show() {
-            if (!this._isShown()) {
-                this._dropdown.show();
-            }
-        }
-
-        invoke(method) {
-            let fn = this._dropdown[method];
-            if (typeof fn === 'function') {
-                fn.call(this._dropdown);
-            }
-            if (method === 'dispose') {
-                this._dropdown = null;
-                this.dispose();
-            }
-        }
-
-        dispose() {
-            if (this._dropdown !== null) {
-                this._dropdown.dispose();
-            }
-            super.dispose();
-        }
-
-        static invoke(el, method) {
-            el = getElement(el);
-            if (!el.classList.contains('dropdown-toggle')) {
-                el = el.querySelector('.dropdown-toggle');
-            }
-            let p = this.getInstance(el);
-            if (p !== null) {
-                p.invoke(method);
-            }
-        }
-    }
-
     /* Confirm */
     const NAME$Confirm = 'Confirm';
 
-    class Confirm extends DropdownBase {
+    class Confirm extends BaseComponent {
         constructor(element, config) {
             super(element, config);
 
@@ -1286,9 +1204,6 @@
         AutoRedirect,
         Carousel,
         Confirm,
-        Dropdown,
-        Popover,
-        Tooltip,
         Utility
     };
 });

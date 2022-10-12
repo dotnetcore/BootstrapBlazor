@@ -57,10 +57,6 @@ public partial class Select<TValue> : ISelect
         .AddClass("is-fixed", IsFixedSearch)
         .Build();
 
-    private string? SearchIconString => CssBuilder.Default("icon")
-        .AddClass(SearchIcon)
-        .Build();
-
     /// <summary>
     /// Razor 文件中 Options 模板子项
     /// </summary>

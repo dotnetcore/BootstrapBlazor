@@ -151,7 +151,6 @@ public partial class MultiSelect<TValue>
         MinErrorMessage ??= Localizer[nameof(MinErrorMessage)];
         MaxErrorMessage ??= Localizer[nameof(MaxErrorMessage)];
 
-        SearchIcon ??= "fa-solid fa-magnifying-glass";
         ClearIcon ??= "fa-solid fa-xmark";
 
         ResetItems();

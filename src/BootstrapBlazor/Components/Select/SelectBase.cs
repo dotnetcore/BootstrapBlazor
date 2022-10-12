@@ -32,7 +32,7 @@ public abstract class SelectBase<TValue> : PopoverSelectBase<TValue>
     /// 获得/设置 设置搜索图标 默认 fa-solid fa-magnifying-glass
     /// </summary>
     [Parameter]
-    public string SearchIcon { get; set; } = "fa-solid fa-magnifying-glass icon";
+    public string SearchIcon { get; set; } = "fa-solid fa-magnifying-glass";
 
     /// <summary>
     /// 获得/设置 字符串比较规则 默认 StringComparison.OrdinalIgnoreCase 大小写不敏感 
@@ -50,4 +50,21 @@ public abstract class SelectBase<TValue> : PopoverSelectBase<TValue>
     /// 
     /// </summary>
     protected string SearchText { get; set; } = "";
+
+    /// <summary>
+    /// 获得 SearchIcon 图标字符串 默认增加 icon 样式
+    /// </summary>
+    protected string? SearchIconString => CssBuilder.Default("icon")
+        .AddClass(SearchIcon)
+        .Build();
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
+        SearchIcon ??= "fa-solid fa-magnifying-glass";
+    }
 }
