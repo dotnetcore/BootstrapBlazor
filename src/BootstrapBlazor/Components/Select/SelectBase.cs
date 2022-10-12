@@ -32,7 +32,7 @@ public abstract class SelectBase<TValue> : PopoverSelectBase<TValue>
     /// 获得/设置 设置搜索图标 默认 fa-solid fa-magnifying-glass
     /// </summary>
     [Parameter]
-    public string SearchIcon { get; set; } = "fa-solid fa-magnifying-glass";
+    public string SearchIcon { get; set; } = "fa-solid fa-magnifying-glass icon";
 
     /// <summary>
     /// 获得/设置 字符串比较规则 默认 StringComparison.OrdinalIgnoreCase 大小写不敏感 
