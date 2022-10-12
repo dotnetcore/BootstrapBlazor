@@ -9,6 +9,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// DateTimePicker 组件基类
 /// </summary>
+[JSModuleAutoLoader("dropdown", ModuleName = "Dropdown")]
 public sealed partial class DateTimePicker<TValue>
 {
     /// <summary>
@@ -42,6 +43,8 @@ public sealed partial class DateTimePicker<TValue>
         .Build();
 
     private string? TabIndexString => ValidateForm != null ? "0" : null;
+
+    private string? AutoCloseString => AutoClose ? "true" : null;
 
     /// <summary>
     /// 获得 Placeholder 显示字符串
@@ -247,9 +250,9 @@ public sealed partial class DateTimePicker<TValue>
         {
             await OnDateTimeChanged(Value);
         }
-        if (AutoClose)
+        if (AutoClose && Module != null)
         {
-            await JSRuntime.InvokeVoidByIdAsync(identifier: "bb.Dropdown.invoke", Id, "hide");
+            await Module.InvokeVoidAsync($"{ModuleName}.execute", Id, "hide");
         }
     }
 }
