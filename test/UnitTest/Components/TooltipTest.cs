@@ -119,7 +119,7 @@ public class TooltipTest : BootstrapBlazorTestBase
             pb.Add(a => a.Title, "test_tooltip");
             pb.Add(a => a.CustomClass, null);
         });
-        Assert.DoesNotContain("data-bs-selector", cut.Markup);
+        Assert.DoesNotContain("data-bs-custom-class", cut.Markup);
 
         cut.SetParametersAndRender(pb =>
         {

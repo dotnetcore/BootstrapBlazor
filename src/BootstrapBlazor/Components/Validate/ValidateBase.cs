@@ -283,7 +283,7 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
             ValidateForm.AddValidator((FieldIdentifier.Value.FieldName, ModelType: FieldIdentifier.Value.Model.GetType()), (FieldIdentifier.Value, this));
 
             // auto load module
-            LoadModule(this.GetType(), "tooltip", "Tooltip");
+            LoadModule(this.GetType(), "validate", "Validate");
         }
     }
 
@@ -463,7 +463,7 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
         var id = RetrieveId();
         if (!string.IsNullOrEmpty(id) && !string.IsNullOrEmpty(ErrorMessage) && Module != null)
         {
-            await Module.InvokeVoidAsync($"{ModuleName}.init", id, ErrorMessage, "Valid");
+            await Module.InvokeVoidAsync($"{ModuleName}.init", id, ErrorMessage, "Invalid");
         }
     }
 

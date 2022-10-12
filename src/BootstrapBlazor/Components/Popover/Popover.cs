@@ -29,11 +29,11 @@ public class Popover : Tooltip
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override async ValueTask JSInvokeAsync()
+    protected override async Task ModuleInitAsync()
     {
-        if (!string.IsNullOrEmpty(Content))
+        if (!string.IsNullOrEmpty(Content) && Module != null)
         {
-            await JSRuntime.InvokeVoidByIdAsync(identifier: "bb.Popover.init", Id, Title, Content);
+            await Module.InvokeVoidAsync($"{ModuleName}.init", Id, Title, Content);
         }
     }
 }

@@ -130,12 +130,6 @@ public partial class Tooltip : ITooltip
     }
 
     /// <summary>
-    /// JavaScript invoke
-    /// </summary>
-    /// <returns></returns>
-    protected virtual ValueTask JSInvokeAsync() => ValueTask.CompletedTask;
-
-    /// <summary>
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
