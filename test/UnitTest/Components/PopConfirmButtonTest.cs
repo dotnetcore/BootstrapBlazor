@@ -24,11 +24,11 @@ public class PopConfirmButtonTest : PopoverTestBase
         });
 
         // Show
-        var button = cut.Find("button");
+        var button = cut.Find("div");
         await cut.InvokeAsync(() => button.Click());
 
         // Close
-        var buttons = cut.FindAll(".popover-confirm-buttons button");
+        var buttons = cut.FindAll(".popover-confirm-buttons div");
         await cut.InvokeAsync(() => buttons[0].Click());
 
         // Confirm
@@ -63,12 +63,12 @@ public class PopConfirmButtonTest : PopoverTestBase
             });
         });
 
-        button = cut.Find("button");
+        button = cut.Find("div");
         await cut.InvokeAsync(() => button.Click());
         Assert.Contains("data-bs-custom-class=\"test-custom-class\"", cut.Markup);
 
         // Close
-        buttons = cut.FindAll(".popover-confirm-buttons button");
+        buttons = cut.FindAll(".popover-confirm-buttons div");
         await cut.InvokeAsync(() => buttons[0].Click());
         Assert.True(beforeClose);
         Assert.True(close);
@@ -85,11 +85,11 @@ public class PopConfirmButtonTest : PopoverTestBase
         });
 
         // Show
-        button = cut.Find("button");
+        button = cut.Find("div");
         await cut.InvokeAsync(() => button.Click());
 
         // Confirm
-        buttons = cut.FindAll(".popover-confirm-buttons button");
+        buttons = cut.FindAll(".popover-confirm-buttons div");
         await cut.InvokeAsync(() => buttons[1].Click());
 
         // IsAsync
@@ -99,11 +99,11 @@ public class PopConfirmButtonTest : PopoverTestBase
         });
 
         // Show
-        button = cut.Find("button");
+        button = cut.Find("div");
         await cut.InvokeAsync(() => button.Click());
 
         // Confirm
-        buttons = cut.FindAll(".popover-confirm-buttons button");
+        buttons = cut.FindAll(".popover-confirm-buttons div");
         await cut.InvokeAsync(() => buttons[1].Click());
 
         // IsLink

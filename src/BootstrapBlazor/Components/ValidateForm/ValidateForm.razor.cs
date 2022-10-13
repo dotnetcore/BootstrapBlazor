@@ -486,7 +486,7 @@ public partial class ValidateForm : IAsyncDisposable
 
     private async Task OnInvalidSubmitForm(EditContext context)
     {
-        if (OnValidSubmit != null)
+        if (OnInvalidSubmit != null)
         {
             var isAsync = AsyncSubmitButtons.Any();
             foreach (var b in AsyncSubmitButtons)
