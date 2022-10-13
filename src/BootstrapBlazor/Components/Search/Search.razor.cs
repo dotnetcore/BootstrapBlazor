@@ -212,7 +212,7 @@ public partial class Search
     /// </summary>
     /// <param name="disposing"></param>
     /// <returns></returns>
-    protected override ValueTask DisposeAsyncCore(bool disposing)
+    protected override ValueTask DisposeAsync(bool disposing)
     {
         if (disposing)
         {
@@ -222,6 +222,6 @@ public partial class Search
             }
         }
 
-        return base.DisposeAsyncCore(disposing);
+        return base.DisposeAsync(disposing);
     }
 }

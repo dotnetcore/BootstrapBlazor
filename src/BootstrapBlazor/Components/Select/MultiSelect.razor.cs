@@ -368,9 +368,9 @@ public partial class MultiSelect<TValue>
     /// Dispose 方法
     /// </summary>
     /// <param name="disposing"></param>
-    protected override async ValueTask DisposeAsyncCore(bool disposing)
+    protected override async ValueTask DisposeAsync(bool disposing)
     {
-        await base.DisposeAsyncCore(disposing);
+        await base.DisposeAsync(disposing);
 
         if (IsPopover && disposing)
         {

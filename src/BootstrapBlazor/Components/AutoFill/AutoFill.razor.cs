@@ -341,7 +341,7 @@ public partial class AutoFill<TValue>
     /// </summary>
     /// <param name="disposing"></param>
     /// <returns></returns>
-    protected override ValueTask DisposeAsyncCore(bool disposing)
+    protected override ValueTask DisposeAsync(bool disposing)
     {
         if (disposing)
         {
@@ -351,6 +351,6 @@ public partial class AutoFill<TValue>
             }
         }
 
-        return base.DisposeAsyncCore(disposing);
+        return base.DisposeAsync(disposing);
     }
 }

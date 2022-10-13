@@ -305,7 +305,6 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
         if (!firstRender && IsValid.HasValue)
         {
             var valid = IsValid.Value;
-            IsValid = null;
             if (valid)
             {
                 await RemoveValidResult();
@@ -465,7 +464,7 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
         if (!string.IsNullOrEmpty(id) && !string.IsNullOrEmpty(ErrorMessage))
         {
             ValidateModule ??= await LoadValidateModule();
-            await ValidateModule.InvokeVoidAsync($"{ModuleName}.init", id, ErrorMessage, "Invalid");
+            await ValidateModule.InvokeVoidAsync("Validate.execute", id, ErrorMessage);
         }
     }
 
@@ -479,7 +478,7 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
         if (!string.IsNullOrEmpty(id))
         {
             ValidateModule ??= await LoadValidateModule();
-            await ValidateModule.InvokeVoidAsync($"{ModuleName}.dispose", id);
+            await ValidateModule.InvokeVoidAsync("Validate.dispose", id);
         }
     }
 
@@ -493,11 +492,11 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
     }
 
     /// <summary>
-    /// DisposeAsyncCore 方法
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="disposing"></param>
     /// <returns></returns>
-    protected virtual async ValueTask DisposeAsyncCore(bool disposing)
+    protected override async ValueTask DisposeAsync(bool disposing)
     {
         if (disposing)
         {

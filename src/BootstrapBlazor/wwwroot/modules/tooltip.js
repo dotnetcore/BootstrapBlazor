@@ -7,8 +7,13 @@ export class Tooltip extends BlazorComponent {
     }
 
     _dispose() {
-        if (this._tooltip && this._tooltip.tip !== null) {
-            this._tooltip.dispose();
+        if (this._tooltip) {
+            const delay = 10
+            const tooltip = this._tooltip
+            var handler = window.setTimeout(() => {
+                window.clearTimeout(handler)
+                tooltip.dispose();
+            }, delay)
         }
     }
 }
