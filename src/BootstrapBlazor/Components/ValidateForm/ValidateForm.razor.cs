@@ -484,6 +484,27 @@ public partial class ValidateForm : IAsyncDisposable
         }
     }
 
+    private async Task OnInvalidSubmitForm(EditContext context)
+    {
+        if (OnValidSubmit != null)
+        {
+            var isAsync = AsyncSubmitButtons.Any();
+            foreach (var b in AsyncSubmitButtons)
+            {
+                b.TriggerAsync(true);
+            }
+            if (isAsync)
+            {
+                await Task.Yield();
+            }
+            await OnInvalidSubmit(context);
+            foreach (var b in AsyncSubmitButtons)
+            {
+                b.TriggerAsync(false);
+            }
+        }
+    }
+
     [NotNull]
     private BootstrapBlazorDataAnnotationsValidator? Validator { get; set; }
 

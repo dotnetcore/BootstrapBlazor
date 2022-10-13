@@ -91,10 +91,10 @@ public partial class ValidateForms
         return Task.CompletedTask;
     }
 
-    private Task OnInvalidSubmit1(EditContext context)
+    private async Task OnInvalidSubmit1(EditContext context)
     {
+        await Task.Delay(1000);
         Trace.Log(Localizer["OnInvalidSubmitLog"]);
-        return Task.CompletedTask;
     }
 
     private async Task OnValidSubmit1(EditContext context)
