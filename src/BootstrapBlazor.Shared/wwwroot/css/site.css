@@ -1745,6 +1745,7 @@ header .bb-fs {
         .carousel-item-demo2 .demo-item img {
             border-radius: var(--bs-border-radius);
             margin: 1rem 0;
+            height: auto;
         }
 
         .carousel-item-demo2 .demo-item .top,

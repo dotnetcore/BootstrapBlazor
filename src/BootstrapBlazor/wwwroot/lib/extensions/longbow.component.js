@@ -110,25 +110,6 @@
             return `bb.${this.NAME}`;
         }
     }
-
-    // bootstrap.EventHandler.on(document, 'click', function (e) {
-    //     const el = e.target;
-    //     if (el.closest(`.${Confirm.Default.class}.show`) === null && el.closest(`${Confirm.Default.confirm_container}`) === null) {
-    //         const owner = Utility.getDescribedElement(el.closest('.dropdown-toggle'));
-    //         const popoverSelector = `.${Confirm.Default.class}.show`;
-    //         document.querySelectorAll(popoverSelector).forEach(function (ele) {
-    //             if (ele !== owner) {
-    //                 const element = Utility.getDescribedOwner(ele);
-    //                 if (element) {
-    //                     const p = bootstrap.Popover.getInstance(element);
-    //                     if (p) {
-    //                         p.hide();
-    //                     }
-    //                 }
-    //             }
-    //         });
-    //     }
-    // });
     //
     // bootstrap.EventHandler.on(document, 'click', '.anchor-link', function (e) {
     //     const hash = this.getAttribute('id');
@@ -167,77 +148,6 @@
     //     }
     //
     // });
-
-    /* Carousel */
-    const NAME$Carousel = "Carousel"
-
-    class Carousel extends BaseComponent {
-        constructor(element, config = {}) {
-            super(element, config);
-
-            this._carousel = bootstrap.Carousel.getOrCreateInstance(this._element, this._config);
-            this._addEventListeners();
-        }
-
-        _addEventListeners() {
-            bootstrap.EventHandler.on(this._element, 'mouseenter', () => {
-                const bars = this._element.querySelectorAll('[data-bs-slide]');
-                bars.forEach(slide => {
-                    slide.classList.remove('d-none');
-                });
-                this._enterHandler = window.setTimeout(() => {
-                    window.clearTimeout(this._enterHandler);
-                    this._enterHandler = null;
-                    this._element.classList.add('hover');
-                }, 10);
-            });
-            bootstrap.EventHandler.on(this._element, 'mouseleave', () => {
-                const bars = this._element.querySelectorAll('[data-bs-slide]');
-                bars.forEach(slide => {
-                    slide.classList.add('d-none');
-                });
-                this._leaveHandler = window.setTimeout(() => {
-                    window.clearTimeout(this._leaveHandler);
-                    this._leaveHandler = null;
-                    this._element.classList.remove('hover');
-                }, 10);
-            });
-        }
-
-        dispose() {
-            if (this._carousel !== null) {
-                this._carousel.dispose();
-            }
-
-            if (this._enterHandler !== null) {
-                window.clearTimeout(this._enterHandler);
-            }
-            if (this._leaveHandler !== null) {
-                window.clearTimeout(this._leaveHandler);
-            }
-
-            super.dispose();
-        }
-
-        static init(element) {
-            element = getElement(element);
-            new Carousel(element);
-        }
-
-        static dispose(element) {
-            element = getElement(element);
-            if (element) {
-                const p = this.getInstance(element);
-                if (p) {
-                    p.dispose();
-                }
-            }
-        }
-
-        static get NAME() {
-            return NAME$Carousel;
-        }
-    }
 
     class AutoRedirect extends Config {
         constructor(config = {}) {
@@ -491,7 +401,6 @@
 
     return {
         AutoRedirect,
-        Carousel,
         Utility
     };
 });
