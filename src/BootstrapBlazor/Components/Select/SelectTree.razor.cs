@@ -56,12 +56,26 @@ public partial class SelectTree<TValue>
     [Parameter]
     public StringComparison StringComparison { get; set; } = StringComparison.OrdinalIgnoreCase;
 
+    [NotNull]
+    private List<TreeViewItem<TValue>>? _items { get; set; }
+
     /// <summary>
     /// 获得/设置 带层次数据集合
     /// </summary>
     [Parameter]
     [NotNull]
-    public List<TreeViewItem<TValue>>? Items { get; set; }
+    public List<TreeViewItem<TValue>>? Items
+    {
+        get
+        {
+            return _items;
+        }
+        set
+        {
+            _items = value ?? new();
+            ExpansionItems = TreeItemExtensions.GetAllItems(_items);
+        }
+    }
 
     /// <summary>
     /// SelectedItemChanged 回调方法
@@ -119,16 +133,31 @@ public partial class SelectTree<TValue>
 
     private TreeViewItem<TValue>? SelectedItem { get; set; }
 
+    [NotNull]
+    private IEnumerable<TreeViewItem<TValue>>? ExpansionItems { get; set; }
+
     /// <summary>
     /// OnParametersSet 方法
     /// </summary>
-    protected override void OnParametersSet()
+    protected override async Task OnParametersSetAsync()
     {
-        base.OnParametersSet();
+        await base.OnParametersSetAsync();
 
-        Items ??= new();
         DropdownIcon ??= "fa-solid fa-angle-up";
         PlaceHolder ??= Localizer[nameof(PlaceHolder)];
+
+        var currentItem = ExpansionItems.FirstOrDefault(s => ComparerItem(s.Value, Value));
+        if (currentItem != null)
+        {
+            SelectedItem = currentItem;
+            SelectedItem.IsActive = true;
+            CurrentValue = currentItem.Value;
+
+            if (OnSelectedItemChanged != null)
+            {
+                await OnSelectedItemChanged(SelectedItem.Value);
+            }
+        }
     }
 
     /// <summary>
@@ -157,4 +186,16 @@ public partial class SelectTree<TValue>
             await OnSelectedItemChanged.Invoke(item.Value);
         }
     }
+
+    /// <summary>
+    /// 比较数据是否相同
+    /// </summary>
+    /// <param name="a"></param>
+    /// <param name="b"></param>
+    /// <returns></returns>
+    protected bool ComparerItem(TValue a, TValue b) => ModelEqualityComparer?.Invoke(a, b)
+        ?? Utility.GetKeyValue<TValue, object>(a, CustomKeyAttribute)?.Equals(Utility.GetKeyValue<TValue, object>(b, CustomKeyAttribute))
+        ?? ModelComparer.EqualityComparer(a, b)
+        ?? a?.Equals(b)
+        ?? false;
 }
