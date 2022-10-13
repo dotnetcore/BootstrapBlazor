@@ -78,6 +78,30 @@ const getHeight = (element, self = false) => {
 
 const getInnerHeight = element => getHeight(element, true)
 
+const getWindowScroll = node => {
+    const win = getWindow(node)
+    const scrollLeft = win.pageXOffset
+    const scrollTop = win.pageYOffset
+    return {
+        scrollLeft: scrollLeft,
+        scrollTop: scrollTop
+    }
+}
+
+const getWindow = node => {
+    if (!node) {
+        return window
+    }
+
+    if (node.toString() !== '[object Window]') {
+        const ownerDocument = node.ownerDocument;
+        return ownerDocument ? ownerDocument.defaultView || window : window;
+    }
+
+    return node;
+}
+
+
 export {
     vibrate,
     copy,
@@ -87,5 +111,7 @@ export {
     getTransitionDelayDurationFromElement,
     getHeight,
     getInnerHeight,
+    getWindow,
+    getWindowScroll,
     isFunction
 }
