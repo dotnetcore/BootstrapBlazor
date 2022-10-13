@@ -16,8 +16,9 @@ public class AnchorLinkTest : BootstrapBlazorTestBase
     [Fact]
     public void Icon_Ok()
     {
+        // 未设置 id 时使用父类自动生成 Id
         var cut = Context.RenderComponent<AnchorLink>(builder => builder.Add(a => a.Icon, "test-icon"));
-        Assert.DoesNotContain("test-icon", cut.Markup);
+        Assert.Contains("test-icon", cut.Markup);
 
         cut.SetParametersAndRender(pb => pb.Add(a => a.Id, "anchorlink"));
         Assert.Contains("test-icon", cut.Markup);

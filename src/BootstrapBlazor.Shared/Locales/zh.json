@@ -4013,6 +4013,7 @@
     "P7": "为必填项，不填写时不提供拷贝锚点链接功能",
     "P8": "组件锚点图标可通过",
     "P9": "参数进行自定义默认为",
+    "TooltipDesc": "参数 <code>TooltipText</code> 用于设置拷贝地址后提示信息 默认 <code>null</code> 不弹出提示信息",
     "AttrId": "Id",
     "AttrIcon": "图标",
     "AttrText": "文本",

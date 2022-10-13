@@ -4016,6 +4016,7 @@
     "P7": "It is a required item, and the function of copying the anchor link will not be provided if it is not filled in",
     "P8": "Component anchor icons are available via",
     "P9": "The parameter is customized and the default is",
+    "TooltipDesc": "<code>TooltipText</code> Used to set the prompt message after copying the address",
     "AttrId": "Id",
     "AttrIcon": "Icon",
     "AttrText": "Display text",

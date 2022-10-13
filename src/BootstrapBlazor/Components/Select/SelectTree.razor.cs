@@ -145,6 +145,7 @@ public partial class SelectTree<TValue>
 
         DropdownIcon ??= "fa-solid fa-angle-up";
         PlaceHolder ??= Localizer[nameof(PlaceHolder)];
+        ExpansionItems ??= Enumerable.Empty<TreeViewItem<TValue>>();
 
         var currentItem = ExpansionItems.FirstOrDefault(s => ComparerItem(s.Value, Value));
         if (currentItem != null)
