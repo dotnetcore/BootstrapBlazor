@@ -3,7 +3,7 @@ import { getElement } from "./index.js"
 
 const getElementById = object => {
     if (typeof object === 'string' && object.length > 0) {
-        object= `#${object}`
+        object = `#${object}`
     }
 
     return getElement(object);
@@ -24,7 +24,7 @@ class BlazorComponent extends BaseComponent {
     }
 
     _hackPopover() {
-        if(this._popover) {
+        if (this._popover) {
             this._popover._isWithContent = () => true
 
             const getTipElement = this._popover._getTipElement

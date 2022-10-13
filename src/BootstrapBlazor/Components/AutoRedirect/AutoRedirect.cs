@@ -7,7 +7,8 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// AutoRedirect component
 /// </summary>
-public class AutoRedirect : BootstrapComponentBase, IAsyncDisposable
+[JSModuleAutoLoader(JSObjectReference = true)]
+public class AutoRedirect : BootstrapModuleComponentBase
 {
     /// <summary>
     /// 获得/设置 重定向地址
@@ -40,19 +41,15 @@ public class AutoRedirect : BootstrapComponentBase, IAsyncDisposable
     [NotNull]
     private NavigationManager? NavigationManager { get; set; }
 
-    private JSInterop<AutoRedirect>? Interop { get; set; }
-
     /// <summary>
-    /// OnAfterRenderAsync 方法
+    /// <inheritdoc/>
     /// </summary>
-    /// <param name="firstRender"></param>
     /// <returns></returns>
-    protected override async Task OnAfterRenderAsync(bool firstRender)
+    protected override async Task ModuleInitAsync()
     {
-        if (firstRender)
+        if (Module != null)
         {
-            Interop ??= new JSInterop<AutoRedirect>(JSRuntime);
-            await Interop.InvokeVoidAsync("bb.AutoRedirect.init", this, Interval, nameof(Lock));
+            await Module.InvokeVoidAsync($"{ModuleName}.init", Id, Interval, nameof(Lock));
         }
     }
 
@@ -71,32 +68,5 @@ public class AutoRedirect : BootstrapComponentBase, IAsyncDisposable
         {
             NavigationManager.NavigateTo(RedirectUrl, IsForceLoad);
         }
-    }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <param name="disposing"></param>
-    protected virtual async ValueTask DisposeAsync(bool disposing)
-    {
-        if (disposing)
-        {
-            if (Interop != null)
-            {
-                // UNDONE: 应该与 ID 关联进行销毁操作
-                await JSRuntime.InvokeVoidByIdAsync(identifier: "bb.AutoRedirect.dispose");
-                Interop.Dispose();
-                Interop = null;
-            }
-        }
-    }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    public async ValueTask DisposeAsync()
-    {
-        await DisposeAsync(true);
-        GC.SuppressFinalize(this);
     }
 }
