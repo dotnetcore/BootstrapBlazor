@@ -1,7 +1,7 @@
 ﻿@namespace BootstrapBlazor.Components
 @inherits BootstrapComponentBase
 
-<div class="@ClassString" data-bs-target="@SourceId">
+<div data-bb-toggle="confirm">
     @if (!string.IsNullOrEmpty(Title))
     {
         <h3 class="popover-header">@Title</h3>
@@ -12,12 +12,12 @@
             <span>@Content</span>
         </p>
         <div class="popover-confirm-buttons">
-            <button data-bb-dismiss class="@CloseButtonClass" @onclick="@OnCloseClick">
+            <div class="@CloseButtonClass" @onclick="@OnCloseClick">
                 <span>@CloseButtonText</span>
-            </button>
-            <button data-bb-dismiss class="@ConfirmButtonClass" @onclick="@OnConfirmClick">
+            </div>
+            <div class="@ConfirmButtonClass" @onclick="@OnConfirmClick">
                 <span>@ConfirmButtonText</span>
-            </button>
+            </div>
         </div>
     </div>
 </div>

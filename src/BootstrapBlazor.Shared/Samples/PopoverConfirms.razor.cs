@@ -63,8 +63,8 @@ public sealed partial class PopoverConfirms
 
     private async Task OnAsyncSubmit()
     {
-        await Task.Delay(3000);
         Trace1.Log("异步提交");
+        await Task.Delay(3000);
     }
 
     private async Task OnValidSubmit(EditContext context)

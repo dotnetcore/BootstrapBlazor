@@ -7,12 +7,8 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// Popover Confirm 组件
 /// </summary>
-public partial class PopoverConfirmBox
+public partial class PopConfirmButtonContent
 {
-    private string? ClassString => CssBuilder.Default()
-        .AddClass(CustomClass, !string.IsNullOrEmpty(CustomClass))
-        .Build();
-
     /// <summary>
     /// 获得 关闭按钮样式
     /// </summary>
@@ -33,12 +29,6 @@ public partial class PopoverConfirmBox
     protected string? IconClass => CssBuilder.Default()
         .AddClass(Icon)
         .Build();
-
-    /// <summary>
-    /// 获得/设置 关联按钮 Id
-    /// </summary>
-    [Parameter]
-    public string? SourceId { get; set; }
 
     /// <summary>
     /// 获得/设置 显示标题
@@ -83,13 +73,6 @@ public partial class PopoverConfirmBox
     public string Icon { get; set; } = "fa-solid fa-exclamation-circle text-info";
 
     /// <summary>
-    /// 获得/设置 自定义样式 默认 null
-    /// </summary>
-    /// <remarks>由 data-bs-custom-class 实现</remarks>
-    [Parameter]
-    public string? CustomClass { get; set; }
-
-    /// <summary>
     /// 获得/设置 确认按钮回调方法
     /// </summary>
     [Parameter]
@@ -106,7 +89,10 @@ public partial class PopoverConfirmBox
     /// </summary>
     public async Task OnCloseClick()
     {
-        if (OnClose != null) await OnClose.Invoke();
+        if (OnClose != null)
+        {
+            await OnClose();
+        }
     }
 
     /// <summary>
@@ -114,6 +100,9 @@ public partial class PopoverConfirmBox
     /// </summary>
     public async Task OnConfirmClick()
     {
-        if (OnConfirm != null) await OnConfirm();
+        if (OnConfirm != null)
+        {
+            await OnConfirm();
+        }
     }
 }

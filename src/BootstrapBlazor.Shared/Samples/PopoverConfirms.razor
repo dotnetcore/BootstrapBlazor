@@ -39,6 +39,9 @@
                 <BootstrapInput @bind-Value="@Model.Name" />
             </div>
             <div class="col-12">
+                <BootstrapInput @bind-Value="@Model.Address" />
+            </div>
+            <div class="col-12">
                 <PopConfirmButton Placement="Placement.Top" Color="Color.Primary" ConfirmIcon="fa-solid fa-triangle-exclamation text-info"
                                   ConfirmButtonColor="Color.Success" Text="@Localizer["P18"]" Content="@Localizer["P19"]" Icon="fa-solid fa-floppy-disk fa-fw"
                                   ButtonType="ButtonType.Submit" IsAsync="true" OnConfirm="OnAsyncSubmit" />
@@ -53,7 +56,7 @@
                       ConfirmButtonColor="Color.Danger" Text="@Localizer["P22"]" Content="@Localizer["P23"]" IsLink="true" />
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["P24"]" Introduction="@Localizer["P25"]" Name="CssClass">
+<DemoBlock Title="@Localizer["P24"]" Introduction="@Localizer["P25"]" Name="CustomClass">
     <Pre>.custom-popover {
     --bs-popover-border-color: var(--bs-primary);
     --bs-popover-body-padding-x: 1rem;
@@ -61,7 +64,7 @@
 }
 </Pre>
     <PopConfirmButton Placement="Placement.Top" ConfirmIcon="fa-solid fa-triangle-exclamation text-danger" Color="Color.Danger"
-                      ConfirmButtonColor="Color.Danger" Text="@Localizer["P26"]" Content="@Localizer["P27"]" CssClass="custom-popover" />
+                      ConfirmButtonColor="Color.Danger" Text="@Localizer["P26"]" Content="@Localizer["P27"]" CustomClass="custom-popover" />
 </DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" />

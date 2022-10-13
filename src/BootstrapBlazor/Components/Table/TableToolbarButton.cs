@@ -48,9 +48,9 @@ public class TableToolbarButton<TItem> : ButtonBase
     /// </summary>
     /// <param name="disposing"></param>
     /// <returns></returns>
-    protected override async ValueTask DisposeAsyncCore(bool disposing)
+    protected override async ValueTask DisposeAsync(bool disposing)
     {
         Toolbar?.RemoveButton(this);
-        await base.DisposeAsyncCore(disposing);
+        await base.DisposeAsync(disposing);
     }
 }

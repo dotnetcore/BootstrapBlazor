@@ -102,10 +102,10 @@ export class Select extends DropdownBase {
     }
 
     _dispose() {
-        super._dispose()
-
         EventHandler.off(this._element, 'show.bs.dropdown')
         EventHandler.off(this._element, 'shown.bs.dropdown')
         EventHandler.off(this._element, 'keydown')
+
+        super._dispose()
     }
 }

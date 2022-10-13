@@ -10,6 +10,16 @@ namespace BootstrapBlazor.Components;
 public abstract class PopConfirmButtonBase : ButtonBase
 {
     /// <summary>
+    /// 弹窗位置字符串
+    /// </summary>
+    protected override string? PlacementString => Placement != Placement.Auto ? Placement.ToDescriptionString() : null;
+
+    /// <summary>
+    /// Trigger 字符串
+    /// </summary>
+    protected override string? TriggerString => Trigger == "click" ? null : Trigger;
+
+    /// <summary>
     /// 获得/设置 是否为 A 标签 默认 false 使用 button 渲染 
     /// </summary>
     [Parameter]
@@ -94,12 +104,12 @@ public abstract class PopConfirmButtonBase : ButtonBase
     /// <summary>
     /// 
     /// </summary>
-    protected string TagName => IsLink ? "a" : "button";
+    protected string TagName => IsLink ? "a" : "div";
 
     /// <summary>
     /// 
     /// </summary>
-    protected string? ElementType => IsLink ? null : "button";
+    protected string? ElementType => IsLink ? null : "div";
 
     /// <summary>
     /// OnInitialized 方法

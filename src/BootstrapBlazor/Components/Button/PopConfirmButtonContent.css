@@ -24,6 +24,6 @@
             margin-left: var(--bb-popover-buttons-margin-left);
         }
 
-.popover-confirm-container [data-bs-target] {
+[data-bb-toggle="confirm"] {
     display: none;
 }

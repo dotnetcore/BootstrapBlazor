@@ -100,27 +100,12 @@ export class DropdownBase extends BlazorComponent {
             EventHandler.on(this._element, 'click', this._config.toggleClass, active)
             EventHandler.on(this._toggleMenu, 'click', '.dropdown-item', () => this.hide())
 
-            if (!window.bb_select) {
-                window.bb_select = true
+            if (!window.bb_dropdown) {
+                window.bb_dropdown = true
 
-                console.log(window.bb_select)
+                console.log('dropdown')
                 EventHandler.on(document, 'click', closePopover);
             }
-        }
-    }
-
-    _hackPopover() {
-        this._popover._isWithContent = () => true
-
-        const getTipElement = this._popover._getTipElement
-        let fn = tip => {
-            tip.classList.add(this._config.class)
-            tip.classList.add('shadow')
-        }
-        this._popover._getTipElement = () => {
-            let tip = getTipElement.call(this._popover)
-            fn(tip)
-            return tip
         }
     }
 

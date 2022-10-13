@@ -11,7 +11,8 @@ namespace BootstrapBlazor.Components;
 /// </summary>
 public partial class PopConfirmButton
 {
-    private string? ClassString => CssBuilder.Default("btn-popover-confirm dropdown-toggle")
+    private string? ClassString => CssBuilder.Default()
+        .AddClass("disabled", IsDisabled)
         .AddClass(InternalClassName, IsLink)
         .AddClass(ClassName, !IsLink)
         .Build();
@@ -33,13 +34,6 @@ public partial class PopConfirmButton
     /// <remarks>由 data-bs-custom-class 实现</remarks>
     [Parameter]
     public string? CustomClass { get; set; }
-
-    /// <summary>
-    /// 获得/设置 PopoverConfirm 服务实例
-    /// </summary>
-    [Inject]
-    [NotNull]
-    private PopoverService? PopoverService { get; set; }
 
     [Inject]
     [NotNull]
@@ -65,22 +59,10 @@ public partial class PopConfirmButton
         // 回调消费者逻辑 判断是否需要弹出确认框
         if (await OnBeforeClick())
         {
-            // 生成客户端弹窗
-            await PopoverService.Show(new PopoverConfirmOption()
+            if (Module != null)
             {
-                ButtonId = Id,
-                Title = Title,
-                Content = Content,
-                CloseButtonText = CloseButtonText,
-                CloseButtonColor = CloseButtonColor,
-                ConfirmButtonText = ConfirmButtonText,
-                ConfirmButtonColor = ConfirmButtonColor,
-                Icon = ConfirmIcon,
-                OnConfirm = Confirm,
-                OnClose = OnClose,
-                CustomClass = CustomClass,
-                Callback = async () => await JSRuntime.InvokeVoidByIdAsync(identifier: "bb.Confirm.init", Id)
-            });
+                await Module.InvokeVoidAsync($"{ModuleName}.execute", Id, "showConfirm");
+            }
         }
     }
 
@@ -95,26 +77,34 @@ public partial class PopConfirmButton
             IsDisabled = true;
             ButtonIcon = LoadingIcon;
             StateHasChanged();
-
             await Task.Run(() => InvokeAsync(OnConfirm));
 
-            IsDisabled = false;
-            ButtonIcon = Icon;
-            await TrySubmit();
-            StateHasChanged();
+            if (ButtonType == ButtonType.Submit)
+            {
+                await TrySubmit();
+            }
+            else
+            {
+                IsDisabled = false;
+                ButtonIcon = Icon;
+                StateHasChanged();
+            }
         }
         else
         {
             await OnConfirm();
-            await TrySubmit();
+            if (ButtonType == ButtonType.Submit)
+            {
+                await TrySubmit();
+            }
         }
     }
 
     private async Task TrySubmit()
     {
-        if (ButtonType == ButtonType.Submit)
+        if (Module != null)
         {
-            await JSRuntime.InvokeVoidByIdAsync(identifier: "bb.Confirm.submit", Id);
+            await Module.InvokeVoidAsync($"{ModuleName}.execute", Id, "submit");
         }
     }
 }

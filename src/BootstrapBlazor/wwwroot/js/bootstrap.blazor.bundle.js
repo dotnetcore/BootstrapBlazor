@@ -18698,117 +18698,6 @@ return jQuery;
         }
     }
 
-    /* Confirm */
-    const NAME$Confirm = 'Confirm';
-
-    class Confirm extends BaseComponent {
-        constructor(element, config) {
-            super(element, config);
-
-            this._id = element.getAttribute('id');
-        }
-
-        _getPopoverBodyElement() {
-            return document.querySelector(`[data-bs-target="${this._id}"]`);
-        }
-
-        _setListeners() {
-            this._show = () => {
-                const disabled = this._isDisabled();
-                if (disabled) {
-                    event.preventDefault();
-                } else {
-                    this._element.classList.add('show');
-                }
-
-            };
-
-            this._inserted = () => {
-                const body = this._getPopoverBodyElement();
-                const dorpdown = Utility.getDescribedElement(this._element);
-                dorpdown.append(body);
-            };
-
-            this._hide = () => {
-                const body = this._getPopoverBodyElement();
-                if (body) {
-                    const container = document.querySelector(this._config.confirm_container);
-                    container.append(body);
-                }
-
-                const dropdown = Utility.getDescribedElement(this._element);
-                if (dropdown) {
-                    dropdown.classList.remove('show');
-                }
-
-                this._element.classList.remove('show');
-            }
-
-            bootstrap.EventHandler.on(this._element, 'show.bs.popover', this._show);
-            bootstrap.EventHandler.on(this._element, 'inserted.bs.popover', this._inserted);
-            bootstrap.EventHandler.on(this._element, 'hide.bs.popover', this._hide);
-
-            if (this._config.dismiss != null) {
-                bootstrap.EventHandler.one(document, 'click', this._config.dismiss, this._hide);
-            }
-        }
-
-        dispose() {
-            if (this._config.dismiss != null) {
-                bootstrap.EventHandler.off(document, 'click', this._config.dismiss, this._hide);
-            }
-            super.dispose();
-        }
-
-        static _create(element) {
-            let p = new bb.Confirm(element);
-            p.show();
-        }
-
-        static init(element) {
-            element = getElement(element);
-            let p = Confirm.getInstance(element);
-            if (p !== null && p._isShown()) {
-                p.hide();
-
-                const duration = getTransitionDurationFromElement(element, 15);
-                let handler = window.setTimeout(() => {
-                    window.clearTimeout(handler);
-                    p.dispose();
-
-                    Confirm._create(element);
-                }, duration);
-            } else {
-                Confirm._create(element);
-            }
-        }
-
-        static submit(element) {
-            element = getElement(element)
-            const form = element.closest('form');
-            if (form !== null) {
-                const button = document.createElement('button');
-                button.setAttribute('type', 'submit');
-                button.setAttribute('hidden', 'true');
-                form.append(button);
-                button.click();
-                button.remove();
-            }
-        }
-
-        static get Default() {
-            return {
-                class: 'popover-confirm',
-                dismiss: '[data-bb-dismiss]',
-                confirm_container: '.popover-confirm-container'
-            }
-        }
-
-        static get NAME() {
-            return NAME$Confirm;
-        }
-    }
-
     // bootstrap.EventHandler.on(document, 'click', function (e) {
     //     const el = e.target;
     //     if (el.closest(`.${Confirm.Default.class}.show`) === null && el.closest(`${Confirm.Default.confirm_container}`) === null) {
@@ -19190,7 +19079,6 @@ return jQuery;
     return {
         AutoRedirect,
         Carousel,
-        Confirm,
         Utility
     };
 });

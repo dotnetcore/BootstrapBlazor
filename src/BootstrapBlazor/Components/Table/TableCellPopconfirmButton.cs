@@ -64,9 +64,9 @@ public class TableCellPopconfirmButton : PopConfirmButtonBase
     /// </summary>
     /// <param name="disposing"></param>
     /// <returns></returns>
-    protected override ValueTask DisposeAsyncCore(bool disposing)
+    protected override ValueTask DisposeAsync(bool disposing)
     {
         Buttons?.RemoveButton(this);
-        return base.DisposeAsyncCore(disposing);
+        return base.DisposeAsync(disposing);
     }
 }

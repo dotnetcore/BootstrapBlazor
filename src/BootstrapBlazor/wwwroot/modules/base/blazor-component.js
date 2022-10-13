@@ -23,6 +23,23 @@ class BlazorComponent extends BaseComponent {
 
     }
 
+    _hackPopover() {
+        if(this._popover) {
+            this._popover._isWithContent = () => true
+
+            const getTipElement = this._popover._getTipElement
+            let fn = tip => {
+                tip.classList.add(this._config.class)
+                tip.classList.add('shadow')
+            }
+            this._popover._getTipElement = () => {
+                let tip = getTipElement.call(this._popover)
+                fn(tip)
+                return tip
+            }
+        }
+    }
+
     _dispose() {
     }
 
