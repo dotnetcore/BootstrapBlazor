@@ -11,43 +11,6 @@ namespace BootstrapBlazor.Components;
 internal static class JSRuntimeExtensions
 {
     /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="jsRuntime"></param>
-    /// <param name="identifier"></param>
-    /// <param name="id"></param>
-    /// <param name="args"></param>
-    /// <returns></returns>
-    public static async ValueTask InvokeVoidByIdAsync(this IJSRuntime jsRuntime, string identifier, string? id = null, params object?[]? args)
-    {
-#if NET5_0
-        var paras = new List<object>();
-#else
-        var paras = new List<object?>();
-#endif
-        if (!string.IsNullOrEmpty(id))
-        {
-            paras.Add($"#{id}");
-        }
-        if (args != null)
-        {
-            paras.AddRange(args!);
-        }
-
-        try
-        {
-            await jsRuntime.InvokeVoidAsync(identifier: identifier, paras.ToArray());
-        }
-#if NET6_0_OR_GREATER
-        catch (JSDisconnectedException) { }
-#endif
-        catch (JSException) { }
-        catch (AggregateException) { }
-        catch (InvalidOperationException) { }
-        catch (TaskCanceledException) { }
-    }
-
-    /// <summary>
     /// 调用 JSInvoke 方法
     /// </summary>
     /// <param name="jsRuntime">IJSRuntime 实例</param>

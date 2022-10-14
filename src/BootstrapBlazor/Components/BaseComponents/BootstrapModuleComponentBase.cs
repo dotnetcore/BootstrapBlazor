@@ -30,7 +30,7 @@ public abstract class BootstrapModuleComponentBase : IdComponentBase, IAsyncDisp
     /// <summary>
     /// 获得/设置 是否继承父类 JSModuleAutoLoader 设置 默认 true
     /// </summary>
-    protected bool Inherited { get; set; }
+    protected bool Inherited { get; set; } = true;
 
     /// <summary>
     /// 获得/设置 是否需要 javascript invoke 默认 false

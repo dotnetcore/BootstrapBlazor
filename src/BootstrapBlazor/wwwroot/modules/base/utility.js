@@ -101,7 +101,6 @@ const getWindow = node => {
     return node;
 }
 
-
 export {
     vibrate,
     copy,
