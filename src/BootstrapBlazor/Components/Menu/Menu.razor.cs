@@ -134,9 +134,9 @@ public partial class Menu
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    protected override void OnInitialized()
+    protected override void OnParametersSet()
     {
-        base.OnInitialized();
+        base.OnParametersSet();
 
         Items ??= Enumerable.Empty<MenuItem>();
         InitMenus(null, Items, Navigator.ToBaseRelativePath(Navigator.Uri));
@@ -232,10 +232,7 @@ public partial class Menu
                 else
                 {
                     // 顶栏模式重新级联设置 active
-                    if (ActiveMenu != null)
-                    {
-                        ActiveMenu.CascadingSetActive(false);
-                    }
+                    ActiveMenu?.CascadingSetActive(false);
                     item.CascadingSetActive();
                 }
                 ActiveMenu = item;
