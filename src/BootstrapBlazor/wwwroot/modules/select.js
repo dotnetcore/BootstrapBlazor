@@ -42,35 +42,37 @@ export class Select extends DropdownBase {
                 const items = this._toggleMenu.querySelectorAll('.dropdown-item:not(.search, .disabled)')
                 let activeItem = this._toggleMenu.querySelector('.dropdown-item.preActive') ?? this._toggleMenu.querySelector('.dropdown-item.active')
 
-                if (items.length > 1) {
-                    activeItem.classList.remove('preActive')
-                    if (e.key === "ArrowUp") {
-                        do {
-                            activeItem = activeItem.previousElementSibling
+                if (activeItem) {
+                    if (items.length > 1) {
+                        activeItem.classList.remove('preActive')
+                        if (e.key === "ArrowUp") {
+                            do {
+                                activeItem = activeItem.previousElementSibling
+                            }
+                            while (activeItem && !activeItem.classList.contains('dropdown-item'))
+                            if (!activeItem) {
+                                activeItem = items[items.length - 1]
+                            }
+                            activeItem.classList.add('preActive')
+                            this._scrollToActive(activeItem)
+                        } else if (e.key === "ArrowDown") {
+                            do {
+                                activeItem = activeItem.nextElementSibling
+                            }
+                            while (activeItem && !activeItem.classList.contains('dropdown-item'))
+                            if (!activeItem) {
+                                activeItem = items[0]
+                            }
+                            activeItem.classList.add('preActive')
+                            this._scrollToActive(activeItem)
                         }
-                        while (activeItem && !activeItem.classList.contains('dropdown-item'))
-                        if (!activeItem) {
-                            activeItem = items[items.length - 1]
-                        }
-                        activeItem.classList.add('preActive')
-                        this._scrollToActive(activeItem)
-                    } else if (e.key === "ArrowDown") {
-                        do {
-                            activeItem = activeItem.nextElementSibling
-                        }
-                        while (activeItem && !activeItem.classList.contains('dropdown-item'))
-                        if (!activeItem) {
-                            activeItem = items[0]
-                        }
-                        activeItem.classList.add('preActive')
-                        this._scrollToActive(activeItem)
                     }
-                }
 
-                if (e.key === "Enter") {
-                    this._toggleMenu.classList.remove('show')
-                    let index = this._indexOf(activeItem)
-                    this._invoker.invokeMethodAsync(this._invokeMethodName, index)
+                    if (e.key === "Enter") {
+                        this._toggleMenu.classList.remove('show')
+                        let index = this._indexOf(activeItem)
+                        this._invoker.invokeMethodAsync(this._invokeMethodName, index)
+                    }
                 }
             }
         }
@@ -90,14 +92,16 @@ export class Select extends DropdownBase {
             activeItem = this._toggleMenu.querySelector('.dropdown-item.active')
         }
 
-        const innerHeight = getInnerHeight(this._toggleMenu)
-        const itemHeight = getHeight(activeItem);
-        const index = this._indexOf(activeItem)
-        const margin = itemHeight * index - (innerHeight - itemHeight) / 2;
-        if (margin >= 0) {
-            this._toggleMenu.scrollTo(0, margin);
-        } else {
-            this._toggleMenu.scrollTo(0, 0);
+        if (activeItem) {
+            const innerHeight = getInnerHeight(this._toggleMenu)
+            const itemHeight = getHeight(activeItem);
+            const index = this._indexOf(activeItem)
+            const margin = itemHeight * index - (innerHeight - itemHeight) / 2;
+            if (margin >= 0) {
+                this._toggleMenu.scrollTo(0, margin);
+            } else {
+                this._toggleMenu.scrollTo(0, 0);
+            }
         }
     }
 
