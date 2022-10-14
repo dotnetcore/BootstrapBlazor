@@ -1,5 +1,6 @@
 ﻿import EventHandler from "./base/event-handler.js"
 import BlazorComponent from "./base/blazor-component.js"
+import { getElement } from "./base/index.js";
 
 export class Upload extends BlazorComponent {
     static get Default() {
@@ -55,6 +56,20 @@ export class Upload extends BlazorComponent {
             const event = new Event('change', { bubbles: true });
             this._inputFile.dispatchEvent(event);
         });
+    }
+
+    _execute(args) {
+        const tooltipId = args[0]
+        const method = args[1]
+        if (method === 'disposeTooltip' && tooltipId) {
+            const element = getElement(`#${tooltipId}`)
+            if (element) {
+                const tooltip = bootstrap.Tooltip.getInstance(element)
+                if (tooltip) {
+                    tooltip.dispose()
+                }
+            }
+        }
     }
 
     _dispose() {
