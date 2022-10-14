@@ -16,6 +16,19 @@ public class Popover : Tooltip
     public string? Content { get; set; }
 
     /// <summary>
+    /// 获得/设置 是否显示阴影 默认 true
+    /// </summary>
+    [Parameter]
+    public bool ShowShadow { get; set; } = true;
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override string? CustomClassString => CssBuilder.Default(CustomClass)
+        .AddClass("shadow", ShowShadow)
+        .Build();
+
+    /// <summary>
     /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()

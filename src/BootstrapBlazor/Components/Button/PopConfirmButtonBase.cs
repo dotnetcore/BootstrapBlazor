@@ -102,6 +102,26 @@ public abstract class PopConfirmButtonBase : ButtonBase
     public string? ConfirmIcon { get; set; }
 
     /// <summary>
+    /// 获得/设置 自定义样式 默认 null
+    /// </summary>
+    /// <remarks>由 data-bs-custom-class 实现</remarks>
+    [Parameter]
+    public string? CustomClass { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否显示阴影 默认 true
+    /// </summary>
+    [Parameter]
+    public bool ShowShadow { get; set; } = true;
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected virtual string? CustomClassString => CssBuilder.Default(CustomClass)
+        .AddClass("shadow", ShowShadow)
+        .Build();
+
+    /// <summary>
     /// 
     /// </summary>
     protected string TagName => IsLink ? "a" : "div";

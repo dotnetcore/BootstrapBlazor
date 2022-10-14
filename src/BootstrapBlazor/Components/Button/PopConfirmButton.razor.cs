@@ -28,13 +28,6 @@ public partial class PopConfirmButton
     [Parameter]
     public override Color Color { get; set; } = Color.None;
 
-    /// <summary>
-    /// 获得/设置 自定义样式 默认 null
-    /// </summary>
-    /// <remarks>由 data-bs-custom-class 实现</remarks>
-    [Parameter]
-    public string? CustomClass { get; set; }
-
     [Inject]
     [NotNull]
     private IStringLocalizer<PopConfirmButton>? Localizer { get; set; }

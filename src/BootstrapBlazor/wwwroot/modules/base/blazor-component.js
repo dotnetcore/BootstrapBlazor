@@ -30,7 +30,6 @@ class BlazorComponent extends BaseComponent {
             const getTipElement = this._popover._getTipElement
             let fn = tip => {
                 tip.classList.add(this._config.class)
-                tip.classList.add('shadow')
             }
             this._popover._getTipElement = () => {
                 let tip = getTipElement.call(this._popover)

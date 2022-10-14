@@ -94,6 +94,11 @@ public partial class Tooltip : ITooltip
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
+    /// 获得 CustomClass 字符串
+    /// </summary>
+    protected virtual string? CustomClassString => CustomClass;
+
+    /// <summary>
     /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
