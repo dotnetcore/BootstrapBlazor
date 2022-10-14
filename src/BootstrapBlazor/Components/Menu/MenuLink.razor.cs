@@ -29,6 +29,8 @@ public sealed partial class MenuLink
 
     private string? TargetString => string.IsNullOrEmpty(Item.Target) ? null : Item.Target;
 
+    private bool PreventDefault => HrefString == "#";
+
     /// <summary>
     /// 获得/设置 MenuItem 实例 不可为空
     /// </summary>
