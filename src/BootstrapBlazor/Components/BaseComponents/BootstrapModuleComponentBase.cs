@@ -28,6 +28,11 @@ public abstract class BootstrapModuleComponentBase : IdComponentBase, IAsyncDisp
     private bool Relative { get; set; }
 
     /// <summary>
+    /// 获得/设置 是否继承父类 JSModuleAutoLoader 设置 默认 true
+    /// </summary>
+    protected bool Inherited { get; set; }
+
+    /// <summary>
     /// 获得/设置 是否需要 javascript invoke 默认 false
     /// </summary>
     protected bool JSObjectReference { get; set; }
@@ -39,21 +44,24 @@ public abstract class BootstrapModuleComponentBase : IdComponentBase, IAsyncDisp
     {
         base.OnInitialized();
 
-        var type = this.GetType();
-        var attr = type.GetCustomAttribute<JSModuleAutoLoaderAttribute>();
-
-        if (attr != null)
+        if (Inherited)
         {
-            string? typeName = null;
-            ModulePath = attr.Path ?? GetTypeName().ToLowerInvariant();
-            ModuleName = attr.ModuleName ?? GetTypeName();
-            JSObjectReference = attr.JSObjectReference;
-            Relative = attr.Relative;
+            var type = this.GetType();
+            var attr = type.GetCustomAttribute<JSModuleAutoLoaderAttribute>();
 
-            string GetTypeName()
+            if (attr != null)
             {
-                typeName ??= type.GetTypeModuleName();
-                return typeName;
+                string? typeName = null;
+                ModulePath = attr.Path ?? GetTypeName().ToLowerInvariant();
+                ModuleName = attr.ModuleName ?? GetTypeName();
+                JSObjectReference = attr.JSObjectReference;
+                Relative = attr.Relative;
+
+                string GetTypeName()
+                {
+                    typeName ??= type.GetTypeModuleName();
+                    return typeName;
+                }
             }
         }
     }
