@@ -98,7 +98,11 @@ export class DropdownBase extends BlazorComponent {
             EventHandler.on(this._element, 'inserted.bs.popover', insertedPopover)
             EventHandler.on(this._element, 'hide.bs.popover', hidePopover)
             EventHandler.on(this._element, 'click', this._config.toggleClass, active)
-            EventHandler.on(this._toggleMenu, 'click', '.dropdown-item', () => this.hide())
+            EventHandler.on(this._toggleMenu, 'click', '.dropdown-item', e => {
+                if (this._popover._config.autoClose !== 'outside') {
+                    this.hide()
+                }
+            })
 
             if (!window.bb_dropdown) {
                 window.bb_dropdown = true

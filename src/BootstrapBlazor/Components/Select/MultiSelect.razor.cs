@@ -10,10 +10,9 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// MultiSelect 组件
 /// </summary>
+[JSModuleAutoLoader("multi-select")]
 public partial class MultiSelect<TValue>
 {
-    private ElementReference SelectElement { get; set; }
-
     [NotNull]
     private List<SelectedItem>? DataSource { get; set; }
 
@@ -362,19 +361,5 @@ public partial class MultiSelect<TValue>
         }
 
         DataSource = Items.ToList();
-    }
-
-    /// <summary>
-    /// Dispose 方法
-    /// </summary>
-    /// <param name="disposing"></param>
-    protected override async ValueTask DisposeAsync(bool disposing)
-    {
-        await base.DisposeAsync(disposing);
-
-        if (IsPopover && disposing)
-        {
-            await JSRuntime.InvokeVoidAsync(SelectElement, "bb_multi_select", "dispose");
-        }
     }
 }

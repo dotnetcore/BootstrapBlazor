@@ -6,8 +6,8 @@
 {
     <BootstrapLabel required="@Required" for="@Id" ShowLabelTooltip="ShowLabelTooltip" Value="@DisplayText" />
 }
-<div @attributes="@AdditionalAttributes" class="@ClassString" @ref="SelectElement">
-    <div class="@ToggleClassString" data-bs-toggle="@ToggleString" data-bs-placement="@PlacementString" data-bs-offset="@OffsetString" data-bs-auto-close="outside" tabindex="0" id="@Id">
+<div @attributes="@AdditionalAttributes" class="@ClassString" id="@Id">
+    <div class="@ToggleClassString" data-bs-toggle="@ToggleString" data-bs-placement="@PlacementString" data-bs-offset="@OffsetString" data-bs-auto-close="outside" tabindex="0">
         <div class="@PlaceHolderClassString">@PlaceHolder</div>
         <div class="multi-select-items">
             @foreach (var item in SelectedItems)
