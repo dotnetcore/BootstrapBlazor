@@ -2689,7 +2689,7 @@
     "Block11Intro": "候选项文字特别长",
     "MutiText2": "超长文字",
     "Block12Title": "全选与反选按钮",
-    "Block12Intro": "通过设置 <code>ShowSelectAllButton</code> 值设置组件显示全选与反选按钮",
+    "Block12Intro": "通过参数 <code>ShowToolbar</code> 控制是否显示工具栏，通过参数 <code>ShowDefaultButtons</code> 控制是否显示内置的三个按钮，通过参数 <code>ShowSearch</code> 控制是否显示搜索栏",
     "Block13Title": "设置选项最大数与最小数",
     "Block13Intro": "通过设置 <code>Max</code> <code>Min</code> 值设置组件可选项数量限制",
     "P8": "最多可选择两个选项",
@@ -5160,7 +5160,8 @@
     "P1": "通过引用扩展组件包",
     "P2": "后添加样式表文件链接开启图标",
     "P3": "已知问题",
-    "P4": "首次加载有概率图标为乱码，原因是字库还未下载导致"
+    "P4": "首次加载有概率图标为乱码，原因是字库还未下载导致",
+    "CopiedTooltipText": "拷贝成功"
   },
   "BootstrapBlazor.Shared.Samples.SignaturePads": {
     "BackText": "返回前页",

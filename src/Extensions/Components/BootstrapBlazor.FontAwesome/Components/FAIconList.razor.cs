@@ -9,13 +9,11 @@ using Microsoft.JSInterop;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+///
 /// </summary>
-[JSModuleAutoLoader("./content/BootstrapBlazor/tooltip.js", ModuleName = "Tooltip", Relative = false)]
+[JSModuleAutoLoader("./_content/BootstrapBlazor.FontAwesome/modules/icon-list.js", ModuleName = "IconList", JSObjectReference = true, Relative = false)]
 public partial class FAIconList
 {
-    private ElementReference IconListElement { get; set; }
-
     private string? ClassString => CssBuilder.Default("icon-list")
         .AddClass("is-catalog", ShowCatalog)
         .AddClass("is-dialog", ShowCopyDialog)
@@ -59,6 +57,12 @@ public partial class FAIconList
     [Parameter]
     public bool IsCopy { get; set; }
 
+    /// <summary>
+    /// 获得/设置 拷贝成功提示文字
+    /// </summary>
+    [Parameter]
+    public string? CopiedTooltipText { get; set; }
+
     [Inject]
     [NotNull]
     private DialogService? DialogService { get; set; }
@@ -66,8 +70,6 @@ public partial class FAIconList
     [Inject]
     [NotNull]
     private IStringLocalizer<IconDialog>? Localizer { get; set; }
-
-    private JSInterop<FAIconList>? Interop { get; set; }
 
     /// <summary>
     /// OnParametersSet 方法
@@ -87,7 +89,7 @@ public partial class FAIconList
     {
         if (Module != null)
         {
-            await Module.InvokeVoidAsync($"{ModuleName}.init", IconListElement, "bb_iconList", nameof(UpdateIcon), nameof(ShowDialog), IsCopy);
+            await Module.InvokeVoidAsync($"{ModuleName}.init", Id, nameof(UpdateIcon), nameof(ShowDialog), IsCopy);
         }
     }
 
@@ -110,7 +112,7 @@ public partial class FAIconList
     }
 
     /// <summary>
-    /// 
+    ///
     /// </summary>
     /// <returns></returns>
     [JSInvokable]

@@ -2684,7 +2684,7 @@
     "Block11Intro": "The candidate text is particularly long",
     "MutiText2": "Extra long text",
     "Block12Title": "Full and reverse buttons",
-    "Block12Intro": "By setting <code>ShowSelectAllButton</code> value settings component displays the All and Anti buttons",
+    "Block12Intro": "By setting <code>ShowToolbar</code> value settings component displays the toolbox, by setting <code>ShowDefaultButtons</code> value settings component displays the default buttons, by setting <code>ShowSearch</code> value settings component displays the search box",
     "Block13Title": "Set the maximum and minimum number of options",
     "Block13Intro": "Set the limit on the number of options available to components by setting the <code>max</code> <code>Min</code> values",
     "P8": "You can select up to two options",
@@ -5157,7 +5157,8 @@
     "P1": "Extending the Component Package by Reference",
     "P2": "After adding the stylesheet file link open icon",
     "P3": "Known Issues",
-    "P4": "There is a probability that the icon will be garbled when it is loaded for the first time, because the font library has not been downloaded."
+    "P4": "There is a probability that the icon will be garbled when it is loaded for the first time, because the font library has not been downloaded.",
+    "CopiedTooltipText": "Copied"
   },
   "BootstrapBlazor.Shared.Samples.SignaturePads": {
     "BackText": "Back",
