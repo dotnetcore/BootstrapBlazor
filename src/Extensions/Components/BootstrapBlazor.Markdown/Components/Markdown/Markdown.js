@@ -1,43 +1,71 @@
-﻿export function bb_markdown(el, obj, value, method) {
-    // 自动加载样式
-    BootstrapBlazorModules.addLink('_content/BootstrapBlazor.Markdown/css/bootstrap.blazor.markdown.min.css');
+﻿import BlazorComponent from "../../../_content/BootstrapBlazor/modules/base/blazor-component.js"
+import { addLink } from "../../../_content/BootstrapBlazor/modules/base/utility.js"
+import { isVisible } from "../../../_content/BootstrapBlazor/modules/base/index.js";
+import EventHandler from "../../../_content/BootstrapBlazor/modules/base/event-handler.js";
 
-    var $el = $(el);
-    if (method === "setMarkdown") {
-        var editor = $.data(el, 'bb_md_editor');
-        editor.setMarkdown(value);
+export class Markdown extends BlazorComponent {
+    _init() {
+        addLink('_content/BootstrapBlazor.Markdown/css/bootstrap.blazor.markdown.min.css')
+
+        this._invoker = this._config.arguments[0]
+        this._options = this._config.arguments[1]
+        this._invokerMethod = this._config.arguments[2]
+
+        this._createEditor()
     }
-    else {
 
+    _createEditor() {
         // 修复弹窗内初始化值不正确问题
-        var handler = window.setInterval(function () {
-            if ($el.is(':visible')) {
-                window.clearInterval(handler);
-                value.el = el;
-                value.plugins = [];
-                if (value.enableHighlight) {
-                    value.plugins.push(toastui.Editor.plugin.codeSyntaxHighlight);
+        const handler = window.setInterval(() => {
+            if (isVisible(this._element)) {
+                window.clearInterval(handler)
+                this._options.el = this._element
+                this._options.plugins = [];
+                if (this._options.enableHighlight) {
+                    this._options.plugins.push(toastui.Editor.plugin.codeSyntaxHighlight)
                 }
-                delete value.enableHighlight;
-                const editor = toastui.Editor.factory(value);
-                $.data(el, 'bb_md_editor', editor);
-                var timer;
-                editor.on('blur', function () {
-                    var val = editor.getMarkdown();
-                    var html = editor.getHTML();
-                    obj.invokeMethodAsync(method, [val, html]);
-                });
+                this._editor = toastui.Editor.factory(this._options)
+                this._setListeners()
             }
-        }, 100);
+        }, 100)
     }
-};
 
-export function bb_markdown_method(el, obj, method, parameter) {
-    var editor = $.data(el, 'bb_md_editor');
-    if (editor) {
-        editor[method](...parameter);
-        var val = editor.getMarkdown();
-        var html = editor.getHTML();
-        obj.invokeMethodAsync('Update', [val, html]);
+    _setListeners() {
+        this._editor.on('blur', () => {
+            const val = this._editor.getMarkdown();
+            const html = this._editor.getHTML();
+            this._invoker.invokeMethodAsync(this._invokerMethod, [val, html]);
+        })
+    }
+
+    _execute(args) {
+        const method = args[1]
+        if (method === 'update') {
+            this._update(args[2])
+        } else if (method === 'do') {
+            this._do(args[2], args[3])
+        }
+    }
+
+    _update(val) {
+        if (this._editor) {
+            this._editor.setMarkdown(val)
+        }
+    }
+
+    _do(method, parameters = {}) {
+        if (this._editor) {
+            this._editor[method](...parameters);
+            const val = this._editor.getMarkdown();
+            const html = this._editor.getHTML();
+            this._innvoker.invokeMethodAsync('Update', [val, html]);
+        }
+    }
+
+    _dispose() {
+        if (this._editor) {
+            this._editor.off('blur')
+            this._editor.destory()
+        }
     }
 }
