@@ -62,10 +62,19 @@ public class PopConfirmButtonTest : PopoverTestBase
                 return Task.FromResult(true);
             });
         });
+        // 默认设置增加 shadow 样式
+        Assert.Contains("data-bs-custom-class=\"test-custom-class shadow\"", cut.Markup);
 
+        // 移除 shadow 样式
+        popButton.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ShowShadow, false);
+        });
+        Assert.Contains("data-bs-custom-class=\"test-custom-class\"", cut.Markup);
+
+        // 弹窗
         button = cut.Find("div");
         await cut.InvokeAsync(() => button.Click());
-        Assert.Contains("data-bs-custom-class=\"test-custom-class\"", cut.Markup);
 
         // Close
         buttons = cut.FindAll(".popover-confirm-buttons div");
