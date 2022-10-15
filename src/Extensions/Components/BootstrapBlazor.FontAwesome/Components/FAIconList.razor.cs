@@ -11,6 +11,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 
 /// </summary>
+[JSModuleAutoLoader("./content/BootstrapBlazor/tooltip.js", ModuleName = "Tooltip", Relative = false)]
 public partial class FAIconList
 {
     private ElementReference IconListElement { get; set; }
@@ -79,18 +80,14 @@ public partial class FAIconList
     }
 
     /// <summary>
-    /// OnAfterRenderAsync 方法
+    /// <inheritdoc/>
     /// </summary>
-    /// <param name="firstRender"></param>
     /// <returns></returns>
-    protected override async Task OnAfterRenderAsync(bool firstRender)
+    protected override async Task ModuleInitAsync()
     {
-        await base.OnAfterRenderAsync(firstRender);
-
-        if (firstRender)
+        if (Module != null)
         {
-            Interop ??= new(JSRuntime);
-            await Interop.InvokeVoidAsync(this, IconListElement, "bb_iconList", nameof(UpdateIcon), nameof(ShowDialog), IsCopy);
+            await Module.InvokeVoidAsync($"{ModuleName}.init", IconListElement, "bb_iconList", nameof(UpdateIcon), nameof(ShowDialog), IsCopy);
         }
     }
 

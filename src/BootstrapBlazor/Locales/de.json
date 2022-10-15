@@ -340,6 +340,7 @@
     "LabelText": "Symbol",
     "LabelFullText": "Html",
     "ButtonText": "Kopieren",
-    "DialogHeaderText": "Ausgewähltes Symbol"
+    "DialogHeaderText": "Ausgewähltes Symbol",
+    "CopiedTooltipText": "Kopieren erfolgreich"
   }
 }

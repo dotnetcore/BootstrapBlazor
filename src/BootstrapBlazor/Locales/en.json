@@ -327,6 +327,7 @@
     "LabelText": "Icon",
     "LabelFullText": "Html",
     "ButtonText": "Copy",
-    "DialogHeaderText": "Selected Icon"
+    "DialogHeaderText": "Selected Icon",
+    "CopiedTooltipText": "Copied"
   }
 }
