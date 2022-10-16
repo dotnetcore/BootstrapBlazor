@@ -105,6 +105,32 @@ public partial class Transfer<TValue>
     public string? RightPannelSearchPlaceHolderString { get; set; }
 
     /// <summary>
+    /// 获得/设置 右侧面板包含的最大数量, 默认为 0 不限制
+    /// </summary>
+    [Parameter]
+    public int Max { get; set; }
+
+    /// <summary>
+    /// 获得/设置 设置最大值时错误消息文字
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public string? MaxErrorMessage { get; set; }
+
+    /// <summary>
+    /// 获得/设置 右侧面板包含的最大数量，默认为 0 不限制
+    /// </summary>
+    [Parameter]
+    public int Min { get; set; }
+
+    /// <summary>
+    /// 获得/设置 设置最小值时错误消息文字
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public string? MinErrorMessage { get; set; }
+
+    /// <summary>
     /// 获得/设置 数据样式回调方法 默认为 null
     /// </summary>
     [Parameter]
@@ -154,6 +180,8 @@ public partial class Transfer<TValue>
 
         LeftPanelText ??= Localizer[nameof(LeftPanelText)];
         RightPanelText ??= Localizer[nameof(RightPanelText)];
+        MinErrorMessage ??= Localizer[nameof(MinErrorMessage)];
+        MaxErrorMessage ??= Localizer[nameof(MaxErrorMessage)];
 
         var list = CurrentValueAsString.Split(',', StringSplitOptions.RemoveEmptyEntries);
         LeftItems.Clear();
@@ -174,6 +202,16 @@ public partial class Transfer<TValue>
                 RightItems.Add(item);
             }
         }
+
+        if (Min > 0)
+        {
+            Rules.Add(new MinValidator() { Value = Min, ErrorMessage = MinErrorMessage });
+        }
+        if (Max > 0)
+        {
+            Rules.Add(new MaxValidator() { Value = Max, ErrorMessage = MaxErrorMessage });
+        }
+
     }
 
     /// <summary>
@@ -202,6 +240,19 @@ public partial class Transfer<TValue>
                 await OnSelectedItemsChanged(isLeft ? target : source);
             }
         }
+
+
+        if (Min > 0 || Max > 0)
+        {
+            var validationContext = new ValidationContext(Value!) { MemberName = FieldIdentifier?.FieldName };
+            var validationResults = new List<ValidationResult>();
+
+            await ValidatePropertyAsync(RightItems, validationContext, validationResults);
+            ToggleMessage(validationResults, true);
+        }
+
+        StateHasChanged();
+
     }
 
     /// <summary>
