@@ -14,7 +14,7 @@
         @{
             ResetSelectedItem();
         }
-        <div class="dropdown-toggle" data-bs-toggle="@ToggleString" data-bs-placement="@PlacementString" data-bs-offset="@OffsetString">
+        <div class="dropdown-toggle" data-bs-toggle="@ToggleString" data-bs-placement="@PlacementString" data-bs-offset="@OffsetString" data-bs-custom-class="@CustomClassString">
             @if (DisplayTemplate != null)
             {
                 <div id="@InputId" class="@InputClassString" tabindex="0">
@@ -27,7 +27,7 @@
                 <span class="@AppendClassString"><i class="@DropdownIcon"></i></span>
             }
         </div>
-        <div class="@DropdownMenuClassString">
+        <div class="dropdown-menu">
             @if (ShowSearch)
             {
                 <div class="@SearchClassString">

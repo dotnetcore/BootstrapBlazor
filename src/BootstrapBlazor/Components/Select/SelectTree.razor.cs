@@ -10,6 +10,7 @@ namespace BootstrapBlazor.Components;
 /// Select 组件实现类
 /// </summary>
 /// <typeparam name="TValue"></typeparam>
+[JSModuleAutoLoader("select-tree")]
 public partial class SelectTree<TValue>
 {
     /// <summary>
@@ -147,16 +148,19 @@ public partial class SelectTree<TValue>
         PlaceHolder ??= Localizer[nameof(PlaceHolder)];
         ExpansionItems ??= Enumerable.Empty<TreeViewItem<TValue>>();
 
-        var currentItem = ExpansionItems.FirstOrDefault(s => ComparerItem(s.Value, Value));
-        if (currentItem != null)
+        if (Value != null)
         {
-            SelectedItem = currentItem;
-            SelectedItem.IsActive = true;
-            CurrentValue = currentItem.Value;
-
-            if (OnSelectedItemChanged != null)
+            var currentItem = ExpansionItems.FirstOrDefault(s => ComparerItem(s.Value, Value));
+            if (currentItem != null)
             {
-                await OnSelectedItemChanged(SelectedItem.Value);
+                SelectedItem = currentItem;
+                SelectedItem.IsActive = true;
+                CurrentValue = currentItem.Value;
+
+                if (OnSelectedItemChanged != null)
+                {
+                    await OnSelectedItemChanged(SelectedItem.Value);
+                }
             }
         }
     }

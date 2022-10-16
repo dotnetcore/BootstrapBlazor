@@ -317,7 +317,7 @@ public partial class MultiSelect<TValue>
         var data = Items;
         if (ShowSearch && !string.IsNullOrEmpty(SearchText) && OnSearchTextChanged != null)
         {
-            data = OnSearchTextChanged.Invoke(SearchText).ToList();
+            data = OnSearchTextChanged(SearchText).ToList();
         }
         return data;
     }

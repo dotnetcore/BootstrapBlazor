@@ -208,7 +208,7 @@ public partial class Select<TValue> : ISelect
     {
         var ds = string.IsNullOrEmpty(SearchText)
             ? DataSource
-            : OnSearchTextChanged.Invoke(SearchText);
+            : OnSearchTextChanged(SearchText);
         var item = ds.ElementAt(index);
         await OnClickItem(item);
         StateHasChanged();

@@ -86,7 +86,6 @@ export class Confirm extends BlazorComponent {
         if (!window.bb_confirm) {
             window.bb_confirm = true
 
-            console.log('confirm')
             EventHandler.on(document, 'click', this._closeConfirm);
         }
     }

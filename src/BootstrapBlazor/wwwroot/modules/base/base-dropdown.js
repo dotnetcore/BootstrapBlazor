@@ -107,9 +107,25 @@ export class DropdownBase extends BlazorComponent {
             if (!window.bb_dropdown) {
                 window.bb_dropdown = true
 
-                console.log('dropdown')
                 EventHandler.on(document, 'click', closePopover);
             }
+        }
+        else {
+            const show = e => {
+                if (this._isDisabled()) {
+                    e.preventDefault()
+                }
+                this._setCustomClass()
+            }
+
+            EventHandler.on(this._element, 'show.bs.dropdown', show)
+        }
+    }
+
+    _setCustomClass() {
+        const extraClass = this._toggle.getAttribute('data-bs-custom-class')
+        if(extraClass) {
+            this._toggleMenu.classList.add(...extraClass.split(' '))
         }
     }
 
@@ -124,6 +140,9 @@ export class DropdownBase extends BlazorComponent {
             EventHandler.off(this._element, 'hide.bs.popover')
             EventHandler.off(this._element, 'click', '.dropdown-toggle')
             EventHandler.off(this._toggleMenu, 'click', '.dropdown-item')
+        }
+        else {
+            EventHandler.off(this._element, 'show.bs.dropdown')
         }
     }
 

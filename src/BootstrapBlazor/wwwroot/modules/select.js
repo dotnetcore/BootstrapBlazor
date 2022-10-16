@@ -1,13 +1,11 @@
 ﻿import EventHandler from "./base/event-handler.js";
-import { isDisabled } from "./base/index.js";
 import { getHeight, getInnerHeight } from "./base/utility.js";
-import { DropdownBase } from "./base/base-dropdown.js";
+import { SelectTree } from "./select-tree.js"
 
-export class Select extends DropdownBase {
+export class Select extends SelectTree {
     _init() {
         // el, obj, method
         this._search = this._element.querySelector('input.search-text')
-        this._input = this._element.querySelector('.form-select')
         this._invoker = this._config.arguments[0]
         this._invokeMethodName = this._config.arguments[1]
 
@@ -16,12 +14,6 @@ export class Select extends DropdownBase {
 
     _setListeners() {
         super._setListeners()
-
-        const show = e => {
-            if (isDisabled(this._input)) {
-                e.preventDefault()
-            }
-        }
 
         const shown = () => {
             if (this._search) {
@@ -77,7 +69,6 @@ export class Select extends DropdownBase {
             }
         }
 
-        EventHandler.on(this._element, 'show.bs.dropdown', show)
         EventHandler.on(this._element, 'shown.bs.dropdown', shown);
         EventHandler.on(this._element, 'keydown', keydown)
     }
@@ -106,7 +97,6 @@ export class Select extends DropdownBase {
     }
 
     _dispose() {
-        EventHandler.off(this._element, 'show.bs.dropdown')
         EventHandler.off(this._element, 'shown.bs.dropdown')
         EventHandler.off(this._element, 'keydown')
 
