@@ -203,15 +203,34 @@ public partial class Transfer<TValue>
             }
         }
 
-        if (Min > 0)
+        ResetRules();
+    }
+
+    private int _min;
+    private int _max;
+    private void ResetRules()
+    {
+        if (Max != _max)
         {
-            Rules.Add(new MinValidator() { Value = Min, ErrorMessage = MinErrorMessage });
-        }
-        if (Max > 0)
-        {
-            Rules.Add(new MaxValidator() { Value = Max, ErrorMessage = MaxErrorMessage });
+            _max = Max;
+            Rules.RemoveAll(v => v is MaxValidator);
+
+            if (Max > 0)
+            {
+                Rules.Add(new MaxValidator() { Value = Max, ErrorMessage = MaxErrorMessage });
+            }
         }
 
+        if (Min != _min)
+        {
+            _min = Min;
+            Rules.RemoveAll(v => v is MinValidator);
+
+            if (Min > 0)
+            {
+                Rules.Add(new MinValidator() { Value = Min, ErrorMessage = MinErrorMessage });
+            }
+        }
     }
 
     /// <summary>
@@ -239,20 +258,16 @@ public partial class Transfer<TValue>
             {
                 await OnSelectedItemsChanged(isLeft ? target : source);
             }
+
+            if (ValidateForm == null && (Min > 0 || Max > 0))
+            {
+                var validationContext = new ValidationContext(Value!) { MemberName = FieldIdentifier?.FieldName };
+                var validationResults = new List<ValidationResult>();
+
+                await ValidatePropertyAsync(RightItems, validationContext, validationResults);
+                ToggleMessage(validationResults, true);
+            }
         }
-
-
-        if (Min > 0 || Max > 0)
-        {
-            var validationContext = new ValidationContext(Value!) { MemberName = FieldIdentifier?.FieldName };
-            var validationResults = new List<ValidationResult>();
-
-            await ValidatePropertyAsync(RightItems, validationContext, validationResults);
-            ToggleMessage(validationResults, true);
-        }
-
-        StateHasChanged();
-
     }
 
     /// <summary>

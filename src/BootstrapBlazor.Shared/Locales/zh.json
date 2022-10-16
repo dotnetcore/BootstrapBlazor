@@ -3017,6 +3017,8 @@
     "ItemStyleTitle": "设置 Item 样式",
     "ItemStyleIntro": "通过设置 <code>OnSetItemClass</code> 回调方法根据 <code>SelectedItem</code> 值设置选项样式",
     "Items": "组件绑定数据项集合",
+    "MinMaxTitle": "最大最小值约束",
+    "MinMaxIntro": "通过设置 <code>Min</code> <code>Max</code> 参数来限制选项个数",
     "LeftButtonTextAttr": "左侧按钮显示文本",
     "LeftPanelTextAttr": "左侧面板 Header 显示文本",
     "LeftPanelDefaultValue": "列表 1",

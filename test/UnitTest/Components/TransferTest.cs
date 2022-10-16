@@ -180,4 +180,36 @@ public class TransferTest : BootstrapBlazorTestBase
         cut.Contains("LeftPannelSearchPlaceHolderString");
         cut.Contains("RightPannelSearchPlaceHolderString");
     }
+
+    [Fact]
+    public void MaxMin_Ok()
+    {
+        var foo = new Foo();
+        var cut = Context.RenderComponent<Transfer<string>>(pb =>
+        {
+            pb.Add(a => a.Value, foo.Name);
+            pb.Add(a => a.ValueChanged, EventCallback.Factory.Create<string>(this, v => foo.Name = v));
+            pb.Add(a => a.ValueExpression, Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+            pb.Add(a => a.Items, new List<SelectedItem>()
+            {
+                new("1", "Test1"),
+                new("2", "Test2"),
+                new("3", "Test3"),
+                new("4", "Test4")
+            });
+            pb.Add(a => a.Min, 1);
+            pb.Add(a => a.Max, 2);
+        });
+
+        // 选中移动到右侧按钮并且点击
+        var checkbox = cut.FindComponent<Checkbox<SelectedItem>>();
+        cut.InvokeAsync(() => checkbox.Instance.SetState(CheckboxState.Checked));
+        var button = cut.FindComponents<Button>()[1];
+        cut.InvokeAsync(() => button.Instance.OnClick.InvokeAsync());
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.Max, 3);
+        });
+    }
 }
