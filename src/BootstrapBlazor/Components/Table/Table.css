@@ -11,8 +11,10 @@
     --bb-table-footer-font-weight: blod;
     --bb-table-footer-border-top: 2px solid #dee2e6;
     --bb-table-loader-bg: #f8f9fa;
-    --bb-table-card-row-padding: .75rem 0;
+    --bb-table-card-row-padding: .75rem .5rem;
     --bb-table-columnlist-max-height: var(--bb-dropdown-max-height);
+    --bs-table-striped-bg: rgba(0,0,0,.05);
+    --bs-table-hover-bg: rgba(0,0,0,.075);
 }
 
     .table-container .table:not(.table-excel) .switch {
@@ -254,6 +256,10 @@
         margin-left: .5rem;
     }
 
+.table-toolbar .form-check.is-label {
+    display: flex;
+}
+
 .btn-gear .dropdown-menu {
     min-width: initial;
     padding: 0;
@@ -418,6 +424,14 @@
                 text-overflow: ellipsis;
                 white-space: nowrap;
             }
+
+.table-striped .table-row:nth-of-type(odd) {
+    background-color: var(--bs-table-striped-bg);
+}
+
+.table-striped .table-row:hover {
+    background-color: var(--bs-table-hover-bg);
+}
 
 .table-fixed-column .table {
     table-layout: fixed;

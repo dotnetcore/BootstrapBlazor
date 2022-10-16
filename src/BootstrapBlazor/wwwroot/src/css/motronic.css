@@ -37,6 +37,11 @@
     --bb-border-hover-color: #b5b5c3;
 }
 
+.table-container {
+    --bs-table-striped-bg: rgba(245,248,250,.75);
+    --bs-table-hover-bg: #f5f8fa;
+}
+
 .table-filter .card-header {
     border-bottom: 1px solid var(--bs-secondary);
     background-color: var(--bs-secondary);

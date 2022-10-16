@@ -59,6 +59,7 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
         .AddClass("table-fixed-column", Columns.Any(c => c.Fixed) || FixedExtendButtonsColumn)
         .AddClass("table-resize", AllowResizing)
         .AddClass("table-fixed-body", RenderMode == TableRenderMode.CardView && IsFixedHeader)
+        .AddClass("table-striped table-hover", ActiveRenderMode == TableRenderMode.CardView && IsStriped)
         .Build();
 
     /// <summary>

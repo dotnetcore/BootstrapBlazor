@@ -5613,6 +5613,34 @@ public class TableTest : TableTestBase
         Assert.NotNull(check);
     }
 
+    [Fact]
+    public void IsStrip_Ok()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var items = Foo.GenerateFoo(localizer, 2);
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.ShowToolbar, true);
+                pb.Add(a => a.RenderMode, TableRenderMode.CardView);
+                pb.Add(a => a.Items, items);
+                pb.Add(a => a.IsStriped, false);
+            });
+        });
+
+        // 未设置斑马线
+        cut.DoesNotContain("table-striped table-hover");
+
+        // 设置斑马线
+        var table = cut.FindComponent<Table<Foo>>();
+        table.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.IsStriped, true);
+        });
+        cut.Contains("table-striped table-hover");
+    }
+
     private static DataTable CreateDataTable(IStringLocalizer<Foo> localizer)
     {
         var userData = new DataTable();
