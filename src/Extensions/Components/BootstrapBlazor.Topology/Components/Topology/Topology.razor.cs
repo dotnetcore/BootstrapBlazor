@@ -9,7 +9,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// Topology 组件类
 /// </summary>
-[JSModuleAutoLoader("./_content/BootstrapBlazor.Topology/js/bootstrap.blazor.topology.min.js", ModuleName = "BlazorTopology", Relative = false)]
+[JSModuleAutoLoader("./_content/BootstrapBlazor.Topology/js/bootstrap.blazor.topology.min.js", ModuleName = "BlazorTopology", JSObjectReference = true, Relative = false)]
 public partial class Topology
 {
     /// <summary>
