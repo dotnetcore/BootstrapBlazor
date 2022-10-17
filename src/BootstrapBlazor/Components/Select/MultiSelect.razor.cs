@@ -199,7 +199,6 @@ public partial class MultiSelect<TValue>
     /// <summary>
     /// 切换当前选项方法
     /// </summary>
-    /// <param name="val"></param>
     /// <returns></returns>
     [JSInvokable]
     public async Task ToggleRow(string val)
@@ -220,6 +219,8 @@ public partial class MultiSelect<TValue>
             StateHasChanged();
         }
     }
+
+    private string? GetValueString(SelectedItem item) => IsPopover ? item.Value : null;
 
     private async Task TriggerSelectedItemChanged()
     {

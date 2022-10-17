@@ -15,9 +15,10 @@
                 @if (ShowCloseButton)
                 {
                     <div class="multi-select-item-group">
-                        <span class="multi-select-close" data-bb-val="@item.Value">
+                        <DynamicElement  TagName="span" class="multi-select-close" data-bb-val="@GetValueString(item)"
+                                         TriggerClick="@(!IsPopover)" OnClick="() => ToggleRow(item.Value)">
                             <i class="@ClearIcon"></i>
-                        </span>
+                        </DynamicElement>
                         <span class="multi-select-item">@item.Text</span>
                     </div>
                 }

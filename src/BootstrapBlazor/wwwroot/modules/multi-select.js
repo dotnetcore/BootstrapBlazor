@@ -1,5 +1,5 @@
-﻿import {DropdownBase} from "./base/base-dropdown.js"
-import {isDisabled} from "./base/index.js"
+﻿import { DropdownBase } from "./base/base-dropdown.js"
+import { isDisabled } from "./base/index.js"
 import EventHandler from "./base/event-handler.js"
 
 export class MultiSelect extends DropdownBase {
@@ -18,8 +18,7 @@ export class MultiSelect extends DropdownBase {
 
     _clickToggle() {
         const element = event.target.closest(this._config._closeButtonSelector);
-        if(element)
-        {
+        if (element) {
             event.stopPropagation()
 
             this._invoker.invokeMethodAsync(this._invokerMethod, element.getAttribute('data-bb-val'))

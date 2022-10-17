@@ -69,7 +69,7 @@ export class DropdownBase extends BlazorComponent {
             }
 
             const active = () => {
-                if(!this._isDisabled()) {
+                if (!this._isDisabled()) {
                     this._popover = bootstrap.Popover.getInstance(this._toggle);
                     if (!this._popover) {
                         this._popover = new bootstrap.Popover(this._toggle)
@@ -131,7 +131,7 @@ export class DropdownBase extends BlazorComponent {
 
     _setCustomClass() {
         const extraClass = this._toggle.getAttribute('data-bs-custom-class')
-        if(extraClass) {
+        if (extraClass) {
             this._toggleMenu.classList.add(...extraClass.split(' '))
         }
     }
