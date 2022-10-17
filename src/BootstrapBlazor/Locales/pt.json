@@ -179,6 +179,9 @@
   "BootstrapBlazor.Components.Select": {
     "PlaceHolder": "Selecionar ..."
   },
+  "BootstrapBlazor.Components.SelectTree": {
+    "PlaceHolder": "Selecionar ..."
+  },
   "BootstrapBlazor.Components.StringLengthValidator": {
     "ErrorMessage": "Entre com um valor menor ou igual a {{0}}"
   },

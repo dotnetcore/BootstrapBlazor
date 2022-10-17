@@ -311,14 +311,5 @@
         //        setInterval(attemptReload, 10000);
         //    }
         //}).observe(document.body, { childList: true, subtree: true });
-
-        // Pre
-        bootstrap.EventHandler.on(document, 'click', '.pre-code .btn-clipboard', function () {
-            const text = this.previousElementSibling.querySelector('code').textContent;
-            bb.Utility.copy(text);
-
-            const tooltip = bb.Utility.getDescribedElement(this);
-            tooltip.querySelector('.tooltip-inner').innerHTML = '拷贝代码成功';
-        });
     });
 })(jQuery);

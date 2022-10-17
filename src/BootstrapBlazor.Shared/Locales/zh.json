@@ -4,6 +4,11 @@
     "Reload": "重新加载",
     "ErrorMessage": "发生了未处理的异常。有关详细信息，请参见浏览器开发工具。"
   },
+  "BootstrapBlazor.Shared.Components.Pre": {
+    "LoadingText": "正在加载 ...",
+    "TooltipTitle": "点击复制代码",
+    "CopiedText": "复制代码成功"
+  },
   "BootstrapBlazor.Shared.Pages.Index": {
     "BodyClassString": "welcome-body",
     "HeaderTitle": "Bootstrap 风格的 Blazor UI 组件库",
@@ -4320,12 +4325,19 @@
     "P10": "个人地址"
   },
   "BootstrapBlazor.Shared.Samples.SelectTrees": {
-    "H1": "SelectTree",
-    "H2": "A tree-like data structure is presented in the drop-down box for selection",
-    "P1": "Common usage",
-    "P2": "Selected node",
-    "Block2Title": "Paragraph skeleton",
-    "Block2Intro": "Not used in <code>ValidateForm</code>",
+    "H1": "树状选择器 SelectTree",
+    "H2": "下拉框内呈现树状数据结构，供选择",
+    "P1": "普通用法",
+    "P2": "选中节点",
+    "Block2Title": "禁用",
+    "Block2Intro": "设置 <code>IsDisabled</code> 使组件禁用",
+    "Block3Title": "双向绑定",
+    "Block3Intro": "绑定组件内变量，数据自动同步",
+    "Block5Title": "客户端验证",
+    "Block5Intro": "组件内置 <code>ValidateForm</code> 可设置验证规则",
+    "IsPopoverTitle": "悬浮弹窗",
+    "IsPopoverIntro": "通过设置 <code>IsPopover</code> 参数，组件使用 <code>popover</code> 渲染 <code>UI</code> 防止由于父容器设置 <code>overflow: hidden;</code> 使弹窗无法显示问题",
+    "ButtonText2": "提交",
     "TF1": "导航一",
     "TF2": "导航二",
     "TF3": "导航三",

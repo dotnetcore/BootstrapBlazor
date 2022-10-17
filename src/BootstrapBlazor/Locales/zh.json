@@ -166,6 +166,9 @@
   "BootstrapBlazor.Components.Select": {
     "PlaceHolder": "请选择 ..."
   },
+  "BootstrapBlazor.Components.SelectTree": {
+    "PlaceHolder": "请选择 ..."
+  },
   "BootstrapBlazor.Components.StringLengthValidator": {
     "ErrorMessage": "最多可以输入 {{0}} 个字符"
   },

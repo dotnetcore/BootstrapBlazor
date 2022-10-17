@@ -17,8 +17,8 @@
 }
 else
 {
-    <div tabindex="0" role="tree" class="@ClassString" @ref="@TreeElement">
-        <ul class="tree-root" role="tree">
+    <div tabindex="0" class="@ClassString" @ref="@TreeElement">
+        <ul class="tree-root">
             @foreach (var item in Items)
             {
                 @RenderTreeItem(item)
@@ -29,7 +29,7 @@ else
 
 @code {
     private RenderFragment<TreeViewItem<TItem>> RenderTreeNode => item =>
-    @<ul class="@GetTreeClassString(item)" role="group">
+    @<ul class="@GetTreeClassString(item)">
         @foreach (var node in item.Items)
         {
             @RenderTreeItem(node)
@@ -37,7 +37,7 @@ else
     </ul>;
 
 private RenderFragment<TreeViewItem<TItem>> RenderTreeItem => item =>
-@<li role="treeitem" class="@GetItemClassString(item)">
+@<li class="@GetItemClassString(item)">
     <div class="tree-content">
         <DynamicElement TagName="i" class="@GetCaretClassString(item)" TriggerClick="TriggerNodeArrow(item)"  OnClick="() => OnToggleNodeAsync(item, true)"></DynamicElement>
         @if (ShowCheckbox)

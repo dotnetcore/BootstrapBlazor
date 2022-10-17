@@ -9,7 +9,6 @@ namespace BootstrapBlazor.Shared.Components;
 /// <summary>
 /// 广告组件
 /// </summary>
-[JSModuleAutoLoader("./_content/BootstrapBlazor.Shared/modules/wwads.js", ModuleName = "Wwads", Relative = false)]
 public partial class Wwads
 {
     private string? DebugString { get; set; }

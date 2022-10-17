@@ -1,16 +1,17 @@
-﻿@inherits IdComponentBase
+﻿@inherits JSModuleComponentBase
+@attribute [JSModuleAutoLoader]
 
-<div class="pre-code" id="@Id">
+<div class="pre-code" id="@Id" data-bb-title="@CopiedText">
     @if (!Loaded)
     {
-        <p class="loading">正在加载 ...</p>
+        <p class="loading">@LoadingText</p>
     }
     else
     {
         <pre @attributes="@AdditionalAttributes" class="@ClassName"><code>@ChildContent</code></pre>
         @if (CanCopy)
         {
-            <button type="button" class="btn-clipboard" data-bs-toggle="tooltip" data-bs-placement="left" title="点击复制代码">Copy</button>
+            <button type="button" class="btn-clipboard" data-bs-toggle="tooltip" data-bs-placement="left" title="@TooltipTitle">Copy</button>
         }
     }
 </div>

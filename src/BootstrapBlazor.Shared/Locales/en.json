@@ -4,6 +4,11 @@
     "Reload": "Reload",
     "ErrorMessage": "An unhandled exception has occurred. See browser dev tools for details."
   },
+  "BootstrapBlazor.Shared.Components.Pre": {
+    "LoadingText": "Loading ...",
+    "TooltipTitle": "Copy",
+    "CopiedText": "Copied"
+  },
   "BootstrapBlazor.Shared.Pages.Index": {
     "BodyClassString": "welcome-body-en",
     "HeaderTitle": "Bootstrap style Blazor UI component library",
@@ -2717,7 +2722,7 @@
     "Log1": "Search for text",
     "Log2": "Select the collection of items",
     "PopoverTitle": "Popover dropdown menu",
-    "PopoverIntro": "Set <code>IsPopover</code> to <b>true<b>, use <code>popover</code> render UI prevent The dropdown menu cannot be fully displayed because the parent container is set to <code>overflow: hidden</code>"
+    "PopoverIntro": "Set <code>IsPopover</code> to <b>true</b>, use <code>popover</code> render UI prevent The dropdown menu cannot be fully displayed because the parent container is set to <code>overflow: hidden</code>"
   },
   "BootstrapBlazor.Shared.Samples.Radios": {
     "Title": "Radio",
@@ -2859,7 +2864,7 @@
     "DisplayTemplateTitle": "Display Template",
     "DisplayTemplateIntro": "Custom <code>UI</code> of display template",
     "PopoverTitle": "Popover dropdown menu",
-    "PopoverIntro": "Set <code>IsPopover</code> to <b>true<b>, use <code>popover</code> render UI prevent The dropdown menu cannot be fully displayed because the parent container is set to <code>overflow: hidden</code>"
+    "PopoverIntro": "Set <code>IsPopover</code> to <b>true</b>, use <code>popover</code> render UI prevent The dropdown menu cannot be fully displayed because the parent container is set to <code>overflow: hidden</code>"
   },
   "BootstrapBlazor.Shared.Samples.Sliders": {
     "Title": "Slider",
@@ -4321,8 +4326,15 @@
     "H2": "A tree-like data structure is presented in the drop-down box for selection",
     "P1": "Common usage",
     "P2": "Selected node",
-    "Block2Title": "Paragraph skeleton",
-    "Block2Intro": "Not used in <code>ValidateForm</code>",
+    "Block2Title": "Disabled",
+    "Block2Intro": "Disabled the component by set <code>IsDisabled</code> to true",
+    "Block3Title": "Select two-way binding",
+    "Block3Intro": "The values in the text box change as you change the drop-down option by binding the Model.Name property to the component with Select Tree",
+    "Block5Title": "Validation",
+    "Block5Intro": "validate the value when submit the form. Inside <code>ValidateForm</code>",
+    "IsPopoverTitle": "IsPopover",
+    "IsPopoverIntro": "Set <code>IsPopover</code> to <b>true</b>, use popover render UI prevent The dropdown menu cannot be fully displayed because the parent container is set to <code>overflow: hidden</code>",
+    "ButtonText2": "提交",
     "TF1": "Navigation one",
     "TF2": "Navigation two",
     "TF3": "Navigation three",

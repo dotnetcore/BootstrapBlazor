@@ -9,7 +9,7 @@ namespace BootstrapBlazor.Shared;
 /// <summary>
 /// 
 /// </summary>
-public class CustomDynamicData : DynamicObject
+public class CustomDynamicData : System.Dynamic.DynamicObject
 {
     /// <summary>
     /// 

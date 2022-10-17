@@ -16,8 +16,11 @@ public abstract class BootstrapModuleComponentBase : IdComponentBase, IAsyncDisp
     /// </summary>
     protected JSModule? Module { get; set; }
 
+    /// <summary>
+    /// 获得/设置 脚本路径
+    /// </summary>
     [NotNull]
-    private string? ModulePath { get; set; }
+    protected string? ModulePath { get; set; }
 
     /// <summary>
     /// The javascript dynamic module name
@@ -25,7 +28,10 @@ public abstract class BootstrapModuleComponentBase : IdComponentBase, IAsyncDisp
     [NotNull]
     protected string? ModuleName { get; set; }
 
-    private bool Relative { get; set; }
+    /// <summary>
+    /// 获得/设置 路径是否为相对路径 默认 false
+    /// </summary>
+    protected bool Relative { get; set; }
 
     /// <summary>
     /// 获得/设置 是否继承父类 JSModuleAutoLoader 设置 默认 true
@@ -44,6 +50,14 @@ public abstract class BootstrapModuleComponentBase : IdComponentBase, IAsyncDisp
     {
         base.OnInitialized();
 
+        OnLoadJSModule();
+    }
+
+    /// <summary>
+    /// 加载 JS Module 方法
+    /// </summary>
+    protected virtual void OnLoadJSModule()
+    {
         if (Inherited)
         {
             var type = this.GetType();

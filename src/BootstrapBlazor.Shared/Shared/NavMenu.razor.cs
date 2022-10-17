@@ -13,7 +13,6 @@ namespace BootstrapBlazor.Shared.Shared;
 /// <summary>
 ///
 /// </summary>
-[JSModuleAutoLoader("./_content/BootstrapBlazor.Shared/modules/menu.js", ModuleName = "Menu", Relative = false)]
 public partial class NavMenu
 {
     private bool IsAccordion { get; set; }
