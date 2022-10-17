@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+<Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <Import Project="..\..\Framework.props" />
 
@@ -37,6 +37,8 @@
 
   <ItemGroup>
     <Using Include="BootstrapBlazor.Components" />
+    <Using Include="BootstrapBlazor.Shared.Common" />
+    <Using Include="BootstrapBlazor.Shared.Components" />
   </ItemGroup>
 
 </Project>

@@ -2,10 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using BootstrapBlazor.Components;
-using BootstrapBlazor.Shared.Common;
-using BootstrapBlazor.Shared.Components;
-
 namespace BootstrapBlazor.Shared.Samples;
 
 /// <summary>
@@ -13,8 +9,11 @@ namespace BootstrapBlazor.Shared.Samples;
 /// </summary>
 public sealed partial class ListViews
 {
+    [NotNull]
     private BlockLogger? Trace { get; set; }
-    private IEnumerable<Product> Products { get; set; } = Enumerable.Empty<Product>();
+
+    [NotNull]
+    private IEnumerable<Product>? Products { get; set; }
 
     /// <summary>
     /// 
@@ -40,6 +39,7 @@ public sealed partial class ListViews
             TotalCount = Products.Count()
         });
     }
+
     private Task OnListViewItemClick(Product item)
     {
         Trace?.Log($"ListViewItem: {item.Description} clicked");
