@@ -190,7 +190,8 @@
             {
                 foreach (var item in Rows)
                 {
-                    <DynamicElement class="@GetRowClassString(item, "table-row")"
+					OnBeforeRenderRow?.Invoke(item);
+					<DynamicElement class="@GetRowClassString(item, "table-row")"
                                     TriggerClick="@(ClickToSelect || OnClickRowCallback != null)" OnClick="() => ClickRow(item)">
                         @if (IsMultipleSelect)
                         {
@@ -328,6 +329,7 @@
             {
                 @foreach (var item in Rows)
                 {
+					OnBeforeRenderRow?.Invoke(item);
                     @RenderRow(item)
                     if (ShowDetails())
                     {

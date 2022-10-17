@@ -191,6 +191,12 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
     public Alignment LineNoColumnAlignment { get; set; }
 
     /// <summary>
+    /// 获得/设置 呈现每行之前的回调
+    /// </summary>
+    [Parameter]
+    public Action<TItem>? OnBeforeRenderRow { get; set; }
+
+    /// <summary>
     /// 获得/设置 Table 组件渲染完毕回调
     /// </summary>
     [Parameter]
