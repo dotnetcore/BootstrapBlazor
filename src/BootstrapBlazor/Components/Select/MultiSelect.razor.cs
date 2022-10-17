@@ -10,7 +10,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// MultiSelect 组件
 /// </summary>
-[JSModuleAutoLoader("multi-select")]
+[JSModuleAutoLoader("multi-select", JSObjectReference = true)]
 public partial class MultiSelect<TValue>
 {
     [NotNull]
@@ -156,14 +156,7 @@ public partial class MultiSelect<TValue>
 
         OnSearchTextChanged ??= text => Items.Where(i => i.Text.Contains(text, StringComparison.OrdinalIgnoreCase));
 
-        if (Min > 0)
-        {
-            Rules.Add(new MinValidator() { Value = Min, ErrorMessage = MinErrorMessage });
-        }
-        if (Max > 0)
-        {
-            Rules.Add(new MaxValidator() { Value = Max, ErrorMessage = MaxErrorMessage });
-        }
+        ResetRules();
     }
 
     /// <summary>
@@ -183,6 +176,18 @@ public partial class MultiSelect<TValue>
     }
 
     /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    protected override async Task ModuleInitAsync()
+    {
+        if (Module != null)
+        {
+            await Module.InvokeVoidAsync($"{ModuleName}.init", Id, nameof(ToggleRow));
+        }
+    }
+
+    /// <summary>
     /// FormatValueAsString 方法
     /// </summary>
     /// <param name="value"></param>
@@ -191,34 +196,28 @@ public partial class MultiSelect<TValue>
         ? null
         : Utility.ConvertValueToString(value);
 
-    private async Task ToggleRow(SelectedItem item, bool force = false)
+    /// <summary>
+    /// 切换当前选项方法
+    /// </summary>
+    /// <param name="val"></param>
+    /// <returns></returns>
+    [JSInvokable]
+    public async Task ToggleRow(string val)
     {
         if (!IsDisabled)
         {
-            var d = DataSource.FirstOrDefault(i => i.Value == item.Value);
+            var d = DataSource.FirstOrDefault(i => i.Value == val);
             if (d != null)
             {
                 d.Active = !d.Active;
             }
 
             // 更新选中值
-            SetValue();
-
-            if (Min > 0 || Max > 0)
-            {
-                var validationContext = new ValidationContext(Value!) { MemberName = FieldIdentifier?.FieldName };
-                var validationResults = new List<ValidationResult>();
-
-                await ValidatePropertyAsync(SelectedItems, validationContext, validationResults);
-                ToggleMessage(validationResults, true);
-            }
+            await SetValue();
 
             await TriggerSelectedItemChanged();
 
-            if (force)
-            {
-                StateHasChanged();
-            }
+            StateHasChanged();
         }
     }
 
@@ -230,7 +229,34 @@ public partial class MultiSelect<TValue>
         }
     }
 
-    private void SetValue()
+    private int _min;
+    private int _max;
+    private void ResetRules()
+    {
+        if (Max != _max)
+        {
+            _max = Max;
+            Rules.RemoveAll(v => v is MaxValidator);
+
+            if (Max > 0)
+            {
+                Rules.Add(new MaxValidator() { Value = Max, ErrorMessage = MaxErrorMessage });
+            }
+        }
+
+        if (Min != _min)
+        {
+            _min = Min;
+            Rules.RemoveAll(v => v is MinValidator);
+
+            if (Min > 0)
+            {
+                Rules.Add(new MinValidator() { Value = Min, ErrorMessage = MinErrorMessage });
+            }
+        }
+    }
+
+    private async Task SetValue()
     {
         var typeValue = NullableUnderlyingType ?? typeof(TValue);
         if (typeValue == typeof(string))
@@ -252,6 +278,15 @@ public partial class MultiSelect<TValue>
             }
             CurrentValue = (TValue)(typeValue.IsGenericType ? instance : listType.GetMethod("ToArray")!.Invoke(instance, null)!);
         }
+
+        if (ValidateForm == null && (Min > 0 || Max > 0))
+        {
+            var validationContext = new ValidationContext(Value!) { MemberName = FieldIdentifier?.FieldName };
+            var validationResults = new List<ValidationResult>();
+
+            await ValidatePropertyAsync(CurrentValue, validationContext, validationResults);
+            ToggleMessage(validationResults, true);
+        }
     }
 
     private async Task Clear()
@@ -261,7 +296,7 @@ public partial class MultiSelect<TValue>
             item.Active = false;
         }
 
-        SetValue();
+        await SetValue();
 
         await TriggerSelectedItemChanged();
     }
@@ -273,7 +308,7 @@ public partial class MultiSelect<TValue>
             item.Active = true;
         }
 
-        SetValue();
+        await SetValue();
 
         await TriggerSelectedItemChanged();
     }
@@ -285,7 +320,7 @@ public partial class MultiSelect<TValue>
             item.Active = !item.Active;
         }
 
-        SetValue();
+        await SetValue();
 
         await TriggerSelectedItemChanged();
     }

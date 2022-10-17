@@ -20,6 +20,10 @@ export class DropdownBase extends BlazorComponent {
         this._setListeners()
     }
 
+    _clickToggle() {
+
+    }
+
     _setListeners() {
         if (this._isPopover) {
             this._hasDisplayNone = false;
@@ -64,14 +68,17 @@ export class DropdownBase extends BlazorComponent {
                 this._element.append(this._toggleMenu);
             }
 
-            const active = e => {
-                e.stopPropagation()
-                this._popover = bootstrap.Popover.getInstance(this._toggle);
-                if (!this._popover) {
-                    this._popover = new bootstrap.Popover(this._toggle)
-                    this._hackPopover()
+            const active = () => {
+                if(!this._isDisabled()) {
+                    this._popover = bootstrap.Popover.getInstance(this._toggle);
+                    if (!this._popover) {
+                        this._popover = new bootstrap.Popover(this._toggle)
+                        this._hackPopover()
+                        this._popover.toggle()
+                    }
                 }
-                this._popover.toggle()
+
+                this._clickToggle()
             }
 
             const closePopover = e => {

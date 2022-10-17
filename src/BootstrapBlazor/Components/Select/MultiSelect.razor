@@ -15,7 +15,7 @@
                 @if (ShowCloseButton)
                 {
                     <div class="multi-select-item-group">
-                        <span class="multi-select-close" @onclick:stopPropagation @onclick="@(e => ToggleRow(item))">
+                        <span class="multi-select-close" data-bb-val="@item.Value">
                             <i class="@ClearIcon"></i>
                         </span>
                         <span class="multi-select-item">@item.Text</span>
@@ -56,7 +56,7 @@
             }
             @foreach (var item in itemGroup)
             {
-                <DynamicElement OnClick="() => ToggleRow(item, true)" TriggerClick="@CheckCanTrigger(item)" class="@GetItemClassString(item)">
+                <DynamicElement OnClick="() => ToggleRow(item.Value)" TriggerClick="@CheckCanTrigger(item)" class="@GetItemClassString(item)">
                     <div class="multi-select-item">
                         <Checkbox Value="GetCheckedState(item)" ShowLabel="false" IsDisabled="@CheckCanSelect(item)"></Checkbox>
                         @if (ItemTemplate == null)
