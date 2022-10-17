@@ -2,14 +2,8 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using BootstrapBlazor.Components;
-using BootstrapBlazor.Shared.Common;
-using BootstrapBlazor.Shared.Components;
-using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
-using Microsoft.Extensions.Localization;
 using System.Collections.Concurrent;
-using System.ComponentModel.DataAnnotations;
 
 namespace BootstrapBlazor.Shared.Samples;
 
