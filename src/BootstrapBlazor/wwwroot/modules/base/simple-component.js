@@ -33,6 +33,10 @@ export default class SimpleComponent extends Config {
         return config
     }
 
+    _execute(args) {
+
+    }
+
     _dispose() {
     }
 
@@ -49,6 +53,11 @@ export default class SimpleComponent extends Config {
     // Static
     static init(element) {
         new this(element, { arguments: [].slice.call(arguments, 1) })
+    }
+
+    static execute(element) {
+        const instance = this.getOrCreateInstance(element)
+        instance._execute([].slice.call(arguments, 1))
     }
 
     static dispose(element) {

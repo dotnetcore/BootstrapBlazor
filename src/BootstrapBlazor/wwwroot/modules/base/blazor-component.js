@@ -1,19 +1,7 @@
 ﻿import BaseComponent from "./base-component.js"
-import { getElement } from "./index.js"
-
-const getElementById = object => {
-    if (typeof object === 'string' && object.length > 0) {
-        object = `#${object}`
-    }
-
-    return getElement(object);
-}
+import { getElementById } from "./index.js"
 
 export default class BlazorComponent extends BaseComponent {
-    _execute(args) {
-
-    }
-
     _hackPopover() {
         if (this._popover) {
             this._popover._isWithContent = () => true

@@ -123,6 +123,14 @@ const getElement = object => {
     return null
 }
 
+const getElementById = object => {
+    if (typeof object === 'string' && object.length > 0) {
+        object = `#${object}`
+    }
+
+    return getElement(object);
+}
+
 const isVisible = element => {
     if (!isElement(element) || element.getClientRects().length === 0) {
         return false
@@ -318,6 +326,7 @@ export {
     executeAfterTransition,
     findShadowRoot,
     getElement,
+    getElementById,
     getElementFromSelector,
     getjQuery,
     getNextActiveElement,
