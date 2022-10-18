@@ -3,7 +3,7 @@ import { getDescribedElement, getDescribedOwner, isFunction } from "./utility.js
 import EventHandler from "./event-handler.js";
 import BlazorComponent from "./blazor-component.js";
 
-export class DropdownBase extends BlazorComponent {
+export default class DropdownBase extends BlazorComponent {
     static get Default() {
         return {
             class: 'popover-dropdown',

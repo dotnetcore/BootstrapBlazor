@@ -1,69 +1,32 @@
 ﻿import Data from './data.js'
-import { executeAfterTransition, getElement } from "./index.js"
 import EventHandler from "./event-handler.js"
-import Config from './config.js'
-
-/**
- * Constants
- */
-
-const VERSION = '1.0.0'
+import SimpleComponent from "./simple-component.js"
+import { getElement } from "./index.js";
 
 /**
  * Class definition
  */
 
-class BaseComponent extends Config {
+export default class BaseComponent extends SimpleComponent {
     constructor(element, config) {
-        super()
-
         element = getElement(element)
         if (!element) {
             return
         }
 
-        this._element = element
-        this._config = this._getConfig(config)
-
-        Data.set(this._element, this.constructor.DATA_KEY, this)
+        super(element, config)
     }
 
     // Public
     dispose() {
-        Data.remove(this._element, this.constructor.DATA_KEY)
         EventHandler.off(this._element, this.constructor.EVENT_KEY)
 
-        for (const propertyName of Object.getOwnPropertyNames(this)) {
-            this[propertyName] = null
-        }
-    }
-
-    _queueCallback(callback, element, isAnimated = true) {
-        executeAfterTransition(callback, element, isAnimated)
-    }
-
-    _getConfig(config) {
-        config = this._mergeConfigObj(config, this._element)
-        config = this._configAfterMerge(config)
-        this._typeCheckConfig(config)
-        return config
+        super.dispose()
     }
 
     // Static
     static getInstance(element) {
         return Data.get(getElement(element), this.DATA_KEY)
-    }
-
-    static getOrCreateInstance(element, config = {}) {
-        return this.getInstance(element) || new this(element, typeof config === 'object' ? config : null)
-    }
-
-    static get VERSION() {
-        return VERSION
-    }
-
-    static get DATA_KEY() {
-        return `bb.${this.NAME}`
     }
 
     static get EVENT_KEY() {
@@ -74,5 +37,3 @@ class BaseComponent extends Config {
         return `${name}${this.EVENT_KEY}`
     }
 }
-
-export default BaseComponent

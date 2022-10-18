@@ -1,4 +1,4 @@
-﻿import { DropdownBase } from "./base/base-dropdown.js"
+﻿import DropdownBase from "./base/base-dropdown.js"
 import { isDisabled } from "./base/index.js"
 import EventHandler from "./base/event-handler.js"
 

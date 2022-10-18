@@ -9,10 +9,16 @@ import { isElement, toType } from './index.js'
 import Manipulator from './manipulator.js'
 
 /**
+ * Constants
+ */
+
+const VERSION = '1.0.0'
+
+/**
  * Class definition
  */
 
-class Config {
+export default class Config {
     // Getters
     static get Default() {
         return {}
@@ -24,6 +30,10 @@ class Config {
 
     static get NAME() {
         throw new Error('You have to implement the static method "NAME", for each component!')
+    }
+
+    static get VERSION() {
+        return VERSION
     }
 
     _getConfig(config) {
@@ -64,5 +74,3 @@ class Config {
         }
     }
 }
-
-export default Config

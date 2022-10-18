@@ -1,14 +1,7 @@
 ﻿import EventHandler from "./base/event-handler.js";
-import BaseComponent from "./base/base-component.js";
+import SimpleComponent from "./base/simple-component.js";
 
-export class AutoRedirect extends BaseComponent {
-    constructor(element, config = {}) {
-        super(element)
-
-        this._config = config
-        this._init()
-    }
-
+export class AutoRedirect extends SimpleComponent {
     _init() {
         this._invoker = this._config.arguments[0]
         this._interval = this._config.arguments[1]
@@ -46,16 +39,12 @@ export class AutoRedirect extends BaseComponent {
         }, 1000);
     }
 
-    dispose() {
+    _dispose() {
         EventHandler.off(document, 'mousemove', this._fnMouseHandler);
         EventHandler.off(document, 'keydown', this._fnKeyHandler)
 
         if (this._lockHandler) {
             window.clearInterval(this._lockHandler);
         }
-    }
-
-    static init(element) {
-        new this(element, { arguments: [].slice.call(arguments, 1) })
     }
 }

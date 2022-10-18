@@ -9,16 +9,7 @@ const getElementById = object => {
     return getElement(object);
 }
 
-class BlazorComponent extends BaseComponent {
-    constructor(element, config) {
-        super(element, config)
-
-        this._init()
-    }
-
-    _init() {
-    }
-
+export default class BlazorComponent extends BaseComponent {
     _execute(args) {
 
     }
@@ -39,26 +30,15 @@ class BlazorComponent extends BaseComponent {
         }
     }
 
-    _dispose() {
-    }
-
-    dispose() {
-        this._dispose()
-        super.dispose()
-    }
-
     static dispose(element) {
         element = getElementById(element)
-        const component = this.getInstance(element)
-        if (component) {
-            component.dispose()
-        }
+        super.dispose(element)
     }
 
     static init(element) {
         element = getElementById(element)
         if (element) {
-            new this(element, { arguments: [].slice.call(arguments, 1) })
+            super.init(element)
         }
     }
 
@@ -69,10 +49,4 @@ class BlazorComponent extends BaseComponent {
             instance._execute([].slice.call(arguments, 1))
         }
     }
-
-    static get NAME() {
-        return this.name
-    }
 }
-
-export default BlazorComponent
