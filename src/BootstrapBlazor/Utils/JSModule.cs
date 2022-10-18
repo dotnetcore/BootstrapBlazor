@@ -71,9 +71,12 @@ public class JSModule : IAsyncDisposable
 #if NET6_0_OR_GREATER
             catch (JSDisconnectedException) { }
 #endif
+#if DEBUG
+#else
             catch (JSException) { }
             catch (AggregateException) { }
             catch (InvalidOperationException) { }
+#endif
             catch (TaskCanceledException) { }
         }
     }
@@ -126,9 +129,12 @@ public class JSModule : IAsyncDisposable
 #if NET6_0_OR_GREATER
             catch (JSDisconnectedException) { }
 #endif
+#if DEBUG
+#else
             catch (JSException) { }
             catch (AggregateException) { }
             catch (InvalidOperationException) { }
+#endif
             catch (TaskCanceledException) { }
 
             return ret;
