@@ -1,7 +1,9 @@
-﻿@inject IStringLocalizer<UpdateIntro> Localizer
+﻿@inherits JSModuleComponentBase
+@inject IStringLocalizer<UpdateIntro> Localizer
+@attribute [JSModuleAutoLoader("update-intro")]
 
-<div class="blazor-intro">
-    <h5><b>Bootstrap Blazor</b> @Localizer["H1"] <span class="version">6.6.0</span></h5>
+<div class="blazor-intro" id="@Id" data-bb-button=".blazor-intro-button" data-bb-version="@VersionService.Version">
+    <h5><b>Bootstrap Blazor</b> @Localizer["H1"] <span class="version">@VersionService.Version</span></h5>
     <div class="d-flex">
         <div class="blazor-intro-body">
             <p>@Localizer["B1"] <b>Bootstrap</b> <b>Blazor</b> @Localizer["B2"] <a href="@WebsiteOption.CurrentValue.AdminUrl" target="_blank"><b>@Localizer["B3"]</b></a> @Localizer["B4"]。<b>Bootstrap Blazor</b> @((MarkupString)Localizer["B5"].Value)</p>

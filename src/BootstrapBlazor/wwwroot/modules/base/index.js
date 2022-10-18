@@ -124,7 +124,7 @@ const getElement = object => {
 }
 
 const getElementById = object => {
-    if (typeof object === 'string' && object.length > 0) {
+    if (typeof object === 'string' && object.length > 0 && object.substring(0, 1) !== '.' && object.substring(0, 1) !== '#') {
         object = `#${object}`
     }
 

@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using BootstrapBlazor.Shared.Services;
 using Microsoft.JSInterop;
 
 namespace BootstrapBlazor.Shared.Shared;
@@ -49,26 +50,15 @@ public partial class BaseLayout
     [NotNull]
     private static Action? OnInstallable { get; set; }
 
-    private string? BBVersion { get; set; }
-
     private string DownloadUrl => $"{WebsiteOption.CurrentValue.BootstrapBlazorLink}/repository/archive/main.zip";
 
     /// <summary>
-    /// OnInitialized 方法
+    /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override void OnInitialized()
+    protected override void OnParametersSet()
     {
-        base.OnInitialized();
-
-        if (OperatingSystem.IsBrowser())
-        {
-            BBVersion = typeof(BootstrapComponentBase).Assembly.GetName().Version?.ToString();
-        }
-        else
-        {
-            BBVersion = System.Diagnostics.FileVersionInfo.GetVersionInfo(typeof(BootstrapComponentBase).Assembly.Location).ProductVersion;
-        }
+        base.OnParametersSet();
 
         DownloadText ??= Localizer[nameof(DownloadText)];
         HomeText ??= Localizer[nameof(HomeText)];
@@ -80,21 +70,6 @@ public partial class BaseLayout
         CancelText ??= Localizer[nameof(CancelText)];
         Title ??= Localizer[nameof(Title)];
         OnInstallable = () => InvokeAsync(StateHasChanged);
-    }
-
-    /// <summary>
-    /// OnAfterRenderAsync 方法
-    /// </summary>
-    /// <param name="firstRender"></param>
-    /// <returns></returns>
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        await base.OnAfterRenderAsync(firstRender);
-
-        if (firstRender)
-        {
-            await JSRuntime.InvokeVoidAsync("$.bb_site_load", MsLearnElement, BBVersion);
-        }
     }
 
     /// <summary>

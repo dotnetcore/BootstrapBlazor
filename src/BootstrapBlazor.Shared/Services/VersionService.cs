@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using System;
 using System.Net.Http.Json;
 
 namespace BootstrapBlazor.Shared.Services;
@@ -10,7 +11,9 @@ internal class VersionService
 {
     private HttpClient Client { get; set; }
 
-    private static string Version { get; set; } = "latest";
+    private string PackageVersion { get; set; } = "latest";
+
+    public string? Version { get; }
 
     /// <summary>
     /// 构造方法
@@ -21,6 +24,15 @@ internal class VersionService
         Client = client;
         Client.Timeout = TimeSpan.FromSeconds(5);
 
+        if (OperatingSystem.IsBrowser())
+        {
+            Version = typeof(BootstrapComponentBase).Assembly.GetName().Version?.ToString();
+        }
+        else
+        {
+            Version = System.Diagnostics.FileVersionInfo.GetVersionInfo(typeof(BootstrapComponentBase).Assembly.Location).ProductVersion;
+        }
+
         Task.Run(async () =>
         {
             do
@@ -28,7 +40,7 @@ internal class VersionService
                 await FetchVersionAsync();
 
                 await Task.Delay(300000);
-                Version = "latest";
+                PackageVersion = "latest";
             }
             while (true);
         });
@@ -40,14 +52,14 @@ internal class VersionService
     /// <returns></returns>
     public async Task<string> GetVersionAsync(string packageName = "bootstrapblazor")
     {
-        Version = "latest";
+        PackageVersion = "latest";
         await FetchVersionAsync(packageName);
-        return Version;
+        return PackageVersion;
     }
 
     private async Task FetchVersionAsync(string packageName = "bootstrapblazor")
     {
-        if (Version == "latest")
+        if (PackageVersion == "latest")
         {
             try
             {
@@ -55,7 +67,7 @@ internal class VersionService
                 var package = await Client.GetFromJsonAsync<NugetPackage>(url);
                 if (package != null)
                 {
-                    Version = package.GetVersion();
+                    PackageVersion = package.GetVersion();
                 }
             }
             catch { }

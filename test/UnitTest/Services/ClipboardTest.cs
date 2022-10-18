@@ -16,18 +16,18 @@ public class ClipboardServiceTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void ClipboardService_Ok()
+    public async Task ClipboardService_Ok()
     {
         var service = Context.Services.GetRequiredService<ClipboardService>();
         var cut = Context.RenderComponent<Clipboard>();
         var copied = false;
-        service.Copy("Test", () =>
+        await service.Copy("Test", () =>
         {
             copied = true;
             return Task.CompletedTask;
         });
         Assert.True(copied);
 
-        _ = cut.Instance.DisposeAsync();
+        await cut.Instance.DisposeAsync();
     }
 }

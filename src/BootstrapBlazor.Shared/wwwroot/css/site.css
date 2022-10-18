@@ -1658,7 +1658,6 @@ header .bb-fs {
 }
 
 .blazor-intro {
-    display: none;
     position: fixed;
     left: 0;
     right: 0;
@@ -1667,7 +1666,15 @@ header .bb-fs {
     color: #ffffff;
     background: linear-gradient(54.4deg,#771f89 -28.5%,#834cef 30.36%,#636cea 99.19%);
     padding: 1rem;
+    opacity: 0;
+    height: 0;
+    transition: height .3s ease-in-out, opacity .3s ease-in-out;
 }
+
+    .blazor-intro.show {
+        opacity: 1;
+        height: 224px;
+    }
 
     .blazor-intro .blazor-intro-body {
         flex: 1 1 auto;

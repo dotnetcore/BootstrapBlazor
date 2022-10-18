@@ -1,11 +1,11 @@
 ﻿import SimpleComponent from "./base/simple-component.js";
-import { isElement } from "./base/index.js"
+import { getElementById, isElement } from "./base/index.js"
 
 export class FullScreen extends SimpleComponent {
     _execute(args) {
         this._toggleElement = args[0]
-        if (!isElement(this._toggleElement) && this._isId(this._toggleElement)) {
-            this._toggleElement = document.getElementById(`#${this._toggleElement}`)
+        if (this._toggleElement && !isElement(this._toggleElement)) {
+            this._toggleElement = getElementById(this._toggleElement)
         }
         else {
             this._toggleElement = document.documentElement
@@ -51,9 +51,5 @@ export class FullScreen extends SimpleComponent {
             document.webkitFullScreen ||
             document.mozFullScreen ||
             document.msFullScreent
-    }
-
-    _isId(object) {
-        return typeof object === 'string' && object.length > 0
     }
 }

@@ -15,7 +15,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// ValidateForm 组件类
 /// </summary>
-public partial class ValidateForm : IAsyncDisposable
+public partial class ValidateForm
 {
     /// <summary>
     /// A callback that will be invoked when the form is submitted and the
@@ -536,27 +536,4 @@ public partial class ValidateForm : IAsyncDisposable
     /// </summary>
     /// <returns></returns>
     public ConcurrentDictionary<FieldIdentifier, object?> ValueChagnedFields { get; } = new();
-
-    /// <summary>
-    /// DisposeAsyncCore 方法
-    /// </summary>
-    /// <param name="disposing"></param>
-    /// <returns></returns>
-    protected virtual async ValueTask DisposeAsyncCore(bool disposing)
-    {
-        if (disposing)
-        {
-            await JSRuntime.InvokeVoidAsync(Id, "bb_form");
-        }
-    }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <returns></returns>
-    public async ValueTask DisposeAsync()
-    {
-        await DisposeAsyncCore(true);
-        GC.SuppressFinalize(this);
-    }
 }

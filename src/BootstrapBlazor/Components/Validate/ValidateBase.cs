@@ -504,6 +504,12 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
             {
                 ValidateForm.TryRemoveValidator((FieldIdentifier.Value.FieldName, FieldIdentifier.Value.Model.GetType()), out _);
             }
+
+            if(ValidateModule != null )
+            {
+                var id = RetrieveId();
+                await ValidateModule.InvokeVoidAsync("Validate.dispose", id);
+            }
         }
 
         await base.DisposeAsync(disposing);

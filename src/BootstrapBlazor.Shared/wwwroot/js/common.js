@@ -13,14 +13,6 @@
             var $toast = $('.row .toast').toast('show');
             $toast.find('.toast-progress').css({"width": "100%"});
         },
-        highlight: function (el) {
-            var $el = $(el);
-            $el.find('[data-bs-toggle="tooltip"]').tooltip();
-            var code = $el.find('code')[0];
-            if (code) {
-                hljs.highlightBlock(code);
-            }
-        },
         _initChart: function (el, obj, method) {
             var showToast = false;
             var handler = null;
@@ -149,15 +141,6 @@
         tooltip: function () {
             $('[data-bs-toggle="tooltip"]').tooltip();
         },
-        table_test: function (el, obj, method) {
-            var $el = $(el);
-            $el.on('click', 'tbody tr', function () {
-                $el.find('.active').removeClass('active');
-                var index = $(this).addClass('active').data('index');
-
-                obj.invokeMethodAsync(method, index);
-            });
-        },
         initTheme: function (el) {
             var $el = $(el);
             $el.find('[data-bs-toggle="tooltip"]').tooltip();
@@ -181,34 +164,6 @@
             css.forEach(function (c) {
                 $link.after('<link rel="stylesheet" href="' + c + '">');
             });
-        },
-        bb_site_load: function (el, version) {
-            $(el).tooltip();
-
-            var width = $(window).width();
-            if (width >= 768) {
-                // Intro 弹窗
-                var key = 'bb_intro_popup:' + version;
-                var isShown = localStorage.getItem(key);
-                if (!isShown) {
-                    var $intro = $('.blazor-intro');
-                    $intro.find('.version').text(version);
-                    $('.blazor-intro-button').on('click', function () {
-                        $intro.slideToggle('fade', function () {
-                            localStorage.setItem(key, false);
-                        });
-                    });
-                    $intro.slideToggle('fade');
-
-                    // clean
-                    for (var index = localStorage.length; index > 0; index--) {
-                        var k = localStorage.key(index - 1);
-                        if (k.indexOf('bb_intro_popup:') > -1) {
-                            localStorage.removeItem(k);
-                        }
-                    }
-                }
-            }
         },
         bb_topology_handler(tagName) {
             if (window.bb_topology_demo_invoker !== undefined) {

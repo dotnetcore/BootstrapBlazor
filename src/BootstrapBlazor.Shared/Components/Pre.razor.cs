@@ -97,7 +97,7 @@ public partial class Pre
 
         if (Loaded)
         {
-            await JSRuntime.InvokeVoidAsync("$.highlight", $"#{Id}");
+            await Hightlight();
         }
     }
 
@@ -116,5 +116,13 @@ public partial class Pre
             CanCopy = !string.IsNullOrEmpty(code) && !code.StartsWith("Error: ");
         }
         Loaded = true;
+    }
+
+    private async Task Hightlight()
+    {
+        if (Module != null)
+        {
+            await Module.InvokeVoidAsync($"{ModuleName}.execute", Id, "highlight");
+        }
     }
 }

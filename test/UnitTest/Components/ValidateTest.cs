@@ -384,7 +384,7 @@ public class ValidateTest : BootstrapBlazorTestBase
     [Fact]
     public async Task ValidateProperty_Ok()
     {
-        var model = new Foo() { Hobby = new string[0] };
+        var model = new Foo() { Hobby = Array.Empty<string>() };
         var invalid = false;
         var cut = Context.RenderComponent<ValidateForm>(builder =>
         {
