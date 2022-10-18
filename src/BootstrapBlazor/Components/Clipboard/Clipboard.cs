@@ -50,11 +50,12 @@ public class Clipboard : BootstrapModuleComponentBase
     /// Dispose 方法
     /// </summary>
     /// <param name="disposing"></param>
-    protected virtual void Dispose(bool disposing)
+    protected override async ValueTask DisposeAsync(bool disposing)
     {
         if (disposing)
         {
             ClipboardService.UnRegister(this);
         }
+        await base.DisposeAsync(disposing);
     }
 }

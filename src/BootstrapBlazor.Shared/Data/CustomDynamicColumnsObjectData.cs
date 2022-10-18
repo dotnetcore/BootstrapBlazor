@@ -7,49 +7,37 @@ namespace BootstrapBlazor.Shared;
 /// <summary>
 /// 
 /// </summary>
-public class BootstrapBlazorDynamicObjectData : IDynamicObject
+public class CustomDynamicColumnsObjectData : DynamicColumnsObject
 {
     /// <summary>
     /// 
     /// </summary>
-    public string Fix { get; set; } = "";
+    public string? Fix { get; set; }
 
     /// <summary>
     /// 
     /// </summary>
-    public Dictionary<string, string> Dynamic { get; set; }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    public Guid DynamicObjectPrimaryKey { get => new(Fix); set { } }
+    public CustomDynamicColumnsObjectData() : this("", new()) { }
 
     /// <summary>
     /// 
     /// </summary>
     /// <param name="fix"></param>
     /// <param name="data"></param>
-    public BootstrapBlazorDynamicObjectData(string fix, Dictionary<string, string> data)
+    public CustomDynamicColumnsObjectData(string? fix, Dictionary<string, object?> data)
     {
         Fix = fix;
-        Dynamic = data;
+        Columns = data;
     }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    public BootstrapBlazorDynamicObjectData() : this("", new()) { }
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
     /// <param name="propertyName"></param>
     /// <returns></returns>
-    public object? GetValue(string propertyName)
+    public override object? GetValue(string propertyName)
     {
-        if (propertyName == nameof(Fix))
-            return Fix;
-        return Dynamic.TryGetValue(propertyName, out string? v) ? v : "";
+        return propertyName == nameof(Fix) ? Fix : base.GetValue(propertyName);
     }
 
     /// <summary>
@@ -57,12 +45,10 @@ public class BootstrapBlazorDynamicObjectData : IDynamicObject
     /// </summary>
     /// <param name="propertyName"></param>
     /// <param name="value"></param>
-    public void SetValue(string propertyName, object? value)
+    public override void SetValue(string propertyName, object? value)
     {
-        if (value is not string str)
-            return;
         if (propertyName == nameof(Fix))
-            Fix = str;
-        Dynamic[propertyName] = str;
+            Fix = value?.ToString();
+        Columns[propertyName] = value;
     }
 }
