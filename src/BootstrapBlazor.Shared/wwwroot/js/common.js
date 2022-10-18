@@ -210,14 +210,6 @@
                 }
             }
         },
-        bb_block: function (el) {
-            var $el = $(el);
-            var id = $.getUID();
-            var $footer = $el.children('.card-footer-code');
-            var $footerBar = $el.children('.card-footer-control');
-            $footer.attr('id', id);
-            $footerBar.attr('href', '#' + id);
-        },
         bb_topology_handler(tagName) {
             if (window.bb_topology_demo_invoker !== undefined) {
                 window.bb_topology_demo_invoker.toggleFan(tagName);

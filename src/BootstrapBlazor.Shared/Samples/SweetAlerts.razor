@@ -6,13 +6,13 @@
 
 <p>@Localizer["P1"]：</p>
 
-<p class="code-label">@Localizer["P2"]</p>
+<p class="code-label">@((MarkupString)Localizer["P2"].Value)</p>
 <Pre>@@inject SwalService SwalService</Pre>
 <Pre>[Inject]
 [NotNull]
 private SwalService? SwalService { get; set; }
 </Pre>
-<p class="code-label">@Localizer["P3"]</p>
+<p class="code-label">@((MarkupString)Localizer["P3"].Value)</p>
 <Pre>var op = new SwalOption()
 {
     Category = SwalCategory.Success,
@@ -52,7 +52,7 @@ await SwalService.Show(op);</Pre>
             </div>
         </div>
         <div class="col-4 align-self-center text-center">
-            <Button Icon="fa-solid fa-font-awesome" Text="@Localizer["P11"]" Color="Color.Danger" OnClick="@(e => OnSwal(SwalCategory.Error))" />
+            <Button Icon="fa-solid fa-font-awesome" Text="@Localizer["P9"]" Color="Color.Danger" OnClick="@(e => OnSwal(SwalCategory.Error))" />
         </div>
     </div>
     <div class="row g-3">
@@ -63,7 +63,7 @@ await SwalService.Show(op);</Pre>
             <div class="swal2-icon swal2-warning"></div>
         </div>
         <div class="col-4 align-self-center text-center">
-            <Button Icon="fa-solid fa-font-awesome" Text="@Localizer["P13"]" Color="Color.Warning" OnClick="@(e => OnSwal(SwalCategory.Warning))" />
+            <Button Icon="fa-solid fa-font-awesome" Text="@Localizer["P9"]" Color="Color.Warning" OnClick="@(e => OnSwal(SwalCategory.Warning))" />
         </div>
 
     </div>
@@ -75,7 +75,7 @@ await SwalService.Show(op);</Pre>
             <div class="swal2-icon swal2-info"></div>
         </div>
         <div class="col-4 align-self-center text-center">
-            <Button Icon="fa-solid fa-font-awesome" Text="@Localizer["P15"]" Color="Color.Info" OnClick="@(e => OnSwal(SwalCategory.Information))" />
+            <Button Icon="fa-solid fa-font-awesome" Text="@Localizer["P9"]" Color="Color.Info" OnClick="@(e => OnSwal(SwalCategory.Information))" />
         </div>
     </div>
     <div class="row g-3">
@@ -86,7 +86,7 @@ await SwalService.Show(op);</Pre>
             <div class="swal2-icon swal2-question"></div>
         </div>
         <div class="col-4 align-self-center text-center">
-            <Button Icon="fa-solid fa-font-awesome" Text="@Localizer["P17"]" Color="Color.Secondary" OnClick="@(e => OnSwal(SwalCategory.Question))" />
+            <Button Icon="fa-solid fa-font-awesome" Text="@Localizer["P9"]" Color="Color.Secondary" OnClick="@(e => OnSwal(SwalCategory.Question))" />
         </div>
     </div>
 </DemoBlock>
@@ -103,36 +103,33 @@ await SwalService.Show(op);</Pre>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["P20"]" Introduction="@Localizer["P21"]" Name="Button">
-    <Button Icon="fa-solid fa-font-awesome" Text="@Localizer["P22"]" Color="Color.Success" OnClick="@ShowButtons" />
+    <Button Icon="fa-solid fa-font-awesome" Text="@Localizer["P9"]" Color="Color.Success" OnClick="@ShowButtons" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["P23"]" Introduction="@Localizer["P24"]" Name="Component">
-    <Button Icon="fa-solid fa-font-awesome" Text="@Localizer["P25"]" Color="Color.Success" OnClick="@ShowComponent" />
+    <Button Icon="fa-solid fa-font-awesome" Text="@Localizer["P9"]" Color="Color.Success" OnClick="@ShowComponent" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["P26"]" Introduction="@Localizer["P27"]" Name="Modal">
-    <p>@Localizer["P28"] <code>await SwalService.ShowModal</code> @Localizer["P29"]</p>
-    <p><code>IsConfirm</code> @Localizer["P30"]</p>
+    <p>@((MarkupString)Localizer["P29"].Value)</p>
+    <p>@((MarkupString)Localizer["P30"].Value)</p>
     <Pre class="no-highlight">var ret = await SwalService.ShowModal(op);
 
 // ShowModal
-Trace?.Log($"{ret}");
+Trace.Log($"{ret}");
 </Pre>
-    <Button Icon="fa-solid fa-font-awesome" Text="@Localizer["P31"]" Color="Color.Success" OnClick="@ShowModal" />
-
+    <Button Icon="fa-solid fa-font-awesome" Text="@Localizer["P9"]" Color="Color.Success" OnClick="@ShowModal" />
     <BlockLogger @ref="Trace" class="mt-3" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["P32"]" Introduction="@Localizer["P33"]" Name="Footer">
-    <p>@Localizer["P34"] <code>ShowFooter</code> @Localizer["P35"]</p>
+    <p>@((MarkupString)Localizer["P35"].Value)</p>
     <Button Icon="fa-solid fa-font-awesome" Text="@Localizer["P36"]" Color="Color.Success" OnClick="@ShowFooterComponent" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["P37"]" Introduction="@Localizer["P38"]" Name="Close">
-    <p>
-        @Localizer["P39"] <code>IsAutoHide</code> @Localizer["P40"]
-        <br />
-        @Localizer["P41"]
+    <p>        
+        @((MarkupString)Localizer["P41"].Value)
     </p>
     <Button Icon="fa-solid fa-font-awesome" Text="@Localizer["P42"]" Color="Color.Success" OnClick="@ShowAutoCloseSwal" />
 </DemoBlock>

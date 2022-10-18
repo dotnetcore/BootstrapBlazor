@@ -45,7 +45,7 @@ public partial class SweetAlerts
         op.ButtonTemplate = new RenderFragment(builder =>
         {
             builder.OpenComponent<Button>(0);
-            builder.AddAttribute(1, nameof(Button.Text), "custom close button");
+            builder.AddAttribute(1, nameof(Button.Text), "Close");
             builder.AddAttribute(2, nameof(Button.OnClick), EventCallback.Factory.Create<MouseEventArgs>(this, async () => await op.Close()));
             builder.CloseComponent();
         });
@@ -103,100 +103,100 @@ public partial class SweetAlerts
     {
         var op = new SwalOption()
         {
-            Title = "模态对话框示例",
-            Content = "模态对话框内容，不同按钮返回不同值"
+            Title = Localizer["SwalOptionTitle"],
+            Content = Localizer["SwalOptionContent"]
         };
         var ret = await SwalService.ShowModal(op);
 
-        Trace.Log($"模态弹窗返回值为：{ret}");
+        Trace.Log($"{Localizer["SwalConsoleInfo"]}：{ret}");
     }
 
     /// <summary>
     /// 
     /// </summary>
     /// <returns></returns>
-    private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
         new AttributeItem() {
             Name = "Category",
-            Description = "popover type",
+            Description = Localizer["AttrCategory"],
             Type = "SwalCategory",
             ValueList = "Success/Error/Information/Warning/Question",
             DefaultValue = "Success"
         },
         new AttributeItem() {
             Name = "Title",
-            Description = "Popup title",
+            Description = Localizer["AttrTitle"],
             Type = "string",
             ValueList = "—",
             DefaultValue = ""
         },
         new AttributeItem() {
             Name = "Cotent",
-            Description = "popup content",
+            Description = Localizer["AttrContent"],
             Type = "string",
             ValueList = "—",
             DefaultValue = ""
         },
         new AttributeItem() {
             Name = "Delay",
-            Description = "Auto hide interval",
+            Description = Localizer["AttrDelay"],
             Type = "int",
             ValueList = "—",
             DefaultValue = "4000"
         },
         new AttributeItem() {
             Name = "IsAutoHide",
-            Description = "Whether to automatically hide",
+            Description = Localizer["AttrAutoHide"],
             Type = "boolean",
             ValueList = "true|false",
             DefaultValue = "false"
         },
         new AttributeItem() {
             Name = "ShowClose",
-            Description = "Whether to show the close button",
+            Description = Localizer["AttrShowClose"],
             Type = "boolean",
             ValueList = "true|false",
             DefaultValue = "true"
         },
         new AttributeItem() {
             Name = "ShowFooter",
-            Description = "Whether to show the footer template",
+            Description = Localizer["AttrShowFooter"],
             Type = "boolean",
             ValueList = "true|false",
             DefaultValue = "false"
         },
         new AttributeItem() {
             Name = "IsConfirm",
-            Description = "Whether it is confirmation popup mode",
+            Description = Localizer["AttrIsConfirm"],
             Type = "boolean",
             ValueList = "true|false",
             DefaultValue = "false"
         },
         new AttributeItem() {
             Name = "BodyContext",
-            Description = "pop-up window",
+            Description = Localizer["AttrBodyContext"],
             Type = "object",
             ValueList = " — ",
             DefaultValue = " — "
         },
         new AttributeItem() {
             Name = "BodyTemplate",
-            Description = "Modal body display component",
+            Description = Localizer["AttrBodyTemplate"],
             Type = "RenderFragment",
             ValueList = " — ",
             DefaultValue = " — "
         },
         new AttributeItem() {
             Name = "FooterTemplate",
-            Description = "Modal body footer component",
+            Description = Localizer["AttrFooterTemplate"],
             Type = "RenderFragment",
             ValueList = " — ",
             DefaultValue = " — "
         },
         new AttributeItem() {
             Name = "ButtonTemplate",
-            Description = "Modal button template",
+            Description = Localizer["AttrButtonTemplate"],
             Type = "RenderFragment",
             ValueList = " — ",
             DefaultValue = " — "

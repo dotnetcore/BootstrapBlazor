@@ -1,10 +1,10 @@
-﻿@inherits BootstrapComponentBase
+﻿@inherits IdComponentBase
 
 <AnchorLink Text="@Title" Id="@Name" TooltipText="@TooltipText" />
 
 <p>@(new MarkupString(Introduction))</p>
 
-<h5>@SubTitle</h5>
+<h5>@Localizer["SubTitle"]</h5>
 
 <div class="card card-demo">
     <div class="card-body">
@@ -12,11 +12,11 @@
     </div>
     @if (ShowCode)
     {
-        <div class="card-footer" @ref="BlockElement">
-            <div class="card-footer-code collapse">
+        <div class="card-footer">
+            <div class="card-footer-code collapse" id="@Id">
                 <Pre @key="@RazorFileName" CodeFile="@RazorFileName" BlockTitle="@BlockTitle"></Pre>
             </div>
-            <a class="card-footer-control collapsed" data-bs-toggle="collapse" role="button" aria-label="show code">
+            <a class="card-footer-control collapsed" href="#@Id" data-bs-toggle="collapse" role="button" aria-label="show code">
                 <i class="fa-solid fa-caret-up"></i>
                 <span class="card-demo-text"></span>
             </a>
