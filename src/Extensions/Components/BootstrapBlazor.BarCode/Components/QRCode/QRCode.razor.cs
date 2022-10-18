@@ -9,7 +9,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// QRCode 组件
 /// </summary>
-[JSModuleAutoLoader("./_content/BootstrapBlazor.BarCode/qrcode.bundle.min.js", ModuleName = "BlazorQRCode", Relative = false)]
+[JSModuleAutoLoader("./_content/BootstrapBlazor.BarCode/qrcode.bundle.min.js", JSObjectReference = true, ModuleName = "BlazorQRCode", Relative = false)]
 public partial class QRCode : IAsyncDisposable
 {
     private ElementReference QRCodeElement { get; set; }
