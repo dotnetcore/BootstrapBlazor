@@ -1,6 +1,6 @@
-﻿import BlazorComponent from "./base/blazor-component.js"
+﻿import { Tooltip } from "./tooltip.js"
 
-export class Popover extends BlazorComponent {
+export class Popover extends Tooltip {
     _init() {
         this._config.title = this._config.arguments[0]
         this._config.content = this._config.arguments[1]

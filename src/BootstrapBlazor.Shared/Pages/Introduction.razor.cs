@@ -10,7 +10,7 @@ namespace BootstrapBlazor.Shared.Pages;
 /// <summary>
 /// 
 /// </summary>
-public partial class Introduction : IAsyncDisposable
+public partial class Introduction
 {
     /// <summary>
     /// 
@@ -25,10 +25,6 @@ public partial class Introduction : IAsyncDisposable
     [Inject]
     [NotNull]
     private IStringLocalizer<Introduction>? Localizer { get; set; }
-
-    [Inject]
-    [NotNull]
-    private IJSRuntime? JSRuntime { get; set; }
 
     [NotNull]
     private string[]? LocalizerUrls { get; set; }
@@ -47,36 +43,5 @@ public partial class Introduction : IAsyncDisposable
             WebsiteOption.CurrentValue.BootstrapAdminLink + "/badge/star.svg?theme=gvp",
             WebsiteOption.CurrentValue.BootstrapAdminLink
         };
-    }
-
-    private bool IsRender { get; set; }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="firstRender"></param>
-    /// <returns></returns>
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        await base.OnAfterRenderAsync(firstRender);
-
-        if (firstRender)
-        {
-            IsRender = true;
-            await JSRuntime.InvokeVoidAsync("$.bb_open");
-        }
-    }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <returns></returns>
-    public async ValueTask DisposeAsync()
-    {
-        if (IsRender)
-        {
-            await JSRuntime.InvokeVoidAsync("$.bb_open", "dispose");
-        }
-        GC.SuppressFinalize(this);
     }
 }

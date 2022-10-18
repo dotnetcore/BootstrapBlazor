@@ -142,7 +142,7 @@ public partial class Tooltip : ITooltip
     {
         if (Module != null)
         {
-            await Module.InvokeVoidAsync(identifier: $"{ModuleName}.init", Id, Title);
+            await Module.InvokeVoidAsync($"{ModuleName}.init", Id, Title);
         }
     }
 }

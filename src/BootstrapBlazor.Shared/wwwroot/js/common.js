@@ -182,15 +182,6 @@
                 $link.after('<link rel="stylesheet" href="' + c + '">');
             });
         },
-        bb_open: function (method) {
-            if (method === 'dispose') {
-                $('#log').popover(method);
-            } else {
-                $('#log').popover({delay: {'show': 1000}}).one('click', function () {
-                    $(this).popover('toggle');
-                }).trigger('click');
-            }
-        },
         bb_site_load: function (el, version) {
             $(el).tooltip();
 

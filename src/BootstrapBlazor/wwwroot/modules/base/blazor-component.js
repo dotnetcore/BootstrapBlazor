@@ -38,7 +38,7 @@ export default class BlazorComponent extends BaseComponent {
     static init(element) {
         element = getElementById(element)
         if (element) {
-            super.init(element)
+            new this(element, { arguments: [].slice.call(arguments, 1) })
         }
     }
 
