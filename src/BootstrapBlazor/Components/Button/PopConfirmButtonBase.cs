@@ -10,6 +10,16 @@ namespace BootstrapBlazor.Components;
 public abstract class PopConfirmButtonBase : ButtonBase
 {
     /// <summary>
+    /// 弹窗位置字符串
+    /// </summary>
+    protected override string? PlacementString => Placement != Placement.Auto ? Placement.ToDescriptionString() : null;
+
+    /// <summary>
+    /// Trigger 字符串
+    /// </summary>
+    protected override string? TriggerString => Trigger == "click" ? null : Trigger;
+
+    /// <summary>
     /// 获得/设置 是否为 A 标签 默认 false 使用 button 渲染 
     /// </summary>
     [Parameter]
@@ -92,14 +102,34 @@ public abstract class PopConfirmButtonBase : ButtonBase
     public string? ConfirmIcon { get; set; }
 
     /// <summary>
-    /// 
+    /// 获得/设置 自定义样式 默认 null
     /// </summary>
-    protected string TagName => IsLink ? "a" : "button";
+    /// <remarks>由 data-bs-custom-class 实现</remarks>
+    [Parameter]
+    public string? CustomClass { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否显示阴影 默认 true
+    /// </summary>
+    [Parameter]
+    public bool ShowShadow { get; set; } = true;
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected virtual string? CustomClassString => CssBuilder.Default(CustomClass)
+        .AddClass("shadow", ShowShadow)
+        .Build();
 
     /// <summary>
     /// 
     /// </summary>
-    protected string? ElementType => IsLink ? null : "button";
+    protected string TagName => IsLink ? "a" : "div";
+
+    /// <summary>
+    /// 
+    /// </summary>
+    protected string? ElementType => IsLink ? null : "div";
 
     /// <summary>
     /// OnInitialized 方法

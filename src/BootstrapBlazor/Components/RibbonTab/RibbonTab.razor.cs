@@ -60,7 +60,13 @@ public partial class RibbonTab : IDisposable
     /// 获得/设置 点击命令按钮回调方法
     /// </summary>
     [Parameter]
-    public Func<RibbonTabItem, Task>? OnTabItemClickAsync { get; set; }
+    public Func<RibbonTabItem, Task>? OnItemClickAsync { get; set; }
+
+    /// <summary>
+    /// 获得/设置 点击标签 Header 回调方法
+    /// </summary>
+    [Parameter]
+    public Func<string?, string?, Task>? OnHeaderClickAsync { get; set; }
 
     /// <summary>
     /// 获得/设置 右侧按钮模板
@@ -108,18 +114,22 @@ public partial class RibbonTab : IDisposable
 
     private async Task OnClick(RibbonTabItem item)
     {
-        if (OnTabItemClickAsync != null)
+        if (OnItemClickAsync != null)
         {
-            await OnTabItemClickAsync(item);
+            await OnItemClickAsync(item);
         }
     }
 
     private async Task OnClickTab(TabItem item)
     {
-        if (OnTabItemClickAsync != null)
+        if (OnHeaderClickAsync != null)
+        {
+            await OnHeaderClickAsync(item.Text, item.Url);
+        }
+        if (OnItemClickAsync != null)
         {
             var tab = GetItems().First(i => i.Text == item.Text);
-            await OnTabItemClickAsync(tab);
+            await OnItemClickAsync(tab);
         }
         if (IsFloat)
         {

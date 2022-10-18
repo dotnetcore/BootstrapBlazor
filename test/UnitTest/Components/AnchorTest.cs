@@ -4,13 +4,12 @@
 
 namespace UnitTest.Components;
 
-public class AnchorTest : TestBase
+public class AnchorTest : BootstrapBlazorTestBase
 {
     [Fact]
     public void Target_Ok()
     {
         var cut = Context.RenderComponent<Anchor>(builder => builder.Add(a => a.Target, "anchor"));
-        Assert.Contains("data-toggle=\"anchor\"", cut.Markup);
         Assert.Contains("data-bb-target=\"anchor\"", cut.Markup);
 
         cut = Context.RenderComponent<Anchor>(builder => builder.Add(a => a.Target, ""));

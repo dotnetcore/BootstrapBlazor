@@ -59,6 +59,7 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
         .AddClass("table-fixed-column", Columns.Any(c => c.Fixed) || FixedExtendButtonsColumn)
         .AddClass("table-resize", AllowResizing)
         .AddClass("table-fixed-body", RenderMode == TableRenderMode.CardView && IsFixedHeader)
+        .AddClass("table-striped table-hover", ActiveRenderMode == TableRenderMode.CardView && IsStriped)
         .Build();
 
     /// <summary>
@@ -188,6 +189,12 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
     /// </summary>
     [Parameter]
     public Alignment LineNoColumnAlignment { get; set; }
+
+    /// <summary>
+    /// 获得/设置 呈现每行之前的回调
+    /// </summary>
+    [Parameter]
+    public Action<TItem>? OnBeforeRenderRow { get; set; }
 
     /// <summary>
     /// 获得/设置 Table 组件渲染完毕回调
@@ -1017,6 +1024,11 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
         }
 
         if (ShowExtendButtons)
+        {
+            colspan++;
+        }
+
+        if (ShowDetails())
         {
             colspan++;
         }

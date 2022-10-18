@@ -11,17 +11,6 @@ namespace UnitTest.Components;
 public class ValidateTest : BootstrapBlazorTestBase
 {
     [Fact]
-    public void ChildContent_Ok()
-    {
-        var cut = Context.RenderComponent<BootstrapInput<string>>(builder =>
-        {
-            builder.AddChildContent("ChildContent-Test");
-            builder.Add(a => a.ShowLabelTooltip, true);
-        });
-        Assert.Contains("ChildContent-Test", cut.Markup);
-    }
-
-    [Fact]
     public async Task CascadedEditContext_Ok()
     {
         var model = new Foo() { Name = "Name-Test" };
@@ -395,7 +384,7 @@ public class ValidateTest : BootstrapBlazorTestBase
     [Fact]
     public async Task ValidateProperty_Ok()
     {
-        var model = new Foo() { Hobby = new string[0] };
+        var model = new Foo() { Hobby = Array.Empty<string>() };
         var invalid = false;
         var cut = Context.RenderComponent<ValidateForm>(builder =>
         {
@@ -411,8 +400,8 @@ public class ValidateTest : BootstrapBlazorTestBase
                 pb.Add(v => v.ValueExpression, model.GenerateValueExpression(nameof(Foo.Hobby), typeof(IEnumerable<string>)));
                 pb.Add(v => v.Items, new List<SelectedItem>()
                 {
-                        new SelectedItem("1", "test1"),
-                        new SelectedItem("2", "test2")
+                    new SelectedItem("1", "test1"),
+                    new SelectedItem("2", "test2")
                 });
                 pb.AddChildContent<Tooltip>();
             });

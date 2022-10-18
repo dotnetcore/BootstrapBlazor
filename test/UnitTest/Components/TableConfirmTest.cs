@@ -36,7 +36,7 @@ public class TableConfirmTest : TableConfirmTestBase
             });
         });
 
-        var button = cut1.Find("button");
+        var button = cut1.Find("div");
         await cut1.InvokeAsync(() => button.Click());
         var buttonConfirm = cut1.Find(".popover-confirm-buttons .btn-primary");
         await cut1.InvokeAsync(() => buttonConfirm.Click());

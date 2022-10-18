@@ -5,7 +5,7 @@
             Messages.push(el);
 
             var $el = $(el);
-            var autoHide = $el.attr('data-autohide') !== 'false';
+            var autoHide = $el.attr('data-autohide') === 'true';
             var delay = parseInt($el.attr('data-delay'));
             var autoHideHandler = null;
 

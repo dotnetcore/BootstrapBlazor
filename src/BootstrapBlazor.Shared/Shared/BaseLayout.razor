@@ -4,7 +4,7 @@
 
 <header class="navbar navbar-expand navbar-dark flex-column flex-md-row px-3">
     <div class="header-img navbar-brand">
-        <img src="_content/BootstrapBlazor.Shared/images/logo.png" />
+        <img alt="logo" src="_content/BootstrapBlazor.Shared/images/logo.png" />
         <span>Bootstrap Blazor</span>
     </div>
     <div class="navbar-nav-scroll">
@@ -32,10 +32,14 @@
     <CultureChooser class="flex-md-fill justify-content-md-end" />
     <ul class="navbar-nav ms-3 d-none d-lg-flex">
         <li class="nav-item">
-            <a class="nav-link p-2" href="https://github.com/ArgoZhang/BootstrapBlazor"><img src="_content/BootstrapBlazor.Shared/images/git.svg" /></a>
+            <a class="nav-link p-2" href="https://github.com/ArgoZhang/BootstrapBlazor">
+                <img alt="git" src="_content/BootstrapBlazor.Shared/images/git.svg" />
+            </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link p-2" href="@WebsiteOption.CurrentValue.BootstrapBlazorLink"><img src="_content/BootstrapBlazor.Shared/images/gitee.svg" /></a>
+            <a class="nav-link p-2" href="@WebsiteOption.CurrentValue.BootstrapBlazorLink">
+                <img alt="gitee" src="_content/BootstrapBlazor.Shared/images/gitee.svg" />
+            </a>
         </li>
         <li class="nav-item">
             <FullScreenButton class="nav-link p-2" TooltipText="点击切换全屏模式" />
@@ -44,13 +48,11 @@
     <a class="btn btn-bd-download d-none d-lg-inline-block mb-3 mb-md-0 ms-md-3" target="_blank" href="@DownloadUrl">@DownloadText</a>
 </header>
 
-<CascadingValue Value="@BBVersion" Name="BBVersion" IsFixed="true">
-    @Body
-</CascadingValue>
+@Body
 
 <div class="ms-learn" data-bs-toggle="tooltip" data-bs-placement="left" title="@Title" @ref="MsLearnElement">
     <a href="@WebsiteOption.CurrentValue.WikiUrl" target="_blank">
-        <img src="_content/BootstrapBlazor.Shared/images/log.svg" />
+        <img alt="logo" src="_content/BootstrapBlazor.Shared/images/log.svg" />
     </a>
 </div>
 

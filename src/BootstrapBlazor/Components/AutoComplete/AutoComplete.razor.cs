@@ -315,13 +315,13 @@ public partial class AutoComplete
     /// </summary>
     /// <param name="disposing"></param>
     /// <returns></returns>
-    protected override ValueTask DisposeAsyncCore(bool disposing)
+    protected override ValueTask DisposeAsync(bool disposing)
     {
         if (disposing)
         {
             Interop?.Dispose();
         }
 
-        return base.DisposeAsyncCore(disposing);
+        return base.DisposeAsync(disposing);
     }
 }

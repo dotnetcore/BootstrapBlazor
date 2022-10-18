@@ -1,0 +1,29 @@
+﻿.popover {
+    --bs-popover-min-width: 240px;
+    --bb-popover-buttons-justify-content: flex-end;
+    --bb-popover-buttons-margin-left: 0.5rem;
+    --bb-popover-buttons-padding: 0.25rem 1rem;
+    --bb-popover-body-span-margin-left: 0.25rem;
+    min-width: var(--bs-popover-min-width);
+}
+
+.popover-confirm-body i + span {
+    margin-left: var(--bb-popover-body-span-margin-left);
+}
+
+.popover-confirm-buttons {
+    display: flex;
+    justify-content: var(--bb-popover-buttons-justify-content);
+}
+
+    .popover-confirm-buttons .btn {
+        padding: var(--bb-popover-buttons-padding);
+    }
+
+        .popover-confirm-buttons .btn:last-child {
+            margin-left: var(--bb-popover-buttons-margin-left);
+        }
+
+[data-bb-toggle="confirm"] {
+    display: none;
+}

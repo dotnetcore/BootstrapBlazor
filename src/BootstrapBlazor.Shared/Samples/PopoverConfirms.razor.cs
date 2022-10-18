@@ -2,9 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using BootstrapBlazor.Components;
-using BootstrapBlazor.Shared.Common;
-using BootstrapBlazor.Shared.Components;
 using Microsoft.AspNetCore.Components.Forms;
 
 namespace BootstrapBlazor.Shared.Samples;
@@ -30,7 +27,7 @@ public sealed partial class PopoverConfirms
     private BlockLogger? Trace1 { get; set; }
 
     /// <summary>
-    /// OnInitialized 方法
+    /// OnInitialized
     /// </summary>
     protected override void OnInitialized()
     {
@@ -44,7 +41,7 @@ public sealed partial class PopoverConfirms
     /// </summary>
     private Task OnClose()
     {
-        // 点击确认按钮后此方法被回调，点击取消按钮时此方法不会被调用
+        // This method is called back when the confirm button is clicked, and this method will not be called when the cancel button is clicked
         Trace.Log("OnClose Trigger");
         return Task.CompletedTask;
     }
@@ -54,7 +51,7 @@ public sealed partial class PopoverConfirms
     /// </summary>
     private Task OnConfirm()
     {
-        // 点击确认按钮后此方法被回调，点击取消按钮时此方法不会被调用
+        // This method is called back when the confirm button is clicked, and this method will not be called when the cancel button is clicked
         Trace.Log("OnConfirm Trigger");
         return Task.CompletedTask;
     }
@@ -63,8 +60,8 @@ public sealed partial class PopoverConfirms
 
     private async Task OnAsyncSubmit()
     {
-        await Task.Delay(3000);
         Trace1.Log("异步提交");
+        await Task.Delay(3000);
     }
 
     private async Task OnValidSubmit(EditContext context)
@@ -80,92 +77,91 @@ public sealed partial class PopoverConfirms
     }
 
     /// <summary>
-    /// 获得属性方法
+    /// Get property method
     /// </summary>
     /// <returns></returns>
     private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
-        // TODO: 移动到数据库中
         new AttributeItem() {
             Name = nameof(PopConfirmButton.IsLink),
-            Description = "是否为 A 标签渲染组件",
+            Description = "Whether to render the component for the A tag",
             Type = "bool",
             ValueList = "true/false",
             DefaultValue = "false"
         },
         new AttributeItem() {
             Name = "Text",
-            Description = "显示标题",
+            Description = "Show title",
             Type = "string",
             ValueList = "",
             DefaultValue = "删除"
         },
         new AttributeItem() {
             Name = "Icon",
-            Description = "按钮图标",
+            Description = "Button icon",
             Type = "string",
             ValueList = "",
             DefaultValue = "fa-solid fa-xmark"
         },
         new AttributeItem() {
             Name = "CloseButtonText",
-            Description = "关闭按钮显示文字",
+            Description = "Close button display text",
             Type = "string",
             ValueList = "",
             DefaultValue = "关闭"
         },
         new AttributeItem() {
             Name = "CloseButtonColor",
-            Description = "确认按钮颜色",
+            Description = "Confirm button color",
             Type = "Color",
             ValueList = "None / Active / Primary / Secondary / Success / Danger / Warning / Info / Light / Dark / Link",
             DefaultValue = "Secondary"
         },
         new AttributeItem() {
             Name = "Color",
-            Description = "颜色",
+            Description = "Color",
             Type = "Color",
             ValueList = "None / Active / Primary / Secondary / Success / Danger / Warning / Info / Light / Dark / Link",
             DefaultValue = "None"
         },
         new AttributeItem() {
             Name = "ConfirmButtonText",
-            Description = "确认按钮显示文字",
+            Description = "Confirm button display text",
             Type = "string",
             ValueList = "",
             DefaultValue = "确定"
         },
         new AttributeItem() {
             Name = "ConfirmButtonColor",
-            Description = "确认按钮颜色",
+            Description = "Confirm button color",
             Type = "None / Active / Primary / Secondary / Success / Danger / Warning / Info / Light / Dark / Link",
             ValueList = "",
             DefaultValue = "Primary"
         },
         new AttributeItem() {
             Name = "ConfirmIcon",
-            Description = "确认框图标",
+            Description = "Confirmation box icon",
             Type = "string",
             ValueList = "",
             DefaultValue = "fa-solid fa-circle-exclamation text-info"
         },
         new AttributeItem() {
             Name = "Content",
-            Description = "显示文字",
+            Description = "Display text",
             Type = "string",
             ValueList = "",
-            DefaultValue = "确认删除吗？"
+            DefaultValue = "Confirm delete?"
         },
         new AttributeItem() {
             Name = "Placement",
-            Description = "位置",
+            Description = "Location",
             Type = "Placement",
             ValueList = "Auto / Top / Left / Bottom / Right",
             DefaultValue = "Auto"
         },
         new AttributeItem() {
             Name = "Title",
-            Description = "Popover 弹窗标题",
+            Description = "Popover Popup title",
             Type = "string",
             ValueList = "",
             DefaultValue = " "
@@ -173,7 +169,7 @@ public sealed partial class PopoverConfirms
     };
 
     /// <summary>
-    /// 获得事件方法
+    /// Get event method
     /// </summary>
     /// <returns></returns>
     private static IEnumerable<EventItem> GetEvents() => new EventItem[]
@@ -181,19 +177,19 @@ public sealed partial class PopoverConfirms
         new EventItem()
         {
             Name = "OnConfirm",
-            Description="点击确认时回调方法",
+            Description="Callback method when confirm is clicked",
             Type ="Func<Task>"
         },
         new EventItem()
         {
             Name = "OnClose",
-            Description="点击关闭时回调方法",
+            Description="Callback method when click close",
             Type ="Func<Task>"
         },
         new EventItem()
         {
             Name = "OnBeforeClick",
-            Description="点击确认弹窗前回调方法 返回真时弹出弹窗 返回假时不弹出",
+            Description="Click the callback method before confirming the pop-up window",
             Type ="Func<Task<bool>>"
         }
     };

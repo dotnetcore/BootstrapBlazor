@@ -1,14 +1,21 @@
-﻿@inject IStringLocalizer<UpdateIntro> Localizer
+﻿@inherits JSModuleComponentBase
+@inject IStringLocalizer<UpdateIntro> Localizer
+@attribute [JSModuleAutoLoader("update-intro")]
 
-<div class="blazor-intro">
-    <h5><b>Bootstrap Blazor</b> @Localizer["H1"] <span class="version">6.6.0</span></h5>
+<div class="blazor-intro" id="@Id" data-bb-button=".blazor-intro-button" data-bb-version="@VersionService.Version">
+    <h5><b>Bootstrap Blazor</b> @Localizer["H1"] <span class="version">@VersionService.Version</span></h5>
     <div class="d-flex">
         <div class="blazor-intro-body">
-            <p>@Localizer["B1"] <b>Bootstrap</b> <b>Blazor</b> @Localizer["B2"] <a href="@WebsiteOption.CurrentValue.AdminUrl" target="_blank"><b>@Localizer["B3"]</b></a> @Localizer["B4"]。<b>Bootstrap Blazor</b> @Localizer["B5"]。</p>
+            <p>@Localizer["B1"] <b>Bootstrap</b> <b>Blazor</b> @Localizer["B2"] <a href="@WebsiteOption.CurrentValue.AdminUrl" target="_blank"><b>@Localizer["B3"]</b></a> @Localizer["B4"]。<b>Bootstrap Blazor</b> @((MarkupString)Localizer["B5"].Value)</p>
             <p>
                 @Localizer["P1"] <span class="version">6.6.0</span> @Localizer["P2"] <a target="_blank" href="@UpdateLogUrl"><b>[@Localizer["P3"]]</b></a> @Localizer["P4"] <b>Star</b>
-                <a class="px-2" href="https://github.com/ArgoZhang/BootstrapBlazor" target="_blank"><img src="_content/BootstrapBlazor.Shared/images/git.svg" alt="github" /></a>
-                <a href="@WebsiteOption.CurrentValue.BootstrapBlazorLink" target="_blank"><img src="_content/BootstrapBlazor.Shared/images/gitee.svg" alt="gitee" /></a></p>
+                <a class="px-2" href="https://github.com/ArgoZhang/BootstrapBlazor" target="_blank">
+                    <img src="_content/BootstrapBlazor.Shared/images/git.svg" alt="github" />
+                </a>
+                <a href="@WebsiteOption.CurrentValue.BootstrapBlazorLink" target="_blank">
+                    <img src="_content/BootstrapBlazor.Shared/images/gitee.svg" alt="gitee" />
+                </a>
+            </p>
         </div>
         <div class="blazor-intro-barcode">
             <img src="_content/BootstrapBlazor.Shared/images/QQGroup@2x.png" alt="QQGroup" />

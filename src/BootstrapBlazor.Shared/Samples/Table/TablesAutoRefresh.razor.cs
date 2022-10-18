@@ -2,10 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using BootstrapBlazor.Components;
-using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.Localization;
-
 namespace BootstrapBlazor.Shared.Samples.Table;
 
 /// <summary>
@@ -17,7 +13,11 @@ public partial class TablesAutoRefresh
 
     [Inject]
     [NotNull]
-    private IStringLocalizer<Foo>? Localizer { get; set; }
+    private IStringLocalizer<Foo>? LocalizerFoo { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<TablesAutoRefresh>? Localizer { get; set; }
 
     private List<Foo> AutoItems { get; set; } = new List<Foo>();
 
@@ -35,10 +35,10 @@ public partial class TablesAutoRefresh
     {
         // 设置记录总数
         var total = foos.Count;
-        var foo = Foo.Generate(Localizer);
+        var foo = Foo.Generate(LocalizerFoo);
         foo.Id = total++;
-        foo.Name = Localizer["Foo.Name", total.ToString("D4")];
-        foo.Address = Localizer["Foo.Address", $"{random.Next(1000, 2000)}"];
+        foo.Name = LocalizerFoo["Foo.Name", total.ToString("D4")];
+        foo.Address = LocalizerFoo["Foo.Address", $"{random.Next(1000, 2000)}"];
 
         foos.Insert(0, foo);
 

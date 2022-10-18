@@ -47,7 +47,32 @@ public abstract class SelectBase<TValue> : PopoverSelectBase<TValue>
     public RenderFragment<SelectedItem>? ItemTemplate { get; set; }
 
     /// <summary>
-    /// 
+    /// 获得/设置 搜索框文本
     /// </summary>
-    protected string SearchText { get; set; } = "";
+    protected string? SearchText { get; set; }
+
+    /// <summary>
+    /// 获得 SearchIcon 图标字符串 默认增加 icon 样式
+    /// </summary>
+    protected string? SearchIconString => CssBuilder.Default("icon")
+        .AddClass(SearchIcon)
+        .Build();
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override string? CustomClassString => CssBuilder.Default()
+        .AddClass("select", IsPopover)
+        .AddClass(base.CustomClassString)
+        .Build();
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
+        SearchIcon ??= "fa-solid fa-magnifying-glass";
+    }
 }

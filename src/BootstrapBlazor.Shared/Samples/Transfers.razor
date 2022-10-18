@@ -44,6 +44,19 @@
     <div class="mt-3">Hobby: @string.Join(",", Model.Hobby)</div>
 </DemoBlock>
 
+<DemoBlock Title="@Localizer["MinMaxTitle"]" Introduction="@Localizer["MinMaxIntro"]" Name="MinMax">
+    <ValidateForm Model="@Model6">
+        <div class="row g-3">
+            <div class="col-12">
+                <Transfer Items="@Items6" @bind-Value="@Model.Hobby" Min="2" Max="4" />
+            </div>
+            <div class="col-12">
+                <Button ButtonType="ButtonType.Submit">@Localizer["ClientValidationButtonText"]</Button>
+            </div>
+        </div>
+    </ValidateForm>
+</DemoBlock>
+
 <DemoBlock Title="@Localizer["DisableTitle"]" Introduction="@Localizer["DisableIntro"]" Name="Disable">
     <Transfer TValue="string" Items="@Items4" IsDisabled="true"
               LeftPanelText="@Localizer["LeftPannelText"]" RightPanelText="@Localizer["RightPannelText"]"

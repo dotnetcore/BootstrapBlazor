@@ -119,7 +119,7 @@ public partial class Slider : IDisposable
 
         if (ValueChanged.HasDelegate)
         {
-            await ValueChanged.InvokeAsync(val);
+            await ValueChanged.InvokeAsync(Value);
         }
     }
 

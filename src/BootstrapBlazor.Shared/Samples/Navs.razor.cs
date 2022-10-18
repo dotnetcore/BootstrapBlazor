@@ -2,8 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using BootstrapBlazor.Shared.Common;
-using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Routing;
 
 namespace BootstrapBlazor.Shared.Samples;
@@ -29,15 +27,8 @@ public sealed partial class Navs
                 builder.AddContent(0, "BootstrapAdmin");
             })
         };
-        // TODO: NET6.0 移除 ! 断言
-        try
-        {
-            link.SetParametersAsync(ParameterView.FromDictionary(parameters!));
-            ret.Add(link);
-        }
-        catch (Exception EX)
-        {
-        }
+        link.SetParametersAsync(ParameterView.FromDictionary(parameters));
+        ret.Add(link);
         return ret;
     }
 

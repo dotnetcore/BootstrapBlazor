@@ -2,9 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using BootstrapBlazor.Components;
-using Microsoft.AspNetCore.Components;
-
 namespace BootstrapBlazor.Shared.Samples;
 
 /// <summary>
@@ -15,6 +12,10 @@ public partial class Recognizers
     [Inject]
     [NotNull]
     private RecognizerService? RecognizerService { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<Recognizers>? Localizer { get; set; }
 
     private bool Start { get; set; }
 

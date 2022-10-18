@@ -1,4 +1,4 @@
-﻿export function bb_cherry_markdown(el, value, method, obj) {
+﻿export function bb_cherry_markdown(el, obj, value, method) {
     BootstrapBlazorModules.addLink('_content/BootstrapBlazor.CherryMarkdown/css/bootstrap.blazor.cherrymarkdown.min.css');
     var $el = $(el);
     if (method === "init") {
@@ -58,7 +58,7 @@ export function bb_cherry_markdown_file(id) {
     return file
 }
 
-export function bb_cherry_markdown_method(el, method, parameter, obj) {
+export function bb_cherry_markdown_method(el, obj, method, parameter) {
     var md = $.data(el, 'bb_cherry_md_editor');
     if (md) {
         if (method.indexOf('.') < 0) {

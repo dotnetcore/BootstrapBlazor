@@ -2,9 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using BootstrapBlazor.Components;
-using BootstrapBlazor.Shared.Components;
-
 namespace BootstrapBlazor.Shared.Samples.Charts;
 
 /// <summary>
@@ -32,32 +29,32 @@ public partial class Doughnut
 
         if (firstRender)
         {
-            Logger.Log("Doughnut 正在加载数据 ...");
+            Logger.Log("Doughnut is loading data ...");
         }
     }
 
     private Task OnAfterInit()
     {
-        Logger.Log("Doughnut 初始化完毕");
+        Logger.Log("Doughnut is initialized");
         return Task.CompletedTask;
     }
 
     private Task OnAfterUpdate(ChartAction action)
     {
-        Logger.Log($"Doughnut 图更新数据操作完毕 -- {action}");
+        Logger.Log($"Doughnut graph update data operation completed -- {action}");
         return Task.CompletedTask;
     }
 
     private Task<ChartDataSource> OnInit()
     {
         var ds = new ChartDataSource();
-        ds.Options.Title = "Doughnut 圆环图";
+        ds.Options.Title = "Doughnut Donut Chart";
         ds.Labels = Utility.Colors.Take(DoughnutDataCount);
         for (var index = 0; index < DoughnutDatasetCount; index++)
         {
             ds.Data.Add(new ChartDataset()
             {
-                Label = $"数据集 {index}",
+                Label = $"Set {index}",
                 Data = Enumerable.Range(1, DoughnutDataCount).Select(i => Randomer.Next(20, 37)).Cast<object>()
             });
         }

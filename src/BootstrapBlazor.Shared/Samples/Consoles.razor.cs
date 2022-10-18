@@ -2,8 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using BootstrapBlazor.Components;
-using BootstrapBlazor.Shared.Common;
 using System.Collections.Concurrent;
 
 namespace BootstrapBlazor.Shared.Samples;
@@ -13,6 +11,10 @@ namespace BootstrapBlazor.Shared.Samples;
 /// </summary>
 public sealed partial class Consoles : IDisposable
 {
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<Consoles>? Localizer { get; set; }
+
     private ConcurrentQueue<ConsoleMessageItem> Messages { get; set; } = new();
     private ConcurrentQueue<ConsoleMessageItem> ColorMessages { get; set; } = new();
 

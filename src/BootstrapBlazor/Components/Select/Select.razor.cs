@@ -10,12 +10,9 @@ namespace BootstrapBlazor.Components;
 /// Select 组件实现类
 /// </summary>
 /// <typeparam name="TValue"></typeparam>
+[JSModuleAutoLoader(JSObjectReference = true)]
 public partial class Select<TValue> : ISelect
 {
-    private ElementReference SelectElement { get; set; }
-
-    private JSInterop<Select<TValue>>? Interop { get; set; }
-
     [Inject]
     [NotNull]
     private SwalService? SwalService { get; set; }
@@ -56,11 +53,15 @@ public partial class Select<TValue> : ISelect
         .AddClass("disabled", item.IsDisabled)
         .Build();
 
+    private string? SearchClassString => CssBuilder.Default("search")
+        .AddClass("is-fixed", IsFixedSearch)
+        .Build();
+
     /// <summary>
     /// Razor 文件中 Options 模板子项
     /// </summary>
     [NotNull]
-    private List<SelectedItem>? Childs { get; set; }
+    private List<SelectedItem>? Children { get; set; }
 
     /// <summary>
     /// 获得/设置 右侧下拉箭头图标 默认 fa-solid fa-angle-up
@@ -81,6 +82,12 @@ public partial class Select<TValue> : ISelect
     /// </summary>
     [Parameter]
     public bool AutoClearSearchText { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否固定下拉框中的搜索栏 默认 false
+    /// </summary>
+    [Parameter]
+    public bool IsFixedSearch { get; set; }
 
     /// <summary>
     /// 获得 PlaceHolder 属性
@@ -126,7 +133,7 @@ public partial class Select<TValue> : ISelect
         base.OnInitialized();
 
         OnSearchTextChanged ??= text => Items.Where(i => i.Text.Contains(text, StringComparison));
-        Childs = new List<SelectedItem>();
+        Children = new List<SelectedItem>();
     }
 
     /// <summary>
@@ -154,7 +161,7 @@ public partial class Select<TValue> : ISelect
         if (string.IsNullOrEmpty(SearchText))
         {
             DataSource = Items.ToList();
-            DataSource.AddRange(Childs);
+            DataSource.AddRange(Children);
         }
         else
         {
@@ -169,29 +176,25 @@ public partial class Select<TValue> : ISelect
         // Value 不等于 选中值即不存在
         if (!string.IsNullOrEmpty(SelectedItem?.Value) && CurrentValueAsString != SelectedItem.Value)
         {
-            CurrentValueAsString = SelectedItem.Value;
+            _ = ItemChanged(SelectedItem);
         }
     }
 
     /// <summary>
-    /// OnAfterRenderAsync 方法
+    /// <inheritdoc/>
     /// </summary>
-    /// <param name="firstRender"></param>
     /// <returns></returns>
-    protected override async Task OnAfterRenderAsync(bool firstRender)
+    protected override async Task ModuleInitAsync()
     {
-        await base.OnAfterRenderAsync(firstRender);
-
-        if (firstRender)
+        // 选项值不为 null 后者 string.Empty 时触发一次 OnSelectedItemChanged 回调
+        if (SelectedItem != null && OnSelectedItemChanged != null && !string.IsNullOrEmpty(SelectedItem.Value))
         {
-            Interop ??= new JSInterop<Select<TValue>>(JSRuntime);
-            await Interop.InvokeVoidAsync(this, SelectElement, "bb_select", nameof(ConfirmSelectedItem));
+            await OnSelectedItemChanged.Invoke(SelectedItem);
+        }
 
-            // 选项值不为 null 后者 string.Empty 时触发一次 OnSelectedItemChanged 回调
-            if (SelectedItem != null && OnSelectedItemChanged != null && !string.IsNullOrEmpty(SelectedItem.Value))
-            {
-                await OnSelectedItemChanged.Invoke(SelectedItem);
-            }
+        if (Module != null)
+        {
+            await Module.InvokeVoidAsync($"{ModuleName}.init", Id, nameof(ConfirmSelectedItem));
         }
     }
 
@@ -205,7 +208,7 @@ public partial class Select<TValue> : ISelect
     {
         var ds = string.IsNullOrEmpty(SearchText)
             ? DataSource
-            : OnSearchTextChanged.Invoke(SearchText);
+            : OnSearchTextChanged(SearchText);
         var item = ds.ElementAt(index);
         await OnClickItem(item);
         StateHasChanged();
@@ -244,10 +247,6 @@ public partial class Select<TValue> : ISelect
         }
         if (ret)
         {
-            if (IsPopover)
-            {
-                await JSRuntime.InvokeVoidAsync(identifier: "bb.Dropdown.invoke", SelectElement, "hide");
-            }
             await ItemChanged(item);
         }
     }
@@ -278,5 +277,5 @@ public partial class Select<TValue> : ISelect
     /// 添加静态下拉项方法
     /// </summary>
     /// <param name="item"></param>
-    public void Add(SelectedItem item) => Childs.Add(item);
+    public void Add(SelectedItem item) => Children.Add(item);
 }

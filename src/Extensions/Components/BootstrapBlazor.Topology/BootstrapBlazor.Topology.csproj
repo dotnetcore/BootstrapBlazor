@@ -3,7 +3,7 @@
   <Import Project="..\..\..\bundleconfig.props" />
 
   <PropertyGroup>
-    <Version>6.0.8</Version>
+    <Version>6.1.0</Version>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -19,11 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Include="..\..\..\BootstrapBlazor\Extensions\JSRuntimeExtensions.cs" Link="JSRuntimeExtensions.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="BootstrapBlazor" Version="6.9.5" />
+    <PackageReference Include="BootstrapBlazor" Version="6.11.14" />
   </ItemGroup>
 
   <ItemGroup>

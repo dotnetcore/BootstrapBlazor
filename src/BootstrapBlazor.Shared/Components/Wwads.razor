@@ -1,9 +1,4 @@
-﻿<div class="@ClassString" data-id="72"></div>
+﻿@inherits JSModuleComponentBase
+@attribute [JSModuleAutoLoader]
 
-@code {
-    private string? ClassString => CssBuilder.Default("wwads-cn wwads-horizontal")
-#if DEBUG
-        .AddClass("debug")
-#endif
-        .Build();
-}
+<div id="@Id" data-bb-debug="@DebugString"></div>

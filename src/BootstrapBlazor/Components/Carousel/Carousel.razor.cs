@@ -7,7 +7,8 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 
 /// </summary>
-public partial class Carousel : IAsyncDisposable
+[JSModuleAutoLoader]
+public partial class Carousel
 {
     /// <summary>
     /// 获得 class 样式集合
@@ -125,21 +126,6 @@ public partial class Carousel : IAsyncDisposable
     }
 
     /// <summary>
-    /// OnAfterRenderAsync 方法
-    /// </summary>
-    /// <param name="firstRender"></param>
-    /// <returns></returns>
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        await base.OnAfterRenderAsync(firstRender);
-
-        if (firstRender)
-        {
-            await JSRuntime.InvokeVoidAsync(identifier: "bb.Carousel.init", $"#{Id}");
-        }
-    }
-
-    /// <summary>
     /// 点击 Image 是触发此方法
     /// </summary>
     /// <returns></returns>
@@ -161,27 +147,4 @@ public partial class Carousel : IAsyncDisposable
     /// </summary>
     /// <param name="item"></param>
     internal void RemoveItem(CarouselItem item) => Items.Remove(item);
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="disposing"></param>
-    /// <returns></returns>
-    protected virtual async ValueTask DisposeAsync(bool disposing)
-    {
-        if (disposing)
-        {
-            await JSRuntime.InvokeVoidAsync(identifier: "bb.Carousel.dispose", $"#{Id}");
-        }
-    }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <returns></returns>
-    public async ValueTask DisposeAsync()
-    {
-        await DisposeAsync(true);
-        GC.SuppressFinalize(this);
-    }
 }

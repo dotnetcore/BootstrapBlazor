@@ -10,6 +10,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 ///
 /// </summary>
+[JSModuleAutoLoader("dropdown", ModuleName = "Dropdown")]
 public partial class DateTimeRange
 {
     /// <summary>
@@ -246,9 +247,9 @@ public partial class DateTimeRange
         EndValue = StartValue.AddMonths(1);
         await ClickConfirmButton();
 
-        if (AutoCloseClickSideBar)
+        if (AutoCloseClickSideBar && Module != null)
         {
-            await JSRuntime.InvokeVoidAsync(identifier: "bb.Dropdown.invoke", $"#{Id}", "hide");
+            await Module.InvokeVoidAsync($"{ModuleName}.execute", Id, "hide");
         }
     }
 

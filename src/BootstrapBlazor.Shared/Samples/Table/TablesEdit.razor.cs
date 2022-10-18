@@ -2,10 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using BootstrapBlazor.Components;
 using BootstrapBlazor.Shared.Services;
-using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Options;
 
 namespace BootstrapBlazor.Shared.Samples.Table;
@@ -17,7 +14,11 @@ public partial class TablesEdit
 {
     [Inject]
     [NotNull]
-    private IStringLocalizer<Foo>? Localizer { get; set; }
+    private IStringLocalizer<Foo>? LocalizerFoo { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<TablesEdit>? Localizer { get; set; }
 
     [Inject]
     [NotNull]
@@ -38,6 +39,8 @@ public partial class TablesEdit
 
     private string DataServiceUrl => $"{WebsiteOption.CurrentValue.BootstrapBlazorLink}/wikis/Table%20%E7%BB%84%E4%BB%B6%E6%95%B0%E6%8D%AE%E6%9C%8D%E5%8A%A1%E4%BB%8B%E7%BB%8D?sort_id=3207977";
 
+    private string? PlaceHolderString { get; set; }
+
     /// <summary>
     /// OnInitialized 方法
     /// </summary>
@@ -45,19 +48,20 @@ public partial class TablesEdit
     {
         base.OnInitialized();
 
-        Hobbys = Foo.GenerateHobbys(Localizer);
-        Items = Foo.GenerateFoo(Localizer);
+        Hobbys = Foo.GenerateHobbys(LocalizerFoo);
+        Items = Foo.GenerateFoo(LocalizerFoo);
 
-        BindItems = Foo.GenerateFoo(Localizer).Take(5).ToList();
+        BindItems = Foo.GenerateFoo(LocalizerFoo).Take(5).ToList();
 
-        CustomerDataService = new FooDataService<Foo>(Localizer);
+        CustomerDataService = new FooDataService<Foo>(LocalizerFoo);
+
+        PlaceHolderString ??= Localizer["P4"];
     }
 
-    private static Task<Foo> OnAddAsync() => Task.FromResult(new Foo() { DateTime = DateTime.Now, Address = $"自定义地址  {DateTime.Now.Second}" });
+    private static Task<Foo> OnAddAsync() => Task.FromResult(new Foo() { DateTime = DateTime.Now, Address = $"Custom address  {DateTime.Now.Second}" });
 
     private Task<bool> OnSaveAsync(Foo item, ItemChangedType changedType)
     {
-        // 增加数据演示代码
         if (changedType == ItemChangedType.Add)
         {
             item.Id = Items.Max(i => i.Id) + 1;

@@ -1,14 +1,15 @@
 ﻿@page "/charts/bubble"
+@inject IStringLocalizer<Bubble> Localizer
 
-<DemoBlock Title="Bubble 图" Introduction="通过设置 <code>ChartType</code> 更改图表为 <code>bubble</code> 图" Name="Bubble">
+<DemoBlock Title="@Localizer["P1"]" Introduction="@Localizer["P2"]" Name="Bubble">
     <Chart ChartType="ChartType.Bubble" OnInitAsync="@OnInit" OnAfterInitAsync="@OnAfterInit" OnAfterUpdateAsync="@OnAfterUpdate" @ref="BubbleChart" />
     <div class="text-center mt-2 chart">
         <div class="btn-group">
-            <button class="btn btn-primary" @onclick="e => Utility.RandomData(BubbleChart)"><i class="fa-regular fa-snowflake"></i><span>随机数据</span></button>
-            <button class="btn btn-primary" @onclick="e => Utility.AddDataSet(BubbleChart, ref BubbleDatasetCount)"><i class="fa-solid fa-circle-plus"></i><span>添加数据集</span></button>
-            <button class="btn btn-primary" @onclick="e => Utility.RemoveDataSet(BubbleChart, ref BubbleDatasetCount)"><i class="fa-solid fa-circle-minus"></i><span>移除数据集</span></button>
-            <button class="btn btn-primary" @onclick="e => Utility.AddData(BubbleChart, ref BubbleDataCount)"><i class="fa-solid fa-plus"></i><span>添加数据</span></button>
-            <button class="btn btn-primary" @onclick="e => Utility.RemoveData(BubbleChart, ref BubbleDataCount)"><i class="fa-solid fa-minus"></i><span>移除数据</span></button>
+            <button class="btn btn-primary" @onclick="e => Utility.RandomData(BubbleChart)"><i class="fa-regular fa-snowflake"></i><span>@Localizer["P3"]</span></button>
+            <button class="btn btn-primary" @onclick="e => Utility.AddDataSet(BubbleChart, ref BubbleDatasetCount)"><i class="fa-solid fa-circle-plus"></i><span>@Localizer["P4"]</span></button>
+            <button class="btn btn-primary" @onclick="e => Utility.RemoveDataSet(BubbleChart, ref BubbleDatasetCount)"><i class="fa-solid fa-circle-minus"></i><span>@Localizer["P5"]</span></button>
+            <button class="btn btn-primary" @onclick="e => Utility.AddData(BubbleChart, ref BubbleDataCount)"><i class="fa-solid fa-plus"></i><span>@Localizer["P6"]</span></button>
+            <button class="btn btn-primary" @onclick="e => Utility.RemoveData(BubbleChart, ref BubbleDataCount)"><i class="fa-solid fa-minus"></i><span>@Localizer["P7"]</span></button>
         </div>
     </div>
     <BlockLogger @ref="Logger" class="mt-3" />

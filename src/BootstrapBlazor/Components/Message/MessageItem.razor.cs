@@ -21,6 +21,8 @@ public sealed partial class MessageItem
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
+    private string? AutoHideString => IsAutoHide ? "true" : null;
+
     /// <summary>
     /// 获得/设置 Toast Body 子组件
     /// </summary>

@@ -2,10 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using BootstrapBlazor.Components;
-using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.Localization;
-
 namespace BootstrapBlazor.Shared.Samples.Table;
 
 /// <summary>
@@ -18,7 +14,7 @@ public partial class TablesTree
 
     [Inject]
     [NotNull]
-    private IStringLocalizer<Foo>? Localizer { get; set; }
+    private IStringLocalizer<Foo>? LocalizerFoo { get; set; }
 
     /// <summary>
     /// OnInitialized 方法
@@ -28,13 +24,13 @@ public partial class TablesTree
         base.OnInitialized();
 
         // 模拟数据从数据库中获得
-        TreeItems = TreeFoo.GenerateFoos(Localizer, 3);
+        TreeItems = TreeFoo.GenerateFoos(LocalizerFoo, 3);
 
         // 插入 Id 为 1 的子项
-        TreeItems.AddRange(TreeFoo.GenerateFoos(Localizer, 2, 1, 100));
+        TreeItems.AddRange(TreeFoo.GenerateFoos(LocalizerFoo, 2, 1, 100));
 
         // 插入 Id 为 101 的子项
-        TreeItems.AddRange(TreeFoo.GenerateFoos(Localizer, 3, 101, 1010));
+        TreeItems.AddRange(TreeFoo.GenerateFoos(LocalizerFoo, 3, 101, 1010));
     }
 
     private static Task<IEnumerable<TableTreeNode<TreeFoo>>> TreeNodeConverter(IEnumerable<TreeFoo> items)
@@ -70,7 +66,7 @@ public partial class TablesTree
         {
             await Task.Delay(1000);
             entry.SlidingExpiration = TimeSpan.FromMinutes(10);
-            return TreeFoo.GenerateFoos(Localizer, 2, foo.Id, foo.Id * 100).Select(i => new TableTreeNode<TreeFoo>(i));
+            return TreeFoo.GenerateFoos(LocalizerFoo, 2, foo.Id, foo.Id * 100).Select(i => new TableTreeNode<TreeFoo>(i));
         });
     }
 
@@ -107,13 +103,13 @@ public partial class TablesTree
 
     private Task<QueryData<TreeFoo>> OnQueryAsync(QueryPageOptions _)
     {
-        var items = TreeFoo.GenerateFoos(Localizer, 4);
+        var items = TreeFoo.GenerateFoos(LocalizerFoo, 4);
 
         // 插入 Id 为 1 的子项
-        items.AddRange(TreeFoo.GenerateFoos(Localizer, 2, 1, 100));
+        items.AddRange(TreeFoo.GenerateFoos(LocalizerFoo, 2, 1, 100));
 
         // 插入 Id 为 101 的子项
-        items.AddRange(TreeFoo.GenerateFoos(Localizer, 3, 101, 1010));
+        items.AddRange(TreeFoo.GenerateFoos(LocalizerFoo, 3, 101, 1010));
 
         var data = new QueryData<TreeFoo>()
         {

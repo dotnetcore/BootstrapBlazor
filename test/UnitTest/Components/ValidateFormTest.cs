@@ -331,7 +331,7 @@ public class ValidateFormTest : ValidateFormTestBase
     }
 
     [Fact]
-    public async Task ValidateFormButton_Ok()
+    public async Task ValidateFormButton_Valid()
     {
         var tcs = new TaskCompletionSource<bool>();
         var valid = false;
@@ -359,6 +359,37 @@ public class ValidateFormTest : ValidateFormTestBase
         await cut.InvokeAsync(() => cut.Find("form").Submit());
         await tcs.Task;
         Assert.True(valid);
+    }
+
+    [Fact]
+    public async Task ValidateFormButton_Invalid()
+    {
+        var tcs = new TaskCompletionSource<bool>();
+        var valid = true;
+        var foo = new Foo();
+        var cut = Context.RenderComponent<ValidateForm>(pb =>
+        {
+            pb.Add(v => v.Model, foo);
+            pb.Add(a => a.OnInvalidSubmit, context =>
+            {
+                valid = false;
+                tcs.SetResult(true);
+                return Task.CompletedTask;
+            });
+            pb.AddChildContent<BootstrapInput<string>>(pb =>
+            {
+                pb.Add(a => a.Value, foo.Name);
+                pb.Add(a => a.ValueExpression, foo.GenerateValueExpression());
+            });
+            pb.AddChildContent<Button>(pb =>
+            {
+                pb.Add(b => b.IsAsync, true);
+                pb.Add(b => b.ButtonType, ButtonType.Submit);
+            });
+        });
+        await cut.InvokeAsync(() => cut.Find("form").Submit());
+        await tcs.Task;
+        Assert.False(valid);
     }
 
     [Fact]

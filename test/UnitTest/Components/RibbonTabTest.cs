@@ -22,7 +22,7 @@ public class RibbonTabTest : BootstrapBlazorTestBase
             pb.Add(a => a.RibbonArrowUpIcon, "test-up");
             pb.Add(a => a.RibbonArrowDownIcon, "test-down");
             pb.Add(a => a.RibbonArrowPinIcon, "test-pin");
-            pb.Add(a => a.OnTabItemClickAsync, item =>
+            pb.Add(a => a.OnItemClickAsync, item =>
             {
                 tabItem = item;
                 return Task.CompletedTask;

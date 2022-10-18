@@ -6,7 +6,7 @@
 {
     <BootstrapLabel required="@Required" for="@InputId" ShowLabelTooltip="ShowLabelTooltip" Value="@DisplayText" />
 }
-<div @attributes="AdditionalAttributes" id="@Id" class="@ClassString" @ref="SelectElement">
+<div @attributes="AdditionalAttributes" id="@Id" class="@ClassString">
     <CascadingValue Value="this" IsFixed="true">
         @Options
     </CascadingValue>
@@ -14,7 +14,7 @@
         @{
             ResetSelectedItem();
         }
-        <div class="dropdown-toggle" data-bs-toggle="@ToggleString" data-bs-placement="@PlacementString" data-bs-offset="@OffsetString" aria-expanded="false">
+        <div class="dropdown-toggle" data-bs-toggle="@ToggleString" data-bs-placement="@PlacementString" data-bs-offset="@OffsetString" data-bs-custom-class="@CustomClassString">
             @if (DisplayTemplate != null)
             {
                 <div id="@InputId" class="@InputClassString" tabindex="0">
@@ -27,12 +27,12 @@
                 <span class="@AppendClassString"><i class="@DropdownIcon"></i></span>
             }
         </div>
-        <div class="@DropdownMenuClassString">
+        <div class="dropdown-menu">
             @if (ShowSearch)
             {
-                <div class="search">
-                    <input type="text" class="search-text form-control" @bind="@SearchText" @bind:event="oninput" />
-                    <i class="@SearchIcon"></i>
+                <div class="@SearchClassString">
+                    <input type="text" class="search-text form-control" @bind="@SearchText" @bind:event="oninput" aria-label="Search" />
+                    <i class="@SearchIconString"></i>
                 </div>
             }
             @foreach (var itemGroup in DataSource.GroupBy(i => i.GroupName))
@@ -62,6 +62,3 @@
         }
     </RenderTemplate>
 </div>
-<CascadingValue Value="this" IsFixed="true">
-    @ChildContent
-</CascadingValue>

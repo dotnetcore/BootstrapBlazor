@@ -6,7 +6,7 @@
 {
     <BootstrapLabel required="@Required" ShowLabelTooltip="ShowLabelTooltip" Value="@DisplayText" />
 }
-<div @attributes="@AdditionalAttributes" class="@ClassString" @ref="UploaderElement">
+<div @attributes="@AdditionalAttributes" class="@ClassString" id="@Id">
     <div class="upload-body is-avatar">
         @foreach (var item in GetUploadFiles())
         {

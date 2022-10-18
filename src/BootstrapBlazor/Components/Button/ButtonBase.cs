@@ -9,7 +9,8 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// Button 按钮组件
 /// </summary>
-public abstract class ButtonBase : TooltipWrapperBase, IAsyncDisposable
+[JSModuleAutoLoader("button", ModuleName = "Button")]
+public abstract class ButtonBase : TooltipWrapperBase
 {
     /// <summary>
     /// 获得 按钮样式集合
@@ -239,9 +240,9 @@ public abstract class ButtonBase : TooltipWrapperBase, IAsyncDisposable
     /// <returns></returns>
     public virtual async Task ShowTooltip()
     {
-        if (Tooltip == null && !string.IsNullOrEmpty(TooltipText))
+        if (Tooltip == null && !string.IsNullOrEmpty(TooltipText) && Module != null)
         {
-            await JSRuntime.InvokeVoidAsync(identifier: "bb.Tooltip.init", $"#{Id}", TooltipText);
+            await Module.InvokeVoidAsync($"{ModuleName}.execute", Id, "showTooltip", TooltipText);
         }
     }
 
@@ -251,9 +252,9 @@ public abstract class ButtonBase : TooltipWrapperBase, IAsyncDisposable
     /// <returns></returns>
     public virtual async Task RemoveTooltip()
     {
-        if (Tooltip == null)
+        if (Tooltip == null && Module != null)
         {
-            await JSRuntime.InvokeVoidAsync(identifier: "bb.Tooltip.dispose", $"#{Id}");
+            await Module.InvokeVoidAsync($"{ModuleName}.execute", Id, "removeTooltip");
         }
     }
 
@@ -262,20 +263,12 @@ public abstract class ButtonBase : TooltipWrapperBase, IAsyncDisposable
     /// </summary>
     /// <param name="disposing"></param>
     /// <returns></returns>
-    protected virtual async ValueTask DisposeAsyncCore(bool disposing)
+    protected override async ValueTask DisposeAsync(bool disposing)
     {
         if (disposing)
         {
             await RemoveTooltip();
         }
-    }
-
-    /// <summary>
-    /// DisposeAsync 方法
-    /// </summary>
-    public async ValueTask DisposeAsync()
-    {
-        await DisposeAsyncCore(true);
-        GC.SuppressFinalize(this);
+        await base.DisposeAsync(disposing);
     }
 }

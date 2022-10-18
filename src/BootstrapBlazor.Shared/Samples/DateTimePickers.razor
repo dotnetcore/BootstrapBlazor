@@ -6,7 +6,7 @@
 
 <DemoBlock Title="@Localizer["Block1Title"]" Introduction="@Localizer["Block1Intro"]" Name="Normal">
     <div style="width: 320px;">
-        <DatePickerBody IsShown="true" ValueChanged="@DateValueChanged" ShowFooter="false" />
+        <DatePickerBody ValueChanged="@DateValueChanged" ShowFooter="false" />
     </div>
     <BlockLogger @ref="DateLogger" class="mt-3" />
 </DemoBlock>
@@ -140,7 +140,7 @@
     <div class="row">
         <div class="col-12">
             <DateTimePicker TValue="DateTime" ViewMode="DatePickerViewMode.Date" Value="@(DateTime.Today.AddDays(3 - DateTime.Today.Day))"
-                            AutoClose="true" />
+                            AutoClose="false" />
         </div>
     </div>
 </DemoBlock>

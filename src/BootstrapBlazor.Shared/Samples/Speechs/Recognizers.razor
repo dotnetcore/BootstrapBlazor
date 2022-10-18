@@ -2,13 +2,12 @@
 @namespace BootstrapBlazor.Shared.Samples
 @inherits BootstrapComponentBase
 
-<h3>Recognizer 语音识别</h3>
+<h3>@Localizer["H1"]</h3>
+<h4>@Localizer["H2"]</h4>
 
-<h4>通过语音采集设备将语音转化为文本</h4>
-
-<DemoBlock Title="普通用法" Introduction="点击开始识别后对录入语音进行识别" Name="Normal">
-    <p><b>使用说明：</b></p>
-    <p>点击 <b>开始识别</b> 后，脚本运行可能会提示要求录音权限，授权后开始讲话，5秒后（可配置）右侧文本框显示语音识别结果，请勿讲完话后直接点击 <b>结束识别</b></p>
+<DemoBlock Title="@Localizer["P1"]" Introduction="@Localizer["P2"]" Name="Normal">
+    <p><b>@Localizer["P3"]：</b></p>
+    <p>@Localizer["P4"] <b>@Localizer["P5"]</b> @Localizer["P6"] <b>@Localizer["P7"]</b></p>
     <div class="row">
         <div class="col-12 col-sm-6 text-center">
             <SpeechWave Show="Start" TotalTime="5000" OnTimeout="OnTimeout" class="my-3" />

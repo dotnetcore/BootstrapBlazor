@@ -15,7 +15,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// ValidateForm 组件类
 /// </summary>
-public partial class ValidateForm : IAsyncDisposable
+public partial class ValidateForm
 {
     /// <summary>
     /// A callback that will be invoked when the form is submitted and the
@@ -242,23 +242,16 @@ public partial class ValidateForm : IAsyncDisposable
                     var pi = key.ModelType.GetPropertyByName(key.FieldName);
                     if (pi != null)
                     {
-                        try
+                        var propertyValidateContext = new ValidationContext(fieldIdentifier.Model, context, null)
                         {
-                            var propertyValidateContext = new ValidationContext(fieldIdentifier.Model, context, null)
-                            {
-                                MemberName = fieldIdentifier.FieldName,
-                                DisplayName = fieldIdentifier.GetDisplayName()
-                            };
+                            MemberName = fieldIdentifier.FieldName,
+                            DisplayName = fieldIdentifier.GetDisplayName()
+                        };
 
-                            // 设置其关联属性字段
-                            var propertyValue = Utility.GetPropertyValue(fieldIdentifier.Model, fieldIdentifier.FieldName);
+                        // 设置其关联属性字段
+                        var propertyValue = Utility.GetPropertyValue(fieldIdentifier.Model, fieldIdentifier.FieldName);
 
-                            await ValidateAsync(validator, propertyValidateContext, messages, pi, propertyValue);
-                        }
-                        catch (Exception ex)
-                        {
-                            System.Console.WriteLine(ex.Message);
-                        }
+                        await ValidateAsync(validator, propertyValidateContext, messages, pi, propertyValue);
                     }
                     // 客户端提示
                     validator.ToggleMessage(messages, false);
@@ -491,6 +484,27 @@ public partial class ValidateForm : IAsyncDisposable
         }
     }
 
+    private async Task OnInvalidSubmitForm(EditContext context)
+    {
+        if (OnInvalidSubmit != null)
+        {
+            var isAsync = AsyncSubmitButtons.Any();
+            foreach (var b in AsyncSubmitButtons)
+            {
+                b.TriggerAsync(true);
+            }
+            if (isAsync)
+            {
+                await Task.Yield();
+            }
+            await OnInvalidSubmit(context);
+            foreach (var b in AsyncSubmitButtons)
+            {
+                b.TriggerAsync(false);
+            }
+        }
+    }
+
     [NotNull]
     private BootstrapBlazorDataAnnotationsValidator? Validator { get; set; }
 
@@ -522,27 +536,4 @@ public partial class ValidateForm : IAsyncDisposable
     /// </summary>
     /// <returns></returns>
     public ConcurrentDictionary<FieldIdentifier, object?> ValueChagnedFields { get; } = new();
-
-    /// <summary>
-    /// DisposeAsyncCore 方法
-    /// </summary>
-    /// <param name="disposing"></param>
-    /// <returns></returns>
-    protected virtual async ValueTask DisposeAsyncCore(bool disposing)
-    {
-        if (disposing)
-        {
-            await JSRuntime.InvokeVoidAsync(Id, "bb_form");
-        }
-    }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <returns></returns>
-    public async ValueTask DisposeAsync()
-    {
-        await DisposeAsyncCore(true);
-        GC.SuppressFinalize(this);
-    }
 }

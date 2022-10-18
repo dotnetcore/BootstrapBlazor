@@ -1,11 +1,11 @@
 ﻿@namespace BootstrapBlazor.Components
-@inherits BootstrapComponentBase
+@inherits BootstrapModuleComponentBase
 
-<nav @attributes="@AdditionalAttributes" class="@ClassString" @ref="MenuElemenet">
+<nav @attributes="@AdditionalAttributes" id="@Id" class="@ClassString" data-bb-expand="@ExpandString">
     <CascadingValue Value="this" IsFixed="true">
         @if (IsVertical)
         {
-            <SideMenu Items="@Items" OnClick="@OnClickMenu" />
+            <SideMenu Items="@Items" Id="@SideMenuId" class="@SideMenuClassString" OnClick="@OnClickMenu" />
         }
         else
         {

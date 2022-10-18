@@ -7,11 +7,11 @@
     <BootstrapLabel required="@Required" for="@InputId" ShowLabelTooltip="ShowLabelTooltip" Value="@DisplayText" />
 }
 <div @attributes="AdditionalAttributes" id="@Id" class="@ClassName">
-    <div class="dropdown-toggle" data-bs-toggle="@ToggleString" data-bs-auto-close="outside" data-bs-offset="@OffsetString" data-bs-placement="@PlacementString" aria-expanded="false">
+    <div class="dropdown-toggle" data-bs-toggle="@ToggleString" data-bs-auto-close="outside" data-bs-offset="@OffsetString" data-bs-placement="@PlacementString" data-bs-custom-class="@CustomClassString">
         <input type="text" id="@InputId" readonly disabled="@Disabled" placeholder="@PlaceHolder" class="@InputClassName" value="@SelectedItem?.Text" />
         <span class="@AppendClassName"><i class="@DropdownIcon"></i></span>
     </div>
-    <div class="@DropdownMenuClassString">
+    <div class="dropdown-menu">
         <TreeView TItem="TValue" Items="@Items" ShowIcon="ShowIcon" OnTreeItemClick="OnItemClick" ModelEqualityComparer="@ModelEqualityComparer" CustomKeyAttribute="@CustomKeyAttribute" OnExpandNodeAsync="@OnExpandNodeAsync" />
     </div>
     @if (!IsPopover)

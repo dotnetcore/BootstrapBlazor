@@ -51,7 +51,7 @@ public abstract class MultipleUploadBase<TValue> : UploadBase<TValue>
             UploadFiles.Remove(item);
             if (!string.IsNullOrEmpty(item.ValidateId))
             {
-                await JSRuntime.InvokeVoidAsync(identifier: "bb.Tooltip.dispose", $"#{item.ValidateId}");
+                await RemoveInvalidTooltip(item);
             }
             if (DefaultFileList != null)
             {
@@ -59,6 +59,18 @@ public abstract class MultipleUploadBase<TValue> : UploadBase<TValue>
             }
         }
         return ret;
+    }
+
+    /// <summary>
+    /// 移除验证失败 Tooltip 信息
+    /// </summary>
+    /// <returns></returns>
+    protected async ValueTask RemoveInvalidTooltip(UploadFile item)
+    {
+        if (Module != null)
+        {
+            await Module.InvokeVoidAsync($"{ModuleName}.execute", Id, item.ValidateId, "disposeTooltip");
+        }
     }
 
     /// <summary>

@@ -2,9 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using BootstrapBlazor.Components;
-using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.Localization;
 using Microsoft.JSInterop;
 
 namespace BootstrapBlazor.Shared.Components;
@@ -14,8 +11,6 @@ namespace BootstrapBlazor.Shared.Components;
 /// </summary>
 public sealed partial class DemoBlock
 {
-    private ElementReference BlockElement { get; set; }
-
     /// <summary>
     /// 获得/设置 组件 Title 属性
     /// </summary>
@@ -47,9 +42,11 @@ public sealed partial class DemoBlock
     [Parameter]
     public bool ShowCode { get; set; } = true;
 
-    [NotNull]
-    private string? SubTitle { get; set; }
-
+    /// <summary>
+    /// 获得/设置 Tooltip 提示信息文本
+    /// </summary>
+    [Parameter]
+    public string? TooltipText { get; set; }
     [Inject]
     [NotNull]
     private IStringLocalizer<DemoBlock>? Localizer { get; set; }
@@ -63,28 +60,13 @@ public sealed partial class DemoBlock
     private string BlockTitle => Name ?? Title;
 
     /// <summary>
-    /// OnInitialized 方法
+    /// <inheritdoc/>
     /// </summary>
-    protected override void OnInitialized()
+    protected override void OnParametersSet()
     {
-        base.OnInitialized();
+        base.OnParametersSet();
 
         Title ??= Localizer[nameof(Title)];
-        SubTitle ??= Localizer[nameof(SubTitle)];
-    }
-
-    /// <summary>
-    /// OnAfterRenderAsync
-    /// </summary>
-    /// <param name="firstRender"></param>
-    /// <returns></returns>
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        await base.OnAfterRenderAsync(firstRender);
-
-        if (firstRender)
-        {
-            await JSRuntime.InvokeVoidAsync("$.bb_block", BlockElement);
-        }
+        TooltipText ??= Localizer[nameof(TooltipText)];
     }
 }

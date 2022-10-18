@@ -41,7 +41,6 @@ public static class BootstrapBlazorServiceCollectionExtensions
 
         services.TryAddScoped<DialogService>();
         services.TryAddScoped<MessageService>();
-        services.TryAddScoped<PopoverService>();
         services.TryAddScoped<ToastService>();
         services.TryAddScoped<SwalService>();
         services.TryAddScoped<FullScreenService>();

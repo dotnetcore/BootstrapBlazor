@@ -2,10 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using BootstrapBlazor.Components;
-using BootstrapBlazor.Shared.Common;
 using BootstrapBlazor.Shared.Services;
-using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 
 namespace BootstrapBlazor.Shared.Samples;
@@ -61,13 +58,6 @@ public partial class Topologies : IDisposable
         {
             Interop = new JSInterop<Topologies>(JSRuntime);
             await Interop.InvokeVoidAsync(this, null, "bb_topology_demo", nameof(ToggleFan));
-
-            // 推送数据
-            var data = DataService.GetDatas();
-            await TopologyElement.PushData(data);
-
-            // 数据订阅
-            DataService.OnDataChange = async datas => await TopologyElement.PushData(datas);
         }
     }
 
@@ -97,6 +87,13 @@ public partial class Topologies : IDisposable
     private async Task OnBeforePushData()
     {
         await JSRuntime.InvokeVoidAsync("$.bb_topology_demo_setOptions");
+
+        // 推送数据
+        var data = DataService.GetDatas();
+        await TopologyElement.PushData(data);
+
+        // 数据订阅
+        DataService.OnDataChange = async datas => await TopologyElement.PushData(datas);
     }
 
     /// <summary>
@@ -105,31 +102,30 @@ public partial class Topologies : IDisposable
     /// <returns></returns>
     private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
-        // TODO: 移动到数据库中
         new AttributeItem() {
             Name = nameof(Topology.Content),
-            Description = "加载图形 Json 内容",
+            Description = "Load Graphical Json Content",
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
         },
         new AttributeItem() {
             Name = nameof(Topology.Interval),
-            Description = "轮询模式下轮询间隔",
+            Description = "Polling interval in polling mode",
             Type = "int",
             ValueList = " — ",
             DefaultValue = "2000"
         },
         new AttributeItem() {
             Name = nameof(Topology.OnQueryAsync),
-            Description = "获取推送数据回调委托方法",
+            Description = "Get push data callback delegate method",
             Type = "Func<CancellationToken, Task<IEnumerable<TopologyItem>>>",
             ValueList = " — ",
             DefaultValue = " — "
         },
         new AttributeItem() {
             Name = nameof(Topology.OnBeforePushData),
-            Description = "开始推送数据前回调方法",
+            Description = "Callback method before starting to push data",
             Type = "Func<Task>",
             ValueList = " — ",
             DefaultValue = " — "
@@ -137,7 +133,7 @@ public partial class Topologies : IDisposable
     };
 
     /// <summary>
-    /// Dispose 方法
+    /// Dispose
     /// </summary>
     /// <param name="disposing"></param>
     protected virtual void Dispose(bool disposing)
@@ -153,7 +149,7 @@ public partial class Topologies : IDisposable
     }
 
     /// <summary>
-    /// Dispose 方法
+    /// Dispose
     /// </summary>
     public void Dispose()
     {

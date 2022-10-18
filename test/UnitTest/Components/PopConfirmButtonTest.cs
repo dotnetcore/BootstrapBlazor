@@ -24,11 +24,11 @@ public class PopConfirmButtonTest : PopoverTestBase
         });
 
         // Show
-        var button = cut.Find("button");
+        var button = cut.Find("div");
         await cut.InvokeAsync(() => button.Click());
 
         // Close
-        var buttons = cut.FindAll(".popover-confirm-buttons button");
+        var buttons = cut.FindAll(".popover-confirm-buttons div");
         await cut.InvokeAsync(() => buttons[0].Click());
 
         // Confirm
@@ -62,13 +62,22 @@ public class PopConfirmButtonTest : PopoverTestBase
                 return Task.FromResult(true);
             });
         });
+        // 默认设置增加 shadow 样式
+        Assert.Contains("data-bs-custom-class=\"test-custom-class shadow\"", cut.Markup);
 
-        button = cut.Find("button");
-        await cut.InvokeAsync(() => button.Click());
+        // 移除 shadow 样式
+        popButton.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ShowShadow, false);
+        });
         Assert.Contains("data-bs-custom-class=\"test-custom-class\"", cut.Markup);
 
+        // 弹窗
+        button = cut.Find("div");
+        await cut.InvokeAsync(() => button.Click());
+
         // Close
-        buttons = cut.FindAll(".popover-confirm-buttons button");
+        buttons = cut.FindAll(".popover-confirm-buttons div");
         await cut.InvokeAsync(() => buttons[0].Click());
         Assert.True(beforeClose);
         Assert.True(close);
@@ -85,11 +94,11 @@ public class PopConfirmButtonTest : PopoverTestBase
         });
 
         // Show
-        button = cut.Find("button");
+        button = cut.Find("div");
         await cut.InvokeAsync(() => button.Click());
 
         // Confirm
-        buttons = cut.FindAll(".popover-confirm-buttons button");
+        buttons = cut.FindAll(".popover-confirm-buttons div");
         await cut.InvokeAsync(() => buttons[1].Click());
 
         // IsAsync
@@ -99,11 +108,11 @@ public class PopConfirmButtonTest : PopoverTestBase
         });
 
         // Show
-        button = cut.Find("button");
+        button = cut.Find("div");
         await cut.InvokeAsync(() => button.Click());
 
         // Confirm
-        buttons = cut.FindAll(".popover-confirm-buttons button");
+        buttons = cut.FindAll(".popover-confirm-buttons div");
         await cut.InvokeAsync(() => buttons[1].Click());
 
         // IsLink

@@ -1,10 +1,9 @@
 ﻿@page "/tables/selection"
 
-<h3>Table 表格</h3>
+<h3>@Localizer["H1"]</h3>
+<h4>@Localizer["H2"]</h4>
 
-<h4>通过设置 <code>SelectedRows</code> 设置表格行状态，通过选中样式可以设置高亮</h4>
-
-<DemoBlock Title="设置选中行功能" Introduction="通过设置 <code>SelectedRows</code> 属性集合初始化表格时默认为选中状态" Name="SelectedRow">
+<DemoBlock Title="@Localizer["P1"]" Introduction="@Localizer["P2"]" Name="SelectedRow">
     <Table TItem="Foo" @bind-SelectedRows="SelectedItems"
            IsPagination="true" PageItemsSource="@PageItemsSource"
            IsStriped="true" IsBordered="true" IsMultipleSelect="true"
@@ -19,10 +18,10 @@
 </DemoBlock>
 
 <Tips class="mt-3">
-    <div>保持行状态回落机制，<code>ModelEqualityComparer</code> <code>CustomKeyAttribute</code> <code>IEqualityComparer&lt;TItem&gt;</code> <code>Equals</code> 重载方法</div>
+    <div>@((MarkupString)Localizer["P3"].Value)</div>
 </Tips>
 
-<p class="mt-3">选中的行记录：</p>
+<p class="mt-3">@Localizer["P4"]：</p>
 <ul class="ul-demo mb-3">
     @foreach (var item in SelectedItems)
     {
@@ -30,4 +29,4 @@
     }
 </ul>
 
-<Button OnClick="OnClick" Color="Color.Primary">清除选择</Button>
+<Button OnClick="OnClick" Color="Color.Primary">@Localizer["P5"]</Button>

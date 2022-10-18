@@ -1,31 +1,31 @@
 ﻿@page "/swals"
+@inject IStringLocalizer<SweetAlerts> Localizer
 
-<h3>SweetAlert 弹窗组件</h3>
+<h3>@Localizer["H1"]</h3>
+<h4>@Localizer["H2"]</h4>
 
-<h4>模态对话框，多用于动作过程中进行询问后继续，或者显示执行结果</h4>
+<p>@Localizer["P1"]：</p>
 
-<p>组件使用介绍：</p>
-
-<p class="code-label">1. 注入服务 <code>SwalService</code></p>
+<p class="code-label">@((MarkupString)Localizer["P2"].Value)</p>
 <Pre>@@inject SwalService SwalService</Pre>
 <Pre>[Inject]
 [NotNull]
 private SwalService? SwalService { get; set; }
 </Pre>
-<p class="code-label">2. 调用其实例 <code>api</code></p>
+<p class="code-label">@((MarkupString)Localizer["P3"].Value)</p>
 <Pre>var op = new SwalOption()
 {
     Category = SwalCategory.Success,
-    Title = "我是 Title",
-    Content = "我是 Content",
+    Title = "@Localizer["P4"]",
+    Content = "@Localizer["P5"]",
     ShowClose = false
 };
 await SwalService.Show(op);</Pre>
 
-<DemoBlock Title="基础用法" Introduction="通过注入服务调用 <code>Swal</code> 来弹出一个对话框" Name="Normal">
+<DemoBlock Title="@Localizer["P6"]" Introduction="@Localizer["P7"]" Name="Normal">
     <div class="row g-3">
         <div class="col-4 align-self-center text-center">
-            <div class="text-success">成功</div>
+            <div class="text-success">@Localizer["P8"]</div>
         </div>
         <div class="col-4">
             <div class="swal2-icon swal2-success">
@@ -36,12 +36,12 @@ await SwalService.Show(op);</Pre>
             </div>
         </div>
         <div class="col-4 align-self-center text-center">
-            <Button Icon="fa-solid fa-font-awesome" Text="弹窗" Color="Color.Success" OnClick="@(e => OnSwal(SwalCategory.Success))" />
+            <Button Icon="fa-solid fa-font-awesome" Text="@Localizer["P9"]" Color="Color.Success" OnClick="@(e => OnSwal(SwalCategory.Success))" />
         </div>
     </div>
     <div class="row g-3">
         <div class="col-4 align-self-center text-center">
-            <div class="text-danger">失败</div>
+            <div class="text-danger">@Localizer["P10"]</div>
         </div>
         <div class="col-4">
             <div class="swal2-icon swal2-error">
@@ -52,46 +52,46 @@ await SwalService.Show(op);</Pre>
             </div>
         </div>
         <div class="col-4 align-self-center text-center">
-            <Button Icon="fa-solid fa-font-awesome" Text="弹窗" Color="Color.Danger" OnClick="@(e => OnSwal(SwalCategory.Error))" />
+            <Button Icon="fa-solid fa-font-awesome" Text="@Localizer["P9"]" Color="Color.Danger" OnClick="@(e => OnSwal(SwalCategory.Error))" />
         </div>
     </div>
     <div class="row g-3">
         <div class="col-4 align-self-center text-center">
-            <div class="text-warning">警告</div>
+            <div class="text-warning">@Localizer["P12"]</div>
         </div>
         <div class="col-4">
             <div class="swal2-icon swal2-warning"></div>
         </div>
         <div class="col-4 align-self-center text-center">
-            <Button Icon="fa-solid fa-font-awesome" Text="弹窗" Color="Color.Warning" OnClick="@(e => OnSwal(SwalCategory.Warning))" />
+            <Button Icon="fa-solid fa-font-awesome" Text="@Localizer["P9"]" Color="Color.Warning" OnClick="@(e => OnSwal(SwalCategory.Warning))" />
         </div>
 
     </div>
     <div class="row g-3">
         <div class="col-4 align-self-center text-center">
-            <div class="text-info">提示</div>
+            <div class="text-info">@Localizer["P14"]</div>
         </div>
         <div class="col-4">
             <div class="swal2-icon swal2-info"></div>
         </div>
         <div class="col-4 align-self-center text-center">
-            <Button Icon="fa-solid fa-font-awesome" Text="弹窗" Color="Color.Info" OnClick="@(e => OnSwal(SwalCategory.Information))" />
+            <Button Icon="fa-solid fa-font-awesome" Text="@Localizer["P9"]" Color="Color.Info" OnClick="@(e => OnSwal(SwalCategory.Information))" />
         </div>
     </div>
     <div class="row g-3">
         <div class="col-4 align-self-center text-center">
-            <div class="text-secondary">疑问</div>
+            <div class="text-secondary">@Localizer["P16"]</div>
         </div>
         <div class="col-4">
             <div class="swal2-icon swal2-question"></div>
         </div>
         <div class="col-4 align-self-center text-center">
-            <Button Icon="fa-solid fa-font-awesome" Text="弹窗" Color="Color.Secondary" OnClick="@(e => OnSwal(SwalCategory.Question))" />
+            <Button Icon="fa-solid fa-font-awesome" Text="@Localizer["P9"]" Color="Color.Secondary" OnClick="@(e => OnSwal(SwalCategory.Question))" />
         </div>
     </div>
 </DemoBlock>
 
-<DemoBlock Title="设置显示内容" Introduction="通过设置 <code>Title</code> <code>Content</code> 用于显示弹窗标题与内容" Name="Dispaly">
+<DemoBlock Title="@Localizer["P18"]" Introduction="@Localizer["P19"]" Name="Dispaly">
     <div class="row g-3">
         <div class="col-12 col-sm-6">
             <Button Icon="fa-solid fa-font-awesome" Text="Title" Color="Color.Success" OnClick="@ShowTitle" />
@@ -102,39 +102,36 @@ await SwalService.Show(op);</Pre>
     </div>
 </DemoBlock>
 
-<DemoBlock Title="自定义按钮" Introduction="通过设置 <code>ButtonTemplate</code> 自定义弹窗内按钮" Name="Button">
-    <Button Icon="fa-solid fa-font-awesome" Text="弹窗" Color="Color.Success" OnClick="@ShowButtons" />
+<DemoBlock Title="@Localizer["P20"]" Introduction="@Localizer["P21"]" Name="Button">
+    <Button Icon="fa-solid fa-font-awesome" Text="@Localizer["P9"]" Color="Color.Success" OnClick="@ShowButtons" />
 </DemoBlock>
 
-<DemoBlock Title="显示自定义组件" Introduction="通过设置 <code>Component</code> 弹窗内容为自定义组件" Name="Component">
-    <Button Icon="fa-solid fa-font-awesome" Text="弹窗" Color="Color.Success" OnClick="@ShowComponent" />
+<DemoBlock Title="@Localizer["P23"]" Introduction="@Localizer["P24"]" Name="Component">
+    <Button Icon="fa-solid fa-font-awesome" Text="@Localizer["P9"]" Color="Color.Success" OnClick="@ShowComponent" />
 </DemoBlock>
 
-<DemoBlock Title="模态对话框" Introduction="通过调用 <code>await SwalService.ShowModal</code> 方法弹出模态框，点击弹窗内按钮关闭弹窗后，后续代码继续执行" Name="Modal">
-    <p>本示例代码通过调用 <code>await SwalService.ShowModal</code> 方法弹出模态框，只有关闭弹窗后，后续代码才继续执行</p>
-    <p><code>IsConfirm</code> 参数表示弹窗为确认窗口，自动生成 <code>取消</code> <code>确认</code> 两个按钮</p>
+<DemoBlock Title="@Localizer["P26"]" Introduction="@Localizer["P27"]" Name="Modal">
+    <p>@((MarkupString)Localizer["P29"].Value)</p>
+    <p>@((MarkupString)Localizer["P30"].Value)</p>
     <Pre class="no-highlight">var ret = await SwalService.ShowModal(op);
 
-// ShowModal 返回后下面代码才执行
-Trace?.Log($"模态弹窗返回值为：{ret}");
+// ShowModal
+Trace.Log($"{ret}");
 </Pre>
-    <Button Icon="fa-solid fa-font-awesome" Text="模态对话框" Color="Color.Success" OnClick="@ShowModal" />
-
+    <Button Icon="fa-solid fa-font-awesome" Text="@Localizer["P9"]" Color="Color.Success" OnClick="@ShowModal" />
     <BlockLogger @ref="Trace" class="mt-3" />
 </DemoBlock>
 
-<DemoBlock Title="显示 Footer 信息" Introduction="通过设置 <code>FooterTemplate</code> 自定义 Footer 模板" Name="Footer">
-    <p>参数 <code>ShowFooter</code> 默认为 <code>false</code> 不显示页脚模板，需要显示设置为 <code>true</code></p>
-    <Button Icon="fa-solid fa-font-awesome" Text="带 Footer 弹窗" Color="Color.Success" OnClick="@ShowFooterComponent" />
+<DemoBlock Title="@Localizer["P32"]" Introduction="@Localizer["P33"]" Name="Footer">
+    <p>@((MarkupString)Localizer["P35"].Value)</p>
+    <Button Icon="fa-solid fa-font-awesome" Text="@Localizer["P36"]" Color="Color.Success" OnClick="@ShowFooterComponent" />
 </DemoBlock>
 
-<DemoBlock Title="自动关闭功能" Introduction="通过设置 <code>IsAutoHide</code> <code>Delay</code> 属性，自定义自动关闭时间" Name="Close">
-    <p>
-        参数 <code>IsAutoHide</code> 默认为 <code>false</code> 不启用自动关闭功能
-        <br />
-        参数 <code>Delay</code> 默认为 4000 毫秒
+<DemoBlock Title="@Localizer["P37"]" Introduction="@Localizer["P38"]" Name="Close">
+    <p>        
+        @((MarkupString)Localizer["P41"].Value)
     </p>
-    <Button Icon="fa-solid fa-font-awesome" Text="自动关闭弹窗" Color="Color.Success" OnClick="@ShowAutoCloseSwal" />
+    <Button Icon="fa-solid fa-font-awesome" Text="@Localizer["P42"]" Color="Color.Success" OnClick="@ShowAutoCloseSwal" />
 </DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" />

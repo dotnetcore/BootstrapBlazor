@@ -9,7 +9,8 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 
 /// </summary>
-public partial class Timer : IDisposable
+[JSModuleAutoLoader("base/utility")]
+public partial class Timer
 {
     /// <summary>
     /// 获得 组件样式字符串
@@ -138,7 +139,10 @@ public partial class Timer : IDisposable
         if (Vibrate)
         {
             Vibrate = false;
-            await JSRuntime.InvokeVoidAsync(identifier: "bb.Utility.vibrate");
+            if (Module != null)
+            {
+                await Module.InvokeVoidAsync("vibrate");
+            }
         }
     }
 
@@ -229,7 +233,7 @@ public partial class Timer : IDisposable
     /// Dispose 方法
     /// </summary>
     /// <param name="disposing"></param>
-    protected virtual void Dispose(bool disposing)
+    protected override async ValueTask DisposeAsync(bool disposing)
     {
         if (disposing)
         {
@@ -241,14 +245,6 @@ public partial class Timer : IDisposable
             }
             ResetEvent.Dispose();
         }
-    }
-
-    /// <summary>
-    /// Dispose 方法
-    /// </summary>
-    public void Dispose()
-    {
-        Dispose(disposing: true);
-        GC.SuppressFinalize(this);
+        await base.DisposeAsync(disposing);
     }
 }

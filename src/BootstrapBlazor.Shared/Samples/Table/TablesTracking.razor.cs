@@ -2,9 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.Localization;
-
 namespace BootstrapBlazor.Shared.Samples.Table;
 
 /// <summary>
@@ -17,7 +14,11 @@ public partial class TablesTracking
 
     [Inject]
     [NotNull]
-    private IStringLocalizer<Foo>? Localizer { get; set; }
+    private IStringLocalizer<Foo>? LocalizerFoo { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<TablesTracking>? Localizer { get; set; }
 
     /// <summary>
     /// OnInitialized 方法
@@ -26,6 +27,6 @@ public partial class TablesTracking
     {
         base.OnInitialized();
 
-        Items = Foo.GenerateFoo(Localizer, 4);
+        Items = Foo.GenerateFoo(LocalizerFoo, 4);
     }
 }

@@ -2,20 +2,20 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using BootstrapBlazor.Components;
-using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.Localization;
-
 namespace BootstrapBlazor.Shared.Samples.Table;
 
 /// <summary>
-/// 选中行示例代码
+/// Selected line sample code
 /// </summary>
 public sealed partial class TablesSelection
 {
     [Inject]
     [NotNull]
-    private IStringLocalizer<Foo>? Localizer { get; set; }
+    private IStringLocalizer<Foo>? LocalizerFoo { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<TablesSelection>? Localizer { get; set; }
 
     private static IEnumerable<int> PageItemsSource => new int[] { 4, 10, 20 };
 
@@ -26,13 +26,13 @@ public sealed partial class TablesSelection
     private List<Foo>? SelectedItems { get; set; }
 
     /// <summary>
-    /// OnInitialized 方法
+    /// OnInitialized
     /// </summary>
     protected override void OnInitialized()
     {
         base.OnInitialized();
 
-        Items = Foo.GenerateFoo(Localizer);
+        Items = Foo.GenerateFoo(LocalizerFoo);
         SelectedItems = Items.Take(4).ToList();
     }
 
@@ -43,10 +43,7 @@ public sealed partial class TablesSelection
 
     private Task<QueryData<Foo>> OnQueryAsync(QueryPageOptions options)
     {
-        // 设置记录总数
         var total = Items.Count;
-
-        // 内存分页
         var items = Items.Skip((options.PageIndex - 1) * options.PageItems).Take(options.PageItems).ToList();
 
         return Task.FromResult(new QueryData<Foo>()

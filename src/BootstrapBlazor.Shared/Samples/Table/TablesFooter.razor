@@ -1,13 +1,12 @@
 ﻿@page "/tables/footer"
 
-<h3>Table 统计功能</h3>
+<h3>@Localizer["H1"]</h3>
+<h4>@Localizer["H2"]</h4>
 
-<h4>用于数据统计</h4>
-
-<DemoBlock Title="数据统计示例" Introduction="设置 <code>ShowFooter=true</code> 显示 <code>Footer</code> 自定义合计功能" Name="Statistics">
-    <p><code>Table</code> 组件有 <code>TableFooter</code> 模板，其数据上下文为 <code>Table</code> 组件的数据集合 <code>IEnumerable&lt;TItem&gt;</code></p>
-    <p><code>TableFooter</code> 模板中关联的上下文 <code>context</code> 值为当页数据集合</p>
-    <p><code>TableFooter</code> 模板内可以自定义单元格 <code>td</code> 内容，也可以使用内置的 <code>TableFooterCell</code> 组件进行数据显示</p>
+<DemoBlock Title="@Localizer["P1"]" Introduction="@Localizer["P2"]" Name="Statistics">
+    <p>@((MarkupString)Localizer["P3"].Value)</p>
+    <p>@((MarkupString)Localizer["P4"].Value)</p>
+    <p>@((MarkupString)Localizer["P5"].Value)</p>
     <Table TItem="Foo" ShowFooter="true" class="footer-demo"
            IsPagination="true" PageItemsSource="@PageItemsSource" OnQueryAsync="@OnQueryAsync">
         <TableColumns>
@@ -17,7 +16,7 @@
             <TableColumn @bind-Field="@context.Count" />
         </TableColumns>
         <TableFooter>
-            <TableFooterCell Text="合计：" colspan="3" Align="@Align" />
+            <TableFooterCell Text="@Localizer["P6"]" colspan="3" Align="@Align" />
             <TableFooterCell Aggregate="@Aggregate" Field="@nameof(Foo.Count)" />
         </TableFooter>
     </Table>
@@ -35,8 +34,8 @@
     </div>
 </DemoBlock>
 
-<DemoBlock Title="Footer 模板" Introduction="设置 <code>FooterTemplate</code> 自定义表格底部显示内容" Name="FooterTemplate">
-    <p>无数据时默认显示 <code>Footer</code> 可通过设置 <code>@nameof(Table<Foo>.IsHideFooterWhenNoData)</code> 参数隐藏 <code>Footer</code></p>
+<DemoBlock Title="@Localizer["P7"]" Introduction="@Localizer["P8"]" Name="FooterTemplate">
+    <p>@((MarkupString)Localizer["P9"].Value)</p>
     <Table TItem="Foo" ShowFooter="true" class="footer-demo"
            IsPagination="true" PageItemsSource="@PageItemsSource" OnQueryAsync="@OnQueryAsync">
         <TableColumns>
@@ -49,13 +48,13 @@
             <tr>
                 <td colspan="4">
                     <div style="text-align: right;">
-                        这里可以写一些描述性的语句
+                        <span>@Localizer["P10"]</span>
                     </div>
                 </td>
             </tr>
             <tr>
                 <td colspan="3">
-                    <div class="d-flex align-items-center justify-content-end" style="line-height: 3;">合计：</div>
+                    <div class="d-flex align-items-center justify-content-end" style="line-height: 3;">@Localizer["P11"]</div>
                 </td>
                 <td>
                     <div class="footer-customer">
@@ -72,14 +71,3 @@
         </FooterTemplate>
     </Table>
 </DemoBlock>
-
-<style>
-    .footer-customer {
-        text-align: center;
-        color: #222;
-    }
-
-    .footer-demo hr {
-        margin: 0;
-    }
-</style>

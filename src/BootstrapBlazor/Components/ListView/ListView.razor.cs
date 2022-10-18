@@ -12,7 +12,7 @@ public partial class ListView<TItem> : BootstrapComponentBase where TItem : clas
     /// <summary>
     ///  Card组件样式
     /// </summary>
-    protected virtual string? ClassName => CssBuilder.Default("listview")
+    protected virtual string? ClassString => CssBuilder.Default("listview")
         .AddClass("is-vertical", IsVertical)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
@@ -64,6 +64,7 @@ public partial class ListView<TItem> : BootstrapComponentBase where TItem : clas
     /// </summary>
     [Parameter]
     public Func<QueryPageOptions, Task<QueryData<TItem>>>? OnQueryAsync { get; set; }
+
     /// <summary>
     /// 获得/设置 ListView组件元素点击时回调委托
     /// </summary>
@@ -92,20 +93,6 @@ public partial class ListView<TItem> : BootstrapComponentBase where TItem : clas
     protected int PageItems { get; set; }
 
     /// <summary>
-    /// OnInitialized 方法
-    /// </summary>
-    protected override async Task OnInitializedAsync()
-    {
-        await base.OnInitializedAsync();
-
-        // 如果未设置 Items 数据源 自动执行查询方法
-        if (!Pageable && Items == null)
-        {
-            await QueryData();
-        }
-    }
-
-    /// <summary>
     /// <inheritdoc/>
     /// </summary>
     protected override void OnParametersSet()
@@ -118,6 +105,19 @@ public partial class ListView<TItem> : BootstrapComponentBase where TItem : clas
         {
             // 如果未设置 PageItems 取默认值第一个
             PageItems = PageItemsSource.First();
+        }
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="firstRender"></param>
+    /// <returns></returns>
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender && Items == null)
+        {
+            await QueryAsync();
         }
     }
 
@@ -176,6 +176,7 @@ public partial class ListView<TItem> : BootstrapComponentBase where TItem : clas
             TotalCount = queryData.TotalCount;
         }
     }
+
     /// <summary>
     /// 点击元素事件
     /// </summary>

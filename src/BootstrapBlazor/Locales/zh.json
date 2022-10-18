@@ -1,7 +1,4 @@
 ﻿{
-  "BootstrapBlazor.Components.AnchorLink": {
-    "TooltipText": "拷贝成功"
-  },
   "BootstrapBlazor.Components.AutoComplete": {
     "NoDataTip": "无匹配数据",
     "PlaceHolder": "请输入"
@@ -169,6 +166,9 @@
   "BootstrapBlazor.Components.Select": {
     "PlaceHolder": "请选择 ..."
   },
+  "BootstrapBlazor.Components.SelectTree": {
+    "PlaceHolder": "请选择 ..."
+  },
   "BootstrapBlazor.Components.StringLengthValidator": {
     "ErrorMessage": "最多可以输入 {{0}} 个字符"
   },
@@ -286,7 +286,9 @@
   },
   "BootstrapBlazor.Components.Transfer": {
     "LeftPanelText": "全部",
-    "RightPanelText": "已选"
+    "RightPanelText": "已选",
+    "MinErrorMessage": "最少请选择{0}项",
+    "MaxErrorMessage": "最多可选择{0}项"
   },
   "BootstrapBlazor.Components.TransferPanel": {
     "SearchPlaceHolderString": "请输入 ...",
@@ -330,6 +332,7 @@
     "LabelText": "选择图标",
     "LabelFullText": "完整文本",
     "ButtonText": "点击复制",
-    "DialogHeaderText": "请选择图标"
+    "DialogHeaderText": "请选择图标",
+    "CopiedTooltipText": "拷贝成功"
   }
 }

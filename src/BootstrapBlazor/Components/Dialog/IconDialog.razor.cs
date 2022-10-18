@@ -9,6 +9,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 
 /// </summary>
+[JSModuleAutoLoader("icon-dialog")]
 public partial class IconDialog
 {
     /// <summary>
@@ -39,9 +40,13 @@ public partial class IconDialog
     [Parameter]
     public string? ButtonText { get; set; }
 
-    private string IconFullName => $"<i class=\"{IconName}\" aria-hidden=\"true\"></i>";
+    /// <summary>
+    /// 获得/设置 拷贝成功提示文字
+    /// </summary>
+    [Parameter]
+    public string? CopiedTooltipText { get; set; }
 
-    private ElementReference IconDialogElement { get; set; }
+    private string IconFullName => $"<i class=\"{IconName}\" aria-hidden=\"true\"></i>";
 
     [Inject]
     [NotNull]
@@ -65,24 +70,10 @@ public partial class IconDialog
         LabelText ??= Localizer[nameof(LabelText)];
         LabelFullText ??= Localizer[nameof(LabelFullText)];
         ButtonText ??= Localizer[nameof(ButtonText)];
+        CopiedTooltipText ??= Localizer[nameof(CopiedTooltipText)];
 
         IconName = IconName?.Replace("fas", "fa-solid", StringComparison.OrdinalIgnoreCase)
             .Replace("far", "fa-regular", StringComparison.OrdinalIgnoreCase);
-    }
-
-    /// <summary>
-    /// OnAfterRenderAsync 方法
-    /// </summary>
-    /// <param name="firstRender"></param>
-    /// <returns></returns>
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        await base.OnAfterRenderAsync(firstRender);
-
-        if (firstRender)
-        {
-            await JSRuntime.InvokeVoidAsync(IconDialogElement, "bb_iconDialog");
-        }
     }
 
     private Task OnValueChanged(string val)

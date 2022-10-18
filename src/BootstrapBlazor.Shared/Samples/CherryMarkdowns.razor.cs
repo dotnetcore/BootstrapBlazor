@@ -2,9 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using BootstrapBlazor.Components;
-using BootstrapBlazor.Shared.Common;
-using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Options;
 
 namespace BootstrapBlazor.Shared.Samples;
@@ -14,6 +11,10 @@ namespace BootstrapBlazor.Shared.Samples;
 /// </summary>
 public partial class CherryMarkdowns
 {
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<CherryMarkdowns>? Localizer { get; set; }
+
     private string? MarkdownString { get; set; }
 
     private string? HtmlString { get; set; }

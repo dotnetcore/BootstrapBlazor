@@ -3,7 +3,6 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using BootstrapBlazor.Shared;
-using System.ComponentModel.DataAnnotations;
 
 namespace UnitTest.Components;
 public class SelectTreeTest : BootstrapBlazorTestBase
@@ -18,13 +17,7 @@ public class SelectTreeTest : BootstrapBlazorTestBase
             builder.Add(p => p.OnExpandNodeAsync, (s) => { return Task.FromResult(new List<TreeViewItem<string>>().AsEnumerable()); });
             builder.Add(p => p.CustomKeyAttribute, typeof(string));
         });
-        cut.Contains("tree-root");
-
-        cut.SetParametersAndRender(pb =>
-        {
-            pb.Add(p => p.Items, BindItems);
-        });
-        cut.Contains("tree-root");
+        cut.Contains("select dropdown select-tree");
     }
 
     [Fact]

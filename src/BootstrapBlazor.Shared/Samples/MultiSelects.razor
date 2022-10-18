@@ -55,7 +55,7 @@
     <p>@((MarkupString)Localizer["P1"].Value)</p>
     <div class="row g-3">
         <div class="col-12 col-sm-6">
-            <MultiSelect Items="@Items5" @bind-Value="@SelectedArrayValues"></MultiSelect>
+            <MultiSelect Items="@Items5" @bind-Value="@SelectedArrayValues" Max="4" Min="2"></MultiSelect>
         </div>
         <div class="col-12 col-sm-6">
             <Button Icon="fa-solid fa-plus" Text="@Localizer["ButtonText1"]" OnClick="@AddListItems" class="me-1"></Button>
@@ -207,7 +207,7 @@
 <DemoBlock Title="@Localizer["PopoverTitle"]" Introduction="@Localizer["PopoverIntro"]" Name="Popover">
     <div class="row">
         <div class="col-12 col-sm-6 overflow-hidden">
-            <MultiSelect TValue="string" Items="@Items" IsPopover="true" />
+            <MultiSelect TValue="string" Items="@Items" IsPopover="true" ShowSearch="true" />
         </div>
     </div>
 </DemoBlock>

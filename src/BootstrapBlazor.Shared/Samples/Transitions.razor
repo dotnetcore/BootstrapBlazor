@@ -1,17 +1,17 @@
 ﻿@page "/transitions"
+@inject IStringLocalizer<Transitions> Localizer
 
-<h3>Transition 过渡效果</h3>
+<h3>@Localizer["H1"]</h3>
+<h4>@Localizer["H2"]</h4>
 
-<h4>BootstarpBlazor 应用在部分组件的过渡动画，你也可以直接使用。</h4>
-
-<DemoBlock Title="基础用法" Introduction="基础动画效果演示" Name="Normal">
+<DemoBlock Title="@Localizer["P1"]" Introduction="@Localizer["P2"]" Name="Normal">
     <Button Color="Color.Primary" OnClick="OnShow" Text="FadeOut" />
     <Transition TransitionType="TransitionType.FadeOut" Show="Show" OnTransitionEnd="OnShowEnd">
         <div class="my-3">FadeOut</div>
     </Transition>
 </DemoBlock>
 
-<DemoBlock Title="动画执行完成回调" Introduction="动画执行完成后执行回调函数" Name="EndCallback">
+<DemoBlock Title="@Localizer["P3"]" Introduction="@Localizer["P4"]" Name="EndCallback">
     <Button Color="Color.Primary" OnClick="OnTransitionShow" Text="FadeOut"></Button>
     <Transition TransitionType="TransitionType.FadeOut" Show="TransitionEndShow" OnTransitionEnd="OnTransitionEndShow">
         <div class="my-3">FadeOut</div>
@@ -19,7 +19,7 @@
     <BlockLogger @ref="Trace" />
 </DemoBlock>
 
-<DemoBlock Title="设置动画时长" Introduction="通过设置 <code>Duration</code> 参数控制动画时长单位为毫秒" Name="Duration">
+<DemoBlock Title="@Localizer["P5"]" Introduction="@Localizer["P6"]" Name="Duration">
     <Button Color="Color.Primary" OnClick="OnFadeInShow" Text="FadeIn"></Button>
     <Transition TransitionType="TransitionType.FadeIn" Show="FadeInShow" Duration="3000" OnTransitionEnd="OnFadeInEndShow">
         <div class="my-3">FadeIn</div>

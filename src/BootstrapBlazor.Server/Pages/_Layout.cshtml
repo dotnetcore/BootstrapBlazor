@@ -58,14 +58,20 @@
     <component type="typeof(ReconnectorOutlet)" param-AutoReconnect="true" render-mode="ServerPrerendered" />
     <component type="typeof(UpdateIntro)" render-mode="ServerPrerendered" />
 
-    <script src="_content/BootstrapBlazor/js/bootstrap.blazor.bundle.min.js" asp-append-version="true"></script>
+    <environment include="Development">
+        <script src="_content/BootstrapBlazor/js/bootstrap.blazor.bundle.js" asp-append-version="true"></script>
+    </environment>
+    <environment include="Staging,Production">
+        <script src="_content/BootstrapBlazor/js/bootstrap.blazor.bundle.min.js" asp-append-version="true"></script>
+    </environment>
     <script src="_content/BootstrapBlazor.Chart/js/bootstrap.blazor.chart.bundle.min.js" asp-append-version="true"></script>
     <script src="_content/BootstrapBlazor.TableExport/js/export.min.js" asp-append-version="true"></script>
     <script src="_content/BootstrapBlazor.Shared/lib/highlight/highlight.min.js" asp-append-version="true"></script>
     <script src="_content/BootstrapBlazor.Shared/js/common.js" asp-append-version="true"></script>
     <script src="_framework/blazor.server.js" asp-append-version="true"></script>
     <environment include="Staging,Production">
-        <script type="text/javascript" charset="UTF-8" src="https://cdn.wwads.cn/js/makemoney.js" async></script>
+        <script type="text/javascript" src="https://cdn.wwads.cn/js/makemoney.js"></script>
+        <script type="text/javascript" src="_content/BootstrapBlazor.Shared/js/wwads.js"></script>
     </environment>
 </body>
 </html>

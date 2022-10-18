@@ -2,12 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using BootstrapBlazor.Components;
-using BootstrapBlazor.Shared.Common;
-using BootstrapBlazor.Shared.Components;
-using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
-using Microsoft.Extensions.Localization;
 
 namespace BootstrapBlazor.Shared.Samples;
 
@@ -28,7 +23,11 @@ public sealed partial class Dialogs
 
     [Inject]
     [NotNull]
-    private IStringLocalizer<Foo>? Localizer { get; set; }
+    private IStringLocalizer<Foo>? LocalizerFoo { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<Dialogs>? Localizer { get; set; }
 
     private bool IsKeyboard { get; set; }
 
@@ -68,7 +67,7 @@ public sealed partial class Dialogs
     private Task OnClick() => DialogService.Show(new DialogOption()
     {
         IsKeyboard = IsKeyboard,
-        Title = "我是服务创建的弹出框",
+        Title = "I am the popup created by the service",
         BodyTemplate = BootstrapDynamicComponent.CreateComponent<Button>(new Dictionary<string, object?>
         {
             [nameof(Button.ChildContent)] = new RenderFragment(builder => builder.AddContent(0, "我是服务创建的按钮"))
@@ -80,11 +79,11 @@ public sealed partial class Dialogs
     {
         var option = new DialogOption()
         {
-            Title = "利用代码关闭弹出框",
+            Title = "Close the popup with code",
         };
         option.BodyTemplate = BootstrapDynamicComponent.CreateComponent<Button>(new Dictionary<string, object?>
         {
-            [nameof(Button.Text)] = "点击关闭弹窗",
+            [nameof(Button.Text)] = "Click to close the popup",
             [nameof(Button.OnClick)] = EventCallback.Factory.Create<MouseEventArgs>(this, async () => await option.Dialog.Close())
         }).Render();
         await DialogService.Show(option);
@@ -94,12 +93,12 @@ public sealed partial class Dialogs
     {
         var option = new DialogOption()
         {
-            Title = "Header 中无关闭按钮",
+            Title = "Header no close button",
             ShowHeaderCloseButton = false
         };
         option.BodyTemplate = BootstrapDynamicComponent.CreateComponent<Button>(new Dictionary<string, object?>
         {
-            [nameof(Button.Text)] = "点击关闭弹窗",
+            [nameof(Button.Text)] = "Click to close the popup",
             [nameof(Button.OnClick)] = EventCallback.Factory.Create<MouseEventArgs>(this, async () => await option.Dialog.Close())
         }).Render();
         await DialogService.Show(option);
@@ -107,13 +106,13 @@ public sealed partial class Dialogs
 
     private Task OnClickCounter() => DialogService.Show(new DialogOption()
     {
-        Title = "自带的 Counter 组件",
+        Title = "Built-in Counter component",
         Component = BootstrapDynamicComponent.CreateComponent<Counter>()
     });
 
     private Task OnErrorDialog() => DialogService.Show(new DialogOption()
     {
-        Title = "点击按钮报错测试",
+        Title = "Click the button to report the error test",
         Component = BootstrapDynamicComponent.CreateComponent<ErrorCounter>()
     });
 
@@ -141,8 +140,8 @@ public sealed partial class Dialogs
 
     private Task OnClickParameter() => DialogService.Show(new DialogOption()
     {
-        Title = "自带的 Counter 组件",
-        BodyContext = "我是传参",
+        Title = "Built-in Counter component",
+        BodyContext = "I'm a passer",
         BodyTemplate = builder =>
         {
             var index = 0;
@@ -157,7 +156,7 @@ public sealed partial class Dialogs
     {
         var op = new DialogOption()
         {
-            Title = "数据查询窗口",
+            Title = "Data query window",
             ShowFooter = false,
             BodyContext = DataPrimaryId
         };
@@ -174,7 +173,7 @@ public sealed partial class Dialogs
     {
         var result = await DialogService.ShowModal<ResultDialogDemo>(new ResultDialogOption()
         {
-            Title = "带返回值模态弹出框",
+            Title = "Modal popup with return value",
             ComponentParamters = new Dictionary<string, object>
             {
                 [nameof(ResultDialogDemo.Value)] = DemoValue1,
@@ -182,21 +181,21 @@ public sealed partial class Dialogs
             }
         });
 
-        Trace.Log($"弹窗返回值为: {result} 组件返回值为: {DemoValue1}");
+        Trace.Log($"The return value of the popup window is: {result} The return value of the component is: {DemoValue1}");
     }
 
     private Task OnSizeDialogClick() => DialogService.Show(new DialogOption()
     {
-        Title = "全屏窗口",
+        Title = "full screen window",
         FullScreenSize = FullScreenSize.ExtraLarge,
-        BodyTemplate = builder => builder.AddContent(0, "屏幕小于 1200px 时全屏显示")
+        BodyTemplate = builder => builder.AddContent(0, "Full screen when screen is less than 1200px")
     });
 
     private async Task OnPrintDialogClick()
     {
         var op = new DialogOption()
         {
-            Title = "数据查询窗口",
+            Title = "Data query window",
             ShowPrintButton = true,
             ShowPrintButtonInHeader = true,
             ShowFooter = false,
@@ -214,11 +213,11 @@ public sealed partial class Dialogs
     {
         await DialogService.Show(new DialogOption()
         {
-            Title = $"可控制最大化弹窗",
+            Title = $"Controllable maximized popup",
             ShowMaximizeButton = true,
             BodyTemplate = builder =>
             {
-                builder.AddContent(0, "点击 Header 中最大化按钮弹窗可全屏");
+                builder.AddContent(0, "Click the maximize button in the Header to pop up the window to full screen");
             }
         });
     }
@@ -231,13 +230,12 @@ public sealed partial class Dialogs
     {
         var result = await DialogService.ShowModal<ResultDialogDemo2>(new ResultDialogOption()
         {
-            Title = "选择收件人",
+            Title = "select recipient",
             BodyContext = new ResultDialogDemo2.FooContext() { Count = 10, Emails = InputValue },
-            ButtonYesText = "选择",
+            ButtonYesText = "choose",
             ButtonYesIcon = "fa-solid fa-magnifying-glass",
             ComponentParamters = new Dictionary<string, object>
             {
-                // 用于初始化已选择的用户邮件
                 [nameof(ResultDialogDemo2.Emails)] = Emails,
                 [nameof(ResultDialogDemo2.EmailsChanged)] = EventCallback.Factory.Create<IEnumerable<string>>(this, v => Emails = v)
             }
@@ -262,7 +260,7 @@ public sealed partial class Dialogs
     {
         var option = new EditDialogOption<Foo>()
         {
-            Title = "编辑弹窗",
+            Title = "Edit popup",
             Model = new Foo(),
             RowType = RowType.Inline,
             ItemsPerRow = 2,
@@ -275,7 +273,7 @@ public sealed partial class Dialogs
     {
         var option = new SearchDialogOption<Foo>()
         {
-            Title = "搜索弹窗",
+            Title = "Search popup",
             Model = new Foo(),
             RowType = RowType.Inline,
             ItemsPerRow = 2,
@@ -285,8 +283,8 @@ public sealed partial class Dialogs
 
     private async Task OnSaveDialogClick()
     {
-        var foo = Foo.Generate(Localizer);
-        await DialogService.ShowSaveDialog<DialogSaveDetail>("保存", () =>
+        var foo = Foo.Generate(LocalizerFoo);
+        await DialogService.ShowSaveDialog<DialogSaveDetail>("Save", () =>
         {
             // 此处可以访问 foo 实例进行入库操作等
             return Task.FromResult(true);
@@ -304,84 +302,84 @@ public sealed partial class Dialogs
     {
         new AttributeItem() {
             Name = "Component",
-            Description = "对话框 Body 中引用的组件的参数",
+            Description = "Parameters of the component referenced in the dialog Body",
             Type = "DynamicComponent",
             ValueList = " — ",
             DefaultValue = " — "
         },
         new AttributeItem() {
             Name = "BodyContext",
-            Description = "弹窗传参",
+            Description = "pop-up window",
             Type = "object",
             ValueList = " — ",
             DefaultValue = " — "
         },
         new AttributeItem() {
             Name = "HeaderTemplate",
-            Description = "模态主体 ModalHeader 模板",
+            Description = "Modal body ModalHeader template",
             Type = "RenderFragment",
             ValueList = " — ",
             DefaultValue = " — "
         },
         new AttributeItem() {
             Name = "BodyTemplate",
-            Description = "模态主体 ModalBody 组件",
+            Description = "Modal body ModalBody component",
             Type = "RenderFragment",
             ValueList = " — ",
             DefaultValue = " — "
         },
         new AttributeItem() {
             Name = "FooterTemplate",
-            Description = "模态底部 ModalFooter 组件",
+            Description = "ModalFooter component at the bottom of the modal",
             Type = "RenderFragment",
             ValueList = " — ",
             DefaultValue = " — "
         },
         new AttributeItem() {
             Name = "IsCentered",
-            Description = "是否垂直居中",
+            Description = "Whether to center vertically",
             Type = "boolean",
             ValueList = "true|false",
             DefaultValue = "true"
         },
         new AttributeItem() {
             Name = "IsScrolling",
-            Description = "是否弹窗正文超长时滚动",
+            Description = "Whether to scroll when the text of the pop-up window is too long",
             Type = "boolean",
             ValueList = "true|false",
             DefaultValue = "false"
         },
         new AttributeItem() {
             Name = "ShowCloseButton",
-            Description = "是否显示关闭按钮",
+            Description = "whether to show the close button",
             Type = "boolean",
             ValueList = "true|false",
             DefaultValue = "true"
         },
         new AttributeItem() {
             Name = "ShowHeaderCloseButton",
-            Description = "是否显示标题栏右侧关闭按钮",
+            Description = "Whether to display the close button on the right side of the title bar",
             Type = "boolean",
             ValueList = "true|false",
             DefaultValue = "true"
         },
         new AttributeItem() {
             Name = "ShowFooter",
-            Description = "是否显示 Footer",
+            Description = "whether to display Footer",
             Type = "boolean",
             ValueList = "true|false",
             DefaultValue = "true"
         },
         new AttributeItem() {
             Name = nameof(DialogOption.ShowPrintButton),
-            Description = "是否显示打印按钮",
+            Description = "Whether to show the print button",
             Type = "boolean",
             ValueList = "true|false",
             DefaultValue = "false"
         },
         new AttributeItem() {
             Name = nameof(DialogOption.ShowPrintButtonInHeader),
-            Description = "打印按钮是否显示在 Header 中",
+            Description = "Whether the print button is displayed in the Header",
             Type = "boolean",
             ValueList = "true|false",
             DefaultValue = "false"
@@ -395,28 +393,28 @@ public sealed partial class Dialogs
         },
         new AttributeItem() {
             Name = nameof(DialogOption.FullScreenSize),
-            Description = "小于特定尺寸时全屏",
+            Description = "Full screen when smaller than a certain size",
             Type = "Size",
             ValueList = "None / Always / Small / Medium / Large / ExtraLarge",
             DefaultValue = "None"
         },
         new AttributeItem() {
             Name = "Title",
-            Description = "弹窗标题",
+            Description = "Popup title",
             Type = "string",
             ValueList = " — ",
-            DefaultValue = " 未设置 "
+            DefaultValue = " not set "
         },
         new AttributeItem() {
             Name = nameof(DialogOption.PrintButtonText),
-            Description = "打印按钮显示文字",
+            Description = "print button display text",
             Type = "string",
             ValueList = " — ",
-            DefaultValue = "资源文件中设定值"
+            DefaultValue = "The value set in the resource file"
         },
         new AttributeItem() {
             Name = nameof(DialogOption.ShowMaximizeButton),
-            Description = "是否显示最大化按钮",
+            Description = "Whether to show the maximize button",
             Type = "boolean",
             ValueList = "true|false",
             DefaultValue = "false"

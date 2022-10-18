@@ -1,23 +1,23 @@
 ﻿@page "/toasts"
+@inject IStringLocalizer<Toasts> Localizer
 @inject ToastService ToastService
 @inject IJSRuntime JSRuntime
 
-<h3>Toast 轻量弹窗</h3>
+<h3>@Localizer["H1"]</h3>
+<h4>@Localizer["H2"]</h4>
 
-<h4>提供轻量级 Toast 弹窗</h4>
+<p>@Localizer["P1"]：</p>
 
-<p>组件使用介绍：</p>
-
-<p class="code-label">1. 注入服务 <code>ToastService</code></p>
+<p class="code-label">@Localizer["P2"]</p>
 <Pre>@@inject ToastService ToastService</Pre>
 <Pre>[Inject]
 [NotNull]
 private ToastService? ToastService { get; set; }
 </Pre>
-<p class="code-label">2. 调用其实例 <code>api</code></p>
+<p class="code-label">@Localizer["P3"]</p>
 <Pre>await ToastService.Success("Title", "Content", autoHide: true);</Pre>
 
-<DemoBlock Title="基础用法" Introduction="用户操作时，右下角给予适当的提示信息" Name="Normal">
+<DemoBlock Title="@Localizer["P4"]" Introduction="@Localizer["P5"]" Name="Normal">
     <div class="row g-3 overflow-hidden">
         <div class="col-12 col-lg-6 col-xl-3">
             <ToastBox class="d-block" Options="@Options1" />
@@ -32,47 +32,47 @@ private ToastService? ToastService { get; set; }
             <ToastBox class="d-block" Options="@Options4" />
         </div>
         <div class="col-12 col-lg-6 col-xl-3">
-            <Button Color="Color.Success" Icon="fa-solid fa-circle-check" OnClick="@OnSuccessClick" Text="成功通知"></Button>
+            <Button Color="Color.Success" Icon="fa-solid fa-circle-check" OnClick="@OnSuccessClick" Text="@Localizer["P6"]"></Button>
         </div>
         <div class="col-12 col-lg-6 col-xl-3">
-            <Button Color="Color.Danger" Icon="fa-solid fa-circle-xmark" OnClick="@OnErrorClick" Text="失败通知"></Button>
+            <Button Color="Color.Danger" Icon="fa-solid fa-circle-xmark" OnClick="@OnErrorClick" Text="@Localizer["P7"]"></Button>
         </div>
         <div class="col-12 col-lg-6 col-xl-3">
-            <Button Color="Color.Info" Icon="fa-solid fa-circle-exclamation" OnClick="@OnInfoClick" Text="信息通知"></Button>
+            <Button Color="Color.Info" Icon="fa-solid fa-circle-exclamation" OnClick="@OnInfoClick" Text="@Localizer["P8"]"></Button>
         </div>
         <div class="col-12 col-lg-6 col-xl-3">
-            <Button Color="Color.Warning" Icon="fa-solid fa-triangle-exclamation" OnClick="@OnWarningClick" Text="警告通知"></Button>
+            <Button Color="Color.Warning" Icon="fa-solid fa-triangle-exclamation" OnClick="@OnWarningClick" Text="@Localizer["P9"]"></Button>
         </div>
     </div>
 </DemoBlock>
 
-<DemoBlock Title="Toast 手动关闭" Introduction="不会自动关闭，需要人工点击关闭按钮"  Name="Close">
-    <Button Icon="fa-solid fa-triangle-exclamation" OnClick="@OnNotAutoHideClick" Text="成功通知"></Button>
+<DemoBlock Title="@Localizer["P10"]" Introduction="@Localizer["P11"]"  Name="Close">
+    <Button Icon="fa-solid fa-triangle-exclamation" OnClick="@OnNotAutoHideClick" Text="@Localizer["P12"]"></Button>
 </DemoBlock>
 
-<DemoBlock Title="Toast 显示位置" Introduction="提供设置 Toast 弹窗出现位置" Name="Position">
-    <p>通过设置 <code>Toast</code> 组件的 <code>Placement</code> 值来设置弹窗出现的位置，默认值为 <code>BottomEnd</code> 除此之外的值均为右上角</p>
+<DemoBlock Title="@Localizer["P13"]" Introduction="@Localizer["P14"]" Name="Position">
+    @Localizer["P15"]
     <div class="row g-3">
         <div class="col-6 col-md-3">
-            <Button OnClick="e => OnPlacementClick(Placement.TopEnd)">右上角</Button>
+            <Button OnClick="e => OnPlacementClick(Placement.TopEnd)">@Localizer["P16"]</Button>
         </div>
         <div class="col-6 col-md-3">
-            <Button OnClick="e => OnPlacementClick(Placement.BottomEnd)">右下角</Button>
+            <Button OnClick="e => OnPlacementClick(Placement.BottomEnd)">@Localizer["P17"]</Button>
         </div>
         <div class="col-6 col-md-3">
-            <Button OnClick="e => OnPlacementClick(Placement.TopStart)">左上角</Button>
+            <Button OnClick="e => OnPlacementClick(Placement.TopStart)">@Localizer["P18"]</Button>
         </div>
         <div class="col-6 col-md-3">
-            <Button OnClick="e => OnPlacementClick(Placement.BottomStart)">左下角</Button>
+            <Button OnClick="e => OnPlacementClick(Placement.BottomStart)">@Localizer["P19"]</Button>
         </div>
     </div>
 </DemoBlock>
 
-<h4>特别注意</h4>
+<h4>@Localizer["P20"]</h4>
 
-<p>本组件使用注入服务的形式提供功能，使用时用户体验效果非常舒适，随时随地的调用</p>
+<p>@Localizer["P21"]</p>
 
-<p>注入服务提供以下几种快捷调用方法</p>
+<p>@Localizer["P22"]</p>
 
 <ul class="ul-demo mb-3">
     <li>Success()</li>
@@ -81,29 +81,29 @@ private ToastService? ToastService { get; set; }
     <li>Warning()</li>
 </ul>
 
-<p>示例如下：</p>
+<p>@Localizer["P23"]：</p>
 
-<Pre>ToastService?.Success("保存成功", "保存数据成功，4 秒后自动关闭");</Pre>
+<Pre>ToastService?.Success("@Localizer["P24"]", "@Localizer["P25"]");</Pre>
 
 <Pre>private void OnInfoClick()
 {
     ToastService.Show(new ToastOption()
     {
-        // 通知类别
+        // @Localizer["P26"]
         Category = ToastCategory.Information,
 
-        // 通知框 Title 值
-        Title = "消息通知",
+        // @Localizer["P27"]
+        Title = "@Localizer["P28"]",
 
-        // 通知正文内容
-        Content = "系统增加新组件啦，4 秒后自动关闭"
+        // @Localizer["P29"]
+        Content = "@Localizer["P30"]"
     });
 }
 </Pre>
 
-<Tips>特别说明: 可以通过 <code>BootstrapBlazorOptions</code> 全局统一配置参数可以设置整个系统内的 <code>Toast</code> 组件 <code>Delay</code> 参数值</Tips>
+<Tips>@Localizer["P31"]</Tips>
 
-<p>通过配置文件 <code>appsetting.json</code> 文件配置，适用于 <code>Server-Side App</code></p>
+<p>@Localizer["P32"]</p>
 
 <Pre>"BootstrapBlazorOptions": {
     "ToastDelay": 4000,
@@ -112,11 +112,11 @@ private ToastService? ToastService { get; set; }
 }
 </Pre>
 
-<p>通过 <code>Startup</code> 文件中的 <code>ConfigureServices</code> 方法配置，适用于 <code>Server-Side App</code> 和 <code>WebAssembly App</code></p>
+<p>@Localizer["P33"]</p>
 
 <Pre>public void ConfigureServices(IServiceCollection services)
 {
-    // 统一设置 Toast 组件自动消失时间
+    // @Localizer["P34"]
     services.Configure&lt;BootstrapBlazorOptions&gt;(options =>
     {
         options.ToastDelay = 4000;
@@ -124,18 +124,17 @@ private ToastService? ToastService { get; set; }
 }
 </Pre>
 
-<div class="mb-3">或者，仅适用于 <code>Server-Side App</code></div>
+<div class="mb-3">@Localizer["P35"]</div>
 
 <Pre>public void ConfigureServices(IServiceCollection services)
 {
-    // 增加 BootstrapBlazor 组件
+    // @Localizer["P36"]
     services.AddBootstrapBlazor(options =>
     {
-        // 统一设置 Toast 组件自动消失时间
+        // @Localizer["P37"]
         options.ToastDelay = 4000;
     });
 }
 </Pre>
 
 <AttributeTable Items="@GetAttributes()" />
-

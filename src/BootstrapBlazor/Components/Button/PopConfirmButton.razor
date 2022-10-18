@@ -2,8 +2,8 @@
 @inherits PopConfirmButtonBase
 
 <DynamicElement TagName="@TagName" OnClick="Show" id="@Id" type="@ElementType"
-                data-bs-custom-class="@CustomClass" data-bs-trigger="@Trigger" data-bs-placement="@PlacementString"
-                class="@ClassString" disabled="@Disabled" role="button" tabindex="@Tab" aria-disabled="@DisabledString">
+                data-bs-custom-class="@CustomClassString" data-bs-trigger="@TriggerString" data-bs-placement="@PlacementString"
+                class="@ClassString" role="dialog" tabindex="@Tab">
     @if (!string.IsNullOrEmpty(ButtonIcon))
     {
         <i class="@ButtonIcon"></i>
@@ -15,4 +15,8 @@
     <CascadingValue Value="this" IsFixed="true">
         @ChildContent
     </CascadingValue>
+    <PopConfirmButtonContent Title="@Title" Content="@Content" Icon="@ConfirmIcon"
+                             CloseButtonColor="@CloseButtonColor" CloseButtonText="@CloseButtonText"
+                             ConfirmButtonColor="@ConfirmButtonColor" ConfirmButtonText="@ConfirmButtonText"
+                             OnClose="@OnClose" OnConfirm="@Confirm" />
 </DynamicElement>

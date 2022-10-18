@@ -2,10 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using BootstrapBlazor.Components;
-using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.Localization;
-
 namespace BootstrapBlazor.Shared.Samples.Table;
 
 /// <summary>
@@ -17,7 +13,7 @@ public sealed partial class TablesDialog
 
     [Inject]
     [NotNull]
-    private IStringLocalizer<Foo>? Localizer { get; set; }
+    private IStringLocalizer<Foo>? LocalizerFoo { get; set; }
 
     [NotNull]
     private Modal? Modal { get; set; }
@@ -47,9 +43,9 @@ public sealed partial class TablesDialog
         ProductSelectItems = Enumerable.Range(1, 5).Select(i => new Foo()
         {
             Id = i,
-            Name = Localizer["Foo.Name", $"{i:d4}"],
+            Name = LocalizerFoo["Foo.Name", $"{i:d4}"],
             DateTime = DateTime.Now.AddDays(i - 1),
-            Address = Localizer["Foo.Address", $"{random.Next(1000, 2000)}"],
+            Address = LocalizerFoo["Foo.Address", $"{random.Next(1000, 2000)}"],
             Count = random.Next(1, 100),
             Complete = random.Next(1, 100) > 50,
             Education = EnumEducation.Primary,

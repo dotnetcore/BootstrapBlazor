@@ -2,21 +2,15 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using BootstrapBlazor.Components;
-using BootstrapBlazor.Shared.Components;
-using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Routing;
-using Microsoft.Extensions.Localization;
 
 namespace BootstrapBlazor.Shared.Shared;
 
 /// <summary>
 ///
 /// </summary>
-public sealed partial class NavMenu
+public partial class NavMenu
 {
-    private bool collapseNavMenu = true;
-
     private bool IsAccordion { get; set; }
 
     private bool IsExpandAll { get; set; }
@@ -39,18 +33,14 @@ public sealed partial class NavMenu
     [NotNull]
     private IStringLocalizer<NavMenu>? Localizer { get; set; }
 
-    private string? NavMenuCssClass => CssBuilder.Default("sidebar-content")
-        .AddClass("collapse", collapseNavMenu)
-        .Build();
-
-    private List<MenuItem> Menus { get; set; } = new List<MenuItem>(100);
+    private List<MenuItem> Menus { get; set; } = new(100);
 
     /// <summary>
     /// OnInitialized 方法
     /// </summary>
-    protected override void OnInitialized()
+    protected override void OnParametersSet()
     {
-        base.OnInitialized();
+        base.OnParametersSet();
 
         InitMenus();
 
@@ -58,23 +48,21 @@ public sealed partial class NavMenu
         ExpandAllText ??= Localizer["MenuExpandAll"];
     }
 
+    private Task OnValueChanged(bool accordion)
+    {
+        if (accordion)
+        {
+            IsExpandAll = false;
+        }
+        return Task.CompletedTask;
+    }
+
     private async Task OnClickMenu(MenuItem item)
     {
-        if (!item.Items.Any())
-        {
-            ToggleNavMenu();
-            StateHasChanged();
-        }
-
         if (!item.Items.Any() && !string.IsNullOrEmpty(item.Text))
         {
             await TitleService.SetTitle($"{item.Text} - {AppLocalizer["Title"]}");
         }
-    }
-
-    private void ToggleNavMenu()
-    {
-        collapseNavMenu = !collapseNavMenu;
     }
 
     private void InitMenus()
@@ -683,6 +671,12 @@ public sealed partial class NavMenu
             {
                 Text = Localizer["TableDynamic"],
                 Url = "tables/dynamic"
+            },
+            new()
+            {
+                IsNew = true,
+                Text = Localizer["TableDynamicObject"],
+                Url = "tables/dynamicobject"
             },
             new()
             {

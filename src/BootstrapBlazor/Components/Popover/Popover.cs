@@ -16,6 +16,19 @@ public class Popover : Tooltip
     public string? Content { get; set; }
 
     /// <summary>
+    /// 获得/设置 是否显示阴影 默认 true
+    /// </summary>
+    [Parameter]
+    public bool ShowShadow { get; set; } = true;
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override string? CustomClassString => CssBuilder.Default(CustomClass)
+        .AddClass("shadow", ShowShadow)
+        .Build();
+
+    /// <summary>
     /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
@@ -29,11 +42,11 @@ public class Popover : Tooltip
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override async ValueTask JSInvokeAsync()
+    protected override async Task ModuleInitAsync()
     {
-        if (!string.IsNullOrEmpty(Content))
+        if (!string.IsNullOrEmpty(Content) && Module != null)
         {
-            await JSRuntime.InvokeVoidAsync(identifier: "bb.Popover.init", $"#{Id}", Title, Content);
+            await Module.InvokeVoidAsync($"{ModuleName}.init", Id, Title, Content);
         }
     }
 }

@@ -4,6 +4,7 @@
 
 using BootstrapBlazor.Shared;
 using System.ComponentModel.DataAnnotations;
+using System.Dynamic;
 using System.Linq.Expressions;
 
 namespace UnitTest.Extensions;
@@ -394,6 +395,15 @@ public class LambadaExtensionsTest
     }
 
     [Fact]
+    public void GetPropertyValueLambda_Dynamic()
+    {
+        var foo = new CustomDynamicData(new Dictionary<string, string>() { ["Name"] = "Test1" });
+        var invoker = LambdaExtensions.GetPropertyValueLambda<CustomDynamicData, string>(foo, "Name").Compile();
+        var t = invoker(foo);
+        Assert.Equal("Test1", t);
+    }
+
+    [Fact]
     public void SetPropertyValueLambda_Null()
     {
         Foo? foo = null;
@@ -573,6 +583,67 @@ public class LambadaExtensionsTest
                 }
             };
             return filters;
+        }
+    }
+
+    private class CustomDynamicData : System.Dynamic.DynamicObject
+    {
+        /// <summary>
+        /// 存储每列值信息 Key 列名 Value 为列值
+        /// </summary>
+        public Dictionary<string, string> Dynamic { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="fix"></param>
+        /// <param name="data"></param>
+        public CustomDynamicData(Dictionary<string, string> data)
+        {
+            Dynamic = data;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public CustomDynamicData() : this(new()) { }
+
+        /// <summary>
+        /// <inheritdoc/>
+        /// </summary>
+        /// <param name="binder"></param>
+        /// <param name="result"></param>
+        /// <returns></returns>
+        public override bool TryGetMember(GetMemberBinder binder, out object? result)
+        {
+            if (Dynamic.ContainsKey(binder.Name))
+            {
+                result = Dynamic[binder.Name];
+            }
+            else
+            {
+                // When property name not found, return empty
+                result = "";
+            }
+            return true;
+        }
+
+        /// <summary>
+        /// <inheritdoc/>
+        /// </summary>
+        /// <param name="binder"></param>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public override bool TrySetMember(SetMemberBinder binder, object? value)
+        {
+            var ret = false;
+            var v = value?.ToString() ?? string.Empty;
+            if (Dynamic.ContainsKey(binder.Name))
+            {
+                Dynamic[binder.Name] = v;
+                ret = true;
+            }
+            return ret;
         }
     }
 

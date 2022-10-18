@@ -10,7 +10,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 支持客户端验证的文本框基类
 /// </summary>
-public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateComponent, IAsyncDisposable
+public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateComponent
 {
     private ValidationMessageStore? _parsingValidationMessages;
 
@@ -302,23 +302,20 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
     {
         await base.OnAfterRenderAsync(firstRender);
 
-        if (!firstRender)
+        if (!firstRender && IsValid.HasValue)
         {
-            if (IsValid.HasValue)
+            var valid = IsValid.Value;
+            if (valid)
             {
-                var valid = IsValid.Value;
-                IsValid = null;
-                if (valid)
-                {
-                    await RemoveValidResult();
-                }
-                else
-                {
-                    await ShowValidResult();
-                }
+                await RemoveValidResult();
+            }
+            else
+            {
+                await ShowValidResult();
             }
         }
     }
+
     #region Validation
     /// <summary>
     /// 获得 数据验证方法集合
@@ -453,6 +450,10 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
         }
     }
 
+    private JSModule? ValidateModule { get; set; }
+
+    private Task<JSModule> LoadValidateModule() => JSRuntime.LoadModule("validate");
+
     /// <summary>
     /// 增加客户端 Tooltip 方法
     /// </summary>
@@ -462,7 +463,8 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
         var id = RetrieveId();
         if (!string.IsNullOrEmpty(id) && !string.IsNullOrEmpty(ErrorMessage))
         {
-            await JSRuntime.InvokeVoidAsync(identifier: "bb.Tooltip.init", $"#{id}", ErrorMessage);
+            ValidateModule ??= await LoadValidateModule();
+            await ValidateModule.InvokeVoidAsync("Validate.execute", id, ErrorMessage);
         }
     }
 
@@ -475,7 +477,8 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
         var id = RetrieveId();
         if (!string.IsNullOrEmpty(id))
         {
-            await JSRuntime.InvokeVoidAsync(identifier: "bb.Tooltip.dispose", $"#{id}");
+            ValidateModule ??= await LoadValidateModule();
+            await ValidateModule.InvokeVoidAsync("Validate.dispose", id);
         }
     }
 
@@ -485,19 +488,15 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
     /// <param name="valid">检查结果</param>
     protected virtual void OnValidate(bool? valid)
     {
-        if (valid.HasValue)
-        {
-            AdditionalAttributes ??= new Dictionary<string, object>();
-            AdditionalAttributes["aria-invalid"] = valid.Value ? "false" : "true";
-        }
+
     }
 
     /// <summary>
-    /// DisposeAsyncCore 方法
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="disposing"></param>
     /// <returns></returns>
-    protected virtual async ValueTask DisposeAsyncCore(bool disposing)
+    protected override async ValueTask DisposeAsync(bool disposing)
     {
         if (disposing)
         {
@@ -506,21 +505,14 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
                 ValidateForm.TryRemoveValidator((FieldIdentifier.Value.FieldName, FieldIdentifier.Value.Model.GetType()), out _);
             }
 
-            if (IsValid.HasValue && !IsValid.Value)
+            if(ValidateModule != null )
             {
-                await RemoveValidResult();
+                var id = RetrieveId();
+                await ValidateModule.InvokeVoidAsync("Validate.dispose", id);
             }
         }
-    }
 
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <returns></returns>
-    public async ValueTask DisposeAsync()
-    {
-        await DisposeAsyncCore(true);
-        GC.SuppressFinalize(this);
+        await base.DisposeAsync(disposing);
     }
     #endregion
 

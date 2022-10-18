@@ -37,16 +37,6 @@ public partial class Checkbox<TValue>
         .Build();
 
     /// <summary>
-    /// 获得 复选框状态字符串
-    /// </summary>
-    protected string StateString => State switch
-    {
-        CheckboxState.UnChecked => "false",
-        CheckboxState.Checked => "true",
-        _ => "mixed"
-    };
-
-    /// <summary>
     /// 
     /// </summary>
     protected string? CheckedString => State switch

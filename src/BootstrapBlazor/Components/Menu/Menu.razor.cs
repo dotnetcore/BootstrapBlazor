@@ -7,10 +7,9 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// Menu 组件基类
 /// </summary>
+[JSModuleAutoLoader]
 public partial class Menu
 {
-    private ElementReference MenuElemenet { get; set; }
-
     /// <summary>
     /// 获得 组件样式
     /// </summary>
@@ -18,45 +17,35 @@ public partial class Menu
         .AddClass("is-bottom", IsBottom)
         .AddClass("is-vertical", IsVertical)
         .AddClass("is-collapsed", IsVertical && IsCollapsed)
-        .AddClass("accordion", IsVertical && IsAccordion)
-        .AddClass("expaned", IsVertical && IsExpandAll)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
+
+    private string? SideMenuClassString => CssBuilder.Default()
+        .AddClass("accordion", IsAccordion)
+        .Build();
+
+    private string? ExpandString => (IsVertical && IsExpandAll) ? "true" : null;
+
+    private string SideMenuId => $"{Id}_sub";
 
     /// <summary>
     /// 用于提高性能存储当前 active 状态的菜单
     /// </summary>
     private MenuItem? ActiveMenu { get; set; }
 
-    private IEnumerable<MenuItem>? _items;
-    /// <summary>
-    /// 菜单是否初始化
-    /// </summary>
-    private bool _init;
     /// <summary>
     /// 是否需要调用 JS
     /// </summary>
-    private bool _invokeJs;
+    private bool InvokeJSInterop { get; set; }
+
     /// <summary>
     /// 获得/设置 菜单数据集合
     /// </summary>
     [Parameter]
     [NotNull]
-    public IEnumerable<MenuItem>? Items
-    {
-        get => _items ?? Enumerable.Empty<MenuItem>();
-        set
-        {
-            if (_items != value)
-            {
-                _items = value;
-                _init = false;
-                _invokeJs = true;
-            }
-        }
-    }
+    public IEnumerable<MenuItem>? Items { get; set; }
 
-    private bool _accordion;
+    private bool _isAccordion;
     /// <summary>
     /// 获得/设置 是否为手风琴效果 默认为 false
     /// </summary>
@@ -64,19 +53,18 @@ public partial class Menu
     [Parameter]
     public bool IsAccordion
     {
-        get => _accordion;
+        get => _isAccordion;
         set
         {
-            if (_accordion != value)
+            if (_isAccordion != value)
             {
-                _accordion = value;
-                _invokeJs = true;
+                _isAccordion = value;
+                InvokeJSInterop = true;
             }
         }
     }
 
-    private bool _expand;
-    private bool _invokeExpandJs;
+    private bool _isExpanded;
     /// <summary>
     /// 获得/设置 是否全部展开 默认为 false
     /// </summary>
@@ -84,13 +72,13 @@ public partial class Menu
     [Parameter]
     public bool IsExpandAll
     {
-        get => _expand;
+        get => _isExpanded;
         set
         {
-            if (_expand != value)
+            if (_isExpanded != value)
             {
-                _expand = value;
-                _invokeExpandJs = true;
+                _isExpanded = value;
+                InvokeJSInterop = true;
             }
         }
     }
@@ -144,47 +132,32 @@ public partial class Menu
     private TabItemTextOptions? Options { get; set; }
 
     /// <summary>
-    /// OnParametersSet 方法
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnParametersSet()
     {
         base.OnParametersSet();
 
-        // 参数变化时重新整理菜单
-        if (!_init && Items.Any())
+        Items ??= Enumerable.Empty<MenuItem>();
+        InitMenus(null, Items, Navigator.ToBaseRelativePath(Navigator.Uri));
+        if (!DisableNavigation)
         {
-            InitMenus(null, Items, Navigator.ToBaseRelativePath(Navigator.Uri));
-            if (!DisableNavigation)
-            {
-                Options.Text = ActiveMenu?.Text;
-                Options.Icon = ActiveMenu?.Icon;
-                Options.IsActive = true;
-            }
-            _init = true;
+            Options.Text = ActiveMenu?.Text;
+            Options.Icon = ActiveMenu?.Icon;
+            Options.IsActive = true;
         }
     }
 
     /// <summary>
-    /// OnAfterRenderAsync 方法
+    /// <inheritdoc/>
     /// </summary>
-    /// <param name="firstRender"></param>
     /// <returns></returns>
-    protected override async Task OnAfterRenderAsync(bool firstRender)
+    protected override async Task ModuleExecuteAsync()
     {
-        await base.OnAfterRenderAsync(firstRender);
-
-        if (IsVertical)
+        if (IsVertical && InvokeJSInterop && Module != null)
         {
-            if (_invokeJs)
-            {
-                _invokeJs = false;
-                await JSRuntime.InvokeVoidAsync(MenuElemenet, "bb_side_menu");
-            }
-            if (_invokeExpandJs)
-            {
-                _invokeExpandJs = false;
-                await JSRuntime.InvokeVoidAsync(MenuElemenet, "bb_side_menu_expand", IsExpandAll);
-            }
+            InvokeJSInterop = false;
+            await Module.InvokeVoidAsync($"{ModuleName}.execute", Id);
         }
     }
 
@@ -259,10 +232,7 @@ public partial class Menu
                 else
                 {
                     // 顶栏模式重新级联设置 active
-                    if (ActiveMenu != null)
-                    {
-                        ActiveMenu.CascadingSetActive(false);
-                    }
+                    ActiveMenu?.CascadingSetActive(false);
                     item.CascadingSetActive();
                 }
                 ActiveMenu = item;
