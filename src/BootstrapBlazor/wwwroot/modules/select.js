@@ -1,8 +1,8 @@
-﻿import EventHandler from "./base/event-handler.js";
-import { getHeight, getInnerHeight } from "./base/utility.js";
-import { SelectTree } from "./select-tree.js"
+﻿import DropdownBase from "./base/base-dropdown.js"
+import EventHandler from "./base/event-handler.js"
+import { getHeight, getInnerHeight } from "./base/utility.js"
 
-export class Select extends SelectTree {
+export class Select extends DropdownBase {
     _init() {
         // el, obj, method
         this._search = this._element.querySelector('input.search-text')
