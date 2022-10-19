@@ -8,28 +8,28 @@
 
 <p>@Localizer["P1"]：</p>
 
-<p class="code-label">@Localizer["P2"]</p>
+<p class="code-label">@((MarkupString)Localizer["P2"].Value)</p>
 <Pre>@@inject ToastService ToastService</Pre>
 <Pre>[Inject]
 [NotNull]
 private ToastService? ToastService { get; set; }
 </Pre>
-<p class="code-label">@Localizer["P3"]</p>
+<p class="code-label">@((MarkupString)Localizer["P3"].Value)</p>
 <Pre>await ToastService.Success("Title", "Content", autoHide: true);</Pre>
 
 <DemoBlock Title="@Localizer["P4"]" Introduction="@Localizer["P5"]" Name="Normal">
     <div class="row g-3 overflow-hidden">
         <div class="col-12 col-lg-6 col-xl-3">
-            <ToastBox class="d-block" Options="@Options1" />
+            <Toast class="d-toast show" Options="@Options1" />
         </div>
         <div class="col-12 col-lg-6 col-xl-3">
-            <ToastBox class="d-block" Options="@Options2" />
+            <Toast class="d-toast show" Options="@Options2" />
         </div>
         <div class="col-12 col-lg-6 col-xl-3">
-            <ToastBox class="d-block" Options="@Options3" />
+            <Toast class="d-toast show" Options="@Options3" />
         </div>
         <div class="col-12 col-lg-6 col-xl-3">
-            <ToastBox class="d-block" Options="@Options4" />
+            <Toast class="d-toast show" Options="@Options4" />
         </div>
         <div class="col-12 col-lg-6 col-xl-3">
             <Button Color="Color.Success" Icon="fa-solid fa-circle-check" OnClick="@OnSuccessClick" Text="@Localizer["P6"]"></Button>
@@ -46,33 +46,54 @@ private ToastService? ToastService { get; set; }
     </div>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["P10"]" Introduction="@Localizer["P11"]"  Name="Close">
+<DemoBlock Title="@Localizer["P10"]" Introduction="@Localizer["P11"]" Name="Close">
     <Button Icon="fa-solid fa-triangle-exclamation" OnClick="@OnNotAutoHideClick" Text="@Localizer["P12"]"></Button>
 </DemoBlock>
 
+<DemoBlock Title="@Localizer["ShowHeaderTitle"]" Introduction="@Localizer["ShowHeaderIntro"]" Name="ShowHeader">
+    <Button Icon="fa-solid fa-circle-exclamation" OnClick="@OnShowHeaderClick" Text="@Localizer["ShowHeaderText"]"></Button>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["HeaderTemplateTitle"]" Introduction="@Localizer["HeaderTemplateIntro"]" Name="HeaderTemplate">
+    <Button Icon="fa-solid fa-circle-exclamation" OnClick="@OnHeaderTemplateClick" Text="@Localizer["ShowHeaderText"]"></Button>
+</DemoBlock>
+
 <DemoBlock Title="@Localizer["P13"]" Introduction="@Localizer["P14"]" Name="Position">
-    @Localizer["P15"]
-    <div class="row g-3">
-        <div class="col-6 col-md-3">
-            <Button OnClick="e => OnPlacementClick(Placement.TopEnd)">@Localizer["P16"]</Button>
+    @((MarkupString)Localizer["P15"].Value)
+    <div class="row g-3 row-cols-3">
+        <div class="col">
+            <Button OnClick="e => OnPlacementClick(Placement.TopStart)">Top Start</Button>
         </div>
-        <div class="col-6 col-md-3">
-            <Button OnClick="e => OnPlacementClick(Placement.BottomEnd)">@Localizer["P17"]</Button>
+        <div class="col">
+            <Button OnClick="e => OnPlacementClick(Placement.TopCenter)">Top Center</Button>
         </div>
-        <div class="col-6 col-md-3">
-            <Button OnClick="e => OnPlacementClick(Placement.TopStart)">@Localizer["P18"]</Button>
+        <div class="col">
+            <Button OnClick="e => OnPlacementClick(Placement.TopEnd)">Top End</Button>
         </div>
-        <div class="col-6 col-md-3">
-            <Button OnClick="e => OnPlacementClick(Placement.BottomStart)">@Localizer["P19"]</Button>
+        <div class="col">
+            <Button OnClick="e => OnPlacementClick(Placement.MiddleStart)">Middle Start</Button>
+        </div>
+        <div class="col">
+            <Button OnClick="e => OnPlacementClick(Placement.MiddleCenter)">Middle Center</Button>
+        </div>
+        <div class="col">
+            <Button OnClick="e => OnPlacementClick(Placement.MiddleEnd)">Middle End</Button>
+        </div>
+        <div class="col">
+            <Button OnClick="e => OnPlacementClick(Placement.BottomStart)">Bottom Start</Button>
+        </div>
+        <div class="col">
+            <Button OnClick="e => OnPlacementClick(Placement.BottomCenter)">Bottom Center</Button>
+        </div>
+        <div class="col">
+            <Button OnClick="e => OnPlacementClick(Placement.BottomEnd)">Bottom End</Button>
         </div>
     </div>
 </DemoBlock>
 
 <h4>@Localizer["P20"]</h4>
 
-<p>@Localizer["P21"]</p>
-
-<p>@Localizer["P22"]</p>
+<p>@((MarkupString)Localizer["P21"].Value)</p>
 
 <ul class="ul-demo mb-3">
     <li>Success()</li>
@@ -98,21 +119,19 @@ private ToastService? ToastService { get; set; }
         // @Localizer["P29"]
         Content = "@Localizer["P30"]"
     });
-}
-</Pre>
+}</Pre>
 
-<Tips>@Localizer["P31"]</Tips>
+<Tips>@((MarkupString)Localizer["P31"].Value)</Tips>
 
-<p>@Localizer["P32"]</p>
+    <p>@((MarkupString)Localizer["P32"].Value)</p>
 
 <Pre>"BootstrapBlazorOptions": {
     "ToastDelay": 4000,
     "MessageDelay": 4000,
     "SwalDelay": 4000
-}
-</Pre>
+}</Pre>
 
-<p>@Localizer["P33"]</p>
+<p>@((MarkupString)Localizer["P33"].Value)</p>
 
 <Pre>public void ConfigureServices(IServiceCollection services)
 {
@@ -124,7 +143,7 @@ private ToastService? ToastService { get; set; }
 }
 </Pre>
 
-<div class="mb-3">@Localizer["P35"]</div>
+<div class="mb-3">@((MarkupString)Localizer["P35"].Value)</div>
 
 <Pre>public void ConfigureServices(IServiceCollection services)
 {
@@ -134,7 +153,15 @@ private ToastService? ToastService { get; set; }
         // @Localizer["P37"]
         options.ToastDelay = 4000;
     });
-}
-</Pre>
+}</Pre>
 
 <AttributeTable Items="@GetAttributes()" />
+
+@code {
+    RenderFragment RenderHeader =>
+    @<div class="d-flex flex-fill pe-3">
+        <svg class="bd-placeholder-img rounded me-2" width="20" height="20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#007aff"></rect></svg>
+        <strong class="me-auto">Bootstrap</strong>
+        <small class="text-muted">just now</small>
+    </div>;
+}

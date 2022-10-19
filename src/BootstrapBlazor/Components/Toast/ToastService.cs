@@ -26,13 +26,13 @@ public class ToastService : BootstrapServiceBase<ToastOption>
     /// Show 方法
     /// </summary>
     /// <param name="option"></param>
-    /// <param name="toast">指定弹窗组件 默认为 null 使用 <see cref="BootstrapBlazorRoot"/> 组件内置弹窗组件</param>
-    public async Task Show(ToastOption option, Toast? toast = null)
+    /// <param name="ToastContainer">指定弹窗组件 默认为 null 使用 <see cref="BootstrapBlazorRoot"/> 组件内置弹窗组件</param>
+    public async Task Show(ToastOption option, ToastContainer? ToastContainer = null)
     {
         if (!option.ForceDelay && Options.ToastDelay != 0)
         {
             option.Delay = Options.ToastDelay;
         }
-        await Invoke(option, toast);
+        await Invoke(option, ToastContainer);
     }
 }

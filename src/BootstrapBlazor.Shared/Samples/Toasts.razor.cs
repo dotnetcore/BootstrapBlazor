@@ -12,7 +12,7 @@ namespace BootstrapBlazor.Shared.Samples;
 public sealed partial class Toasts
 {
     [NotNull]
-    private Toast? Toast { get; set; }
+    private ToastContainer? ToastContainer { get; set; }
 
     [NotNull]
     private ToastOption? Options1 { get; set; }
@@ -37,41 +37,28 @@ public sealed partial class Toasts
     {
         base.OnInitialized();
 
-        Options1 = new ToastOption { Title = "save data", IsAutoHide = false, Content = "Save data successfully, automatically close after 4 seconds" };
-        Options2 = new ToastOption { Category = ToastCategory.Error, Title = "save data", IsAutoHide = false, Content = "Save data successfully, automatically close after 4 seconds" };
-        Options3 = new ToastOption { Category = ToastCategory.Information, Title = "prompt information", IsAutoHide = false, Content = "Information prompt pop-up window, automatically closes after 4 seconds" };
+        Options1 = new ToastOption { Title = "Save data", IsAutoHide = false, Content = "Save data successfully, automatically close after 4 seconds" };
+        Options2 = new ToastOption { Category = ToastCategory.Error, Title = "Save data", IsAutoHide = false, Content = "Save data successfully, automatically close after 4 seconds" };
+        Options3 = new ToastOption { Category = ToastCategory.Information, Title = "Prompt information", IsAutoHide = false, Content = "Information prompt pop-up window, automatically closes after 4 seconds" };
         Options4 = new ToastOption { Category = ToastCategory.Warning, Title = "Warning message", IsAutoHide = false, Content = "Information prompt pop-up window, automatically closes after 4 seconds" };
 
-        Toast = Root.ToastContainer;
-    }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="firstRender"></param>
-    /// <returns></returns>
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (firstRender)
-        {
-            await JSRuntime.InvokeVoidAsync("$._showToast");
-        }
+        ToastContainer = Root.ToastContainer;
     }
 
     private async Task OnPlacementClick(Placement placement)
     {
-        Toast.SetPlacement(placement);
+        ToastContainer.SetPlacement(placement);
         await ToastService.Show(new ToastOption()
         {
             Category = ToastCategory.Information,
-            Title = "notification",
+            Title = "Notification",
             Content = "<b>Toast</b> The component has changed position, it will automatically shut down after 4 seconds"
         });
     }
 
     private async Task OnSuccessClick()
     {
-        Toast.SetPlacement(Placement.BottomEnd);
+        ToastContainer.SetPlacement(Placement.BottomEnd);
         await ToastService.Show(new ToastOption()
         {
             Category = ToastCategory.Success,
@@ -82,7 +69,7 @@ public sealed partial class Toasts
 
     private async Task OnErrorClick()
     {
-        Toast.SetPlacement(Placement.BottomEnd);
+        ToastContainer.SetPlacement(Placement.BottomEnd);
         await ToastService.Show(new ToastOption()
         {
             Category = ToastCategory.Error,
@@ -93,18 +80,18 @@ public sealed partial class Toasts
 
     private async Task OnInfoClick()
     {
-        Toast.SetPlacement(Placement.BottomEnd);
+        ToastContainer.SetPlacement(Placement.BottomEnd);
         await ToastService.Show(new ToastOption()
         {
             Category = ToastCategory.Information,
-            Title = "notification",
+            Title = "Notification",
             Content = "The system adds new components, it will automatically shut down after 4 seconds"
         });
     }
 
     private async Task OnWarningClick()
     {
-        Toast.SetPlacement(Placement.BottomEnd);
+        ToastContainer.SetPlacement(Placement.BottomEnd);
         await ToastService.Show(new ToastOption()
         {
             Category = ToastCategory.Warning,
@@ -113,12 +100,9 @@ public sealed partial class Toasts
         });
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
     private async Task OnNotAutoHideClick()
     {
-        Toast.SetPlacement(Placement.BottomEnd);
+        ToastContainer.SetPlacement(Placement.BottomEnd);
         await ToastService.Show(new ToastOption()
         {
             Category = ToastCategory.Warning,
@@ -128,60 +112,78 @@ public sealed partial class Toasts
         });
     }
 
-    /// <summary>
-    /// 获得属性方法
-    /// </summary>
-    /// <returns></returns>
-    private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+    private async Task OnShowHeaderClick()
+    {
+        ToastContainer.SetPlacement(Placement.BottomEnd);
+        await ToastService.Show(new ToastOption()
+        {
+            Category = ToastCategory.Warning,
+            ShowHeader = false,
+            Content = "The system adds new components, it will automatically shut down after 4 seconds"
+        });
+    }
+
+    private async Task OnHeaderTemplateClick()
+    {
+        ToastContainer.SetPlacement(Placement.BottomEnd);
+        await ToastService.Show(new ToastOption()
+        {
+            Category = ToastCategory.Information,
+            HeaderTemplate = RenderHeader,
+            Content = "The system adds new components, it will automatically shut down after 4 seconds"
+        });
+    }
+
+    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
         new AttributeItem() {
             Name = "Category",
-            Description = "Popover type",
+            Description = Localizer["AttrCategory"],
             Type = "ToastCategory",
             ValueList = "Success/Information/Error/Warning",
             DefaultValue = "Success"
         },
         new AttributeItem() {
+            Name = "Title",
+            Description = Localizer["AttrTitle"],
+            Type = "string",
+            ValueList = "—",
+            DefaultValue = ""
+        },
+        new AttributeItem() {
             Name = "Cotent",
-            Description = "Popup content",
+            Description = Localizer["AttrCotent"],
             Type = "string",
             ValueList = "—",
             DefaultValue = ""
         },
         new AttributeItem() {
             Name = "Delay",
-            Description = "Auto hide interval",
+            Description = Localizer["AttrDelay"],
             Type = "int",
             ValueList = "—",
             DefaultValue = "4000"
         },
         new AttributeItem() {
             Name = "IsAutoHide",
-            Description = "Whether to automatically hide",
+            Description = Localizer["AttrIsAutoHide"],
             Type = "boolean",
             ValueList = "",
             DefaultValue = "true"
         },
         new AttributeItem() {
             Name = "IsHtml",
-            Description = "Whether the content contains Html code",
+            Description = Localizer["AttrIsHtml"],
             Type = "boolean",
             ValueList = "",
             DefaultValue = "false"
         },
         new AttributeItem() {
             Name = "Placement",
-            Description = "Location",
+            Description = Localizer["AttrPlacement"],
             Type = "Placement",
             ValueList = "Auto / Top / Left / Bottom / Right",
             DefaultValue = "Auto"
-        },
-        new AttributeItem() {
-            Name = "Title",
-            Description = "Popup title",
-            Type = "string",
-            ValueList = "—",
-            DefaultValue = ""
         }
     };
 }

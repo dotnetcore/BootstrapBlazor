@@ -9,10 +9,6 @@
     };
 
     $.extend({
-        _showToast: function () {
-            var $toast = $('.row .toast').toast('show');
-            $toast.find('.toast-progress').css({"width": "100%"});
-        },
         _initChart: function (el, obj, method) {
             var showToast = false;
             var handler = null;

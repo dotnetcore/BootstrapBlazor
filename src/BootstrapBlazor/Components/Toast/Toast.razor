@@ -1,11 +1,37 @@
 ﻿@namespace BootstrapBlazor.Components
-@inherits BootstrapComponentBase
+@inherits BootstrapModuleComponentBase
+@attribute [JSModuleAutoLoader(JSObjectReference = true)]
 
-<div @attributes="@AdditionalAttributes" class="@ClassString" style="@StyleString">
-    <CascadingValue Value="this" IsFixed="true">
-        @foreach (var option in Toasts)
+<div @attributes="@AdditionalAttributes" id="@Id" class="@ClassString" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="@AutoHide" data-bs-animation="@AnimationString" data-bs-delay="@DelayString">
+    @if (Options.ShowHeader)
+    {
+        <div class="toast-header">
+            @if (Options.HeaderTemplate != null)
+            {
+                @Options.HeaderTemplate
+            }
+            else
+            {
+                <div class="toast-bar me-2">
+                    <i class="@IconString"></i>
+                </div>
+                <strong class="me-auto">@Options.Title</strong>
+            }
+            @if (Options.ShowClose)
+            {
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            }
+        </div>
+    }
+    <div class="toast-body">
+        @if (Options.ChildContent != null)
         {
-            <ToastBox @key="@option" class="@ToastBoxClassString" Options="@option" />
+            @Options.ChildContent
         }
-    </CascadingValue>
+        else if (!string.IsNullOrEmpty(Options.Content))
+        {
+            @((MarkupString)Options.Content)
+        }
+    </div>
+    <div class="@ProgressClass"></div>
 </div>

@@ -29,7 +29,7 @@ public partial class ChartToast : ComponentBase, IDisposable
     /// <param name="builder"></param>
     protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
-        builder.OpenComponent<Toast>(0);
+        builder.OpenComponent<ToastContainer>(0);
         builder.CloseComponent();
     }
 

@@ -12,12 +12,32 @@ public class ToastOption : PopupOptionBase
     /// <summary>
     /// 获得/设置 弹窗载体
     /// </summary>
-    internal ToastBox? ToastBox { get; set; }
+    internal Toast? Toast { get; set; }
 
     /// <summary>
     /// 获得/设置 弹出框类型
     /// </summary>
     public ToastCategory Category { get; set; }
+
+    /// <summary>
+    /// 获得/设置 成功图标
+    /// </summary>
+    public string SuccessIcon { get; set; } = "fa-solid fa-check-circle text-success";
+
+    /// <summary>
+    /// 获得/设置 提示图标
+    /// </summary>
+    public string InformationIcon { get; set; } = "fa-solid fa-exclamation-circle text-info";
+
+    /// <summary>
+    /// 获得/设置 错误图标
+    /// </summary>
+    public string ErrorIcon { get; set; } = "fa-solid fa-xmark-circle text-danger";
+
+    /// <summary>
+    /// 获得/设置 警告图标
+    /// </summary>
+    public string WarningIcon { get; set; } = "fa-solid fa-exclamation-triangle text-warning";
 
     /// <summary>
     /// 获得/设置 显示标题
@@ -35,13 +55,28 @@ public class ToastOption : PopupOptionBase
     public bool ShowClose { get; set; } = true;
 
     /// <summary>
+    /// 获得/设置 是否显示 Header 默认 true
+    /// </summary>
+    public bool ShowHeader { get; set; } = true;
+
+    /// <summary>
+    /// 获得/设置 Header 模板 默认为 null
+    /// </summary>
+    public RenderFragment? HeaderTemplate { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否开启动画 默认 true
+    /// </summary>
+    public bool Animation { get; set; } = true;
+
+    /// <summary>
     /// 关闭当前弹窗方法
     /// </summary>
-    public async ValueTask Close()
+    public void Close()
     {
-        if (ToastBox != null)
+        if (Toast != null)
         {
-            await ToastBox.Close();
+            Toast.Close();
         }
     }
 }

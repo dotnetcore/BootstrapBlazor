@@ -115,7 +115,7 @@ public sealed partial class TablesToolbar
             await MockDownLoadAsync();
 
             // Close the popup associated with the option
-            await option.Close();
+            option.Close();
 
             // A pop-up window informs that the download is complete
             await ToastService.Show(new ToastOption()
