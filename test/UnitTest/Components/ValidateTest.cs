@@ -403,7 +403,6 @@ public class ValidateTest : BootstrapBlazorTestBase
                     new SelectedItem("1", "test1"),
                     new SelectedItem("2", "test2")
                 });
-                pb.AddChildContent<Tooltip>();
             });
             builder.AddChildContent<Button>(pb =>
             {

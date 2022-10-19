@@ -22,6 +22,12 @@ public partial class Radio<TValue>
     public bool IsButton { get; set; }
 
     /// <summary>
+    /// 获得/设置 子组件 RenderFragment 实例
+    /// </summary>
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    /// <summary>
     /// 获得/设置 Radio 组名称一般来讲需要设置 默认为 null 未设置
     /// </summary>
     [Parameter]

@@ -175,12 +175,6 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
     }
 
     /// <summary>
-    /// 获得/设置 子组件 RenderFragment 实例
-    /// </summary>
-    [Parameter]
-    public RenderFragment? ChildContent { get; set; }
-
-    /// <summary>
     /// 获得/设置 是否不进行验证 默认为 false
     /// </summary>
     [Parameter]

@@ -117,15 +117,12 @@ public partial class CheckboxList<TValue>
         if (Items == null)
         {
             var t = typeof(TValue);
-            if (t == typeof(string))
+            var innerType = t.GetGenericArguments().FirstOrDefault();
+            if (innerType != null)
             {
-                Items = Enumerable.Empty<SelectedItem>();
+                Items = innerType.ToSelectList();
             }
-            else
-            {
-                var innerType = t.GetGenericArguments()[0];
-                Items = innerType.IsEnum ? innerType.ToSelectList() : Enumerable.Empty<SelectedItem>();
-            }
+            Items ??= Enumerable.Empty<SelectedItem>();
         }
 
         InitValue();
