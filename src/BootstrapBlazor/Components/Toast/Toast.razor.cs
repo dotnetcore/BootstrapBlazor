@@ -12,7 +12,7 @@ public partial class Toast
     /// <summary>
     /// 获得/设置 弹出框类型
     /// </summary>
-    protected string? AutoHide => !Options.IsAutoHide ? "false" : null;
+    protected string? AutoHide => Options.IsAutoHide ? null : "false";
 
     /// <summary>
     /// 获得/设置 弹出框类型

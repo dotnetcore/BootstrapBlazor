@@ -92,16 +92,6 @@ public partial class ToastContainer : IDisposable
     }
 
     /// <summary>
-    /// 清除 ToastBox 方法
-    /// </summary>
-    [JSInvokable]
-    public async Task Clear()
-    {
-        Toasts.Clear();
-        await InvokeAsync(StateHasChanged);
-    }
-
-    /// <summary>
     /// 设置 Toast 容器位置方法
     /// </summary>
     /// <param name="placement"></param>

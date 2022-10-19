@@ -43,7 +43,7 @@ public partial class ChartToast : ComponentBase, IDisposable
 
         if (firstRender && JSRuntime != null)
         {
-            if (Interope == null) Interope = new JSInterop<ChartToast>(JSRuntime);
+            Interope ??= new JSInterop<ChartToast>(JSRuntime);
             await Interope.InvokeVoidAsync(this, "", "_initChart", nameof(ShowToast));
         }
     }
