@@ -9,18 +9,6 @@
     };
 
     $.extend({
-        _showToast: function () {
-            var $toast = $('.row .toast').toast('show');
-            $toast.find('.toast-progress').css({ "width": "100%" });
-        },
-        highlight: function (el) {
-            var $el = $(el);
-            $el.find('[data-bs-toggle="tooltip"]').tooltip();
-            var code = $el.find('code')[0];
-            if (code) {
-                hljs.highlightBlock(code);
-            }
-        },
         _initChart: function (el, obj, method) {
             var showToast = false;
             var handler = null;
@@ -69,8 +57,7 @@
                                 var t1 = plant.pop();
                                 $this.text(plant.join(''));
                             }
-                        }
-                        else {
+                        } else {
                             window.clearInterval(eventHandler);
                             $cursor.removeClass('active');
 
@@ -150,15 +137,6 @@
         tooltip: function () {
             $('[data-bs-toggle="tooltip"]').tooltip();
         },
-        table_test: function (el, obj, method) {
-            var $el = $(el);
-            $el.on('click', 'tbody tr', function () {
-                $el.find('.active').removeClass('active');
-                var index = $(this).addClass('active').data('index');
-
-                obj.invokeMethodAsync(method, index);
-            });
-        },
         initTheme: function (el) {
             var $el = $(el);
             $el.find('[data-bs-toggle="tooltip"]').tooltip();
@@ -183,51 +161,6 @@
                 $link.after('<link rel="stylesheet" href="' + c + '">');
             });
         },
-        bb_open: function (method) {
-            if (method === 'dispose') {
-                $('#log').popover(method);
-            } else {
-                $('#log').popover({ delay: { 'show': 1000 } }).one('click', function () {
-                    $(this).popover('toggle');
-                }).trigger('click');
-            }
-        },
-        bb_site_load: function (el, version) {
-            $(el).tooltip();
-
-            var width = $(window).width();
-            if (width >= 768) {
-                // Intro 弹窗
-                var key = 'bb_intro_popup:' + version;
-                var isShown = localStorage.getItem(key);
-                if (!isShown) {
-                    var $intro = $('.blazor-intro');
-                    $intro.find('.version').text(version);
-                    $('.blazor-intro-button').on('click', function () {
-                        $intro.slideToggle('fade', function () {
-                            localStorage.setItem(key, false);
-                        });
-                    });
-                    $intro.slideToggle('fade');
-
-                    // clean
-                    for (var index = localStorage.length; index > 0; index--) {
-                        var k = localStorage.key(index - 1);
-                        if (k.indexOf('bb_intro_popup:') > -1) {
-                            localStorage.removeItem(k);
-                        }
-                    }
-                }
-            }
-        },
-        bb_block: function (el) {
-            var $el = $(el);
-            var id = $.getUID();
-            var $footer = $el.children('.card-footer-code');
-            var $footerBar = $el.children('.card-footer-control');
-            $footer.attr('id', id);
-            $footerBar.attr('href', '#' + id);
-        },
         bb_topology_handler(tagName) {
             if (window.bb_topology_demo_invoker !== undefined) {
                 window.bb_topology_demo_invoker.toggleFan(tagName);
@@ -242,7 +175,7 @@
             }
         },
         bb_topology_demo_setOptions: function () {
-            window.topology.setOptions({ hoverColor: '', hoverCursor: '', activeColor: '' });
+            window.topology.setOptions({hoverColor: '', hoverCursor: '', activeColor: ''});
         }
     });
 
@@ -292,8 +225,7 @@
             var currentScrollTop = $(document).scrollTop();
             if (currentScrollTop > prevScrollTop) {
                 $header.addClass('hide');
-            }
-            else {
+            } else {
                 $header.removeClass('hide');
             }
             prevScrollTop = currentScrollTop;
@@ -313,14 +245,5 @@
         //        setInterval(attemptReload, 10000);
         //    }
         //}).observe(document.body, { childList: true, subtree: true });
-
-        // Pre
-        bootstrap.EventHandler.on(document, 'click', '.pre-code .btn-clipboard', function () {
-            const text = this.previousElementSibling.querySelector('code').textContent;
-            bb.Utility.copy(text);
-
-            const tooltip = bb.Utility.getDescribedElement(this);
-            tooltip.querySelector('.tooltip-inner').innerHTML = '拷贝代码成功';
-        });
     });
 })(jQuery);

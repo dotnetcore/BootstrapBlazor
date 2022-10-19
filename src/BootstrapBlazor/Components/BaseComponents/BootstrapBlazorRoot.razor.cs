@@ -36,7 +36,7 @@ public partial class BootstrapBlazorRoot
     /// 获得 Toast 组件实例
     /// </summary>
     [NotNull]
-    public Toast? ToastContainer { get; private set; }
+    public ToastContainer? ToastContainer { get; private set; }
 
     /// <summary>
     /// 获得/设置 自定义错误处理回调方法
@@ -99,9 +99,6 @@ public partial class BootstrapBlazorRoot
     private static RenderFragment RenderComponents() => builder =>
     {
         builder.OpenComponent<Dialog>(0);
-        builder.CloseComponent();
-
-        builder.OpenComponent<PopoverConfirm>(1);
         builder.CloseComponent();
 
         builder.OpenComponent<SweetAlert>(2);

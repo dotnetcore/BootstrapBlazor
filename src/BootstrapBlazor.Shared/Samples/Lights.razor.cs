@@ -2,9 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using BootstrapBlazor.Components;
-using BootstrapBlazor.Shared.Common;
-
 namespace BootstrapBlazor.Shared.Samples;
 
 /// <summary>
@@ -17,7 +14,7 @@ public partial class Lights : IDisposable
     private CancellationTokenSource UpdateColorTokenSource { get; } = new CancellationTokenSource();
 
     /// <summary>
-    /// OnAfterRender 方法
+    /// OnAfterRender
     /// </summary>
     /// <param name="firstRender"></param>
     /// <returns></returns>
@@ -49,21 +46,21 @@ public partial class Lights : IDisposable
         {
             new AttributeItem() {
                 Name = "Color",
-                Description = "颜色",
+                Description = "Color",
                 Type = "Color",
                 ValueList = "None / Active / Primary / Secondary / Success / Danger / Warning / Info / Light / Dark / Link",
                 DefaultValue = "Success"
             },
             new AttributeItem() {
                 Name = "IsFlash",
-                Description = "是否闪烁",
+                Description = "Is it flashing",
                 Type = "boolean",
                 ValueList = " — ",
                 DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "Title",
-                Description = "指示灯 Tooltip 显示文字",
+                Description = "Indicator Tooltip Display text",
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = " — "
@@ -72,7 +69,7 @@ public partial class Lights : IDisposable
     }
 
     /// <summary>
-    /// Dispose 方法
+    /// Dispose
     /// </summary>
     protected virtual void Dispose(bool disposing)
     {
@@ -84,7 +81,7 @@ public partial class Lights : IDisposable
     }
 
     /// <summary>
-    /// Dispose 方法
+    /// Dispose
     /// </summary>
     public void Dispose()
     {

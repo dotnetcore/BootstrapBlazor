@@ -49,7 +49,7 @@
     </div>
 </DemoBlock>
 
-<DemoBlock Title="" Introduction="" Name="Group">
+<DemoBlock Title="@Localizer["GroupTitle"]" Introduction="@Localizer["GroupIntro"]" Name="Group">
     <div class="listview-demo">
         <ListView TItem="Product" GroupName="@(p => p.Category)" OnQueryAsync="@OnQueryAsync">
             <HeaderTemplate>

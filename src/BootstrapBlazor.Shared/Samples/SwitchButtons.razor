@@ -1,20 +1,20 @@
 ﻿@page "/switchbuttons"
+@inject IStringLocalizer<SwitchButtons> Localizer
 
-<h3>Switch Button 状态切换按钮</h3>
+<h3>@Localizer["H1"]</h3>
+<h4>@Localizer["H2"]</h4>
 
-<h4>点击按钮后切换状态</h4>
-
-<DemoBlock Title="基础用法" Introduction="点击组件自动切换状态" Name="Normal">
+<DemoBlock Title="@Localizer["P1"]" Introduction="@Localizer["P2"]" Name="Normal">
     <SwitchButton />
 </DemoBlock>
 
-<DemoBlock Title="初始化状态" Introduction="通过设置 <code>ToggleState</code> 初始化组件状态" Name="ToggleState">
-    <p>可通过设置 <code>ToggleStateChanged</code> 回调方法获得当前组件状态</p>
+<DemoBlock Title="@Localizer["P3"]" Introduction="@Localizer["P4"]" Name="ToggleState">
+    <p>@Localizer["P5"]</p>
     <SwitchButton ToggleState="ToggleState" />
 </DemoBlock>
 
-<DemoBlock Title="点击回调方法" Introduction="通过设置 <code>ToggleState</code> 初始化组件状态" Name="OnClick">
-    <p><code>OnClick</code> 回调是 <code>EventCallback</code> 会自动刷新当前组件或者页面，若不需要刷新组件或者页面可使用 <code>ToggleStateChanged</code></p>
+<DemoBlock Title="@Localizer["P6"]" Introduction="@Localizer["P7"]" Name="OnClick">
+    <p>@Localizer["P8"]</p>
     <SwitchButton OnClick="OnClick" />
     <BlockLogger @ref="Trace" class="mt-3" />
 </DemoBlock>

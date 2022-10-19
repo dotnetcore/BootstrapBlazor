@@ -9,6 +9,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// Upload 组件基类
 /// </summary>
+[JSModuleAutoLoader("upload", ModuleName = "Upload")]
 public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
 {
     /// <summary>
@@ -17,11 +18,6 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
     protected string? ClassString => CssBuilder.Default("upload")
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
-
-    /// <summary>
-    /// 获得/设置 Upload 组件实例
-    /// </summary>
-    protected ElementReference UploaderElement { get; set; }
 
     /// <summary>
     /// 
@@ -58,24 +54,6 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
     /// </summary>
     [Parameter]
     public Func<UploadFile, Task>? OnChange { get; set; }
-
-    private JSModule? Module { get; set; }
-
-    /// <summary>
-    /// OnAfterRender 方法
-    /// </summary>
-    /// <param name="firstRender"></param>
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        await base.OnAfterRenderAsync(firstRender);
-
-        if (firstRender && !IsDisabled && UploaderElement.Context != null)
-        {
-            // support drag
-            Module = await JSRuntime.LoadModule("upload.js");
-            await Module.InvokeVoidAsync("bb_upload_drag_init", UploaderElement);
-        }
-    }
 
     /// <summary>
     /// 
@@ -179,23 +157,5 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
     {
         UploadFiles.Clear();
         StateHasChanged();
-    }
-
-    /// <summary>
-    /// DisposeAsyncCore 方法
-    /// </summary>
-    /// <param name="disposing"></param>
-    /// <returns></returns>
-    protected override async ValueTask DisposeAsyncCore(bool disposing)
-    {
-        await base.DisposeAsyncCore(disposing);
-
-        if (disposing)
-        {
-            if (Module != null)
-            {
-                await Module.DisposeAsync();
-            }
-        }
     }
 }

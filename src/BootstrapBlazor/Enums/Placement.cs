@@ -20,18 +20,6 @@ public enum Placement
     /// <summary>
     /// 
     /// </summary>
-    [Description("auto-start")]
-    AutoStart,
-
-    /// <summary>
-    /// 
-    /// </summary>
-    [Description("auto-end")]
-    AutoEnd,
-
-    /// <summary>
-    /// 
-    /// </summary>
     [Description("top")]
     Top,
 
@@ -44,26 +32,38 @@ public enum Placement
     /// <summary>
     /// 
     /// </summary>
+    [Description("top-center")]
+    TopCenter,
+
+    /// <summary>
+    /// 
+    /// </summary>
     [Description("top-end")]
     TopEnd,
 
     /// <summary>
     /// 
     /// </summary>
-    [Description("right")]
-    Right,
+    [Description("middle")]
+    Middle,
 
     /// <summary>
     /// 
     /// </summary>
-    [Description("right-start")]
-    RightStart,
+    [Description("middel-start")]
+    MiddleStart,
 
     /// <summary>
     /// 
     /// </summary>
-    [Description("right-end")]
-    RightEnd,
+    [Description("middel-center")]
+    MiddleCenter,
+
+    /// <summary>
+    /// 
+    /// </summary>
+    [Description("middle-end")]
+    MiddleEnd,
 
     /// <summary>
     /// 
@@ -76,6 +76,12 @@ public enum Placement
     /// </summary>
     [Description("bottom-start")]
     BottomStart,
+
+    /// <summary>
+    /// 
+    /// </summary>
+    [Description("bottom-center")]
+    BottomCenter,
 
     /// <summary>
     /// 
@@ -99,5 +105,23 @@ public enum Placement
     /// 
     /// </summary>
     [Description("left-end")]
-    LeftEnd
+    LeftEnd,
+
+    /// <summary>
+    /// 
+    /// </summary>
+    [Description("right")]
+    Right,
+
+    /// <summary>
+    /// 
+    /// </summary>
+    [Description("right-start")]
+    RightStart,
+
+    /// <summary>
+    /// 
+    /// </summary>
+    [Description("right-end")]
+    RightEnd,
 }

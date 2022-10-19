@@ -467,14 +467,22 @@ internal class CacheManager : ICacheManager
         {
             throw new ArgumentNullException(nameof(model));
         }
-        var type = model.GetType();
-        var cacheKey = ($"Lambda-Get-{type.FullName}", typeof(TModel), fieldName, typeof(TResult));
-        var invoker = Instance.GetOrCreate(cacheKey, entry =>
+
+        return (model is IDynamicColumnsObject d)
+            ? (TResult)d.GetValue(fieldName)!
+            : GetValue();
+
+        TResult GetValue()
         {
-            entry.SetDynamicAssemblyPolicy(type);
-            return LambdaExtensions.GetPropertyValueLambda<TModel, TResult>(model, fieldName).Compile();
-        });
-        return invoker(model);
+            var type = model.GetType();
+            var cacheKey = ($"Lambda-Get-{type.FullName}", typeof(TModel), fieldName, typeof(TResult));
+            var invoker = Instance.GetOrCreate(cacheKey, entry =>
+            {
+                entry.SetDynamicAssemblyPolicy(type);
+                return LambdaExtensions.GetPropertyValueLambda<TModel, TResult>(model, fieldName).Compile();
+            });
+            return invoker(model);
+        }
     }
 
     public static void SetPropertyValue<TModel, TValue>(TModel model, string fieldName, TValue value)
@@ -483,14 +491,27 @@ internal class CacheManager : ICacheManager
         {
             throw new ArgumentNullException(nameof(model));
         }
-        var type = model.GetType();
-        var cacheKey = ($"Lambda-Set-{type.FullName}", typeof(TModel), fieldName, typeof(TValue));
-        var invoker = Instance.GetOrCreate(cacheKey, entry =>
+
+        if (model is IDynamicColumnsObject d)
         {
-            entry.SetDynamicAssemblyPolicy(type);
-            return LambdaExtensions.SetPropertyValueLambda<TModel, TValue>(model, fieldName).Compile();
-        });
-        invoker(model, value);
+            d.SetValue(fieldName, value);
+        }
+        else
+        {
+            SetValue();
+        }
+
+        void SetValue()
+        {
+            var type = model.GetType();
+            var cacheKey = ($"Lambda-Set-{type.FullName}", typeof(TModel), fieldName, typeof(TValue));
+            var invoker = Instance.GetOrCreate(cacheKey, entry =>
+            {
+                entry.SetDynamicAssemblyPolicy(type);
+                return LambdaExtensions.SetPropertyValueLambda<TModel, TValue>(model, fieldName).Compile();
+            });
+            invoker(model, value);
+        }
     }
 
     /// <summary>

@@ -2,10 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using BootstrapBlazor.Components;
-using BootstrapBlazor.Shared.Common;
-using BootstrapBlazor.Shared.Components;
-using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 
 namespace BootstrapBlazor.Shared.Samples;
@@ -18,19 +14,19 @@ public partial class SweetAlerts
     private Task OnSwal(SwalCategory cate) => SwalService.Show(new SwalOption()
     {
         Category = cate,
-        Title = "Sweet 弹窗"
+        Title = "Sweet"
     });
 
     private Task ShowTitle() => SwalService.Show(new SwalOption()
     {
         Category = SwalCategory.Success,
-        Title = "我是 Title"
+        Title = "Title"
     });
 
     private Task ShowContent() => SwalService.Show(new SwalOption()
     {
         Category = SwalCategory.Success,
-        Content = "我是 Content"
+        Content = "Content"
     });
 
     [Inject]
@@ -42,14 +38,14 @@ public partial class SweetAlerts
         var op = new SwalOption()
         {
             Category = SwalCategory.Success,
-            Title = "我是 Title",
-            Content = "我是 Content",
+            Title = "Title",
+            Content = "Content",
             ShowClose = false
         };
         op.ButtonTemplate = new RenderFragment(builder =>
         {
             builder.OpenComponent<Button>(0);
-            builder.AddAttribute(1, nameof(Button.Text), "自定义关闭按钮");
+            builder.AddAttribute(1, nameof(Button.Text), "Close");
             builder.AddAttribute(2, nameof(Button.OnClick), EventCallback.Factory.Create<MouseEventArgs>(this, async () => await op.Close()));
             builder.CloseComponent();
         });
@@ -100,106 +96,107 @@ public partial class SweetAlerts
         await SwalService.Show(op);
     }
 
+    [NotNull]
     private BlockLogger? Trace { get; set; }
 
     private async Task ShowModal()
     {
         var op = new SwalOption()
         {
-            Title = "模态对话框示例",
-            Content = "模态对话框内容，不同按钮返回不同值"
+            Title = Localizer["SwalOptionTitle"],
+            Content = Localizer["SwalOptionContent"]
         };
         var ret = await SwalService.ShowModal(op);
 
-        Trace?.Log($"模态弹窗返回值为：{ret}");
+        Trace.Log($"{Localizer["SwalConsoleInfo"]}：{ret}");
     }
 
     /// <summary>
     /// 
     /// </summary>
     /// <returns></returns>
-    private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
         new AttributeItem() {
             Name = "Category",
-            Description = "弹出框类型",
+            Description = Localizer["AttrCategory"],
             Type = "SwalCategory",
             ValueList = "Success/Error/Information/Warning/Question",
             DefaultValue = "Success"
         },
         new AttributeItem() {
             Name = "Title",
-            Description = "弹窗标题",
+            Description = Localizer["AttrTitle"],
             Type = "string",
             ValueList = "—",
             DefaultValue = ""
         },
         new AttributeItem() {
             Name = "Cotent",
-            Description = "弹窗内容",
+            Description = Localizer["AttrContent"],
             Type = "string",
             ValueList = "—",
             DefaultValue = ""
         },
         new AttributeItem() {
             Name = "Delay",
-            Description = "自动隐藏时间间隔",
+            Description = Localizer["AttrDelay"],
             Type = "int",
             ValueList = "—",
             DefaultValue = "4000"
         },
         new AttributeItem() {
             Name = "IsAutoHide",
-            Description = "是否自动隐藏",
+            Description = Localizer["AttrAutoHide"],
             Type = "boolean",
             ValueList = "true|false",
             DefaultValue = "false"
         },
         new AttributeItem() {
             Name = "ShowClose",
-            Description = "是否显示关闭按钮",
+            Description = Localizer["AttrShowClose"],
             Type = "boolean",
             ValueList = "true|false",
             DefaultValue = "true"
         },
         new AttributeItem() {
             Name = "ShowFooter",
-            Description = "是否显示页脚模板",
+            Description = Localizer["AttrShowFooter"],
             Type = "boolean",
             ValueList = "true|false",
             DefaultValue = "false"
         },
         new AttributeItem() {
             Name = "IsConfirm",
-            Description = "是否为确认弹窗模式",
+            Description = Localizer["AttrIsConfirm"],
             Type = "boolean",
             ValueList = "true|false",
             DefaultValue = "false"
         },
         new AttributeItem() {
             Name = "BodyContext",
-            Description = "弹窗传参",
+            Description = Localizer["AttrBodyContext"],
             Type = "object",
             ValueList = " — ",
             DefaultValue = " — "
         },
         new AttributeItem() {
             Name = "BodyTemplate",
-            Description = "模态主体显示组件",
+            Description = Localizer["AttrBodyTemplate"],
             Type = "RenderFragment",
             ValueList = " — ",
             DefaultValue = " — "
         },
         new AttributeItem() {
             Name = "FooterTemplate",
-            Description = "模态主体页脚组件",
+            Description = Localizer["AttrFooterTemplate"],
             Type = "RenderFragment",
             ValueList = " — ",
             DefaultValue = " — "
         },
         new AttributeItem() {
             Name = "ButtonTemplate",
-            Description = "模态按钮模板",
+            Description = Localizer["AttrButtonTemplate"],
             Type = "RenderFragment",
             ValueList = " — ",
             DefaultValue = " — "

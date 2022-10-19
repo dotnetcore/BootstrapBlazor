@@ -111,6 +111,7 @@ public class UploadFile
     /// <param name="maxAllowedSize"></param>
     /// <param name="token"></param>
     /// <returns></returns>
+    [ExcludeFromCodeCoverage]
     public async Task<byte[]?> GetByteArray(string format, int maxWidth, int maxHeight, long maxAllowedSize = 512000, CancellationToken token = default)
     {
         if (File != null)

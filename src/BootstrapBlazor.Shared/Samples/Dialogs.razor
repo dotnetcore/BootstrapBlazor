@@ -1,21 +1,20 @@
 ﻿@page "/dialogs"
 
-<h3>Dialog 对话框组件</h3>
+<h3>@Localizer["H1"]</h3>
+<h4>@Localizer["H2"]</h4>
 
-<h4>通过注入服务调用 <code>Show</code> 方法弹出窗口进行人机交互</h4>
+<p>@Localizer["P1"]：</p>
 
-<p>组件使用介绍：</p>
-
-<p class="code-label">1. 注入服务 <code>DialogService</code></p>
+<p class="code-label">@Localizer["P2"] <code>DialogService</code></p>
 <Pre>@@inject DialogService DialogService</Pre>
 <Pre>[Inject]
 [NotNull]
 private DialogService? DialogService { get; set; }
 </Pre>
-<p class="code-label">2. 调用其实例 <code>api</code></p>
+<p class="code-label">@Localizer["P3"] <code>api</code></p>
 <Pre>var op = new DialogOption()
 {
-    Title = "数据查询窗口",
+    Title = @Localizer["P4"],
     ShowFooter = false,
     BodyContext = DataPrimaryId
 };
@@ -25,38 +24,36 @@ op.Component = BootstrapDynamicComponent.CreateComponent&lt;DataDialogComponent&
 });
 await DialogService.Show(op);</Pre>
 
-<DemoBlock Title="基本用法" Introduction="通过设置 <code>DialogOption</code> 属性对模态框进行基本属性设置" Name="Keyboard">
+<DemoBlock Title="@Localizer["P5"]" Introduction="@Localizer["P6"]" Name="Keyboard">
     <div>
-        <p>通过设置 <code>DialogOption</code> <code>IsKeyboard</code> 参数，开启弹窗是否支持 <kbd>ESC</kbd>，请点击后面按钮设置后再点击 <b>弹窗</b> 按钮测试效果</p>
-        <Button OnClick="@OnClick">点击打开 Dialog</Button>
+        <p>@Localizer["P7"] <code>DialogOption</code> <code>IsKeyboard</code> @Localizer["P8"]</p>
+        <Button OnClick="@OnClick">@Localizer["P9"]</Button>
         <Button OnClick="@OnClickKeyboard" Text="@($"Keyboard: {IsKeyboard}")" class="ms-3" />
     </div>
 </DemoBlock>
 
-<DemoBlock Title="自定义标题栏" Introduction="通过设置 <code>HeaderTemplate</code> 属性对模态框标题栏进行自定义设置" Name="CustomerHeader">
+<DemoBlock Title="@Localizer["P10"]" Introduction="@Localizer["P11"]" Name="CustomerHeader">
     <div>
-        <Button OnClick="@OnCustomerHeaderClick" Text="弹窗" />
+        <Button OnClick="@OnCustomerHeaderClick" Text="@Localizer["P12"]" />
     </div>
 </DemoBlock>
 
-<DemoBlock Title="弹出复杂组件" Introduction="通过调用 <code>Show&lt;Counter&gt;()</code> 来弹出一个自定义组件" Name="Component">
-    <p>
-        本例中弹出对话框中包含一个示例网站的自带 <code>Counter</code> 组件
-    </p>
-    <Button @onclick="@OnClickCounter">点击打开 Dialog</Button>
+<DemoBlock Title="@Localizer["P13"]" Introduction="@Localizer["P14"]" Name="Component">
+    <p>@Localizer["P15"]</p>
+    <Button @onclick="@OnClickCounter">@Localizer["P16"]</Button>
 </DemoBlock>
 
-<DemoBlock Title="弹窗传参" Introduction="通过设置 <code>BodyContext</code> 属性值，可以把参数传递给弹窗中的组件内" Name="BodyContext">
+<DemoBlock Title="@Localizer["P17"]" Introduction="@Localizer["P18"]" Name="BodyContext">
     <p>
-        本例中点击按钮时设置 <code>BodyContext</code> 值为 <code>我是传参</code>，弹窗内容为自定义组件 <code>DemoComponent</code>，组件内通过级联参数获取到其值
+        @Localizer["P19"]
     </p>
-    <Button @onclick="@OnClickParameter">Dialog 传参示例</Button>
+    <Button @onclick="@OnClickParameter">@Localizer["P20"]</Button>
 </DemoBlock>
 
-<DemoBlock Title="实战应用" Introduction="本例中通过传递一个主键，在弹窗内的组件通过此主键进行数据查询，并将结果显示在弹窗内" Name="Apply">
+<DemoBlock Title="@Localizer["P21"]" Introduction="@Localizer["P22"]" Name="Apply">
     <div class="row g-3">
         <div class="col-12 col-sm-6">
-            <Select @bind-Value="@DataPrimaryId" DisplayText="主键参数" ShowLabel="true">
+            <Select @bind-Value="@DataPrimaryId" DisplayText="@Localizer["P23"]" ShowLabel="true">
                 <Options>
                     <SelectOption Text="1" Value="1"></SelectOption>
                     <SelectOption Text="2" Value="2"></SelectOption>
@@ -72,113 +69,109 @@ await DialogService.Show(op);</Pre>
             </Select>
         </div>
         <div class="col-12 col-sm-6 align-self-end">
-            <Button @onclick="@OnClickShowDataById">弹窗</Button>
+            <Button @onclick="@OnClickShowDataById">@Localizer["P24"]</Button>
         </div>
     </div>
 </DemoBlock>
 
-<DemoBlock Title="代码关闭弹窗" Introduction="本例讲解如何通过代码打开与关闭弹窗" Name="CloseDialogByCode">
-    <p>利用弹窗参数 <code>DialogOption</code> 实例，弹窗弹出后实例中的 <code>Dialog</code> 属性值即为当前弹窗句柄，通过调用其 <code>Toggle/Close</code> 方法即可关闭弹窗</p>
+<DemoBlock Title="@Localizer["P25"]" Introduction="@Localizer["P26"]" Name="CloseDialogByCode">
+    <p>@Localizer["P27"] <code>DialogOption</code> @Localizer["P28"] <code>Dialog</code> @Localizer["P29"] <code>Toggle/Close</code> @Localizer["P30"]</p>
 
     <Button @onclick="@Show">Dialog</Button>
 </DemoBlock>
 
-<DemoBlock Title="禁用 Header 中的关闭按钮" Introduction="本例讲解如何通过代码打开与关闭弹窗" Name="DisableHeaderCloseButton">
-    <p>设置参数 <code>ShowHeaderCloseButton</code> 禁止弹窗 <code>Header</code> 右侧显示 <b>关闭</b> 按钮</p>
+<DemoBlock Title="@Localizer["P31"]" Introduction="@Localizer["P32"]" Name="DisableHeaderCloseButton">
+    <p>@Localizer["P33"] <code>ShowHeaderCloseButton</code> @Localizer["P34"] <code>Header</code> @Localizer["P35"]</p>
 
     <Button @onclick="@ShowNoHeaderCloseButtonDialog">Dialog</Button>
 </DemoBlock>
 
-<DemoBlock Title="多级弹窗" Introduction="点击弹窗内部按钮继续弹出对话窗" Name="MultipleDialog">
-    <p>功能介绍</p>
+<DemoBlock Title="@Localizer["P36"]" Introduction="@Localizer["P37"]" Name="MultipleDialog">
+    <p>@Localizer["P38"]</p>
     <ul class="ul-demo mb-3">
-        <li>点击按钮弹出对话窗</li>
-        <li>切换弹窗内 <code>Tab</code> 组件的第三个标签页 <b>角色管理</b></li>
-        <li>点击标签页中的弹窗继续弹出对话框</li>
-        <li>关闭当前对话框后之前打开的对话框 <b>保持状态</b></li>
+        <li>@Localizer["P39"]</li>
+        <li>@Localizer["P40"]</li>
+        <li>@Localizer["P41"]</li>
+        <li>@Localizer["P42"]</li>
     </ul>
 
-    <Button OnClick="@ShowDialogLoop">弹窗</Button>
+    <Button OnClick="@ShowDialogLoop">@Localizer["P43"]</Button>
 </DemoBlock>
 
-<DemoBlock Title="模态对话框" Introduction="通过 <code>ShowModal</code> 方法弹出线程阻塞模式的对话框" Name="ModalDialog">
-    <p>功能介绍</p>
+<DemoBlock Title="@Localizer["P44"]" Introduction="@Localizer["P45"]" Name="ModalDialog">
+    <p>@Localizer["P46"]</p>
     <ul class="ul-demo mb-3">
-        <li>点击按钮弹出模态弹窗</li>
-        <li>更改模态弹窗内数值点击 <code>确认</code> 按钮时数值 <b>更新</b></li>
-        <li>更改模态弹窗内数值点击 <code>取消</code> 或者 <code>关闭</code> 按钮时数值 <b>不更新</b></li>
-        <li>再次点击弹出模态弹窗时，数值保持一致</li>
+        <li>@Localizer["P47"]</li>
+        <li>@Localizer["P48"]</li>
+        <li>@Localizer["P49"]</li>
+        <li>@Localizer["P50"]</li>
     </ul>
-    <Button OnClick="@OnResultDialogClick">点击打开 Dialog</Button>
+    <Button OnClick="@OnResultDialogClick">@Localizer["P51"]</Button>
     <BlockLogger @ref="Trace" class="mt-3" />
 </DemoBlock>
 
-<DemoBlock Title="编辑对话框" Introduction="通过 <code>ShowEditDialog</code> 方法弹出保存对话框" Name="EditDialog">
-    <p>功能介绍</p>
+<DemoBlock Title="@Localizer["P52"]" Introduction="@Localizer["P53"]" Name="EditDialog">
+    <p>@Localizer["P54"]</p>
     <ul class="ul-demo mb-3">
-        <li>点击按钮弹出编辑弹窗</li>
-        <li>通过 <code>EditDialogOption</code> 参数对弹窗进行设置</li>
-        <li>设计出发点通过给定 <code>Model</code> 或者 <code>Items</code> 自动生成带客户端验证的表单窗口</li>
+        <li>@Localizer["P55"]</li>
+        <li>@Localizer["P56"]</li>
+        <li>@Localizer["P57"]</li>
     </ul>
-    <Button OnClick="@OnEditDialogClick">编辑弹窗</Button>
+    <Button OnClick="@OnEditDialogClick">@Localizer["P58"]</Button>
 </DemoBlock>
 
-<DemoBlock Title="搜索对话框" Introduction="通过 <code>ShowSearchDialog</code> 方法弹出保存对话框" Name="SearchDialog">
-    <p>功能介绍</p>
+<DemoBlock Title="@Localizer["P59"]" Introduction="@Localizer["P60"]" Name="SearchDialog">
+    <p>@Localizer["P61"]</p>
     <ul class="ul-demo mb-3">
-        <li>点击按钮弹出搜索弹窗</li>
-        <li>通过 <code>SearchDialogOption</code> 参数对弹窗进行设置</li>
-        <li>设计出发点通过给定 <code>Model</code> 或者 <code>Items</code> 自动生成搜索窗口</li>
+        <li>@Localizer["P62"]</li>
+        <li>@Localizer["P63"]</li>
+        <li>@Localizer["P64"]</li>
     </ul>
-    <Button OnClick="@OnSearchDialogClick">搜索弹窗</Button>
+    <Button OnClick="@OnSearchDialogClick">@Localizer["P65"]</Button>
 </DemoBlock>
 
-<DemoBlock Title="保存对话框" Introduction="通过 <code>ShowSaveDialog</code> 方法弹出保存对话框" Name="SaveDialog">
-    <p>功能介绍</p>
+<DemoBlock Title="@Localizer["P66"]" Introduction="@Localizer["P67"]" Name="SaveDialog">
+    <p>@Localizer["P68"]</p>
     <ul class="ul-demo mb-3">
-        <li>点击按钮弹出保存弹窗</li>
-        <li>设计出发点通过给定 <code>TComponent</code> 自动生成保存窗口，通过设置 <code>saveCallback</code> 在保存回调方法中进行数据处理，<code>TComponent</code> 泛型组件所需要参数可以通过 <code>parameters</code> 进行传递</li>
+        <li>@Localizer["P69"]</li>
+        <li>@Localizer["P70"]</li>
     </ul>
-    <Button OnClick="@OnSaveDialogClick">保存弹窗</Button>
+    <Button OnClick="@OnSaveDialogClick">@Localizer["P71"]</Button>
 </DemoBlock>
 
-<DemoBlock Title="对话框大小" Introduction="通过设置 <code>Size</code> <code>FullScreenSize</code> 参数组合可以实现非常灵活的窗体大小控制" Name="ModalDialog">
-    <Button OnClick="@OnSizeDialogClick">全屏弹窗(&lt; 1200px)</Button>
+<DemoBlock Title="@Localizer["P72"]" Introduction="@Localizer["P73"]" Name="ModalDialog">
+    <Button OnClick="@OnSizeDialogClick">@Localizer["P74"]</Button>
 </DemoBlock>
 
-<DemoBlock Title="打印按钮" Introduction="通过设置 <code>ShowPrintButton</code> 使 <code>Header</code> 上显示一个打印预览按钮" Name="PrintDialog">
-    <p>通过设置 <code>@nameof(DialogOption.PrintButtonText)</code> 更改 <b>打印预览</b> 按钮文字</p>
-    <Button OnClick="@OnPrintDialogClick">点击打开 Dialog</Button>
+<DemoBlock Title="@Localizer["P75"]" Introduction="@Localizer["P76"]" Name="PrintDialog">
+    <p>@Localizer["P77"] <code>@nameof(DialogOption.PrintButtonText)</code> @Localizer["P78"]</p>
+    <Button OnClick="@OnPrintDialogClick">@Localizer["P79"]</Button>
 </DemoBlock>
 
-<DemoBlock Title="全屏弹窗" Introduction="通过设置 <code>ShowMaximizeButton</code> 使 <code>Header</code> 上显示一个窗口最大化按钮" Name="PrintDialog">
-    <Button OnClick="@OnMaximizeDialogClick">点击打开 Dialog</Button>
+<DemoBlock Title="@Localizer["P80"]" Introduction="@Localizer["P81"]" Name="PrintDialog">
+    <Button OnClick="@OnMaximizeDialogClick">@Localizer["P82"]</Button>
 </DemoBlock>
 
-<DemoBlock Title="异常捕获" Introduction="通过 <code>BootstrapBlazorRoot</code> 内置 <code>ErrorLogger</code> 对弹窗内错误进行全局异常捕获" Name="ErrorLogger">
-    <Button OnClick="@OnErrorDialog" Text="全局异常测试" Icon="fa-solid fa-bug"></Button>
+<DemoBlock Title="@Localizer["P83"]" Introduction="@Localizer["P84"]" Name="ErrorLogger">
+    <Button OnClick="@OnErrorDialog" Text="@Localizer["P85"]" Icon="fa-solid fa-bug"></Button>
 </DemoBlock>
 
-<DemoBlock Title="弹窗已显示回调" Introduction="通过设置 <code>OnShownCallbackAsync</code> 回调方法，弹窗显示后回调此方法" Name="ShownCallbackAsync">
-    <Button OnClick="@OnShownCallbackDialog" Text="回调测试" Icon="fa-solid fa-home"></Button>
-</DemoBlock>
-
-<DemoBlock Title="实战演练" Introduction="模拟一个邮件应用，弹窗选择收件人后填入下方的收件人框。" Name="Email">
-    <p>功能介绍</p>
+<DemoBlock Title="@Localizer["P86"]" Introduction="@Localizer["P87"]" Name="Email">
+    <p>@Localizer["P88"]</p>
     <ul class="ul-demo mb-3">
-        <li>点击按钮弹出模态弹窗</li>
-        <li>通过级联传参 <code>BodyContext</code> 传递 <b>10</b> 到弹窗中初始化数据</li>
-        <li>选中 <code>Table</code> 组件中的行数据，通过双向绑定对 <code>SelectedRows</code> 数据进行 <b>更新</b></li>
-        <li>点击 <b>选中</b> 按钮通过双向绑定对 <code>Emails</code> 数据进行 <b>更新</b></li>
-        <li>点击 <code>取消</code> 或者 <code>关闭</code> 按钮时 <code>Emails</code> 值 <b>不更新</b></li>
-        <li>再次点击弹出模态弹窗时，组件内行选中状态保持一致</li>
-        <li>弹窗中未选择用户时禁止关闭弹窗</li>
+        <li>@Localizer["P89"]</li>
+        <li>@Localizer["P90"]</li>
+        <li>@Localizer["P91"]</li>
+        <li>@Localizer["P92"]</li>
+        <li>@Localizer["P93"]</li>
+        <li>@Localizer["P94"]</li>
+        <li>@Localizer["P95"]</li>
     </ul>
-    <label class="form-label">收件人：</label>
+    <label class="form-label">@Localizer["P96"]：</label>
     <div class="input-group">
-        <BootstrapInput PlaceHolder="请输入 ..." Value="@InputValue"></BootstrapInput>
+        <BootstrapInput PlaceHolder="@Localizer["P97"]" Value="@InputValue"></BootstrapInput>
         <Button Icon="fa-regular fa-address-card" OnClick="@OnEmailButtonClick"></Button>
     </div>
 </DemoBlock>
 
-<AttributeTable Items="@GetAttributes()" Title="DialogOption 属性" />
+<AttributeTable Items="@GetAttributes()" Title="@Localizer["P98"]" />

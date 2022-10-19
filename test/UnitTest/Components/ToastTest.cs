@@ -4,6 +4,7 @@
 
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
+using UnitTest.Pages;
 
 namespace UnitTest.Components;
 
@@ -27,19 +28,9 @@ public class ToastTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void Clear_Ok()
-    {
-        var cut = Context.RenderComponent<Toast>();
-        cut.InvokeAsync(async () => await cut.Instance.Clear());
-
-        var service = Context.Services.GetRequiredService<ToastService>();
-        service.Success("Test", "test content");
-    }
-
-    [Fact]
     public void SetPlacement_Ok()
     {
-        var cut = Context.RenderComponent<Toast>();
+        var cut = Context.RenderComponent<ToastContainer>();
         cut.InvokeAsync(() => cut.Instance.SetPlacement(Placement.BottomStart));
         Assert.Contains("left", cut.Markup);
 
@@ -53,7 +44,7 @@ public class ToastTest : BootstrapBlazorTestBase
     [Fact]
     public async Task Options_Ok()
     {
-        Context.RenderComponent<Toast>();
+        Context.RenderComponent<ToastContainer>();
 
         var service = Context.Services.GetRequiredService<ToastService>();
         var option = Context.Services.GetRequiredService<IOptionsMonitor<BootstrapBlazorOptions>>();
@@ -83,34 +74,32 @@ public class ToastTest : BootstrapBlazorTestBase
     [Fact]
     public async Task AutoHide_Ok()
     {
-        Context.RenderComponent<Toast>();
+        var cut = Context.RenderComponent<ToastContainer>();
         var service = Context.Services.GetRequiredService<ToastService>();
-        await service.Show(new ToastOption()
+        var option = new ToastOption()
         {
             IsAutoHide = false
-        });
+        };
+        await service.Show(option);
+        await cut.InvokeAsync(() => option.Close());
+    }
+
+    [Fact]
+    public async Task Animation_Ok()
+    {
+        var cut = Context.RenderComponent<ToastContainer>();
+        var service = Context.Services.GetRequiredService<ToastService>();
+        var option = new ToastOption()
+        {
+            Animation = false
+        };
+        await service.Show(option);
     }
 
     [Fact]
     public async Task ChildContent_Ok()
     {
-        var cut = Context.RenderComponent<Toast>();
-
-        var service = Context.Services.GetRequiredService<ToastService>();
-        await service.Show(new ToastOption()
-        {
-            ChildContent = new RenderFragment(builder =>
-            {
-                builder.AddContent(0, "Toast ChildContent");
-            })
-        });
-    }
-
-    [Fact]
-    public async Task Close_Ok()
-    {
-        var cut = Context.RenderComponent<Toast>();
-
+        var cut = Context.RenderComponent<ToastContainer>();
         var service = Context.Services.GetRequiredService<ToastService>();
         var option = new ToastOption()
         {
@@ -120,7 +109,22 @@ public class ToastTest : BootstrapBlazorTestBase
             })
         };
         await service.Show(option);
+        await cut.InvokeAsync(() => option.Close());
+    }
 
-        await option.Close();
+    [Fact]
+    public async Task Close_Ok()
+    {
+        var cut = Context.RenderComponent<Toast>(pb =>
+        {
+            pb.Add(a => a.Options, new ToastOption()
+            {
+                HeaderTemplate = builder =>
+                {
+                    builder.AddContent(0, "header-template");
+                }
+            });
+        });
+        await cut.InvokeAsync(() => cut.Instance.Close());
     }
 }

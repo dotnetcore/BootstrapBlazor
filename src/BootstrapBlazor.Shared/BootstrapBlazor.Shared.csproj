@@ -19,21 +19,29 @@
 
   <ItemGroup>
     <PackageReference Include="BootstrapBlazor.BaiduSpeech" Version="6.0.9" />
-    <PackageReference Include="BootstrapBlazor.BarCode" Version="6.0.2" />
-    <PackageReference Include="BootstrapBlazor.Bluetooth" Version="6.0.4" />
+    <PackageReference Include="BootstrapBlazor.BarCode" Version="6.0.4" />
     <PackageReference Include="BootstrapBlazor.Chart" Version="6.*" />
-    <PackageReference Include="BootstrapBlazor.CherryMarkdown" Version="6.*" />
-    <PackageReference Include="BootstrapBlazor.FontAwesome" Version="6.2.0" />
-    <PackageReference Include="BootstrapBlazor.Markdown" Version="6.*" />
+    <PackageReference Include="BootstrapBlazor.CherryMarkdown" Version="6.0.2" />
+    <PackageReference Include="BootstrapBlazor.FontAwesome" Version="6.3.0" />
+    <PackageReference Include="BootstrapBlazor.Markdown" Version="6.2.0" />
     <PackageReference Include="BootstrapBlazor.OnScreenKeyboard" Version="6.*" />
     <PackageReference Include="BootstrapBlazor.SignaturePad" Version="6.*" />
-    <PackageReference Include="BootstrapBlazor.SummerNote" Version="6.0.2" />
+    <PackageReference Include="BootstrapBlazor.SummerNote" Version="6.1.0" />
     <PackageReference Include="BootstrapBlazor.TableExport" Version="6.*" />
-    <PackageReference Include="BootstrapBlazor.Topology" Version="6.*" />
+    <PackageReference Include="BootstrapBlazor.Topology" Version="6.0.9" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\BootstrapBlazor\BootstrapBlazor.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Using Include="BootstrapBlazor.Components" />
+    <Using Include="BootstrapBlazor.Shared.Common" />
+    <Using Include="BootstrapBlazor.Shared.Components" />
+    <Using Include="Microsoft.AspNetCore.Components" />
+    <Using Include="Microsoft.Extensions.Localization" />
+    <Using Include="System.ComponentModel.DataAnnotations" />
   </ItemGroup>
 
 </Project>

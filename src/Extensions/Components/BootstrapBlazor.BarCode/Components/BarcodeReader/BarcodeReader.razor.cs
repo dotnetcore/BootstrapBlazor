@@ -9,10 +9,9 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// BarcodeReader 条码扫描
 /// </summary>
-public partial class BarcodeReader : IAsyncDisposable
+[JSModuleAutoLoader("./_content/BootstrapBlazor.BarCode/barcodereader.bundle.min.js", ModuleName = "BarcodeReader", Relative = false)]
+public partial class BarcodeReader
 {
-    private JSModule<BarcodeReader>? Module { get; set; }
-
     private string? AutoStopString => AutoStop ? "true" : null;
 
     private string? AutoStartString => AutoStart ? "true" : null;
@@ -157,21 +156,6 @@ public partial class BarcodeReader : IAsyncDisposable
     }
 
     /// <summary>
-    /// OnAfterRenderAsync 方法
-    /// </summary>
-    /// <param name="firstRender"></param>
-    /// <returns></returns>
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (firstRender)
-        {
-            var jSObjectReference = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/BootstrapBlazor.BarCode/barcodereader.bundle.min.js");
-            Module = new JSModule<BarcodeReader>(jSObjectReference, this);
-            await Module.InvokeVoidAsync("bb_barcode_init", $"#{Id}");
-        }
-    }
-
-    /// <summary>
     /// 初始化设备方法
     /// </summary>
     /// <param name="devices"></param>
@@ -238,30 +222,5 @@ public partial class BarcodeReader : IAsyncDisposable
             await OnDeviceChanged(new DeviceItem() { DeviceId = item.Value, Label = item.Text });
         }
         StateHasChanged();
-    }
-
-    /// <summary>
-    /// DisposeAsyncCore 方法
-    /// </summary>
-    /// <param name="disposing"></param>
-    protected virtual async ValueTask DisposeAsyncCore(bool disposing)
-    {
-        if (disposing)
-        {
-            if (Module != null)
-            {
-                await Module.InvokeVoidAsync("bb_barcode_dispose", $"#{Id}");
-                await Module.DisposeAsync();
-            }
-        }
-    }
-
-    /// <summary>
-    /// DisposeAsync 方法
-    /// </summary>
-    public async ValueTask DisposeAsync()
-    {
-        await DisposeAsyncCore(true);
-        GC.SuppressFinalize(this);
     }
 }

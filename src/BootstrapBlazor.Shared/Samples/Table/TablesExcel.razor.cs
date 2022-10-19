@@ -2,10 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using BootstrapBlazor.Components;
-using BootstrapBlazor.Shared.Components;
-using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.Localization;
 using System.Data;
 
 namespace BootstrapBlazor.Shared.Samples.Table;
@@ -17,7 +13,11 @@ partial class TablesExcel
 {
     [Inject]
     [NotNull]
-    private IStringLocalizer<Foo>? Localizer { get; set; }
+    private IStringLocalizer<Foo>? LocalizerFoo { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<TablesExcel>? Localizer { get; set; }
 
     [NotNull]
     private BlockLogger? Trace { get; set; }
@@ -29,7 +29,7 @@ partial class TablesExcel
     {
         base.OnInitialized();
 
-        Items = Foo.GenerateFoo(Localizer);
+        Items = Foo.GenerateFoo(LocalizerFoo);
     }
 
     // 绑定数据源代码

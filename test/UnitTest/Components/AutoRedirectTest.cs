@@ -4,7 +4,7 @@
 
 namespace UnitTest.Components;
 
-public class AutoRedirectTest : TestBase
+public class AutoRedirectTest : BootstrapBlazorTestBase
 {
     [Fact]
     public void LogoutUrl_Ok()

@@ -2,9 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using BootstrapBlazor.Components;
-using BootstrapBlazor.Shared.Components;
-
 namespace BootstrapBlazor.Shared.Samples.Charts;
 
 /// <summary>
@@ -32,32 +29,32 @@ public partial class Pie
 
         if (firstRender)
         {
-            Logger.Log("Pie 正在加载数据 ...");
+            Logger.Log("Pie loading data ...");
         }
     }
 
     private Task OnAfterInit()
     {
-        Logger.Log("Pie 初始化完毕");
+        Logger.Log("Pie initialization is complete");
         return Task.CompletedTask;
     }
 
     private Task OnAfterUpdate(ChartAction action)
     {
-        Logger.Log($"Pie 图更新数据操作完毕 -- {action}");
+        Logger.Log($"Pie Figure update data operation completed -- {action}");
         return Task.CompletedTask;
     }
 
     private Task<ChartDataSource> OnInit()
     {
         var ds = new ChartDataSource();
-        ds.Options.Title = "Pie 饼图";
+        ds.Options.Title = "Pie chart";
         ds.Labels = Utility.Colors.Take(PieDataCount);
         for (var index = 0; index < PieDatasetCount; index++)
         {
             ds.Data.Add(new ChartDataset()
             {
-                Label = $"数据集 {index}",
+                Label = $"Set {index}",
                 Data = Enumerable.Range(1, PieDataCount).Select(i => Randomer.Next(20, 37)).Cast<object>()
             });
         }

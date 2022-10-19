@@ -1,11 +1,10 @@
 ﻿@page "/tables/edit"
 
-<h3>Table 表格</h3>
+<h3>@Localizer["H1"]</h3>
+<h4>@((MarkupString)Localizer["H2"].Value)</h4>
 
-<h4>常用于单表维护，通过属性配置实现简单的增、删、改、查、排序、过滤、搜索等常用功能，通过 <code>Template</code> 的高级用法能实现非常复杂的业务需求功能</h4>
-
-<DemoBlock Title="具有单表维护功能的表格" Introduction="设置 <code>ShowSearch</code> 显示查询组件" Name="ShowSearch">
-    <p>本例中设置 <code>Count</code> 右侧对齐，<code>Complete</code> 列设置为居中对齐，布尔类型列自动渲染成 <code>Switch</code> 组件</p>
+<DemoBlock Title="@Localizer["P1"]" Introduction="@Localizer["P2"]" Name="ShowSearch">
+    <p>@((MarkupString)Localizer["P3"].Value)</p>
     <Table TItem="Foo" IsAutoCollapsedToolbarButton="false"
            IsPagination="true" PageItemsSource="@PageItemsSource"
            IsStriped="true" IsBordered="true" IsMultipleSelect="true"
@@ -22,10 +21,10 @@
         <EditTemplate>
             <div class="row g-3 form-inline">
                 <div class="col-12 col-sm-6">
-                    <BootstrapInput @bind-Value="@context.Name" placeholder="不可为空，50字以内" maxlength="50" />
+                    <BootstrapInput @bind-Value="@context.Name" placeholder="@PlaceHolderString" maxlength="50" />
                 </div>
                 <div class="col-12 col-sm-6">
-                    <BootstrapInput @bind-Value="@context.Address" placeholder="不可为空，50字以内" maxlength="50" />
+                    <BootstrapInput @bind-Value="@context.Address" placeholder="@PlaceHolderString" maxlength="50" />
                 </div>
                 <div class="col-12 col-sm-6">
                     <DateTimePicker @bind-Value="@context.DateTime" />
@@ -44,14 +43,14 @@
     </Table>
 </DemoBlock>
 
-<DemoBlock Title="自动生成单表维护功能的表格" Introduction="当设置了 <code>OnAddAsync</code> 或者 <code>OnSaveAsync</code> 回调委托方法时，如果未设置 <code>EditTemplate</code> 编辑模板时，组件会尝试自动生成表单维护 UI" Name="OnAddAsync">
-    <p id="anchor2">通过设置 <code>TItem</code> 泛型约束的类实例 <code>Foo</code> 属性的 <code>[Required]</code> 等验证标签即可实现客户端验证</p>
-    <p>数据绑定类型为可为空类型时自动允许为空，如日期绑定列为 <code>DateTime?</code> 类型</p>
-    <p>数据绑定类型为数值类型时如，如数量绑定列为 <code>int</code> 类型，自动进行数值验证</p>
-    <p>表格呈现的有些数据列是计算得到的结果，此种类型的列是无法参与编辑的，通过设置 <code>Editable=false</code> 自动生成编辑 UI 时就不会生成此列编辑组件，如本示例中 <code>Count</code> 列在编辑弹窗中是不出现的</p>
-    <p>通过设置 <code>Readonly=true</code> 自动生成编辑 UI 会将此字段进行只读处理，新建时请对 <code>Model</code> 进行默认值赋值</p>
-    <p>通过设置 <code>IsExtendButtonsInRowHeader=true</code> 使扩展按钮在行前面显示</p>
-    <p>通过设置 <code>EditDialogDraggable="true"</code> 使编辑弹出框可拖拽</p>
+<DemoBlock Title="@Localizer["P5"]" Introduction="@Localizer["P6"]" Name="OnAddAsync">
+    <p id="anchor2">@((MarkupString)Localizer["P7"].Value)</p>
+    <p>@((MarkupString)Localizer["P8"].Value)</p>
+    <p>@((MarkupString)Localizer["P9"].Value)</p>
+    <p>@((MarkupString)Localizer["P10"].Value)</p>
+    <p>@((MarkupString)Localizer["P11"].Value)</p>
+    <p>@((MarkupString)Localizer["P12"].Value)</p>
+    <p>@((MarkupString)Localizer["P13"].Value)</p>
     <Table TItem="Foo"
            IsPagination="true" PageItemsSource="@PageItemsSource"
            IsStriped="true" IsBordered="true" IsMultipleSelect="true" EditDialogIsDraggable="true"
@@ -69,10 +68,10 @@
     </Table>
 </DemoBlock>
 
-<DemoBlock Title="自定义列编辑模板" Introduction="当设置列的 <code>EditTemplate</code> 时，组件自动生成表单维护 UI 时使用此模板作为呈现 UI" Name="EditTemplate">
+<DemoBlock Title="@Localizer["P14"]" Introduction="@Localizer["P15"]" Name="EditTemplate">
     <p>
-        <div>通过设置姓名列的 <code>EditTemplate</code> 自定义编辑时使用下拉框来选择姓名</div>
-        <div>本例中 <code>Name</code> 列为自定义组件 <code>TableNameDrop</code>，新建时默认为 <code>请选择 ...</code></div>
+        <div>@((MarkupString)Localizer["P16"].Value)</div>
+        <div>@((MarkupString)Localizer["P17"].Value)</div>
     </p>
     <Table TItem="Foo"
            IsPagination="true" PageItemsSource="@PageItemsSource"
@@ -96,16 +95,15 @@
     </Table>
 </DemoBlock>
 
-
-<DemoBlock Title="设置编辑模式" Introduction="通过设置表格的 <code>EditMode</code> 属性，设置组件是弹窗编辑行数据还是行内编辑数据" Name="EditMode">
-    <p id="anchor4"><code>EditMode</code> 为枚举类型其值分别为：<code>Popup</code> <code>EditForm</code> <code>InCell</code> 其默认值为 <code>Popup</code> 弹窗编辑行数据</p>
-    <p>本例中设置数据源 <code>Items</code> 为双向绑定，特别适用与父子表录入，保存时直接使用数据源即可</p>
-    <p><code>EditForm</code> 模式示例</p>
+<DemoBlock Title="@Localizer["P18"]" Introduction="@Localizer["P19"]" Name="EditMode">
+    <p id="anchor4">@((MarkupString)Localizer["P20"].Value)</p>
+    <p>@((MarkupString)Localizer["P21"].Value)</p>
+    <p>@((MarkupString)Localizer["P22"].Value)</p>
     <Table TItem="Foo"
            IsPagination="true" PageItemsSource="@PageItemsSource"
            IsStriped="true" IsBordered="true" IsMultipleSelect="true"
            ShowToolbar="true" ShowExtendButtons="true" ShowSkeleton="true"
-           AddModalTitle="增加测试数据窗口" EditModalTitle="编辑测试数据窗口"
+           AddModalTitle="@Localizer["P23"]" EditModalTitle="@Localizer["P24"]"
            OnQueryAsync="@OnQueryAsync" EditMode="EditMode.EditForm"
            OnAddAsync="@OnAddAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync">
         <TableColumns>
@@ -118,13 +116,13 @@
         </TableColumns>
     </Table>
 
-    <p id="anchor5" class="mt-3"><code>InCell</code> 模式示例</p>
+    <p id="anchor5" class="mt-3">@((MarkupString)Localizer["P25"].Value)</p>
     <RadioList @bind-Value="InsertMode" class="mb-3" />
     <Table TItem="Foo"
            IsPagination="true" PageItemsSource="@PageItemsSource"
            IsStriped="true" IsBordered="true" IsMultipleSelect="true"
            ShowToolbar="true" ShowExtendButtons="true" ShowSkeleton="true"
-           AddModalTitle="增加测试数据窗口" EditModalTitle="编辑测试数据窗口"
+           AddModalTitle="@Localizer["P23"]" EditModalTitle="@Localizer["P24"]"
            EditMode="EditMode.InCell" @bind-Items="@BindItems" InsertRowMode="InsertMode">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" />
@@ -137,18 +135,18 @@
     </Table>
 </DemoBlock>
 
-<DemoBlock Title="使用注入数据服务" Introduction="未提供数据操作回调方法时组件自动寻找注册的数据服务进行对数据的增删改查" Name="InjectDataService">
+<DemoBlock Title="@Localizer["P26"]" Introduction="@Localizer["P27"]" Name="InjectDataService">
     <p id="anchor6">
-        通过注册数据服务进行增、删、改、查的数据库操作，而无需对以下回调委托进行赋值，优先级别为有回调方法优先调用回调方法，如无则调用注入服务进行数据操作
+        @((MarkupString)Localizer["P28"].Value)
         <ul class="ul-demo mb-3">
             <li><code>OnAddAsync</code></li>
             <li><code>OnDeleteAsync</code></li>
             <li><code>OnSaveAsync</code></li>
             <li><code>OnQueryAsync</code></li>
         </ul>
-        <div class="mb-3">Startup 文件注入数据服务 <a href="@DataServiceUrl" target="_blank">实现原理与用法介绍</a></div>
-        <b>自定义数据服务</b>
-        <div class="mt-1">开启使用注入数据服务后，可通过设置 <code>DataServices</code> 参数对组件进行单独设置，如未设置内部使用注入服务提供的实例</div>
+        <div class="mb-3">@Localizer["P29"] <a href="@DataServiceUrl" target="_blank">@Localizer["P30"]</a></div>
+        <b>@Localizer["P31"]</b>
+        <div class="mt-1">@Localizer["P32"]</div>
     </p>
     <Pre class="no-highlight mt-3">services.AddTableDemoDataService();</Pre>
     <Table TItem="Foo"
@@ -161,11 +159,11 @@
     </Table>
 </DemoBlock>
 
-<DemoBlock Title="使用自定义数据服务" Introduction="通过设置表格的 <code>DataService</code> 属性，使用独立的数据服务进行对数据的增删改查" Name="DataService">
+<DemoBlock Title="@Localizer["P33"]" Introduction="@Localizer["P34"]" Name="DataService">
     <p id="anchor7">
-        <b>自定义数据服务</b>
-        <div class="mt-1">开启使用注入数据服务后，可通过设置 <code>DataServices</code> 参数对组件进行单独设置，如未设置内部使用注入服务提供的实例</div>
-        <div class="mt-1">本例中通过设置 <code>EditDialogShowMaximizeButton</code> 参数，使编辑弹窗中显示 <b>最大化</b> 按钮</div>
+        <b>@Localizer["P35"]</b>
+        <div class="mt-1">@((MarkupString)Localizer["P36"].Value)</div>
+        <div class="mt-1">@((MarkupString)Localizer["P37"].Value)</div>
     </p>
     <Pre class="no-highlight mt-3">services.AddTableDemoDataService();</Pre>
     <Table TItem="Foo" EditDialogShowMaximizeButton="true"

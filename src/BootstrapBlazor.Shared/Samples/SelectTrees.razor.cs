@@ -2,10 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using BootstrapBlazor.Components;
-using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.Localization;
-
 namespace BootstrapBlazor.Shared.Samples;
 
 /// <summary>
@@ -42,8 +38,6 @@ public partial class SelectTrees
             }
         }
     };
-
     private TreeFoo Model { get; set; } = new TreeFoo();
-
     private TreeFoo BindModel { get; set; } = new TreeFoo() { Text = "" };
 }

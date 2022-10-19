@@ -9,17 +9,17 @@ namespace BootstrapBlazor.Shared;
 /// <summary>
 /// 
 /// </summary>
-public class CustomDynamicData : DynamicObject
+public class CustomDynamicData : System.Dynamic.DynamicObject
 {
     /// <summary>
-    /// 
+    /// 获得/设置 固定列
     /// </summary>
     public string Fix { get; set; } = "";
 
     /// <summary>
     /// 存储每列值信息 Key 列名 Value 为列值
     /// </summary>
-    public Dictionary<string, string> Dynamic { get; set; }
+    public Dictionary<string, string> Columns { get; set; }
 
     /// <summary>
     /// 
@@ -29,19 +29,13 @@ public class CustomDynamicData : DynamicObject
     public CustomDynamicData(string fix, Dictionary<string, string> data)
     {
         Fix = fix;
-        Dynamic = data;
+        Columns = data;
     }
 
     /// <summary>
     /// 
     /// </summary>
     public CustomDynamicData() : this("", new()) { }
-
-    /// <inheritdoc/>
-    public override IEnumerable<string> GetDynamicMemberNames()
-    {
-        return Dynamic.Keys.Append(nameof(Fix));
-    }
 
     /// <summary>
     /// <inheritdoc/>
@@ -55,9 +49,9 @@ public class CustomDynamicData : DynamicObject
         {
             result = Fix;
         }
-        else if (Dynamic.ContainsKey(binder.Name))
+        else if (Columns.ContainsKey(binder.Name))
         {
-            result = Dynamic[binder.Name];
+            result = Columns[binder.Name];
         }
         else
         {
@@ -82,9 +76,9 @@ public class CustomDynamicData : DynamicObject
             Fix = v;
             ret = true;
         }
-        else if (Dynamic.ContainsKey(binder.Name))
+        else if (Columns.ContainsKey(binder.Name))
         {
-            Dynamic[binder.Name] = v;
+            Columns[binder.Name] = v;
             ret = true;
         }
         return ret;

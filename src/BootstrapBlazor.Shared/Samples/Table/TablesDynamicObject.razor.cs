@@ -2,8 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using BootstrapBlazor.Components;
-
 namespace BootstrapBlazor.Shared.Samples.Table;
 
 /// <summary>
@@ -12,7 +10,7 @@ namespace BootstrapBlazor.Shared.Samples.Table;
 public partial class TablesDynamicObject
 {
     [NotNull]
-    private IEnumerable<BootstrapBlazorDynamicObjectData>? BootstrapDynamicItems { get; set; }
+    private IEnumerable<CustomDynamicColumnsObjectData>? CustomDynamicItems { get; set; }
 
     private static List<string> StaticColumnList => new() { "A", "B", "C", "Z" };
 
@@ -30,8 +28,8 @@ public partial class TablesDynamicObject
         var now = DateTime.Now;
         DynamicColumnList = Enumerable.Range(1, 5).Select(index => now.AddMinutes(-1 * index).ToString("HH:mm")).ToList();
 
-        BootstrapDynamicItems = Enumerable.Range(1, 10)
-            .Select(index => new BootstrapBlazorDynamicObjectData(index.ToString(), StaticColumnList.ToDictionary(d => d, d => $"{d}{index}")));
+        CustomDynamicItems = Enumerable.Range(1, 10)
+            .Select(index => new CustomDynamicColumnsObjectData(index.ToString(), StaticColumnList.ToDictionary(d => d, d => (object?)$"{d}{index}")));
     }
 
     private readonly static Random random = new();

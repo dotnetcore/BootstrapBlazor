@@ -2,8 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using BootstrapBlazor.Shared.Common;
-
 namespace BootstrapBlazor.Shared.Samples;
 
 /// <summary>
@@ -11,23 +9,22 @@ namespace BootstrapBlazor.Shared.Samples;
 /// </summary>
 public sealed partial class Popovers
 {
-    private static readonly string ValueString = "弹出框";
+    private static readonly string ValueString = "Pop-up box";
 
-    private static readonly string Title = "弹出框标题";
+    private static readonly string Title = "popup title";
 
-    private static readonly string Content = "这里是弹出框正文，此处支持 <code>html</code> 标签，也可以内置一个 <code>Table</code>";
+    private static readonly string Content = "Here is the text of the pop-up box, the <code>html</code> tag is supported here, or a <code>Table</code> can be built-in";
 
     /// <summary>
-    /// 获得属性方法
+    /// Get property method
     /// </summary>
     /// <returns></returns>
     private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
-        // TODO: 移动到数据库中
         new AttributeItem()
         {
             Name = "Cotent",
-            Description = "Popover 弹窗内容",
+            Description = "Popover content",
             Type = "string",
             ValueList = "",
             DefaultValue = "Popover"
@@ -35,7 +32,7 @@ public sealed partial class Popovers
         new AttributeItem()
         {
             Name = "IsHtml",
-            Description = "内容中是否包含 Html 代码",
+            Description = "Whether the content contains Html code",
             Type = "boolean",
             ValueList = "",
             DefaultValue = "false"
@@ -43,7 +40,7 @@ public sealed partial class Popovers
         new AttributeItem()
         {
             Name = "Placement",
-            Description = "位置",
+            Description = "Location",
             Type = "Placement",
             ValueList = "Auto / Top / Left / Bottom / Right",
             DefaultValue = "Auto"
@@ -51,7 +48,7 @@ public sealed partial class Popovers
         new AttributeItem()
         {
             Name = "Title",
-            Description = "Popover 弹窗标题",
+            Description = "Popover title",
             Type = "string",
             ValueList = "",
             DefaultValue = "Popover"

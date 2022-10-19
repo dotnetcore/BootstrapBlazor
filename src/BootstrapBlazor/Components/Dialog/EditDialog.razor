@@ -6,15 +6,15 @@
     @if (BodyTemplate != null)
     {
         <div class="form-body">
-            @BodyTemplate.Invoke(Model)
+            @BodyTemplate(Model)
         </div>
-            <div class="form-footer">
-                @if (!IsTracking)
-                {
-                    <Button Color="Color.Secondary" Icon="fa-solid fa-xmark" Text="@CloseButtonText" OnClickWithoutRender="OnClose" />
-                }
-                <Button Color="Color.Primary" ButtonType="ButtonType.Submit" Icon="fa-solid fa-floppy-disk" Text="@SaveButtonText" />
-            </div>
+        <div class="form-footer">
+            @if (!IsTracking)
+            {
+                <Button Color="Color.Secondary" Icon="fa-solid fa-xmark" Text="@CloseButtonText" OnClickWithoutRender="OnClose" />
+            }
+            <Button Color="Color.Primary" ButtonType="ButtonType.Submit" Icon="fa-solid fa-floppy-disk" Text="@SaveButtonText" />
+        </div>
     }
     else
     {

@@ -10,7 +10,12 @@
     "outputFileName": "Components/Markdown/Markdown.min.js",
     "inputFiles": [
       "Components/Markdown/Markdown.js"
-    ]
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
   },
   {
     "outputFileName": "wwwroot/js/bootstrap.blazor.markdown.min.js",

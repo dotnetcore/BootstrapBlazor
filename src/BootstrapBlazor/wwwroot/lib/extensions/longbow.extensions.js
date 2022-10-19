@@ -97,7 +97,6 @@
             var data = {};
             var browser = new Browser();
             data.Browser = browser.browser + ' ' + browser.version;
-            data.Os = browser.os + ' ' + browser.osVersion;
             data.Device = browser.device;
             data.Language = browser.language;
             data.Engine = browser.engine;
@@ -107,6 +106,7 @@
                 type: "GET",
                 url: url,
                 success: function (result) {
+                    data.Os = browser.os + ' ' + browser.osVersion;
                     obj.invokeMethodAsync(method, result.Id, result.Ip, data.Os, data.Browser, data.Device, data.Language, data.Engine, data.UserAgent);
                 },
                 error: function (xhr, state, errorThrown) {

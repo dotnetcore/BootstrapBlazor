@@ -1,29 +1,29 @@
 ﻿@page "/consoles"
 
-<h3>Console 控制台</h3>
+<h3>@Localizer["H1"]</h3>
 
-<h4>控制台组件，一般用于后台任务的输出</h4>
+<h4>@Localizer["H2"]</h4>
 
-<DemoBlock Title="基本用法" Introduction="显示后台推送的消息" Name="Normal">
+<DemoBlock Title="@Localizer["P1"]" Introduction="@Localizer["P2"]" Name="Normal">
     <Console Items="@Messages" Height="126" />
 </DemoBlock>
 
-<DemoBlock Title="可清空的控制台" Introduction="通过设置 <code>OnClear</code> 回调方法对数据集进行清空操作，由于本例与上例使用相同数据源，会导致上例中数据源更新延时" Name="OnClear">
+<DemoBlock Title="@Localizer["P3"]" Introduction="@Localizer["P4"]" Name="OnClear">
     <Console Items="@Messages" Height="126" OnClear="@OnClear" />
 </DemoBlock>
 
-<DemoBlock Title="不同颜色的消息" Introduction="通过设置 <code>ConsoleMessageItem</code> 的 <code>Color</code> 参数进行对颜色的更改" Name="Color">
+<DemoBlock Title="@Localizer["P5"]" Introduction="@Localizer["P6"]" Name="Color">
     <Console Items="@ColorMessages" Height="126" />
 </DemoBlock>
 
-<DemoBlock Title="自动滚屏" Introduction="通过设置 <code>ShowAutoScroll</code> 属性值开启或者关闭自动滚屏功能" Name="AutoScroll">
-    <p>设置 <code>ShowAutoScroll="true"</code> 显示自动滚屏选项</p>
+<DemoBlock Title="@Localizer["P7"]" Introduction="@Localizer["P8"]" Name="AutoScroll">
+    <p>@Localizer["P9"] <code>ShowAutoScroll="true"</code> @Localizer["P10"]</p>
     <Console Items="@Messages" Height="126" ShowAutoScroll="true" />
 
-    <p class="mt-3">通过设置 <code>IsAutoScroll</code> 设置开启自动滚屏</p>
+    <p class="mt-3">@Localizer["P11"] <code>IsAutoScroll</code> @Localizer["P12"]</p>
     <Console Items="@Messages" Height="126" IsAutoScroll="true" />
 </DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" />
 
-<AttributeTable Items="@GetItemAttributes()" Title="ConsoleMessageItem 属性" />
+<AttributeTable Items="@GetItemAttributes()" Title="@Localizer["P13"]" />

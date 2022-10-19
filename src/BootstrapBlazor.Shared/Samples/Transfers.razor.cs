@@ -2,11 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using BootstrapBlazor.Components;
-using BootstrapBlazor.Shared.Common;
-using BootstrapBlazor.Shared.Components;
-using Microsoft.AspNetCore.Components;
-
 namespace BootstrapBlazor.Shared.Samples;
 
 /// <summary>
@@ -36,11 +31,16 @@ public sealed partial class Transfers : ComponentBase
     private IEnumerable<SelectedItem>? Items5 { get; set; }
 
     [NotNull]
+    private IEnumerable<SelectedItem>? Items6 { get; set; }
+
+    [NotNull]
     private BlockLogger? Trace { get; set; }
 
     private IEnumerable<SelectedItem> SelectedValue { get; set; } = Enumerable.Empty<SelectedItem>();
 
     private Foo Model { get; set; } = new();
+
+    private Foo Model6 { get; set; } = new();
 
     /// <summary>
     /// OnInitializedAsync 方法
@@ -52,23 +52,11 @@ public sealed partial class Transfers : ComponentBase
         // 模拟异步加载数据源
         await Task.Delay(100);
 
-        Items = Enumerable.Range(1, 15).Select(i => new SelectedItem()
-        {
-            Text = $"{Localizer["Data"]} {i:d2}",
-            Value = i.ToString()
-        });
+        Items = GeneratorItems();
 
-        Items1 = Enumerable.Range(1, 15).Select(i => new SelectedItem()
-        {
-            Text = $"{Localizer["Data"]} {i:d2}",
-            Value = i.ToString()
-        });
+        Items1 = GeneratorItems();
 
-        Items2 = Enumerable.Range(1, 15).Select(i => new SelectedItem()
-        {
-            Text = $"{Localizer["Data"]} {i:d2}",
-            Value = i.ToString()
-        });
+        Items2 = GeneratorItems();
 
         Items3 = Enumerable.Range(1, 15).Select(i => new SelectedItem()
         {
@@ -81,18 +69,18 @@ public sealed partial class Transfers : ComponentBase
         v.AddRange(Items3.Skip(4).Take(1));
         SelectedValue = v;
 
-        Items4 = Enumerable.Range(1, 15).Select(i => new SelectedItem()
-        {
-            Text = $"{Localizer["Data"]} {i:d2}",
-            Value = i.ToString()
-        });
+        Items4 = GeneratorItems();
 
-        Items5 = Enumerable.Range(1, 15).Select(i => new SelectedItem()
-        {
-            Text = $"{Localizer["Data"]} {i:d2}",
-            Value = i.ToString()
-        });
+        Items5 = GeneratorItems();
+
+        Items6 = GeneratorItems();
     }
+
+    private IEnumerable<SelectedItem> GeneratorItems() =>Enumerable.Range(1, 15).Select(i => new SelectedItem()
+    {
+        Text = $"{Localizer["Data"]} {i:d2}",
+        Value = i.ToString()
+    });
 
     private void OnAddItem()
     {

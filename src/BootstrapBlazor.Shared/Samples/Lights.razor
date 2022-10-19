@@ -1,10 +1,10 @@
 ﻿@page "/lights"
+@inject IStringLocalizer<Lights> Localizer
 
-<h3>Light 指示灯</h3>
+<h3>@Localizer["H1"]</h3>
+<h4>@Localizer["H2"]</h4>
 
-<h4>提供各种状态的指示灯</h4>
-
-<DemoBlock Title="普通用法" Introduction="用于状态指示" Name="Normal">
+<DemoBlock Title="@Localizer["P1"]" Introduction="@Localizer["P2"]" Name="Normal">
     <div class="row g-3">
         <div class="col-12 col-sm-4 col-md-3 col-lg-auto">
             <Light></Light>
@@ -30,7 +30,7 @@
     </div>
 </DemoBlock>
 
-<DemoBlock Title="闪烁" Introduction="通过设置属性 <code>IsFlash</code> 使指示灯进行闪烁" Name="Flashing">
+<DemoBlock Title="@Localizer["P3"]" Introduction="@Localizer["P4"]" Name="Flashing">
     <div class="row g-3">
         <div class="col-12 col-sm-4 col-md-3 col-lg-auto">
             <Light IsFlash="true"></Light>
@@ -56,7 +56,7 @@
     </div>
 </DemoBlock>
 
-<DemoBlock Title="变色" Introduction="通过设置属性 <code>Color</code> 值使指示灯进行变色" Name="Color">
+<DemoBlock Title="@Localizer["P5"]" Introduction="@Localizer["P6"]" Name="Color">
     <div class="row g-3">
         <div class="col-12 col-sm-4 col-md-3 col-lg-auto">
             <Light IsFlash="true" Color="@Color"></Light>
@@ -64,10 +64,10 @@
     </div>
 </DemoBlock>
 
-<DemoBlock Title="提示文字" Introduction="通过设置属性 <code>Title</code> 值使鼠标悬浮指示灯上时提示 <code>tooltip</code> 文字" Name="Title">
+<DemoBlock Title="@Localizer["P7"]" Introduction="@Localizer["P8"]" Name="Title">
     <div class="row g-3">
         <div class="col-12 col-sm-4 col-md-3 col-lg-auto">
-            <Light Color="Color.Danger" Title="我是提示文字信息"></Light>
+            <Light Color="Color.Danger" Title="@Localizer["P9"]"></Light>
         </div>
     </div>
 </DemoBlock>

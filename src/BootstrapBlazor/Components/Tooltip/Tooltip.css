@@ -5,3 +5,8 @@
 .tooltip.is-invalid {
     --bs-tooltip-bg: var(--bs-danger);
 }
+
+.input-group > [data-bs-toggle] > .form-control {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}

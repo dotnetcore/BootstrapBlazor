@@ -23,10 +23,18 @@
         <RightButtonsTemplate>
             <div class="ribbon-button">
                 <i class="fa-regular fa-circle-question"></i>
-                <span>@Localizer["P8"]</span>
+                <span>@Localizer["P9"]</span>
             </div>
         </RightButtonsTemplate>
     </RibbonTab>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["HeaderClick"]" Introduction="@Localizer["HeaderClickIntro"]" Name="HeaderClick">
+    <RibbonTab Items="@Items" OnHeaderClickAsync="@OnHeaderClickAsync" />
+    <div class="ribbon-bodys">
+        <div class="@FileClassString">@Localizer["ItemsText1"]</div>
+        <div class="@EditClassString">@Localizer["ItemsText2"]</div>
+    </div>
 </DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" />

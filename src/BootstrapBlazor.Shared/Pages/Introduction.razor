@@ -11,7 +11,10 @@
 
 <h3>@Localizer["UpdateTitle"]</h3>
 
-<p>@((MarkupString)Localizer["UpdateLog", WebsiteOption.CurrentValue.WikiUrl].Value)</p>
+<p>
+    @((MarkupString)Localizer["UpdateLog"].Value)
+    <a href="@WebsiteOption.CurrentValue.WikiUrl" target="_blank">@Localizer["UpdateLogLink"]</a>
+</p>
 
 <h3>@Localizer["LearnTitle"]</h3>
 

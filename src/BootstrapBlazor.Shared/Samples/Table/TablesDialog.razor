@@ -1,22 +1,22 @@
 ﻿@page "/tables/dialog"
+@inject IStringLocalizer<TablesDialog> Localizer
 
-<h3>Table 表格在弹窗内使用</h3>
+<h3>@Localizer["H1"]</h3>
+<h4>@Localizer["H2"]</h4>
 
-<h4>用于带层级关系的数据选择中</h4>
-
-<DemoBlock Title="弹窗中数据联动" Introduction="点击工具栏中的选择按钮弹出对话框选择候选数据" Name="TableDialog">
-    <p>本例中展示如果通过 <code>Modal</code> 组件与 <code>Table</code> 进行联动，通过弹窗中选择数据，然后再进行编辑</p>
+<DemoBlock Title="@Localizer["P1"]" Introduction="@Localizer["P2"]" Name="TableDialog">
+    <p>@((MarkupString)Localizer["P3"].Value)</p>
     <ul class="ul-demo mb-3">
-        <li>点击 <code>选择</code> 按钮弹出对话框选择产品 <code>Product</code></li>
-        <li>弹窗中选择产品后点击 <code>确定</code> 按钮关闭弹窗</li>
-        <li>点击 <code>编辑</code> 按钮，由于设置部分数据为只读，只能更改 <code>Count</code> 字段</li>
+        <li>@((MarkupString)Localizer["P4"].Value)</li>
+        <li>@((MarkupString)Localizer["P5"].Value)</li>
+        <li>@((MarkupString)Localizer["P6"].Value)</li>
     </ul>
     <Table TItem="Foo" @ref="ProductTable"
            IsStriped="true" IsBordered="true"
            ShowToolbar="true" ShowDefaultButtons="true" ShowAddButton="false" IsMultipleSelect="true" ShowExtendButtons="true"
            OnQueryAsync="@OnQueryEditAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync">
         <TableToolbarTemplate>
-            <TableToolbarButton TItem="Foo" Color="Color.Primary" Icon="fa-fw fa-solid fa-pen-to-square" Text="选择" OnClickCallback="@ShowDialog" />
+            <TableToolbarButton TItem="Foo" Color="Color.Primary" Icon="fa-fw fa-solid fa-pen-to-square" Text="@Localizer["P7"]" OnClickCallback="@ShowDialog" />
         </TableToolbarTemplate>
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Readonly="true" />
@@ -26,7 +26,7 @@
     </Table>
 
     <Modal @ref="Modal">
-        <ModalDialog Title="选择项目" IsCentered="true">
+        <ModalDialog Title="@Localizer["P8"]" IsCentered="true">
             <BodyTemplate>
                 <Table TItem="Foo" IsStriped="true" @bind-SelectedRows="@SelectedRows" ClickToSelect="true"
                        ShowToolbar="true" ShowDefaultButtons="false" IsMultipleSelect="true"
@@ -39,7 +39,7 @@
                 </Table>
             </BodyTemplate>
             <FooterTemplate>
-                <Button Text="确定" Icon="fa-regular fa-square-check" OnClick="@OnConfirm" />
+                <Button Text="@Localizer["P9"]" Icon="fa-regular fa-square-check" OnClick="@OnConfirm" />
             </FooterTemplate>
         </ModalDialog>
     </Modal>

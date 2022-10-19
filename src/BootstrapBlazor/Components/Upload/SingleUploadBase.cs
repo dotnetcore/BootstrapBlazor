@@ -70,7 +70,7 @@ public abstract class SingleUploadBase<TValue> : MultipleUploadBase<TValue>
             }
             if (!string.IsNullOrEmpty(item.ValidateId))
             {
-                await JSRuntime.InvokeVoidAsync(identifier: "bb.Tooltip.dispose", $"#{item.ValidateId}");
+                await RemoveInvalidTooltip(item);
             }
             RemoveItem();
         }

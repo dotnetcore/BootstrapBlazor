@@ -2,10 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using BootstrapBlazor.Components;
-using BootstrapBlazor.Shared.Common;
-using Microsoft.AspNetCore.Components;
-
 namespace BootstrapBlazor.Shared.Samples;
 
 /// <summary>
@@ -28,7 +24,7 @@ public sealed partial class Messages
         Message.SetPlacement(Placement.Top);
         await MessageService.Show(new MessageOption()
         {
-            Content = "这是一条提示消息"
+            Content = "This is a reminder message"
         });
     }
 
@@ -36,7 +32,7 @@ public sealed partial class Messages
     {
         await MessageService.Show(new MessageOption()
         {
-            Content = "这是一条提示消息",
+            Content = "This is a reminder message",
             Icon = "fa-solid fa-circle-info"
         });
     }
@@ -45,7 +41,7 @@ public sealed partial class Messages
     {
         await MessageService.Show(new MessageOption()
         {
-            Content = "这是一条提示消息",
+            Content = "This is a reminder message",
             Icon = "fa-solid fa-circle-info",
             ShowDismiss = true,
         });
@@ -55,7 +51,7 @@ public sealed partial class Messages
     {
         await MessageService.Show(new MessageOption()
         {
-            Content = "这是一条提示消息",
+            Content = "This is a reminder message",
             Icon = "fa-solid fa-circle-info",
             ShowBar = true,
         });
@@ -65,7 +61,7 @@ public sealed partial class Messages
     {
         await MessageService.Show(new MessageOption()
         {
-            Content = "这是带颜色的消息",
+            Content = "This is a colored message",
             Icon = "fa-solid fa-circle-info",
             Color = color
         });
@@ -75,68 +71,66 @@ public sealed partial class Messages
     {
         await MessageService.Show(new MessageOption()
         {
-            Content = "这是一条提示消息",
+            Content = "This is a reminder message",
             Icon = "fa-solid fa-circle-info",
         }, Message);
     }
 
     private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
-            // TODO: 移动到数据库中
-            new AttributeItem() {
-                Name = "Placement",
-                Description = "消息弹出位置",
-                Type = "Placement",
-                ValueList = "Top|Bottom",
-                DefaultValue = "Top"
-            }
+        new AttributeItem() {
+            Name = "Placement",
+            Description = "message popup location",
+            Type = "Placement",
+            ValueList = "Top|Bottom",
+            DefaultValue = "Top"
+        }
     };
 
     /// <summary>
-    /// 获得属性方法
+    /// get property method
     /// </summary>
     /// <returns></returns>
     private static IEnumerable<AttributeItem> GetMessageItemAttributes() => new AttributeItem[]
     {
-            // TODO: 移动到数据库中
             new AttributeItem() {
                 Name = "ChildContent",
-                Description = "内容",
+                Description = "Content",
                 Type = "RenderFragment",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "Class",
-                Description = "样式",
+                Description = "Style",
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "Color",
-                Description = "颜色",
+                Description = "Color",
                 Type = "Color",
                 ValueList = "Primary / Secondary / Success / Danger / Warning / Info / Dark",
                 DefaultValue = "Primary"
             },
             new AttributeItem() {
                 Name = "Icon",
-                Description = "图标",
+                Description = "Icon",
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "ShowDismiss",
-                Description = "关闭按钮",
+                Description = "Show close button",
                 Type = "bool",
                 ValueList = " — ",
                 DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "ShowBar",
-                Description = "是否显示左侧 Bar",
+                Description = "Whether to show the left Bar",
                 Type = "bool",
                 ValueList = "true|false",
                 DefaultValue = "false"

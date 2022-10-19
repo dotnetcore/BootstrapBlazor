@@ -6,8 +6,8 @@
 {
     <BootstrapLabel required="@Required" for="@Id" ShowLabelTooltip="ShowLabelTooltip" Value="@DisplayText" />
 }
-<div @attributes="@AdditionalAttributes" class="@ClassString" @ref="SelectElement">
-    <div class="@ToggleClassString" data-bs-toggle="@ToggleString" data-bs-placement="@PlacementString" data-bs-offset="@OffsetString" data-bs-auto-close="outside" tabindex="0" id="@Id" aria-expanded="false">
+<div @attributes="@AdditionalAttributes" class="@ClassString" id="@Id">
+    <div class="@ToggleClassString" data-bs-toggle="@ToggleString" data-bs-placement="@PlacementString" data-bs-offset="@OffsetString" data-bs-auto-close="outside" data-bs-custom-class="@CustomClassString" tabindex="0">
         <div class="@PlaceHolderClassString">@PlaceHolder</div>
         <div class="multi-select-items">
             @foreach (var item in SelectedItems)
@@ -15,9 +15,10 @@
                 @if (ShowCloseButton)
                 {
                     <div class="multi-select-item-group">
-                        <span class="multi-select-close" @onclick:stopPropagation @onclick="@(e => ToggleRow(item))">
+                        <DynamicElement  TagName="span" class="multi-select-close" data-bb-val="@GetValueString(item)"
+                                         TriggerClick="@(!IsPopover)" OnClick="() => ToggleRow(item.Value)">
                             <i class="@ClearIcon"></i>
-                        </span>
+                        </DynamicElement>
                         <span class="multi-select-item">@item.Text</span>
                     </div>
                 }
@@ -33,7 +34,7 @@
         {
             <div class="search">
                 <input type="text" class="form-control" @bind="@SearchText" @bind:event="oninput" />
-                <i class="@SearchIcon"></i>
+                <i class="@SearchIconString"></i>
             </div>
         }
         @if (ShowToolbar)
@@ -56,7 +57,7 @@
             }
             @foreach (var item in itemGroup)
             {
-                <DynamicElement OnClick="() => ToggleRow(item, true)" TriggerClick="@CheckCanTrigger(item)" class="@GetItemClassString(item)">
+                <DynamicElement OnClick="() => ToggleRow(item.Value)" TriggerClick="@CheckCanTrigger(item)" class="@GetItemClassString(item)">
                     <div class="multi-select-item">
                         <Checkbox Value="GetCheckedState(item)" ShowLabel="false" IsDisabled="@CheckCanSelect(item)"></Checkbox>
                         @if (ItemTemplate == null)

@@ -9,12 +9,11 @@ using Microsoft.JSInterop;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+///
 /// </summary>
+[JSModuleAutoLoader("./_content/BootstrapBlazor.FontAwesome/modules/icon-list.js", ModuleName = "IconList", JSObjectReference = true, Relative = false)]
 public partial class FAIconList
 {
-    private ElementReference IconListElement { get; set; }
-
     private string? ClassString => CssBuilder.Default("icon-list")
         .AddClass("is-catalog", ShowCatalog)
         .AddClass("is-dialog", ShowCopyDialog)
@@ -58,6 +57,12 @@ public partial class FAIconList
     [Parameter]
     public bool IsCopy { get; set; }
 
+    /// <summary>
+    /// 获得/设置 拷贝成功提示文字
+    /// </summary>
+    [Parameter]
+    public string? CopiedTooltipText { get; set; }
+
     [Inject]
     [NotNull]
     private DialogService? DialogService { get; set; }
@@ -65,8 +70,6 @@ public partial class FAIconList
     [Inject]
     [NotNull]
     private IStringLocalizer<IconDialog>? Localizer { get; set; }
-
-    private JSInterop<FAIconList>? Interop { get; set; }
 
     /// <summary>
     /// OnParametersSet 方法
@@ -79,18 +82,14 @@ public partial class FAIconList
     }
 
     /// <summary>
-    /// OnAfterRenderAsync 方法
+    /// <inheritdoc/>
     /// </summary>
-    /// <param name="firstRender"></param>
     /// <returns></returns>
-    protected override async Task OnAfterRenderAsync(bool firstRender)
+    protected override async Task ModuleInitAsync()
     {
-        await base.OnAfterRenderAsync(firstRender);
-
-        if (firstRender)
+        if (Module != null)
         {
-            Interop ??= new(JSRuntime);
-            await Interop.InvokeVoidAsync(this, IconListElement, "bb_iconList", nameof(UpdateIcon), nameof(ShowDialog), IsCopy);
+            await Module.InvokeVoidAsync($"{ModuleName}.init", Id, nameof(UpdateIcon), nameof(ShowDialog), IsCopy);
         }
     }
 
@@ -113,7 +112,7 @@ public partial class FAIconList
     }
 
     /// <summary>
-    /// 
+    ///
     /// </summary>
     /// <returns></returns>
     [JSInvokable]

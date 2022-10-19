@@ -179,6 +179,9 @@
   "BootstrapBlazor.Components.Select": {
     "PlaceHolder": "Klicken für auswählen ..."
   },
+  "BootstrapBlazor.Components.SelectTree": {
+    "PlaceHolder": "Klicken für auswählen ..."
+  },
   "BootstrapBlazor.Components.StringLengthValidator": {
     "ErrorMessage": "Bitte geben Sie ein Wert kleiner oder gleich {{0}}"
   },
@@ -340,6 +343,7 @@
     "LabelText": "Symbol",
     "LabelFullText": "Html",
     "ButtonText": "Kopieren",
-    "DialogHeaderText": "Ausgewähltes Symbol"
+    "DialogHeaderText": "Ausgewähltes Symbol",
+    "CopiedTooltipText": "Kopieren erfolgreich"
   }
 }

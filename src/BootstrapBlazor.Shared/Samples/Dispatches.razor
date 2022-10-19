@@ -1,28 +1,25 @@
 ﻿@page "/dispatches"
 
-<h3>Dispatch 消息分发</h3>
-
-<h4>通过注入服务调用实例方法全站弹出窗口进行消息通知</h4>
+<h3>@Localizer["H1"]</h3>
+<h4>@Localizer["H2"]</h4>
 
 <Tips class="mt-3">
-    <p>
-        本组件使用注入服务的形式提供功能，通常用于全站消息推送等功能；使用本服务使需要在代码中进行 <b>订阅</b> 与 <b>取消订阅</b> 操作
-    </p>
+    <p>@Localizer["P1"]</p>
 </Tips>
 
-<DemoBlock Title="基本用法" Introduction="通过注入服务 <code>IDispatchService&lt;TEntry&gt;</code> 实例进行弹窗" Name="Normal" ShowCode="false">
-    <p>本站通过此组件功能实现了代码仓库有提交时全站提示功能</p>
-    <p>1. 获得 <b>注入服务</b> 指定消息实体类</p>
+<DemoBlock Title="@Localizer["P2"]" Introduction="@Localizer["P3"]" Name="Normal" ShowCode="false">
+    <p>@Localizer["P4"]</p>
+    <p>@Localizer["P5"]</p>
     <Pre>[Inject]
 [NotNull]
 private IDispatchService&lt;GiteePostBody&gt;? DispatchService { get; set; }</Pre>
-    <p>2. <b>订阅</b> 消息通知</p>
+    <p>@Localizer["P6"]</p>
     <Pre>protected override void OnInitialized()
 {
     // ...
     DispatchService.Subscribe(Notify);
 }</Pre>
-    <p>3. 页面或者组件销毁时 <b>取消订阅</b></p>
+    <p>@Localizer["P7"]</p>
     <Pre>private void Dispose(bool disposing)
 {
     if (disposing)
@@ -30,7 +27,7 @@ private IDispatchService&lt;GiteePostBody&gt;? DispatchService { get; set; }</Pr
         DispatchService.UnSubscribe(Notify);
     }
 }</Pre>
-    <p>4. 通知实现方法 <code>Notify</code></p>
+    <p>@Localizer["P8"]</p>
     <Pre>private async Task Notify(DispatchEntry&lt;GiteePostBody&gt; payload)
 {
     if (payload.Entry != null)
@@ -38,16 +35,16 @@ private IDispatchService&lt;GiteePostBody&gt;? DispatchService { get; set; }</Pr
         var option = new ToastOption()
         {
             Category = ToastCategory.Information,
-            Title = "通知标题",
-            Content = "通知内容"
+            Title = @Localizer["P9"],
+            Content = @Localizer["P10"]
         };
         await Toast.Show(option);
     }
 }</Pre>
-    <div>本例中使用 <code>Toast</code> 组件进行通知，实战中可以使用其他任意内置消息组件或者自定义组件进行通知提示操作</div>
+    <div>@Localizer["P11"] <code>Toast</code> @Localizer["P12"]</div>
 </DemoBlock>
 
-<DemoBlock Title="实战应用" Introduction="点击按钮进行消息分发，所有打开此页面的人均能收到此按钮分发的消息" Name="Dispatch">
-    <p>由于本功能为全站推送通知，为防止恶意使用，下例中按钮通知后禁用 <b>30</b> 秒；消息注入代码在 <code>MainLayout</code> 模板中</p>
-    <Button IsAsync="true" Icon="fa-regular fa-paper-plane" Text="通知" OnClickWithoutRender="OnDispatch" />
+<DemoBlock Title="@Localizer["P13"]" Introduction="@Localizer["P14"]" Name="Dispatch">
+    <p>@Localizer["P15"]</p>
+    <Button IsAsync="true" Icon="fa-regular fa-paper-plane" Text="@Localizer["P16"]" OnClickWithoutRender="OnDispatch" />
 </DemoBlock>

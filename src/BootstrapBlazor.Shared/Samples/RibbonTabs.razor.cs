@@ -2,9 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using BootstrapBlazor.Components;
-using BootstrapBlazor.Shared.Common;
-
 namespace BootstrapBlazor.Shared.Samples;
 
 /// <summary>
@@ -49,6 +46,23 @@ public partial class RibbonTabs
                 }
             }
         };
+    }
+
+    private string? ActiveTabText { get; set; }
+
+    private string? FileClassString => CssBuilder.Default("ribbon-body collapse")
+        .AddClass("show", ActiveTabText == Localizer["ItemsText1"])
+        .Build();
+
+    private string? EditClassString => CssBuilder.Default("ribbon-body collapse")
+        .AddClass("show", ActiveTabText == Localizer["ItemsText2"])
+        .Build();
+
+    private Task OnHeaderClickAsync(string text, string url)
+    {
+        ActiveTabText = text;
+        StateHasChanged();
+        return Task.CompletedTask;
     }
 
     private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
@@ -111,7 +125,7 @@ public partial class RibbonTabs
         },
         new AttributeItem()
         {
-            Name = nameof(RibbonTab.OnTabItemClickAsync),
+            Name = nameof(RibbonTab.OnItemClickAsync),
             Description = Localizer["Attr8"],
             Type = "Func<RibbonTabItem, Task>",
             ValueList = " — ",

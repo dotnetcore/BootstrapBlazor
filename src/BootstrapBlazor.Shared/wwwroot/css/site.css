@@ -1658,7 +1658,6 @@ header .bb-fs {
 }
 
 .blazor-intro {
-    display: none;
     position: fixed;
     left: 0;
     right: 0;
@@ -1667,7 +1666,15 @@ header .bb-fs {
     color: #ffffff;
     background: linear-gradient(54.4deg,#771f89 -28.5%,#834cef 30.36%,#636cea 99.19%);
     padding: 1rem;
+    opacity: 0;
+    height: 0;
+    transition: height .3s ease-in-out, opacity .3s ease-in-out;
 }
+
+    .blazor-intro.show {
+        opacity: 1;
+        height: 224px;
+    }
 
     .blazor-intro .blazor-intro-body {
         flex: 1 1 auto;
@@ -1745,6 +1752,7 @@ header .bb-fs {
         .carousel-item-demo2 .demo-item img {
             border-radius: var(--bs-border-radius);
             margin: 1rem 0;
+            height: auto;
         }
 
         .carousel-item-demo2 .demo-item .top,
@@ -1785,6 +1793,19 @@ header .bb-fs {
     border-radius: var(--bs-border-radius);
 }
 
+.wwads-cn {
+    --ad-min-height: 120px;
+    --ad-margin-bottom: 1rem;
+    min-height: var(--ad-min-height);
+    margin-bottom: var(--ad-margin-bottom);
+    overflow: hidden;
+}
+
+    .wwads-cn.debug {
+        --ad-min-height: 0;
+        --ad-margin-bottom: 0;
+    }
+
 @media (max-width: 767.98px) {
     .main .top-row:not(.auth) {
         display: none;
@@ -1816,10 +1837,15 @@ header .bb-fs {
     }
 }
 
+.textarea-demo {
+    min-height: var(--bb-height);
+}
+
 @media (min-width: 576px) {
     .popover-demo input,
     .tooltip-demo input {
-        width: 100px;
+        width: 144px;
+        text-align: center;
     }
 
     .bb-icon {
@@ -1837,8 +1863,6 @@ header .bb-fs {
     .textarea-demo {
         word-break: break-all;
         height: auto;
-        min-height: var(--bb-height);
-        width: calc(100% - 100px);
     }
 
     .intro .card {

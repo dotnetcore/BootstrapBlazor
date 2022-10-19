@@ -2,8 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using BootstrapBlazor.Shared.Common;
-
 namespace BootstrapBlazor.Shared.Samples;
 
 /// <summary>
@@ -12,39 +10,38 @@ namespace BootstrapBlazor.Shared.Samples;
 public sealed partial class Spinners
 {
     /// <summary>
-    /// 获得属性方法
+    /// Get property method
     /// </summary>
     /// <returns></returns>
     private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
-            // TODO: 移动到数据库中
-            new AttributeItem() {
-                Name = "Class",
-                Description = "样式",
-                Type = "string",
-                ValueList = " — ",
-                DefaultValue = " — "
-            },
-            new AttributeItem() {
-                Name = "Color",
-                Description = "颜色",
-                Type = "Color",
-                ValueList = "Primary / Secondary / Success / Danger / Warning / Info / Dark",
-                DefaultValue = "Primary"
-            },
-            new AttributeItem() {
-                Name = "Size",
-                Description = "尺寸",
-                Type = "Size",
-                ValueList = "None / ExtraSmall / Small / Medium / Large / ExtraLarge",
-                DefaultValue = "None"
-            },
-            new AttributeItem() {
-                Name = "SpinnerType",
-                Description = "图标类型",
-                Type = "SpinnerType",
-                ValueList = " Border / Grow ",
-                DefaultValue = "SpinnerType.Border"
-            },
+        new AttributeItem() {
+            Name = "Class",
+            Description = "style",
+            Type = "string",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new AttributeItem() {
+            Name = "Color",
+            Description = "Color",
+            Type = "Color",
+            ValueList = "Primary / Secondary / Success / Danger / Warning / Info / Dark",
+            DefaultValue = "Primary"
+        },
+        new AttributeItem() {
+            Name = "Size",
+            Description = "Size",
+            Type = "Size",
+            ValueList = "None / ExtraSmall / Small / Medium / Large / ExtraLarge",
+            DefaultValue = "None"
+        },
+        new AttributeItem() {
+            Name = "SpinnerType",
+            Description = "Icon type",
+            Type = "SpinnerType",
+            ValueList = " Border / Grow ",
+            DefaultValue = "SpinnerType.Border"
+        }
     };
 }

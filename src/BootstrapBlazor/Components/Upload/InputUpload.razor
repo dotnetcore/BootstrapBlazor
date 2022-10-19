@@ -6,7 +6,7 @@
 {
     <BootstrapLabel required="@Required" for="@Id" ShowLabelTooltip="ShowLabelTooltip" Value="@DisplayText" />
 }
-<div @attributes="@AdditionalAttributes" class="@ClassString" @ref="UploaderElement">
+<div @attributes="@AdditionalAttributes" class="@ClassString" id="@Id">
     <div class="input-group">
         <input type="text" class="@InputValueClassString" id="@Id" disabled="@Disabled" readonly placeholder="@PlaceHolder" value="@GetFileName(CurrentFile)" />
         @if (ShowDeleteButton)

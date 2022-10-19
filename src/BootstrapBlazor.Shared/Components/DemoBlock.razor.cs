@@ -2,9 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using BootstrapBlazor.Components;
-using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.Localization;
 using Microsoft.JSInterop;
 
 namespace BootstrapBlazor.Shared.Components;
@@ -14,8 +11,6 @@ namespace BootstrapBlazor.Shared.Components;
 /// </summary>
 public sealed partial class DemoBlock
 {
-    private ElementReference BlockElement { get; set; }
-
     /// <summary>
     /// 获得/设置 组件 Title 属性
     /// </summary>
@@ -52,10 +47,6 @@ public sealed partial class DemoBlock
     /// </summary>
     [Parameter]
     public string? TooltipText { get; set; }
-
-    [NotNull]
-    private string? SubTitle { get; set; }
-
     [Inject]
     [NotNull]
     private IStringLocalizer<DemoBlock>? Localizer { get; set; }
@@ -76,22 +67,6 @@ public sealed partial class DemoBlock
         base.OnParametersSet();
 
         Title ??= Localizer[nameof(Title)];
-        SubTitle ??= Localizer[nameof(SubTitle)];
         TooltipText ??= Localizer[nameof(TooltipText)];
-    }
-
-    /// <summary>
-    /// OnAfterRenderAsync
-    /// </summary>
-    /// <param name="firstRender"></param>
-    /// <returns></returns>
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        await base.OnAfterRenderAsync(firstRender);
-
-        if (firstRender)
-        {
-            await JSRuntime.InvokeVoidAsync("$.bb_block", BlockElement);
-        }
     }
 }

@@ -2,8 +2,7 @@
   {
     "outputFileName": "wwwroot/css/bootstrap.blazor.cherrymarkdown.min.css",
     "inputFiles": [
-      "wwwroot/css/cherry-markdown.min.css",
-      "Components/**/*.css"
+      "wwwroot/css/cherry-markdown.min.css"
     ]
   },
   {

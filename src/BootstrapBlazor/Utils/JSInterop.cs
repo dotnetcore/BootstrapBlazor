@@ -9,7 +9,8 @@ namespace BootstrapBlazor.Components;
 /// </summary>
 public class JSInterop<TValue> : IDisposable where TValue : class
 {
-    private readonly IJSRuntime _jsRuntime;
+    private IJSRuntime JSRuntime { get; }
+
     private DotNetObjectReference<TValue>? _objRef;
 
     /// <summary>
@@ -18,7 +19,7 @@ public class JSInterop<TValue> : IDisposable where TValue : class
     /// <param name="jsRuntime"></param>
     public JSInterop(IJSRuntime jsRuntime)
     {
-        _jsRuntime = jsRuntime;
+        JSRuntime = jsRuntime;
     }
 
     /// <summary>
@@ -28,32 +29,26 @@ public class JSInterop<TValue> : IDisposable where TValue : class
     /// <param name="value"></param>
     /// <param name="args"></param>
     /// <returns></returns>
-#if NET5_0
-    public async ValueTask InvokeVoidAsync(string identifier, TValue value, params object[] args)
+    public async ValueTask InvokeVoidAsync(string identifier, TValue value, params object?[]? args)
     {
         _objRef = DotNetObjectReference.Create(value);
+#if NET5_0
         var paras = new List<object>()
         {
             _objRef
         };
-        paras.AddRange(args);
-        await _jsRuntime.InvokeVoidAsync(identifier: identifier, paras.ToArray());
-    }
 #else
-    public async ValueTask InvokeVoidAsync(string identifier, TValue value, params object?[]? args)
-    {
-        _objRef = DotNetObjectReference.Create(value);
         var paras = new List<object?>()
         {
             _objRef
         };
+#endif
         if (args != null)
         {
-            paras.AddRange(args);
+            paras.AddRange(args!);
         }
-        await _jsRuntime.InvokeVoidAsync(identifier: identifier, paras.ToArray());
+        await JSRuntime.InvokeVoidAsync(identifier: identifier, paras.ToArray());
     }
-#endif
 
     /// <summary>
     /// Invoke 方法
@@ -70,7 +65,7 @@ public class JSInterop<TValue> : IDisposable where TValue : class
             _objRef
         };
         paras.AddRange(args);
-        await _jsRuntime.InvokeVoidAsync(el, func, paras.ToArray());
+        await JSRuntime.InvokeVoidAsync(el, func, paras.ToArray());
     }
 
     /// <summary>
@@ -89,7 +84,7 @@ public class JSInterop<TValue> : IDisposable where TValue : class
             _objRef
         };
         paras.AddRange(args);
-        return await _jsRuntime.InvokeAsync<TReturn>(el, func, paras.ToArray());
+        return await JSRuntime.InvokeAsync<TReturn>(el, func, paras.ToArray());
     }
 
     /// <summary>
@@ -99,7 +94,7 @@ public class JSInterop<TValue> : IDisposable where TValue : class
     internal ValueTask<bool> GetGeolocationItemAsync(TValue value, string callbackMethodName)
     {
         _objRef = DotNetObjectReference.Create(value);
-        return _jsRuntime.InvokeAsync<bool>("$.bb_geo_getCurrnetPosition", _objRef, callbackMethodName);
+        return JSRuntime.InvokeAsync<bool>("$.bb_geo_getCurrnetPosition", _objRef, callbackMethodName);
     }
 
     /// <summary>
@@ -109,7 +104,7 @@ public class JSInterop<TValue> : IDisposable where TValue : class
     internal ValueTask<long> GetWatchPositionItemAsync(TValue value, string callbackMethodName)
     {
         _objRef = DotNetObjectReference.Create(value);
-        return _jsRuntime.InvokeAsync<long>("$.bb_geo_watchPosition", _objRef, callbackMethodName);
+        return JSRuntime.InvokeAsync<long>("$.bb_geo_watchPosition", _objRef, callbackMethodName);
     }
 
     /// <summary>
@@ -118,7 +113,7 @@ public class JSInterop<TValue> : IDisposable where TValue : class
     /// <returns></returns>
     internal ValueTask<bool> SetClearWatchPositionAsync(long watchid)
     {
-        return _jsRuntime.InvokeAsync<bool>("$.bb_geo_clearWatchLocation", watchid);
+        return JSRuntime.InvokeAsync<bool>("$.bb_geo_clearWatchLocation", watchid);
     }
 
     /// <summary>
@@ -128,7 +123,7 @@ public class JSInterop<TValue> : IDisposable where TValue : class
     internal ValueTask CheckNotifyPermissionAsync(TValue value, string? callbackMethodName = null, bool requestPermission = true)
     {
         _objRef = DotNetObjectReference.Create(value);
-        return _jsRuntime.InvokeVoidAsync("$.bb_notify_checkPermission", _objRef, callbackMethodName ?? "", requestPermission);
+        return JSRuntime.InvokeVoidAsync("$.bb_notify_checkPermission", _objRef, callbackMethodName ?? "", requestPermission);
     }
 
     /// <summary>
@@ -138,7 +133,7 @@ public class JSInterop<TValue> : IDisposable where TValue : class
     internal ValueTask<bool> Dispatch(TValue value, NotificationItem model, string? callbackMethodName = null)
     {
         _objRef = DotNetObjectReference.Create(value);
-        return _jsRuntime.InvokeAsync<bool>("$.bb_notify_display", _objRef, callbackMethodName, model);
+        return JSRuntime.InvokeAsync<bool>("$.bb_notify_display", _objRef, callbackMethodName, model);
     }
 
     /// <summary>

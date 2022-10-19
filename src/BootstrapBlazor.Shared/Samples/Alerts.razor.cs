@@ -2,11 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using BootstrapBlazor.Shared.Common;
-using BootstrapBlazor.Shared.Components;
-using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.Localization;
-
 namespace BootstrapBlazor.Shared.Samples;
 
 /// <summary>
@@ -119,7 +114,7 @@ public sealed partial class Alerts
         new EventItem()
         {
             Name = "OnDismiss",
-            Description="关闭警告框回调方法",
+            Description="Close the alert box callback method",
             Type ="EventCallback<MouseEventArgs>"
         }
     };
@@ -130,59 +125,58 @@ public sealed partial class Alerts
     /// <returns></returns>
     private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
-        // TODO: 移动到数据库中
         new AttributeItem() {
             Name = "ChildContent",
-            Description = "内容",
+            Description = "Content",
             Type = "RenderFragment",
             ValueList = " — ",
             DefaultValue = " — "
         },
         new AttributeItem() {
             Name = "Class",
-            Description = "样式",
+            Description = "Style",
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
         },
         new AttributeItem() {
             Name = "Color",
-            Description = "颜色",
+            Description = "Color",
             Type = "Color",
             ValueList = "Primary / Secondary / Success / Danger / Warning / Info / Dark",
             DefaultValue = "Primary"
         },
         new AttributeItem() {
             Name = "Icon",
-            Description = "图标",
+            Description = "Icon",
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
         },
         new AttributeItem() {
             Name = "ShowDismiss",
-            Description = "关闭按钮",
+            Description = "Close Button",
             Type = "bool",
             ValueList = " — ",
             DefaultValue = "false"
         },
         new AttributeItem() {
             Name = "ShowBar",
-            Description = "是否显示左侧 Bar",
+            Description = "Show the left Bar",
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
         },
         new AttributeItem() {
             Name = "ShowBorder",
-            Description = "是否显示边框",
+            Description = "Show border",
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
         },
         new AttributeItem() {
             Name = "ShowShadow",
-            Description = "是否显示阴影",
+            Description = "Show Shadow",
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"

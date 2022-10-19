@@ -1,4 +1,4 @@
-﻿export function bb_editor(el, attrMethod, callback, method, height, value, lang, obj) {
+﻿export function bb_editor(el, obj, attrMethod, callback, method, height, value, lang) {
     // 自动加载样式
     BootstrapBlazorModules.addLink('_content/BootstrapBlazor.SummerNote/css/bootstrap.blazor.editor.min.css');
     BootstrapBlazorModules.addScript('_content/BootstrapBlazor.SummerNote/js/summernote-bs5.min.js');
@@ -19,7 +19,7 @@ export function bb_editor_code(el, obj, value) {
     $.bb_editor_code(el, obj, value);
 };
 
-export function bb_editor_method(el, method, parameter) {
+export function bb_editor_method(el, obj, method, parameter) {
     $.bb_editor_method(el, method, parameter);
 };
 

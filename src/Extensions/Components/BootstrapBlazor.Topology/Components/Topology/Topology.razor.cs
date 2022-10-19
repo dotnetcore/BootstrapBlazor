@@ -3,14 +3,14 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.AspNetCore.Components;
-using Microsoft.JSInterop;
 
 namespace BootstrapBlazor.Components;
 
 /// <summary>
 /// Topology 组件类
 /// </summary>
-public partial class Topology : IDisposable
+[JSModuleAutoLoader("./_content/BootstrapBlazor.Topology/js/bootstrap.blazor.topology.min.js", ModuleName = "BlazorTopology", JSObjectReference = true, Relative = false)]
+public partial class Topology
 {
     /// <summary>
     /// 获得/设置 JSON 文件内容
@@ -40,32 +40,21 @@ public partial class Topology : IDisposable
     [Parameter]
     public Func<Task>? OnBeforePushData { get; set; }
 
-    [NotNull]
-    private JSModule? Module { get; set; }
-
     private string? StyleString => CssBuilder.Default("width: 100%; height: 100%;")
         .AddStyleFromAttributes(AdditionalAttributes)
         .Build();
 
     private CancellationTokenSource? CancelToken { get; set; }
 
-    private bool isInited { get; set; }
-
     /// <summary>
-    /// OnAfterRenderAsync 方法
+    /// <inheritdoc/>
     /// </summary>
-    /// <param name="firstRender"></param>
     /// <returns></returns>
-    protected override async Task OnAfterRenderAsync(bool firstRender)
+    protected override async Task ModuleInitAsync()
     {
-        if (!isInited)
+        if (Module != null)
         {
-            if (!string.IsNullOrEmpty(Content))
-            {
-                isInited = true;
-                Module = await JSRuntime.LoadModule<Topology>("./_content/BootstrapBlazor.Topology/js/bootstrap.blazor.topology.min.js", this, false);
-                await Module.InvokeVoidAsync("init", Id, Content, nameof(PushData));
-            }
+            await Module.InvokeVoidAsync($"{ModuleName}.init", Id, Content, nameof(PushData));
         }
     }
 
@@ -76,7 +65,7 @@ public partial class Topology : IDisposable
     [JSInvokable]
     public async Task PushData()
     {
-        if (!disposing)
+        if (!_disposing)
         {
             if (OnBeforePushData != null)
             {
@@ -114,39 +103,27 @@ public partial class Topology : IDisposable
     /// <returns></returns>
     public async ValueTask PushData(IEnumerable<TopologyItem> items, CancellationToken token = default)
     {
-        if (Module != null)
+        if (Module != null && !_disposing)
         {
-            await Module.InvokeVoidAsync("push_data", token, Id, items);
+            await Module.InvokeVoidAsync($"{ModuleName}.execute", token, Id, items);
         }
     }
 
-    private bool disposing = false;
+    private bool _disposing;
 
     /// <summary>
-    /// Dispose 方法
+    /// DisposeAsync 方法
     /// </summary>
     /// <param name="disposing"></param>
-    protected virtual void Dispose(bool disposing)
+    protected override async ValueTask DisposeAsync(bool disposing)
     {
-        if (disposing)
+        _disposing = true;
+        if (CancelToken != null && disposing)
         {
-            if (CancelToken != null)
-            {
-                CancelToken.Cancel();
-                CancelToken.Dispose();
-                CancelToken = null;
-            }
+            CancelToken.Cancel();
+            CancelToken.Dispose();
+            CancelToken = null;
         }
-    }
-
-    /// <summary>
-    /// Dispose 方法
-    /// </summary>
-    /// <exception cref="NotImplementedException"></exception>
-    public void Dispose()
-    {
-        disposing = true;
-        Dispose(true);
-        GC.SuppressFinalize(this);
+        await base.DisposeAsync(disposing);
     }
 }

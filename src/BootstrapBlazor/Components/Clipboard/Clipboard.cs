@@ -7,7 +7,8 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// Clipboard 组件部分类
 /// </summary>
-public class Clipboard : BootstrapComponentBase, IDisposable
+[JSModuleAutoLoader("base/utility")]
+public class Clipboard : BootstrapModuleComponentBase
 {
     /// <summary>
     /// DialogServices 服务实例
@@ -27,9 +28,18 @@ public class Clipboard : BootstrapComponentBase, IDisposable
         ClipboardService.Register(this, Copy);
     }
 
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    protected override Task ModuleInvokeVoidAsync(bool firstRender) => Task.CompletedTask;
+
     private async Task Copy(ClipboardOption option)
     {
-        await JSRuntime.InvokeVoidAsync(identifier: "bb.Utility.copy", option.Text);
+        if (Module != null)
+        {
+            await Module.InvokeVoidAsync("copy", option.Text);
+        }
         if (option.Callback != null)
         {
             await option.Callback();
@@ -40,20 +50,12 @@ public class Clipboard : BootstrapComponentBase, IDisposable
     /// Dispose 方法
     /// </summary>
     /// <param name="disposing"></param>
-    protected virtual void Dispose(bool disposing)
+    protected override async ValueTask DisposeAsync(bool disposing)
     {
         if (disposing)
         {
             ClipboardService.UnRegister(this);
         }
-    }
-
-    /// <summary>
-    /// Dispose 方法
-    /// </summary>
-    public void Dispose()
-    {
-        Dispose(disposing: true);
-        GC.SuppressFinalize(this);
+        await base.DisposeAsync(disposing);
     }
 }

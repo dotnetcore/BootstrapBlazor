@@ -2,9 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using BootstrapBlazor.Components;
-using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.Localization;
 using Microsoft.JSInterop;
 
 namespace BootstrapBlazor.Shared.Samples.Table;
@@ -19,7 +16,7 @@ public sealed partial class TablesWrap
 
     [Inject]
     [NotNull]
-    private IStringLocalizer<Foo>? Localizer { get; set; }
+    private IStringLocalizer<Foo>? LocalizerFoo { get; set; }
 
     /// <summary>
     /// OnInitialized 方法
@@ -28,12 +25,12 @@ public sealed partial class TablesWrap
     {
         base.OnInitialized();
 
-        CellItems = Foo.GenerateFoo(Localizer, 4);
+        CellItems = Foo.GenerateFoo(LocalizerFoo, 4);
     }
 
     private Task<QueryData<Foo>> OnQueryAsync(QueryPageOptions options)
     {
-        var items = Foo.GenerateFoo(Localizer);
+        var items = Foo.GenerateFoo(LocalizerFoo);
 
         // 设置记录总数
         var total = items.Count;

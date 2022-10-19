@@ -2,13 +2,8 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using BootstrapBlazor.Components;
-using BootstrapBlazor.Shared.Common;
-using BootstrapBlazor.Shared.Components;
-using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.AspNetCore.Components.Web;
-using Microsoft.Extensions.Localization;
 
 namespace BootstrapBlazor.Shared.Samples;
 
@@ -28,9 +23,9 @@ public sealed partial class Trees
 
     [Inject]
     [NotNull]
-    private IStringLocalizer<Foo>? Localizer { get; set; }
+    private IStringLocalizer<Foo>? LocalizerFoo { get; set; }
 
-    private Foo Model => Foo.Generate(Localizer);
+    private Foo Model => Foo.Generate(LocalizerFoo);
 
     private List<TreeItem> Items { get; set; } = TreeDataFoo.GetTreeItems();
 
@@ -85,9 +80,9 @@ public sealed partial class Trees
     {
         var ret = TreeDataFoo.GetTreeItems();
         ret[1].Items[0].IsCollapsed = false;
-        ret[1].Items[1].Text = "懒加载";
+        ret[1].Items[1].Text = "lazy loading";
         ret[1].Items[1].HasChildNode = true;
-        ret[1].Items[2].Text = "懒加载延时";
+        ret[1].Items[2].Text = "lazy loading delay";
         ret[1].Items[2].HasChildNode = true;
         ret[1].Items[2].Key = "Delay";
 
@@ -127,7 +122,7 @@ public sealed partial class Trees
             builder.AddAttribute(2, nameof(Button.Text), "Click");
             builder.AddAttribute(3, nameof(Button.OnClick), EventCallback.Factory.Create<MouseEventArgs>(this, e =>
             {
-                ToastService.Warning("自定义 TreeItem", "测试 TreeItem 按钮点击事件");
+                ToastService.Warning("Custom TreeItem", "Test the TreeItem button click event");
             }));
             builder.CloseComponent();
         }
@@ -141,7 +136,7 @@ public sealed partial class Trees
 
     private Task OnTreeItemChecked(TreeItem item)
     {
-        var state = item.Checked ? "选中" : "未选中";
+        var state = item.Checked ? "checked" : "Unselected";
         TraceChecked.Log($"TreeItem: {item.Text} {state}");
         return Task.CompletedTask;
     }
@@ -159,10 +154,10 @@ public sealed partial class Trees
             {
                     new TreeItem()
                     {
-                        Text = "懒加载子节点1",
+                        Text = "lazy loading child node 1",
                         HasChildNode = true
                     },
-                    new TreeItem() { Text = "懒加载子节点2" }
+                    new TreeItem() { Text = "lazy loading child node 2" }
             });
             item.ShowLoading = false;
         }
@@ -170,7 +165,7 @@ public sealed partial class Trees
 
     private Task OnTreeItemChecked(List<TreeItem> items)
     {
-        TraceCheckedItems.Log($"当前共选中{items.Count}项");
+        TraceCheckedItems.Log($"Currently selected {items.Count} item");
         return Task.CompletedTask;
     }
 
@@ -180,66 +175,65 @@ public sealed partial class Trees
     /// <returns></returns>
     private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
-        // TODO: 移动到数据库中
         new AttributeItem() {
             Name = "Items",
-            Description = "菜单数据集合",
+            Description = "Menu data set",
             Type = "IEnumerable<TreeItem>",
             ValueList = " — ",
             DefaultValue = "new List<TreeItem>(20)"
         },
         new AttributeItem() {
             Name = "ClickToggleNode",
-            Description = "是否点击节点时展开或者收缩子项",
+            Description = "Whether to expand or contract children when a node is clicked",
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
         },
         new AttributeItem() {
             Name = "ShowCheckbox",
-            Description = "是否显示 CheckBox",
+            Description = "Whether to display CheckBox",
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
         },
         new AttributeItem() {
             Name = "ShowIcon",
-            Description = "是否显示 Icon",
+            Description = "Whether to display Icon",
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
         },
         new AttributeItem() {
             Name = "ShowSkeleton",
-            Description = "是否显示加载骨架屏",
+            Description = "Whether to display the loading skeleton screen",
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
         },
         new AttributeItem() {
             Name = "OnTreeItemClick",
-            Description = "树形控件节点点击时回调委托",
+            Description = "Callback delegate when tree control node is clicked",
             Type = "Func<TreeItem, Task>",
             ValueList = " — ",
             DefaultValue = " — "
         },
         new AttributeItem() {
             Name = "OnTreeItemChecked",
-            Description = "树形控件节点选中时回调委托",
+            Description = "Callback delegate when tree control node is selected",
             Type = "Func<TreeItem, Task>",
             ValueList = " — ",
             DefaultValue = " — "
         },
         new AttributeItem() {
             Name = "OnExpandNode",
-            Description = "树形控件节点展开回调委托",
+            Description = "Tree control node expand callback delegate",
             Type = "Func<TreeItem, Task>",
             ValueList = " — ",
             DefaultValue = " — "
         },
         new AttributeItem() {
             Name = "OnCheckedItems",
-            Description = "树形控件获取所有选中节点回调委托",
+            Description = "The tree control gets the callback delegate of all selected nodes",
             Type = "Func<List<TreeItem>, Task>",
             ValueList = " — ",
             DefaultValue = " — "
@@ -248,80 +242,79 @@ public sealed partial class Trees
 
     private static IEnumerable<AttributeItem> GetTreeItemAttributes() => new AttributeItem[]
     {
-        // TODO: 移动到数据库中
         new AttributeItem() {
             Name = nameof(TreeItem.Key),
-            Description = "TreeItem 标识",
+            Description = "TreeItem ID",
             Type = "object?",
             ValueList = " — ",
             DefaultValue = " — "
         },
         new AttributeItem() {
             Name = "Items",
-            Description = "子节点数据源",
+            Description = "Child node data source",
             Type = "IEnumerable<TreeItem>",
             ValueList = " — ",
             DefaultValue = "new List<TreeItem>(20)"
         },
         new AttributeItem() {
             Name = "Text",
-            Description = "显示文字",
+            Description = "Display text",
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
         },
         new AttributeItem() {
             Name = "Icon",
-            Description = "显示图标",
+            Description = "Show icon",
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
         },
         new AttributeItem() {
             Name = "CssClass",
-            Description = "节点自定义样式",
+            Description = "Node custom style",
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
         },
         new AttributeItem() {
             Name = "Checked",
-            Description = "是否被选中",
+            Description = "Is selected",
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
         },
         new AttributeItem() {
             Name = nameof(TreeItem.IsDisabled),
-            Description = "是否被禁用",
+            Description = "Is disabled",
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
         },
         new AttributeItem() {
             Name = "IsCollapsed",
-            Description = "是否展开",
+            Description = "Whether to expand",
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "true"
         },
         new AttributeItem() {
             Name = nameof(TreeItem.Tag),
-            Description = "TreeItem 附加数据",
+            Description = "TreeItem Additional data",
             Type = "object?",
             ValueList = " — ",
             DefaultValue = " — "
         },
         new AttributeItem() {
             Name = nameof(TreeItem.HasChildNode),
-            Description = "是否有子节点",
+            Description = "Whether there are child nodes",
             Type = "bool",
             ValueList = " true|false ",
             DefaultValue = " false "
         },
         new AttributeItem() {
             Name = nameof(TreeItem.ShowLoading),
-            Description = "是否显示子节点加载动画",
+            Description = "Whether to show child node loading animation",
             Type = "bool",
             ValueList = " true|false ",
             DefaultValue = " false "
@@ -329,7 +322,7 @@ public sealed partial class Trees
         new AttributeItem()
         {
             Name = nameof(TreeItem.Template),
-            Description = "子节点模板",
+            Description = "Child node template",
             Type = nameof(RenderFragment),
             ValueList = " — ",
             DefaultValue = " — "

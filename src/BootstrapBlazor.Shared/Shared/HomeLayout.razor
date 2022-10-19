@@ -5,6 +5,8 @@
 @inject IJSRuntime JSRuntime
 @inject IOptionsMonitor<WebsiteOptions> WebsiteOption
 @inject IStringLocalizer<HomeLayout> Localizer
+@inject VersionService VersionService
+@inject ICacheManager Cache
 
 @Body
 
@@ -63,7 +65,7 @@
     </div>
     <div class="footer-info d-none d-sm-flex">
         <div>Powered by .NET @Version on @OS</div>
-        <div class="ms-1">BB @BBVersion</div>
+        <div class="ms-1">BB @VersionService.Version</div>
         <div class="ms-2">Run @Runtime</div>
         <div class="d-flex flex-fill align-items-center justify-content-center">
             <a class="ms-3 d-none d-md-block" href="@WebsiteOption.CurrentValue.BootstrapBlazorLink" target="_blank">@Localizer["Footer"]</a>
@@ -89,13 +91,6 @@
 
     [NotNull]
     private string? OS { get; set; }
-
-    [CascadingParameter(Name = "BBVersion")]
-    private string? BBVersion { get; set; }
-
-    [Inject]
-    [NotNull]
-    private ICacheManager? Cache { get; set; }
 
     private string? Runtime { get; set; }
 

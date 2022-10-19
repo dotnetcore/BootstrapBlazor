@@ -2,8 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using BootstrapBlazor.Components;
-using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.JSInterop;
 
@@ -31,7 +29,7 @@ public partial class ChartToast : ComponentBase, IDisposable
     /// <param name="builder"></param>
     protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
-        builder.OpenComponent<Toast>(0);
+        builder.OpenComponent<ToastContainer>(0);
         builder.CloseComponent();
     }
 
@@ -45,7 +43,7 @@ public partial class ChartToast : ComponentBase, IDisposable
 
         if (firstRender && JSRuntime != null)
         {
-            if (Interope == null) Interope = new JSInterop<ChartToast>(JSRuntime);
+            Interope ??= new JSInterop<ChartToast>(JSRuntime);
             await Interope.InvokeVoidAsync(this, "", "_initChart", nameof(ShowToast));
         }
     }

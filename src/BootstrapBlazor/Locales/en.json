@@ -164,7 +164,10 @@
     "SearchButtonText": "Search"
   },
   "BootstrapBlazor.Components.Select": {
-    "PlaceHolder": "..."
+    "PlaceHolder": "Please select ..."
+  },
+  "BootstrapBlazor.Components.SelectTree": {
+    "PlaceHolder": "Please select ..."
   },
   "BootstrapBlazor.Components.StringLengthValidator": {
     "ErrorMessage": "Please enter a value less than or equal to {{0}}"
@@ -327,6 +330,7 @@
     "LabelText": "Icon",
     "LabelFullText": "Html",
     "ButtonText": "Copy",
-    "DialogHeaderText": "Selected Icon"
+    "DialogHeaderText": "Selected Icon",
+    "CopiedTooltipText": "Copied"
   }
 }

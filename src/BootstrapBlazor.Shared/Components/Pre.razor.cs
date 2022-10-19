@@ -2,9 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using BootstrapBlazor.Components;
 using BootstrapBlazor.Shared.Services;
-using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 
 namespace BootstrapBlazor.Shared.Components;
@@ -48,6 +46,16 @@ public partial class Pre
     [Parameter]
     public string? BlockTitle { get; set; }
 
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<Pre>? Localizer { get; set; }
+
+    private string? LoadingText { get; set; }
+
+    private string? TooltipTitle { get; set; }
+
+    private string? CopiedText { get; set; }
+
     /// <summary>
     /// OnInitializedAsync 方法
     /// </summary>
@@ -68,14 +76,28 @@ public partial class Pre
     }
 
     /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
+        LoadingText ??= Localizer[nameof(LoadingText)];
+        TooltipTitle ??= Localizer[nameof(TooltipTitle)];
+        CopiedText ??= Localizer[nameof(CopiedText)];
+    }
+
+    /// <summary>
     /// OnAfterRender 方法
     /// </summary>
     /// <param name="firstRender"></param>
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
+        await base.OnAfterRenderAsync(firstRender);
+
         if (Loaded)
         {
-            await JSRuntime.InvokeVoidAsync("$.highlight", $"#{Id}");
+            await Hightlight();
         }
     }
 
@@ -94,5 +116,13 @@ public partial class Pre
             CanCopy = !string.IsNullOrEmpty(code) && !code.StartsWith("Error: ");
         }
         Loaded = true;
+    }
+
+    private async Task Hightlight()
+    {
+        if (Module != null)
+        {
+            await Module.InvokeVoidAsync($"{ModuleName}.execute", Id, "highlight");
+        }
     }
 }
