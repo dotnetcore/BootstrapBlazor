@@ -25,6 +25,10 @@
 <h5><a href="/bluetoothheartrates">@Localizer["Url2"]</a></h5>
 <h5><a href="/bluetoothbatterylevels">@Localizer["Url3"]</a></h5>
 
+<Tips>
+    <p>@((MarkupString)Localizer["Tips"].Value)</p>
+</Tips>
+
 <DemoBlock Title="@Localizer["BaseUsageText"]" Introduction="@Localizer["BaseUsageIntro"]" Name="Nomal">
     @if (ShowUI)
     {
@@ -50,7 +54,7 @@
     <pre>@message</pre>
     <pre style="color:green">@statusmessage</pre>
     <pre style="color:red">@errmessage</pre>
-    <p/>
+    <p />
     <button class="btn btn-link" @onclick="SwitchUI ">切换界面</button>
 </DemoBlock>
 
