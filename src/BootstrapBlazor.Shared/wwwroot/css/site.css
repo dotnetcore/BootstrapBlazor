@@ -1837,6 +1837,10 @@ header .bb-fs {
     }
 }
 
+.textarea-demo {
+    min-height: var(--bb-height);
+}
+
 @media (min-width: 576px) {
     .popover-demo input,
     .tooltip-demo input {
@@ -1859,8 +1863,6 @@ header .bb-fs {
     .textarea-demo {
         word-break: break-all;
         height: auto;
-        min-height: var(--bb-height);
-        width: calc(100% - 100px);
     }
 
     .intro .card {
