@@ -52,7 +52,12 @@ export default class SimpleComponent extends Config {
 
     // Static
     static init(element) {
-        new this(element, { arguments: [].slice.call(arguments, 1) })
+        if(element) {
+            new this(element, {arguments: [].slice.call(arguments, 1)})
+        }
+        else {
+            console.log(`the ${element} not allow null`)
+        }
     }
 
     static execute(element) {
