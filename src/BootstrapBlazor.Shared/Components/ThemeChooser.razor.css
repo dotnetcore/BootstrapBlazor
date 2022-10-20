@@ -4,20 +4,17 @@
     bottom: 11rem;
     right: 1rem;
     background: #FFFFFF;
-    box-shadow: 0 5px 24px 0 rgba(0,0,0,0.2);
+    box-shadow: 0 5px 24px 0 rgba(0, 0, 0, 0.2);
     border-radius: var(--bs-border-radius);
     width: 260px;
-    padding: 1rem;
     box-shadow: 0 0 12px #211b50;
     height: 0;
-    opacity: 0;
     overflow: hidden;
-    transition: height .3s ease-in-out, opacity .1s linear;
+    transition: height .3s ease-in-out;
 }
 
     .theme-list.is-open {
-        height: auto;
-        opacity: 1;
+        height: 306px;
     }
 
     .theme-list .theme-header {
@@ -26,9 +23,17 @@
         color: #fff;
         border-top-left-radius: 5px;
         border-top-right-radius: 5px;
-        margin: -1rem -1rem 1rem -1rem;
         display: flex;
+        margin-bottom: 1rem;
     }
+
+        .theme-list .theme-header .btn-close {
+            transition: opacity .3s linear;
+        }
+
+            .theme-list .theme-header .btn-close:hover {
+                opacity: 1;
+            }
 
     .theme-list .theme-item {
         cursor: pointer;
@@ -37,13 +42,10 @@
         background-color: #f6f6f6;
         color: #005980;
         transition: background-color .3s linear;
+        margin: 0 1rem 1rem 1rem;
     }
 
         .theme-list .theme-item:hover,
         .theme-list .theme-item.active {
             background-color: #ab8aff;
-        }
-
-        .theme-list .theme-item:not(:last-child) {
-            margin-bottom: .5rem;
         }
