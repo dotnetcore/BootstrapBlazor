@@ -184,7 +184,7 @@
         {
           "name": "dblclick",
           "action": 5,
-          "value": "$.bb_topology_handler(pen.tags[0]);",
+          "value": "BlazorDemoTopology.handler(pen.tags[0]);",
           "fn": null
         }
       ],

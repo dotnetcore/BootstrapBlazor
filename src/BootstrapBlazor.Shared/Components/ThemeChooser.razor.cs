@@ -3,7 +3,6 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.Extensions.Options;
-using Microsoft.JSInterop;
 
 namespace BootstrapBlazor.Shared.Components;
 
@@ -12,8 +11,6 @@ namespace BootstrapBlazor.Shared.Components;
 /// </summary>
 public partial class ThemeChooser
 {
-    private ElementReference ThemeElement { get; set; }
-
     [NotNull]
     private IEnumerable<SelectedItem>? Themes { get; set; }
 
@@ -48,26 +45,14 @@ public partial class ThemeChooser
         SiteOptions.CurrentValue.CurrentTheme = Themes.FirstOrDefault(i => i.Text == "Motronic")?.Value ?? "";
     }
 
-    /// <summary>
-    /// OnAfterRenderAsync 方法
-    /// </summary>
-    /// <param name="firstRender"></param>
-    /// <returns></returns>
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        await base.OnAfterRenderAsync(firstRender);
-
-        if (firstRender)
-        {
-            await JSRuntime.InvokeVoidAsync("$.initTheme", ThemeElement);
-        }
-    }
-
     private async Task OnClickTheme(SelectedItem item)
     {
         SiteOptions.CurrentValue.CurrentTheme = item.Value;
 
-        await JSRuntime.InvokeVoidAsync("$.setTheme", LinksCache[item.Value]);
+        if (Module != null)
+        {
+            await Module.InvokeVoidAsync($"{ModuleName}.execute", Id, LinksCache[item.Value]);
+        }
     }
 
     private string? GetThemeItemClass(SelectedItem item) => CssBuilder.Default("theme-item")

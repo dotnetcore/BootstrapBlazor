@@ -1,5 +1,7 @@
 ﻿@page "/topologies"
+@inherits JSModuleComponentBase
 @inject IStringLocalizer<Topologies> Localizer
+@attribute [JSModuleAutoLoader("topology", ModuleName = "Topology", JSObjectReference = true)]
 
 <h3>@Localizer["H1"]</h3>
 <h4>@Localizer["H2"]</h4>

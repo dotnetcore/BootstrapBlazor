@@ -147,6 +147,30 @@ const removeLink = href => {
     }
 }
 
+const insertBefore = (element, newEl) => {
+    if (element) {
+        const parentNode = element.parentNode
+        if (parentNode) {
+            if (element) {
+                parentNode.insertBefore(newEl, original)
+            }
+        }
+    }
+}
+
+const insertAfter = (element, newEl) => {
+    if (element) {
+        const parentNode = element.parentNode
+        if (parentNode) {
+            if (element.nextElementSibling) {
+                parentNode.insertBefore(newEl, original.nextElementSibling)
+            } else {
+                parentNode.appendChild(newEl)
+            }
+        }
+    }
+}
+
 export {
     vibrate,
     copy,
@@ -162,5 +186,7 @@ export {
     addLink,
     removeLink,
     addScript,
-    removeScript
+    removeScript,
+    insertBefore,
+    insertAfter
 }

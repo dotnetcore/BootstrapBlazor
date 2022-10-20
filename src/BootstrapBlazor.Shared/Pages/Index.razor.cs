@@ -3,22 +3,17 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.Extensions.Options;
-using Microsoft.JSInterop;
 
 namespace BootstrapBlazor.Shared.Pages;
 
 /// <summary>
 /// 
 /// </summary>
-public sealed partial class Index
+[JSModuleAutoLoader]
+public partial class Index
 {
-    private ElementReference TypeElement { get; set; }
-
     private string? BodyClassString => CssBuilder.Default(Localizer["BodyClassString"])
         .Build();
-
-    [Inject]
-    private IJSRuntime? JSRuntime { get; set; }
 
     [Inject]
     [NotNull]
@@ -29,17 +24,14 @@ public sealed partial class Index
     private IOptionsMonitor<WebsiteOptions>? Options { get; set; }
 
     /// <summary>
-    /// 
+    /// <inheritdoc/>
     /// </summary>
-    /// <param name="firstRender"></param>
     /// <returns></returns>
-    protected override async Task OnAfterRenderAsync(bool firstRender)
+    protected override async Task ModuleInitAsync()
     {
-        await base.OnAfterRenderAsync(firstRender);
-
-        if (firstRender && JSRuntime != null)
+        if (Module != null)
         {
-            await JSRuntime.InvokeVoidAsync("$.indexTyper", TypeElement, Localizer["DynamicText"].Value.ToCharArray(), Localizer["DynamicText1"].Value.ToCharArray(), Localizer["DynamicText2"].Value.ToCharArray());
+            await Module.InvokeVoidAsync($"{ModuleName}.init", Id, Localizer["DynamicText"].Value.ToCharArray(), Localizer["DynamicText1"].Value.ToCharArray(), Localizer["DynamicText2"].Value.ToCharArray());
         }
     }
 }

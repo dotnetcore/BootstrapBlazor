@@ -1,11 +1,12 @@
-﻿@inherits BootstrapComponentBase
+﻿@inherits JSModuleComponentBase
+@attribute [JSModuleAutoLoader("theme-chooser")]
 
-<div @ref="@ThemeElement" class="theme">
-    <PulseButton class="btn-theme" Color="Color.None" ImageUrl="_content/BootstrapBlazor.Shared/images/m.svg" Title="@Title" TooltipPlacement="Placement.Left" />
+<div id="@Id" class="theme">
+    <PulseButton class="btn-theme" Color="Color.None" ImageUrl="_content/BootstrapBlazor.Shared/images/m.svg" TooltipText="@Title" TooltipPlacement="Placement.Left" />
     <div class="theme-list">
         <div class="theme-header">
             <div class="flex-fill">@HeaderText</div>
-            <button class="btn-close btn-close-white" aria-label="Close"></button>
+            <button class="btn-close btn-close-white" type="button" aria-label="Close"></button>
         </div>
         @foreach (var item in Themes)
         {
