@@ -1,7 +1,7 @@
 ﻿import BlazorComponent from "../../../_content/BootstrapBlazor/modules/base/blazor-component.js"
+import EventHandler from "../../../_content/BootstrapBlazor/modules/base/event-handler.js"
 import { addLink } from "../../../_content/BootstrapBlazor/modules/base/utility.js"
-import { isVisible } from "../../../_content/BootstrapBlazor/modules/base/index.js";
-import EventHandler from "../../../_content/BootstrapBlazor/modules/base/event-handler.js";
+import { isVisible } from "../../../_content/BootstrapBlazor/modules/base/index.js"
 
 export class Markdown extends BlazorComponent {
     _init() {

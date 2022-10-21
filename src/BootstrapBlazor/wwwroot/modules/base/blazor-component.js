@@ -36,7 +36,7 @@ export default class BlazorComponent extends BaseComponent {
     static execute(element) {
         element = getElementById(element)
         if (element) {
-            const instance = this.getOrCreateInstance(element)
+            const instance = this.getInstance(element)
             instance._execute([].slice.call(arguments, 1))
         }
     }

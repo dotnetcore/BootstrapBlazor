@@ -3,8 +3,6 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Forms;
-using Microsoft.JSInterop;
 
 namespace BootstrapBlazor.Components;
 
@@ -13,7 +11,7 @@ namespace BootstrapBlazor.Components;
 /// </summary>
 public partial class CherryMarkdown : IAsyncDisposable
 {
-    private readonly CherryMarkdownOption _option = new();
+    private CherryMarkdownOption Option { get; } = new();
 
     /// <summary>
     /// 获得/设置 编辑器设置
@@ -28,6 +26,8 @@ public partial class CherryMarkdown : IAsyncDisposable
     public ToolbarSettings? ToolbarSettings { get; set; }
 
     private string? _value;
+    private bool IsRender { get; set; }
+
     /// <summary>
     /// 获得/设置 组件值
     /// </summary>
@@ -76,68 +76,65 @@ public partial class CherryMarkdown : IAsyncDisposable
     public bool? IsViewer { get; set; }
 
     /// <summary>
-    /// 获得/设置 DOM 元素实例
-    /// </summary>
-    private ElementReference MarkdownElement { get; set; }
-
-    private bool IsRender { get; set; }
-
-    [NotNull]
-    private JSModule<CherryMarkdown>? Module { get; set; }
-
-    /// <summary>
     /// OnInitialized 方法
     /// </summary>
     protected override void OnInitialized()
     {
         base.OnInitialized();
-        _option.Value = _value;
-        _option.Editor = EditorSettings ?? new EditorSettings();
-        _option.Toolbars = ToolbarSettings ?? new ToolbarSettings();
+        Option.Value = _value;
+        Option.Editor = EditorSettings ?? new EditorSettings();
+        Option.Toolbars = ToolbarSettings ?? new ToolbarSettings();
         if (IsViewer == true)
         {
-            _option.Editor.DefaultModel = "previewOnly";
-            _option.Toolbars.Toolbar = false;
+            Option.Editor.DefaultModel = "previewOnly";
+            Option.Toolbars.Toolbar = false;
         }
     }
 
     /// <summary>
-    /// OnAfterRenderAsync 方法
+    /// <inheritdoc/>
     /// </summary>
-    /// <param name="firstRender"></param>
     /// <returns></returns>
-    protected override async Task OnAfterRenderAsync(bool firstRender)
+    protected override async Task ModuleInitAsync()
     {
-        await base.OnAfterRenderAsync(firstRender);
-        if (firstRender)
+        if (Module != null)
         {
             IsRender = false;
-            Module = await JSRuntime.LoadModule<CherryMarkdown>("./_content/BootstrapBlazor.CherryMarkdown/js/bootstrap.blazor.cherrymarkdown.min.js", this, false);
-            await Module.InvokeVoidAsync("bb_cherry_markdown", MarkdownElement, _option, "init");
+            await Module.InvokeVoidAsync($"{ModuleName}.init", Id, Option);
         }
+    }
 
-        if (IsRender)
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    protected override async Task ModuleExecuteAsync()
+    {
+        if (Module != null && IsRender)
         {
-            await Module.InvokeVoidAsync("bb_cherry_markdown", MarkdownElement, Value ?? "", "setMarkdown");
+            IsRender = false;
+            await Module.InvokeVoidAsync($"{ModuleName}.execute", Id, Value);
         }
     }
 
     /// <summary>
     /// 文件上传回调
     /// </summary>
-    /// <param name="id"></param>
     /// <param name="uploadFile"></param>
     [JSInvokable]
-    public async Task<string> Upload(string id, CherryMarkdownUploadFile uploadFile)
+    public async Task<string> Upload(CherryMarkdownUploadFile uploadFile)
     {
 #if NET6_0_OR_GREATER
-        var stream = await Module.InvokeAsync<IJSStreamReference>("bb_cherry_markdown_file", id);
-        using var data = await stream.OpenReadStreamAsync();
-        uploadFile.UploadStream = data;
         var ret = "";
-        if (OnFileUpload != null)
+        if (Module != null)
         {
-            ret = await OnFileUpload.Invoke(uploadFile);
+            var stream = await Module.InvokeAsync<IJSStreamReference>($"{ModuleName}.fetch", Id);
+            using var data = await stream.OpenReadStreamAsync();
+            uploadFile.UploadStream = data;
+            if (OnFileUpload != null)
+            {
+                ret = await OnFileUpload(uploadFile);
+            }
         }
         return ret;
 #else
@@ -156,13 +153,13 @@ public partial class CherryMarkdown : IAsyncDisposable
     {
         if (vals.Length == 2)
         {
-            var hasChanged = !EqualityComparer<string>.Default.Equals(vals[0], Value);
+            var hasChanged = !EqualityComparer<string>.Default.Equals(vals[0], _value);
             if (hasChanged)
             {
                 _value = vals[0];
                 if (ValueChanged.HasDelegate)
                 {
-                    await ValueChanged.InvokeAsync(Value);
+                    await ValueChanged.InvokeAsync(_value);
                 }
             }
 
@@ -184,29 +181,11 @@ public partial class CherryMarkdown : IAsyncDisposable
     /// <param name="method"></param>
     /// <param name="parameters"></param>
     /// <returns></returns>
-    public ValueTask DoMethodAsync(string method, params object[] parameters) => Module.InvokeVoidAsync("bb_cherry_markdown_method", MarkdownElement, method, parameters);
-
-    /// <summary>
-    /// Dispose 方法
-    /// </summary>
-    /// <param name="disposing"></param>
-    protected virtual async ValueTask DisposeAsync(bool disposing)
+    public async ValueTask DoMethodAsync(string method, params object[] parameters)
     {
-        if (disposing)
+        if (Module != null)
         {
-            if (Module != null)
-            {
-                await Module.DisposeAsync();
-            }
+            await Module.InvokeVoidAsync($"{ModuleName}.invoke", Id, method, parameters);
         }
-    }
-
-    /// <summary>
-    /// Dispose 方法
-    /// </summary>
-    public async ValueTask DisposeAsync()
-    {
-        await DisposeAsync(true);
-        GC.SuppressFinalize(this);
     }
 }

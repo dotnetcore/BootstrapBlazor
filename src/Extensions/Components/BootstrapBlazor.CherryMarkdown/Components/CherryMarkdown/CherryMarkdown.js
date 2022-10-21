@@ -1,79 +1,111 @@
-﻿export function bb_cherry_markdown(el, obj, value, method) {
-    BootstrapBlazorModules.addLink('_content/BootstrapBlazor.CherryMarkdown/css/bootstrap.blazor.cherrymarkdown.min.css');
-    var $el = $(el);
-    if (method === "init") {
-        if (value.toolbars.toolbar === null) {
-            delete value.toolbars.toolbar;
-        }
-        if (value.toolbars.bubble === null) {
-            delete value.toolbars.bubble;
-        }
-        if (value.toolbars.float === null) {
-            delete value.toolbars.float;
-        }
-        var handler = window.setInterval(function () {
+﻿import BlazorComponent from "../../../_content/BootstrapBlazor/modules/base/blazor-component.js"
+import { addLink } from "../../../_content/BootstrapBlazor/modules/base/utility.js"
+import { isVisible, getElementById } from "../../../_content/BootstrapBlazor/modules/base/index.js"
 
-            if ($el.is(':visible')) {
-                window.clearInterval(handler);
-                var editor = new Cherry({
-                    el: el,
-                    value: value.value,
-                    fileUpload(file, callback) {
-                        var id = $.getUID('md');
-                        if (window.cherryMarkdownUploadFiles === undefined) {
-                            window.cherryMarkdownUploadFiles = {};
-                        }
-                        window.cherryMarkdownUploadFiles[id] = file;
-                        obj.invokeMethodAsync('Upload', id, {
-                            fileName: file.name,
-                            fileSize: file.size,
-                            contentType: file.type,
-                            lastModified: new Date(file.lastModified).toISOString(),
-                        }).then(data => {
-                            if (data !== "") {
-                                callback(data);
-                            }
-                        })
-                    },
-                    editor: value.editor,
-                    toolbars: value.toolbars,
+export class CherryMarkdown extends BlazorComponent {
+    _init() {
+        addLink('_content/BootstrapBlazor.CherryMarkdown/css/bootstrap.blazor.cherrymarkdown.min.css')
+
+        this._invoker = this._config.arguments[0]
+        this._options = this._config.arguments[1]
+
+        if (this._options.toolbars.toolbar === null) {
+            delete this._options.toolbars.toolbar
+        }
+        if (this._options.toolbars.bubble === null) {
+            delete this._options.toolbars.bubble
+        }
+        if (this._options.toolbars.float === null) {
+            delete this._options.toolbars.float
+        }
+
+        this._createEditor()
+    }
+
+    _createEditor() {
+        const fileUpload = (file, callback) => {
+            this._file = file
+            this._invoker.invokeMethodAsync('Upload', {
+                fileName: file.name,
+                fileSize: file.size,
+                contentType: file.type,
+                lastModified: new Date(file.lastModified).toISOString(),
+            }).then(data => {
+                if (data !== "") {
+                    callback(data)
+                }
+            })
+        }
+
+        this._handler = window.setInterval(() => {
+            if (isVisible(this._element)) {
+                window.clearInterval(this._handler)
+                this._handler = null
+                this._editor = new Cherry({
+                    el: this._element,
+                    value: this._options.value,
+                    editor: this._options.editor,
+                    toolbars: this._options.toolbars,
                     callback: {
-                        afterChange: function (markdown, html) {
-                            obj.invokeMethodAsync('Update', [markdown, html]);
+                        afterChange: (markdown, html) => {
+                            this._invoker.invokeMethodAsync('Update', [markdown, html])
                         }
-                    }
+                    },
+                    fileUpload: fileUpload
                 });
-                $.data(el, 'bb_cherry_md_editor', editor);
             }
-        }, 100);
-    } else if (method === 'setMarkdown') {
-        var editor = $.data(el, 'bb_cherry_md_editor');
-        editor.setMarkdown(value, true);
+        }, 100)
     }
-}
 
-export function bb_cherry_markdown_file(id) {
-    var file = window.cherryMarkdownUploadFiles[id];
-    delete window.cherryMarkdownUploadFiles[id];
-    return file
-}
+    _execute(args) {
+        this._editor.setMarkdown(args[1], true)
+    }
 
-export function bb_cherry_markdown_method(el, obj, method, parameter) {
-    var md = $.data(el, 'bb_cherry_md_editor');
-    if (md) {
-        if (method.indexOf('.') < 0) {
-            md[method](...parameter)
-        } else {
-            var methods = method.split('.');
-            var m = md[methods[0]];
-            for (let i = 1; i < methods.length; i++) {
-                m = m[methods[i]]
+    _invoke(args) {
+        const invoker = args[0]
+        const method = args[1]
+        const parameter = args[2]
+        if (this._editor) {
+            if (method.indexOf('.') < 0) {
+                this._editor[method](...parameter)
+            } else {
+                var methods = method.split('.');
+                var m = this._editor[methods[0]];
+                for (let i = 1; i < methods.length; i++) {
+                    m = m[methods[i]]
+                }
+                m(...parameter);
             }
-            m(...parameter);
+            var val = this._editor.getMarkdown();
+            var html = this._editor.getHtml();
+            invoker.invokeMethodAsync('Update', [val, html]);
         }
-        var val = md.getMarkdown();
-        var html = md.getHtml();
-        obj.invokeMethodAsync('Update', [val, html]);
+    }
+
+    _fetch() {
+        return this._file
+    }
+
+    _dispose() {
+        if (this._handler) {
+            window.clearInterval(this._handler)
+            this._handler = null
+        }
+    }
+
+    static invoke(element) {
+        element = getElementById(element)
+        if (element) {
+            const instance = this.getInstance(element)
+            instance._invoke([].slice.call(arguments, 1))
+        }
+    }
+
+    static fetch(element) {
+        element = getElementById(element)
+        if (element) {
+            const instance = this.getInstance(element)
+            return instance._fetch()
+        }
     }
 }
-
