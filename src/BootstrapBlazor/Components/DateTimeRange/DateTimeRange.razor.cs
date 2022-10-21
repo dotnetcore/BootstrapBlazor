@@ -23,13 +23,6 @@ public partial class DateTimeRange
         .Build();
 
     /// <summary>
-    /// 获得 组件弹窗位置
-    /// </summary>
-    private string? PlacementString => CssBuilder.Default()
-        .AddClass(Placement.ToDescriptionString(), Placement != Placement.Auto)
-        .Build();
-
-    /// <summary>
     /// 获得 组件小图标样式
     /// </summary>
     private string? DateTimePickerIconClassString => CssBuilder.Default("range-bar")
@@ -106,12 +99,6 @@ public partial class DateTimeRange
     /// </summary>
     [Parameter]
     public DateTime MinValue { get; set; } = DateTime.MinValue;
-
-    /// <summary>
-    /// 获得/设置 弹窗位置 默认为 Auto
-    /// </summary>
-    [Parameter]
-    public Placement Placement { get; set; } = Placement.Auto;
 
     /// <summary>
     /// 获得/设置 是否允许为空 默认为 true

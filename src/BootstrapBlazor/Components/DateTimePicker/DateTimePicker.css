@@ -114,6 +114,10 @@
     line-height: 30px;
 }
 
+.popover .picker-panel {
+    box-shadow: none;
+}
+
 .picker-panel-body-wrapper:after, .picker-panel-body:after {
     content: "";
     display: table;

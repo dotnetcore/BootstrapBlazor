@@ -8,26 +8,13 @@ namespace BootstrapBlazor.Components;
 /// 
 /// </summary>
 /// <typeparam name="TValue"></typeparam>
-public class PopoverSelectBase<TValue> : ValidateBase<TValue>
+public abstract class PopoverSelectBase<TValue> : PopoverDropdownBase<TValue>
 {
-    /// <summary>
-    /// 获得/设置 弹窗位置 默认为 Bottom
-    /// </summary>
-    [Parameter]
-    public Placement Placement { get; set; } = Placement.Bottom;
-
     /// <summary>
     /// 获得/设置 是否使用 Popover 渲染下拉框 默认 false
     /// </summary>
     [Parameter]
     public bool IsPopover { get; set; }
-
-    /// <summary>
-    /// 获得/设置 自定义样式 参数 <see cref="IsPopover"/> 设置为 true  时生效 默认 null
-    /// </summary>
-    /// <remarks>由 data-bs-custom-class 实现</remarks>
-    [Parameter]
-    public string? CustomClass { get; set; }
 
     /// <summary>
     /// 获得/设置 弹窗偏移量 默认 [0, 10]
@@ -41,34 +28,21 @@ public class PopoverSelectBase<TValue> : ValidateBase<TValue>
     protected string? ToggleString => IsPopover ? Constants.DropdownToggleString : "dropdown";
 
     /// <summary>
-    /// 弹窗位置字符串
-    /// </summary>
-    protected string? PlacementString => Placement == Placement.Auto ? null : Placement.ToDescriptionString();
-
-    /// <summary>
     /// 偏移量字符串
     /// </summary>
     protected string? OffsetString => IsPopover ? null : Offset;
 
     /// <summary>
-    /// 获得 CustomClass 字符串
-    /// </summary>
-    protected virtual string? CustomClassString => CssBuilder.Default(CustomClass)
-        .AddClass("shadow", ShowShadow)
-        .Build();
-
-    /// <summary>
-    /// 获得/设置 是否显示阴影 参数 <see cref="IsPopover"/> 设置为 true  时生效 默认 true
-    /// </summary>
-    [Parameter]
-    public bool ShowShadow { get; set; } = true;
-
-    /// <summary>
-    /// OnParametersSet 方法
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnParametersSet()
     {
         base.OnParametersSet();
+
+        if (IsPopover && Placement == Placement.Auto)
+        {
+            Placement = Placement.Bottom;
+        }
 
         Offset ??= "[0, 10]";
     }
