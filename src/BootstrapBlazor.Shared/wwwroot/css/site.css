@@ -368,44 +368,6 @@ section {
     width: 80px;
 }
 
-.pre-code {
-    position: relative;
-}
-
-    .pre-code .btn-clipboard {
-        position: absolute;
-        top: .65rem;
-        right: .65rem;
-        z-index: 10;
-        display: block;
-        padding: .25rem .5rem;
-        font-size: 65%;
-        color: #007bff;
-        background-color: #fff;
-        border: 1px solid;
-        border-radius: var(--bs-border-radius);
-    }
-
-        .pre-code .btn-clipboard:hover {
-            color: #fff;
-            background-color: #007bff;
-        }
-
-    .pre-code code {
-        line-height: 1.8;
-        font-size: 0.75rem;
-        border: 1px solid #eaeefb;
-        border-radius: var(--bs-border-radius);
-        padding: 10px 65px 10px 16px;
-        -webkit-font-smoothing: auto;
-        display: block;
-        white-space: pre-wrap;
-    }
-
-    .pre-code .no-highlight code {
-        color: #e83e8c;
-    }
-
 .chart .btn i + span {
     display: none;
 }

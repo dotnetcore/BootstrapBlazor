@@ -1,0 +1,33 @@
+﻿.pre-code {
+    position: relative;
+}
+
+::deep .btn-primary {
+    position: absolute;
+    top: .65rem;
+    right: .65rem;
+    font-size: 65%;
+    --bs-btn-color: var(--bs-primary);
+    --bs-btn-bg: #fff;
+    --bs-btn-padding-y: .25rem;
+    --bs-btn-padding-x: .5rem;
+}
+
+    ::deep .btn-primary:hover {
+        --bs-btn-hover-color: #fff;
+    }
+
+code {
+    line-height: 1.8;
+    font-size: 0.75rem;
+    border: 1px solid var(--bs-border-color);
+    border-radius: var(--bs-border-radius);
+    padding: 10px 65px 10px 16px;
+    display: block;
+    white-space: pre-wrap;
+    -webkit-font-smoothing: auto;
+}
+
+.no-highlight code {
+    color: var(--bs-code-color);
+}

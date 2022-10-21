@@ -11,7 +11,7 @@
         <pre @attributes="@AdditionalAttributes" class="@ClassName"><code>@ChildContent</code></pre>
         @if (CanCopy)
         {
-            <button type="button" class="btn-clipboard" data-bs-toggle="tooltip" data-bs-placement="left" title="@TooltipTitle">Copy</button>
+            <Button TooltipPlacement="Placement.Left" TooltipText="@TooltipTitle">Copy</Button>
         }
     }
 </div>
