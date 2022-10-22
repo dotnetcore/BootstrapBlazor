@@ -44,40 +44,6 @@
                         break;
                 }
             });
-
-        // MVP learn
-        $(document)
-            .on('click', '.btn-learn', function (e) {
-                var $button = $(this);
-                var $list = $button.prev();
-                $list.slideToggle('fade');
-            })
-            .on('click', '.btn-close', function (e) {
-                var $div = $('.ms-learn');
-                $div.fadeOut();
-            });
-
-        // Theme
-        $(document)
-            .on('click', function (e) {
-                var $el = $(e.target);
-                if ($el.closest('.theme').length == 0) {
-                    $('.theme-list.is-open').toggleClass('is-open').slideToggle('fade');
-                }
-            });
-
-        // scorll
-        var prevScrollTop = 0;
-        $(document).on('scroll', function () {
-            var $header = $('app > header, .coms-search');
-            var currentScrollTop = $(document).scrollTop();
-            if (currentScrollTop > prevScrollTop) {
-                $header.addClass('hide');
-            } else {
-                $header.removeClass('hide');
-            }
-            prevScrollTop = currentScrollTop;
-        });
     });
 
     $(function () {

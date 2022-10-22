@@ -150,7 +150,6 @@ public abstract class BootstrapModuleComponentBase : IdComponentBase, IAsyncDisp
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    /// <exception cref="NotImplementedException"></exception>
     public async ValueTask DisposeAsync()
     {
         await DisposeAsync(true);
