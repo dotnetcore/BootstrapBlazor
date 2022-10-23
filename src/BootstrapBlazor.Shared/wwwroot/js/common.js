@@ -8,25 +8,6 @@
         }
     };
 
-    $.extend({
-        loading: function (wasm, error, reload) {
-            if (wasm) {
-                var $loader = $("#loading");
-                if ($loader.length > 0) {
-                    $loader.addClass("is-done");
-                    var handler = window.setTimeout(function () {
-                        window.clearTimeout(handler);
-                        $loader.remove();
-                        $('body').removeClass('overflow-hidden');
-                    }, 600);
-                }
-            }
-
-            $('.reload').text(reload);
-            $('#blazor-error-ui > span:first').text(error);
-        }
-    });
-
     $(function () {
         // chart animation
         $(document)

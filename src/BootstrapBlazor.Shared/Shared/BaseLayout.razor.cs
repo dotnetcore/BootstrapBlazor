@@ -7,7 +7,7 @@ using Microsoft.JSInterop;
 namespace BootstrapBlazor.Shared.Shared;
 
 /// <summary>
-/// 
+/// 母版页基类
 /// </summary>
 public partial class BaseLayout : IAsyncDisposable
 {

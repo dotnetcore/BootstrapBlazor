@@ -4,13 +4,14 @@
 
 using BootstrapBlazor.Shared.Extensions;
 using Microsoft.JSInterop;
+using System.Reflection;
 
 namespace BootstrapBlazor.Shared;
 
 /// <summary>
-/// 
+/// App 组件
 /// </summary>
-public sealed partial class App : IDisposable
+public partial class App : IAsyncDisposable
 {
     [Inject]
     [NotNull]
@@ -28,6 +29,9 @@ public sealed partial class App : IDisposable
     [NotNull]
     private ToastService? Toast { get; set; }
 
+    [NotNull]
+    private JSModule? Module { get; set; }
+
     /// <summary>
     /// OnInitialized 方法
     /// </summary>
@@ -39,16 +43,15 @@ public sealed partial class App : IDisposable
     }
 
     /// <summary>
-    /// 
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="firstRender"></param>
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        await base.OnAfterRenderAsync(firstRender);
-
         if (firstRender)
         {
-            await JSRuntime.InvokeVoidAsync("$.loading", OperatingSystem.IsBrowser(), Localizer["ErrorMessage"].Value, Localizer["Reload"].Value);
+            Module = await JSRuntime.LoadModule($"./_content/BootstrapBlazor.Shared/modules/app.js", relative: false);
+            await Module.InvokeVoidAsync("App.init", Localizer["ErrorMessage"].Value, Localizer["Reload"].Value);
         }
     }
 
@@ -72,24 +75,30 @@ public sealed partial class App : IDisposable
     }
 
     /// <summary>
-    /// 
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="disposing"></param>
-    private void Dispose(bool disposing)
+    private async ValueTask DisposeAsync(bool disposing)
     {
         if (disposing)
         {
             DispatchService.UnSubscribe(Notify);
+
+            if (Module != null)
+            {
+                await Module.DisposeAsync();
+                Module = null;
+            }
         }
     }
 
     /// <summary>
-    /// 
+    /// <inheritdoc/>
     /// </summary>
     /// <exception cref="NotImplementedException"></exception>
-    public void Dispose()
+    public async ValueTask DisposeAsync()
     {
-        Dispose(true);
+        await DisposeAsync(true);
         GC.SuppressFinalize(this);
     }
 }
