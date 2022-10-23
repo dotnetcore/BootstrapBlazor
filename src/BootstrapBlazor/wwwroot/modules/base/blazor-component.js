@@ -29,7 +29,7 @@ export default class BlazorComponent extends BaseComponent {
             new this(element, { arguments: [].slice.call(arguments, 1) })
         }
         else  {
-            console.error(`the elment ${selector} not found`)
+            console.warn(`the elment ${selector} not found`)
         }
     }
 

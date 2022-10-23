@@ -7,15 +7,12 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 响应监听 组件
 /// </summary>
-public class Responsive : ComponentBase, IDisposable
+[JSModuleAutoLoader(JSObjectReference = true)]
+public class Responsive : BootstrapModuleComponentBase
 {
     [Inject]
     [NotNull]
     private ResizeNotificationService? ResizeService { get; set; }
-
-    [Inject]
-    [NotNull]
-    private IJSRuntime? JSRuntime { get; set; }
 
     /// <summary>
     /// 获得/设置 是否触发内容刷新 返回 true 时刷新
@@ -28,18 +25,21 @@ public class Responsive : ComponentBase, IDisposable
     /// </summary>
     protected override void OnInitialized()
     {
+        base.OnInitialized();
+
         ResizeService.Subscribe(this, OnResize);
     }
 
     /// <summary>
-    /// OnAfterRenderAsync 方法
+    /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override async Task OnAfterRenderAsync(bool firstRender)
+    protected override async Task ModuleInitAsync()
     {
-        if (firstRender)
+        if (Module != null)
         {
-            var point = await JSRuntime.InvokeAsync<BreakPoint>(func: "bb_get_responsive");
+            await Module.InvokeVoidAsync($"{ModuleName}.init", Id, nameof(OnResize));
+            var point = await Module.InvokeAsync<BreakPoint>($"{ModuleName}.getResponsive");
             await OnResize(point);
         }
     }
@@ -62,20 +62,13 @@ public class Responsive : ComponentBase, IDisposable
     /// Dispose 方法
     /// </summary>
     /// <param name="disposing"></param>
-    protected virtual void Dispose(bool disposing)
+    protected override async ValueTask DisposeAsync(bool disposing)
     {
         if (disposing)
         {
             ResizeService.Unsubscribe(this);
         }
-    }
 
-    /// <summary>
-    /// Dispose 方法
-    /// </summary>
-    public void Dispose()
-    {
-        Dispose(true);
-        GC.SuppressFinalize(this);
+        await base.DisposeAsync(disposing);
     }
 }
