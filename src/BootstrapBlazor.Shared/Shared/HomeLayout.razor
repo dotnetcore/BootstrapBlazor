@@ -1,4 +1,5 @@
-﻿@inherits LayoutComponentBase
+﻿@using BootstrapBlazor.Shared.Extensions
+@inherits LayoutComponentBase
 @implements IDisposable
 @layout BaseLayout
 @inject NavigationManager NavigationManager
@@ -163,7 +164,7 @@
         {
             if (cultureName != CultureInfo.CurrentCulture.Name)
             {
-                await JSRuntime.InvokeVoidAsync(identifier: "$.blazorCulture.set", cultureName);
+                await JSRuntime.SetCulture(cultureName);
                 var culture = new CultureInfo(cultureName);
                 CultureInfo.CurrentCulture = culture;
                 CultureInfo.CurrentUICulture = culture;

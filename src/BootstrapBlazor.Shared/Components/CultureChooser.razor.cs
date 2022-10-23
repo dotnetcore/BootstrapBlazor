@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using BootstrapBlazor.Shared.Extensions;
 using Microsoft.Extensions.Options;
 using Microsoft.JSInterop;
 using System.Globalization;
@@ -51,7 +52,7 @@ public partial class CultureChooser
             var cultureName = item.Value;
             if (cultureName != CultureInfo.CurrentCulture.Name)
             {
-                await JSRuntime.InvokeVoidAsync(identifier: "$.blazorCulture.set", cultureName);
+                await JSRuntime.SetCulture(cultureName);
                 var culture = new CultureInfo(cultureName);
                 CultureInfo.CurrentCulture = culture;
                 CultureInfo.CurrentUICulture = culture;

@@ -20,8 +20,11 @@
     <link rel="stylesheet" href="_content/BootstrapBlazor/css/bootstrap.blazor.bundle.min.css">
     <link rel="stylesheet" href="_content/BootstrapBlazor.Chart/css/bootstrap.blazor.chart.bundle.min.css">
     <link rel="stylesheet" href="_content/BootstrapBlazor.Markdown/css/bootstrap.blazor.markdown.min.css">
+    <link rel="stylesheet" href="_content/BootstrapBlazor.Shared/BootstrapBlazor.Shared.bundle.scp.css" asp-append-version="true">
     <link rel="stylesheet" href="_content/BootstrapBlazor.Shared/lib/highlight/vs.css">
     <link rel="stylesheet" href="_content/BootstrapBlazor.Shared/css/site.css">
+    <link rel="stylesheet" href="_content/BootstrapBlazor/css/motronic.min.css" asp-append-version="true">
+    <link rel="stylesheet" href="_content/BootstrapBlazor.Shared/css/motronic.css" asp-append-version="true">
 </head>
 
 <body class="overflow-hidden">
@@ -39,7 +42,7 @@
             <div class="eight common"></div>
         </div>
         <div class="intro">
-            <img src="_content/BootstrapBlazor.Shared/images/brand.png" />
+            <img src="_content/BootstrapBlazor.Shared/images/logo.png" />
             <span>精彩即将呈现</span>
         </div>
         <div class="bar">
@@ -62,12 +65,20 @@
     <script src="_content/BootstrapBlazor/js/bootstrap.blazor.bundle.min.js"></script>
     <script src="_content/BootstrapBlazor.Chart/js/bootstrap.blazor.chart.bundle.min.js"></script>
     <script src="_content/BootstrapBlazor.TableExport/js/export.min.js"></script>
-    <script src="_content/BootstrapBlazor.Markdown/js/bootstrap.blazor.markdown.min.js"></script>
     <script src="_content/BootstrapBlazor.Shared/lib/highlight/highlight.min.js"></script>
-    <script src="_content/BootstrapBlazor.Shared/js/common.js"></script>
     <script src="_framework/blazor.webassembly.js" autostart="false"></script>
     <script src="service-worker-register.js"></script>
     <script>
+        window.BB = {};
+        window.BB.blazorCulture = {
+            get: () => {
+                return window.localStorage['BlazorCulture'];
+            },
+            set: (value) => {
+                window.localStorage['BlazorCulture'] = value;
+            }
+        };
+
         //check if webassembly is supported
         const webassemblySupported = (function () {
             try {

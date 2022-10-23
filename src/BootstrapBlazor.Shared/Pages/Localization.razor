@@ -190,7 +190,7 @@ public class CultureController : Controller
             var cultureName = item.Value;
             if (cultureName != CultureInfo.CurrentCulture.Name)
             {
-                await JSRuntime.InvokeAsync&lt;string&gt;(identifier: "$.blazorCulture.set", cultureName);
+                await JSRuntime.SetCulture(cultureName);
                 var culture = new CultureInfo(cultureName);
                 CultureInfo.CurrentCulture = culture;
                 CultureInfo.CurrentUICulture = culture;
@@ -299,7 +299,7 @@ public class CultureController : Controller
 private static async Task GetCultureAsync(WebAssemblyHost host)
 {
     var jsRuntime = host.Services.GetRequiredService&lt;IJSRuntime&gt;();
-    var cultureName = await jsRuntime.InvokeAsync&lt;string&gt;("$.blazorCulture.get") ?? "zh-CN";
+    var cultureName = await jsRuntime.GetCulture() ?? "zh-CN";
     var culture = new CultureInfo(cultureName);
     CultureInfo.DefaultThreadCurrentCulture = culture;
     CultureInfo.DefaultThreadCurrentUICulture = culture;
