@@ -11,10 +11,11 @@ export class Responsive extends SimpleComponent {
 
     _setListeners() {
         const resizeHandler = () => {
-            let lastBreakpoint = Responsive.getResponsive();
+            let lastBreakpoint = Responsive.getResponsive()
             if (lastBreakpoint !== this._currentBreakpoint) {
-                this._currentBreakpoint = lastBreakpoint;
-                this._invoker.invokeMethodAsync(this._invokerMethod, lastBreakpoint);
+                this._currentBreakpoint = lastBreakpoint
+                this._invoker.invokeMethodAsync(this._invokerMethod, lastBreakpoint)
+                console.log(lastBreakpoint)
             }
         };
 
@@ -26,6 +27,6 @@ export class Responsive extends SimpleComponent {
     }
 
     static getResponsive() {
-        return window.getComputedStyle(document.body, ':before').content.replace(/\"/g, '');
+        return window.getComputedStyle(document.body, ':before').content.replace(/\"/g, '')
     }
 }
