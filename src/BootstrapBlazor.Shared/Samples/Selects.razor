@@ -237,13 +237,12 @@
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["BlockShowSearchTitle"]" Introduction="@Localizer["BlockShowSearchIntro"]" Name="ShowSearch">
-    <p>@((MarkupString)Localizer["AutoClearSearchTextIntro"].Value)</p>
     <div class="row g-3">
         <div class="col-12 col-sm-6">
             <Select TValue="string" Items="Items" ShowSearch="true" />
         </div>
         <div class="col-12 col-sm-6">
-            <Select TValue="string" Items="StringItems" ShowSearch="true" AutoClearSearchText="true" />
+            <Select TValue="string" Items="StringItems" ShowSearch="true" />
         </div>
     </div>
 </DemoBlock>

@@ -9,7 +9,7 @@ namespace BootstrapBlazor.Shared.Samples.Table;
 /// <summary>
 /// 折行演示示例代码
 /// </summary>
-public sealed partial class TablesWrap
+public partial class TablesWrap
 {
     [NotNull]
     private IEnumerable<Foo>? CellItems { get; set; }
@@ -46,20 +46,5 @@ public sealed partial class TablesWrap
             IsFiltered = true,
             IsSearch = true
         });
-    }
-
-    /// <summary>
-    /// OnAfterRenderAsync 方法
-    /// </summary>
-    /// <param name="firstRender"></param>
-    /// <returns></returns>
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        await base.OnAfterRenderAsync(firstRender);
-
-        if (firstRender)
-        {
-            await JSRuntime.InvokeVoidAsync("$.table_wrap");
-        }
     }
 }

@@ -22,12 +22,10 @@ public class TabTest : TabTestBase
                 pb.Add(a => a.Url, "/Index");
                 pb.Add(a => a.Closable, true);
                 pb.Add(a => a.Icon, "fa-solid fa-font-awesome");
-                pb.Add(a => a.Key, "TabItem-Key");
                 pb.Add(a => a.ChildContent, "Tab1-Content");
             });
         });
         Assert.Contains("Tab1-Content", cut.Markup);
-        Assert.Equal("TabItem-Key", cut.FindComponent<TabItem>().Instance.Key);
     }
 
     [Fact]

@@ -33,7 +33,8 @@ public static class ServicesExtensions
             options.Themes.AddRange(new KeyValuePair<string, string>[]
             {
                 new("Ant Design (完善中)", "ant"),
-                new("LayUI (完善中)", "layui")
+                new("LayUI (完善中)", "layui"),
+                new("DevUI (制作中)", "devui")
             });
         }, options =>
         {

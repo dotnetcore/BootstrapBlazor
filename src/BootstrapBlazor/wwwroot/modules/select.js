@@ -28,7 +28,6 @@ export class Select extends DropdownBase {
 
         const keydown = e => {
             e.stopPropagation()
-            e.preventDefault()
 
             if (this._toggle.classList.contains('show')) {
                 const items = this._toggleMenu.querySelectorAll('.dropdown-item:not(.search, .disabled)')

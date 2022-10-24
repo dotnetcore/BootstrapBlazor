@@ -10,12 +10,8 @@ namespace BootstrapBlazor.Shared.Samples;
 /// <summary>
 /// 图标库
 /// </summary>
-public partial class Topologies : IDisposable
+public partial class Topologies
 {
-    [Inject]
-    [NotNull]
-    private IJSRuntime? JSRuntime { get; set; }
-
     [Inject]
     [NotNull]
     private FanControllerDataService? DataService { get; set; }
@@ -48,16 +44,14 @@ public partial class Topologies : IDisposable
     }
 
     /// <summary>
-    /// OnAfterRenderAsync 方法
+    /// <inheritdoc/>
     /// </summary>
-    /// <param name="firstRender"></param>
     /// <returns></returns>
-    protected override async Task OnAfterRenderAsync(bool firstRender)
+    protected override async Task ModuleInitAsync()
     {
-        if (firstRender)
+        if (Module != null)
         {
-            Interop = new JSInterop<Topologies>(JSRuntime);
-            await Interop.InvokeVoidAsync(this, null, "bb_topology_demo", nameof(ToggleFan));
+            await Module.InvokeVoidAsync($"{ModuleName}.init", TopologyElement.Id, nameof(ToggleFan));
         }
     }
 
@@ -86,7 +80,10 @@ public partial class Topologies : IDisposable
 
     private async Task OnBeforePushData()
     {
-        await JSRuntime.InvokeVoidAsync("$.bb_topology_demo_setOptions");
+        if (Module != null)
+        {
+            await Module.InvokeVoidAsync($"{ModuleName}.execute", TopologyElement.Id);
+        }
 
         // 推送数据
         var data = DataService.GetDatas();

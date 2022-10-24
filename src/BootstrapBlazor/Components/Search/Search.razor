@@ -7,9 +7,9 @@
             <input @attributes="AdditionalAttributes" @ref="FocusElement" class="@ClassName" autocomplete="off" type="@Type" placeholder="@PlaceHolder" @bind-value="@CurrentValueAsString" @bind-value:event="oninput" @onblur="OnBlur" @onkeyup="OnKeyUp" />
             @if (ShowClearButton)
             {
-                <Button Color="ClearButtonColor" Text="@ClearButtonText" Icon="@ClearButtonIcon" OnClick="OnClearClick" />
+                <Button Color="ClearButtonColor" Text="@ClearButtonText" Icon="@ClearButtonIcon" OnClick="OnClearClick" aria-label="Clear" />
             }
-            <Button Color="SearchButtonColor" Text="@SearchButtonText" Icon="@ButtonIcon" OnClick="OnSearchClick" />
+            <Button Color="SearchButtonColor" Text="@SearchButtonText" Icon="@ButtonIcon" OnClick="OnSearchClick" aria-label="Search" />
         </div>
         <ul class="@DropdownMenuClassString">
             @if (FilterItems.Any())

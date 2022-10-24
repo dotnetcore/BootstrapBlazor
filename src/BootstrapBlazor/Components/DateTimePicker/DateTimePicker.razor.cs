@@ -35,13 +35,6 @@ public sealed partial class DateTimePicker<TValue>
         .AddClass(Icon)
         .Build();
 
-    /// <summary>
-    /// 获得 组件弹窗位置
-    /// </summary>
-    private string? PlacementString => CssBuilder.Default()
-        .AddClass(Placement.ToDescriptionString(), Placement != Placement.Auto)
-        .Build();
-
     private string? TabIndexString => ValidateForm != null ? "0" : null;
 
     private string? AutoCloseString => AutoClose ? "true" : null;
@@ -98,12 +91,6 @@ public sealed partial class DateTimePicker<TValue>
     [Parameter]
     [NotNull]
     public string? Icon { get; set; }
-
-    /// <summary>
-    /// 获得/设置 弹窗位置 默认为 Auto
-    /// </summary>
-    [Parameter]
-    public Placement Placement { get; set; } = Placement.Auto;
 
     /// <summary>
     /// 获得/设置 组件显示模式 默认为显示年月日模式

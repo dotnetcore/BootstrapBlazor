@@ -1,15 +1,17 @@
-﻿import BlazorComponent from "../../../_content/BootstrapBlazor/modules/base/blazor-component.js";
-import EventHandler from "../../../_content/BootstrapBlazor/modules/base/event-handler.js";
-import { copy, getDescribedElement } from "../../../_content/BootstrapBlazor/modules/base/utility.js";
-import { Tooltip } from "../../../_content/BootstrapBlazor/modules/tooltip.js";
+﻿import BlazorComponent from "../../../_content/BootstrapBlazor/modules/base/blazor-component.js"
+import EventHandler from "../../../_content/BootstrapBlazor/modules/base/event-handler.js"
+import { copy, getDescribedElement, addLink, addScript } from "../../../_content/BootstrapBlazor/modules/base/utility.js"
+import { Tooltip } from "../../../_content/BootstrapBlazor/modules/tooltip.js"
 
 export class Pre extends BlazorComponent {
     _init() {
+        addLink('_content/BootstrapBlazor.Shared/lib/highlight/vs.css')
+        addScript('_content/BootstrapBlazor.Shared/lib/highlight/highlight.min.js')
         this._setListeners()
     }
 
     _setListeners() {
-        EventHandler.on(this._element, 'click', '.btn-clipboard', e => {
+        EventHandler.on(this._element, 'click', 'button', e => {
             const text = e.delegateTarget.previousElementSibling.querySelector('code').textContent;
             copy(text)
 
@@ -22,21 +24,31 @@ export class Pre extends BlazorComponent {
 
     _execute(args) {
         if (args[0] === 'highlight') {
-            const tooltip = this._element.querySelector('[data-bs-toggle="tooltip"]')
-            if (tooltip) {
-                this._tooltip = Tooltip.getOrCreateInstance(tooltip)
-            }
             if (window.hljs) {
-                const code = this._element.querySelector('code')
-                window.hljs.highlightBlock(code)
+                this._highlight()
+            }
+            else {
+                this._handler = window.setInterval(() => {
+                    if (window.hljs) {
+                        window.clearInterval(this._handler)
+                        delete this._handler
+                        this._highlight()
+                    }
+                }, 100)
             }
         }
     }
 
+    _highlight() {
+        const code = this._element.querySelector('code')
+        window.hljs.highlightBlock(code)
+    }
+
     _dispose() {
-        if (this._tooltip) {
-            this._tooltip.dispose()
+        if (this._handler) {
+            window.clearInterval(this._handler)
+            delete this._handler
         }
-        EventHandler.off(this._element, 'click', '.btn-clipboard');
+        EventHandler.off(this._element, 'click', 'button');
     }
 }

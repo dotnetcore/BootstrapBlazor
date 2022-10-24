@@ -1,4 +1,4 @@
-﻿import { isElement, getTransitionDurationFromElement } from "./index.js";
+﻿import { isElement, getTransitionDurationFromElement } from "./index.js"
 
 const vibrate = () => {
     if ('vibrate' in window.navigator) {
@@ -18,7 +18,7 @@ const copy = (text = '') => {
     if (navigator.clipboard) {
         navigator.clipboard.writeText(text)
     } else {
-        const input = document.createElement('input');
+        const input = document.createElement('input')
         input.setAttribute('type', 'text')
         input.setAttribute('value', text)
         input.setAttribute('hidden', 'true')
@@ -43,7 +43,7 @@ const getDescribedOwner = (element, selector = 'aria-describedby') => {
     if (isElement(element)) {
         const id = element.getAttribute('id')
         if (id) {
-            return document.querySelector(`[${selector}="${id}"]`);
+            return document.querySelector(`[${selector}="${id}"]`)
         }
     }
     return null
@@ -94,56 +94,80 @@ const getWindow = node => {
     }
 
     if (node.toString() !== '[object Window]') {
-        const ownerDocument = node.ownerDocument;
-        return ownerDocument ? ownerDocument.defaultView || window : window;
+        const ownerDocument = node.ownerDocument
+        return ownerDocument ? ownerDocument.defaultView || window : window
     }
 
-    return node;
+    return node
 }
 
 const addScript = content => {
     // content 文件名
-    const links = [...document.getElementsByTagName('script')];
+    const links = [...document.getElementsByTagName('script')]
     var link = links.filter(function (link) {
-        return link.src.indexOf(content) > -1;
-    });
+        return link.src.indexOf(content) > -1
+    })
     if (link.length === 0) {
-        link = document.createElement('script');
-        link.setAttribute('src', content);
-        document.body.appendChild(link);
+        link = document.createElement('script')
+        link.setAttribute('src', content)
+        document.body.appendChild(link)
     }
-};
+}
 
 const removeScript = content => {
-    const links = [...document.getElementsByTagName('script')];
+    const links = [...document.getElementsByTagName('script')]
     var nodes = links.filter(function (link) {
-        return link.src.indexOf(content) > -1;
-    });
+        return link.src.indexOf(content) > -1
+    })
     for (var index = 0; index < nodes.length; index++) {
-        document.body.removeChild(nodes[index]);
+        document.body.removeChild(nodes[index])
     }
 }
 
 const addLink = href => {
-    const links = [...document.getElementsByTagName('link')];
+    const links = [...document.getElementsByTagName('link')]
     var link = links.filter(function (link) {
-        return link.href.indexOf(href) > -1;
-    });
+        return link.href.indexOf(href) > -1
+    })
     if (link.length === 0) {
-        link = document.createElement('link');
-        link.setAttribute('href', href);
-        link.setAttribute("rel", "stylesheet");
-        document.getElementsByTagName("head")[0].appendChild(link);
+        link = document.createElement('link')
+        link.setAttribute('href', href)
+        link.setAttribute("rel", "stylesheet")
+        document.getElementsByTagName("head")[0].appendChild(link)
     }
 }
 
 const removeLink = href => {
-    const links = [...document.getElementsByTagName('link')];
+    const links = [...document.getElementsByTagName('link')]
     var nodes = links.filter(function (link) {
-        return link.href.indexOf(content) > -1;
-    });
+        return link.href.indexOf(content) > -1
+    })
     for (var index = 0; index < nodes.length; index++) {
-        document.getElementsByTagName("head")[0].removeChild(nodes[index]);
+        document.getElementsByTagName("head")[0].removeChild(nodes[index])
+    }
+}
+
+const insertBefore = (element, newEl) => {
+    if (element) {
+        const parentNode = element.parentNode
+        if (parentNode) {
+            if (element) {
+                parentNode.insertBefore(newEl, element)
+            }
+        }
+    }
+}
+
+const insertAfter = (element, newEl) => {
+    if (element) {
+        const parentNode = element.parentNode
+        if (parentNode) {
+            if (element.nextElementSibling) {
+                parentNode.insertBefore(newEl, element.nextElementSibling)
+            } else {
+                parentNode.appendChild(newEl)
+            }
+        }
     }
 }
 
@@ -162,5 +186,7 @@ export {
     addLink,
     removeLink,
     addScript,
-    removeScript
+    removeScript,
+    insertBefore,
+    insertAfter
 }

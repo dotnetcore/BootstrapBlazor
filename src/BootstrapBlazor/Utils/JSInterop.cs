@@ -71,25 +71,6 @@ public class JSInterop<TValue> : IDisposable where TValue : class
     /// <summary>
     /// 
     /// </summary>
-    /// <param name="value"></param>
-    /// <param name="el"></param>
-    /// <param name="func"></param>
-    /// <param name="args"></param>
-    /// <returns></returns>
-    public async ValueTask<TReturn?> InvokeAsync<TReturn>(TValue value, object? el, string func, params object[] args)
-    {
-        _objRef = DotNetObjectReference.Create(value);
-        var paras = new List<object>()
-        {
-            _objRef
-        };
-        paras.AddRange(args);
-        return await JSRuntime.InvokeAsync<TReturn>(el, func, paras.ToArray());
-    }
-
-    /// <summary>
-    /// 
-    /// </summary>
     /// <returns></returns>
     internal ValueTask<bool> GetGeolocationItemAsync(TValue value, string callbackMethodName)
     {

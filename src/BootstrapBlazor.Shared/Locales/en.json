@@ -1868,8 +1868,11 @@
     "TipsDiv": "The default behavior of this component is data segmentation,Clicking on the <code>TabItem</code> title does not navigate, and if you need to navigate the address bar, set the <code>ClickTabToNavigation</code> property to <code>true</code>，When you click on the <code>TabItem</code> title, the address bar redirects navigation, mostly for the background management system to be used in conjunction with the <code>Menu</code> components，The actual combat can refer to the <code>multi-label</code> mode in the <a href='layout-page' target='_blank'>background template simulator</a>,  When you have <code>Razor Component</code> in the additional Assemblies, set the <code>AdditionalAssemblies</code> property value correctly so that the route within the label component is resolved correctly, and the relevant documentation <a href='https://docs.microsoft.com/zh-cn/aspnet/core/blazor/fundamentals/routing?WT.mc_id-DT-MVP-5004174-view-aspnetcore-3.1-route-to-components-from-multiple-assemblies' target'_blank'>[Portal]</a>",
     "TipsP2": "This component adapts to width height, etc., and scroll arrows can appear left and right or up and down when appropriate",
     "InfoTitle": "Set additional information during tab navigation",
-    "InfoItem2": "Tab properties can be set when navigating using the built-in extension method <code>Navigator.NavigateTo(\"url\", \"text\", \"icon\", \"closable\")</code>",
+    "InfoItem2": "Tab properties can be set when navigating using the built-in extension method <code>Navigator.NavigateTo(\"provider\", \"url\", \"text\", \"icon\", \"closable\")</code>",
     "InfoItem4": "Setting <code>@attribute [TabItemOption(Text = \"LayoutPage\", Icon = \"fa-solid fa-font-awesome\")]</code> in <code>razor</code> page",
+    "QATitle": "Q&A",
+    "QA1": "Get <code>TabSet</code> by cascading parameter",
+    "QA2": "Get <code>TabItem</code> by cascading parameter",
     "TabItem1Text": "User",
     "TabItem1Content": "I am a user manager",
     "TabItem2Text": "Menu",
@@ -1925,6 +1928,8 @@
     "BlockHeaderTemplateIntro": "customer the header UI via <code>HeaderTemplate</code>",
     "BlockHeaderTemplateHeaderText": "Todo List",
     "BlockHeaderTemplateDesc": "Use <code>Badge</code> in the <code>HeaderTemplate</code>",
+    "BlockSetHeaderTextTemplateTitle": "Set header text",
+    "BlockSetHeaderTextTemplateIntro": "Set the parameter <code>Text</code> of <code>TabItem</code> custom the tabitem's header title'",
     "Att1": "Whether it is a bordered card style",
     "Att2": "Whether it is a card style",
     "Att3": "Whether to render only Active labels",
@@ -1954,6 +1959,10 @@
     "AttTitle": "Attributes",
     "MethodTitle": "Method",
     "DefaultUrl": "Default page"
+  },
+  "BootstrapBlazor.Shared.Components.DemoTabItem": {
+    "Info": "Reset the title of this <code>TabItem</code> by click the button",
+    "ButtonText": "SetTitle"
   },
   "BootstrapBlazor.Shared.Samples.AutoFills": {
     "H1": "AutoFill components",
@@ -2859,7 +2868,6 @@
     "SwalFooter": "Click Confirm to change the option value and select Cancel to leave the value unchanged",
     "ShowLabel": "Whether to display the front label",
     "ShowSearch": "Whether to display the search box",
-    "AutoClearSearchTextIntro": "By default, the component will maintain the <code>SearchText</code>. You can set the <code>AutoClearSearchText</code> parameter to control the automatic emptying of the search content when click the select item",
     "DisplayText": "The front label displays text",
     "Class": "Style",
     "Color": "Color",
@@ -4132,6 +4140,9 @@
   },
   "BootstrapBlazor.Shared.Components.CultureChooser": {
     "Label": "Language："
+  },
+  "BootstrapBlazor.Shared.Components.GlobalSearch": {
+    "Search": "Search components"
   },
   "BootstrapBlazor.Shared.Shared.BaseLayout": {
     "DownloadText": "Download",

@@ -1,7 +1,8 @@
 ﻿@namespace BootstrapBlazor.Components
-@inherits BootstrapComponentBase
+@inherits BootstrapModuleComponentBase
+@attribute [JSModuleAutoLoader("time-pick", ModuleName = "TimePicker", JSObjectReference = true)]
 
-<div @attributes="@AdditionalAttributes" class="@ClassString" @ref="@TimeCellElement">
+<div @attributes="@AdditionalAttributes" class="@ClassString" id="@Id">
     <i class="time-spinner-arrow fa-solid fa-angle-up" @onclick="OnClickUp"></i>
     <i class="time-spinner-arrow fa-solid fa-angle-down" @onclick="OnClickDown"></i>
     <div class="time-spinner-list-wrapper">

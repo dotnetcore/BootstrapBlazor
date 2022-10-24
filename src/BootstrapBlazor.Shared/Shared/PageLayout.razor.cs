@@ -81,21 +81,6 @@ public sealed partial class PageLayout
     }
 
     /// <summary>
-    /// OnAfterRenderAsync 方法
-    /// </summary>
-    /// <param name="firstRender"></param>
-    /// <returns></returns>
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        await base.OnAfterRenderAsync(firstRender);
-
-        if (firstRender)
-        {
-            await JSRuntime.InvokeVoidAsync("$.tooltip");
-        }
-    }
-
-    /// <summary>
     /// 更新组件方法
     /// </summary>
     public void Update() => StateHasChanged();

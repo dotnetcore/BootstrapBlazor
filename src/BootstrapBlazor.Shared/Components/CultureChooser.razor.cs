@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using BootstrapBlazor.Shared.Extensions;
 using Microsoft.Extensions.Options;
 using Microsoft.JSInterop;
 using System.Globalization;
@@ -16,6 +17,10 @@ public partial class CultureChooser
     [Inject]
     [NotNull]
     private IOptionsMonitor<BootstrapBlazorOptions>? BootstrapOptions { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IOptionsMonitor<WebsiteOptions>? WebsiteOption { get; set; }
 
     [Inject]
     [NotNull]
@@ -51,7 +56,8 @@ public partial class CultureChooser
             var cultureName = item.Value;
             if (cultureName != CultureInfo.CurrentCulture.Name)
             {
-                await JSRuntime.InvokeVoidAsync(identifier: "$.blazorCulture.set", cultureName);
+                WebsiteOption.CurrentValue.SiteMenus = null;
+                await JSRuntime.SetCulture(cultureName);
                 var culture = new CultureInfo(cultureName);
                 CultureInfo.CurrentCulture = culture;
                 CultureInfo.CurrentUICulture = culture;
@@ -64,6 +70,7 @@ public partial class CultureChooser
             // 使用 api 方式 适用于 Server-Side 模式
             if (SelectedCulture != item.Value)
             {
+                WebsiteOption.CurrentValue.SiteMenus = null;
                 var culture = item.Value;
                 var uri = new Uri(NavigationManager.Uri).GetComponents(UriComponents.PathAndQuery, UriFormat.Unescaped);
                 var query = $"?culture={Uri.EscapeDataString(culture)}&redirectUri={Uri.EscapeDataString(uri)}";

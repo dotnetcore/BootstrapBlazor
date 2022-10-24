@@ -368,44 +368,6 @@ section {
     width: 80px;
 }
 
-.pre-code {
-    position: relative;
-}
-
-    .pre-code .btn-clipboard {
-        position: absolute;
-        top: .65rem;
-        right: .65rem;
-        z-index: 10;
-        display: block;
-        padding: .25rem .5rem;
-        font-size: 65%;
-        color: #007bff;
-        background-color: #fff;
-        border: 1px solid;
-        border-radius: var(--bs-border-radius);
-    }
-
-        .pre-code .btn-clipboard:hover {
-            color: #fff;
-            background-color: #007bff;
-        }
-
-    .pre-code code {
-        line-height: 1.8;
-        font-size: 0.75rem;
-        border: 1px solid #eaeefb;
-        border-radius: var(--bs-border-radius);
-        padding: 10px 65px 10px 16px;
-        -webkit-font-smoothing: auto;
-        display: block;
-        white-space: pre-wrap;
-    }
-
-    .pre-code .no-highlight code {
-        color: #e83e8c;
-    }
-
 .chart .btn i + span {
     display: none;
 }
@@ -521,11 +483,14 @@ section {
         }
 
         .welcome .bar .carousel-caption {
-            position: static;
+            position: absolute;
             margin-top: 1rem;
             color: #607D8B;
             border-top: solid 1px #dce3e8;
             height: 120px;
+            bottom: 0;
+            left: 0;
+            right: 0;
         }
 
     .welcome .carousel-img {
@@ -537,6 +502,10 @@ section {
         border: 1px solid #dce3e8;
         padding: 1rem;
     }
+
+        .welcome .carousel .carousel-indicators li {
+            background-color: #6c757d;
+        }
 
 .welcome-header {
     margin-bottom: 2rem;
@@ -1450,48 +1419,6 @@ section {
 
         .theme-bar .theme-color:first-child {
             margin-right: 2px;
-        }
-
-.theme-list {
-    display: none;
-    position: fixed;
-    z-index: 10;
-    bottom: 11rem;
-    right: 1rem;
-    background: #FFFFFF;
-    box-shadow: 0 5px 24px 0 rgba(0,0,0,0.2);
-    border-radius: var(--bs-border-radius);
-    width: 260px;
-    padding: 1rem;
-    box-shadow: 0 0 12px #211b50;
-}
-
-    .theme-list .theme-header {
-        padding: 0.75rem 1rem;
-        background-color: #8759ff;
-        color: #fff;
-        border-top-left-radius: 5px;
-        border-top-right-radius: 5px;
-        margin: -1rem -1rem 1rem -1rem;
-        display: flex;
-    }
-
-    .theme-list .theme-item {
-        cursor: pointer;
-        border-radius: 100px;
-        padding: 6px 15px;
-        background-color: #f6f6f6;
-        color: #005980;
-        transition: background-color .3s linear;
-    }
-
-        .theme-list .theme-item:hover,
-        .theme-list .theme-item.active {
-            background-color: #ab8aff;
-        }
-
-        .theme-list .theme-item:not(:last-child) {
-            margin-bottom: .5rem;
         }
 
 .ms-learn,

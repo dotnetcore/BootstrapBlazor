@@ -1,13 +1,13 @@
 ﻿@namespace BootstrapBlazor.Components
 @typeparam TValue
-@inherits ValidateBase<TValue>
+@inherits PopoverDropdownBase<TValue>
 
 @if (IsShowLabel)
 {
     <BootstrapLabel required="@Required" for="@Id" ShowLabelTooltip="ShowLabelTooltip" Value="@DisplayText" />
 }
 <div @attributes="@AdditionalAttributes" tabindex="@TabIndexString" id="@Id" class="@ClassString" data-bb-auto-close="@AutoCloseString" data-bb-dropdown=".picker-panel" data-bb-dismiss=".picker-panel-link-btn">
-    <input readonly class="@InputClassName" value="@CurrentValueAsString" placeholder="@PlaceholderString" disabled="@Disabled" data-bs-toggle="@Constants.DropdownToggleString" data-bs-placement="@PlacementString" />
+    <input readonly class="@InputClassName" value="@CurrentValueAsString" placeholder="@PlaceholderString" disabled="@Disabled" data-bs-toggle="@Constants.DropdownToggleString" data-bs-placement="@PlacementString" data-bs-custom-class="@CustomClassString" />
     <i class="@DateTimePickerIconClassString"></i>
     <DatePickerBody @bind-Value="@ComponentValue" AllowNull="@AllowNull" ShowSidebar="@ShowSidebar"
                     DateFormat="@DateFormat"

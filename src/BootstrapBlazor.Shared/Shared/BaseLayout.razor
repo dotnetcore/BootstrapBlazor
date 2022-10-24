@@ -1,6 +1,4 @@
 ﻿@inherits LayoutComponentBase
-@inject IJSRuntime JSRuntime
-@inject IOptionsMonitor<WebsiteOptions> WebsiteOption
 
 <header class="navbar navbar-expand navbar-dark flex-column flex-md-row px-3">
     <div class="header-img navbar-brand">
@@ -24,12 +22,10 @@
             <li class="nav-item d-none d-md-flex">
                 <a class="nav-link" href="@WebsiteOption.CurrentValue.WasmUrl">wasm</a>
             </li>
-            <li class="nav-item d-none d-xl-flex">
-                <a class="nav-link" href="http://ccflow.org/?from=blazor">@FlowText</a>
-            </li>
         </ul>
     </div>
-    <CultureChooser class="flex-md-fill justify-content-md-end" />
+    <GlobalSearch />
+    <CultureChooser class="flex-md-fill flex-xl-grow-0 justify-content-md-end" />
     <ul class="navbar-nav ms-3 d-none d-lg-flex">
         <li class="nav-item">
             <a class="nav-link p-2" href="https://github.com/ArgoZhang/BootstrapBlazor">

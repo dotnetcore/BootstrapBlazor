@@ -74,7 +74,8 @@
     "switchbuttons": "SwitchButtons",
     "pulsebuttons": "PulseButtons",
     "select-trees": "SelectTrees",
-    "bluetooths": "Bluetooths"
+    "bluetooths": "Bluetooths",
+    "ribbontabs": "RibbonTabs"
   },
   "video": {
     "autorefresh": "BV1ap4y1x7Qn?p=8",

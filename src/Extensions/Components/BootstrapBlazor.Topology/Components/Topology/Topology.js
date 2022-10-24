@@ -14,7 +14,7 @@ export class BlazorTopology extends BlazorComponent {
             const data = this._config.arguments[1]
             const method = this._config.arguments[2]
 
-            this._topology = new Topology(this._element.getAttribute('id'))
+            this._topology = new Topology(this._element)
             this._topology.connectSocket = function () {
             }
             this._topology.open(JSON.parse(data))
@@ -24,7 +24,16 @@ export class BlazorTopology extends BlazorComponent {
     }
 
     _execute(args) {
-        const data = args[1];
-        this._topology.doSocket(JSON.stringify(data))
+        if (this._topology) {
+            const data = args[1];
+            this._topology.doSocket(JSON.stringify(data))
+        }
+    }
+
+    _dispose() {
+        if (this._topology) {
+            this._topology.destroy()
+            this._topology = null
+        }
     }
 }

@@ -1,12 +1,12 @@
 ﻿@namespace BootstrapBlazor.Components
 @inherits BootstrapComponentBase
 
-<div @attributes="@AdditionalAttributes" class="@ClassString" @ref="TimePickerElement">
+<div @attributes="@AdditionalAttributes" class="@ClassString">
     <div class="time-panel-content has-seconds">
         <div class="time-spinner has-seconds">
-            <TimePickerCell @bind-Value="@CurrentTime" ItemHeightCallback="@ItemHeightCallback" ViewMode="TimePickerCellViewMode.Hour" />
-            <TimePickerCell @bind-Value="@CurrentTime" ItemHeightCallback="@ItemHeightCallback" ViewMode="TimePickerCellViewMode.Minute" />
-            <TimePickerCell @bind-Value="@CurrentTime" ItemHeightCallback="@ItemHeightCallback" ViewMode="TimePickerCellViewMode.Second" />
+            <TimePickerCell @bind-Value="@CurrentTime" ViewMode="TimePickerCellViewMode.Hour" />
+            <TimePickerCell @bind-Value="@CurrentTime" ViewMode="TimePickerCellViewMode.Minute" />
+            <TimePickerCell @bind-Value="@CurrentTime" ViewMode="TimePickerCellViewMode.Second" />
         </div>
         <div class="time-panel-footer">
             <button type="button" class="time-panel-btn cancel" @onclick="@OnClickClose">@CancelButtonText</button>

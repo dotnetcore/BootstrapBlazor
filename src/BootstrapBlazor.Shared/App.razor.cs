@@ -4,18 +4,16 @@
 
 using BootstrapBlazor.Shared.Extensions;
 using Microsoft.JSInterop;
+using System.Reflection;
 
 namespace BootstrapBlazor.Shared;
 
 /// <summary>
-/// 
+/// App 组件
 /// </summary>
-public sealed partial class App : IDisposable
+[JSModuleAutoLoader]
+public partial class App
 {
-    [Inject]
-    [NotNull]
-    private IJSRuntime? JSRuntime { get; set; }
-
     [Inject]
     [NotNull]
     private IStringLocalizer<App>? Localizer { get; set; }
@@ -39,16 +37,13 @@ public sealed partial class App : IDisposable
     }
 
     /// <summary>
-    /// 
+    /// <inheritdoc/>
     /// </summary>
-    /// <param name="firstRender"></param>
-    protected override async Task OnAfterRenderAsync(bool firstRender)
+    protected override async Task ModuleInitAsync()
     {
-        await base.OnAfterRenderAsync(firstRender);
-
-        if (firstRender)
+        if (Module != null)
         {
-            await JSRuntime.InvokeVoidAsync("$.loading", OperatingSystem.IsBrowser(), Localizer["ErrorMessage"].Value, Localizer["Reload"].Value);
+            await Module.InvokeVoidAsync($"{ModuleName}.init", Localizer["ErrorMessage"].Value, Localizer["Reload"].Value);
         }
     }
 
@@ -72,24 +67,15 @@ public sealed partial class App : IDisposable
     }
 
     /// <summary>
-    /// 
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="disposing"></param>
-    private void Dispose(bool disposing)
+    protected override async ValueTask DisposeAsync(bool disposing)
     {
         if (disposing)
         {
             DispatchService.UnSubscribe(Notify);
         }
-    }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <exception cref="NotImplementedException"></exception>
-    public void Dispose()
-    {
-        Dispose(true);
-        GC.SuppressFinalize(this);
+        await base.DisposeAsync(disposing);
     }
 }

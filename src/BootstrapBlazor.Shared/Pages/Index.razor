@@ -1,4 +1,5 @@
 ﻿@layout HomeLayout
+@inherits JSModuleComponentBase
 @page "/"
 @page "/index"
 @page "/home"
@@ -13,7 +14,9 @@
                     </h4>
                     <div>@((MarkupString)Localizer["HeaderDesc", Options.CurrentValue.TotalCount].Value)</div>
                     <div class="@BodyClassString">
-                        @Localizer["HeaderBody"]<span @ref="TypeElement" class="typed"></span><span class="typed-cursor">|</span>
+                        @Localizer["HeaderBody"]
+                        <span id="@Id" class="typed"></span>
+                        <span class="typed-cursor">|</span>
                         <div>@Localizer["HeaderBody1"]</div>
                     </div>
                 </div>
@@ -50,70 +53,44 @@
                 </div>
             </div>
             <div class="col-12 col-lg-6">
-                <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
-                    <ol class="carousel-indicators">
-                        <li data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"></li>
-                        <li data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1"></li>
-                        <li data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2"></li>
-                        <li data-bs-target="#carouselExampleCaptions" data-bs-slide-to="3"></li>
-                    </ol>
-                    <div class="carousel-inner">
-                        <div class="carousel-item active">
-                            <div class="bar">
-                                <div class="carousel-img">
-                                    <img alt="bar" src="_content/BootstrapBlazor.Shared/images/bar.gif" />
-                                </div>
-                                <div class="carousel-caption">
-                                    <h5>@Localizer["CarouselH1"]</h5>
-                                    <p>@Localizer["CarouselP1"]</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="carousel-item">
-                            <div class="bar">
-                                <div class="carousel-img">
-                                    <img alt="dought" src="_content/BootstrapBlazor.Shared/images/dought.gif" />
-                                </div>
-                                <div class="carousel-caption">
-                                    <h5>@Localizer["CarouselH2"]</h5>
-                                    <p>@Localizer["CarouselP2"]</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="carousel-item">
-                            <div class="bar">
-                                <div class="carousel-img">
-                                    <img alt="table" src="_content/BootstrapBlazor.Shared/images/table.png" />
-                                </div>
-                                <div class="carousel-caption">
-                                    <h5>@Localizer["CarouselH3"]</h5>
-                                    <p>@Localizer["CarouselP3"]</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="carousel-item">
-                            <div class="bar">
-                                <div class="carousel-img">
-                                    <img alt="timeline" src="_content/BootstrapBlazor.Shared/images/timeline.png" />
-                                </div>
-                                <div class="carousel-caption">
-                                    <h5>@Localizer["CarouselH4"]</h5>
-                                    <p>@Localizer["CarouselP4"]</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button"
-                       data-bs-slide="prev">
-                        <i class="fa-solid fa-angle-left"></i>
-                        <span class="sr-only">Previous</span>
-                    </a>
-                    <a class="carousel-control-next" href="#carouselExampleCaptions" role="button"
-                       data-bs-slide="next">
-                        <i class="fa-solid fa-angle-right"></i>
-                        <span class="sr-only">Next</span>
-                    </a>
-                </div>
+                <Carousel class="bar">
+                    <CarouselItem>
+                        <CaptionTemplate>
+                            <h5>@Localizer["CarouselH1"]</h5>
+                            <p>@Localizer["CarouselP1"]</p>
+                        </CaptionTemplate>
+                        <ChildContent>
+                            <img alt="bar" src="_content/BootstrapBlazor.Shared/images/bar.gif" />
+                        </ChildContent>
+                    </CarouselItem>
+                    <CarouselItem>
+                        <CaptionTemplate>
+                            <h5>@Localizer["CarouselH2"]</h5>
+                            <p>@Localizer["CarouselP2"]</p>
+                        </CaptionTemplate>
+                        <ChildContent>
+                            <img alt="dought" src="_content/BootstrapBlazor.Shared/images/dought.gif" />
+                        </ChildContent>
+                    </CarouselItem>
+                    <CarouselItem>
+                        <CaptionTemplate>
+                            <h5>@Localizer["CarouselH3"]</h5>
+                            <p>@Localizer["CarouselP3"]</p>
+                        </CaptionTemplate>
+                        <ChildContent>
+                            <img alt="table" src="_content/BootstrapBlazor.Shared/images/table.png" />
+                        </ChildContent>
+                    </CarouselItem>
+                    <CarouselItem>
+                        <CaptionTemplate>
+                            <h5>@Localizer["CarouselH4"]</h5>
+                            <p>@Localizer["CarouselP4"]</p>
+                        </CaptionTemplate>
+                        <ChildContent>
+                            <img alt="timeline" src="_content/BootstrapBlazor.Shared/images/timeline.png" />
+                        </ChildContent>
+                    </CarouselItem>
+                </Carousel>
             </div>
         </div>
     </div>

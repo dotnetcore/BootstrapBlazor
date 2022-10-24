@@ -2,21 +2,34 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using BootstrapBlazor.Shared.Services;
+using BootstrapBlazor.Shared.Extensions;
+using Microsoft.Extensions.Options;
 using Microsoft.JSInterop;
 
 namespace BootstrapBlazor.Shared.Shared;
 
 /// <summary>
-/// 
+/// 母版页基类
 /// </summary>
-public partial class BaseLayout
+public partial class BaseLayout : IAsyncDisposable
 {
     private ElementReference MsLearnElement { get; set; }
 
     [Inject]
     [NotNull]
     private IStringLocalizer<BaseLayout>? Localizer { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IJSRuntime? JSRuntime { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IOptionsMonitor<WebsiteOptions>? WebsiteOption { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<NavMenu>? MenuLocalizer { get; set; }
 
     [NotNull]
     private string? DownloadText { get; set; }
@@ -45,12 +58,23 @@ public partial class BaseLayout
     [NotNull]
     private string? Title { get; set; }
 
+    [NotNull]
+    private JSModule? Module { get; set; }
+
     private static bool Installable = false;
 
     [NotNull]
     private static Action? OnInstallable { get; set; }
 
     private string DownloadUrl => $"{WebsiteOption.CurrentValue.BootstrapBlazorLink}/repository/archive/main.zip";
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        WebsiteOption.CurrentValue.SiteMenus ??= MenuLocalizer.GenerateMenus();
+    }
 
     /// <summary>
     /// <inheritdoc/>
@@ -73,6 +97,19 @@ public partial class BaseLayout
     }
 
     /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="firstRender"></param>
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            Module = await JSRuntime.LoadModule($"./_content/BootstrapBlazor.Shared/modules/header.js", relative: false);
+            await Module.InvokeVoidAsync("Header.init");
+        }
+    }
+
+    /// <summary>
     ///
     /// </summary>
     /// <returns></returns>
@@ -88,5 +125,30 @@ public partial class BaseLayout
     {
         Installable = false;
         await JSRuntime.InvokeVoidAsync("BlazorPWA.installPWA");
+    }
+
+    /// <summary>
+    /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources asynchronously.
+    /// </summary>
+    /// <param name="disposing"></param>
+    /// <returns></returns>
+    protected virtual async ValueTask DisposeAsync(bool disposing)
+    {
+        if (Module != null && disposing)
+        {
+            await Module.InvokeVoidAsync($"Header.dispose");
+            await Module.DisposeAsync();
+            Module = null;
+        }
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    public async ValueTask DisposeAsync()
+    {
+        await DisposeAsync(true);
+        GC.SuppressFinalize(this);
     }
 }
