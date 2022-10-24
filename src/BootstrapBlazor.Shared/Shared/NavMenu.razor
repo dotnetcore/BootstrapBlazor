@@ -1,5 +1,4 @@
 ﻿@inherits JSModuleComponentBase
-@attribute [JSModuleAutoLoader("menu", ModuleName = "Menu")]
 
 <div class="navbar navbar-dark d-flex d-md-none px-3" id="@Id">
     <a class="navbar-brand" href="">Bootstrap Blazor</a>
@@ -15,6 +14,6 @@
         <Switch @bind-Value="@IsExpandAll" IsDisabled="@IsAccordion" ShowLabel="true" DisplayText="@ExpandAllText" />
     </div>
     <div class="scroll">
-        <Menu Items="@Menus" IsVertical="true" IsAccordion="@IsAccordion" IsExpandAll="@IsExpandAll" OnClick="@OnClickMenu" />
+        <Menu Items="@WebsiteOption.CurrentValue.SiteMenus" IsVertical="true" IsAccordion="@IsAccordion" IsExpandAll="@IsExpandAll" OnClick="@OnClickMenu" />
     </div>
 </div>

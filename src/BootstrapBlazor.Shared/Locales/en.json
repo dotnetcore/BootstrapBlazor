@@ -4132,6 +4132,9 @@
   "BootstrapBlazor.Shared.Components.CultureChooser": {
     "Label": "Language："
   },
+  "BootstrapBlazor.Shared.Components.GlobalSearch": {
+    "Search": "Search components"
+  },
   "BootstrapBlazor.Shared.Shared.BaseLayout": {
     "DownloadText": "Download",
     "HomeText": "Home",

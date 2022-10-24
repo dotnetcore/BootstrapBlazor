@@ -11,12 +11,9 @@ namespace BootstrapBlazor.Shared;
 /// <summary>
 /// App 组件
 /// </summary>
-public partial class App : IAsyncDisposable
+[JSModuleAutoLoader]
+public partial class App
 {
-    [Inject]
-    [NotNull]
-    private IJSRuntime? JSRuntime { get; set; }
-
     [Inject]
     [NotNull]
     private IStringLocalizer<App>? Localizer { get; set; }
@@ -28,9 +25,6 @@ public partial class App : IAsyncDisposable
     [Inject]
     [NotNull]
     private ToastService? Toast { get; set; }
-
-    [NotNull]
-    private JSModule? Module { get; set; }
 
     /// <summary>
     /// OnInitialized 方法
@@ -45,13 +39,11 @@ public partial class App : IAsyncDisposable
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <param name="firstRender"></param>
-    protected override async Task OnAfterRenderAsync(bool firstRender)
+    protected override async Task ModuleInitAsync()
     {
-        if (firstRender)
+        if (Module != null)
         {
-            Module = await JSRuntime.LoadModule($"./_content/BootstrapBlazor.Shared/modules/app.js", relative: false);
-            await Module.InvokeVoidAsync("App.init", Localizer["ErrorMessage"].Value, Localizer["Reload"].Value);
+            await Module.InvokeVoidAsync($"{ModuleName}.init", Localizer["ErrorMessage"].Value, Localizer["Reload"].Value);
         }
     }
 
@@ -78,27 +70,12 @@ public partial class App : IAsyncDisposable
     /// <inheritdoc/>
     /// </summary>
     /// <param name="disposing"></param>
-    private async ValueTask DisposeAsync(bool disposing)
+    protected override async ValueTask DisposeAsync(bool disposing)
     {
         if (disposing)
         {
             DispatchService.UnSubscribe(Notify);
-
-            if (Module != null)
-            {
-                await Module.DisposeAsync();
-                Module = null;
-            }
         }
-    }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <exception cref="NotImplementedException"></exception>
-    public async ValueTask DisposeAsync()
-    {
-        await DisposeAsync(true);
-        GC.SuppressFinalize(this);
+        await base.DisposeAsync(disposing);
     }
 }

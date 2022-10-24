@@ -4132,6 +4132,9 @@
   "BootstrapBlazor.Shared.Components.CultureChooser": {
     "Label": "语言："
   },
+  "BootstrapBlazor.Shared.Components.GlobalSearch": {
+    "Search": "搜索想要的组件"
+  },
   "BootstrapBlazor.Shared.Shared.BaseLayout": {
     "DownloadText": "Download",
     "HomeText": "首页",

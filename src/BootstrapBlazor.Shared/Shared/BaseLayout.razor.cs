@@ -2,6 +2,8 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using BootstrapBlazor.Shared.Extensions;
+using Microsoft.Extensions.Options;
 using Microsoft.JSInterop;
 
 namespace BootstrapBlazor.Shared.Shared;
@@ -16,6 +18,18 @@ public partial class BaseLayout : IAsyncDisposable
     [Inject]
     [NotNull]
     private IStringLocalizer<BaseLayout>? Localizer { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IJSRuntime? JSRuntime { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IOptionsMonitor<WebsiteOptions>? WebsiteOption { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<NavMenu>? MenuLocalizer { get; set; }
 
     [NotNull]
     private string? DownloadText { get; set; }
@@ -53,6 +67,14 @@ public partial class BaseLayout : IAsyncDisposable
     private static Action? OnInstallable { get; set; }
 
     private string DownloadUrl => $"{WebsiteOption.CurrentValue.BootstrapBlazorLink}/repository/archive/main.zip";
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        WebsiteOption.CurrentValue.SiteMenus ??= MenuLocalizer.GenerateMenus();
+    }
 
     /// <summary>
     /// <inheritdoc/>
