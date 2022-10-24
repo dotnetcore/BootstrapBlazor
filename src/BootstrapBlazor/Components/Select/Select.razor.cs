@@ -78,12 +78,6 @@ public partial class Select<TValue> : ISelect
     public Func<string, IEnumerable<SelectedItem>>? OnSearchTextChanged { get; set; }
 
     /// <summary>
-    /// 获得/设置 选中候选项后是否自动清空搜索框内容 默认 false 不清空
-    /// </summary>
-    [Parameter]
-    public bool AutoClearSearchText { get; set; }
-
-    /// <summary>
     /// 获得/设置 是否固定下拉框中的搜索栏 默认 false
     /// </summary>
     [Parameter]
@@ -265,11 +259,6 @@ public partial class Select<TValue> : ISelect
         if (OnSelectedItemChanged != null)
         {
             await OnSelectedItemChanged.Invoke(SelectedItem);
-        }
-
-        if (AutoClearSearchText)
-        {
-            SearchText = string.Empty;
         }
     }
 

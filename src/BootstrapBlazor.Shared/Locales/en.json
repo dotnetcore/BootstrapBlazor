@@ -2867,7 +2867,6 @@
     "SwalFooter": "Click Confirm to change the option value and select Cancel to leave the value unchanged",
     "ShowLabel": "Whether to display the front label",
     "ShowSearch": "Whether to display the search box",
-    "AutoClearSearchTextIntro": "By default, the component will maintain the <code>SearchText</code>. You can set the <code>AutoClearSearchText</code> parameter to control the automatic emptying of the search content when click the select item",
     "DisplayText": "The front label displays text",
     "Class": "Style",
     "Color": "Color",
