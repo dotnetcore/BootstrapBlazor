@@ -22,21 +22,20 @@
 <Pre class="no-highlight">Install-Package BootstrapBlazor.OCR</Pre>
 
 <DemoBlock Title="@Localizer["BaseUsageText"]" Introduction="@Localizer["BaseUsageIntro"]" Name="Normal">
-    <Pre>&lt;ShowUI="true" ShowUI_Capture="true" OnResult="OnResult" /&gt;</Pre>
     <div class="row">
         <div class="col-12 col-sm-6">
-            <OCR ShowUI="true" ShowUI_Capture="true" OnResult="OnResult" />
+            <OCR ShowUI="true" ShowUI_Capture="true" ShowUI_Url="true" OnResult="OnResult" Debug="true" />
         </div> 
     </div>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["BaseUsageText2"]" Introduction="@Localizer["ButtonCssStyleIntro"]" Name="ButtonCssStyle">
-    <label for="cam" class="input-label">
+@*<DemoBlock Title="@Localizer["BaseUsageText2"]" Introduction="@Localizer["ButtonCssStyleIntro"]" Name="ButtonCssStyle">
+    <label for="cam" class="input-label-0">
         @ocrStatus
     </label>
     <i style="color:green;margin-left:8px;">  @log</i>
     <InputFile id="cam" OnChange="OnChange" style="width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border-width: 0;" accept='image/*' capture />
-</DemoBlock> 
+</DemoBlock>*@ 
 
 <Tips>
     <p>@((MarkupString)Localizer["Tips"].Value)</p>

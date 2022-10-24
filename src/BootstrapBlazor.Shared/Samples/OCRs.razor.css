@@ -1,4 +1,4 @@
-﻿﻿.sr-only {
+﻿﻿.sr-only-0 {
     position: absolute;
     width: 1px;
     height: 1px;
@@ -10,7 +10,7 @@
     border-width: 0;
 }
 
-.input-label {
+.input-label-0 {
     padding: 6px 13px;
     background-color: #f55442;
     color: white;
