@@ -2,15 +2,15 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using System.Threading.Tasks.Sources;
+
 namespace BootstrapBlazor.Components;
 
 /// <summary>
 /// 时间选择滚轮单元组件
 /// </summary>
-public partial class TimePickerCell : IDisposable
+public partial class TimePickerCell
 {
-    private ElementReference TimeCellElement { get; set; }
-
     private string? ClassString => CssBuilder.Default("time-spinner-wrapper is-arrow")
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
@@ -74,33 +74,6 @@ public partial class TimePickerCell : IDisposable
     public EventCallback<TimeSpan> ValueChanged { get; set; }
 
     /// <summary>
-    /// 获得/设置 时间刻度行高
-    /// </summary>
-    [Parameter]
-    public Func<double>? ItemHeightCallback { get; set; }
-
-    private JSInterop<TimePickerCell>? Interop { get; set; }
-
-    /// <summary>
-    /// OnAfterRenderAsync 方法
-    /// </summary>
-    /// <param name="firstRender"></param>
-    /// <returns></returns>
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        await base.OnAfterRenderAsync(firstRender);
-
-        if (firstRender)
-        {
-            if (Interop == null)
-            {
-                Interop = new JSInterop<TimePickerCell>(JSRuntime);
-            }
-            await Interop.InvokeVoidAsync(this, TimeCellElement, "bb_timecell", nameof(OnClickUp), nameof(OnClickDown));
-        }
-    }
-
-    /// <summary>
     /// 上翻页按钮调用此方法
     /// </summary>
     [JSInvokable]
@@ -122,6 +95,12 @@ public partial class TimePickerCell : IDisposable
             await ValueChanged.InvokeAsync(Value);
         }
     }
+
+    /// <summary>
+    /// 计算单元格高度回调方法
+    /// </summary>
+    [JSInvokable]
+    public void OnHeightCallback(double height) => _height = height;
 
     /// <summary>
     /// 下翻页按钮调用此方法
@@ -147,39 +126,16 @@ public partial class TimePickerCell : IDisposable
         }
     }
 
+    private double? _height;
+
     private double CalcTranslateY()
     {
-        var height = ItemHeightCallback?.Invoke() ?? 36.594d;
+        var height = _height ?? 36.59375d;
         return 0 - ViewMode switch
         {
             TimePickerCellViewMode.Hour => (Value.Hours) * height,
             TimePickerCellViewMode.Minute => (Value.Minutes) * height,
             _ => (Value.Seconds) * height
         };
-    }
-
-    /// <summary>
-    /// Dispose 方法
-    /// </summary>
-    /// <param name="disposing"></param>
-    protected virtual void Dispose(bool disposing)
-    {
-        if (disposing)
-        {
-            if (Interop != null)
-            {
-                Interop.Dispose();
-                Interop = null;
-            }
-        }
-    }
-
-    /// <summary>
-    /// Dispose 方法
-    /// </summary>
-    public void Dispose()
-    {
-        Dispose(true);
-        GC.SuppressFinalize(this);
     }
 }

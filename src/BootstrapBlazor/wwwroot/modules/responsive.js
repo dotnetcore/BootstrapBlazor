@@ -15,7 +15,6 @@ export class Responsive extends SimpleComponent {
             if (lastBreakpoint !== this._currentBreakpoint) {
                 this._currentBreakpoint = lastBreakpoint
                 this._invoker.invokeMethodAsync(this._invokerMethod, lastBreakpoint)
-                console.log(lastBreakpoint)
             }
         };
 

@@ -73,7 +73,8 @@
     "treeviews": "TreeViews",
     "switchbuttons": "SwitchButtons",
     "pulsebuttons": "PulseButtons",
-    "select-trees": "SelectTrees"
+    "select-trees": "SelectTrees",
+    "ribbontabs": "RibbonTabs"
   },
   "video": {
     "autorefresh": "BV1ap4y1x7Qn?p=8",
