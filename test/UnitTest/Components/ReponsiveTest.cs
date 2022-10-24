@@ -7,10 +7,10 @@ namespace UnitTest.Components;
 public class ReponsiveTest : BootstrapBlazorTestBase
 {
     [Fact]
-    public async Task Resposive_Ok()
+    public void Resposive_Ok()
     {
-        var point = BreakPoint.None;
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        BreakPoint? point = null;
+        Context.RenderComponent<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Responsive>(pb =>
             {
@@ -21,8 +21,7 @@ public class ReponsiveTest : BootstrapBlazorTestBase
                 });
             });
         });
-        await cut.InvokeAsync(() => cut.FindComponent<Responsive>().Instance.OnResize(BreakPoint.Large));
-        Assert.Equal(BreakPoint.Large, point);
+        Assert.Equal(BreakPoint.None, point);
     }
 
     [Fact]
