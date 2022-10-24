@@ -1552,7 +1552,8 @@
     "GeolocationText": "Geolocation",
     "OnScreenKeyboardText": "OnScreenKeyboard",
     "NotificationText": "Notification",
-    "SignaturePadText": "SignaturePad"
+    "SignaturePadText": "SignaturePad",
+    "OCRText": "OCR"
   },
   "BootstrapBlazor.Shared.Pages.Breakpoints": {
     "Heading": "Breakpoints",
@@ -4328,7 +4329,8 @@
     "SpeechWave": "SpeechWave",
     "OnScreenKeyboard": "OnScreenKeyboard",
     "RibbonTab": "RibbonTab",
-    "PulseButton": "PulseButton"
+    "PulseButton": "PulseButton",
+    "OCR": "OCR"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesHeader": {
     "H1": "Header grouping function",
@@ -5276,5 +5278,17 @@
     "Tips": "If the performance is not normal, you can add this css to debug",
     "P5": "<code> .kioskboard-body-padding { padding-top: unset !important;} </code>",
     "P6": "Basic"
+  },
+  "BootstrapBlazor.Shared.Samples.OCRs": {
+    "Title": "Optical Character Recognition (OCR)",
+    "BaseUsageText": "Basic usage",
+    "BaseUsageIntro": "Use the component's built-in interface",
+    "BaseUsageText2": "Personalized interface",
+    "BaseUsageIntro2": "Using OCR service",
+    "P1": "Precautions",
+    "P2": "This component relies on <a href='https://www.nuget.org/packages?q-BootstrapBlazor.OCR' target'_blank'><code>BootstrapBlazor.OCR</code></a>, which needs to reference its component package when using this component",
+    "P3": "Nuget package installation",
+    "P4": "Install the</code> components of <code>BootstrapBlazor.OCR using <a href='https://www.nuget.org/packages?q-BootstrapBlazor.OCR' target'_blank'>nuget.org</a>",
+    "Tips": "Add services<br/><code>builder.Services.AddOcrExtensions(\"YourAzureCvKey\", \"YourAzureCvEndpoint\");</code>\""
   }
 }

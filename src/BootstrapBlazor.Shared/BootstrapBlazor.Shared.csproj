@@ -29,6 +29,7 @@
     <PackageReference Include="BootstrapBlazor.SummerNote" Version="6.1.0" />
     <PackageReference Include="BootstrapBlazor.TableExport" Version="6.*" />
     <PackageReference Include="BootstrapBlazor.Topology" Version="6.1.0" />
+    <PackageReference Include="BootstrapBlazor.OCR" Version="6.*" />
   </ItemGroup>
 
   <ItemGroup>

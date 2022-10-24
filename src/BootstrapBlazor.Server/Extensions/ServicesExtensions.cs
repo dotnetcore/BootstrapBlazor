@@ -40,6 +40,9 @@ internal static class ServicesExtensions
         // 增加 Baidu 语音服务
         services.AddBootstrapBlazorBaiduSpeech();
 
+        // 增加 Baidu 语音服务
+        services.AddOcrExtensions("YourAzureCvKey", "YourAzureCvEndpoint");
+
         services.ConfigureJsonLocalizationOptions(op =>
         {
             // 附加自己的 json 多语言文化资源文件 如 zh-TW.json

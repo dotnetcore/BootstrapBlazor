@@ -499,6 +499,11 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
+                    Text = Localizer["OCR"],
+                    Url = "ocrs"
+                },
+                new()
+                {
                     Text = Localizer["Print"],
                     Url = "prints"
                 },
