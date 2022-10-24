@@ -143,7 +143,7 @@ public partial class Search
     }
 
     /// <summary>
-    /// OnKeyUp 方法
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="args"></param>
     /// <returns></returns>
@@ -178,7 +178,7 @@ public partial class Search
     }
 
     /// <summary>
-    /// 
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="item"></param>
     /// <returns></returns>

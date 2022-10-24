@@ -21,23 +21,21 @@ public sealed partial class Tabs
     [NotNull]
     private TabItem? TabItemElement { get; set; }
 
+    private string TabItemText { get; set; } = "Test";
+
     /// <summary>
-    /// 
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
     {
-        base.OnInitialized();
-
         TabText = @Localizer["TabItem8Text"];
     }
 
     /// <summary>
-    /// OnInitialized 方法
+    /// <inheritdoc/>
     /// </summary>
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        await base.OnAfterRenderAsync(firstRender);
-
         if (firstRender)
         {
             var menuItem = TabMenu?.Items.FirstOrDefault();
@@ -125,9 +123,11 @@ public sealed partial class Tabs
         [nameof(TabItem.ChildContent)] = text == Localizer["BackText1"] ? BootstrapDynamicComponent.CreateComponent<Counter>().Render() : BootstrapDynamicComponent.CreateComponent<FetchData>().Render()
     });
 
-    private void SetTabItemText()
+    private Task OnSetTitle(string text)
     {
-        TabText = DateTime.Now.ToString();
+        TabItemText = text;
+        StateHasChanged();
+        return Task.CompletedTask;
     }
 
     private static void OnClickTabItem(Tab tab) => tab.ActiveTab(0);

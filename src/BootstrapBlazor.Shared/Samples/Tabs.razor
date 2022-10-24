@@ -28,6 +28,23 @@
     <li>@((MarkupString)Localizer["InfoItem4"].Value)</li>
 </ul>
 
+<p class="mt-3">
+    <b>@Localizer["QATitle"]</b>
+</p>
+
+<ul class="ul-demo">
+    <li>@((MarkupString)Localizer["QA1"].Value)</li>
+    <li>@((MarkupString)Localizer["QA2"].Value)</li>
+</ul>
+
+<Pre class="mt-3">[CascadingParameter]
+[NotNull]
+public Tab? TabSet { get; set; }
+
+[CascadingParameter]
+[NotNull]
+public TabItem? TabItem { get; set; }</Pre>
+
 <DemoBlock Title="@Localizer["Block1Title"]" Introduction="@Localizer["Block1Intro"]" Name="Normal">
     <Tab>
         <TabItem Text="@Localizer["TabItem1Text"]">
@@ -311,6 +328,20 @@
         </TabItem>
         <TabItem Text="@Localizer["TabItem8Text"]">
             <Counter></Counter>
+        </TabItem>
+    </Tab>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["BlockSetHeaderTextTemplateTitle"]" Introduction="@Localizer["BlockSetHeaderTextTemplateIntro"]" Name="HeaderTemplate">
+    <Tab IsBorderCard="true">
+        <TabItem Text="@Localizer["TabItem8Text"]">
+            <Counter></Counter>
+        </TabItem>
+        <TabItem Text="@Localizer["TabItem9Text"]">
+            <FetchData></FetchData>
+        </TabItem>
+        <TabItem Text="@TabItemText">
+            <DemoTabItem OnSetTitle="@OnSetTitle" />
         </TabItem>
     </Tab>
 </DemoBlock>
