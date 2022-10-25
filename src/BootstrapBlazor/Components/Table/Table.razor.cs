@@ -1027,14 +1027,10 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
         {
             colspan++;
         }
-
-        if (ShowDetails())
-        {
-            colspan++;
-        }
-
         return colspan;
     }
+
+    private int GetEmptyColumnCount() => ShowDetails() ? GetColumnCount() + 1 : GetColumnCount();
 
     private bool GetShowHeader()
     {
