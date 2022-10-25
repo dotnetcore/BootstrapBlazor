@@ -465,43 +465,43 @@ public partial class ValidateForm
 
     private async Task OnValidSubmitForm(EditContext context)
     {
+        var isAsync = AsyncSubmitButtons.Any();
+        foreach (var b in AsyncSubmitButtons)
+        {
+            b.TriggerAsync(true);
+        }
+        if (isAsync)
+        {
+            await Task.Yield();
+        }
         if (OnValidSubmit != null)
         {
-            var isAsync = AsyncSubmitButtons.Any();
-            foreach (var b in AsyncSubmitButtons)
-            {
-                b.TriggerAsync(true);
-            }
-            if (isAsync)
-            {
-                await Task.Yield();
-            }
             await OnValidSubmit(context);
-            foreach (var b in AsyncSubmitButtons)
-            {
-                b.TriggerAsync(false);
-            }
+        }
+        foreach (var b in AsyncSubmitButtons)
+        {
+            b.TriggerAsync(false);
         }
     }
 
     private async Task OnInvalidSubmitForm(EditContext context)
     {
+        var isAsync = AsyncSubmitButtons.Any();
+        foreach (var b in AsyncSubmitButtons)
+        {
+            b.TriggerAsync(true);
+        }
+        if (isAsync)
+        {
+            await Task.Yield();
+        }
         if (OnInvalidSubmit != null)
         {
-            var isAsync = AsyncSubmitButtons.Any();
-            foreach (var b in AsyncSubmitButtons)
-            {
-                b.TriggerAsync(true);
-            }
-            if (isAsync)
-            {
-                await Task.Yield();
-            }
             await OnInvalidSubmit(context);
-            foreach (var b in AsyncSubmitButtons)
-            {
-                b.TriggerAsync(false);
-            }
+        }
+        foreach (var b in AsyncSubmitButtons)
+        {
+            b.TriggerAsync(false);
         }
     }
 
