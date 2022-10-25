@@ -2,7 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.JSInterop;
 
@@ -10,6 +9,27 @@ namespace UnitTest.Components;
 
 public class DownloadTest : BootstrapBlazorTestBase
 {
+    [Fact]
+    public async Task DownloadFromByteArrayAsync_Ok()
+    {
+        var download = false;
+        var downloadService = Context.Services.GetRequiredService<DownloadService>();
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Button>(pb =>
+            {
+                pb.Add(a => a.OnClick, async () =>
+                {
+                    await downloadService.DownloadFromByteArrayAsync("test.txt", new byte[] { 0x01, 0x02 });
+                    download = true;
+                });
+            });
+        });
+        var btn = cut.Find("button");
+        await cut.InvokeAsync(() => btn.Click());
+        Assert.True(download);
+    }
+
     [Fact]
     public async Task DownloadFromStreamAsync_Ok()
     {

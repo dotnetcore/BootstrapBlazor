@@ -68,6 +68,14 @@ public class DownloadService
     public virtual Task DownloadFromStreamAsync(string downloadFileName, Stream stream) => DownloadFromStreamAsync(new DownloadOption() { FileName = downloadFileName, FileStream = stream });
 
     /// <summary>
+    /// 下载文件方法
+    /// </summary>
+    /// <param name="downloadFileName">文件名</param>
+    /// <param name="data">Byte[] 数组</param>
+    /// <returns></returns>
+    public virtual Task DownloadFromByteArrayAsync(string downloadFileName, byte[] data) => DownloadFromStreamAsync(new DownloadOption() { FileName = downloadFileName, FileStream = new MemoryStream(data) });
+
+    /// <summary>
     /// 下载文件夹方法
     /// </summary>
     /// <param name="downloadFileName">文件名</param>
