@@ -219,10 +219,7 @@ public static class Utility
                             {
                                 var v = f.GetValue(item);
                                 var field = valType.GetField(f.Name);
-                                if (field != null)
-                                {
-                                    field.SetValue(ret, v);
-                                }
+                                field?.SetValue(ret, v);
                             };
                             foreach (var p in type.GetRuntimeProperties())
                             {
@@ -230,10 +227,7 @@ public static class Utility
                                 {
                                     var v = p.GetValue(item);
                                     var property = valType.GetRuntimeProperties().FirstOrDefault(i => i.Name == p.Name && i.PropertyType == p.PropertyType);
-                                    if (property != null)
-                                    {
-                                        property.SetValue(ret, v);
-                                    }
+                                    property?.SetValue(ret, v);
                                 }
                             };
                         }
@@ -681,10 +675,7 @@ public static class Utility
             var t = typeValue.IsGenericType ? typeValue.GenericTypeArguments[0] : typeValue.GetElementType()!;
             var instance = Activator.CreateInstance(typeof(List<>).MakeGenericType(t))!;
             var mi = instance.GetType().GetMethod("AddRange");
-            if (mi != null)
-            {
-                mi.Invoke(instance, new object[] { value! });
-            }
+            mi?.Invoke(instance, new object[] { value! });
 
             var invoker = CacheManager.CreateConverterInvoker(t);
             var v = invoker.Invoke(instance);

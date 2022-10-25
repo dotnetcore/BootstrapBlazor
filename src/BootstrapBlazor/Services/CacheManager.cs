@@ -372,7 +372,7 @@ internal class CacheManager : ICacheManager
                 var stringLocalizer = localizerAttr![itemName];
                 return stringLocalizer.Value;
             }
-        });
+        }) ?? new();
     }
 
     /// <summary>
@@ -480,7 +480,7 @@ internal class CacheManager : ICacheManager
             {
                 entry.SetDynamicAssemblyPolicy(type);
                 return LambdaExtensions.GetPropertyValueLambda<TModel, TResult>(model, fieldName).Compile();
-            });
+            })!;
             return invoker(model);
         }
     }
@@ -509,7 +509,7 @@ internal class CacheManager : ICacheManager
             {
                 entry.SetDynamicAssemblyPolicy(type);
                 return LambdaExtensions.SetPropertyValueLambda<TModel, TValue>(model, fieldName).Compile();
-            });
+            })!;
             invoker(model, value);
         }
     }
@@ -535,7 +535,7 @@ internal class CacheManager : ICacheManager
             entry.SetDynamicAssemblyPolicy(type);
 
             return LambdaExtensions.GetKeyValue<TModel, TValue>(customAttribute).Compile();
-        });
+        })!;
         return invoker(model);
     }
     #endregion
@@ -548,7 +548,7 @@ internal class CacheManager : ICacheManager
         {
             entry.SetDynamicAssemblyPolicy(typeof(T));
             return LambdaExtensions.GetSortLambda<T>().Compile();
-        });
+        })!;
     }
 
     public static Func<IEnumerable<T>, List<string>, IEnumerable<T>> GetSortListFunc<T>()
@@ -558,7 +558,7 @@ internal class CacheManager : ICacheManager
         {
             entry.SetDynamicAssemblyPolicy(typeof(T));
             return LambdaExtensions.GetSortListLambda<T>().Compile();
-        });
+        })!;
     }
     #endregion
 
@@ -578,7 +578,7 @@ internal class CacheManager : ICacheManager
 
             entry.SetDynamicAssemblyPolicy(type);
             return Expression.Lambda<Func<object, IEnumerable<string?>>>(body, para_exp).Compile();
-        });
+        })!;
     }
 
     private static IEnumerable<string?> ConvertToString<TSource>(List<TSource> source) => source is List<SelectedItem> list
@@ -594,7 +594,7 @@ internal class CacheManager : ICacheManager
         {
             entry.SetDynamicAssemblyPolicy(type);
             return GetFormatLambda(type).Compile();
-        });
+        })!;
 
         static Expression<Func<object, string, IFormatProvider?, string>> GetFormatLambda(Type type)
         {
@@ -633,7 +633,7 @@ internal class CacheManager : ICacheManager
         {
             entry.SetDynamicAssemblyPolicy(type);
             return GetFormatProviderLambda(type).Compile();
-        });
+        })!;
 
         static Expression<Func<object, IFormatProvider?, string>> GetFormatProviderLambda(Type type)
         {

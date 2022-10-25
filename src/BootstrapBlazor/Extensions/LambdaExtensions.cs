@@ -144,7 +144,7 @@ public static class LambdaExtensions
         var type = typeof(TItem);
         if (!string.IsNullOrEmpty(filter.FieldKey) && filter.FieldValue != null)
         {
-            ret = filter.FieldKey.Contains(".") ? GetComplexFilterExpression() : GetSimpleFilterExpression();
+            ret = filter.FieldKey.Contains('.') ? GetComplexFilterExpression() : GetSimpleFilterExpression();
         }
         return ret;
 
