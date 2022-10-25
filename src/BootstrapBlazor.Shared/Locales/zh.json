@@ -694,11 +694,11 @@
     "P15": "通过设置文件夹物理路径，将目录内文件打包压缩后下载",
     "P16": "下载",
     "P17": "大文件下载测试",
-    "P18": "这里模拟生成了一个 <code>100万行</code> 的文本文件，大概 <b>56M</b>，可以自行测试",
+    "P18": "这里模拟生成了一个 <code>100万行</code> 的文本文件，大概 <b>58M</b>，可以自行测试",
     "P19": "按钮设置 <code>IsAsync</code> 值为 <code>true</code> 进行异步下载操作",
     "P20": "获取图片并显示",
     "P21": "模拟直接由前端页面生成验证码或者上传图片不保存直接显示的情况。",
-    "P22": "由于测试使用了wwwroot下的文件，没有代码生成，wasm无法访问wwwroot文件夹，故此测试只有ssr模式可用。wasm请自行测试。"
+    "P22": "由于测试使用了 <code>wwwroot</code> 下的文件，没有代码生成，<code>wasm</code> 无法访问 <code>wwwroot</code> 文件夹，故此测试只有<code>ssr</code> 模式可用。<code>wasm</code> 请自行测试。"
   },
   "BootstrapBlazor.Shared.Samples.Dialogs": {
     "H1": "Dialog 对话框组件",

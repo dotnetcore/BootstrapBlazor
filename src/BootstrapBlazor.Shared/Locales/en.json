@@ -693,11 +693,11 @@
     "P15": "By setting the physical path of the folder, the files in the directory are packaged and compressed and downloaded",
     "P16": "download",
     "P17": "Large file download test",
-    "P18": "This simulation generates a text file of <code>1 million lines</code>, about <b>56M</b>, which can be tested by yourself",
+    "P18": "This simulation generates a text file of <code>1 million lines</code>, about <b>58M</b>, which can be tested by yourself",
     "P19": "The button sets the value of <code>IsAsync</code> to <code>true</code> for asynchronous download operation",
     "P20": "Get the picture and display it",
     "P21": "Simulate the situation where the verification code is generated directly from the front-end page or the uploaded image is not saved and displayed directly.",
-    "P22": "Since the test uses the files under wwwroot, there is no code generation, and wasm cannot access the wwwroot folder, so only the ssr mode is available for the test. wasm please test it yourself."
+    "P22": "Since the test uses the files under <code>wwwroot</code>, there is no code generation, and <code>wasm</code> cannot access the <code>wwwroot</code> folder, so only the <code>ssr</code> mode is available for the test. <code>wasm</code> please test it yourself."
   },
   "BootstrapBlazor.Shared.Samples.Dialogs": {
     "H1": "Dialog component",

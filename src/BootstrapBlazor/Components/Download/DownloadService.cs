@@ -14,48 +14,48 @@ public class DownloadService
     /// <summary>
     /// 获得 回调委托缓存集合
     /// </summary>
-    private List<(IComponent Key, Func<DownloadOption, Task> Callback)> Cache { get; } = new();
+    protected List<(IComponent Key, Func<DownloadOption, Task> Callback)> StreamCache { get; } = new();
 
     /// <summary>
     /// 获得 获取地址的回调委托缓存集合
     /// </summary>
-    private List<(IComponent Key, Func<DownloadOption, Task<string>> Callback)> CacheUrl { get; } = new();
+    protected List<(IComponent Key, Func<DownloadOption, Task> Callback)> UrlCache { get; } = new();
 
     /// <summary>
     /// 注册服务
     /// </summary>
     /// <param name="key"></param>
     /// <param name="callback"></param>
-    internal void Register(IComponent key, Func<DownloadOption, Task> callback) => Cache.Add((key, callback));
+    protected internal virtual void RegisterStream(IComponent key, Func<DownloadOption, Task> callback) => StreamCache.Add((key, callback));
 
     /// <summary>
     /// 注册获取Url服务
     /// </summary>
     /// <param name="key"></param>
     /// <param name="callback"></param>
-    internal void RegisterUrl(IComponent key, Func<DownloadOption, Task<string>> callback) => CacheUrl.Add((key, callback));
+    protected internal virtual void RegisterUrl(IComponent key, Func<DownloadOption, Task> callback) => UrlCache.Add((key, callback));
 
     /// <summary>
     /// 注销事件
     /// </summary>
-    internal void UnRegister(IComponent key)
+    protected internal virtual void UnRegisterStream(IComponent key)
     {
-        var item = Cache.FirstOrDefault(i => i.Key == key);
+        var item = StreamCache.FirstOrDefault(i => i.Key == key);
         if (item.Key != null)
         {
-            Cache.Remove(item);
+            StreamCache.Remove(item);
         }
     }
 
     /// <summary>
     /// 注销获取Url事件
     /// </summary>
-    internal void UnRegisterUrl(IComponent key)
+    protected internal virtual void UnRegisterUrl(IComponent key)
     {
-        var item = CacheUrl.FirstOrDefault(i => i.Key == key);
+        var item = UrlCache.FirstOrDefault(i => i.Key == key);
         if (item.Key != null)
         {
-            Cache.Remove(item);
+            UrlCache.Remove(item);
         }
     }
 
@@ -64,78 +64,16 @@ public class DownloadService
     /// </summary>
     /// <param name="downloadFileName">文件名</param>
     /// <param name="stream">文件流</param>
-    /// <param name="mime"></param>
     /// <returns></returns>
-    public async Task DownloadAsync(string downloadFileName, Stream stream, string mime = "application/octet-stream")
-    {
-        var bytes = new byte[stream.Length];
-        stream.Read(bytes, 0, bytes.Length);
-        stream.Seek(0, SeekOrigin.Begin);
-        await DownloadAsync(new DownloadOption() { FileName = downloadFileName, FileContent = bytes, Mime = mime });
-    }
-
-    /// <summary>
-    /// 下载文件方法
-    /// </summary>
-    /// <param name="downloadFileName">文件名</param>
-    /// <param name="physicalFilePath">文件物理路径</param>
-    /// <param name="mime"></param>
-    /// <returns></returns>
-    public async Task DownloadAsync(string downloadFileName, string physicalFilePath, string mime = "application/octet-stream")
-    {
-        if (!File.Exists(physicalFilePath))
-        {
-            throw new FileNotFoundException($"Couldn't be not found {physicalFilePath}", physicalFilePath);
-        }
-
-        using var stream = new FileStream(physicalFilePath, FileMode.Open, FileAccess.Read, FileShare.Read);
-        var bytes = new byte[stream.Length];
-        stream.Read(bytes, 0, bytes.Length);
-        stream.Seek(0, SeekOrigin.Begin);
-        await DownloadAsync(new DownloadOption() { FileName = downloadFileName, FileContent = bytes, Mime = mime });
-    }
-
-    /// <summary>
-    /// 下载文件方法
-    /// </summary>
-    /// <param name="downloadFileName">文件名</param>
-    /// <param name="fileContent">文件内容 byte[] 数组</param>
-    /// <param name="mime"></param>
-    /// <returns></returns>
-    public Task DownloadAsync(string downloadFileName, byte[] fileContent, string mime = "application/octet-stream") => DownloadAsync(new DownloadOption() { FileName = downloadFileName, FileContent = fileContent, Mime = mime });
-
-    /// <summary>
-    /// 获取文件连接方法
-    /// </summary>
-    /// <param name="downloadFileName">文件名</param>
-    /// <param name="stream">文件流</param>
-    /// <param name="mime"></param>
-    /// <returns></returns>
-    public async Task<string> CreateUrlAsync(string downloadFileName, Stream stream, string mime = "application/octet-stream")
-    {
-        var bytes = new byte[stream.Length];
-        stream.Read(bytes, 0, bytes.Length);
-        stream.Seek(0, SeekOrigin.Begin);
-        return await CreateUrlAsync(new DownloadOption() { FileName = downloadFileName, FileContent = bytes, Mime = mime });
-    }
-
-    /// <summary>
-    /// 获取文件连接方法
-    /// </summary>
-    /// <param name="downloadFileName">文件名</param>
-    /// <param name="fileContent">文件内容 byte[] 数组</param>
-    /// <param name="mime"></param>
-    /// <returns></returns>
-    public Task<string> CreateUrlAsync(string downloadFileName, byte[] fileContent, string mime = "application/octet-stream") => CreateUrlAsync(new DownloadOption() { FileName = downloadFileName, FileContent = fileContent, Mime = mime });
+    public virtual Task DownloadFromStreamAsync(string downloadFileName, Stream stream) => DownloadFromStreamAsync(new DownloadOption() { FileName = downloadFileName, FileStream = stream });
 
     /// <summary>
     /// 下载文件夹方法
     /// </summary>
     /// <param name="downloadFileName">文件名</param>
     /// <param name="folder">文件夹路径</param>
-    /// <param name="mime"></param>
     /// <returns></returns>
-    public async Task DownloadFolderAsync(string downloadFileName, string folder, string mime = "application/octet-stream")
+    public virtual async Task DownloadFolderAsync(string downloadFileName, string folder)
     {
         if (!Directory.Exists(folder))
         {
@@ -148,19 +86,16 @@ public class DownloadService
         ZipFile.CreateFromDirectory(folder, destZipFile);
 
         using var stream = new FileStream(destZipFile, FileMode.Open);
-        var bytes = new byte[stream.Length];
-        stream.Read(bytes, 0, bytes.Length);
-        stream.Seek(0, SeekOrigin.Begin);
-        await DownloadAsync(new DownloadOption() { FileName = downloadFileName, FileContent = bytes, Mime = mime });
+        await DownloadFromStreamAsync(new DownloadOption() { FileName = downloadFileName, FileStream = stream });
     }
 
     /// <summary>
     /// 下载文件方法
     /// </summary>
     /// <param name="option">文件下载选项</param>
-    public async Task DownloadAsync(DownloadOption option)
+    protected virtual async Task DownloadFromStreamAsync(DownloadOption option)
     {
-        var cb = Cache.LastOrDefault().Callback;
+        var cb = StreamCache.LastOrDefault().Callback;
         if (cb != null)
         {
             await cb.Invoke(option);
@@ -170,15 +105,21 @@ public class DownloadService
     /// <summary>
     /// 获取文件连接方法
     /// </summary>
+    /// <param name="downloadFileName">文件名</param>
+    /// <param name="url">文件地址</param>
+    /// <returns></returns>
+    public virtual Task DownloadFromUrlAsync(string downloadFileName, string url) => DownloadFromUrlAsync(new DownloadOption() { FileName = downloadFileName, Url = url });
+
+    /// <summary>
+    /// 获取文件连接方法
+    /// </summary>
     /// <param name="option">文件下载选项</param>
-    public async Task<string> CreateUrlAsync(DownloadOption option)
+    protected virtual async Task DownloadFromUrlAsync(DownloadOption option)
     {
-        var ret = "";
-        var cb = CacheUrl.LastOrDefault().Callback;
+        var cb = UrlCache.LastOrDefault().Callback;
         if (cb != null)
         {
-            ret = await cb.Invoke(option);
+            await cb.Invoke(option);
         }
-        return ret;
     }
 }
