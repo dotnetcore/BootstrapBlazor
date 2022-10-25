@@ -125,26 +125,88 @@ public abstract class BootstrapModuleComponentBase : IdComponentBase, IAsyncDisp
     /// </summary>
     /// <param name="args"></param>
     /// <returns></returns>
-    protected Task InvokeInitAsync(params object?[]? args) => InvokeAsync("init", args);
+    protected Task InvokeInitAsync(params object?[]? args) => InvokeVoidAsync("init", args);
 
     /// <summary>
     /// call javascript execute method
     /// </summary>
     /// <param name="args"></param>
     /// <returns></returns>
-    protected Task InvokeExecuteAsync(params object?[]? args) => InvokeAsync("execute", args);
+    protected Task InvokeExecuteAsync(params object?[]? args) => InvokeVoidAsync("execute", args);
 
     /// <summary>
     /// call javascript method
     /// </summary>
-    /// <param name="func"></param>
+    /// <param name="identifier"></param>
     /// <param name="args"></param>
     /// <returns></returns>
-    protected async Task InvokeAsync(string func, params object?[]? args)
+    protected Task InvokeVoidAsync(string identifier, params object?[]? args) => InvokeVoidAsync(identifier, CancellationToken.None, args);
+
+    /// <summary>
+    /// call javascript method
+    /// </summary>
+    /// <param name="identifier"></param>
+    /// <param name="timeout"></param>
+    /// <param name="args"></param>
+    /// <returns></returns>
+    protected async Task InvokeVoidAsync(string identifier, TimeSpan timeout, params object?[]? args)
     {
         if (Module != null)
         {
-            await Module.InvokeVoidAsync($"{ModuleName}.{func}", args);
+            await Module.InvokeVoidAsync($"{ModuleName}.{identifier}", timeout, args);
+        }
+    }
+
+    /// <summary>
+    /// call javascript method
+    /// </summary>
+    /// <param name="identifier"></param>
+    /// <param name="cancellationToken"></param>
+    /// <param name="args"></param>
+    /// <returns></returns>
+    protected async Task InvokeVoidAsync(string identifier, CancellationToken cancellationToken = default, params object?[]? args)
+    {
+        if (Module != null)
+        {
+            await Module.InvokeVoidAsync($"{ModuleName}.{identifier}", cancellationToken, args);
+        }
+    }
+
+    /// <summary>
+    /// call javascript method
+    /// </summary>
+    /// <param name="identifier"></param>
+    /// <param name="args"></param>
+    /// <returns></returns>
+    protected Task InvokeAsync<TValue>(string identifier, params object?[]? args) => InvokeAsync<TValue>(identifier, CancellationToken.None, args);
+
+    /// <summary>
+    /// call javascript method
+    /// </summary>
+    /// <param name="identifier"></param>
+    /// <param name="timeout"></param>
+    /// <param name="args"></param>
+    /// <returns></returns>
+    protected async Task InvokeAsync<TValue>(string identifier, TimeSpan timeout, params object?[]? args)
+    {
+        if (Module != null)
+        {
+            await Module.InvokeAsync<TValue>($"{ModuleName}.{identifier}", timeout, args);
+        }
+    }
+
+    /// <summary>
+    /// call javascript method
+    /// </summary>
+    /// <param name="identifier"></param>
+    /// <param name="cancellationToken"></param>
+    /// <param name="args"></param>
+    /// <returns></returns>
+    protected async Task InvokeAsync<TValue>(string identifier, CancellationToken cancellationToken = default, params object?[]? args)
+    {
+        if (Module != null)
+        {
+            await Module.InvokeAsync<TValue>($"{ModuleName}.{identifier}", cancellationToken, args);
         }
     }
 

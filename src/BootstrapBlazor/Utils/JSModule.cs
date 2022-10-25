@@ -39,10 +39,11 @@ public class JSModule : IAsyncDisposable
     /// <param name="timeout"></param>
     /// <param name="args"></param>
     /// <returns></returns>
-    public virtual ValueTask InvokeVoidAsync(string identifier, TimeSpan timeout = default, params object?[]? args)
+    public virtual ValueTask InvokeVoidAsync(string identifier, TimeSpan timeout, params object?[]? args)
     {
-        var cancellationTokenSource = new CancellationTokenSource(timeout);
-        return InvokeVoidAsync(identifier, cancellationTokenSource.Token, args);
+        using CancellationTokenSource? cancellationTokenSource = ((timeout == Timeout.InfiniteTimeSpan) ? null : new CancellationTokenSource(timeout));
+        CancellationToken cancellationToken = cancellationTokenSource?.Token ?? CancellationToken.None;
+        return InvokeVoidAsync(identifier, cancellationToken, args);
     }
 
     /// <summary>
@@ -96,10 +97,11 @@ public class JSModule : IAsyncDisposable
     /// <param name="timeout"></param>
     /// <param name="args"></param>
     /// <returns></returns>
-    public virtual ValueTask<TValue> InvokeAsync<TValue>(string identifier, TimeSpan timeout = default, params object?[]? args)
+    public virtual ValueTask<TValue> InvokeAsync<TValue>(string identifier, TimeSpan timeout, params object?[]? args)
     {
-        var cancellationTokenSource = new CancellationTokenSource(timeout);
-        return InvokeAsync<TValue>(identifier, cancellationTokenSource.Token, args);
+        using CancellationTokenSource? cancellationTokenSource = ((timeout == Timeout.InfiniteTimeSpan) ? null : new CancellationTokenSource(timeout));
+        CancellationToken cancellationToken = cancellationTokenSource?.Token ?? CancellationToken.None;
+        return InvokeAsync<TValue>(identifier, cancellationToken, args);
     }
 
     /// <summary>
