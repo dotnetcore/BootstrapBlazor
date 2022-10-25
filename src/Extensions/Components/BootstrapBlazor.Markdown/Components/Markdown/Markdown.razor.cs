@@ -111,13 +111,7 @@ public partial class Markdown
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override async Task ModuleInitAsync()
-    {
-        if (Module != null)
-        {
-            await Module.InvokeVoidAsync($"{ModuleName}.init", Id, Option, nameof(Update));
-        }
-    }
+    protected override Task ModuleInitAsync() => InvokeInitAsync(Id, Option, nameof(Update));
 
     /// <summary>
     /// 更新组件值方法
@@ -155,10 +149,7 @@ public partial class Markdown
     public new async ValueTask SetValue(string value)
     {
         CurrentValueAsString = value;
-        if (Module != null)
-        {
-            await Module.InvokeVoidAsync($"{ModuleName}.execute", Id, "update", Value ?? "");
-        }
+        await InvokeExecuteAsync(Id, "update", Value ?? "");
     }
 
     /// <summary>
@@ -167,11 +158,5 @@ public partial class Markdown
     /// <param name="method"></param>
     /// <param name="parameters"></param>
     /// <returns></returns>
-    public async ValueTask DoMethodAsync(string method, params object[] parameters)
-    {
-        if (Module != null)
-        {
-            await Module.InvokeVoidAsync($"{ModuleName}.execute", Id, "do", method, parameters);
-        }
-    }
+    public Task DoMethodAsync(string method, params object[] parameters) => InvokeExecuteAsync(Id, "do", method, parameters);
 }
