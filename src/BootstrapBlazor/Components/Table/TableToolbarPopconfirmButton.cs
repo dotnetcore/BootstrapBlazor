@@ -9,6 +9,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 
 /// </summary>
+[JSModuleNotInherited]
 public class TableToolbarPopconfirmButton<TItem> : PopConfirmButtonBase
 {
     /// <summary>

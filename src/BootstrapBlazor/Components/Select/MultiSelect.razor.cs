@@ -179,13 +179,7 @@ public partial class MultiSelect<TValue>
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override async Task ModuleInitAsync()
-    {
-        if (Module != null)
-        {
-            await Module.InvokeVoidAsync($"{ModuleName}.init", Id, nameof(ToggleRow));
-        }
-    }
+    protected override Task ModuleInitAsync() => InvokeInitAsync(Id, nameof(ToggleRow));
 
     /// <summary>
     /// FormatValueAsString 方法

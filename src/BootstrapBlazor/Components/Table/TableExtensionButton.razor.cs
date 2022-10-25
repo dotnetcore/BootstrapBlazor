@@ -7,6 +7,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 
 /// </summary>
+[JSModuleNotInherited]
 public partial class TableExtensionButton
 {
     /// <summary>

@@ -44,9 +44,9 @@ public class Popover : Tooltip
     /// <returns></returns>
     protected override async Task ModuleInitAsync()
     {
-        if (!string.IsNullOrEmpty(Content) && Module != null)
+        if (!string.IsNullOrEmpty(Content))
         {
-            await Module.InvokeVoidAsync($"{ModuleName}.init", Id, Title, Content);
+            await InvokeInitAsync(Id, Title, Content);
         }
     }
 }

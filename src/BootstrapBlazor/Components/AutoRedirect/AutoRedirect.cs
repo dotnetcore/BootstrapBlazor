@@ -45,13 +45,7 @@ public class AutoRedirect : BootstrapModuleComponentBase
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override async Task ModuleInitAsync()
-    {
-        if (Module != null)
-        {
-            await Module.InvokeVoidAsync($"{ModuleName}.init", Id, Interval, nameof(Lock));
-        }
-    }
+    protected override Task ModuleInitAsync() => InvokeInitAsync(Id, Interval, nameof(Lock));
 
     /// <summary>
     /// 锁屏操作由 JS 调用

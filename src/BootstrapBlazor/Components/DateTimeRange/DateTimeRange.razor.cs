@@ -234,9 +234,9 @@ public partial class DateTimeRange
         EndValue = StartValue.AddMonths(1);
         await ClickConfirmButton();
 
-        if (AutoCloseClickSideBar && Module != null)
+        if (AutoCloseClickSideBar)
         {
-            await Module.InvokeVoidAsync($"{ModuleName}.execute", Id, "hide");
+            await InvokeExecutetAsync(Id, "hide");
         }
     }
 

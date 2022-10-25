@@ -143,7 +143,7 @@ public partial class Menu
         {
             _isAccordion = IsAccordion;
             _isExpandAll = IsExpandAll;
-            await Module.InvokeVoidAsync($"{ModuleName}.execute", Id);
+            await InvokeExecutetAsync(Id);
         }
 
         bool ShouldInvoke() => IsVertical && (_isAccordion != IsAccordion || _isExpandAll != IsExpandAll);

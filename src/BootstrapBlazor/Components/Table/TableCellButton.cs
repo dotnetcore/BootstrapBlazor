@@ -7,6 +7,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 单元格内按钮组件
 /// </summary>
+[JSModuleNotInherited]
 public class TableCellButton : ButtonBase
 {
     /// <summary>

@@ -65,13 +65,7 @@ public abstract class MultipleUploadBase<TValue> : UploadBase<TValue>
     /// 移除验证失败 Tooltip 信息
     /// </summary>
     /// <returns></returns>
-    protected async ValueTask RemoveInvalidTooltip(UploadFile item)
-    {
-        if (Module != null)
-        {
-            await Module.InvokeVoidAsync($"{ModuleName}.execute", Id, item.ValidateId, "disposeTooltip");
-        }
-    }
+    protected Task RemoveInvalidTooltip(UploadFile item) => InvokeExecutetAsync(Id, item.ValidateId, "disposeTooltip");
 
     /// <summary>
     /// 是否显示进度条方法

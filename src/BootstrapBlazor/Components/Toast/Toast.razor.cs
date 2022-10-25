@@ -76,13 +76,7 @@ public partial class Toast
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override async Task ModuleInitAsync()
-    {
-        if (Module != null)
-        {
-            await Module.InvokeVoidAsync($"{ModuleName}.init", Id, nameof(Close));
-        }
-    }
+    protected override Task ModuleInitAsync() => InvokeInitAsync(Id, nameof(Close));
 
     /// <summary>
     /// 清除 ToastBox 方法

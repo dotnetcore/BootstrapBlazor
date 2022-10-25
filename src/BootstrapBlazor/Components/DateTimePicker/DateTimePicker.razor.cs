@@ -237,9 +237,9 @@ public sealed partial class DateTimePicker<TValue>
         {
             await OnDateTimeChanged(Value);
         }
-        if (AutoClose && Module != null)
+        if (AutoClose)
         {
-            await Module.InvokeVoidAsync($"{ModuleName}.execute", Id, "hide");
+            await InvokeExecutetAsync(Id, "hide");
         }
     }
 }

@@ -138,11 +138,5 @@ public partial class Tooltip : ITooltip
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override async Task ModuleInitAsync()
-    {
-        if (Module != null)
-        {
-            await Module.InvokeVoidAsync($"{ModuleName}.init", Id, Title);
-        }
-    }
+    protected override Task ModuleInitAsync() => InvokeInitAsync(Id, Title);
 }

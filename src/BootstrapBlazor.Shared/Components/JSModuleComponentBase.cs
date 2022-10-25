@@ -16,25 +16,22 @@ public class JSModuleComponentBase : BootstrapModuleComponentBase
     /// </summary>
     protected override void OnLoadJSModule()
     {
-        if (Inherited)
+        var type = this.GetType();
+        var attr = type.GetCustomAttribute<JSModuleAutoLoaderAttribute>();
+
+        if (attr != null)
         {
-            var type = this.GetType();
-            var attr = type.GetCustomAttribute<JSModuleAutoLoaderAttribute>();
+            string? typeName = null;
+            ModulePath = attr.Path ?? GetTypeName().ToLowerInvariant();
+            ModulePath = $"./_content/BootstrapBlazor.Shared/modules/{ModulePath}.js";
+            ModuleName = attr.ModuleName ?? GetTypeName();
+            JSObjectReference = attr.JSObjectReference;
+            Relative = false;
 
-            if (attr != null)
+            string GetTypeName()
             {
-                string? typeName = null;
-                ModulePath = attr.Path ?? GetTypeName().ToLowerInvariant();
-                ModulePath = $"./_content/BootstrapBlazor.Shared/modules/{ModulePath}.js";
-                ModuleName = attr.ModuleName ?? GetTypeName();
-                JSObjectReference = attr.JSObjectReference;
-                Relative = false;
-
-                string GetTypeName()
-                {
-                    typeName ??= type.GetTypeModuleName();
-                    return typeName;
-                }
+                typeName ??= type.GetTypeModuleName();
+                return typeName;
             }
         }
     }

@@ -186,10 +186,7 @@ public partial class Select<TValue> : ISelect
             await OnSelectedItemChanged.Invoke(SelectedItem);
         }
 
-        if (Module != null)
-        {
-            await Module.InvokeVoidAsync($"{ModuleName}.init", Id, nameof(ConfirmSelectedItem));
-        }
+        await InvokeInitAsync(Id, nameof(ConfirmSelectedItem));
     }
 
     /// <summary>
