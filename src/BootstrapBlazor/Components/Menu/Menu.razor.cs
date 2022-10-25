@@ -102,6 +102,20 @@ public partial class Menu
     [NotNull]
     private TabItemTextOptions? Options { get; set; }
 
+    private bool _isExpandAll;
+    private bool _isAccordion;
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        _isAccordion = IsAccordion;
+        _isExpandAll = IsExpandAll;
+    }
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -125,10 +139,14 @@ public partial class Menu
     /// <returns></returns>
     protected override async Task ModuleExecuteAsync()
     {
-        if (IsVertical && Module != null)
+        if (ShouldInvoke() && Module != null)
         {
+            _isAccordion = IsAccordion;
+            _isExpandAll = IsExpandAll;
             await Module.InvokeVoidAsync($"{ModuleName}.execute", Id);
         }
+
+        bool ShouldInvoke() => IsVertical && (_isAccordion != IsAccordion || _isExpandAll != IsExpandAll);
     }
 
     private void InitMenus(MenuItem? parent, IEnumerable<MenuItem> menus, string url)
