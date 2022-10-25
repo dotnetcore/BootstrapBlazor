@@ -10,10 +10,8 @@ namespace BootstrapBlazor.Components;
 /// QRCode 组件
 /// </summary>
 [JSModuleAutoLoader("./_content/BootstrapBlazor.BarCode/qrcode.bundle.min.js", JSObjectReference = true, ModuleName = "BlazorQRCode", Relative = false)]
-public partial class QRCode : IAsyncDisposable
+public partial class QRCode
 {
-    private ElementReference QRCodeElement { get; set; }
-
     private string? ClassString => CssBuilder.Default("qrcode")
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
@@ -90,8 +88,6 @@ public partial class QRCode : IAsyncDisposable
     [Parameter]
     public int Width { get; set; } = 128;
 
-    private string? MethodName { get; set; } = "generate";
-
     [Inject]
     [NotNull]
     private IStringLocalizer<QRCode>? Localizer { get; set; }
@@ -113,31 +109,15 @@ public partial class QRCode : IAsyncDisposable
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override async Task ModuleInitAsync()
+    protected override Task ModuleInitAsync() => InvokeInitAsync(Id, Content, nameof(Generated));
+
+    private async Task Clear()
     {
-        if (Module != null)
-        {
-            await Module.InvokeVoidAsync($"{ModuleName}.init", QRCodeElement, MethodName, Content, nameof(Generated));
-        }
-        MethodName = null;
+        Content = "";
+        await InvokeExecuteAsync(Id, "");
     }
 
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <returns></returns>
-    protected override async Task ModuleExecuteAsync()
-    {
-        if (Module != null)
-        {
-            await Module.InvokeVoidAsync($"{ModuleName}.execute", QRCodeElement, MethodName, Content);
-        }
-        MethodName = null;
-    }
-
-    private void Clear() => MethodName = "clear";
-
-    private void Generate() => MethodName = string.IsNullOrEmpty(Content) ? "clear" : "generate";
+    private Task Generate() => InvokeExecuteAsync(Id, Content);
 
     /// <summary>
     ///
