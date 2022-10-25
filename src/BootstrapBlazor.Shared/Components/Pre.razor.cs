@@ -118,11 +118,5 @@ public partial class Pre
         Loaded = true;
     }
 
-    private async Task Hightlight()
-    {
-        if (Module != null)
-        {
-            await Module.InvokeVoidAsync($"{ModuleName}.execute", Id, "highlight");
-        }
-    }
+    private Task Hightlight() => InvokeExecuteAsync(Id, "highlight");
 }
