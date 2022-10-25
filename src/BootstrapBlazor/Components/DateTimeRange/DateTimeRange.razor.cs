@@ -236,7 +236,7 @@ public partial class DateTimeRange
 
         if (AutoCloseClickSideBar)
         {
-            await InvokeExecutetAsync(Id, "hide");
+            await InvokeExecuteAsync(Id, "hide");
         }
     }
 

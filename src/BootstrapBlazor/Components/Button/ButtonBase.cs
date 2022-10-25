@@ -242,7 +242,7 @@ public abstract class ButtonBase : TooltipWrapperBase
     {
         if (Tooltip == null && !string.IsNullOrEmpty(TooltipText))
         {
-            await InvokeExecutetAsync(Id, "showTooltip", TooltipText);
+            await InvokeExecuteAsync(Id, "showTooltip", TooltipText);
         }
     }
 
@@ -254,7 +254,7 @@ public abstract class ButtonBase : TooltipWrapperBase
     {
         if (Tooltip == null)
         {
-            await InvokeExecutetAsync(Id, "removeTooltip");
+            await InvokeExecuteAsync(Id, "removeTooltip");
         }
     }
 

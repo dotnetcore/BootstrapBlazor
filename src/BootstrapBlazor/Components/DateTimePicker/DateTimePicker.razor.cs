@@ -239,7 +239,7 @@ public sealed partial class DateTimePicker<TValue>
         }
         if (AutoClose)
         {
-            await InvokeExecutetAsync(Id, "hide");
+            await InvokeExecuteAsync(Id, "hide");
         }
     }
 }

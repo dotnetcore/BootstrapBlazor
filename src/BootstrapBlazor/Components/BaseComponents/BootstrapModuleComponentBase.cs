@@ -132,7 +132,7 @@ public abstract class BootstrapModuleComponentBase : IdComponentBase, IAsyncDisp
     /// </summary>
     /// <param name="args"></param>
     /// <returns></returns>
-    protected Task InvokeExecutetAsync(params object?[]? args) => InvokeAsync("execute", args);
+    protected Task InvokeExecuteAsync(params object?[]? args) => InvokeAsync("execute", args);
 
     /// <summary>
     /// call javascript method
