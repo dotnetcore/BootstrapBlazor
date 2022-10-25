@@ -97,11 +97,8 @@ public partial class CherryMarkdown : IAsyncDisposable
     /// <returns></returns>
     protected override async Task ModuleInitAsync()
     {
-        if (Module != null)
-        {
-            IsRender = false;
-            await Module.InvokeVoidAsync($"{ModuleName}.init", Id, Option);
-        }
+        IsRender = false;
+        await InvokeInitAsync(Id, Option, nameof(Upload));
     }
 
     /// <summary>
@@ -110,10 +107,10 @@ public partial class CherryMarkdown : IAsyncDisposable
     /// <returns></returns>
     protected override async Task ModuleExecuteAsync()
     {
-        if (Module != null && IsRender)
+        if (IsRender)
         {
             IsRender = false;
-            await Module.InvokeVoidAsync($"{ModuleName}.execute", Id, Value);
+            await InvokeExecuteAsync(Id, Value);
         }
     }
 
@@ -181,11 +178,5 @@ public partial class CherryMarkdown : IAsyncDisposable
     /// <param name="method"></param>
     /// <param name="parameters"></param>
     /// <returns></returns>
-    public async ValueTask DoMethodAsync(string method, params object[] parameters)
-    {
-        if (Module != null)
-        {
-            await Module.InvokeVoidAsync($"{ModuleName}.invoke", Id, method, parameters);
-        }
-    }
+    public Task DoMethodAsync(string method, params object[] parameters) => InvokeVoidAsync("invoke", Id, method, parameters);
 }
