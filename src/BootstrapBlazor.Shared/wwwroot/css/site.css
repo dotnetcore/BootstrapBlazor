@@ -1302,177 +1302,39 @@ section {
     background-color: inherit;
 }
 
-.ms-learn {
+.btn-fade {
+    --bb-button-circle-width: 40px;
+    --bb-button-circle-height: 40px;
+    opacity: 0.7;
+    box-shadow: 0 0 8px #211b50;
+    transition: opacity .3s linear;
     position: fixed;
+    z-index: 10;
+}
+
+    .btn-fade:hover {
+        opacity: 1;
+    }
+
+.btn-update {
+    --bs-btn-bg: #8759ff;
+    --bs-btn-hover-bg: var(--bs-btn-bg);
+    --bs-btn-active-bg: var(--bs-btn-bg);
     bottom: 5rem;
     right: 1rem;
-    background: #8759ff;
-    box-shadow: 0 0 8px #211b50;
     overflow: hidden;
-    border-radius: 50%;
-    z-index: 15;
-    width: 40px;
-    height: 40px;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-    .ms-learn:hover {
-        opacity: 1;
-        box-shadow: 0 0 12px #211b50;
-    }
-
-    .ms-learn .btn-learn {
-        display: block;
-        margin: 0;
-        outline: 0;
-        border: none;
-        width: 100%;
-        color: #fff;
-        background: #8759ff;
-        line-height: 1.5;
-        padding: .5em 0;
-        min-width: 15em;
-        cursor: pointer;
-        transition: background .3s linear;
-    }
-
-        .ms-learn .btn-learn:hover {
-            background: rgba(135,89,255,.9);
-        }
-
-    .ms-learn .learn-list {
-        margin-top: 1rem;
-        padding-right: 5rem;
-        display: none;
-        position: relative;
-    }
-
-        .ms-learn .learn-list .learn-item {
-            margin-bottom: 0.5rem;
-        }
-
-        .ms-learn .learn-list .btn-close {
-            padding: .25rem .5rem;
-            font-size: 65%;
-            color: #fff;
-            background: #8759ff;
-            border-radius: var(--bs-border-radius);
-            position: absolute;
-            right: 1rem;
-            margin-top: -2px;
-            transition: all .3s linear;
-        }
-
-            .ms-learn .learn-list .btn-close:hover {
-                background: rgba(135,89,255,.9);
-                color: #fff;
-            }
-
-    .ms-learn a {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .ms-learn img {
+    .btn-update img {
         width: 55%;
         margin-left: 2px;
     }
 
-.btn-theme {
-    --bs-btn-bg: #034995;
-    --bs-btn-hover-bg: #034995;
-    --bs-btn-active-bg: #034995;
-    width: 40px;
-    height: 40px;
-    border-radius: 50% !important;
-    box-shadow: 0px 1px 20px 0px rgba(0,0,0,0.1),inset 0px -1px 0px 0px rgba(0,0,0,0.1);
-    position: fixed;
-    z-index: 12;
-    right: 1rem;
-    bottom: 9rem;
-    padding: 11px;
-}
-
-    .btn-theme img {
-        position: absolute;
-        width: 17px;
-        top: 10px;
-        left: 11px;
-    }
-
-.theme-bar {
-    display: flex;
-}
-
-    .theme-bar:first-child {
-        margin-bottom: 2px;
-    }
-
-    .theme-bar .theme-color {
-        display: inline-block;
-        width: 7px;
-        height: 7px;
-    }
-
-        .theme-bar .theme-color:first-child {
-            margin-right: 2px;
-        }
-
-.ms-learn,
-.btn-theme {
-    opacity: 0.7;
-    box-shadow: 0 0 8px #211b50;
-    transition: opacity .3s linear, box-shadow .3s linear;
-}
-
-    .ms-learn:hover,
-    .btn-theme:hover {
-        opacity: 1;
-        box-shadow: 0 0 12px #211b50;
-    }
-
-.menu-accordion {
-    display: flex;
-    border-bottom: solid 1px #c0c4cc;
-    justify-content: center;
-    align-items: center;
-}
-
-    .menu-accordion .form-label {
-        margin: 0 0.5rem 0 0;
-    }
-
-    .menu-accordion .switch {
-        width: auto;
-    }
-
-.btn-theme .pulse {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-    .btn-theme .pulse .pulse-ring {
-        width: 46px;
-        height: 46px;
-        border-radius: 46px;
-    }
-
 .cell-demo {
     background-color: var(--bs-table-striped-bg) !important;
-}
-
-header .btn-fs {
-    margin-top: 2px;
-    cursor: pointer;
 }
 
 .layout {

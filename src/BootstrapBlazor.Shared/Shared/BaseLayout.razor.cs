@@ -12,8 +12,6 @@ namespace BootstrapBlazor.Shared.Shared;
 /// </summary>
 public partial class BaseLayout : IAsyncDisposable
 {
-    private ElementReference MsLearnElement { get; set; }
-
     [Inject]
     [NotNull]
     private IStringLocalizer<BaseLayout>? Localizer { get; set; }

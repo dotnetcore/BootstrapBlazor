@@ -15,7 +15,7 @@ public partial class GlobalSearch
 {
     [Inject]
     [NotNull]
-    private IStringLocalizer<BaseLayout>? Localizer { get; set; }
+    private IStringLocalizer<GlobalSearch>? Localizer { get; set; }
 
     [Inject]
     [NotNull]

@@ -8,7 +8,7 @@
 </div>
 
 <div class="sidebar-content collapse d-md-block">
-    <div class="menu-accordion">
+    <div class="switchs">
         <Switch @bind-Value="@IsAccordion" ShowLabel="true" DisplayText="@AccordionText" OnValueChanged="@OnValueChanged" />
         <div style="width:1rem;"></div>
         <Switch @bind-Value="@IsExpandAll" IsDisabled="@IsAccordion" ShowLabel="true" DisplayText="@ExpandAllText" />

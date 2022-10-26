@@ -40,11 +40,7 @@
 
 @Body
 
-<div class="ms-learn" data-bs-toggle="tooltip" data-bs-placement="left" title="@Title" @ref="MsLearnElement">
-    <a href="@WebsiteOption.CurrentValue.WikiUrl" target="_blank">
-        <img alt="logo" src="_content/BootstrapBlazor.Shared/images/log.svg" />
-    </a>
-</div>
+<LinkButton TooltipPlacement="Placement.Left" ButtonStyle="ButtonStyle.Circle" Color="Color.None" TooltipText="@Title" class="btn-fade btn-update" Url="@WebsiteOption.CurrentValue.WikiUrl" Target="_blank" ImageUrl="_content/BootstrapBlazor.Shared/images/log.svg" />
 
 <ThemeChooser />
 
