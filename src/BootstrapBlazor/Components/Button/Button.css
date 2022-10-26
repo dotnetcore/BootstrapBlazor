@@ -60,7 +60,7 @@
 }
 
 .link-button {
-    background-color: transparent;
+    --bs-btn-bg: transparent;
     border: none;
     padding: 0;
 }
