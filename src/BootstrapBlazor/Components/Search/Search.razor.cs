@@ -95,6 +95,14 @@ public partial class Search
     private JSInterop<Search>? Interop { get; set; }
 
     /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override string? ClassString => CssBuilder.Default("search")
+        .AddClassFromAttributes(AdditionalAttributes)
+        .AddClass(base.ClassString)
+        .Build();
+
+    /// <summary>
     /// OnInitialized 方法
     /// </summary>
     protected override void OnInitialized()

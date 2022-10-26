@@ -19,7 +19,7 @@ public partial class FullScreenButton
     [NotNull]
     private FullScreenService? FullScrenService { get; set; }
 
-    private string? ClassString => CssBuilder.Default("bb-fs btn btn-none")
+    private string? ClassString => CssBuilder.Default("btn btn-fs")
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 

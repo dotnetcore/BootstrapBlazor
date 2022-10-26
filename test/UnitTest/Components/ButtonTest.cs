@@ -66,7 +66,7 @@ public class ButtonTest : BootstrapBlazorTestBase
     [InlineData(Color.Light, "btn-light")]
     [InlineData(Color.Dark, "btn-dark")]
     [InlineData(Color.Link, "btn-link")]
-    [InlineData(Color.None, "btn-none")]
+    [InlineData(Color.None, "btn")]
     public void Color_Ok(Color color, string @class)
     {
         var cut = Context.RenderComponent<Button>(pb =>

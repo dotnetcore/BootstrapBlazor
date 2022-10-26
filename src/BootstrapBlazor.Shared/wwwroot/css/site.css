@@ -1470,7 +1470,7 @@ section {
     background-color: var(--bs-table-striped-bg) !important;
 }
 
-header .bb-fs {
+header .btn-fs {
     margin-top: 2px;
     cursor: pointer;
 }

@@ -1,30 +1,28 @@
 ﻿@namespace BootstrapBlazor.Components
 @inherits AutoComplete
 
-<div class="search" @ref="AutoCompleteElement">
-    <div class="@ClassString">
-        <div class="input-group">
-            <input @attributes="AdditionalAttributes" @ref="FocusElement" class="@ClassName" autocomplete="off" type="@Type" placeholder="@PlaceHolder" @bind-value="@CurrentValueAsString" @bind-value:event="oninput" @onblur="OnBlur" @onkeyup="OnKeyUp" />
-            @if (ShowClearButton)
-            {
-                <Button Color="ClearButtonColor" Text="@ClearButtonText" Icon="@ClearButtonIcon" OnClick="OnClearClick" aria-label="Clear" />
-            }
-            <Button Color="SearchButtonColor" Text="@SearchButtonText" Icon="@ButtonIcon" OnClick="OnSearchClick" aria-label="Search" />
-        </div>
-        <ul class="@DropdownMenuClassString">
-            @if (FilterItems.Any())
-            {
-                @foreach (var item in FilterItems)
-                {
-                    <li class="dropdown-item" @onmousedown="e => OnClickItem(item)">
-                        <div>@item</div>
-                    </li>
-                }
-            }
-            else
-            {
-                <li class="dropdown-item">@NoDataTip</li>
-            }
-        </ul>
+<div @attributes="@AdditionalAttributes" class="@ClassString" @ref="AutoCompleteElement">
+    <div class="input-group">
+        <input @attributes="AdditionalAttributes" @ref="FocusElement" class="@ClassName" autocomplete="off" type="@Type" placeholder="@PlaceHolder" @bind-value="@CurrentValueAsString" @bind-value:event="oninput" @onblur="OnBlur" @onkeyup="OnKeyUp" />
+        @if (ShowClearButton)
+        {
+            <Button Color="ClearButtonColor" Text="@ClearButtonText" Icon="@ClearButtonIcon" OnClick="OnClearClick" aria-label="Clear" />
+        }
+        <Button Color="SearchButtonColor" Text="@SearchButtonText" Icon="@ButtonIcon" OnClick="OnSearchClick" aria-label="Search" />
     </div>
+    <ul class="@DropdownMenuClassString">
+        @if (FilterItems.Any())
+        {
+            @foreach (var item in FilterItems)
+            {
+                <li class="dropdown-item" @onmousedown="e => OnClickItem(item)">
+                    <div>@item</div>
+                </li>
+            }
+        }
+        else
+        {
+            <li class="dropdown-item">@NoDataTip</li>
+        }
+    </ul>
 </div>

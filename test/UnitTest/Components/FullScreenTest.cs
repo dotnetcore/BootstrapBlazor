@@ -35,7 +35,7 @@ public class FullScreenTest : BootstrapBlazorTestBase
                 builder.CloseComponent();
             }));
         });
-        cut.Find(".bb-fs").Click();
+        cut.Find(".btn-fs").Click();
     }
 
     [Fact]
