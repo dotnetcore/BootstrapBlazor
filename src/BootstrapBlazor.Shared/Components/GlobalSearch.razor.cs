@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using BootstrapBlazor.Shared.Services;
 using BootstrapBlazor.Shared.Shared;
 using Microsoft.Extensions.Options;
 
@@ -24,10 +25,14 @@ public partial class GlobalSearch
     [NotNull]
     private NavigationManager? NavigationManager { get; set; }
 
+    [Inject]
+    [NotNull]
+    private MenuService? MenuService { get; set; }
+
     [NotNull]
     private List<string>? ComponentItems { get; set; }
 
-    private IEnumerable<MenuItem> AvalidMenus => WebsiteOption.CurrentValue.SiteMenus.SelectMany(i => i.Items).Where(i => !string.IsNullOrEmpty(i.Url));
+    private IEnumerable<MenuItem> AvalidMenus => MenuService.GetMenus().SelectMany(i => i.Items).Where(i => !string.IsNullOrEmpty(i.Url));
 
     /// <summary>
     /// <inheritdoc/>

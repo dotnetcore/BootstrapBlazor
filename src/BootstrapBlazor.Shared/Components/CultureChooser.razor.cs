@@ -4,7 +4,6 @@
 
 using BootstrapBlazor.Shared.Extensions;
 using Microsoft.Extensions.Options;
-using Microsoft.JSInterop;
 using System.Globalization;
 
 namespace BootstrapBlazor.Shared.Components;
@@ -56,7 +55,6 @@ public partial class CultureChooser
             var cultureName = item.Value;
             if (cultureName != CultureInfo.CurrentCulture.Name)
             {
-                WebsiteOption.CurrentValue.SiteMenus = null;
                 await JSRuntime.SetCulture(cultureName);
                 var culture = new CultureInfo(cultureName);
                 CultureInfo.CurrentCulture = culture;
@@ -70,7 +68,6 @@ public partial class CultureChooser
             // 使用 api 方式 适用于 Server-Side 模式
             if (SelectedCulture != item.Value)
             {
-                WebsiteOption.CurrentValue.SiteMenus = null;
                 var culture = item.Value;
                 var uri = new Uri(NavigationManager.Uri).GetComponents(UriComponents.PathAndQuery, UriFormat.Unescaped);
                 var query = $"?culture={Uri.EscapeDataString(culture)}&redirectUri={Uri.EscapeDataString(uri)}";

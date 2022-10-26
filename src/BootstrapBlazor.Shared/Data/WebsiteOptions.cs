@@ -117,12 +117,6 @@ public class WebsiteOptions
     public Dictionary<string, string>? Links { get; set; }
 
     /// <summary>
-    /// 获得 当前站点所有菜单
-    /// </summary>
-    [NotNull]
-    public List<MenuItem>? SiteMenus { get; set; }
-
-    /// <summary>
     /// 构造函数
     /// </summary>
     public WebsiteOptions()

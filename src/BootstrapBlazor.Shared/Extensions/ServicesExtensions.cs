@@ -21,11 +21,12 @@ public static class ServicesExtensions
     {
         services.AddSingleton<WeatherForecastService>();
         services.AddSingleton<VersionService>();
-        services.AddScoped<CodeSnippetService>();
+        services.AddSingleton<CodeSnippetService>();
         services.AddSingleton(typeof(IDataService<>), typeof(TableDemoDataService<>));
         services.AddSingleton(typeof(ILookupService), typeof(DemoLookupService));
-        services.AddScoped<MockDataTableDynamicService>();
-        services.AddTransient<FanControllerDataService>();
+        services.AddSingleton<MockDataTableDynamicService>();
+        services.AddSingleton<FanControllerDataService>();
+        services.AddSingleton<MenuService>();
 
         // 增加示例网站配置
         services.AddOptionsMonitor<WebsiteOptions>();
