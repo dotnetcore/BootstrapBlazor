@@ -19,14 +19,14 @@
         color: #fff;
     }
 
-header.navbar {
+.navbar-header {
     font-size: 1rem;
 }
 
-header .nav-link img {
-    height: 24px;
-    width: auto;
-}
+    .navbar-header .nav-link img {
+        height: 24px;
+        width: auto;
+    }
 
 .header-img {
     --bb-logo: #732cf9;
@@ -1683,14 +1683,14 @@ section {
         display: none;
     }
 
-    header.navbar {
+    .navbar-header {
         position: sticky;
         top: 0;
         z-index: 1050;
         height: var(--bs-header-height);
     }
 
-    .modal-open header.navbar {
+    .modal-open .navbar-header {
         z-index: 1040;
     }
 

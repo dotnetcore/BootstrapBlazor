@@ -1145,7 +1145,7 @@
     "P42": "在",
     "P43": "中",
     "P44": "运行应用程序",
-    "Tips2": "If you use the <code>Blazor App</code> template to create a project, please remove the default <code>Bootstrap</code> style link <code>&lt;link rel='stylesheet' href='css/bootstrap/bootstrap.min.css' /&gt;</code>. Install <b>FontAwesome</b> related resources by yourself or get the nuget package <code>BootstrapBlazor.FontAwesome</code>"
+    "Tips2": "如果使用微软自带 <code>Blazor App</code> 模板创建工程，请移除 <code>_Layout.cshtml/index.html</code> 文件中的默认 <code>Bootstrap</code> 样式表 <code>&lt;link rel='stylesheet' href='css/bootstrap/bootstrap.min.css' /&gt;</code>。如果使用 <code>FontAwesome</code> 图标库可安装扩展包 <code>BootstrapBlazor.FontAwesome</code>"
   },
   "BootstrapBlazor.Shared.Pages.Install_Server": {
     "Title": "服务器端 Blazor 安装教程",
@@ -1201,8 +1201,8 @@
     "P29": "文件中",
     "P30": "正在玩命开发中",
     "P31": "步骤三、页面中使用组件",
-    "P32": "最后一步是在页面中使用",
-    "P33": "组件并在浏览器中运行它。例如",
+    "P32": "最后一步是在页面中使用 <code>BootstrapBlazor</code> 组件并在浏览器中运行它。例如：",
+    "P33": "请移除默认的 <code>Bootstrap</code> 样式链接 <code>&lt;link rel='stylesheet' href='css/bootstrap/bootstrap.min.css' /&gt;</code>; 本项目图标使用 <code>FontAwesome</code> 图标库，请自行引用或者引用 <code>BootstrapBlazor.FontAwesome</code> 包",
     "P34": "1. 在页面中增加一个",
     "P35": "按钮",
     "P36": "测试",
