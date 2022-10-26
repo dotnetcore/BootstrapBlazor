@@ -18,4 +18,8 @@
         anchorElement.click()
         anchorElement.remove()
     }
+
+    static dispose() {
+
+    }
 }
