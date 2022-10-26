@@ -4,7 +4,6 @@
 
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
-using UnitTest.Pages;
 
 namespace UnitTest.Components;
 
@@ -27,18 +26,21 @@ public class ToastTest : BootstrapBlazorTestBase
         Assert.NotNull(cut.Instance.ToastContainer);
     }
 
-    [Fact]
-    public void SetPlacement_Ok()
+    [Theory]
+    [InlineData(Placement.TopStart, "top-0 start-0")]
+    [InlineData(Placement.TopCenter, "top-0 start-50 translate-middle-x")]
+    [InlineData(Placement.TopEnd, "top-0 end-0")]
+    [InlineData(Placement.MiddleStart, "top-50 start-0 translate-middle-y")]
+    [InlineData(Placement.MiddleCenter, "top-50 start-50 translate-middle")]
+    [InlineData(Placement.MiddleEnd, "top-50 end-0 translate-middle-y")]
+    [InlineData(Placement.BottomStart, "bottom-0 start-0")]
+    [InlineData(Placement.BottomCenter, "bottom-0 start-50 translate-middle-x")]
+    [InlineData(Placement.BottomEnd, "bottom-0 end-0")]
+    public void SetPlacement_Ok(Placement placement, string css)
     {
         var cut = Context.RenderComponent<ToastContainer>();
-        cut.InvokeAsync(() => cut.Instance.SetPlacement(Placement.BottomStart));
-        Assert.Contains("left", cut.Markup);
-
-        var service = Context.Services.GetRequiredService<ToastService>();
-        service.Success("Test", "test content");
-        service.Error("Error", "test content");
-        service.Information("Information", "test content");
-        service.Warning("Warning", "test content");
+        cut.InvokeAsync(() => cut.Instance.SetPlacement(placement));
+        Assert.Contains(css, cut.Markup);
     }
 
     [Fact]
