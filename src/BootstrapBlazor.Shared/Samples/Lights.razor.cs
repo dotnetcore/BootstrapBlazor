@@ -11,6 +11,29 @@ public partial class Lights : IDisposable
 {
     private Color Color { get; set; } = Color.Primary;
 
+    [NotNull]
+    private string? Title { get; set; }
+
+    private void OnSetTitle()
+    {
+        Title = Localizer["P9"];
+    }
+
+    private void OnRemoveTitle()
+    {
+        Title = "";
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        Title = Localizer["P9"];
+    }
+
     private CancellationTokenSource UpdateColorTokenSource { get; } = new CancellationTokenSource();
 
     /// <summary>
@@ -40,33 +63,37 @@ public partial class Lights : IDisposable
         }
     }
 
-    private static IEnumerable<AttributeItem> GetAttributes()
+    private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
-        return new AttributeItem[]
-        {
-            new AttributeItem() {
-                Name = "Color",
-                Description = "Color",
-                Type = "Color",
-                ValueList = "None / Active / Primary / Secondary / Success / Danger / Warning / Info / Light / Dark / Link",
-                DefaultValue = "Success"
-            },
-            new AttributeItem() {
-                Name = "IsFlash",
-                Description = "Is it flashing",
-                Type = "boolean",
-                ValueList = " — ",
-                DefaultValue = "false"
-            },
-            new AttributeItem() {
-                Name = "Title",
-                Description = "Indicator Tooltip Display text",
-                Type = "string",
-                ValueList = " — ",
-                DefaultValue = " — "
-            }
-        };
-    }
+        new AttributeItem() {
+            Name = nameof(Light.Color),
+            Description = "Color",
+            Type = "Color",
+            ValueList = "None / Active / Primary / Secondary / Success / Danger / Warning / Info / Light / Dark / Link",
+            DefaultValue = "Success"
+        },
+        new AttributeItem() {
+            Name = nameof(Light.IsFlash),
+            Description = "Is it flashing",
+            Type = "boolean",
+            ValueList = " — ",
+            DefaultValue = "false"
+        },
+        new AttributeItem() {
+            Name = nameof(Light.TooltipText),
+            Description = "Indicator tooltip Display text",
+            Type = "string",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new AttributeItem() {
+            Name = nameof(Light.TooltipTrigger),
+            Description = "Indicator tooltip trigger type",
+            Type = "string",
+            ValueList = " — ",
+            DefaultValue = " — "
+        }
+    };
 
     /// <summary>
     /// Dispose

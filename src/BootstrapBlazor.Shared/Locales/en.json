@@ -453,7 +453,7 @@
     "P5": "discoloration",
     "P6": "Color the light by setting the value of the property <code>Color</code>",
     "P7": "prompt text",
-    "P8": "By setting the value of the attribute <code>Title</code> to make the <code>tooltip</code> text prompt when the mouse hovers over the indicator light",
+    "P8": "By setting the value of the attribute <code>TooltipText</code> to make the <code>tooltip</code> text prompt when the mouse hovers over the indicator light",
     "P9": "I am prompt text message"
   },
   "BootstrapBlazor.Shared.Samples.Charts.Index": {
