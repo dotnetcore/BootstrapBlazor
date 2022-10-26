@@ -119,14 +119,93 @@ public class ToastTest : BootstrapBlazorTestBase
     {
         var cut = Context.RenderComponent<Toast>(pb =>
         {
+            pb.Add(a => a.Options, new ToastOption());
+        });
+        await cut.InvokeAsync(() => cut.Instance.Close());
+    }
+
+    [Fact]
+    public void ShowHeader_Ok()
+    {
+        var cut = Context.RenderComponent<Toast>(pb =>
+        {
             pb.Add(a => a.Options, new ToastOption()
             {
                 HeaderTemplate = builder =>
                 {
                     builder.AddContent(0, "header-template");
-                }
+                },
+                ShowHeader = true
             });
         });
-        await cut.InvokeAsync(() => cut.Instance.Close());
+        Assert.Contains("toast-header", cut.Markup);
+    }
+
+    [Fact]
+    public void ShowHeader_False()
+    {
+        var cut = Context.RenderComponent<Toast>(pb =>
+        {
+            pb.Add(a => a.Options, new ToastOption()
+            {
+                ShowHeader = false
+            });
+        });
+        Assert.DoesNotContain("toast-header", cut.Markup);
+    }
+
+    [Fact]
+    public void SuccessIcon_Ok()
+    {
+        var cut = Context.RenderComponent<Toast>(pb =>
+        {
+            pb.Add(a => a.Options, new ToastOption()
+            {
+                SuccessIcon = "success-icon"
+            });
+        });
+        Assert.Contains("success-icon", cut.Markup);
+    }
+
+    [Fact]
+    public void InfoIcon_Ok()
+    {
+        var cut = Context.RenderComponent<Toast>(pb =>
+        {
+            pb.Add(a => a.Options, new ToastOption()
+            {
+                Category = ToastCategory.Information,
+                InformationIcon = "info-icon"
+            });
+        });
+        Assert.Contains("info-icon", cut.Markup);
+    }
+
+    [Fact]
+    public void WarningIcon_Ok()
+    {
+        var cut = Context.RenderComponent<Toast>(pb =>
+        {
+            pb.Add(a => a.Options, new ToastOption()
+            {
+                Category = ToastCategory.Warning,
+                WarningIcon = "warning-icon"
+            });
+        });
+        Assert.Contains("warning-icon", cut.Markup);
+    }
+
+    [Fact]
+    public void ErrorIcon_Ok()
+    {
+        var cut = Context.RenderComponent<Toast>(pb =>
+        {
+            pb.Add(a => a.Options, new ToastOption()
+            {
+                Category = ToastCategory.Error,
+                ErrorIcon = "error-icon"
+            });
+        });
+        Assert.Contains("error-icon", cut.Markup);
     }
 }

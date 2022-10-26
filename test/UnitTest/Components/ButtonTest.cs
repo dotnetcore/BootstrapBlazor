@@ -238,24 +238,27 @@ public class ButtonTest : BootstrapBlazorTestBase
     [Fact]
     public void Tooltip_Ok()
     {
-        var cut = Context.RenderComponent<Button>(pb =>
+        var cut = Context.RenderComponent<Tooltip>(pb =>
         {
-            pb.AddChildContent<Tooltip>(pb =>
-            {
-                pb.Add(t => t.Title, "tooltip-title");
-            });
+            pb.Add(a => a.Placement, Placement.Top);
+            pb.Add(a => a.Title, "Tooltip");
+            pb.AddChildContent<Button>();
         });
 
-        // 切换 Disabled 状态移除 Tooltip
-        cut.SetParametersAndRender(pb =>
-        {
-            pb.Add(b => b.IsDisabled, true);
-        });
+        var button = cut.FindComponent<Button>();
+        cut.InvokeAsync(() => button.Instance.ShowTooltip());
 
-        cut.SetParametersAndRender(pb =>
+        button.SetParametersAndRender(pb =>
         {
-            pb.Add(b => b.IsDisabled, false);
+            pb.Add(a => a.TooltipText, "Tooltip-Button");
         });
+        Assert.Equal("Tooltip-Button", cut.Instance.Title);
+
+        var cut1 = Context.RenderComponent<Button>(pb =>
+        {
+            pb.Add(a => a.TooltipText, "tooltip");
+        });
+        cut1.InvokeAsync(() => cut1.Instance.ShowTooltip());
     }
 
     [Fact]

@@ -44,11 +44,16 @@ public partial class GlobalSearch
 
     private Task OnSearch(string searchText)
     {
-        var item = AvalidMenus.FirstOrDefault(i => i.Text!.Contains(searchText, StringComparison.OrdinalIgnoreCase));
-        if (item != null && !string.IsNullOrEmpty(item.Url))
+        if (!string.IsNullOrEmpty(searchText))
         {
-            NavigationManager.NavigateTo(item.Url);
+            var item = AvalidMenus.FirstOrDefault(i => i.Text!.Contains(searchText, StringComparison.OrdinalIgnoreCase));
+            if (item != null && !string.IsNullOrEmpty(item.Url))
+            {
+                NavigationManager.NavigateTo(item.Url);
+            }
         }
         return Task.CompletedTask;
     }
+
+    private Task OnSelectedItemChanged(string searchText) => OnSearch(searchText);
 }
