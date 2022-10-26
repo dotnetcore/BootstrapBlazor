@@ -8,8 +8,7 @@ export class Tooltip extends BlazorComponent {
     }
 
     _init() {
-        this._config.title = this._config.arguments[0]
-        this._tooltip = new bootstrap.Tooltip(this._element, this._config)
+        this._tooltip = new bootstrap.Tooltip(this._element)
     }
 
     _dispose() {
@@ -18,7 +17,7 @@ export class Tooltip extends BlazorComponent {
             const tooltip = this._tooltip
             const handler = window.setTimeout(() => {
                 window.clearTimeout(handler)
-                if (tooltip) {
+                if (tooltip && this._element) {
                     tooltip.dispose()
                 }
             }, delay)
