@@ -14,12 +14,15 @@ public partial class TablesFixedHeader
 
     [Inject]
     [NotNull]
-    private IStringLocalizer<Foo>? Localizer { get; set; }
+    private IStringLocalizer<Foo>? FooLocalizer { get; set; }
 
     [Inject]
     [NotNull]
-    private IStringLocalizer<TablesFixedHeader>? FixheaderLocalizer { get; set; }
+    private IStringLocalizer<TablesFixedHeader>? Localizer { get; set; }
 
+    [Inject]
+    [NotNull]
+    private DialogService? DialogService { get; set; }
 
     /// <summary>
     /// OnInitialized 方法
@@ -28,6 +31,18 @@ public partial class TablesFixedHeader
     {
         base.OnInitialized();
 
-        Items = Foo.GenerateFoo(Localizer);
+        Items = Foo.GenerateFoo(FooLocalizer);
+    }
+
+    private async Task OnClickDialog()
+    {
+        var op = new DialogOption
+        {
+            Class = "dialog-table",
+            Title = Localizer["DialogTitle"],
+            BodyTemplate = RenderTable()
+        };
+
+        await DialogService.Show(op);
     }
 }

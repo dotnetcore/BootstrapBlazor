@@ -1,14 +1,14 @@
 ﻿@page "/tables/header"
 
-<h3>@FixheaderLocalizer["Title"]</h3>
+<h3>@Localizer["Title"]</h3>
 
-<h4>@FixheaderLocalizer["Desc"]</h4>
+<h4>@Localizer["Desc"]</h4>
 
-<p>@((MarkupString)FixheaderLocalizer["DescP"].Value)</p>
+<p>@((MarkupString)Localizer["DescP"].Value)</p>
 
-<DemoBlock Title="@FixheaderLocalizer["FixedHeaderTitle"]" Introduction="@FixheaderLocalizer["FixedHeaderIntro"]" Name="FixedHeader">
-    <p>@FixheaderLocalizer["FixedHeaderP"]</p>
-    <p>@FixheaderLocalizer["FixedHeaderP1"]</p>
+<DemoBlock Title="@Localizer["FixedHeaderTitle"]" Introduction="@Localizer["FixedHeaderIntro"]" Name="FixedHeader">
+    <p>@Localizer["FixedHeaderP"]</p>
+    <p>@Localizer["FixedHeaderP1"]</p>
     <Table TItem="Foo" Items="@Items.Take(10)" Height="200" IsBordered="true" IsFixedHeader="true">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" />
@@ -18,8 +18,8 @@
     </Table>
 </DemoBlock>
 
-<DemoBlock Title="@FixheaderLocalizer["FixedWidthTitle"]" Introduction="@FixheaderLocalizer["FixedWidthIntro"]" Name="FixedWidth">
-    <p>@FixheaderLocalizer["FixedWidthP"]</p>
+<DemoBlock Title="@Localizer["FixedWidthTitle"]" Introduction="@Localizer["FixedWidthIntro"]" Name="FixedWidth">
+    <p>@Localizer["FixedWidthP"]</p>
     <Table TItem="Foo" Items="@Items.Take(10)" IsBordered="true" IsMultipleSelect="true" Height="200" IsFixedHeader="true">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" />
@@ -29,8 +29,8 @@
     </Table>
 </DemoBlock>
 
-<DemoBlock Title="@FixheaderLocalizer["AllowResizingTitle"]" Introduction="@FixheaderLocalizer["AllowResizingIntro"]" Name="AllowResizing">
-    <p>@((MarkupString)FixheaderLocalizer["AllowResizingP"].Value)</p>
+<DemoBlock Title="@Localizer["AllowResizingTitle"]" Introduction="@Localizer["AllowResizingIntro"]" Name="AllowResizing">
+    <p>@((MarkupString)Localizer["AllowResizingP"].Value)</p>
     <Table TItem="Foo" Items="@Items.Take(10)"
            IsBordered="true" IsMultipleSelect="true" IsPagination="true" IsFixedHeader="true"
            Height="200" AllowResizing="true">
@@ -42,8 +42,8 @@
     </Table>
 </DemoBlock>
 
-<DemoBlock Title="@FixheaderLocalizer["AutoHeightTitle"]" Introduction="@FixheaderLocalizer["AutoHeightIntro"]" Name="AutoHeight">
-    <p>@((MarkupString)FixheaderLocalizer["AutoHeightP"].Value)</p>
+<DemoBlock Title="@Localizer["AutoHeightTitle"]" Introduction="@Localizer["AutoHeightIntro"]" Name="AutoHeight">
+    <p>@((MarkupString)Localizer["AutoHeightP"].Value)</p>
     <div style="height: 300px;">
         <Table TItem="Foo" Items="@Items.Take(10)" ShowColumnList="true" ShowToolbar="true" ShowDefaultButtons="false" ShowRefresh="false"
                IsBordered="true" IsMultipleSelect="true" IsPagination="true" IsFixedHeader="true" AllowResizing="true">
@@ -55,3 +55,33 @@
         </Table>
     </div>
 </DemoBlock>
+
+<DemoBlock Title="@Localizer["DialogTitle"]" Introduction="@Localizer["DialogIntro"]" Name="Dialog">
+    <p>@((MarkupString)Localizer["DialogDesc"].Value)</p>
+    <Pre>&lt;style&gt;
+    .dialog-table .modal-body {
+        height: calc(100vh - 400px);
+        overflow: hidden;
+    }
+&lt;/style&gt;</Pre>
+    <Button Text="@Localizer["DialogButtonText"]" OnClick="OnClickDialog" />
+</DemoBlock>
+
+<style>
+    .dialog-table .modal-body  {
+        height: calc(100vh - 400px);
+        overflow: hidden;
+    }
+</style>
+
+@code {
+    RenderFragment RenderTable() =>
+    @<Table TItem="Foo" Items="@Items" ShowColumnList="true" ShowToolbar="true" ShowDefaultButtons="false" ShowRefresh="false"
+       IsBordered="true" IsMultipleSelect="true" IsPagination="true" IsFixedHeader="true" AllowResizing="true">
+            <TableColumns>
+                <TableColumn @bind-Field="@context.DateTime" Width="180" />
+                <TableColumn @bind-Field="@context.Name" Width="100" />
+                <TableColumn @bind-Field="@context.Address" Width="900" />
+            </TableColumns>
+    </Table>;
+}
