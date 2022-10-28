@@ -3,14 +3,6 @@
     "NoDataTip": "Sem dados",
     "PlaceHolder": "Digite"
   },
-  "BootstrapBlazor.Components.BarcodeReader": {
-    "ButtonScanText": "Escanear",
-    "ButtonStopText": "Fechar",
-    "AutoStopText": "Fech.Autom.",
-    "DeviceLabel": "Camera",
-    "InitDevicesString": "Inicializar ...",
-    "NotFoundDevicesString": "Nenhum dispositivo encontrado"
-  },
   "BootstrapBlazor.Components.Captcha": {
     "HeaderText": "Captcha",
     "BarText": "Arraste para a direita e complete",
@@ -167,11 +159,6 @@
   },
   "BootstrapBlazor.Components.PrintButton": {
     "Text": "Imprimir"
-  },
-  "BootstrapBlazor.Components.QRCode": {
-    "PlaceHolder": "Digite ...",
-    "ClearButtonText": "Limpar",
-    "GenerateButtonText": "Gerar"
   },
   "BootstrapBlazor.Components.Search": {
     "SearchButtonText": "Pocurar"

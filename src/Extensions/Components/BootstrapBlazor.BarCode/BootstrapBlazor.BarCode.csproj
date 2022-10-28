@@ -3,7 +3,7 @@
   <Import Project="..\..\..\bundleconfig.props" />
 
   <PropertyGroup>
-    <Version>6.1.2</Version>
+    <Version>6.2.0</Version>
   </PropertyGroup>
 
   <PropertyGroup>
