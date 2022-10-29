@@ -5,6 +5,7 @@
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Options;
+using Microsoft.Net.Http.Headers;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -55,6 +56,18 @@ else
 }
 
 app.UseResponseCompression();
+app.UseStaticFiles(new StaticFileOptions
+{
+    OnPrepareResponse = ctx =>
+    {
+        var files = new List<string>() { ".png", ".gif", ".jpg", ".jpeg", ".svg", ".js", ".css" };
+        var file = Path.GetExtension(ctx.File.PhysicalPath);
+        if (files.Any(i => i.Equals(file, StringComparison.OrdinalIgnoreCase)))
+        {
+            ctx.Context.Response.Headers[HeaderNames.CacheControl] = "public, max-age=8640000";
+        }
+    }
+});
 app.UseStaticFiles();
 app.UseRouting();
 app.UseCors(builder => builder.WithOrigins(app.Configuration["AllowOrigins"].Split(',', StringSplitOptions.RemoveEmptyEntries))
