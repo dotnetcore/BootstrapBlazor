@@ -1,7 +1,7 @@
 ﻿@page "/dialogs"
 
 <h3>@Localizer["H1"]</h3>
-<h4>@Localizer["H2"]</h4>
+<h4>@((MarkupString)Localizer["H2"].Value)</h4>
 
 <p>@Localizer["P1"]：</p>
 
@@ -159,13 +159,13 @@ await DialogService.Show(op);</Pre>
 <DemoBlock Title="@Localizer["P86"]" Introduction="@Localizer["P87"]" Name="Email">
     <p>@Localizer["P88"]</p>
     <ul class="ul-demo mb-3">
-        <li>@Localizer["P89"]</li>
-        <li>@Localizer["P90"]</li>
-        <li>@Localizer["P91"]</li>
-        <li>@Localizer["P92"]</li>
-        <li>@Localizer["P93"]</li>
-        <li>@Localizer["P94"]</li>
-        <li>@Localizer["P95"]</li>
+        <li>@((MarkupString)Localizer["P89"].Value)</li>
+        <li>@((MarkupString)Localizer["P90"].Value)</li>
+        <li>@((MarkupString)Localizer["P91"].Value)</li>
+        <li>@((MarkupString)Localizer["P92"].Value)</li>
+        <li>@((MarkupString)Localizer["P93"].Value)</li>
+        <li>@((MarkupString)Localizer["P94"].Value)</li>
+        <li>@((MarkupString)Localizer["P95"].Value)</li>
     </ul>
     <label class="form-label">@Localizer["P96"]：</label>
     <div class="input-group">
