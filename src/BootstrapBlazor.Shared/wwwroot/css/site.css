@@ -235,7 +235,7 @@ section {
     .content .code-label {
         font-weight: bold;
         color: #333;
-        margin-bottom: 2px;
+        margin-bottom: 4px;
     }
 
     .content p {

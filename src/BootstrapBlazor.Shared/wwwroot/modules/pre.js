@@ -30,8 +30,7 @@ export class Pre extends BlazorComponent {
             else {
                 this._handler = window.setInterval(() => {
                     if (window.hljs) {
-                        window.clearInterval(this._handler)
-                        delete this._handler
+                        this._clearInterval()
                         this._highlight()
                     }
                 }, 100)
@@ -40,15 +39,23 @@ export class Pre extends BlazorComponent {
     }
 
     _highlight() {
-        const code = this._element.querySelector('code')
-        window.hljs.highlightBlock(code)
+        if (this._element) {
+            const code = this._element.querySelector('code')
+            if (code) {
+                window.hljs.highlightBlock(code)
+            }
+        }
     }
 
-    _dispose() {
+    _clearInterval() {
         if (this._handler) {
             window.clearInterval(this._handler)
             delete this._handler
         }
+    }
+
+    _dispose() {
+        this._clearInterval()
         EventHandler.off(this._element, 'click', 'button');
     }
 }

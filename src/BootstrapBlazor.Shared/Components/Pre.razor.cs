@@ -20,7 +20,7 @@ public partial class Pre
     /// 获得 样式集合
     /// </summary>
     /// <returns></returns>
-    private string? ClassName => CssBuilder.Default()
+    private string? ClassString => CssBuilder.Default("pre-code")
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 

@@ -1,14 +1,14 @@
 ﻿@inherits JSModuleComponentBase
 @attribute [JSModuleAutoLoader]
 
-<div class="pre-code" id="@Id" data-bb-title="@CopiedText">
+<div @attributes="@AdditionalAttributes" class="@ClassString" id="@Id" data-bb-title="@CopiedText">
     @if (!Loaded)
     {
         <p class="loading">@LoadingText</p>
     }
     else
     {
-        <pre @attributes="@AdditionalAttributes" class="@ClassName"><code>@ChildContent</code></pre>
+        <pre><code>@ChildContent</code></pre>
         @if (CanCopy)
         {
             <Button TooltipPlacement="Placement.Left" TooltipText="@TooltipTitle">Copy</Button>

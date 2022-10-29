@@ -2,6 +2,8 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using BootstrapBlazor.Shared.Services;
+
 namespace BootstrapBlazor.Shared.Samples;
 
 /// <summary>
@@ -9,6 +11,12 @@ namespace BootstrapBlazor.Shared.Samples;
 /// </summary>
 public sealed partial class QRCodes
 {
+    [Inject]
+    [NotNull]
+    private VersionService? VersionManager { get; set; }
+
+    private string Version { get; set; } = "fetching";
+
     [NotNull]
     private string? Title { get; set; }
 
@@ -42,6 +50,15 @@ public sealed partial class QRCodes
         BaseUsageText ??= Localizer[nameof(BaseUsageText)];
         IntroText ??= Localizer[nameof(IntroText)];
         SuccessText ??= Localizer[nameof(SuccessText)];
+    }
+
+    /// <summary>
+    /// OnInitializedAsync 方法
+    /// </summary>
+    /// <returns></returns>
+    protected override async Task OnInitializedAsync()
+    {
+        Version = await VersionManager.GetVersionAsync("bootstrapblazor.chart");
     }
 
     private Task OnGenerated()

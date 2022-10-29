@@ -4049,6 +4049,9 @@
   "BootstrapBlazor.Shared.Samples.QRCodes": {
     "Title": "QRCode",
     "SubTitle": "Generate QR code",
+    "Tips": "<div><code>QRCode</code> Component dependency then expansion package <code>BootstrapBlazor.BarCode</code>, please follow the prompts below for customized installation</div>",
+    "Nuget": "Install nuget package",
+    "NugetIntro": "use <a href=\"https://www.nuget.org/packages?q=BootstrapBlazor.BarCode\" target=\"_blank\">nuget.org</a> conduct  <code>BootstrapBlazor.BarCode</code>",
     "NormalTitle": "Basic usage",
     "NormalIntro": "Click the Generate button to generate a <code>QRCode</code>",
     "ContentTitle": "Direct build",
