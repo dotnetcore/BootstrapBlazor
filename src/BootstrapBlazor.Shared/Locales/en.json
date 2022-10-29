@@ -3046,7 +3046,7 @@
     "LeftPannelSearchPlaceHolderString": "The search box placeholder string in the left panel",
     "RightPannelSearchPlaceHolderString": "The search box placeholder string in the right panel",
     "IsDisabled": "Whether to disable it",
-    "OnItemsChanged": "The callback method when the component binding data item collection options change",
+    "OnSelectedItemsChanged": "The callback method when the component binding data item collection options change",
     "OnSetItemClass": "Set the Item style callback method",
     "Data": "Data",
     "Backup": "Backup"

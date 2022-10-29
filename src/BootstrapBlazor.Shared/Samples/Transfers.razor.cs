@@ -187,9 +187,9 @@ public sealed partial class Transfers : ComponentBase
     {
         new EventItem()
         {
-            Name = "OnItemsChanged",
-            Description = Localizer["OnItemsChanged"],
-            Type = "Action<IEnumerable<SelectedItem>>"
+            Name = nameof(Transfer<string>.OnSelectedItemsChanged),
+            Description = Localizer["OnSelectedItemsChanged"],
+            Type = "Func<IEnumerable<SelectedItem>, Task>"
         },
         new EventItem()
         {

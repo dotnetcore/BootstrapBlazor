@@ -3054,7 +3054,7 @@
     "LeftPannelSearchPlaceHolderString": "左侧面板中的搜索框 placeholder 字符串",
     "RightPannelSearchPlaceHolderString": "右侧面板中的搜索框 placeholder 字符串",
     "IsDisabled": "是否禁用",
-    "OnItemsChanged": "组件绑定数据项集合选项变化时回调方法",
+    "OnSelectedItemsChanged": "组件绑定数据项集合选项变化时回调方法",
     "OnSetItemClass": "设置 Item 样式回调方法",
     "Data": "数据",
     "Backup": "备选"
