@@ -1,46 +1,32 @@
 ﻿@namespace BootstrapBlazor.Components
-@inherits CardBase
+@inherits IdComponentBase
 
-<div @attributes="@AdditionalAttributes" class="@ClassName">
-    @if (CardHeader != null || !string.IsNullOrEmpty(HeaderText))
+<div @attributes="@AdditionalAttributes" class="@ClassString">
+    @if (HeaderTemplate != null || !string.IsNullOrEmpty(HeaderText))
     {
         <div class="card-header">
             @if (IsCollapsible)
             {
-                <div class="@HeaderClassString" data-bs-collapsed="@CollapsedString" @ref="CardElement">
-                    <i class="card-collapse-arrow fa-solid fa-circle-chevron-right"></i>
+                <div class="card-collapse" data-bs-toggle="collapse" data-bs-target="#@Id" aria-expanded="@ExpandedString">
+                    <i class="@ArrowClassString"></i>
                     <div class="card-collapse-body">
-                        @if (CardHeader != null)
-                        {
-                            @CardHeader
-                        }
-                        else
-                        {
-                            @HeaderText
-                        }
+                        @RenderHeader
                     </div>
                 </div>
             }
             else
             {
-                if (CardHeader != null)
-                {
-                    @CardHeader
-                }
-                else
-                {
-                    @HeaderText
-                }
+                @RenderHeader
             }
         </div>
     }
-    <div class="@BodyClassName" style="@CardBodyStyleString">
-        @CardBody
+    <div class="@BodyClassName" id="@Id">
+        @BodyTemplate
     </div>
-    @if (CardFooter != null)
+    @if (FooterTemplate != null)
     {
         <div class="@FooterClassName">
-            @CardFooter
+            @FooterTemplate
         </div>
     }
 </div>

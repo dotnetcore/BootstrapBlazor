@@ -24,13 +24,13 @@ public partial class ListView<TItem> : BootstrapComponentBase where TItem : clas
     public RenderFragment? HeaderTemplate { get; set; }
 
     /// <summary>
-    /// 获得/设置 CardBody
+    /// 获得/设置 BodyTemplate
     /// </summary>
     [Parameter]
     public RenderFragment<TItem>? BodyTemplate { get; set; }
 
     /// <summary>
-    /// 获得/设置 CardFooter
+    /// 获得/设置 FooterTemplate
     /// </summary>
     [Parameter]
     public RenderFragment? FooterTemplate { get; set; }

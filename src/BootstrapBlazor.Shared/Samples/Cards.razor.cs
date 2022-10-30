@@ -17,23 +17,23 @@ public sealed partial class Cards
     {
         new AttributeItem
         {
-            Name = "CardBody",
-            Description = Localizer["CardBody"],
+            Name = "BodyTemplate",
+            Description = Localizer["BodyTemplate"],
             Type = "RenderFragment",
             ValueList = " — ",
             DefaultValue = " — "
         },
         new AttributeItem() {
-            Name = "CardFooter",
-            Description = Localizer["CardFooter"],
+            Name = "FooterTemplate",
+            Description = Localizer["FooterTemplate"],
             Type = "RenderFragment",
             ValueList = " — ",
             DefaultValue = " — "
         },
         new AttributeItem
         {
-            Name = "CardHeader",
-            Description = Localizer["CardHeader"],
+            Name = "HeaderTemplate",
+            Description = Localizer["HeaderTemplate"],
             Type = "RenderFragment",
             ValueList = " — ",
             DefaultValue = " — "

@@ -7,48 +7,54 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// Card组件基类
 /// </summary>
-public abstract class CardBase : BootstrapComponentBase
+public partial class Card
 {
     /// <summary>
     /// Card 组件样式
     /// </summary>
-    protected virtual string? ClassName => CssBuilder.Default("card")
+    protected string? ClassString => CssBuilder.Default("card")
         .AddClass("text-center", IsCenter)
         .AddClass($"border-{Color.ToDescriptionString()}", Color != Color.None)
-        .AddClass("card-shadow", IsShadow)
+        .AddClass("shadow", IsShadow)
         .AddClassFromAttributes(AdditionalAttributes)
-        .Build();
-
-    /// <summary>
-    ///  设置 Body Class 组件样式
-    /// </summary>
-    protected virtual string? BodyClassName => CssBuilder.Default("card-body")
-        .AddClass($"text-{Color.ToDescriptionString()}", Color != Color.None)
-        .Build();
-
-    /// <summary>
-    /// 设置 Footer Class 样式
-    /// </summary>
-    protected virtual string? FooterClassName => CssBuilder.Default("card-footer")
-        .AddClass("text-muted", IsCenter)
-        .Build();
-
-    /// <summary>
-    /// 获得 Header Class 样式
-    /// </summary>
-    protected string? HeaderClassString => CssBuilder.Default("card-collapse")
-        .AddClass("is-open", !Collapsed)
         .Build();
 
     /// <summary>
     /// 
     /// </summary>
-    protected string? CardBodyStyleString => CssBuilder.Default()
-        .AddClass("display: none;", IsCollapsible && Collapsed)
+    protected string? ArrowClassString => CssBuilder.Default("card-collapse-arrow")
+        .AddClass(CollapseIcon)
         .Build();
 
     /// <summary>
-    /// 获得/设置 CardHeader 显示文本
+    ///  设置 Body Class 组件样式
+    /// </summary>
+    protected string? BodyClassName => CssBuilder.Default("card-body")
+        .AddClass($"text-{Color.ToDescriptionString()}", Color != Color.None)
+        .AddClass("collapse", IsCollapsible && Collapsed)
+        .AddClass("collapse show", IsCollapsible && !Collapsed)
+        .Build();
+
+    /// <summary>
+    /// 节点是否展开 aria Label
+    /// </summary>
+    protected string? ExpandedString => Collapsed ? "false" : "true";
+
+    /// <summary>
+    /// 设置 Footer Class 样式
+    /// </summary>
+    protected string? FooterClassName => CssBuilder.Default("card-footer")
+        .AddClass("text-muted", IsCenter)
+        .Build();
+
+    /// <summary>
+    /// 获得/设置 收缩展开箭头图标 默认 fa-solid fa-circle-chevron-right
+    /// </summary>
+    [Parameter]
+    public string? CollapseIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 HeaderTemplate 显示文本
     /// </summary>
     [Parameter]
     public string? HeaderText { get; set; }
@@ -57,19 +63,19 @@ public abstract class CardBase : BootstrapComponentBase
     /// 获得/设置 CardHeard 模板
     /// </summary>
     [Parameter]
-    public RenderFragment? CardHeader { get; set; }
+    public RenderFragment? HeaderTemplate { get; set; }
 
     /// <summary>
-    /// 获得/设置 CardBody 模板
+    /// 获得/设置 BodyTemplate 模板
     /// </summary>
     [Parameter]
-    public RenderFragment? CardBody { get; set; }
+    public RenderFragment? BodyTemplate { get; set; }
 
     /// <summary>
-    /// 获得/设置 CardFooter 模板
+    /// 获得/设置 FooterTemplate 模板
     /// </summary>
     [Parameter]
-    public RenderFragment? CardFooter { get; set; }
+    public RenderFragment? FooterTemplate { get; set; }
 
     /// <summary>
     /// 获得/设置 Card 颜色
@@ -102,30 +108,27 @@ public abstract class CardBase : BootstrapComponentBase
     public bool IsShadow { get; set; }
 
     /// <summary>
-    /// 获得 当前状态文字
+    /// <inheritdoc/>
     /// </summary>
-    protected string CollapsedString => Collapsed ? "true" : "false";
-
-    /// <summary>
-    /// 获得/设置 元素实例
-    /// </summary>
-    protected ElementReference CardElement { get; set; }
-
-    /// <summary>
-    /// OnAfterRenderAsync 方法
-    /// </summary>
-    /// <param name="firstRender"></param>
-    /// <returns></returns>
-    protected override async Task OnAfterRenderAsync(bool firstRender)
+    protected override void OnParametersSet()
     {
-        await base.OnAfterRenderAsync(firstRender);
+        base.OnParametersSet();
 
-        if (firstRender)
-        {
-            if (IsCollapsible)
-            {
-                await JSRuntime.InvokeVoidAsync(CardElement, "bb_card_collapse");
-            }
-        }
+        CollapseIcon ??= "fa-solid fa-circle-chevron-right";
     }
+
+    /// <summary>
+    /// 渲染 Header 方法
+    /// </summary>
+    protected RenderFragment RenderHeader => builder =>
+    {
+        if (HeaderTemplate != null)
+        {
+            builder.AddContent(0, HeaderTemplate);
+        }
+        else
+        {
+            builder.AddContent(1, HeaderText);
+        }
+    };
 }

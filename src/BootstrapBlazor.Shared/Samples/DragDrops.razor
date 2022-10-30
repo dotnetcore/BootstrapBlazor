@@ -9,16 +9,16 @@
     <Row ItemsPerRow="ItemsPerRow.Two">
         <Dropzone TItem="string" Items="@StrList1">
             <Card IsShadow="true">
-                <CardBody>
+                <BodyTemplate>
                     @context
-                </CardBody>
+                </BodyTemplate>
             </Card>
         </Dropzone>
         <Dropzone TItem="string" Items="@StrList2">
             <Card IsShadow="true">
-                <CardBody>
+                <BodyTemplate>
                     @context
-                </CardBody>
+                </BodyTemplate>
             </Card>
         </Dropzone>
     </Row>
@@ -28,16 +28,16 @@
     <Row ItemsPerRow="ItemsPerRow.Two">
         <Dropzone TItem="string" Items="@StrList1">
             <Card IsShadow="true">
-                <CardBody>
+                <BodyTemplate>
                     @context
-                </CardBody>
+                </BodyTemplate>
             </Card>
         </Dropzone>
         <Dropzone TItem="string" Items="@StrList2" CopyItem="s => new string(s)">
             <Card IsShadow="true">
-                <CardBody>
+                <BodyTemplate>
                     @context
-                </CardBody>
+                </BodyTemplate>
             </Card>
         </Dropzone>
     </Row>
@@ -47,16 +47,16 @@
     <Row ItemsPerRow="ItemsPerRow.Two">
         <Dropzone TItem="string" Items="@StrList1" Accepts="@((s, s1) => s == "10")" AllowsDrag="@(s => s != "2")">
             <Card IsShadow="true">
-                <CardBody>
+                <BodyTemplate>
                     @context
-                </CardBody>
+                </BodyTemplate>
             </Card>
         </Dropzone>
         <Dropzone TItem="string" Items="@StrList2" MaxItems="6">
             <Card IsShadow="true">
-                <CardBody>
+                <BodyTemplate>
                     @context
-                </CardBody>
+                </BodyTemplate>
             </Card>
         </Dropzone>
     </Row>
@@ -66,16 +66,16 @@
     <Row ItemsPerRow="ItemsPerRow.Two">
         <Dropzone TItem="string" Items="@StrList1" Accepts="@((s, s1) => s == "10")" OnItemDropRejected="@OnItemDropRejected" OnItemDrop="@OnItemDrop" OnReplacedItemDrop="@OnReplacedItemDrop">
             <Card IsShadow="true">
-                <CardBody>
+                <BodyTemplate>
                     @context
-                </CardBody>
+                </BodyTemplate>
             </Card>
         </Dropzone>
         <Dropzone TItem="string" Items="@StrList2" MaxItems="6" OnItemDropRejectedByMaxItemLimit="@OnItemDropRejectedByMaxItemLimit" OnItemDrop="@OnItemDrop" OnReplacedItemDrop="@OnReplacedItemDrop">
             <Card IsShadow="true">
-                <CardBody>
+                <BodyTemplate>
                     @context
-                </CardBody>
+                </BodyTemplate>
             </Card>
         </Dropzone>
     </Row>

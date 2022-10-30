@@ -53,9 +53,9 @@ if (app.Environment.IsDevelopment())
 else
 {
     app.UseExceptionHandler("/Error");
+    app.UseResponseCompression();
 }
 
-app.UseResponseCompression();
 app.UseStaticFiles(new StaticFileOptions
 {
     OnPrepareResponse = ctx =>
