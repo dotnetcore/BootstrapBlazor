@@ -31,7 +31,7 @@ public partial class Checkbox<TValue>
     /// <summary>
     /// 
     /// </summary>
-    protected virtual string? InputClassString => CssBuilder.Default("form-check-input")
+    protected string? InputClassString => CssBuilder.Default("form-check-input")
         .AddClass($"border-{Color.ToDescriptionString()}", Color != Color.None)
         .AddClass("disabled", IsDisabled)
         .Build();
@@ -136,14 +136,18 @@ public partial class Checkbox<TValue>
     }
 
     /// <summary>
-    /// OnAfterRenderAsync 方法
+    /// 
     /// </summary>
-    /// <param name="firstRender"></param>
     /// <returns></returns>
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         await base.OnAfterRenderAsync(firstRender);
-        await JSRuntime.InvokeVoidAsync(Id, "bb_setIndeterminate", State == CheckboxState.Indeterminate);
+
+        Module ??= await JSRuntime.LoadModule("base/utility");
+        if (Module != null)
+        {
+            await Module.InvokeVoidAsync("setIndeterminate", Id, State == CheckboxState.Indeterminate);
+        }
     }
 
     /// <summary>
@@ -201,5 +205,23 @@ public partial class Checkbox<TValue>
             await InternalStateChanged(state);
             StateHasChanged();
         }
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="disposing"></param>
+    /// <returns></returns>
+    protected override async ValueTask DisposeAsync(bool disposing)
+    {
+        if (disposing)
+        {
+            if (Module != null)
+            {
+                await Module.DisposeAsync();
+                Module = null;
+            }
+        }
+        await base.DisposeAsync(disposing);
     }
 }

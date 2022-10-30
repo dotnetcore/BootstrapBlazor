@@ -114,9 +114,6 @@
                     obj.invokeMethodAsync(method, '', '', data.Os, data.Browser, data.Device, data.Language, data.Engine, data.UserAgent);
                 }
             });
-        },
-        bb_setIndeterminate: function (id, state) {
-            document.getElementById(id).indeterminate = state;
         }
     });
 

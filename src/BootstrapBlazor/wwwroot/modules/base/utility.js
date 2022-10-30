@@ -1,4 +1,4 @@
-﻿import { isElement, getTransitionDurationFromElement } from "./index.js"
+﻿import { isElement, getTransitionDurationFromElement, getElementById } from "./index.js"
 
 const vibrate = () => {
     if ('vibrate' in window.navigator) {
@@ -171,6 +171,13 @@ const insertAfter = (element, newEl) => {
     }
 }
 
+const setIndeterminate = (object, state) => {
+    const element = getElementById(object)
+    if (isElement(element)) {
+        element.indeterminate = state;
+    }
+}
+
 export {
     vibrate,
     copy,
@@ -188,5 +195,6 @@ export {
     addScript,
     removeScript,
     insertBefore,
-    insertAfter
+    insertAfter,
+    setIndeterminate
 }
