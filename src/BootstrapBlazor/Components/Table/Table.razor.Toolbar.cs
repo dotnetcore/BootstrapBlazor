@@ -549,6 +549,12 @@ public partial class Table<TItem>
     public bool EditDialogIsDraggable { get; set; }
 
     /// <summary>
+    /// 获得/设置 编辑框 FullScreenSize 参数 默认 none
+    /// </summary>
+    [Parameter]
+    public FullScreenSize EditDialogFullScreenSize { get; set; }
+
+    /// <summary>
     /// 获得/设置 编辑框是否显示最大化按钮 默认 true 不显示
     /// </summary>
     [Parameter]
@@ -585,6 +591,7 @@ public partial class Table<TItem>
             Size = EditDialogSize,
             IsDraggable = EditDialogIsDraggable,
             ShowMaximizeButton = EditDialogShowMaximizeButton,
+            FullScreenSize = EditDialogFullScreenSize,
             ShowUnsetGroupItemsOnTop = ShowUnsetGroupItemsOnTop,
             DisableAutoSubmitFormByEnter = DisableAutoSubmitFormByEnter,
             IsTracking = IsTracking,

@@ -23,6 +23,7 @@ public class TableDialogTest : TableDialogTestBase
                 pb.Add(a => a.Items, items);
                 pb.Add(a => a.EditDialogIsDraggable, true);
                 pb.Add(a => a.EditDialogShowMaximizeButton, false);
+                pb.Add(a => a.EditDialogFullScreenSize, FullScreenSize.None);
                 pb.Add(a => a.EditDialogSize, Size.Large);
                 pb.Add(a => a.EditDialogSaveButtonText, "test-save");
                 pb.Add(a => a.EditDialogCloseButtonText, "test-close");
@@ -75,6 +76,16 @@ public class TableDialogTest : TableDialogTestBase
 
         // Add 弹窗
         await cut.InvokeAsync(() => table.Instance.AddAsync());
+        btnClose = cut.Find(".btn-close");
+        await cut.InvokeAsync(() => btnClose.Click());
+
+        // 自定义数据服务取消回调测试
+        table.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.EditDialogFullScreenSize, FullScreenSize.Always);
+        });
+        await cut.InvokeAsync(() => table.Instance.AddAsync());
+        Assert.Contains(" modal-fullscreen ", cut.Markup);
         btnClose = cut.Find(".btn-close");
         await cut.InvokeAsync(() => btnClose.Click());
     }
