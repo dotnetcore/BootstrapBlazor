@@ -3,7 +3,6 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.AspNetCore.Components.Forms;
-using System.Runtime.CompilerServices;
 
 namespace BootstrapBlazor.Components;
 
@@ -246,21 +245,13 @@ public partial class Table<TItem>
     /// </summary>
     private List<ColumnVisibleItem> ColumnVisibles { get; } = new();
 
-    private class ColumnVisibleItem
-    {
-        [NotNull]
-        public string? FieldName { get; set; }
-
-        public bool Visible { get; set; }
-    }
-
     private IEnumerable<ITableColumn> GetColumns()
     {
         var items = ColumnVisibles.Where(i => i.Visible);
-        return Columns.Where(i => items.Any(v => v.FieldName == i.GetFieldName()));
+        return Columns.Where(i => items.Any(v => v.Name == i.GetFieldName()));
     }
 
-    private bool GetColumnsListState(ITableColumn col) => ColumnVisibles.First(i => i.FieldName == col.GetFieldName()).Visible && ColumnVisibles.Count(i => i.Visible) == 1;
+    private bool GetColumnsListState(ITableColumn col) => ColumnVisibles.First(i => i.Name == col.GetFieldName()).Visible && ColumnVisibles.Count(i => i.Visible) == 1;
 
     private bool ShowAddForm { get; set; }
 
@@ -753,8 +744,7 @@ public partial class Table<TItem>
             Columns.Clear();
             Columns.AddRange(cols);
 
-            ColumnVisibles.Clear();
-            ColumnVisibles.AddRange(Columns.Select(i => new ColumnVisibleItem { FieldName = i.GetFieldName(), Visible = i.Visible }));
+            InternalResetVisibleColumns(Columns.Select(i => new ColumnVisibleItem(i.GetFieldName(), i.Visible)));
 
             QueryDynamicItems(DynamicContext);
         }

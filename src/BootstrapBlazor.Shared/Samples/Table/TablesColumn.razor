@@ -186,7 +186,9 @@
     <p>@((MarkupString)ColumnLocalizer["VisibleP2"].Value)</p>
     <p>@((MarkupString)ColumnLocalizer["VisibleP3"].Value)</p>
     <p>@((MarkupString)ColumnLocalizer["VisibleP4"].Value)</p>
-    <Table TItem="Foo"
+    <p>@((MarkupString)ColumnLocalizer["ResetVisibleColumnsDesc"].Value)</p>
+    <div><Button Text="@ColumnLocalizer["ResetVisibleColumnsButtonText"]" OnClickWithoutRender="ResetVisibleColumns" /></div>
+    <Table TItem="Foo" @ref="TableColumnVisibles"
            IsPagination="true" PageItemsSource="@PageItemsSource"
            IsStriped="true" IsBordered="true" IsMultipleSelect="true"
            ShowToolbar="true" ShowAddButton="false" ShowEditButton="false" ShowDeleteButton="false"

@@ -4643,7 +4643,9 @@
     "AdvanceIntro": "Custom rendering of columns by showing template <code>Template</code>",
     "CustomerButtonTitle": "Custom button processing method",
     "CustomerButtonContent": "The button processing logic is distinguished by different functions. The parameter Items is the selected row data collection in the Table component, and the currently selected data is {0}",
-    "OnRowButtonClickContent": "The button processing logic is distinguished by different functions, and the parameter Item is the current row data"
+    "OnRowButtonClickContent": "The button processing logic is distinguished by different functions, and the parameter Item is the current row data",
+    "ResetVisibleColumnsDesc": "Call the instancel method <code>ResetVisibleColumns</code> of <code>Table</code> for set the multiple columns visible value",
+    "ResetVisibleColumnsButtonText": "Set Columns"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesEdit": {
     "H1": "Table",

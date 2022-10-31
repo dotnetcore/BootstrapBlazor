@@ -655,8 +655,7 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
                 await OnColumnCreating(Columns);
             }
 
-            ColumnVisibles.Clear();
-            ColumnVisibles.AddRange(Columns.Select(i => new ColumnVisibleItem { FieldName = i.GetFieldName(), Visible = i.Visible }));
+            InternalResetVisibleColumns(Columns.Select(i => new ColumnVisibleItem(i.GetFieldName(), i.Visible)));
 
             // set default sortName
             var col = Columns.FirstOrDefault(i => i.Sortable && i.DefaultSort);
@@ -696,6 +695,22 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
             await LoopQueryAsync();
             _loop = false;
         }
+    }
+
+    private void InternalResetVisibleColumns(IEnumerable<ColumnVisibleItem> columns)
+    {
+        ColumnVisibles.Clear();
+        ColumnVisibles.AddRange(columns);
+    }
+
+    /// <summary>
+    /// 设置 列可见方法
+    /// </summary>
+    /// <param name="columns"></param>
+    public void ResetVisibleColumns(IEnumerable<ColumnVisibleItem> columns)
+    {
+        InternalResetVisibleColumns(columns);
+        StateHasChanged();
     }
 
     /// <summary>

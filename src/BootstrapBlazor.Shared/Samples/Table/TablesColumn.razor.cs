@@ -26,6 +26,9 @@ public partial class TablesColumn
 
     private static IEnumerable<int> PageItemsSource => new int[] { 5, 10, 20 };
 
+    [NotNull]
+    private Table<Foo>? TableColumnVisibles { get; set; }
+
     /// <summary>
     /// OnInitialized 方法
     /// </summary>
@@ -34,6 +37,20 @@ public partial class TablesColumn
         base.OnInitialized();
 
         Items = Foo.GenerateFoo(Localizer);
+    }
+
+    private Task ResetVisibleColumns()
+    {
+        TableColumnVisibles.ResetVisibleColumns(new ColumnVisibleItem[]
+        {
+            new(nameof(Foo.DateTime), true),
+            new(nameof(Foo.Name), false),
+            new(nameof(Foo.Address), false),
+            new(nameof(Foo.Education), false),
+            new(nameof(Foo.Count), false),
+            new(nameof(Foo.Complete), true)
+        });
+        return Task.CompletedTask;
     }
 
     /// <summary>
