@@ -230,9 +230,9 @@ public sealed partial class Dialogs
     {
         var result = await DialogService.ShowModal<ResultDialogDemo2>(new ResultDialogOption()
         {
-            Title = "select recipient",
+            Title = Localizer["EmailDialogTitle"],
             BodyContext = new ResultDialogDemo2.FooContext() { Count = 10, Emails = InputValue },
-            ButtonYesText = "choose",
+            ButtonYesText = Localizer["EmailDialogButtonYes"],
             ButtonYesIcon = "fa-solid fa-magnifying-glass",
             ComponentParamters = new Dictionary<string, object>
             {

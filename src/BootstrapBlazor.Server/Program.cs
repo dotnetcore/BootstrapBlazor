@@ -54,20 +54,20 @@ else
 {
     app.UseExceptionHandler("/Error");
     app.UseResponseCompression();
+    app.UseStaticFiles(new StaticFileOptions
+    {
+        OnPrepareResponse = ctx =>
+        {
+            var files = new List<string>() { ".png", ".gif", ".jpg", ".jpeg", ".svg", ".js", ".css" };
+            var file = Path.GetExtension(ctx.File.PhysicalPath);
+            if (files.Any(i => i.Equals(file, StringComparison.OrdinalIgnoreCase)))
+            {
+                ctx.Context.Response.Headers[HeaderNames.CacheControl] = "public, max-age=8640000";
+            }
+        }
+    });
 }
 
-app.UseStaticFiles(new StaticFileOptions
-{
-    OnPrepareResponse = ctx =>
-    {
-        var files = new List<string>() { ".png", ".gif", ".jpg", ".jpeg", ".svg", ".js", ".css" };
-        var file = Path.GetExtension(ctx.File.PhysicalPath);
-        if (files.Any(i => i.Equals(file, StringComparison.OrdinalIgnoreCase)))
-        {
-            ctx.Context.Response.Headers[HeaderNames.CacheControl] = "public, max-age=8640000";
-        }
-    }
-});
 app.UseStaticFiles();
 app.UseRouting();
 app.UseCors(builder => builder.WithOrigins(app.Configuration["AllowOrigins"].Split(',', StringSplitOptions.RemoveEmptyEntries))

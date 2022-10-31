@@ -26,7 +26,7 @@ await DialogService.Show(op);</Pre>
 
 <DemoBlock Title="@Localizer["P5"]" Introduction="@Localizer["P6"]" Name="Keyboard">
     <div>
-        <p>@Localizer["P7"] <code>DialogOption</code> <code>IsKeyboard</code> @Localizer["P8"]</p>
+        <p>@((MarkupString)Localizer["P7"].Value)</p>
         <Button OnClick="@OnClick">@Localizer["P9"]</Button>
         <Button OnClick="@OnClickKeyboard" Text="@($"Keyboard: {IsKeyboard}")" class="ms-3" />
     </div>
@@ -39,14 +39,12 @@ await DialogService.Show(op);</Pre>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["P13"]" Introduction="@Localizer["P14"]" Name="Component">
-    <p>@Localizer["P15"]</p>
+    <p>@((MarkupString)Localizer["P15"].Value)</p>
     <Button @onclick="@OnClickCounter">@Localizer["P16"]</Button>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["P17"]" Introduction="@Localizer["P18"]" Name="BodyContext">
-    <p>
-        @Localizer["P19"]
-    </p>
+    <p>@((MarkupString)Localizer["P19"].Value)</p>
     <Button @onclick="@OnClickParameter">@Localizer["P20"]</Button>
 </DemoBlock>
 
@@ -75,14 +73,12 @@ await DialogService.Show(op);</Pre>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["P25"]" Introduction="@Localizer["P26"]" Name="CloseDialogByCode">
-    <p>@Localizer["P27"] <code>DialogOption</code> @Localizer["P28"] <code>Dialog</code> @Localizer["P29"] <code>Toggle/Close</code> @Localizer["P30"]</p>
-
+    <p>@((MarkupString)Localizer["P27"].Value)</p>
     <Button @onclick="@Show">Dialog</Button>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["P31"]" Introduction="@Localizer["P32"]" Name="DisableHeaderCloseButton">
-    <p>@Localizer["P33"] <code>ShowHeaderCloseButton</code> @Localizer["P34"] <code>Header</code> @Localizer["P35"]</p>
-
+    <p>@((MarkupString)Localizer["P33"].Value)</p>
     <Button @onclick="@ShowNoHeaderCloseButtonDialog">Dialog</Button>
 </DemoBlock>
 
@@ -90,9 +86,9 @@ await DialogService.Show(op);</Pre>
     <p>@Localizer["P38"]</p>
     <ul class="ul-demo mb-3">
         <li>@Localizer["P39"]</li>
-        <li>@Localizer["P40"]</li>
+        <li>@((MarkupString)Localizer["P40"].Value)</li>
         <li>@Localizer["P41"]</li>
-        <li>@Localizer["P42"]</li>
+        <li>@((MarkupString)Localizer["P42"].Value)</li>
     </ul>
 
     <Button OnClick="@ShowDialogLoop">@Localizer["P43"]</Button>
@@ -102,8 +98,8 @@ await DialogService.Show(op);</Pre>
     <p>@Localizer["P46"]</p>
     <ul class="ul-demo mb-3">
         <li>@Localizer["P47"]</li>
-        <li>@Localizer["P48"]</li>
-        <li>@Localizer["P49"]</li>
+        <li>@((MarkupString)Localizer["P48"].Value)</li>
+        <li>@((MarkupString)Localizer["P49"].Value)</li>
         <li>@Localizer["P50"]</li>
     </ul>
     <Button OnClick="@OnResultDialogClick">@Localizer["P51"]</Button>
@@ -114,8 +110,8 @@ await DialogService.Show(op);</Pre>
     <p>@Localizer["P54"]</p>
     <ul class="ul-demo mb-3">
         <li>@Localizer["P55"]</li>
-        <li>@Localizer["P56"]</li>
-        <li>@Localizer["P57"]</li>
+        <li>@((MarkupString)Localizer["P56"].Value)</li>
+        <li>@((MarkupString)Localizer["P57"].Value)</li>
     </ul>
     <Button OnClick="@OnEditDialogClick">@Localizer["P58"]</Button>
 </DemoBlock>
@@ -124,8 +120,8 @@ await DialogService.Show(op);</Pre>
     <p>@Localizer["P61"]</p>
     <ul class="ul-demo mb-3">
         <li>@Localizer["P62"]</li>
-        <li>@Localizer["P63"]</li>
-        <li>@Localizer["P64"]</li>
+        <li>@((MarkupString)Localizer["P63"].Value)</li>
+        <li>@((MarkupString)Localizer["P64"].Value)</li>
     </ul>
     <Button OnClick="@OnSearchDialogClick">@Localizer["P65"]</Button>
 </DemoBlock>
@@ -134,7 +130,7 @@ await DialogService.Show(op);</Pre>
     <p>@Localizer["P68"]</p>
     <ul class="ul-demo mb-3">
         <li>@Localizer["P69"]</li>
-        <li>@Localizer["P70"]</li>
+        <li>@((MarkupString)Localizer["P70"].Value)</li>
     </ul>
     <Button OnClick="@OnSaveDialogClick">@Localizer["P71"]</Button>
 </DemoBlock>
