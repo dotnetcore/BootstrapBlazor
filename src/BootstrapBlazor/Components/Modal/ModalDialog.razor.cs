@@ -218,8 +218,6 @@ public partial class ModalDialog : IHandlerException, IDisposable
         CloseButtonText ??= Localizer[nameof(CloseButtonText)];
         SaveButtonText ??= Localizer[nameof(SaveButtonText)];
         PrintButtonText ??= Localizer[nameof(PrintButtonText)];
-
-        OnClose ??= async () => await Modal.CloseOrPopDialog();
     }
 
     /// <summary>
@@ -250,6 +248,8 @@ public partial class ModalDialog : IHandlerException, IDisposable
     private async Task OnClickClose()
     {
         Modal.RemoveDialog(this);
+        await Modal.CloseOrPopDialog();
+
         if (OnClose != null)
         {
             await OnClose();
