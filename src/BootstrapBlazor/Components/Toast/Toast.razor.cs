@@ -69,7 +69,10 @@ public partial class Toast
     {
         base.OnInitialized();
 
-        Options.Toast = this;
+        if (Options != null)
+        {
+            Options.Toast = this;
+        }
     }
 
     /// <summary>
