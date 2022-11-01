@@ -17,7 +17,7 @@ export class Tooltip extends BlazorComponent {
             const tooltip = this._tooltip
             const handler = window.setTimeout(() => {
                 window.clearTimeout(handler)
-                if (tooltip && this._element) {
+                if (tooltip) {
                     tooltip.dispose()
                 }
             }, delay)

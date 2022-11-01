@@ -22,7 +22,7 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
     /// <summary>
     /// 获得/设置 上一次转化失败错误描述信息
     /// </summary>
-    protected string PreviousErrorMessage { get; set; } = "";
+    protected string? PreviousErrorMessage { get; set; }
 
     /// <summary>
     /// Gets the associated <see cref="EditContext"/>.
@@ -118,7 +118,7 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
             else
             {
                 PreviousParsingAttemptFailed = true;
-                PreviousErrorMessage = validationErrorMessage ?? "";
+                PreviousErrorMessage = validationErrorMessage;
 
                 if (_parsingValidationMessages == null && EditContext != null)
                 {
@@ -127,7 +127,7 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
 
                 if (FieldIdentifier != null)
                 {
-                    _parsingValidationMessages?.Add(FieldIdentifier.Value, PreviousErrorMessage);
+                    _parsingValidationMessages?.Add(FieldIdentifier.Value, PreviousErrorMessage ?? "");
 
                     // Since we're not writing to CurrentValue, we'll need to notify about modification from here
                     EditContext?.NotifyFieldChanged(FieldIdentifier.Value);
