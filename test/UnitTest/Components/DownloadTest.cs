@@ -31,6 +31,32 @@ public class DownloadTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public async Task DownloadFromFileAsync_Ok()
+    {
+        var fileName = Path.Combine(AppContext.BaseDirectory, "down.log");
+        using var fs = File.OpenWrite(fileName);
+        fs.Write(new byte[] { 0x01, 0x02 }, 0, 2);
+        fs.Close();
+
+        var download = false;
+        var downloadService = Context.Services.GetRequiredService<DownloadService>();
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Button>(pb =>
+            {
+                pb.Add(a => a.OnClick, async () =>
+                {
+                    await downloadService.DownloadFromFileAsync("test.txt", fileName);
+                    download = true;
+                });
+            });
+        });
+        var btn = cut.Find("button");
+        await cut.InvokeAsync(() => btn.Click());
+        Assert.True(download);
+    }
+
+    [Fact]
     public async Task DownloadFromStreamAsync_Ok()
     {
         var download = false;

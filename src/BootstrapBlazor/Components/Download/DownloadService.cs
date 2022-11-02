@@ -2,8 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using System.IO.Compression;
-
 namespace BootstrapBlazor.Components;
 
 /// <summary>
@@ -62,46 +60,8 @@ public class DownloadService
     /// <summary>
     /// 下载文件方法
     /// </summary>
-    /// <param name="downloadFileName">文件名</param>
-    /// <param name="stream">文件流</param>
-    /// <returns></returns>
-    public virtual Task DownloadFromStreamAsync(string downloadFileName, Stream stream) => DownloadFromStreamAsync(new DownloadOption() { FileName = downloadFileName, FileStream = stream });
-
-    /// <summary>
-    /// 下载文件方法
-    /// </summary>
-    /// <param name="downloadFileName">文件名</param>
-    /// <param name="data">Byte[] 数组</param>
-    /// <returns></returns>
-    public virtual Task DownloadFromByteArrayAsync(string downloadFileName, byte[] data) => DownloadFromStreamAsync(new DownloadOption() { FileName = downloadFileName, FileStream = new MemoryStream(data) });
-
-    /// <summary>
-    /// 下载文件夹方法
-    /// </summary>
-    /// <param name="downloadFileName">文件名</param>
-    /// <param name="folder">文件夹路径</param>
-    /// <returns></returns>
-    public virtual async Task DownloadFolderAsync(string downloadFileName, string folder)
-    {
-        if (!Directory.Exists(folder))
-        {
-            throw new DirectoryNotFoundException($"Couldn't be not found {folder}");
-        }
-
-        // 打包文件
-        var directoryName = folder.TrimEnd('\\', '\r', '\n');
-        var destZipFile = $"{directoryName}.zip";
-        ZipFile.CreateFromDirectory(folder, destZipFile);
-
-        using var stream = new FileStream(destZipFile, FileMode.Open);
-        await DownloadFromStreamAsync(new DownloadOption() { FileName = downloadFileName, FileStream = stream });
-    }
-
-    /// <summary>
-    /// 下载文件方法
-    /// </summary>
     /// <param name="option">文件下载选项</param>
-    protected virtual async Task DownloadFromStreamAsync(DownloadOption option)
+    public virtual async Task DownloadFromStreamAsync(DownloadOption option)
     {
         var cb = StreamCache.LastOrDefault().Callback;
         if (cb != null)
@@ -113,16 +73,8 @@ public class DownloadService
     /// <summary>
     /// 获取文件连接方法
     /// </summary>
-    /// <param name="downloadFileName">文件名</param>
-    /// <param name="url">文件地址</param>
-    /// <returns></returns>
-    public virtual Task DownloadFromUrlAsync(string downloadFileName, string url) => DownloadFromUrlAsync(new DownloadOption() { FileName = downloadFileName, Url = url });
-
-    /// <summary>
-    /// 获取文件连接方法
-    /// </summary>
     /// <param name="option">文件下载选项</param>
-    protected virtual async Task DownloadFromUrlAsync(DownloadOption option)
+    public virtual async Task DownloadFromUrlAsync(DownloadOption option)
     {
         var cb = UrlCache.LastOrDefault().Callback;
         if (cb != null)
