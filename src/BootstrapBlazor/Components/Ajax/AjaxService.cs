@@ -62,7 +62,7 @@ public class AjaxService
     /// </summary>
     /// <param name="option"></param>
     /// <returns></returns>
-    public async Task<string?> GetMessage(AjaxOption option)
+    public async Task<string?> InvokeAsync(AjaxOption option)
     {
         var cb = Cache.FirstOrDefault().Callback;
         return cb == null ? null : await cb.Invoke(option);

@@ -3218,7 +3218,7 @@
   },
   "BootstrapBlazor.Shared.Samples.Ajaxs": {
     "AjaxTitle": "Ajax调用",
-    "H4": "用于直接在浏览器使用 js 的 ajax 方法与服务器交互，目前只支持输入输出皆为json，返回值为 json 字符串，可以自行转换处理。",
+    "H4": "用于直接在浏览器使用 fetch 方法与服务器交互，目前只支持输入输出皆为 json，返回值为 json 字符串，可以自行转换处理。",
     "NormalTitle": "基础用法",
     "NormalIntro": "模拟登录",
     "NormalB": "特别注意：",
@@ -3228,7 +3228,9 @@
     "GotoTitle": "页面跳转",
     "GotoIntro": "用 <code>Js</code> 实现页面跳转，解决了 <code>Blazor</code> 页面作为 <b>SPA</b> 跳转时不会真正刷新页面的问题",
     "GotoButtonText1": "跳转到文档首页",
-    "GotoButtonText2": "跳转到自己（刷新页面）"
+    "GotoButtonText2": "跳转到自己（刷新页面）",
+    "InvokeAsync": "执行 fetch 方法",
+    "Goto": "执行 goto 方法"
   },
   "BootstrapBlazor.Shared.Samples.Avatars": {
     "Title": "Avatar 头像",

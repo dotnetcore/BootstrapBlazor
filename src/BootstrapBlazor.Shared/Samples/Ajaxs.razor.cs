@@ -28,7 +28,7 @@ public partial class Ajaxs
             Url = "/api/Login",
             Data = new User() { UserName = "admin", Password = "123456" }
         };
-        var result = await AjaxService.GetMessage(option);
+        var result = await AjaxService.InvokeAsync(option);
         if (result == null)
         {
             ResultMessage = "响应失败";
@@ -55,7 +55,7 @@ public partial class Ajaxs
             Url = "/api/Login",
             Data = new User() { UserName = "admin", Password = "1234567" }
         };
-        var result = await AjaxService.GetMessage(option);
+        var result = await AjaxService.InvokeAsync(option);
         if (result == null)
         {
             ResultMessage = "响应失败";
@@ -84,4 +84,26 @@ public partial class Ajaxs
     {
         await AjaxService.Goto("/ajaxs");
     }
+
+    /// <summary>
+    /// 获得属性方法
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerable<MethodItem> GetMethods() => new MethodItem[]
+    {
+        new MethodItem()
+        {
+            Name = "InvokeAsync",
+            Description = Localizer["InvokeAsync"],
+            Parameters = "AjaxOption",
+            ReturnValue = "string"
+        },
+        new MethodItem()
+        {
+            Name = "Goto",
+            Description = Localizer["Goto"],
+            Parameters = "string",
+            ReturnValue = " — "
+        }
+    };
 }

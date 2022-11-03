@@ -178,12 +178,12 @@ public sealed partial class Buttons
     /// <returns></returns>
     private IEnumerable<MethodItem> GetMethods() => new MethodItem[]
     {
-            new MethodItem()
-            {
-                Name = "SetDisable",
-                Description = Localizer["MethodDesc1"],
-                Parameters = "disable",
-                ReturnValue = " — "
-            }
+        new MethodItem()
+        {
+            Name = "SetDisable",
+            Description = Localizer["MethodDesc1"],
+            Parameters = "disable",
+            ReturnValue = " — "
+        }
     };
 }

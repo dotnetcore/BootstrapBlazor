@@ -39,12 +39,6 @@ public class TableFilterTest : BootstrapBlazorTestBase
 
         var filterInstance = cut.FindComponent<TableFilter>();
 
-        // ConfirmByKey
-        cut.InvokeAsync(() => filterInstance.Instance.ConfirmByKey());
-
-        // EscByKey
-        cut.InvokeAsync(() => filterInstance.Instance.EscByKey());
-
         // Reset/Confirm buttons
         // ClickReset
         var buttons = filterInstance.FindAll(".is-close");

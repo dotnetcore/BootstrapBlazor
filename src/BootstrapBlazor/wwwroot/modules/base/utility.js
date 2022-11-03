@@ -120,7 +120,7 @@ const getWindow = node => {
 const addScript = content => {
     // content 文件名
     const links = [...document.getElementsByTagName('script')]
-    var link = links.filter(function (link) {
+    let link = links.filter(function (link) {
         return link.src.indexOf(content) > -1
     })
     if (link.length === 0) {
@@ -132,17 +132,17 @@ const addScript = content => {
 
 const removeScript = content => {
     const links = [...document.getElementsByTagName('script')]
-    var nodes = links.filter(function (link) {
+    const nodes = links.filter(function (link) {
         return link.src.indexOf(content) > -1
     })
-    for (var index = 0; index < nodes.length; index++) {
+    for (let index = 0; index < nodes.length; index++) {
         document.body.removeChild(nodes[index])
     }
 }
 
 const addLink = href => {
     const links = [...document.getElementsByTagName('link')]
-    var link = links.filter(function (link) {
+    let link = links.filter(function (link) {
         return link.href.indexOf(href) > -1
     })
     if (link.length === 0) {
@@ -155,10 +155,10 @@ const addLink = href => {
 
 const removeLink = href => {
     const links = [...document.getElementsByTagName('link')]
-    var nodes = links.filter(function (link) {
+    const nodes = links.filter(function (link) {
         return link.href.indexOf(content) > -1
     })
-    for (var index = 0; index < nodes.length; index++) {
+    for (let index = 0; index < nodes.length; index++) {
         document.getElementsByTagName("head")[0].removeChild(nodes[index])
     }
 }
