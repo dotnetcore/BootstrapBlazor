@@ -185,8 +185,10 @@ public partial class Pagination
     [NotNull]
     public string? LabelString { get; set; }
 
+    private bool _firstRendered;
+
     /// <summary>
-    /// OnInitialized 方法
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
     {
@@ -202,6 +204,17 @@ public partial class Pagination
         TotalInfoText ??= Localizer[nameof(TotalInfoText)];
         SelectItemsText ??= Localizer[nameof(SelectItemsText)];
         LabelString ??= Localizer[nameof(LabelString)];
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="firstRender"></param>
+    protected override void OnAfterRender(bool firstRender)
+    {
+        base.OnAfterRender(firstRender);
+
+        _firstRendered= firstRender;
     }
 
     /// <summary>
@@ -243,7 +256,7 @@ public partial class Pagination
         if (int.TryParse(item.Value, out var pageItems))
         {
             PageItems = pageItems;
-            PageIndex = 1;
+            PageIndex = _firstRendered ? PageIndex : 1;
             if (OnPageItemsChanged != null)
             {
                 await OnPageItemsChanged.Invoke(PageItems);
