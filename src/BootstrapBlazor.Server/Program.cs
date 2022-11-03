@@ -58,7 +58,7 @@ else
     {
         OnPrepareResponse = ctx =>
         {
-            var files = new List<string>() { ".png", ".gif", ".jpg", ".jpeg", ".svg", ".js", ".css" };
+            var files = new List<string>() { ".png", ".gif", ".jpg", ".jpeg", ".svg" };
             var file = Path.GetExtension(ctx.File.PhysicalPath);
             if (files.Any(i => i.Equals(file, StringComparison.OrdinalIgnoreCase)))
             {
