@@ -1,4 +1,5 @@
-﻿import { isElement, getTransitionDurationFromElement, getElementById } from "./index.js"
+﻿import EventHandler from "./event-handler.js"
+import { isElement, getTransitionDurationFromElement, getElementById } from "./index.js"
 
 const vibrate = () => {
     if ('vibrate' in window.navigator) {
@@ -63,6 +64,19 @@ const getTransitionDelayDurationFromElement = (element, delay = 80) => {
     return getTransitionDurationFromElement(element) + delay
 }
 
+const getWidth = (element, self = false) => {
+    let width = element.offsetWidth
+    if (self) {
+        const styles = getComputedStyle(element)
+        const borderLeftWidth = parseFloat(styles.borderLeftWidth)
+        const borderRightWidth = parseFloat(styles.borderRightWidth)
+        const paddingLeft = parseFloat(styles.paddingLeft)
+        const paddingRight = parseFloat(styles.paddingRight)
+        width = width - borderLeftWidth - borderRightWidth - paddingLeft - paddingRight
+    }
+    return width
+}
+
 const getHeight = (element, self = false) => {
     let height = element.offsetHeight
     if (self) {
@@ -75,6 +89,8 @@ const getHeight = (element, self = false) => {
     }
     return height
 }
+
+const getInnerWidth = element => getWidth(element, true)
 
 const getInnerHeight = element => getHeight(element, true)
 
@@ -178,23 +194,69 @@ const setIndeterminate = (object, state) => {
     }
 }
 
+const drag = (element, start, move, end) => {
+    const handleDragStart = e => {
+        e.preventDefault()
+        e.stopPropagation()
+
+        document.addEventListener('mousemove', handleDragMove)
+        document.addEventListener('touchmove', handleDragMove)
+        document.addEventListener('mouseup', handleDragEnd)
+        document.addEventListener('touchend', handleDragEnd)
+
+        if (isFunction(start)) {
+            start(e)
+        }
+    }
+
+    const handleDragMove = e => {
+        if (e.touches && e.touches.length > 1) {
+            return;
+        }
+
+        if (isFunction(move)) {
+            move(e)
+        }
+    }
+
+    const handleDragEnd = e => {
+        if (isFunction(end)) {
+            end(e)
+        }
+
+        const handler = window.setTimeout(() => {
+            window.clearTimeout(handler)
+            document.removeEventListener('mousemove', handleDragMove)
+            document.removeEventListener('touchmove', handleDragMove)
+            document.removeEventListener('mouseup', handleDragEnd)
+            document.removeEventListener('touchend', handleDragEnd)
+        }, 10)
+    }
+
+    EventHandler.on(element, 'mousedown', handleDragStart)
+    EventHandler.on(element, 'touchstart', handleDragStart)
+}
+
 export {
-    vibrate,
-    copy,
-    getDescribedElement,
-    getDescribedOwner,
-    getTargetElement,
-    getTransitionDelayDurationFromElement,
-    getHeight,
-    getInnerHeight,
-    getWindow,
-    getWindowScroll,
-    isFunction,
     addLink,
-    removeLink,
     addScript,
-    removeScript,
+    copy,
+    drag,
     insertBefore,
     insertAfter,
-    setIndeterminate
+    isFunction,
+    getDescribedElement,
+    getDescribedOwner,
+    getHeight,
+    getInnerHeight,
+    getInnerWidth,
+    getWidth,
+    getWindow,
+    getWindowScroll,
+    getTargetElement,
+    getTransitionDelayDurationFromElement,
+    removeLink,
+    removeScript,
+    setIndeterminate,
+    vibrate
 }

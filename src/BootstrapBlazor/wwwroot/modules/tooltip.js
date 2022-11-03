@@ -8,7 +8,8 @@ export class Tooltip extends BlazorComponent {
     }
 
     _init() {
-        this._tooltip = new bootstrap.Tooltip(this._element)
+        const sanitize = this._element.getAttribute('data-bs-sanitize') !== 'false'
+        this._tooltip = new bootstrap.Tooltip(this._element, { sanitize: sanitize })
     }
 
     _dispose() {

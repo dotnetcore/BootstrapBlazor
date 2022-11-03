@@ -1293,7 +1293,7 @@ public class TableTest : TableTestBase
                 });
             });
         });
-        cut.Contains("table-filter");
+        cut.Contains("card filter-item");
     }
 
     [Fact]
@@ -2811,56 +2811,6 @@ public class TableTest : TableTestBase
     }
 
     [Fact]
-    public async Task OnFilterClick_Ok()
-    {
-        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var items = Foo.GenerateFoo(localizer, 2);
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
-        {
-            pb.AddChildContent<Table<Foo>>(pb =>
-            {
-                pb.Add(a => a.RenderMode, TableRenderMode.Table);
-                pb.Add(a => a.Items, items);
-                pb.Add(a => a.TableColumns, foo => builder =>
-                {
-                    builder.OpenComponent<TableColumn<Foo, string>>(0);
-                    builder.AddAttribute(1, "Field", "Name");
-                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
-                    builder.AddAttribute(3, "Filterable", true);
-                    builder.CloseComponent();
-                });
-            });
-        });
-        var row = cut.Find(".fa-filter");
-        await cut.InvokeAsync(() => row.Click());
-        cut.Contains("card table-filter-item shadow show");
-    }
-
-    [Fact]
-    public void OnFilterClick_Null()
-    {
-        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var items = Foo.GenerateFoo(localizer, 2);
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
-        {
-            pb.AddChildContent<MockTable>(pb =>
-            {
-                pb.Add(a => a.RenderMode, TableRenderMode.Table);
-                pb.Add(a => a.Items, items);
-                pb.Add(a => a.TableColumns, foo => builder =>
-                {
-                    builder.OpenComponent<TableColumn<Foo, string>>(0);
-                    builder.AddAttribute(1, "Field", "Name");
-                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
-                    builder.CloseComponent();
-                });
-            });
-        });
-        var table = cut.FindComponent<MockTable>();
-        table.Instance.OnFilterClick();
-    }
-
-    [Fact]
     public async Task SaveAsync_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
@@ -3586,7 +3536,7 @@ public class TableTest : TableTestBase
                 pb.Add(a => a.IsKeyboard, true);
                 pb.Add(a => a.ShowLoading, false);
                 pb.Add(a => a.UseComponentWidth, true);
-                pb.Add(a => a.RenderModeResponsiveWidth, 768);
+                pb.Add(a => a.RenderModeResponsiveWidth, BreakPoint.Medium);
                 pb.Add(a => a.SetRowClassFormatter, foo => "test_row_class");
                 pb.Add(a => a.TableColumns, foo => builder =>
                 {
@@ -5147,13 +5097,13 @@ public class TableTest : TableTestBase
         });
 
         var table = cut.FindComponent<MockTable>();
-        Assert.True(table.Instance.TestCheckShownWithBreakpoint(BreakPoint.Small, 1500));
-        Assert.True(table.Instance.TestCheckShownWithBreakpoint(BreakPoint.Medium, 1500));
-        Assert.True(table.Instance.TestCheckShownWithBreakpoint(BreakPoint.Large, 1500));
-        Assert.True(table.Instance.TestCheckShownWithBreakpoint(BreakPoint.ExtraLarge, 1500));
-        Assert.True(table.Instance.TestCheckShownWithBreakpoint(BreakPoint.ExtraExtraLarge, 1500));
-        Assert.True(table.Instance.TestCheckShownWithBreakpoint(BreakPoint.ExtraSmall, 1500));
-        Assert.True(table.Instance.TestCheckShownWithBreakpoint(BreakPoint.None, 1500));
+        Assert.True(table.Instance.TestCheckShownWithBreakpoint(BreakPoint.Small, BreakPoint.ExtraExtraLarge));
+        Assert.True(table.Instance.TestCheckShownWithBreakpoint(BreakPoint.Medium, BreakPoint.ExtraExtraLarge));
+        Assert.True(table.Instance.TestCheckShownWithBreakpoint(BreakPoint.Large, BreakPoint.ExtraExtraLarge));
+        Assert.True(table.Instance.TestCheckShownWithBreakpoint(BreakPoint.ExtraLarge, BreakPoint.ExtraExtraLarge));
+        Assert.True(table.Instance.TestCheckShownWithBreakpoint(BreakPoint.ExtraExtraLarge, BreakPoint.ExtraExtraLarge));
+        Assert.True(table.Instance.TestCheckShownWithBreakpoint(BreakPoint.ExtraSmall, BreakPoint.ExtraExtraLarge));
+        Assert.True(table.Instance.TestCheckShownWithBreakpoint(BreakPoint.None, BreakPoint.ExtraExtraLarge));
     }
 
     [Fact]
@@ -5901,22 +5851,21 @@ public class TableTest : TableTestBase
     {
         public TableRenderMode ShouldBeTable()
         {
-            ScreenSize = 10;
-            RenderModeResponsiveWidth = 5;
+            ScreenSize = BreakPoint.Large;
+            RenderModeResponsiveWidth = BreakPoint.Medium;
             RenderMode = TableRenderMode.Auto;
             return base.ActiveRenderMode;
         }
 
         public TableRenderMode ShouldBeCardView()
         {
-            // ScreenSize < RenderModeResponsiveWidth ? TableRenderMode.CardView : TableRenderMode.Table
-            ScreenSize = 1;
-            RenderModeResponsiveWidth = 5;
+            ScreenSize = BreakPoint.ExtraSmall;
+            RenderModeResponsiveWidth = BreakPoint.Medium;
             RenderMode = TableRenderMode.Auto;
             return base.ActiveRenderMode;
         }
 
-        public bool TestCheckShownWithBreakpoint(BreakPoint point, decimal screenSize)
+        public bool TestCheckShownWithBreakpoint(BreakPoint point, BreakPoint screenSize)
         {
             var col = new AutoGenerateColumnAttribute() { ShownWithBreakPoint = point };
             ScreenSize = screenSize;
@@ -5928,12 +5877,6 @@ public class TableTest : TableTestBase
             var col = Columns[0];
             callback(col);
             return RenderCell(col, item, changedType);
-        }
-
-        public void OnFilterClick()
-        {
-            var col = Columns[0];
-            OnFilterClick(col);
         }
 
         public async Task TestLoopQueryAsync()

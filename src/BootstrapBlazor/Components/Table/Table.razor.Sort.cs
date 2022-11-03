@@ -20,22 +20,31 @@ public partial class Table<TItem>
     protected SortOrder SortOrder { get; set; }
 
     /// <summary>
-    /// 获得/设置 升序图标
+    /// 获得/设置 升序图标 fa-solid fa-sort-up
     /// </summary>
     [Parameter]
-    public string SortIconAsc { get; set; } = "fa-solid fa-sort-up";
+    [NotNull]
+    public string? SortIconAsc { get; set; }
 
     /// <summary>
-    /// 获得/设置 降序图标
+    /// 获得/设置 降序图标 fa-solid fa-sort-down
     /// </summary>
     [Parameter]
-    public string SortIconDesc { get; set; } = "fa-solid fa-sort-down";
+    [NotNull]
+    public string? SortIconDesc { get; set; }
 
     /// <summary>
-    /// 获得/设置 默认图标
+    /// 获得/设置 默认图标 fa-solid fa-sort
     /// </summary>
     [Parameter]
-    public string SortIcon { get; set; } = "fa-solid fa-sort";
+    [NotNull]
+    public string? SortIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 过滤图标 默认 fa-solid fa-filter
+    /// </summary>
+    [Parameter]
+    public string? FilterIcon { get; set; }
 
     /// <summary>
     /// 获得/设置 多列排序顺序 默认为空 多列时使用逗号分割 如："Name, Age desc"
@@ -60,6 +69,8 @@ public partial class Table<TItem>
     /// </summary>
     protected Func<Task> OnClickHeader(ITableColumn col) => async () =>
     {
+        UpdateSortTooltip = true;
+
         if (SortOrder == SortOrder.Unset)
         {
             SortOrder = SortOrder.Asc;
@@ -249,7 +260,7 @@ public partial class Table<TItem>
     /// 获取指定列头样式字符串
     /// </summary>
     /// <returns></returns>
-    protected string? GetIconClassString(string fieldName) => CssBuilder.Default("table-sort-icon")
+    protected string? GetIconClassString(string fieldName) => CssBuilder.Default("sort-icon")
         .AddClass(SortIcon, SortName != fieldName || SortOrder == SortOrder.Unset)
         .AddClass(SortIconAsc, SortName == fieldName && SortOrder == SortOrder.Asc)
         .AddClass(SortIconDesc, SortName == fieldName && SortOrder == SortOrder.Desc)

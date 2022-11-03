@@ -1,5 +1,5 @@
 ﻿@namespace BootstrapBlazor.Components
-@inherits BootstrapComponentBase
+@inherits BootstrapModuleComponentBase
 
 @if (IsHeaderRow)
 {
@@ -7,24 +7,27 @@
 }
 else
 {
-    <div @attributes="@AdditionalAttributes" class="@ClassString" data-field="@FieldKey" @ref="@FilterElement">
-        <div class="card-arrow"></div>
-        <div class="card-header"><span>@Title</span></div>
-        <div class="card-body">
-            @RenderFilter(Column)
-        </div>
-        <div class="card-footer">
-            <div class="d-flex flex-fill">
-                @if (ShowMoreButton)
-                {
-                    <Button Color="Color.None" OnClick="OnClickPlus" Icon="fa-fw fa-solid fa-plus" IsDisabled="@(Count == 1)"></Button>
-                    <Button Color="Color.None" OnClick="OnClickMinus" Icon="fa-fw fa-solid fa-minus" IsDisabled="@(Count == 0)"></Button>
-                }
+    <span @attributes="@AdditionalAttributes" id="@Id" class="@ClassString" data-bb-dismiss=".filter-dismiss">
+        <i class="@FilterClassString" data-bs-placement="bottom" data-bs-auto-close="outside" data-bs-toggle="bb.dropdown" data-bs-custom-class="shadow">
+        </i>
+        <div class="card filter-item">
+            <div class="card-header"><span>@Title</span></div>
+            <div class="card-body">
+                @RenderFilter(Column)
             </div>
-            <Button Color="Color.None" class="is-close" OnClick="OnClickReset" Text="@ClearButtonText"></Button>
-            <Button Color="Color.None" class="is-close" OnClick="OnClickConfirm" Text="@FilterButtonText"></Button>
+            <div class="card-footer">
+                <div class="d-flex flex-fill">
+                    @if (ShowMoreButton)
+                    {
+                        <Button Color="Color.None" OnClick="OnClickPlus" Icon="fa-fw fa-solid fa-plus" IsDisabled="@(Count == 1)"></Button>
+                        <Button Color="Color.None" OnClick="OnClickMinus" Icon="fa-fw fa-solid fa-minus" IsDisabled="@(Count == 0)"></Button>
+                    }
+                </div>
+                <Button Color="Color.None" class="filter-dismiss" OnClick="OnClickReset" Text="@ClearButtonText"></Button>
+                <Button Color="Color.None" class="filter-dismiss" OnClick="OnClickConfirm" Text="@FilterButtonText"></Button>
+            </div>
         </div>
-    </div>
+    </span>
 }
 
 @code {

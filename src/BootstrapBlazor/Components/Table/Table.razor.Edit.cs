@@ -49,7 +49,7 @@ public partial class Table<TItem>
     /// <summary>
     /// 获得/设置 客户端屏幕宽度
     /// </summary>
-    protected decimal ScreenSize { get; set; }
+    protected BreakPoint ScreenSize { get; set; }
 
     /// <summary>
     /// 获得/设置 组件渲染模式是否使用组件宽度来判断 默认为 false
@@ -73,7 +73,7 @@ public partial class Table<TItem>
     /// 获得/设置 组件布局自适应切换阈值 默认为 768
     /// </summary>
     [Parameter]
-    public decimal RenderModeResponsiveWidth { get; set; } = 768;
+    public BreakPoint RenderModeResponsiveWidth { get; set; } = BreakPoint.Medium;
 
     /// <summary>
     /// 获得/设置 编辑弹框是否 Body 出现滚动条 默认 false
@@ -348,7 +348,7 @@ public partial class Table<TItem>
         else
         {
             await InternalToggleLoading(true);
-            if(pageIndex.HasValue)
+            if (pageIndex.HasValue)
             {
                 PageIndex = pageIndex.Value;
             }
@@ -378,7 +378,7 @@ public partial class Table<TItem>
         if (ShowLoading)
         {
             IsLoading = state;
-            await JSRuntime.InvokeVoidAsync(TableElement, "bb_table_load", state ? "show" : "hide");
+            await InvokeExecuteAsync(Id, "load", state ? "show" : "hide");
         }
     }
 
@@ -391,7 +391,7 @@ public partial class Table<TItem>
     {
         if (ShowLoading && !IsLoading)
         {
-            await JSRuntime.InvokeVoidAsync(TableElement, "bb_table_load", state ? "show" : "hide");
+            await InvokeExecuteAsync(Id, "load", state ? "show" : "hide");
         }
     }
 

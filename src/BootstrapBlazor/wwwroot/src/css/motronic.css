@@ -430,7 +430,7 @@
         box-shadow: none;
     }
 
-.table-filter .table-filter-item {
+.table-filter .filter-item {
     border-color: var(--bs-secondary);
 }
 

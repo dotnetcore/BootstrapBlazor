@@ -14,7 +14,8 @@ namespace BootstrapBlazor.Components;
 #if NET6_0_OR_GREATER
 [CascadingTypeParameter(nameof(TItem))]
 #endif
-public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable where TItem : class, new()
+[JSModuleAutoLoader(JSObjectReference = true)]
+public partial class Table<TItem> : ITable where TItem : class, new()
 {
     /// <summary>
     /// 获得/设置 内置虚拟化组件实例
@@ -110,6 +111,15 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
     private string? ExtendButtonsCellClassString => CssBuilder.Default("table-cell")
         .AddClass(ExtendButtonColumnAlignment.ToDescriptionString())
         .Build();
+
+    private string? GetSortTooltip(ITableColumn col) => SortName != col.GetFieldName()
+        ? UnsetText
+        : SortOrder switch
+        {
+            SortOrder.Asc => SortAscText,
+            SortOrder.Desc => SortDescText,
+            _ => UnsetText
+        };
 
     private static string? GetColspan(int colspan) => colspan > 1 ? colspan.ToString() : null;
 
@@ -234,6 +244,16 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
     [Inject]
     [NotNull]
     private ILookupService? LookupService { get; set; }
+
+    private Task OnBreakPointChanged(BreakPoint size)
+    {
+        if (size != ScreenSize)
+        {
+            ScreenSize = size;
+            StateHasChanged();
+        }
+        return Task.CompletedTask;
+    }
 
     private bool ShowDetails() => IsDetails == null
         ? DetailRowTemplate != null
@@ -470,6 +490,8 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
     [Parameter]
     public Func<TItem, TItem, bool>? ModelEqualityComparer { get; set; }
 
+    private bool UpdateSortTooltip { get; set; }
+
     /// <summary>
     /// OnInitialized 方法
     /// </summary>
@@ -562,6 +584,11 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
         {
             LineNoColumnAlignment = Alignment.Center;
         }
+
+        SortIconAsc ??= "fa-solid fa-sort-up";
+        SortIconDesc ??= "fa-solid fa-sort-down";
+        SortIcon ??= "fa-solid fa-sort";
+        FilterIcon ??= "fa-solid fa-filter";
     }
 
     /// <summary>
@@ -619,18 +646,14 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
     /// <param name="firstRender"></param>
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
+        await base.OnAfterRenderAsync(firstRender);
+
         if (firstRender)
         {
+            IsLoading = true;
+
             // 设置渲染完毕
             FirstRender = false;
-
-            if (ShowSearch)
-            {
-                // 注册 SeachBox 回调事件
-                await Interop.InvokeVoidAsync(this, TableElement, "bb_table_search", nameof(OnSearch), nameof(OnClearSearch));
-            }
-
-            ScreenSize = await JSRuntime.InvokeAsync<decimal>(TableElement, "bb_table_width", UseComponentWidth);
 
             // 动态列模式
             if (DynamicContext != null && typeof(TItem).IsAssignableTo(typeof(IDynamicObject)))
@@ -669,6 +692,8 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
 
             // 设置 init 执行客户端脚本
             _init = true;
+
+            IsLoading = false;
         }
 
         if (!OnAfterRenderIsTriggered && OnAfterRenderCallback != null)
@@ -680,12 +705,13 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
         if (_init)
         {
             _init = false;
+            await InvokeVoidAsync("init", Id);
+        }
 
-            // 此处代码防止快速切换页面导致 Table 未渲染完毕异步加载 Interop 被销毁时导致空引用问题
-            if (Interop != null)
-            {
-                await Interop.InvokeVoidAsync(this, TableElement, "bb_table", "init", new { unset = UnsetText, sortAsc = SortAscText, sortDesc = SortDescText });
-            }
+        if (UpdateSortTooltip)
+        {
+            UpdateSortTooltip = false;
+            await InvokeExecuteAsync(Id, "sort");
         }
 
         // 增加去重保护 _loop 为 false 时执行
@@ -696,6 +722,12 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
             _loop = false;
         }
     }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    protected override async Task ModuleInitAsync() => ScreenSize = await InvokeAsync<BreakPoint>("getResponsive");
 
     private void InternalResetVisibleColumns(IEnumerable<ColumnVisibleItem> columns)
     {
@@ -743,15 +775,7 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
     /// </summary>
     /// <param name="col"></param>
     /// <returns></returns>
-    protected bool CheckShownWithBreakpoint(ITableColumn col) => col.ShownWithBreakPoint switch
-    {
-        BreakPoint.Small => ScreenSize >= 576,
-        BreakPoint.Medium => ScreenSize >= 768,
-        BreakPoint.Large => ScreenSize >= 992,
-        BreakPoint.ExtraLarge => ScreenSize >= 1200,
-        BreakPoint.ExtraExtraLarge => ScreenSize >= 1400,
-        _ => true
-    };
+    protected bool CheckShownWithBreakpoint(ITableColumn col) => ScreenSize >= col.ShownWithBreakPoint;
 
     /// <summary>
     /// OnQueryAsync 查询结果数据集合
@@ -862,7 +886,6 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
             if (col.ShowTips && !string.IsNullOrEmpty(text))
             {
                 pb.OpenComponent<Tooltip>(0);
-                pb.SetKey(item);
                 pb.AddAttribute(1, nameof(Tooltip.Title), text);
                 pb.AddAttribute(2, nameof(Tooltip.ChildContent), RenderContent());
                 pb.CloseComponent();
@@ -975,13 +998,6 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
 
     #region Filter
     /// <summary>
-    /// 获得 过滤小图标样式
-    /// </summary>
-    protected string? GetFilterClassString(string fieldName) => CssBuilder.Default("table-filter-icon fa-fw fa-solid fa-filter")
-        .AddClass("active", Filters.ContainsKey(fieldName))
-        .Build();
-
-    /// <summary>
     /// 获得/设置 表头过滤时回调方法
     /// </summary>
     [NotNull]
@@ -991,12 +1007,6 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
     /// 获得 过滤集合
     /// </summary>
     public Dictionary<string, IFilterAction> Filters { get; } = new();
-
-    /// <summary>
-    /// 点击 过滤小图标方法
-    /// </summary>
-    /// <param name="col"></param>
-    protected void OnFilterClick(ITableColumn col) => col.Filter?.Show();
     #endregion
 
     private async ValueTask<ItemsProviderResult<TItem>> LoadItems(ItemsProviderRequest request)

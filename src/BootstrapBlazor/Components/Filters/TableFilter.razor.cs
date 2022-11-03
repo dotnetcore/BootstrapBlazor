@@ -9,22 +9,34 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// TableFilter 基类
 /// </summary>
-public partial class TableFilter : IFilter, IDisposable
+[JSModuleAutoLoader("table-filter")]
+public partial class TableFilter : IFilter
 {
-    private JSInterop<TableFilter>? Interop { get; set; }
+    /// <summary>
+    /// 获得 过滤小图标样式
+    /// </summary>
+    private string? FilterClassString => CssBuilder.Default(Icon)
+        .AddClass("active", IsActive)
+        .Build();
 
     /// <summary>
     /// 获得 样式
     /// </summary>
-    private string? ClassString => CssBuilder.Default("card table-filter-item shadow")
-        .AddClass("show", IsShow)
+    private string? ClassString => CssBuilder.Default("filter-icon")
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
     /// <summary>
-    /// 获得/设置 DOM 实例
+    /// 获得/设置 是否 active
     /// </summary>
-    private ElementReference FilterElement { get; set; }
+    [Parameter]
+    public bool IsActive { get; set; }
+
+    /// <summary>
+    /// 获得/设置 过滤图标
+    /// </summary>
+    [Parameter]
+    public string? Icon { get; set; }
 
     /// <summary>
     /// 获得/设置 Header 显示文字
@@ -35,12 +47,8 @@ public partial class TableFilter : IFilter, IDisposable
     /// <summary>
     /// 获得/设置 相关 Field 字段名称
     /// </summary>
-    internal string FieldKey { get; set; } = "";
-
-    /// <summary>
-    /// 获得/设置 是否显示
-    /// </summary>
-    private bool IsShow { get; set; }
+    [NotNull]
+    internal string? FieldKey { get; set; }
 
     /// <summary>
     /// 获得/设置 条件数量
@@ -96,8 +104,8 @@ public partial class TableFilter : IFilter, IDisposable
     /// <summary>
     /// 获得/设置 Table Header 实例
     /// </summary>
-    [CascadingParameter]
-    private ITable? Table { get; set; }
+    [Parameter]
+    public ITable? Table { get; set; }
 
     [Inject]
     [NotNull]
@@ -106,15 +114,11 @@ public partial class TableFilter : IFilter, IDisposable
     private string? Step => Column.Step?.ToString() ?? "0.01";
 
     /// <summary>
-    /// OnInitialized 方法
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
     {
         base.OnInitialized();
-
-        Title ??= Localizer[nameof(Title)];
-        FilterButtonText ??= Localizer[nameof(FilterButtonText)];
-        ClearButtonText ??= Localizer[nameof(ClearButtonText)];
 
         Title = Column.GetDisplayName();
         FieldKey = Column.GetFieldName();
@@ -122,67 +126,26 @@ public partial class TableFilter : IFilter, IDisposable
     }
 
     /// <summary>
-    /// OnAfterRenderAsync 方法
+    /// <inheritdoc/>
     /// </summary>
-    /// <param name="firstRender"></param>
-    /// <returns></returns>
-    protected override async Task OnAfterRenderAsync(bool firstRender)
+    protected override void OnParametersSet()
     {
-        await base.OnAfterRenderAsync(firstRender);
+        base.OnParametersSet();
 
-        if (firstRender)
-        {
-            Interop = new JSInterop<TableFilter>(JSRuntime);
-            await Interop.InvokeVoidAsync(this, FilterElement, "bb_filter", nameof(Close));
-        }
+        Title ??= Localizer[nameof(Title)];
+        FilterButtonText ??= Localizer[nameof(FilterButtonText)];
+        ClearButtonText ??= Localizer[nameof(ClearButtonText)];
     }
 
     /// <summary>
-    /// 显示弹窗方法
+    /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    public void Show()
+    protected override async Task ModuleInitAsync()
     {
-        if (!IsShow)
+        if (!IsHeaderRow)
         {
-            IsShow = true;
-        }
-    }
-
-    /// <summary>
-    /// 客户端 JS 调用关闭 TableFilter 弹窗
-    /// </summary>
-    [JSInvokable]
-    public void Close()
-    {
-        if (IsShow)
-        {
-            IsShow = false;
-            StateHasChanged();
-        }
-    }
-
-    /// <summary>
-    /// 客户端 JS 回车按键事件调用
-    /// </summary>
-    [JSInvokable]
-    public async Task ConfirmByKey()
-    {
-        if (IsShow)
-        {
-            await OnClickConfirm();
-        }
-    }
-
-    /// <summary>
-    /// 客户端 JS ESC 按键事件调用
-    /// </summary>
-    [JSInvokable]
-    public async Task EscByKey()
-    {
-        if (IsShow)
-        {
-            await OnClickReset();
+            await base.ModuleInitAsync();
         }
     }
 
@@ -192,17 +155,13 @@ public partial class TableFilter : IFilter, IDisposable
     /// <returns></returns>
     private async Task OnClickReset()
     {
-        if (IsShow)
-        {
-            IsShow = false;
-            Count = 0;
+        Count = 0;
 
-            if (Table != null)
-            {
-                Table.Filters.Remove(FieldKey);
-                FilterAction.Reset();
-                await Table.OnFilterAsync();
-            }
+        if (Table != null)
+        {
+            Table.Filters.Remove(FieldKey);
+            FilterAction.Reset();
+            await Table.OnFilterAsync();
         }
     }
 
@@ -212,15 +171,11 @@ public partial class TableFilter : IFilter, IDisposable
     /// <returns></returns>
     private async Task OnClickConfirm()
     {
-        if (IsShow)
-        {
-            IsShow = false;
-            await OnFilterAsync();
-        }
+        await OnFilterAsync();
     }
 
     /// <summary>
-    /// 
+    /// 过滤数据方法
     /// </summary>
     /// <returns></returns>
     internal async Task OnFilterAsync()
@@ -261,31 +216,5 @@ public partial class TableFilter : IFilter, IDisposable
         {
             Count--;
         }
-    }
-
-    /// <summary>
-    /// Dispose 方法
-    /// </summary>
-    /// <param name="disposing"></param>
-    protected virtual void Dispose(bool disposing)
-    {
-
-        if (disposing)
-        {
-            if (Interop != null)
-            {
-                Interop.Dispose();
-                Interop = null;
-            }
-        }
-    }
-
-    /// <summary>
-    /// Dispose 方法
-    /// </summary>
-    public void Dispose()
-    {
-        Dispose(true);
-        GC.SuppressFinalize(this);
     }
 }

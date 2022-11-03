@@ -234,7 +234,7 @@
     "NotSetOnTreeExpandErrorMessage": "not set OnTreeExpand parameter",
     "UnsetText": "Asc",
     "SortAscText": "Desc",
-    "SortDescText": "None",
+    "SortDescText": "Unset",
     "EmptyText": "No Data",
     "ExportToastTitle": "Export",
     "ExportToastContent": "Export data {0}, auto close after {1}s",

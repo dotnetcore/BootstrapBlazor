@@ -1,8 +1,8 @@
 ﻿@namespace BootstrapBlazor.Components
 @typeparam TItem
-@inherits BootstrapComponentBase
+@inherits BootstrapModuleComponentBase
 
-<div @attributes="@AdditionalAttributes" class="@ClassName" style="@StyleString" @ref="TableElement">
+<div @attributes="@AdditionalAttributes" class="@ClassName" style="@StyleString" id="@Id" @ref="TableElement">
     <CascadingValue Value="this" IsFixed="true">
         @TableColumns?.Invoke(new TItem())
     </CascadingValue>
@@ -68,8 +68,8 @@
                     }
                     @if (ShowColumnList)
                     {
-                        <div class="btn-group btn-col" role="group">
-                            <button class="btn btn-secondary dropdown-toggle" data-bs-auto-close="false" data-bs-toggle="dropdown" type="button" title="@ColumnButtonTitleText">
+                        <div class="btn-group" role="group">
+                            <button class="btn btn-secondary dropdown-toggle" data-bs-auto-close="outside" data-bs-toggle="dropdown" type="button" title="@ColumnButtonTitleText">
                                 <i class="fa-solid fa-table-list"></i>
                                 <span class="d-none d-sm-inline-block">@ColumnButtonText</span>
                                 <span class="caret"></span>
@@ -259,22 +259,6 @@
             }
         </div>
 
-        @if (ActiveRenderMode == TableRenderMode.Table && !ShowFilterHeader)
-        {
-            if (FilterColumns == null) FilterColumns = Columns.Where(i => i.Filterable);
-            if (FilterColumns.Any())
-            {
-                <CascadingValue Value="this" IsFixed="true">
-                    <div class="table-filter">
-                        @foreach (var col in FilterColumns)
-                        {
-                            <TableFilter Column="col" />
-                        }
-                    </div>
-                </CascadingValue>
-            }
-        }
-
         @if (!ShowTopPagination && TotalCount > 0 && IsPagination)
         {
             <div class="table-pagination">
@@ -284,6 +268,11 @@
         <div class="table-loader">
             <Spinner Color="Color.Primary" />
         </div>
+
+        @if (RenderMode == TableRenderMode.Auto)
+        {
+            <Responsive OnBreakPointChanged="OnBreakPointChanged" />
+        }
     }
 </div>
 
@@ -488,13 +477,19 @@ RenderFragment<bool> RenderHeader => hasScroll =>
                             {
                                 @col.HeaderTemplate(col)
                             }
+                            else if(col.Sortable)
+                            {
+                                <Tooltip class="@GetHeaderTextClassString(col)" Title="@GetSortTooltip(col)" Trigger="hover">
+                                    <span>@displayName</span>
+                                </Tooltip>
+                            }
                             else
                             {
                                 <span class="@GetHeaderTextClassString(col)">@displayName</span>
                             }
                             @if (col.Filterable && !ShowFilterHeader)
                             {
-                                <i class="@GetFilterClassString(fieldName)" data-field="@fieldName" @onclick:stopPropagation @onclick="() => OnFilterClick(col)"></i>
+                                <TableFilter Icon="@FilterIcon" Column="col" Table="this" IsActive="@Filters.ContainsKey(fieldName)" @onclick:stopPropagation />
                             }
                             @if (col.Sortable)
                             {
@@ -557,7 +552,7 @@ RenderFragment<bool> RenderHeader => hasScroll =>
                                 @if(col.Filterable)
                                 {
                                     <TableFilter Column="col" IsHeaderRow="true" />
-                                }                             
+                                }
                             </div>
                         </th>
                     }
@@ -853,12 +848,18 @@ RenderFragment RenderSearch =>
             @if (ShowSearchText)
             {
                 <div class="input-group">
-                    <BootstrapInput class="table-toolbar-search" placeholder="@SearchPlaceholderText" @bind-Value="@SearchText">
-                        @if (ShowSearchTextTooltip)
-                        {
-                            <Tooltip Placement="Placement.Top" Title="@SearchTooltip" IsHtml="true" />
-                        }
-                    </BootstrapInput>
+                    @if (ShowSearchTextTooltip)
+                    {
+                        <Tooltip Placement="Placement.Top" Title="@SearchTooltip" Sanitize="false" IsHtml="true">
+                            <BootstrapInput class="table-toolbar-search" placeholder="@SearchPlaceholderText" @bind-Value="@SearchText">
+                            </BootstrapInput>
+                        </Tooltip>
+                    }
+                    else
+                    {
+                        <BootstrapInput class="table-toolbar-search" placeholder="@SearchPlaceholderText" @bind-Value="@SearchText">
+                        </BootstrapInput>
+                    }
                     @if (ShowResetButton)
                     {
                         <Button Color="Color.Secondary" Icon="fa-solid fa-trash-can" OnClickWithoutRender="ClearSearchClick">

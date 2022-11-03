@@ -178,7 +178,7 @@ public abstract class BootstrapModuleComponentBase : IdComponentBase, IAsyncDisp
     /// <param name="identifier"></param>
     /// <param name="args"></param>
     /// <returns></returns>
-    protected Task InvokeAsync<TValue>(string identifier, params object?[]? args) => InvokeAsync<TValue>(identifier, CancellationToken.None, args);
+    protected Task<TValue?> InvokeAsync<TValue>(string identifier, params object?[]? args) => InvokeAsync<TValue?>(identifier, CancellationToken.None, args);
 
     /// <summary>
     /// call javascript method
@@ -187,12 +187,14 @@ public abstract class BootstrapModuleComponentBase : IdComponentBase, IAsyncDisp
     /// <param name="timeout"></param>
     /// <param name="args"></param>
     /// <returns></returns>
-    protected async Task InvokeAsync<TValue>(string identifier, TimeSpan timeout, params object?[]? args)
+    protected async Task<TValue?> InvokeAsync<TValue>(string identifier, TimeSpan timeout, params object?[]? args)
     {
+        TValue? ret = default;
         if (Module != null)
         {
-            await Module.InvokeAsync<TValue>($"{ModuleName}.{identifier}", timeout, args);
+            ret = await Module.InvokeAsync<TValue>($"{ModuleName}.{identifier}", timeout, args);
         }
+        return ret;
     }
 
     /// <summary>
@@ -202,12 +204,14 @@ public abstract class BootstrapModuleComponentBase : IdComponentBase, IAsyncDisp
     /// <param name="cancellationToken"></param>
     /// <param name="args"></param>
     /// <returns></returns>
-    protected async Task InvokeAsync<TValue>(string identifier, CancellationToken cancellationToken = default, params object?[]? args)
+    protected async Task<TValue?> InvokeAsync<TValue>(string identifier, CancellationToken cancellationToken = default, params object?[]? args)
     {
+        TValue? ret = default;
         if (Module != null)
         {
-            await Module.InvokeAsync<TValue>($"{ModuleName}.{identifier}", cancellationToken, args);
+            ret = await Module.InvokeAsync<TValue>($"{ModuleName}.{identifier}", cancellationToken, args);
         }
+        return ret;
     }
 
     /// <summary>
