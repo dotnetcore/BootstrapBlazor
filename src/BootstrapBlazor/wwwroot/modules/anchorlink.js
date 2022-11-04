@@ -1,6 +1,6 @@
 ﻿import EventHandler from "./base/event-handler.js";
 import BlazorComponent from "./base/blazor-component.js";
-import { copy } from "./base/utility.js";
+import { copy } from "./base/utility.js?v20221104";
 
 export class AnchorLink extends BlazorComponent {
     _init() {

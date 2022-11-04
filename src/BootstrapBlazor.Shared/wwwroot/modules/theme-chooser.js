@@ -1,6 +1,6 @@
 ﻿import BlazorComponent from "../../../_content/BootstrapBlazor/modules/base/blazor-component.js"
 import EventHandler from "../../../_content/BootstrapBlazor/modules/base/event-handler.js"
-import { insertAfter } from "../../../_content/BootstrapBlazor/modules/base/utility.js"
+import { insertAfter } from "../../../_content/BootstrapBlazor/modules/base/utility.js?v20221104"
 
 export class ThemeChooser extends BlazorComponent {
     _init() {

@@ -1,6 +1,6 @@
 ﻿import BlazorComponent from "../../../_content/BootstrapBlazor/modules/base/blazor-component.js"
 import EventHandler from "../../../_content/BootstrapBlazor/modules/base/event-handler.js"
-import { copy, getDescribedElement, addLink, addScript } from "../../../_content/BootstrapBlazor/modules/base/utility.js"
+import { copy, getDescribedElement, addLink, addScript } from "../../../_content/BootstrapBlazor/modules/base/utility.js?v20221104"
 
 export class Pre extends BlazorComponent {
     _init() {

@@ -1,5 +1,5 @@
 ﻿import BlazorComponent from "./base/blazor-component.js";
-import { getTargetElement, getTransitionDelayDurationFromElement } from "./base/utility.js"
+import { getTargetElement, getTransitionDelayDurationFromElement } from "./base/utility.js?v20221104"
 
 export class Menu extends BlazorComponent {
     _init() {
