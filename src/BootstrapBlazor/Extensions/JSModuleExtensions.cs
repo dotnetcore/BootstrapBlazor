@@ -18,7 +18,7 @@ public static class JSModuleExtensions
     /// <returns></returns>
     public static async Task<JSModule> LoadModule(this IJSRuntime jsRuntime, string fileName, bool relative = true)
     {
-        var filePath = relative ? $"./_content/BootstrapBlazor/modules/{fileName}.js" : fileName;
+        var filePath = relative ? $"./_content/BootstrapBlazor/modules/{fileName}.js?v=1" : fileName;
         var jSObjectReference = await jsRuntime.InvokeAsync<IJSObjectReference>(identifier: "import", filePath);
         return new JSModule(jSObjectReference);
     }
