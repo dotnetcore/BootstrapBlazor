@@ -1,5 +1,5 @@
-﻿import BlazorComponent from "./base/blazor-component.js";
-import EventHandler from "./base/event-handler.js";
+﻿import BlazorComponent from "./base/blazor-component.js"
+import EventHandler from "./base/event-handler.js"
 
 export class Carousel extends BlazorComponent {
     _init() {

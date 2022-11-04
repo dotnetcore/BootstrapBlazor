@@ -1,6 +1,6 @@
-﻿import DropdownBase from "./base/base-dropdown.js?v20221104"
+﻿import DropdownBase from "./base/base-dropdown.js"
 import EventHandler from "./base/event-handler.js"
-import { getHeight, getInnerHeight } from "./base/utility.js?v20221104"
+import { getHeight, getInnerHeight } from "./base/utility.js"
 
 export class Select extends DropdownBase {
     _init() {

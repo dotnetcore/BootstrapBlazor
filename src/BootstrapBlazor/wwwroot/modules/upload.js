@@ -1,6 +1,6 @@
 ﻿import EventHandler from "./base/event-handler.js"
 import BlazorComponent from "./base/blazor-component.js"
-import { getElement } from "./base/index.js";
+import { getElement } from "./base/index.js"
 
 export class Upload extends BlazorComponent {
     static get Default() {

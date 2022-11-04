@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using BootstrapBlazor.Server.Extensions;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Options;
@@ -54,18 +55,7 @@ else
 {
     app.UseExceptionHandler("/Error");
     app.UseResponseCompression();
-    app.UseStaticFiles(new StaticFileOptions
-    {
-        OnPrepareResponse = ctx =>
-        {
-            var files = new List<string>() { ".png", ".gif", ".jpg", ".jpeg", ".svg" };
-            var file = Path.GetExtension(ctx.File.PhysicalPath);
-            if (files.Any(i => i.Equals(file, StringComparison.OrdinalIgnoreCase)))
-            {
-                ctx.Context.Response.Headers[HeaderNames.CacheControl] = "public, max-age=8640000";
-            }
-        }
-    });
+    app.UseStaticFiles(new StaticFileOptions { OnPrepareResponse = ctx => ctx.ProcessCache(app.Configuration) });
 }
 
 app.UseStaticFiles();

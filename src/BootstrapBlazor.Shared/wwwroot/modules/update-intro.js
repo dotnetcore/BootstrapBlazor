@@ -1,5 +1,5 @@
-﻿import BlazorComponent from "../../../_content/BootstrapBlazor/modules/base/blazor-component.js";
-import EventHandler from "../../../_content/BootstrapBlazor/modules/base/event-handler.js";
+﻿import BlazorComponent from "../../../_content/BootstrapBlazor/modules/base/blazor-component.js"
+import EventHandler from "../../../_content/BootstrapBlazor/modules/base/event-handler.js"
 
 export class UpdateIntro extends BlazorComponent {
     _init() {

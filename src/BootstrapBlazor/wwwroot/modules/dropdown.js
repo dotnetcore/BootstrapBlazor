@@ -1,4 +1,4 @@
-﻿import DropdownBase from "./base/base-dropdown.js?v20221104"
+﻿import DropdownBase from "./base/base-dropdown.js"
 import EventHandler from "./base/event-handler.js"
 
 export class Dropdown extends DropdownBase {

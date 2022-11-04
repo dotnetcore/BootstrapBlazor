@@ -1,4 +1,4 @@
-﻿import EventHandler from "../../../_content/BootstrapBlazor/modules/base/event-handler.js";
+﻿import EventHandler from "../../../_content/BootstrapBlazor/modules/base/event-handler.js"
 
 export class Header {
     static init() {

@@ -1,7 +1,7 @@
-﻿import { isDisabled } from "./index.js";
-import { getDescribedElement, getDescribedOwner, isFunction } from "./utility.js?v20221104";
-import EventHandler from "./event-handler.js";
-import BlazorComponent from "./blazor-component.js";
+﻿import { isDisabled } from "./index.js"
+import { getDescribedElement, getDescribedOwner, isFunction } from "./utility.js"
+import EventHandler from "./event-handler.js"
+import BlazorComponent from "./blazor-component.js"
 
 export default class DropdownBase extends BlazorComponent {
     static get Default() {

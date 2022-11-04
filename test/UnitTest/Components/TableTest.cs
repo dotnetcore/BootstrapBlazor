@@ -538,7 +538,7 @@ public class TableTest : TableTestBase
         });
         cut.Contains("Test_Column_List");
 
-        var item = cut.Find(".btn-col .dropdown-item .form-check-input");
+        var item = cut.Find(".dropdown-item .form-check-input");
         await cut.InvokeAsync(() => item.Click());
 
         Assert.True(show);

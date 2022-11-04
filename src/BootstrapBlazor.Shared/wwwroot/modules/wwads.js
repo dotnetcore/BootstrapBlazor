@@ -1,4 +1,4 @@
-﻿import BlazorComponent from "../../../_content/BootstrapBlazor/modules/base/blazor-component.js";
+﻿import BlazorComponent from "../../../_content/BootstrapBlazor/modules/base/blazor-component.js"
 
 export class Wwads extends BlazorComponent {
     _init() {

@@ -1,6 +1,6 @@
 ﻿import BlazorComponent from "./base/blazor-component.js"
-import EventHandler from "./base/event-handler.js";
-import { copy } from "./base/utility.js?v20221104";
+import EventHandler from "./base/event-handler.js"
+import { copy } from "./base/utility.js"
 
 export class IconDialog extends BlazorComponent {
     _init() {

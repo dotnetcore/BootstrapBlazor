@@ -9,6 +9,13 @@ namespace BootstrapBlazor.Components;
 /// </summary>
 public static class JSModuleExtensions
 {
+    private static string? _tick;
+    private static string? GetVersion()
+    {
+        _tick ??= DateTime.Now.ToString("HHmmss");
+        return _tick;
+    }
+
     /// <summary>
     /// IJSRuntime 扩展方法 动态加载脚本 脚本目录为 modules
     /// </summary>
@@ -18,7 +25,7 @@ public static class JSModuleExtensions
     /// <returns></returns>
     public static async Task<JSModule> LoadModule(this IJSRuntime jsRuntime, string fileName, bool relative = true)
     {
-        var filePath = relative ? $"./_content/BootstrapBlazor/modules/{fileName}.js?v=1" : fileName;
+        var filePath = relative ? $"./_content/BootstrapBlazor/modules/{fileName}.js?v={GetVersion()}" : fileName;
         var jSObjectReference = await jsRuntime.InvokeAsync<IJSObjectReference>(identifier: "import", filePath);
         return new JSModule(jSObjectReference);
     }
@@ -34,7 +41,7 @@ public static class JSModuleExtensions
     /// <returns></returns>
     public static async Task<JSModule<TValue>> LoadModule<TValue>(this IJSRuntime jsRuntime, string fileName, TValue value, bool relative = true) where TValue : class
     {
-        var filePath = relative ? $"./_content/BootstrapBlazor/modules/{fileName}.js" : fileName;
+        var filePath = relative ? $"./_content/BootstrapBlazor/modules/{fileName}.js?v={GetVersion()}" : fileName;
         var jSObjectReference = await jsRuntime.InvokeAsync<IJSObjectReference>(identifier: "import", filePath);
         return new JSModule<TValue>(jSObjectReference, value);
     }
