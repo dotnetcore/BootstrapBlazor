@@ -111,6 +111,20 @@ public partial class QRCode
     /// <returns></returns>
     protected override Task ModuleInitAsync() => InvokeInitAsync(Id, Content, nameof(Generated));
 
+    private string? _content;
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    protected override async Task ModuleExecuteAsync()
+    {
+        if (_content != Content)
+        {
+            _content = Content;
+            await InvokeExecuteAsync(Id, Content);
+        }
+    }
+
     private async Task Clear()
     {
         Content = "";
