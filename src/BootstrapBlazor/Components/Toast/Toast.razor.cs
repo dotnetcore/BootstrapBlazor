@@ -53,6 +53,9 @@ public partial class Toast
     /// </summary>
     [Parameter]
     [NotNull]
+#if NET6_0_OR_GREATER
+    [EditorRequired]
+#endif
     public ToastOption? Options { get; set; }
 
     /// <summary>
@@ -63,16 +66,14 @@ public partial class Toast
     protected ToastContainer? ToastContainer { get; set; }
 
     /// <summary>
-    /// OnInitialized
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
     {
         base.OnInitialized();
 
-        if (Options != null)
-        {
-            Options.Toast = this;
-        }
+        Options ??= new ToastOption();
+        Options.Toast = this;
     }
 
     /// <summary>
