@@ -15,7 +15,7 @@ public partial class Card
     protected string? ClassString => CssBuilder.Default("card")
         .AddClass("text-center", IsCenter)
         .AddClass($"border-{Color.ToDescriptionString()}", Color != Color.None)
-        .AddClass("shadow", IsShadow)
+        .AddClass("card-shadow", IsShadow)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 

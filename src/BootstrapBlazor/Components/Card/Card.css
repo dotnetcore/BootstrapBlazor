@@ -1,6 +1,8 @@
 ﻿.card {
     --bs-card-border-radius: var(--bs-border-radius);
     --bs-card-inner-border-radius: calc(var(--bs-border-radius) - 1px);
+    --bb-card-shadow: 0 0 8px 0 #e8edfa99, 0 2px 4px 0 #e8edfa80;
+    --bb-card-hover-shadow: 0 1px 7px 0 #0000000d, 0 2px 8px 0 #00000012, 0 3px 9px 0 #0000000f, 0 5px 10px 0 #00000008;
 }
 
     .card .card-collapse {
@@ -28,6 +30,15 @@
         .card .card-header + .card-body {
             border-top: var(--bs-card-border-width) solid var(--bs-card-border-color);
         }
+
+.card-shadow {
+    box-shadow: var(--bb-card-shadow);
+    transition: box-shadow .3s linear;
+}
+
+    .card-shadow:hover {
+        box-shadow: var(--bb-card-hover-shadow);
+    }
 
 [aria-expanded="true"] > .card-collapse-arrow {
     transform: rotate( 90deg);
