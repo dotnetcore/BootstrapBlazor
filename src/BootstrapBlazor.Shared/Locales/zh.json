@@ -619,6 +619,7 @@
     "P54": "TreeItem 属性"
   },
   "BootstrapBlazor.Shared.Samples.Trees": {
+    "TreeIntro": "<p>本组件已弃用，请使用新组件 <a href=\"treeviews\" alt=\"treeview\">TreeView</a> 提供更多功能",
     "H1": "Tree 树形控件",
     "H2": "用清晰的层级结构展示信息，可展开或折叠",
     "P1": "基础用法",

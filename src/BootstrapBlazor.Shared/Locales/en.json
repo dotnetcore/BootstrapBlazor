@@ -618,6 +618,7 @@
     "P54": "TreeItem property"
   },
   "BootstrapBlazor.Shared.Samples.Trees": {
+    "TreeIntro": "<p>Obsolete，The <a href=\"treeviews\" alt=\"treeview\">TreeView</a> provides more functions",
     "H1": "Tree tree control",
     "H2": "Present information in a clear hierarchy that can be expanded or collapsed",
     "P1": "Basic usage",

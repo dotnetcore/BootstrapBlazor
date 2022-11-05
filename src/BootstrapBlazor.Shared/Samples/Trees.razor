@@ -4,9 +4,13 @@
 <h3>@Localizer["H1"]</h3>
 <h4>@Localizer["H2"]</h4>
 
+<Tips class="mt-3">
+    @((MarkupString)Localizer["TreeIntro"].Value)
+</Tips>
+
 <DemoBlock Title="@Localizer["P1"]" Introduction="@Localizer["P2"]" Name="Normal">
     <p>
-        @Localizer["P3"]
+        @((MarkupString)Localizer["P3"].Value)
     </p>
     <Tree Items="@Items" OnTreeItemClick="@OnTreeItemClick" />
     <BlockLogger @ref="Trace" class="mt-3" />
@@ -14,7 +18,7 @@
 
 <DemoBlock Title="@Localizer["P4"]" Introduction="@Localizer["P5"]" Name="Checkbox">
     <p>
-        @Localizer["P6"]
+        @((MarkupString)Localizer["P6"].Value)
     </p>
     <Tree Items="@CheckedItems" ShowCheckbox="true" OnTreeItemChecked="@OnTreeItemChecked" />
     <BlockLogger @ref="TraceChecked" class="mt-3" />
@@ -22,47 +26,47 @@
 
 <DemoBlock Title="@Localizer["P7"]" Introduction="@Localizer["P8"]" Name="ShowRadio">
     <p>
-        @Localizer["P9"]
+        @((MarkupString)Localizer["P9"].Value)
     </p>
     <Tree Items="@CheckedItems" ShowRadio="true" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["P10"]" Introduction="@Localizer["P11"]" Name="TreeDisable">
     <p>
-        @Localizer["P12"]
+        @((MarkupString)Localizer["P12"].Value)
     </p>
     <Tree Items="@DisabledItems" ShowCheckbox="true" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["P13"]" Introduction="@Localizer["P14"]" Name="AccordionModel">
-    <p>@Localizer["P15"]</p>
+    <p>@((MarkupString)Localizer["P15"].Value)</p>
     <Tree Items="@Items" ShowCheckbox="true" IsAccordion="true" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["P16"]" Introduction="@Localizer["P17"]" Name="DefauleExpand">
     <p>
-        @Localizer["P18"]
+        @((MarkupString)Localizer["P18"].Value)
     </p>
     <Tree Items="@ExpandItems" ShowCheckbox="true" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["P19"]" Introduction="@Localizer["P20"]" Name="TreeDisplayIcon">
     <p>
-        @Localizer["P21"]
+        @((MarkupString)Localizer["P21"].Value)
     </p>
     <Tree Items="@GetIconItems()" ShowIcon="true" ShowCheckbox="true" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["P22"]" Introduction="@Localizer["P23"]" Name="TreeClickExpand">
     <p>
-        @Localizer["P24"]
+        @((MarkupString)Localizer["P24"].Value)
     </p>
     <Tree Items="@Items" ShowIcon="true" ShowCheckbox="true" ClickToggleNode="true" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["P25"]" Introduction="@Localizer["P26"]" Name="TreeValidationForm">
     <p>
-        @Localizer["P27"]
+        @((MarkupString)Localizer["P27"].Value)
     </p>
     <ValidateForm Model="@Model">
         <Tree Items="@Items" OnTreeItemClick="@OnTreeItemClick" ShowCheckbox="true" />
@@ -71,7 +75,7 @@
 
 <DemoBlock Title="@Localizer["P28"]" Introduction="@Localizer["P29"]" Name="TreeLazyLoading">
     <p>
-        @Localizer["P30"]
+        @((MarkupString)Localizer["P30"].Value)
     </p>
     <Tree ClickToggleNode="true" Items="@GetLazyItems()" OnExpandNode="OnExpandNode" />
 </DemoBlock>
