@@ -246,8 +246,13 @@ public partial class Timer
                 CancelTokenSource.Dispose();
                 CancelTokenSource = null;
             }
+
             ResetEvent.Dispose();
+            if (Module != null)
+            {
+                await Module.DisposeAsync();
+                Module = null;
+            }
         }
-        await base.DisposeAsync(disposing);
     }
 }
