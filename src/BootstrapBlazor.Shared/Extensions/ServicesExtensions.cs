@@ -25,8 +25,8 @@ public static class ServicesExtensions
         services.AddSingleton(typeof(IDataService<>), typeof(TableDemoDataService<>));
         services.AddSingleton(typeof(ILookupService), typeof(DemoLookupService));
         services.AddSingleton<MockDataTableDynamicService>();
-        services.AddSingleton<FanControllerDataService>();
         services.AddSingleton<MenuService>();
+        services.AddScoped<FanControllerDataService>();
 
         // 增加示例网站配置
         services.AddOptionsMonitor<WebsiteOptions>();
