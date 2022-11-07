@@ -385,7 +385,6 @@
 
 .page-item:not(.active) .page-link:hover {
     color: var(--bs-primary);
-    background-color: #f1faff;
 }
 
 .table {

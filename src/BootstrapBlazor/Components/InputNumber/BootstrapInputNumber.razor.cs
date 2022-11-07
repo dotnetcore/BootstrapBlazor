@@ -28,6 +28,7 @@ public partial class BootstrapInputNumber<TValue>
         .AddClass(CssClass).AddClass(ValidCss)
         .AddClass("input-number-fix", ShowButton)
         .AddClass($"border-{Color.ToDescriptionString()}", Color != Color.None)
+        .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
     [NotNull]

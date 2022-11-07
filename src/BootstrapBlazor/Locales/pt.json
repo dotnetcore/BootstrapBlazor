@@ -150,7 +150,8 @@
     "PrePageInfoText": "",
     "RowInfoText": "",
     "LabelString": "pág. {0}",
-    "SelectItemsText": "{0} / pág"
+    "SelectItemsText": "{0} / pág",
+    "GotoNavigatorLabelText": "Goto"
   },
   "BootstrapBlazor.Components.PopConfirmButton": {
     "CloseButtonText": "Cancelar",

@@ -63,13 +63,6 @@ public sealed partial class ListViews
             DefaultValue = "false"
         },
         new AttributeItem(){
-            Name = "PageItemsSource",
-            Description =Localizer["PageItemsSource"],
-            Type = "IEnumerable<int>",
-            ValueList = " — ",
-            DefaultValue = " — "
-        },
-        new AttributeItem(){
             Name = "HeaderTemplate",
             Description = Localizer["HeaderTemplate"],
             Type = "RenderFragment",

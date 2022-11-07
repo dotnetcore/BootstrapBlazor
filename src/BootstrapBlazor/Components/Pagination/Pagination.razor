@@ -1,63 +1,59 @@
 ﻿@namespace BootstrapBlazor.Components
 @inherits BootstrapComponentBase
 
-<nav @attributes="AdditionalAttributes" class="@ClassString" aria-label="@AiraPageLabel">
-    <div class="@PaginationBarClass">
-        <div class="d-inline-block">@GetPageInfoText()</div>
-        <div class="d-none d-sm-inline-block">@GetTotalInfoText()</div>
-        <span>@PrePageInfoText</span>
-        <div class="pagination-items d-none d-sm-inline-block">
-            <Select Value="@PageItems" Items="@GetPageItems()" OnSelectedItemChanged="@OnPageItemsSelectItemChanged" />
-        </div>
-        <span class="d-sm-none">@PageItems</span>
-        <span>@RowInfoText</span>
-    </div>
-    <ul class="@PaginationClass">
-        <li class="page-item">
-            <a class="page-link" aria-label="@AiraPrevPageText" href="#" @onclick:preventDefault @onclick="e => MovePrev(1)">
-                <i class="fa-solid fa-angle-left"></i>
-            </a>
-        </li>
-        @if (PageCount > 5)
+<nav @attributes="AdditionalAttributes" class="@ClassString">
+    @if(ShowInfo)
+    {
+        if (InfoTemplate != null)
         {
-            @RenderPaginationItem(new PaginationItem() { PageIndex = 1, Active = PageIndex == 1 })
-            <li class="page-item">
-                <a class="page-link page-link-prev" aria-label="@AiraFirstPageText" href="#" @onclick:preventDefault @onclick="e => MovePrev(5)">
-                    <i class="fa-solid fa-ellipsis"></i>
-                </a>
-            </li>
+            @InfoTemplate
+        }
+        else
+        {
+            <div class="page-info">@PageInfoText</div>
+        }
+    }
+    <ul class="@PaginationClassString">
+        <PaginationItem OnClick="MovePrev" Index="1">
+            <i class="@PrevPageIcon"></i>
+        </PaginationItem>
+        <PaginationItem OnClick="OnClick" Index="1" IsActive="InternalPageIndex == 1" />
+        @if (InternalPageCount > MaxPageLinkCount)
+        {
+            @if (StartPageIndex != 2)
+            {
+                <PaginationItem OnClick="MovePrev" Index="MaxPageLinkCount" class="prev-link">
+                    <i class="@PrevEllipsisPageIcon"></i>
+                </PaginationItem>
+            }
         }
         @for (int i = StartPageIndex; i <= EndPageIndex; i++)
         {
-            @if (PageCount > 5 && (i == 1 || i == EndPageIndex)) continue;
-            @RenderPaginationItem(new PaginationItem() { PageIndex = i, Active = PageIndex == i })
+            <PaginationItem @key="i" OnClick="OnClick" Index="i" IsActive="InternalPageIndex == i" />
         }
-        @if (PageCount > 5)
+        @if (InternalPageCount > MaxPageLinkCount)
         {
-            <li class="page-item">
-                <a class="page-link page-link-next" href="#" @onclick:preventDefault @onclick="e => MoveNext(5)">
-                    <i class="fa-solid fa-ellipsis"></i>
-                </a>
-            </li>
-            @RenderPaginationItem(new PaginationItem() { PageIndex = PageCount, Active = PageIndex == PageCount })
+            @if (EndPageIndex != InternalPageCount - 1)
+            {
+                <PaginationItem OnClick="MoveNext" Index="MaxPageLinkCount" class="next-link">
+                    <i class="@NextEllipsisPageIcon"></i>
+                </PaginationItem>
+            }
         }
-        <li class="page-item">
-            <a class="page-link" aria-label="@AiraNextPageText" href="#" @onclick:preventDefault @onclick="e => MoveNext(1)">
-                <i class="fa-solid fa-angle-right"></i>
-            </a>
-        </li>
+        <PaginationItem OnClick="OnClick" Index="InternalPageCount" IsActive="InternalPageIndex == InternalPageCount" />
+        <PaginationItem OnClick="MoveNext" Index="1">
+            <i class="@NextPageIcon"></i>
+        </PaginationItem>
     </ul>
-</nav>
-
-@code {
-    record PaginationItem
+    @if (ShowGotoNavigator)
     {
-        public int PageIndex { get; init; }
-        public bool Active { get; init; }
+        if (GotoTemplate != null)
+        {
+            @GotoTemplate
+        }
+        else
+        {
+            <GotoNavigator Index="InternalPageIndex" GotoText="@GotoNavigatorLabelText" OnNavigation="OnGoto" />
+        }
     }
-
-    RenderFragment<PaginationItem> RenderPaginationItem => item =>
-    @<li @key="item" class="@Pagination.GetPaginationItemClassName(item.Active)">
-        <a class="page-link" aria-label="@GetLabelString" @onclick:preventDefault @onclick="e => OnPageItemClick(item.PageIndex)">@item.PageIndex</a>
-    </li>;
-}
+</nav>

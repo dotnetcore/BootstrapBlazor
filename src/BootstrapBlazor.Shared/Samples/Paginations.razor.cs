@@ -9,21 +9,51 @@ namespace BootstrapBlazor.Shared.Samples;
 /// </summary>
 public sealed partial class Paginations
 {
+    private Alignment Alignment { get; set; } = Alignment.Right;
+
+    [NotNull]
+    private List<SelectedItem>? AlignmentItems { get; set; }
+
+    [NotNull]
     private BlockLogger? Trace { get; set; }
 
-    private Task OnPageClick(int pageIndex, int pageItems)
+    [NotNull]
+    private List<SelectedItem>? PageItemsSource { get; set; }
+
+    private int PageItems { get; set; } = 2;
+
+    private int PageCount => 200 / PageItems;
+
+    private string PageInfoText => $"每页 {PageItems} 条 共 {PageCount} 页";
+
+    private Task OnPageClick(int pageIndex)
     {
-        Trace?.Log($"PageIndex: {pageIndex} PageItems: {pageItems}");
+        Trace.Log($"PageIndex: {pageIndex}");
         return Task.CompletedTask;
     }
 
-    private Task OnPageItemsChanged(int pageItems)
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnParametersSet()
     {
-        Trace?.Log($"PageItems: {pageItems}");
-        return Task.CompletedTask;
-    }
+        base.OnParametersSet();
 
-    private static IEnumerable<int> PageItems => new int[] { 3, 10, 20, 40 };
+        AlignmentItems ??= new List<SelectedItem>()
+        {
+            new("Left", "Start"),
+            new("Center", "Center"),
+            new("Right", "End")
+        };
+
+        PageItemsSource = new List<SelectedItem>()
+        {
+            new("2", "2条/页"),
+            new("4", "4条/页"),
+            new("10", "10条/页"),
+            new("20", "20条/页")
+        };
+    }
 
     /// <summary>
     /// 获得属性方法
@@ -33,121 +63,108 @@ public sealed partial class Paginations
     {
         new AttributeItem() {
             Name = "PageIndex",
-            Description = Localizer["Desc1"],
+            Description = Localizer["PageIndexAttr"],
             Type = "int",
             ValueList = " — ",
             DefaultValue = "1"
         },
         new AttributeItem() {
-            Name = "PageItems",
-            Description = Localizer["Desc2"],
+            Name = "PageCount",
+            Description = Localizer["PageCountAttr"],
             Type = "int",
             ValueList = " — ",
-            DefaultValue = "—"
+            DefaultValue = " — "
         },
         new AttributeItem() {
-            Name = "PageItemsSource",
-            Description = Localizer["Desc3"],
-            Type = "IEnumerable<int>",
+            Name = "MaxPageLinkCount",
+            Description = Localizer["MaxPageLinkCountAttr"],
+            Type = "int",
             ValueList = " — ",
-            DefaultValue = "—"
+            DefaultValue = "5"
         },
         new AttributeItem() {
-            Name = "ShowPaginationInfo",
-            Description = Localizer["Desc4"],
-            Type = "boolean",
+            Name = "OnPageLinkClick",
+            Description = Localizer["OnPageLinkClickAttr"],
+            Type = "Func<int, Task>",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new AttributeItem() {
+            Name = "Alignment",
+            Description = Localizer["AlignmentAttr"],
+            Type = "Alignment",
+            ValueList = " — ",
+            DefaultValue = "Alignment.Right"
+        },
+        new AttributeItem() {
+            Name = "ShowInfo",
+            Description = Localizer["ShowInfoAttr"],
+            Type = "bool",
             ValueList = " — ",
             DefaultValue = "true"
         },
         new AttributeItem() {
-            Name = "AiraPageLabel",
-            Description = Localizer["AiraPageLabel"],
-            Type = "string",
-            ValueList = " — ",
-            DefaultValue = LocalizerPagination["AiraPageLabel"]
-        },
-        new AttributeItem() {
-            Name = "AiraPrevPageText",
-            Description = Localizer["AiraPrevPageText"],
-            Type = "string",
-            ValueList = " — ",
-            DefaultValue = LocalizerPagination["AiraPrevPageText"]
-        },
-        new AttributeItem() {
-            Name = "AiraFirstPageText",
-            Description = Localizer["AiraFirstPageText"],
-            Type = "string",
-            ValueList = " — ",
-            DefaultValue = LocalizerPagination["AiraFirstPageText"]
-        },
-        new AttributeItem() {
-            Name = "AiraNextPageText",
-            Description = Localizer["AiraNextPageText"],
-            Type = "string",
-            ValueList = " — ",
-            DefaultValue = LocalizerPagination["AiraNextPageText"]
-        },
-        new AttributeItem() {
-            Name = "PrePageInfoText",
-            Description = Localizer["PrePageInfoText"],
-            Type = "string",
-            ValueList = " — ",
-            DefaultValue = LocalizerPagination["PrePageInfoText"]
-        },
-        new AttributeItem() {
-            Name = "RowInfoText",
-            Description = Localizer["RowInfoText"],
-            Type = "string",
-            ValueList = " — ",
-            DefaultValue = LocalizerPagination["RowInfoText"]
-        },
-        new AttributeItem() {
             Name = "PageInfoText",
-            Description = Localizer["PageInfoText"],
+            Description = Localizer["PageInfoTextAttr"],
             Type = "string",
             ValueList = " — ",
-            DefaultValue = LocalizerPagination["PageInfoText"]
+            DefaultValue = " — "
         },
         new AttributeItem() {
-            Name = "TotalInfoText",
-            Description = Localizer["TotalInfoText"],
-            Type = "string",
+            Name = "InfoTemplate",
+            Description = Localizer["InfoTemplateAttr"],
+            Type = "RenderFragment",
             ValueList = " — ",
-            DefaultValue = LocalizerPagination["TotalInfoText"]
+            DefaultValue = " — "
         },
         new AttributeItem() {
-            Name = "SelectItemsText",
-            Description = Localizer["SelectItemsText"],
-            Type = "string",
+            Name = "ShowGotoNavigator",
+            Description = Localizer["ShowGotoNavigatorAttr"],
+            Type = "bool",
             ValueList = " — ",
-            DefaultValue = LocalizerPagination["SelectItemsText"]
+            DefaultValue = "false"
         },
         new AttributeItem() {
-            Name = "LabelString",
-            Description = Localizer["LabelString"],
+            Name = "GotoNavigatorLabelText",
+            Description = Localizer["GotoNavigatorLabelTextAttr"],
             Type = "string",
             ValueList = " — ",
-            DefaultValue = LocalizerPagination["LabelString"]
-        }
-    };
-
-    /// <summary>
-    /// 获得事件方法
-    /// </summary>
-    /// <returns></returns>
-    private IEnumerable<EventItem> GetEvents() => new EventItem[]
-    {
-        new EventItem()
-        {
-            Name = "OnPageClick",
-            Description= Localizer["Event1"],
-            Type ="Action<int, int>"
+            DefaultValue = " — "
         },
-        new EventItem()
-        {
-            Name = "OnPageItemsChanged",
-            Description= Localizer["Event2"],
-            Type ="Action<int>"
+        new AttributeItem() {
+            Name = "GotoTemplate",
+            Description = Localizer["GotoTemplateAttr"],
+            Type = "RenderFragment",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new AttributeItem() {
+            Name = "PrevPageIcon",
+            Description = Localizer["PrevPageIconAttr"],
+            Type = "string",
+            ValueList = " — ",
+            DefaultValue = "fa-solid fa-angle-left"
+        },
+        new AttributeItem() {
+            Name = "PrevEllipsisPageIcon",
+            Description = Localizer["PrevEllipsisPageIconAttr"],
+            Type = "string",
+            ValueList = " — ",
+            DefaultValue = "fa-solid fa-ellipsis"
+        },
+        new AttributeItem() {
+            Name = "NextPageIcon",
+            Description = Localizer["NextPageIconAttr"],
+            Type = "string",
+            ValueList = " — ",
+            DefaultValue = "fa-solid fa-angle-right"
+        },
+        new AttributeItem() {
+            Name = "NextEllipsisPageIcon",
+            Description = Localizer["NextEllipsisPageIconAttr"],
+            Type = "string",
+            ValueList = " — ",
+            DefaultValue = "fa-solid fa-ellipsis"
         }
     };
 }

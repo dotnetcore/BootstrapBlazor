@@ -10,7 +10,7 @@
         </div>
     }
     <div class="listview-body">
-        @if (BodyTemplate != null && Items != null)
+        @if (Items != null && BodyTemplate != null)
         {
             if (GroupName == null)
             {
@@ -41,7 +41,7 @@
         <div class="listview-footer">
             @if (Pageable)
             {
-                <Pagination PageItemsSource="@PageItemsSource" PageItems="@PageItems" TotalCount="@TotalCount" PageIndex="@PageIndex" OnPageClick="@OnPageClick" OnPageItemsChanged="@OnPageItemsChanged"></Pagination>
+                <Pagination PageCount="@PageCount" PageIndex="@PageIndex" OnPageLinkClick="@OnPageLinkClick"></Pagination>
             }
             else
             {

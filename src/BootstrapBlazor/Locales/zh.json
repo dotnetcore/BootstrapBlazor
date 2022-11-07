@@ -150,7 +150,8 @@
     "PrePageInfoText": "每页显示",
     "RowInfoText": "条记录",
     "LabelString": "第 {0} 页",
-    "SelectItemsText": "{0}"
+    "SelectItemsText": "{0}",
+    "GotoNavigatorLabelText": "导航到"
   },
   "BootstrapBlazor.Components.PopConfirmButton": {
     "CloseButtonText": "取消",
