@@ -141,16 +141,6 @@
     "MaxErrorMessage": "At most {0} items can be selected"
   },
   "BootstrapBlazor.Components.Pagination": {
-    "AiraPageLabel": "Pagination",
-    "AiraPrevPageText": "Prev",
-    "AiraFirstPageText": "First",
-    "AiraNextPageText": "Next",
-    "PageInfoText": "{0}-{1}",
-    "TotalInfoText": ", Total {0}",
-    "PrePageInfoText": "",
-    "RowInfoText": "",
-    "LabelString": "page {0}",
-    "SelectItemsText": "{0} /page",
     "GotoNavigatorLabelText": "Goto"
   },
   "BootstrapBlazor.Components.PopConfirmButton": {
@@ -240,7 +230,9 @@
     "ExportToastTitle": "Export",
     "ExportToastContent": "Export data {0}, auto close after {1}s",
     "ExportToastInProgressContent": "Exporting data, please waiting a moment, auto close after {0}s",
-    "ExportExcelDropdownItemText": "MS-Excel"
+    "ExportExcelDropdownItemText": "MS-Excel",
+    "PageInfoText": "{0} - {1} Total {2}",
+    "PageItemsText": "{0}/page"
   },
   "BootstrapBlazor.Components.EditDialog": {
     "CloseButtonText": "Close",

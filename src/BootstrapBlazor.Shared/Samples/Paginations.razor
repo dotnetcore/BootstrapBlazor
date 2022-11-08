@@ -29,15 +29,15 @@
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["PageInfoTextTitle"]" Introduction="@Localizer["PageInfoTextIntro"]" Name="PageInfoText">
-    <Pagination PageCount="20" ShowInfo="true" PageInfoText="共 20 页" ShowGotoNavigator="true"></Pagination>
+    <Pagination PageCount="20" ShowPageInfo="true" PageInfoText="共 20 页" ShowGotoNavigator="true"></Pagination>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["InfoTemplateTitle"]" Introduction="@Localizer["InfoTemplateIntro"]" Name="InfoTemplate">
-    <Pagination PageCount="@PageCount" ShowInfo="true" ShowGotoNavigator="true">
-        <InfoTemplate>
+<DemoBlock Title="@Localizer["PageInfoTemplateTitle"]" Introduction="@Localizer["PageInfoTemplateIntro"]" Name="InfoTemplate">
+    <Pagination PageCount="@PageCount" ShowPageInfo="true" ShowGotoNavigator="true">
+        <PageInfoTemplate>
             <div class="page-info me-2">@PageInfoText</div>
             <Select @bind-Value="PageItems" Items="PageItemsSource" style="width: 120px;" />
-        </InfoTemplate>
+        </PageInfoTemplate>
     </Pagination>
 </DemoBlock>
 

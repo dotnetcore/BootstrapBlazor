@@ -80,8 +80,7 @@ public partial class ListView<TItem> : BootstrapComponentBase where TItem : clas
     /// <summary>
     /// 获得/设置 当前页码
     /// </summary>
-    [Parameter]
-    public int PageIndex { get; set; }
+    private int PageIndex { get; set; }
 
     /// <summary>
     /// 获得/设置 数据总条目

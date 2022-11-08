@@ -34,6 +34,6 @@
 
 <DemoBlock Title="@DynamicLocalizer["DataTablePageTitle"]" Introduction="@DynamicLocalizer["DataTablePageIntro"]" Name="Page">
     <Table TItem="DynamicObject" DynamicContext="DataTablePageDynamicContext" />
-    <Pagination PageItemsSource="@PageItemsSource" PageItems="@PageItems" TotalCount="@TotalCount" PageIndex="@PageIndex" OnPageClick="@OnPageClick" OnPageItemsChanged="@OnPageItemsChanged" class="mt-3"></Pagination>
+    <Pagination PageCount="@PageCount" PageIndex="@PageIndex" OnPageLinkClick="@OnPageLinkClick" class="mt-3"></Pagination>
 </DemoBlock>
 

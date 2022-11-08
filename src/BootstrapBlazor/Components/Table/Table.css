@@ -811,3 +811,12 @@ form .table .table-cell > textarea {
 .table-wrap thead th .table-cell .table-text {
     white-space: pre-wrap;
 }
+
+.table-page-info {
+    display: flex;
+    align-items: center;
+}
+
+    .table-page-info .select {
+        width: 120px;
+    }

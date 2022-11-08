@@ -97,8 +97,8 @@ public sealed partial class Paginations
             DefaultValue = "Alignment.Right"
         },
         new AttributeItem() {
-            Name = "ShowInfo",
-            Description = Localizer["ShowInfoAttr"],
+            Name = "ShowPageInfo",
+            Description = Localizer["ShowPageInfoAttr"],
             Type = "bool",
             ValueList = " — ",
             DefaultValue = "true"
@@ -111,8 +111,8 @@ public sealed partial class Paginations
             DefaultValue = " — "
         },
         new AttributeItem() {
-            Name = "InfoTemplate",
-            Description = Localizer["InfoTemplateAttr"],
+            Name = "PageInfoTemplate",
+            Description = Localizer["PageInfoTemplateAttr"],
             Type = "RenderFragment",
             ValueList = " — ",
             DefaultValue = " — "

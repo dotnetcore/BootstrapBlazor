@@ -7,7 +7,7 @@ using BootstrapBlazor.Shared.Services;
 namespace BootstrapBlazor.Shared.Samples;
 
 /// <summary>
-///
+/// 
 /// </summary>
 public sealed partial class QRCodes
 {

@@ -131,13 +131,13 @@ public partial class Pagination
     /// 获得/设置 是否显示 分页信息 默认 true
     /// </summary>
     [Parameter]
-    public bool ShowInfo { get; set; } = true;
+    public bool ShowPageInfo { get; set; } = true;
 
     /// <summary>
     /// 获得/设置 分页信息模板 默认 null
     /// </summary>
     [Parameter]
-    public RenderFragment? InfoTemplate { get; set; }
+    public RenderFragment? PageInfoTemplate { get; set; }
 
     private int InternalPageIndex => Math.Min(InternalPageCount, PageIndex);
 

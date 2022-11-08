@@ -154,10 +154,12 @@
             </div>
         }
 
-        @if (ShowTopPagination && TotalCount > 0 && IsPagination)
+        @if (ShowTopPagination && PageCount > 1 && IsPagination)
         {
             <div class="table-pagination is-top">
-                <Pagination PageItemsSource="@PageItemsSource" PageItems="@PageItems" TotalCount="@TotalCount" PageIndex="@PageIndex" OnPageClick="@OnPageClick" OnPageItemsChanged="@OnPageItemsChanged"></Pagination>
+                <Pagination PageCount="@PageCount" PageIndex="@PageIndex" OnPageLinkClick="@OnPageLinkClick"
+                            ShowGotoNavigator="ShowGotoNavigator" GotoTemplate="GotoTemplate!" GotoNavigatorLabelText="@GotoNavigatorLabelText"
+                            ShowPageInfo="ShowPageInfo" PageInfoTemplate="InternalPageInfoTemplate" />
             </div>
         }
         <div class="@WrapperClassName">
@@ -259,10 +261,12 @@
             }
         </div>
 
-        @if (!ShowTopPagination && TotalCount > 0 && IsPagination)
+        @if (!ShowTopPagination && PageCount > 1 && IsPagination)
         {
             <div class="table-pagination">
-                <Pagination PageItemsSource="@PageItemsSource" PageItems="@PageItems" TotalCount="@TotalCount" PageIndex="@PageIndex" OnPageClick="@OnPageClick" OnPageItemsChanged="@OnPageItemsChanged"></Pagination>
+                <Pagination PageCount="@PageCount" PageIndex="@PageIndex" OnPageLinkClick="@OnPageLinkClick"
+                            ShowGotoNavigator="ShowGotoNavigator" GotoTemplate="GotoTemplate!" GotoNavigatorLabelText="@GotoNavigatorLabelText"
+                            ShowPageInfo="ShowPageInfo" PageInfoTemplate="InternalPageInfoTemplate" />
             </div>
         }
         <div class="table-loader">
@@ -904,5 +908,11 @@ RenderFragment RenderSearch =>
             </CascadingValue>
         }
     </div>
+</div>;
+
+RenderFragment RenderPageInfo =>
+@<div class="table-page-info">
+    <div class="me-2">@Localizer[nameof(PageInfoText), (PageIndex - 1) * PageItems + 1, (PageIndex - 1) * PageItems + Rows.Count, TotalCount]</div>
+    <Select Items="@GetPageItemsSource()" Value="PageItems" OnValueChanged="@OnPageItemsValueChanged" />
 </div>;
 }

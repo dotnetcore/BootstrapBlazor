@@ -450,6 +450,7 @@ public partial class Table<TItem>
 
             queryData = await InternalOnQueryAsync(queryOption);
             TotalCount = queryData.TotalCount;
+            PageCount = (int)Math.Ceiling(TotalCount * 1.0 / Math.Max(1, PageItems));
             IsAdvanceSearch = queryData.IsAdvanceSearch;
             QueryItems = queryData.Items ?? Enumerable.Empty<TItem>();
 

@@ -2,11 +2,11 @@
 @inherits BootstrapComponentBase
 
 <nav @attributes="AdditionalAttributes" class="@ClassString">
-    @if(ShowInfo)
+    @if(ShowPageInfo)
     {
-        if (InfoTemplate != null)
+        if (PageInfoTemplate != null)
         {
-            @InfoTemplate
+            @PageInfoTemplate
         }
         else
         {

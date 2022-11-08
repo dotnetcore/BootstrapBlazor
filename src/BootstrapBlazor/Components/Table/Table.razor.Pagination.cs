@@ -50,7 +50,12 @@ public partial class Table<TItem>
     protected int TotalCount { get; set; }
 
     /// <summary>
-    /// 获得/设置 当前页码
+    /// 获得/设置 分页页码总数 内置规则 PageCount > 1 时显示分页组件
+    /// </summary>
+    protected int PageCount { get; set; }
+
+    /// <summary>
+    /// 获得/设置 当前页码 默认 1
     /// </summary>
     protected int PageIndex { get; set; } = 1;
 
@@ -61,21 +66,79 @@ public partial class Table<TItem>
     public int PageItems { get; set; }
 
     /// <summary>
+    /// 获得/设置 是否显示 Goto 跳转导航
+    /// </summary>
+    [Parameter]
+    public bool ShowGotoNavigator { get; set; } = true;
+
+    /// <summary>
+    /// 获得/设置 是否显示 Goto 跳转导航文本信息 默认 null
+    /// </summary>
+    [Parameter]
+    public string? GotoNavigatorLabelText { get; set; }
+
+    /// <summary>
+    /// 获得/设置 Goto 导航模板
+    /// </summary>
+    [Parameter]
+    public RenderFragment? GotoTemplate { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否显示 Goto 跳转导航
+    /// </summary>
+    [Parameter]
+    public bool ShowPageInfo { get; set; } = true;
+
+    /// <summary>
+    /// 获得/设置 分页信息文字 默认 null
+    /// </summary>
+    [Parameter]
+    public string? PageInfoText { get; set; }
+
+    /// <summary>
+    /// 获得/设置 分页信息模板
+    /// </summary>
+    [Parameter]
+    public RenderFragment? PageInfoTemplate { get; set; }
+
+    /// <summary>
     /// 获得/设置 当前行
     /// </summary>
     protected int StartIndex { get; set; }
 
     /// <summary>
+    /// 内部 分页信息模板
+    /// </summary>
+    [NotNull]
+    protected RenderFragment? InternalPageInfoTemplate => builder =>
+    {
+        if (PageInfoTemplate != null)
+        {
+            builder.AddContent(0, PageInfoTemplate);
+        }
+        else if (!string.IsNullOrEmpty(PageInfoText))
+        {
+            // <div class="page-info">@PageInfoText</div>
+            builder.OpenElement(1, "div");
+            builder.AddAttribute(2, "class", "page-info");
+            builder.AddContent(3, PageInfoText);
+            builder.CloseElement();
+        }
+        else
+        {
+            builder.AddContent(4, RenderPageInfo);
+        }
+    };
+
+    /// <summary>
     /// 点击页码调用此方法
     /// </summary>
     /// <param name="pageIndex"></param>
-    /// <param name="pageItems"></param>
-    protected async Task OnPageClick(int pageIndex, int pageItems)
+    protected async Task OnPageLinkClick(int pageIndex)
     {
         if (pageIndex != PageIndex)
         {
             PageIndex = pageIndex;
-            PageItems = pageItems;
 
             // 清空选中行
             SelectedRows.Clear();
@@ -91,7 +154,7 @@ public partial class Table<TItem>
     /// <summary>
     /// 每页记录条数变化是调用此方法
     /// </summary>
-    protected async Task OnPageItemsChanged(int pageItems)
+    protected async Task OnPageItemsValueChanged(int pageItems)
     {
         if (PageItems != pageItems)
         {
@@ -99,5 +162,17 @@ public partial class Table<TItem>
             PageItems = pageItems;
             await QueryAsync();
         }
+    }
+
+    private List<SelectedItem>? _pageItemsSource;
+
+    /// <summary>
+    /// 获得 分页数据源
+    /// </summary>
+    /// <returns></returns>
+    protected List<SelectedItem> GetPageItemsSource()
+    {
+        _pageItemsSource ??= PageItemsSource.Select(i => new SelectedItem($"{i}", Localizer["PageItemsText", i])).ToList();
+        return _pageItemsSource;
     }
 }

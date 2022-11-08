@@ -178,13 +178,13 @@ public partial class TablesDynamic
 
     private DataTable PageDataTable { get; set; } = new DataTable();
 
-    private IEnumerable<int> PageItemsSource { get; set; } = new int[] { 2, 4, 8, 10 };
-
     private int PageItems { get; set; }
 
     private int TotalCount { get; set; }
 
     private int PageIndex { get; set; } = 1;
+
+    private int PageCount { get; set; }
 
     [NotNull]
     private List<Foo>? PageFoos { get; set; }
@@ -197,9 +197,11 @@ public partial class TablesDynamic
         PageDataTable.Columns.Add(nameof(Foo.Count), typeof(int));
 
         PageFoos = Foo.GenerateFoo(Localizer, 80);
-        PageIndex = 1;
-        PageItems = PageItemsSource.First();
         TotalCount = PageFoos.Count;
+
+        PageIndex = 1;
+        PageItems = 2;
+        PageCount = (int)Math.Ceiling(TotalCount / 2.0);
 
         RebuildPageDataTable();
     }
@@ -250,26 +252,10 @@ public partial class TablesDynamic
     /// 点击页码处理函数
     /// </summary>
     /// <param name="pageIndex"></param>
-    /// <param name="pageItems"></param>
     /// <returns></returns>
-    private Task OnPageClick(int pageIndex, int pageItems)
+    private Task OnPageLinkClick(int pageIndex)
     {
         PageIndex = pageIndex;
-        PageItems = pageItems;
-        RebuildPageDataTable();
-        StateHasChanged();
-        return Task.CompletedTask;
-    }
-
-    /// <summary>
-    /// 点击每页显示数量下拉框处理函数
-    /// </summary>
-    /// <param name="pageItems"></param>
-    /// <returns></returns>
-    private Task OnPageItemsChanged(int pageItems)
-    {
-        PageIndex = 1;
-        PageItems = pageItems;
         RebuildPageDataTable();
         StateHasChanged();
         return Task.CompletedTask;

@@ -1100,12 +1100,11 @@ public partial class Table<TItem> : ITable where TItem : class, new()
         }
     }
 
-    #region Dispose
     /// <summary>
     /// Dispose 方法
     /// </summary>
     /// <param name="disposing"></param>
-    protected virtual void Dispose(bool disposing)
+    protected override async ValueTask DisposeAsync(bool disposing)
     {
         if (disposing)
         {
@@ -1119,15 +1118,7 @@ public partial class Table<TItem> : ITable where TItem : class, new()
                 Interop = null;
             }
         }
-    }
 
-    /// <summary>
-    /// Dispose 方法
-    /// </summary>
-    public void Dispose()
-    {
-        Dispose(disposing: true);
-        GC.SuppressFinalize(this);
+        await base.DisposeAsync(disposing);
     }
-    #endregion
 }
