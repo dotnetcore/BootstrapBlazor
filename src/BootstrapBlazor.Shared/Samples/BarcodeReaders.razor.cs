@@ -2,16 +2,30 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using BootstrapBlazor.Shared.Services;
+
 namespace BootstrapBlazor.Shared.Samples;
 
 /// <summary>
-/// 
+///
 /// </summary>
 public sealed partial class BarcodeReaders
 {
+
+    [Inject]
+    [NotNull]
+    private VersionService? VersionManager { get; set; }
+
+    private string Version { get; set; } = "fetching";
+
     private BlockLogger? Trace { get; set; }
 
     private BlockLogger? Trace2 { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        Version = await VersionManager.GetVersionAsync("bootstrapblazor.barcode");
+    }
 
     private Task OnInit(IEnumerable<DeviceItem> devices)
     {

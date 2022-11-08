@@ -3298,6 +3298,9 @@
   "BootstrapBlazor.Shared.Samples.BarcodeReaders": {
     "Title": "BarcodeReader 条码扫描",
     "SubTitle": "本组件通过调用摄像头对条码进行扫描，获取到条码内容条码/QR码",
+    "Tips": "<div><code>BarcodeReader</code> 组件依赖扩展包 <code>BootstrapBlazor.BarCode</code>，请按照下面提示进行自定义安装</div>",
+    "Nuget": "Nuget 包安装",
+    "NugetIntro": "使用 <a href=\"https://www.nuget.org/packages?q=BootstrapBlazor.BarCode\" target=\"_blank\">nuget.org</a> 进行 <code>BootstrapBlazor.BarCode</code> 组件的安装",
     "Attention": "特别注意：",
     "Li1": "站点要启用 <code>https</code>，这是浏览器厂商要求的",
     "Li2": "移动端 iOS 系统必须使用 <code>Safari</code> 浏览器，切换前/后摄像头要点一下关闭功能按钮",
@@ -5112,7 +5115,7 @@
     "DialogTitle": "弹窗内使用",
     "DialogIntro": "<code>Table</code> 组件在弹窗 <code>Dialog</code> 内使用",
     "DialogDesc": "<p>在弹窗中使用固定表头的 <code>Table</code> 注意事项：</p><div>弹窗要给 <code>DialogOption</code> 的 <code>Class</code> 参数赋值，本例中设置为 <code>dialog-table</code>，这个操作是为了让我们自定义样式能够定位到弹窗中 <code>Table</code> 组件的父容器 <code>modal-body</code> 并设置其高度，这里可以使用自适应高度的写法 <code>height: calc(100vh - 200px);</code>；当 <code>Table</code> 组件的父级容器有高度后，组件自己就会通过计算进行自适应高度适配了</div>",
-    "DialogButtonText": "弹窗"    
+    "DialogButtonText": "弹窗"
   },
   "BootstrapBlazor.Shared.Pages.Introduction": {
     "Title": "简介",

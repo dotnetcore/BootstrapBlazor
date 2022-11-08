@@ -7,7 +7,7 @@ using BootstrapBlazor.Shared.Services;
 namespace BootstrapBlazor.Shared.Samples;
 
 /// <summary>
-/// 
+///
 /// </summary>
 public sealed partial class QRCodes
 {
@@ -58,7 +58,7 @@ public sealed partial class QRCodes
     /// <returns></returns>
     protected override async Task OnInitializedAsync()
     {
-        Version = await VersionManager.GetVersionAsync("bootstrapblazor.chart");
+        Version = await VersionManager.GetVersionAsync("bootstrapblazor.barcode");
     }
 
     private Task OnGenerated()
