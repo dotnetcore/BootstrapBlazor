@@ -37,7 +37,7 @@ internal static class CacheExtensions
 
     private static bool CanCache(this StaticFileResponseContext context, string file)
     {
-        var ext = Path.GetExtension(context.File.PhysicalPath);
+        var ext = Path.GetExtension(context.File.PhysicalPath) ?? "";
         bool ret = file.Equals(ext, StringComparison.OrdinalIgnoreCase);
         if (ret && ext.Equals(".js", StringComparison.OrdinalIgnoreCase))
         {

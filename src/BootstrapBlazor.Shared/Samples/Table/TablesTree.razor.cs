@@ -59,18 +59,13 @@ public partial class TablesTree
     [NotNull]
     private ICacheManager? CacheManager { get; set; }
 
-    private Task<IEnumerable<TableTreeNode<TreeFoo>>> OnTreeExpand(TreeFoo foo)
+    private Task<IEnumerable<TableTreeNode<TreeFoo>>> OnTreeExpand(TreeFoo foo) => CacheManager.GetOrCreateAsync($"{foo.Id}", async entry =>
     {
         // 模拟从数据库中查询
-        return CacheManager.GetOrCreateAsync($"{foo.Id}", async entry =>
-        {
-            await Task.Delay(1000);
-            entry.SlidingExpiration = TimeSpan.FromMinutes(10);
-            return TreeFoo.GenerateFoos(LocalizerFoo, 2, foo.Id, foo.Id * 100).Select(i => new TableTreeNode<TreeFoo>(i));
-        });
-    }
-
-    //private static bool TreeNodeEqualityComparer(Foo a, Foo b) => a.Id == b.Id;
+        await Task.Delay(1000);
+        entry.SlidingExpiration = TimeSpan.FromMinutes(10);
+        return TreeFoo.GenerateFoos(LocalizerFoo, 2, foo.Id, foo.Id * 100).Select(i => new TableTreeNode<TreeFoo>(i));
+    });
 
     private static Task<TreeFoo> OnAddAsync() => Task.FromResult(new TreeFoo() { DateTime = DateTime.Now });
 

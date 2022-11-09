@@ -86,14 +86,12 @@ public class WebsiteOptions
     /// <summary>
     /// 获得/设置 资源配置集合
     /// </summary>
-    [NotNull]
-    public Dictionary<string, string> SourceCodes { get; private set; }
+    public Dictionary<string, string?> SourceCodes { get; private set; }
 
     /// <summary>
     /// 获得/设置 资源配置集合
     /// </summary>
-    [NotNull]
-    public Dictionary<string, string>? Videos { get; private set; }
+    public Dictionary<string, string?> Videos { get; private set; }
 
     /// <summary>
     /// 获得/设置 当前主题
@@ -113,8 +111,7 @@ public class WebsiteOptions
     /// <summary>
     /// 获得/设置 当前网站友联集合
     /// </summary>
-    [NotNull]
-    public Dictionary<string, string>? Links { get; set; }
+    public Dictionary<string, string?> Links { get; set; }
 
     /// <summary>
     /// 构造函数
@@ -122,17 +119,17 @@ public class WebsiteOptions
     public WebsiteOptions()
     {
         var config = GetConfiguration("docs.json");
-        SourceCodes = config.GetSection("src").GetChildren().SelectMany(c => new KeyValuePair<string, string>[]
+        SourceCodes = config.GetSection("src").GetChildren().SelectMany(c => new KeyValuePair<string, string?>[]
         {
             new(c.Key, c.Value)
         }).ToDictionary(item => item.Key, item => item.Value);
-        Videos = config.GetSection("video").GetChildren().SelectMany(c => new KeyValuePair<string, string>[]
+        Videos = config.GetSection("video").GetChildren().SelectMany(c => new KeyValuePair<string, string?>[]
         {
             new(c.Key, c.Value)
         }).ToDictionary(item => item.Key, item => item.Value);
 
         config = GetConfiguration("links.json");
-        Links = config.GetChildren().SelectMany(c => new KeyValuePair<string, string>[]
+        Links = config.GetChildren().SelectMany(c => new KeyValuePair<string, string?>[]
         {
             new (c.Key, c.Value)
         }).ToDictionary(item => item.Key, item => item.Value);
@@ -142,7 +139,7 @@ public class WebsiteOptions
     {
         var assembly = GetType().Assembly;
         var assemlbyName = assembly.GetName().Name;
-        using var res = assembly.GetManifestResourceStream($"{assemlbyName}.{jsonFileName}");
+        using var res = assembly.GetManifestResourceStream($"{assemlbyName}.{jsonFileName}") ?? throw new InvalidOperationException();
 
         return new ConfigurationBuilder()
             .AddJsonStream(res)

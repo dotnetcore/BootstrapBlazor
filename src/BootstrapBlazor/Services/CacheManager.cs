@@ -43,39 +43,6 @@ internal class CacheManager : ICacheManager
         Instance = this;
     }
 
-#if NET7_0_OR_GREATER
-    /// <summary>
-    /// 获得或者创建指定 Key 缓存项
-    /// </summary>
-    public TItem? GetOrCreate<TItem>(object key, Func<ICacheEntry, TItem?> factory) => Cache.GetOrCreate(key, entry =>
-    {
-#if DEBUG
-        entry.SlidingExpiration = TimeSpan.FromSeconds(500000);
-#endif
-
-        if (key is not string)
-        {
-            entry.SetSlidingExpiration(TimeSpan.FromMinutes(5));
-        }
-        return factory(entry);
-    });
-
-    /// <summary>
-    /// 获得或者创建指定 Key 缓存项 异步重载方法
-    /// </summary>
-    public Task<TItem?> GetOrCreateAsync<TItem>(object key, Func<ICacheEntry, Task<TItem?>> factory) => Cache.GetOrCreateAsync(key, async entry =>
-    {
-#if DEBUG
-        entry.SlidingExpiration = TimeSpan.FromSeconds(5);
-#endif
-
-        if (key is not string)
-        {
-            entry.SetSlidingExpiration(TimeSpan.FromMinutes(5));
-        }
-        return await factory(entry);
-    });
-#else
     /// <summary>
     /// 获得或者创建指定 Key 缓存项
     /// </summary>
@@ -90,7 +57,7 @@ internal class CacheManager : ICacheManager
             entry.SetSlidingExpiration(TimeSpan.FromMinutes(5));
         }
         return factory(entry);
-    });
+    })!;
 
     /// <summary>
     /// 获得或者创建指定 Key 缓存项 异步重载方法
@@ -106,8 +73,7 @@ internal class CacheManager : ICacheManager
             entry.SetSlidingExpiration(TimeSpan.FromMinutes(5));
         }
         return await factory(entry);
-    });
-#endif
+    })!;
 
     /// <summary>
     /// 清除指定 Key 缓存项

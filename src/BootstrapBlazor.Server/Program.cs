@@ -24,7 +24,7 @@ builder.Services.AddServerSideBlazor();
 // 获得当前主题配置
 var themes = builder.Configuration.GetSection("Themes")
     .GetChildren()
-    .Select(c => new KeyValuePair<string, string>(c.Key, c.Value));
+    .Select(c => new KeyValuePair<string, string>(c.Key, c.Value ?? ""));
 
 // 增加 BootstrapBlazor 服务
 builder.Services.AddBootstrapBlazorServices(options =>
@@ -60,10 +60,15 @@ else
 
 app.UseStaticFiles();
 app.UseRouting();
-app.UseCors(builder => builder.WithOrigins(app.Configuration["AllowOrigins"].Split(',', StringSplitOptions.RemoveEmptyEntries))
-    .AllowAnyHeader()
-    .AllowAnyMethod()
-    .AllowCredentials());
+
+var cors = app.Configuration["AllowOrigins"]?.Split(',', StringSplitOptions.RemoveEmptyEntries);
+if (cors?.Any() ?? false)
+{
+    app.UseCors(builder => builder.WithOrigins()
+        .AllowAnyHeader()
+        .AllowAnyMethod()
+        .AllowCredentials());
+}
 
 app.UseBootstrapBlazor();
 
