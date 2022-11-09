@@ -63,7 +63,6 @@ public class ListViewTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.OnQueryAsync, Query);
             pb.Add(a => a.Pageable, true);
-            pb.Add(a => a.PageItemsSource, new int[] { 2, 4 });
         });
 
         var pages = cut.FindAll(".page-link");

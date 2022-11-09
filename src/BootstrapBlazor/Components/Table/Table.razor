@@ -156,11 +156,7 @@
 
         @if (ShowTopPagination && PageCount > 1 && IsPagination)
         {
-            <div class="table-pagination is-top">
-                <Pagination PageCount="@PageCount" PageIndex="@PageIndex" OnPageLinkClick="@OnPageLinkClick"
-                            ShowGotoNavigator="ShowGotoNavigator" GotoTemplate="GotoTemplate!" GotoNavigatorLabelText="@GotoNavigatorLabelText"
-                            ShowPageInfo="ShowPageInfo" PageInfoTemplate="InternalPageInfoTemplate" />
-            </div>
+            @RenderPagination
         }
         <div class="@WrapperClassName">
             @if (ActiveRenderMode == TableRenderMode.Table)
@@ -263,11 +259,7 @@
 
         @if (!ShowTopPagination && PageCount > 1 && IsPagination)
         {
-            <div class="table-pagination">
-                <Pagination PageCount="@PageCount" PageIndex="@PageIndex" OnPageLinkClick="@OnPageLinkClick"
-                            ShowGotoNavigator="ShowGotoNavigator" GotoTemplate="GotoTemplate!" GotoNavigatorLabelText="@GotoNavigatorLabelText"
-                            ShowPageInfo="ShowPageInfo" PageInfoTemplate="InternalPageInfoTemplate" />
-            </div>
+            @RenderPagination
         }
         <div class="table-loader">
             <Spinner Color="Color.Primary" />
@@ -842,10 +834,10 @@ RenderFragment<TItem> RenderRowExtendButtons => item =>
 </td>;
 
 RenderFragment RenderSearch =>
-@<div class="@TopSearchClassString">
+@<div class="card">
     <div class="card-header">
         <div class="d-flex">
-            <div class="@TopSearchHeaderClassString">
+            <div class="table-search-collapse" data-bs-toggle="collapse" data-bs-target="#@TopSearchBodyId" aria-expanded="@TopSearchCollapsedString">
                 <i class="table-search-collapse-arrow fa-solid fa-circle-chevron-right"></i>
                 <div class="table-search-collapse-title">@SearchModalTitle</div>
             </div>
@@ -891,7 +883,7 @@ RenderFragment RenderSearch =>
             </div>
         </div>
     </div>
-    <div class="card-body" style="@TopSearchBodyClassString">
+    <div class="@TopSearchBodyClassString" id="@TopSearchBodyId">
         @if(CustomerSearchModel != null && CustomerSearchTemplate != null)
         {
             @CustomerSearchTemplate(CustomerSearchModel)
@@ -914,5 +906,12 @@ RenderFragment RenderPageInfo =>
 @<div class="table-page-info">
     <div class="me-2">@Localizer[nameof(PageInfoText), (PageIndex - 1) * PageItems + 1, (PageIndex - 1) * PageItems + Rows.Count, TotalCount]</div>
     <Select Items="@GetPageItemsSource()" Value="PageItems" OnValueChanged="@OnPageItemsValueChanged" />
+</div>;
+
+RenderFragment RenderPagination =>
+@<div class="table-pagination">
+    <Pagination PageCount="@PageCount" PageIndex="@PageIndex" OnPageLinkClick="@OnPageLinkClick"
+                ShowGotoNavigator="ShowGotoNavigator" GotoTemplate="GotoTemplate!" GotoNavigatorLabelText="@GotoNavigatorLabelText"
+                ShowPageInfo="ShowPageInfo" PageInfoTemplate="InternalPageInfoTemplate" />
 </div>;
 }

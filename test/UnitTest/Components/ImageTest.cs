@@ -4,7 +4,7 @@
 
 namespace UnitTest.Components;
 
-public class ImageTest : TestBase
+public class ImageTest : BootstrapBlazorTestBase
 {
     [Fact]
     public void ShowImage_Ok()

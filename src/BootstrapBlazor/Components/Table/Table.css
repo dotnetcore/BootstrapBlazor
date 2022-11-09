@@ -633,7 +633,7 @@ form .table .table-cell > textarea {
         transform: rotate(0);
     }
 
-    .table-search-collapse.is-open .table-search-collapse-arrow {
+    .table-search-collapse[aria-expanded="true"] .table-search-collapse-arrow {
         transform: rotate(90deg);
     }
 
@@ -643,15 +643,6 @@ form .table .table-cell > textarea {
         flex: 1;
         padding: .5rem 0;
     }
-
-.table-search .collapsed .card-header {
-    border-bottom-color: transparent;
-}
-
-.table-search .card-header .input-group,
-.table-search .collapsed .input-group + .table-search-buttons {
-    display: none;
-}
 
 .table-search .card-header .input-group {
     width: auto;
@@ -663,8 +654,9 @@ form .table .table-cell > textarea {
         height: 34px;
     }
 
-.table-search .collapsed .input-group {
-    display: flex;
+.table-search .card-header [aria-expanded="true"] + .input-group,
+.table-search .card-header [aria-expanded="false"] + .input-group + .table-search-buttons {
+    display: none;
 }
 
 .table-excel-toolbar {

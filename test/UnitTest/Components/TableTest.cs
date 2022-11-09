@@ -622,17 +622,16 @@ public class TableTest : TableTestBase
         cut.Contains("test-export-dropdown-item");
     }
 
-    [Theory]
-    [InlineData(true)]
-    [InlineData(false)]
-    public void ShowTopPagination_Ok(bool showTopPagination)
+    [Fact]
+    public void ShowTopPagination_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
-                pb.Add(a => a.ShowTopPagination, showTopPagination);
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.ShowTopPagination, true);
                 pb.Add(a => a.IsPagination, true);
                 pb.Add(a => a.OnQueryAsync, OnQueryAsync(localizer));
                 pb.Add(a => a.TableColumns, foo => builder =>
@@ -642,14 +641,15 @@ public class TableTest : TableTestBase
                     builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
                     builder.CloseComponent();
                 });
+                pb.Add(a => a.OnAfterRenderCallback, tb =>
+                {
+                    return Task.CompletedTask;
+                });
             });
         });
-        cut.Contains("table-pagination");
 
-        if (showTopPagination)
-        {
-            cut.Contains("is-top");
-        }
+        var table = cut.FindComponent<Table<Foo>>();
+        table.Contains("table-pagination");
     }
 
     [Fact]
@@ -676,12 +676,8 @@ public class TableTest : TableTestBase
         });
 
         var pager = cut.FindComponent<Pagination>();
-        await cut.InvokeAsync(() => pager.Instance.OnPageItemsChanged!.Invoke(4));
+        await cut.InvokeAsync(() => pager.Instance.OnPageLinkClick!.Invoke(2));
         var activePage = cut.Find(".page-item.active");
-        Assert.Equal("1", activePage.TextContent);
-
-        await cut.InvokeAsync(() => pager.Instance.OnPageClick!.Invoke(2, 4));
-        activePage = cut.Find(".page-item.active");
         Assert.Equal("2", activePage.TextContent);
     }
 
@@ -5623,7 +5619,7 @@ public class TableTest : TableTestBase
         return Task.FromResult(new QueryData<Foo>()
         {
             Items = items,
-            TotalCount = items.Count,
+            TotalCount = 80,
             IsAdvanceSearch = isAdvanceSearch,
             IsFiltered = isFilter,
             IsSearch = isSearch,

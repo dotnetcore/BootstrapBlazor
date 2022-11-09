@@ -120,17 +120,13 @@ public partial class Table<TItem>
     [Parameter]
     public Func<TItem, Task>? OnResetSearchAsync { get; set; }
 
-    private string? TopSearchClassString => CssBuilder.Default("card")
-        .AddClass("collapsed", CollapsedTopSearch)
+    private string? TopSearchBodyClassString => CssBuilder.Default("card-body collapse")
+        .AddClass("show", !CollapsedTopSearch)
         .Build();
 
-    private string? TopSearchHeaderClassString => CssBuilder.Default("table-search-collapse")
-        .AddClass("is-open", !CollapsedTopSearch)
-        .Build();
+    private string TopSearchBodyId => $"{Id}_search_body";
 
-    private string? TopSearchBodyClassString => CssBuilder.Default()
-        .AddClass("display: none;", CollapsedTopSearch)
-        .Build();
+    private string TopSearchCollapsedString => CollapsedTopSearch ? "false" : "true";
 
     /// <summary>
     /// 重置查询方法
