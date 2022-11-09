@@ -35,7 +35,8 @@ public static class TreeItemExtensions
     /// <returns></returns>
     public static IEnumerable<TreeViewItem<TItem>> GetAllItems<TItem>(this IEnumerable<TreeViewItem<TItem>> source)
     {
-        return GetAllSubItems(source).Append(source.First());
+        //return GetAllSubItems(source).Append(source.First());
+        return GetAllSubItems(source).Union(source);
     }
 
     /// <summary>
