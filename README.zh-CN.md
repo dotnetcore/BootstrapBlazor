@@ -62,7 +62,7 @@ dotnet run
 **Install Template**
 
 ```c#
-dotnet new -i Bootstrap.Blazor.Templates
+dotnet new install Bootstrap.Blazor.Templates
 ```
 
 **Create Project**

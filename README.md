@@ -39,7 +39,7 @@ English | <a href="README.zh-CN.md">中文</a>
 
 1. Install the template
 
-`dotnet new -i Bootstrap.Blazor.Templates::*`
+`dotnet new install Bootstrap.Blazor.Templates::*`
 
 2. Create the Boilerplate project with the template
 
