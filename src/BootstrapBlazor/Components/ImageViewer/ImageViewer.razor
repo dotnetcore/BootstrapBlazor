@@ -1,7 +1,7 @@
 ﻿@namespace BootstrapBlazor.Components
-@inherits BootstrapComponentBase
+@inherits BootstrapModuleComponentBase
 
-<div @attributes="AdditionalAttributes" class="@ClassString" @ref="ImageElement">
+<div @attributes="AdditionalAttributes" class="@ClassString" id="@Id" data-bb-async="@IsAsyncString">
     @if (ShowImage)
     {
         @RenderChildContent()

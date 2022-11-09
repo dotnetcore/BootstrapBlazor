@@ -7,6 +7,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// Image 组件
 /// </summary>
+[JSModuleAutoLoader("image-viewer")]
 public partial class ImageViewer
 {
     /// <summary>
@@ -21,8 +22,6 @@ public partial class ImageViewer
         .AddClass($"obj-fit-{FitMode.ToDescriptionString()}")
         .AddClass("d-none", ShouldHandleError && !IsLoaded)
         .Build();
-
-    private ElementReference ImageElement { get; set; }
 
     /// <summary>
     /// 获得/设置 图片 Url 默认 null 必填
@@ -106,21 +105,13 @@ public partial class ImageViewer
 
     private bool IsError { get; set; }
 
+    private string? IsAsyncString => IsAsync ? "true" : null;
+
     /// <summary>
-    /// OnAfterRenderAsync 方法
+    /// <inheritdoc/>
     /// </summary>
-    /// <param name="firstRender"></param>
     /// <returns></returns>
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (firstRender)
-        {
-            if (IsAsync)
-            {
-                await JSRuntime.InvokeVoidAsync(ImageElement, "bb_image_load_async", Url);
-            }
-        }
-    }
+    protected override Task ModuleInitAsync() => InvokeInitAsync(Id, Url);
 
     private RenderFragment RenderChildContent() => builder =>
     {
@@ -160,10 +151,7 @@ public partial class ImageViewer
             }
             if (PreviewList != null && PreviewList.Count > 0)
             {
-                builder.AddAttribute(5, "onclick", EventCallback.Factory.Create(this, async () =>
-                {
-                    await JSRuntime.InvokeVoidAsync(ImageElement, "bb_image_preview", PreviewList);
-                }));
+                builder.AddAttribute(5, "onclick", EventCallback.Factory.Create(this, () => InvokeExecuteAsync(Id, PreviewList)));
             }
             builder.CloseElement();
 
