@@ -55,7 +55,7 @@ public partial class DatePickerBody
     private string? GetDayClass(DateTime day, bool overflow) => CssBuilder.Default("")
         .AddClass("prev-month", day.Month < CurrentDate.Month)
         .AddClass("next-month", day.Month > CurrentDate.Month)
-        .AddClass("current", day == OriginalValue && Ranger == null && day.Month == CurrentDate.Month && !overflow)
+        .AddClass("current", day == Value && Ranger == null && day.Month == CurrentDate.Month && !overflow)
         .AddClass("start", Ranger != null && day == Ranger.SelectedValue.Start.Date)
         .AddClass("end", Ranger != null && day == Ranger.SelectedValue.End.Date)
         .AddClass("range", Ranger != null && CurrentDate.Month >= Ranger.SelectedValue.Start.Month
@@ -183,10 +183,10 @@ public partial class DatePickerBody
     public bool ShowRightButtons { get; set; } = true;
 
     /// <summary>
-    /// 获得/设置 是否显示 Footer 区域 默认为 true 显示
+    /// 获得/设置 是否显示 Footer 区域 默认为 false 不显示
     /// </summary>
     [Parameter]
-    public bool ShowFooter { get; set; } = true;
+    public bool ShowFooter { get; set; }
 
     /// <summary>
     /// 获得/设置 时间格式字符串 默认为 "hh\\:mm\\:ss"
@@ -254,22 +254,11 @@ public partial class DatePickerBody
     [NotNull]
     public string? ConfirmButtonText { get; set; }
 
-    private DateTime OriginalValue { get; set; }
-
     /// <summary>
     /// 获得/设置 组件值
     /// </summary>
     [Parameter]
-    public DateTime Value
-    {
-        get { return CurrentDate.AddTicks(CurrentTime.Ticks); }
-        set
-        {
-            OriginaValue = value.Date;
-            CurrentDate = value.Date;
-            CurrentTime = value - CurrentDate;
-        }
-    }
+    public DateTime Value { get; set; }
 
     /// <summary>
     /// 获得/设置 组件值改变时回调委托供双向绑定使用
@@ -366,7 +355,12 @@ public partial class DatePickerBody
         // 计算开始与结束时间 每个组件显示 6 周数据
         if (Value == DateTime.MinValue)
         {
-            Value = DateTime.Today;
+            SetValue(DateTime.Today);
+        }
+        else
+        {
+            CurrentDate = Value.Date;
+            CurrentTime = Value - CurrentDate;
         }
     }
 
@@ -401,6 +395,16 @@ public partial class DatePickerBody
         Today ??= Localizer[nameof(Today)];
         Yesterday ??= Localizer[nameof(Yesterday)];
         Week ??= Localizer[nameof(Week)];
+    }
+
+    private void SetValue(DateTime val)
+    {
+        if (val != Value)
+        {
+            Value = val;
+            CurrentDate = Value.Date;
+            CurrentTime = Value - CurrentDate;
+        }
     }
 
     /// <summary>
@@ -450,8 +454,7 @@ public partial class DatePickerBody
     private async Task OnClickDateTime(DateTime d)
     {
         ShowTimePicker = false;
-        CurrentDate = d;
-        OriginalValue = d;
+        SetValue(d + CurrentTime);
         Ranger?.UpdateValue(d);
         if (Ranger == null)
         {
@@ -459,8 +462,10 @@ public partial class DatePickerBody
             {
                 await ClickConfirmButton();
             }
-
-            StateHasChanged();
+            else
+            {
+                StateHasChanged();
+            }
         }
     }
 
@@ -577,11 +582,12 @@ public partial class DatePickerBody
     /// </summary>
     private async Task ClickNowButton()
     {
-        Value = ViewMode switch
+        var val = ViewMode switch
         {
             DatePickerViewMode.DateTime => DateTime.Now,
             _ => DateTime.Today
         };
+        SetValue(val);
         await ClickConfirmButton();
     }
 
@@ -621,6 +627,7 @@ public partial class DatePickerBody
     /// </summary>
     private void OnTimePickerClose()
     {
+        SetValue(CurrentDate + CurrentTime);
         ShowTimePicker = false;
         StateHasChanged();
     }

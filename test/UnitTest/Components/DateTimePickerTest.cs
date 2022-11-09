@@ -435,6 +435,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         // (!MinValue.HasValue || Value >= MinValue.Value) && (!MaxValue.HasValue || Value <= MaxValue.Value)
         var cut = Context.RenderComponent<DatePickerBody>(pb =>
         {
+            pb.Add(a => a.ShowFooter, true);
             pb.Add(a => a.MinValue, DateTime.Now.AddDays(-1));
             pb.Add(a => a.Value, DateTime.Now);
         });
