@@ -2518,13 +2518,11 @@ public class TableTest : TableTestBase
 
         if (collapsed)
         {
-            cut.DoesNotContain("is-open");
-            cut.Contains("display: none;");
+            cut.Contains("aria-expanded=\"false\"");
         }
         else
         {
-            cut.Contains("is-open");
-            cut.DoesNotContain("display: none;");
+            cut.Contains("aria-expanded=\"true\"");
         }
     }
 
