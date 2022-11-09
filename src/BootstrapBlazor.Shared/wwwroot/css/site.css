@@ -1531,6 +1531,18 @@ section {
         --ad-margin-bottom: 0;
     }
 
+.gitee-icon {
+    width: 32px;
+    height: auto;
+}
+
+.github-icon {
+    font-size: 32px;
+    line-height: 32px;
+    vertical-align: middle;
+    color: #000;
+}
+
 @media (max-width: 767.98px) {
     .main .top-row:not(.auth) {
         display: none;

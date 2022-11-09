@@ -1020,7 +1020,6 @@
     "N17": "由于某些系统如",
     "N18": "等程序运行后线程无法获得文化信息，可以通过配置文件设置默认文化信息",
     "N19": "开启本地化功能",
-
     "N20": "配置文件",
     "N21": "通过",
     "N22": "设置回退文化信息，即未找到当前请求的文化信息时使用此配置文化，通过",
@@ -1028,7 +1027,6 @@
     "N24": "启用 .NET 核心本地化服务",
     "N25": "增加 Bootstrap Blazor 组件",
     "N26": "增加多语言支持配置信息",
-
     "N27": "启用本地化",
     "N28": "增加 BootstrapBlazor 组件",
     "N29": "增加本地化服务配置信息",
@@ -1052,7 +1050,6 @@
     "N47": "设置 RESX 格式多语言资源文件 如 Program.{CultureName}.resx",
     "N48": "设置 Json 格式嵌入式资源文件",
     "N49": "设置 Json 物理路径文件",
-
     "N50": "或者使用服务扩展方法",
     "N51": "忽略本地化键值文化信息丢失",
     "N52": "附加自己的 json 多语言文化资源文件 如 zh-TW.json",
@@ -1066,7 +1063,11 @@
     "N60": "设置默认文化为 zh-CN",
     "N61": "配置是否显示缺失本地化资源信息",
     "N62": "增加 BootstrapBlazor 服务",
-    "N63": "忽略本地化键值文化信息丢失"
+    "N63": "忽略本地化键值文化信息丢失",
+    "LocalizationFileDesc": "组件内置本地化资源文件为 <code>en</code> <code>zh</code> 由网友提供的其他本地化资源文件 <code>de</code> <code>es</code> <code>pt</code> <code>zh-TW</code> 放置在项目文件夹 <code>localization</code> 内，可自行下载通过注入服务引入到项目中 <a href=\"https://gitee.com/LongbowEnterprise/BootstrapBlazor/tree/main/localization\" target=\"_blank\"><img src=\"_content/BootstrapBlazor.Shared/images/gitee.svg\" class=\"gitee-icon\"></a> <a href=\"https://github.com/dotnetcore/BootstrapBlazor/tree/main/localization\" target=\"_blank\"><i class=\"fa-brands fa-github github-icon\"></i></a>",
+    "AdditionalJsonFile": "额外本地化语言 <code>json</code> 文件",
+    "ES": "西班牙语（es）",
+    "TW": "中國台灣（zh-TW）"
   },
   "BootstrapBlazor.Shared.Pages.Template": {
     "Title": "项目模板",

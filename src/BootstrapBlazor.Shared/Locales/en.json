@@ -1020,7 +1020,6 @@
     "N17": "Due to some systems such as",
     "N18": "After the program runs, the thread cannot obtain the cultural information, and the default cultural information can be set through the configuration file",
     "N19": "Enable localization",
-
     "N20": "configuration file",
     "N21": "pass",
     "N22": "Set the fallback culture information, that is, use this configuration culture when the currently requested culture information is not found, through",
@@ -1028,7 +1027,6 @@
     "N24": "Enable .NET Core localization service",
     "N25": "Add Bootstrap Blazor components",
     "N26": "Add multi-language support configuration information",
-
     "N27": "Enable localization",
     "N28": "Add BootstrapBlazor component",
     "N29": "Add localization service configuration information",
@@ -1052,7 +1050,6 @@
     "N47": "Set up RESX format multilingual resource files such as Program.{CultureName}.resx",
     "N48": "Set Json format embedded resource file",
     "N49": "Set Json physical path file",
-
     "N50": "or use service extension method",
     "N51": "Ignore the loss of localized key-value culture information",
     "N52": "Attach your own json multilingual culture resource file such as zh-TW.json",
@@ -1066,7 +1063,11 @@
     "N60": "Set default culture to zh-CN",
     "N61": "Configure whether to display missing localized resource information",
     "N62": "Add BootstrapBlazor service",
-    "N63": "Ignore the loss of localized key-value culture information"
+    "N63": "Ignore the loss of localized key-value culture information",
+    "LocalizationFileDesc": "The component built-in localization resource files are <code>en</code> <code>zh</code>. The other localization resource files <code>de</code> <code>es</code> <code>pt</code> <code>zh-TW</code> which are placed in the project folder <code>localization</code>. you can be downloaded by yourself and imported into the project through the injection service <a href=\"https://gitee.com/LongbowEnterprise/BootstrapBlazor/tree/main/localization\" target=\"_blank\"><img src=\"_content/BootstrapBlazor.Shared/images/gitee.svg\" class=\"gitee-icon\"></a> <a href=\"https://github.com/dotnetcore/BootstrapBlazor/tree/main/localization\" target=\"_blank\"><i class=\"fa-brands fa-github github-icon\"></i></a>",
+    "AdditionalJsonFile": "Additional <code>json</code> localization file",
+    "ES": "Spanish (es)",
+    "TW": "中國台灣 (zh-TW)"
   },
   "BootstrapBlazor.Shared.Pages.Template": {
     "Title": "Project Template",
