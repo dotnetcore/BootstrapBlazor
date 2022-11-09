@@ -69,7 +69,7 @@
     "GenericTypeErroMessage": "DateTimePicker only support DateTime or Nullable<DateTime>",
     "Today": "Heute",
     "Yesterday": "Gestern",
-    "Weekago": "Eine Woche zuvor"
+    "Week": "Eine Woche zuvor"
   },
   "BootstrapBlazor.Components.DateTimeRange": {
     "SeparateText": "Zu",

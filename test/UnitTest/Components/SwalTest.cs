@@ -100,77 +100,79 @@ public class SwalTest : SwalTestBase
         var button = cut.Find(".btn-secondary");
         button.Click();
 
-        ////测试Modal取消
-        //var cancel = true;
-        //_ = cut.InvokeAsync(async () =>
-        //{
-        //    cancel = await swal.ShowModal(new SwalOption()
-        //    {
-        //        Content = "I am Swal"
-        //    });
-        //});
+        //测试Modal取消
+        var cancel = true;
+        _ = Task.Run(() =>
+        {
+            cut.InvokeAsync(async () => cancel = await swal.ShowModal(new SwalOption()
+            {
+                Content = "I am Swal"
+            }));
+        });
+        await Task.Delay(100);
 
-        //var cancelbutton = cut.Find(".btn-secondary");
-        //cancelbutton.Click();
-        //Assert.False(cancel);
+        var cancelbutton = cut.Find(".btn-secondary");
+        cancelbutton.Click();
+        Assert.False(cancel);
 
         //测试Modal确认
-        //var confirm = false;
-        //await cut.InvokeAsync(async () =>
-        //{
-        //    confirm = await swal.ShowModal(new SwalOption()
-        //    {
-        //        Content = "I am Swal"
-        //    });
-        //});
+        var confirm = false;
+        _ = Task.Run(() => cut.InvokeAsync(async () =>
+        {
+            confirm = await swal.ShowModal(new SwalOption()
+            {
+                Content = "I am Swal"
+            });
+        }));
+        await Task.Delay(100);
 
-        //var confirmbutton = cut.Find(".btn-danger");
-        //confirmbutton.Click();
-        //Assert.True(confirm);
+        var confirmbutton = cut.Find(".btn-danger");
+        confirmbutton.Click();
+        Assert.True(confirm);
 
-        //cut.SetParametersAndRender(pb =>
-        //{
-        //    pb.AddChildContent<Select<string>>(pb =>
-        //    {
-        //        pb.Add(a => a.OnBeforeSelectedItemChange, item => Task.FromResult(true));
-        //        pb.Add(a => a.SwalFooter, "Test-Swal-Footer");
-        //        pb.Add(a => a.SwalCategory, SwalCategory.Question);
-        //        pb.Add(a => a.SwalTitle, "Test-Swal-Title");
-        //        pb.Add(a => a.SwalContent, "Test-Swal-Content");
-        //        pb.Add(a => a.Items, new SelectedItem[]
-        //        {
-        //            new SelectedItem("1", "Test1"),
-        //            new SelectedItem("2", "Test2")
-        //        });
-        //    });
-        //});
-        //await cut.InvokeAsync(() => cut.Find(".dropdown-item").Click());
-        //Assert.Contains("Test-Swal-Title", cut.Markup);
-        //Assert.Contains("Test-Swal-Content", cut.Markup);
-        //Assert.Contains("Test-Swal-Footer", cut.Markup);
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.AddChildContent<Select<string>>(pb =>
+            {
+                pb.Add(a => a.OnBeforeSelectedItemChange, item => Task.FromResult(true));
+                pb.Add(a => a.SwalFooter, "Test-Swal-Footer");
+                pb.Add(a => a.SwalCategory, SwalCategory.Question);
+                pb.Add(a => a.SwalTitle, "Test-Swal-Title");
+                pb.Add(a => a.SwalContent, "Test-Swal-Content");
+                pb.Add(a => a.Items, new SelectedItem[]
+                {
+                    new SelectedItem("1", "Test1"),
+                    new SelectedItem("2", "Test2")
+                });
+            });
+        });
+        await cut.InvokeAsync(() => cut.Find(".dropdown-item").Click());
+        Assert.Contains("Test-Swal-Title", cut.Markup);
+        Assert.Contains("Test-Swal-Content", cut.Markup);
+        Assert.Contains("Test-Swal-Footer", cut.Markup);
 
-        //await cut.InvokeAsync(() => cut.Find(".swal2-actions button").Click());
-        //Assert.DoesNotContain("Test-Swal-Content", cut.Markup);
+        await cut.InvokeAsync(() => cut.Find(".swal2-actions button").Click());
+        Assert.DoesNotContain("Test-Swal-Content", cut.Markup);
 
-        //// 测试自动关闭
-        //await cut.InvokeAsync(() => swal.Show(new SwalOption()
-        //{
-        //    Content = "I am Swal",
-        //    IsAutoHide = true,
-        //    Delay = 100
-        //}));
-        //while (cut.Markup.Contains("I am Swal"))
-        //{
-        //    await Task.Delay(100);
-        //}
+        // 测试自动关闭
+        await cut.InvokeAsync(() => swal.Show(new SwalOption()
+        {
+            Content = "I am Swal",
+            IsAutoHide = true,
+            Delay = 100
+        }));
+        while (cut.Markup.Contains("I am Swal"))
+        {
+            await Task.Delay(100);
+        }
 
-        //// 不关闭弹窗测试 Dispose
-        //await cut.InvokeAsync(() => swal.Show(new SwalOption()
-        //{
-        //    Content = "I am Swal",
-        //    IsAutoHide = true,
-        //    Delay = 1000
-        //}));
+        // 不关闭弹窗测试 Dispose
+        await cut.InvokeAsync(() => swal.Show(new SwalOption()
+        {
+            Content = "I am Swal",
+            IsAutoHide = true,
+            Delay = 1000
+        }));
     }
 
 

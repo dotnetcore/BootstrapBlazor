@@ -10,7 +10,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 日期选择组件
 /// </summary>
-public sealed partial class DatePickerBody
+public partial class DatePickerBody
 {
     /// <summary>
     /// 获得/设置 日历框开始时间
@@ -36,7 +36,7 @@ public sealed partial class DatePickerBody
     private DateTime CurrentDate { get; set; }
 
     /// <summary>
-    /// 
+    /// 获得/设置 当前日历框时刻值
     /// </summary>
     private TimeSpan CurrentTime { get; set; }
 
@@ -55,7 +55,7 @@ public sealed partial class DatePickerBody
     private string? GetDayClass(DateTime day, bool overflow) => CssBuilder.Default("")
         .AddClass("prev-month", day.Month < CurrentDate.Month)
         .AddClass("next-month", day.Month > CurrentDate.Month)
-        .AddClass("current", day == OriginaValue && Ranger == null && day.Month == CurrentDate.Month && !overflow)
+        .AddClass("current", day == OriginalValue && Ranger == null && day.Month == CurrentDate.Month && !overflow)
         .AddClass("start", Ranger != null && day == Ranger.SelectedValue.Start.Date)
         .AddClass("end", Ranger != null && day == Ranger.SelectedValue.End.Date)
         .AddClass("range", Ranger != null && CurrentDate.Month >= Ranger.SelectedValue.Start.Month
@@ -254,7 +254,7 @@ public sealed partial class DatePickerBody
     [NotNull]
     public string? ConfirmButtonText { get; set; }
 
-    private DateTime OriginaValue { get; set; }
+    private DateTime OriginalValue { get; set; }
 
     /// <summary>
     /// 获得/设置 组件值
@@ -327,7 +327,7 @@ public sealed partial class DatePickerBody
     private string? Yesterday { get; set; }
 
     [NotNull]
-    private string? Weekago { get; set; }
+    private string? Week { get; set; }
 
     private Dictionary<DatePickerViewMode, List<DatePickerViewMode>> AllowSwitchModes { get; } = new Dictionary<DatePickerViewMode, List<DatePickerViewMode>>
     {
@@ -368,6 +368,14 @@ public sealed partial class DatePickerBody
         {
             Value = DateTime.Today;
         }
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
 
         DatePlaceHolder ??= Localizer[nameof(DatePlaceHolder)];
         TimePlaceHolder ??= Localizer[nameof(TimePlaceHolder)];
@@ -392,7 +400,7 @@ public sealed partial class DatePickerBody
 
         Today ??= Localizer[nameof(Today)];
         Yesterday ??= Localizer[nameof(Yesterday)];
-        Weekago ??= Localizer[nameof(Weekago)];
+        Week ??= Localizer[nameof(Week)];
     }
 
     /// <summary>
@@ -443,7 +451,7 @@ public sealed partial class DatePickerBody
     {
         ShowTimePicker = false;
         CurrentDate = d;
-        OriginaValue = d;
+        OriginalValue = d;
         Ranger?.UpdateValue(d);
         if (Ranger == null)
         {
@@ -609,7 +617,7 @@ public sealed partial class DatePickerBody
     private bool Validate() => (!MinValue.HasValue || Value >= MinValue.Value) && (!MaxValue.HasValue || Value <= MaxValue.Value);
 
     /// <summary>
-    /// 
+    /// 点击时刻窗口关闭处理方法
     /// </summary>
     private void OnTimePickerClose()
     {

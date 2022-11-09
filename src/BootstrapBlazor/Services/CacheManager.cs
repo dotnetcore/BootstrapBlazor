@@ -47,7 +47,7 @@ internal class CacheManager : ICacheManager
     /// <summary>
     /// 获得或者创建指定 Key 缓存项
     /// </summary>
-    public TItem? GetOrCreate<TItem>(object key, Func<ICacheEntry, TItem> factory) => Cache.GetOrCreate(key, entry =>
+    public TItem? GetOrCreate<TItem>(object key, Func<ICacheEntry, TItem?> factory) => Cache.GetOrCreate(key, entry =>
     {
 #if DEBUG
         entry.SlidingExpiration = TimeSpan.FromSeconds(500000);
@@ -63,7 +63,7 @@ internal class CacheManager : ICacheManager
     /// <summary>
     /// 获得或者创建指定 Key 缓存项 异步重载方法
     /// </summary>
-    public Task<TItem?> GetOrCreateAsync<TItem>(object key, Func<ICacheEntry, Task<TItem>> factory) => Cache.GetOrCreateAsync(key, async entry =>
+    public Task<TItem?> GetOrCreateAsync<TItem>(object key, Func<ICacheEntry, Task<TItem?>> factory) => Cache.GetOrCreateAsync(key, async entry =>
     {
 #if DEBUG
         entry.SlidingExpiration = TimeSpan.FromSeconds(5);

@@ -2,20 +2,16 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using System.Diagnostics;
-
 namespace UnitTest.Extensions;
 
 public class TreeItemExtensionsTest
 {
-
     /// <summary>
     /// 单一顶级树节点
     /// </summary>
     [Fact]
-    public async Task 单一顶级树节点()
+    public void GetAllItems_Single()
     {
-        //GetAllItems存在错误。
         var sourceItems = new List<TreeViewItem<string>>()
         {
             new TreeViewItem<string>("01")
@@ -23,27 +19,21 @@ public class TreeItemExtensionsTest
                 Text="01",Items = new List<TreeViewItem<string>>()
                 {
                     new TreeViewItem<string>("0101") { Text="0101" },
-                    new TreeViewItem<string>("0102") { Text="0102" },
+                    new TreeViewItem<string>("0102") { Text="0102" }
                 }
             }
         };
-
         var items = sourceItems.GetAllItems();
         var list = items.Select(x => x.Text ?? "").ToList();
-
-        Assert.True(items.Count() == 3);
-
-        await Task.CompletedTask;
+        Assert.Equal(3, items.Count());
     }
-
 
     /// <summary>
     /// 多顶级树节点
     /// </summary>
     [Fact]
-    public async Task 多顶级树节点()
+    public void GetAllItems_Multiple()
     {
-        //GetAllItems存在错误。
         var sourceItems = new List<TreeViewItem<string>>()
         {
             new TreeViewItem<string>("01")
@@ -67,8 +57,6 @@ public class TreeItemExtensionsTest
         var items = sourceItems.GetAllItems();
         var list = items.Select(x => x.Text ?? "").ToList();
 
-        Assert.True(items.Count() == 6);
-
-        await Task.CompletedTask;
+        Assert.Equal(6, items.Count());
     }
 }

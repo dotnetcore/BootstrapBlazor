@@ -19,7 +19,7 @@ public interface ICacheManager
     /// <param name="key"></param>
     /// <param name="factory"></param>
     /// <returns></returns>
-    TItem? GetOrCreate<TItem>(object key, Func<ICacheEntry, TItem> factory);
+    TItem? GetOrCreate<TItem>(object key, Func<ICacheEntry, TItem?> factory);
 
     /// <summary>
     /// 
@@ -28,7 +28,7 @@ public interface ICacheManager
     /// <param name="key"></param>
     /// <param name="factory"></param>
     /// <returns></returns>
-    Task<TItem?> GetOrCreateAsync<TItem>(object key, Func<ICacheEntry, Task<TItem>> factory);
+    Task<TItem?> GetOrCreateAsync<TItem>(object key, Func<ICacheEntry, Task<TItem?>> factory);
 #else
     /// <summary>
     /// 

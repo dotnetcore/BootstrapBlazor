@@ -69,7 +69,7 @@
     "GenericTypeErroMessage": "DateTimePicker 组件仅支持绑定泛型为 DateTime 或者 DateTime?",
     "Today": "今天",
     "Yesterday": "昨天",
-    "Weekago": "一周前"
+    "Week": "一周前"
   },
   "BootstrapBlazor.Components.DateTimeRange": {
     "SeparateText": "至",

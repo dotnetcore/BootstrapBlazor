@@ -50,7 +50,7 @@ public partial class SweetAlertBody
     public string? Content { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否显示关闭按钮 默认显示
+    /// 获得/设置 是否显示关闭按钮 默认 true 显示
     /// </summary>
     [Parameter]
     public bool ShowClose { get; set; } = true;
@@ -130,33 +130,18 @@ public partial class SweetAlertBody
     };
 
     /// <summary>
-    /// OnInitialized 方法
+    /// <inheritdoc/>
     /// </summary>
-    protected override void OnInitialized()
+    protected override void OnParametersSet()
     {
-        base.OnInitialized();
+        base.OnParametersSet();
 
         CloseButtonText ??= Localizer[nameof(CloseButtonText)];
         CancelButtonText ??= Localizer[nameof(CancelButtonText)];
         ConfirmButtonText ??= Localizer[nameof(ConfirmButtonText)];
     }
 
-    private Task OnClickClose()
-    {
-        if (OnClose != null)
-        {
-            OnClose.Invoke();
-        }
+    private void OnClickClose() => OnClose?.Invoke();
 
-        return Task.CompletedTask;
-    }
-
-    private Task OnClickConfirm()
-    {
-        if (OnConfirm != null)
-        {
-            OnConfirm.Invoke();
-        }
-        return Task.CompletedTask;
-    }
+    private void OnClickConfirm() => OnConfirm?.Invoke();
 }

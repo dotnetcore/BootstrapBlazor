@@ -57,26 +57,12 @@ public partial class SelectTree<TValue>
     [Parameter]
     public StringComparison StringComparison { get; set; } = StringComparison.OrdinalIgnoreCase;
 
-    [NotNull]
-    private List<TreeViewItem<TValue>>? _items { get; set; }
-
     /// <summary>
     /// 获得/设置 带层次数据集合
     /// </summary>
     [Parameter]
     [NotNull]
-    public List<TreeViewItem<TValue>>? Items
-    {
-        get
-        {
-            return _items;
-        }
-        set
-        {
-            _items = value ?? new();
-            ExpansionItems = TreeItemExtensions.GetAllItems(_items);
-        }
-    }
+    public List<TreeViewItem<TValue>>? Items { get; set; }
 
     /// <summary>
     /// SelectedItemChanged 回调方法
@@ -134,8 +120,20 @@ public partial class SelectTree<TValue>
 
     private TreeViewItem<TValue>? SelectedItem { get; set; }
 
+    private List<TreeViewItem<TValue>>? _itemCache;
+
     [NotNull]
-    private IEnumerable<TreeViewItem<TValue>>? ExpansionItems { get; set; }
+    private List<TreeViewItem<TValue>>? ExpansionItemsCache { get; set; }
+
+    private IEnumerable<TreeViewItem<TValue>> GetExpansionItems()
+    {
+        if (_itemCache != Items)
+        {
+            _itemCache = Items ?? new List<TreeViewItem<TValue>>();
+            ExpansionItemsCache = TreeItemExtensions.GetAllItems(_itemCache).ToList();
+        }
+        return ExpansionItemsCache;
+    }
 
     /// <summary>
     /// OnParametersSet 方法
@@ -146,11 +144,10 @@ public partial class SelectTree<TValue>
 
         DropdownIcon ??= "fa-solid fa-angle-up";
         PlaceHolder ??= Localizer[nameof(PlaceHolder)];
-        ExpansionItems ??= Enumerable.Empty<TreeViewItem<TValue>>();
 
         if (Value != null)
         {
-            var currentItem = ExpansionItems.FirstOrDefault(s => ComparerItem(s.Value, Value));
+            var currentItem = GetExpansionItems().FirstOrDefault(s => ComparerItem(s.Value, Value));
             if (currentItem != null)
             {
                 SelectedItem = currentItem;

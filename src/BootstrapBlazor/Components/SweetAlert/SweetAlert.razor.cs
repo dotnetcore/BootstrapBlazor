@@ -119,7 +119,7 @@ public partial class SweetAlert : IDisposable
     };
 
     /// <summary>
-    /// 
+    /// Dispose 方法
     /// </summary>
     /// <param name="disposing"></param>
     protected virtual void Dispose(bool disposing)

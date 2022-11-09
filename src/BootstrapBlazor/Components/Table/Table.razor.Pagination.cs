@@ -172,7 +172,7 @@ public partial class Table<TItem>
     /// <returns></returns>
     protected List<SelectedItem> GetPageItemsSource()
     {
-        _pageItemsSource ??= PageItemsSource.Select(i => new SelectedItem($"{i}", Localizer["PageItemsText", i])).ToList();
+        _pageItemsSource ??= PageItemsSource.Select(i => new SelectedItem($"{i}", Localizer["PageItemsText", i].Value)).ToList();
         return _pageItemsSource;
     }
 }
