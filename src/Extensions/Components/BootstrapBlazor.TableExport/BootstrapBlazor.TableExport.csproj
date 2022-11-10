@@ -3,7 +3,7 @@
   <Import Project="..\..\..\bundleconfig.props" />
 
   <PropertyGroup>
-    <Version>6.0.0</Version>
+    <Version>7.0.0</Version>
     <PackageTags>Bootstrap Blazor WebAssembly wasm UI Components Table Export</PackageTags>
     <Description>Bootstrap UI components extensions of export</Description>
   </PropertyGroup>
@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="BootstrapBlazor" Version="6.9.5" />
+    <PackageReference Include="BootstrapBlazor" Version="7.0.0" />
     <PackageReference Include="EPPlus" Version="4.5.3.3" />
   </ItemGroup>
 

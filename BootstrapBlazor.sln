@@ -130,9 +130,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTestEditor", "test\Unit
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BootstrapBlazor.Topology", "src\Extensions\Components\BootstrapBlazor.Topology\BootstrapBlazor.Topology.csproj", "{6312863E-771D-4EFE-9B9D-071A01222E7A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BootstrapBlazor.BarCode", "src\Extensions\Components\BootstrapBlazor.BarCode\BootstrapBlazor.BarCode.csproj", "{7F7F3B85-7B15-485C-8DC2-BAFD8C086957}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "localizer", "localizer", "{699C2CBB-AAF3-4F70-B5D0-A3EDBD5D73B8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BootstrapBlazor.BarCode", "src\Extensions\Components\BootstrapBlazor.BarCode\BootstrapBlazor.BarCode.csproj", "{7F7F3B85-7B15-485C-8DC2-BAFD8C086957}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "localization", "localization", "{1BA43FCA-FA64-449E-A1F1-9C2C4A1D2D3F}"
 	ProjectSection(SolutionItems) = preProject
