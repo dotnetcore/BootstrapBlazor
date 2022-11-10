@@ -4694,7 +4694,7 @@
     "P17": "In this example, <code>Name</code> is listed as a custom component <code>TableNameDrop</code>, which defaults to <code>please select ...</code> when creating a new one",
     "P18": "set edit mode",
     "P19": "By setting the <code>EditMode</code> property of the table, set the component to edit the row data in the pop-up window or edit the data in the row",
-    "P20": "<code>EditMode</code> is an enumeration type and its values ​​are: <code>Popup</code> <code>EditForm</code> <code>InCell</code> Its default value is <code>Popup< /code> pop-up window to edit row data",
+    "P20": "<code>EditMode</code> is an enumeration type and its values ​​are: <code>Popup</code> <code>EditForm</code> <code>InCell</code> Its default value is <code>Popup</code> pop-up window to edit row data",
     "P21": "In this example, the data source <code>Items</code> is set as two-way binding, which is especially suitable for parent-child table entry. You can directly use the data source when saving.",
     "P22": "<code>EditForm</code> Pattern example",
     "P23": "Add test data window",
@@ -4711,7 +4711,10 @@
     "P34": "By setting the <code>DataService</code> attribute of the table, use an independent data service to add, delete, modify and check data",
     "P35": "custom data service",
     "P36": "After enabling the use of the injected data service, you can set the component individually by setting the <code>DataServices</code> parameter, if the instance provided by the internal use of the injected service is not set",
-    "P37": "In this example, by setting the <code>EditDialogShowMaximizeButton</code> parameter, the <b>Maximize</b> button is displayed in the edit pop-up window"
+    "P37": "In this example, by setting the <code>EditDialogShowMaximizeButton</code> parameter, the <b>Maximize</b> button is displayed in the edit pop-up window",
+    "FooterTemplateTitle": "Custom button in EditDialog footer",
+    "FooterTemplateIntro": "Set <code>EditFooterTemplate</code> custom button in <code>EditDialog</code> <code>Footer</code>",
+    "FooterTemplateDesc": "Click the Edit button in the table to pop up the Edit pop-up window. The buttons in the pop-up window <code>Footer</code> are user-defined buttons. In order to keep the functions of the original <b>Close</b> and <b>Save</b> buttons while facilitating the second opening, two corresponding components <code>DialogCloseButton</code> <code>DialogSaveButton</code> These two buttons do not need to write the click related processing methods"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesVirtualization": {
     "H1": "Table virtual scroll row",

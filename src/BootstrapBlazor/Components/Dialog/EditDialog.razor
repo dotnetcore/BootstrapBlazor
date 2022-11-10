@@ -9,22 +9,40 @@
             @BodyTemplate(Model)
         </div>
         <div class="form-footer">
-            @if (!IsTracking)
+            @if (FooterTemplate != null)
             {
-                <Button Color="Color.Secondary" Icon="fa-solid fa-xmark" Text="@CloseButtonText" OnClickWithoutRender="OnClose" />
+                <CascadingValue Value="OnCloseAsync" IsFixed>
+                    @FooterTemplate(Model)
+                </CascadingValue>
             }
-            <Button Color="Color.Primary" ButtonType="ButtonType.Submit" Icon="fa-solid fa-floppy-disk" Text="@SaveButtonText" />
+            else
+            {
+                if (!IsTracking)
+                {
+                    <Button Color="Color.Secondary" Icon="fa-solid fa-xmark" Text="@CloseButtonText" OnClickWithoutRender="OnClickClose" />
+                }
+                <Button Color="Color.Primary" ButtonType="ButtonType.Submit" Icon="fa-solid fa-floppy-disk" Text="@SaveButtonText" />
+            }
         </div>
     }
     else
     {
         <EditorForm TModel="TModel" Items="Items" ItemChangedType="ItemChangedType" ItemsPerRow="ItemsPerRow" RowType="RowType" LabelAlign="LabelAlign" ShowLabel="ShowLabel" ShowUnsetGroupItemsOnTop="ShowUnsetGroupItemsOnTop">
             <Buttons>
-                @if (!IsTracking)
+                @if (FooterTemplate != null)
                 {
-                    <Button Color="Color.Secondary" Icon="fa-solid fa-xmark" Text="@CloseButtonText" OnClickWithoutRender="OnClose" />
+                    <CascadingValue Value="OnCloseAsync" IsFixed>
+                        @FooterTemplate(Model)
+                    </CascadingValue>
                 }
-                <Button Color="Color.Primary" ButtonType="ButtonType.Submit" Icon="fa-solid fa-floppy-disk" Text="@SaveButtonText" />
+                else
+                {
+                    if (!IsTracking)
+                    {
+                        <Button Color="Color.Secondary" Icon="fa-solid fa-xmark" Text="@CloseButtonText" OnClickWithoutRender="OnClickClose" />
+                    }
+                    <Button Color="Color.Primary" ButtonType="ButtonType.Submit" Icon="fa-solid fa-floppy-disk" Text="@SaveButtonText" />
+                }
             </Buttons>
         </EditorForm>
     }

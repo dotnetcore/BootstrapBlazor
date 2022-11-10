@@ -4731,7 +4731,10 @@
     "P34": "通过设置表格的 <code>DataService</code> 属性，使用独立的数据服务进行对数据的增删改查",
     "P35": "自定义数据服务",
     "P36": "开启使用注入数据服务后，可通过设置 <code>DataServices</code> 参数对组件进行单独设置，如未设置内部使用注入服务提供的实例",
-    "P37": "本例中通过设置 <code>EditDialogShowMaximizeButton</code> 参数，使编辑弹窗中显示 <b>最大化</b> 按钮"
+    "P37": "本例中通过设置 <code>EditDialogShowMaximizeButton</code> 参数，使编辑弹窗中显示 <b>最大化</b> 按钮",
+    "FooterTemplateTitle": "自定义编辑弹窗按钮",
+    "FooterTemplateIntro": "通过设置 <code>EditFooterTemplate</code> 自定义编辑弹窗 <code>Footer</code>",
+    "FooterTemplateDesc": "点击表格内编辑按钮，弹出编辑弹窗，弹窗内 <code>Footer</code> 内按钮均为自定义按钮。为方便二开的同时保留原有 <b>关闭</b> 与 <b>保存</b> 两个按钮功能，额外内置提供了两个与之相对应的组件 <code>DialogCloseButton</code> <code>DialogSaveButton</code> 这两个按钮无需编写点击相关处理方法"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesVirtualization": {
     "H1": "Table 虚拟滚动行",

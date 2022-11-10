@@ -94,7 +94,8 @@ public static class DialogServiceExtensions
             [nameof(EditDialog<TModel>.SaveButtonText)] = option.SaveButtonText,
             [nameof(EditDialog<TModel>.Model)] = option.Model,
             [nameof(EditDialog<TModel>.DisableAutoSubmitFormByEnter)] = option.DisableAutoSubmitFormByEnter,
-            [nameof(EditDialog<TModel>.BodyTemplate)] = option.DialogBodyTemplate
+            [nameof(EditDialog<TModel>.BodyTemplate)] = option.DialogBodyTemplate,
+            [nameof(EditDialog<TModel>.FooterTemplate)] = option.DialogFooterTemplate
         };
 
         option.Component = BootstrapDynamicComponent.CreateComponent<EditDialog<TModel>>(parameters);

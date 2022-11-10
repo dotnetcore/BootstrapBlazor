@@ -558,6 +558,12 @@ public partial class Table<TItem>
     public bool ShowUnsetGroupItemsOnTop { get; set; }
 
     /// <summary>
+    /// 获得/设置 弹窗 Footer
+    /// </summary>
+    [Parameter]
+    public RenderFragment<TItem>? EditFooterTemplate { get; set; }
+
+    /// <summary>
     /// 弹出编辑对话框方法
     /// </summary>
     protected async Task ShowEditDialog(ItemChangedType changedType)
@@ -586,6 +592,7 @@ public partial class Table<TItem>
             ShowUnsetGroupItemsOnTop = ShowUnsetGroupItemsOnTop,
             DisableAutoSubmitFormByEnter = DisableAutoSubmitFormByEnter,
             IsTracking = IsTracking,
+            DialogFooterTemplate = EditFooterTemplate,
             OnCloseAsync = async () =>
             {
                 if (!saved)

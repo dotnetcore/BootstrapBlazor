@@ -65,6 +65,12 @@ public partial class EditDialog<TModel>
     [Parameter]
     public bool? DisableAutoSubmitFormByEnter { get; set; }
 
+    /// <summary>
+    /// 获得/设置 DialogFooterTemplate 实例
+    /// </summary>
+    [Parameter]
+    public RenderFragment<TModel>? FooterTemplate { get; set; }
+
     [Inject]
     [NotNull]
     private IStringLocalizer<EditDialog<TModel>>? Localizer { get; set; }
@@ -84,7 +90,7 @@ public partial class EditDialog<TModel>
         SaveButtonText ??= Localizer[nameof(SaveButtonText)];
     }
 
-    private async Task OnClose()
+    private async Task OnClickClose()
     {
         if (OnCloseAsync != null) await OnCloseAsync();
     }
