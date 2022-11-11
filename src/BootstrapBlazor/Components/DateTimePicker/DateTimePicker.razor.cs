@@ -10,7 +10,7 @@ namespace BootstrapBlazor.Components;
 /// DateTimePicker 组件基类
 /// </summary>
 [JSModuleAutoLoader("dropdown", ModuleName = "Dropdown")]
-public sealed partial class DateTimePicker<TValue>
+public partial class DateTimePicker<TValue>
 {
     /// <summary>
     /// 获得 组件样式名称

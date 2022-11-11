@@ -2,7 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using BootstrapBlazor.Extensions;
 using Microsoft.Extensions.Localization;
 
 namespace BootstrapBlazor.Components;
@@ -19,8 +18,8 @@ public partial class DatePickerBody
     {
         get
         {
-            var d = CurrentDate.GetSafeDayDateTime(1 - CurrentDate.Day);
-            d = d.GetSafeDayDateTime(0 - (int)d.DayOfWeek);
+            var d = GetSafeDayDateTime(CurrentDate, 1 - CurrentDate.Day);
+            d = GetSafeDayDateTime(d, 0 - (int)d.DayOfWeek);
             return d;
         }
     }
@@ -28,7 +27,7 @@ public partial class DatePickerBody
     /// <summary>
     /// 获得/设置 日历框结束时间
     /// </summary>
-    private DateTime EndDate => StartDate.GetSafeDayDateTime(42);
+    private DateTime EndDate => GetSafeDayDateTime(StartDate, 42);
 
     /// <summary>
     /// 获得/设置 当前日历框月份
@@ -413,7 +412,7 @@ public partial class DatePickerBody
     private void OnClickPrevYear()
     {
         ShowTimePicker = false;
-        CurrentDate = CurrentViewMode == DatePickerViewMode.Year ? CurrentDate.GetSafeYearDateTime(-20) : CurrentDate.GetSafeYearDateTime(-1);
+        CurrentDate = CurrentViewMode == DatePickerViewMode.Year ? GetSafeYearDateTime(CurrentDate, -20) : GetSafeYearDateTime(CurrentDate, -1);
         Ranger?.UpdateStart(CurrentDate);
     }
 
@@ -423,7 +422,7 @@ public partial class DatePickerBody
     private void OnClickPrevMonth()
     {
         ShowTimePicker = false;
-        CurrentDate = CurrentDate.GetSafeMonthDateTime(-1);
+        CurrentDate = GetSafeMonthDateTime(CurrentDate, -1);
         Ranger?.UpdateStart(CurrentDate);
     }
 
@@ -433,7 +432,7 @@ public partial class DatePickerBody
     private void OnClickNextYear()
     {
         ShowTimePicker = false;
-        CurrentDate = CurrentViewMode == DatePickerViewMode.Year ? CurrentDate.GetSafeYearDateTime(20) : CurrentDate.GetSafeYearDateTime(1);
+        CurrentDate = CurrentViewMode == DatePickerViewMode.Year ? GetSafeYearDateTime(CurrentDate, 20) : GetSafeYearDateTime(CurrentDate, 1);
         Ranger?.UpdateEnd(CurrentDate);
     }
 
@@ -443,7 +442,7 @@ public partial class DatePickerBody
     private void OnClickNextMonth()
     {
         ShowTimePicker = false;
-        CurrentDate = CurrentDate.GetSafeMonthDateTime(1);
+        CurrentDate = GetSafeMonthDateTime(CurrentDate, 1);
         Ranger?.UpdateEnd(CurrentDate);
     }
 
@@ -466,16 +465,6 @@ public partial class DatePickerBody
             {
                 StateHasChanged();
             }
-        }
-    }
-
-    private async Task OnClickShortLink(DateTime d)
-    {
-        await OnClickDateTime(d);
-
-        if (ShowFooter || AutoClose)
-        {
-            await ClickConfirmButton();
         }
     }
 
@@ -514,7 +503,7 @@ public partial class DatePickerBody
     /// <returns></returns>
     private string GetYearPeriod()
     {
-        var start = CurrentDate.GetSafeYearDateTime(0 - CurrentDate.Year % 20).Year;
+        var start = GetSafeYearDateTime(CurrentDate, 0 - CurrentDate.Year % 20).Year;
         return string.Format(YearPeriodText, start, start + 19);
     }
 
@@ -523,7 +512,7 @@ public partial class DatePickerBody
     /// </summary>
     /// <param name="year"></param>
     /// <returns></returns>
-    private DateTime GetYear(int year) => CurrentDate.GetSafeYearDateTime(year - (CurrentDate.Year % 20));
+    private DateTime GetYear(int year) => GetSafeYearDateTime(CurrentDate, year - (CurrentDate.Year % 20));
 
     /// <summary>
     /// 获取 年视图下月份单元格显示文字
@@ -537,8 +526,8 @@ public partial class DatePickerBody
     /// </summary>
     /// <returns></returns>
     private string? GetYearClassName(int year, bool overflow) => CssBuilder.Default()
-        .AddClass("current", CurrentDate.GetSafeYearDateTime(year - (CurrentDate.Year % 20)).Year == Value.Year)
-        .AddClass("today", CurrentDate.GetSafeYearDateTime(year - (CurrentDate.Year % 20)).Year == DateTime.Today.Year)
+        .AddClass("current", GetSafeYearDateTime(CurrentDate, year - (CurrentDate.Year % 20)).Year == Value.Year)
+        .AddClass("today", GetSafeYearDateTime(CurrentDate, year - (CurrentDate.Year % 20)).Year == DateTime.Today.Year)
         .AddClass("disabled", overflow)
         .Build();
 
@@ -547,7 +536,7 @@ public partial class DatePickerBody
     /// </summary>
     /// <param name="month"></param>
     /// <returns></returns>
-    private DateTime GetMonth(int month) => CurrentDate.GetSafeMonthDateTime(month - CurrentDate.Month);
+    private DateTime GetMonth(int month) => GetSafeMonthDateTime(CurrentDate, month - CurrentDate.Month);
 
     /// <summary>
     /// 获取 月视图下的月份单元格样式
@@ -630,5 +619,135 @@ public partial class DatePickerBody
         SetValue(CurrentDate + CurrentTime);
         ShowTimePicker = false;
         StateHasChanged();
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="dt"></param>
+    /// <param name="year"></param>
+    /// <returns></returns>
+    protected static DateTime GetSafeYearDateTime(DateTime dt, int year)
+    {
+        var @base = dt;
+        if (year < 0)
+        {
+            if (DateTime.MinValue.AddYears(0 - year) < dt)
+            {
+                @base = dt.AddYears(year);
+            }
+            else
+            {
+                @base = DateTime.MinValue.Date;
+            }
+        }
+        else if (year > 0)
+        {
+            if (DateTime.MaxValue.AddYears(0 - year) > dt)
+            {
+                @base = dt.AddYears(year);
+            }
+            else
+            {
+                @base = DateTime.MaxValue.Date;
+            }
+        }
+        return @base;
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="dt"></param>
+    /// <param name="month"></param>
+    /// <returns></returns>
+    protected static DateTime GetSafeMonthDateTime(DateTime dt, int month)
+    {
+        var @base = dt;
+        if (month < 0)
+        {
+            if (DateTime.MinValue.AddMonths(0 - month) < dt)
+            {
+                @base = dt.AddMonths(month);
+            }
+            else
+            {
+                @base = DateTime.MinValue.Date;
+            }
+        }
+        else if (month > 0)
+        {
+            if (DateTime.MaxValue.AddMonths(0 - month) > dt)
+            {
+                @base = dt.AddMonths(month);
+            }
+            else
+            {
+                @base = DateTime.MaxValue.Date;
+            }
+        }
+        return @base;
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="dt"></param>
+    /// <param name="day"></param>
+    /// <returns></returns>
+    protected static DateTime GetSafeDayDateTime(DateTime dt, int day)
+    {
+        var @base = dt;
+        if (day < 0)
+        {
+            if (DateTime.MinValue.AddDays(0 - day) < dt)
+            {
+                @base = dt.AddDays(day);
+            }
+            else
+            {
+                @base = DateTime.MinValue;
+            }
+        }
+        else if (day > 0)
+        {
+            if (DateTime.MaxValue.AddDays(0 - day) > dt)
+            {
+                @base = dt.AddDays(day);
+            }
+            else
+            {
+                @base = DateTime.MaxValue;
+            }
+        }
+        return @base;
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="dt"></param>
+    /// <param name="day"></param>
+    /// <returns></returns>
+    protected static bool IsDayOverflow(DateTime dt, int day) => DateTime.MaxValue.AddDays(0 - day) < dt;
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="dt"></param>
+    /// <param name="year"></param>
+    /// <returns></returns>
+    protected static bool IsYearOverflow(DateTime dt, int year)
+    {
+        var ret = false;
+        if (year < 0)
+        {
+            ret = DateTime.MinValue.AddYears(0 - year) > dt;
+        }
+        else if (year > 0)
+        {
+            ret = DateTime.MaxValue.AddYears(0 - year) < dt;
+        }
+        return ret;
     }
 }

@@ -630,4 +630,104 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(() => button.Click());
         Assert.NotEqual(val, DateTime.MinValue);
     }
+
+    [Fact]
+    public void GetSafeYearDateTime_Ok()
+    {
+        Assert.True(MockDateTimePicker.GetSafeYearDateTime_Ok());
+    }
+
+    [Fact]
+    public void GetSafeMonthDateTime_Ok()
+    {
+        Assert.True(MockDateTimePicker.GetSafeMonthDateTime_Ok());
+    }
+
+    [Fact]
+    public void PickerBodyShowFooter_Ok()
+    {
+        var confirm = false;
+        var cut = Context.RenderComponent<DatePickerBody>(pb =>
+        {
+            pb.Add(a => a.ShowFooter, true);
+            pb.Add(a => a.AutoClose, true);
+            pb.Add(a => a.ViewMode, DatePickerViewMode.Month);
+            pb.Add(a => a.OnConfirm, () =>
+            {
+                confirm = true;
+                return Task.CompletedTask;
+            });
+        });
+
+        // 设定为 月视图 切换 日视图时自动关闭触发 Confirm
+        var cell = cut.Find(".month-table span.cell");
+        cut.InvokeAsync(() => cell.Click());
+        Assert.True(confirm);
+
+        // 设置 AutoClose = false 不会触发 confirm
+        confirm = false;
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.AutoClose, false);
+        });
+        cut.InvokeAsync(() => cell.Click());
+        Assert.False(confirm);
+    }
+
+    [Fact]
+    public void OnClickShortLink_Ok()
+    {
+        var confirm = false;
+        var cut = Context.RenderComponent<DatePickerBody>(pb =>
+        {
+            pb.Add(a => a.ShowFooter, false);
+            pb.Add(a => a.AutoClose, true);
+            pb.Add(a => a.ShowSidebar, true);
+            pb.Add(a => a.ViewMode, DatePickerViewMode.Month);
+            pb.Add(a => a.OnConfirm, () =>
+            {
+                confirm = true;
+                return Task.CompletedTask;
+            });
+        });
+
+        var cell = cut.Find(".sidebar-item span.cell");
+        cut.InvokeAsync(() => cell.Click());
+        Assert.True(confirm);
+
+        confirm = false;
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ShowFooter, true);
+            pb.Add(a => a.AutoClose, false);
+        });
+        cut.InvokeAsync(() => cell.Click());
+        Assert.True(confirm);
+
+        confirm = false;
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ShowFooter, false);
+            pb.Add(a => a.AutoClose, false);
+        });
+        cut.InvokeAsync(() => cell.Click());
+        Assert.False(confirm);
+    }
+
+    [JSModuleNotInherited]
+    class MockDateTimePicker : DatePickerBody
+    {
+        public static bool GetSafeYearDateTime_Ok()
+        {
+            var dtm = DatePickerBody.GetSafeYearDateTime(DateTime.MaxValue, 1);
+            return dtm == DateTime.MaxValue.Date;
+        }
+
+        public static bool GetSafeMonthDateTime_Ok()
+        {
+            var v1 = DatePickerBody.GetSafeMonthDateTime(DateTime.MaxValue, 1);
+            var v2 = DatePickerBody.GetSafeMonthDateTime(DateTime.MinValue, -1);
+            return v1 == DateTime.MaxValue.Date && v2 == DateTime.MinValue.Date;
+        }
+    }
 }
