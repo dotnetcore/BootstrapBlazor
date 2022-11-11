@@ -796,7 +796,12 @@
     "P97": "请输入 ...",
     "P98": "DialogOption 属性",
     "EmailDialogTitle": "选择收件人",
-    "EmailDialogButtonYes": "选择"
+    "EmailDialogButtonYes": "选择",
+    "HeaderToolbarTemplateTitle": "标题栏自定义按钮",
+    "HeaderToolbarTemplateIntro": "通过设置 <code>HeaderToolbarTemplate</code> 自定义 <code>Header</code> 中工具栏按钮",
+    "HeaderToolbarTemplateButtonText": "打印",
+    "HeaderToolbarTemplateDialogTitle": "自定义工具栏示例",
+    "HeaderToolbarTemplateToastContent": "打印按钮被点击，可以处理自己的业务逻辑"
   },
   "BootstrapBlazor.Shared.Samples.Dispatches": {
     "H1": "Dispatch 消息分发",

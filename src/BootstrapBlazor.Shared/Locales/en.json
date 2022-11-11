@@ -795,7 +795,12 @@
     "P97": "please enter ...",
     "P98": "DialogOption property",
     "EmailDialogTitle": "Select recipient",
-    "EmailDialogButtonYes": "Choose"
+    "EmailDialogButtonYes": "Choose",
+    "HeaderToolbarTemplateTitle": "Header Toolbar Template",
+    "HeaderToolbarTemplateIntro": "Set <code>HeaderToolbarTemplate</code> custom the buttons on <code>Header</code>",
+    "HeaderToolbarTemplateButtonText": "Print",
+    "HeaderToolbarTemplateDialogTitle": "Custom toolbar sample",
+    "HeaderToolbarTemplateToastContent": "Print button clicked"
   },
   "BootstrapBlazor.Shared.Samples.Dispatches": {
     "H1": "Dispatch message distribution",

@@ -106,9 +106,14 @@ public class DialogOption
     public RenderFragment? FooterTemplate { get; set; }
 
     /// <summary>
-    /// 获得/设置 ModalHeader 组件
+    /// 获得/设置 ModalHeader 组件模板
     /// </summary>
     public RenderFragment? HeaderTemplate { get; set; }
+
+    /// <summary>
+    /// 获得/设置 ModalHeader 组件自定义按钮
+    /// </summary>
+    public RenderFragment? HeaderToolbarTemplate { get; set; }
 
     /// <summary>
     /// 获得/设置 自定义组件

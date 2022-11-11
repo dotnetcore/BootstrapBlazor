@@ -29,20 +29,20 @@
 }
 
 .modal-header-buttons {
-    position: absolute;
-    top: 11px;
-    right: 1rem;
+    position: relative;
 }
+
+    .modal-header-buttons .btn {
+        --bs-btn-padding-y: 3px;
+    }
+
+        .modal-header-buttons .btn:not(:last-child) {
+            margin-right: .5rem;
+        }
 
     .modal-header-buttons .btn-maximize {
         color: #6c757d;
-        padding: 0 1rem 0 0;
         border: 0;
-    }
-
-    .modal-header-buttons .btn-print {
-        padding: 3px 8px 4px 8px;
-        margin: 0 6px;
     }
 
 @media screen {

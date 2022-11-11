@@ -38,6 +38,12 @@ await DialogService.Show(op);</Pre>
     </div>
 </DemoBlock>
 
+<DemoBlock Title="@Localizer["HeaderToolbarTemplateTitle"]" Introduction="@Localizer["HeaderToolbarTemplateIntro"]" Name="HeaderToolbarTemplate">
+    <div>
+        <Button OnClick="@OnCustomerHeaderToolbarClick" Text="@Localizer["HeaderToolbarTemplateButtonText"]" />
+    </div>
+</DemoBlock>
+
 <DemoBlock Title="@Localizer["P13"]" Introduction="@Localizer["P14"]" Name="Component">
     <p>@((MarkupString)Localizer["P15"].Value)</p>
     <Button @onclick="@OnClickCounter">@Localizer["P16"]</Button>

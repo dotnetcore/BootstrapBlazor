@@ -134,6 +134,12 @@ public partial class ModalDialog : IHandlerException, IDisposable
     public object? BodyContext { get; set; }
 
     /// <summary>
+    /// 获得/设置 Header 中按钮模板
+    /// </summary>
+    [Parameter]
+    public RenderFragment? HeaderToolbarTemplate { get; set; }
+
+    /// <summary>
     /// 获得/设置 ModalBody 组件
     /// </summary>
     [Parameter]

@@ -85,6 +85,11 @@ public partial class Dialog : IDisposable
             parameters.Add(nameof(ModalDialog.HeaderTemplate), option.HeaderTemplate);
         }
 
+        if (option.HeaderToolbarTemplate != null)
+        {
+            parameters.Add(nameof(ModalDialog.HeaderToolbarTemplate), option.HeaderToolbarTemplate);
+        }
+
         if (option.FooterTemplate != null)
         {
             parameters.Add(nameof(ModalDialog.FooterTemplate), option.FooterTemplate);

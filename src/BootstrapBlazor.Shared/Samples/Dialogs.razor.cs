@@ -21,6 +21,13 @@ public sealed partial class Dialogs
     [NotNull]
     private DialogService? DialogService { get; set; }
 
+    /// <summary>
+    /// 获得 Toast注入服务
+    /// </summary>
+    [Inject]
+    [NotNull]
+    private ToastService? ToastService { get; set; }
+
     [Inject]
     [NotNull]
     private IStringLocalizer<Foo>? LocalizerFoo { get; set; }
@@ -58,6 +65,18 @@ public sealed partial class Dialogs
             builder.AddComponentReferenceCapture(1, obj => BodyFooComponent = (DialogBodyFoo)obj);
             builder.CloseComponent();
         },
+    });
+
+    private Task OnCustomerHeaderToolbarClick() => DialogService.Show(new DialogOption()
+    {
+        Title = Localizer["HeaderToolbarTemplateDialogTitle"],
+        HeaderToolbarTemplate = builder =>
+        {
+            builder.OpenComponent<Button>(0);
+            builder.AddAttribute(1, nameof(Button.Icon), "fa-solid fa-print");
+            builder.AddAttribute(1, nameof(Button.OnClickWithoutRender), () => ToastService.Success(Localizer["HeaderToolbarTemplateDialogTitle"], Localizer["HeaderToolbarTemplateToastContent"]));
+            builder.CloseComponent();
+        }
     });
 
     /// <summary>
