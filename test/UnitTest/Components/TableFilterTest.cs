@@ -41,11 +41,10 @@ public class TableFilterTest : BootstrapBlazorTestBase
 
         // Reset/Confirm buttons
         // ClickReset
-        var buttons = filterInstance.FindAll(".is-close");
+        var buttons = filterInstance.FindAll(".filter-dismiss");
         cut.InvokeAsync(() => buttons[0].Click());
 
         // ClickConfirm
-        buttons = filterInstance.FindAll(".is-close");
         cut.InvokeAsync(() => buttons[1].Click());
 
         // OnFilterAsync

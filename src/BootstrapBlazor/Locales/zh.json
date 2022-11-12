@@ -239,7 +239,6 @@
     "SaveButtonText": "保存"
   },
   "BootstrapBlazor.Components.TableFilter": {
-    "Title": "过滤",
     "ClearButtonText": "重置",
     "FilterButtonText": "确认",
     "BoolFilter.AllText": "全部",

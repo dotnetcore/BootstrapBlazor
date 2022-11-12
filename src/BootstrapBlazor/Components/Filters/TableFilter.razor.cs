@@ -132,7 +132,6 @@ public partial class TableFilter : IFilter
     {
         base.OnParametersSet();
 
-        Title ??= Localizer[nameof(Title)];
         FilterButtonText ??= Localizer[nameof(FilterButtonText)];
         ClearButtonText ??= Localizer[nameof(ClearButtonText)];
     }

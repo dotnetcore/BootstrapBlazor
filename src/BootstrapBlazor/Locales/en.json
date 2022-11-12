@@ -239,7 +239,6 @@
     "SaveButtonText": "Save"
   },
   "BootstrapBlazor.Components.TableFilter": {
-    "Title": "Filter",
     "ClearButtonText": "Clear",
     "FilterButtonText": "Filter",
     "BoolFilter.AllText": "All",

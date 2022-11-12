@@ -149,6 +149,18 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void Format_Ok()
+    {
+        var cut = Context.RenderComponent<DateTimePicker<DateTime>>(pb =>
+        {
+            pb.Add(a => a.Format, "yyyy-MM-dd HH:mm:ss");
+        });
+
+        var body = cut.FindComponent<DatePickerBody>();
+        Assert.Equal("yyyy-MM-dd", body.Instance.DateFormat);
+    }
+
+    [Fact]
     public void DatePickerViewModel_Ok()
     {
         var cut = Context.RenderComponent<DatePickerBody>(builder =>
@@ -427,6 +439,18 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         buttons = cut1.FindAll(".time-panel-footer button");
         cut1.InvokeAsync(() => buttons[0].Click());
         cut1.InvokeAsync(() => buttons[1].Click());
+    }
+
+    [Fact]
+    public void HeightCallback_Ok()
+    {
+        var cut = Context.RenderComponent<TimePickerBody>();
+        var cell = cut.FindComponent<TimePickerCell>();
+        cut.InvokeAsync(() => cell.Instance.OnHeightCallback(16));
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.Value, TimeSpan.FromSeconds(1));
+        });
     }
 
     [Fact]
@@ -716,8 +740,9 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
             pb.Add(a => a.AutoClose, false);
         });
         cut.InvokeAsync(() => cell.Click());
-        Assert.True(confirm);
+        Assert.False(confirm);
 
+        // 不显示 Footer AutoClose 参数不起作用自动关闭
         confirm = false;
         cut.SetParametersAndRender(pb =>
         {
@@ -725,7 +750,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
             pb.Add(a => a.AutoClose, false);
         });
         cut.InvokeAsync(() => cell.Click());
-        Assert.False(confirm);
+        Assert.True(confirm);
     }
 
     [JSModuleNotInherited]

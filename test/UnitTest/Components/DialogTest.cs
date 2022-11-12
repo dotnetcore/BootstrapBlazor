@@ -48,6 +48,14 @@ public class DialogTest : DialogTestBase
         cut.InvokeAsync(() => modal.Instance.Close());
         Assert.True(closed);
 
+        // 测试 HeaderToolbarTemplate
+        cut.InvokeAsync(() => dialog.Show(new DialogOption()
+        {
+            HeaderToolbarTemplate = builder => builder.AddContent(0, "Test-HeaderToolbarTemplate"),
+        }));
+        Assert.Contains("Test-HeaderToolbarTemplate", cut.Markup);
+        cut.InvokeAsync(() => modal.Instance.Close());
+
         // 测试 Component 赋值逻辑
         cut.InvokeAsync(() => dialog.Show(new DialogOption()
         {

@@ -26,9 +26,11 @@ public class JSModuleTest
         var module = new JSModule(js);
         await module.InvokeVoidAsync("Test.init", "bb_id");
         await module.InvokeVoidAsync("Test.init", TimeSpan.Zero, "bb_id");
+        await module.InvokeVoidAsync("Test.init", Timeout.InfiniteTimeSpan, "bb_id");
         await module.InvokeVoidAsync("Test.init", CancellationToken.None, "bb_id");
         await module.InvokeAsync<object>("Test.init", "bb_id");
         await module.InvokeAsync<object>("Test.init", TimeSpan.Zero, "bb_id");
+        await module.InvokeAsync<object>("Test.init", Timeout.InfiniteTimeSpan, "bb_id");
         await module.InvokeAsync<object>("Test.init", CancellationToken.None, "bb_id");
     }
 

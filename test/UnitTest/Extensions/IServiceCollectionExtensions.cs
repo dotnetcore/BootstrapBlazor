@@ -14,7 +14,7 @@ internal static class IServiceCollectionExtensions
         builder.AddJsonFile("appsettings.json");
         if (cultureName != null)
         {
-            builder.AddInMemoryCollection(new Dictionary<string, string>()
+            builder.AddInMemoryCollection(new Dictionary<string, string?>()
             {
                 ["BootstrapBlazorOptions:DefaultCultureInfo"] = cultureName
             });

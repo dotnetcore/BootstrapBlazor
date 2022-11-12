@@ -267,3 +267,21 @@ public class LayoutTest : BootstrapBlazorTestBase
 
     private static RenderFragment CreateSide(string? content = "Side") => builder => builder.AddContent(0, content);
 }
+
+public class LayoutAuthorizationTest : AuthorizateViewTestBase
+{
+    [Fact]
+    public void Authorized_Ok()
+    {
+        AuthorizationContext.SetAuthorized("Admin");
+
+        var navMan = Context.Services.GetRequiredService<FakeNavigationManager>();
+        navMan.NavigateTo("Dog");
+
+        var cut = Context.RenderComponent<Layout>(pb =>
+        {
+            pb.Add(a => a.AdditionalAssemblies, new Assembly[] { GetType().Assembly });
+        });
+        cut.Contains("<section class=\"layout\"><header class=\"layout-header\"></header><main class=\"layout-main\"></main></section>");
+    }
+}

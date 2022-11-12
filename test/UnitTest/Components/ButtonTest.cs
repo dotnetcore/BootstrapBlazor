@@ -339,4 +339,28 @@ public class ButtonTest : BootstrapBlazorTestBase
             pb.Add(a => a.IsAutoFocus, true);
         });
     }
+
+    [Fact]
+    public void DialogCloseButton_Ok()
+    {
+        var clicked = false;
+        var cut = Context.RenderComponent<DialogCloseButton>(pb =>
+        {
+            pb.AddCascadingValue<Func<Task>>(() =>
+            {
+                clicked = true;
+                return Task.FromResult(0);
+            });
+        });
+        cut.Contains("button type=\"button\"");
+        cut.InvokeAsync(async () => await cut.Instance.OnClickWithoutRender());
+        Assert.True(clicked);
+    }
+
+    [Fact]
+    public void DialogSaveButton_Ok()
+    {
+        var cut = Context.RenderComponent<DialogSaveButton>();
+        cut.Contains("button type=\"submit\"");
+    }
 }
