@@ -9,9 +9,9 @@
 <div @attributes="@AdditionalAttributes" tabindex="@TabIndexString" id="@Id" class="@ClassString" data-bb-auto-close="@AutoCloseString" data-bb-dropdown=".picker-panel" data-bb-dismiss=".picker-panel-link-btn">
     <input readonly class="@InputClassName" value="@CurrentValueAsString" placeholder="@PlaceholderString" disabled="@Disabled" data-bs-toggle="@Constants.DropdownToggleString" data-bs-placement="@PlacementString" data-bs-custom-class="@CustomClassString" />
     <i class="@DateTimePickerIconClassString"></i>
-    <DatePickerBody @bind-Value="@ComponentValue" AllowNull="@AllowNull" ShowSidebar="@ShowSidebar"
-                    DateFormat="@DateFormat" ShowFooter="true"
-                    OnConfirm="@OnConfirm" OnClear="@OnClear" MinValue="@MinValue" MaxValue="@MaxValue"
-                    AutoClose="AutoClose" ViewMode="@ViewMode">
+    <DatePickerBody @bind-Value="ComponentValue" AllowNull="AllowNull" ShowSidebar="ShowSidebar" SidebarTemplate="SidebarTemplate!"
+                    DateFormat="DateFormat" ShowFooter="true"
+                    OnConfirm="OnConfirm" OnClear="OnClear" MinValue="MinValue" MaxValue="MaxValue"
+                    AutoClose="AutoClose" ViewMode="ViewMode">
     </DatePickerBody>
 </div>

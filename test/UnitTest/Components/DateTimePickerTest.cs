@@ -632,6 +632,20 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void SidebarTemplate_Ok()
+    {
+        var cut = Context.RenderComponent<DateTimePicker<DateTime>>(pb =>
+        {
+            pb.Add(a => a.ShowSidebar, true);
+            pb.Add(a => a.SidebarTemplate, new RenderFragment<Func<DateTime, Task>>(cb => builder =>
+            {
+                builder.AddContent(0, "test-sidebar-template");
+            }));
+        });
+        cut.Contains("test-sidebar-template");
+    }
+
+    [Fact]
     public void GetSafeYearDateTime_Ok()
     {
         Assert.True(MockDateTimePicker.GetSafeYearDateTime_Ok());

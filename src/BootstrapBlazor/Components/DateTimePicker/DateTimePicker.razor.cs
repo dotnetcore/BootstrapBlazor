@@ -105,6 +105,12 @@ public partial class DateTimePicker<TValue>
     public bool ShowSidebar { get; set; }
 
     /// <summary>
+    /// 获得/设置 侧边栏模板 默认 null
+    /// </summary>
+    [Parameter]
+    public RenderFragment<Func<DateTime, Task>>? SidebarTemplate { get; set; }
+
+    /// <summary>
     /// 获得/设置 当前日期最大值
     /// </summary>
     [Parameter]

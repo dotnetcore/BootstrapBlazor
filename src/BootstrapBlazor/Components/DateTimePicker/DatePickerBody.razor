@@ -6,15 +6,22 @@
         @if (ShowSidebar)
         {
             <div class="picker-panel-sidebar">
-                <div class="sidebar-item">
-                    <DatePickerCell Value="@DateTime.Today" Text="@Today" OnClick="@(async d => await OnClickDateTime(d))" />
-                </div>
-                <div class="sidebar-item">
-                    <DatePickerCell Value="@DateTime.Today.AddDays(-1)" Text="@Yesterday" OnClick="@(async d => await OnClickDateTime(d))" />
-                </div>
-                <div class="sidebar-item">
-                    <DatePickerCell Value="@DateTime.Today.AddDays(-7)" Text="@Week" OnClick="@(async d => await OnClickDateTime(d))" />
-                </div>
+                @if (SidebarTemplate != null)
+                {
+                    @SidebarTemplate(OnClickDateTime)
+                }
+                else
+                {
+                    <div class="sidebar-item">
+                        <DatePickerCell Value="@DateTime.Today" Text="@Today" OnClick="@(async d => await OnClickDateTime(d))" />
+                    </div>
+                    <div class="sidebar-item">
+                        <DatePickerCell Value="@DateTime.Today.AddDays(-1)" Text="@Yesterday" OnClick="@(async d => await OnClickDateTime(d))" />
+                    </div>
+                    <div class="sidebar-item">
+                        <DatePickerCell Value="@DateTime.Today.AddDays(-7)" Text="@Week" OnClick="@(async d => await OnClickDateTime(d))" />
+                    </div>
+                }
             </div>
         }
         <div class="picker-panel-body">

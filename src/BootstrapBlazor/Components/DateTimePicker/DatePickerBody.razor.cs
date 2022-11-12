@@ -164,10 +164,16 @@ public partial class DatePickerBody
     public string? DateFormat { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否显示快捷侧边栏 默认不显示
+    /// 获得/设置 是否显示快捷侧边栏 默认 false 不显示
     /// </summary>
     [Parameter]
     public bool ShowSidebar { get; set; }
+
+    /// <summary>
+    /// 获得/设置 侧边栏模板 默认 null
+    /// </summary>
+    [Parameter]
+    public RenderFragment<Func<DateTime, Task>>? SidebarTemplate { get; set; }
 
     /// <summary>
     /// 获得/设置 是否显示左侧控制按钮 默认显示
