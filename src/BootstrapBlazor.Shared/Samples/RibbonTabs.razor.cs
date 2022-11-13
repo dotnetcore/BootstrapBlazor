@@ -60,10 +60,19 @@ public partial class RibbonTabs
         .AddClass("show", ActiveTabText == Localizer["ItemsText2"])
         .Build();
 
-    private Task OnHeaderClickAsync(string text, string url)
+    private Task OnMenuClickAsync(string text, string url)
     {
         ActiveTabText = text;
         StateHasChanged();
+        return Task.CompletedTask;
+    }
+
+    [NotNull]
+    private BlockLogger? Logger { get; set; }
+
+    private Task OnFloatChanged(bool @float)
+    {
+        Logger.Log($"Float: {@float}");
         return Task.CompletedTask;
     }
 
