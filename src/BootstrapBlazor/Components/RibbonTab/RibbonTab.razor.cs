@@ -11,12 +11,6 @@ namespace BootstrapBlazor.Components;
 public partial class RibbonTab
 {
     /// <summary>
-    /// 获得/设置 是否仅渲染当前 Tab 默认 true
-    /// </summary>
-    [Parameter]
-    public bool IsOnlyRenderActiveTab { get; set; } = true;
-
-    /// <summary>
     /// 获得/设置 是否显示悬浮小箭头 默认 false 不显示
     /// </summary>
     [Parameter]
