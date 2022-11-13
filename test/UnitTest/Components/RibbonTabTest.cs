@@ -33,6 +33,7 @@ public class RibbonTabTest : BootstrapBlazorTestBase
                 return Task.CompletedTask;
             });
         });
+        cut.Contains("class=\"ribbon-tab border\"");
         Assert.Contains("ribbon-arrow", cut.Markup);
         Assert.Contains("test-up", cut.Markup);
 
@@ -142,6 +143,90 @@ public class RibbonTabTest : BootstrapBlazorTestBase
             });
         });
         Assert.Contains("Test-Template", cut.Markup);
+    }
+
+    [Fact]
+    public void ChildContent_Ok()
+    {
+        var cut = Context.RenderComponent<RibbonTab>(pb =>
+        {
+            pb.Add(a => a.Items, new RibbonTabItem[]
+            {
+                new RibbonTabItem()
+                {
+                    Text = "test",
+                    Items = new RibbonTabItem[]
+                    {
+                        new RibbonTabItem()
+                        {
+                            Text = "Item"
+                        }
+                    }
+                }
+            });
+            pb.Add(a => a.ChildContent, builder =>
+            {
+                builder.AddContent(0, "test-child-content");
+            });
+        });
+        Assert.Contains("test-child-content", cut.Markup);
+        Assert.Contains("ribbon-body", cut.Markup);
+    }
+
+    [Fact]
+    public void OnMenuClickAsync_Ok()
+    {
+        var clickedText = "";
+        var cut = Context.RenderComponent<RibbonTab>(pb =>
+        {
+            pb.Add(a => a.Items, new RibbonTabItem[]
+            {
+                new RibbonTabItem()
+                {
+                    Text = "test 1",
+                    Items = new RibbonTabItem[]
+                    {
+                        new RibbonTabItem()
+                        {
+                            Text = "Item"
+                        }
+                    }
+                }
+            });
+            pb.Add(a => a.OnMenuClickAsync, (text, url) =>
+            {
+                clickedText = text;
+                return Task.CompletedTask;
+            });
+        });
+
+        var tab = cut.Find(".tabs-item");
+        cut.InvokeAsync(() => tab.Click());
+        Assert.Equal("test 1", clickedText);
+    }
+
+    [Fact]
+    public void IsBoard_Ok()
+    {
+        var cut = Context.RenderComponent<RibbonTab>(pb =>
+        {
+            pb.Add(a => a.Items, new RibbonTabItem[]
+            {
+                new RibbonTabItem()
+                {
+                    Text = "test 1",
+                    Items = new RibbonTabItem[]
+                    {
+                        new RibbonTabItem()
+                        {
+                            Text = "Item"
+                        }
+                    }
+                }
+            });
+            pb.Add(a => a.IsBorder, false);
+        });
+        cut.Contains("class=\"ribbon-tab\"");
     }
 
     private static IEnumerable<RibbonTabItem> GetItems() => new List<RibbonTabItem>()
