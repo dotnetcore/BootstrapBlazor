@@ -1,8 +1,8 @@
 ﻿.card {
     --bs-card-border-radius: var(--bs-border-radius);
     --bs-card-inner-border-radius: calc(var(--bs-border-radius) - 1px);
-    --bb-card-shadow: 0 0 8px 0 #e8edfa99, 0 2px 4px 0 #e8edfa80;
-    --bb-card-hover-shadow: 0 1px 7px 0 #0000000d, 0 2px 8px 0 #00000012, 0 3px 9px 0 #0000000f, 0 5px 10px 0 #00000008;
+    --bb-card-shadow: var(--bb-shadow);
+    --bb-card-hover-shadow: var(--bb-hover-shadow);
 }
 
     .card .card-collapse {

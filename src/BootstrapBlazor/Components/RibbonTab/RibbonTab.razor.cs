@@ -7,8 +7,15 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// RibbonTab 组件
 /// </summary>
-public partial class RibbonTab : IDisposable
+[JSModuleAutoLoader("ribbon-tab", JSObjectReference = true)]
+public partial class RibbonTab
 {
+    /// <summary>
+    /// 获得/设置 是否仅渲染当前 Tab 默认 true
+    /// </summary>
+    [Parameter]
+    public bool IsOnlyRenderActiveTab { get; set; } = true;
+
     /// <summary>
     /// 获得/设置 是否显示悬浮小箭头 默认 false 不显示
     /// </summary>
@@ -63,10 +70,10 @@ public partial class RibbonTab : IDisposable
     public Func<RibbonTabItem, Task>? OnItemClickAsync { get; set; }
 
     /// <summary>
-    /// 获得/设置 点击标签 Header 回调方法
+    /// 获得/设置 点击标签 Menu 回调方法
     /// </summary>
     [Parameter]
-    public Func<string?, string?, Task>? OnHeaderClickAsync { get; set; }
+    public Func<string?, string?, Task>? OnMenuClickAsync { get; set; }
 
     /// <summary>
     /// 获得/设置 右侧按钮模板
@@ -74,13 +81,24 @@ public partial class RibbonTab : IDisposable
     [Parameter]
     public RenderFragment? RightButtonsTemplate { get; set; }
 
-    private bool IsExpand { get; set; }
+    /// <summary>
+    /// 获得/设置 内容模板
+    /// </summary>
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
 
-    private JSInterop<RibbonTab>? Interop { get; set; }
+    /// <summary>
+    /// 获得/设置 是否为带边框卡片样式 默认 true
+    /// </summary>
+    [Parameter]
+    public bool IsBorder { get; set; } = true;
+
+    private bool IsExpand { get; set; }
 
     private string? HeaderClassString => CssBuilder.Default("ribbon-tab")
         .AddClass("is-float", IsFloat)
         .AddClass("is-expand", IsFloat && IsExpand)
+        .AddClass("border", IsBorder)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
@@ -89,18 +107,10 @@ public partial class RibbonTab : IDisposable
         .Build();
 
     /// <summary>
-    /// OnAfterRenderAsync 方法
+    /// <inheritdoc/>
     /// </summary>
-    /// <param name="firstRender"></param>
     /// <returns></returns>
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (firstRender)
-        {
-            Interop = new(JSRuntime);
-            await Interop.InvokeVoidAsync(this, Id, "bb_ribbon", nameof(SetExpand));
-        }
-    }
+    protected override Task ModuleInitAsync() => InvokeInitAsync(Id, nameof(SetExpand));
 
     /// <summary>
     /// SetExpand 方法
@@ -122,9 +132,9 @@ public partial class RibbonTab : IDisposable
 
     private async Task OnClickTab(TabItem item)
     {
-        if (OnHeaderClickAsync != null)
+        if (OnMenuClickAsync != null)
         {
-            await OnHeaderClickAsync(item.Text, item.Url);
+            await OnMenuClickAsync(item.Text, item.Url);
         }
         if (OnItemClickAsync != null)
         {
@@ -154,29 +164,4 @@ public partial class RibbonTab : IDisposable
     }
 
     private static RenderFragment? RenderTemplate(RibbonTabItem item) => item.Component?.Render() ?? item.Template;
-
-    /// <summary>
-    /// Dispose 方法
-    /// </summary>
-    /// <param name="disposing"></param>
-    protected virtual void Dispose(bool disposing)
-    {
-        if (disposing)
-        {
-            if (Interop != null)
-            {
-                Interop.Dispose();
-                Interop = null;
-            }
-        }
-    }
-
-    /// <summary>
-    /// Dispose 方法
-    /// </summary>
-    public void Dispose()
-    {
-        Dispose(true);
-        GC.SuppressFinalize(this);
-    }
 }

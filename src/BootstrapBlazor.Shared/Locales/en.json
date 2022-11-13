@@ -4022,7 +4022,9 @@
     "Items11": "Task 2",
     "Items12": "Task 3",
     "ItemsGroupName1": "Group one",
-    "ItemsGroupName2": "Group two"
+    "ItemsGroupName2": "Group two",
+    "HeaderClickTitle": "Header click callback",
+    "HeaderClickIntro": "Handler the event of click header via <code>OnHeaderClickAsync</code>"
   },
   "BootstrapBlazor.Shared.Samples.Logouts": {
     "H1": "Logout component",

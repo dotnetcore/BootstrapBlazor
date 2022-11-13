@@ -46,15 +46,17 @@ public partial class RibbonTabs
                 }
             }
         };
+
+        ActiveTabText = Localizer["ItemsText1"];
     }
 
     private string? ActiveTabText { get; set; }
 
-    private string? FileClassString => CssBuilder.Default("ribbon-body collapse")
+    private string? FileClassString => CssBuilder.Default("collapse")
         .AddClass("show", ActiveTabText == Localizer["ItemsText1"])
         .Build();
 
-    private string? EditClassString => CssBuilder.Default("ribbon-body collapse")
+    private string? EditClassString => CssBuilder.Default("collapse")
         .AddClass("show", ActiveTabText == Localizer["ItemsText2"])
         .Build();
 

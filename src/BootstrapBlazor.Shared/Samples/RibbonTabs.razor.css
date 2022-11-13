@@ -1,8 +1,5 @@
 ﻿.ribbon-demo {
     height: 196px;
-    border: 1px solid #ddd;
-    border-radius: var(--bs-border-radius);
-    overflow: hidden;
 }
 
 .ribbon-demo-body {

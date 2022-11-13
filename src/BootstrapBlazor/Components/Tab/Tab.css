@@ -1,9 +1,7 @@
-﻿:root {
-    --bb-tab-item-height: 40px;
-    --bb-tab-item-hover-color: #e9ecef;
-}
-
-.tabs {
+﻿.tabs {
+    --bb-tabs-item-height: 40px;
+    --bb-tabs-item-hover-color: #e9ecef;
+    --bb-tabs-border-card-top-item-margin-top: -1px;
     display: flex;
 }
 
@@ -112,7 +110,7 @@
     .tabs .tabs-nav-next, .tabs .tabs-nav-prev {
         position: absolute;
         cursor: pointer;
-        height: var(--bb-tab-item-height);
+        height: var(--bb-tabs-item-height);
         font-size: 16px;
         color: #909399;
         width: 30px;
@@ -270,7 +268,7 @@
 
     .tabs.tabs-card.tabs-top .tabs-body {
         border-top-width: 0;
-        border-radius: 0 0 4px 4px;
+        border-radius: 0 0 var(--bs-border-radius) var(--bs-border-radius);
     }
 
     .tabs.tabs-card.tabs-bottom .tabs-body {
@@ -309,7 +307,7 @@
 
 .tabs-item {
     padding: 0 20px;
-    height: var(--bb-tab-item-height);
+    height: var(--bb-tabs-item-height);
     display: flex;
     list-style: none;
     font-weight: 500;
@@ -451,7 +449,7 @@
             }
 
             .tabs-border-card > .tabs-header .tabs-item:not(.active):hover {
-                background-color: var(--bb-tab-item-hover-color);
+                background-color: var(--bb-tabs-item-hover-color);
             }
 
     .tabs-border-card.tabs-top .tabs-header {
@@ -463,7 +461,7 @@
     }
 
     .tabs-border-card.tabs-top .tabs-header .tabs-item {
-        margin-top: -1px;
+        margin-top: var(--tabs-border-card-top-item-margin-top);
     }
 
         .tabs-border-card.tabs-top .tabs-header .tabs-item:first-child {

@@ -4021,8 +4021,9 @@
     "Items11": "常规操作",
     "Items12": "常规操作",
     "ItemsGroupName1": "操作组一",
-    "ItemsGroupName2": "操作组三"
-
+    "ItemsGroupName2": "操作组三",
+    "HeaderClickTitle": "Header 点击回调",
+    "HeaderClickIntro": "通过设置 <code>OnHeaderClickAsync</code> 回调方法处理点击 <code>Header</code> 部分逻辑"
   },
   "BootstrapBlazor.Shared.Samples.Logouts": {
     "H1": "Logout 登出组件",

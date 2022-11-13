@@ -63,7 +63,7 @@ public partial class Tab : IHandlerException, IDisposable
     public bool IsCard { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否为带边框卡片样式
+    /// 获得/设置 是否为带边框卡片样式 默认 false
     /// </summary>
     [Parameter]
     public bool IsBorderCard { get; set; }
