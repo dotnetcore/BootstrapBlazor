@@ -255,7 +255,7 @@ public partial class Select<TValue> : ISelect
         // 触发 SelectedItemChanged 事件
         if (OnSelectedItemChanged != null)
         {
-            await OnSelectedItemChanged.Invoke(SelectedItem);
+            await OnSelectedItemChanged(SelectedItem);
         }
     }
 

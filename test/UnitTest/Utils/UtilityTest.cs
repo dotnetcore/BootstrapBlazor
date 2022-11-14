@@ -387,6 +387,10 @@ public class UtilityTest : BootstrapBlazorTestBase
         foo.Name = v1;
         Utility.SetPropertyValue<object, object>(foo, nameof(Foo.Name), val);
         Assert.Equal(foo.Name, val);
+
+        var model = new DynamicColumnsObject();
+        Utility.SetPropertyValue<object, object>(model, "Name", "Test-Value");
+        Assert.Equal("Test-Value", Utility.GetPropertyValue(model, "Name"));
     }
 
     [Fact]

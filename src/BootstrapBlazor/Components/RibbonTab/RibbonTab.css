@@ -1,7 +1,14 @@
 ﻿.ribbon-tab {
-    --bb-ribbon-tabs-header-bg: #f5f7fa;
-    --bb-ribbon-tabs-item-color: #343a40;
-    --bb-ribbon-tabs-item-hover-color: #409eff;
+    --bb-ribbon-menu-height: 30px;
+    --bb-ribbon-menu-margin-top: 10px;
+    --bb-ribbon-menu-body-height: 82.5px;
+    --bb-ribbon-menu-body-padding: .5rem;
+    --bb-ribbon-menu-radius: var(--bs-border-radius);
+    --bb-ribbon-menu-padding: .5rem;
+    --bb-ribbon-menu-border-color: var(--bs-border-color);
+    --bb-ribbon-menu-bg: #f5f7fa;
+    --bb-ribbon-menu-color: #343a40;
+    --bb-ribbon-menu-hover-color: #409eff;
     --bb-ribbon-button-hover-bg: #d0e7ff;
     --bb-ribbon-button-hover-border-color: #8bb5e0;
     --bb-ribbon-button-active-bg: #acd4fd;
@@ -12,17 +19,11 @@
     --bb-ribbon-button-padding: 0.25rem;
     --bb-ribbon-button-fontsize: 0.75rem;
     --bb-ribbon-button-min-width: 56px;
-    --bb-ribbon-content-height: 82.5px;
-    --bb-ribbon-command-padding: .5rem;
     --bb-ribbon-group-fontsize: 11px;
     --bb-ribbon-group-color: #adb5bd;
     --bb-ribbon-group-margin-top: .25rem;
-    --bb-ribbon-item-height: 30px;
-    --bb-ribbon-item-radius: var(--bs-border-radius);
-    --bb-ribbon-item-padding: .5rem;
-    --bb-ribbon-item-margin-top: 10px;
-    --bb-ribbon-item-border-color: var(--bs-border-color);
     --bb-ribbon-body-padding: 1rem;
+    --bb-ribbon-menu-header-height: calc(var(--bb-ribbon-menu-height) + var(--bb-ribbon-menu-margin-top) + var(--bb-ribbon-menu-body-height));
     position: relative;
     z-index: 10;
 }
@@ -34,7 +35,7 @@
         .ribbon-tab .ribbon-header .tabs-border-card.tabs-top .tabs-header {
             border-top-left-radius: 0;
             border-top-right-radius: 0;
-            background-color: var(--bb-ribbon-tabs-header-bg);
+            background-color: var(--bb-ribbon-menu-bg);
         }
 
         .ribbon-tab .ribbon-header .tabs-border-card {
@@ -44,38 +45,38 @@
         }
 
             .ribbon-tab .ribbon-header .tabs-border-card .tabs-header .tabs-item {
-                padding: 0 var(--bb-ribbon-item-padding);
-                margin-top: var(--bb-ribbon-item-margin-top);
-                height: var(--bb-ribbon-item-height);
-                border-top-left-radius: var(--bb-ribbon-item-radius);
-                border-top-right-radius: var(--bb-ribbon-item-radius);
+                padding: 0 var(--bb-ribbon-menu-padding);
+                margin-top: var(--bb-ribbon-menu-margin-top);
+                height: var(--bb-ribbon-menu-height);
+                border-top-left-radius: var(--bb-ribbon-menu-radius);
+                border-top-right-radius: var(--bb-ribbon-menu-radius);
                 transition: background-color .3s ease-in-out, color .3s ease-in-out, border-right-color .3s ease-in-out, border-left-color .3s ease-in-out;
             }
 
                 .ribbon-tab .ribbon-header .tabs-border-card .tabs-header .tabs-item.active {
-                    border-left-color: var(--bb-ribbon-item-border-color);
-                    border-right-color: var(--bb-ribbon-item-border-color);
-                    border-top-color: var(--bb-ribbon-item-border-color);
+                    border-left-color: var(--bb-ribbon-menu-border-color);
+                    border-right-color: var(--bb-ribbon-menu-border-color);
+                    border-top-color: var(--bb-ribbon-menu-border-color);
                 }
 
                 .ribbon-tab .ribbon-header .tabs-border-card .tabs-header .tabs-item:nth-child(2) {
-                    padding-left: var(--bb-ribbon-item-padding);
+                    padding-left: var(--bb-ribbon-menu-padding);
                 }
 
                 .ribbon-tab .ribbon-header .tabs-border-card .tabs-header .tabs-item:last-child {
-                    padding-right: var(--bb-ribbon-item-padding);
+                    padding-right: var(--bb-ribbon-menu-padding);
                 }
 
                 .ribbon-tab .ribbon-header .tabs-border-card .tabs-header .tabs-item:not(:hover):not(.active) {
-                    color: var(--bb-ribbon-tabs-item-color);
+                    color: var(--bb-ribbon-menu-color);
                 }
 
                 .ribbon-tab .ribbon-header .tabs-border-card .tabs-header .tabs-item:hover {
-                    color: var(--bb-ribbon-tabs-item-hover-color);
+                    color: var(--bb-ribbon-menu-hover-color);
                 }
 
     .ribbon-tab .tabs-nav-scroll {
-        padding: 0 var(--bb-ribbon-item-padding);
+        padding: 0 var(--bb-ribbon-menu-padding);
     }
 
     .ribbon-tab .tabs .tabs-body {
@@ -84,7 +85,7 @@
 
     .ribbon-tab .tabs-body-content {
         overflow: hidden;
-        height: var(--bb-ribbon-content-height);
+        height: var(--bb-ribbon-menu-body-height);
         transition: height .3s ease-in-out;
     }
 
@@ -105,7 +106,7 @@
         flex-wrap: nowrap;
         font-size: var(--bb-ribbon-button-fontsize);
         overflow: hidden;
-        padding: var(--bb-ribbon-command-padding);
+        padding: var(--bb-ribbon-menu-body-padding);
         height: 100%;
     }
 
@@ -160,8 +161,8 @@
     .ribbon-tab .ribbon-buttons {
         position: absolute;
         right: 1rem;
-        top: var(--bb-ribbon-item-margin-top);
-        height: var(--bb-ribbon-item-height);
+        top: var(--bb-ribbon-menu-margin-top);
+        height: var(--bb-ribbon-menu-height);
     }
 
     .ribbon-tab .ribbon-buttons,

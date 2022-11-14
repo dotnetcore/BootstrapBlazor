@@ -218,11 +218,7 @@ internal class CacheManager : ICacheManager
                 var sections = Instance.GetOrCreate(key, entry => option.GetJsonStringFromAssembly(assembly, cultureName));
                 return sections?.FirstOrDefault(kv => typeName.Equals(kv.Key, StringComparison.OrdinalIgnoreCase))?
                     .GetChildren()
-#if NET7_0_OR_GREATER
                     .SelectMany(kv => new[] { new LocalizedString(kv.Key, kv.Value ?? kv.Key) });
-#else
-                    .SelectMany(kv => new[] { new LocalizedString(kv.Key, kv.Value) });
-#endif
             });
         }
     }
@@ -232,11 +228,7 @@ internal class CacheManager : ICacheManager
     /// </summary>
     /// <param name="includeParentCultures"></param>
     /// <returns></returns>
-    public static IEnumerable<LocalizedString> GetAllStringsFromResolve(bool includeParentCultures = true) => Instance.GetOrCreate($"{nameof(GetAllStringsFromResolve)}-{CultureInfo.CurrentUICulture.Name}", entry => Instance.Provider.GetRequiredService<ILocalizationResolve>().GetAllStringsByCulture(includeParentCultures))
-#if NET7_0_OR_GREATER
-        ?? Enumerable.Empty<LocalizedString>()
-#endif
-        ;
+    public static IEnumerable<LocalizedString> GetAllStringsFromResolve(bool includeParentCultures = true) => Instance.GetOrCreate($"{nameof(GetAllStringsFromResolve)}-{CultureInfo.CurrentUICulture.Name}", entry => Instance.Provider.GetRequiredService<ILocalizationResolve>().GetAllStringsByCulture(includeParentCultures));
     #endregion
 
     #region DisplayName
@@ -338,7 +330,7 @@ internal class CacheManager : ICacheManager
                 var stringLocalizer = localizerAttr![itemName];
                 return stringLocalizer.Value;
             }
-        }) ?? new();
+        });
     }
 
     /// <summary>
@@ -383,7 +375,7 @@ internal class CacheManager : ICacheManager
             if (localizer != null)
             {
                 var stringLocalizer = localizer[$"{fieldName}.PlaceHolder"];
-                if (stringLocalizer is { ResourceNotFound: false })
+                if (!stringLocalizer.ResourceNotFound)
                 {
                     ret = stringLocalizer.Value;
                 }
@@ -586,7 +578,10 @@ internal class CacheManager : ICacheManager
                     body = Expression.Call(Expression.Convert(exp_p1, type), mi);
                 }
             }
-            return body == null
+            return BuildExpression();
+
+            [ExcludeFromCodeCoverage]
+            Expression<Func<object, string, IFormatProvider?, string>> BuildExpression() => body == null
                 ? (s, f, provider) => s.ToString() ?? ""
                 : Expression.Lambda<Func<object, string, IFormatProvider?, string>>(body, exp_p1, exp_p2, exp_p3);
         }

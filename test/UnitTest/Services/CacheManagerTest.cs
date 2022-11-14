@@ -9,8 +9,19 @@ public class CacheManagerTest : BootstrapBlazorTestBase
     [Fact]
     public void GetStartTime_Ok()
     {
-        Cache.SetStartTime();
+        Cache.Clear("BootstrapBlazor_StartTime");
+        var v = Cache.GetStartTime();
+        Assert.Equal(DateTimeOffset.MinValue, v);
 
+        Cache.GetOrCreate("BootstrapBlazor_StartTime", entry =>
+        {
+            return 10;
+        });
+        var v1 = Cache.GetStartTime();
+        Assert.Equal(DateTimeOffset.MinValue, v);
+
+        Cache.Clear("BootstrapBlazor_StartTime");
+        Cache.SetStartTime();
         Assert.True(DateTime.Now > Cache.GetStartTime());
     }
 

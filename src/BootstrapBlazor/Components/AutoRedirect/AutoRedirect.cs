@@ -23,7 +23,7 @@ public class AutoRedirect : BootstrapModuleComponentBase
     public bool IsForceLoad { get; set; }
 
     /// <summary>
-    /// 获得/设置 自动锁屏间隔单位 秒 默认 60000 秒
+    /// 获得/设置 自动锁屏间隔单位 秒 默认 60000 毫秒
     /// </summary>
     [Parameter]
     public int Interval { get; set; } = 60000;
