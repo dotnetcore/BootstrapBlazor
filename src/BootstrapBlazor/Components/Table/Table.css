@@ -620,15 +620,6 @@ form .table .table-cell > textarea {
             padding: .275rem .5rem;
         }
 
-.table-search .card-body {
-    --bs-card-spacer-x: 0;
-    --bs-card-spacer-y: 0;
-}
-
-    .table-search .card-body > .groupbox {
-        margin: var(--bb-table-search-body-margin);
-    }
-
 .table-search-collapse {
     flex: 1;
     display: flex;

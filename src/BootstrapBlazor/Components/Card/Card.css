@@ -47,3 +47,11 @@
 .card-header .tag {
     line-height: 21px;
 }
+
+.is-collapsable .card-body {
+    padding: 0;
+}
+
+.is-collapsable .card-body-wrapper {
+    padding: var(--bs-card-spacer-y) var(--bs-card-spacer-x);
+}

@@ -16,11 +16,12 @@ public partial class Card
         .AddClass("text-center", IsCenter)
         .AddClass($"border-{Color.ToDescriptionString()}", Color != Color.None)
         .AddClass("card-shadow", IsShadow)
+        .AddClass("is-collapsable", IsCollapsible)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
     /// <summary>
-    /// 
+    /// 获得 收缩图标样式
     /// </summary>
     protected string? ArrowClassString => CssBuilder.Default("card-collapse-arrow")
         .AddClass(CollapseIcon)

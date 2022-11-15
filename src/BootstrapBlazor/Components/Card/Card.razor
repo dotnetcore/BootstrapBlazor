@@ -21,7 +21,16 @@
         </div>
     }
     <div class="@BodyClassName" id="@Id">
-        @BodyTemplate
+        @if (IsCollapsible)
+        {
+            <div class="card-body-wrapper">
+                @BodyTemplate
+            </div>
+        }
+        else
+        {
+            @BodyTemplate
+        }
     </div>
     @if (FooterTemplate != null)
     {

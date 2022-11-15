@@ -79,10 +79,6 @@ export class Table extends BlazorComponent {
                     break
                 }
             }
-
-            // if ($.browser.versions.mobile) {
-            //     fs.remove();
-            // }
         }
 
         // 尝试自适应高度
