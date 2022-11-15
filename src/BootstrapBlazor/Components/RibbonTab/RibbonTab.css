@@ -28,6 +28,10 @@
     z-index: 10;
 }
 
+    .ribbon-tab.is-float:not(.is-expand) {
+        --bb-ribbon-menu-body-height: 0px;
+    }
+
     .ribbon-tab .ribbon-header {
         position: relative;
     }
@@ -193,4 +197,5 @@
     .ribbon-tab .ribbon-body {
         border-top: var(--bs-border-width) solid var(--bs-border-color);
         padding: var(--bb-ribbon-body-padding);
+        position: relative;
     }
