@@ -850,7 +850,9 @@
     "P10": "Show autoscroll options",
     "P11": "by setting",
     "P12": "Turn on autoscroll",
-    "P13": "ConsoleMessageItem property"
+    "P13": "ConsoleMessageItem property",
+    "ShowAutoScrollTitle": "ShowAutoScroll",
+    "ShowAutoScrollIntro": "Switch auto scroll the data by set <code>ShowAutoScroll</code> parameter"
   },
   "BootstrapBlazor.Shared.Samples.Synthesizers": {
     "H1": "Synthesizer speech synthesis",

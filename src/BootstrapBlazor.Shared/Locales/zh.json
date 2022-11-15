@@ -851,7 +851,9 @@
     "P10": "显示自动滚屏选项",
     "P11": "通过设置",
     "P12": "设置开启自动滚屏",
-    "P13": "ConsoleMessageItem 属性"
+    "P13": "ConsoleMessageItem 属性",
+    "ShowAutoScrollTitle": "自动滚屏控制",
+    "ShowAutoScrollIntro": "通过设置 <code>ShowAutoScroll</code> 显示 <code>Checkbox</code> 控制是否自动滚动屏幕"
   },
   "BootstrapBlazor.Shared.Samples.Synthesizers": {
     "H1": "Synthesizer 语音合成",
