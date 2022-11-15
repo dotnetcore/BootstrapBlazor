@@ -661,7 +661,7 @@ form .table .table-cell > textarea {
 
     .table-search .card-header .input-group .table-toolbar-search,
     .table-search .card-header .input-group .btn {
-        height: 34px;
+        height: 33px;
     }
 
 .table-search .card-header [aria-expanded="true"] + .input-group,
