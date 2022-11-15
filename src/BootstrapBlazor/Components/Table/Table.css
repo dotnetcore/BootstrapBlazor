@@ -15,6 +15,7 @@
     --bb-table-columnlist-max-height: var(--bb-dropdown-max-height);
     --bs-table-striped-bg: rgba(0,0,0,.05);
     --bs-table-hover-bg: rgba(0,0,0,.075);
+    --bb-table-search-body-margin: 1rem;
 }
 
     .table-container .table:not(.table-excel) .switch {
@@ -618,6 +619,15 @@ form .table .table-cell > textarea {
         .table-search .card-header .table-search-buttons .btn {
             padding: .275rem .5rem;
         }
+
+.table-search .card-body {
+    --bs-card-spacer-x: 0;
+    --bs-card-spacer-y: 0;
+}
+
+    .table-search .card-body > .groupbox {
+        margin: var(--bb-table-search-body-margin);
+    }
 
 .table-search-collapse {
     flex: 1;
