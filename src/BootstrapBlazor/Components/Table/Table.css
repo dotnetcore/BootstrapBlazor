@@ -8,6 +8,7 @@
     --bb-table-header-icon-active-color: #409eff;
     --bb-table-header-icon-hover-bg: #ddd;
     --bb-table-header-icon-hover-color: #606266;
+    --bb-table-header-min-height: 37px;
     --bb-table-footer-font-weight: blod;
     --bb-table-footer-border-top: 2px solid #dee2e6;
     --bb-table-loader-bg: #f8f9fa;
@@ -603,62 +604,27 @@ form .table .table-cell > textarea {
 }
 
 .table-search .card-header {
-    padding: 0;
+    --bs-card-cap-padding-y: 0;
+    min-height: var(--bb-table-header-min-height);
 }
 
-    .table-search .card-header .table-search-title {
-        padding: .5rem 1rem;
-        flex: 1;
-        cursor: pointer;
+    .table-search .card-header .table-search-buttons .btn {
+        padding: .275rem .5rem;
     }
 
-    .table-search .card-header .table-search-buttons {
-        padding: .25rem 1rem;
+    .table-search .card-header .input-group {
+        width: auto;
     }
 
-        .table-search .card-header .table-search-buttons .btn {
-            padding: .275rem .5rem;
+        .table-search .card-header .input-group .table-toolbar-search,
+        .table-search .card-header .input-group .btn {
+            height: calc(var(--bb-table-header-min-height) - 4px);
         }
 
-.table-search-collapse {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    padding: 0 1rem;
-    white-space: nowrap;
-}
-
-    .table-search-collapse .table-search-collapse-arrow {
-        cursor: pointer;
-        transition: .3s transform linear;
-        transform: rotate(0);
+    .table-search .card-header [aria-expanded="true"] + .input-group,
+    .table-search .card-header [aria-expanded="false"] + .input-group + .table-search-buttons {
+        display: none;
     }
-
-    .table-search-collapse[aria-expanded="true"] .table-search-collapse-arrow {
-        transform: rotate(90deg);
-    }
-
-    .table-search-collapse .table-search-collapse-title {
-        cursor: pointer;
-        margin-left: .5rem;
-        flex: 1;
-        padding: .5rem 0;
-    }
-
-.table-search .card-header .input-group {
-    width: auto;
-    padding: 2px;
-}
-
-    .table-search .card-header .input-group .table-toolbar-search,
-    .table-search .card-header .input-group .btn {
-        height: 33px;
-    }
-
-.table-search .card-header [aria-expanded="true"] + .input-group,
-.table-search .card-header [aria-expanded="false"] + .input-group + .table-search-buttons {
-    display: none;
-}
 
 .table-excel-toolbar {
     display: none;

@@ -21,10 +21,15 @@
     .card-header .card-collapse-bar {
         cursor: pointer;
         margin-right: var(--bb-card-collapse-bar-margin-right);
+        flex: 1;
     }
 
     .card-header .tag {
         line-height: var(--bb-card-header-tag-height);
+    }
+
+    .card-header + .card-body {
+        border-top: var(--bs-card-border-width) solid var(--bs-card-border-color);
     }
 
 .card-shadow {
@@ -38,10 +43,6 @@
 
 [aria-expanded="true"] > .card-collapse-arrow {
     transform: rotate( 90deg);
-}
-
-.card-body {
-    border-top: var(--bs-card-border-width) solid var(--bs-card-border-color);
 }
 
 .is-collapsable > .card-body {

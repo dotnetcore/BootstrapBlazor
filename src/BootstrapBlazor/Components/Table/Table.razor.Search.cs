@@ -2,6 +2,8 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using Microsoft.AspNetCore.Components.Web;
+
 namespace BootstrapBlazor.Components;
 
 public partial class Table<TItem>
@@ -119,14 +121,6 @@ public partial class Table<TItem>
     /// </summary>
     [Parameter]
     public Func<TItem, Task>? OnResetSearchAsync { get; set; }
-
-    private string? TopSearchBodyClassString => CssBuilder.Default("card-body collapse")
-        .AddClass("show", !CollapsedTopSearch)
-        .Build();
-
-    private string TopSearchBodyId => $"{Id}_search_body";
-
-    private string TopSearchCollapsedString => CollapsedTopSearch ? "false" : "true";
 
     /// <summary>
     /// 重置查询方法
@@ -270,6 +264,18 @@ public partial class Table<TItem>
     /// <returns></returns>
     protected List<IFilterAction> GetSearchs() => Columns.Where(col => col.Searchable).ToSearchs(SearchText);
 
+    private async Task OnSearchKeyup(KeyboardEventArgs args)
+    {
+        if (args.Key == "Enter")
+        {
+            await SearchClick();
+        }
+        else if (args.Key == "Escape")
+        {
+            await ClearSearchClick();
+        }
+    }
+
     /// <summary>
     /// 重置搜索按钮调用此方法
     /// </summary>
@@ -284,18 +290,4 @@ public partial class Table<TItem>
     /// </summary>
     /// <returns></returns>
     private IEnumerable<ITableColumn> GetSearchColumns() => Columns.Where(c => c.Searchable);
-
-    /// <summary>
-    /// 客户端 SearchTextbox 文本框内按回车时调用此方法
-    /// </summary>
-    /// <returns></returns>
-    [JSInvokable]
-    public async Task OnSearch() => await SearchClick();
-
-    /// <summary>
-    /// 客户端 SearchTextbox 文本框内按 ESC 时调用此方法
-    /// </summary>
-    /// <returns></returns>
-    [JSInvokable]
-    public async Task OnClearSearch() => await ClearSearchClick();
 }

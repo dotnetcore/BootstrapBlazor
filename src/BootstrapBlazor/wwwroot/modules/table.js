@@ -35,8 +35,6 @@ export class Table extends BlazorComponent {
         if (this._isResizeColumn) {
             this._setResizeListener()
         }
-
-        this._setSearchListener()
     }
 
     _execute(args) {
@@ -281,16 +279,6 @@ export class Table extends BlazorComponent {
         })
     }
 
-    _setSearchListener() {
-        EventHandler.on(this._element, 'keyup', '.table-toolbar-search', e => {
-            if (e.key === 'Enter') {
-                this._invoker.invokeMethodAsync("OnSearch");
-            } else if (e.key === 'Escape') {
-                this._invoker.invokeMethodAsync("OnClearSearch");
-            }
-        })
-    }
-
     _dispose() {
         if (this._fixedHeader) {
             EventHandler.off(this._body, 'scroll')
@@ -299,8 +287,6 @@ export class Table extends BlazorComponent {
         if (this._isExcel) {
             EventHandler.off(this._element, 'keydown')
         }
-
-        EventHandler.off(this._element, 'keyup', '.table-toolbar-search')
 
         this._columns.forEach(col => {
             EventHandler.off(col, 'mousedown')

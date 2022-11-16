@@ -371,33 +371,6 @@ public class TableTest : TableTestBase
     }
 
     [Fact]
-    public async Task Search_JSInvoke()
-    {
-        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
-        {
-            pb.AddChildContent<Table<Foo>>(pb =>
-            {
-                pb.Add(a => a.ShowSearch, true);
-                pb.Add(a => a.SearchMode, SearchMode.Top);
-                pb.Add(a => a.OnQueryAsync, OnQueryAsync(localizer));
-                pb.Add(a => a.TableColumns, foo => builder =>
-                {
-                    builder.OpenComponent<TableColumn<Foo, string>>(0);
-                    builder.AddAttribute(1, "Field", "Name");
-                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
-                    builder.AddAttribute(3, "Searchable", true);
-                    builder.CloseComponent();
-                });
-            });
-        });
-
-        var table = cut.FindComponent<Table<Foo>>();
-        await cut.InvokeAsync(() => table.Instance.OnSearch());
-        await cut.InvokeAsync(() => table.Instance.OnClearSearch());
-    }
-
-    [Fact]
     public void ShowToolbar_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
@@ -2489,41 +2462,6 @@ public class TableTest : TableTestBase
         var resetButton = cut.Find(".fa-trash-can");
         await cut.InvokeAsync(() => resetButton.Click());
         Assert.Null(table.Instance.SearchModel.Name);
-    }
-
-    [Theory]
-    [InlineData(true)]
-    [InlineData(false)]
-    public void CollapsedTopSearch_Ok(bool collapsed)
-    {
-        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
-        {
-            pb.AddChildContent<Table<Foo>>(pb =>
-            {
-                pb.Add(a => a.ShowSearch, true);
-                pb.Add(a => a.SearchMode, SearchMode.Top);
-                pb.Add(a => a.RenderMode, TableRenderMode.Table);
-                pb.Add(a => a.CollapsedTopSearch, collapsed);
-                pb.Add(a => a.OnQueryAsync, OnQueryAsync(localizer));
-                pb.Add(a => a.TableColumns, foo => builder =>
-                {
-                    builder.OpenComponent<TableColumn<Foo, string>>(0);
-                    builder.AddAttribute(1, "Field", "Name");
-                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
-                    builder.CloseComponent();
-                });
-            });
-        });
-
-        if (collapsed)
-        {
-            cut.Contains("aria-expanded=\"false\"");
-        }
-        else
-        {
-            cut.Contains("aria-expanded=\"true\"");
-        }
     }
 
     [Theory]
