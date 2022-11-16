@@ -414,6 +414,12 @@ public static class Utility
         {
             builder.AddMultipleAttributes(17, item.ComponentParameters);
         }
+
+        // 设置 IsPopover
+        if (componentType.GetPropertyByName(nameof(Select<string>.IsPopover)) != null)
+        {
+            builder.AddAttribute(18, nameof(Select<string>.IsPopover), true);
+        }
         builder.CloseComponent();
     }
 
