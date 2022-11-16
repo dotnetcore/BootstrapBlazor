@@ -7,16 +7,28 @@
         <div class="card-header">
             @if (IsCollapsible)
             {
-                <div class="card-collapse" data-bs-toggle="collapse" data-bs-target="#@Id" aria-expanded="@ExpandedString">
+                <div class="card-collapse-bar" data-bs-toggle="collapse" data-bs-target="#@Id" aria-expanded="@ExpandedString">
                     <i class="@ArrowClassString"></i>
-                    <div class="card-collapse-body">
-                        @RenderHeader
-                    </div>
+                    @if (!string.IsNullOrEmpty(HeaderText))
+                    {
+                        <span class="card-title">@HeaderText</span>
+                    }
                 </div>
+                if (HeaderTemplate != null)
+                {
+                    @HeaderTemplate
+                }
             }
             else
             {
-                @RenderHeader
+                if (!string.IsNullOrEmpty(HeaderText))
+                {
+                    <span class="card-title">@HeaderText</span>
+                }
+                if (HeaderTemplate != null)
+                {
+                    @HeaderTemplate
+                }
             }
         </div>
     }

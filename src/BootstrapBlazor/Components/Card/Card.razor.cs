@@ -117,19 +117,4 @@ public partial class Card
 
         CollapseIcon ??= "fa-solid fa-circle-chevron-right";
     }
-
-    /// <summary>
-    /// 渲染 Header 方法
-    /// </summary>
-    protected RenderFragment RenderHeader => builder =>
-    {
-        if (HeaderTemplate != null)
-        {
-            builder.AddContent(0, HeaderTemplate);
-        }
-        else
-        {
-            builder.AddContent(1, HeaderText);
-        }
-    };
 }
