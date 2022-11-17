@@ -156,7 +156,7 @@ const addLink = href => {
 const removeLink = href => {
     const links = [...document.getElementsByTagName('link')]
     const nodes = links.filter(function (link) {
-        return link.href.indexOf(content) > -1
+        return link.href.indexOf(href) > -1
     })
     for (let index = 0; index < nodes.length; index++) {
         document.getElementsByTagName("head")[0].removeChild(nodes[index])

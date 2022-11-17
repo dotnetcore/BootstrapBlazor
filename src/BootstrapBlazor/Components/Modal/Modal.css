@@ -45,6 +45,11 @@
         border: 0;
     }
 
+.modal-fullscreen.is-draggable {
+    margin: 0 !important;
+    width: 100vw !important;
+}
+
 @media screen {
     .bb-printview {
         display: none;

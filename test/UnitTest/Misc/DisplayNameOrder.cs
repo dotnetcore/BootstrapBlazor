@@ -4,6 +4,7 @@
 
 [assembly: CollectionBehavior(DisableTestParallelization = true)]
 [assembly: TestCollectionOrderer("UnitTest.Misc.DisplayNameOrderer", "UnitTest")]
+[assembly: ExcludeFromCodeCoverage]
 
 namespace UnitTest.Misc;
 

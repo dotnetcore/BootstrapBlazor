@@ -1,5 +1,6 @@
 ﻿import BlazorComponent from "./base/blazor-component.js"
 import EventHandler from "./base/event-handler.js"
+import {drag, getHeight, getWidth} from "./base/utility.js"
 
 export class Modal extends BlazorComponent {
     _init() {
@@ -14,13 +15,20 @@ export class Modal extends BlazorComponent {
             this._invoker.invokeMethodAsync(this._invokerShownMethod)
         })
         EventHandler.on(this._element, 'hide.bs.modal', () => {
+            if (this._draggable) {
+                this._dialog.style.width = ''
+                this._dialog.style.marginLeft = ''
+                this._dialog.style.marginTop = ''
+                this._dialog.style.marginBottom = ''
+                this._dialog.style.marginRight = ''
+
+                EventHandler.off(this._dialog, 'mousedown')
+                EventHandler.off(this._dialog, 'touchstart')
+            }
             this._invoker.invokeMethodAsync(this._invokerCloseMethod)
         })
 
-        console.log('pop1')
-
         this._pop = () => {
-            console.log('pop2')
             if (this._modal) {
                 this._modal._dialog.remove()
                 this._modal.dispose()
@@ -61,6 +69,60 @@ export class Modal extends BlazorComponent {
             this._modal.show()
         } else {
             this._invoker.invokeMethodAsync(this._invokerShownMethod)
+        }
+
+        this._dialog = dialogs[dialogs.length - 1]
+        this._draggable = this._dialog.classList.contains('is-draggable')
+        if (this._draggable) {
+            this._originX = 0;
+            this._originY = 0;
+            this._dialogWidth = 0;
+            this._dialogHeight = 0;
+            this._pt = {top: 0, left: 0};
+
+            const header = this._dialog.querySelector('.modal-header')
+            drag(header,
+                e => {
+                    this._originX = e.clientX || e.touches[0].clientX;
+                    this._originY = e.clientY || e.touches[0].clientY;
+                    this._dialogWidth = getWidth(this._dialog);
+                    this._dialogHeight = getHeight(this._dialog);
+
+                    const style = getComputedStyle(this._dialog)
+
+                    this._pt.top = parseInt(style.marginTop) || 0
+                    this._pt.left = parseInt(style.marginLeft) || 0
+
+                    this._dialog.style.marginLeft = `${this._pt.left}px`
+                    this._dialog.style.marginTop = `${this._pt.top}px`
+                    this._dialog.style.marginBottom = `0`
+                    this._dialog.style.marginRight = `0`
+
+                    this._dialog.style.width = `${this._dialogWidth}px`
+                    this._dialog.classList.add('is-drag')
+                },
+                e => {
+                    if (this._dialog.classList.contains('is-drag')) {
+                        const eventX = e.clientX || e.changedTouches[0].clientX;
+                        const eventY = e.clientY || e.changedTouches[0].clientY;
+
+                        let newValX = this._pt.left + Math.ceil(eventX - this._originX);
+                        let newValY = this._pt.top + Math.ceil(eventY - this._originY);
+
+                        if (newValX <= 0) newValX = 0;
+                        if (newValY <= 0) newValY = 0;
+
+                        if (newValX + this._dialogWidth < window.innerWidth) {
+                            this._dialog.style.marginLeft = `${newValX}px`
+                        }
+                        if (newValY + this._dialogHeight < window.innerHeight) {
+                            this._dialog.style.marginTop = `${newValY}px`
+                        }
+                    }
+                },
+                e => {
+                    this._dialog.classList.remove('is-drag')
+                })
         }
     }
 

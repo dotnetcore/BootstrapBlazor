@@ -211,10 +211,10 @@ export class ImageViewer extends BlazorComponent {
                 this._pt.top = parseInt(this._prevImg.style.marginTop)
                 this._pt.left = parseInt(this._prevImg.style.marginLeft)
 
-                this._prevImg.addClass('is-drag')
+                this._prevImg.classList.add('is-drag')
             },
             e => {
-                if (this.hasClass('is-drag')) {
+                if (this._prevImg.classList.contains('is-drag')) {
                     const eventX = e.clientX || e.changedTouches[0].clientX
                     const eventY = e.clientY || e.changedTouches[0].clientY
 
