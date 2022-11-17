@@ -10,10 +10,9 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 编辑弹窗组件
 /// </summary>
+[JSModuleAutoLoader("edit-dialog")]
 public partial class EditDialog<TModel>
 {
-    private ElementReference SpinnerElement { get; set; }
-
     /// <summary>
     /// 获得/设置 保存回调委托
     /// </summary>
@@ -75,10 +74,6 @@ public partial class EditDialog<TModel>
     [NotNull]
     private IStringLocalizer<EditDialog<TModel>>? Localizer { get; set; }
 
-    [Inject]
-    [NotNull]
-    private IJSRuntime? JSRuntime { get; set; }
-
     /// <summary>
     /// OnParametersSet 方法
     /// </summary>
@@ -114,7 +109,37 @@ public partial class EditDialog<TModel>
     {
         if (ShowLoading)
         {
-            await JSRuntime.InvokeVoidAsync(SpinnerElement, "bb_form_load", state ? "show" : "hide");
+            await InvokeExecuteAsync(Id, state);
         }
     }
+
+    private RenderFragment RenderFooter => builder =>
+    {
+        if (FooterTemplate != null)
+        {
+            builder.OpenComponent<CascadingValue<Func<Task>?>>(0);
+            builder.AddAttribute(1, nameof(CascadingValue<Func<Task>?>.Value), OnCloseAsync);
+            builder.AddAttribute(2, nameof(CascadingValue<Func<Task>?>.IsFixed), true);
+            builder.AddAttribute(3, nameof(CascadingValue<Func<Task>?>.ChildContent), FooterTemplate(Model));
+            builder.CloseComponent();
+        }
+        else
+        {
+            if (!IsTracking)
+            {
+                builder.OpenComponent<Button>(20);
+                builder.AddAttribute(21, nameof(Button.Color), Color.Secondary);
+                builder.AddAttribute(22, nameof(Button.Icon), "fa-solid fa-xmark");
+                builder.AddAttribute(23, nameof(Button.Text), CloseButtonText);
+                builder.AddAttribute(24, nameof(Button.OnClickWithoutRender), OnClickClose);
+                builder.CloseComponent();
+            }
+            builder.OpenComponent<Button>(30);
+            builder.AddAttribute(31, nameof(Button.Color), Color.Primary);
+            builder.AddAttribute(32, nameof(Button.Icon), "fa-solid fa-floppy-disk");
+            builder.AddAttribute(33, nameof(Button.Text), SaveButtonText);
+            builder.AddAttribute(34, nameof(Button.ButtonType), ButtonType.Submit);
+            builder.CloseComponent();
+        }
+    };
 }

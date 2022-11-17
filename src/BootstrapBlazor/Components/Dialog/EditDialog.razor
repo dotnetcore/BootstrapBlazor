@@ -9,44 +9,21 @@
             @BodyTemplate(Model)
         </div>
         <div class="form-footer">
-            @if (FooterTemplate != null)
-            {
-                <CascadingValue Value="OnCloseAsync" IsFixed>
-                    @FooterTemplate(Model)
-                </CascadingValue>
-            }
-            else
-            {
-                if (!IsTracking)
-                {
-                    <Button Color="Color.Secondary" Icon="fa-solid fa-xmark" Text="@CloseButtonText" OnClickWithoutRender="OnClickClose" />
-                }
-                <Button Color="Color.Primary" ButtonType="ButtonType.Submit" Icon="fa-solid fa-floppy-disk" Text="@SaveButtonText" />
-            }
+            @RenderFooter
         </div>
     }
     else
     {
         <EditorForm TModel="TModel" Items="Items" ItemChangedType="ItemChangedType" ItemsPerRow="ItemsPerRow" RowType="RowType" LabelAlign="LabelAlign" ShowLabel="ShowLabel" ShowUnsetGroupItemsOnTop="ShowUnsetGroupItemsOnTop">
             <Buttons>
-                @if (FooterTemplate != null)
-                {
-                    <CascadingValue Value="OnCloseAsync" IsFixed>
-                        @FooterTemplate(Model)
-                    </CascadingValue>
-                }
-                else
-                {
-                    if (!IsTracking)
-                    {
-                        <Button Color="Color.Secondary" Icon="fa-solid fa-xmark" Text="@CloseButtonText" OnClickWithoutRender="OnClickClose" />
-                    }
-                    <Button Color="Color.Primary" ButtonType="ButtonType.Submit" Icon="fa-solid fa-floppy-disk" Text="@SaveButtonText" />
-                }
+                @RenderFooter
             </Buttons>
         </EditorForm>
     }
+    @if (ShowLoading)
+    {
+        <div class="form-loader" id="@Id">
+            <Spinner Color="Color.Primary" />
+        </div>
+    }
 </ValidateForm>
-<div class="form-loader" @ref="SpinnerElement">
-    <Spinner Color="Color.Primary" />
-</div>

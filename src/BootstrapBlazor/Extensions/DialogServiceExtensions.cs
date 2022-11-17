@@ -26,8 +26,7 @@ public static class DialogServiceExtensions
             [nameof(SearchDialog<TModel>.Items)] = option.Items ?? Utility.GenerateColumns<TModel>(item => item.Searchable),
             [nameof(SearchDialog<TModel>.OnResetSearchClick)] = new Func<Task>(async () =>
             {
-                option.OnCloseAsync = null;
-                option.Dialog.RemoveDialog();
+                await option.Dialog.Close();
                 if (option.OnResetSearchClick != null)
                 {
                     await option.OnResetSearchClick();
@@ -35,8 +34,7 @@ public static class DialogServiceExtensions
             }),
             [nameof(SearchDialog<TModel>.OnSearchClick)] = new Func<Task>(async () =>
             {
-                option.OnCloseAsync = null;
-                option.Dialog.RemoveDialog();
+                await option.Dialog.Close();
                 if (option.OnSearchClick != null)
                 {
                     await option.OnSearchClick();
@@ -70,8 +68,7 @@ public static class DialogServiceExtensions
             [nameof(EditDialog<TModel>.Items)] = option.Items ?? Utility.GenerateColumns<TModel>(item => item.Editable),
             [nameof(EditDialog<TModel>.OnCloseAsync)] = new Func<Task>(async () =>
             {
-                option.Dialog.RemoveDialog();
-                await option.Dialog.CloseOrPopDialog();
+                await option.Dialog.Close();
             }),
             [nameof(EditDialog<TModel>.OnSaveAsync)] = new Func<EditContext, Task>(async context =>
             {
@@ -80,8 +77,7 @@ public static class DialogServiceExtensions
                     var ret = await option.OnEditAsync(context);
                     if (ret)
                     {
-                        option.Dialog.RemoveDialog();
-                        await option.Dialog.CloseOrPopDialog();
+                        await option.Dialog.Close();
                     }
                 }
             }),

@@ -15,7 +15,7 @@ public abstract class PopupOptionBase
     public string? Content { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否自动隐藏 默认 true 自动关闭
+    /// 获得/设置 是否自动隐藏 默认 true 自动关闭 <see cref="SweetAlert"/> 默认 false
     /// </summary>
     public bool IsAutoHide { get; set; } = true;
 

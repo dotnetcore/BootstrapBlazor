@@ -7,7 +7,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 
 /// </summary>
-public abstract class DialogBase<TModel> : ComponentBase
+public abstract class DialogBase<TModel> : BootstrapModuleComponentBase
 {
     /// <summary>
     /// 获得/设置 EditModel 实例

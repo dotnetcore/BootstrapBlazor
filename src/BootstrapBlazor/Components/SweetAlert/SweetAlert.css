@@ -4,11 +4,6 @@
     z-index: var(--bb-swal-zindex);
 }
 
-    .swal .modal-header,
-    .swal .modal-header-buttons {
-        display: none;
-    }
-
 .swal2-icon,
 .swal2-actions {
     display: flex;

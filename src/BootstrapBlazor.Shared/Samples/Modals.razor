@@ -5,7 +5,7 @@
 <h4>@Localizer["H2"]</h4>
 
 <DemoBlock Title="@Localizer["P1"]" Introduction="@Localizer["P2"]" Name="Normal">
-    <div class="modal d-block position-relative">
+    <div class="modal d-block position-relative" style="z-index: 2;">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -23,7 +23,7 @@
         </div>
     </div>
     <div class="mt-3">
-        <p>@Localizer["P5"] <code>Modal</code> @Localizer["P6"] <code>IsKeyboard</code> @Localizer["P7"] <kbd>ESC</kbd>，@Localizer["P8"]</p>
+        <p>@((MarkupString)Localizer["P5"].Value)</p>
         <Button OnClick="async e => await Modal.Toggle()">@Localizer["P9"]</Button>
         <Button OnClick="OnClickKeyboard" Text="@($"Keyboard: {IsKeyboard}")" class="ms-3" />
     </div>
@@ -231,7 +231,7 @@
 
 <DemoBlock Title="弹窗已显示回调方法" Introduction="通过设置 <code>ShownCallbackAsync</code> 回调委托，弹窗显示后回调此方法" Name="ShownCallbackAsync">
     <Button OnClick="@(async e => await ShownCallbackModal.Toggle())">弹窗</Button>
-    <Modal @ref="ShownCallbackModal" ShownCallbackAsync="OnShownCallbackAsync">
+    <Modal @ref="ShownCallbackModal" OnShownAsync="OnShownCallbackAsync">
         <ModalDialog Title="ShownCallbackAsync 回调示例">
             <BodyTemplate>
                 <div>我是弹窗内正文</div>

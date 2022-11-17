@@ -11,11 +11,6 @@ namespace BootstrapBlazor.Components;
 /// </summary>
 public partial class ModalDialog : IHandlerException, IDisposable
 {
-    private ElementReference DialogElement { get; set; }
-
-    [NotNull]
-    private JSInterop<ModalDialog>? Interop { get; set; }
-
     private string MaximizeAriaLabel => MaximizeStatus ? "maximize" : "restore";
 
     /// <summary>
@@ -110,6 +105,12 @@ public partial class ModalDialog : IHandlerException, IDisposable
     public bool ShowHeaderCloseButton { get; set; } = true;
 
     /// <summary>
+    /// 获得/设置 是否显示 Header 默认为 true
+    /// </summary>
+    [Parameter]
+    public bool ShowHeader { get; set; } = true;
+
+    /// <summary>
     /// 获得/设置 是否显示 Footer 默认为 true
     /// </summary>
     [Parameter]
@@ -157,11 +158,11 @@ public partial class ModalDialog : IHandlerException, IDisposable
     [Parameter]
     public RenderFragment? HeaderTemplate { get; set; }
 
-    /// <summary>
-    /// 获得/设置 关闭弹窗回调委托
-    /// </summary>
-    [Parameter]
-    public Func<Task>? OnClose { get; set; }
+    ///// <summary>
+    ///// 获得/设置 关闭弹窗回调委托
+    ///// </summary>
+    //[Parameter]
+    //public Func<Task>? OnClose { get; set; }
 
     /// <summary>
     /// 获得/设置 保存按钮回调委托
@@ -194,7 +195,7 @@ public partial class ModalDialog : IHandlerException, IDisposable
     /// </summary>
     [CascadingParameter]
     [NotNull]
-    public Modal? Modal { get; set; }
+    protected Modal? Modal { get; set; }
 
     [Inject]
     [NotNull]
@@ -208,9 +209,6 @@ public partial class ModalDialog : IHandlerException, IDisposable
         base.OnInitialized();
 
         ErrorLogger?.Register(this);
-
-        Interop = new JSInterop<ModalDialog>(JSRuntime);
-
         Modal.AddDialog(this);
     }
 
@@ -227,21 +225,6 @@ public partial class ModalDialog : IHandlerException, IDisposable
     }
 
     /// <summary>
-    /// OnAfterRenderAsync 方法
-    /// </summary>
-    /// <param name="firstRender"></param>
-    /// <returns></returns>
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        await base.OnAfterRenderAsync(firstRender);
-
-        if (firstRender)
-        {
-            await Interop.InvokeVoidAsync(this, DialogElement, "bb_modal_dialog", nameof(Close));
-        }
-    }
-
-    /// <summary>
     /// 设置 Header 文字方法
     /// </summary>
     /// <param name="text"></param>
@@ -251,16 +234,7 @@ public partial class ModalDialog : IHandlerException, IDisposable
         StateHasChanged();
     }
 
-    private async Task OnClickClose()
-    {
-        Modal.RemoveDialog(this);
-        await Modal.CloseOrPopDialog();
-
-        if (OnClose != null)
-        {
-            await OnClose();
-        }
-    }
+    private async Task OnClickClose() => await Modal.Close();
 
     private bool MaximizeStatus { get; set; }
 
@@ -284,13 +258,6 @@ public partial class ModalDialog : IHandlerException, IDisposable
             await OnClickClose();
         }
     }
-
-    /// <summary>
-    /// Close 方法 客户端按 ESC 键盘时调用
-    /// </summary>
-    /// <returns></returns>
-    [JSInvokable]
-    public Task Close() => OnClickClose();
 
     private RenderFragment RenderBodyTemplate() => builder =>
     {
@@ -324,9 +291,7 @@ public partial class ModalDialog : IHandlerException, IDisposable
         if (disposing)
         {
             ErrorLogger?.UnRegister(this);
-
-            Interop.Dispose();
-            Interop = null;
+            Modal.RemoveDialog(this);
         }
     }
 

@@ -31,7 +31,10 @@ public partial class SweetAlert : IDisposable
     private CancellationTokenSource? DelayToken { get; set; }
 
     [NotNull]
-    private Dictionary<string, object?>? DialogParameter { get; set; }
+    private Dictionary<string, object>? DialogParameter { get; set; }
+
+    [NotNull]
+    private Func<Task>? OnCloseAsync { get; set; }
 
     /// <summary>
     /// OnInitialized 方法
@@ -60,42 +63,47 @@ public partial class SweetAlert : IDisposable
 
             if (IsAutoHide && Delay > 0)
             {
-                if (DelayToken == null)
-                {
-                    DelayToken = new CancellationTokenSource();
-                }
+                await DelayCloseAsync();
+            }
+        }
 
+        [ExcludeFromCodeCoverage]
+        async Task DelayCloseAsync()
+        {
+            DelayToken ??= new CancellationTokenSource();
+            try
+            {
                 await Task.Delay(Delay, DelayToken.Token);
+                await ModalContainer.Close();
+            }
+            catch
+            {
 
-                if (!DelayToken.IsCancellationRequested)
-                {
-                    // 自动关闭弹窗
-                    await ModalContainer.Close();
-                }
             }
         }
     }
 
     private Task Show(SwalOption option)
     {
-        IsAutoHide = option.IsAutoHide;
-        Delay = option.Delay;
-
-        option.Dialog = ModalContainer;
-        var parameters = option.ToAttributes();
-
-        parameters.Add(nameof(ModalDialog.OnClose), new Func<Task>(async () =>
+        OnCloseAsync = () =>
         {
             if (IsAutoHide && DelayToken != null)
             {
                 DelayToken.Cancel();
                 DelayToken = null;
             }
-            DialogParameter = null;
-            await ModalContainer.CloseOrPopDialog();
-            StateHasChanged();
-        }));
 
+            // 移除当前 DialogParameter
+            DialogParameter = null;
+            StateHasChanged();
+            return Task.CompletedTask;
+        };
+
+        IsAutoHide = option.IsAutoHide;
+        Delay = option.Delay;
+
+        option.Modal = ModalContainer;
+        var parameters = option.ToAttributes();
         parameters.Add(nameof(ModalDialog.BodyTemplate), BootstrapDynamicComponent.CreateComponent<SweetAlertBody>(SweetAlertBody.Parse(option)).Render());
 
         DialogParameter = parameters;
@@ -110,10 +118,7 @@ public partial class SweetAlert : IDisposable
         {
             var index = 0;
             builder.OpenComponent<ModalDialog>(index++);
-            foreach (var p in DialogParameter)
-            {
-                builder.AddAttribute(index++, p.Key, p.Value);
-            }
+            builder.AddMultipleAttributes(index++, DialogParameter);
             builder.CloseComponent();
         }
     };
@@ -141,7 +146,7 @@ public partial class SweetAlert : IDisposable
     /// </summary>
     public void Dispose()
     {
-        Dispose(disposing: true);
+        Dispose(true);
         GC.SuppressFinalize(this);
     }
 }

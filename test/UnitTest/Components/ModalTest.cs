@@ -78,6 +78,16 @@ public class ModalTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void SetHeaderText_Null()
+    {
+        var cut = Context.RenderComponent<MockModal>(pb =>
+        {
+            pb.AddChildContent<ModalDialog>();
+        });
+        cut.Instance.TestSetHeaderText();
+    }
+
+    [Fact]
     public async Task ShownCallbackAsync_Ok()
     {
         var cut = Context.RenderComponent<MockComponent>();
@@ -94,7 +104,7 @@ public class ModalTest : BootstrapBlazorTestBase
         protected override void BuildRenderTree(RenderTreeBuilder builder)
         {
             builder.OpenComponent<MockModal>(0);
-            builder.AddAttribute(1, nameof(Modal.ShownCallbackAsync), () =>
+            builder.AddAttribute(1, nameof(Modal.OnShownAsync), () =>
             {
                 Value = true;
                 return Task.CompletedTask;
@@ -105,13 +115,15 @@ public class ModalTest : BootstrapBlazorTestBase
 
     private class MockModal : Modal
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
         public async Task Show_Test()
         {
-            await base.Shown();
+            await base.ShownCallback();
+        }
+
+        public void TestSetHeaderText()
+        {
+            Dialogs.Clear();
+            base.SetHeaderText("");
         }
     }
 }

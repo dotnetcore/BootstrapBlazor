@@ -141,12 +141,12 @@ await DialogService.Show(op);</Pre>
     <Button OnClick="@OnSaveDialogClick">@Localizer["P71"]</Button>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["P72"]" Introduction="@Localizer["P73"]" Name="ModalDialog">
-    <Button OnClick="@OnSizeDialogClick">@Localizer["P74"]</Button>
+<DemoBlock Title="@Localizer["P72"]" Introduction="@Localizer["P73"]" Name="Size">
+    <Button OnClick="@OnSizeDialogClick">@((MarkupString)Localizer["P74"].Value)</Button>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["P75"]" Introduction="@Localizer["P76"]" Name="PrintDialog">
-    <p>@Localizer["P77"] <code>@nameof(DialogOption.PrintButtonText)</code> @Localizer["P78"]</p>
+    <p>@((MarkupString)Localizer["P77"].Value)</p>
     <Button OnClick="@OnPrintDialogClick">@Localizer["P79"]</Button>
 </DemoBlock>
 

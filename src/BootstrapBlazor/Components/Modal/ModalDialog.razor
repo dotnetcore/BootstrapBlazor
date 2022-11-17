@@ -1,36 +1,39 @@
 ﻿@namespace BootstrapBlazor.Components
 @inherits BootstrapComponentBase
 
-<div class="@ClassName" role="document" @ref="DialogElement">
+<div class="@ClassName">
     <div class="modal-content">
-        <div class="modal-header">
-            @if (HeaderTemplate != null)
-            {
-                @HeaderTemplate
-            }
-            else
-            {
-                <h5 class="modal-title flex-fill">@Title</h5>
-            }
-            <div class="modal-header-buttons">
-                @if (HeaderToolbarTemplate != null)
+        @if (ShowHeader)
+        {
+            <div class="modal-header">
+                @if (HeaderTemplate != null)
                 {
-                    @HeaderToolbarTemplate
+                    @HeaderTemplate
                 }
-                @if (ShowPrintButton && ShowPrintButtonInHeader)
+                else
                 {
-                    <PrintButton Color="Color.Primary" class="btn-print" Text="@PrintButtonText" />
+                    <h5 class="modal-title flex-fill">@Title</h5>
                 }
-                @if (ShowMaximizeButton)
-                {
-                    <Button Color="Color.None" class="btn-maximize" aria-label="@MaximizeAriaLabel" OnClick="@OnToggleMaximize" Icon="@MaximizeIcon"></Button>
-                }
-                @if (ShowHeaderCloseButton)
-                {
-                    <Button Color="Color.None" class="btn-close" aria-label="Close" OnClickWithoutRender="@OnClickClose"></Button>
-                }
+                <div class="modal-header-buttons">
+                    @if (HeaderToolbarTemplate != null)
+                    {
+                        @HeaderToolbarTemplate
+                    }
+                    @if (ShowPrintButton && ShowPrintButtonInHeader)
+                    {
+                        <PrintButton Color="Color.Primary" class="btn-print" Text="@PrintButtonText" />
+                    }
+                    @if (ShowMaximizeButton)
+                    {
+                        <Button Color="Color.None" class="btn-maximize" aria-label="@MaximizeAriaLabel" OnClick="@OnToggleMaximize" Icon="@MaximizeIcon"></Button>
+                    }
+                    @if (ShowHeaderCloseButton)
+                    {
+                        <Button Color="Color.None" class="btn-close" aria-label="Close" OnClickWithoutRender="@OnClickClose"></Button>
+                    }
+                </div>
             </div>
-        </div>
+        }
         <CascadingValue Name="BodyContext" Value="@BodyContext" IsFixed="true">
             <div class="modal-body">
                 @RenderBodyTemplate()

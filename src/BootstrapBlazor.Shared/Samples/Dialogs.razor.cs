@@ -89,9 +89,8 @@ public sealed partial class Dialogs
         Title = "I am the popup created by the service",
         BodyTemplate = BootstrapDynamicComponent.CreateComponent<Button>(new Dictionary<string, object?>
         {
-            [nameof(Button.ChildContent)] = new RenderFragment(builder => builder.AddContent(0, "我是服务创建的按钮"))
-        })
-        .Render()
+            [nameof(Button.ChildContent)] = new RenderFragment(builder => builder.AddContent(0, "Button"))
+        }).Render()
     });
 
     private async Task Show()
@@ -148,7 +147,7 @@ public sealed partial class Dialogs
             // Modal 组件 ShownCallbackAsync 触发后调用 Option 实例的 ShownCallbackAsync
             [nameof(ShownCallbackDummy.ShownTodo)] = new Action<Func<Task>>(cb =>
             {
-                option.ShownCallbackAsync = async () =>
+                option.OnShownAsync = async () =>
                 {
                     await cb();
                 };
@@ -270,7 +269,7 @@ public sealed partial class Dialogs
     {
         await DialogService.Show(new DialogOption()
         {
-            Title = $"弹窗 {DateTime.Now}",
+            Title = $"Multiple Pop-up",
             Component = BootstrapDynamicComponent.CreateComponent<DialogDemo>()
         });
     }
@@ -282,8 +281,14 @@ public sealed partial class Dialogs
             Title = "Edit popup",
             Model = new Foo(),
             RowType = RowType.Inline,
+            ShowLoading = true,
             ItemsPerRow = 2,
-            ItemChangedType = ItemChangedType.Update
+            ItemChangedType = ItemChangedType.Update,
+            OnEditAsync = async context =>
+            {
+                await Task.Delay(2000);
+                return false;
+            }
         };
         await DialogService.ShowEditDialog(option);
     }

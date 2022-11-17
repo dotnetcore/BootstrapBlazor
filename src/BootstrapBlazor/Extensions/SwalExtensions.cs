@@ -20,6 +20,6 @@ public static class SwalExtensions
     {
         option.IsModalConfirm = true;
         await service.Show(option, swal);
-        return !option.IsModalConfirm || await option.ReturnTask.Task;
+        return await option.ReturnTask.Task;
     }
 }

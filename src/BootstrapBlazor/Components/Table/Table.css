@@ -11,12 +11,12 @@
     --bb-table-header-min-height: 37px;
     --bb-table-footer-font-weight: blod;
     --bb-table-footer-border-top: 2px solid #dee2e6;
-    --bb-table-loader-bg: #f8f9fa;
     --bb-table-card-row-padding: .75rem .5rem;
     --bb-table-columnlist-max-height: var(--bb-dropdown-max-height);
     --bs-table-striped-bg: rgba(0,0,0,.05);
     --bs-table-hover-bg: rgba(0,0,0,.075);
     --bb-table-search-body-margin: 1rem;
+    --bb-loader-bg: #f8f9fa;
 }
 
     .table-container .table:not(.table-excel) .switch {
@@ -364,7 +364,7 @@
     right: 0;
     top: 0;
     bottom: 0;
-    background-color: var(--bb-table-loader-bg);
+    background-color: var(--bb-loader-bg);
     z-index: 5;
 }
 
