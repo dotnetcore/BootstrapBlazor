@@ -32,6 +32,11 @@
         border-top: var(--bs-card-border-width) solid var(--bs-card-border-color);
     }
 
+    .card-header .card-title {
+        --bs-card-title-spacer-y: 0;
+        flex: 1;
+    }
+
 .card-shadow {
     box-shadow: var(--bb-card-shadow);
     transition: box-shadow .3s linear;

@@ -130,7 +130,7 @@
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["CollapsibleTitle"]" Introduction="@Localizer["CollapsibleIntro"]" Name="Collapsible">
-    <p>@((MarkupString)Localizer["CollapsibleIntro2"].Value)</p>
+    <p>@((MarkupString)Localizer["CollapsibleIntroDesc"].Value)</p>
     <Card IsCollapsible="true" HeaderText="@Localizer["CollapsibleTitle"]">
         <BodyTemplate>
             @Localizer["CollapsibleBody"]
@@ -139,7 +139,7 @@
     <Card IsCollapsible="true" HeaderText="@Localizer["CollapsibleTitle"]" class="mt-3">
         <HeaderTemplate>
             @Localizer["CollapsibleHeaderTemplate"]
-            <Select TValue="string">
+            <Select TValue="string" class="ms-1">
                 <Options>
                     <SelectOption Text="Test1" Value="" />
                     <SelectOption Text="Test2" Value="1" />
@@ -159,12 +159,68 @@
     </Card>
 </DemoBlock>
 
+<DemoBlock Title="@Localizer["CollapsibleHeaderTemplateTitle"]" Introduction="@Localizer["CollapsibleHeaderTemplateIntro"]" Name="HeaderTemplate">
+    <Card HeaderText="@Localizer["CollapsibleTitle"]" class="mt-3">
+        <HeaderTemplate>
+            @Localizer["CollapsibleHeaderTemplate"]
+            <Select TValue="string" class="ms-1">
+                <Options>
+                    <SelectOption Text="Test1" Value="" />
+                    <SelectOption Text="Test2" Value="1" />
+                    <SelectOption Text="Test3" Value="2" />
+                    <SelectOption Text="Test4" Value="3" />
+                </Options>
+            </Select>
+        </HeaderTemplate>
+        <BodyTemplate>
+            @Localizer["CollapsibleHeaderTemplateTitle"]
+        </BodyTemplate>
+    </Card>
+</DemoBlock>
+
 <DemoBlock Title="@Localizer["ShadowTitle"]" Introduction="@Localizer["ShadowIntro"]" Name="Shadow">
     <Card IsShadow="true" HeaderText="@Localizer["ShadowTitle"]">
         <BodyTemplate>
             @Localizer["ShadowBody"]
         </BodyTemplate>
     </Card>
+</DemoBlock>
+
+<DemoBlock Title="对比设置" Name="compare">
+    <Card IsCollapsible="false" HeaderText="@Localizer["CollapsibleTitle"]" class="mt-3">
+        <HeaderTemplate>
+            @Localizer["CollapsibleHeaderTemplate"]
+            <Select TValue="string">
+                <Options>
+                    <SelectOption Text="Test1" Value="" />
+                    <SelectOption Text="Test2" Value="1" />
+                    <SelectOption Text="Test3" Value="2" />
+                    <SelectOption Text="Test4" Value="3" />
+                </Options>
+            </Select>
+        </HeaderTemplate>
+        <BodyTemplate>
+            @Localizer["CollapsibleBody"]
+        </BodyTemplate>
+    </Card>
+
+    <Card IsCollapsible="true" HeaderText="@Localizer["CollapsibleTitle"]" class="mt-3">
+        <HeaderTemplate>
+            @Localizer["CollapsibleHeaderTemplate"]
+            <Select TValue="string">
+                <Options>
+                    <SelectOption Text="Test1" Value="" />
+                    <SelectOption Text="Test2" Value="1" />
+                    <SelectOption Text="Test3" Value="2" />
+                    <SelectOption Text="Test4" Value="3" />
+                </Options>
+            </Select>
+        </HeaderTemplate>
+        <BodyTemplate>
+            @Localizer["CollapsibleBody"]
+        </BodyTemplate>
+    </Card>
+
 </DemoBlock>
 
 <AttributeTable Items="GetAttributes()" />
