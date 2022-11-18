@@ -19,6 +19,8 @@ public partial class DialogDemo
     {
         Title = "Pop-up",
         IsDraggable = true,
+        IsKeyboard = true,
+        IsBackdrop = true,
         Component = BootstrapDynamicComponent.CreateComponent<DialogDemo>()
     });
 }

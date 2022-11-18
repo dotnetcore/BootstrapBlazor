@@ -17,10 +17,7 @@ export class Modal extends BlazorComponent {
         EventHandler.on(this._element, 'hide.bs.modal', () => {
             if (this._draggable) {
                 this._dialog.style.width = ''
-                this._dialog.style.marginLeft = ''
-                this._dialog.style.marginTop = ''
-                this._dialog.style.marginBottom = ''
-                this._dialog.style.marginRight = ''
+                this._dialog.style.margin = ''
 
                 EventHandler.off(this._dialog, 'mousedown')
                 EventHandler.off(this._dialog, 'touchstart')
@@ -34,7 +31,6 @@ export class Modal extends BlazorComponent {
                 this._modal.dispose()
                 this._modal = null
                 document.body.classList.remove('modal-open');
-                document.body.style.paddingLeft = '';
                 document.body.style.paddingRight = '';
                 document.body.style.overflow = '';
             }
@@ -56,19 +52,30 @@ export class Modal extends BlazorComponent {
     _show() {
         const dialogs = this._element.querySelectorAll('.modal-dialog')
         if (dialogs.length === 1) {
-            const keyboard = this._element.getAttribute('data-bs-keyboard') === 'true'
-            let backdrop = this._element.getAttribute('data-bs-backdrop')
-            if (backdrop === null) {
-                backdrop = true
+            let backdrop = this._element.getAttribute('data-bs-backdrop') !== 'static'
+            if (!backdrop) {
+                backdrop = 'static'
             }
             if (!this._modal) {
                 this._modal = bootstrap.Modal.getOrCreateInstance(this._element)
             }
-            this._modal._config.keyboard = keyboard
+            this._modal._config.keyboard = this._element.getAttribute('data-bs-keyboard') === 'true'
             this._modal._config.backdrop = backdrop
             this._modal.show()
         } else {
+            if (!this._state) {
+                this._state = []
+            }
+            this._state.push({
+                keyboard: this._element.getAttribute('data-bs-keyboard') === 'true',
+                backdrop: this._element.getAttribute('data-bs-backdrop') !== 'static'
+            })
             this._invoker.invokeMethodAsync(this._invokerShownMethod)
+
+            this._modal._config.keyboard = false
+            this._modal._config.backdrop = 'static'
+
+            this._handlerKeyboardAndBackdrop()
         }
 
         this._dialog = dialogs[dialogs.length - 1]
@@ -87,19 +94,14 @@ export class Modal extends BlazorComponent {
                 e => {
                     this._originX = e.clientX || e.touches[0].clientX;
                     this._originY = e.clientY || e.touches[0].clientY;
-                    this._dialogWidth = getWidth(this._dialog);
-                    this._dialogHeight = getHeight(this._dialog);
 
-                    const style = getComputedStyle(this._dialog)
+                    const rect = this._dialog.getBoundingClientRect()
+                    this._dialogWidth = rect.width
+                    this._dialogHeight = rect.height
+                    this._pt.top = rect.top
+                    this._pt.left = rect.left
 
-                    this._pt.top = parseInt(style.marginTop) || 0
-                    this._pt.left = parseInt(style.marginLeft) || 0
-
-                    this._dialog.style.marginLeft = `${this._pt.left}px`
-                    this._dialog.style.marginTop = `${this._pt.top}px`
-                    this._dialog.style.marginBottom = '0'
-                    this._dialog.style.marginRight = '0'
-
+                    this._dialog.style.margin = `${this._pt.top}px 0 0 ${this._pt.left}px`
                     this._dialog.style.width = `${this._dialogWidth}px`
                     this._dialog.classList.add('is-drag')
                 },
@@ -125,6 +127,33 @@ export class Modal extends BlazorComponent {
                 e => {
                     this._dialog.classList.remove('is-drag')
                 })
+        }
+    }
+
+    _handlerKeyboardAndBackdrop() {
+        if (!this._hook_keyboard_backdrop) {
+            this._hook_keyboard_backdrop = true;
+
+            this._handlerEscape = e => {
+                if (e.key === 'Escape') {
+                    const state = this._state[this._state.length - 1]
+                    if (state.keyboard) {
+                        this._hide()
+                        this._state.pop()
+                    }
+                }
+            }
+
+            EventHandler.on(document, 'keyup', this._handlerEscape)
+            EventHandler.on(this._element, 'click', e => {
+                if (e.target.closest('.modal-dialog') === null) {
+                    const state = this._state[this._state.length - 1]
+                    if (state.backdrop !== 'static') {
+                        this._hide()
+                        this._state.pop()
+                    }
+                }
+            })
         }
     }
 
@@ -154,12 +183,17 @@ export class Modal extends BlazorComponent {
     }
 
     _dispose() {
-        if(this._draggable) {
+        if (this._draggable) {
             this._disposeDrag()
         }
 
         EventHandler.off(this._element, 'shown.bs.modal')
         EventHandler.off(this._element, 'hide.bs.modal')
+        EventHandler.off(this._element, 'click')
+
+        if (this._hook_keyboard_backdrop) {
+            EventHandler.off(document, 'keyup', this._handlerEscape)
+        }
 
         EventHandler.off(window, 'popstate', this._pop)
         if (this._modal) {

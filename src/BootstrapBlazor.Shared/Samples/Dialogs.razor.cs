@@ -270,6 +270,9 @@ public sealed partial class Dialogs
         await DialogService.Show(new DialogOption()
         {
             Title = $"Multiple Pop-up",
+            IsDraggable= true,
+            IsKeyboard = true,
+            IsBackdrop = true,
             Component = BootstrapDynamicComponent.CreateComponent<DialogDemo>()
         });
     }

@@ -735,6 +735,7 @@
     "P40": "Switch the third tab of the <code>Tab</code> component in the pop-up window <b>role management</b>",
     "P41": "Click the popup in the tab to continue the popup dialog",
     "P42": "<b>Keep state</b> of previously opened dialogs after closing the current dialog",
+    "MultipleDialogDesc": "At present, multi-level pop-up windows have been implemented. Each <code>ModalDialog</code> can independently set the <code>IsBackdrop</code> <code>IsKeyboard</code> parameters. This fixes the problem of pressing <kbd>ESC</kbd> in the previous version to remove all pop-up windows",
     "P43": "Pop-ups",
     "P44": "Modal dialog",
     "P45": "Pop up a dialog box in thread blocking mode through the <code>ShowModal</code> method",

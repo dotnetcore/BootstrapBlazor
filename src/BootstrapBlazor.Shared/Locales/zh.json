@@ -736,6 +736,7 @@
     "P40": "切换弹窗内 <code>Tab</code> 组件的第三个标签页 <b>角色管理</b>",
     "P41": "点击标签页中的弹窗继续弹出对话框",
     "P42": "关闭当前对话框后之前打开的对话框 <b>保持状态</b>",
+    "MultipleDialogDesc": "目前多级弹窗已经实现，每个 <code>ModalDialog</code> 均可以独立设置 <code>IsBackdrop</code> <code>IsKeyboard</code> 参数，修复了上一个版本按下 <kbd>ESC</kbd> 弹窗全部消失问题",
     "P43": "弹窗",
     "P44": "模态对话框",
     "P45": "通过 <code>ShowModal</code> 方法弹出线程阻塞模式的对话框",
