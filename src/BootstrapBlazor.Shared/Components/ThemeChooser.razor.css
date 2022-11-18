@@ -27,13 +27,13 @@
     margin-bottom: 1rem;
 }
 
-btn-close {
+.btn-close {
     transition: opacity .3s linear;
 }
 
-.btn-close:hover {
-    opacity: 1;
-}
+    .btn-close:hover {
+        opacity: 1;
+    }
 
 .theme-item {
     cursor: pointer;
@@ -65,20 +65,3 @@ btn-close {
         top: 10px;
         left: 11px;
     }
-
-::deep .pulse {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-::deep .pulse-ring {
-    width: 46px;
-    height: 46px;
-    border-radius: 46px;
-}
