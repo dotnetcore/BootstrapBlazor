@@ -154,7 +154,7 @@
             </div>
         }
 
-        @if (ShowTopPagination && PageCount > 1 && IsPagination)
+        @if (ShowTopPagination && IsPagination)
         {
             @RenderPagination
         }
@@ -257,7 +257,7 @@
             }
         </div>
 
-        @if (!ShowTopPagination && PageCount > 1 && IsPagination)
+        @if (!ShowTopPagination && IsPagination)
         {
             @RenderPagination
         }
@@ -903,9 +903,7 @@ RenderFragment RenderPageInfo =>
 </div>;
 
 RenderFragment RenderPagination =>
-@<div class="table-pagination">
-    <Pagination PageCount="@PageCount" PageIndex="@PageIndex" OnPageLinkClick="@OnPageLinkClick"
+@<Pagination PageCount="@PageCount" PageIndex="@PageIndex" OnPageLinkClick="@OnPageLinkClick"
                 ShowGotoNavigator="ShowGotoNavigator" GotoTemplate="GotoTemplate!" GotoNavigatorLabelText="@GotoNavigatorLabelText"
-                ShowPageInfo="ShowPageInfo" PageInfoTemplate="InternalPageInfoTemplate" />
-</div>;
+                ShowPageInfo="ShowPageInfo" PageInfoTemplate="InternalPageInfoTemplate" />;
 }

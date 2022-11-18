@@ -2,7 +2,7 @@
 @inherits BootstrapComponentBase
 
 <nav @attributes="AdditionalAttributes" class="@ClassString">
-    @if(ShowPageInfo)
+    @if (ShowPageInfo)
     {
         if (PageInfoTemplate != null)
         {
@@ -13,47 +13,50 @@
             <div class="page-info">@PageInfoText</div>
         }
     }
-    <ul class="@PaginationClassString">
-        <PaginationItem OnClick="MovePrev" Index="1">
-            <i class="@PrevPageIcon"></i>
-        </PaginationItem>
-        <PaginationItem OnClick="OnClick" Index="1" IsActive="InternalPageIndex == 1" />
-        @if (InternalPageCount > MaxPageLinkCount)
-        {
-            @if (StartPageIndex != 2)
-            {
-                <PaginationItem OnClick="MovePrev" Index="MaxPageLinkCount" class="prev-link">
-                    <i class="@PrevEllipsisPageIcon"></i>
-                </PaginationItem>
-            }
-        }
-        @for (int i = StartPageIndex; i <= EndPageIndex; i++)
-        {
-            <PaginationItem @key="i" OnClick="OnClick" Index="i" IsActive="InternalPageIndex == i" />
-        }
-        @if (InternalPageCount > MaxPageLinkCount)
-        {
-            @if (EndPageIndex != InternalPageCount - 1)
-            {
-                <PaginationItem OnClick="MoveNext" Index="MaxPageLinkCount" class="next-link">
-                    <i class="@NextEllipsisPageIcon"></i>
-                </PaginationItem>
-            }
-        }
-        <PaginationItem OnClick="OnClick" Index="InternalPageCount" IsActive="InternalPageIndex == InternalPageCount" />
-        <PaginationItem OnClick="MoveNext" Index="1">
-            <i class="@NextPageIcon"></i>
-        </PaginationItem>
-    </ul>
-    @if (ShowGotoNavigator)
+    @if (PageCount > 1)
     {
-        if (GotoTemplate != null)
+        <ul class="@PaginationClassString">
+            <PaginationItem OnClick="MovePrev" Index="1">
+                <i class="@PrevPageIcon"></i>
+            </PaginationItem>
+            <PaginationItem OnClick="OnClick" Index="1" IsActive="InternalPageIndex == 1" />
+            @if (InternalPageCount > MaxPageLinkCount)
+            {
+                @if (StartPageIndex != 2)
+                {
+                    <PaginationItem OnClick="MovePrev" Index="MaxPageLinkCount" class="prev-link">
+                        <i class="@PrevEllipsisPageIcon"></i>
+                    </PaginationItem>
+                }
+            }
+            @for (int i = StartPageIndex; i <= EndPageIndex; i++)
+            {
+                <PaginationItem @key="i" OnClick="OnClick" Index="i" IsActive="InternalPageIndex == i" />
+            }
+            @if (InternalPageCount > MaxPageLinkCount)
+            {
+                @if (EndPageIndex != InternalPageCount - 1)
+                {
+                    <PaginationItem OnClick="MoveNext" Index="MaxPageLinkCount" class="next-link">
+                        <i class="@NextEllipsisPageIcon"></i>
+                    </PaginationItem>
+                }
+            }
+            <PaginationItem OnClick="OnClick" Index="InternalPageCount" IsActive="InternalPageIndex == InternalPageCount" />
+            <PaginationItem OnClick="MoveNext" Index="1">
+                <i class="@NextPageIcon"></i>
+            </PaginationItem>
+        </ul>
+        @if (ShowGotoNavigator)
         {
-            @GotoTemplate
-        }
-        else
-        {
-            <GotoNavigator Index="InternalPageIndex" GotoText="@GotoNavigatorLabelText" OnNavigation="OnGoto" />
+            if (GotoTemplate != null)
+            {
+                @GotoTemplate
+            }
+            else
+            {
+                <GotoNavigator Index="InternalPageIndex" GotoText="@GotoNavigatorLabelText" OnNavigation="OnGoto" />
+            }
         }
     }
 </nav>

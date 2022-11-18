@@ -39,13 +39,13 @@
     @if (FooterTemplate != null || Pageable)
     {
         <div class="listview-footer">
-            @if (Pageable)
-            {
-                <Pagination PageCount="@PageCount" PageIndex="@PageIndex" OnPageLinkClick="@OnPageLinkClick"></Pagination>
-            }
-            else
+            @if (FooterTemplate != null)
             {
                 @FooterTemplate
+            }
+            else if (Pageable)
+            {
+                <Pagination PageCount="@PageCount" PageIndex="@PageIndex" OnPageLinkClick="@OnPageLinkClick"></Pagination>
             }
         </div>
     }

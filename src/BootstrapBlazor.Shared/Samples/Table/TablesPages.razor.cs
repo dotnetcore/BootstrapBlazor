@@ -9,7 +9,7 @@ namespace BootstrapBlazor.Shared.Samples.Table;
 /// </summary>
 public partial class TablesPages
 {
-    private static IEnumerable<int> PageItemsSource => new int[] { 4, 10, 20 };
+    private static IEnumerable<int> PageItemsSource => new int[] { 4, 10, 20, 40, 80, 100 };
 
     [NotNull]
     private List<Foo>? Items { get; set; }

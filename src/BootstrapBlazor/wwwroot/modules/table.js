@@ -89,7 +89,7 @@ export class Table extends BlazorComponent {
         if (search) {
             searchHeight = getHeight(search)
         }
-        const pagination = this._element.querySelector('.table-pagination')
+        const pagination = this._element.querySelector('.nav-pages')
         let paginationHeight = 0
         if (pagination) {
             paginationHeight = getHeight(pagination)

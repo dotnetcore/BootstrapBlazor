@@ -622,7 +622,7 @@ public class TableTest : TableTestBase
         });
 
         var table = cut.FindComponent<Table<Foo>>();
-        table.Contains("table-pagination");
+        table.Contains("nav nav-pages");
     }
 
     [Fact]

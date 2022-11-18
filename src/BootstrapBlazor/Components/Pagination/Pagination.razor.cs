@@ -20,7 +20,6 @@ public partial class Pagination
     /// 获得 组件 样式
     /// </summary>
     protected string? ClassString => CssBuilder.Default("nav nav-pages")
-        .AddClass("d-none", InternalPageCount == 1)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 

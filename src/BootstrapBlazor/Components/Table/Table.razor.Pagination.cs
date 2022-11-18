@@ -118,7 +118,6 @@ public partial class Table<TItem>
         }
         else if (!string.IsNullOrEmpty(PageInfoText))
         {
-            // <div class="page-info">@PageInfoText</div>
             builder.OpenElement(1, "div");
             builder.AddAttribute(2, "class", "page-info");
             builder.AddContent(3, PageInfoText);
