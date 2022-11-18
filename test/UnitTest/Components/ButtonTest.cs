@@ -353,7 +353,7 @@ public class ButtonTest : BootstrapBlazorTestBase
             });
         });
         cut.Contains("button type=\"button\"");
-        cut.InvokeAsync(async () => await cut.Instance.OnClickWithoutRender());
+        cut.InvokeAsync(async () => await cut.Instance.OnClickWithoutRender!.Invoke());
         Assert.True(clicked);
     }
 

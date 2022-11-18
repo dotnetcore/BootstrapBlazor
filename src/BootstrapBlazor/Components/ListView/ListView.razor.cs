@@ -112,12 +112,9 @@ public partial class ListView<TItem> : BootstrapComponentBase where TItem : clas
     /// <returns></returns>
     public async Task QueryAsync(int pageIndex = 1)
     {
-        if (pageIndex != PageIndex)
-        {
-            PageIndex = pageIndex;
-            await QueryData();
-            StateHasChanged();
-        }
+        PageIndex = pageIndex;
+        await QueryData();
+        StateHasChanged();
     }
 
     /// <summary>

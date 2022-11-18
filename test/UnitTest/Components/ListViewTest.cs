@@ -77,6 +77,38 @@ public class ListViewTest : BootstrapBlazorTestBase
         });
     }
 
+    [Fact]
+    public void QueryAsync_Ok()
+    {
+        bool query = false;
+        var items = Enumerable.Range(1, 6).Select(i => new Product()
+        {
+            ImageUrl = $"images/Pic{i}.jpg",
+            Description = $"Pic{i}.jpg",
+            Category = $"Group{(i % 4) + 1}"
+        });
+        var cut = Context.RenderComponent<ListView<Product>>(pb =>
+        {
+            pb.Add(a => a.OnQueryAsync, option =>
+            {
+                query = true;
+                var ret = new QueryData<Product>()
+                {
+                    Items = items,
+                    TotalCount = 6
+                };
+                return Task.FromResult(ret);
+            });
+            pb.Add(a => a.Pageable, true);
+            pb.Add(a => a.PageItems, 2);
+        });
+        Assert.True(query);
+
+        query = false;
+        cut.InvokeAsync(() => cut.Instance.QueryAsync());
+        Assert.True(query);
+    }
+
     private class Product
     {
         public string? ImageUrl { get; set; }
