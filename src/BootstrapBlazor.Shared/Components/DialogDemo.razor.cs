@@ -18,6 +18,7 @@ public partial class DialogDemo
     private Task OnClickButton() => DialogService.Show(new DialogOption()
     {
         Title = "Pop-up",
+        IsDraggable = true,
         Component = BootstrapDynamicComponent.CreateComponent<DialogDemo>()
     });
 }

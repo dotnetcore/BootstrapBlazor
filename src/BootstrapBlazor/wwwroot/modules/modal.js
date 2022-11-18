@@ -74,14 +74,16 @@ export class Modal extends BlazorComponent {
         this._dialog = dialogs[dialogs.length - 1]
         this._draggable = this._dialog.classList.contains('is-draggable')
         if (this._draggable) {
+            this._disposeDrag()
+
             this._originX = 0;
             this._originY = 0;
             this._dialogWidth = 0;
             this._dialogHeight = 0;
             this._pt = {top: 0, left: 0};
 
-            const header = this._dialog.querySelector('.modal-header')
-            drag(header,
+            this._header = this._dialog.querySelector('.modal-header')
+            drag(this._header,
                 e => {
                     this._originX = e.clientX || e.touches[0].clientX;
                     this._originY = e.clientY || e.touches[0].clientY;
@@ -95,8 +97,8 @@ export class Modal extends BlazorComponent {
 
                     this._dialog.style.marginLeft = `${this._pt.left}px`
                     this._dialog.style.marginTop = `${this._pt.top}px`
-                    this._dialog.style.marginBottom = `0`
-                    this._dialog.style.marginRight = `0`
+                    this._dialog.style.marginBottom = '0'
+                    this._dialog.style.marginRight = '0'
 
                     this._dialog.style.width = `${this._dialogWidth}px`
                     this._dialog.classList.add('is-drag')
@@ -143,9 +145,22 @@ export class Modal extends BlazorComponent {
         }
     }
 
+    _disposeDrag() {
+        if (this._header) {
+            EventHandler.off(this._header, 'mousedown')
+            EventHandler.off(this._header, 'touchstart')
+            this._header = null
+        }
+    }
+
     _dispose() {
+        if(this._draggable) {
+            this._disposeDrag()
+        }
+
         EventHandler.off(this._element, 'shown.bs.modal')
         EventHandler.off(this._element, 'hide.bs.modal')
+
         EventHandler.off(window, 'popstate', this._pop)
         if (this._modal) {
             this._modal.dispose()
