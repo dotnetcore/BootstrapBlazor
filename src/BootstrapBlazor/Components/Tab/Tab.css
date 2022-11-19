@@ -461,7 +461,7 @@
     }
 
     .tabs-border-card.tabs-top .tabs-header .tabs-item {
-        margin-top: var(--tabs-border-card-top-item-margin-top);
+        margin-top: var(--bb-tabs-border-card-top-item-margin-top);
     }
 
         .tabs-border-card.tabs-top .tabs-header .tabs-item:first-child {
