@@ -81,10 +81,9 @@ export class ImageViewer extends BlazorComponent {
         // 右旋转功能
         EventHandler.on(this._rotateRight, 'click', () => this._processImage(null, rotate => rotate + 90))
 
-        // 鼠标放大缩小
-        EventHandler.on(this._prevImg, 'mousewheel DOMMouseScroll', e => {
+        const handlerWheel = e => {
             e.preventDefault()
-            const wheel = e.originalEvent.wheelDelta || -e.originalEvent.detail
+            const wheel = e.wheelDelta || -e.detail
             const delta = Math.max(-1, Math.min(1, wheel))
             if (delta > 0) {
                 // 放大
@@ -93,7 +92,10 @@ export class ImageViewer extends BlazorComponent {
                 // 缩小
                 this._processImage(scale => Math.max(0.195, scale - 0.015))
             }
-        })
+        }
+        // 鼠标放大缩小
+        EventHandler.on(this._prevImg, 'mousewheel', handlerWheel)
+        EventHandler.on(this._prevImg, 'DOMMouseScroll', handlerWheel)
 
         // 点击遮罩关闭功能
         EventHandler.on(this._mask, 'click', () => {
@@ -338,7 +340,8 @@ export class ImageViewer extends BlazorComponent {
             EventHandler.off(this._rotateRight, 'click')
 
             // 鼠标放大缩小
-            EventHandler.off(this._prevImg, 'mousewheel DOMMouseScroll')
+            EventHandler.off(this._prevImg, 'mousewheel')
+            EventHandler.off(this._prevImg, 'DOMMouseScroll')
 
             // 触摸放大缩小
             EventHandler.off(this._prevImg, 'touchstart')
