@@ -794,6 +794,74 @@ public class TableTest : TableTestBase
     [Theory]
     [InlineData(true)]
     [InlineData(false)]
+    public void ShowCopyColumn_Ok(bool showCopy)
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.Items, Foo.GenerateFoo(localizer, 1));
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.AddAttribute(3, "ShowCopyColumn", showCopy);
+                    builder.CloseComponent();
+                });
+            });
+        });
+
+        if (showCopy)
+        {
+            cut.Contains("col-copy");
+        }
+        else
+        {
+            cut.DoesNotContain("col-copy");
+        }
+    }
+
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void ShowCopyColumnTooltip_Ok(bool showCopyTooltip)
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.ShowCopyColumnTooltip, showCopyTooltip);
+                pb.Add(a => a.CopyColumnTooltipText, "test-copy-column-tooltip");
+                pb.Add(a => a.Items, Foo.GenerateFoo(localizer, 1));
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.AddAttribute(3, "ShowCopyColumn", true);
+                    builder.CloseComponent();
+                });
+            });
+        });
+
+        if (showCopyTooltip)
+        {
+            cut.Contains("test-copy-column-tooltip");
+        }
+        else
+        {
+            cut.DoesNotContain("test-copy-column-tooltip");
+        }
+    }
+
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
     public void AllowResizing_Ok(bool resizing)
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();

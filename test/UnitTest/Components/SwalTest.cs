@@ -170,6 +170,36 @@ public class SwalTest : SwalTestBase
         cut.Contains("I am auto hide");
         var alert = cut.FindComponent<SweetAlert>();
         alert.Dispose();
+
+        // 带确认框的 Select
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.AddChildContent<Select<string>>(pb =>
+            {
+                pb.Add(a => a.Items, new List<SelectedItem>()
+                {
+                    new SelectedItem("1", "Test1"),
+                    new SelectedItem("2", "Test2") { IsDisabled = true }
+                });
+                pb.Add(a => a.OnBeforeSelectedItemChange, item => Task.FromResult(true));
+                pb.Add(a => a.OnSelectedItemChanged, item => Task.CompletedTask);
+                pb.Add(a => a.SwalFooter, "test-swal-footer");
+            });
+        });
+
+        Task.Run(() => cut.InvokeAsync(() => cut.FindComponent<Select<string>>().Instance.ConfirmSelectedItem(0)));
+        tick = DateTime.Now;
+        while (!cut.Markup.Contains("test-swal-footer"))
+        {
+            Thread.Sleep(100);
+            if (DateTime.Now > tick.AddSeconds(1))
+            {
+                break;
+            }
+        }
+        button = cut.Find(".btn-danger");
+        cut.InvokeAsync(() => button.Click());
+        cut.InvokeAsync(() => modal.Instance.CloseCallback());
     }
 
     private class MockSwalTest : ComponentBase

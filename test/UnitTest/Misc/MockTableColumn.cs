@@ -110,4 +110,6 @@ internal class MockTableColumn : ITableColumn
     public string? GroupName { get; set; }
 
     public int GroupOrder { get; set; }
+
+    public bool ShowCopyColumn { get; set; }
 }
