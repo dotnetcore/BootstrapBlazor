@@ -2,7 +2,7 @@
 @inject IStringLocalizer<TablesDynamicObject> Localizer
 
 <h3>@Localizer["H1"]</h3>
-<h4>@Localizer["H2"]</h4>
+<h4>@((MarkupString)Localizer["H2"].Value)</h4>
 
 <DemoBlock Title="@Localizer["P1"]" Introduction="@Localizer["P2"]" Name="IDynamicMetaObjectProvider">
     <Table TItem="CustomDynamicData" OnQueryAsync="OnQueryAsync"

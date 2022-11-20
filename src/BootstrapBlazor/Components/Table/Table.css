@@ -16,6 +16,7 @@
     --bs-table-striped-bg: rgba(0,0,0,.05);
     --bs-table-hover-bg: rgba(0,0,0,.075);
     --bb-table-search-body-margin: 1rem;
+    --bb-table-copy-column-margin-right: .5rem;
     --bb-loader-bg: #f8f9fa;
 }
 
@@ -779,3 +780,8 @@ form .table .table-cell > textarea {
     .table-page-info .select {
         width: 120px;
     }
+
+.col-copy {
+    cursor: pointer;
+    margin-right: var(--bb-table-copy-column-margin-right);
+}

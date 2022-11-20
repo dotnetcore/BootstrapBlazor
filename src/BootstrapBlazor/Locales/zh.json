@@ -232,7 +232,9 @@
     "ExportToastInProgressContent": "正在导出数据，请稍后, {0} 秒后自动关闭",
     "ExportExcelDropdownItemText": "微软 Excel 格式",
     "PageInfoText": "{0} - {1} 共 {2} 条",
-    "PageItemsText": "{0} 条/页"
+    "PageItemsText": "{0} 条/页",
+    "CopyColumnTooltipText": "拷贝列内容到剪切板",
+    "CopyColumnCopiedTooltipText": "已拷贝"
   },
   "BootstrapBlazor.Components.EditDialog": {
     "CloseButtonText": "关闭",

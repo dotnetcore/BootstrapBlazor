@@ -124,6 +124,24 @@ public partial class Table<TItem> : ITable where TItem : class, new()
     private static string? GetColspan(int colspan) => colspan > 1 ? colspan.ToString() : null;
 
     /// <summary>
+    /// 获得/设置 列拷贝 Tooltip 文字
+    /// </summary>
+    [Parameter]
+    public string? CopyColumnTooltipText { get; set; }
+
+    /// <summary>
+    /// 获得/设置 列拷贝完毕后 Tooltip 文字
+    /// </summary>
+    [Parameter]
+    public string? CopyColumnCopiedTooltipText { get; set; }
+
+    /// <summary>
+    /// 获得/设置 CopyColumn Tooltip 默认 true
+    /// </summary>
+    [Parameter]
+    public bool ShowCopyColumnTooltip { get; set; } = true;
+
+    /// <summary>
     /// 明细行集合用于数据懒加载
     /// </summary>
     protected List<TItem> ExpandRows { get; } = new List<TItem>();

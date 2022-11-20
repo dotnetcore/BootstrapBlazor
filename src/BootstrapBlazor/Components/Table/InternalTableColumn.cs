@@ -152,6 +152,11 @@ internal class InternalTableColumn : ITableColumn
     public int GroupOrder { get; set; }
 
     /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    public bool ShowCopyColumn { get; set; }
+
+    /// <summary>
     /// 构造函数
     /// </summary>
     /// <param name="fieldName">字段名称</param>

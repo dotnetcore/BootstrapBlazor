@@ -23,6 +23,7 @@ public static class IEditItemExtensions
         if (source.Readonly) dest.Readonly = source.Readonly;
         if (source.Searchable) dest.Searchable = source.Searchable;
         if (source.ShowTips) dest.ShowTips = source.ShowTips;
+        if (source.ShowCopyColumn) dest.ShowCopyColumn = source.ShowCopyColumn;
         if (source.Sortable) dest.Sortable = source.Sortable;
         if (source.TextEllipsis) dest.TextEllipsis = source.TextEllipsis;
     }
@@ -77,6 +78,7 @@ public static class IEditItemExtensions
             if (col.TextEllipsis) dest.TextEllipsis = col.TextEllipsis;
             if (!col.Visible) dest.Visible = col.Visible;
             if (col.Width != null) dest.Width = col.Width;
+            if (col.ShowCopyColumn) dest.ShowCopyColumn = col.ShowCopyColumn;
         }
     }
 

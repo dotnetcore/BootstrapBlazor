@@ -173,6 +173,12 @@ public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn
     public bool Fixed { get; set; }
 
     /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    [Parameter]
+    public bool ShowCopyColumn { get; set; }
+
+    /// <summary>
     /// 获得/设置 是否显示本列 默认 true 显示
     /// </summary>
     [Parameter]

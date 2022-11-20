@@ -469,6 +469,19 @@ RenderFragment<bool> RenderHeader => hasScroll =>
                     <DynamicElement TagName="th" class="@GetHeaderClassString(col)" style="@GetFixedCellStyleString(col, 6)"
                                     TriggerClick="col.Sortable" OnClick="@OnClickHeader(col)">
                         <div class="@GetHeaderWrapperClassString(col)">
+                            @if(col.ShowCopyColumn)
+                            {
+                                if (ShowCopyColumnTooltip)
+                                {
+                                    <Tooltip Placement="Placement.Top" Trigger="hover" Title="@CopyColumnTooltipText" data-bb-title="@CopyColumnCopiedTooltipText">
+                                        <i class="fa-regular fa-clipboard col-copy"></i>
+                                    </Tooltip>
+                                }
+                                else
+                                {
+                                    <i class="fa-regular fa-clipboard col-copy"></i>
+                                }
+                            }
                             @if(col.HeaderTemplate != null)
                             {
                                 @col.HeaderTemplate(col)

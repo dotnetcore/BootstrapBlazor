@@ -232,7 +232,9 @@
     "ExportToastInProgressContent": "Exporting data, please waiting a moment, auto close after {0}s",
     "ExportExcelDropdownItemText": "MS-Excel",
     "PageInfoText": "{0} - {1} Total {2}",
-    "PageItemsText": "{0}/page"
+    "PageItemsText": "{0}/page",
+    "CopyColumnTooltipText": "Copy entire column data to clipboard",
+    "CopyColumnCopiedTooltipText": "Copied!"
   },
   "BootstrapBlazor.Components.EditDialog": {
     "CloseButtonText": "Close",

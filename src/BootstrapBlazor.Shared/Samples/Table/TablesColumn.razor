@@ -206,7 +206,7 @@
 </DemoBlock>
 
 <DemoBlock Title="@ColumnLocalizer["AllowResizingTitle"]" Introduction="@ColumnLocalizer["AllowResizingIntro"]" Name="AllowResizing">
-    <p>@((MarkupString)ColumnLocalizer["AllowResizingP1"].Value)</p>
+    <p>@((MarkupString)ColumnLocalizer["AllowResizingDesc"].Value)</p>
     <Table TItem="Foo"
            IsPagination="true" PageItemsSource="@PageItemsSource" AllowResizing="true"
            IsStriped="true" IsBordered="true"
@@ -217,6 +217,24 @@
             <TableColumn @bind-Field="@context.Name" Width="100" />
             <TableColumn @bind-Field="@context.Address" />
             <TableColumn @bind-Field="@context.Count" />
+        </TableColumns>
+    </Table>
+</DemoBlock>
+
+<DemoBlock Title="@ColumnLocalizer["ShowCopyColumnTitle"]" Introduction="@ColumnLocalizer["ShowCopyColumnIntro"]" Name="ShowCopyColumn">
+    <p>@((MarkupString)ColumnLocalizer["ShowCopyColumnDesc"].Value)</p>
+    <Table TItem="Foo"
+           IsPagination="true" PageItemsSource="@PageItemsSource" AllowResizing="true"
+           IsStriped="true" IsBordered="true"
+           ShowToolbar="false" IsMultipleSelect="true" ShowExtendButtons="false"
+           OnQueryAsync="@OnQueryAsync">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="120" FormatString="yyyy-MM-dd" ShowCopyColumn="true" />
+            <TableColumn @bind-Field="@context.Name" Width="100" ShowCopyColumn="true" />
+            <TableColumn @bind-Field="@context.Address" ShowCopyColumn="true" />
+            <TableColumn @bind-Field="@context.Count" ShowCopyColumn="true" />
+            <TableColumn @bind-Field="@context.Education" ShowCopyColumn="true" />
+            <TableColumn @bind-Field="@context.Complete" ShowCopyColumn="true" />
         </TableColumns>
     </Table>
 </DemoBlock>

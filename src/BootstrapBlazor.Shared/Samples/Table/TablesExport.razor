@@ -1,17 +1,18 @@
 ﻿@page "/tables/export"
 
 <h3>@Localizer["H1"]</h3>
-<h4>@Localizer["H2"]</h4>
+<h4>@((MarkupString)Localizer["H2"].Value)</h4>
 
-<p>@Localizer["P1"]</p>
+<p>@((MarkupString)@Localizer["P1"].Value)</p>
 
-<p><b>@Localizer["P2"]：</b></p>
-
-<p><a href="https://www.nuget.org/packages?q=BootstrapBlazor.TableExport" target="_blank">@Localizer["P3"]</a></p>
+<Tips>
+    <div class="mb-2"><b>@Localizer["P2"]：</b></div>
+    <p><a href="https://www.nuget.org/packages?q=BootstrapBlazor.TableExport" target="_blank">@((MarkupString)@Localizer["P3"].Value)</a></p>
+</Tips>
 
 <p><b>@Localizer["P4"]</b></p>
 
-<p>@((MarkupString)Localizer["P5"].Value) <a href="https://www.nuget.org/packages?q=BootstrapBlazor.TableExport" target="_blank">nuget.org</a> @Localizer["P6"]</p>
+<p>@((MarkupString)Localizer["P5"].Value) <a href="https://www.nuget.org/packages?q=BootstrapBlazor.TableExport" target="_blank">nuget.org</a> @((MarkupString)@Localizer["P6"].Value)</p>
 
 <div class="code-label">.NET CLI</div>
 <Pre class="no-highlight">dotnet add package BootstrapBlazor.TableExport --version @Version</Pre>

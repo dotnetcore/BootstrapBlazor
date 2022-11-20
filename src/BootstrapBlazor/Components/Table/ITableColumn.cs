@@ -70,6 +70,11 @@ public interface ITableColumn : IEditorItem
     BreakPoint ShownWithBreakPoint { get; set; }
 
     /// <summary>
+    /// 获得/设置 是否可以拷贝列 默认 false 不可以
+    /// </summary>
+    bool ShowCopyColumn { get; set; }
+
+    /// <summary>
     /// 获得/设置 显示模板
     /// </summary>
     RenderFragment<object>? Template { get; set; }

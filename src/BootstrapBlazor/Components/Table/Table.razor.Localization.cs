@@ -329,5 +329,7 @@ public partial class Table<TItem>
         ExportToastContent ??= Localizer[nameof(ExportToastContent)];
         ExportToastInProgressContent ??= Localizer[nameof(ExportToastInProgressContent)];
         ExportExcelDropdownItemText ??= Localizer[nameof(ExportExcelDropdownItemText)];
+        CopyColumnTooltipText ??= Localizer[nameof(CopyColumnTooltipText)];
+        CopyColumnCopiedTooltipText ??= Localizer[nameof(CopyColumnCopiedTooltipText)];
     }
 }

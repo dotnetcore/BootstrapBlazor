@@ -35,6 +35,10 @@ export class Table extends BlazorComponent {
         if (this._isResizeColumn) {
             this._setResizeListener()
         }
+
+        if (true) {
+            this._setCopyColumn()
+        }
     }
 
     _execute(args) {
@@ -279,6 +283,90 @@ export class Table extends BlazorComponent {
         })
     }
 
+    _setCopyColumn() {
+        const copyCellValue = td => {
+            let ret = null;
+            let input = td.querySelector('.datetime-picker-input')
+            if (input === null) {
+                input = td.querySelector('.form-select')
+            }
+            if (input === null) {
+                input = td.querySelector('.switch')
+                if (input) {
+                    if (input.classList.contains('is-checked')) {
+                        ret = 'True'
+                    }
+                    else {
+                        ret = 'False'
+                    }
+                    return ret
+                }
+            }
+            if (input) {
+                ret = input.value
+            }
+            else {
+                ret = td.textContent
+            }
+            return ret
+        }
+
+        EventHandler.on(this._element, 'click', '.col-copy', e => {
+            const index = e.delegateTarget.closest('th').cellIndex
+            let rows
+            if (this._fixedHeader) {
+                rows = this._body.querySelectorAll('table > tbody > tr')
+            }
+            else if (this._element.querySelector('.table-fixed-column')) {
+                rows = this._element.querySelectorAll('.table-scroll > .overflow-auto > table > tbody > tr')
+            }
+            else {
+                rows = this._element.querySelectorAll('.table-scroll > table > tbody > tr')
+            }
+
+            let content = ''
+            rows.forEach(row => {
+                if (!row.classList.contains('is-detail')) {
+                    const td = row.childNodes[index]
+                    const v = copyCellValue(td)
+                    if (v !== null) {
+                        content += `${v}\n`
+                    }
+                }
+            })
+            this._copy(content)
+            const span = e.delegateTarget.parentNode
+            const tooltip = getDescribedElement(span)
+            const tip = bootstrap.Tooltip.getInstance(span)
+            if (tooltip) {
+                tooltip.querySelector('.tooltip-inner').innerHTML = span.getAttribute('data-bb-title')
+                tip.update()
+            }
+
+            const handler = window.setTimeout(() => {
+                window.clearTimeout(handler)
+                if (tooltip) {
+                    tooltip.querySelector('.tooltip-inner').innerHTML = span.getAttribute('data-bs-original-title')
+                    tip.update()
+                }
+            }, 1000);
+        })
+    }
+
+    _copy = (text = '') => {
+        if (navigator.clipboard) {
+            navigator.clipboard.writeText(text)
+        } else {
+            const input = document.createElement('textarea')
+            input.setAttribute('value', text)
+            input.setAttribute('hidden', 'true')
+            document.body.appendChild(input)
+            input.select()
+            document.execCommand('copy')
+            document.body.removeChild(input)
+        }
+    }
+
     _dispose() {
         if (this._fixedHeader) {
             EventHandler.off(this._body, 'scroll')
@@ -292,6 +380,8 @@ export class Table extends BlazorComponent {
             EventHandler.off(col, 'mousedown')
             EventHandler.off(col, 'touchstart')
         })
+
+        EventHandler.off(this._element, 'click', '.col-copy')
     }
 
     static getResponsive() {
