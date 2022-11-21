@@ -376,6 +376,9 @@ public partial class DatePickerBody
     {
         base.OnParametersSet();
 
+        CurrentDate = Value.Date;
+        CurrentTime = Value - CurrentDate;
+
         DatePlaceHolder ??= Localizer[nameof(DatePlaceHolder)];
         TimePlaceHolder ??= Localizer[nameof(TimePlaceHolder)];
         TimeFormat ??= Localizer[nameof(TimeFormat)];
