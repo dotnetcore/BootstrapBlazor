@@ -4291,6 +4291,7 @@
     "ListView": "ListView",
     "Locator": "Locator",
     "ImageViewer": "ImageViewer",
+    "FileIcon": "FileIcon",
     "Popover": "Popover",
     "Print": "Print",
     "QRCode": "QRCode",
@@ -5319,5 +5320,20 @@
     "Tips": "If the performance is not normal, you can add this css to debug",
     "P5": "<code> .kioskboard-body-padding { padding-top: unset !important;} </code>",
     "P6": "Basic"
+  },
+  "BootstrapBlazor.Shared.Samples.FileIcons": {
+    "Title": "File Icon",
+    "Intro": "The icon show the file extension",
+    "BaseUsageTitle": "Base Usage",
+    "BaseUsageIntro": "Set the <code>Extension</code> parameter for the file type",
+    "ColorTitle": "Color",
+    "ColorIntro": "Set <code>IconColor</code> for the file extension badge background color",
+    "BackgroundTemplateTitle": "Background Template",
+    "BackgroundTemplateIntro": "Set <code>BackgroundTemplate</code> custom the file icon",
+    "CustomCssTitle": "Custom css",
+    "CustomCssIntro": "Set <code>class</code> parameter set the style for the file icon component",
+    "ExtensionAttr": "The extension of file",
+    "IconColorAttr": "The backgound color for badge of extension",
+    "BackgroundTemplateAttr": "The template for custom the backgroup file"
   }
 }

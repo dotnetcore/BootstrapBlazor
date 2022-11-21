@@ -4291,6 +4291,7 @@
     "ListView": "列表组件 ListView",
     "Locator": "位置定位 Locator",
     "ImageViewer": "图片 ImageViewer",
+    "FileIcon": "文件图标 FileIcon",
     "Popover": "弹出窗 Popover",
     "Print": "打印组件 Print",
     "QRCode": "二维码 QRCode",
@@ -5324,5 +5325,20 @@
     "Tips": "如果表现不正常,可以加上这句 css 调试看看",
     "P5": "<code> .kioskboard-body-padding { padding-top: unset !important;} </code>",
     "P6": "基础用法"
+  },
+  "BootstrapBlazor.Shared.Samples.FileIcons": {
+    "Title": "File Icon 文件图标",
+    "Intro": "通过文件扩展名自定义显示图标",
+    "BaseUsageTitle": "基本用法",
+    "BaseUsageIntro": "通过设置 <code>Type</code> 设置图标扩展名",
+    "ColorTitle": "颜色",
+    "ColorIntro": "通过设置 <code>IconColor</code> 设置图标颜色",
+    "BackgroundTemplateTitle": "自定义背景图",
+    "BackgroundTemplateIntro": "通过设置 <code>BackgroundTemplate</code> 通过模板自定义背景模板",
+    "CustomCssTitle": "自定义样式",
+    "CustomCssIntro": "通过设置 <code>class</code> 自定义样式调整图标大小",
+    "ExtensionAttr": "文件扩展名",
+    "IconColorAttr": "扩展名标签背景色",
+    "BackgroundTemplateAttr": "自定义背景图模板"
   }
 }
