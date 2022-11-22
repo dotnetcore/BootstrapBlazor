@@ -97,6 +97,23 @@ public class ModalTest : BootstrapBlazorTestBase
         Assert.True(cut.Instance.Value);
     }
 
+    [Fact]
+    public async Task FirstAfterRenderAsync_Ok()
+    {
+        var render = false;
+        var cut = Context.RenderComponent<Modal>(pb =>
+        {
+            pb.Add(a => a.FirstAfterRenderCallbackAsync, () =>
+            {
+                render = true;
+                return Task.CompletedTask;
+            });
+            pb.AddChildContent<ModalDialog>();
+        });
+        Assert.True(render);
+
+    }
+
     private class MockComponent : ComponentBase
     {
         public bool Value { get; set; }

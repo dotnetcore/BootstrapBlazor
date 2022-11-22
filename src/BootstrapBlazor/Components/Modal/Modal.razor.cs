@@ -47,12 +47,10 @@ public partial class Modal
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
-    /// 获得/设置 弹窗已显示时回调此方法
+    /// 获得/设置 组件已经渲染完毕回调方法
     /// </summary>
     [Parameter]
-    [Obsolete("Call OnShownAsync")]
-    [ExcludeFromCodeCoverage]
-    public Func<Task>? ShownCallbackAsync { get; set; }
+    public Func<Task>? FirstAfterRenderCallbackAsync { get; set; }
 
     /// <summary>
     /// 获得/设置 弹窗已显示时回调此方法
@@ -72,6 +70,21 @@ public partial class Modal
     private string? Backdrop => IsBackdrop ? null : "static";
 
     private string? KeyboardString => IsKeyboard ? "true" : "false";
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="firstRender"></param>
+    /// <returns></returns>
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+
+        if (firstRender && FirstAfterRenderCallbackAsync != null)
+        {
+            await FirstAfterRenderCallbackAsync();
+        }
+    }
 
     /// <summary>
     /// <inheritdoc/>
