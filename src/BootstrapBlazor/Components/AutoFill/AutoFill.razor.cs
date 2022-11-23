@@ -333,7 +333,7 @@ public partial class AutoFill<TValue>
     [JSInvokable]
     public void TriggerOnChange(string val)
     {
-        CurrentValueAsString = val;
+        InputString = val;
     }
 
     /// <summary>
@@ -345,10 +345,7 @@ public partial class AutoFill<TValue>
     {
         if (disposing)
         {
-            if (Interop != null)
-            {
-                Interop.Dispose();
-            }
+            Interop?.Dispose();
         }
 
         return base.DisposeAsync(disposing);
