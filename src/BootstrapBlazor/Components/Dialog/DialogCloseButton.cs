@@ -3,6 +3,7 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Localization;
 
 namespace BootstrapBlazor.Components;
 
@@ -11,8 +12,18 @@ namespace BootstrapBlazor.Components;
 /// </summary>
 public partial class DialogCloseButton : Button
 {
+    /// <summary>
+    /// 获得/设置 按钮颜色
+    /// </summary>
+    [Parameter]
+    public override Color Color { get; set; } = Color.Secondary;
+
     [CascadingParameter]
     private Func<Task>? OnCloseAsync { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<ModalDialog>? Localizer { get; set; }
 
     /// <summary>
     /// <inheritdoc/>
@@ -25,5 +36,16 @@ public partial class DialogCloseButton : Button
         {
             OnClickWithoutRender = OnCloseAsync;
         }
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
+        ButtonIcon ??= "fa-solid fa-fw fa-xmark";
+        Text ??= Localizer[nameof(ModalDialog.CloseButtonText)];
     }
 }

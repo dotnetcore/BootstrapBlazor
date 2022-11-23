@@ -3,6 +3,7 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Localization;
 
 namespace BootstrapBlazor.Components;
 
@@ -11,6 +12,10 @@ namespace BootstrapBlazor.Components;
 /// </summary>
 public partial class DialogSaveButton : Button
 {
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<ModalDialog>? Localizer { get; set; }
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -19,5 +24,16 @@ public partial class DialogSaveButton : Button
         base.OnInitialized();
 
         ButtonType = ButtonType.Submit;
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
+        ButtonIcon ??= "fa-solid fa-floppy-disk";
+        Text ??= Localizer[nameof(ModalDialog.SaveButtonText)];
     }
 }

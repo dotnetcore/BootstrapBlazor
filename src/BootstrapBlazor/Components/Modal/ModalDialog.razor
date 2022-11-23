@@ -35,9 +35,11 @@
             </div>
         }
         <CascadingValue Name="BodyContext" Value="@BodyContext" IsFixed="true">
-            <div class="modal-body">
-                @RenderBodyTemplate()
-            </div>
+            <CascadingValue Value="OnClickClose" IsFixed="true">
+                <div class="modal-body">
+                    @RenderBodyTemplate()
+                </div>
+            </CascadingValue>
             @if (ShowFooter)
             {
                 <div class="modal-footer">
@@ -53,7 +55,12 @@
                     {
                         <Button Color="Color.Primary" Text="@SaveButtonText" Icon="fa-solid fa-fw fa-floppy-disk" OnClickWithoutRender="OnClickSave" />
                     }
-                    @FooterTemplate
+                    @if (FooterTemplate != null)
+                    {
+                        <CascadingValue Value="OnClickClose" IsFixed>
+                            @FooterTemplate
+                        </CascadingValue>
+                    }
                 </div>
             }
         </CascadingValue>
