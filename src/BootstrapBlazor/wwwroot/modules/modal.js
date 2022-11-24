@@ -1,6 +1,6 @@
 ﻿import BlazorComponent from "./base/blazor-component.js"
 import EventHandler from "./base/event-handler.js"
-import {drag, getHeight, getWidth} from "./base/utility.js"
+import { drag, getHeight, getWidth } from "./base/utility.js"
 
 export class Modal extends BlazorComponent {
     _init() {
@@ -67,8 +67,8 @@ export class Modal extends BlazorComponent {
                 this._state = []
             }
             this._state.push({
-                keyboard: this._element.getAttribute('data-bs-keyboard') === 'true',
-                backdrop: this._element.getAttribute('data-bs-backdrop') !== 'static'
+                keyboard: this._element.getAttribute('data-bs-keyboard'),
+                backdrop: this._element.getAttribute('data-bs-backdrop')
             })
             this._invoker.invokeMethodAsync(this._invokerShownMethod)
 
@@ -87,7 +87,7 @@ export class Modal extends BlazorComponent {
             this._originY = 0;
             this._dialogWidth = 0;
             this._dialogHeight = 0;
-            this._pt = {top: 0, left: 0};
+            this._pt = { top: 0, left: 0 };
 
             this._header = this._dialog.querySelector('.modal-header')
             drag(this._header,
@@ -137,7 +137,7 @@ export class Modal extends BlazorComponent {
             this._handlerEscape = e => {
                 if (e.key === 'Escape') {
                     const state = this._state[this._state.length - 1]
-                    if (state.keyboard) {
+                    if (state.keyboard === 'true') {
                         this._hide()
                         this._state.pop()
                     }
