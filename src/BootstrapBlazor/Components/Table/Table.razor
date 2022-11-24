@@ -911,7 +911,7 @@ RenderFragment RenderSearch =>
 
 RenderFragment RenderPageInfo =>
 @<div class="table-page-info">
-    <div class="me-2">@Localizer[nameof(PageInfoText), (PageIndex - 1) * PageItems + 1, (PageIndex - 1) * PageItems + Rows.Count, TotalCount]</div>
+    <div class="me-2">@PageInfoLabelString</div>
     <Select Items="@GetPageItemsSource()" Value="PageItems" OnValueChanged="@OnPageItemsValueChanged" />
 </div>;
 
