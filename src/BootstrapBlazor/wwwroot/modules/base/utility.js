@@ -196,16 +196,19 @@ const setIndeterminate = (object, state) => {
 
 const drag = (element, start, move, end) => {
     const handleDragStart = e => {
-        e.preventDefault()
-        e.stopPropagation()
-
-        document.addEventListener('mousemove', handleDragMove)
-        document.addEventListener('touchmove', handleDragMove)
-        document.addEventListener('mouseup', handleDragEnd)
-        document.addEventListener('touchend', handleDragEnd)
-
+        let notDrag = false
         if (isFunction(start)) {
-            start(e)
+            notDrag = start(e) || false
+        }
+
+        if (!notDrag) {
+            e.preventDefault()
+            e.stopPropagation()
+
+            document.addEventListener('mousemove', handleDragMove)
+            document.addEventListener('touchmove', handleDragMove)
+            document.addEventListener('mouseup', handleDragEnd)
+            document.addEventListener('touchend', handleDragEnd)
         }
     }
 

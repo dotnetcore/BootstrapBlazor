@@ -92,6 +92,9 @@ export class Modal extends BlazorComponent {
             this._header = this._dialog.querySelector('.modal-header')
             drag(this._header,
                 e => {
+                    if (e.srcElement.closest('.modal-header-buttons')) {
+                        return true
+                    }
                     this._originX = e.clientX || e.touches[0].clientX;
                     this._originY = e.clientY || e.touches[0].clientY;
 
