@@ -123,6 +123,8 @@ public partial class Table<TItem> : ITable where TItem : class, new()
 
     private static string? GetColspan(int colspan) => colspan > 1 ? colspan.ToString() : null;
 
+    private bool IsShowFooter => ShowFooter && (Rows.Any() || !IsHideFooterWhenNoData);
+
     /// <summary>
     /// 获得/设置 列拷贝 Tooltip 文字
     /// </summary>

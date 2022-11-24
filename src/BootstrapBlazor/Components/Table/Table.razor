@@ -244,7 +244,7 @@
                         }
                     </DynamicElement>
                 }
-                @if (ShowFooter && !IsHideFooterWhenNoData)
+                @if (IsShowFooter)
                 {
                     <div class="table-row table-footer">
                         <CascadingValue Value="true" Name="IsMobileMode" IsFixed="true">
@@ -363,7 +363,7 @@
                 }
             }
         </tbody>
-        @if (ShowFooter && !IsHideFooterWhenNoData)
+        @if (IsShowFooter)
         {
             <tfoot>
                 <CascadingValue Value="false" Name="IsMobileMode" IsFixed="true">
