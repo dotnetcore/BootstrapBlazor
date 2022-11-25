@@ -85,6 +85,11 @@ public class SwalOption : PopupOptionBase
     public string? CancelButtonText { get; set; }
 
     /// <summary>
+    /// 获得/设置 弹窗自定义样式
+    /// </summary>
+    public string? Class { get; set; }
+
+    /// <summary>
     /// 
     /// </summary>
     public SwalOption()
@@ -110,7 +115,12 @@ public class SwalOption : PopupOptionBase
 
         if (!string.IsNullOrEmpty(Title))
         {
-            parameters.Add(nameof(Title), Title);
+            parameters.Add(nameof(ModalDialog.Title), Title);
+        }
+
+        if (!string.IsNullOrEmpty(Class))
+        {
+            parameters.Add(nameof(ModalDialog.Class), Class);
         }
         return parameters;
     }
