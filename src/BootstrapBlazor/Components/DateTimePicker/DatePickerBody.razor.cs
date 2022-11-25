@@ -484,6 +484,7 @@ public partial class DatePickerBody
     private async Task SwitchView(DatePickerViewMode view)
     {
         ShowTimePicker = false;
+        SetValue(CurrentDate);
         if (AllowSwitchModes[ViewMode].Contains(view))
         {
             CurrentViewMode = view;
