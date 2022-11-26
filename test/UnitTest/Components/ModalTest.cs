@@ -98,7 +98,7 @@ public class ModalTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public async Task FirstAfterRenderAsync_Ok()
+    public void FirstAfterRenderAsync_Ok()
     {
         var render = false;
         var cut = Context.RenderComponent<Modal>(pb =>

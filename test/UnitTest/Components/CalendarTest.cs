@@ -14,6 +14,11 @@ public class CalendarTest : BootstrapBlazorTestBase
 
         cut.SetParametersAndRender(builder => builder.Add(s => s.Value, new DateTime(1999, 1, 1)));
         Assert.Contains("1999", cut.Markup);
+        var cell = cut.Find("td.current");
+        cut.InvokeAsync(() => cell.Click());
+
+        cut.SetParametersAndRender(builder => builder.Add(s => s.ValueChanged, EventCallback.Factory.Create<DateTime>(this, () => new DateTime(1999, 1, 1))));
+        cut.InvokeAsync(() => cell.Click());
     }
 
     [Fact]
@@ -54,12 +59,18 @@ public class CalendarTest : BootstrapBlazorTestBase
     [Fact]
     public void ButtonClick_Ok()
     {
-        var cut = Context.RenderComponent<Calendar>();
+        var v = DateTime.MinValue;
+        var cut = Context.RenderComponent<Calendar>(pb =>
+        {
+            pb.Add(a => a.Value, DateTime.Today);
+            pb.Add(a => a.ValueChanged, EventCallback.Factory.Create<DateTime>(this, d => v = d));
+        });
         var buttons = cut.FindAll(".calendar-button-group button");
 
         // btn 上一年
         buttons[0].Click();
         Assert.Contains($"{DateTime.Now.Year - 1} 年 {DateTime.Now.Month} 月", cut.Find(".calendar-title").ToMarkup());
+        Assert.Equal(v, DateTime.Today.AddYears(-1));
 
         // btn 下一年
         buttons[4].Click();
@@ -68,6 +79,7 @@ public class CalendarTest : BootstrapBlazorTestBase
         // btn 上一月
         buttons[1].Click();
         Assert.Contains($"{DateTime.Now.Year} 年 {DateTime.Now.Month - 1} 月", cut.Find(".calendar-title").ToMarkup());
+        Assert.Equal(v, DateTime.Today.AddMonths(-1));
 
         // btn 下一月
         buttons[3].Click();
@@ -82,7 +94,7 @@ public class CalendarTest : BootstrapBlazorTestBase
     [Fact]
     public void ValueChanged_Ok()
     {
-        DateTime value = DateTime.MinValue;
+        var value = DateTime.MinValue;
         var cut = Context.RenderComponent<Calendar>(builder =>
         {
             builder.Add(a => a.ValueChanged, v => value = v);
@@ -99,14 +111,21 @@ public class CalendarTest : BootstrapBlazorTestBase
     [Fact]
     public void OnChangeWeek_Ok()
     {
-        var cut = Context.RenderComponent<Calendar>(builder => builder.Add(s => s.ViewMode, CalendarViewMode.Week));
+        var v = DateTime.MinValue;
+        var cut = Context.RenderComponent<Calendar>(pb =>
+        {
+            pb.Add(s => s.ViewMode, CalendarViewMode.Week);
+            pb.Add(a => a.Value, DateTime.Today);
+            pb.Add(a => a.ValueChanged, EventCallback.Factory.Create<DateTime>(this, d => v = d));
+        });
         Assert.Contains("table-week", cut.Markup);
 
         var buttons = cut.FindAll(".calendar-button-group button");
         // 上一周
         buttons[0].Click();
-        DateTime value = cut.Instance.Value;
+        var value = cut.Instance.Value;
         Assert.Contains($"第 {GetWeekCount()} 周", cut.Find(".calendar-title").ToMarkup());
+        Assert.Equal(v, DateTime.Today.AddDays(-7));
 
         // 下一周
         buttons[2].Click();
