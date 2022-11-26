@@ -127,7 +127,7 @@ public partial class Table<TItem> : ITable where TItem : class, new()
 
     private int PageStartIndex => Rows.Any() ? (PageIndex - 1) * PageItems + 1 : 0;
 
-    private string PageInfoLabelString => Localizer[nameof(PageInfoText), PageStartIndex, (PageIndex - 1) * PageItems + Rows.Count, TotalCount];
+    private string? PageInfoLabelString => Localizer[nameof(PageInfoText), PageStartIndex, (PageIndex - 1) * PageItems + Rows.Count, TotalCount];
 
     /// <summary>
     /// 获得/设置 列拷贝 Tooltip 文字

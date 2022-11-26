@@ -24,7 +24,8 @@ public class SwalTest : SwalTestBase
             ShowFooter = true,
             ShowClose = true,
             CloseButtonIcon = "test-close-icon",
-            CloseButtonText = "test-button-text-Cancel"
+            CloseButtonText = "test-button-text-Cancel",
+            Class = "dialog-swal-test"
         }));
 
         // 代码覆盖模板单元测试
@@ -33,6 +34,7 @@ public class SwalTest : SwalTestBase
         Assert.Contains("Test-ButtonTemplate", cut.Markup);
         Assert.Contains("test-close-icon", cut.Markup);
         Assert.Contains("test-button-text-Cancel", cut.Markup);
+        Assert.Contains("dialog-swal-test", cut.Markup);
 
         // 测试关闭逻辑
         var modals = cut.FindComponents<Modal>();

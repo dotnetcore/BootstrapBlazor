@@ -179,24 +179,30 @@ public partial class Calendar
         {
             await ValueChanged.InvokeAsync(Value);
         }
-
-        StateHasChanged();
+        else
+        {
+            StateHasChanged();
+        }
     }
 
     /// <summary>
     /// 右侧快捷切换年按钮回调此方法
     /// </summary>
     /// <param name="offset"></param>
-    protected void OnChangeYear(int offset)
+    protected async Task OnChangeYear(int offset)
     {
         Value = Value.AddYears(offset);
+        if (ValueChanged.HasDelegate)
+        {
+            await ValueChanged.InvokeAsync(Value);
+        }
     }
 
     /// <summary>
     /// 右侧快捷切换月按钮回调此方法
     /// </summary>
     /// <param name="offset"></param>
-    protected void OnChangeMonth(int offset)
+    protected async Task OnChangeMonth(int offset)
     {
         if (offset == 0)
         {
@@ -206,13 +212,17 @@ public partial class Calendar
         {
             Value = Value.AddMonths(offset);
         }
+        if (ValueChanged.HasDelegate)
+        {
+            await ValueChanged.InvokeAsync(Value);
+        }
     }
 
     /// <summary>
     /// 右侧快捷切换周按钮回调此方法
     /// </summary>
     /// <param name="offset"></param>
-    protected void OnChangeWeek(int offset)
+    protected async Task OnChangeWeek(int offset)
     {
         if (offset == 0)
         {
@@ -223,6 +233,10 @@ public partial class Calendar
             Value = Value.AddDays(offset);
         }
         WeekNumberText = Localizer[nameof(WeekNumberText), GetWeekCount()];
+        if (ValueChanged.HasDelegate)
+        {
+            await ValueChanged.InvokeAsync(Value);
+        }
     }
 
     private CalendarCellValue CreateCellValue(DateTime cellValue)
