@@ -173,7 +173,7 @@
                         @RenderTable.Invoke(false)
                     </div>
                 }
-                else if (FixedExtendButtonsColumn || Columns.Any(col => col.Fixed))
+                else if (FixedMultipleColumn || FixedExtendButtonsColumn || Columns.Any(col => col.Fixed))
                 {
                     <div class="overflow-auto">
                         @RenderTable.Invoke(true)
@@ -392,14 +392,7 @@ RenderFragment<bool> RenderColgroup => hasScroll =>
     }
     @if (IsMultipleSelect)
     {
-        @if (ShowCheckboxText)
-        {
-            <col width="@ShowCheckboxTextColumnWidth" />
-        }
-        else
-        {
-            <col width="@CheckboxColumnWidth" />
-        }
+        <col width="@MultiColumnWidth" />
     }
     @if (ShowLineNo)
     {
@@ -443,7 +436,7 @@ RenderFragment<bool> RenderHeader => hasScroll =>
             }
             @if (IsMultipleSelect)
             {
-                <th>
+                <th class="@MultiColumnClassString" style="@MultiColumnStyleString">
                     <div class="table-cell">
                         <Checkbox TValue="TItem" DisplayText="@CheckboxDisplayTextString" ShowLabel="false" ShowAfterLabel="@ShowCheckboxText"
                                   State="@HeaderCheckState()" OnStateChanged="OnHeaderCheck"></Checkbox>
@@ -598,7 +591,7 @@ RenderFragment<TItem> RenderRow => item =>
     }
     @if (IsMultipleSelect)
     {
-        <td>
+        <td class="@MultiColumnClassString" style="@MultiColumnStyleString">
             <div class="table-cell">
                 <Checkbox TValue="TItem" Value="@item" ShowLabel="false" State="RowCheckState(item)" OnStateChanged="OnCheck" @onclick:stopPropagation></Checkbox>
             </div>

@@ -130,6 +130,12 @@ public partial class Table<TItem>
     public bool FixedExtendButtonsColumn { get; set; }
 
     /// <summary>
+    /// 获得/设置 是否固定多选列 默认为 false 不固定
+    /// </summary>
+    [Parameter]
+    public bool FixedMultipleColumn { get; set; }
+
+    /// <summary>
     /// 获得/设置 是否显示刷新按钮 默认为 true
     /// </summary>
     [Parameter]

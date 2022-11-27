@@ -102,6 +102,14 @@ public partial class Table<TItem>
         .AddClass(GetFixedCellClassString(col))
         .Build();
 
+    private string? MultiColumnClassString => FixedMultipleColumn ? "fixed" : null;
+
+    private int MulitiColumnLeft => ShowDetails() ? 40 : 0;
+
+    private string? MultiColumnStyleString => FixedMultipleColumn ? $"left: {MulitiColumnLeft}px;" : null;
+
+    private int MultiColumnWidth => ShowCheckboxText ? ShowCheckboxTextColumnWidth : CheckboxColumnWidth;
+
     /// <summary>
     /// 获得指定列头固定列样式
     /// </summary>
@@ -137,8 +145,26 @@ public partial class Table<TItem>
     /// <returns></returns>
     protected string? GetFixedExtendButtonsColumnStyleString(int margin = 0) => CssBuilder.Default()
         .AddClass($"right: {(IsFixedHeader ? margin : 0)}px;", FixedExtendButtonsColumn && !IsExtendButtonsInRowHeader)
-        .AddClass("left: 0px;", FixedExtendButtonsColumn && IsExtendButtonsInRowHeader)
+        .AddClass($"left: {GetExtendButtonsColumnLeftMargin()}px;", FixedExtendButtonsColumn && IsExtendButtonsInRowHeader)
         .Build();
+
+    private int GetExtendButtonsColumnLeftMargin()
+    {
+        var width = 0;
+        if (ShowDetails())
+        {
+            width += DetailColumnWidth;
+        }
+        if (ShowLineNo)
+        {
+            width += LineNoColumnWidth;
+        }
+        if (FixedMultipleColumn)
+        {
+            width += MultiColumnWidth;
+        }
+        return width;
+    }
 
     private int CalcMargin(int margin)
     {
@@ -209,6 +235,18 @@ public partial class Table<TItem>
             }
             else
             {
+                if (FixedMultipleColumn)
+                {
+                    width += MultiColumnWidth;
+                }
+                if (ShowDetails())
+                {
+                    width += DetailColumnWidth;
+                }
+                if (ShowLineNo)
+                {
+                    width += LineNoColumnWidth;
+                }
                 while (index > start)
                 {
                     width += Columns[start++].Width ?? defaultWidth;
