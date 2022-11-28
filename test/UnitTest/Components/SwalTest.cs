@@ -183,6 +183,9 @@ public class SwalTest : SwalTestBase
                     new SelectedItem("1", "Test1"),
                     new SelectedItem("2", "Test2") { IsDisabled = true }
                 });
+                pb.Add(a => a.SwalCategory, SwalCategory.Question);
+                pb.Add(a => a.SwalTitle, "Swal-Title");
+                pb.Add(a => a.SwalContent, "Swal-Content");
                 pb.Add(a => a.OnBeforeSelectedItemChange, item => Task.FromResult(true));
                 pb.Add(a => a.OnSelectedItemChanged, item => Task.CompletedTask);
                 pb.Add(a => a.SwalFooter, "test-swal-footer");

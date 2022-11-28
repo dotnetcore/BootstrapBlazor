@@ -20,7 +20,8 @@ public class ITableColumnExtensionsTest
             Searchable = true,
             ShowTips = true,
             Sortable = true,
-            TextEllipsis = true
+            TextEllipsis = true,
+            ShowCopyColumn = true
         };
         col.InheritValue(attr);
         Assert.Equal(Alignment.Center, col.Align);
@@ -32,6 +33,7 @@ public class ITableColumnExtensionsTest
         Assert.True(attr.ShowTips);
         Assert.True(attr.Sortable);
         Assert.True(attr.TextEllipsis);
+        Assert.True(attr.ShowCopyColumn);
     }
 
     [Fact]

@@ -5068,6 +5068,20 @@ public class TableTest : TableTestBase
     }
 
     [Fact]
+    public void TableSettings_Ok()
+    {
+        var settings = new TableSettings()
+        {
+            DetailColumnWidth = 24,
+            ShowCheckboxTextColumnWidth = 80,
+            LineNoColumnWidth = 60
+        };
+        Assert.Equal(24, settings.DetailColumnWidth);
+        Assert.Equal(80, settings.ShowCheckboxTextColumnWidth);
+        Assert.Equal(60, settings.LineNoColumnWidth);
+    }
+
+    [Fact]
     public void AutoGenerateColumns_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
