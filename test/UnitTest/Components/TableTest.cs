@@ -4433,17 +4433,21 @@ public class TableTest : TableTestBase
         var input = cut.Find("tbody tr input");
         await cut.InvokeAsync(() => input.Click());
         await cut.InvokeAsync(() => table.Instance.EditAsync());
+        var modal = cut.FindComponent<Modal>();
+        await cut.InvokeAsync(() => modal.Instance.CloseCallback());
 
         table.SetParametersAndRender(pb =>
         {
             pb.Add(a => a.ShowEditButtonCallback, foo => false);
         });
         await cut.InvokeAsync(() => table.Instance.EditAsync());
+        await cut.InvokeAsync(() => modal.Instance.CloseCallback());
 
         // 选两个
         input = cut.Find("thead input");
         await cut.InvokeAsync(() => input.Click());
         await cut.InvokeAsync(() => table.Instance.EditAsync());
+        await cut.InvokeAsync(() => modal.Instance.CloseCallback());
     }
 
     [Theory]

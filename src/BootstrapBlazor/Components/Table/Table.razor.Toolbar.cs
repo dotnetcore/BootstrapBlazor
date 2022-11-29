@@ -576,6 +576,12 @@ public partial class Table<TItem>
     public RenderFragment<TItem>? EditFooterTemplate { get; set; }
 
     /// <summary>
+    /// 获得/设置 编辑弹窗关闭前回调方法
+    /// </summary>
+    [Parameter]
+    public Func<TItem, bool, Task>? EditDialogCloseAsync { get; set; }
+
+    /// <summary>
     /// 弹出编辑对话框方法
     /// </summary>
     protected async Task ShowEditDialog(ItemChangedType changedType)
@@ -607,6 +613,10 @@ public partial class Table<TItem>
             DialogFooterTemplate = EditFooterTemplate,
             OnCloseAsync = async () =>
             {
+                if (EditDialogCloseAsync != null)
+                {
+                    await EditDialogCloseAsync(EditModel, saved);
+                }
                 if (!saved)
                 {
                     // EFCore 模式保存失败后调用 CancelAsync 回调
