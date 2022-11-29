@@ -613,6 +613,7 @@ public partial class Table<TItem> : ITable where TItem : class, new()
         SortIconDesc ??= "fa-solid fa-sort-down";
         SortIcon ??= "fa-solid fa-sort";
         FilterIcon ??= "fa-solid fa-filter";
+        ExportButtonIcon ??= "fa-solid fa-download";
     }
 
     /// <summary>

@@ -563,6 +563,15 @@ public class TableTest : TableTestBase
             });
         });
         cut.Contains("Test_Export");
+        cut.Contains("fa-solid fa-download");
+
+        var table = cut.FindComponent<Table<Foo>>();
+        table.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ExportButtonIcon, "test-export-icon");
+        });
+        cut.DoesNotContain("fa-solid fa-download");
+        cut.Contains("test-export-icon");
     }
 
     [Fact]

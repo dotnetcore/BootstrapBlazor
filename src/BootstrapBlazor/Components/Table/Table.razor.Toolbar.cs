@@ -70,6 +70,12 @@ public partial class Table<TItem>
     public bool ShowExportButton { get; set; }
 
     /// <summary>
+    /// 获得/设置 导出按钮图标 默认为 fa-solid fa-download
+    /// </summary>
+    [Parameter]
+    public string? ExportButtonIcon { get; set; }
+
+    /// <summary>
     /// 获得/设置 导出按钮下拉菜单模板 默认 null
     /// </summary>
     [Parameter]
