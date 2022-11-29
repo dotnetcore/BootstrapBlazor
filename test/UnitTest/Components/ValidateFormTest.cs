@@ -4,9 +4,7 @@
 
 using BootstrapBlazor.Shared;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Options;
-using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace UnitTest.Components;
@@ -223,14 +221,19 @@ public class ValidateFormTest : ValidateFormTestBase
     [Fact]
     public void Validate_Class_Ok()
     {
-        var foo = new Dummy();
+        var dummy = new Dummy();
         var cut = Context.RenderComponent<ValidateForm>(pb =>
         {
-            pb.Add(a => a.Model, foo);
+            pb.Add(a => a.Model, dummy);
             pb.Add(a => a.ValidateAllProperties, true);
             pb.AddChildContent<BootstrapInput<string>>(pb =>
             {
-                pb.Add(a => a.Value, foo.Foo.Name);
+                pb.Add(a => a.Value, dummy.Foo.Name);
+            });
+            pb.AddChildContent<BootstrapInput<Foo>>(pb =>
+            {
+                pb.Add(a => a.Value, dummy.Foo);
+                pb.Add(a => a.ValueExpression, Utility.GenerateValueExpression(dummy, nameof(dummy.Foo), typeof(Foo)));
             });
         });
         var form = cut.Find("form");
@@ -461,6 +464,18 @@ public class ValidateFormTest : ValidateFormTestBase
             pb.Add(a => a.DisableAutoSubmitFormByEnter, false);
         });
         Assert.False(cut.Instance.DisableAutoSubmitFormByEnter);
+    }
+
+    [Fact]
+    public void ValidateFieldAsync_Ok()
+    {
+        var form = new ValidateForm();
+        var method = typeof(ValidateForm).GetMethod("ValidateFieldAsync", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+        Assert.NotNull(method);
+
+        var context = new ValidationContext(new Foo());
+        var result = new List<ValidationResult>();
+        method.Invoke(form, new object[] { context, result });
     }
 
     private class HasServiceAttribute : ValidationAttribute

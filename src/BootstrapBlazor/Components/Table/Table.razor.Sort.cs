@@ -104,7 +104,7 @@ public partial class Table<TItem>
 
     private string? MultiColumnClassString => FixedMultipleColumn ? "fixed" : null;
 
-    private int MulitiColumnLeft => ShowDetails() ? 40 : 0;
+    private int MulitiColumnLeft => ShowDetails() ? DetailColumnWidth : 0;
 
     private string? MultiColumnStyleString => FixedMultipleColumn ? $"left: {MulitiColumnLeft}px;" : null;
 

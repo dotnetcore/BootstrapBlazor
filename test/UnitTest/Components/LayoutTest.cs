@@ -4,6 +4,7 @@
 
 using Bunit.TestDoubles;
 using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 using System.Security.Claims;
@@ -257,6 +258,33 @@ public class LayoutTest : BootstrapBlazorTestBase
         });
         cut.InvokeAsync(() => cut.Instance.UpdateAsync("Test"));
         Assert.True(updated);
+    }
+
+    [Fact]
+    public void HandlerException_Ok()
+    {
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.Add(a => a.EnableErrorLogger, true);
+            pb.AddChildContent<Layout>(pb =>
+            {
+                pb.Add(a => a.Main, new RenderFragment(builder =>
+                {
+                    builder.OpenComponent<Button>(0);
+                    builder.AddAttribute(1, nameof(Button.OnClick), EventCallback.Factory.Create<MouseEventArgs>(this, e =>
+                    {
+                        var a = 1;
+                        var b = 0;
+                        var c = a / b;
+                        return Task.CompletedTask;
+                    }));
+                    builder.CloseComponent();
+                }));
+            });
+        });
+        var button = cut.Find("button");
+        cut.InvokeAsync(() => button.Click());
+        cut.Contains("<div class=\"error-stack\">");
     }
 
     private static RenderFragment CreateHeader(string? content = "Header") => builder => builder.AddContent(0, content);
