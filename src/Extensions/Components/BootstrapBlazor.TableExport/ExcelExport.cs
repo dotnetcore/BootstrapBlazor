@@ -1,8 +1,7 @@
-// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
+﻿// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using Microsoft.JSInterop;
 using OfficeOpenXml;
 using System.Globalization;
 
@@ -13,11 +12,22 @@ namespace BootstrapBlazor.Components;
 /// </summary>
 internal class ExcelExport : ITableExcelExport
 {
+    private DownloadService DownloadService { get; set; }
+
     /// <summary>
-    /// 
+    /// 构造函数
+    /// </summary>
+    /// <param name="downloadService"></param>
+    public ExcelExport(DownloadService downloadService)
+    {
+        DownloadService = downloadService;
+    }
+
+    /// <summary>
+    /// 导出 Excel 方法
     /// </summary>
     /// <returns></returns>
-    public async Task<bool> ExportAsync<TItem>(IEnumerable<TItem> items, IEnumerable<ITableColumn> cols, IJSRuntime jsRuntime) where TItem : class
+    public async Task<bool> ExportAsync<TItem>(IEnumerable<TItem> items, IEnumerable<ITableColumn> cols) where TItem : class
     {
         using var excelPackage = new ExcelPackage();
         var worksheet = excelPackage.Workbook.Worksheets.Add("sheet1");
@@ -28,7 +38,10 @@ internal class ExcelExport : ITableExcelExport
             var x = 1;
             foreach (var pi in item.GetType().GetProperties())
             {
-                if (!cols.Any(col => col.GetFieldName() == pi.Name)) continue;
+                if (!cols.Any(col => col.GetFieldName() == pi.Name))
+                {
+                    continue;
+                }
 
                 if (y == 1)
                 {
@@ -54,11 +67,8 @@ internal class ExcelExport : ITableExcelExport
         }
 
         var bytes = excelPackage.GetAsByteArray();
-        var fileName = DateTime.Now.Ticks;
-        var contentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
-        var excelName = $"{fileName}.xlsx";
-        var bytesBase64 = Convert.ToBase64String(bytes);
-        await jsRuntime.InvokeVoidAsync(identifier: "$.generatefile", excelName, bytesBase64, contentType);
+        var fileName = $"ExportData_{DateTime.Now:yyyyMMddHHmmss}.xlsx";
+        await DownloadService.DownloadFromByteArrayAsync(fileName, bytes);
         return true;
     }
 

@@ -2,7 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using BootstrapBlazor.Components;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace Microsoft.Extensions.DependencyInjection;
 
@@ -18,7 +18,7 @@ public static class TableExcelExportServiceCollectionExtensions
     /// <returns></returns>
     public static IServiceCollection AddBootstrapBlazorTableExcelExport(this IServiceCollection services)
     {
-        services.AddSingleton<ITableExcelExport, ExcelExport>();
+        services.TryAddTransient<ITableExcelExport, ExcelExport>();
         return services;
     }
 }
