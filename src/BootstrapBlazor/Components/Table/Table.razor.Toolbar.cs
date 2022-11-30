@@ -811,7 +811,7 @@ public partial class Table<TItem>
         {
             // 如果未提供 OnExportAsync 回调委托使用注入服务来尝试解析
             // TODO: 这里将本页数据作为参数传递给导出服务，服务本身可以利用自身优势获取全部所需数据，如果获取全部数据呢？
-            ret = await ExcelExport.ExportAsync(Rows, Columns, JSRuntime);
+            ret = await ExcelExport.ExportAsync(Rows, Columns);
         }
 
         option = new ToastOption

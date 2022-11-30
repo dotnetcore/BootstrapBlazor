@@ -12,5 +12,5 @@ public interface ITableExcelExport
     /// <summary>
     /// 导出 Excel 方法
     /// </summary>
-    Task<bool> ExportAsync<TItem>(IEnumerable<TItem> items, IEnumerable<ITableColumn> cols, IJSRuntime jsRuntime) where TItem : class;
+    Task<bool> ExportAsync<TItem>(IEnumerable<TItem> items, IEnumerable<ITableColumn> cols) where TItem : class;
 }
