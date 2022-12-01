@@ -60,9 +60,9 @@ public partial class RibbonTabs
         .AddClass("show", ActiveTabText == Localizer["ItemsText2"])
         .Build();
 
-    private Task OnMenuClickAsync(string text, string url)
+    private Task OnMenuClickAsync(RibbonTabItem item)
     {
-        ActiveTabText = text;
+        ActiveTabText = item.Text;
         StateHasChanged();
         return Task.CompletedTask;
     }
@@ -138,6 +138,14 @@ public partial class RibbonTabs
         {
             Name = nameof(RibbonTab.OnItemClickAsync),
             Description = Localizer["Attr8"],
+            Type = "Func<RibbonTabItem, Task>",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new AttributeItem()
+        {
+            Name = nameof(RibbonTab.OnMenuClickAsync),
+            Description = Localizer["OnMenuClickAsyncAttr"],
             Type = "Func<RibbonTabItem, Task>",
             ValueList = " — ",
             DefaultValue = " — "

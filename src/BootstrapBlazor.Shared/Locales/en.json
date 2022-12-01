@@ -4010,6 +4010,7 @@
     "Attr6": "Display the small floating arrow",
     "Attr7": "Data source",
     "Attr8": "Click the command button callback method",
+    "OnMenuClickAsyncAttr": "Click the command menu callback method",
     "Attr9": "Right button template",
     "ItemsText1": "Document",
     "Items1": "Task 1",

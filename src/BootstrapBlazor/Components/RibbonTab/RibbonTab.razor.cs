@@ -67,7 +67,7 @@ public partial class RibbonTab
     /// 获得/设置 点击标签 Menu 回调方法
     /// </summary>
     [Parameter]
-    public Func<string?, string?, Task>? OnMenuClickAsync { get; set; }
+    public Func<RibbonTabItem, Task>? OnMenuClickAsync { get; set; }
 
     /// <summary>
     /// 获得/设置 右侧按钮模板
@@ -126,14 +126,10 @@ public partial class RibbonTab
 
     private async Task OnClickTab(TabItem item)
     {
+        var tab = GetItems().First(i => i.Text == item.Text);
         if (OnMenuClickAsync != null)
         {
-            await OnMenuClickAsync(item.Text, item.Url);
-        }
-        if (OnItemClickAsync != null)
-        {
-            var tab = GetItems().First(i => i.Text == item.Text);
-            await OnItemClickAsync(tab);
+            await OnMenuClickAsync(tab);
         }
         if (IsFloat)
         {

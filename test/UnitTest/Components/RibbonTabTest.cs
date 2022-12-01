@@ -193,9 +193,9 @@ public class RibbonTabTest : BootstrapBlazorTestBase
                     }
                 }
             });
-            pb.Add(a => a.OnMenuClickAsync, (text, url) =>
+            pb.Add(a => a.OnMenuClickAsync, item =>
             {
-                clickedText = text;
+                clickedText = item.Text;
                 return Task.CompletedTask;
             });
         });

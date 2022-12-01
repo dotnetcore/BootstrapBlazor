@@ -4009,6 +4009,7 @@
     "Attr6": "是否显示悬浮小箭头",
     "Attr7": "数据源",
     "Attr8": "点击命令按钮回调方法",
+    "OnMenuClickAsyncAttr": "点击一级菜单回调方法",
     "Attr9": "右侧按钮模板",
     "ItemsText1": "文件",
     "Items1": "常规操作",
