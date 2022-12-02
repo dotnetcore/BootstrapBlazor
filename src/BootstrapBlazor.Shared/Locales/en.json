@@ -4938,7 +4938,6 @@
     "P7": "inject service",
     "P8": "Add BootstrapBlazor component",
     "P9": "Add Table Excel export service",
-    "P10": "js file",
     "P11": "Table export function",
     "P12": "Whether to display the export button by setting the <code>ShowExportButton</code> property, the default is <code>false</code>",
     "P13": "Custom export method",

@@ -4942,7 +4942,6 @@
     "P7": "注入服务",
     "P8": "增加 BootstrapBlazor 组件",
     "P9": "增加 Table Excel 导出服务",
-    "P10": "JS 文件",
     "P11": "表格导出功能",
     "P12": "通过设置 <code>ShowExportButton</code> 属性是否显示导出按钮，默认为<code>false</code>",
     "P13": "自定义导出方法",
