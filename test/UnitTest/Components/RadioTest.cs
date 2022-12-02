@@ -171,6 +171,23 @@ public class RadioTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void AutoSelectFirstWhenValueIsNull_Ok()
+    {
+        var cut = Context.RenderComponent<RadioList<SelectedItem>>(pb =>
+        {
+            pb.Add(a => a.AutoSelectFirstWhenValueIsNull, false);
+            pb.Add(a => a.Items, new List<SelectedItem>
+            {
+                new("1", "Test1"),
+                new("2", "Test2")
+            });
+            pb.Add(a => a.Value, new SelectedItem());
+        });
+        cut.Contains("class=\"form-check-label\"");
+        cut.DoesNotContain("is-checked");
+    }
+
+    [Fact]
     public void ValidateForm_Ok()
     {
         var foo = new Foo();
