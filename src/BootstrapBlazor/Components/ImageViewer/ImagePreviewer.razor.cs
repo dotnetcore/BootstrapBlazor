@@ -7,7 +7,8 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 图片预览组件
 /// </summary>
-public partial class ImagePreview
+[JSModuleAutoLoader("image-previewer")]
+public partial class ImagePreviewer
 {
     /// <summary>
     /// 获得/设置 原生 z-index 属性 默认 2050
@@ -28,4 +29,16 @@ public partial class ImagePreview
     private string? GetFirstImageUrl() => PreviewList.First();
 
     private bool ShowButtons => PreviewList.Count > 1;
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    protected override Task ModuleInitAsync() => InvokeInitAsync(Id, PreviewList);
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    protected override Task ModuleExecuteAsync() => InvokeExecuteAsync(Id, PreviewList);
 }

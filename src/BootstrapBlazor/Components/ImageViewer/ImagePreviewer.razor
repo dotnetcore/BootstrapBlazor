@@ -1,7 +1,7 @@
 ﻿@namespace BootstrapBlazor.Components
-@inherits BootstrapComponentBase
+@inherits BootstrapModuleComponentBase
 
-<div tabindex="-1" class="bb-viewer-wrapper active" style="z-index: @ZIndex;">
+<div tabindex="-1" class="bb-previewer collapse active" id="@Id" style="z-index: @ZIndex;">
     <div class="bb-viewer-mask"></div>
     <div class="bb-viewer-canvas">
         <img src="@GetFirstImageUrl()" class="bb-viewer-img" style="transform: scale(1) rotate(0deg); margin-left: 0px; margin-top: 0px;">

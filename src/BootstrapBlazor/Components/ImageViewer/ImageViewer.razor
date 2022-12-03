@@ -1,7 +1,7 @@
 ﻿@namespace BootstrapBlazor.Components
 @inherits BootstrapModuleComponentBase
 
-<div @attributes="AdditionalAttributes" class="@ClassString" id="@Id" data-bb-async="@IsAsyncString">
+<div @attributes="AdditionalAttributes" class="@ClassString" id="@Id" data-bb-previewer-id="@PreviewerId" data-bb-async="@IsAsyncString">
     @if (ShowImage)
     {
         @RenderChildContent()
@@ -13,7 +13,7 @@
 
     @if (ShowPreviewList)
     {
-        <ImagePreview ZIndex="@ZIndex" PreviewList="PreviewList" />
+        <ImagePreviewer Id="@PreviewerId" ZIndex="@ZIndex" PreviewList="PreviewList" />
     }
 </div>
 

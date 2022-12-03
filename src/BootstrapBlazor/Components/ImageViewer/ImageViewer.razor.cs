@@ -113,6 +113,12 @@ public partial class ImageViewer
     /// <returns></returns>
     protected override Task ModuleInitAsync() => InvokeInitAsync(Id, Url);
 
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    protected override Task ModuleExecuteAsync() => InvokeExecuteAsync(Id, PreviewList);
+
     private RenderFragment RenderChildContent() => builder =>
     {
         if (!IsError)
@@ -149,10 +155,6 @@ public partial class ImageViewer
                     }
                 }));
             }
-            if (PreviewList != null && PreviewList.Count > 0)
-            {
-                builder.AddAttribute(5, "onclick", EventCallback.Factory.Create(this, () => InvokeExecuteAsync(Id, PreviewList)));
-            }
             builder.CloseElement();
 
             if (ShouldRenderPlaceHolder)
@@ -170,5 +172,7 @@ public partial class ImageViewer
 
     private bool ShouldHandleError => HandleError || ErrorTemplate != null;
 
-    private bool ShowPreviewList => PreviewList != null && PreviewList.Count > 0;
+    private bool ShowPreviewList => PreviewList?.Any() ?? false;
+
+    private string PreviewerId => $"prev_{Id}";
 }

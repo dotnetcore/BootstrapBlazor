@@ -6,7 +6,7 @@
 {
     <BootstrapLabel required="@Required" ShowLabelTooltip="ShowLabelTooltip" Value="@DisplayText" />
 }
-<div @attributes="@AdditionalAttributes" class="@ClassString" id="@Id">
+<div @attributes="@AdditionalAttributes" class="@ClassString" id="@Id" data-bb-previewer-id="@PreviewerId">
     <div class="@BodyClassString">
         @foreach (var item in GetUploadFiles())
         {
@@ -24,7 +24,7 @@
                 <div class="upload-item-size"><span>@GetFileName(item)</span> (@item.Size.ToFileSizeString())</div>
                 <div class="upload-item-actions">
                     <div class="btn-group">
-                        <button type="button" class="btn btn-sm btn-secondary" disabled="@GetDiabledString(item)" @onclick="() => OnClickZoom(item)" aria-label="zoom">
+                        <button type="button" class="btn btn-sm btn-secondary btn-zoom" disabled="@GetDiabledString(item)" @onclick="() => OnClickZoom(item)" aria-label="zoom">
                             <i class="fa-solid fa-magnifying-glass-plus"></i>
                         </button>
                         @if(ShowDownloadButton)
@@ -68,6 +68,6 @@
 
     @if (ShowPreviewList)
     {
-        <ImagePreview PreviewList="PreviewList" />
+        <ImagePreviewer Id="@PreviewerId" PreviewList="PreviewList" />
     }
 </div>
