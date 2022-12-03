@@ -109,7 +109,7 @@ public static class DialogServiceExtensions
         where TDialog : IComponent, IResultDialog
     {
         IResultDialog? resultDialog = null;
-        var result = DialogResult.Close;
+        var result = DialogResult.Unset;
 
         option.BodyTemplate = builder =>
         {
@@ -170,10 +170,15 @@ public static class DialogServiceExtensions
                     await closeCallback();
                 }
 
-                // Modal 与 ModalDialog 的 OnClose 事件陷入死循环
-                // option.OnClose -> Modal.Close -> ModalDialog.Close -> ModalDialog.OnClose -> option.OnClose
                 option.OnCloseAsync = null;
-                await option.Dialog.Close();
+                if (result == DialogResult.Unset)
+                {
+                    result = DialogResult.Close;
+                }
+                else
+                {
+                    await option.Dialog.Close();
+                }
                 option.ReturnTask.SetResult(result);
             }
             else
