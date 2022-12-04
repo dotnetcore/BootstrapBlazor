@@ -322,6 +322,12 @@ public class DialogTest : DialogTestBase
         cut.InvokeAsync(() => button.Instance.OnClick.InvokeAsync());
         cut.InvokeAsync(() => modal.Instance.CloseCallback());
 
+        // 点击右上角关闭按钮
+        cut.InvokeAsync(() => dialog.ShowModal<MockModalDialog>(resultOption));
+        var btnElement = cut.Find(".btn-close");
+        cut.InvokeAsync(() => btnElement.Click());
+        cut.InvokeAsync(() => modal.Instance.CloseCallback());
+
         cut.InvokeAsync(() => dialog.ShowModal<MockModalDialogClosingFalse>(resultOption));
         button = cut.FindComponents<Button>().First(b => b.Instance.Text == "关闭");
         cut.InvokeAsync(() => button.Instance.OnClick.InvokeAsync());
