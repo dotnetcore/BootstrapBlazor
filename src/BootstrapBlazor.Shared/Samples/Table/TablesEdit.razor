@@ -180,7 +180,7 @@
     <p>@((MarkupString)Localizer["FooterTemplateDesc"].Value)</p>
     <Pre>&lt;EditFooterTemplate Context="model"&gt;
     &lt;Button Text="Popup" Color="Color.Danger" Icon="fa-regular fa-comment-dots" OnClick="() =&gt; OnClick(model)"&gt;&lt;/Button&gt;
-    &lt;DialogCloseButton Color="Color.Secondary" Icon="fa-solid fa-xmark" Text="Close" /&gt;
+    &lt;DialogCloseButton /&gt;
     &lt;DialogSaveButton Color="Color.Primary" Icon="fa-solid fa-floppy-disk" Text="Save" /&gt;
 &lt;/EditFooterTemplate&gt;</Pre>
     <Table TItem="Foo" EditDialogShowMaximizeButton="true"
@@ -192,7 +192,7 @@
         </TableColumns>
         <EditFooterTemplate Context="model">
             <Button Text="Popup" Color="Color.Danger" Icon="fa-regular fa-comment-dots" OnClick="() => OnClick(model)"></Button>
-            <DialogCloseButton Color="Color.Secondary" Icon="fa-solid fa-xmark" Text="Close" />
+            <DialogCloseButton />
             <DialogSaveButton Color="Color.Primary" Icon="fa-solid fa-floppy-disk" Text="Save" />
         </EditFooterTemplate>
     </Table>

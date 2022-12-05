@@ -28,24 +28,25 @@ public partial class DialogCloseButton : Button
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    protected override void OnInitialized()
-    {
-        base.OnInitialized();
-
-        if (OnCloseAsync != null)
-        {
-            OnClickWithoutRender = OnCloseAsync;
-        }
-    }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
     protected override void OnParametersSet()
     {
         base.OnParametersSet();
 
         ButtonIcon ??= "fa-solid fa-fw fa-xmark";
         Text ??= Localizer[nameof(ModalDialog.CloseButtonText)];
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    protected override async Task HandlerClick()
+    {
+        await base.HandlerClick();
+
+        if (OnCloseAsync != null)
+        {
+            await OnCloseAsync();
+        }
     }
 }
