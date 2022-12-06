@@ -942,18 +942,6 @@ section {
         display: inline-block;
     }
 
-.table-fixed-column-demo .table th:nth-child(1).fixed,
-.table-fixed-column-demo .table td:nth-child(1).fixed {
-    border-right-color: #dee2e6;
-}
-
-.table-fixed-column-demo .table th:nth-last-child(2),
-.table-fixed-column-demo .table td:nth-last-child(2),
-.table-fixed-column-demo2 .table th:nth-last-child(3),
-.table-fixed-column-demo2 .table td:nth-last-child(2) {
-    border-right-width: 0;
-}
-
 .table-wrap-header-demo .table th .table-cell span {
     max-width: 120px;
     white-space: nowrap;

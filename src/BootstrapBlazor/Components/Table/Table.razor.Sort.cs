@@ -102,7 +102,10 @@ public partial class Table<TItem>
         .AddClass(GetFixedCellClassString(col))
         .Build();
 
-    private string? MultiColumnClassString => FixedMultipleColumn ? "fixed" : null;
+    private string? MultiColumnClassString => CssBuilder.Default()
+        .AddClass("fixed", FixedMultipleColumn)
+        .AddClass("fr", IsLastMultiColumn())
+        .Build();
 
     private int MulitiColumnLeft => ShowDetails() ? DetailColumnWidth : 0;
 
@@ -119,6 +122,8 @@ public partial class Table<TItem>
     protected string? GetFixedCellClassString(ITableColumn col, string? cellClass = null) => CssBuilder.Default(cellClass)
         .AddClass("fixed", col.Fixed)
         .AddClass("fixed-right", col.Fixed && IsTail(col))
+        .AddClass("fr", IsLastColumn(col))
+        .AddClass("fl", IsFirstColumn(col))
         .Build();
 
     /// <summary>
@@ -128,6 +133,8 @@ public partial class Table<TItem>
     protected string? FixedExtendButtonsColumnClassString => CssBuilder.Default("table-column-button")
         .AddClass("fixed", FixedExtendButtonsColumn)
         .AddClass("fixed-right", !IsExtendButtonsInRowHeader)
+        .AddClass("fr", IsLastExtendButtonColumn())
+        .AddClass("fl", IsFirstExtendButtonColumn())
         .Build();
 
     /// <summary>
@@ -137,6 +144,8 @@ public partial class Table<TItem>
     protected string? ExtendButtonsColumnClass => CssBuilder.Default()
         .AddClass("fixed", FixedExtendButtonsColumn)
         .AddClass("fixed-right", !IsExtendButtonsInRowHeader)
+        .AddClass("fr", IsLastExtendButtonColumn())
+        .AddClass("fl", IsFirstExtendButtonColumn())
         .Build();
 
     /// <summary>
@@ -147,6 +156,34 @@ public partial class Table<TItem>
         .AddClass($"right: {(IsFixedHeader ? margin : 0)}px;", FixedExtendButtonsColumn && !IsExtendButtonsInRowHeader)
         .AddClass($"left: {GetExtendButtonsColumnLeftMargin()}px;", FixedExtendButtonsColumn && IsExtendButtonsInRowHeader)
         .Build();
+
+    private bool IsLastMultiColumn() => FixedMultipleColumn && (!FixedExtendButtonsColumn || !IsExtendButtonsInRowHeader) && !GetColumns().Any(i => i.Fixed);
+
+    private bool IsLastColumn(ITableColumn col)
+    {
+        var ret = false;
+        if (col.Fixed && !IsTail(col))
+        {
+            var index = Columns.IndexOf(col) + 1;
+            ret = index < Columns.Count && Columns[index].Fixed == false;
+        }
+        return ret;
+    }
+
+    private bool IsLastExtendButtonColumn() => IsExtendButtonsInRowHeader && !GetColumns().Any(i => i.Fixed);
+
+    private bool IsFirstColumn(ITableColumn col)
+    {
+        var ret = false;
+        if (col.Fixed && IsTail(col))
+        {
+            var index = Columns.IndexOf(col) - 1;
+            ret = index > 0 && Columns[index].Fixed == false;
+        }
+        return ret;
+    }
+
+    private bool IsFirstExtendButtonColumn() => !IsExtendButtonsInRowHeader && !GetColumns().Any(i => i.Fixed);
 
     private int GetExtendButtonsColumnLeftMargin()
     {
@@ -185,7 +222,7 @@ public partial class Table<TItem>
 
     private bool IsTail(ITableColumn col)
     {
-        var middle = Math.Floor(Columns.Count * 1.0 / 2);
+        var middle = Math.Floor(GetColumns().Count() * 1.0 / 2);
         var index = Columns.IndexOf(col);
         return middle < index;
     }
