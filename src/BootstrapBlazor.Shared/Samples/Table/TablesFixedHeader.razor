@@ -9,7 +9,7 @@
 <DemoBlock Title="@Localizer["FixedHeaderTitle"]" Introduction="@Localizer["FixedHeaderIntro"]" Name="FixedHeader">
     <p>@Localizer["FixedHeaderP"]</p>
     <p>@Localizer["FixedHeaderP1"]</p>
-    <Table TItem="Foo" Items="@Items.Take(10)" Height="200" IsBordered="true" IsFixedHeader="true">
+    <Table TItem="Foo" Items="@Items.Take(10)" RenderMode="TableRenderMode.Table" Height="200" IsBordered="true" IsFixedHeader="true">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" />
             <TableColumn @bind-Field="@context.Name" Width="100" />
@@ -20,7 +20,7 @@
 
 <DemoBlock Title="@Localizer["FixedWidthTitle"]" Introduction="@Localizer["FixedWidthIntro"]" Name="FixedWidth">
     <p>@Localizer["FixedWidthP"]</p>
-    <Table TItem="Foo" Items="@Items.Take(10)" IsBordered="true" IsMultipleSelect="true" Height="200" IsFixedHeader="true">
+    <Table TItem="Foo" Items="@Items.Take(10)" RenderMode="TableRenderMode.Table" IsBordered="true" IsMultipleSelect="true" Height="200" IsFixedHeader="true">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" />
             <TableColumn @bind-Field="@context.Name" Width="100" />
@@ -31,7 +31,7 @@
 
 <DemoBlock Title="@Localizer["AllowResizingTitle"]" Introduction="@Localizer["AllowResizingIntro"]" Name="AllowResizing">
     <p>@((MarkupString)Localizer["AllowResizingP"].Value)</p>
-    <Table TItem="Foo" Items="@Items.Take(10)"
+    <Table TItem="Foo" Items="@Items.Take(10)" RenderMode="TableRenderMode.Table"
            IsBordered="true" IsMultipleSelect="true" IsPagination="true" IsFixedHeader="true"
            Height="200" AllowResizing="true">
         <TableColumns>
@@ -45,7 +45,7 @@
 <DemoBlock Title="@Localizer["AutoHeightTitle"]" Introduction="@Localizer["AutoHeightIntro"]" Name="AutoHeight">
     <p>@((MarkupString)Localizer["AutoHeightP"].Value)</p>
     <div style="height: 300px;">
-        <Table TItem="Foo" Items="@Items.Take(10)" ShowColumnList="true" ShowToolbar="true" ShowDefaultButtons="false" ShowRefresh="false"
+        <Table TItem="Foo" Items="@Items.Take(10)" RenderMode="TableRenderMode.Table" ShowColumnList="true" ShowToolbar="true" ShowDefaultButtons="false" ShowRefresh="false"
                IsBordered="true" IsMultipleSelect="true" IsPagination="true" IsFixedHeader="true" AllowResizing="true">
             <TableColumns>
                 <TableColumn @bind-Field="@context.DateTime" Width="180" />
@@ -77,7 +77,7 @@
 @code {
     RenderFragment RenderTable() =>
     @<Table TItem="Foo" Items="@Items" ShowColumnList="true" ShowToolbar="true" ShowDefaultButtons="false" ShowRefresh="false"
-       IsBordered="true" IsMultipleSelect="true" IsPagination="true" IsFixedHeader="true" AllowResizing="true">
+       IsBordered="true" IsMultipleSelect="true" IsPagination="true" IsFixedHeader="true" AllowResizing="true" RenderMode="TableRenderMode.Table">
             <TableColumns>
                 <TableColumn @bind-Field="@context.DateTime" Width="180" />
                 <TableColumn @bind-Field="@context.Name" Width="100" />
