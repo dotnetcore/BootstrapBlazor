@@ -306,14 +306,6 @@ public partial class Table<TItem>
         .Build();
 
     /// <summary>
-    /// 获得 Header 中表头文字样式
-    /// </summary>
-    /// <param name="col"></param>
-    /// <returns></returns>
-    protected string? GetHeaderTextClassString(ITableColumn col) => CssBuilder.Default("table-text")
-        .Build();
-
-    /// <summary>
     /// 获得 Cell 文字样式
     /// </summary>
     /// <param name="col"></param>

@@ -481,13 +481,13 @@ RenderFragment<bool> RenderHeader => hasScroll =>
                             }
                             else if(col.Sortable)
                             {
-                                <Tooltip class="@GetHeaderTextClassString(col)" Title="@GetSortTooltip(col)" Trigger="hover">
+                                <Tooltip class="table-text" Title="@GetSortTooltip(col)" Trigger="hover">
                                     <span>@displayName</span>
                                 </Tooltip>
                             }
                             else
                             {
-                                <span class="@GetHeaderTextClassString(col)">@displayName</span>
+                                <span class="table-text">@displayName</span>
                             }
                             @if (col.Filterable && !ShowFilterHeader)
                             {

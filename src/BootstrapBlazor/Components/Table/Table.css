@@ -556,10 +556,6 @@
     flex: 1;
 }
 
-    .table .table-cell .tabs .tabs-body {
-        padding: 1rem 0 0 0;
-    }
-
 .table-resize thead th,
 .table-resize tbody td {
     position: relative;
