@@ -27,8 +27,8 @@ public partial class PulseButton
         .AddClass("btn-pulse")
         .Build();
 
-    private string? PulseColorString => CssBuilder.Default("pulse-ring")
-        .AddClass($"pulse-{PulseColor.ToDescriptionString()}", PulseColor != Color.None)
+    private string? PulseColorString => CssBuilder.Default("pulse-ring border")
+        .AddClass($"border-{PulseColor.ToDescriptionString()}", PulseColor != Color.None)
         .Build();
 
     /// <summary>

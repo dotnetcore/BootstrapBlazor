@@ -51,7 +51,7 @@ public class ListViewTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public async Task Pageable_Ok()
+    public void Pageable_Ok()
     {
         var items = Enumerable.Range(1, 6).Select(i => new Product()
         {
@@ -63,17 +63,50 @@ public class ListViewTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.OnQueryAsync, Query);
             pb.Add(a => a.Pageable, true);
-            pb.Add(a => a.PageItemsSource, new int[] { 2, 4 });
+            pb.Add(a => a.PageItems, 2);
         });
 
         var pages = cut.FindAll(".page-link");
-        await cut.InvokeAsync(() => pages[2].Click());
+        Assert.Equal(5, pages.Count);
+        cut.InvokeAsync(() => pages[2].Click());
 
         Task<QueryData<Product>> Query(QueryPageOptions option) => Task.FromResult(new QueryData<Product>()
         {
             Items = items,
             TotalCount = 6
         });
+    }
+
+    [Fact]
+    public void QueryAsync_Ok()
+    {
+        bool query = false;
+        var items = Enumerable.Range(1, 6).Select(i => new Product()
+        {
+            ImageUrl = $"images/Pic{i}.jpg",
+            Description = $"Pic{i}.jpg",
+            Category = $"Group{(i % 4) + 1}"
+        });
+        var cut = Context.RenderComponent<ListView<Product>>(pb =>
+        {
+            pb.Add(a => a.OnQueryAsync, option =>
+            {
+                query = true;
+                var ret = new QueryData<Product>()
+                {
+                    Items = items,
+                    TotalCount = 6
+                };
+                return Task.FromResult(ret);
+            });
+            pb.Add(a => a.Pageable, true);
+            pb.Add(a => a.PageItems, 2);
+        });
+        Assert.True(query);
+
+        query = false;
+        cut.InvokeAsync(() => cut.Instance.QueryAsync());
+        Assert.True(query);
     }
 
     private class Product

@@ -2,6 +2,22 @@
     position: fixed;
 }
 
+    .toast-container.top-0 {
+        top: 1rem !important;
+    }
+
+    .toast-container.bottom-0 {
+        bottom: 1rem !important;
+    }
+
+    .toast-container.start-0 {
+        left: 1rem !important;
+    }
+
+    .toast-container.end-0 {
+        right: 1rem !important;
+    }
+
 .toast {
     --bs-toast-border-radius: var(--bs-border-radius);
     position: relative;

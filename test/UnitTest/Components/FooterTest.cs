@@ -16,4 +16,36 @@ public class FooterTest : BootstrapBlazorTestBase
         });
         Assert.Contains("test-footer-text", cut.Markup);
     }
+
+    [Fact]
+    public void Footer_ShowGoto()
+    {
+        var cut = Context.RenderComponent<Footer>(pb =>
+        {
+            pb.Add(a => a.Text, "test-footer-text");
+            pb.Add(a => a.ShowGoto, true);
+        });
+        Assert.Contains("layout-gotop", cut.Markup);
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ShowGoto, false);
+        });
+        Assert.DoesNotContain("layout-gotop", cut.Markup);
+    }
+
+    [Fact]
+    public void Footer_ChildContent()
+    {
+        var cut = Context.RenderComponent<Footer>(pb =>
+        {
+            pb.Add(a => a.Text, "test-footer-text");
+            pb.Add(a => a.ChildContent, builder =>
+            {
+                builder.AddContent(0, "test-child-content");
+            });
+        });
+        Assert.Contains("test-child-content", cut.Markup);
+        Assert.DoesNotContain("test-footer-text", cut.Markup);
+    }
 }

@@ -15,10 +15,10 @@
             </HeaderTemplate>
             <BodyTemplate>
                 <Card>
-                    <CardBody>
+                    <BodyTemplate>
                         <img src="@context.ImageUrl" />
                         <div class="listview-demo-desc">@context.Description</div>
-                    </CardBody>
+                    </BodyTemplate>
                 </Card>
             </BodyTemplate>
             <FooterTemplate>
@@ -33,16 +33,16 @@
 
 <DemoBlock Title="@Localizer["PaginationTitle"]" Introduction="@Localizer["PaginationIntro"]" Name="Pagination">
     <div class="listview-demo">
-        <ListView TItem="Product" Pageable="true" OnQueryAsync="@OnQueryAsync">
+        <ListView TItem="Product" Pageable="true" PageItems="21" OnQueryAsync="@OnQueryAsync">
             <HeaderTemplate>
                 <div>@Localizer["ProductListText"]</div>
             </HeaderTemplate>
             <BodyTemplate>
                 <Card>
-                    <CardBody>
+                    <BodyTemplate>
                         <img src="@context.ImageUrl" />
                         <div class="listview-demo-desc">@context.Description</div>
-                    </CardBody>
+                    </BodyTemplate>
                 </Card>
             </BodyTemplate>
         </ListView>
@@ -57,10 +57,10 @@
             </HeaderTemplate>
             <BodyTemplate>
                 <Card>
-                    <CardBody>
+                    <BodyTemplate>
                         <img src="@context.ImageUrl" />
                         <div class="listview-demo-desc">@context.Description</div>
-                    </CardBody>
+                    </BodyTemplate>
                 </Card>
             </BodyTemplate>
         </ListView>

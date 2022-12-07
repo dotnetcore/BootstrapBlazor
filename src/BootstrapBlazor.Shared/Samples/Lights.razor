@@ -64,10 +64,16 @@
     </div>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["P7"]" Introduction="@Localizer["P8"]" Name="Title">
+<DemoBlock Title="@Localizer["P7"]" Introduction="@Localizer["P8"]" Name="TooltipText">
     <div class="row g-3">
         <div class="col-12 col-sm-4 col-md-3 col-lg-auto">
-            <Light Color="Color.Danger" Title="@Localizer["P9"]"></Light>
+            <Light Color="Color.Danger" TooltipText="@Title"></Light>
+        </div>
+        <div class="col-12 col-sm-4 col-md-3 col-lg-auto">
+            <Button Text="Remove Tooltip" OnClick="OnRemoveTitle"></Button>
+        </div>
+        <div class="col-12 col-sm-4 col-md-3 col-lg-auto">
+            <Button Text="Set Tooltip" OnClick="OnSetTitle"></Button>
         </div>
     </div>
 </DemoBlock>

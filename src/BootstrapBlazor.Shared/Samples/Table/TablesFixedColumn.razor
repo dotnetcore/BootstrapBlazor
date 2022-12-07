@@ -7,7 +7,7 @@
 
 <DemoBlock Title="@Localizer["P2"]" Introduction="@Localizer["P3"]" Name="FixedColHeader">
     <p>@((MarkupString)Localizer["P4"].Value)</p>
-    <Table TItem="Foo" Items="@Items.Take(4)" HeaderStyle="TableHeaderStyle.Light" IsBordered="true" IsStriped="true" class="table-fixed-column-demo">
+    <Table TItem="Foo" Items="@Items.Take(4)" RenderMode="TableRenderMode.Table" HeaderStyle="TableHeaderStyle.Light" IsBordered="true" IsStriped="true" class="table-fixed-column-demo">
         <TableColumns>
             <TableColumn @bind-Field="@context.Name" Width="100" Fixed="true" />
             <TableColumn @bind-Field="@context.DateTime" Width="180" Fixed="true" Filterable="true" />
@@ -20,7 +20,7 @@
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["P5"]" Introduction="@Localizer["P6"]" Name="FixedColTableHeader">
-    <Table TItem="Foo" Items="@Items.Take(10)" HeaderStyle="TableHeaderStyle.Dark" IsBordered="true" IsStriped="true" IsMultipleSelect="true" Height="200" class="table-fixed-column-demo2">
+    <Table TItem="Foo" Items="@Items.Take(10)" RenderMode="TableRenderMode.Table" HeaderStyle="TableHeaderStyle.Dark" IsBordered="true" IsStriped="true" IsMultipleSelect="true" Height="200" FixedMultipleColumn="true" class="table-fixed-column-demo2">
         <TableColumns>
             <TableColumn @bind-Field="@context.Name" Width="100" Fixed="true" />
             <TableColumn @bind-Field="@context.DateTime" Width="180" />
@@ -33,7 +33,7 @@
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["P7"]" Introduction="@Localizer["P8"]" Name="FixedExtendButtonsColumn">
-    <Table TItem="Foo" Items="@Items.Take(4)" IsBordered="true" IsStriped="true"
+    <Table TItem="Foo" Items="@Items.Take(4)" IsBordered="true" IsStriped="true" RenderMode="TableRenderMode.Table"
            ShowExtendButtons="true" FixedExtendButtonsColumn="true"
            class="table-fixed-column-demo">
         <TableColumns>
@@ -49,8 +49,8 @@
 
 <DemoBlock Title="@Localizer["P9"]" Introduction="@Localizer["P10"]" Name="FixedExtendButtonsColumn">
     <Table TItem="Foo" Items="@Items.Take(10)" IsBordered="true" IsStriped="true" IsMultipleSelect="true"
-           IsFixedHeader="true" FixedExtendButtonsColumn="true" Height="200"
-           ShowExtendButtons="true" class="table-fixed-column-demo2">
+           IsFixedHeader="true" FixedExtendButtonsColumn="true" Height="200" FixedMultipleColumn="true"
+           ShowExtendButtons="true" RenderMode="TableRenderMode.Table" class="table-fixed-column-demo2">
         <TableColumns>
             <TableColumn @bind-Field="@context.Name" Width="100" />
             <TableColumn @bind-Field="@context.DateTime" Width="180" />
@@ -62,8 +62,8 @@
     </Table>
 
     <Table TItem="Foo" Items="@Items.Take(10)" IsBordered="true" IsStriped="true" IsMultipleSelect="true"
-           IsFixedHeader="true" FixedExtendButtonsColumn="true" IsExtendButtonsInRowHeader="true"
-           ShowExtendButtons="true" Height="200" class="table-fixed-column-demo mt-3">
+           IsFixedHeader="true" FixedExtendButtonsColumn="true" IsExtendButtonsInRowHeader="true" FixedMultipleColumn="true"
+           ShowExtendButtons="true" RenderMode="TableRenderMode.Table" Height="200" class="table-fixed-column-demo mt-3">
         <TableColumns>
             <TableColumn @bind-Field="@context.Name" Width="100" />
             <TableColumn @bind-Field="@context.DateTime" Width="180" />

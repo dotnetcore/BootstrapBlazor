@@ -66,6 +66,11 @@ public class DialogOption
     public bool IsKeyboard { get; set; } = true;
 
     /// <summary>
+    /// 获得/设置 是否支持点击遮罩关闭弹窗 默认 false
+    /// </summary>
+    public bool IsBackdrop { get; set; }
+
+    /// <summary>
     /// 获得/设置 是否显示 Footer 默认为 true
     /// </summary>
     public bool ShowFooter { get; set; } = true;
@@ -106,9 +111,14 @@ public class DialogOption
     public RenderFragment? FooterTemplate { get; set; }
 
     /// <summary>
-    /// 获得/设置 ModalHeader 组件
+    /// 获得/设置 ModalHeader 组件模板
     /// </summary>
     public RenderFragment? HeaderTemplate { get; set; }
+
+    /// <summary>
+    /// 获得/设置 ModalHeader 组件自定义按钮
+    /// </summary>
+    public RenderFragment? HeaderToolbarTemplate { get; set; }
 
     /// <summary>
     /// 获得/设置 自定义组件
@@ -148,7 +158,7 @@ public class DialogOption
     /// <summary>
     /// 获得/设置 弹窗已显示时回调此方法
     /// </summary>
-    public Func<Task>? ShownCallbackAsync { get; set; }
+    public Func<Task>? OnShownAsync { get; set; }
 
     /// <summary>
     /// 将参数转换为组件属性方法

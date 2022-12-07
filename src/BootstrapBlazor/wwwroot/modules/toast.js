@@ -1,5 +1,5 @@
 ﻿import BlazorComponent from "./base/blazor-component.js"
-import EventHandler from "./base/event-handler.js";
+import EventHandler from "./base/event-handler.js"
 
 export class Toast extends BlazorComponent {
     _init() {

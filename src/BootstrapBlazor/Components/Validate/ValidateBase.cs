@@ -22,7 +22,7 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
     /// <summary>
     /// 获得/设置 上一次转化失败错误描述信息
     /// </summary>
-    protected string PreviousErrorMessage { get; set; } = "";
+    protected string? PreviousErrorMessage { get; set; }
 
     /// <summary>
     /// Gets the associated <see cref="EditContext"/>.
@@ -118,7 +118,7 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
             else
             {
                 PreviousParsingAttemptFailed = true;
-                PreviousErrorMessage = validationErrorMessage ?? "";
+                PreviousErrorMessage = validationErrorMessage;
 
                 if (_parsingValidationMessages == null && EditContext != null)
                 {
@@ -127,7 +127,7 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
 
                 if (FieldIdentifier != null)
                 {
-                    _parsingValidationMessages?.Add(FieldIdentifier.Value, PreviousErrorMessage);
+                    _parsingValidationMessages?.Add(FieldIdentifier.Value, PreviousErrorMessage ?? "");
 
                     // Since we're not writing to CurrentValue, we'll need to notify about modification from here
                     EditContext?.NotifyFieldChanged(FieldIdentifier.Value);
@@ -154,25 +154,6 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
     [Parameter]
     [NotNull]
     public string? ParsingErrorMessage { get; set; }
-
-    /// <summary>
-    /// 获得/设置 当前组件 Id
-    /// </summary>
-    [Parameter]
-    [NotNull]
-    public override string? Id
-    {
-        get
-        {
-            return (!string.IsNullOrEmpty(ValidateForm?.Id) && FieldIdentifier != null)
-                ? $"{ValidateForm.Id}_{FieldIdentifier.Value.Model.GetHashCode()}_{FieldIdentifier.Value.FieldName}"
-                : base.Id;
-        }
-        set
-        {
-            base.Id = value;
-        }
-    }
 
     /// <summary>
     /// 获得/设置 是否不进行验证 默认为 false
@@ -276,6 +257,10 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
         {
             ValidateForm.AddValidator((FieldIdentifier.Value.FieldName, ModelType: FieldIdentifier.Value.Model.GetType()), (FieldIdentifier.Value, this));
         }
+
+        Id = (!string.IsNullOrEmpty(ValidateForm?.Id) && FieldIdentifier != null)
+                ? $"{ValidateForm.Id}_{FieldIdentifier.Value.Model.GetHashCode()}_{FieldIdentifier.Value.FieldName}"
+                : base.Id;
     }
 
     /// <summary>
@@ -499,7 +484,7 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
                 ValidateForm.TryRemoveValidator((FieldIdentifier.Value.FieldName, FieldIdentifier.Value.Model.GetType()), out _);
             }
 
-            if(ValidateModule != null )
+            if (ValidateModule != null)
             {
                 var id = RetrieveId();
                 await ValidateModule.InvokeVoidAsync("Validate.dispose", id);

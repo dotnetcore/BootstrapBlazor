@@ -8,19 +8,19 @@
             <div class="calendar-title">@GetTitle()</div>
             <div class="calendar-button-group">
                 <div class="btn-group">
-                    <button type="button" class="btn btn-sm" @onclick="e => OnChangeYear(-1)">
+                    <button type="button" class="btn btn-sm" @onclick="() => OnChangeYear(-1)">
                         <span>@PreviousYear</span>
                     </button>
-                    <button type="button" class="btn btn-sm" @onclick="e => OnChangeMonth(-1)">
+                    <button type="button" class="btn btn-sm" @onclick="() => OnChangeMonth(-1)">
                         <span>@PreviousMonth</span>
                     </button>
-                    <button type="button" class="btn btn-sm" @onclick="e => OnChangeMonth(0)">
+                    <button type="button" class="btn btn-sm" @onclick="() => OnChangeMonth(0)">
                         <span>@Today</span>
                     </button>
-                    <button type="button" class="btn btn-sm" @onclick="e => OnChangeMonth(1)">
+                    <button type="button" class="btn btn-sm" @onclick="() => OnChangeMonth(1)">
                         <span>@NextMonth</span>
                     </button>
-                    <button type="button" class="btn btn-sm" @onclick="e => OnChangeYear(1)">
+                    <button type="button" class="btn btn-sm" @onclick="() => OnChangeYear(1)">
                         <span>@NextYear</span>
                     </button>
                 </div>
@@ -64,13 +64,13 @@
             <div class="calendar-title"><span class="d-none d-sm-inline-block">@GetTitle()</span> <span>@WeekNumberText</span></div>
             <div class="calendar-button-group">
                 <div class="btn-group">
-                    <button type="button" class="btn btn-sm" @onclick="e => OnChangeWeek(-7)">
+                    <button type="button" class="btn btn-sm" @onclick="() => OnChangeWeek(-7)">
                         <span>@PreviousWeek</span>
                     </button>
-                    <button type="button" class="btn btn-sm" @onclick="e => OnChangeWeek(0)">
+                    <button type="button" class="btn btn-sm" @onclick="() => OnChangeWeek(0)">
                         <span>@WeekText</span>
                     </button>
-                    <button type="button" class="btn btn-sm" @onclick="e => OnChangeWeek(7)">
+                    <button type="button" class="btn btn-sm" @onclick="() => OnChangeWeek(7)">
                         <span>@NextWeek</span>
                     </button>
                 </div>

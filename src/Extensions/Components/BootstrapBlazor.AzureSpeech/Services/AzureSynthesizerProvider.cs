@@ -104,7 +104,7 @@ public class AzureSynthesizerProvider : ISynthesizerProvider, IAsyncDisposable
             Logger.LogError(ex, "ExchangeToken");
         }
         return ret;
-    });
+    })!;
 
     /// <summary>
     /// Callback 回调方法 由 Javascript 调用
@@ -114,7 +114,7 @@ public class AzureSynthesizerProvider : ISynthesizerProvider, IAsyncDisposable
     [JSInvokable]
     public async Task Callback(SynthesizerStatus status)
     {
-        Logger.LogInformation($"SynthesizerStatus: {status}");
+        Logger.LogInformation("SynthesizerStatus: {Status}", status);
         if (Option.Callback != null)
         {
             await Option.Callback(status);

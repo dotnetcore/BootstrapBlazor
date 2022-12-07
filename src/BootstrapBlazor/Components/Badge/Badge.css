@@ -1,0 +1,4 @@
+﻿.badge.bg-secondary,
+.badge.bg-light {
+    --bs-badge-color: #212529;
+}

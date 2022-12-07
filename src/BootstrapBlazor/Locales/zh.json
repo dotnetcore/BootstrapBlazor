@@ -69,7 +69,7 @@
     "GenericTypeErroMessage": "DateTimePicker 组件仅支持绑定泛型为 DateTime 或者 DateTime?",
     "Today": "今天",
     "Yesterday": "昨天",
-    "Weekago": "一周前"
+    "Week": "一周前"
   },
   "BootstrapBlazor.Components.DateTimeRange": {
     "SeparateText": "至",
@@ -141,16 +141,7 @@
     "MaxErrorMessage": "最多可以选择 {0} 项"
   },
   "BootstrapBlazor.Components.Pagination": {
-    "AiraPageLabel": "分页组件",
-    "AiraPrevPageText": "上一页",
-    "AiraFirstPageText": "第一页",
-    "AiraNextPageText": "下一页",
-    "PageInfoText": "显示第 {0} 到第 {1} 条记录",
-    "TotalInfoText": "，总共 {0} 条记录",
-    "PrePageInfoText": "每页显示",
-    "RowInfoText": "条记录",
-    "LabelString": "第 {0} 页",
-    "SelectItemsText": "{0}"
+    "GotoNavigatorLabelText": "导航到"
   },
   "BootstrapBlazor.Components.PopConfirmButton": {
     "CloseButtonText": "取消",
@@ -164,7 +155,8 @@
     "SearchButtonText": "搜索"
   },
   "BootstrapBlazor.Components.Select": {
-    "PlaceHolder": "请选择 ..."
+    "PlaceHolder": "请选择 ...",
+    "NoSearchDataText": "无数据"
   },
   "BootstrapBlazor.Components.SelectTree": {
     "PlaceHolder": "请选择 ..."
@@ -239,14 +231,17 @@
     "ExportToastTitle": "导出数据",
     "ExportToastContent": "导出数据 {0}，{1} 秒后自动关闭",
     "ExportToastInProgressContent": "正在导出数据，请稍后, {0} 秒后自动关闭",
-    "ExportExcelDropdownItemText": "微软 Excel 格式"
+    "ExportExcelDropdownItemText": "微软 Excel 格式",
+    "PageInfoText": "{0} - {1} 共 {2} 条",
+    "PageItemsText": "{0} 条/页",
+    "CopyColumnTooltipText": "拷贝列内容到剪切板",
+    "CopyColumnCopiedTooltipText": "已拷贝"
   },
   "BootstrapBlazor.Components.EditDialog": {
     "CloseButtonText": "关闭",
     "SaveButtonText": "保存"
   },
   "BootstrapBlazor.Components.TableFilter": {
-    "Title": "过滤",
     "ClearButtonText": "重置",
     "FilterButtonText": "确认",
     "BoolFilter.AllText": "全部",

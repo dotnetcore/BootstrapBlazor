@@ -5,23 +5,25 @@
 <h4>@Localizer["H2"]</h4>
 
 <DemoBlock Title="@Localizer["P1"]" Introduction="@Localizer["P2"]" Name="Normal">
-    <Console Items="@Messages" Height="126" />
-</DemoBlock>
-
-<DemoBlock Title="@Localizer["P3"]" Introduction="@Localizer["P4"]" Name="OnClear">
-    <Console Items="@Messages" Height="126" OnClear="@OnClear" />
+    <Console Items="@Messages" Height="126" IsAutoScroll="false" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["P5"]" Introduction="@Localizer["P6"]" Name="Color">
     <Console Items="@ColorMessages" Height="126" />
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["P7"]" Introduction="@Localizer["P8"]" Name="AutoScroll">
-    <p>@Localizer["P9"] <code>ShowAutoScroll="true"</code> @Localizer["P10"]</p>
-    <Console Items="@Messages" Height="126" ShowAutoScroll="true" />
-
+<DemoBlock Title="@Localizer["P7"]" Introduction="@Localizer["P8"]" Name="IsAutoScroll">
     <p class="mt-3">@Localizer["P11"] <code>IsAutoScroll</code> @Localizer["P12"]</p>
     <Console Items="@Messages" Height="126" IsAutoScroll="true" />
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["P3"]" Introduction="@Localizer["P4"]" Name="OnClear">
+    <Console Items="@Messages" Height="126" OnClear="@OnClear" />
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["ShowAutoScrollTitle"]" Introduction="@Localizer["ShowAutoScrollIntro"]" Name="ShowAutoScroll">
+    <p>@Localizer["P9"] <code>ShowAutoScroll="true"</code> @Localizer["P10"]</p>
+    <Console Items="@Messages" Height="126" ShowAutoScroll="true" OnClear="@OnClear" />
 </DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" />

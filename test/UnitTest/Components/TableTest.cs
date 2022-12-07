@@ -371,33 +371,6 @@ public class TableTest : TableTestBase
     }
 
     [Fact]
-    public async Task Search_JSInvoke()
-    {
-        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
-        {
-            pb.AddChildContent<Table<Foo>>(pb =>
-            {
-                pb.Add(a => a.ShowSearch, true);
-                pb.Add(a => a.SearchMode, SearchMode.Top);
-                pb.Add(a => a.OnQueryAsync, OnQueryAsync(localizer));
-                pb.Add(a => a.TableColumns, foo => builder =>
-                {
-                    builder.OpenComponent<TableColumn<Foo, string>>(0);
-                    builder.AddAttribute(1, "Field", "Name");
-                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
-                    builder.AddAttribute(3, "Searchable", true);
-                    builder.CloseComponent();
-                });
-            });
-        });
-
-        var table = cut.FindComponent<Table<Foo>>();
-        await cut.InvokeAsync(() => table.Instance.OnSearch());
-        await cut.InvokeAsync(() => table.Instance.OnClearSearch());
-    }
-
-    [Fact]
     public void ShowToolbar_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
@@ -538,7 +511,7 @@ public class TableTest : TableTestBase
         });
         cut.Contains("Test_Column_List");
 
-        var item = cut.Find(".btn-col .dropdown-item .form-check-input");
+        var item = cut.Find(".dropdown-item .form-check-input");
         await cut.InvokeAsync(() => item.Click());
 
         Assert.True(show);
@@ -590,6 +563,15 @@ public class TableTest : TableTestBase
             });
         });
         cut.Contains("Test_Export");
+        cut.Contains("fa-solid fa-download");
+
+        var table = cut.FindComponent<Table<Foo>>();
+        table.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ExportButtonIcon, "test-export-icon");
+        });
+        cut.DoesNotContain("fa-solid fa-download");
+        cut.Contains("test-export-icon");
     }
 
     [Fact]
@@ -622,17 +604,16 @@ public class TableTest : TableTestBase
         cut.Contains("test-export-dropdown-item");
     }
 
-    [Theory]
-    [InlineData(true)]
-    [InlineData(false)]
-    public void ShowTopPagination_Ok(bool showTopPagination)
+    [Fact]
+    public void ShowTopPagination_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
-                pb.Add(a => a.ShowTopPagination, showTopPagination);
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.ShowTopPagination, true);
                 pb.Add(a => a.IsPagination, true);
                 pb.Add(a => a.OnQueryAsync, OnQueryAsync(localizer));
                 pb.Add(a => a.TableColumns, foo => builder =>
@@ -642,14 +623,15 @@ public class TableTest : TableTestBase
                     builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
                     builder.CloseComponent();
                 });
+                pb.Add(a => a.OnAfterRenderCallback, tb =>
+                {
+                    return Task.CompletedTask;
+                });
             });
         });
-        cut.Contains("table-pagination");
 
-        if (showTopPagination)
-        {
-            cut.Contains("is-top");
-        }
+        var table = cut.FindComponent<Table<Foo>>();
+        table.Contains("nav nav-pages");
     }
 
     [Fact]
@@ -676,12 +658,8 @@ public class TableTest : TableTestBase
         });
 
         var pager = cut.FindComponent<Pagination>();
-        await cut.InvokeAsync(() => pager.Instance.OnPageItemsChanged!.Invoke(4));
+        await cut.InvokeAsync(() => pager.Instance.OnPageLinkClick!.Invoke(2));
         var activePage = cut.Find(".page-item.active");
-        Assert.Equal("1", activePage.TextContent);
-
-        await cut.InvokeAsync(() => pager.Instance.OnPageClick!.Invoke(2, 4));
-        activePage = cut.Find(".page-item.active");
         Assert.Equal("2", activePage.TextContent);
     }
 
@@ -819,6 +797,74 @@ public class TableTest : TableTestBase
         else
         {
             cut.DoesNotContain("is-ellips");
+        }
+    }
+
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void ShowCopyColumn_Ok(bool showCopy)
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.Items, Foo.GenerateFoo(localizer, 1));
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.AddAttribute(3, "ShowCopyColumn", showCopy);
+                    builder.CloseComponent();
+                });
+            });
+        });
+
+        if (showCopy)
+        {
+            cut.Contains("col-copy");
+        }
+        else
+        {
+            cut.DoesNotContain("col-copy");
+        }
+    }
+
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void ShowCopyColumnTooltip_Ok(bool showCopyTooltip)
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.ShowCopyColumnTooltip, showCopyTooltip);
+                pb.Add(a => a.CopyColumnTooltipText, "test-copy-column-tooltip");
+                pb.Add(a => a.Items, Foo.GenerateFoo(localizer, 1));
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.AddAttribute(3, "ShowCopyColumn", true);
+                    builder.CloseComponent();
+                });
+            });
+        });
+
+        if (showCopyTooltip)
+        {
+            cut.Contains("test-copy-column-tooltip");
+        }
+        else
+        {
+            cut.DoesNotContain("test-copy-column-tooltip");
         }
     }
 
@@ -1293,7 +1339,7 @@ public class TableTest : TableTestBase
                 });
             });
         });
-        cut.Contains("table-filter");
+        cut.Contains("card filter-item");
     }
 
     [Fact]
@@ -2498,43 +2544,6 @@ public class TableTest : TableTestBase
     [Theory]
     [InlineData(true)]
     [InlineData(false)]
-    public void CollapsedTopSearch_Ok(bool collapsed)
-    {
-        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
-        {
-            pb.AddChildContent<Table<Foo>>(pb =>
-            {
-                pb.Add(a => a.ShowSearch, true);
-                pb.Add(a => a.SearchMode, SearchMode.Top);
-                pb.Add(a => a.RenderMode, TableRenderMode.Table);
-                pb.Add(a => a.CollapsedTopSearch, collapsed);
-                pb.Add(a => a.OnQueryAsync, OnQueryAsync(localizer));
-                pb.Add(a => a.TableColumns, foo => builder =>
-                {
-                    builder.OpenComponent<TableColumn<Foo, string>>(0);
-                    builder.AddAttribute(1, "Field", "Name");
-                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
-                    builder.CloseComponent();
-                });
-            });
-        });
-
-        if (collapsed)
-        {
-            cut.DoesNotContain("is-open");
-            cut.Contains("display: none;");
-        }
-        else
-        {
-            cut.Contains("is-open");
-            cut.DoesNotContain("display: none;");
-        }
-    }
-
-    [Theory]
-    [InlineData(true)]
-    [InlineData(false)]
     public void ShowSearchTextTooltip_Ok(bool showTooltip)
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
@@ -2808,56 +2817,6 @@ public class TableTest : TableTestBase
         var row = cut.Find("tbody tr");
         await cut.InvokeAsync(() => row.DoubleClick());
         Assert.True(clicked);
-    }
-
-    [Fact]
-    public async Task OnFilterClick_Ok()
-    {
-        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var items = Foo.GenerateFoo(localizer, 2);
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
-        {
-            pb.AddChildContent<Table<Foo>>(pb =>
-            {
-                pb.Add(a => a.RenderMode, TableRenderMode.Table);
-                pb.Add(a => a.Items, items);
-                pb.Add(a => a.TableColumns, foo => builder =>
-                {
-                    builder.OpenComponent<TableColumn<Foo, string>>(0);
-                    builder.AddAttribute(1, "Field", "Name");
-                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
-                    builder.AddAttribute(3, "Filterable", true);
-                    builder.CloseComponent();
-                });
-            });
-        });
-        var row = cut.Find(".fa-filter");
-        await cut.InvokeAsync(() => row.Click());
-        cut.Contains("card table-filter-item shadow show");
-    }
-
-    [Fact]
-    public void OnFilterClick_Null()
-    {
-        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var items = Foo.GenerateFoo(localizer, 2);
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
-        {
-            pb.AddChildContent<MockTable>(pb =>
-            {
-                pb.Add(a => a.RenderMode, TableRenderMode.Table);
-                pb.Add(a => a.Items, items);
-                pb.Add(a => a.TableColumns, foo => builder =>
-                {
-                    builder.OpenComponent<TableColumn<Foo, string>>(0);
-                    builder.AddAttribute(1, "Field", "Name");
-                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
-                    builder.CloseComponent();
-                });
-            });
-        });
-        var table = cut.FindComponent<MockTable>();
-        table.Instance.OnFilterClick();
     }
 
     [Fact]
@@ -3357,6 +3316,8 @@ public class TableTest : TableTestBase
                     builder.AddAttribute(26, "ValidateRules", new List<IValidator>());
                     builder.AddAttribute(27, "GroupName", "test");
                     builder.AddAttribute(28, "GroupOrder", 1);
+                    builder.AddAttribute(29, "ShowSearchWhenSelect", true);
+                    builder.AddAttribute(30, "IsPopover", false);
                     builder.CloseComponent();
                 });
             });
@@ -3388,6 +3349,8 @@ public class TableTest : TableTestBase
         Assert.NotNull(column.Instance.ValidateRules);
         Assert.Equal("test", column.Instance.GroupName);
         Assert.Equal(1, column.Instance.GroupOrder);
+        Assert.True(column.Instance.ShowSearchWhenSelect);
+        Assert.False(column.Instance.IsPopover);
 
         var col = column.Instance as ITableColumn;
         Assert.NotNull(col.Template);
@@ -3586,7 +3549,7 @@ public class TableTest : TableTestBase
                 pb.Add(a => a.IsKeyboard, true);
                 pb.Add(a => a.ShowLoading, false);
                 pb.Add(a => a.UseComponentWidth, true);
-                pb.Add(a => a.RenderModeResponsiveWidth, 768);
+                pb.Add(a => a.RenderModeResponsiveWidth, BreakPoint.Medium);
                 pb.Add(a => a.SetRowClassFormatter, foo => "test_row_class");
                 pb.Add(a => a.TableColumns, foo => builder =>
                 {
@@ -4474,17 +4437,21 @@ public class TableTest : TableTestBase
         var input = cut.Find("tbody tr input");
         await cut.InvokeAsync(() => input.Click());
         await cut.InvokeAsync(() => table.Instance.EditAsync());
+        var modal = cut.FindComponent<Modal>();
+        await cut.InvokeAsync(() => modal.Instance.CloseCallback());
 
         table.SetParametersAndRender(pb =>
         {
             pb.Add(a => a.ShowEditButtonCallback, foo => false);
         });
         await cut.InvokeAsync(() => table.Instance.EditAsync());
+        await cut.InvokeAsync(() => modal.Instance.CloseCallback());
 
         // 选两个
         input = cut.Find("thead input");
         await cut.InvokeAsync(() => input.Click());
         await cut.InvokeAsync(() => table.Instance.EditAsync());
+        await cut.InvokeAsync(() => modal.Instance.CloseCallback());
     }
 
     [Theory]
@@ -5118,6 +5085,20 @@ public class TableTest : TableTestBase
     }
 
     [Fact]
+    public void TableSettings_Ok()
+    {
+        var settings = new TableSettings()
+        {
+            DetailColumnWidth = 24,
+            ShowCheckboxTextColumnWidth = 80,
+            LineNoColumnWidth = 60
+        };
+        Assert.Equal(24, settings.DetailColumnWidth);
+        Assert.Equal(80, settings.ShowCheckboxTextColumnWidth);
+        Assert.Equal(60, settings.LineNoColumnWidth);
+    }
+
+    [Fact]
     public void AutoGenerateColumns_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
@@ -5147,13 +5128,13 @@ public class TableTest : TableTestBase
         });
 
         var table = cut.FindComponent<MockTable>();
-        Assert.True(table.Instance.TestCheckShownWithBreakpoint(BreakPoint.Small, 1500));
-        Assert.True(table.Instance.TestCheckShownWithBreakpoint(BreakPoint.Medium, 1500));
-        Assert.True(table.Instance.TestCheckShownWithBreakpoint(BreakPoint.Large, 1500));
-        Assert.True(table.Instance.TestCheckShownWithBreakpoint(BreakPoint.ExtraLarge, 1500));
-        Assert.True(table.Instance.TestCheckShownWithBreakpoint(BreakPoint.ExtraExtraLarge, 1500));
-        Assert.True(table.Instance.TestCheckShownWithBreakpoint(BreakPoint.ExtraSmall, 1500));
-        Assert.True(table.Instance.TestCheckShownWithBreakpoint(BreakPoint.None, 1500));
+        Assert.True(table.Instance.TestCheckShownWithBreakpoint(BreakPoint.Small, BreakPoint.ExtraExtraLarge));
+        Assert.True(table.Instance.TestCheckShownWithBreakpoint(BreakPoint.Medium, BreakPoint.ExtraExtraLarge));
+        Assert.True(table.Instance.TestCheckShownWithBreakpoint(BreakPoint.Large, BreakPoint.ExtraExtraLarge));
+        Assert.True(table.Instance.TestCheckShownWithBreakpoint(BreakPoint.ExtraLarge, BreakPoint.ExtraExtraLarge));
+        Assert.True(table.Instance.TestCheckShownWithBreakpoint(BreakPoint.ExtraExtraLarge, BreakPoint.ExtraExtraLarge));
+        Assert.True(table.Instance.TestCheckShownWithBreakpoint(BreakPoint.ExtraSmall, BreakPoint.ExtraExtraLarge));
+        Assert.True(table.Instance.TestCheckShownWithBreakpoint(BreakPoint.None, BreakPoint.ExtraExtraLarge));
     }
 
     [Fact]
@@ -5673,7 +5654,7 @@ public class TableTest : TableTestBase
         return Task.FromResult(new QueryData<Foo>()
         {
             Items = items,
-            TotalCount = items.Count,
+            TotalCount = 80,
             IsAdvanceSearch = isAdvanceSearch,
             IsFiltered = isFilter,
             IsSearch = isSearch,
@@ -5901,22 +5882,21 @@ public class TableTest : TableTestBase
     {
         public TableRenderMode ShouldBeTable()
         {
-            ScreenSize = 10;
-            RenderModeResponsiveWidth = 5;
+            ScreenSize = BreakPoint.Large;
+            RenderModeResponsiveWidth = BreakPoint.Medium;
             RenderMode = TableRenderMode.Auto;
             return base.ActiveRenderMode;
         }
 
         public TableRenderMode ShouldBeCardView()
         {
-            // ScreenSize < RenderModeResponsiveWidth ? TableRenderMode.CardView : TableRenderMode.Table
-            ScreenSize = 1;
-            RenderModeResponsiveWidth = 5;
+            ScreenSize = BreakPoint.ExtraSmall;
+            RenderModeResponsiveWidth = BreakPoint.Medium;
             RenderMode = TableRenderMode.Auto;
             return base.ActiveRenderMode;
         }
 
-        public bool TestCheckShownWithBreakpoint(BreakPoint point, decimal screenSize)
+        public bool TestCheckShownWithBreakpoint(BreakPoint point, BreakPoint screenSize)
         {
             var col = new AutoGenerateColumnAttribute() { ShownWithBreakPoint = point };
             ScreenSize = screenSize;
@@ -5928,12 +5908,6 @@ public class TableTest : TableTestBase
             var col = Columns[0];
             callback(col);
             return RenderCell(col, item, changedType);
-        }
-
-        public void OnFilterClick()
-        {
-            var col = Columns[0];
-            OnFilterClick(col);
         }
 
         public async Task TestLoopQueryAsync()

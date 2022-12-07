@@ -49,10 +49,7 @@ public partial class ThemeChooser
     {
         SiteOptions.CurrentValue.CurrentTheme = item.Value;
 
-        if (Module != null)
-        {
-            await Module.InvokeVoidAsync($"{ModuleName}.execute", Id, LinksCache[item.Value]);
-        }
+        await InvokeExecuteAsync(Id, LinksCache[item.Value]);
     }
 
     private string? GetThemeItemClass(SelectedItem item) => CssBuilder.Default("theme-item")

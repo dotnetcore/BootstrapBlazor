@@ -1,7 +1,7 @@
 ﻿import Data from './data.js'
 import EventHandler from "./event-handler.js"
 import SimpleComponent from "./simple-component.js"
-import { getElement } from "./index.js";
+import { getElement } from "./index.js"
 
 /**
  * Class definition

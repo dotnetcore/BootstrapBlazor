@@ -1,5 +1,5 @@
 ﻿import BlazorComponent from "./base/blazor-component.js"
-import { Confirm } from "./confirm.js";
+import { Confirm } from "./confirm.js"
 
 export class Button extends BlazorComponent {
     _execute(args) {

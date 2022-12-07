@@ -1,27 +1,22 @@
 ﻿.icon-list {
+    --bb-icon-list-width: 190px;
     display: flex;
 }
-
-    .icon-list section:nth-child(2) > h2 {
-        margin-top: 0;
-    }
 
 .icons-body {
     flex: 1;
 }
 
 .icons-nav {
-    position: fixed;
-    top: 5rem;
-    right: 2rem;
-    bottom: calc(1.75rem + 1rem + 52px);
     overflow-y: auto;
     overflow-x: hidden;
+    width: var(--bb-icon-list-width);
+    height: 100%;
+    display: none;
 }
 
     .icons-nav h5 {
         padding-left: .5rem;
-        width: 182px;
     }
 
     .icons-nav .nav {
@@ -40,8 +35,13 @@
     }
 
 .is-catalog .icons-body {
-    margin-right: 190px;
     overflow-y: auto;
     overflow-x: hidden;
-    max-height: calc(100vh - 4.5rem - 47px - 52px);
+    height: 100%;
+}
+
+@media (min-width: 768px) {
+    .icons-nav {
+        display: block;
+    }
 }

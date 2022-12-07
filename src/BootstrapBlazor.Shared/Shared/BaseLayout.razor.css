@@ -1,0 +1,21 @@
+﻿::deep .btn-search .btn {
+    --bs-btn-bg: #8759ff;
+    --bs-btn-color: #fff;
+    --bs-btn-hover-bg: #7d53eb;
+    --bs-btn-hover-color: var(--bs-btn-color);
+    --bs-btn-hover-border-color: var(--bs-btn-hover-bg);
+    --bs-btn-active-bg: var(--bs-btn-hover-bg);
+    --bs-btn-active-color: var(--bs-btn-hover-color);
+    --bs-btn-active-border-color: var(--bs-btn-hover-border-color);
+}
+
+::deep .btn-search .form-control {
+    --bs-border-color: #fff;
+    --bb-border-focus-color: var(--bs-border-color);
+    --bb-border-hover-color: var(--bs-border-color);
+    z-index: 6;
+}
+
+::deep .btn-fs {
+    margin-top: 2px;
+}

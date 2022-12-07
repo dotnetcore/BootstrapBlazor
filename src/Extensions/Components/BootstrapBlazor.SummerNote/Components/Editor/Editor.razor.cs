@@ -4,7 +4,6 @@
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
-using Microsoft.JSInterop;
 using System.Globalization;
 
 namespace BootstrapBlazor.Components;
@@ -19,6 +18,7 @@ public partial class Editor : IAsyncDisposable
     /// </summary>
     private ElementReference EditorElement { get; set; }
 
+    [NotNull]
     private JSModule<Editor>? Module { get; set; }
 
     /// <summary>
@@ -65,24 +65,13 @@ public partial class Editor : IAsyncDisposable
     [NotNull]
     private IStringLocalizer<Editor>? Localizer { get; set; }
 
-    private string? _value;
-    private bool _renderValue;
+    private string? _lastValue;
+
     /// <summary>
     /// 获得/设置 组件值
     /// </summary>
     [Parameter]
-    public string? Value
-    {
-        get { return _value; }
-        set
-        {
-            if (_value != value)
-            {
-                _value = value;
-                _renderValue = true;
-            }
-        }
-    }
+    public string? Value { get; set; }
 
     /// <summary>
     /// 获得/设置 语言，默认为 null 自动判断，内置中英文额外语言包需要自行引入语言包
@@ -177,13 +166,11 @@ public partial class Editor : IAsyncDisposable
             Module = await JSRuntime.LoadModule<Editor>("./_content/BootstrapBlazor.SummerNote/js/bootstrap.blazor.editor.min.js", this, false);
             await Module.InvokeVoidAsync("bb_editor", EditorElement, methodGetPluginAttrs, methodClickPluginItem, nameof(Update), Height, Value ?? "", Language);
         }
-        else if (_renderValue)
+
+        if (_lastValue != Value)
         {
-            _renderValue = false;
-            if (Module != null)
-            {
-                await Module.InvokeVoidAsync("bb_editor_code", EditorElement, Value ?? "");
-            }
+            _lastValue = Value;
+            await Module.InvokeVoidAsync("bb_editor_code", EditorElement, Value ?? "");
         }
     }
 
@@ -195,6 +182,8 @@ public partial class Editor : IAsyncDisposable
     public async Task Update(string value)
     {
         Value = value;
+        _lastValue = Value;
+
         if (ValueChanged.HasDelegate)
         {
             await ValueChanged.InvokeAsync(Value);
@@ -204,8 +193,6 @@ public partial class Editor : IAsyncDisposable
         {
             await OnValueChanged.Invoke(value);
         }
-
-        _renderValue = false;
     }
 
     /// <summary>

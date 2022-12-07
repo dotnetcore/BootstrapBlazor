@@ -39,13 +39,7 @@ public partial class App
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    protected override async Task ModuleInitAsync()
-    {
-        if (Module != null)
-        {
-            await Module.InvokeVoidAsync($"{ModuleName}.init", Localizer["ErrorMessage"].Value, Localizer["Reload"].Value);
-        }
-    }
+    protected override Task ModuleInitAsync() => InvokeInitAsync(Localizer["ErrorMessage"].Value, Localizer["Reload"].Value);
 
     private async Task Notify(DispatchEntry<GiteePostBody> payload)
     {

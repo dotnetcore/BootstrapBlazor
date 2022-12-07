@@ -31,7 +31,8 @@ export class Select extends DropdownBase {
 
             if (this._toggle.classList.contains('show')) {
                 const items = this._toggleMenu.querySelectorAll('.dropdown-item:not(.search, .disabled)')
-                let activeItem = this._toggleMenu.querySelector('.dropdown-item.preActive') ?? this._toggleMenu.querySelector('.dropdown-item.active')
+                let activeItem = this._toggleMenu.querySelector('.dropdown-item.preActive') 
+                if (activeItem == null) activeItem = this._toggleMenu.querySelector('.dropdown-item.active')
 
                 if (activeItem) {
                     if (items.length > 1) {

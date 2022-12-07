@@ -23,6 +23,7 @@ public class TableDialogTest : TableDialogTestBase
                 pb.Add(a => a.Items, items);
                 pb.Add(a => a.EditDialogIsDraggable, true);
                 pb.Add(a => a.EditDialogShowMaximizeButton, false);
+                pb.Add(a => a.EditDialogFullScreenSize, FullScreenSize.None);
                 pb.Add(a => a.EditDialogSize, Size.Large);
                 pb.Add(a => a.EditDialogSaveButtonText, "test-save");
                 pb.Add(a => a.EditDialogCloseButtonText, "test-close");
@@ -61,8 +62,8 @@ public class TableDialogTest : TableDialogTestBase
 
         // 内置数据服务取消回调
         await cut.InvokeAsync(() => table.Instance.EditAsync());
-        var btnClose = cut.Find(".btn-close");
-        await cut.InvokeAsync(() => btnClose.Click());
+        var modal = cut.FindComponent<Modal>();
+        await cut.InvokeAsync(() => modal.Instance.CloseCallback());
 
         // 自定义数据服务取消回调测试
         table.SetParametersAndRender(pb =>
@@ -70,13 +71,34 @@ public class TableDialogTest : TableDialogTestBase
             pb.Add(a => a.DataService, new MockEFCoreDataService(localizer));
         });
         await cut.InvokeAsync(() => table.Instance.EditAsync());
-        btnClose = cut.Find(".btn-close");
-        await cut.InvokeAsync(() => btnClose.Click());
+        await cut.InvokeAsync(() => modal.Instance.CloseCallback());
 
         // Add 弹窗
         await cut.InvokeAsync(() => table.Instance.AddAsync());
-        btnClose = cut.Find(".btn-close");
-        await cut.InvokeAsync(() => btnClose.Click());
+        await cut.InvokeAsync(() => modal.Instance.CloseCallback());
+
+        // 自定义数据服务取消回调测试
+        table.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.EditDialogFullScreenSize, FullScreenSize.Always);
+        });
+        await cut.InvokeAsync(() => table.Instance.AddAsync());
+        Assert.Contains(" modal-fullscreen ", cut.Markup);
+        await cut.InvokeAsync(() => modal.Instance.CloseCallback());
+
+        var closed = false;
+        // 测试 CloseCallback
+        table.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.EditDialogCloseAsync, (model, result) =>
+            {
+                closed = true;
+                return Task.CompletedTask;
+            });
+        });
+        await cut.InvokeAsync(() => table.Instance.AddAsync());
+        await cut.InvokeAsync(() => modal.Instance.CloseCallback());
+        Assert.True(closed);
     }
 
     private class MockEFCoreDataService : IDataService<Foo>, IEntityFrameworkCoreDataService

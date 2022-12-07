@@ -1,6 +1,6 @@
 ﻿@inherits LayoutComponentBase
 
-<header class="navbar navbar-expand navbar-dark flex-column flex-md-row px-3">
+<header class="navbar-header navbar navbar-expand navbar-dark flex-column flex-md-row px-3">
     <div class="header-img navbar-brand">
         <img alt="logo" src="_content/BootstrapBlazor.Shared/images/logo.png" />
         <span>Bootstrap Blazor</span>
@@ -15,12 +15,6 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="components">@ComponentsText</a>
-            </li>
-            <li class="nav-item d-none d-md-flex">
-                <a class="nav-link" href="@WebsiteOption.CurrentValue.ServerUrl">server</a>
-            </li>
-            <li class="nav-item d-none d-md-flex">
-                <a class="nav-link" href="@WebsiteOption.CurrentValue.WasmUrl">wasm</a>
             </li>
         </ul>
     </div>
@@ -46,11 +40,7 @@
 
 @Body
 
-<div class="ms-learn" data-bs-toggle="tooltip" data-bs-placement="left" title="@Title" @ref="MsLearnElement">
-    <a href="@WebsiteOption.CurrentValue.WikiUrl" target="_blank">
-        <img alt="logo" src="_content/BootstrapBlazor.Shared/images/log.svg" />
-    </a>
-</div>
+<LinkButton TooltipPlacement="Placement.Left" ButtonStyle="ButtonStyle.Circle" Color="Color.None" TooltipText="@Title" class="btn-fade btn-update" Url="@WebsiteOption.CurrentValue.WikiUrl" Target="_blank" ImageUrl="_content/BootstrapBlazor.Shared/images/log.svg" />
 
 <ThemeChooser />
 

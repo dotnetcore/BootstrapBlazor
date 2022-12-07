@@ -34,7 +34,7 @@ public abstract class FilterBase : ComponentBase, IFilterAction
     /// <summary>
     /// 获得 当前过滤条件是否激活
     /// </summary>
-    protected bool HasFilter => TableFilter!.HasFilter; // IsHeaderRow 为真时使用 TableFilter 不为空
+    protected bool HasFilter => TableFilter?.HasFilter ?? false; // IsHeaderRow 为真时使用 TableFilter 不为空
 
     /// <summary>
     /// 获得/设置 条件数量

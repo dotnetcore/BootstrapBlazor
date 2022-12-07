@@ -23,7 +23,7 @@ public class AutoRedirect : BootstrapModuleComponentBase
     public bool IsForceLoad { get; set; }
 
     /// <summary>
-    /// 获得/设置 自动锁屏间隔单位 秒 默认 60000 秒
+    /// 获得/设置 自动锁屏间隔单位 秒 默认 60000 毫秒
     /// </summary>
     [Parameter]
     public int Interval { get; set; } = 60000;
@@ -45,13 +45,7 @@ public class AutoRedirect : BootstrapModuleComponentBase
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override async Task ModuleInitAsync()
-    {
-        if (Module != null)
-        {
-            await Module.InvokeVoidAsync($"{ModuleName}.init", Id, Interval, nameof(Lock));
-        }
-    }
+    protected override Task ModuleInitAsync() => InvokeInitAsync(Id, Interval, nameof(Lock));
 
     /// <summary>
     /// 锁屏操作由 JS 调用

@@ -1,7 +1,7 @@
-﻿import { isDisabled } from "./index.js";
-import { getDescribedElement, getDescribedOwner, isFunction } from "./utility.js";
-import EventHandler from "./event-handler.js";
-import BlazorComponent from "./blazor-component.js";
+﻿import BlazorComponent from "./blazor-component.js"
+import EventHandler from "./event-handler.js"
+import { isDisabled } from "./index.js"
+import { getDescribedElement, getDescribedOwner, isFunction } from "./utility.js"
 
 export default class DropdownBase extends BlazorComponent {
     static get Default() {
@@ -88,7 +88,7 @@ export default class DropdownBase extends BlazorComponent {
                     return;
                 }
                 const owner = getDescribedElement(el.closest(DropdownBase.Default.toggleClass));
-                document.querySelectorAll(selector).forEach(function (ele) {
+                document.querySelectorAll(selector).forEach(ele => {
                     if (ele !== owner) {
                         const element = getDescribedOwner(ele);
                         if (element) {
@@ -170,6 +170,20 @@ export default class DropdownBase extends BlazorComponent {
     hide() {
         if (this._isShown()) {
             this._popover.hide();
+        }
+    }
+
+    show() {
+        if (!this._isShown()) {
+            this._popover.show();
+        }
+    }
+
+    toggle() {
+        if (this._isShown()) {
+            this._popover.hide();
+        } else {
+            this._popover.show();
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿import EventHandler from "./base/event-handler.js"
 import BlazorComponent from "./base/blazor-component.js"
-import { getElement } from "./base/index.js";
+import { ImagePreviewer } from "./image-previewer.js"
 
 export class Upload extends BlazorComponent {
     static get Default() {
@@ -56,13 +56,23 @@ export class Upload extends BlazorComponent {
             const event = new Event('change', { bubbles: true });
             this._inputFile.dispatchEvent(event);
         });
+
+        EventHandler.on(this._element, 'click', '.btn-zoom', e => {
+            if (!this._previewer) {
+                const previewerId = document.getElementById(this._config.previewerId)
+                this._previewer = ImagePreviewer.getOrCreateInstance(previewerId)
+            }
+            const button = e.delegateTarget
+            const buttons = [...this._element.querySelectorAll('.btn-zoom')]
+            this._previewer.show(buttons.indexOf(button))
+        })
     }
 
     _execute(args) {
         const tooltipId = args[0]
         const method = args[1]
         if (method === 'disposeTooltip' && tooltipId) {
-            const element = getElement(`#${tooltipId}`)
+            const element = document.getElementById(tooltipId)
             if (element) {
                 const tooltip = bootstrap.Tooltip.getInstance(element)
                 if (tooltip) {

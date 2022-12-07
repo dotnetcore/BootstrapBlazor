@@ -18,7 +18,7 @@ public abstract class ButtonBase : TooltipWrapperBase
     /// <returns></returns>
     protected string? ClassName => CssBuilder.Default("btn")
         .AddClass($"btn-outline-{Color.ToDescriptionString()}", IsOutline)
-        .AddClass($"btn-{Color.ToDescriptionString()}", !IsOutline)
+        .AddClass($"btn-{Color.ToDescriptionString()}", !IsOutline && Color != Color.None)
         .AddClass($"btn-{Size.ToDescriptionString()}", Size != Size.None)
         .AddClass("btn-block", IsBlock)
         .AddClass("btn-round", ButtonStyle == ButtonStyle.Round)
@@ -240,9 +240,9 @@ public abstract class ButtonBase : TooltipWrapperBase
     /// <returns></returns>
     public virtual async Task ShowTooltip()
     {
-        if (Tooltip == null && !string.IsNullOrEmpty(TooltipText) && Module != null)
+        if (Tooltip == null && !string.IsNullOrEmpty(TooltipText))
         {
-            await Module.InvokeVoidAsync($"{ModuleName}.execute", Id, "showTooltip", TooltipText);
+            await InvokeExecuteAsync(Id, "showTooltip", TooltipText);
         }
     }
 
@@ -252,9 +252,9 @@ public abstract class ButtonBase : TooltipWrapperBase
     /// <returns></returns>
     public virtual async Task RemoveTooltip()
     {
-        if (Tooltip == null && Module != null)
+        if (Tooltip == null)
         {
-            await Module.InvokeVoidAsync($"{ModuleName}.execute", Id, "removeTooltip");
+            await InvokeExecuteAsync(Id, "removeTooltip");
         }
     }
 

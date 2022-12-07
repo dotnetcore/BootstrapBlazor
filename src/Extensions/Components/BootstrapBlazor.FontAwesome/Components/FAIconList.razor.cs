@@ -85,13 +85,7 @@ public partial class FAIconList
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override async Task ModuleInitAsync()
-    {
-        if (Module != null)
-        {
-            await Module.InvokeVoidAsync($"{ModuleName}.init", Id, nameof(UpdateIcon), nameof(ShowDialog), IsCopy);
-        }
-    }
+    protected override Task ModuleInitAsync() => InvokeInitAsync(Id, nameof(UpdateIcon), nameof(ShowDialog), IsCopy);
 
     /// <summary>
     /// 更新当前选择图标值方法

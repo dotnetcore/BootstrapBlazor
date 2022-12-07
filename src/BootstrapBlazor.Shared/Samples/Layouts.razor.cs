@@ -63,7 +63,7 @@ public sealed partial class Layouts
             },
             new AttributeItem() {
                 Name = "Footer",
-                Description = Localizer["Desc2"],
+                Description = Localizer["Desc5"],
                 Type = "RenderFragment",
                 ValueList = " — ",
                 DefaultValue = " — "

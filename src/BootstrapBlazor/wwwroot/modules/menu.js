@@ -1,4 +1,4 @@
-﻿import BlazorComponent from "./base/blazor-component.js";
+﻿import BlazorComponent from "./base/blazor-component.js"
 import { getTargetElement, getTransitionDelayDurationFromElement } from "./base/utility.js"
 
 export class Menu extends BlazorComponent {
@@ -45,12 +45,10 @@ export class Menu extends BlazorComponent {
                     this._disposeCollapse(collapse, el)
                 }
             }
-            else {
-                if (expandAll) {
-                    new bootstrap.Collapse(target, {
-                        toggle: true
-                    });
-                }
+            else if (expandAll) {
+                new bootstrap.Collapse(target, {
+                    toggle: true
+                });
             }
         });
     }

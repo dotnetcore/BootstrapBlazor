@@ -25,25 +25,12 @@ public partial class CherryMarkdown : IAsyncDisposable
     [Parameter]
     public ToolbarSettings? ToolbarSettings { get; set; }
 
-    private string? _value;
-    private bool IsRender { get; set; }
-
+    private string? _lastValue;
     /// <summary>
     /// 获得/设置 组件值
     /// </summary>
     [Parameter]
-    public string? Value
-    {
-        get => _value;
-        set
-        {
-            if (_value != value)
-            {
-                _value = value;
-                IsRender = true;
-            }
-        }
-    }
+    public string? Value { get; set; }
 
     /// <summary>
     /// 获得/设置 组件值回调
@@ -81,7 +68,9 @@ public partial class CherryMarkdown : IAsyncDisposable
     protected override void OnInitialized()
     {
         base.OnInitialized();
-        Option.Value = _value;
+
+        _lastValue = Value;
+        Option.Value = Value;
         Option.Editor = EditorSettings ?? new EditorSettings();
         Option.Toolbars = ToolbarSettings ?? new ToolbarSettings();
         if (IsViewer == true)
@@ -97,11 +86,7 @@ public partial class CherryMarkdown : IAsyncDisposable
     /// <returns></returns>
     protected override async Task ModuleInitAsync()
     {
-        if (Module != null)
-        {
-            IsRender = false;
-            await Module.InvokeVoidAsync($"{ModuleName}.init", Id, Option);
-        }
+        await InvokeInitAsync(Id, Option, nameof(Upload));
     }
 
     /// <summary>
@@ -110,10 +95,10 @@ public partial class CherryMarkdown : IAsyncDisposable
     /// <returns></returns>
     protected override async Task ModuleExecuteAsync()
     {
-        if (Module != null && IsRender)
+        if (Value != _lastValue)
         {
-            IsRender = false;
-            await Module.InvokeVoidAsync($"{ModuleName}.execute", Id, Value);
+            _lastValue = Value;
+            await InvokeExecuteAsync(Id, Value);
         }
     }
 
@@ -153,13 +138,15 @@ public partial class CherryMarkdown : IAsyncDisposable
     {
         if (vals.Length == 2)
         {
-            var hasChanged = !EqualityComparer<string>.Default.Equals(vals[0], _value);
+            var hasChanged = !EqualityComparer<string>.Default.Equals(vals[0], Value);
             if (hasChanged)
             {
-                _value = vals[0];
+                Value = vals[0];
+                _lastValue = Value;
+
                 if (ValueChanged.HasDelegate)
                 {
-                    await ValueChanged.InvokeAsync(_value);
+                    await ValueChanged.InvokeAsync(Value);
                 }
             }
 
@@ -181,11 +168,5 @@ public partial class CherryMarkdown : IAsyncDisposable
     /// <param name="method"></param>
     /// <param name="parameters"></param>
     /// <returns></returns>
-    public async ValueTask DoMethodAsync(string method, params object[] parameters)
-    {
-        if (Module != null)
-        {
-            await Module.InvokeVoidAsync($"{ModuleName}.invoke", Id, method, parameters);
-        }
-    }
+    public Task DoMethodAsync(string method, params object[] parameters) => InvokeVoidAsync("invoke", Id, method, parameters);
 }

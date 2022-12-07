@@ -60,9 +60,10 @@
 }
 
 .link-button {
-    background-color: transparent;
+    --bs-btn-bg: transparent;
     border: none;
     padding: 0;
+    background-color: var(--bs-btn-bg);
 }
 
     .link-button:disabled img {

@@ -385,7 +385,6 @@
 
 .page-item:not(.active) .page-link:hover {
     color: var(--bs-primary);
-    background-color: #f1faff;
 }
 
 .table {
@@ -430,7 +429,7 @@
         box-shadow: none;
     }
 
-.table-filter .table-filter-item {
+.table-filter .filter-item {
     border-color: var(--bs-secondary);
 }
 

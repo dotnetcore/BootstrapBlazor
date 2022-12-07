@@ -84,6 +84,12 @@ public partial class Select<TValue> : ISelect
     public bool IsFixedSearch { get; set; }
 
     /// <summary>
+    /// 获得/设置 无搜索结果时显示文字
+    /// </summary>
+    [Parameter]
+    public string? NoSearchDataText { get; set; }
+
+    /// <summary>
     /// 获得 PlaceHolder 属性
     /// </summary>
     [Parameter]
@@ -139,6 +145,7 @@ public partial class Select<TValue> : ISelect
 
         Items ??= Enumerable.Empty<SelectedItem>();
         PlaceHolder ??= Localizer[nameof(PlaceHolder)];
+        NoSearchDataText ??= Localizer[nameof(NoSearchDataText)];
         DropdownIcon ??= "fa-solid fa-angle-up";
 
         // 内置对枚举类型的支持
@@ -186,10 +193,7 @@ public partial class Select<TValue> : ISelect
             await OnSelectedItemChanged.Invoke(SelectedItem);
         }
 
-        if (Module != null)
-        {
-            await Module.InvokeVoidAsync($"{ModuleName}.init", Id, nameof(ConfirmSelectedItem));
-        }
+        await InvokeInitAsync(Id, nameof(ConfirmSelectedItem));
     }
 
     /// <summary>
@@ -258,7 +262,7 @@ public partial class Select<TValue> : ISelect
         // 触发 SelectedItemChanged 事件
         if (OnSelectedItemChanged != null)
         {
-            await OnSelectedItemChanged.Invoke(SelectedItem);
+            await OnSelectedItemChanged(SelectedItem);
         }
     }
 

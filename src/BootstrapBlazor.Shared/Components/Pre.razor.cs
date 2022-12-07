@@ -20,7 +20,7 @@ public partial class Pre
     /// 获得 样式集合
     /// </summary>
     /// <returns></returns>
-    private string? ClassName => CssBuilder.Default()
+    private string? ClassString => CssBuilder.Default("pre-code")
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
@@ -118,11 +118,5 @@ public partial class Pre
         Loaded = true;
     }
 
-    private async Task Hightlight()
-    {
-        if (Module != null)
-        {
-            await Module.InvokeVoidAsync($"{ModuleName}.execute", Id, "highlight");
-        }
-    }
+    private Task Hightlight() => InvokeExecuteAsync(Id, "highlight");
 }

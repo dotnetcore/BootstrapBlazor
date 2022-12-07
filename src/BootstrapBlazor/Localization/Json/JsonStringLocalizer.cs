@@ -73,9 +73,23 @@ internal class JsonStringLocalizer : ResourceManagerStringLocalizer
     {
         get
         {
-            var format = GetStringSafely(name);
-            var value = string.Format(CultureInfo.CurrentCulture, format ?? name, arguments);
-            return new LocalizedString(name, value, resourceNotFound: format == null, searchedLocation: TypeName);
+            var value = SafeFormat();
+            return new LocalizedString(name, value ?? name, resourceNotFound: value == null, searchedLocation: TypeName);
+
+            string? SafeFormat()
+            {
+                string? ret = null;
+                try
+                {
+                    var format = GetStringSafely(name);
+                    ret = string.Format(CultureInfo.CurrentCulture, format ?? name, arguments);
+                }
+                catch (Exception ex)
+                {
+                    Logger.LogError(ex, "{JsonStringLocalizerName} searched for '{Name}' in '{TypeName}' with culture '{CultureName}' throw exception.", nameof(JsonStringLocalizer), name, TypeName, CultureInfo.CurrentUICulture.Name);
+                }
+                return ret;
+            }
         }
     }
 
@@ -161,7 +175,7 @@ internal class JsonStringLocalizer : ResourceManagerStringLocalizer
     {
         if (!IgnoreLocalizerMissing)
         {
-            Logger.LogInformation($"{nameof(JsonStringLocalizer)} searched for '{name}' in '{TypeName}' with culture '{CultureInfo.CurrentUICulture.Name}' not found.");
+            Logger.LogInformation("{JsonStringLocalizerName} searched for '{Name}' in '{TypeName}' with culture '{CultureName}' not found.", nameof(JsonStringLocalizer), name, TypeName, CultureInfo.CurrentUICulture.Name);
         }
     }
 

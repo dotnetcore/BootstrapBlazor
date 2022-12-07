@@ -269,6 +269,7 @@ public class AutoFillTest : BootstrapBlazorTestBase
     [Fact]
     public void ValidateForm_Ok()
     {
+        var v = "";
         IEnumerable<string> items = new List<string>() { "test1", "test2" };
         var cut = Context.RenderComponent<ValidateForm>(pb =>
         {
@@ -276,14 +277,20 @@ public class AutoFillTest : BootstrapBlazorTestBase
             pb.AddChildContent<AutoFill<string>>(pb =>
             {
                 pb.Add(a => a.Items, items);
+                pb.Add(a => a.OnCustomFilter, key =>
+                {
+                    v = key;
+                    return Task.FromResult(items);
+                });
             });
         });
 
         // Trigger js invoke
         var comp = cut.FindComponent<AutoFill<string>>().Instance;
         comp.TriggerOnChange("v");
-
-        Assert.Equal("v", comp.Value);
+        var input = cut.Find("input");
+        cut.InvokeAsync(() => input.KeyUp("Enter"));
+        Assert.Equal("v", v);
     }
 
     class AutoFillNullStringMock

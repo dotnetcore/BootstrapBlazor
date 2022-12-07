@@ -39,7 +39,7 @@ public void ShowNotificationCallback(bool result)
         </div>
         <div class="col-12">
             <Button Text="@Localizer["CheckPermissionText"]" OnClick="CheckPermission" Color="Color.Secondary"></Button>
-            <Button Text="@Localizer["NotificationButtonText"]" OnClick="Dispatch"></Button>
+            <Button Text="@Localizer["NotificationButtonText"]" OnClick="Dispatch" class="ms-2"></Button>
         </div>
     </div>
     <BlockLogger @ref="Trace" class="mt-3" />

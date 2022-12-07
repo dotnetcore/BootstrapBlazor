@@ -1,53 +1,61 @@
 ﻿@namespace BootstrapBlazor.Components
-@inherits IdComponentBase
+@inherits BootstrapModuleComponentBase
 
 <div @attributes="@AdditionalAttributes" id="@Id" class="@HeaderClassString">
-    <Tab IsBorderCard="true" IsOnlyRenderActiveTab="true" OnClickTab="OnClickTab">
-        @foreach (var item in GetItems())
-        {
-            <TabItem Text="@item.Text">
-                <div class="tab-commands">
-                    @foreach (var groups in item.Items.OfType<RibbonTabItem>().GroupBy(s => s.GroupName))
-                    {
-                        <div class="link-group">
-                            <div class="d-flex">
-                                @foreach (var group in groups)
-                                {
-                                    if (group.Component != null || group.Template != null)
+    <div class="ribbon-header">
+        <Tab IsBorderCard="true" OnClickTab="OnClickTab">
+            @foreach (var item in GetItems())
+            {
+                <TabItem Text="@item.Text">
+                    <div class="tab-commands">
+                        @foreach (var groups in item.Items.OfType<RibbonTabItem>().GroupBy(s => s.GroupName))
+                        {
+                            <div class="link-group">
+                                <div class="d-flex">
+                                    @foreach (var group in groups)
                                     {
-                                        @RenderTemplate(group)
+                                        if (group.Component != null || group.Template != null)
+                                        {
+                                            @RenderTemplate(group)
+                                        }
+                                        else
+                                        {
+                                            <LinkButton Icon="@group.Icon" ImageUrl="@group.ImageUrl" IsDisabled="@group.IsDisabled"
+                                                        Url="@group.Url" Target="@group.Target"
+                                                        Text="@group.Text" IsVertical="true" Color="Color.Secondary"
+                                                        class="@GetClassString(group)" StopPropagation="true" OnClick="() => OnClick(group)" />
+                                        }
                                     }
-                                    else
-                                    {
-                                        <LinkButton Icon="@group.Icon" ImageUrl="@group.ImageUrl" IsDisabled="@group.IsDisabled"
-                                                    Url="@group.Url" Target="@group.Target"
-                                                    Text="@group.Text" IsVertical="true" Color="Color.Secondary"
-                                                    class="@GetClassString(group)" StopPropagation="true" OnClick="() => OnClick(group)" />
-                                    }
-                                }
+                                </div>
+                                <div class="link-group-name">
+                                    @groups.Key
+                                </div>
                             </div>
-                            <div class="link-group-name">
-                                @groups.Key
-                            </div>
-                        </div>
-                        <Divider IsVertical="true" />
-                    }
+                            <Divider IsVertical="true" />
+                        }
+                    </div>
+                </TabItem>
+            }
+        </Tab>
+        <div class="ribbon-buttons">
+            @if (RightButtonsTemplate != null)
+            {
+                <div class="ribbon-customer-buttons">
+                    @RightButtonsTemplate
                 </div>
-            </TabItem>
-        }
-    </Tab>
-    <div class="ribbon-buttons">
-        @if (RightButtonsTemplate != null)
-        {
-            <div class="ribbon-customer-buttons">
-                @RightButtonsTemplate
-            </div>
-        }
-        @if (ShowFloatButton)
-        {
-            <div class="ribbon-arrow">
-                <i class="@ArrowIconClassString" @onclick="OnToggleFloat"></i>
-            </div>
-        }
+            }
+            @if (ShowFloatButton)
+            {
+                <div class="ribbon-arrow">
+                    <i class="@ArrowIconClassString" @onclick="OnToggleFloat"></i>
+                </div>
+            }
+        </div>
     </div>
+    @if (ChildContent != null)
+    {
+        <div class="ribbon-body">
+            @ChildContent
+        </div>
+    }
 </div>

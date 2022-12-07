@@ -1,46 +1,53 @@
 ﻿@namespace BootstrapBlazor.Components
-@inherits CardBase
+@inherits IdComponentBase
 
-<div @attributes="@AdditionalAttributes" class="@ClassName">
-    @if (CardHeader != null || !string.IsNullOrEmpty(HeaderText))
+<div @attributes="@AdditionalAttributes" class="@ClassString">
+    @if (HeaderTemplate != null || !string.IsNullOrEmpty(HeaderText))
     {
         <div class="card-header">
             @if (IsCollapsible)
             {
-                <div class="@HeaderClassString" data-bs-collapsed="@CollapsedString" @ref="CardElement">
-                    <i class="card-collapse-arrow fa-solid fa-circle-chevron-right"></i>
-                    <div class="card-collapse-body">
-                        @if (CardHeader != null)
-                        {
-                            @CardHeader
-                        }
-                        else
-                        {
-                            @HeaderText
-                        }
-                    </div>
+                <div class="card-collapse-bar" data-bs-toggle="collapse" data-bs-target="#@Id" aria-expanded="@ExpandedString">
+                    <i class="@ArrowClassString"></i>
+                    @if (!string.IsNullOrEmpty(HeaderText))
+                    {
+                        <span class="card-title">@HeaderText</span>
+                    }
                 </div>
+                if (HeaderTemplate != null)
+                {
+                    @HeaderTemplate
+                }
             }
             else
             {
-                if (CardHeader != null)
+                if (!string.IsNullOrEmpty(HeaderText))
                 {
-                    @CardHeader
+                    <span class="card-title">@HeaderText</span>
                 }
-                else
+                if (HeaderTemplate != null)
                 {
-                    @HeaderText
+                    @HeaderTemplate
                 }
             }
         </div>
     }
-    <div class="@BodyClassName" style="@CardBodyStyleString">
-        @CardBody
+    <div class="@BodyClassName" id="@Id">
+        @if (IsCollapsible)
+        {
+            <div class="card-body-wrapper">
+                @BodyTemplate
+            </div>
+        }
+        else
+        {
+            @BodyTemplate
+        }
     </div>
-    @if (CardFooter != null)
+    @if (FooterTemplate != null)
     {
         <div class="@FooterClassName">
-            @CardFooter
+            @FooterTemplate
         </div>
     }
 </div>

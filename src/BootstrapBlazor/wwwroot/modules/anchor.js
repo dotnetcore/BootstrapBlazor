@@ -1,6 +1,6 @@
-﻿import EventHandler from "./base/event-handler.js";
-import BlazorComponent from "./base/blazor-component.js";
-import { getDescribedElement, getWindowScroll } from "./base/utility.js";
+﻿import EventHandler from "./base/event-handler.js"
+import BlazorComponent from "./base/blazor-component.js"
+import { getDescribedElement, getWindowScroll } from "./base/utility.js"
 
 export class Anchor extends BlazorComponent {
     static get Default() {

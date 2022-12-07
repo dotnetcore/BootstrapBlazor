@@ -521,6 +521,54 @@ public partial class Tables
         },
         new()
         {
+            Name = "ShowGotoNavigator",
+            Description = TablesLocalizer["ShowGotoNavigatorAttr"],
+            Type = "boolean",
+            ValueList = "true / false",
+            DefaultValue = "true"
+        },
+        new()
+        {
+            Name = "GotoTemplate",
+            Description = TablesLocalizer["GotoTemplateAttr"],
+            Type = "RenderFragment?",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = "GotoNavigatorLabelText",
+            Description = TablesLocalizer["GotoNavigatorLabelTextAttr"],
+            Type = "string?",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = "ShowPageInfo",
+            Description = TablesLocalizer["ShowPageInfoAttr"],
+            Type = "boolean",
+            ValueList = "true / false",
+            DefaultValue = "true"
+        },
+        new()
+        {
+            Name = "PageInfoTemplate",
+            Description = TablesLocalizer["PageInfoTemplateAttr"],
+            Type = "RenderFragment?",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = "PageInfoText",
+            Description = TablesLocalizer["PageInfoTextAttr"],
+            Type = "string?",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
             Name = "IsStriped",
             Description = TablesLocalizer["IsStripedAttr"],
             Type = "boolean",

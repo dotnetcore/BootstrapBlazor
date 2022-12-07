@@ -46,22 +46,33 @@ public partial class RibbonTabs
                 }
             }
         };
+
+        ActiveTabText = Localizer["ItemsText1"];
     }
 
     private string? ActiveTabText { get; set; }
 
-    private string? FileClassString => CssBuilder.Default("ribbon-body collapse")
+    private string? FileClassString => CssBuilder.Default("collapse")
         .AddClass("show", ActiveTabText == Localizer["ItemsText1"])
         .Build();
 
-    private string? EditClassString => CssBuilder.Default("ribbon-body collapse")
+    private string? EditClassString => CssBuilder.Default("collapse")
         .AddClass("show", ActiveTabText == Localizer["ItemsText2"])
         .Build();
 
-    private Task OnHeaderClickAsync(string text, string url)
+    private Task OnMenuClickAsync(RibbonTabItem item)
     {
-        ActiveTabText = text;
+        ActiveTabText = item.Text;
         StateHasChanged();
+        return Task.CompletedTask;
+    }
+
+    [NotNull]
+    private BlockLogger? Logger { get; set; }
+
+    private Task OnFloatChanged(bool @float)
+    {
+        Logger.Log($"Float: {@float}");
         return Task.CompletedTask;
     }
 
@@ -127,6 +138,14 @@ public partial class RibbonTabs
         {
             Name = nameof(RibbonTab.OnItemClickAsync),
             Description = Localizer["Attr8"],
+            Type = "Func<RibbonTabItem, Task>",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new AttributeItem()
+        {
+            Name = nameof(RibbonTab.OnMenuClickAsync),
+            Description = Localizer["OnMenuClickAsyncAttr"],
             Type = "Func<RibbonTabItem, Task>",
             ValueList = " — ",
             DefaultValue = " — "

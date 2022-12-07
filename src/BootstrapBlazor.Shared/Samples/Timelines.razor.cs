@@ -60,8 +60,8 @@ public sealed partial class Timelines
 
         Items = new SelectedItem[]
         {
-                new SelectedItem("1", Localizer["SelectedItem1"]) { Active=true },
-                new SelectedItem("2", Localizer["SelectedItem2"])
+            new SelectedItem("1", Localizer["SelectedItem1"]) { Active=true },
+            new SelectedItem("2", Localizer["SelectedItem2"])
         };
     }
 

@@ -11,11 +11,11 @@
 
 <DemoBlock Title="@Localizer["P4"]" Introduction="@Localizer["P5"]" Name="Float">
     <div class="ribbon-demo">
-        <RibbonTab Items="@Items" ShowFloatButton="true" />
-        <div class="ribbon-demo-body">
+        <RibbonTab Items="@Items" ShowFloatButton="true" OnFloatChanged="OnFloatChanged">
             @Localizer["P6"]
-        </div>
+        </RibbonTab>
     </div>
+    <BlockLogger @ref="Logger" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["P7"]" Introduction="@Localizer["P8"]" Name="RightButtonsTemplate">
@@ -29,12 +29,11 @@
     </RibbonTab>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["HeaderClick"]" Introduction="@Localizer["HeaderClickIntro"]" Name="HeaderClick">
-    <RibbonTab Items="@Items" OnHeaderClickAsync="@OnHeaderClickAsync" />
-    <div class="ribbon-bodys">
+<DemoBlock Title="@Localizer["HeaderClickTitle"]" Introduction="@Localizer["HeaderClickIntro"]" Name="HeaderClick">
+    <RibbonTab Items="@Items" OnMenuClickAsync="@OnMenuClickAsync">
         <div class="@FileClassString">@Localizer["ItemsText1"]</div>
         <div class="@EditClassString">@Localizer["ItemsText2"]</div>
-    </div>
+    </RibbonTab>
 </DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" />

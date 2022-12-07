@@ -1,7 +1,7 @@
 ﻿@namespace BootstrapBlazor.Components
-@inherits BootstrapComponentBase
+@inherits BootstrapModuleComponentBase
 
-<div @attributes="@AdditionalAttributes" class="@ClassString" tabindex="-1" role="dialog" aria-hidden="true" data-bs-backdrop="@Backdrop" data-bs-keyboard="@KeyboardString" @ref="ModalElement">
+<div @attributes="@AdditionalAttributes" class="@ClassString" tabindex="-1" role="dialog" data-bs-backdrop="@Backdrop" data-bs-keyboard="@KeyboardString" id="@Id">
     <CascadingValue Value="this" IsFixed="true">
         @ChildContent
     </CascadingValue>

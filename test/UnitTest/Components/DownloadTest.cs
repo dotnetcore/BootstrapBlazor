@@ -2,7 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.JSInterop;
 
@@ -11,69 +10,7 @@ namespace UnitTest.Components;
 public class DownloadTest : BootstrapBlazorTestBase
 {
     [Fact]
-    public async Task CreateUrlAsync_NoService_Ok()
-    {
-        var fileName = "";
-        var downloadService = Context.Services.GetRequiredService<DownloadService>();
-        var cut = Context.RenderComponent<Button>(pb =>
-        {
-            pb.Add(a => a.OnClick, async () =>
-            {
-                await downloadService.CreateUrlAsync("test.txt", new byte[] { 0x01, 0x02 });
-                fileName = "test.text";
-            });
-        });
-        var btn = cut.Find("button");
-        await cut.InvokeAsync(() => btn.Click());
-        Assert.Equal("test.text", fileName);
-    }
-
-    [Fact]
-    public async Task CreateUrlAsync_Ok()
-    {
-        var fileName = "";
-        var downloadService = Context.Services.GetRequiredService<DownloadService>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
-        {
-            pb.AddChildContent<Button>(pb =>
-            {
-                pb.Add(a => a.OnClick, async () =>
-                {
-                    await downloadService.CreateUrlAsync("test.txt", new byte[] { 0x01, 0x02 });
-                    fileName = "test.text";
-                });
-            });
-        });
-        var btn = cut.Find("button");
-        await cut.InvokeAsync(() => btn.Click());
-        Assert.Equal("test.text", fileName);
-    }
-
-    [Fact]
-    public async Task CreateUrlAsync_Steam_Ok()
-    {
-        var fileName = "";
-        var downloadService = Context.Services.GetRequiredService<DownloadService>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
-        {
-            pb.AddChildContent<Button>(pb =>
-            {
-                pb.Add(a => a.OnClick, async () =>
-                {
-                    using var stream = new MemoryStream();
-                    await downloadService.CreateUrlAsync("test.txt", stream);
-                    fileName = "test.text";
-                    stream.Close();
-                });
-            });
-        });
-        var btn = cut.Find("button");
-        await cut.InvokeAsync(() => btn.Click());
-        Assert.Equal("test.text", fileName);
-    }
-
-    [Fact]
-    public async Task DownloadFile_Ok()
+    public async Task DownloadFromByteArrayAsync_Ok()
     {
         var download = false;
         var downloadService = Context.Services.GetRequiredService<DownloadService>();
@@ -83,7 +20,7 @@ public class DownloadTest : BootstrapBlazorTestBase
             {
                 pb.Add(a => a.OnClick, async () =>
                 {
-                    await downloadService.DownloadAsync("test.txt", new byte[] { 0x01, 0x02 });
+                    await downloadService.DownloadFromByteArrayAsync("test.txt", new byte[] { 0x01, 0x02 });
                     download = true;
                 });
             });
@@ -94,59 +31,74 @@ public class DownloadTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public async Task DownloadFile_Stream_Ok()
+    public async Task DownloadFromFileAsync_Ok()
     {
-        var download = false;
-        var downloadService = Context.Services.GetRequiredService<DownloadService>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
-        {
-            pb.AddChildContent<Button>(pb =>
-            {
-                pb.Add(a => a.OnClick, async () =>
-                {
-                    using var stream = new MemoryStream();
-                    await downloadService.DownloadAsync("test.txt", stream);
-                    stream.Close();
-                    download = true;
-                });
-            });
-        });
-        var btn = cut.Find("button");
-        await cut.InvokeAsync(() => btn.Click());
-        Assert.True(download);
-    }
-
-    [Fact]
-    public async Task DownloadFilePath_Ok()
-    {
-        var filePath = Path.Combine(Directory.GetCurrentDirectory(), "Test.log");
-        if (File.Exists(filePath))
-        {
-            File.Delete(filePath);
-        }
-        var downloadService = Context.Services.GetRequiredService<DownloadService>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
-        {
-            pb.Add(a => a.EnableErrorLogger, false);
-            pb.AddChildContent<Button>(pb =>
-            {
-                pb.Add(a => a.OnClick, async () =>
-                {
-                    await downloadService.DownloadAsync("test.log", filePath);
-                });
-            });
-        });
-        var btn = cut.Find("button");
-        await Assert.ThrowsAsync<FileNotFoundException>(() => cut.InvokeAsync(() => btn.Click()));
-
-        using var fs = File.Create(filePath);
+        var fileName = Path.Combine(AppContext.BaseDirectory, "down.log");
+        using var fs = File.OpenWrite(fileName);
+        fs.Write(new byte[] { 0x01, 0x02 }, 0, 2);
         fs.Close();
-        btn = cut.Find("button");
+
+        var download = false;
+        var downloadService = Context.Services.GetRequiredService<DownloadService>();
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Button>(pb =>
+            {
+                pb.Add(a => a.OnClick, async () =>
+                {
+                    await downloadService.DownloadFromFileAsync("test.txt", fileName);
+                    download = true;
+                });
+            });
+        });
+        var btn = cut.Find("button");
         await cut.InvokeAsync(() => btn.Click());
+        Assert.True(download);
     }
 
     [Fact]
-    public async Task DownloadFolder_Ok()
+    public async Task DownloadFromStreamAsync_Ok()
+    {
+        var download = false;
+        var downloadService = Context.Services.GetRequiredService<DownloadService>();
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Button>(pb =>
+            {
+                pb.Add(a => a.OnClick, async () =>
+                {
+                    using var stream = new MemoryStream(new byte[] { 0x01, 0x02 });
+                    await downloadService.DownloadFromStreamAsync("test.txt", stream);
+                    download = true;
+                });
+            });
+        });
+        var btn = cut.Find("button");
+        await cut.InvokeAsync(() => btn.Click());
+        Assert.True(download);
+    }
+
+    [Fact]
+    public void DownloadFromStreamAsync_Null()
+    {
+        var downloadService = Context.Services.GetRequiredService<DownloadService>();
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Button>(pb =>
+            {
+                pb.Add(a => a.OnClick, async () =>
+                {
+                    Stream? stream = null;
+                    await downloadService.DownloadFromStreamAsync("test.txt", stream!);
+                });
+            });
+        });
+        var btn = cut.Find("button");
+        Assert.ThrowsAsync<InvalidOperationException>(() => cut.InvokeAsync(() => btn.Click()));
+    }
+
+    [Fact]
+    public async Task DownloadFolderAsync_Ok()
     {
         var folder = Path.Combine(Directory.GetCurrentDirectory(), "Test");
         if (Directory.Exists(folder))
@@ -185,38 +137,17 @@ public class DownloadTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public async Task Mock_CreateUrlAsync_Ok()
-    {
-        var fileName = "";
-        var downloadService = Context.Services.GetRequiredService<DownloadService>();
-        var cut = Context.RenderComponent<MockDownload>(pb =>
-        {
-            pb.AddChildContent<Button>(pb =>
-            {
-                pb.Add(a => a.OnClick, async () =>
-                {
-                    await downloadService.CreateUrlAsync("test.txt", new byte[] { 0x01, 0x02 });
-                    fileName = "test.text";
-                });
-            });
-        });
-        var btn = cut.Find("button");
-        await cut.InvokeAsync(() => btn.Click());
-        Assert.Equal("test.text", fileName);
-    }
-
-    [Fact]
-    public async Task Mock_DownloadFile_Ok()
+    public async Task DownloadFromUrlAsync_Ok()
     {
         var download = false;
         var downloadService = Context.Services.GetRequiredService<DownloadService>();
-        var cut = Context.RenderComponent<MockDownload>(pb =>
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Button>(pb =>
             {
                 pb.Add(a => a.OnClick, async () =>
                 {
-                    await downloadService.DownloadAsync("test.txt", new byte[] { 0x01, 0x02 });
+                    await downloadService.DownloadFromUrlAsync("test.txt", "./favicon.png");
                     download = true;
                 });
             });
@@ -226,27 +157,21 @@ public class DownloadTest : BootstrapBlazorTestBase
         Assert.True(download);
     }
 
-    class MockDownload : Download
+    [Fact]
+    public void DownloadFromUrlAsync_Null()
     {
-        [Parameter]
-        public RenderFragment? ChildContent { get; set; }
-
-        protected override void OnInitialized()
+        var downloadService = Context.Services.GetRequiredService<DownloadService>();
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
         {
-            base.OnInitialized();
-            JSRuntime = new MockJSRuntime();
-        }
-
-        protected override void BuildRenderTree(RenderTreeBuilder builder)
-        {
-            builder.AddContent(0, ChildContent);
-        }
-
-        class MockJSRuntime : IJSRuntime
-        {
-            public ValueTask<TValue> InvokeAsync<TValue>(string identifier, object?[]? args) => ValueTask.FromResult<TValue>(default!);
-
-            public ValueTask<TValue> InvokeAsync<TValue>(string identifier, CancellationToken cancellationToken, object?[]? args) => ValueTask.FromResult<TValue>(default!);
-        }
+            pb.AddChildContent<Button>(pb =>
+            {
+                pb.Add(a => a.OnClick, async () =>
+                {
+                    await downloadService.DownloadFromUrlAsync("test.txt", "");
+                });
+            });
+        });
+        var btn = cut.Find("button");
+        Assert.ThrowsAsync<InvalidOperationException>(() => cut.InvokeAsync(() => btn.Click()));
     }
 }

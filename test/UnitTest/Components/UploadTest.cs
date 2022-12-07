@@ -653,7 +653,7 @@ public class UploadTest : BootstrapBlazorTestBase
                 new UploadFile() { FileName = null! }
             });
         });
-        cut.Contains("bb-viewer-wrapper active");
+        cut.Contains("bb-previewer collapse active");
 
         // OnZoom
         await cut.InvokeAsync(() => cut.Find(".btn-secondary").Click());

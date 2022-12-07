@@ -122,6 +122,16 @@ internal class InternalTableColumn : ITableColumn
     public IEnumerable<SelectedItem>? Lookup { get; set; }
 
     /// <summary>
+    /// 获得/设置 字段数据源下拉框是否显示搜索栏 默认 false 不显示
+    /// </summary>
+    public bool ShowSearchWhenSelect { get; set; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    public bool IsPopover { get; set; }
+
+    /// <summary>
     /// 获得/设置 字典数据源字符串比较规则 默认 StringComparison.OrdinalIgnoreCase 大小写不敏感 
     /// </summary>
     public StringComparison LookupStringComparison { get; set; } = StringComparison.OrdinalIgnoreCase;
@@ -150,6 +160,11 @@ internal class InternalTableColumn : ITableColumn
     /// 获得/设置 当前属性分组排序 默认 0
     /// </summary>
     public int GroupOrder { get; set; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    public bool ShowCopyColumn { get; set; }
 
     /// <summary>
     /// 构造函数

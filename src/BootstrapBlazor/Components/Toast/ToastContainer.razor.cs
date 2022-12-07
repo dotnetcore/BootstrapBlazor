@@ -12,22 +12,16 @@ namespace BootstrapBlazor.Components;
 public partial class ToastContainer : IDisposable
 {
     private string? ClassString => CssBuilder.Default("toast-container")
+        .AddClass("top-0 start-0", Placement == Placement.TopStart)
+        .AddClass("top-0 start-50 translate-middle-x", Placement == Placement.TopCenter)
+        .AddClass("top-0 end-0", Placement == Placement.TopEnd)
+        .AddClass("top-50 start-0 translate-middle-y", Placement == Placement.MiddleStart)
+        .AddClass("top-50 start-50 translate-middle", Placement == Placement.MiddleCenter)
+        .AddClass("top-50 end-0 translate-middle-y", Placement == Placement.MiddleEnd)
+        .AddClass("bottom-0 start-0", Placement == Placement.BottomStart)
+        .AddClass("bottom-0 start-50 translate-middle-x", Placement == Placement.BottomCenter)
+        .AddClass("bottom-0 end-0", Placement == Placement.BottomEnd)
         .AddClassFromAttributes(AdditionalAttributes)
-        .Build();
-
-    /// <summary>
-    /// 获得 Toast 组件样式设置
-    /// </summary>
-    private string? StyleString => CssBuilder.Default()
-        .AddClass("top: 1rem; left: 1rem;", Placement == Placement.TopStart)
-        .AddClass("top: 1rem; left: 50%;", Placement == Placement.TopCenter)
-        .AddClass("top: 1rem; right: 1rem;", Placement == Placement.TopEnd)
-        .AddClass("top: 50%; left: 1rem;", Placement == Placement.MiddleStart)
-        .AddClass("top: 50%; left: 50%;", Placement == Placement.MiddleCenter)
-        .AddClass("top: 50%; right: 1rem;", Placement == Placement.MiddleEnd)
-        .AddClass("bottom: 1rem; left: 1rem;", Placement == Placement.BottomStart)
-        .AddClass("bottom: 1rem; left: 50%;", Placement == Placement.BottomCenter)
-        .AddClass("bottom: 1rem; right: 1rem;", Placement == Placement.BottomEnd)
         .Build();
 
     private string? ToastBoxClassString => CssBuilder.Default()

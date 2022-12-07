@@ -7,7 +7,8 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 下载组件
 /// </summary>
-public class Download : BootstrapComponentBase, IDisposable
+[JSModuleAutoLoader]
+public class Download : BootstrapModuleComponentBase
 {
     [Inject]
     [NotNull]
@@ -20,25 +21,36 @@ public class Download : BootstrapComponentBase, IDisposable
     {
         base.OnInitialized();
 
-        DownloadService.Register(this, DownloadFile);
-        DownloadService.RegisterUrl(this, CreateUrl);
+        DownloadService.RegisterStream(this, DownloadFromStream);
+        DownloadService.RegisterUrl(this, DownloadFromUrl);
     }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    protected override Task ModuleInitAsync() => Task.CompletedTask;
 
     /// <summary>
     /// 调用 download 方法
     /// </summary>
     /// <param name="option"></param>
     /// <returns></returns>
-    protected virtual async Task DownloadFile(DownloadOption option)
+    protected virtual async Task DownloadFromStream(DownloadOption option)
     {
-        if (JSRuntime is IJSUnmarshalledRuntime webAssemblyJsRuntime)
+        if (option.FileStream == null)
         {
-            webAssemblyJsRuntime.InvokeUnmarshalled<string?, string, byte[], bool>("$.bb_download_wasm", option.FileName,
-                option.Mime, option.FileContent);
+            throw new InvalidOperationException($"the {nameof(option.FileStream)} is null");
         }
-        else
+        if (Module != null)
         {
-            await JSRuntime.InvokeVoidAsync(identifier: "$.bb_download", option.FileName, option.Mime, option.FileContent);
+#if NET5_0
+            // net 5.0 not support
+            await Task.CompletedTask;
+#elif NET6_0_OR_GREATER
+            using var streamRef = new DotNetStreamReference(option.FileStream);
+            await Module.InvokeVoidAsync($"{ModuleName}.downloadFileFromStream", option.FileName, streamRef);
+#endif
         }
     }
 
@@ -47,37 +59,30 @@ public class Download : BootstrapComponentBase, IDisposable
     /// </summary>
     /// <param name="option"></param>
     /// <returns></returns>
-    protected virtual async Task<string> CreateUrl(DownloadOption option)
+    protected virtual async Task DownloadFromUrl(DownloadOption option)
     {
-        if (JSRuntime is IJSUnmarshalledRuntime webAssemblyJsRuntime)
+        if (string.IsNullOrEmpty(option.Url))
         {
-            return webAssemblyJsRuntime.InvokeUnmarshalled<string?, string, byte[], string>("$.bb_create_url_wasm", option.FileName,
-                option.Mime, option.FileContent);
+            throw new InvalidOperationException($"{nameof(option.Url)} not set");
         }
-        else
+
+        if (Module != null)
         {
-            return await JSRuntime.InvokeAsync<string>(identifier: "$.bb_create_url", option.FileName, option.Mime, option.FileContent);
+            await Module.InvokeVoidAsync($"{ModuleName}.downloadFileFromUrl", option.FileName, option.Url);
         }
     }
 
     /// <summary>
-    /// Dispose 方法
+    /// <inheritdoc/>
     /// </summary>
-    protected virtual void Dispose(bool disposing)
+    protected override async ValueTask DisposeAsync(bool disposing)
     {
         if (disposing)
         {
-            DownloadService.UnRegister(this);
+            DownloadService.UnRegisterStream(this);
             DownloadService.UnRegisterUrl(this);
         }
-    }
 
-    /// <summary>
-    /// Dispose 方法
-    /// </summary>
-    public void Dispose()
-    {
-        Dispose(disposing: true);
-        GC.SuppressFinalize(this);
+        await base.DisposeAsync(disposing);
     }
 }

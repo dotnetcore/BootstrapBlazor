@@ -9,7 +9,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// BarcodeReader 条码扫描
 /// </summary>
-[JSModuleAutoLoader("./_content/BootstrapBlazor.BarCode/barcodereader.bundle.min.js", ModuleName = "BarcodeReader", Relative = false)]
+[JSModuleAutoLoader("./_content/BootstrapBlazor.BarCode/barcodereader.bundle.min.js", JSObjectReference = true, ModuleName = "BarcodeReader", Relative = false)]
 public partial class BarcodeReader
 {
     private string? AutoStopString => AutoStop ? "true" : null;

@@ -1,4 +1,5 @@
-﻿import { isElement, getTransitionDurationFromElement } from "./index.js"
+﻿import EventHandler from "./event-handler.js"
+import { isElement, getTransitionDurationFromElement, getElementById } from "./index.js"
 
 const vibrate = () => {
     if ('vibrate' in window.navigator) {
@@ -63,6 +64,19 @@ const getTransitionDelayDurationFromElement = (element, delay = 80) => {
     return getTransitionDurationFromElement(element) + delay
 }
 
+const getWidth = (element, self = false) => {
+    let width = element.offsetWidth
+    if (self) {
+        const styles = getComputedStyle(element)
+        const borderLeftWidth = parseFloat(styles.borderLeftWidth)
+        const borderRightWidth = parseFloat(styles.borderRightWidth)
+        const paddingLeft = parseFloat(styles.paddingLeft)
+        const paddingRight = parseFloat(styles.paddingRight)
+        width = width - borderLeftWidth - borderRightWidth - paddingLeft - paddingRight
+    }
+    return width
+}
+
 const getHeight = (element, self = false) => {
     let height = element.offsetHeight
     if (self) {
@@ -75,6 +89,8 @@ const getHeight = (element, self = false) => {
     }
     return height
 }
+
+const getInnerWidth = element => getWidth(element, true)
 
 const getInnerHeight = element => getHeight(element, true)
 
@@ -104,7 +120,7 @@ const getWindow = node => {
 const addScript = content => {
     // content 文件名
     const links = [...document.getElementsByTagName('script')]
-    var link = links.filter(function (link) {
+    let link = links.filter(function (link) {
         return link.src.indexOf(content) > -1
     })
     if (link.length === 0) {
@@ -116,17 +132,17 @@ const addScript = content => {
 
 const removeScript = content => {
     const links = [...document.getElementsByTagName('script')]
-    var nodes = links.filter(function (link) {
+    const nodes = links.filter(function (link) {
         return link.src.indexOf(content) > -1
     })
-    for (var index = 0; index < nodes.length; index++) {
+    for (let index = 0; index < nodes.length; index++) {
         document.body.removeChild(nodes[index])
     }
 }
 
 const addLink = href => {
     const links = [...document.getElementsByTagName('link')]
-    var link = links.filter(function (link) {
+    let link = links.filter(function (link) {
         return link.href.indexOf(href) > -1
     })
     if (link.length === 0) {
@@ -139,10 +155,10 @@ const addLink = href => {
 
 const removeLink = href => {
     const links = [...document.getElementsByTagName('link')]
-    var nodes = links.filter(function (link) {
-        return link.href.indexOf(content) > -1
+    const nodes = links.filter(function (link) {
+        return link.href.indexOf(href) > -1
     })
-    for (var index = 0; index < nodes.length; index++) {
+    for (let index = 0; index < nodes.length; index++) {
         document.getElementsByTagName("head")[0].removeChild(nodes[index])
     }
 }
@@ -171,22 +187,79 @@ const insertAfter = (element, newEl) => {
     }
 }
 
+const setIndeterminate = (object, state) => {
+    const element = getElementById(object)
+    if (isElement(element)) {
+        element.indeterminate = state;
+    }
+}
+
+const drag = (element, start, move, end) => {
+    const handleDragStart = e => {
+        let notDrag = false
+        if (isFunction(start)) {
+            notDrag = start(e) || false
+        }
+
+        if (!notDrag) {
+            e.preventDefault()
+            e.stopPropagation()
+
+            document.addEventListener('mousemove', handleDragMove)
+            document.addEventListener('touchmove', handleDragMove)
+            document.addEventListener('mouseup', handleDragEnd)
+            document.addEventListener('touchend', handleDragEnd)
+        }
+    }
+
+    const handleDragMove = e => {
+        if (e.touches && e.touches.length > 1) {
+            return;
+        }
+
+        if (isFunction(move)) {
+            move(e)
+        }
+    }
+
+    const handleDragEnd = e => {
+        if (isFunction(end)) {
+            end(e)
+        }
+
+        const handler = window.setTimeout(() => {
+            window.clearTimeout(handler)
+            document.removeEventListener('mousemove', handleDragMove)
+            document.removeEventListener('touchmove', handleDragMove)
+            document.removeEventListener('mouseup', handleDragEnd)
+            document.removeEventListener('touchend', handleDragEnd)
+        }, 10)
+    }
+
+    EventHandler.on(element, 'mousedown', handleDragStart)
+    EventHandler.on(element, 'touchstart', handleDragStart)
+}
+
 export {
-    vibrate,
+    addLink,
+    addScript,
     copy,
+    drag,
+    insertBefore,
+    insertAfter,
+    isFunction,
     getDescribedElement,
     getDescribedOwner,
-    getTargetElement,
-    getTransitionDelayDurationFromElement,
     getHeight,
     getInnerHeight,
+    getInnerWidth,
+    getWidth,
     getWindow,
     getWindowScroll,
-    isFunction,
-    addLink,
+    getTargetElement,
+    getTransitionDelayDurationFromElement,
     removeLink,
-    addScript,
     removeScript,
-    insertBefore,
-    insertAfter
+    setIndeterminate,
+    vibrate
 }

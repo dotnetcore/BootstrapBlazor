@@ -43,39 +43,6 @@ internal class CacheManager : ICacheManager
         Instance = this;
     }
 
-#if NET7_0_OR_GREATER
-    /// <summary>
-    /// 获得或者创建指定 Key 缓存项
-    /// </summary>
-    public TItem? GetOrCreate<TItem>(object key, Func<ICacheEntry, TItem> factory) => Cache.GetOrCreate(key, entry =>
-    {
-#if DEBUG
-        entry.SlidingExpiration = TimeSpan.FromSeconds(500000);
-#endif
-
-        if (key is not string)
-        {
-            entry.SetSlidingExpiration(TimeSpan.FromMinutes(5));
-        }
-        return factory(entry);
-    });
-
-    /// <summary>
-    /// 获得或者创建指定 Key 缓存项 异步重载方法
-    /// </summary>
-    public Task<TItem?> GetOrCreateAsync<TItem>(object key, Func<ICacheEntry, Task<TItem>> factory) => Cache.GetOrCreateAsync(key, async entry =>
-    {
-#if DEBUG
-        entry.SlidingExpiration = TimeSpan.FromSeconds(5);
-#endif
-
-        if (key is not string)
-        {
-            entry.SetSlidingExpiration(TimeSpan.FromMinutes(5));
-        }
-        return await factory(entry);
-    });
-#else
     /// <summary>
     /// 获得或者创建指定 Key 缓存项
     /// </summary>
@@ -90,7 +57,7 @@ internal class CacheManager : ICacheManager
             entry.SetSlidingExpiration(TimeSpan.FromMinutes(5));
         }
         return factory(entry);
-    });
+    })!;
 
     /// <summary>
     /// 获得或者创建指定 Key 缓存项 异步重载方法
@@ -106,8 +73,7 @@ internal class CacheManager : ICacheManager
             entry.SetSlidingExpiration(TimeSpan.FromMinutes(5));
         }
         return await factory(entry);
-    });
-#endif
+    })!;
 
     /// <summary>
     /// 清除指定 Key 缓存项
@@ -252,11 +218,7 @@ internal class CacheManager : ICacheManager
                 var sections = Instance.GetOrCreate(key, entry => option.GetJsonStringFromAssembly(assembly, cultureName));
                 return sections?.FirstOrDefault(kv => typeName.Equals(kv.Key, StringComparison.OrdinalIgnoreCase))?
                     .GetChildren()
-#if NET7_0_OR_GREATER
                     .SelectMany(kv => new[] { new LocalizedString(kv.Key, kv.Value ?? kv.Key) });
-#else
-                    .SelectMany(kv => new[] { new LocalizedString(kv.Key, kv.Value) });
-#endif
             });
         }
     }
@@ -266,11 +228,7 @@ internal class CacheManager : ICacheManager
     /// </summary>
     /// <param name="includeParentCultures"></param>
     /// <returns></returns>
-    public static IEnumerable<LocalizedString> GetAllStringsFromResolve(bool includeParentCultures = true) => Instance.GetOrCreate($"{nameof(GetAllStringsFromResolve)}-{CultureInfo.CurrentUICulture.Name}", entry => Instance.Provider.GetRequiredService<ILocalizationResolve>().GetAllStringsByCulture(includeParentCultures))
-#if NET7_0_OR_GREATER
-        ?? Enumerable.Empty<LocalizedString>()
-#endif
-        ;
+    public static IEnumerable<LocalizedString> GetAllStringsFromResolve(bool includeParentCultures = true) => Instance.GetOrCreate($"{nameof(GetAllStringsFromResolve)}-{CultureInfo.CurrentUICulture.Name}", entry => Instance.Provider.GetRequiredService<ILocalizationResolve>().GetAllStringsByCulture(includeParentCultures));
     #endregion
 
     #region DisplayName
@@ -417,7 +375,7 @@ internal class CacheManager : ICacheManager
             if (localizer != null)
             {
                 var stringLocalizer = localizer[$"{fieldName}.PlaceHolder"];
-                if (stringLocalizer is { ResourceNotFound: false })
+                if (!stringLocalizer.ResourceNotFound)
                 {
                     ret = stringLocalizer.Value;
                 }
@@ -480,7 +438,7 @@ internal class CacheManager : ICacheManager
             {
                 entry.SetDynamicAssemblyPolicy(type);
                 return LambdaExtensions.GetPropertyValueLambda<TModel, TResult>(model, fieldName).Compile();
-            });
+            })!;
             return invoker(model);
         }
     }
@@ -509,7 +467,7 @@ internal class CacheManager : ICacheManager
             {
                 entry.SetDynamicAssemblyPolicy(type);
                 return LambdaExtensions.SetPropertyValueLambda<TModel, TValue>(model, fieldName).Compile();
-            });
+            })!;
             invoker(model, value);
         }
     }
@@ -535,7 +493,7 @@ internal class CacheManager : ICacheManager
             entry.SetDynamicAssemblyPolicy(type);
 
             return LambdaExtensions.GetKeyValue<TModel, TValue>(customAttribute).Compile();
-        });
+        })!;
         return invoker(model);
     }
     #endregion
@@ -548,7 +506,7 @@ internal class CacheManager : ICacheManager
         {
             entry.SetDynamicAssemblyPolicy(typeof(T));
             return LambdaExtensions.GetSortLambda<T>().Compile();
-        });
+        })!;
     }
 
     public static Func<IEnumerable<T>, List<string>, IEnumerable<T>> GetSortListFunc<T>()
@@ -558,7 +516,7 @@ internal class CacheManager : ICacheManager
         {
             entry.SetDynamicAssemblyPolicy(typeof(T));
             return LambdaExtensions.GetSortListLambda<T>().Compile();
-        });
+        })!;
     }
     #endregion
 
@@ -578,7 +536,7 @@ internal class CacheManager : ICacheManager
 
             entry.SetDynamicAssemblyPolicy(type);
             return Expression.Lambda<Func<object, IEnumerable<string?>>>(body, para_exp).Compile();
-        });
+        })!;
     }
 
     private static IEnumerable<string?> ConvertToString<TSource>(List<TSource> source) => source is List<SelectedItem> list
@@ -594,7 +552,7 @@ internal class CacheManager : ICacheManager
         {
             entry.SetDynamicAssemblyPolicy(type);
             return GetFormatLambda(type).Compile();
-        });
+        })!;
 
         static Expression<Func<object, string, IFormatProvider?, string>> GetFormatLambda(Type type)
         {
@@ -620,7 +578,10 @@ internal class CacheManager : ICacheManager
                     body = Expression.Call(Expression.Convert(exp_p1, type), mi);
                 }
             }
-            return body == null
+            return BuildExpression();
+
+            [ExcludeFromCodeCoverage]
+            Expression<Func<object, string, IFormatProvider?, string>> BuildExpression() => body == null
                 ? (s, f, provider) => s.ToString() ?? ""
                 : Expression.Lambda<Func<object, string, IFormatProvider?, string>>(body, exp_p1, exp_p2, exp_p3);
         }
@@ -633,7 +594,7 @@ internal class CacheManager : ICacheManager
         {
             entry.SetDynamicAssemblyPolicy(type);
             return GetFormatProviderLambda(type).Compile();
-        });
+        })!;
 
         static Expression<Func<object, IFormatProvider?, string>> GetFormatProviderLambda(Type type)
         {

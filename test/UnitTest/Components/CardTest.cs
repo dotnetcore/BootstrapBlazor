@@ -4,28 +4,28 @@
 
 namespace UnitTest.Components;
 
-public class CardTest : TestBase
+public class CardTest : BootstrapBlazorTestBase
 {
     private const string Content = "TestComponent-Card";
 
     [Fact]
     public void Header_Ok()
     {
-        var cut = Context.RenderComponent<Card>(builder => builder.Add(a => a.CardHeader, CreateComponent()));
+        var cut = Context.RenderComponent<Card>(builder => builder.Add(a => a.HeaderTemplate, CreateComponent()));
         Assert.Contains(Content, cut.Markup);
     }
 
     [Fact]
     public void Body_Ok()
     {
-        var cut = Context.RenderComponent<Card>(builder => builder.Add(a => a.CardBody, CreateComponent()));
+        var cut = Context.RenderComponent<Card>(builder => builder.Add(a => a.BodyTemplate, CreateComponent()));
         Assert.Contains(Content, cut.Markup);
     }
 
     [Fact]
     public void Footer_Ok()
     {
-        var cut = Context.RenderComponent<Card>(builder => builder.Add(a => a.CardFooter, CreateComponent()));
+        var cut = Context.RenderComponent<Card>(builder => builder.Add(a => a.FooterTemplate, CreateComponent()));
         Assert.Contains(Content, cut.Markup);
     }
 
@@ -47,7 +47,7 @@ public class CardTest : TestBase
     public void IsShadow_Ok()
     {
         var cut = Context.RenderComponent<Card>(builder => builder.Add(a => a.IsShadow, true));
-        Assert.Contains("card-shadow", cut.Markup);
+        Assert.Contains("shadow", cut.Markup);
     }
 
     [Fact]
@@ -75,7 +75,7 @@ public class CardTest : TestBase
         {
             builder.Add(a => a.IsCollapsible, true);
             builder.Add(a => a.HeaderText, "Header");
-            builder.Add(a => a.CardHeader, CreateComponent());
+            builder.Add(a => a.HeaderTemplate, CreateComponent());
         });
         Assert.Contains("card-collapse", cut.Markup);
         Assert.Contains("TestComponent-Card", cut.Markup);
@@ -88,12 +88,13 @@ public class CardTest : TestBase
         {
             builder.Add(a => a.IsCollapsible, true);
             builder.Add(a => a.HeaderText, "Header");
-            builder.Add(a => a.Collapsed, false);
+            builder.Add(a => a.Collapsed, true);
         });
-        Assert.Contains("is-open", cut.Markup);
+        Assert.Contains("data-bs-toggle=\"collapse\"", cut.Markup);
+        Assert.Contains("collapse", cut.Markup);
 
-        cut.SetParametersAndRender(pb => pb.Add(a => a.Collapsed, true));
-        cut.Contains("data-bs-collapsed=\"true\"");
+        cut.SetParametersAndRender(pb => pb.Add(a => a.Collapsed, false));
+        Assert.Contains("collapse show", cut.Markup);
     }
 
     private static RenderFragment CreateComponent() => builder =>

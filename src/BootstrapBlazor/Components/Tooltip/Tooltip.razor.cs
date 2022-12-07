@@ -133,16 +133,4 @@ public partial class Tooltip : ITooltip
         if (!string.IsNullOrEmpty(selector)) Selector = selector;
         StateHasChanged();
     }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <returns></returns>
-    protected override async Task ModuleInitAsync()
-    {
-        if (Module != null)
-        {
-            await Module.InvokeVoidAsync($"{ModuleName}.init", Id, Title);
-        }
-    }
 }

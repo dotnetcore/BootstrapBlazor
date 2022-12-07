@@ -1,5 +1,5 @@
-﻿import EventHandler from "./base/event-handler.js";
-import SimpleComponent from "./base/simple-component.js";
+﻿import EventHandler from "./base/event-handler.js"
+import SimpleComponent from "./base/simple-component.js"
 
 export class AutoRedirect extends SimpleComponent {
     _init() {

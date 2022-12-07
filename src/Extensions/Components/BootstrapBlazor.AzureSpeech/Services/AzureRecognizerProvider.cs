@@ -97,7 +97,7 @@ public class AzureRecognizerProvider : IRecognizerProvider, IAsyncDisposable
             Logger.LogError(ex, "ExchangeToken");
         }
         return ret;
-    });
+    })!;
 
     /// <summary>
     /// 客户端回调方法

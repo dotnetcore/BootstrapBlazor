@@ -35,10 +35,7 @@ public class FullScreen : BootstrapModuleComponentBase
     private async Task Show(FullScreenOption option)
     {
         Option = option;
-        if (Module != null)
-        {
-            await Module.InvokeVoidAsync($"{ModuleName}.execute", Id, Option.Element.Context != null ? option.Element : Option.Id);
-        }
+        await InvokeExecuteAsync(Id, Option.Element.Context != null ? option.Element : Option.Id);
     }
 
     /// <summary>

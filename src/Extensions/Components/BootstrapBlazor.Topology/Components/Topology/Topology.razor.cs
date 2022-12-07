@@ -50,13 +50,7 @@ public partial class Topology
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override async Task ModuleInitAsync()
-    {
-        if (Module != null)
-        {
-            await Module.InvokeVoidAsync($"{ModuleName}.init", Id, Content, nameof(PushData));
-        }
-    }
+    protected override Task ModuleInitAsync() => InvokeInitAsync(Id, Content, nameof(PushData));
 
     /// <summary>
     /// 开始推送数据方法
@@ -103,14 +97,13 @@ public partial class Topology
     /// <returns></returns>
     public async ValueTask PushData(IEnumerable<TopologyItem> items, CancellationToken token = default)
     {
-        if (Module != null && !_disposing)
+        if (!_disposing)
         {
-            await Module.InvokeVoidAsync($"{ModuleName}.execute", token, Id, items);
+            await InvokeVoidAsync("execute", token, Id, items);
         }
     }
 
     private bool _disposing;
-
     /// <summary>
     /// DisposeAsync 方法
     /// </summary>

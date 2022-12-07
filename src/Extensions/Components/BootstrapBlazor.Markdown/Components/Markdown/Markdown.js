@@ -32,9 +32,9 @@ export class Markdown extends BlazorComponent {
 
     _setListeners() {
         this._editor.on('blur', () => {
-            const val = this._editor.getMarkdown();
-            const html = this._editor.getHTML();
-            this._invoker.invokeMethodAsync(this._invokerMethod, [val, html]);
+            const val = this._editor.getMarkdown()
+            const html = this._editor.getHTML()
+            this._invoker.invokeMethodAsync(this._invokerMethod, [val, html])
         })
     }
 
@@ -56,16 +56,16 @@ export class Markdown extends BlazorComponent {
     _do(method, parameters = {}) {
         if (this._editor) {
             this._editor[method](...parameters);
-            const val = this._editor.getMarkdown();
-            const html = this._editor.getHTML();
-            this._innvoker.invokeMethodAsync('Update', [val, html]);
+            const val = this._editor.getMarkdown()
+            const html = this._editor.getHTML()
+            this._invoker.invokeMethodAsync('Update', [val, html])
         }
     }
 
     _dispose() {
         if (this._editor) {
             this._editor.off('blur')
-            this._editor.destory()
+            this._editor.destroy()
         }
     }
 }

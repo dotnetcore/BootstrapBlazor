@@ -5,15 +5,11 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// Modal 组件
 /// </summary>
-public partial class Modal : IAsyncDisposable
+[JSModuleAutoLoader(JSObjectReference = true)]
+public partial class Modal
 {
-    /// <summary>
-    /// 获得/设置 DOM 元素实例
-    /// </summary>
-    private ElementReference ModalElement { get; set; }
-
     /// <summary>
     /// 获得 样式字符串
     /// </summary>
@@ -24,7 +20,7 @@ public partial class Modal : IAsyncDisposable
     /// <summary>
     /// 获得 ModalDialog 集合
     /// </summary>
-    private List<ModalDialog> Dialogs { get; } = new(8);
+    protected List<ModalDialog> Dialogs { get; } = new(8);
 
     /// <summary>
     /// 获得/设置 是否后台关闭弹窗 默认 false
@@ -51,10 +47,22 @@ public partial class Modal : IAsyncDisposable
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
+    /// 获得/设置 组件已经渲染完毕回调方法
+    /// </summary>
+    [Parameter]
+    public Func<Task>? FirstAfterRenderCallbackAsync { get; set; }
+
+    /// <summary>
     /// 获得/设置 弹窗已显示时回调此方法
     /// </summary>
     [Parameter]
-    public Func<Task>? ShownCallbackAsync { get; set; }
+    public Func<Task>? OnShownAsync { get; set; }
+
+    /// <summary>
+    /// 获得/设置 关闭弹窗回调委托
+    /// </summary>
+    [Parameter]
+    public Func<Task>? OnCloseAsync { get; set; }
 
     /// <summary>
     /// 获得 后台关闭弹窗设置
@@ -63,54 +71,8 @@ public partial class Modal : IAsyncDisposable
 
     private string? KeyboardString => IsKeyboard ? "true" : "false";
 
-    private JSInterop<Modal>? Interop { get; set; }
-
     /// <summary>
-    /// 添加对话框方法
-    /// </summary>
-    /// <param name="dialog"></param>
-    internal void AddDialog(ModalDialog dialog)
-    {
-        if (!Dialogs.Any())
-        {
-            dialog.IsShown = true;
-        }
-
-        Dialogs.Add(dialog);
-    }
-
-    /// <summary>
-    /// 移除对话框方法
-    /// </summary>
-    /// <param name="dialog"></param>
-    internal void RemoveDialog(ModalDialog? dialog = null)
-    {
-        if (dialog == null)
-        {
-            dialog = Dialogs.LastOrDefault();
-            dialog?.Close();
-        }
-        else
-        {
-            Dialogs.Remove(dialog);
-        }
-    }
-
-    /// <summary>
-    /// 显示指定对话框方法
-    /// </summary>
-    /// <param name="dialog"></param>
-    internal void ShowDialog(ModalDialog? dialog = null)
-    {
-        dialog ??= Dialogs.LastOrDefault();
-        if (dialog != null)
-        {
-            Dialogs.ForEach(d => d.IsShown = d == dialog);
-        }
-    }
-
-    /// <summary>
-    /// OnAfterRenderAsync 方法
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="firstRender"></param>
     /// <returns></returns>
@@ -118,93 +80,107 @@ public partial class Modal : IAsyncDisposable
     {
         await base.OnAfterRenderAsync(firstRender);
 
-        if (firstRender)
+        if (firstRender && FirstAfterRenderCallbackAsync != null)
         {
-            Interop ??= new(JSRuntime);
-            await Interop.InvokeVoidAsync(this, ModalElement, "bb_modal", "init", nameof(Shown));
+            await FirstAfterRenderCallbackAsync();
         }
     }
 
     /// <summary>
-    /// 弹窗已经弹出回调方法
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    protected override Task ModuleInitAsync() => InvokeInitAsync(Id, nameof(ShownCallback), nameof(CloseCallback));
+
+    /// <summary>
+    /// 添加对话框方法
+    /// </summary>
+    /// <param name="dialog"></param>
+    internal void AddDialog(ModalDialog dialog)
+    {
+        Dialogs.Add(dialog);
+        ResetShownDialog(dialog);
+    }
+
+    /// <summary>
+    /// 移除对话框方法
+    /// </summary>
+    /// <param name="dialog"></param>
+    internal void RemoveDialog(ModalDialog dialog)
+    {
+        // 移除当前弹窗
+        Dialogs.Remove(dialog);
+
+        if (Dialogs.Any())
+        {
+            ResetShownDialog(Dialogs.Last());
+        }
+    }
+
+    private void ResetShownDialog(ModalDialog dialog)
+    {
+        // 保证新添加的 Dialog 为当前弹窗
+        Dialogs.ForEach(d =>
+        {
+            d.IsShown = d == dialog;
+        });
+    }
+
+    /// <summary>
+    /// 弹窗已经弹出回调方法 JSInvoke 调用
     /// </summary>
     /// <returns></returns>
     [JSInvokable]
-    public async Task Shown()
+    public async Task ShownCallback()
     {
-        if (ShownCallbackAsync != null)
+        if (OnShownAsync != null)
         {
-            await ShownCallbackAsync();
+            await OnShownAsync();
+        }
+    }
+
+    /// <summary>
+    /// 弹窗已经关闭回调方法 JSInvoke 调用
+    /// </summary>
+    /// <returns></returns>
+    [JSInvokable]
+    public async Task CloseCallback()
+    {
+        // 移除当前弹窗
+        var dialog = Dialogs.FirstOrDefault(d => d.IsShown);
+        if (dialog != null)
+        {
+            Dialogs.Remove(dialog);
+        }
+
+        // 多级弹窗支持
+        if (Dialogs.Any())
+        {
+            ResetShownDialog(Dialogs.Last());
+        }
+
+        if (OnCloseAsync != null)
+        {
+            await OnCloseAsync();
         }
     }
 
     /// <summary>
     /// 弹窗状态切换方法
     /// </summary>
-    public async ValueTask Toggle()
-    {
-        var dialog = Dialogs.FirstOrDefault();
-        if (dialog != null)
-        {
-            dialog.IsShown = true;
-        }
-
-        if (Interop != null)
-        {
-            await Interop.InvokeVoidAsync(this, ModalElement, "bb_modal", "toggle");
-        }
-    }
+    public Task Toggle() => InvokeExecuteAsync(Id, "show");
 
     /// <summary>
     /// 显示弹窗方法
     /// </summary>
     /// <returns></returns>
-    public async ValueTask Show()
-    {
-        var dialog = Dialogs.LastOrDefault();
-        if (dialog != null)
-        {
-            Dialogs.ForEach(d => d.IsShown = dialog == d);
-        }
-        if (Interop != null)
-        {
-            await Interop.InvokeVoidAsync(this, ModalElement, "bb_modal", "show");
-        }
-    }
+    public Task Show() => InvokeExecuteAsync(Id, "show");
 
     /// <summary>
     /// 关闭当前弹窗方法
     /// </summary>
     /// <returns></returns>
-    public async Task Close()
-    {
-        var dialog = Dialogs.FirstOrDefault(d => d.IsShown);
-        if (dialog != null)
-        {
-            await dialog.Close();
-        }
-        else
-        {
-            await CloseOrPopDialog();
-        }
-    }
-
-    /// <summary>
-    /// 内部使用如果还有弹窗继续显示，如果没有弹窗关闭所有
-    /// </summary>
-    /// <returns></returns>
-    internal async ValueTask CloseOrPopDialog()
-    {
-        if (Dialogs.Any())
-        {
-            ShowDialog();
-        }
-        else if (Interop != null)
-        {
-            // 全部关闭
-            await Interop.InvokeVoidAsync(this, ModalElement, "bb_modal", "hide");
-        }
-    }
+    public Task Close() => InvokeExecuteAsync(Id, "hide");
 
     /// <summary>
     /// 设置 Header 文字方法
@@ -213,40 +189,6 @@ public partial class Modal : IAsyncDisposable
     public void SetHeaderText(string text)
     {
         var dialog = Dialogs.FirstOrDefault(d => d.IsShown);
-        if (dialog != null)
-        {
-            dialog.SetHeaderText(text);
-        }
-    }
-
-    /// <summary>
-    /// Dispose
-    /// </summary>
-    /// <param name="disposing"></param>
-    protected virtual async ValueTask DisposeAsyncCore(bool disposing)
-    {
-        if (disposing)
-        {
-            // 切换线程防止 JS 清理 DOM 后 C# 代码报错
-            // https://gitee.com/LongbowEnterprise/BootstrapBlazor/issues/I4PKOC
-            await Task.Delay(300);
-
-            // JS 清理 DOM
-            if (Interop != null)
-            {
-                await Interop.InvokeVoidAsync(this, ModalElement, "bb_modal", "dispose");
-                Interop.Dispose();
-                Interop = null;
-            }
-        }
-    }
-
-    /// <summary>
-    /// Dispose 方法
-    /// </summary>
-    public async ValueTask DisposeAsync()
-    {
-        await DisposeAsyncCore(true);
-        GC.SuppressFinalize(this);
+        dialog?.SetHeaderText(text);
     }
 }

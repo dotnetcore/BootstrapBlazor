@@ -24,13 +24,13 @@ public partial class ListView<TItem> : BootstrapComponentBase where TItem : clas
     public RenderFragment? HeaderTemplate { get; set; }
 
     /// <summary>
-    /// 获得/设置 CardBody
+    /// 获得/设置 BodyTemplate
     /// </summary>
     [Parameter]
     public RenderFragment<TItem>? BodyTemplate { get; set; }
 
     /// <summary>
-    /// 获得/设置 CardFooter
+    /// 获得/设置 FooterTemplate
     /// </summary>
     [Parameter]
     public RenderFragment? FooterTemplate { get; set; }
@@ -46,12 +46,6 @@ public partial class ListView<TItem> : BootstrapComponentBase where TItem : clas
     /// </summary>
     [Parameter]
     public bool Pageable { get; set; }
-
-    /// <summary>
-    /// 获得/设置 每页显示数据数量的外部数据源
-    /// </summary>
-    [Parameter]
-    public IEnumerable<int>? PageItemsSource { get; set; }
 
     /// <summary>
     /// 获得/设置 分组名称
@@ -78,35 +72,20 @@ public partial class ListView<TItem> : BootstrapComponentBase where TItem : clas
     public bool IsVertical { get; set; }
 
     /// <summary>
-    /// 获得/设置 数据总条目
+    /// 获得/设置 每页数据数量 默认 20
     /// </summary>
-    protected int TotalCount { get; set; }
+    [Parameter]
+    public int PageItems { get; set; } = 20;
 
     /// <summary>
     /// 获得/设置 当前页码
     /// </summary>
-    protected int PageIndex { get; set; } = 1;
+    private int PageIndex { get; set; }
 
     /// <summary>
-    /// 获得/设置 每页数据数量
+    /// 获得/设置 数据总条目
     /// </summary>
-    protected int PageItems { get; set; }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    protected override void OnParametersSet()
-    {
-        base.OnParametersSet();
-
-        PageItemsSource ??= new int[] { 20, 50, 100, 200, 500, 1000 };
-
-        if (PageItems == 0)
-        {
-            // 如果未设置 PageItems 取默认值第一个
-            PageItems = PageItemsSource.First();
-        }
-    }
+    protected int TotalCount { get; set; }
 
     /// <summary>
     /// <inheritdoc/>
@@ -125,33 +104,15 @@ public partial class ListView<TItem> : BootstrapComponentBase where TItem : clas
     /// 点击页码调用此方法
     /// </summary>
     /// <param name="pageIndex"></param>
-    /// <param name="pageItems"></param>
-    protected async Task OnPageClick(int pageIndex, int pageItems)
-    {
-        if (pageIndex != PageIndex)
-        {
-            PageIndex = pageIndex;
-            PageItems = pageItems;
-            await QueryAsync();
-        }
-    }
-
-    /// <summary>
-    /// 每页记录条数变化是调用此方法
-    /// </summary>
-    protected async Task OnPageItemsChanged(int pageItems)
-    {
-        PageIndex = 1;
-        PageItems = pageItems;
-        await QueryAsync();
-    }
+    protected Task OnPageLinkClick(int pageIndex) => QueryAsync(pageIndex);
 
     /// <summary>
     /// 查询按钮调用此方法
     /// </summary>
     /// <returns></returns>
-    public async Task QueryAsync()
+    public async Task QueryAsync(int pageIndex = 1)
     {
+        PageIndex = pageIndex;
         await QueryData();
         StateHasChanged();
     }
@@ -176,6 +137,8 @@ public partial class ListView<TItem> : BootstrapComponentBase where TItem : clas
             TotalCount = queryData.TotalCount;
         }
     }
+
+    private int PageCount => (int)Math.Ceiling(TotalCount * 1.0 / PageItems);
 
     /// <summary>
     /// 点击元素事件

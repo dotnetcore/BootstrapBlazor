@@ -1,9 +1,9 @@
 ﻿@namespace BootstrapBlazor.Components
 @inherits BootstrapComponentBase
 
-<Modal AdditionalAttributes="@AdditionalAttributes" @ref="ModalContainer" IsKeyboard="@IsKeyboard" ShownCallbackAsync="@OnShownCallbackAsync">
-    @foreach (var parameter in DialogParameters)
+<Modal AdditionalAttributes="@AdditionalAttributes" @ref="ModalContainer" IsBackdrop="IsBackdrop" IsKeyboard="@IsKeyboard" OnShownAsync="@OnShownAsync" OnCloseAsync="OnCloseAsync">
+    @for (var index = 0; index < DialogParameters.Count; index++)
     {
-        @RenderDialog(parameter)
+        @RenderDialog(index, DialogParameters[index])
     }
 </Modal>

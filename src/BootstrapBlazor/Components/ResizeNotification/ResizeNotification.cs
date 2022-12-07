@@ -22,7 +22,7 @@ public class ResizeNotification : BootstrapModuleComponentBase
     {
         if (Module != null)
         {
-            await Module.InvokeVoidAsync($"{ModuleName}.init", Id, nameof(OnResize));
+            await InvokeInitAsync(Id, nameof(OnResize));
             var point = await Module.InvokeAsync<BreakPoint>($"{ModuleName}.getResponsive");
             await OnResize(point);
         }

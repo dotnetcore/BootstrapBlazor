@@ -26,9 +26,11 @@ public class JSModuleTest
         var module = new JSModule(js);
         await module.InvokeVoidAsync("Test.init", "bb_id");
         await module.InvokeVoidAsync("Test.init", TimeSpan.Zero, "bb_id");
+        await module.InvokeVoidAsync("Test.init", Timeout.InfiniteTimeSpan, "bb_id");
         await module.InvokeVoidAsync("Test.init", CancellationToken.None, "bb_id");
         await module.InvokeAsync<object>("Test.init", "bb_id");
         await module.InvokeAsync<object>("Test.init", TimeSpan.Zero, "bb_id");
+        await module.InvokeAsync<object>("Test.init", Timeout.InfiniteTimeSpan, "bb_id");
         await module.InvokeAsync<object>("Test.init", CancellationToken.None, "bb_id");
     }
 
@@ -73,6 +75,64 @@ public class JSModuleTest
         await module.DisposeAsync();
     }
 
+    [Fact]
+    public void JSModule_JSDisconnectedException()
+    {
+        var js = new MockJSDisconnectedObjectReference();
+        var module = new JSModule(js);
+        Assert.ThrowsAsync<JSDisconnectedException>(() =>
+        {
+            module.InvokeVoidAsync("test");
+            return Task.CompletedTask;
+        });
+        Assert.ThrowsAsync<JSDisconnectedException>(() =>
+        {
+            module.InvokeAsync<int>("test");
+            return Task.CompletedTask;
+        });
+
+        var module2 = new JSModule<Foo>(js, new Foo());
+        Assert.ThrowsAsync<JSDisconnectedException>(() =>
+        {
+            module2.InvokeVoidAsync("test");
+            return Task.CompletedTask;
+        });
+        Assert.ThrowsAsync<JSDisconnectedException>(() =>
+        {
+            module2.InvokeAsync<int>("test");
+            return Task.CompletedTask;
+        });
+    }
+
+    [Fact]
+    public void JSModule_TaskCanceledException()
+    {
+        var js = new MockTaskCanceledObjectReference();
+        var module = new JSModule(js);
+        Assert.ThrowsAsync<TaskCanceledException>(() =>
+        {
+            module.InvokeVoidAsync("test");
+            return Task.CompletedTask;
+        });
+        Assert.ThrowsAsync<TaskCanceledException>(() =>
+        {
+            module.InvokeAsync<int>("test");
+            return Task.CompletedTask;
+        });
+
+        var module2 = new JSModule<Foo>(js, new Foo());
+        Assert.ThrowsAsync<TaskCanceledException>(() =>
+        {
+            module2.InvokeVoidAsync("test", "args1", "args2");
+            return Task.CompletedTask;
+        });
+        Assert.ThrowsAsync<TaskCanceledException>(() =>
+        {
+            module2.InvokeAsync<int>("test", "args1", "args2");
+            return Task.CompletedTask;
+        });
+    }
+
     private class MockErrorJSObjectReference : MockJSObjectReference
     {
         protected override ValueTask DisposeAsyncCore(bool disposing)
@@ -108,5 +168,25 @@ public class JSModuleTest
         {
             return ValueTask.FromResult<TValue>(default!);
         }
+
+        public ValueTask InvokeVoidAsync_JSDisconnected_Test() => throw new JSDisconnectedException("Test");
+    }
+
+    private class MockJSDisconnectedObjectReference : IJSObjectReference
+    {
+        public ValueTask DisposeAsync() => throw new JSDisconnectedException("Test");
+
+        public ValueTask<TValue> InvokeAsync<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors | DynamicallyAccessedMemberTypes.PublicFields | DynamicallyAccessedMemberTypes.PublicProperties)] TValue>(string identifier, object?[]? args) => throw new JSDisconnectedException("Test");
+
+        public ValueTask<TValue> InvokeAsync<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors | DynamicallyAccessedMemberTypes.PublicFields | DynamicallyAccessedMemberTypes.PublicProperties)] TValue>(string identifier, CancellationToken cancellationToken, object?[]? args) => throw new JSDisconnectedException("Test");
+    }
+
+    private class MockTaskCanceledObjectReference : IJSObjectReference
+    {
+        public ValueTask DisposeAsync() => throw new TaskCanceledException("Test");
+
+        public ValueTask<TValue> InvokeAsync<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors | DynamicallyAccessedMemberTypes.PublicFields | DynamicallyAccessedMemberTypes.PublicProperties)] TValue>(string identifier, object?[]? args) => throw new TaskCanceledException("Test");
+
+        public ValueTask<TValue> InvokeAsync<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors | DynamicallyAccessedMemberTypes.PublicFields | DynamicallyAccessedMemberTypes.PublicProperties)] TValue>(string identifier, CancellationToken cancellationToken, object?[]? args) => throw new TaskCanceledException("Test");
     }
 }

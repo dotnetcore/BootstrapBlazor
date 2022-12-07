@@ -213,6 +213,22 @@ public class JsonStringLocalizerTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void FormatException_Ok()
+    {
+        var sc = new ServiceCollection();
+        sc.AddConfiguration();
+        sc.AddSingleton<IStringLocalizerFactory, MockLocalizerFactory>();
+        sc.AddTransient<IStringLocalizer, MockStringLocalizer>();
+        sc.AddBootstrapBlazor();
+
+        var provider = sc.BuildServiceProvider();
+        var localizer = provider.GetRequiredService<IStringLocalizer<Dummy>>();
+        var v = localizer["Mock-FakeAddress", "Test"];
+        Assert.True(v.ResourceNotFound);
+        Assert.Equal("Mock-FakeAddress", v);
+    }
+
+    [Fact]
     public void GetResourcePrefix_Ok()
     {
         // https://gitee.com/LongbowEnterprise/BootstrapBlazor/issues/I5SRA1
@@ -260,7 +276,8 @@ public class JsonStringLocalizerTest : BootstrapBlazorTestBase
         public IEnumerable<LocalizedString> GetAllStrings(bool includeParentCultures) => new List<LocalizedString>()
         {
             new LocalizedString("Mock-Name", "Mock-Test-Name"),
-            new LocalizedString("Mock-Address", "Mock-Test-Address-{0}")
+            new LocalizedString("Mock-Address", "Mock-Test-Address-{0}"),
+            new LocalizedString("Mock-FakeAddress", "Mock-Test-Address-{ 0}")
         };
     }
 

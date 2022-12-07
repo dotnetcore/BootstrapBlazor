@@ -80,6 +80,13 @@ public sealed partial class Modals
     private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
         new AttributeItem() {
+            Name = "FirstAfterRenderCallbackAsync",
+            Description = "Modal first after render callback",
+            Type = "Func<Task>",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new AttributeItem() {
             Name = "HeaderTemplate",
             Description = "Modal body ModalHeader template",
             Type = "RenderFragment",

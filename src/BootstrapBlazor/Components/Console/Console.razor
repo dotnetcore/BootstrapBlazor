@@ -1,12 +1,22 @@
 ﻿@namespace BootstrapBlazor.Components
-@inherits ConsoleBase
+@inherits BootstrapModuleComponentBase
 
-<div @attributes="@AdditionalAttributes" class="@ClassString" @ref="@ConsoleElement">
+<div @attributes="@AdditionalAttributes" class="@ClassString" id="@Id" data-bb-scroll="@AutoScrollString">
     <div class="card-header d-flex">
-        <span class="flex-fill">@HeaderText</span>
-        <Light IsFlash="true" Title="@LightTitle" Color="@Color.Success"></Light>
+        @if (HeaderTemplate != null)
+        {
+            @HeaderTemplate
+        }
+        else
+        {
+            <span class="flex-fill">@HeaderText</span>
+            @if (ShowLight)
+            {
+                <Light IsFlash="@IsFlashLight" TooltipText="@LightTitle" Color="@LightColor"></Light>
+            }
+        }
     </div>
-    <div class="card-body console-body" data-scroll="@AutoScrollString" style="@BodyStyleString">
+    <div class="card-body" style="@BodyStyleString">
         <div class="console-window">
             @foreach (var item in Items)
             {
@@ -14,17 +24,21 @@
             }
         </div>
     </div>
-    <div class="@FooterClassString">
-        @if (ShowAutoScroll)
-        {
-            <Checkbox @bind-Value="@IsAutoScroll" ShowAfterLabel="true" DisplayText="@AutoScrollText" />
-        }
-        @if (OnClear != null)
-        {
-            <button type="button" class="@ClearButtonClassString" @onclick="@ClearConsole">
-                <i class="@ClearButtonIcon"></i>
-                <span>@ClearButtonText</span>
-            </button>
-        }
-    </div>
+    @if (ShowFooter)
+    {
+        <div class="card-footer">
+            @if (FooterTemplate != null)
+            {
+                @FooterTemplate
+            }
+            else if (ShowAutoScroll)
+            {
+                <Checkbox @bind-Value="@IsAutoScroll" ShowAfterLabel="true" DisplayText="@AutoScrollText" />
+            }
+            @if (OnClear != null)
+            {
+                <Button Text="@ClearButtonText" Icon="@ClearButtonIcon" Color="@ClearButtonColor" OnClick="ClearConsole" class="console-clear" />
+            }
+        </div>
+    }
 </div>

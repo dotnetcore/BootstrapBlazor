@@ -120,9 +120,26 @@ public class MenuTest : BootstrapBlazorTestBase
     {
         var cut = Context.RenderComponent<Menu>(pb =>
         {
-            pb.Add(m => m.Items, Items);
+            pb.Add(m => m.Items, new MenuItem[]
+            {
+                new("Menu1")
+                {
+                    Icon = "fa-solid fa-font-awesome",
+                    Url = "https://www.blazor.zone"
+                },
+                new("Menu2")
+                {
+                    Icon = "fa-solid fa-font-awesome",
+                    Url = "https://www.blazor.zone"
+                }
+            });
             pb.Add(m => m.DisableNavigation, true);
         });
+
+        // 无 Active 菜单 触发点击事件
+        // 子菜单 Click 触发
+        var menuItems = cut.Find("li");
+        menuItems.Click(new MouseEventArgs());
     }
 
     [Fact]
@@ -131,10 +148,22 @@ public class MenuTest : BootstrapBlazorTestBase
         var cut = Context.RenderComponent<Menu>(pb =>
         {
             pb.Add(m => m.Items, Items);
+            pb.Add(m => m.IsVertical, false);
+        });
+        Assert.DoesNotContain("is-vertical", cut.Markup);
+
+        cut.SetParametersAndRender(pb =>
+        {
             pb.Add(m => m.IsVertical, true);
         });
-
         Assert.Contains("is-vertical", cut.Markup);
+
+        // 垂直布局时设置手风琴效果触发 ShouldInvoke
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.IsAccordion, true);
+        });
+        Assert.Contains("accordion", cut.Markup);
     }
 
     [Fact]
@@ -302,18 +331,6 @@ public class MenuTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void ActiveItem_Ok()
-    {
-        // 设置 后通过菜单激活 ActiveItem 不为空
-        var nav = Context.Services.GetRequiredService<FakeNavigationManager>();
-        nav.NavigateTo("/menu22");
-        var cut = Context.RenderComponent<Menu>(pb =>
-        {
-            pb.Add(m => m.Items, Items);
-        });
-    }
-
-    [Fact]
     public void SubMenu_ClassString_Ok()
     {
         var nav = Context.Services.GetRequiredService<FakeNavigationManager>();
@@ -335,16 +352,16 @@ public class MenuTest : BootstrapBlazorTestBase
         {
             Items = new[]
             {
-                    new MenuItem()
+                new MenuItem()
+                {
+                    Text = "Test1",
+                    Items = new List<MenuItem>()
                     {
-                        Text = "Test1",
-                        Items = new List<MenuItem>()
-                        {
-                            new MenuItem("Test11"),
-                            new MenuItem("Test12")
-                        }
+                        new MenuItem("Test11"),
+                        new MenuItem("Test12")
                     }
                 }
+            }
         };
         subs = item.GetAllSubItems();
         Assert.NotEmpty(subs.ToList());
@@ -393,5 +410,36 @@ public class MenuTest : BootstrapBlazorTestBase
         item.CascadingSetActive(true);
         Assert.True(item.IsActive);
         Assert.True(parent.IsActive);
+    }
+}
+
+public class MenuItemTest_Ok : DialogTestBase
+{
+    [Fact]
+    public void ActiveItem_Ok()
+    {
+        var cut = Context.RenderComponent<Menu>(pb =>
+        {
+            pb.Add(m => m.Items, new MenuItem[]
+            {
+                new("Menu1")
+                {
+                    Icon = "fa-solid fa-font-awesome",
+                    Url = "/menu22"
+                },
+                new("Menu2")
+                {
+                    Icon = "fa-solid fa-font-awesome",
+                    Url = "/menu23"
+                }
+            });
+        });
+        cut.DoesNotContain("<a href=\"menu22\" class=\"nav-link active\">");
+
+        // 设置 后通过菜单激活 ActiveItem 不为空
+        var nav = Context.Services.GetRequiredService<FakeNavigationManager>();
+        nav.NavigateTo("/menu22");
+        cut.SetParametersAndRender();
+        cut.Contains("<a href=\"menu22\" class=\"nav-link active\">");
     }
 }

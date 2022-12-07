@@ -20,22 +20,31 @@ public partial class Table<TItem>
     protected SortOrder SortOrder { get; set; }
 
     /// <summary>
-    /// 获得/设置 升序图标
+    /// 获得/设置 升序图标 fa-solid fa-sort-up
     /// </summary>
     [Parameter]
-    public string SortIconAsc { get; set; } = "fa-solid fa-sort-up";
+    [NotNull]
+    public string? SortIconAsc { get; set; }
 
     /// <summary>
-    /// 获得/设置 降序图标
+    /// 获得/设置 降序图标 fa-solid fa-sort-down
     /// </summary>
     [Parameter]
-    public string SortIconDesc { get; set; } = "fa-solid fa-sort-down";
+    [NotNull]
+    public string? SortIconDesc { get; set; }
 
     /// <summary>
-    /// 获得/设置 默认图标
+    /// 获得/设置 默认图标 fa-solid fa-sort
     /// </summary>
     [Parameter]
-    public string SortIcon { get; set; } = "fa-solid fa-sort";
+    [NotNull]
+    public string? SortIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 过滤图标 默认 fa-solid fa-filter
+    /// </summary>
+    [Parameter]
+    public string? FilterIcon { get; set; }
 
     /// <summary>
     /// 获得/设置 多列排序顺序 默认为空 多列时使用逗号分割 如："Name, Age desc"
@@ -60,6 +69,8 @@ public partial class Table<TItem>
     /// </summary>
     protected Func<Task> OnClickHeader(ITableColumn col) => async () =>
     {
+        UpdateSortTooltip = true;
+
         if (SortOrder == SortOrder.Unset)
         {
             SortOrder = SortOrder.Asc;
@@ -91,6 +102,17 @@ public partial class Table<TItem>
         .AddClass(GetFixedCellClassString(col))
         .Build();
 
+    private string? MultiColumnClassString => CssBuilder.Default()
+        .AddClass("fixed", FixedMultipleColumn)
+        .AddClass("fr", IsLastMultiColumn())
+        .Build();
+
+    private int MulitiColumnLeft => ShowDetails() ? DetailColumnWidth : 0;
+
+    private string? MultiColumnStyleString => FixedMultipleColumn ? $"left: {MulitiColumnLeft}px;" : null;
+
+    private int MultiColumnWidth => ShowCheckboxText ? ShowCheckboxTextColumnWidth : CheckboxColumnWidth;
+
     /// <summary>
     /// 获得指定列头固定列样式
     /// </summary>
@@ -100,6 +122,8 @@ public partial class Table<TItem>
     protected string? GetFixedCellClassString(ITableColumn col, string? cellClass = null) => CssBuilder.Default(cellClass)
         .AddClass("fixed", col.Fixed)
         .AddClass("fixed-right", col.Fixed && IsTail(col))
+        .AddClass("fr", IsLastColumn(col))
+        .AddClass("fl", IsFirstColumn(col))
         .Build();
 
     /// <summary>
@@ -109,6 +133,8 @@ public partial class Table<TItem>
     protected string? FixedExtendButtonsColumnClassString => CssBuilder.Default("table-column-button")
         .AddClass("fixed", FixedExtendButtonsColumn)
         .AddClass("fixed-right", !IsExtendButtonsInRowHeader)
+        .AddClass("fr", IsLastExtendButtonColumn())
+        .AddClass("fl", IsFirstExtendButtonColumn())
         .Build();
 
     /// <summary>
@@ -118,6 +144,8 @@ public partial class Table<TItem>
     protected string? ExtendButtonsColumnClass => CssBuilder.Default()
         .AddClass("fixed", FixedExtendButtonsColumn)
         .AddClass("fixed-right", !IsExtendButtonsInRowHeader)
+        .AddClass("fr", IsLastExtendButtonColumn())
+        .AddClass("fl", IsFirstExtendButtonColumn())
         .Build();
 
     /// <summary>
@@ -126,8 +154,54 @@ public partial class Table<TItem>
     /// <returns></returns>
     protected string? GetFixedExtendButtonsColumnStyleString(int margin = 0) => CssBuilder.Default()
         .AddClass($"right: {(IsFixedHeader ? margin : 0)}px;", FixedExtendButtonsColumn && !IsExtendButtonsInRowHeader)
-        .AddClass("left: 0px;", FixedExtendButtonsColumn && IsExtendButtonsInRowHeader)
+        .AddClass($"left: {GetExtendButtonsColumnLeftMargin()}px;", FixedExtendButtonsColumn && IsExtendButtonsInRowHeader)
         .Build();
+
+    private bool IsLastMultiColumn() => FixedMultipleColumn && (!FixedExtendButtonsColumn || !IsExtendButtonsInRowHeader) && !GetColumns().Any(i => i.Fixed);
+
+    private bool IsLastColumn(ITableColumn col)
+    {
+        var ret = false;
+        if (col.Fixed && !IsTail(col))
+        {
+            var index = Columns.IndexOf(col) + 1;
+            ret = index < Columns.Count && Columns[index].Fixed == false;
+        }
+        return ret;
+    }
+
+    private bool IsLastExtendButtonColumn() => IsExtendButtonsInRowHeader && !GetColumns().Any(i => i.Fixed);
+
+    private bool IsFirstColumn(ITableColumn col)
+    {
+        var ret = false;
+        if (col.Fixed && IsTail(col))
+        {
+            var index = Columns.IndexOf(col) - 1;
+            ret = index > 0 && Columns[index].Fixed == false;
+        }
+        return ret;
+    }
+
+    private bool IsFirstExtendButtonColumn() => !IsExtendButtonsInRowHeader && !GetColumns().Any(i => i.Fixed);
+
+    private int GetExtendButtonsColumnLeftMargin()
+    {
+        var width = 0;
+        if (ShowDetails())
+        {
+            width += DetailColumnWidth;
+        }
+        if (ShowLineNo)
+        {
+            width += LineNoColumnWidth;
+        }
+        if (FixedMultipleColumn)
+        {
+            width += MultiColumnWidth;
+        }
+        return width;
+    }
 
     private int CalcMargin(int margin)
     {
@@ -148,7 +222,7 @@ public partial class Table<TItem>
 
     private bool IsTail(ITableColumn col)
     {
-        var middle = Math.Floor(Columns.Count * 1.0 / 2);
+        var middle = Math.Floor(GetColumns().Count() * 1.0 / 2);
         var index = Columns.IndexOf(col);
         return middle < index;
     }
@@ -198,6 +272,18 @@ public partial class Table<TItem>
             }
             else
             {
+                if (FixedMultipleColumn)
+                {
+                    width += MultiColumnWidth;
+                }
+                if (ShowDetails())
+                {
+                    width += DetailColumnWidth;
+                }
+                if (ShowLineNo)
+                {
+                    width += LineNoColumnWidth;
+                }
                 while (index > start)
                 {
                     width += Columns[start++].Width ?? defaultWidth;
@@ -217,14 +303,6 @@ public partial class Table<TItem>
         .AddClass("is-sort", col.Sortable)
         .AddClass("is-filter", col.Filterable)
         .AddClass(col.Align.ToDescriptionString(), col.Align == Alignment.Center || col.Align == Alignment.Right)
-        .Build();
-
-    /// <summary>
-    /// 获得 Header 中表头文字样式
-    /// </summary>
-    /// <param name="col"></param>
-    /// <returns></returns>
-    protected string? GetHeaderTextClassString(ITableColumn col) => CssBuilder.Default("table-text")
         .Build();
 
     /// <summary>
@@ -249,7 +327,7 @@ public partial class Table<TItem>
     /// 获取指定列头样式字符串
     /// </summary>
     /// <returns></returns>
-    protected string? GetIconClassString(string fieldName) => CssBuilder.Default("table-sort-icon")
+    protected string? GetIconClassString(string fieldName) => CssBuilder.Default("sort-icon")
         .AddClass(SortIcon, SortName != fieldName || SortOrder == SortOrder.Unset)
         .AddClass(SortIconAsc, SortName == fieldName && SortOrder == SortOrder.Asc)
         .AddClass(SortIconDesc, SortName == fieldName && SortOrder == SortOrder.Desc)

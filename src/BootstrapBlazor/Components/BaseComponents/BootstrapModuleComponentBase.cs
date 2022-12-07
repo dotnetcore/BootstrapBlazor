@@ -34,11 +34,6 @@ public abstract class BootstrapModuleComponentBase : IdComponentBase, IAsyncDisp
     protected bool Relative { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否继承父类 JSModuleAutoLoader 设置 默认 true
-    /// </summary>
-    protected bool Inherited { get; set; } = true;
-
-    /// <summary>
     /// 获得/设置 是否需要 javascript invoke 默认 false
     /// </summary>
     protected bool JSObjectReference { get; set; }
@@ -58,11 +53,11 @@ public abstract class BootstrapModuleComponentBase : IdComponentBase, IAsyncDisp
     /// </summary>
     protected virtual void OnLoadJSModule()
     {
-        if (Inherited)
+        var type = this.GetType();
+        var inherited = type.GetCustomAttribute<JSModuleNotInheritedAttribute>() == null;
+        if (inherited)
         {
-            var type = this.GetType();
             var attr = type.GetCustomAttribute<JSModuleAutoLoaderAttribute>();
-
             if (attr != null)
             {
                 string? typeName = null;
@@ -117,19 +112,107 @@ public abstract class BootstrapModuleComponentBase : IdComponentBase, IAsyncDisp
     /// call javascript init method
     /// </summary>
     /// <returns></returns>
-    protected virtual async Task ModuleInitAsync()
-    {
-        if (Module != null)
-        {
-            await Module.InvokeVoidAsync($"{ModuleName}.init", Id);
-        }
-    }
+    protected virtual Task ModuleInitAsync() => InvokeInitAsync(Id);
 
     /// <summary>
     /// call javascript execute method
     /// </summary>
     /// <returns></returns>
     protected virtual Task ModuleExecuteAsync() => Task.CompletedTask;
+
+    /// <summary>
+    /// call javascript init method
+    /// </summary>
+    /// <param name="args"></param>
+    /// <returns></returns>
+    protected Task InvokeInitAsync(params object?[]? args) => InvokeVoidAsync("init", args);
+
+    /// <summary>
+    /// call javascript execute method
+    /// </summary>
+    /// <param name="args"></param>
+    /// <returns></returns>
+    protected Task InvokeExecuteAsync(params object?[]? args) => InvokeVoidAsync("execute", args);
+
+    /// <summary>
+    /// call javascript method
+    /// </summary>
+    /// <param name="identifier"></param>
+    /// <param name="args"></param>
+    /// <returns></returns>
+    protected Task InvokeVoidAsync(string identifier, params object?[]? args) => InvokeVoidAsync(identifier, CancellationToken.None, args);
+
+    /// <summary>
+    /// call javascript method
+    /// </summary>
+    /// <param name="identifier"></param>
+    /// <param name="timeout"></param>
+    /// <param name="args"></param>
+    /// <returns></returns>
+    protected async Task InvokeVoidAsync(string identifier, TimeSpan timeout, params object?[]? args)
+    {
+        if (Module != null)
+        {
+            await Module.InvokeVoidAsync($"{ModuleName}.{identifier}", timeout, args);
+        }
+    }
+
+    /// <summary>
+    /// call javascript method
+    /// </summary>
+    /// <param name="identifier"></param>
+    /// <param name="cancellationToken"></param>
+    /// <param name="args"></param>
+    /// <returns></returns>
+    protected async Task InvokeVoidAsync(string identifier, CancellationToken cancellationToken = default, params object?[]? args)
+    {
+        if (Module != null)
+        {
+            await Module.InvokeVoidAsync($"{ModuleName}.{identifier}", cancellationToken, args);
+        }
+    }
+
+    /// <summary>
+    /// call javascript method
+    /// </summary>
+    /// <param name="identifier"></param>
+    /// <param name="args"></param>
+    /// <returns></returns>
+    protected Task<TValue?> InvokeAsync<TValue>(string identifier, params object?[]? args) => InvokeAsync<TValue?>(identifier, CancellationToken.None, args);
+
+    /// <summary>
+    /// call javascript method
+    /// </summary>
+    /// <param name="identifier"></param>
+    /// <param name="timeout"></param>
+    /// <param name="args"></param>
+    /// <returns></returns>
+    protected async Task<TValue?> InvokeAsync<TValue>(string identifier, TimeSpan timeout, params object?[]? args)
+    {
+        TValue? ret = default;
+        if (Module != null)
+        {
+            ret = await Module.InvokeAsync<TValue>($"{ModuleName}.{identifier}", timeout, args);
+        }
+        return ret;
+    }
+
+    /// <summary>
+    /// call javascript method
+    /// </summary>
+    /// <param name="identifier"></param>
+    /// <param name="cancellationToken"></param>
+    /// <param name="args"></param>
+    /// <returns></returns>
+    protected async Task<TValue?> InvokeAsync<TValue>(string identifier, CancellationToken cancellationToken = default, params object?[]? args)
+    {
+        TValue? ret = default;
+        if (Module != null)
+        {
+            ret = await Module.InvokeAsync<TValue>($"{ModuleName}.{identifier}", cancellationToken, args);
+        }
+        return ret;
+    }
 
     /// <summary>
     /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources asynchronously.

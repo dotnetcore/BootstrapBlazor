@@ -53,6 +53,9 @@ public partial class Toast
     /// </summary>
     [Parameter]
     [NotNull]
+#if NET6_0_OR_GREATER
+    [EditorRequired]
+#endif
     public ToastOption? Options { get; set; }
 
     /// <summary>
@@ -63,12 +66,13 @@ public partial class Toast
     protected ToastContainer? ToastContainer { get; set; }
 
     /// <summary>
-    /// OnInitialized
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
     {
         base.OnInitialized();
 
+        Options ??= new ToastOption();
         Options.Toast = this;
     }
 
@@ -76,13 +80,7 @@ public partial class Toast
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override async Task ModuleInitAsync()
-    {
-        if (Module != null)
-        {
-            await Module.InvokeVoidAsync($"{ModuleName}.init", Id, nameof(Close));
-        }
-    }
+    protected override Task ModuleInitAsync() => InvokeInitAsync(Id, nameof(Close));
 
     /// <summary>
     /// 清除 ToastBox 方法

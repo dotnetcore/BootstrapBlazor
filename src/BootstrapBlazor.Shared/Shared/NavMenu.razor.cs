@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using BootstrapBlazor.Shared.Services;
 using Microsoft.Extensions.Options;
 using System;
 
@@ -37,15 +38,19 @@ public partial class NavMenu
 
     [Inject]
     [NotNull]
-    private IOptionsMonitor<WebsiteOptions>? WebsiteOption { get; set; }
+    private MenuService? MenuService { get; set; }
+
+    [NotNull]
+    private List<MenuItem>? Menus { get; set; }
 
     /// <summary>
-    /// OnInitialized 方法
+    /// <inheritdoc/>
     /// </summary>
-    protected override void OnParametersSet()
+    protected override void OnInitialized()
     {
-        base.OnParametersSet();
+        base.OnInitialized();
 
+        Menus = MenuService.GetMenus();
         AccordionText ??= Localizer["MenuAccordion"];
         ExpandAllText ??= Localizer["MenuExpandAll"];
     }

@@ -70,7 +70,7 @@ public sealed partial class ComponentLayout
         var comNameWithHash = page.Split("/").LastOrDefault() ?? string.Empty;
         var comName = comNameWithHash.Split("#").FirstOrDefault() ?? string.Empty;
 
-        if (!string.IsNullOrEmpty(comName) && SiteOptions.CurrentValue.SourceCodes.TryGetValue(comName, out var fileName))
+        if (!string.IsNullOrEmpty(comName) && SiteOptions.CurrentValue.SourceCodes.TryGetValue(comName, out var fileName) && !string.IsNullOrEmpty(fileName))
         {
             if (fileName.Contains(';'))
             {

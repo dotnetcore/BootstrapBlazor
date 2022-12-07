@@ -21,6 +21,13 @@ public sealed partial class Dialogs
     [NotNull]
     private DialogService? DialogService { get; set; }
 
+    /// <summary>
+    /// 获得 Toast注入服务
+    /// </summary>
+    [Inject]
+    [NotNull]
+    private ToastService? ToastService { get; set; }
+
     [Inject]
     [NotNull]
     private IStringLocalizer<Foo>? LocalizerFoo { get; set; }
@@ -60,6 +67,18 @@ public sealed partial class Dialogs
         },
     });
 
+    private Task OnCustomerHeaderToolbarClick() => DialogService.Show(new DialogOption()
+    {
+        Title = Localizer["HeaderToolbarTemplateDialogTitle"],
+        HeaderToolbarTemplate = builder =>
+        {
+            builder.OpenComponent<Button>(0);
+            builder.AddAttribute(1, nameof(Button.Icon), "fa-solid fa-print");
+            builder.AddAttribute(1, nameof(Button.OnClickWithoutRender), () => ToastService.Success(Localizer["HeaderToolbarTemplateDialogTitle"], Localizer["HeaderToolbarTemplateToastContent"]));
+            builder.CloseComponent();
+        }
+    });
+
     /// <summary>
     /// 
     /// </summary>
@@ -70,9 +89,8 @@ public sealed partial class Dialogs
         Title = "I am the popup created by the service",
         BodyTemplate = BootstrapDynamicComponent.CreateComponent<Button>(new Dictionary<string, object?>
         {
-            [nameof(Button.ChildContent)] = new RenderFragment(builder => builder.AddContent(0, "我是服务创建的按钮"))
-        })
-        .Render()
+            [nameof(Button.ChildContent)] = new RenderFragment(builder => builder.AddContent(0, "Button"))
+        }).Render()
     });
 
     private async Task Show()
@@ -129,7 +147,7 @@ public sealed partial class Dialogs
             // Modal 组件 ShownCallbackAsync 触发后调用 Option 实例的 ShownCallbackAsync
             [nameof(ShownCallbackDummy.ShownTodo)] = new Action<Func<Task>>(cb =>
             {
-                option.ShownCallbackAsync = async () =>
+                option.OnShownAsync = async () =>
                 {
                     await cb();
                 };
@@ -230,9 +248,9 @@ public sealed partial class Dialogs
     {
         var result = await DialogService.ShowModal<ResultDialogDemo2>(new ResultDialogOption()
         {
-            Title = "select recipient",
+            Title = Localizer["EmailDialogTitle"],
             BodyContext = new ResultDialogDemo2.FooContext() { Count = 10, Emails = InputValue },
-            ButtonYesText = "choose",
+            ButtonYesText = Localizer["EmailDialogButtonYes"],
             ButtonYesIcon = "fa-solid fa-magnifying-glass",
             ComponentParamters = new Dictionary<string, object>
             {
@@ -251,7 +269,10 @@ public sealed partial class Dialogs
     {
         await DialogService.Show(new DialogOption()
         {
-            Title = $"弹窗 {DateTime.Now}",
+            Title = $"Multiple Pop-up",
+            IsDraggable= true,
+            IsKeyboard = true,
+            IsBackdrop = true,
             Component = BootstrapDynamicComponent.CreateComponent<DialogDemo>()
         });
     }
@@ -263,8 +284,14 @@ public sealed partial class Dialogs
             Title = "Edit popup",
             Model = new Foo(),
             RowType = RowType.Inline,
+            ShowLoading = true,
             ItemsPerRow = 2,
-            ItemChangedType = ItemChangedType.Update
+            ItemChangedType = ItemChangedType.Update,
+            OnEditAsync = async context =>
+            {
+                await Task.Delay(2000);
+                return false;
+            }
         };
         await DialogService.ShowEditDialog(option);
     }

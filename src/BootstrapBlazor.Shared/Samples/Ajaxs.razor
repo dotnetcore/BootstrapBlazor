@@ -10,14 +10,21 @@
         <b>@Localizer["NormalB"]</b>
         <div>@((MarkupString)Localizer["NormalDiv"].Value)</div>
     </p>
-    <div class="mb-3">@ResultMessage</div>
+    <Pre>var option = new AjaxOption
+{
+    Url = "/api/Login",
+    Data = new User() { UserName = "admin", Password = "1234567" }
+};
+var result = await AjaxService.InvokeAsync(option);</Pre>
+    <div class="mb-3"><code>@ResultMessage</code></div>
     <Button OnClick="Success">@Localizer["NormalButtonText1"]</Button>
     <Button OnClick="Fail">@Localizer["NormalButtonText2"]</Button>
 </DemoBlock>
 
 <DemoBlock Introduction="@Localizer["GotoIntro"]" Title="@Localizer["GotoTitle"]" Name="Goto">
+    <Pre>await AjaxService.Goto("/introduction");</Pre>
     <Button OnClick="Goto">@Localizer["GotoButtonText1"]</Button>
     <Button OnClick="GotoSelf">@Localizer["GotoButtonText2"]</Button>
 </DemoBlock>
 
-<Ajax></Ajax>
+<MethodTable Items="@GetMethods()" />

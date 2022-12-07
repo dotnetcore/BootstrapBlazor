@@ -1,8 +1,10 @@
 ﻿.footer {
-    background: #5b6e84;
-    color: #fff;
-    padding: 10px 4px;
-    height: 40px;
+    --bb-footer-bg: var(--bs-secondary);
+    --bb-footer-color: inherit;
+    --bb-footer-padding: .5rem 1rem;
+    background: var(--bb-footer-bg);
+    color: var(--bb-footer-color);
+    padding: var(--bb-footer-padding);
     display: flex;
 }
 

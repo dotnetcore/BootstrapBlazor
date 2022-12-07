@@ -6,7 +6,7 @@
 <h4>@Localizer["H2"]</h4>
 
 <Tips class="mt-3">
-    <div>@Localizer["P1"]</div>
+    <div>@((MarkupString)Localizer["P1"].Value)</div>
     <ul class="ul-demo mt-3">
         <li>@((MarkupString)Localizer["P2"].Value)</li>
         <li>@((MarkupString)Localizer["P3"].Value)</li>
@@ -36,7 +36,7 @@
     <Tips>
         <div>@((MarkupString)Localizer["P14"].Value)</div>
     </Tips>
-    <p>((MarkupString)Localizer["P15"].Value)</p>
+    <p>@((MarkupString)Localizer["P15"].Value)</p>
     <Table TItem="TreeFoo" IsBordered="true" IsStriped="true" HeaderStyle="@TableHeaderStyle.Light" IndentSize="8"
            Items="@TreeItems" IsTree="true" TreeNodeConverter="@TreeNodeConverter" OnTreeExpand="@OnTreeExpand">
         <TableColumns>

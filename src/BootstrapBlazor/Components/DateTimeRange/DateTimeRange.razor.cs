@@ -164,7 +164,7 @@ public partial class DateTimeRange
         StartValue = Value.Start;
         EndValue = Value.End;
 
-        if (StartValue == DateTime.MinValue) StartValue = DateTime.Now;
+        if (StartValue == DateTime.MinValue) StartValue = DateTime.Today;
         if (EndValue == DateTime.MinValue) EndValue = StartValue.AddMonths(1);
 
         SelectedValue.Start = StartValue;
@@ -234,9 +234,9 @@ public partial class DateTimeRange
         EndValue = StartValue.AddMonths(1);
         await ClickConfirmButton();
 
-        if (AutoCloseClickSideBar && Module != null)
+        if (AutoCloseClickSideBar)
         {
-            await Module.InvokeVoidAsync($"{ModuleName}.execute", Id, "hide");
+            await InvokeExecuteAsync(Id, "hide");
         }
     }
 

@@ -23,6 +23,7 @@ public static class IEditItemExtensions
         if (source.Readonly) dest.Readonly = source.Readonly;
         if (source.Searchable) dest.Searchable = source.Searchable;
         if (source.ShowTips) dest.ShowTips = source.ShowTips;
+        if (source.ShowCopyColumn) dest.ShowCopyColumn = source.ShowCopyColumn;
         if (source.Sortable) dest.Sortable = source.Sortable;
         if (source.TextEllipsis) dest.TextEllipsis = source.TextEllipsis;
     }
@@ -40,6 +41,8 @@ public static class IEditItemExtensions
         if (source.EditTemplate != null) dest.EditTemplate = source.EditTemplate;
         if (source.Items != null) dest.Items = source.Items;
         if (source.Lookup != null) dest.Lookup = source.Lookup;
+        if (source.ShowSearchWhenSelect) dest.ShowSearchWhenSelect = source.ShowSearchWhenSelect;
+        if (source.IsPopover) dest.IsPopover = source.IsPopover;
         if (source.LookupStringComparison != StringComparison.OrdinalIgnoreCase) dest.LookupStringComparison = source.LookupStringComparison;
         if (source.LookupServiceKey != null) dest.LookupServiceKey = source.LookupServiceKey;
         if (source.IsReadonlyWhenAdd) dest.IsReadonlyWhenAdd = source.IsReadonlyWhenAdd;
@@ -77,6 +80,7 @@ public static class IEditItemExtensions
             if (col.TextEllipsis) dest.TextEllipsis = col.TextEllipsis;
             if (!col.Visible) dest.Visible = col.Visible;
             if (col.Width != null) dest.Width = col.Width;
+            if (col.ShowCopyColumn) dest.ShowCopyColumn = col.ShowCopyColumn;
         }
     }
 

@@ -11,10 +11,6 @@
         cursor: pointer;
     }
 
-.is-img-preview {
-    overflow: hidden;
-}
-
 .bb-img-holder {
     background-color: var(--bs-secondary);
     position: absolute;

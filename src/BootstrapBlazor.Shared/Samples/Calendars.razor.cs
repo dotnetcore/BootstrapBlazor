@@ -2,6 +2,8 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using System.Collections.Concurrent;
+
 namespace BootstrapBlazor.Shared.Samples;
 
 /// <summary>
@@ -19,6 +21,14 @@ public sealed partial class Calendars
     }
 
     private static string Formatter(DateTime ts) => ts.ToString("yyyy-MM-dd");
+
+    private ConcurrentDictionary<DateTime, List<Crew>> Data { get; } = new();
+
+    private DateTime CrewInfoValue { get; set; } = DateTime.Today;
+
+    private List<Crew> GetCrewsByDate(DateTime d) => Data.GetOrAdd(d, CalendarDemoDataHelper.GetCrewsByDate);
+
+    private int GetSumByName(string name) => Data.Where(d => d.Key.Month == CrewInfoValue.Month).Sum(d => d.Value.FirstOrDefault(v => v.Name == name)?.Value ?? 0);
 
     /// <summary>
     /// 获得事件方法

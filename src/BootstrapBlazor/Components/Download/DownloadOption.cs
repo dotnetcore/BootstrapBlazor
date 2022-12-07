@@ -12,17 +12,15 @@ public class DownloadOption
     /// <summary>
     /// 获取/设置 要下载的文件数据字节数组
     /// </summary>
-    [NotNull]
-    public byte[]? FileContent { get; set; }
+    public Stream? FileStream { get; set; }
+
+    /// <summary>
+    /// 获得/设置 下载地址
+    /// </summary>
+    public string? Url { get; set; }
 
     /// <summary>
     /// 获取/设置 下载文件另存为文件名
     /// </summary>
-    [NotNull]
     public string? FileName { get; set; }
-
-    /// <summary>
-    /// 获取/设置 要下载的文件MIME，默认application/octet-stream
-    /// </summary>
-    public string Mime { get; set; } = "application/octet-stream";
 }

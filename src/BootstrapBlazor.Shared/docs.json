@@ -21,6 +21,7 @@
     "dropdownwidgets": "DropdownWidgets",
     "fullscreens": "FullScreens",
     "floatinglabels": "FloatingLabels",
+    "fileicons": "FileIcons",
     "detail": "Table/TablesDetailRow",
     "dialog": "Table/TablesDialog",
     "dynamic": "Table/TablesDynamic",

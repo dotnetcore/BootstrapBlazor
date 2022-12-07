@@ -210,7 +210,7 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void UpdateValue_Ok()
+    public void UpdateValue_Year()
     {
         var cut = Context.RenderComponent<DateTimeRange>(builder =>
         {
@@ -230,6 +230,34 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
         cut.FindAll(".picker-panel-icon-btn").Last().Click();
         cut.Find(".date-table .cell").Click();
         cut.FindAll(".date-table .cell").Last().Click();
+    }
+
+    [Fact]
+    public void UpdateValue_Month()
+    {
+        var cut = Context.RenderComponent<DateTimeRange>(builder =>
+        {
+            builder.Add(a => a.Value, new DateTimeRangeValue()
+            {
+                Start = new DateTime(2022, 11, 1),
+                End = new DateTime(2022, 11, 14)
+            });
+        });
+
+        // 翻页下一月
+        var next = cut.Find(".picker-panel-icon-btn.pick-panel-arrow-right");
+        cut.InvokeAsync(() => next.Click());
+
+        var cells = cut.FindAll(".date-table tbody .cell");
+        // 选择开始时间
+        cells.ElementAt(7).Click();
+        // 选择结束时间
+        cells.ElementAt(37).Click();
+
+        // 选择开始时间
+        cells.ElementAt(7).Click();
+        // 选择结束时间
+        cells.ElementAt(47).Click();
     }
 
     [Fact]

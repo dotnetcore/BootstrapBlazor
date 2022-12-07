@@ -132,23 +132,6 @@ public class ConsoleTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void IsAutoScroll_OK()
-    {
-        var cut = Context.RenderComponent<Console>(builder =>
-        {
-            builder.Add(a => a.Items, new List<ConsoleMessageItem>()
-            {
-                new ConsoleMessageItem() {Message = "Test1"}, new ConsoleMessageItem() {Message = "Test2"}
-            });
-            builder.Add(a => a.ShowAutoScroll, true);
-            builder.Add(a => a.IsAutoScroll, true);
-        });
-
-        var res = cut.Find(".console-body").GetAttribute("data-scroll");
-        Assert.Equal("auto", res);
-    }
-
-    [Fact]
     public void AutoScrollString_OK()
     {
         var cut = Context.RenderComponent<Console>(builder =>
@@ -159,26 +142,13 @@ public class ConsoleTest : BootstrapBlazorTestBase
             });
             builder.Add(a => a.IsAutoScroll, true);
         });
-        Assert.Contains("data-scroll=\"auto\"", cut.Markup);
+        Assert.Contains("data-bb-scroll=\"auto\"", cut.Markup);
 
         cut.SetParametersAndRender(pb =>
         {
             pb.Add(a => a.IsAutoScroll, false);
         });
-        Assert.DoesNotContain("data-scroll=\"auto\"", cut.Markup);
-
-        cut.SetParametersAndRender(pb =>
-        {
-            pb.Add(a => a.IsAutoScroll, false);
-            pb.Add(a => a.ShowAutoScroll, false);
-        });
-        Assert.DoesNotContain("data-scroll", cut.Markup);
-
-        cut.SetParametersAndRender(pb =>
-        {
-            pb.Add(a => a.ShowAutoScroll, true);
-        });
-        Assert.Contains("data-scroll=\"auto\"", cut.Markup);
+        Assert.DoesNotContain("data-bb-scroll=\"auto\"", cut.Markup);
     }
 
     [Fact]
@@ -241,5 +211,81 @@ public class ConsoleTest : BootstrapBlazorTestBase
         });
 
         Assert.Contains("text-danger", cut.Markup);
+    }
+
+    [Fact]
+    public void FooterTemplate_OK()
+    {
+        var cut = Context.RenderComponent<Console>(pb =>
+        {
+            pb.Add(a => a.Items, new List<ConsoleMessageItem>()
+            {
+                new ConsoleMessageItem() {Message = "Test1", Color = Color.Danger}, new ConsoleMessageItem() {Message = "Test2"}
+            });
+            pb.Add(a => a.FooterTemplate, builder =>
+            {
+                builder.AddContent(0, "test-footer-template");
+            });
+        });
+        Assert.Contains("test-footer-template", cut.Markup);
+    }
+
+    [Fact]
+    public void ShowLight_OK()
+    {
+        var cut = Context.RenderComponent<Console>(pb =>
+        {
+            pb.Add(a => a.Items, new List<ConsoleMessageItem>()
+            {
+                new ConsoleMessageItem() {Message = "Test1", Color = Color.Danger}, new ConsoleMessageItem() {Message = "Test2"}
+            });
+            pb.Add(a => a.ShowLight, false);
+        });
+        Assert.DoesNotContain("light", cut.Markup);
+    }
+
+    [Fact]
+    public void LightColor_OK()
+    {
+        var cut = Context.RenderComponent<Console>(pb =>
+        {
+            pb.Add(a => a.Items, new List<ConsoleMessageItem>()
+            {
+                new ConsoleMessageItem() {Message = "Test1", Color = Color.Danger}, new ConsoleMessageItem() {Message = "Test2"}
+            });
+            pb.Add(a => a.LightColor, Color.Danger);
+        });
+        Assert.Contains("light-danger", cut.Markup);
+    }
+
+    [Fact]
+    public void IsFlashLight_OK()
+    {
+        var cut = Context.RenderComponent<Console>(pb =>
+        {
+            pb.Add(a => a.Items, new List<ConsoleMessageItem>()
+            {
+                new ConsoleMessageItem() {Message = "Test1", Color = Color.Danger}, new ConsoleMessageItem() {Message = "Test2"}
+            });
+            pb.Add(a => a.IsFlashLight, false);
+        });
+        Assert.DoesNotContain("flash", cut.Markup);
+    }
+
+    [Fact]
+    public void HeaderTemplate_OK()
+    {
+        var cut = Context.RenderComponent<Console>(pb =>
+        {
+            pb.Add(a => a.Items, new List<ConsoleMessageItem>()
+            {
+                new ConsoleMessageItem() {Message = "Test1", Color = Color.Danger}, new ConsoleMessageItem() {Message = "Test2"}
+            });
+            pb.Add(a => a.HeaderTemplate, builder =>
+            {
+                builder.AddContent(0, "test-header-template");
+            });
+        });
+        Assert.Contains("test-header-template", cut.Markup);
     }
 }

@@ -8,6 +8,7 @@ export class CherryMarkdown extends BlazorComponent {
 
         this._invoker = this._config.arguments[0]
         this._options = this._config.arguments[1]
+        this._invokerMethod = this._config.arguments[2]
 
         if (this._options.toolbars.toolbar === null) {
             delete this._options.toolbars.toolbar
@@ -25,7 +26,7 @@ export class CherryMarkdown extends BlazorComponent {
     _createEditor() {
         const fileUpload = (file, callback) => {
             this._file = file
-            this._invoker.invokeMethodAsync('Upload', {
+            this._invoker.invokeMethodAsync(this._invokerMethod, {
                 fileName: file.name,
                 fileSize: file.size,
                 contentType: file.type,

@@ -66,7 +66,7 @@ public class ButtonTest : BootstrapBlazorTestBase
     [InlineData(Color.Light, "btn-light")]
     [InlineData(Color.Dark, "btn-dark")]
     [InlineData(Color.Link, "btn-link")]
-    [InlineData(Color.None, "btn-none")]
+    [InlineData(Color.None, "btn")]
     public void Color_Ok(Color color, string @class)
     {
         var cut = Context.RenderComponent<Button>(pb =>
@@ -74,6 +74,18 @@ public class ButtonTest : BootstrapBlazorTestBase
             pb.Add(b => b.Color, color);
         });
         Assert.Contains(@class, cut.Markup);
+    }
+
+    [Fact]
+    public void DialogCloseButton_Color()
+    {
+        var cut = Context.RenderComponent<DialogCloseButton>();
+        Assert.Contains("btn-secondary", cut.Markup);
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.Color, Color.Danger);
+        });
+        Assert.Contains("btn-danger", cut.Markup);
     }
 
     [Fact]
@@ -238,24 +250,27 @@ public class ButtonTest : BootstrapBlazorTestBase
     [Fact]
     public void Tooltip_Ok()
     {
-        var cut = Context.RenderComponent<Button>(pb =>
+        var cut = Context.RenderComponent<Tooltip>(pb =>
         {
-            pb.AddChildContent<Tooltip>(pb =>
-            {
-                pb.Add(t => t.Title, "tooltip-title");
-            });
+            pb.Add(a => a.Placement, Placement.Top);
+            pb.Add(a => a.Title, "Tooltip");
+            pb.AddChildContent<Button>();
         });
 
-        // 切换 Disabled 状态移除 Tooltip
-        cut.SetParametersAndRender(pb =>
-        {
-            pb.Add(b => b.IsDisabled, true);
-        });
+        var button = cut.FindComponent<Button>();
+        cut.InvokeAsync(() => button.Instance.ShowTooltip());
 
-        cut.SetParametersAndRender(pb =>
+        button.SetParametersAndRender(pb =>
         {
-            pb.Add(b => b.IsDisabled, false);
+            pb.Add(a => a.TooltipText, "Tooltip-Button");
         });
+        Assert.Equal("Tooltip-Button", cut.Instance.Title);
+
+        var cut1 = Context.RenderComponent<Button>(pb =>
+        {
+            pb.Add(a => a.TooltipText, "tooltip");
+        });
+        cut1.InvokeAsync(() => cut1.Instance.ShowTooltip());
     }
 
     [Fact]
@@ -335,5 +350,29 @@ public class ButtonTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.IsAutoFocus, true);
         });
+    }
+
+    [Fact]
+    public void DialogCloseButton_Ok()
+    {
+        var clicked = false;
+        var cut = Context.RenderComponent<DialogCloseButton>(pb =>
+        {
+            pb.AddCascadingValue<Func<Task>>(() =>
+            {
+                clicked = true;
+                return Task.FromResult(0);
+            });
+        });
+        var button = cut.Find("button");
+        cut.InvokeAsync(() => button.Click());
+        Assert.True(clicked);
+    }
+
+    [Fact]
+    public void DialogSaveButton_Ok()
+    {
+        var cut = Context.RenderComponent<DialogSaveButton>();
+        cut.Contains("button type=\"submit\"");
     }
 }

@@ -9,29 +9,18 @@ namespace BootstrapBlazor.Shared.Components;
 /// </summary>
 public partial class DialogDemo
 {
-    /// <summary>
-    /// 
-    /// </summary>
-    [NotNull]
-    public string? Value { get; set; }
-
     [Inject]
     [NotNull]
     private DialogService? DialogService { get; set; }
 
-    /// <summary>
-    /// OnInitialized 方法
-    /// </summary>
-    protected override void OnInitialized()
-    {
-        base.OnInitialized();
-
-        Value = DateTime.Now.ToString();
-    }
+    private string Title { get; } = DateTime.Now.ToString();
 
     private Task OnClickButton() => DialogService.Show(new DialogOption()
     {
-        Title = $"弹窗 {Value}",
+        Title = "Pop-up",
+        IsDraggable = true,
+        IsKeyboard = true,
+        IsBackdrop = true,
         Component = BootstrapDynamicComponent.CreateComponent<DialogDemo>()
     });
 }

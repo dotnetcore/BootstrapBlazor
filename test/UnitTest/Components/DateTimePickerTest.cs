@@ -149,6 +149,18 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void Format_Ok()
+    {
+        var cut = Context.RenderComponent<DateTimePicker<DateTime>>(pb =>
+        {
+            pb.Add(a => a.Format, "yyyy-MM-dd HH:mm:ss");
+        });
+
+        var body = cut.FindComponent<DatePickerBody>();
+        Assert.Equal("yyyy-MM-dd", body.Instance.DateFormat);
+    }
+
+    [Fact]
     public void DatePickerViewModel_Ok()
     {
         var cut = Context.RenderComponent<DatePickerBody>(builder =>
@@ -430,11 +442,24 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void HeightCallback_Ok()
+    {
+        var cut = Context.RenderComponent<TimePickerBody>();
+        var cell = cut.FindComponent<TimePickerCell>();
+        cut.InvokeAsync(() => cell.Instance.OnHeightCallback(16));
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.Value, TimeSpan.FromSeconds(1));
+        });
+    }
+
+    [Fact]
     public void Validate_Ok()
     {
         // (!MinValue.HasValue || Value >= MinValue.Value) && (!MaxValue.HasValue || Value <= MaxValue.Value)
         var cut = Context.RenderComponent<DatePickerBody>(pb =>
         {
+            pb.Add(a => a.ShowFooter, true);
             pb.Add(a => a.MinValue, DateTime.Now.AddDays(-1));
             pb.Add(a => a.Value, DateTime.Now);
         });
@@ -628,5 +653,120 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         button = cut.Find(".picker-panel-content .cell");
         await cut.InvokeAsync(() => button.Click());
         Assert.NotEqual(val, DateTime.MinValue);
+    }
+
+    [Fact]
+    public void SidebarTemplate_Ok()
+    {
+        var cut = Context.RenderComponent<DateTimePicker<DateTime>>(pb =>
+        {
+            pb.Add(a => a.ShowSidebar, true);
+            pb.Add(a => a.SidebarTemplate, new RenderFragment<Func<DateTime, Task>>(cb => builder =>
+            {
+                builder.AddContent(0, "test-sidebar-template");
+            }));
+        });
+        cut.Contains("test-sidebar-template");
+    }
+
+    [Fact]
+    public void GetSafeYearDateTime_Ok()
+    {
+        Assert.True(MockDateTimePicker.GetSafeYearDateTime_Ok());
+    }
+
+    [Fact]
+    public void GetSafeMonthDateTime_Ok()
+    {
+        Assert.True(MockDateTimePicker.GetSafeMonthDateTime_Ok());
+    }
+
+    [Fact]
+    public void PickerBodyShowFooter_Ok()
+    {
+        var confirm = false;
+        var cut = Context.RenderComponent<DatePickerBody>(pb =>
+        {
+            pb.Add(a => a.ShowFooter, true);
+            pb.Add(a => a.AutoClose, true);
+            pb.Add(a => a.ViewMode, DatePickerViewMode.Month);
+            pb.Add(a => a.OnConfirm, () =>
+            {
+                confirm = true;
+                return Task.CompletedTask;
+            });
+        });
+
+        // 设定为 月视图 切换 日视图时自动关闭触发 Confirm
+        var cell = cut.Find(".month-table span.cell");
+        cut.InvokeAsync(() => cell.Click());
+        Assert.True(confirm);
+
+        // 设置 AutoClose = false 不会触发 confirm
+        confirm = false;
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.AutoClose, false);
+        });
+        cut.InvokeAsync(() => cell.Click());
+        Assert.False(confirm);
+    }
+
+    [Fact]
+    public void OnClickShortLink_Ok()
+    {
+        var confirm = false;
+        var cut = Context.RenderComponent<DatePickerBody>(pb =>
+        {
+            pb.Add(a => a.ShowFooter, false);
+            pb.Add(a => a.AutoClose, true);
+            pb.Add(a => a.ShowSidebar, true);
+            pb.Add(a => a.ViewMode, DatePickerViewMode.Month);
+            pb.Add(a => a.OnConfirm, () =>
+            {
+                confirm = true;
+                return Task.CompletedTask;
+            });
+        });
+
+        var cell = cut.Find(".sidebar-item span.cell");
+        cut.InvokeAsync(() => cell.Click());
+        Assert.True(confirm);
+
+        confirm = false;
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ShowFooter, true);
+            pb.Add(a => a.AutoClose, false);
+        });
+        cut.InvokeAsync(() => cell.Click());
+        Assert.False(confirm);
+
+        // 不显示 Footer AutoClose 参数不起作用自动关闭
+        confirm = false;
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ShowFooter, false);
+            pb.Add(a => a.AutoClose, false);
+        });
+        cut.InvokeAsync(() => cell.Click());
+        Assert.True(confirm);
+    }
+
+    [JSModuleNotInherited]
+    class MockDateTimePicker : DatePickerBody
+    {
+        public static bool GetSafeYearDateTime_Ok()
+        {
+            var dtm = DatePickerBody.GetSafeYearDateTime(DateTime.MaxValue, 1);
+            return dtm == DateTime.MaxValue.Date;
+        }
+
+        public static bool GetSafeMonthDateTime_Ok()
+        {
+            var v1 = DatePickerBody.GetSafeMonthDateTime(DateTime.MaxValue, 1);
+            var v2 = DatePickerBody.GetSafeMonthDateTime(DateTime.MinValue, -1);
+            return v1 == DateTime.MaxValue.Date && v2 == DateTime.MinValue.Date;
+        }
     }
 }

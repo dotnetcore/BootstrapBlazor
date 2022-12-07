@@ -173,6 +173,12 @@ public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn
     public bool Fixed { get; set; }
 
     /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    [Parameter]
+    public bool ShowCopyColumn { get; set; }
+
+    /// <summary>
     /// 获得/设置 是否显示本列 默认 true 显示
     /// </summary>
     [Parameter]
@@ -338,6 +344,18 @@ public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn
     /// </summary>
     [Parameter]
     public IEnumerable<SelectedItem>? Lookup { get; set; }
+
+    /// <summary>
+    /// 获得/设置 字段数据源下拉框是否显示搜索栏 默认 false 不显示
+    /// </summary>
+    [Parameter]
+    public bool ShowSearchWhenSelect { get; set; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    [Parameter]
+    public bool IsPopover { get; set; }
 
     /// <summary>
     /// 获得/设置 字典数据源字符串比较规则 默认 StringComparison.OrdinalIgnoreCase 大小写不敏感 

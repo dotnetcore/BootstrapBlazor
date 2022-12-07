@@ -350,10 +350,7 @@
     "P2": "弹出一个对话框，适合需要定制性更大的场景",
     "P3": "弹窗标题",
     "P4": "弹窗正文",
-    "P5": "通过设置",
-    "P6": "组件的",
-    "P7": "参数，开启弹窗是否支持",
-    "P8": "请点击后面按钮设置后再点击 <b>弹窗</b> 按钮测试效果",
+    "P5": "通过设置 <code>Modal</code> 组件的 <code>IsKeyboard</code> 参数，开启弹窗是否支持 <kbd>ESC</kbd>，请点击后面按钮设置后再点击 <b>弹窗</b> 按钮测试效果",
     "P9": "弹窗",
     "P10": "默认弹窗",
     "P11": "我是弹窗内正文",
@@ -381,13 +378,13 @@
     "P33": "全屏弹窗",
     "P34": "全屏弹窗",
     "P35": "我是弹窗内正文",
-    "P36": "全屏弹窗(&lt;992px)",
+    "P36": "全屏弹窗(<992px)",
     "P37": "大全屏弹窗",
     "P38": "我是弹窗内正文",
-    "P39": "全屏弹窗(&lt;1200px)",
+    "P39": "全屏弹窗(<1200px)",
     "P40": "超大全屏弹窗",
     "P41": "我是弹窗内正文",
-    "P42": "全屏弹窗(&lt;1400px)",
+    "P42": "全屏弹窗(<1400px)",
     "P43": "超超大全屏弹窗",
     "P44": "我是弹窗内正文",
     "P45": "垂直居中",
@@ -454,7 +451,7 @@
     "P5": "变色",
     "P6": "通过设置属性 <code>Color</code> 值使指示灯进行变色",
     "P7": "提示文字",
-    "P8": "通过设置属性 <code>Title</code> 值使鼠标悬浮指示灯上时提示 <code>tooltip</code> 文字",
+    "P8": "通过设置属性 <code>TooltipText</code> 值使鼠标悬浮指示灯上时提示 <code>tooltip</code> 文字",
     "P9": "我是提示文字信息"
   },
   "BootstrapBlazor.Shared.Samples.Charts.Index": {
@@ -619,6 +616,7 @@
     "P54": "TreeItem 属性"
   },
   "BootstrapBlazor.Shared.Samples.Trees": {
+    "TreeIntro": "<p>本组件已弃用，请使用新组件 <a href=\"treeviews\" alt=\"treeview\">TreeView</a> 提供更多功能",
     "H1": "Tree 树形控件",
     "H2": "用清晰的层级结构展示信息，可展开或折叠",
     "P1": "基础用法",
@@ -678,8 +676,7 @@
     "H1": "Download 文件下载",
     "H2": "用于直接下载物理文件",
     "P1": "特别注意",
-    "P2": "<code>Blazor</code> 与 <code>js</code> 的交互使用了 <code>json</code>，在 <code>ssr</code> 模式中，<code>json</code> 最大传输大小是 <b>125M</b>，这是 <code>asp.net core</code> 的限制。并且由于 <code>json</code> 转 <code>js</code> 的 <code>blob</code> 非常非常慢，所以大文件请谨慎，建议只在类似页面文件导出、报表图片下载等页面自行完成的内容中使用。",
-    "P3": "其他例如服务器文件下载等依旧使用 <code>Controller</code> 来完成。如果下载大文件请自行仔细测试",
+    "P2": "<code>Download</code> 组件底层使用了 <code>DotNetStreamReference</code> 对象，这允许将文件数据流式传输到客户端，此方法会将整个文件加载到客户端内存中，若要下载相对较大的文件 (<code>&gt;= 250 MB</code>)，建议遵循 <code>MVC</code> 从 <code>Url</code> 下载，<b><code>本组件不支持 NET5</code></b>",
     "P4": "示例",
     "P5": "下载文件",
     "P6": "<code>Razor</code> 代码",
@@ -694,11 +691,11 @@
     "P15": "通过设置文件夹物理路径，将目录内文件打包压缩后下载",
     "P16": "下载",
     "P17": "大文件下载测试",
-    "P18": "这里模拟生成了一个 <code>100万行</code> 的文本文件，大概 <b>56M</b>，可以自行测试",
+    "P18": "这里模拟生成了一个 <code>100万行</code> 的文本文件，大概 <b>58M</b>，可以自行测试",
     "P19": "按钮设置 <code>IsAsync</code> 值为 <code>true</code> 进行异步下载操作",
     "P20": "获取图片并显示",
     "P21": "模拟直接由前端页面生成验证码或者上传图片不保存直接显示的情况。",
-    "P22": "由于测试使用了wwwroot下的文件，没有代码生成，wasm无法访问wwwroot文件夹，故此测试只有ssr模式可用。wasm请自行测试。"
+    "P22": "由于测试使用了 <code>wwwroot</code> 下的文件，没有代码生成，<code>wasm</code> 无法访问 <code>wwwroot</code> 文件夹，故此测试只有<code>ssr</code> 模式可用。<code>wasm</code> 请自行测试。"
   },
   "BootstrapBlazor.Shared.Samples.Dialogs": {
     "H1": "Dialog 对话框组件",
@@ -709,9 +706,8 @@
     "P4": "数据查询窗口",
     "P5": "基本用法",
     "P6": "通过设置 <code>DialogOption</code> 属性对模态框进行基本属性设置",
-    "P7": "通过设置",
-    "P8": "参数，开启弹窗是否支持 <kbd>ESC</kbd>，请点击后面按钮设置后再点击 <b>弹窗</b> 按钮测试效果",
-    "P9": "点击打开 Dialog",
+    "P7": "通过设置 <code>DialogOption</code> <code>IsKeyboard</code> 参数，开启弹窗是否支持 <kbd>ESC</kbd>，请点击后面按钮设置后再点击 <b>弹窗</b> 按钮测试效果",
+    "P9": "点击打开弹窗",
     "P10": "自定义标题栏",
     "P11": "通过设置 <code>HeaderTemplate</code> 属性对模态框标题栏进行自定义设置",
     "P12": "弹窗",
@@ -729,15 +725,10 @@
     "P24": "弹窗",
     "P25": "代码关闭弹窗",
     "P26": "本例讲解如何通过代码打开与关闭弹窗",
-    "P27": "利用弹窗参数",
-    "P28": "实例，弹窗弹出后实例中的",
-    "P29": "属性值即为当前弹窗句柄，通过调用其",
-    "P30": "方法即可关闭弹窗",
+    "P27": "利用弹窗参数 <code>DialogOption</code> 实例，弹窗弹出后实例中的 <code>Dialog</code> 属性值即为当前弹窗句柄，通过调用其 <code>Toggle/Close</code> 方法即可关闭弹窗",
     "P31": "禁用 Header 中的关闭按钮",
     "P32": "本例讲解如何通过代码打开与关闭弹窗",
-    "P33": "设置参数",
-    "P34": "禁止弹窗",
-    "P35": "右侧显示 <b>关闭</b> 按钮",
+    "P33": "设置参数 <code>ShowHeaderCloseButton</code> 禁止弹窗 <code>Header</code> 右侧显示 <b>关闭</b> 按钮",
     "P36": "多级弹窗",
     "P37": "点击弹窗内部按钮继续弹出对话窗",
     "P38": "功能介绍",
@@ -745,6 +736,7 @@
     "P40": "切换弹窗内 <code>Tab</code> 组件的第三个标签页 <b>角色管理</b>",
     "P41": "点击标签页中的弹窗继续弹出对话框",
     "P42": "关闭当前对话框后之前打开的对话框 <b>保持状态</b>",
+    "MultipleDialogDesc": "目前多级弹窗已经实现，每个 <code>ModalDialog</code> 均可以独立设置 <code>IsBackdrop</code> <code>IsKeyboard</code> 参数，修复了上一个版本按下 <kbd>ESC</kbd> 弹窗全部消失问题",
     "P43": "弹窗",
     "P44": "模态对话框",
     "P45": "通过 <code>ShowModal</code> 方法弹出线程阻塞模式的对话框",
@@ -779,8 +771,7 @@
     "P74": "全屏弹窗(&lt; 1200px)",
     "P75": "打印按钮",
     "P76": "通过设置 <code>ShowPrintButton</code> 使 <code>Header</code> 上显示一个打印预览按钮",
-    "P77": "通过设置",
-    "P78": "更改 <b>打印预览</b> 按钮文字",
+    "P77": "通过设置 <code>PrintButtonText</code> 更改 <b>打印预览</b> 按钮文字",
     "P79": "点击打开 Dialog",
     "P80": "全屏弹窗",
     "P81": "通过设置 <code>ShowMaximizeButton</code> 使 <code>Header</code> 上显示一个窗口最大化按钮",
@@ -800,7 +791,14 @@
     "P95": "弹窗中未选择用户时禁止关闭弹窗",
     "P96": "收件人",
     "P97": "请输入 ...",
-    "P98": "DialogOption 属性"
+    "P98": "DialogOption 属性",
+    "EmailDialogTitle": "选择收件人",
+    "EmailDialogButtonYes": "选择",
+    "HeaderToolbarTemplateTitle": "标题栏自定义按钮",
+    "HeaderToolbarTemplateIntro": "通过设置 <code>HeaderToolbarTemplate</code> 自定义 <code>Header</code> 中工具栏按钮",
+    "HeaderToolbarTemplateButtonText": "打印",
+    "HeaderToolbarTemplateDialogTitle": "自定义工具栏示例",
+    "HeaderToolbarTemplateToastContent": "打印按钮被点击，可以处理自己的业务逻辑"
   },
   "BootstrapBlazor.Shared.Samples.Dispatches": {
     "H1": "Dispatch 消息分发",
@@ -850,7 +848,9 @@
     "P10": "显示自动滚屏选项",
     "P11": "通过设置",
     "P12": "设置开启自动滚屏",
-    "P13": "ConsoleMessageItem 属性"
+    "P13": "ConsoleMessageItem 属性",
+    "ShowAutoScrollTitle": "自动滚屏控制",
+    "ShowAutoScrollIntro": "通过设置 <code>ShowAutoScroll</code> 显示 <code>Checkbox</code> 控制是否自动滚动屏幕"
   },
   "BootstrapBlazor.Shared.Samples.Synthesizers": {
     "H1": "Synthesizer 语音合成",
@@ -1024,7 +1024,6 @@
     "N17": "由于某些系统如",
     "N18": "等程序运行后线程无法获得文化信息，可以通过配置文件设置默认文化信息",
     "N19": "开启本地化功能",
-
     "N20": "配置文件",
     "N21": "通过",
     "N22": "设置回退文化信息，即未找到当前请求的文化信息时使用此配置文化，通过",
@@ -1032,7 +1031,6 @@
     "N24": "启用 .NET 核心本地化服务",
     "N25": "增加 Bootstrap Blazor 组件",
     "N26": "增加多语言支持配置信息",
-
     "N27": "启用本地化",
     "N28": "增加 BootstrapBlazor 组件",
     "N29": "增加本地化服务配置信息",
@@ -1056,7 +1054,6 @@
     "N47": "设置 RESX 格式多语言资源文件 如 Program.{CultureName}.resx",
     "N48": "设置 Json 格式嵌入式资源文件",
     "N49": "设置 Json 物理路径文件",
-
     "N50": "或者使用服务扩展方法",
     "N51": "忽略本地化键值文化信息丢失",
     "N52": "附加自己的 json 多语言文化资源文件 如 zh-TW.json",
@@ -1070,7 +1067,11 @@
     "N60": "设置默认文化为 zh-CN",
     "N61": "配置是否显示缺失本地化资源信息",
     "N62": "增加 BootstrapBlazor 服务",
-    "N63": "忽略本地化键值文化信息丢失"
+    "N63": "忽略本地化键值文化信息丢失",
+    "LocalizationFileDesc": "组件内置本地化资源文件为 <code>en</code> <code>zh</code> 由网友提供的其他本地化资源文件 <code>de</code> <code>es</code> <code>pt</code> <code>zh-TW</code> 放置在项目文件夹 <code>localization</code> 内，可自行下载通过注入服务引入到项目中 <a href=\"https://gitee.com/LongbowEnterprise/BootstrapBlazor/tree/main/localization\" target=\"_blank\"><img src=\"_content/BootstrapBlazor.Shared/images/gitee.svg\" class=\"gitee-icon\"></a> <a href=\"https://github.com/dotnetcore/BootstrapBlazor/tree/main/localization\" target=\"_blank\"><i class=\"fa-brands fa-github github-icon\"></i></a>",
+    "AdditionalJsonFile": "额外本地化语言 <code>json</code> 文件",
+    "ES": "西班牙语（es）",
+    "TW": "中國台灣（zh-TW）"
   },
   "BootstrapBlazor.Shared.Pages.Template": {
     "Title": "项目模板",
@@ -1146,7 +1147,7 @@
     "P42": "在",
     "P43": "中",
     "P44": "运行应用程序",
-    "Tips2": "If you use the <code>Blazor App</code> template to create a project, please remove the default <code>Bootstrap</code> style link <code>&lt;link rel='stylesheet' href='css/bootstrap/bootstrap.min.css' /&gt;</code>. Install <b>FontAwesome</b> related resources by yourself or get the nuget package <code>BootstrapBlazor.FontAwesome</code>"
+    "Tips2": "如果使用微软自带 <code>Blazor App</code> 模板创建工程，请移除 <code>_Layout.cshtml/index.html</code> 文件中的默认 <code>Bootstrap</code> 样式表 <code>&lt;link rel='stylesheet' href='css/bootstrap/bootstrap.min.css' /&gt;</code>。如果使用 <code>FontAwesome</code> 图标库可安装扩展包 <code>BootstrapBlazor.FontAwesome</code>"
   },
   "BootstrapBlazor.Shared.Pages.Install_Server": {
     "Title": "服务器端 Blazor 安装教程",
@@ -1202,8 +1203,8 @@
     "P29": "文件中",
     "P30": "正在玩命开发中",
     "P31": "步骤三、页面中使用组件",
-    "P32": "最后一步是在页面中使用",
-    "P33": "组件并在浏览器中运行它。例如",
+    "P32": "最后一步是在页面中使用 <code>BootstrapBlazor</code> 组件并在浏览器中运行它。例如：",
+    "P33": "请移除默认的 <code>Bootstrap</code> 样式链接 <code>&lt;link rel='stylesheet' href='css/bootstrap/bootstrap.min.css' /&gt;</code>; 本项目图标使用 <code>FontAwesome</code> 图标库，请自行引用或者引用 <code>BootstrapBlazor.FontAwesome</code> 包",
     "P34": "1. 在页面中增加一个",
     "P35": "按钮",
     "P36": "测试",
@@ -1381,7 +1382,13 @@
     "P2": "底部显示 Footer 组件，点击返回顶端时页面自动滚动回顶端",
     "P3": "本示例传递的是组件客户端 ID",
     "Desc1": "页脚组件显示的文字",
-    "Desc2": "页脚组件控制的滚动条组件 ID"
+    "Desc2": "页脚组件控制的滚动条组件 ID",
+    "ShowGotoDesc": "是否显示右侧导航小组件",
+    "ChildContentDesc": "子组件模板",
+    "ShowGotoTitle": "是否显示 Goto 导航",
+    "ShowGotoIntro": "通过设置 <code>ShowGoto</code> 参数，关闭 <code>Footer</code> 右侧导航小组件",
+    "ChildContentTitle": "自定义内容",
+    "ChildContentIntro": "通过设置 <code>ChildContent</code> 参数自定义组件内部显示内容"
   },
   "BootstrapBlazor.Shared.Samples.Rows": {
     "Title": "Row布局组件",
@@ -1800,16 +1807,29 @@
     "Desc5": "数据总数",
     "Event1": "第一个参数是当前页码，第二个参数是当前每页设置显示的数据项数量",
     "Event2": "点击设置每页显示数据数量时回调方法",
-    "AiraPageLabel": "分页组件",
-    "AiraPrevPageText": "上一页",
-    "AiraFirstPageText": "第一页",
-    "AiraNextPageText": "下一页",
-    "PageInfoText": "页数信息",
-    "TotalInfoText": "记录总数信息",
-    "PrePageInfoText": "每页显示信息",
-    "RowInfoText": "记录信息",
-    "LabelString": "标签信息",
-    "SelectItemsText": "分页选择器信息"
+    "AlignmentTitle": "对齐方式",
+    "AlignmentIntro": "设置 <code>Alignment</code> 控制页码对齐方式",
+    "GotoTitle": "跳转导航",
+    "GotoIntro": "通过设置 <code>ShowGotoNavigator</code> 参数控制是否显示跳转导航，可以通过 <code>GotoTemplate</code> 自定义跳转组件",
+    "PageInfoTextTitle": "分页信息",
+    "PageInfoTextIntro": "通过设置 <code>ShowInfo</code> 参数控制是否显示分页信息",
+    "PageInfoTemplateTitle": "分页模板",
+    "PageInfoTemplateIntro": "通过 <code>PageInfoTemplate</code> 自定义分页信息",
+    "PageIndexAttr": "当前页码",
+    "PageCountAttr": "页码总数",
+    "MaxPageLinkCountAttr": "翻页页码数量",
+    "OnPageLinkClickAttr": "点击页码回调方法",
+    "AlignmentAttr": "对齐方式",
+    "ShowPageInfoAttr": "是否显示分页信息",
+    "PageInfoTextAttr": "分页信息文字",
+    "PageInfoTemplateAttr": "分页信息模板",
+    "ShowGotoNavigatorAttr": "是否显示跳转",
+    "GotoNavigatorLabelTextAttr": "跳转文字",
+    "GotoTemplateAttr": "跳转模板",
+    "PrevPageIconAttr": "上一页图标",
+    "PrevEllipsisPageIconAttr": "向前翻页图标",
+    "NextPageIconAttr": "下一页图标",
+    "NextEllipsisPageIconAttr": "向后翻页图标"
   },
   "BootstrapBlazor.Shared.Samples.Stepss": {
     "Title": "Steps 步骤条",
@@ -3056,7 +3076,7 @@
     "LeftPannelSearchPlaceHolderString": "左侧面板中的搜索框 placeholder 字符串",
     "RightPannelSearchPlaceHolderString": "右侧面板中的搜索框 placeholder 字符串",
     "IsDisabled": "是否禁用",
-    "OnItemsChanged": "组件绑定数据项集合选项变化时回调方法",
+    "OnSelectedItemsChanged": "组件绑定数据项集合选项变化时回调方法",
     "OnSetItemClass": "设置 Item 样式回调方法",
     "Data": "数据",
     "Backup": "备选"
@@ -3224,7 +3244,7 @@
   },
   "BootstrapBlazor.Shared.Samples.Ajaxs": {
     "AjaxTitle": "Ajax调用",
-    "H4": "用于直接在浏览器使用 js 的 ajax 方法与服务器交互，目前只支持输入输出皆为json，返回值为 json 字符串，可以自行转换处理。",
+    "H4": "用于直接在浏览器使用 fetch 方法与服务器交互，目前只支持输入输出皆为 json，返回值为 json 字符串，可以自行转换处理。",
     "NormalTitle": "基础用法",
     "NormalIntro": "模拟登录",
     "NormalB": "特别注意：",
@@ -3234,7 +3254,9 @@
     "GotoTitle": "页面跳转",
     "GotoIntro": "用 <code>Js</code> 实现页面跳转，解决了 <code>Blazor</code> 页面作为 <b>SPA</b> 跳转时不会真正刷新页面的问题",
     "GotoButtonText1": "跳转到文档首页",
-    "GotoButtonText2": "跳转到自己（刷新页面）"
+    "GotoButtonText2": "跳转到自己（刷新页面）",
+    "InvokeAsync": "执行 fetch 方法",
+    "Goto": "执行 goto 方法"
   },
   "BootstrapBlazor.Shared.Samples.Avatars": {
     "Title": "Avatar 头像",
@@ -3278,6 +3300,9 @@
   "BootstrapBlazor.Shared.Samples.BarcodeReaders": {
     "Title": "BarcodeReader 条码扫描",
     "SubTitle": "本组件通过调用摄像头对条码进行扫描，获取到条码内容条码/QR码",
+    "Tips": "<div><code>BarcodeReader</code> 组件依赖扩展包 <code>BootstrapBlazor.BarCode</code>，请按照下面提示进行自定义安装</div>",
+    "Nuget": "Nuget 包安装",
+    "NugetIntro": "使用 <a href=\"https://www.nuget.org/packages?q=BootstrapBlazor.BarCode\" target=\"_blank\">nuget.org</a> 进行 <code>BootstrapBlazor.BarCode</code> 组件的安装",
     "Attention": "特别注意：",
     "Li1": "站点要启用 <code>https</code>，这是浏览器厂商要求的",
     "Li2": "移动端 iOS 系统必须使用 <code>Safari</code> 浏览器，切换前/后摄像头要点一下关闭功能按钮",
@@ -3357,22 +3382,24 @@
     "BasicUsageTitle": "Card 卡片组件",
     "BasicUsageIntro": "Card简单示例",
     "FooterTitle": "Header 和 Footer",
-    "FooterIntro": "通过添加 CardHeader 与 CardFooter 元素即可展示相关内容",
+    "FooterIntro": "通过添加 HeaderTemplate 与 FooterTemplate 元素即可展示相关内容",
     "IsCenterTitle": "内容居中",
     "IsCenterIntro": "通过设置，<code>IsCenter=true</code> 使内容居中",
     "ColorTitle": "带有边框颜色的卡片",
     "ColorIntro": "通过设置，<code>Color</code> 使border和Body具有相应的颜色",
     "CollapsibleTitle": "可以收缩展开的卡片",
     "CollapsibleIntro": "通过设置 <code>IsCollapsible</code> 使 <code>Body</code> 可以伸缩",
-    "CollapsibleIntro2": "通过设置 <code>Collapsed</code> 使 <code>Body</code> 默认收缩 参数默认值 <code>false</code> 展开",
+    "CollapsibleIntroDesc": "通过设置 <code>Collapsed</code> 使 <code>Body</code> 默认收缩 参数默认值 <code>false</code> 展开",
     "CollapsibleBody": "点击 Header 收缩/展开",
     "CollapsibleHeaderTemplate": "这里是模板",
+    "CollapsibleHeaderTemplateTitle": "Header 模板",
+    "CollapsibleHeaderTemplateIntro": "通过设置 <code>HeaderTemplate</code> 自定义 <code>CardHeader</code> 内容",
     "ShadowTitle": "带有阴影的卡片",
     "ShadowIntro": "通过设置 <code>IsShadow</code> 开启阴影特效",
     "ShadowBody": "阴影特效示例",
-    "CardBody": "Body 模板",
-    "CardFooter": "Footer 模板",
-    "CardHeader": "Header 模板",
+    "BodyTemplate": "Body 模板",
+    "FooterTemplate": "Footer 模板",
+    "HeaderTemplate": "Header 模板",
     "Class": "样式",
     "Color": "设置卡片边框颜色",
     "IsCenter": "是否居中",
@@ -3402,7 +3429,10 @@
     "Siesta": "午休",
     "Value": "组件值",
     "ChildContent": "子组件",
-    "ValueChanged": "值改变时回调委托"
+    "ValueChanged": "值改变时回调委托",
+    "CellTemplateDemoTitle": "实战工时系统示例",
+    "CellTemplateDemoIntro": "点击单元格弹窗编辑工时，关闭弹窗后重新汇总统计数据",
+    "CellTemplateDemoSummary": "当月工时统计"
   },
   "BootstrapBlazor.Shared.Samples.Cameras": {
     "Title": "Camera 摄像头拍照组件",
@@ -3743,7 +3773,6 @@
     "GroupIntro": "设置 <code>GroupName</code> 数据进行分组显示",
     "Items": "组件数据源",
     "Pageable": "是否分页",
-    "PageItemsSource": "每页显示数量数据源",
     "HeaderTemplate": "ListView Header 模板",
     "BodyTemplate": "ListView Body 模板",
     "FooterTemplate": "ListView Footer 模板",
@@ -3987,6 +4016,7 @@
     "Attr6": "是否显示悬浮小箭头",
     "Attr7": "数据源",
     "Attr8": "点击命令按钮回调方法",
+    "OnMenuClickAsyncAttr": "点击一级菜单回调方法",
     "Attr9": "右侧按钮模板",
     "ItemsText1": "文件",
     "Items1": "常规操作",
@@ -4003,8 +4033,9 @@
     "Items11": "常规操作",
     "Items12": "常规操作",
     "ItemsGroupName1": "操作组一",
-    "ItemsGroupName2": "操作组三"
-
+    "ItemsGroupName2": "操作组三",
+    "HeaderClickTitle": "Header 点击回调",
+    "HeaderClickIntro": "通过设置 <code>OnHeaderClickAsync</code> 回调方法处理点击 <code>Header</code> 部分逻辑"
   },
   "BootstrapBlazor.Shared.Samples.Logouts": {
     "H1": "Logout 登出组件",
@@ -4051,6 +4082,9 @@
   "BootstrapBlazor.Shared.Samples.QRCodes": {
     "Title": "QRCode 二维码",
     "SubTitle": "用于二维码生成",
+    "Tips": "<div><code>QRCode</code> 组件依赖扩展包 <code>BootstrapBlazor.BarCode</code>，请按照下面提示进行自定义安装</div>",
+    "Nuget": "Nuget 包安装",
+    "NugetIntro": "使用 <a href=\"https://www.nuget.org/packages?q=BootstrapBlazor.BarCode\" target=\"_blank\">nuget.org</a> 进行 <code>BootstrapBlazor.BarCode</code> 组件的安装",
     "NormalTitle": "基础用法",
     "NormalIntro": "点击生成按钮，生成特定的 <code>QRCode</code>",
     "ContentTitle": "直接生成",
@@ -4268,6 +4302,7 @@
     "ListView": "列表组件 ListView",
     "Locator": "位置定位 Locator",
     "ImageViewer": "图片 ImageViewer",
+    "FileIcon": "文件图标 FileIcon",
     "Popover": "弹出窗 Popover",
     "Print": "打印组件 Print",
     "QRCode": "二维码 QRCode",
@@ -4586,7 +4621,13 @@
     "FormatterAttr": "列格式化回调委托",
     "AlignAttr": "文字对齐方式",
     "OrderAttr": "顺序号",
-    "OnCellRenderAttr": "单元格回调方法"
+    "OnCellRenderAttr": "单元格回调方法",
+    "ShowGotoNavigatorAttr": "是否显示 Goto 跳转导航",
+    "GotoTemplateAttr": "Goto 导航自定义组件",
+    "GotoNavigatorLabelTextAttr": "Goto 导航标签文字",
+    "ShowPageInfoAttr": "是否显示分页详细信息",
+    "PageInfoTemplateAttr": "分页详细信息自定义组件",
+    "PageInfoTextAttr": "分页信息显示文字"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesColumn": {
     "Title": "Table 表格",
@@ -4647,7 +4688,10 @@
     "VisibleP4": "更改 <b>列</b> 状态后触发 <code>OnColumnVisibleChanged</code> 回调委托",
     "AllowResizingTitle": "允许列调整",
     "AllowResizingIntro": "通过指定 <code>AllowResizing</code> 设置表格列允许调整宽度",
-    "AllowResizingP1": "屏幕过小出现滚动条时才可以进行列调整",
+    "AllowResizingDesc": "屏幕过小出现滚动条时才可以进行列调整",
+    "ShowCopyColumnTitle": "允许拷贝列数据",
+    "ShowCopyColumnIntro": "通过设置 <code>ShowCopyColumn</code> 设置表格列允许拷贝整列数据",
+    "ShowCopyColumnDesc": "可以通过设置 <code>ShowCopyColumnTooltip</code> <code>CopyColumnTooltipText</code> <code>CopyColumnCopiedTooltipText</code> 等设置微调拷贝列数据图标的 <code>Tooltip</code> 相关参数",
     "TemplateTitle": "自定义列模板",
     "TemplateIntro": "通过指定 <code>Template</code> 设置最后一列内显示为自定义按钮",
     "AutoGenerateColumnsTitle": "自动生成列",
@@ -4667,7 +4711,9 @@
     "AdvanceIntro": "通过显示模板 <code>Template</code> 对各列进行自定义渲染",
     "CustomerButtonTitle": "自定义按钮处理方法",
     "CustomerButtonContent": "通过不同的函数区分按钮处理逻辑，参数 Items 为 Table 组件中选中的行数据集合，当前选择数据 {0} 条",
-    "OnRowButtonClickContent": "通过不同的函数区分按钮处理逻辑，参数 Item 为当前行数据"
+    "OnRowButtonClickContent": "通过不同的函数区分按钮处理逻辑，参数 Item 为当前行数据",
+    "ResetVisibleColumnsDesc": "通过调用 <code>Table</code> 实例方法 <code>ResetVisibleColumns</code> 可设置任意列显示隐藏属性",
+    "ResetVisibleColumnsButtonText": "设置列隐藏信息"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesEdit": {
     "H1": "Table 表格",
@@ -4708,7 +4754,10 @@
     "P34": "通过设置表格的 <code>DataService</code> 属性，使用独立的数据服务进行对数据的增删改查",
     "P35": "自定义数据服务",
     "P36": "开启使用注入数据服务后，可通过设置 <code>DataServices</code> 参数对组件进行单独设置，如未设置内部使用注入服务提供的实例",
-    "P37": "本例中通过设置 <code>EditDialogShowMaximizeButton</code> 参数，使编辑弹窗中显示 <b>最大化</b> 按钮"
+    "P37": "本例中通过设置 <code>EditDialogShowMaximizeButton</code> 参数，使编辑弹窗中显示 <b>最大化</b> 按钮",
+    "FooterTemplateTitle": "自定义编辑弹窗按钮",
+    "FooterTemplateIntro": "通过设置 <code>EditFooterTemplate</code> 自定义编辑弹窗 <code>Footer</code>",
+    "FooterTemplateDesc": "点击表格内编辑按钮，弹出编辑弹窗，弹窗内 <code>Footer</code> 内按钮均为自定义按钮。为方便二开的同时保留原有 <b>关闭</b> 与 <b>保存</b> 两个按钮功能，额外内置提供了两个与之相对应的组件 <code>DialogCloseButton</code> <code>DialogSaveButton</code> 这两个按钮无需编写点击相关处理方法"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesVirtualization": {
     "H1": "Table 虚拟滚动行",
@@ -4901,7 +4950,6 @@
     "P7": "注入服务",
     "P8": "增加 BootstrapBlazor 组件",
     "P9": "增加 Table Excel 导出服务",
-    "P10": "JS 文件",
     "P11": "表格导出功能",
     "P12": "通过设置 <code>ShowExportButton</code> 属性是否显示导出按钮，默认为<code>false</code>",
     "P13": "自定义导出方法",
@@ -5085,7 +5133,11 @@
     "AllowResizingP": "通过设置 <code>Height</code> 参数固定表头,<br />,通过设置 <code>AllowResizing </code>,参数允许调整列宽",
     "AutoHeightTitle": "自适应高度",
     "AutoHeightIntro": "不设置 <code>Height</code> 值通过父容器自适应高度",
-    "AutoHeightP": "本例中 <code>Table</code> 表格组件由于可能未知高度，所以无法设置高度，父级容器可能通过样式得到高度，此时 <code>Table</code> 组件会尝试使用自适应填充满高度，实战中这种应用场景是最多的，本例模拟父级高度为 <code>300px</code>"
+    "AutoHeightP": "本例中 <code>Table</code> 表格组件由于可能未知高度，所以无法设置高度，父级容器可能通过样式得到高度，此时 <code>Table</code> 组件会尝试使用自适应填充满高度，实战中这种应用场景是最多的，本例模拟父级高度为 <code>300px</code>",
+    "DialogTitle": "弹窗内使用",
+    "DialogIntro": "<code>Table</code> 组件在弹窗 <code>Dialog</code> 内使用",
+    "DialogDesc": "<p>在弹窗中使用固定表头的 <code>Table</code> 注意事项：</p><div>弹窗要给 <code>DialogOption</code> 的 <code>Class</code> 参数赋值，本例中设置为 <code>dialog-table</code>，这个操作是为了让我们自定义样式能够定位到弹窗中 <code>Table</code> 组件的父容器 <code>modal-body</code> 并设置其高度，这里可以使用自适应高度的写法 <code>height: calc(100vh - 200px);</code>；当 <code>Table</code> 组件的父级容器有高度后，组件自己就会通过计算进行自适应高度适配了</div>",
+    "DialogButtonText": "弹窗"
   },
   "BootstrapBlazor.Shared.Pages.Introduction": {
     "Title": "简介",
@@ -5307,5 +5359,20 @@
     "P3": "Nuget 包安装",
     "P4": "使用 <a href='https://www.nuget.org/packages?q=BootstrapBlazor.Bluetooth' target='_blank'>nuget.org</a> 进行 <code>BootstrapBlazor.Bluetooth</code> 组件的安装",
     "Tips": "服务UUID/ServiceUUID, 默认0xff00<br/>常见打印机ServiceUUID:<br/><code>0000ff00-0000-1000-8000-00805f9b34fb</code><br/><code>e7810a71-73ae-499d-8c15-faa9aef0c3f2</code><br/><code>0000fee7-0000-1000-8000-00805f9b34fb</code><br/>设置组件服务UUID : <code>printer.Opt.ServiceUuid=?</code>"
+  },
+    "BootstrapBlazor.Shared.Samples.FileIcons": {
+    "Title": "File Icon 文件图标",
+    "Intro": "通过文件扩展名自定义显示图标",
+    "BaseUsageTitle": "基本用法",
+    "BaseUsageIntro": "通过设置 <code>Type</code> 设置图标扩展名",
+    "ColorTitle": "颜色",
+    "ColorIntro": "通过设置 <code>IconColor</code> 设置图标颜色",
+    "BackgroundTemplateTitle": "自定义背景图",
+    "BackgroundTemplateIntro": "通过设置 <code>BackgroundTemplate</code> 通过模板自定义背景模板",
+    "CustomCssTitle": "自定义样式",
+    "CustomCssIntro": "通过设置 <code>class</code> 自定义样式调整图标大小",
+    "ExtensionAttr": "文件扩展名",
+    "IconColorAttr": "扩展名标签背景色",
+    "BackgroundTemplateAttr": "自定义背景图模板"
   }
 }

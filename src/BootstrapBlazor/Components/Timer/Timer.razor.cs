@@ -128,14 +128,17 @@ public partial class Timer
     }
 
     /// <summary>
-    /// OnAfterRenderAsync 方法
+    /// <inheritdoc/>
     /// </summary>
-    /// <param name="firstRender"></param>
     /// <returns></returns>
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        await base.OnAfterRenderAsync(firstRender);
+    protected override Task ModuleInitAsync() => Task.CompletedTask;
 
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    protected override async Task ModuleExecuteAsync()
+    {
         if (Vibrate)
         {
             Vibrate = false;
@@ -243,8 +246,13 @@ public partial class Timer
                 CancelTokenSource.Dispose();
                 CancelTokenSource = null;
             }
+
             ResetEvent.Dispose();
+            if (Module != null)
+            {
+                await Module.DisposeAsync();
+                Module = null;
+            }
         }
-        await base.DisposeAsync(disposing);
     }
 }

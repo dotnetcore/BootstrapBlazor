@@ -111,7 +111,20 @@ public class PopConfirmButtonTest : PopoverTestBase
         button = cut.Find("div");
         await cut.InvokeAsync(() => button.Click());
 
-        // Confirm
+        // async confirm
+        buttons = cut.FindAll(".popover-confirm-buttons div");
+        await cut.InvokeAsync(() => buttons[1].Click());
+
+        popButton.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ButtonType, ButtonType.Button);
+        });
+
+        // Show
+        button = cut.Find("div");
+        await cut.InvokeAsync(() => button.Click());
+
+        // async confirm
         buttons = cut.FindAll(".popover-confirm-buttons div");
         await cut.InvokeAsync(() => buttons[1].Click());
 
@@ -121,5 +134,15 @@ public class PopConfirmButtonTest : PopoverTestBase
             pb.Add(a => a.IsLink, true);
         });
         popButton.Contains("<a id=");
+
+        popButton.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.BodyTemplate, bulider =>
+            {
+                bulider.OpenComponent<Button>(0);
+                bulider.CloseComponent();
+            });
+        });
+        Assert.NotNull(popButton.FindComponent<Button>());
     }
 }

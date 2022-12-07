@@ -113,12 +113,16 @@ public sealed partial class TablesSearch
         // 设置记录总数
         var total = items.Count();
 
-        if (!string.IsNullOrEmpty(SearchModel.Name))
+        if (!string.IsNullOrEmpty(options.SearchText))
+        {
+            items = items.Where(i => (i.Name?.Contains(options.SearchText, StringComparison.OrdinalIgnoreCase) ?? false)
+                || (i.Address?.Contains(options.SearchText, StringComparison.OrdinalIgnoreCase) ?? false));
+        }
+        else if (!string.IsNullOrEmpty(SearchModel.Name))
         {
             items = items.Where(i => i.Name == SearchModel.Name);
         }
-
-        if (!string.IsNullOrEmpty(SearchModel.Address))
+        else if (!string.IsNullOrEmpty(SearchModel.Address))
         {
             items = items.Where(i => i.Address == SearchModel.Address);
         }

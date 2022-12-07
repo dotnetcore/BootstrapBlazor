@@ -4,7 +4,7 @@
 
 namespace UnitTest.Components;
 
-public class ImageTest : TestBase
+public class ImageTest : BootstrapBlazorTestBase
 {
     [Fact]
     public void ShowImage_Ok()
@@ -99,20 +99,6 @@ public class ImageTest : TestBase
     }
 
     [Fact]
-    public async Task ShowPreviewList_Ok()
-    {
-        var cut = Context.RenderComponent<ImageViewer>(pb =>
-        {
-            pb.Add(a => a.Url, "https://www.blazor.zone/_content/BootstrapBlazor.Shared/images/logo.png");
-            pb.Add(a => a.PreviewList, new List<string> { "v1", "v2" });
-        });
-        cut.Contains("bb-viewer-wrapper active");
-
-        var img = cut.Find("img");
-        await cut.InvokeAsync(() => img.Click());
-    }
-
-    [Fact]
     public void IsAsync_Ok()
     {
         var cut = Context.RenderComponent<ImageViewer>(pb =>
@@ -121,6 +107,6 @@ public class ImageTest : TestBase
             pb.Add(a => a.IsAsync, true);
             pb.Add(a => a.PreviewList, new List<string> { "v1", "v2" });
         });
-        cut.Contains("bb-viewer-wrapper active");
+        cut.Contains("bb-previewer collapse active");
     }
 }

@@ -17,35 +17,51 @@
         height: 306px;
     }
 
-    .theme-list .theme-header {
-        padding: 0.75rem 1rem;
-        background-color: #8759ff;
-        color: #fff;
-        border-top-left-radius: 5px;
-        border-top-right-radius: 5px;
-        display: flex;
-        margin-bottom: 1rem;
+.theme-header {
+    padding: 0.75rem 1rem;
+    background-color: #8759ff;
+    color: #fff;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    display: flex;
+    margin-bottom: 1rem;
+}
+
+.btn-close {
+    transition: opacity .3s linear;
+}
+
+    .btn-close:hover {
+        opacity: 1;
     }
 
-        .theme-list .theme-header .btn-close {
-            transition: opacity .3s linear;
-        }
+.theme-item {
+    cursor: pointer;
+    border-radius: 100px;
+    padding: 6px 15px;
+    background-color: #f6f6f6;
+    color: #005980;
+    transition: background-color .3s linear;
+    margin: 0 1rem 1rem 1rem;
+}
 
-            .theme-list .theme-header .btn-close:hover {
-                opacity: 1;
-            }
-
-    .theme-list .theme-item {
-        cursor: pointer;
-        border-radius: 100px;
-        padding: 6px 15px;
-        background-color: #f6f6f6;
-        color: #005980;
-        transition: background-color .3s linear;
-        margin: 0 1rem 1rem 1rem;
+    .theme-item:hover,
+    .theme-item.active {
+        background-color: #ab8aff;
     }
 
-        .theme-list .theme-item:hover,
-        .theme-list .theme-item.active {
-            background-color: #ab8aff;
-        }
+::deep .btn-theme {
+    --bs-btn-bg: #034995;
+    --bs-btn-hover-bg: #034995;
+    --bs-btn-active-bg: #034995;
+    right: 1rem;
+    bottom: 9rem;
+    padding: 11px;
+}
+
+    ::deep .btn-theme img {
+        position: absolute;
+        width: 17px;
+        top: 10px;
+        left: 11px;
+    }

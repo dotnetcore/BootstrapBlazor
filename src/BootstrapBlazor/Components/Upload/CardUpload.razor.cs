@@ -25,6 +25,8 @@ public partial class CardUpload<TValue>
         .AddClass("disabled", IsDisabled)
         .Build();
 
+    private string PreviewerId => $"prev_{Id}";
+
     private static bool IsImage(UploadFile item)
     {
         bool ret;
@@ -64,10 +66,6 @@ public partial class CardUpload<TValue>
         if (OnZoomAsync != null)
         {
             await OnZoomAsync(item);
-        }
-        else
-        {
-            await JSRuntime.InvokeVoidAsync($"#{Id}", "bb_image_preview", PreviewList);
         }
     }
 }

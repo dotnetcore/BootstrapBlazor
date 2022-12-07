@@ -1,7 +1,6 @@
 ﻿import BlazorComponent from "../../../_content/BootstrapBlazor/modules/base/blazor-component.js"
 import EventHandler from "../../../_content/BootstrapBlazor/modules/base/event-handler.js"
 import { copy, getDescribedElement, addLink, addScript } from "../../../_content/BootstrapBlazor/modules/base/utility.js"
-import { Tooltip } from "../../../_content/BootstrapBlazor/modules/tooltip.js"
 
 export class Pre extends BlazorComponent {
     _init() {
@@ -30,8 +29,7 @@ export class Pre extends BlazorComponent {
             else {
                 this._handler = window.setInterval(() => {
                     if (window.hljs) {
-                        window.clearInterval(this._handler)
-                        delete this._handler
+                        this._clearInterval()
                         this._highlight()
                     }
                 }, 100)
@@ -40,15 +38,23 @@ export class Pre extends BlazorComponent {
     }
 
     _highlight() {
-        const code = this._element.querySelector('code')
-        window.hljs.highlightBlock(code)
+        if (this._element) {
+            const code = this._element.querySelector('code')
+            if (code) {
+                window.hljs.highlightBlock(code)
+            }
+        }
     }
 
-    _dispose() {
+    _clearInterval() {
         if (this._handler) {
             window.clearInterval(this._handler)
             delete this._handler
         }
+    }
+
+    _dispose() {
+        this._clearInterval()
         EventHandler.off(this._element, 'click', 'button');
     }
 }

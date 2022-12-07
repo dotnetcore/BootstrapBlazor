@@ -10,7 +10,7 @@ namespace BootstrapBlazor.Components;
 /// DateTimePicker 组件基类
 /// </summary>
 [JSModuleAutoLoader("dropdown", ModuleName = "Dropdown")]
-public sealed partial class DateTimePicker<TValue>
+public partial class DateTimePicker<TValue>
 {
     /// <summary>
     /// 获得 组件样式名称
@@ -103,6 +103,12 @@ public sealed partial class DateTimePicker<TValue>
     /// </summary>
     [Parameter]
     public bool ShowSidebar { get; set; }
+
+    /// <summary>
+    /// 获得/设置 侧边栏模板 默认 null
+    /// </summary>
+    [Parameter]
+    public RenderFragment<Func<DateTime, Task>>? SidebarTemplate { get; set; }
 
     /// <summary>
     /// 获得/设置 当前日期最大值
@@ -237,9 +243,9 @@ public sealed partial class DateTimePicker<TValue>
         {
             await OnDateTimeChanged(Value);
         }
-        if (AutoClose && Module != null)
+        if (AutoClose)
         {
-            await Module.InvokeVoidAsync($"{ModuleName}.execute", Id, "hide");
+            await InvokeExecuteAsync(Id, "hide");
         }
     }
 }

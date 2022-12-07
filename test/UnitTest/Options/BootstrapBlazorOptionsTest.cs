@@ -9,8 +9,14 @@ public class BootstrapBlazorOptionsTest
     [Fact]
     public void Options_Ok()
     {
-        var options = new BootstrapBlazorOptions();
+        var options = new BootstrapBlazorOptions()
+        {
+            EnableErrorLogger = true,
+            EnableFallbackCulture = true,
+            TableSettings = new()
+        };
         Assert.NotNull(options.GetSupportedCultures());
+        Assert.Equal(2, options.Themes.Count);
     }
 
     [Fact]

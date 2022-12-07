@@ -45,7 +45,7 @@ public partial class LinkButton
 
     private string? UrlString => IsDisabled ? null : Url;
 
-    private string? ClassString => CssBuilder.Default("link-button")
+    private string? ClassString => CssBuilder.Default("btn link-button")
         .AddClass("btn-vertical", IsVertical)
         .AddClass($"btn-outline-{Color.ToDescriptionString()}", IsOutline)
         .AddClass($"link-{Color.ToDescriptionString()}", Color != Color.None && !IsOutline && !IsDisabled)

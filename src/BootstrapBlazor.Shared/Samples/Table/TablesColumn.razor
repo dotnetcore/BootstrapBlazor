@@ -186,7 +186,9 @@
     <p>@((MarkupString)ColumnLocalizer["VisibleP2"].Value)</p>
     <p>@((MarkupString)ColumnLocalizer["VisibleP3"].Value)</p>
     <p>@((MarkupString)ColumnLocalizer["VisibleP4"].Value)</p>
-    <Table TItem="Foo"
+    <p>@((MarkupString)ColumnLocalizer["ResetVisibleColumnsDesc"].Value)</p>
+    <div><Button Text="@ColumnLocalizer["ResetVisibleColumnsButtonText"]" OnClickWithoutRender="ResetVisibleColumns" /></div>
+    <Table TItem="Foo" @ref="TableColumnVisibles"
            IsPagination="true" PageItemsSource="@PageItemsSource"
            IsStriped="true" IsBordered="true" IsMultipleSelect="true"
            ShowToolbar="true" ShowAddButton="false" ShowEditButton="false" ShowDeleteButton="false"
@@ -204,7 +206,7 @@
 </DemoBlock>
 
 <DemoBlock Title="@ColumnLocalizer["AllowResizingTitle"]" Introduction="@ColumnLocalizer["AllowResizingIntro"]" Name="AllowResizing">
-    <p>@((MarkupString)ColumnLocalizer["AllowResizingP1"].Value)</p>
+    <p>@((MarkupString)ColumnLocalizer["AllowResizingDesc"].Value)</p>
     <Table TItem="Foo"
            IsPagination="true" PageItemsSource="@PageItemsSource" AllowResizing="true"
            IsStriped="true" IsBordered="true"
@@ -215,6 +217,24 @@
             <TableColumn @bind-Field="@context.Name" Width="100" />
             <TableColumn @bind-Field="@context.Address" />
             <TableColumn @bind-Field="@context.Count" />
+        </TableColumns>
+    </Table>
+</DemoBlock>
+
+<DemoBlock Title="@ColumnLocalizer["ShowCopyColumnTitle"]" Introduction="@ColumnLocalizer["ShowCopyColumnIntro"]" Name="ShowCopyColumn">
+    <p>@((MarkupString)ColumnLocalizer["ShowCopyColumnDesc"].Value)</p>
+    <Table TItem="Foo"
+           IsPagination="true" PageItemsSource="@PageItemsSource" AllowResizing="true"
+           IsStriped="true" IsBordered="true"
+           ShowToolbar="false" IsMultipleSelect="true" ShowExtendButtons="false"
+           OnQueryAsync="@OnQueryAsync">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="120" FormatString="yyyy-MM-dd" ShowCopyColumn="true" />
+            <TableColumn @bind-Field="@context.Name" Width="100" ShowCopyColumn="true" />
+            <TableColumn @bind-Field="@context.Address" ShowCopyColumn="true" />
+            <TableColumn @bind-Field="@context.Count" ShowCopyColumn="true" />
+            <TableColumn @bind-Field="@context.Education" ShowCopyColumn="true" />
+            <TableColumn @bind-Field="@context.Complete" ShowCopyColumn="true" />
         </TableColumns>
     </Table>
 </DemoBlock>

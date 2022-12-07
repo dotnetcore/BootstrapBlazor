@@ -42,6 +42,12 @@ public partial class RadioList<TValue>
     [Parameter]
     public RenderFragment<SelectedItem>? ItemTemplate { get; set; }
 
+    /// <summary>
+    /// 获得/设置 未设置选中项时是否自动选择第一项 默认 true
+    /// </summary>
+    [Parameter]
+    public bool AutoSelectFirstWhenValueIsNull { get; set; } = true;
+
     private string? GroupName => Id;
 
     private string? RadioClassString => CssBuilder.Default("radio-list")
@@ -64,7 +70,7 @@ public partial class RadioList<TValue>
 
         NullItemText ??= "";
 
-        if (!Items.Any(i => i.Value == CurrentValueAsString))
+        if (AutoSelectFirstWhenValueIsNull && !Items.Any(i => i.Value == CurrentValueAsString))
         {
             CurrentValueAsString = Items.FirstOrDefault()?.Value ?? "";
         }
@@ -76,6 +82,31 @@ public partial class RadioList<TValue>
     /// <param name="value"></param>
     /// <returns></returns>
     protected override string? FormatValueAsString(TValue value) => value is SelectedItem v ? v.Value : base.FormatValueAsString(value);
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="value"></param>
+    /// <param name="result"></param>
+    /// <param name="validationErrorMessage"></param>
+    /// <returns></returns>
+    protected override bool TryParseValueFromString(string value, [MaybeNullWhen(false)] out TValue result, out string? validationErrorMessage)
+    {
+        var ret = false;
+        var t = NullableUnderlyingType ?? typeof(TValue);
+        result = default;
+        if (t == typeof(SelectedItem))
+        {
+            var item = Items.FirstOrDefault(i => i.Value == value);
+            if (item != null)
+            {
+                result = (TValue)(object)item;
+                ret = true;
+            }
+        }
+        validationErrorMessage = null;
+        return ret || base.TryParseValueFromString(value, out result, out validationErrorMessage);
+    }
 
     /// <summary>
     /// 

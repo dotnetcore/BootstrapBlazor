@@ -33,10 +33,7 @@ public static class TreeItemExtensions
     /// <typeparam name="TItem"></typeparam>
     /// <param name="source"></param>
     /// <returns></returns>
-    public static IEnumerable<TreeViewItem<TItem>> GetAllItems<TItem>(this IEnumerable<TreeViewItem<TItem>> source)
-    {
-        return GetAllSubItems(source).Append(source.First());
-    }
+    public static IEnumerable<TreeViewItem<TItem>> GetAllItems<TItem>(this IEnumerable<TreeViewItem<TItem>> source) => GetAllSubItems(source).Union(source);
 
     /// <summary>
     /// 获取全部子节点
@@ -44,8 +41,5 @@ public static class TreeItemExtensions
     /// <typeparam name="TItem"></typeparam>
     /// <param name="source"></param>
     /// <returns></returns>
-    public static IEnumerable<TreeViewItem<TItem>> GetAllSubItems<TItem>(this IEnumerable<TreeViewItem<TItem>> source)
-    {
-        return source.SelectMany(i => i.Items.Any() ? i.Items.Concat(GetAllSubItems(i.Items)) : i.Items);
-    }
+    public static IEnumerable<TreeViewItem<TItem>> GetAllSubItems<TItem>(this IEnumerable<TreeViewItem<TItem>> source) => source.SelectMany(i => i.Items.Any() ? i.Items.Concat(GetAllSubItems(i.Items)) : i.Items);
 }

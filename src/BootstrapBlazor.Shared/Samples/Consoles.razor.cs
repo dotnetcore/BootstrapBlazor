@@ -150,11 +150,39 @@ public sealed partial class Consoles : IDisposable
             DefaultValue = "系统监控"
         },
         new AttributeItem(){
+            Name = "HeaderTemplate",
+            Description = "Header 模板",
+            Type = "RenderFragment",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new AttributeItem(){
             Name = "LightTitle",
             Description = "指示灯 Title",
             Type = "string",
             ValueList = " — ",
             DefaultValue = "通讯指示灯"
+        },
+        new AttributeItem(){
+            Name = "IsFlashLight",
+            Description = "指示灯是否闪烁",
+            Type = "bool",
+            ValueList = "true/false",
+            DefaultValue = "true"
+        },
+        new AttributeItem(){
+            Name = "LightColor",
+            Description = "指示灯颜色",
+            Type = "Color",
+            ValueList = " — ",
+            DefaultValue = "Color.Success"
+        },
+        new AttributeItem(){
+            Name = "ShowLight",
+            Description = "是否显示指示灯",
+            Type = "bool",
+            ValueList = "true/false",
+            DefaultValue = "true"
         },
         new AttributeItem(){
             Name = "ClearButtonText",
@@ -176,6 +204,13 @@ public sealed partial class Consoles : IDisposable
             Type = "Color",
             ValueList = "None / Active / Primary / Secondary / Success / Danger / Warning / Info / Light / Dark / Link",
             DefaultValue = "Secondary"
+        },
+        new AttributeItem(){
+            Name = "FooterTemplate",
+            Description = "Footer 模板",
+            Type = "RenderFragment",
+            ValueList = " — ",
+            DefaultValue = " — "
         }
     };
 

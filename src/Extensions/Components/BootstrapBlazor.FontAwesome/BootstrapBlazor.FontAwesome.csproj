@@ -3,7 +3,7 @@
   <Import Project="..\..\..\bundleconfig.props" />
 
   <PropertyGroup>
-    <Version>6.3.0</Version>
+    <Version>7.0.1</Version>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -22,7 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="BootstrapBlazor" Version="6.11.14" />
+    <PackageReference Include="BootstrapBlazor" Version="7.1.1" />
   </ItemGroup>
 
 </Project>

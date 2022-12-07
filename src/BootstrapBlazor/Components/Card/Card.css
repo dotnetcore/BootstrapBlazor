@@ -1,39 +1,59 @@
 ﻿.card {
     --bs-card-border-radius: var(--bs-border-radius);
     --bs-card-inner-border-radius: calc(var(--bs-border-radius) - 1px);
+    --bb-card-shadow: var(--bb-shadow);
+    --bb-card-hover-shadow: var(--bb-hover-shadow);
+    --bb-card-collapse-bar-margin-right: .5rem;
+    --bb-card-header-tag-height: 21px;
 }
 
-    .card .card-collapse {
-        flex: 1;
-        display: flex;
-        align-items: center;
-        cursor: pointer;
-    }
+.card-header {
+    border-bottom-width: 0;
+    display: flex;
+    align-items: center;
+}
 
-        .card .card-collapse .card-collapse-body {
-            display: flex;
-            flex: 1;
-            align-items: center;
-            margin-left: .5rem;
-        }
-
-    .card .card-collapse-arrow {
+    .card-header .card-collapse-arrow {
+        margin-right: var(--bb-card-collapse-bar-margin-right);
         transition: transform .3s linear;
     }
 
-    .card .is-open .card-collapse-arrow {
-        transform: rotate( 90deg);
+    .card-header .card-collapse-bar {
+        cursor: pointer;
+        margin-right: var(--bb-card-collapse-bar-margin-right);
+        flex: 1;
+    }
+
+    .card-header .tag {
+        line-height: var(--bb-card-header-tag-height);
+    }
+
+    .card-header + .card-body {
+        border-top: var(--bs-card-border-width) solid var(--bs-card-border-color);
+    }
+
+    .card-header .card-title {
+        --bs-card-title-spacer-y: 0;
+        flex: 1;
     }
 
 .card-shadow {
+    box-shadow: var(--bb-card-shadow);
     transition: box-shadow .3s linear;
-    box-shadow: 0 0 8px 0 #e8edfa99, 0 2px 4px 0 #e8edfa80;
 }
 
     .card-shadow:hover {
-        box-shadow: 0 1px 7px 0 #0000000d, 0 2px 8px 0 #00000012, 0 3px 9px 0 #0000000f, 0 5px 10px 0 #00000008;
+        box-shadow: var(--bb-card-hover-shadow);
     }
 
-.card-header .tag {
-    line-height: 21px;
+[aria-expanded="true"] > .card-collapse-arrow {
+    transform: rotate( 90deg);
 }
+
+.is-collapsable > .card-body {
+    padding: 0;
+}
+
+    .is-collapsable > .card-body > .card-body-wrapper {
+        padding: var(--bs-card-spacer-y) var(--bs-card-spacer-x);
+    }

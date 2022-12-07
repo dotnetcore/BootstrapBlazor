@@ -70,7 +70,7 @@ public sealed partial class Radios
         };
         Items = new SelectedItem[]
         {
-            new SelectedItem("1", Localizer["Add1"]) { Active = true },
+            new SelectedItem("1", Localizer["Add1"]),
             new SelectedItem("2", Localizer["Add2"])
         };
         Model = Foo.Generate(LocalizerFoo);

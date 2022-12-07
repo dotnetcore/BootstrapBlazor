@@ -25,6 +25,7 @@
         display: flex;
         flex-flow: row wrap;
         flex: 1;
+        align-content: flex-start;
     }
 
         .listview .listview-body .listview-item {

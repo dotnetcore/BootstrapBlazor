@@ -271,6 +271,43 @@ public class SelectTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void CustomClass_Ok()
+    {
+        var cut = Context.RenderComponent<Select<string>>(pb =>
+        {
+            pb.Add(a => a.Items, new SelectedItem[]
+            {
+                new SelectedItem("1", "Test1"),
+                new SelectedItem("2", "Test2")
+            });
+            pb.Add(a => a.Value, "2");
+            pb.Add(a => a.CustomClass, "test-custom-class");
+        });
+        Assert.Contains("test-custom-class", cut.Markup);
+    }
+
+    [Fact]
+    public void ShowShadow_Ok()
+    {
+        var cut = Context.RenderComponent<Select<string>>(pb =>
+        {
+            pb.Add(a => a.Items, new SelectedItem[]
+            {
+                new SelectedItem("1", "Test1"),
+                new SelectedItem("2", "Test2")
+            });
+            pb.Add(a => a.Value, "2");
+        });
+        Assert.Contains("shadow", cut.Markup);
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ShowShadow, false);
+        });
+        Assert.DoesNotContain("shadow", cut.Markup);
+    }
+
+    [Fact]
     public void DropdownIcon_Ok()
     {
         var cut = Context.RenderComponent<Select<string>>(pb =>

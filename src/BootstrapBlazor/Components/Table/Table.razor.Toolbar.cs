@@ -3,7 +3,6 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.AspNetCore.Components.Forms;
-using System.Runtime.CompilerServices;
 
 namespace BootstrapBlazor.Components;
 
@@ -71,6 +70,12 @@ public partial class Table<TItem>
     public bool ShowExportButton { get; set; }
 
     /// <summary>
+    /// 获得/设置 导出按钮图标 默认为 fa-solid fa-download
+    /// </summary>
+    [Parameter]
+    public string? ExportButtonIcon { get; set; }
+
+    /// <summary>
     /// 获得/设置 导出按钮下拉菜单模板 默认 null
     /// </summary>
     [Parameter]
@@ -129,6 +134,12 @@ public partial class Table<TItem>
     /// </summary>
     [Parameter]
     public bool FixedExtendButtonsColumn { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否固定多选列 默认为 false 不固定
+    /// </summary>
+    [Parameter]
+    public bool FixedMultipleColumn { get; set; }
 
     /// <summary>
     /// 获得/设置 是否显示刷新按钮 默认为 true
@@ -246,21 +257,13 @@ public partial class Table<TItem>
     /// </summary>
     private List<ColumnVisibleItem> ColumnVisibles { get; } = new();
 
-    private class ColumnVisibleItem
-    {
-        [NotNull]
-        public string? FieldName { get; set; }
-
-        public bool Visible { get; set; }
-    }
-
     private IEnumerable<ITableColumn> GetColumns()
     {
         var items = ColumnVisibles.Where(i => i.Visible);
-        return Columns.Where(i => items.Any(v => v.FieldName == i.GetFieldName()));
+        return Columns.Where(i => items.Any(v => v.Name == i.GetFieldName()));
     }
 
-    private bool GetColumnsListState(ITableColumn col) => ColumnVisibles.First(i => i.FieldName == col.GetFieldName()).Visible && ColumnVisibles.Count(i => i.Visible) == 1;
+    private bool GetColumnsListState(ITableColumn col) => ColumnVisibles.First(i => i.Name == col.GetFieldName()).Visible && ColumnVisibles.Count(i => i.Visible) == 1;
 
     private bool ShowAddForm { get; set; }
 
@@ -549,6 +552,12 @@ public partial class Table<TItem>
     public bool EditDialogIsDraggable { get; set; }
 
     /// <summary>
+    /// 获得/设置 编辑框 FullScreenSize 参数 默认 none
+    /// </summary>
+    [Parameter]
+    public FullScreenSize EditDialogFullScreenSize { get; set; }
+
+    /// <summary>
     /// 获得/设置 编辑框是否显示最大化按钮 默认 true 不显示
     /// </summary>
     [Parameter]
@@ -559,6 +568,18 @@ public partial class Table<TItem>
     /// </summary>
     [Parameter]
     public bool ShowUnsetGroupItemsOnTop { get; set; }
+
+    /// <summary>
+    /// 获得/设置 弹窗 Footer
+    /// </summary>
+    [Parameter]
+    public RenderFragment<TItem>? EditFooterTemplate { get; set; }
+
+    /// <summary>
+    /// 获得/设置 编辑弹窗关闭前回调方法
+    /// </summary>
+    [Parameter]
+    public Func<TItem, bool, Task>? EditDialogCloseAsync { get; set; }
 
     /// <summary>
     /// 弹出编辑对话框方法
@@ -585,11 +606,17 @@ public partial class Table<TItem>
             Size = EditDialogSize,
             IsDraggable = EditDialogIsDraggable,
             ShowMaximizeButton = EditDialogShowMaximizeButton,
+            FullScreenSize = EditDialogFullScreenSize,
             ShowUnsetGroupItemsOnTop = ShowUnsetGroupItemsOnTop,
             DisableAutoSubmitFormByEnter = DisableAutoSubmitFormByEnter,
             IsTracking = IsTracking,
+            DialogFooterTemplate = EditFooterTemplate,
             OnCloseAsync = async () =>
             {
+                if (EditDialogCloseAsync != null)
+                {
+                    await EditDialogCloseAsync(EditModel, saved);
+                }
                 if (!saved)
                 {
                     // EFCore 模式保存失败后调用 CancelAsync 回调
@@ -746,8 +773,7 @@ public partial class Table<TItem>
             Columns.Clear();
             Columns.AddRange(cols);
 
-            ColumnVisibles.Clear();
-            ColumnVisibles.AddRange(Columns.Select(i => new ColumnVisibleItem { FieldName = i.GetFieldName(), Visible = i.Visible }));
+            InternalResetVisibleColumns(Columns.Select(i => new ColumnVisibleItem(i.GetFieldName(), i.Visible)));
 
             QueryDynamicItems(DynamicContext);
         }
@@ -785,7 +811,7 @@ public partial class Table<TItem>
         {
             // 如果未提供 OnExportAsync 回调委托使用注入服务来尝试解析
             // TODO: 这里将本页数据作为参数传递给导出服务，服务本身可以利用自身优势获取全部所需数据，如果获取全部数据呢？
-            ret = await ExcelExport.ExportAsync(Rows, Columns, JSRuntime);
+            ret = await ExcelExport.ExportAsync(Rows, Columns);
         }
 
         option = new ToastOption

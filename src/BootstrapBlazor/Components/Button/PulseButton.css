@@ -1,42 +1,6 @@
 ﻿.btn-pulse {
+    --bs-border-width: 3px;
     position: relative;
-    --bb-pulse-button-border-color: var(--bs-warning);
-}
-
-.pulse-white {
-    --bb-pulse-button-border-color: var(--bs-white);
-}
-
-.pulse-light {
-    --bb-pulse-button-border-color: var(--bs-light);
-}
-
-.pulse-primary {
-    --bb-pulse-button-border-color: var(--bs-primary);
-}
-
-.pulse-secondary {
-    --bb-pulse-button-border-color: var(--bs-secondary);
-}
-
-.pulse-success {
-    --bb-pulse-button-border-color: var(--bs-success);
-}
-
-.pulse-info {
-    --bb-pulse-button-border-color: var(--bs-info);
-}
-
-.pulse-warning {
-    --bb-pulse-button-border-color: var(--bs-warning);
-}
-
-.pulse-danger {
-    --bb-pulse-button-border-color: var(--bs-danger);
-}
-
-.pulse-dark {
-    --bb-pulse-button-border-color: var(--bs-dark);
 }
 
 .pulse-ring {
@@ -45,7 +9,6 @@
     animation: animation-pulse 3.5s ease-out;
     animation-iteration-count: infinite;
     opacity: 0;
-    border: 3px solid var(--bb-pulse-button-border-color);
     position: absolute;
     top: 0;
     left: 0;

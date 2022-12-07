@@ -12,7 +12,7 @@ public class SwalOption : PopupOptionBase
     /// <summary>
     /// 获得/设置 相关弹窗实例
     /// </summary>
-    internal Modal? Dialog { get; set; }
+    internal Modal? Modal { get; set; }
 
     /// <summary>
     /// 获得/设置 模态弹窗返回值任务实例
@@ -33,11 +33,6 @@ public class SwalOption : PopupOptionBase
     /// 获得/设置 弹窗标题
     /// </summary>
     public string? Title { get; set; }
-
-    /// <summary>
-    /// 获得/设置 相关连数据，多用于传值使用
-    /// </summary>
-    public object? BodyContext { get; set; }
 
     /// <summary>
     /// 获得/设置 ModalBody 组件
@@ -65,6 +60,36 @@ public class SwalOption : PopupOptionBase
     public RenderFragment? ButtonTemplate { get; set; }
 
     /// <summary>
+    /// 获得/设置 关闭按钮图标 默认 fa-solid fa-xmark
+    /// </summary>
+    public string? CloseButtonIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 确认按钮图标 默认 fa-solid fa-check
+    /// </summary>
+    public string? ConfirmButtonIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 关闭按钮文字 默认为 关闭
+    /// </summary>
+    public string? CloseButtonText { get; set; }
+
+    /// <summary>
+    /// 获得/设置 确认按钮文字 默认为 确认
+    /// </summary>
+    public string? ConfirmButtonText { get; set; }
+
+    /// <summary>
+    /// 获得/设置 取消按钮文字 默认为 取消
+    /// </summary>
+    public string? CancelButtonText { get; set; }
+
+    /// <summary>
+    /// 获得/设置 弹窗自定义样式
+    /// </summary>
+    public string? Class { get; set; }
+
+    /// <summary>
     /// 
     /// </summary>
     public SwalOption()
@@ -76,18 +101,27 @@ public class SwalOption : PopupOptionBase
     /// 将参数转换为组件属性方法
     /// </summary>
     /// <returns></returns>
-    public Dictionary<string, object?> ToAttributes()
+    public Dictionary<string, object> ToAttributes()
     {
-        var parameters = new Dictionary<string, object?>
+        var parameters = new Dictionary<string, object>
         {
             [nameof(Size)] = Size.Medium,
             [nameof(ModalDialog.IsCentered)] = true,
             [nameof(ModalDialog.IsScrolling)] = false,
             [nameof(ModalDialog.ShowCloseButton)] = false,
-            [nameof(ShowFooter)] = false,
-            [nameof(ModalDialog.Title)] = Title,
-            [nameof(BodyContext)] = BodyContext
+            [nameof(ModalDialog.ShowHeader)] = false,
+            [nameof(ModalDialog.ShowFooter)] = false
         };
+
+        if (!string.IsNullOrEmpty(Title))
+        {
+            parameters.Add(nameof(ModalDialog.Title), Title);
+        }
+
+        if (!string.IsNullOrEmpty(Class))
+        {
+            parameters.Add(nameof(ModalDialog.Class), Class);
+        }
         return parameters;
     }
 
@@ -97,9 +131,9 @@ public class SwalOption : PopupOptionBase
     /// <param name="returnValue">模态弹窗返回值 默认为 true</param>
     public async Task Close(bool returnValue = true)
     {
-        if (Dialog != null)
+        if (Modal != null)
         {
-            await Dialog.Close();
+            await Modal.Close();
         }
 
         if (IsModalConfirm)

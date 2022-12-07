@@ -1,6 +1,4 @@
 ﻿.multi-select {
-    width: 100%;
-    position: relative;
     --bb-multi-select-min-height: 35px;
     --bb-multi-select-max-height: 65px;
     --bb-multi-select-button-bg-color: #e9ecef;
@@ -9,6 +7,8 @@
     --bb-multi-select-item-margin-y: 3px;
     --bb-multi-select-item-padding: 2px 6px;
     --bb-multi-select-item-max-width: 130px;
+    width: 100%;
+    position: relative;
 }
 
     .multi-select .dropdown-toggle {
@@ -86,18 +86,9 @@
         position: absolute;
     }
 
-.popover-multi-select .dropdown-menu {
-    max-height: var(--bb-multi-select-dropdown-max-height);
-}
-
-.multi-select,
-.popover-multi-select {
+.dropdown-menu .toolbar {
     --bb-multi-select-toolbar-padding: 6px 10px;
     --bb-multi-select-toolbar-button-padding: 3px 10px;
-    --bb-multi-select-dropdown-max-height: var(--bb-dropdown-max-height);
-}
-
-.dropdown-menu .toolbar {
     padding: var(--bb-multi-select-toolbar-padding);
     white-space: nowrap;
 }

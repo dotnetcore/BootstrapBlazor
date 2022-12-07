@@ -219,10 +219,7 @@ public static class Utility
                             {
                                 var v = f.GetValue(item);
                                 var field = valType.GetField(f.Name);
-                                if (field != null)
-                                {
-                                    field.SetValue(ret, v);
-                                }
+                                field?.SetValue(ret, v);
                             };
                             foreach (var p in type.GetRuntimeProperties())
                             {
@@ -230,10 +227,7 @@ public static class Utility
                                 {
                                     var v = p.GetValue(item);
                                     var property = valType.GetRuntimeProperties().FirstOrDefault(i => i.Name == p.Name && i.PropertyType == p.PropertyType);
-                                    if (property != null)
-                                    {
-                                        property.SetValue(ret, v);
-                                    }
+                                    property?.SetValue(ret, v);
                                 }
                             };
                         }
@@ -397,7 +391,7 @@ public static class Utility
         // Lookup
         if (lookup != null && item.Items == null)
         {
-            builder.AddAttribute(11, nameof(Select<SelectedItem>.ShowSearch), true);
+            builder.AddAttribute(11, nameof(Select<SelectedItem>.ShowSearch), item.ShowSearchWhenSelect);
             builder.AddAttribute(12, nameof(Select<SelectedItem>.Items), lookup.Clone());
             builder.AddAttribute(13, nameof(Select<SelectedItem>.StringComparison), item.LookupStringComparison);
         }
@@ -406,19 +400,26 @@ public static class Utility
         if (item.Items != null && item.ComponentType == typeof(Select<>).MakeGenericType(fieldType))
         {
             builder.AddAttribute(14, nameof(Select<SelectedItem>.Items), item.Items.Clone());
+            builder.AddAttribute(15, nameof(Select<SelectedItem>.ShowSearch), item.ShowSearchWhenSelect);
         }
 
         // 设置 SkipValidate 参数
         if (IsValidatableComponent(componentType))
         {
-            builder.AddAttribute(15, nameof(IEditorItem.SkipValidate), item.SkipValidate);
+            builder.AddAttribute(16, nameof(IEditorItem.SkipValidate), item.SkipValidate);
         }
 
-        builder.AddMultipleAttributes(16, CreateMultipleAttributes(fieldType, model, fieldName, item));
+        builder.AddMultipleAttributes(17, CreateMultipleAttributes(fieldType, model, fieldName, item));
 
         if (item.ComponentParameters != null)
         {
-            builder.AddMultipleAttributes(17, item.ComponentParameters);
+            builder.AddMultipleAttributes(18, item.ComponentParameters);
+        }
+
+        // 设置 IsPopover
+        if (componentType.GetPropertyByName(nameof(Select<string>.IsPopover)) != null)
+        {
+            builder.AddAttribute(19, nameof(Select<string>.IsPopover), item.IsPopover);
         }
         builder.CloseComponent();
     }
@@ -681,10 +682,7 @@ public static class Utility
             var t = typeValue.IsGenericType ? typeValue.GenericTypeArguments[0] : typeValue.GetElementType()!;
             var instance = Activator.CreateInstance(typeof(List<>).MakeGenericType(t))!;
             var mi = instance.GetType().GetMethod("AddRange");
-            if (mi != null)
-            {
-                mi.Invoke(instance, new object[] { value! });
-            }
+            mi?.Invoke(instance, new object[] { value! });
 
             var invoker = CacheManager.CreateConverterInvoker(t);
             var v = invoker.Invoke(instance);

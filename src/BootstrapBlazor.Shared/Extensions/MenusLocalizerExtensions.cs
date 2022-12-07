@@ -464,6 +464,12 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
+                    IsNew = true,
+                    Text = Localizer["FileIcon"],
+                    Url = "fileicons"
+                },
+                new()
+                {
                     Text = Localizer["Geolocation"],
                     Url = "geolocations"
                 },

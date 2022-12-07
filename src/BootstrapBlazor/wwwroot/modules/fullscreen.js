@@ -1,4 +1,4 @@
-﻿import SimpleComponent from "./base/simple-component.js";
+﻿import SimpleComponent from "./base/simple-component.js"
 import { getElementById, isElement } from "./base/index.js"
 
 export class FullScreen extends SimpleComponent {

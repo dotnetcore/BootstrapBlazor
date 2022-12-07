@@ -1,8 +1,8 @@
 ﻿@namespace BootstrapBlazor.Components
 @typeparam TItem
-@inherits BootstrapComponentBase
+@inherits BootstrapModuleComponentBase
 
-<div @attributes="@AdditionalAttributes" class="@ClassName" style="@StyleString" @ref="TableElement">
+<div @attributes="@AdditionalAttributes" class="@ClassName" style="@StyleString" id="@Id" @ref="TableElement">
     <CascadingValue Value="this" IsFixed="true">
         @TableColumns?.Invoke(new TItem())
     </CascadingValue>
@@ -62,14 +62,14 @@
                     }
                     @if (!IsExcel && ShowCardView)
                     {
-                        <Button Icon="fa-solid fa-bars" Text="@CardViewButtonText" Color="@Color.Secondary" OnClick="@OnClickCardView">
+                        <Button Icon="fa-solid fa-bars" Color="@Color.Secondary" OnClick="@OnClickCardView">
                             <span class="d-none d-sm-inline-block">@CardViewButtonText</span>
                         </Button>
                     }
                     @if (ShowColumnList)
                     {
-                        <div class="btn-group btn-col" role="group">
-                            <button class="btn btn-secondary dropdown-toggle" data-bs-auto-close="false" data-bs-toggle="dropdown" type="button" title="@ColumnButtonTitleText">
+                        <div class="btn-group" role="group">
+                            <button class="btn btn-secondary dropdown-toggle" data-bs-auto-close="outside" data-bs-toggle="dropdown" type="button" title="@ColumnButtonTitleText">
                                 <i class="fa-solid fa-table-list"></i>
                                 <span class="d-none d-sm-inline-block">@ColumnButtonText</span>
                                 <span class="caret"></span>
@@ -77,12 +77,12 @@
                             <div class="dropdown-menu dropdown-menu-end shadow">
                                 @foreach (var item in Columns)
                                 {
-                                    var poco = ColumnVisibles.FirstOrDefault(i => i.FieldName == item.GetFieldName());
+                                    var poco = ColumnVisibles.FirstOrDefault(i => i.Name == item.GetFieldName());
                                     if (poco != null)
                                     {
                                         <div class="dropdown-item">
                                             <Checkbox ShowAfterLabel="true" IsDisabled="@GetColumnsListState(item)"
-                                                  DisplayText="@item.GetDisplayName()" @bind-Value="@poco.Visible" OnValueChanged="visible => OnToggleColumnVisible(poco.FieldName, visible)">
+                                                  DisplayText="@item.GetDisplayName()" @bind-Value="@poco.Visible" OnValueChanged="visible => OnToggleColumnVisible(poco.Name, visible)">
                                             </Checkbox>
                                         </div>
                                     }
@@ -94,7 +94,7 @@
                     {
                         <div class="btn-group" role="group">
                             <button class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" type="button" title="@ExportButtonText">
-                                <i class="fa-solid fa-download"></i>
+                                <i class="@ExportButtonIcon"></i>
                                 <span class="d-none d-sm-inline-block">@ExportButtonText</span>
                                 <span class="caret"></span>
                             </button>
@@ -123,7 +123,7 @@
                                 @if (ShowSearchTextTooltip)
                                 {
                                     <Tooltip Placement="Placement.Top" Title="@SearchTooltip" Sanitize="false" IsHtml="true">
-                                        <BootstrapInput class="table-toolbar-search" placeholder="@SearchPlaceholderText" @bind-Value="@SearchText" ShowLabel="false" />
+                                        <BootstrapInput class="table-toolbar-search" @onkeyup="OnSearchKeyup" placeholder="@SearchPlaceholderText" @bind-Value="@SearchText" ShowLabel="false" />
                                     </Tooltip>
                                 }
                                 else
@@ -154,11 +154,9 @@
             </div>
         }
 
-        @if (ShowTopPagination && TotalCount > 0 && IsPagination)
+        @if (ShowTopPagination && IsPagination)
         {
-            <div class="table-pagination is-top">
-                <Pagination PageItemsSource="@PageItemsSource" PageItems="@PageItems" TotalCount="@TotalCount" PageIndex="@PageIndex" OnPageClick="@OnPageClick" OnPageItemsChanged="@OnPageItemsChanged"></Pagination>
-            </div>
+            @RenderPagination
         }
         <div class="@WrapperClassName">
             @if (ActiveRenderMode == TableRenderMode.Table)
@@ -175,7 +173,7 @@
                         @RenderTable.Invoke(false)
                     </div>
                 }
-                else if (FixedExtendButtonsColumn || Columns.Any(col => col.Fixed))
+                else if (FixedMultipleColumn || FixedExtendButtonsColumn || Columns.Any(col => col.Fixed))
                 {
                     <div class="overflow-auto">
                         @RenderTable.Invoke(true)
@@ -246,7 +244,7 @@
                         }
                     </DynamicElement>
                 }
-                @if (ShowFooter && !IsHideFooterWhenNoData)
+                @if (IsShowFooter)
                 {
                     <div class="table-row table-footer">
                         <CascadingValue Value="true" Name="IsMobileMode" IsFixed="true">
@@ -259,31 +257,18 @@
             }
         </div>
 
-        @if (ActiveRenderMode == TableRenderMode.Table && !ShowFilterHeader)
+        @if (!ShowTopPagination && IsPagination)
         {
-            if (FilterColumns == null) FilterColumns = Columns.Where(i => i.Filterable);
-            if (FilterColumns.Any())
-            {
-                <CascadingValue Value="this" IsFixed="true">
-                    <div class="table-filter">
-                        @foreach (var col in FilterColumns)
-                        {
-                            <TableFilter Column="col" />
-                        }
-                    </div>
-                </CascadingValue>
-            }
-        }
-
-        @if (!ShowTopPagination && TotalCount > 0 && IsPagination)
-        {
-            <div class="table-pagination">
-                <Pagination PageItemsSource="@PageItemsSource" PageItems="@PageItems" TotalCount="@TotalCount" PageIndex="@PageIndex" OnPageClick="@OnPageClick" OnPageItemsChanged="@OnPageItemsChanged"></Pagination>
-            </div>
+            @RenderPagination
         }
         <div class="table-loader">
             <Spinner Color="Color.Primary" />
         </div>
+
+        @if (RenderMode == TableRenderMode.Auto)
+        {
+            <Responsive OnBreakPointChanged="OnBreakPointChanged" />
+        }
     }
 </div>
 
@@ -359,7 +344,7 @@
                 @if(IsShowEmpty)
                 {
                     <tr>
-                        <td colspan="@GetColumnCount()">
+                        <td colspan="@GetEmptyColumnCount()">
                             <Empty Text="@EmptyText" Image="@EmptyImage" Template="EmptyTemplate!">
                             </Empty>
                         </td>
@@ -378,7 +363,7 @@
                 }
             }
         </tbody>
-        @if (ShowFooter && !IsHideFooterWhenNoData)
+        @if (IsShowFooter)
         {
             <tfoot>
                 <CascadingValue Value="false" Name="IsMobileMode" IsFixed="true">
@@ -407,14 +392,7 @@ RenderFragment<bool> RenderColgroup => hasScroll =>
     }
     @if (IsMultipleSelect)
     {
-        @if (ShowCheckboxText)
-        {
-            <col width="@ShowCheckboxTextColumnWidth" />
-        }
-        else
-        {
-            <col width="@CheckboxColumnWidth" />
-        }
+        <col width="@MultiColumnWidth" />
     }
     @if (ShowLineNo)
     {
@@ -458,7 +436,7 @@ RenderFragment<bool> RenderHeader => hasScroll =>
             }
             @if (IsMultipleSelect)
             {
-                <th>
+                <th class="@MultiColumnClassString" style="@MultiColumnStyleString">
                     <div class="table-cell">
                         <Checkbox TValue="TItem" DisplayText="@CheckboxDisplayTextString" ShowLabel="false" ShowAfterLabel="@ShowCheckboxText"
                                   State="@HeaderCheckState()" OnStateChanged="OnHeaderCheck"></Checkbox>
@@ -484,17 +462,36 @@ RenderFragment<bool> RenderHeader => hasScroll =>
                     <DynamicElement TagName="th" class="@GetHeaderClassString(col)" style="@GetFixedCellStyleString(col, 6)"
                                     TriggerClick="col.Sortable" OnClick="@OnClickHeader(col)">
                         <div class="@GetHeaderWrapperClassString(col)">
+                            @if(col.ShowCopyColumn)
+                            {
+                                if (ShowCopyColumnTooltip)
+                                {
+                                    <Tooltip Placement="Placement.Top" Trigger="hover" Title="@CopyColumnTooltipText" data-bb-title="@CopyColumnCopiedTooltipText">
+                                        <i class="fa-regular fa-clipboard col-copy"></i>
+                                    </Tooltip>
+                                }
+                                else
+                                {
+                                    <i class="fa-regular fa-clipboard col-copy"></i>
+                                }
+                            }
                             @if(col.HeaderTemplate != null)
                             {
                                 @col.HeaderTemplate(col)
                             }
+                            else if(col.Sortable)
+                            {
+                                <Tooltip class="table-text" Title="@GetSortTooltip(col)" Trigger="hover">
+                                    <span>@displayName</span>
+                                </Tooltip>
+                            }
                             else
                             {
-                                <span class="@GetHeaderTextClassString(col)">@displayName</span>
+                                <span class="table-text">@displayName</span>
                             }
                             @if (col.Filterable && !ShowFilterHeader)
                             {
-                                <i class="@GetFilterClassString(fieldName)" data-field="@fieldName" @onclick:stopPropagation @onclick="() => OnFilterClick(col)"></i>
+                                <TableFilter Icon="@FilterIcon" Column="col" Table="this" IsActive="@Filters.ContainsKey(fieldName)" @onclick:stopPropagation />
                             }
                             @if (col.Sortable)
                             {
@@ -557,7 +554,7 @@ RenderFragment<bool> RenderHeader => hasScroll =>
                                 @if(col.Filterable)
                                 {
                                     <TableFilter Column="col" IsHeaderRow="true" />
-                                }                             
+                                }
                             </div>
                         </th>
                     }
@@ -594,7 +591,7 @@ RenderFragment<TItem> RenderRow => item =>
     }
     @if (IsMultipleSelect)
     {
-        <td>
+        <td class="@MultiColumnClassString" style="@MultiColumnStyleString">
             <div class="table-cell">
                 <Checkbox TValue="TItem" Value="@item" ShowLabel="false" State="RowCheckState(item)" OnStateChanged="OnCheck" @onclick:stopPropagation></Checkbox>
             </div>
@@ -843,50 +840,50 @@ RenderFragment<TItem> RenderRowExtendButtons => item =>
 </td>;
 
 RenderFragment RenderSearch =>
-@<div class="@TopSearchClassString">
-    <div class="card-header">
-        <div class="d-flex">
-            <div class="@TopSearchHeaderClassString">
-                <i class="table-search-collapse-arrow fa-solid fa-circle-chevron-right"></i>
-                <div class="table-search-collapse-title">@SearchModalTitle</div>
-            </div>
-            @if (ShowSearchText)
-            {
-                <div class="input-group">
-                    <BootstrapInput class="table-toolbar-search" placeholder="@SearchPlaceholderText" @bind-Value="@SearchText">
-                        @if (ShowSearchTextTooltip)
-                        {
-                            <Tooltip Placement="Placement.Top" Title="@SearchTooltip" IsHtml="true" />
-                        }
+@<Card IsCollapsible="true" HeaderText="@SearchModalTitle">
+    <HeaderTemplate>
+        @if (ShowSearchText)
+        {
+            <div class="input-group">
+                @if (ShowSearchTextTooltip)
+                {
+                    <Tooltip Placement="Placement.Top" Title="@SearchTooltip" Sanitize="false" IsHtml="true">
+                        <BootstrapInput class="table-toolbar-search" placeholder="@SearchPlaceholderText" @onkeyup="OnSearchKeyup" @bind-Value="@SearchText">
+                        </BootstrapInput>
+                    </Tooltip>
+                }
+                else
+                {
+                    <BootstrapInput class="table-toolbar-search" placeholder="@SearchPlaceholderText" @onkeyup="OnSearchKeyup" @bind-Value="@SearchText" >
                     </BootstrapInput>
-                    @if (ShowResetButton)
-                    {
-                        <Button Color="Color.Secondary" Icon="fa-solid fa-trash-can" OnClickWithoutRender="ClearSearchClick">
-                            <span class="d-none d-sm-inline-block">@ResetSearchButtonText</span>
-                        </Button>
-                    }
-                    <Button Color="Color.Secondary" Icon="fa-solid fa-magnifying-glass" OnClickWithoutRender="SearchClick">
-                        <span class="d-none d-sm-inline-block">@SearchButtonText</span>
-                    </Button>
-                </div>
-            }
-            <div class="table-search-buttons">
+                }
                 @if (ShowResetButton)
                 {
-                    <Button Color="Color.Secondary" Icon="fa-solid fa-trash-can" class="btn-xs ms-2" OnClickWithoutRender="ClearSearchClick">
+                    <Button Color="Color.Secondary" Icon="fa-solid fa-trash-can" OnClickWithoutRender="ClearSearchClick">
                         <span class="d-none d-sm-inline-block">@ResetSearchButtonText</span>
                     </Button>
                 }
-                @if (ShowSearchButton)
-                {
-                    <Button Color="Color.Primary" Icon="fa-solid fa-magnifying-glass" class="btn-xs ms-2" OnClickWithoutRender="SearchClick">
-                        <span class="d-none d-sm-inline-block">@SearchButtonText</span>
-                    </Button>
-                }
+                <Button Color="Color.Secondary" Icon="fa-solid fa-magnifying-glass" OnClickWithoutRender="SearchClick">
+                    <span class="d-none d-sm-inline-block">@SearchButtonText</span>
+                </Button>
             </div>
+        }
+        <div class="table-search-buttons">
+            @if (ShowResetButton)
+            {
+                <Button Color="Color.Secondary" Icon="fa-solid fa-trash-can" class="btn-xs ms-2" OnClickWithoutRender="ClearSearchClick">
+                    <span class="d-none d-sm-inline-block">@ResetSearchButtonText</span>
+                </Button>
+            }
+            @if (ShowSearchButton)
+            {
+                <Button Color="Color.Primary" Icon="fa-solid fa-magnifying-glass" class="btn-xs ms-2" OnClickWithoutRender="SearchClick">
+                    <span class="d-none d-sm-inline-block">@SearchButtonText</span>
+                </Button>
+            }
         </div>
-    </div>
-    <div class="card-body" style="@TopSearchBodyClassString">
+    </HeaderTemplate>
+    <BodyTemplate>
         @if(CustomerSearchModel != null && CustomerSearchTemplate != null)
         {
             @CustomerSearchTemplate(CustomerSearchModel)
@@ -902,6 +899,17 @@ RenderFragment RenderSearch =>
                 </EditorForm>
             </CascadingValue>
         }
-    </div>
+    </BodyTemplate>
+</Card>;
+
+RenderFragment RenderPageInfo =>
+@<div class="table-page-info">
+    <div class="me-2">@PageInfoLabelString</div>
+    <Select Items="@GetPageItemsSource()" Value="PageItems" OnValueChanged="@OnPageItemsValueChanged" />
 </div>;
+
+RenderFragment RenderPagination =>
+@<Pagination PageCount="@PageCount" PageIndex="@PageIndex" OnPageLinkClick="@OnPageLinkClick"
+                ShowGotoNavigator="ShowGotoNavigator" GotoTemplate="GotoTemplate!" GotoNavigatorLabelText="@GotoNavigatorLabelText"
+                ShowPageInfo="ShowPageInfo" PageInfoTemplate="InternalPageInfoTemplate" />;
 }

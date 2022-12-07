@@ -44,6 +44,6 @@ public class PulseButtonTest : BootstrapBlazorTestBase
             pb.Add(a => a.Text, "button-text");
             pb.Add(a => a.PulseColor, Color.Warning);
         });
-        cut.Contains("pulse-warning");
+        cut.Contains("border-warning");
     }
 }

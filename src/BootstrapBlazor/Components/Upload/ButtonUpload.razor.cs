@@ -21,7 +21,7 @@ public partial class ButtonUpload<TValue>
     /// 获得/设置 浏览按钮图标 默认 fa-regular fa-folder-open
     /// </summary>
     [Parameter]
-    public string BrowserButtonIcon { get; set; } = "fa-regular fa-folder-open";
+    public string? BrowserButtonIcon { get; set; }
 
     /// <summary>
     /// 获得/设置 上传按钮样式 默认 null 使用 Button 默认 Color Primary
@@ -54,5 +54,6 @@ public partial class ButtonUpload<TValue>
         base.OnParametersSet();
 
         BrowserButtonText ??= Localizer[nameof(BrowserButtonText)];
+        BrowserButtonIcon ??= "fa-regular fa-folder-open";
     }
 }

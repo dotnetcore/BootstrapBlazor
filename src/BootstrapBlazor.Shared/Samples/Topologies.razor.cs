@@ -47,13 +47,7 @@ public partial class Topologies
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override async Task ModuleInitAsync()
-    {
-        if (Module != null)
-        {
-            await Module.InvokeVoidAsync($"{ModuleName}.init", TopologyElement.Id, nameof(ToggleFan));
-        }
-    }
+    protected override Task ModuleInitAsync() => InvokeInitAsync(TopologyElement.Id, nameof(ToggleFan));
 
     /// <summary>
     /// 切换风扇状态方法
@@ -80,10 +74,7 @@ public partial class Topologies
 
     private async Task OnBeforePushData()
     {
-        if (Module != null)
-        {
-            await Module.InvokeVoidAsync($"{ModuleName}.execute", TopologyElement.Id);
-        }
+        await InvokeExecuteAsync(TopologyElement.Id);
 
         // 推送数据
         var data = DataService.GetDatas();

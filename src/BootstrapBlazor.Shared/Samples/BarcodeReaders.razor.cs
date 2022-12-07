@@ -2,6 +2,8 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using BootstrapBlazor.Shared.Services;
+
 namespace BootstrapBlazor.Shared.Samples;
 
 /// <summary>
@@ -9,50 +11,67 @@ namespace BootstrapBlazor.Shared.Samples;
 /// </summary>
 public sealed partial class BarcodeReaders
 {
+    [Inject]
+    [NotNull]
+    private VersionService? VersionManager { get; set; }
+
+    private string Version { get; set; } = "fetching";
+
+    [NotNull]
     private BlockLogger? Trace { get; set; }
 
+    [NotNull]
     private BlockLogger? Trace2 { get; set; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    protected override async Task OnInitializedAsync()
+    {
+        Version = await VersionManager.GetVersionAsync("bootstrapblazor.barcode");
+    }
 
     private Task OnInit(IEnumerable<DeviceItem> devices)
     {
         var cams = string.Join("", devices.Select(i => i.Label));
-        Trace?.Log($"{Localizer["InitLog"]} {cams}");
+        Trace.Log($"{Localizer["InitLog"]} {cams}");
         return Task.CompletedTask;
     }
 
     private Task OnImageResult(string barcode)
     {
-        Trace2?.Log($"{Localizer["ScanCodeLog"]} {barcode}");
+        Trace2.Log($"{Localizer["ScanCodeLog"]} {barcode}");
         return Task.CompletedTask;
     }
 
     private Task OnImageError(string err)
     {
-        Trace2?.Log($"{Localizer["ErrorLog"]} {err}");
+        Trace2.Log($"{Localizer["ErrorLog"]} {err}");
         return Task.CompletedTask;
     }
 
     private Task OnResult(string barcode)
     {
-        Trace?.Log($"{Localizer["ScanCodeLog"]} {barcode}");
+        Trace.Log($"{Localizer["ScanCodeLog"]} {barcode}");
         return Task.CompletedTask;
     }
 
     private Task OnError(string error)
     {
-        Trace?.Log($"{Localizer["ErrorLog"]} {error}");
+        Trace.Log($"{Localizer["ErrorLog"]} {error}");
         return Task.CompletedTask;
     }
 
     private Task OnStart()
     {
-        Trace?.Log(Localizer["OpenCameraLog"]);
+        Trace.Log(Localizer["OpenCameraLog"]);
         return Task.CompletedTask;
     }
 
     private Task OnClose()
     {
-        Trace?.Log(Localizer["CloseCameraLog"]);
+        Trace.Log(Localizer["CloseCameraLog"]);
         return Task.CompletedTask;
     }
 

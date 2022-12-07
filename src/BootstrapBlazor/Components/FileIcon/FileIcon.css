@@ -1,0 +1,25 @@
+﻿.file-icon {
+    --bb-icon-width: 42px;
+    --bb-icon-height: auto;
+    --bb-icon-padding-left: .5rem;
+    --bb-icon-badge-bottom: 7px;
+    --bb-icon-path-fill-color: #495057;
+    padding-left: var(--bb-icon-padding-left);
+    display: inline-block;
+    position: relative;
+}
+
+    .file-icon .icon-svg {
+        width: var(--bb-icon-width);
+        height: var(--bb-icon-height);
+    }
+
+        .file-icon .icon-svg path {
+            fill: var(--bb-icon-path-fill-color);
+        }
+
+    .file-icon .badge {
+        position: absolute;
+        bottom: var(--bb-icon-badge-bottom);
+        left: 0;
+    }

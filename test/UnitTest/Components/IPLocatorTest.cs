@@ -136,7 +136,7 @@ public class IPLocatorTest : BootstrapBlazorTestBase
 
     private class MockLogger : ILogger<IIPLocatorProvider>
     {
-        public IDisposable BeginScope<TState>(TState state) => throw new NotImplementedException();
+        public IDisposable? BeginScope<TState>(TState state) where TState : notnull => throw new NotImplementedException();
 
         public bool IsEnabled(LogLevel logLevel) => true;
 

@@ -24,6 +24,10 @@ public partial class TablesEdit
     [NotNull]
     private IOptionsMonitor<WebsiteOptions>? WebsiteOption { get; set; }
 
+    [Inject]
+    [NotNull]
+    private ToastService? ToastService { get; set; }
+
     private static IEnumerable<int> PageItemsSource => new int[] { 4, 10, 20 };
 
     [NotNull]
@@ -136,4 +140,6 @@ public partial class TablesEdit
 
         }
     }
+
+    private Task OnClick(Foo foo) => ToastService.Information("Custom button fucntion", $"{foo.Address}");
 }

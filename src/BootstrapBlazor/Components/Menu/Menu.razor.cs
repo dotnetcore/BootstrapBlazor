@@ -34,54 +34,25 @@ public partial class Menu
     private MenuItem? ActiveMenu { get; set; }
 
     /// <summary>
-    /// 是否需要调用 JS
-    /// </summary>
-    private bool InvokeJSInterop { get; set; }
-
-    /// <summary>
     /// 获得/设置 菜单数据集合
     /// </summary>
     [Parameter]
     [NotNull]
     public IEnumerable<MenuItem>? Items { get; set; }
 
-    private bool _isAccordion;
     /// <summary>
     /// 获得/设置 是否为手风琴效果 默认为 false
     /// </summary>
     /// <remarks>启用此功能时 <see cref="IsExpandAll" /> 参数不生效</remarks>
     [Parameter]
-    public bool IsAccordion
-    {
-        get => _isAccordion;
-        set
-        {
-            if (_isAccordion != value)
-            {
-                _isAccordion = value;
-                InvokeJSInterop = true;
-            }
-        }
-    }
+    public bool IsAccordion { get; set; }
 
-    private bool _isExpanded;
     /// <summary>
     /// 获得/设置 是否全部展开 默认为 false
     /// </summary>
     /// <remarks>手风琴效果 <see cref="IsAccordion" /> 时此参数不生效</remarks>
     [Parameter]
-    public bool IsExpandAll
-    {
-        get => _isExpanded;
-        set
-        {
-            if (_isExpanded != value)
-            {
-                _isExpanded = value;
-                InvokeJSInterop = true;
-            }
-        }
-    }
+    public bool IsExpandAll { get; set; }
 
     /// <summary>
     /// 获得/设置 侧栏是否收起 默认 false 未收起
@@ -131,6 +102,20 @@ public partial class Menu
     [NotNull]
     private TabItemTextOptions? Options { get; set; }
 
+    private bool _isExpandAll;
+    private bool _isAccordion;
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        _isAccordion = IsAccordion;
+        _isExpandAll = IsExpandAll;
+    }
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -154,11 +139,14 @@ public partial class Menu
     /// <returns></returns>
     protected override async Task ModuleExecuteAsync()
     {
-        if (IsVertical && InvokeJSInterop && Module != null)
+        if (ShouldInvoke() && Module != null)
         {
-            InvokeJSInterop = false;
-            await Module.InvokeVoidAsync($"{ModuleName}.execute", Id);
+            _isAccordion = IsAccordion;
+            _isExpandAll = IsExpandAll;
+            await InvokeExecuteAsync(Id);
         }
+
+        bool ShouldInvoke() => IsVertical && (_isAccordion != IsAccordion || _isExpandAll != IsExpandAll);
     }
 
     private void InitMenus(MenuItem? parent, IEnumerable<MenuItem> menus, string url)

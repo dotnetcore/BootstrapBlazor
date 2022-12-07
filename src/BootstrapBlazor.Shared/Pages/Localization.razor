@@ -8,8 +8,9 @@
 </p>
 
 <Tips>
-    @Localizer["T1"] <a href="https://docs.microsoft.com/zh-cn/aspnet/core/blazor/globalization-localization" target="_blank">@Localizer["T2"]</a>
+    <div>@Localizer["T1"] <a href="https://docs.microsoft.com/zh-cn/aspnet/core/blazor/globalization-localization" target="_blank">@Localizer["T2"]</a></div>
     <div>@Localizer["T3"] <code>wasm</code> @Localizer["T4"] <code>en</code>，<Anchor Target="lang">@Localizer["T5"]</Anchor></div>
+    <div>@((MarkupString)Localizer["LocalizationFileDesc"].Value)</div>
 </Tips>
 
 <p><b>@Localizer["N1"]</b></p>
@@ -21,8 +22,13 @@
     <ul class="ul-demo mt-2">
         <li>@Localizer["N6"]</li>
         <li>@Localizer["N7"]</li>
+    </ul>
+    <div class="mt-2">@((MarkupString)Localizer["AdditionalJsonFile"].Value)</div>
+    <ul class="ul-demo mt-2">
         <li>@Localizer["N8"]</li>
         <li>@Localizer["N9"]</li>
+        <li>@Localizer["ES"]</li>
+        <li>@Localizer["TW"]</li>
     </ul>
     <div class="mt-2">
         @Localizer["N10"] <code>zh-CN</code> @Localizer["N11"] <code>zh-CN</code> @Localizer["N12"]：<code>zh-CN</code> @Localizer["N13"] <code>zh</code>

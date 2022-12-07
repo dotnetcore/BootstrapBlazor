@@ -7,7 +7,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 响应监听 组件
 /// </summary>
-public class Responsive : BootstrapComponentBase
+public class Responsive : BootstrapComponentBase, IDisposable
 {
     [Inject]
     [NotNull]
@@ -38,5 +38,27 @@ public class Responsive : BootstrapComponentBase
         {
             await OnBreakPointChanged(point);
         }
+    }
+
+    /// <summary>
+    /// Dispose 方法
+    /// </summary>
+    /// <param name="disposing"></param>
+    protected virtual void Dispose(bool disposing)
+    {
+        if (disposing)
+        {
+            ResizeService.Unsubscribe(this);
+        }
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <exception cref="NotImplementedException"></exception>
+    public void Dispose()
+    {
+        Dispose(true);
+        GC.SuppressFinalize(this);
     }
 }
