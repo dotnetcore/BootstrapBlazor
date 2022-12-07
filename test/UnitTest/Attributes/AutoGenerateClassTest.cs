@@ -136,5 +136,8 @@ public class AutoGenerateClassTest
 
         attrEditor.ValidateRules = null;
         Assert.Null(attrEditor.ValidateRules);
+
+        attrEditor.ShowSearchWhenSelect = true;
+        Assert.True(attrEditor.ShowSearchWhenSelect);
     }
 }

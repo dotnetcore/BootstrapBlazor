@@ -97,6 +97,8 @@ internal class MockTableColumn : ITableColumn
 
     public IEnumerable<SelectedItem>? Lookup { get; set; }
 
+    public bool ShowSearchWhenSelect { get; set; }
+
     public StringComparison LookupStringComparison { get; set; } = StringComparison.OrdinalIgnoreCase;
 
     public string? LookupServiceKey { get; set; }

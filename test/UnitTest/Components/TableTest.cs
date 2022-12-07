@@ -3316,6 +3316,7 @@ public class TableTest : TableTestBase
                     builder.AddAttribute(26, "ValidateRules", new List<IValidator>());
                     builder.AddAttribute(27, "GroupName", "test");
                     builder.AddAttribute(28, "GroupOrder", 1);
+                    builder.AddAttribute(29, "ShowSearchWhenLookup", true);
                     builder.CloseComponent();
                 });
             });
@@ -3347,6 +3348,7 @@ public class TableTest : TableTestBase
         Assert.NotNull(column.Instance.ValidateRules);
         Assert.Equal("test", column.Instance.GroupName);
         Assert.Equal(1, column.Instance.GroupOrder);
+        Assert.True(column.Instance.ShowSearchWhenSelect);
 
         var col = column.Instance as ITableColumn;
         Assert.NotNull(col.Template);

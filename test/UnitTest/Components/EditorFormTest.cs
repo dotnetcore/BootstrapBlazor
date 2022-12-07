@@ -284,6 +284,7 @@ public class EditorFormTest : BootstrapBlazorTestBase
                         new("True", "Test-True"),
                         new("False", "Test-False")
                     });
+                    builder.AddAttribute(index++, nameof(EditorItem<Foo, bool>.ShowSearchWhenSelect), false);
                     builder.CloseComponent();
                 });
             });

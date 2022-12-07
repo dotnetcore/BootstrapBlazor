@@ -41,6 +41,7 @@ public static class IEditItemExtensions
         if (source.EditTemplate != null) dest.EditTemplate = source.EditTemplate;
         if (source.Items != null) dest.Items = source.Items;
         if (source.Lookup != null) dest.Lookup = source.Lookup;
+        if (source.ShowSearchWhenSelect) dest.ShowSearchWhenSelect = source.ShowSearchWhenSelect;
         if (source.LookupStringComparison != StringComparison.OrdinalIgnoreCase) dest.LookupStringComparison = source.LookupStringComparison;
         if (source.LookupServiceKey != null) dest.LookupServiceKey = source.LookupServiceKey;
         if (source.IsReadonlyWhenAdd) dest.IsReadonlyWhenAdd = source.IsReadonlyWhenAdd;

@@ -391,7 +391,7 @@ public static class Utility
         // Lookup
         if (lookup != null && item.Items == null)
         {
-            builder.AddAttribute(11, nameof(Select<SelectedItem>.ShowSearch), true);
+            builder.AddAttribute(11, nameof(Select<SelectedItem>.ShowSearch), item.ShowSearchWhenSelect);
             builder.AddAttribute(12, nameof(Select<SelectedItem>.Items), lookup.Clone());
             builder.AddAttribute(13, nameof(Select<SelectedItem>.StringComparison), item.LookupStringComparison);
         }
@@ -400,25 +400,26 @@ public static class Utility
         if (item.Items != null && item.ComponentType == typeof(Select<>).MakeGenericType(fieldType))
         {
             builder.AddAttribute(14, nameof(Select<SelectedItem>.Items), item.Items.Clone());
+            builder.AddAttribute(15, nameof(Select<SelectedItem>.ShowSearch), item.ShowSearchWhenSelect);
         }
 
         // 设置 SkipValidate 参数
         if (IsValidatableComponent(componentType))
         {
-            builder.AddAttribute(15, nameof(IEditorItem.SkipValidate), item.SkipValidate);
+            builder.AddAttribute(16, nameof(IEditorItem.SkipValidate), item.SkipValidate);
         }
 
-        builder.AddMultipleAttributes(16, CreateMultipleAttributes(fieldType, model, fieldName, item));
+        builder.AddMultipleAttributes(17, CreateMultipleAttributes(fieldType, model, fieldName, item));
 
         if (item.ComponentParameters != null)
         {
-            builder.AddMultipleAttributes(17, item.ComponentParameters);
+            builder.AddMultipleAttributes(18, item.ComponentParameters);
         }
 
         // 设置 IsPopover
         if (componentType.GetPropertyByName(nameof(Select<string>.IsPopover)) != null)
         {
-            builder.AddAttribute(18, nameof(Select<string>.IsPopover), true);
+            builder.AddAttribute(19, nameof(Select<string>.IsPopover), true);
         }
         builder.CloseComponent();
     }
