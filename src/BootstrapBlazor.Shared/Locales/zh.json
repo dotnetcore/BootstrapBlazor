@@ -1559,7 +1559,8 @@
     "GeolocationText": "地理定位组件 Geolocation",
     "NotificationsText": "浏览器通知 Notification",
     "OnScreenKeyboardText": "屏幕键盘 OnScreenKeyboard",
-    "SignaturePadText": "手写签名 SignaturePad"
+    "SignaturePadText": "手写签名 SignaturePad",
+    "BluetoothText": "蓝牙和打印 Bluetooth & Printer"
   },
   "BootstrapBlazor.Shared.Pages.Breakpoints": {
     "Heading": "断点",
@@ -4367,7 +4368,8 @@
     "SpeechWave": "语音波形图 SpeechWave",
     "OnScreenKeyboard": "屏幕键盘 OnScreenKeyboard",
     "RibbonTab": "选项卡菜单 RibbonTab",
-    "PulseButton": "心跳按钮 PulseButton"
+    "PulseButton": "心跳按钮 PulseButton",
+    "Bluetooth": "蓝牙和打印 Bluetooth & Printer"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesHeader": {
     "H1": "表头分组功能",
@@ -5335,7 +5337,30 @@
     "P5": "<code> .kioskboard-body-padding { padding-top: unset !important;} </code>",
     "P6": "基础用法"
   },
-  "BootstrapBlazor.Shared.Samples.FileIcons": {
+  "BootstrapBlazor.Shared.Samples.Bluetooths": {
+    "Title": "Bluetooth & Printer 蓝牙和打印",
+    "BaseUsageText": "基础用法",
+    "BaseUsageIntro": "连接设备后再执行打印等操作,根据打印机特性写入相应ESC/POS/CPCL命令",
+    "BaseUsageIntro2": "点击连接设备",
+    "ConnectButtonText": "连接",
+    "DisconnectButtonText": "断开",
+    "ReconnectButtonText": "重连",
+    "PrintButtonText": "打印",
+    "Url1": "1. 蓝牙打印机 Printer,可打印标签/条码/QR码",
+    "Title2": "Bluetooth Heart Rate 蓝牙心率带",
+    "GetHeartrateButtonText": "查询心率",
+    "StopHeartrateButtonText": "停止读取",
+    "Url2": "2. 蓝牙心率带 Heart Rate",
+    "Title3": "Bluetooth Battery Level 蓝牙设备电量",
+    "GetBatteryLevelButtonText": "查询电量",
+    "Url3": "3. 蓝牙设备电量 Battery Level",
+    "P1": "注意事项",
+    "P2": "本组件依赖于 <a href='https://www.nuget.org/packages?q=BootstrapBlazor.Bluetooth' target='_blank'><code>BootstrapBlazor.Bluetooth</code></a>，使用本组件时需要引用其组件包",
+    "P3": "Nuget 包安装",
+    "P4": "使用 <a href='https://www.nuget.org/packages?q=BootstrapBlazor.Bluetooth' target='_blank'>nuget.org</a> 进行 <code>BootstrapBlazor.Bluetooth</code> 组件的安装",
+    "Tips": "服务UUID/ServiceUUID, 默认0xff00<br/>常见打印机ServiceUUID:<br/><code>0000ff00-0000-1000-8000-00805f9b34fb</code><br/><code>e7810a71-73ae-499d-8c15-faa9aef0c3f2</code><br/><code>0000fee7-0000-1000-8000-00805f9b34fb</code><br/>设置组件服务UUID : <code>printer.Opt.ServiceUuid=?</code>"
+  },
+    "BootstrapBlazor.Shared.Samples.FileIcons": {
     "Title": "File Icon 文件图标",
     "Intro": "通过文件扩展名自定义显示图标",
     "BaseUsageTitle": "基本用法",
