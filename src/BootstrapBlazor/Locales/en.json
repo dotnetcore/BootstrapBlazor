@@ -155,7 +155,8 @@
     "SearchButtonText": "Search"
   },
   "BootstrapBlazor.Components.Select": {
-    "PlaceHolder": "Please select ..."
+    "PlaceHolder": "Please select ...",
+    "NoSearchDataText": "No Result"
   },
   "BootstrapBlazor.Components.SelectTree": {
     "PlaceHolder": "Please select ..."

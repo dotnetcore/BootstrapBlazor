@@ -84,6 +84,12 @@ public partial class Select<TValue> : ISelect
     public bool IsFixedSearch { get; set; }
 
     /// <summary>
+    /// 获得/设置 无搜索结果时显示文字
+    /// </summary>
+    [Parameter]
+    public string? NoSearchDataText { get; set; }
+
+    /// <summary>
     /// 获得 PlaceHolder 属性
     /// </summary>
     [Parameter]
@@ -139,6 +145,7 @@ public partial class Select<TValue> : ISelect
 
         Items ??= Enumerable.Empty<SelectedItem>();
         PlaceHolder ??= Localizer[nameof(PlaceHolder)];
+        NoSearchDataText ??= Localizer[nameof(NoSearchDataText)];
         DropdownIcon ??= "fa-solid fa-angle-up";
 
         // 内置对枚举类型的支持

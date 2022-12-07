@@ -96,6 +96,11 @@ public interface IEditorItem
     bool ShowSearchWhenSelect { get; set; }
 
     /// <summary>
+    /// 获得/设置 是否使用 Popover 渲染下拉框 默认 false
+    /// </summary>
+    bool IsPopover { get; set; }
+
+    /// <summary>
     /// 获得/设置 字典数据源字符串比较规则 默认 StringComparison.OrdinalIgnoreCase 大小写不敏感 
     /// </summary>
     StringComparison LookupStringComparison { get; set; }

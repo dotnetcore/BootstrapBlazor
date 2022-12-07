@@ -419,7 +419,7 @@ public static class Utility
         // 设置 IsPopover
         if (componentType.GetPropertyByName(nameof(Select<string>.IsPopover)) != null)
         {
-            builder.AddAttribute(19, nameof(Select<string>.IsPopover), true);
+            builder.AddAttribute(19, nameof(Select<string>.IsPopover), item.IsPopover);
         }
         builder.CloseComponent();
     }

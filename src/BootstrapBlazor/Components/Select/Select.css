@@ -10,6 +10,7 @@
     --bb-select-append-width: 30px;
     --bb-select-append-color: #c0c4cc;
     --bb-select-search-padding: 7px 10px;
+    --bb-select-search-margin-bottom: .5rem;
     --bb-select-search-border-color: var(--bs-border-color);
     --bb-select-search-padding-right: 30px;
     --bb-select-search-icon-color: var(--bb-select-search-border-color);
@@ -171,6 +172,7 @@
     padding: var(--bb-select-search-padding);
     position: relative;
     border-bottom: 1px solid var(--bb-select-search-border-color);
+    margin-bottom: var(--bb-select-search-margin-bottom);
 }
 
     .dropdown-menu .search.is-fixed {

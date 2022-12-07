@@ -23,8 +23,8 @@ internal class DemoLookupService : ILookupService
             var localizer = Provider.GetRequiredService<IStringLocalizer<Foo>>();
             items = new List<SelectedItem>()
             {
-                new() { Value = "true", Text = localizer["True"].Value },
-                new() { Value = "false", Text = localizer["False"].Value }
+                new() { Value = "True", Text = localizer["True"].Value },
+                new() { Value = "False", Text = localizer["False"].Value }
             };
         }
         return items;

@@ -155,7 +155,8 @@
     "SearchButtonText": "搜索"
   },
   "BootstrapBlazor.Components.Select": {
-    "PlaceHolder": "请选择 ..."
+    "PlaceHolder": "请选择 ...",
+    "NoSearchDataText": "无数据"
   },
   "BootstrapBlazor.Components.SelectTree": {
     "PlaceHolder": "请选择 ..."

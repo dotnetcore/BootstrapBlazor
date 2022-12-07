@@ -139,5 +139,8 @@ public class AutoGenerateClassTest
 
         attrEditor.ShowSearchWhenSelect = true;
         Assert.True(attrEditor.ShowSearchWhenSelect);
+
+        attrEditor.IsPopover = true;
+        Assert.True(attrEditor.IsPopover);
     }
 }
