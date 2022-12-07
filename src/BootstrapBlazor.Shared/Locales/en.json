@@ -1382,7 +1382,13 @@
     "P2": "The Footer component is displayed at the bottom, and the page will automatically scroll back to the top when you click to return to the top",
     "P3": "This example passes the component client ID",
     "Desc1": "The text displayed by the footer component",
-    "Desc2": "The ID of the scroll bar component controlled by the footer component"
+    "Desc2": "The ID of the scroll bar component controlled by the footer component",
+    "ShowGotoDesc": "Whether to show the goto navigation on the right of footer",
+    "ChildContentDesc": "The template of child content",
+    "ShowGotoTitle": "Show Goto",
+    "ShowGotoIntro": "Set <code>ShowGoto</code> to <code>false</code> for hide the <code>Goto</code> navigator on the right of footer",
+    "ChildContentTitle": "ChildContent",
+    "ChildContentIntro": "Set <code>ChildContent</code> for custom the child content"
   },
   "BootstrapBlazor.Shared.Samples.Rows": {
     "Title": "Row",

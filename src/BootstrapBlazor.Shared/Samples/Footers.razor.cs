@@ -18,20 +18,34 @@ public sealed partial class Footers
 
     private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
-            // TODO: 移动到数据库中
-            new AttributeItem() {
-                Name = "Text",
-                Description = Localizer["Desc1"],
-                Type = "string",
-                ValueList = " — ",
-                DefaultValue = " — "
-            },
-            new AttributeItem() {
-                Name = "Target",
-                Description = Localizer["Desc2"],
-                Type = "string",
-                ValueList = " — ",
-                DefaultValue = " — "
-            }
+        // TODO: 移动到数据库中
+        new() {
+            Name = "Text",
+            Description = Localizer["Desc1"],
+            Type = "string",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new() {
+            Name = "Target",
+            Description = Localizer["Desc2"],
+            Type = "string",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new() {
+            Name = nameof(Footer.ShowGoto),
+            Description = Localizer["ShowGotoDesc"],
+            Type = "string",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new() {
+            Name = nameof(Footer.ChildContent),
+            Description = Localizer["ChildContentDesc"],
+            Type = "string",
+            ValueList = " — ",
+            DefaultValue = " — "
+        }
     };
 }

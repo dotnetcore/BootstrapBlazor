@@ -1,9 +1,20 @@
 ﻿@namespace BootstrapBlazor.Components
-@inherits FooterBase
+@inherits BootstrapComponentBase
 
 <footer @attributes="@AdditionalAttributes" class="@ClassName">
-    <div class="footer-text">
-        <span>@Text</span>
-    </div>
-    <GoTop Target="@Target"></GoTop>
+    @if (ChildContent == null)
+    {
+        <div class="footer-text">
+            <span>@Text</span>
+        </div>
+        @if (ShowGoto)
+        {
+            <GoTop Target="@Target"></GoTop>
+        }
+
+    }
+    else
+    {
+        @ChildContent
+    }
 </footer>
