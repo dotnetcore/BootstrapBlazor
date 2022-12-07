@@ -43,6 +43,12 @@ public partial class PopConfirmButtonContent
     public string? Content { get; set; }
 
     /// <summary>
+    /// 获得/设置 自定义组件
+    /// </summary>
+    [Parameter]
+    public RenderFragment? BodyTemplate { get; set; }
+
+    /// <summary>
     /// 获得/设置 关闭按钮显示文字
     /// </summary>
     [Parameter]

@@ -44,6 +44,12 @@ public abstract class PopConfirmButtonBase : ButtonBase
     public string? Content { get; set; }
 
     /// <summary>
+    /// 获得/设置 自定义内容
+    /// </summary>
+    [Parameter]
+    public RenderFragment? BodyTemplate { get; set; }
+
+    /// <summary>
     /// 获得/设置 点击确认时回调方法
     /// </summary>
     [Parameter]

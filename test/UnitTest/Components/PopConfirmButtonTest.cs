@@ -134,5 +134,15 @@ public class PopConfirmButtonTest : PopoverTestBase
             pb.Add(a => a.IsLink, true);
         });
         popButton.Contains("<a id=");
+
+        popButton.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.BodyTemplate, bulider =>
+            {
+                bulider.OpenComponent<Button>(0);
+                bulider.CloseComponent();
+            });
+        });
+        Assert.NotNull(popButton.FindComponent<Button>());
     }
 }

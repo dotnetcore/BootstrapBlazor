@@ -8,8 +8,15 @@
     }
     <div class="popover-body">
         <p class="popover-confirm-body">
-            <i class="@IconClass"></i>
-            <span>@Content</span>
+            @if (BodyTemplate != null)
+            {
+                @BodyTemplate
+            }
+            else
+            {
+                <i class="@IconClass"></i>
+                <span>@Content</span>
+            }
         </p>
         <div class="popover-confirm-buttons">
             <div class="@CloseButtonClass" @onclick="@OnCloseClick">
