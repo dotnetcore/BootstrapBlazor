@@ -12,7 +12,7 @@ namespace BootstrapBlazor.Shared.Samples;
 /// </summary>
 public partial class BluetoothBatteryLevel
 {
-    BluetoothBatteryLevel batteryLevel { get; set; } = new BatteryLevel();
+    BatteryLevel batteryLevel { get; set; } = new BatteryLevel();
 
     private decimal? value = 0;
     private string? message;
