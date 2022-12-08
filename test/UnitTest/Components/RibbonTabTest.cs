@@ -249,7 +249,7 @@ public class RibbonTabTest : BootstrapBlazorTestBase
             Text = "编辑",
             Items = new List<RibbonTabItem>()
             {
-                new() { Text = "打开", Icon = "fa-solid fa-font-awesome", GroupName = "操作组三" },
+                new() { Text = "打开", Icon = "fa-solid fa-font-awesome", GroupName = "操作组三", IsDefault = true },
                 new() { Text = "保存", Icon = "fa-solid fa-font-awesome", GroupName = "操作组三" },
                 new() { Text = "另存为", Icon = "fa-solid fa-font-awesome", GroupName = "操作组三" },
                 new() { Text = "常规操作", Icon = "fa-solid fa-font-awesome", GroupName = "操作组四" },

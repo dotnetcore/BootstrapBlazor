@@ -547,10 +547,8 @@ RenderFragment<bool> RenderHeader => hasScroll =>
                 {
                     if (CheckShownWithBreakpoint(col))
                     {
-                        var fieldName = col.GetFieldName();
-                        var displayName = col.GetDisplayName();
                         <th class="@GetHeaderClassString(col, true)" style="@GetFixedCellStyleString(col, 6)">
-                            <div class="tabel-cell">
+                            <div class="table-cell">
                                 @if(col.Filterable)
                                 {
                                     <TableFilter Column="col" IsHeaderRow="true" />
@@ -582,7 +580,7 @@ RenderFragment<TItem> RenderRow => item =>
     {
         <td>
             <div class="@GetDetailBarClassString(item)">
-                @if (ShowDetailRow == null ? true : ShowDetailRow.Invoke(item))
+                @if (ShowDetailRow == null || ShowDetailRow.Invoke(item))
                 {
                     <i class="@GetDetailCaretClassString(item)" @onclick:stopPropagation @onclick="() => ExpandDetailRow(item)"></i>
                 }
@@ -622,7 +620,7 @@ RenderFragment<TItem> RenderRow => item =>
                 continue;
             }
             var cellClass = "";
-            int colspan = 0;
+            var colspan = 0;
             string? value = null;
             if (col.OnCellRender != null)
             {
@@ -636,9 +634,9 @@ RenderFragment<TItem> RenderRow => item =>
             <td colspan="@GetColspan(colspan)" class="@GetFixedCellClassString(col, cellClass)" style="@GetFixedCellStyleString(col)">
                 @{
                     var isFirstColOfTree = IsTree && index++ == 0;
-                    int degree = 0;
-                    bool isExpend = false;
-                    bool hasChildren = false;
+                    var degree = 0;
+                    var isExpend = false;
+                    var hasChildren = false;
                     if (isFirstColOfTree)
                     {
                         var treeItem = treeNodeCache.Find(TreeRows, item, out degree);
@@ -648,7 +646,7 @@ RenderFragment<TItem> RenderRow => item =>
                             hasChildren = treeItem.HasChildren;
                         }
                     }
-                    bool hesTreeChildren = isFirstColOfTree && hasChildren;
+                    var hesTreeChildren = isFirstColOfTree && hasChildren;
                 }
                 <DynamicElement TagName="div" TriggerClick="@hesTreeChildren"
                                 OnClick="@ToggleTreeRow(item)" StopPropagation="hesTreeChildren"
@@ -743,9 +741,9 @@ RenderFragment<(TItem Item, ItemChangedType ChangedType)> RenderEditForm => item
                             <div class="text-end">
                                 @if(!IsTracking)
                                 {
-                                    <Button Color="Color.Secondary" Icon="fa-solid fa-xmark" Text="@CancelDeleteButtonText" OnClick="CancelSave" />
+                                    <Button Color="Color.Secondary" Icon="fa-solid fa-xmark" Text="@CancelDeleteButtonText" OnClick="CancelSave"></Button>
                                 }
-                                <Button Color="Color.Primary" ButtonType="ButtonType.Submit" Icon="fa-solid fa-floppy-disk" Text="@SaveButtonText" />
+                                <Button Color="Color.Primary" ButtonType="ButtonType.Submit" Icon="fa-solid fa-floppy-disk" Text="@SaveButtonText"></Button>
                             </div>
                         </Buttons>
                     </EditorForm>
@@ -773,7 +771,7 @@ RenderFragment<TItem> RenderExtendButtons => item =>
     <span class="btn-group">
         @if (GetShowEditButton(item))
         {
-            <Button Size="Size.ExtraSmall" OnClick="() => ClickEditButton(item)" Icon="fa-solid fa-pen" Text="@EditButtonText" />
+            <Button Size="Size.ExtraSmall" OnClick="() => ClickEditButton(item)" Icon="fa-solid fa-pen" Text="@EditButtonText"></Button>
         }
         @if (GetShowDeleteButton(item))
         {
@@ -809,15 +807,15 @@ RenderFragment<TItem> RenderRowExtendButtons => item =>
             {
                 @if (isInCell)
                 {
-                    <Button Size="Size.ExtraSmall" OnClick="ClickUpdateButtonCallback" Color="Color.Success" Icon="fa-solid fa-floppy-disk" Text="@SaveButtonText" />
+                    <Button Size="Size.ExtraSmall" OnClick="ClickUpdateButtonCallback" Color="Color.Success" Icon="fa-solid fa-floppy-disk" Text="@SaveButtonText"></Button>
                     if (!IsTracking)
                     {
-                        <Button Size="Size.ExtraSmall" OnClick="@CancelSave" Color="Color.Warning" Icon="fa-solid fa-xmark" Text="@CancelButtonText" />
+                        <Button Size="Size.ExtraSmall" OnClick="@CancelSave" Color="Color.Warning" Icon="fa-solid fa-xmark" Text="@CancelButtonText"></Button>
                     }
                 }
                 else
                 {
-                    <Button Size="Size.ExtraSmall" OnClick="() => ClickEditButton(item)" Icon="fa-solid fa-pen" Text="@EditButtonText" />
+                    <Button Size="Size.ExtraSmall" OnClick="() => ClickEditButton(item)" Icon="fa-solid fa-pen" Text="@EditButtonText"></Button>
                 }
             }
             @if (!isInCell && GetShowDeleteButton(item))
@@ -905,7 +903,7 @@ RenderFragment RenderSearch =>
 RenderFragment RenderPageInfo =>
 @<div class="table-page-info">
     <div class="me-2">@PageInfoLabelString</div>
-    <Select Items="@GetPageItemsSource()" Value="PageItems" OnValueChanged="@OnPageItemsValueChanged" />
+    <Select Items="@GetPageItemsSource()" Value="PageItems" OnValueChanged="@OnPageItemsValueChanged"></Select>
 </div>;
 
 RenderFragment RenderPagination =>
