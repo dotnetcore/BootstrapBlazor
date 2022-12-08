@@ -7,7 +7,8 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// Drawer 组件基类
 /// </summary>
-public sealed partial class Drawer
+[JSModuleAutoLoader]
+public partial class Drawer
 {
     private ElementReference DrawerElement { get; set; }
 
@@ -85,19 +86,10 @@ public sealed partial class Drawer
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
-    /// OnAfterRenderAsync 方法
+    /// <inheritdoc/>
     /// </summary>
-    /// <param name="firstRender"></param>
     /// <returns></returns>
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        await base.OnAfterRenderAsync(firstRender);
-
-        if (!firstRender)
-        {
-            await JSRuntime.InvokeVoidAsync(DrawerElement, "bb_drawer", IsOpen);
-        }
-    }
+    protected override Task ModuleExecuteAsync() => InvokeExecuteAsync(Id, IsOpen);
 
     /// <summary>
     /// 点击背景遮罩方法
@@ -106,9 +98,25 @@ public sealed partial class Drawer
     {
         if (IsBackdrop)
         {
-            IsOpen = false;
-            if (IsOpenChanged.HasDelegate) await IsOpenChanged.InvokeAsync(IsOpen);
+            await Close();
             if (OnClickBackdrop != null) await OnClickBackdrop.Invoke();
+        }
+    }
+
+    /// <summary>
+    /// 关闭抽屉方法
+    /// </summary>
+    /// <returns></returns>
+    public async Task Close()
+    {
+        IsOpen = false;
+        if (IsOpenChanged.HasDelegate)
+        {
+            await IsOpenChanged.InvokeAsync(IsOpen);
+        }
+        else
+        {
+            StateHasChanged();
         }
     }
 }

@@ -1,10 +1,12 @@
 ﻿@namespace BootstrapBlazor.Components
-@inherits BootstrapComponentBase
+@inherits BootstrapModuleComponentBase
 
-<div @attributes="@AdditionalAttributes" tabindex="-1" class="@ClassString" @ref="DrawerElement">
-    <div role="document" tabindex="-1" class="drawer-container" @onclick="@OnContainerClick">
-        <div aria-modal="true" aria-labelledby="drawer-title" role="dialog" tabindex="-1" class="@DrawerClassString" style="@DrawerStyleString" @onclick:stopPropagation>
-            @ChildContent
+<div @attributes="@AdditionalAttributes" tabindex="-1" class="@ClassString" id="@Id">
+    <div tabindex="-1" class="drawer-container" @onclick="@OnContainerClick">
+        <div tabindex="-1" class="@DrawerClassString" style="@DrawerStyleString" @onclick:stopPropagation>
+            <CascadingValue Value="Close" IsFixed="true">
+                @ChildContent
+            </CascadingValue>
         </div>
     </div>
 </div>
