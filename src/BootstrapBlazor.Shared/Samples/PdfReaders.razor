@@ -1,0 +1,74 @@
+﻿@page "/PdfReaders"
+@namespace BootstrapBlazor.Shared.Samples
+@inject IStringLocalizer<PdfReaders> Localizer
+
+<h3>@Localizer["Title"]</h3>
+
+<p><b>@Localizer["P1"] ：</b></p>
+
+<p>@((MarkupString)Localizer["P2"].Value)</p>
+
+<p><b>@Localizer["P3"]</b></p>
+
+<p>@((MarkupString)Localizer["P4"].Value)</p>
+
+<div class="code-label">.NET CLI</div>
+<Pre class="no-highlight">dotnet add package BootstrapBlazor.PdfReader</Pre>
+
+<div class="code-label">PackageReference</div>
+<Pre class="no-highlight">&lt;PackageReference Include="BootstrapBlazor.PdfReader" /&gt;</Pre>
+
+<div class="code-label">Package Manager</div>
+<Pre class="no-highlight">Install-Package BootstrapBlazor.PdfReader</Pre>
+
+<Tips>
+    <p>@((MarkupString)Localizer["Tips"].Value)</p>
+</Tips>
+
+<DemoBlock Title="@Localizer["BaseUsageText"]" Introduction="@Localizer["BaseUsageIntro"]" Name="Nomal">
+    <PdfReader PdfFile=@PdfFile Height=500/> 
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["BaseUsageText2"]" Introduction="@Localizer["BaseUsageIntro2"]" Name="Nomal">
+    <h6></h6>
+    <div class="row g-3">
+        <div class="col-12">
+            <BootstrapInputGroup>
+                <BootstrapInput @bind-Value="@UrlBaseStream" />
+                <BootstrapInput @bind-Value="@PdfFileStream" />
+                <Button Color="Color.Primary" OnClick="Apply">Go!</Button>
+            </BootstrapInputGroup>
+        </div>
+    </div>
+    <PdfReader @ref="pdfReader" UrlBase="@UrlBaseStream" PdfFile="@PdfFileStream" EnableStreamingMode="true" Height=500/>
+    <br/>
+    <Tips>
+        <p>@((MarkupString)Localizer["Tips2"].Value)</p>
+    </Tips> 
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["BaseUsageText3"]" Introduction="@Localizer["BaseUsageIntro3"]" Name="Nomal">
+    <div class="row g-3">
+        <div class="col-5">
+            <BootstrapInputGroup>
+                <BootstrapInput @bind-Value="@Search" />
+                <Button Icon="fa-solid fa-magnifying-glass" OnClick="Apply5"></Button>
+            </BootstrapInputGroup>
+        </div>
+        <div class="col-7">
+            <BootstrapInputGroup>
+                <BootstrapInput @bind-Value="@PdfFile" DisplayText="PDF" ShowLabel="true" />
+                <Checkbox @bind-Value="ForcePDFJS" DisplayText="PDF.js" ShowAfterLabel="true" />
+                <Button Color="Color.Primary" OnClick="Apply5">GO</Button>
+            </BootstrapInputGroup>
+        </div>
+    </div>
+    <PdfReader @ref="pdfReader2"
+               PdfFile="@PdfFile"
+               ForcePDFJS=@ForcePDFJS
+               Page=@Page
+               Search=@Search
+               Height=500 />
+</DemoBlock>
+
+<AttributeTable Items="@GetAttributes()" />

@@ -1560,7 +1560,8 @@
     "OnScreenKeyboardText": "OnScreenKeyboard",
     "NotificationText": "Notification",
     "SignaturePadText": "SignaturePad",
-    "BluetoothText": "Bluetooth & Printer"
+    "BluetoothText": "Bluetooth & Printer",
+    "PdfReaderText": "PDF Reader"
   },
   "BootstrapBlazor.Shared.Pages.Breakpoints": {
     "Heading": "Breakpoints",
@@ -4366,7 +4367,8 @@
     "OnScreenKeyboard": "OnScreenKeyboard",
     "RibbonTab": "RibbonTab",
     "PulseButton": "PulseButton",
-    "Bluetooth": "Bluetooth & Printer"
+    "Bluetooth": "Bluetooth & Printer",
+    "PdfReader": "PDF Reader"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesHeader": {
     "H1": "Header grouping function",
@@ -5355,7 +5357,7 @@
     "P4": "Install the</code> components of <code>BootstrapBlazor.Bluetooth using <a href='https://www.nuget.org/packages?q-BootstrapBlazor.Bluetooth' target'_blank'>nuget.org</a>",
     "Tips": "ServiceUUID, Default <code>0xff00</code><br/>Common Printers ServiceUUID:<br/><code>0000ff00-0000-1000-8000-00805f9b34fb</code><br/><code>e7810a71-73ae-499d-8c15-faa9aef0c3f2</code><br/><code>0000fee7-0000-1000-8000-00805f9b34fb</code><br/>Set up component services UUID : <code>printer.Opt.ServiceUuid=?</code>"
   },
-    "BootstrapBlazor.Shared.Samples.FileIcons": {
+  "BootstrapBlazor.Shared.Samples.FileIcons": {
     "Title": "File Icon",
     "Intro": "The icon show the file extension",
     "BaseUsageTitle": "Base Usage",
@@ -5369,5 +5371,20 @@
     "ExtensionAttr": "The extension of file",
     "IconColorAttr": "The backgound color for badge of extension",
     "BackgroundTemplateAttr": "The template for custom the backgroup file"
+  },
+  "BootstrapBlazor.Shared.Samples.PdfReaders": {
+    "Title": "PDF Reader",
+    "BaseUsageText": "Basic usage",
+    "BaseUsageIntro": "Use PdfFile parameter displays pdf file from local server, or PdfStream parameter use file stream for rendering",
+    "Tips": "Embedded mode is preferred, if not supported, fall back to Pdf.js mode",
+    "BaseUsageText2": "Using streaming mode,can be read remote files by cross-domain",
+    "BaseUsageIntro2": " ",
+    "Tips2": "Cross-domain best experience: EnableStreamingMode=true , ForcePDFJS=true",
+    "BaseUsageText3": "Force use Pdf.js browser.",
+    "BaseUsageIntro3": "Can be use advanced parameters",
+    "P1": "Precautions",
+    "P2": "This component relies on <a href='https://www.nuget.org/packages?q-BootstrapBlazor.PdfReader' target'_blank'><code>BootstrapBlazor.PdfReader</code></a>, which needs to reference its component package when using this component",
+    "P3": "Nuget package installation",
+    "P4": "Install the</code> components of <code>BootstrapBlazor.PdfReader using <a href='https://www.nuget.org/packages?q-BootstrapBlazor.PdfReader' target'_blank'>nuget.org</a>"
   }
 }

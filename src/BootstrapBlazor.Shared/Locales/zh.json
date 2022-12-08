@@ -1560,7 +1560,8 @@
     "NotificationsText": "浏览器通知 Notification",
     "OnScreenKeyboardText": "屏幕键盘 OnScreenKeyboard",
     "SignaturePadText": "手写签名 SignaturePad",
-    "BluetoothText": "蓝牙和打印 Bluetooth & Printer"
+    "BluetoothText": "蓝牙和打印 Bluetooth & Printer",
+    "PdfReaderText": "PDF阅读器 PDF Reader"
   },
   "BootstrapBlazor.Shared.Pages.Breakpoints": {
     "Heading": "断点",
@@ -4369,7 +4370,8 @@
     "OnScreenKeyboard": "屏幕键盘 OnScreenKeyboard",
     "RibbonTab": "选项卡菜单 RibbonTab",
     "PulseButton": "心跳按钮 PulseButton",
-    "Bluetooth": "蓝牙和打印 Bluetooth & Printer"
+    "Bluetooth": "蓝牙和打印 Bluetooth & Printer",
+    "PdfReader": "PDF阅读器 PDF Reader"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesHeader": {
     "H1": "表头分组功能",
@@ -5360,7 +5362,7 @@
     "P4": "使用 <a href='https://www.nuget.org/packages?q=BootstrapBlazor.Bluetooth' target='_blank'>nuget.org</a> 进行 <code>BootstrapBlazor.Bluetooth</code> 组件的安装",
     "Tips": "服务UUID/ServiceUUID, 默认0xff00<br/>常见打印机ServiceUUID:<br/><code>0000ff00-0000-1000-8000-00805f9b34fb</code><br/><code>e7810a71-73ae-499d-8c15-faa9aef0c3f2</code><br/><code>0000fee7-0000-1000-8000-00805f9b34fb</code><br/>设置组件服务UUID : <code>printer.Opt.ServiceUuid=?</code>"
   },
-    "BootstrapBlazor.Shared.Samples.FileIcons": {
+  "BootstrapBlazor.Shared.Samples.FileIcons": {
     "Title": "File Icon 文件图标",
     "Intro": "通过文件扩展名自定义显示图标",
     "BaseUsageTitle": "基本用法",
@@ -5374,5 +5376,20 @@
     "ExtensionAttr": "文件扩展名",
     "IconColorAttr": "扩展名标签背景色",
     "BackgroundTemplateAttr": "自定义背景图模板"
+  },
+  "BootstrapBlazor.Shared.Samples.PdfReaders": {
+    "Title": "PDF Reader PDF阅读器",
+    "BaseUsageText": "基础用法",
+    "BaseUsageIntro": "PdfFile 参数显示本服务器pdf文件,或 PdfStream 参数指定用于渲染的文件流",
+    "Tips": "优先嵌入模式,不支持则回落倒Pdf.js模式",
+    "BaseUsageText2": "使用流化模式,可跨域读取文件",
+    "BaseUsageIntro2": " ",
+    "Tips2": "跨域最佳体验: EnableStreamingMode=true , ForcePDFJS=true",
+    "BaseUsageText3": "强制使用Pdf.js浏览器.",
+    "BaseUsageIntro3": "可用高级参数定义默认行为",
+    "P1": "注意事项",
+    "P2": "本组件依赖于 <a href='https://www.nuget.org/packages?q=BootstrapBlazor.PdfReader' target='_blank'><code>BootstrapBlazor.PdfReader</code></a>，使用本组件时需要引用其组件包",
+    "P3": "Nuget 包安装",
+    "P4": "使用 <a href='https://www.nuget.org/packages?q=BootstrapBlazor.PdfReader' target='_blank'>nuget.org</a> 进行 <code>BootstrapBlazor.PdfReader</code> 组件的安装"
   }
 }

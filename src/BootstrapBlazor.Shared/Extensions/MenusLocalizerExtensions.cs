@@ -580,6 +580,12 @@ internal static class MenusLocalizerExtensions
                     IsNew = true,
                     Text = Localizer["Bluetooth"],
                     Url = "bluetooths"
+                },
+                new()
+                {
+                    IsNew = true,
+                    Text = Localizer["PdfReader"],
+                    Url = "PdfReaders"
                 }
             };
             AddBadge(item);
