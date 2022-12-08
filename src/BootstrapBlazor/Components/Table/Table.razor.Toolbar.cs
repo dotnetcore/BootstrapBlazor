@@ -773,6 +773,10 @@ public partial class Table<TItem>
             Columns.Clear();
             Columns.AddRange(cols);
 
+            // Columns 重构 清空缓存
+            FirstFixedColumnCache.Clear();
+            LastFixedColumnCache.Clear();
+
             InternalResetVisibleColumns(Columns.Select(i => new ColumnVisibleItem(i.GetFieldName(), i.Visible)));
 
             QueryDynamicItems(DynamicContext);

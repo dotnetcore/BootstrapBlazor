@@ -2,6 +2,8 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using System.Collections.Concurrent;
+
 namespace BootstrapBlazor.Components;
 
 /// <summary>
@@ -159,7 +161,9 @@ public partial class Table<TItem>
 
     private bool IsLastMultiColumn() => FixedMultipleColumn && (!FixedExtendButtonsColumn || !IsExtendButtonsInRowHeader) && !GetColumns().Any(i => i.Fixed);
 
-    private bool IsLastColumn(ITableColumn col)
+    private ConcurrentDictionary<ITableColumn, bool> LastFixedColumnCache { get; } = new();
+
+    private bool IsLastColumn(ITableColumn col) => LastFixedColumnCache.GetOrAdd(col, col =>
     {
         var ret = false;
         if (col.Fixed && !IsTail(col))
@@ -168,11 +172,13 @@ public partial class Table<TItem>
             ret = index < Columns.Count && Columns[index].Fixed == false;
         }
         return ret;
-    }
+    });
 
     private bool IsLastExtendButtonColumn() => IsExtendButtonsInRowHeader && !GetColumns().Any(i => i.Fixed);
 
-    private bool IsFirstColumn(ITableColumn col)
+    private ConcurrentDictionary<ITableColumn, bool> FirstFixedColumnCache { get; } = new();
+
+    private bool IsFirstColumn(ITableColumn col) => FirstFixedColumnCache.GetOrAdd(col, col =>
     {
         var ret = false;
         if (col.Fixed && IsTail(col))
@@ -181,7 +187,7 @@ public partial class Table<TItem>
             ret = index > 0 && Columns[index].Fixed == false;
         }
         return ret;
-    }
+    });
 
     private bool IsFirstExtendButtonColumn() => !IsExtendButtonsInRowHeader && !GetColumns().Any(i => i.Fixed);
 
