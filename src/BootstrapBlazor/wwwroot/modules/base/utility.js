@@ -32,9 +32,12 @@ const copy = (text = '') => {
 
 const getDescribedElement = (element, selector = 'aria-describedby') => {
     if (isElement(element)) {
-        const id = element.getAttribute(selector)
+        let id = element.getAttribute(selector)
         if (id) {
-            return document.querySelector(`#${id}`)
+            if (id.indexOf('.') === -1) {
+                id = `#${id}`
+            }
+            return document.querySelector(id)
         }
     }
     return null

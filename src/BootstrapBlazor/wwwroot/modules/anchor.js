@@ -31,8 +31,11 @@ export class Anchor extends BlazorComponent {
                 if (offset) {
                     margin = margin - parseInt(offset)
                 }
-                const winScroll = getWindowScroll(container);
-                container.scrollTo(0, margin + winScroll.scrollTop);
+                let winScroll = container;
+                if (winScroll.scrollTop === undefined) {
+                    winScroll = getWindowScroll(container)
+                }
+                container.scrollTo(0, margin + winScroll.scrollTop)
             }
         });
     }
