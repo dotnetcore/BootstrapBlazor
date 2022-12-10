@@ -64,7 +64,7 @@ public partial class TablesExport
         });
     }
 
-    private static Task<bool> ExportAsync(IEnumerable<Foo> Items) => Task.FromResult(true);
+    private static Task<bool> OnExportAsync(IEnumerable<Foo> Items, QueryPageOptions options) => Task.FromResult(true);
 
     private async Task ExcelExportAsync()
     {

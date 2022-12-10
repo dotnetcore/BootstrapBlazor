@@ -421,32 +421,7 @@ public partial class Table<TItem>
         async Task OnQuery()
         {
             QueryData<TItem>? queryData = null;
-            var queryOption = new QueryPageOptions()
-            {
-                IsPage = IsPagination,
-                PageIndex = PageIndex,
-                PageItems = PageItems,
-                SearchText = SearchText,
-                SortOrder = SortOrder,
-                SortName = SortName,
-                SearchModel = SearchModel,
-                StartIndex = StartIndex
-            };
-
-            queryOption.Filters.AddRange(Filters.Values);
-            queryOption.Searchs.AddRange(GetSearchs());
-            queryOption.AdvanceSearchs.AddRange(GetAdvanceSearchs());
-            queryOption.CustomerSearchs.AddRange(GetCustomerSearchs());
-
-            if (!string.IsNullOrEmpty(SortString))
-            {
-                queryOption.SortList.AddRange(SortString.Split(",", StringSplitOptions.RemoveEmptyEntries));
-            }
-
-            if (CustomerSearchModel != null)
-            {
-                queryOption.SearchModel = CustomerSearchModel;
-            }
+            var queryOption = BuildQueryPageOptions();
 
             queryData = await InternalOnQueryAsync(queryOption);
             TotalCount = queryData.TotalCount;
@@ -544,6 +519,37 @@ public partial class Table<TItem>
                 }
             }
         }
+    }
+
+    private QueryPageOptions BuildQueryPageOptions()
+    {
+        var queryOption = new QueryPageOptions()
+        {
+            IsPage = IsPagination,
+            PageIndex = PageIndex,
+            PageItems = PageItems,
+            SearchText = SearchText,
+            SortOrder = SortOrder,
+            SortName = SortName,
+            SearchModel = SearchModel,
+            StartIndex = StartIndex
+        };
+
+        queryOption.Filters.AddRange(Filters.Values);
+        queryOption.Searchs.AddRange(GetSearchs());
+        queryOption.AdvanceSearchs.AddRange(GetAdvanceSearchs());
+        queryOption.CustomerSearchs.AddRange(GetCustomerSearchs());
+
+        if (!string.IsNullOrEmpty(SortString))
+        {
+            queryOption.SortList.AddRange(SortString.Split(",", StringSplitOptions.RemoveEmptyEntries));
+        }
+
+        if (CustomerSearchModel != null)
+        {
+            queryOption.SearchModel = CustomerSearchModel;
+        }
+        return queryOption;
     }
 
     private void ResetSelectedRows(IEnumerable<TItem> items) => SelectedRows = items.Where(i => SelectedRows.Any(row => ComparerItem(i, row))).ToList();

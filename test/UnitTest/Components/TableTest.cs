@@ -4603,7 +4603,7 @@ public class TableTest : TableTestBase
         var table = cut.FindComponent<Table<Foo>>();
         table.SetParametersAndRender(pb =>
         {
-            pb.Add(a => a.OnExportAsync, foos => Task.FromResult(true));
+            pb.Add(a => a.OnExportAsync, (foos, options) => Task.FromResult(true));
         });
         await cut.InvokeAsync(() => button.Click());
     }

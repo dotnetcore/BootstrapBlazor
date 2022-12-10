@@ -54,7 +54,7 @@
            IsPagination="true" PageItemsSource="@PageItemsSource"
            IsStriped="true" IsBordered="true" IsMultipleSelect="true"
            ShowToolbar="true" ShowDefaultButtons="false" ShowExportButton="true"
-           OnExportAsync="ExportAsync" OnQueryAsync="@OnQueryAsync">
+           OnExportAsync="OnExportAsync" OnQueryAsync="@OnQueryAsync">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" />
             <TableColumn @bind-Field="@context.Name" Width="100" />

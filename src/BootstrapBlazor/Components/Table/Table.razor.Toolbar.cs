@@ -199,7 +199,7 @@ public partial class Table<TItem>
     /// 获得/设置 导出按钮异步回调方法
     /// </summary>
     [Parameter]
-    public Func<IEnumerable<TItem>, Task<bool>>? OnExportAsync { get; set; }
+    public Func<IEnumerable<TItem>, QueryPageOptions, Task<bool>>? OnExportAsync { get; set; }
 
     /// <summary>
     /// 获得/设置 保存弹窗中的保存按钮显示文本 默认为资源文件中的 保存
@@ -809,12 +809,10 @@ public partial class Table<TItem>
         var ret = false;
         if (OnExportAsync != null)
         {
-            ret = await OnExportAsync(Rows);
+            ret = await OnExportAsync(Rows, BuildQueryPageOptions());
         }
         else
         {
-            // 如果未提供 OnExportAsync 回调委托使用注入服务来尝试解析
-            // TODO: 这里将本页数据作为参数传递给导出服务，服务本身可以利用自身优势获取全部所需数据，如果获取全部数据呢？
             ret = await ExcelExport.ExportAsync(Rows, Columns);
         }
 
