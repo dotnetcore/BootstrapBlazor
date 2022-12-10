@@ -66,6 +66,13 @@ public partial class CheckboxList<TValue>
     private IStringLocalizerFactory? LocalizerFactory { get; set; }
 
     /// <summary>
+    /// 获得 当前选项是否被禁用
+    /// </summary>
+    /// <param name="item"></param>
+    /// <returns></returns>
+    protected bool GetDisabledState(SelectedItem item) => IsDisabled || item.IsDisabled;
+
+    /// <summary>
     /// SetParametersAsync 方法
     /// </summary>
     /// <param name="parameters"></param>

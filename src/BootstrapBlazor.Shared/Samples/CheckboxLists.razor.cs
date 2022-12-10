@@ -55,7 +55,7 @@ public partial class CheckboxLists
         Items1 = new List<SelectedItem>(new List<SelectedItem>
         {
             new SelectedItem { Text = "Item 1", Value = "1" },
-            new SelectedItem { Text = "Item 2", Value = "2" },
+            new SelectedItem { Text = "Item 2", Value = "2" , IsDisabled = true },
             new SelectedItem { Text = "Item 3", Value = "3" },
             new SelectedItem { Text = "Item 4", Value = "4" },
         });

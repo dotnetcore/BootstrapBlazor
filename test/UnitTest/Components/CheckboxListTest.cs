@@ -72,7 +72,6 @@ public class CheckboxListTest : BootstrapBlazorTestBase
     [Fact]
     public void IsVertical_Ok()
     {
-        var foo = Foo.Generate(Localizer);
         var cut = Context.RenderComponent<CheckboxList<IEnumerable<int>>>();
         Assert.DoesNotContain("is-vertical", cut.Markup);
 
@@ -81,6 +80,32 @@ public class CheckboxListTest : BootstrapBlazorTestBase
             pb.Add(a => a.IsVertical, true);
         });
         Assert.Contains("is-vertical", cut.Markup);
+    }
+
+    [Fact]
+    public void IsDisabled_Ok()
+    {
+        var cut = Context.RenderComponent<CheckboxList<IEnumerable<SelectedItem>>>(pb =>
+        {
+            pb.Add(a => a.Items, new List<SelectedItem>()
+            {
+                new SelectedItem { Text = "Item 1", Value = "1" },
+                new SelectedItem { Text = "Item 2", Value = "2" , IsDisabled = true },
+                new SelectedItem { Text = "Item 3", Value = "3" },
+            });
+        });
+        cut.Contains("form-check is-label disabled");
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.Items, new List<SelectedItem>()
+            {
+                new SelectedItem { Text = "Item 1", Value = "1" },
+                new SelectedItem { Text = "Item 2", Value = "2" }
+            });
+            pb.Add(a => a.IsDisabled, true);
+        });
+        cut.Contains("form-check is-label disabled");
     }
 
     [Fact]
