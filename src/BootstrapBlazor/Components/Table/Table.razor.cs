@@ -981,6 +981,7 @@ public partial class Table<TItem> : ITable where TItem : class, new()
     protected RenderFragment RenderExcelCell(ITableColumn col, TItem item, ItemChangedType changedType)
     {
         col.PlaceHolder ??= "";
+        col.IsPopover = true;
 
         // 可编辑列未设置模板
         if (col.IsEditable(changedType) && col.EditTemplate == null)

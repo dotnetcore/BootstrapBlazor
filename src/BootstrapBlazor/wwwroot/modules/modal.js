@@ -57,7 +57,7 @@ export class Modal extends BlazorComponent {
                 backdrop = 'static'
             }
             if (!this._modal) {
-                this._modal = bootstrap.Modal.getOrCreateInstance(this._element)
+                this._modal = bootstrap.Modal.getOrCreateInstance(this._element, { focus: false })
             }
             this._modal._config.keyboard = this._element.getAttribute('data-bs-keyboard') === 'true'
             this._modal._config.backdrop = backdrop
