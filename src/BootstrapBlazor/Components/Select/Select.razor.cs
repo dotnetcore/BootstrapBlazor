@@ -163,21 +163,21 @@ public partial class Select<TValue> : ISelect
         {
             DataSource = Items.ToList();
             DataSource.AddRange(Children);
+
+            SelectedItem = DataSource.FirstOrDefault(i => i.Value.Equals(CurrentValueAsString, StringComparison))
+                ?? DataSource.FirstOrDefault(i => i.Active)
+                ?? DataSource.FirstOrDefault();
+
+            // 检查 Value 值是否在候选项中存在
+            // Value 不等于 选中值即不存在
+            if (!string.IsNullOrEmpty(SelectedItem?.Value) && CurrentValueAsString != SelectedItem.Value)
+            {
+                _ = ItemChanged(SelectedItem);
+            }
         }
         else
         {
             DataSource = OnSearchTextChanged(SearchText).ToList();
-        }
-
-        SelectedItem = DataSource.FirstOrDefault(i => i.Value.Equals(CurrentValueAsString, StringComparison))
-            ?? DataSource.FirstOrDefault(i => i.Active)
-            ?? DataSource.FirstOrDefault();
-
-        // 检查 Value 值是否在候选项中存在
-        // Value 不等于 选中值即不存在
-        if (!string.IsNullOrEmpty(SelectedItem?.Value) && CurrentValueAsString != SelectedItem.Value)
-        {
-            _ = ItemChanged(SelectedItem);
         }
     }
 
