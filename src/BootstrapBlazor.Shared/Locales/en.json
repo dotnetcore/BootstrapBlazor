@@ -300,7 +300,10 @@
     "P24": "custom style",
     "P25": "Set the <code>CssClass</code> custom component style",
     "P26": "custom style button",
-    "P27": "Are you sure you want to delete the data?"
+    "P27": "Are you sure you want to delete the data?",
+    "BodyTemplateTitle": "Customize the PopConfirmButton content",
+    "BodyTemplateIntro": "Customize the content by setting <code>the BodyTemplate</code> property",
+    "BodyTemplateButtonText": "Customize content"
   },
   "BootstrapBlazor.Shared.Samples.Popovers": {
     "H1": "Popover popup component",
@@ -1886,7 +1889,7 @@
     "TipsP": "<code>Tab</code> components are generally used in two ways:",
     "TipsLi1": "Split as data",
     "TipsLi2": "Page navigation",
-    "TipsDiv": "The default behavior of this component is data segmentation,Clicking on the <code>TabItem</code> title does not navigate, and if you need to navigate the address bar, set the <code>ClickTabToNavigation</code> property to <code>true</code>，When you click on the <code>TabItem</code> title, the address bar redirects navigation, mostly for the background management system to be used in conjunction with the <code>Menu</code> components，The actual combat can refer to the <code>multi-label</code> mode in the <a href='layout-page' target='_blank'>background template simulator</a>,  When you have <code>Razor Component</code> in the additional Assemblies, set the <code>AdditionalAssemblies</code> property value correctly so that the route within the label component is resolved correctly, and the relevant documentation <a href='https://docs.microsoft.com/zh-cn/aspnet/core/blazor/fundamentals/routing?WT.mc_id-DT-MVP-5004174-view-aspnetcore-3.1-route-to-components-from-multiple-assemblies' target'_blank'>[Portal]</a>",
+    "TipsDiv": "The default behavior of this component is data segmentation,Clicking on the <code>TabItem</code> title does not navigate, and if you need to navigate the address bar, set the <code>ClickTabToNavigation</code> property to <code>true</code>，When you click on the <code>TabItem</code> title, the address bar redirects navigation, mostly for the background management system to be used in conjunction with the <code>Menu</code> components，The actual combat can refer to the <code>multi-label</code> mode in the <a href='layout-page' target='_blank'>background template simulator</a>,  When you have <code>Razor Component</code> in the additional Assemblies, set the <code>AdditionalAssemblies</code> property value correctly so that the route within the label component is resolved correctly, and the relevant documentation <a href='https://docs.microsoft.com/zh-cn/aspnet/core/blazor/fundamentals/routing?WT.mc_id-DT-MVP-5004174-view-aspnetcore-3.1-route-to-components-from-multiple-assemblies' target='_blank'>[Portal]</a>",
     "TipsP2": "This component adapts to width height, etc., and scroll arrows can appear left and right or up and down when appropriate",
     "InfoTitle": "Set additional information during tab navigation",
     "InfoItem2": "Tab properties can be set when navigating using the built-in extension method <code>Navigator.NavigateTo(\"provider\", \"url\", \"text\", \"icon\", \"closable\")</code>",
@@ -2644,9 +2647,9 @@
     "Title": "Markdown",
     "H1": "A text editor that provides support for the Markdown syntax",
     "P1": "Precautions",
-    "P2": "This component relies on <a href='https://www.nuget.org/packages?q=BootstrapBlazor.Markdown' target'_blank'><code>BootstrapBlazor.Markdown</code></a>, which needs to reference its component package when using this component",
+    "P2": "This component relies on <a href='https://www.nuget.org/packages?q=BootstrapBlazor.Markdown' target='_blank'> <code>BootstrapBlazor.Markdown</code></a>, which needs to reference its component package when using this component",
     "P3": "Nuget Install",
-    "P4": "Use nuget.org to install <a href='https://www.nuget.org/packages?q=BootstrapBlazor.Markdown' target'_blank'><code>BootstrapBlazor.Markdown</code></a> component",
+    "P4": "Use nuget.org to install <a href='https://www.nuget.org/packages?q=BootstrapBlazor.Markdown' target='_blank'><code>BootstrapBlazor.Markdown</code></a> component",
     "Css": "CSS file",
     "CssText": "dynamic import css",
     "Js": "JS file",
@@ -3102,7 +3105,7 @@
     "AvatarUploadP2": "Round avatar frame",
     "AvatarUploadP3": "When you set up <code>IsSingle</code>, you can upload only one image or file",
     "AvatarUploadP4": " <div>The component provides <code>Accept</code> property for upload file filtering, in this case the circular avatar box accepts both GIF and JPEG images, sets the <code>Accept='image/gif, image/jpeg'</code> and can be written as: <code>Accept='image/*'</code> if you don't restrict the format of the image. Whether this property is not secure or should be to file format validation using the <b>server-side authentication </b></div>",
-    "AvatarUploadP5": "RELATED: <a href='https://www.runoob.com/tags/att-input-accept.html' target='_blank'>[Accept]</a>  < a href='http://www.iana.org/assignments/media-types/media-types.xhtml' target='_blank' >[Media Types]</a>",
+    "AvatarUploadP5": "RELATED: <a href='https://www.runoob.com/tags/att-input-accept.html' target='_blank'>[Accept]</a>  <a href='http://www.iana.org/assignments/media-types/media-types.xhtml' target='_blank'>[Media Types]</a>",
     "AvatarUploadP6": "Set the preview address <code>PrevUrl</code> with the <code>DefaultFileList</code> property",
     "AvatarUploadP7": "Verify that an example of using a picture box is used in the form",
     "AvatarUploadButtonText": "Submit",
@@ -3724,7 +3727,7 @@
     "BasicUsageIntro": "Put your own components inside the <code>GroupBox</code>",
     "GroupTitle": "An example of a form",
     "GroupP1": "I'm an example of <code>GroupBox</code>",
-    "GroupP2": "For more examples, please refer to the <code>EditorForms</code> Form Example < a href'editorforms' target'_blank'> the portal </a>",
+    "GroupP2": "For more examples, please refer to the <code>EditorForms</code> Form Example <a href='editorforms' target='_blank'> the portal </a>",
     "AttTitle": "Set the component title"
   },
   "BootstrapBlazor.Shared.Samples.LinkButtons": {
@@ -4941,10 +4944,10 @@
     "H2": "By setting <code>ShowExportButton</code> to display the export button, the component has built-in export Excel function",
     "P1": "The export function provides an export callback method <code>OnExportAsync</code>, which can be used to export data by providing a custom export method. If no data export method is provided, the component will export data according to the injected export service",
     "P2": "Precautions",
-    "P3": "<code>BootstrapBlazor.TableExport</code></a>, the component package uses the <code>EPPlus</code> component to provide the function of exporting to <code>Excel</code>, and its component package can be referenced if necessary",
+    "P3": "<code>BootstrapBlazor.TableExport</code>, the component package uses the <code>EPPlus</code> component to provide the function of exporting to <code>Excel</code>, and its component package can be referenced if necessary",
     "P4": "Nuget Install",
     "P5": "",
-    "P6": "Use nuget.org to install <a href='https://www.nuget.org/packages?q=BootstrapBlazor.TableExport' target'_blank'><code>BootstrapBlazor.TableExport</code></a> component",
+    "P6": "Use nuget.org to install <a href='https://www.nuget.org/packages?q=BootstrapBlazor.TableExport' target='_blank'><code>BootstrapBlazor.TableExport</code></a> component",
     "P7": "inject service",
     "P8": "Add BootstrapBlazor component",
     "P9": "Add Table Excel export service",
@@ -5271,9 +5274,9 @@
     "SignatureText": "Signature",
     "CleanText": "Clean",
     "P1": "Precautions",
-    "P2": "This component relies on <a href='https://www.nuget.org/packages?q=BootstrapBlazor.SignaturePad' target'_blank'><code>BootstrapBlazor.SignaturePad</code></a>, which needs to reference its component package when using this component",
+    "P2": "This component relies on <a href='https://www.nuget.org/packages?q=BootstrapBlazor.SignaturePad' target='_blank'><code>BootstrapBlazor.SignaturePad</code></a>, which needs to reference its component package when using this component",
     "P3": "Nuget Install",
-    "P4": "Install <code>BootstrapBlazor.SignaturePad</code> component <a href='https://www.nuget.org/packages?q=BootstrapBlazor.SignaturePad' target'_blank'>nuget.org</a>"
+    "P4": "Install <code>BootstrapBlazor.SignaturePad</code> component <a href='https://www.nuget.org/packages?q=BootstrapBlazor.SignaturePad' target='_blank'>nuget.org</a>"
   },
   "BootstrapBlazor.Shared.Samples.SpeechWaves": {
     "SpeechWaveTitle": "SpeechWave",
@@ -5317,9 +5320,9 @@
   "BootstrapBlazor.Shared.Samples.OnScreenKeyboards": {
     "Title": "On-Screen keyboard",
     "P1": "Precautions",
-    "P2": "This component relies on <a href='https://www.nuget.org/packages?q=BootstrapBlazor.OnScreenKeyboard' target'_blank'><code>BootstrapBlazor.OnScreenKeyboard</code></a>, which needs to reference its component package when using this component",
+    "P2": "This component relies on <a href='https://www.nuget.org/packages?q=BootstrapBlazor.OnScreenKeyboard' target='_blank'><code>BootstrapBlazor.OnScreenKeyboard</code></a>, which needs to reference its component package when using this component",
     "P3": "Nuget Install",
-    "P4": "Use nuget.org to install <a href='https://www.nuget.org/packages?q=BootstrapBlazor.OnScreenKeyboard' target'_blank'><code>BootstrapBlazor.OnScreenKeyboard</code></a> component",
+    "P4": "Use nuget.org to install <a href='https://www.nuget.org/packages?q=BootstrapBlazor.OnScreenKeyboard' target='_blank'><code>BootstrapBlazor.OnScreenKeyboard</code></a> component",
     "BaseUsageText": "Basic usage",
     "BlockKeyboardTypeAllTitle": "Full Keyboard",
     "BlockKeyboardTypekeyboard": "Keyboard",
@@ -5352,9 +5355,9 @@
     "GetBatteryLevelButtonText": "Get Battery Level",
     "Url3": "3. Battery Level",
     "P1": "Precautions",
-    "P2": "This component relies on <a href='https://www.nuget.org/packages?q=BootstrapBlazor.Bluetooth' target'_blank'><code>BootstrapBlazor.Bluetooth</code></a>, which needs to reference its component package when using this component",
+    "P2": "This component relies on <a href='https://www.nuget.org/packages?q=BootstrapBlazor.Bluetooth' target='_blank'><code>BootstrapBlazor.Bluetooth</code></a>, which needs to reference its component package when using this component",
     "P3": "Nuget Install",
-    "P4": "Use nuget.org to install <a href='https://www.nuget.org/packages?q=BootstrapBlazor.Bluetooth' target'_blank'><code>BootstrapBlazor.Bluetooth</code></a> component",
+    "P4": "Use nuget.org to install <a href='https://www.nuget.org/packages?q=BootstrapBlazor.Bluetooth' target='_blank'><code>BootstrapBlazor.Bluetooth</code></a> component",
     "Tips": "ServiceUUID, Default <code>0xff00</code><br/>Common Printers ServiceUUID:<br/><code>0000ff00-0000-1000-8000-00805f9b34fb</code><br/><code>e7810a71-73ae-499d-8c15-faa9aef0c3f2</code><br/><code>0000fee7-0000-1000-8000-00805f9b34fb</code><br/>Set up component services UUID : <code>printer.Opt.ServiceUuid=?</code>"
   },
   "BootstrapBlazor.Shared.Samples.FileIcons": {
@@ -5383,8 +5386,8 @@
     "BaseUsageText3": "Force use Pdf.js browser.",
     "BaseUsageIntro3": "Can be use advanced parameters",
     "P1": "Precautions",
-    "P2": "This component relies on <a href='https://www.nuget.org/packages?q=BootstrapBlazor.PdfReader' target'_blank'><code>BootstrapBlazor.PdfReader</code></a>, which needs to reference its component package when using this component",
+    "P2": "This component relies on <a href='https://www.nuget.org/packages?q=BootstrapBlazor.PdfReader' target='_blank'><code>BootstrapBlazor.PdfReader</code></a>, which needs to reference its component package when using this component",
     "P3": "Nuget Install",
-    "P4": "Use nuget.org to install <a href='https://www.nuget.org/packages?q=BootstrapBlazor.PdfReader' target'_blank'><code>BootstrapBlazor.PdfReader</code></a> component"
+    "P4": "Use nuget.org to install <a href='https://www.nuget.org/packages?q=BootstrapBlazor.PdfReader' target='_blank'><code>BootstrapBlazor.PdfReader</code></a> component"
   }
 }

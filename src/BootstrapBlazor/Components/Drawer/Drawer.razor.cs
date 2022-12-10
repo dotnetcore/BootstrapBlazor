@@ -10,8 +10,6 @@ namespace BootstrapBlazor.Components;
 [JSModuleAutoLoader]
 public partial class Drawer
 {
-    private ElementReference DrawerElement { get; set; }
-
     /// <summary>
     /// 获得 组件样式
     /// </summary>

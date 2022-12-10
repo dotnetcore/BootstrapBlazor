@@ -94,7 +94,7 @@ public sealed partial class PopoverConfirms
             Description = "Show title",
             Type = "string",
             ValueList = "",
-            DefaultValue = "删除"
+            DefaultValue = "Delete"
         },
         new AttributeItem() {
             Name = "Icon",
@@ -108,7 +108,7 @@ public sealed partial class PopoverConfirms
             Description = "Close button display text",
             Type = "string",
             ValueList = "",
-            DefaultValue = "关闭"
+            DefaultValue = "Close"
         },
         new AttributeItem() {
             Name = "CloseButtonColor",
@@ -129,7 +129,7 @@ public sealed partial class PopoverConfirms
             Description = "Confirm button display text",
             Type = "string",
             ValueList = "",
-            DefaultValue = "确定"
+            DefaultValue = "Ok"
         },
         new AttributeItem() {
             Name = "ConfirmButtonColor",

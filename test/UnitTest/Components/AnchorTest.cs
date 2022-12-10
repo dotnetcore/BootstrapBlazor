@@ -33,6 +33,27 @@ public class AnchorTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void IsAnimation_Ok()
+    {
+        var cut = Context.RenderComponent<Anchor>(builder =>
+        {
+            builder.Add(a => a.IsAnimation, false);
+            builder.Add(a => a.ChildContent, new RenderFragment(builder =>
+            {
+                builder.OpenElement(1, "div");
+                builder.AddAttribute(2, "id", "anchor");
+                builder.CloseElement();
+            }));
+        });
+        cut.DoesNotContain("data-bb-animation");
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.IsAnimation, true);
+        });
+        cut.Contains("data-bb-animation=\"true\"");
+    }
+
+    [Fact]
     public void Offset_Ok()
     {
         var cut = Context.RenderComponent<Anchor>(builder => builder.Add(a => a.Offset, 20));

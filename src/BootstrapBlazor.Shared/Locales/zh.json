@@ -301,7 +301,10 @@
     "P24": "自定义样式",
     "P25": "设置 <code>CssClass</code> 自定义组件样式",
     "P26": "自定义样式按钮",
-    "P27": "确定删除数据吗？"
+    "P27": "确定删除数据吗？",
+    "BodyTemplateTitle": "自定义 PopConfirmButton 内容",
+    "BodyTemplateIntro": "通过设置 <code>BodyTemplate</code> 属性，自定义内容",
+    "BodyTemplateButtonText": "自定义内容"
   },
   "BootstrapBlazor.Shared.Samples.Popovers": {
     "H1": "Popover 弹出窗组件",
