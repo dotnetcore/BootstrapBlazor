@@ -10,4 +10,8 @@
     <DocumentationFile>$(MSBuildProjectName).xml</DocumentationFile>
   </PropertyGroup>
 
+  <PropertyGroup>
+    <NoWarn>NETSDK1138</NoWarn>
+  </PropertyGroup>
+
 </Project>
