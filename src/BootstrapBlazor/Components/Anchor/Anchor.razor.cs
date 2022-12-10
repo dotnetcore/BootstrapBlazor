@@ -8,7 +8,7 @@ namespace BootstrapBlazor.Components;
 /// Anchor 组件部分类
 /// </summary>
 [JSModuleAutoLoader]
-public sealed partial class Anchor
+public partial class Anchor
 {
     /// <summary>
     /// 获得/设置 目标组件 Id
@@ -21,6 +21,17 @@ public sealed partial class Anchor
     /// </summary>
     [Parameter]
     public string? Container { get; set; }
+
+    /// <summary>
+    /// 获得/设置 滚动时是否开启动画 默认 false
+    /// </summary>
+    [Parameter]
+    public bool IsAnimation { get; set; }
+
+    /// <summary>
+    /// 获得 滚动动画
+    /// </summary>
+    protected string? AnimationString => IsAnimation ? "true" : null;
 
     /// <summary>
     /// 获得/设置 距离顶端偏移量 默认为 0

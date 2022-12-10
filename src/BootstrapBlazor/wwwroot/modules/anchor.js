@@ -12,6 +12,7 @@ export class Anchor extends BlazorComponent {
     }
 
     _init() {
+        this._animation = this._config.animation
         this._setListeners()
     }
 
@@ -35,7 +36,30 @@ export class Anchor extends BlazorComponent {
                 if (winScroll.scrollTop === undefined) {
                     winScroll = getWindowScroll(container)
                 }
-                container.scrollTo(0, margin + winScroll.scrollTop)
+                if (this._animation) {
+                    const top = margin + winScroll.scrollTop
+                    margin = winScroll.scrollTop
+                    var step = (top - margin) / 10
+                    let handler = window.setInterval(() => {
+                        if (margin == top) {
+                            window.clearInterval(handler)
+                            handler = null
+                        }
+                        else {
+                            margin += step
+                            if (step > 0 && margin >= top) {
+                                margin = top
+                            }
+                            else if (step < 0 && margin <= top) {
+                                margin = top
+                            }
+                            container.scrollTo(0, margin)
+                        }
+                    }, 10)
+                }
+                else {
+                    container.scrollTo(0, margin + winScroll.scrollTop)
+                }
             }
         });
     }
