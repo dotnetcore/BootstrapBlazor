@@ -66,7 +66,7 @@ public sealed partial class Radios
         DemoValues = new List<SelectedItem>(2)
         {
             new SelectedItem("1", Localizer["Item1"]),
-            new SelectedItem("2", Localizer["Item2"]),
+            new SelectedItem("2", Localizer["Item2"]) { IsDisabled = true }
         };
         Items = new SelectedItem[]
         {
