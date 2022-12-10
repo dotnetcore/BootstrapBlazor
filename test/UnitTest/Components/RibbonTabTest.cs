@@ -229,6 +229,13 @@ public class RibbonTabTest : BootstrapBlazorTestBase
         cut.Contains("class=\"ribbon-tab\"");
     }
 
+    [Fact]
+    public void IsDefault_Ok()
+    {
+        var item = new RibbonTabItem() { IsDefault = true };
+        Assert.True(item.IsDefault);
+    }
+
     private static IEnumerable<RibbonTabItem> GetItems() => new List<RibbonTabItem>()
     {
         new()
