@@ -5,6 +5,7 @@
 using BootstrapBlazor.Server.Extensions;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.SignalR;
+using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.Extensions.Options;
 using Microsoft.Net.Http.Headers;
 using System.Text;
@@ -58,7 +59,14 @@ else
     app.UseStaticFiles(new StaticFileOptions { OnPrepareResponse = ctx => ctx.ProcessCache(app.Configuration) });
 }
 
+var provider = new FileExtensionContentTypeProvider {Mappings = {[".properties"] = "application/octet-stream"}};
+
+app.UseStaticFiles(new StaticFileOptions
+{
+    ContentTypeProvider = provider
+});
 app.UseStaticFiles();
+
 app.UseRouting();
 
 var cors = app.Configuration["AllowOrigins"]?.Split(',', StringSplitOptions.RemoveEmptyEntries);
