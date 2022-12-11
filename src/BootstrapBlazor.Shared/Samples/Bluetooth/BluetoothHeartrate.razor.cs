@@ -12,8 +12,6 @@ namespace BootstrapBlazor.Shared.Samples;
 /// </summary>
 public partial class BluetoothHeartRate
 {
-    string heartrateIcon;// { get => (heartrateIcon == "&#10084;" ? "&hearts;" : "&#10084;"); }
-
     Heartrate heartrate { get; set; } = new Heartrate();
 
     private string? message;
@@ -51,11 +49,17 @@ public partial class BluetoothHeartRate
         return Task.CompletedTask;
     }
 
+    /// <summary>
+    /// 获取心率
+    /// </summary>
     public async void GetHeartrate()
     {
         await heartrate.GetHeartrate();
     }
 
+    /// <summary>
+    /// 停止获取心率
+    /// </summary>
     public async void StopHeartrate()
     {
         await heartrate.StopHeartrate();

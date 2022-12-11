@@ -49,6 +49,9 @@ public partial class BluetoothBatteryLevel
         return Task.CompletedTask;
     }
 
+    /// <summary>
+    /// 获取设备电量
+    /// </summary>
     public async void GetBatteryLevel()
     {
         await batteryLevel.GetBatteryLevel();
