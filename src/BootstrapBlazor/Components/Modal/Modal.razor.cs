@@ -168,7 +168,7 @@ public partial class Modal
     /// <summary>
     /// 弹窗状态切换方法
     /// </summary>
-    public Task Toggle() => InvokeExecuteAsync(Id, "show");
+    public Task Toggle() => InvokeExecuteAsync(Id, "toggle");
 
     /// <summary>
     /// 显示弹窗方法
