@@ -2028,7 +2028,7 @@
     "Title": "AutoComplete 自动完成",
     "H1": "输入框自动完成功能",
     "Block1Title": "基础用法",
-    "Block1Intro": "通过设置 <code>Items</code> 数据集合当用户键入信息是自动显示提示信息",
+    "Block1Intro": "通过设置 <code>Items</code> 数据集合当用户键入信息时自动显示提示信息",
     "P1": "本例中请键入 123 字符串显示查看效果，自动完成组件初始化时给了自动提示数据集并且数据集无变化",
     "Block2Title": "模糊查询并忽略大小写",
     "Block2Intro": "通过设置 <code>IsLikeMatch</code> 值设置是否开启集合的模糊匹配，通过设置 <code>IgnoreCase</code> 来控制是否忽略大小写",
