@@ -388,34 +388,34 @@ RenderFragment<bool> RenderColgroup => hasScroll =>
 @<colgroup>
     @if (ShowDetails())
     {
-        <col width="@DetailColumnWidth" />
+        <col style="@GetColWidthString(DetailColumnWidth)" />
     }
     @if (IsMultipleSelect)
     {
-        <col width="@MultiColumnWidth" />
+        <col style="@GetColWidthString(MultiColumnWidth)" />
     }
     @if (ShowLineNo)
     {
-        <col width="@LineNoColumnWidth" />
+        <col style="@GetColWidthString(LineNoColumnWidth)" />
     }
     @if (ShowExtendButtons && IsExtendButtonsInRowHeader)
     {
-        <col width="@ExtendButtonColumnWidth" />
+        <col style="@GetColWidthString(ExtendButtonColumnWidth)" />
     }
     @foreach (var col in GetColumns())
     {
         @if (CheckShownWithBreakpoint(col))
         {
-            <col width="@col.Width" />
+            <col style="@GetColWidthString(col.Width)" />
         }
     }
     @if (ShowExtendButtons && !IsExtendButtonsInRowHeader)
     {
-        <col width="@ExtendButtonColumnWidth" />
+        <col style="@GetColWidthString(ExtendButtonColumnWidth)" />
     }
     @if (hasScroll)
     {
-        <col width="7" />
+        <col style="width: 7px;" />
     }
 </colgroup>;
 
@@ -479,15 +479,21 @@ RenderFragment<bool> RenderHeader => hasScroll =>
                             {
                                 @col.HeaderTemplate(col)
                             }
+                            else if(col.ShowHeaderTooltip)
+                            {
+                                <Tooltip class="@GetHeaderCellClassString(col)" style="@GetColWidthString(col.Width)" Title="@GetHeaderTooltipText(col.HeaderTextTooltip, displayName)" Trigger="hover">
+                                    <span>@displayName</span>
+                                </Tooltip>
+                            }
                             else if(col.Sortable)
                             {
-                                <Tooltip class="table-text" Title="@GetSortTooltip(col)" Trigger="hover">
+                                <Tooltip class="@GetHeaderCellClassString(col)" Title="@GetSortTooltip(col)" Trigger="hover">
                                     <span>@displayName</span>
                                 </Tooltip>
                             }
                             else
                             {
-                                <span class="table-text">@displayName</span>
+                                <span class="@GetHeaderCellClassString(col)" style="@GetColWidthString(col.Width)">@displayName</span>
                             }
                             @if (col.Filterable && !ShowFilterHeader)
                             {

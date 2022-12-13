@@ -305,13 +305,13 @@
         padding: 1px 6px;
     }
 
+.table-layout-fixed {
+    table-layout: fixed;
+}
+
 .table-fixed {
     height: 100%;
 }
-
-    .table-fixed .table {
-        table-layout: fixed;
-    }
 
 .table-fixed-header {
     overflow: hidden;

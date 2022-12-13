@@ -104,6 +104,17 @@ public partial class Table<TItem>
         .AddClass(GetFixedCellClassString(col))
         .Build();
 
+    /// <summary>
+    /// 获得列头单元格样式
+    /// </summary>
+    /// <param name="col"></param>
+    /// <returns></returns>
+    protected string? GetHeaderCellClassString(ITableColumn col) => CssBuilder.Default()
+        .AddClass("table-text")
+        .AddClass("text-truncate", col.HeaderTextEllipsis)
+        .AddClass("text-wrap", HeaderTextWrap || col.HeaderTextWrap)
+        .Build();
+
     private string? MultiColumnClassString => CssBuilder.Default()
         .AddClass("fixed", FixedMultipleColumn)
         .AddClass("fr", IsLastMultiColumn())

@@ -85,7 +85,11 @@ public class ITableColumnExtensionsTest
             Template = new RenderFragment<object>(obj => builder => builder.AddContent(0, "test-template")),
             TextEllipsis = true,
             Visible = false,
-            Width = 100
+            Width = 100,
+            ShowHeaderTooltip = true,
+            HeaderTextEllipsis = true,
+            HeaderTextWrap = true,
+            HeaderTextTooltip = "test tooltip"
         };
         col.CopyValue(attr);
         Assert.NotNull(attr.ComponentType);
@@ -129,6 +133,10 @@ public class ITableColumnExtensionsTest
         Assert.True(attr.TextEllipsis);
         Assert.False(attr.Visible);
         Assert.Equal(100, attr.Width);
+        Assert.True(attr.ShowHeaderTooltip);
+        Assert.True(attr.HeaderTextEllipsis);
+        Assert.True(attr.HeaderTextWrap);
+        Assert.Equal("test tooltip", attr.HeaderTextTooltip);
     }
 
     [Fact]

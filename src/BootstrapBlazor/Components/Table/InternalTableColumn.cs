@@ -167,6 +167,26 @@ internal class InternalTableColumn : ITableColumn
     public bool ShowCopyColumn { get; set; }
 
     /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    public bool HeaderTextWrap { get; set; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    public bool ShowHeaderTooltip { get; set; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    public string? HeaderTextTooltip { get; set; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    public bool HeaderTextEllipsis { get; set; }
+
+    /// <summary>
     /// 构造函数
     /// </summary>
     /// <param name="fieldName">字段名称</param>

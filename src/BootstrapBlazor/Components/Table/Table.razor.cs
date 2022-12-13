@@ -46,7 +46,7 @@ public partial class Table<TItem> : ITable where TItem : class, new()
         .AddClass("table-excel", IsExcel)
         .AddClass("table-bordered", IsBordered)
         .AddClass("table-striped table-hover", IsStriped)
-        .AddClass("table-wrap", HeaderTextWrap && !IsFixedHeader)
+        .AddClass("table-layout-fixed", IsFixedHeader)
         .Build();
 
     /// <summary>
@@ -121,6 +121,8 @@ public partial class Table<TItem> : ITable where TItem : class, new()
             _ => UnsetText
         };
 
+    private static string GetHeaderTooltipText(string? headerTooltip, string displayName) => headerTooltip ?? displayName;
+
     private static string? GetColspan(int colspan) => colspan > 1 ? colspan.ToString() : null;
 
     private bool IsShowFooter => ShowFooter && (Rows.Any() || !IsHideFooterWhenNoData);
@@ -128,6 +130,8 @@ public partial class Table<TItem> : ITable where TItem : class, new()
     private int PageStartIndex => Rows.Any() ? (PageIndex - 1) * PageItems + 1 : 0;
 
     private string? PageInfoLabelString => Localizer[nameof(PageInfoText), PageStartIndex, (PageIndex - 1) * PageItems + Rows.Count, TotalCount];
+
+    private static string? GetColWidthString(int? width) => width.HasValue ? $"width: {width.Value}px;" : null;
 
     /// <summary>
     /// 获得/设置 列拷贝 Tooltip 文字
@@ -306,11 +310,6 @@ public partial class Table<TItem> : ITable where TItem : class, new()
     protected List<TItem> DetailRows { get; } = new List<TItem>();
 
     /// <summary>
-    /// 获得/设置 可过滤表格列集合
-    /// </summary>
-    protected IEnumerable<ITableColumn>? FilterColumns { get; set; }
-
-    /// <summary>
     /// 获得 表头集合
     /// </summary>
     public List<ITableColumn> Columns { get; } = new(50);
@@ -406,7 +405,7 @@ public partial class Table<TItem> : ITable where TItem : class, new()
     public bool AllowResizing { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否表头允许折行 默认 false 不折行
+    /// 获得/设置 是否表头允许折行 默认 false 不折行 此设置为 true 时覆盖 <see cref="ITableColumn.HeaderTextWrap"/> 参数值
     /// </summary>
     [Parameter]
     public bool HeaderTextWrap { get; set; }

@@ -119,4 +119,12 @@ internal class MockTableColumn : ITableColumn
     public int GroupOrder { get; set; }
 
     public bool ShowCopyColumn { get; set; }
+
+    public bool HeaderTextWrap { get; set; }
+
+    public bool ShowHeaderTooltip { get; set; }
+
+    public string? HeaderTextTooltip { get; set; }
+
+    public bool HeaderTextEllipsis { get; set; }
 }

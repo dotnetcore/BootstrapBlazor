@@ -59,7 +59,11 @@ public class AutoGenerateClassTest
             LookupStringComparison = StringComparison.Ordinal,
             LookupServiceKey = "test-lookup",
             GroupName = "Test",
-            GroupOrder = 1
+            GroupOrder = 1,
+            ShowHeaderTooltip = true,
+            HeaderTextTooltip = "test header tooltip",
+            HeaderTextEllipsis = true,
+            HeaderTextWrap = true
         };
         Assert.Equal(1, attr.Order);
         Assert.True(attr.Ignore);
@@ -84,6 +88,10 @@ public class AutoGenerateClassTest
         Assert.Equal("Test", attr.GroupName);
         Assert.Equal(1, attr.GroupOrder);
         Assert.Equal("test-lookup", attr.LookupServiceKey);
+        Assert.True(attr.ShowHeaderTooltip);
+        Assert.True(attr.HeaderTextWrap);
+        Assert.True(attr.HeaderTextEllipsis);
+        Assert.Equal("test header tooltip", attr.HeaderTextTooltip);
 
         var attrInterface = (ITableColumn)attr;
         attrInterface.ShowLabelTooltip = true;

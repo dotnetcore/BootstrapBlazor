@@ -149,7 +149,7 @@ export class Table extends BlazorComponent {
                 e => {
                     colIndex = eff(col, true)
                     const currentCol = this._element.querySelectorAll('table colgroup col')[colIndex]
-                    const width = currentCol.getAttribute('width')
+                    const width = currentCol.style.width
                     if (width) {
                         colWidth = parseInt(width)
                     } else {
@@ -162,7 +162,7 @@ export class Table extends BlazorComponent {
                     const marginX = e.clientX - originalX
                     this._element.querySelectorAll('table colgroup').forEach(group => {
                         const curCol = group.children.item(colIndex)
-                        curCol.width = colWidth + marginX
+                        curCol.style.width = `${colWidth + marginX}px`
                         const table = curCol.closest('table')
                         const width = tableWidth + marginX
                         if (this._fixedHeader) {

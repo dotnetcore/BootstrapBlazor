@@ -643,7 +643,6 @@ public class TableTest : TableTestBase
             pb.AddChildContent<Table<Foo>>(pb =>
             {
                 pb.Add(a => a.RenderMode, TableRenderMode.Table);
-                pb.Add(a => a.HeaderTextWrap, true);
                 pb.Add(a => a.PageItemsSource, new int[] { 2, 4, 8 });
                 pb.Add(a => a.IsPagination, true);
                 pb.Add(a => a.OnQueryAsync, OnQueryAsync(localizer));
@@ -3206,6 +3205,84 @@ public class TableTest : TableTestBase
     }
 
     [Fact]
+    public void TableColumn_ShowHeaderTooltip()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var items = Foo.GenerateFoo(localizer, 2);
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.Items, items);
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.AddAttribute(3, "ShowHeaderTooltip", true);
+                    builder.AddAttribute(4, "HeaderTextTooltip", "Test header tooltip");
+                    builder.CloseComponent();
+                });
+            });
+        });
+        var column = cut.FindComponent<TableColumn<Foo, string>>();
+        Assert.True(column.Instance.ShowHeaderTooltip);
+        Assert.Equal("Test header tooltip", column.Instance.HeaderTextTooltip);
+    }
+
+    [Fact]
+    public void TableColumn_HeaderTextWrap()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var items = Foo.GenerateFoo(localizer, 2);
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.Items, items);
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.AddAttribute(3, "ShowHeaderTooltip", true);
+                    builder.AddAttribute(4, "HeaderTextWrap", true);
+                    builder.CloseComponent();
+                });
+            });
+        });
+        var column = cut.FindComponent<TableColumn<Foo, string>>();
+        Assert.True(column.Instance.HeaderTextWrap);
+    }
+
+    [Fact]
+    public void TableColumn_HeaderTextEllipsis()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var items = Foo.GenerateFoo(localizer, 2);
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.Items, items);
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.AddAttribute(3, "HeaderTextEllipsis", true);
+                    builder.CloseComponent();
+                });
+            });
+        });
+        var column = cut.FindComponent<TableColumn<Foo, string>>();
+        Assert.True(column.Instance.HeaderTextEllipsis);
+    }
+
+    [Fact]
     public async Task TableColumn_DefaultSortOrder()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
@@ -5028,6 +5105,54 @@ public class TableTest : TableTestBase
             pb.Add(a => a.HeaderStyle, TableHeaderStyle.Dark);
         });
         cut.Contains("table-dark");
+    }
+
+    [Fact]
+    public void HeaderTextWrap_Ok()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.Items, new List<Foo>());
+                pb.Add(a => a.HeaderTextWrap, true);
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.AddAttribute(1, "HeaderTextWrap", false);
+                    builder.CloseComponent();
+                });
+            });
+        });
+        cut.Contains("text-wrap");
+    }
+
+    [Fact]
+    public void TableColumn_HeaderTextWrap_Ok()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.Items, new List<Foo>());
+                pb.Add(a => a.HeaderTextWrap, false);
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.AddAttribute(1, "HeaderTextWrap", true);
+                    builder.CloseComponent();
+                });
+            });
+        });
+        cut.Contains("text-wrap");
     }
 
     [Fact]

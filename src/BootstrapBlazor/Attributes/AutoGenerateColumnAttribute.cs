@@ -216,7 +216,7 @@ public class AutoGenerateColumnAttribute : AutoGenerateBaseAttribute, ITableColu
     /// 
     /// </summary>
     /// <returns></returns>
-    public string? GetDisplayName() => Text;
+    public string GetDisplayName() => Text ?? "";
 
     /// <summary>
     /// 
@@ -233,4 +233,24 @@ public class AutoGenerateColumnAttribute : AutoGenerateBaseAttribute, ITableColu
     /// 获得/设置 当前属性分组排序 默认 0
     /// </summary>
     public int GroupOrder { get; set; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    public bool HeaderTextWrap { get; set; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    public bool ShowHeaderTooltip { get; set; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    public string? HeaderTextTooltip { get; set; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    public bool HeaderTextEllipsis { get; set; }
 }

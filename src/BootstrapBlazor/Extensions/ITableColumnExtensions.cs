@@ -81,6 +81,10 @@ public static class IEditItemExtensions
             if (!col.Visible) dest.Visible = col.Visible;
             if (col.Width != null) dest.Width = col.Width;
             if (col.ShowCopyColumn) dest.ShowCopyColumn = col.ShowCopyColumn;
+            if (col.HeaderTextWrap) dest.HeaderTextWrap = col.HeaderTextWrap;
+            if (!string.IsNullOrEmpty(col.HeaderTextTooltip)) dest.HeaderTextTooltip = col.HeaderTextTooltip;
+            if (col.ShowHeaderTooltip) dest.ShowHeaderTooltip = col.ShowHeaderTooltip;
+            if (col.HeaderTextEllipsis) dest.HeaderTextEllipsis = col.HeaderTextEllipsis;
         }
     }
 

@@ -8,12 +8,12 @@
 <p>@((MarkupString)Localizer["P1"].Value)</p>
 
 <DemoBlock Title="@Localizer["P2"]" Introduction="@Localizer["P3"]" Name="WarpHeader">
-    <p>@Localizer["P4"]</p>
+    <p>@((MarkupString)Localizer["P4"].Value)</p>
     <div class="table-wrap-header-demo">
         <Table TItem="Foo" IsBordered="true" IsStriped="true" Items="@CellItems">
             <TableColumns>
                 <TableColumn @bind-Field="@context.DateTime" Width="180" Text="@Localizer["P5"]" />
-                <TableColumn @bind-Field="@context.Name" Text="@Localizer["P6"]" />
+                <TableColumn @bind-Field="@context.Name" Width="100" Text="@Localizer["P6"]" ShowHeaderTooltip="true" HeaderTextEllipsis="true" />
                 <TableColumn @bind-Field="@context.Address" Text="@Localizer["P7"]" />
             </TableColumns>
         </Table>
@@ -24,9 +24,9 @@
     <p>@Localizer["P10"]</p>
     <Table TItem="Foo" IsBordered="true" IsStriped="true" Items="@CellItems" HeaderTextWrap="true">
         <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" Width="180" Text="@Localizer["P11"]" />
-            <TableColumn @bind-Field="@context.Name" Text="@Localizer["P12"]" />
-            <TableColumn @bind-Field="@context.Address" Text="@Localizer["P13"]" />
+            <TableColumn @bind-Field="@context.DateTime" Width="180" Text="@Localizer["P11"]" TextWrap="true" />
+            <TableColumn @bind-Field="@context.Name" Text="@Localizer["P12"]" TextWrap="true" />
+            <TableColumn @bind-Field="@context.Address" Text="@Localizer["P13"]" TextWrap="true" />
         </TableColumns>
     </Table>
 </DemoBlock>

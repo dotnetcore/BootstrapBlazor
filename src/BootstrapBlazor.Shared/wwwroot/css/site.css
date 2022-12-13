@@ -942,13 +942,6 @@ section {
         display: inline-block;
     }
 
-.table-wrap-header-demo .table th .table-cell span {
-    max-width: 120px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
 .table-virtualize-demo {
     height: 400px;
 }

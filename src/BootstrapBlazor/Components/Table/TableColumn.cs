@@ -88,6 +88,30 @@ public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn
     public bool? ShowLabelTooltip { get; set; }
 
     /// <summary>
+    /// 获得/设置 是否表头允许折行 默认 false 不折行
+    /// </summary>
+    [Parameter]
+    public bool HeaderTextWrap { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否表头显示 Tooltip 默认 false 不显示 可配合 <see cref="HeaderTextEllipsis"/> 使用 设置 <see cref="HeaderTextWrap"/> 为 true 时本参数不生效
+    /// </summary>
+    [Parameter]
+    public bool ShowHeaderTooltip { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否表头 Tooltip 内容
+    /// </summary>
+    [Parameter]
+    public string? HeaderTextTooltip { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否表头溢出时截断 默认 false 不截断 可配合 <see cref="HeaderTextTooltip"/> 使用 设置 <see cref="HeaderTextWrap"/> 为 true 时本参数不生效
+    /// </summary>
+    [Parameter]
+    public bool HeaderTextEllipsis { get; set; }
+
+    /// <summary>
     /// 获得/设置 步长 默认为 null
     /// </summary>
     [Parameter]

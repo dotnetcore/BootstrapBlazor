@@ -118,7 +118,7 @@ public interface IEditorItem
     /// <summary>
     /// 获取绑定字段显示名称方法
     /// </summary>
-    string? GetDisplayName();
+    string GetDisplayName();
 
     /// <summary>
     /// 获取绑定字段信息方法
