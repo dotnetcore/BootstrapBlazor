@@ -117,7 +117,6 @@
     <p>
         <div>@((MarkupString)Localizer["PreCardStyleSSR"].Value)</div>
         <div>@((MarkupString)Localizer["PreCardStyleServerSide"].Value)</div>
-
         <div>@((MarkupString)Localizer["PreCardStyleWasm"].Value)</div>
         <div>@((MarkupString)Localizer["PreCardStyleWasmSide"].Value)</div>
         <div>@((MarkupString)Localizer["PreCardStyleLink", SiteOptions.CurrentValue.VideoLibUrl].Value)</div>
@@ -137,6 +136,18 @@
 
 <DemoBlock Title="@Localizer["FileIconTitle"]" Introduction="@Localizer["FileIconIntro"]" Name="FileIcon">
     <CardUpload TValue="string" ShowDownloadButton="true" DefaultFileList="@DefaultFormatFileList" OnChange="@OnCardUpload" OnDelete="@(fileName => Task.FromResult(true))"></CardUpload>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["FileIconTemplateTitle"]" Introduction="@Localizer["FileIconTemplateIntro"]" Name="IconTemplate">
+    <CardUpload TValue="string" ShowDownloadButton="true" DefaultFileList="@DefaultFormatFileList" OnChange="@OnCardUpload" OnDelete="@(fileName => Task.FromResult(true))">
+        <IconTemplate>
+            <FileIcon Extension="@context.GetExtension()">
+                <BackgroundTemplate>
+                    <i class="fa-regular fa-clipboard fa-4x" />
+                </BackgroundTemplate>
+            </FileIcon>
+        </IconTemplate>
+    </CardUpload>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["Base64FormatTitle"]" Introduction="@Localizer["Base64FormatIntro"]" Name="Base64">

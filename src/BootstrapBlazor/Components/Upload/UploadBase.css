@@ -180,10 +180,6 @@
                 display: none;
             }
 
-            .upload .upload-body.is-card .upload-item-body i {
-                font-size: 1.5rem;
-            }
-
         .upload .upload-body.is-card .upload-item-size {
             margin: 1rem auto;
             text-align: center;

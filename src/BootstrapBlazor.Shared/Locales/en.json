@@ -3121,6 +3121,8 @@
     "PreCardStyleP2": "When you set up <code>IsSingle</code>, you can upload only one image or file",
     "FileIconTitle": "The file icon",
     "FileIconIntro": "Icons are displayed in different file formats",
+    "FileIconTemplateTitle": "Custom file icon",
+    "FileIconTemplateIntro": "By setting the <code>IconTemplate</code> parameter and using the <code>FileIcon</code> component, you can further customize the file icon <a href=\"/fileicons\">[FileIcon example]</a>",
     "Base64FormatTitle": "Base64 format",
     "Base64FormatIntro": "use <code>data:image/xxx;base64,XXXXX</code> format data string as PrevUrl value",
     "ShowDeleteButton": "Whether to display the Delete button",
@@ -3158,7 +3160,8 @@
     "WasmError": "Wasm mode does not implement saving code",
     "SaveFile": "Save the file",
     "SaveFileMsg": "The current mode is WebAssembly, call Webapi mode to save files to the server side or database",
-    "RemoveMsg": "The removal was successful"
+    "RemoveMsg": "The removal was successful",
+    "IconTemplate": "The template of file icon"
   },
   "BootstrapBlazor.Shared.Samples.ValidateForms": {
     "ChangeButtonText": "Change",

@@ -72,6 +72,18 @@ public class UploadFile
     internal bool? IsValid { get; set; }
 
     /// <summary>
+    /// 获得 UploadFile 文件名
+    /// </summary>
+    /// <returns></returns>
+    public string? GetFileName() => OriginFileName ?? FileName;
+
+    /// <summary>
+    /// 获得 UploadFile 文件扩展名
+    /// </summary>
+    /// <returns></returns>
+    public string? GetExtension() => Path.GetExtension(GetFileName());
+
+    /// <summary>
     /// 获取 base64 格式图片字符串
     /// </summary>
     /// <param name="format"></param>

@@ -753,6 +753,24 @@ public class UploadTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void CardUpload_IconTemplate_Ok()
+    {
+        var foo = new Foo();
+        var cut = Context.RenderComponent<CardUpload<string>>(pb =>
+        {
+            pb.Add(a => a.DefaultFileList, new List<UploadFile>()
+            {
+                new UploadFile() { FileName  = "Test-File1.text" }
+            });
+            pb.Add(a => a.IconTemplate, file => builder =>
+            {
+                builder.AddContent(0, "custom-file-icon-template");
+            });
+        });
+        cut.Contains("custom-file-icon-template");
+    }
+
+    [Fact]
     public void FileSize_Ok()
     {
         var validator = new FileValidationAttribute()

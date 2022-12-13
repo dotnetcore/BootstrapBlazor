@@ -399,6 +399,13 @@ public sealed partial class Uploads : IDisposable
             Type = "Func<UploadFile, Task>",
             ValueList = " — ",
             DefaultValue = " — "
+        },
+        new AttributeItem() {
+            Name = "IconTemplate",
+            Description = Localizer["IconTemplate"],
+            Type = "RenderFragment<UploadFile>",
+            ValueList = " — ",
+            DefaultValue = " — "
         }
     };
 

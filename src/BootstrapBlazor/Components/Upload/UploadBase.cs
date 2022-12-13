@@ -56,13 +56,6 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
     public Func<UploadFile, Task>? OnChange { get; set; }
 
     /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="item"></param>
-    /// <returns></returns>
-    protected string? GetFileName(UploadFile? item) => item?.OriginFileName ?? item?.FileName ?? Value?.ToString();
-
-    /// <summary>
     /// 显示/隐藏验证结果方法
     /// </summary>
     /// <param name="results"></param>

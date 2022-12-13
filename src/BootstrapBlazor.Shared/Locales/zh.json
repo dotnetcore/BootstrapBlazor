@@ -3129,6 +3129,8 @@
     "PreCardStyleP2": "设置 <code>IsSingle</code> 时，仅可以上传一张图片或者文件",
     "FileIconTitle": "文件图标",
     "FileIconIntro": "不同文件格式显示的图标不同",
+    "FileIconTemplateTitle": "自定义文件图标",
+    "FileIconTemplateIntro": "通过设置 <code>IconTemplate</code> 参数，使用 <code>FileIcon</code> 组件可以对文件图标进行进一步自定义 <a href=\"/fileicons\">[FileIcon 示例]</a>",
     "Base64FormatTitle": "Base64 格式文件",
     "Base64FormatIntro": "使用 <code>data:image/xxx;base64,XXXXX</code> 格式图片内容字符串作为预览文件路径",
     "ShowDeleteButton": "是否显示删除按钮",
@@ -3166,7 +3168,8 @@
     "WasmError": "Wasm 模式未实现保存代码",
     "SaveFile": "保存文件",
     "SaveFileMsg": "当前模式为 WebAssembly 模式，请调用 Webapi 模式保存文件到服务器端或数据库中",
-    "RemoveMsg": "成功移除"
+    "RemoveMsg": "成功移除",
+    "IconTemplate": "文件图标模板"
   },
   "BootstrapBlazor.Shared.Samples.ValidateForms": {
     "ChangeButtonText": "更改组件",

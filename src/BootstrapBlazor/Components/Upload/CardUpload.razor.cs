@@ -27,6 +27,12 @@ public partial class CardUpload<TValue>
 
     private string PreviewerId => $"prev_{Id}";
 
+    /// <summary>
+    /// 获得/设置 图标模板
+    /// </summary>
+    [Parameter]
+    public RenderFragment<UploadFile>? IconTemplate { get; set; }
+
     private static bool IsImage(UploadFile item)
     {
         bool ret;

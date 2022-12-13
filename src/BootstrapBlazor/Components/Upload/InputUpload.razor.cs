@@ -26,6 +26,8 @@ public partial class InputUpload<TValue>
         .AddClass(BrowserButtonClass)
         .Build();
 
+    private string? GetFileName() => CurrentFile?.GetFileName() ?? Value?.ToString();
+
     /// <summary>
     /// 获得/设置 浏览按钮图标 默认 fa-regular fa-folder-open
     /// </summary>

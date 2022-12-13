@@ -16,12 +16,16 @@
                     {
                         <img alt="prevUrl" src="@item.PrevUrl" />
                     }
+                    else if(IconTemplate != null)
+                    {
+                        @IconTemplate(item)
+                    }
                     else
                     {
-                        <i class="@GetFileFormatClassString(item)"></i>
+                        <FileIcon Extension="@item.GetExtension()" />
                     }
                 </div>
-                <div class="upload-item-size"><span>@GetFileName(item)</span> (@item.Size.ToFileSizeString())</div>
+                <div class="upload-item-size"><span>@item.GetFileName()</span> (@item.Size.ToFileSizeString())</div>
                 <div class="upload-item-actions">
                     <div class="btn-group">
                         <button type="button" class="btn btn-sm btn-secondary btn-zoom" disabled="@GetDiabledString(item)" @onclick="() => OnClickZoom(item)" aria-label="zoom">

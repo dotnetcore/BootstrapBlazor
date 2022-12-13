@@ -8,7 +8,7 @@
 }
 <div @attributes="@AdditionalAttributes" class="@ClassString" id="@Id">
     <div class="input-group">
-        <input type="text" class="@InputValueClassString" id="@Id" disabled="@Disabled" readonly placeholder="@PlaceHolder" value="@GetFileName(CurrentFile)" />
+        <input type="text" class="@InputValueClassString" id="@Id" disabled="@Disabled" readonly placeholder="@PlaceHolder" value="@GetFileName()" />
         @if (ShowDeleteButton)
         {
             <Button class="@RemoveButtonClassString" IsDisabled="@IsDeleteButtonDisabled" Icon="@DeleteButtonIcon" Text="@DeleteButtonText" OnClick="@OnDeleteFile" Color="Color.None" />

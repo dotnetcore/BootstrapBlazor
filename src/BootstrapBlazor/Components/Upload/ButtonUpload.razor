@@ -16,7 +16,7 @@
                 <div @key="item" class="@GetItemClassString(item)">
                     <i class="@GetFileFormatClassString(item)"></i>
                     <div class="fn">
-                        <span>@GetFileName(item)</span>
+                        <span>@item.GetFileName()</span>
                         <span>(@item.Size.ToFileSizeString())</span>
                     </div>
                     @if (GetShowProgress(item))
