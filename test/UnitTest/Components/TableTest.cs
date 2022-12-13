@@ -1192,7 +1192,7 @@ public class TableTest : TableTestBase
                 });
             });
         });
-        cut.Contains("<col width=\"130\"");
+        cut.Contains("<col style=\"width: 130px;\" />");
     }
 
     [Fact]

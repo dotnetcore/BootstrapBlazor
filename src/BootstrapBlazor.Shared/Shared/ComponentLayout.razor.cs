@@ -107,4 +107,10 @@ public sealed partial class ComponentLayout
             TabSet.ActiveTab(TabSet.Items.First());
         }
     }
+
+    private Task Goto(int index)
+    {
+        TabSet.ActiveTab(index);
+        return Task.CompletedTask;
+    }
 }
