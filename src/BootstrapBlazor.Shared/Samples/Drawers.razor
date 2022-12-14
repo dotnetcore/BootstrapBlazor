@@ -29,4 +29,16 @@
     </Drawer>
 </DemoBlock>
 
+<DemoBlock Title="@Localizer["NoBackdropTitle"]" Introduction="@Localizer["NoBackdropIntro"]" Name="NoBackdrop">
+    <p>
+        <button type="button" class="btn btn-primary" @onclick="@OpenNoBackdropDrawer">@Localizer["P8"]</button>
+    </p>
+    <Drawer Placement="Placement.Left" @bind-IsOpen="@IsShowBackdropOpen" ShowBackdrop="true">
+        <div class="d-flex justify-content-center align-items-center flex-column" style="height: 290px;">
+            <p>@Localizer["P4"]</p>
+            <button type="button" class="btn btn-primary" @onclick="@(e => IsShowBackdropOpen = false)">@Localizer["P5"]</button>
+        </div>
+    </Drawer>
+</DemoBlock>
+
 <AttributeTable Items="@GetAttributes()" />

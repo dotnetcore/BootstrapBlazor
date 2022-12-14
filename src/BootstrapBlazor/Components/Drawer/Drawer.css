@@ -1,4 +1,6 @@
-﻿.drawer-wrapper {
+﻿.drawer {
+    --bb-drawer-bg: #fff;
+    --bb-drawer-body-shadow: 0 8px 10px -5px rgba(0,0,0,.2), 0 16px 24px 2px rgba(0,0,0,.14), 0 6px 30px 5px rgba(0,0,0,.12);
     position: fixed;
     top: 0;
     right: 0;
@@ -6,82 +8,64 @@
     left: 0;
     overflow: hidden;
     margin: 0;
-    background-color: rgba(0, 0, 0, 0.5);
-    transform: translateX(-100%);
     z-index: 1050;
 }
 
-.drawer-container {
-    position: relative;
+.drawer-backdrop {
+    position: fixed;
     left: 0;
     right: 0;
     top: 0;
     bottom: 0;
-    height: 100%;
-    width: 100%;
+    z-index: 1;
+    background-color: rgba(0, 0, 0, 0.5);
 }
 
-.drawer {
+.drawer-body {
     position: absolute;
     box-sizing: border-box;
-    background-color: #fff;
-    display: flex;
-    flex-direction: column;
-    box-shadow: 0 8px 10px -5px rgba(0,0,0,.2), 0 16px 24px 2px rgba(0,0,0,.14), 0 6px 30px 5px rgba(0,0,0,.12);
+    background-color: var(--bb-drawer-bg);
+    box-shadow: var(--bb-drawer-body-shadow);
     overflow: auto;
     transition: transform .3s linear;
-    transform: translateX(-100%);
+    z-index: 2;
 }
 
-    .drawer.left, .drawer.right {
-        height: 100%;
+    .drawer-body.left, .drawer-body.right {
         top: 0;
         bottom: 0;
     }
 
-    .drawer.top, .drawer.bottom {
-        width: 100%;
+    .drawer-body.left {
+        left: 0;
+        transform: translateX(-100%);
+    }
+
+    .drawer-body.right {
+        right: 0;
+        transform: translateX(100%);
+    }
+
+    .drawer-body.show {
+        transform: translateX(0);
+    }
+
+    .drawer-body.top, .drawer-body.bottom {
         left: 0;
         right: 0;
     }
 
-    .drawer.right {
-        right: 0;
-        transform: translateX(100%);
-    }
-
-    .drawer.top {
+    .drawer-body.top {
         top: 0;
         transform: translateY(-100%);
     }
 
-    .drawer.bottom {
+    .drawer-body.bottom {
         bottom: 0;
         transform: translateY(100%);
     }
 
-.is-open .drawer,
-.is-open.drawer-wrapper,
-.is-close.drawer-wrapper {
-    transform: translateX(0);
-}
-
-.is-close .drawer {
-    transform: translateX(0);
-}
-
-.is-close .drawer {
-    transform: translateX(-100%);
-}
-
-    .is-close .drawer.right {
-        transform: translateX(100%);
-    }
-
-    .is-close .drawer.top {
-        transform: translateY(-100%);
-    }
-
-    .is-close .drawer.bottom {
-        transform: translateY(100%);
-    }
+        .drawer-body.top.show,
+        .drawer-body.bottom.show {
+            transform: translateY(0);
+        }

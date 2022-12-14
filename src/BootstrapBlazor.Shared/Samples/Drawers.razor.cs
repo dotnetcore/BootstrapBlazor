@@ -40,9 +40,16 @@ public sealed partial class Drawers
 
     private bool IsBackdropOpen { get; set; }
 
+    private bool IsShowBackdropOpen { get; set; }
+
     private void OpenDrawer()
     {
         IsBackdropOpen = true;
+    }
+
+    private void OpenNoBackdropDrawer()
+    {
+        IsShowBackdropOpen = true;
     }
 
     /// <summary>

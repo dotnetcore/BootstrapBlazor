@@ -13,7 +13,7 @@ public partial class Drawer
     /// <summary>
     /// 获得 组件样式
     /// </summary>
-    private string? ClassString => CssBuilder.Default("drawer-wrapper")
+    private string? ClassString => CssBuilder.Default("drawer collapse")
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
@@ -28,7 +28,7 @@ public partial class Drawer
     /// <summary>
     /// 获得 抽屉样式
     /// </summary>
-    private string? DrawerClassString => CssBuilder.Default("drawer")
+    private string? DrawerClassString => CssBuilder.Default("drawer-body")
         .AddClass("left", Placement != Placement.Right && Placement != Placement.Top && Placement != Placement.Bottom)
         .AddClass("top", Placement == Placement.Top)
         .AddClass("right", Placement == Placement.Right)
@@ -70,6 +70,12 @@ public partial class Drawer
     /// </summary>
     [Parameter]
     public bool IsBackdrop { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否显示遮罩 默认为 true 显示遮罩
+    /// </summary>
+    [Parameter]
+    public bool ShowBackdrop { get; set; } = true;
 
     /// <summary>
     /// 获得/设置 组件出现位置 默认显示在 Left 位置

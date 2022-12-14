@@ -2,11 +2,14 @@
 @inherits BootstrapModuleComponentBase
 
 <div @attributes="@AdditionalAttributes" tabindex="-1" class="@ClassString" id="@Id">
-    <div tabindex="-1" class="drawer-container" @onclick="@OnContainerClick">
-        <div tabindex="-1" class="@DrawerClassString" style="@DrawerStyleString" @onclick:stopPropagation>
-            <CascadingValue Value="Close" IsFixed="true">
-                @ChildContent
-            </CascadingValue>
+    @if (ShowBackdrop)
+    {
+        <div tabindex="-1" class="drawer-backdrop" @onclick="@OnContainerClick">
         </div>
+    }
+    <div tabindex="-1" class="@DrawerClassString" style="@DrawerStyleString" @onclick:stopPropagation>
+        <CascadingValue Value="Close" IsFixed=" true">
+            @ChildContent
+        </CascadingValue>
     </div>
 </div>
