@@ -1,4 +1,4 @@
-﻿{
+{
   "BootstrapBlazor.Shared.App": {
     "Title": "Bootstrap Blazor - 企业级 UI 组件库",
     "Reload": "重新加载",
@@ -3979,7 +3979,10 @@
   "BootstrapBlazor.Shared.Shared.ComponentLayout": {
     "Title": "基于 Bootstrap 和 Blazor 的企业级组件库",
     "Example": "示例",
-    "Video": "相关视频"
+    "Video": "相关视频",
+    "ViewRazorCode": "查看 Razor 代码",
+    "ViewC#Code": "查看 C# 代码",
+    "ViewExample": "查看示例"
   },
   "BootstrapBlazor.Shared.Samples.Alerts": {
     "Title": "Alert 警告",

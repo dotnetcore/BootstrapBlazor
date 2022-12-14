@@ -3980,7 +3980,10 @@
   "BootstrapBlazor.Shared.Shared.ComponentLayout": {
     "Title": "Enterprise-level component library based on Bootstrap and Blazor",
     "Example": "Example",
-    "Video": "Video"
+    "Video": "Video",
+    "ViewRazorCode": "View Razor Code",
+    "ViewC#Code": "View C# Code",
+    "ViewExample": "View Example"
   },
   "BootstrapBlazor.Shared.Samples.Alerts": {
     "Title": "Alert",

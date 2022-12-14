@@ -1543,7 +1543,7 @@ section {
         font-size: 1.1rem;
     }
 
-        .tab-navigators .btn:last-child {
+        .tab-navigators .btn:not(:first-child) {
             margin-top: 1.5rem;
         }
 

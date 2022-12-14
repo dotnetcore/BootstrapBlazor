@@ -39,6 +39,7 @@
 </Tab>
 
 <div class="tab-navigators">
-    <Button OnClickWithoutRender="() => Goto(1)" Icon="fa-brands fa-html5" Color="Color.Success" class="btn-fade btn-circle"></Button>
-    <Button OnClickWithoutRender="() => Goto(2)" Icon="fa-regular fa-file-code" class="btn-fade btn-circle"></Button>
+    <Button OnClickWithoutRender="() => Goto(2)" Icon="fa-regular fa-file-code" class="btn-fade btn-circle" TooltipText="@Localizer["ViewC#Code"]"></Button>
+    <Button OnClickWithoutRender="() => Goto(1)" Icon="fa-brands fa-html5" class="btn-fade btn-circle" Color="Color.Success" TooltipText="@Localizer["ViewRazorCode"]"></Button>
+    <Button OnClickWithoutRender="() => Goto(0)" Icon="fa-solid fa-book" class="btn-fade btn-circle" Color="Color.Warning" TooltipText="@Localizer["ViewExample"]"></Button>
 </div>
