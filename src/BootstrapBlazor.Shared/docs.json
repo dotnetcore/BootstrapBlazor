@@ -77,7 +77,8 @@
     "select-trees": "SelectTrees",
     "bluetooths": "Bluetooths",
     "ribbontabs": "RibbonTabs",
-    "pdfreaders": "PdfReaders"
+    "pdfreaders": "PdfReaders",
+    "videoPlayers": "VideoPlayers"
   },
   "video": {
     "autorefresh": "BV1ap4y1x7Qn?p=8",

@@ -586,6 +586,12 @@ internal static class MenusLocalizerExtensions
                     IsNew = true,
                     Text = Localizer["PdfReader"],
                     Url = "PdfReaders"
+                },
+                new()
+                {
+                    IsNew = true,
+                    Text = Localizer["VideoPlayer"],
+                    Url = "videoPlayers"
                 }
             };
             AddBadge(item);

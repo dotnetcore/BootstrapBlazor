@@ -31,6 +31,7 @@
     <PackageReference Include="BootstrapBlazor.SummerNote" Version="7.*" />
     <PackageReference Include="BootstrapBlazor.TableExport" Version="7.*" />
     <PackageReference Include="BootstrapBlazor.Topology" Version="7.*" />
+    <PackageReference Include="BootstrapBlazor.VideoPlayer" Version="7.*" />
   </ItemGroup>
 
   <ItemGroup>

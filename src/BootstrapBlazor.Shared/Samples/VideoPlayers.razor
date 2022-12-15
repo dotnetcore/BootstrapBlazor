@@ -1,0 +1,85 @@
+﻿@page "/VideoPlayers"
+@namespace BootstrapBlazor.Shared.Samples
+@inject IStringLocalizer<VideoPlayers> Localizer
+
+<h3>@Localizer["Title"]</h3>
+
+<p><b>@Localizer["P1"] ：</b></p>
+
+<p>@((MarkupString)Localizer["P2"].Value)</p>
+
+<p><b>@Localizer["P3"]</b></p>
+
+<p>@((MarkupString)Localizer["P4"].Value)</p>
+
+<div class="code-label">.NET CLI</div>
+<Pre class="no-highlight">dotnet add package BootstrapBlazor.VideoPlayer</Pre>
+
+<div class="code-label">PackageReference</div>
+<Pre class="no-highlight">&lt;PackageReference Include="BootstrapBlazor.VideoPlayer" /&gt;</Pre>
+
+<div class="code-label">Package Manager</div>
+<Pre class="no-highlight">Install-Package BootstrapBlazor.VideoPlayer</Pre>
+
+<Tips>
+    <p>@((MarkupString)Localizer["Tips"].Value)</p>
+</Tips>
+<DemoBlock Title="@Localizer["BaseUsageText"]" Introduction="@Localizer["BaseUsageIntro"]" Name="Nomal">
+    <div class="row g-3">
+        <div class="col-6">
+            <VideoPlayer SourcesType="application/x-mpegURL" SourcesUrl="https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8" />
+        </div>
+        <div class="col-6">
+            <VideoPlayer SourcesType="video/mp4" SourcesUrl="//vjs.zencdn.net/v/oceans.mp4" />
+        </div>
+    </div>
+
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["BaseUsageText2"]" Introduction="@Localizer["BaseUsageIntro2"]" Name="Nomal">
+
+    <div class="row g-3">
+        <div class="col-6 col-sm-6 col-md-3 col-xl-auto">
+            <Dropdown TValue="string" Items="Items" OnSelectedItemChanged="@ChangeURL" />
+        </div>
+        <div class="col-6 col-sm-6 col-md-6  col-xl-auto">
+            <BootstrapInput @bind-Value="@SourcesUrl" />
+        </div>
+        <div class="col-6 col-sm-6 col-md-4 col-xl-auto">
+            <BootstrapInput @bind-Value="@SourcesType" />
+        </div>
+        <div class="col-6 col-sm-6 col-md-2 col-xl-auto">
+            <Button Color="Color.Primary" OnClick="Apply">加载</Button>
+        </div>
+    </div>
+    <br />
+    <VideoPlayer @ref="video1" SourcesType="@SourcesType" SourcesUrl="@SourcesUrl" Width="500" Height="380" />
+
+</DemoBlock>
+
+<AttributeTable Items="@GetAttributes()" />
+<br />
+<h5>SourcesType 类型</h5>
+<ol>
+    <li>opus: 'video/ogg'</li>
+    <li>ogv: 'video/ogg'</li>
+    <li>mp4: 'video/mp4'</li>
+    <li>mov: 'video/mp4'</li>
+    <li>m4v: 'video/mp4'</li>
+    <li>mkv: 'video/x-matroska'</li>
+    <li>m4a: 'audio/mp4'</li>
+    <li>mp3: 'audio/mpeg'</li>
+    <li>aac: 'audio/aac'</li>
+    <li>caf: 'audio/x-caf'</li>
+    <li>flac: 'audio/flac'</li>
+    <li>oga: 'audio/ogg'</li>
+    <li>wav: 'audio/wav'</li>
+    <li>m3u8: 'application/x-mpegURL'</li>
+    <li>mpd: 'application/dash+xml'</li>
+    <li>jpg: 'image/jpeg'</li>
+    <li>jpeg: 'image/jpeg'</li>
+    <li>gif: 'image/gif'</li>
+    <li>png: 'image/png'</li>
+    <li>svg: 'image/svg+xml'</li>
+    <li>webp: 'image/webp'</li>
+</ol>
