@@ -1,6 +1,6 @@
-{
+﻿{
   "BootstrapBlazor.Shared.App": {
-    "Title": "Bootstrap Blazor - 企业级 UI 组件库",
+    "Title": "Bootstrap Blazor - 组件库",
     "Reload": "重新加载",
     "ErrorMessage": "发生了未处理的异常。有关详细信息，请参见浏览器开发工具。"
   },
