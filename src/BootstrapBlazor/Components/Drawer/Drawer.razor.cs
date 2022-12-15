@@ -14,6 +14,7 @@ public partial class Drawer
     /// 获得 组件样式
     /// </summary>
     private string? ClassString => CssBuilder.Default("drawer collapse")
+        .AddClass("no-bd", !ShowBackdrop)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 

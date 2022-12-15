@@ -89,7 +89,10 @@ public class ITableColumnExtensionsTest
             ShowHeaderTooltip = true,
             HeaderTextEllipsis = true,
             HeaderTextWrap = true,
-            HeaderTextTooltip = "test tooltip"
+            HeaderTextTooltip = "test tooltip",
+            ShowSearchWhenSelect = true,
+            IsPopover = true,
+            ShowCopyColumn = true,
         };
         col.CopyValue(attr);
         Assert.NotNull(attr.ComponentType);
@@ -137,6 +140,9 @@ public class ITableColumnExtensionsTest
         Assert.True(attr.HeaderTextEllipsis);
         Assert.True(attr.HeaderTextWrap);
         Assert.Equal("test tooltip", attr.HeaderTextTooltip);
+        Assert.True(attr.ShowSearchWhenSelect);
+        Assert.True(attr.IsPopover);
+        Assert.True(attr.ShowCopyColumn);
     }
 
     [Fact]

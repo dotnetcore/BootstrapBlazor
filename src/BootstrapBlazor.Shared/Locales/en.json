@@ -833,7 +833,9 @@
     "P6": "Click to close the mask",
     "P7": "By setting the <code>IsBackdrop</code> property to <code>true</code>, the drawer is automatically closed when the mask part is clicked",
     "P8": "click me to open",
-    "P9": "Click on the shaded part of the mask to automatically close the drawer"
+    "P9": "Click on the shaded part of the mask to automatically close the drawer",
+    "NoBackdropTitle": "No backdrop",
+    "NoBackdropIntro": "By setting the <code>ShowBackdrop=\"false\"</code> do not show the backdrop"
   },
   "BootstrapBlazor.Shared.Samples.Consoles": {
     "H1": "Console",

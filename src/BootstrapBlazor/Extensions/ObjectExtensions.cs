@@ -107,19 +107,23 @@ public static class ObjectExtensions
     /// <returns></returns>
     public static bool TryConvertTo(this string? source, Type type, [MaybeNullWhen(false)] out object? val)
     {
-        var ret = false;
-        if (type == typeof(string))
+        var ret = true;
+        val = source;
+        if (type != typeof(string))
         {
-            val = source;
-            ret = true;
-        }
-        else
-        {
-            var methodInfo = typeof(ObjectExtensions).GetMethods().FirstOrDefault(m => m.IsGenericMethod)!.MakeGenericMethod(type);
-            var v = Activator.CreateInstance(type);
-            var args = new object?[] { source, v };
-            ret = (bool)methodInfo.Invoke(null, args)!;
-            val = ret ? args[1] : null;
+            ret = false;
+            var methodInfo = typeof(ObjectExtensions).GetMethods().FirstOrDefault(m => m.Name == nameof(TryConvertTo) && m.IsGenericMethod);
+            if (methodInfo != null)
+            {
+                methodInfo = methodInfo.MakeGenericMethod(type);
+                var v = Activator.CreateInstance(type);
+                var args = new object?[] { source, v };
+                if (methodInfo.Invoke(null, args) is bool b)
+                {
+                    val = b ? args[1] : null;
+                    ret = b;
+                }
+            }
         }
         return ret;
     }

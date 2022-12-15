@@ -11,6 +11,10 @@
     z-index: 1050;
 }
 
+    .drawer.no-bd {
+        pointer-events: none;
+    }
+
 .drawer-backdrop {
     position: fixed;
     left: 0;
@@ -22,6 +26,7 @@
 }
 
 .drawer-body {
+    pointer-events: auto;
     position: absolute;
     box-sizing: border-box;
     background-color: var(--bb-drawer-bg);
