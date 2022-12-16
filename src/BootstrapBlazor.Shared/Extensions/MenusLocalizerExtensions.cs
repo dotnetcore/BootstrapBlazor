@@ -404,6 +404,12 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
+                    IsNew = true,
+                    Text = Localizer["Bluetooth"],
+                    Url = "bluetooths"
+                },
+                new()
+                {
                     Text = Localizer["Card"],
                     Url = "cards"
                 },
@@ -505,6 +511,12 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
+                    IsNew = true,
+                    Text = Localizer["PdfReader"],
+                    Url = "PdfReaders"
+                },
+                new()
+                {
                     Text = Localizer["Print"],
                     Url = "prints"
                 },
@@ -574,18 +586,6 @@ internal static class MenusLocalizerExtensions
                 {
                     Text = Localizer["Transition"],
                     Url = "transitions"
-                },
-                new()
-                {
-                    IsNew = true,
-                    Text = Localizer["Bluetooth"],
-                    Url = "bluetooths"
-                },
-                new()
-                {
-                    IsNew = true,
-                    Text = Localizer["PdfReader"],
-                    Url = "PdfReaders"
                 },
                 new()
                 {

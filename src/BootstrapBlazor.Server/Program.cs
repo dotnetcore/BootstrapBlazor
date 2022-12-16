@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.Extensions.Options;
-using Microsoft.Net.Http.Headers;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -46,7 +45,7 @@ if (option != null)
 }
 
 // 启用转发中间件
-app.UseForwardedHeaders(new ForwardedHeadersOptions() { ForwardedHeaders = ForwardedHeaders.All });
+app.UseForwardedHeaders(new ForwardedHeadersOptions { ForwardedHeaders = ForwardedHeaders.All });
 
 if (app.Environment.IsDevelopment())
 {
@@ -59,12 +58,10 @@ else
     app.UseStaticFiles(new StaticFileOptions { OnPrepareResponse = ctx => ctx.ProcessCache(app.Configuration) });
 }
 
-var provider = new FileExtensionContentTypeProvider {Mappings = {[".properties"] = "application/octet-stream"}};
+var provider = new FileExtensionContentTypeProvider();
+provider.Mappings[".properties"] = "application/octet-stream";
 
-app.UseStaticFiles(new StaticFileOptions
-{
-    ContentTypeProvider = provider
-});
+app.UseStaticFiles(new StaticFileOptions { ContentTypeProvider = provider });
 app.UseStaticFiles();
 
 app.UseRouting();
