@@ -1,6 +1,4 @@
 ﻿.main {
-    width: calc(100% - var(--bs-sidebar-width));
-    position: relative;
     padding: 1rem;
 }
 
@@ -81,6 +79,12 @@
     }
 
 @media (min-width: 768px) {
+    .section {
+        display: flex;
+        flex-direction: row;
+        -webkit-font-smoothing: antialiased;
+    }
+
     .sidebar-title {
         display: flex;
     }
@@ -92,8 +96,11 @@
         top: 0;
         border-right: solid 1px #c0c4cc;
         background-color: #f0f0f0;
-        display: flex;
-        flex-direction: column;
         margin-top: calc(var(--bs-header-height)*-1);
+    }
+
+    .main {
+        flex: 1;
+        height: 100%;
     }
 }

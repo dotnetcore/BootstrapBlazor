@@ -22,11 +22,6 @@
     margin-right: 1rem;
 }
 
-section {
-    flex-direction: column;
-    -webkit-font-smoothing: antialiased;
-}
-
 .table-container .table tbody tr.highlight,
 .table-container .table-row.highlight {
     background-color: #409eff;
@@ -1303,11 +1298,6 @@ section {
 
     .modal-open .navbar-header {
         z-index: 1040;
-    }
-
-    .section {
-        flex-direction: row;
-        display: flex;
     }
 
     .navbar-toggler {
