@@ -9,8 +9,8 @@ namespace BootstrapBlazor.Shared.Samples;
 /// </summary>
 public partial class VideoPlayers
 {
-    private string SourcesType = "video/mp4";
-    private string SourcesUrl = "//vjs.zencdn.net/v/oceans.mp4";
+    private string MineType = "video/mp4";
+    private string Url = "//vjs.zencdn.net/v/oceans.mp4";
 
     [NotNull]
     private VideoPlayer? Player { get; set; }
@@ -45,8 +45,8 @@ public partial class VideoPlayers
 
     private async Task ChangeURL(SelectedItem e)
     {
-        SourcesUrl = e.Value;
-        SourcesType = e.Value.EndsWith("mp4") ? "video/mp4" : "application/x-mpegURL";
+        Url = e.Value;
+        MineType = e.Value.EndsWith("mp4") ? "video/mp4" : "application/x-mpegURL";
         StateHasChanged();
         await Apply();
     }
@@ -54,7 +54,7 @@ public partial class VideoPlayers
     private async Task Apply()
     {
         await Player.SetPoster("//vjs.zencdn.net/v/oceans.png");
-        await Player.Reload(SourcesUrl, SourcesType);
+        await Player.Reload(Url, MineType);
     }
 
     /// <summary>
@@ -65,14 +65,14 @@ public partial class VideoPlayers
     {
         // TODO: 移动到数据库中
         new() {
-            Name = nameof(VideoPlayer.SourcesUrl),
+            Name = nameof(VideoPlayer.Url),
             Description = "资源地址",
-            Type = "string?",
+            Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
         },
         new() {
-            Name = nameof(VideoPlayer.SourcesType),
+            Name = nameof(VideoPlayer.MineType),
             Description = "资源类型,video/mp4, application/x-mpegURL, video/ogg .. ",
             Type = "string?",
             ValueList = "(见页脚)",
@@ -114,21 +114,14 @@ public partial class VideoPlayers
             DefaultValue = " — "
         },
         new() {
-            Name = nameof(VideoPlayer.Option),
-            Description = "播放器选项, 不为空则优先使用播放器选项,否则使用参数构建",
-            Type = "VideoPlayerOption",
-            ValueList = " — ",
-            DefaultValue = " — "
-        },
-        new() {
-            Name = "Reload(string? url, string? type)",
+            Name = "Reload(string url, string type)",
             Description = "切换播放资源",
             Type = "async Task",
             ValueList = " — ",
             DefaultValue = " — "
         },
         new() {
-            Name = "SetPoster(string? poster)",
+            Name = "SetPoster(string poster)",
             Description = "设置封面",
             Type = "async Task",
             ValueList = " — ",
@@ -137,7 +130,7 @@ public partial class VideoPlayers
         new() {
             Name = "OnError",
             Description = "错误回调",
-            Type = "Func<string, Task>??",
+            Type = "Func<string, Task>?",
             ValueList = " — ",
             DefaultValue = " — "
         },

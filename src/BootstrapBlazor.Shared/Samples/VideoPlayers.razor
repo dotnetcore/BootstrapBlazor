@@ -27,10 +27,10 @@
 <DemoBlock Title="@Localizer["BaseUsageText"]" Introduction="@Localizer["BaseUsageIntro"]" Name="Nomal">
     <div class="row g-3">
         <div class="col-6">
-            <VideoPlayer SourcesType="application/x-mpegURL" SourcesUrl="https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8" />
+            <VideoPlayer MineType="application/x-mpegURL" Url="https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8" />
         </div>
         <div class="col-6">
-            <VideoPlayer SourcesType="video/mp4" SourcesUrl="//vjs.zencdn.net/v/oceans.mp4" />
+            <VideoPlayer MineType="video/mp4" Url="//vjs.zencdn.net/v/oceans.mp4" />
         </div>
     </div>
 
@@ -43,23 +43,23 @@
             <Dropdown TValue="string" Items="Items" OnSelectedItemChanged="@ChangeURL" />
         </div>
         <div class="col-6 col-sm-6 col-md-6  col-xl-auto">
-            <BootstrapInput @bind-Value="@SourcesUrl" />
+            <BootstrapInput @bind-Value="@Url" />
         </div>
         <div class="col-6 col-sm-6 col-md-4 col-xl-auto">
-            <BootstrapInput @bind-Value="@SourcesType" />
+            <BootstrapInput @bind-Value="@MineType" />
         </div>
         <div class="col-6 col-sm-6 col-md-2 col-xl-auto">
             <Button Color="Color.Primary" OnClick="Apply">加载</Button>
         </div>
     </div>
     <br />
-    <VideoPlayer @ref="Player" SourcesType="@SourcesType" SourcesUrl="@SourcesUrl" Width="500" Height="380" />
+    <VideoPlayer @ref="Player" MineType="@MineType" Url="@Url" Width="500" Height="380" />
 
 </DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" />
 <br />
-<h5>SourcesType 类型</h5>
+<h5>MineType 类型</h5>
 <ol>
     <li>opus: 'video/ogg'</li>
     <li>ogv: 'video/ogg'</li>
