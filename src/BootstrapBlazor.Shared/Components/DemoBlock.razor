@@ -1,12 +1,12 @@
 ﻿@inherits IdComponentBase
 
-<AnchorLink Text="@Title" Id="@Name" TooltipText="@TooltipText" />
+<AnchorLink Text="@Title" Id="@Name" TooltipText="@TooltipText" class="link-block" />
 
 <p>@(new MarkupString(Introduction))</p>
 
 <h5>@Localizer["SubTitle"]</h5>
 
-<div class="card card-demo">
+<div class="card">
     <div class="card-body">
         @ChildContent
     </div>
@@ -18,7 +18,7 @@
             </div>
             <a class="card-footer-control collapsed" href="#@Id" data-bs-toggle="collapse" role="button" aria-label="show code">
                 <i class="fa-solid fa-caret-up"></i>
-                <span class="card-demo-text"></span>
+                <span class="card-text"></span>
             </a>
         </div>
     }

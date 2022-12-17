@@ -1,0 +1,40 @@
+﻿.bb-title {
+    font-size: 1.1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.bb-icon {
+    display: none;
+}
+
+.tab-navigators {
+    position: fixed;
+    right: 1rem;
+    bottom: 13rem;
+    display: flex;
+    flex-direction: column;
+}
+
+    .tab-navigators ::deep .btn {
+        width: 40px;
+        height: 40px;
+        position: relative;
+        font-size: 1.1rem;
+    }
+
+        .tab-navigators ::deep .btn:not(:first-child) {
+            margin-top: 1.5rem;
+        }
+
+@media (min-width: 576px) {
+    .bb-title {
+        font-size: 1.2rem;
+    }
+
+    .bb-icon {
+        display: inline-block;
+    }
+}
