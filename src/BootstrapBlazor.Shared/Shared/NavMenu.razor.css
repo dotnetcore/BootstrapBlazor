@@ -17,6 +17,10 @@
     background-color: #8548ff;
 }
 
+.navbar-toggler {
+    background-color: var(--bs-indigo);
+}
+
 @media (min-width: 768px) {
     .sidebar-content {
         height: calc(100vh - var(--bs-header-height));
