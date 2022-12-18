@@ -21,12 +21,8 @@
 <div class="code-label">Package Manager</div>
 <Pre class="no-highlight">Install-Package BootstrapBlazor.PdfReader</Pre>
 
-<Tips>
-    <p>@((MarkupString)Localizer["Tips"].Value)</p>
-</Tips>
-
 <DemoBlock Title="@Localizer["BaseUsageText"]" Introduction="@Localizer["BaseUsageIntro"]" Name="Nomal">
-    <PdfReader PdfFile=@PdfFile Height=500/> 
+    <PdfReader Filename=@Filename Height="500px"/> 
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["BaseUsageText2"]" Introduction="@Localizer["BaseUsageIntro2"]" Name="Nomal">
@@ -35,16 +31,12 @@
         <div class="col-12">
             <BootstrapInputGroup>
                 <BootstrapInput @bind-Value="@UrlBaseStream" />
-                <BootstrapInput @bind-Value="@PdfFileStream" />
+                <BootstrapInput @bind-Value="@FilenameStream" />
                 <Button Color="Color.Primary" OnClick="Apply">Go!</Button>
             </BootstrapInputGroup>
         </div>
     </div>
-    <PdfReader @ref="pdfReader" UrlBase="@UrlBaseStream" PdfFile="@PdfFileStream" EnableStreamingMode="true" Height=500/>
-    <br/>
-    <Tips>
-        <p>@((MarkupString)Localizer["Tips2"].Value)</p>
-    </Tips> 
+    <PdfReader @ref="pdfReader" UrlBase="@UrlBaseStream" Filename="@FilenameStream" StreamMode="true" Height="500px"/>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["BaseUsageText3"]" Introduction="@Localizer["BaseUsageIntro3"]" Name="Nomal">
@@ -57,18 +49,19 @@
         </div>
         <div class="col-7">
             <BootstrapInputGroup>
-                <BootstrapInput @bind-Value="@PdfFile" DisplayText="PDF" ShowLabel="true" />
+                <BootstrapInput @bind-Value="@Filename" DisplayText="PDF" ShowLabel="true" />
                 <Checkbox @bind-Value="ForcePDFJS" DisplayText="PDF.js" ShowAfterLabel="true" />
                 <Button Color="Color.Primary" OnClick="Apply5">GO</Button>
             </BootstrapInputGroup>
         </div>
     </div>
     <PdfReader @ref="pdfReader2"
-               PdfFile="@PdfFile"
-               ForcePDFJS=@ForcePDFJS
+               Filename="@Filename"
                Page=@Page
                Search=@Search
-               Height=500 />
+               Height="500px" />
 </DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" />
+
+<a href="https://gitee.com/LongbowEnterprise/BootstrapBlazor/issues/I66LXV">破坏性更新参考链接: 移除pdfobject</a>

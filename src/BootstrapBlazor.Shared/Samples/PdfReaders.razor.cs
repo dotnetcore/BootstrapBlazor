@@ -19,9 +19,9 @@ public partial class PdfReaders
     private int Page { get; set; } = 3;
     private bool ForcePDFJS { get; set; } = true;
 
-    private string PdfFile = "/_content/BootstrapBlazor.Shared/sample.pdf";
+    private string Filename = "/_content/BootstrapBlazor.Shared/sample.pdf";
     private string UrlBaseStream = "https://blazor.app1.es/_content/DemoShared/";
-    private string PdfFileStream = "sample.pdf";
+    private string FilenameStream = "sample.pdf";
     
 
     private async Task Apply()
@@ -41,35 +41,21 @@ public partial class PdfReaders
     {
         // TODO: 移动到数据库中
         new AttributeItem() {
-            Name = "PdfStream",
+            Name = "Stream",
             Description = "用于渲染的文件流,为空则用URL参数读取文件",
             Type = "Stream?",
             ValueList = "-",
             DefaultValue = "-"
         },
         new AttributeItem() {
-            Name = "PdfFile",
+            Name = "Filename",
             Description = "PDF文件路径(Url或相对路径)",
             Type = "string?",
             ValueList = "-",
             DefaultValue = "-"
         },
         new AttributeItem() {
-            Name = "OnInfo",
-            Description = "信息回调",
-            Type = "Func<string, Task>??",
-            ValueList = "-",
-            DefaultValue = "-"
-        },
-        new AttributeItem() {
-            Name = "OnError",
-            Description = "错误回调",
-            Type = "Func<string, Task>??",
-            ValueList = "-",
-            DefaultValue = "-"
-        },
-        new AttributeItem() {
-            Name = "EnableStreamingMode",
+            Name = "StreamMode",
             Description = "使用流化模式,可跨域读取文件",
             Type = "bool",
             ValueList = "-",
@@ -84,59 +70,66 @@ public partial class PdfReaders
         },
         new AttributeItem() {
             Name = "Height",
-            Description = "高度",
-            Type = "int?",
-            ValueList = "-",
-            DefaultValue = "700"
-        },
-        new AttributeItem() {
-            Name = "ForceIframe",
-            Description = "强制使用 Iframe",
-            Type = "bool",
-            ValueList = "-",
-            DefaultValue = "false"
-        },
-        new AttributeItem() {
-            Name = "ForcePDFJS",
-            Description = "强制使用 PDF.js",
-            Type = "bool",
-            ValueList = "-",
-            DefaultValue = "false"
-        },
-        new AttributeItem() {
-            Name = "PDFJS_URL",
-            Description = "PDF.js 浏览器页面路径",
+            Description = "宽 单位(px/%)",
             Type = "string",
             ValueList = "-",
-            DefaultValue = "内置"
+            DefaultValue = "100%"
+        },
+        new AttributeItem() {
+            Name = "Height",
+            Description = "高 单位(px/%)",
+            Type = "string",
+            ValueList = "-",
+            DefaultValue = "700px"
         },
         new AttributeItem() {
             Name = "Page",
-            Description = "指定页码,如果浏览器支持，将加载PDF并自动滚动到第n页 (PDF.js 专有)",
+            Description = "页码",
             Type = "int",
             ValueList = "-",
             DefaultValue = "1"
         },
         new AttributeItem() {
-            Name = "Search",
-            Description = "查询字符串 (PDF.js 专有)",
-            Type = "string?",
+            Name = "Page",
+            Description = "显示工具栏",
+            Type = "int",
             ValueList = "-",
-            DefaultValue = "-"
+            DefaultValue = "1"
+        },
+        new AttributeItem() {
+            Name = "Statusbar",
+            Description = "显示状态栏",
+            Type = "int",
+            ValueList = "-",
+            DefaultValue = "1"
         },
         new AttributeItem() {
             Name = "View",
-            Description = "视图模式 (PDF.js 专有)",
+            Description = "视图模式",
             Type = "string?",
             ValueList = "-",
             DefaultValue = "FitV"
         },
         new AttributeItem() {
             Name = "Pagemode",
-            Description = "页面模式 (PDF.js 专有)",
+            Description = "页面模式",
             Type = "string?",
             ValueList = "-",
             DefaultValue = "thumbs"
+        },
+        new AttributeItem() {
+            Name = "Search",
+            Description = "查询字符串",
+            Type = "string?",
+            ValueList = "-",
+            DefaultValue = "-"
+        },
+        new AttributeItem() {
+            Name = "ViewerBase",
+            Description = "浏览器页面路径",
+            Type = "string",
+            ValueList = "-",
+            DefaultValue = "内置"
         },
     };    
 
