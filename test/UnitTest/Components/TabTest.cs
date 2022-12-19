@@ -77,11 +77,17 @@ public class TabTest : TabTestBase
     public void ClickTab_Ok()
     {
         var clicked = false;
+        TabItem? closedItem = null;
         var cut = Context.RenderComponent<Tab>(pb =>
         {
             pb.Add(a => a.ShowExtendButtons, true);
             pb.Add(a => a.Placement, Placement.Bottom);
             pb.Add(a => a.ShowClose, true);
+            pb.Add(a => a.OnCloseTabItemAsync, item =>
+            {
+                closedItem = item;
+                return Task.CompletedTask;
+            });
             pb.Add(a => a.OnClickTab, item =>
             {
                 clicked = true;
@@ -121,8 +127,10 @@ public class TabTest : TabTestBase
         Assert.Equal("Tab2-Content", cut.Find(".tabs-body .d-none").InnerHtml);
 
         // Close
+        Assert.Null(closedItem);
         button = cut.Find(".tabs-item-close");
         button.Click();
+        Assert.NotNull(closedItem);
     }
 
     [Fact]

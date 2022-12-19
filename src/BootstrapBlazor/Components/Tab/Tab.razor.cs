@@ -93,6 +93,12 @@ public partial class Tab : IHandlerException, IDisposable
     public bool ShowClose { get; set; }
 
     /// <summary>
+    /// 关闭标签页回调方法
+    /// </summary>
+    [Parameter]
+    public Func<TabItem, Task>? OnCloseTabItemAsync { get; set; }
+
+    /// <summary>
     /// 获得/设置 是否显示扩展功能按钮 默认为 false 不显示
     /// </summary>
     [Parameter]
@@ -379,14 +385,13 @@ public partial class Tab : IHandlerException, IDisposable
     /// <summary>
     /// 关闭当前标签页方法
     /// </summary>
-    public Task CloseCurrentTab()
+    public async Task CloseCurrentTab()
     {
         var tab = _items.FirstOrDefault(t => t.IsActive);
         if (tab != null && tab.Closable)
         {
-            RemoveTab(tab);
+            await RemoveTab(tab);
         }
-        return Task.CompletedTask;
     }
 
     private void OnClickCloseAllTabs() => _items.RemoveAll(t => t.Closable);
@@ -531,10 +536,14 @@ public partial class Tab : IHandlerException, IDisposable
     /// 移除 TabItem 方法
     /// </summary>
     /// <param name="item"></param>
-    public void RemoveTab(TabItem item)
+    public async Task RemoveTab(TabItem item)
     {
         var index = _items.IndexOf(item);
         _items.Remove(item);
+        if (OnCloseTabItemAsync != null)
+        {
+            await OnCloseTabItemAsync(item);
+        }
         var activeItem = _items.FirstOrDefault(i => i.IsActive);
         if (activeItem == null)
         {
