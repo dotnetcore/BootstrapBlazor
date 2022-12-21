@@ -47,6 +47,7 @@ public sealed partial class DemoBlock
     /// </summary>
     [Parameter]
     public string? TooltipText { get; set; }
+
     [Inject]
     [NotNull]
     private IStringLocalizer<DemoBlock>? Localizer { get; set; }

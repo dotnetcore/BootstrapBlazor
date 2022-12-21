@@ -408,7 +408,7 @@
         padding-bottom: 0.5rem;
     }
 
-    .table-row .table-cell label:not(.form-checkbox) {
+    .table-row .table-cell label:not(.form-check) {
         font-weight: bold;
         width: var(--bb-table-cardview-label-width);
         margin-bottom: 0;

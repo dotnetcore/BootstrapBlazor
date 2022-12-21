@@ -25,7 +25,7 @@
         }
 
         .form-inline .form-label + .switch,
-        .form-inline .form-label + .form-checkbox {
+        .form-inline .form-label + .form-check {
             padding: var(--bb-row-control-padding) 0;
         }
 
