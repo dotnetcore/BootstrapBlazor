@@ -121,7 +121,6 @@ public partial class Pre
 
     private async Task GetCodeAsync()
     {
-        // 优先查找 Demo 值
         if (!string.IsNullOrEmpty(CodeFile))
         {
             var code = await Example.GetCodeAsync(CodeFile, BlockTitle, Demo);

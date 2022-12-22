@@ -9,15 +9,15 @@
     else
     {
         <pre style="max-height: 260px;"><code>@ChildContent</code></pre>
-        @if (ShowToolbar)
-        {
-            <div class="btn-group">
-                <Button TooltipPlacement="Placement.Top" TooltipText="@PlusTooltipTitle" TooltipTrigger="hover" Icon="fa-solid fa-plus" class="btn-plus"></Button>
-                <Button TooltipPlacement="Placement.Top" TooltipText="@MinusTooltipTitle" TooltipTrigger="hover" Icon="fa-solid fa-minus" class="btn-minus"></Button>
-            </div>
-        }
         @if (CanCopy)
         {
+            @if (ShowToolbar)
+            {
+                <div class="btn-group">
+                    <Button TooltipPlacement="Placement.Top" TooltipText="@PlusTooltipTitle" TooltipTrigger="hover" Icon="fa-solid fa-plus" class="btn-plus"></Button>
+                    <Button TooltipPlacement="Placement.Top" TooltipText="@MinusTooltipTitle" TooltipTrigger="hover" Icon="fa-solid fa-minus" class="btn-minus"></Button>
+                </div>
+            }
             <Button TooltipPlacement="Placement.Top" TooltipText="@TooltipTitle" TooltipTrigger="hover" class="btn-copy">Copy</Button>
         }
     }

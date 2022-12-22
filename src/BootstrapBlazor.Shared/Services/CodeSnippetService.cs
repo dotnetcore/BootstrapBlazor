@@ -14,6 +14,10 @@ class CodeSnippetService
 
     private string ServerUrl { get; set; }
 
+    private string SampleUrl { get; set; }
+
+    private string DemoUrl { get; set; }
+
     private bool IsDevelopment { get; }
 
     private string ContentRootPath { get; }
@@ -40,11 +44,12 @@ class CodeSnippetService
         CacheManager = cacheManager;
         Client = client;
         Client.Timeout = TimeSpan.FromSeconds(5);
-        Client.BaseAddress = new Uri(options.CurrentValue.RepositoryUrl);
 
         IsDevelopment = options.CurrentValue.IsDevelopment;
         ContentRootPath = options.CurrentValue.ContentRootPath;
         ServerUrl = options.CurrentValue.ServerUrl;
+        SampleUrl = options.CurrentValue.SampleUrl;
+        DemoUrl = $"{SampleUrl}../Demos/";
     }
 
     /// <summary>
@@ -142,6 +147,9 @@ class CodeSnippetService
     {
         var payload = "";
 
+        demo = demo.Replace('.', Path.DirectorySeparatorChar);
+        demo = $"{demo}.razor";
+
         if (IsDevelopment)
         {
             payload = await ReadDemoTextAsync(demo);
@@ -155,7 +163,8 @@ class CodeSnippetService
             }
             else
             {
-                payload = await Client.GetStringAsync(demo);
+                Client.BaseAddress = new Uri(DemoUrl);
+                payload = await Client.GetStringAsync(demo.Replace('\\', '/'));
             }
         }
 
@@ -182,6 +191,7 @@ class CodeSnippetService
             }
             else
             {
+                Client.BaseAddress = new Uri(SampleUrl);
                 payload = await Client.GetStringAsync(codeFile);
             }
         }
@@ -222,8 +232,7 @@ class CodeSnippetService
         var payload = "";
         var paths = new string[] { "..", "BootstrapBlazor.Shared", "Demos" };
         var folder = Path.Combine(ContentRootPath, string.Join(Path.DirectorySeparatorChar, paths));
-        var file = Path.Combine(folder, codeFile.Replace('.', Path.DirectorySeparatorChar));
-        file = $"{file}.razor";
+        var file = Path.Combine(folder, codeFile);
         if (File.Exists(file))
         {
             payload = await File.ReadAllTextAsync(file);
