@@ -5,7 +5,7 @@
 
 <h4>@Localizer["H4"]</h4>
 
-<DemoBlock Introduction="@Localizer["NormalIntro"]" Title="@Localizer["NormalTitle"]" Name="Normal">
+<DemoBlock Introduction="@Localizer["NormalIntro"]" Title="@Localizer["NormalTitle"]" Name="Normal" Demo="Ajax.AjaxNormal">
     <p>
         <b>@Localizer["NormalB"]</b>
         <div>@((MarkupString)Localizer["NormalDiv"].Value)</div>
@@ -16,9 +16,6 @@
     Data = new User() { UserName = "admin", Password = "1234567" }
 };
 var result = await AjaxService.InvokeAsync(option);</Pre>
-    <div class="mb-3"><code>@ResultMessage</code></div>
-    <Button OnClick="Success">@Localizer["NormalButtonText1"]</Button>
-    <Button OnClick="Fail">@Localizer["NormalButtonText2"]</Button>
 </DemoBlock>
 
 <DemoBlock Introduction="@Localizer["GotoIntro"]" Title="@Localizer["GotoTitle"]" Name="Goto">

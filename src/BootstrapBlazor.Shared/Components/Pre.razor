@@ -8,10 +8,17 @@
     }
     else
     {
-        <pre><code>@ChildContent</code></pre>
+        <pre style="max-height: 260px;"><code>@ChildContent</code></pre>
+        @if (ShowToolbar)
+        {
+            <div class="btn-group">
+                <Button TooltipPlacement="Placement.Top" TooltipText="@PlusTooltipTitle" TooltipTrigger="hover" Icon="fa-solid fa-plus" class="btn-plus"></Button>
+                <Button TooltipPlacement="Placement.Top" TooltipText="@MinusTooltipTitle" TooltipTrigger="hover" Icon="fa-solid fa-minus" class="btn-minus"></Button>
+            </div>
+        }
         @if (CanCopy)
         {
-            <Button TooltipPlacement="Placement.Left" TooltipText="@TooltipTitle">Copy</Button>
+            <Button TooltipPlacement="Placement.Top" TooltipText="@TooltipTitle" TooltipTrigger="hover" class="btn-copy">Copy</Button>
         }
     }
 </div>

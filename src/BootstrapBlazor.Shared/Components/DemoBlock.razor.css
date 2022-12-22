@@ -24,27 +24,27 @@
     background-color: transparent;
 }
 
-    .card-footer .card-footer-code {
-        margin: -.5rem -1rem 0 -1rem;
-        border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+.card-footer-code {
+    margin: -.5rem -1rem 0 -1rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+    .card-footer-code.show + a {
+        margin-top: .5rem;
     }
 
-        .card-footer .card-footer-code.show + a {
-            margin-top: .5rem;
-        }
-
-        .card-footer .card-footer-code .loading {
-            padding: .5rem;
-        }
-
-        .card-footer .card-footer-code ::deep code {
-            border: none;
-        }
-
-    .card-footer ::deep pre {
-        color: #e83e8c;
-        margin-bottom: 0;
+    .card-footer-code .loading {
+        padding: .5rem;
     }
+
+    .card-footer-code ::deep code {
+        border: none;
+    }
+
+::deep pre {
+    color: #e83e8c;
+    margin-bottom: 0;
+}
 
 .card-footer-control {
     text-align: center;
@@ -71,11 +71,11 @@
     }
 
         .card-footer-control .card-text:before {
-            content: "隐藏代码";
+            content: "Hide";
             opacity: 0;
             transition: opacity .3s linear;
         }
 
     .card-footer-control.collapsed .card-text:before {
-        content: "显示代码";
+        content: "Show";
     }

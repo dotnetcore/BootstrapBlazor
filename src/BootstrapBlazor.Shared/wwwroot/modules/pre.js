@@ -1,23 +1,48 @@
 ﻿import BlazorComponent from "../../../_content/BootstrapBlazor/modules/base/blazor-component.js"
 import EventHandler from "../../../_content/BootstrapBlazor/modules/base/event-handler.js"
-import { copy, getDescribedElement, addLink, addScript } from "../../../_content/BootstrapBlazor/modules/base/utility.js"
+import { copy, getDescribedElement, addLink, addScript, getHeight } from "../../../_content/BootstrapBlazor/modules/base/utility.js"
 
 export class Pre extends BlazorComponent {
     _init() {
         addLink('_content/BootstrapBlazor.Shared/lib/highlight/vs.css')
         addScript('_content/BootstrapBlazor.Shared/lib/highlight/highlight.min.js')
+        this._pre = this._element.querySelector('pre')
+        this._code = this._pre.querySelector('code')
         this._setListeners()
     }
 
     _setListeners() {
-        EventHandler.on(this._element, 'click', 'button', e => {
-            const text = e.delegateTarget.previousElementSibling.querySelector('code').textContent;
+        EventHandler.on(this._element, 'click', '.btn-copy', e => {
+            const text = e.delegateTarget.parentNode.querySelector('code').textContent;
             copy(text)
 
             const tooltip = getDescribedElement(e.delegateTarget)
             if (tooltip) {
                 tooltip.querySelector('.tooltip-inner').innerHTML = this._config.title
             }
+        })
+
+        EventHandler.on(this._element, 'click', '.btn-plus', e => {
+            e.preventDefault()
+            e.stopPropagation();
+
+            let preHeight = getHeight(this._pre)
+            const codeHeight = getHeight(this._code)
+            if (preHeight < codeHeight) {
+                preHeight = Math.min(codeHeight, preHeight + 100)
+            }
+            this._pre.style.maxHeight = `${preHeight}px`
+        })
+
+        EventHandler.on(this._element, 'click', '.btn-minus', e => {
+            e.preventDefault()
+            e.stopPropagation();
+
+            let preHeight = getHeight(this._pre)
+            if (preHeight > 260) {
+                preHeight = Math.max(260, preHeight - 100)
+            }
+            this._pre.style.maxHeight = `${preHeight}px`
         })
     }
 
@@ -55,6 +80,8 @@ export class Pre extends BlazorComponent {
 
     _dispose() {
         this._clearInterval()
-        EventHandler.off(this._element, 'click', 'button');
+        EventHandler.off(this._element, 'click', '.btn-copy')
+        EventHandler.off(this._element, 'click', '.btn-plus')
+        EventHandler.off(this._element, 'click', '.btn-minus')
     }
 }

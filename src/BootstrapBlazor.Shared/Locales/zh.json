@@ -7,6 +7,8 @@
   "BootstrapBlazor.Shared.Components.Pre": {
     "LoadingText": "正在加载 ...",
     "TooltipTitle": "点击复制代码",
+    "PlusTooltipTitle": "点击增加显示行数",
+    "MinusTooltipTitle": "点击减少显示行数",
     "CopiedText": "复制代码成功"
   },
   "BootstrapBlazor.Shared.Pages.Index": {
