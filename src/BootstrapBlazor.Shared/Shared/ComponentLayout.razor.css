@@ -6,10 +6,6 @@
     margin-bottom: 0.5rem;
 }
 
-.bb-icon {
-    display: none;
-}
-
 .tab-navigators {
     position: fixed;
     right: 1rem;
@@ -29,12 +25,16 @@
             margin-top: 1.5rem;
         }
 
+::deep .bb-icon {
+    display: none;
+}
+
 @media (min-width: 576px) {
     .bb-title {
         font-size: 1.2rem;
     }
 
-    .bb-icon {
+    ::deep .bb-icon {
         display: inline-block;
     }
 }

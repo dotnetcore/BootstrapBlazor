@@ -8,21 +8,10 @@
 }
 
 .header-img {
-    --bb-logo: #732cf9;
     display: flex;
     align-items: center;
     padding: 0;
     margin-right: 0;
-}
-
-.bb-icon,
-::deep .bb-icon {
-    width: 42px;
-    height: auto;
-    border-radius: var(--bs-border-radius);
-    background-color: var(--bs-info);
-    border: solid 1px #fff;
-    margin-right: 1rem;
 }
 
 ::deep .btn-search .btn {
