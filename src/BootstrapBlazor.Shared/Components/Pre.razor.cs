@@ -46,6 +46,12 @@ public partial class Pre
     [Parameter]
     public string? BlockTitle { get; set; }
 
+    /// <summary>
+    /// 获得/设置 示例代码片段 默认 null 未设置
+    /// </summary>
+    [Parameter]
+    public string? Demo { get; set; }
+
     [Inject]
     [NotNull]
     private IStringLocalizer<Pre>? Localizer { get; set; }
@@ -103,9 +109,10 @@ public partial class Pre
 
     private async Task GetCodeAsync()
     {
+        // 优先查找 Demo 值
         if (!string.IsNullOrEmpty(CodeFile))
         {
-            var code = await Example.GetCodeAsync(CodeFile, BlockTitle);
+            var code = await Example.GetCodeAsync(CodeFile, BlockTitle, Demo);
             if (!string.IsNullOrEmpty(code))
             {
                 ChildContent = builder =>

@@ -51,12 +51,12 @@ class CodeSnippetService
     /// 获得示例源码方法
     /// </summary>
     /// <returns></returns>
-    public async Task<string> GetCodeAsync(string codeFile, string? blockTitle)
+    public async Task<string> GetCodeAsync(string codeFile, string? blockTitle, string? demo)
     {
         var content = "";
         try
         {
-            var payload = await GetContentFromFile(codeFile);
+            var payload = await GetContentFromDemo(demo) ?? await GetContentFromFile(codeFile);
 
             if (blockTitle != null)
             {
@@ -136,6 +136,35 @@ class CodeSnippetService
         }
     }
 
+    private async Task<string?> GetContentFromDemo(string? demo) => string.IsNullOrEmpty(demo)
+        ? null
+        : await CacheManager.GetContentFromDemoAsync(demo, async entry =>
+    {
+        var payload = "";
+
+        if (IsDevelopment)
+        {
+            payload = await ReadDemoTextAsync(demo);
+        }
+        else
+        {
+            if (OperatingSystem.IsBrowser())
+            {
+                Client.BaseAddress = new Uri($"{ServerUrl}/api/");
+                payload = await Client.GetStringAsync($"Code?fileName={demo}");
+            }
+            else
+            {
+                payload = await Client.GetStringAsync(demo);
+            }
+        }
+
+        // 将资源文件信息替换
+        CacheManager.GetDemoLocalizedStrings(demo, LocalizerOptions).ToList().ForEach(l => payload = ReplacePayload(payload, l));
+        payload = ReplaceSymbols(payload);
+        return payload;
+    });
+
     private Task<string> GetContentFromFile(string codeFile) => CacheManager.GetContentFromFileAsync(codeFile, async entry =>
     {
         var payload = "";
@@ -159,20 +188,21 @@ class CodeSnippetService
         if (Path.GetExtension(codeFile) == ".razor")
         {
             // 将资源文件信息替换
-            CacheManager.GetLocalizedStrings(codeFile, LocalizerOptions).ToList().ForEach(ReplacePayload);
-            payload = payload.Replace("@@", "@")
-                .Replace("&lt;", "<")
-                .Replace("&gt;", ">");
+            CacheManager.GetLocalizedStrings(codeFile, LocalizerOptions).ToList().ForEach(l => payload = ReplacePayload(payload, l));
+            payload = ReplaceSymbols(payload);
         }
         return payload;
-
-        void ReplacePayload(LocalizedString l)
-        {
-            payload = payload.Replace($"@(((MarkupString)Localizer[\"{l.Name}\"].Value).ToString())", l.Value)
-                .Replace($"@((MarkupString)Localizer[\"{l.Name}\"].Value)", l.Value)
-                .Replace($"@Localizer[\"{l.Name}\"]", l.Value);
-        }
     });
+
+    private static string ReplaceSymbols(string payload) => payload
+        .Replace("@@", "@")
+        .Replace("&lt;", "<")
+        .Replace("&gt;", ">");
+
+    private static string ReplacePayload(string payload, LocalizedString l) => payload
+        .Replace($"@(((MarkupString)Localizer[\"{l.Name}\"].Value).ToString())", l.Value)
+        .Replace($"@((MarkupString)Localizer[\"{l.Name}\"].Value)", l.Value)
+        .Replace($"@Localizer[\"{l.Name}\"]", l.Value);
 
     private async Task<string> ReadFileTextAsync(string codeFile)
     {
@@ -180,6 +210,20 @@ class CodeSnippetService
         var paths = new string[] { "..", "BootstrapBlazor.Shared", "Samples" };
         var folder = Path.Combine(ContentRootPath, string.Join(Path.DirectorySeparatorChar, paths));
         var file = Path.Combine(folder, codeFile);
+        if (File.Exists(file))
+        {
+            payload = await File.ReadAllTextAsync(file);
+        }
+        return payload;
+    }
+
+    private async Task<string> ReadDemoTextAsync(string codeFile)
+    {
+        var payload = "";
+        var paths = new string[] { "..", "BootstrapBlazor.Shared", "Demos" };
+        var folder = Path.Combine(ContentRootPath, string.Join(Path.DirectorySeparatorChar, paths));
+        var file = Path.Combine(folder, codeFile.Replace('.', Path.DirectorySeparatorChar));
+        file = $"{file}.razor";
         if (File.Exists(file))
         {
             payload = await File.ReadAllTextAsync(file);
