@@ -10,7 +10,7 @@ namespace BootstrapBlazor.Shared.Services;
 
 class CodeSnippetService
 {
-    private HttpClient Client { get; set; }
+    private IHttpClientFactory Factory { get; set; }
 
     private string ServerUrl { get; set; }
 
@@ -29,12 +29,12 @@ class CodeSnippetService
     /// <summary>
     /// 构造方法
     /// </summary>
-    /// <param name="client"></param>
+    /// <param name="factory"></param>
     /// <param name="cacheManager"></param>
     /// <param name="options"></param>
     /// <param name="localizerOptions"></param>
     public CodeSnippetService(
-        HttpClient client,
+        IHttpClientFactory factory,
         ICacheManager cacheManager,
         IOptionsMonitor<WebsiteOptions> options,
         IOptionsMonitor<JsonLocalizationOptions> localizerOptions)
@@ -42,8 +42,7 @@ class CodeSnippetService
         LocalizerOptions = localizerOptions.CurrentValue;
 
         CacheManager = cacheManager;
-        Client = client;
-        Client.Timeout = TimeSpan.FromSeconds(5);
+        Factory = factory;
 
         IsDevelopment = options.CurrentValue.IsDevelopment;
         ContentRootPath = options.CurrentValue.ContentRootPath;
@@ -156,15 +155,18 @@ class CodeSnippetService
         }
         else
         {
+            var client = Factory.CreateClient();
+            client.Timeout = TimeSpan.FromSeconds(5);
+
             if (OperatingSystem.IsBrowser())
             {
-                Client.BaseAddress = new Uri($"{ServerUrl}/api/");
-                payload = await Client.GetStringAsync($"Code?fileName={demo}");
+                client.BaseAddress = new Uri($"{ServerUrl}/api/");
+                payload = await client.GetStringAsync($"Code?fileName={demo}");
             }
             else
             {
-                Client.BaseAddress = new Uri(DemoUrl);
-                payload = await Client.GetStringAsync(demo.Replace('\\', '/'));
+                client.BaseAddress = new Uri(DemoUrl);
+                payload = await client.GetStringAsync(demo.Replace('\\', '/'));
             }
         }
 
@@ -184,15 +186,18 @@ class CodeSnippetService
         }
         else
         {
+            var client = Factory.CreateClient();
+            client.Timeout = TimeSpan.FromSeconds(5);
+
             if (OperatingSystem.IsBrowser())
             {
-                Client.BaseAddress = new Uri($"{ServerUrl}/api/");
-                payload = await Client.GetStringAsync($"Code?fileName={codeFile}");
+                client.BaseAddress = new Uri($"{ServerUrl}/api/");
+                payload = await client.GetStringAsync($"Code?fileName={codeFile}");
             }
             else
             {
-                Client.BaseAddress = new Uri(SampleUrl);
-                payload = await Client.GetStringAsync(codeFile);
+                client.BaseAddress = new Uri(SampleUrl);
+                payload = await client.GetStringAsync(codeFile);
             }
         }
         if (Path.GetExtension(codeFile) == ".razor")
