@@ -2,6 +2,8 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using Microsoft.AspNetCore.Components;
+
 namespace BootstrapBlazor.Components;
 
 /// <summary>
@@ -10,7 +12,7 @@ namespace BootstrapBlazor.Components;
 public class ChartOptions
 {
     /// <summary>
-    /// 获得/设置 表格 Title
+    /// 获得/设置 图表 Title
     /// </summary>
     public string? Title { get; set; }
 
@@ -26,14 +28,34 @@ public class ChartOptions
     public ChartAxes Y { get; } = new ChartAxes();
 
     /// <summary>
-    /// 获得/设置 是否 适配移动端 默认为 true
+    /// 获得/设置 图表所在canvas是否随其容器大小变化而变化 默认为 true
     /// </summary>
-    public bool Responsive { get; set; } = true;
+    public bool? Responsive { get; set; }
 
     /// <summary>
     /// 获取/设置 是否 约束图表比例 默认为 true
     /// </summary>
-    public bool MaintainAspectRatio { get; set; } = true;
+    public bool? MaintainAspectRatio { get; set; }
+
+    /// <summary>
+    /// 获得/设置 设置canvas的宽高比（值为1表示canvas是正方形），如果显示定义了canvas的高度，则此属性无效 默认为 2
+    /// </summary>
+    public int? AspectRatio { get; set; }
+
+    /// <summary>
+    /// 获得/设置 图表尺寸延迟变化时间 默认为 0
+    /// </summary>
+    public int? ResizeDelay { get; set; }
+
+    /// <summary>
+    /// 获得/设置 图表canvas高度 默认为空,跟随容器高度<para>如: 300px</para>
+    /// </summary>
+    public string? Height { get; set; }
+
+    /// <summary>
+    /// 获得/设置 图表canvas宽度 默认为空,跟随容器高度<para>如: 300px</para>
+    /// </summary>
+    public string? Width { get; set; }
 
     /// <summary>
     /// 获得/设置 数据显示颜色
