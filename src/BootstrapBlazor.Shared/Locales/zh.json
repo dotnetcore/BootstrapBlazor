@@ -460,18 +460,13 @@
     "P9": "我是提示文字信息"
   },
   "BootstrapBlazor.Shared.Samples.Charts.Index": {
-    "H1": "Chart 图表",
-    "H2": "通过给定数据，绘画各种图表的组件",
-    "P1": "本组件依赖于",
-    "P2": "使用本组件时需要引用其组件包",
-    "P3": "本套组件 5.0.19 版本后 <code>chart.js</code> 脚本升级到 <code>3.3.0</code> 为了适配新版本脚本，有部分功能更新或者移除",
-    "P4": "Nuget 包安装",
-    "P5": "使用",
-    "P5A": "进行",
-    "P6": "组件的安装",
-    "P7": "CSS 文件",
-    "P8": "JS 文件",
-    "P9": "组件数据在 <code>OnInit</code> 回调委托中进行设置即可"
+    "Chart": "Chart 图表",
+    "ChartIntro": "通过给定数据，绘画各种图表的组件",
+    "AddBelowThisLine": "添加到这行下面",
+    "CSSfile": "CSS 文件",
+    "JSfile": "JS 文件",
+    "ChartIntro2": "组件数据在 <code>OnInit</code> 回调委托中进行设置即可",
+    "Tips": "注意添加引用 JS 文件顺序,否则会导致图表组件一直卡在 '载入中' 界面"
   },
   "BootstrapBlazor.Shared.Samples.Charts.Bubble": {
     "P1": "Bubble 图",
@@ -480,7 +475,10 @@
     "P4": "添加数据集",
     "P5": "移除数据集",
     "P6": "添加数据",
-    "P7": "移除数据"
+    "P7": "移除数据",
+    "Reload": "重载",
+    "AspectRatio": "图表比例",
+    "AspectRatioIntro": "设置了高度和宽度,会自动禁用约束图表比例, 图表充满容器"
   },
   "BootstrapBlazor.Shared.Samples.Charts.Doughnut": {
     "P1": "Doughnut 图",
@@ -490,7 +488,10 @@
     "P5": "移除数据集",
     "P6": "添加数据",
     "P7": "移除数据",
-    "P8": "半圆/全圆"
+    "P8": "半圆/全圆",
+    "Reload": "重载",
+    "AspectRatio": "图表比例",
+    "AspectRatioIntro": "设置了高度和宽度,会自动禁用约束图表比例, 图表充满容器"
   },
   "BootstrapBlazor.Shared.Samples.Charts.Pie": {
     "P1": "Pie 图",
@@ -499,7 +500,10 @@
     "P4": "添加数据集",
     "P5": "移除数据集",
     "P6": "添加数据",
-    "P7": "移除数据"
+    "P7": "移除数据",
+    "Reload": "重载",
+    "AspectRatio": "图表比例",
+    "AspectRatioIntro": "设置了高度和宽度,会自动禁用约束图表比例, 图表充满容器"
   },
   "BootstrapBlazor.Shared.Samples.Charts.Line": {
     "P1": "Line 图",
@@ -512,7 +516,10 @@
     "P8": "Line 图",
     "P9": "使用设置 <code>ChartDataset</code> 实例的 <code>Tension</code> 参数，调整折线的曲率，默认位 <b>0.4f</b>",
     "P10": "Line 图",
-    "P11": "使用设置 <code>ChartDataset</code> 实例的 <code>Data</code> 参数中含 <code>null</code>，折线图使用虚线连接"
+    "P11": "使用设置 <code>ChartDataset</code> 实例的 <code>Data</code> 参数中含 <code>null</code>，折线图使用虚线连接",
+    "Reload": "重载",
+    "AspectRatio": "图表比例",
+    "AspectRatioIntro": "设置了高度和宽度,会自动禁用约束图表比例, 图表充满容器"
   },
   "BootstrapBlazor.Shared.Samples.Charts.Bar": {
     "P1": "Bar 图",
@@ -524,8 +531,11 @@
     "P7": "移除数据集",
     "P8": "添加数据",
     "P9": "移除数据",
-    "P10": "Bar 图",
-    "P11": "通过设置 X/Y 轴 <code>Stacked</code> 属性，控制是否堆砌排列"
+    "BarStacked": "堆砌排列",
+    "BarStackedIntro": "通过设置 X/Y 轴 <code>Stacked</code> 属性，控制是否堆砌排列",
+    "Reload": "重载",
+    "AspectRatio": "图表比例",
+    "AspectRatioIntro": "设置了高度和宽度,会自动禁用约束图表比例, 图表充满容器"
   },
   "BootstrapBlazor.Shared.Samples.Transitions": {
     "H1": "Transition 过渡效果",

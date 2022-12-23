@@ -6,6 +6,7 @@
     <div class="text-center mt-2 chart">
         <div class="btn-group">
             <button class="btn btn-primary" @onclick="e => Utility.RandomData(LineChart)"><i class="fa-solid fa-chart-line"></i><span>@Localizer["P3"]</span></button>
+            <button class="btn btn-primary" @onclick="OnReloadChart"><i class="fa-solid fa-chart-column"></i><span>@Localizer["Reload"]</span></button>
             <button class="btn btn-primary" @onclick="e => Utility.AddDataSet(LineChart, ref LineDatasetCount)"><i class="fa-solid fa-circle-plus"></i><span>@Localizer["P4"]</span></button>
             <button class="btn btn-primary" @onclick="e => Utility.RemoveDataSet(LineChart, ref LineDatasetCount)"><i class="fa-solid fa-circle-minus"></i><span>@Localizer["P5"]</span></button>
             <button class="btn btn-primary" @onclick="e => Utility.AddData(LineChart, ref LineDataCount)"><i class="fa-solid fa-plus"></i><span>@Localizer["P6"]</span></button>
@@ -21,4 +22,8 @@
 
 <DemoBlock Title="@Localizer["P10"]" Introduction="@Localizer["P11"]" Name="LineNullable">
     <Chart OnInitAsync="() => OnInit(0f, true)" />
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["AspectRatio"]" Introduction="@Localizer["AspectRatioIntro"]" Name="BarAspectRatio">
+    <Chart ChartType="ChartType.Bar" OnInitAsync="() => OnInit(0f,true)" Height="500px" Width="300px" />
 </DemoBlock>

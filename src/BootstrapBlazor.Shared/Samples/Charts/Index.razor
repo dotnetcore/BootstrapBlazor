@@ -2,38 +2,37 @@
 @layout MainLayout
 @inject IStringLocalizer<Index> Localizer
 
-<h3>@Localizer["H1"]</h3>
-<h4>@Localizer["H2"]</h4>
+<h3>@Localizer["Chart"]</h3>
+<h4>@Localizer["ChartIntro"]</h4>
 
-<p>@Localizer["P1"] <a href="https://www.nuget.org/packages?q=BootstrapBlazor.Chart" target="_blank"><code>BootstrapBlazor.Chart</code></a>，@Localizer["P2"]</p>
+<PackageTips Name="BootstrapBlazor.Chart" />
 
 <Tips>
-    <div>@((MarkupString)Localizer["P3"].Value)</div>
+    <div>@((MarkupString)Localizer["Tips"].Value)</div>
 </Tips>
 
-<p><b>@Localizer["P4"]</b></p>
+<h4>@Localizer["CSSfile"]</h4>
 
-<p>@Localizer["P5"] <a href="https://www.nuget.org/packages?q=BootstrapBlazor.Chart" target="_blank">nuget.org</a> @Localizer["P5A"] <code>BootstrapBlazor.Chart</code> @Localizer["P6"]</p>
-
-<div class="code-label">.NET CLI</div>
-<Pre class="no-highlight">dotnet add package BootstrapBlazor.Chart --version @Version</Pre>
-
-<div class="code-label">PackageReference</div>
-<Pre class="no-highlight">&lt;PackageReference Include="BootstrapBlazor.Chart" Version="@Version" /&gt;</Pre>
-
-<div class="code-label">Package Manager</div>
-<Pre class="no-highlight">Install-Package BootstrapBlazor.Chart -Version @Version</Pre>
-
-<h4>@Localizer["P7"]</h4>
+<p>
+    @Localizer["AddBelowThisLine"] : 
+    <code>
+        &lt;link href="_content/BootstrapBlazor/css/bootstrap.blazor.bundle.min.css" rel="stylesheet"  /&gt;
+    </code>
+</p>
 
 <Pre>&lt;link rel="stylesheet" href="_content/BootstrapBlazor.Chart/css/bootstrap.blazor.chart.bundle.min.css" /&gt;</Pre>
 
-<h4>@Localizer["P8"]</h4>
+<h4>@Localizer["JSfile"]</h4>
+
+<p>
+    @Localizer["AddBelowThisLine"] : 
+    <code>
+        &lt;script src="_content/BootstrapBlazor/js/bootstrap.blazor.bundle.min.js"&gt;&lt;/script&gt;
+    </code>
+</p>
 
 <Pre>&lt;script src="_content/BootstrapBlazor.Chart/js/bootstrap.blazor.chart.bundle.min.js"&gt;&lt;/script&gt;</Pre>
 
-<p>@Localizer["P9"]</p>
+<p>@((MarkupString)Localizer["ChartIntro2"].Value)</p>
 
 <AttributeTable Items="@GetAttributes()" />
-
-<EventTable Items="@GetEvents()" />

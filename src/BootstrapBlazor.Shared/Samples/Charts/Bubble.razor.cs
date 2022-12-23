@@ -68,4 +68,14 @@ public partial class Bubble
         }
         return Task.FromResult(ds);
     }
+
+    /// <summary>
+    /// 强刷控件,重新初始化控件外观
+    /// </summary>
+    private Task OnReloadChart()
+    {
+        BubbleDataCount = Randomer.Next(1, 15);
+        BubbleChart?.Reload();
+        return Task.CompletedTask;
+    }
 }

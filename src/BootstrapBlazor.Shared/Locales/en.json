@@ -459,18 +459,13 @@
     "P9": "I am prompt text message"
   },
   "BootstrapBlazor.Shared.Samples.Charts.Index": {
-    "H1": "Chart",
-    "H2": "Drawing components of various charts with given data",
-    "P1": "This component depends on",
-    "P2": "When using this component, you need to reference its component package",
-    "P3": "After version 5.0.19 of this set of components, the <code>chart.js</code> script is upgraded to <code>3.3.0</code> In order to adapt to the new version of the script, some functions are updated or removed",
-    "P4": "Nuget Install",
-    "P5": "use",
-    "P5A": "conduct",
-    "P6": "installation of components",
-    "P7": "CSS file",
-    "P8": "JS file",
-    "P9": "Component data can be set in the <code>OnInit</code> callback delegate"
+    "Chart": "Chart",
+    "ChartIntro": "Drawing components of various charts with given data",
+    "AddBelowThisLine": "Add below this line",
+    "CSSfile": "CSS file",
+    "JSfile": "JS file",
+    "ChartIntro2": "Component data can be set in the <code>OnInit</code> callback delegate",
+    "Tips": "Pay attention to the order of adding reference JS files, otherwise the chart component will always be stuck in the 'loading' interface"
   },
   "BootstrapBlazor.Shared.Samples.Charts.Bubble": {
     "P1": "Bubble diagram",
@@ -479,7 +474,10 @@
     "P4": "Add dataset",
     "P5": "Remove dataset",
     "P6": "Adding data",
-    "P7": "Remove data"
+    "P7": "Remove data",
+    "Reload": "Reload",
+    "AspectRatio": "Chart ratio",
+    "AspectRatioIntro": "Setting the height and width will automatically disable the constraint chart ratio, and the chart will fill the container"
   },
   "BootstrapBlazor.Shared.Samples.Charts.Doughnut": {
     "P1": "Doughnut diagram",
@@ -489,7 +487,10 @@
     "P5": "Remove dataset",
     "P6": "Adding data",
     "P7": "Remove data",
-    "P8": "Half circle/Full circle"
+    "P8": "Half circle/Full circle",
+    "Reload": "Reload",
+    "AspectRatio": "Chart ratio",
+    "AspectRatioIntro": "Setting the height and width will automatically disable the constraint chart ratio, and the chart will fill the container"
   },
   "BootstrapBlazor.Shared.Samples.Charts.Pie": {
     "P1": "Pie diagram",
@@ -498,7 +499,10 @@
     "P4": "Add dataset",
     "P5": "Remove dataset",
     "P6": "Adding data",
-    "P7": "Remove data"
+    "P7": "Remove data",
+    "Reload": "Reload",
+    "AspectRatio": "Chart ratio",
+    "AspectRatioIntro": "Setting the height and width will automatically disable the constraint chart ratio, and the chart will fill the container"
   },
   "BootstrapBlazor.Shared.Samples.Charts.Line": {
     "P1": "Line graph",
@@ -511,7 +515,10 @@
     "P8": "Line graph",
     "P9": "Use the <code>Tension</code> parameter of the <code>ChartDataset</code> instance to adjust the curvature of the polyline, the default is <b>0.4f</b>",
     "P10": "Line graph",
-    "P11": "Use to set the <code>Data</code> parameter of the <code>ChartDataset</code> instance with <code>null</code>, and the line chart is connected with a dotted line"
+    "P11": "Use to set the <code>Data</code> parameter of the <code>ChartDataset</code> instance with <code>null</code>, and the line chart is connected with a dotted line",
+    "Reload": "Reload",
+    "AspectRatio": "Chart ratio",
+    "AspectRatioIntro": "Setting the height and width will automatically disable the constraint chart ratio, and the chart will fill the container"
   },
   "BootstrapBlazor.Shared.Samples.Charts.Bar": {
     "P1": "Bar graph",
@@ -523,8 +530,11 @@
     "P7": "Remove dataset",
     "P8": "Adding data",
     "P9": "Remove data",
-    "P10": "Bar graph",
-    "P11": "By setting the X/Y axis <code>Stacked</code> property, control whether to stack the arrangement"
+    "BarStacked": "Stacked",
+    "BarStackedIntro": "By setting the X/Y axis <code>Stacked</code> property, control whether to stack the arrangement",
+    "Reload": "Reload",
+    "AspectRatio": "Chart ratio",
+    "AspectRatioIntro": "Setting the height and width will automatically disable the constraint chart ratio, and the chart will fill the container"
   },
   "BootstrapBlazor.Shared.Samples.Transitions": {
     "H1": "Transition effect",

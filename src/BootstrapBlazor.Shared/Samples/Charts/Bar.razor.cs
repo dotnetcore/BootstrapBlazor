@@ -40,10 +40,13 @@ public partial class Bar
 
     private Task OnAfterUpdate(ChartAction action) => InvokeAsync(() => Logger.Log($"Bar Figure update data operation completed -- {action}"));
 
-    private Task<ChartDataSource> OnInit(bool stacked)
+    private Task<ChartDataSource> OnInit(bool stacked,bool setTitle=true)
     {
         var ds = new ChartDataSource();
-        ds.Options.Title = "Bar Histogram";
+        if (setTitle)
+        {
+            ds.Options.Title = "Bar Histogram";
+        }
         ds.Options.X.Title = "days";
         ds.Options.Y.Title = "Numerical value";
         ds.Options.X.Stacked = stacked;
@@ -76,4 +79,14 @@ public partial class Bar
     }
 
     private void OnStopChart() => _chartCancellationTokenSource.Cancel();
+
+    /// <summary>
+    /// 强刷控件,重新初始化控件外观
+    /// </summary>
+    private Task OnReloadChart()
+    {
+        BarDataCount=Randomer.Next(1, 15);
+        BarChart?.Reload();
+        return Task.CompletedTask;
+    }
 }

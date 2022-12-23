@@ -18,6 +18,7 @@
     <div class="text-center mt-2 chart">
         <div class="btn-group">
             <button class="btn btn-primary" @onclick="e => Utility.RandomData(BarChart)"><i class="fa-solid fa-chart-column"></i><span>@Localizer["P5"]</span></button>
+            <button class="btn btn-primary" @onclick="OnReloadChart"><i class="fa-solid fa-chart-column"></i><span>@Localizer["Reload"]</span></button>
             <button class="btn btn-primary" @onclick="e => Utility.AddDataSet(BarChart, ref BarDatasetCount)"><i class="fa-solid fa-circle-plus"></i><span>@Localizer["P6"]</span></button>
             <button class="btn btn-primary" @onclick="e => Utility.RemoveDataSet(BarChart, ref BarDatasetCount)"><i class="fa-solid fa-circle-minus"></i><span>@Localizer["P7"]</span></button>
             <button class="btn btn-primary" @onclick="e => Utility.AddData(BarChart, ref BarDataCount)"><i class="fa-solid fa-plus"></i><span>@Localizer["P8"]</span></button>
@@ -27,6 +28,10 @@
     <BlockLogger @ref="Logger" class="mt-3" />
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["P10"]" Introduction="@Localizer["P11"]" Name="BarStacked">
+<DemoBlock Title="@Localizer["BarStacked"]" Introduction="@Localizer["BarStackedIntro"]" Name="BarStacked">
     <Chart ChartType="ChartType.Bar" OnInitAsync="() => OnInit(true)" />
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["AspectRatio"]" Introduction="@Localizer["AspectRatioIntro"]" Name="BarAspectRatio">
+    <Chart ChartType="ChartType.Bar" OnInitAsync="() => OnInit(true,false)" Title="Aspect Ratio Demo" Height="500px" Width="300px" />
 </DemoBlock>
