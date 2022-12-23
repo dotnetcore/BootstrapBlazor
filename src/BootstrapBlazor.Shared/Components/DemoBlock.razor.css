@@ -44,6 +44,7 @@
 ::deep pre {
     color: #e83e8c;
     margin-bottom: 0;
+    max-height: 260px;
 }
 
 .card-footer-control {
