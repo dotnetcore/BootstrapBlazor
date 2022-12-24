@@ -5331,10 +5331,6 @@
   },
   "BootstrapBlazor.Shared.Samples.OnScreenKeyboards": {
     "Title": "On-Screen keyboard 屏幕键盘",
-    "P1": "注意事项",
-    "P2": "本组件依赖于 <a href='https://www.nuget.org/packages?q=BootstrapBlazor.OnScreenKeyboard' target='_blank'><code>BootstrapBlazor.SignaturePad</code></a>，使用本组件时需要引用其组件包",
-    "P3": "Nuget 包安装",
-    "P4": "使用 <a href='https://www.nuget.org/packages?q=BootstrapBlazor.OnScreenKeyboard' target='_blank'>nuget.org</a> 进行 <code>BootstrapBlazor.OnScreenKeyboard</code> 组件的安装",
     "BaseUsageText": "基础用法",
     "BlockKeyboardTypeAllTitle": "全键盘",
     "BlockKeyboardTypekeyboard": "字母键盘",

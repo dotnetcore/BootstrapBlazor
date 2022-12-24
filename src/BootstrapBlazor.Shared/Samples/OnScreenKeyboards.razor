@@ -4,22 +4,7 @@
 
 <h3>@Localizer["Title"]</h3>
 
-<p><b>@Localizer["P1"] ：</b></p>
-
-<p>@((MarkupString)Localizer["P2"].Value)</p>
-
-<p><b>@Localizer["P3"]</b></p>
-
-<p>@((MarkupString)Localizer["P4"].Value)</p>
-
-<div class="code-label">.NET CLI</div>
-<Pre class="no-highlight">dotnet add package BootstrapBlazor.SignaturePad</Pre>
-
-<div class="code-label">PackageReference</div>
-<Pre class="no-highlight">&lt;PackageReference Include="BootstrapBlazor.SignaturePad" /&gt;</Pre>
-
-<div class="code-label">Package Manager</div>
-<Pre class="no-highlight">Install-Package BootstrapBlazor.SignaturePad</Pre>
+<PackageTips Name="BootstrapBlazor.OnScreenKeyboard" />
 
 <p><b>@Localizer["P6"]</b></p>
 <div class="code-label">Razor</div>
@@ -65,7 +50,6 @@
 <DemoBlock Title="@Localizer["BlockSpecialcharactersCustomerTitle"]" Introduction="[- + =]" Name="BlockSpecialcharactersCustomerTitle">
     <input class="form-control @ClassName3" data-kioskboard-specialcharacters="true" placeholder='@Localizer["BlockSpecialcharactersCustomerTitle"]' />
     <OnScreenKeyboard ClassName="@ClassName3" Option="Option3" />
-Pre>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["BBUsageText"]" Introduction="" Name="App">
