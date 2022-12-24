@@ -1579,7 +1579,8 @@
     "SignaturePadText": "手写签名 SignaturePad",
     "BluetoothText": "蓝牙和打印 Bluetooth & Printer",
     "PdfReaderText": "PDF阅读器 PDF Reader",
-    "VideoPlayerText": "视频播放器 VideoPlayer"
+    "VideoPlayerText": "视频播放器 VideoPlayer",
+    "FileViewerText": "文件预览器 FileViewer"
   },
   "BootstrapBlazor.Shared.Pages.Breakpoints": {
     "Heading": "断点",
@@ -4386,7 +4387,8 @@
     "PulseButton": "心跳按钮 PulseButton",
     "Bluetooth": "蓝牙和打印 Bluetooth & Printer",
     "PdfReader": "PDF阅读器 PDF Reader",
-    "VideoPlayer": "视频播放器 VideoPlayer"
+    "VideoPlayer": "视频播放器 VideoPlayer",
+    "FileViewer": "文件预览器 FileViewer"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesHeader": {
     "H1": "表头分组功能",
@@ -5394,5 +5396,13 @@
   },
   "BootstrapBlazor.Shared.Samples.PackageTips": {
     "Tips": "<p><b>注意事项 ：</b></p><p>本组件依赖于 <a href='https://www.nuget.org/packages?q={0}' target='_blank'><code>{0}</code></a>，使用本组件时需要引用其组件包</p><p><b>Nuget 包安装</b></p><p>使用 <a href='https://www.nuget.org/packages?q={0}' target='_blank'>nuget.org</a> 进行 <code>{0}</code> 组件的安装</p>"
+  },
+  "BootstrapBlazor.Shared.Samples.FileViewers": {
+    "Title": "FileViewer 文件预览器",
+    "BaseUsageText": "基础用法",
+    "BaseUsageIntro": "Excel/Word 文件路径或者URL",
+    "BaseUsageText2": "重新载入文件",
+    "BaseUsageIntro2": "使用 Reload 方法重新载入文件",
+    "Tips": "目前支支持 Excel(.docx) 和 Word(.xlsx) 格式."
   }
 }

@@ -1579,7 +1579,8 @@
     "SignaturePadText": "SignaturePad",
     "BluetoothText": "Bluetooth & Printer",
     "PdfReaderText": "PDF Reader",
-    "VideoPlayerText": "VideoPlayer"
+    "VideoPlayerText": "VideoPlayer",
+    "FileViewerText": "FileViewer"
   },
   "BootstrapBlazor.Shared.Pages.Breakpoints": {
     "Heading": "Breakpoints",
@@ -4383,7 +4384,8 @@
     "PulseButton": "PulseButton",
     "Bluetooth": "Bluetooth & Printer",
     "PdfReader": "PDF Reader",
-    "VideoPlayer": "VideoPlayer"
+    "VideoPlayer": "VideoPlayer",
+    "FileViewer": "FileViewer"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesHeader": {
     "H1": "Header grouping function",
@@ -5389,5 +5391,13 @@
   },
   "BootstrapBlazor.Shared.Samples.PackageTips": {
     "Tips": "<p><b>Precautions</b></p><p>This component relies on <a href='https://www.nuget.org/packages?q={0}' target='_blank'><code>{0}</code></a>, which needs to reference its component package when using this component</p><p><b>Nuget Install</b></p><p>Use nuget.org to install <a href='https://www.nuget.org/packages?q={0}' target='_blank'><code>{0}</code></a> component</p>"
+  },
+  "BootstrapBlazor.Shared.Samples.FileViewers": {
+    "Title": "FileViewer",
+    "BaseUsageText": "Basic usage",
+    "BaseUsageIntro": "Excel/Word file path or URL",
+    "BaseUsageText2": "Reload file",
+    "BaseUsageIntro2": "Using the Reload method",
+    "Tips": "Currently supports Excel(.docx) and Word(.xlsx) formats."
   }
 }

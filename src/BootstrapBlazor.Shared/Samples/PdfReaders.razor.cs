@@ -19,8 +19,8 @@ public partial class PdfReaders
     private int Page { get; set; } = 3;
     private bool ForcePDFJS { get; set; } = true;
 
-    private string Filename = "/_content/BootstrapBlazor.Shared/sample.pdf";
-    private string UrlBaseStream = "https://blazor.app1.es/_content/DemoShared/";
+    private string Filename = "/_content/BootstrapBlazor.Shared/samples/sample.pdf";
+    private string UrlBaseStream = "https://blazor.zone/_content/BootstrapBlazor/samples/";
     private string FilenameStream = "sample.pdf";
     
 
