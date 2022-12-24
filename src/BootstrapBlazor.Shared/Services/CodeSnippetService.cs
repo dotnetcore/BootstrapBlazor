@@ -146,12 +146,12 @@ class CodeSnippetService
     {
         var payload = "";
 
-        demo = demo.Replace('.', Path.DirectorySeparatorChar);
-        demo = $"{demo}.razor";
+        var fileName = demo.Replace('.', Path.DirectorySeparatorChar);
+        fileName = $"{fileName}.razor";
 
         if (IsDevelopment)
         {
-            payload = await ReadDemoTextAsync(demo);
+            payload = await ReadDemoTextAsync(fileName);
         }
         else
         {
@@ -161,12 +161,12 @@ class CodeSnippetService
             if (OperatingSystem.IsBrowser())
             {
                 client.BaseAddress = new Uri($"{ServerUrl}/api/");
-                payload = await client.GetStringAsync($"Code?fileName={demo}");
+                payload = await client.GetStringAsync($"Code?fileName={fileName}");
             }
             else
             {
                 client.BaseAddress = new Uri(DemoUrl);
-                payload = await client.GetStringAsync(demo.Replace('\\', '/'));
+                payload = await client.GetStringAsync(fileName.Replace('\\', '/'));
             }
         }
 

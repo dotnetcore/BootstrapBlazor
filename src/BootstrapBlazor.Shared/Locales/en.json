@@ -3253,19 +3253,23 @@
   },
   "BootstrapBlazor.Shared.Samples.Ajaxs": {
     "AjaxTitle": "Ajax call",
-    "H4": "The ajax method used to use js directly in the browser to interact with the server currently only supports both input and output as json, and the return value is a json string, which can be converted and processed by itself.",
+    "AjaxDescribe": "The ajax method used to use js directly in the browser to interact with the server currently only supports both input and output as json, and the return value is a json string, which can be converted and processed by itself.",
     "NormalTitle": "Basic usage",
     "NormalIntro": "Impersonate a login",
     "NormalB": "Special attention:",
     "NormalDiv": "Here is only a login simulation, and there is no real call to<code> HttpContext.SignInAsync </code>, the real use needs to refresh the page after the login is completed, otherwise the real login can not be successful.",
-    "NormalButtonText1": "Login successful",
-    "NormalButtonText2": "Login failed",
     "GotoTitle": "Page jump",
     "GotoIntro": "Implementing page jumps with<code> Js </code> addresses an issue where <code> Blazor </code> pages don't really refresh when they're jumped as <b> SPA </b>",
-    "GotoButtonText1": "Jump to the first page of the document",
-    "GotoButtonText2": "Jump to yourself (refresh page)",
     "InvokeAsync": "Execute fetch",
     "Goto": "Execute goto"
+  },
+  "BootstrapBlazor.Shared.Demos.Ajax.AjaxNormal": {
+    "NormalButtonText1": "Login successful",
+    "NormalButtonText2": "Login failed"
+  },
+  "BootstrapBlazor.Shared.Demos.Ajax.AjaxGoto": {
+    "GotoButtonText1": "Jump to the first page of the document",
+    "GotoButtonText2": "Jump to yourself (refresh page)"
   },
   "BootstrapBlazor.Shared.Samples.Avatars": {
     "Title": "Avatar",

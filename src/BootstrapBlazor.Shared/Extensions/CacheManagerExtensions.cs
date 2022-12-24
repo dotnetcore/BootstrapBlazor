@@ -35,16 +35,16 @@ internal static class CacheManagerExtensions
     /// 获得 指定代码文件当前文化设置的本地化资源集合
     /// </summary>
     /// <param name="cache"></param>
-    /// <param name="codeFile"></param>
+    /// <param name="typeName"></param>
     /// <param name="options"></param>
     /// <returns></returns>
-    public static IEnumerable<LocalizedString> GetDemoLocalizedStrings(this ICacheManager cache, string codeFile, JsonLocalizationOptions options)
+    public static IEnumerable<LocalizedString> GetDemoLocalizedStrings(this ICacheManager cache, string typeName, JsonLocalizationOptions options)
     {
-        var key = $"Snippet-{CultureInfo.CurrentUICulture.Name}-{nameof(GetLocalizedStrings)}-{codeFile}";
-        return cache.GetOrCreate(key, entry =>
+        var key = $"Snippet-{CultureInfo.CurrentUICulture.Name}-{nameof(GetLocalizedStrings)}-{typeName}";
+        return cache.GetOrCreate(key, (Func<ICacheEntry, IEnumerable<LocalizedString>>)(entry =>
         {
-            return Utility.GetJsonStringByTypeName(options, typeof(CodeSnippetService).Assembly, $"BootstrapBlazor.Shared.{codeFile}");
-        });
+            return Utility.GetJsonStringByTypeName(options, typeof(CodeSnippetService).Assembly, $"BootstrapBlazor.Shared.Demos.{typeName}");
+        }));
     }
 
     /// <summary>
