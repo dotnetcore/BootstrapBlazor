@@ -5413,11 +5413,7 @@
     "BaseUsageIntro": "",
     "BaseUsageText2": "Switch playback resources",
     "BaseUsageIntro2": "Use the Reload method to switch playback resources",
-    "Tips": "Silent mode enabled by default, this is the way for autoplay follow the modern browser standards.",
-    "P1": "Precautions",
-    "P2": "This component relies on <a href='https://www.nuget.org/packages?q=BootstrapBlazor.VideoPlayer' target='_blank'><code>BootstrapBlazor.VideoPlayer</code></a>, which needs to reference its component package when using this component",
-    "P3": "Nuget Install",
-    "P4": "Use nuget.org to install <a href='https://www.nuget.org/packages?q=BootstrapBlazor.VideoPlayer' target='_blank'><code>BootstrapBlazor.VideoPlayer</code></a> component"
+    "Tips": "Silent mode enabled by default, this is the way for autoplay follow the modern browser standards."
   },
   "BootstrapBlazor.Shared.Samples.PackageTips": {
     "Tips": "<p><b>Precautions</b></p><p>This component relies on <a href='https://www.nuget.org/packages?q={0}' target='_blank'><code>{0}</code></a>, which needs to reference its component package when using this component</p><p><b>Nuget Install</b></p><p>Use nuget.org to install <a href='https://www.nuget.org/packages?q={0}' target='_blank'><code>{0}</code></a> component</p>"
