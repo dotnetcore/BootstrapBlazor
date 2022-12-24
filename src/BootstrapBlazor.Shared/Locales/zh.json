@@ -2666,10 +2666,6 @@
   "BootstrapBlazor.Shared.Samples.Markdowns": {
     "Title": "Markdown 编辑器",
     "H1": "提供 Markdown 语法支持的文本编辑器",
-    "P1": "注意事项",
-    "P2": "本组件依赖于 <a href='https://www.nuget.org/packages?q=BootstrapBlazor.Markdown' target='_blank'><code>BootstrapBlazor.Markdown</code></a>，使用本组件时需要引用其组件包",
-    "P3": "Nuget 包安装",
-    "P4": "使用 <a href='https://www.nuget.org/packages?q=BootstrapBlazor.Markdown' target='_blank'>nuget.org</a> 进行 <code>BootstrapBlazor.Markdown</code> 组件的安装",
     "Css": "CSS 文件",
     "CssText": "无需设置组件自动动态加载",
     "Js": "JS 文件",

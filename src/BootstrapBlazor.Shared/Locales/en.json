@@ -2661,10 +2661,6 @@
   "BootstrapBlazor.Shared.Samples.Markdowns": {
     "Title": "Markdown",
     "H1": "A text editor that provides support for the Markdown syntax",
-    "P1": "Precautions",
-    "P2": "This component relies on <a href='https://www.nuget.org/packages?q=BootstrapBlazor.Markdown' target='_blank'> <code>BootstrapBlazor.Markdown</code></a>, which needs to reference its component package when using this component",
-    "P3": "Nuget Install",
-    "P4": "Use nuget.org to install <a href='https://www.nuget.org/packages?q=BootstrapBlazor.Markdown' target='_blank'><code>BootstrapBlazor.Markdown</code></a> component",
     "Css": "CSS file",
     "CssText": "dynamic import css",
     "Js": "JS file",

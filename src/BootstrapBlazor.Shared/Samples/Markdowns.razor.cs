@@ -15,11 +15,6 @@ public partial class Markdowns
 
     private string? HtmlString { get; set; }
 
-    /// <summary>
-    /// 获得/设置 版本号字符串
-    /// </summary>
-    private string Version { get; set; } = "fetching";
-
     private string? Language { get; set; }
 
     private string? AsyncValue { get; set; }
@@ -38,16 +33,15 @@ console.log('test');
     private Foo? Model { get; set; }
 
     /// <summary>
-    /// OnInitializedAsync 方法
+    /// OnInitialized 方法
     /// </summary>
     /// <returns></returns>
-    protected override async Task OnInitializedAsync()
+    protected override void OnInitialized()
     {
         Model = new() { Name = "Name", Education = EnumEducation.Primary, DateTime = DateTime.Now };
 
         Language = CultureInfo.CurrentUICulture.Name;
         MarkdownString = $"### {Localizer["MarkdownString"]}";
-        Version = await VersionManager.GetVersionAsync("bootstrapblazor.markdown");
     }
 
     private async Task GetAsyncString()
