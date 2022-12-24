@@ -4001,13 +4001,6 @@
     "SubTitle": "Displays important alert messages.",
     "BaseUsageText": "Basic usage",
     "IntroText1": "Alert components are non-overlay elements in the page that does not disappear automatically.",
-    "AlertPrimaryText": "A simple primary alert—check it out!",
-    "AlertSecondaryText": "A simple secondary alert—check it out!",
-    "AlertSuccessText": "A simple success alert—check it out!",
-    "AlertDangerText": "A simple danger alert—check it out!",
-    "AlertWarningText": "A simple warning alert—check it out!",
-    "AlertInfoText": "A simple info alert—check it out!",
-    "AlertDarkText": "A simple dark alert—check it out!",
     "CloseButtonUsageText": "Close button",
     "IntroText2": "Customize the close button as texts or other symbols.",
     "WithIconUsageText": "With Icon",
@@ -4018,6 +4011,51 @@
     "ShowBorderIntro": "Set <code>ShowBorder=\"true\"</code> show border",
     "ShowShadowTitle": "Shadow",
     "ShowShadowIntro": "Set <code>ShowShadow=\"true\"</code> Show shadow"
+  },
+  "BootstrapBlazor.Shared.Demos.Alert.AlertNormal": {
+    "AlertPrimaryText": "A simple primary alert—check it out!",
+    "AlertSecondaryText": "A simple secondary alert—check it out!",
+    "AlertSuccessText": "A simple success alert—check it out!",
+    "AlertDangerText": "A simple danger alert—check it out!",
+    "AlertWarningText": "A simple warning alert—check it out!",
+    "AlertInfoText": "A simple info alert—check it out!",
+    "AlertDarkText": "A simple dark alert—check it out!"
+  },
+  "BootstrapBlazor.Shared.Demos.Alert.AlertClose": {
+    "AlertPrimaryText": "A simple primary alert—check it out!",
+    "AlertSecondaryText": "A simple secondary alert—check it out!",
+    "AlertSuccessText": "A simple success alert—check it out!",
+    "AlertDangerText": "A simple danger alert—check it out!",
+    "AlertWarningText": "A simple warning alert—check it out!",
+    "AlertInfoText": "A simple info alert—check it out!",
+    "AlertDarkText": "A simple dark alert—check it out!"
+  },
+  "BootstrapBlazor.Shared.Demos.Alert.AlertIcon": {
+    "AlertPrimaryText": "A simple primary alert—check it out!",
+    "AlertWarningText": "A simple warning alert—check it out!",
+    "AlertInfoText": "A simple info alert—check it out!",
+    "AlertDangerText": "A simple danger alert—check it out!"
+  },
+  "BootstrapBlazor.Shared.Demos.Alert.AlertBorder": {
+    "AlertPrimaryText": "A simple primary alert—check it out!",
+    "AlertSuccessText": "A simple success alert—check it out!",
+    "AlertWarningText": "A simple warning alert—check it out!",
+    "AlertInfoText": "A simple info alert—check it out!",
+    "AlertDangerText": "A simple danger alert—check it out!"
+  },
+  "BootstrapBlazor.Shared.Demos.Alert.AlertShadow": {
+    "AlertInfoText": "A simple info alert—check it out!",
+    "AlertSuccessText": "A simple success alert—check it out!",
+    "AlertPrimaryText": "A simple primary alert—check it out!",
+    "AlertWarningText": "A simple warning alert—check it out!",
+    "AlertDangerText": "A simple danger alert—check it out!"
+  },
+  "BootstrapBlazor.Shared.Demos.Alert.AlertShowBar": {
+    "AlertPrimaryText": "A simple primary alert—check it out!",
+    "AlertSuccessText": "A simple success alert—check it out!",
+    "AlertWarningText": "A simple warning alert—check it out!",
+    "AlertInfoText": "A simple info alert—check it out!",
+    "AlertDangerText": "A simple danger alert—check it out!"
   },
   "BootstrapBlazor.Shared.Samples.RibbonTabs": {
     "H1": "RibbonTab",

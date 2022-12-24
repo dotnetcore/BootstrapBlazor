@@ -4000,13 +4000,6 @@
     "SubTitle": "用于页面中展示重要的提示信息。",
     "BaseUsageText": "基础用法",
     "IntroText1": "页面中的非浮层元素，不会自动消失。",
-    "AlertPrimaryText": "主要的警告框",
-    "AlertSecondaryText": "次要的警告框",
-    "AlertSuccessText": "成功的警告框",
-    "AlertDangerText": "危险的警告框",
-    "AlertWarningText": "警告的警告框",
-    "AlertInfoText": "信息的警告框",
-    "AlertDarkText": "黑暗的警告框",
     "CloseButtonUsageText": "关闭按钮",
     "IntroText2": "提供关闭按钮的警告框",
     "WithIconUsageText": "带 Icon",
@@ -4017,6 +4010,51 @@
     "ShowBorderIntro": "设置 <code>ShowBorder=\"true\"</code> 开启边框效果",
     "ShowShadowTitle": "阴影效果",
     "ShowShadowIntro": "设置 <code>ShowShadow=\"true\"</code> 开启阴影效果"
+  },
+  "BootstrapBlazor.Shared.Demos.Alert.AlertNormal": {
+    "AlertPrimaryText": "主要的警告框",
+    "AlertSecondaryText": "次要的警告框",
+    "AlertSuccessText": "成功的警告框",
+    "AlertDangerText": "危险的警告框",
+    "AlertWarningText": "警告的警告框",
+    "AlertInfoText": "信息的警告框",
+    "AlertDarkText": "黑暗的警告框"
+  },
+  "BootstrapBlazor.Shared.Demos.Alert.AlertClose": {
+    "AlertPrimaryText": "主要的警告框",
+    "AlertSecondaryText": "次要的警告框",
+    "AlertSuccessText": "成功的警告框",
+    "AlertDangerText": "危险的警告框",
+    "AlertWarningText": "警告的警告框",
+    "AlertInfoText": "信息的警告框",
+    "AlertDarkText": "黑暗的警告框"
+  },
+  "BootstrapBlazor.Shared.Demos.Alert.AlertIcon": {
+    "AlertPrimaryText": "主要的警告框",
+    "AlertWarningText": "警告的警告框",
+    "AlertInfoText": "信息的警告框",
+    "AlertDangerText": "危险的警告框"
+  },
+  "BootstrapBlazor.Shared.Demos.Alert.AlertBorder": {
+    "AlertPrimaryText": "主要的警告框",
+    "AlertSuccessText": "成功的警告框",
+    "AlertWarningText": "警告的警告框",
+    "AlertInfoText": "信息的警告框",
+    "AlertDangerText": "危险的警告框"
+  },
+  "BootstrapBlazor.Shared.Demos.Alert.AlertShadow": {
+    "AlertInfoText": "信息的警告框",
+    "AlertSuccessText": "成功的警告框",
+    "AlertPrimaryText": "主要的警告框",
+    "AlertWarningText": "警告的警告框",
+    "AlertDangerText": "危险的警告框"
+  },
+  "BootstrapBlazor.Shared.Demos.Alert.AlertShowBar": {
+    "AlertPrimaryText": "主要的警告框",
+    "AlertSuccessText": "成功的警告框",
+    "AlertWarningText": "警告的警告框",
+    "AlertInfoText": "信息的警告框",
+    "AlertDangerText": "危险的警告框"
   },
   "BootstrapBlazor.Shared.Samples.RibbonTabs": {
     "H1": "RibbonTab 选项卡",
