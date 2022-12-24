@@ -1007,7 +1007,6 @@
     "P3": "portal",
     "P4": "If the component brings you convenience, please help to light up the project"
   },
-
   "BootstrapBlazor.Shared.Pages.Localization": {
     "Title": "Localization",
     "P1": "Localization is the process of customizing an application for a given language and region.",
@@ -2040,33 +2039,20 @@
   },
   "BootstrapBlazor.Shared.Samples.AutoCompletes": {
     "Title": "AutoComplete",
-    "H1": "The input box autocompletes the function",
+    "Description": "The input box autocompletes the function",
     "Block1Title": "Basic usage",
     "Block1Intro": "By setting <code>Items</code> data collection when the user types information that is automatically displayed",
-    "P1": "In this example, type 123 strings to display the viewing effect, automatically give the component initialization to the auto-prompt dataset, and the dataset does not change",
     "Block2Title": "Blur queries and ignore case",
     "Block2Intro": "By setting the <code>IsLikeMatch</code> value settings to turn on fuzzy matching of collections, you control whether case is ignored by setting the <code>IgnoreCase</code>",
-    "P2": "In this example, type the abc string to display the viewing effect and select all matches in the collection that contain abc and have the same case",
     "Block3Title": "Custom prompt message",
     "Block3Intro": "By setting the <code>NoDataTip</code> value setting automatically completes the custom prompt message that appears when the data is not found",
-    "P3": "In this example, type 567 strings because the autocomplete information center does not display custom prompt information - <code>the data you want is not found</code>",
-    "AutoTip": "There is nothing",
     "Block4Title": "Custom candidates",
     "Block4Intro": "By setting up <code>ValueChanged</code> callback method reorganizes the data collection based on the data entered by the user before prompting for information",
-    "P4": "In this example, type any string to display the viewing effect, and automatically complete the component's dynamic changes from the newly obtained prompt dataset based on the string you type",
     "Block5Title": "The label is displayed",
     "Block5Intro": "When a component binds in both directions, it automatically determines whether label text is displayed based on the conditions",
-    "P5": "The pre-label explicit rules are consistent with the <code>BootstrapInput</code> component of the <a href='inputs'>[portal]</a>",
     "DebounceTitle": "Debounce",
     "DebounceIntro": "Set <code>Debounce</code> value turn on debounce",
-    "DebounceDetails": "In this example, please type any string to display the viewing effect. Within the anti shake time, the auto completion component will only send the results to the back end after the last entry, which will greatly improve the performance",
-    "Divider1Text": "Bidirectional binding displays labels",
-    "Divider2Text": "Bidirectional bindings do not display labels",
-    "Divider3Text": "Customize DisplayText",
-    "AutoText": "Custom city",
     "BlockGroupTitle": "InputGroup",
-    "BlockGroupPrevLabel": "Prev",
-    "BlockGroupSuffixLabel": "Suffix",
     "BlockGroupIntro": "combox with <code>BootstrapInputGroupLabel</code> inside <code>BootstrapInputGroupLabel</code>",
     "ItemTemplateTitle": "ItemTemplate",
     "ItemTemplateIntro": "Set <code>ItemTemplate</code> for customer the dropdown item",
@@ -2088,6 +2074,33 @@
     "OnSelectedItemChangedTitle": "OnSelectedItemChanged",
     "OnSelectedItemChangedIntro": "Click the dropdown item or <kbd>Enter</kbd> trigger the callback",
     "OnValueChanged": "Callback for the Value changed"
+  },
+  "BootstrapBlazor.Shared.Demos.AutoComplete.AutoCompleteNormal": {
+    "Description": "In this example, type 123 strings to display the viewing effect, automatically give the component initialization to the auto-prompt dataset, and the dataset does not change"
+  },
+  "BootstrapBlazor.Shared.Demos.AutoComplete.AutoCompleteLikeMatch": {
+    "Description": "In this example, type the abc string to display the viewing effect and select all matches in the collection that contain abc and have the same case"
+  },
+  "BootstrapBlazor.Shared.Demos.AutoComplete.AutoCompleteNoDataTip": {
+    "Description": "In this example, type 567 strings because the autocomplete information center does not display custom prompt information - <code>the data you want is not found</code>",
+    "NoDataTip": "There is nothing"
+  },
+  "BootstrapBlazor.Shared.Demos.AutoComplete.AutoCompleteValueChanged": {
+    "Description": "In this example, type any string to display the viewing effect, and automatically complete the component's dynamic changes from the newly obtained prompt dataset based on the string you type"
+  },
+  "BootstrapBlazor.Shared.Demos.AutoComplete.AutoCompleteShowLabel": {
+    "Description": "The pre-label explicit rules are consistent with the <code>BootstrapInput</code> component of the <a href='inputs'>[portal]</a>",
+    "Divider1Text": "Bidirectional binding displays labels",
+    "Divider2Text": "Bidirectional bindings do not display labels",
+    "Divider3Text": "Customize DisplayText",
+    "AutoText": "Custom city"
+  },
+  "BootstrapBlazor.Shared.Demos.AutoComplete.AutoCompleteDebounce": {
+    "Description": "In this example, please type any string to display the viewing effect. Within the anti shake time, the auto completion component will only send the results to the back end after the last entry, which will greatly improve the performance"
+  },
+  "BootstrapBlazor.Shared.Demos.AutoComplete.AutoCompleteGroup": {
+    "BlockGroupPrevLabel": "Prev",
+    "BlockGroupSuffixLabel": "Suffix"
   },
   "BootstrapBlazor.Shared.Samples.FullScreens": {
     "Title": "FullScreen",
@@ -3638,7 +3651,6 @@
     "P21": "Used in the form",
     "P22": "Build components into <code>ValidateForm</code> used in",
     "P23": "Submit",
-
     "Attr1": "",
     "Attr2": "",
     "Attr3": "",
@@ -3649,7 +3661,6 @@
     "Attr8": "",
     "Attr9": "",
     "Attr10": "",
-
     "Event1": "",
     "Event2": "",
     "Event3": ""
