@@ -4129,10 +4129,10 @@
     "P16": "设置"
   },
   "BootstrapBlazor.Shared.Samples.AutoRedirects": {
-    "H1": "AutoRedirect 自动跳转组件",
-    "H2": "通过设置的地址，当页面无鼠标或者键盘动作时自动跳转到指定页面",
-    "P1": "普通用法",
-    "P2": "通过设置 <code>Interval</code> 间隔，当无鼠标或者键盘动作时自动跳转到 <code>RedirectUrl</code> 设置的地址"
+    "Title": "AutoRedirect 自动跳转组件",
+    "Description": "通过设置的地址，当页面无鼠标或者键盘动作时自动跳转到指定页面",
+    "NormalTitle": "普通用法",
+    "NormalIntro": "通过设置 <code>Interval</code> 间隔，当无鼠标或者键盘动作时自动跳转到 <code>RedirectUrl</code> 设置的地址"
   },
   "BootstrapBlazor.Shared.Samples.AnchorLinks": {
     "AnchorLinkTitle": "AnchorLink 锚点链接",

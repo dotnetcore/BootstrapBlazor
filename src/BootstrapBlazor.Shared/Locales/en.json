@@ -4128,10 +4128,10 @@
     "P16": "set up"
   },
   "BootstrapBlazor.Shared.Samples.AutoRedirects": {
-    "H1": "AutoRedirect automatic jump component",
-    "H2": "Through the set address, automatically jump to the specified page when there is no mouse or keyboard action on the page",
-    "P1": "Common usage",
-    "P2": "By setting the <code>Interval</code> interval, when there is no mouse or keyboard action, it will automatically jump to the address set by <code>RedirectUrl</code>"
+    "Title": "AutoRedirect automatic jump component",
+    "Description": "Through the set address, automatically jump to the specified page when there is no mouse or keyboard action on the page",
+    "NormalTitle": "Common usage",
+    "NormalIntro": "By setting the <code>Interval</code> interval, when there is no mouse or keyboard action, it will automatically jump to the address set by <code>RedirectUrl</code>"
   },
   "BootstrapBlazor.Shared.Samples.AnchorLinks": {
     "AnchorLinkTitle": "AnchorLink",

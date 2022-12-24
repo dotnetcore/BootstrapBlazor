@@ -5,19 +5,10 @@
 namespace BootstrapBlazor.Shared.Samples;
 
 /// <summary>
-/// 
+/// AutoRedirects
 /// </summary>
 public partial class AutoRedirects
 {
-    [NotNull]
-    private BlockLogger? Trace { get; set; }
-
-    private Task<bool> OnBeforeRedirectAsync()
-    {
-        Trace.Log("准备跳转地址");
-        return Task.FromResult(true);
-    }
-
     /// <summary>
     /// Get property method
     /// </summary>
