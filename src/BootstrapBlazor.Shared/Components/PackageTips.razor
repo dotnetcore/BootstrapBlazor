@@ -7,16 +7,30 @@
 <Pre class="no-highlight">dotnet add package @Name</Pre>
 
 <div class="code-label">PackageReference</div>
-<Pre class="no-highlight">&lt;PackageReference Include="@Name" /&gt;</Pre>
+<Pre @key="@Version" class="no-highlight">&lt;PackageReference Include="@Name" Version="@Version" /&gt;</Pre>
 
 <div class="code-label">Package Manager</div>
 <Pre class="no-highlight">Install-Package @Name</Pre>
 
 @code {
+    [Inject]
+    [NotNull]
+    private VersionService? VersionManager { get; set; }
+
+    private string Version { get; set; } = "fetching";
+
     /// <summary>
     /// 获得/设置 Package 名称
     /// </summary>
     [Parameter]
     [NotNull]
     public string? Name { get; set; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override async Task OnInitializedAsync()
+    {
+        Version = await VersionManager.GetVersionAsync(Name.ToLower());
+    }
 }

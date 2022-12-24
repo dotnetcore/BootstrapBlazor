@@ -2,14 +2,13 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using System;
 using System.Net.Http.Json;
 
 namespace BootstrapBlazor.Shared.Services;
 
 internal class VersionService
 {
-    private HttpClient Client { get; set; }
+    private IHttpClientFactory Factory { get; set; }
 
     private string PackageVersion { get; set; } = "latest";
 
@@ -18,12 +17,9 @@ internal class VersionService
     /// <summary>
     /// 构造方法
     /// </summary>
-    /// <param name="client"></param>
-    public VersionService(HttpClient client)
+    public VersionService(IHttpClientFactory factory)
     {
-        Client = client;
-        Client.Timeout = TimeSpan.FromSeconds(5);
-
+        Factory = factory;
         if (OperatingSystem.IsBrowser())
         {
             Version = typeof(BootstrapComponentBase).Assembly.GetName().Version?.ToString();
@@ -37,10 +33,8 @@ internal class VersionService
         {
             do
             {
-                await FetchVersionAsync();
-
+                PackageVersion = await FetchVersionAsync();
                 await Task.Delay(300000);
-                PackageVersion = "latest";
             }
             while (true);
         });
@@ -50,28 +44,24 @@ internal class VersionService
     /// 获得组件版本号方法
     /// </summary>
     /// <returns></returns>
-    public async Task<string> GetVersionAsync(string packageName = "bootstrapblazor")
-    {
-        PackageVersion = "latest";
-        await FetchVersionAsync(packageName);
-        return PackageVersion;
-    }
+    public Task<string> GetVersionAsync(string packageName = "bootstrapblazor") => FetchVersionAsync(packageName);
 
-    private async Task FetchVersionAsync(string packageName = "bootstrapblazor")
+    private async Task<string> FetchVersionAsync(string packageName = "bootstrapblazor")
     {
-        if (PackageVersion == "latest")
+        var version = "lastest";
+        try
         {
-            try
+            var url = $"https://azuresearch-usnc.nuget.org/query?q={packageName}&prerelease=true&semVerLevel=2.0.0";
+            var client = Factory.CreateClient();
+            client.Timeout = TimeSpan.FromSeconds(5);
+            var package = await client.GetFromJsonAsync<NugetPackage>(url);
+            if (package != null)
             {
-                var url = $"https://azuresearch-usnc.nuget.org/query?q={packageName}&prerelease=true&semVerLevel=2.0.0";
-                var package = await Client.GetFromJsonAsync<NugetPackage>(url);
-                if (package != null)
-                {
-                    PackageVersion = package.GetVersion();
-                }
+                version = package.GetVersion();
             }
-            catch { }
         }
+        catch { }
+        return version;
     }
 
     private class NugetPackage
