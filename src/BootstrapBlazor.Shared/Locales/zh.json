@@ -4122,21 +4122,23 @@
     "P2": "通过设置 <code>Interval</code> 间隔，当无鼠标或者键盘动作时自动跳转到 <code>RedirectUrl</code> 设置的地址"
   },
   "BootstrapBlazor.Shared.Samples.AnchorLinks": {
-    "H1": "AnchorLink 锚点链接",
-    "P1": "应用于标题带",
-    "P2": "的锚点链接，点击拷贝方便分享",
-    "P3": "普通用法",
-    "P4": "放置标签后点击拷贝锚点链接到粘贴板",
-    "P5": "我是一个可以点击的锚点链接",
-    "P6": "锚点链接组件属性",
-    "P7": "为必填项，不填写时不提供拷贝锚点链接功能",
-    "P8": "组件锚点图标可通过",
-    "P9": "参数进行自定义默认为",
-    "TooltipDesc": "参数 <code>TooltipText</code> 用于设置拷贝地址后提示信息 默认 <code>null</code> 不弹出提示信息",
+    "AnchorLinkTitle": "AnchorLink 锚点链接",
+    "AnchorLinkDescribe1": "应用于标题带",
+    "AnchorLinkDescribe2": "的锚点链接，点击拷贝方便分享",
+    "AnchorLinkDemoTitle": "普通用法",
+    "AnchorLinkDemoIntroduction": "放置标签后点击拷贝锚点链接到粘贴板",
+    "AnchorLinkTips1": "锚点链接组件属性",
+    "AnchorLinkTips2": "为必填项，不填写时不提供拷贝锚点链接功能",
+    "AnchorLinkTips3": "组件锚点图标可通过",
+    "AnchorLinkTips4": "参数进行自定义默认为",
+    "AnchorLinkTips5": "参数 <code>TooltipText</code> 用于设置拷贝地址后提示信息 默认 <code>null</code> 不弹出提示信息",
     "AttrId": "Id",
     "AttrIcon": "图标",
     "AttrText": "文本",
     "AttrTooltipText": "提示栏文本"
+  },
+  "BootstrapBlazor.Shared.Demos.AnchorLink.AnchorLinkNormal": {
+    "AnchorLinkText": "我是一个可以点击的锚点链接"
   },
   "BootstrapBlazor.Shared.Samples.QRCodes": {
     "Title": "QRCode 二维码",

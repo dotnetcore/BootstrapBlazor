@@ -1,17 +1,15 @@
 ﻿@page "/anchorlinks"
 
-<h3>@Localizer["H1"]</h3>
+<h3>@Localizer["AnchorLinkTitle"]</h3>
 
-<h4>@Localizer["P1"] <b>Hash</b> @Localizer["P2"]</h4>
+<h4>@Localizer["AnchorLinkDescribe1"] <b>Hash</b> @Localizer["AnchorLinkDescribe2"]</h4>
 
-<DemoBlock Title="@Localizer["P3"]" Introduction="@Localizer["P4"]" Name="Normal">
-    <AnchorLink Text="@Localizer["P5"]" Id="AnchorLink1" TooltipText="Copied" class="anchor-link-demo" />
-</DemoBlock>
+<DemoBlock Title="@Localizer["AnchorLinkDemoTitle"]" Introduction="@Localizer["AnchorLinkDemoIntroduction"]" Name="Normal" Demo="AnchorLink.AnchorLinkNormal"/>
 
 <Tips class="mt-3">
-    <div><code>AnchorLink</code> @Localizer["P6"] <code>Id</code> @Localizer["P7"]</div>
-    <div>@Localizer["P8"] <code>Icon</code> @Localizer["P9"] <i class="fa-solid fa-link"></i></div>
-    <div>@((MarkupString)Localizer["TooltipDesc"].Value)</div>
+    <div><code>AnchorLink</code> @Localizer["AnchorLinkTips1"] <code>Id</code> @Localizer["AnchorLinkTips2"]</div>
+    <div>@Localizer["AnchorLinkTips3"] <code>Icon</code> @Localizer["AnchorLinkTips4"] <i class="fa-solid fa-link"></i></div>
+    <div>@((MarkupString)Localizer["AnchorLinkTips5"].Value)</div>
 </Tips>
 
 <AttributeTable Items="@GetAttributes()" />

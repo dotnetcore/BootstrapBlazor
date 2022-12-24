@@ -4123,21 +4123,23 @@
     "P2": "By setting the <code>Interval</code> interval, when there is no mouse or keyboard action, it will automatically jump to the address set by <code>RedirectUrl</code>"
   },
   "BootstrapBlazor.Shared.Samples.AnchorLinks": {
-    "H1": "AnchorLink",
-    "P1": "Apply to title strip",
-    "P2": "Anchor link, click to copy for easy sharing",
-    "P3": "Common usage",
-    "P4": "After placing the label click on the copy anchor link to the pasteboard",
-    "P5": "I am a clickable anchor link",
-    "P6": "Anchor Link Component Properties",
-    "P7": "It is a required item, and the function of copying the anchor link will not be provided if it is not filled in",
-    "P8": "Component anchor icons are available via",
-    "P9": "The parameter is customized and the default is",
-    "TooltipDesc": "<code>TooltipText</code> Used to set the prompt message after copying the address",
+    "AnchorLinkTitle": "AnchorLink",
+    "AnchorLinkDescribe1": "Apply to title strip",
+    "AnchorLinkDescribe2": "Anchor link, click to copy for easy sharing",
+    "AnchorLinkDemoTitle": "Common usage",
+    "AnchorLinkDemoIntroduction": "After placing the label click on the copy anchor link to the pasteboard",
+    "AnchorLinkTips1": "Anchor Link Component Properties",
+    "AnchorLinkTips2": "It is a required item, and the function of copying the anchor link will not be provided if it is not filled in",
+    "AnchorLinkTips3": "Component anchor icons are available via",
+    "AnchorLinkTips4": "The parameter is customized and the default is",
+    "AnchorLinkTips5": "<code>TooltipText</code> Used to set the prompt message after copying the address",
     "AttrId": "Id",
     "AttrIcon": "Icon",
     "AttrText": "Display text",
     "AttrTooltipText": "Tooltip text"
+  },
+  "BootstrapBlazor.Shared.Demos.AnchorLink.AnchorLinkNormal": {
+    "AnchorLinkText": "I am a clickable anchor link"
   },
   "BootstrapBlazor.Shared.Samples.QRCodes": {
     "Title": "QRCode",
