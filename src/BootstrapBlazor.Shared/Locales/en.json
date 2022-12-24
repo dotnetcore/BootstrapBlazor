@@ -5286,11 +5286,7 @@
     "TipsResponsive": "When device width is less than 640px (such as mobile phones) automatically topless without borders, the width is less than 500px the button is automatically rotated. Optional transparent background.",
     "Title": "SignaturePad",
     "SignatureText": "Signature",
-    "CleanText": "Clean",
-    "P1": "Precautions",
-    "P2": "This component relies on <a href='https://www.nuget.org/packages?q=BootstrapBlazor.SignaturePad' target='_blank'><code>BootstrapBlazor.SignaturePad</code></a>, which needs to reference its component package when using this component",
-    "P3": "Nuget Install",
-    "P4": "Install <code>BootstrapBlazor.SignaturePad</code> component <a href='https://www.nuget.org/packages?q=BootstrapBlazor.SignaturePad' target='_blank'>nuget.org</a>"
+    "CleanText": "Clean"
   },
   "BootstrapBlazor.Shared.Samples.SpeechWaves": {
     "SpeechWaveTitle": "SpeechWave",
