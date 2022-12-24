@@ -9,24 +9,12 @@ namespace BootstrapBlazor.Shared.Samples;
 /// </summary>
 public sealed partial class Editors
 {
-    /// <summary>
-    /// 获得/设置 版本号字符串
-    /// </summary>
-    private string Version { get; set; } = "fetching";
 
     private string? EditorValue { get; set; }
 
     [NotNull]
     private Editor? Editor { get; set; }
 
-    /// <summary>
-    /// OnInitializedAsync 方法
-    /// </summary>
-    /// <returns></returns>
-    protected override async Task OnInitializedAsync()
-    {
-        Version = await VersionManager.GetVersionAsync("bootstrapblazor.summernote");
-    }
 
     private Task OnValueChanged(string val)
     {
