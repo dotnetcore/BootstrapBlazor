@@ -4104,9 +4104,6 @@
   "BootstrapBlazor.Shared.Samples.QRCodes": {
     "Title": "QRCode 二维码",
     "SubTitle": "用于二维码生成",
-    "Tips": "<div><code>QRCode</code> 组件依赖扩展包 <code>BootstrapBlazor.BarCode</code>，请按照下面提示进行自定义安装</div>",
-    "Nuget": "Nuget 包安装",
-    "NugetIntro": "使用 <a href=\"https://www.nuget.org/packages?q=BootstrapBlazor.BarCode\" target=\"_blank\">nuget.org</a> 进行 <code>BootstrapBlazor.BarCode</code> 组件的安装",
     "NormalTitle": "基础用法",
     "NormalIntro": "点击生成按钮，生成特定的 <code>QRCode</code>",
     "ContentTitle": "直接生成",
