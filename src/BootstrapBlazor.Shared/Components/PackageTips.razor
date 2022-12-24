@@ -1,7 +1,6 @@
-﻿@namespace BootstrapBlazor.Shared.Samples
-@inject IStringLocalizer<PackageTips> Localizer
+﻿@inject IStringLocalizer<PackageTips> Localizer
 
-<p>@((MarkupString)Localizer["Tips", Name].Value)</p>
+<div class="info">@((MarkupString)Localizer["Tips", Name].Value)</div>
 
 <div class="code-label">.NET CLI</div>
 <Pre class="no-highlight">dotnet add package @Name</Pre>
@@ -24,6 +23,7 @@
     /// </summary>
     [Parameter]
     [NotNull]
+    [EditorRequired]
     public string? Name { get; set; }
 
     /// <summary>

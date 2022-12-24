@@ -893,10 +893,6 @@
     "P2": "与",
     "P3": "语音服务，本示例依赖于",
     "P4": "使用本组件时需要引用其组件包",
-    "P5": "Nuget 包安装",
-    "P6": "使用",
-    "P7": "进行",
-    "P8": "组件的安装",
     "P9": "实战体验",
     "P10": "点击",
     "P11": "开始",
@@ -5396,8 +5392,8 @@
     "BaseUsageIntro2": "使用 Reload 方法切换播放资源",
     "Tips": "默认启用静音模式,只有这样自动播放功能才符合现代浏览器标准."
   },
-  "BootstrapBlazor.Shared.Samples.PackageTips": {
-    "Tips": "<p><b>注意事项 ：</b></p><p>本组件依赖于 <a href='https://www.nuget.org/packages?q={0}' target='_blank'><code>{0}</code></a>，使用本组件时需要引用其组件包</p><p><b>Nuget 包安装</b></p><p>使用 <a href='https://www.nuget.org/packages?q={0}' target='_blank'>nuget.org</a> 进行 <code>{0}</code> 组件的安装</p>"
+  "BootstrapBlazor.Shared.Components.PackageTips": {
+    "Tips": "<div class=\"code-label\">注意事项 ：</div><div>本组件依赖于 <a href='https://www.nuget.org/packages?q={0}' target='_blank'><code>{0}</code></a>，使用本组件时需要引用其组件包</div><div class=\"code-label mt-2\">Nuget 包安装</div><div>使用 <a href='https://www.nuget.org/packages?q={0}' target='_blank'>nuget.org</a> 进行 <code>{0}</code> 组件的安装</div>"
   },
   "BootstrapBlazor.Shared.Samples.FileViewers": {
     "Title": "FileViewer 文件预览器",

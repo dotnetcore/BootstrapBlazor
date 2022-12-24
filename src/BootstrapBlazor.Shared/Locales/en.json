@@ -892,10 +892,6 @@
     "P2": "and",
     "P3": "Speech service, this example relies on",
     "P4": "When using this component, you need to reference its component package",
-    "P5": "Nuget Install",
-    "P6": "use",
-    "P7": "conduct",
-    "P8": "installation of components",
     "P9": "Actual combat experience",
     "P10": "Click",
     "P11": "start",
@@ -5391,8 +5387,8 @@
     "BaseUsageIntro2": "Use the Reload method to switch playback resources",
     "Tips": "Silent mode enabled by default, this is the way for autoplay follow the modern browser standards."
   },
-  "BootstrapBlazor.Shared.Samples.PackageTips": {
-    "Tips": "<p><b>Precautions</b></p><p>This component relies on <a href='https://www.nuget.org/packages?q={0}' target='_blank'><code>{0}</code></a>, which needs to reference its component package when using this component</p><p><b>Nuget Install</b></p><p>Use nuget.org to install <a href='https://www.nuget.org/packages?q={0}' target='_blank'><code>{0}</code></a> component</p>"
+  "BootstrapBlazor.Shared.Components.PackageTips": {
+    "Tips": "<div class=\"code-label\">Precautions</div><div>This component relies on <a href='https://www.nuget.org/packages?q={0}' target='_blank'><code>{0}</code></a>, which needs to reference its component package when using this component</div><div class=\"code-label mt-2\">Nuget Install</div><div>Use nuget.org to install <a href='https://www.nuget.org/packages?q={0}' target='_blank'><code>{0}</code></a> component</div>"
   },
   "BootstrapBlazor.Shared.Samples.FileViewers": {
     "Title": "FileViewer",
