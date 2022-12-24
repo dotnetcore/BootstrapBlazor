@@ -5358,10 +5358,6 @@
     "Title3": "Bluetooth Battery Level 蓝牙设备电量",
     "GetBatteryLevelButtonText": "查询电量",
     "Url3": "3. 蓝牙设备电量 Battery Level",
-    "P1": "注意事项",
-    "P2": "本组件依赖于 <a href='https://www.nuget.org/packages?q=BootstrapBlazor.Bluetooth' target='_blank'><code>BootstrapBlazor.Bluetooth</code></a>，使用本组件时需要引用其组件包",
-    "P3": "Nuget 包安装",
-    "P4": "使用 <a href='https://www.nuget.org/packages?q=BootstrapBlazor.Bluetooth' target='_blank'>nuget.org</a> 进行 <code>BootstrapBlazor.Bluetooth</code> 组件的安装",
     "Tips": "服务UUID/ServiceUUID, 默认0xff00<br/>常见打印机ServiceUUID:<br/><code>0000ff00-0000-1000-8000-00805f9b34fb</code><br/><code>e7810a71-73ae-499d-8c15-faa9aef0c3f2</code><br/><code>0000fee7-0000-1000-8000-00805f9b34fb</code><br/>设置组件服务UUID : <code>printer.Opt.ServiceUuid=?</code>"
   },
   "BootstrapBlazor.Shared.Samples.FileIcons": {
