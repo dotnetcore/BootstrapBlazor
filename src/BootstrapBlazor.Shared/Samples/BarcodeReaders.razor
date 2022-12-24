@@ -1,26 +1,10 @@
 ﻿@page "/barcodereaders"
 @inject IStringLocalizer<BarcodeReaders> Localizer
 
-<h3>@Localizer["Title"]</h3>
 
 <h4>@Localizer["SubTitle"]</h4>
 
-<Tips class="mt-3">
-    @((MarkupString)Localizer["Tips"].Value)
-</Tips>
-
-<div><b>@Localizer["Nuget"]</b></div>
-
-<div class="mt-2">@((MarkupString)Localizer["NugetIntro"].Value)</div>
-
-<div class="code-label mt-3">.NET CLI</div>
-<Pre class="no-highlight">dotnet add package BootstrapBlazor.BarCode --version @Version</Pre>
-
-<div class="code-label">PackageReference</div>
-<Pre class="no-highlight">&lt;PackageReference Include="BootstrapBlazor.BarCode" Version="@Version" /&gt;</Pre>
-
-<div class="code-label">Package Manager</div>
-<Pre class="no-highlight">Install-Package BootstrapBlazor.BarCode -Version @Version</Pre>
+<PackageTips Name="BootstrapBlazor.BarCode" />
 
 <p><b>@Localizer["Attention"]</b></p>
 <ul class="ul-demo">

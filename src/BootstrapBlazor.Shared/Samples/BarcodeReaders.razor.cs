@@ -11,26 +11,12 @@ namespace BootstrapBlazor.Shared.Samples;
 /// </summary>
 public sealed partial class BarcodeReaders
 {
-    [Inject]
-    [NotNull]
-    private VersionService? VersionManager { get; set; }
-
-    private string Version { get; set; } = "fetching";
 
     [NotNull]
     private BlockLogger? Trace { get; set; }
 
     [NotNull]
     private BlockLogger? Trace2 { get; set; }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <returns></returns>
-    protected override async Task OnInitializedAsync()
-    {
-        Version = await VersionManager.GetVersionAsync("bootstrapblazor.barcode");
-    }
 
     private Task OnInit(IEnumerable<DeviceItem> devices)
     {

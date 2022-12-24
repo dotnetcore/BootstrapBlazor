@@ -3314,9 +3314,6 @@
   "BootstrapBlazor.Shared.Samples.BarcodeReaders": {
     "Title": "BarcodeReader",
     "SubTitle": "This component scans the bar code by calling the camera to obtain the bar code content bar code/QR code",
-    "Tips": "<div><code>BarcodeReader</code> Component dependency then expansion package <code>BootstrapBlazor.BarCode</code>, please follow the prompts below for customized installation</div>",
-    "Nuget": "Install nuget package",
-    "NugetIntro": "use <a href=\"https://www.nuget.org/packages?q=BootstrapBlazor.BarCode\" target=\"_blank\">nuget.org</a> conduct  <code>BootstrapBlazor.BarCode</code>",
     "Attention": "Pay special attention to:",
     "Li1": "The site wants to enable <code>https</code>, which is required by browser vendors",
     "Li2": "The mobile iOS system must use the <code>Safari</code> browser to switch the front/rear camera keys to turn off the function button",
