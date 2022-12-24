@@ -1964,6 +1964,8 @@
     "BlockSetTextIntro": "调用实例方法 <code>SetText</code> 更新标签属性",
     "BlockSetTextDesc": "点击 <code>设置</code> 按钮，通过调用 <code>TabItem</code> 实例方法的 <code>SetText</code> 方法设置本标签的显示文本",
     "BlockSetTextButtonText": "设置",
+    "LazyLoadTitle": "懒加载标签页功能",
+    "LazyLoadIntro": "通过设置 <code>IsLazyLoadTabItem=\"true\"</code> 开启标签页懒加载，标签组件首次加载时仅加载 <code>IsActive</code> 的标签页，其余不加载，点击后才加载",
     "BlockHeaderTemplateTitle": "Header 模板",
     "BlockHeaderTemplateIntro": "通过设置 <code>HeaderTemplate</code> 对 <code>Header</code> 进行自定义设置",
     "BlockHeaderTemplateHeaderText": "待办事宜",

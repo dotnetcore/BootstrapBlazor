@@ -312,6 +312,17 @@ public TabItem? TabItem { get; set; }</Pre>
     </Tab>
 </DemoBlock>
 
+<DemoBlock Title="@Localizer["LazyLoadTitle"]" Introduction="@Localizer["LazyLoadIntro"]" Name="LazyLoad">
+    <Tab IsBorderCard="true" IsLazyLoadTabItem="true">
+        <TabItem Text="@Localizer["TabItem8Text"]">
+            <Counter></Counter>
+        </TabItem>
+        <TabItem Text="@Localizer["TabItem9Text"]">
+            <FetchData></FetchData>
+        </TabItem>
+    </Tab>
+</DemoBlock>
+
 <DemoBlock Title="@Localizer["BlockHeaderTemplateTitle"]" Introduction="@Localizer["BlockHeaderTemplateIntro"]" Name="HeaderTemplate">
     <Tab IsBorderCard="true">
         <TabItem>
@@ -332,7 +343,7 @@ public TabItem? TabItem { get; set; }</Pre>
     </Tab>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["BlockSetHeaderTextTemplateTitle"]" Introduction="@Localizer["BlockSetHeaderTextTemplateIntro"]" Name="HeaderTemplate">
+<DemoBlock Title="@Localizer["BlockSetHeaderTextTemplateTitle"]" Introduction="@Localizer["BlockSetHeaderTextTemplateIntro"]" Name="SetHeaderTemplate">
     <Tab IsBorderCard="true">
         <TabItem Text="@Localizer["TabItem8Text"]">
             <Counter></Counter>

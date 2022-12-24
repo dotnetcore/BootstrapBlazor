@@ -3,6 +3,7 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.Extensions.Localization;
+using System.Collections.Concurrent;
 using System.Reflection;
 
 namespace BootstrapBlazor.Components;
@@ -73,6 +74,12 @@ public partial class Tab : IHandlerException, IDisposable
     /// </summary>
     [Parameter]
     public bool IsOnlyRenderActiveTab { get; set; }
+
+    /// <summary>
+    /// 获得/设置 懒加载 Tabitem, 首次不渲染
+    /// </summary>
+    [Parameter]
+    public bool IsLazyLoadTabItem { get; set; }
 
     /// <summary>
     /// 获得/设置 组件高度 默认值为 0 高度自动
@@ -204,6 +211,8 @@ public partial class Tab : IHandlerException, IDisposable
     [Inject]
     [NotNull]
     private TabItemTextOptions? Options { get; set; }
+
+    private ConcurrentDictionary<TabItem, bool> LazyTabCache { get; } = new();
 
     /// <summary>
     /// OnInitialized 方法
@@ -621,8 +630,12 @@ public partial class Tab : IHandlerException, IDisposable
             var content = _errorContent ?? item.ChildContent;
             builder.AddContent(0, content);
             _errorContent = null;
+            if (IsLazyLoadTabItem)
+            {
+                LazyTabCache.AddOrUpdate(item, key => true, (_, _) => true);
+            }
         }
-        else
+        else if (!IsLazyLoadTabItem || item.AlwaysLoad || LazyTabCache.TryGetValue(item, out var init) && init)
         {
             builder.AddContent(0, item.ChildContent);
         }
