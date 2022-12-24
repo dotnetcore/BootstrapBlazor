@@ -11,10 +11,6 @@ namespace BootstrapBlazor.Shared.Samples.Table;
 /// </summary>
 public partial class TablesExport
 {
-    /// <summary>
-    /// 获得/设置 版本号字符串
-    /// </summary>
-    private string Version { get; set; } = "fetching";
 
     private static IEnumerable<int> PageItemsSource => new int[] { 4, 10, 20 };
 
@@ -28,10 +24,6 @@ public partial class TablesExport
     [Inject]
     [NotNull]
     private IStringLocalizer<TablesExport>? Localizer { get; set; }
-
-    [Inject]
-    [NotNull]
-    private VersionService? VersionManager { get; set; }
 
     [Inject]
     [NotNull]
@@ -74,14 +66,5 @@ public partial class TablesExport
     private async Task CsvExportAsync()
     {
         await ToastService.Success("CSV export", "Export CSV data successfully");
-    }
-
-    /// <summary>
-    /// OnInitializedAsync 方法
-    /// </summary>
-    /// <returns></returns>
-    protected override async Task OnInitializedAsync()
-    {
-        Version = await VersionManager.GetVersionAsync("bootstrapblazor.tableexport");
     }
 }
