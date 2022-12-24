@@ -5390,11 +5390,7 @@
     "BaseUsageText2": "流模式",
     "BaseUsageIntro2": "可跨域读取文件",
     "BaseUsageText3": "高级参数",
-    "BaseUsageIntro3": " ",
-    "P1": "注意事项",
-    "P2": "本组件依赖于 <a href='https://www.nuget.org/packages?q=BootstrapBlazor.PdfReader' target='_blank'><code>BootstrapBlazor.PdfReader</code></a>，使用本组件时需要引用其组件包",
-    "P3": "Nuget 包安装",
-    "P4": "使用 <a href='https://www.nuget.org/packages?q=BootstrapBlazor.PdfReader' target='_blank'>nuget.org</a> 进行 <code>BootstrapBlazor.PdfReader</code> 组件的安装"
+    "BaseUsageIntro3": " "
   },
   "BootstrapBlazor.Shared.Samples.VideoPlayers": {
     "Title": "VideoPlayer 视频播放器",

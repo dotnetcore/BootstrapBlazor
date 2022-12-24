@@ -5385,11 +5385,7 @@
     "BaseUsageText2": "Stream mode",
     "BaseUsageIntro2": "read remote files by cross-domain",
     "BaseUsageText3": "Advanced parameters",
-    "BaseUsageIntro3": "Can be use advanced parameters",
-    "P1": "Precautions",
-    "P2": "This component relies on <a href='https://www.nuget.org/packages?q=BootstrapBlazor.PdfReader' target='_blank'><code>BootstrapBlazor.PdfReader</code></a>, which needs to reference its component package when using this component",
-    "P3": "Nuget Install",
-    "P4": "Use nuget.org to install <a href='https://www.nuget.org/packages?q=BootstrapBlazor.PdfReader' target='_blank'><code>BootstrapBlazor.PdfReader</code></a> component"
+    "BaseUsageIntro3": "Can be use advanced parameters"
   },
   "BootstrapBlazor.Shared.Samples.VideoPlayers": {
     "Title": "VideoPlayer",

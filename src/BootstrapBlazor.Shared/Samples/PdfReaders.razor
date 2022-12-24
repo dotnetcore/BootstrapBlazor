@@ -4,25 +4,10 @@
 
 <h3>@Localizer["Title"]</h3>
 
-<p><b>@Localizer["P1"] ：</b></p>
-
-<p>@((MarkupString)Localizer["P2"].Value)</p>
-
-<p><b>@Localizer["P3"]</b></p>
-
-<p>@((MarkupString)Localizer["P4"].Value)</p>
-
-<div class="code-label">.NET CLI</div>
-<Pre class="no-highlight">dotnet add package BootstrapBlazor.PdfReader</Pre>
-
-<div class="code-label">PackageReference</div>
-<Pre class="no-highlight">&lt;PackageReference Include="BootstrapBlazor.PdfReader" /&gt;</Pre>
-
-<div class="code-label">Package Manager</div>
-<Pre class="no-highlight">Install-Package BootstrapBlazor.PdfReader</Pre>
+<PackageTips Name="BootstrapBlazor.PdfReader" />
 
 <DemoBlock Title="@Localizer["BaseUsageText"]" Introduction="@Localizer["BaseUsageIntro"]" Name="Nomal">
-    <PdfReader Filename=@Filename Height="500px"/> 
+    <PdfReader Filename=@Filename Height="500px" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["BaseUsageText2"]" Introduction="@Localizer["BaseUsageIntro2"]" Name="Nomal">
@@ -36,7 +21,7 @@
             </BootstrapInputGroup>
         </div>
     </div>
-    <PdfReader @ref="pdfReader" UrlBase="@UrlBaseStream" Filename="@FilenameStream" StreamMode="true" Height="500px"/>
+    <PdfReader @ref="pdfReader" UrlBase="@UrlBaseStream" Filename="@FilenameStream" StreamMode="true" Height="500px" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["BaseUsageText3"]" Introduction="@Localizer["BaseUsageIntro3"]" Name="Nomal">
