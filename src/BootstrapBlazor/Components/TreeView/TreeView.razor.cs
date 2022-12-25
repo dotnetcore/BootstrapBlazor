@@ -221,7 +221,7 @@ public partial class TreeView<TItem>
                     await CheckExpand(Items);
                 }
 
-                if (ShowCheckbox)
+                if (ShowCheckbox && (AutoCheckParent || AutoCheckChildren))
                 {
                     // 开启 Checkbox 功能时初始化选中节点
                     treeNodeCache.IsChecked(Items);
