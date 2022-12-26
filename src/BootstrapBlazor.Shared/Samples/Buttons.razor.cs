@@ -11,47 +11,6 @@ namespace BootstrapBlazor.Shared.Samples;
 /// </summary>
 public sealed partial class Buttons
 {
-    [NotNull]
-    private BlockLogger? Trace { get; set; }
-
-    [NotNull]
-    private Button? ButtonDisableDemo { get; set; }
-
-    private bool IsDisable { get; set; }
-
-    private void ClickButton1()
-    {
-        IsDisable = !IsDisable;
-        StateHasChanged();
-    }
-
-    private Task ClickButton2()
-    {
-        IsDisable = false;
-        ButtonDisableDemo.SetDisable(false);
-        return Task.CompletedTask;
-    }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="e"></param>
-    private void ButtonClick(MouseEventArgs e)
-    {
-        Trace.Log($"Button Clicked");
-    }
-
-    private string ButtonText { get; set; } = "";
-
-    private Task ClickButtonShowText(string text)
-    {
-        ButtonText = text;
-        StateHasChanged();
-        return Task.CompletedTask;
-    }
-
-    private static Task ClickAsyncButton() => Task.Delay(5000);
-
     /// <summary>
     /// 获得事件方法
     /// </summary>
