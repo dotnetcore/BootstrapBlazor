@@ -1,17 +1,8 @@
-﻿.sum .col-12 {
-    display: flex;
-}
-
-    .sum .col-12 > div {
-        margin-right: 1rem;
-        min-width: 2rem;
-    }
-
-::deep + .calendar .table-week tbody .none {
+﻿.none {
     color: #c0c4cc;
 }
 
-::deep + .calendar .table-week tbody .less {
+.less {
     border-radius: var(--bs-border-radius);
     position: absolute;
     left: 0;
@@ -25,12 +16,12 @@
     align-items: center;
 }
 
-::deep + .calendar .table-week tbody .ch {
+.ch {
     background: #28a745;
     color: #f8f9fa;
 }
 
-::deep + .calendar .table-week tbody .en {
+.en {
     background: #007bff;
     color: #f8f9fa;
 }
