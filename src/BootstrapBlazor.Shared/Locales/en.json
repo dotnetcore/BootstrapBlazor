@@ -3373,19 +3373,12 @@
     "BasicUsageIntro": "Determines whether component content is displayed by setting the <code>OnQueryCondition</code> callback method return value",
     "TemplateTitle": "Template",
     "TemplateIntro": "By setting <code>authorized</code> <code>NotAuthorized</code> you can set what appears when you meet and do not meet the criteria, respectively",
-    "TemplateDiv1": "I am the component content that  displayed in <b>accordance</b>with the criteria",
-    "TemplateDiv2": "I am the component content that  displayed that <b>not accordance</b>the  criteria",
     "AuthorizateTitle": "Judging by permissions",
     "AuthorizateIntro": "This example simulates a user logging in to control whether the content <code>Block</code> is displayed, which is easier to use than <code>AuthorizeView</code>",
-    "AuthorizateDiv1": "I am the contents of the component of the <code>CondtionBlock</code>, and the current logged-in user: <code>{0}</code>",
-    "AuthorizateDiv2": "I am the contents of the <code>AuthorizeView</code> component and the current logged-in user: <code>{0}</code>",
-    "AuthorizateDiv3": "I am the contents of the <code>AuthorizeView</code> component and are not currently logged in",
     "UsersTitle": "Pre-set the user",
     "UsersIntro": "By setting <code>Users</code> controls the display, which is displayed when the currently logged-in user is a preset user",
-    "UsersDiv1": "The current user <code>{0}</code> allows you to see this content",
     "RolesTitle": "Preset roles",
     "RolesIntro": "By setting <code>Roles</code> controls the display, which is displayed when the currently logged-in user is in a preset role",
-    "RolesDiv1": "The current role <code>User</code> allow this content to be seen",
     "Tips": "By setting different <code>Name</code> as a resource, combined with the authorization system to authorize this resource can be achieved to any element of the Web page permission control",
     "OnQueryCondition": "Whether to display this Block",
     "ChildContent": "The content is displayed within the Block block",
@@ -3395,6 +3388,34 @@
     "IsHide": "Hide",
     "Login": "Login",
     "Logout": "Logout"
+  },
+  "BootstrapBlazor.Shared.Demos.Block.BlockNormal": {
+    "IsShow": "Show",
+    "IsHide": "Hide",
+    "Content": "I am component content"
+  },
+  "BootstrapBlazor.Shared.Demos.Block.BlockAuthorizate": {
+    "Login": "Login",
+    "Logout": "Logout",
+    "AuthorizateDiv1": "I am the contents of the component of the <code>CondtionBlock</code>, and the current logged-in user: <code>{0}</code>",
+    "AuthorizateDiv2": "I am the contents of the <code>AuthorizeView</code> component and the current logged-in user: <code>{0}</code>",
+    "AuthorizateDiv3": "I am the contents of the <code>AuthorizeView</code> component and are not currently logged in"
+  },
+  "BootstrapBlazor.Shared.Demos.Block.BlockTemplate": {
+    "IsShow": "Show",
+    "IsHide": "Hide",
+    "TemplateDiv1": "I am the component content that  displayed in <b>accordance</b>with the criteria",
+    "TemplateDiv2": "I am the component content that  displayed that <b>not accordance</b>the  criteria"
+  },
+  "BootstrapBlazor.Shared.Demos.Block.BlockUsers": {
+    "Login": "Login",
+    "Logout": "Logout",
+    "UsersDiv1": "The current user <code>{0}</code> allows you to see this content"
+  },
+  "BootstrapBlazor.Shared.Demos.Block.BlockRoles": {
+    "Login": "Login",
+    "Logout": "Logout",
+    "RolesDiv1": "The current role <code>User</code> allow this content to be seen"
   },
   "BootstrapBlazor.Shared.Samples.Cards": {
     "Title": "Card",
