@@ -3312,11 +3312,13 @@
     "PillIntro": "Set the badge pendant with the  of the property <code>IsPill='true'</code> to set the fillet",
     "ButtonTitle": "The badge inside the button",
     "ButtonIntro": "Button internal badge",
-    "ButtonSpan": "The primary button",
     "ChildContent": "Content",
     "Class": "Style",
     "Color": "Color",
     "IsPill": "Capsule style"
+  },
+  "BootstrapBlazor.Shared.Demos.Badge.BadgeButton": {
+    "ButtonSpan": "The primary button"
   },
   "BootstrapBlazor.Shared.Samples.BarcodeReaders": {
     "Title": "BarcodeReader",
