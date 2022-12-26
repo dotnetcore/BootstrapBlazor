@@ -3367,12 +3367,18 @@
     "OnStart": "打开摄像头回调方法",
     "OnClose": "关闭摄像头回调方法",
     "OnError": "发生错误回调方法",
-    "OnDeviceChanged": "设别切换时回调方法",
+    "OnDeviceChanged": "设别切换时回调方法"
+  },
+  "BootstrapBlazor.Shared.Demos.BarcodeReader.BarcodeReaderNormal": {
     "InitLog": "初始化摄像头完成",
     "ScanCodeLog": "扫描到条码",
     "ErrorLog": "发生错误",
     "OpenCameraLog": "打开摄像头",
     "CloseCameraLog": "关闭摄像头"
+  },
+  "BootstrapBlazor.Shared.Demos.BarcodeReader.BarcodeReaderImage": {
+    "ScanCodeLog": "扫描到条码",
+    "ErrorLog": "发生错误"
   },
   "BootstrapBlazor.Shared.Samples.Blocks": {
     "Title": "Block 条件块",

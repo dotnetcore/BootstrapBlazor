@@ -3366,6 +3366,17 @@
     "OpenCameraLog": "Turn on the camera",
     "CloseCameraLog": "Turn off the camera"
   },
+  "BootstrapBlazor.Shared.Demos.BarcodeReader.BarcodeReaderNormal": {
+    "InitLog": "Initialize the camera to complete",
+    "ScanCodeLog": "Scan to barcode",
+    "ErrorLog": "An error has occurred",
+    "OpenCameraLog": "Turn on the camera",
+    "CloseCameraLog": "Turn off the camera"
+  },
+  "BootstrapBlazor.Shared.Demos.BarcodeReader.BarcodeReaderImage": {
+    "ScanCodeLog": "Scan to barcode",
+    "ErrorLog": "An error has occurred"
+  },
   "BootstrapBlazor.Shared.Samples.Blocks": {
     "Title": "Block",
     "SubTitle": "Depending on the parameter conditions, the contents of the block are determined to be displayed, usually in conjunction with permission authorization",
