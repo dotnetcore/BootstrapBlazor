@@ -4222,7 +4222,7 @@
   },
   "BootstrapBlazor.Shared.Samples.Breadcrumbs": {
     "Title": "Breadcrumb",
-    "H1": "Display the path of the current page and quickly return to any previous page.",
+    "Describe": "Display the path of the current page and quickly return to any previous page.",
     "Block1Title": "Basic usage",
     "Block1Intro": "Suitable for a wide range of basic usage."
   },
