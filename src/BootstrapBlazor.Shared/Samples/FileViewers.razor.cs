@@ -40,14 +40,14 @@ public partial class FileViewers
         WordSampleFile = CombineFilename("sample.docx");
         ExcelSampleFile = CombineFilename("sample.xlsx");
 
-        FileList.Add(CombineFilename("sample3.xlsx"));
-        FileList.Add(CombineFilename("sample2.xlsx"));
-        FileList.Add(CombineFilename("sample.xlsx"));
-        FileList.Add(CombineFilename("sample2.docx"));
-        FileList.Add(CombineFilename("sample.docx"));
-        Url = FileList[0];
+        FileList.Add("sample3.xlsx");
+        FileList.Add("sample2.xlsx");
+        FileList.Add("sample.xlsx");
+        FileList.Add("sample2.docx");
+        FileList.Add("sample.docx");
+        Url = CombineFilename(FileList[0]);
 
-        Items = FileList.Select(i => new SelectedItem(i, $"File{i}")).ToList();
+        Items = FileList.Select(i => new SelectedItem(i, i)).ToList();
     }
 
     private string CombineFilename(string filename)
@@ -64,7 +64,7 @@ public partial class FileViewers
     {
         Url = e.Value;
         StateHasChanged();
-        await fileViewer.Reload(e.Value);
+        await fileViewer.Reload(CombineFilename(e.Value));
     }
 
     private async Task Apply()
