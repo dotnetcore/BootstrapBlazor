@@ -3566,7 +3566,9 @@
     "OnClose": "关闭扫码回调方法",
     "OnCapture": "扫码成功回调方法",
     "VideoWidth": "视频窗口宽度",
-    "VideoHeight": "视频窗口高度",
+    "VideoHeight": "视频窗口高度"
+  },
+  "BootstrapBlazor.Shared.Demos.Camera.CameraNormal": {
     "TraceOnInit": "初始化摄像头完成",
     "TraceOnError": "发生错误",
     "TraceOnStar": "打开摄像头",

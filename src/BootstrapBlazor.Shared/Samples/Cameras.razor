@@ -7,32 +7,22 @@
 
 <p><b>@Localizer["Attention"]</b></p>
 <ul class="ul-demo">
-    <li>@((MarkupString)Localizer["Li1"].Value )</li>
-    <li>@((MarkupString)Localizer["Li1"].Value )</li>
-    <li>@((MarkupString)Localizer["Li1"].Value )</li>
+    <li>@((MarkupString)Localizer["Li1"].Value)</li>
+    <li>@((MarkupString)Localizer["Li1"].Value)</li>
+    <li>@((MarkupString)Localizer["Li1"].Value)</li>
 </ul>
 
-<DemoBlock Title="@Localizer["BasicUsageTitle"]" Introduction="@Localizer["BasicUsageIntro"]" Name="Normal">
+<DemoBlock Title="@Localizer["BasicUsageTitle"]" Introduction="@Localizer["BasicUsageIntro"]" Name="Normal" Demo="Camera.CameraNormal">
     <p>@Localizer["BasicUsageStep"]</p>
     <ul class="ul-demo mb-3">
         <li>@Localizer["BasicUsageLi1"]</li>
         <li>@Localizer["BasicUsageLi2"]</li>
         <li>@Localizer["BasicUsageLi3"]</li>
     </ul>
-    <Camera OnInit="@OnInit" OnStart="@OnStart" OnClose="@OnClose" OnError="@OnError" OnCapture="@OnCapture" />
-    @if (ImageUrl != null)
-    {
-        <img src="@ImageUrl" class="mt-3" />
-    }
-    <BlockLogger @ref="Trace" class="mt-3" />
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["ShowPreviewTitle"]" Introduction="@Localizer["ShowPreviewIntro"]" Name="ShowPreview">
-    <Camera ShowPreview="true" />
-</DemoBlock>
+<DemoBlock Title="@Localizer["ShowPreviewTitle"]" Introduction="@Localizer["ShowPreviewIntro"]" Name="ShowPreview" Demo="Camera.CameraShowPreview" />
 
-<DemoBlock Title="@Localizer["AutoStartTitle"]" Introduction="@Localizer["AutoStartIntro"]" Name="AutoStart">
-    <Camera AutoStart="false" />
-</DemoBlock>
+<DemoBlock Title="@Localizer["AutoStartTitle"]" Introduction="@Localizer["AutoStartIntro"]" Name="AutoStart" Demo="Camera.CameraAutoStart" />
 
 <AttributeTable Items="@GetAttributes()" />

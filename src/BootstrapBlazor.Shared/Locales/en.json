@@ -3562,7 +3562,9 @@
     "OnClose": "Turn off the scan code callback method",
     "OnCapture": "Callback method for successful scan code",
     "VideoWidth": "The width of Video window",
-    "VideoHeight": "The height of Video window",
+    "VideoHeight": "The height of Video window"
+  },
+  "BootstrapBlazor.Shared.Demos.Camera.CameraNormal": {
     "TraceOnInit": "Initialized carmera",
     "TraceOnError": "Error",
     "TraceOnStar": "Star video",
