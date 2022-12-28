@@ -42,55 +42,6 @@
         top: 0.5rem;
     }
 
-.menu-demo-header {
-    background-color: #17a2b8;
-    line-height: 50px;
-    color: #fff;
-    flex: 1;
-    padding-left: 80px;
-}
-
-.menu-demo-bar i {
-    transition: transform .3s linear;
-}
-
-.menu-demo-bar.is-collapsed i {
-    transform: rotate(90deg);
-}
-
-.page-layout-demo-list {
-    margin: 0;
-}
-
-    .page-layout-demo-list li {
-        margin: 0.5rem 0;
-    }
-
-.page-layout-demo-option {
-    margin-top: 1.5rem;
-    border: 1px solid rgba(0,0,0,.125);
-    border-radius: var(--bs-border-radius);
-    padding: 1.5rem 1rem 1rem 1rem;
-    position: relative;
-}
-
-    .page-layout-demo-option > p {
-        position: absolute;
-        top: -10px;
-        padding: 0 0.5rem;
-        background: #fff;
-    }
-
-    .page-layout-demo-option .page-layout-demo-option-height {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-    }
-
-    .page-layout-demo-option .tabs-body-content {
-        margin: 0 -1rem -2rem -1rem;
-    }
-
 .page-layout-demo-footer-link {
     color: #fff;
 }

@@ -988,7 +988,7 @@
     "NugetP1": "使用 <a href='https://www.nuget.org/packages?q=BootstrapBlazor' target='_blank'>nuget.org</a> 进行 BootstrapBlazor 组件的安装",
     "EnvBuildTitle": "项目环境搭建",
     "EnvLi1": "安装 .net core sdk <a href='http://www.microsoft.com/net/download' target='_blan'>官方网址</a>",
-    "EnvLi2": "安装 Visual Studio 2019 以上 <a href='https://visualstudio.microsoft.com/vs/getting-started' target='_blank'>官方网址</a>",
+    "EnvLi2": "安装 Visual Studio 2022 以上 <a href='https://visualstudio.microsoft.com/vs/getting-started' target='_blank'>官方网址</a>",
     "EnvLi3": "拉取项目代码 BootstrapBlazor <a href='{0}' target='_blank'>仓库网址</a>"
   },
   "BootstrapBlazor.Shared.Components.Video": {
@@ -1126,7 +1126,7 @@
     "P8": "下载安装扩展后，通过扩展创建项目",
     "P9": "使用 Visual Studio 创建项目 1",
     "P10": "步骤一、创建项目",
-    "P11": "打开 Visual Studio 2019 或者 Visual Studio 2022",
+    "P11": "打开 Visual Studio 2022",
     "P12": "创建一个新项目",
     "P13": "选择",
     "P14": "并单击",
@@ -1343,7 +1343,7 @@
     "Code10": "底部布局，自带默认样式，其下可嵌套任何元素",
     "P1": " 以上组件采用了 flex 布局，使用前请确定目标浏览器是否兼容。此外，<code>Layout</code> 的子元素只能是后四者，后四者的父元素也只能是 <code>Layout</code>",
     "b1": "注意事项",
-    "P2": "为了方便大家利用这套组件快速搭建项目，作者制作了 <b>项目模板（<code>Project Templates</code>）</b>，使用 <code>dotnet new</code> 命令行，与 <code>Bootstrap Blazor App Extension 扩展插件</code> 通过 <code>Visual Studio 2019</code> 新建项目创建，具体使用方法与步骤请点击 <a href='template' target='_blank'>传送门</a>",
+    "P2": "为了方便大家利用这套组件快速搭建项目，作者制作了 <b>项目模板（<code>Project Templates</code>）</b>，使用 <code>dotnet new</code> 命令行，与 <code>Bootstrap Blazor App Extension 扩展插件</code> 通过 <code>Visual Studio 2022/code> 新建项目创建，具体使用方法与步骤请点击 <a href='template' target='_blank'>传送门</a>",
     "H3": "常见页面布局",
     "Block1Title": "上中下布局",
     "Block1Intro": "常见于互联网网站布局",

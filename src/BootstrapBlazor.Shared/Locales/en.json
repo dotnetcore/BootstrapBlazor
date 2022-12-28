@@ -987,7 +987,7 @@
     "NugetP1": "Use <a href='https://www.nuget.org/packages?q=BootstrapBlazor' target='_blank'>nuget.org</a> to install BootstrapBlazor components",
     "EnvBuildTitle": "Project Environment Construction",
     "EnvLi1": "Install .net core sdk <a href='http://www.microsoft.com/net/download' target='_blan'>Official Website</a>",
-    "EnvLi2": "Install Visual Studio 2019 and above <a href='https://visualstudio.microsoft.com/vs/getting-started' target='_blank'>Official website",
+    "EnvLi2": "Install Visual Studio 2022 and above <a href='https://visualstudio.microsoft.com/vs/getting-started' target='_blank'>Official website",
     "EnvLi3": "Pull the project code BootstrapBlazor <a href='{0}' target='_blank'>Warehouse URL</a>"
   },
   "BootstrapBlazor.Shared.Components.Video": {
@@ -1125,7 +1125,7 @@
     "P8": "After downloading and installing the extension, create a project through the extension",
     "P9": "Create a project with Visual Studio 1",
     "P10": "Step 1. Create a project",
-    "P11": "Open Visual Studio 2019 or Visual Studio 2022",
+    "P11": "Open Visual Studio 2022",
     "P12": "Create a new project",
     "P13": "choose",
     "P14": "and click",
@@ -1342,7 +1342,7 @@
     "Code10": "Bottom layout, with default style, any element can be nested under it",
     "P1": "The above components adopt flex layout, please make sure the target browser is compatible before using. In addition, the child element of <code>Layout</code> can only be the latter four, and the parent element of the latter four can only be <code>Layout</code>",
     "b1": "Matters needing attention",
-    "P2": "In order to make it easy for everyone to use this set of components to quickly build projects, the author has created <b>Project Templates</code></b>, using the <code>dotnet new</code> command line, and < code>Bootstrap Blazor App Extension extension plug-in</code> Create a new project through <code>Visual Studio 2019</code>. For specific usage and steps, please click <a href='template' target='_blank'>Portal</a>",
+    "P2": "In order to make it easy for everyone to use this set of components to quickly build projects, the author has created <b>Project Templates</code></b>, using the <code>dotnet new</code> command line, and < code>Bootstrap Blazor App Extension extension plug-in</code> Create a new project through <code>Visual Studio 2022</code>. For specific usage and steps, please click <a href='template' target='_blank'>Portal</a>",
     "H3": "Common page layout",
     "Block1Title": "Top, middle and bottom layout",
     "Block1Intro": "Commonly found in Internet website layout",
