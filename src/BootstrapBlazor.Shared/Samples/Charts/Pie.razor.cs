@@ -66,7 +66,7 @@ public partial class Pie
     /// </summary>
     private Task OnReloadChart()
     {
-        PieDataCount = Randomer.Next(1, 15);
+        PieDataCount = Randomer.Next(5, 15);
         PieChart?.Reload();
         return Task.CompletedTask;
     }

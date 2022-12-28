@@ -85,7 +85,7 @@ public partial class Bar
     /// </summary>
     private Task OnReloadChart()
     {
-        BarDataCount=Randomer.Next(1, 15);
+        BarDataCount=Randomer.Next(5, 15);
         BarChart?.Reload();
         return Task.CompletedTask;
     }

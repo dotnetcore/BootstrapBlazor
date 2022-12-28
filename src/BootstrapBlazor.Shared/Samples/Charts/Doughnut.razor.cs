@@ -62,7 +62,9 @@ public partial class Doughnut
     }
 
     private bool IsCircle { get; set; }
+
     private int Angle { get; set; }
+
     private async Task ToggleCircle()
     {
         IsCircle = !IsCircle;
@@ -75,7 +77,7 @@ public partial class Doughnut
     /// </summary>
     private Task OnReloadChart()
     {
-        DoughnutDataCount = Randomer.Next(1, 15);
+        DoughnutDataCount = Randomer.Next(5, 15);
         DoughnutChart?.Reload();
         return Task.CompletedTask;
     }

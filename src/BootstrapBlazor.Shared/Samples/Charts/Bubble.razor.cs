@@ -74,7 +74,7 @@ public partial class Bubble
     /// </summary>
     private Task OnReloadChart()
     {
-        BubbleDataCount = Randomer.Next(1, 15);
+        BubbleDataCount = Randomer.Next(5, 15);
         BubbleChart?.Reload();
         return Task.CompletedTask;
     }

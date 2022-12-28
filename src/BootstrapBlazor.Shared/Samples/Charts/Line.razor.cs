@@ -69,7 +69,7 @@ public partial class Line
     /// </summary>
     private Task OnReloadChart()
     {
-        LineDataCount = Randomer.Next(1, 15);
+        LineDataCount = Randomer.Next(5, 15);
         LineChart?.Reload();
         return Task.CompletedTask;
     }
