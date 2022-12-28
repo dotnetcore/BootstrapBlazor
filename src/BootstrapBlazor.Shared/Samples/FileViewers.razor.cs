@@ -45,7 +45,7 @@ public partial class FileViewers
         FileList.Add("sample.xlsx");
         FileList.Add("sample2.docx");
         FileList.Add("sample.docx");
-        Url = CombineFilename(FileList[0]);
+        Url = FileList[0];
 
         Items = FileList.Select(i => new SelectedItem(i, i)).ToList();
     }

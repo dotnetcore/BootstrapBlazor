@@ -18,7 +18,7 @@
     <FileViewer Filename="@ExcelSampleFile" Height="300px" StyleString="padding: var(--bs-card-cap-padding-y) var(--bs-card-cap-padding-x);border: var(--bs-card-border-width) solid var(--bs-card-border-color);" />
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["BaseUsageText2"]" Introduction="@Localizer["BaseUsageIntro2"]" Name="Nomal">
+<DemoBlock Title="@Localizer["BaseUsageText2"]" Introduction="@Localizer["BaseUsageIntro2"]" Name="Reload">
     <div class="row g-3">
         <div class="col-6 col-sm-4 col-md-3 col-xl-2">
             <Dropdown TValue="string" Items="Items" OnSelectedItemChanged="@ChangeURL" />
@@ -31,7 +31,7 @@
         </div>
     </div>
 
-    <FileViewer @ref="fileViewer" Filename=@Url Height="300px" StyleString="padding: var(--bs-card-cap-padding-y) var(--bs-card-cap-padding-x);border: var(--bs-card-border-width) solid var(--bs-card-border-color);" />
+    <FileViewer @ref="fileViewer" Filename="@CombineFilename(Url)" Height="300px" StyleString="padding: var(--bs-card-cap-padding-y) var(--bs-card-cap-padding-x);border: var(--bs-card-border-width) solid var(--bs-card-border-color);" />
 </DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" />
