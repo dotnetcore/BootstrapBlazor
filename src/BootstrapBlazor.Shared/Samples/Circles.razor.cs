@@ -5,20 +5,12 @@
 namespace BootstrapBlazor.Shared.Samples;
 
 /// <summary>
-/// 
+/// Circles
 /// </summary>
 public sealed partial class Circles
 {
-    private int CircleValue = 0;
-
-    private void Add(int interval)
-    {
-        CircleValue += interval;
-        CircleValue = Math.Min(100, Math.Max(0, CircleValue));
-    }
-
     /// <summary>
-    /// 
+    /// GetAttributes
     /// </summary>
     /// <returns></returns>
     private IEnumerable<AttributeItem> GetAttributes()

@@ -10,12 +10,12 @@
     flex-flow: column;
 }
 
-    .circle-demo h1 {
-        font-size: 26px;
-        font-weight: 400;
-    }
+.circle-demo h1 {
+    font-size: 26px;
+    font-weight: 400;
+}
 
-    .circle-demo i {
-        font-style: normal;
-        color: #3f414d;
-    }
+.circle-demo i {
+    font-style: normal;
+    color: #3f414d;
+}
