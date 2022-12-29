@@ -20,8 +20,8 @@
 <div class="mb-2">@((@MarkupString)Localizer["P8"].Value)</div>
 <Pre>private async Task DownloadFileAsync()
 {
-    using var content = await GenerateFileAsync();
-    await downloadService.DownloadAsync("@Localizer["P9"]", content);
+    using var stream = await GenerateFileAsync();
+    await DownloadService.DownloadFromStreamAsync("@Localizer["P9"]", stream);
 
     static async Task&lt;Stream&gt; GenerateFileAsync()
     {
