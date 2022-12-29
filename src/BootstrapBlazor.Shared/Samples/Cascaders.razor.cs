@@ -5,77 +5,10 @@
 namespace BootstrapBlazor.Shared.Samples;
 
 /// <summary>
-/// 
+/// Cascaders
 /// </summary>
 public sealed partial class Cascaders
 {
-    private string Value { get; set; } = "Shanghai";
-
-    /// <summary>
-    /// Default dataset
-    /// </summary>
-    private IEnumerable<CascaderItem> Items = new List<CascaderItem>();
-    private Guid CurrentGuid { get; set; }
-
-    /// <summary>
-    /// OnInitialised method
-    /// </summary>
-    protected override void OnInitialized()
-    {
-        Value = Localizer["Location1"];
-        Items = GetItems();
-    }
-
-    /// <summary>
-    ///
-    /// </summary>
-    private Foo Model { get; set; } = new Foo();
-
-    [NotNull]
-    private BlockLogger? Trace { get; set; }
-
-    private IEnumerable<CascaderItem> GetItems()
-    {
-        var ret = new List<CascaderItem>
-        {
-            new CascaderItem(Localizer["Location1"], Localizer["Location1"]),
-            new CascaderItem(Localizer["Location2"], Localizer["Location2"]),
-            new CascaderItem(Localizer["Location3"], Localizer["Location3"]),
-        };
-
-        ret[0].AddItem(new CascaderItem("L1_CI1", Localizer["L1_CI1"]));
-        ret[0].AddItem(new CascaderItem("L1_CI2", Localizer["L1_CI2"]));
-        ret[0].AddItem(new CascaderItem("L1_CI3", Localizer["L1_CI3"]));
-        ret[0].AddItem(new CascaderItem("L1_CI4", Localizer["L1_CI4"]));
-
-        ret[0].Items.ElementAt(0).AddItem(new CascaderItem("CI5", Localizer["CI5"]));
-
-        ret[1].AddItem(new CascaderItem("L2_CI1", Localizer["L2_CI1"]));
-        ret[1].AddItem(new CascaderItem("L2_CI2", Localizer["L2_CI2"]));
-        ret[1].AddItem(new CascaderItem("L2_CI3", Localizer["L2_CI3"]));
-
-        ret[2].AddItem(new CascaderItem("L3_CI1", Localizer["L3_CI1"]));
-        ret[2].AddItem(new CascaderItem("L3_CI2", Localizer["L3_CI2"]));
-
-        return ret;
-    }
-
-    private readonly IEnumerable<CascaderItem> GuidItems = new CascaderItem[]
-    {
-        new CascaderItem(Guid.NewGuid().ToString(), "Guid1"),
-        new CascaderItem(Guid.NewGuid().ToString(), "Guid2")
-    };
-
-    /// <summary>
-    /// 下拉选项改变时调用此方法
-    /// </summary>
-    /// <param name="items"></param>
-    private Task OnItemChanged(CascaderItem[] items)
-    {
-        Trace.Log($"SelectedItem Text: {items[^1].Text} Value: {items[^1].Value} Selected");
-        return Task.CompletedTask;
-    }
-
     /// <summary>
     /// 获得事件方法
     /// </summary>
