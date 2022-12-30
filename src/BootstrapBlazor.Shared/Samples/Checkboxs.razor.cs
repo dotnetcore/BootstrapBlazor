@@ -2,81 +2,15 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using System.ComponentModel;
-
 namespace BootstrapBlazor.Shared.Samples;
 
 /// <summary>
-/// 
+/// Checkboxs
 /// </summary>
 public sealed partial class Checkboxs
 {
-    private class Foo
-    {
-        [DisplayName("标签文字1")]
-        public bool BindValue { get; set; }
-
-        [DisplayName("标签文字2")]
-        public bool BindValue1 { get; set; }
-    }
-
-    private Foo Model { get; set; } = new Foo();
-
     /// <summary>
-    /// 
-    /// </summary>
-    private BlockLogger? Trace { get; set; }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    private BlockLogger? BinderLog { get; set; }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="state"></param>
-    /// <param name="value"></param>
-    private Task OnStateChanged(CheckboxState state, string value)
-    {
-        Trace?.Log($"Checkbox state changed State: {state}");
-        return Task.CompletedTask;
-    }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="state"></param>
-    /// <param name="value"></param>
-    private Task OnItemChanged(CheckboxState state, bool value)
-    {
-        BinderLog?.Log($"CheckboxState: {state} - Bind Value: {value}");
-        return Task.CompletedTask;
-    }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="state"></param>
-    /// <param name="value"></param>
-    private Task OnItemChangedString(CheckboxState state, string value)
-    {
-        BinderLog?.Log($"CheckboxState: {state} - Bind Value: {value}");
-        return Task.CompletedTask;
-    }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    private string BindString { get; set; } = "我爱 Blazor";
-
-    /// <summary>
-    /// 
-    /// </summary>
-    private bool BindValue { get; set; }
-
-    /// <summary>
-    /// 
+    /// GetAttributes
     /// </summary>
     /// <returns></returns>
     private IEnumerable<AttributeItem> GetAttributes()

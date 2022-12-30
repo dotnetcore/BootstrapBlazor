@@ -2383,31 +2383,25 @@
   },
   "BootstrapBlazor.Shared.Samples.Checkboxs": {
     "Title": "Checkbox",
-    "H1": "Multiple-select in a set of alternatives",
-    "StatusText1": "Selected",
-    "StatusText2": "Not selected",
-    "StatusText3": "Indeterminate",
-    "Block1Title": "Basic usage",
-    "Block1Intro": "Using alone can represent a switch between two states, and column head or header can represent a switch between three states when used. Components support generic data binding, setting the binding data type the <code>TValue</code>, and setting the component state by <code>State</code>",
-    "Block2Title": "Disable the check box",
-    "Block2Intro": "Check box is not available, and the <code>IsDisabled</code> is set by whether the component is available",
-    "Block3Title": "Color",
-    "Block3Inrto": "Change the component background color by setting the <code>Color</code> property",
-    "Block4Title": "Size",
-    "Block4Intro": "Change the component size by setting the <code>Size</code> property",
-    "Block5Title": "Label text",
-    "Block5Intro": "The check box displays text, and the component status flips when you tap display text, using the <code>DisplayText</code> settings component to display text",
-    "P1": "Set <code>DisplayText</code> property, or display text messages through bidirectional binding",
-    "Checkbox1Text": "Displays text",
-    "Block6Title": "Two-way binding boolean",
-    "Block6Intro": "Binding variables within a component, data automatically synchronized, binding data types <code>boolean</code> type when the value is automatically flipped",
-    "Checkbox2Text": "Two-way binding",
-    "Block7Title": "Bind string data in both directions",
-    "Block7Intro": "Binding variables within a component, data is automatically synchronized",
-    "Block8Title": "Used in forms",
-    "Block8Intro": "When you use <code>Checkbox</code> in a form, the display label text is placed in front of the component",
-    "P2": "The pre-label explicit rules are consistent with the <code>BootstrapInput</code> component <a href='inputs'>[portal]</a>",
-    "Checkbox3Text": "Handwritten labels",
+    "Description": "Multiple-select in a set of alternatives",
+    "NormalTitle": "Basic usage",
+    "NormalIntro": "Using alone can represent a switch between two states, and column head or header can represent a switch between three states when used. Components support generic data binding, setting the binding data type the <code>TValue</code>, and setting the component state by <code>State</code>",
+    "DisabledTitle": "Disable the check box",
+    "DisabledIntro": "Check box is not available, and the <code>IsDisabled</code> is set by whether the component is available",
+    "ShowLabelTitle": "Color",
+    "ShowLabelIntro": "Change the component background color by setting the <code>Color</code> property",
+    "DisplayTextTitle": "Size",
+    "DisplayTextIntro": "Change the component size by setting the <code>Size</code> property",
+    "ShowAfterLabelTitle": "Label text",
+    "ShowAfterLabelIntro": "The check box displays text, and the component status flips when you tap display text, using the <code>DisplayText</code> settings component to display text",
+    "ShowAfterLabelDescription": "Set <code>DisplayText</code> property, or display text messages through bidirectional binding",
+    "OnStateChangedTitle": "Two-way binding boolean",
+    "OnStateChangedIntro": "Binding variables within a component, data automatically synchronized, binding data types <code>boolean</code> type when the value is automatically flipped",
+    "BindStringTitle": "Bind string data in both directions",
+    "BindStringIntro": "Binding variables within a component, data is automatically synchronized",
+    "ValidateFormTitle": "Used in forms",
+    "ValidateFormIntro": "When you use <code>Checkbox</code> in a form, the display label text is placed in front of the component",
+    "ValidateFormDescription": "The pre-label explicit rules are consistent with the <code>BootstrapInput</code> component <a href='inputs'>[portal]</a>",
     "Att1": "Whether to display the front label",
     "Att2": "Whether to display the rear label",
     "Att3": "The front label displays text",
@@ -2415,6 +2409,27 @@
     "Att5": "The type of control",
     "Event1": "This method is called back when the selection box state changes",
     "Event2": "The state changes the callback method"
+  },
+  "BootstrapBlazor.Shared.Demos.Checkbox.CheckboxNormal": {
+    "StatusText1": "Selected",
+    "StatusText2": "Not selected",
+    "StatusText3": "Indeterminate"
+  },
+  "BootstrapBlazor.Shared.Demos.CheckboxDisabled": {
+    "StatusText1": "Selected",
+    "StatusText2": "Not selected"
+  },
+  "BootstrapBlazor.Shared.Demos.CheckboxShowLabel": {
+    "StatusText1": "Selected"
+  },
+  "BootstrapBlazor.Shared.Demos.CheckboxOnStateChanged": {
+    "Checkbox2Text": "Two-way binding"
+  },
+  "BootstrapBlazor.Shared.Demos.CheckboxBindString": {
+    "Checkbox2Text": "Two-way binding"
+  },
+  "BootstrapBlazor.Shared.Demos.CheckboxValidateForm": {
+    "Checkbox3Text": "Handwritten labels"
   },
   "BootstrapBlazor.Shared.Samples.CheckboxLists": {
     "Title": "CheckboxList",
