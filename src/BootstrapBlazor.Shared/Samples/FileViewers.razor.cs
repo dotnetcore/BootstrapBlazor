@@ -69,7 +69,7 @@ public partial class FileViewers
 
     private async Task Apply()
     {
-        await fileViewer.Reload(Url);
+        await fileViewer.Reload(CombineFilename(Url));
     }
 
     /// <summary>

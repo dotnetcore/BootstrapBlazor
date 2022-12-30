@@ -29,6 +29,12 @@
     display: none;
 }
 
+::deep .bb-img {
+    display: inline-block;
+    height: 21px;
+    margin-bottom: 0.75rem;
+}
+
 @media (min-width: 576px) {
     .bb-title {
         font-size: 1.2rem;

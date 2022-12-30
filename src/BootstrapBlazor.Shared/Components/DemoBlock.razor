@@ -1,25 +1,27 @@
 ﻿@inherits IdComponentBase
 
-<AnchorLink Text="@Title" Id="@Name" TooltipText="@TooltipText" class="link-block" />
+<div class="demo-block">
+    <AnchorLink Text="@Title" Id="@Name" TooltipText="@TooltipText" />
 
-<p>@(new MarkupString(Introduction))</p>
+    <p>@(new MarkupString(Introduction))</p>
 
-<h5>@Localizer["SubTitle"]</h5>
+    <h5>@Localizer["SubTitle"]</h5>
 
-<div class="card">
-    <div class="card-body">
-        @RenderChildContent
-    </div>
-    @if (ShowCode)
-    {
-        <div class="card-footer">
-            <div class="card-footer-code collapse" id="@Id">
-                <Pre @key="@RazorFileName" CodeFile="@RazorFileName" BlockTitle="@BlockTitle" Demo="@Demo" ShowToolbar="true"></Pre>
-            </div>
-            <a class="card-footer-control collapsed" href="#@Id" data-bs-toggle="collapse" role="button" aria-label="show code">
-                <i class="fa-solid fa-caret-up"></i>
-                <span class="card-text"></span>
-            </a>
+    <div class="card">
+        <div class="card-body">
+            @RenderChildContent
         </div>
-    }
+        @if (ShowCode)
+        {
+            <div class="card-footer">
+                <div class="card-footer-code collapse" id="@Id">
+                    <Pre @key="@RazorFileName" CodeFile="@RazorFileName" BlockTitle="@BlockTitle" Demo="@Demo" ShowToolbar="true"></Pre>
+                </div>
+                <a class="card-footer-control collapsed" href="#@Id" data-bs-toggle="collapse" role="button" aria-label="show code">
+                    <i class="fa-solid fa-caret-up"></i>
+                    <span class="card-text"></span>
+                </a>
+            </div>
+        }
+    </div>
 </div>

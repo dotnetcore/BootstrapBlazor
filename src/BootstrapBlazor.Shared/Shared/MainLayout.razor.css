@@ -42,13 +42,6 @@
     font-size: var(--bb-sub-font-size);
 }
 
-::deep .link-block {
-    font-weight: var(--bb-font-weight);
-    color: var(--bb-title-color);
-    font-size: var(--bb-sub-font-size);
-    margin-top: 1rem;
-}
-
 ::deep .alert:last-child {
     margin-bottom: 0;
 }

@@ -80,3 +80,44 @@
     .card-footer-control.collapsed .card-text:before {
         content: "Show";
     }
+
+.demo-block > ::deep .anchor-link {
+    font-weight: var(--bb-font-weight);
+    color: var(--bb-title-color);
+    font-size: var(--bb-sub-font-size);
+    margin-top: 1rem;
+    margin-bottom: .5rem;
+}
+
+::deep .bb-avatar {
+    width: 46px;
+    border-radius: var(--bs-border-radius);
+}
+
+::deep .table-cell .progress {
+    height: 6px;
+    margin-top: 9px;
+    margin-bottom: 10px;
+}
+
+::deep .chart .btn i + span {
+    display: none;
+}
+
+::deep .ul-demo {
+    margin-bottom: 0;
+}
+
+    ::deep .ul-demo li:not(:last-child) {
+        margin-bottom: 0.25rem;
+    }
+
+@media (min-width: 768px) {
+    ::deep .chart {
+        max-width: 740px;
+    }
+
+        ::deep .chart .btn i + span {
+            display: inline;
+        }
+}

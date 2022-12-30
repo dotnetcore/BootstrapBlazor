@@ -1,6 +1,12 @@
 ﻿@page "/tables/cell"
 @inject IStringLocalizer<TablesCell> CellLocalizer
 
+<style>
+    .cell-demo {
+        --bs-table-bg: ##e9ecef;
+    }
+</style>
+
 <h3>@CellLocalizer["Title"]</h3>
 
 <h4>@CellLocalizer["H4"]</h4>
@@ -8,7 +14,7 @@
 <DemoBlock Title="@CellLocalizer["MergeCellTitle"]" Introduction="@CellLocalizer["MergeCellIntro"]" Name="MergeCell">
     <p>@((MarkupString)CellLocalizer["MergeCellP"].Value)</p>
     <Pre>.cell-demo {
-    background-color: #ddd;
+    --bs-table-bg: ##e9ecef;
 }</Pre>
     <Table TItem="Foo" Items="@Items.Take(3)">
         <TableColumns>

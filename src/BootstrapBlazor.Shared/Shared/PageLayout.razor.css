@@ -180,6 +180,71 @@
     background-color: #4b0cb3;
 }
 
+.layout-drawer {
+    padding: 13px;
+    margin-right: -1rem;
+    cursor: pointer;
+}
+
+    .layout-drawer:hover {
+        background-color: #1893a7;
+    }
+
+.layout-drawer-body {
+    padding: 1rem;
+}
+
+.layout-item {
+    cursor: pointer;
+    border: 2px solid #e9ecef;
+    padding: 4px;
+    border-radius: var(--bs-border-radius);
+    height: 80px;
+    width: 120px;
+    transition: border .3s linear;
+}
+
+    .layout-item:hover,
+    .layout-item.active {
+        border: 2px solid #28a745;
+    }
+
+    .layout-item .layout-left {
+        width: 30%;
+    }
+
+        .layout-item .layout-left .layout-left-header {
+            height: 16px;
+            background-color: var(--bb-layout-sidebar-banner-background);
+        }
+
+        .layout-item .layout-left .layout-left-body,
+        .layout-item .layout-body .layout-left {
+            background-color: #2f4050;
+        }
+
+    .layout-item .layout-right .layout-right-header,
+    .layout-item .layout-top {
+        background-color: #17a2b8;
+        height: 16px;
+    }
+
+    .layout-item .layout-right .layout-right-footer,
+    .layout-item .layout-footer {
+        background-color: #5b6e84;
+        height: 12px;
+    }
+
+    .layout-item .layout-top,
+    .layout-item .layout-body,
+    .layout-item .layout-footer {
+        width: 100%;
+    }
+
+.layout.is-page .layout-right {
+    background-color: #fff;
+}
+
 ::deep + .widget .dropdown-body h3 {
     color: #666666;
     font-size: 14px;
@@ -239,3 +304,7 @@
     .page-layout-demo-option .tabs-body-content {
         margin: 0 -1rem -2rem -1rem;
     }
+
+.page-layout-demo-footer-link {
+    color: #fff;
+}

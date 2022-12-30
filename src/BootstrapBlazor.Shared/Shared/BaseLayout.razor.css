@@ -85,6 +85,35 @@
         margin-left: 2px;
     }
 
+.install-prompt {
+    position: fixed;
+    bottom: 0.5rem;
+    left: 0;
+    right: 0;
+    z-index: 1071;
+}
+
+    .install-prompt .row {
+        justify-content: center;
+    }
+
+.install-prompt-body {
+    background-color: #54595f;
+    color: #fff;
+    padding: 0.5rem;
+    display: flex;
+    font-size: 1.5rem;
+    border-radius: var(--bs-border-radius);
+}
+
+    .install-prompt-body .installButton {
+        margin-left: auto;
+    }
+
+    .install-prompt-body .cancelButton {
+        margin-left: 0.3rem;
+    }
+
 @media (min-width: 768px) {
     .navbar-header {
         position: sticky;
