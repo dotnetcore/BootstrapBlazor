@@ -2,52 +2,16 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using Microsoft.Extensions.Options;
-
 namespace BootstrapBlazor.Shared.Samples;
 
 /// <summary>
-///
+/// CherryMarkdowns
 /// </summary>
 public partial class CherryMarkdowns
 {
     [Inject]
     [NotNull]
     private IStringLocalizer<CherryMarkdowns>? Localizer { get; set; }
-
-    private string? MarkdownString { get; set; }
-
-    private string? HtmlString { get; set; }
-
-    [NotNull]
-    private CherryMarkdown? MarkdownElement { get; set; }
-
-    private EditorSettings EditorSettings { get; set; } = new EditorSettings() { DefaultModel = "editOnly" };
-
-    private ToolbarSettings ToolbarSettings { get; set; } =
-        new ToolbarSettings() { Toolbar = new List<object> { "italic", new { insert = new List<string>() { "image" } } }, Bubble = new List<string>() { "bold" }, Float = new List<string>() { "h1" } };
-
-    [Inject]
-    [NotNull]
-    private IOptionsMonitor<WebsiteOptions>? SiteOptions { get; set; }
-
-    /// <summary>
-    /// OnInitialized
-    /// </summary>
-    protected override void OnInitialized()
-    {
-        base.OnInitialized();
-        MarkdownString = "# test";
-    }
-
-    private async Task<string> OnFileUpload(CherryMarkdownUploadFile arg)
-    {
-        var url = Path.Combine("images", "uploader",
-            $"{Path.GetFileNameWithoutExtension(arg.FileName)}-{DateTimeOffset.Now:yyyyMMddHHmmss}{Path.GetExtension(arg.FileName)}");
-        var fileName = Path.Combine(SiteOptions.CurrentValue.WebRootPath, url);
-        var ret = await arg.SaveToFile(fileName);
-        return ret ? url : "";
-    }
 
     private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {

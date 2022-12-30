@@ -2372,19 +2372,21 @@
   },
   "BootstrapBlazor.Shared.Samples.CherryMarkdowns": {
     "Header": "CherryMarkdown",
-    "P1": "基于 CherryMarkdown 的富文本框组件",
-    "P2": "基础用法",
-    "P3": "使用双向绑定获取对应的 <code>html</code> 和 <code>markdown</code> 内容",
-    "P4": "自行处理文件上传事件",
-    "P5": "使用<code>OnFileUpload</code>事件处理文件上传事件，支持直接粘贴图片到浏览器",
-    "P6": "自定义内容",
-    "P7": "通过<code>ToolbarSettings</code>自定义工具栏，通过<code>EditorSettings</code>自定义编辑器样式",
-    "P8": "浏览模式",
-    "P9": "纯浏览模式，没有编辑器",
-    "P10": "外部控制组件",
-    "P11": "使用CherryMarkdown的Api在外部控制内容",
-    "P12": "插入一个CheckList",
-    "P13": "插入一张图片"
+    "Tip": "基于 CherryMarkdown 的富文本框组件",
+    "NormalTitle": "基础用法",
+    "NormalIntro": "使用双向绑定获取对应的 <code>html</code> 和 <code>markdown</code> 内容",
+    "FileUploadTitle": "自行处理文件上传事件",
+    "FileUploadIntro": "使用<code>OnFileUpload</code>事件处理文件上传事件，支持直接粘贴图片到浏览器",
+    "CustomTitle": "自定义内容",
+    "CustomIntro": "通过<code>ToolbarSettings</code>自定义工具栏，通过<code>EditorSettings</code>自定义编辑器样式",
+    "ViewTitle": "浏览模式",
+    "ViewIntro": "纯浏览模式，没有编辑器",
+    "ApiTitle": "外部控制组件",
+    "ApiIntro": "使用CherryMarkdown的Api在外部控制内容"
+  },
+  "BootstrapBlazor.Shared.Demos.CherryMarkdown.CherryMarkdownApi": {
+    "InsertCheckListButtonText": "插入一个CheckList",
+    "InsertPictureButtonText": "插入一张图片"
   },
   "BootstrapBlazor.Shared.Samples.Checkboxs": {
     "Title": "Checkbox 多选框",

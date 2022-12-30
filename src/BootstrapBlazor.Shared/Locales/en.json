@@ -2365,19 +2365,21 @@
   },
   "BootstrapBlazor.Shared.Samples.CherryMarkdowns": {
     "Header": "CherryMarkdown",
-    "P1": "Rich text box component based on CherryMarkdown",
-    "P2": "Basic usage",
-    "P3": "Use two-way binding to get the corresponding <code>html</code> and <code>markdown</code> content",
-    "P4": "Handle file upload events yourself",
-    "P5": "Use the <code>OnFileUpload</code> event to handle the file upload event, support directly pasting pictures to the browser",
-    "P6": "custom content",
-    "P7": "Customize the toolbar via <code>ToolbarSettings</code>, and customize the editor style via <code>EditorSettings</code>",
-    "P8": "browse mode",
-    "P9": "Pure browsing mode, no editor",
-    "P10": "External control components",
-    "P11": "Control content externally using CherryMarkdown's Api",
-    "P12": "Insert a CheckList",
-    "P13": "insert a picture"
+    "Tip": "Rich text box component based on CherryMarkdown",
+    "NormalTitle": "Basic usage",
+    "NormalIntro": "Use two-way binding to get the corresponding <code>html</code> and <code>markdown</code> content",
+    "FileUploadTitle": "Handle file upload events yourself",
+    "FileUploadIntro": "Use the <code>OnFileUpload</code> event to handle the file upload event, support directly pasting pictures to the browser",
+    "CustomTitle": "custom content",
+    "CustomIntro": "Customize the toolbar via <code>ToolbarSettings</code>, and customize the editor style via <code>EditorSettings</code>",
+    "ViewTitle": "browse mode",
+    "ViewIntro": "Pure browsing mode, no editor",
+    "ApiTitle": "External control components",
+    "ApiIntro": "Control content externally using CherryMarkdown's Api"
+  },
+  "BootstrapBlazor.Shared.Demos.CherryMarkdown.CherryMarkdownApi": {
+    "InsertCheckListButtonText": "Insert a CheckList",
+    "InsertPictureButtonText": "insert a picture"
   },
   "BootstrapBlazor.Shared.Samples.Checkboxs": {
     "Title": "Checkbox",
