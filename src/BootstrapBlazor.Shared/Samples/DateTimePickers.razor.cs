@@ -5,98 +5,13 @@
 namespace BootstrapBlazor.Shared.Samples;
 
 /// <summary>
-/// 
+/// DateTimePickers
 /// </summary>
 public sealed partial class DateTimePickers
 {
-    private TimeSpan SpanValue { get; set; } = DateTime.Now.Subtract(DateTime.Today);
-
-    private string SpanValue2 { get; set; } = DateTime.Now.ToString("HH:mm:ss");
-
-    [NotNull]
-    private BlockLogger? DateLogger { get; set; }
-
-    [NotNull]
-    private BlockLogger? TimeLogger { get; set; }
-
-    private DateTime? BindValue { get; set; } = DateTime.Today;
-
-    private DateTime? BindNullValue { get; set; }
-
-    private bool IsDisabled { get; set; } = true;
-
-    /// <summary>
-    /// 
-    /// </summary>
-    [Required]
-    public DateTime? ModelValidateValue { get; set; }
-
-    private string? SubmitText { get; set; }
-
-    private string GetNullValueString => BindNullValue.HasValue ? BindNullValue.Value.ToString("yyyy-MM-dd") : " ";
-
     [Inject]
     [NotNull]
     private IStringLocalizer<DateTimePickers>? Localizer { get; set; }
-
-    /// <summary>
-    /// OnInitialized 方法
-    /// </summary>
-    protected override void OnInitialized()
-    {
-        base.OnInitialized();
-
-        SubmitText ??= Localizer[nameof(SubmitText)];
-    }
-
-    private string BindValueString
-    {
-        get
-        {
-            return BindValue.HasValue ? BindValue.Value.ToString("yyyy-MM-dd") : "";
-        }
-        set
-        {
-            if (DateTime.TryParse(value, out var d))
-            {
-                BindValue = d;
-            }
-            else
-            {
-                BindValue = DateTime.Today;
-            }
-        }
-    }
-
-    private Task DateValueChanged(DateTime d)
-    {
-        DateLogger.Log($"{Localizer["Log1Text"]}: {d:yyyy-MM-dd}");
-        return Task.CompletedTask;
-    }
-
-    private static string FormatterSpanString(TimeSpan ts)
-    {
-        return ts.ToString("hh\\:mm\\:ss");
-    }
-
-    private TimeSpan TimeNow { get; set; } = DateTime.Now - DateTime.Today;
-
-    private void TimeValueChanged(TimeSpan d)
-    {
-        TimeLogger.Log($"{Localizer["Log2Text"]}: {d:hh\\:mm\\:ss}");
-    }
-
-    private Task DateTimeValueChanged(DateTime? d)
-    {
-        BindValue = d;
-        return Task.CompletedTask;
-    }
-
-    private void OnValueChange(TimeSpan ts)
-    {
-        SpanValue2 = ts.ToString("hh\\:mm\\:ss");
-        StateHasChanged();
-    }
 
     /// <summary>
     /// 获得事件方法

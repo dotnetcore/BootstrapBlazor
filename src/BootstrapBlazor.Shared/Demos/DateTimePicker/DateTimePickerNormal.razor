@@ -1,0 +1,17 @@
+﻿@inject IStringLocalizer<DateTimePickerNormal> Localizer
+
+<div style="width: 320px;">
+    <DatePickerBody ValueChanged="@DateValueChanged" ShowFooter="false" />
+</div>
+<BlockLogger @ref="DateLogger" class="mt-3" />
+
+@code {
+    [NotNull]
+    private BlockLogger? DateLogger { get; set; }
+
+    private Task DateValueChanged(DateTime d)
+    {
+        DateLogger.Log($"{Localizer["Log1Text"]}: {d:yyyy-MM-dd}");
+        return Task.CompletedTask;
+    }
+}
