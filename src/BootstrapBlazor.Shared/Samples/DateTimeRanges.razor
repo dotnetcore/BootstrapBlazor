@@ -1,88 +1,29 @@
 ﻿@page "/datetimeranges"
 @inject IStringLocalizer<DateTimeRanges> Localizer
 
-<h3>@Localizer["H1"]</h3>
+<h3>@Localizer["Title"]</h3>
 
-<h4>@Localizer["H2"]</h4>
+<h4>@Localizer["Description"]</h4>
 
-<DemoBlock Title="@Localizer["P1"]" Introduction="@Localizer["P2"]" Name="Normal">
-    <DateTimeRange @bind-Value="@DateTimeRangeValue1" OnConfirm="OnConfirm" />
-    <BlockLogger @ref="DateLogger" class="mt-3" />
+<DemoBlock Title="@Localizer["NormalTitle"]" Introduction="@Localizer["NormalIntro"]" Name="Normal" Demo="DateTimeRange.DateTimeRangeNormal" />
+
+<DemoBlock Title="@Localizer["BindValueTitle"]" Introduction="@Localizer["BindValueIntro"]" Name="BindValue" Demo="DateTimeRange.DateTimeRangeBindValue" />
+
+<DemoBlock Title="@Localizer["MaxMinValueTitle"]" Introduction="@Localizer["MaxMinValueIntro"]" Name="MaxMinValue" Demo="DateTimeRange.DateTimeRangeMaxMinValue" />
+
+<DemoBlock Title="@Localizer["DisabledTitle"]" Introduction="@Localizer["DisabledIntro"]" Name="Disabled" Demo="DateTimeRange.DateTimeRangeDisabled" />
+
+<DemoBlock Title="@Localizer["SidebarTitle"]" Introduction="@Localizer["SidebarIntro"]" Name="Sidebar" Demo="DateTimeRange.DateTimeRangeSidebar">
+    <p>@((MarkupString)Localizer["SidebarTip"].Value)</p>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["P3"]" Introduction="@Localizer["P4"]" Name="BindValue">
-    <div class="row g-3">
-        <div class="col-12 col-sm-6">
-            <DateTimeRange @bind-Value="@DateTimeRangeValue2" OnValueChanged="v => OnValueChanged(v, 1)" />
-        </div>
-        <div class="col-12 col-sm-6">
-            <BootstrapInputGroup>
-                <BootstrapInputGroupLabel DisplayText="@Localizer["P5"]" />
-                <Display TValue="string" Value="@range2" />
-            </BootstrapInputGroup>
-        </div>
-    </div>
+<DemoBlock Title="@Localizer["TodayTitle"]" Introduction="@Localizer["TodayIntro"]" Name="Today" Demo="DateTimeRange.DateTimeRangeToday">
+    <p>@((MarkupString)Localizer["TodayTip"].Value)</p>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["P6"]" Introduction="@Localizer["P7"]" Name="MaxMinValue">
-    <div class="row g-3">
-        <div class="col-12 col-sm-6">
-            <DateTimeRange @bind-Value="@DateTimeRangeValue5" OnValueChanged="v => OnValueChanged(v, 2)" MinValue=DateTime.Today.AddDays(-7) MaxValue=DateTime.Today.AddDays(7) />
-        </div>
-        <div class="col-12 col-sm-6">
-            <BootstrapInputGroup>
-                <BootstrapInputGroupLabel DisplayText="@Localizer["P8"]" />
-                <Display TValue="string" Value="@range" />
-            </BootstrapInputGroup>
-        </div>
-    </div>
-</DemoBlock>
+<DemoBlock Title="@Localizer["ValidateFormTitle"]" Introduction="@Localizer["ValidateFormIntro"]" Name="ValidateForm" Demo="DateTimeRange.DateTimeRangeValidateForm" />
 
-<DemoBlock Title="@Localizer["P9"]" Introduction="@Localizer["P10"]" Name="Disabled">
-    <div class="row g-3">
-        <div class="col-12 col-sm-6">
-            <DateTimeRange Value="@DateTimeRangeValue3" IsDisabled="@IsDisabled" />
-        </div>
-        <div class="col-12 col-sm-6">
-            <Switch @bind-Value="@IsDisabled" />
-        </div>
-    </div>
-</DemoBlock>
-
-<DemoBlock Title="@Localizer["P11"]" Introduction="@Localizer["P12"]" Name="Sidebar">
-    <p>@Localizer["P13"] <code>ShowSidebar</code> @Localizer["P14"] <code>SidebarItems</code> @Localizer["P15"]</p>
-    <DateTimeRange Value="@DateTimeRangeValue4" ShowSidebar="true" />
-</DemoBlock>
-
-<DemoBlock Title="@Localizer["P16"]" Introduction="@Localizer["P17"]" Name="Today">
-    <p>@Localizer["P18"] <code>@Localizer["P19"] </code> @Localizer["P20"] <code>yyyy-MM-dd 00:00:00 到 yyyy-MM-dd 23:59:59</code></p>
-    <DateTimeRange Value="@DateTimeRangeValue4" ShowToday="true" />
-</DemoBlock>
-
-<DemoBlock Title="@Localizer["P21"]" Introduction="@Localizer["P22"]" Name="ValidateForm">
-    <FormInlineSwitch @bind-Value="@FormRowType" class="mb-3"></FormInlineSwitch>
-    <ValidateForm Model="@Model">
-        <div class="@GroupFormClassString">
-            <div class="col-12 col-sm-6">
-                <DateTimePicker @bind-Value="@Model.DateTime" />
-            </div>
-            <div class="col-12 col-sm-6">
-                <DateTimeRange @bind-Value="@Model.Range" />
-            </div>
-            <div class="col-12">
-                <Button ButtonType="ButtonType.Submit" Icon="fa-fw fa-solid fa-floppy-disk" Text="@Localizer["P23"]" />
-            </div>
-        </div>
-    </ValidateForm>
-</DemoBlock>
-
-<DemoBlock Title="自动关闭" Introduction="点击侧边栏快捷方式自动关闭弹窗" Name="AutoClose">
-    <div class="row">
-        <div class="col-12 col-sm-6">
-            <DateTimeRange Value="@DateTimeRangeValue4" ShowSidebar="true" AutoCloseClickSideBar="true" />
-        </div>
-    </div>
-</DemoBlock>
+<DemoBlock Title="@Localizer["AutoCloseTitle"]" Introduction="@Localizer["AutoCloseIntro"]" Name="AutoClose" Demo="DateTimeRange.DateTimeRangeAutoClose" />
 
 <AttributeTable Items="@GetAttributes()" />
 

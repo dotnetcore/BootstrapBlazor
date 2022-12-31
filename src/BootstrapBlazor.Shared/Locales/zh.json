@@ -3921,34 +3921,37 @@
     "Controllability": "可控 Controllability",
     "ControllabilityItem1": "用户决策：根据场景可给予用户操作建议或安全提示，但不能代替用户进行决策；",
     "ControllabilityItem2": "结果可控：用户可以自由的进行操作，包括撤销、回退和终止当前操作等。"
-
   },
   "BootstrapBlazor.Shared.Samples.DateTimeRanges": {
-    "H1": "DateTimeRange 日期时间段选择器",
-    "H2": "在同一个选择器里选择一段日期",
-    "P1": "基本功能",
-    "P2": "以「日」为基本单位，选择一段时间",
-    "P3": "数据双向绑定",
-    "P4": "点击确认按钮时间选择框值与文本框值一致",
-    "P5": "时间范围",
-    "P6": "最大值和最小值",
-    "P7": "设置时间的取值范围",
-    "P8": "时间范围",
-    "P9": "禁用",
-    "P10": "设置 <code>IsDisabled</code> 属性值为 <code>true</code> 时，组件禁止输入",
-    "P11": "带快捷键侧边栏",
-    "P12": "设置 <code>ShowSidebar</code> 属性值为 <code>true</code> 时，组件显示快捷方式侧边栏",
-    "P13": "通过设置",
-    "P14": "参数开启显示侧边栏快捷选项功能，通过设置",
-    "P15": "参数集合替换组件内置的默认快捷项",
-    "P16": "显示今天按钮",
-    "P17": "设置 <code>ShowToday</code> 属性值为 <code>true</code> 时，组件下方显示今天快捷按钮",
-    "P18": "点击",
-    "P19": "今天",
-    "P20": "按钮时，时间范围为",
-    "P21": "表单中使用",
-    "P22": "将组件内置到 <code>ValidateForm</code> 中使用",
-    "P23": "提交"
+    "Title": "DateTimeRange 日期时间段选择器",
+    "Description": "在同一个选择器里选择一段日期",
+    "NormalTitle": "基本功能",
+    "NormalIntro": "以「日」为基本单位，选择一段时间",
+    "BindValueTitle": "数据双向绑定",
+    "BindValueIntro": "点击确认按钮时间选择框值与文本框值一致",
+    "MaxMinValueTitle": "最大值和最小值",
+    "MaxMinValueIntro": "设置时间的取值范围",
+    "DisabledTitle": "禁用",
+    "DisabledIntro": "设置 <code>IsDisabled</code> 属性值为 <code>true</code> 时，组件禁止输入",
+    "SidebarTitle": "带快捷键侧边栏",
+    "SidebarIntro": "设置 <code>ShowSidebar</code> 属性值为 <code>true</code> 时，组件显示快捷方式侧边栏",
+    "SidebarTip": "通过设置  <code>ShowSidebar</code> 参数开启显示侧边栏快捷选项功能，通过设置 <code>SidebarItems</code> 参数集合替换组件内置的默认快捷项",
+    "TodayTitle": "显示今天按钮",
+    "TodayIntro": "设置 <code>ShowToday</code> 属性值为 <code>true</code> 时，组件下方显示今天快捷按钮",
+    "TodayTip": "点击 <code>Today</code> 今天按钮时，时间范围为 <code>yyyy-MM-dd 00:00:00 到 yyyy-MM-dd 23:59:59</code>",
+    "ValidateFormTitle": "表单中使用",
+    "ValidateFormIntro": "将组件内置到 <code>ValidateForm</code> 中使用",
+    "AutoCloseTitle": "自动关闭",
+    "AutoCloseIntro": "点击侧边栏快捷方式自动关闭弹窗"
+  },
+  "BootstrapBlazor.Shared.Demos.DateTimeRange.DateTimeRangeValidateForm": {
+    "Submit": "提交"
+  },
+  "BootstrapBlazor.Shared.Demos.DateTimeRange.DateTimeRangeMaxMinValue": {
+    "Limit": "时间范围"
+  },
+  "BootstrapBlazor.Shared.Demos.DateTimeRange.DateTimeRangeBindValue": {
+    "Limit": "时间范围"
   },
   "BootstrapBlazor.Shared.Samples.Ips": {
     "BasicUsageTitle": "基础用法"
