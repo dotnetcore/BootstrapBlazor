@@ -69,7 +69,7 @@ internal static class CacheManagerExtensions
 
     public static Task<string> GetContentFromDemoAsync(this ICacheManager cache, string demo, Func<ICacheEntry, Task<string>> factory)
     {
-        var key = $"{nameof(GetContentFromDemoAsync)}-Demos-{demo}";
+        var key = $"{nameof(GetContentFromDemoAsync)}-{demo}";
         return cache.GetOrCreateAsync(key, entry => factory(entry));
     }
 }

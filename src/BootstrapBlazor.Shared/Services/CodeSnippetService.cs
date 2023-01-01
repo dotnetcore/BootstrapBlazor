@@ -48,7 +48,7 @@ class CodeSnippetService
         ContentRootPath = options.CurrentValue.ContentRootPath;
         ServerUrl = options.CurrentValue.ServerUrl;
         SampleUrl = options.CurrentValue.SampleUrl;
-        DemoUrl = $"{SampleUrl}../Demos/";
+        DemoUrl = $"{SampleUrl}../";
     }
 
     /// <summary>
@@ -235,7 +235,7 @@ class CodeSnippetService
     private async Task<string> ReadDemoTextAsync(string codeFile)
     {
         var payload = "";
-        var paths = new string[] { "..", "BootstrapBlazor.Shared", "Demos" };
+        var paths = new string[] { "..", "BootstrapBlazor.Shared" };
         var folder = Path.Combine(ContentRootPath, string.Join(Path.DirectorySeparatorChar, paths));
         var file = Path.Combine(folder, codeFile);
         if (File.Exists(file))

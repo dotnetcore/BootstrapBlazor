@@ -5,7 +5,7 @@
 
 <h4>@Localizer["AjaxDescribe"]</h4>
 
-<DemoBlock Introduction="@Localizer["NormalIntro"]" Title="@Localizer["NormalTitle"]" Name="Normal" Demo="Ajax.AjaxNormal">
+<DemoBlock Introduction="@Localizer["NormalIntro"]" Title="@Localizer["NormalTitle"]" Name="Normal" Demo="typeof(Demos.Ajax.AjaxNormal)">
     <p>
         <b>@Localizer["NormalB"]</b>
         <div>@((MarkupString)Localizer["NormalDiv"].Value)</div>
@@ -18,7 +18,7 @@
 var result = await AjaxService.InvokeAsync(option);</Pre>
 </DemoBlock>
 
-<DemoBlock Introduction="@Localizer["GotoIntro"]" Title="@Localizer["GotoTitle"]" Name="Goto" Demo="Ajax.AjaxGoto" />
+<DemoBlock Introduction="@Localizer["GotoIntro"]" Title="@Localizer["GotoTitle"]" Name="Goto" Demo="typeof(Demos.Ajax.AjaxGoto)" />
 
 <MethodTable Items="@GetMethods()" />
 

@@ -41,7 +41,7 @@ public sealed partial class DemoBlock
     /// 获得/设置 示例代码片段 默认 null 未设置
     /// </summary>
     [Parameter]
-    public string? Demo { get; set; }
+    public Type? Demo { get; set; }
 
     /// <summary>
     /// 获得/设置 是否显示代码块 默认 true 显示
@@ -59,10 +59,6 @@ public sealed partial class DemoBlock
     [NotNull]
     private IStringLocalizer<DemoBlock>? Localizer { get; set; }
 
-    [Inject]
-    [NotNull]
-    private DemoComponentConverter? ComponentConverter { get; set; }
-
     /// <summary>
     /// 获得/设置 友好链接锚点名称
     /// </summary>
@@ -70,6 +66,8 @@ public sealed partial class DemoBlock
     public string? Name { get; set; }
 
     private string BlockTitle => Name ?? Title;
+
+    private string? DemoString => Demo?.ToString().Replace("BootstrapBlazor.Shared.", "");
 
     /// <summary>
     /// <inheritdoc/>
@@ -86,9 +84,9 @@ public sealed partial class DemoBlock
     {
         builder.AddContent(0, ChildContent);
 
-        if (ComponentConverter.TryParse(Demo, out var t))
+        if (Demo != null)
         {
-            builder.OpenComponent(1, t);
+            builder.OpenComponent(1, Demo);
             builder.CloseComponent();
         }
     };
