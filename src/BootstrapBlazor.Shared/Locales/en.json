@@ -849,24 +849,24 @@
     "EmailInput": "please enter ..."
   },
   "BootstrapBlazor.Shared.Samples.Dispatches": {
-    "H1": "Dispatch message distribution",
-    "H2": "By injecting the service to call the instance method, the site-wide pop-up window is used for message notification",
-    "P1": "This component provides functions in the form of injection services, which are usually used for site-wide message push and other functions; using this service requires <b>subscribe</b> and <b>unsubscribe</b> operations in the code",
-    "P2": "Basic usage",
-    "P3": "Popup by injecting an instance of the service <code>IDispatchService&lt;TEntry&gt;</code>",
-    "P4": "Through this component function, this site realizes the function of prompting the whole site when the code warehouse is submitted.",
-    "P5": "1. Get the <b>Injection Service</b> specified message entity class",
-    "P6": "2. <b>Subscribe</b> notifications",
-    "P7": "3. <b>Unsubscribe</b> when the page or component is destroyed",
-    "P8": "4. Notification implementation method <code>Notify</code>",
-    "P9": "notification title",
-    "P10": "Notification content",
-    "P11": "used in this example",
-    "P12": "component for notification, and any other built-in message component or custom component can be used for notification operation in actual combat",
-    "P13": "Practical application",
-    "P14": "Click the button to distribute the message, all people who open this page can receive the message distributed by this button",
-    "P15": "Since this function is a site-wide push notification, in order to prevent malicious use, in the example below, the button notification is disabled for <b>30</b> seconds; the message injection code is in the <code>MainLayout</code> template",
-    "P16": "Notice"
+    "Title": "Dispatch message distribution",
+    "Description": "By injecting the service to call the instance method, the site-wide pop-up window is used for message notification",
+    "Tips": "This component provides functions in the form of injection services, which are usually used for site-wide message push and other functions; using this service requires <b>subscribe</b> and <b>unsubscribe</b> operations in the code",
+    "NormalTip": "Through this component function, this site realizes the function of prompting the whole site when the code warehouse is submitted.",
+    "NormalTips1": "1. Get the <b>Injection Service</b> specified message entity class",
+    "NormalTips2": "2. <b>Subscribe</b> notifications",
+    "NormalTips3": "3. <b>Unsubscribe</b> when the page or component is destroyed",
+    "NormalTips4": "4. Notification implementation method <code>Notify</code>",
+    "NormalTipsTitle": "notification title",
+    "NormalTipsContent": "Notification content",
+    "NormalTips5": "used in this example <code>Toast</code> component for notification, and any other built-in message component or custom component can be used for notification operation in actual combat",
+    "DispatchTitle": "Practical application",
+    "DispatchIntro": "Click the button to distribute the message, all people who open this page can receive the message distributed by this button",
+    "DispatchTip": "Since this function is a site-wide push notification, in order to prevent malicious use, in the example below, the button notification is disabled for <b>30</b> seconds; the message injection code is in the <code>MainLayout</code> template"
+  },
+  "BootstrapBlazor.Shared.Demos.Dispatch.DispatchNormal": {
+    "DispatchNoticeButtonText": "Notice",
+    "DispatchNoticeMessage": "Test dispatch message"
   },
   "BootstrapBlazor.Shared.Samples.Drawers": {
     "H1": "Drawer",

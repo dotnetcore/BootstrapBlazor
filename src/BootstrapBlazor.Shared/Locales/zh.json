@@ -850,24 +850,24 @@
     "EmailInput": "请输入 ..."
   },
   "BootstrapBlazor.Shared.Samples.Dispatches": {
-    "H1": "Dispatch 消息分发",
-    "H2": "通过注入服务调用实例方法全站弹出窗口进行消息通知",
-    "P1": "本组件使用注入服务的形式提供功能，通常用于全站消息推送等功能；使用本服务使需要在代码中进行 <b>订阅</b> 与 <b>取消订阅</b> 操作",
-    "P2": "基本用法",
-    "P3": "通过注入服务 <code>IDispatchService&lt;TEntry&gt;</code> 实例进行弹窗",
-    "P4": "本站通过此组件功能实现了代码仓库有提交时全站提示功能",
-    "P5": "1. 获得 <b>注入服务</b> 指定消息实体类",
-    "P6": "2. <b>订阅</b> 消息通知",
-    "P7": "3. 页面或者组件销毁时 <b>取消订阅</b>",
-    "P8": "4. 通知实现方法 <code>Notify</code>",
-    "P9": "通知标题",
-    "P10": "通知内容",
-    "P11": "本例中使用",
-    "P12": "组件进行通知，实战中可以使用其他任意内置消息组件或者自定义组件进行通知提示操作",
-    "P13": "实战应用",
-    "P14": "点击按钮进行消息分发，所有打开此页面的人均能收到此按钮分发的消息",
-    "P15": "]由于本功能为全站推送通知，为防止恶意使用，下例中按钮通知后禁用 <b>30</b> 秒；消息注入代码在 <code>MainLayout</code> 模板中",
-    "P16": "通知"
+    "Title": "Dispatch 消息分发",
+    "Description": "通过注入服务调用实例方法全站弹出窗口进行消息通知",
+    "Tips": "本组件使用注入服务的形式提供功能，通常用于全站消息推送等功能；使用本服务使需要在代码中进行 <b>订阅</b> 与 <b>取消订阅</b> 操作",
+    "NormalTip": "本站通过此组件功能实现了代码仓库有提交时全站提示功能",
+    "NormalTips1": "1. 获得 <b>注入服务</b> 指定消息实体类",
+    "NormalTips2": "2. <b>订阅</b> 消息通知",
+    "NormalTips3": "3. 页面或者组件销毁时 <b>取消订阅</b>",
+    "NormalTips4": "4. 通知实现方法 <code>Notify</code>",
+    "NormalTipsTitle": "通知标题",
+    "NormalTipsContent": "通知内容",
+    "NormalTips5": "本例中使用 <code>Toast</code> 组件进行通知，实战中可以使用其他任意内置消息组件或者自定义组件进行通知提示操作",
+    "DispatchTitle": "实战应用",
+    "DispatchIntro": "点击按钮进行消息分发，所有打开此页面的人均能收到此按钮分发的消息",
+    "DispatchTip": "由于本功能为全站推送通知，为防止恶意使用，下例中按钮通知后禁用 <b>30</b> 秒；消息注入代码在 <code>MainLayout</code> 模板中，注意订阅与分发的泛型对象要一致"
+  },
+  "BootstrapBlazor.Shared.Demos.Dispatch.DispatchNormal": {
+    "DispatchNoticeButtonText": "通知",
+    "DispatchNoticeMessage": "测试通知消息"
   },
   "BootstrapBlazor.Shared.Samples.Drawers": {
     "H1": "Drawer 抽屉",

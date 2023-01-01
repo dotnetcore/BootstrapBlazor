@@ -1,50 +1,52 @@
 ﻿@page "/dispatches"
+@inject IStringLocalizer<Dispatches> Localizer
 
-<h3>@Localizer["H1"]</h3>
-<h4>@Localizer["H2"]</h4>
+<h3>@Localizer["Title"]</h3>
+<h4>@Localizer["Description"]</h4>
 
 <Tips class="mt-3">
-    <p>@Localizer["P1"]</p>
+    <p>@((MarkupString)Localizer["Tips"].Value)</p>
 </Tips>
 
-<DemoBlock Title="@Localizer["P2"]" Introduction="@Localizer["P3"]" Name="Normal" ShowCode="false">
-    <p>@Localizer["P4"]</p>
-    <p>@Localizer["P5"]</p>
-    <Pre>[Inject]
+<p>@Localizer["NormalTip"]</p>
+<p>@((MarkupString)Localizer["NormalTips1"].Value)</p>
+<Pre>[Inject]
 [NotNull]
 private IDispatchService&lt;GiteePostBody&gt;? DispatchService { get; set; }</Pre>
-    <p>@Localizer["P6"]</p>
-    <Pre>protected override void OnInitialized()
+<p>@((MarkupString)Localizer["NormalTips2"].Value)</p>
+<Pre>protected override void OnInitialized()
 {
     // ...
     DispatchService.Subscribe(Notify);
 }</Pre>
-    <p>@Localizer["P7"]</p>
-    <Pre>private void Dispose(bool disposing)
+<p>@((MarkupString)Localizer["NormalTips3"].Value)</p>
+<Pre>private void Dispose(bool disposing)
 {
     if (disposing)
     {
         DispatchService.UnSubscribe(Notify);
     }
 }</Pre>
-    <p>@Localizer["P8"]</p>
-    <Pre>private async Task Notify(DispatchEntry&lt;GiteePostBody&gt; payload)
+<p>@((MarkupString)Localizer["NormalTips4"].Value)</p>
+<Pre>private async Task Notify(DispatchEntry&lt;GiteePostBody&gt; payload)
 {
     if (payload.Entry != null)
     {
         var option = new ToastOption()
         {
             Category = ToastCategory.Information,
-            Title = @Localizer["P9"],
-            Content = @Localizer["P10"]
+            Title = @Localizer["NormalTipsTitle"],
+            Content = @Localizer["NormalTipsContent"]
         };
         await Toast.Show(option);
     }
 }</Pre>
-    <div>@Localizer["P11"] <code>Toast</code> @Localizer["P12"]</div>
-</DemoBlock>
+<div>@((MarkupString)Localizer["NormalTips5"].Value)</div>
 
-<DemoBlock Title="@Localizer["P13"]" Introduction="@Localizer["P14"]" Name="Dispatch">
-    <p>@Localizer["P15"]</p>
-    <Button IsAsync="true" Icon="fa-regular fa-paper-plane" Text="@Localizer["P16"]" OnClickWithoutRender="OnDispatch" />
+<DemoBlock Title="@Localizer["DispatchTitle"]" Introduction="@Localizer["DispatchIntro"]" Name="Dispatch" Demo="Dispatch.DispatchNormal">
+    <p>@((MarkupString)Localizer["DispatchTip"].Value)</p>
+    <Pre class="mb-3">public class MessageItem
+{
+    public string? Message { get; set; }
+}</Pre>
 </DemoBlock>
