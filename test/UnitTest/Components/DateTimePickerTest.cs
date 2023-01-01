@@ -278,7 +278,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         // 上一年
         cut.InvokeAsync(() => buttons[0].Click());
         var labels = cut.FindAll(".date-picker-header-label");
-        Assert.Equal((DateTime.Today.Year - 1).ToString() + " 年", labels[0].TextContent);
+        Assert.Equal(DateTime.Today.AddYears(-1).Year.ToString() + " 年", labels[0].TextContent);
 
         // 下一年
         cut.InvokeAsync(() => buttons[3].Click());
@@ -288,7 +288,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         // 上一月
         cut.InvokeAsync(() => buttons[1].Click());
         labels = cut.FindAll(".date-picker-header-label");
-        Assert.Equal((DateTime.Today.Month - 1).ToString() + " 月", labels[1].TextContent);
+        Assert.Equal(DateTime.Today.AddMonths(-1).Month.ToString() + " 月", labels[1].TextContent);
 
         // 下一月
         cut.InvokeAsync(() => buttons[2].Click());

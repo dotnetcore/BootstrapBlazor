@@ -78,7 +78,7 @@ public class CalendarTest : BootstrapBlazorTestBase
 
         // btn 上一月
         buttons[1].Click();
-        Assert.Contains($"{DateTime.Now.Year} 年 {DateTime.Now.Month - 1} 月", cut.Find(".calendar-title").ToMarkup());
+        Assert.Contains($"{DateTime.Now.AddMonths(-1).Year} 年 {DateTime.Now.AddMonths(-1).Month} 月", cut.Find(".calendar-title").ToMarkup());
         Assert.Equal(v, DateTime.Today.AddMonths(-1));
 
         // btn 下一月
