@@ -2593,9 +2593,6 @@
     "Event1": "Confirm that the button calls back the delegate",
     "Event2": "Callback delegates are used for bidirectional binding when component values change"
   },
-  "BootstrapBlazor.Shared.Demos.DateTimePicker.DateTimePickerNormal": {
-    "Log1Text": "The date selected is"
-  },
   "BootstrapBlazor.Shared.Demos.DateTimePicker.DateTimePickerGroup": {
     "BlockGroupPrevLabel": "Prev",
     "BlockGroupSuffixLabel": "Suffix"
@@ -2603,16 +2600,10 @@
   "BootstrapBlazor.Shared.Demos.DateTimePicker.DateTimePickerShowLabel": {
     "DisplayText": "Select the time"
   },
-  "BootstrapBlazor.Shared.Demos.DateTimePicker.DateTimePickerTime": {
-    "Codetext": "type"
-  },
-  "BootstrapBlazor.Shared.Demos.DateTimePicker.DateTimePickerValidateForm": {
+  "BootstrapBlazor.Shared.Demos.DateTimePicker.DateTimePickerValidateDemo": {
     "SubmitText": "Save",
-    "ModelValidateValue": "ModelValidateValue",
-    "ModelValidateValue.Required": "{0} is required."
-  },
-  "BootstrapBlazor.Shared.Demos.DateTimePicker.DateTimePickerValueChanged": {
-    "Log2Text": "The time selected is"
+    "Value": "Value",
+    "Value.Required": "{0} is required."
   },
   "BootstrapBlazor.Shared.Samples.Editors": {
     "Title": "Editor",

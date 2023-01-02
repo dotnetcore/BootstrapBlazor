@@ -112,6 +112,7 @@
     background: #fff;
     border-radius: var(--bs-border-radius);
     line-height: 30px;
+    display: inline-block;
 }
 
 .popover .picker-panel {

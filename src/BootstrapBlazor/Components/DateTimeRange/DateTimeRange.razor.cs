@@ -188,16 +188,13 @@ public partial class DateTimeRange
             StartValue = StartValue.AddMonths(-1);
         }
 
-        if (SidebarItems == null)
+        SidebarItems ??= new DateTimeRangeSidebarItem[]
         {
-            SidebarItems = new DateTimeRangeSidebarItem[]
-            {
-                new DateTimeRangeSidebarItem{ Text = Localizer["Last7Days"], StartDateTime = DateTime.Today.AddDays(-7), EndDateTime = DateTime.Today },
-                new DateTimeRangeSidebarItem{ Text = Localizer["Last30Days"], StartDateTime = DateTime.Today.AddDays(-30), EndDateTime = DateTime.Today },
-                new DateTimeRangeSidebarItem{ Text = Localizer["ThisMonth"], StartDateTime = DateTime.Today.AddDays(1- DateTime.Today.Day), EndDateTime = DateTime.Today.AddDays(1 - DateTime.Today.Day).AddMonths(1).AddDays(-1) },
-                new DateTimeRangeSidebarItem{ Text = Localizer["LastMonth"], StartDateTime = DateTime.Today.AddDays(1- DateTime.Today.Day).AddMonths(-1), EndDateTime = DateTime.Today.AddDays(1- DateTime.Today.Day).AddDays(-1) },
-            };
-        }
+            new DateTimeRangeSidebarItem{ Text = Localizer["Last7Days"], StartDateTime = DateTime.Today.AddDays(-7), EndDateTime = DateTime.Today },
+            new DateTimeRangeSidebarItem{ Text = Localizer["Last30Days"], StartDateTime = DateTime.Today.AddDays(-30), EndDateTime = DateTime.Today },
+            new DateTimeRangeSidebarItem{ Text = Localizer["ThisMonth"], StartDateTime = DateTime.Today.AddDays(1- DateTime.Today.Day), EndDateTime = DateTime.Today.AddDays(1 - DateTime.Today.Day).AddMonths(1).AddDays(-1) },
+            new DateTimeRangeSidebarItem{ Text = Localizer["LastMonth"], StartDateTime = DateTime.Today.AddDays(1- DateTime.Today.Day).AddMonths(-1), EndDateTime = DateTime.Today.AddDays(1- DateTime.Today.Day).AddDays(-1) },
+        };
     }
 
     /// <summary>

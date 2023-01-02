@@ -1,9 +1,9 @@
-﻿@inject IStringLocalizer<DateTimePickerValidateForm> Localizer
+﻿@inject IStringLocalizer<DateTimePickerValidateDemo> Localizer
 
 <ValidateForm Model="this">
     <div class="row g-3">
         <div class="col-12 col-sm-auto">
-            <DateTimePicker @bind-Value="@this.ModelValidateValue" />
+            <DateTimePicker @bind-Value="@Value" />
         </div>
         <div class="col-12 col-sm-auto align-self-end">
             <Button ButtonType="ButtonType.Submit" Text="@SubmitText" Icon="fa-solid fa-floppy-disk" />
@@ -20,14 +20,14 @@
     /// <summary>
     /// ModelValidateValue
     /// </summary>
-    [Required] public DateTime? ModelValidateValue { get; set; }
+    [Required]
+    public DateTime? Value { get; set; }
 
     /// <summary>
     /// OnInitialized 方法
     /// </summary>
     protected override void OnInitialized()
     {
-        base.OnInitialized();
         SubmitText ??= Localizer[nameof(SubmitText)];
     }
 }

@@ -64,13 +64,13 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void OnDateTimeChanged_Ok()
+    public void OnValueChanged_Ok()
     {
         var res = false;
         var cut = Context.RenderComponent<DateTimePicker<DateTime>>(builder =>
         {
             builder.Add(a => a.Value, DateTime.Now);
-            builder.Add(a => a.OnDateTimeChanged, new Func<DateTime, Task>(d =>
+            builder.Add(a => a.OnValueChanged, new Func<DateTime, Task>(d =>
             {
                 res = true;
                 return Task.CompletedTask;
@@ -88,7 +88,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         var changed = false;
         var cut = Context.RenderComponent<DateTimePicker<DateTime?>>(pb =>
         {
-            pb.Add(a => a.OnDateTimeChanged, v =>
+            pb.Add(a => a.OnValueChanged, v =>
             {
                 changed = true;
                 return Task.CompletedTask;
@@ -634,7 +634,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         {
             builder.Add(a => a.Value, DateTime.Today);
             builder.Add(a => a.AutoClose, false);
-            builder.Add(a => a.OnDateTimeChanged, dt =>
+            builder.Add(a => a.OnValueChanged, dt =>
             {
                 val = dt;
                 return Task.CompletedTask;

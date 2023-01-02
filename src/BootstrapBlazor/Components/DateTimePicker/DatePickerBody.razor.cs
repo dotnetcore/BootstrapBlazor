@@ -356,17 +356,6 @@ public partial class DatePickerBody
         base.OnInitialized();
 
         CurrentViewMode = ViewMode;
-
-        // 计算开始与结束时间 每个组件显示 6 周数据
-        if (Value == DateTime.MinValue)
-        {
-            SetValue(DateTime.Today);
-        }
-        else
-        {
-            CurrentDate = Value.Date;
-            CurrentTime = Value - CurrentDate;
-        }
     }
 
     /// <summary>

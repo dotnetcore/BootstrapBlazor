@@ -68,8 +68,7 @@ public static class ObjectExtensions
     public static bool IsDateTime(this Type t)
     {
         var targetType = Nullable.GetUnderlyingType(t) ?? t;
-        var check = targetType == typeof(DateTime) ||
-           targetType == typeof(DateTimeOffset);
+        var check = targetType == typeof(DateTime) || targetType == typeof(DateTimeOffset);
         return check;
     }
 

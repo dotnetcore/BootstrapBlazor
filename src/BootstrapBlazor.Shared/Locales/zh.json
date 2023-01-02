@@ -2600,9 +2600,6 @@
     "Event1": "确认按钮回调委托",
     "Event2": "组件值改变时回调委托供双向绑定使用"
   },
-  "BootstrapBlazor.Shared.Demos.DateTimePicker.DateTimePickerNormal": {
-    "Log1Text": "选择的日期为"
-  },
   "BootstrapBlazor.Shared.Demos.DateTimePicker.DateTimePickerGroup": {
     "BlockGroupPrevLabel": "前置标签",
     "BlockGroupSuffixLabel": "后置标签"
@@ -2610,16 +2607,10 @@
   "BootstrapBlazor.Shared.Demos.DateTimePicker.DateTimePickerShowLabel": {
     "DisplayText": "选择时间"
   },
-  "BootstrapBlazor.Shared.Demos.DateTimePicker.DateTimePickerTime": {
-    "Codetext": "类型"
-  },
-  "BootstrapBlazor.Shared.Demos.DateTimePicker.DateTimePickerValidateForm": {
+  "BootstrapBlazor.Shared.Demos.DateTimePicker.DateTimePickerValidateDemo": {
     "SubmitText": "保存",
-    "ModelValidateValue": "属性",
-    "ModelValidateValue.Required": "{0}为必填项"
-  },
-  "BootstrapBlazor.Shared.Demos.DateTimePicker.DateTimePickerValueChanged": {
-    "Log2Text": "选择的时间为"
+    "Value": "属性",
+    "Value.Required": "{0}为必填项"
   },
   "BootstrapBlazor.Shared.Samples.Editors": {
     "Title": "Editor 富文本框",
