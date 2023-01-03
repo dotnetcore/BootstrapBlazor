@@ -5,7 +5,7 @@
 namespace BootstrapBlazor.Shared.Samples;
 
 /// <summary>
-/// 
+/// GroupBoxs
 /// </summary>
 public sealed partial class GroupBoxs
 {

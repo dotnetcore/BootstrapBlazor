@@ -2687,7 +2687,7 @@
     "GroupBox5": "An example layout",
     "Block6Title": "Custom rendering component types",
     "Block6Intro": "Control the rendering component type by setting the <code>CompnentType</code> property values",
-    "Li5": "<code>inline</code> layout mode aligns the labels in the form right by setting the</code> <code>LabelAlign''Alignment.Right'",
+    "Li5": "<code>inline</code> layout mode aligns the labels in the form right by setting the <code>LabelAlign=\"Alignment.Right\"</code>",
     "Li6": "<code>Buttons</code> template you can nest <code>div</code> and style <code>text-end</code> align the right side of the button",
     "TestName": "Tom",
     "TestAddr": "The test address",
@@ -4063,10 +4063,12 @@
     "SubTitle": "Simulate WinForm's GroupBox components",
     "BasicUsageTitle": "Basic usage",
     "BasicUsageIntro": "Put your own components inside the <code>GroupBox</code>",
+    "AttTitle": "Set the component title"
+  },
+  "BootstrapBlazor.Shared.Demos.GroupBox.GroupBoxNormal": {
     "GroupTitle": "An example of a form",
     "GroupP1": "I'm an example of <code>GroupBox</code>",
-    "GroupP2": "For more examples, please refer to the <code>EditorForms</code> Form Example <a href='editorforms' target='_blank'> the portal </a>",
-    "AttTitle": "Set the component title"
+    "GroupP2": "For more examples, please refer to the <code>EditorForms</code> Form Example <a href='editorforms' target='_blank'>[the portal]</a>"
   },
   "BootstrapBlazor.Shared.Samples.LinkButtons": {
     "ComTitle": "LinkButton",
