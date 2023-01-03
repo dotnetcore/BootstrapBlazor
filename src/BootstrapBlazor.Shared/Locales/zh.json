@@ -4874,7 +4874,7 @@
     "SizeP": "<code>TableSize</code> 为表格大小枚举类型，默认值为 <code>Normal</code>，紧奏型值为 <code>Compact</code>",
     "HeaderStyleTitle": "表头样式",
     "HeaderStyleIntro": "通过设置 <code>HeaderStyle</code> 属性",
-    "HeaderStyleP": "<code>HeaderStyle</code> 为表格表头样式，默认值为 <code>None</code>",
+    "HeaderStyleP1": "<code>HeaderStyle</code> 为表格表头样式，默认值为 <code>None</code>",
     "HeaderStyleMode": "模式",
     "AttributeTitle": "Table 属性",
     "TableSizeAttr": "表格大小",
