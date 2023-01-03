@@ -47,6 +47,7 @@ public abstract class PopConfirmButtonBase : ButtonBase
     /// 获得/设置 自定义内容
     /// </summary>
     [Parameter]
+    [NotNull]
     public RenderFragment? BodyTemplate { get; set; }
 
     /// <summary>
