@@ -3975,7 +3975,8 @@
     "Limit": "time limit"
   },
   "BootstrapBlazor.Shared.Samples.Ips": {
-    "BasicUsageTitle": "Basic usage"
+    "BasicUsageTitle": "Basic usage",
+    "Intro": "Enter IP address in segments"
   },
   "BootstrapBlazor.Shared.Samples.Displays": {
     "Title": "Display",
