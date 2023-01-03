@@ -5,19 +5,18 @@
 namespace BootstrapBlazor.Shared.Samples;
 
 /// <summary>
-/// 
+/// GoTops
 /// </summary>
 public sealed partial class GoTops
 {
-
     private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
-            new AttributeItem() {
-                Name = "Target",
-                Description = Localizer["Desc1"],
-                Type = "string",
-                ValueList = " — ",
-                DefaultValue = " — "
-            }
+        new AttributeItem() {
+            Name = "Target",
+            Description = Localizer["Desc1"],
+            Type = "string",
+            ValueList = " — ",
+            DefaultValue = " — "
+        }
     };
 }

@@ -1739,12 +1739,14 @@
   },
   "BootstrapBlazor.Shared.Samples.GoTops": {
     "Title": "GoTop",
-    "H1": "Click to return to the top of the specified container",
-    "Block1Title": "Basic usage",
-    "Block1Intro": "Click to return to the top usage",
-    "P1": "The Footer component appears at the bottom, and the page automatically scrolls back to the top when you click Back to the Top",
-    "P2": "This example passes the component client ID",
+    "Description": "Click to return to the top of the specified container",
+    "NormalTitle": "Basic usage",
+    "NormalIntro": "Click to return to the top usage",
     "Desc1": "The scroll bar component ID controlled by the footer component"
+  },
+  "BootstrapBlazor.Shared.Demos.GoTop.GoTopNormal": {
+    "Description1": "The Footer component appears at the bottom, and the page automatically scrolls back to the top when you click Back to the Top",
+    "Description2": "This example passes the component client ID"
   },
   "BootstrapBlazor.Shared.Samples.Menus": {
     "Title": "Menu",
@@ -3975,8 +3977,7 @@
     "Limit": "time limit"
   },
   "BootstrapBlazor.Shared.Samples.Ips": {
-    "BasicUsageTitle": "Basic usage",
-    "Intro": "Enter IP address in segments"
+    "BasicUsageTitle": "Basic usage"
   },
   "BootstrapBlazor.Shared.Samples.Displays": {
     "Title": "Display",

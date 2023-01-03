@@ -1740,12 +1740,14 @@
   },
   "BootstrapBlazor.Shared.Samples.GoTops": {
     "Title": "GoTop 返回顶端组件",
-    "H1": "点击后返回指定容器的顶端",
-    "Block1Title": "基础用法",
-    "Block1Intro": "点击后返回顶端",
-    "P1": "底部显示 Footer 组件，点击返回顶端时页面自动滚动回顶端",
-    "P2": "本示例传递的是组件客户端 ID",
+    "Description": "点击后返回指定容器的顶端",
+    "NormalTitle": "基础用法",
+    "NormalIntro": "点击后返回顶端",
     "Desc1": "页脚组件控制的滚动条组件 ID"
+  },
+  "BootstrapBlazor.Shared.Demos.GoTop.GoTopNormal": {
+    "Description1": "底部显示 Footer 组件，点击返回顶端时页面自动滚动回顶端",
+    "Description2": "本示例传递的是组件客户端 ID"
   },
   "BootstrapBlazor.Shared.Samples.Menus": {
     "Title": "Menu 导航菜单",
@@ -3979,8 +3981,7 @@
     "Limit": "时间范围"
   },
   "BootstrapBlazor.Shared.Samples.Ips": {
-    "BasicUsageTitle": "基础用法",
-    "Intro": "分段录入IP地址"
+    "BasicUsageTitle": "基础用法"
   },
   "BootstrapBlazor.Shared.Samples.Displays": {
     "Title": "Display 显示组件",
