@@ -17,7 +17,61 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
             pb.Add(a => a.Value, DateTime.MinValue);
         });
         // 设置 Value 为 MinValue 内部更改为 DateTime.Now
-        Assert.NotEqual(DateTime.MinValue, cut.Instance.Value);
+        Assert.Equal(DateTime.MinValue, cut.Instance.Value);
+    }
+
+    [Fact]
+    public void AutoToday_Ok()
+    {
+        var cut = Context.RenderComponent<DateTimePicker<DateTime>>(pb =>
+        {
+            pb.Add(a => a.Value, DateTime.MinValue);
+        });
+        Assert.Equal(DateTime.Today, cut.Instance.Value);
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.AutoToday, false);
+            pb.Add(a => a.Value, DateTime.MinValue);
+        });
+        Assert.Equal(DateTime.MinValue, cut.Instance.Value);
+    }
+
+    [Fact]
+    public void AllowNull_Ok()
+    {
+        var cut = Context.RenderComponent<DateTimePicker<DateTime?>>(pb =>
+        {
+            pb.Add(a => a.Value, DateTime.MinValue);
+        });
+        Assert.Equal(DateTime.MinValue, cut.Instance.Value);
+    }
+
+    [Fact]
+    public void DataTimeOffsetNull_Ok()
+    {
+        var cut = Context.RenderComponent<DateTimePicker<DateTimeOffset?>>(pb =>
+        {
+            pb.Add(a => a.Value, DateTimeOffset.MinValue);
+        });
+        Assert.Equal(DateTimeOffset.MinValue, cut.Instance.Value);
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.Value, null);
+            pb.Add(a => a.AutoToday, false);
+        });
+        Assert.Null(cut.Instance.Value);
+    }
+
+    [Fact]
+    public void DataTimeOffset_Ok()
+    {
+        var cut = Context.RenderComponent<DateTimePicker<DateTimeOffset>>(pb =>
+        {
+            pb.Add(a => a.Value, DateTimeOffset.MinValue);
+        });
+        Assert.Equal(DateTimeOffset.MinValue, cut.Instance.Value);
     }
 
     [Fact]
@@ -103,6 +157,13 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         Assert.NotNull(cut.Instance.Value);
         Assert.True(changed);
 
+        cut.InvokeAsync(() => buttons[0].Click());
+        Assert.Null(cut.Instance.Value);
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.AutoToday, false);
+        });
         cut.InvokeAsync(() => buttons[0].Click());
         Assert.Null(cut.Instance.Value);
     }
@@ -753,7 +814,6 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         Assert.True(confirm);
     }
 
-    [JSModuleNotInherited]
     class MockDateTimePicker : DatePickerBody
     {
         public static bool GetSafeYearDateTime_Ok()

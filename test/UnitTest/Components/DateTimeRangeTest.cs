@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using AngleSharp.Dom;
 using System.ComponentModel.DataAnnotations;
 
 namespace UnitTest.Components;
@@ -28,6 +29,26 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
         });
 
         // 内部 StartValue 自动减一个月
+    }
+
+    [Fact]
+    public void RangeValue_Ok()
+    {
+        var cut = Context.RenderComponent<DateTimeRange>();
+        var cells = cut.FindAll(".date-table tbody span");
+        var end = cells.First(i => i.TextContent == "7");
+        var first = cells.First(i => i.TextContent == "1");
+        cut.InvokeAsync(() => end.Click());
+        cut.InvokeAsync(() => first.Click());
+
+        // confirm
+        var confirm = cut.FindAll(".is-confirm").Last();
+        cut.InvokeAsync(() => confirm.Click());
+        var value = cut.Instance.Value;
+        var startDate = DateTime.Today.AddDays(1 - DateTime.Today.Day);
+        var endDate = startDate.AddDays(7).AddSeconds(-1);
+        Assert.Equal(startDate, value.Start);
+        Assert.Equal(endDate, value.End);
     }
 
     [Fact]

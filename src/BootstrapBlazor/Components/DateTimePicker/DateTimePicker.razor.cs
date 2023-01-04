@@ -137,6 +137,13 @@ public partial class DateTimePicker<TValue>
     {
         base.OnParametersSet();
 
+        DateTimePlaceHolderText ??= Localizer[nameof(DateTimePlaceHolderText)];
+        DatePlaceHolderText ??= Localizer[nameof(DatePlaceHolderText)];
+        GenericTypeErroMessage ??= Localizer[nameof(GenericTypeErroMessage)];
+        DateTimeFormat ??= Localizer[nameof(DateTimeFormat)];
+        DateFormat ??= Localizer[nameof(DateFormat)];
+        Icon ??= "fa-regular fa-calendar-days";
+
         var type = typeof(TValue);
 
         // 判断泛型类型
@@ -144,13 +151,6 @@ public partial class DateTimePicker<TValue>
         {
             throw new InvalidOperationException(GenericTypeErroMessage);
         }
-
-        DateTimePlaceHolderText ??= Localizer[nameof(DateTimePlaceHolderText)];
-        DatePlaceHolderText ??= Localizer[nameof(DatePlaceHolderText)];
-        GenericTypeErroMessage ??= Localizer[nameof(GenericTypeErroMessage)];
-        DateTimeFormat ??= Localizer[nameof(DateTimeFormat)];
-        DateFormat ??= Localizer[nameof(DateFormat)];
-        Icon ??= "fa-regular fa-calendar-days";
 
         // 泛型设置为可为空
         AllowNull = Nullable.GetUnderlyingType(type) != null;
@@ -167,12 +167,24 @@ public partial class DateTimePicker<TValue>
         }
 
         // Value 为 MinValue 时 设置 Value 默认值
-        if (AutoToday)
+        if (AutoToday && (Value == null || Value.ToString() == DateTime.MinValue.ToString()))
         {
-            if (Value == null || Value.ToString() == DateTime.MinValue.ToString())
+            SelectedValue = DateTime.Today;
+            if (!AllowNull)
             {
-                SelectedValue = DateTime.Today;
+                CurrentValueAsString = SelectedValue.ToString("yyyy-MM-dd HH:mm:ss");
             }
+        }
+        else if (Value is DateTime dt)
+        {
+            SelectedValue = dt;
+        }
+        else
+        {
+            var offset = (DateTimeOffset?)(object)Value;
+            SelectedValue = offset.HasValue
+                ? offset.Value.DateTime
+                : DateTime.MinValue;
         }
     }
 

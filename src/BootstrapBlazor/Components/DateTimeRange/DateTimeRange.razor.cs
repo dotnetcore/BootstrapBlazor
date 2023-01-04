@@ -324,7 +324,7 @@ public partial class DateTimeRange
     /// <param name="d"></param>
     internal void UpdateStart(DateTime d)
     {
-        StartValue = StartValue.AddYears(d.Year - StartValue.Year).AddMonths(d.Month - StartValue.Month);
+        StartValue = d;
         EndValue = StartValue.AddMonths(1);
         StateHasChanged();
     }
@@ -335,7 +335,7 @@ public partial class DateTimeRange
     /// <param name="d"></param>
     internal void UpdateEnd(DateTime d)
     {
-        EndValue = EndValue.AddYears(d.Year - EndValue.Year).AddMonths(d.Month - EndValue.Month);
+        EndValue = d;
         StartValue = EndValue.AddMonths(-1);
         StateHasChanged();
     }
@@ -364,11 +364,12 @@ public partial class DateTimeRange
             SelectedValue.End = DateTime.MinValue;
         }
 
-        if (d.Year < StartValue.Year || d.Month < StartValue.Month)
+        var startDate = StartValue.AddDays(1 - StartValue.Day);
+        if (d < startDate)
         {
             UpdateStart(d);
         }
-        else if (d.Month > EndValue.Month)
+        else if (d > startDate.AddMonths(2).AddDays(-1))
         {
             UpdateEnd(d);
         }

@@ -6,28 +6,15 @@
             <DateTimePicker @bind-Value="@Value" />
         </div>
         <div class="col-12 col-sm-auto align-self-end">
-            <Button ButtonType="ButtonType.Submit" Text="@SubmitText" Icon="fa-solid fa-floppy-disk" />
+            <Button ButtonType="ButtonType.Submit" Text="@Localizer["SubmitText"]" Icon="fa-solid fa-floppy-disk" />
         </div>
     </div>
 </ValidateForm>
 
 @code {
     /// <summary>
-    /// SubmitText
-    /// </summary>
-    private string? SubmitText { get; set; }
-
-    /// <summary>
     /// ModelValidateValue
     /// </summary>
     [Required]
     public DateTime? Value { get; set; }
-
-    /// <summary>
-    /// OnInitialized 方法
-    /// </summary>
-    protected override void OnInitialized()
-    {
-        SubmitText ??= Localizer[nameof(SubmitText)];
-    }
 }

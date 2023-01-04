@@ -1,6 +1,6 @@
 ﻿@inject IStringLocalizer<DateTimePickerShowLabel> Localizer
 
-<DateTimePicker TValue="DateTime?" ShowLabel="true" DisplayText="@Localizer["DisplayText"]" @bind-Value="@BindNullValue" />
+<DateTimePicker ShowLabel="true" DisplayText="@Localizer["DisplayText"]" @bind-Value="@BindNullValue" />
 
 @code {
     private DateTime? BindNullValue { get; set; }
