@@ -548,22 +548,20 @@ RenderFragment<bool> RenderHeader => hasScroll =>
                     <div class="table-cell">&nbsp;</div>
                 </th>
             }
-            <CascadingValue Value="this" IsFixed="true">
-                @foreach (var col in GetColumns())
+            @foreach (var col in GetColumns())
+            {
+                if (CheckShownWithBreakpoint(col))
                 {
-                    if (CheckShownWithBreakpoint(col))
-                    {
-                        <th class="@GetHeaderClassString(col, true)" style="@GetFixedCellStyleString(col, 6)">
-                            <div class="table-cell">
-                                @if(col.Filterable)
-                                {
-                                    <TableFilter Column="col" IsHeaderRow="true" />
-                                }
-                            </div>
-                        </th>
-                    }
+                    <th class="@GetHeaderClassString(col, true)" style="@GetFixedCellStyleString(col, 6)">
+                        <div class="table-cell">
+                            @if(col.Filterable)
+                            {
+                                <TableFilter Icon="@FilterIcon" Column="col" Table="this" IsHeaderRow="true" />
+                            }
+                        </div>
+                    </th>
                 }
-            </CascadingValue>
+            }
             @if (ShowExtendButtons && !IsExtendButtonsInRowHeader)
             {
                 <th class="@ExtendButtonsColumnClass" style="@GetFixedExtendButtonsColumnStyleString(6)">
