@@ -40,11 +40,20 @@ public partial class Topology
     [Parameter]
     public Func<Task>? OnBeforePushData { get; set; }
 
+    /// <summary>
+    /// 获得/设置 是否支持树莓派触屏浏览器
+    /// </summary>
+    /// <remarks>UserAgent 增加 X11|CrOS 识别为移动端</remarks>
+    [Parameter]
+    public bool IsSupportTouch { get; set; }
+
     private string? StyleString => CssBuilder.Default("width: 100%; height: 100%;")
         .AddStyleFromAttributes(AdditionalAttributes)
         .Build();
 
     private CancellationTokenSource? CancelToken { get; set; }
+
+    private string? IsSupportTouchString => IsSupportTouch ? "true" : null;
 
     /// <summary>
     /// <inheritdoc/>
