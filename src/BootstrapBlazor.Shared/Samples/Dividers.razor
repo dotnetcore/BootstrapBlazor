@@ -3,70 +3,16 @@
 
 <h3>@Localizer["Title"]</h3>
 
-<h4>@Localizer["H1"]</h4>
+<h4>@Localizer["Description"]</h4>
 
-<DemoBlock Title="@Localizer["Block1Title"]" Introduction="@Localizer["Block1Intro"]" Name="Normal">
-    <p>@Localizer["P1"]</p>
-    <Divider></Divider>
-    <p>@Localizer["P2"]</p>
-</DemoBlock>
+<DemoBlock Title="@Localizer["NormalTitle"]" Introduction="@Localizer["NormalIntro"]" Name="Normal" Demo="typeof(Demos.Divider.DividerNormal)" />
 
-<DemoBlock Title="@Localizer["Block2Title"]" Introduction="@Localizer["Block2Intro"]" Name="Alignment">
-    <p>@Localizer["P3"]</p>
-    <Divider Text="@Localizer["D1"]" Alignment="Alignment.Left"></Divider>
-    <p>@Localizer["P4"]</p>
-    <Divider Text="@Localizer["D2"]"></Divider>
-    <p>@Localizer["P5"]</p>
-    <Divider Text="@Localizer["D3"]" Alignment="Alignment.Right"></Divider>
-    <p>@Localizer["P6"]</p>
-</DemoBlock>
+<DemoBlock Title="@Localizer["AlignmentTitle"]" Introduction="@Localizer["AlignmentIntro"]" Name="Alignment" Demo="typeof(Demos.Divider.DividerAlignment)" />
 
-<DemoBlock Title="@Localizer["Block3Title"]" Introduction="@Localizer["Block3Intro"]" Name="Icon">
-    <p>@Localizer["P3"]</p>
-    <Divider Icon="fa-fw fa-solid fa-at" Alignment="Alignment.Left"></Divider>
-    <p>@Localizer["P4"]</p>
-    <Divider Icon="fa-fw fa-solid fa-chart-bar"></Divider>
-    <p>@Localizer["P5"]</p>
-    <Divider Icon="fa-fw fa-solid fa-bookmark" Text="@Localizer["D4"]" Alignment="Alignment.Right"></Divider>
-    <p>@Localizer["P6"]</p>
-</DemoBlock>
+<DemoBlock Title="@Localizer["IconTitle"]" Introduction="@Localizer["IconIntro"]" Name="Icon" Demo="typeof(Demos.Divider.DividerIcon)" />
 
-<DemoBlock Title="@Localizer["Block4Title"]" Introduction="@Localizer["Block4Intro"]" Name="Vertical">
-    <div class="d-flex">
-        <span>@Localizer["S1"]</span>
-        <Divider IsVertical="true"></Divider>
-        <span>@Localizer["S2"]</span>
-        <Divider IsVertical="true"></Divider>
-        <span>@Localizer["S3"]</span>
-    </div>
-    <Divider Text="@Localizer["D5"]"></Divider>
-    <div class="d-flex" style="height: 100px;">
-        <div class="border border-primary" style="width:100px; height:100%;"></div>
-        <Divider IsVertical="true" Alignment="Alignment.Left"></Divider>
-        <div class="border border-success" style="width:100px; height:100%;"></div>
-        <Divider IsVertical="true"></Divider>
-        <div class="border border-info" style="width:100px; height:100%;"></div>
-        <Divider IsVertical="true" Alignment="Alignment.Right"></Divider>
-        <div class="border border-warning" style="width:100px; height:100%;"></div>
-    </div>
-    <Divider Text="@Localizer["D5"]"></Divider>
-    <div class="d-flex" style="height: 200px;">
-        <div class="border border-primary" style="width:100px; height:100%;"></div>
-        <Divider IsVertical="true" Text="@Localizer["D5"]" Alignment="Alignment.Left"></Divider>
-        <div class="border border-success" style="width:100px; height:100%;"></div>
-        <Divider IsVertical="true" Text="@Localizer["D5"]"></Divider>
-        <div class="border border-info" style="width:100px; height:100%;"></div>
-        <Divider IsVertical="true" Text="@Localizer["D5"]" Alignment="Alignment.Right"></Divider>
-        <div class="border border-warning" style="width:100px; height:100%;"></div>
-    </div>
-</DemoBlock>
+<DemoBlock Title="@Localizer["VerticalTitle"]" Introduction="@Localizer["VerticalIntro"]" Name="Vertical" Demo="typeof(Demos.Divider.DividerVertical)" />
 
-<DemoBlock Title="@Localizer["Block5Title"]" Introduction="@Localizer["Block5Intro"]" Name="ChildContent">
-    <p>@Localizer["P3"]</p>
-    <Divider>
-        <div class="text-dagner">@((MarkupString)Localizer["Div"].Value)</div>
-    </Divider>
-    <p>@Localizer["P4"]</p>
-</DemoBlock>
+<DemoBlock Title="@Localizer["ChildContentTitle"]" Introduction="@Localizer["ChildContentIntro"]" Name="ChildContent" Demo="typeof(Demos.Divider.DividerChildContent)" />
 
 <AttributeTable Items="@GetAttributes()" />
