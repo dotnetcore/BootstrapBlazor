@@ -73,6 +73,18 @@ public static class ObjectExtensions
     }
 
     /// <summary>
+    /// 检查是否为 TimeSpan 数据类型
+    /// </summary>
+    /// <param name="t"></param>
+    /// <returns></returns>
+    public static bool IsTimeSpan(this Type t)
+    {
+        var targetType = Nullable.GetUnderlyingType(t) ?? t;
+        var check = targetType == typeof(TimeSpan);
+        return check;
+    }
+
+    /// <summary>
     /// 通过类型获取类型描述文字
     /// </summary>
     /// <param name="t"></param>

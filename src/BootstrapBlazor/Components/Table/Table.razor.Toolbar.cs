@@ -809,11 +809,13 @@ public partial class Table<TItem>
         var ret = false;
         if (OnExportAsync != null)
         {
+            // 通过 OnExportAsync 回调导出数据
             ret = await OnExportAsync(Rows, BuildQueryPageOptions());
         }
         else
         {
-            ret = await ExcelExport.ExportAsync(Rows, Columns);
+            // 通过 ITableExcelExport 服务导出数据
+            ret = await ExcelExport.ExportAsync(Rows, GetColumns());
         }
 
         option = new ToastOption

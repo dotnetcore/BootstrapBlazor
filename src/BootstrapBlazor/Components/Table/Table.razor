@@ -101,7 +101,9 @@
                             <div class="dropdown-menu dropdown-menu-end shadow">
                                 @if(ExportButtonDropdownTemplate != null)
                                 {
-                                    @ExportButtonDropdownTemplate
+                                    <CascadingValue Value="ExportAsync" IsFixed="true">
+                                        @ExportButtonDropdownTemplate
+                                    </CascadingValue>
                                 }
                                 else
                                 {
