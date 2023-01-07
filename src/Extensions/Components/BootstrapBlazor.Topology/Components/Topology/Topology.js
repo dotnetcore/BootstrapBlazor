@@ -14,7 +14,7 @@ export class BlazorTopology extends BlazorComponent {
             const data = this._config.arguments[1]
             const method = this._config.arguments[2]
             const isSupportTouch = this._config.supportTouch === true;
-            this._topology = new Topology(this._element, isSupportTouch)
+            this._topology = new Topology(this._element, {}, isSupportTouch)
             this._topology.connectSocket = function () {
             }
             this._topology.open(JSON.parse(data))
