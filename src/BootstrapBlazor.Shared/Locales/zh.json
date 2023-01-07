@@ -1708,34 +1708,31 @@
   },
   "BootstrapBlazor.Shared.Samples.Dropdowns": {
     "Title": "Dropdown 下拉菜单",
-    "H1": "将动作或菜单折叠到下拉菜单中",
-    "Block1Title": "基础用法",
-    "Block1Intro": "使用 <code>TagName='a'</code> 开启带有 button 标签的下拉表",
-    "Block2Title": "Dropdown 空下拉菜单",
-    "Block2Intro": "允许空 <code>Items</code> 存在的下拉菜单",
-    "Block3Title": "带有颜色的下拉框",
-    "Block3Intro": "提供各种颜色的警告信息框 引用 <code>Color='Color.Primary'</code> 等颜色及样式类来定义下拉菜单的外在表现",
-    "Block4Title": "分裂式按钮下拉菜单",
-    "Block4Intro": "可用与单个按钮下拉菜单近似的标记创建分裂式下拉菜单，添加 <code>ShowSplit='true'</code> (使用分裂式组件时需要加上 <code>DropdownType='DropdownType.ButtonGroup</code>') 插入此符号为下拉选项作适当的间隔（距）处理。",
-    "Block5Title": "尺寸大小定义",
-    "Block5Intro": "下拉菜单有各种大小规格可以选用 <code>Size</code> 属性，包括预设及分裂式按钮下拉菜单。",
-    "Block6Title": "展开方向",
-    "Block6Intro": "增加 <code>Direction='Direction.Dropup'</code> 样式，使下拉菜单向上展开。",
-    "Block7Title": "菜单对齐",
-    "Block7Intro": "默认情况下，通过设置 <code>MenuAlignment=Alignment.Right</code> 使下拉菜单右侧对齐",
-    "Block8Title": "绑定数据源",
-    "Block8Intro": "点击右侧按钮时，下拉框内菜单项会增加",
-    "Button1Text": "添加",
-    "Button2Text": "删除",
-    "Block9Title": "绑定数据源",
-    "Block9Intro": "改变选项时，下拉框内菜单项会增加",
-    "Block10Title": "级联绑定",
-    "Block10Intro": "通过选择第一个下拉框不同选项，第二个下拉框动态填充内容。",
+    "Description": "将动作或菜单折叠到下拉菜单中",
+    "NormalTitle": "基础用法",
+    "NormalIntro": "使用 <code>TagName='a'</code> 开启带有 button 标签的下拉表",
+    "NullTitle": "Dropdown 空下拉菜单",
+    "NullIntro": "允许空 <code>Items</code> 存在的下拉菜单",
+    "ColorTitle": "带有颜色的下拉框",
+    "ColorIntro": "提供各种颜色的警告信息框 引用 <code>Color='Color.Primary'</code> 等颜色及样式类来定义下拉菜单的外在表现",
+    "SplitTitle": "分裂式按钮下拉菜单",
+    "SplitIntro": "可用与单个按钮下拉菜单近似的标记创建分裂式下拉菜单，添加 <code>ShowSplit='true'</code> (使用分裂式组件时需要加上 <code>DropdownType='DropdownType.ButtonGroup</code>') 插入此符号为下拉选项作适当的间隔（距）处理。",
+    "SizeTitle": "尺寸大小定义",
+    "SizeIntro": "下拉菜单有各种大小规格可以选用 <code>Size</code> 属性，包括预设及分裂式按钮下拉菜单。",
+    "DirectionTitle": "展开方向",
+    "DirectionIntro": "增加 <code>Direction='Direction.Dropup'</code> 样式，使下拉菜单向上展开。",
+    "AlignmentTitle": "菜单对齐",
+    "AlignmentIntro": "默认情况下，通过设置 <code>MenuAlignment=Alignment.Right</code> 使下拉菜单右侧对齐",
+    "ItemsTitle": "绑定数据源",
+    "ItemsIntro": "点击右侧按钮时，下拉框内菜单项会增加",
+    "RadioTitle": "绑定数据源",
+    "RadioIntro": "改变选项时，下拉框内菜单项会增加",
+    "CascadeTitle": "级联绑定",
+    "CascadeIntro": "通过选择第一个下拉框不同选项，第二个下拉框动态填充内容。",
     "IsFixedButtonTextTitle": "固定按钮文本",
     "IsFixedButtonTextIntro": "通过设置 <code>IsFixedButtonText</code> 使更改下拉选项时按钮文本不变",
     "FixedButtonTextTitle": "设置固定按钮文字",
     "FixedButtonTextIntro": "通过设置 <code>FixedButtonText</code> 来设置固定按钮的初始文字",
-    "FixedButtonTextCity": "城市",
     "ADesc1": "当前选中的值",
     "ADesc2": "样式",
     "ADesc3": "颜色",
@@ -1748,20 +1745,70 @@
     "ADesc10": "尺寸",
     "ADesc11": "标签",
     "EDesc1": "下拉框值发生改变时触发",
-    "FixedButtonText": "固定按钮显示文字",
-    "V1": "北京",
-    "V2": "上海",
-    "V3": "广州",
-    "F1": "北京",
-    "F2": "上海",
-    "F3": "广州",
-    "I1": "请选择 ...",
-    "I2": "北京",
-    "I3": "上海",
-    "I4": "杭州",
-    "RI1": "北京",
-    "RI2": "上海",
-    "RI3": "广州"
+    "FixedButtonText": "固定按钮显示文字"
+  },
+  "BootstrapBlazor.Shared.Demos.Dropdown.DropdownNormal": {
+    "Item1": "北京",
+    "Item2": "上海",
+    "Item3": "广州"
+  },
+  "BootstrapBlazor.Shared.Demos.Dropdown.DropdownColor": {
+    "Item1": "北京",
+    "Item2": "上海",
+    "Item3": "广州"
+  },
+  "BootstrapBlazor.Shared.Demos.Dropdown.DropdownSplit": {
+    "Item1": "北京",
+    "Item2": "上海",
+    "Item3": "广州"
+  },
+  "BootstrapBlazor.Shared.Demos.Dropdown.DropdownSize": {
+    "Item1": "北京",
+    "Item2": "上海",
+    "Item3": "广州"
+  },
+  "BootstrapBlazor.Shared.Demos.Dropdown.DropdownDirection": {
+    "Item1": "北京",
+    "Item2": "上海",
+    "Item3": "广州"
+  },
+  "BootstrapBlazor.Shared.Demos.Dropdown.DropdownAlignment": {
+    "Item1": "北京",
+    "Item2": "上海",
+    "Item3": "广州"
+  },
+  "BootstrapBlazor.Shared.Demos.Dropdown.DropdownItems": {
+    "Item1": "北京",
+    "Item2": "上海",
+    "Item3": "广州",
+    "AddItem": "添加",
+    "RemoveItem": "删除",
+    "City": "城市"
+  },
+  "BootstrapBlazor.Shared.Demos.Dropdown.DropdownRadio": {
+    "Item1": "北京",
+    "Item2": "上海",
+    "Item3": "广州",
+    "City": "城市"
+  },
+  "BootstrapBlazor.Shared.Demos.Dropdown.DropdownCascade": {
+    "Item1": "请选择 ...",
+    "Item2": "北京",
+    "Item3": "上海",
+    "Item4": "杭州",
+    "Item5": "朝阳区",
+    "Item6": "海淀区",
+    "Item7": "静安区",
+    "Item8": "黄浦区"
+  },
+  "BootstrapBlazor.Shared.Demos.Dropdown.DropdownIsFixedButtonText": {
+    "Item1": "北京",
+    "Item2": "上海"
+  },
+  "BootstrapBlazor.Shared.Demos.Dropdown.DropdownFixedButtonText": {
+    "Item1": "北京",
+    "Item2": "上海",
+    "City": "城市"
   },
   "BootstrapBlazor.Shared.Samples.GoTops": {
     "Title": "GoTop 返回顶端组件",

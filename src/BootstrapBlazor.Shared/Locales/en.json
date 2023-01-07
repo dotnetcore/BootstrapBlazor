@@ -1705,34 +1705,31 @@
   },
   "BootstrapBlazor.Shared.Samples.Dropdowns": {
     "Title": "Dropdown",
-    "H1": "Collapse actions or menus into drop-down menus",
-    "Block1Title": "Basic usage",
-    "Block1Intro": "Use <code>TagName='a'</code> to open a drop-down list with a button tag",
-    "Block2Title": "Dropdown empty drop-down menu",
-    "Block2Intro": "Allow empty <code>Items</code> drop-down menus",
-    "Block3Title": "Drop-down box with color",
-    "Block3Intro": "Provide warning message boxes in various colors. Quote <code>Color='Color.Primary'</code> and other color and style classes to define the appearance of the drop-down menu",
-    "Block4Title": "Split button drop-down menu",
-    "Block4Intro": "You can create a split drop-down menu with tags similar to a single button drop-down menu, and add ShowSplit='true' (you need to add <code>DropdownType='DropdownType.ButtonGroup</code>') when you use a split component. Insert this symbol as a drop-down The options are handled at appropriate intervals (distance).",
-    "Block5Title": "Size definition",
-    "Block5Intro": "The drop-down menu has a variety of size specifications to choose from <code>Size</code> attributes, including preset and split button drop-down menus.",
-    "Block6Title": "Expanding direction",
-    "Block6Intro": "Add the style of <code>Direction='Direction.Dropup'</code> to make the drop-down menu expand upward.",
-    "Block7Title": "Menu alignment",
-    "Block7Intro": "By default, the right side of the drop-down menu is aligned by setting <code>MenuAlignment=Alignment.Right</code>",
-    "Block8Title": "Bind data source",
-    "Block8Intro": "When you click the button on the right, the menu items in the drop-down box will increase",
-    "Button1Text": "Add",
-    "Button2Text": "Delete",
-    "Block9Title": "Bind data source",
-    "Block9Intro": "When you change the options, the menu items in the drop-down box will increase",
-    "Block10Title": "Cascade binding",
-    "Block10Intro": "By selecting different options in the first drop-down box, the second drop-down box is filled with content dynamically.",
+    "Description": "Collapse actions or menus into drop-down menus",
+    "NormalTitle": "Basic usage",
+    "NormalIntro": "Use <code>TagName='a'</code> to open a drop-down list with a button tag",
+    "NullTitle": "Dropdown empty drop-down menu",
+    "NullIntro": "Allow empty <code>Items</code> drop-down menus",
+    "ColorTitle": "Drop-down box with color",
+    "ColorIntro": "Provide warning message boxes in various colors. Quote <code>Color='Color.Primary'</code> and other color and style classes to define the appearance of the drop-down menu",
+    "SplitTitle": "Split button drop-down menu",
+    "SplitIntro": "You can create a split drop-down menu with tags similar to a single button drop-down menu, and add ShowSplit='true' (you need to add <code>DropdownType='DropdownType.ButtonGroup</code>') when you use a split component. Insert this symbol as a drop-down The options are handled at appropriate intervals (distance).",
+    "SizeTitle": "Size definition",
+    "SizeIntro": "The drop-down menu has a variety of size specifications to choose from <code>Size</code> attributes, including preset and split button drop-down menus.",
+    "DirectionTitle": "Expanding direction",
+    "DirectionIntro": "Add the style of <code>Direction='Direction.Dropup'</code> to make the drop-down menu expand upward.",
+    "AlignmentTitle": "Menu alignment",
+    "AlignmentIntro": "By default, the right side of the drop-down menu is aligned by setting <code>MenuAlignment=Alignment.Right</code>",
+    "ItemsTitle": "Bind data source",
+    "ItemsIntro": "When you click the button on the right, the menu items in the drop-down box will increase",
+    "RadioTitle": "Bind data source",
+    "RadioIntro": "When you change the options, the menu items in the drop-down box will increase",
+    "CascadeTitle": "Cascade binding",
+    "CascadeIntro": "By selecting different options in the first drop-down box, the second drop-down box is filled with content dynamically.",
     "IsFixedButtonTextTitle": "Fixed button text",
-    "IsFixedButtonTextIntro": "Set <code>IsFixedButtonText</code> to <b>true</true> make the ButtonText to const",
+    "IsFixedButtonTextIntro": "Set <code>IsFixedButtonText</code> to <b>true</b> make the ButtonText to const",
     "FixedButtonTextTitle": "Set the fixed button text",
     "FixedButtonTextIntro": "Set the <code>FixedButtonText</code> value for fixed button text",
-    "FixedButtonTextCity": "City",
     "ADesc1": "Currently selected value",
     "ADesc2": "Style",
     "ADesc3": "Color",
@@ -1745,20 +1742,69 @@
     "ADesc10": "Size",
     "ADesc11": "Label",
     "EDesc1": "Triggered when the value of the drop-down box changes",
-    "FixedButtonText": "The text of fixed button",
-    "V1": "Melbourne",
-    "V2": "Sydney",
-    "V3": "Queensland",
-    "F1": "Melbourne",
-    "F2": "Sydney",
-    "F3": "Queensland",
-    "I1": "Select ...",
-    "I2": "Melbourne",
-    "I3": "Sydney",
-    "I4": "Hangzhou",
-    "RI1": "Melbourne",
-    "RI2": "Sydney",
-    "RI3": "Queensland"
+    "FixedButtonText": "The text of fixed button"
+  },
+  "BootstrapBlazor.Shared.Demos.Dropdown.DropdownNormal": {
+    "Item1": "Melbourne",
+    "Item2": "Sydney",
+    "Item3": "Queensland"
+  },
+  "BootstrapBlazor.Shared.Demos.Dropdown.DropdownColor": {
+    "Item1": "Melbourne",
+    "Item2": "Sydney",
+    "Item3": "Queensland"
+  },
+  "BootstrapBlazor.Shared.Demos.Dropdown.DropdownSplit": {
+    "Item1": "Melbourne",
+    "Item2": "Sydney",
+    "Item3": "Queensland"
+  },
+  "BootstrapBlazor.Shared.Demos.Dropdown.DropdownSize": {
+    "Item1": "Melbourne",
+    "Item2": "Sydney",
+    "Item3": "Queensland"
+  },
+  "BootstrapBlazor.Shared.Demos.Dropdown.DropdownDirection": {
+    "Item1": "Melbourne",
+    "Item2": "Sydney",
+    "Item3": "Queensland"
+  },
+  "BootstrapBlazor.Shared.Demos.Dropdown.DropdownAlignment": {
+    "Item1": "Melbourne",
+    "Item2": "Sydney",
+    "Item3": "Queensland"
+  },
+  "BootstrapBlazor.Shared.Demos.Dropdown.DropdownItems": {
+    "Item1": "Melbourne",
+    "Item2": "Sydney",
+    "Item3": "Queensland",
+    "AddItem": "Add",
+    "RemoveItem": "Remove",
+    "City": "City"
+  },
+  "BootstrapBlazor.Shared.Demos.Dropdown.DropdownRadio": {
+    "Item1": "Melbourne",
+    "Item2": "Sydney",
+    "Item3": "Queensland"
+  },
+  "BootstrapBlazor.Shared.Demos.Dropdown.DropdownCascade": {
+    "Item1": "Select ...",
+    "Item2": "Melbourne",
+    "Item3": "Sydney",
+    "Item4": "Hangzhou",
+    "Item5": "chaoyang",
+    "Item6": "haidian",
+    "Item7": "jingan",
+    "Item8": "huangpu"
+  },
+  "BootstrapBlazor.Shared.Demos.Dropdown.DropdownIsFixedButtonText": {
+    "Item1": "Melbourne",
+    "Item2": "Sydney"
+  },
+  "BootstrapBlazor.Shared.Demos.Dropdown.DropdownFixedButtonText": {
+    "Item1": "Melbourne",
+    "Item2": "Sydney",
+    "City": "City"
   },
   "BootstrapBlazor.Shared.Samples.GoTops": {
     "Title": "GoTop",
