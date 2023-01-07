@@ -577,6 +577,7 @@ public class TableTest : TableTestBase
     [Fact]
     public void ExportButtonDropdownTemplate_Ok()
     {
+        ITableExportContext<Foo>? context = null;
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
         {
@@ -585,8 +586,9 @@ public class TableTest : TableTestBase
                 pb.Add(a => a.ShowToolbar, true);
                 pb.Add(a => a.ShowExportButton, true);
                 pb.Add(a => a.ExportButtonText, "Test_Export");
-                pb.Add(a => a.ExportButtonDropdownTemplate, builder =>
+                pb.Add(a => a.ExportButtonDropdownTemplate, c => builder =>
                 {
+                    context = c;
                     builder.OpenElement(0, "div");
                     builder.AddContent(1, "test-export-dropdown-item");
                     builder.CloseElement();
@@ -602,6 +604,13 @@ public class TableTest : TableTestBase
             });
         });
         cut.Contains("test-export-dropdown-item");
+        Assert.NotNull(context);
+
+        Assert.Single(context.Columns);
+        Assert.Single(context.GetVisibleColumns());
+        Assert.NotNull(context.BuildQueryPageOptions());
+        Assert.Equal(80, context.Rows.Count());
+        Assert.NotNull(context.ExportAsync());
     }
 
     [Fact]

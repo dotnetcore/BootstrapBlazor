@@ -57,6 +57,16 @@ public class ObjectExtensionsTest
     }
 
     [Theory]
+    [InlineData(typeof(TimeSpan?), true)]
+    [InlineData(typeof(TimeSpan), true)]
+    [InlineData(typeof(string), false)]
+    public static void IsTimeSpan_Ok(Type source, bool expect)
+    {
+        var actual = source.IsTimeSpan();
+        Assert.Equal(expect, actual);
+    }
+
+    [Theory]
     [InlineData(typeof(SortOrder), "枚举")]
     [InlineData(typeof(int), "数字")]
     [InlineData(typeof(DateTimeOffset), "日期")]
