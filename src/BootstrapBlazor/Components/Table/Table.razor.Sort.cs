@@ -170,7 +170,7 @@ public partial class Table<TItem>
         .AddClass($"left: {GetExtendButtonsColumnLeftMargin()}px;", FixedExtendButtonsColumn && IsExtendButtonsInRowHeader)
         .Build();
 
-    private bool IsLastMultiColumn() => FixedMultipleColumn && (!FixedExtendButtonsColumn || !IsExtendButtonsInRowHeader) && !GetColumns().Any(i => i.Fixed);
+    private bool IsLastMultiColumn() => FixedMultipleColumn && (!FixedExtendButtonsColumn || !IsExtendButtonsInRowHeader) && !GetVisibleColumns().Any(i => i.Fixed);
 
     private ConcurrentDictionary<ITableColumn, bool> LastFixedColumnCache { get; } = new();
 
@@ -185,7 +185,7 @@ public partial class Table<TItem>
         return ret;
     });
 
-    private bool IsLastExtendButtonColumn() => IsExtendButtonsInRowHeader && !GetColumns().Any(i => i.Fixed);
+    private bool IsLastExtendButtonColumn() => IsExtendButtonsInRowHeader && !GetVisibleColumns().Any(i => i.Fixed);
 
     private ConcurrentDictionary<ITableColumn, bool> FirstFixedColumnCache { get; } = new();
 
@@ -200,7 +200,7 @@ public partial class Table<TItem>
         return ret;
     });
 
-    private bool IsFirstExtendButtonColumn() => !IsExtendButtonsInRowHeader && !GetColumns().Any(i => i.Fixed);
+    private bool IsFirstExtendButtonColumn() => !IsExtendButtonsInRowHeader && !GetVisibleColumns().Any(i => i.Fixed);
 
     private int GetExtendButtonsColumnLeftMargin()
     {
@@ -239,7 +239,7 @@ public partial class Table<TItem>
 
     private bool IsTail(ITableColumn col)
     {
-        var middle = Math.Floor(GetColumns().Count() * 1.0 / 2);
+        var middle = Math.Floor(GetVisibleColumns().Count() * 1.0 / 2);
         var index = Columns.IndexOf(col);
         return middle < index;
     }

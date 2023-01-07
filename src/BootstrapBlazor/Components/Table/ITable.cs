@@ -15,6 +15,11 @@ public interface ITable
     List<ITableColumn> Columns { get; }
 
     /// <summary>
+    /// 获得 ITable 实例配置的可见列集合
+    /// </summary>
+    IEnumerable<ITableColumn> GetVisibleColumns();
+
+    /// <summary>
     /// 获得 过滤条件集合
     /// </summary>
     Dictionary<string, IFilterAction> Filters { get; }

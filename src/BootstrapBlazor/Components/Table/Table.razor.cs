@@ -755,8 +755,8 @@ public partial class Table<TItem> : ITable where TItem : class, new()
 
     private void InternalResetVisibleColumns(IEnumerable<ColumnVisibleItem> columns)
     {
-        ColumnVisibles.Clear();
-        ColumnVisibles.AddRange(columns);
+        VisibleColumns.Clear();
+        VisibleColumns.AddRange(columns);
     }
 
     /// <summary>
@@ -1062,7 +1062,7 @@ public partial class Table<TItem> : ITable where TItem : class, new()
 
     private int GetColumnCount()
     {
-        var colspan = GetColumns().Count(col => col.Visible);
+        var colspan = GetVisibleColumns().Count(col => col.Visible);
         if (IsMultipleSelect)
         {
             colspan++;

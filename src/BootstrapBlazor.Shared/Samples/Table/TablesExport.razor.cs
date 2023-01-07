@@ -58,13 +58,7 @@ public partial class TablesExport
 
     private static Task<bool> OnExportAsync(IEnumerable<Foo> Items, QueryPageOptions options) => Task.FromResult(true);
 
-    private async Task ExcelExportAsync()
-    {
-        await ToastService.Success("Excel export", "Export Excel data successfully");
-    }
+    private static Task ExcelExportAsync(ITableExportContext<Foo> context) => context.ExportAsync();
 
-    private async Task CsvExportAsync()
-    {
-        await ToastService.Success("CSV export", "Export CSV data successfully");
-    }
+    private Task CsvExportAsync() => ToastService.Success("CSV export", "Export CSV data successfully");
 }

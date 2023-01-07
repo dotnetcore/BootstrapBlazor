@@ -34,7 +34,7 @@
     </Table>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["P13"]" Introduction="@Localizer["P14"]" Name="Export">
+<DemoBlock Title="@Localizer["P13"]" Introduction="@Localizer["P14"]" Name="OnExportAsync">
     <Table TItem="Foo"
            IsPagination="true" PageItemsSource="@PageItemsSource"
            IsStriped="true" IsBordered="true" IsMultipleSelect="true"
@@ -61,8 +61,8 @@
             <TableColumn @bind-Field="@context.Address" />
             <TableColumn @bind-Field="@context.Count" />
         </TableColumns>
-        <ExportButtonDropdownTemplate>
-            <div class="dropdown-item" @onclick="@ExcelExportAsync">
+        <ExportButtonDropdownTemplate Context="ExportContext">
+            <div class="dropdown-item" @onclick="() => ExcelExportAsync(ExportContext)">
                 <i class="fa-regular fa-file-excel"></i>
                 <span>MS-Excel</span>
             </div>

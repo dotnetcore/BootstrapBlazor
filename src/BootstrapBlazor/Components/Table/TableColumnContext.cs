@@ -24,10 +24,10 @@ public class TableColumnContext<TItem, TValue>
     /// 获得/设置 行数据实例
     /// </summary>
     [NotNull]
-    public TItem Row { get; set; }
+    public TItem Row { get; }
 
     /// <summary>
     /// 获得/设置 当前绑定字段数据实例
     /// </summary>
-    public TValue Value { get; set; }
+    public TValue Value { get; }
 }
