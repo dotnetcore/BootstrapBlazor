@@ -547,23 +547,22 @@
     "P6": "Control the animation duration in milliseconds by setting the <code>Duration</code> parameter"
   },
   "BootstrapBlazor.Shared.Samples.EditDialogs": {
-    "H1": "EditDialog edit popup",
-    "H2": "Automatic rendering of edit popups by binding the data model",
-    "P1": "<code>EditDialog</code> The component is an extension of the <code>Dialog</code> component and is suitable for data popup editing.",
-    "P2": "Inject the service by calling",
-    "P3": "of",
-    "P4": "The method directly pops up the editing dialog box, which greatly reduces the amount of code.",
-    "P5": "Configuration class inheritance",
-    "P6": "For more parameter settings, please click",
-    "P7": "portal",
-    "P8": "Basic usage",
-    "P9": "Automatically generate editable forms for each field of the model by binding the <code>TModel</code> data model",
-    "P10": "Edit popup (left-aligned)",
-    "P11": "Edit popup (right aligned)",
-    "P12": "Setting bound model part property does not show",
-    "P13": "By setting the <code>Editable=false</code> of the <code>IEditorItem</code> instance, the editable pop-up window cannot be edited.",
-    "P14": "Pop-ups",
-    "P15": "EditDialogOption property"
+    "Title": "EditDialog edit popup",
+    "Description": "Automatic rendering of edit popups by binding the data model",
+    "SubDescription": "<code>EditDialog</code> The component is an extension of the <code>Dialog</code> component and is suitable for data popup editing.",
+    "Tip": "Inject the service by calling <code>DialogService</code> of <code>ShowEditDialog</code> The method directly pops up the editing dialog box, which greatly reduces the amount of code. <code>EditDialogOption</code> Configuration class inheritance <code>DialogOption</code>，For more parameter settings, please click <a href=\"dialogs\" target=\"_blank\">[portal]</a>\"",
+    "NormalTitle": "Basic usage",
+    "NormalIntro": "Automatically generate editable forms for each field of the model by binding the <code>TModel</code> data model",
+    "NoRenderTitle": "Setting bound model part property does not show",
+    "NoRenderIntro": "By setting the <code>Editable=false</code> of the <code>IEditorItem</code> instance, the editable pop-up window cannot be edited.",
+    "EditDialogOption": "EditDialogOption property"
+  },
+  "BootstrapBlazor.Shared.Demos.EditDialog.EditDialogNormal": {
+    "LeftAlignedButton": "Edit popup (left-aligned)",
+    "RightAlignedButton": "Edit popup (right aligned)"
+  },
+  "BootstrapBlazor.Shared.Demos.EditDialog.EditDialogNoRender": {
+    "PopupButton": "Pop-ups"
   },
   "BootstrapBlazor.Shared.Samples.Topologies": {
     "H1": "Topology HMI",

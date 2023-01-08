@@ -548,23 +548,22 @@
     "P6": "通过设置 <code>Duration</code> 参数控制动画时长单位为毫秒"
   },
   "BootstrapBlazor.Shared.Samples.EditDialogs": {
-    "H1": "EditDialog 编辑弹窗",
-    "H2": "通过绑定数据模型自动呈现编辑弹窗",
-    "P1": "<code>EditDialog</code> 组件是 <code>Dialog</code> 组件的扩展，适用于数据弹出窗编辑。",
-    "P2": "通过调用注入服务",
-    "P3": "的",
-    "P4": "方法直接弹出编辑对话框，大大减少代码量。",
-    "P5": "配置类继承",
-    "P6": "更多参数设置请点击",
-    "P7": "传送门",
-    "P8": "基础用法",
-    "P9": "通过绑定 <code>TModel</code> 数据模型，自动生成模型各个字段的可编辑表单",
-    "P10": "编辑弹窗(左对齐)",
-    "P11": "编辑弹窗(右对齐)",
-    "P12": "设置绑定模型部分属性不显示",
-    "P13": "通过设置 <code>IEditorItem</code> 实例的 <code>Editable=false</code>, 实现编辑弹窗不可编辑此属性",
-    "P14": "弹窗",
-    "P15": "EditDialogOption 属性"
+    "Title": "EditDialog 编辑弹窗",
+    "Description": "通过绑定数据模型自动呈现编辑弹窗",
+    "SubDescription": "<code>EditDialog</code> 组件是 <code>Dialog</code> 组件的扩展，适用于数据弹出窗编辑。",
+    "Tip": "通过调用注入服务 <code>DialogService</code> 的 <code>ShowEditDialog</code> 方法直接弹出编辑对话框，大大减少代码量。<code>EditDialogOption</code> 配置类继承 <code>DialogOption</code>，更多参数设置请点击 <a href=\"dialogs\" target=\"_blank\">[传送门]</a>\"",
+    "NormalTitle": "基础用法",
+    "NormalIntro": "通过绑定 <code>TModel</code> 数据模型，自动生成模型各个字段的可编辑表单",
+    "NoRenderTitle": "设置绑定模型部分属性不显示",
+    "NoRenderIntro": "通过设置 <code>IEditorItem</code> 实例的 <code>Editable=false</code>, 实现编辑弹窗不可编辑此属性",
+    "EditDialogOption": "EditDialogOption 属性"
+  },
+  "BootstrapBlazor.Shared.Demos.EditDialog.EditDialogNormal": {
+    "LeftAlignedButton": "编辑弹窗(左对齐)",
+    "RightAlignedButton": "编辑弹窗(右对齐)"
+  },
+  "BootstrapBlazor.Shared.Demos.EditDialog.EditDialogNoRender": {
+    "PopupButton": "弹窗"
   },
   "BootstrapBlazor.Shared.Samples.Topologies": {
     "H1": "Topology 人机交互界面",

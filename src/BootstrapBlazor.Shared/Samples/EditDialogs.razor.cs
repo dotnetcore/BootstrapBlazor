@@ -5,127 +5,18 @@
 namespace BootstrapBlazor.Shared.Samples;
 
 /// <summary>
-/// 
+/// EditDialogs
 /// </summary>
 public sealed partial class EditDialogs
 {
-    [Inject]
-    [NotNull]
-    private IStringLocalizer<EditDialogs>? Localizer { get; set; }
-
-    private Foo Model { get; set; } = new Foo()
-    {
-        Name = "Name 1234",
-        Address = "Address 1234"
-    };
-
-    [Inject]
-    [NotNull]
-    private DialogService? DialogService { get; set; }
-
-    [Inject]
-    [NotNull]
-    private IStringLocalizer<Foo>? FooLocalizer { get; set; }
-
-    [NotNull]
-    private BlockLogger? Trace { get; set; }
-
-    private async Task ShowDialog()
-    {
-        var items = Utility.GenerateEditorItems<Foo>();
-        var item = items.First(i => i.GetFieldName() == nameof(Foo.Hobby));
-        item.Items = Foo.GenerateHobbys(FooLocalizer);
-
-        var option = new EditDialogOption<Foo>()
-        {
-            Title = "edit dialog",
-            Model = Model,
-            Items = items,
-            ItemsPerRow = 2,
-            RowType = RowType.Inline,
-            OnCloseAsync = () =>
-            {
-                Trace.Log("close button is clicked");
-                return Task.CompletedTask;
-            },
-            OnEditAsync = context =>
-            {
-                Trace.Log("save button is clicked");
-                return Task.FromResult(true);
-            }
-        };
-
-        await DialogService.ShowEditDialog(option);
-    }
-
-    private async Task ShowAlignDialog()
-    {
-        var items = Utility.GenerateEditorItems<Foo>();
-        var item = items.First(i => i.GetFieldName() == nameof(Foo.Hobby));
-        item.Items = Foo.GenerateHobbys(FooLocalizer);
-
-        var option = new EditDialogOption<Foo>()
-        {
-            Title = "edit dialog",
-            Model = Model,
-            Items = items,
-            ItemsPerRow = 2,
-            RowType = RowType.Inline,
-            LabelAlign = Alignment.Right,
-            OnCloseAsync = () =>
-            {
-                Trace.Log("close button is clicked");
-                return Task.CompletedTask;
-            },
-            OnEditAsync = context =>
-            {
-                Trace.Log("save button is clicked");
-                return Task.FromResult(true);
-            }
-        };
-
-        await DialogService.ShowEditDialog(option);
-    }
-
-    private async Task ShowEditDialog()
-    {
-        var items = Utility.GenerateEditorItems<Foo>();
-        var item = items.First(i => i.GetFieldName() == nameof(Foo.Hobby));
-        item.Items = Foo.GenerateHobbys(FooLocalizer);
-
-        item = items.First(i => i.GetFieldName() == nameof(Foo.Address));
-        item.Editable = false;
-        item = items.First(i => i.GetFieldName() == nameof(Foo.Count));
-        item.Editable = false;
-
-        var option = new EditDialogOption<Foo>()
-        {
-            Title = "edit dialog",
-            Model = Model,
-            Items = items,
-            ItemsPerRow = 2,
-            RowType = RowType.Inline,
-            OnCloseAsync = () =>
-            {
-                Trace.Log("close button is clicked");
-                return Task.CompletedTask;
-            },
-            OnEditAsync = context =>
-            {
-                Trace.Log("save button is clicked");
-                return Task.FromResult(true);
-            }
-        };
-
-        await DialogService.ShowEditDialog(option);
-    }
-
     /// <summary>
     /// get property method
     /// </summary>
     /// <returns></returns>
-    private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+    private static IEnumerable<AttributeItem> GetAttributes()
     {
+        return new AttributeItem[]
+        {
             new AttributeItem() {
                 Name = "ShowLabel",
                 Description = "Whether to show labels",
@@ -196,5 +87,6 @@ public sealed partial class EditDialogs
                 ValueList = "None|Left|Center|Right",
                 DefaultValue = "None"
             }
-    };
+        };
+    }
 }
