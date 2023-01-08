@@ -6,7 +6,7 @@
         <Tab IsBorderCard="true" OnClickTab="OnClickTab">
             @foreach (var item in GetItems())
             {
-                <TabItem Text="@item.Text">
+                <TabItem @key="item" Text="@item.Text" IsActive="item.IsActive">
                     <div class="tab-commands">
                         @foreach (var groups in item.Items.OfType<RibbonTabItem>().GroupBy(s => s.GroupName))
                         {

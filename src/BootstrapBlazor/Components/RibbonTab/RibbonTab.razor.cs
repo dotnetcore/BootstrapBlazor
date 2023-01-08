@@ -126,7 +126,13 @@ public partial class RibbonTab
 
     private async Task OnClickTab(TabItem item)
     {
-        var tab = GetItems().First(i => i.Text == item.Text);
+        var tab = GetItems().FirstOrDefault(i => i.IsActive);
+        if (tab != null)
+        {
+            tab.IsActive = false;
+        }
+        tab = GetItems().First(i => i.Text == item.Text);
+        tab.IsActive = true;
         if (OnMenuClickAsync != null)
         {
             await OnMenuClickAsync(tab);
