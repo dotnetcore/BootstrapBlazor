@@ -1,24 +1,15 @@
 ﻿@page "/empties"
 @inject NavigationManager NavigationManager
+@inject IStringLocalizer<Empties> Localizer
 
-<h3>@Title</h3>
-<h4>@SubTitle</h4>
+<h3>@Localizer["Title"]</h3>
+<h4>@Localizer["SubTitle"]</h4>
 
-<DemoBlock Title="@Localizer["BasicUsageTitle"]" Introduction="@Localizer["BasicUsageIntro"]" Name="Normal">
-    <Empty />
-</DemoBlock>
+<DemoBlock Title="@Localizer["NormalTitle"]" Introduction="@Localizer["NormalIntro"]" Name="Normal" Demo="typeof(Demos.Empty.EmptyNormal)" />
 
-<DemoBlock Title="@Localizer["ImageTitle"]" Introduction="@Localizer["ImageIntro"]" Name="Image">
-    <Empty Image="https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg" Width="133" Text="@Localizer["ImageText"]" />
-</DemoBlock>
+<DemoBlock Title="@Localizer["ImageTitle"]" Introduction="@Localizer["ImageIntro"]" Name="Image" Demo="typeof(Demos.Empty.EmptyImage)" />
 
-<DemoBlock Title="@Localizer["TemplateTitle"]" Introduction="@Localizer["TemplateIntro"]" Name="Template">
-    <Empty Image="_content/BootstrapBlazor.Shared/images/empty.svg">
-        <Template>
-            <Button OnClick="@(()=>NavigationManager.NavigateTo("components"))">@Localizer["TemplateIButtonText"]</Button>
-        </Template>
-    </Empty>
-</DemoBlock>
+<DemoBlock Title="@Localizer["TemplateTitle"]" Introduction="@Localizer["TemplateIntro"]" Name="Template" Demo="typeof(Demos.Empty.EmptyTemplate)" />
 
 <AttributeTable Items="@GetAttributes()" />
 

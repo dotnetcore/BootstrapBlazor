@@ -4144,14 +4144,12 @@
   "BootstrapBlazor.Shared.Samples.Empties": {
     "Title": "Empty",
     "SubTitle": "Sub Title PlaceHolder",
-    "BasicUsageTitle": "Basic usage",
-    "BasicUsageIntro": "Just add <code>Empty</code> tag",
+    "NormalTitle": "Basic usage",
+    "NormalIntro": "Just add <code>Empty</code> tag",
     "ImageTitle": "Set the path to the empty state picture",
     "ImageIntro": "Just set the <code>Image</code> property",
-    "ImageText": "No data at this time",
     "TemplateTitle": "Customize the empty state template",
     "TemplateIntro": "The inner set renders custom components <code>Template</code> labels",
-    "TemplateIButtonText": "Go back to the previous page",
     "Image": "Customize the picture path",
     "Text": "Custom description information",
     "TextDefaultValue": "There is no description at this time",
@@ -4159,6 +4157,12 @@
     "Height": "Customize the height of the picture",
     "Template": "Custom templates",
     "ChildContent": "ChildContent"
+  },
+  "BootstrapBlazor.Shared.Demos.Empty.EmptyImage": {
+    "ImageText": "No data at this time"
+  },
+  "BootstrapBlazor.Shared.Demos.Empty.EmptyTemplate": {
+    "TemplateIButtonText": "Go back to the previous page"
   },
   "BootstrapBlazor.Shared.Samples.GroupBoxs": {
     "Title": "GroupBox",
