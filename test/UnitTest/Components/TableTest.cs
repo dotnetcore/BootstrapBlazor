@@ -1351,6 +1351,52 @@ public class TableTest : TableTestBase
     }
 
     [Fact]
+    public async Task CustomerToolbarPopconfirmButton_Ok()
+    {
+        var clicked = false;
+        var clickCallback = false;
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.ShowToolbar, true);
+                pb.Add(a => a.IsMultipleSelect, true);
+                pb.Add(a => a.ShowDefaultButtons, false);
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.Items, Foo.GenerateFoo(localizer));
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+                });
+                pb.Add(a => a.TableToolbarTemplate, builder =>
+                {
+                    builder.OpenComponent<TableToolbarPopconfirmButton<Foo>>(0);
+                    builder.AddAttribute(1, nameof(TableToolbarPopconfirmButton<Foo>.Text), "test");
+                    builder.AddAttribute(3, nameof(TableToolbarPopconfirmButton<Foo>.OnClick), EventCallback.Factory.Create<MouseEventArgs>(this, e =>
+                    {
+                        clicked = true;
+                    }));
+                    builder.AddAttribute(2, nameof(TableToolbarPopconfirmButton<Foo>.OnConfirmCallback), new Func<IEnumerable<Foo>, Task>(foos =>
+                    {
+                        clickCallback = true;
+                        return Task.CompletedTask;
+                    }));
+                    builder.CloseComponent();
+                });
+            });
+        });
+
+        var button = cut.FindComponent<PopConfirmButton>();
+        await cut.InvokeAsync(() => button.Instance.OnConfirm.Invoke());
+        Assert.True(clickCallback);
+        Assert.True(clicked);
+    }
+
+    [Fact]
     public async Task CustomerToolbarButton_Ok()
     {
         var clicked = false;
