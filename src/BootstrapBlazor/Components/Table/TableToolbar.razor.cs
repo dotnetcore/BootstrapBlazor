@@ -75,6 +75,11 @@ public partial class TableToolbar<TItem> : ComponentBase
                 await button.OnClick.InvokeAsync();
             }
 
+            if (button.OnConfirm != null)
+            {
+                await button.OnConfirm();
+            }
+
             // 传递当前选中行给回调委托方法
             if (button.OnConfirmCallback != null)
             {
