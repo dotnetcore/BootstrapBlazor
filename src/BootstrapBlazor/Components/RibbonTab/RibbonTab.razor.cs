@@ -52,6 +52,7 @@ public partial class RibbonTab
     /// 获得/设置 数据源
     /// </summary>
     [Parameter]
+    [NotNull]
 #if NET6_0_OR_GREATER
     [EditorRequired]
 #endif
@@ -107,6 +108,24 @@ public partial class RibbonTab
     protected override Task ModuleInitAsync() => InvokeInitAsync(Id, nameof(SetExpand));
 
     /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
+        Items ??= Enumerable.Empty<RibbonTabItem>();
+        if (!Items.Any(i => i.IsActive))
+        {
+            var item = Items.FirstOrDefault();
+            if (item != null)
+            {
+                item.IsActive = true;
+            }
+        }
+    }
+
+    /// <summary>
     /// SetExpand 方法
     /// </summary>
     [JSInvokable]
@@ -126,12 +145,12 @@ public partial class RibbonTab
 
     private async Task OnClickTab(TabItem item)
     {
-        var tab = GetItems().FirstOrDefault(i => i.IsActive);
+        var tab = Items.FirstOrDefault(i => i.IsActive);
         if (tab != null)
         {
             tab.IsActive = false;
         }
-        tab = GetItems().First(i => i.Text == item.Text);
+        tab = Items.First(i => i.Text == item.Text);
         tab.IsActive = true;
         if (OnMenuClickAsync != null)
         {
@@ -143,8 +162,6 @@ public partial class RibbonTab
             StateHasChanged();
         }
     }
-
-    private IEnumerable<RibbonTabItem> GetItems() => Items ?? Enumerable.Empty<RibbonTabItem>();
 
     private async Task OnToggleFloat()
     {
