@@ -7,73 +7,12 @@ using Microsoft.Extensions.Options;
 namespace BootstrapBlazor.Shared.Samples;
 
 /// <summary>
-/// 
+/// FileViewers
 /// </summary>
 public partial class FileViewers
 {
-    [Inject]
-    [NotNull]
-    private IOptionsMonitor<WebsiteOptions>? WebsiteOption { get; set; }
-
-    [NotNull]
-    private FileViewer? fileViewer { get; set; }
-
-    [NotNull]
-    private string? WordSampleFile { get; set; }
-
-    [NotNull]
-    private string? ExcelSampleFile { get; set; }
-
-    [NotNull]
-    private string? Url { get; set; }
-
-    private List<string> FileList { get; } = new();
-
-    [NotNull]
-    private List<SelectedItem>? Items { get; set; }
-
     /// <summary>
-    /// OnInitialized 方法
-    /// </summary>
-    protected override void OnInitialized()
-    {
-        WordSampleFile = CombineFilename("sample.docx");
-        ExcelSampleFile = CombineFilename("sample.xlsx");
-
-        FileList.Add("sample3.xlsx");
-        FileList.Add("sample2.xlsx");
-        FileList.Add("sample.xlsx");
-        FileList.Add("sample2.docx");
-        FileList.Add("sample.docx");
-        Url = FileList[0];
-
-        Items = FileList.Select(i => new SelectedItem(i, i)).ToList();
-    }
-
-    private string CombineFilename(string filename)
-    {
-#if DEBUG
-        filename = Path.Combine(WebsiteOption.CurrentValue.WebRootPath, "samples", filename);
-#else
-        filename = Path.Combine(WebsiteOption.CurrentValue.ContentRootPath, "wwwroot", "samples", filename);
-#endif
-        return filename;
-    }
-
-    private async Task ChangeURL(SelectedItem e)
-    {
-        Url = e.Value;
-        StateHasChanged();
-        await fileViewer.Reload(CombineFilename(e.Value));
-    }
-
-    private async Task Apply()
-    {
-        await fileViewer.Reload(CombineFilename(Url));
-    }
-
-    /// <summary>
-    /// 获得属性方法
+    /// GetAttributes
     /// </summary>
     /// <returns></returns>
     private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
