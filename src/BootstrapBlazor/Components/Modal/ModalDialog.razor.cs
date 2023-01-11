@@ -184,6 +184,13 @@ public partial class ModalDialog : IHandlerException, IDisposable
     public string? CloseButtonText { get; set; }
 
     /// <summary>
+    /// 获得/设置 关闭按钮显示图标 未设置时 使用 fa-solid fa-fw fa-xmark
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public string? CloseButtonIcon { get; set; }
+
+    /// <summary>
     /// 获得/设置 保存按钮显示文字 资源文件设置为 保存
     /// </summary>
     [Parameter]
@@ -222,6 +229,8 @@ public partial class ModalDialog : IHandlerException, IDisposable
         CloseButtonText ??= Localizer[nameof(CloseButtonText)];
         SaveButtonText ??= Localizer[nameof(SaveButtonText)];
         PrintButtonText ??= Localizer[nameof(PrintButtonText)];
+
+        CloseButtonIcon ??= "fa-solid fa-fw fa-xmark";
     }
 
     /// <summary>
