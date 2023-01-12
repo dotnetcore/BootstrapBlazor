@@ -1,0 +1,127 @@
+﻿@using System.ComponentModel;
+@inject IStringLocalizer<PdfReaderAdvanced> Localizer
+
+<div>
+    <div class="row mb-3">
+        <div class="col-12">
+            <BootstrapInputGroup>
+                <Button Color="Color.Primary" OnClick="ApplyZoom">@Localizer["PdfReaderAdvancedViewMode"]</Button>
+                <Button Color="Color.Primary" OnClick="ApplyPagemode">@Localizer["PdfReaderAdvancedPageMode"]</Button>
+                <Button Color="Color.Primary" OnClick="ApplyPagePrevious">@Localizer["PdfReaderAdvancedPagePrevious"]</Button>
+                <Button Color="Color.Primary" OnClick="ApplyPageNext">@Localizer["PdfReaderAdvancedPageNext"]</Button>
+                <BootstrapInput @bind-Value="@Page" />
+                <Button OnClick="ApplyPage">@Localizer["PdfReaderAdvancedGoToPage"]</Button>
+            </BootstrapInputGroup>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-12">
+            <BootstrapInputGroup>
+                <BootstrapInputGroupLabel @bind-Value="@Search" />
+                <BootstrapInput @bind-Value="@Search" />
+                <Button Icon="fa-solid fa-magnifying-glass" OnClick="ApplySearch"></Button>
+            </BootstrapInputGroup>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-12">
+            <BootstrapInputGroup>
+                <BootstrapInputGroupLabel @bind-Value="@Filename" />
+                <BootstrapInput @bind-Value="@Filename" />
+                <Button Color="Color.Primary" OnClick="ApplySearch">@Localizer["PdfReaderAdvancedRefreshPage"]</Button>
+            </BootstrapInputGroup>
+        </div>
+    </div>
+    <div class="row mb-3 form-inline">
+        <div class="col-6 col-sm-4 col-md-3 col-lg-auto">
+            <Switch @bind-Value="@StreamMode" ShowLabel="true" />
+        </div>
+    </div>
+
+    <PdfReader @ref="PdfReader"
+               Filename="@(StreamMode?FilenameStream:Filename)"
+               StreamMode="StreamMode"
+               Page=@Page
+               Zoom=@Zoom
+               Pagemode=@Pagemode
+               Search=@Search
+               Width="80%"
+               Height="500px" />
+</div>
+
+@code {
+    [NotNull]
+    PdfReader? PdfReader { get; set; }
+
+    [DisplayName("流模式")]
+    private bool StreamMode { get; set; }
+
+    private EnumZoomMode Zoom { get; set; } = EnumZoomMode.Auto;
+
+    private EnumPageMode Pagemode { get; set; } = EnumPageMode.Thumbs;
+
+    [DisplayName("文件相对路径或者URL")]
+    private string Filename { get; set; } = "/samples/sample.pdf";
+
+    private string FilenameStream { get; set; } = "https://blazor.app1.es/_content/DemoShared/samples/sample2.pdf";
+
+    [DisplayName("搜索")]
+    private string? Search { get; set; } = "Performance";
+
+    private int Page { get; set; } = 3;
+
+    private bool ForcePDFJS { get; set; } = true;
+
+    private async Task ApplyZoom()
+    {
+        Zoom = Zoom switch
+        {
+            EnumZoomMode.Auto => EnumZoomMode.PageFit,
+            EnumZoomMode.PageFit => EnumZoomMode.PageWidth,
+            EnumZoomMode.PageWidth => EnumZoomMode.PageHeight,
+            EnumZoomMode.PageHeight => EnumZoomMode.Zoom75,
+            EnumZoomMode.Zoom75 => EnumZoomMode.Zoom50,
+            EnumZoomMode.Zoom50 => EnumZoomMode.Zoom25,
+            _ => EnumZoomMode.Auto
+        };
+        await PdfReader.Refresh();
+    }
+
+    private async Task ApplyPagemode()
+    {
+        Pagemode = Pagemode switch
+        {
+            EnumPageMode.Thumbs => EnumPageMode.Outline,
+            EnumPageMode.Outline => EnumPageMode.Attachments,
+            EnumPageMode.Attachments => EnumPageMode.Layers,
+            EnumPageMode.Layers => EnumPageMode.None,
+            _ => EnumPageMode.Thumbs
+        };
+        await PdfReader.Refresh(Search, Page, Pagemode, Zoom);
+    }
+
+    private async Task ApplyPage()
+    {
+        Search = null;
+        await PdfReader.Refresh(Search, Page, Pagemode, Zoom);
+    }
+
+    private async Task ApplyPagePrevious()
+    {
+        Page--;
+        Search = null;
+        await PdfReader.Refresh(Search, Page, Pagemode, Zoom);
+    }
+
+    private async Task ApplyPageNext()
+    {
+        Page++;
+        Search = null;
+        await PdfReader.Refresh(Search, Page, Pagemode, Zoom);
+    }
+
+    private async Task ApplySearch()
+    {
+        await PdfReader.Refresh(Search, Page, Pagemode, Zoom);
+    }
+}

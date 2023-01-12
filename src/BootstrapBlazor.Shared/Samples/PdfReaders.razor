@@ -6,71 +6,12 @@
 
 <PackageTips Name="BootstrapBlazor.PdfReader" />
 
-<DemoBlock Title="@Localizer["BaseUsageText"]" Introduction="@Localizer["BaseUsageIntro"]" Name="Nomal">
-    <PdfReader Filename=@Filename Height="500px" />
-</DemoBlock>
+<DemoBlock Title="@Localizer["PdfReaderNomalText"]" Introduction="@Localizer["PdfReaderNomalIntro"]" Name="Nomal" Demo="typeof(Demos.PdfReader.PdfReaderNomal)" />
 
-<DemoBlock Title="@Localizer["BaseUsageText2"]" Introduction="@Localizer["BaseUsageIntro2"]" Name="Nomal">
-    <h6></h6>
-    <div class="row g-3">
-        <div class="col-12">
-            <BootstrapInputGroup>
-                <BootstrapInput @bind-Value="@FilenameStream" />
-                <Button Color="Color.Primary" OnClick="Apply">Go!</Button>
-            </BootstrapInputGroup>
-        </div>
-    </div>
-    <PdfReader @ref="PdfReader" Filename="@FilenameStream" StreamMode="true" Height="500px" />
-</DemoBlock>
+<DemoBlock Title="@Localizer["PdfReaderStreamModeText"]" Introduction="@Localizer["PdfReaderStreamModeIntro"]" Name="StreamMode" Demo="typeof(Demos.PdfReader.PdfReaderStreamMode)" />
 
-<DemoBlock Title="@Localizer["BaseUsageText3"]" Introduction="@Localizer["BaseUsageIntro3"]" Name="Nomal">
-    <div class="row mb-3">
-        <div class="col-12">
-            <BootstrapInputGroup>
-                <Button Color="Color.Primary" OnClick="ApplyZoom">视图模式</Button>
-                <Button Color="Color.Primary" OnClick="ApplyPagemode">页面模式</Button>
-                <Button Color="Color.Primary" OnClick="ApplyPagePrevious">页码-</Button>
-                <Button Color="Color.Primary" OnClick="ApplyPageNext">页码+</Button>
-                <BootstrapInput @bind-Value="@Page" />
-                <Button OnClick="ApplyPage">跳转</Button>
-            </BootstrapInputGroup>
-        </div>
-    </div>
-    <div class="row mb-3">
-        <div class="col-12">
-            <BootstrapInputGroup>
-                <BootstrapInputGroupLabel @bind-Value="@Search" />
-                <BootstrapInput @bind-Value="@Search" />
-                <Button Icon="fa-solid fa-magnifying-glass" OnClick="ApplySearch"></Button>
-            </BootstrapInputGroup>
-        </div>
-    </div>
-    <div class="row mb-3">
-        <div class="col-12">
-            <BootstrapInputGroup>
-                <BootstrapInputGroupLabel @bind-Value="@Filename" />
-                <BootstrapInput @bind-Value="@Filename" />
-                <Button Color="Color.Primary" OnClick="ApplySearch">刷新</Button>
-            </BootstrapInputGroup>
-        </div>
-    </div>
-    <div class="row mb-3 form-inline">
-        <div class="col-6 col-sm-4 col-md-3 col-lg-auto">
-            <Switch @bind-Value="@StreamMode" ShowLabel="true" />
-        </div>
-    </div>
-
-    <PdfReader @ref="PdfReader2"
-               Filename="@(StreamMode?FilenameStream:Filename)"
-               StreamMode="StreamMode"
-               Page=@Page
-               Zoom=@Zoom
-               Pagemode=@Pagemode
-               Search=@Search
-               Width="80%"
-               Height="500px"/>
-</DemoBlock>
+<DemoBlock Title="@Localizer["PdfReaderAdvancedText"]" Introduction="@Localizer["PdfReaderAdvancedIntro"]" Name="Advanced" Demo="typeof(Demos.PdfReader.PdfReaderAdvanced)" />
 
 <AttributeTable Items="@GetAttributes()" />
 
-<a href="https://gitee.com/LongbowEnterprise/BootstrapBlazor/issues/I66LXV">破坏性更新参考链接: 移除pdfobject</a>
+<a href="https://gitee.com/LongbowEnterprise/BootstrapBlazor/issues/I66LXV">@Localizer["PdfReaderIssue"]</a>

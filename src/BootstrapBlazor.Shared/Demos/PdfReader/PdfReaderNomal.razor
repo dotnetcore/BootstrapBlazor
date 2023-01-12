@@ -1,0 +1,8 @@
+﻿@using System.ComponentModel;
+
+<PdfReader Filename=@Filename Height="500px" />
+
+@code {
+    [DisplayName("the file in the wwwroot relative path or url")]
+    private string Filename { get; set; } = "/samples/sample.pdf";
+}
