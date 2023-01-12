@@ -5,34 +5,35 @@
 namespace BootstrapBlazor.Shared.Samples;
 
 /// <summary>
-/// 
+/// Scrolls
 /// </summary>
 public sealed partial class Scrolls
 {
-    [Inject]
-    [NotNull]
-    private IStringLocalizer<Scrolls>? Localizer { get; set; }
-
     /// <summary>
     /// 获得属性方法
     /// </summary>
     /// <returns></returns>
-    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+    private IEnumerable<AttributeItem> GetAttributes()
     {
+        return new AttributeItem[]
+        {
             // TODO: 移动到数据库中
-            new AttributeItem() {
+            new AttributeItem()
+            {
                 Name = "ChildContent",
                 Description = Localizer["Desc1"],
                 Type = "RenderFragment",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
-            new AttributeItem() {
+            new AttributeItem()
+            {
                 Name = "Height",
                 Description = Localizer["Desc2"],
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = " — "
             }
-    };
+        };
+    }
 }

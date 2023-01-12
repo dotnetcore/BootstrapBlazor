@@ -1335,15 +1335,17 @@
     "DividerContent": "我是自定义内容 <code>div</code> 元素"
   },
   "BootstrapBlazor.Shared.Samples.Scrolls": {
-    "Title": "Scroll 滚动条",
-    "H1": "给高度或者宽度超标的组件增加滚动条",
-    "P1": "其元素必须拥有固定高度时才可呈现滚动条，可以通过外套元素设置其 <code>height</code> 属性",
-    "Block1Title": "普通用法",
-    "Block1Intro": "给组件增加滚动条，通过设置 <code>Height</code> 高度值为 200px 使内部子元素高度为 400px 时出现滚动条",
-    "D1": "请滚动右侧滚动条",
-    "D2": "我是最底端",
+    "ScrollTitle": "Scroll 滚动条",
+    "ScrollDescription": "给高度或者宽度超标的组件增加滚动条",
+    "ScrollTips": "其元素必须拥有固定高度时才可呈现滚动条，可以通过外套元素设置其 <code>height</code> 属性",
+    "ScrollNormalTitle": "普通用法",
+    "ScrollNormalIntro": "给组件增加滚动条，通过设置 <code>Height</code> 高度值为 200px 使内部子元素高度为 400px 时出现滚动条",
     "Desc1": "子组件",
     "Desc2": "组件高度"
+  },
+  "BootstrapBlazor.Shared.Demos.Scroll.ScrollNormal": {
+    "ScrollNormalDescription": "请滚动右侧滚动条",
+    "ScrollNormalbottom": "我是最底端"
   },
   "BootstrapBlazor.Shared.Samples.LayoutPages": {
     "H1": "整页面级别组件",

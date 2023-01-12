@@ -1332,15 +1332,17 @@
     "DividerContent": "I am a custom content <code>div</code> element"
   },
   "BootstrapBlazor.Shared.Samples.Scrolls": {
-    "Title": "Scroll",
-    "H1": "Add scroll bars to components whose height or width exceeds the standard",
-    "P1": "The scroll bar can be rendered only when its element has a fixed height. Its <code>height</code> attribute can be set through the coat element",
-    "Block1Title": "Common usage",
-    "Block1Intro": "Add a scroll bar to the component. By setting the height of <code>Height</code> to 200px, the scroll bar appears when the height of the inner child element is 400px",
-    "D1": "Please scroll the scroll bar on the right",
-    "D2": "bottom",
+    "ScrollTitle": "Scroll",
+    "ScrollDescription": "Add scroll bars to components whose height or width exceeds the standard",
+    "ScrollTips": "The scroll bar can be rendered only when its element has a fixed height. Its <code>height</code> attribute can be set through the coat element",
+    "ScrollNormalTitle": "Common usage",
+    "ScrollNormalIntro": "Add a scroll bar to the component. By setting the height of <code>Height</code> to 200px, the scroll bar appears when the height of the inner child element is 400px",
     "Desc1": "Subassembly",
     "Desc2": "Component height"
+  },
+  "BootstrapBlazor.Shared.Demos.Scroll.ScrollNormal": {
+    "ScrollNormalDescription": "Please scroll the scroll bar on the right",
+    "ScrollNormalbottom": "bottom"
   },
   "BootstrapBlazor.Shared.Samples.LayoutPages": {
     "H1": "full page level components",
