@@ -2114,7 +2114,7 @@ public class TableTest : TableTestBase
         await cut.InvokeAsync(() => node.Click());
 
         var table = cut.FindComponent<Table<FooTree>>();
-        await cut.InvokeAsync(() => table.Instance.QueryAsync());
+        await cut.InvokeAsync(() => table.Instance.QueryAsync(1));
 
         var nodes = cut.FindAll("tbody tr");
         Assert.Equal(4, nodes.Count);
