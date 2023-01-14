@@ -5712,6 +5712,55 @@
     "Result": "手写签名imgBase64字符串",
     "HandwrittenBase64": "手写结果回调方法"
   },
+  "BootstrapBlazor.Shared.Samples.ImageViewers": {
+    "ImageViewerTitle": "ImageViewer 图片",
+    "ImageViewerDescription": "图片容器，在保留原生 img 的特性下，支持懒加载，自定义占位、加载失败等",
+    "ImageViewerNormalTitle": "基本用法",
+    "ImageViewerNormalIntro": "加载并显示图片文件",
+    "ImageViewerPlaceHolderTitle": "占位内容",
+    "ImageViewerPlaceHolderIntro": "可通过设置 <code>ShowPlaceHolder</code> 开启占位符功能，通过设置 <code>PlaceHolderTemplate</code> 自定义占位内容",
+    "ImageViewerPlaceHolderTemplateTitle": "占位模板",
+    "ImageViewerPlaceHolderTemplateIntro": "可通过设置 <code>PlaceHolderTemplate</code> 开启占位模板功能，未设置 <code>Url</code> 或者正在加载时显示此模板内容",
+    "ImageViewerErrorTemplateTitle": "加载失败",
+    "ImageViewerErrorTemplateIntro": "可通过设置 <code>ErrorTemplate</code> 开启错误模板功能，参数 <code>Url</code> 无法加载图片时显示此模板内容",
+    "ImageViewerPreviewListTitle": "大图预览",
+    "ImageViewerPreviewListIntro": "可通过设置 <code>PreviewList</code> 开启预览大图的功能",
+    "ImageViewersAttrUrl": "图片 Url",
+    "ImageViewersAttrAlt": "原生 alt 属性",
+    "ImageViewersAttrShowPlaceHolder": "是否显示占位符 适用于大图片加载",
+    "ImageViewersAttrHandleError": "加载失败时是否显示错误占位符",
+    "ImageViewersAttrPlaceHolderTemplate": "占位模板 未设置 Url 或者正在加载大图时生效",
+    "ImageViewersAttrErrorTemplate": "错误模板 图片路径错误时生效",
+    "ImageViewersAttrFitMode": "原生 object-fit 属性",
+    "ImageViewersAttrZIndex": "原生 z-index 属性",
+    "ImageViewersAttrPreviewList": "预览大图链接集合",
+    "ImageViewersAttrOnLoadAsync": "图片加载成功时回调方法",
+    "ImageViewersAttrOnErrorAsync": "图片加载失败时回调方法"
+  },
+  "BootstrapBlazor.Shared.Demos.ImageViewer.ImageViewerNormal": {
+    "ImageViewerNormalTips1": "<code>object-fit: fill</code> 填充 默认值 使图片拉伸填满整个容器, 不保证保持原有的比例",
+    "ImageViewerNormalTips2": "<code>object-fit: contain</code> 包含 保持原有尺寸比例缩放 保证整个图片都可以出现在容器中，因此此参数可能会在容器内留下空白",
+    "ImageViewerNormalTips3": "<code>object-fit: cover</code> 覆盖 保持原有尺寸比例缩放，宽度和高度至少有一个和容器一致（尺寸小的一致）因此此参数可能会让图片部分区域不可见",
+    "ImageViewerNormalTips4": "<code>object-fit: none</code> 无 保持原有尺寸比例，同时保持图片原始尺寸大小，多出的部分隐藏",
+    "ImageViewerNormalTips5": "<code>object-fit: scale-down</code> 降低 就好像依次设置了 <b>none</b> 或 <b>contain</b> 最终呈现的是尺寸比较小的那个"
+  },
+  "BootstrapBlazor.Shared.Demos.ImageViewer.ImageViewerPlaceHolder": {
+    "ImageViewerPlaceHolderTips1": "图片加载后浏览器默认会缓存，建议 <kbd>F12</kbd> 关闭缓存体验此功能",
+    "ImageViewerPlaceHolderDefault": "默认",
+    "ImageViewerPlaceHolderCustom": "自定义",
+    "ImageViewerPlaceHolderLoading": "加载中 ..."
+  },
+  "BootstrapBlazor.Shared.Demos.ImageViewer.ImageViewerPlaceHolderTemplate": {
+    "ImageViewerPlaceHolderTemplateTips1": "图片加载后浏览器默认会缓存，建议 <kbd>F12</kbd> 关闭缓存体验此功能",
+    "ImageViewerPlaceHolderTemplateUrl": "未设置 Url",
+    "ImageViewerPlaceHolderTemplateplaceholder": "占位模板",
+    "ImageViewerPlaceHolderTemplateLoadingShow": "加载时显示"
+  },
+  "BootstrapBlazor.Shared.Demos.ImageViewer.ImageViewerErrorTemplate": {
+    "ImageViewerErrorTemplateUrlError": "Url 路径错误",
+    "ImageViewerErrorTemplateCustom": "自定义",
+    "ImageViewerErrorTemplateLoadFailed": "加载失败"
+  },
   "BootstrapBlazor.Shared.Samples.Geolocations": {
     "Title": "地理定位/移动距离追踪",
     "BaseUsageText": "基础用法",

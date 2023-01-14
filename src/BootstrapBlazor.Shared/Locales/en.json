@@ -5697,6 +5697,55 @@
     "Result": "Handwritten signature imgBase64 string",
     "HandwrittenBase64": "Handwritten result callback method"
   },
+  "BootstrapBlazor.Shared.Samples.ImageViewers": {
+    "ImageViewerTitle": "Image Viewer pictures",
+    "ImageViewerDescription": "In container, and retain the native characteristics of the img, to support lazy loading, custom placeholder, load, failure, etc",
+    "ImageViewerNormalTitle": "Basic usage",
+    "ImageViewerNormalIntro": "Load and display the image files",
+    "ImageViewerPlaceHolderTitle": "The placeholder content",
+    "ImageViewerPlaceHolderIntro": "Can be set up by the <code>Show Place Holder</code> open placeholder function, by setting the <code>Place Holder Template</code> define placeholder content",
+    "ImageViewerPlaceHolderTemplateTitle": "The placeholder template",
+    "ImageViewerPlaceHolderTemplateIntro": "Can be set up by the <code>Place Holder Template</code> open placeholder Template function, not set <code>Url</code>  or being loaded displayed when the content of the Template",
+    "ImageViewerErrorTemplateTitle": "Load failed",
+    "ImageViewerErrorTemplateIntro": "Can be set up by the <code>Error Template</code> open Error Template function, Url parameter <code>Url</code> unable to load images displayed when the content of the Template",
+    "ImageViewerPreviewListTitle": "A larger preview",
+    "ImageViewerPreviewListIntro": "Can be set up by the <code>Preview List</code> opens a larger Preview of the function",
+    "ImageViewersAttrUrl": "Picture Url",
+    "ImageViewersAttrAlt": "Native Alt attribute",
+    "ImageViewersAttrShowPlaceHolder": "Whether display placeholder for large images added",
+    "ImageViewersAttrHandleError": "Error loading fail whether display placeholder",
+    "ImageViewersAttrPlaceHolderTemplate": "Placeholder template is not set the Url or being loaded a larger version",
+    "ImageViewersAttrErrorTemplate": "The template image path errors",
+    "ImageViewersAttrFitMode": "Native object-fit attributes",
+    "ImageViewersAttrZIndex": "Native z-the index attribute",
+    "ImageViewersAttrPreviewList": "A larger preview link set",
+    "ImageViewersAttrOnLoadAsync": "The callback method picture when it is loaded successfully",
+    "ImageViewersAttrOnErrorAsync": "Images load failed callback methods"
+  },
+  "BootstrapBlazor.Shared.Demos.ImageViewer.ImageViewerNormal": {
+    "ImageViewerNormalTips1": "<code>object-fit: fill</code> Fill the default drawing picture to fill the whole container, does not guarantee that keep the original proportion",
+    "ImageViewerNormalTips2": "<code>object-fit: contain</code> Contains keep original size scaling to ensure the whole image can be appeared in the container, so this parameter may be left blank in the container",
+    "ImageViewerNormalTips3": "<code>object-fit: cover</code> Cover to keep the original size scaling, width and height of at least one consistent and containers (size small) so this parameter may let image section area is not visible",
+    "ImageViewerNormalTips4": "<code>object-fit: none</code> No keep original size proportion, while maintaining the original size, hidden extra parts",
+    "ImageViewerNormalTips5": "<code>object-fit: scale-down</code> To reduce as if, in turn, set the <b>none</b> or <b>contain the</b> is the relatively small size of the ultimate"
+  },
+  "BootstrapBlazor.Shared.Demos.ImageViewer.ImageViewerPlaceHolder": {
+    "ImageViewerPlaceHolderTips1": "Pictures after loading the default browser caches, suggest <KBD>F12</KBD> turn off caching experience this functionality",
+    "ImageViewerPlaceHolderDefault": "Default",
+    "ImageViewerPlaceHolderCustom": "Custom",
+    "ImageViewerPlaceHolderLoading": "Loading ..."
+  },
+  "BootstrapBlazor.Shared.Demos.ImageViewer.ImageViewerPlaceHolderTemplate": {
+    "ImageViewerPlaceHolderTemplateTips1": "Pictures after loading the default browser caches, suggest <KBD>F12</KBD> turn off caching experience this functionality",
+    "ImageViewerPlaceHolderTemplateUrl": "Is not set Url",
+    "ImageViewerPlaceHolderTemplateplaceholder": "The placeholder template",
+    "ImageViewerPlaceHolderTemplateLoadingShow": "When loading show"
+  },
+  "BootstrapBlazor.Shared.Demos.ImageViewer.ImageViewerErrorTemplate": {
+    "ImageViewerErrorTemplateUrlError": "Url The path error",
+    "ImageViewerErrorTemplateCustom": "The custom",
+    "ImageViewerErrorTemplateLoadFailed": "Load failed"
+  },
   "BootstrapBlazor.Shared.Samples.Geolocations": {
     "Title": "Geolocation",
     "BaseUsageText": "Basic usage",

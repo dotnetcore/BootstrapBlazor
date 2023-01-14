@@ -1,0 +1,42 @@
+﻿.images ::deep .bb-img {
+    width: 100px;
+    height: 100px;
+    border-radius: var(--bs-border-radius);
+    border: 1px solid var(--bs-secondary);
+    margin: 0 auto;
+}
+
+.images.img-ph ::deep .bb-img {
+    width: 300px;
+    height: 200px;
+}
+
+.images-item:not(:first-child) {
+    margin-top: 1rem;
+}
+
+.images-item > div {
+    text-align: center;
+    margin-bottom: .5rem;
+}
+
+@media (min-width: 720px) {
+    .images {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .images-item {
+        display: flex;
+        flex-direction: column;
+        width: 20%;
+    }
+
+        .images-item:not(:first-child) {
+            margin-top: 0;
+        }
+
+    .img-ph .images-item {
+        width: 50%;
+    }
+}
