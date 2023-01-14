@@ -9,37 +9,6 @@ namespace BootstrapBlazor.Shared.Samples.Table;
 /// </summary>
 public partial class Tables
 {
-    [Inject]
-    [NotNull]
-    private IStringLocalizer<Foo>? Localizer { get; set; }
-
-    [Inject]
-    [NotNull]
-    private IStringLocalizer<Tables>? TablesLocalizer { get; set; }
-
-    [NotNull]
-    private List<Foo>? Items { get; set; }
-
-    [NotNull]
-    private string? RefreshText { get; set; }
-
-    /// <summary>
-    /// OnInitialized 方法
-    /// </summary>
-    protected override void OnInitialized()
-    {
-        base.OnInitialized();
-
-        Items = Foo.GenerateFoo(Localizer);
-
-        RefreshText ??= TablesLocalizer[nameof(RefreshText)];
-    }
-
-    private void OnClick()
-    {
-        Items = Foo.GenerateFoo(Localizer);
-    }
-
     private IEnumerable<AttributeItem> GetTableColumnAttributes() => new AttributeItem[]
     {
         new()
