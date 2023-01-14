@@ -4090,7 +4090,8 @@
     "Limit": "时间范围"
   },
   "BootstrapBlazor.Shared.Samples.Ips": {
-    "BasicUsageTitle": "基础用法"
+    "IpNormalTitle": "基础用法",
+    "IpNormalIntro": "分段录入并显示 <code>ip</code> 地址，例如：<code>192.168.1.1</code>"
   },
   "BootstrapBlazor.Shared.Samples.Displays": {
     "Title": "Display 显示组件",

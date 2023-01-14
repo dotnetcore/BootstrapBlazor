@@ -4083,7 +4083,8 @@
     "Limit": "time limit"
   },
   "BootstrapBlazor.Shared.Samples.Ips": {
-    "BasicUsageTitle": "Basic usage"
+    "IpNormalTitle": "Basic usage",
+    "IpNormalIntro": "Enter and display the  <code>ip</code>  address in sections, for example: <code>192.168.1.1</code>"
   },
   "BootstrapBlazor.Shared.Samples.Displays": {
     "Title": "Display",
