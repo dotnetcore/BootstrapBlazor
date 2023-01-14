@@ -4041,6 +4041,57 @@ public class TableTest : TableTestBase
         }
     }
 
+    [Theory]
+    [InlineData(InsertRowMode.First)]
+    [InlineData(InsertRowMode.Last)]
+    public void OnAddAsync_IsTracking_Ok(InsertRowMode mode)
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var items = Foo.GenerateFoo(localizer, 2);
+        var added = false;
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.Items, items);
+                pb.Add(a => a.IsMultipleSelect, true);
+                pb.Add(a => a.ShowToolbar, true);
+                pb.Add(a => a.IsTracking, true);
+                pb.Add(a => a.ShowExtendButtons, true);
+                pb.Add(a => a.EditMode, EditMode.EditForm);
+                pb.Add(a => a.InsertRowMode, mode);
+                pb.Add(a => a.OnAddAsync, () =>
+                {
+                    added = true;
+                    return Task.FromResult(new Foo() { Name = "test" });
+                });
+                pb.Add(a => a.OnSaveAsync, (foo, changedType) =>
+                {
+                    return Task.FromResult(true);
+                });
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+                });
+            });
+        });
+
+        // test add button
+        var button = cut.FindComponent<TableToolbarButton<Foo>>();
+        cut.InvokeAsync(() => button.Instance.OnClick.InvokeAsync());
+        Assert.True(added);
+
+        var input = cut.Find("tbody form input");
+        cut.InvokeAsync(() => input.Change("test_name"));
+
+        var form = cut.Find("tbody form");
+        cut.InvokeAsync(() => form.Submit());
+    }
+
     [Fact]
     public async Task OnEditAsync_Ok()
     {
@@ -4648,8 +4699,10 @@ public class TableTest : TableTestBase
         Assert.Contains("fa-solid fa-xmark", table.Find("tbody").ToMarkup());
     }
 
-    [Fact]
-    public async Task EditAsync_Ok()
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public async Task EditAsync_Ok(bool isTracking)
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
@@ -4662,6 +4715,7 @@ public class TableTest : TableTestBase
                 pb.Add(a => a.Items, items);
                 pb.Add(a => a.IsMultipleSelect, true);
                 pb.Add(a => a.ShowToolbar, true);
+                pb.Add(a => a.IsTracking, isTracking);
                 pb.Add(a => a.TableColumns, foo => builder =>
                 {
                     builder.OpenComponent<TableColumn<Foo, string>>(0);
