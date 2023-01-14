@@ -5501,13 +5501,13 @@
     "TableCellOnDoubleClickCellCurrentValue": "Current Value:"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesLookup": {
-    "Title": "Table Lookup",
-    "Desc": "Used to automatically convert foreign key columns to <code>Text</code> display text",
-    "LookupTitle": "Lookup external data source",
-    "LookupIntro": "Auto-translate display text by setting <code>Lookup</code>",
-    "LookupP1": "In this example, by setting the <code>Lookup</code> value of the <code>Complete</code> column to the value",
-    "LookupP2": "The component automatically converts <code>Complete</code> to a preset in the <code>DataSource</code> collection",
-    "LookupP3": "In this example, the <code>ILookupService</code> service is used for unified processing, and the <code>Lookup</code> data collection is obtained from the service by setting the <code>LookupServiceKey</code> value"
+    "TablesLookupTitle": "Table Lookup",
+    "TablesLookupDescription": "Used to automatically convert foreign key columns to <code>Text</code> display text",
+    "TableLookupNormalTitle": "Lookup external data source",
+    "TableLookupNormalIntro": "Auto-translate display text by setting <code>Lookup</code>",
+    "TableLookupNormalTips1": "In this example, by setting the <code>Lookup</code> value of the <code>Complete</code> column to the value",
+    "TableLookupNormalTips2": "The component automatically converts <code>Complete</code> to a preset in the <code>DataSource</code> collection",
+    "TableLookupNormalTips3": "In this example, the <code>ILookupService</code> service is used for unified processing, and the <code>Lookup</code> data collection is obtained from the service by setting the <code>LookupServiceKey</code> value"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesRow": {
     "Title": "Table Row",
