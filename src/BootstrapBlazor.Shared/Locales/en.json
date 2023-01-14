@@ -5481,22 +5481,24 @@
     "P16": "By setting the <code>ShowAddButton</code> <code>ShowEditButton</code> <code>ShowDeleteButton</code> attribute value to control whether the individual function button is displayed, when <code>ShowDefaultButtons</code> is set to <code> When false</code>, all buttons are not displayed"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesCell": {
-    "Title": "Table Cell",
-    "H4": "Cell related operation example",
-    "MergeCellTitle": "Merge Cells",
-    "MergeCellIntro": "Basic table display usage",
-    "MergeCellP": "In this example, by setting the <code>OnCellRenderHandler</code> callback delegate, the cell merge operation is performed on the two columns <code>Name</code> and <code>Address</code> through the judgment condition, And set the background color of the merged cell by setting the <code>TableCellArgs</code> attribute <code>Class</code> value to <code>cell-demo</code> style sheet name",
-    "OnDoubleClickCellTitle": "Double-click cell",
-    "OnDoubleClickCellIntro": "Set the double-click event of the current cell by setting the <code>OnDoubleClickColumn</code> callback",
-    "OnDoubleClickCellP": "After setting the double-click cell callback, a subscript horizontal line appears in the cell after the mouse hovers over the cell, as a reminder, which can be overridden by the <code>.table-cell .is-dbcell</code> style",
+    "TablesCellTitle": "Table Cell",
+    "TablesCellDescription": "Cell related operation example",
+    "TableCellMergeCellTitle": "Merge Cells",
+    "TableCellMergeCellIntro": "Basic table display usage",
+    "TableCellMergeCellTip": "In this example, by setting the <code>OnCellRenderHandler</code> callback delegate, the cell merge operation is performed on the two columns <code>Name</code> and <code>Address</code> through the judgment condition, And set the background color of the merged cell by setting the <code>TableCellArgs</code> attribute <code>Class</code> value to <code>cell-demo</code> style sheet name",
+    "TableCellOnDoubleClickCellTitle": "Double-click cell",
+    "TableCellOnDoubleClickCellIntro": "Set the double-click event of the current cell by setting the <code>OnDoubleClickColumn</code> callback",
+    "TableCellOnDoubleClickCellTip": "After setting the double-click cell callback, a subscript horizontal line appears in the cell after the mouse hovers over the cell, as a reminder, which can be overridden by the <code>.table-cell .is-dbcell</code> style",
     "RowAttr": "The current cell row data, please convert it into a binding model",
     "ColumnNameAttr": "Current cell binding column name",
     "ColspanAttr": "Number of merged cells",
     "ClassAttr": "Current cell style",
-    "ValueAttr": "Current cell display content",
-    "ToastTitle": "Double-click cell callback",
-    "CurrentCellName": "Current cell name:",
-    "CurrentValue": "Current Value:"
+    "ValueAttr": "Current cell display content"
+  },
+  "BootstrapBlazor.Shared.Demos.Table.Cell.TableCellOnDoubleClickCell": {
+    "TableCellOnDoubleClickCellToastTitle": "Double-click cell callback",
+    "TableCellOnDoubleClickCellCurrentCellName": "Current cell name:",
+    "TableCellOnDoubleClickCellCurrentValue": "Current Value:"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesLookup": {
     "Title": "Table Lookup",

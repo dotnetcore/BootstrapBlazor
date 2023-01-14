@@ -7,36 +7,21 @@
     }
 </style>
 
-<h3>@CellLocalizer["Title"]</h3>
+<h3>@CellLocalizer["TablesCellTitle"]</h3>
 
-<h4>@CellLocalizer["H4"]</h4>
+<h4>@CellLocalizer["TablesCellDescription"]</h4>
 
-<DemoBlock Title="@CellLocalizer["MergeCellTitle"]" Introduction="@CellLocalizer["MergeCellIntro"]" Name="MergeCell">
-    <p>@((MarkupString)CellLocalizer["MergeCellP"].Value)</p>
+<DemoBlock Title="@CellLocalizer["TableCellMergeCellTitle"]" Introduction="@CellLocalizer["TableCellMergeCellIntro"]" Name="MergeCell" Demo="typeof(Demos.Table.Cell.TableCellMergeCell)">
+    <p>@((MarkupString)CellLocalizer["TableCellMergeCellTip"].Value)</p>
     <Pre>.cell-demo {
     --bs-table-bg: ##e9ecef;
 }</Pre>
-    <Table TItem="Foo" Items="@Items.Take(3)">
-        <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" Width="140" />
-            <TableColumn @bind-Field="@context.Name" OnCellRender="@OnCellRenderHandler" />
-            <TableColumn @bind-Field="@context.Address" />
-        </TableColumns>
-    </Table>
 </DemoBlock>
 
-<DemoBlock Title="@CellLocalizer["OnDoubleClickCellTitle"]" Introduction="@CellLocalizer["OnDoubleClickCellIntro"]" Name="OnDoubleClickCell">
+<DemoBlock Title="@CellLocalizer["TableCellOnDoubleClickCellTitle"]" Introduction="@CellLocalizer["TableCellOnDoubleClickCellIntro"]" Name="OnDoubleClickCell" Demo="typeof(Demos.Table.Cell.TableCellOnDoubleClickCell)">
     <Tips>
-        <p>@((MarkupString)CellLocalizer["OnDoubleClickCellP"].Value)</p>
+        <p>@((MarkupString)CellLocalizer["TableCellOnDoubleClickCellTip"].Value)</p>
     </Tips>
-    <Table TItem="Foo" Items="@Items.Take(3)" IsBordered="true" OnDoubleClickCellCallback="@OnDoubleClickCellCallback">
-        <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" Width="180" />
-            <TableColumn @bind-Field="@context.Name" />
-            <TableColumn @bind-Field="@context.Address" />
-            <TableColumn @bind-Field="@context.Complete" />
-        </TableColumns>
-    </Table>
 </DemoBlock>
 
-<AttributeTable Items="GetAttributes()" Title="TableCellArgs"></AttributeTable>
+<AttributeTable Items="GetAttributes()" Title="TableCellArgs" />

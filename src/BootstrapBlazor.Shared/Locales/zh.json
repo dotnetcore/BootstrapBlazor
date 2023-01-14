@@ -5496,22 +5496,24 @@
     "P16": "通过设置 <code>ShowAddButton</code> <code>ShowEditButton</code> <code>ShowDeleteButton</code> 属性值来控制单独功能按钮是否显示，当 <code>ShowDefaultButtons</code> 设置为 <code>false</code> 时，所有按钮均不显示"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesCell": {
-    "Title": "Table 表格",
-    "H4": "单元格相关操作示例",
-    "MergeCellTitle": "合并单元格",
-    "MergeCellIntro": "基础的表格展示用法",
-    "MergeCellP": "本例中通过设置 <code>OnCellRenderHandler</code> 回调委托，通过判断条件对 <code>Name</code> 与 <code>Address</code> 两列进行单元格合并操作，并且通过设置 <code>TableCellArgs</code> 属性 <code>Class</code> 值为 <code>cell-demo</code> 样式表名称对合并后单元格进行背景色设置",
-    "OnDoubleClickCellTitle": "双击单元格",
-    "OnDoubleClickCellIntro": "通过设置 <code>OnDoubleClickColumn</code> 回调，设置当前单元格的双击事件",
-    "OnDoubleClickCellP": "设置双击单元格回调后，鼠标悬停单元格后单元格出现下标横线，以作提示可通过 <code>.table-cell .is-dbcell</code> 样式覆盖",
+    "TablesCellTitle": "Table 表格",
+    "TablesCellDescription": "单元格相关操作示例",
+    "TableCellMergeCellTitle": "合并单元格",
+    "TableCellMergeCellIntro": "基础的表格展示用法",
+    "TableCellMergeCellTip": "本例中通过设置 <code>OnCellRenderHandler</code> 回调委托，通过判断条件对 <code>Name</code> 与 <code>Address</code> 两列进行单元格合并操作，并且通过设置 <code>TableCellArgs</code> 属性 <code>Class</code> 值为 <code>cell-demo</code> 样式表名称对合并后单元格进行背景色设置",
+    "TableCellOnDoubleClickCellTitle": "双击单元格",
+    "TableCellOnDoubleClickCellIntro": "通过设置 <code>OnDoubleClickColumn</code> 回调，设置当前单元格的双击事件",
+    "TableCellOnDoubleClickCellTip": "设置双击单元格回调后，鼠标悬停单元格后单元格出现下标横线，以作提示可通过 <code>.table-cell .is-dbcell</code> 样式覆盖",
     "RowAttr": "当前单元格行数据 请自行转化为绑定模型",
     "ColumnNameAttr": "当前单元格绑定列名称",
     "ColspanAttr": "合并单元格数量",
     "ClassAttr": "当前单元格样式",
-    "ValueAttr": "当前单元格显示内容",
-    "ToastTitle": "双击单元格回调",
-    "CurrentCellName": "当前单元格名称：",
-    "CurrentValue": "当前值："
+    "ValueAttr": "当前单元格显示内容"
+  },
+  "BootstrapBlazor.Shared.Demos.Table.Cell.TableCellOnDoubleClickCell": {
+    "TableCellOnDoubleClickCellToastTitle": "双击单元格回调",
+    "TableCellOnDoubleClickCellCurrentCellName": "当前单元格名称：",
+    "TableCellOnDoubleClickCellCurrentValue": "当前值："
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesLookup": {
     "Title": "Table 表格",
