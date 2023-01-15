@@ -7,14 +7,15 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// ListView 组件基类
 /// </summary>
-public partial class ListView<TItem> : BootstrapComponentBase where TItem : class, new()
+public partial class ListView<TItem> : BootstrapComponentBase
 {
-    /// <summary>
-    ///  Card组件样式
-    /// </summary>
-    protected virtual string? ClassString => CssBuilder.Default("listview")
+    private string? ClassString => CssBuilder.Default("listview")
         .AddClass("is-vertical", IsVertical)
         .AddClassFromAttributes(AdditionalAttributes)
+        .Build();
+
+    private string? BodyClassString => CssBuilder.Default("listview-body")
+        .AddClass("is-group", GroupName != null)
         .Build();
 
     /// <summary>
@@ -27,10 +28,13 @@ public partial class ListView<TItem> : BootstrapComponentBase where TItem : clas
     /// 获得/设置 BodyTemplate
     /// </summary>
     [Parameter]
+#if NET6_0_OR_GREATER
+    [EditorRequired]
+#endif
     public RenderFragment<TItem>? BodyTemplate { get; set; }
 
     /// <summary>
-    /// 获得/设置 FooterTemplate
+    /// 获得/设置 FooterTemplate 默认 null 未设置 设置值后 <see cref="Pageable"/> 参数不起作用，请自行实现分页功能
     /// </summary>
     [Parameter]
     public RenderFragment? FooterTemplate { get; set; }
@@ -42,16 +46,34 @@ public partial class ListView<TItem> : BootstrapComponentBase where TItem : clas
     public IEnumerable<TItem>? Items { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否分页 默认为 false 不分页
+    /// 获得/设置 是否分页 默认为 false 不分页 设置 <see cref="FooterTemplate"/> 时分页功能自动被禁用
     /// </summary>
     [Parameter]
     public bool Pageable { get; set; }
 
     /// <summary>
-    /// 获得/设置 分组名称
+    /// 获得/设置 分组 Lambda 表达式 默认 null
     /// </summary>
     [Parameter]
     public Func<TItem, object?>? GroupName { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否可折叠 默认 false 需要开启分组设置 <see cref="GroupName"/>
+    /// </summary>
+    [Parameter]
+    public bool Collapsable { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否手风琴效果 默认 false 需要开启可收缩设置 <see cref="Collapsable"/>
+    /// </summary>
+    [Parameter]
+    public bool IsAccordion { get; set; }
+
+    /// <summary>
+    /// 获得/设置 CollapseItem 展开收缩时回调方法 默认 false 需要开启可收缩设置 <see cref="Collapsable"/>
+    /// </summary>
+    [Parameter]
+    public Func<CollapseItem, Task>? OnCollapseChanged { get; set; }
 
     /// <summary>
     /// 异步查询回调方法
@@ -88,15 +110,18 @@ public partial class ListView<TItem> : BootstrapComponentBase where TItem : clas
     protected int TotalCount { get; set; }
 
     /// <summary>
+    /// 数据集合内部使用
+    /// </summary>
+    protected IEnumerable<TItem> Rows => Items ?? Enumerable.Empty<TItem>();
+
+    /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <param name="firstRender"></param>
-    /// <returns></returns>
-    protected override async Task OnAfterRenderAsync(bool firstRender)
+    protected override async Task OnParametersSetAsync()
     {
-        if (firstRender && Items == null)
+        if (Items == null)
         {
-            await QueryAsync();
+            await QueryData();
         }
     }
 

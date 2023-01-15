@@ -83,6 +83,20 @@ public sealed partial class ListViews
             ValueList = " — ",
             DefaultValue = " — "
         },
+        new AttributeItem(){
+            Name = nameof(ListView<Foo>.Collapsable),
+            Description = Localizer["Collapsable"],
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "false"
+        },
+        new AttributeItem(){
+            Name = nameof(ListView<Foo>.IsAccordion),
+            Description = Localizer["IsAccordion"],
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "false"
+        },
         new AttributeItem() {
             Name = "OnQueryAsync",
             Description = Localizer["OnQueryAsync"],
