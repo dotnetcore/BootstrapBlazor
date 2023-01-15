@@ -29,7 +29,7 @@
                             var index = 0;
                             foreach (var key in Rows.GroupBy(GroupName).OrderBy(k => k.Key))
                             {
-                                <CollapseItem @key="@key.Key" Text="@key.Key?.ToString()" IsCollapsed="IsCollapsed(index++, key.Key)">
+                                <CollapseItem @key="@key" Text="@key.Key?.ToString()" IsCollapsed="IsCollapsed(index++, key.Key)">
                                     @foreach (var item in key)
                                     {
                                         <div class="listview-item" @onclick="@(e => OnClick(item))">

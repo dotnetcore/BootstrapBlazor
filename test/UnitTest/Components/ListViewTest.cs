@@ -7,6 +7,16 @@ namespace UnitTest.Components;
 public class ListViewTest : BootstrapBlazorTestBase
 {
     [Fact]
+    public void Items_Ok()
+    {
+        var cut = Context.RenderComponent<ListView<Product>>(pb =>
+        {
+            pb.Add(a => a.BodyTemplate, p => builder => builder.AddContent(0, $"{p.ImageUrl}-{p.Description}-{p.Category}"));
+        });
+        cut.Markup.Contains("listview-body");
+    }
+
+    [Fact]
     public async Task ListView_Ok()
     {
         var clicked = false;
@@ -107,6 +117,150 @@ public class ListViewTest : BootstrapBlazorTestBase
         query = false;
         cut.InvokeAsync(() => cut.Instance.QueryAsync());
         Assert.True(query);
+    }
+
+    [Fact]
+    public void Collapsable_Ok()
+    {
+        var clicked = false;
+        var items = Enumerable.Range(1, 6).Select(i => new Product()
+        {
+            ImageUrl = $"images/Pic{i}.jpg",
+            Description = $"Pic{i}.jpg",
+            Category = $"Group{(i % 4) + 1}"
+        });
+        var cut = Context.RenderComponent<ListView<Product>>(pb =>
+        {
+            pb.Add(a => a.Collapsable, true);
+            pb.Add(a => a.GroupName, p => p.Category);
+            pb.Add(a => a.BodyTemplate, p => builder => builder.AddContent(0, $"{p.ImageUrl}-{p.Description}-{p.Category}"));
+            pb.Add(a => a.OnQueryAsync, option =>
+            {
+                var ret = new QueryData<Product>()
+                {
+                    Items = items,
+                    TotalCount = 6
+                };
+                return Task.FromResult(ret);
+            });
+            pb.Add(a => a.Pageable, true);
+            pb.Add(a => a.PageItems, 2);
+            pb.Add(a => a.OnListViewItemClick, p =>
+            {
+                clicked = true;
+                return Task.CompletedTask;
+            });
+        });
+        var collapse = cut.FindComponent<Collapse>();
+        Assert.NotNull(collapse);
+
+        var item = cut.Find(".listview-item");
+        cut.InvokeAsync(() => item.Click());
+        Assert.True(clicked);
+    }
+
+    [Fact]
+    public void IsAccordion_Ok()
+    {
+        var items = Enumerable.Range(1, 6).Select(i => new Product()
+        {
+            ImageUrl = $"images/Pic{i}.jpg",
+            Description = $"Pic{i}.jpg",
+            Category = $"Group{(i % 4) + 1}"
+        });
+        var cut = Context.RenderComponent<ListView<Product>>(pb =>
+        {
+            pb.Add(a => a.Collapsable, true);
+            pb.Add(a => a.IsAccordion, true);
+            pb.Add(a => a.GroupName, p => p.Category);
+            pb.Add(a => a.BodyTemplate, p => builder => builder.AddContent(0, $"{p.ImageUrl}-{p.Description}-{p.Category}"));
+            pb.Add(a => a.OnQueryAsync, option =>
+            {
+                var ret = new QueryData<Product>()
+                {
+                    Items = items,
+                    TotalCount = 6
+                };
+                return Task.FromResult(ret);
+            });
+            pb.Add(a => a.Pageable, true);
+            pb.Add(a => a.PageItems, 2);
+        });
+        var collapse = cut.FindComponent<Collapse>();
+        Assert.NotNull(collapse);
+    }
+
+    [Fact]
+    public void CollapsedGroupCallback_Ok()
+    {
+        var callback = false;
+        var items = Enumerable.Range(1, 6).Select(i => new Product()
+        {
+            ImageUrl = $"images/Pic{i}.jpg",
+            Description = $"Pic{i}.jpg",
+            Category = $"Group{(i % 4) + 1}"
+        });
+        var cut = Context.RenderComponent<ListView<Product>>(pb =>
+        {
+            pb.Add(a => a.Collapsable, true);
+            pb.Add(a => a.IsAccordion, true);
+            pb.Add(a => a.GroupName, p => p.Category);
+            pb.Add(a => a.BodyTemplate, p => builder => builder.AddContent(0, $"{p.ImageUrl}-{p.Description}-{p.Category}"));
+            pb.Add(a => a.CollapsedGroupCallback, p =>
+            {
+                callback = true;
+                return p?.ToString() != "Group1";
+            });
+            pb.Add(a => a.OnQueryAsync, option =>
+            {
+                var ret = new QueryData<Product>()
+                {
+                    Items = items,
+                    TotalCount = 6
+                };
+                return Task.FromResult(ret);
+            });
+            pb.Add(a => a.Pageable, true);
+            pb.Add(a => a.PageItems, 2);
+        });
+        Assert.True(callback);
+    }
+
+    [Fact]
+    public void OnCollapseChanged_Ok()
+    {
+        CollapseItem? expect = null;
+        var items = Enumerable.Range(1, 6).Select(i => new Product()
+        {
+            ImageUrl = $"images/Pic{i}.jpg",
+            Description = $"Pic{i}.jpg",
+            Category = $"Group{(i % 4) + 1}"
+        });
+        var cut = Context.RenderComponent<ListView<Product>>(pb =>
+        {
+            pb.Add(a => a.Collapsable, true);
+            pb.Add(a => a.GroupName, p => p.Category);
+            pb.Add(a => a.BodyTemplate, p => builder => builder.AddContent(0, $"{p.ImageUrl}-{p.Description}-{p.Category}"));
+            pb.Add(a => a.OnQueryAsync, option =>
+            {
+                var ret = new QueryData<Product>()
+                {
+                    Items = items,
+                    TotalCount = 6
+                };
+                return Task.FromResult(ret);
+            });
+            pb.Add(a => a.OnCollapseChanged, item =>
+            {
+                expect = item;
+                return Task.CompletedTask;
+            });
+            pb.Add(a => a.Pageable, true);
+            pb.Add(a => a.PageItems, 2);
+        });
+        var button = cut.Find(".accordion-button");
+        cut.InvokeAsync(() => button.Click());
+        Assert.NotNull(expect);
     }
 
     private class Product
