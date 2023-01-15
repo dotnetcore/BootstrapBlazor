@@ -1,23 +1,47 @@
-﻿// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
-// Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
-// Website: https://www.blazor.zone or https://argozhang.github.io/
+﻿@inject IStringLocalizer<Foo> LocalizerFoo
+@inject IStringLocalizer<TableDialogNormal> Localizer
 
-namespace BootstrapBlazor.Shared.Samples.Table;
+<div>
+    <Table TItem="Foo" @ref="ProductTable"
+           IsStriped="true" IsBordered="true"
+           ShowToolbar="true" ShowDefaultButtons="true" ShowAddButton="false" IsMultipleSelect="true" ShowExtendButtons="true"
+           OnQueryAsync="@OnQueryEditAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync">
+        <TableToolbarTemplate>
+            <TableToolbarButton TItem="Foo" Color="Color.Primary" Icon="fa-fw fa-solid fa-pen-to-square" Text="@Localizer["TableDialogNormalChoose"]" OnClickCallback="@ShowDialog" />
+        </TableToolbarTemplate>
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Readonly="true" />
+            <TableColumn @bind-Field="@context.Name" Readonly="true" />
+            <TableColumn @bind-Field="@context.Count" Width="80" />
+        </TableColumns>
+    </Table>
 
-/// <summary>
-/// 
-/// </summary>
-public sealed partial class TablesDialog
-{
-    private static readonly Random random = new();
+    <Modal @ref="Modal">
+        <ModalDialog Title="@Localizer["TableDialogNormalSelectitem"]" IsCentered="true">
+            <BodyTemplate>
+                <Table TItem="Foo" IsStriped="true" @bind-SelectedRows="@SelectedRows" ClickToSelect="true"
+                       ShowToolbar="true" ShowDefaultButtons="false" IsMultipleSelect="true"
+                       OnQueryAsync="@OnQueryProductAsync" HeaderStyle="TableHeaderStyle.Light">
+                    <TableColumns>
+                        <TableColumn @bind-Field="@context.DateTime" />
+                        <TableColumn @bind-Field="@context.Name" />
+                        <TableColumn @bind-Field="@context.Count" />
+                    </TableColumns>
+                </Table>
+            </BodyTemplate>
+            <FooterTemplate>
+                <Button Text="@Localizer["TableDialogNormalSure"]" Icon="fa-regular fa-square-check" OnClick="@OnConfirm" />
+            </FooterTemplate>
+        </ModalDialog>
+    </Modal>
+</div>
 
-    [Inject]
-    [NotNull]
-    private IStringLocalizer<Foo>? LocalizerFoo { get; set; }
-
-    [NotNull]
-    private Modal? Modal { get; set; }
-
+@code {
+    /// <summary>
+    /// Foo 类为Demo测试用，如有需要请自行下载源码查阅
+    /// Foo class is used for Demo test, please download the source code if necessary
+    /// https://gitee.com/LongbowEnterprise/BootstrapBlazor/blob/main/src/BootstrapBlazor.Shared/Data/Foo.cs
+    /// </summary>
     [NotNull]
     private Table<Foo>? ProductTable { get; set; }
 
@@ -27,12 +51,17 @@ public sealed partial class TablesDialog
     [NotNull]
     private List<Foo>? ProductSelectItems { get; set; }
 
+    [NotNull]
+    private Modal? Modal { get; set; }
+
     private bool _confirm;
+
+    private static readonly Random random = new();
 
     private List<Foo> SelectedRows { get; set; } = new List<Foo>();
 
     /// <summary>
-    /// 
+    /// OnInitialized
     /// </summary>
     protected override void OnInitialized()
     {
@@ -116,7 +145,7 @@ public sealed partial class TablesDialog
         return Task.FromResult(new QueryData<Foo>()
         {
             Items = items,
-            TotalCount = total,
+            TotalCount = total
         });
     }
 }

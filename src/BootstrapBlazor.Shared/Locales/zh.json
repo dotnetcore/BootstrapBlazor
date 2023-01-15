@@ -64,17 +64,19 @@
     "Footer": "码云托管平台"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesDialog": {
-    "H1": "Table 表格在弹窗内使用",
-    "H2": "用于带层级关系的数据选择中",
-    "P1": "弹窗中数据联动",
-    "P2": "点击工具栏中的选择按钮弹出对话框选择候选数据",
-    "P3": "本例中展示如果通过 <code>Modal</code> 组件与 <code>Table</code> 进行联动，通过弹窗中选择数据，然后再进行编辑",
-    "P4": "点击 <code>选择</code> 按钮弹出对话框选择产品 <code>Product</code>",
-    "P5": "弹窗中选择产品后点击 <code>确定</code> 按钮关闭弹窗",
-    "P6": "点击 <code>编辑</code> 按钮，由于设置部分数据为只读，只能更改 <code>Count</code> 字段",
-    "P7": "选择",
-    "P8": "选择项目",
-    "P9": "确定"
+    "TablesDialogTitle": "Table 表格在弹窗内使用",
+    "TablesDialogDescription": "用于带层级关系的数据选择中",
+    "TableDialogNormalTitle": "弹窗中数据联动",
+    "TableDialogNormalIntro": "点击工具栏中的选择按钮弹出对话框选择候选数据",
+    "TableDialogNormalDescription": "本例中展示如果通过 <code>Modal</code> 组件与 <code>Table</code> 进行联动，通过弹窗中选择数据，然后再进行编辑",
+    "TableDialogNormalTips1": "点击 <code>选择</code> 按钮弹出对话框选择产品 <code>Product</code>",
+    "TableDialogNormalTips2": "弹窗中选择产品后点击 <code>确定</code> 按钮关闭弹窗",
+    "TableDialogNormalTips3": "点击 <code>编辑</code> 按钮，由于设置部分数据为只读，只能更改 <code>Count</code> 字段"
+  },
+  "BootstrapBlazor.Shared.Demos.Table.Dialog.TableDialogNormal": {
+    "TableDialogNormalChoose": "选择",
+    "TableDialogNormalSelectitem": "选择项目",
+    "TableDialogNormalSure": "确定"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesDynamicObject": {
     "H1": "Table 表格",

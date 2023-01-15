@@ -64,17 +64,19 @@
     "Footer": "Gitee Hosting Platform"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesDialog": {
-    "H1": "Table table is used in the pop-up window",
-    "H2": "Used in data selection with hierarchical relationship",
-    "P1": "Data linkage in the pop-up window",
-    "P2": "Click the Select button in the toolbar to pop up a dialog box to select candidate data",
-    "P3": "In this example, if the <code>Modal</code> component is linked with <code>Table</code>, the data is selected in the pop-up window, and then edited",
-    "P4": "Click the <code>Select</code> button to pop up a dialog box to select the product <code>Product</code>",
-    "P5": "After selecting the product in the pop-up window, click the <code>OK</code> button to close the pop-up window",
-    "P6": "Click the <code>Edit</code> button, since some data are set as read-only, only the <code>Count</code> field can be changed",
-    "P7": "Choose",
-    "P8": "Select item",
-    "P9": "Sure"
+    "TablesDialogTitle": "Table table is used in the pop-up window",
+    "TablesDialogDescription": "Used in data selection with hierarchical relationship",
+    "TableDialogNormalTitle": "Data linkage in the pop-up window",
+    "TableDialogNormalIntro": "Click the Select button in the toolbar to pop up a dialog box to select candidate data",
+    "TableDialogNormalDescription": "In this example, if the <code>Modal</code> component is linked with <code>Table</code>, the data is selected in the pop-up window, and then edited",
+    "TableDialogNormalTips1": "Click the <code>Select</code> button to pop up a dialog box to select the product <code>Product</code>",
+    "TableDialogNormalTips2": "After selecting the product in the pop-up window, click the <code>OK</code> button to close the pop-up window",
+    "TableDialogNormalTips3": "Click the <code>Edit</code> button, since some data are set as read-only, only the <code>Count</code> field can be changed"
+  },
+  "BootstrapBlazor.Shared.Demos.Table.Dialog.TableDialogNormal": {
+    "TableDialogNormalChoose": "Choose",
+    "TableDialogNormalSelectitem": "Select item",
+    "TableDialogNormalSure": "Sure"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesDynamicObject": {
     "H1": "Table table",
