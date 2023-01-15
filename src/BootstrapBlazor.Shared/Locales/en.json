@@ -5262,14 +5262,14 @@
     "FooterTemplateDesc": "Click the Edit button in the table to pop up the Edit pop-up window. The buttons in the pop-up window <code>Footer</code> are user-defined buttons. In order to keep the functions of the original <b>Close</b> and <b>Save</b> buttons while facilitating the second opening, two corresponding components <code>DialogCloseButton</code> <code>DialogSaveButton</code> These two buttons do not need to write the click related processing methods"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesVirtualization": {
-    "H1": "Table virtual scroll row",
-    "H2": "When the Table component displays large data, it usually uses paging to load data. There is also a virtual row technology similar to the automatic loading of data in the background when the mobile phone scrolls to the bottom.",
-    "P1": "Normal use",
-    "P2": "Background on-demand loading when scrolling data without paging",
-    "P3": "Need to set <code>ScrollMode</code> <code>Height</code> <code>RowHeight</code> <code>PageItems</code> parameters to set virtual scrolling",
-    "P4": "Get data dynamically",
-    "P5": "Background on-demand loading when scrolling data without paging",
-    "P6": "Display row placeholders when scrolling quickly to improve user experience"
+    "TablesVirtualizationTitle": "Table virtual scroll row",
+    "TablesVirtualizationDescription": "When the Table component displays large data, it usually uses paging to load data. There is also a virtual row technology similar to the automatic loading of data in the background when the mobile phone scrolls to the bottom.",
+    "VirtualizationNormalTitle": "Normal use",
+    "VirtualizationNormalIntro": "Background on-demand loading when scrolling data without paging",
+    "VirtualizationNormalDescription": "Need to set <code>ScrollMode</code> <code>Height</code> <code>RowHeight</code> <code>PageItems</code> parameters to set virtual scrolling",
+    "VirtualizationDynamicTitle": "Get data dynamically",
+    "VirtualizationDynamicIntro": "Background on-demand loading when scrolling data without paging",
+    "VirtualizationDynamicDescription": "Display row placeholders when scrolling quickly to improve user experience"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesLoading": {
     "H1": "Display data loading function",
