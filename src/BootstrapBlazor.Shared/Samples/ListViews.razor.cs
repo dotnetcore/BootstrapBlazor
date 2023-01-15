@@ -46,6 +46,8 @@ public sealed partial class ListViews
         return Task.CompletedTask;
     }
 
+    private static bool CollapsedGroupCallback(object? groupKey) => groupKey?.ToString() != "Group1";
+
     private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
         new AttributeItem(){
@@ -108,6 +110,13 @@ public sealed partial class ListViews
             Name = "OnListViewItemClick",
             Description = Localizer["OnListViewItemClick"],
             Type = "Func<TItem, Task>",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new AttributeItem() {
+            Name = nameof(ListView<Foo>.CollapsedGroupCallback),
+            Description = Localizer["CollapsedGroupCallback"],
+            Type = "Func<object?, bool>",
             ValueList = " — ",
             DefaultValue = " — "
         }

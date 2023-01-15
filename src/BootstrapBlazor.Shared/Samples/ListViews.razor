@@ -69,7 +69,7 @@
 
 <DemoBlock Title="@Localizer["CollapsableTitle"]" Introduction="@Localizer["CollapsableIntro"]" Name="Collapsable">
     <div class="listview-demo">
-        <ListView TItem="Product" GroupName="@(p => p.Category)" OnQueryAsync="@OnQueryAsync" Collapsable="true">
+        <ListView TItem="Product" GroupName="@(p => p.Category)" OnQueryAsync="@OnQueryAsync" Collapsable="true" CollapsedGroupCallback="CollapsedGroupCallback">
             <HeaderTemplate>
                 <div>@Localizer["ProductListText"]</div>
             </HeaderTemplate>

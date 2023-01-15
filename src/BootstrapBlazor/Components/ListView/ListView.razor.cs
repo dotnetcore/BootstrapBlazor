@@ -76,6 +76,12 @@ public partial class ListView<TItem> : BootstrapComponentBase
     public Func<CollapseItem, Task>? OnCollapseChanged { get; set; }
 
     /// <summary>
+    /// 获得/设置 首次渲染是否收缩回调委托
+    /// </summary>
+    [Parameter]
+    public Func<object?, bool>? CollapsedGroupCallback { get; set; }
+
+    /// <summary>
     /// 异步查询回调方法
     /// </summary>
     [Parameter]
@@ -124,6 +130,8 @@ public partial class ListView<TItem> : BootstrapComponentBase
             await QueryData();
         }
     }
+
+    private bool IsCollapsed(int index, object? groupKey) => CollapsedGroupCallback?.Invoke(groupKey) ?? index > 0;
 
     /// <summary>
     /// 点击页码调用此方法

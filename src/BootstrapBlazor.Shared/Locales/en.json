@@ -4253,7 +4253,8 @@
     "IsAccordion": "Group accordion",
     "OnQueryAsync": "Asynchronous query callback method",
     "OnListViewItemClick": "The ListView element calls back when it clicks on the delegate",
-    "QueryAsync": "Manually query data methods"
+    "QueryAsync": "Manually query data methods",
+    "CollapsedGroupCallback": "Callback for set the IsCollapsed parameter of Collapse component"
   },
   "BootstrapBlazor.Shared.Samples.Locators": {
     "Title": "Get the IP geographic location",

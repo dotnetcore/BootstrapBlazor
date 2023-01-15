@@ -4260,7 +4260,8 @@
     "IsAccordion": "分组数据手风琴效果",
     "OnQueryAsync": "异步查询回调方法",
     "OnListViewItemClick": "ListView元素点击时回调委托",
-    "QueryAsync": "手工查询数据方法"
+    "QueryAsync": "手工查询数据方法",
+    "CollapsedGroupCallback": "组件分组项是否收缩回调委托方法"
   },
   "BootstrapBlazor.Shared.Samples.Locators": {
     "Title": "获取 IP 地理位置",
