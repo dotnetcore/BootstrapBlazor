@@ -4182,6 +4182,32 @@ public class TableTest : TableTestBase
     }
 
     [Fact]
+    public void OnBreakPointChanged_Ok()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var items = Foo.GenerateFoo(localizer, 2);
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Auto);
+                pb.Add(a => a.Items, items);
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+                });
+            });
+        });
+
+        var responsive = Context.Services.GetRequiredService<ResizeNotificationService>();
+        var methodInfo = responsive.GetType().GetMethod("InvokeAsync", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+        methodInfo?.Invoke(responsive, new object?[] { BreakPoint.ExtraExtraLarge });
+    }
+
+    [Fact]
     public async Task CardView_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();

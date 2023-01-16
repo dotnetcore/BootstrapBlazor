@@ -29,7 +29,7 @@ public static class BootstrapBlazorServiceCollectionExtensions
 
         services.AddAuthorizationCore();
         services.AddJsonLocalization(localizationConfigure);
-        services.AddSingleton<ICacheManager, CacheManager>();
+        services.TryAddSingleton<ICacheManager, CacheManager>();
 
         services.TryAddSingleton<IComponentIdGenerator, DefaultIdGenerator>();
         services.TryAddSingleton(typeof(IDispatchService<>), typeof(DefaultDispatchService<>));
@@ -37,21 +37,21 @@ public static class BootstrapBlazorServiceCollectionExtensions
 
         services.TryAddTransient<ITableExcelExport, DefaultExcelExport>();
         services.TryAddScoped(typeof(IDataService<>), typeof(NullDataService<>));
-        services.TryAddScoped<TabItemTextOptions>();
+        services.AddScoped<TabItemTextOptions>();
 
-        services.TryAddScoped<DialogService>();
-        services.TryAddScoped<MessageService>();
-        services.TryAddScoped<ToastService>();
-        services.TryAddScoped<SwalService>();
-        services.TryAddScoped<FullScreenService>();
-        services.TryAddScoped<PrintService>();
-        services.TryAddScoped<TitleService>();
-        services.TryAddScoped<DownloadService>();
-        services.TryAddScoped<WebClientService>();
-        services.TryAddScoped<AjaxService>();
-        services.TryAddScoped(typeof(DragDropService<>));
-        services.TryAddScoped<ClipboardService>();
-        services.TryAddScoped<ResizeNotificationService>();
+        services.AddScoped<DialogService>();
+        services.AddScoped<MessageService>();
+        services.AddScoped<ToastService>();
+        services.AddScoped<SwalService>();
+        services.AddScoped<FullScreenService>();
+        services.AddScoped<PrintService>();
+        services.AddScoped<TitleService>();
+        services.AddScoped<DownloadService>();
+        services.AddScoped<WebClientService>();
+        services.AddScoped<AjaxService>();
+        services.AddScoped(typeof(DragDropService<>));
+        services.AddScoped<ClipboardService>();
+        services.AddScoped<ResizeNotificationService>();
 
         services.TryAddScoped<IIPLocatorProvider, DefaultIPLocatorProvider>();
         services.TryAddScoped<IReconnectorProvider, ReconnectorProvider>();
