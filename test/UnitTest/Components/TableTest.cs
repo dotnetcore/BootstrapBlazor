@@ -1276,6 +1276,33 @@ public class TableTest : TableTestBase
         cut.Contains("Test_LineNo");
     }
 
+    [Fact]
+    public void FixedMultipleColumn_Ok()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.IsMultipleSelect, true);
+                pb.Add(a => a.ShowExtendButtons, true);
+                pb.Add(a => a.FixedExtendButtonsColumn, true);
+                pb.Add(a => a.IsExtendButtonsInRowHeader, true);
+                pb.Add(a => a.FixedMultipleColumn, true);
+                pb.Add(a => a.Items, Foo.GenerateFoo(localizer, 2));
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+                });
+            });
+        });
+        Assert.Contains("left: 36px;", cut.Markup);
+    }
+
     [Theory]
     [InlineData(true)]
     [InlineData(false)]
