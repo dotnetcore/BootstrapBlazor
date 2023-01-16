@@ -179,6 +179,42 @@ public class TableTest : TableTestBase
     }
 
     [Fact]
+    public void ResetVisibleColumns_Ok()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.Items, Foo.GenerateFoo(localizer, 2));
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+                });
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Address");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Address", typeof(string)));
+                    builder.CloseComponent();
+                });
+                pb.Add(a => a.OnAfterRenderCallback, t =>
+                {
+                    t.ResetVisibleColumns(new List<ColumnVisibleItem>()
+                    {
+                        new(nameof(Foo.Address), false),
+                    });
+                    return Task.CompletedTask;
+                });
+            });
+        });
+    }
+
+    [Fact]
     public void TableColumns_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
