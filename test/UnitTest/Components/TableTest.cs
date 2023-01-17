@@ -306,6 +306,42 @@ public class TableTest : TableTestBase
     }
 
     [Fact]
+    public void OnSearchKeyup_Ok()
+    {
+        var resetSearch = false;
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.ShowToolbar, true);
+                pb.Add(a => a.ShowSearch, true);
+                pb.Add(a => a.ShowSearchText, true);
+                pb.Add(a => a.ShowSearchTextTooltip, false);
+                pb.Add(a => a.SearchMode, SearchMode.Top);
+                pb.Add(a => a.Items, Foo.GenerateFoo(localizer, 2));
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+                });
+                pb.Add(a => a.OnResetSearchAsync, foo =>
+                {
+                    resetSearch = true;
+                    return Task.CompletedTask;
+                });
+            });
+        });
+        var searchBox = cut.Find(".table-toolbar-search");
+        cut.InvokeAsync(() => searchBox.KeyUp(new KeyboardEventArgs() { Key = "Enter" }));
+        cut.InvokeAsync(() => searchBox.KeyUp(new KeyboardEventArgs() { Key = "Escape" }));
+        Assert.True(resetSearch);
+    }
+
+    [Fact]
     public async Task ShowAdvancedSearch_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
