@@ -44,6 +44,80 @@ public static class UploadFileExtensions
     }
 
     /// <summary>
+    /// 保存到文件
+    /// </summary>
+    /// <param name="upload"></param>
+    /// <param name="fileName"></param>
+    /// <param name="maxAllowedSize"></param>
+    /// <param name="token"></param>
+    /// <returns></returns>
+    [ExcludeFromCodeCoverage]
+    public static async Task<bool> SaveToFile(this UploadFile upload, string fileName, long maxAllowedSize = 512000, CancellationToken token = default)
+    {
+        var ret = false;
+        if (upload.File != null)
+        {
+            // 文件保护，如果文件存在则先删除
+            if (File.Exists(fileName))
+            {
+                try
+                {
+                    File.Delete(fileName);
+                }
+                catch (Exception ex)
+                {
+                    upload.Code = 1002;
+                    upload.Error = ex.Message;
+                }
+            }
+
+            if (upload.Code == 0)
+            {
+                var folder = Path.GetDirectoryName(fileName);
+                if (!string.IsNullOrEmpty(folder) && !Directory.Exists(folder))
+                {
+                    Directory.CreateDirectory(folder);
+                }
+
+                using var uploadFile = File.OpenWrite(fileName);
+                try
+                {
+                    // 打开文件流
+                    var stream = upload.File.OpenReadStream(maxAllowedSize, token);
+                    var buffer = new byte[4 * 1096];
+                    int bytesRead = 0;
+                    double totalRead = 0;
+
+                    // 开始读取文件
+                    while ((bytesRead = await stream.ReadAsync(buffer, token)) > 0)
+                    {
+                        totalRead += bytesRead;
+                        await uploadFile.WriteAsync(buffer.AsMemory(0, bytesRead), token);
+
+                        if (upload.UpdateCallback != null)
+                        {
+                            var percent = (int)((totalRead / upload.File.Size) * 100);
+                            if (percent > upload.ProgressPercent)
+                            {
+                                upload.ProgressPercent = percent;
+                                upload.UpdateCallback(upload);
+                            }
+                        }
+                    }
+                    upload.Uploaded = true;
+                    ret = true;
+                }
+                catch (Exception ex)
+                {
+                    upload.Code = 1003;
+                    upload.Error = ex.Message;
+                }
+            }
+        }
+        return ret;
+    }
+
+    /// <summary>
     /// 获得图片字节数组方法
     /// </summary>
     /// <param name="upload"></param>
