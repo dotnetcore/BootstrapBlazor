@@ -533,11 +533,6 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
-                    Text = Localizer["Recognizer"],
-                    Url = "recognizers"
-                },
-                new()
-                {
                     Text = Localizer["Search"],
                     Url = "searchs"
                 },
@@ -592,6 +587,12 @@ internal static class MenusLocalizerExtensions
                 {
                     Text = Localizer["Transition"],
                     Url = "transitions"
+                },
+                new()
+                {
+                    IsNew = true,
+                    Text = Localizer["BaiduOcr"],
+                    Url = "ocr"
                 },
                 new()
                 {

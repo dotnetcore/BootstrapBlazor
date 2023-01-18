@@ -79,7 +79,8 @@
     "ribbontabs": "RibbonTabs",
     "pdfreaders": "PdfReaders",
     "videoPlayers": "VideoPlayers",
-    "fileviewers": "FileViewers"
+    "fileviewers": "FileViewers",
+    "ocr": "BaiduOcr"
   },
   "video": {
     "autorefresh": "BV1ap4y1x7Qn?p=8",

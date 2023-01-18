@@ -560,6 +560,16 @@
     "NoRenderIntro": "通过设置 <code>IEditorItem</code> 实例的 <code>Editable=false</code>, 实现编辑弹窗不可编辑此属性",
     "EditDialogOption": "EditDialogOption 属性"
   },
+  "BootstrapBlazor.Shared.Samples.BaiduOcr": {
+    "Title": "IBaiduOcr 百度文字识别服务",
+    "SubTitle": "文字识别服务",
+    "BasicUsageTitle": "增值税发票文字识别",
+    "BasicUsageIntro": "通过上传增值税发票图片调用百度 Ocr 接口进行文字识别",
+    "BaiduOcrDesc": "本组件通过调用 Baidu AI 平台文字识别接口进行增值税发票文字识别。支持对增值税普票、专票、全电发票（新版全国统一电子发票，专票/普票）、卷票、区块链发票的所有字段进行结构化识别，包括发票基本信息、销售方及购买方信息、商品信息、价税信息等，其中五要素字段的识别准确率超过 99.9%； 同时，支持对增值税卷票的 21 个关键字段进行识别，包括发票类型、发票代码、发票号码、机打号码、机器编号、收款人、销售方名称、销售方纳税人识别号、开票日期、购买方名称、购买方纳税人识别号、项目、单价、数量、金额、税额、合计金额(小写)、合计金额(大写)、校验码、省、市，四要素字段的识别准确率可达95%。上传图片不能超过 4M",
+    "BaiduOcrIntro": "使用方法",
+    "BaiduOcrStep1": "1. 通过注入服务获得 <code>IBaiduOcr</code> 实例",
+    "BaiduOcrStep2": "2. 调用服务相对应的识别方法即可"
+  },
   "BootstrapBlazor.Shared.Demos.EditDialog.EditDialogNormal": {
     "LeftAlignedButton": "编辑弹窗(左对齐)",
     "RightAlignedButton": "编辑弹窗(右对齐)"
@@ -4897,7 +4907,8 @@
     "Bluetooth": "蓝牙和打印 Bluetooth & Printer",
     "PdfReader": "PDF阅读器 PDF Reader",
     "VideoPlayer": "视频播放器 VideoPlayer",
-    "FileViewer": "文件预览器 FileViewer"
+    "FileViewer": "文件预览器 FileViewer",
+    "BaiduOcr": "文字识别服务 IBaiduOcr "
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesHeader": {
     "H1": "表头分组功能",

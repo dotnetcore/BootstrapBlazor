@@ -1,0 +1,100 @@
+﻿@inject IBaiduOcr OcrService
+
+<ButtonUpload TValue="string" OnChange="@OnClickToUpload" BrowserButtonText="VATInvoice" ShowUploadFileList="false"></ButtonUpload>
+
+@if (Invoice != null)
+{
+    <div class="row form-inline g-3 mt-0">
+        <div class="col-12 col-sm-6">
+            <Display ShowLabel="true" DisplayText="发票代码" @bind-Value="Invoice.InvoiceCode"></Display>
+        </div>
+        <div class="col-12 col-sm-6">
+            <Display ShowLabel="true" DisplayText="发票号码" Value="Invoice.InvoiceNum"></Display>
+        </div>
+        <div class="col-12 col-sm-6">
+            <Display ShowLabel="true" DisplayText="发票类型" @bind-Value="Invoice.ServiceType"></Display>
+        </div>
+        <div class="col-12 col-sm-6">
+            <Display ShowLabel="true" DisplayText="联次信息" Value="Invoice.SheetNum"></Display>
+        </div>
+        <div class="col-12 col-sm-6">
+            <Display ShowLabel="true" DisplayText="发票种类" @bind-Value="Invoice.InvoiceType"></Display>
+        </div>
+        <div class="col-12 col-sm-6">
+            <Display ShowLabel="true" DisplayText="发票名称" Value="Invoice.InvoiceTypeOrg"></Display>
+        </div>
+        <div class="col-12 col-sm-6">
+            <Display ShowLabel="true" DisplayText="发票标志" @bind-Value="Invoice.InvoiceTag"></Display>
+        </div>
+        <div class="col-12 col-sm-6">
+            <Display ShowLabel="true" DisplayText="开票日期" Value="Invoice.InvoiceDate"></Display>
+        </div>
+        <div class="col-12 col-sm-6">
+            <Display ShowLabel="true" DisplayText="购方名称" @bind-Value="Invoice.PurchaserName"></Display>
+        </div>
+        <div class="col-12 col-sm-6">
+            <Display ShowLabel="true" DisplayText="纳税人识别号" Value="Invoice.PurchaserRegisterNum"></Display>
+        </div>
+        <div class="col-12 col-sm-6">
+            <Display ShowLabel="true" DisplayText="开户行及账号" @bind-Value="Invoice.PurchaserBank"></Display>
+        </div>
+        <div class="col-12 col-sm-6">
+            <Display ShowLabel="true" DisplayText="购方地址" Value="Invoice.PurchaserAddress"></Display>
+        </div>
+        <div class="col-12 col-sm-6">
+            <Display ShowLabel="true" DisplayText="销售方名称" @bind-Value="Invoice.SellerName"></Display>
+        </div>
+        <div class="col-12 col-sm-6">
+            <Display ShowLabel="true" DisplayText="纳税人识别号" Value="Invoice.SellerRegisterNum"></Display>
+        </div>
+        <div class="col-12 col-sm-6">
+            <Display ShowLabel="true" DisplayText="销售方及账号" @bind-Value="Invoice.SellerBank"></Display>
+        </div>
+        <div class="col-12 col-sm-6">
+            <Display ShowLabel="true" DisplayText="销售方地址" Value="Invoice.SellerAddress"></Display>
+        </div>
+        <div class="col-12">
+            <Display ShowLabel="true" DisplayText="备注" @bind-Value="Invoice.Remarks"></Display>
+        </div>
+        <div class="col-12 col-sm-6">
+            <Display ShowLabel="true" DisplayText="价税合计" Value="Invoice.AmountInFiguers"></Display>
+        </div>
+        <div class="col-12 col-sm-6">
+            <Display ShowLabel="true" DisplayText="合计金额" Value="Invoice.TotalAmount"></Display>
+        </div>
+        <div class="col-12 col-sm-6">
+            <Display ShowLabel="true" DisplayText="合计税额" @bind-Value="Invoice.TotalTax"></Display>
+        </div>
+        <div class="col-12 col-sm-6">
+        </div>
+        @if (Invoice.CommodityName?.Any() ?? false)
+        {
+            <div class="col-12 col-sm-6">
+                <Display ShowLabel="true" DisplayText="税率" Value="Invoice.CommodityName.First().CommodityName"></Display>
+            </div>
+        }
+        @if (Invoice.CommodityTaxRate?.Any() ?? false)
+        {
+            <div class="col-12 col-sm-6">
+                <Display ShowLabel="true" DisplayText="税率" Value="Invoice.CommodityTaxRate.First().CommodityTaxRate"></Display>
+            </div>
+        }
+    </div>
+}
+
+@code {
+    private InvoiceEntity? Invoice { get; set; }
+
+    private async Task OnClickToUpload(UploadFile file)
+    {
+        if (file.File != null)
+        {
+            var payload = await file.GetBytesAsync(file.File.Size);
+            if (payload?.Any() ?? false)
+            {
+                Invoice = await OcrService.CheckVatInvoiceAsync(payload);
+                StateHasChanged();
+            }
+        }
+    }
+}
