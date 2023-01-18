@@ -32,17 +32,17 @@ internal class BaiduOcr : IBaiduOcr
     /// <summary>
     /// 识别增值税发票方法
     /// </summary>
-    public Task<string> CheckVatInvoiceJsonAsync(byte[] image) => Task.Run(() =>
+    public Task<string> CheckVatInvoiceJsonAsync(byte[] image, CancellationToken token = default) => Task.Run(() =>
     {
         var client = new Ocr(Options.CurrentValue.ApiKey, Options.CurrentValue.Secret);
         var resp = client.VatInvoice(image);
         return resp.ToString();
-    });
+    }, token);
 
     /// <summary>
     /// 识别增值税发票方法
     /// </summary>
-    public Task<BaiduOcrResult<InvoiceEntity>> CheckVatInvoiceAsync(byte[] image) => Task.Run(() =>
+    public Task<BaiduOcrResult<InvoiceEntity>> CheckVatInvoiceAsync(byte[] image, CancellationToken token = default) => Task.Run(() =>
     {
         var ret = new BaiduOcrResult<InvoiceEntity>();
         var client = new Ocr(Options.CurrentValue.ApiKey, Options.CurrentValue.Secret);
@@ -57,5 +57,5 @@ internal class BaiduOcr : IBaiduOcr
             ret.ErrorMessage = resp.Value<string>("error_msg");
         }
         return ret;
-    });
+    }, token);
 }
