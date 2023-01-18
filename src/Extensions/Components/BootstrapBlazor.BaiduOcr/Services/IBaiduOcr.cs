@@ -13,5 +13,12 @@ public interface IBaiduOcr
     /// 增值税发票识别
     /// </summary>
     /// <param name="image"></param>
-    Task<InvoiceEntity> CheckVatInvoiceAsync(byte[] image);
+    Task<BaiduOcrResult<InvoiceEntity>> CheckVatInvoiceAsync(byte[] image);
+
+    /// <summary>
+    /// 增值税发票识别
+    /// </summary>
+    /// <param name="image"></param>
+    /// <returns></returns>
+    Task<string> CheckVatInvoiceJsonAsync(byte[] image);
 }
