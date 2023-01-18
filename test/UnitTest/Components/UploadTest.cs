@@ -527,7 +527,7 @@ public class UploadTest : BootstrapBlazorTestBase
             pb.Add(a => a.ShowProgress, true);
             pb.Add(a => a.OnChange, async file =>
             {
-                await file.SaveToFile("1.txt");
+                await file.SaveToFileAsync("1.txt");
             });
         });
         var input = cut.FindComponent<InputFile>();
@@ -680,7 +680,7 @@ public class UploadTest : BootstrapBlazorTestBase
             pb.Add(a => a.ShowProgress, true);
             pb.Add(a => a.OnChange, async file =>
             {
-                await file.SaveToFile("1.txt");
+                await file.SaveToFileAsync("1.txt");
             });
         });
         var input = cut.FindComponent<InputFile>();

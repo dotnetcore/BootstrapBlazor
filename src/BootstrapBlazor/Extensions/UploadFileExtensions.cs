@@ -44,7 +44,7 @@ public static class UploadFileExtensions
     }
 
     /// <summary>
-    /// 保存到文件
+    /// 保存到文件方法 已过期
     /// </summary>
     /// <param name="upload"></param>
     /// <param name="fileName"></param>
@@ -52,7 +52,19 @@ public static class UploadFileExtensions
     /// <param name="token"></param>
     /// <returns></returns>
     [ExcludeFromCodeCoverage]
-    public static async Task<bool> SaveToFile(this UploadFile upload, string fileName, long maxAllowedSize = 512000, CancellationToken token = default)
+    [Obsolete("Use SaveToFileAsync method")]
+    public static Task<bool> SaveToFile(this UploadFile upload, string fileName, long maxAllowedSize = 512000, CancellationToken token = default) => upload.SaveToFileAsync(fileName, maxAllowedSize, token);
+
+    /// <summary>
+    /// 保存到文件方法
+    /// </summary>
+    /// <param name="upload"></param>
+    /// <param name="fileName"></param>
+    /// <param name="maxAllowedSize"></param>
+    /// <param name="token"></param>
+    /// <returns></returns>
+    [ExcludeFromCodeCoverage]
+    public static async Task<bool> SaveToFileAsync(this UploadFile upload, string fileName, long maxAllowedSize = 512000, CancellationToken token = default)
     {
         var ret = false;
         if (upload.File != null)
@@ -128,8 +140,8 @@ public static class UploadFileExtensions
     /// <param name="token"></param>
     /// <returns></returns>
     [ExcludeFromCodeCoverage]
-    [Obsolete("Use GetBytes method")]
-    public static Task<byte[]?> GetByteArray(this UploadFile upload, string format, int maxWidth, int maxHeight, long maxAllowedSize = 512000, CancellationToken token = default) => upload.GetBytes(format, maxWidth, maxHeight, maxAllowedSize, token);
+    [Obsolete("Use GetBytesAsync method")]
+    public static Task<byte[]?> GetByteArray(this UploadFile upload, string format, int maxWidth, int maxHeight, long maxAllowedSize = 512000, CancellationToken token = default) => upload.GetBytesAsync(format, maxWidth, maxHeight, maxAllowedSize, token);
 
     /// <summary>
     /// 获得图片字节数组方法
@@ -142,7 +154,7 @@ public static class UploadFileExtensions
     /// <param name="token"></param>
     /// <returns></returns>
     [ExcludeFromCodeCoverage]
-    public static async Task<byte[]?> GetBytes(this UploadFile upload, string format, int maxWidth, int maxHeight, long maxAllowedSize = 512000, CancellationToken token = default)
+    public static async Task<byte[]?> GetBytesAsync(this UploadFile upload, string format, int maxWidth, int maxHeight, long maxAllowedSize = 512000, CancellationToken token = default)
     {
         byte[]? ret = null;
         if (upload.File != null)
@@ -173,7 +185,7 @@ public static class UploadFileExtensions
     /// <param name="token"></param>
     /// <returns></returns>
     [ExcludeFromCodeCoverage]
-    public static async Task<byte[]?> GetBytes(this UploadFile upload, long maxAllowedSize = 512000, CancellationToken token = default)
+    public static async Task<byte[]?> GetBytesAsync(this UploadFile upload, long maxAllowedSize = 512000, CancellationToken token = default)
     {
         byte[]? ret = null;
         if (upload.File != null)
