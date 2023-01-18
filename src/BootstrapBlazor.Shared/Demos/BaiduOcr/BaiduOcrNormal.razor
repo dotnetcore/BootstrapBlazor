@@ -1,4 +1,5 @@
 ﻿@inject IBaiduOcr OcrService
+@inject ToastService ToastService
 
 <ButtonUpload TValue="string" OnChange="@OnClickToUpload" BrowserButtonText="VATInvoice" ShowUploadFileList="false"></ButtonUpload>
 
@@ -92,8 +93,17 @@
             var payload = await file.GetBytesAsync(file.File.Size);
             if (payload?.Any() ?? false)
             {
-                Invoice = await OcrService.CheckVatInvoiceAsync(payload);
-                StateHasChanged();
+                var result = await OcrService.CheckVatInvoiceAsync(payload);
+                Invoice = result.Entity;
+                if (result.Entity != null)
+                {
+                    await ToastService.Success("Vat Invoice", "VAT Invoice success!");
+                    StateHasChanged();
+                }
+                else
+                {
+                    await ToastService.Information("Vat Invoice", $"{result.ErrorCode}: {result.ErrorMessage}");
+                }
             }
         }
     }
