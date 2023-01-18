@@ -32,11 +32,30 @@ internal class BaiduOcr : IBaiduOcr
     /// <summary>
     /// 识别增值税发票方法
     /// </summary>
-    public Task<InvoiceEntity> CheckVatInvoiceAsync(byte[] image) => Task.Run(() =>
+    public Task<string> CheckVatInvoiceJsonAsync(byte[] image) => Task.Run(() =>
     {
         var client = new Ocr(Options.CurrentValue.ApiKey, Options.CurrentValue.Secret);
         var resp = client.VatInvoice(image);
-        var ret = resp.GetValue("words_result").ToObject(typeof(InvoiceEntity)) as InvoiceEntity;
-        return ret ?? new InvoiceEntity() { CommodityName = new(), CommodityTaxRate = new() };
+        return resp.ToString();
+    });
+
+    /// <summary>
+    /// 识别增值税发票方法
+    /// </summary>
+    public Task<BaiduOcrResult<InvoiceEntity>> CheckVatInvoiceAsync(byte[] image) => Task.Run(() =>
+    {
+        var ret = new BaiduOcrResult<InvoiceEntity>();
+        var client = new Ocr(Options.CurrentValue.ApiKey, Options.CurrentValue.Secret);
+        var resp = client.VatInvoice(image);
+        if (resp.TryGetValue("words_result", out var value))
+        {
+            ret.Entity = value.ToObject(typeof(InvoiceEntity)) as InvoiceEntity;
+        }
+        else
+        {
+            ret.ErrorCode = resp.Value<int>("error_code");
+            ret.ErrorMessage = resp.Value<string>("error_msg");
+        }
+        return ret;
     });
 }
