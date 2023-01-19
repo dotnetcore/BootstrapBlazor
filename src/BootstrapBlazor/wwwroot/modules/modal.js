@@ -161,8 +161,7 @@ export class Modal extends BlazorComponent {
     }
 
     _hide() {
-        const dialogs = this._element.querySelectorAll('.modal-dialog')
-        if (dialogs.length === 1) {
+        if (this._element.children.length === 1) {
             this._modal.hide()
         } else {
             this._invoker.invokeMethodAsync(this._invokerCloseMethod)
