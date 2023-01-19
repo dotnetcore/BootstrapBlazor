@@ -7,6 +7,7 @@ export class Modal extends BlazorComponent {
         this._invoker = this._config.arguments[0]
         this._invokerShownMethod = this._config.arguments[1]
         this._invokerCloseMethod = this._config.arguments[2]
+        this._isDialog = this._config.dialog === true
         this._setEventListeners()
     }
 
@@ -14,7 +15,8 @@ export class Modal extends BlazorComponent {
         EventHandler.on(this._element, 'shown.bs.modal', () => {
             this._invoker.invokeMethodAsync(this._invokerShownMethod)
         })
-        EventHandler.on(this._element, 'hide.bs.modal', () => {
+        EventHandler.on(this._element, 'hide.bs.modal', e => {
+            e.stopPropagation();
             if (this._draggable) {
                 this._dialog.style.width = ''
                 this._dialog.style.margin = ''
@@ -22,7 +24,9 @@ export class Modal extends BlazorComponent {
                 EventHandler.off(this._dialog, 'mousedown')
                 EventHandler.off(this._dialog, 'touchstart')
             }
-            this._invoker.invokeMethodAsync(this._invokerCloseMethod)
+            if (this._isDialog) {
+                this._invoker.invokeMethodAsync(this._invokerCloseMethod)
+            }
         })
 
         this._pop = () => {
