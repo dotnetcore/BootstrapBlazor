@@ -792,6 +792,13 @@ public class TableTest : TableTestBase
 
         var table = cut.FindComponent<Table<Foo>>();
         Assert.Equal(20, table.Instance.PageItems);
+
+        // change page items
+        var select = cut.FindAll(".table-page-info .select .dropdown-item");
+        Assert.Equal(6, select.Count);
+
+        var item = select.ElementAt(1);
+        cut.InvokeAsync(() => item.Click());
     }
 
     [Fact]
