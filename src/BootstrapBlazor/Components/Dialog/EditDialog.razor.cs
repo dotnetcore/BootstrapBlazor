@@ -74,6 +74,10 @@ public partial class EditDialog<TModel>
     [NotNull]
     private IStringLocalizer<EditDialog<TModel>>? Localizer { get; set; }
 
+    private string? LoadClassString => CssBuilder.Default("form-loader fade")
+        .AddClass("show", ShowLoading)
+        .Build();
+
     /// <summary>
     /// OnParametersSet 方法
     /// </summary>
