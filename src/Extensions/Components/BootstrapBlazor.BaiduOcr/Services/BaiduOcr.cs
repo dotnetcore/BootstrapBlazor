@@ -5,6 +5,7 @@
 using Baidu.Aip.Ocr;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json.Linq;
+using System.Collections.Generic;
 
 namespace BootstrapBlazor.Components;
 
@@ -71,11 +72,11 @@ internal class BaiduOcr : IBaiduOcr
     protected async Task<string> GetAccessToken()
     {
         var client = HttpClientFactory.CreateClient();
-        var para = new Dictionary<string, string>()
+        var para = new List<KeyValuePair<string?, string?>>()
         {
-            { "grant_type", "client_credentials" },
-            { "client_id", Options.CurrentValue.ApiKey },
-            { "client_secret", Options.CurrentValue.Secret }
+            new("grant_type", "client_credentials"),
+            new("client_id", Options.CurrentValue.ApiKey),
+            new("client_secret", Options.CurrentValue.Secret)
         };
 
         var resp = await client.PostAsync("https://aip.baidubce.com/oauth/2.0/token", new FormUrlEncodedContent(para));
@@ -102,21 +103,21 @@ internal class BaiduOcr : IBaiduOcr
         var client = HttpClientFactory.CreateClient();
 
         // 拼装参数
-        var para = new Dictionary<string, string>()
+        var para = new List<KeyValuePair<string?, string?>>()
         {
-            { "invoice_code", invoiceCode },
-            { "invoice_num", invoiceNum },
-            { "invoice_date", invoiceDate },
-            { "invoice_type", invoiceType },
+            new("invoice_code", invoiceCode),
+            new("invoice_num", invoiceNum),
+            new("invoice_date", invoiceDate),
+            new("invoice_type", invoiceType),
         };
 
         if (!string.IsNullOrEmpty(checkCode))
         {
-            para["check_code"] = checkCode;
+            para.Add(new("check_code", checkCode));
         }
         if (!string.IsNullOrEmpty(totalAmount))
         {
-            para["total_amount"] = totalAmount;
+            para.Add(new("total_amount", totalAmount));
         }
 
         // 提交数据
