@@ -624,9 +624,9 @@ public partial class Table<TItem>
             OnEditAsync = async context =>
             {
                 await ToggleLoading(true);
-                saved = await SaveModelAsync(context, changedType);
                 if (IsTracking)
                 {
+                    saved = true;
                     if (changedType == ItemChangedType.Add)
                     {
                         var index = InsertRowMode == InsertRowMode.First ? 0 : Rows.Count;
@@ -634,9 +634,13 @@ public partial class Table<TItem>
                     }
                     await InvokeItemsChanged();
                 }
-                else if (saved)
+                else
                 {
-                    await QueryAsync();
+                    saved = await SaveModelAsync(context, changedType);
+                    if (saved)
+                    {
+                        await QueryAsync();
+                    }
                 }
                 await ToggleLoading(false);
                 return saved;
