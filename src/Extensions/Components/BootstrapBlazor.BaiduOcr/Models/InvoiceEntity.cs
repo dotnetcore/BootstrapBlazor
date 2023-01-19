@@ -32,12 +32,12 @@ public class InvoiceEntity
     /// <summary>
     /// 获得/设置 发票代码
     /// </summary>
-    public string? InvoiceCode { get; set; }
+    public string InvoiceCode { get; set; } = string.Empty;
 
     /// <summary>
     /// 获得/设置 发票号码
     /// </summary>
-    public string? InvoiceNum { get; set; }
+    public string InvoiceNum { get; set; } = string.Empty;
 
     /// <summary>
     /// 获得/设置 增值税发票左上角标志。 包含：通行费,销项负数、代开、收购、成品油、其他
@@ -47,7 +47,7 @@ public class InvoiceEntity
     /// <summary>
     /// 获得/设置 开票日期
     /// </summary>
-    public string? InvoiceDate { get; set; }
+    public string InvoiceDate { get; set; } = string.Empty;
 
     /// <summary>
     /// 获得/设置 机打号码。仅增值税卷票含有此参数
