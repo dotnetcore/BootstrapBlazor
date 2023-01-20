@@ -4984,19 +4984,23 @@
     "TF15": "曾曾孙菜单三"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesFooter": {
-    "H1": "Table 统计功能",
-    "H2": "用于数据统计",
-    "P1": "数据统计示例",
-    "P2": "设置 <code>ShowFooter=true</code> 显示 <code>Footer</code> 自定义合计功能",
-    "P3": "<code>Table</code> 组件有 <code>TableFooter</code> 模板，其数据上下文为 <code>Table</code> 组件的数据集合 <code>IEnumerable&lt;TItem&gt;</code>",
-    "P4": "<code>TableFooter</code> 模板中关联的上下文 <code>context</code> 值为当页数据集合",
-    "P5": "<code>TableFooter</code> 模板内可以自定义单元格 <code>td</code> 内容，也可以使用内置的 <code>TableFooterCell</code> 组件进行数据显示",
-    "P6": "合计：",
-    "P7": "Footer 模板",
-    "P8": "设置 <code>FooterTemplate</code> 自定义表格底部显示内容",
-    "P9": "无数据时默认显示 <code>Footer</code> 可通过设置 <code>@nameof(Table<Foo>.IsHideFooterWhenNoData)</code> 参数隐藏 <code>Footer</code>",
-    "P10": "这里可以写一些描述性的语句",
-    "P11": "合计："
+    "TablesFooterTitle": "Table 统计功能",
+    "TablesFooterDescription": "用于数据统计",
+    "TablesFooterStatisticsTitle": "数据统计示例",
+    "TablesFooterStatisticsIntro": "设置 <code>ShowFooter=true</code> 显示 <code>Footer</code> 自定义合计功能",
+    "TablesFooterStatisticsTips1": "<code>Table</code> 组件有 <code>TableFooter</code> 模板，其数据上下文为 <code>Table</code> 组件的数据集合 <code>IEnumerable&lt;TItem&gt;</code>",
+    "TablesFooterStatisticsTips2": "<code>TableFooter</code> 模板中关联的上下文 <code>context</code> 值为当页数据集合",
+    "TablesFooterStatisticsTips3": "<code>TableFooter</code> 模板内可以自定义单元格 <code>td</code> 内容，也可以使用内置的 <code>TableFooterCell</code> 组件进行数据显示",
+    "TablesFooterTemplateTaitle": "Footer 模板",
+    "TablesFooterTemplateIntro": "设置 <code>FooterTemplate</code> 自定义表格底部显示内容",
+    "TablesFooterTemplateDescription": "无数据时默认显示 <code>Footer</code> 可通过设置 <code>@nameof(Table<Foo>.IsHideFooterWhenNoData)</code> 参数隐藏 <code>Footer</code>",
+  },
+  "BootstrapBlazor.Shared.Demos.Table.TablesFooter.TablesFooterStatistics": {
+    "TablesFooterStatisticsCellText": "合计："
+  },
+  "BootstrapBlazor.Shared.Demos.Table.TablesFooter.TablesFooterTemplate": {
+    "TablesFooterTemplateSentences": "这里可以写一些描述性的语句",
+    "TablesFooterTemplateTotal": "合计："
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesDetailRow": {
     "DetailTextTrue": "关闭明细行",
