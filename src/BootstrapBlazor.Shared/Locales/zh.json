@@ -3721,7 +3721,7 @@
     "OnStart": "打开摄像头回调方法",
     "OnClose": "关闭摄像头回调方法",
     "OnError": "发生错误回调方法",
-    "OnDeviceChanged": "设别切换时回调方法"
+    "OnDeviceChanged": "设备切换时回调方法"
   },
   "BootstrapBlazor.Shared.Demos.BarcodeReader.BarcodeReaderNormal": {
     "InitLog": "初始化摄像头完成",
