@@ -570,7 +570,7 @@
     "BaiduOcrStep1": "1. 通过注入服务获得 <code>IBaiduOcr</code> 实例",
     "BaiduOcrStep2": "2. 调用服务相对应的识别方法即可",
     "VerifyVatInvoiceTitle": "增值税验真",
-    "VerifyVatInvoiceIntro": "通过调用 <code>IBaiduOcr</code> 服务实例的发票验真方法 <code>VerifyInvoiceAsync</code> 返回 <code>InvoiceVerifyResult</code> 其属性 <code>Valid</code> 为 <code>true</code> 时为真"
+    "VerifyVatInvoiceIntro": "通过调用 <code>IBaiduOcr</code> 服务实例的发票验真方法 <code>VerifyInvoiceAsync</code> 返回 <code>InvoiceVerifyResult</code> 其属性 <code>Valid</code> 为 <code>true</code> 时为真",
   },
   "BootstrapBlazor.Shared.Demos.EditDialog.EditDialogNormal": {
     "LeftAlignedButton": "编辑弹窗(左对齐)",
@@ -4984,23 +4984,19 @@
     "TF15": "曾曾孙菜单三"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesFooter": {
-    "TablesFooterTitle": "Table 统计功能",
-    "TablesFooterDescription": "用于数据统计",
-    "TablesFooterStatisticsTitle": "数据统计示例",
-    "TablesFooterStatisticsIntro": "设置 <code>ShowFooter=true</code> 显示 <code>Footer</code> 自定义合计功能",
-    "TablesFooterStatisticsTips1": "<code>Table</code> 组件有 <code>TableFooter</code> 模板，其数据上下文为 <code>Table</code> 组件的数据集合 <code>IEnumerable&lt;TItem&gt;</code>",
-    "TablesFooterStatisticsTips2": "<code>TableFooter</code> 模板中关联的上下文 <code>context</code> 值为当页数据集合",
-    "TablesFooterStatisticsTips3": "<code>TableFooter</code> 模板内可以自定义单元格 <code>td</code> 内容，也可以使用内置的 <code>TableFooterCell</code> 组件进行数据显示",
-    "TablesFooterTemplateTaitle": "Footer 模板",
-    "TablesFooterTemplateIntro": "设置 <code>FooterTemplate</code> 自定义表格底部显示内容",
-    "TablesFooterTemplateDescription": "无数据时默认显示 <code>Footer</code> 可通过设置 <code>@nameof(Table<Foo>.IsHideFooterWhenNoData)</code> 参数隐藏 <code>Footer</code>",
-  },
-  "BootstrapBlazor.Shared.Demos.Table.TablesFooter.TablesFooterStatistics": {
-    "TablesFooterStatisticsCellText": "合计："
-  },
-  "BootstrapBlazor.Shared.Demos.Table.TablesFooter.TablesFooterTemplate": {
-    "TablesFooterTemplateSentences": "这里可以写一些描述性的语句",
-    "TablesFooterTemplateTotal": "合计："
+    "H1": "Table 统计功能",
+    "H2": "用于数据统计",
+    "P1": "数据统计示例",
+    "P2": "设置 <code>ShowFooter=true</code> 显示 <code>Footer</code> 自定义合计功能",
+    "P3": "<code>Table</code> 组件有 <code>TableFooter</code> 模板，其数据上下文为 <code>Table</code> 组件的数据集合 <code>IEnumerable&lt;TItem&gt;</code>",
+    "P4": "<code>TableFooter</code> 模板中关联的上下文 <code>context</code> 值为当页数据集合",
+    "P5": "<code>TableFooter</code> 模板内可以自定义单元格 <code>td</code> 内容，也可以使用内置的 <code>TableFooterCell</code> 组件进行数据显示",
+    "P6": "合计：",
+    "P7": "Footer 模板",
+    "P8": "设置 <code>FooterTemplate</code> 自定义表格底部显示内容",
+    "P9": "无数据时默认显示 <code>Footer</code> 可通过设置 <code>@nameof(Table<Foo>.IsHideFooterWhenNoData)</code> 参数隐藏 <code>Footer</code>",
+    "P10": "这里可以写一些描述性的语句",
+    "P11": "合计："
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesDetailRow": {
     "DetailTextTrue": "关闭明细行",
@@ -5615,17 +5611,21 @@
     "SetRowClassFormatterP": "本例中 <code>SetRowClassFormatter</code> 方法通过判断绑定数据的 <code>Count > 60</code> 时行高亮显示"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesDynamic": {
-    "Title": "Table 表格",
-    "Desc": "支持动态添加列",
-    "DataTableTitle": "普通用法",
-    "DataTableIntro": "仅展示 <code>DataTable</code> 数据",
-    "EditTitle": "编辑功能",
-    "EditIntro": "增加编辑维护功能",
-    "EditP": "通过设置 <code>DataTableDynamicContext</code> 实例的 <code>OnChanged</code> 回调方法，新建行时自动设置值",
-    "DynamicColTitle": "动态列",
-    "DynamicColIntro": "通过代码动态调整 <code>DataTable</code> 表格组件自动更新",
-    "DataTablePageTitle": "分页",
-    "DataTablePageIntro": "通过与 <code>Pagination</code> 组件配合实现分页功能"
+    "TablesDynamicTitle": "Table 表格",
+    "TablesDynamicDescription": "支持动态添加列",
+    "TablesDynamicDataTableTitle": "普通用法",
+    "TablesDynamicDataTableIntro": "仅展示 <code>DataTable</code> 数据",
+    "TablesDynamicEditTitle": "编辑功能",
+    "TablesDynamicEditIntro": "增加编辑维护功能",
+    "TablesDynamicEditDescription": "通过设置 <code>DataTableDynamicContext</code> 实例的 <code>OnChanged</code> 回调方法，新建行时自动设置值",
+    "TablesDynamicDynamicColTitle": "动态列",
+    "TablesDynamicDynamicColIntro": "通过代码动态调整 <code>DataTable</code> 表格组件自动更新",
+    "TablesDynamicPageTitle": "分页",
+    "TablesDynamicPageIntro": "通过与 <code>Pagination</code> 组件配合实现分页功能"
+  },
+  "BootstrapBlazor.Shared.Demos.Table.TablesDynamic.TablesDynamicDynamicCol": {
+    "TablesDynamicDynamicColButtonAddColumnText": "增加列",
+    "TablesDynamicDynamicColButtonRemoveColumnText": "移除列"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesSearch": {
     "Title": "Table 表格",
