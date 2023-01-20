@@ -5,11 +5,12 @@
 <ValidateForm Model="Model" OnValidSubmit="@Verify">
     <EditorForm TModel="InvoiceForm" RowType="RowType.Inline" AutoGenerateAllItem="false">
         <FieldItems>
+            <EditorItem @bind-Field="@context.InvoiceType" Text="发票种类" Readonly="true" />
             <EditorItem @bind-Field="@context.InvoiceCode" Text="发票代码" />
             <EditorItem @bind-Field="@context.InvoiceNum" Text="发票号码" />
             <EditorItem @bind-Field="@context.InvoiceDate" Text="开票日期" PlaceHolder="YYYYMMDD" />
             <EditorItem @bind-Field="@context.CheckCode" Text="校验码" PlaceHolder="后六位" />
-            <EditorItem @bind-Field="@context.TotalAmount" Text="金额" />
+            <EditorItem @bind-Field="@context.TotalAmount" Text="金额" PlaceHolder="可为空" />
         </FieldItems>
         <Buttons>
             <Button ButtonType="ButtonType.Submit" Icon="fa-solid fa-check" Text="Verify" />
@@ -17,7 +18,10 @@
     </EditorForm>
 </ValidateForm>
 
-<div class="mt-3">@InvoiceVerifyResult?.VerifyMessage</div>
+@if (InvoiceVerifyResult != null)
+{
+    <div class="mt-3">@InvoiceVerifyResult.VerifyMessage</div>
+}
 
 @code {
     /// <summary>
