@@ -19,9 +19,6 @@
 </ValidateForm>
 
 @code {
-    /// <summary>
-    /// 取消请求令牌
-    /// </summary>
     private CancellationTokenSource? TokenSource { get; set; }
 
     private InvoiceForm Model { get; set; } = new() { InvoiceType = "elec_special_vat_invoice", TotalAmount = "0" };
