@@ -3995,7 +3995,6 @@ public class TableTest : TableTestBase
                 pb.Add(a => a.Items, items);
                 pb.Add(a => a.IsKeyboard, true);
                 pb.Add(a => a.ShowLoading, false);
-                pb.Add(a => a.UseComponentWidth, true);
                 pb.Add(a => a.RenderModeResponsiveWidth, BreakPoint.Medium);
                 pb.Add(a => a.SetRowClassFormatter, foo => "test_row_class");
                 pb.Add(a => a.TableColumns, foo => builder =>

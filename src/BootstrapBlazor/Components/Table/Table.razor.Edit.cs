@@ -52,12 +52,6 @@ public partial class Table<TItem>
     protected BreakPoint ScreenSize { get; set; }
 
     /// <summary>
-    /// 获得/设置 组件渲染模式是否使用组件宽度来判断 默认为 false
-    /// </summary>
-    [Parameter]
-    public bool UseComponentWidth { get; set; }
-
-    /// <summary>
     /// 获得/设置 组件编辑模式 默认为弹窗编辑行数据 PopupEditForm
     /// </summary>
     [Parameter]
