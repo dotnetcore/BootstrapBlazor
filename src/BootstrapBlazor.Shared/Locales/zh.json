@@ -5339,14 +5339,14 @@
     "VirtualizationDynamicDescription": "快速滚动时显示行占位，提升用户体验"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesLoading": {
-    "H1": "显示数据加载功能",
-    "H2": "调用远端数据接口时，由于网络原因可能出现延时情况，可使用显示加载功能进行屏蔽",
-    "P1": "基础用法",
-    "P2": "设置 <code>ShowLoading</code> 即可",
-    "P3": "骨架屏",
-    "P4": "设置 <code>ShowSkeleton</code> 即可",
-    "P5": "关闭加载动画",
-    "P6": "设置 <code>ShowLoadingInFirstRender</code> 即可"
+    "TablesLoadingTitile": "显示数据加载功能",
+    "TablesLoadingDescription": "调用远端数据接口时，由于网络原因可能出现延时情况，可使用显示加载功能进行屏蔽",
+    "TablesLoadingShowLoadingTitle": "基础用法",
+    "TablesLoadingShowLoadingIntro": "设置 <code>ShowLoading</code> 即可",
+    "TablesLoadingShowSkeletonTitle": "骨架屏",
+    "TablesLoadingShowSkeletonIntro": "设置 <code>ShowSkeleton</code> 即可",
+    "TablesLoadingShowLoadingInFirstRenderTitle": "关闭加载动画",
+    "TablesLoadingShowLoadingInFirstRenderIntro": "设置 <code>ShowLoadingInFirstRender</code> 即可"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesTree": {
     "H1": "Table 树形数据展示",

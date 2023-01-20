@@ -1,41 +1,22 @@
 ﻿@page "/tables/loading"
 @inject IStringLocalizer<TablesLoading> Localizer
 
-<h3>@Localizer["H1"]</h3>
-<h4>@Localizer["H2"]</h4>
+<h3>@Localizer["TablesLoadingTitile"]</h3>
+<h4>@Localizer["TablesLoadingDescription"]</h4>
 
-<DemoBlock Title="@Localizer["P1"]" Introduction="@Localizer["P2"]" Name="ShowLoading">
-    <Table TItem="Foo" PageItemsSource="@PageItemsSource" AutoGenerateColumns="true"
-           IsPagination="true" IsStriped="true" IsBordered="true" IsMultipleSelect="true"
-           ShowToolbar="true" ShowExtendButtons="true" ShowLoading="true" ShowSearch="true"
-           OnAddAsync="@OnAddAsync" OnEditAsync="@OnEditAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync"
-           OnQueryAsync="@OnQueryAsync">
-        <TableColumns>
-            <TableColumn @bind-Field="@context.Hobby" Items="@Hobbys" />
-        </TableColumns>
-    </Table>
+<DemoBlock Title="@Localizer["TablesLoadingShowLoadingTitle"]"
+           Introduction="@Localizer["TablesLoadingShowLoadingIntro"]"
+           Name="ShowLoading" Demo="typeof(Demos.Table.TablesLoading.TablesLoadingShowLoading)">
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["P3"]" Introduction="@Localizer["P4"]" Name="ShowSkeleton">
-    <Table TItem="Foo" PageItemsSource="@PageItemsSource" AutoGenerateColumns="true"
-           IsPagination="true" IsStriped="true" IsBordered="true" IsMultipleSelect="true"
-           ShowToolbar="true" ShowExtendButtons="true" ShowSkeleton="true" ShowSearch="true"
-           OnAddAsync="@OnAddAsync" OnEditAsync="@OnEditAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync"
-           OnQueryAsync="@OnQueryAsync">
-        <TableColumns>
-            <TableColumn @bind-Field="@context.Hobby" Items="@Hobbys" />
-        </TableColumns>
-    </Table>
+<DemoBlock Title="@Localizer["TablesLoadingShowSkeletonTitle"]"
+           Introduction="@Localizer["TablesLoadingShowSkeletonIntro"]"
+           Name="ShowSkeleton"
+           Demo="typeof(Demos.Table.TablesLoading.TablesLoadingShowSkeleton)">
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["P5"]" Introduction="@Localizer["P6"]" Name="ShowLoadingInFirstRender">
-    <Table TItem="Foo" PageItemsSource="@PageItemsSource" AutoGenerateColumns="true"
-           IsPagination="true" IsStriped="true" IsBordered="true" IsMultipleSelect="true"
-           ShowToolbar="true" ShowExtendButtons="true" ShowLoadingInFirstRender="false" ShowLoading="false" ShowSearch="true"
-           OnAddAsync="@OnAddAsync" OnEditAsync="@OnEditAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync"
-           OnQueryAsync="@OnQueryAsync">
-        <TableColumns>
-            <TableColumn @bind-Field="@context.Hobby" Items="@Hobbys" />
-        </TableColumns>
-    </Table>
+<DemoBlock Title="@Localizer["TablesLoadingShowLoadingInFirstRenderTitle"]"
+           Introduction="@Localizer["TablesLoadingShowLoadingInFirstRenderIntro"]"
+           Name="ShowLoadingInFirstRender"
+           Demo="typeof(Demos.Table.TablesLoading.TablesLoadingShowLoadingInFirstRender)">
 </DemoBlock>
