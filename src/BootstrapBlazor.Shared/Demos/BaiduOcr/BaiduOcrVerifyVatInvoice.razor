@@ -24,8 +24,6 @@
     /// </summary>
     private CancellationTokenSource? TokenSource { get; set; }
 
-    private string? ResultMessage { get; set; }
-
     private InvoiceForm Model { get; set; } = new() { InvoiceType = "elec_special_vat_invoice", TotalAmount = "0" };
 
     private async Task Verify(EditContext context)
