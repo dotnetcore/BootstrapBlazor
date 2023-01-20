@@ -7,8 +7,8 @@
         <FieldItems>
             <EditorItem @bind-Field="@context.InvoiceCode" Text="发票代码" />
             <EditorItem @bind-Field="@context.InvoiceNum" Text="发票号码" />
-            <EditorItem @bind-Field="@context.InvoiceDate" Text="开票日期" />
-            <EditorItem @bind-Field="@context.CheckCode" Text="校验码" />
+            <EditorItem @bind-Field="@context.InvoiceDate" Text="开票日期" PlaceHolder="YYYYMMDD" />
+            <EditorItem @bind-Field="@context.CheckCode" Text="校验码" PlaceHolder="后六位" />
             <EditorItem @bind-Field="@context.TotalAmount" Text="金额" />
         </FieldItems>
         <Buttons>
