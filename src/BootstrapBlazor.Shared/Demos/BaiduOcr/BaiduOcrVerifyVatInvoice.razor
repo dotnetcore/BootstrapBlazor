@@ -18,22 +18,11 @@
     </EditorForm>
 </ValidateForm>
 
-@if (Result != null && Result.ErrorCode == 0)
-{
-    <div class="mt-3">@Result.Entity?.VerifyMessage</div>
-}
-else
-{
-    <div class="mt-3">@ResultMessage</div>
-}
-
 @code {
     /// <summary>
     /// 取消请求令牌
     /// </summary>
     private CancellationTokenSource? TokenSource { get; set; }
-
-    private BaiduOcrResult<InvoiceVerifyResult>? Result { get; set; }
 
     private string? ResultMessage { get; set; }
 
@@ -41,13 +30,15 @@ else
 
     private async Task Verify(EditContext context)
     {
-        ResultMessage = "";
-        Result = await OcrService.VerifyInvoiceAsync(Model.InvoiceCode, Model.InvoiceNum, Model.InvoiceDate, Model.InvoiceType, Model.CheckCode, Model.TotalAmount);
-        if (Result != null && Result.ErrorCode != 0)
+        var result = await OcrService.VerifyInvoiceAsync(Model.InvoiceCode, Model.InvoiceNum, Model.InvoiceDate, Model.InvoiceType, Model.CheckCode, Model.TotalAmount);
+        if (result.ErrorCode != 0)
         {
-            ResultMessage = $"{Result.ErrorCode}: {Result.ErrorMessage}";
+            await ToastService.Information("Verify Vat", $"{result.ErrorCode}: {result.ErrorMessage}");
         }
-        StateHasChanged();
+        else if (result.Entity != null)
+        {
+            await ToastService.Success("Verify Vat", result.Entity?.VerifyMessage);
+        }
     }
 
     /// <summary>
