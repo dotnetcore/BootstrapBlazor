@@ -118,10 +118,15 @@ public class TableDialogTest : TableDialogTestBase
         await cut.InvokeAsync(() => form.Submit());
         await cut.InvokeAsync(() => modal.Instance.CloseCallback());
 
+        var itemsChanged = false;
         // 更新插入模式
         table.SetParametersAndRender(pb =>
         {
             pb.Add(a => a.InsertRowMode, InsertRowMode.First);
+            pb.Add(a => a.ItemsChanged, foo =>
+            {
+                itemsChanged = true;
+            });
         });
 
         // Add 弹窗
@@ -134,6 +139,7 @@ public class TableDialogTest : TableDialogTestBase
         form = cut.Find(".modal-body form");
         await cut.InvokeAsync(() => form.Submit());
         await cut.InvokeAsync(() => modal.Instance.CloseCallback());
+        Assert.True(itemsChanged);
     }
 
     private class MockEFCoreDataService : IDataService<Foo>, IEntityFrameworkCoreDataService
