@@ -31,6 +31,9 @@
         <div class="col-12 col-sm-6">
             <Display ShowLabel="true" DisplayText="开票日期" Value="Invoice.InvoiceDate"></Display>
         </div>
+        <div class="col-12">
+            <Display ShowLabel="true" DisplayText="校验码" Value="Invoice.CheckCode"></Display>
+        </div>
         <div class="col-12 col-sm-6">
             <Display ShowLabel="true" DisplayText="购方名称" @bind-Value="Invoice.PurchaserName"></Display>
         </div>
@@ -72,7 +75,7 @@
         @if (Invoice.CommodityName?.Any() ?? false)
         {
             <div class="col-12 col-sm-6">
-                <Display ShowLabel="true" DisplayText="税率" Value="Invoice.CommodityName.First().CommodityName"></Display>
+                <Display ShowLabel="true" DisplayText="项目名称" Value="Invoice.CommodityName.First().CommodityName"></Display>
             </div>
         }
         @if (Invoice.CommodityTaxRate?.Any() ?? false)

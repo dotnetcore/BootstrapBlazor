@@ -14,6 +14,20 @@
 <div>@((MarkupString)Localizer["BaiduOcrStep1"].Value)</div>
 <div>@((MarkupString)Localizer["BaiduOcrStep2"].Value)</div>
 
-<DemoBlock Title="@Localizer["BasicUsageTitle"]" Introduction="@Localizer["BasicUsageIntro"]" Name="Normal" Demo="typeof(Demos.BaiduOcr.BaiduOcrNormal)" />
+<DemoBlock Title="@Localizer["VatInvoiceTitle"]" Introduction="@Localizer["VatInvoiceIntro"]" Name="VatInvoice" Demo="typeof(Demos.BaiduOcr.BaiduOcrNormal)" />
 
-<DemoBlock Title="@Localizer["BasicUsageTitle"]" Introduction="@Localizer["BasicUsageIntro"]" Name="Normal" Demo="typeof(Demos.BaiduOcr.BaiduOcrVerifyVatInvoice)" />
+<DemoBlock Title="@Localizer["VerifyVatInvoiceTitle"]" Introduction="@Localizer["VerifyVatInvoiceIntro"]" Name="Verify" Demo="typeof(Demos.BaiduOcr.BaiduOcrVerifyVatInvoice)">
+    <h4 class="mb-2">发票种类</h4>
+    <div>增值税专用发票：special_vat_invoice</div>
+    <div>增值税电子专用发票：elec_special_vat_invoice</div>
+    <div>增值税普通发票：normal_invoice</div>
+    <div>增值税普通发票（电子）：elec_normal_invoice</div>
+    <div>增值税普通发票（卷式）：roll_normal_invoice</div>
+    <div>通行费增值税电子普通发票：toll_elec_normal_invoice</div>
+    <div>区块链电子发票（目前仅支持深圳地区）：blockchain_invoice</div>
+    <div>全电发票（专用发票）：elec_invoice_special</div>
+    <div>全电发票（普通发票）：elec_invoice_normal</div>
+    <div>货运运输业增值税专用发票：special_freight_transport_invoice</div>
+    <div>机动车销售发票：motor_vehicle_invoice</div>
+    <div class="mb-3">二手车销售发票：used_vehicle_invoice</div>
+</DemoBlock>
