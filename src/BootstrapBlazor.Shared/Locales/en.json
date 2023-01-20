@@ -87,12 +87,12 @@
     "P4": "Use the <code>IDynamicObject</code> data collection as the data source by setting the <code>Items</code> data source"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesPages": {
-    "H1": "Table",
-    "H2": "It is used to display multiple pieces of data with similar structure, and the data can be sorted, filtered, compared or other custom operations.",
-    "P1": "Pagination table",
-    "P2": "Set <code>IsPagination</code> to display the pagination component",
-    "P3": "Show on top",
-    "P4": "Set <code>ShowTopPagination</code> to <code>true</code> is the top display pagination component"
+    "TablesPagesTitle": "Table",
+    "TablesPagesDescription": "It is used to display multiple pieces of data with similar structure, and the data can be sorted, filtered, compared or other custom operations.",
+    "TablesPagePaginationTitle": "Pagination table",
+    "TablesPagePaginationIntro": "Set <code>IsPagination</code> to display the pagination component",
+    "TablesPageShowTopPaginationTitle": "Show on top",
+    "TablesPageShowTopPaginationIntro": "Set <code>ShowTopPagination</code> to <code>true</code> is the top display pagination component"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesFixedColumn": {
     "H1": "Fixed column",

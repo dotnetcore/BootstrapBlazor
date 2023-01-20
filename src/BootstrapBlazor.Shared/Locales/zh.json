@@ -87,12 +87,12 @@
     "P4": "通过设置 <code>Items</code> 数据源，使用 <code>IDynamicObject</code> 数据集合作为数据源"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesPages": {
-    "H1": "Table 表格",
-    "H2": "用于展示多条结构类似的数据，可对数据进行排序、筛选、对比或其他自定义操作。",
-    "P1": "分页表格",
-    "P2": "设置 <code>IsPagination</code> 显示分页组件",
-    "P3": "显示在顶端",
-    "P4": "设置 <code>ShowTopPagination</code> 为 <code>true</code> 是顶端显示分页组件"
+    "TablesPagesTitle": "Table 表格",
+    "TablesPagesDescription": "用于展示多条结构类似的数据，可对数据进行排序、筛选、对比或其他自定义操作。",
+    "TablesPagePaginationTitle": "分页表格",
+    "TablesPagePaginationIntro": "设置 <code>IsPagination</code> 显示分页组件",
+    "TablesPageShowTopPaginationTitle": "显示在顶端",
+    "TablesPageShowTopPaginationIntro": "设置 <code>ShowTopPagination</code> 为 <code>true</code> 是顶端显示分页组件"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesFixedColumn": {
     "H1": "固定列功能",
