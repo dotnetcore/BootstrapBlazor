@@ -842,7 +842,7 @@ RenderFragment<TItem> RenderRowExtendButtons => item =>
 </td>;
 
 RenderFragment RenderSearch =>
-@<Card IsCollapsible="true" HeaderText="@SearchModalTitle">
+@<Card IsCollapsible="true" HeaderText="@SearchModalTitle" Collapsed="CollapsedTopSearch">
     <HeaderTemplate>
         @if (ShowSearchText)
         {
