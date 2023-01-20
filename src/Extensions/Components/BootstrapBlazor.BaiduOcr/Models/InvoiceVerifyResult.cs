@@ -10,6 +10,11 @@ namespace BootstrapBlazor.Components;
 public class InvoiceVerifyResult
 {
     /// <summary>
+    /// 获得/设置 查验次数。为历史查验次数
+    /// </summary>
+    public string? VerifyFrequency { get; set; }
+
+    /// <summary>
     /// 获得/设置 机器编号
     /// </summary>
     public string? MachineCode { get; set; }
@@ -58,4 +63,9 @@ public class InvoiceVerifyResult
     /// 获得/设置 发票实例
     /// </summary>
     public InvoiceEntity? Invoice { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否验证通过
+    /// </summary>
+    public bool Valid => VerifyResult == "0001";
 }
