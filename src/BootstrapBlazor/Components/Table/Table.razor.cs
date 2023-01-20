@@ -134,6 +134,26 @@ public partial class Table<TItem> : ITable where TItem : class, new()
     private static string? GetColWidthString(int? width) => width.HasValue ? $"width: {width.Value}px;" : null;
 
     /// <summary>
+    /// 获得/设置 Table 高度 默认为 null
+    /// </summary>
+    /// <remarks>开启固定表头功能时生效 <see cref="IsFixedHeader"/></remarks>
+    [Parameter]
+    public int? Height { get; set; }
+
+    /// <summary>
+    /// 获得/设置 固定表头 默认 false
+    /// </summary>
+    /// <remarks>固定表头时设置 <see cref="Height"/> 即可出现滚动条，未设置时尝试自适应</remarks>
+    [Parameter]
+    public bool IsFixedHeader { get; set; }
+
+    /// <summary>
+    /// 获得/设置 多表头模板
+    /// </summary>
+    [Parameter]
+    public RenderFragment? MultiHeaderTemplate { get; set; }
+
+    /// <summary>
     /// 获得/设置 列拷贝 Tooltip 文字
     /// </summary>
     [Parameter]
