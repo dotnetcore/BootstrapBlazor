@@ -4925,18 +4925,18 @@
     "BaiduOcr": "IBaiduOcr "
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesHeader": {
-    "H1": "Header grouping function",
-    "H2": "When the data structure is complex, multi-level headers can be used to show the hierarchical relationship of the data",
-    "P1": "Basic usage",
-    "P2": "Set the <code>MultiHeaderTemplate</code> template",
-    "P3": "by setting",
-    "P4": "value to control whether to display the filter header",
-    "P5": "Pay attention to the details. After the first column of cells is merged, there will be no cells in the first column of the last row header, so you need to set the style yourself",
-    "P6": "consistent with other cells",
-    "P7": "time",
-    "P8": "Personal information",
-    "P9": "personal name",
-    "P10": "personal address"
+    "TablesHeaderTitle": "Header grouping function",
+    "TablesHeaderDescription": "When the data structure is complex, multi-level headers can be used to show the hierarchical relationship of the data",
+    "TablesHeaderNormalTitle": "Basic usage",
+    "TablesHeaderNormalIntro": "Set the <code>MultiHeaderTemplate</code> template",
+    "TablesHeaderNormalTips1": "by setting <code>ShowMultiFilterHeader</code> value to control whether to display the filter header",
+    "TablesHeaderNormalTips2": "Pay attention to the details. After the first column of cells is merged, there will be no cells in the first column of the last row header, so you need to set the style yourself  <code>border-bottom</code> consistent with other cells"
+  },
+  "BootstrapBlazor.Shared.Demos.Table.TablesHeader.TablesHeaderNormal": {
+    "TablesHeaderNormal_Time": "time",
+    "TablesHeaderNormal_Info": "Personal information",
+    "TablesHeaderNormal_Name": "personal name",
+    "TablesHeaderNormal_Address": "personal address"
   },
   "BootstrapBlazor.Shared.Samples.SelectTrees": {
     "H1": "SelectTree",
@@ -5368,7 +5368,7 @@
     "TablesWrapDataResizingTips4": "After the text in the cell is omitted, you can use the <code>ShowTips</code> property to control whether to display all the text on mouse hover, the default is <code>false</code>",
     "TablesWrapDataResizingTips5": "Drag the address column, the cell display content will automatically increase and decrease",
     "TablesWrapCustomCellTitle": "Custom in-cell typography",
-    "TablesWrapCustomCellIntro": "Use templates for special layout of in-cell data",
+    "TablesWrapCustomCellIntro": "Use templates for special layout of in-cell data"
   },
   "BootstrapBlazor.Shared.Demos.Table.TablesWrap.TablesWrapNormal": {
     "TablesWrapNormalColumHeaderText_DateTime": "I'm a super long schedule head",

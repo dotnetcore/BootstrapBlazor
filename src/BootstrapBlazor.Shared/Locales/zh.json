@@ -570,7 +570,7 @@
     "BaiduOcrStep1": "1. 通过注入服务获得 <code>IBaiduOcr</code> 实例",
     "BaiduOcrStep2": "2. 调用服务相对应的识别方法即可",
     "VerifyVatInvoiceTitle": "增值税验真",
-    "VerifyVatInvoiceIntro": "通过调用 <code>IBaiduOcr</code> 服务实例的发票验真方法 <code>VerifyInvoiceAsync</code> 返回 <code>InvoiceVerifyResult</code> 其属性 <code>Valid</code> 为 <code>true</code> 时为真",
+    "VerifyVatInvoiceIntro": "通过调用 <code>IBaiduOcr</code> 服务实例的发票验真方法 <code>VerifyInvoiceAsync</code> 返回 <code>InvoiceVerifyResult</code> 其属性 <code>Valid</code> 为 <code>true</code> 时为真"
   },
   "BootstrapBlazor.Shared.Demos.EditDialog.EditDialogNormal": {
     "LeftAlignedButton": "编辑弹窗(左对齐)",
@@ -4939,19 +4939,20 @@
     "BaiduOcr": "文字识别服务 IBaiduOcr "
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesHeader": {
-    "H1": "表头分组功能",
-    "H2": "数据结构比较复杂的时候，可使用多级表头来展现数据的层次关系",
-    "P1": "基础用法",
-    "P2": "设置 <code>MultiHeaderTemplate</code> 模板即可",
-    "P3": "通过设置",
-    "P4": "值，来控制是否显示过滤行头",
-    "P5": "注意细节，首列单元格合并后导致最后一行表头第一列无单元格，所以需要自行设置样式",
-    "P6": "与其他单元格一致",
-    "P7": "时间",
-    "P8": "个人信息",
-    "P9": "个人姓名",
-    "P10": "个人地址"
+    "TablesHeaderTitle": "表头分组功能",
+    "TablesHeaderDescription": "数据结构比较复杂的时候，可使用多级表头来展现数据的层次关系",
+    "TablesHeaderNormalTitle": "基础用法",
+    "TablesHeaderNormalIntro": "设置 <code>MultiHeaderTemplate</code> 模板即可",
+    "TablesHeaderNormalTips1": "通过设置 <code>ShowMultiFilterHeader</code> 值，来控制是否显示过滤行头",
+    "TablesHeaderNormalTips2": "注意细节，首列单元格合并后导致最后一行表头第一列无单元格，所以需要自行设置样式 <code>border-bottom</code> 与其他单元格一致"
   },
+  "BootstrapBlazor.Shared.Demos.Table.TablesHeader.TablesHeaderNormal": {
+    "TablesHeaderNormal_Time": "时间",
+    "TablesHeaderNormal_Info": "个人信息",
+    "TablesHeaderNormal_Name": "个人姓名",
+    "TablesHeaderNormal_Address": "个人地址"
+  },
+
   "BootstrapBlazor.Shared.Samples.SelectTrees": {
     "H1": "树状选择器 SelectTree",
     "H2": "下拉框内呈现树状数据结构，供选择",
@@ -5398,7 +5399,7 @@
     "TablesWrapDataResizingTips4": "单元格内文本被省略后，可以通过 <code>ShowTips</code> 属性来控制鼠标悬停是否显示全部文本，默认为 <code>false</code>",
     "TablesWrapDataResizingTips5": "拖动地址列，单元格显示内容自动增加与减少",
     "TablesWrapCustomCellTitle": "自定义单元格内排版",
-    "TablesWrapCustomCellIntro": "使用模板对单元格内数据进行特殊布局",
+    "TablesWrapCustomCellIntro": "使用模板对单元格内数据进行特殊布局"
   },
   "BootstrapBlazor.Shared.Demos.Table.TablesWrap.TablesWrapNormal": {
     "TablesWrapNormalColumHeaderText_DateTime": "我是超级长的时间表头",
