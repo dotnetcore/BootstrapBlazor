@@ -5,7 +5,7 @@
 <ValidateForm Model="Model" OnValidSubmit="@Verify">
     <EditorForm TModel="InvoiceForm" RowType="RowType.Inline" AutoGenerateAllItem="false">
         <FieldItems>
-            <EditorItem @bind-Field="@context.InvoiceType" Text="发票种类" Readonly="true" />
+            <EditorItem @bind-Field="@context.InvoiceType" Text="发票种类" />
             <EditorItem @bind-Field="@context.InvoiceCode" Text="发票代码" />
             <EditorItem @bind-Field="@context.InvoiceNum" Text="发票号码" />
             <EditorItem @bind-Field="@context.InvoiceDate" Text="开票日期" PlaceHolder="YYYYMMDD" />
@@ -18,9 +18,13 @@
     </EditorForm>
 </ValidateForm>
 
-@if (InvoiceVerifyResult != null)
+@if (Result != null && Result.ErrorCode == 0)
 {
-    <div class="mt-3">@InvoiceVerifyResult.VerifyMessage</div>
+    <div class="mt-3">@Result.Entity?.VerifyMessage</div>
+}
+else
+{
+    <div class="mt-3">@ResultMessage</div>
 }
 
 @code {
@@ -29,14 +33,20 @@
     /// </summary>
     private CancellationTokenSource? TokenSource { get; set; }
 
-    private InvoiceVerifyResult? InvoiceVerifyResult { get; set; }
+    private BaiduOcrResult<InvoiceVerifyResult>? Result { get; set; }
+
+    private string? ResultMessage { get; set; }
 
     private InvoiceForm Model { get; set; } = new() { InvoiceType = "elec_special_vat_invoice", TotalAmount = "0" };
 
     private async Task Verify(EditContext context)
     {
-        var result = await OcrService.VerifyInvoiceAsync(Model.InvoiceCode, Model.InvoiceNum, Model.InvoiceDate, Model.InvoiceType, Model.CheckCode, Model.TotalAmount);
-        InvoiceVerifyResult = result.Entity;
+        ResultMessage = "";
+        Result = await OcrService.VerifyInvoiceAsync(Model.InvoiceCode, Model.InvoiceNum, Model.InvoiceDate, Model.InvoiceType, Model.CheckCode, Model.TotalAmount);
+        if (Result != null && Result.ErrorCode != 0)
+        {
+            ResultMessage = $"{Result.ErrorCode}: {Result.ErrorMessage}";
+        }
         StateHasChanged();
     }
 
