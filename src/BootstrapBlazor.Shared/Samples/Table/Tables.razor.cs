@@ -842,14 +842,6 @@ public partial class Tables
         },
         new()
         {
-            Name = "UseComponentWidth",
-            Description = TablesLocalizer["UseComponentWidthAttr"],
-            Type = "boolean",
-            ValueList = "true|false",
-            DefaultValue = "false"
-        },
-        new()
-        {
             Name = "ScrollingDialogContent",
             Description = TablesLocalizer["ScrollingDialogContentAttr"],
             Type = "boolean",
