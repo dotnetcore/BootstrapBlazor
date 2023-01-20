@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using AngleSharp.Dom;
 using BootstrapBlazor.Shared;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Components.Web;
@@ -1512,6 +1513,54 @@ public class TableTest : TableTestBase
             });
         });
         cut.Contains("table-footer-test");
+    }
+
+    [Fact]
+    public void IsHideFooterWhenNoData_Ok()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.ShowFooter, true);
+                pb.Add(a => a.IsHideFooterWhenNoData, false);
+                pb.Add(a => a.Items, Foo.GenerateFoo(localizer));
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+                });
+                pb.Add(a => a.TableFooter, foos => builder =>
+                {
+                    builder.AddContent(0, "table-footer-test");
+                });
+            });
+        });
+        cut.Contains("table-footer-test");
+
+        var table = cut.FindComponent<Table<Foo>>();
+        table.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.IsHideFooterWhenNoData, false);
+        });
+        cut.Contains("table-footer-test");
+
+        table.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.Items, null);
+        });
+        cut.Contains("table-footer-test");
+
+        table.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.Items, null);
+            pb.Add(a => a.IsHideFooterWhenNoData, true);
+        });
+        cut.DoesNotContain("table-footer-test");
     }
 
     [Fact]
