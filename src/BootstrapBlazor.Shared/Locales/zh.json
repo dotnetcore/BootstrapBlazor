@@ -79,12 +79,12 @@
     "TableDialogNormalSure": "确定"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesDynamicObject": {
-    "H1": "Table 表格",
-    "H2": "使用 <code>IDynamicMetaObjectProvider</code> 类作为数据源",
-    "P1": "IDynamicMetaObjectProvider 集合",
-    "P2": "通过设置 <code>Items</code> 数据源，使用 <code>IDynamicMetaObjectProvider</code> 数据集合作为数据源",
-    "P3": "IDynamicObject 集合",
-    "P4": "通过设置 <code>Items</code> 数据源，使用 <code>IDynamicObject</code> 数据集合作为数据源"
+    "TablesDynamicObjectTitle": "Table 表格",
+    "TablesDynamicObjectDescription": "使用 <code>IDynamicMetaObjectProvider</code> 类作为数据源",
+    "TablesDynamicObjectMetaObjectProviderTitle": "IDynamicMetaObjectProvider 集合",
+    "TablesDynamicObjectMetaObjectProviderIntro": "通过设置 <code>Items</code> 数据源，使用 <code>IDynamicMetaObjectProvider</code> 数据集合作为数据源",
+    "TablesDynamicObjectIDynamicObjectTitle": "IDynamicObject 集合",
+    "TablesDynamicObjectIDynamicObjectIntro": "通过设置 <code>Items</code> 数据源，使用 <code>IDynamicObject</code> 数据集合作为数据源"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesPages": {
     "TablesPagesTitle": "Table 表格",

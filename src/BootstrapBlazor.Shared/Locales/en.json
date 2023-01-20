@@ -79,12 +79,12 @@
     "TableDialogNormalSure": "Sure"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesDynamicObject": {
-    "H1": "Table table",
-    "H2": "Use the <code>IDynamicMetaObjectProvider</code> class as a data source",
-    "P1": "IDynamicMetaObjectProvider Collection",
-    "P2": "Use the <code>IDynamicMetaObjectProvider</code> data collection as the data source by setting the <code>Items</code> data source",
-    "P3": "IDynamicObject collection",
-    "P4": "Use the <code>IDynamicObject</code> data collection as the data source by setting the <code>Items</code> data source"
+    "TablesDynamicObjectTitle": "Table table",
+    "TablesDynamicObjectDescription": "Use the <code>IDynamicMetaObjectProvider</code> class as a data source",
+    "TablesDynamicObjectMetaObjectProviderTitle": "IDynamicMetaObjectProvider Collection",
+    "TablesDynamicObjectMetaObjectProviderIntro": "Use the <code>IDynamicMetaObjectProvider</code> data collection as the data source by setting the <code>Items</code> data source",
+    "TablesDynamicObjectIDynamicObjectTitle": "IDynamicObject collection",
+    "TablesDynamicObjectIDynamicObjectIntro": "Use the <code>IDynamicObject</code> data collection as the data source by setting the <code>Items</code> data source"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesPages": {
     "TablesPagesTitle": "Table",
