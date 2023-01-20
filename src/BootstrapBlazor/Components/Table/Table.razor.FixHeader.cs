@@ -7,12 +7,6 @@ namespace BootstrapBlazor.Components;
 public partial class Table<TItem>
 {
     /// <summary>
-    /// 获得/设置 Table 组件引用
-    /// </summary>
-    /// <value></value>
-    protected ElementReference TableElement { get; set; }
-
-    /// <summary>
     /// 获得/设置 Table 高度 默认为 null
     /// </summary>
     /// <remarks>开启固定表头功能时生效 <see cref="IsFixedHeader"/></remarks>
