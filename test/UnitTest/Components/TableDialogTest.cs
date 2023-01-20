@@ -127,10 +127,12 @@ public class TableDialogTest : TableDialogTestBase
             {
                 itemsChanged = true;
             });
+            pb.Add(a => a.EditFooterTemplate, foo => builder => builder.AddContent(0, "test_edit_footer"));
         });
 
         // Add 弹窗
         await cut.InvokeAsync(() => table.Instance.AddAsync());
+        cut.Contains("test_edit_footer");
 
         // 编辑弹窗逻辑
         input = cut.Find(".modal-body form input.form-control");
