@@ -1564,6 +1564,30 @@ public class TableTest : TableTestBase
     }
 
     [Fact]
+    public void OnBeforeRenderRow_Ok()
+    {
+        var row = 0;
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.Items, Foo.GenerateFoo(localizer, 2));
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+                });
+                pb.Add(a => a.OnBeforeRenderRow, foo => row++);
+            });
+        });
+        Assert.Equal(2, row);
+    }
+
+    [Fact]
     public void FooterTemplate_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
@@ -3971,7 +3995,6 @@ public class TableTest : TableTestBase
                 pb.Add(a => a.Items, items);
                 pb.Add(a => a.IsKeyboard, true);
                 pb.Add(a => a.ShowLoading, false);
-                pb.Add(a => a.UseComponentWidth, true);
                 pb.Add(a => a.RenderModeResponsiveWidth, BreakPoint.Medium);
                 pb.Add(a => a.SetRowClassFormatter, foo => "test_row_class");
                 pb.Add(a => a.TableColumns, foo => builder =>
