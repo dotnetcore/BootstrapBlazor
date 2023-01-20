@@ -5434,13 +5434,15 @@
     "TablesAutoRefreshControlIsAutoRefresh": "The current value"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesSelection": {
-    "H1": "Table Selection",
-    "H2": "Set the table row state by setting <code>SelectedRows</code>, and set the highlight by selecting the style",
-    "P1": "Set row selection function",
-    "P2": "Defaults to the selected state when the table is initialized by setting the <code>SelectedRows</code> property collection",
-    "P3": "Maintain line state fallback mechanism, <code>ModelEqualityComparer</code> <code>CustomKeyAttribute</code> <code>IEqualityComparer&lt;TItem&gt;</code> <code>Equals</code> overloaded method",
-    "P4": "selected row record",
-    "P5": "clear selection"
+    "TablesSelectionTitle": "Table Selection",
+    "TablesSelectionDescription": "Set the table row state by setting <code>SelectedRows</code>, and set the highlight by selecting the style",
+    "TablesSelectionNormalTitle": "Set row selection function",
+    "TablesSelectionNormalIntro": "Defaults to the selected state when the table is initialized by setting the <code>SelectedRows</code> property collection"
+  },
+  "BootstrapBlazor.Shared.Demos.Table.TablesSelection.TablesSelectionNormal": {
+    "TablesSelectionNormalTips": "Maintain line state fallback mechanism, <code>ModelEqualityComparer</code> <code>CustomKeyAttribute</code> <code>IEqualityComparer&lt;TItem&gt;</code> <code>Equals</code> overloaded method",
+    "TablesSelectionNormalSelectRow": "selected row record",
+    "TablesSelectionNormalButtonText": "clear selection"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesExcel": {
     "H1": "Table Excel",
