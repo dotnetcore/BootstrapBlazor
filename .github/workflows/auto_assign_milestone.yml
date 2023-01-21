@@ -1,0 +1,15 @@
+name: 'Auto Milestone Assign'
+
+on:
+  pull_request:
+    types: [opened]
+
+jobs:
+  assign-milestone:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: zoispag/action-assign-milestone@v1.1.0
+        with:
+          repo-token: "${{ secrets.GITHUB_TOKEN }}"
+          milestone: "${{ secrets.MILESTONE_VERSION }}"
