@@ -3938,6 +3938,27 @@ public class TableTest : TableTestBase
     }
 
     [Fact]
+    public void TableColumn_Align()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var items = Foo.GenerateFoo(localizer, 2);
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<MockTable>(pb =>
+            {
+                pb.Add(a => a.Items, items);
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+            });
+        });
+        var table = cut.FindComponent<MockTable>();
+        var css = table.Instance.TestGetCellClassString(new MockTableColumn("Name", typeof(string)) { Align = Alignment.Center });
+        Assert.Equal("table-cell center", css);
+
+        css = table.Instance.TestGetHeaderWrapperClassString(new MockTableColumn("Name", typeof(string)) { Align = Alignment.Center });
+        Assert.Equal("table-cell center", css);
+    }
+
+    [Fact]
     public void TableColumn_ComplexObject()
     {
         var cut = Context.RenderComponent<TableColumn<MockComplexFoo, string>>(pb =>
@@ -6546,6 +6567,10 @@ public class TableTest : TableTestBase
             SelectedRows.Add(Rows[0]);
             await DeleteAsync();
         }
+
+        public string? TestGetCellClassString(ITableColumn col) => base.GetCellClassString(col, false, false);
+
+        public string? TestGetHeaderWrapperClassString(ITableColumn col) => base.GetHeaderWrapperClassString(col);
     }
 
     private class MockRenderCellTable : Table<ReadonlyFoo>
