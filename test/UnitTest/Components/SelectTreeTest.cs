@@ -5,6 +5,7 @@
 using BootstrapBlazor.Shared;
 
 namespace UnitTest.Components;
+
 public class SelectTreeTest : BootstrapBlazorTestBase
 {
     [Fact]
@@ -30,6 +31,23 @@ public class SelectTreeTest : BootstrapBlazorTestBase
         });
 
         Assert.Contains("border-primary", cut.Markup);
+    }
+
+    [Fact]
+    public void Value_Ok()
+    {
+        var val = "";
+        var cut = Context.RenderComponent<SelectTree<string>>(builder =>
+        {
+            builder.Add(p => p.Items, BindItems);
+            builder.Add(p => p.Value, "Test1");
+            builder.Add(p => p.OnSelectedItemChanged, v =>
+            {
+                val = v;
+                return Task.CompletedTask;
+            });
+        });
+        Assert.Equal("Test1", val);
     }
 
     [Fact]
