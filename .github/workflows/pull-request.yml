@@ -20,11 +20,9 @@ jobs:
 
       - name: Test
         run: |
-          dotnet test test/UnitTest -c Release --collect:"XPlat Code Coverage" -r ./coverage
+          dotnet test test/UnitTest -c Release --collect:"XPlat Code Coverage"
 
       - name: Upload to Codecov
         uses: codecov/codecov-action@v3
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          directory: ./coverage/
-          fail_ci_if_error: false
