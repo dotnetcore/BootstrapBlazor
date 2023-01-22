@@ -212,6 +212,21 @@ public class TreeNodeCacheTest
     }
 
     [Fact]
+    public void SetChildrenCheck_Ok()
+    {
+        var items = TreeFoo.GetTreeItems();
+        var nodeCache = new TreeNodeCache<TreeViewItem<TreeFoo>, TreeFoo>(Comparer);
+        var count = GetUncheckItemCount(nodeCache);
+        Assert.Equal(0, count);
+
+        var node = nodeCache.FindParentNode(items, new TreeViewItem<TreeFoo>(new TreeFoo() { Id = "1110" }));
+        Assert.NotNull(node);
+        node.SetChildrenCheck(CheckboxState.UnChecked, nodeCache);
+        count = GetUncheckItemCount(nodeCache);
+        Assert.Equal(6, count);
+    }
+
+    [Fact]
     public void Reset_Ok()
     {
         var items = TreeFoo.GetTreeItems();

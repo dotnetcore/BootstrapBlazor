@@ -278,6 +278,22 @@ public class TreeViewTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void SetParentCheck_Ok()
+    {
+        var items = new List<TreeFoo>()
+        {
+            new TreeFoo() { Text = "Test1", Id = "01" },
+            new TreeFoo() { Text = "Test2", Id = "02", ParentId = "01" },
+            new TreeFoo() { Text = "Test3", Id = "03", ParentId = "02" }
+        };
+        var node = TreeFoo.CascadingTree(items).First().Items.First().Items.First();
+
+        // 设置当前几点所有父项选中状态
+        node.SetParentCheck<TreeViewItem<TreeFoo>, TreeFoo>(CheckboxState.Checked);
+        Assert.True(node.GetAllTreeSubItems().All(i => i.CheckedState == CheckboxState.Checked));
+    }
+
+    [Fact]
     public async Task ClickToggleNode_Ok()
     {
         var clicked = false;
