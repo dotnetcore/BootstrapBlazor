@@ -378,6 +378,20 @@ public class TreeViewTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void ExpandIcon_Ok()
+    {
+        var items = TreeFoo.GetTreeItems();
+        items[1].ExpandIcon = "test-expand-icon";
+        items[1].IsExpand = true;
+        var cut = Context.RenderComponent<TreeView<TreeFoo>>(pb =>
+        {
+            pb.Add(a => a.ShowIcon, true);
+            pb.Add(a => a.Items, items);
+        });
+        cut.Contains("test-expand-icon");
+    }
+
+    [Fact]
     public void ModelEqualityComparer_Ok()
     {
         var cut = Context.RenderComponent<MockTree<TreeFoo>>(pb =>
