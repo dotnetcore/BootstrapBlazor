@@ -11,4 +11,4 @@ Summary of the changes (Less than 80 chars)
 
 ### Description
 
-Fixes #{bug number}
+fixes #{bug number}
