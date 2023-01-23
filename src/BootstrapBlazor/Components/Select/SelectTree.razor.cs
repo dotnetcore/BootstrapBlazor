@@ -11,7 +11,7 @@ namespace BootstrapBlazor.Components;
 /// </summary>
 /// <typeparam name="TValue"></typeparam>
 [JSModuleAutoLoader("select-tree")]
-public partial class SelectTree<TValue>
+public partial class SelectTree<TValue> : IModelEqualityComparer<TValue>
 {
     /// <summary>
     /// 获得 样式集合
@@ -120,17 +120,17 @@ public partial class SelectTree<TValue>
 
     private TreeViewItem<TValue>? SelectedItem { get; set; }
 
-    private List<TreeViewItem<TValue>>? _itemCache;
+    private List<TreeViewItem<TValue>>? ItemCache { get; set; }
 
     [NotNull]
     private List<TreeViewItem<TValue>>? ExpansionItemsCache { get; set; }
 
     private IEnumerable<TreeViewItem<TValue>> GetExpansionItems()
     {
-        if (_itemCache != Items)
+        if (ItemCache != Items)
         {
-            _itemCache = Items ?? new List<TreeViewItem<TValue>>();
-            ExpansionItemsCache = TreeItemExtensions.GetAllItems(_itemCache).ToList();
+            ItemCache = Items ?? new List<TreeViewItem<TValue>>();
+            ExpansionItemsCache = TreeItemExtensions.GetAllItems(ItemCache).ToList();
         }
         return ExpansionItemsCache;
     }
@@ -147,7 +147,7 @@ public partial class SelectTree<TValue>
 
         if (Value != null)
         {
-            var currentItem = GetExpansionItems().FirstOrDefault(s => ComparerItem(s.Value, Value));
+            var currentItem = GetExpansionItems().FirstOrDefault(s => Equals(s.Value, Value));
             if (currentItem != null)
             {
                 SelectedItem = currentItem;
@@ -192,12 +192,8 @@ public partial class SelectTree<TValue>
     /// <summary>
     /// 比较数据是否相同
     /// </summary>
-    /// <param name="a"></param>
-    /// <param name="b"></param>
+    /// <param name="x"></param>
+    /// <param name="y"></param>
     /// <returns></returns>
-    protected bool ComparerItem(TValue a, TValue b) => ModelEqualityComparer?.Invoke(a, b)
-        ?? Utility.GetKeyValue<TValue, object>(a, CustomKeyAttribute)?.Equals(Utility.GetKeyValue<TValue, object>(b, CustomKeyAttribute))
-        ?? ModelComparer.EqualityComparer(a, b)
-        ?? a?.Equals(b)
-        ?? false;
+    public bool Equals(TValue? x, TValue? y) => this.Equals<TValue>(x, y);
 }

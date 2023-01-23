@@ -15,7 +15,7 @@ namespace BootstrapBlazor.Components;
 [CascadingTypeParameter(nameof(TItem))]
 #endif
 [JSModuleAutoLoader(JSObjectReference = true)]
-public partial class Table<TItem> : ITable where TItem : class, new()
+public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where TItem : class, new()
 {
     /// <summary>
     /// 获得/设置 内置虚拟化组件实例
@@ -543,7 +543,7 @@ public partial class Table<TItem> : ITable where TItem : class, new()
         base.OnInitialized();
 
         // 初始化节点缓存
-        treeNodeCache ??= new(ComparerItem);
+        treeNodeCache ??= new(Equals);
 
         OnInitLocalization();
 

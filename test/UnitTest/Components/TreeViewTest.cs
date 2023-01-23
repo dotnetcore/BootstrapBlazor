@@ -516,10 +516,7 @@ public class TreeViewTest : BootstrapBlazorTestBase
 
     class MockTree<TItem> : TreeView<TItem> where TItem : class
     {
-        public bool TestComparerItem(TItem a, TItem b)
-        {
-            return ComparerItem(a, b);
-        }
+        public bool TestComparerItem(TItem? a, TItem? b) => base.Equals(a, b);
     }
 
     private class Cat

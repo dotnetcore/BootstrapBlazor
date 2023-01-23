@@ -25,10 +25,22 @@ public class ModelComparer<TItem> : IEqualityComparer<TItem>
     /// <param name="x"></param>
     /// <param name="y"></param>
     /// <returns></returns>
-    /// <exception cref="NotImplementedException"></exception>
-    public bool Equals(TItem? x, TItem? y) => x is not null && y is not null
-        ? _comparer(x, y)
-        : x is null && y is null;
+    public bool Equals(TItem? x, TItem? y)
+    {
+        bool ret;
+        if (x != null && y != null)
+        {
+            // 均不为空时走 comparer 方法判断
+            ret = _comparer(x, y);
+        }
+        else
+        {
+            // 有一个为空时 判断是否均为空
+            // 均为空时为 true 否则 false
+            ret = x == null && y == null;
+        }
+        return ret;
+    }
 
     /// <summary>
     /// GetHashCode 方法
@@ -36,17 +48,4 @@ public class ModelComparer<TItem> : IEqualityComparer<TItem>
     /// <param name="obj"></param>
     /// <returns></returns>
     public int GetHashCode([DisallowNull] TItem obj) => obj.GetHashCode();
-}
-
-internal static class ModelComparer
-{
-    public static bool? EqualityComparer<TItem>(TItem x, TItem y)
-    {
-        bool? ret = null;
-        if (x is IEqualityComparer<TItem> comparer)
-        {
-            ret = comparer.Equals(x, y);
-        }
-        return ret;
-    }
 }

@@ -12,7 +12,7 @@ namespace BootstrapBlazor.Components;
 #if NET6_0_OR_GREATER
 [CascadingTypeParameter(nameof(TItem))]
 #endif
-public partial class TreeView<TItem>
+public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
 {
     /// <summary>
     /// 获得/设置 Tree 组件实例引用
@@ -198,7 +198,7 @@ public partial class TreeView<TItem>
         base.OnInitialized();
 
         // 初始化节点缓存
-        treeNodeCache ??= new(ComparerItem);
+        treeNodeCache ??= new(Equals);
         NotSetOnTreeExpandErrorMessage = Localizer[nameof(NotSetOnTreeExpandErrorMessage)];
     }
 
@@ -423,12 +423,8 @@ public partial class TreeView<TItem>
     /// <summary>
     /// 比较数据是否相同
     /// </summary>
-    /// <param name="a"></param>
-    /// <param name="b"></param>
+    /// <param name="x"></param>
+    /// <param name="y"></param>
     /// <returns></returns>
-    protected bool ComparerItem(TItem a, TItem b) => ModelEqualityComparer?.Invoke(a, b)
-        ?? Utility.GetKeyValue<TItem, object>(a, CustomKeyAttribute)?.Equals(Utility.GetKeyValue<TItem, object>(b, CustomKeyAttribute))
-        ?? ModelComparer.EqualityComparer(a, b)
-        ?? a?.Equals(b)
-        ?? false;
+    public bool Equals(TItem? x, TItem? y) => this.Equals<TItem>(x, y);
 }

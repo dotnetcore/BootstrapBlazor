@@ -6596,7 +6596,7 @@ public class TableTest : TableTestBase
     {
         public bool TestComparerItem(TItem a, TItem b)
         {
-            return ComparerItem(a, b);
+            return base.Equals(a, b);
         }
     }
 
