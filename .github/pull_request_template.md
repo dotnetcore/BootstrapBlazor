@@ -1,4 +1,4 @@
-# {PR title}
+## {PR title}
 
 <!-- Thank you for submitting a pull request to our repo. -->
 
@@ -9,8 +9,6 @@ below to ensure a smooth review and merge process for your PR. -->
 
 Summary of the changes (Less than 80 chars)
 
-## Description
-
-{Detail}
+### Description
 
 Fixes #{bug number}
