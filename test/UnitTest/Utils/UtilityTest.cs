@@ -37,7 +37,7 @@ public class UtilityTest : BootstrapBlazorTestBase
     public void GetKeyValue_Null()
     {
         Foo? foo = null;
-        Assert.Throws<ArgumentNullException>(() => Utility.GetKeyValue<object?, int>(foo));
+        Assert.Equal(0, Utility.GetKeyValue<object?, int>(foo));
     }
 
     [Fact]

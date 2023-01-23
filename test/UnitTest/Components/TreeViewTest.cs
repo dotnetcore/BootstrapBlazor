@@ -378,6 +378,20 @@ public class TreeViewTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void ExpandIcon_Ok()
+    {
+        var items = TreeFoo.GetTreeItems();
+        items[1].ExpandIcon = "test-expand-icon";
+        items[1].IsExpand = true;
+        var cut = Context.RenderComponent<TreeView<TreeFoo>>(pb =>
+        {
+            pb.Add(a => a.ShowIcon, true);
+            pb.Add(a => a.Items, items);
+        });
+        cut.Contains("test-expand-icon");
+    }
+
+    [Fact]
     public void ModelEqualityComparer_Ok()
     {
         var cut = Context.RenderComponent<MockTree<TreeFoo>>(pb =>
@@ -505,12 +519,12 @@ public class TreeViewTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(() => checkbox[0].Click());
 
         Assert.Contains("is-checked", cut.Markup);
-        var ischecked = cut.Instance.GetCheckedItems().Count() != 0;
+        var ischecked = cut.Instance.GetCheckedItems().Any();
         Assert.True(ischecked);
 
         await cut.InvokeAsync(() => cut.Instance.ClearCheckedItems());
         Assert.DoesNotContain("is-checked", cut.Markup);
-        var nochecked = cut.Instance.GetCheckedItems().Count() == 0;
+        var nochecked = !cut.Instance.GetCheckedItems().Any();
         Assert.True(nochecked);
     }
 

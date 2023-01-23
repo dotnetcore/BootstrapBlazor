@@ -4550,7 +4550,7 @@ public class TableTest : TableTestBase
         context.EqualityComparer = (x, y) =>
         {
             comparered = true;
-            return x.GetValue("Id") == y.GetValue("Id");
+            return x!.GetValue("Id") == y!.GetValue("Id");
         };
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
         {
