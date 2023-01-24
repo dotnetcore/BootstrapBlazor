@@ -900,6 +900,7 @@ public class TableTest : TableTestBase
     [Fact]
     public void GotoTemplate_Ok()
     {
+        var templated = false;
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
         {
@@ -908,10 +909,12 @@ public class TableTest : TableTestBase
                 pb.Add(a => a.RenderMode, TableRenderMode.Table);
                 pb.Add(a => a.IsPagination, true);
                 pb.Add(a => a.OnQueryAsync, OnQueryAsync(localizer));
-                pb.Add(a => a.PageItems, 20);
+                pb.Add(a => a.PageItems, 2);
                 pb.Add(a => a.ShowGotoNavigator, true);
-                pb.Add(a => a.GotoNavigatorLabelText, "Test_GotoNavigatorLabelText");
-                pb.Add(a => a.GotoTemplate, builder => builder.AddContent(0, "Test_GotoTemplate"));
+                pb.Add(a => a.GotoTemplate, builder =>
+                {
+                    templated = true;
+                });
                 pb.Add(a => a.TableColumns, foo => builder =>
                 {
                     builder.OpenComponent<TableColumn<Foo, string>>(0);
@@ -921,7 +924,32 @@ public class TableTest : TableTestBase
                 });
             });
         });
-        Assert.Contains("Test_GotoTemplate", cut.Markup);
+        Assert.True(templated);
+    }
+
+    [Fact]
+    public void GotoNavigatorLabelText_Ok()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.IsPagination, true);
+                pb.Add(a => a.OnQueryAsync, OnQueryAsync(localizer));
+                pb.Add(a => a.PageItems, 2);
+                pb.Add(a => a.ShowGotoNavigator, true);
+                pb.Add(a => a.GotoNavigatorLabelText, "Test_GotoNavigatorLabelText");
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+                });
+            });
+        });
     }
 
     [Fact]
