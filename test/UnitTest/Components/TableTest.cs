@@ -589,6 +589,35 @@ public class TableTest : TableTestBase
     }
 
     [Fact]
+    public void ResetFilter_Null()
+    {
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.Items, new List<Foo>() { new Foo() });
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.ShowFilterHeader, true);
+                pb.Add(a => a.TableColumns, new RenderFragment<Foo>(foo => builder =>
+                {
+                    var index = 0;
+                    builder.OpenComponent<TableColumn<Foo, string>>(index++);
+                    builder.AddAttribute(index++, nameof(TableColumn<Foo, string>.Field), foo.Name);
+                    builder.AddAttribute(index++, nameof(TableColumn<Foo, string>.FieldExpression), foo.GenerateValueExpression());
+                    builder.AddAttribute(index++, nameof(TableColumn<Foo, string>.Filterable), true);
+                    builder.CloseComponent();
+                }));
+            });
+        });
+
+        // 利用 MockTableColumn 设置 Filter 为 null 测试内部 Filter 为空时单元测试
+        var table = cut.FindComponent<Table<Foo>>();
+        table.Instance.Columns.Clear();
+        table.Instance.Columns.Add(new MockTableColumn("Name", typeof(string)));
+        cut.InvokeAsync(() => table.Instance.ResetFilters());
+    }
+
+    [Fact]
     public async Task ShowColumnList_Ok()
     {
         var show = false;
@@ -918,6 +947,29 @@ public class TableTest : TableTestBase
             });
         });
         Assert.Contains("Test_PageInfoText", cut.Markup);
+    }
+
+    [Fact]
+    public void PageInfoText_Empty()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.IsPagination, true);
+                pb.Add(a => a.PageItems, 20);
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+                });
+            });
+        });
+        Assert.Contains("0 - 0 &#x5171; 0 &#x6761;", cut.Markup);
     }
 
     [Fact]
@@ -1603,8 +1655,10 @@ public class TableTest : TableTestBase
         cut.DoesNotContain("table-footer-test");
     }
 
-    [Fact]
-    public void OnBeforeRenderRow_Ok()
+    [Theory]
+    [InlineData(TableRenderMode.CardView)]
+    [InlineData(TableRenderMode.Table)]
+    public void OnBeforeRenderRow_Ok(TableRenderMode renderMode)
     {
         var row = 0;
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
@@ -1612,7 +1666,7 @@ public class TableTest : TableTestBase
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
-                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.RenderMode, renderMode);
                 pb.Add(a => a.Items, Foo.GenerateFoo(localizer, 2));
                 pb.Add(a => a.TableColumns, foo => builder =>
                 {
@@ -1621,8 +1675,14 @@ public class TableTest : TableTestBase
                     builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
                     builder.CloseComponent();
                 });
-                pb.Add(a => a.OnBeforeRenderRow, foo => row++);
             });
+        });
+        Assert.Equal(0, row);
+
+        var table = cut.FindComponent<Table<Foo>>();
+        table.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.OnBeforeRenderRow, foo => row++);
         });
         Assert.Equal(2, row);
     }
@@ -1930,6 +1990,14 @@ public class TableTest : TableTestBase
             });
         });
         cut.Contains("test-empty");
+        cut.Contains("colspan=\"1\"");
+
+        var table = cut.FindComponent<Table<Foo>>();
+        table.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.DetailRowTemplate, foo => builder => builder.AddContent(0, foo.Name));
+        });
+        cut.Contains("colspan=\"2\"");
     }
 
     [Fact]
