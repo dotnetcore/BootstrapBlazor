@@ -732,7 +732,10 @@ public partial class Table<TItem>
                         // https://gitee.com/LongbowEnterprise/BootstrapBlazor/issues/I1UJSL
                         PageIndex = Math.Max(1, Math.Min(PageIndex, int.Parse(Math.Ceiling((TotalCount - SelectedRows.Count) * 1d / PageItems).ToString())));
                         var items = PageItemsSource.Where(item => item >= (TotalCount - SelectedRows.Count));
-                        PageItems = Math.Min(PageItems, items.Any() ? items.Min() : PageItems);
+                        if (items.Any())
+                        {
+                            PageItems = Math.Min(PageItems, items.Min());
+                        }
                     }
                     SelectedRows.Clear();
                     await QueryAsync();

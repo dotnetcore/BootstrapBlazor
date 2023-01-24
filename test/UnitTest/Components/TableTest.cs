@@ -5191,7 +5191,7 @@ public class TableTest : TableTestBase
     }
 
     [Fact]
-    public async Task OnConfirm_Ok()
+    public void OnConfirm_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
@@ -5219,14 +5219,14 @@ public class TableTest : TableTestBase
         var deleteButton = table.FindComponent<TableToolbarPopconfirmButton<Foo>>();
         // 选一个
         var input = cut.Find("tbody tr input");
-        await cut.InvokeAsync(() => input.Click());
-        await cut.InvokeAsync(() => deleteButton.Instance.OnConfirm());
+        cut.InvokeAsync(() => input.Click());
+        cut.InvokeAsync(() => deleteButton.Instance.OnConfirm());
 
         table.SetParametersAndRender(pb =>
         {
             pb.Add(a => a.PageItemsSource, new int[] { 1, 2, 4, 8 });
         });
-        await cut.InvokeAsync(() => deleteButton.Instance.OnConfirm());
+        cut.InvokeAsync(() => deleteButton.Instance.OnConfirm());
     }
 
     [Fact]
@@ -6357,7 +6357,7 @@ public class TableTest : TableTestBase
         return Task.FromResult(new QueryData<Foo>()
         {
             Items = items,
-            TotalCount = 80,
+            TotalCount = 5,
             IsAdvanceSearch = isAdvanceSearch,
             IsFiltered = isFilter,
             IsSearch = isSearch,
