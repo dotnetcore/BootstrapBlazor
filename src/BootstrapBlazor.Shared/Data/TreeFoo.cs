@@ -18,6 +18,8 @@ class TreeFoo
 
     public string Icon { get; set; } = "fa-solid fa-font-awesome";
 
+    public bool IsActive { get; set; }
+
     /// <summary>
     /// 
     /// </summary>
@@ -36,7 +38,7 @@ class TreeFoo
 
             new TreeFoo() { Text = "Sub Menu One", Id = "1070", ParentId = "1050", Icon = "fa-solid fa-font-awesome" },
             new TreeFoo() { Text = "Sub Menu Two", Id = "1080", ParentId = "1050", Icon = "fa-solid fa-font-awesome" },
-            new TreeFoo() { Text = "Sub Menu Three", Id = "1090", ParentId = "1050", Icon = "fa-solid fa-font-awesome" },
+            new TreeFoo() { Text = "Sub Menu Three", Id = "1090", ParentId = "1050", Icon = "fa-solid fa-font-awesome", IsActive = true },
 
             new TreeFoo() { Text = "Sub Menu Two sub menu one", Id = "1100", ParentId = "1080", Icon = "fa-solid fa-font-awesome" },
             new TreeFoo() { Text = "Sub Menu Two sub menu two", Id = "1110", ParentId = "1080", Icon = "fa-solid fa-font-awesome" },
@@ -89,7 +91,8 @@ class TreeFoo
         var item = new TreeViewItem<TreeFoo>(i)
         {
             Text = i.Text,
-            Icon = i.Icon
+            Icon = i.Icon,
+            IsActive = i.IsActive
         };
         item.Items = CascadingTree(items, item).ToList();
         item.Parent = parent;
