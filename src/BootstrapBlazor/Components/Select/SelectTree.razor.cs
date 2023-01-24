@@ -150,14 +150,7 @@ public partial class SelectTree<TValue> : IModelEqualityComparer<TValue>
             var currentItem = GetExpansionItems().FirstOrDefault(s => Equals(s.Value, Value));
             if (currentItem != null)
             {
-                SelectedItem = currentItem;
-                SelectedItem.IsActive = true;
-                CurrentValue = currentItem.Value;
-
-                if (OnSelectedItemChanged != null)
-                {
-                    await OnSelectedItemChanged(SelectedItem.Value);
-                }
+                await ItemChanged(currentItem);
             }
         }
     }
@@ -173,7 +166,7 @@ public partial class SelectTree<TValue> : IModelEqualityComparer<TValue>
     }
 
     /// <summary>
-    /// 
+    /// 选中项更改处理方法
     /// </summary>
     /// <returns></returns>
     private async Task ItemChanged(TreeViewItem<TValue> item)
@@ -181,6 +174,10 @@ public partial class SelectTree<TValue> : IModelEqualityComparer<TValue>
         item.IsActive = true;
         SelectedItem = item;
         CurrentValue = SelectedItem.Value;
+
+        // 设置 TreeView 选中项
+        SelectedItems.Clear();
+        SelectedItems.Add(SelectedItem);
 
         // 触发 SelectedItemChanged 事件
         if (OnSelectedItemChanged != null)
