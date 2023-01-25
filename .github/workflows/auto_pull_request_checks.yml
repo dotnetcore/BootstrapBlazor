@@ -1,4 +1,4 @@
-name: Pull Request Checks
+name: Auto Pull Request Checks(bot)
 
 on:
   pull_request:
@@ -8,7 +8,7 @@ on:
       - dev
 
 jobs:
-  build:
+  pull_request_check:
     runs-on: ubuntu-latest
 
     steps:
