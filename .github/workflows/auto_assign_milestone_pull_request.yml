@@ -5,7 +5,7 @@ on:
     types: [opened]
 
 jobs:
-  assign-milestone:
+  assign_milestone:
     runs-on: ubuntu-latest
 
     steps:
