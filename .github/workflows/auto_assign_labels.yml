@@ -1,0 +1,18 @@
+name: Auto Assign Labels(bot)
+on:
+  issues:
+    types: [opened, reopened, edited]
+  pull_request:
+    types: [opened, reopened, edited]
+
+jobs:
+  label:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: github/issue-labeler@v2.5
+      with:
+        repo-token: "${{ secrets.GITHUB_TOKEN }}"
+        configuration-path: .github/workflows/labeler.yml
+        not-before: 2023-01-15T02:54:32Z
+        enable-versioned-regex: 0
+        include-title: 1
