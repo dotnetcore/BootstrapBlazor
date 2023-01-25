@@ -1,4 +1,4 @@
-name: Sync Assignee(bot)
+name: Sync Assignees(bot)
 
 on:
   pull_request:
