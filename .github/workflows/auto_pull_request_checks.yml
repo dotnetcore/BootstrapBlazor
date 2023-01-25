@@ -1,4 +1,4 @@
-name: Auto Pull Request Checks(bot)
+name: Auto PR Test(bot)
 
 on:
   pull_request:
@@ -8,7 +8,7 @@ on:
       - dev
 
 jobs:
-  pull_request_check:
+  run_test:
     runs-on: ubuntu-latest
 
     steps:

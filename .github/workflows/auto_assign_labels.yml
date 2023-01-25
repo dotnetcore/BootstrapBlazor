@@ -6,7 +6,7 @@ on:
     types: [opened, reopened, edited]
 
 jobs:
-  label:
+  assign_label:
     runs-on: ubuntu-latest
     steps:
     - uses: github/issue-labeler@v2.5
