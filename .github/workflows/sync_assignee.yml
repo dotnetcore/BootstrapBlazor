@@ -1,0 +1,40 @@
+name: Sync Assignees(bot)
+
+on:
+  pull_request:
+    types: [opened, edited]
+
+jobs:
+  sync_labels:
+    name: Sync Assignees
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v6
+        with:
+          script: |
+            const body = context.payload.pull_request.body
+            const matches = body.match(/#(\d+)/)
+            if (!matches || matches.length <= 1) {
+                console.log('This PR has no related issue!')
+            }
+            else {
+                const related_issue_number = matches[1]
+                const issue = await github.rest.issues.get({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: related_issue_number
+                })
+                if(issue.data.length == 0) {
+                  console.log(`There no labels on issue \#${related_issue_number}`)
+                }
+                else {
+                  const assignees = issue.data.assignees.map(v => v.login)
+                  await github.rest.issues.update({
+                    owner: context.repo.owner,
+                    repo: context.repo.repo,
+                    issue_number: context.issue.number,
+                    assignees: assignees
+                  })
+                  console.log('Sync assignees', assignees)
+                }
+            }

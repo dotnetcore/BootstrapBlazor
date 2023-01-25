@@ -2,17 +2,16 @@ name: Auto Assign Labels(bot)
 on:
   issues:
     types: [opened, reopened, edited]
-  pull_request:
-    types: [opened, reopened, edited]
 
 jobs:
-  label:
+  assign_label:
+    name: Assign Label
     runs-on: ubuntu-latest
     steps:
     - uses: github/issue-labeler@v2.5
       with:
         repo-token: "${{ secrets.GITHUB_TOKEN }}"
         configuration-path: .github/labeler.yml
-        not-before: 2023-01-15T02:54:32Z
+        not-before: 2023-01-25T00:00:00Z
         enable-versioned-regex: 0
         include-title: 1
