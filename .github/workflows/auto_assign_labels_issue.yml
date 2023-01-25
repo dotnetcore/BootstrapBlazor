@@ -1,4 +1,4 @@
-name: Auto Assign Labels on Issue
+name: Auto Assign Labels on Issue(bot)
 on:
   issues:
     types:
