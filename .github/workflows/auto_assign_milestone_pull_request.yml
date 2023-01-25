@@ -5,11 +5,10 @@ on:
     types: [opened]
 
 jobs:
-  assign_milestone:
+  copy_milestone:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: zoispag/action-assign-milestone@v1.1.0
+      - uses: cgetc/copy-milestone-from-issue-to-pr@v0.1.2
         with:
-          repo-token: "${{ secrets.GITHUB_TOKEN }}"
-          milestone: "${{ secrets.MILESTONE_VERSION }}"
+          github-token: "${{ secrets.GITHUB_TOKEN }}"
