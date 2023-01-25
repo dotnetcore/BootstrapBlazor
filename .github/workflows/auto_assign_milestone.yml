@@ -1,0 +1,29 @@
+name: Auto Assign Milestone(bot)
+
+on:
+  issues:
+    types: [opened, edited]
+
+jobs:
+  assign_miletone:
+    name: Assign Milestone
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v6
+        with:
+          script: |
+            const milestones = await github.rest.issues.listMilestones({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open'
+            })
+
+            if (milestones.data.length > 0) {
+              const milestone = milestones.data.pop()
+              github.rest.issues.update({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                milestone: milestone.number
+              })
+            }
