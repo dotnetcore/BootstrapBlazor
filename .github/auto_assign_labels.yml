@@ -12,7 +12,7 @@ jobs:
     - uses: github/issue-labeler@v2.5
       with:
         repo-token: "${{ secrets.GITHUB_TOKEN }}"
-        configuration-path: .github/labeler.yml
+        configuration-path: .github/workflows/labeler.yml
         not-before: 2023-01-15T02:54:32Z
         enable-versioned-regex: 0
         include-title: 1
