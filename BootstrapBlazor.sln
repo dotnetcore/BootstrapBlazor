@@ -38,9 +38,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "appveyor", "appveyor", "{1E
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "github", "github", "{F0754254-903C-411B-972C-EC91254B4A67}"
 	ProjectSection(SolutionItems) = preProject
-		.github\workflows\auto_assign_assignees.yml = .github\workflows\auto_assign_assignees.yml
-		.github\workflows\auto_assign_labels.yml = .github\workflows\auto_assign_labels.yml
-		.github\workflows\auto_assign_milestone.yml = .github\workflows\auto_assign_milestone.yml
+		.github\workflows\auto_assign_issue.yml = .github\workflows\auto_assign_issue.yml
 		.github\workflows\auto_comment_issue.yml = .github\workflows\auto_comment_issue.yml
 		.github\workflows\auto_pull_request_checks.yml = .github\workflows\auto_pull_request_checks.yml
 		.github\workflows\build.yml = .github\workflows\build.yml
@@ -49,9 +47,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "github", "github", "{F07542
 		.github\workflows\pack.yml = .github\workflows\pack.yml
 		.github\workflows\publish.yml = .github\workflows\publish.yml
 		.github\workflows\release.yml = .github\workflows\release.yml
-		.github\workflows\sync_assignee.yml = .github\workflows\sync_assignee.yml
-		.github\workflows\sync_labels.yml = .github\workflows\sync_labels.yml
-		.github\workflows\sync_milestone.yml = .github\workflows\sync_milestone.yml
+		.github\workflows\sync_from_issue.yml = .github\workflows\sync_from_issue.yml
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{9437A6C6-CF87-4B75-916B-C1EF558BD8EF}"

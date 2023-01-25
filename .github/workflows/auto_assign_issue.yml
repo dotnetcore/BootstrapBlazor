@@ -1,0 +1,55 @@
+name: Auto Assign Issue(bot)
+
+on:
+  issues:
+    types: [opened, edited]
+    
+jobs:
+  assign_assignee:
+    name: Assign Assignees
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v6
+        with:
+          script: |
+              github.rest.issues.update({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                assignees: [context.repo.owner]
+              })
+
+  assign_label:
+    name: Assign Label
+    runs-on: ubuntu-latest
+    steps:
+    - uses: github/issue-labeler@v2.5
+      with:
+        repo-token: "${{ secrets.GITHUB_TOKEN }}"
+        configuration-path: .github/labeler.yml
+        not-before: 2023-01-25T00:00:00Z
+        enable-versioned-regex: 0
+        include-title: 1
+
+  assign_miletone:
+    name: Assign Milestone
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v6
+        with:
+          script: |
+            const milestones = await github.rest.issues.listMilestones({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open'
+            })
+
+            if (milestones.data.length > 0) {
+              const milestone = milestones.data.pop()
+              github.rest.issues.update({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                milestone: milestone.number
+              })
+            }
