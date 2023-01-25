@@ -9,6 +9,7 @@ on:
 
 jobs:
   run_test:
+    name: Run UnitTest
     runs-on: ubuntu-latest
 
     steps:

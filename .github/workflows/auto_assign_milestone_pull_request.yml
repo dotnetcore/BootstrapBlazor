@@ -6,6 +6,7 @@ on:
 
 jobs:
   copy_milestone:
+    name: Copy Issue Milestone
     runs-on: ubuntu-latest
 
     steps:
