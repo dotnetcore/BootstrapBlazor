@@ -165,6 +165,7 @@ public partial class SelectTree<TValue> : IModelEqualityComparer<TValue>
         var currentItem = GetExpansionItems().FirstOrDefault(predicate);
         if (currentItem != null)
         {
+            currentItem.SetParentExpand<TreeViewItem<TValue>, TValue>(true);
             await ItemChanged(currentItem);
         }
     }
