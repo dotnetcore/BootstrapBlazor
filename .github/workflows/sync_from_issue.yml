@@ -24,8 +24,8 @@ jobs:
                   repo: context.repo.repo,
                   issue_number: related_issue_number
                 })
-                if(issue.data.length == 0) {
-                  console.log(`there no labels on issue \#${related_issue_number}`)
+                if (issue.data.length == 0 || issue.data.assignees.length == 0) {
+                  console.log(`there no assignees on issue \#${related_issue_number}`)
                 }
                 else {
                   const assignees = issue.data.assignees.map(v => v.login)
@@ -38,6 +38,7 @@ jobs:
                   console.log('sync assignees', assignees)
                 }
             }
+
   sync_labels:
     name: sync labels
     runs-on: ubuntu-latest
@@ -71,6 +72,7 @@ jobs:
                 console.log('sync labels', issue_labels)
               }
             }
+
   sync_milestone:
     name: sync milestone
     runs-on: ubuntu-latest
@@ -90,8 +92,8 @@ jobs:
                 repo: context.repo.repo,
                 issue_number: related_issue_number
               })
-              if(issue.data.length == 0) {
-                console.log(`there no labels on issue \#${related_issue_number}`)
+              if (issue.data.length == 0 || issue.data.milestone == null) {
+                console.log(`there no milestone on issue \#${related_issue_number}`)
               }
               else {
                 const milestone = issue.data.milestone
