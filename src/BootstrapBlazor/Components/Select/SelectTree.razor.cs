@@ -129,7 +129,7 @@ public partial class SelectTree<TValue> : IModelEqualityComparer<TValue>
     {
         if (ItemCache != Items)
         {
-            ItemCache = Items ?? new List<TreeViewItem<TValue>>();
+            ItemCache = Items;
             ExpansionItemsCache = TreeItemExtensions.GetAllItems(ItemCache).ToList();
         }
         return ExpansionItemsCache;
@@ -144,6 +144,8 @@ public partial class SelectTree<TValue> : IModelEqualityComparer<TValue>
 
         DropdownIcon ??= "fa-solid fa-angle-up";
         PlaceHolder ??= Localizer[nameof(PlaceHolder)];
+
+        Items ??= new List<TreeViewItem<TValue>>();
 
         if (Value != null)
         {
