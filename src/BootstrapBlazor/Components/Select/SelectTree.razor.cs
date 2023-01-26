@@ -161,7 +161,6 @@ public partial class SelectTree<TValue> : IModelEqualityComparer<TValue>
     private async Task OnItemClick(TreeViewItem<TValue> item)
     {
         await ItemChanged(item);
-        SelectedItem = item;
         StateHasChanged();
     }
 
@@ -171,13 +170,9 @@ public partial class SelectTree<TValue> : IModelEqualityComparer<TValue>
     /// <returns></returns>
     private async Task ItemChanged(TreeViewItem<TValue> item)
     {
-        item.IsActive = true;
         SelectedItem = item;
+        SelectedItem.IsActive = true;
         CurrentValue = SelectedItem.Value;
-
-        // 设置 TreeView 选中项
-        SelectedItems.Clear();
-        SelectedItems.Add(SelectedItem);
 
         // 触发 SelectedItemChanged 事件
         if (OnSelectedItemChanged != null)
