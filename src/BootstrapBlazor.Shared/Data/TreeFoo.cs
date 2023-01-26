@@ -18,9 +18,12 @@ class TreeFoo
 
     public string Icon { get; set; } = "fa-solid fa-font-awesome";
 
+    public bool IsActive { get; set; }
+
     /// <summary>
-    /// 
+    /// TreeFoo 树状数据集
     /// </summary>
+    /// <remarks>请勿更改，单元测试使用</remarks>
     /// <returns></returns>
     public static List<TreeViewItem<TreeFoo>> GetTreeItems()
     {
@@ -36,7 +39,7 @@ class TreeFoo
 
             new TreeFoo() { Text = "Sub Menu One", Id = "1070", ParentId = "1050", Icon = "fa-solid fa-font-awesome" },
             new TreeFoo() { Text = "Sub Menu Two", Id = "1080", ParentId = "1050", Icon = "fa-solid fa-font-awesome" },
-            new TreeFoo() { Text = "Sub Menu Three", Id = "1090", ParentId = "1050", Icon = "fa-solid fa-font-awesome" },
+            new TreeFoo() { Text = "Sub Menu Three", Id = "1090", ParentId = "1050", Icon = "fa-solid fa-font-awesome", IsActive = true },
 
             new TreeFoo() { Text = "Sub Menu Two sub menu one", Id = "1100", ParentId = "1080", Icon = "fa-solid fa-font-awesome" },
             new TreeFoo() { Text = "Sub Menu Two sub menu two", Id = "1110", ParentId = "1080", Icon = "fa-solid fa-font-awesome" },
@@ -51,48 +54,17 @@ class TreeFoo
         return CascadingTree(items).ToList();
     }
 
-    //public static List<TreeViewItem<TreeFoo>> GetTreeItems(IStringLocalizer<SelectTrees>? localizer)
-    //{
-    //    var items = new List<TreeFoo>
-    //    {
-    //        new TreeFoo() { Text = localizer["TF1"], Id = "1010", Icon = "fa-solid fa-font-awesome" },
-    //        new TreeFoo() { Text = localizer["TF2"], Id = "1020", Icon = "fa-solid fa-font-awesome" },
-    //        new TreeFoo() { Text = localizer["TF3"], Id = "1030", Icon = "fa-solid fa-font-awesome" },
-
-    //        new TreeFoo() { Text = localizer["TF4"], Id = "1040", ParentId = "1020", Icon = "fa-solid fa-font-awesome" },
-    //        new TreeFoo() { Text = localizer["TF5"], Id = "1050", ParentId = "1020", Icon = "fa-solid fa-font-awesome" },
-    //        new TreeFoo() { Text = localizer["TF6"], Id = "1060", ParentId = "1020", Icon = "fa-solid fa-font-awesome" },
-
-    //        new TreeFoo() { Text = localizer["TF7"], Id = "1070", ParentId = "1050", Icon = "fa-solid fa-font-awesome" },
-    //        new TreeFoo() { Text = localizer["TF8"], Id = "1080", ParentId = "1050", Icon = "fa-solid fa-font-awesome" },
-    //        new TreeFoo() { Text = localizer["TF9"], Id = "1090", ParentId = "1050", Icon = "fa-solid fa-font-awesome" },
-
-    //        new TreeFoo() { Text = localizer["TF10"], Id = "1100", ParentId = "1080", Icon = "fa-solid fa-font-awesome" },
-    //        new TreeFoo() { Text = localizer["TF11"], Id = "1110", ParentId = "1080", Icon = "fa-solid fa-font-awesome" },
-    //        new TreeFoo() { Text = localizer["TF12"], Id = "1120", ParentId = "1080", Icon = "fa-solid fa-font-awesome" },
-
-    //        new TreeFoo() { Text = localizer["TF13"], Id = "1130", ParentId = "1100", Icon = "fa-solid fa-font-awesome" },
-    //        new TreeFoo() { Text = localizer["TF14"], Id = "1140", ParentId = "1100", Icon = "fa-solid fa-font-awesome" },
-    //        new TreeFoo() { Text = localizer["TF15"], Id = "1150", ParentId = "1100", Icon = "fa-solid fa-font-awesome" }
-    //    };
-    //    return CascadingTree(items).ToList();
-    //}
-
-
     /// <summary>
     /// 树状数据层次化方法
     /// </summary>
     /// <param name="items">数据集合</param>
     /// <param name="parent">父级节点</param>
-    public static IEnumerable<TreeViewItem<TreeFoo>> CascadingTree(IEnumerable<TreeFoo> items, TreeViewItem<TreeFoo>? parent = null) => items.Where(i => i.ParentId == parent?.Value.Id).Select(i =>
-    {
-        var item = new TreeViewItem<TreeFoo>(i)
+    public static IEnumerable<TreeViewItem<TreeFoo>> CascadingTree(IEnumerable<TreeFoo> items, TreeViewItem<TreeFoo>? parent = null) => items.CascadingTree(null,
+        (foo, parent) => foo.ParentId == parent?.Value.Id,
+        foo => new TreeViewItem<TreeFoo>(foo)
         {
-            Text = i.Text,
-            Icon = i.Icon
-        };
-        item.Items = CascadingTree(items, item).ToList();
-        item.Parent = parent;
-        return item;
-    });
+            Text = foo.Text,
+            Icon = foo.Icon,
+            IsActive = foo.IsActive
+        }).ToList();
 }

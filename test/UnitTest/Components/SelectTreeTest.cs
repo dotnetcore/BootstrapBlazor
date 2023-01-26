@@ -64,7 +64,7 @@ public class SelectTreeTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public async Task InValid_Ok()
+    public async Task Value_Null()
     {
         var model = new Foo();
         var cut = Context.RenderComponent<ValidateForm>(builder =>
@@ -79,7 +79,8 @@ public class SelectTreeTest : BootstrapBlazorTestBase
             });
         });
         await cut.InvokeAsync(() => cut.Find("form").Submit());
-        cut.Contains("border-danger invalid is-invalid");
+        cut.Contains("class=\"form-select form-control border-success modified valid is-valid\"");
+        cut.Contains("value=\"Test1\"");
     }
 
     [Fact]
@@ -110,6 +111,31 @@ public class SelectTreeTest : BootstrapBlazorTestBase
             builder.Add(p => p.PlaceHolder, "Please input value");
         });
         cut.Contains("Please input value");
+    }
+
+    [Fact]
+    public void ItemChanged_Ok()
+    {
+        var changed = 0;
+        var cut = Context.RenderComponent<SelectTree<string>>(builder =>
+        {
+            builder.Add(p => p.Items, BindItems);
+            builder.Add(p => p.OnSelectedItemChanged, v =>
+            {
+                changed++;
+                return Task.CompletedTask;
+            });
+        });
+        Assert.Equal(1, changed);
+
+        // 选择第一个候选项
+        var node = cut.Find(".tree-node");
+        cut.InvokeAsync(() => node.Click());
+        Assert.NotEqual(2, changed);
+
+        node = cut.FindAll(".tree-node").Skip(1).Take(1).First();
+        cut.InvokeAsync(() => node.Click());
+        Assert.Equal(2, changed);
     }
 
     [Fact]
