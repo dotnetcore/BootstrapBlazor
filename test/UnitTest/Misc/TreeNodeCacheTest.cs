@@ -291,8 +291,8 @@ public class TreeNodeCacheTest
     {
         var count = 0;
         var type = treeNodeCache.GetType();
-        var fieldInfo = type.GetField("checkedNodeCache", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
-        if (fieldInfo != null && fieldInfo.GetValue(treeNodeCache) is List<TreeFoo> data)
+        var pi = type.GetProperty("CheckedNodeCache", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+        if (pi != null && pi.GetValue(treeNodeCache) is List<TreeFoo> data)
         {
             count = data.Count;
         }
@@ -303,8 +303,8 @@ public class TreeNodeCacheTest
     {
         var count = 0;
         var type = treeNodeCache.GetType();
-        var fieldInfo = type.GetField("uncheckedNodeCache", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
-        if (fieldInfo != null && fieldInfo.GetValue(treeNodeCache) is List<TreeFoo> data)
+        var pi = type.GetProperty("UncheckedNodeCache", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+        if (pi != null && pi.GetValue(treeNodeCache) is List<TreeFoo> data)
         {
             count = data.Count;
         }
@@ -315,8 +315,8 @@ public class TreeNodeCacheTest
     {
         var count = 0;
         var type = treeNodeCache.GetType();
-        var fieldInfo = type.GetField("indeterminateNodeCache", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
-        if (fieldInfo != null && fieldInfo.GetValue(treeNodeCache) is List<TreeFoo> data)
+        var pi = type.GetProperty("IndeterminateNodeCache", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+        if (pi != null && pi.GetValue(treeNodeCache) is List<TreeFoo> data)
         {
             count = data.Count;
         }
