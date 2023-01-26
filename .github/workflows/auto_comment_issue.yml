@@ -1,4 +1,4 @@
-name: Auto Comment on Issue(bot)
+name: auto comment on issue(bot)
 
 on:
   issues:
@@ -6,7 +6,7 @@ on:
 
 jobs:
   comment:
-    name: Comment Issue
+    name: comment issue
     runs-on: ubuntu-latest
     steps:
       - uses: actions/github-script@v6

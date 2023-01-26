@@ -1,4 +1,4 @@
-name: Auto PR Test(bot)
+name: auto PR test(bot)
 
 on:
   pull_request:
@@ -8,7 +8,7 @@ on:
 
 jobs:
   run_test:
-    name: Run UnitTest
+    name: run test
     runs-on: ubuntu-latest
 
     steps:
