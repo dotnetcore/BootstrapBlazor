@@ -64,7 +64,7 @@ public class SelectTreeTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public async Task InValid_Ok()
+    public async Task Value_Null()
     {
         var model = new Foo();
         var cut = Context.RenderComponent<ValidateForm>(builder =>
@@ -79,7 +79,8 @@ public class SelectTreeTest : BootstrapBlazorTestBase
             });
         });
         await cut.InvokeAsync(() => cut.Find("form").Submit());
-        cut.Contains("border-danger invalid is-invalid");
+        cut.Contains("class=\"form-select form-control border-success modified valid is-valid\"");
+        cut.Contains("value=\"Test1\"");
     }
 
     [Fact]
