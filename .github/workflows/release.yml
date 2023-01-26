@@ -6,7 +6,7 @@ on:
       - release
 
 jobs:
-  pack:
+  release:
     runs-on: ubuntu-latest
     
     steps:

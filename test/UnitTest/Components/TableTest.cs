@@ -900,6 +900,7 @@ public class TableTest : TableTestBase
     [Fact]
     public void GotoTemplate_Ok()
     {
+        var templated = false;
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
         {
@@ -908,10 +909,12 @@ public class TableTest : TableTestBase
                 pb.Add(a => a.RenderMode, TableRenderMode.Table);
                 pb.Add(a => a.IsPagination, true);
                 pb.Add(a => a.OnQueryAsync, OnQueryAsync(localizer));
-                pb.Add(a => a.PageItems, 20);
+                pb.Add(a => a.PageItems, 2);
                 pb.Add(a => a.ShowGotoNavigator, true);
-                pb.Add(a => a.GotoNavigatorLabelText, "Test_GotoNavigatorLabelText");
-                pb.Add(a => a.GotoTemplate, builder => builder.AddContent(0, "Test_GotoTemplate"));
+                pb.Add(a => a.GotoTemplate, builder =>
+                {
+                    templated = true;
+                });
                 pb.Add(a => a.TableColumns, foo => builder =>
                 {
                     builder.OpenComponent<TableColumn<Foo, string>>(0);
@@ -921,7 +924,32 @@ public class TableTest : TableTestBase
                 });
             });
         });
-        Assert.Contains("Test_GotoTemplate", cut.Markup);
+        Assert.True(templated);
+    }
+
+    [Fact]
+    public void GotoNavigatorLabelText_Ok()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.IsPagination, true);
+                pb.Add(a => a.OnQueryAsync, OnQueryAsync(localizer));
+                pb.Add(a => a.PageItems, 2);
+                pb.Add(a => a.ShowGotoNavigator, true);
+                pb.Add(a => a.GotoNavigatorLabelText, "Test_GotoNavigatorLabelText");
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+                });
+            });
+        });
     }
 
     [Fact]
@@ -5191,7 +5219,7 @@ public class TableTest : TableTestBase
     }
 
     [Fact]
-    public async Task OnConfirm_Ok()
+    public void OnConfirm_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
@@ -5219,14 +5247,14 @@ public class TableTest : TableTestBase
         var deleteButton = table.FindComponent<TableToolbarPopconfirmButton<Foo>>();
         // 选一个
         var input = cut.Find("tbody tr input");
-        await cut.InvokeAsync(() => input.Click());
-        await cut.InvokeAsync(() => deleteButton.Instance.OnConfirm());
+        cut.InvokeAsync(() => input.Click());
+        cut.InvokeAsync(() => deleteButton.Instance.OnConfirm());
 
         table.SetParametersAndRender(pb =>
         {
             pb.Add(a => a.PageItemsSource, new int[] { 1, 2, 4, 8 });
         });
-        await cut.InvokeAsync(() => deleteButton.Instance.OnConfirm());
+        cut.InvokeAsync(() => deleteButton.Instance.OnConfirm());
     }
 
     [Fact]
@@ -6357,7 +6385,7 @@ public class TableTest : TableTestBase
         return Task.FromResult(new QueryData<Foo>()
         {
             Items = items,
-            TotalCount = 80,
+            TotalCount = 5,
             IsAdvanceSearch = isAdvanceSearch,
             IsFiltered = isFilter,
             IsSearch = isSearch,
