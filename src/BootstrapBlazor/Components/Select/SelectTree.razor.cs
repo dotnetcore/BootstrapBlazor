@@ -121,22 +121,20 @@ public partial class SelectTree<TValue> : IModelEqualityComparer<TValue>
     /// </summary>
     private string? InputId => $"{Id}_input";
 
+    /// <summary>
+    /// 获得/设置 上次选择值
+    /// </summary>
+    private TValue? SelectedValue { get; set; }
+
+    /// <summary>
+    /// 获得/设置 上次选项
+    /// </summary>
     private TreeViewItem<TValue>? SelectedItem { get; set; }
 
     private List<TreeViewItem<TValue>>? ItemCache { get; set; }
 
     [NotNull]
     private List<TreeViewItem<TValue>>? ExpansionItemsCache { get; set; }
-
-    private IEnumerable<TreeViewItem<TValue>> GetExpansionItems()
-    {
-        if (ItemCache != Items)
-        {
-            ItemCache = Items;
-            ExpansionItemsCache = TreeItemExtensions.GetAllItems(ItemCache).ToList();
-        }
-        return ExpansionItemsCache;
-    }
 
     /// <summary>
     /// OnParametersSet 方法
@@ -167,13 +165,23 @@ public partial class SelectTree<TValue> : IModelEqualityComparer<TValue>
             }
         }
     }
+    
+    private IEnumerable<TreeViewItem<TValue>> GetExpansionItems()
+    {
+        if (ItemCache != Items)
+        {
+            ItemCache = Items;
+            ExpansionItemsCache = TreeItemExtensions.GetAllItems(ItemCache).ToList();
+        }
+        return ExpansionItemsCache;
+    }
 
     /// <summary>
     /// 下拉框选项点击时调用此方法
     /// </summary>
     private async Task OnItemClick(TreeViewItem<TValue> item)
     {
-        if (SelectedItem != null && !Equals(item.Value, SelectedItem.Value))
+        if (!Equals(item.Value, SelectedValue))
         {
             await ItemChanged(item);
             StateHasChanged();
@@ -187,13 +195,13 @@ public partial class SelectTree<TValue> : IModelEqualityComparer<TValue>
     private async Task ItemChanged(TreeViewItem<TValue> item)
     {
         SelectedItem = item;
-        SelectedItem.IsActive = true;
-        CurrentValue = SelectedItem.Value;
+        SelectedValue = item.Value;
+        CurrentValue = item.Value;
 
         // 触发 SelectedItemChanged 事件
         if (OnSelectedItemChanged != null)
         {
-            await OnSelectedItemChanged.Invoke(item.Value);
+            await OnSelectedItemChanged.Invoke(CurrentValue);
         }
     }
 
