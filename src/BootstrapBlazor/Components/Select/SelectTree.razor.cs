@@ -148,24 +148,26 @@ public partial class SelectTree<TValue> : IModelEqualityComparer<TValue>
 
         Items ??= new List<TreeViewItem<TValue>>();
 
-        if (Value != null)
+        if (Value == null)
         {
-            var currentItem = GetExpansionItems().FirstOrDefault(s => Equals(s.Value, Value));
-            if (currentItem != null)
-            {
-                await ItemChanged(currentItem);
-            }
-        }
-        else
-        {
+            // 组件未赋值 Value 通过 IsActive 设置默认值
             var currentItem = GetExpansionItems().FirstOrDefault(s => s.IsActive);
             if (currentItem != null)
             {
                 await ItemChanged(currentItem);
             }
         }
+        else if (!Equals(Value, SelectedValue))
+        {
+            // 组件外部赋值 导致 Value 与 SelectedValue 不一致重新获取选项
+            var currentItem = GetExpansionItems().FirstOrDefault(s => Equals(s.Value, Value));
+            if (currentItem != null)
+            {
+                await ItemChanged(currentItem);
+            }
+        }
     }
-    
+
     private IEnumerable<TreeViewItem<TValue>> GetExpansionItems()
     {
         if (ItemCache != Items)
