@@ -5990,6 +5990,8 @@
     "PdfReaderNomalIntro": "Use Filename parameter displays pdf file from local server, or Stream parameter use file stream for rendering",
     "PdfReaderStreamModeText": "Stream mode",
     "PdfReaderStreamModeIntro": "read remote files by cross-domain",
+    "PdfReaderCompatibilityModeText": "Compatibility mode",
+    "PdfReaderCompatibilityModeIntro": "Compatible with older browsers",
     "PdfReaderAdvancedText": "Advanced parameters",
     "PdfReaderAdvancedIntro": "Can be use advanced parameters",
     "PdfReaderIssue": "Destructive update reference link: remove pdfoobject",
@@ -6023,7 +6025,12 @@
     "PdfReaderAdvancedRefreshPage": "RefreshPage",
     "PdfReaderAdvancedStreamModeLabel": "StreamMode",
     "PdfReaderAdvancedFilenameLabel": "The file in the wwwroot relative path or url",
-    "PdfReaderAdvancedSearchLabel": "Search"
+    "PdfReaderAdvancedSearchLabel": "Search",
+    "PdfReaderAdvancedReadOnlyLabel": "Disable copy/print/download",
+    "PdfReaderAdvancedWatermarkLabel": "Watermark content"
+  },
+  "BootstrapBlazor.Shared.Demos.PdfReader.PdfReaderCompatibilityMode": {
+    "PdfReaderCompatibilityModeTips": "- Chrome < 97 automatically uses version 2.4.456<br/>- Chrome < 109 automatically uses version 2.6.347<br/>- Note: ReadOnly and Watermark cannot be used in these two compatibility modes"
   },
   "BootstrapBlazor.Shared.Samples.VideoPlayers": {
     "Title": "VideoPlayer",
