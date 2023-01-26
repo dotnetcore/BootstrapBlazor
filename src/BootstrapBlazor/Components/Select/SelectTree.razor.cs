@@ -168,8 +168,11 @@ public partial class SelectTree<TValue> : IModelEqualityComparer<TValue>
     /// </summary>
     private async Task OnItemClick(TreeViewItem<TValue> item)
     {
-        await ItemChanged(item);
-        StateHasChanged();
+        if (SelectedItem != null && !Equals(item.Value, SelectedItem.Value))
+        {
+            await ItemChanged(item);
+            StateHasChanged();
+        }
     }
 
     /// <summary>
