@@ -153,6 +153,14 @@ public partial class SelectTree<TValue> : IModelEqualityComparer<TValue>
                 await ItemChanged(currentItem);
             }
         }
+        else
+        {
+            var currentItem = GetExpansionItems().FirstOrDefault(s => s.IsActive);
+            if (currentItem != null)
+            {
+                await ItemChanged(currentItem);
+            }
+        }
     }
 
     /// <summary>
