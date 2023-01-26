@@ -3,9 +3,8 @@ name: Build Project
 on:
   push:
     branches:
+      - master
       - main
-      - dev
-      - dev-table
 
 jobs:
   build:
