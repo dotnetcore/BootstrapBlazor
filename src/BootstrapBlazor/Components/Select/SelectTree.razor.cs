@@ -151,20 +151,21 @@ public partial class SelectTree<TValue> : IModelEqualityComparer<TValue>
         if (Value == null)
         {
             // 组件未赋值 Value 通过 IsActive 设置默认值
-            var currentItem = GetExpansionItems().FirstOrDefault(s => s.IsActive);
-            if (currentItem != null)
-            {
-                await ItemChanged(currentItem);
-            }
+            await TriggerItemChanged(s => s.IsActive);
         }
         else if (!Equals(Value, SelectedValue))
         {
             // 组件外部赋值 导致 Value 与 SelectedValue 不一致重新获取选项
-            var currentItem = GetExpansionItems().FirstOrDefault(s => Equals(s.Value, Value));
-            if (currentItem != null)
-            {
-                await ItemChanged(currentItem);
-            }
+            await TriggerItemChanged(s => Equals(s.Value, Value));
+        }
+    }
+
+    private async Task TriggerItemChanged(Func<TreeViewItem<TValue>, bool> predicate)
+    {
+        var currentItem = GetExpansionItems().FirstOrDefault(predicate);
+        if (currentItem != null)
+        {
+            await ItemChanged(currentItem);
         }
     }
 
