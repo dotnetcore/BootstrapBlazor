@@ -6007,6 +6007,8 @@
     "PdfReaderNomalIntro": "Filename 参数显示本服务器pdf文件,或 Stream 参数指定用于渲染的文件流",
     "PdfReaderStreamModeText": "流模式",
     "PdfReaderStreamModeIntro": "可跨域读取文件",
+    "PdfReaderCompatibilityModeText": "兼容模式",
+    "PdfReaderCompatibilityModeIntro": "兼容旧版浏览器",
     "PdfReaderAdvancedText": "高级参数",
     "PdfReaderAdvancedIntro": "可以使用高级参数",
     "PdfReaderIssue": "破坏性更新参考链接: 移除pdfobject",
@@ -6040,8 +6042,14 @@
     "PdfReaderAdvancedRefreshPage": "刷新",
     "PdfReaderAdvancedStreamModeLabel": "流模式",
     "PdfReaderAdvancedFilenameLabel": "文件相对路径或者URL",
-    "PdfReaderAdvancedSearchLabel": "搜索"
+    "PdfReaderAdvancedSearchLabel": "搜索",
+    "PdfReaderAdvancedReadOnlyLabel": "禁用复制/打印/下载",
+    "PdfReaderAdvancedWatermarkLabel": "水印内容"
   },
+  "BootstrapBlazor.Shared.Demos.PdfReader.PdfReaderCompatibilityMode": {
+    "PdfReaderCompatibilityModeTips": "- Chrome < 97 自动使用 2.4.456 版本<br/>- Chrome < 109 自动使用 2.6.347 版本<br/>- 注:ReadOnly 和 Watermark 在这两种兼容模式下不能使用"
+  },
+
   "BootstrapBlazor.Shared.Samples.VideoPlayers": {
     "Title": "VideoPlayer 视频播放器",
     "BaseUsageText": "基础用法",
