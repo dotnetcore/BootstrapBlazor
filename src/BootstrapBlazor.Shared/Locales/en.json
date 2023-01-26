@@ -5404,19 +5404,23 @@
     "TablesTrackingNormaltips2": "All data editing in this mode edits the original data and updates the data source through <code>bind-Items</code>, so no <b>Cancel</b> button is provided"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesFooter": {
-    "H1": "Table Footer",
-    "H2": "For statistics",
-    "P1": "Statistics example",
-    "P2": "Set <code>ShowFooter=true</code> to show <code>Footer</code> custom total function",
-    "P3": "The <code>Table</code> component has a <code>TableFooter</code> template whose data context is the data collection of the <code>Table</code> component <code>IEnumerable&lt;TItem&gt;</code>",
-    "P4": "The associated context in the <code>TableFooter</code> template <code>context</code> is the current page data collection",
-    "P5": "The content of the cell <code>td</code> can be customized in the <code>TableFooter</code> template, or the built-in <code>TableFooterCell</code> component can be used for data display",
-    "P6": "Total:",
-    "P7": "Footer template",
-    "P8": "Set <code>FooterTemplate</code> to customize the content displayed at the bottom of the table",
-    "P9": "<code>Footer</code> is displayed by default when there is no data. You can hide <code>Footer</code> by setting the <code>@nameof(Table<Foo>.IsHideFooterWhenNoData)</code> parameter",
-    "P10": "Here you can write some descriptive sentences",
-    "P11": "Total:"
+    "TablesFooterTitle": "Table Footer",
+    "TablesFooterDescription": "For statistics",
+    "TablesFooterStatisticsTitle": "Statistics example",
+    "TablesFooterStatisticsIntro": "Set <code>ShowFooter=true</code> to show <code>Footer</code> custom total function",
+    "TablesFooterStatisticsTips1": "The <code>Table</code> component has a <code>TableFooter</code> template whose data context is the data collection of the <code>Table</code> component <code>IEnumerable&lt;TItem&gt;</code>",
+    "TablesFooterStatisticsTips2": "The associated context in the <code>TableFooter</code> template <code>context</code> is the current page data collection",
+    "TablesFooterStatisticsTips3": "The content of the cell <code>td</code> can be customized in the <code>TableFooter</code> template, or the built-in <code>TableFooterCell</code> component can be used for data display",
+    "TablesFooterTemplateTitle": "Footer template",
+    "TablesFooterTemplateIntro": "Set <code>FooterTemplate</code> to customize the content displayed at the bottom of the table",
+    "TablesFooterTemplateDescription": "<code>Footer</code> is displayed by default when there is no data. You can hide <code>Footer</code> by setting the <code>@nameof(Table<Foo>.IsHideFooterWhenNoData)</code> parameter",
+  },
+  "BootstrapBlazor.Shared.Demos.Table.TablesFooter.TablesFooterStatistics": {
+    "TablesFooterStatisticsTotal": "Total:"
+  },
+  "BootstrapBlazor.Shared.Demos.Table.TablesFooter.TablesFooterTemplate": {
+    "TablesFooterTemplateSentences": "Here you can write some descriptive sentences",
+    "TablesFooterTemplateTotal": "Total:"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesAutoRefresh": {
     "TablesAutoRefreshTitle": "Auto Refresh table",
