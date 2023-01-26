@@ -106,26 +106,12 @@ public static class ExpandableNodeExtensions
     /// <summary>
     /// 向上级联设置展开状态
     /// </summary>
-    public static void SetParentExpand<TNode, TItem>(this TNode node, bool expand, ExpandableNodeCache<TNode, TItem>? cache = null) where TNode : IExpandableNode<TItem>
+    public static void SetParentExpand<TNode, TItem>(this TNode node, bool expand) where TNode : IExpandableNode<TItem>
     {
         if (node.Parent is TNode p)
         {
             p.IsExpand = expand;
-            cache?.ToggleNodeAsync(p, n => Task.FromResult(n.Items));
-            p.SetParentExpand(expand, cache);
-        }
-    }
-
-    /// <summary>
-    /// 向上级联设置展开状态
-    /// </summary>
-    public static void CascadeTree<TNode, TItem>(this TNode node, bool expand, ExpandableNodeCache<TNode, TItem>? cache = null) where TNode : IExpandableNode<TItem>
-    {
-        if (node.Parent is TNode p)
-        {
-            p.IsExpand = expand;
-            cache?.ToggleNodeAsync(p, n => Task.FromResult(n.Items));
-            p.SetParentExpand(expand, cache);
+            p.SetParentExpand<TNode, TItem>(expand);
         }
     }
 
