@@ -47,7 +47,7 @@ public sealed partial class SubMenu
     private IStringLocalizer<Menu>? Localizer { get; set; }
 
     /// <summary>
-    /// 
+    /// 获得 样式字符串
     /// </summary>
     /// <param name="item"></param>
     /// <returns></returns>
