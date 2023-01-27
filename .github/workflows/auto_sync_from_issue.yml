@@ -12,31 +12,25 @@ jobs:
       - uses: actions/github-script@v6
         with:
           script: |
-            const body = context.payload.pull_request.body
-            const matches = body.match(/#(\d+)/)
-            if (!matches || matches.length <= 1) {
-                console.log('this PR has no related issue!')
+            const user_argozhang = 'ArgoZhang'
+            const reviewers = await github.rest.pulls.listRequestedReviewers({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.issue.number
+            })
+            const current_reviewers = reviewers.data.users.map(v => v.login)
+            if (current_reviewers.indexOf(user_argozhang) > -1) {
+              console.log(`skip assign reviewers action. current reviewers`, current_reviewers)
             }
             else {
-                const related_issue_number = matches[1]
-                const issue = await github.rest.issues.get({
-                  owner: context.repo.owner,
-                  repo: context.repo.repo,
-                  issue_number: related_issue_number
-                })
-                if (issue.data.length == 0 || issue.data.assignees.length == 0) {
-                  console.log(`there no assignees on issue \#${related_issue_number}`)
-                }
-                else {
-                  const assignees = issue.data.assignees.map(v => v.login)
-                  await github.rest.issues.update({
-                    owner: context.repo.owner,
-                    repo: context.repo.repo,
-                    issue_number: context.issue.number,
-                    assignees: assignees
-                  })
-                  console.log('sync assignees', assignees)
-                }
+              current_reviewers.push(user_argozhang)
+              await github.rest.pulls.requestReviewers({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                pull_number: context.issue.number,
+                reviewers: current_reviewers
+              })
+              console.log('sync reviewers', current_reviewers)
             }
 
   sync_assignees:
