@@ -228,6 +228,31 @@ public class MenuTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void IsDisabled_Ok()
+    {
+        var items = new List<MenuItem>()
+        {
+            new("Menu1")
+            {
+                IsActive = true,
+                Icon = "fa-solid fa-font-awesome",
+                Url = "https://www.blazor.zone",
+                IsDisabled = true
+            },
+            new("Menu2")
+            {
+                Icon = "fa-solid fa-fw fa-font-awesome"
+            }
+        };
+        var cut = Context.RenderComponent<Menu>(pb =>
+        {
+            pb.Add(m => m.Items, items);
+        });
+        Assert.Contains("disabled", cut.Markup);
+        Assert.DoesNotContain("active", cut.Markup);
+    }
+
+    [Fact]
     public void IsAccordion_Ok()
     {
         var cut = Context.RenderComponent<Menu>(pb =>
