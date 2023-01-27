@@ -12,14 +12,10 @@ jobs:
       - uses: actions/github-script@v6
         with:
           script: |
-            const issue = await github.rest.issues.get({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo
-            })
+            const content = `@${context.payload.issue.user.login}. Thank you for filing this issue. In order for us to investigate this issue, please provide [a minimalistic repro project](https://github.com/dotnetcore/bootstrapblazor/blob/main/docs/repro.md) that illustrates the problem.`
             github.rest.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: '👋 Thanks for reporting! @' + issue.data.user.login + ' Please provide your code. If it is already provided, please ignore this message.'
+              body: content
             })
