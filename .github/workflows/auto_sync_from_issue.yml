@@ -39,6 +39,46 @@ jobs:
                 }
             }
 
+  sync_assignees:
+    name: sync assignees
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v6
+        with:
+          script: |
+            const body = context.payload.pull_request.body
+            const matches = body.match(/#(\d+)/)
+            if (!matches || matches.length <= 1) {
+                console.log('this PR has no related issue!')
+            }
+            else {
+                const related_issue_number = matches[1]
+                const issue = await github.rest.issues.get({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: related_issue_number
+                })
+                if (issue.data.length == 0 || issue.data.assignees.length == 0) {
+                  console.log(`there no assignees on issue \#${related_issue_number}`)
+                }
+                else {
+                  const user_argozhang = 'ArgoZhang'
+                  const assignees = issue.data.assignees.map(v => v.login)
+                  if (assignees.indexOf(user_argozhang) > -1) {
+                    console.log(`skip assign assignees action. current assignees`, assignees)
+                  }
+                  else {
+                    await github.rest.issues.update({
+                      owner: context.repo.owner,
+                      repo: context.repo.repo,
+                      issue_number: context.issue.number,
+                      assignees: assignees
+                    })
+                    console.log('sync assignees', assignees)
+                  }
+                }
+            }
+
   sync_labels:
     name: sync labels
     runs-on: ubuntu-latest
