@@ -1,19 +1,18 @@
-name: Auto PR Test(bot)
+name: auto PR test(bot)
 
 on:
   pull_request:
     branches:
       - master
       - main
-      - dev
 
 jobs:
   run_test:
-    name: Run UnitTest
+    name: run test
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Setup .NET 7.0
         uses: actions/setup-dotnet@v1

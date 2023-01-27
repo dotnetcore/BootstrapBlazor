@@ -1,4 +1,4 @@
-name: Sync Issue to PR(bot)
+name: sync issue to PR(bot)
 
 on:
   pull_request:
@@ -6,7 +6,7 @@ on:
 
 jobs:
   sync_assignees:
-    name: Sync Assignees
+    name: sync assignees
     runs-on: ubuntu-latest
     steps:
       - uses: actions/github-script@v6
@@ -15,7 +15,7 @@ jobs:
             const body = context.payload.pull_request.body
             const matches = body.match(/#(\d+)/)
             if (!matches || matches.length <= 1) {
-                console.log('This PR has no related issue!')
+                console.log('this PR has no related issue!')
             }
             else {
                 const related_issue_number = matches[1]
@@ -24,8 +24,8 @@ jobs:
                   repo: context.repo.repo,
                   issue_number: related_issue_number
                 })
-                if(issue.data.length == 0) {
-                  console.log(`There no labels on issue \#${related_issue_number}`)
+                if (issue.data.length == 0 || issue.data.assignees.length == 0) {
+                  console.log(`there no assignees on issue \#${related_issue_number}`)
                 }
                 else {
                   const assignees = issue.data.assignees.map(v => v.login)
@@ -35,11 +35,12 @@ jobs:
                     issue_number: context.issue.number,
                     assignees: assignees
                   })
-                  console.log('Sync assignees', assignees)
+                  console.log('sync assignees', assignees)
                 }
             }
+
   sync_labels:
-    name: Sync Labels
+    name: sync labels
     runs-on: ubuntu-latest
     steps:
       - uses: actions/github-script@v6
@@ -48,7 +49,7 @@ jobs:
             const body = context.payload.pull_request.body
             const matches = body.match(/#(\d+)/)
             if (!matches || matches.length <= 1) {
-              console.log('This PR has no related issue!')
+              console.log('this PR has no related issue!')
             }
             else {
               const related_issue_number = matches[1]
@@ -58,7 +59,7 @@ jobs:
                 issue_number: related_issue_number
               })
               if(labels.data.length == 0) {
-                console.log(`There no labels on issue #${related_issue_number}`)
+                console.log(`there no labels on issue #${related_issue_number}`)
               }
               else {
                 const issue_labels = labels.data.map(v => v.name)
@@ -68,11 +69,12 @@ jobs:
                   issue_number: context.issue.number,
                   labels: issue_labels
                 })
-                console.log('Sync labels', issue_labels)
+                console.log('sync labels', issue_labels)
               }
             }
+
   sync_milestone:
-    name: Sync Milestone
+    name: sync milestone
     runs-on: ubuntu-latest
     steps:
       - uses: actions/github-script@v6
@@ -81,7 +83,7 @@ jobs:
             const body = context.payload.pull_request.body
             const matches = body.match(/#(\d+)/)
             if (!matches || matches.length <= 1) {
-              console.log('This PR has no related issue!')
+              console.log('this PR has no related issue!')
             }
             else {
               const related_issue_number = matches[1]
@@ -90,17 +92,17 @@ jobs:
                 repo: context.repo.repo,
                 issue_number: related_issue_number
               })
-              if(issue.data.length == 0) {
-                console.log(`There no labels on issue \#${related_issue_number}`)
+              if (issue.data.length == 0 || issue.data.milestone == null) {
+                console.log(`there no milestone on issue \#${related_issue_number}`)
               }
               else {
                 const milestone = issue.data.milestone
                 await github.rest.issues.update({
-                    owner: context.repo.owner,
-                    repo: context.repo.repo,
-                    issue_number: context.issue.number,
-                    milestone: milestone.number
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: context.issue.number,
+                  milestone: milestone.number
                 })
-                console.log(`Sync milestone ${milestone.title}`)
+                console.log(`sync milestone ${milestone.title}`)
               }
             }

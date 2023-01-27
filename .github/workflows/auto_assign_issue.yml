@@ -1,4 +1,4 @@
-name: Auto Assign Issue(bot)
+name: auto assign issue(bot)
 
 on:
   issues:
@@ -6,22 +6,21 @@ on:
     
 jobs:
   assign_assignee:
-    name: Assign Assignees
+    name: assign assignees
     runs-on: ubuntu-latest
     steps:
       - uses: actions/github-script@v6
         with:
           script: |
-            console.log(context)
             github.rest.issues.update({
               owner: context.repo.owner,
               repo: context.repo.repo,
               issue_number: context.issue.number,
-              assignees: [context.repo.owner]
+              assignees: [context.actor]
             })
 
   assign_label:
-    name: Assign Label
+    name: assign label
     runs-on: ubuntu-latest
     steps:
     - uses: github/issue-labeler@v2.5
@@ -33,7 +32,7 @@ jobs:
         include-title: 1
 
   assign_miletone:
-    name: Assign Milestone
+    name: assign milestone
     runs-on: ubuntu-latest
     steps:
       - uses: actions/github-script@v6
