@@ -234,15 +234,25 @@ public class MenuTest : BootstrapBlazorTestBase
         {
             new("Menu1")
             {
-                IsActive = true,
                 Icon = "fa-solid fa-font-awesome",
                 Url = "https://www.blazor.zone",
-                IsDisabled = true
+                Items = new List<MenuItem>()
+                {
+                    new("Menu2")
+                    {
+                        Icon = "fa-solid fa-fw fa-font-awesome",
+                        Items = new List<MenuItem>()
+                        {
+                            new("Menu3")
+                            {
+                                IsActive = true,
+                                IsDisabled = true,
+                                Icon = "fa-solid fa-fw fa-font-awesome"
+                            }
+                        }
+                    }
+                }
             },
-            new("Menu2")
-            {
-                Icon = "fa-solid fa-fw fa-font-awesome"
-            }
         };
         var cut = Context.RenderComponent<Menu>(pb =>
         {
