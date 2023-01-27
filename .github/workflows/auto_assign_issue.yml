@@ -8,17 +8,26 @@ jobs:
   assign_assignee:
     name: assign assignees
     runs-on: ubuntu-latest
+    env:
+      REPO_OWNER: ArgoZhang
     steps:
       - uses: actions/github-script@v6
         with:
           script: |
-            github.rest.issues.update({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: context.issue.number,
-              assignees: [context.actor]
-            })
-
+            const repo_owner = process.env.REPO_OWNER
+            const current_assignees = context.payload.issue.assignees.map(v => v.login)
+            if (current_assignees.indexOf(repo_owner) > -1) {
+              console.log(`skip assign assignees action. current assignees`, current_assignees)
+            }
+            else {
+              current_assignees.push(repo_owner)
+              github.rest.issues.update({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                assignees: current_assignees
+              })
+            }
   assign_label:
     name: assign label
     runs-on: ubuntu-latest

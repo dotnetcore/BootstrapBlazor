@@ -4,7 +4,38 @@ on:
   pull_request:
     types: [opened, edited]
 
+env:
+  REPO_OWNER: ArgoZhang
+
 jobs:
+  add_reviewers:
+    name: add reviewers
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v6
+        with:
+          script: |
+            const repo_owner = process.env.REPO_OWNER
+            const reviewers = await github.rest.pulls.listRequestedReviewers({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.issue.number
+            })
+            const current_reviewers = reviewers.data.users.map(v => v.login)
+            if (current_reviewers.indexOf(repo_owner) > -1) {
+              console.log(`skip assign reviewers action. current reviewers`, current_reviewers)
+            }
+            else {
+              current_reviewers.push(repo_owner)
+              await github.rest.pulls.requestReviewers({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                pull_number: context.issue.number,
+                reviewers: current_reviewers
+              })
+              console.log('sync reviewers', current_reviewers)
+            }
+
   sync_assignees:
     name: sync assignees
     runs-on: ubuntu-latest
@@ -28,14 +59,20 @@ jobs:
                   console.log(`there no assignees on issue \#${related_issue_number}`)
                 }
                 else {
+                  const repo_owner = process.env.REPO_OWNER
                   const assignees = issue.data.assignees.map(v => v.login)
-                  await github.rest.issues.update({
-                    owner: context.repo.owner,
-                    repo: context.repo.repo,
-                    issue_number: context.issue.number,
-                    assignees: assignees
-                  })
-                  console.log('sync assignees', assignees)
+                  if (assignees.indexOf(repo_owner) > -1) {
+                    console.log(`skip assign assignees action. current assignees`, assignees)
+                  }
+                  else {
+                    await github.rest.issues.update({
+                      owner: context.repo.owner,
+                      repo: context.repo.repo,
+                      issue_number: context.issue.number,
+                      assignees: assignees
+                    })
+                    console.log('sync assignees', assignees)
+                  }
                 }
             }
 
