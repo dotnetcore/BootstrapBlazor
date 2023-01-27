@@ -1,0 +1,21 @@
+name: 📖 documentation
+description: Suggest an idea for this project
+title: "doc: <title>"
+labels: [documentation]
+assignees:
+  - argozhang
+body:
+- type: checkboxes
+  attributes:
+    label: Is there an existing issue for this?
+    description: Please search to see if an issue already exists for the feature you are requesting. (https://github.com/dotnetcore/BootstrapBlazor/issues).
+    options:
+    - label: I have searched the existing issues
+      required: true
+- type: textarea
+  attributes:
+    label: Describe the solution you'd like
+    description: |
+      A clear and concise description of what you want to happen. Include any alternative solutions you've considered.
+  validations:
+    required: true
