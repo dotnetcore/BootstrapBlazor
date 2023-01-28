@@ -14,7 +14,7 @@ public class ExpandableNodeCache<TNode, TItem> where TNode : IExpandableNode<TIt
     /// <summary>
     /// 所有已展开行集合 作为缓存使用
     /// </summary>
-    protected readonly List<TItem> expandedNodeCache = new(50);
+    protected List<TItem> ExpandedNodeCache { get; } = new(50);
 
     /// <summary>
     /// 所有已收缩行集合 作为缓存使用
@@ -46,9 +46,9 @@ public class ExpandableNodeCache<TNode, TItem> where TNode : IExpandableNode<TIt
         if (node.IsExpand)
         {
             // 展开节点缓存增加此节点
-            if (!expandedNodeCache.Any(i => equalityComparer.Equals(i, node.Value)))
+            if (!ExpandedNodeCache.Any(i => equalityComparer.Equals(i, node.Value)))
             {
-                expandedNodeCache.Add(node.Value);
+                ExpandedNodeCache.Add(node.Value);
             }
 
             // 收缩节点缓存移除此节点
@@ -77,7 +77,7 @@ public class ExpandableNodeCache<TNode, TItem> where TNode : IExpandableNode<TIt
         else
         {
             // 展开节点缓存移除此节点
-            expandedNodeCache.RemoveAll(i => equalityComparer.Equals(i, node.Value));
+            ExpandedNodeCache.RemoveAll(i => equalityComparer.Equals(i, node.Value));
 
             // 收缩节点缓存添加此节点
             if (!CollapsedNodeCache.Any(i => equalityComparer.Equals(i, node.Value)))
@@ -102,16 +102,16 @@ public class ExpandableNodeCache<TNode, TItem> where TNode : IExpandableNode<TIt
             {
                 node.IsExpand = false;
             }
-            else if (!expandedNodeCache.Contains(node.Value, equalityComparer))
+            else if (!ExpandedNodeCache.Contains(node.Value, equalityComparer))
             {
                 // 状态为 展开
-                expandedNodeCache.Add(node.Value);
+                ExpandedNodeCache.Add(node.Value);
             }
         }
         else
         {
             var needRemove = true;
-            if (expandedNodeCache.Any(i => equalityComparer.Equals(i, node.Value)))
+            if (ExpandedNodeCache.Any(i => equalityComparer.Equals(i, node.Value)))
             {
                 // 原来是展开状态，
                 if (node.HasChildren)
@@ -132,7 +132,7 @@ public class ExpandableNodeCache<TNode, TItem> where TNode : IExpandableNode<TIt
             }
             if (needRemove)
             {
-                expandedNodeCache.RemoveAll(i => equalityComparer.Equals(i, node.Value));
+                ExpandedNodeCache.RemoveAll(i => equalityComparer.Equals(i, node.Value));
             }
         }
     }

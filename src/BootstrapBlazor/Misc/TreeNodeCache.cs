@@ -191,7 +191,7 @@ public class TreeNodeCache<TNode, TItem> : ExpandableNodeCache<TNode, TItem> whe
         UncheckedNodeCache.Clear();
         CheckedNodeCache.Clear();
         IndeterminateNodeCache.Clear();
-        expandedNodeCache.Clear();
+        ExpandedNodeCache.Clear();
         CollapsedNodeCache.Clear();
     }
 }
