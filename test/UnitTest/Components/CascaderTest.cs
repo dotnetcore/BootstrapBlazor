@@ -119,6 +119,7 @@ public class CascaderTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.Items, null);
             pb.Add(a => a.Value, "1");
+            pb.Add(a => a.ShowFullLevels, false);
         });
         Assert.Empty(cut.Instance.Value);
     }
