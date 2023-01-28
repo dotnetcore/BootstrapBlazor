@@ -23,7 +23,10 @@ jobs:
             })
             const current_reviewers = reviewers.data.users.map(v => v.login)
             if (current_reviewers.indexOf(repo_owner) > -1) {
-              console.log(`skip assign reviewers action. current reviewers`, current_reviewers)
+              console.log(`Skip assign reviewers action. current reviewers`, current_reviewers)
+            }
+            else if (context.payload.sender.login == repo_owner) {
+              console.log('Review cannot be requested from pull request author.')
             }
             else {
               current_reviewers.push(repo_owner)
@@ -33,7 +36,7 @@ jobs:
                 pull_number: context.issue.number,
                 reviewers: current_reviewers
               })
-              console.log('sync reviewers', current_reviewers)
+              console.log('Sync reviewers', current_reviewers)
             }
 
   sync_assignees:
@@ -46,7 +49,7 @@ jobs:
             const body = context.payload.pull_request.body
             const matches = body.match(/#(\d+)/)
             if (!matches || matches.length <= 1) {
-                console.log('this PR has no related issue!')
+                console.log('This PR has no related issue!')
             }
             else {
                 const related_issue_number = matches[1]
@@ -56,13 +59,13 @@ jobs:
                   issue_number: related_issue_number
                 })
                 if (issue.data.length == 0 || issue.data.assignees.length == 0) {
-                  console.log(`there no assignees on issue \#${related_issue_number}`)
+                  console.log(`There no assignees on issue \#${related_issue_number}`)
                 }
                 else {
                   const repo_owner = process.env.REPO_OWNER
                   const assignees = issue.data.assignees.map(v => v.login)
                   if (assignees.indexOf(repo_owner) > -1) {
-                    console.log(`skip assign assignees action. current assignees`, assignees)
+                    console.log(`Skip assign assignees action. current assignees`, assignees)
                   }
                   else {
                     await github.rest.issues.update({
@@ -71,7 +74,7 @@ jobs:
                       issue_number: context.issue.number,
                       assignees: assignees
                     })
-                    console.log('sync assignees', assignees)
+                    console.log('Sync assignees', assignees)
                   }
                 }
             }
@@ -86,7 +89,7 @@ jobs:
             const body = context.payload.pull_request.body
             const matches = body.match(/#(\d+)/)
             if (!matches || matches.length <= 1) {
-              console.log('this PR has no related issue!')
+              console.log('This PR has no related issue!')
             }
             else {
               const related_issue_number = matches[1]
@@ -96,7 +99,7 @@ jobs:
                 issue_number: related_issue_number
               })
               if(labels.data.length == 0) {
-                console.log(`there no labels on issue #${related_issue_number}`)
+                console.log(`There no labels on issue #${related_issue_number}`)
               }
               else {
                 const issue_labels = labels.data.map(v => v.name)
@@ -106,7 +109,7 @@ jobs:
                   issue_number: context.issue.number,
                   labels: issue_labels
                 })
-                console.log('sync labels', issue_labels)
+                console.log('Sync labels', issue_labels)
               }
             }
 
@@ -120,7 +123,7 @@ jobs:
             const body = context.payload.pull_request.body
             const matches = body.match(/#(\d+)/)
             if (!matches || matches.length <= 1) {
-              console.log('this PR has no related issue!')
+              console.log('This PR has no related issue!')
             }
             else {
               const related_issue_number = matches[1]
@@ -130,7 +133,7 @@ jobs:
                 issue_number: related_issue_number
               })
               if (issue.data.length == 0 || issue.data.milestone == null) {
-                console.log(`there no milestone on issue \#${related_issue_number}`)
+                console.log(`There no milestone on issue \#${related_issue_number}`)
               }
               else {
                 const milestone = issue.data.milestone
@@ -140,6 +143,6 @@ jobs:
                   issue_number: context.issue.number,
                   milestone: milestone.number
                 })
-                console.log(`sync milestone ${milestone.title}`)
+                console.log(`Sync milestone ${milestone.title}`)
               }
             }
