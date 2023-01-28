@@ -7,7 +7,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// DateTimeRange 验证
 /// </summary>
-public class DateTimeRangeRangeRequiredValidator : RequiredValidator
+public class DateTimeRangeRequiredValidator : RequiredValidator
 {
     /// <inheritdoc/>
     public override void Validate(object? propertyValue, ValidationContext context, List<ValidationResult> results)
