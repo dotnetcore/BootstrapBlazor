@@ -19,7 +19,7 @@ public class ExpandableNodeCache<TNode, TItem> where TNode : IExpandableNode<TIt
     /// <summary>
     /// 所有已收缩行集合 作为缓存使用
     /// </summary>
-    protected readonly List<TItem> collapsedNodeCache = new(50);
+    protected List<TItem> CollapsedNodeCache { get; } = new(50);
 
     /// <summary>
     /// 对象比较器
@@ -52,7 +52,7 @@ public class ExpandableNodeCache<TNode, TItem> where TNode : IExpandableNode<TIt
             }
 
             // 收缩节点缓存移除此节点
-            collapsedNodeCache.RemoveAll(i => equalityComparer.Equals(i, node.Value));
+            CollapsedNodeCache.RemoveAll(i => equalityComparer.Equals(i, node.Value));
 
             // 无子项时通过回调方法延时加载
             if (!node.Items.Any())
@@ -80,9 +80,9 @@ public class ExpandableNodeCache<TNode, TItem> where TNode : IExpandableNode<TIt
             expandedNodeCache.RemoveAll(i => equalityComparer.Equals(i, node.Value));
 
             // 收缩节点缓存添加此节点
-            if (!collapsedNodeCache.Any(i => equalityComparer.Equals(i, node.Value)))
+            if (!CollapsedNodeCache.Any(i => equalityComparer.Equals(i, node.Value)))
             {
-                collapsedNodeCache.Add(node.Value);
+                CollapsedNodeCache.Add(node.Value);
             }
         }
     }
@@ -98,7 +98,7 @@ public class ExpandableNodeCache<TNode, TItem> where TNode : IExpandableNode<TIt
         if (node.IsExpand)
         {
             // 已收缩
-            if (collapsedNodeCache.Contains(node.Value, equalityComparer))
+            if (CollapsedNodeCache.Contains(node.Value, equalityComparer))
             {
                 node.IsExpand = false;
             }
