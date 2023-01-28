@@ -19,9 +19,6 @@ jobs:
             if (current_assignees.indexOf(repo_owner) > -1) {
               console.log('Skip assign assignees action. current assignees', current_assignees)
             }
-            else if (context.payload.sender.login == repo_owner) {
-              console.log('Review cannot be requested from pull request author.')
-            }
             else {
               current_assignees.push(repo_owner)
               github.rest.issues.update({
