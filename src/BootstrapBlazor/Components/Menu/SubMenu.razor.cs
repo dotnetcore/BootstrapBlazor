@@ -52,7 +52,7 @@ public sealed partial class SubMenu
     /// <param name="item"></param>
     /// <returns></returns>
     private static string? GetClassString(MenuItem item) => CssBuilder.Default()
-        .AddClass("active", item.IsActive && !item.IsDisabled)
+        .AddClass("active", !item.IsDisabled && item.IsActive)
         .AddClass("disabled", item.IsDisabled)
         .Build();
 
