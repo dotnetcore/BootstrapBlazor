@@ -64,10 +64,8 @@ jobs:
                 else {
                   const repo_owner = process.env.REPO_OWNER
                   const assignees = issue.data.assignees.map(v => v.login)
-                  if (assignees.indexOf(repo_owner) > -1) {
-                    console.log(`Skip assign assignees action. current assignees`, assignees)
-                  }
-                  else {
+                  if (assignees.indexOf(repo_owner) == -1) {
+                    assignees.push(repo_owner)
                     await github.rest.issues.update({
                       owner: context.repo.owner,
                       repo: context.repo.repo,

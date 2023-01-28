@@ -173,10 +173,10 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     private IStringLocalizer<TreeView<TItem>>? Localizer { get; set; }
 
     /// <summary>
-    /// 节点缓存类实例
+    /// 节点状态缓存类实例
     /// </summary>
     [NotNull]
-    protected TreeNodeCache<TreeViewItem<TItem>, TItem>? treeNodeCache = null;
+    protected TreeNodeCache<TreeViewItem<TItem>, TItem>? TreeNodeStateCache { get; set; }
 
     /// <summary>
     /// 改变节点状态后自动更新子节点 默认 false
@@ -198,7 +198,7 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
         base.OnInitialized();
 
         // 初始化节点缓存
-        treeNodeCache ??= new(Equals);
+        TreeNodeStateCache ??= new(Equals);
         NotSetOnTreeExpandErrorMessage = Localizer[nameof(NotSetOnTreeExpandErrorMessage)];
     }
 
@@ -212,7 +212,7 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
         {
             if (IsReset)
             {
-                treeNodeCache.Reset();
+                TreeNodeStateCache.Reset();
             }
             else
             {
@@ -224,25 +224,26 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
                 if (ShowCheckbox && (AutoCheckParent || AutoCheckChildren))
                 {
                     // 开启 Checkbox 功能时初始化选中节点
-                    treeNodeCache.IsChecked(Items);
+                    TreeNodeStateCache.IsChecked(Items);
                 }
 
                 // 从数据源中恢复当前 active 节点
                 if (ActiveItem != null)
                 {
-                    ActiveItem = treeNodeCache.Find(Items, ActiveItem.Value, out _);
+                    ActiveItem = TreeNodeStateCache.Find(Items, ActiveItem.Value, out _);
                 }
             }
 
             // 设置 ActiveItem 默认值
             ActiveItem ??= Items.FirstOrDefaultActiveItem();
+            ActiveItem?.SetParentExpand<TreeViewItem<TItem>, TItem>(true);
 
             async Task CheckExpand(IEnumerable<TreeViewItem<TItem>> nodes)
             {
                 // 恢复当前节点状态
                 foreach (var node in nodes)
                 {
-                    await treeNodeCache.CheckExpandAsync(node, GetChildrenRowAsync);
+                    await TreeNodeStateCache.CheckExpandAsync(node, GetChildrenRowAsync);
 
                     if (node.Items.Any())
                     {
@@ -250,6 +251,21 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
                     }
                 }
             }
+        }
+    }
+
+    /// <summary>
+    /// OnAfterRenderAsync 方法
+    /// </summary>
+    /// <param name="firstRender"></param>
+    /// <returns></returns>
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+
+        if (firstRender)
+        {
+            await JSRuntime.InvokeVoidAsync(TreeElement, "bb_tree");
         }
     }
 
@@ -266,21 +282,6 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
         var ret = await OnExpandNodeAsync(node);
         node.ShowLoading = false;
         return ret;
-    }
-
-    /// <summary>
-    /// OnAfterRenderAsync 方法
-    /// </summary>
-    /// <param name="firstRender"></param>
-    /// <returns></returns>
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        await base.OnAfterRenderAsync(firstRender);
-
-        if (firstRender)
-        {
-            await JSRuntime.InvokeVoidAsync(TreeElement, "bb_tree");
-        }
     }
 
     /// <summary>
@@ -325,20 +326,20 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
         node.IsExpand = !node.IsExpand;
         if (IsAccordion)
         {
-            await treeNodeCache.ToggleNodeAsync(node, GetChildrenRowAsync);
+            await TreeNodeStateCache.ToggleNodeAsync(node, GetChildrenRowAsync);
 
             // 展开此节点关闭其他同级节点
             if (node.IsExpand)
             {
                 // 通过 item 找到父节点
-                var nodes = treeNodeCache.FindParentNode(Items, node)?.Items ?? Items;
+                var nodes = TreeNodeStateCache.FindParentNode(Items, node)?.Items ?? Items;
                 foreach (var n in nodes)
                 {
                     if (n != node)
                     {
                         // 收缩同级节点
                         n.IsExpand = false;
-                        await treeNodeCache.ToggleNodeAsync(n, GetChildrenRowAsync);
+                        await TreeNodeStateCache.ToggleNodeAsync(n, GetChildrenRowAsync);
                     }
                 }
             }
@@ -346,7 +347,7 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
         else
         {
             // 重建缓存 并且更改节点展开状态
-            await treeNodeCache.ToggleNodeAsync(node, GetChildrenRowAsync);
+            await TreeNodeStateCache.ToggleNodeAsync(node, GetChildrenRowAsync);
         }
 
         if (shouldRender)
@@ -368,17 +369,17 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
         if (AutoCheckChildren)
         {
             // 向下级联操作
-            item.SetChildrenCheck<TreeViewItem<TItem>, TItem>(item.CheckedState, treeNodeCache);
+            item.SetChildrenCheck<TreeViewItem<TItem>, TItem>(item.CheckedState, TreeNodeStateCache);
         }
 
         if (AutoCheckParent)
         {
             // 向上级联操作
-            item.SetParentCheck(item.CheckedState, treeNodeCache);
+            item.SetParentCheck(item.CheckedState, TreeNodeStateCache);
         }
 
         // 更新 选中状态缓存
-        treeNodeCache.ToggleCheck(item);
+        TreeNodeStateCache.ToggleCheck(item);
 
         if (OnTreeItemChecked != null)
         {
@@ -399,11 +400,11 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
         Items.ForEach(item =>
         {
             item.CheckedState = CheckboxState.UnChecked;
-            treeNodeCache.ToggleCheck(item);
+            TreeNodeStateCache.ToggleCheck(item);
             item.GetAllTreeSubItems().ToList().ForEach(s =>
             {
                 s.CheckedState = CheckboxState.UnChecked;
-                treeNodeCache.ToggleCheck(s);
+                TreeNodeStateCache.ToggleCheck(s);
             });
             StateHasChanged();
         });

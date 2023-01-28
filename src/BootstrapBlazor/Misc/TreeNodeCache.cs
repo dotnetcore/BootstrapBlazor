@@ -44,11 +44,11 @@ public class TreeNodeCache<TNode, TItem> : ExpandableNodeCache<TNode, TItem> whe
         if (node.CheckedState == CheckboxState.Checked)
         {
             // 未选中节点缓存移除此节点
-            UncheckedNodeCache.RemoveAll(i => equalityComparer.Equals(i, node.Value));
-            IndeterminateNodeCache.RemoveAll(i => equalityComparer.Equals(i, node.Value));
+            UncheckedNodeCache.RemoveAll(i => EqualityComparer.Equals(i, node.Value));
+            IndeterminateNodeCache.RemoveAll(i => EqualityComparer.Equals(i, node.Value));
 
             // 选中节点缓存添加此节点
-            if (!CheckedNodeCache.Any(i => equalityComparer.Equals(i, node.Value)))
+            if (!CheckedNodeCache.Any(i => EqualityComparer.Equals(i, node.Value)))
             {
                 CheckedNodeCache.Add(node.Value);
             }
@@ -56,11 +56,11 @@ public class TreeNodeCache<TNode, TItem> : ExpandableNodeCache<TNode, TItem> whe
         else if (node.CheckedState == CheckboxState.UnChecked)
         {
             // 选中节点缓存添加此节点
-            CheckedNodeCache.RemoveAll(i => equalityComparer.Equals(i, node.Value));
-            IndeterminateNodeCache.RemoveAll(i => equalityComparer.Equals(i, node.Value));
+            CheckedNodeCache.RemoveAll(i => EqualityComparer.Equals(i, node.Value));
+            IndeterminateNodeCache.RemoveAll(i => EqualityComparer.Equals(i, node.Value));
 
             // 未选中节点缓存移除此节点
-            if (!UncheckedNodeCache.Any(i => equalityComparer.Equals(i, node.Value)))
+            if (!UncheckedNodeCache.Any(i => EqualityComparer.Equals(i, node.Value)))
             {
                 UncheckedNodeCache.Add(node.Value);
             }
@@ -68,11 +68,11 @@ public class TreeNodeCache<TNode, TItem> : ExpandableNodeCache<TNode, TItem> whe
         else
         {
             // 不确定节点缓存添加此节点
-            CheckedNodeCache.RemoveAll(i => equalityComparer.Equals(i, node.Value));
-            UncheckedNodeCache.RemoveAll(i => equalityComparer.Equals(i, node.Value));
+            CheckedNodeCache.RemoveAll(i => EqualityComparer.Equals(i, node.Value));
+            UncheckedNodeCache.RemoveAll(i => EqualityComparer.Equals(i, node.Value));
 
             // 未选中节点缓存移除此节点
-            if (!IndeterminateNodeCache.Any(i => equalityComparer.Equals(i, node.Value)))
+            if (!IndeterminateNodeCache.Any(i => EqualityComparer.Equals(i, node.Value)))
             {
                 IndeterminateNodeCache.Add(node.Value);
             }
@@ -88,15 +88,15 @@ public class TreeNodeCache<TNode, TItem> : ExpandableNodeCache<TNode, TItem> whe
     {
         // 当前节点状态为未确定状态
         var nodes = node.Items.OfType<ICheckableNode<TItem>>();
-        if (CheckedNodeCache.Any(i => equalityComparer.Equals(i, node.Value)))
+        if (CheckedNodeCache.Any(i => EqualityComparer.Equals(i, node.Value)))
         {
             node.CheckedState = CheckboxState.Checked;
         }
-        else if (UncheckedNodeCache.Contains(node.Value, equalityComparer))
+        else if (UncheckedNodeCache.Contains(node.Value, EqualityComparer))
         {
             node.CheckedState = CheckboxState.UnChecked;
         }
-        else if (IndeterminateNodeCache.Contains(node.Value, equalityComparer))
+        else if (IndeterminateNodeCache.Contains(node.Value, EqualityComparer))
         {
             node.CheckedState = CheckboxState.Indeterminate;
         }
@@ -106,9 +106,9 @@ public class TreeNodeCache<TNode, TItem> : ExpandableNodeCache<TNode, TItem> whe
         {
             if (nodes.Any())
             {
-                CheckedNodeCache.RemoveAll(i => equalityComparer.Equals(i, node.Value));
-                UncheckedNodeCache.RemoveAll(i => equalityComparer.Equals(i, node.Value));
-                IndeterminateNodeCache.RemoveAll(i => equalityComparer.Equals(i, node.Value));
+                CheckedNodeCache.RemoveAll(i => EqualityComparer.Equals(i, node.Value));
+                UncheckedNodeCache.RemoveAll(i => EqualityComparer.Equals(i, node.Value));
+                IndeterminateNodeCache.RemoveAll(i => EqualityComparer.Equals(i, node.Value));
 
                 // 查看子节点状态
                 if (nodes.All(i => i.CheckedState == CheckboxState.Checked))
@@ -170,7 +170,7 @@ public class TreeNodeCache<TNode, TItem> : ExpandableNodeCache<TNode, TItem> whe
         foreach (var treeNode in nodes)
         {
             var subNodes = treeNode.Items.OfType<TNode>();
-            if (subNodes.Any(i => equalityComparer.Equals(i.Value, node.Value)))
+            if (subNodes.Any(i => EqualityComparer.Equals(i.Value, node.Value)))
             {
                 ret = treeNode;
                 break;
@@ -191,7 +191,7 @@ public class TreeNodeCache<TNode, TItem> : ExpandableNodeCache<TNode, TItem> whe
         UncheckedNodeCache.Clear();
         CheckedNodeCache.Clear();
         IndeterminateNodeCache.Clear();
-        expandedNodeCache.Clear();
-        collapsedNodeCache.Clear();
+        ExpandedNodeCache.Clear();
+        CollapsedNodeCache.Clear();
     }
 }

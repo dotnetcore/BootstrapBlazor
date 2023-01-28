@@ -134,7 +134,7 @@ public partial class SelectTree<TValue> : IModelEqualityComparer<TValue>
     private List<TreeViewItem<TValue>>? ItemCache { get; set; }
 
     [NotNull]
-    private List<TreeViewItem<TValue>>? ExpansionItemsCache { get; set; }
+    private List<TreeViewItem<TValue>>? ExpandedItemsCache { get; set; }
 
     /// <summary>
     /// OnParametersSet 方法
@@ -162,22 +162,21 @@ public partial class SelectTree<TValue> : IModelEqualityComparer<TValue>
 
     private async Task TriggerItemChanged(Func<TreeViewItem<TValue>, bool> predicate)
     {
-        var currentItem = GetExpansionItems().FirstOrDefault(predicate);
+        var currentItem = GetExpandedItems().FirstOrDefault(predicate);
         if (currentItem != null)
         {
-            currentItem.SetParentExpand<TreeViewItem<TValue>, TValue>(true);
             await ItemChanged(currentItem);
         }
     }
 
-    private IEnumerable<TreeViewItem<TValue>> GetExpansionItems()
+    private IEnumerable<TreeViewItem<TValue>> GetExpandedItems()
     {
         if (ItemCache != Items)
         {
             ItemCache = Items;
-            ExpansionItemsCache = TreeItemExtensions.GetAllItems(ItemCache).ToList();
+            ExpandedItemsCache = TreeItemExtensions.GetAllItems(ItemCache).ToList();
         }
-        return ExpansionItemsCache;
+        return ExpandedItemsCache;
     }
 
     /// <summary>
