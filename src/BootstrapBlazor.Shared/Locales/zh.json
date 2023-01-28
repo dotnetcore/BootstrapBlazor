@@ -5527,18 +5527,18 @@
     "P26": "输出日志信息"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesExport": {
-    "H1": "Table 表格",
-    "H2": "通过设置 <code>ShowExportButton</code> 参数显示导出按钮，组件内置导出 Excel 功能",
-    "P1": "导出功能提供了导出回调方法 <code>OnExportAsync</code> 使用时可以通过提供自定义的导出方法进行数据导出，如果未提供数据导出方法，组件会根据注入的导出服务进行数据导出",
-    "P7": "注入服务",
-    "P8": "增加 BootstrapBlazor 组件",
-    "P9": "增加 Table Excel 导出服务",
-    "P11": "表格导出功能",
-    "P12": "通过设置 <code>ShowExportButton=\"true\"</code> 属性是否显示导出按钮，默认为<code>false</code>",
-    "P13": "自定义导出方法",
-    "P14": "通过设置 <code>OnExportAsync</code> 回调委托方法可自定义导出方法，不设置将使用组件内置导出函数",
-    "P15": "自定义导出下拉框按钮",
-    "P16": "通过设置 <code>ExportButtonDropdownTemplate</code> 模板自定义导出按钮下拉框内容"
+    "TablesExportTitle": "Table 表格",
+    "TablesExportDescription1": "通过设置 <code>ShowExportButton</code> 参数显示导出按钮，组件内置导出 Excel 功能",
+    "TablesExportDescription2": "导出功能提供了导出回调方法 <code>OnExportAsync</code> 使用时可以通过提供自定义的导出方法进行数据导出，如果未提供数据导出方法，组件会根据注入的导出服务进行数据导出",
+    "TablesExportTips": "注入服务",
+    "TablesExportNote1": "增加 BootstrapBlazor 组件",
+    "TablesExportNote2": "增加 Table Excel 导出服务",
+    "TablesExportShowExportButtonTitle": "表格导出功能",
+    "TablesExportShowExportButtonIntro": "通过设置 <code>ShowExportButton=\"true\"</code> 属性是否显示导出按钮，默认为<code>false</code>",
+    "TablesExportOnExportAsyncTitle": "自定义导出方法",
+    "TablesExportOnExportAsyncIntro": "通过设置 <code>OnExportAsync</code> 回调委托方法可自定义导出方法，不设置将使用组件内置导出函数",
+    "TablesExportButtonDropdownTemplateTitle": "自定义导出下拉框按钮",
+    "TablesExportButtonDropdownTemplateIntro": "通过设置 <code>ExportButtonDropdownTemplate</code> 模板自定义导出按钮下拉框内容"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesToolbar": {
     "H1": "Table 表格",
