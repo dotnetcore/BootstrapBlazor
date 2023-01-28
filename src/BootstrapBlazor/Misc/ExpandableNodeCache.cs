@@ -24,14 +24,14 @@ public class ExpandableNodeCache<TNode, TItem> where TNode : IExpandableNode<TIt
     /// <summary>
     /// 对象比较器
     /// </summary>
-    protected readonly IEqualityComparer<TItem> equalityComparer;
+    protected IEqualityComparer<TItem> EqualityComparer { get; }
 
     /// <summary>
     /// 构造函数
     /// </summary>
     public ExpandableNodeCache(Func<TItem, TItem, bool> comparer)
     {
-        equalityComparer = new ModelComparer<TItem>(comparer);
+        EqualityComparer = new ModelComparer<TItem>(comparer);
     }
 
     /// <summary>
@@ -46,13 +46,13 @@ public class ExpandableNodeCache<TNode, TItem> where TNode : IExpandableNode<TIt
         if (node.IsExpand)
         {
             // 展开节点缓存增加此节点
-            if (!ExpandedNodeCache.Any(i => equalityComparer.Equals(i, node.Value)))
+            if (!ExpandedNodeCache.Any(i => EqualityComparer.Equals(i, node.Value)))
             {
                 ExpandedNodeCache.Add(node.Value);
             }
 
             // 收缩节点缓存移除此节点
-            CollapsedNodeCache.RemoveAll(i => equalityComparer.Equals(i, node.Value));
+            CollapsedNodeCache.RemoveAll(i => EqualityComparer.Equals(i, node.Value));
 
             // 无子项时通过回调方法延时加载
             if (!node.Items.Any())
@@ -77,10 +77,10 @@ public class ExpandableNodeCache<TNode, TItem> where TNode : IExpandableNode<TIt
         else
         {
             // 展开节点缓存移除此节点
-            ExpandedNodeCache.RemoveAll(i => equalityComparer.Equals(i, node.Value));
+            ExpandedNodeCache.RemoveAll(i => EqualityComparer.Equals(i, node.Value));
 
             // 收缩节点缓存添加此节点
-            if (!CollapsedNodeCache.Any(i => equalityComparer.Equals(i, node.Value)))
+            if (!CollapsedNodeCache.Any(i => EqualityComparer.Equals(i, node.Value)))
             {
                 CollapsedNodeCache.Add(node.Value);
             }
@@ -98,11 +98,11 @@ public class ExpandableNodeCache<TNode, TItem> where TNode : IExpandableNode<TIt
         if (node.IsExpand)
         {
             // 已收缩
-            if (CollapsedNodeCache.Contains(node.Value, equalityComparer))
+            if (CollapsedNodeCache.Contains(node.Value, EqualityComparer))
             {
                 node.IsExpand = false;
             }
-            else if (!ExpandedNodeCache.Contains(node.Value, equalityComparer))
+            else if (!ExpandedNodeCache.Contains(node.Value, EqualityComparer))
             {
                 // 状态为 展开
                 ExpandedNodeCache.Add(node.Value);
@@ -111,7 +111,7 @@ public class ExpandableNodeCache<TNode, TItem> where TNode : IExpandableNode<TIt
         else
         {
             var needRemove = true;
-            if (ExpandedNodeCache.Any(i => equalityComparer.Equals(i, node.Value)))
+            if (ExpandedNodeCache.Any(i => EqualityComparer.Equals(i, node.Value)))
             {
                 // 原来是展开状态，
                 if (node.HasChildren)
@@ -132,7 +132,7 @@ public class ExpandableNodeCache<TNode, TItem> where TNode : IExpandableNode<TIt
             }
             if (needRemove)
             {
-                ExpandedNodeCache.RemoveAll(i => equalityComparer.Equals(i, node.Value));
+                ExpandedNodeCache.RemoveAll(i => EqualityComparer.Equals(i, node.Value));
             }
         }
     }
@@ -171,7 +171,7 @@ public class ExpandableNodeCache<TNode, TItem> where TNode : IExpandableNode<TIt
     public TNode? Find(IEnumerable<TNode> source, TItem target, out int degree)
     {
         degree = -1;
-        var ret = source.FirstOrDefault(item => equalityComparer.Equals(item.Value, target));
+        var ret = source.FirstOrDefault(item => EqualityComparer.Equals(item.Value, target));
         if (ret == null)
         {
             var children = source.SelectMany(e => e.Items.OfType<TNode>());
