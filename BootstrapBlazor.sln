@@ -42,8 +42,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "github", "github", "{F07542
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{9437A6C6-CF87-4B75-916B-C1EF558BD8EF}"
 	ProjectSection(SolutionItems) = preProject
+		CHANGELOG.zh-CN.md = CHANGELOG.zh-CN.md
 		README.md = README.md
 		README.zh-CN.md = README.zh-CN.md
+		docs\repro.md = docs\repro.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "dist", "dist", "{63E887C6-4610-4ED3-91F4-62EFDE7F442F}"
