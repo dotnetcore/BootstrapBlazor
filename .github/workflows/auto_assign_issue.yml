@@ -17,7 +17,7 @@ jobs:
             const repo_owner = process.env.REPO_OWNER
             const current_assignees = context.payload.issue.assignees.map(v => v.login)
             if (current_assignees.indexOf(repo_owner) > -1) {
-              console.log(`skip assign assignees action. current assignees`, current_assignees)
+              console.log('Skip assign assignees action. current assignees', current_assignees)
             }
             else {
               current_assignees.push(repo_owner)
@@ -57,7 +57,7 @@ jobs:
               issue_number: context.issue.number
             })
             if (labels.data.length == 0) {
-              console.log(`there no labels on issue #${context.issue.number}`)
+              console.log(`There no labels on issue #${context.issue.number}`)
             }
             else {
               const label = labels.data.pop().name
