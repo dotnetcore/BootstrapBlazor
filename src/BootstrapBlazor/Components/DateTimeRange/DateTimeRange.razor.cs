@@ -212,7 +212,7 @@ public partial class DateTimeRange
                 var required = pi.GetCustomAttribute<RequiredAttribute>(true);
                 if (required != null)
                 {
-                    Rules.Add(new DateTimeRangeRangeRequiredValidator()
+                    Rules.Add(new DateTimeRangeRequiredValidator()
                     {
                         LocalizerFactory = LocalizerFactory,
                         ErrorMessage = required.ErrorMessage,
