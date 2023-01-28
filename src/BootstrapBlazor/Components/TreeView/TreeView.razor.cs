@@ -236,6 +236,7 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
 
             // 设置 ActiveItem 默认值
             ActiveItem ??= Items.FirstOrDefaultActiveItem();
+            ActiveItem?.SetParentExpand<TreeViewItem<TItem>, TItem>(true);
 
             async Task CheckExpand(IEnumerable<TreeViewItem<TItem>> nodes)
             {
