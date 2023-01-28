@@ -5511,18 +5511,18 @@
     "P26": "output log information"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesExport": {
-    "H1": "Table Export",
-    "H2": "By setting <code>ShowExportButton</code> to display the export button, the component has built-in export Excel function",
-    "P1": "The export function provides an export callback method <code>OnExportAsync</code>, which can be used to export data by providing a custom export method. If no data export method is provided, the component will export data according to the injected export service",
-    "P7": "inject service",
-    "P8": "Add BootstrapBlazor component",
-    "P9": "Add Table Excel export service",
-    "P11": "Table export function",
-    "P12": "Whether to display the export button by setting the <code>ShowExportButton</code> property, the default is <code>false</code>",
-    "P13": "Custom export method",
-    "P14": "You can customize the export method by setting the <code>OnExportAsync</code> callback delegate method. If you don't set it, the built-in export function of the component will be used.",
-    "P15": "Custom export dropdown button",
-    "P16": "Customize the content of the export button dropdown box by setting the <code>ExportButtonDropdownTemplate</code> template"
+    "TablesExportTitle": "Table Export",
+    "TablesExportDescription1": "By setting <code>ShowExportButton</code> to display the export button, the component has built-in export Excel function",
+    "TablesExportDescription2": "The export function provides an export callback method <code>OnExportAsync</code>, which can be used to export data by providing a custom export method. If no data export method is provided, the component will export data according to the injected export service",
+    "TablesExportTips": "inject service",
+    "TablesExportNote1": "Add BootstrapBlazor component",
+    "TablesExportNote2": "Add Table Excel export service",
+    "TablesExportShowExportButtonTitle": "Table export function",
+    "TablesExportShowExportButtonIntro": "Whether to display the export button by setting the <code>ShowExportButton</code> property, the default is <code>false</code>",
+    "TablesExportOnExportAsyncTitle": "Custom export method",
+    "TablesExportOnExportAsyncIntro": "You can customize the export method by setting the <code>OnExportAsync</code> callback delegate method. If you don't set it, the built-in export function of the component will be used.",
+    "TablesExportButtonDropdownTemplateTitle": "Custom export dropdown button",
+    "TablesExportButtonDropdownTemplateIntro": "Customize the content of the export button dropdown box by setting the <code>ExportButtonDropdownTemplate</code> template"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesToolbar": {
     "H1": "Table",
