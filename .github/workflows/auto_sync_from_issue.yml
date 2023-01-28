@@ -58,22 +58,31 @@ jobs:
                   repo: context.repo.repo,
                   issue_number: related_issue_number
                 })
-                if (issue.data.length == 0 || issue.data.assignees.length == 0) {
+                if (issue.data.length == 0) {
                   console.log(`There no assignees on issue \#${related_issue_number}`)
                 }
                 else {
                   const repo_owner = process.env.REPO_OWNER
-                  const assignees = issue.data.assignees.map(v => v.login)
-                  if (assignees.indexOf(repo_owner) == -1) {
-                    assignees.push(repo_owner)
+                  if (issue.data.assignees.length == 0) {
+                    issue.data.assignees.push(repo_owner)
                     await github.rest.issues.update({
                       owner: context.repo.owner,
                       repo: context.repo.repo,
-                      issue_number: context.issue.number,
-                      assignees: assignees
+                      issue_number: related_issue_number,
+                      assignees: issue.data.assignees
                     })
-                    console.log('Sync assignees', assignees)
                   }
+                  const assignees = issue.data.assignees.map(v => v.login)
+                  if (assignees.indexOf(repo_owner) == -1) {
+                    assignees.push(repo_owner)
+                  }
+                  await github.rest.issues.update({
+                    owner: context.repo.owner,
+                    repo: context.repo.repo,
+                    issue_number: context.issue.number,
+                    assignees: assignees
+                  })
+                  console.log('Sync assignees', assignees)
                 }
             }
 
