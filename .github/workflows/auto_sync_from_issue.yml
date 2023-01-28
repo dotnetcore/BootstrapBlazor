@@ -25,6 +25,9 @@ jobs:
             if (current_reviewers.indexOf(repo_owner) > -1) {
               console.log(`Skip assign reviewers action. current reviewers`, current_reviewers)
             }
+            else if (context.payload.sender.login == repo_owner) {
+              console.log('Review cannot be requested from pull request author.')
+            }
             else {
               current_reviewers.push(repo_owner)
               await github.rest.pulls.requestReviewers({
