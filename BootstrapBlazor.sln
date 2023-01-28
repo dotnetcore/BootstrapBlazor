@@ -29,7 +29,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "github", "github", "{F0754254-903C-411B-972C-EC91254B4A67}"
 	ProjectSection(SolutionItems) = preProject
 		.github\workflows\auto_assign_issue.yml = .github\workflows\auto_assign_issue.yml
-		.github\workflows\auto_comment_issue.yml = .github\workflows\auto_comment_issue.yml
 		.github\workflows\auto_pull_request_checks.yml = .github\workflows\auto_pull_request_checks.yml
 		.github\workflows\auto_sync_from_issue.yml = .github\workflows\auto_sync_from_issue.yml
 		.github\workflows\build.yml = .github\workflows\build.yml
