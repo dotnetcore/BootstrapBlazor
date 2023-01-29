@@ -613,13 +613,9 @@ public class UtilityTest : BootstrapBlazorTestBase
 
     private class Cat
     {
-        public Foo Foo { get; set; } = new Foo();
-
         [PlaceHolder("Test-PlaceHolder")]
         [Description("Cat-Desc")]
         public string? Name { get; set; }
-
-        public string? PlaceHolder { get; set; }
 
         [CatKey]
         public int Id { get; set; }
