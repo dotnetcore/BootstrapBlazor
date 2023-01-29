@@ -113,6 +113,24 @@ public class DataTableDynamicContextTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public async Task OnChanged_Ok()
+    {
+        var changed = false;
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var fooData = GenerateDataTable(localizer);
+        var context = new DataTableDynamicContext(fooData)
+        {
+            OnChanged = context =>
+            {
+                changed = true;
+                return Task.CompletedTask;
+            }
+        };
+        await context.AddAsync(Enumerable.Empty<IDynamicObject>());
+        Assert.True(changed);
+    }
+
+    [Fact]
     public async Task DeleteAsync_Ok()
     {
         var deleted = false;
