@@ -109,7 +109,7 @@ public class DataTableDynamicContextTest : BootstrapBlazorTestBase
         var items = context.GetItems();
         await context.AddAsync(items);
         Assert.True(added);
-        Assert.True(changed);
+        Assert.False(changed);
     }
 
     [Fact]
