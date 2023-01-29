@@ -167,15 +167,15 @@ public class DataTableDynamicContextTest : BootstrapBlazorTestBase
                 return Task.CompletedTask;
             }
         };
-        var item = context.GetItems().ToList().Take(1);
-        var expected = item.First().DynamicObjectPrimaryKey.ToString();
-        await context.DeleteAsync(item);
+        var items = context.GetItems().ToList().Take(1);
+        var expected = items.First().DynamicObjectPrimaryKey.ToString();
+        await context.DeleteAsync(items);
         Assert.Equal(expected, actual);
         Assert.True(deleted);
         Assert.Equal(3, context.GetItems().Count());
 
         // add
-        await context.AddAsync(item);
+        await context.AddAsync(items);
         Assert.True(added);
         Assert.Equal(4, context.GetItems().Count());
 
