@@ -1,5 +1,7 @@
 ﻿{
   "BootstrapBlazor.Shared.Foo": {
-    "Name": "Test-Name"
+    "Name": "Test-Name",
+    "NullName": null,
+    "EmptyName": ""
   }
 }
