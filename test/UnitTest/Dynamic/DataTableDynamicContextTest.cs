@@ -90,6 +90,7 @@ public class DataTableDynamicContextTest : BootstrapBlazorTestBase
     public async Task AddAsync_Ok()
     {
         var added = false;
+        var changed = false;
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var fooData = GenerateDataTable(localizer);
         var context = new DataTableDynamicContext(fooData)
@@ -98,11 +99,17 @@ public class DataTableDynamicContextTest : BootstrapBlazorTestBase
             {
                 added = true;
                 return Task.CompletedTask;
+            },
+            OnChanged = context =>
+            {
+                changed = true;
+                return Task.CompletedTask;
             }
         };
         var items = context.GetItems();
         await context.AddAsync(items);
         Assert.True(added);
+        Assert.True(changed);
     }
 
     [Fact]
