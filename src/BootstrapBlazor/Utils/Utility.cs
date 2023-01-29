@@ -218,7 +218,7 @@ public static class Utility
                             foreach (var f in type.GetFields())
                             {
                                 var v = f.GetValue(item);
-                                var field = valType.GetFields().First(i => i.Name == f.Name);
+                                var field = valType.GetField(f.Name)!;
                                 field.SetValue(ret, v);
                             };
                             foreach (var p in type.GetRuntimeProperties())
