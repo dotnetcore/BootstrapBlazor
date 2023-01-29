@@ -215,10 +215,10 @@ public static class Utility
                             var valType = ret.GetType();
 
                             // 20200608 tian_teng@outlook.com 支持字段和只读属性
-                            foreach (var f in type.GetRuntimeFields())
+                            foreach (var f in type.GetFields())
                             {
                                 var v = f.GetValue(item);
-                                var field = valType.GetRuntimeFields().First(i => i.Name == f.Name && i.FieldType == f.FieldType);
+                                var field = valType.GetFields().First(i => i.Name == f.Name);
                                 field.SetValue(ret, v);
                             };
                             foreach (var p in type.GetRuntimeProperties())
