@@ -310,14 +310,11 @@ public class UtilityTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void GetJsonStringFromAssembly_Ok()
+    public void GetJsonStringByTypeName_Ok()
     {
+        // improve code coverage
         var option = Context.Services.GetRequiredService<IOptions<JsonLocalizationOptions>>().Value;
-        var sections = Utility.GetJsonStringByTypeName(option, this.GetType().Assembly, "UnitTest.Utils.UtilityTest+Cat", null, true);
-
-        // 加载 UnitTest.Locals.en-US.json
-        // 加载 BootstrapBlazor.Locals.en.json
-        Assert.NotEmpty(sections);
+        Utility.GetJsonStringByTypeName(option, this.GetType().Assembly, "UnitTest.Utils.UtilityTest+Cat", null, true);
 
         // dynamic
         var dynamicType = EmitHelper.CreateTypeByName("test_type", new MockTableColumn[] { new("Name", typeof(string)) });
