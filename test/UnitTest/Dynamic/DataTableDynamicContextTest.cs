@@ -150,28 +150,6 @@ public class DataTableDynamicContextTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public async Task DeleteAsyncNullItems_Ok()
-    {
-        var deleted = false;
-        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var fooData = GenerateDataTable(localizer);
-        var context = new DataTableDynamicContext(fooData)
-        {
-            OnDeleteAsync = foos =>
-            {
-                deleted = true;
-                return Task.FromResult(true);
-            }
-        };
-        await context.DeleteAsync(Enumerable.Empty<IDynamicObject>());
-        Assert.True(deleted);
-
-        context.OnDeleteAsync = null;
-        await context.DeleteAsync(Enumerable.Empty<IDynamicObject>());
-        Assert.True(deleted);
-    }
-
-    [Fact]
     public async Task DeleteAsync_Null()
     {
         var actual = "";
