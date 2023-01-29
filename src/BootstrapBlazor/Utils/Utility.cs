@@ -188,9 +188,11 @@ public static class Utility
 
     /// <summary>
     /// 泛型 Clone 方法
+    /// <para>仅克隆类 公开 Field 与 Property</para>
     /// </summary>
     /// <typeparam name="TModel"></typeparam>
-    /// <param name="item"></param>
+    /// <param name="item">克隆对象</param>
+    /// <remarks>简单的深克隆方法，内部未使用序列化技术</remarks>
     /// <returns></returns>
     public static TModel Clone<TModel>(TModel item)
     {
