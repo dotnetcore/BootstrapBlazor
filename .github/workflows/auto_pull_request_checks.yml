@@ -24,6 +24,6 @@ jobs:
           dotnet test test/UnitTest -c Release --collect:"XPlat Code Coverage"
 
       - name: Upload to Codecov
-        uses: codecov/codecov-action@v3
+        uses: codecov/codecov-action@v3.1.1
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
