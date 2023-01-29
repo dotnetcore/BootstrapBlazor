@@ -184,6 +184,14 @@ public class DataTableDynamicContextTest : BootstrapBlazorTestBase
 
         // 在选中行位置插入
         await context.AddAsync(context.GetItems().Take(2));
+
+        // 反射设置 内部 Items 为 null
+        items = context.GetItems().Take(1).ToList();
+        context.GetType().GetProperty("Items", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic)!.SetValue(context, null);
+        await context.DeleteAsync(items);
+
+        context.OnDeleteAsync = context => Task.FromResult(true);
+        await context.DeleteAsync(items);
     }
 
     [Fact]
