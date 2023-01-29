@@ -253,19 +253,21 @@ public static class Utility
         var valType = destination.GetType();
         if (valType != null)
         {
-            type.GetFields().ToList().ForEach(f =>
+            foreach (var f in type.GetFields())
             {
                 var v = f.GetValue(source);
-                valType.GetField(f.Name)!.SetValue(destination, v);
-            });
-            type.GetRuntimeProperties().ToList().ForEach(p =>
+                var field = valType.GetField(f.Name)!;
+                field.SetValue(destination, v);
+            }
+            foreach (var p in type.GetRuntimeProperties())
             {
                 if (p.CanWrite)
                 {
                     var v = p.GetValue(source);
-                    valType.GetProperty(p.Name)!.SetValue(destination, v);
+                    var property = valType.GetRuntimeProperties().First(i => i.Name == p.Name && i.PropertyType == p.PropertyType);
+                    property.SetValue(destination, v);
                 }
-            });
+            }
         }
     }
 
