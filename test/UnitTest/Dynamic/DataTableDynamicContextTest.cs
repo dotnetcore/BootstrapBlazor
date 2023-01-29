@@ -90,6 +90,7 @@ public class DataTableDynamicContextTest : BootstrapBlazorTestBase
     public async Task AddAsync_Ok()
     {
         var added = false;
+        var changed = false;
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var fooData = GenerateDataTable(localizer);
         var context = new DataTableDynamicContext(fooData)
@@ -98,11 +99,35 @@ public class DataTableDynamicContextTest : BootstrapBlazorTestBase
             {
                 added = true;
                 return Task.CompletedTask;
+            },
+            OnChanged = context =>
+            {
+                changed = true;
+                return Task.CompletedTask;
             }
         };
         var items = context.GetItems();
         await context.AddAsync(items);
         Assert.True(added);
+        Assert.False(changed);
+    }
+
+    [Fact]
+    public async Task OnChanged_Ok()
+    {
+        var changed = false;
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var fooData = GenerateDataTable(localizer);
+        var context = new DataTableDynamicContext(fooData)
+        {
+            OnChanged = context =>
+            {
+                changed = true;
+                return Task.CompletedTask;
+            }
+        };
+        await context.AddAsync(Enumerable.Empty<IDynamicObject>());
+        Assert.True(changed);
     }
 
     [Fact]
@@ -142,15 +167,15 @@ public class DataTableDynamicContextTest : BootstrapBlazorTestBase
                 return Task.CompletedTask;
             }
         };
-        var item = context.GetItems().ToList().Take(1);
-        var expected = item.First().DynamicObjectPrimaryKey.ToString();
-        await context.DeleteAsync(item);
+        var items = context.GetItems().ToList().Take(1);
+        var expected = items.First().DynamicObjectPrimaryKey.ToString();
+        await context.DeleteAsync(items);
         Assert.Equal(expected, actual);
         Assert.True(deleted);
         Assert.Equal(3, context.GetItems().Count());
 
         // add
-        await context.AddAsync(item);
+        await context.AddAsync(items);
         Assert.True(added);
         Assert.Equal(4, context.GetItems().Count());
 
@@ -159,6 +184,14 @@ public class DataTableDynamicContextTest : BootstrapBlazorTestBase
 
         // 在选中行位置插入
         await context.AddAsync(context.GetItems().Take(2));
+
+        // 反射设置 内部 Items 为 null
+        items = context.GetItems().Take(1).ToList();
+        context.GetType().GetProperty("Items", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic)!.SetValue(context, null);
+        await context.DeleteAsync(items);
+
+        context.OnDeleteAsync = context => Task.FromResult(true);
+        await context.DeleteAsync(items);
     }
 
     [Fact]
