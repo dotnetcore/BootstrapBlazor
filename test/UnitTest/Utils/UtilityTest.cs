@@ -542,7 +542,18 @@ public class UtilityTest : BootstrapBlazorTestBase
             }
         };
         var localizedStrings = Utility.GetJsonStringByTypeName(option, this.GetType().Assembly, "BootstrapBlazor.Shared.Foo", "zh-CN", true);
-        Assert.Equal("Test-Name", localizedStrings.First(i => i.Name == "Name").Value);
+        var localizer = localizedStrings.First(i => i.Name == "Name");
+        Assert.Equal("Test-Name", localizer.Value);
+        Assert.False(localizer.ResourceNotFound);
+
+        // Value is null
+        localizer = localizedStrings.First(i => i.Name == "NullName");
+        Assert.Equal("", localizer.Value);
+        Assert.False(localizer.ResourceNotFound);
+
+        localizer = localizedStrings.First(i => i.Name == "EmptyName");
+        Assert.Equal("", localizer.Value);
+        Assert.False(localizer.ResourceNotFound);
     }
 
     [Fact]
