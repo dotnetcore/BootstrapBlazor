@@ -679,14 +679,22 @@ public static class Utility
         }
         else if (typeValue.IsGenericType || typeValue.IsArray)
         {
-            var t = typeValue.IsGenericType ? typeValue.GenericTypeArguments[0] : typeValue.GetElementType()!;
-            var instance = Activator.CreateInstance(typeof(List<>).MakeGenericType(t))!;
-            var mi = instance.GetType().GetMethod("AddRange");
-            mi?.Invoke(instance, new object[] { value! });
-
-            var invoker = CacheManager.CreateConverterInvoker(t);
-            var v = invoker.Invoke(instance);
-            ret = string.Join(",", v);
+            var t = typeValue.IsGenericType ? typeValue.GenericTypeArguments[0] : typeValue.GetElementType();
+            if (t != null)
+            {
+                var instance = Activator.CreateInstance(typeof(List<>).MakeGenericType(t));
+                if (instance != null)
+                {
+                    var mi = instance.GetType().GetMethod(nameof(List<string>.AddRange));
+                    if (mi != null)
+                    {
+                        mi.Invoke(instance, new object?[] { value });
+                        var invoker = CacheManager.CreateConverterInvoker(t);
+                        var v = invoker.Invoke(instance);
+                        ret = string.Join(",", v);
+                    }
+                }
+            }
         }
         return ret;
     }
