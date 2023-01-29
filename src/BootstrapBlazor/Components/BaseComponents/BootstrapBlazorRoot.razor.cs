@@ -87,12 +87,12 @@ public partial class BootstrapBlazorRoot
             {
                 builder.AddAttribute(3, nameof(ErrorLogger.OnErrorHandleAsync), OnErrorHandleAsync);
             }
-            builder.AddAttribute(4, nameof(ErrorLogger.ChildContent), RenderContent());
+            builder.AddAttribute(4, nameof(ErrorLogger.ChildContent), RenderContent);
             builder.CloseComponent();
         }
         else
         {
-            builder.AddContent(0, RenderContent());
+            builder.AddContent(0, RenderContent);
         }
     };
 
@@ -115,7 +115,7 @@ public partial class BootstrapBlazorRoot
     };
 
     [ExcludeFromCodeCoverage]
-    private RenderFragment RenderContent() => builder =>
+    private RenderFragment RenderContent => new(builder =>
     {
         if (OperatingSystem.IsBrowser())
         {
@@ -129,5 +129,5 @@ public partial class BootstrapBlazorRoot
             builder.CloseElement();
             builder.AddContent(2, RenderComponents());
         }
-    };
+    });
 }
