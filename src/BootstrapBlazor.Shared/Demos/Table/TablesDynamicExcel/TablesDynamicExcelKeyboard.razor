@@ -1,16 +1,15 @@
-﻿// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
-// Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
-// Website: https://www.blazor.zone or https://argozhang.github.io/
+﻿@using System.Data;
+@using BootstrapBlazor.Shared.Samples.Table;
+@inject IStringLocalizer<Foo> LocalizerFoo
+@inject IStringLocalizer<Tables> TablesLocalizer
 
-using System.Data;
+<div>
+    <Table TItem="DynamicObject" DynamicContext="DataTableKeyboardDynamicContext"
+           IsBordered="true" IsMultipleSelect="true" IsExcel="true" ShowExtendButtons="true">
+    </Table>
+</div>
 
-namespace BootstrapBlazor.Shared.Samples.Table;
-
-/// <summary>
-/// 
-/// </summary>
-partial class TablesDynamicExcel
-{
+@code {
     [NotNull]
     private DataTableDynamicContext? DataTableDynamicContext { get; set; }
 
@@ -21,24 +20,9 @@ partial class TablesDynamicExcel
 
     private DataTable KeyboardData { get; } = new DataTable();
 
-    [Inject]
-    [NotNull]
-    private IStringLocalizer<Foo>? LocalizerFoo { get; set; }
-
-    [Inject]
-    [NotNull]
-    private IStringLocalizer<TablesDynamicExcel>? Localizer { get; set; }
-
-    [Inject]
-    [NotNull]
-    private IStringLocalizer<Tables>? TablesLocalizer { get; set; }
-
     private string? ButtonAddColumnText { get; set; }
 
     private string? ButtonRemoveColumnText { get; set; }
-
-    [NotNull]
-    private BlockLogger? Trace { get; set; }
 
     /// <summary>
     /// OnInitialized 方法
@@ -99,15 +83,6 @@ partial class TablesDynamicExcel
                 // 内部方法会更新原始数据源 DataTable
                 await method(model, col, val);
             }
-
-            // 输出日志信息
-            Trace.Log($"单元格变化通知 列: {col.GetFieldName()} - 值: {val?.ToString()}");
-        };
-        DataTableDynamicContext.OnChanged = args =>
-        {
-            // 输出日志信息
-            Trace.Log($"集合值变化通知 行: {args.Items.Count()} - 类型: {args.ChangedType}");
-            return Task.CompletedTask;
         };
     }
 

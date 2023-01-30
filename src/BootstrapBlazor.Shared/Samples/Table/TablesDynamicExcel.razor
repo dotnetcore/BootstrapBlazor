@@ -1,47 +1,49 @@
 ﻿@page "/tables/dynamicexcel"
+@inject IStringLocalizer<TablesDynamicExcel> Localizer
 
-<h3>@Localizer["H1"]</h3>
-<h4>@Localizer["H2"]</h4>
+<h3>@Localizer["TablesDynamicExcelTitle"]</h3>
+<h4>@Localizer["TablesDynamicExcelDescription"]</h4>
 
-<DemoBlock Title="@Localizer["P1"]" Introduction="@Localizer["P2"]" Name="Excel">
-    <p>@((MarkupString)Localizer["P3"].Value)</p>
-    <Table TItem="DynamicObject" DynamicContext="DataTableDynamicContext"
-           IsBordered="true" IsMultipleSelect="true" IsExcel="true" ShowToolbar="true">
-    </Table>
-    <BlockLogger @ref="Trace" class="mt-3" />
+<DemoBlock Title="@Localizer["TablesDynamicExcelNormalTitle"]"
+           Introduction="@Localizer["TablesDynamicExcelNormalIntro"]"
+           Name="Normal"
+           Demo="typeof(Demos.Table.TablesDynamicExcel.TablesDynamicExcelNormal)">
+    <p>@((MarkupString)Localizer["TablesDynamicExcelNormalDescription"].Value)</p>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["P4"]" Introduction="@Localizer["P5"]" Name="Enum">
+<DemoBlock Title="@Localizer["TablesDynamicExcelEnumTitle"]"
+           Introduction="@Localizer["TablesDynamicExcelEnumIntro"]"
+           Name="Enum">
     <Pre>DataTableDynamicContext = new(UserData, (context, col) =>
 {
     if (col.GetFieldName() == nameof(Foo.Education))
     {
         col.ComponentType = typeof(Select&lt;string&gt;);
-        col.Items = typeof(EnumEducation).ToSelectList(new SelectedItem("", @Localizer["P6"]));
+        col.Items = typeof(EnumEducation).ToSelectList(new SelectedItem("", @Localizer["TablesDynamicExcelEnumNotSet"]));
     }
 });</Pre>
     <div>
-        @((MarkupString)Localizer["P7"].Value)
+        @((MarkupString)Localizer["TablesDynamicExcelEnumTip"].Value)
     </div>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["P8"]" Introduction="@Localizer["P9"]" Name="Keyboard">
-    <p>@Localizer["P10"] <kbd><i class="fa-solid fa-arrow-up"></i></kbd> <kbd><i class="fa-solid fa-arrow-down"></i></kbd> <kbd><i class="fa-solid fa-arrow-left"></i></kbd> <kbd><i class="fa-solid fa-arrow-right"></i></kbd> <kbd>Tab</kbd></p>
-    <Table TItem="DynamicObject" DynamicContext="DataTableKeyboardDynamicContext"
-           IsBordered="true" IsMultipleSelect="true" IsExcel="true" ShowExtendButtons="true">
-    </Table>
+<DemoBlock Title="@Localizer["TablesDynamicExcelKeyboardTitle"]"
+           Introduction="@Localizer["TablesDynamicExcelKeyboardIntro"]"
+           Name="Keyboard"
+           Demo="typeof(Demos.Table.TablesDynamicExcel.TablesDynamicExcelKeyboard)">
+    <p>@Localizer["TablesDynamicExcelKeyboardDescription"] <kbd><i class="fa-solid fa-arrow-up"></i></kbd> <kbd><i class="fa-solid fa-arrow-down"></i></kbd> <kbd><i class="fa-solid fa-arrow-left"></i></kbd> <kbd><i class="fa-solid fa-arrow-right"></i></kbd> <kbd>Tab</kbd></p>
 </DemoBlock>
 
 <Tips class="mt-3">
-    <p>@((MarkupString)Localizer["P11"].Value)</p>
+    <p>@((MarkupString)Localizer["TablesDynamicExcelKeyboardTips_IsExcel"].Value)</p>
 </Tips>
 
-<p class="mt-3">@((MarkupString)Localizer["P12"].Value)</p>
+<p class="mt-3">@((MarkupString)Localizer["TablesDynamicExcelKeyboardTips_DatTable"].Value)</p>
 
 <p>
-    <div class="code-label">@((MarkupString)Localizer["P13"].Value)</div>
-    <div class="mt-2">@((MarkupString)Localizer["P14"].Value)</div>
-    <div class="mt-2">@((MarkupString)Localizer["P15"].Value)</div>
+    <div class="code-label">@((MarkupString)Localizer["TablesDynamicExcelKeyboardTips1_Title"].Value)</div>
+    <div class="mt-2">@((MarkupString)Localizer["TablesDynamicExcelKeyboardTips1_note1"].Value)</div>
+    <div class="mt-2">@((MarkupString)Localizer["TablesDynamicExcelKeyboardTips1_note2"].Value)</div>
 </p>
 
 <Pre>protected override void OnInitialized()
@@ -50,52 +52,52 @@
 
     DataTableDynamicContext = new(UserData, (context, col) =>
     {
-        // @Localizer["P16"]
+        // @Localizer["TablesDynamicExcelKeyboardTips1_note3"]
         if (col.GetFieldName() == nameof(Foo.Education))
         {
             col.ComponentType = typeof(Select&lt;string&gt;);
 
-            // @Localizer["P17"]
-            col.Items = typeof(EnumEducation).ToSelectList(new SelectedItem("", Localizer["NullItemText"].Value));
+            // @Localizer["TablesDynamicExcelKeyboardTips1_note4"]
+            col.Items = typeof(EnumEducation).ToSelectList(new SelectedItem("", NullItemText.Value));
         }
     });
 }</Pre>
 
 <p>
-    <div class="code-label">@((MarkupString)Localizer["P18"].Value)</div>
-    <div class="mt-2">@((MarkupString)Localizer["P19"].Value)</div>
+    <div class="code-label">@((MarkupString)Localizer["TablesDynamicExcelKeyboardTips2_Title"].Value)</div>
+    <div class="mt-2">@((MarkupString)Localizer["TablesDynamicExcelKeyboardTips2_note1"].Value)</div>
 </p>
 
 <Pre>protected override void OnInitialized()
 {
     DataTableDynamicContext.OnChanged = args =>
     {
-        // @Localizer["P20"]
+        // @Localizer["TablesDynamicExcelKeyboardTips2_note2"]
         Trace.Log($"# valueS: {args.Items.Count()} - type: {args.ChangedType}");
         return Task.CompletedTask;
     };
 }</Pre>
 
 <p>
-    <div class="code-label">@((MarkupString)Localizer["P21"].Value)</div>
-    <div class="mt-2">@((MarkupString)Localizer["P22"].Value)</div>
+    <div class="code-label">@((MarkupString)Localizer["TablesDynamicExcelKeyboardTips3_Title"].Value)</div>
+    <div class="mt-2">@((MarkupString)Localizer["TablesDynamicExcelKeyboardTips3_note1"].Value)</div>
 </p>
 
 <Pre>protected override void OnInitialized()
 {
-    // @Localizer["P23"]
+    // @Localizer["TablesDynamicExcelKeyboardTips3_note2"]
     var method = DataTableDynamicContext.OnValueChanged;
 
     DataTableDynamicContext.OnValueChanged = async (model, col, val) =>
     {
-        // @Localizer["P24"]
+        // @Localizer["TablesDynamicExcelKeyboardTips3_note3"]
         if (method != null)
         {
-            // @Localizer["P25"]
+            // @Localizer["TablesDynamicExcelKeyboardTips3_note4"]
             await method(model, col, val);
         }
 
-        // @Localizer["P26"]
+        // @Localizer["TablesDynamicExcelKeyboardTips3_note5"]
         Trace.Log($"Change Notification: {col.GetFieldName()} - Value: {val?.ToString()}");
     };
 }</Pre>
