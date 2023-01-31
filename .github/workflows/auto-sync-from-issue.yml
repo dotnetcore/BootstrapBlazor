@@ -1,4 +1,4 @@
-name: auto sync issue to PR(bot)
+name: Auto sync issue to PR(bot)
 
 on:
   pull_request:

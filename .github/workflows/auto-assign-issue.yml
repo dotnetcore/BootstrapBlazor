@@ -1,4 +1,4 @@
-name: auto assign issue(bot)
+name: Auto assign issue(bot)
 
 on:
   issues:
