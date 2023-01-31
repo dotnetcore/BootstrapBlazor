@@ -1,4 +1,4 @@
-name: auto PR test(bot)
+name: Auto PR test(bot)
 
 on:
   pull_request:
