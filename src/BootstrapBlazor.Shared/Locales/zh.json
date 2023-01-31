@@ -4993,7 +4993,7 @@
     "TablesFooterStatisticsTips3": "<code>TableFooter</code> 模板内可以自定义单元格 <code>td</code> 内容，也可以使用内置的 <code>TableFooterCell</code> 组件进行数据显示",
     "TablesFooterTemplateTitle": "Footer 模板",
     "TablesFooterTemplateIntro": "设置 <code>FooterTemplate</code> 自定义表格底部显示内容",
-    "TablesFooterTemplateDescription": "无数据时默认显示 <code>Footer</code> 可通过设置 <code>@nameof(Table<Foo>.IsHideFooterWhenNoData)</code> 参数隐藏 <code>Footer</code>",
+    "TablesFooterTemplateDescription": "无数据时默认显示 <code>Footer</code> 可通过设置 <code>@nameof(Table<Foo>.IsHideFooterWhenNoData)</code> 参数隐藏 <code>Footer</code>"
   },
   "BootstrapBlazor.Shared.Demos.Table.TablesFooter.TablesFooterStatistics": {
     "TablesFooterStatisticsTotal": "合计："
@@ -5541,24 +5541,26 @@
     "TablesExportButtonDropdownTemplateIntro": "通过设置 <code>ExportButtonDropdownTemplate</code> 模板自定义导出按钮下拉框内容"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesToolbar": {
-    "H1": "Table 表格",
-    "H2": "用于展示多条结构类似的数据，可对数据进行排序、筛选、对比或其他自定义操作。",
-    "P1": "带 Toolbar 的表格",
-    "P2": "设置 <code>ShowToolbar</code> 显示工具条组件",
-    "P3": "带查询的表格",
-    "P4": "设置 <code>ShowSearch</code> 显示查询组件",
-    "P5": "本例中通过设置 <code>ShowCardView</code> 显示 <b>视图</b> 按钮，用于切换 <code>Table</code> 组件渲染方式",
-    "P6": "自定义扩展按钮",
-    "P7": "设置 <code>TableToolbarTemplate</code> 模板添加自定义扩展按钮",
-    "P8": "本例中实现经典的应用场景",
-    "P9": "点击下载按钮，后台开启下载线程进行数据处理，<code>禁用</code> 下载按钮",
-    "P10": "前台显示进度条提示，正在打包导出，此期间可以处理其他事务",
-    "P11": "数据处理完成后，关闭前台提示弹窗，<code>恢复</code> 下载按钮",
-    "P12": "本例中通过设置 <code>TableToolbarButton</code> 按钮的 <code>IsAsync</code> 属性开启 <b>异步操作模式</b>，请注意 <code>OnClickCallback</code> 回调委托内需要使用真正的 <b>异步操作</b> 否则无效果",
-    "P13": "下载1",
-    "P14": "下载2",
-    "P15": "自定义显示功能按钮",
-    "P16": "通过设置 <code>ShowAddButton</code> <code>ShowEditButton</code> <code>ShowDeleteButton</code> 属性值来控制单独功能按钮是否显示，当 <code>ShowDefaultButtons</code> 设置为 <code>false</code> 时，所有按钮均不显示"
+    "TablesToolbarTitle": "Table 表格",
+    "TablesToolbarDescription": "用于展示多条结构类似的数据，可对数据进行排序、筛选、对比或其他自定义操作。",
+    "TablesToolbarNormalTitle": "带 Toolbar 的表格",
+    "TablesToolbarNormalIntro": "设置 <code>ShowToolbar</code> 显示工具条组件",
+    "TablesToolbarQueryTabelTitle": "带查询的表格",
+    "TablesToolbarQueryTabelIntro": "设置 <code>ShowSearch</code> 显示查询组件",
+    "TablesToolbarQueryTabelDescription": "本例中通过设置 <code>ShowCardView</code> 显示 <b>视图</b> 按钮，用于切换 <code>Table</code> 组件渲染方式",
+    "TablesToolbarCustomButtonTitle": "自定义扩展按钮",
+    "TablesToolbarCustomButtonIntro": "设置 <code>TableToolbarTemplate</code> 模板添加自定义扩展按钮",
+    "TablesToolbarCustomButtonDescription": "本例中实现经典的应用场景",
+    "TablesToolbarCustomButtonTips1_title": "点击下载按钮，后台开启下载线程进行数据处理，<code>禁用</code> 下载按钮",
+    "TablesToolbarCustomButtonTips1_note1": "前台显示进度条提示，正在打包导出，此期间可以处理其他事务",
+    "TablesToolbarCustomButtonTips1_note2": "数据处理完成后，关闭前台提示弹窗，<code>恢复</code> 下载按钮",
+    "TablesToolbarCustomButtonTips2_title": "本例中通过设置 <code>TableToolbarButton</code> 按钮的 <code>IsAsync</code> 属性开启 <b>异步操作模式</b>，请注意 <code>OnClickCallback</code> 回调委托内需要使用真正的 <b>异步操作</b> 否则无效果",
+    "TablesToolbarCustomDispalyButtonTitle": "自定义显示功能按钮",
+    "TablesToolbarCustomDispalyButtonIntro": "通过设置 <code>ShowAddButton</code> <code>ShowEditButton</code> <code>ShowDeleteButton</code> 属性值来控制单独功能按钮是否显示，当 <code>ShowDefaultButtons</code> 设置为 <code>false</code> 时，所有按钮均不显示"
+  },
+  "BootstrapBlazor.Shared.Demos.Table.TablesToolbar.TablesToolbarCustomButton": {
+    "TablesToolbarCustomButton1": "下载1",
+    "TablesToolbarCustomButton2": "下载2"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesCell": {
     "TablesCellTitle": "Table 表格",

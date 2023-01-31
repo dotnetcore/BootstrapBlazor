@@ -1,29 +1,46 @@
-﻿// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
-// Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
-// Website: https://www.blazor.zone or https://argozhang.github.io/
+﻿@inject ToastService ToastService
+@inject IStringLocalizer<Foo> LocalizerFoo
+@inject IStringLocalizer<TablesToolbarCustomButton> Localizer
 
-namespace BootstrapBlazor.Shared.Samples.Table;
+<div>
+    <Table TItem="Foo"
+           IsPagination="true" PageItemsSource="@PageItemsSource"
+           IsStriped="true" IsBordered="true" IsMultipleSelect="true"
+           ShowToolbar="true" ShowDefaultButtons="false" ShowSearch="false" ShowExtendButtons="false"
+           OnQueryAsync="@OnQueryAsync">
+        <TableToolbarTemplate>
+            <TableToolbarButton TItem="Foo"
+                                Color="Color.Primary"
+                                Icon="fa-fw fa-solid fa-floppy-disk"
+                                Text="@Localizer["TablesToolbarCustomButton1"]"
+                                IsAsync OnClickCallback="@DownloadAsync" />
+            <TableToolbarButton TItem="Foo"
+                                Color="Color.Success"
+                                Icon="fa-fw fa-solid fa-pen-to-square"
+                                Text="@Localizer["TablesToolbarCustomButton2"]"
+                                IsAsync OnClickCallback="@DownloadAsync" />
+        </TableToolbarTemplate>
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Name" />
+            <TableColumn @bind-Field="@context.Address" />
+        </TableColumns>
+    </Table>
+</div>
 
-/// <summary>
-/// 
-/// </summary>
-public sealed partial class TablesToolbar
-{
-    [Inject]
-    [NotNull]
-    private IStringLocalizer<Foo>? LocalizerFoo { get; set; }
-
-    [Inject]
-    [NotNull]
-    private IStringLocalizer<TablesToolbar>? Localizer { get; set; }
-
-    private static IEnumerable<int> PageItemsSource => new int[] { 2, 4, 10, 20 };
-
+@code {
+    /// <summary>
+    /// Foo 类为Demo测试用，如有需要请自行下载源码查阅
+    /// Foo class is used for Demo test, please download the source code if necessary
+    /// https://gitee.com/LongbowEnterprise/BootstrapBlazor/blob/main/src/BootstrapBlazor.Shared/Data/Foo.cs
+    /// </summary>
     [NotNull]
     private List<Foo>? Items { get; set; }
 
+    private static IEnumerable<int> PageItemsSource => new int[] { 2, 4, 10, 20 };
+
     /// <summary>
-    /// 
+    /// OnInitialized
     /// </summary>
     protected override void OnInitialized()
     {
@@ -48,38 +65,6 @@ public sealed partial class TablesToolbar
             IsFiltered = true,
             IsSearch = true
         });
-    }
-
-    private Task<QueryData<Foo>> OnSearchQueryAsync(QueryPageOptions options)
-    {
-        var items = Items.AsEnumerable();
-        if (!string.IsNullOrEmpty(options.SearchText))
-        {
-            // Fuzzy query against SearchText
-            items = items.Where(i => (i.Address ?? "").Contains(options.SearchText)
-                    || (i.Name ?? "").Contains(options.SearchText));
-        }
-
-        // Set the total number of records
-        var total = items.Count();
-
-        // memory paging
-        items = items.Skip((options.PageIndex - 1) * options.PageItems).Take(options.PageItems).ToList();
-
-        return Task.FromResult(new QueryData<Foo>()
-        {
-            Items = items,
-            TotalCount = total,
-            IsSorted = true,
-            IsFiltered = true,
-            IsSearch = true
-        });
-    }
-
-    private Task<bool> OnDeleteAsync(IEnumerable<Foo> items)
-    {
-        items.ToList().ForEach(foo => Items.Remove(foo));
-        return Task.FromResult(true);
     }
 
     private async Task DownloadAsync(IEnumerable<Foo> items)

@@ -5413,7 +5413,7 @@
     "TablesFooterStatisticsTips3": "The content of the cell <code>td</code> can be customized in the <code>TableFooter</code> template, or the built-in <code>TableFooterCell</code> component can be used for data display",
     "TablesFooterTemplateTitle": "Footer template",
     "TablesFooterTemplateIntro": "Set <code>FooterTemplate</code> to customize the content displayed at the bottom of the table",
-    "TablesFooterTemplateDescription": "<code>Footer</code> is displayed by default when there is no data. You can hide <code>Footer</code> by setting the <code>@nameof(Table<Foo>.IsHideFooterWhenNoData)</code> parameter",
+    "TablesFooterTemplateDescription": "<code>Footer</code> is displayed by default when there is no data. You can hide <code>Footer</code> by setting the <code>@nameof(Table<Foo>.IsHideFooterWhenNoData)</code> parameter"
   },
   "BootstrapBlazor.Shared.Demos.Table.TablesFooter.TablesFooterStatistics": {
     "TablesFooterStatisticsTotal": "Total:"
@@ -5525,24 +5525,26 @@
     "TablesExportButtonDropdownTemplateIntro": "Customize the content of the export button dropdown box by setting the <code>ExportButtonDropdownTemplate</code> template"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesToolbar": {
-    "H1": "Table",
-    "H2": "It is used to display multiple pieces of data with similar structure, and the data can be sorted, filtered, compared or other custom operations.",
-    "P1": "Table with Toolbar",
-    "P2": "Set <code>ShowToolbar</code> to show the toolbar component",
-    "P3": "Form with query",
-    "P4": "Set <code>ShowSearch</code> to show the query component",
-    "P5": "In this example, the <b>View</b> button is displayed by setting <code>ShowCardView</code> to switch the rendering mode of the <code>Table</code> component",
-    "P6": "Custom extension button",
-    "P7": "Set the <code>TableToolbarTemplate</code> template to add custom extension buttons",
-    "P8": "In this example, a classic application scenario is implemented",
-    "P9": "Click the download button to open the download thread in the background for data processing, <code>disable</code> download button",
-    "P10": "A progress bar is displayed in the foreground, and it is being packaged and exported. During this period, other transactions can be processed.",
-    "P11": "After the data processing is completed, close the foreground prompt pop-up window, <code>restore</code> download button",
-    "P12": "In this example, by setting the <code>IsAsync</code> property of the <code>TableToolbarButton</code> button to enable <b>asynchronous operation mode</b>, please note that <code>OnClickCallback</code> needs to be in the callback delegate Use true <b>async operations</b> otherwise no effect",
-    "P13": "Download 1",
-    "P14": "Download 2",
-    "P15": "Custom display function buttons",
-    "P16": "By setting the <code>ShowAddButton</code> <code>ShowEditButton</code> <code>ShowDeleteButton</code> attribute value to control whether the individual function button is displayed, when <code>ShowDefaultButtons</code> is set to <code> When false</code>, all buttons are not displayed"
+    "TablesToolbarTitle": "Table",
+    "TablesToolbarDescription": "It is used to display multiple pieces of data with similar structure, and the data can be sorted, filtered, compared or other custom operations.",
+    "TablesToolbarNormalTitle": "Table with Toolbar",
+    "TablesToolbarNormalIntro": "Set <code>ShowToolbar</code> to show the toolbar component",
+    "TablesToolbarQueryTabelTitle": "Form with query",
+    "TablesToolbarQueryTabelIntro": "Set <code>ShowSearch</code> to show the query component",
+    "TablesToolbarQueryTabelDescription": "In this example, the <b>View</b> button is displayed by setting <code>ShowCardView</code> to switch the rendering mode of the <code>Table</code> component",
+    "TablesToolbarCustomButtonTitle": "Custom extension button",
+    "TablesToolbarCustomButtonIntro": "Set the <code>TableToolbarTemplate</code> template to add custom extension buttons",
+    "TablesToolbarCustomButtonDescription": "In this example, a classic application scenario is implemented",
+    "TablesToolbarCustomButtonTips1_title": "Click the download button to open the download thread in the background for data processing, <code>disable</code> download button",
+    "TablesToolbarCustomButtonTips1_note1": "A progress bar is displayed in the foreground, and it is being packaged and exported. During this period, other transactions can be processed.",
+    "TablesToolbarCustomButtonTips1_note2": "After the data processing is completed, close the foreground prompt pop-up window, <code>restore</code> download button",
+    "TablesToolbarCustomButtonTips2_title": "In this example, by setting the <code>IsAsync</code> property of the <code>TableToolbarButton</code> button to enable <b>asynchronous operation mode</b>, please note that <code>OnClickCallback</code> needs to be in the callback delegate Use true <b>async operations</b> otherwise no effect",
+    "TablesToolbarCustomDispalyButtonTitle": "Custom display function buttons",
+    "TablesToolbarCustomDispalyButtonIntro": "By setting the <code>ShowAddButton</code> <code>ShowEditButton</code> <code>ShowDeleteButton</code> attribute value to control whether the individual function button is displayed, when <code>ShowDefaultButtons</code> is set to <code> When false</code>, all buttons are not displayed"
+  },
+  "BootstrapBlazor.Shared.Demos.Table.TablesToolbar.TablesToolbarCustomButton": {
+    "TablesToolbarCustomButton1": "Download 1",
+    "TablesToolbarCustomButton2": "Download 2"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesCell": {
     "TablesCellTitle": "Table Cell",
