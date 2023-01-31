@@ -73,7 +73,7 @@
 .menu .nav .dropdown-menu,
 .menu .nav .sub-menu,
 .cascade .sub-menu {
-    width: 160px;
+    min-width: 160px;
 }
 
 .menu .nav .nav-link:hover > .sub-menu,
