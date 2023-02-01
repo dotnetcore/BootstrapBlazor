@@ -1,53 +1,53 @@
 ﻿@page "/tables"
-@inject IStringLocalizer<Tables> TablesLocalizer
+@inject IStringLocalizer<Tables> Localizer
 
-<h3>@TablesLocalizer["TableBaseTitle"]</h3>
+<h3>@Localizer["TableBaseTitle"]</h3>
 
-<h4>@TablesLocalizer["TableBaseDescription"]</h4>
+<h4>@Localizer["TableBaseDescription"]</h4>
 
-<p>@((MarkupString)TablesLocalizer["TableBaseExplain1"].Value)</p>
+<p>@((MarkupString)Localizer["TableBaseExplain1"].Value)</p>
 
-<p>@((MarkupString)TablesLocalizer["TableBaseExplain2"].Value)</p>
+<p>@((MarkupString)Localizer["TableBaseExplain2"].Value)</p>
 
 <ul class="ul-demo">
-    <li>@((MarkupString)TablesLocalizer["TableBaseTips1"].Value)</li>
-    <li>@((MarkupString)TablesLocalizer["TableBaseTips2"].Value)</li>
-    <li>@((MarkupString)TablesLocalizer["TableBaseTips3"].Value)</li>
+    <li>@((MarkupString)Localizer["TableBaseTips1"].Value)</li>
+    <li>@((MarkupString)Localizer["TableBaseTips2"].Value)</li>
+    <li>@((MarkupString)Localizer["TableBaseTips3"].Value)</li>
 </ul>
 
-<DemoBlock Title="@TablesLocalizer["TableBaseNormalTitle"]"
-           Introduction="@TablesLocalizer["TableBaseNormalIntro"]"
+<DemoBlock Title="@Localizer["TableBaseNormalTitle"]"
+           Introduction="@Localizer["TableBaseNormalIntro"]"
            Name="TableBaseNormal"
            Demo="typeof(Demos.Table.TablesBase.TableBaseNormal)">
-    <div>@((MarkupString)TablesLocalizer["TableBaseNormalDescription"].Value)</div>
+    <div>@((MarkupString)Localizer["TableBaseNormalDescription"].Value)</div>
 </DemoBlock>
 
-<DemoBlock Title="@TablesLocalizer["TableBaseStripedTitle"]"
-           Introduction="@TablesLocalizer["TableBaseStripedIntro"]"
+<DemoBlock Title="@Localizer["TableBaseStripedTitle"]"
+           Introduction="@Localizer["TableBaseStripedIntro"]"
            Name="TableBaseStriped"
            Demo="typeof(Demos.Table.TablesBase.TableBaseStriped)" />
 
-<DemoBlock Title="@TablesLocalizer["TableBaseBorderedTitle"]"
-           Introduction="@TablesLocalizer["TableBaseBorderedIntro"]"
+<DemoBlock Title="@Localizer["TableBaseBorderedTitle"]"
+           Introduction="@Localizer["TableBaseBorderedIntro"]"
            Name="TableBaseBordered"
            Demo="typeof(Demos.Table.TablesBase.TableBaseBordered)" />
 
-<DemoBlock Title="@TablesLocalizer["TableBaseSizeTitle"]"
-           Introduction="@TablesLocalizer["TableBaseSizeIntro"]"
+<DemoBlock Title="@Localizer["TableBaseSizeTitle"]"
+           Introduction="@Localizer["TableBaseSizeIntro"]"
            Name="TableBaseSize"
            Demo="typeof(Demos.Table.TablesBase.TableBaseSize)">
-    <p>@((MarkupString)TablesLocalizer["TableBaseSizeDescription"].Value)</p>
+    <p>@((MarkupString)Localizer["TableBaseSizeDescription"].Value)</p>
 </DemoBlock>
 
-<DemoBlock Title="@TablesLocalizer["TableBaseHeaderStyleTitle"]"
-           Introduction="@TablesLocalizer["TableBaseHeaderStyleIntro"]"
+<DemoBlock Title="@Localizer["TableBaseHeaderStyleTitle"]"
+           Introduction="@Localizer["TableBaseHeaderStyleIntro"]"
            Name="TableBaseHeaderStyle"
            Demo="typeof(Demos.Table.TablesBase.TableBaseHeaderStyle)">
-    <p>@((MarkupString)TablesLocalizer["TableBaseHeaderStyleDescription"].Value)</p>
+    <p>@((MarkupString)Localizer["TableBaseHeaderStyleDescription"].Value)</p>
 </DemoBlock>
 
 <AttributeTable Items="GetAttributes()" />
 
 <MethodTable Items="GetMethods()" />
 
-<AttributeTable Items="GetTableColumnAttributes()" Title="@TablesLocalizer["AttributeTitle"]" />
+<AttributeTable Items="GetTableColumnAttributes()" Title="@Localizer["AttributeTitle"]" />
