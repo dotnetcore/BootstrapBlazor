@@ -15,35 +15,35 @@ public partial class TablesCell
         {
             new AttributeItem() {
                 Name = "Row",
-                Description = CellLocalizer["RowAttr"],
+                Description = Localizer["RowAttr"],
                 Type = "object",
                 ValueList = " — ",
                 DefaultValue = "<TModel>"
             },
             new AttributeItem() {
                 Name = "ColumnName",
-                Description = CellLocalizer["ColumnNameAttr"],
+                Description = Localizer["ColumnNameAttr"],
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "Colspan",
-                Description = CellLocalizer["ColspanAttr"],
+                Description = Localizer["ColspanAttr"],
                 Type = "int",
                 ValueList = " — ",
                 DefaultValue = "0"
             },
             new AttributeItem() {
                 Name = "Class",
-                Description = CellLocalizer["ClassAttr"],
+                Description = Localizer["ClassAttr"],
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "Value",
-                Description = CellLocalizer["ValueAttr"],
+                Description = Localizer["ValueAttr"],
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = " — "

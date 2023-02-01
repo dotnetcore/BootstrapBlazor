@@ -73,7 +73,7 @@
     "TableDialogNormalTips2": "弹窗中选择产品后点击 <code>确定</code> 按钮关闭弹窗",
     "TableDialogNormalTips3": "点击 <code>编辑</code> 按钮，由于设置部分数据为只读，只能更改 <code>Count</code> 字段"
   },
-  "BootstrapBlazor.Shared.Demos.Table.Dialog.TableDialogNormal": {
+  "BootstrapBlazor.Shared.Demos.Table.TablesDialog.TableDialogNormal": {
     "TableDialogNormalChoose": "选择",
     "TableDialogNormalSelectitem": "选择项目",
     "TableDialogNormalSure": "确定"
@@ -5197,10 +5197,10 @@
     "PageInfoTemplateAttr": "分页详细信息自定义组件",
     "PageInfoTextAttr": "分页信息显示文字"
   },
-  "BootstrapBlazor.Shared.Demos.Table.Base.TableBaseNormal": {
+  "BootstrapBlazor.Shared.Demos.Table.TablesBase.TableBaseNormal": {
     "TableBaseNormalRefreshText": "刷新"
   },
-  "BootstrapBlazor.Shared.Demos.Table.Base.TableBaseHeaderStyle": {
+  "BootstrapBlazor.Shared.Demos.Table.TablesBase.TableBaseHeaderStyle": {
     "TableBaseHeaderStyleMode": "模式"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesColumn": {
@@ -5448,7 +5448,7 @@
     "TablesAutoRefreshControlTitle": "通过设置变量控制是否自动更新",
     "TablesAutoRefreshControlIntro": "本示例通过设置变量控制是否自动更新"
   },
-  "BootstrapBlazor.Shared.Demos.Table.AutoRefresh.TablesAutoRefreshControl": {
+  "BootstrapBlazor.Shared.Demos.Table.TablesAutoRefresh.TablesAutoRefreshControl": {
     "TablesAutoRefreshControlDescription": "通过点击按钮开始/关闭是否自动更新功能",
     "TablesAutoRefreshControlToggleAuto": "更改 Auto",
     "TablesAutoRefreshControlIsAutoRefresh": "当前值"
@@ -5577,7 +5577,7 @@
     "ClassAttr": "当前单元格样式",
     "ValueAttr": "当前单元格显示内容"
   },
-  "BootstrapBlazor.Shared.Demos.Table.Cell.TableCellOnDoubleClickCell": {
+  "BootstrapBlazor.Shared.Demos.Table.TablesCell.TableCellOnDoubleClickCell": {
     "TableCellOnDoubleClickCellToastTitle": "双击单元格回调",
     "TableCellOnDoubleClickCellCurrentCellName": "当前单元格名称：",
     "TableCellOnDoubleClickCellCurrentValue": "当前值："
