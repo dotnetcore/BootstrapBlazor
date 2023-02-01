@@ -1,18 +1,21 @@
 ﻿@page "/tables/lookup"
-@inject IStringLocalizer<Foo> Localizer
-@inject IStringLocalizer<TablesLookup> LookupLocalizer
+@inject IStringLocalizer<Foo> FooLocalizer
+@inject IStringLocalizer<TablesLookup> Localizer
 
-<h3>@LookupLocalizer["TablesLookupTitle"]</h3>
+<h3>@Localizer["TablesLookupTitle"]</h3>
 
-<h4>@((MarkupString)LookupLocalizer["TablesLookupDescription"].Value)</h4>
+<h4>@((MarkupString)Localizer["TablesLookupDescription"].Value)</h4>
 
-<DemoBlock Title="@LookupLocalizer["TableLookupNormalTitle"]" Introduction="@LookupLocalizer["TableLookupNormalIntro"]" Name="Lookup" Demo="typeof(Demos.Table.Lookup.TableLookupNormal)">
-    <p>@((MarkupString)LookupLocalizer["TableLookupNormalTips1"].Value)</p>
+<DemoBlock Title="@Localizer["TableLookupNormalTitle"]"
+           Introduction="@Localizer["TableLookupNormalIntro"]"
+           Name="Lookup"
+           Demo="typeof(Demos.Table.TablesLookup.TableLookupNormal)">
+    <p>@((MarkupString)Localizer["TableLookupNormalTips1"].Value)</p>
     <Pre>DataSource = new List&lt;SelectedItem&gt;
 {
-    new SelectedItem { Value = "True", Text = @Localizer["True"].Value },
-    new SelectedItem { Value = "False", Text = @Localizer["False"].Value }
+    new SelectedItem { Value = "True", Text = @FooLocalizer["True"].Value },
+    new SelectedItem { Value = "False", Text = @FooLocalizer["False"].Value }
 };</Pre>
-    <p>@((MarkupString)LookupLocalizer["TableLookupNormalTips2"].Value)</p>
-    <p>@((MarkupString)LookupLocalizer["TableLookupNormalTips3"].Value)</p>
+    <p>@((MarkupString)Localizer["TableLookupNormalTips2"].Value)</p>
+    <p>@((MarkupString)Localizer["TableLookupNormalTips3"].Value)</p>
 </DemoBlock>

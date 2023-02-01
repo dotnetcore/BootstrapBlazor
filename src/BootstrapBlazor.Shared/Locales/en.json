@@ -73,7 +73,7 @@
     "TableDialogNormalTips2": "After selecting the product in the pop-up window, click the <code>OK</code> button to close the pop-up window",
     "TableDialogNormalTips3": "Click the <code>Edit</code> button, since some data are set as read-only, only the <code>Count</code> field can be changed"
   },
-  "BootstrapBlazor.Shared.Demos.Table.Dialog.TableDialogNormal": {
+  "BootstrapBlazor.Shared.Demos.Table.TablesDialog.TableDialogNormal": {
     "TableDialogNormalChoose": "Choose",
     "TableDialogNormalSelectitem": "Select item",
     "TableDialogNormalSure": "Sure"
@@ -5162,10 +5162,10 @@
     "PageInfoTemplateAttr": "The template for custom page info",
     "PageInfoTextAttr": "Pagination label text"
   },
-  "BootstrapBlazor.Shared.Demos.Table.Base.TableBaseNormal": {
+  "BootstrapBlazor.Shared.Demos.Table.TablesBase.TableBaseNormal": {
     "TableBaseNormalRefreshText": "Refresh"
   },
-  "BootstrapBlazor.Shared.Demos.Table.Base.TableBaseHeaderStyle": {
+  "BootstrapBlazor.Shared.Demos.Table.TablesBase.TableBaseHeaderStyle": {
     "TableBaseHeaderStyleMode": "Pattern"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesColumn": {
@@ -5432,7 +5432,7 @@
     "TablesAutoRefreshControlTitle": "Control whether to update automatically by setting a variable",
     "TablesAutoRefreshControlIntro": "This example controls whether to automatically update by setting a variable"
   },
-  "BootstrapBlazor.Shared.Demos.Table.AutoRefresh.TablesAutoRefreshControl": {
+  "BootstrapBlazor.Shared.Demos.Table.TablesAutoRefresh.TablesAutoRefreshControl": {
     "TablesAutoRefreshControlDescription": "Enable/disable automatic update function by clicking the button",
     "TablesAutoRefreshControlToggleAuto": "Change Auto",
     "TablesAutoRefreshControlIsAutoRefresh": "The current value"
@@ -5561,7 +5561,7 @@
     "ClassAttr": "Current cell style",
     "ValueAttr": "Current cell display content"
   },
-  "BootstrapBlazor.Shared.Demos.Table.Cell.TableCellOnDoubleClickCell": {
+  "BootstrapBlazor.Shared.Demos.Table.TablesCell.TableCellOnDoubleClickCell": {
     "TableCellOnDoubleClickCellToastTitle": "Double-click cell callback",
     "TableCellOnDoubleClickCellCurrentCellName": "Current cell name:",
     "TableCellOnDoubleClickCellCurrentValue": "Current Value:"

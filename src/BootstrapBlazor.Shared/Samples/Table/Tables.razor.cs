@@ -14,7 +14,7 @@ public partial class Tables
         new()
         {
             Name = "TextWrap",
-            Description = TablesLocalizer["TextWrapAttr"],
+            Description = Localizer["TextWrapAttr"],
             Type = "boolean",
             ValueList = "true|false",
             DefaultValue = "false"
@@ -22,7 +22,7 @@ public partial class Tables
         new()
         {
             Name = "AutoGenerateColumns",
-            Description = TablesLocalizer["AutoGenerateColumnsAttr"],
+            Description = Localizer["AutoGenerateColumnsAttr"],
             Type = "boolean",
             ValueList = "true|false",
             DefaultValue = "false"
@@ -30,7 +30,7 @@ public partial class Tables
         new()
         {
             Name = "CssClass",
-            Description = TablesLocalizer["CssClassAttr"],
+            Description = Localizer["CssClassAttr"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
@@ -38,7 +38,7 @@ public partial class Tables
         new()
         {
             Name = "Editable",
-            Description = TablesLocalizer["EditableAttr"],
+            Description = Localizer["EditableAttr"],
             Type = "boolean",
             ValueList = "true|false",
             DefaultValue = "true"
@@ -46,7 +46,7 @@ public partial class Tables
         new()
         {
             Name = "EditTemplate",
-            Description = TablesLocalizer["EditTemplateColumnAttr"],
+            Description = Localizer["EditTemplateColumnAttr"],
             Type = "RenderFragment<object>",
             ValueList = " — ",
             DefaultValue = " — "
@@ -54,7 +54,7 @@ public partial class Tables
         new()
         {
             Name = "Filterable",
-            Description = TablesLocalizer["FilterableAttr"],
+            Description = Localizer["FilterableAttr"],
             Type = "boolean",
             ValueList = "true|false",
             DefaultValue = "false"
@@ -62,7 +62,7 @@ public partial class Tables
         new()
         {
             Name = "FilterTemplate",
-            Description = TablesLocalizer["FilterTemplateAttr"],
+            Description = Localizer["FilterTemplateAttr"],
             Type = "RenderFragment?",
             ValueList = " — ",
             DefaultValue = " — "
@@ -70,7 +70,7 @@ public partial class Tables
         new()
         {
             Name = "Filter",
-            Description = TablesLocalizer["FilterAttr"],
+            Description = Localizer["FilterAttr"],
             Type = "IFilter?",
             ValueList = " — ",
             DefaultValue = " — "
@@ -78,7 +78,7 @@ public partial class Tables
         new()
         {
             Name = "HeaderTemplate",
-            Description = TablesLocalizer["HeaderTemplateAttr"],
+            Description = Localizer["HeaderTemplateAttr"],
             Type = "RenderFragment<ITableColumn>?",
             ValueList = " — ",
             DefaultValue = " — "
@@ -86,7 +86,7 @@ public partial class Tables
         new()
         {
             Name = nameof(IEditorItem.IsReadonlyWhenAdd),
-            Description = TablesLocalizer["IsReadonlyWhenAddAttr"],
+            Description = Localizer["IsReadonlyWhenAddAttr"],
             Type = "boolean",
             ValueList = "true|false",
             DefaultValue = "false"
@@ -94,7 +94,7 @@ public partial class Tables
         new()
         {
             Name = nameof(IEditorItem.IsReadonlyWhenEdit),
-            Description = TablesLocalizer["IsReadonlyWhenEditAttr"],
+            Description = Localizer["IsReadonlyWhenEditAttr"],
             Type = "boolean",
             ValueList = "true|false",
             DefaultValue = "false"
@@ -102,7 +102,7 @@ public partial class Tables
         new()
         {
             Name = nameof(IEditorItem.Lookup),
-            Description = TablesLocalizer["LookupAttr"],
+            Description = Localizer["LookupAttr"],
             Type = "IEnumerable<SelectedItem>",
             ValueList = " — ",
             DefaultValue = " — "
@@ -110,7 +110,7 @@ public partial class Tables
         new()
         {
             Name = nameof(IEditorItem.LookupStringComparison),
-            Description = TablesLocalizer["LookupStringComparisonAttr"],
+            Description = Localizer["LookupStringComparisonAttr"],
             Type = "StringComparison",
             ValueList = " — ",
             DefaultValue = "OrdinalIgnoreCase"
@@ -118,7 +118,7 @@ public partial class Tables
         new()
         {
             Name = nameof(IEditorItem.LookupServiceKey),
-            Description = TablesLocalizer["LookupServiceKeyAttr"],
+            Description = Localizer["LookupServiceKeyAttr"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
@@ -126,7 +126,7 @@ public partial class Tables
         new()
         {
             Name = "Readonly",
-            Description = TablesLocalizer["ReadonlyAttr"],
+            Description = Localizer["ReadonlyAttr"],
             Type = "boolean",
             ValueList = "true|false",
             DefaultValue = "false"
@@ -134,7 +134,7 @@ public partial class Tables
         new()
         {
             Name = "SearchTemplate",
-            Description = TablesLocalizer["SearchTemplateColumnAttr"],
+            Description = Localizer["SearchTemplateColumnAttr"],
             Type = "RenderFragment<object>",
             ValueList = " — ",
             DefaultValue = " — "
@@ -142,7 +142,7 @@ public partial class Tables
         new()
         {
             Name = "ShowTips",
-            Description = TablesLocalizer["ShowTipsAttr"],
+            Description = Localizer["ShowTipsAttr"],
             Type = "boolean",
             ValueList = "true|false",
             DefaultValue = "false"
@@ -150,7 +150,7 @@ public partial class Tables
         new()
         {
             Name = "Searchable",
-            Description = TablesLocalizer["SearchableAttr"],
+            Description = Localizer["SearchableAttr"],
             Type = "boolean",
             ValueList = "true|false",
             DefaultValue = "false"
@@ -158,7 +158,7 @@ public partial class Tables
         new()
         {
             Name = "Sortable",
-            Description = TablesLocalizer["SortableAttr"],
+            Description = Localizer["SortableAttr"],
             Type = "boolean",
             ValueList = "true|false",
             DefaultValue = "false"
@@ -166,7 +166,7 @@ public partial class Tables
         new()
         {
             Name = "DefaultSort",
-            Description = TablesLocalizer["DefaultSortAttr"],
+            Description = Localizer["DefaultSortAttr"],
             Type = "boolean",
             ValueList = "true|false",
             DefaultValue = "false"
@@ -174,7 +174,7 @@ public partial class Tables
         new()
         {
             Name = "DefaultSortOrder",
-            Description = TablesLocalizer["DefaultSortOrderAttr"],
+            Description = Localizer["DefaultSortOrderAttr"],
             Type = "SortOrder",
             ValueList = "Unset|Asc|Desc",
             DefaultValue = "Unset"
@@ -182,7 +182,7 @@ public partial class Tables
         new()
         {
             Name = "Text",
-            Description = TablesLocalizer["TextAttr"],
+            Description = Localizer["TextAttr"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
@@ -190,7 +190,7 @@ public partial class Tables
         new()
         {
             Name = "TextEllipsis",
-            Description = TablesLocalizer["TextEllipsisAttr"],
+            Description = Localizer["TextEllipsisAttr"],
             Type = "boolean",
             ValueList = "true|false",
             DefaultValue = "false"
@@ -198,7 +198,7 @@ public partial class Tables
         new()
         {
             Name = "Template",
-            Description = TablesLocalizer["TemplateAttr"],
+            Description = Localizer["TemplateAttr"],
             Type = "RenderFragment<TableColumnContext<object, TItem>>",
             ValueList = " — ",
             DefaultValue = " — "
@@ -206,7 +206,7 @@ public partial class Tables
         new()
         {
             Name = "Visible",
-            Description = TablesLocalizer["VisibleAttr"],
+            Description = Localizer["VisibleAttr"],
             Type = "boolean",
             ValueList = "true|false",
             DefaultValue = "true"
@@ -214,7 +214,7 @@ public partial class Tables
         new()
         {
             Name = "Width",
-            Description = TablesLocalizer["WidthAttr"],
+            Description = Localizer["WidthAttr"],
             Type = "int",
             ValueList = " — ",
             DefaultValue = " — "
@@ -222,7 +222,7 @@ public partial class Tables
         new()
         {
             Name = "Fixed",
-            Description = TablesLocalizer["FixedAttr"],
+            Description = Localizer["FixedAttr"],
             Type = "boolean",
             ValueList = "true|false",
             DefaultValue = "false"
@@ -230,7 +230,7 @@ public partial class Tables
         new()
         {
             Name = nameof(TableColumn<Foo, string>.GroupName),
-            Description = TablesLocalizer["GroupNameAttr"],
+            Description = Localizer["GroupNameAttr"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
@@ -238,7 +238,7 @@ public partial class Tables
         new()
         {
             Name = nameof(TableColumn<Foo, string>.GroupOrder),
-            Description = TablesLocalizer["GroupOrderAttr"],
+            Description = Localizer["GroupOrderAttr"],
             Type = "int",
             ValueList = " — ",
             DefaultValue = " — "
@@ -246,7 +246,7 @@ public partial class Tables
         new()
         {
             Name = "ShownWithBreakPoint",
-            Description = TablesLocalizer["ShownWithBreakPointAttr"],
+            Description = Localizer["ShownWithBreakPointAttr"],
             Type = "BreakPoint",
             ValueList = "None|ExtraSmall|...",
             DefaultValue = "None"
@@ -254,7 +254,7 @@ public partial class Tables
         new()
         {
             Name = "FormatString",
-            Description = TablesLocalizer["FormatStringAttr"],
+            Description = Localizer["FormatStringAttr"],
             Type = "string?",
             ValueList = " — ",
             DefaultValue = " — "
@@ -262,7 +262,7 @@ public partial class Tables
         new()
         {
             Name = "Formatter",
-            Description = TablesLocalizer["FormatterAttr"],
+            Description = Localizer["FormatterAttr"],
             Type = "Func<object?, Task<string>>?",
             ValueList = " — ",
             DefaultValue = " — "
@@ -270,7 +270,7 @@ public partial class Tables
         new()
         {
             Name = "Align",
-            Description = TablesLocalizer["AlignAttr"],
+            Description = Localizer["AlignAttr"],
             Type = "Alignment",
             ValueList = "None|Left|Center|Right",
             DefaultValue = "None"
@@ -278,7 +278,7 @@ public partial class Tables
         new()
         {
             Name = "Order",
-            Description = TablesLocalizer["OrderAttr"],
+            Description = Localizer["OrderAttr"],
             Type = "int",
             ValueList = " - ",
             DefaultValue = " - "
@@ -286,7 +286,7 @@ public partial class Tables
         new()
         {
             Name = "OnCellRender",
-            Description = TablesLocalizer["OnCellRenderAttr"],
+            Description = Localizer["OnCellRenderAttr"],
             Type = "Action<TableCellArgs>?",
             ValueList = " - ",
             DefaultValue = " - "
@@ -299,7 +299,7 @@ public partial class Tables
         new()
         {
             Name = "TableSize",
-            Description = TablesLocalizer["TableSizeAttr"],
+            Description = Localizer["TableSizeAttr"],
             Type = "TableSize",
             ValueList = "Normal|Compact",
             DefaultValue = "Normal"
@@ -307,7 +307,7 @@ public partial class Tables
         new()
         {
             Name = "HeaderStyle",
-            Description = TablesLocalizer["HeaderStyleAttr"],
+            Description = Localizer["HeaderStyleAttr"],
             Type = "TableHeaderStyle",
             ValueList = "None|Light|Dark",
             DefaultValue = "None"
@@ -315,7 +315,7 @@ public partial class Tables
         new()
         {
             Name = "HeaderTextWrap",
-            Description = TablesLocalizer["HeaderTextWrap"],
+            Description = Localizer["HeaderTextWrap"],
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
@@ -323,7 +323,7 @@ public partial class Tables
         new()
         {
             Name = "Height",
-            Description = TablesLocalizer["HeightAttr"],
+            Description = Localizer["HeightAttr"],
             Type = "int",
             ValueList = " — ",
             DefaultValue = " — "
@@ -331,7 +331,7 @@ public partial class Tables
         new()
         {
             Name = "PageItems",
-            Description = TablesLocalizer["PageItemsAttr"],
+            Description = Localizer["PageItemsAttr"],
             Type = "int",
             ValueList = " — ",
             DefaultValue = " — "
@@ -339,7 +339,7 @@ public partial class Tables
         new()
         {
             Name = "AutoRefreshInterval",
-            Description = TablesLocalizer["AutoRefreshIntervalAttr"],
+            Description = Localizer["AutoRefreshIntervalAttr"],
             Type = "int",
             ValueList = " — ",
             DefaultValue = "2000"
@@ -347,7 +347,7 @@ public partial class Tables
         new()
         {
             Name = "ExtendButtonColumnWidth",
-            Description = TablesLocalizer["ExtendButtonColumnWidthAttr"],
+            Description = Localizer["ExtendButtonColumnWidthAttr"],
             Type = "int",
             ValueList = " — ",
             DefaultValue = "130"
@@ -355,7 +355,7 @@ public partial class Tables
         new()
         {
             Name = "RenderModeResponsiveWidth",
-            Description = TablesLocalizer["RenderModeResponsiveWidthAttr"],
+            Description = Localizer["RenderModeResponsiveWidthAttr"],
             Type = "int",
             ValueList = " — ",
             DefaultValue = "768"
@@ -363,7 +363,7 @@ public partial class Tables
         new()
         {
             Name = "IndentSize",
-            Description = TablesLocalizer["IndentSizeAttr"],
+            Description = Localizer["IndentSizeAttr"],
             Type = "int",
             ValueList = " — ",
             DefaultValue = "16"
@@ -371,7 +371,7 @@ public partial class Tables
         new()
         {
             Name = "Items",
-            Description = TablesLocalizer["ItemsAttr"],
+            Description = Localizer["ItemsAttr"],
             Type = "IEnumerable<TItem>",
             ValueList = " — ",
             DefaultValue = " — "
@@ -379,7 +379,7 @@ public partial class Tables
         new()
         {
             Name = "PageItemsSource",
-            Description = TablesLocalizer["PageItemsSourceAttr"],
+            Description = Localizer["PageItemsSourceAttr"],
             Type = "IEnumerable<int>",
             ValueList = " — ",
             DefaultValue = " — "
@@ -387,7 +387,7 @@ public partial class Tables
         new()
         {
             Name = "EditMode",
-            Description = TablesLocalizer["EditModeAttr"],
+            Description = Localizer["EditModeAttr"],
             Type = "EditMode",
             ValueList = "Popup|Inline|InCell",
             DefaultValue = "Popup"
@@ -395,7 +395,7 @@ public partial class Tables
         new()
         {
             Name = "MultiHeaderTemplate",
-            Description = TablesLocalizer["MultiHeaderTemplateAttr"],
+            Description = Localizer["MultiHeaderTemplateAttr"],
             Type = "RenderFragment",
             ValueList = " — ",
             DefaultValue = " — "
@@ -403,7 +403,7 @@ public partial class Tables
         new()
         {
             Name = "TableFooter",
-            Description = TablesLocalizer["TableFooterAttr"],
+            Description = Localizer["TableFooterAttr"],
             Type = "RenderFragment",
             ValueList = " — ",
             DefaultValue = " — "
@@ -411,7 +411,7 @@ public partial class Tables
         new()
         {
             Name = "TableToolbarTemplate",
-            Description = TablesLocalizer["TableToolbarTemplateAttr"],
+            Description = Localizer["TableToolbarTemplateAttr"],
             Type = "RenderFragment",
             ValueList = " — ",
             DefaultValue = " — "
@@ -419,7 +419,7 @@ public partial class Tables
         new()
         {
             Name = "EditTemplate",
-            Description = TablesLocalizer["EditTemplateAttr"],
+            Description = Localizer["EditTemplateAttr"],
             Type = "RenderFragment<TItem?>",
             ValueList = " — ",
             DefaultValue = " — "
@@ -427,7 +427,7 @@ public partial class Tables
         new()
         {
             Name = "ShowAdvancedSearch",
-            Description = TablesLocalizer["ShowAdvancedSearchAttr"],
+            Description = Localizer["ShowAdvancedSearchAttr"],
             Type = "boolean",
             ValueList = "true / false",
             DefaultValue = "true"
@@ -435,7 +435,7 @@ public partial class Tables
         new()
         {
             Name = "SearchTemplate",
-            Description = TablesLocalizer["SearchTemplateAttr"],
+            Description = Localizer["SearchTemplateAttr"],
             Type = "RenderFragment<TItem>",
             ValueList = " — ",
             DefaultValue = " — "
@@ -443,7 +443,7 @@ public partial class Tables
         new()
         {
             Name = "BeforeRowButtonTemplate",
-            Description = TablesLocalizer["BeforeRowButtonTemplateAttr"],
+            Description = Localizer["BeforeRowButtonTemplateAttr"],
             Type = "RenderFragment<TItem>",
             ValueList = " — ",
             DefaultValue = " — "
@@ -451,7 +451,7 @@ public partial class Tables
         new()
         {
             Name = "RowButtonTemplate",
-            Description = TablesLocalizer["RowButtonTemplateAttr"],
+            Description = Localizer["RowButtonTemplateAttr"],
             Type = "RenderFragment<TItem>",
             ValueList = " — ",
             DefaultValue = " — "
@@ -459,7 +459,7 @@ public partial class Tables
         new()
         {
             Name = "DetailRowTemplate",
-            Description = TablesLocalizer["DetailRowTemplateAttr"],
+            Description = Localizer["DetailRowTemplateAttr"],
             Type = "RenderFragment<TItem>",
             ValueList = " — ",
             DefaultValue = " — "
@@ -467,7 +467,7 @@ public partial class Tables
         new()
         {
             Name = "IsAutoCollapsedToolbarButton",
-            Description = TablesLocalizer["IsAutoCollapsedToolbarButtonAttr"],
+            Description = Localizer["IsAutoCollapsedToolbarButtonAttr"],
             Type = "boolean",
             ValueList = "true / false",
             DefaultValue = "true"
@@ -475,7 +475,7 @@ public partial class Tables
         new()
         {
             Name = "IsBordered",
-            Description = TablesLocalizer["IsBorderedAttr"],
+            Description = Localizer["IsBorderedAttr"],
             Type = "boolean",
             ValueList = "true / false",
             DefaultValue = " — "
@@ -483,7 +483,7 @@ public partial class Tables
         new()
         {
             Name = "IsPagination",
-            Description = TablesLocalizer["IsPaginationAttr"],
+            Description = Localizer["IsPaginationAttr"],
             Type = "boolean",
             ValueList = "true / false",
             DefaultValue = " — "
@@ -491,7 +491,7 @@ public partial class Tables
         new()
         {
             Name = "ShowGotoNavigator",
-            Description = TablesLocalizer["ShowGotoNavigatorAttr"],
+            Description = Localizer["ShowGotoNavigatorAttr"],
             Type = "boolean",
             ValueList = "true / false",
             DefaultValue = "true"
@@ -499,7 +499,7 @@ public partial class Tables
         new()
         {
             Name = "GotoTemplate",
-            Description = TablesLocalizer["GotoTemplateAttr"],
+            Description = Localizer["GotoTemplateAttr"],
             Type = "RenderFragment?",
             ValueList = " — ",
             DefaultValue = " — "
@@ -507,7 +507,7 @@ public partial class Tables
         new()
         {
             Name = "GotoNavigatorLabelText",
-            Description = TablesLocalizer["GotoNavigatorLabelTextAttr"],
+            Description = Localizer["GotoNavigatorLabelTextAttr"],
             Type = "string?",
             ValueList = " — ",
             DefaultValue = " — "
@@ -515,7 +515,7 @@ public partial class Tables
         new()
         {
             Name = "ShowPageInfo",
-            Description = TablesLocalizer["ShowPageInfoAttr"],
+            Description = Localizer["ShowPageInfoAttr"],
             Type = "boolean",
             ValueList = "true / false",
             DefaultValue = "true"
@@ -523,7 +523,7 @@ public partial class Tables
         new()
         {
             Name = "PageInfoTemplate",
-            Description = TablesLocalizer["PageInfoTemplateAttr"],
+            Description = Localizer["PageInfoTemplateAttr"],
             Type = "RenderFragment?",
             ValueList = " — ",
             DefaultValue = " — "
@@ -531,7 +531,7 @@ public partial class Tables
         new()
         {
             Name = "PageInfoText",
-            Description = TablesLocalizer["PageInfoTextAttr"],
+            Description = Localizer["PageInfoTextAttr"],
             Type = "string?",
             ValueList = " — ",
             DefaultValue = " — "
@@ -539,7 +539,7 @@ public partial class Tables
         new()
         {
             Name = "IsStriped",
-            Description = TablesLocalizer["IsStripedAttr"],
+            Description = Localizer["IsStripedAttr"],
             Type = "boolean",
             ValueList = "true / false",
             DefaultValue = " — "
@@ -547,7 +547,7 @@ public partial class Tables
         new()
         {
             Name = "IsRendered",
-            Description = TablesLocalizer["IsRenderedAttr"],
+            Description = Localizer["IsRenderedAttr"],
             Type = "boolean",
             ValueList = "true / false",
             DefaultValue = "false"
@@ -555,7 +555,7 @@ public partial class Tables
         new()
         {
             Name = "IsMultipleSelect",
-            Description = TablesLocalizer["IsMultipleSelectAttr"],
+            Description = Localizer["IsMultipleSelectAttr"],
             Type = "boolean",
             ValueList = "true / false",
             DefaultValue = "false"
@@ -563,7 +563,7 @@ public partial class Tables
         new()
         {
             Name = "IsAutoRefresh",
-            Description = TablesLocalizer["IsAutoRefreshAttr"],
+            Description = Localizer["IsAutoRefreshAttr"],
             Type = "boolean",
             ValueList = "true / false",
             DefaultValue = "false"
@@ -571,7 +571,7 @@ public partial class Tables
         new()
         {
             Name = "IsTree",
-            Description = TablesLocalizer["IsTreeAttr"],
+            Description = Localizer["IsTreeAttr"],
             Type = "boolean",
             ValueList = "true / false",
             DefaultValue = "false"
@@ -579,7 +579,7 @@ public partial class Tables
         new()
         {
             Name = "IsDetails",
-            Description = TablesLocalizer["IsDetailsAttr"],
+            Description = Localizer["IsDetailsAttr"],
             Type = "boolean",
             ValueList = "true / false / null",
             DefaultValue = "null"
@@ -587,7 +587,7 @@ public partial class Tables
         new()
         {
             Name = nameof(Table<Foo>.IsHideFooterWhenNoData),
-            Description = TablesLocalizer["IsHideFooterWhenNoDataAttr"],
+            Description = Localizer["IsHideFooterWhenNoDataAttr"],
             Type = "boolean",
             ValueList = "true / false",
             DefaultValue = "false"
@@ -595,7 +595,7 @@ public partial class Tables
         new()
         {
             Name = "ClickToSelect",
-            Description = TablesLocalizer["ClickToSelectAttr"],
+            Description = Localizer["ClickToSelectAttr"],
             Type = "boolean",
             ValueList = "true|false",
             DefaultValue = "false"
@@ -603,7 +603,7 @@ public partial class Tables
         new()
         {
             Name = "ShowCheckboxText",
-            Description = TablesLocalizer["ShowCheckboxTextAttr"],
+            Description = Localizer["ShowCheckboxTextAttr"],
             Type = "boolean",
             ValueList = "true / false",
             DefaultValue = " — "
@@ -611,7 +611,7 @@ public partial class Tables
         new()
         {
             Name = "ShowFooter",
-            Description = TablesLocalizer["ShowFooterAttr"],
+            Description = Localizer["ShowFooterAttr"],
             Type = "boolean",
             ValueList = "true / false",
             DefaultValue = "false"
@@ -619,7 +619,7 @@ public partial class Tables
         new()
         {
             Name = nameof(Table<Foo>.ShowFilterHeader),
-            Description = TablesLocalizer["ShowFilterHeaderAttr"],
+            Description = Localizer["ShowFilterHeaderAttr"],
             Type = "boolean",
             ValueList = "true / false",
             DefaultValue = "false"
@@ -627,7 +627,7 @@ public partial class Tables
         new()
         {
             Name = nameof(Table<Foo>.ShowMultiFilterHeader),
-            Description = TablesLocalizer["ShowMultiFilterHeaderAttr"],
+            Description = Localizer["ShowMultiFilterHeaderAttr"],
             Type = "boolean",
             ValueList = "true / false",
             DefaultValue = "false"
@@ -635,7 +635,7 @@ public partial class Tables
         new()
         {
             Name = "ShowSearch",
-            Description = TablesLocalizer["ShowSearchAttr"],
+            Description = Localizer["ShowSearchAttr"],
             Type = "boolean",
             ValueList = "true / false",
             DefaultValue = "false"
@@ -643,7 +643,7 @@ public partial class Tables
         new()
         {
             Name = "ShowSearchText",
-            Description = TablesLocalizer["ShowSearchTextAttr"],
+            Description = Localizer["ShowSearchTextAttr"],
             Type = "boolean",
             ValueList = "true / false",
             DefaultValue = "true"
@@ -651,7 +651,7 @@ public partial class Tables
         new()
         {
             Name = "ShowSearchTextTooltip",
-            Description = TablesLocalizer["ShowSearchTextTooltipAttr"],
+            Description = Localizer["ShowSearchTextTooltipAttr"],
             Type = "boolean",
             ValueList = "true / false",
             DefaultValue = "true"
@@ -659,7 +659,7 @@ public partial class Tables
         new()
         {
             Name = "ShowResetButton",
-            Description = TablesLocalizer["ShowResetButtonAttr"],
+            Description = Localizer["ShowResetButtonAttr"],
             Type = "boolean",
             ValueList = "true / false",
             DefaultValue = "true"
@@ -667,7 +667,7 @@ public partial class Tables
         new()
         {
             Name = "ShowSearchButton",
-            Description = TablesLocalizer["ShowSearchButtonAttr"],
+            Description = Localizer["ShowSearchButtonAttr"],
             Type = "boolean",
             ValueList = "true / false",
             DefaultValue = "true"
@@ -675,7 +675,7 @@ public partial class Tables
         new()
         {
             Name = "SearchMode",
-            Description = TablesLocalizer["SearchModeAttr"],
+            Description = Localizer["SearchModeAttr"],
             Type = "SearchMode",
             ValueList = "Popup / Top",
             DefaultValue = "Popup"
@@ -683,7 +683,7 @@ public partial class Tables
         new()
         {
             Name = nameof(Table<Foo>.CollapsedTopSearch),
-            Description = TablesLocalizer["CollapsedTopSearchAttr"],
+            Description = Localizer["CollapsedTopSearchAttr"],
             Type = "boolean",
             ValueList = "true / false",
             DefaultValue = "false"
@@ -691,7 +691,7 @@ public partial class Tables
         new()
         {
             Name = "ShowToolbar",
-            Description = TablesLocalizer["ShowToolbarAttr"],
+            Description = Localizer["ShowToolbarAttr"],
             Type = "boolean",
             ValueList = "true / false",
             DefaultValue = "false"
@@ -699,7 +699,7 @@ public partial class Tables
         new()
         {
             Name = "ShowLineNo",
-            Description = TablesLocalizer["ShowLineNoAttr"],
+            Description = Localizer["ShowLineNoAttr"],
             Type = "boolean",
             ValueList = "true / false",
             DefaultValue = "false"
@@ -707,7 +707,7 @@ public partial class Tables
         new()
         {
             Name = "ShowDefaultButtons",
-            Description = TablesLocalizer["ShowDefaultButtonsAttr"],
+            Description = Localizer["ShowDefaultButtonsAttr"],
             Type = "boolean",
             ValueList = "true / false",
             DefaultValue = "true"
@@ -715,7 +715,7 @@ public partial class Tables
         new()
         {
             Name = "ShowAddButton",
-            Description = TablesLocalizer["ShowAddButtonAttr"],
+            Description = Localizer["ShowAddButtonAttr"],
             Type = "boolean",
             ValueList = "true / false",
             DefaultValue = "true"
@@ -723,7 +723,7 @@ public partial class Tables
         new()
         {
             Name = "ShowEditButton",
-            Description = TablesLocalizer["ShowEditButtonAttr"],
+            Description = Localizer["ShowEditButtonAttr"],
             Type = "boolean",
             ValueList = "true / false",
             DefaultValue = "true"
@@ -731,7 +731,7 @@ public partial class Tables
         new()
         {
             Name = "ShowEditButtonCallback",
-            Description = TablesLocalizer["ShowEditButtonCallbackAttr"],
+            Description = Localizer["ShowEditButtonCallbackAttr"],
             Type = "boolean",
             ValueList = "true / false",
             DefaultValue = "true"
@@ -739,7 +739,7 @@ public partial class Tables
         new()
         {
             Name = "ShowDeleteButton",
-            Description = TablesLocalizer["ShowDeleteButtonAttr"],
+            Description = Localizer["ShowDeleteButtonAttr"],
             Type = "boolean",
             ValueList = "true / false",
             DefaultValue = "true"
@@ -747,7 +747,7 @@ public partial class Tables
         new()
         {
             Name = "ShowDeleteButtonCallback",
-            Description = TablesLocalizer["ShowDeleteButtonCallbackAttr"],
+            Description = Localizer["ShowDeleteButtonCallbackAttr"],
             Type = "boolean",
             ValueList = "true / false",
             DefaultValue = "true"
@@ -755,7 +755,7 @@ public partial class Tables
         new()
         {
             Name = "ShowExtendButtons",
-            Description = TablesLocalizer["ShowExtendButtonsAttr"],
+            Description = Localizer["ShowExtendButtonsAttr"],
             Type = "boolean",
             ValueList = "true / false",
             DefaultValue = "false"
@@ -763,7 +763,7 @@ public partial class Tables
         new()
         {
             Name = nameof(Table<Foo>.ShowExtendEditButton),
-            Description = TablesLocalizer["ShowExtendEditButtonAttr"],
+            Description = Localizer["ShowExtendEditButtonAttr"],
             Type = "boolean",
             ValueList = "true / false",
             DefaultValue = "true"
@@ -771,7 +771,7 @@ public partial class Tables
         new()
         {
             Name = nameof(Table<Foo>.ShowExtendDeleteButton),
-            Description = TablesLocalizer["ShowExtendDeleteButtonAttr"],
+            Description = Localizer["ShowExtendDeleteButtonAttr"],
             Type = "boolean",
             ValueList = "true / false",
             DefaultValue = "true"
@@ -779,7 +779,7 @@ public partial class Tables
         new()
         {
             Name = nameof(Table<Foo>.ShowUnsetGroupItemsOnTop),
-            Description = TablesLocalizer["ShowUnsetGroupItemsOnTopAttr"],
+            Description = Localizer["ShowUnsetGroupItemsOnTopAttr"],
             Type = "boolean",
             ValueList = "true / false",
             DefaultValue = "false"
@@ -787,7 +787,7 @@ public partial class Tables
         new()
         {
             Name = "ShowSkeleton",
-            Description = TablesLocalizer["ShowSkeletonAttr"],
+            Description = Localizer["ShowSkeletonAttr"],
             Type = "boolean",
             ValueList = "true / false",
             DefaultValue = "false"
@@ -795,7 +795,7 @@ public partial class Tables
         new()
         {
             Name = "ShowLoadingInFirstRender",
-            Description = TablesLocalizer["ShowLoadingInFirstRenderAttr"],
+            Description = Localizer["ShowLoadingInFirstRenderAttr"],
             Type = "boolean",
             ValueList = "true / false",
             DefaultValue = "true"
@@ -803,7 +803,7 @@ public partial class Tables
         new()
         {
             Name = "ShowColumnList",
-            Description = TablesLocalizer["ShowColumnListAttr"],
+            Description = Localizer["ShowColumnListAttr"],
             Type = "boolean",
             ValueList = "true / false",
             DefaultValue = "false"
@@ -811,7 +811,7 @@ public partial class Tables
         new()
         {
             Name = "OnColumnVisibleChanged",
-            Description = TablesLocalizer["OnColumnVisibleChangedAttr"],
+            Description = Localizer["OnColumnVisibleChangedAttr"],
             Type = "Func<string, bool>",
             ValueList = " — ",
             DefaultValue = " — "
@@ -819,7 +819,7 @@ public partial class Tables
         new()
         {
             Name = "ShowEmpty",
-            Description = TablesLocalizer["ShowEmptyAttr"],
+            Description = Localizer["ShowEmptyAttr"],
             Type = "boolean",
             ValueList = "true / false",
             DefaultValue = "false"
@@ -827,7 +827,7 @@ public partial class Tables
         new()
         {
             Name = "ShowToastAfterSaveOrDeleteModel",
-            Description = TablesLocalizer["ShowToastAfterSaveOrDeleteModelAttr"],
+            Description = Localizer["ShowToastAfterSaveOrDeleteModelAttr"],
             Type = "boolean",
             ValueList = "true / false",
             DefaultValue = "true"
@@ -835,7 +835,7 @@ public partial class Tables
         new()
         {
             Name = "TreeIcon",
-            Description = TablesLocalizer["TreeIconAttr"],
+            Description = Localizer["TreeIconAttr"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = "fa-caret-right"
@@ -843,7 +843,7 @@ public partial class Tables
         new()
         {
             Name = "ScrollingDialogContent",
-            Description = TablesLocalizer["ScrollingDialogContentAttr"],
+            Description = Localizer["ScrollingDialogContentAttr"],
             Type = "boolean",
             ValueList = "true / false",
             DefaultValue = "false"
@@ -851,7 +851,7 @@ public partial class Tables
         new()
         {
             Name = "FixedExtendButtonsColumn",
-            Description = TablesLocalizer["FixedExtendButtonsColumnAttr"],
+            Description = Localizer["FixedExtendButtonsColumnAttr"],
             Type = "boolean",
             ValueList = "true / false",
             DefaultValue = "false"
@@ -859,7 +859,7 @@ public partial class Tables
         new()
         {
             Name = "OnQueryAsync",
-            Description = TablesLocalizer["OnQueryAsyncAttr"],
+            Description = Localizer["OnQueryAsyncAttr"],
             Type = "Func<QueryPageOptions, Task<QueryData<TItem>>>",
             ValueList = " — ",
             DefaultValue = " — "
@@ -867,7 +867,7 @@ public partial class Tables
         new()
         {
             Name = "OnAddAsync",
-            Description = TablesLocalizer["OnAddAsyncAttr"],
+            Description = Localizer["OnAddAsyncAttr"],
             Type = "Func<Task<TItem>>",
             ValueList = " — ",
             DefaultValue = " — "
@@ -875,7 +875,7 @@ public partial class Tables
         new()
         {
             Name = nameof(Table<Foo>.OnColumnCreating),
-            Description = TablesLocalizer["OnColumnCreatingAttr"],
+            Description = Localizer["OnColumnCreatingAttr"],
             Type = "Func<List<ITableColumn>,Task>",
             ValueList = " — ",
             DefaultValue = " — "
@@ -883,7 +883,7 @@ public partial class Tables
         new()
         {
             Name = nameof(Table<Foo>.OnDoubleClickCellCallback),
-            Description = TablesLocalizer["OnDoubleClickCellCallbackAttr"],
+            Description = Localizer["OnDoubleClickCellCallbackAttr"],
             Type = "Func<string, object, object?, Task>",
             ValueList = " — ",
             DefaultValue = " — "
@@ -891,7 +891,7 @@ public partial class Tables
         new()
         {
             Name = "OnDeleteAsync",
-            Description = TablesLocalizer["OnDeleteAsyncAttr"],
+            Description = Localizer["OnDeleteAsyncAttr"],
             Type = "Func<IEnumerable<TItem>, Task<bool>>",
             ValueList = " — ",
             DefaultValue = " — "
@@ -899,7 +899,7 @@ public partial class Tables
         new()
         {
             Name = "OnEditAsync",
-            Description = TablesLocalizer["OnEditAsyncAttr"],
+            Description = Localizer["OnEditAsyncAttr"],
             Type = "Func<TItem, Task>",
             ValueList = " — ",
             DefaultValue = " — "
@@ -907,7 +907,7 @@ public partial class Tables
         new()
         {
             Name = "OnSaveAsync",
-            Description = TablesLocalizer["OnSaveAsyncAttr"],
+            Description = Localizer["OnSaveAsyncAttr"],
             Type = "Func<TItem, Task>",
             ValueList = " — ",
             DefaultValue = " — "
@@ -915,7 +915,7 @@ public partial class Tables
         new()
         {
             Name = "OnResetSearchAsync",
-            Description = TablesLocalizer["OnResetSearchAsyncAttr"],
+            Description = Localizer["OnResetSearchAsyncAttr"],
             Type = "Func<TItem, Task>",
             ValueList = " — ",
             DefaultValue = " — "
@@ -923,7 +923,7 @@ public partial class Tables
         new()
         {
             Name = "OnClickRowCallback",
-            Description = TablesLocalizer["OnClickRowCallbackAttr"],
+            Description = Localizer["OnClickRowCallbackAttr"],
             Type = "Func<TItem, Task>",
             ValueList = " — ",
             DefaultValue = " — "
@@ -931,7 +931,7 @@ public partial class Tables
         new()
         {
             Name = "OnAfterSaveAsync",
-            Description = TablesLocalizer["OnAfterSaveAsyncAttr"],
+            Description = Localizer["OnAfterSaveAsyncAttr"],
             Type = "Func<TItem, Task>",
             ValueList = " — ",
             DefaultValue = " — "
@@ -939,7 +939,7 @@ public partial class Tables
         new()
         {
             Name = nameof(Table<Foo>.OnAfterRenderCallback),
-            Description = TablesLocalizer["OnAfterRenderCallbackAttr"],
+            Description = Localizer["OnAfterRenderCallbackAttr"],
             Type = "Func<Table<TItem>, Task>",
             ValueList = " — ",
             DefaultValue = " — "
@@ -947,7 +947,7 @@ public partial class Tables
         new()
         {
             Name = "OnTreeExpand",
-            Description = TablesLocalizer["OnTreeExpandAttr"],
+            Description = Localizer["OnTreeExpandAttr"],
             Type = "Func<TItem, Task<IEnumerable<TItem>>>",
             ValueList = " — ",
             DefaultValue = " — "
@@ -955,7 +955,7 @@ public partial class Tables
         new()
         {
             Name = "OnDoubleClickRowCallback",
-            Description = TablesLocalizer["OnDoubleClickRowCallbackAttr"],
+            Description = Localizer["OnDoubleClickRowCallbackAttr"],
             Type = "Func<TItem, Task>",
             ValueList = " — ",
             DefaultValue = " — "
@@ -963,7 +963,7 @@ public partial class Tables
         new()
         {
             Name = "SortIcon",
-            Description = TablesLocalizer["SortIconAttr"],
+            Description = Localizer["SortIconAttr"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = "fa-solid fa-sort"
@@ -971,7 +971,7 @@ public partial class Tables
         new()
         {
             Name = "SortIconAsc",
-            Description = TablesLocalizer["SortIconAscAttr"],
+            Description = Localizer["SortIconAscAttr"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = "fa-solid fa-sort-up"
@@ -979,7 +979,7 @@ public partial class Tables
         new()
         {
             Name = "SortIconDesc",
-            Description = TablesLocalizer["SortIconDescAttr"],
+            Description = Localizer["SortIconDescAttr"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = "fa-solid fa-sort-down"
@@ -987,7 +987,7 @@ public partial class Tables
         new()
         {
             Name = "EditDialogSaveButtonText",
-            Description = TablesLocalizer["EditDialogSaveButtonTextAttr"],
+            Description = Localizer["EditDialogSaveButtonTextAttr"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
@@ -995,7 +995,7 @@ public partial class Tables
         new()
         {
             Name = nameof(Table<Foo>.EditDialogIsDraggable),
-            Description = TablesLocalizer["EditDialogIsDraggableAttr"],
+            Description = Localizer["EditDialogIsDraggableAttr"],
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
@@ -1003,7 +1003,7 @@ public partial class Tables
         new()
         {
             Name = nameof(Table<Foo>.EditDialogShowMaximizeButton),
-            Description = TablesLocalizer["EditDialogShowMaximizeButtonAttr"],
+            Description = Localizer["EditDialogShowMaximizeButtonAttr"],
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "true"
@@ -1011,7 +1011,7 @@ public partial class Tables
         new()
         {
             Name = "EditDialogSize",
-            Description = TablesLocalizer["EditDialogSizeAttr"],
+            Description = Localizer["EditDialogSizeAttr"],
             Type = "Size",
             ValueList = " — ",
             DefaultValue = "Large"
@@ -1019,7 +1019,7 @@ public partial class Tables
         new()
         {
             Name = "ExportButtonDropdownTemplate",
-            Description = TablesLocalizer["ExportButtonDropdownTemplateAttr"],
+            Description = Localizer["ExportButtonDropdownTemplateAttr"],
             Type = "RenderFragment",
             ValueList = " — ",
             DefaultValue = " — "
@@ -1027,7 +1027,7 @@ public partial class Tables
         new()
         {
             Name = nameof(Table<Foo>.SearchDialogIsDraggable),
-            Description = TablesLocalizer["SearchDialogIsDraggableAttr"],
+            Description = Localizer["SearchDialogIsDraggableAttr"],
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
@@ -1035,7 +1035,7 @@ public partial class Tables
         new()
         {
             Name = nameof(Table<Foo>.SearchDialogShowMaximizeButton),
-            Description = TablesLocalizer["SearchDialogShowMaximizeButtonAttr"],
+            Description = Localizer["SearchDialogShowMaximizeButtonAttr"],
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "true"
@@ -1043,7 +1043,7 @@ public partial class Tables
         new()
         {
             Name = "SearchDialogSize",
-            Description = TablesLocalizer["SearchDialogSizeAttr"],
+            Description = Localizer["SearchDialogSizeAttr"],
             Type = "Size",
             ValueList = " — ",
             DefaultValue = "Large"
@@ -1051,7 +1051,7 @@ public partial class Tables
         new()
         {
             Name = "AddModalTitle",
-            Description = TablesLocalizer["AddModalTitleAttr"],
+            Description = Localizer["AddModalTitleAttr"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
@@ -1059,7 +1059,7 @@ public partial class Tables
         new()
         {
             Name = "EditModalTitle",
-            Description = TablesLocalizer["EditModalTitleAttr"],
+            Description = Localizer["EditModalTitleAttr"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
@@ -1067,31 +1067,31 @@ public partial class Tables
         new()
         {
             Name = "UnsetText",
-            Description = TablesLocalizer["UnsetTextAttr"],
+            Description = Localizer["UnsetTextAttr"],
             Type = "string",
             ValueList = " — ",
-            DefaultValue = TablesLocalizer["UnsetTextValue"]
+            DefaultValue = Localizer["UnsetTextValue"]
         },
         new()
         {
             Name = "SortAscText",
-            Description = TablesLocalizer["SortAscTextAttr"],
+            Description = Localizer["SortAscTextAttr"],
             Type = "string",
             ValueList = " — ",
-            DefaultValue = TablesLocalizer["SortAscTextValue"]
+            DefaultValue = Localizer["SortAscTextValue"]
         },
         new()
         {
             Name = "SortDescText",
-            Description = TablesLocalizer["SortDescTextAttr"],
+            Description = Localizer["SortDescTextAttr"],
             Type = "string",
             ValueList = " — ",
-            DefaultValue = TablesLocalizer["SortDescTextValue"]
+            DefaultValue = Localizer["SortDescTextValue"]
         },
         new()
         {
             Name = "RenderMode",
-            Description = TablesLocalizer["RenderModeAttr"],
+            Description = Localizer["RenderModeAttr"],
             Type = "TableRenderMode",
             ValueList = "Auto|Table|CardView",
             DefaultValue = "Auto"
@@ -1099,7 +1099,7 @@ public partial class Tables
         new()
         {
             Name = "EmptyText",
-            Description = TablesLocalizer["EmptyTextAttr"],
+            Description = Localizer["EmptyTextAttr"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
@@ -1107,7 +1107,7 @@ public partial class Tables
         new()
         {
             Name = nameof(Table<MethodItem>.EmptyImage),
-            Description = TablesLocalizer["EmptyImageAttr"],
+            Description = Localizer["EmptyImageAttr"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
@@ -1115,7 +1115,7 @@ public partial class Tables
         new()
         {
             Name = "EmptyTemplate",
-            Description = TablesLocalizer["EmptyTemplateAttr"],
+            Description = Localizer["EmptyTemplateAttr"],
             Type = "RenderFragment",
             ValueList = " — ",
             DefaultValue = " — "
@@ -1123,7 +1123,7 @@ public partial class Tables
         new()
         {
             Name = "EditDialogItemsPerRow",
-            Description = TablesLocalizer["EditDialogItemsPerRowAttr"],
+            Description = Localizer["EditDialogItemsPerRowAttr"],
             Type = "int?",
             ValueList = " — ",
             DefaultValue = " — "
@@ -1131,7 +1131,7 @@ public partial class Tables
         new()
         {
             Name = "EditDialogRowType",
-            Description = TablesLocalizer["EditDialogRowTypeAttr"],
+            Description = Localizer["EditDialogRowTypeAttr"],
             Type = "RowType",
             ValueList = "Row|Inline",
             DefaultValue = "Row"
@@ -1139,7 +1139,7 @@ public partial class Tables
         new()
         {
             Name = "EditDialogLabelAlign",
-            Description = TablesLocalizer["EditDialogLabelAlignAttr"],
+            Description = Localizer["EditDialogLabelAlignAttr"],
             Type = "Alignment",
             ValueList = "None|Left|Center|Right",
             DefaultValue = "None"
@@ -1151,21 +1151,21 @@ public partial class Tables
         new()
         {
             Name = nameof(Table<MethodItem>.AddAsync),
-            Description = TablesLocalizer["AddAsyncMethod"],
+            Description = Localizer["AddAsyncMethod"],
             Parameters = " — ",
             ReturnValue = "Task"
         },
         new()
         {
             Name = nameof(Table<MethodItem>.EditAsync),
-            Description = TablesLocalizer["EditAsyncMethod"],
+            Description = Localizer["EditAsyncMethod"],
             Parameters = " — ",
             ReturnValue = " — "
         },
         new()
         {
             Name = nameof(Table<MethodItem>.QueryAsync),
-            Description = TablesLocalizer["QueryAsyncMethod"],
+            Description = Localizer["QueryAsyncMethod"],
             Parameters = " — ",
             ReturnValue = "Task"
         }
