@@ -113,6 +113,12 @@ public class MenuTest : BootstrapBlazorTestBase
             pb.Add(m => m.IsVertical, true);
         });
         Assert.Contains("Menu1", cut.Markup);
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(m => m.Items, null);
+        });
+        Assert.Contains("submenu", cut.Markup);
     }
 
     [Fact]
