@@ -277,6 +277,25 @@ public class MultiSelectTest : BootstrapBlazorTestBase
             });
         });
         Assert.DoesNotContain("multi-select-item-group", cut.Markup);
+
+        // 设置 SelectedItems
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ShowCloseButton, true);
+            pb.Add(a => a.Items, new List<SelectedItem>
+            {
+                new("1", "Test1") { Active = true },
+                new("2", "Test2")
+            });
+        });
+        cut.Contains("multi-select-item-group");
+        cut.DoesNotContain("data-bb-val");
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.IsPopover, true);
+        });
+        cut.Contains("data-bb-val");
     }
 
     [Fact]
