@@ -2,79 +2,52 @@
 @page "/tables/tree"
 @inject IStringLocalizer<TablesTree> Localizer
 
-<h3>@Localizer["H1"]</h3>
-<h4>@Localizer["H2"]</h4>
+<h3>@Localizer["TablesTreeTitle"]</h3>
+<h4>@Localizer["TablesTreeDescription"]</h4>
 
 <Tips class="mt-3">
-    <div>@((MarkupString)Localizer["P1"].Value)</div>
+    <div>@((MarkupString)Localizer["TablesTreeTip_title"].Value)</div>
     <ul class="ul-demo mt-3">
-        <li>@((MarkupString)Localizer["P2"].Value)</li>
-        <li>@((MarkupString)Localizer["P3"].Value)</li>
-        <li>@((MarkupString)Localizer["P4"].Value)</li>
-        <li>@((MarkupString)Localizer["P5"].Value)</li>
+        <li>@((MarkupString)Localizer["TablesTreeTip_note1"].Value)</li>
+        <li>@((MarkupString)Localizer["TablesTreeTip_note2"].Value)</li>
+        <li>@((MarkupString)Localizer["TablesTreeTip_note3"].Value)</li>
+        <li>@((MarkupString)Localizer["TablesTreeTip_note4"].Value)</li>
     </ul>
 </Tips>
 
-<p>@((MarkupString)Localizer["P6"].Value)</p>
-<p>@((MarkupString)Localizer["P7"].Value)</p>
-<p>@((MarkupString)Localizer["P8"].Value)</p>
-<p>@((MarkupString)Localizer["P9"].Value)</p>
+<p>@((MarkupString)Localizer["TablesTreeStep1"].Value)</p>
+<p>@((MarkupString)Localizer["TablesTreeStep2"].Value)</p>
+<p>@((MarkupString)Localizer["TablesTreeStep3"].Value)</p>
+<p>@((MarkupString)Localizer["TablesTreeStep4"].Value)</p>
 
-<DemoBlock Title="@Localizer["P10"]" Introduction="@Localizer["P11"]" Name="TreeData">
-    <Table TItem="TreeFoo" IsBordered="true" IsStriped="true" HeaderStyle="@TableHeaderStyle.Light"
-           Items="@TreeItems" IsTree="true" TreeNodeConverter="@TreeNodeConverter" OnTreeExpand="@OnTreeExpand">
-        <TableColumns>
-            <TableColumn @bind-Field="@context.Name" Width="360" />
-            <TableColumn @bind-Field="@context.DateTime" Width="180" />
-            <TableColumn @bind-Field="@context.Address" />
-            <TableColumn @bind-Field="@context.Count" />
-        </TableColumns>
-    </Table>
+<DemoBlock Title="@Localizer["TablesTreeDataTitle"]"
+           Introduction="@Localizer["TablesTreeDataIntro"]"
+           Name="TreeData"
+           Demo="typeof(Demos.Table.TablesTree.TablesTreeData)">
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["P12"]" Introduction="@Localizer["P13"]" Name="Level">
+<DemoBlock Title="@Localizer["TablesTreeLevelTitle"]"
+           Introduction="@Localizer["TablesTreeLevelIntro"]"
+           Name="Level"
+           Demo="typeof(Demos.Table.TablesTree.TablesTreeLevel)">
     <Tips>
-        <div>@((MarkupString)Localizer["P14"].Value)</div>
+        <div>@((MarkupString)Localizer["TablesTreeLevelTips1"].Value)</div>
     </Tips>
-    <p>@((MarkupString)Localizer["P15"].Value)</p>
-    <Table TItem="TreeFoo" IsBordered="true" IsStriped="true" HeaderStyle="@TableHeaderStyle.Light" IndentSize="8"
-           Items="@TreeItems" IsTree="true" TreeNodeConverter="@TreeNodeConverter" OnTreeExpand="@OnTreeExpand">
-        <TableColumns>
-            <TableColumn @bind-Field="@context.Name" Width="360" />
-            <TableColumn @bind-Field="@context.DateTime" Width="180" />
-            <TableColumn @bind-Field="@context.Address" />
-            <TableColumn @bind-Field="@context.Count" />
-        </TableColumns>
-    </Table>
+    <p>@((MarkupString)Localizer["TablesTreeLevelTips2"].Value)</p>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["P16"]" Introduction="@Localizer["P17"]" Name="EditTree">
-    <Table TItem="TreeFoo" IsBordered="true" HeaderStyle="@TableHeaderStyle.Light"
-           ShowToolbar="true" ShowExtendButtons="true" ShowSkeleton="true" IsStriped="true"
-           OnQueryAsync="@OnQueryAsync" OnAddAsync="@OnAddAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync"
-           IsTree="true" TreeNodeConverter="@TreeNodeConverter" OnTreeExpand="@OnTreeExpand">
-        <TableColumns>
-            <TableColumn @bind-Field="@context.Id" />
-            <TableColumn @bind-Field="@context.Name" Width="360" />
-            <TableColumn @bind-Field="@context.DateTime" Width="180" />
-            <TableColumn @bind-Field="@context.Address" />
-            <TableColumn @bind-Field="@context.Count" />
-        </TableColumns>
-    </Table>
+<DemoBlock Title="@Localizer["TablesTreeEditTitle"]"
+           Introduction="@Localizer["TablesTreeEditIntro"]"
+           Name="EditTree"
+           Demo="typeof(Demos.Table.TablesTree.TablesTreeEdit)">
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["P18"]" Introduction="@Localizer["P19"]" Name="Icon">
+<DemoBlock Title="@Localizer["TablesTreeIconTitle"]"
+           Introduction="@Localizer["TablesTreeIconIntro"]"
+           Name="Icon"
+           Demo="typeof(Demos.Table.TablesTree.TablesTreeIcon)">
     <Tips>
-        <div>@((MarkupString)Localizer["20"].Value)</div>
+        <div>@((MarkupString)Localizer["TablesTreeIconTips1"].Value)</div>
     </Tips>
-    <p>@((MarkupString)Localizer["P21"].Value)</p>
-    <Table TItem="TreeFoo" IsBordered="true" IsStriped="true" HeaderStyle="@TableHeaderStyle.Light" TreeIcon="fa-solid fa-circle-chevron-right"
-           Items="@TreeItems" IsTree="true" TreeNodeConverter="@TreeNodeConverter" OnTreeExpand="@OnTreeExpand">
-        <TableColumns>
-            <TableColumn @bind-Field="@context.Name" Width="360" />
-            <TableColumn @bind-Field="@context.DateTime" Width="180" />
-            <TableColumn @bind-Field="@context.Address" />
-            <TableColumn @bind-Field="@context.Count" />
-        </TableColumns>
-    </Table>
+    <p>@((MarkupString)Localizer["TablesTreeIconTips2"].Value)</p>
 </DemoBlock>
