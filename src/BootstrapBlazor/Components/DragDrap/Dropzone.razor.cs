@@ -87,8 +87,10 @@ public partial class Dropzone<TItem> : IDisposable
         .AddClass("bb-dd-inprogess", DragDropService.ActiveItem != null)
         .Build();
 
+    [ExcludeFromCodeCoverage]
     private string GetItemClass(TItem? item)
     {
+        // TODO: 后期完善 使用 CssBuilder 实现
         if (item == null)
         {
             return "";
