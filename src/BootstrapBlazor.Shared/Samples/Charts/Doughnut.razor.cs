@@ -62,11 +62,23 @@ public partial class Doughnut
     }
 
     private bool IsCircle { get; set; }
+
     private int Angle { get; set; }
+
     private async Task ToggleCircle()
     {
         IsCircle = !IsCircle;
         Angle = IsCircle ? 360 : 0;
         await DoughnutChart.Update(ChartAction.SetAngle);
+    }
+
+    /// <summary>
+    /// 强刷控件,重新初始化控件外观
+    /// </summary>
+    private Task OnReloadChart()
+    {
+        DoughnutDataCount = Randomer.Next(5, 15);
+        DoughnutChart?.Reload();
+        return Task.CompletedTask;
     }
 }

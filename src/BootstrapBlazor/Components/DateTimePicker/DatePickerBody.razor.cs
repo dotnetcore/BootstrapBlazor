@@ -57,9 +57,7 @@ public partial class DatePickerBody
         .AddClass("current", day == Value && Ranger == null && day.Month == CurrentDate.Month && !overflow)
         .AddClass("start", Ranger != null && day == Ranger.SelectedValue.Start.Date)
         .AddClass("end", Ranger != null && day == Ranger.SelectedValue.End.Date)
-        .AddClass("range", Ranger != null && CurrentDate.Month >= Ranger.SelectedValue.Start.Month
-            && Ranger.SelectedValue.Start != DateTime.MinValue && Ranger.SelectedValue.End != DateTime.MinValue
-            && day >= Ranger.SelectedValue.Start && day <= Ranger.SelectedValue.End)
+        .AddClass("range", Ranger != null && day >= Ranger.SelectedValue.Start && day <= Ranger.SelectedValue.End)
         .AddClass("today", day == DateTime.Today)
         .AddClass("disabled", IsDisabled(day) || overflow)
         .Build();
@@ -356,17 +354,6 @@ public partial class DatePickerBody
         base.OnInitialized();
 
         CurrentViewMode = ViewMode;
-
-        // 计算开始与结束时间 每个组件显示 6 周数据
-        if (Value == DateTime.MinValue)
-        {
-            SetValue(DateTime.Today);
-        }
-        else
-        {
-            CurrentDate = Value.Date;
-            CurrentTime = Value - CurrentDate;
-        }
     }
 
     /// <summary>

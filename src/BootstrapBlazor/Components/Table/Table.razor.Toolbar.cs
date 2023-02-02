@@ -79,7 +79,7 @@ public partial class Table<TItem>
     /// 获得/设置 导出按钮下拉菜单模板 默认 null
     /// </summary>
     [Parameter]
-    public RenderFragment? ExportButtonDropdownTemplate { get; set; }
+    public RenderFragment<ITableExportContext<TItem>>? ExportButtonDropdownTemplate { get; set; }
 
     /// <summary>
     /// 获得/设置 内置导出微软 Excel 按钮文本 默认 null 读取资源文件
@@ -255,15 +255,19 @@ public partial class Table<TItem>
     /// <summary>
     /// 获得/设置 各列是否显示状态集合
     /// </summary>
-    private List<ColumnVisibleItem> ColumnVisibles { get; } = new();
+    private List<ColumnVisibleItem> VisibleColumns { get; } = new();
 
-    private IEnumerable<ITableColumn> GetColumns()
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    public IEnumerable<ITableColumn> GetVisibleColumns()
     {
-        var items = ColumnVisibles.Where(i => i.Visible);
+        var items = VisibleColumns.Where(i => i.Visible);
         return Columns.Where(i => items.Any(v => v.Name == i.GetFieldName()));
     }
 
-    private bool GetColumnsListState(ITableColumn col) => ColumnVisibles.First(i => i.Name == col.GetFieldName()).Visible && ColumnVisibles.Count(i => i.Visible) == 1;
+    private bool GetColumnsListState(ITableColumn col) => VisibleColumns.First(i => i.Name == col.GetFieldName()).Visible && VisibleColumns.Count(i => i.Visible) == 1;
 
     private bool ShowAddForm { get; set; }
 
@@ -422,19 +426,6 @@ public partial class Table<TItem>
             SelectedRows.Clear();
             AddInCell = false;
             EditInCell = false;
-        }
-    }
-
-    /// <summary>
-    /// 在 EditMode 等于 EditForm 情况下，关闭 EditFrom
-    /// </summary>
-    public void CloseEditForm()
-    {
-        if (EditMode == EditMode.EditForm)
-        {
-            ShowAddForm = false;
-            ShowEditForm = false;
-            StateHasChanged();
         }
     }
 
@@ -633,9 +624,9 @@ public partial class Table<TItem>
             OnEditAsync = async context =>
             {
                 await ToggleLoading(true);
-                saved = await SaveModelAsync(context, changedType);
                 if (IsTracking)
                 {
+                    saved = true;
                     if (changedType == ItemChangedType.Add)
                     {
                         var index = InsertRowMode == InsertRowMode.First ? 0 : Rows.Count;
@@ -643,9 +634,13 @@ public partial class Table<TItem>
                     }
                     await InvokeItemsChanged();
                 }
-                else if (saved)
+                else
                 {
-                    await QueryAsync();
+                    saved = await SaveModelAsync(context, changedType);
+                    if (saved)
+                    {
+                        await QueryAsync();
+                    }
                 }
                 await ToggleLoading(false);
                 return saved;
@@ -737,7 +732,10 @@ public partial class Table<TItem>
                         // https://gitee.com/LongbowEnterprise/BootstrapBlazor/issues/I1UJSL
                         PageIndex = Math.Max(1, Math.Min(PageIndex, int.Parse(Math.Ceiling((TotalCount - SelectedRows.Count) * 1d / PageItems).ToString())));
                         var items = PageItemsSource.Where(item => item >= (TotalCount - SelectedRows.Count));
-                        PageItems = Math.Min(PageItems, items.Any() ? items.Min() : PageItems);
+                        if (items.Any())
+                        {
+                            PageItems = Math.Min(PageItems, items.Min());
+                        }
                     }
                     SelectedRows.Clear();
                     await QueryAsync();
@@ -809,11 +807,13 @@ public partial class Table<TItem>
         var ret = false;
         if (OnExportAsync != null)
         {
+            // 通过 OnExportAsync 回调导出数据
             ret = await OnExportAsync(Rows, BuildQueryPageOptions());
         }
         else
         {
-            ret = await ExcelExport.ExportAsync(Rows, Columns);
+            // 通过 ITableExcelExport 服务导出数据
+            ret = await ExcelExport.ExportAsync(Rows, GetVisibleColumns());
         }
 
         option = new ToastOption

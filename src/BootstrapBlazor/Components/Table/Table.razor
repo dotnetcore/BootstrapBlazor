@@ -2,7 +2,7 @@
 @typeparam TItem
 @inherits BootstrapModuleComponentBase
 
-<div @attributes="@AdditionalAttributes" class="@ClassName" style="@StyleString" id="@Id" @ref="TableElement">
+<div @attributes="@AdditionalAttributes" class="@ClassName" style="@StyleString" id="@Id">
     <CascadingValue Value="this" IsFixed="true">
         @TableColumns?.Invoke(new TItem())
     </CascadingValue>
@@ -77,7 +77,7 @@
                             <div class="dropdown-menu dropdown-menu-end shadow">
                                 @foreach (var item in Columns)
                                 {
-                                    var poco = ColumnVisibles.FirstOrDefault(i => i.Name == item.GetFieldName());
+                                    var poco = VisibleColumns.FirstOrDefault(i => i.Name == item.GetFieldName());
                                     if (poco != null)
                                     {
                                         <div class="dropdown-item">
@@ -101,7 +101,7 @@
                             <div class="dropdown-menu dropdown-menu-end shadow">
                                 @if(ExportButtonDropdownTemplate != null)
                                 {
-                                    @ExportButtonDropdownTemplate
+                                    @ExportButtonDropdownTemplate(new TableExportContext<TItem>(this, Rows, BuildQueryPageOptions, ExportAsync))
                                 }
                                 else
                                 {
@@ -209,7 +209,7 @@
                         {
                             @RenderExtendButtons(item)
                         }
-                        @foreach (var col in GetColumns())
+                        @foreach (var col in GetVisibleColumns())
                         {
                             var cellClass = "";
                             string? value = null;
@@ -402,7 +402,7 @@ RenderFragment<bool> RenderColgroup => hasScroll =>
     {
         <col style="@GetColWidthString(ExtendButtonColumnWidth)" />
     }
-    @foreach (var col in GetColumns())
+    @foreach (var col in GetVisibleColumns())
     {
         @if (CheckShownWithBreakpoint(col))
         {
@@ -453,7 +453,7 @@ RenderFragment<bool> RenderHeader => hasScroll =>
             {
                 @RenderExtendButtonsHeader
             }
-            @foreach (var col in GetColumns())
+            @foreach (var col in GetVisibleColumns())
             {
                 @if (CheckShownWithBreakpoint(col))
                 {
@@ -548,22 +548,20 @@ RenderFragment<bool> RenderHeader => hasScroll =>
                     <div class="table-cell">&nbsp;</div>
                 </th>
             }
-            <CascadingValue Value="this" IsFixed="true">
-                @foreach (var col in GetColumns())
+            @foreach (var col in GetVisibleColumns())
+            {
+                if (CheckShownWithBreakpoint(col))
                 {
-                    if (CheckShownWithBreakpoint(col))
-                    {
-                        <th class="@GetHeaderClassString(col, true)" style="@GetFixedCellStyleString(col, 6)">
-                            <div class="table-cell">
-                                @if(col.Filterable)
-                                {
-                                    <TableFilter Column="col" IsHeaderRow="true" />
-                                }
-                            </div>
-                        </th>
-                    }
+                    <th class="@GetHeaderClassString(col, true)" style="@GetFixedCellStyleString(col, 6)">
+                        <div class="table-cell">
+                            @if(col.Filterable)
+                            {
+                                <TableFilter Icon="@FilterIcon" Column="col" Table="this" IsHeaderRow="true" />
+                            }
+                        </div>
+                    </th>
                 }
-            </CascadingValue>
+            }
             @if (ShowExtendButtons && !IsExtendButtonsInRowHeader)
             {
                 <th class="@ExtendButtonsColumnClass" style="@GetFixedExtendButtonsColumnStyleString(6)">
@@ -616,7 +614,7 @@ RenderFragment<TItem> RenderRow => item =>
     {
         @RenderRowExtendButtons(item)
     }
-    @foreach (var col in GetColumns())
+    @foreach (var col in GetVisibleColumns())
     {
         if (CheckShownWithBreakpoint(col))
         {
@@ -714,7 +712,7 @@ RenderFragment RenderPlaceHolderRow =>
     {
         <td><div class="table-cell is-ph"></div></td>
     }
-    @foreach (var col in GetColumns())
+    @foreach (var col in GetVisibleColumns())
     {
         <td><div class="table-cell is-ph"></div></td>
     }
@@ -844,7 +842,7 @@ RenderFragment<TItem> RenderRowExtendButtons => item =>
 </td>;
 
 RenderFragment RenderSearch =>
-@<Card IsCollapsible="true" HeaderText="@SearchModalTitle">
+@<Card IsCollapsible="true" HeaderText="@SearchModalTitle" Collapsed="CollapsedTopSearch">
     <HeaderTemplate>
         @if (ShowSearchText)
         {
@@ -914,6 +912,6 @@ RenderFragment RenderPageInfo =>
 
 RenderFragment RenderPagination =>
 @<Pagination PageCount="@PageCount" PageIndex="@PageIndex" OnPageLinkClick="@OnPageLinkClick"
-                ShowGotoNavigator="ShowGotoNavigator" GotoTemplate="GotoTemplate!" GotoNavigatorLabelText="@GotoNavigatorLabelText"
-                ShowPageInfo="ShowPageInfo" PageInfoTemplate="InternalPageInfoTemplate" />;
+             ShowGotoNavigator="ShowGotoNavigator" GotoTemplate="GotoTemplate!" GotoNavigatorLabelText="@GotoNavigatorLabelText"
+             ShowPageInfo="ShowPageInfo" PageInfoTemplate="InternalPageInfoTemplate" />;
 }

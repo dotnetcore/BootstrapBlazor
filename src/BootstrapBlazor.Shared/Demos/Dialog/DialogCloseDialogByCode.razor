@@ -1,0 +1,34 @@
+﻿@inject IStringLocalizer<DialogCloseDialogByCode> Localizer
+
+<Button OnClick="@Show">Dialog</Button>
+<Button OnClick="@CloseButtonShow">CloseButton</Button>
+
+@code {
+    [Inject]
+    [NotNull]
+    private DialogService? DialogService { get; set; }
+
+    private async Task Show()
+    {
+        var option = new DialogOption()
+        {
+            Title = "Close the popup with code",
+        };
+        option.BodyTemplate = BootstrapDynamicComponent.CreateComponent<Button>(new Dictionary<string, object?>
+        {
+            [nameof(Button.Text)] = "Click to close the popup",
+            [nameof(Button.OnClick)] = EventCallback.Factory.Create<MouseEventArgs>(this, async () => await option.Dialog.Close())
+        }).Render();
+        await DialogService.Show(option);
+    }
+
+    private async Task CloseButtonShow()
+    {
+        var option = new DialogOption()
+        {
+            Title = "Close the popup with DialogCloseButton",
+        };
+        option.BodyTemplate = BootstrapDynamicComponent.CreateComponent<DialogCloseButton>().Render();
+        await DialogService.Show(option);
+    }
+}

@@ -5,53 +5,10 @@
 namespace BootstrapBlazor.Shared.Samples;
 
 /// <summary>
-/// 
+/// Drawers
 /// </summary>
 public sealed partial class Drawers
 {
-    [Inject]
-    [NotNull]
-    private IStringLocalizer<Drawers>? Localizer { get; set; }
-
-    private IEnumerable<SelectedItem> DrawerDirection { get; } = new SelectedItem[] {
-        new SelectedItem("left", "left to right") { Active = true },
-        new SelectedItem("right", "right to left"),
-        new SelectedItem("top", "top to bottom"),
-        new SelectedItem("bottom", "bottom to top")
-    };
-
-    private Placement DrawerAlign { get; set; }
-
-    private Task OnStateChanged(IEnumerable<SelectedItem> values, SelectedItem val)
-    {
-        DrawerAlign = val.Value switch
-        {
-            "right" => Placement.Right,
-            "top" => Placement.Top,
-            "bottom" => Placement.Bottom,
-            _ => Placement.Left
-        };
-        IsOpen = false;
-        StateHasChanged();
-        return Task.CompletedTask;
-    }
-
-    private bool IsOpen { get; set; }
-
-    private bool IsBackdropOpen { get; set; }
-
-    private bool IsShowBackdropOpen { get; set; }
-
-    private void OpenDrawer()
-    {
-        IsBackdropOpen = true;
-    }
-
-    private void OpenNoBackdropDrawer()
-    {
-        IsShowBackdropOpen = true;
-    }
-
     /// <summary>
     /// Get property method
     /// </summary>

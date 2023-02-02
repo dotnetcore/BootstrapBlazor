@@ -77,11 +77,17 @@ public class TabTest : TabTestBase
     public void ClickTab_Ok()
     {
         var clicked = false;
+        TabItem? closedItem = null;
         var cut = Context.RenderComponent<Tab>(pb =>
         {
             pb.Add(a => a.ShowExtendButtons, true);
             pb.Add(a => a.Placement, Placement.Bottom);
             pb.Add(a => a.ShowClose, true);
+            pb.Add(a => a.OnCloseTabItemAsync, item =>
+            {
+                closedItem = item;
+                return Task.CompletedTask;
+            });
             pb.Add(a => a.OnClickTab, item =>
             {
                 clicked = true;
@@ -121,8 +127,10 @@ public class TabTest : TabTestBase
         Assert.Equal("Tab2-Content", cut.Find(".tabs-body .d-none").InnerHtml);
 
         // Close
+        Assert.Null(closedItem);
         button = cut.Find(".tabs-item-close");
         button.Click();
+        Assert.NotNull(closedItem);
     }
 
     [Fact]
@@ -307,6 +315,67 @@ public class TabTest : TabTestBase
 
         // 提高代码覆盖率
         cut.InvokeAsync(() => cut.Instance.CloseOtherTabs());
+    }
+
+    [Fact]
+    public void IsLazyLoadTabItem_Ok()
+    {
+        var cut = Context.RenderComponent<Tab>(pb =>
+        {
+            pb.Add(a => a.AdditionalAssemblies, new Assembly[] { GetType().Assembly });
+            pb.Add(a => a.IsLazyLoadTabItem, true);
+            pb.AddChildContent<TabItem>(pb =>
+            {
+                pb.Add(a => a.Text, "Tab1");
+                pb.Add(a => a.Url, "/Cat");
+                pb.Add(a => a.ChildContent, "Tab1-Content");
+            });
+            pb.AddChildContent<TabItem>(pb =>
+            {
+                pb.Add(a => a.Text, "Tab2");
+                pb.Add(a => a.Url, "/");
+                pb.Add(a => a.ChildContent, "Tab2-Content");
+            });
+        });
+        cut.Contains("Tab1-Content");
+        cut.DoesNotContain("Tab2-Content");
+
+        // 点击第二个 TabItem
+        var item = cut.FindAll(".tabs-item").Last();
+        cut.InvokeAsync(() => item.Click());
+        cut.Contains("Tab1-Content");
+        cut.Contains("Tab2-Content");
+
+        // 再点击第一个 TabItem
+        item = cut.FindAll(".tabs-item").First();
+        cut.InvokeAsync(() => item.Click());
+        cut.Contains("Tab1-Content");
+        cut.Contains("Tab2-Content");
+    }
+
+    [Fact]
+    public void AlwaysLoad_Ok()
+    {
+        var cut = Context.RenderComponent<Tab>(pb =>
+        {
+            pb.Add(a => a.AdditionalAssemblies, new Assembly[] { GetType().Assembly });
+            pb.Add(a => a.IsLazyLoadTabItem, true);
+            pb.AddChildContent<TabItem>(pb =>
+            {
+                pb.Add(a => a.Text, "Tab1");
+                pb.Add(a => a.Url, "/Cat");
+                pb.Add(a => a.ChildContent, "Tab1-Content");
+            });
+            pb.AddChildContent<TabItem>(pb =>
+            {
+                pb.Add(a => a.Text, "Tab2");
+                pb.Add(a => a.Url, "/");
+                pb.Add(a => a.AlwaysLoad, true);
+                pb.Add(a => a.ChildContent, "Tab2-Content");
+            });
+        });
+        cut.Contains("Tab1-Content");
+        cut.Contains("Tab2-Content");
     }
 
     [Fact]

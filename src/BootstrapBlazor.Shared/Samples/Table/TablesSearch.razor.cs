@@ -110,9 +110,6 @@ public sealed partial class TablesSearch
         // 自定义了 SearchModel
         IEnumerable<Foo> items = Items;
 
-        // 设置记录总数
-        var total = items.Count();
-
         if (!string.IsNullOrEmpty(options.SearchText))
         {
             items = items.Where(i => (i.Name?.Contains(options.SearchText, StringComparison.OrdinalIgnoreCase) ?? false)
@@ -126,6 +123,9 @@ public sealed partial class TablesSearch
         {
             items = items.Where(i => i.Address == SearchModel.Address);
         }
+
+        // 设置记录总数
+        var total = items.Count();
 
         // 内存分页
         items = items.Skip((options.PageIndex - 1) * options.PageItems).Take(options.PageItems).ToList();
@@ -196,7 +196,7 @@ public sealed partial class TablesSearch
             TotalCount = total,
             IsSorted = isSorted,
             IsFiltered = isFiltered,
-            IsSearch = options.CustomerSearchs.Any(),
+            IsSearch = options.CustomerSearchs.Any() || !string.IsNullOrEmpty(options.SearchText),
             IsAdvanceSearch = isAdvanceSearch
         });
     }

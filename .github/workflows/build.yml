@@ -1,18 +1,17 @@
-name: Build Project
+name: Build project
 
 on:
   push:
     branches:
+      - master
       - main
-      - dev
-      - dev-table
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
     
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
 
     - name: Setup .NET Core 7
       uses: actions/setup-dotnet@v1
@@ -29,11 +28,9 @@ jobs:
 
     - name: Test
       run: |
-        dotnet test test/UnitTest -c Release --collect:"XPlat Code Coverage" -r ./coverage
-        #dotnet test test/UnitTest.Localization -c Release -f net6.0 --collect:"XPlat Code Coverage" -r ./coverage
+        dotnet test test/UnitTest -c Release --collect:"XPlat Code Coverage"
 
     - name: Upload to Codecov
-      uses: codecov/codecov-action@v2
+      uses: codecov/codecov-action@v3
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
-        directory: ./coverage/

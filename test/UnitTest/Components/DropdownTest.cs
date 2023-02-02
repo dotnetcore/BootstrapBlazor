@@ -37,6 +37,7 @@ public class DropdownTest : BootstrapBlazorTestBase
     {
         var cut = Context.RenderComponent<Dropdown<EnumEducation>>(pb =>
         {
+            pb.Add(a => a.MenuAlignment, Alignment.Center);
             pb.Add(a => a.Direction, direction);
         });
         Assert.Contains(direction.ToDescriptionString(), cut.Markup);

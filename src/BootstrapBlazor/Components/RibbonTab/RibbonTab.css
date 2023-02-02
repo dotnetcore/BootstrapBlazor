@@ -25,7 +25,6 @@
     --bb-ribbon-body-padding: 1rem;
     --bb-ribbon-menu-header-height: calc(var(--bb-ribbon-menu-height) + var(--bb-ribbon-menu-margin-top) + var(--bb-ribbon-menu-body-height));
     position: relative;
-    z-index: 10;
 }
 
     .ribbon-tab.is-float:not(.is-expand) {

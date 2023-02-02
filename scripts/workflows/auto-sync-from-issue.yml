@@ -1,0 +1,155 @@
+name: Auto sync issue to PR(bot)
+
+on:
+  pull_request:
+    types: [opened, edited]
+
+env:
+  REPO_OWNER: ArgoZhang
+
+jobs:
+  add_reviewers:
+    name: add reviewers
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v6
+        with:
+          script: |
+            const repo_owner = process.env.REPO_OWNER
+            const reviewers = await github.rest.pulls.listRequestedReviewers({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.issue.number
+            })
+            const current_reviewers = reviewers.data.users.map(v => v.login)
+            if (current_reviewers.indexOf(repo_owner) > -1) {
+              console.log(`Skip assign reviewers action. current reviewers`, current_reviewers)
+            }
+            else if (context.payload.sender.login == repo_owner) {
+              console.log('Review cannot be requested from pull request author.')
+            }
+            else {
+              current_reviewers.push(repo_owner)
+              await github.rest.pulls.requestReviewers({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                pull_number: context.issue.number,
+                reviewers: current_reviewers
+              })
+              console.log('Sync reviewers', current_reviewers)
+            }
+
+  sync_assignees:
+    name: sync assignees
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v6
+        with:
+          script: |
+            const body = context.payload.pull_request.body
+            const matches = body.match(/#(\d+)/)
+            if (!matches || matches.length <= 1) {
+                console.log('This PR has no related issue!')
+            }
+            else {
+                const related_issue_number = matches[1]
+                const issue = await github.rest.issues.get({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: related_issue_number
+                })
+                if (issue.data.length == 0) {
+                  console.log(`There no assignees on issue \#${related_issue_number}`)
+                }
+                else {
+                  const repo_owner = process.env.REPO_OWNER
+                  if (issue.data.assignees.length == 0) {
+                    issue.data.assignees.push(repo_owner)
+                    await github.rest.issues.update({
+                      owner: context.repo.owner,
+                      repo: context.repo.repo,
+                      issue_number: related_issue_number,
+                      assignees: issue.data.assignees
+                    })
+                  }
+                  const assignees = issue.data.assignees.map(v => v.login)
+                  if (assignees.indexOf(repo_owner) == -1) {
+                    assignees.push(repo_owner)
+                  }
+                  await github.rest.issues.update({
+                    owner: context.repo.owner,
+                    repo: context.repo.repo,
+                    issue_number: context.issue.number,
+                    assignees: assignees
+                  })
+                  console.log('Sync assignees', assignees)
+                }
+            }
+
+  sync_labels:
+    name: sync labels
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v6
+        with:
+          script: |
+            const body = context.payload.pull_request.body
+            const matches = body.match(/#(\d+)/)
+            if (!matches || matches.length <= 1) {
+              console.log('This PR has no related issue!')
+            }
+            else {
+              const related_issue_number = matches[1]
+              const labels = await github.rest.issues.listLabelsOnIssue({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: related_issue_number
+              })
+              if(labels.data.length == 0) {
+                console.log(`There no labels on issue #${related_issue_number}`)
+              }
+              else {
+                const issue_labels = labels.data.map(v => v.name)
+                await github.rest.issues.update({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: context.issue.number,
+                  labels: issue_labels
+                })
+                console.log('Sync labels', issue_labels)
+              }
+            }
+
+  sync_milestone:
+    name: sync milestone
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v6
+        with:
+          script: |
+            const body = context.payload.pull_request.body
+            const matches = body.match(/#(\d+)/)
+            if (!matches || matches.length <= 1) {
+              console.log('This PR has no related issue!')
+            }
+            else {
+              const related_issue_number = matches[1]
+              const issue = await github.rest.issues.get({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: related_issue_number
+              })
+              if (issue.data.length == 0 || issue.data.milestone == null) {
+                console.log(`There no milestone on issue \#${related_issue_number}`)
+              }
+              else {
+                const milestone = issue.data.milestone
+                await github.rest.issues.update({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: context.issue.number,
+                  milestone: milestone.number
+                })
+                console.log(`Sync milestone ${milestone.title}`)
+              }
+            }

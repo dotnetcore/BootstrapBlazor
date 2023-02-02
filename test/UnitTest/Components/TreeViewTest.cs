@@ -278,6 +278,39 @@ public class TreeViewTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void SetParentCheck_Ok()
+    {
+        var items = new List<TreeFoo>()
+        {
+            new TreeFoo() { Text = "Test1", Id = "01" },
+            new TreeFoo() { Text = "Test2", Id = "02", ParentId = "01" },
+            new TreeFoo() { Text = "Test3", Id = "03", ParentId = "02" }
+        };
+        var node = TreeFoo.CascadingTree(items).First().Items.First().Items.First();
+
+        // 设置当前几点所有父项选中状态
+        node.SetParentCheck<TreeViewItem<TreeFoo>, TreeFoo>(CheckboxState.Checked);
+        Assert.True(node.GetAllTreeSubItems().All(i => i.CheckedState == CheckboxState.Checked));
+    }
+
+    [Fact]
+    public void SetParentExpand_Ok()
+    {
+        var items = new List<TreeFoo>()
+        {
+            new TreeFoo() { Text = "Test1", Id = "01" },
+            new TreeFoo() { Text = "Test2", Id = "02", ParentId = "01" },
+            new TreeFoo() { Text = "Test3", Id = "03", ParentId = "02" }
+        };
+        var node = TreeFoo.CascadingTree(items).First().Items.First().Items.First();
+
+        // 设置当前几点所有父项选中状态
+        var cache = new ExpandableNodeCache<TreeViewItem<TreeFoo>, TreeFoo>((x, y) => x.Id == y.Id);
+        node.SetParentExpand<TreeViewItem<TreeFoo>, TreeFoo>(true);
+        Assert.True(node.GetAllTreeSubItems().All(i => i.IsExpand));
+    }
+
+    [Fact]
     public async Task ClickToggleNode_Ok()
     {
         var clicked = false;
@@ -359,6 +392,20 @@ public class TreeViewTest : BootstrapBlazorTestBase
         });
         nodes = cut.FindAll(".tree-item");
         Assert.Equal(2, nodes.Count);
+    }
+
+    [Fact]
+    public void ExpandIcon_Ok()
+    {
+        var items = TreeFoo.GetTreeItems();
+        items[1].ExpandIcon = "test-expand-icon";
+        items[1].IsExpand = true;
+        var cut = Context.RenderComponent<TreeView<TreeFoo>>(pb =>
+        {
+            pb.Add(a => a.ShowIcon, true);
+            pb.Add(a => a.Items, items);
+        });
+        cut.Contains("test-expand-icon");
     }
 
     [Fact]
@@ -489,21 +536,18 @@ public class TreeViewTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(() => checkbox[0].Click());
 
         Assert.Contains("is-checked", cut.Markup);
-        var ischecked = cut.Instance.GetCheckedItems().Count() != 0;
+        var ischecked = cut.Instance.GetCheckedItems().Any();
         Assert.True(ischecked);
 
         await cut.InvokeAsync(() => cut.Instance.ClearCheckedItems());
         Assert.DoesNotContain("is-checked", cut.Markup);
-        var nochecked = cut.Instance.GetCheckedItems().Count() == 0;
+        var nochecked = !cut.Instance.GetCheckedItems().Any();
         Assert.True(nochecked);
     }
 
     class MockTree<TItem> : TreeView<TItem> where TItem : class
     {
-        public bool TestComparerItem(TItem a, TItem b)
-        {
-            return ComparerItem(a, b);
-        }
+        public bool TestComparerItem(TItem? a, TItem? b) => base.Equals(a, b);
     }
 
     private class Cat

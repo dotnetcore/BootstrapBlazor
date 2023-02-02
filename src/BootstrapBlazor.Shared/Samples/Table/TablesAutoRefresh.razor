@@ -1,42 +1,19 @@
 ﻿@page "/tables/autorefresh"
+@inject IStringLocalizer<TablesAutoRefresh> Localizer
 
-<h3>@Localizer["H1"]</h3>
-<h4>@Localizer["H2"]</h4>
+<h3>@Localizer["TablesAutoRefreshTitle"]</h3>
+<h4>@Localizer["TablesAutoRefreshDescription"]</h4>
 
-<DemoBlock Title="@Localizer["P1"]" Introduction="@Localizer["P2"]" Name="AutoRefresh">
-    <p>@((MarkupString)Localizer["P3"].Value)</p>
-    <p>@((MarkupString)Localizer["P4"].Value)</p>
-    <Table TItem="Foo"
-           IsPagination="true" PageItemsSource="@(new int[] { 2, 4 })"
-           IsStriped="true" IsBordered="true" IsMultipleSelect="true"
-           IsAutoRefresh="true" AutoRefreshInterval="2000"
-           OnQueryAsync="@OnAutoQueryAsync">
-        <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" Width="180" />
-            <TableColumn @bind-Field="@context.Name" Width="100" />
-            <TableColumn @bind-Field="@context.Address" />
-            <TableColumn @bind-Field="@context.Count" />
-            <TableColumn @bind-Field="@context.Complete" />
-        </TableColumns>
-    </Table>
+<DemoBlock Title="@Localizer["TablesAutoRefreshNormalTitle"]"
+           Introduction="@Localizer["TablesAutoRefreshNormalIntro"]"
+           Name="TablesAutoRefreshNormal"
+           Demo="typeof(Demos.Table.TablesAutoRefresh.TablesAutoRefreshNormal)">
+    <p>@((MarkupString)Localizer["TablesAutoRefreshNormalTips1"].Value)</p>
+    <p>@((MarkupString)Localizer["TablesAutoRefreshNormalTips2"].Value)</p>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["P5"]" Introduction="@Localizer["P6"]" Name="Control">
-    <p>
-        <div>@Localizer["P7"]</div>
-        <Button Text="@Localizer["P8"]" OnClick="@ToggleAuto" /> <span><code>IsAutoRefresh</code> @Localizer["P9"]：<code>@IsAutoRefresh</code></span>
-    </p>
-    <Table TItem="Foo"
-           IsPagination="true" PageItemsSource="@(new int[] { 2, 4 })"
-           IsStriped="true" IsBordered="true" IsMultipleSelect="true"
-           IsAutoRefresh="@IsAutoRefresh" AutoRefreshInterval="2000"
-           OnQueryAsync="@OnManualQueryAsync">
-        <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" Width="180" />
-            <TableColumn @bind-Field="@context.Name" Width="100" />
-            <TableColumn @bind-Field="@context.Address" />
-            <TableColumn @bind-Field="@context.Count" />
-            <TableColumn @bind-Field="@context.Complete" />
-        </TableColumns>
-    </Table>
-</DemoBlock>
+
+<DemoBlock Title="@Localizer["TablesAutoRefreshControlTitle"]"
+           Introduction="@Localizer["TablesAutoRefreshControlIntro"]"
+           Name="TablesAutoRefreshControl"
+           Demo="typeof(Demos.Table.TablesAutoRefresh.TablesAutoRefreshControl)" />

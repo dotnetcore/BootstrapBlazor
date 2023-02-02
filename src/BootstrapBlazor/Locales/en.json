@@ -255,7 +255,8 @@
     "NotEqual": "NotEqual",
     "Contains": "Contains",
     "NotContains": "NotContains",
-    "EnumFilter.AllText": "All"
+    "EnumFilter.AllText": "All",
+    "NotSupportedMessage": "Not supported filter type, Please custom filter use FilterTemplate"
   },
   "BootstrapBlazor.Components.FilterLogicItem": {
     "And": "And",

@@ -57,16 +57,6 @@ public partial class SideMenu
         }
     }
 
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    protected override void OnParametersSet()
-    {
-        base.OnParametersSet();
-
-        Items ??= Enumerable.Empty<MenuItem>();
-    }
-
     private async Task OnClickItem(MenuItem item)
     {
         if (OnClick != null)

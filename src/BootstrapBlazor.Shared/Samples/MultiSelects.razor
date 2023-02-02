@@ -1,216 +1,65 @@
 ﻿@page "/multiselects"
 @inject IStringLocalizer<MultiSelects> Localizer
 
-<h3>@Localizer["Title"]</h3>
+<h3>@Localizer["MultiSelectsTitle"]</h3>
 
-<h4>@Localizer["H1"]</h4>
+<h4>@Localizer["MultiSelectsDescription"]</h4>
 
-<DemoBlock Title="@Localizer["Block1Title"]" Introduction="@Localizer["Block1Intro"]" Name="Color">
-    <div class="row g-3">
-        <div class="col-12 col-sm-6">
-            <MultiSelect TValue="string" Items="@Items21"></MultiSelect>
-        </div>
-        <div class="col-12 col-sm-6">
-            <MultiSelect TValue="string" Color="Color.Primary" Items="@Items22"></MultiSelect>
-        </div>
-        <div class="col-12 col-sm-6">
-            <MultiSelect TValue="string" Color="Color.Success" Items="@Items23"></MultiSelect>
-        </div>
-        <div class="col-12 col-sm-6">
-            <MultiSelect TValue="string" Color="Color.Danger" Items="@Items24"></MultiSelect>
-        </div>
-        <div class="col-12 col-sm-6">
-            <MultiSelect TValue="string" Color="Color.Warning" Items="@Items25"></MultiSelect>
-        </div>
-        <div class="col-12 col-sm-6">
-            <MultiSelect TValue="string" Color="Color.Info" Items="@Items26"></MultiSelect>
-        </div>
-        <div class="col-12 col-sm-6">
-            <MultiSelect TValue="string" Color="Color.Secondary" Items="@Items27"></MultiSelect>
-        </div>
-        <div class="col-12 col-sm-6">
-            <MultiSelect TValue="string" Color="Color.Dark" Items="@Items28"></MultiSelect>
-        </div>
-    </div>
-</DemoBlock>
+<DemoBlock Title="@Localizer["MultiSelectColorTitle"]" Introduction="@Localizer["MultiSelectColorIntro"]" Name="Color" Demo="typeof(Demos.MultiSelect.MultiSelectColor)" />
 
-<DemoBlock Title="@Localizer["Block2Title"]" Introduction="@Localizer["Block2Intro"]" Name="BindingString">
+<DemoBlock Title="@Localizer["MultiSelectBindingStringTitle"]" Introduction="@Localizer["MultiSelectBindingStringIntro"]" Name="BindingString" Demo="typeof(Demos.MultiSelect.MultiSelectBindingString)">
     <p>
-        @((MarkupString)Localizer["Div1"].Value)
+        @((MarkupString)Localizer["MultiSelectBindingStringDescription"].Value)
     </p>
-    <div class="row g-3">
-        <div class="col-12 col-sm-6">
-            <MultiSelect Items="@Items4" @bind-Value="@SelectedItemsValue"></MultiSelect>
-        </div>
-        <div class="col-12 col-sm-6">
-            <Button Icon="fa-solid fa-plus" Text="@Localizer["ButtonText1"]" OnClick="@AddItems" class="me-1"></Button>
-            <Button Icon="fa-solid fa-minus" Text="@Localizer["ButtonText2"]" OnClick="@RemoveItems"></Button>
-            <Button Icon="fa-regular fa-trash-can" Text="@Localizer["ButtonText3"]" OnClick="@ClearItems"></Button>
-        </div>
-    </div>
-    <div class="mt-3">@SelectedItemsValue</div>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["Block3Title"]" Introduction="@Localizer["Block3Intro"]" Name="BindingCollection">
-    <p>@((MarkupString)Localizer["P1"].Value)</p>
-    <div class="row g-3">
-        <div class="col-12 col-sm-6">
-            <MultiSelect Items="@Items5" @bind-Value="@SelectedArrayValues" Max="4" Min="2"></MultiSelect>
-        </div>
-        <div class="col-12 col-sm-6">
-            <Button Icon="fa-solid fa-plus" Text="@Localizer["ButtonText1"]" OnClick="@AddListItems" class="me-1"></Button>
-            <Button Icon="fa-solid fa-minus" Text="@Localizer["ButtonText2"]" OnClick="@RemoveListItems"></Button>
-            <Button Icon="fa-regular fa-trash-can" Text="@Localizer["ButtonText3"]" OnClick="@ClearListItems"></Button>
-        </div>
-    </div>
-    <div class="mt-3">@(string.Join(",", SelectedArrayValues))</div>
+<DemoBlock Title="@Localizer["MultiSelectBindingCollectionTitle"]" Introduction="@Localizer["MultiSelectBindingCollectionIntro"]" Name="BindingCollection" Demo="typeof(Demos.MultiSelect.MultiSelectBindingCollection)">
+    <p>@((MarkupString)Localizer["MultiSelectBindingCollectionDescrition"].Value)</p>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["Block4Title"]" Introduction="@Localizer["Block4Intro"]" Name="BindingNumber">
-    <p>@((MarkupString)Localizer["P2"].Value)</p>
-    <div class="row g-3">
-        <div class="col-12 col-sm-6">
-            <MultiSelect Items="@LongItems" @bind-Value="@SelectedIntArrayValues"></MultiSelect>
-        </div>
-        <div class="col-12 col-sm-6">
-            <Button Icon="fa-solid fa-plus" Text="@Localizer["ButtonText1"]" OnClick="@AddArrayItems" class="me-1"></Button>
-            <Button Icon="fa-solid fa-minus" Text="@Localizer["ButtonText2"]" OnClick="@RemoveArrayItems"></Button>
-            <Button Icon="fa-regular fa-trash-can" Text="@Localizer["ButtonText3"]" OnClick="@ClearArrayItems"></Button>
-        </div>
-    </div>
-    <div class="mt-3">@(string.Join(",", SelectedIntArrayValues))</div>
+<DemoBlock Title="@Localizer["MultiSelectBindingNumberTitle"]" Introduction="@Localizer["MultiSelectBindingNumberIntro"]" Name="BindingNumber" Demo="typeof(Demos.MultiSelect.MultiSelectBindingNumber)">
+    <p>@((MarkupString)Localizer["MultiSelectBindingNumberDescription"].Value)</p>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["Block5Title"]" Introduction="@Localizer["Block5Intro"]" Name="BindingEnumCollection">
-    <p>@((MarkupString)Localizer["P3"].Value)</p>
-    <MultiSelect @bind-Value="@SelectedEnumValues"></MultiSelect>
-    <div class="mt-3">@(string.Join(",", SelectedEnumValues))</div>
+<DemoBlock Title="@Localizer["MultiSelectBindingEnumCollectionTitle"]" Introduction="@Localizer["MultiSelectBindingEnumCollectionIntro"]" Name="BindingEnumCollection" Demo="typeof(Demos.MultiSelect.MultiSelectBindingEnumCollection)">
+    <p>@((MarkupString)Localizer["MultiSelectBindingEnumCollectionDescription"].Value)</p>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["Block6Title"]" Introduction="@Localizer["Block6Intro"]" Name="Search">
-    <p>@((MarkupString)Localizer["P4"].Value)</p>
-    <MultiSelect Items="@Items6" @bind-Value="@SelectedItemsValue6" ShowSearch="true" OnSearchTextChanged="@OnSearch"></MultiSelect>
-    <div class="mt-3">@SelectedItemsValue6</div>
-    <BlockLogger @ref="Trace" class="mt-3" />
+<DemoBlock Title="@Localizer["MultiSelectSearchTitle"]" Introduction="@Localizer["MultiSelectSearchIntro"]" Name="Search" Demo="typeof(Demos.MultiSelect.MultiSelectSearch)">
+    <p>@((MarkupString)Localizer["MultiSelectSearchDescription"].Value)</p>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["BlockGroupTitle"]" Introduction="@Localizer["BlockGroupIntro"]" Name="Group">
-    <div class="row g-3">
-        <div class="col-12 col-sm-6">
-            <MultiSelect TValue="string" Items="GroupItems" />
-        </div>
-    </div>
+<DemoBlock Title="@Localizer["MultiSelectGroupTitle"]" Introduction="@Localizer["BlockGroupIntro"]" Name="Group" Demo="typeof(Demos.MultiSelect.MultiSelectGroup)" />
+
+<DemoBlock Title="@Localizer["MultiSelectDisableTitle"]" Introduction="@Localizer["MultiSelectDisableIntro"]" Name="Disable" Demo="typeof(Demos.MultiSelect.MultiSelectDisable)">
+    <p>@Localizer["MultiSelectDisableDescription"]</p>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["Block7Title"]" Introduction="@Localizer["Block7Intro"]" Name="Disable">
-    <p>@Localizer["P5"]</p>
-    <MultiSelect Items="@Items7" Value="@SelectedItemsValue7" IsDisabled="true" />
+<DemoBlock Title="@Localizer["MultiSelectOptionChangeTitle"]" Introduction="@Localizer["MultiSelectOptionChangeIntro"]" Name="OptionChange" Demo="typeof(Demos.MultiSelect.MultiSelectOptionChange)" />
+
+<DemoBlock Title="@Localizer["MultiSelectClientValidationTitle"]" Introduction="@Localizer["MultiSelectClientValidationIntro"]" Name="ClientValidation" Demo="typeof(Demos.MultiSelect.MultiSelectClientValidation)">
+    <p>@((MarkupString)Localizer["MultiSelectClientValidationDescription"].Value)</p>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["Block8Title"]" Introduction="@Localizer["Block8Intro"]" Name="OptionChange">
-    <MultiSelect Items="@Items8" OnSelectedItemsChanged="@OnSelectedItemsChanged8" Value="@SelectedItemsValue8" />
-    <BlockLogger @ref="Trace2" class="mt-3" />
+<DemoBlock Title="@Localizer["MultiSelectDispalyLabelTitle"]" Introduction="@Localizer["MultiSelectDispalyLabelIntro"]" Name="DispalyLabel" Demo="typeof(Demos.MultiSelect.MultiSelectDispalyLabel)">
+    <p>@((MarkupString)Localizer["MultiSelectDispalyLabelDescription"].Value)</p>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["Block9Title"]" Introduction="@Localizer["Block9Intro"]" Name="ClientValidation">
-    <p>@((MarkupString)Localizer["P6"].Value)</p>
-    <ValidateForm Model="@Model">
-        <div class="row g-3">
-            <div class="col-12 col-sm-8">
-                <MultiSelect Items="Items8" @bind-Value="@Model.Address" />
-            </div>
-            <div class="col-12 col-sm-4 align-self-end">
-                <Button ButtonType="ButtonType.Submit">@Localizer["ButtonText4"]</Button>
-            </div>
-        </div>
-    </ValidateForm>
+<DemoBlock Title="@Localizer["MultiSelectVeryLongTextTitle"]" Introduction="@Localizer["MultiSelectVeryLongTextIntro"]" Name="VeryLongText" Demo="typeof(Demos.MultiSelect.MultiSelectVeryLongText)" />
+
+<DemoBlock Title="@Localizer["MultiSelectButtonTitle"]" Introduction="@Localizer["MultiSelectButtonIntro"]" Name="Button" Demo="typeof(Demos.MultiSelect.MultiSelectButton)" />
+
+<DemoBlock Title="@Localizer["MultiSelectMaxMinTitle"]" Introduction="@Localizer["MultiSelectMaxMinIntro"]" Name="MaxMin" Demo="typeof(Demos.MultiSelect.MultiSelectMaxMin)" />
+
+<DemoBlock Title="@Localizer["MultiSelectExpandButtonTitle"]" Introduction="@Localizer["MultiSelectExpandButtonIntro"]" Name="ExpandButton" Demo="typeof(Demos.MultiSelect.MultiSelectExpandButton)" />
+
+<DemoBlock Title="@Localizer["MultiSelectCascadingTitle"]" Introduction="@Localizer["MultiSelectCascadingIntro"]" Name="Cascading" Demo="typeof(Demos.MultiSelect.MultiSelectCascading)">
+    <p>@((MarkupString)Localizer["MultiSelectCascadingDescription"].Value)</p>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["Block10Title"]" Introduction="@Localizer["Block10Intro"]" Name="DispalyLabel">
-    <p>@((MarkupString)Localizer["P7"].Value)</p>
-    <Divider Text="@Localizer["Divider1"]" Alignment="Alignment.Left" style="margin: 2rem 0;"></Divider>
-    <ValidateForm Model="@Foo">
-        <div class="row g-3">
-            <div class="col-12">
-                <MultiSelect Color="Color.Primary" Items="@Items9" @bind-Value="@Foo.Name" />
-            </div>
-        </div>
-    </ValidateForm>
-    <Divider Text="@Localizer["Divider2"]" Alignment="Alignment.Left" style="margin: 2rem 0;" />
-    <MultiSelect Color="Color.Primary" Items="@Items10" @bind-Value="@Foo.Name" />
-    <Divider Text="@Localizer["Divider3"]" Alignment="Alignment.Left" style="margin: 2rem 0;"></Divider>
-    <MultiSelect Color="Color.Primary" Items="@Items11" @bind-Value="@Foo.Name" DisplayText="@Localizer["MutiText1"]" ShowLabel="true" />
-</DemoBlock>
+<DemoBlock Title="@Localizer["MultiSelectItemTemplateTitle"]" Introduction="@Localizer["MultiSelectItemTemplateIntro"]" Name="ItemTemplate" Demo="typeof(Demos.MultiSelect.MultiSelectItemTemplate)" />
 
-<DemoBlock Title="@Localizer["Block11Title"]" Introduction="@Localizer["Block11Intro"]" Name="VeryLongText">
-    <div style="max-width: 400px">
-        <MultiSelect Items="@LongItems1" @bind-Value="@SelectedLongItemsValue1" DisplayText="@Localizer["MutiText2"]" ShowLabel="true"></MultiSelect>
-    </div>
-</DemoBlock>
-
-<DemoBlock Title="@Localizer["Block12Title"]" Introduction="@Localizer["Block12Intro"]" Name="Button">
-    <div style="max-width: 400px">
-        <MultiSelect Items="@LongItems2" @bind-Value="@SelectedLongItemsValue2" ShowToolbar="true" ShowSearch="true"></MultiSelect>
-        <p>@SelectedLongItemsValue2</p>
-    </div>
-</DemoBlock>
-
-<DemoBlock Title="@Localizer["Block13Title"]" Introduction="@Localizer["Block13Intro"]" Name="MaxMin">
-    <div style="max-width: 300px">
-        <p>@Localizer["P8"]</p>
-        <MultiSelect Items="@LongItems3" @bind-Value="@SelectedMaxItemsValue" Max="2"></MultiSelect>
-    </div>
-    <div style="max-width: 300px" class="mt-3">
-        <p>@Localizer["P9"]</p>
-        <MultiSelect Items="@LongItems4" @bind-Value="@SelectedMinItemsValue" Min="2"></MultiSelect>
-    </div>
-</DemoBlock>
-
-<DemoBlock Title="@Localizer["Block14Title"]" Introduction="@Localizer["Block14Intro"]" Name="ExpandButton">
-    <div style="max-width: 300px">
-        <MultiSelect Items="@LongItems5" @bind-Value="@SelectedLongItemsValue3" ShowToolbar="true" ShowDefaultButtons="false">
-            <ButtonTemplate>
-                <button class="btn" @onclick="@OnClickButton">@Localizer["ButtonText"]</button>
-            </ButtonTemplate>
-        </MultiSelect>
-    </div>
-</DemoBlock>
-
-<DemoBlock Title="@Localizer["Block15Title"]" Introduction="@Localizer["Block15Intro"]" Name="Cascading">
-    <p>@((MarkupString)Localizer["P10"].Value)</p>
-    <div class="row g-3">
-        <div class="col-12 col-sm-6">
-            <Select TValue="string" Items="@Items3" OnSelectedItemChanged="@OnCascadeBindSelectClick" />
-        </div>
-        <div class="col-12 col-sm-6">
-            <MultiSelect TValue="string" Items="@Items2" />
-        </div>
-    </div>
-</DemoBlock>
-
-<DemoBlock Title="@Localizer["ItemTemplateTitle"]" Introduction="@Localizer["ItemTemplateIntro"]" Name="ItemTemplate">
-    <div class="row">
-        <div class="col-12 col-sm-6">
-            <MultiSelect TValue="string" Items="@TemplateItems">
-                <ItemTemplate>
-                    <div class="mul-select-item">
-                        <i class="fa-solid fa-font-awesome"></i>
-                        <span>@context.Text</span>
-                        <i class="fa-solid fa-font-awesome"></i>
-                    </div>
-                </ItemTemplate>
-            </MultiSelect>
-        </div>
-    </div>
-</DemoBlock>
-
-<DemoBlock Title="@Localizer["PopoverTitle"]" Introduction="@Localizer["PopoverIntro"]" Name="Popover">
-    <div class="row">
-        <div class="col-12 col-sm-6 overflow-hidden">
-            <MultiSelect TValue="string" Items="@Items" IsPopover="true" ShowSearch="true" ShowToolbar />
-        </div>
-    </div>
-</DemoBlock>
+<DemoBlock Title="@Localizer["MultiSelectPopoverTitle"]" Introduction="@Localizer["MultiSelectPopoverIntro"]" Name="Popover" Demo="typeof(Demos.MultiSelect.MultiSelectPopover)" />
 
 <AttributeTable Items="@GetAttributes()" />
 

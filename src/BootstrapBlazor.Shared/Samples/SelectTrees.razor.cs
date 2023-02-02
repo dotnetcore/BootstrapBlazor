@@ -15,29 +15,50 @@ public partial class SelectTrees
 
     private List<TreeViewItem<TreeFoo>> Items { get; } = TreeFoo.GetTreeItems();
 
-    private List<TreeViewItem<string>> BindItems { get; } = new List<TreeViewItem<string>>()
+    [NotNull]
+    private List<TreeViewItem<string>>? BindItems { get; set; }
+
+    [NotNull]
+    private TreeFoo? Model { get; set; }
+
+    private TreeFoo BindModel { get; set; } = new TreeFoo();
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnInitialized()
     {
-        new TreeViewItem<string>("目录一")
+        Model = new TreeFoo()
         {
-            Text ="目录一",
-            Icon = "fa-solid fa-folder",
-            ExpandIcon = "fa-solid fa-folder-open",
-            Items = new List<TreeViewItem<string>>()
+            Text = "Sub Menu Three",
+            Id = "1090",
+            ParentId = "1050",
+            Icon = "fa-solid fa-font-awesome",
+            IsActive = true
+        };
+
+        BindItems = new List<TreeViewItem<string>>()
+        {
+            new TreeViewItem<string>("目录一")
             {
-                new TreeViewItem<string>("子目录一")
+                Text ="目录一",
+                Icon = "fa-solid fa-folder",
+                ExpandIcon = "fa-solid fa-folder-open",
+                Items = new List<TreeViewItem<string>>()
                 {
-                    Text ="子目录一",
-                    Icon = "fa-solid fa-folder",
-                    ExpandIcon = "fa-solid fa-folder-open",
-                    Items = new List<TreeViewItem<string>>()
+                    new TreeViewItem<string>("子目录一")
                     {
-                        new TreeViewItem<string>("文件一") { Text = "文件一", Icon = "fa-solid fa-file" },
-                        new TreeViewItem<string>("文件二") { Text = "文件二", Icon = "fa-solid fa-file" }
+                        Text ="子目录一",
+                        Icon = "fa-solid fa-folder",
+                        ExpandIcon = "fa-solid fa-folder-open",
+                        Items = new List<TreeViewItem<string>>()
+                        {
+                            new TreeViewItem<string>("文件一") { Text = "文件一", Icon = "fa-solid fa-file", IsActive = true },
+                            new TreeViewItem<string>("文件二") { Text = "文件二", Icon = "fa-solid fa-file" }
+                        }
                     }
                 }
             }
-        }
-    };
-    private TreeFoo Model { get; set; } = new TreeFoo();
-    private TreeFoo BindModel { get; set; } = new TreeFoo() { Text = "" };
+        };
+    }
 }

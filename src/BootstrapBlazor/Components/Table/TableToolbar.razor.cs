@@ -64,6 +64,31 @@ public partial class TableToolbar<TItem> : ComponentBase
         }
     }
 
+    private async Task OnToolbarConfirmButtonClick(TableToolbarPopconfirmButton<TItem> button)
+    {
+        _asyncButtonStateCache.TryGetValue(button, out var disabled);
+        if (!disabled)
+        {
+            _asyncButtonStateCache.TryAdd(button, true);
+            if (button.OnClick.HasDelegate)
+            {
+                await button.OnClick.InvokeAsync();
+            }
+
+            if (button.OnConfirm != null)
+            {
+                await button.OnConfirm();
+            }
+
+            // 传递当前选中行给回调委托方法
+            if (button.OnConfirmCallback != null)
+            {
+                await button.OnConfirmCallback(OnGetSelectedRows());
+            }
+            _asyncButtonStateCache.TryRemove(button, out _);
+        }
+    }
+
     private bool GetDisabled(TableToolbarButton<TItem> button)
     {
         var ret = button.IsDisabled;

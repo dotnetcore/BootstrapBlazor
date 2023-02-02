@@ -1,0 +1,66 @@
+name: 🐞 Bug Report
+description: File a bug/issue
+title: "bug: <title>"
+labels: [bug]
+assignees:
+  - argozhang
+body:
+- type: checkboxes
+  attributes:
+    label: Is there an existing issue for this?
+    description: Please search to see if an issue already exists for the bug you encountered ([BootstrapBlazor/issues](https://github.com/dotnetcore/BootstrapBlazor/issues?q=is%3Aissue)).
+    options:
+    - label: I have searched the existing issues
+      required: true
+- type: textarea
+  attributes:
+    label: Describe the bug
+    description: A clear and concise description of what the bug is.
+  validations:
+    required: true
+- type: textarea
+  attributes:
+    label: Expected Behavior
+    description: A clear and concise description of what you expected to happen.
+  validations:
+    required: false
+- type: textarea
+  attributes:
+    label: Steps To Reproduce
+    description: |
+      We ❤ code! Point us to a [minimalistic project which reproduces this issue (repro)](https://github.com/dotnet/aspnetcore/blob/main/docs/repro.md) hosted in a public GitHub repo.
+      
+      We will close this issue if:
+      - The repro project you share with us is complex. We can't investigate custom projects, so don't point us to such, please.
+      - If we will not be able to repro the behavior you're reporting.
+      - If the repro project is attached as a `.zip` file.
+      - If the GitHub repro project is set to `Private`.
+  validations:
+    required: false
+- type: textarea
+  attributes:
+    label: Exceptions (if any)
+    description: Include the exception you get when facing this issue.
+    placeholder: 
+  validations:
+    required: false
+- type: input
+  attributes:
+    label: .NET Version 
+    description: |
+      Run `dotnet --version`
+  validations:
+    required: false
+- type: textarea
+  attributes:
+    label: Anything else?
+    description: |
+      - ASP.NET Core version:
+      - The IDE (VS / VS Code/ VS4Mac) you're running on, and its version:
+      - Include the output of `dotnet --info`:
+
+      Links? References? Anything that will give us more context about the issue you are encountering!
+
+      Tip: You can attach images or log files by clicking this area to highlight it and then dragging files in.
+  validations:
+    required: false

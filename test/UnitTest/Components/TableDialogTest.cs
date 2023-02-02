@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using AngleSharp.Dom;
 using BootstrapBlazor.Shared;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
@@ -59,10 +60,11 @@ public class TableDialogTest : TableDialogTestBase
         // 编辑弹窗逻辑
         var form = cut.Find(".modal-body form");
         await cut.InvokeAsync(() => form.Submit());
+        var modal = cut.FindComponent<Modal>();
+        await cut.InvokeAsync(() => modal.Instance.CloseCallback());
 
         // 内置数据服务取消回调
         await cut.InvokeAsync(() => table.Instance.EditAsync());
-        var modal = cut.FindComponent<Modal>();
         await cut.InvokeAsync(() => modal.Instance.CloseCallback());
 
         // 自定义数据服务取消回调测试
@@ -99,6 +101,47 @@ public class TableDialogTest : TableDialogTestBase
         await cut.InvokeAsync(() => table.Instance.AddAsync());
         await cut.InvokeAsync(() => modal.Instance.CloseCallback());
         Assert.True(closed);
+
+        // IsTracking mode
+        table.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.IsTracking, true);
+        });
+        // Add 弹窗
+        await cut.InvokeAsync(() => table.Instance.AddAsync());
+
+        // 编辑弹窗逻辑
+        input = cut.Find(".modal-body form input.form-control");
+        await cut.InvokeAsync(() => input.Change("Test_Name"));
+
+        form = cut.Find(".modal-body form");
+        await cut.InvokeAsync(() => form.Submit());
+        await cut.InvokeAsync(() => modal.Instance.CloseCallback());
+
+        var itemsChanged = false;
+        // 更新插入模式
+        table.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.InsertRowMode, InsertRowMode.First);
+            pb.Add(a => a.ItemsChanged, foo =>
+            {
+                itemsChanged = true;
+            });
+            pb.Add(a => a.EditFooterTemplate, foo => builder => builder.AddContent(0, "test_edit_footer"));
+        });
+
+        // Add 弹窗
+        await cut.InvokeAsync(() => table.Instance.AddAsync());
+        cut.Contains("test_edit_footer");
+
+        // 编辑弹窗逻辑
+        input = cut.Find(".modal-body form input.form-control");
+        await cut.InvokeAsync(() => input.Change("Test_Name"));
+
+        form = cut.Find(".modal-body form");
+        await cut.InvokeAsync(() => form.Submit());
+        await cut.InvokeAsync(() => modal.Instance.CloseCallback());
+        Assert.True(itemsChanged);
     }
 
     private class MockEFCoreDataService : IDataService<Foo>, IEntityFrameworkCoreDataService

@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using BootstrapBlazor.Shared.Services;
 using Microsoft.JSInterop;
 
 namespace BootstrapBlazor.Shared.Components;
@@ -37,6 +38,12 @@ public sealed partial class DemoBlock
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
+    /// 获得/设置 示例代码片段 默认 null 未设置
+    /// </summary>
+    [Parameter]
+    public Type? Demo { get; set; }
+
+    /// <summary>
     /// 获得/设置 是否显示代码块 默认 true 显示
     /// </summary>
     [Parameter]
@@ -47,6 +54,7 @@ public sealed partial class DemoBlock
     /// </summary>
     [Parameter]
     public string? TooltipText { get; set; }
+
     [Inject]
     [NotNull]
     private IStringLocalizer<DemoBlock>? Localizer { get; set; }
@@ -59,6 +67,8 @@ public sealed partial class DemoBlock
 
     private string BlockTitle => Name ?? Title;
 
+    private string? DemoString => Demo?.ToString().Replace("BootstrapBlazor.Shared.", "");
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -69,4 +79,15 @@ public sealed partial class DemoBlock
         Title ??= Localizer[nameof(Title)];
         TooltipText ??= Localizer[nameof(TooltipText)];
     }
+
+    private RenderFragment RenderChildContent => builder =>
+    {
+        builder.AddContent(0, ChildContent);
+
+        if (Demo != null)
+        {
+            builder.OpenComponent(1, Demo);
+            builder.CloseComponent();
+        }
+    };
 }

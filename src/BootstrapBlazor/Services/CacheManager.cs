@@ -216,9 +216,9 @@ internal class CacheManager : ICacheManager
             return Instance.GetOrCreate(typeKey, entry =>
             {
                 var sections = Instance.GetOrCreate(key, entry => option.GetJsonStringFromAssembly(assembly, cultureName));
-                return sections?.FirstOrDefault(kv => typeName.Equals(kv.Key, StringComparison.OrdinalIgnoreCase))?
+                return sections.FirstOrDefault(kv => typeName.Equals(kv.Key, StringComparison.OrdinalIgnoreCase))?
                     .GetChildren()
-                    .SelectMany(kv => new[] { new LocalizedString(kv.Key, kv.Value ?? kv.Key) });
+                    .SelectMany(kv => new[] { new LocalizedString(kv.Key, kv.Value!, false, typeName) });
             });
         }
     }
@@ -480,21 +480,22 @@ internal class CacheManager : ICacheManager
     /// <param name="model"></param>
     /// <param name="customAttribute"></param>
     /// <returns></returns>
-    public static TValue GetKeyValue<TModel, TValue>(TModel model, Type? customAttribute = null)
+    public static TValue? GetKeyValue<TModel, TValue>(TModel model, Type? customAttribute = null)
     {
-        if (model == null)
+        var ret = default(TValue);
+        if (model != null)
         {
-            throw new ArgumentNullException(nameof(model));
-        }
-        var type = model.GetType();
-        var cacheKey = ($"Lambda-GetKeyValue-{type.FullName}-{customAttribute?.FullName}", typeof(TModel));
-        var invoker = Instance.GetOrCreate(cacheKey, entry =>
-        {
-            entry.SetDynamicAssemblyPolicy(type);
+            var type = model.GetType();
+            var cacheKey = ($"Lambda-GetKeyValue-{type.FullName}-{customAttribute?.FullName}", typeof(TModel));
+            var invoker = Instance.GetOrCreate(cacheKey, entry =>
+            {
+                entry.SetDynamicAssemblyPolicy(type);
 
-            return LambdaExtensions.GetKeyValue<TModel, TValue>(customAttribute).Compile();
-        })!;
-        return invoker(model);
+                return LambdaExtensions.GetKeyValue<TModel, TValue>(customAttribute).Compile();
+            })!;
+            ret = invoker(model);
+        }
+        return ret;
     }
     #endregion
 

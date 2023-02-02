@@ -10,53 +10,6 @@ namespace BootstrapBlazor.Shared.Samples;
 public sealed partial class Captchas
 {
     /// <summary>
-    /// 获得/设置 图床路径 默认值为 images
-    /// </summary>
-    public string ImagesPath { get; set; } = "_content/BootstrapBlazor.Shared/images";
-
-    /// <summary>
-    /// 获得/设置 图床路径 默认值为 Pic.jpg
-    /// </summary>
-    public string ImagesName { get; set; } = "Pic.jpg";
-
-    [NotNull]
-    private Captcha? Captcha { get; set; }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    private BlockLogger? Trace { get; set; }
-
-    private void OnValid(bool ret)
-    {
-        var result = ret ? "成功" : "失败";
-        Trace?.Log($"验证码结果 -> {result}");
-        if (ret)
-        {
-            Task.Run(async () =>
-            {
-                await Task.Delay(1000);
-                await Captcha.Reset();
-            });
-        }
-    }
-
-    private static Random ImageRandomer { get; set; } = new Random();
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <returns></returns>
-    private string GetImageName()
-    {
-        var index = Convert.ToInt32(ImageRandomer.Next(0, 8) / 1.0);
-        var imageName = Path.GetFileNameWithoutExtension(ImagesName);
-        var extendName = Path.GetExtension(ImagesName);
-        var fileName = $"{imageName}{index}{extendName}";
-        return Path.Combine(ImagesPath, fileName);
-    }
-
-    /// <summary>
     /// 获得属性方法
     /// </summary>
     /// <returns></returns>

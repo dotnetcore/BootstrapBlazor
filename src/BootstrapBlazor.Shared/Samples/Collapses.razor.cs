@@ -5,26 +5,10 @@
 namespace BootstrapBlazor.Shared.Samples;
 
 /// <summary>
-/// 
+/// Collapses
 /// </summary>
 public sealed partial class Collapses
 {
-    [NotNull]
-    private BlockLogger? Trace { get; set; }
-
-    private bool State { get; set; }
-
-    private Task OnChanged(CollapseItem item)
-    {
-        Trace.Log($"{item.Text}: {item.IsCollapsed}");
-        return Task.CompletedTask;
-    }
-
-    private void OnToggle()
-    {
-        State = !State;
-    }
-
     /// <summary>
     /// 获得属性方法
     /// </summary>

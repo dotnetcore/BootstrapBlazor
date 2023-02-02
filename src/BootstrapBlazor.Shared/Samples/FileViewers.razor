@@ -1,0 +1,18 @@
+﻿@page "/FileViewers"
+@namespace BootstrapBlazor.Shared.Samples
+@inject IStringLocalizer<FileViewers> Localizer
+
+<h3>@Localizer["Title"]</h3>
+
+<PackageTips Name="BootstrapBlazor.FileViewer" />
+
+<Tips>
+    <p>@((MarkupString)Localizer["Tips"].Value)</p>
+</Tips>
+
+<DemoBlock Title="@Localizer["BaseUsageText"]" Introduction="@Localizer["BaseUsageIntro"]" Name="Nomal" Demo="typeof(Demos.FileViewer.FileViewerNormal)"/>
+
+<DemoBlock Title="@Localizer["BaseUsageText2"]" Introduction="@Localizer["BaseUsageIntro2"]" Name="Reload" Demo="typeof(Demos.FileViewer.FileViewerReload)" />
+
+<AttributeTable Items="@GetAttributes()" />
+

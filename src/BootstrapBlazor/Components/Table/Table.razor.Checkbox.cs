@@ -42,7 +42,7 @@ public partial class Table<TItem>
         }
         return ret;
 
-        bool AnyRow(TItem row) => SelectedRows.Any(i => ComparerItem(i, row));
+        bool AnyRow(TItem row) => SelectedRows.Any(i => Equals(i, row));
     }
 
     /// <summary>
@@ -50,7 +50,7 @@ public partial class Table<TItem>
     /// </summary>
     /// <param name="item"></param>
     /// <returns></returns>
-    protected CheckboxState RowCheckState(TItem item) => SelectedRows.Any(i => ComparerItem(i, item)) ? CheckboxState.Checked : CheckboxState.UnChecked;
+    protected CheckboxState RowCheckState(TItem item) => SelectedRows.Any(i => Equals(i, item)) ? CheckboxState.Checked : CheckboxState.UnChecked;
 
     /// <summary>
     /// 获得/设置 是否为多选模式 默认为 false
@@ -109,7 +109,7 @@ public partial class Table<TItem>
         }
         else
         {
-            var item = SelectedRows.FirstOrDefault(i => ComparerItem(i, val));
+            var item = SelectedRows.FirstOrDefault(i => Equals(i, val));
             if (item != null)
             {
                 SelectedRows.Remove(item);

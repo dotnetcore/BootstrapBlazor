@@ -5,7 +5,7 @@
 ::deep .btn-primary {
     position: absolute;
     top: .65rem;
-    right: .65rem;
+    right: 1.5rem;
     font-size: 65%;
     --bs-btn-color: var(--bs-primary);
     --bs-btn-bg: #fff;
@@ -13,8 +13,14 @@
     --bs-btn-padding-x: .5rem;
 }
 
-    ::deep .btn-primary:hover {
-        --bs-btn-hover-color: #fff;
+::deep .btn-group {
+    position: absolute;
+    top: 0;
+    right: 3rem;
+}
+
+    ::deep .btn-group .btn-primary {
+        position: relative;
     }
 
 code {

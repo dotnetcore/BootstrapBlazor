@@ -52,12 +52,6 @@ public partial class Table<TItem>
     protected BreakPoint ScreenSize { get; set; }
 
     /// <summary>
-    /// 获得/设置 组件渲染模式是否使用组件宽度来判断 默认为 false
-    /// </summary>
-    [Parameter]
-    public bool UseComponentWidth { get; set; }
-
-    /// <summary>
     /// 获得/设置 组件编辑模式 默认为弹窗编辑行数据 PopupEditForm
     /// </summary>
     [Parameter]
@@ -552,16 +546,12 @@ public partial class Table<TItem>
         return queryOption;
     }
 
-    private void ResetSelectedRows(IEnumerable<TItem> items) => SelectedRows = items.Where(i => SelectedRows.Any(row => ComparerItem(i, row))).ToList();
+    private void ResetSelectedRows(IEnumerable<TItem> items) => SelectedRows = items.Where(i => SelectedRows.Any(row => Equals(i, row))).ToList();
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public bool ComparerItem(TItem a, TItem b) => ModelEqualityComparer?.Invoke(a, b)
-        ?? DynamicContext?.EqualityComparer?.Invoke((IDynamicObject)a, (IDynamicObject)b)
-        ?? Utility.GetKeyValue<TItem, object>(a, CustomKeyAttribute)?.Equals(Utility.GetKeyValue<TItem, object>(b, CustomKeyAttribute))
-        ?? ModelComparer.EqualityComparer(a, b)
-        ?? a.Equals(b);
+    public bool Equals(TItem? x, TItem? y) => DynamicContext?.EqualityComparer?.Invoke((IDynamicObject?)x, (IDynamicObject?)y) ?? this.Equals<TItem>(x, y);
 
     private async Task OnClickExtensionButton(TItem item, TableCellButtonArgs args)
     {

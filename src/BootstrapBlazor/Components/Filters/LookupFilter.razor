@@ -3,7 +3,7 @@
 
 @if (IsHeaderRow)
 {
-    <Select Items="@Items" StringComparison="LookupStringComparison" @bind-Value="@Value" OnSelectedItemChanged="_ => OnFilterValueChanged()"></Select>
+    <Select Items="@Items" StringComparison="LookupStringComparison" @bind-Value="@Value" OnSelectedItemChanged="_ => OnFilterValueChanged()" IsPopover="true"></Select>
 }
 else
 {

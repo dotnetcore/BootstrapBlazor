@@ -2,37 +2,19 @@
 @page "/tables/virtualization"
 @inject IStringLocalizer<TablesVirtualization> Localizer
 
-<h3>@Localizer["H1"]</h3>
-<h4>@Localizer["H2"]</h4>
+<h3>@Localizer["TablesVirtualizationTitle"]</h3>
+<h4>@Localizer["TablesVirtualizationDescription"]</h4>
 
-<DemoBlock Title="@Localizer["P1"]" Introduction="@Localizer["P2"]" Name="Normal">
-    <p>@((MarkupString)Localizer["P3"].Value)</p>
-    <div class="table-virtualize-demo">
-        <Table TItem="Foo" IsBordered="true" IsStriped="true" Items="Items" ScrollMode="ScrollMode.Virtual">
-            <TableColumns>
-                <TableColumn @bind-Field="@context.DateTime" Width="180" />
-                <TableColumn @bind-Field="@context.Name" />
-                <TableColumn @bind-Field="@context.Address" Readonly="true" />
-                <TableColumn @bind-Field="@context.Education" />
-                <TableColumn @bind-Field="@context.Count" Editable="false" />
-                <TableColumn @bind-Field="@context.Complete" />
-            </TableColumns>
-        </Table>
-    </div>
+<DemoBlock Title="@Localizer["VirtualizationNormalTitle"]"
+           Introduction="@Localizer["VirtualizationNormalIntro"]"
+           Name="Normal"
+           Demo="typeof(Demos.Table.TablesVirtualization.TablesVirtualizationNormal)">
+    <p>@((MarkupString)Localizer["VirtualizationNormalDescription"].Value)</p>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["P4"]" Introduction="@Localizer["P5"]" Name="Dynamic">
-    <p>@Localizer["P6"]</p>
-    <div class="table-virtualize-demo">
-        <Table TItem="Foo" IsBordered="true" IsStriped="true" ScrollMode="ScrollMode.Virtual" OnQueryAsync="OnQueryAsync">
-            <TableColumns>
-                <TableColumn @bind-Field="@context.DateTime" Width="180" />
-                <TableColumn @bind-Field="@context.Name" />
-                <TableColumn @bind-Field="@context.Address" Readonly="true" />
-                <TableColumn @bind-Field="@context.Education" />
-                <TableColumn @bind-Field="@context.Count" Editable="false" />
-                <TableColumn @bind-Field="@context.Complete" />
-            </TableColumns>
-        </Table>
-    </div>
+<DemoBlock Title="@Localizer["VirtualizationDynamicTitle"]"
+           Introduction="@Localizer["VirtualizationDynamicIntro"]"
+           Name="Dynamic"
+           Demo="typeof(Demos.Table.TablesVirtualization.TablesVirtualizationDynamic)">
+    <p>@Localizer["VirtualizationDynamicDescription"]</p>
 </DemoBlock>

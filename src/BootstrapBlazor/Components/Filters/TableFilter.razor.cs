@@ -39,6 +39,12 @@ public partial class TableFilter : IFilter
     public string? Icon { get; set; }
 
     /// <summary>
+    /// 获得/设置 不支持过滤类型提示信息 默认 null 读取资源文件内容
+    /// </summary>
+    [Parameter]
+    public string? NotSupportedMessage { get; set; }
+
+    /// <summary>
     /// 获得/设置 Header 显示文字
     /// </summary>
     [NotNull]
@@ -134,6 +140,7 @@ public partial class TableFilter : IFilter
 
         FilterButtonText ??= Localizer[nameof(FilterButtonText)];
         ClearButtonText ??= Localizer[nameof(ClearButtonText)];
+        NotSupportedMessage ??= Localizer[nameof(NotSupportedMessage)];
     }
 
     /// <summary>

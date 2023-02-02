@@ -15,7 +15,7 @@ namespace BootstrapBlazor.Components;
 [CascadingTypeParameter(nameof(TItem))]
 #endif
 [JSModuleAutoLoader(JSObjectReference = true)]
-public partial class Table<TItem> : ITable where TItem : class, new()
+public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where TItem : class, new()
 {
     /// <summary>
     /// 获得/设置 内置虚拟化组件实例
@@ -132,6 +132,26 @@ public partial class Table<TItem> : ITable where TItem : class, new()
     private string? PageInfoLabelString => Localizer[nameof(PageInfoText), PageStartIndex, (PageIndex - 1) * PageItems + Rows.Count, TotalCount];
 
     private static string? GetColWidthString(int? width) => width.HasValue ? $"width: {width.Value}px;" : null;
+
+    /// <summary>
+    /// 获得/设置 Table 高度 默认为 null
+    /// </summary>
+    /// <remarks>开启固定表头功能时生效 <see cref="IsFixedHeader"/></remarks>
+    [Parameter]
+    public int? Height { get; set; }
+
+    /// <summary>
+    /// 获得/设置 固定表头 默认 false
+    /// </summary>
+    /// <remarks>固定表头时设置 <see cref="Height"/> 即可出现滚动条，未设置时尝试自适应</remarks>
+    [Parameter]
+    public bool IsFixedHeader { get; set; }
+
+    /// <summary>
+    /// 获得/设置 多表头模板
+    /// </summary>
+    [Parameter]
+    public RenderFragment? MultiHeaderTemplate { get; set; }
 
     /// <summary>
     /// 获得/设置 列拷贝 Tooltip 文字
@@ -523,7 +543,7 @@ public partial class Table<TItem> : ITable where TItem : class, new()
         base.OnInitialized();
 
         // 初始化节点缓存
-        treeNodeCache ??= new(ComparerItem);
+        treeNodeCache ??= new(Equals);
 
         OnInitLocalization();
 
@@ -755,8 +775,8 @@ public partial class Table<TItem> : ITable where TItem : class, new()
 
     private void InternalResetVisibleColumns(IEnumerable<ColumnVisibleItem> columns)
     {
-        ColumnVisibles.Clear();
-        ColumnVisibles.AddRange(columns);
+        VisibleColumns.Clear();
+        VisibleColumns.AddRange(columns);
     }
 
     /// <summary>
@@ -1062,7 +1082,7 @@ public partial class Table<TItem> : ITable where TItem : class, new()
 
     private int GetColumnCount()
     {
-        var colspan = GetColumns().Count(col => col.Visible);
+        var colspan = GetVisibleColumns().Count(col => col.Visible);
         if (IsMultipleSelect)
         {
             colspan++;

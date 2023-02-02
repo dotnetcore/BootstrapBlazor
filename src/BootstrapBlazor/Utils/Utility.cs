@@ -57,7 +57,7 @@ public static class Utility
     /// <param name="model"></param>
     /// <param name="customAttribute"></param>
     /// <returns></returns>
-    public static TValue GetKeyValue<TModel, TValue>(TModel model, Type? customAttribute = null) => CacheManager.GetKeyValue<TModel, TValue>(model, customAttribute);
+    public static TValue? GetKeyValue<TModel, TValue>(TModel model, Type? customAttribute = null) => CacheManager.GetKeyValue<TModel, TValue>(model, customAttribute);
 
     /// <summary>
     /// 
@@ -188,9 +188,11 @@ public static class Utility
 
     /// <summary>
     /// 泛型 Clone 方法
+    /// <para>仅克隆类 公开 Field 与 Property</para>
     /// </summary>
     /// <typeparam name="TModel"></typeparam>
-    /// <param name="item"></param>
+    /// <param name="item">克隆对象</param>
+    /// <remarks>简单的深克隆方法，内部未使用序列化技术</remarks>
     /// <returns></returns>
     public static TModel Clone<TModel>(TModel item)
     {
@@ -218,16 +220,16 @@ public static class Utility
                             foreach (var f in type.GetFields())
                             {
                                 var v = f.GetValue(item);
-                                var field = valType.GetField(f.Name);
-                                field?.SetValue(ret, v);
+                                var field = valType.GetField(f.Name)!;
+                                field.SetValue(ret, v);
                             };
                             foreach (var p in type.GetRuntimeProperties())
                             {
                                 if (p.CanWrite)
                                 {
                                     var v = p.GetValue(item);
-                                    var property = valType.GetRuntimeProperties().FirstOrDefault(i => i.Name == p.Name && i.PropertyType == p.PropertyType);
-                                    property?.SetValue(ret, v);
+                                    var property = valType.GetRuntimeProperties().First(i => i.Name == p.Name && i.PropertyType == p.PropertyType);
+                                    property.SetValue(ret, v);
                                 }
                             };
                         }
@@ -251,19 +253,21 @@ public static class Utility
         var valType = destination.GetType();
         if (valType != null)
         {
-            type.GetFields().ToList().ForEach(f =>
+            foreach (var f in type.GetFields())
             {
                 var v = f.GetValue(source);
-                valType.GetField(f.Name)!.SetValue(destination, v);
-            });
-            type.GetRuntimeProperties().ToList().ForEach(p =>
+                var field = valType.GetField(f.Name)!;
+                field.SetValue(destination, v);
+            }
+            foreach (var p in type.GetRuntimeProperties())
             {
                 if (p.CanWrite)
                 {
                     var v = p.GetValue(source);
-                    valType.GetProperty(p.Name)!.SetValue(destination, v);
+                    var property = valType.GetRuntimeProperties().First(i => i.Name == p.Name && i.PropertyType == p.PropertyType);
+                    property.SetValue(destination, v);
                 }
-            });
+            }
         }
     }
 
@@ -679,14 +683,22 @@ public static class Utility
         }
         else if (typeValue.IsGenericType || typeValue.IsArray)
         {
-            var t = typeValue.IsGenericType ? typeValue.GenericTypeArguments[0] : typeValue.GetElementType()!;
-            var instance = Activator.CreateInstance(typeof(List<>).MakeGenericType(t))!;
-            var mi = instance.GetType().GetMethod("AddRange");
-            mi?.Invoke(instance, new object[] { value! });
-
-            var invoker = CacheManager.CreateConverterInvoker(t);
-            var v = invoker.Invoke(instance);
-            ret = string.Join(",", v);
+            var t = typeValue.IsGenericType ? typeValue.GenericTypeArguments[0] : typeValue.GetElementType();
+            if (t != null)
+            {
+                var instance = Activator.CreateInstance(typeof(List<>).MakeGenericType(t));
+                if (instance != null)
+                {
+                    var mi = instance.GetType().GetMethod(nameof(List<string>.AddRange));
+                    if (mi != null)
+                    {
+                        mi.Invoke(instance, new object?[] { value });
+                        var invoker = CacheManager.CreateConverterInvoker(t);
+                        var v = invoker.Invoke(instance);
+                        ret = string.Join(",", v);
+                    }
+                }
+            }
         }
         return ret;
     }

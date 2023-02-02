@@ -67,6 +67,42 @@
     </div>
 </DemoBlock>
 
+<DemoBlock Title="@Localizer["CollapsableTitle"]" Introduction="@Localizer["CollapsableIntro"]" Name="Collapsable">
+    <div class="listview-demo">
+        <ListView TItem="Product" GroupName="@(p => p.Category)" OnQueryAsync="@OnQueryAsync" Collapsable="true" CollapsedGroupCallback="CollapsedGroupCallback">
+            <HeaderTemplate>
+                <div>@Localizer["ProductListText"]</div>
+            </HeaderTemplate>
+            <BodyTemplate>
+                <Card>
+                    <BodyTemplate>
+                        <img src="@context.ImageUrl" />
+                        <div class="listview-demo-desc">@context.Description</div>
+                    </BodyTemplate>
+                </Card>
+            </BodyTemplate>
+        </ListView>
+    </div>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["IsAccordionTitle"]" Introduction="@Localizer["IsAccordionIntro"]" Name="IsAccordion">
+    <div class="listview-demo">
+        <ListView TItem="Product" GroupName="@(p => p.Category)" OnQueryAsync="@OnQueryAsync" Collapsable="true" IsAccordion="true">
+            <HeaderTemplate>
+                <div>@Localizer["ProductListText"]</div>
+            </HeaderTemplate>
+            <BodyTemplate>
+                <Card>
+                    <BodyTemplate>
+                        <img src="@context.ImageUrl" />
+                        <div class="listview-demo-desc">@context.Description</div>
+                    </BodyTemplate>
+                </Card>
+            </BodyTemplate>
+        </ListView>
+    </div>
+</DemoBlock>
+
 <AttributeTable Items="GetAttributes()"></AttributeTable>
 
 <MethodTable Items="GetMethods()"></MethodTable>

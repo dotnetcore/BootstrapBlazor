@@ -20,10 +20,7 @@
             </Buttons>
         </EditorForm>
     }
-    @if (ShowLoading)
-    {
-        <div class="form-loader" id="@Id">
-            <Spinner Color="Color.Primary" />
-        </div>
-    }
+    <div class="form-loader fade" id="@Id">
+        <Spinner Color="Color.Primary" />
+    </div>
 </ValidateForm>

@@ -63,4 +63,15 @@ public partial class Line
         }
         return Task.FromResult(ds);
     }
+
+    /// <summary>
+    /// 强刷控件,重新初始化控件外观
+    /// </summary>
+    private Task OnReloadChart()
+    {
+        LineDataCount = Randomer.Next(5, 15);
+        LineChart?.Reload();
+        return Task.CompletedTask;
+    }
+
 }

@@ -1,39 +1,32 @@
 ﻿@page "/tables/dynamic"
+@inject IStringLocalizer<TablesDynamic> DynamicLocalizer
 
-<h3>@DynamicLocalizer["Title"]</h3>
+<h3>@DynamicLocalizer["TablesDynamicTitle"]</h3>
 
-<h4>@DynamicLocalizer["Desc"]</h4>
+<h4>@DynamicLocalizer["TablesDynamicDescription"]</h4>
 
-<DemoBlock Title="@DynamicLocalizer["DataTableTitle"]" Introduction="@DynamicLocalizer["DataTableIntro"]" Name="DataTable">
-    <Table TItem="DynamicObject" DynamicContext="DataTableDynamicContext" />
+<DemoBlock Title="@DynamicLocalizer["TablesDynamicDataTableTitle"]"
+           Introduction="@DynamicLocalizer["TablesDynamicDataTableIntro"]"
+           Name="DataTable"
+           Demo="typeof(Demos.Table.TablesDynamic.TablesDynamicDataTable)">
 </DemoBlock>
 
-<DemoBlock Title="@DynamicLocalizer["EditTitle"]" Introduction="@DynamicLocalizer["EditIntro"]" Name="Edit">
-    <p>@((MarkupString)DynamicLocalizer["EditP"].Value)</p>
-    <Table TItem="DynamicObject" DynamicContext="DataTableDynamicContext" ModelEqualityComparer="ModelEqualityComparer"
-           IsMultipleSelect="true" IsBordered="true" IsStriped="true" @bind-SelectedRows="SelectedItems"
-           ShowToolbar="true" ShowExtendButtons="true" />
-    <div class="mt-3">
-        @foreach(var item in SelectedItems)
-        {
-            <div>@item.GetValue(nameof(Foo.Name))</div>
-        }
-    </div>
+<DemoBlock Title="@DynamicLocalizer["TablesDynamicEditTitle"]"
+           Introduction="@DynamicLocalizer["TablesDynamicEditIntro"]"
+           Name="Edit"
+           Demo="typeof(Demos.Table.TablesDynamic.TablesDynamicEdit)">
+    <p>@((MarkupString)DynamicLocalizer["TablesDynamicEditDescription"].Value)</p>
 </DemoBlock>
 
-<DemoBlock Title="@DynamicLocalizer["DynamicColTitle"]" Introduction="@DynamicLocalizer["DynamicColIntro"]" Name="DynamicCol">
-    <Table TItem="DynamicObject" DynamicContext="DataTableDynamicContext" ModelEqualityComparer="ModelEqualityComparer"
-           IsMultipleSelect="true" IsBordered="true" IsStriped="true"
-           ShowToolbar="true" ShowExtendButtons="true">
-        <TableToolbarTemplate>
-            <TableToolbarButton TItem="DynamicObject" Color="Color.Info" Icon="fa-fw fa-solid fa-circle-plus" Text="@ButtonAddColumnText" OnClick="OnAddColumn" />
-            <TableToolbarButton TItem="DynamicObject" Color="Color.Secondary" Icon="fa-fw fa-solid fa-circle-minus" Text="@ButtonRemoveColumnText" OnClick="OnRemoveColumn" />
-        </TableToolbarTemplate>
-    </Table>
+<DemoBlock Title="@DynamicLocalizer["TablesDynamicDynamicColTitle"]"
+           Introduction="@DynamicLocalizer["TablesDynamicDynamicColIntro"]"
+           Name="DynamicCol"
+           Demo="typeof(Demos.Table.TablesDynamic.TablesDynamicDynamicCol)">
 </DemoBlock>
 
-<DemoBlock Title="@DynamicLocalizer["DataTablePageTitle"]" Introduction="@DynamicLocalizer["DataTablePageIntro"]" Name="Page">
-    <Table TItem="DynamicObject" DynamicContext="DataTablePageDynamicContext" />
-    <Pagination PageCount="@PageCount" PageIndex="@PageIndex" OnPageLinkClick="@OnPageLinkClick" class="mt-3"></Pagination>
+<DemoBlock Title="@DynamicLocalizer["TablesDynamicPageTitle"]"
+           Introduction="@DynamicLocalizer["TablesDynamicPageIntro"]"
+           Name="Page"
+           Demo="typeof(Demos.Table.TablesDynamic.TablesDynamicPage)">
 </DemoBlock>
 

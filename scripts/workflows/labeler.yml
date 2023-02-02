@@ -1,0 +1,10 @@
+test:
+  - '(test)'
+bug:
+  - '(bug)'
+chore:
+  - '(chore)'
+enhancement:
+  - '(feat)'
+documentation:
+  - '(doc)' 

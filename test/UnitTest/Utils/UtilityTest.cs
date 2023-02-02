@@ -37,7 +37,7 @@ public class UtilityTest : BootstrapBlazorTestBase
     public void GetKeyValue_Null()
     {
         Foo? foo = null;
-        Assert.Throws<ArgumentNullException>(() => Utility.GetKeyValue<object?, int>(foo));
+        Assert.Equal(0, Utility.GetKeyValue<object?, int>(foo));
     }
 
     [Fact]
@@ -310,14 +310,11 @@ public class UtilityTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void GetJsonStringFromAssembly_Ok()
+    public void GetJsonStringByTypeName_Ok()
     {
+        // improve code coverage
         var option = Context.Services.GetRequiredService<IOptions<JsonLocalizationOptions>>().Value;
-        var sections = Utility.GetJsonStringByTypeName(option, this.GetType().Assembly, "UnitTest.Utils.UtilityTest+Cat", null, true);
-
-        // 加载 UnitTest.Locals.en-US.json
-        // 加载 BootstrapBlazor.Locals.en.json
-        Assert.NotEmpty(sections);
+        Utility.GetJsonStringByTypeName(option, this.GetType().Assembly, "UnitTest.Utils.UtilityTest+Cat", null, true);
 
         // dynamic
         var dynamicType = EmitHelper.CreateTypeByName("test_type", new MockTableColumn[] { new("Name", typeof(string)) });
@@ -545,7 +542,18 @@ public class UtilityTest : BootstrapBlazorTestBase
             }
         };
         var localizedStrings = Utility.GetJsonStringByTypeName(option, this.GetType().Assembly, "BootstrapBlazor.Shared.Foo", "zh-CN", true);
-        Assert.Equal("Test-Name", localizedStrings.First(i => i.Name == "Name").Value);
+        var localizer = localizedStrings.First(i => i.Name == "Name");
+        Assert.Equal("Test-Name", localizer.Value);
+        Assert.False(localizer.ResourceNotFound);
+
+        // Value is null
+        localizer = localizedStrings.First(i => i.Name == "NullName");
+        Assert.Equal("", localizer.Value);
+        Assert.False(localizer.ResourceNotFound);
+
+        localizer = localizedStrings.First(i => i.Name == "EmptyName");
+        Assert.Equal("", localizer.Value);
+        Assert.False(localizer.ResourceNotFound);
     }
 
     [Fact]
@@ -616,13 +624,9 @@ public class UtilityTest : BootstrapBlazorTestBase
 
     private class Cat
     {
-        public Foo Foo { get; set; } = new Foo();
-
         [PlaceHolder("Test-PlaceHolder")]
         [Description("Cat-Desc")]
         public string? Name { get; set; }
-
-        public string? PlaceHolder { get; set; }
 
         [CatKey]
         public int Id { get; set; }

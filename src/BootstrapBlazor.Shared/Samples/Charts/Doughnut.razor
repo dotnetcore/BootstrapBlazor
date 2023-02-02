@@ -6,6 +6,7 @@
     <div class="text-center mt-2 chart">
         <div class="btn-group">
             <button class="btn btn-primary" @onclick="e => Utility.RandomData(DoughnutChart)"><i class="fa-brands fa-slack"></i><span>@Localizer["P3"]</span></button>
+            <button class="btn btn-primary" @onclick="OnReloadChart"><i class="fa-solid fa-chart-column"></i><span>@Localizer["Reload"]</span></button>
             <button class="btn btn-primary" @onclick="e => Utility.AddDataSet(DoughnutChart, ref DoughnutDatasetCount)"><i class="fa-solid fa-circle-plus"></i><span>@Localizer["P4"]</span></button>
             <button class="btn btn-primary" @onclick="e => Utility.RemoveDataSet(DoughnutChart, ref DoughnutDatasetCount)"><i class="fa-solid fa-circle-minus"></i><span>@Localizer["P5"]</span></button>
             <button class="btn btn-primary" @onclick="e => Utility.AddData(DoughnutChart, ref DoughnutDataCount)"><i class="fa-solid fa-plus"></i><span>@Localizer["P6"]</span></button>
@@ -14,4 +15,8 @@
         </div>
     </div>
     <BlockLogger @ref="Logger" class="mt-3" />
+</DemoBlock> 
+
+<DemoBlock Title="@Localizer["AspectRatio"]" Introduction="@Localizer["AspectRatioIntro"]" Name="BarAspectRatio">
+    <Chart ChartType="ChartType.Bar" OnInitAsync="@OnInit" Height="500px" Width="300px" />
 </DemoBlock>

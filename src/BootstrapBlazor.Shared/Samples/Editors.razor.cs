@@ -5,110 +5,14 @@
 namespace BootstrapBlazor.Shared.Samples;
 
 /// <summary>
-/// 
+/// Editors
 /// </summary>
 public sealed partial class Editors
 {
-    /// <summary>
-    /// 获得/设置 版本号字符串
-    /// </summary>
-    private string Version { get; set; } = "fetching";
-
-    private string? EditorValue { get; set; }
-
-    [NotNull]
-    private Editor? Editor { get; set; }
-
-    /// <summary>
-    /// OnInitializedAsync 方法
-    /// </summary>
-    /// <returns></returns>
-    protected override async Task OnInitializedAsync()
+    private IEnumerable<AttributeItem> GetAttributes()
     {
-        Version = await VersionManager.GetVersionAsync("bootstrapblazor.summernote");
-    }
-
-    private Task OnValueChanged(string val)
-    {
-        EditorValue = val;
-        return Task.CompletedTask;
-    }
-
-    private void SetValue()
-    {
-        EditorValue = Localizer["UpdateValue"];
-    }
-
-    private async Task InsertHtmlAsync()
-    {
-        await Editor.DoMethodAysnc("pasteHTML", "<h1>这里是外部按钮插入的内容</h1>");
-    }
-
-    private List<EditorToolbarButton>? EditorPluginItems { get; set; }
-
-    private async Task<string?> PluginClick(string pluginItemName)
-    {
-        var ret = "";
-        if (pluginItemName == "plugin1")
+        return new AttributeItem[]
         {
-            var op = new SwalOption()
-            {
-                Title = Localizer["SwalTitle"],
-                Content = Localizer["SwalContent"]
-            };
-            if (await SwalService.ShowModal(op))
-            {
-                ret = Localizer["Ret1"];
-            }
-        }
-        if (pluginItemName == "plugin2")
-        {
-            var op = new SwalOption()
-            {
-                Title = Localizer["Swal2Title"],
-                Content = Localizer["Swal2Content"]
-            };
-            if (await SwalService.ShowModal(op))
-            {
-                ret = Localizer["Ret2"];
-            }
-        }
-        return ret;
-    }
-
-    /// <summary>
-    /// OnInitialized 方法
-    /// </summary>
-    protected override void OnInitialized()
-    {
-        base.OnInitialized();
-
-        EditorValue = Localizer["InitValue"];
-        EditorPluginItems = new List<EditorToolbarButton>()
-        {
-            new EditorToolbarButton()
-            {
-                IconClass = "fa-solid fa-pencil",
-                ButtonName = "plugin1",
-                Tooltip = Localizer["ToolTip1"]
-            },
-            new EditorToolbarButton()
-            {
-                IconClass = "fa-solid fa-house",
-                ButtonName = "plugin2",
-                Tooltip = Localizer["ToolTip2"]
-            }
-        };
-    }
-
-    private List<object> ToolbarItems { get; } = new List<object>
-        {
-            new List<object> {"style", new List<string>() {"style"}},
-            new List<object> {"font", new List<string>() {"bold", "underline", "clear"}}
-        };
-
-    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-    {
             // TODO: 移动到数据库中
             new AttributeItem() {
                 Name = "Placeholder",
@@ -147,5 +51,6 @@ public sealed partial class Editors
                 ValueList = " — ",
                 DefaultValue = " — "
             }
-    };
+        };
+    }
 }

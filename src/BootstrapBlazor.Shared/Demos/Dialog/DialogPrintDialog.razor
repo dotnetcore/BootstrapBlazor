@@ -1,0 +1,29 @@
+﻿@inject IStringLocalizer<DialogPrintDialog> Localizer
+
+<Button OnClick="@OnPrintDialogClick">@Localizer["PrintDialogButton"]</Button>
+
+@code {
+    [Inject]
+    [NotNull]
+    private DialogService? DialogService { get; set; }
+
+    private int DataPrimaryId { get; set; } = 1;
+
+    private async Task OnPrintDialogClick()
+    {
+        var op = new DialogOption()
+        {
+            Title = "Data query window",
+            ShowPrintButton = true,
+            ShowPrintButtonInHeader = true,
+            ShowFooter = false,
+            BodyContext = DataPrimaryId
+        };
+        op.BodyTemplate = BootstrapDynamicComponent.CreateComponent<DataDialogComponent>(new Dictionary<string, object?>
+        {
+            [nameof(DataDialogComponent.OnClose)] = new Action(async () => await op.Dialog.Close())
+        }).Render();
+
+        await DialogService.Show(op);
+    }
+}

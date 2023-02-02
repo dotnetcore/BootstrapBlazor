@@ -46,6 +46,18 @@ public partial class Pre
     [Parameter]
     public string? BlockTitle { get; set; }
 
+    /// <summary>
+    /// 获得/设置 示例代码片段 默认 null 未设置
+    /// </summary>
+    [Parameter]
+    public string? Demo { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否显示工具按钮组
+    /// </summary>
+    [Parameter]
+    public bool ShowToolbar { get; set; }
+
     [Inject]
     [NotNull]
     private IStringLocalizer<Pre>? Localizer { get; set; }
@@ -53,6 +65,10 @@ public partial class Pre
     private string? LoadingText { get; set; }
 
     private string? TooltipTitle { get; set; }
+
+    private string? PlusTooltipTitle { get; set; }
+
+    private string? MinusTooltipTitle { get; set; }
 
     private string? CopiedText { get; set; }
 
@@ -84,6 +100,8 @@ public partial class Pre
 
         LoadingText ??= Localizer[nameof(LoadingText)];
         TooltipTitle ??= Localizer[nameof(TooltipTitle)];
+        PlusTooltipTitle ??= Localizer[nameof(PlusTooltipTitle)];
+        MinusTooltipTitle ??= Localizer[nameof(MinusTooltipTitle)];
         CopiedText ??= Localizer[nameof(CopiedText)];
     }
 
@@ -105,7 +123,7 @@ public partial class Pre
     {
         if (!string.IsNullOrEmpty(CodeFile))
         {
-            var code = await Example.GetCodeAsync(CodeFile, BlockTitle);
+            var code = await Example.GetCodeAsync(CodeFile, BlockTitle, Demo);
             if (!string.IsNullOrEmpty(code))
             {
                 ChildContent = builder =>

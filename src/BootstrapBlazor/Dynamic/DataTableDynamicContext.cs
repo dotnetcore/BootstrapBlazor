@@ -70,11 +70,7 @@ public class DataTableDynamicContext : DynamicObjectContext
         Type CreateType()
         {
             var dynamicType = EmitHelper.CreateTypeByName($"BootstrapBlazor_{nameof(DataTableDynamicContext)}_{GetHashCode()}", cols, typeof(DataTableDynamicObject), OnColumnCreating);
-            if (dynamicType == null)
-            {
-                throw new InvalidOperationException();
-            }
-            return dynamicType;
+            return dynamicType ?? throw new InvalidOperationException();
         }
     }
 
@@ -215,10 +211,7 @@ public class DataTableDynamicContext : DynamicObjectContext
             }
 
             // Table 组件数据源更新数据
-            if (Items != null)
-            {
-                Items.Insert(indexOfRow, dynamicObject);
-            }
+            Items?.Insert(indexOfRow, dynamicObject);
 
             // 缓存更新数据
             Caches.TryAdd(dynamicObject.DynamicObjectPrimaryKey, (dynamicObject, row));
@@ -236,10 +229,7 @@ public class DataTableDynamicContext : DynamicObjectContext
         if (OnDeleteAsync != null)
         {
             ret = await OnDeleteAsync(items);
-            if (Items != null)
-            {
-                Items.RemoveAll(i => items.Any(item => item == i));
-            }
+            Items?.RemoveAll(i => items.Any(item => item == i));
         }
         else
         {
@@ -257,10 +247,7 @@ public class DataTableDynamicContext : DynamicObjectContext
                     Caches.TryRemove(item.DynamicObjectPrimaryKey, out _);
 
                     // 清理 Table 组件数据源
-                    if (Items != null)
-                    {
-                        Items.Remove(item);
-                    }
+                    Items?.Remove(item);
                 }
             }
             if (changed)

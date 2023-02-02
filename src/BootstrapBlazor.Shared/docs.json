@@ -78,7 +78,9 @@
     "bluetooths": "Bluetooths",
     "ribbontabs": "RibbonTabs",
     "pdfreaders": "PdfReaders",
-    "videoPlayers": "VideoPlayers"
+    "videoPlayers": "VideoPlayers",
+    "fileviewers": "FileViewers",
+    "ocr": "BaiduOcr"
   },
   "video": {
     "autorefresh": "BV1ap4y1x7Qn?p=8",

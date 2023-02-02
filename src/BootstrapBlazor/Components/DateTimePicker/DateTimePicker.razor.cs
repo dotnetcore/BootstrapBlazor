@@ -54,32 +54,6 @@ public partial class DateTimePicker<TValue>
     private bool AllowNull { get; set; }
 
     /// <summary>
-    /// 获得/设置 组件时间
-    /// </summary>
-    private DateTime ComponentValue
-    {
-        get
-        {
-            var v = DateTime.Now;
-            if (AllowNull)
-            {
-                var t = Value as DateTime?;
-                if (t.HasValue) v = t.Value;
-            }
-            else
-            {
-                var t = (DateTime)(object)Value;
-                v = t;
-            }
-            return ViewMode == DatePickerViewMode.Date ? v.Date : v;
-        }
-        set
-        {
-            CurrentValue = (TValue)(object)value;
-        }
-    }
-
-    /// <summary>
     /// 获得/设置 时间格式化字符串 默认值为 "yyyy-MM-dd"
     /// </summary>
     [Parameter]
@@ -108,6 +82,7 @@ public partial class DateTimePicker<TValue>
     /// 获得/设置 侧边栏模板 默认 null
     /// </summary>
     [Parameter]
+    [NotNull]
     public RenderFragment<Func<DateTime, Task>>? SidebarTemplate { get; set; }
 
     /// <summary>
@@ -123,16 +98,16 @@ public partial class DateTimePicker<TValue>
     public DateTime? MinValue { get; set; }
 
     /// <summary>
-    /// 获得/设置 当前日期变化时回调委托方法
-    /// </summary>
-    [Parameter]
-    public Func<TValue, Task>? OnDateTimeChanged { get; set; }
-
-    /// <summary>
     /// 获得/设置 是否点击日期后自动关闭弹窗 默认 true
     /// </summary>
     [Parameter]
     public bool AutoClose { get; set; } = true;
+
+    /// <summary>
+    /// 获得/设置 是否自动设置值为当前时间 默认 true 当 Value 为 null 或者 <see cref="DateTime.MinValue"/>  时自动设置当前时间为 <see cref="DateTime.Today"/>
+    /// </summary>
+    [Parameter]
+    public bool AutoToday { get; set; } = true;
 
     [Inject]
     [NotNull]
@@ -153,20 +128,7 @@ public partial class DateTimePicker<TValue>
     [NotNull]
     private string? DateFormat { get; set; }
 
-    /// <summary>
-    /// OnInitialized
-    /// </summary>
-    protected override void OnInitialized()
-    {
-        base.OnInitialized();
-
-        // 判断泛型类型
-        var isDateTime = typeof(TValue) == typeof(DateTime) || typeof(TValue) == typeof(DateTime?);
-        if (!isDateTime) throw new InvalidOperationException(GenericTypeErroMessage);
-
-        // 泛型设置为可为空
-        AllowNull = typeof(TValue) == typeof(DateTime?);
-    }
+    private DateTime SelectedValue { get; set; }
 
     /// <summary>
     /// OnParametersSet 方法
@@ -178,6 +140,20 @@ public partial class DateTimePicker<TValue>
         DateTimePlaceHolderText ??= Localizer[nameof(DateTimePlaceHolderText)];
         DatePlaceHolderText ??= Localizer[nameof(DatePlaceHolderText)];
         GenericTypeErroMessage ??= Localizer[nameof(GenericTypeErroMessage)];
+        DateTimeFormat ??= Localizer[nameof(DateTimeFormat)];
+        DateFormat ??= Localizer[nameof(DateFormat)];
+        Icon ??= "fa-regular fa-calendar-days";
+
+        var type = typeof(TValue);
+
+        // 判断泛型类型
+        if (!type.IsDateTime())
+        {
+            throw new InvalidOperationException(GenericTypeErroMessage);
+        }
+
+        // 泛型设置为可为空
+        AllowNull = Nullable.GetUnderlyingType(type) != null;
 
         if (!string.IsNullOrEmpty(Format))
         {
@@ -190,15 +166,25 @@ public partial class DateTimePicker<TValue>
             }
         }
 
-        DateTimeFormat ??= Localizer[nameof(DateTimeFormat)];
-        DateFormat ??= Localizer[nameof(DateFormat)];
-
-        Icon ??= "fa-regular fa-calendar-days";
-
         // Value 为 MinValue 时 设置 Value 默认值
-        if (Value?.ToString() == DateTime.MinValue.ToString())
+        if (AutoToday && (Value == null || Value.ToString() == DateTime.MinValue.ToString()))
         {
-            CurrentValue = (TValue)(object)DateTime.Now;
+            SelectedValue = DateTime.Today;
+            if (!AllowNull)
+            {
+                CurrentValueAsString = SelectedValue.ToString("yyyy-MM-dd HH:mm:ss");
+            }
+        }
+        else if (Value is DateTime dt)
+        {
+            SelectedValue = dt;
+        }
+        else
+        {
+            var offset = (DateTimeOffset?)(object)Value;
+            SelectedValue = offset.HasValue
+                ? offset.Value.DateTime
+                : DateTime.MinValue;
         }
     }
 
@@ -216,7 +202,7 @@ public partial class DateTimePicker<TValue>
                 format = ViewMode == DatePickerViewMode.DateTime ? DateTimeFormat : DateFormat;
             }
 
-            ret = ComponentValue.ToString(format);
+            ret = SelectedValue.ToString(format);
         }
         return ret;
     }
@@ -225,13 +211,11 @@ public partial class DateTimePicker<TValue>
     /// 清空按钮点击时回调此方法
     /// </summary>
     /// <returns></returns>
-    private async Task OnClear()
+    private Task OnClear()
     {
+        SelectedValue = AutoToday ? DateTime.Today : DateTime.MinValue;
         CurrentValue = default;
-        if (OnDateTimeChanged != null)
-        {
-            await OnDateTimeChanged(Value);
-        }
+        return Task.CompletedTask;
     }
 
     /// <summary>
@@ -239,10 +223,7 @@ public partial class DateTimePicker<TValue>
     /// </summary>
     private async Task OnConfirm()
     {
-        if (OnDateTimeChanged != null)
-        {
-            await OnDateTimeChanged(Value);
-        }
+        CurrentValueAsString = SelectedValue.ToString("yyyy-MM-dd HH:mm:ss");
         if (AutoClose)
         {
             await InvokeExecuteAsync(Id, "hide");

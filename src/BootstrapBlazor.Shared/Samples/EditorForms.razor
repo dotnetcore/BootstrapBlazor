@@ -1,125 +1,41 @@
 ﻿@page "/editorforms"
+@inject IStringLocalizer<EditorForms> Localizer
 
 <h3>@Localizer["Title"]</h3>
 
-<h4>@Localizer["H1"]</h4>
+<h4>@Localizer["Description"]</h4>
 
-<p>@((MarkupString)Localizer["P1"].Value)</p>
+<p>@((MarkupString)Localizer["SubDescription"].Value)</p>
 
 <ul class="ul-demo">
-    <li>@((MarkupString)Localizer["Li1"].Value)</li>
-    <li>@((MarkupString)Localizer["Li2"].Value)</li>
-    <li>@((MarkupString)Localizer["Li3"].Value)</li>
-    <li>@((MarkupString)Localizer["Li4"].Value)</li>
+    <li>@((MarkupString)Localizer["EditorFormTips1"].Value)</li>
+    <li>@((MarkupString)Localizer["EditorFormTips2"].Value)</li>
+    <li>@((MarkupString)Localizer["EditorFormTips3"].Value)</li>
+    <li>@((MarkupString)Localizer["EditorFormTips4"].Value)</li>
 </ul>
 
-<DemoBlock Title="@Localizer["Block1Title"]" Introduction="@Localizer["Block1Title"]" Name="Normal">
-    <p>@((MarkupString)Localizer["P2"].Value)</p>
-    <GroupBox Title="@Localizer["GroupBox1"]" style="margin-top: 1.5rem;">
-        <EditorForm Model="@Model">
-            <FieldItems>
-                <EditorItem @bind-Field="@context.Education" Editable="false" />
-                <EditorItem @bind-Field="@context.Complete" Editable="false" />
-                <EditorItem @bind-Field="@context.Hobby" Items="@Hobbys" />
-            </FieldItems>
-            <Buttons>
-                <Button Icon="fa-solid fa-floppy-disk" Text="@Localizer["ButtonText"]" />
-            </Buttons>
-        </EditorForm>
-    </GroupBox>
+<DemoBlock Title="@Localizer["NormalTitle"]" Introduction="@Localizer["NormalIntro"]" Name="Normal" Demo="typeof(Demos.EditForm.EditFormNormal)">
+    <p>@((MarkupString)Localizer["NormalDescription"].Value)</p>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["Block2Title"]" Introduction="@Localizer["Block2Intro"]" Name="ValidateForm">
-    <p>@((MarkupString)Localizer["P3"].Value)</p>
-    <p>@((MarkupString)Localizer["P4"].Value)</p>
-    <GroupBox Title="@Localizer["GroupBox2"]" style="margin-top: 1.5rem;">
-        <ValidateForm Model="@ValidateModel">
-            <EditorForm TModel="Foo">
-                <FieldItems>
-                    <EditorItem @bind-Field="@context.DateTime" Readonly="true" />
-                    <EditorItem @bind-Field="@context.Hobby" Items="@Hobbys" />
-                </FieldItems>
-                <Buttons>
-                    <Button ButtonType="ButtonType.Submit" Icon="fa-solid fa-floppy-disk" Text='@Localizer["ButtonText"]' />
-                </Buttons>
-            </EditorForm>
-        </ValidateForm>
-    </GroupBox>
+<DemoBlock Title="@Localizer["ValidateFormTitle"]" Introduction="@Localizer["ValidateFormIntro"]" Name="ValidateForm" Demo="typeof(Demos.EditForm.EditFormValidateForm)">
+    <p>@((MarkupString)Localizer["ValidateFormTips1"].Value)</p>
+    <p>@((MarkupString)Localizer["ValidateFormTips2"].Value)</p>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["Block3Title"]" Introduction="@Localizer["Block3Intro"]" Name="EditorForm">
-    <GroupBox Title="@Localizer["GroupBox3"]">
-        <p>@((MarkupString)Localizer["P5"].Value)</p>
-        <EditorForm Model="@Model" AutoGenerateAllItem="false">
-            <FieldItems>
-                <EditorItem @bind-Field="@context.Name" />
-                <EditorItem @bind-Field="@context.Count" />
-            </FieldItems>
-        </EditorForm>
-    </GroupBox>
+<DemoBlock Title="@Localizer["AutoGenerateTitle"]" Introduction="@Localizer["AutoGenerateIntro"]" Name="AutoGenerate" Demo="typeof(Demos.EditForm.EditFormAutoGenerate)" />
+
+<DemoBlock Title="@Localizer["SkipValidateTitle"]" Introduction="@Localizer["SkipValidateIntro"]" Name="SkipValidate" Demo="typeof(Demos.EditForm.EditFormSkipValidate)" />
+
+<DemoBlock Title="@Localizer["ItemsPerRowTitle"]" Introduction="@Localizer["ItemsPerRowIntro"]" Name="ItemsPerRow" Demo="typeof(Demos.EditForm.EditFormItemsPerRow)">
+    <p>@((MarkupString)Localizer["ItemsPerRowDescription"].Value)</p>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["Block4Title"]" Introduction="@Localizer["Block4Intro"]" Name="SkipValidate">
-    <GroupBox Title="@Localizer["GroupBox4"]">
-        <p>@((MarkupString)Localizer["P6"].Value)</p>
-        <ValidateForm Model="Model">
-            <EditorForm Model="Model" AutoGenerateAllItem="false">
-                <FieldItems>
-                    <EditorItem @bind-Field="@context.Name" />
-                    <EditorItem @bind-Field="@context.Address" />
-                    <EditorItem @bind-Field="@context.Count">
-                        <EditTemplate Context="value">
-                            <div class="col-12 col-sm-6">
-                                <Select SkipValidate="true" @bind-Value="@value.Count" Items="@DummyItems" ShowSearch="true" />
-                            </div>
-                            <div class="col-12 col-sm-6">
-                                <BootstrapInput Value="@value.Count" Readonly="true" />
-                            </div>
-                        </EditTemplate>
-                    </EditorItem>
-                    <EditorItem @bind-Field="@context.Hobby" Items="@Hobbys" />
-                </FieldItems>
-                <Buttons>
-                    <Button ButtonType="ButtonType.Submit" Icon="fa-solid fa-floppy-disk" Text="@Localizer["ButtonText"]" />
-                </Buttons>
-            </EditorForm>
-        </ValidateForm>
-    </GroupBox>
-</DemoBlock>
-
-<DemoBlock Title="@Localizer["Block5Title"]" Introduction="@Localizer["Block5Intro"]" Name="ItemsPerRow">
-    <p>@((MarkupString)Localizer["P7"].Value)</p>
-    <GroupBox Title="@Localizer["GroupBox5"]" style="margin-top: 1.5rem;">
-        <ValidateForm Model="@Model">
-            <EditorForm TModel="Foo" ItemsPerRow="3">
-                <FieldItems>
-                    <EditorItem @bind-Field="@context.Hobby" Items="@Hobbys" />
-                </FieldItems>
-                <Buttons>
-                    <Button ButtonType="ButtonType.Submit" Icon="fa-solid fa-floppy-disk" Text="@Localizer["ButtonText"]" />
-                </Buttons>
-            </EditorForm>
-        </ValidateForm>
-    </GroupBox>
-</DemoBlock>
-
-<DemoBlock Title="@Localizer["Block6Title"]" Introduction="@Localizer["Block6Intro"]" Name="Alignment">
+<DemoBlock Title="@Localizer["AlignmentTitle"]" Introduction="@Localizer["AlignmentIntro"]" Name="Alignment" Demo="typeof(Demos.EditForm.EditFormAlignment)">
     <ul class="ul-demo mb-3">
-        <li>@((MarkupString)Localizer["Li5"].Value)</li>
-        <li>@((MarkupString)Localizer["Li6"].Value)</li>
+        <li>@((MarkupString)Localizer["AlignmentTips1"].Value)</li>
+        <li>@((MarkupString)Localizer["AlignmentTips2"].Value)</li>
     </ul>
-    <ValidateForm Model="@Model">
-        <EditorForm TModel="Foo" ItemsPerRow="2" RowType="RowType.Inline" LabelAlign="Alignment.Right">
-            <FieldItems>
-                <EditorItem @bind-Field="@context.Hobby" Items="@Hobbys" />
-            </FieldItems>
-            <Buttons>
-                <div class="text-end">
-                    <Button ButtonType="ButtonType.Submit" Icon="fa-solid fa-floppy-disk" Text="@Localizer["ButtonText"]" />
-                </div>
-            </Buttons>
-        </EditorForm>
-    </ValidateForm>
 </DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" />

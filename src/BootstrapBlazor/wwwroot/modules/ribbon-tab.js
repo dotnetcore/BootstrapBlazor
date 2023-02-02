@@ -14,9 +14,15 @@ export class RibbonTab extends BlazorComponent {
             if (isFloat) {
                 const expanded = this._element.classList.contains('is-expand')
                 if (expanded) {
-                    const ribbonTab = e.target.closest('.ribbon-tab')
-                    if (ribbonTab !== this._element) {
+                    const ribbonBody = e.target.closest('.ribbon-body');
+                    if (ribbonBody) {
                         this._invoker.invokeMethodAsync(this._invokerMethod)
+                    }
+                    else {
+                        const ribbonTab = e.target.closest('.ribbon-tab')
+                        if (ribbonTab !== this._element) {
+                            this._invoker.invokeMethodAsync(this._invokerMethod)
+                        }
                     }
                 }
             }

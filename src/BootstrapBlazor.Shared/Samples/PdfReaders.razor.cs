@@ -2,142 +2,153 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using BootstrapBlazor.Components;
-using BootstrapBlazor.Shared.Common;
-
 namespace BootstrapBlazor.Shared.Samples;
 
 /// <summary>
-/// 
+/// PdfReaders
 /// </summary>
 public partial class PdfReaders
 {
-    PdfReader? pdfReader;
-    PdfReader? pdfReader2;
-
-    private string Search { get; set; } = "Performance";
-    private int Page { get; set; } = 3;
-    private bool ForcePDFJS { get; set; } = true;
-
-    private string PdfFile = "/_content/BootstrapBlazor.Shared/sample.pdf";
-    private string UrlBaseStream = "https://blazor.app1.es/_content/DemoShared/";
-    private string PdfFileStream = "sample.pdf";
-    
-
-    private async Task Apply()
-    {
-        await pdfReader!.Refresh();
-    } 
-    private async Task Apply5()
-    {
-        await pdfReader2!.Refresh();
-    } 
-
     /// <summary>
-    /// 获得属性方法
+    /// GetAttributes
     /// </summary>
     /// <returns></returns>
     protected IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
         // TODO: 移动到数据库中
         new AttributeItem() {
-            Name = "PdfStream",
-            Description = "用于渲染的文件流,为空则用URL参数读取文件",
-            Type = "Stream?",
-            ValueList = "-",
-            DefaultValue = "-"
-        },
-        new AttributeItem() {
-            Name = "PdfFile",
-            Description = "PDF文件路径(Url或相对路径)",
+            Name = "Filename",
+            Description = Localizer["AttributesPdfReaderFilename"],
             Type = "string?",
             ValueList = "-",
             DefaultValue = "-"
         },
         new AttributeItem() {
-            Name = "OnInfo",
-            Description = "信息回调",
-            Type = "Func<string, Task>??",
-            ValueList = "-",
-            DefaultValue = "-"
-        },
-        new AttributeItem() {
-            Name = "OnError",
-            Description = "错误回调",
-            Type = "Func<string, Task>??",
-            ValueList = "-",
-            DefaultValue = "-"
-        },
-        new AttributeItem() {
-            Name = "EnableStreamingMode",
-            Description = "使用流化模式,可跨域读取文件",
+            Name = "StreamMode",
+            Description = Localizer["AttributesPdfReaderStreamMode"],
             Type = "bool",
             ValueList = "-",
             DefaultValue = "false"
         },
         new AttributeItem() {
-            Name = "UrlBase",
-            Description = "PDF文件基础路径, (使用流化模式才需要设置)",
-            Type = "string?",
+            Name = "Width",
+            Description = Localizer["AttributesPdfReaderWidth"],
+            Type = "string",
             ValueList = "-",
-            DefaultValue = "-"
+            DefaultValue = "100%"
         },
         new AttributeItem() {
             Name = "Height",
-            Description = "高度",
-            Type = "int?",
-            ValueList = "-",
-            DefaultValue = "700"
-        },
-        new AttributeItem() {
-            Name = "ForceIframe",
-            Description = "强制使用 Iframe",
-            Type = "bool",
-            ValueList = "-",
-            DefaultValue = "false"
-        },
-        new AttributeItem() {
-            Name = "ForcePDFJS",
-            Description = "强制使用 PDF.js",
-            Type = "bool",
-            ValueList = "-",
-            DefaultValue = "false"
-        },
-        new AttributeItem() {
-            Name = "PDFJS_URL",
-            Description = "PDF.js 浏览器页面路径",
+            Description = Localizer["AttributesPdfReaderHeight"],
             Type = "string",
             ValueList = "-",
-            DefaultValue = "内置"
+            DefaultValue = "700px"
+        },
+        new AttributeItem() {
+            Name = "StyleString",
+            Description = Localizer["AttributesPdfReaderStyleString"],
+            Type = "string",
+            ValueList = "-",
+            DefaultValue = "-"
         },
         new AttributeItem() {
             Name = "Page",
-            Description = "指定页码,如果浏览器支持，将加载PDF并自动滚动到第n页 (PDF.js 专有)",
+            Description = Localizer["AttributesPdfReaderPage"],
             Type = "int",
             ValueList = "-",
             DefaultValue = "1"
         },
         new AttributeItem() {
+            Name = "Pagemode",
+            Description = Localizer["AttributesPdfReaderPagemode"],
+            Type = "EnumPageMode",
+            ValueList = "-",
+            DefaultValue = "Thumbs"
+        },
+        new AttributeItem() {
+            Name = "Zoom",
+            Description = Localizer["AttributesPdfReaderZoom"],
+            Type = "EnumZoomMode",
+            ValueList = "-",
+            DefaultValue = "Auto"
+        },
+        new AttributeItem() {
             Name = "Search",
-            Description = "查询字符串 (PDF.js 专有)",
+            Description = Localizer["AttributesPdfReaderSearch"],
             Type = "string?",
             ValueList = "-",
             DefaultValue = "-"
         },
         new AttributeItem() {
-            Name = "View",
-            Description = "视图模式 (PDF.js 专有)",
-            Type = "string?",
+            Name = "Refresh()",
+            Description = Localizer["AttributesPdfReaderRefresh"],
+            Type = "Task",
             ValueList = "-",
-            DefaultValue = "FitV"
+            DefaultValue = "-"
         },
         new AttributeItem() {
-            Name = "Pagemode",
-            Description = "页面模式 (PDF.js 专有)",
-            Type = "string?",
+            Name = "NavigateToPage(int page)",
+            Description = Localizer["AttributesPdfReaderNavigateToPage"],
+            Type = "Task",
             ValueList = "-",
-            DefaultValue = "thumbs"
+            DefaultValue = "-"
         },
-    };    
+        new AttributeItem() {
+            Name = "Refresh(int page)",
+            Description = Localizer["AttributesPdfReaderRefreshPage"],
+            Type = "Task",
+            ValueList = "-",
+            DefaultValue = "-"
+        },
+        new AttributeItem() {
+            Name = "Refresh(string? search, int? page, EnumPageMode? pagemode, EnumZoomMode? zoom)",
+            Description = Localizer["AttributesPdfReaderRefreshComponent"],
+            Type = "Task",
+            ValueList = "-",
+            DefaultValue = "-"
+        },
+        new AttributeItem() {
+            Name = "Stream",
+            Description = Localizer["AttributesPdfReaderStream"],
+            Type = "Stream?",
+            ValueList = "-",
+            DefaultValue = "-"
+        },
+        new AttributeItem() {
+            Name = "ViewerBase",
+            Description = Localizer["AttributesPdfReaderViewerBase"],
+            Type = "string",
+            ValueList = "-",
+            DefaultValue = Localizer["AttributesPdfReaderViewerBaseDefaultValue"],
+        },
+        new AttributeItem() {
+            Name = "Navpanes",
+            Description = Localizer["AttributesPdfReaderNavpanes"],
+            Type = "bool",
+            ValueList = "-",
+            DefaultValue = "true"
+        },
+        new AttributeItem() {
+            Name = "Toolbar",
+            Description = Localizer["AttributesPdfReaderToolbar"],
+            Type = "bool",
+            ValueList = "-",
+            DefaultValue = "true"
+        },
+        new AttributeItem() {
+            Name = "Statusbar",
+            Description = Localizer["AttributesPdfReaderStatusbar"],
+            Type = "bool",
+            ValueList = "-",
+            DefaultValue = "true"
+        },
+        new AttributeItem() {
+            Name = "Debug",
+            Description = Localizer["AttributesPdfReaderDebug"],
+            Type = "bool",
+            ValueList = "-",
+            DefaultValue = "false"
+        },
+    };
 
 }

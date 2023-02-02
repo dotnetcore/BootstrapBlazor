@@ -1,28 +1,15 @@
 ﻿@page "/tables/multi-header"
+@inject IStringLocalizer<TablesHeader> Localizer
 
-<h3>@Localizer["H1"]</h3>
-<h4>@Localizer["H2"]</h4>
+<h3>@Localizer["TablesHeaderTitle"]</h3>
+<h4>@Localizer["TablesHeaderDescription"]</h4>
 
-<DemoBlock Title="@Localizer["P1"]" Introduction="@Localizer["P2"]" Name="MultiHeaderTemplate">
+<DemoBlock Title="@Localizer["TablesHeaderNormalTitle"]"
+           Introduction="@Localizer["TablesHeaderNormalIntro"]"
+           Name="Normal"
+           Demo="typeof(Demos.Table.TablesHeader.TablesHeaderNormal)">
     <p>
-        <div>@Localizer["P3"] <code>ShowMultiFilterHeader</code> @Localizer["P4"]</div>
-        <div>@Localizer["P5"] <code>border-bottom</code> @Localizer["P6"]</div>
+        <div>@((MarkupString)Localizer["TablesHeaderNormalTips1"].Value)</div>
+        <div>@((MarkupString)Localizer["TablesHeaderNormalTips2"].Value)</div>
     </p>
-    <Table TItem="Foo" OnQueryAsync="@OnQueryAsync" IsBordered="true" IsStriped="true" ShowMultiFilterHeader="false">
-        <MultiHeaderTemplate>
-            <tr>
-                <th rowspan="2" class="table-header-group-th1"><div class="table-cell">@Localizer["P7"]</div></th>
-                <th colspan="2" class="table-header-group-th2"><div class="table-cell">@Localizer["P8"]</div></th>
-            </tr>
-            <tr>
-                <th><div class="table-cell">@Localizer["P9"]</div></th>
-                <th><div class="table-cell">@Localizer["P10"]</div></th>
-            </tr>
-        </MultiHeaderTemplate>
-        <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" Width="180" Filterable="true" Sortable="true" />
-            <TableColumn @bind-Field="@context.Name" Width="100" Filterable="true" Sortable="true" />
-            <TableColumn @bind-Field="@context.Address" Filterable="true" Sortable="true" />
-        </TableColumns>
-    </Table>
 </DemoBlock>

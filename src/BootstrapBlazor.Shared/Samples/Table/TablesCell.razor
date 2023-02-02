@@ -1,36 +1,33 @@
 ﻿@page "/tables/cell"
-@inject IStringLocalizer<TablesCell> CellLocalizer
+@inject IStringLocalizer<TablesCell> Localizer
 
-<h3>@CellLocalizer["Title"]</h3>
+<style>
+    .cell-demo {
+        --bs-table-bg: #e9ecef;
+    }
+</style>
 
-<h4>@CellLocalizer["H4"]</h4>
+<h3>@Localizer["TablesCellTitle"]</h3>
 
-<DemoBlock Title="@CellLocalizer["MergeCellTitle"]" Introduction="@CellLocalizer["MergeCellIntro"]" Name="MergeCell">
-    <p>@((MarkupString)CellLocalizer["MergeCellP"].Value)</p>
+<h4>@Localizer["TablesCellDescription"]</h4>
+
+<DemoBlock Title="@Localizer["TableCellMergeCellTitle"]"
+           Introduction="@Localizer["TableCellMergeCellIntro"]"
+           Name="MergeCell"
+           Demo="typeof(Demos.Table.TablesCell.TableCellMergeCell)">
+    <p>@((MarkupString)Localizer["TableCellMergeCellTip"].Value)</p>
     <Pre>.cell-demo {
-    background-color: #ddd;
+    --bs-table-bg: ##e9ecef;
 }</Pre>
-    <Table TItem="Foo" Items="@Items.Take(3)">
-        <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" Width="140" />
-            <TableColumn @bind-Field="@context.Name" OnCellRender="@OnCellRenderHandler" />
-            <TableColumn @bind-Field="@context.Address" />
-        </TableColumns>
-    </Table>
 </DemoBlock>
 
-<DemoBlock Title="@CellLocalizer["OnDoubleClickCellTitle"]" Introduction="@CellLocalizer["OnDoubleClickCellIntro"]" Name="OnDoubleClickCell">
+<DemoBlock Title="@Localizer["TableCellOnDoubleClickCellTitle"]"
+           Introduction="@Localizer["TableCellOnDoubleClickCellIntro"]"
+           Name="OnDoubleClickCell"
+           Demo="typeof(Demos.Table.TablesCell.TableCellOnDoubleClickCell)">
     <Tips>
-        <p>@((MarkupString)CellLocalizer["OnDoubleClickCellP"].Value)</p>
+        <p>@((MarkupString)Localizer["TableCellOnDoubleClickCellTip"].Value)</p>
     </Tips>
-    <Table TItem="Foo" Items="@Items.Take(3)" IsBordered="true" OnDoubleClickCellCallback="@OnDoubleClickCellCallback">
-        <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" Width="180" />
-            <TableColumn @bind-Field="@context.Name" />
-            <TableColumn @bind-Field="@context.Address" />
-            <TableColumn @bind-Field="@context.Complete" />
-        </TableColumns>
-    </Table>
 </DemoBlock>
 
-<AttributeTable Items="GetAttributes()" Title="TableCellArgs"></AttributeTable>
+<AttributeTable Items="GetAttributes()" Title="TableCellArgs" />

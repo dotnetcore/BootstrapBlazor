@@ -11,7 +11,7 @@ namespace BootstrapBlazor.Components;
 /// </summary>
 /// <typeparam name="TValue"></typeparam>
 [JSModuleAutoLoader("select-tree")]
-public partial class SelectTree<TValue>
+public partial class SelectTree<TValue> : IModelEqualityComparer<TValue>
 {
     /// <summary>
     /// 获得 样式集合
@@ -62,6 +62,9 @@ public partial class SelectTree<TValue>
     /// </summary>
     [Parameter]
     [NotNull]
+#if NET6_0_OR_GREATER
+    [EditorRequired]
+#endif
     public List<TreeViewItem<TValue>>? Items { get; set; }
 
     /// <summary>
@@ -118,22 +121,20 @@ public partial class SelectTree<TValue>
     /// </summary>
     private string? InputId => $"{Id}_input";
 
+    /// <summary>
+    /// 获得/设置 上次选择值
+    /// </summary>
+    private TValue? SelectedValue { get; set; }
+
+    /// <summary>
+    /// 获得/设置 上次选项
+    /// </summary>
     private TreeViewItem<TValue>? SelectedItem { get; set; }
 
-    private List<TreeViewItem<TValue>>? _itemCache;
+    private List<TreeViewItem<TValue>>? ItemCache { get; set; }
 
     [NotNull]
-    private List<TreeViewItem<TValue>>? ExpansionItemsCache { get; set; }
-
-    private IEnumerable<TreeViewItem<TValue>> GetExpansionItems()
-    {
-        if (_itemCache != Items)
-        {
-            _itemCache = Items ?? new List<TreeViewItem<TValue>>();
-            ExpansionItemsCache = TreeItemExtensions.GetAllItems(_itemCache).ToList();
-        }
-        return ExpansionItemsCache;
-    }
+    private List<TreeViewItem<TValue>>? ExpandedItemsCache { get; set; }
 
     /// <summary>
     /// OnParametersSet 方法
@@ -145,21 +146,37 @@ public partial class SelectTree<TValue>
         DropdownIcon ??= "fa-solid fa-angle-up";
         PlaceHolder ??= Localizer[nameof(PlaceHolder)];
 
-        if (Value != null)
-        {
-            var currentItem = GetExpansionItems().FirstOrDefault(s => ComparerItem(s.Value, Value));
-            if (currentItem != null)
-            {
-                SelectedItem = currentItem;
-                SelectedItem.IsActive = true;
-                CurrentValue = currentItem.Value;
+        Items ??= new List<TreeViewItem<TValue>>();
 
-                if (OnSelectedItemChanged != null)
-                {
-                    await OnSelectedItemChanged(SelectedItem.Value);
-                }
-            }
+        if (Value == null)
+        {
+            // 组件未赋值 Value 通过 IsActive 设置默认值
+            await TriggerItemChanged(s => s.IsActive);
         }
+        else if (!Equals(Value, SelectedValue))
+        {
+            // 组件外部赋值 导致 Value 与 SelectedValue 不一致重新获取选项
+            await TriggerItemChanged(s => Equals(s.Value, Value));
+        }
+    }
+
+    private async Task TriggerItemChanged(Func<TreeViewItem<TValue>, bool> predicate)
+    {
+        var currentItem = GetExpandedItems().FirstOrDefault(predicate);
+        if (currentItem != null)
+        {
+            await ItemChanged(currentItem);
+        }
+    }
+
+    private IEnumerable<TreeViewItem<TValue>> GetExpandedItems()
+    {
+        if (ItemCache != Items)
+        {
+            ItemCache = Items;
+            ExpandedItemsCache = TreeItemExtensions.GetAllItems(ItemCache).ToList();
+        }
+        return ExpandedItemsCache;
     }
 
     /// <summary>
@@ -167,37 +184,35 @@ public partial class SelectTree<TValue>
     /// </summary>
     private async Task OnItemClick(TreeViewItem<TValue> item)
     {
-        await ItemChanged(item);
-        SelectedItem = item;
-        StateHasChanged();
+        if (!Equals(item.Value, SelectedValue))
+        {
+            await ItemChanged(item);
+            StateHasChanged();
+        }
     }
 
     /// <summary>
-    /// 
+    /// 选中项更改处理方法
     /// </summary>
     /// <returns></returns>
     private async Task ItemChanged(TreeViewItem<TValue> item)
     {
-        item.IsActive = true;
         SelectedItem = item;
-        CurrentValue = SelectedItem.Value;
+        SelectedValue = item.Value;
+        CurrentValue = item.Value;
 
         // 触发 SelectedItemChanged 事件
         if (OnSelectedItemChanged != null)
         {
-            await OnSelectedItemChanged.Invoke(item.Value);
+            await OnSelectedItemChanged.Invoke(CurrentValue);
         }
     }
 
     /// <summary>
     /// 比较数据是否相同
     /// </summary>
-    /// <param name="a"></param>
-    /// <param name="b"></param>
+    /// <param name="x"></param>
+    /// <param name="y"></param>
     /// <returns></returns>
-    protected bool ComparerItem(TValue a, TValue b) => ModelEqualityComparer?.Invoke(a, b)
-        ?? Utility.GetKeyValue<TValue, object>(a, CustomKeyAttribute)?.Equals(Utility.GetKeyValue<TValue, object>(b, CustomKeyAttribute))
-        ?? ModelComparer.EqualityComparer(a, b)
-        ?? a?.Equals(b)
-        ?? false;
+    public bool Equals(TValue? x, TValue? y) => this.Equals<TValue>(x, y);
 }

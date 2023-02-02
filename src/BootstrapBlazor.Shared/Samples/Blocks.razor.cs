@@ -12,68 +12,6 @@ namespace BootstrapBlazor.Shared.Samples;
 /// </summary>
 public partial class Blocks
 {
-    private bool IsShow { get; set; } = true;
-
-    private void ToggleCondition() => IsShow = !IsShow;
-
-    private string GetIcon() => IsShow ? "fa-solid fa-eye-slash" : "fa-solid fa-eye";
-
-    private string GetText() => IsShow ? Localizer["IsHide"] : Localizer["IsShow"];
-
-    private Task<bool> OnQueryCondition(string name) => Task.FromResult(IsShow);
-
-    #region 示例二
-    private bool IsShow2 { get; set; } = true;
-
-    private void ToggleCondition2() => IsShow2 = !IsShow2;
-
-    private string GetIcon2() => IsShow2 ? "fa-solid fa-eye-slash" : "fa-solid fa-eye";
-
-    private string GetText2() => IsShow2 ? Localizer["IsHide"] : Localizer["IsShow"];
-
-    private Task<bool> OnQueryCondition2(string name) => Task.FromResult(IsShow2);
-    #endregion
-
-    #region 示例三
-    [Inject]
-    [NotNull]
-    private AuthenticationStateProvider? AuthenticationStateProvider { get; set; }
-
-    private bool IsAuth { get; set; }
-
-    [NotNull]
-    private string? UserName { get; set; }
-
-    private async Task ToggleAuthor()
-    {
-        if (AuthenticationStateProvider is MockAuthenticationStateProvider mock)
-        {
-            if (!IsAuth)
-            {
-                mock.Login();
-                var state = await mock.GetAuthenticationStateAsync();
-                UserName = state.User.Identity?.Name;
-                IsAuth = state.User.Identity?.IsAuthenticated ?? false;
-            }
-            else
-            {
-                mock.Logout();
-                IsAuth = false;
-                UserName = "";
-            }
-        }
-    }
-
-    private IEnumerable<string> Users { get; } = new string[] { "BootstrapBlazor" };
-
-    private IEnumerable<string> Roles { get; } = new string[] { "User" };
-
-    private string GetUser() => IsAuth ? "fa-solid fa-user-secret" : "fa-solid fa-user";
-
-    private string GetUserText() => IsAuth ? Localizer["Logout"] : Localizer["Login"];
-
-    private Task<bool> OnQueryUser(string name) => Task.FromResult(IsAuth);
-    #endregion
 
     private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {

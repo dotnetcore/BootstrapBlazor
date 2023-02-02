@@ -29,4 +29,12 @@ export class Drawer extends BlazorComponent {
             }
         }
     }
+
+    _dispose() {
+        if (this._element.classList.contains('show')) {
+            this._element.classList.remove('show')
+            this._drawerBody.classList.remove('show')
+            this._body.classList.remove('overflow-hidden')
+        }
+    }
 }

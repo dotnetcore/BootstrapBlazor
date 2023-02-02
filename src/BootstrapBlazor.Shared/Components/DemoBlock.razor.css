@@ -1,0 +1,123 @@
+﻿.card {
+    transition: all .3s linear;
+}
+
+    .card:hover {
+        box-shadow: 0 0 8px 0 rgba(232,237,250,.6), 0 2px 4px 0 rgba(232,237,250,.5);
+    }
+
+        .card:hover .card-footer-control i {
+            margin-left: -1.5rem;
+            margin-left: -72px;
+        }
+
+        .card:hover .card-footer-control .card-text {
+            margin-left: 1rem;
+        }
+
+            .card:hover .card-footer-control .card-text:before {
+                opacity: 1;
+            }
+
+
+.card-footer {
+    background-color: transparent;
+}
+
+.card-footer-code {
+    margin: -.5rem -1rem 0 -1rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+    .card-footer-code.show + a {
+        margin-top: .5rem;
+    }
+
+    .card-footer-code .loading {
+        padding: .5rem;
+    }
+
+    .card-footer-code ::deep code {
+        border: none;
+    }
+
+::deep pre {
+    color: #e83e8c;
+    margin-bottom: 0;
+    max-height: 260px;
+}
+
+.card-footer-control {
+    text-align: center;
+    color: #d3dce6;
+    display: block;
+}
+
+    .card-footer-control:hover {
+        color: #409eff;
+    }
+
+    .card-footer-control i {
+        transition: .3s linear;
+    }
+
+    .card-footer-control.collapsed i {
+        transform: rotate(180deg);
+    }
+
+    .card-footer-control .card-text {
+        margin-left: 1.5rem;
+        position: absolute;
+        transition: all .3s linear;
+    }
+
+        .card-footer-control .card-text:before {
+            content: "Hide";
+            opacity: 0;
+            transition: opacity .3s linear;
+        }
+
+    .card-footer-control.collapsed .card-text:before {
+        content: "Show";
+    }
+
+.demo-block > ::deep .anchor-link {
+    font-weight: var(--bb-font-weight);
+    color: var(--bb-title-color);
+    font-size: var(--bb-sub-font-size);
+    margin-top: 1rem;
+    margin-bottom: .5rem;
+}
+
+::deep .bb-avatar {
+    width: 46px;
+    border-radius: var(--bs-border-radius);
+}
+
+::deep .table-cell .progress {
+    height: 6px;
+    margin-top: 9px;
+    margin-bottom: 10px;
+}
+
+::deep .chart .btn i + span {
+    display: none;
+}
+
+::deep .ul-demo {
+    margin-bottom: 0;
+}
+
+    ::deep .ul-demo li:not(:last-child) {
+        margin-bottom: 0.25rem;
+    }
+
+@media (min-width: 768px) {
+    ::deep .chart {
+        max-width: 740px;
+    }
+
+        ::deep .chart .btn i + span {
+            display: inline;
+        }
+}

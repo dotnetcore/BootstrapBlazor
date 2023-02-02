@@ -32,6 +32,22 @@ internal static class CacheManagerExtensions
     }
 
     /// <summary>
+    /// 获得 指定代码文件当前文化设置的本地化资源集合
+    /// </summary>
+    /// <param name="cache"></param>
+    /// <param name="typeName"></param>
+    /// <param name="options"></param>
+    /// <returns></returns>
+    public static IEnumerable<LocalizedString> GetDemoLocalizedStrings(this ICacheManager cache, string typeName, JsonLocalizationOptions options)
+    {
+        var key = $"Snippet-{CultureInfo.CurrentUICulture.Name}-{nameof(GetLocalizedStrings)}-{typeName}";
+        return cache.GetOrCreate(key, (Func<ICacheEntry, IEnumerable<LocalizedString>>)(entry =>
+        {
+            return Utility.GetJsonStringByTypeName(options, typeof(CodeSnippetService).Assembly, $"BootstrapBlazor.Shared.Demos.{typeName}");
+        }));
+    }
+
+    /// <summary>
     /// 获得 指定代码文件内当前代码块当前文化的代码片段
     /// </summary>
     /// <param name="cache"></param>
@@ -48,6 +64,12 @@ internal static class CacheManagerExtensions
     public static Task<string> GetContentFromFileAsync(this ICacheManager cache, string codeFile, Func<ICacheEntry, Task<string>> factory)
     {
         var key = $"Snippet-{CultureInfo.CurrentUICulture.Name}-{nameof(GetContentFromFileAsync)}-{codeFile}";
+        return cache.GetOrCreateAsync(key, entry => factory(entry));
+    }
+
+    public static Task<string> GetContentFromDemoAsync(this ICacheManager cache, string demo, Func<ICacheEntry, Task<string>> factory)
+    {
+        var key = $"{nameof(GetContentFromDemoAsync)}-{demo}";
         return cache.GetOrCreateAsync(key, entry => factory(entry));
     }
 }

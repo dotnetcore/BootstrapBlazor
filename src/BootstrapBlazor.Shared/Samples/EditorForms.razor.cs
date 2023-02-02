@@ -5,61 +5,10 @@
 namespace BootstrapBlazor.Shared.Samples;
 
 /// <summary>
-///
+/// EditorForms
 /// </summary>
 public sealed partial class EditorForms
 {
-    [Inject]
-    [NotNull]
-    private IStringLocalizer<Foo>? FooLocalizer { get; set; }
-
-    [Inject]
-    [NotNull]
-    private IStringLocalizer<EditorForms>? Localizer { get; set; }
-
-    [NotNull]
-    private Foo? Model { get; set; }
-
-    [NotNull]
-    private Foo? ValidateModel { get; set; }
-
-    [NotNull]
-    private IEnumerable<SelectedItem>? Hobbys { get; set; }
-
-    private List<SelectedItem> DummyItems { get; } = new List<SelectedItem>()
-        {
-            new SelectedItem("1", "1"),
-            new SelectedItem("2", "2"),
-            new SelectedItem("3", "3"),
-            new SelectedItem("4", "4"),
-            new SelectedItem("5", "5")
-        };
-
-    /// <summary>
-    /// OnInitialized 方法
-    /// </summary>
-    protected override void OnInitialized()
-    {
-        base.OnInitialized();
-
-        Hobbys = Foo.GenerateHobbys(FooLocalizer);
-        Model = new Foo()
-        {
-            Name = Localizer["TestAddr"],
-            Count = 23,
-            Address = Localizer["TestAddr"],
-            DateTime = new DateTime(1997, 12, 05),
-            Education = EnumEducation.Middle
-        };
-        ValidateModel = new Foo()
-        {
-            Name = Localizer["TestName"],
-            Count = 23,
-            DateTime = new DateTime(1997, 12, 05),
-            Education = EnumEducation.Middle
-        };
-    }
-
     private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
         // TODO: 移动到数据库中

@@ -22,7 +22,7 @@
 <h5 class="mt-3 mb-2">@Localizer["P13"]</h5>
 <div class="code-label mb-2">@((MarkupString)Localizer["P14"].Value)</div>
 <div class="mb-2">@Localizer["P15"] <b>Manage Nuget Packages</b></div>
-<Pre class="no-highlight">dotnet add package BootstrapBlazor --version @Version</Pre>
+<Pre @key="@Version" class="no-highlight">dotnet add package BootstrapBlazor --version @Version</Pre>
 <img src="_content/BootstrapBlazor.Shared/images/manage-nuget-packages-for-maui-app.png" style="border-radius: 6px;" class="d-none d-sm-block" />
 <div class="code-label mt-3 mb-2">@Localizer["P16"]</div>
 <img src="_content/BootstrapBlazor.Shared/images/nuget_install.png" style="width: 1000px; border-radius: 6px;" class="d-none d-sm-block" />

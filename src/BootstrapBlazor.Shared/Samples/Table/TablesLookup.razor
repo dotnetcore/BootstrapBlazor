@@ -1,26 +1,21 @@
 ﻿@page "/tables/lookup"
+@inject IStringLocalizer<Foo> FooLocalizer
+@inject IStringLocalizer<TablesLookup> Localizer
 
-<h3>@LookupLocalizer["Title"]</h3>
+<h3>@Localizer["TablesLookupTitle"]</h3>
 
-<h4>@((MarkupString)LookupLocalizer["Desc"].Value)</h4>
+<h4>@((MarkupString)Localizer["TablesLookupDescription"].Value)</h4>
 
-<DemoBlock Title="@LookupLocalizer["LookupTitle"]" Introduction="@LookupLocalizer["LookupIntro"]" Name="Lookup">
-    <p>@((MarkupString)LookupLocalizer["LookupP1"].Value)</p>
+<DemoBlock Title="@Localizer["TableLookupNormalTitle"]"
+           Introduction="@Localizer["TableLookupNormalIntro"]"
+           Name="Lookup"
+           Demo="typeof(Demos.Table.TablesLookup.TableLookupNormal)">
+    <p>@((MarkupString)Localizer["TableLookupNormalTips1"].Value)</p>
     <Pre>DataSource = new List&lt;SelectedItem&gt;
 {
-    new SelectedItem { Value = "True", Text = @Localizer["True"].Value },
-    new SelectedItem { Value = "False", Text = @Localizer["False"].Value }
+    new SelectedItem { Value = "True", Text = @FooLocalizer["True"].Value },
+    new SelectedItem { Value = "False", Text = @FooLocalizer["False"].Value }
 };</Pre>
-    <p>@((MarkupString)LookupLocalizer["LookupP2"].Value)</p>
-    <p>@((MarkupString)LookupLocalizer["LookupP3"].Value)</p>
-    @if (Items != null)
-    {
-        <Table TItem="Foo" Items="@Items.Take(3)">
-            <TableColumns>
-                <TableColumn @bind-Field="@context.DateTime" Width="180" />
-                <TableColumn @bind-Field="@context.Name" />
-                <TableColumn @bind-Field="@context.Complete" LookupServiceKey="Foo.Complete" />
-            </TableColumns>
-        </Table>
-    }
+    <p>@((MarkupString)Localizer["TableLookupNormalTips2"].Value)</p>
+    <p>@((MarkupString)Localizer["TableLookupNormalTips3"].Value)</p>
 </DemoBlock>

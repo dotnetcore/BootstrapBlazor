@@ -476,6 +476,12 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
+                    IsNew = true,
+                    Text = Localizer["FileViewer"],
+                    Url = "FileViewers"
+                },
+                new()
+                {
                     Text = Localizer["Geolocation"],
                     Url = "geolocations"
                 },
@@ -524,11 +530,6 @@ internal static class MenusLocalizerExtensions
                 {
                     Text = Localizer["QRCode"],
                     Url = "qrcodes"
-                },
-                new()
-                {
-                    Text = Localizer["Recognizer"],
-                    Url = "recognizers"
                 },
                 new()
                 {
@@ -586,6 +587,12 @@ internal static class MenusLocalizerExtensions
                 {
                     Text = Localizer["Transition"],
                     Url = "transitions"
+                },
+                new()
+                {
+                    IsNew = true,
+                    Text = Localizer["BaiduOcr"],
+                    Url = "ocr"
                 },
                 new()
                 {

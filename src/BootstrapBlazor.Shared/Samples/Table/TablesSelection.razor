@@ -1,32 +1,12 @@
 ﻿@page "/tables/selection"
+@inject IStringLocalizer<TablesSelection> Localizer
 
-<h3>@Localizer["H1"]</h3>
-<h4>@((MarkupString)Localizer["H2"].Value)</h4>
+<h3>@Localizer["TablesSelectionTitle"]</h3>
+<h4>@((MarkupString)Localizer["TablesSelectionDescription"].Value)</h4>
 
-<DemoBlock Title="@Localizer["P1"]" Introduction="@Localizer["P2"]" Name="SelectedRow">
-    <Table TItem="Foo" @bind-SelectedRows="SelectedItems"
-           IsPagination="true" PageItemsSource="@PageItemsSource"
-           IsStriped="true" IsBordered="true" IsMultipleSelect="true"
-           ShowToolbar="true" ShowDefaultButtons="false" OnQueryAsync="@OnQueryAsync">
-        <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" Width="180" />
-            <TableColumn @bind-Field="@context.Name" Width="100" />
-            <TableColumn @bind-Field="@context.Address" />
-            <TableColumn @bind-Field="@context.Count" />
-        </TableColumns>
-    </Table>
+<DemoBlock Title="@Localizer["TablesSelectionNormalTitle"]"
+           Introduction="@Localizer["TablesSelectionNormalIntro"]"
+           Name="Normal"
+           Demo="typeof(Demos.Table.TablesSelection.TablesSelectionNormal)">
 </DemoBlock>
 
-<Tips class="mt-3">
-    <div>@((MarkupString)Localizer["P3"].Value)</div>
-</Tips>
-
-<p class="mt-3">@Localizer["P4"]：</p>
-<ul class="ul-demo mb-3">
-    @foreach (var item in SelectedItems)
-    {
-        <li>@item.Name</li>
-    }
-</ul>
-
-<Button OnClick="OnClick" Color="Color.Primary">@Localizer["P5"]</Button>

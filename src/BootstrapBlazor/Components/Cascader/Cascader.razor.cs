@@ -44,6 +44,9 @@ public partial class Cascader<TValue>
     /// </summary>
     [Parameter]
     [NotNull]
+#if NET6_0_OR_GREATER
+    [EditorRequired]
+#endif
     public IEnumerable<CascaderItem>? Items { get; set; }
 
     /// <summary>

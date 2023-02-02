@@ -3,7 +3,6 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using OfficeOpenXml;
-using System.Globalization;
 
 namespace BootstrapBlazor.Components;
 
@@ -27,54 +26,49 @@ internal class ExcelExport : ITableExcelExport
     /// 导出 Excel 方法
     /// </summary>
     /// <returns></returns>
-    public async Task<bool> ExportAsync<TItem>(IEnumerable<TItem> items, IEnumerable<ITableColumn> cols) where TItem : class
+    public async Task<bool> ExportAsync<TItem>(IEnumerable<TItem> items, IEnumerable<ITableColumn> cols, string? fileName = null) where TItem : class
     {
         using var excelPackage = new ExcelPackage();
         var worksheet = excelPackage.Workbook.Worksheets.Add("sheet1");
 
-        var y = 1;
+        var rowIndex = 1;
         foreach (var item in items)
         {
-            var x = 1;
-            foreach (var pi in item.GetType().GetProperties())
+            var colIndex = 1;
+            foreach (var pi in item.GetType().GetProperties().Where(i => cols.Any(col => col.GetFieldName() == i.Name)))
             {
-                if (!cols.Any(col => col.GetFieldName() == pi.Name))
+                if (rowIndex == 1)
                 {
-                    continue;
-                }
-
-                if (y == 1)
-                {
-                    if (pi.Name != null)
+                    if (pi.PropertyType.IsDateTime())
                     {
-                        if (pi.PropertyType == typeof(DateTime) || pi.PropertyType == typeof(DateTime?)
-                            || pi.PropertyType == typeof(TimeSpan) || pi.PropertyType == typeof(TimeSpan?))
-                        {
-                            worksheet.Column(x).Width = 18;
-                            worksheet.Column(x).Style.Numberformat.Format = "yyyy/m/d h:mm:ss";
-                        }
-
-                        var th_value = cols.FirstOrDefault(x => x.GetFieldName() == pi.Name)?.Text
-                            ?? Utility.GetDisplayName(items.First(), pi.Name);
-                        worksheet.SetValue(1, x, th_value);
+                        worksheet.Column(colIndex).Width = 18;
+                        worksheet.Column(colIndex).Style.Numberformat.Format = "yyyy/mm/dd hh:mm:ss";
                     }
+                    else if (pi.PropertyType.IsTimeSpan())
+                    {
+                        worksheet.Column(colIndex).Width = 10;
+                        worksheet.Column(colIndex).Style.Numberformat.Format = "HH:mm:ss";
+                    }
+
+                    var thValue = cols.First(x => x.GetFieldName() == pi.Name).Text ?? Utility.GetDisplayName(item, pi.Name);
+                    worksheet.SetValue(1, colIndex, thValue);
                 }
-                var value = await FormatValue(cols.First(col => col.GetFieldName() == pi.Name), pi.GetValue(item, null));
-                worksheet.SetValue(y + 1, x, value);
-                x++;
+                var value = await FormatValue(cols.First(col => col.GetFieldName() == pi.Name), Utility.GetPropertyValue(item, pi.Name));
+                worksheet.SetValue(rowIndex + 1, colIndex, value);
+                colIndex++;
             }
-            y++;
+            rowIndex++;
         }
 
         var bytes = excelPackage.GetAsByteArray();
-        var fileName = $"ExportData_{DateTime.Now:yyyyMMddHHmmss}.xlsx";
+        fileName ??= $"ExportData_{DateTime.Now:yyyyMMddHHmmss}.xlsx";
         await DownloadService.DownloadFromByteArrayAsync(fileName, bytes);
         return true;
     }
 
-    private static async Task<string> FormatValue(ITableColumn col, object? value)
+    private static async Task<object?> FormatValue(ITableColumn col, object? value)
     {
-        var ret = "";
+        var ret = value;
         if (col.Formatter != null)
         {
             // 格式化回调委托
@@ -89,17 +83,9 @@ internal class ExcelExport : ITableExcelExport
         {
             ret = col.PropertyType.ToDescriptionString(value?.ToString());
         }
-        else if (col.PropertyType.IsDateTime())
-        {
-            ret = Utility.Format(value, CultureInfo.CurrentUICulture.DateTimeFormat);
-        }
         else if (value is IEnumerable<object> v)
         {
             ret = string.Join(",", v);
-        }
-        else
-        {
-            ret = value?.ToString() ?? "";
         }
         return ret;
     }

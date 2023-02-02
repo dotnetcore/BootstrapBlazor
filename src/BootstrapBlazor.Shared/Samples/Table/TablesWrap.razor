@@ -2,89 +2,51 @@
 @page "/tables/wrap"
 @inject IStringLocalizer<TablesWrap> Localizer
 
-<h3>@Localizer["H1"]</h3>
-<h4>@Localizer["H2"]</h4>
+<h3>@Localizer["TablesWrapTitile"]</h3>
+<h4>@Localizer["TablesWrapDescription"]</h4>
 
-<p>@((MarkupString)Localizer["P1"].Value)</p>
+<p>@((MarkupString)Localizer["TablesWrapTip"].Value)</p>
 
-<DemoBlock Title="@Localizer["P2"]" Introduction="@Localizer["P3"]" Name="WarpHeader">
-    <p>@((MarkupString)Localizer["P4"].Value)</p>
-    <div class="table-wrap-header-demo">
-        <Table TItem="Foo" IsBordered="true" IsStriped="true" Items="@CellItems">
-            <TableColumns>
-                <TableColumn @bind-Field="@context.DateTime" Width="180" Text="@Localizer["P5"]" />
-                <TableColumn @bind-Field="@context.Name" Width="100" Text="@Localizer["P6"]" ShowHeaderTooltip="true" HeaderTextEllipsis="true" />
-                <TableColumn @bind-Field="@context.Address" Text="@Localizer["P7"]" />
-            </TableColumns>
-        </Table>
-    </div>
+<DemoBlock Title="@Localizer["TablesWrapNormalTitle"]"
+           Introduction="@Localizer["TablesWrapNormalIntro"]"
+           Name="Normal"
+           Demo="typeof(Demos.Table.TablesWrap.TablesWrapNormal)">
+    <p>@((MarkupString)Localizer["TablesWrapNormalDescription"].Value)</p>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["P8"]" Introduction="@Localizer["P9"]" Name="HeaderTextWrap">
-    <p>@Localizer["P10"]</p>
-    <Table TItem="Foo" IsBordered="true" IsStriped="true" Items="@CellItems" HeaderTextWrap="true">
-        <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" Width="180" Text="@Localizer["P11"]" TextWrap="true" />
-            <TableColumn @bind-Field="@context.Name" Text="@Localizer["P12"]" TextWrap="true" />
-            <TableColumn @bind-Field="@context.Address" Text="@Localizer["P13"]" TextWrap="true" />
-        </TableColumns>
-    </Table>
+<DemoBlock Title="@Localizer["TablesWrapHeaderTextWrapTitle"]"
+           Introduction="@Localizer["TablesWrapHeaderTextWrapIntro"]"
+           Name="HeaderTextWrap"
+           Demo="typeof(Demos.Table.TablesWrap.TablesWrapHeaderTextWrap)">
+    <p>@Localizer["TablesWrapHeaderTextWrapDescription"]</p>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["P14"]" Introduction="@Localizer["P15"]" Name="LongData">
+<DemoBlock Title="@Localizer["TablesWrapLongDataTitle"]"
+           Introduction="@Localizer["TablesWrapLongDataIntro"]"
+           Name="LongData"
+           Demo="typeof(Demos.Table.TablesWrap.TablesWrapLongData)">
     <ul class="ul-demo mb-3">
-        <li>@((MarkupString)Localizer["P16"].Value)</li>
-        <li>@((MarkupString)Localizer["P17"].Value)</li>
-        <li>@((MarkupString)Localizer["P18"].Value)</li>
+        <li>@((MarkupString)Localizer["TablesWrapLongDataTips1"].Value)</li>
+        <li>@((MarkupString)Localizer["TablesWrapLongDataTips2"].Value)</li>
+        <li>@((MarkupString)Localizer["TablesWrapLongDataTips3"].Value)</li>
     </ul>
-    <Table TItem="Foo" IsBordered="true" IsStriped="true" Items="@CellItems">
-        <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" Width="180" Text="@Localizer["P19"]" />
-            <TableColumn @bind-Field="@context.Name" Text="@Localizer["P20"]" />
-            <TableColumn @bind-Field="@context.Address" Text="@Localizer["P21"]" Width="200" TextWrap="true" />
-            <TableColumn @bind-Field="@context.Education" />
-            <TableColumn @bind-Field="@context.Count" />
-        </TableColumns>
-    </Table>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["P22"]" Introduction="@Localizer["P23"]" Name="DataResizing">
+<DemoBlock Title="@Localizer["TablesWrapDataResizingTitle"]"
+           Introduction="@Localizer["TablesWrapDataResizingIntro"]"
+           Name="DataResizing"
+           Demo="typeof(Demos.Table.TablesWrap.TablesWrapDataResizing)">
     <ul class="ul-demo mb-3">
-        <li>@((MarkupString)Localizer["P24"].Value)</li>
-        <li>@((MarkupString)Localizer["P25"].Value)</li>
-        <li>@((MarkupString)Localizer["P26"].Value)</li>
-        <li>@((MarkupString)Localizer["P27"].Value)</li>
-        <li>@((MarkupString)Localizer["P28"].Value)</li>
+        <li>@((MarkupString)Localizer["TablesWrapDataResizingTips1"].Value)</li>
+        <li>@((MarkupString)Localizer["TablesWrapDataResizingTips2"].Value)</li>
+        <li>@((MarkupString)Localizer["TablesWrapDataResizingTips3"].Value)</li>
+        <li>@((MarkupString)Localizer["TablesWrapDataResizingTips4"].Value)</li>
+        <li>@((MarkupString)Localizer["TablesWrapDataResizingTips5"].Value)</li>
     </ul>
-    <Table TItem="Foo" IsBordered="true" IsStriped="true" AllowResizing="true" IsPagination="true"
-           OnQueryAsync="OnQueryAsync" PageItemsSource="new int[] {4, 8, 20}">
-        <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" Width="180" Text="@Localizer["P29"]" />
-            <TableColumn @bind-Field="@context.Name" Text="@Localizer["P30"]" />
-            <TableColumn @bind-Field="@context.Address" Text="@Localizer["P31"]" Width="200" TextEllipsis="true" ShowTips="true" />
-            <TableColumn @bind-Field="@context.Education" />
-            <TableColumn @bind-Field="@context.Count" />
-            <TableColumn @bind-Field="@context.Complete" />
-        </TableColumns>
-    </Table>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["P32"]" Introduction="@Localizer["P33"]" Name="CustomCell">
-    <Table TItem="Foo" IsBordered="true" IsStriped="true" Items="@CellItems" AllowResizing="true">
-        <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" Width="180" Text="@Localizer["P34"]" />
-            <TableColumn @bind-Field="@context.Name" Text="@Localizer["P35"]" />
-            <TableColumn @bind-Field="@context.Address" Text="@Localizer["P36"]" Width="200" TextEllipsis="true" ShowTips="true" />
-            <TableColumn @bind-Field="@context.Education" />
-            <TableColumn @bind-Field="@context.Count" />
-            <TableColumn @bind-Field="@context.Complete">
-                <Template Context="v">
-                    <div>
-                        <div>@Localizer["P37"]:@v.Value</div>
-                        <div>@Localizer["P38"]:@v.Row.DateTime</div>
-                    </div>
-                </Template>
-            </TableColumn>
-        </TableColumns>
-    </Table>
+<DemoBlock Title="@Localizer["TablesWrapCustomCellTitle"]"
+           Introduction="@Localizer["TablesWrapCustomCellIntro"]"
+           Name="CustomCell"
+           Demo="typeof(Demos.Table.TablesWrap.TablesWrapCustomCell)">
 </DemoBlock>

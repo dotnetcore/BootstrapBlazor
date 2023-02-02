@@ -47,12 +47,12 @@ public sealed partial class SubMenu
     private IStringLocalizer<Menu>? Localizer { get; set; }
 
     /// <summary>
-    /// 
+    /// 获得 样式字符串
     /// </summary>
     /// <param name="item"></param>
     /// <returns></returns>
     private static string? GetClassString(MenuItem item) => CssBuilder.Default()
-        .AddClass("active", item.IsActive && !item.IsDisabled)
+        .AddClass("active", !item.IsDisabled && item.IsActive)
         .AddClass("disabled", item.IsDisabled)
         .Build();
 

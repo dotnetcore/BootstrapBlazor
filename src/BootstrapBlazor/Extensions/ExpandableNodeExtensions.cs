@@ -102,4 +102,33 @@ public static class ExpandableNodeExtensions
             p.SetParentCheck(state, cache);
         }
     }
+
+    /// <summary>
+    /// 向上级联设置展开状态
+    /// </summary>
+    public static void SetParentExpand<TNode, TItem>(this TNode node, bool expand) where TNode : IExpandableNode<TItem>
+    {
+        if (node.Parent is TNode p)
+        {
+            p.IsExpand = expand;
+            p.SetParentExpand<TNode, TItem>(expand);
+        }
+    }
+
+    /// <summary>
+    /// 树状数据层次化方法
+    /// </summary>
+    /// <param name="items">数据集合</param>
+    /// <param name="parent">父级节点</param>
+    /// <param name="predicate">查找子节点 Lambda 表达式</param>
+    /// <param name="valueFactory"></param>
+    public static IEnumerable<TreeViewItem<TItem>> CascadingTree<TItem>(this IEnumerable<TItem> items, TreeViewItem<TItem>? parent, Func<TItem, TreeViewItem<TItem>?, bool> predicate, Func<TItem, TreeViewItem<TItem>> valueFactory) => items
+        .Where(i => predicate(i, parent))
+        .Select(i =>
+        {
+            var item = valueFactory(i);
+            item.Items = CascadingTree(items, item, predicate, valueFactory).ToList();
+            item.Parent = parent;
+            return item;
+        });
 }

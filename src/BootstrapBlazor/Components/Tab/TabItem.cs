@@ -41,6 +41,12 @@ public class TabItem : ComponentBase
     public bool Closable { get; set; } = true;
 
     /// <summary>
+    /// 获得/设置 当前 TabItem 是否始终加载 此参数作用于设置 <see cref="Tab.IsLazyLoadTabItem"/> 默认 false
+    /// </summary>
+    [Parameter]
+    public bool AlwaysLoad { get; set; }
+
+    /// <summary>
     /// 获得/设置 图标字符串 如 "fa-solid fa-regular"
     /// </summary>
     [Parameter]

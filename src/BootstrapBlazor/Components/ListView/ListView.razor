@@ -9,29 +9,54 @@
             @HeaderTemplate
         </div>
     }
-    <div class="listview-body">
-        @if (Items != null && BodyTemplate != null)
+    <div class="@BodyClassString">
+        @if (BodyTemplate != null)
         {
             if (GroupName == null)
             {
-                foreach (var item in Items)
+                foreach (var item in Rows)
                 {
                     <div class="listview-item" @onclick="@(e => OnClick(item))">
                         @BodyTemplate.Invoke(item)
                     </div>
                 }
             }
+            else if(Collapsable)
+            {
+                <Collapse IsAccordion="IsAccordion" OnCollapseChanged="OnCollapseChanged!">
+                    <CollapseItems>
+                        @{
+                            var index = 0;
+                            foreach (var key in Rows.GroupBy(GroupName).OrderBy(k => k.Key))
+                            {
+                                <CollapseItem @key="@key" Text="@key.Key?.ToString()" IsCollapsed="IsCollapsed(index++, key.Key)">
+                                    @foreach (var item in key)
+                                    {
+                                        <div class="listview-item" @onclick="@(e => OnClick(item))">
+                                            @BodyTemplate.Invoke(item)
+                                        </div>
+                                    }
+                                </CollapseItem>
+                            }
+                        }
+                    </CollapseItems>
+                </Collapse>
+            }
             else
             {
-                foreach (var key in Items.GroupBy(GroupName).OrderBy(k => k.Key))
+                foreach (var key in Rows.GroupBy(GroupName).OrderBy(k => k.Key))
                 {
-                    <div class="listview-item-group">@key.Key</div>
-                    @foreach (var item in key)
-                    {
-                        <div class="listview-item" @onclick="@(e => OnClick(item))">
-                            @BodyTemplate.Invoke(item)
+                    <div class="accordion-item">
+                        <div class="accordion-header">@key.Key</div>
+                        <div class="accordion-body">
+                            @foreach (var item in key)
+                            {
+                                <div class="listview-item" @onclick="@(e => OnClick(item))">
+                                    @BodyTemplate.Invoke(item)
+                                </div>
+                            }
                         </div>
-                    }
+                    </div>
                 }
             }
         }

@@ -60,4 +60,14 @@ public partial class Pie
         }
         return Task.FromResult(ds);
     }
+
+    /// <summary>
+    /// 强刷控件,重新初始化控件外观
+    /// </summary>
+    private Task OnReloadChart()
+    {
+        PieDataCount = Randomer.Next(5, 15);
+        PieChart?.Reload();
+        return Task.CompletedTask;
+    }
 }

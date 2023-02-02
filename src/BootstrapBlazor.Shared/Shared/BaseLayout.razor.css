@@ -1,4 +1,20 @@
-﻿::deep .btn-search .btn {
+﻿header {
+    --bb-violet-rgb: 112.520718,44.062154,249.437846;
+    background-color: transparent;
+    background-image: linear-gradient(to bottom, rgba(var(--bb-violet-rgb), 1), rgba(var(--bb-violet-rgb), 0.95));
+    box-shadow: 0 0.5rem 1rem rgba(0,0,0,.05), inset 0 -1px 0 rgba(0,0,0,.1);
+    font-size: 1rem;
+    transition: transform .3s ease;
+}
+
+.header-img {
+    display: flex;
+    align-items: center;
+    padding: 0;
+    margin-right: 0;
+}
+
+::deep .btn-search .btn {
     --bs-btn-bg: #8759ff;
     --bs-btn-color: #fff;
     --bs-btn-hover-bg: #7d53eb;
@@ -18,4 +34,95 @@
 
 ::deep .btn-fs {
     margin-top: 2px;
+}
+
+.btn-bd-download {
+    font-weight: 600;
+    color: #ffe484;
+    border-color: #ffe484;
+}
+
+    .btn-bd-download:active,
+    .btn-bd-download:hover {
+        color: #2a2730;
+        background-color: #ffe484;
+        border-color: #ffe484;
+    }
+
+.nav-link img {
+    height: 24px;
+    width: auto;
+}
+
+::deep .btn-fade {
+    --bb-button-circle-width: 40px;
+    --bb-button-circle-height: 40px;
+    opacity: 0.7;
+    box-shadow: 0 0 8px #211b50;
+    transition: opacity .3s linear;
+    position: fixed;
+    z-index: 10;
+}
+
+    ::deep .btn-fade:hover {
+        opacity: 1;
+    }
+
+::deep .btn-update {
+    --bs-btn-bg: #8759ff;
+    --bs-btn-hover-bg: var(--bs-btn-bg);
+    --bs-btn-active-bg: var(--bs-btn-bg);
+    bottom: 5rem;
+    right: 1rem;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+    ::deep .btn-update img {
+        width: 55%;
+        margin-left: 2px;
+    }
+
+.install-prompt {
+    position: fixed;
+    bottom: 0.5rem;
+    left: 0;
+    right: 0;
+    z-index: 1071;
+}
+
+    .install-prompt .row {
+        justify-content: center;
+    }
+
+.install-prompt-body {
+    background-color: #54595f;
+    color: #fff;
+    padding: 0.5rem;
+    display: flex;
+    font-size: 1.5rem;
+    border-radius: var(--bs-border-radius);
+}
+
+    .install-prompt-body .installButton {
+        margin-left: auto;
+    }
+
+    .install-prompt-body .cancelButton {
+        margin-left: 0.3rem;
+    }
+
+@media (min-width: 768px) {
+    .navbar-header {
+        position: sticky;
+        top: 0;
+        z-index: 1050;
+        height: var(--bs-header-height);
+    }
+
+    .modal-open .navbar-header {
+        z-index: 1040;
+    }
 }

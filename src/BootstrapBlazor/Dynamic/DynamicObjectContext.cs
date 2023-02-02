@@ -93,5 +93,5 @@ public abstract class DynamicObjectContext : IDynamicObjectContext
     /// <summary>
     /// 获得选中行比对回调方法
     /// </summary>
-    public Func<IDynamicObject, IDynamicObject, bool>? EqualityComparer { get; set; }
+    public Func<IDynamicObject?, IDynamicObject?, bool>? EqualityComparer { get; set; }
 }

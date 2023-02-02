@@ -39,30 +39,28 @@
                 <div class="modal-body">
                     @RenderBodyTemplate()
                 </div>
-            </CascadingValue>
-            @if (ShowFooter)
-            {
-                <div class="modal-footer">
-                    @if (ShowCloseButton)
-                    {
-                        <Button Color="Color.Secondary" Text="@CloseButtonText" Icon="fa-solid fa-fw fa-xmark" OnClickWithoutRender="OnClickClose" />
-                    }
-                    @if (ShowPrintButton && !ShowPrintButtonInHeader)
-                    {
-                        <PrintButton Color="Color.Primary" class="btn-print" Text="@PrintButtonText" />
-                    }
-                    @if (ShowSaveButton)
-                    {
-                        <Button Color="Color.Primary" Text="@SaveButtonText" Icon="fa-solid fa-fw fa-floppy-disk" OnClickWithoutRender="OnClickSave" />
-                    }
-                    @if (FooterTemplate != null)
-                    {
-                        <CascadingValue Value="OnClickClose" IsFixed>
+                @if (ShowFooter)
+                {
+                    <div class="modal-footer">
+                        @if (ShowCloseButton)
+                        {
+                            <DialogCloseButton Text="@CloseButtonText" Icon="@CloseButtonIcon" />
+                        }
+                        @if (ShowPrintButton && !ShowPrintButtonInHeader)
+                        {
+                            <PrintButton Color="Color.Primary" class="btn-print" Text="@PrintButtonText" />
+                        }
+                        @if (ShowSaveButton)
+                        {
+                            <Button Color="Color.Primary" Text="@SaveButtonText" Icon="fa-solid fa-fw fa-floppy-disk" OnClickWithoutRender="OnClickSave" />
+                        }
+                        @if (FooterTemplate != null)
+                        {
                             @FooterTemplate
-                        </CascadingValue>
-                    }
-                </div>
-            }
+                        }
+                    </div>
+                }
+            </CascadingValue>
         </CascadingValue>
     </div>
 </div>

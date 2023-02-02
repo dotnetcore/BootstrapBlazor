@@ -9,97 +9,81 @@ namespace BootstrapBlazor.Shared.Samples;
 /// </summary>
 public partial class ImageViewers
 {
-    private List<string> PreviewList { get; } = new();
-
-    /// <summary>
-    /// OnInitialized 方法
-    /// </summary>
-    protected override void OnInitialized()
-    {
-        base.OnInitialized();
-
-        PreviewList.AddRange(new string[]
-        {
-            "_content/BootstrapBlazor.Shared/images/ImageList1.jpeg",
-            "_content/BootstrapBlazor.Shared/images/ImageList2.jpeg"
-        });
-    }
-
-    private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
         new AttributeItem() {
             Name = nameof(ImageViewer.Url),
-            Description = "图片 Url",
+            Description = Localizer["ImageViewersAttrUrl"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
         },
         new AttributeItem() {
             Name = nameof(ImageViewer.Alt),
-            Description = "原生 alt 属性",
+            Description = Localizer["ImageViewersAttrAlt"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
         },
         new AttributeItem() {
             Name = nameof(ImageViewer.ShowPlaceHolder),
-            Description = "是否显示占位符 适用于大图片加载",
+            Description = Localizer["ImageViewersAttrShowPlaceHolder"],
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
         },
         new AttributeItem() {
             Name = nameof(ImageViewer.HandleError),
-            Description = "加载失败时是否显示错误占位符",
+            Description = Localizer["ImageViewersAttrHandleError"],
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
         },
         new AttributeItem() {
             Name = nameof(ImageViewer.PlaceHolderTemplate),
-            Description = "占位模板 未设置 Url 或者正在加载大图时生效",
+            Description = Localizer["ImageViewersAttrPlaceHolderTemplate"],
             Type = "RenderFragment",
             ValueList = "true|false",
             DefaultValue = "false"
         },
         new AttributeItem() {
             Name = nameof(ImageViewer.ErrorTemplate),
-            Description = "错误模板 图片路径错误时生效",
+            Description = Localizer["ImageViewersAttrErrorTemplate"],
             Type = "RenderFragment",
             ValueList = "true|false",
             DefaultValue = "false"
         },
         new AttributeItem() {
             Name = nameof(ImageViewer.FitMode),
-            Description = "原生 object-fit 属性",
+            Description = Localizer["ImageViewersAttrFitMode"],
             Type = "ObjectFitMode",
             ValueList = "fill|contain|cover|none|scale-down",
             DefaultValue = "fill"
         },
         new AttributeItem() {
             Name = nameof(ImageViewer.ZIndex),
-            Description = "原生 z-index 属性",
+            Description = Localizer["ImageViewersAttrZIndex"],
             Type = "int",
             ValueList = " — ",
             DefaultValue = "2050"
         },
         new AttributeItem() {
             Name = nameof(ImageViewer.PreviewList),
-            Description = "预览大图链接集合",
+            Description = Localizer["ImageViewersAttrPreviewList"],
             Type = "List<string>",
             ValueList = " — ",
             DefaultValue = " — "
         },
         new AttributeItem() {
             Name = nameof(ImageViewer.OnLoadAsync),
-            Description = "图片加载成功时回调方法",
+            Description = Localizer["ImageViewersAttrOnLoadAsync"],
             Type = "Func<string, Task>",
             ValueList = " — ",
             DefaultValue = " — "
         },
         new AttributeItem() {
             Name = nameof(ImageViewer.OnErrorAsync),
-            Description = "图片加载失败时回调方法",
+            Description = Localizer["ImageViewersAttrOnErrorAsync"],
             Type = "Func<string, Task>",
             ValueList = " — ",
             DefaultValue = " — "

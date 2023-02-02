@@ -38,12 +38,12 @@ internal static class LocalizationOptionsExtensions
         // 获得配置外置资源文件
         if (option.AdditionalJsonFiles != null)
         {
-            var file = option.AdditionalJsonFiles.FirstOrDefault(f =>
+            var files = option.AdditionalJsonFiles.Where(f =>
             {
                 var fileName = Path.GetFileNameWithoutExtension(f);
                 return fileName.Equals(cultureName, StringComparison.OrdinalIgnoreCase);
             });
-            if (!string.IsNullOrEmpty(file))
+            foreach (var file in files)
             {
                 builder.AddJsonFile(file, true, true);
             }

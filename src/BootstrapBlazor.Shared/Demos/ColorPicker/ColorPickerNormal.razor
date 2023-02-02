@@ -1,0 +1,15 @@
+﻿<ColorPicker Value="@Value" OnValueChanged="@OnColorChanged" />
+<BlockLogger @ref="Trace" class="mt-3" />
+
+@code {
+    [NotNull]
+    private BlockLogger? Trace { get; set; }
+
+    private string? Value { get; set; }
+
+    private Task OnColorChanged(string color)
+    {
+        Trace.Log($"Selected color: {color}");
+        return Task.CompletedTask;
+    }
+}

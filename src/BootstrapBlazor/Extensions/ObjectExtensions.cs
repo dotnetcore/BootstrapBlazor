@@ -68,8 +68,19 @@ public static class ObjectExtensions
     public static bool IsDateTime(this Type t)
     {
         var targetType = Nullable.GetUnderlyingType(t) ?? t;
-        var check = targetType == typeof(DateTime) ||
-           targetType == typeof(DateTimeOffset);
+        var check = targetType == typeof(DateTime) || targetType == typeof(DateTimeOffset);
+        return check;
+    }
+
+    /// <summary>
+    /// 检查是否为 TimeSpan 数据类型
+    /// </summary>
+    /// <param name="t"></param>
+    /// <returns></returns>
+    public static bool IsTimeSpan(this Type t)
+    {
+        var targetType = Nullable.GetUnderlyingType(t) ?? t;
+        var check = targetType == typeof(TimeSpan);
         return check;
     }
 

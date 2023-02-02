@@ -2,13 +2,13 @@
 
 <header class="navbar-header navbar navbar-expand navbar-dark flex-column flex-md-row px-3">
     <div class="header-img navbar-brand">
-        <img alt="logo" src="_content/BootstrapBlazor.Shared/images/logo.png" />
+        <BBLogo />
         <span>Bootstrap Blazor</span>
     </div>
     <div class="navbar-nav-scroll">
         <ul class="navbar-nav bd-navbar-nav flex-row">
             <li class="nav-item">
-                <a class="nav-link " href="index">@HomeText</a>
+                <a class="nav-link" href="index">@HomeText</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="introduction">@IntroductionText</a>
@@ -22,12 +22,12 @@
     <CultureChooser class="flex-md-fill flex-xl-grow-0 justify-content-md-end" />
     <ul class="navbar-nav ms-3 d-none d-lg-flex">
         <li class="nav-item">
-            <a class="nav-link p-2" href="https://github.com/ArgoZhang/BootstrapBlazor">
+            <a class="nav-link p-2" href="https://github.com/ArgoZhang/BootstrapBlazor" target="_blank">
                 <img alt="git" src="_content/BootstrapBlazor.Shared/images/git.svg" />
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link p-2" href="@WebsiteOption.CurrentValue.BootstrapBlazorLink">
+            <a class="nav-link p-2" href="@WebsiteOption.CurrentValue.BootstrapBlazorLink" target="_blank">
                 <img alt="gitee" src="_content/BootstrapBlazor.Shared/images/gitee.svg" />
             </a>
         </li>
@@ -38,11 +38,13 @@
     <a class="btn btn-bd-download d-none d-lg-inline-block mb-3 mb-md-0 ms-md-3" target="_blank" href="@DownloadUrl">@DownloadText</a>
 </header>
 
-@Body
+<div>
+    @Body
 
-<LinkButton TooltipPlacement="Placement.Left" ButtonStyle="ButtonStyle.Circle" Color="Color.None" TooltipText="@Title" class="btn-fade btn-update" Url="@WebsiteOption.CurrentValue.WikiUrl" Target="_blank" ImageUrl="_content/BootstrapBlazor.Shared/images/log.svg" />
+    <LinkButton TooltipPlacement="Placement.Left" ButtonStyle="ButtonStyle.Circle" Color="Color.None" TooltipText="@Title" class="btn-fade btn-update" Url="@WebsiteOption.CurrentValue.WikiUrl" Target="_blank" ImageUrl="_content/BootstrapBlazor.Shared/images/log.svg" />
 
-<ThemeChooser />
+    <ThemeChooser />
+</div>
 
 @if (Installable)
 {

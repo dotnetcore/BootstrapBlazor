@@ -19,10 +19,12 @@
 
   <ItemGroup>
     <PackageReference Include="BootstrapBlazor.BaiduSpeech" Version="7.*" />
+    <PackageReference Include="BootstrapBlazor.BaiduOcr" Version="7.*" />
     <PackageReference Include="BootstrapBlazor.BarCode" Version="7.*" />
     <PackageReference Include="BootstrapBlazor.Bluetooth" Version="7.*" />
     <PackageReference Include="BootstrapBlazor.Chart" Version="7.*" />
     <PackageReference Include="BootstrapBlazor.CherryMarkdown" Version="7.*" />
+    <PackageReference Include="BootstrapBlazor.FileViewer" Version="7.*" />
     <PackageReference Include="BootstrapBlazor.FontAwesome" Version="7.*" />
     <PackageReference Include="BootstrapBlazor.Markdown" Version="7.*" />
     <PackageReference Include="BootstrapBlazor.OnScreenKeyboard" Version="7.*" />

@@ -145,4 +145,17 @@ public class PopConfirmButtonTest : PopoverTestBase
         });
         Assert.NotNull(popButton.FindComponent<Button>());
     }
+
+    [Fact]
+    public void Trigger_Ok()
+    {
+        var cut = Context.RenderComponent<PopConfirmButton>();
+        Assert.DoesNotContain("data-bs-trigger", cut.Markup);
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.Trigger, "test");
+        });
+        Assert.Contains("data-bs-trigger=\"test\"", cut.Markup);
+    }
 }

@@ -1,0 +1,46 @@
+﻿.bb-title {
+    font-size: 1.1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.tab-navigators {
+    position: fixed;
+    right: 1rem;
+    bottom: 13rem;
+    display: flex;
+    flex-direction: column;
+}
+
+    .tab-navigators ::deep .btn {
+        width: 40px;
+        height: 40px;
+        position: relative;
+        font-size: 1.1rem;
+    }
+
+        .tab-navigators ::deep .btn:not(:first-child) {
+            margin-top: 1.5rem;
+        }
+
+::deep .bb-icon {
+    display: none;
+}
+
+::deep .bb-img {
+    display: inline-block;
+    height: 21px;
+    margin-bottom: 0.75rem;
+}
+
+@media (min-width: 576px) {
+    .bb-title {
+        font-size: 1.2rem;
+    }
+
+    ::deep .bb-icon {
+        display: inline-block;
+    }
+}

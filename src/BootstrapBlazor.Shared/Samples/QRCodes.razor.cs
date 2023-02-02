@@ -11,11 +11,6 @@ namespace BootstrapBlazor.Shared.Samples;
 /// </summary>
 public sealed partial class QRCodes
 {
-    [Inject]
-    [NotNull]
-    private VersionService? VersionManager { get; set; }
-
-    private string Version { get; set; } = "fetching";
 
     [NotNull]
     private string? Title { get; set; }
@@ -50,16 +45,7 @@ public sealed partial class QRCodes
         BaseUsageText ??= Localizer[nameof(BaseUsageText)];
         IntroText ??= Localizer[nameof(IntroText)];
         SuccessText ??= Localizer[nameof(SuccessText)];
-    }
-
-    /// <summary>
-    /// OnInitializedAsync 方法
-    /// </summary>
-    /// <returns></returns>
-    protected override async Task OnInitializedAsync()
-    {
-        Version = await VersionManager.GetVersionAsync("bootstrapblazor.barcode");
-    }
+    } 
 
     private Task OnGenerated()
     {

@@ -10,9 +10,13 @@ namespace BootstrapBlazor.Shared.Services;
 
 class CodeSnippetService
 {
-    private HttpClient Client { get; set; }
+    private IHttpClientFactory Factory { get; set; }
 
     private string ServerUrl { get; set; }
+
+    private string SampleUrl { get; set; }
+
+    private string DemoUrl { get; set; }
 
     private bool IsDevelopment { get; }
 
@@ -25,12 +29,12 @@ class CodeSnippetService
     /// <summary>
     /// 构造方法
     /// </summary>
-    /// <param name="client"></param>
+    /// <param name="factory"></param>
     /// <param name="cacheManager"></param>
     /// <param name="options"></param>
     /// <param name="localizerOptions"></param>
     public CodeSnippetService(
-        HttpClient client,
+        IHttpClientFactory factory,
         ICacheManager cacheManager,
         IOptionsMonitor<WebsiteOptions> options,
         IOptionsMonitor<JsonLocalizationOptions> localizerOptions)
@@ -38,25 +42,25 @@ class CodeSnippetService
         LocalizerOptions = localizerOptions.CurrentValue;
 
         CacheManager = cacheManager;
-        Client = client;
-        Client.Timeout = TimeSpan.FromSeconds(5);
-        Client.BaseAddress = new Uri(options.CurrentValue.RepositoryUrl);
+        Factory = factory;
 
         IsDevelopment = options.CurrentValue.IsDevelopment;
         ContentRootPath = options.CurrentValue.ContentRootPath;
         ServerUrl = options.CurrentValue.ServerUrl;
+        SampleUrl = options.CurrentValue.SampleUrl;
+        DemoUrl = $"{SampleUrl}../";
     }
 
     /// <summary>
     /// 获得示例源码方法
     /// </summary>
     /// <returns></returns>
-    public async Task<string> GetCodeAsync(string codeFile, string? blockTitle)
+    public async Task<string> GetCodeAsync(string codeFile, string? blockTitle, string? demo)
     {
         var content = "";
         try
         {
-            var payload = await GetContentFromFile(codeFile);
+            var payload = await GetContentFromDemo(demo) ?? await GetContentFromFile(codeFile);
 
             if (blockTitle != null)
             {
@@ -136,6 +140,42 @@ class CodeSnippetService
         }
     }
 
+    private async Task<string?> GetContentFromDemo(string? demo) => string.IsNullOrEmpty(demo)
+        ? null
+        : await CacheManager.GetContentFromDemoAsync(demo, async entry =>
+    {
+        var payload = "";
+
+        var fileName = demo.Replace('.', Path.DirectorySeparatorChar);
+        fileName = $"{fileName}.razor";
+
+        if (IsDevelopment)
+        {
+            payload = await ReadDemoTextAsync(fileName);
+        }
+        else
+        {
+            var client = Factory.CreateClient();
+            client.Timeout = TimeSpan.FromSeconds(5);
+
+            if (OperatingSystem.IsBrowser())
+            {
+                client.BaseAddress = new Uri($"{ServerUrl}/api/");
+                payload = await client.GetStringAsync($"Code?fileName={fileName}");
+            }
+            else
+            {
+                client.BaseAddress = new Uri(DemoUrl);
+                payload = await client.GetStringAsync(fileName.Replace('\\', '/'));
+            }
+        }
+
+        // 将资源文件信息替换
+        CacheManager.GetDemoLocalizedStrings(demo, LocalizerOptions).ToList().ForEach(l => payload = ReplacePayload(payload, l));
+        payload = ReplaceSymbols(payload);
+        return payload;
+    });
+
     private Task<string> GetContentFromFile(string codeFile) => CacheManager.GetContentFromFileAsync(codeFile, async entry =>
     {
         var payload = "";
@@ -146,38 +186,56 @@ class CodeSnippetService
         }
         else
         {
+            var client = Factory.CreateClient();
+            client.Timeout = TimeSpan.FromSeconds(5);
+
             if (OperatingSystem.IsBrowser())
             {
-                Client.BaseAddress = new Uri($"{ServerUrl}/api/");
-                payload = await Client.GetStringAsync($"Code?fileName={codeFile}");
+                client.BaseAddress = new Uri($"{ServerUrl}/api/");
+                payload = await client.GetStringAsync($"Code?fileName={codeFile}");
             }
             else
             {
-                payload = await Client.GetStringAsync(codeFile);
+                client.BaseAddress = new Uri(SampleUrl);
+                payload = await client.GetStringAsync(codeFile);
             }
         }
         if (Path.GetExtension(codeFile) == ".razor")
         {
             // 将资源文件信息替换
-            CacheManager.GetLocalizedStrings(codeFile, LocalizerOptions).ToList().ForEach(ReplacePayload);
-            payload = payload.Replace("@@", "@")
-                .Replace("&lt;", "<")
-                .Replace("&gt;", ">");
+            CacheManager.GetLocalizedStrings(codeFile, LocalizerOptions).ToList().ForEach(l => payload = ReplacePayload(payload, l));
+            payload = ReplaceSymbols(payload);
         }
         return payload;
-
-        void ReplacePayload(LocalizedString l)
-        {
-            payload = payload.Replace($"@(((MarkupString)Localizer[\"{l.Name}\"].Value).ToString())", l.Value)
-                .Replace($"@((MarkupString)Localizer[\"{l.Name}\"].Value)", l.Value)
-                .Replace($"@Localizer[\"{l.Name}\"]", l.Value);
-        }
     });
+
+    private static string ReplaceSymbols(string payload) => payload
+        .Replace("@@", "@")
+        .Replace("&lt;", "<")
+        .Replace("&gt;", ">");
+
+    private static string ReplacePayload(string payload, LocalizedString l) => payload
+        .Replace($"@(((MarkupString)Localizer[\"{l.Name}\"].Value).ToString())", l.Value)
+        .Replace($"@((MarkupString)Localizer[\"{l.Name}\"].Value)", l.Value)
+        .Replace($"@Localizer[\"{l.Name}\"]", l.Value);
 
     private async Task<string> ReadFileTextAsync(string codeFile)
     {
         var payload = "";
         var paths = new string[] { "..", "BootstrapBlazor.Shared", "Samples" };
+        var folder = Path.Combine(ContentRootPath, string.Join(Path.DirectorySeparatorChar, paths));
+        var file = Path.Combine(folder, codeFile);
+        if (File.Exists(file))
+        {
+            payload = await File.ReadAllTextAsync(file);
+        }
+        return payload;
+    }
+
+    private async Task<string> ReadDemoTextAsync(string codeFile)
+    {
+        var payload = "";
+        var paths = new string[] { "..", "BootstrapBlazor.Shared" };
         var folder = Path.Combine(ContentRootPath, string.Join(Path.DirectorySeparatorChar, paths));
         var file = Path.Combine(folder, codeFile);
         if (File.Exists(file))

@@ -5,33 +5,10 @@
 namespace BootstrapBlazor.Shared.Samples;
 
 /// <summary>
-/// 
+/// Carousels
 /// </summary>
 public sealed partial class Carousels
 {
-    /// <summary>
-    /// 
-    /// </summary>
-    private BlockLogger? Trace { get; set; }
-
-    private static List<string> Images => new()
-    {
-        "_content/BootstrapBlazor.Shared/images/Pic0.jpg",
-        "_content/BootstrapBlazor.Shared/images/Pic1.jpg",
-        "_content/BootstrapBlazor.Shared/images/Pic2.jpg"
-    };
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="imageUrl"></param>
-    /// <returns></returns>
-    private Task OnClick(string imageUrl)
-    {
-        Trace?.Log($"Image Clicked: {imageUrl}");
-        return Task.CompletedTask;
-    }
-
     /// <summary>
     /// 获得属性方法
     /// </summary>

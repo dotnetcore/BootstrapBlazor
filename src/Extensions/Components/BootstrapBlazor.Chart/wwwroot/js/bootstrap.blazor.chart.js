@@ -3,6 +3,8 @@
         options: {
             responsive: true,
             maintainAspectRatio: true,
+            aspectRatio: 2,
+            resizeDelay: 0,
             plugins: {
                 title: {
                     display: true,
@@ -157,6 +159,8 @@
                 options: {
                     responsive: option.options.responsive,
                     maintainAspectRatio: option.options.maintainAspectRatio,
+                    aspectRatio: option.options.aspectRatio,
+                    resizeDelay: option.options.resizeDelay,
                     plugins: {
                         title: {
                             display: option.options.title != null,
@@ -179,6 +183,7 @@
                             stacked: option.options.x.stacked
                         }
                     }
+
                 }
             });
         },
@@ -222,6 +227,10 @@
                     }
                 }
             }
+            else if (option.updateMethod === "reload") {
+                config.data = option.data;
+                config.options = option.options;
+            }
             else {
                 config.data.datasets.forEach((dataset, index) => {
                     dataset.data = option.data.datasets[index].data;
@@ -235,6 +244,12 @@
             if (!chart) {
                 var op = $.getChartOption(option);
                 $el.data('chart', chart = new Chart(el.getElementsByTagName('canvas'), op));
+                if (option.options.height !== null) {
+                    chart.canvas.parentNode.style.height = option.options.height;
+                }
+                if (option.options.width !== null) { 
+                    chart.canvas.parentNode.style.width = option.options.width;
+                }
                 $el.removeClass('is-loading').trigger('chart.afterInit');
                 obj.invokeMethodAsync(method);
             }

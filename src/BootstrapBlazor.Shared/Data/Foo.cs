@@ -9,7 +9,8 @@ using System.ComponentModel.DataAnnotations;
 namespace BootstrapBlazor.Shared;
 
 /// <summary>
-///
+/// Demo示例数据
+/// Demo sample data
 /// </summary>
 public class Foo
 {
@@ -84,7 +85,8 @@ public class Foo
     protected static readonly Random Random = new();
 
     /// <summary>
-    /// 
+    /// 生成Foo类,随机数据
+    /// Generate Foo class, random data
     /// </summary>
     /// <param name="localizer"></param>
     /// <returns></returns>
@@ -100,9 +102,10 @@ public class Foo
     };
 
     /// <summary>
-    /// 
+    /// 生成Foo类,随机数据
+    /// Generate Foo class, random data
     /// </summary>
-    /// <returns></returns>
+    /// <returns>返回一个Foo类的List，Return a List of Foo class</returns>
     public static List<Foo> GenerateFoo(IStringLocalizer<Foo> localizer, int count = 80) => Enumerable.Range(1, count).Select(i => new Foo()
     {
         Id = i,

@@ -1,86 +1,53 @@
 ﻿@page "/tables"
+@inject IStringLocalizer<Tables> Localizer
 
-<h3>@TablesLocalizer["TableTitle"]</h3>
+<h3>@Localizer["TableBaseTitle"]</h3>
 
-<h4>@TablesLocalizer["H4"]</h4>
+<h4>@Localizer["TableBaseDescription"]</h4>
 
-<p>@((MarkupString)TablesLocalizer["TableP1"].Value)</p>
+<p>@((MarkupString)Localizer["TableBaseExplain1"].Value)</p>
 
-<p>@((MarkupString)TablesLocalizer["TableP2"].Value)</p>
+<p>@((MarkupString)Localizer["TableBaseExplain2"].Value)</p>
 
 <ul class="ul-demo">
-    <li>@((MarkupString)TablesLocalizer["TableLi1"].Value)</li>
-    <li>@((MarkupString)TablesLocalizer["TableLi2"].Value)</li>
-    <li>@((MarkupString)TablesLocalizer["TableLi3"].Value)</li>
+    <li>@((MarkupString)Localizer["TableBaseTips1"].Value)</li>
+    <li>@((MarkupString)Localizer["TableBaseTips2"].Value)</li>
+    <li>@((MarkupString)Localizer["TableBaseTips3"].Value)</li>
 </ul>
 
-<p>@((MarkupString)TablesLocalizer["TableP3"].Value)</p>
-
-<DemoBlock Title="@TablesLocalizer["NormalTitle"]" Introduction="@TablesLocalizer["NormalIntro"]" Name="Normal">
-    <div>@((MarkupString)TablesLocalizer["NormalDiv"].Value)</div>
-    <Button Icon="fa-solid fa-arrows-rotate" Text="@RefreshText" OnClick="OnClick" class="my-2" />
-    <Table TItem="Foo" Items="@Items.Take(3)">
-        <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" Width="180" />
-            <TableColumn @bind-Field="@context.Name" />
-            <TableColumn @bind-Field="@context.Address" />
-        </TableColumns>
-    </Table>
+<DemoBlock Title="@Localizer["TableBaseNormalTitle"]"
+           Introduction="@Localizer["TableBaseNormalIntro"]"
+           Name="TableBaseNormal"
+           Demo="typeof(Demos.Table.TablesBase.TableBaseNormal)">
+    <div>@((MarkupString)Localizer["TableBaseNormalDescription"].Value)</div>
 </DemoBlock>
 
-<DemoBlock Title="@TablesLocalizer["StripedTitle"]" Introduction="@TablesLocalizer["StripedIntro"]" Name="Striped">
-    <Table TItem="Foo" Items="@Items.Take(3)" IsStriped="true">
-        <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" Width="180" />
-            <TableColumn @bind-Field="@context.Name" />
-            <TableColumn @bind-Field="@context.Address" />
-        </TableColumns>
-    </Table>
+<DemoBlock Title="@Localizer["TableBaseStripedTitle"]"
+           Introduction="@Localizer["TableBaseStripedIntro"]"
+           Name="TableBaseStriped"
+           Demo="typeof(Demos.Table.TablesBase.TableBaseStriped)" />
+
+<DemoBlock Title="@Localizer["TableBaseBorderedTitle"]"
+           Introduction="@Localizer["TableBaseBorderedIntro"]"
+           Name="TableBaseBordered"
+           Demo="typeof(Demos.Table.TablesBase.TableBaseBordered)" />
+
+<DemoBlock Title="@Localizer["TableBaseSizeTitle"]"
+           Introduction="@Localizer["TableBaseSizeIntro"]"
+           Name="TableBaseSize"
+           Demo="typeof(Demos.Table.TablesBase.TableBaseSize)">
+    <p>@((MarkupString)Localizer["TableBaseSizeDescription"].Value)</p>
 </DemoBlock>
 
-<DemoBlock Title="@TablesLocalizer["BorderedTitle"]" Introduction="@TablesLocalizer["BorderedIntro"]" Name="Bordered">
-    <Table TItem="Foo" Items="@Items.Take(3)" IsBordered="true">
-        <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" Width="180" />
-            <TableColumn @bind-Field="@context.Name" />
-            <TableColumn @bind-Field="@context.Address" />
-        </TableColumns>
-    </Table>
+<DemoBlock Title="@Localizer["TableBaseHeaderStyleTitle"]"
+           Introduction="@Localizer["TableBaseHeaderStyleIntro"]"
+           Name="TableBaseHeaderStyle"
+           Demo="typeof(Demos.Table.TablesBase.TableBaseHeaderStyle)">
+    <p>@((MarkupString)Localizer["TableBaseHeaderStyleDescription"].Value)</p>
 </DemoBlock>
 
-<DemoBlock Title="@TablesLocalizer["SizeTitle"]" Introduction="@TablesLocalizer["SizeIntro"]" Name="Size">
-    <p>@((MarkupString)TablesLocalizer["SizeP"].Value)</p>
-    <Table TItem="Foo" Items="@Items.Take(3)" IsBordered="true" IsStriped="true" TableSize="TableSize.Compact">
-        <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" Width="180" Filterable="true" Sortable="true" />
-            <TableColumn @bind-Field="@context.Name" Filterable="true" />
-            <TableColumn @bind-Field="@context.Address" Sortable="true" />
-        </TableColumns>
-    </Table>
-</DemoBlock>
+<AttributeTable Items="GetAttributes()" />
 
-<DemoBlock Title="@TablesLocalizer["HeaderStyleTitle"]" Introduction="@TablesLocalizer["HeaderStyleIntro"]" Name="HeaderStyle">
-    <p>@((MarkupString)TablesLocalizer["HeaderStyleP"].Value)</p>
-    <div class="code-label"><code>Light</code> @TablesLocalizer["HeaderStyleMode"]</div>
-    <Table TItem="Foo" Items="@Items.Take(3)" HeaderStyle="TableHeaderStyle.Light" IsBordered="true">
-        <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" Width="180" />
-            <TableColumn @bind-Field="@context.Name" />
-            <TableColumn @bind-Field="@context.Address" />
-        </TableColumns>
-    </Table>
-    <div class="code-label mt-3"><code>Dark</code> @TablesLocalizer["HeaderStyleMode"]</div>
-    <Table TItem="Foo" Items="@Items.Take(3)" HeaderStyle="TableHeaderStyle.Dark" IsBordered="true">
-        <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" Width="180" />
-            <TableColumn @bind-Field="@context.Name" />
-            <TableColumn @bind-Field="@context.Address" />
-        </TableColumns>
-    </Table>
-</DemoBlock>
+<MethodTable Items="GetMethods()" />
 
-<AttributeTable Items="GetAttributes()"></AttributeTable>
-
-<MethodTable Items="GetMethods()"></MethodTable>
-
-<AttributeTable Items="GetTableColumnAttributes()" Title="@TablesLocalizer["AttributeTitle"]" />
+<AttributeTable Items="GetTableColumnAttributes()" Title="@Localizer["AttributeTitle"]" />

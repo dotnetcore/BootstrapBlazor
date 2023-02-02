@@ -15,6 +15,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// ValidateForm 组件类
 /// </summary>
+[JSModuleAutoLoader("validate-form")]
 public partial class ValidateForm
 {
     /// <summary>
