@@ -95,18 +95,18 @@
     "TablesPageShowTopPaginationIntro": "设置 <code>ShowTopPagination</code> 为 <code>true</code> 是顶端显示分页组件"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesFixedColumn": {
-    "H1": "固定列功能",
-    "H2": "对于列数很多的数据，可以固定前后的列，横向滚动查看其它数据",
-    "P1": "固定列用法请尽可能的设置固定列宽度，未设置时按照 <code>200</code> 默认值设置",
-    "P2": "固定列头与列尾",
-    "P3": "设置 <code>Fixed</code> 属性固定表头",
-    "P4": "本例中设置 <code>Name</code> <code>DateTime</code> <code>Complete</code> 前两列和最后一列为固定列，中间各列进行水平滚动",
-    "P5": "固定表头与列",
-    "P6": "设置 <code>Height=200</code> 固定表头，设置 <code>Fixed</code> 对列进行固定",
-    "P7": "固定按钮操作列",
-    "P8": "设置 <code>FixedExtendButtonsColumn</code> 对操作列进行固定",
-    "P9": "固定表头与按钮操作列",
-    "P10": "设置 <code>Height=200</code> 固定表头，设置 <code>FixedExtendButtonsColumn</code> 对操作列进行固定"
+    "TablesFixedColumnTitle": "固定列功能",
+    "TablesFixedColumnDescription": "对于列数很多的数据，可以固定前后的列，横向滚动查看其它数据",
+    "TablesFixedColumnNote": "固定列用法请尽可能的设置固定列宽度，未设置时按照 <code>200</code> 默认值设置",
+    "TablesFixedColHeaderTitle": "固定列头与列尾",
+    "TablesFixedColHeaderIntro": "设置 <code>Fixed</code> 属性固定表头",
+    "TablesFixedColHeaderDescription": "本例中设置 <code>Name</code> <code>DateTime</code> <code>Complete</code> 前两列和最后一列为固定列，中间各列进行水平滚动",
+    "TablesFixedColTableHeaderTitle": "固定表头与列",
+    "TablesFixedColTableHeaderIntro": "设置 <code>Height=200</code> 固定表头，设置 <code>Fixed</code> 对列进行固定",
+    "TablesFixedExtendButtonsColumnTtile": "固定按钮操作列",
+    "TablesFixedExtendButtonsColumnIntro": "设置 <code>FixedExtendButtonsColumn</code> 对操作列进行固定",
+    "TablesFixedHeaderAndExtendButtonsColumnTitle": "固定表头与按钮操作列",
+    "TablesFixedHeaderAndExtendButtonsColumnIntro": "设置 <code>Height=200</code> 固定表头，设置 <code>FixedExtendButtonsColumn</code> 对操作列进行固定"
   },
   "BootstrapBlazor.Shared.Samples.Tooltips": {
     "H1": "Tooltip 提示工具条",
