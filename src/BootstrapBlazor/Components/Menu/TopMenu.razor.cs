@@ -37,7 +37,8 @@ public partial class TopMenu
     /// 获得/设置 菜单数据集合
     /// </summary>
     [Parameter]
-    public IEnumerable<MenuItem> Items { get; set; } = Array.Empty<MenuItem>();
+    [NotNull]
+    public IEnumerable<MenuItem>? Items { get; set; }
 
     /// <summary>
     /// 获得/设置 菜单项点击回调委托

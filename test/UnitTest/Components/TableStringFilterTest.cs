@@ -134,4 +134,17 @@ public class TableStringFilterTest : BootstrapBlazorTestBase
         conditions = filter.GetFilterConditions();
         Assert.Empty(conditions);
     }
+
+    [Fact]
+    public void HasFilter_Ok()
+    {
+        var cut = Context.RenderComponent<MockStringFilter>();
+        var filter = cut.Instance;
+        Assert.False(filter.HasFilterTest());
+    }
+
+    private class MockStringFilter : StringFilter
+    {
+        public bool HasFilterTest() => HasFilter;
+    }
 }
