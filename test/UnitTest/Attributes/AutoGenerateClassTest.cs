@@ -150,5 +150,9 @@ public class AutoGenerateClassTest
 
         attrEditor.IsPopover = true;
         Assert.True(attrEditor.IsPopover);
+
+        // 增加 GetDisplay 单元覆盖率
+        attr.Text = null;
+        Assert.Equal(string.Empty, attr.GetDisplayName());
     }
 }
