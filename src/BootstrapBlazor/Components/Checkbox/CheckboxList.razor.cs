@@ -169,8 +169,8 @@ public partial class CheckboxList<TValue>
         var instance = Activator.CreateInstance(typeof(List<>).MakeGenericType(t));
         if (instance != null)
         {
-            var mi = instance.GetType().GetMethod("AddRange");
-            mi?.Invoke(instance, new object[] { Value });
+            var mi = instance.GetType().GetMethod(nameof(List<string>.AddRange))!;
+            mi.Invoke(instance, new object[] { Value });
             list = instance as IEnumerable;
             if (list != null)
             {
