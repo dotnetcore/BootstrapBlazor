@@ -1,20 +1,21 @@
-﻿// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
-// Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
-// Website: https://www.blazor.zone or https://argozhang.github.io/
+﻿@inject IStringLocalizer<Foo> LocalizerFoo
+@inject ICacheManager CacheManager
 
-namespace BootstrapBlazor.Shared.Samples.Table;
+<div>
+    <Table TItem="TreeFoo" IsBordered="true" IsStriped="true" HeaderStyle="@TableHeaderStyle.Light"
+           Items="@TreeItems" IsTree="true" TreeNodeConverter="@TreeNodeConverter" OnTreeExpand="@OnTreeExpand">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.Name" Width="360" />
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Address" />
+            <TableColumn @bind-Field="@context.Count" />
+        </TableColumns>
+    </Table>
+</div>
 
-/// <summary>
-/// 树形数据演示示例代码
-/// </summary>
-public partial class TablesTree
-{
+@code {
     [NotNull]
     private List<TreeFoo>? TreeItems { get; set; }
-
-    [Inject]
-    [NotNull]
-    private IStringLocalizer<Foo>? LocalizerFoo { get; set; }
 
     /// <summary>
     /// OnInitialized 方法
@@ -55,10 +56,6 @@ public partial class TablesTree
         }
     }
 
-    [Inject]
-    [NotNull]
-    private ICacheManager? CacheManager { get; set; }
-
     private Task<IEnumerable<TableTreeNode<TreeFoo>>> OnTreeExpand(TreeFoo foo) => CacheManager.GetOrCreateAsync($"{foo.Id}", async entry =>
     {
         // 模拟从数据库中查询
@@ -67,58 +64,17 @@ public partial class TablesTree
         return TreeFoo.GenerateFoos(LocalizerFoo, 2, foo.Id, foo.Id * 100).Select(i => new TableTreeNode<TreeFoo>(i));
     });
 
-    private static Task<TreeFoo> OnAddAsync() => Task.FromResult(new TreeFoo() { DateTime = DateTime.Now });
-
-    private Task<bool> OnSaveAsync(TreeFoo item, ItemChangedType changedType)
-    {
-        if (changedType == ItemChangedType.Add)
-        {
-            item.Id = TreeItems.Max(i => i.Id) + 1;
-            TreeItems.Add(item);
-        }
-        else
-        {
-            var oldItem = TreeItems.FirstOrDefault(i => i.Id == item.Id);
-            if (oldItem != null)
-            {
-                oldItem.Name = item.Name;
-                oldItem.DateTime = item.DateTime;
-                oldItem.Address = item.Address;
-                oldItem.Count = item.Count;
-            }
-        }
-        return Task.FromResult(true);
-    }
-
-    private Task<bool> OnDeleteAsync(IEnumerable<TreeFoo> items)
-    {
-        TreeItems.RemoveAll(foo => items.Any(i => i.Id == foo.Id));
-        return Task.FromResult(true);
-    }
-
-    private Task<QueryData<TreeFoo>> OnQueryAsync(QueryPageOptions _)
-    {
-        var items = TreeFoo.GenerateFoos(LocalizerFoo, 4);
-
-        // 插入 Id 为 1 的子项
-        items.AddRange(TreeFoo.GenerateFoos(LocalizerFoo, 2, 1, 100));
-
-        // 插入 Id 为 101 的子项
-        items.AddRange(TreeFoo.GenerateFoos(LocalizerFoo, 3, 101, 1010));
-
-        var data = new QueryData<TreeFoo>()
-        {
-            Items = items
-        };
-        return Task.FromResult(data);
-    }
-
+    /// <summary>
+    /// Foo 类为Demo测试用，如有需要请自行下载源码查阅
+    /// Foo class is used for Demo test, please download the source code if necessary
+    /// https://gitee.com/LongbowEnterprise/BootstrapBlazor/blob/main/src/BootstrapBlazor.Shared/Data/Foo.cs
+    /// </summary>
     private class TreeFoo : Foo
     {
         public int ParentId { get; set; }
 
         /// <summary>
-        /// 
+        /// GenerateFoos
         /// </summary>
         /// <returns></returns>
         public static List<TreeFoo> GenerateFoos(IStringLocalizer<Foo> localizer, int count = 80, int parentId = 0, int id = 0) => Enumerable.Range(1, count).Select(i => new TreeFoo()
