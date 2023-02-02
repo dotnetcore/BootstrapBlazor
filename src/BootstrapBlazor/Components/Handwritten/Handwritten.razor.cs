@@ -93,11 +93,8 @@ public partial class Handwritten : IDisposable
     {
         if (disposing)
         {
-            if (Interop != null)
-            {
-                Interop?.Dispose();
-                Interop = null;
-            }
+            Interop?.Dispose();
+            Interop = null;
         }
     }
 
