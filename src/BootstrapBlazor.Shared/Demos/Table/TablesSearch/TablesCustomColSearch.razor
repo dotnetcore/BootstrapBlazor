@@ -1,53 +1,42 @@
-﻿// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
-// Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
-// Website: https://www.blazor.zone or https://argozhang.github.io/
+﻿@inject IStringLocalizer<TablesCustomColSearch> Localizer
+@inject IStringLocalizer<Foo> FooLocalizer
 
-namespace BootstrapBlazor.Shared.Samples.Table;
+<div>
+    <Table TItem="Foo"
+           IsPagination="true" PageItemsSource="@PageItemsSource"
+           IsStriped="true" IsBordered="true" SearchModel="@SearchModel" ShowSearch="true" ShowSearchText="false"
+           ShowToolbar="true" IsMultipleSelect="true" ShowExtendButtons="true" SearchDialogIsDraggable="true"
+           AddModalTitle="@Localizer["AddModelTitle"]" EditModalTitle="@Localizer["EditModelTitle"]" SearchDialogShowMaximizeButton="true"
+           OnQueryAsync="@OnQueryAsync" OnAddAsync="@OnAddAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" Filterable="true" />
+            <TableColumn @bind-Field="@context.Name" Searchable="true">
+                <SearchTemplate Context="model">
+                    <div class="col-12 col-sm-6">
+                        <Select Items="SearchItems" @bind-Value="@model!.Name" ShowLabel="true" DisplayText="姓名" ></Select>
+                    </div>
+                </SearchTemplate>
+            </TableColumn>
+            <TableColumn @bind-Field="@context.Address" Searchable="true" />
+            <TableColumn @bind-Field="@context.Education" />
+        </TableColumns>
+    </Table>
+</div>
 
-/// <summary>
-/// Table 组件搜索示例代码
-/// </summary>
-public sealed partial class TablesSearch
-{
-    [Inject]
+@code {
+    /// <summary>
+    /// Foo 类为Demo测试用，如有需要请自行下载源码查阅
+    /// Foo class is used for Demo test, please download the source code if necessary
+    /// https://gitee.com/LongbowEnterprise/BootstrapBlazor/blob/main/src/BootstrapBlazor.Shared/Data/Foo.cs
+    /// </summary>
     [NotNull]
-    private IStringLocalizer<Foo>? Localizer { get; set; }
-
-    [Inject]
-    [NotNull]
-    private IStringLocalizer<TablesSearch>? SearchLocalizer { get; set; }
+    private List<Foo>? Items { get; set; }
 
     private Foo SearchModel { get; set; } = new Foo();
 
     private static IEnumerable<int> PageItemsSource => new int[] { 4, 10, 20 };
 
-    [NotNull]
-    private List<Foo>? Items { get; set; }
-
-    private bool SearchModeFlag
-    {
-        get
-        {
-            return SearchModeValue == SearchMode.Popup;
-        }
-        set
-        {
-            SearchModeValue = value ? SearchMode.Popup : SearchMode.Top;
-        }
-    }
-
-    private bool ShowResetButton { get; set; } = true;
-
-    private bool ShowSearchButton { get; set; } = true;
-
-    private bool ShowSearchText { get; set; }
-
-    private SearchMode SearchModeValue { get; set; }
-
     private IEnumerable<SelectedItem>? SearchItems { get; set; }
-
-    [NotNull]
-    private ITableSearchModel CustomerSearchModel { get; set; } = new FooSearchModel();
 
     /// <summary>
     /// OnInitialized 方法
@@ -56,13 +45,13 @@ public sealed partial class TablesSearch
     {
         base.OnInitialized();
 
-        Items = Foo.GenerateFoo(Localizer);
+        Items = Foo.GenerateFoo(FooLocalizer);
 
         SearchItems = new List<SelectedItem>()
         {
-            new SelectedItem { Text = SearchLocalizer["SelectedItemText"].Value, Value = "" },
-            new SelectedItem { Text = SearchLocalizer["SelectedItemText1"].Value, Value = SearchLocalizer["SelectedItemValue1"].Value },
-            new SelectedItem { Text = SearchLocalizer["SelectedItemText2"].Value, Value = SearchLocalizer["SelectedItemValue2"].Value },
+            new SelectedItem { Text = Localizer["SelectedItemText"].Value, Value = "" },
+            new SelectedItem { Text = Localizer["SelectedItemText1"].Value, Value = Localizer["SelectedItemValue1"].Value },
+            new SelectedItem { Text = Localizer["SelectedItemText2"].Value, Value = Localizer["SelectedItemValue2"].Value },
         };
     }
 
@@ -97,50 +86,6 @@ public sealed partial class TablesSearch
         items.ToList().ForEach(i => Items.Remove(i));
         return Task.FromResult(true);
     }
-
-    private static Task OnResetSearchAsync(Foo item)
-    {
-        item.Name = "";
-        item.Address = "";
-        return Task.CompletedTask;
-    }
-
-    private Task<QueryData<Foo>> OnSearchModelQueryAsync(QueryPageOptions options)
-    {
-        // 自定义了 SearchModel
-        IEnumerable<Foo> items = Items;
-
-        if (!string.IsNullOrEmpty(options.SearchText))
-        {
-            items = items.Where(i => (i.Name?.Contains(options.SearchText, StringComparison.OrdinalIgnoreCase) ?? false)
-                || (i.Address?.Contains(options.SearchText, StringComparison.OrdinalIgnoreCase) ?? false));
-        }
-        else if (!string.IsNullOrEmpty(SearchModel.Name))
-        {
-            items = items.Where(i => i.Name == SearchModel.Name);
-        }
-        else if (!string.IsNullOrEmpty(SearchModel.Address))
-        {
-            items = items.Where(i => i.Address == SearchModel.Address);
-        }
-
-        // 设置记录总数
-        var total = items.Count();
-
-        // 内存分页
-        items = items.Skip((options.PageIndex - 1) * options.PageItems).Take(options.PageItems).ToList();
-
-        return Task.FromResult(new QueryData<Foo>()
-        {
-            Items = items,
-            TotalCount = total,
-            IsSorted = true,
-            IsFiltered = true,
-            IsSearch = true,
-            IsAdvanceSearch = true
-        });
-    }
-
 
     private Task<QueryData<Foo>> OnQueryAsync(QueryPageOptions options)
     {
