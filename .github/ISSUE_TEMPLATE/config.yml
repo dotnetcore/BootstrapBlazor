@@ -1,9 +1,9 @@
 blank_issues_enabled: true
 
 contact_links:
-  - name: Discussions 🗨️
+  - name: 🗨️ Discussions
     url: https://github.com/dotnetcore/BootstrapBlazor/discussions
     about: Please post any questions during use here
-  - name: Quick start 🚀
+  - name: 🚀 Quick start
     url: https://github.com/dotnetcore/BootstrapBlazor/discussions/categories/quick-start
     about: About BootstrapBlazor quick start please visit here
