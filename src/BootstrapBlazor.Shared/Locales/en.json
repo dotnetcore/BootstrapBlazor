@@ -5576,29 +5576,35 @@
     "TableLookupNormalTips3": "In this example, the <code>ILookupService</code> service is used for unified processing, and the <code>Lookup</code> data collection is obtained from the service by setting the <code>LookupServiceKey</code> value"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesRow": {
-    "Title": "Table Row",
-    "Desc": "Used to display multiple pieces of data with similar structures, data can be sorted, filtered, compared or other custom operations.",
+    "TablesRowTitle": "Table Row",
+    "TablesRowDesc": "Used to display multiple pieces of data with similar structures, data can be sorted, filtered, compared or other custom operations.",
     "RowNubmerTitle": "Show row numbers",
     "RowNubmerIntro": "By setting the <code>ShowLineNo</code> property to <code>true</code>, the table displays the row number, the default value is <code>false</code>",
     "RowNumberP": "Set the <code>LineNoText</code> property value to set the line number column header display text, the default is <code>line number</code>",
-    "RowNumberText": "Number",
     "ClickToSelectTitle": "Click the cell to select the entire row effect",
     "ClickToSelectIntro": "By setting the <code>ClickToSelect</code> property value, you can click any cell to select the entire row, and the selected row style is set to <code>active</code>",
     "ClickToSelectP": "You can set the <code>OnClickRowCallback</code> callback delegate method to handle the clicked row accordingly. After clicking any row in the table, the <code>Name</code> value of the bound data of the selected row will be displayed below",
     "ClickToSelectP2": "Note: UI rendering is not performed inside this callback delegate. When UI data update operation is required, please manually and explicitly call the <code>StateHasChanged</code> method",
-    "ClickToSelectP3": "Currently selected row:",
-    "ClickToSelectNoneText": "None",
     "DoubleClickToEditTitle": "DoubleClickToEditTitle",
     "DoubleClickToEditIntro": "By setting the <code>DoubleClickToEdit</code> attribute value, you can double-click any cell to edit the current row. This function is only available if the <code>Edit</code> function is available",
     "DoubleClickToEditP": "The mobile terminal (CardView) mode temporarily does not support double-click to edit the current row function",
     "DoubleClickToEditP1": "The multi-select mode also supports the double-click editing function. If you set the <code>ClickToSelect</code> click selection effect, the double-click editing function will cause the row selection state to be alternately selected. Please set <code>ClickToSelect=false. </code> Disable this feature",
-    "PlaceHolder": "Cannot be empty, within 50 characters",
     "DoubleClickRowCallbackTitle": "Custom row double click event",
     "DoubleClickRowCallbackIntro": "This function is only valid in the <code>Table</code> component single-selection mode. By setting the <code>DoubleClickRowCallback</code> attribute value, you can double-click any cell to customize the callback delegate method and realize your own the required function",
     "DoubleClickRowCallbackP": "The mobile terminal (CardView) mode temporarily does not support double-click editing of the current row function",
     "SetRowClassFormatterTitle": "Custom row highlighting",
     "SetRowClassFormatterIntro": "By setting the <code>SetRowClassFormatter</code> attribute value, you can set the row style through the row data logic, and realize the function of your own highlighting requirements",
     "SetRowClassFormatterP": "In this example, the <code>SetRowClassFormatter</code> method will highlight the row by judging the <code>Count > 60</code> of the bound data"
+  },
+  "BootstrapBlazor.Shared.Demos.Table.TablesRow.TablesRowNubmer": {
+    "RowNumberText": "Number"
+  },
+  "BootstrapBlazor.Shared.Demos.Table.TablesRow.TablesRowClickToSelect": {
+    "ClickToSelectP3": "Currently selected row:",
+    "ClickToSelectNoneText": "None"
+  },
+  "BootstrapBlazor.Shared.Demos.Table.TablesRow.TablesRowDoubleClickToEdit": {
+    "PlaceHolder": "Cannot be empty, within 50 characters"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesDynamic": {
     "TablesDynamicTitle": "Table Dynamic",
