@@ -98,6 +98,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "config", "config", "{8AB9DB
 		.gitattributes = .gitattributes
 		.gitignore = .gitignore
 		.issuetracker = .issuetracker
+		.github\bb-auto-config.yml = .github\bb-auto-config.yml
 		Directory.Build.props = Directory.Build.props
 		Framework.props = Framework.props
 		src\Frameworks.props = src\Frameworks.props
