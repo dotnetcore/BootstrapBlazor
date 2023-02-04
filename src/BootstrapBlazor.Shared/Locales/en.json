@@ -4969,15 +4969,12 @@
     "TF15": "Great-great-grandson menu three"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesDetailRow": {
-    "DetailTextTrue": "Enable",
-    "DetailTextFalse": "Disable",
-    "Title": "Display detail line function",
-    "Desc": "Used to display parent-child relationship table data",
+    "TablesDetailRowTitle": "Display detail line function",
+    "TablesDetailRowDesc": "Used to display parent-child relationship table data",
     "DetailRowTemplateTitle": "Simple Application",
     "DetailRowTemplateIntro": "Set the detail row content by setting the <code>DetailRowTemplate</code> template",
     "DetailRowTemplateP": "In the detail row, another field <code>education</code> of the binding row is displayed in the form of ordinary text",
     "DetailRowTemplateP1": "Through the <code>IsDetails</code> parameter, it is possible to dynamically switch whether to display the detail row function",
-    "EducationText": "Education:",
     "DetailRowTemplate2Title": "Nested Table Component Application",
     "DetailRowTemplate2Intro": "Set the detail behavior sub-table data by setting the <code>DetailRowTemplate</code> template",
     "DetailRowTemplate2P": "Another <code>Table</code> component is nested in the detail row. Since each row must be associated with sub-table data, for performance reasons, this function adopts the <code>lazy loading</code> mode. , that is, after clicking the expand button, the nested <code>Table</code> is filled with data, and the <code>ShowDetailRow</code> callback delegate can control whether each row displays the detail row. In this example, the <code> Complete</code> attribute to control whether to display the detail line, you can test this function by turning the page",
@@ -4987,9 +4984,20 @@
     "DetailRowTemplate3Title": "Use Tab component in detail row",
     "DetailRowTemplate3Intro": "Set the detail row content by setting the <code>DetailRowTemplate</code> template",
     "DetailRowTemplate3P": "In this example, the <code>Tab</code> component is used in the detail row to split the data into two <code>TabItem</code> contents again to demonstrate the data splitting again",
-    "TabItemText": "Associated Data",
     "DynamicTitle": "Detail row of dynamic data",
     "DynamicIntro": "Data source is <code>DataTable</code>"
+  },
+  "BootstrapBlazor.Shared.Demos.Table.TablesDetailRow.TablesDetailRowIsDetails": {
+    "EducationText": "Education:",
+    "DetailTextTrue": "Enable",
+    "DetailTextFalse": "Disable"
+  },
+  "BootstrapBlazor.Shared.Demos.Table.TablesDetailRow.TablesDetailRowHeight": {
+    "EducationText": "Education:"
+  },
+  "BootstrapBlazor.Shared.Demos.Table.TablesDetailRow.TablesDetailRowTemplate": {
+    "TabItemText": "Associated Data",
+    "EducationText": "Education:"
   },
   "BootstrapBlazor.Shared.Samples.Table.Tables": {
     "ButtonAddColumnText": "Add Column",

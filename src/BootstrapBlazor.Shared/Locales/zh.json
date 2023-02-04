@@ -5003,15 +5003,12 @@
     "TablesFooterTemplateTotal": "合计："
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesDetailRow": {
-    "DetailTextTrue": "关闭明细行",
-    "DetailTextFalse": "开启明细行",
-    "Title": "显示明细行功能",
-    "Desc": "用于展示父子关系表数据",
+    "TablesDetailRowTitle": "显示明细行功能",
+    "TablesDetailRowDesc": "用于展示父子关系表数据",
     "DetailRowTemplateTitle": "简单应用",
     "DetailRowTemplateIntro": "通过设置 <code>DetailRowTemplate</code> 模板设置明细行内容",
     "DetailRowTemplateP": "明细行内显示绑定行的另外一个字段 <code>学历</code> 以普通文字形式呈现。支持双击展开明细行的功能，双击回调仅 <b>PC</b> 端支持，请在<b>PC</b> 端测试。",
     "DetailRowTemplateP1": "通过 <code>IsDetails</code> 参数可以实现动态切换是否显示明细行功能",
-    "EducationText": "学历:",
     "DetailRowTemplate2Title": "嵌套 Table 组件应用",
     "DetailRowTemplate2Intro": "通过设置 <code>DetailRowTemplate</code> 模板设置明细行为子表数据",
     "DetailRowTemplate2P": "明细行内嵌套另外一个 <code>Table</code> 组件，由于每行都要关联子表数据，出于性能的考虑，此功能采用 <code>懒加载</code> 模式，即点击展开按钮后，再对嵌套 <code>Table</code> 进行数据填充，通过 <code>ShowDetailRow</code> 回调委托可以控制每一行是否显示明细行，本例中通过 <code>Complete</code> 属性来控制是否显示明细行，可通过翻页来测试本功能",
@@ -5021,9 +5018,20 @@
     "DetailRowTemplate3Title": "明细行中使用 Tab 组件",
     "DetailRowTemplate3Intro": "通过设置 <code>DetailRowTemplate</code> 模板设置明细行内容",
     "DetailRowTemplate3P": "本例中明细行内使用 <code>Tab</code> 组件再次将数据分割成两个 <code>TabItem</code> 内容，进行再次数据拆分演示",
-    "TabItemText": "关联数据",
     "DynamicTitle": "动态数据明细行",
     "DynamicIntro": "数据源为 <code>DataTable</code>"
+  },
+  "BootstrapBlazor.Shared.Demos.Table.TablesDetailRow.TablesDetailRowIsDetails": {
+    "EducationText": "学历:",
+    "DetailTextTrue": "关闭明细行",
+    "DetailTextFalse": "开启明细行"
+  },
+  "BootstrapBlazor.Shared.Demos.Table.TablesDetailRow.TablesDetailRowHeight": {
+    "EducationText": "学历:"
+  },
+  "BootstrapBlazor.Shared.Demos.Table.TablesDetailRow.TablesDetailRowTemplate": {
+    "TabItemText": "关联数据",
+    "EducationText": "学历:"
   },
   "BootstrapBlazor.Shared.Samples.Table.Tables": {
     "ButtonAddColumnText": "增加列",
