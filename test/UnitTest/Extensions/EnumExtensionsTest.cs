@@ -25,6 +25,9 @@ public class EnumExtensionsTest : BootstrapBlazorTestBase
         type = typeof(EnumEducation);
         actual = type.ToDescriptionString(null);
         Assert.Equal("", actual);
+
+        actual = type.ToDescriptionString("Test");
+        Assert.Equal("Test", actual);
     }
 
     [Fact]
