@@ -5743,9 +5743,9 @@
     "SetFilterInCodeButtonText2": "重置条件"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesFixedHeader": {
-    "Title": "固定表头功能",
-    "Desc": "滚动数据时表头固定方便查看各列表头信息",
-    "DescP": " 本组件固定表头做法采用的是 <code>双表头</code> 做法，常见问题时出现列不对齐的问题，根据自己实际情况请自行添加部分样式,<br />,固定表头用法请尽可能的设置每列宽度，以避免列宽不对齐的问题",
+    "TablesFixedHeaderTitle": "固定表头功能",
+    "TablesFixedHeaderDesc": "滚动数据时表头固定方便查看各列表头信息",
+    "TablesFixedHeaderDescP": " 本组件固定表头做法采用的是 <code>双表头</code> 做法，常见问题时出现列不对齐的问题，根据自己实际情况请自行添加部分样式,<br />,固定表头用法请尽可能的设置每列宽度，以避免列宽不对齐的问题",
     "FixedHeaderTitle": "宽度自适应",
     "FixedHeaderIntro": "设置 <code>Height=200</code> 固定表头",
     "FixedHeaderP": "数据比较多加载后即出现纵向滚动条示例",
@@ -5759,10 +5759,12 @@
     "AutoHeightTitle": "自适应高度",
     "AutoHeightIntro": "不设置 <code>Height</code> 值通过父容器自适应高度",
     "AutoHeightP": "本例中 <code>Table</code> 表格组件由于可能未知高度，所以无法设置高度，父级容器可能通过样式得到高度，此时 <code>Table</code> 组件会尝试使用自适应填充满高度，实战中这种应用场景是最多的，本例模拟父级高度为 <code>300px</code>",
-    "DialogTitle": "弹窗内使用",
     "DialogIntro": "<code>Table</code> 组件在弹窗 <code>Dialog</code> 内使用",
     "DialogDesc": "<p>在弹窗中使用固定表头的 <code>Table</code> 注意事项：</p><div>弹窗要给 <code>DialogOption</code> 的 <code>Class</code> 参数赋值，本例中设置为 <code>dialog-table</code>，这个操作是为了让我们自定义样式能够定位到弹窗中 <code>Table</code> 组件的父容器 <code>modal-body</code> 并设置其高度，这里可以使用自适应高度的写法 <code>height: calc(100vh - 200px);</code>；当 <code>Table</code> 组件的父级容器有高度后，组件自己就会通过计算进行自适应高度适配了</div>",
-    "DialogButtonText": "弹窗"
+  },
+  "BootstrapBlazor.Shared.Demos.Table.TablesFixedHeader.TablesFixedHeaderDialog": {
+    "DialogButtonText": "弹窗",
+    "DialogTitle": "弹窗内使用"
   },
   "BootstrapBlazor.Shared.Pages.Introduction": {
     "Title": "简介",
