@@ -618,7 +618,7 @@ public partial class Tab : IHandlerException, IDisposable
         item.SetActive(true);
     }
 
-    private RenderFragment? RenderTabItemContent(TabItem item) => builder =>
+    private RenderFragment RenderTabItemContent(TabItem item) => builder =>
     {
         if (item.IsActive)
         {
