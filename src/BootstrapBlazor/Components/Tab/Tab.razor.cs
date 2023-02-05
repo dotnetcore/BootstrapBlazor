@@ -397,7 +397,7 @@ public partial class Tab : IHandlerException, IDisposable
     public async Task CloseCurrentTab()
     {
         var tab = _items.FirstOrDefault(t => t.IsActive);
-        if (tab != null && tab.Closable)
+        if (tab is { Closable: true })
         {
             await RemoveTab(tab);
         }
