@@ -559,22 +559,11 @@ public partial class Tab : IHandlerException, IDisposable
 
         var index = _items.IndexOf(item);
         _items.Remove(item);
-        
-        var activeItem = _items.FirstOrDefault(i => i.IsActive);
-        if (activeItem == null)
-        {
-            // 删除的 TabItem 是当前 Tab
-            if (index < _items.Count)
-            {
-                // 查找后面的 Tab
-                activeItem = _items[index];
-            }
-            else
-            {
-                // 查找前面的 Tab
-                activeItem = _items.LastOrDefault();
-            }
-        }
+
+        // 删除的 TabItem 是当前 Tab
+        // 查找后面的 Tab
+        var activeItem = _items.FirstOrDefault(i => i.IsActive)
+                         ?? (index < _items.Count ? _items[index] : _items.LastOrDefault());
         if (activeItem != null)
         {
             if (ClickTabToNavigation)
