@@ -627,7 +627,7 @@ public partial class Tab : IHandlerException, IDisposable
             _errorContent = null;
             if (IsLazyLoadTabItem)
             {
-                LazyTabCache.AddOrUpdate(item, key => true, (_, _) => true);
+                LazyTabCache.AddOrUpdate(item, _ => true, (_, _) => true);
             }
         }
         else if (!IsLazyLoadTabItem || item.AlwaysLoad || LazyTabCache.TryGetValue(item, out var init) && init)
