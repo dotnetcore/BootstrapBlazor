@@ -414,7 +414,7 @@ public partial class Tab : IHandlerException, IDisposable
         StateHasChanged();
     }
 
-    private void OnClickCloseOtherTabs() => _items.RemoveAll(t => t.Closable && !t.IsActive);
+    private void OnClickCloseOtherTabs() => _items.RemoveAll(t => t is { Closable: true, IsActive: false });
 
     /// <summary>
     /// 关闭其他标签页方法
