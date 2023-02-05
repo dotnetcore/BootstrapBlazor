@@ -76,7 +76,7 @@ public partial class Tab : IHandlerException, IDisposable
     public bool IsOnlyRenderActiveTab { get; set; }
 
     /// <summary>
-    /// 获得/设置 懒加载 Tabitem, 首次不渲染
+    /// 获得/设置 懒加载 TabItem, 首次不渲染
     /// </summary>
     [Parameter]
     public bool IsLazyLoadTabItem { get; set; }
