@@ -129,11 +129,9 @@ public static class ObjectExtensions
                 methodInfo = methodInfo.MakeGenericMethod(type);
                 var v = Activator.CreateInstance(type);
                 var args = new object?[] { source, v };
-                if (methodInfo.Invoke(null, args) is bool b)
-                {
-                    val = b ? args[1] : null;
-                    ret = b;
-                }
+                var b = (bool)methodInfo.Invoke(null, args)!;
+                val = b ? args[1] : null;
+                ret = b;
             }
         }
         return ret;

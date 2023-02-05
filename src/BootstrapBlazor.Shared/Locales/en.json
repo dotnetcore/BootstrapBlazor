@@ -4969,15 +4969,12 @@
     "TF15": "Great-great-grandson menu three"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesDetailRow": {
-    "DetailTextTrue": "Enable",
-    "DetailTextFalse": "Disable",
-    "Title": "Display detail line function",
-    "Desc": "Used to display parent-child relationship table data",
+    "TablesDetailRowTitle": "Display detail line function",
+    "TablesDetailRowDesc": "Used to display parent-child relationship table data",
     "DetailRowTemplateTitle": "Simple Application",
     "DetailRowTemplateIntro": "Set the detail row content by setting the <code>DetailRowTemplate</code> template",
     "DetailRowTemplateP": "In the detail row, another field <code>education</code> of the binding row is displayed in the form of ordinary text",
     "DetailRowTemplateP1": "Through the <code>IsDetails</code> parameter, it is possible to dynamically switch whether to display the detail row function",
-    "EducationText": "Education:",
     "DetailRowTemplate2Title": "Nested Table Component Application",
     "DetailRowTemplate2Intro": "Set the detail behavior sub-table data by setting the <code>DetailRowTemplate</code> template",
     "DetailRowTemplate2P": "Another <code>Table</code> component is nested in the detail row. Since each row must be associated with sub-table data, for performance reasons, this function adopts the <code>lazy loading</code> mode. , that is, after clicking the expand button, the nested <code>Table</code> is filled with data, and the <code>ShowDetailRow</code> callback delegate can control whether each row displays the detail row. In this example, the <code> Complete</code> attribute to control whether to display the detail line, you can test this function by turning the page",
@@ -4987,9 +4984,20 @@
     "DetailRowTemplate3Title": "Use Tab component in detail row",
     "DetailRowTemplate3Intro": "Set the detail row content by setting the <code>DetailRowTemplate</code> template",
     "DetailRowTemplate3P": "In this example, the <code>Tab</code> component is used in the detail row to split the data into two <code>TabItem</code> contents again to demonstrate the data splitting again",
-    "TabItemText": "Associated Data",
     "DynamicTitle": "Detail row of dynamic data",
     "DynamicIntro": "Data source is <code>DataTable</code>"
+  },
+  "BootstrapBlazor.Shared.Demos.Table.TablesDetailRow.TablesDetailRowIsDetails": {
+    "EducationText": "Education:",
+    "DetailTextTrue": "Enable",
+    "DetailTextFalse": "Disable"
+  },
+  "BootstrapBlazor.Shared.Demos.Table.TablesDetailRow.TablesDetailRowHeight": {
+    "EducationText": "Education:"
+  },
+  "BootstrapBlazor.Shared.Demos.Table.TablesDetailRow.TablesDetailRowTemplate": {
+    "TabItemText": "Associated Data",
+    "EducationText": "Education:"
   },
   "BootstrapBlazor.Shared.Samples.Table.Tables": {
     "ButtonAddColumnText": "Add Column",
@@ -5719,9 +5727,9 @@
     "SetFilterInCodeButtonText2": "Reset All Filter"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesFixedHeader": {
-    "Title": "Fixed header function",
-    "Desc": "When scrolling data, the header is fixed to facilitate viewing the header information of each column",
-    "DescP": " The fixed header of this component adopts the <code>double header</code> method. When there is a common problem, the column is not aligned. Please add some styles according to your actual situation.<br /> ,Please set the width of each column as much as possible to avoid the problem of misalignment of column width",
+    "TablesFixedHeaderTitle": "Fixed header function",
+    "TablesFixedHeaderDesc": "When scrolling data, the header is fixed to facilitate viewing the header information of each column",
+    "TablesFixedHeaderDescP": " The fixed header of this component adopts the <code>double header</code> method. When there is a common problem, the column is not aligned. Please add some styles according to your actual situation.<br /> ,Please set the width of each column as much as possible to avoid the problem of misalignment of column width",
     "FixedHeaderTitle": "Width adaptive",
     "FixedHeaderIntro": "Set <code>Height=200</code> fixed header",
     "FixedHeaderP": "Example of vertical scroll bar after more data is loaded",
@@ -5735,10 +5743,12 @@
     "AutoHeightTitle": "Automatic Height",
     "AutoHeightIntro": "Do not set the <code>Height</code> value to adapt the height through the parent container",
     "AutoHeightP": "In this example, the <code>Table</code> table component cannot set the height because the height may not be known. The parent container may get the height through the style. At this time, the <code>Table</code> component will try to Use adaptive fill to fill the height, this application scenario is the most in actual combat, in this example, the simulated parent height is <code>300px</code>",
-    "DialogTitle": "In Dialog",
     "DialogIntro": "<code>Table</code> inside <code>Dialog</code>",
     "DialogDesc": "<p>Tips for using the<code>Table</code> with a fixed header in the <code>Dialog</code>:</p><div>The <code>Dialog</code> should assign values to the<code>Class</code> parameter of <code>DialogOption</code>. In this example, it is set to<code>dialog-table</code>. This operation is to enable us to customize the style to locate the<code>Table</code> component's parent container in the <code>Dialog</code> and set its height, Here you can use the writing method of adaptive height <code>height: calc (100vh - 200px);</code>; When the parent container of a <code>Table</code>component has a height, the component itself will perform adaptive height adaptation through calculation</div>",
-    "DialogButtonText": "Dialog"
+  },
+  "BootstrapBlazor.Shared.Demos.Table.TablesFixedHeader.TablesFixedHeaderDialog": {
+    "DialogButtonText": "Dialog",
+    "DialogTitle": "In Dialog"
   },
   "BootstrapBlazor.Shared.Pages.Introduction": {
     "Title": "Introduction",
