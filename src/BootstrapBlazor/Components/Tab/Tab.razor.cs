@@ -538,7 +538,6 @@ public partial class Tab : IHandlerException, IDisposable
         {
             _items.Add(item);
         }
-
     }
 
     /// <summary>
@@ -664,7 +663,6 @@ public partial class Tab : IHandlerException, IDisposable
     /// <summary>
     /// Dispose 方法
     /// </summary>
-    /// <exception cref="NotImplementedException"></exception>
     public void Dispose()
     {
         Dispose(true);
