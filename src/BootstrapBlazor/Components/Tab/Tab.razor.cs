@@ -546,12 +546,7 @@ public partial class Tab : IHandlerException, IDisposable
     /// <param name="item"></param>
     public async Task RemoveTab(TabItem item)
     {
-        var close = true;
-        if (OnCloseTabItemAsync != null)
-        {
-            close = await OnCloseTabItemAsync(item);
-        }
-        if (!close)
+        if (OnCloseTabItemAsync != null && !await OnCloseTabItemAsync(item))
         {
             return;
         }
