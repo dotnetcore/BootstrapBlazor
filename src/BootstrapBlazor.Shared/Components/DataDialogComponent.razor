@@ -16,10 +16,7 @@
             </FieldItems>
         </EditorForm>
         <div class="form-footer mt-3">
-            <button type="button" class="btn btn-secondary" @onclick="@(e => OnClose?.Invoke())">
-                <i class="fa-solid fa-xmark"></i>
-                <span>关闭</span>
-            </button>
+            <DialogCloseButton />
             <Button Color="Color.Primary" ButtonType="ButtonType.Submit" Icon="fa-solid fa-floppy-disk" Text="保存" />
         </div>
     </ValidateForm>
@@ -30,11 +27,12 @@
     [NotNull]
     private IStringLocalizer<Foo>? Localizer { get; set; }
 
-    [Parameter]
-    public Action? OnClose { get; set; }
-
     [CascadingParameter(Name = "BodyContext")]
     private object? DataPrimaryId { get; set; }
+
+    [CascadingParameter]
+    [NotNull]
+    private Modal? Dialog { get; set; }
 
     private Foo? Model { get; set; }
 
@@ -65,16 +63,15 @@
         }
     }
 
-    private Task OnValidSubmit(EditContext model)
+    private async Task OnValidSubmit(EditContext model)
     {
         // do someting like save model into db
-        OnClose?.Invoke();
 
-        Toast?.Show(new ToastOption()
-        {
-            Title = "保存数据",
-            Content = "保存成功，4 秒后自动关闭"
-        });
-        return Task.CompletedTask;
+        // 关闭弹窗
+        // close Dialog
+        await Dialog.Close();
+
+        // 显示 Toast 提示弹窗
+        await Toast.Show(new ToastOption() { Title = "保存数据", Content = "保存成功，4 秒后自动关闭" });
     }
 }
