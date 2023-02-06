@@ -63,23 +63,22 @@ public sealed partial class TabLink
 
     private RenderFragment RenderChildContent() => builder =>
     {
-        var index = 0;
         if (ChildContent == null)
         {
             if (!string.IsNullOrEmpty(Icon))
             {
-                builder.OpenElement(index++, "i");
-                builder.AddAttribute(index++, "class", Icon);
+                builder.OpenElement(0, "i");
+                builder.AddAttribute(1, "class", Icon);
                 builder.CloseElement();
             }
             if (!string.IsNullOrEmpty(Text))
             {
-                builder.AddContent(index++, Text);
+                builder.AddContent(2, Text);
             }
         }
         else
         {
-            builder.AddContent(index++, ChildContent);
+            builder.AddContent(3, ChildContent);
         }
     };
 }

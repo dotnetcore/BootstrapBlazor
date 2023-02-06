@@ -76,7 +76,7 @@ public partial class Tab : IHandlerException, IDisposable
     public bool IsOnlyRenderActiveTab { get; set; }
 
     /// <summary>
-    /// 获得/设置 懒加载 Tabitem, 首次不渲染
+    /// 获得/设置 懒加载 TabItem, 首次不渲染
     /// </summary>
     [Parameter]
     public bool IsLazyLoadTabItem { get; set; }
@@ -102,8 +102,9 @@ public partial class Tab : IHandlerException, IDisposable
     /// <summary>
     /// 关闭标签页回调方法
     /// </summary>
+    /// <remarks>返回 false 时不关 <see cref="TabItem"/> 标签页</remarks>
     [Parameter]
-    public Func<TabItem, Task>? OnCloseTabItemAsync { get; set; }
+    public Func<TabItem, Task<bool>>? OnCloseTabItemAsync { get; set; }
 
     /// <summary>
     /// 获得/设置 是否显示扩展功能按钮 默认为 false 不显示
@@ -397,7 +398,7 @@ public partial class Tab : IHandlerException, IDisposable
     public async Task CloseCurrentTab()
     {
         var tab = _items.FirstOrDefault(t => t.IsActive);
-        if (tab != null && tab.Closable)
+        if (tab is { Closable: true })
         {
             await RemoveTab(tab);
         }
@@ -414,7 +415,7 @@ public partial class Tab : IHandlerException, IDisposable
         StateHasChanged();
     }
 
-    private void OnClickCloseOtherTabs() => _items.RemoveAll(t => t.Closable && !t.IsActive);
+    private void OnClickCloseOtherTabs() => _items.RemoveAll(t => t is { Closable: true, IsActive: false });
 
     /// <summary>
     /// 关闭其他标签页方法
@@ -538,7 +539,6 @@ public partial class Tab : IHandlerException, IDisposable
         {
             _items.Add(item);
         }
-
     }
 
     /// <summary>
@@ -547,27 +547,18 @@ public partial class Tab : IHandlerException, IDisposable
     /// <param name="item"></param>
     public async Task RemoveTab(TabItem item)
     {
+        if (OnCloseTabItemAsync != null && !await OnCloseTabItemAsync(item))
+        {
+            return;
+        }
+
         var index = _items.IndexOf(item);
         _items.Remove(item);
-        if (OnCloseTabItemAsync != null)
-        {
-            await OnCloseTabItemAsync(item);
-        }
-        var activeItem = _items.FirstOrDefault(i => i.IsActive);
-        if (activeItem == null)
-        {
-            // 删除的 TabItem 是当前 Tab
-            if (index < _items.Count)
-            {
-                // 查找后面的 Tab
-                activeItem = _items[index];
-            }
-            else
-            {
-                // 查找前面的 Tab
-                activeItem = _items.LastOrDefault();
-            }
-        }
+
+        // 删除的 TabItem 是当前 Tab
+        // 查找后面的 Tab
+        var activeItem = _items.FirstOrDefault(i => i.IsActive)
+                         ?? (index < _items.Count ? _items[index] : _items.LastOrDefault());
         if (activeItem != null)
         {
             if (ClickTabToNavigation)
@@ -623,7 +614,7 @@ public partial class Tab : IHandlerException, IDisposable
         item.SetActive(true);
     }
 
-    private RenderFragment? RenderTabItemContent(TabItem item) => builder =>
+    private RenderFragment RenderTabItemContent(TabItem item) => builder =>
     {
         if (item.IsActive)
         {
@@ -632,7 +623,7 @@ public partial class Tab : IHandlerException, IDisposable
             _errorContent = null;
             if (IsLazyLoadTabItem)
             {
-                LazyTabCache.AddOrUpdate(item, key => true, (_, _) => true);
+                LazyTabCache.AddOrUpdate(item, _ => true, (_, _) => true);
             }
         }
         else if (!IsLazyLoadTabItem || item.AlwaysLoad || LazyTabCache.TryGetValue(item, out var init) && init)
@@ -668,7 +659,6 @@ public partial class Tab : IHandlerException, IDisposable
     /// <summary>
     /// Dispose 方法
     /// </summary>
-    /// <exception cref="NotImplementedException"></exception>
     public void Dispose()
     {
         Dispose(true);
