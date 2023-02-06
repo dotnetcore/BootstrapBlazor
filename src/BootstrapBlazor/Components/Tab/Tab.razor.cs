@@ -102,6 +102,7 @@ public partial class Tab : IHandlerException, IDisposable
     /// <summary>
     /// 关闭标签页回调方法
     /// </summary>
+    /// <remarks>返回 false 时不关 <see cref="TabItem"/> 标签页</remarks>
     [Parameter]
     public Func<TabItem, Task<bool>>? OnCloseTabItemAsync { get; set; }
 
