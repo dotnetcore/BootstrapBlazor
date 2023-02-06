@@ -103,7 +103,7 @@ public partial class Tab : IHandlerException, IDisposable
     /// 关闭标签页回调方法
     /// </summary>
     [Parameter]
-    public Func<TabItem, Task>? OnCloseTabItemAsync { get; set; }
+    public Func<TabItem, Task<bool>>? OnCloseTabItemAsync { get; set; }
 
     /// <summary>
     /// 获得/设置 是否显示扩展功能按钮 默认为 false 不显示
@@ -547,12 +547,19 @@ public partial class Tab : IHandlerException, IDisposable
     /// <param name="item"></param>
     public async Task RemoveTab(TabItem item)
     {
-        var index = _items.IndexOf(item);
-        _items.Remove(item);
+        var close = true;
         if (OnCloseTabItemAsync != null)
         {
-            await OnCloseTabItemAsync(item);
+            close = await OnCloseTabItemAsync(item);
         }
+        if (!close)
+        {
+            return;
+        }
+
+        var index = _items.IndexOf(item);
+        _items.Remove(item);
+        
         var activeItem = _items.FirstOrDefault(i => i.IsActive);
         if (activeItem == null)
         {
