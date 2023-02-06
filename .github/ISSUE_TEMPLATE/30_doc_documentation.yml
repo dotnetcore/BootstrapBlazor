@@ -10,3 +10,5 @@ body:
     label: Document describing which component
     description: |
       Detailed description of the document update or sample code that the submission code is about the function of that component
+    value: |
+      Add sample code for {Component}
