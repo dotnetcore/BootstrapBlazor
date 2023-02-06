@@ -86,7 +86,7 @@ public class TabTest : TabTestBase
             pb.Add(a => a.OnCloseTabItemAsync, item =>
             {
                 closedItem = item;
-                return Task.CompletedTask;
+                return Task.FromResult(true);
             });
             pb.Add(a => a.OnClickTab, item =>
             {
@@ -131,6 +131,28 @@ public class TabTest : TabTestBase
         button = cut.Find(".tabs-item-close");
         button.Click();
         Assert.NotNull(closedItem);
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.OnCloseTabItemAsync, item =>
+            {
+                return Task.FromResult(false);
+            });
+        });
+        button = cut.Find(".tabs-item-close");
+        button.Click();
+        Assert.Contains("tabs-body-content", cut.Markup);
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.OnCloseTabItemAsync, item =>
+            {
+                return Task.FromResult(true);
+            });
+        });
+        button = cut.Find(".tabs-item-close");
+        button.Click();
+        Assert.DoesNotContain("tabs-body-content", cut.Markup);
     }
 
     [Fact]
