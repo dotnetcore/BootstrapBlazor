@@ -20,10 +20,7 @@ public static class PrintServiceExtensions
     {
         var option = new DialogOption();
         var parameters = parametersFactory(option);
-        if (option.Component == null)
-        {
-            option.Component = BootstrapDynamicComponent.CreateComponent<TComponent>(parameters);
-        }
+        option.Component = BootstrapDynamicComponent.CreateComponent<TComponent>(parameters);
         await service.PrintAsync(option);
     }
 }
