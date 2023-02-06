@@ -27,8 +27,8 @@
         var option = new DialogOption()
         {
             Title = "Close the popup with DialogCloseButton",
+            Component = BootstrapDynamicComponent.CreateComponent<DialogCloseButton>()
         };
-        option.BodyTemplate = BootstrapDynamicComponent.CreateComponent<DialogCloseButton>().Render();
         await DialogService.Show(option);
     }
 }

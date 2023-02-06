@@ -19,10 +19,7 @@
             ShowFooter = false,
             BodyContext = DataPrimaryId
         };
-        op.BodyTemplate = BootstrapDynamicComponent.CreateComponent<DataDialogComponent>(new Dictionary<string, object?>
-        {
-            [nameof(DataDialogComponent.OnClose)] = new Action(async () => await op.Dialog.Close())
-        }).Render();
+        op.Component = BootstrapDynamicComponent.CreateComponent<DataDialogComponent>();
 
         await DialogService.Show(op);
     }
