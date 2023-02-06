@@ -46,11 +46,6 @@ public static class ServicesExtensions
             };
         });
 
-        services.Configure<WebsiteOptions>(options =>
-        {
-            options.RepositoryUrl = "https://www.blazor.zone/api/docs/";
-        });
-
         services.AddLocalization();
         return services;
     }
