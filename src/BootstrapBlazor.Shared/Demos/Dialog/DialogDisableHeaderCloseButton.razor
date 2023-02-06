@@ -12,11 +12,12 @@
             Title = "Header no close button",
             ShowHeaderCloseButton = false
         };
-        option.BodyTemplate = BootstrapDynamicComponent.CreateComponent<Button>(new Dictionary<string, object?>
+        option.Component = BootstrapDynamicComponent.CreateComponent<Button>(new Dictionary<string, object?>
         {
             [nameof(Button.Text)] = "Click to close the popup",
-            [nameof(Button.OnClick)] = EventCallback.Factory.Create<MouseEventArgs>(this, async () => await option.Dialog.Close())
-        }).Render();
+            [nameof(Button.OnClick)] = EventCallback.Factory.Create<MouseEventArgs>(this, () => option.Dialog.Close())
+        });
+
         await DialogService.Show(option);
     }
 }

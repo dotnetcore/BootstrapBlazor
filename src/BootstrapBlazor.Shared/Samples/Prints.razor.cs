@@ -33,10 +33,7 @@ public partial class Prints
             ShowFooter = false,
             BodyContext = 1
         };
-        op.BodyTemplate = BootstrapDynamicComponent.CreateComponent<DataDialogComponent>(new Dictionary<string, object?>
-        {
-            [nameof(DataDialogComponent.OnClose)] = new Action(async () => await op.Dialog.Close())
-        }).Render();
+        op.Component = BootstrapDynamicComponent.CreateComponent<DataDialogComponent>();
 
         await DialogService.Show(op);
     }
@@ -51,9 +48,6 @@ public partial class Prints
         op.BodyContext = 2;
 
         // 弹窗组件所需参数
-        return new Dictionary<string, object?>
-        {
-            [nameof(DataDialogComponent.OnClose)] = new Action(async () => await op.Dialog.Close())
-        };
+        return new Dictionary<string, object?>();
     });
 }

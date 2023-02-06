@@ -14,11 +14,11 @@
         {
             Title = "Close the popup with code",
         };
-        option.BodyTemplate = BootstrapDynamicComponent.CreateComponent<Button>(new Dictionary<string, object?>
+        option.Component = BootstrapDynamicComponent.CreateComponent<Button>(new Dictionary<string, object?>
         {
             [nameof(Button.Text)] = "Click to close the popup",
             [nameof(Button.OnClick)] = EventCallback.Factory.Create<MouseEventArgs>(this, async () => await option.Dialog.Close())
-        }).Render();
+        });
         await DialogService.Show(option);
     }
 
@@ -27,8 +27,8 @@
         var option = new DialogOption()
         {
             Title = "Close the popup with DialogCloseButton",
+            Component = BootstrapDynamicComponent.CreateComponent<DialogCloseButton>()
         };
-        option.BodyTemplate = BootstrapDynamicComponent.CreateComponent<DialogCloseButton>().Render();
         await DialogService.Show(option);
     }
 }
