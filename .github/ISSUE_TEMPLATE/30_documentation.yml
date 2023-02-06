@@ -1,4 +1,4 @@
-name: 📖 documentation
+name: 📖 Documentation
 description: Add or update the project document or sample code
 title: "doc: <title>"
 labels: [documentation]
