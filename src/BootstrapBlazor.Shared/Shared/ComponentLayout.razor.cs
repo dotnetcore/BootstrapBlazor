@@ -108,10 +108,12 @@ public sealed partial class ComponentLayout
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         await base.OnAfterRenderAsync(firstRender);
-
-        if (firstRender)
+        if(AnySourceCodes)
         {
-            TabSet.ActiveTab(TabSet.Items.First());
+            if (firstRender)
+            {
+                TabSet.ActiveTab(TabSet.Items.First());
+            }
         }
     }
 
