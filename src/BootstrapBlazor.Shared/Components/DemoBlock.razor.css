@@ -72,13 +72,13 @@
     }
 
         .card-footer-control .card-text:before {
-            content: "Hide";
+            content: "Hide Code";
             opacity: 0;
             transition: opacity .3s linear;
         }
 
     .card-footer-control.collapsed .card-text:before {
-        content: "Show";
+        content: "Show Code";
     }
 
 .demo-block > ::deep .anchor-link {
