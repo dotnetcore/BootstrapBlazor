@@ -31,7 +31,16 @@
         <Pre @key="@RazorFileName" CodeFile="@RazorFileName"></Pre>
     </TabItem>
     <TabItem Text="C#" Icon="fa-regular fa-file-code">
-        <Pre @key="@CsharpFileName" CodeFile="@CsharpFileName"></Pre>
+        @if(AnySourceCodes)
+        {
+            <Pre @key="@CsharpFileName" CodeFile="@CsharpFileName"></Pre>
+        }
+        else
+        {
+            @*为了方便后期移除，我这里直接用的双语，没有添加到本地化中。*@
+            <Pre>相关操作示例已改用新的代码块模式,点击Demo下方的show展开源码。<br/>Relevant operation examples have been changed to the new code block mode. Click show under Demo to expand the source code.
+            </Pre>
+        }
     </TabItem>
     <TabItem Text="@Video" Icon="fa-regular fa-file-video">
         <Video @key="@VideoFileName" Name="@VideoFileName"></Video>

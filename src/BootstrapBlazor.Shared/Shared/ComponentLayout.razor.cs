@@ -48,6 +48,11 @@ public sealed partial class ComponentLayout
     private string GVPUrl => $"{WebsiteOption.CurrentValue.BootstrapBlazorLink}/badge/star.svg?theme=gvp";
 
     /// <summary>
+    /// 是否存在源码文件
+    /// </summary>
+    private bool AnySourceCodes { get; set; }
+
+    /// <summary>
     /// OnInitialized 方法
     /// </summary>
     protected override void OnInitialized()
@@ -70,7 +75,9 @@ public sealed partial class ComponentLayout
         var comNameWithHash = page.Split("/").LastOrDefault() ?? string.Empty;
         var comName = comNameWithHash.Split("#").FirstOrDefault() ?? string.Empty;
 
-        if (!string.IsNullOrEmpty(comName) && SiteOptions.CurrentValue.SourceCodes.TryGetValue(comName, out var fileName) && !string.IsNullOrEmpty(fileName))
+        AnySourceCodes = SiteOptions.CurrentValue.SourceCodes.TryGetValue(comName, out var fileName);
+
+        if (!string.IsNullOrEmpty(comName) && AnySourceCodes && !string.IsNullOrEmpty(fileName))
         {
             if (fileName.Contains(';'))
             {
