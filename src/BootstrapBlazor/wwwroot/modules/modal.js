@@ -102,7 +102,7 @@ export class Modal extends BlazorComponent {
                     this._originX = e.clientX || e.touches[0].clientX;
                     this._originY = e.clientY || e.touches[0].clientY;
 
-                    const rect = this._dialog.getBoundingClientRect()
+                    const rect = this._dialog.querySelector('.modal-content').getBoundingClientRect()
                     this._dialogWidth = rect.width
                     this._dialogHeight = rect.height
                     this._pt.top = rect.top
