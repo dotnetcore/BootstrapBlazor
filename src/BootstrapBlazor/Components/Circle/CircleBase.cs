@@ -33,13 +33,6 @@ public abstract class CircleBase : BootstrapModuleComponentBase
         .Build();
 
     /// <summary>
-    /// 获得 进度条百分比样式
-    /// </summary>
-    protected string? TitleClassString => CssBuilder.Default("circle-title")
-        .AddClass("d-none", !ShowProgress)
-        .Build();
-
-    /// <summary>
     /// 获得/设置 Dash 字符串
     /// </summary>
     protected string DashString => $"{CircleLength}, {CircleLength}";
