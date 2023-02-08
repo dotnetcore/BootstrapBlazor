@@ -15,8 +15,8 @@ public partial class Timer
     /// <summary>
     /// 获得 组件样式字符串
     /// </summary>
-    protected override string? ClassString => CssBuilder.Default("circle timer")
-        .AddClassFromAttributes(AdditionalAttributes)
+    protected override string? ClassString => CssBuilder.Default("timer")
+        .AddClass(base.ClassString)
         .Build();
 
     private string? PauseClassString => CssBuilder.Default("btn")
