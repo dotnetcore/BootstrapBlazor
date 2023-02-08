@@ -21,12 +21,6 @@ public sealed partial class Circle
     private string? ValueString => $"{Math.Round(((1 - Value * 1.0 / 100) * CircleLength), 2)}";
 
     /// <summary>
-    /// 获得/设置 是否显示进度百分比 默认显示
-    /// </summary>
-    [Parameter]
-    public bool ShowValue { get; set; } = true;
-
-    /// <summary>
     /// 获得/设置 Title 字符串
     /// </summary>
     private string ValueTitleString => $"{Value}%";
