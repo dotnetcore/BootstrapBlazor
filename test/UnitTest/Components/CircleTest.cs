@@ -52,11 +52,18 @@ public class CircleTest : BootstrapBlazorTestBase
     [Fact]
     public void ShowProgress_Ok()
     {
-        var cut = Context.RenderComponent<Circle>(builder => builder.Add(a => a.ShowProgress, false));
+        var cut = Context.RenderComponent<Circle>(builder =>
+        {
+            builder.Add(a => a.Value, 75);
+            builder.Add(a => a.ShowProgress, true);
+        });
+        cut.Contains("75%");
 
-        var element = cut.Find(".d-none");
-
-        Assert.NotNull(element);
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ShowProgress, false);
+        });
+        cut.DoesNotContain("75%");
     }
 
     [Fact]

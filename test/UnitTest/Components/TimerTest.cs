@@ -71,9 +71,15 @@ public class TimerTest : BootstrapBlazorTestBase
         var cut = Context.RenderComponent<Timer>(pb =>
         {
             pb.Add(a => a.Value, TimeSpan.FromSeconds(5));
+            pb.Add(a => a.ShowProgress, true);
+        });
+        cut.Contains("circle-body");
+
+        cut.SetParametersAndRender(pb =>
+        {
             pb.Add(a => a.ShowProgress, false);
         });
-        Assert.Contains("circle-title d-none", cut.Markup);
+        cut.DoesNotContain("circle-body");
     }
 
     [Fact]
