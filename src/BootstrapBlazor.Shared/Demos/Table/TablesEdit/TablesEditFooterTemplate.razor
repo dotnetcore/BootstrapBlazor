@@ -1,0 +1,50 @@
+﻿@inject IStringLocalizer<Foo> LocalizerFoo
+@inject ToastService ToastService
+
+<div>
+    <Table TItem="Foo" EditDialogShowMaximizeButton="true"
+           IsPagination="true" PageItemsSource="@PageItemsSource" DataService="@CustomerDataService"
+           IsStriped="true" IsBordered="true" IsMultipleSelect="true" AutoGenerateColumns="true"
+           ShowToolbar="true" ShowExtendButtons="true" ShowSkeleton="true">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.Hobby" Items="@Hobbys" />
+        </TableColumns>
+        <EditFooterTemplate Context="model">
+            <Button Text="Popup" Color="Color.Danger" Icon="fa-regular fa-comment-dots" OnClick="() => OnClick(model)"></Button>
+            <DialogCloseButton />
+            <DialogSaveButton Color="Color.Primary" Icon="fa-solid fa-floppy-disk" Text="Save" />
+        </EditFooterTemplate>
+    </Table>
+</div>
+
+@code {
+    private static IEnumerable<int> PageItemsSource => new int[] { 4, 10, 20 };
+
+    [NotNull]
+    private IEnumerable<SelectedItem>? Hobbys { get; set; }
+
+    /// <summary>
+    /// OnInitialized 方法
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        Hobbys = Foo.GenerateHobbys(LocalizerFoo);
+
+        CustomerDataService = new FooDataService<Foo>(LocalizerFoo);
+    }
+
+    [NotNull]
+    private IDataService<Foo>? CustomerDataService { get; set; }
+
+    private class FooDataService<TModel> : TableDemoDataService<TModel> where TModel : class, new()
+    {
+        public FooDataService(IStringLocalizer<TModel> localizer) : base(localizer)
+        {
+
+        }
+    }
+
+    private Task OnClick(Foo foo) => ToastService.Information("Custom button fucntion", $"{foo.Address}");
+}

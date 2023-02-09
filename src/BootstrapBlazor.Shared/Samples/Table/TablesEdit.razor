@@ -1,199 +1,74 @@
 ﻿@page "/tables/edit"
+@inject IStringLocalizer<TablesEdit> Localizer
 
-<h3>@Localizer["H1"]</h3>
-<h4>@((MarkupString)Localizer["H2"].Value)</h4>
+<h3>@Localizer["TablesEditTitle"]</h3>
+<h4>@((MarkupString)Localizer["TablesEditDescription"].Value)</h4>
 
-<DemoBlock Title="@Localizer["P1"]" Introduction="@Localizer["P2"]" Name="ShowSearch">
-    <p>@((MarkupString)Localizer["P3"].Value)</p>
-    <Table TItem="Foo" IsAutoCollapsedToolbarButton="false"
-           IsPagination="true" PageItemsSource="@PageItemsSource"
-           IsStriped="true" IsBordered="true" IsMultipleSelect="true"
-           ShowToolbar="true" ShowExtendButtons="true" ShowSkeleton="true" IsExtendButtonsInRowHeader="true"
-           OnQueryAsync="@OnQueryAsync" OnAddAsync="@OnAddAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync">
-        <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" Width="180" />
-            <TableColumn @bind-Field="@context.Name" />
-            <TableColumn @bind-Field="@context.Address" />
-            <TableColumn @bind-Field="@context.Education" />
-            <TableColumn @bind-Field="@context.Count" Align="Alignment.Right" />
-            <TableColumn @bind-Field="@context.Complete" Align="Alignment.Center" />
-        </TableColumns>
-        <EditTemplate>
-            <div class="row g-3 form-inline">
-                <div class="col-12 col-sm-6">
-                    <BootstrapInput @bind-Value="@context.Name" placeholder="@PlaceHolderString" maxlength="50" />
-                </div>
-                <div class="col-12 col-sm-6">
-                    <BootstrapInput @bind-Value="@context.Address" placeholder="@PlaceHolderString" maxlength="50" />
-                </div>
-                <div class="col-12 col-sm-6">
-                    <DateTimePicker @bind-Value="@context.DateTime" />
-                </div>
-                <div class="col-12 col-sm-6">
-                    <Select @bind-Value="@context.Education" />
-                </div>
-                <div class="col-12 col-sm-6">
-                    <BootstrapInputNumber @bind-Value="@context.Count" ShowButton="true" />
-                </div>
-                <div class="col-12 col-sm-6">
-                    <Switch @bind-Value="@context.Complete" ShowInnerText="true" />
-                </div>
-            </div>
-        </EditTemplate>
-    </Table>
+<DemoBlock Title="@Localizer["TablesEditShowSearchTitle"]"
+           Introduction="@Localizer["TablesEditShowSearchIntro"]"
+           Name="ShowSearch"
+           Demo="typeof(Demos.Table.TablesEdit.TablesEditShowSearch)">
+    <p>@((MarkupString)Localizer["TablesEditShowSearchDescription"].Value)</p>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["P5"]" Introduction="@Localizer["P6"]" Name="OnAddAsync">
-    <p id="anchor2">@((MarkupString)Localizer["P7"].Value)</p>
-    <p>@((MarkupString)Localizer["P8"].Value)</p>
-    <p>@((MarkupString)Localizer["P9"].Value)</p>
-    <p>@((MarkupString)Localizer["P10"].Value)</p>
-    <p>@((MarkupString)Localizer["P11"].Value)</p>
-    <p>@((MarkupString)Localizer["P12"].Value)</p>
-    <p>@((MarkupString)Localizer["P13"].Value)</p>
-    <Table TItem="Foo"
-           IsPagination="true" PageItemsSource="@PageItemsSource"
-           IsStriped="true" IsBordered="true" IsMultipleSelect="true" EditDialogIsDraggable="true"
-           ShowToolbar="true" ShowExtendButtons="true" ShowSkeleton="true" IsExtendButtonsInRowHeader="true"
-           OnQueryAsync="@OnQueryAsync"
-           OnAddAsync="@OnAddAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync">
-        <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" Width="180" />
-            <TableColumn @bind-Field="@context.Name" />
-            <TableColumn @bind-Field="@context.Address" Readonly="true" />
-            <TableColumn @bind-Field="@context.Education" />
-            <TableColumn @bind-Field="@context.Count" Editable="false" />
-            <TableColumn @bind-Field="@context.Complete" />
-        </TableColumns>
-    </Table>
+<DemoBlock Title="@Localizer["TablesEditOnAddAsyncTitle"]"
+           Introduction="@Localizer["TablesEditOnAddAsyncIntro"]"
+           Name="OnAddAsync"
+           Demo="typeof(Demos.Table.TablesEdit.TablesEditOnAddAsync)">
+    <p id="anchor2">@((MarkupString)Localizer["TablesEditOnAddAsyncDescription"].Value)</p>
+    <p>@((MarkupString)Localizer["TablesEditOnAddAsyncTips1"].Value)</p>
+    <p>@((MarkupString)Localizer["TablesEditOnAddAsyncTips2"].Value)</p>
+    <p>@((MarkupString)Localizer["TablesEditOnAddAsyncTips3"].Value)</p>
+    <p>@((MarkupString)Localizer["TablesEditOnAddAsyncTips4"].Value)</p>
+    <p>@((MarkupString)Localizer["TablesEditOnAddAsyncTips5"].Value)</p>
+    <p>@((MarkupString)Localizer["TablesEditOnAddAsyncTips6"].Value)</p>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["P14"]" Introduction="@Localizer["P15"]" Name="EditTemplate">
+<DemoBlock Title="@Localizer["TablesEditTemplateTitle"]"
+           Introduction="@Localizer["TablesEditTemplateIntro"]"
+           Name="EditTemplate"
+           Demo="typeof(Demos.Table.TablesEdit.TablesEditTemplate)">
     <p>
-        <div>@((MarkupString)Localizer["P16"].Value)</div>
-        <div>@((MarkupString)Localizer["P17"].Value)</div>
+        <div>@((MarkupString)Localizer["TablesEditTemplateDescription1"].Value)</div>
+        <div>@((MarkupString)Localizer["TablesEditTemplateTips"].Value)</div>
     </p>
-    <Table TItem="Foo"
-           IsPagination="true" PageItemsSource="@PageItemsSource"
-           IsStriped="true" IsBordered="true" IsMultipleSelect="true" IsExtendButtonsInRowHeader="true"
-           ShowToolbar="true" ShowExtendButtons="true" ShowSkeleton="true"
-           OnQueryAsync="@OnQueryAsync"
-           OnAddAsync="@OnAddAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync">
-        <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" Width="180" />
-            <TableColumn @bind-Field="@context.Name">
-                <EditTemplate Context="value">
-                    <div class="col-12 col-sm-6">
-                        <TablesNameDrop Model="value" />
-                    </div>
-                </EditTemplate>
-            </TableColumn>
-            <TableColumn @bind-Field="@context.Address" Rows="3" />
-            <TableColumn @bind-Field="@context.Count" />
-            <TableColumn @bind-Field="@context.Complete" />
-        </TableColumns>
-    </Table>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["P18"]" Introduction="@Localizer["P19"]" Name="EditMode">
-    <p id="anchor4">@((MarkupString)Localizer["P20"].Value)</p>
-    <p>@((MarkupString)Localizer["P21"].Value)</p>
-    <p>@((MarkupString)Localizer["P22"].Value)</p>
-    <Table TItem="Foo"
-           IsPagination="true" PageItemsSource="@PageItemsSource"
-           IsStriped="true" IsBordered="true" IsMultipleSelect="true"
-           ShowToolbar="true" ShowExtendButtons="true" ShowSkeleton="true"
-           AddModalTitle="@Localizer["P23"]" EditModalTitle="@Localizer["P24"]"
-           OnQueryAsync="@OnQueryAsync" EditMode="EditMode.EditForm"
-           OnAddAsync="@OnAddAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync">
-        <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" Width="180" />
-            <TableColumn @bind-Field="@context.Name" />
-            <TableColumn @bind-Field="@context.Address" />
-            <TableColumn @bind-Field="@context.Education" />
-            <TableColumn @bind-Field="@context.Count" />
-            <TableColumn @bind-Field="@context.Complete" />
-        </TableColumns>
-    </Table>
-
-    <p id="anchor5" class="mt-3">@((MarkupString)Localizer["P25"].Value)</p>
-    <RadioList @bind-Value="InsertMode" class="mb-3" />
-    <Table TItem="Foo"
-           IsPagination="true" PageItemsSource="@PageItemsSource"
-           IsStriped="true" IsBordered="true" IsMultipleSelect="true"
-           ShowToolbar="true" ShowExtendButtons="true" ShowSkeleton="true"
-           AddModalTitle="@Localizer["P23"]" EditModalTitle="@Localizer["P24"]"
-           EditMode="EditMode.InCell" @bind-Items="@BindItems" InsertRowMode="InsertMode">
-        <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" Width="180" />
-            <TableColumn @bind-Field="@context.Name" />
-            <TableColumn @bind-Field="@context.Address" />
-            <TableColumn @bind-Field="@context.Education" />
-            <TableColumn @bind-Field="@context.Count" />
-            <TableColumn @bind-Field="@context.Complete" />
-        </TableColumns>
-    </Table>
+<DemoBlock Title="@Localizer["TablesEditModeTitle"]"
+           Introduction="@Localizer["TablesEditModeIntro"]"
+           Name="EditMode"
+           Demo="typeof(Demos.Table.TablesEdit.TablesEditMode)">
+    <p id="anchor4">@((MarkupString)Localizer["TablesEditModeDescription"].Value)</p>
+    <p>@((MarkupString)Localizer["TablesEditModeTips1"].Value)</p>
+    <p>@((MarkupString)Localizer["TablesEditModeTips2"].Value)</p>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["P26"]" Introduction="@Localizer["P27"]" Name="InjectDataService">
-    <p id="anchor6">
-        @((MarkupString)Localizer["P28"].Value)
-        <ul class="ul-demo mb-3">
-            <li><code>OnAddAsync</code></li>
-            <li><code>OnDeleteAsync</code></li>
-            <li><code>OnSaveAsync</code></li>
-            <li><code>OnQueryAsync</code></li>
-        </ul>
-        <div class="mb-3">@Localizer["P29"] <a href="@DataServiceUrl" target="_blank">@Localizer["P30"]</a></div>
-        <b>@Localizer["P31"]</b>
-        <div class="mt-1">@Localizer["P32"]</div>
-    </p>
-    <Pre class="no-highlight mt-3">services.AddTableDemoDataService();</Pre>
-    <Table TItem="Foo"
-           IsPagination="true" PageItemsSource="@PageItemsSource"
-           IsStriped="true" IsBordered="true" IsMultipleSelect="true" AutoGenerateColumns="true"
-           ShowToolbar="true" ShowExtendButtons="true" ShowSkeleton="true">
-        <TableColumns>
-            <TableColumn @bind-Field="@context.Hobby" Items="@Hobbys" />
-        </TableColumns>
-    </Table>
+<DemoBlock Title="@Localizer["TablesEditInjectDataServiceTitle"]"
+           Introduction="@Localizer["TablesEditInjectDataServiceIntro"]"
+           Name="InjectDataService"
+           Demo="typeof(Demos.Table.TablesEdit.TablesEditInjectDataService)">
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["P33"]" Introduction="@Localizer["P34"]" Name="DataService">
+<DemoBlock Title="@Localizer["TablesEditDataServiceTitle"]"
+           Introduction="@Localizer["TablesEditDataServiceIntro"]"
+           Name="DataService"
+           Demo="typeof(Demos.Table.TablesEdit.TablesEditDataService)">
     <p id="anchor7">
-        <b>@Localizer["P35"]</b>
-        <div class="mt-1">@((MarkupString)Localizer["P36"].Value)</div>
-        <div class="mt-1">@((MarkupString)Localizer["P37"].Value)</div>
+        <b>@Localizer["TablesEditDataServiceDescription"]</b>
+        <div class="mt-1">@((MarkupString)Localizer["TablesEditDataServiceTips1"].Value)</div>
+        <div class="mt-1">@((MarkupString)Localizer["TablesEditDataServiceTips2"].Value)</div>
     </p>
     <Pre class="no-highlight mt-3">services.AddTableDemoDataService();</Pre>
-    <Table TItem="Foo" EditDialogShowMaximizeButton="true"
-           IsPagination="true" PageItemsSource="@PageItemsSource" DataService="@CustomerDataService"
-           IsStriped="true" IsBordered="true" IsMultipleSelect="true" AutoGenerateColumns="true"
-           ShowToolbar="true" ShowExtendButtons="true" ShowSkeleton="true">
-        <TableColumns>
-            <TableColumn @bind-Field="@context.Hobby" Items="@Hobbys" />
-        </TableColumns>
-    </Table>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["FooterTemplateTitle"]" Introduction="@Localizer["FooterTemplateIntro"]" Name="EditFooterTemplate">
-    <p>@((MarkupString)Localizer["FooterTemplateDesc"].Value)</p>
+<DemoBlock Title="@Localizer["TablesEditFooterTemplateTitle"]"
+           Introduction="@Localizer["TablesEditFooterTemplateIntro"]"
+           Name="EditFooterTemplate"
+           Demo="typeof(Demos.Table.TablesEdit.TablesEditFooterTemplate)">
+    <p>@((MarkupString)Localizer["TablesEditFooterTemplateDescription"].Value)</p>
     <Pre>&lt;EditFooterTemplate Context="model"&gt;
     &lt;Button Text="Popup" Color="Color.Danger" Icon="fa-regular fa-comment-dots" OnClick="() =&gt; OnClick(model)"&gt;&lt;/Button&gt;
     &lt;DialogCloseButton /&gt;
     &lt;DialogSaveButton Color="Color.Primary" Icon="fa-solid fa-floppy-disk" Text="Save" /&gt;
 &lt;/EditFooterTemplate&gt;</Pre>
-    <Table TItem="Foo" EditDialogShowMaximizeButton="true"
-           IsPagination="true" PageItemsSource="@PageItemsSource" DataService="@CustomerDataService"
-           IsStriped="true" IsBordered="true" IsMultipleSelect="true" AutoGenerateColumns="true"
-           ShowToolbar="true" ShowExtendButtons="true" ShowSkeleton="true">
-        <TableColumns>
-            <TableColumn @bind-Field="@context.Hobby" Items="@Hobbys" />
-        </TableColumns>
-        <EditFooterTemplate Context="model">
-            <Button Text="Popup" Color="Color.Danger" Icon="fa-regular fa-comment-dots" OnClick="() => OnClick(model)"></Button>
-            <DialogCloseButton />
-            <DialogSaveButton Color="Color.Primary" Icon="fa-solid fa-floppy-disk" Text="Save" />
-        </EditFooterTemplate>
-    </Table>
 </DemoBlock>
