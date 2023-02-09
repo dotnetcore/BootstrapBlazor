@@ -1,328 +1,153 @@
 ﻿@page "/tables/column"
+@inject IStringLocalizer<TablesColumn> Localizer
 @inject IOptionsMonitor<WebsiteOptions> WebsiteOption
 
-<h3>@ColumnLocalizer["Title"]</h3>
+<h3>@Localizer["TablesColumnTitle"]</h3>
 
-<h4>@ColumnLocalizer["H4"]</h4>
+<h4>@Localizer["TablesColumnDescription"]</h4>
 
-<DemoBlock Title="@ColumnLocalizer["ColumnTextTitle"]" Introduction="@ColumnLocalizer["ColumnTextIntro"]" Name="ColumnText">
-    <p>@((MarkupString)ColumnLocalizer["ColumnTextDesc"].Value)</p>
-    <Table TItem="Foo" Items="@Items.Take(3)">
-        <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" Text="@ColumnLocalizer["CustomColText1"]" Width="180" />
-            <TableColumn @bind-Field="@context.Name" Text="@ColumnLocalizer["CustomColText2"]" />
-            <TableColumn @bind-Field="@context.Address" Text="@ColumnLocalizer["CustomColText3"]" />
-            <TableColumn @bind-Field="@context.Complete" />
-        </TableColumns>
-    </Table>
+<DemoBlock Title="@Localizer["ColumnTextTitle"]"
+           Introduction="@Localizer["ColumnTextIntro"]"
+           Name="ColumnText"
+           Demo="typeof(Demos.Table.TablesColumn.TablesColumnText)">
+    <p>@((MarkupString)Localizer["ColumnTextDesc"].Value)</p>
 </DemoBlock>
 
-<DemoBlock Title="@ColumnLocalizer["SelectTitle"]" Introduction="@ColumnLocalizer["SelectIntro"]" Name="Select">
-    <Table TItem="Foo" Items="@Items.Take(3)" IsMultipleSelect="true">
-        <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" Width="180" />
-            <TableColumn @bind-Field="@context.Name" />
-            <TableColumn @bind-Field="@context.Address" />
-            <TableColumn @bind-Field="@context.Complete" />
-        </TableColumns>
-    </Table>
+<DemoBlock Title="@Localizer["SelectTitle"]"
+           Introduction="@Localizer["SelectIntro"]"
+           Name="Select"
+           Demo="typeof(Demos.Table.TablesColumn.TablesColumnSelect)">
 </DemoBlock>
 
-<DemoBlock Title="@ColumnLocalizer["ShowCheckboxTitle"]" Introduction="@ColumnLocalizer["ShowCheckboxIntro"]" Name="ShowCheckbox">
-    <Table TItem="Foo" Items="@Items.Take(3)" IsMultipleSelect="true" ShowCheckboxText="true">
-        <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" Width="180" />
-            <TableColumn @bind-Field="@context.Name" />
-            <TableColumn @bind-Field="@context.Address" />
-            <TableColumn @bind-Field="@context.Complete" />
-        </TableColumns>
-    </Table>
+<DemoBlock Title="@Localizer["ShowCheckboxTitle"]"
+           Introduction="@Localizer["ShowCheckboxIntro"]"
+           Name="ShowCheckbox"
+           Demo="typeof(Demos.Table.TablesColumn.TablesColumnShowCheckbox)">
 </DemoBlock>
 
-<DemoBlock Title="@ColumnLocalizer["DisabledTitle"]" Introduction="@ColumnLocalizer["DisabledIntro"]" Name="Disabled">
-    <Table TItem="Foo" Items="@Items.Take(3)">
-        <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" Width="180" />
-            <TableColumn @bind-Field="@context.Name" />
-            <TableColumn @bind-Field="@context.Complete">
-                <Template Context="value">
-                    <Checkbox Value="@value.Value" IsDisabled="true"></Checkbox>
-                </Template>
-            </TableColumn>
-        </TableColumns>
-    </Table>
+<DemoBlock Title="@Localizer["DisabledTitle"]"
+           Introduction="@Localizer["DisabledIntro"]"
+           Name="Disabled"
+           Demo="typeof(Demos.Table.TablesColumn.TablesColumnDisabled)">
 </DemoBlock>
 
-<DemoBlock Title="@ColumnLocalizer["WidthTitle"]" Introduction="@ColumnLocalizer["WidthIntro"]" Name="Width">
-    <p>@((MarkupString)ColumnLocalizer["WidthP1"].Value)</p>
-    <p>@((MarkupString)ColumnLocalizer["WidthP1"].Value)</p>
-    <p>@((MarkupString)ColumnLocalizer["WidthP3"].Value)</p>
-    <Table TItem="Foo" @ref="TableRows"
-           IsPagination="true" PageItemsSource="@PageItemsSource"
-           IsStriped="true" IsBordered="true"
-           ShowToolbar="true" ShowDefaultButtons="false" ShowSearch="false" IsMultipleSelect="true"
-           ShowExtendButtons="true" ExtendButtonColumnWidth="240"
-           OnQueryAsync="@OnQueryAsync">
-        <TableToolbarTemplate>
-            <TableToolbarButton TItem="Foo" Color="Color.Primary" Icon="fa-fw fa-solid fa-pen-to-square" IsEnableWhenSelectedOneRow="true" Text="@ColumnLocalizer["WidthButtonText1"]" OnClickCallback="@CustomerButton" />
-            <TableToolbarButton TItem="Foo" Color="Color.Success" Icon="fa-fw fa-solid fa-pen-to-square" IsEnableWhenSelectedOneRow="true" Text="@ColumnLocalizer["WidthButtonText2"]" OnClickCallback="@CustomerButton" />
-            <TableToolbarButton TItem="Foo" Color="Color.Warning" Icon="fa-fw fa-solid fa-pen-to-square" IsEnableWhenSelectedOneRow="true" Text="@ColumnLocalizer["WidthButtonText3"]" OnClickCallback="@CustomerButton" />
-            <TableToolbarButton TItem="Foo" Color="Color.Danger" Icon="fa-fw fa-solid fa-pen-to-square" IsEnableWhenSelectedOneRow="true" Text="@ColumnLocalizer["WidthButtonText4"]" OnClickCallback="@CustomerButton" />
-        </TableToolbarTemplate>
-        <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" Width="180" />
-            <TableColumn @bind-Field="@context.Name" Width="100" />
-            <TableColumn @bind-Field="@context.Address" />
-        </TableColumns>
-        <RowButtonTemplate>
-            <TableCellButton Color="Color.Primary" Icon="fa-solid fa-pen" Text="@ColumnLocalizer["WidthButtonText1"]" OnClick="@(() => OnRowButtonClick(context, ColumnLocalizer["WidthButtonText1"]))" />
-            <TableCellButton Color="Color.Success" Icon="fa-solid fa-pen" Text="@ColumnLocalizer["WidthButtonText2"]" OnClick="@(() => OnRowButtonClick(context, ColumnLocalizer["WidthButtonText2"]))" />
-            <TableCellButton Color="Color.Warning" Icon="fa-solid fa-pen" Text="@ColumnLocalizer["WidthButtonText3"]" OnClick="@(() => OnRowButtonClick(context, ColumnLocalizer["WidthButtonText3"]))" />
-            <TableCellButton Color="Color.Danger" Icon="fa-solid fa-pen" Text="@ColumnLocalizer["WidthButtonText4"]" OnClick="@(() => OnRowButtonClick(context, ColumnLocalizer["WidthButtonText4"]))" />
-            <TableCellPopconfirmButton Color="Color.Info" Icon="fa-solid fa-pen" Text="@ColumnLocalizer["WidthConfirmButtonText"]" OnConfirm="@(() => OnRowButtonClick(context, ColumnLocalizer["WidthConfirmButtonText"]))" />
-        </RowButtonTemplate>
-    </Table>
+<DemoBlock Title="@Localizer["WidthTitle"]"
+           Introduction="@Localizer["WidthIntro"]"
+           Name="Width"
+           Demo="typeof(Demos.Table.TablesColumn.TablesColumnWidth)">
+    <p>@((MarkupString)Localizer["WidthP1"].Value)</p>
+    <p>@((MarkupString)Localizer["WidthP1"].Value)</p>
+    <p>@((MarkupString)Localizer["WidthP3"].Value)</p>
 </DemoBlock>
 
-<DemoBlock Title="@ColumnLocalizer["TableColumnTitle"]" Introduction="@ColumnLocalizer["TableColumnIntro"]" Name="TableColumn">
-    <p>@((MarkupString)ColumnLocalizer["TableColumnP1"].Value)</p>
-    <p>@((MarkupString)ColumnLocalizer["TableColumnP2"].Value)</p>
-    <p>@((MarkupString)ColumnLocalizer["TableColumnP3"].Value)</p>
+<DemoBlock Title="@Localizer["TableColumnTitle"]"
+           Introduction="@Localizer["TableColumnIntro"]"
+           Name="TableColumnNormal"
+           Demo="typeof(Demos.Table.TablesColumn.TablesColumnNormal)">
+    <p>@((MarkupString)Localizer["TableColumnP1"].Value)</p>
+    <p>@((MarkupString)Localizer["TableColumnP2"].Value)</p>
+    <p>@((MarkupString)Localizer["TableColumnP3"].Value)</p>
     <ul>
-        <li>@((MarkupString)ColumnLocalizer["TableColumnli1"].Value)</li>
-        <li>@((MarkupString)ColumnLocalizer["TableColumnli2"].Value)</li>
+        <li>@((MarkupString)Localizer["TableColumnli1"].Value)</li>
+        <li>@((MarkupString)Localizer["TableColumnli2"].Value)</li>
     </ul>
-    <Table TItem="Foo"
-           IsPagination="true" PageItemsSource="@PageItemsSource"
-           IsStriped="true" IsBordered="true"
-           ShowToolbar="false" IsMultipleSelect="true" ShowExtendButtons="false"
-           OnQueryAsync="@OnQueryAsync">
-        <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" Width="180">
-                <Template Context="value">
-                    @if (value.Row.Complete)
-                    {
-                        <div class="text-success">@value.Value</div>
-                    }
-                    else
-                    {
-                        <div class="text-danger">@value.Value</div>
-                    }
-                </Template>
-            </TableColumn>
-            <TableColumn @bind-Field="@context.Name" Width="100" />
-            <TableColumn @bind-Field="@context.Address" />
-            <TableColumn @bind-Field="@context.Complete" Width="100">
-                <Template Context="value">
-                    <Checkbox Value="@value.Value" IsDisabled="true"></Checkbox>
-                </Template>
-            </TableColumn>
-        </TableColumns>
-    </Table>
 </DemoBlock>
 
-<DemoBlock Title="@ColumnLocalizer["FormatterTitle"]" Introduction="@ColumnLocalizer["FormatterIntro"]" Name="Formatter">
-    <p>@((MarkupString)ColumnLocalizer["FormatterP1"].Value)</p>
-    <p>@((MarkupString)ColumnLocalizer["FormatterP2"].Value)</p>
-    <Table TItem="Foo"
-           IsPagination="true" PageItemsSource="@PageItemsSource"
-           IsStriped="true" IsBordered="true"
-           ShowToolbar="false" IsMultipleSelect="true" ShowExtendButtons="false"
-           OnQueryAsync="@OnQueryAsync">
-        <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" Width="120" FormatString="yyyy-MM-dd" />
-            <TableColumn @bind-Field="@context.Name" Width="100" />
-            <TableColumn @bind-Field="@context.Address" />
-            <TableColumn @bind-Field="@context.Count" Formatter="@IntFormatter" />
-        </TableColumns>
-    </Table>
+<DemoBlock Title="@Localizer["FormatterTitle"]"
+           Introduction="@Localizer["FormatterIntro"]"
+           Name="Formatter"
+           Demo="typeof(Demos.Table.TablesColumn.TablesColumnFormatter)">
+    <p>@((MarkupString)Localizer["FormatterP1"].Value)</p>
+    <p>@((MarkupString)Localizer["FormatterP2"].Value)</p>
 </DemoBlock>
 
-<DemoBlock Title="@ColumnLocalizer["AlignTitle"]" Introduction="@ColumnLocalizer["AlignIntro"]" Name="Align">
-    <p>@((MarkupString)ColumnLocalizer["AlignP1"].Value)</p>
-    <p>@((MarkupString)ColumnLocalizer["AlignP2"].Value)</p>
-    <Table TItem="Foo"
-           IsPagination="true" PageItemsSource="@PageItemsSource"
-           IsStriped="true" IsBordered="true"
-           ShowToolbar="false" IsMultipleSelect="true" ShowExtendButtons="false"
-           OnQueryAsync="@OnQueryAsync">
-        <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" Width="120" FormatString="yyyy-MM-dd" Align="Alignment.Center" />
-            <TableColumn @bind-Field="@context.Name" Width="100" />
-            <TableColumn @bind-Field="@context.Address" />
-            <TableColumn @bind-Field="@context.Count" Formatter="@IntFormatter" Width="60" Align="Alignment.Right" />
-        </TableColumns>
-    </Table>
+<DemoBlock Title="@Localizer["AlignTitle"]"
+           Introduction="@Localizer["AlignIntro"]"
+           Name="Align"
+           Demo="typeof(Demos.Table.TablesColumn.TablesColumnAlign)">
+    <p>@((MarkupString)Localizer["AlignP1"].Value)</p>
+    <p>@((MarkupString)Localizer["AlignP2"].Value)</p>
 </DemoBlock>
 
-<DemoBlock Title="@ColumnLocalizer["ShownWithBreakPointTitle"]" Introduction="@ColumnLocalizer["ShownWithBreakPointIntro"]" Name="ShownWithBreakPoint">
-    <p>@((MarkupString)ColumnLocalizer["ShownWithBreakPointP1"].Value)</p>
+<DemoBlock Title="@Localizer["ShownWithBreakPointTitle"]"
+           Introduction="@Localizer["ShownWithBreakPointIntro"]"
+           Name="ShownWithBreakPoint"
+           Demo="typeof(Demos.Table.TablesColumn.TablesColumnShownWithBreakPoint)">
+    <p>@((MarkupString)Localizer["ShownWithBreakPointP1"].Value)</p>
     <ul class="ul-demo mb-3">
-        <li>@((MarkupString)ColumnLocalizer["ShownWithBreakPointLi1"].Value)</li>
-        <li>@((MarkupString)ColumnLocalizer["ShownWithBreakPointLi2"].Value)</li>
-        <li>@((MarkupString)ColumnLocalizer["ShownWithBreakPointLi3"].Value)</li>
-        <li>@((MarkupString)ColumnLocalizer["ShownWithBreakPointLi4"].Value)</li>
-        <li>@((MarkupString)ColumnLocalizer["ShownWithBreakPointLi5"].Value)</li>
+        <li>@((MarkupString)Localizer["ShownWithBreakPointLi1"].Value)</li>
+        <li>@((MarkupString)Localizer["ShownWithBreakPointLi2"].Value)</li>
+        <li>@((MarkupString)Localizer["ShownWithBreakPointLi3"].Value)</li>
+        <li>@((MarkupString)Localizer["ShownWithBreakPointLi4"].Value)</li>
+        <li>@((MarkupString)Localizer["ShownWithBreakPointLi5"].Value)</li>
     </ul>
-    <p>@((MarkupString)ColumnLocalizer["ShownWithBreakPointP2"].Value)</p>
-    <p>@((MarkupString)ColumnLocalizer["ShownWithBreakPointP3"].Value)</p>
-    <p>@((MarkupString)ColumnLocalizer["ShownWithBreakPointP4"].Value)</p>
-    <Table TItem="Foo" RenderMode="TableRenderMode.Table"
-           IsPagination="true" PageItemsSource="@PageItemsSource"
-           IsStriped="true" IsBordered="true"
-           ShowToolbar="false" IsMultipleSelect="true" ShowExtendButtons="false"
-           OnQueryAsync="@OnQueryAsync">
-        <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" Width="120" FormatString="yyyy-MM-dd" Align="Alignment.Center" />
-            <TableColumn @bind-Field="@context.Name" Width="100" />
-            <TableColumn @bind-Field="@context.Address" />
-            <TableColumn @bind-Field="@context.Count" ShownWithBreakPoint="BreakPoint.Large" Formatter="@IntFormatter" Width="60" />
-        </TableColumns>
-    </Table>
+    <p>@((MarkupString)Localizer["ShownWithBreakPointP2"].Value)</p>
+    <p>@((MarkupString)Localizer["ShownWithBreakPointP3"].Value)</p>
+    <p>@((MarkupString)Localizer["ShownWithBreakPointP4"].Value)</p>
 </DemoBlock>
 
-<DemoBlock Title="@ColumnLocalizer["VisibleTitle"]" Introduction="@ColumnLocalizer["VisibleIntro"]" Name="Visible">
-    <p>@((MarkupString)ColumnLocalizer["VisibleP1"].Value)</p>
-    <p>@((MarkupString)ColumnLocalizer["VisibleP2"].Value)</p>
-    <p>@((MarkupString)ColumnLocalizer["VisibleP3"].Value)</p>
-    <p>@((MarkupString)ColumnLocalizer["VisibleP4"].Value)</p>
-    <p>@((MarkupString)ColumnLocalizer["ResetVisibleColumnsDesc"].Value)</p>
-    <div><Button Text="@ColumnLocalizer["ResetVisibleColumnsButtonText"]" OnClickWithoutRender="ResetVisibleColumns" /></div>
-    <Table TItem="Foo" @ref="TableColumnVisibles"
-           IsPagination="true" PageItemsSource="@PageItemsSource"
-           IsStriped="true" IsBordered="true" IsMultipleSelect="true"
-           ShowToolbar="true" ShowAddButton="false" ShowEditButton="false" ShowDeleteButton="false"
-           ShowExtendButtons="false" ShowColumnList="true"
-           OnQueryAsync="@OnQueryAsync">
-        <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" Width="180" />
-            <TableColumn @bind-Field="@context.Name" />
-            <TableColumn @bind-Field="@context.Address" Width="290" />
-            <TableColumn @bind-Field="@context.Education" />
-            <TableColumn @bind-Field="@context.Count" Visible="false" />
-            <TableColumn @bind-Field="@context.Complete" />
-        </TableColumns>
-    </Table>
+<DemoBlock Title="@Localizer["VisibleTitle"]"
+           Introduction="@Localizer["VisibleIntro"]"
+           Name="Visible"
+           Demo="typeof(Demos.Table.TablesColumn.TablesColumnVisible)">
+    <p>@((MarkupString)Localizer["VisibleP1"].Value)</p>
+    <p>@((MarkupString)Localizer["VisibleP2"].Value)</p>
+    <p>@((MarkupString)Localizer["VisibleP3"].Value)</p>
+    <p>@((MarkupString)Localizer["VisibleP4"].Value)</p>
+    <p>@((MarkupString)Localizer["ResetVisibleColumnsDesc"].Value)</p>
 </DemoBlock>
 
-<DemoBlock Title="@ColumnLocalizer["AllowResizingTitle"]" Introduction="@ColumnLocalizer["AllowResizingIntro"]" Name="AllowResizing">
-    <p>@((MarkupString)ColumnLocalizer["AllowResizingDesc"].Value)</p>
-    <Table TItem="Foo"
-           IsPagination="true" PageItemsSource="@PageItemsSource" AllowResizing="true"
-           IsStriped="true" IsBordered="true"
-           ShowToolbar="false" IsMultipleSelect="true" ShowExtendButtons="false"
-           OnQueryAsync="@OnQueryAsync">
-        <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" Width="120" FormatString="yyyy-MM-dd" />
-            <TableColumn @bind-Field="@context.Name" Width="100" />
-            <TableColumn @bind-Field="@context.Address" />
-            <TableColumn @bind-Field="@context.Count" />
-        </TableColumns>
-    </Table>
+<DemoBlock Title="@Localizer["AllowResizingTitle"]"
+           Introduction="@Localizer["AllowResizingIntro"]"
+           Name="AllowResizing"
+           Demo="typeof(Demos.Table.TablesColumn.TablesColumnAllowResizing)">
+    <p>@((MarkupString)Localizer["AllowResizingDesc"].Value)</p>
 </DemoBlock>
 
-<DemoBlock Title="@ColumnLocalizer["ShowCopyColumnTitle"]" Introduction="@ColumnLocalizer["ShowCopyColumnIntro"]" Name="ShowCopyColumn">
-    <p>@((MarkupString)ColumnLocalizer["ShowCopyColumnDesc"].Value)</p>
-    <Table TItem="Foo"
-           IsPagination="true" PageItemsSource="@PageItemsSource" AllowResizing="true"
-           IsStriped="true" IsBordered="true"
-           ShowToolbar="false" IsMultipleSelect="true" ShowExtendButtons="false"
-           OnQueryAsync="@OnQueryAsync">
-        <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" Width="120" FormatString="yyyy-MM-dd" ShowCopyColumn="true" />
-            <TableColumn @bind-Field="@context.Name" Width="100" ShowCopyColumn="true" />
-            <TableColumn @bind-Field="@context.Address" ShowCopyColumn="true" />
-            <TableColumn @bind-Field="@context.Count" ShowCopyColumn="true" />
-            <TableColumn @bind-Field="@context.Education" ShowCopyColumn="true" />
-            <TableColumn @bind-Field="@context.Complete" ShowCopyColumn="true" />
-        </TableColumns>
-    </Table>
+<DemoBlock Title="@Localizer["ShowCopyColumnTitle"]"
+           Introduction="@Localizer["ShowCopyColumnIntro"]"
+           Name="ShowCopyColumn"
+           Demo="typeof(Demos.Table.TablesColumn.TablesColumnShowCopyColumn)">
+    <p>@((MarkupString)Localizer["ShowCopyColumnDesc"].Value)</p>
 </DemoBlock>
 
-<DemoBlock Title="@ColumnLocalizer["TemplateTitle"]" Introduction="@ColumnLocalizer["TemplateIntro"]" Name="Template">
-    <Table TItem="Foo"
-           IsPagination="true" PageItemsSource="@PageItemsSource"
-           IsStriped="true" IsBordered="true"
-           ShowToolbar="false" IsMultipleSelect="true" ShowExtendButtons="false"
-           OnQueryAsync="@OnQueryAsync">
-        <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" Width="120" FormatString="yyyy-MM-dd" />
-            <TableColumn @bind-Field="@context.Name" Width="100" />
-            <TableColumn @bind-Field="@context.Address" />
-            <TableColumn @bind-Field="@context.Count" />
-            <TableColumn @bind-Field="@context.Id" Text="">
-                <Template Context="v">
-                    <PopConfirmButton Text="Test" Size="Size.ExtraSmall" />
-                </Template>
-            </TableColumn>
-        </TableColumns>
-    </Table>
+<DemoBlock Title="@Localizer["TemplateTitle"]"
+           Introduction="@Localizer["TemplateIntro"]"
+           Name="Template"
+           Demo="typeof(Demos.Table.TablesColumn.TablesColumnTemplate)">
 </DemoBlock>
 
-<DemoBlock Title="@ColumnLocalizer["AutoGenerateColumnsTitle"]" Introduction="@ColumnLocalizer["AutoGenerateColumnsIntro"]" Name="AutoGenerateColumns">
+<DemoBlock Title="@Localizer["AutoGenerateColumnsTitle"]"
+           Introduction="@Localizer["AutoGenerateColumnsIntro"]"
+           Name="AutoGenerateColumns"
+           Demo="typeof(Demos.Table.TablesColumn.TablesColumnAutoGenerateColumns)">
     <p>
-        @((MarkupString)ColumnLocalizer["AutoGenerateColumnsP1"].Value)
+        @((MarkupString)Localizer["AutoGenerateColumnsP1"].Value)
         <ul class="ul-demo mb-3">
-            <li>@((MarkupString)ColumnLocalizer["AutoGenerateColumnsLi1"].Value)</li>
-            <li>@((MarkupString)ColumnLocalizer["AutoGenerateColumnsLi2"].Value)</li>
-            <li>@((MarkupString)string.Format(ColumnLocalizer["AutoGenerateColumnsLi3"].Value, WebsiteOption.CurrentValue.BootstrapBlazorLink))</li>
+            <li>@((MarkupString)Localizer["AutoGenerateColumnsLi1"].Value)</li>
+            <li>@((MarkupString)Localizer["AutoGenerateColumnsLi2"].Value)</li>
+            <li>@((MarkupString)string.Format(Localizer["AutoGenerateColumnsLi3"].Value, WebsiteOption.CurrentValue.BootstrapBlazorLink))</li>
         </ul>
-        @((MarkupString)ColumnLocalizer["AutoGenerateColumnsP2"].Value)
+        @((MarkupString)Localizer["AutoGenerateColumnsP2"].Value)
     </p>
-    <Table TItem="Foo"
-           IsPagination="true" PageItemsSource="@PageItemsSource"
-           IsStriped="true" IsBordered="true" AutoGenerateColumns="true"
-           ShowToolbar="false" IsMultipleSelect="true" ShowExtendButtons="false"
-           OnQueryAsync="@OnQueryAsync">
-    </Table>
 </DemoBlock>
 
-<DemoBlock Title="@ColumnLocalizer["OnColumnCreatingTitle"]" Introduction="@ColumnLocalizer["OnColumnCreatingIntro"]" Name="OnColumnCreating">
+<DemoBlock Title="@Localizer["OnColumnCreatingTitle"]"
+           Introduction="@Localizer["OnColumnCreatingIntro"]"
+           Name="OnColumnCreating"
+           Demo="typeof(Demos.Table.TablesColumn.TablesColumnOnColumnCreating)">
     <Tips>
-        <p>@((MarkupString)ColumnLocalizer["OnColumnCreatingP1"].Value)</p>
+        <p>@((MarkupString)Localizer["OnColumnCreatingP1"].Value)</p>
         <ol>
-            <li>@ColumnLocalizer["OnColumnCreatingLi1"]</li>
-            <li>@((MarkupString)ColumnLocalizer["OnColumnCreatingLi2"].Value)</li>
+            <li>@Localizer["OnColumnCreatingLi1"]</li>
+            <li>@((MarkupString)Localizer["OnColumnCreatingLi2"].Value)</li>
         </ol>
-        <p>@((MarkupString)ColumnLocalizer["OnColumnCreatingP2"].Value)</p>
+        <p>@((MarkupString)Localizer["OnColumnCreatingP2"].Value)</p>
     </Tips>
-    <Table TItem="Foo"
-           IsPagination="true" PageItemsSource="@PageItemsSource"
-           IsStriped="true" IsBordered="true" AutoGenerateColumns="true"
-           ShowToolbar="true" IsMultipleSelect="true" ShowExtendButtons="true"
-           ShowDefaultButtons="true" OnSaveAsync="@OnSaveAsync"
-           OnQueryAsync="@OnQueryAsync" OnColumnCreating="@OnColumnCreating" ShowEditButton="true">
-    </Table>
 </DemoBlock>
 
-<DemoBlock Title="@ColumnLocalizer["AdvanceTitle"]" Introduction="@ColumnLocalizer["AdvanceIntro"]" Name="Advance">
-    <Table TItem="Foo" IsPagination="true" PageItemsSource="@PageItemsSource" RenderMode="TableRenderMode.Table"
-           IsStriped="true" IsBordered="true" OnQueryAsync="OnQueryAsync">
-        <TableColumns>
-            <TableColumn @bind-Field="@context.Name" Width="220">
-                <Template Context="value">
-                    <div class="d-flex">
-                        <div>
-                            <img src="@Foo.GetAvatarUrl(value.Row.Id)" class="bb-avatar" />
-                        </div>
-                        <div class="ps-2">
-                            <div>@value.Value</div>
-                            <div class="bb-sub">@value.Row.Address</div>
-                        </div>
-                    </div>
-                </Template>
-            </TableColumn>
-            <TableColumn @bind-Field="@context.Address" />
-            <TableColumn @bind-Field="@context.Education" Align="Alignment.Center" Width="80" />
-            <TableColumn @bind-Field="@context.Count" Width="160">
-                <Template Context="value">
-                    <div class="w-100">
-                        <div>@value.Value %</div>
-                        <Progress Value="@value.Value" Color="@Foo.GetProgressColor(value.Value)"></Progress>
-                    </div>
-                </Template>
-            </TableColumn>
-            <TableColumn @bind-Field="@context.Complete" Align="Alignment.Center" Width="80" />
-        </TableColumns>
-    </Table>
+<DemoBlock Title="@Localizer["AdvanceTitle"]"
+           Introduction="@Localizer["AdvanceIntro"]"
+           Name="Advance"
+           Demo="typeof(Demos.Table.TablesColumn.TablesColumnAdvance)">
 </DemoBlock>
