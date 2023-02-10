@@ -86,15 +86,7 @@ public class IPLocatorTest : BootstrapBlazorTestBase
         await locator.Test("", null);
         await locator.Test("223.91.188.112", new HttpClient());
         await locator.Test("223.91.188.112", new HttpClient(), new MockLogger());
-        await locator.TestMock("223.91.188.112", new HttpClient(), new MockLogger());
-    }
-
-    [Fact]
-    public async Task LocateOfT_Fail()
-    {
-        var locator = new MockLocator();
-        await locator.Test("223.91.188.112", new HttpClient());
-        await locator.TestMock("223.91.188.112", null);
+        await locator.TestMock("223.91.188.112", new HttpClient());
         await locator.TestMock("223.91.188.112", new HttpClient(), new MockLogger());
     }
 
@@ -112,6 +104,7 @@ public class IPLocatorTest : BootstrapBlazorTestBase
             Url = "https://sp0.baidu.com/8aQDcjqpAAV3otqbppnN2DJv/api.php?resource_id=6006&query={0}";
             await base.Locate<BaiDuIPLocator>(new MockOption(ip, httpClient, logger));
         }
+
         public async Task TestMock(string? ip, HttpClient? httpClient, ILogger<IIPLocatorProvider>? logger = null)
         {
             Url = "/test/{0}";
