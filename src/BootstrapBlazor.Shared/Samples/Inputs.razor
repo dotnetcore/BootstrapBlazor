@@ -1,176 +1,85 @@
 ﻿@page "/inputs"
 @inject IStringLocalizer<Inputs> Localizer
 
-<h3>@Localizer["Title"]</h3>
+<h3>@Localizer["InputsTitle"]</h3>
 
-<h4>@Localizer["H1"]</h4>
+<h4>@Localizer["InputsDescription"]</h4>
 
-<DemoBlock Title="@Localizer["Block1Title"]" Introduction="@Localizer["Block1Intro"]" Name="Normal">
-    <p>@((MarkupString)Localizer["P1"].Value)</p>
-    <div class="row g-3">
-        <div class="col-12 col-sm-6">
-            <BootstrapInput PlaceHolder="@PlaceHolderText" TValue="string" IsAutoFocus="true" IsSelectAllTextOnFocus="true" ShowLabel="true" DisplayText="@Localizer["IsSelectAllTextOnFocusLabel"]" />
-        </div>
-        <div class="col-12 col-sm-6">
-            <BootstrapInput PlaceHolder="@PlaceHolderText" TValue="string" IsSelectAllTextOnEnter="true" ShowLabel="true" DisplayText="@Localizer["IsSelectAllTextOnEnterLabel"]" />
-        </div>
-    </div>
+<DemoBlock Title="@Localizer["InputsNormalTitle"]"
+           Introduction="@Localizer["InputsNormalIntro"]"
+           Name="Normal"
+           Demo="typeof(Demos.Inputs.InputsNormal)">
+    <p>@((MarkupString)Localizer["InputsNormalDescription"].Value)</p>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["Block2Title"]" Introduction="@Localizer["Block2Intro"]" Name="Color">
-    <div class="row g-3">
-        <div class="col-12 col-sm-6">
-            <BootstrapInput TValue="string" Color="Color.Primary" />
-        </div>
-        <div class="col-12 col-sm-6">
-            <BootstrapInput TValue="string" Color="Color.Info" />
-        </div>
-        <div class="col-12 col-sm-6">
-            <BootstrapInput TValue="string" Color="Color.Warning" />
-        </div>
-        <div class="col-12 col-sm-6">
-            <BootstrapInput TValue="string" Color="Color.Danger" />
-        </div>
-        <div class="col-12 col-sm-6">
-            <BootstrapInput TValue="string" Color="Color.Secondary" />
-        </div>
-        <div class="col-12 col-sm-6">
-            <BootstrapInput TValue="string" Color="Color.Dark" />
-        </div>
-    </div>
+<DemoBlock Title="@Localizer["InputsColorTitle"]"
+           Introduction="@Localizer["InputsColorIntro"]"
+           Name="Color"
+           Demo="typeof(Demos.Inputs.InputsColor)">
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["Block3Title"]" Introduction="@Localizer["Block3Intro"]" Name="Keyboard">
-    <div class="row g-3">
-        <div class="col-auto col-form-label">
-            <span>@Localizer["Span1"]</span>
-        </div>
-        <div class="col-6">
-            <BootstrapInput TValue="string" PlaceHolder="@PlaceHolderText" OnEnterAsync="OnEnterAsync" OnEscAsync="OnEscAsync" />
-        </div>
-        <div class="col-12">
-            <div>@((MarkupString)Localizer["Div1"].Value)</div>
-        </div>
-    </div>
-    <p>@((MarkupString)Localizer["P9"].Value)</p>
-    <div class="row g-3">
-        <div class="col-auto col-form-label">
-            <span>@Localizer["Span1"]</span>
-        </div>
-        <div class="col-6">
-            <BootstrapInput TValue="string" PlaceHolder="@PlaceHolderText" @ref="Input1" OnEnterAsync="OnEnterSelectAllAsync" />
-        </div>
-    </div>
-    <BlockLogger class="mt-3" @ref="Trace" />
+<DemoBlock Title="@Localizer["InputsKeyboardTitle"]"
+           Introduction="@Localizer["InputsKeyboardIntro"]"
+           Name="Keyboard"
+           Demo="typeof(Demos.Inputs.InputsKeyboard)">
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["Block4Title"]" Introduction="@Localizer["Block4Intro"]" Name="Placeholder">
-    <div class="row g-3">
-        <div class="col-auto col-form-label">
-            <span>@Localizer["Span2"]</span>
-        </div>
-        <div class="col-6">
-            <BootstrapInput PlaceHolder="@PlaceHolderText" Value="@Model.Name" />
-        </div>
-    </div>
+<DemoBlock Title="@Localizer["InputsPlaceholderTitle"]"
+           Introduction="@Localizer["InputsPlaceholderIntro"]"
+           Name="Placeholder"
+           Demo="typeof(Demos.Inputs.InputsPlaceholder)">
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["Block5Title"]" Introduction="@Localizer["Block5Intro"]" Name="Labels">
-    <p>@((MarkupString)Localizer["P2"].Value)</p>
-    <div class="row g-3">
-        <Divider Text="@Localizer["Divider1"]" />
-        <div class="col-12">
-            <p>@((MarkupString)Localizer["P3"].Value)</p>
-        </div>
-        <div class="col-12">
-            <BootstrapInput PlaceHolder="@PlaceHolderText" @bind-Value="@Model.Name" DisplayText="@Localizer["InputText1"]" ShowLabel="true" />
-        </div>
-        <Divider Text="@Localizer["Divider2"]" />
-        <div class="col-12">
-            <p>@((MarkupString)Localizer["P4"].Value)</p>
-        </div>
-        <div class="col-12">
-            <BootstrapInput PlaceHolder="@PlaceHolderText" @bind-Value="@Model.Name" ShowLabel="true" />
-        </div>
-        <Divider Text="@Localizer["Divider3"]" />
-        <div class="col-12">
-            <p>@((MarkupString)Localizer["P5"].Value)</p>
-        </div>
-        <div class="col-12">
-            <BootstrapInput PlaceHolder="@PlaceHolderText" @bind-Value="@Model.Name" />
-        </div>
-    </div>
+<DemoBlock Title="@Localizer["InputsLabelsTitle"]"
+           Introduction="@Localizer["InputsLabelsIntro"]"
+           Name="Labels"
+           Demo="typeof(Demos.Inputs.InputsLabels)">
+    <p>@((MarkupString)Localizer["InputsLabelsDescription"].Value)</p>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["Block6Title"]" Introduction="@Localizer["Block6Intro"]" Name="ValidateForm">
-    <Tips>@((MarkupString)Localizer["Tips1"].Value)</Tips>
-    <ValidateForm Model="@Model">
-        <BootstrapInput maxlength="5" @bind-Value="@Model.Name" />
-    </ValidateForm>
+<DemoBlock Title="@Localizer["InputsValidateFormTitle"]"
+           Introduction="@Localizer["InputsValidateFormIntro"]"
+           Name="ValidateForm"
+           Demo="typeof(Demos.Inputs.InputsValidateForm)">
+    <Tips>@((MarkupString)Localizer["InputsValidateFormTips1"].Value)</Tips>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["Block7Title"]" Introduction="@Localizer["Block7Intro"]" Name="Password">
-    <p>@((MarkupString)Localizer["P6"].Value)</p>
-    <BootstrapInput TValue="string" PlaceHolder="@PlaceHolderText" type="password" maxlength="5" style="width: 200px;" />
+<DemoBlock Title="@Localizer["InputsPasswordTitle"]"
+           Introduction="@Localizer["InputsPasswordIntro"]"
+           Name="Password"
+           Demo="typeof(Demos.Inputs.InputsPassword)">
+    <p>@((MarkupString)Localizer["InputsPasswordDescription"].Value)</p>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["Block8Title"]" Introduction="@Localizer["Block8Intro"]" Name="FormatString">
-    <div class="row g-3">
-        <div class="col-12 col-sm-6">
-            <BootstrapInput FormatString="000" step="1" PlaceHolder="@PlaceHolderText" @bind-Value="@Model.Count" />
-        </div>
-        <div class="col-12 col-sm-6">
-            <div class="col-form-label">@Localizer["Div2"]: @Model.Count.ToString("000")</div>
-        </div>
-    </div>
+<DemoBlock Title="@Localizer["InputsGenericTitle"]"
+           Introduction="@Localizer["InputsGenericIntro"]"
+           Name="Generic"
+           Demo="typeof(Demos.Inputs.InputsGeneric)">
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["Block9Title"]" Introduction="@Localizer["Block9Intro"]" Name="Disabled">
-    <BootstrapInput TValue="string" IsDisabled="true" />
+<DemoBlock Title="@Localizer["InputsDisabledTitle"]"
+           Introduction="@Localizer["InputsDisabledIntro"]"
+           Name="Disabled"
+           Demo="typeof(Demos.Inputs.InputsDisabled)">
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["Block10Title"]" Introduction="@Localizer["Block10Intro"]" Name="FormatString">
-    <div class="row g-3">
-        <div class="col-12 col-sm-6 col-form-label">@Localizer["Div3"] <code class="ms-1">FormatString</code></div>
-        <div class="col-12 col-sm-6">
-            <BootstrapInput Value="DateTime.Now" FormatString="yyyy-MM-dd" IsDisabled="true" />
-        </div>
-        <div class="col-12 col-sm-6 col-form-label">@Localizer["Div3"] <code class="ms-1">Formatter</code></div>
-        <div class="col-12 col-sm-6">
-            <BootstrapInput Value="DateTime.Now" Formatter="@DateTimeFormatter" IsDisabled="true" />
-        </div>
-    </div>
-    <p class="mt-3">@((MarkupString)Localizer["P7"].Value)</p>
-    <div class="row g-3">
-        <div class="col-12 col-sm-6 col-form-label">@Localizer["Div3"] <code class="ms-1">Formatter</code></div>
-        <div class="col-12 col-sm-6">
-            <BootstrapInput Value="@ByteArray" Formatter="@ByteArrayFormatter" IsDisabled="true" />
-        </div>
-    </div>
+<DemoBlock Title="@Localizer["InputsFormatStringTitle"]"
+           Introduction="@Localizer["InputsFormatStringIntro"]"
+           Name="FormatString"
+           Demo="typeof(Demos.Inputs.InputsFormatString)">
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["Block11Title"]" Introduction="@Localizer["Block11Intro"]" Name="Password2">
-    <div class="row g-3">
-        <div class="col-auto col-form-label">
-            <span>@Localizer["Span1"]</span>
-        </div>
-        <div class="col-6">
-            <BootstrapPassword PlaceHolder="@PlaceHolderText" IsSelectAllTextOnFocus="true" />
-        </div>
-    </div>
+<DemoBlock Title="@Localizer["InputsPassword2Title"]"
+           Introduction="@Localizer["InputsPassword2Intro"]"
+           Name="Password2"
+           Demo="typeof(Demos.Inputs.InputsPassword2)">
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["IsTrimTitle"]" Introduction="@Localizer["IsTrimIntro"]" Name="Trim">
+<DemoBlock Title="@Localizer["InputsTrimTitle"]"
+           Introduction="@Localizer["InputsTrimIntro"]"
+           Name="Trim"
+           Demo="typeof(Demos.Inputs.InputsTrim)">
     <p>@((MarkupString)Localizer["TrimDescription"].Value)</p>
-    <div class="row g-3">
-        <div class="col-auto col-form-label">
-            <span>@Localizer["Span1"]</span>
-        </div>
-        <div class="col-6">
-            <BootstrapInput @bind-Value="Model.Name" PlaceHolder="@PlaceHolderText" IsTrim="true" />
-            <div class="mt-2">123<span>@Model.Name</span>456</div>
-        </div>
-    </div>
 </DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" />
