@@ -32,11 +32,11 @@ public class DefaultIPLocator : IIPLocator
     protected virtual async Task<string?> Locate<T>(IPLocatorOption option) where T : class
     {
         string? ret = null;
-        try
+        if (!string.IsNullOrEmpty(Url) && !string.IsNullOrEmpty(option.IP) && option.HttpClient != null)
         {
-            if (!string.IsNullOrEmpty(Url) && !string.IsNullOrEmpty(option.IP) && option.HttpClient != null)
+            var url = string.Format(Url, option.IP);
+            try
             {
-                var url = string.Format(Url, option.IP);
                 using var token = new CancellationTokenSource(option.RequestTimeout);
                 var result = await option.HttpClient.GetFromJsonAsync<T>(url, token.Token);
                 if (result != null)
@@ -44,10 +44,10 @@ public class DefaultIPLocator : IIPLocator
                     ret = result.ToString();
                 }
             }
-        }
-        catch (Exception ex)
-        {
-            option.Logger?.LogError(ex, Url, option.IP);
+            catch (Exception ex)
+            {
+                option.Logger?.LogError(ex, "Url: {url}", url);
+            }
         }
         return ret;
     }
