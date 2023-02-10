@@ -8,31 +8,31 @@
 }
 
 .circle-primary {
-    stroke: #1593FF;
+    stroke: var(--bs-primary);
 }
 
 .circle-danger {
-    stroke: #dc3545;
+    stroke: var(--bs-danger);
 }
 
 .circle-success {
-    stroke: #28a745;
+    stroke: var(--bs-success);
 }
 
 .circle-warning {
-    stroke: #ffc107;
+    stroke: var(--bs-warning);
 }
 
 .circle-info {
-    stroke: #17a2b8;
+    stroke: var(--bs-info);
 }
 
 .circle-secondary {
-    stroke: #6c757d;
+    stroke: var(--bs-secondary);
 }
 
 .circle-dark {
-    stroke: #343a40;
+    stroke: var(--bs-dark);
 }
 
 .circle-body {
