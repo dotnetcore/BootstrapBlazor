@@ -1291,11 +1291,10 @@
     "P51": "MAUI Blazor Installation tutorial"
   },
   "BootstrapBlazor.Shared.Pages.Install_wasm": {
-    "Heading": "Client Blazor Installation Tutorial",
-    "P1": "choose",
-    "P2": "project type, then click",
+    "Install_wasmHeading": "Client Blazor Installation Tutorial",
+    "Install_wasmSelect": "choose <b>Blazor WebAssembly App</b> project type, then click <b>Create</b>",
     "Title": "Client Side",
-    "CodeComment": "Add this line of code"
+    "Install_wasmCodeComment": "Add this line of code"
   },
   "BootstrapBlazor.Shared.Samples.Dividers": {
     "Title": "Dividing line",
