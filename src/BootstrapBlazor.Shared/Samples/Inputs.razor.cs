@@ -5,96 +5,50 @@
 namespace BootstrapBlazor.Shared.Samples;
 
 /// <summary>
-/// 
+/// Inputs
 /// </summary>
 public partial class Inputs
 {
-    private string? PlaceHolderText { get; set; }
-
-    private byte[] ByteArray { get; set; } = new byte[] { 0x01, 0x12, 0x34, 0x56 };
-
-    private static string ByteArrayFormatter(byte[] source) => Convert.ToBase64String(source);
-
-    [NotNull]
-    private Foo? Model { get; set; }
-
-    private static string DateTimeFormatter(DateTime source) => source.ToString("yyyy-MM-dd");
-
-    [NotNull]
-    private BlockLogger? Trace { get; set; }
-
-    [NotNull]
-    private BootstrapInput<string>? Input1 { get; set; }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    protected override void OnInitialized()
-    {
-        base.OnInitialized();
-
-        PlaceHolderText = Localizer["PlaceHolder"];
-        Model = new Foo() { Name = Localizer["TestName"] };
-    }
-
-    private Task OnEnterAsync(string val)
-    {
-        Trace.Log($"Enter {Localizer["Log"]}: {val}");
-        return Task.CompletedTask;
-    }
-
-    private Task OnEscAsync(string val)
-    {
-        Trace.Log($"Esc {Localizer["Log"]}: {val}");
-        return Task.CompletedTask;
-    }
-
-    private async Task OnEnterSelectAllAsync(string val)
-    {
-        Trace.Log($"Enter call SelectAllText {Localizer["Log"]}: {val}");
-        await Input1.SelectAllTextAsync();
-    }
-
     private IEnumerable<AttributeItem> GetAttributes() => new[]
     {
         new AttributeItem() {
             Name = "ChildContent",
-            Description = Localizer["Att1"],
+            Description = Localizer["InputsAtt1"],
             Type = "RenderFragment",
             ValueList = " — ",
             DefaultValue = " — "
         },
         new AttributeItem() {
             Name = "ShowLabel",
-            Description = Localizer["Att2"],
+            Description = Localizer["InputsAtt2"],
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
         },
         new AttributeItem() {
             Name = "DisplayText",
-            Description = Localizer["Att3"],
+            Description = Localizer["InputsAtt3"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
         },
         new AttributeItem() {
             Name = "Color",
-            Description = Localizer["Att4"],
+            Description = Localizer["InputsAtt4"],
             Type = "Color",
             ValueList = "Primary / Secondary / Success / Danger / Warning / Info / Dark",
             DefaultValue = "Primary"
         },
         new AttributeItem() {
             Name = "FormatString",
-            Description = Localizer["Att5"],
+            Description = Localizer["InputsAtt5"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
         },
         new AttributeItem() {
             Name = "Formatter",
-            Description = Localizer["Att6"],
+            Description = Localizer["InputsAtt6"],
             Type = "RenderFragment<TItem>",
             ValueList = " — ",
             DefaultValue = " — "
@@ -102,21 +56,21 @@ public partial class Inputs
         new AttributeItem()
         {
             Name = "type",
-            Description = Localizer["Att7"],
+            Description = Localizer["InputsAtt7"],
             Type = "string",
             ValueList = "text / number / email / url / password",
             DefaultValue = "text"
         },
         new AttributeItem() {
             Name = "OnEnterAsync",
-            Description = Localizer["Att8"],
+            Description = Localizer["InputsAtt8"],
             Type = "Func<TValue, Task>",
             ValueList = " — ",
             DefaultValue = " — "
         },
         new AttributeItem() {
             Name = "OnEscAsync",
-            Description = Localizer["Att9"],
+            Description = Localizer["InputsAtt9"],
             Type = "Func<TValue, Task>",
             ValueList = " — ",
             DefaultValue = " — "
@@ -124,7 +78,7 @@ public partial class Inputs
         new AttributeItem()
         {
             Name = "IsDisabled",
-            Description = Localizer["Att10"],
+            Description = Localizer["InputsAtt10"],
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
@@ -132,7 +86,7 @@ public partial class Inputs
         new AttributeItem()
         {
             Name = "IsAutoFocus",
-            Description = Localizer["Att11"],
+            Description = Localizer["InputsAtt11"],
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
