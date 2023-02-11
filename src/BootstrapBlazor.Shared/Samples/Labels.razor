@@ -1,217 +1,41 @@
 ﻿@layout ComponentLayout
 @page "/labels"
+@inject IStringLocalizer<Labels> Localizer
 
-<h3>@Localizer["Title"]</h3>
+<h3>@Localizer["LabelsTitle"]</h3>
 
-<p>@((MarkupString)Localizer["P1"].Value)</p>
+<p>@((MarkupString)Localizer["LabelsDescription"].Value)</p>
 
 <ul class="ul-demo">
-    <li>@((MarkupString)Localizer["UlLi1"].Value)</li>
-    <li>@((MarkupString)Localizer["UlLi2"].Value)</li>
+    <li>@((MarkupString)Localizer["LabelsDescriptionTips1"].Value)</li>
+    <li>@((MarkupString)Localizer["LabelsDescriptionTips2"].Value)</li>
 </ul>
 
-<p>@((MarkupString)Localizer["P2"].Value)</p>
+<p>@((MarkupString)Localizer["LabelsDescriptionTips3"].Value)</p>
 
 <Tips>
-    <p>@((MarkupString)Localizer["Tips"].Value)</p>
+    <p>@((MarkupString)Localizer["LabelsTips"].Value)</p>
 </Tips>
 
-<DemoBlock Title="@Localizer["Block1Title"]" Introduction="@Localizer["Block1Intro"]" Name="Normal">
-    <p><b>@Localizer["Block1P1"]</b></p>
-    <ul class="ul-demo mb-3">
-        <li>@((MarkupString)Localizer["Block1Li1"].Value)</li>
-        <li>@((MarkupString)Localizer["Block1Li2"].Value)</li>
-        <li>@((MarkupString)Localizer["Block1Li3"].Value)</li>
-        <li>@((MarkupString)Localizer["Block1Li4"].Value)</li>
-    </ul>
-
-    <GroupBox Title="@Localizer["GroupBox1Title"]" style="margin-top: 1.5rem;">
-        <div>@Localizer["GroupBox1D1"]</div>
-        <div>@((MarkupString)Localizer["GroupBox1D2"].Value)</div>
-        <div>@((MarkupString)Localizer["GroupBox1D3"].Value)</div>
-        <div>@((MarkupString)Localizer["GroupBox1D4"].Value)</div>
-        <div class="row g-3 mt-3">
-            <div class="col-sm-12 col-md-3">
-                <BootstrapInput TValue="string" />
-            </div>
-            <div class="col-sm-12 col-md-3">
-                <BootstrapInput TValue="string" ShowLabel="true" DisplayText="" />
-            </div>
-            <div class="col-sm-12 col-md-3">
-                <BootstrapInput TValue="string" ShowLabel="true" DisplayText="@LocalizerFoo[nameof(Foo.Name)]" />
-            </div>
-            <div class="col-sm-12 col-md-3">
-                <BootstrapInput TValue="string" ShowLabel="true" DisplayText="@null" />
-            </div>
-        </div>
-    </GroupBox>
-
-    <p class="mt-3"><b>@Localizer["P3"]</b></p>
-    <GroupBox Title="@Localizer["GroupBox2Title"]" class="mt-3">
-        <div>@((MarkupString)Localizer["GroupBox2D1"].Value)</div>
-        <div>@((MarkupString)Localizer["GroupBox2D2"].Value)</div>
-        <div>@((MarkupString)Localizer["GroupBox2D3"].Value)</div>
-        <div>@((MarkupString)Localizer["GroupBox2D4"].Value)</div>
-        <div class="row g-3 mt-3">
-            <div class="col-sm-12 col-md-3">
-                <BootstrapInput @bind-Value="Dummy.Name" />
-            </div>
-            <div class="col-sm-12 col-md-3">
-                <BootstrapInput @bind-Value="Dummy.Name" ShowLabel="true" DisplayText="@LocalizerFoo[nameof(Foo.Address)]" />
-            </div>
-            <div class="col-sm-12 col-md-3">
-                <BootstrapInput @bind-Value="Dummy.Name" ShowLabel="true" DisplayText="" />
-            </div>
-            <div class="col-sm-12 col-md-3">
-                <BootstrapInput @bind-Value="Dummy.Name" ShowLabel="true" DisplayText="@null" />
-            </div>
-        </div>
-    </GroupBox>
+<DemoBlock Title="@Localizer["LabelsNormalTitle"]"
+           Introduction="@Localizer["LabelsNormalIntro"]"
+           Name="Normal" Demo="typeof(Demos.Labels.LabelsNormal)">
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["Block2Title"]" Introduction="@(((MarkupString)Localizer["Block2Intro"].Value).ToString())" Name="EditorForm">
-    <p>@((MarkupString)Localizer["P5"].Value)</p>
-    <GroupBox>
-        <EditorForm Model="@Dummy" ShowLabel="false" RowType="RowType.Inline" ItemsPerRow="2">
-            <FieldItems>
-                <EditorItem @bind-Field="context.Hobby" Items="@Foo.GenerateHobbys(LocalizerFoo)">
-                </EditorItem>
-            </FieldItems>
-        </EditorForm>
-    </GroupBox>
-
-    <p class="mt-3">@((MarkupString)Localizer["P4"].Value)</p>
-    <GroupBox>
-        <EditorForm Model="@Dummy" RowType="RowType.Inline" ItemsPerRow="2">
-            <FieldItems>
-                <EditorItem @bind-Field="context.Hobby" Items="@Foo.GenerateHobbys(LocalizerFoo)">
-                </EditorItem>
-            </FieldItems>
-        </EditorForm>
-    </GroupBox>
-
-    <p class="mt-3">@((MarkupString)Localizer["EditorFormLabelAlignRight"].Value)</p>
-    <GroupBox>
-        <EditorForm Model="@Dummy" ShowLabel="true" RowType="RowType.Inline" ItemsPerRow="2" LabelAlign="Alignment.Right">
-            <FieldItems>
-                <EditorItem @bind-Field="context.Hobby" Items="@Foo.GenerateHobbys(LocalizerFoo)">
-                </EditorItem>
-            </FieldItems>
-        </EditorForm>
-    </GroupBox>
-
-    <p class="mt-3">@((MarkupString)Localizer["EditorFormLabelAlignCenter"].Value)</p>
-    <GroupBox>
-        <EditorForm Model="@Dummy" ShowLabel="true" RowType="RowType.Inline" ItemsPerRow="2" LabelAlign="Alignment.Center">
-            <FieldItems>
-                <EditorItem @bind-Field="context.Hobby" Items="@Foo.GenerateHobbys(LocalizerFoo)">
-                </EditorItem>
-            </FieldItems>
-        </EditorForm>
-    </GroupBox>
+<DemoBlock Title="@Localizer["LabelsEditorFormTitle"]"
+           Introduction="@(((MarkupString)Localizer["LabelsEditorFormIntro"].Value).ToString())"
+           Name="EditorForm"
+           Demo="typeof(Demos.Labels.LabelsEditorForm)">
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["Block3Title"]" Introduction="@(((MarkupString)Localizer["Block3Intro"].Value).ToString())" Name="ValidateForm1">
-    <p>@((MarkupString)Localizer["P6"].Value)</p>
-    <GroupBox>
-        <ValidateForm Model="@Dummy">
-            <EditorForm TModel="Foo" RowType="RowType.Inline" ItemsPerRow="2">
-                <FieldItems>
-                    <EditorItem @bind-Field="context.Hobby" Items="@Foo.GenerateHobbys(LocalizerFoo)">
-                    </EditorItem>
-                </FieldItems>
-            </EditorForm>
-        </ValidateForm>
-    </GroupBox>
-
-    <p class="mt-3">@((MarkupString)Localizer["P7"].Value)</p>
-    <GroupBox>
-        <ValidateForm Model="@Dummy" ShowLabel="false">
-            <EditorForm TModel="Foo" RowType="RowType.Inline" ItemsPerRow="2">
-                <FieldItems>
-                    <EditorItem @bind-Field="context.Hobby" Items="@Foo.GenerateHobbys(LocalizerFoo)">
-                    </EditorItem>
-                </FieldItems>
-            </EditorForm>
-        </ValidateForm>
-    </GroupBox>
+<DemoBlock Title="@Localizer["LabelsValidateForm1Title"]"
+           Introduction="@(((MarkupString)Localizer["LabelsValidateForm1Intro"].Value).ToString())"
+           Name="ValidateForm1"
+           Demo="typeof(Demos.Labels.LabelsValidateForm1)">
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["Block4Title"]" Introduction="@Localizer["Block4Intro"]" Name="ValidateForm2">
-    <p>@((MarkupString)Localizer["P8"].Value)</p>
-    <ValidateForm Model="@Dummy">
-        <div class="row g-3">
-            <div class="col-sm-12 col-md-6">
-                <BootstrapInput @bind-Value="Dummy.Name" />
-            </div>
-            <div class="col-sm-12 col-md-6">
-                <BootstrapInput @bind-Value="Dummy.Address" />
-            </div>
-        </div>
-    </ValidateForm>
-
-    <p class="mt-3">@((MarkupString)Localizer["P9"].Value)</p>
-    <ValidateForm Model="@Dummy" ShowLabel="false">
-        <div class="row g-3">
-            <div class="col-sm-12 col-md-6">
-                <BootstrapInput @bind-Value="Dummy.Name" />
-            </div>
-            <div class="col-sm-12 col-md-6">
-                <BootstrapInput @bind-Value="Dummy.Address" />
-            </div>
-        </div>
-    </ValidateForm>
-
-    <p class="mt-3">@((MarkupString)Localizer["P10"].Value)</p>
-    <ValidateForm Model="@Dummy">
-        <div class="row g-3 form-inline">
-            <div class="col-sm-12 col-md-6">
-                <BootstrapInput @bind-Value="Dummy.Name" />
-            </div>
-            <div class="col-sm-12 col-md-6">
-                <BootstrapInput @bind-Value="Dummy.Address" />
-            </div>
-        </div>
-    </ValidateForm>
-
-    <p class="mt-3">@((MarkupString)Localizer["ValidateFormAlignRight"].Value)</p>
-    <ValidateForm Model="@Dummy">
-        <div class="row g-3 form-inline form-inline-end">
-            <div class="col-sm-12 col-md-6">
-                <BootstrapInput @bind-Value="Dummy.Name" />
-            </div>
-            <div class="col-sm-12 col-md-6">
-                <BootstrapInput @bind-Value="Dummy.Address" />
-            </div>
-        </div>
-    </ValidateForm>
-    <p class="mt-3">@((MarkupString)Localizer["ValidateFormAlignCenter"].Value)</p>
-    <ValidateForm Model="@Dummy">
-        <div class="row g-3 form-inline form-inline-center">
-            <div class="col-sm-12 col-md-6">
-                <BootstrapInput @bind-Value="Dummy.Name" />
-            </div>
-            <div class="col-sm-12 col-md-6">
-                <BootstrapInput @bind-Value="Dummy.Address" />
-            </div>
-        </div>
-    </ValidateForm>
-
-    <p class="mt-3">
-        @((MarkupString)Localizer["P11"].Value)
-        <div>@((MarkupString)LocalizerForm["FormLabelWidth"].Value)</div>
-        <div class="mt-2">@((MarkupString)LocalizerForm["LongDisplayDescription"].Value)</div>
-    </p>
-    <ValidateForm Model="@Dummy">
-        <div class="row g-3">
-            <div class="col-12">
-                <BootstrapInput @bind-Value="@Dummy.Name" DisplayText="@LocalizerForm["LongDisplayText"]" />
-            </div>
-        </div>
-        <div class="row g-3 form-inline mt-0">
-            <div class="col-12">
-                <BootstrapInput @bind-Value="@Dummy.Address" DisplayText="@LocalizerForm["LongDisplayText"]" ShowLabelTooltip="true" />
-            </div>
-        </div>
-    </ValidateForm>
+<DemoBlock Title="@Localizer["LabelsValidateForm2Title"]"
+           Introduction="@Localizer["LabelsValidateForm2Intro"]"
+           Name="ValidateForm2"
+           Demo="typeof(Demos.Labels.LabelsValidateForm2)">
 </DemoBlock>
