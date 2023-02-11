@@ -1,77 +1,30 @@
 ﻿@page "/inputgroups"
 @inject IStringLocalizer<InputGroups> Localizer
 
-<h3>@Localizer["Title"]</h3>
+<h3>@Localizer["InputGroupsTitle"]</h3>
 
-<h4>@Localizer["H1"]</h4>
+<h4>@Localizer["InputGroupsDescription"]</h4>
 
-<DemoBlock Title="@Localizer["Block1Title"]" Introduction="@Localizer["Block1Intro"]" Name="Normal">
-    <div class="row g-3">
-        <div class="col-12 col-sm-6">
-            <BootstrapInputGroup>
-                <BootstrapInputGroupLabel DisplayText="@Localizer["UserName"]" />
-                <BootstrapInput @bind-Value="@BindValue" />
-            </BootstrapInputGroup>
-        </div>
-        <div class="col-12 col-sm-6">
-            <BootstrapInputGroup>
-                <BootstrapInput @bind-Value="@BindValue" />
-                <Button Icon="fa-solid fa-magnifying-glass"></Button>
-            </BootstrapInputGroup>
-        </div>
-    </div>
+<DemoBlock Title="@Localizer["InputGroupsNormalTitle"]"
+           Introduction="@Localizer["InputGroupsNormalIntro"]"
+           Name="Normal"
+           Demo="typeof(Demos.InputGroups.InputGroupsNormal)">
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["Block2Title"]" Introduction="@Localizer["Block2Intro"]" Name="Multiple">
-    <BootstrapInputGroup>
-        <BootstrapInputGroupLabel DisplayText="@Localizer["Distance"]" />
-        <BootstrapInput @bind-Value="@BindValue" />
-        <BootstrapInputGroupLabel DisplayText="km" />
-    </BootstrapInputGroup>
-    <BootstrapInputGroup class="mt-2">
-        <BootstrapInput @bind-Value="@BindValue" />
-        <BootstrapInputGroupLabel DisplayText="@StringAt" />
-        <BootstrapInput @bind-Value="@StringMailServer" />
-        <Button Icon="fa-solid fa-print" IsOutline="true"></Button>
-        <Button Icon="fa-solid fa-magnifying-glass" IsOutline="true"></Button>
-    </BootstrapInputGroup>
+<DemoBlock Title="@Localizer["InputGroupsMultipleTitle"]"
+           Introduction="@Localizer["InputGroupsMultipleIntro"]"
+           Name="Multiple"
+           Demo="typeof(Demos.InputGroups.InputGroupsMultiple)">
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["Block3Title"]" Introduction="@Localizer["Block3Intro"]" Name="Select">
-    <div class="row g-3">
-        <div class="col-12 col-sm-6">
-            <BootstrapInputGroup>
-                <BootstrapInputGroupLabel DisplayText="@Localizer["UserName"]" />
-                <Select TValue="string" Items="@Items3" />
-            </BootstrapInputGroup>
-        </div>
-        <div class="col-12 col-sm-6">
-            <BootstrapInputGroup>
-                <Select TValue="string" Items="@Items3" />
-                <BootstrapInputGroupLabel DisplayText="@Localizer["UserName"]" />
-            </BootstrapInputGroup>
-        </div>
-    </div>
+<DemoBlock Title="@Localizer["InputGroupsSelectTitle"]"
+           Introduction="@Localizer["InputGroupsSelectIntro"]"
+           Name="Select"
+           Demo="typeof(Demos.InputGroups.InputGroupsSelect)">
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["ValidateFormTitle"]" Introduction="@Localizer["ValidateFormIntro"]" Name="ValidateForm">
-    <FormInlineSwitch @bind-Value="@FormRowType" class="mb-3"></FormInlineSwitch>
-    <ValidateForm Model="@Model">
-        <div class="@GroupFormClassString">
-            <div class="col-12 col-sm-6">
-                <BootstrapInputGroupLabel @bind-Value="@Model.Name" required="true" />
-                <BootstrapInputGroup>
-                    <Display @bind-Value="@Model.Name"></Display>
-                    <BootstrapInputGroupLabel @bind-Value="@Model.Name" />
-                </BootstrapInputGroup>
-            </div>
-            <div class="col-12 col-sm-6">
-                <BootstrapInputGroupLabel @bind-Value="@Model.Address" required="true" />
-                <BootstrapInputGroup>
-                    <Display @bind-Value="@Model.Address"></Display>
-                    <BootstrapInputGroupLabel @bind-Value="@Model.Address" />
-                </BootstrapInputGroup>
-            </div>
-        </div>
-    </ValidateForm>
+<DemoBlock Title="@Localizer["InputGroupsValidateFormTitle"]"
+           Introduction="@Localizer["InputGroupsValidateFormIntro"]"
+           Name="ValidateForm"
+           Demo="typeof(Demos.InputGroups.InputGroupsValidateForm)">
 </DemoBlock>

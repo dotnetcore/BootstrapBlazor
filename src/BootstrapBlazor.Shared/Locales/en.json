@@ -3016,18 +3016,27 @@
     "InputNumbersValidateFormInputText": "Customization"
   },
   "BootstrapBlazor.Shared.Samples.InputGroups": {
-    "Title": "InputGroup",
-    "H1": "Input can add lables and buttons before or after it to make as a group",
-    "Block1Title": "Basic usage",
-    "Block1Intro": "Add a label before the <code>Input</code>, or Add a <code>Button</code> after the <code>Input</code>",
-    "Block2Title": "Add multiple components",
-    "Block2Intro": "The <code>InputGroup</code> can have lots of children",
-    "Block3Title": "Add Select",
-    "Block3Intro": "Add <code>Select</code> component to the <code>InputGroup</code>",
+    "InputGroupsTitle": "InputGroup",
+    "InputGroupsDescription": "Input can add lables and buttons before or after it to make as a group",
+    "InputGroupsNormalTitle": "Basic usage",
+    "InputGroupsNormalIntro": "Add a label before the <code>Input</code>, or Add a <code>Button</code> after the <code>Input</code>",
+    "InputGroupsMultipleTitle": "Add multiple components",
+    "InputGroupsMultipleIntro": "The <code>InputGroup</code> can have lots of children",
+    "InputGroupsSelectTitle": "Add Select",
+    "InputGroupsSelectIntro": "Add <code>Select</code> component to the <code>InputGroup</code>",
     "UserName": "UserName",
     "Distance": "Distance",
-    "ValidateFormTitle": "ValidateForm",
-    "ValidateFormIntro": "Inside <code>ValidateForm</code>"
+    "InputGroupsValidateFormTitle": "ValidateForm",
+    "InputGroupsValidateFormIntro": "Inside <code>ValidateForm</code>"
+  },
+  "BootstrapBlazor.Shared.Demos.InputGroups.InputGroupsNormal": {
+    "InputGroupsNormalUserName": "UserName"
+  },
+  "BootstrapBlazor.Shared.Demos.InputGroups.InputGroupsMultiple": {
+    "InputGroupsMultipleDistance": "Distance"
+  },
+  "BootstrapBlazor.Shared.Demos.InputGroups.InputGroupsSelect": {
+    "InputGroupsSelectUserName": "UserName"
   },
   "BootstrapBlazor.Shared.Samples.Markdowns": {
     "Title": "Markdown",
