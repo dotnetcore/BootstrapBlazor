@@ -1300,11 +1300,10 @@
     "P51": "MAUI Blazor 安装教程"
   },
   "BootstrapBlazor.Shared.Pages.Install_wasm": {
-    "Heading": "客户端 Blazor 安装教程",
-    "P1": "选择",
-    "P2": "项目类型，然后点击",
+    "Install_wasmHeading": "客户端 Blazor 安装教程",
+    "Install_wasmDescription": "选择 <b>Blazor WebAssembly App</b> 项目类型，然后点击 <b>Create</b>",
     "Title": "客户端渲染模式",
-    "CodeComment": "添加本行代码"
+    "Install_wasmCodeComment": "添加本行代码"
   },
   "BootstrapBlazor.Shared.Samples.Dividers": {
     "Title": "Divider 分割线",
