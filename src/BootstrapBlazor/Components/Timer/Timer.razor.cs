@@ -115,11 +115,11 @@ public partial class Timer
     private IStringLocalizer<Timer>? Localizer { get; set; }
 
     /// <summary>
-    /// OnInitialized 方法
+    /// <inheritdoc/>
     /// </summary>
-    protected override void OnInitialized()
+    protected override void OnParametersSet()
     {
-        base.OnInitialized();
+        base.OnParametersSet();
 
         PauseText ??= Localizer[nameof(PauseText)];
         ResumeText ??= Localizer[nameof(ResumeText)];
