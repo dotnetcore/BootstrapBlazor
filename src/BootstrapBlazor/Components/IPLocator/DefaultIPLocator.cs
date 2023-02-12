@@ -8,12 +8,12 @@ using System.Net.Http.Json;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-///
+/// 默认定位实现类
 /// </summary>
 public class DefaultIPLocator : IIPLocator
 {
     /// <summary>
-    ///
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="option"></param>
     /// <returns></returns>
@@ -25,7 +25,7 @@ public class DefaultIPLocator : IIPLocator
     public string? Url { get; set; }
 
     /// <summary>
-    ///
+    /// 泛型定位方法
     /// </summary>
     /// <param name="option"></param>
     /// <returns></returns>
