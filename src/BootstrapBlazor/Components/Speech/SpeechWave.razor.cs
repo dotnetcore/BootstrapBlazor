@@ -98,10 +98,7 @@ public partial class SpeechWave : IDisposable
                 }
                 StateHasChanged();
             }
-            catch
-            {
-                break;
-            }
+            catch { }
         }
         IsRun = false;
     }
