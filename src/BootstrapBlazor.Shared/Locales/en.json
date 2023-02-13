@@ -2921,7 +2921,7 @@
     "IsSelectAllTextOnEnter": "Whether auto select the all text after presses enter",
     "SelectAllTextAsync": "Select the all text method",
     "ValidateRules": "Customer validation collection",
-    "P8": "Use <code>IsSelectAllTextOnEnter</code> The user presses enter to select the all text",
+    "P8": "Use <code>IsSelectAllTextOnEnter</code> The user presses enter to select the all text"
   },
   "BootstrapBlazor.Shared.Demos.Inputs.InputsNormal": {
     "PlaceHolder": "Please enter ...",
@@ -6018,11 +6018,15 @@
     "ValueTitle": "Parameters control whether it is displayed",
     "ValueIntro": "Use the <code>Show</code> value to control whether the waveform plot is displayed",
     "ValueButtonText1": "Hide",
-    "ValueButtonText2": "Display",
+    "ValueButtonText2": "Show",
     "ShowAttr": "Whether to start",
     "ShowUsedTimeAttr": "Whether to display the duration",
     "OnTimeoutAttr": "Identify the end-of-timeout callback method",
     "TotalTimeSecondAttr": "Speech recognition is set for a total time longer than calling the OnTimeout callback"
+  },
+  "BootstrapBlazor.Shared.Demos.Speechs.SpeechWaveShow": {
+    "ValueButtonText1": "Hide",
+    "ValueButtonText2": "Show"
   },
   "BootstrapBlazor.Shared.Samples.Reconnectors": {
     "Title": "Reconnector",
