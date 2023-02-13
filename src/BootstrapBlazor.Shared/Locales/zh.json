@@ -2931,7 +2931,7 @@
     "IsSelectAllTextOnEnter": "Enter 键自动选择输入框内所有字符串",
     "SelectAllTextAsync": "选择输入框内所有字符串方法",
     "ValidateRules": "自定义验证集合",
-    "P8": "可通过设置 <code>IsSelectAllTextOnEnter</code> 用户按下 Enter 键自动选择输入框内所有字符串 ",
+    "P8": "可通过设置 <code>IsSelectAllTextOnEnter</code> 用户按下 Enter 键自动选择输入框内所有字符串 "
   },
   "BootstrapBlazor.Shared.Demos.Inputs.InputsNormal": {
     "PlaceHolder": "请输入 ...",
@@ -6040,6 +6040,10 @@
     "ShowUsedTimeAttr": "是否显示时长",
     "OnTimeoutAttr": "识别结束后超时回调方法",
     "TotalTimeSecondAttr": "语音识别设置总时长超出过调用 OnTimeout 回调"
+  },
+  "BootstrapBlazor.Shared.Demos.Speechs.SpeechWaveShow": {
+    "ValueButtonText1": "隐藏",
+    "ValueButtonText2": "显示"
   },
   "BootstrapBlazor.Shared.Samples.Reconnectors": {
     "Title": "Reconnector 重连组件",
