@@ -10,15 +10,6 @@
 
 <DemoBlock Title="@Localizer["ShowUsedTimeTitle"]" Introduction="@Localizer["ShowUsedTimeIntro"]" Name="ShowUsedTime" Demo="typeof(Demos.Speechs.SpeechWaveShowUsedTime)" />
 
-<DemoBlock Title="@Localizer["ValueTitle"]" Introduction="@Localizer["ValueIntro"]" Name="Value">
-    <div class="row g-3">
-        <div class="col-12">
-            <SpeechWave Show="IsShow" />
-        </div>
-        <div class="col-12">
-            <Button Text="@ButtonText" OnClick="OnClickShow"> </Button>
-        </div>
-    </div>
-</DemoBlock>
+<DemoBlock Title="@Localizer["ValueTitle"]" Introduction="@Localizer["ValueIntro"]" Name="Value" Demo="typeof(Demos.Speechs.SpeechWaveShow)" />
 
 <AttributeTable Items="@GetAttributes()" />
