@@ -205,6 +205,23 @@ public class SwalTest : SwalTestBase
         button = cut.Find(".btn-danger");
         cut.InvokeAsync(() => button.Click());
         cut.InvokeAsync(() => modal.Instance.CloseCallback());
+
+        // test force
+        var forceOption = new SwalOption()
+        {
+            Content = "I am auto hide",
+            ForceDelay = true,
+            Delay = 1234
+        };
+        cut.InvokeAsync(() => swal.Show(forceOption));
+        cut.InvokeAsync(() => modal.Instance.CloseCallback());
+        Assert.NotEqual(4000, forceOption.Delay);
+        Assert.Equal(1234, forceOption.Delay);
+
+        forceOption.ForceDelay = false;
+        cut.InvokeAsync(() => swal.Show(forceOption));
+        cut.InvokeAsync(() => modal.Instance.CloseCallback());
+        Assert.Equal(4000, forceOption.Delay);
     }
 
     private class MockSwalTest : ComponentBase

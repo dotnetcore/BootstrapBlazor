@@ -26,6 +26,7 @@ public abstract class PopupOptionBase
 
     /// <summary>
     /// 获得/设置 是否强制使用本实例的延时时间，防止值被全局配置覆盖 默认 false
+    /// <para>组件使用 <see cref="Delay"/> 值进行自动关闭，可通过 <see cref="BootstrapBlazorOptions"/> 类相关参数进行全局设置延时关闭时间，可通过本参数强制使用 <see cref="Delay"/> 值</para>
     /// </summary>
     public bool ForceDelay { get; set; }
 }
