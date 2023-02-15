@@ -14,11 +14,19 @@ export class BlazorTopology extends BlazorComponent {
             const data = this._config.arguments[1]
             const method = this._config.arguments[2]
             const isSupportTouch = this._config.supportTouch === true;
+            const isFitView = this._config.fitView === true;
+            const isCenterView = this._config.centerView === true;
             this._topology = new Topology(this._element, {}, isSupportTouch)
             this._topology.connectSocket = function () {
             }
             this._topology.open(JSON.parse(data))
             this._topology.lock(1)
+            if (isFitView) {
+                this._topology.fitView()
+            }
+            if (isCenterView) {
+                this._topology.centerView()
+            }
             obj.invokeMethodAsync(method)
         }
     }
