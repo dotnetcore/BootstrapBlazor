@@ -2,16 +2,14 @@
 @inject IStringLocalizer<Foo> FooLocalizer
 @inject DialogService DialogService
 
-<div>
-    <Button Text="@Localizer["DialogButtonText"]" OnClick="OnClickDialog"></Button>
-</div>
-
 <style>
     .dialog-table .modal-body {
         height: calc(100vh - 400px);
         overflow: hidden;
     }
 </style>
+
+<Button Text="@Localizer["DialogButtonText"]" OnClick="OnClickDialog" class="mt-3"></Button>
 
 @code {
     [NotNull]
