@@ -492,6 +492,22 @@ public class ValidateTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public async Task NoIdCheck_Ok()
+    {
+        var model = new Foo() { Count = 0 };
+        var cut = Context.RenderComponent<RenderTemplate>(builder =>
+        {
+            builder.AddChildContent<NoIdValidate<int>>(pb =>
+            {
+                pb.Add(v => v.Value, model.Count);
+                pb.Add(v => v.ValueExpression, model.GenerateValueExpression(nameof(Foo.Count), typeof(int)));
+            });
+        });
+        var intValidate = cut.FindComponent<NoIdValidate<int>>();
+        await intValidate.Instance.ShowValidResultTest();
+    }
+
+    [Fact]
     public void OnValidate_Ok()
     {
         var model = new Foo() { Count = 0 };
@@ -586,6 +602,15 @@ public class ValidateTest : BootstrapBlazorTestBase
             OnValidate(null);
             OnValidate(false);
             OnValidate(true);
+        }
+    }
+
+    private class NoIdValidate<TValue> : ValidateBase<TValue>
+    {
+        public async ValueTask ShowValidResultTest()
+        {
+            Id = "";
+            await base.ShowValidResult();
         }
     }
 
