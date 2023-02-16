@@ -5,64 +5,10 @@
 namespace BootstrapBlazor.Shared.Samples;
 
 /// <summary>
-/// 
+/// Lights
 /// </summary>
-public partial class Lights : IDisposable
+public partial class Lights
 {
-    private Color Color { get; set; } = Color.Primary;
-
-    [NotNull]
-    private string? Title { get; set; }
-
-    private void OnSetTitle()
-    {
-        Title = Localizer["P9"];
-    }
-
-    private void OnRemoveTitle()
-    {
-        Title = "";
-    }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    protected override void OnInitialized()
-    {
-        base.OnInitialized();
-
-        Title = Localizer["P9"];
-    }
-
-    private CancellationTokenSource UpdateColorTokenSource { get; } = new CancellationTokenSource();
-
-    /// <summary>
-    /// OnAfterRender
-    /// </summary>
-    /// <param name="firstRender"></param>
-    /// <returns></returns>
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        try
-        {
-            await Task.Delay(2000, UpdateColorTokenSource.Token);
-            Color = Color switch
-            {
-                Color.Primary => Color.Success,
-                Color.Success => Color.Info,
-                Color.Info => Color.Warning,
-                Color.Warning => Color.Danger,
-                Color.Danger => Color.Secondary,
-                _ => Color.Primary
-            };
-            StateHasChanged();
-        }
-        catch (TaskCanceledException)
-        {
-
-        }
-    }
-
     private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
         new AttributeItem() {
@@ -94,25 +40,4 @@ public partial class Lights : IDisposable
             DefaultValue = " — "
         }
     };
-
-    /// <summary>
-    /// Dispose
-    /// </summary>
-    protected virtual void Dispose(bool disposing)
-    {
-        if (disposing)
-        {
-            UpdateColorTokenSource.Cancel();
-            UpdateColorTokenSource.Dispose();
-        }
-    }
-
-    /// <summary>
-    /// Dispose
-    /// </summary>
-    public void Dispose()
-    {
-        Dispose(true);
-        GC.SuppressFinalize(this);
-    }
 }
