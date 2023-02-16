@@ -261,7 +261,11 @@ public partial class Transfer<TValue>
 
             if (ValidateForm == null && (Min > 0 || Max > 0))
             {
-                var validationContext = new ValidationContext(Value!) { MemberName = FieldIdentifier?.FieldName };
+                var validationContext = new ValidationContext(Value);
+                if(FieldIdentifier.HasValue)
+                {
+                    validationContext.MemberName = FieldIdentifier.Value.FieldName;
+                }
                 var validationResults = new List<ValidationResult>();
 
                 await ValidatePropertyAsync(RightItems, validationContext, validationResults);
