@@ -448,17 +448,19 @@
     "P28": "MessageItem property"
   },
   "BootstrapBlazor.Shared.Samples.Lights": {
-    "H1": "Light indicator",
-    "H2": "Provides various status indicators",
-    "P1": "common usage",
-    "P2": "for status indication",
-    "P3": "flicker",
-    "P4": "Flash the light by setting the property <code>IsFlash</code>",
-    "P5": "discoloration",
-    "P6": "Color the light by setting the value of the property <code>Color</code>",
-    "P7": "prompt text",
-    "P8": "By setting the value of the attribute <code>TooltipText</code> to make the <code>tooltip</code> text prompt when the mouse hovers over the indicator light",
-    "P9": "I am prompt text message"
+    "LightsTitle": "Light indicator",
+    "LightsDescription": "Provides various status indicators",
+    "LightsNormalTitle": "common usage",
+    "LightsNormalIntro": "for status indication",
+    "LightsFlashingTitle": "flicker",
+    "LightsFlashingIntro": "Flash the light by setting the property <code>IsFlash</code>",
+    "LightsColorTitle": "discoloration",
+    "LightsColorIntro": "Color the light by setting the value of the property <code>Color</code>",
+    "LightsTooltipTextTitle": "prompt text",
+    "LightsTooltipTextIntro": "By setting the value of the attribute <code>TooltipText</code> to make the <code>tooltip</code> text prompt when the mouse hovers over the indicator light"
+  },
+  "BootstrapBlazor.Shared.Demos.Lights.LightsTooltipText": {
+    "TooltipText": "I am prompt text message"
   },
   "BootstrapBlazor.Shared.Samples.Charts.Index": {
     "Chart": "Chart",
