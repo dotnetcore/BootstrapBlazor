@@ -1,4 +1,4 @@
-﻿.header {
+﻿::deep .header {
     background: #7dbcea;
     color: #fff;
     height: 64px;
@@ -6,7 +6,7 @@
     line-height: 64px;
 }
 
-.main {
+::deep .main {
     background: rgba(16, 142, 233, 1);
     color: #fff;
     min-height: 120px;
@@ -18,7 +18,7 @@
     flex-flow: column;
 }
 
-.footer {
+::deep .footer {
     background: #7dbcea;
     color: #fff;
     padding: 24px 50px;
@@ -27,42 +27,22 @@
     display: block;
 }
 
-.layout-side .side {
+::deep .layout-side .side {
     justify-content: center;
     align-items: center;
 }
 
-.layout .side {
+::deep .layout .side {
     display: flex;
     height: 100%;
     background: #3ba0e9;
     color: #fff;
 }
 
-.layout-demo1 {
-    width: 100%;
-    height: 300px;
-    border: 1px solid rgba(0,0,0,.125);
-}
-
-.layout-demo .header {
-    height: 50px;
-    color: #fff;
-    margin: 0 -1px;
-    background-color: var(--bs-indigo);
-}
-
-.layout-demo .footer {
-    height: 30px;
-    color: #212529;
-    background-color: #dcdfe6;
-    margin: 0 -1px;
-}
-
-.page-layout-demo-list {
+::deep .page-layout-demo-list {
     margin: 0;
 }
 
-    .page-layout-demo-list li {
+    ::deep .page-layout-demo-list li {
         margin: 0.5rem 0;
     }
