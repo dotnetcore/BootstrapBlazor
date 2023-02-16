@@ -43,9 +43,23 @@ public partial class Topology
     /// <summary>
     /// 获得/设置 是否支持树莓派触屏浏览器
     /// </summary>
-    /// <remarks>UserAgent 增加 X11|CrOS 识别为移动端</remarks>
+    /// <remarks></remarks>
     [Parameter]
     public bool IsSupportTouch { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否自适应屏幕显示
+    /// </summary>
+    /// <remarks></remarks>
+    [Parameter]
+    public bool IsFitView { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否居中显示可视区域
+    /// </summary>
+    /// <remarks></remarks>
+    [Parameter]
+    public bool IsCenterView { get; set; }
 
     private string? StyleString => CssBuilder.Default("width: 100%; height: 100%;")
         .AddStyleFromAttributes(AdditionalAttributes)
@@ -54,6 +68,10 @@ public partial class Topology
     private CancellationTokenSource? CancelToken { get; set; }
 
     private string? IsSupportTouchString => IsSupportTouch ? "true" : null;
+
+    private string? IsFitViewString => IsFitView ? "true" : null;
+
+    private string? IsCenterViewString => IsCenterView ? "true" : null;
 
     /// <summary>
     /// <inheritdoc/>
