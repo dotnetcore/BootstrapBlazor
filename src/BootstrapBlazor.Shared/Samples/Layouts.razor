@@ -34,44 +34,48 @@
 
 <h4>@Localizer["LayoutsDemosTitle"]</h4>
 
-<DemoBlock Title="@Localizer["LayoutsUpAndDownTitle"]"
-           Introduction="@Localizer["LayoutsUpAndDownIntro"]"
-           Name="UpAndDown"
-           Demo="typeof(Demos.Layouts.LayoutsUpAndDown)">
-</DemoBlock>
+<div>
+    <DemoBlock Title="@Localizer["LayoutsUpAndDownTitle"]"
+               Introduction="@Localizer["LayoutsUpAndDownIntro"]"
+               Name="UpAndDown"
+               Demo="typeof(Demos.Layouts.LayoutsUpAndDown)">
+    </DemoBlock>
 
-<DemoBlock Title="@Localizer["LayoutsMiddleLeftRightTitle"]"
-           Introduction="@Localizer["LayoutsMiddleLeftRightIntro"]"
-           Name="MiddleLeftRight"
-           Demo="typeof(Demos.Layouts.LayoutsMiddleLeftRight)">
-</DemoBlock>
+    <DemoBlock Title="@Localizer["LayoutsMiddleLeftRightTitle"]"
+               Introduction="@Localizer["LayoutsMiddleLeftRightIntro"]"
+               Name="MiddleLeftRight"
+               Demo="typeof(Demos.Layouts.LayoutsMiddleLeftRight)">
+    </DemoBlock>
 
-<DemoBlock Title="@Localizer["LayoutsLeftRightTitle"]"
-           Introduction="@Localizer["LayoutsLeftRightIntro"]"
-           Name="LeftRight"
-           Demo="typeof(Demos.Layouts.LayoutsLeftRight)">
-</DemoBlock>
+    <DemoBlock Title="@Localizer["LayoutsLeftRightTitle"]"
+               Introduction="@Localizer["LayoutsLeftRightIntro"]"
+               Name="LeftRight"
+               Demo="typeof(Demos.Layouts.LayoutsLeftRight)">
+    </DemoBlock>
 
-<DemoBlock Title="@Localizer["LayoutsCustomPercentTitle"]"
-           Introduction="@Localizer["LayoutsCustomPercentIntro"]"
-           Name="CuntomPercent"
-           Demo="typeof(Demos.Layouts.LayoutsCustomPercent)">
-</DemoBlock>
+    <DemoBlock Title="@Localizer["LayoutsCustomPercentTitle"]"
+               Introduction="@Localizer["LayoutsCustomPercentIntro"]"
+               Name="CuntomPercent"
+               Demo="typeof(Demos.Layouts.LayoutsCustomPercent)">
+    </DemoBlock>
 
-<DemoBlock Title="@Localizer["LayoutsAppTitle"]"
-           Name="App"
-           Demo="typeof(Demos.Layouts.LayoutsApp)">
-</DemoBlock>
+    <DemoBlock Title="@Localizer["LayoutsAppTitle"]"
+               Introduction="@Localizer["LayoutsAppIntro"]"
+               Name="App"
+               Demo="typeof(Demos.Layouts.LayoutsApp)">
+    </DemoBlock>
 
-<DemoBlock Title="@Localizer["LayoutsPageTitle"]"
-           Name="Page">
-    <Tips>@((MarkupString)Localizer["LayoutsPageTips1"].Value)</Tips>
+    <DemoBlock Title="@Localizer["LayoutsPageTitle"]"
+               Introduction="@Localizer["LayoutsPageIntro"]"
+               Name="Page">
+        <Tips>@((MarkupString)Localizer["LayoutsPageTips1"].Value)</Tips>
 
-    <ul class="page-layout-demo-list">
-        <li>
-            <a href="layout-page" target="_blank">@Localizer["LayoutsPageHrefTitle"]</a>
-        </li>
-    </ul>
-</DemoBlock>
+        <ul class="page-layout-demo-list">
+            <li>
+                <a href="layout-page" target="_blank">@Localizer["LayoutsPageHrefTitle"]</a>
+            </li>
+        </ul>
+    </DemoBlock>
+</div>
 
 <AttributeTable Items="@GetAttributes()" />
