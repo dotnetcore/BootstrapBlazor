@@ -7,28 +7,12 @@ using Microsoft.Extensions.Options;
 namespace BootstrapBlazor.Shared.Samples;
 
 /// <summary>
-/// 
+/// LinkButtons
 /// </summary>
 public sealed partial class LinkButtons
 {
-    [Inject]
-    [NotNull]
-    private IOptionsMonitor<WebsiteOptions>? WebsiteOption { get; set; }
-
-    [Inject]
-    [NotNull]
-    private IStringLocalizer<LinkButtons>? Localizer { get; set; }
-
-    [NotNull]
-    private BlockLogger? Trace { get; set; }
-
-    private void OnClick()
-    {
-        Trace.Log($"{DateTimeOffset.Now}: Clicked!");
-    }
-
     /// <summary>
-    /// 
+    /// GetAttributes
     /// </summary>
     /// <returns></returns>
     private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]

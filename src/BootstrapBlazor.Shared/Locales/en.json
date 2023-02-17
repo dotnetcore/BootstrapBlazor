@@ -4295,15 +4295,14 @@
     "GroupP2": "For more examples, please refer to the <code>EditorForms</code> Form Example <a href='editorforms' target='_blank'>[the portal]</a>"
   },
   "BootstrapBlazor.Shared.Samples.LinkButtons": {
-    "ComTitle": "LinkButton",
-    "SubTitle": "Provider A html tag as Button",
+    "LinkButtonsComTitle": "LinkButton",
+    "LinkButtonsSubTitle": "Provider A html tag as Button",
     "LinkButtonTextTitle": "LinkButton",
     "LinkButtonTextIntro": "Set <code>Text</code> for displayed text",
     "LinkButtonText": "LinkButton",
     "LinkButtonUrlTitle": "Navigation Url",
     "LinkButtonUrlIntro": "Set <code>Url</code> for navigation Url",
     "LinkButtonTitleTitle": "Tooltip",
-    "LinkButtonTitleTooltip": "this is Tooltip title",
     "LinkButtonTitleIntro": "Set <code>Title</code> for tooltip",
     "LinkButtonTitleDetail": "show <code>Tooltip</code> when hover on this button",
     "LinkButtonImageTitle": "Image",
@@ -4316,13 +4315,10 @@
     "LinkButtonIconIntro": "Set <code>Icon</code> for display as icon button",
     "LinkButtonColorTitle": "Color",
     "LinkButtonColorIntro": "Set <code>Color</code> change the color of text",
-    "LinkButtonColorText": "Button",
     "LinkButtonIsDisabledTitle": "Disabled",
     "LinkButtonIsDisabledIntro": "Set <code>IsDisabled</code> for disable the link button",
-    "LinkButtonIsDisabledText": "Disabled",
     "LinkButtonVerticalTitle": "Vertical",
     "LinkButtonVerticalIntro": "Set <code>IsVertical</code> for vertical layout the icon and text",
-    "LinkButtonVerticalText": "TestButton",
     "Text": "Text",
     "Url": "Url",
     "Title": "Tooltip Title",
@@ -4331,6 +4327,31 @@
     "ChildContent": "ChildContent",
     "OnClick": "OnClick",
     "Icon": "Icon"
+  },
+  "BootstrapBlazor.Shared.Demos.LinkButtons.LinkButtonsText": {
+    "LinkButtonText": "LinkButton"
+  },
+  "BootstrapBlazor.Shared.Demos.LinkButtons.LinkButtonsUrl": {
+    "LinkButtonText": "LinkButton"
+  },
+  "BootstrapBlazor.Shared.Demos.LinkButtons.LinkButtonsTitle": {
+    "LinkButtonText": "LinkButton",
+    "LinkButtonTitleTooltip": "this is Tooltip title"
+  },
+  "BootstrapBlazor.Shared.Demos.LinkButtons.LinkButtonsChildContent": {
+    "LinkButtonText": "LinkButton"
+  },
+  "BootstrapBlazor.Shared.Demos.LinkButtons.LinkButtonsOnClick": {
+    "LinkButtonText": "LinkButton"
+  },
+  "BootstrapBlazor.Shared.Demos.LinkButtons.LinkButtonsIsDisabled": {
+    "LinkButtonIsDisabledText": "Disabled"
+  },
+  "BootstrapBlazor.Shared.Demos.LinkButtons.LinkButtonsColor": {
+    "LinkButtonColorText": "Button"
+  },
+  "BootstrapBlazor.Shared.Demos.LinkButtons.LinkButtonsIsVertical": {
+    "LinkButtonVerticalText": "TestButton"
   },
   "BootstrapBlazor.Shared.Samples.ListViews": {
     "Title": "ListView",

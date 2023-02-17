@@ -1,0 +1,16 @@
+﻿@inject IStringLocalizer<LinkButtonsOnClick> Localizer
+
+<div>
+    <LinkButton Text="@Localizer["LinkButtonText"]" OnClick="@OnClick" />
+    <BlockLogger @ref="Trace" class="mt-3" />
+</div>
+
+@code {
+    [NotNull]
+    private BlockLogger? Trace { get; set; }
+
+    private void OnClick()
+    {
+        Trace.Log($"{DateTimeOffset.Now}: Clicked!");
+    }
+}
