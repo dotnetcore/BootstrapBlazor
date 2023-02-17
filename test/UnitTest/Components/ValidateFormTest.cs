@@ -177,6 +177,13 @@ public class ValidateFormTest : ValidateFormTestBase
         cut.Instance.SetError("Name", "Test_SetError");
         cut.Instance.SetError("Test.Name", "Test_SetError");
         cut.Instance.SetError<Foo>(f => f.Name, "Name_SetError");
+
+        // 利用反射提高代码覆盖率
+        var method = typeof(ValidateForm).GetMethod("TryGetValidator", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+        Assert.NotNull(method);
+
+        var ret = method.Invoke(cut.Instance, new object?[] { typeof(Dummy), "Test", null });
+        Assert.False((bool?)ret);
     }
 
     [Fact]
