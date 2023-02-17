@@ -412,8 +412,23 @@ public class UploadTest : BootstrapBlazorTestBase
             });
         });
         cut.Contains("form-label");
-    }
 
+        // ValidateId 为空情况
+        var uploader = cut.FindComponent<ButtonUpload<string>>();
+        var pi = typeof(ButtonUpload<string>).GetProperty("UploadFiles", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+        Assert.NotNull(pi);
+        var filesValue = pi.GetValue(uploader.Instance);
+
+        if (filesValue is List<UploadFile> fs)
+        {
+            fs.Add(new UploadFile());
+        }
+        var results = new List<ValidationResult>()
+        {
+            new ValidationResult("test", new string[] { "bb_validate_123" })
+        };
+        uploader.Instance.ToggleMessage(results, true);
+    }
 
     [Fact]
     public async Task ButtonUpload_ShowDownload()
