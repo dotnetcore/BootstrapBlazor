@@ -1,9 +1,7 @@
 ﻿@inject IStringLocalizer<LinkButtonsOnClick> Localizer
 
-<div>
-    <LinkButton Text="@Localizer["LinkButtonText"]" OnClick="@OnClick" />
-    <BlockLogger @ref="Trace" class="mt-3" />
-</div>
+<LinkButton Text="@Localizer["LinkButtonText"]" OnClick="@OnClick" />
+<BlockLogger @ref="Trace" class="mt-3" />
 
 @code {
     [NotNull]
