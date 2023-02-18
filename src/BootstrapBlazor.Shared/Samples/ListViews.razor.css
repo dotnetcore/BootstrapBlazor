@@ -1,0 +1,12 @@
+﻿::deep .listview-demo {
+    height: 626px;
+}
+
+    ::deep .listview-demo img {
+        margin-bottom: 1rem;
+        border-radius: var(--bs-border-radius);
+    }
+
+::deep .listview-demo-desc {
+    text-align: center;
+}

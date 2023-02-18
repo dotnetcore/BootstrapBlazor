@@ -4364,6 +4364,7 @@
   "BootstrapBlazor.Shared.Samples.ListViews": {
     "ListViewsTitle": "ListView 列表视图",
     "ListViewsSubTitle": "提供规则排列控件",
+    "ProductListText": "产品列表",
     "BasicUsageTitle": "普通用法",
     "BasicUsageIntro": "适用于大量重复的数据实现规则排列",
     "BasicUsageP1": "点击图片时触发 <code>OnListViewItemClick</code> 事件",
@@ -4386,21 +4387,6 @@
     "OnListViewItemClick": "ListView元素点击时回调委托",
     "QueryAsync": "手工查询数据方法",
     "CollapsedGroupCallback": "组件分组项是否收缩回调委托方法"
-  },
-  "BootstrapBlazor.Shared.Demos.ListViews.ListViewsNormal": {
-    "ProductListText": "产品列表"
-  },
-  "BootstrapBlazor.Shared.Demos.ListViews.ListViewsPagination": {
-    "ProductListText": "产品列表"
-  },
-  "BootstrapBlazor.Shared.Demos.ListViews.ListViewsGroup": {
-    "ProductListText": "产品列表"
-  },
-  "BootstrapBlazor.Shared.Demos.ListViews.ListViewsCollapsable": {
-    "ProductListText": "产品列表"
-  },
-  "BootstrapBlazor.Shared.Demos.ListViews.ListViewsIsAccordion": {
-    "ProductListText": "产品列表"
   },
   "BootstrapBlazor.Shared.Samples.Locators": {
     "Title": "获取 IP 地理位置",

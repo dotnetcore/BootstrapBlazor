@@ -9,6 +9,15 @@ namespace BootstrapBlazor.Shared.Samples;
 /// </summary>
 public sealed partial class ListViews
 {
+    internal class Product
+    {
+        public string ImageUrl { get; set; } = "";
+
+        public string Description { get; set; } = "";
+
+        public string Category { get; set; } = "";
+    }
+
     private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
         new AttributeItem(){

@@ -1,5 +1,6 @@
-﻿@inject IOptionsMonitor<WebsiteOptions> WebsiteOption
-@inject IStringLocalizer<ListViewsIsAccordion> Localizer
+﻿@using static BootstrapBlazor.Shared.Samples.ListViews;
+@inject IOptionsMonitor<WebsiteOptions> WebsiteOption
+@inject IStringLocalizer<BootstrapBlazor.Shared.Samples.ListViews> Localizer
 
 <div class="listview-demo">
     <ListView TItem="Product" GroupName="@(p => p.Category)" OnQueryAsync="@OnQueryAsync" Collapsable="true" IsAccordion="true">
@@ -16,21 +17,6 @@
         </BodyTemplate>
     </ListView>
 </div>
-
-<style>
-    .listview-demo {
-        height: 626px;
-    }
-
-        .listview-demo img {
-            margin-bottom: 1rem;
-            border-radius: var(--bs-border-radius);
-        }
-
-    .listview-demo-desc {
-        text-align: center;
-    }
-</style>
 
 @code {
     [NotNull]
@@ -62,13 +48,4 @@
     }
 
     private static bool CollapsedGroupCallback(object? groupKey) => groupKey?.ToString() != "Group1";
-
-    internal class Product
-    {
-        public string ImageUrl { get; set; } = "";
-
-        public string Description { get; set; } = "";
-
-        public string Category { get; set; } = "";
-    }
 }
