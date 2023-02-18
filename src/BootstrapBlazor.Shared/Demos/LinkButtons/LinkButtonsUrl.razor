@@ -1,6 +1,4 @@
 ﻿@inject IStringLocalizer<LinkButtonsUrl> Localizer
 @inject IOptionsMonitor<WebsiteOptions> WebsiteOption
 
-<div>
-    <LinkButton Text="@Localizer["LinkButtonText"]" Url="@WebsiteOption.CurrentValue.ServerUrl" />
-</div>
+<LinkButton Text="@Localizer["LinkButtonText"]" Url="@WebsiteOption.CurrentValue.ServerUrl" />
