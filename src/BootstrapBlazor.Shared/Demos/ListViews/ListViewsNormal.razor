@@ -1,0 +1,77 @@
+﻿@inject IStringLocalizer<ListViewsNormal> Localizer
+@inject IOptionsMonitor<WebsiteOptions> WebsiteOption
+
+<div class="listview-demo">
+    <ListView TItem="Product" Items="@Products" OnListViewItemClick="OnListViewItemClick">
+        <HeaderTemplate>
+            <div>@Localizer["ProductListText"]</div>
+        </HeaderTemplate>
+        <BodyTemplate>
+            <Card>
+                <BodyTemplate>
+                    <img src="@context.ImageUrl" />
+                    <div class="listview-demo-desc">@context.Description</div>
+                </BodyTemplate>
+            </Card>
+        </BodyTemplate>
+        <FooterTemplate>
+            <div class="text-end">
+                Coptyright Bootstrap Blazor
+            </div>
+        </FooterTemplate>
+    </ListView>
+</div>
+<BlockLogger @ref="Trace" class="mt-3" />
+
+<style>
+    .listview-demo {
+        height: 626px;
+    }
+
+        .listview-demo img {
+            margin-bottom: 1rem;
+            border-radius: var(--bs-border-radius);
+        }
+
+    .listview-demo-desc {
+        text-align: center;
+    }
+</style>
+
+@code {
+    [NotNull]
+    private BlockLogger? Trace { get; set; }
+
+    [NotNull]
+    private IEnumerable<Product>? Products { get; set; }
+
+    /// <summary>
+    /// OnInitialized
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        Products = Enumerable.Range(1, 100).Select(i => new Product()
+        {
+            ImageUrl = $"{WebsiteOption.CurrentValue.ImageLibUrl}/images/Pic{i}.jpg",
+            Description = $"Pic{i}.jpg",
+            Category = $"Group{(i % 4) + 1}"
+        });
+    }
+
+    private Task OnListViewItemClick(Product item)
+    {
+        Trace?.Log($"ListViewItem: {item.Description} clicked");
+        return Task.CompletedTask;
+    }
+
+    internal class Product
+    {
+        public string ImageUrl { get; set; } = "";
+
+        public string Description { get; set; } = "";
+
+        public string Category { get; set; } = "";
+    }
+}

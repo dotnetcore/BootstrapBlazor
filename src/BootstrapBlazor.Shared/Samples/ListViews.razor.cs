@@ -5,49 +5,10 @@
 namespace BootstrapBlazor.Shared.Samples;
 
 /// <summary>
-/// 
+/// ListViews
 /// </summary>
 public sealed partial class ListViews
 {
-    [NotNull]
-    private BlockLogger? Trace { get; set; }
-
-    [NotNull]
-    private IEnumerable<Product>? Products { get; set; }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    protected override void OnInitialized()
-    {
-        base.OnInitialized();
-
-        Products = Enumerable.Range(1, 100).Select(i => new Product()
-        {
-            ImageUrl = $"{WebsiteOption.CurrentValue.ImageLibUrl}/images/Pic{i}.jpg",
-            Description = $"Pic{i}.jpg",
-            Category = $"Group{(i % 4) + 1}"
-        });
-    }
-
-    private Task<QueryData<Product>> OnQueryAsync(QueryPageOptions options)
-    {
-        var items = Products.Skip((options.PageIndex - 1) * options.PageItems).Take(options.PageItems);
-        return Task.FromResult(new QueryData<Product>()
-        {
-            Items = items,
-            TotalCount = Products.Count()
-        });
-    }
-
-    private Task OnListViewItemClick(Product item)
-    {
-        Trace?.Log($"ListViewItem: {item.Description} clicked");
-        return Task.CompletedTask;
-    }
-
-    private static bool CollapsedGroupCallback(object? groupKey) => groupKey?.ToString() != "Group1";
-
     private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
         new AttributeItem(){
@@ -132,13 +93,4 @@ public sealed partial class ListViews
             ReturnValue = "Task"
         }
     };
-}
-
-internal class Product
-{
-    public string ImageUrl { get; set; } = "";
-
-    public string Description { get; set; } = "";
-
-    public string Category { get; set; } = "";
 }

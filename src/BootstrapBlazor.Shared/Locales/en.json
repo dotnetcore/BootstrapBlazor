@@ -4354,12 +4354,11 @@
     "LinkButtonVerticalText": "TestButton"
   },
   "BootstrapBlazor.Shared.Samples.ListViews": {
-    "Title": "ListView",
-    "SubTitle": "Provides rule arrangement controls",
+    "ListViewsTitle": "ListView",
+    "ListViewsSubTitle": "Provides rule arrangement controls",
     "BasicUsageTitle": "Basic usage",
     "BasicUsageIntro": "Apply to a large number of duplicate data implementation rule arrangements",
     "BasicUsageP1": "The <code>OnListViewItemClick</code> event is triggered when you click on the image",
-    "ProductListText": "The list of products",
     "PaginationTitle": "Paginated display",
     "PaginationIntro": "Set the <code>Pageable</code> display paginated components",
     "GroupTitle": "Group display",
@@ -4379,6 +4378,21 @@
     "OnListViewItemClick": "The ListView element calls back when it clicks on the delegate",
     "QueryAsync": "Manually query data methods",
     "CollapsedGroupCallback": "Callback for set the IsCollapsed parameter of Collapse component"
+  },
+  "BootstrapBlazor.Shared.Demos.ListViews.ListViewsNormal": {
+    "ProductListText": "The list of products"
+  },
+  "BootstrapBlazor.Shared.Demos.ListViews.ListViewsPagination": {
+    "ProductListText": "The list of products"
+  },
+  "BootstrapBlazor.Shared.Demos.ListViews.ListViewsGroup": {
+    "ProductListText": "The list of products"
+  },
+  "BootstrapBlazor.Shared.Demos.ListViews.ListViewsCollapsable": {
+    "ProductListText": "The list of products"
+  },
+  "BootstrapBlazor.Shared.Demos.ListViews.ListViewsIsAccordion": {
+    "ProductListText": "The list of products"
   },
   "BootstrapBlazor.Shared.Samples.Locators": {
     "Title": "Get the IP geographic location",
