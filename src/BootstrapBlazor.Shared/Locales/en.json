@@ -4354,12 +4354,12 @@
     "LinkButtonVerticalText": "TestButton"
   },
   "BootstrapBlazor.Shared.Samples.ListViews": {
-    "Title": "ListView",
-    "SubTitle": "Provides rule arrangement controls",
+    "ListViewsTitle": "ListView",
+    "ListViewsSubTitle": "Provides rule arrangement controls",
+    "ProductListText": "The list of products",
     "BasicUsageTitle": "Basic usage",
     "BasicUsageIntro": "Apply to a large number of duplicate data implementation rule arrangements",
     "BasicUsageP1": "The <code>OnListViewItemClick</code> event is triggered when you click on the image",
-    "ProductListText": "The list of products",
     "PaginationTitle": "Paginated display",
     "PaginationIntro": "Set the <code>Pageable</code> display paginated components",
     "GroupTitle": "Group display",

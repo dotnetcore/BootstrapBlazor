@@ -4362,12 +4362,12 @@
     "LinkButtonVerticalText": "测试按钮"
   },
   "BootstrapBlazor.Shared.Samples.ListViews": {
-    "Title": "ListView 列表视图",
-    "SubTitle": "提供规则排列控件",
+    "ListViewsTitle": "ListView 列表视图",
+    "ListViewsSubTitle": "提供规则排列控件",
+    "ProductListText": "产品列表",
     "BasicUsageTitle": "普通用法",
     "BasicUsageIntro": "适用于大量重复的数据实现规则排列",
     "BasicUsageP1": "点击图片时触发 <code>OnListViewItemClick</code> 事件",
-    "ProductListText": "产品列表",
     "PaginationTitle": "分页显示",
     "PaginationIntro": "设置 <code>Pageable</code> 显示分页组件",
     "GroupTitle": "分组显示",
