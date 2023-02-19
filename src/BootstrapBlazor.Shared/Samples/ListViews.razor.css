@@ -1,12 +1,12 @@
-﻿::deep .listview-demo {
+﻿.listview-demo ::deep .listview {
     height: 626px;
 }
 
-    ::deep .listview-demo img {
+    .listview-demo ::deep .listview img {
         margin-bottom: 1rem;
         border-radius: var(--bs-border-radius);
     }
 
-::deep .listview-demo-desc {
-    text-align: center;
-}
+    .listview-demo ::deep .listview .listview-demo-desc {
+        text-align: center;
+    }
