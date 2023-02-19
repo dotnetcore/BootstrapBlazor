@@ -11,46 +11,6 @@ namespace BootstrapBlazor.Shared.Samples;
 /// </summary>
 public partial class Markdowns
 {
-    private string? MarkdownString { get; set; }
-
-    private string? HtmlString { get; set; }
-
-    private string? Language { get; set; }
-
-    private string? AsyncValue { get; set; }
-
-    private string JsString { get; set; } = @"```js
-console.log('test');
-```";
-
-    [NotNull]
-    private Markdown? Markdown { get; set; }
-
-    [NotNull]
-    private Markdown? MarkdownSetValue { get; set; }
-
-    [NotNull]
-    private Foo? Model { get; set; }
-
-    /// <summary>
-    /// OnInitialized 方法
-    /// </summary>
-    /// <returns></returns>
-    protected override void OnInitialized()
-    {
-        Model = new() { Name = "Name", Education = EnumEducation.Primary, DateTime = DateTime.Now };
-
-        Language = CultureInfo.CurrentUICulture.Name;
-        MarkdownString = $"### {Localizer["MarkdownString"]}";
-    }
-
-    private async Task GetAsyncString()
-    {
-        await Task.Delay(600);
-        AsyncValue = $"### {DateTime.Now}";
-        await MarkdownSetValue.SetValue(AsyncValue);
-    }
-
     private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
         new AttributeItem(){
