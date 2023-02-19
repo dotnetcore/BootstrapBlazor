@@ -2,21 +2,19 @@
 @inject IOptionsMonitor<WebsiteOptions> WebsiteOption
 @inject IStringLocalizer<BootstrapBlazor.Shared.Samples.ListViews> Localizer
 
-<div class="listview-demo">
-    <ListView TItem="Product" Pageable="true" PageItems="21" OnQueryAsync="@OnQueryAsync">
-        <HeaderTemplate>
-            <div>@Localizer["ProductListText"]</div>
-        </HeaderTemplate>
-        <BodyTemplate>
-            <Card>
-                <BodyTemplate>
-                    <img src="@context.ImageUrl" />
-                    <div class="listview-demo-desc">@context.Description</div>
-                </BodyTemplate>
-            </Card>
-        </BodyTemplate>
-    </ListView>
-</div>
+<ListView TItem="Product" Pageable="true" PageItems="21" OnQueryAsync="@OnQueryAsync">
+    <HeaderTemplate>
+        <div>@Localizer["ProductListText"]</div>
+    </HeaderTemplate>
+    <BodyTemplate>
+        <Card>
+            <BodyTemplate>
+                <img src="@context.ImageUrl" />
+                <div class="listview-demo-desc">@context.Description</div>
+            </BodyTemplate>
+        </Card>
+    </BodyTemplate>
+</ListView>
 
 @code {
     [NotNull]
