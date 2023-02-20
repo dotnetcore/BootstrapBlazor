@@ -257,12 +257,17 @@ public partial class Select<TValue> : ISelect
     {
         item.Active = true;
         SelectedItem = item;
-        CurrentValueAsString = item.Value;
 
-        // 触发 SelectedItemChanged 事件
-        if (OnSelectedItemChanged != null)
+        if (CurrentValueAsString != item.Value)
         {
-            await OnSelectedItemChanged(SelectedItem);
+            // 触发 SelectedItemChanged 事件
+            if (OnSelectedItemChanged != null)
+            {
+                await OnSelectedItemChanged(SelectedItem);
+            }
+
+            // 触发 StateHasChanged
+            CurrentValueAsString = item.Value;
         }
     }
 
