@@ -1,8 +1,6 @@
 ﻿@inject IStringLocalizer<BootstrapBlazor.Shared.Samples.Menus> Localizer
 
-<div style="width:220px;">
-    <Menu Items="@CollapsedIconSideMenuItems" DisableNavigation="true" IsVertical="true" style="border-right: 1px solid #e6e6e6;" />
-</div>
+<Menu Items="@CollapsedIconSideMenuItems" DisableNavigation="true" IsVertical="true" style="border-right: 1px solid #e6e6e6; width:220px;" />
 
 @code {
     [NotNull]
