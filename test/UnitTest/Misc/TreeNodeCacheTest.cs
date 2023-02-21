@@ -284,12 +284,15 @@ public class TreeNodeCacheTest
         Assert.Equal(0, count);
     }
 
-    [Fact]
-    public async Task ToggleNodeAsync_Ok()
+    [Theory]
+    [InlineData(CheckboxState.Checked)]
+    [InlineData(CheckboxState.UnChecked)]
+    public async Task ToggleNodeAsync_Ok(CheckboxState state)
     {
         var node = new TreeViewItem<TreeFoo>(new TreeFoo() { Id = "1000" })
         {
-            IsExpand = true
+            IsExpand = true,
+            CheckedState = state
         };
         var nodeCache = new TreeNodeCache<TreeViewItem<TreeFoo>, TreeFoo>(Comparer);
         await nodeCache.ToggleNodeAsync(node, n =>
@@ -300,16 +303,7 @@ public class TreeNodeCacheTest
             };
             return Task.FromResult(items.Cast<IExpandableNode<TreeFoo>>());
         });
-
-        node.CheckedState = CheckboxState.Checked;
-        await nodeCache.ToggleNodeAsync(node, n =>
-        {
-            var items = new TreeViewItem<TreeFoo>[]
-            {
-                new TreeViewItem<TreeFoo>(new TreeFoo() { Id = "1020" })
-            };
-            return Task.FromResult(items.Cast<IExpandableNode<TreeFoo>>());
-        });
+        Assert.Equal(state, node.Items.First().CheckedState);
     }
 
     private bool Comparer(TreeFoo x, TreeFoo y) => x.Id == y.Id;
