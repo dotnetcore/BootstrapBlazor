@@ -1,110 +1,87 @@
 ﻿@page "/menus"
-@inject IOptionsMonitor<WebsiteOptions> WebsiteOption
+@inject IStringLocalizer<Menus> Localizer
 
-<h3>@Localizer["Title"]</h3>
+<h3>@Localizer["MenusTitle"]</h3>
 
-<h4>@Localizer["H1"]</h4>
+<h4>@Localizer["MenusDescription"]</h4>
 
 <Tips class="mt-3">
-    <p>@((MarkupString)Localizer["Tips1"].Value)</p>
+    <p>@((MarkupString)Localizer["MenusTips1"].Value)</p>
 </Tips>
 
-<DemoBlock Title="@Localizer["Block1Title"]" Introduction="@Localizer["Block1Intro"]" Name="TopBar">
-    <Menu Items="@Items" DisableNavigation="true" OnClick="@OnClickMenu" />
-    <BlockLogger @ref="Trace" class="mt-3" />
+<DemoBlock Title="@Localizer["MenusTopBarTitle"]"
+           Introduction="@Localizer["MenusTopBarIntro"]"
+           Name="TopBar"
+           Demo="typeof(Demos.Menus.MenusTopBar)">
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["Block2Title"]" Introduction="@Localizer["Block2Intro"]" Name="BottomBar">
+<DemoBlock Title="@Localizer["MenusBottomBarTitle"]"
+           Introduction="@Localizer["MenusBottomBarIntro"]"
+           Name="BottomBar"
+           Demo="typeof(Demos.Menus.MenusBottomBar)">
     <Tips>
-        <div>@((MarkupString)Localizer["Tips2"].Value)</div>
+        <div>@((MarkupString)Localizer["MenusBottomBarTips"].Value)</div>
     </Tips>
-    <div style="height: 120px; position: relative;">
-        <div>@ClickedMenuItemText</div>
-        <Menu Items="@BottomItems" DisableNavigation="true" OnClick="@OnClickBottomMenu" IsBottom="true" />
-    </div>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["Block3Title"]" Introduction="@Localizer["Block3Intro"]" Name="IconTop">
-    <Menu Items="@IconItems" DisableNavigation="true" />
+<DemoBlock Title="@Localizer["MenusIconTopTitle"]"
+           Introduction="@Localizer["MenusIconTopIntro"]"
+           Name="IconTop"
+           Demo="typeof(Demos.Menus.MenusIconTop)">
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["Block4Title"]" Introduction="@Localizer["Block4Intro"]" Name="LeftRightLayout">
-    <div style="width:220px; border-right: 1px solid #e6e6e6; padding-right: 4px;">
-        <Menu Items="@SideMenuItems" DisableNavigation="true" IsVertical="true" OnClick="@OnClickSideMenu" />
-    </div>
-    <BlockLogger @ref="TraceSideMenu" class="mt-3" />
+<DemoBlock Title="@Localizer["MenusLeftRightLayoutTitle"]"
+           Introduction="@Localizer["MenusLeftRightLayoutIntro"]"
+           Name="LeftRightLayout"
+           Demo="typeof(Demos.Menus.MenusLeftRightLayout)">
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["Block5Title"]" Introduction="@Localizer["Block5Intro"]" Name="IconLeft">
-    <div style="width:220px;">
-        <Menu Items="@IconSideMenuItems" DisableNavigation="true" IsVertical="true" style="border-right: 1px solid #e6e6e6;" />
-    </div>
+<DemoBlock Title="@Localizer["MenusIconLeftTitle"]"
+           Introduction="@Localizer["MenusIconLeftIntro"]"
+           Name="IconLeft"
+           Demo="typeof(Demos.Menus.MenusIconLeft)">
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["Block6Title"]" Introduction="@Localizer["Block6Intro"]" Name="Accordion">
-    <div style="width:220px;">
-        <Menu Items="@IconSideMenuItems" DisableNavigation="true" IsVertical="true" IsAccordion="true" style="border-right: 1px solid #e6e6e6;" />
-    </div>
+<DemoBlock Title="@Localizer["MenusAccordionTitle"]"
+           Introduction="@Localizer["MenusAccordionIntro"]"
+           Name="Accordion"
+           Demo="typeof(Demos.Menus.MenusAccordion)">
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["Block7Title"]" Introduction="@Localizer["Block7Intro"]" Name="ClickShrink">
+<DemoBlock Title="@Localizer["MenusClickShrinkTitle"]"
+           Introduction="@Localizer["MenusClickShrinkIntro"]"
+           Name="ClickShrink"
+           Demo="typeof(Demos.Menus.MenusClickShrink)">
     <Tips>
-        <p>@(new MarkupString(Localizer["AlertText"].Value))</p>
+        <p>@(new MarkupString(Localizer["MenusClickShrinkAlertText"].Value))</p>
     </Tips>
-    <p>@((MarkupString)Localizer["P1"].Value)</p>
-    <Layout SideWidth="0" IsFullSide="true" ShowFooter="true" ShowCollapseBar="true" class="layout-menu-demo"
-            Menus="IconSideMenuItems">
-        <Header>
-            <div class="menu-demo-header">
-                @Localizer["Block7Span"]
-            </div>
-        </Header>
-        <Side>
-            <div class="layout-banner">
-                <img class="layout-logo" src="_content/BootstrapBlazor.Shared/images/logo.png" />
-                <div class="layout-title">
-                    <span>@Localizer["MenuTitle"]</span>
-                </div>
-            </div>
-        </Side>
-        <Main>
-            <div style="padding: 10rem 1rem;">Main</div>
-        </Main>
-        <Footer>
-            <a href="@WebsiteOption.CurrentValue.BootstrapAdminLink" target="_blank">Bootstrap Admin</a>
-        </Footer>
-    </Layout>
+    <p>@((MarkupString)Localizer["MenusClickShrinkDescription"].Value)</p>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["Block8Title"]" Introduction="@Localizer["Block8Intro"]" Name="Wiget">
-    <div style="width:220px;">
-        <Menu Items="@WidgetIconSideMenuItems" DisableNavigation="true" IsVertical="true" style="border-right: 1px solid #e6e6e6;" />
-    </div>
+<DemoBlock Title="@Localizer["MenusWigetTitle"]"
+           Introduction="@Localizer["MenusWigetIntro"]"
+           Name="Wiget"
+           Demo="typeof(Demos.Menus.MenusWiget)">
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["Block9Title"]" Introduction="@Localizer["Block9Intro"]" Name="CustomNode">
-    <p>@((MarkupString)Localizer["P2"].Value)</p>
-    <div style="width:220px;">
-        <Menu Items="@CollapsedIconSideMenuItems" DisableNavigation="true" IsVertical="true" style="border-right: 1px solid #e6e6e6;" />
-    </div>
+<DemoBlock Title="@Localizer["MenusCustomNodeTitle"]"
+           Introduction="@Localizer["MenusCustomNodeIntro"]"
+           Name="CustomNode"
+           Demo="typeof(Demos.Menus.MenusCustomNode)">
+    <p>@((MarkupString)Localizer["MenusCustomNodeDescription"].Value)</p>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["Block10Title"]" Introduction="@Localizer["Block10Intro"]" Name="Dynamic">
-    <div class="mt-3" style="width:220px;">
-        <Menu Items="@DynamicSideMenuItems" DisableNavigation="true" IsVertical="true" style="border-right: 1px solid #e6e6e6;" />
-    </div>
-    <Button Text="@Localizer["Block10Button1"]" OnClick="UpdateMenu" />
-    <Button Text="@Localizer["Block10Button2"]" OnClick="ResetMenu" />
+<DemoBlock Title="@Localizer["MenusDynamicTitle"]"
+           Introduction="@Localizer["MenusDynamicIntro"]"
+           Name="Dynamic"
+           Demo="typeof(Demos.Menus.MenusDynamic)">
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["Block11Title"]" Introduction="@Localizer["Block11Intro"]" Name="PartDisable">
-    <p>@((MarkupString)Localizer["P3"].Value)</p>
-    <Menu Items="@DisabledMenuItems" DisableNavigation="true" OnClick="@OnClick2" />
-    <p class="mt-3"><b>@Localizer["b1"]</b></p>
-    <div style="width:220px; border-right: 1px solid #e6e6e6;">
-        <Menu Items="@DisabledMenuItems" DisableNavigation="true" IsVertical="true" OnClick="@OnClick2" />
-    </div>
-    <BlockLogger @ref="Trace2" class="mt-3" />
+<DemoBlock Title="@Localizer["MenusPartDisableTitle"]"
+           Introduction="@Localizer["MenusPartDisableIntro"]"
+           Name="PartDisable"
+           Demo="typeof(Demos.Menus.MenusPartDisable)">
+    <p>@((MarkupString)Localizer["MenusPartDisableDescription1"].Value)</p>
 </DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" />
