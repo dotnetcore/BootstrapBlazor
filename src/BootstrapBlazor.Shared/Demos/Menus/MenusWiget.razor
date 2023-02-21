@@ -1,0 +1,20 @@
+﻿@inject IStringLocalizer<BootstrapBlazor.Shared.Samples.Menus> Localizer
+
+<div style="width:220px;">
+    <Menu Items="@WidgetIconSideMenuItems" DisableNavigation="true" IsVertical="true" style="border-right: 1px solid #e6e6e6;" />
+</div>
+
+@code {
+    [NotNull]
+    private IEnumerable<MenuItem>? WidgetIconSideMenuItems { get; set; }
+
+    /// <summary>
+    /// OnInitialized 方法
+    /// </summary>
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+
+        WidgetIconSideMenuItems = await MenusDataGerator.GetWidgetIconSideMenuItemsAsync(Localizer);
+    }
+}
