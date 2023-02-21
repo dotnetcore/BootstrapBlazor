@@ -546,7 +546,13 @@ public partial class Table<TItem>
         return queryOption;
     }
 
-    private void ResetSelectedRows(IEnumerable<TItem> items) => SelectedRows = items.Where(i => SelectedRows.Any(row => Equals(i, row))).ToList();
+    private void ResetSelectedRows(IEnumerable<TItem> items)
+    {
+        if (SelectedRows.Any())
+        {
+            SelectedRows = items.Where(i => SelectedRows.Any(row => Equals(i, row))).ToList();
+        }
+    }
 
     /// <summary>
     /// <inheritdoc/>
