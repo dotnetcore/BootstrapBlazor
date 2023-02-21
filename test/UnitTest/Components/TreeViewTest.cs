@@ -305,9 +305,11 @@ public class TreeViewTest : BootstrapBlazorTestBase
         var node = TreeFoo.CascadingTree(items).First().Items.First().Items.First();
 
         // 设置当前几点所有父项选中状态
-        var cache = new ExpandableNodeCache<TreeViewItem<TreeFoo>, TreeFoo>((x, y) => x.Id == y.Id);
         node.SetParentExpand<TreeViewItem<TreeFoo>, TreeFoo>(true);
         Assert.True(node.GetAllTreeSubItems().All(i => i.IsExpand));
+
+        node.SetParentExpand<TreeViewItem<TreeFoo>, TreeFoo>(false);
+        Assert.True(node.GetAllTreeSubItems().All(i => !i.IsExpand));
     }
 
     [Fact]
