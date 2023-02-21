@@ -71,10 +71,6 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
                 {
                     ValidateForm?.NotifyFieldChanged(FieldIdentifier.Value, Value);
                 }
-                if (ValueChanged.HasDelegate)
-                {
-                    _ = ValueChanged.InvokeAsync(value);
-                }
                 if (OnValueChanged != null)
                 {
                     _ = OnValueChanged.Invoke(value);
@@ -82,6 +78,10 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
                 if (IsNeedValidate && FieldIdentifier != null)
                 {
                     EditContext?.NotifyFieldChanged(FieldIdentifier.Value);
+                }
+                if (ValueChanged.HasDelegate)
+                {
+                    _ = ValueChanged.InvokeAsync(value);
                 }
             }
         }
