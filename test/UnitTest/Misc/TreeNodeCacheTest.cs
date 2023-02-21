@@ -284,6 +284,25 @@ public class TreeNodeCacheTest
         Assert.Equal(0, count);
     }
 
+    [Fact]
+    public async Task ToggleNodeAsync_Ok()
+    {
+        var node = new TreeViewItem<TreeFoo>(new TreeFoo() { Id = "1000" })
+        {
+            IsExpand = true
+        };
+        var nodeCache = new TreeNodeCache<TreeViewItem<TreeFoo>, TreeFoo>(Comparer);
+        await nodeCache.ToggleNodeAsync(node, n =>
+        {
+            var items = new TreeViewItem<TreeFoo>[]
+            {
+                new TreeViewItem<TreeFoo>(new TreeFoo() { Id = "1020" }) { CheckedState = CheckboxState.Checked },
+                new TreeViewItem<TreeFoo>(new TreeFoo() { Id = "1030" }) { CheckedState = CheckboxState.UnChecked }
+            };
+            return Task.FromResult(items.Cast<IExpandableNode<TreeFoo>>());
+        });
+    }
+
     private bool Comparer(TreeFoo x, TreeFoo y) => x.Id == y.Id;
 
     private static int GetCheckItemCount(TreeNodeCache<TreeViewItem<TreeFoo>, TreeFoo> treeNodeCache)
