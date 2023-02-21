@@ -296,8 +296,17 @@ public class TreeNodeCacheTest
         {
             var items = new TreeViewItem<TreeFoo>[]
             {
-                new TreeViewItem<TreeFoo>(new TreeFoo() { Id = "1020" }) { CheckedState = CheckboxState.Checked },
-                new TreeViewItem<TreeFoo>(new TreeFoo() { Id = "1030" }) { CheckedState = CheckboxState.UnChecked }
+                new TreeViewItem<TreeFoo>(new TreeFoo() { Id = "1020" })
+            };
+            return Task.FromResult(items.Cast<IExpandableNode<TreeFoo>>());
+        });
+
+        node.CheckedState = CheckboxState.Checked;
+        await nodeCache.ToggleNodeAsync(node, n =>
+        {
+            var items = new TreeViewItem<TreeFoo>[]
+            {
+                new TreeViewItem<TreeFoo>(new TreeFoo() { Id = "1020" })
             };
             return Task.FromResult(items.Cast<IExpandableNode<TreeFoo>>());
         });
