@@ -229,7 +229,6 @@ public class TreeNodeCacheTest
     [Fact]
     public void Reset_Ok()
     {
-        var items = TreeFoo.GetTreeItems();
         var nodeCache = new TreeNodeCache<TreeViewItem<TreeFoo>, TreeFoo>(Comparer);
 
         // 设置 1070 节点为选中状态
