@@ -8,6 +8,11 @@
 
 <Tips>
     <p>@((MarkupString)Localizer["Tips"].Value)</p>
+    <code>
+        &lt;ItemGroup&gt;<br />
+            <span class="m-3">&lt;RuntimeHostConfigurationOption Include="System.Drawing.EnableUnixSupport" Value="true" /&gt;</span><br />
+        &lt;/ItemGroup&gt;
+    </code>
 </Tips>
 
 <DemoBlock Title="@Localizer["BaseUsageText"]" Introduction="@Localizer["BaseUsageIntro"]" Name="Nomal" Demo="typeof(Demos.FileViewer.FileViewerNormal)"/>
