@@ -6195,6 +6195,6 @@
     "BaseUsageIntro": "Excel/Word file path or URL",
     "BaseUsageText2": "Reload file",
     "BaseUsageIntro2": "Using the Reload method",
-    "Tips": "Currently supports Excel(.docx) and Word(.xlsx) formats."
+    "Tips": "Currently supports Excel(.docx) and Word(.xlsx) formats.<br/><b>Note</b>:<br/>If throw <code>The type initializer for 'Gdip' threw an exception.<code> error under Linux, please install libgdiplus and enable System. Drawing support.<br/>Enable System.Drawing support for non-Windows platforms in your project file (*.csproj), add:"
   }
 }
