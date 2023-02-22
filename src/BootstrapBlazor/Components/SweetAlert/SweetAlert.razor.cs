@@ -126,14 +126,18 @@ public partial class SweetAlert : IAsyncDisposable
         }
     };
 
+    private bool disposed;
+
     /// <summary>
     /// Dispose 方法
     /// </summary>
     /// <param name="disposing"></param>
     protected virtual async ValueTask DisposeAsync(bool disposing)
     {
-        if (disposing)
+        if (!disposed && disposing)
         {
+            disposed = true;
+
             if (IsShowDialog)
             {
                 // 关闭弹窗
