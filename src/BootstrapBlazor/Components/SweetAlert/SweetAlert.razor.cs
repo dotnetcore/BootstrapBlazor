@@ -7,7 +7,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// SweetAlert 组件
 /// </summary>
-public partial class SweetAlert : IDisposable
+public partial class SweetAlert : IAsyncDisposable
 {
     /// <summary>
     /// 获得/设置 Modal 容器组件实例
@@ -127,15 +127,17 @@ public partial class SweetAlert : IDisposable
     /// Dispose 方法
     /// </summary>
     /// <param name="disposing"></param>
-    protected virtual void Dispose(bool disposing)
+    protected virtual async ValueTask DisposeAsync(bool disposing)
     {
         if (disposing)
         {
-            if (DelayToken != null)
+            // 关闭弹窗
+            if (IsShowDialog)
             {
                 DelayToken.Cancel();
                 DelayToken.Dispose();
-                DelayToken = null;
+                await ModalContainer.Close();
+                IsShowDialog = false;
             }
             SwalService.UnRegister(this);
         }
@@ -144,9 +146,9 @@ public partial class SweetAlert : IDisposable
     /// <summary>
     /// Dispose 方法
     /// </summary>
-    public void Dispose()
+    public async ValueTask DisposeAsync()
     {
-        Dispose(true);
+        await DisposeAsync(true);
         GC.SuppressFinalize(this);
     }
 }
