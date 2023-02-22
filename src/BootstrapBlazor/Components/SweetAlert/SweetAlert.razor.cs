@@ -107,6 +107,8 @@ public partial class SweetAlert : IAsyncDisposable
             parameters.Add(nameof(ModalDialog.BodyTemplate), BootstrapDynamicComponent.CreateComponent<SweetAlertBody>(option.Parse()).Render());
 
             DialogParameter = parameters;
+
+            // 渲染 UI 准备弹窗 Dialog
             StateHasChanged();
         }
         return Task.CompletedTask;

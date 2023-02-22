@@ -13,6 +13,10 @@ public partial class SweetAlertBody
 {
     private string InternalCloseButtonText => IsConfirm ? CancelButtonText : CloseButtonText;
 
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<SweetAlert>? Localizer { get; set; }
+
     /// <summary>
     /// 获得/设置 关闭按钮文字 默认为 关闭
     /// </summary>
@@ -107,10 +111,6 @@ public partial class SweetAlertBody
     /// </summary>
     [Parameter]
     public RenderFragment? FooterTemplate { get; set; }
-
-    [Inject]
-    [NotNull]
-    private IStringLocalizer<SweetAlert>? Localizer { get; set; }
 
     /// <summary>
     /// 获得/设置 按钮模板
