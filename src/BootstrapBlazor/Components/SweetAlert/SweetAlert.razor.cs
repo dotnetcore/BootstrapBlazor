@@ -105,7 +105,7 @@ public partial class SweetAlert : IAsyncDisposable
 
             option.Modal = ModalContainer;
             var parameters = option.ToAttributes();
-            parameters.Add(nameof(ModalDialog.BodyTemplate), BootstrapDynamicComponent.CreateComponent<SweetAlertBody>(SweetAlertBody.Parse(option)).Render());
+            parameters.Add(nameof(ModalDialog.BodyTemplate), BootstrapDynamicComponent.CreateComponent<SweetAlertBody>(option.Parse()).Render());
 
             DialogParameter = parameters;
             StateHasChanged();

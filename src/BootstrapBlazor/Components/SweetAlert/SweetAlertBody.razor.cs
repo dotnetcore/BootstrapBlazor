@@ -127,31 +127,6 @@ public partial class SweetAlertBody
         .Build();
 
     /// <summary>
-    /// 将配置信息转化为参数集合
-    /// </summary>
-    /// <param name="option"></param>
-    /// <returns></returns>
-    internal static IDictionary<string, object?> Parse(SwalOption option) => new Dictionary<string, object?>()
-    {
-        [nameof(SweetAlertBody.Category)] = option.Category,
-        [nameof(SweetAlertBody.ShowClose)] = option.ShowClose,
-        [nameof(SweetAlertBody.IsConfirm)] = option.IsConfirm,
-        [nameof(SweetAlertBody.ShowFooter)] = option.ShowFooter,
-        [nameof(SweetAlertBody.OnCloseAsync)] = () => option.Close(false),
-        [nameof(SweetAlertBody.OnConfirmAsync)] = () => option.Close(true),
-        [nameof(SweetAlertBody.Title)] = option.Title,
-        [nameof(SweetAlertBody.Content)] = option.Content,
-        [nameof(SweetAlertBody.BodyTemplate)] = option.BodyTemplate,
-        [nameof(SweetAlertBody.FooterTemplate)] = option.FooterTemplate,
-        [nameof(SweetAlertBody.ButtonTemplate)] = option.ButtonTemplate,
-        [nameof(SweetAlertBody.CloseButtonIcon)] = option.CloseButtonIcon,
-        [nameof(SweetAlertBody.ConfirmButtonIcon)] = option.ConfirmButtonIcon,
-        [nameof(SweetAlertBody.CloseButtonText)] = option.CloseButtonText,
-        [nameof(SweetAlertBody.CancelButtonText)] = option.CancelButtonText,
-        [nameof(SweetAlertBody.ConfirmButtonText)] = option.ConfirmButtonText
-    };
-
-    /// <summary>
     /// <inheritdoc/>
     /// </summary>
     protected override void OnParametersSet()
