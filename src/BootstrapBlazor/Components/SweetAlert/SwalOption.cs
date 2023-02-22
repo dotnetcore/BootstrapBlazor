@@ -85,6 +85,16 @@ public class SwalOption : PopupOptionBase
     public string? Class { get; set; }
 
     /// <summary>
+    /// 获得/设置 关闭弹窗回调方法
+    /// </summary>
+    public Func<Task>? OnCloseAsync { get; set; }
+
+    /// <summary>
+    /// 获得/设置 点击 Confirm 按钮回调方法 用于模态对话框
+    /// </summary>
+    public Func<Task>? OnConfirmAsync { get; set; }
+
+    /// <summary>
     /// 
     /// </summary>
     public SwalOption()

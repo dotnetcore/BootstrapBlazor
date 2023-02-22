@@ -118,6 +118,9 @@ public partial class SweetAlertBody
     [Parameter]
     public RenderFragment? ButtonTemplate { get; set; }
 
+    [CascadingParameter]
+    private Func<Task>? CloseModal { get; set; }
+
     private string? IconClassString => CssBuilder.Default("swal2-icon")
         .AddClass("swal2-success swal2-animate-success-icon", Category == SwalCategory.Success)
         .AddClass("swal2-error swal2-animate-error-icon", Category == SwalCategory.Error)
@@ -147,6 +150,11 @@ public partial class SweetAlertBody
         {
             await OnCloseAsync();
         }
+
+        if (CloseModal != null)
+        {
+            await CloseModal();
+        }
     }
 
     private async Task OnClickConfirm()
@@ -154,6 +162,11 @@ public partial class SweetAlertBody
         if (OnConfirmAsync != null)
         {
             await OnConfirmAsync();
+        }
+
+        if (CloseModal != null)
+        {
+            await CloseModal();
         }
     }
 }
