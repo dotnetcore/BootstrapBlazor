@@ -37,7 +37,7 @@ public partial class SweetAlert : IAsyncDisposable
     private Func<Task>? OnCloseAsync { get; set; }
 
     /// <summary>
-    /// OnInitialized 方法
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
     {
@@ -48,7 +48,7 @@ public partial class SweetAlert : IAsyncDisposable
     }
 
     /// <summary>
-    /// OnAfterRenderAsync 方法
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="firstRender"></param>
     /// <returns></returns>
