@@ -160,19 +160,6 @@ public class SwalTest : SwalTestBase
         cut.InvokeAsync(() => button.Click());
         cut.InvokeAsync(() => modal.Instance.CloseCallback());
 
-        // 自动隐藏时间未到时触发 Disposing
-        cut.InvokeAsync(() => swal.Show(new SwalOption()
-        {
-            Content = "I am auto hide",
-            IsAutoHide = true,
-            Delay = 4000
-        }));
-        Thread.Sleep(150);
-        // 弹窗显示
-        cut.Contains("I am auto hide");
-        var alert = cut.FindComponent<SweetAlert>();
-        alert.Dispose();
-
         // 带确认框的 Select
         cut.SetParametersAndRender(pb =>
         {
@@ -197,7 +184,7 @@ public class SwalTest : SwalTestBase
         while (!cut.Markup.Contains("test-swal-footer"))
         {
             Thread.Sleep(100);
-            if (DateTime.Now > tick.AddSeconds(1))
+            if (DateTime.Now > tick.AddSeconds(2))
             {
                 break;
             }
@@ -222,6 +209,33 @@ public class SwalTest : SwalTestBase
         cut.InvokeAsync(() => swal.Show(forceOption));
         cut.InvokeAsync(() => modal.Instance.CloseCallback());
         Assert.Equal(4000, forceOption.Delay);
+
+        // 自动关闭
+        cut.InvokeAsync(() => swal.Show(new SwalOption()
+        {
+            Content = "I am auto hide",
+            IsAutoHide = true,
+            ForceDelay = true,
+            Delay = 500
+        }));
+        Thread.Sleep(150);
+        // 弹窗显示
+        cut.Contains("I am auto hide");
+        Thread.Sleep(1000);
+        cut.InvokeAsync(() => modal.Instance.CloseCallback());
+
+        // 自动隐藏时间未到时触发 Disposing
+        cut.InvokeAsync(() => swal.Show(new SwalOption()
+        {
+            Content = "I am auto hide",
+            IsAutoHide = true,
+            Delay = 4000
+        }));
+        Thread.Sleep(150);
+        // 弹窗显示
+        cut.Contains("I am auto hide");
+        var alert = cut.FindComponent<SweetAlert>();
+        _ = alert.Instance.DisposeAsync();
     }
 
     private class MockSwalTest : ComponentBase
