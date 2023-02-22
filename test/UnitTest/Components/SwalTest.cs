@@ -130,6 +130,7 @@ public class SwalTest : SwalTestBase
 
         // 模态框
         bool result = false;
+        bool confirmed = false;
         Task.Run(async () => await cut.InvokeAsync(async () =>
         {
             result = await swal.ShowModal(new SwalOption()
@@ -137,7 +138,12 @@ public class SwalTest : SwalTestBase
                 Content = "I am Modal Swal",
                 CancelButtonText = "test-cancel-text",
                 ConfirmButtonIcon = "test-confirm-icon",
-                ConfirmButtonText = "test-confirm-text"
+                ConfirmButtonText = "test-confirm-text",
+                OnConfirmAsync = () =>
+                {
+                    confirmed = true;
+                    return Task.CompletedTask;
+                }
             });
         }));
 
@@ -159,6 +165,43 @@ public class SwalTest : SwalTestBase
         button = cut.Find(".btn-danger");
         cut.InvokeAsync(() => button.Click());
         cut.InvokeAsync(() => modal.Instance.CloseCallback());
+        Assert.True(result);
+        Assert.True(confirmed);
+
+        // OnCloseAsync 测试
+        bool closed = false;
+        Task.Run(async () => await cut.InvokeAsync(async () =>
+        {
+            result = await swal.ShowModal(new SwalOption()
+            {
+                Content = "I am Modal Swal",
+                CancelButtonText = "test-cancel-text",
+                ConfirmButtonIcon = "test-confirm-icon",
+                ConfirmButtonText = "test-confirm-text",
+                OnCloseAsync = () =>
+                {
+                    closed = true;
+                    return Task.CompletedTask;
+                }
+            });
+        }));
+
+        tick = DateTime.Now;
+        while (!cut.Markup.Contains("test-cancel-text"))
+        {
+            Thread.Sleep(100);
+            if (DateTime.Now > tick.AddSeconds(1))
+            {
+                break;
+            }
+        }
+
+        // 触发关闭按钮
+        button = cut.Find(".btn-secondary");
+        cut.InvokeAsync(() => button.Click());
+        cut.InvokeAsync(() => modal.Instance.CloseCallback());
+        Assert.False(result);
+        Assert.True(closed);
 
         // 带确认框的 Select
         cut.SetParametersAndRender(pb =>
