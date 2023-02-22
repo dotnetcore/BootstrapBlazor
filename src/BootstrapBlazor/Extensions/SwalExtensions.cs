@@ -18,7 +18,7 @@ public static class SwalExtensions
     /// <returns></returns>
     public static async Task<bool> ShowModal(this SwalService service, SwalOption option, SweetAlert? swal = null)
     {
-        option.IsModalConfirm = true;
+        option.IsConfirm = true;
         await service.Show(option, swal);
         return await option.ReturnTask.Task;
     }

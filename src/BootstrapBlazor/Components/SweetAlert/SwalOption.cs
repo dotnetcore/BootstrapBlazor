@@ -22,7 +22,7 @@ public class SwalOption : PopupOptionBase
     /// <summary>
     /// 获得/设置 是否为确认弹窗模式 此属性给模态弹窗时使用 默认为 false
     /// </summary>
-    internal bool IsModalConfirm { get; set; }
+    internal bool IsConfirm { get; set; }
 
     /// <summary>
     /// 获得/设置 提示类型 默认为 Success
@@ -136,7 +136,7 @@ public class SwalOption : PopupOptionBase
             await Modal.Close();
         }
 
-        if (IsModalConfirm)
+        if (IsConfirm)
         {
             ReturnTask.TrySetResult(returnValue);
         }

@@ -135,7 +135,7 @@ public partial class SweetAlertBody
     {
         [nameof(SweetAlertBody.Category)] = option.Category,
         [nameof(SweetAlertBody.ShowClose)] = option.ShowClose,
-        [nameof(SweetAlertBody.IsConfirm)] = option.IsModalConfirm,
+        [nameof(SweetAlertBody.IsConfirm)] = option.IsConfirm,
         [nameof(SweetAlertBody.ShowFooter)] = option.ShowFooter,
         [nameof(SweetAlertBody.OnCloseAsync)] = () => option.Close(false),
         [nameof(SweetAlertBody.OnConfirmAsync)] = () => option.Close(true),
