@@ -103,7 +103,6 @@ public partial class SweetAlert : IAsyncDisposable
             IsAutoHide = option.IsAutoHide;
             Delay = option.Delay;
 
-            option.Modal = ModalContainer;
             var parameters = option.ToAttributes();
             parameters.Add(nameof(ModalDialog.BodyTemplate), BootstrapDynamicComponent.CreateComponent<SweetAlertBody>(option.Parse()).Render());
 
