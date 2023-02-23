@@ -1,0 +1,15 @@
+﻿@inject IStringLocalizer<BootstrapBlazor.Shared.Samples.Modals> Localizer
+
+<Button OnClick="() => DragModal.Toggle()">@Localizer["ModalsNormalPopups"]</Button>
+<Modal @ref="DragModal">
+    <ModalDialog Title="@Localizer["ModalsNormalDefaultPopup"]" IsDraggable="true" ShowMaximizeButton="true">
+        <BodyTemplate>
+            <div>@Localizer["ModalsTitlePopupWindowText"]</div>
+        </BodyTemplate>
+    </ModalDialog>
+</Modal>
+
+@code {
+    [NotNull]
+    private Modal? DragModal { get; set; }
+}

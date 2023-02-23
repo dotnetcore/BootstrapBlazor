@@ -1,0 +1,15 @@
+﻿@inject IStringLocalizer<BootstrapBlazor.Shared.Samples.Modals> Localizer
+
+<Button OnClick="() => BackdropModal.Toggle()">@Localizer["ModalsNormalPopups"]</Button>
+<Modal @ref="BackdropModal" IsBackdrop="true">
+    <ModalDialog Title="@Localizer["ModalsIsBackdropToClose"]">
+        <BodyTemplate>
+            <div>@Localizer["ModalsTitlePopupWindowText"]</div>
+        </BodyTemplate>
+    </ModalDialog>
+</Modal>
+
+@code {
+    [NotNull]
+    private Modal? BackdropModal { get; set; }
+}

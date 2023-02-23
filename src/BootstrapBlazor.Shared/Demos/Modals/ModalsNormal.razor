@@ -1,0 +1,43 @@
+﻿@inject IStringLocalizer<BootstrapBlazor.Shared.Samples.Modals> Localizer
+
+<div class="modal d-block position-relative" style="z-index: 2;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">@Localizer["ModalsNormalPopupTitle"]</h5>
+                <button type="button" class="btn-close" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>@Localizer["ModalsNormalPopupText"]</p>
+            </div>
+            <div class="modal-footer">
+                <Button Color="Color.Secondary" Text="Close" Icon="fa-solid fa-xmark"></Button>
+                <Button Text="Save" Icon="fa-solid fa-floppy-disk"></Button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="mt-3">
+    <p>@((MarkupString)Localizer["ModalsNormalIsKeyboard"].Value)</p>
+    <Button OnClick="() => Modal.Toggle()">@Localizer["ModalsNormalPopups"]</Button>
+    <Button OnClick="OnClickKeyboard" Text="@($"Keyboard: {IsKeyboard}")" class="ms-3" />
+</div>
+<Modal @ref="Modal" IsKeyboard="@IsKeyboard">
+    <ModalDialog Title="@Localizer["ModalsNormalDefaultPopup"]">
+        <BodyTemplate>
+            <div>@Localizer["ModalsNormalDefaultPopupText"]</div>
+        </BodyTemplate>
+    </ModalDialog>
+</Modal>
+
+@code {
+    [NotNull]
+    private Modal? Modal { get; set; }
+
+    private bool IsKeyboard { get; set; }
+
+    private void OnClickKeyboard()
+    {
+        IsKeyboard = !IsKeyboard;
+    }
+}
