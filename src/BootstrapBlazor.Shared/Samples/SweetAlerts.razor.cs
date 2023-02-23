@@ -35,20 +35,19 @@ public partial class SweetAlerts
 
     private async Task ShowButtons()
     {
-        var op = new SwalOption()
+        var op = new SwalOption
         {
             Category = SwalCategory.Success,
             Title = "Title",
             Content = "Content",
-            ShowClose = false
+            ShowClose = false,
+            ButtonTemplate = new RenderFragment(builder =>
+            {
+                builder.OpenComponent<DialogCloseButton>(0);
+                builder.AddAttribute(1, nameof(Button.Text), "Close");
+                builder.CloseComponent();
+            })
         };
-        op.ButtonTemplate = new RenderFragment(builder =>
-        {
-            builder.OpenComponent<Button>(0);
-            builder.AddAttribute(1, nameof(Button.Text), "Close");
-            builder.AddAttribute(2, nameof(Button.OnClick), EventCallback.Factory.Create<MouseEventArgs>(this, async () => await op.Close()));
-            builder.CloseComponent();
-        });
         await SwalService.Show(op);
     }
 

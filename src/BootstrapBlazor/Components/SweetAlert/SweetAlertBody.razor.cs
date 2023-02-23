@@ -13,6 +13,10 @@ public partial class SweetAlertBody
 {
     private string InternalCloseButtonText => IsConfirm ? CancelButtonText : CloseButtonText;
 
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<SweetAlert>? Localizer { get; set; }
+
     /// <summary>
     /// 获得/设置 关闭按钮文字 默认为 关闭
     /// </summary>
@@ -108,15 +112,14 @@ public partial class SweetAlertBody
     [Parameter]
     public RenderFragment? FooterTemplate { get; set; }
 
-    [Inject]
-    [NotNull]
-    private IStringLocalizer<SweetAlert>? Localizer { get; set; }
-
     /// <summary>
     /// 获得/设置 按钮模板
     /// </summary>
     [Parameter]
     public RenderFragment? ButtonTemplate { get; set; }
+
+    [CascadingParameter]
+    private Func<Task>? CloseModal { get; set; }
 
     private string? IconClassString => CssBuilder.Default("swal2-icon")
         .AddClass("swal2-success swal2-animate-success-icon", Category == SwalCategory.Success)
@@ -125,31 +128,6 @@ public partial class SweetAlertBody
         .AddClass("swal2-question", Category == SwalCategory.Question)
         .AddClass("swal2-warning", Category == SwalCategory.Warning)
         .Build();
-
-    /// <summary>
-    /// 将配置信息转化为参数集合
-    /// </summary>
-    /// <param name="option"></param>
-    /// <returns></returns>
-    internal static IDictionary<string, object?> Parse(SwalOption option) => new Dictionary<string, object?>()
-    {
-        [nameof(SweetAlertBody.Category)] = option.Category,
-        [nameof(SweetAlertBody.ShowClose)] = option.ShowClose,
-        [nameof(SweetAlertBody.IsConfirm)] = option.IsModalConfirm,
-        [nameof(SweetAlertBody.ShowFooter)] = option.ShowFooter,
-        [nameof(SweetAlertBody.OnCloseAsync)] = () => option.Close(false),
-        [nameof(SweetAlertBody.OnConfirmAsync)] = () => option.Close(true),
-        [nameof(SweetAlertBody.Title)] = option.Title,
-        [nameof(SweetAlertBody.Content)] = option.Content,
-        [nameof(SweetAlertBody.BodyTemplate)] = option.BodyTemplate,
-        [nameof(SweetAlertBody.FooterTemplate)] = option.FooterTemplate,
-        [nameof(SweetAlertBody.ButtonTemplate)] = option.ButtonTemplate,
-        [nameof(SweetAlertBody.CloseButtonIcon)] = option.CloseButtonIcon,
-        [nameof(SweetAlertBody.ConfirmButtonIcon)] = option.ConfirmButtonIcon,
-        [nameof(SweetAlertBody.CloseButtonText)] = option.CloseButtonText,
-        [nameof(SweetAlertBody.CancelButtonText)] = option.CancelButtonText,
-        [nameof(SweetAlertBody.ConfirmButtonText)] = option.ConfirmButtonText
-    };
 
     /// <summary>
     /// <inheritdoc/>
@@ -172,6 +150,11 @@ public partial class SweetAlertBody
         {
             await OnCloseAsync();
         }
+
+        if (CloseModal != null)
+        {
+            await CloseModal();
+        }
     }
 
     private async Task OnClickConfirm()
@@ -179,6 +162,11 @@ public partial class SweetAlertBody
         if (OnConfirmAsync != null)
         {
             await OnConfirmAsync();
+        }
+
+        if (CloseModal != null)
+        {
+            await CloseModal();
         }
     }
 }

@@ -130,6 +130,7 @@ public class SwalTest : SwalTestBase
 
         // 模态框
         bool result = false;
+        bool confirmed = false;
         Task.Run(async () => await cut.InvokeAsync(async () =>
         {
             result = await swal.ShowModal(new SwalOption()
@@ -137,7 +138,12 @@ public class SwalTest : SwalTestBase
                 Content = "I am Modal Swal",
                 CancelButtonText = "test-cancel-text",
                 ConfirmButtonIcon = "test-confirm-icon",
-                ConfirmButtonText = "test-confirm-text"
+                ConfirmButtonText = "test-confirm-text",
+                OnConfirmAsync = () =>
+                {
+                    confirmed = true;
+                    return Task.CompletedTask;
+                }
             });
         }));
 
@@ -159,19 +165,43 @@ public class SwalTest : SwalTestBase
         button = cut.Find(".btn-danger");
         cut.InvokeAsync(() => button.Click());
         cut.InvokeAsync(() => modal.Instance.CloseCallback());
+        Assert.True(result);
+        Assert.True(confirmed);
 
-        // 自动隐藏时间未到时触发 Disposing
-        cut.InvokeAsync(() => swal.Show(new SwalOption()
+        // OnCloseAsync 测试
+        bool closed = false;
+        Task.Run(async () => await cut.InvokeAsync(async () =>
         {
-            Content = "I am auto hide",
-            IsAutoHide = true,
-            Delay = 4000
+            result = await swal.ShowModal(new SwalOption()
+            {
+                Content = "I am Modal Swal",
+                CancelButtonText = "test-cancel-text",
+                ConfirmButtonIcon = "test-confirm-icon",
+                ConfirmButtonText = "test-confirm-text",
+                OnCloseAsync = () =>
+                {
+                    closed = true;
+                    return Task.CompletedTask;
+                }
+            });
         }));
-        Thread.Sleep(150);
-        // 弹窗显示
-        cut.Contains("I am auto hide");
-        var alert = cut.FindComponent<SweetAlert>();
-        alert.Dispose();
+
+        tick = DateTime.Now;
+        while (!cut.Markup.Contains("test-cancel-text"))
+        {
+            Thread.Sleep(100);
+            if (DateTime.Now > tick.AddSeconds(1))
+            {
+                break;
+            }
+        }
+
+        // 触发关闭按钮
+        button = cut.Find(".btn-secondary");
+        cut.InvokeAsync(() => button.Click());
+        cut.InvokeAsync(() => modal.Instance.CloseCallback());
+        Assert.False(result);
+        Assert.True(closed);
 
         // 带确认框的 Select
         cut.SetParametersAndRender(pb =>
@@ -197,7 +227,7 @@ public class SwalTest : SwalTestBase
         while (!cut.Markup.Contains("test-swal-footer"))
         {
             Thread.Sleep(100);
-            if (DateTime.Now > tick.AddSeconds(1))
+            if (DateTime.Now > tick.AddSeconds(2))
             {
                 break;
             }
@@ -222,6 +252,33 @@ public class SwalTest : SwalTestBase
         cut.InvokeAsync(() => swal.Show(forceOption));
         cut.InvokeAsync(() => modal.Instance.CloseCallback());
         Assert.Equal(4000, forceOption.Delay);
+
+        // 自动关闭
+        cut.InvokeAsync(() => swal.Show(new SwalOption()
+        {
+            Content = "I am auto hide",
+            IsAutoHide = true,
+            ForceDelay = true,
+            Delay = 500
+        }));
+        Thread.Sleep(150);
+        // 弹窗显示
+        cut.Contains("I am auto hide");
+        Thread.Sleep(1000);
+        cut.InvokeAsync(() => modal.Instance.CloseCallback());
+
+        // 自动隐藏时间未到时触发 Disposing
+        cut.InvokeAsync(() => swal.Show(new SwalOption()
+        {
+            Content = "I am auto hide",
+            IsAutoHide = true,
+            Delay = 4000
+        }));
+        Thread.Sleep(150);
+        // 弹窗显示
+        cut.Contains("I am auto hide");
+        var alert = cut.FindComponent<SweetAlert>();
+        _ = alert.Instance.DisposeAsync();
     }
 
     private class MockSwalTest : ComponentBase

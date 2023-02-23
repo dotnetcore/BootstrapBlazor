@@ -48,10 +48,6 @@ public partial class Dialog : IDisposable
 
         // 注册 Dialog 弹窗事件
         DialogService.Register(this, Show);
-
-        // 增加参数
-        AdditionalAttributes ??= new Dictionary<string, object>();
-        AdditionalAttributes["data-bb-dialog"] = "true";
     }
 
     /// <summary>

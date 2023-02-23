@@ -7,7 +7,6 @@ export class Modal extends BlazorComponent {
         this._invoker = this._config.arguments[0]
         this._invokerShownMethod = this._config.arguments[1]
         this._invokerCloseMethod = this._config.arguments[2]
-        this._isDialog = this._config.dialog === true
         this._setEventListeners()
     }
 
@@ -24,9 +23,7 @@ export class Modal extends BlazorComponent {
                 EventHandler.off(this._dialog, 'mousedown')
                 EventHandler.off(this._dialog, 'touchstart')
             }
-            if (this._isDialog) {
-                this._invoker.invokeMethodAsync(this._invokerCloseMethod)
-            }
+            this._invoker.invokeMethodAsync(this._invokerCloseMethod)
         })
 
         this._pop = () => {
