@@ -1,0 +1,16 @@
+﻿@inject IStringLocalizer<BootstrapBlazor.Shared.Samples.Messages> Localizer
+@inject MessageService MessageService
+
+<button class="btn btn-primary" @onclick="@ShowBarMessage">@Localizer["MessagesMessagePrompt"]</button>
+
+@code {
+    private async Task ShowBarMessage()
+    {
+        await MessageService.Show(new MessageOption()
+        {
+            Content = "This is a reminder message",
+            Icon = "fa-solid fa-circle-info",
+            ShowBar = true,
+        });
+    }
+}
