@@ -528,7 +528,8 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     public Type? CustomKeyAttribute { get; set; } = typeof(KeyAttribute);
 
     /// <summary>
-    /// 获得/设置 比较数据是否相同回调方法 默认为 null<code><br /></code>提供此回调方法时忽略 <see cref="CustomKeyAttribute"/> 属性
+    /// 获得/设置 比较数据是否相同回调方法 默认为 null
+    /// <para>提供此回调方法时忽略 <see cref="CustomKeyAttribute"/> 属性</para>
     /// </summary>
     [Parameter]
     public Func<TItem, TItem, bool>? ModelEqualityComparer { get; set; }
