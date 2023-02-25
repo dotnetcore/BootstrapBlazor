@@ -156,7 +156,7 @@ public class TableTest : TableTestBase
     }
 
     [Fact]
-    public async void Items_Delete()
+    public void Items_Delete()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
@@ -175,7 +175,7 @@ public class TableTest : TableTestBase
             });
         });
         var table = cut.FindComponent<MockTable>();
-        await cut.InvokeAsync(() => table.Instance.TestDeleteAsync());
+        cut.InvokeAsync(() => table.Instance.TestDeleteAsync());
         Assert.Equal(localizer["Foo.Name", "0002"], items.First().Name);
     }
 
