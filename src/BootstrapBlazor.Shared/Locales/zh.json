@@ -357,7 +357,7 @@
     "ModalsNormalIntro": "弹出一个对话框，适合需要定制性更大的场景",
     "ModalsNormalPopupTitle": "弹窗标题",
     "ModalsNormalPopupText": "弹窗正文",
-    "ModalsNormalIsKeyboard": "通过设置 <code>Modal</code> 组件的 <code>IsKeyboard</code> 参数，开启弹窗是否支持 <kbd>ESC</kbd>，请点击后面按钮设置后再点击 <b>弹窗</b> 按钮测试效果",
+    "ModalsNormalIsKeyboard": "通过设置 <code>Modal</code> 组件的 <code>IsKeyboard:true</code> 参数，开启弹窗是否支持 <kbd>ESC</kbd>",
     "ModalsNormalPopups": "弹窗",
     "ModalsNormalDefaultPopup": "默认弹窗",
     "ModalsNormalDefaultPopupText": "我是弹窗内正文",

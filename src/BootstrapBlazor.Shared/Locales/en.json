@@ -356,7 +356,7 @@
     "ModalsNormalIntro": "A dialog box pops up, suitable for scenarios that require more customization",
     "ModalsNormalPopupTitle": "Popup title",
     "ModalsNormalPopupText": "popup text",
-    "ModalsNormalIsKeyboard": "by setting <code>Modal</code> component <code>IsKeyboard</code> parameter, whether to open the pop-up window is supported <kbd>ESC</kbd>, Please click the back button to set and then click the <b>popup</b> button to test the effect",
+    "ModalsNormalIsKeyboard": "by setting <code>Modal</code> component <code>IsKeyboard:true</code> parameter, whether to open the pop-up window is supported <kbd>ESC</kbd>",
     "ModalsNormalPopups": "Pop-ups",
     "ModalsNormalDefaultPopup": "Default popup",
     "ModalsNormalDefaultPopupText": "I am the text in the pop-up window",

@@ -20,9 +20,8 @@
 <div class="mt-3">
     <p>@((MarkupString)Localizer["ModalsNormalIsKeyboard"].Value)</p>
     <Button OnClick="() => Modal.Toggle()">@Localizer["ModalsNormalPopups"]</Button>
-    <Button OnClick="OnClickKeyboard" Text="@($"Keyboard: {IsKeyboard}")" class="ms-3" />
 </div>
-<Modal @ref="Modal" IsKeyboard="@IsKeyboard">
+<Modal @ref="Modal" IsKeyboard="true">
     <ModalDialog Title="@Localizer["ModalsNormalDefaultPopup"]">
         <BodyTemplate>
             <div>@Localizer["ModalsNormalDefaultPopupText"]</div>
@@ -33,11 +32,4 @@
 @code {
     [NotNull]
     private Modal? Modal { get; set; }
-
-    private bool IsKeyboard { get; set; }
-
-    private void OnClickKeyboard()
-    {
-        IsKeyboard = !IsKeyboard;
-    }
 }
