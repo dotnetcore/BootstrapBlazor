@@ -228,7 +228,22 @@ public partial class Table<TItem>
         {
             if (Items != null)
             {
-                // always return true if use Items as datasource
+                if (ModelEqualityComparer != null)
+                {
+                    var entity = Items.FirstOrDefault(i => this.Equals<TItem>(i, item));
+                    if (entity != null)
+                    {
+                        var vals = Items.ToList();
+                        var index = vals.IndexOf(entity);
+                        vals.RemoveAt(index);
+                        vals.Insert(index, item);
+                        Items = vals;
+                        if (ItemsChanged.HasDelegate)
+                        {
+                            await ItemsChanged.InvokeAsync(Items);
+                        }
+                    }
+                }
                 ret = true;
             }
             else
