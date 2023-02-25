@@ -87,11 +87,6 @@ public partial class EditDialog<TModel>
         SaveButtonText ??= Localizer[nameof(SaveButtonText)];
     }
 
-    private async Task OnClickClose()
-    {
-        if (OnCloseAsync != null) await OnCloseAsync();
-    }
-
     private async Task OnValidSubmitAsync(EditContext context)
     {
         if (OnSaveAsync != null)
@@ -125,11 +120,9 @@ public partial class EditDialog<TModel>
         {
             if (!IsTracking)
             {
-                builder.OpenComponent<Button>(20);
-                builder.AddAttribute(21, nameof(Button.Color), Color.Secondary);
-                builder.AddAttribute(22, nameof(Button.Icon), "fa-solid fa-xmark");
-                builder.AddAttribute(23, nameof(Button.Text), CloseButtonText);
-                builder.AddAttribute(24, nameof(Button.OnClickWithoutRender), OnClickClose);
+                builder.OpenComponent<DialogCloseButton>(20);
+                builder.AddAttribute(21, nameof(Button.Text), CloseButtonText);
+                builder.AddAttribute(22, nameof(Button.OnClickWithoutRender), OnCloseAsync);
                 builder.CloseComponent();
             }
             builder.OpenComponent<Button>(30);
