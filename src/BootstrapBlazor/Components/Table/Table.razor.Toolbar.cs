@@ -716,11 +716,18 @@ public partial class Table<TItem>
             var ret = await InternalOnDeleteAsync();
             if (ret)
             {
-                if (ItemsChanged.HasDelegate)
+                if (Items != null)
                 {
-                    Rows.RemoveAll(i => SelectedRows.Contains(i));
+                    SelectedRows.ForEach(i => Rows.Remove(i));
                     SelectedRows.Clear();
-                    await ItemsChanged.InvokeAsync(Rows);
+                    if (ItemsChanged.HasDelegate)
+                    {
+                        await InvokeItemsChanged();
+                    }
+                    else
+                    {
+                        StateHasChanged();
+                    }
                 }
                 else
                 {
