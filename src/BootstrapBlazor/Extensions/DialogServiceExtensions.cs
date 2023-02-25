@@ -66,7 +66,6 @@ public static class DialogServiceExtensions
             [nameof(EditDialog<TModel>.ShowLoading)] = option.ShowLoading,
             [nameof(EditDialog<TModel>.ShowLabel)] = option.ShowLabel,
             [nameof(EditDialog<TModel>.Items)] = option.Items ?? Utility.GenerateColumns<TModel>(item => item.Editable),
-            [nameof(EditDialog<TModel>.OnCloseAsync)] = option.OnCloseAsync,
             [nameof(EditDialog<TModel>.OnSaveAsync)] = new Func<EditContext, Task>(async context =>
             {
                 if (option.OnEditAsync != null)
