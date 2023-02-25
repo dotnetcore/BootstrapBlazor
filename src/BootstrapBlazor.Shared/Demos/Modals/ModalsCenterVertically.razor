@@ -1,0 +1,15 @@
+﻿@inject IStringLocalizer<BootstrapBlazor.Shared.Samples.Modals> Localizer
+
+<Button OnClick="() => CenterModal.Toggle()">@Localizer["ModalsVerticallyCenteredPopup"]</Button>
+<Modal @ref="CenterModal">
+    <ModalDialog IsCentered="true" Title="@Localizer["ModalsVerticallyCenteredPopup"]">
+        <BodyTemplate>
+            <div>@Localizer["ModalsTitlePopupWindowText"]</div>
+        </BodyTemplate>
+    </ModalDialog>
+</Modal>
+
+@code {
+    [NotNull]
+    private Modal? CenterModal { get; set; }
+}

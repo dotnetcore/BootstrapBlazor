@@ -1,0 +1,15 @@
+﻿@inject IStringLocalizer<BootstrapBlazor.Shared.Samples.Modals> Localizer
+
+<Button OnClick="() => MaximizeModal.Toggle()">@Localizer["ModalsNormalPopups"]</Button>
+<Modal @ref="MaximizeModal">
+    <ModalDialog Title="@Localizer["ModalsMaximizePopup"]" ShowMaximizeButton="true">
+        <BodyTemplate>
+            <div>@Localizer["ModalsTitlePopupWindowText"]</div>
+        </BodyTemplate>
+    </ModalDialog>
+</Modal>
+
+@code {
+    [NotNull]
+    private Modal? MaximizeModal { get; set; }
+}

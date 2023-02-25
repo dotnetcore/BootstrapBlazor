@@ -5,76 +5,12 @@
 namespace BootstrapBlazor.Shared.Samples;
 
 /// <summary>
-/// 
+/// Modals
 /// </summary>
 public sealed partial class Modals
 {
-    [NotNull]
-    private Modal? Modal { get; set; }
-
-    [NotNull]
-    private Modal? BackdropModal { get; set; }
-
-    [NotNull]
-    private Modal? SmailModal { get; set; }
-
-    [NotNull]
-    private Modal? LargeModal { get; set; }
-
-    [NotNull]
-    private Modal? ExtraLargeModal { get; set; }
-
-    [NotNull]
-    private Modal? ExtraExtraLargeModal { get; set; }
-
-    [NotNull]
-    private Modal? SmailFullScreenModal { get; set; }
-
-    [NotNull]
-    private Modal? LargeFullScreenModal { get; set; }
-
-    [NotNull]
-    private Modal? ExtraLargeFullScreenModal { get; set; }
-
-    [NotNull]
-    private Modal? ExtraExtraLargeFullScreenModal { get; set; }
-
-    [NotNull]
-    private Modal? CenterModal { get; set; }
-
-    [NotNull]
-    private Modal? LongContentModal { get; set; }
-
-    [NotNull]
-    private Modal? ScrollModal { get; set; }
-
-    [NotNull]
-    private Modal? DragModal { get; set; }
-
-    [NotNull]
-    private Modal? MaximizeModal { get; set; }
-
-    [NotNull]
-    private Modal? ShownCallbackModal { get; set; }
-
-    private bool IsKeyboard { get; set; }
-
-    [NotNull]
-    private BlockLogger? Trace { get; set; }
-
-    private Task OnShownCallbackAsync()
-    {
-        Trace.Log("弹窗已显示");
-        return Task.CompletedTask;
-    }
-
-    private void OnClickKeyboard()
-    {
-        IsKeyboard = !IsKeyboard;
-    }
-
     /// <summary>
-    /// 
+    /// GetAttributes
     /// </summary>
     /// <returns></returns>
     private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
