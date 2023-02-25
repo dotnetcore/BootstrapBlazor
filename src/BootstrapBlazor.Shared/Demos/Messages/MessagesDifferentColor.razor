@@ -1,0 +1,35 @@
+﻿@inject IStringLocalizer<BootstrapBlazor.Shared.Samples.Messages> Localizer
+@inject MessageService MessageService
+
+<div class="row g-3">
+    <div class="col-6 col-sm-auto">
+        <button class="btn btn-primary" @onclick="@(e => ShowColorMessage(Color.Primary))">@Localizer["MessagesDifferentColorPrimary"]</button>
+    </div>
+    <div class="col-6 col-sm-auto">
+        <button class="btn btn-success" @onclick="@(e => ShowColorMessage(Color.Success))">@Localizer["MessagesDifferentColorSuccess"]</button>
+    </div>
+    <div class="col-6 col-sm-auto">
+        <button class="btn btn-info" @onclick="@(e => ShowColorMessage(Color.Info))">@Localizer["MessagesDifferentColorInfo"]</button>
+    </div>
+    <div class="col-6 col-sm-auto">
+        <button class="btn btn-danger" @onclick="@(e => ShowColorMessage(Color.Danger))">@Localizer["MessagesDifferentColorDanger"]</button>
+    </div>
+    <div class="col-6 col-sm-auto">
+        <button class="btn btn-warning" @onclick="@(e => ShowColorMessage(Color.Warning))">@Localizer["MessagesDifferentColorWarning"]</button>
+    </div>
+    <div class="col-6 col-sm-auto">
+        <button class="btn btn-secondary" @onclick="@(e => ShowColorMessage(Color.Secondary))">@Localizer["MessagesDifferentColorSecondary"]</button>
+    </div>
+</div>
+
+@code {
+    private async Task ShowColorMessage(Color color)
+    {
+        await MessageService.Show(new MessageOption()
+        {
+            Content = "This is a colored message",
+            Icon = "fa-solid fa-circle-info",
+            Color = color
+        });
+    }
+}
