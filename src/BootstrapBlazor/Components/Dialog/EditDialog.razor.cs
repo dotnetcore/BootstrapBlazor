@@ -17,7 +17,9 @@ public partial class EditDialog<TModel>
     /// 获得/设置 保存回调委托
     /// </summary>
     [Parameter]
-    [NotNull]
+#if NET6_0_OR_GREATER
+    [EditorRequired]
+#endif
     public Func<EditContext, Task>? OnSaveAsync { get; set; }
 
     /// <summary>
