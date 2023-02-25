@@ -230,6 +230,8 @@ public partial class Table<TItem>
             {
                 if (ModelEqualityComparer != null)
                 {
+                    // 使用 Comparer 确保能找到集合中的编辑项
+                    // 解决可能使用 Clone 副本导致编辑数据与 Items 中数据不一致
                     var entity = Items.FirstOrDefault(i => this.Equals<TItem>(i, item));
                     if (entity != null)
                     {
@@ -238,10 +240,7 @@ public partial class Table<TItem>
                         vals.RemoveAt(index);
                         vals.Insert(index, item);
                         Items = vals;
-                        if (ItemsChanged.HasDelegate)
-                        {
-                            await ItemsChanged.InvokeAsync(Items);
-                        }
+                        await InvokeItemsChanged();
                     }
                 }
                 ret = true;
