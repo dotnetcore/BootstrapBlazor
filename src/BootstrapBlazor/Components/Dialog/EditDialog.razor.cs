@@ -119,11 +119,7 @@ public partial class EditDialog<TModel>
     {
         if (FooterTemplate != null)
         {
-            builder.OpenComponent<CascadingValue<Func<Task>?>>(0);
-            builder.AddAttribute(1, nameof(CascadingValue<Func<Task>?>.Value), OnCloseAsync);
-            builder.AddAttribute(2, nameof(CascadingValue<Func<Task>?>.IsFixed), true);
-            builder.AddAttribute(3, nameof(CascadingValue<Func<Task>?>.ChildContent), FooterTemplate(Model));
-            builder.CloseComponent();
+            builder.AddContent(1, FooterTemplate(Model));
         }
         else
         {
