@@ -1,0 +1,58 @@
+﻿@inject IStringLocalizer<BootstrapBlazor.Shared.Samples.Modals> Localizer
+
+<div class="row g-3">
+    <div class="col-12 col-sm-4 col-lg-auto">
+        <Button OnClick="() => SmailFullScreenModal.Toggle()">@Localizer["ModalsFullScreenPopup"]</Button>
+        <Modal @ref="SmailFullScreenModal">
+            <ModalDialog FullScreenSize="FullScreenSize.Always" Title="@Localizer["ModalsFullScreenPopup"]">
+                <BodyTemplate>
+                    <div>@Localizer["ModalsTitlePopupWindowText"]</div>
+                </BodyTemplate>
+            </ModalDialog>
+        </Modal>
+    </div>
+    <div class="col-12 col-sm-4 col-lg-auto">
+        <Button OnClick="() => LargeFullScreenModal.Toggle()">@Localizer["ModalsFullScreenPopup992"]</Button>
+        <Modal @ref="LargeFullScreenModal">
+            <ModalDialog FullScreenSize="FullScreenSize.Large" Title="@Localizer["ModalsLargeFullScreenPopup"]">
+                <BodyTemplate>
+                    <div>@Localizer["ModalsTitlePopupWindowText"]</div>
+                </BodyTemplate>
+            </ModalDialog>
+        </Modal>
+    </div>
+    <div class="col-12 col-sm-4 col-lg-auto">
+        <Button OnClick="() => ExtraLargeFullScreenModal.Toggle()">@Localizer["ModalsFullScreenPopup1200"]</Button>
+        <Modal @ref="ExtraLargeFullScreenModal">
+            <ModalDialog FullScreenSize="FullScreenSize.ExtraLarge" Title="@Localizer["ModalsLargeFullScreenPopupWindow"]">
+                <BodyTemplate>
+                    <div>@Localizer["ModalsTitlePopupWindowText"]</div>
+                </BodyTemplate>
+            </ModalDialog>
+        </Modal>
+    </div>
+    <div class="col-12 col-sm-4 col-lg-auto">
+        <Button OnClick="() => ExtraExtraLargeFullScreenModal.Toggle()">@Localizer["ModalsFullScreenPopup1400"]</Button>
+        <Modal @ref="ExtraExtraLargeFullScreenModal">
+            <ModalDialog FullScreenSize="FullScreenSize.ExtraExtraLarge" Title="@Localizer["ModalsSuperLargeFullScreenPopupWindow"]">
+                <BodyTemplate>
+                    <div>@Localizer["ModalsTitlePopupWindowText"]</div>
+                </BodyTemplate>
+            </ModalDialog>
+        </Modal>
+    </div>
+</div>
+
+@code {
+    [NotNull]
+    private Modal? SmailFullScreenModal { get; set; }
+
+    [NotNull]
+    private Modal? LargeFullScreenModal { get; set; }
+
+    [NotNull]
+    private Modal? ExtraLargeFullScreenModal { get; set; }
+
+    [NotNull]
+    private Modal? ExtraExtraLargeFullScreenModal { get; set; }
+}
