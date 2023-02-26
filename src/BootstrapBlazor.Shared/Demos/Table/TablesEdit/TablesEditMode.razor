@@ -1,42 +1,40 @@
 ﻿@inject IStringLocalizer<TablesEditMode> Localizer
 @inject IStringLocalizer<Foo> LocalizerFoo
 
-<div>
-    <Table TItem="Foo"
-           IsPagination="true" PageItemsSource="@PageItemsSource"
-           IsStriped="true" IsBordered="true" IsMultipleSelect="true"
-           ShowToolbar="true" ShowExtendButtons="true" ShowSkeleton="true"
-           AddModalTitle="@Localizer["TablesEditModeAddModalTitle"]" EditModalTitle="@Localizer["TablesEditModeEditModalTitle"]"
-           OnQueryAsync="@OnQueryAsync" EditMode="EditMode.EditForm"
-           OnAddAsync="@OnAddAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync">
-        <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" Width="180" />
-            <TableColumn @bind-Field="@context.Name" />
-            <TableColumn @bind-Field="@context.Address" />
-            <TableColumn @bind-Field="@context.Education" />
-            <TableColumn @bind-Field="@context.Count" />
-            <TableColumn @bind-Field="@context.Complete" />
-        </TableColumns>
-    </Table>
+<Table TItem="Foo"
+        IsPagination="true" PageItemsSource="@PageItemsSource"
+        IsStriped="true" IsBordered="true" IsMultipleSelect="true"
+        ShowToolbar="true" ShowExtendButtons="true" ShowSkeleton="true"
+        AddModalTitle="@Localizer["TablesEditModeAddModalTitle"]" EditModalTitle="@Localizer["TablesEditModeEditModalTitle"]"
+        OnQueryAsync="@OnQueryAsync" EditMode="EditMode.EditForm"
+        OnAddAsync="@OnAddAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync">
+    <TableColumns>
+        <TableColumn @bind-Field="@context.DateTime" Width="180" />
+        <TableColumn @bind-Field="@context.Name" />
+        <TableColumn @bind-Field="@context.Address" />
+        <TableColumn @bind-Field="@context.Education" />
+        <TableColumn @bind-Field="@context.Count" />
+        <TableColumn @bind-Field="@context.Complete" />
+    </TableColumns>
+</Table>
 
-    <p id="anchor5" class="mt-3">@((MarkupString)Localizer["TablesEditModeInCell"].Value)</p>
-    <RadioList @bind-Value="InsertMode" class="mb-3" />
-    <Table TItem="Foo"
-           IsPagination="true" PageItemsSource="@PageItemsSource"
-           IsStriped="true" IsBordered="true" IsMultipleSelect="true"
-           ShowToolbar="true" ShowExtendButtons="true" ShowSkeleton="true"
-           AddModalTitle="@Localizer["TablesEditModeAddModalTitle"]" EditModalTitle="@Localizer["TablesEditModeEditModalTitle"]"
-           EditMode="EditMode.InCell" @bind-Items="@BindItems" InsertRowMode="InsertMode">
-        <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" Width="180" />
-            <TableColumn @bind-Field="@context.Name" />
-            <TableColumn @bind-Field="@context.Address" />
-            <TableColumn @bind-Field="@context.Education" />
-            <TableColumn @bind-Field="@context.Count" />
-            <TableColumn @bind-Field="@context.Complete" />
-        </TableColumns>
-    </Table>
-</div>
+<p id="anchor5" class="mt-3">@((MarkupString)Localizer["TablesEditModeInCell"].Value)</p>
+<RadioList @bind-Value="InsertMode" class="mb-3" />
+<Table TItem="Foo"
+        IsPagination="true" PageItemsSource="@PageItemsSource"
+        IsStriped="true" IsBordered="true" IsMultipleSelect="true"
+        ShowToolbar="true" ShowExtendButtons="true" ShowSkeleton="true"
+        AddModalTitle="@Localizer["TablesEditModeAddModalTitle"]" EditModalTitle="@Localizer["TablesEditModeEditModalTitle"]"
+        EditMode="EditMode.InCell" @bind-Items="@BindItems" InsertRowMode="InsertMode">
+    <TableColumns>
+        <TableColumn @bind-Field="@context.DateTime" Width="180" />
+        <TableColumn @bind-Field="@context.Name" />
+        <TableColumn @bind-Field="@context.Address" />
+        <TableColumn @bind-Field="@context.Education" />
+        <TableColumn @bind-Field="@context.Count" />
+        <TableColumn @bind-Field="@context.Complete" />
+    </TableColumns>
+</Table>
 
 @code {
     /// <summary>

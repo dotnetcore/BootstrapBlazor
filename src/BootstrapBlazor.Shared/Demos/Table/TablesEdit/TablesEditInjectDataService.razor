@@ -2,29 +2,27 @@
 @inject IStringLocalizer<Foo> LocalizerFoo
 @inject IOptionsMonitor<WebsiteOptions> WebsiteOption
 
-<div>
-    <p id="anchor6">
-        @((MarkupString)Localizer["TablesEditInjectDataServiceDescription"].Value)
-        <ul class="ul-demo mb-3">
-            <li><code>OnAddAsync</code></li>
-            <li><code>OnDeleteAsync</code></li>
-            <li><code>OnSaveAsync</code></li>
-            <li><code>OnQueryAsync</code></li>
-        </ul>
-        <div class="mb-3">@Localizer["TablesEditInjectDataServiceTips1"] <a href="@DataServiceUrl" target="_blank">@Localizer["TablesEditInjectDataServiceTips2"]</a></div>
-        <b>@Localizer["TablesEditInjectDataServiceTips3"]</b>
-        <div class="mt-1">@Localizer["TablesEditInjectDataServiceTips4"]</div>
-    </p>
-    <Pre class="no-highlight my-3">services.AddTableDemoDataService();</Pre>
-    <Table TItem="Foo"
-           IsPagination="true" PageItemsSource="@PageItemsSource"
-           IsStriped="true" IsBordered="true" IsMultipleSelect="true" AutoGenerateColumns="true"
-           ShowToolbar="true" ShowExtendButtons="true" ShowSkeleton="true">
-        <TableColumns>
-            <TableColumn @bind-Field="@context.Hobby" Items="@Hobbys" />
-        </TableColumns>
-    </Table>
-</div>
+<p id="anchor6">
+    @((MarkupString)Localizer["TablesEditInjectDataServiceDescription"].Value)
+    <ul class="ul-demo mb-3">
+        <li><code>OnAddAsync</code></li>
+        <li><code>OnDeleteAsync</code></li>
+        <li><code>OnSaveAsync</code></li>
+        <li><code>OnQueryAsync</code></li>
+    </ul>
+    <div class="mb-3">@Localizer["TablesEditInjectDataServiceTips1"] <a href="@DataServiceUrl" target="_blank">@Localizer["TablesEditInjectDataServiceTips2"]</a></div>
+    <b>@Localizer["TablesEditInjectDataServiceTips3"]</b>
+    <div class="mt-1">@Localizer["TablesEditInjectDataServiceTips4"]</div>
+</p>
+<Pre class="no-highlight my-3">services.AddTableDemoDataService();</Pre>
+<Table TItem="Foo"
+        IsPagination="true" PageItemsSource="@PageItemsSource"
+        IsStriped="true" IsBordered="true" IsMultipleSelect="true" AutoGenerateColumns="true"
+        ShowToolbar="true" ShowExtendButtons="true" ShowSkeleton="true">
+    <TableColumns>
+        <TableColumn @bind-Field="@context.Hobby" Items="@Hobbys" />
+    </TableColumns>
+</Table>
 
 @code {
     private static IEnumerable<int> PageItemsSource => new int[] { 4, 10, 20 };
