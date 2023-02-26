@@ -26,7 +26,7 @@ public static class DialogServiceExtensions
             [nameof(SearchDialog<TModel>.Items)] = option.Items ?? Utility.GenerateColumns<TModel>(item => item.Searchable),
             [nameof(SearchDialog<TModel>.OnResetSearchClick)] = new Func<Task>(async () =>
             {
-                await option.Dialog.Close();
+                await option.CloseDialogAsync();
                 if (option.OnResetSearchClick != null)
                 {
                     await option.OnResetSearchClick();
@@ -34,7 +34,7 @@ public static class DialogServiceExtensions
             }),
             [nameof(SearchDialog<TModel>.OnSearchClick)] = new Func<Task>(async () =>
             {
-                await option.Dialog.Close();
+                await option.CloseDialogAsync();
                 if (option.OnSearchClick != null)
                 {
                     await option.OnSearchClick();
@@ -66,7 +66,6 @@ public static class DialogServiceExtensions
             [nameof(EditDialog<TModel>.ShowLoading)] = option.ShowLoading,
             [nameof(EditDialog<TModel>.ShowLabel)] = option.ShowLabel,
             [nameof(EditDialog<TModel>.Items)] = option.Items ?? Utility.GenerateColumns<TModel>(item => item.Editable),
-            [nameof(EditDialog<TModel>.OnCloseAsync)] = option.OnCloseAsync,
             [nameof(EditDialog<TModel>.OnSaveAsync)] = new Func<EditContext, Task>(async context =>
             {
                 if (option.OnEditAsync != null)
@@ -74,7 +73,7 @@ public static class DialogServiceExtensions
                     var ret = await option.OnEditAsync(context);
                     if (ret)
                     {
-                        await option.Dialog.Close();
+                        await option.CloseDialogAsync();
                     }
                 }
             }),
@@ -174,7 +173,7 @@ public static class DialogServiceExtensions
                 }
                 else
                 {
-                    await option.Dialog.Close();
+                    await option.CloseDialogAsync();
                 }
                 option.ReturnTask.SetResult(result);
             }
