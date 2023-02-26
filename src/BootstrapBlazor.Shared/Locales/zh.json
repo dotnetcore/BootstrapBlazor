@@ -5370,9 +5370,9 @@
   "BootstrapBlazor.Shared.Samples.Table.TablesEdit": {
     "TablesEditTitle": "Table 表格",
     "TablesEditDescription": "常用于单表维护，通过属性配置实现简单的增、删、改、查、排序、过滤、搜索等常用功能，通过 <code>Template</code> 的高级用法能实现非常复杂的业务需求功能",
-    "TablesEditItemsTitle": "使用结合作为数据源实现编辑功能",
+    "TablesEditItemsTitle": "使用集合作为数据源实现编辑功能",
     "TablesEditItemsIntro": "设置 <code>Items</code> 作为数据源，无需设置 <code>OnSaveAsync</code> <code>OnDeleteAsync</code> 回调委托使用内置处理逻辑进行更新与删除功能",
-    "TablesEditItemsDescription": "设置 <code>Items</code> 作为数据源，如果数据源未使用双向绑定时 <code>@@bind-Items</code> 删除后由于数据源未改变导致 UI 无变化",
+    "TablesEditItemsDescription": "设置 <code>Items</code> 作为数据源，必须使用双向绑定 <code>@bind-Items</code> 否则内置编辑功能无法正常工作",
     "TablesEditTemplateTitle": "具有单表维护功能的表格",
     "TablesEditTemplateIntro": "通过设置 <code>EditTemplate</code> 自定义编辑弹窗",
     "TablesEditTemplateDescription": "本例中设置 <code>Count</code> 右侧对齐，<code>Complete</code> 列设置为居中对齐，布尔类型列自动渲染成 <code>Switch</code> 组件",

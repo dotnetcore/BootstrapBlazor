@@ -5334,9 +5334,9 @@
   "BootstrapBlazor.Shared.Samples.Table.TablesEdit": {
     "TablesEditTitle": "Table",
     "TablesEditDescription": "Commonly used in single table maintenance, simple addition, deletion, modification, search, sorting, filtering, search and other common functions can be realized through attribute configuration, and very complex business requirements can be realized through advanced usage of <code>Template</code>",
-    "TablesEditItemsTitle": "使用结合作为数据源实现编辑功能",
-    "TablesEditItemsIntro": "设置 <code>Items</code> 作为数据源，无需设置 <code>OnSaveAsync</code> <code>OnDeleteAsync</code> 回调委托使用内置处理逻辑进行更新与删除功能",
-    "TablesEditItemsDescription": "设置 <code>Items</code> 作为数据源，无需设置 <code>OnSaveAsync</code> <code>OnDeleteAsync</code> 回调委托使用内置处理逻辑进行更新与删除功能",
+    "TablesEditItemsTitle": "Use collection as data source to realize editing function",
+    "TablesEditItemsIntro": "Set <code>Items</code> as the data source, without setting <code>OnSaveAsync</code> <code>OnDeleteAsync</code> callback delegate to use built-in processing logic to update and delete functions",
+    "TablesEditItemsDescription": "Setting <code>Items</code> as the data source eliminates the need to set <code>OnSaveAsync</code> <code>OnDeleteAsync</code> callback delegates to use built-in processing logic for updates and deletes",
     "TablesEditTemplateTitle": "Tables with single table maintenance",
     "TablesEditTemplateIntro": "Set <code>ShowSearch</code> to show the query component",
     "TablesEditTemplateDescription": "In this example, the right alignment of <code>Count</code> is set, the <code>Complete</code> column is set to center alignment, and the Boolean column is automatically rendered as a <code>Switch</code> component",
