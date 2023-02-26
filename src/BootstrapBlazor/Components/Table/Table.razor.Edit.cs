@@ -229,6 +229,18 @@ public partial class Table<TItem>
             if (Items != null)
             {
                 // always return true if use Items as datasource
+                if (!IsExcel)
+                {
+                    // 不是 Excel 模式
+                    if (changedType == ItemChangedType.Add)
+                    {
+                        AddItem();
+                    }
+                    else if (changedType == ItemChangedType.Update)
+                    {
+                        await EditItem();
+                    }
+                }
                 ret = true;
             }
             else
@@ -238,6 +250,39 @@ public partial class Table<TItem>
             }
         }
         return ret;
+
+        void AddItem()
+        {
+            if (InsertRowMode == InsertRowMode.First)
+            {
+                Rows.Insert(0, item);
+            }
+            else if (InsertRowMode == InsertRowMode.Last)
+            {
+                Rows.Add(item);
+            }
+        }
+
+        async Task EditItem()
+        {
+            // 使用 Comparer 确保能找到集合中的编辑项
+            // 解决可能使用 Clone 副本导致编辑数据与 Items 中数据不一致
+            var entity = Rows.FirstOrDefault(i => this.Equals<TItem>(i, item));
+            if (entity != null)
+            {
+                var index = Rows.IndexOf(entity);
+                Rows.RemoveAt(index);
+                Rows.Insert(index, item);
+                if (ItemsChanged.HasDelegate)
+                {
+                    await InvokeItemsChanged();
+                }
+                else
+                {
+                    Items = Rows;
+                }
+            }
+        }
     }
 
     private async Task InternalOnAddAsync()
