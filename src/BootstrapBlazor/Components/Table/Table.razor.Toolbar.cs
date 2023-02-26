@@ -639,11 +639,58 @@ public partial class Table<TItem>
                     saved = await SaveModelAsync(context, changedType);
                     if (saved)
                     {
-                        await QueryAsync();
+                        if (Items != null)
+                        {
+                            if (changedType == ItemChangedType.Add)
+                            {
+                                await AddItem();
+                            }
+                            else if (changedType == ItemChangedType.Update)
+                            {
+                                await EditItem();
+                            }
+                        }
+                        else
+                        {
+                            await QueryAsync();
+                        }
                     }
                 }
                 await ToggleLoading(false);
                 return saved;
+
+                async Task AddItem()
+                {
+                    var index = InsertRowMode == InsertRowMode.First ? 0 : Rows.Count;
+                    Rows.Insert(index, (TItem)context.Model);
+                    await UpdateRow();
+                }
+
+                async Task EditItem()
+                {
+                    // 使用 Comparer 确保能找到集合中的编辑项
+                    // 解决可能使用 Clone 副本导致编辑数据与 Items 中数据不一致
+                    var entity = Rows.FirstOrDefault(i => this.Equals<TItem>(i, (TItem)context.Model));
+                    if (entity != null)
+                    {
+                        var index = Rows.IndexOf(entity);
+                        Rows.RemoveAt(index);
+                        Rows.Insert(index, (TItem)context.Model);
+                        await UpdateRow();
+                    }
+                }
+
+                async Task UpdateRow()
+                {
+                    if (ItemsChanged.HasDelegate)
+                    {
+                        await InvokeItemsChanged();
+                    }
+                    else
+                    {
+                        Items = Rows;
+                    }
+                }
             }
         };
         await DialogService.ShowEditDialog(option);
