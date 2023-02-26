@@ -1038,9 +1038,10 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             if (col.ComponentParameters == null)
             {
                 var onValueChanged = Utility.GetOnValueChangedInvoke<TItem>(col.PropertyType);
-                var parameters = col.ComponentParameters?.ToList() ?? new List<KeyValuePair<string, object>>();
-                parameters.Add(new(nameof(ValidateBase<string>.OnValueChanged), onValueChanged.Invoke(item, col, (model, column, val) => InternalOnSaveAsync(model, ItemChangedType.Update))));
-                col.ComponentParameters = parameters;
+                col.ComponentParameters = new List<KeyValuePair<string, object>>
+                {
+                    new(nameof(ValidateBase<string>.OnValueChanged), onValueChanged.Invoke(item, col, (model, column, val) => InternalOnSaveAsync(model, ItemChangedType.Update)))
+                };
             }
         }
     }
