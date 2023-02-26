@@ -97,6 +97,9 @@ public partial class Dialog : IDisposable
 
         IsKeyboard = option.IsKeyboard;
         IsBackdrop = option.IsBackdrop;
+        option.Modal = ModalContainer;
+
+        // TODO: 下一个版本移除
         option.Dialog = ModalContainer;
 
         var parameters = option.ToAttributes();
