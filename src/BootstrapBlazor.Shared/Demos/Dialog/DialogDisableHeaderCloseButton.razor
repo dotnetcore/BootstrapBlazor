@@ -15,7 +15,7 @@
         option.Component = BootstrapDynamicComponent.CreateComponent<Button>(new Dictionary<string, object?>
         {
             [nameof(Button.Text)] = "Click to close the popup",
-            [nameof(Button.OnClick)] = EventCallback.Factory.Create<MouseEventArgs>(this, () => option.Dialog.Close())
+            [nameof(Button.OnClick)] = EventCallback.Factory.Create<MouseEventArgs>(this, option.CloseDialogAsync)
         });
 
         await DialogService.Show(option);

@@ -12,8 +12,7 @@ public class DialogOption
     /// <summary>
     /// 获得/设置 相关弹窗实例
     /// </summary>
-    [NotNull]
-    public Modal? Dialog { get; internal set; }
+    internal Modal? Dialog { get; set; }
 
     /// <summary>
     /// 获得/设置 弹窗标题
@@ -159,6 +158,17 @@ public class DialogOption
     /// 获得/设置 弹窗已显示时回调此方法
     /// </summary>
     public Func<Task>? OnShownAsync { get; set; }
+
+    /// <summary>
+    /// 关闭弹窗方法
+    /// </summary>
+    public async Task CloseDialogAsync()
+    {
+        if (Dialog != null)
+        {
+            await Dialog.Close();
+        }
+    }
 
     /// <summary>
     /// 将参数转换为组件属性方法
