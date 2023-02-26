@@ -89,9 +89,11 @@ public class TableTest : TableTestBase
     }
 
     [Theory]
-    [InlineData(InsertRowMode.First)]
-    [InlineData(InsertRowMode.Last)]
-    public async Task Items_Add(InsertRowMode insertMode)
+    [InlineData(InsertRowMode.First, true)]
+    [InlineData(InsertRowMode.Last, true)]
+    [InlineData(InsertRowMode.First, false)]
+    [InlineData(InsertRowMode.Last, false)]
+    public void Items_Add(InsertRowMode insertMode, bool bind)
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
@@ -100,10 +102,13 @@ public class TableTest : TableTestBase
             pb.AddChildContent<Table<Foo>>(pb =>
             {
                 pb.Add(a => a.Items, items);
-                pb.Add(a => a.ItemsChanged, EventCallback.Factory.Create<IEnumerable<Foo>>(this, rows =>
+                if (bind)
                 {
-                    items = rows.ToList();
-                }));
+                    pb.Add(a => a.ItemsChanged, EventCallback.Factory.Create<IEnumerable<Foo>>(this, rows =>
+                    {
+                        items = rows.ToList();
+                    }));
+                }
                 pb.Add(a => a.EditMode, EditMode.InCell);
                 pb.Add(a => a.InsertRowMode, insertMode);
                 pb.Add(a => a.RenderMode, TableRenderMode.Table);
@@ -111,22 +116,39 @@ public class TableTest : TableTestBase
             });
         });
         var table = cut.FindComponent<Table<Foo>>();
-        await cut.InvokeAsync(() => table.Instance.AddAsync());
+        cut.InvokeAsync(() => table.Instance.AddAsync());
 
         if (insertMode == InsertRowMode.First)
         {
             var button = cut.Find("tbody tr button");
-            await cut.InvokeAsync(() => button.Click());
-            Assert.Null(items.First().Name);
+            cut.InvokeAsync(() => button.Click());
+            if (bind)
+            {
+                Assert.Null(items.First().Name);
+                Assert.Equal(3, items.Count);
+            }
+            else
+            {
+                // 未设置 双向绑定 Items 未更改
+                Assert.Equal(2, items.Count);
+            }
         }
         else if (insertMode == InsertRowMode.Last)
         {
             var button = cut.FindAll("tbody tr button").Last(i => i.ClassList.Contains("btn-success"));
-            await cut.InvokeAsync(() => button.Click());
-            Assert.Null(items.Last().Name);
+            cut.InvokeAsync(() => button.Click());
+            if (bind)
+            {
+                Assert.Null(items.Last().Name);
+                Assert.Equal(3, items.Count);
+            }
+            else
+            {
+                // 未设置 双向绑定 Items 未更改
+                Assert.Equal(2, items.Count);
+            }
         }
     }
-
 
     [Theory]
     [InlineData(InsertRowMode.First)]
