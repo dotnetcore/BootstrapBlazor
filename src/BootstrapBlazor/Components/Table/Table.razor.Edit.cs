@@ -234,7 +234,7 @@ public partial class Table<TItem>
                     // 不是 Excel 模式
                     if (changedType == ItemChangedType.Add)
                     {
-                        AddItem();
+                        await AddItem();
                     }
                     else if (changedType == ItemChangedType.Update)
                     {
@@ -251,7 +251,7 @@ public partial class Table<TItem>
         }
         return ret;
 
-        void AddItem()
+        async Task AddItem()
         {
             if (InsertRowMode == InsertRowMode.First)
             {
@@ -260,6 +260,14 @@ public partial class Table<TItem>
             else if (InsertRowMode == InsertRowMode.Last)
             {
                 Rows.Add(item);
+            }
+            if (ItemsChanged.HasDelegate)
+            {
+                await InvokeItemsChanged();
+            }
+            else
+            {
+                Items = Rows;
             }
         }
 

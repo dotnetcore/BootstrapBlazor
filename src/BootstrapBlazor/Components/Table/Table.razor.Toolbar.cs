@@ -719,14 +719,9 @@ public partial class Table<TItem>
                 if (Items != null)
                 {
                     SelectedRows.ForEach(i => Rows.Remove(i));
-                    SelectedRows.Clear();
                     if (ItemsChanged.HasDelegate)
                     {
                         await InvokeItemsChanged();
-                    }
-                    else
-                    {
-                        StateHasChanged();
                     }
                 }
                 else
@@ -744,9 +739,9 @@ public partial class Table<TItem>
                             PageItems = Math.Min(PageItems, items.Min());
                         }
                     }
-                    SelectedRows.Clear();
-                    await QueryAsync();
                 }
+                SelectedRows.Clear();
+                await QueryAsync();
             }
             return ret;
         }
