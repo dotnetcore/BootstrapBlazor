@@ -12,7 +12,14 @@ public class DialogOption
     /// <summary>
     /// 获得/设置 相关弹窗实例
     /// </summary>
-    internal Modal? Dialog { get; set; }
+    [Obsolete("请使用 CloseDialogAsync 关闭弹窗")]
+    [ExcludeFromCodeCoverage]
+    public Modal? Dialog { get; set; }
+
+    /// <summary>
+    /// 获得/设置 相关弹窗实例
+    /// </summary>
+    internal Modal? Modal { get; set; }
 
     /// <summary>
     /// 获得/设置 弹窗标题
@@ -164,9 +171,9 @@ public class DialogOption
     /// </summary>
     public async Task CloseDialogAsync()
     {
-        if (Dialog != null)
+        if (Modal != null)
         {
-            await Dialog.Close();
+            await Modal.Close();
         }
     }
 

@@ -617,6 +617,7 @@ public static class Utility
     /// 创建 OnValueChanged 回调委托
     /// </summary>
     /// <typeparam name="TModel"></typeparam>
+    /// <param name="fieldType"></param>
     /// <returns></returns>
     public static Expression<Func<TModel, ITableColumn, Func<TModel, ITableColumn, object?, Task>, object>> CreateOnValueChanged<TModel>(Type fieldType)
     {
@@ -628,6 +629,14 @@ public static class Utility
 
         return Expression.Lambda<Func<TModel, ITableColumn, Func<TModel, ITableColumn, object?, Task>, object>>(Expression.Convert(body, typeof(object)), exp_p1, exp_p2, exp_p3);
     }
+
+    /// <summary>
+    /// 创建 OnValueChanged 回调委托
+    /// </summary>
+    /// <typeparam name="TModel"></typeparam>
+    /// <param name="fieldType"></param>
+    /// <returns></returns>
+    public static Func<TModel, ITableColumn, Func<TModel, ITableColumn, object?, Task>, object> GetOnValueChangedInvoke<TModel>(Type fieldType) => CacheManager.GetOnValueChangedInvoke<TModel>(fieldType);
     #endregion
 
     #region Format
