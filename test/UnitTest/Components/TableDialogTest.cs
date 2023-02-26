@@ -12,7 +12,7 @@ namespace UnitTest.Components;
 public class TableDialogTest : TableDialogTestBase
 {
     [Fact]
-    public async Task EditAsync_Ok()
+    public void EditAsync_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
@@ -47,8 +47,8 @@ public class TableDialogTest : TableDialogTestBase
         var table = cut.FindComponent<Table<Foo>>();
         // 选一个
         var input = cut.Find("tbody tr input");
-        await cut.InvokeAsync(() => input.Click());
-        await cut.InvokeAsync(() => table.Instance.EditAsync());
+        cut.InvokeAsync(() => input.Click());
+        cut.InvokeAsync(() => table.Instance.EditAsync());
 
         cut.Contains("test-save");
         cut.Contains("test-close");
@@ -59,34 +59,34 @@ public class TableDialogTest : TableDialogTestBase
 
         // 编辑弹窗逻辑
         var form = cut.Find(".modal-body form");
-        await cut.InvokeAsync(() => form.Submit());
+        cut.InvokeAsync(() => form.Submit());
         var modal = cut.FindComponent<Modal>();
-        await cut.InvokeAsync(() => modal.Instance.CloseCallback());
+        cut.InvokeAsync(() => modal.Instance.CloseCallback());
 
         // 内置数据服务取消回调
-        await cut.InvokeAsync(() => table.Instance.EditAsync());
-        await cut.InvokeAsync(() => modal.Instance.CloseCallback());
+        cut.InvokeAsync(() => table.Instance.EditAsync());
+        cut.InvokeAsync(() => modal.Instance.CloseCallback());
 
         // 自定义数据服务取消回调测试
         table.SetParametersAndRender(pb =>
         {
             pb.Add(a => a.DataService, new MockEFCoreDataService(localizer));
         });
-        await cut.InvokeAsync(() => table.Instance.EditAsync());
-        await cut.InvokeAsync(() => modal.Instance.CloseCallback());
+        cut.InvokeAsync(() => table.Instance.EditAsync());
+        cut.InvokeAsync(() => modal.Instance.CloseCallback());
 
         // Add 弹窗
-        await cut.InvokeAsync(() => table.Instance.AddAsync());
-        await cut.InvokeAsync(() => modal.Instance.CloseCallback());
+        cut.InvokeAsync(() => table.Instance.AddAsync());
+        cut.InvokeAsync(() => modal.Instance.CloseCallback());
 
         // 自定义数据服务取消回调测试
         table.SetParametersAndRender(pb =>
         {
             pb.Add(a => a.EditDialogFullScreenSize, FullScreenSize.Always);
         });
-        await cut.InvokeAsync(() => table.Instance.AddAsync());
+        cut.InvokeAsync(() => table.Instance.AddAsync());
         Assert.Contains(" modal-fullscreen ", cut.Markup);
-        await cut.InvokeAsync(() => modal.Instance.CloseCallback());
+        cut.InvokeAsync(() => modal.Instance.CloseCallback());
 
         var closed = false;
         // 测试 CloseCallback
@@ -98,8 +98,8 @@ public class TableDialogTest : TableDialogTestBase
                 return Task.CompletedTask;
             });
         });
-        await cut.InvokeAsync(() => table.Instance.AddAsync());
-        await cut.InvokeAsync(() => modal.Instance.CloseCallback());
+        cut.InvokeAsync(() => table.Instance.AddAsync());
+        cut.InvokeAsync(() => modal.Instance.CloseCallback());
         Assert.True(closed);
 
         // IsTracking mode
@@ -108,15 +108,15 @@ public class TableDialogTest : TableDialogTestBase
             pb.Add(a => a.IsTracking, true);
         });
         // Add 弹窗
-        await cut.InvokeAsync(() => table.Instance.AddAsync());
+        cut.InvokeAsync(() => table.Instance.AddAsync());
 
         // 编辑弹窗逻辑
         input = cut.Find(".modal-body form input.form-control");
-        await cut.InvokeAsync(() => input.Change("Test_Name"));
+        cut.InvokeAsync(() => input.Change("Test_Name"));
 
         form = cut.Find(".modal-body form");
-        await cut.InvokeAsync(() => form.Submit());
-        await cut.InvokeAsync(() => modal.Instance.CloseCallback());
+        cut.InvokeAsync(() => form.Submit());
+        cut.InvokeAsync(() => modal.Instance.CloseCallback());
 
         var itemsChanged = false;
         // 更新插入模式
@@ -131,17 +131,76 @@ public class TableDialogTest : TableDialogTestBase
         });
 
         // Add 弹窗
-        await cut.InvokeAsync(() => table.Instance.AddAsync());
+        cut.InvokeAsync(() => table.Instance.AddAsync());
         cut.Contains("test_edit_footer");
 
         // 编辑弹窗逻辑
         input = cut.Find(".modal-body form input.form-control");
-        await cut.InvokeAsync(() => input.Change("Test_Name"));
+        cut.InvokeAsync(() => input.Change("Test_Name"));
 
         form = cut.Find(".modal-body form");
-        await cut.InvokeAsync(() => form.Submit());
-        await cut.InvokeAsync(() => modal.Instance.CloseCallback());
+        cut.InvokeAsync(() => form.Submit());
+        cut.InvokeAsync(() => modal.Instance.CloseCallback());
         Assert.True(itemsChanged);
+
+        // 设置双向绑定 Items 后再测试 Add Save
+        table.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.IsTracking, false);
+            pb.Add(a => a.OnSaveAsync, null);
+            pb.Add(a => a.ItemsChanged, EventCallback.Factory.Create<IEnumerable<Foo>>(this, rows => items = rows.ToList()));
+        });
+        // Add 弹窗
+        cut.InvokeAsync(() => table.Instance.AddAsync());
+        input = cut.Find(".modal-body form input.form-control");
+        cut.InvokeAsync(() => input.Change("Test_Name"));
+
+        form = cut.Find(".modal-body form");
+        cut.InvokeAsync(() => form.Submit());
+        cut.InvokeAsync(() => modal.Instance.CloseCallback());
+        Assert.Equal(3, items.Count);
+
+        table.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.InsertRowMode, InsertRowMode.Last);
+        });
+        // Add 弹窗
+        cut.InvokeAsync(() => table.Instance.AddAsync());
+        input = cut.Find(".modal-body form input.form-control");
+        cut.InvokeAsync(() => input.Change("Test_Name"));
+
+        form = cut.Find(".modal-body form");
+        cut.InvokeAsync(() => form.Submit());
+        cut.InvokeAsync(() => modal.Instance.CloseCallback());
+        Assert.Equal(3, items.Count);
+
+        // 数据源是 OnQueryAsync 提供
+        table.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.Items, null);
+            pb.Add(a => a.OnQueryAsync, options => Task.FromResult(new QueryData<Foo>()
+            {
+                Items = items,
+                TotalCount = items.Count,
+                IsAdvanceSearch = true,
+                IsSearch = true,
+                IsFiltered = true,
+                IsSorted = true
+            }));
+        });
+
+        // Add 弹窗
+        cut.InvokeAsync(() => table.Instance.AddAsync());
+        input = cut.Find(".modal-body form input.form-control");
+        cut.InvokeAsync(() => input.Change("Test_Name"));
+
+        form = cut.Find(".modal-body form");
+        cut.InvokeAsync(() => form.Submit());
+        cut.InvokeAsync(() => modal.Instance.CloseCallback());
+
+        // 数据为三行
+        var rows = cut.FindAll("tbody tr");
+        Assert.Equal(3, rows.Count);
     }
 
     private class MockEFCoreDataService : IDataService<Foo>, IEntityFrameworkCoreDataService
