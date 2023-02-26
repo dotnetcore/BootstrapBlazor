@@ -1,15 +1,13 @@
 ﻿@inject IStringLocalizer<Foo> LocalizerFoo
 
-<div>
-    <Table TItem="Foo" EditDialogShowMaximizeButton="true"
-           IsPagination="true" PageItemsSource="@PageItemsSource" DataService="@CustomerDataService"
-           IsStriped="true" IsBordered="true" IsMultipleSelect="true" AutoGenerateColumns="true"
-           ShowToolbar="true" ShowExtendButtons="true" ShowSkeleton="true">
-        <TableColumns>
-            <TableColumn @bind-Field="@context.Hobby" Items="@Hobbys" />
-        </TableColumns>
-    </Table>
-</div>
+<Table TItem="Foo" EditDialogShowMaximizeButton="true"
+       IsPagination="true" PageItemsSource="@PageItemsSource" DataService="@CustomerDataService"
+       IsStriped="true" IsBordered="true" IsMultipleSelect="true" AutoGenerateColumns="true"
+       ShowToolbar="true" ShowExtendButtons="true" ShowSkeleton="true">
+    <TableColumns>
+        <TableColumn @bind-Field="@context.Hobby" Items="@Hobbys" />
+    </TableColumns>
+</Table>
 
 @code {
     private static IEnumerable<int> PageItemsSource => new int[] { 4, 10, 20 };

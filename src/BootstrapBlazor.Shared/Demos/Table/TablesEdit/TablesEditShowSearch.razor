@@ -1,44 +1,41 @@
 ﻿@inject IStringLocalizer<TablesEditShowSearch> Localizer
 @inject IStringLocalizer<Foo> LocalizerFoo
 
-<div>
-    <Table TItem="Foo" IsAutoCollapsedToolbarButton="false"
-           IsPagination="true" PageItemsSource="@PageItemsSource"
-           IsStriped="true" IsBordered="true" IsMultipleSelect="true"
-           ShowToolbar="true" ShowExtendButtons="true" ShowSkeleton="true" IsExtendButtonsInRowHeader="true"
-           OnQueryAsync="@OnQueryAsync" OnAddAsync="@OnAddAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync">
-        <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" Width="180" />
-            <TableColumn @bind-Field="@context.Name" />
-            <TableColumn @bind-Field="@context.Address" />
-            <TableColumn @bind-Field="@context.Education" />
-            <TableColumn @bind-Field="@context.Count" Align="Alignment.Right" />
-            <TableColumn @bind-Field="@context.Complete" Align="Alignment.Center" />
-        </TableColumns>
-        <EditTemplate>
-            <div class="row g-3 form-inline">
-                <div class="col-12 col-sm-6">
-                    <BootstrapInput @bind-Value="@context.Name" placeholder="@PlaceHolderString" maxlength="50" />
-                </div>
-                <div class="col-12 col-sm-6">
-                    <BootstrapInput @bind-Value="@context.Address" placeholder="@PlaceHolderString" maxlength="50" />
-                </div>
-                <div class="col-12 col-sm-6">
-                    <DateTimePicker @bind-Value="@context.DateTime" />
-                </div>
-                <div class="col-12 col-sm-6">
-                    <Select @bind-Value="@context.Education" />
-                </div>
-                <div class="col-12 col-sm-6">
-                    <BootstrapInputNumber @bind-Value="@context.Count" ShowButton="true" />
-                </div>
-                <div class="col-12 col-sm-6">
-                    <Switch @bind-Value="@context.Complete" ShowInnerText="true" />
-                </div>
+<Table TItem="Foo" IsPagination="true" PageItemsSource="@PageItemsSource"
+        IsStriped="true" IsBordered="true" IsMultipleSelect="true"
+        ShowToolbar="true" ShowExtendButtons="true" ShowSkeleton="true" IsExtendButtonsInRowHeader="true"
+        OnQueryAsync="@OnQueryAsync" OnAddAsync="@OnAddAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync">
+    <TableColumns>
+        <TableColumn @bind-Field="@context.DateTime" Width="180" />
+        <TableColumn @bind-Field="@context.Name" />
+        <TableColumn @bind-Field="@context.Address" />
+        <TableColumn @bind-Field="@context.Education" />
+        <TableColumn @bind-Field="@context.Count" Align="Alignment.Right" />
+        <TableColumn @bind-Field="@context.Complete" Align="Alignment.Center" />
+    </TableColumns>
+    <EditTemplate>
+        <div class="row g-3 form-inline">
+            <div class="col-12 col-sm-6">
+                <BootstrapInput @bind-Value="@context.Name" placeholder="@PlaceHolderString" maxlength="50" />
             </div>
-        </EditTemplate>
-    </Table>
-</div>
+            <div class="col-12 col-sm-6">
+                <BootstrapInput @bind-Value="@context.Address" placeholder="@PlaceHolderString" maxlength="50" />
+            </div>
+            <div class="col-12 col-sm-6">
+                <DateTimePicker @bind-Value="@context.DateTime" />
+            </div>
+            <div class="col-12 col-sm-6">
+                <Select @bind-Value="@context.Education" />
+            </div>
+            <div class="col-12 col-sm-6">
+                <BootstrapInputNumber @bind-Value="@context.Count" ShowButton="true" />
+            </div>
+            <div class="col-12 col-sm-6">
+                <Switch @bind-Value="@context.Complete" ShowInnerText="true" />
+            </div>
+        </div>
+    </EditTemplate>
+</Table>
 
 @code {
     /// <summary>
