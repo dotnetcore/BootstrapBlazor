@@ -1022,7 +1022,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             col.EditTemplate = row => builder =>
             {
                 var d = (IDynamicObject)row;
-                var onValueChanged = Utility.CreateOnValueChanged<IDynamicObject>(col.PropertyType).Compile();
+                var onValueChanged = Utility.GetOnValueChangedInvoke<IDynamicObject>(col.PropertyType);
                 if (DynamicContext.OnValueChanged != null)
                 {
                     var parameters = col.ComponentParameters?.ToList() ?? new List<KeyValuePair<string, object>>();
@@ -1037,7 +1037,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         {
             if (col.ComponentParameters == null)
             {
-                var onValueChanged = Utility.CreateOnValueChanged<TItem>(col.PropertyType).Compile();
+                var onValueChanged = Utility.GetOnValueChangedInvoke<TItem>(col.PropertyType);
                 var parameters = col.ComponentParameters?.ToList() ?? new List<KeyValuePair<string, object>>();
                 parameters.Add(new(nameof(ValidateBase<string>.OnValueChanged), onValueChanged.Invoke(item, col, (model, column, val) => InternalOnSaveAsync(model, ItemChangedType.Update))));
                 col.ComponentParameters = parameters;

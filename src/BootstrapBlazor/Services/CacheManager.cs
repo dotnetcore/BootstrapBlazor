@@ -545,6 +545,24 @@ internal class CacheManager : ICacheManager
         : source.Select(i => i?.ToString());
     #endregion
 
+    #region OnValueChanged Lambda
+    /// <summary>
+    /// 创建 OnValueChanged 回调委托
+    /// </summary>
+    /// <typeparam name="TModel"></typeparam>
+    /// <param name="fieldType"></param>
+    /// <returns></returns>
+    public static Func<TModel, ITableColumn, Func<TModel, ITableColumn, object?, Task>, object> GetOnValueChangedInvoke<TModel>(Type fieldType)
+    {
+        var cacheKey = $"Lambda-{nameof(GetOnValueChangedInvoke)}-{typeof(TModel).FullName}-{fieldType.FullName}";
+        return Instance.GetOrCreate(cacheKey, entry =>
+        {
+            entry.SetDynamicAssemblyPolicy(fieldType);
+            return Utility.CreateOnValueChanged<TModel>(fieldType).Compile();
+        })!;
+    }
+    #endregion
+
     #region Format
     public static Func<object, string, IFormatProvider?, string> GetFormatInvoker(Type type)
     {
