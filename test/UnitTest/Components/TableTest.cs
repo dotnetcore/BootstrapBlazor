@@ -4199,6 +4199,7 @@ public class TableTest : TableTestBase
             {
                 pb.Add(a => a.RenderMode, TableRenderMode.Table);
                 pb.Add(a => a.Items, items);
+                pb.Add(a => a.ItemsChanged, EventCallback.Factory.Create<IEnumerable<Foo>>(this, rows => items = rows.ToList()));
                 pb.Add(a => a.IsMultipleSelect, true);
                 pb.Add(a => a.ShowToolbar, true);
                 pb.Add(a => a.TableColumns, foo => builder =>
@@ -4215,9 +4216,7 @@ public class TableTest : TableTestBase
 
         var button = cut.FindComponent<TableToolbarPopconfirmButton<Foo>>();
         cut.InvokeAsync(() => button.Instance.OnConfirm.Invoke());
-
-        var row = cut.FindAll("tbody tr");
-        Assert.Single(row);
+        Assert.Single(items);
     }
 
     [Fact]
