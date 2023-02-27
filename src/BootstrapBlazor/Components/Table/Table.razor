@@ -32,6 +32,7 @@
         {
             <div class="table-toolbar">
                 <TableToolbar OnGetSelectedRows="@GetSelectedRows" IsAutoCollapsedToolbarButton="IsAutoCollapsedToolbarButton">
+                    @TableToolbarBeforeTemplate
                     @if (ShowDefaultButtons)
                     {
                         @if (ShowAddButton)
@@ -51,9 +52,10 @@
                                                           ConfirmButtonText="@ConfirmDeleteButtonText" ConfirmButtonColor="Color.Danger" />
                         }
                     }
-                    @TableToolbarTemplate
+                    @TableToolbarAfterTemplate
                 </TableToolbar>
                 <div class="float-end table-toolbar-button btn-group table-column-right">
+                    @TableExtensionToolbarBeforeTemplate
                     @if (ShowRefresh)
                     {
                         <Button Icon="fa-solid fa-arrows-rotate" Color="@Color.Secondary" OnClickWithoutRender="@OnClickRefreshAsync">
@@ -113,6 +115,7 @@
                             </div>
                         </div>
                     }
+                    @TableExtensionToolbarAfterTemplate
                 </div>
                 @if (ShowSearch && SearchMode == SearchMode.Popup)
                 {
