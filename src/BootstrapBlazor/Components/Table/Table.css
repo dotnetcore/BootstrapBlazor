@@ -227,10 +227,6 @@
         white-space: nowrap;
     }
 
-    .table-cell > .form-control {
-        --bs-border-radius: 0;
-    }
-
     .table-cell > .form-control,
     .table-cell > .select,
     .table-cell > .datetime-picker {
@@ -584,7 +580,7 @@
 }
 
     .table-cell.is-incell .switch {
-        padding-left: 6px;
+        padding: 7px 6px;
     }
 
     .table-cell.is-incell .select {
