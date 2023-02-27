@@ -65,7 +65,7 @@
         <div class="mt-1">@((MarkupString)Localizer["TablesEditDataServiceTips1"].Value)</div>
         <div class="mt-1">@((MarkupString)Localizer["TablesEditDataServiceTips2"].Value)</div>
     </p>
-    <Pre class="no-highlight mt-3">services.AddTableDemoDataService();</Pre>
+    <Pre class="no-highlight my-3">services.AddTableDemoDataService();</Pre>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["TablesEditFooterTemplateTitle"]"
@@ -73,7 +73,7 @@
            Name="EditFooterTemplate"
            Demo="typeof(Demos.Table.TablesEdit.TablesEditFooterTemplate)">
     <p>@((MarkupString)Localizer["TablesEditFooterTemplateDescription"].Value)</p>
-    <Pre>&lt;EditFooterTemplate Context="model"&gt;
+    <Pre class="mb-3">&lt;EditFooterTemplate Context="model"&gt;
     &lt;Button Text="Popup" Color="Color.Danger" Icon="fa-regular fa-comment-dots" OnClick="() =&gt; OnClick(model)"&gt;&lt;/Button&gt;
     &lt;DialogCloseButton /&gt;
     &lt;DialogSaveButton Color="Color.Primary" Icon="fa-solid fa-floppy-disk" Text="Save" /&gt;
