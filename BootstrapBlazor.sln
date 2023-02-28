@@ -109,7 +109,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "localization", "localizatio
 		localization\zh-TW.json = localization\zh-TW.json
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BootstrapBlazor.BaiduOcr", "src\Extensions\Components\BootstrapBlazor.BaiduOcr\BootstrapBlazor.BaiduOcr.csproj", "{F800DC0F-6829-4B64-B96B-B301A512AF2A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BootstrapBlazor.BaiduOcr", "src\Extensions\Components\BootstrapBlazor.BaiduOcr\BootstrapBlazor.BaiduOcr.csproj", "{F800DC0F-6829-4B64-B96B-B301A512AF2A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
