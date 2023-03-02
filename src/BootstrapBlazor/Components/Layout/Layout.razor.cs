@@ -4,22 +4,195 @@
 
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.AspNetCore.Components.Routing;
 using Microsoft.Extensions.Localization;
 using System.Reflection;
 
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// Layout 组件
 /// </summary>
-public partial class Layout : IAsyncDisposable
+public partial class Layout : IHandlerException, IAsyncDisposable
 {
+    /// <summary>
+    ///
+    /// </summary>
+    protected bool IsSmallScreen { get; set; }
+
+    /// <summary>
+    /// 获得/设置 侧边栏状态
+    /// </summary>
+    [Parameter]
+    public bool IsCollapsed { get; set; }
+
+    /// <summary>
+    /// 获得/设置 侧边栏状态
+    /// </summary>
+    [Parameter]
+    public EventCallback<bool> IsCollapsedChanged { get; set; }
+
+    /// <summary>
+    /// 获得/设置 菜单手风琴效果
+    /// </summary>
+    [Parameter]
+    public bool IsAccordion { get; set; }
+
+    /// <summary>
+    /// 获得/设置 Header 模板
+    /// </summary>
+    [Parameter]
+    public RenderFragment? Header { get; set; }
+
+    /// <summary>
+    /// 获得/设置 Footer 模板
+    /// </summary>
+    [Parameter]
+    public RenderFragment? Footer { get; set; }
+
+    /// <summary>
+    /// 获得/设置 Side 模板
+    /// </summary>
+    [Parameter]
+    public RenderFragment? Side { get; set; }
+
+    /// <summary>
+    /// 获得/设置 NotAuthorized 模板
+    /// </summary>
+    [Parameter]
+    public RenderFragment? NotAuthorized { get; set; }
+
+    /// <summary>
+    /// 获得/设置 NotFound 模板
+    /// </summary>
+    [Parameter]
+    public RenderFragment? NotFound { get; set; }
+
+    /// <summary>
+    /// 获得/设置 NotFound 标签文本
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public string? NotFoundTabText { get; set; }
+
+    /// <summary>
+    /// 获得/设置 侧边栏宽度，支持百分比，设置 0 时关闭宽度功能 默认值 300
+    /// </summary>
+    [Parameter]
+    public string? SideWidth { get; set; }
+
+    /// <summary>
+    /// 获得/设置 Main 模板
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public RenderFragment? Main { get; set; }
+
+    /// <summary>
+    /// 获得/设置 侧边栏是否占满整个左侧 默认为 false
+    /// </summary>
+    [Parameter]
+    public bool IsFullSide { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否为正页面布局 默认为 false
+    /// </summary>
+    [Parameter]
+    public bool IsPage { get; set; }
+
+    /// <summary>
+    /// 获得/设置 侧边栏菜单集合
+    /// </summary>
+    [Parameter]
+    public IEnumerable<MenuItem>? Menus { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否右侧使用 Tab 组件 默认为 false 不使用
+    /// </summary>
+    [Parameter]
+    public bool UseTabSet { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否仅渲染 Active 标签
+    /// </summary>
+    [Parameter]
+    public bool IsOnlyRenderActiveTab { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否固定 Footer 组件
+    /// </summary>
+    [Parameter]
+    public bool IsFixedFooter { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否固定 Header 组件
+    /// </summary>
+    [Parameter]
+    public bool IsFixedHeader { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否显示收缩展开 Bar
+    /// </summary>
+    [Parameter]
+    public bool ShowCollapseBar { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否显示 Footer 模板 默认 false
+    /// </summary>
+    [Parameter]
+    public bool ShowFooter { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否显示返回顶端按钮 默认为 false 不显示
+    /// </summary>
+    [Parameter]
+    public bool ShowGotoTop { get; set; }
+
+    /// <summary>
+    /// 获得/设置 点击菜单时回调委托方法 默认为 null
+    /// </summary>
+    [Parameter]
+    public Func<MenuItem, Task>? OnClickMenu { get; set; }
+
+    /// <summary>
+    /// 获得/设置 收缩展开回调委托
+    /// </summary>
+    [Parameter]
+    public Func<bool, Task>? OnCollapsed { get; set; }
+
+    /// <summary>
+    /// 获得/设置 默认标签页 关闭所以标签页时自动打开此地址 默认 null 未设置
+    /// </summary>
+    [Parameter]
+    public string TabDefaultUrl { get; set; } = "";
+
+    /// <summary>
+    /// 获得/设置 授权回调方法多用于权限控制
+    /// </summary>
+    [Parameter]
+    public Func<string, Task<bool>>? OnAuthorizing { get; set; }
+
+    /// <summary>
+    /// 获得/设置 未授权导航地址 默认为 "/Account/Login" Cookie 模式登录页
+    /// </summary>
+    [Parameter]
+    public string NotAuthorizeUrl { get; set; } = "/Account/Login";
+
+    /// <summary>
+    ///
+    /// </summary>
+    [Inject]
+    [NotNull]
+    protected NavigationManager? Navigation { get; set; }
+
+    private bool SubscribedLocationChangedEvent { get; set; }
+
     private JSInterop<Layout>? Interop { get; set; }
 
     /// <summary>
     /// 获得/设置 是否已授权
     /// </summary>
-    protected bool IsAuthenticated { get; set; }
+    private bool IsAuthenticated { get; set; }
 
     /// <summary>
     /// 获得 组件样式
@@ -121,21 +294,23 @@ public partial class Layout : IAsyncDisposable
     private bool IsInit { get; set; }
 
     /// <summary>
-    /// OnInitialized 方法
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
     {
         base.OnInitialized();
 
-        TooltipText ??= Localizer[nameof(TooltipText)];
-        if (!OperatingSystem.IsBrowser())
+        if (OnAuthorizing != null)
         {
-            AdditionalAssemblies ??= new[] { Assembly.GetEntryAssembly()! };
+            SubscribedLocationChangedEvent = true;
+            Navigation.LocationChanged += Navigation_LocationChanged;
         }
+
+        ErrorLogger?.Register(this);
     }
 
     /// <summary>
-    /// 
+    /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
     protected override async Task OnInitializedAsync()
@@ -145,6 +320,9 @@ public partial class Layout : IAsyncDisposable
         // 需要认证并且未认证
         if (AuthenticationStateTask != null)
         {
+            // wasm 模式下 开启权限必须提供 AdditionalAssemblies 参数
+            AdditionalAssemblies ??= new[] { Assembly.GetEntryAssembly()! };
+
             var url = Navigation.ToBaseRelativePath(Navigation.Uri);
             var context = RouteTableFactory.Create(AdditionalAssemblies, url);
             if (context.Handler != null)
@@ -158,6 +336,17 @@ public partial class Layout : IAsyncDisposable
         }
 
         IsInit = true;
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
+        TooltipText ??= Localizer[nameof(TooltipText)];
+        SideWidth ??= "300";
     }
 
     /// <summary>
@@ -208,16 +397,84 @@ public partial class Layout : IAsyncDisposable
         }
     }
 
+    private async void Navigation_LocationChanged(object? sender, LocationChangedEventArgs e)
+    {
+        if (OnAuthorizing != null)
+        {
+            var auth = await OnAuthorizing(e.Location);
+            if (!auth)
+            {
+                Navigation.NavigateTo(NotAuthorizeUrl, true);
+            }
+        }
+    }
+
+    /// <summary>
+    /// 点击 收缩展开按钮时回调此方法
+    /// </summary>
+    /// <returns></returns>
+    private async Task CollapseMenu()
+    {
+        IsCollapsed = !IsCollapsed;
+        if (IsCollapsedChanged.HasDelegate)
+        {
+            await IsCollapsedChanged.InvokeAsync(IsCollapsed);
+        }
+
+        if (OnCollapsed != null)
+        {
+            await OnCollapsed(IsCollapsed);
+        }
+    }
+
+    /// <summary>
+    /// 点击菜单时回调此方法
+    /// </summary>
+    /// <returns></returns>
+    private Func<MenuItem, Task> ClickMenu() => async item =>
+    {
+        // 小屏幕时生效
+        if (IsSmallScreen && !item.Items.Any())
+        {
+            await CollapseMenu();
+        }
+
+        if (OnClickMenu != null)
+        {
+            await OnClickMenu(item);
+        }
+    };
+
+    /// <summary>
+    /// 上次渲染错误内容
+    /// </summary>
+    private RenderFragment? _errorContent;
+
+    /// <summary>
+    /// HandlerException 错误处理方法
+    /// </summary>
+    /// <param name="ex"></param>
+    /// <param name="errorContent"></param>
+    public virtual Task HandlerException(Exception ex, RenderFragment<Exception> errorContent)
+    {
+        _errorContent = errorContent(ex);
+        return Task.CompletedTask;
+    }
+
     /// <summary>
     /// DisposeAsyncCore 方法
     /// </summary>
     /// <param name="disposing"></param>
     /// <returns></returns>
-    protected override async ValueTask DisposeAsyncCore(bool disposing)
+    protected virtual async ValueTask DisposeAsyncCore(bool disposing)
     {
         if (disposing)
         {
-            await base.DisposeAsyncCore(disposing);
+            ErrorLogger?.UnRegister(this);
+            if (SubscribedLocationChangedEvent)
+            {
+                Navigation.LocationChanged -= Navigation_LocationChanged;
+            }
 
             if (Interop != null)
             {
@@ -226,5 +483,15 @@ public partial class Layout : IAsyncDisposable
                 Interop = null;
             }
         }
+    }
+
+    /// <summary>
+    /// DisposeAsyncCore 方法
+    /// </summary>
+    /// <returns></returns>
+    public async ValueTask DisposeAsync()
+    {
+        await DisposeAsyncCore(true);
+        GC.SuppressFinalize(this);
     }
 }
