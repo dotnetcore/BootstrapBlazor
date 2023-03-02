@@ -1,0 +1,132 @@
+﻿@inject IStringLocalizer<BootstrapBlazor.Shared.Samples.Notifications> Localizer
+@inject IJSRuntime JSRuntime
+@implements IDisposable
+
+<div class="form-inline row g-3">
+    <div class="col-12">
+        <Checkbox ShowLabel="true" DisplayText="@Localizer["NotificationsNormalPermissionText"]" @bind-Value="@Permission" IsDisabled="true"></Checkbox>
+    </div>
+    <div class="col-12">
+        <BootstrapInput ShowLabel="true" DisplayText="@Localizer["NotificationsNormalTitleText"]" @bind-Value="@Model.Title"></BootstrapInput>
+    </div>
+    <div class="col-12 ">
+        <BootstrapInput ShowLabel="true" DisplayText="@Localizer["NotificationsNormalMessageText"]" @bind-Value="@Model.Message"></BootstrapInput>
+    </div>
+    <div class="col-12">
+        <Checkbox ShowLabel="true" DisplayText="@Localizer["NotificationsNormalSilentText"]" @bind-Value="@Model.Silent"></Checkbox>
+    </div>
+    <div class="col-12">
+        <Button Text="@Localizer["NotificationsNormalCheckPermissionText"]" OnClick="CheckPermission" Color="Color.Secondary"></Button>
+        <Button Text="@Localizer["NotificationsNormalButtonText"]" OnClick="Dispatch" class="ms-2"></Button>
+    </div>
+</div>
+<BlockLogger @ref="Trace" class="mt-3" />
+
+@code {
+    private JSInterop<NotificationsNormal>? Interop { get; set; }
+
+    [NotNull]
+    private BlockLogger? Trace { get; set; }
+
+    private bool Permission { get; set; }
+
+    private NotificationItem Model { get; set; } = new NotificationItem()
+    {
+        Icon = "_content/BootstrapBlazor.Shared/images/Argo-C.png"
+    };
+
+    /// <summary>
+    /// OnInitialized 方法
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        Model.Title ??= Localizer["NotificationsNormalTitleSampleText"];
+        Model.Message ??= Localizer["NotificationsNormalMessageSampleText"];
+        Model.OnClick ??= nameof(OnClickNotificationCallback);
+    }
+
+    /// <summary>
+    /// OnAfterRenderAsync 方法
+    /// </summary>
+    /// <param name="firstRender"></param>
+    /// <returns></returns>
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            Interop = new JSInterop<NotificationsNormal>(JSRuntime);
+            await BrowserNotification.CheckPermission(Interop, this, nameof(GetPermissionCallback), false);
+        }
+    }
+
+    private async Task CheckPermission()
+    {
+        Interop ??= new JSInterop<NotificationsNormal>(JSRuntime);
+        await BrowserNotification.CheckPermission(Interop, this, nameof(GetPermissionCallback));
+    }
+
+    private async Task Dispatch()
+    {
+        Interop ??= new JSInterop<NotificationsNormal>(JSRuntime);
+        await BrowserNotification.Dispatch(Interop, this, Model, nameof(ShowNotificationCallback));
+    }
+
+    /// <summary>
+    /// GetPermissionCallback
+    /// </summary>
+    /// <param name="result"></param>
+    [JSInvokable]
+    public void GetPermissionCallback(bool result)
+    {
+        Permission = result;
+        Trace.Log(Localizer["NotificationsNormalGetPermissionCallbackText"] + (result ? "OK" : "No permission"));
+        StateHasChanged();
+    }
+
+    /// <summary>
+    /// ShowNotificationCallback
+    /// </summary>
+    /// <param name="result"></param>
+    [JSInvokable]
+    public void ShowNotificationCallback(bool result)
+    {
+        Trace.Log($"{Localizer["NotificationsNormalShowNotificationCallbackText"]}: {result}");
+        StateHasChanged();
+    }
+
+    /// <summary>
+    /// OnClickNotificationCallback
+    /// </summary>
+    [JSInvokable]
+    public void OnClickNotificationCallback()
+    {
+        Trace.Log($"{Localizer["NotificationsNormalOnClickText"]}");
+        StateHasChanged();
+    }
+
+    /// <summary>
+    /// Dispose
+    /// </summary>
+    /// <param name="disposing"></param>
+    protected virtual void Dispose(bool disposing)
+    {
+        if (disposing)
+        {
+            if (Interop != null)
+            {
+                Interop.Dispose();
+                Interop = null;
+            }
+        }
+    }
+
+    /// <summary>
+    /// Dispose
+    /// </summary>
+    public void Dispose()
+    {
+        Dispose(true);
+        GC.SuppressFinalize(this);
+    }
+}

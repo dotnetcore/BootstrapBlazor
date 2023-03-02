@@ -9,129 +9,14 @@ namespace BootstrapBlazor.Shared.Samples;
 /// <summary>
 /// Notifications 通知
 /// </summary>
-public partial class Notifications : IDisposable
+public partial class Notifications
 {
-    private JSInterop<Notifications>? Interop { get; set; }
-
-    [NotNull]
-    private BlockLogger? Trace { get; set; }
-
-    [Inject]
-    [NotNull]
-    private IStringLocalizer<Notifications>? Localizer { get; set; }
-
-    [Inject]
-    [NotNull]
-    private IJSRuntime? JSRuntime { get; set; }
-
-    private bool Permission { get; set; }
-
-    private NotificationItem Model { get; set; } = new NotificationItem()
-    {
-        Icon = "_content/BootstrapBlazor.Shared/images/Argo-C.png"
-    };
-
-    /// <summary>
-    /// OnInitialized 方法
-    /// </summary>
-    protected override void OnInitialized()
-    {
-        base.OnInitialized();
-        Model.Title ??= Localizer["TitleSampleText"];
-        Model.Message ??= Localizer["MessageSampleText"];
-        Model.OnClick ??= nameof(OnClickNotificationCallback);
-    }
-
-    /// <summary>
-    /// OnAfterRenderAsync 方法
-    /// </summary>
-    /// <param name="firstRender"></param>
-    /// <returns></returns>
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (firstRender)
-        {
-            Interop = new JSInterop<Notifications>(JSRuntime);
-            await BrowserNotification.CheckPermission(Interop, this, nameof(GetPermissionCallback), false);
-        }
-    }
-
-    private async Task CheckPermission()
-    {
-        Interop ??= new JSInterop<Notifications>(JSRuntime);
-        await BrowserNotification.CheckPermission(Interop, this, nameof(GetPermissionCallback));
-    }
-
-    private async Task Dispatch()
-    {
-        Interop ??= new JSInterop<Notifications>(JSRuntime);
-        await BrowserNotification.Dispatch(Interop, this, Model, nameof(ShowNotificationCallback));
-    }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="result"></param>
-    [JSInvokable]
-    public void GetPermissionCallback(bool result)
-    {
-        Permission = result;
-        Trace.Log(Localizer["GetPermissionCallbackText"] + (result ? "OK" : "No permission"));
-        StateHasChanged();
-    }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="result"></param>
-    [JSInvokable]
-    public void ShowNotificationCallback(bool result)
-    {
-        Trace.Log($"{Localizer["ShowNotificationCallbackText"]}: {result}");
-        StateHasChanged();
-    }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    [JSInvokable]
-    public void OnClickNotificationCallback()
-    {
-        Trace.Log($"{Localizer["OnClickText"]}");
-        StateHasChanged();
-    }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="disposing"></param>
-    protected virtual void Dispose(bool disposing)
-    {
-        if (disposing)
-        {
-            if (Interop != null)
-            {
-                Interop.Dispose();
-                Interop = null;
-            }
-        }
-    }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    public void Dispose()
-    {
-        Dispose(true);
-        GC.SuppressFinalize(this);
-    }
-
     private IEnumerable<AttributeItem> GetNotificationItem() => new AttributeItem[]
     {
         new()
         {
             Name = "Title",
-            Description = Localizer["TitleText"],
+            Description = Localizer["NotificationsNormalTitleText"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
@@ -139,14 +24,14 @@ public partial class Notifications : IDisposable
         new()
         {
             Name = "Message",
-            Description = Localizer["MessageText"],
+            Description = Localizer["NotificationsNormalMessageText"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
         },
         new() {
             Name = "Icon",
-            Description = Localizer["IconText"],
+            Description = Localizer["NotificationsIconText"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
@@ -154,7 +39,7 @@ public partial class Notifications : IDisposable
         new()
         {
             Name = "Silent",
-            Description = Localizer["SilentText"],
+            Description = Localizer["NotificationsNormalSilentText"],
             Type = "bool",
             ValueList = " — ",
             DefaultValue = " — "
@@ -162,7 +47,7 @@ public partial class Notifications : IDisposable
         new()
         {
             Name = "Sound",
-            Description = Localizer["SoundText"],
+            Description = Localizer["NotificationsSoundText"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
@@ -170,7 +55,7 @@ public partial class Notifications : IDisposable
         new()
         {
             Name = "OnClick",
-            Description = Localizer["OnClickText"],
+            Description = Localizer["NotificationsNormalOnClickText"],
             Type = "Methods",
             ValueList = " — ",
             DefaultValue = " — "
