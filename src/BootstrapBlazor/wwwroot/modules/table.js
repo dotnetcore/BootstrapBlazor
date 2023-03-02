@@ -122,9 +122,11 @@ export class Table extends BlazorComponent {
 
             const index = [].indexOf.call(th.parentNode.children, th);
             th.closest('.table-resize').querySelectorAll('.table > tbody > tr').forEach(tr => {
-                const td = tr.children.item(index)
-                if (toggle) td.classList.add('border-resize')
-                else td.classList.remove('border-resize')
+                if (!tr.classList.contains('is-detail')) {
+                    const td = tr.children.item(index)
+                    if (toggle) td.classList.add('border-resize')
+                    else td.classList.remove('border-resize')
+                }
             });
             return index
         }
