@@ -281,9 +281,26 @@ internal class CacheManager : ICacheManager
             // 回退查找资源文件通过 dn 查找匹配项 用于支持 Validation
             if (!modelType.Assembly.IsDynamic && !string.IsNullOrEmpty(dn))
             {
-                dn = GetLocalizerValueFromResourceManager(dn);
+                GetLocalizerValueFromResourceManager();
             }
             return dn;
+
+            void GetLocalizerValueFromResourceManager()
+            {
+                var options = GetJsonLocalizationOption();
+                if (options.ResourceManagerStringLocalizerType != null)
+                {
+                    var localizer = CreateLocalizerByType(options.ResourceManagerStringLocalizerType);
+                    if (localizer != null)
+                    {
+                        var stringLocalizer = localizer[dn];
+                        if (stringLocalizer is { ResourceNotFound: false })
+                        {
+                            dn = stringLocalizer.Value;
+                        }
+                    }
+                }
+            }
         }
     }
 
@@ -331,35 +348,6 @@ internal class CacheManager : ICacheManager
                 return stringLocalizer.Value;
             }
         });
-    }
-
-    /// <summary>
-    /// 通过指定 Key 获取资源文件中的键值
-    /// </summary>
-    /// <param name="key"></param>
-    /// <returns></returns>
-    private static string? GetLocalizerValueFromResourceManager(string key)
-    {
-        string? dn = null;
-        var options = GetJsonLocalizationOption();
-        if (options.ResourceManagerStringLocalizerType != null)
-        {
-            var localizer = CreateLocalizerByType(options.ResourceManagerStringLocalizerType);
-            dn = GetValueByKey(localizer);
-        }
-        return dn ?? key;
-
-        [ExcludeFromCodeCoverage]
-        string? GetValueByKey(IStringLocalizer? l)
-        {
-            string? val = null;
-            var stringLocalizer = l?[key];
-            if (stringLocalizer is { ResourceNotFound: false })
-            {
-                val = stringLocalizer.Value;
-            }
-            return val;
-        }
     }
     #endregion
 
