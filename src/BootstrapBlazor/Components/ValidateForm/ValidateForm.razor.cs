@@ -323,16 +323,10 @@ public partial class ValidateForm
                 if (!string.IsNullOrEmpty(rule.ErrorMessage))
                 {
                     var resxType = Options.Value.ResourceManagerStringLocalizerType;
-                    ProcessResourceManagerLocalizerType();
-
-                    [ExcludeFromCodeCoverage]
-                    void ProcessResourceManagerLocalizerType()
+                    if (resxType != null && LocalizerFactory.Create(resxType).TryGetLocalizerString(rule.ErrorMessage, out var resx))
                     {
-                        if (resxType != null && LocalizerFactory.Create(resxType).TryGetLocalizerString(rule.ErrorMessage, out var resx))
-                        {
-                            rule.ErrorMessage = resx;
-                            find = true;
-                        }
+                        rule.ErrorMessage = resx;
+                        find = true;
                     }
                 }
 
