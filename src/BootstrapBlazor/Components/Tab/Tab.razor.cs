@@ -223,7 +223,14 @@ public partial class Tab : IHandlerException, IDisposable
         base.OnInitialized();
 
         ErrorLogger?.Register(this);
+    }
 
+    /// <summary>
+    /// OnParametersSet 方法
+    /// </summary>
+    /// <returns></returns>
+    protected override void OnParametersSet()
+    {
         if (ShowExtendButtons)
         {
             IsBorderCard = true;
@@ -234,18 +241,8 @@ public partial class Tab : IHandlerException, IDisposable
         CloseCurrentTabText ??= Localizer[nameof(CloseCurrentTabText)];
         NotFoundTabText ??= Localizer[nameof(NotFoundTabText)];
 
-        if (!OperatingSystem.IsBrowser())
-        {
-            AdditionalAssemblies ??= new[] { Assembly.GetEntryAssembly()! };
-        }
-    }
+        AdditionalAssemblies ??= new[] { Assembly.GetEntryAssembly()! };
 
-    /// <summary>
-    /// OnParametersSet 方法
-    /// </summary>
-    /// <returns></returns>
-    protected override void OnParametersSet()
-    {
         if (ClickTabToNavigation)
         {
             AddTabByUrl();
