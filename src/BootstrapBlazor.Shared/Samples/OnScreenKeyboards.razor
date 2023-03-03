@@ -15,59 +15,36 @@
            Introduction="@Localizer["OnScreenKeyboardsNormalIntro"]"
            Name="Normal"
            Demo="typeof(Demos.OnScreenKeyboards.OnScreenKeyboardsNormal)">
-    <OnScreenKeyboard ClassName="@ClassName" KeyboardKeys="KeyboardKeysType.english" />
-    <input class="form-control @ClassName"
-           data-kioskboard-type="@KeyboardType.all.ToString()"
-           data-kioskboard-specialcharacters="true"
-           placeholder='@Localizer["OnScreenKeyboardsNormalIntro"]' />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["OnScreenKeyboardsTypekeyboardTitle"]"
            Introduction=""
            Name="Typekeyboard"
            Demo="typeof(Demos.OnScreenKeyboards.OnScreenKeyboardsTypekeyboard)">
-    <input class="form-control @ClassName"
-           data-kioskboard-type="@KeyboardType.keyboard.ToString()"
-           data-kioskboard-placement="@KeyboardPlacement.bottom.ToString()"
-           placeholder='@Localizer["BlockKeyboardTypekeyboard"]' />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["OnScreenKeyboardsTypeNumpadTitle"]"
            Introduction=""
            Name="TypeNumpadTitle"
            Demo="typeof(Demos.OnScreenKeyboards.OnScreenKeyboardsTypeNumpadTitle)">
-    <input class="form-control @ClassName"
-           data-kioskboard-type="@KeyboardType.numpad.ToString()"
-           data-kioskboard-placement="@(KeyboardPlacement.bottom.ToString())"
-           placeholder='@Localizer["BlockKeyboardTypeNumpadTitle"]' />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["OnScreenKeyboardsThemeDarkTitle"]"
            Introduction=""
            Name="ThemeDarkTitle"
            Demo="typeof(Demos.OnScreenKeyboards.OnScreenKeyboardsThemeDarkTitle)">
-    <input class="form-control @ClassName1"
-           data-kioskboard-type="@KeyboardType.keyboard.ToString()"
-           placeholder='@Localizer["BlockKeyboardThemeDarkTitle"]' />
-    <OnScreenKeyboard ClassName="@ClassName1" Option="Option1" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["OnScreenKeyboardsSpecialcharactersTitle"]"
            Introduction=""
            Name="SpecialcharactersTitle"
            Demo="typeof(Demos.OnScreenKeyboards.OnScreenKeyboardsSpecialcharactersTitle)">
-    <input class="form-control @ClassName2"
-           data-kioskboard-specialcharacters="true"
-           placeholder='@Localizer["BlockSpecialcharactersTitle"]' />
-    <OnScreenKeyboard ClassName="@ClassName2" Option="Option2" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["OnScreenKeyboardsSpecialcharactersCustomerTitle"]"
            Introduction="[- + =]"
            Name="SpecialcharactersCustomerTitle"
            Demo="typeof(Demos.OnScreenKeyboards.OnScreenKeyboardsSpecialcharactersCustomerTitle)">
-    <input class="form-control @ClassName3" data-kioskboard-specialcharacters="true" placeholder='@Localizer["BlockSpecialcharactersCustomerTitle"]' />
-    <OnScreenKeyboard ClassName="@ClassName3" Option="Option3" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["OnScreenKeyboardsAppTitle"]"
@@ -75,15 +52,6 @@
            Name="App"
            Demo="typeof(Demos.OnScreenKeyboards.OnScreenKeyboardsApp)">
     <p>@Localizer["OnScreenKeyboardsAppDescription"]</p>
-
-    <OnScreenKeyboard ClassName="@ClassNameBB" Option="OptionBB" />
-    <div class="form-control textarea-demo"> @BindValue</div>
-    <p>BootstrapInput</p>
-    <BootstrapInput class="@ClassNameBB" data-kioskboard-specialcharacters="true" placeholder="BootstrapInput" @bind-Value="@BindValue" />
-    <p>BootstrapPassword</p>
-    <BootstrapPassword class="@ClassNameBB" data-kioskboard-specialcharacters="true" placeholder="BootstrapPassword" @bind-Value="@BindValue" />
-    <p>Textarea</p>
-    <Textarea class="@ClassNameBB" data-kioskboard-specialcharacters="true" placeholder="Textarea" rows="4" @bind-Value="@BindValue" />
 </DemoBlock>
 
 <Tips class="mt-3">

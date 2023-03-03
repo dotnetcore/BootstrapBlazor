@@ -1,5 +1,6 @@
-﻿<h3>OnScreenKeyboardsTypeNumpadTitle</h3>
+﻿@inject IStringLocalizer<BootstrapBlazor.Shared.Samples.OnScreenKeyboards> Localizer
 
-@code {
-
-}
+<input class="form-control virtualkeyboard"
+       data-kioskboard-type="@KeyboardType.numpad.ToString()"
+       data-kioskboard-placement="@(KeyboardPlacement.bottom.ToString())"
+       placeholder='@Localizer["OnScreenKeyboardsTypeNumpadTitle"]' />

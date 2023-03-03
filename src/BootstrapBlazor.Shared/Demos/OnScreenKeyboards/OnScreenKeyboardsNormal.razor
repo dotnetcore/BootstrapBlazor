@@ -1,11 +1,7 @@
-﻿<h3>OnScreenKeyboardsNormal</h3>
+﻿@inject IStringLocalizer<BootstrapBlazor.Shared.Samples.OnScreenKeyboards> Localizer
 
-<OnScreenKeyboard ClassName="@ClassName" KeyboardKeys="KeyboardKeysType.english" />
-<input class="form-control @ClassName"
+<input class="form-control virtualkeyboard"
        data-kioskboard-type="@KeyboardType.all.ToString()"
        data-kioskboard-specialcharacters="true"
        placeholder='@Localizer["OnScreenKeyboardsNormalIntro"]' />
-
-@code {
-
-}
+<OnScreenKeyboard ClassName="virtualkeyboard" KeyboardKeys="KeyboardKeysType.english" />

@@ -1,5 +1,19 @@
-﻿<h3>OnScreenKeyboardsApp</h3>
+﻿@inject IStringLocalizer<BootstrapBlazor.Shared.Samples.OnScreenKeyboards> Localizer
+
+<OnScreenKeyboard ClassName="virtualkeyboardbb" Option="Option" />
+<div class="form-control textarea-demo"> @BindValue</div>
+<p>BootstrapInput</p>
+<BootstrapInput class="virtualkeyboardbb" data-kioskboard-specialcharacters="true" placeholder="BootstrapInput" @bind-Value="@BindValue" />
+<p>BootstrapPassword</p>
+<BootstrapPassword class="virtualkeyboardbb" data-kioskboard-specialcharacters="true" placeholder="BootstrapPassword" @bind-Value="@BindValue" />
+<p>Textarea</p>
+<Textarea class="virtualkeyboardbb" data-kioskboard-specialcharacters="true" placeholder="Textarea" rows="4" @bind-Value="@BindValue" />
 
 @code {
+    string BindValue { get; set; } = "virtualkeyboard";
 
+    static KeyboardOption Option => new()
+    {
+        autoScroll = true
+    };
 }
