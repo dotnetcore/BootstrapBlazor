@@ -330,7 +330,7 @@ public class ValidateFormTest : ValidateFormTestBase
     }
 
     [Fact]
-    public async Task Validate_Address_Ok()
+    public void Validate_Address_Ok()
     {
         var foo = new MockFoo();
         var cut = Context.RenderComponent<ValidateForm>(pb =>
@@ -343,7 +343,7 @@ public class ValidateFormTest : ValidateFormTestBase
             });
         });
         var form = cut.Find("form");
-        await cut.InvokeAsync(() => form.Submit());
+        cut.InvokeAsync(() => form.Submit());
         var msg = cut.FindComponent<MockInput<string>>().Instance.GetErrorMessage();
         Assert.Equal("Address must fill", msg);
     }
