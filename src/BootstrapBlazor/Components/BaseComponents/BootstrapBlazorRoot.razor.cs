@@ -116,23 +116,17 @@ public partial class BootstrapBlazorRoot
 
     private RenderFragment RenderContent => builder =>
     {
-        Render();
-
-        [ExcludeFromCodeCoverage]
-        void Render()
+        if (OperatingSystem.IsBrowser())
         {
-            if (OperatingSystem.IsBrowser())
-            {
-                builder.AddContent(0, RenderChildContent);
-                builder.AddContent(1, RenderComponents());
-            }
-            else
-            {
-                builder.OpenElement(0, "app");
-                builder.AddContent(1, RenderChildContent);
-                builder.CloseElement();
-                builder.AddContent(2, RenderComponents());
-            }
+            builder.AddContent(0, RenderChildContent);
+            builder.AddContent(1, RenderComponents());
+        }
+        else
+        {
+            builder.OpenElement(0, "app");
+            builder.AddContent(1, RenderChildContent);
+            builder.CloseElement();
+            builder.AddContent(2, RenderComponents());
         }
     };
 }
