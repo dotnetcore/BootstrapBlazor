@@ -861,7 +861,6 @@ public class UploadTest : BootstrapBlazorTestBase
         public IBrowserFile? Picture { get; set; }
     }
 
-    [ExcludeFromCodeCoverage]
     private class MockBrowserFile : IBrowserFile
     {
         public MockBrowserFile(string name = "UploadTestFile", string contentType = "text")
