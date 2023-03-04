@@ -1,0 +1,13 @@
+﻿@inject IStringLocalizer<BootstrapBlazor.Shared.Samples.OnScreenKeyboards> Localizer
+
+<input class="form-control virtualkeyboard3"
+       data-kioskboard-specialcharacters="true"
+       placeholder='@Localizer["OnScreenKeyboardsSpecialcharactersCustomerTitle"]' />
+<OnScreenKeyboard ClassName="virtualkeyboard3" Option="Option" />
+
+@code {
+    static KeyboardOption Option => new()
+    {
+        CustomerKeyboardSpecialcharacters = new string[] { "中", "国", "女", "足", "牛啊" }
+    };
+}
