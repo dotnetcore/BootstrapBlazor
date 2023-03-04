@@ -18,7 +18,13 @@
                                 Color="Color.Success"
                                 Icon="fa-fw fa-solid fa-pen-to-square"
                                 Text="@Localizer["TablesToolbarCustomButton2"]"
-                                IsAsync OnClickCallback="@DownloadAsync" />
+                                IsAsync OnClickCallback="@DownloadAsync" IsEnableWhenSelectedOneRow="true" />
+            <TableToolbarPopconfirmButton TItem="Foo"
+                                          Color="Color.Success"
+                                          Icon="fa-fw fa-solid fa-pen-to-square"
+                                          Text="@Localizer["TableToolbarPopconfirmButton1"]"
+                                          IsEnableWhenSelectedOneRow="true"
+                                          OnConfirmCallback="DownloadAsync" />
         </TableToolbarTemplate>
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" />
