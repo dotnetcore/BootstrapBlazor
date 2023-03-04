@@ -5647,7 +5647,8 @@
   },
   "BootstrapBlazor.Shared.Demos.Table.TablesToolbar.TablesToolbarCustomButton": {
     "TablesToolbarCustomButton1": "下载1",
-    "TablesToolbarCustomButton2": "下载2"
+    "TablesToolbarCustomButton2": "下载2",
+    "TableToolbarPopconfirmButton1": "确认下载"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesCell": {
     "TablesCellTitle": "Table 表格",

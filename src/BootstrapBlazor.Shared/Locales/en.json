@@ -5630,7 +5630,8 @@
   },
   "BootstrapBlazor.Shared.Demos.Table.TablesToolbar.TablesToolbarCustomButton": {
     "TablesToolbarCustomButton1": "Download 1",
-    "TablesToolbarCustomButton2": "Download 2"
+    "TablesToolbarCustomButton2": "Download 2",
+    "TableToolbarPopconfirmButton1": "Confirm"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesCell": {
     "TablesCellTitle": "Table Cell",
