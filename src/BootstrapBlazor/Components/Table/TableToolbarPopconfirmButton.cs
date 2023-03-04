@@ -35,7 +35,7 @@ public class TableToolbarPopconfirmButton<TItem> : PopConfirmButtonBase
     private IStringLocalizer<PopConfirmButton>? Localizer { get; set; }
 
     /// <summary>
-    /// OnInitialized 方法
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
     {
