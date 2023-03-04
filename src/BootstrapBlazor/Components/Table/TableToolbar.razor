@@ -23,7 +23,7 @@
                     {
                         <PopConfirmButton AdditionalAttributes="pb.AdditionalAttributes" CustomClass="@pb.CustomClass"
                                           Color="@pb.Color" Icon="@pb.Icon" Text="@pb.Text" Size="pb.Size" ShowShadow="@pb.ShowShadow"
-                                          IsAsync="@pb.IsAsync" IsDisabled="@pb.IsDisabled" IsBlock="@pb.IsBlock" IsOutline="@pb.IsOutline"
+                                          IsAsync="@pb.IsAsync" IsDisabled="GetDisabled(pb)" IsBlock="@pb.IsBlock" IsOutline="@pb.IsOutline"
                                           OnBeforeClick="@pb.OnBeforeClick" OnClose="@pb.OnClose" OnConfirm="() => OnToolbarConfirmButtonClick(pb)"
                                           ConfirmIcon="@pb.ConfirmIcon" ConfirmButtonColor="@pb.ConfirmButtonColor"
                                           ConfirmButtonText="@pb.ConfirmButtonText" CloseButtonColor="@pb.CloseButtonColor"

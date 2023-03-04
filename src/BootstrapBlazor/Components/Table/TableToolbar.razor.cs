@@ -89,14 +89,14 @@ public partial class TableToolbar<TItem> : ComponentBase
         }
     }
 
-    private bool GetDisabled(TableToolbarButton<TItem> button)
+    private bool GetDisabled(ButtonBase button)
     {
         var ret = button.IsDisabled;
         if (button.IsAsync && _asyncButtonStateCache.TryGetValue(button, out var b))
         {
             ret = b;
         }
-        else if (button.IsEnableWhenSelectedOneRow)
+        else if (button is TableToolbarButton<TItem> { IsEnableWhenSelectedOneRow: true } || button is TableToolbarPopconfirmButton<TItem> { IsEnableWhenSelectedOneRow: true })
         {
             ret = OnGetSelectedRows().Count() != 1;
         }

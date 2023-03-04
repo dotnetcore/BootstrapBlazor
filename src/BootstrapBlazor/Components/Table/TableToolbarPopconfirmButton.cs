@@ -25,6 +25,12 @@ public class TableToolbarPopconfirmButton<TItem> : PopConfirmButtonBase
     public bool IsShow { get; set; } = true;
 
     /// <summary>
+    /// 获得/设置 选中一行时启用按钮 默认 false 均可用
+    /// </summary>
+    [Parameter]
+    public bool IsEnableWhenSelectedOneRow { get; set; }
+
+    /// <summary>
     /// 获得/设置 Table Toolbar 实例
     /// </summary>
     [CascadingParameter]
