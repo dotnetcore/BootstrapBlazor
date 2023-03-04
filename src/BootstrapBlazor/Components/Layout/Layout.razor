@@ -1,5 +1,5 @@
 ﻿@namespace BootstrapBlazor.Components
-@inherits LayoutBase
+@inherits BootstrapComponentBase
 
 <CascadingValue Value="this" IsFixed="true">
     @if (IsInit)
@@ -9,7 +9,7 @@
             <section @attributes="AdditionalAttributes" class="@ClassString">
                 @if (Side == null)
                 {
-                    @RenderHeader.Invoke(false)
+                    @RenderHeader(false)
                     @RenderMain
                     @if (ShowFooter)
                     {
@@ -22,11 +22,11 @@
                         @Side
                         @if (Menus != null)
                         {
-                            @RenderMenu.Invoke(IsFullSide)
+                            @RenderMenu(IsFullSide)
                         }
                     </aside>
                     <section class="layout-right">
-                        @RenderHeader.Invoke(ShowCollapseBar)
+                        @RenderHeader(ShowCollapseBar)
                         @RenderMain
                         @if (ShowFooter)
                         {
@@ -36,13 +36,13 @@
                 }
                 else
                 {
-                    @RenderHeader.Invoke(ShowCollapseBar);
+                    @RenderHeader(ShowCollapseBar)
                     <section class="has-sidebar">
                         <aside class="@SideClassString" style="@SideStyleString">
                             @Side
                             @if (Menus != null)
                             {
-                                @RenderMenu.Invoke(IsFullSide)
+                                @RenderMenu(IsFullSide)
                             }
                         </aside>
                         @RenderMain
@@ -77,41 +77,41 @@
         @Header
     </header>;
 
-RenderFragment<bool> RenderMenu => hasScroll =>
-@<div class="layout-menu">
-    @if (hasScroll)
-    {
-        <Scroll>
-            <Menu Items="@Menus" IsVertical="true" IsCollapsed="@IsCollapsed" IsAccordion="@IsAccordion" OnClick="@ClickMenu()" />
-        </Scroll>
-    }
-    else
-    {
-        <Menu Items="@Menus" IsVertical="true" IsCollapsed="@IsCollapsed" IsAccordion="@IsAccordion" OnClick="@ClickMenu()" />
-    }
-</div>;
+    RenderFragment<bool> RenderMenu => hasScroll =>
+    @<div class="layout-menu">
+        @if (hasScroll)
+        {
+            <Scroll>
+                <Menu Items="@Menus" IsVertical="true" IsCollapsed="@IsCollapsed" IsAccordion="@IsAccordion" OnClick="@ClickMenu()"></Menu>
+            </Scroll>
+        }
+        else
+        {
+            <Menu Items="@Menus" IsVertical="true" IsCollapsed="@IsCollapsed" IsAccordion="@IsAccordion" OnClick="@ClickMenu()"></Menu>
+        }
+    </div>;
 
-RenderFragment RenderMain =>
-@<main class="@MainClassString">
-    @if (UseTabSet)
-    {
-        <Tab ClickTabToNavigation="true" ShowExtendButtons="true" ShowClose="true"
-             AdditionalAssemblies="@AdditionalAssemblies" NotFoundTabText="@NotFoundTabText"
-             DefaultUrl="@TabDefaultUrl" ExcludeUrls="@ExcludeUrls" IsOnlyRenderActiveTab="IsOnlyRenderActiveTab"
-             Body="@Main" NotAuthorized="NotAuthorized!" NotFound="NotFound!" />
-    }
-    else
-    {
-        @HandlerMain()
-    }
-</main>;
+    RenderFragment RenderMain =>
+    @<main class="@MainClassString">
+        @if (UseTabSet)
+        {
+            <Tab ClickTabToNavigation="true" ShowExtendButtons="true" ShowClose="true"
+                 AdditionalAssemblies="@AdditionalAssemblies" NotFoundTabText="@NotFoundTabText"
+                 DefaultUrl="@TabDefaultUrl" ExcludeUrls="@ExcludeUrls" IsOnlyRenderActiveTab="IsOnlyRenderActiveTab"
+                 Body="@Main" NotAuthorized="NotAuthorized!" NotFound="NotFound!" />
+        }
+        else
+        {
+            @HandlerMain()
+        }
+    </main>;
 
-RenderFragment RenderFooter =>
-@<footer class="@FooterClassString">
-    @Footer
-    @if (ShowGotoTop)
-    {
-        <GoTop />
-    }
-</footer>;
+    RenderFragment RenderFooter =>
+    @<footer class="@FooterClassString">
+        @Footer
+        @if (ShowGotoTop)
+        {
+            <GoTop />
+        }
+    </footer>;
 }
