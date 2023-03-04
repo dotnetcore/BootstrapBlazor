@@ -35,7 +35,7 @@ public class TableToolbarButton<TItem> : ButtonBase
     protected TableToolbar<TItem>? Toolbar { get; set; }
 
     /// <summary>
-    /// 组件初始化方法
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
     {

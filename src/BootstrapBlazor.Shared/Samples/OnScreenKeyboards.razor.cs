@@ -9,43 +9,9 @@ namespace BootstrapBlazor.Shared.Samples;
 /// </summary>
 public sealed partial class OnScreenKeyboards
 {
-    string BindValue { get; set; } = "virtualkeyboard";
-
-    string ClassName { get; set; } = "virtualkeyboard";
-
-    string ClassName1 { get; set; } = "virtualkeyboard1";
-
-    string ClassName2 { get; set; } = "virtualkeyboard2";
-
-    string ClassName3 { get; set; } = "virtualkeyboard3";
-
-    string ClassNameBB { get; set; } = "virtualkeyboardbb";
-
     static readonly Dictionary<string, string> Keys1 = new() { { "0", "L" }, { "1", "O" } };
     static readonly Dictionary<string, string> Keys2 = new() { { "0", "V" }, { "1", "E" } };
     static readonly List<Dictionary<string, string>> KeysArray = new() { Keys1, Keys2 };
-
-    static KeyboardOption Option1 => new()
-    {
-        keysFontFamily = "Barlow",
-        keysFontWeight = "500",
-        Theme = KeyboardTheme.dark,
-    };
-
-    static KeyboardOption Option2 => new()
-    {
-        KeyboardSpecialcharacters = KeyboardSpecialcharacters.europe
-    };
-
-    static KeyboardOption Option3 => new()
-    {
-        CustomerKeyboardSpecialcharacters = new string[] { "中", "国", "女", "足", "牛啊" }
-    };
-
-    static KeyboardOption OptionBB => new()
-    {
-        autoScroll = true
-    };
 
     /// <summary>
     /// 获得属性方法

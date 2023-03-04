@@ -5647,7 +5647,8 @@
   },
   "BootstrapBlazor.Shared.Demos.Table.TablesToolbar.TablesToolbarCustomButton": {
     "TablesToolbarCustomButton1": "下载1",
-    "TablesToolbarCustomButton2": "下载2"
+    "TablesToolbarCustomButton2": "下载2",
+    "TableToolbarPopconfirmButton1": "确认下载"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesCell": {
     "TablesCellTitle": "Table 表格",
@@ -6077,20 +6078,19 @@
     "Application": "实战应用"
   },
   "BootstrapBlazor.Shared.Samples.OnScreenKeyboards": {
-    "Title": "On-Screen keyboard 屏幕键盘",
-    "BaseUsageText": "基础用法",
-    "BlockKeyboardTypeAllTitle": "全键盘",
-    "BlockKeyboardTypekeyboard": "字母键盘",
-    "BlockKeyboardTypeNumpadTitle": "数字键盘",
-    "BlockKeyboardTypeSpanishTitle": "西班牙语键盘",
-    "BlockKeyboardThemeDarkTitle": "暗黑主题",
-    "BlockSpecialcharactersTitle": "特殊符号-欧洲",
-    "BlockSpecialcharactersCustomerTitle": "特殊符号自定义",
-    "BBUsageText": "BootstrapBlazor 组件",
-    "BBUsage2Text": "双绑",
-    "Tips": "如果表现不正常,可以加上这句 css 调试看看",
-    "P5": "<code> .kioskboard-body-padding { padding-top: unset !important;} </code>",
-    "P6": "基础用法"
+    "OnScreenKeyboardsTitle": "On-Screen keyboard 屏幕键盘",
+    "OnScreenKeyboardsNormalText": "基础用法",
+    "OnScreenKeyboardsNormalIntro": "全键盘",
+    "OnScreenKeyboardsTypekeyboardTitle": "字母键盘",
+    "OnScreenKeyboardsTypeNumpadTitle": "数字键盘",
+    "OnScreenKeyboardsThemeDarkTitle": "暗黑主题",
+    "OnScreenKeyboardsSpecialcharactersTitle": "特殊符号-欧洲",
+    "OnScreenKeyboardsSpecialcharactersCustomerTitle": "特殊符号自定义",
+    "OnScreenKeyboardsAppTitle": "BootstrapBlazor 组件",
+    "OnScreenKeyboardsAppDescription": "双绑",
+    "OnScreenKeyboardsTips": "如果表现不正常,可以加上这句 css 调试看看",
+    "OnScreenKeyboardsCss": "<code> .kioskboard-body-padding { padding-top: unset !important;} </code>",
+    "OnScreenKeyboardsBasicTitle": "基础用法"
   },
   "BootstrapBlazor.Shared.Samples.Bluetooths": {
     "Title": "Bluetooth & Printer 蓝牙和打印",

@@ -5630,7 +5630,8 @@
   },
   "BootstrapBlazor.Shared.Demos.Table.TablesToolbar.TablesToolbarCustomButton": {
     "TablesToolbarCustomButton1": "Download 1",
-    "TablesToolbarCustomButton2": "Download 2"
+    "TablesToolbarCustomButton2": "Download 2",
+    "TableToolbarPopconfirmButton1": "Confirm"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesCell": {
     "TablesCellTitle": "Table Cell",
@@ -6059,20 +6060,19 @@
     "Application": "Application"
   },
   "BootstrapBlazor.Shared.Samples.OnScreenKeyboards": {
-    "Title": "On-Screen keyboard",
-    "BaseUsageText": "Basic usage",
-    "BlockKeyboardTypeAllTitle": "Full Keyboard",
-    "BlockKeyboardTypekeyboard": "Keyboard",
-    "BlockKeyboardTypeNumpadTitle": "Numpad",
-    "BlockKeyboardTypeSpanishTitle": "Spanish keyboard",
-    "BlockKeyboardThemeDarkTitle": "Theme dark",
-    "BlockSpecialcharactersTitle": "Special characters europe",
-    "BlockSpecialcharactersCustomerTitle": "Special characters in customer",
-    "BBUsageText": "BootstrapBlazor component",
-    "BBUsage2Text": "Bind",
-    "Tips": "If the performance is not normal, you can add this css to debug",
-    "P5": "<code> .kioskboard-body-padding { padding-top: unset !important;} </code>",
-    "P6": "Basic"
+    "OnScreenKeyboardsTitle": "On-Screen keyboard",
+    "OnScreenKeyboardsNormalText": "Basic usage",
+    "OnScreenKeyboardsNormalIntro": "Full Keyboard",
+    "OnScreenKeyboardsTypekeyboardTitle": "Keyboard",
+    "OnScreenKeyboardsTypeNumpadTitle": "Numpad",
+    "OnScreenKeyboardsThemeDarkTitle": "Theme dark",
+    "OnScreenKeyboardsSpecialcharactersTitle": "Special characters europe",
+    "OnScreenKeyboardsSpecialcharactersCustomerTitle": "Special characters in customer",
+    "OnScreenKeyboardsAppTitle": "BootstrapBlazor component",
+    "OnScreenKeyboardsAppDescription": "Bind",
+    "OnScreenKeyboardsTips": "If the performance is not normal, you can add this css to debug",
+    "OnScreenKeyboardsCss": "<code> .kioskboard-body-padding { padding-top: unset !important;} </code>",
+    "OnScreenKeyboardsBasicTitle": "Basic"
   },
   "BootstrapBlazor.Shared.Samples.Bluetooths": {
     "Title": "Bluetooth & Printer",
