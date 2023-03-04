@@ -42,6 +42,14 @@ public class TableToolbarPopconfirmButton<TItem> : PopConfirmButtonBase
         base.OnInitialized();
 
         Toolbar?.AddButton(this);
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
 
         ConfirmButtonText ??= Localizer[nameof(ConfirmButtonText)];
         CloseButtonText ??= Localizer[nameof(CloseButtonText)];
