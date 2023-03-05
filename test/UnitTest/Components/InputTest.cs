@@ -224,4 +224,30 @@ public class InputTest : BootstrapBlazorTestBase
             });
         });
     }
+
+    [Fact]
+    public void OnValueChanged_Ok()
+    {
+        var val = "";
+        var foo = new Foo() { Name = "Test" };
+        var cut = Context.RenderComponent<BootstrapInput<string>>(builder =>
+        {
+            builder.Add(a => a.Value, foo.Name);
+            builder.Add(a => a.ValueChanged, EventCallback.Factory.Create<string>(this, v =>
+            {
+                foo.Name = v;
+            }));
+            builder.Add(a => a.OnValueChanged, v =>
+            {
+                val = $"{foo.Name}-{v}";
+                return Task.CompletedTask;
+            });
+        });
+        var input = cut.Find("input");
+        cut.InvokeAsync(() => input.Change("Test_Test"));
+
+        // 保证 ValueChanged 先触发，再触发 OnValueChanged
+        Assert.Equal("Test_Test", foo.Name);
+        Assert.Equal("Test_Test-Test_Test", val);
+    }
 }
