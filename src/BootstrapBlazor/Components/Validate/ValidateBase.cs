@@ -71,13 +71,13 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
                 {
                     ValidateForm?.NotifyFieldChanged(FieldIdentifier.Value, Value);
                 }
-                if (OnValueChanged != null)
-                {
-                    _ = OnValueChanged.Invoke(value);
-                }
                 if (ValueChanged.HasDelegate)
                 {
                     _ = ValueChanged.InvokeAsync(value);
+                }
+                if (OnValueChanged != null)
+                {
+                    _ = OnValueChanged.Invoke(value);
                 }
                 if (IsNeedValidate && FieldIdentifier != null)
                 {
