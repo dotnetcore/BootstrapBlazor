@@ -29,8 +29,16 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
         });
 
         var v = cut.Instance.Value;
+        Assert.NotEqual(DateTime.Today, v.Start);
+        Assert.NotEqual(DateTime.Today.AddDays(2).AddSeconds(-1), v.End);
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.Value, new DateTimeRangeValue() { Start = DateTime.Today, End = DateTime.Today.AddDays(1) });
+        });
+        v = cut.Instance.Value;
         Assert.Equal(DateTime.Today, v.Start);
-        Assert.Equal(DateTime.Today.AddDays(2).AddSeconds(-1), v.End);
+        Assert.Equal(DateTime.Today.AddDays(1), v.End);
     }
 
     [Fact]
