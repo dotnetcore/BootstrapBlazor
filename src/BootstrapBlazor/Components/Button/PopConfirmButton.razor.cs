@@ -7,7 +7,7 @@ using Microsoft.Extensions.Localization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// PopConfirmButton 组件
 /// </summary>
 public partial class PopConfirmButton
 {
@@ -20,6 +20,14 @@ public partial class PopConfirmButton
     private string? InternalClassName => CssBuilder.Default()
         .AddClass($"link-{Color.ToDescriptionString()}", Color != Color.None)
         .AddClassFromAttributes(AdditionalAttributes)
+        .Build();
+
+    private string TagName => IsLink ? "a" : "div";
+
+    private string? ElementType => IsLink ? null : "div";
+
+    private string? CustomClassString => CssBuilder.Default(CustomClass)
+        .AddClass("shadow", ShowShadow)
         .Build();
 
     /// <summary>
@@ -60,7 +68,7 @@ public partial class PopConfirmButton
     /// 确认回调方法
     /// </summary>
     /// <returns></returns>
-    private async Task Confirm()
+    private async Task OnClickConfirm()
     {
         if (IsAsync)
         {

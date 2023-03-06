@@ -54,13 +54,15 @@ public abstract class PopConfirmButtonBase : ButtonBase
     /// 获得/设置 点击确认时回调方法
     /// </summary>
     [Parameter]
-    public Func<Task> OnConfirm { get; set; } = () => Task.CompletedTask;
+    [NotNull]
+    public Func<Task>? OnConfirm { get; set; }
 
     /// <summary>
     /// 获得/设置 点击关闭时回调方法
     /// </summary>
     [Parameter]
-    public Func<Task> OnClose { get; set; } = () => Task.CompletedTask;
+    [NotNull]
+    public Func<Task>? OnClose { get; set; }
 
     /// <summary>
     /// 获得/设置 点击确认弹窗前回调方法 返回真时弹出弹窗 返回假时不弹出
@@ -122,40 +124,17 @@ public abstract class PopConfirmButtonBase : ButtonBase
     public bool ShowShadow { get; set; } = true;
 
     /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    protected virtual string? CustomClassString => CssBuilder.Default(CustomClass)
-        .AddClass("shadow", ShowShadow)
-        .Build();
-
-    /// <summary>
-    /// 
-    /// </summary>
-    protected string TagName => IsLink ? "a" : "div";
-
-    /// <summary>
-    /// 
-    /// </summary>
-    protected string? ElementType => IsLink ? null : "div";
-
-    /// <summary>
-    /// OnInitialized 方法
-    /// </summary>
-    protected override void OnInitialized()
-    {
-        base.OnInitialized();
-
-        ConfirmIcon ??= "fa-solid fa-circle-exclamation text-info";
-        OnBeforeClick ??= () => Task.FromResult(true);
-    }
-
-    /// <summary>
     /// OnParametersSet 方法
     /// </summary>
     protected override void OnParametersSet()
     {
         base.OnParametersSet();
 
+        ConfirmIcon ??= "fa-solid fa-circle-exclamation text-info";
         Trigger ??= "click";
+
+        OnClose ??= () => Task.CompletedTask;
+        OnConfirm ??= () => Task.CompletedTask;
+        OnBeforeClick ??= () => Task.FromResult(true);
     }
 }
