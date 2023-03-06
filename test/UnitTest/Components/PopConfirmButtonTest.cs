@@ -157,4 +157,11 @@ public class PopConfirmButtonTest : PopoverTestBase
         });
         Assert.Contains("data-bs-trigger=\"test\"", cut.Markup);
     }
+
+    [Fact]
+    public void ConfirmIcon_Ok()
+    {
+        var cut = Context.RenderComponent<PopConfirmButtonContent>();
+        cut.Contains("fa-solid fa-exclamation-circle text-info");
+    }
 }
