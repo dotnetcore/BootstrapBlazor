@@ -1874,10 +1874,10 @@ public class TableTest : TableTestBase
                     builder.CloseComponent();
 
                     builder.OpenComponent<TableToolbarButton<Foo>>(0);
-                    builder.AddAttribute(1, nameof(TableToolbarButton<Foo>.Text), "test-async");
-                    builder.AddAttribute(2, nameof(TableToolbarButton<Foo>.IsAsync), true);
-                    builder.AddAttribute(2, nameof(TableToolbarButton<Foo>.IsShow), true);
-                    builder.AddAttribute(3, nameof(TableToolbarButton<Foo>.OnClickCallback), new Func<IEnumerable<Foo>, Task>(foos =>
+                    builder.AddAttribute(5, nameof(TableToolbarButton<Foo>.Text), "test-async");
+                    builder.AddAttribute(6, nameof(TableToolbarButton<Foo>.IsAsync), true);
+                    builder.AddAttribute(7, nameof(TableToolbarButton<Foo>.IsShow), true);
+                    builder.AddAttribute(8, nameof(TableToolbarButton<Foo>.OnClickCallback), new Func<IEnumerable<Foo>, Task>(foos =>
                     {
                         selected = foos.Count();
                         return Task.CompletedTask;
@@ -1885,12 +1885,13 @@ public class TableTest : TableTestBase
                     builder.CloseComponent();
 
                     builder.OpenComponent<TableToolbarPopconfirmButton<Foo>>(0);
-                    builder.AddAttribute(1, nameof(TableToolbarPopconfirmButton<Foo>.Text), "test-confirm");
-                    builder.AddAttribute(2, nameof(TableToolbarPopconfirmButton<Foo>.IsShow), true);
+                    builder.AddAttribute(9, nameof(TableToolbarPopconfirmButton<Foo>.Text), "test-confirm");
+                    builder.AddAttribute(10, nameof(TableToolbarPopconfirmButton<Foo>.IsShow), true);
+                    builder.AddAttribute(11, nameof(TableToolbarPopconfirmButton<Foo>.IsEnableWhenSelectedOneRow), true);
                     builder.CloseComponent();
 
                     builder.OpenComponent<MockToolbarButton<Foo>>(0);
-                    builder.AddAttribute(1, nameof(MockToolbarButton<Foo>.Text), "test-confirm-mock");
+                    builder.AddAttribute(12, nameof(MockToolbarButton<Foo>.Text), "test-confirm-mock");
                     builder.CloseComponent();
                 });
             });
