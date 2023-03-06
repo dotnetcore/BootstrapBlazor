@@ -1,0 +1,33 @@
+﻿<Pagination PageCount="@PageCount" ShowPageInfo="true" ShowGotoNavigator="true">
+    <PageInfoTemplate>
+        <div class="page-info me-2">@PageInfoText</div>
+        <Select @bind-Value="PageItems" Items="PageItemsSource" style="width: 120px;" />
+    </PageInfoTemplate>
+</Pagination>
+
+@code {
+    [NotNull]
+    private List<SelectedItem>? PageItemsSource { get; set; }
+
+    private int PageItems { get; set; } = 2;
+
+    private int PageCount => 200 / PageItems;
+
+    private string PageInfoText => $"每页 {PageItems} 条 共 {PageCount} 页";
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
+        PageItemsSource = new List<SelectedItem>()
+        {
+            new("2", "2条/页"),
+            new("4", "4条/页"),
+            new("10", "10条/页"),
+            new("20", "20条/页")
+        };
+    }
+}
