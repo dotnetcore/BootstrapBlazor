@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
-    <Version>7.2.0</Version>
+    <Version>7.3.0</Version>
     <PackageTags>Bootstrap Blazor WebAssembly wasm UI Components Table Export</PackageTags>
     <Description>Bootstrap UI components extensions of export</Description>
   </PropertyGroup>
