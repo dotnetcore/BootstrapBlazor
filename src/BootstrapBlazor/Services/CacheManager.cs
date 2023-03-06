@@ -281,26 +281,9 @@ internal class CacheManager : ICacheManager
             // 回退查找资源文件通过 dn 查找匹配项 用于支持 Validation
             if (!modelType.Assembly.IsDynamic && !string.IsNullOrEmpty(dn))
             {
-                GetLocalizerValueFromResourceManager();
+                dn = GetLocalizerValueFromResourceManager(dn);
             }
             return dn;
-
-            void GetLocalizerValueFromResourceManager()
-            {
-                var options = GetJsonLocalizationOption();
-                if (options.ResourceManagerStringLocalizerType != null)
-                {
-                    var localizer = CreateLocalizerByType(options.ResourceManagerStringLocalizerType);
-                    if (localizer != null)
-                    {
-                        var stringLocalizer = localizer[dn];
-                        if (stringLocalizer is { ResourceNotFound: false })
-                        {
-                            dn = stringLocalizer.Value;
-                        }
-                    }
-                }
-            }
         }
     }
 
