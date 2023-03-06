@@ -299,19 +299,18 @@ public partial class DateTimeRange
         {
             Value.End = Value.End.AddDays(1).AddSeconds(-1);
         }
-        if (OnValueChanged != null)
+        if (ValueChanged.HasDelegate)
         {
-            await OnValueChanged(Value);
+            await ValueChanged.InvokeAsync(Value);
         }
         if (OnConfirm != null)
         {
             await OnConfirm(Value);
         }
-        if (ValueChanged.HasDelegate)
+        if (OnValueChanged != null)
         {
-            await ValueChanged.InvokeAsync(Value);
+            await OnValueChanged(Value);
         }
-
         if (IsNeedValidate && EditContext != null && FieldIdentifier != null)
         {
             EditContext.NotifyFieldChanged(FieldIdentifier.Value);
