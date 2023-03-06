@@ -282,14 +282,14 @@ public partial class DateTimeRange
     {
         if (SelectedValue.End == DateTime.MinValue)
         {
-            if (SelectedValue.Start < DateTime.Today)
+            if (SelectedValue.Start < DateTime.Now)
             {
-                SelectedValue.End = DateTime.Today;
+                SelectedValue.End = DateTime.Now;
             }
             else
             {
                 SelectedValue.End = SelectedValue.Start;
-                SelectedValue.Start = DateTime.Today;
+                SelectedValue.Start = DateTime.Now;
             }
         }
         Value.Start = SelectedValue.Start;
