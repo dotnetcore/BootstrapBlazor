@@ -24,7 +24,7 @@
                         <PopConfirmButton AdditionalAttributes="pb.AdditionalAttributes" CustomClass="@pb.CustomClass"
                                           Color="@pb.Color" Icon="@pb.Icon" Text="@pb.Text" Size="pb.Size" ShowShadow="@pb.ShowShadow"
                                           IsAsync="@pb.IsAsync" IsDisabled="GetDisabled(pb)" IsBlock="@pb.IsBlock" IsOutline="@pb.IsOutline"
-                                          OnBeforeClick="@pb.OnBeforeClick" OnClose="@pb.OnClose" OnConfirm="() => OnToolbarConfirmButtonClick(pb)"
+                                          OnBeforeClick="@pb.OnBeforeClick" OnClose="@pb.OnClose" OnConfirm="() => OnConfirm(pb)"
                                           ConfirmIcon="@pb.ConfirmIcon" ConfirmButtonColor="@pb.ConfirmButtonColor"
                                           ConfirmButtonText="@pb.ConfirmButtonText" CloseButtonColor="@pb.CloseButtonColor"
                                           Placement="@pb.Placement" Trigger="@pb.Trigger"
@@ -42,7 +42,7 @@
                     <div class="dropdown-menu">
                         @foreach (var button in Buttons)
                         {
-                            @if (button is TableToolbarButton<TItem> b && b.IsShow)
+                            @if (button is TableToolbarButton<TItem> { IsShow: true } b)
                             {
                                 <div class="dropdown-item" @onclick="e => OnToolbarButtonClick(b)">
                                     @if (string.IsNullOrEmpty(b.Icon))
@@ -55,7 +55,7 @@
                                     }
                                 </div>
                             }
-                            else if (button is TableToolbarPopconfirmButton<TItem> pb && pb.IsShow)
+                            else if (button is TableToolbarPopconfirmButton<TItem> { IsShow: true } pb)
                             {
                                 <div class="dropdown-item" @onclick="pb.OnConfirm">
                                     @if (string.IsNullOrEmpty(pb.Icon))
