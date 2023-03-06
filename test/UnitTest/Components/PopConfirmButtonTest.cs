@@ -17,7 +17,6 @@ public class PopConfirmButtonTest : PopoverTestBase
                 pb.Add(a => a.Title, "Test_Title");
                 pb.Add(a => a.CloseButtonColor, Color.Info);
                 pb.Add(a => a.ConfirmButtonColor, Color.Danger);
-                pb.Add(a => a.ConfirmIcon, "fa-solid fa-circle-exclamation text-info");
                 pb.Add(a => a.Icon, "fa-solid fa-font-awesome");
                 pb.Add(a => a.Text, "Test_Text");
             });
