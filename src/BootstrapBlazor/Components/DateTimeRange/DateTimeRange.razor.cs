@@ -293,7 +293,7 @@ public partial class DateTimeRange
             }
         }
         Value.Start = SelectedValue.Start;
-        Value.End = SelectedValue.End;
+        Value.End = SelectedValue.End.AddDays(1).AddSeconds(-1);
 
         if (ValueChanged.HasDelegate)
         {
