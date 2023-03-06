@@ -76,7 +76,8 @@ public partial class PopConfirmButtonContent
     /// 获得/设置 确认框图标
     /// </summary>
     [Parameter]
-    public string Icon { get; set; } = "fa-solid fa-exclamation-circle text-info";
+    [NotNull]
+    public string? Icon { get; set; }
 
     /// <summary>
     /// 获得/设置 确认按钮回调方法
@@ -89,6 +90,16 @@ public partial class PopConfirmButtonContent
     /// </summary>
     [Parameter]
     public Func<Task>? OnClose { get; set; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
+        Icon ??= "fa-solid fa-exclamation-circle text-info";
+    }
 
     /// <summary>
     /// 点击关闭按钮调用此方法
