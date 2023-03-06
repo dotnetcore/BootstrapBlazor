@@ -42,7 +42,7 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
         cut.InvokeAsync(() => first.Click());
 
         // confirm
-        var confirm = cut.FindAll(".is-confirm").Last();
+        var confirm = cut.FindAll(".is-confirm")[cut.FindAll(".is-confirm").Count - 1];
         cut.InvokeAsync(() => confirm.Click());
         var value = cut.Instance.Value;
         var startDate = DateTime.Today.AddDays(1 - DateTime.Today.Day);
@@ -211,7 +211,7 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
             builder.Add(a => a.ShowToday, true);
         });
         cut.FindAll(".is-confirm").First(s => s.TextContent == "今天").Click();
-        Assert.Equal(DateTime.Today.Date, cut.Instance.Value.Start.Date);
+        Assert.Equal(DateTime.Today.Date, cut.Instance.Value.Start);
     }
 
     [Fact]
