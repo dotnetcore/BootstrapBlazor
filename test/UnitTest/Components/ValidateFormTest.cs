@@ -3,8 +3,10 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using BootstrapBlazor.Shared;
+using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
+using System.Collections.Concurrent;
 using System.ComponentModel.DataAnnotations;
 
 namespace UnitTest.Components;
@@ -206,6 +208,12 @@ public class ValidateFormTest : ValidateFormTestBase
             });
         });
         cut.Instance.SetError<Dummy>(f => f.Value, "Name_SetError");
+
+        // 利用发射提高代码覆盖率
+        var pi = cut.Instance.GetType().GetProperty("ValidatorCache", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)!;
+        var cache = (ConcurrentDictionary<(string FieldName, Type ModelType), (FieldIdentifier FieldIdentifier, IValidateComponent ValidateComponent)>)pi.GetValue(cut.Instance)!;
+        cache.Remove(("Value", typeof(Dummy)), out _);
+        cut.Instance.SetError<Dummy>(f => f.Value, "Name_SetError");
     }
 
     [Fact]
@@ -322,7 +330,7 @@ public class ValidateFormTest : ValidateFormTestBase
     }
 
     [Fact]
-    public async Task Validate_Address_Ok()
+    public void Validate_Address_Ok()
     {
         var foo = new MockFoo();
         var cut = Context.RenderComponent<ValidateForm>(pb =>
@@ -335,7 +343,7 @@ public class ValidateFormTest : ValidateFormTestBase
             });
         });
         var form = cut.Find("form");
-        await cut.InvokeAsync(() => form.Submit());
+        cut.InvokeAsync(() => form.Submit());
         var msg = cut.FindComponent<MockInput<string>>().Instance.GetErrorMessage();
         Assert.Equal("Address must fill", msg);
     }

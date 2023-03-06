@@ -6,6 +6,7 @@ using BootstrapBlazor.Localization;
 using BootstrapBlazor.Shared;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
+using System.ComponentModel.DataAnnotations;
 using System.Reflection;
 
 namespace UnitTest.Localization;
@@ -246,6 +247,39 @@ public class JsonStringLocalizerTest : BootstrapBlazorTestBase
         var result = l["test"];
         Assert.True(result.ResourceNotFound);
         Assert.Equal("test", result.Value);
+    }
+
+    [Fact]
+    public void Validate_ResourceManagerStringLocalizerType()
+    {
+        var context = new TestContext();
+        context.JSInterop.Mode = JSRuntimeMode.Loose;
+
+        context.Services.AddConfiguration();
+        context.Services.AddBootstrapBlazor(localizationConfigure: option =>
+        {
+            option.ResourceManagerStringLocalizerType = typeof(Foo);
+            option.AdditionalJsonAssemblies = new[] { typeof(Alert).Assembly, GetType().Assembly };
+            option.AdditionalJsonFiles = new string[] { "zh-CN.json" };
+        });
+        context.Services.GetRequiredService<ICacheManager>();
+
+        var foo = new Foo();
+        var cut = context.RenderComponent<ValidateForm>(pb =>
+        {
+            pb.Add(v => v.Model, foo);
+            pb.Add(a => a.OnInvalidSubmit, context =>
+            {
+                return Task.CompletedTask;
+            });
+        });
+
+        // 反射触发 Validate 方法
+        var mi = cut.Instance.GetType().GetMethod("ValidateDataAnnotations", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)!;
+        var pi = foo.GetType().GetProperty("Name");
+        var result = new List<ValidationResult>();
+        mi.Invoke(cut.Instance, new object?[] { null, new ValidationContext(cut.Instance), result, pi, "Name" });
+        Assert.Equal("Test", result[0].ErrorMessage);
     }
 
     private class MockTypeInfo : TypeDelegator

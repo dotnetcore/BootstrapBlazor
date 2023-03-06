@@ -10,7 +10,7 @@ namespace BootstrapBlazor.Components;
 public partial class SpeechWave : IDisposable
 {
     /// <summary>
-    /// 获得/设置 是否开始 默认 false
+    /// 获得/设置 是否显示波形图 默认 false
     /// </summary>
     [Parameter]
     public bool Show { get; set; }
@@ -57,50 +57,58 @@ public partial class SpeechWave : IDisposable
     {
         base.OnParametersSet();
 
-        if (Show && ShowUsedTime)
+        if (Show)
         {
-            if (!IsRun)
-            {
-                _ = Run();
-            }
+            Run();
         }
         else
         {
-            if (Token != null)
-            {
-                Token.Cancel();
-                Token.Dispose();
-                Token = null;
-            }
+            Cancel();
         }
     }
 
     private bool IsRun { get; set; }
 
-    private async Task Run()
+    private Task Run() => Task.Run(async () =>
     {
-        IsRun = true;
-        UsedTimeSpan = TimeSpan.Zero;
-        Token ??= new CancellationTokenSource();
-        while (Token != null && !Token.IsCancellationRequested)
+        if (!IsRun)
         {
-            try
+            IsRun = true;
+            UsedTimeSpan = TimeSpan.Zero;
+            Token ??= new CancellationTokenSource();
+            while (!Token.IsCancellationRequested)
             {
-                await Task.Delay(1000, Token.Token);
-                UsedTimeSpan = UsedTimeSpan.Add(TimeSpan.FromSeconds(1));
-                if (UsedTimeSpan.TotalMilliseconds >= TotalTime)
+                try
                 {
-                    Show = false;
-                    if (OnTimeout != null)
+                    await Task.Delay(1000, Token.Token);
+                    UsedTimeSpan = UsedTimeSpan.Add(TimeSpan.FromSeconds(1));
+                    if (UsedTimeSpan.TotalMilliseconds >= TotalTime)
                     {
-                        _ = OnTimeout();
+                        Show = false;
+                        if (OnTimeout != null)
+                        {
+                            await OnTimeout();
+                        }
                     }
+                    await InvokeAsync(StateHasChanged);
                 }
-                StateHasChanged();
+                catch (TaskCanceledException)
+                {
+                    break;
+                }
             }
-            catch { }
+            IsRun = false;
         }
-        IsRun = false;
+    });
+
+    private void Cancel()
+    {
+        if (Token != null)
+        {
+            Token.Cancel();
+            Token.Dispose();
+            Token = null;
+        }
     }
 
     /// <summary>
@@ -111,12 +119,7 @@ public partial class SpeechWave : IDisposable
     {
         if (disposing)
         {
-            if (Token != null)
-            {
-                Token.Cancel();
-                Token.Dispose();
-                Token = null;
-            }
+            Cancel();
         }
     }
 

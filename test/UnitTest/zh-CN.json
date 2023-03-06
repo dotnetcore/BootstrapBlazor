@@ -2,6 +2,7 @@
   "BootstrapBlazor.Shared.Foo": {
     "Name": "Test-Name",
     "NullName": null,
-    "EmptyName": ""
+    "EmptyName": "",
+    "{0}不能为空":  "Test"
   }
 }

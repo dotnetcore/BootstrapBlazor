@@ -149,7 +149,6 @@ public class InputNumberTest : BootstrapBlazorTestBase
         public int Count { get; set; }
     }
 
-    [ExcludeFromCodeCoverage]
     private class MockInputNumber : BootstrapInputNumber<string>
     {
         public override Task SetParametersAsync(ParameterView parameters)
