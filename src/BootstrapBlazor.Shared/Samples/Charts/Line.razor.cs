@@ -73,5 +73,4 @@ public partial class Line
         LineChart?.Reload();
         return Task.CompletedTask;
     }
-
 }
