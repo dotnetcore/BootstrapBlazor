@@ -276,10 +276,18 @@ public static class Utility
     /// <summary>
     /// 通过特定类型模型获取模型属性集合
     /// </summary>
+    /// <typeparam name="TModel"></typeparam>
+    /// <param name="source"></param>
+    /// <returns></returns>
+    public static IEnumerable<ITableColumn> GetTableColumns<TModel>(IEnumerable<ITableColumn>? source = null) => GetTableColumns(typeof(TModel), source);
+
+    /// <summary>
+    /// 通过特定类型模型获取模型属性集合
+    /// </summary>
     /// <param name="type"></param>
     /// <param name="source"></param>
     /// <returns></returns>
-    public static IEnumerable<ITableColumn> GetTableColumnsByType(Type type, IEnumerable<ITableColumn>? source = null)
+    public static IEnumerable<ITableColumn> GetTableColumns(Type type, IEnumerable<ITableColumn>? source = null)
     {
         var cols = new List<ITableColumn>(50);
         var attrModel = type.GetCustomAttribute<AutoGenerateClassAttribute>(true);
@@ -335,7 +343,7 @@ public static class Utility
     /// </summary>
     /// <param name="predicate"></param>
     /// <returns></returns>
-    public static IEnumerable<ITableColumn> GenerateColumns<TModel>(Func<ITableColumn, bool> predicate) => InternalTableColumn.GetProperties<TModel>().Where(predicate);
+    public static IEnumerable<ITableColumn> GenerateColumns<TModel>(Func<ITableColumn, bool> predicate) => Utility.GetTableColumns<TModel>().Where(predicate);
 
     /// <summary>
     /// RenderTreeBuilder 扩展方法 通过 IEditorItem 与 model 创建 Display 组件
@@ -802,7 +810,7 @@ public static class Utility
     /// </summary>
     /// <param name="source"></param>
     /// <returns></returns>
-    public static IEnumerable<IEditorItem> GenerateEditorItems<TModel>(IEnumerable<ITableColumn>? source = null) => InternalTableColumn.GetProperties<TModel>(source);
+    public static IEnumerable<IEditorItem> GenerateEditorItems<TModel>(IEnumerable<ITableColumn>? source = null) => Utility.GetTableColumns<TModel>(source);
 
     /// <summary>
     /// 通过指定类型创建 IStringLocalizer 实例

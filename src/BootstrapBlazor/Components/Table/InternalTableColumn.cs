@@ -2,11 +2,8 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using System.Reflection;
-
 namespace BootstrapBlazor.Components;
 
-[ExcludeFromCodeCoverage]
 internal class InternalTableColumn : ITableColumn
 {
     private string FieldName { get; }
@@ -202,12 +199,4 @@ internal class InternalTableColumn : ITableColumn
     public string GetDisplayName() => Text;
 
     public string GetFieldName() => FieldName;
-
-    /// <summary>
-    /// 通过泛型模型获取模型属性集合
-    /// </summary>
-    /// <typeparam name="TModel"></typeparam>
-    /// <param name="source"></param>
-    /// <returns></returns>
-    public static IEnumerable<ITableColumn> GetProperties<TModel>(IEnumerable<ITableColumn>? source = null) => Utility.GetTableColumnsByType(typeof(TModel), source);
 }
