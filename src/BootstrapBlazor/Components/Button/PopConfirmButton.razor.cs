@@ -7,7 +7,7 @@ using Microsoft.Extensions.Localization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// PopConfirmButton 组件
 /// </summary>
 public partial class PopConfirmButton
 {

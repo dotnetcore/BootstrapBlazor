@@ -7,7 +7,7 @@ using Microsoft.Extensions.Localization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// TableToolbarPopconfirmButton 组件
 /// </summary>
 [JSModuleNotInherited]
 public class TableToolbarPopconfirmButton<TItem> : PopConfirmButtonBase
