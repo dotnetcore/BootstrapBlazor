@@ -161,8 +161,12 @@ public partial class DateTimeRange
 
         Value ??= new DateTimeRangeValue();
 
+        // 去掉时分秒
+        Value.Start = Value.Start.Date;
+        Value.End = Value.End.Date.AddDays(1).AddSeconds(-1);
+
         StartValue = Value.Start;
-        EndValue = Value.End;
+        EndValue = Value.End.Date;
 
         if (StartValue == DateTime.MinValue) StartValue = DateTime.Today;
         if (EndValue == DateTime.MinValue) EndValue = StartValue.AddMonths(1);
@@ -293,12 +297,8 @@ public partial class DateTimeRange
             }
         }
         Value.Start = SelectedValue.Start;
-        Value.End = SelectedValue.End;
+        Value.End = SelectedValue.End.AddDays(1).AddSeconds(-1);
 
-        if (Value.End.Hour == 0)
-        {
-            Value.End = Value.End.AddDays(1).AddSeconds(-1);
-        }
         if (ValueChanged.HasDelegate)
         {
             await ValueChanged.InvokeAsync(Value);
