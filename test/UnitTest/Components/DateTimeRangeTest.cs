@@ -42,7 +42,7 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
         cut.InvokeAsync(() => first.Click());
 
         // confirm
-        var confirm = cut.FindAll(".is-confirm")[cut.FindAll(".is-confirm").Count - 1];
+        var confirm = cut.FindAll(".is-confirm").Last();
         cut.InvokeAsync(() => confirm.Click());
         var value = cut.Instance.Value;
         var startDate = DateTime.Today.AddDays(1 - DateTime.Today.Day);
