@@ -20,6 +20,16 @@ public class FooSearchModel : ITableSearchModel
     public string? Count { get; set; }
 
     /// <summary>
+    /// 
+    /// </summary>
+    public DateTimeRangeValue? SearchDate { get; set; }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public EnumEducation? Education { get; set; }
+
+    /// <summary>
     /// 获得 搜索条件集合
     /// </summary>
     /// <returns></returns>
@@ -34,9 +44,6 @@ public class FooSearchModel : ITableSearchModel
 
         if (!string.IsNullOrEmpty(Count))
         {
-            // new SelectedItem("1", "小于 30"),
-            // new SelectedItem("2", "大于等于 30 小于 70"),
-            // new SelectedItem("3", "大于等于 70 小于 100")
             if (Count == "1")
             {
                 ret.Add(new SearchFilterAction(nameof(Foo.Count), 30, FilterAction.LessThan));
@@ -52,6 +59,17 @@ public class FooSearchModel : ITableSearchModel
                 ret.Add(new SearchFilterAction(nameof(Foo.Count), 100, FilterAction.LessThan));
             }
         }
+
+        if (SearchDate != null)
+        {
+            ret.Add(new SearchFilterAction(nameof(Foo.DateTime), SearchDate.Start, FilterAction.GreaterThanOrEqual));
+            ret.Add(new SearchFilterAction(nameof(Foo.DateTime), SearchDate.End, FilterAction.LessThanOrEqual));
+        }
+
+        if (Education != null)
+        {
+            ret.Add(new SearchFilterAction(nameof(Foo.Education), Education, FilterAction.Equal));
+        }
         return ret;
     }
 
@@ -62,5 +80,7 @@ public class FooSearchModel : ITableSearchModel
     {
         Name = null;
         Count = null;
+        SearchDate = null;
+        Education = null;
     }
 }

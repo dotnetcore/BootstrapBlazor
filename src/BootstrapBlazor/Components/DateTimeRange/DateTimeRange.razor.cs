@@ -295,10 +295,6 @@ public partial class DateTimeRange
         Value.Start = SelectedValue.Start;
         Value.End = SelectedValue.End;
 
-        if (Value.End.Hour == 0)
-        {
-            Value.End = Value.End.AddDays(1).AddSeconds(-1);
-        }
         if (ValueChanged.HasDelegate)
         {
             await ValueChanged.InvokeAsync(Value);
