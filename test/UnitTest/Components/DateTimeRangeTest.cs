@@ -211,7 +211,7 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
             builder.Add(a => a.ShowToday, true);
         });
         cut.FindAll(".is-confirm").First(s => s.TextContent == "今天").Click();
-        Assert.Equal(DateTime.Today.Date, cut.Instance.Value.Start.Date);
+        Assert.Equal(DateTime.Today.Date, cut.Instance.Value.Start);
     }
 
     [Fact]
