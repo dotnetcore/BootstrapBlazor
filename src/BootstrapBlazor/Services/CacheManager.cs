@@ -349,6 +349,35 @@ internal class CacheManager : ICacheManager
             }
         });
     }
+
+    /// <summary>
+    /// 通过指定 Key 获取资源文件中的键值
+    /// </summary>
+    /// <param name="key"></param>
+    /// <returns></returns>
+    private static string? GetLocalizerValueFromResourceManager(string key)
+    {
+        string? dn = null;
+        var options = GetJsonLocalizationOption();
+        if (options.ResourceManagerStringLocalizerType != null)
+        {
+            var localizer = CreateLocalizerByType(options.ResourceManagerStringLocalizerType);
+            dn = GetValueByKey(localizer);
+        }
+        return dn ?? key;
+
+        [ExcludeFromCodeCoverage]
+        string? GetValueByKey(IStringLocalizer? l)
+        {
+            string? val = null;
+            var stringLocalizer = l?[key];
+            if (stringLocalizer is { ResourceNotFound: false })
+            {
+                val = stringLocalizer.Value;
+            }
+            return val;
+        }
+    }
     #endregion
 
     #region Placeholder
