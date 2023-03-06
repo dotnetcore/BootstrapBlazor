@@ -22,6 +22,14 @@ public partial class PopConfirmButton
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
+    private string TagName => IsLink ? "a" : "div";
+
+    private string? ElementType => IsLink ? null : "div";
+
+    private string? CustomClassString => CssBuilder.Default(CustomClass)
+        .AddClass("shadow", ShowShadow)
+        .Build();
+
     /// <summary>
     /// 获得/设置 按钮颜色
     /// </summary>
@@ -60,7 +68,7 @@ public partial class PopConfirmButton
     /// 确认回调方法
     /// </summary>
     /// <returns></returns>
-    private async Task Confirm()
+    private async Task OnClickConfirm()
     {
         if (IsAsync)
         {
