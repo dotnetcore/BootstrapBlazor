@@ -161,12 +161,8 @@ public partial class DateTimeRange
 
         Value ??= new DateTimeRangeValue();
 
-        // 去掉时分秒
-        Value.Start = Value.Start.Date;
-        Value.End = Value.End.Date.AddDays(1).AddSeconds(-1);
-
         StartValue = Value.Start;
-        EndValue = Value.End.Date;
+        EndValue = Value.End;
 
         if (StartValue == DateTime.MinValue) StartValue = DateTime.Today;
         if (EndValue == DateTime.MinValue) EndValue = StartValue.AddMonths(1);
