@@ -32,7 +32,7 @@ public class DateTimeRangeValue
         }
         if (End != DateTime.MinValue)
         {
-            ret = $"{ret} - {End.ToString()}";
+            ret = $"{ret} - {End}";
         }
         return ret;
     }
