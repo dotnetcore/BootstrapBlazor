@@ -25,10 +25,12 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
     {
         var cut = Context.RenderComponent<DateTimeRange>(builder =>
         {
-            builder.Add(a => a.Value, new DateTimeRangeValue() { Start = DateTime.Today, End = DateTime.Today });
+            builder.Add(a => a.Value, new DateTimeRangeValue() { Start = DateTime.Now, End = DateTime.Now.AddDays(1) });
         });
 
-        // 内部 StartValue 自动减一个月
+        var v = cut.Instance.Value;
+        Assert.Equal(DateTime.Today, v.Start);
+        Assert.Equal(DateTime.Today.AddDays(2).AddSeconds(-1), v.End);
     }
 
     [Fact]
