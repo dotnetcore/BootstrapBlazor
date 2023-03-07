@@ -82,6 +82,30 @@ public class TabItem : ComponentBase
     public virtual void SetActive(bool active) => IsActive = active;
 
     /// <summary>
+    /// 重新设置标签文字等参数
+    /// </summary>
+    /// <param name="text"></param>
+    /// <param name="icon"></param>
+    /// <param name="closable"></param>
+    public void SetText(string text, string? icon = null, bool? closable = null)
+    {
+        if (TabSet != null)
+        {
+            Text = text;
+
+            if (!string.IsNullOrEmpty(icon))
+            {
+                Icon = icon;
+            }
+            if (closable.HasValue)
+            {
+                Closable = closable.Value;
+            }
+            TabSet.ActiveTab(this);
+        }
+    }
+
+    /// <summary>
     /// 通过指定参数集合获取 TabItem 实例
     /// </summary>
     /// <param name="parameters"></param>
