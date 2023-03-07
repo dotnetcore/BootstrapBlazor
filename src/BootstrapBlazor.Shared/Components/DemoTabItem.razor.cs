@@ -9,10 +9,6 @@ namespace BootstrapBlazor.Shared.Components;
 /// </summary>
 public partial class DemoTabItem
 {
-    [CascadingParameter]
-    [NotNull]
-    private TabItem? TabItem { get; set; }
-
     [Inject]
     [NotNull]
     private IStringLocalizer<DemoTabItem>? Localizer { get; set; }
