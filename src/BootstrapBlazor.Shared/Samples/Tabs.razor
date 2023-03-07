@@ -357,6 +357,14 @@ public TabItem? TabItem { get; set; }</Pre>
     </Tab>
 </DemoBlock>
 
+<DemoBlock Title="@Localizer["BlockSetTabItemHeaderTextTitle"]" Introduction="@Localizer["BlockSetTabItemHeaderTextIntro"]" Name="SetTabItemHeaderText">
+    <Tab IsBorderCard="true">
+        <TabItem Text="Text">
+            <DemoTabItemSetText />
+        </TabItem>
+    </Tab>
+</DemoBlock>
+
 <AttributeTable Items="@GetAttributes()" Title="@Localizer["AttTitle"]" />
 
 <MethodTable Items="@GetMethods()" Title="@Localizer["MethodTitle"]" />

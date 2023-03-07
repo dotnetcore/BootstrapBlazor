@@ -5,16 +5,10 @@
 namespace BootstrapBlazor.Shared.Samples;
 
 /// <summary>
-/// 
+/// Popovers
 /// </summary>
 public sealed partial class Popovers
 {
-    private static readonly string ValueString = "Pop-up box";
-
-    private static readonly string Title = "popup title";
-
-    private static readonly string Content = "Here is the text of the pop-up box, the <code>html</code> tag is supported here, or a <code>Table</code> can be built-in";
-
     /// <summary>
     /// Get property method
     /// </summary>

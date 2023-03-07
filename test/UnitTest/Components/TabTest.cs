@@ -460,7 +460,7 @@ public class TabTest : TabTestBase
     }
 
     [Fact]
-    public void SetText_Ok()
+    public void Text_Ok()
     {
         var text = "Tab1";
         var cut = Context.RenderComponent<Tab>(pb =>
@@ -484,6 +484,25 @@ public class TabTest : TabTestBase
                 pb.Add(a => a.Url, "/Cat");
             });
         });
+        cut.Contains("<span class=\"tabs-item-text\">Text</span>");
+    }
+
+    [Fact]
+    public void SetText_Ok()
+    {
+        var cut = Context.RenderComponent<Tab>(pb =>
+        {
+            pb.Add(a => a.AdditionalAssemblies, new Assembly[] { GetType().Assembly });
+            pb.Add(a => a.ClickTabToNavigation, true);
+            pb.AddChildContent<TabItem>(pb =>
+            {
+                pb.Add(a => a.Text, "Tab1");
+                pb.Add(a => a.Url, "/Cat");
+            });
+        });
+        cut.Contains("<span class=\"tabs-item-text\">Tab1</span>");
+        var item = cut.FindComponent<TabItem>();
+        cut.InvokeAsync(() => item.Instance.SetHeader("Text", "fa fa-fa", true));
         cut.Contains("<span class=\"tabs-item-text\">Text</span>");
     }
 
