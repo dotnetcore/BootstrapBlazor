@@ -1,0 +1,11 @@
+﻿@inject IStringLocalizer<BootstrapBlazor.Shared.Samples.Popovers> Localizer
+
+<Popover Placement="Placement.Auto" Title="@Title" Content="@Content" IsHtml="true" Trigger="click" CustomClass="custom-popover">
+    <Button Text="@Localizer["PopoversCssClassButtonText"]" />
+</Popover>
+
+@code {
+    private static readonly string Title = "popup title";
+
+    private static readonly string Content = "Here is the text of the pop-up box, the <code>html</code> tag is supported here, or a <code>Table</code> can be built-in";
+}
