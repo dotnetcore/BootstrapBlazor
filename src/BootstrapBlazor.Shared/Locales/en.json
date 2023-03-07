@@ -2066,6 +2066,8 @@
     "BlockHeaderTemplateDesc": "Use <code>Badge</code> in the <code>HeaderTemplate</code>",
     "BlockSetHeaderTextTemplateTitle": "Set header text",
     "BlockSetHeaderTextTemplateIntro": "Set the parameter <code>Text</code> of <code>TabItem</code> custom the tabitem's header title'",
+    "BlockSetTabItemHeaderTextTitle": "Set header text icon",
+    "BlockSetTabItemHeaderTextIntro": "Set the parameter by <code>TabItem</code> instance method <code>SetHeader</code>",
     "Att1": "Whether it is a bordered card style",
     "Att2": "Whether it is a card style",
     "Att3": "Whether to render only Active labels",
