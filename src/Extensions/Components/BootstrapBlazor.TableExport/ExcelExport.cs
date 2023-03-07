@@ -26,13 +26,13 @@ internal class ExcelExport : ITableExcelExport
     /// 导出 Excel 方法
     /// </summary>
     /// <returns></returns>
-    public async Task<bool> ExportAsync<TItem>(IEnumerable<TItem> items, IEnumerable<ITableColumn>? cols = null, string? fileName = null) where TItem : class
+    public async Task<bool> ExportAsync<TModel>(IEnumerable<TModel> items, IEnumerable<ITableColumn>? cols = null, string? fileName = null) where TModel : class
     {
         using var excelPackage = new ExcelPackage();
         var worksheet = excelPackage.Workbook.Worksheets.Add("sheet1");
 
         var rowIndex = 1;
-        cols ??= Utility.GetTableColumnsByType(typeof(TItem));
+        cols ??= Utility.GetTableColumns<TModel>();
         foreach (var item in items)
         {
             var colIndex = 1;
