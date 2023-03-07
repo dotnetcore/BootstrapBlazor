@@ -1,40 +1,26 @@
 ﻿@page "/popovers"
 @inject IStringLocalizer<Popovers> Localizer
 
-<h3>@Localizer["H1"]</h3>
-<h4>@Localizer["H2"]</h4>
+<h3>@Localizer["PopoversTitle"]</h3>
+<h4>@Localizer["PopoversDescription"]</h4>
 
-<DemoBlock Title="@Localizer["P1"]" Introduction="@Localizer["P2"]" Name="Normal">
-    <div class="d-flex flex-column w-100 popover-demo">
-        <div class="d-flex justify-content-center">
-            <Popover Placement="Placement.Bottom" Title="@Title" Content="@Content" IsHtml="true">
-                <BootstrapInput Value="@ValueString" aria-label="@ValueString" />
-            </Popover>
-        </div>
-        <div class="d-flex justify-content-between align-items-center flex-fill">
-            <Popover Placement="Placement.Right" Title="@Title" Content="@Content" IsHtml="true">
-                <BootstrapInput Value="@ValueString" aria-label="@ValueString" />
-            </Popover>
-            <Popover Placement="Placement.Left" Title="@Title" Content="@Content" IsHtml="true">
-                <BootstrapInput Value="@ValueString" aria-label="@ValueString" />
-            </Popover>
-        </div>
-        <div class="d-flex justify-content-center">
-            <Popover Placement="Placement.Top" Title="@Title" Content="@Content" IsHtml="true">
-                <BootstrapInput Value="@ValueString" aria-label="@ValueString" />
-            </Popover>
-        </div>
-    </div>
+<DemoBlock Title="@Localizer["PopoversNormalTitle"]"
+           Introduction="@Localizer["PopoversNormalIntro"]"
+           Name="Normal"
+           Demo="typeof(Demos.Popovers.PopoversNormal)">
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["P3"]" Introduction="@Localizer["P4"]" Name="Button">
-    <Popover Placement="Placement.Auto" Title="@Title" Content="@Content" IsHtml="true" Trigger="click">
-        <Button Text="@Localizer["P5"]" />
-    </Popover>
+<DemoBlock Title="@Localizer["PopoversButtonTitle"]"
+           Introduction="@Localizer["PopoversButtonIntro"]"
+           Name="Button"
+           Demo="typeof(Demos.Popovers.PopoversButton)">
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["P6"]" Introduction="@Localizer["P7"]" Name="CssClass">
-    <p>@Localizer["P8"] <code>Popover</code> @Localizer["P9"] <code>CssClass="custom-popover"</code> @Localizer["P10"]</p>
+<DemoBlock Title="@Localizer["PopoversCssClassTitle"]"
+           Introduction="@Localizer["PopoversCssClassIntro"]"
+           Name="CssClass"
+           Demo="typeof(Demos.Popovers.PopoversCssClass)">
+    <p>@((MarkupString)Localizer["PopoversCssClassDescription"].Value)</p>
     <Pre class="mb-3">.custom-popover {
     --bs-popover-border-color: var(--bs-primary);
     --bs-popover-header-bg: var(--bs-primary);
@@ -42,9 +28,6 @@
     --bs-popover-body-padding-x: 1rem;
     --bs-popover-body-padding-y: 1rem;
 }</Pre>
-    <Popover Placement="Placement.Auto" Title="@Title" Content="@Content" IsHtml="true" Trigger="click" CustomClass="custom-popover">
-        <Button Text="@Localizer["P11"]" />
-    </Popover>
 </DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" />

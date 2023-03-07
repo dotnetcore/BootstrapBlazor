@@ -1,0 +1,28 @@
+﻿<div class="d-flex flex-column w-100 popover-demo">
+    <div class="d-flex justify-content-center">
+        <Popover Placement="Placement.Bottom" Title="@Title" Content="@Content" IsHtml="true">
+            <BootstrapInput Value="@ValueString" aria-label="@ValueString" />
+        </Popover>
+    </div>
+    <div class="d-flex justify-content-between align-items-center flex-fill">
+        <Popover Placement="Placement.Right" Title="@Title" Content="@Content" IsHtml="true">
+            <BootstrapInput Value="@ValueString" aria-label="@ValueString" />
+        </Popover>
+        <Popover Placement="Placement.Left" Title="@Title" Content="@Content" IsHtml="true">
+            <BootstrapInput Value="@ValueString" aria-label="@ValueString" />
+        </Popover>
+    </div>
+    <div class="d-flex justify-content-center">
+        <Popover Placement="Placement.Top" Title="@Title" Content="@Content" IsHtml="true">
+            <BootstrapInput Value="@ValueString" aria-label="@ValueString" />
+        </Popover>
+    </div>
+</div>
+
+@code {
+    private static readonly string ValueString = "Pop-up box";
+
+    private static readonly string Title = "popup title";
+
+    private static readonly string Content = "Here is the text of the pop-up box, the <code>html</code> tag is supported here, or a <code>Table</code> can be built-in";
+}

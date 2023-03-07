@@ -310,19 +310,17 @@
     "BodyTemplateButtonText": "Customize content"
   },
   "BootstrapBlazor.Shared.Samples.Popovers": {
-    "H1": "Popover popup component",
-    "H2": "Click/mouse into the element to pop up a bubble-like card overlay",
-    "P1": "Basic usage",
-    "P2": "Click the text input box to pop up the <code>Popover</code> pop-up box, <code>Placement</code> set the position of the pop-up box, close the pop-up box when clicking the second time",
-    "P3": "button activates popup",
-    "P4": "<code>Popover</code> pop-up box pops up after clicking the button",
-    "P5": "Click to activate/deactivate",
-    "P6": "custom style",
-    "P7": "Customize the pop-up window by setting the <code>Popover</code> parameter <code>CssClass</code>",
-    "P8": "set up",
-    "P9": "parameter",
-    "P10": "make custom styles",
-    "P11": "Click to activate/deactivate"
+    "PopoversTitle": "Popover popup component",
+    "PopoversDescription": "Click/mouse into the element to pop up a bubble-like card overlay",
+    "PopoversNormalTitle": "Basic usage",
+    "PopoversNormalIntro": "Click the text input box to pop up the <code>Popover</code> pop-up box, <code>Placement</code> set the position of the pop-up box, close the pop-up box when clicking the second time",
+    "PopoversButtonTitle": "button activates popup",
+    "PopoversButtonIntro": "<code>Popover</code> pop-up box pops up after clicking the button",
+    "PopoversButtonButtonText": "Click to activate/deactivate",
+    "PopoversCssClassTitle": "custom style",
+    "PopoversCssClassIntro": "Customize the pop-up window by setting the <code>Popover</code> parameter <code>CssClass</code>",
+    "PopoversCssClassDescription": "set up <code>Popover</code> parameter <code>CssClass=\"custom-popover\"</code> make custom styles",
+    "PopoversCssClassButtonText": "Click to activate/deactivate"
   },
   "BootstrapBlazor.Shared.Samples.Progresss": {
     "H1": "Progress progress bar",

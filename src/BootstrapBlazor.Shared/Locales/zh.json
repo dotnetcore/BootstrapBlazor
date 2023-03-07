@@ -311,19 +311,17 @@
     "BodyTemplateButtonText": "自定义内容"
   },
   "BootstrapBlazor.Shared.Samples.Popovers": {
-    "H1": "Popover 弹出窗组件",
-    "H2": "点击/鼠标移入元素，弹出气泡式的卡片浮层",
-    "P1": "基础用法",
-    "P2": "点击文本输入框弹出 <code>Popover</code> 弹出框，<code>Placement</code> 设置弹出框的位置 二次点击时关闭弹出框",
-    "P3": "按钮激活弹出框",
-    "P4": "点击按钮后弹出 <code>Popover</code> 弹出框",
-    "P5": "Click 激活/关闭",
-    "P6": "自定义样式",
-    "P7": "通过设置 <code>Popover</code> 参数 <code>CssClass</code> 对弹窗进行自定义样式",
-    "P8": "设置 ",
-    "P9": "参数",
-    "P10": "进行自定义样式",
-    "P11": "Click 激活/关闭"
+    "PopoversTitle": "Popover 弹出窗组件",
+    "PopoversDescription": "点击/鼠标移入元素，弹出气泡式的卡片浮层",
+    "PopoversNormalTitle": "基础用法",
+    "PopoversNormalIntro": "点击文本输入框弹出 <code>Popover</code> 弹出框，<code>Placement</code> 设置弹出框的位置 二次点击时关闭弹出框",
+    "PopoversButtonTitle": "按钮激活弹出框",
+    "PopoversButtonIntro": "点击按钮后弹出 <code>Popover</code> 弹出框",
+    "PopoversButtonButtonText": "Click 激活/关闭",
+    "PopoversCssClassTitle": "自定义样式",
+    "PopoversCssClassIntro": "通过设置 <code>Popover</code> 参数 <code>CssClass</code> 对弹窗进行自定义样式",
+    "PopoversCssClassDescription": "设置 <code>Popover</code> 参数 <code>CssClass=\"custom-popover\"</code> 进行自定义样式",
+    "PopoversCssClassButtonText": "Click 激活/关闭"
   },
   "BootstrapBlazor.Shared.Samples.Progresss": {
     "H1": "Progress 进度条",
