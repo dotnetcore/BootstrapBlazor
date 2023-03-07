@@ -26,16 +26,17 @@ internal class ExcelExport : ITableExcelExport
     /// 导出 Excel 方法
     /// </summary>
     /// <returns></returns>
-    public async Task<bool> ExportAsync<TItem>(IEnumerable<TItem> items, IEnumerable<ITableColumn> cols, string? fileName = null) where TItem : class
+    public async Task<bool> ExportAsync<TModel>(IEnumerable<TModel> items, IEnumerable<ITableColumn>? cols = null, string? fileName = null) where TModel : class
     {
         using var excelPackage = new ExcelPackage();
         var worksheet = excelPackage.Workbook.Worksheets.Add("sheet1");
 
         var rowIndex = 1;
+        cols ??= Utility.GetTableColumns<TModel>();
         foreach (var item in items)
         {
             var colIndex = 1;
-            foreach (var pi in item.GetType().GetProperties().Where(i => cols.Any(col => col.GetFieldName() == i.Name)))
+            foreach (var pi in cols)
             {
                 if (rowIndex == 1)
                 {
@@ -50,10 +51,10 @@ internal class ExcelExport : ITableExcelExport
                         worksheet.Column(colIndex).Style.Numberformat.Format = "HH:mm:ss";
                     }
 
-                    var thValue = cols.First(x => x.GetFieldName() == pi.Name).Text ?? Utility.GetDisplayName(item, pi.Name);
+                    var thValue = pi.GetDisplayName();
                     worksheet.SetValue(1, colIndex, thValue);
                 }
-                var value = await FormatValue(cols.First(col => col.GetFieldName() == pi.Name), Utility.GetPropertyValue(item, pi.Name));
+                var value = await FormatValue(pi, Utility.GetPropertyValue(item, pi.GetFieldName()));
                 worksheet.SetValue(rowIndex + 1, colIndex, value);
                 colIndex++;
             }
