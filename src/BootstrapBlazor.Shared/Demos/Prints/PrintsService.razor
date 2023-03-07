@@ -1,0 +1,20 @@
+﻿@inject IStringLocalizer<BootstrapBlazor.Shared.Samples.Prints> Localizer
+@inject DialogService DialogService
+@inject PrintService PrintService
+
+<Button Icon="fa-solid fa-print" Text="@Localizer["PrintsButtonText"]" OnClick="OnClickPrintService" />
+
+@code {
+    private Task OnClickPrintService() => PrintService.PrintAsync<DataDialogComponent>(op =>
+    {
+        // 弹窗配置
+        op.Title = Localizer["PrintsDialogTitle"];
+        op.ShowPrintButton = true;
+        op.ShowPrintButtonInHeader = true;
+        op.ShowFooter = false;
+        op.BodyContext = 2;
+
+        // 弹窗组件所需参数
+        return new Dictionary<string, object?>();
+    });
+}

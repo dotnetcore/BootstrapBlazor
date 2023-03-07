@@ -4383,20 +4383,20 @@
     "BasicUsageTitle": "基础用法"
   },
   "BootstrapBlazor.Shared.Samples.Prints": {
-    "Title": "Print 打印组件",
-    "SubTitle": "用于打印文档或者局部视图",
-    "Tips1": "设置 <code style='margin-left: 14px;'>PreviewUrl</code> 时，单开一个新网页进行打印预览，点击此页面的打印按钮进行网页打印",
-    "Tips2": "不设置 <code>PreviewUrl</code> 时，如果是 <code>Dialog</code> 组件中的打印按钮，则打印弹窗内容",
-    "PreButtonText": "打印",
+    "PrintsTitle": "Print 打印组件",
+    "PrintsSubTitle": "用于打印文档或者局部视图",
+    "PrintsTips1": "设置 <code style='margin-left: 14px;'>PreviewUrl</code> 时，单开一个新网页进行打印预览，点击此页面的打印按钮进行网页打印",
+    "PrintsTips2": "不设置 <code>PreviewUrl</code> 时，如果是 <code>Dialog</code> 组件中的打印按钮，则打印弹窗内容",
+    "PrintsButtonText": "打印",
     "PrintButtonTitle": "普通用法",
     "PrintButtonIntro": "通过点击打印按钮将页面进行打印",
-    "PrintP1": "点击下方打印按钮后，弹出新页面进行打印预览，确认无误后点击打印预览页面中的打印按钮进行打印机选择进行打印操作",
+    "PrintsButtonDescription": "点击下方打印按钮后，弹出新页面进行打印预览，确认无误后点击打印预览页面中的打印按钮进行打印机选择进行打印操作",
     "PrintDialogTitle": "打印弹窗",
     "PrintDialogIntro": "通过设置弹窗组件 <code>ShowPrint</code> 开启打印功能",
     "PrintDialogP": "本例中弹窗内容为自定义组件 <code>{0}</code> 弹窗自身按钮所在 <code>Footer</code> 被隐藏，所以弹窗内置的 <code>Print</code> 按钮无法显示，设置 <code>@nameof(DialogOption.ShowPrintButtonInHeader)</code> 使 <b>打印</b> 按钮显示在标题栏中",
     "PrintServiceTitle": "打印服务",
     "PrintServiceIntro": "通过设置要打印的内容组件，直接调用 <b>打印服务</b> 进行打印作业",
-    "DialogTitle": "数据查询窗口"
+    "PrintsDialogTitle": "数据查询窗口"
   },
   "BootstrapBlazor.Shared.Samples.Tags": {
     "Title": "Tag 标签",
