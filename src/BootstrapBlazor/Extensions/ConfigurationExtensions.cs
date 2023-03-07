@@ -10,7 +10,6 @@ namespace Microsoft.Extensions.Configuration;
 /// <summary>
 /// IConfiguration 扩展类
 /// </summary>
-[ExcludeFromCodeCoverage]
 internal static class ConfigurationExtensions
 {
     public static NameValueCollection GetEnvironmentInformation(this IConfiguration configuration)
@@ -61,7 +60,7 @@ internal static class ConfigurationExtensions
     /// <summary>
     /// 获得 环境变量中的 OS 属性值
     /// </summary>
-    /// <returns></returns>
+    [ExcludeFromCodeCoverage]
     public static string GetOS()
     {
         string? os = null;
