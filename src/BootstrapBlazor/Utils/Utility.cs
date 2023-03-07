@@ -272,12 +272,78 @@ public static class Utility
     }
 
     #region GenerateColumns
+
+    /// <summary>
+    /// 通过特定类型模型获取模型属性集合
+    /// </summary>
+    /// <typeparam name="TModel"></typeparam>
+    /// <param name="source"></param>
+    /// <returns></returns>
+    public static IEnumerable<ITableColumn> GetTableColumns<TModel>(IEnumerable<ITableColumn>? source = null) => GetTableColumns(typeof(TModel), source);
+
+    /// <summary>
+    /// 通过特定类型模型获取模型属性集合
+    /// </summary>
+    /// <param name="type"></param>
+    /// <param name="source"></param>
+    /// <returns></returns>
+    public static IEnumerable<ITableColumn> GetTableColumns(Type type, IEnumerable<ITableColumn>? source = null)
+    {
+        var cols = new List<ITableColumn>(50);
+        var attrModel = type.GetCustomAttribute<AutoGenerateClassAttribute>(true);
+        var props = type.GetProperties();
+        foreach (var prop in props)
+        {
+            ITableColumn? tc;
+            var attr = prop.GetCustomAttribute<AutoGenerateColumnAttribute>(true);
+
+            // Issue: 增加定义设置标签 AutoGenerateClassAttribute
+            // https://gitee.com/LongbowEnterprise/BootstrapBlazor/issues/I381ED
+            var displayName = attr?.Text ?? Utility.GetDisplayName(type, prop.Name);
+            if (attr == null)
+            {
+                tc = new InternalTableColumn(prop.Name, prop.PropertyType, displayName);
+
+                if (attrModel != null)
+                {
+                    tc.InheritValue(attrModel);
+                }
+            }
+            else
+            {
+                if (attr.Ignore) continue;
+
+                attr.Text = displayName;
+                attr.FieldName = prop.Name;
+                attr.PropertyType = prop.PropertyType;
+
+                if (attrModel != null)
+                {
+                    attr.InheritValue(attrModel);
+                }
+                tc = attr;
+            }
+
+            // 替换属性 手写优先
+            var col = source?.FirstOrDefault(c => c.GetFieldName() == tc.GetFieldName());
+            if (col != null)
+            {
+                tc.CopyValue(col);
+            }
+            cols.Add(tc);
+        }
+
+        return cols.Where(a => a.Order > 0).OrderBy(a => a.Order)
+            .Concat(cols.Where(a => a.Order == 0))
+            .Concat(cols.Where(a => a.Order < 0).OrderBy(a => a.Order));
+    }
+
     /// <summary>
     /// 通过指定 Model 获得 IEditorItem 集合方法
     /// </summary>
     /// <param name="predicate"></param>
     /// <returns></returns>
-    public static IEnumerable<ITableColumn> GenerateColumns<TModel>(Func<ITableColumn, bool> predicate) => InternalTableColumn.GetProperties<TModel>().Where(predicate);
+    public static IEnumerable<ITableColumn> GenerateColumns<TModel>(Func<ITableColumn, bool> predicate) => Utility.GetTableColumns<TModel>().Where(predicate);
 
     /// <summary>
     /// RenderTreeBuilder 扩展方法 通过 IEditorItem 与 model 创建 Display 组件
@@ -744,7 +810,7 @@ public static class Utility
     /// </summary>
     /// <param name="source"></param>
     /// <returns></returns>
-    public static IEnumerable<IEditorItem> GenerateEditorItems<TModel>(IEnumerable<ITableColumn>? source = null) => InternalTableColumn.GetProperties<TModel>(source);
+    public static IEnumerable<IEditorItem> GenerateEditorItems<TModel>(IEnumerable<ITableColumn>? source = null) => Utility.GetTableColumns<TModel>(source);
 
     /// <summary>
     /// 通过指定类型创建 IStringLocalizer 实例

@@ -715,6 +715,7 @@ public class TableTest : TableTestBase
             {
                 pb.Add(a => a.ShowToolbar, true);
                 pb.Add(a => a.ShowExportButton, true);
+                pb.Add(a => a.ShowToastAfterExport, true);
                 pb.Add(a => a.ExportButtonText, "Test_Export");
                 pb.Add(a => a.Items, Foo.GenerateFoo(localizer));
                 pb.Add(a => a.TableColumns, foo => builder =>

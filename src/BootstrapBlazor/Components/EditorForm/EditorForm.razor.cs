@@ -230,7 +230,7 @@ public partial class EditorForm<TModel> : IShowLabel
                 if (AutoGenerateAllItem)
                 {
                     // 获取绑定模型所有属性
-                    var items = InternalTableColumn.GetProperties<TModel>().ToList();
+                    var items = Utility.GetTableColumns<TModel>().ToList();
 
                     // 通过设定的 FieldItems 模板获取项进行渲染
                     foreach (var el in EditorItems)

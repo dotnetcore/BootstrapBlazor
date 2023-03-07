@@ -76,6 +76,12 @@ public partial class Table<TItem>
     public string? ExportButtonIcon { get; set; }
 
     /// <summary>
+    /// 获得/设置 导出数据后是否弹出 Toast 提示框 默认 true
+    /// </summary>
+    [Parameter]
+    public bool ShowToastAfterExport { get; set; } = true;
+
+    /// <summary>
     /// 获得/设置 导出按钮下拉菜单模板 默认 null
     /// </summary>
     [Parameter]
@@ -899,13 +905,16 @@ public partial class Table<TItem>
             ret = await ExcelExport.ExportAsync(Rows, GetVisibleColumns());
         }
 
-        option = new ToastOption
+        if (ShowToastAfterExport)
         {
-            Title = ExportToastTitle,
-            Category = ret ? ToastCategory.Success : ToastCategory.Error
-        };
-        option.Content = string.Format(ExportToastContent, ret ? SuccessText : FailText, Math.Ceiling(option.Delay / 1000.0));
-        await Toast.Show(option);
+            option = new ToastOption
+            {
+                Title = ExportToastTitle,
+                Category = ret ? ToastCategory.Success : ToastCategory.Error
+            };
+            option.Content = string.Format(ExportToastContent, ret ? SuccessText : FailText, Math.Ceiling(option.Delay / 1000.0));
+            await Toast.Show(option);
+        }
     }
 
     /// <summary>

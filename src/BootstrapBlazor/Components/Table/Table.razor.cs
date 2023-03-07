@@ -713,7 +713,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             // 初始化列
             if (AutoGenerateColumns)
             {
-                var cols = InternalTableColumn.GetProperties<TItem>(Columns);
+                var cols = Utility.GetTableColumns<TItem>(Columns);
                 Columns.Clear();
                 Columns.AddRange(cols);
             }
