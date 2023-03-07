@@ -87,7 +87,7 @@ public class TabItem : ComponentBase
     /// <param name="text"></param>
     /// <param name="icon"></param>
     /// <param name="closable"></param>
-    public void SetText(string text, string? icon = null, bool? closable = null)
+    public void SetHeader(string text, string? icon = null, bool? closable = null)
     {
         if (TabSet != null)
         {
