@@ -1,0 +1,14 @@
+﻿@inject IStringLocalizer<BootstrapBlazor.Shared.Samples.PopoverConfirms> Localizer
+
+<PopConfirmButton Placement="Placement.Top"
+                  ConfirmIcon="fa-solid fa-triangle-exclamation text-info"
+                  Color="Color.Primary"
+                  ConfirmButtonColor="Color.Info"
+                  Text="@Localizer["PopoverConfirmsBodyTemplateButtonText"]">
+    <BodyTemplate>
+        <div class="d-flex align-items-center">
+            <span class="me-2">Label: </span>
+            <BootstrapInput TValue="string" />
+        </div>
+    </BodyTemplate>
+</PopConfirmButton>

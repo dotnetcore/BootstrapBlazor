@@ -1,0 +1,53 @@
+﻿@inject IStringLocalizer<BootstrapBlazor.Shared.Samples.PopoverConfirms> Localizer
+
+<div class="d-flex justify-content-center border p-3 rounded">
+    <div class="d-flex flex-column w-100" style="height: 240px;">
+        <div class="d-flex justify-content-center">
+            <PopConfirmButton Placement="Placement.Bottom"
+                              ConfirmButtonColor="Color.Danger"
+                              Text="@Localizer["PopoverConfirmsNormalPopupBoxText"]"
+                              Content="@Localizer["PopoverConfirmsNormalPopupBoxContent"]"
+                              OnConfirm="@OnConfirm"
+                              OnClose="@OnClose" />
+        </div>
+        <div class="d-flex justify-content-between m-4 align-items-center flex-fill">
+            <PopConfirmButton Placement="Placement.Right"
+                              Text="@Localizer["PopoverConfirmsNormalRightPopup"]"
+                              Content="@Localizer["PopoverConfirmsNormalRightPopupContent"]"
+                              OnConfirm="@OnConfirm"
+                              OnClose="@OnClose" />
+            <PopConfirmButton Placement="Placement.Left"
+                              Text="@Localizer["PopoverConfirmsNormalLeftPopup"]"
+                              Content="@Localizer["PopoverConfirmsNormalLeftPopupContent"]"
+                              OnConfirm="@OnConfirm"
+                              OnClose="@OnClose" />
+        </div>
+        <div class="d-flex justify-content-center">
+            <PopConfirmButton Placement="Placement.Top"
+                              Text="@Localizer["PopoverConfirmsNormalPopupAbove"]"
+                              Content="@Localizer["PopoverConfirmsNormalPopupAboveContent"]"
+                              OnConfirm="@OnConfirm"
+                              OnClose="@OnClose" />
+        </div>
+    </div>
+</div>
+<BlockLogger @ref="Trace" class="mt-3" />
+
+@code {
+    [NotNull]
+    private BlockLogger? Trace { get; set; }
+
+    private Task OnClose()
+    {
+        // This method is called back when the confirm button is clicked, and this method will not be called when the cancel button is clicked
+        Trace.Log("OnClose Trigger");
+        return Task.CompletedTask;
+    }
+
+    private Task OnConfirm()
+    {
+        // This method is called back when the confirm button is clicked, and this method will not be called when the cancel button is clicked
+        Trace.Log("OnConfirm Trigger");
+        return Task.CompletedTask;
+    }
+}
