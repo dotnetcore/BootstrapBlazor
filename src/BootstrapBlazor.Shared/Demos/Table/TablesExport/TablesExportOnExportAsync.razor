@@ -25,6 +25,11 @@
     private List<Foo>? Items { get; set; }
 
     private static IEnumerable<int> PageItemsSource => new int[] { 4, 10, 20 };
+
+    [Inject]
+    [NotNull]
+    private ITableExcelExport? Exporter { get; set; }
+
     /// <summary>
     /// OnInitialized 方法
     /// </summary>
@@ -52,10 +57,12 @@
         });
     }
 
-    private static Task<bool> OnExportAsync(IEnumerable<Foo> Items, QueryPageOptions options)
+    private async Task<bool> OnExportAsync(IEnumerable<Foo> items, QueryPageOptions options)
     {
-        //your code...
+        // your code ...
+        await Exporter.ExportAsync(items, null, "Test.xlsx");
 
-        return Task.FromResult(true);
+        // 返回 true 时自动弹出提示框
+        return true;
     }
 }

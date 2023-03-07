@@ -612,6 +612,22 @@ public class UtilityTest : BootstrapBlazorTestBase
         Assert.Equal("01", actual);
     }
 
+    [Fact]
+    public void GetTableColumns_Ok()
+    {
+        var cols = Utility.GetTableColumns<Dog>().ToList();
+        Assert.Equal(2, cols.Count);
+    }
+
+    [AutoGenerateClass(Align = Alignment.Center)]
+    private class Dog
+    {
+        public string? Name1 { get; set; }
+
+        [AutoGenerateColumn(Align = Alignment.Center, Order = -2)]
+        public string? Name2 { get; set; }
+    }
+
     private class MockNullDisplayNameColumn : MockTableColumn, IEditorItem
     {
         public MockNullDisplayNameColumn(string fieldName, Type propertyType) : base(fieldName, propertyType)

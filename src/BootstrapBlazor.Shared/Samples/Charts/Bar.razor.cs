@@ -40,7 +40,7 @@ public partial class Bar
 
     private Task OnAfterUpdate(ChartAction action) => InvokeAsync(() => Logger.Log($"Bar Figure update data operation completed -- {action}"));
 
-    private Task<ChartDataSource> OnInit(bool stacked,bool setTitle=true)
+    private Task<ChartDataSource> OnInit(bool stacked, bool setTitle = true)
     {
         var ds = new ChartDataSource();
         if (setTitle)
@@ -85,7 +85,7 @@ public partial class Bar
     /// </summary>
     private Task OnReloadChart()
     {
-        BarDataCount=Randomer.Next(5, 15);
+        BarDataCount = Randomer.Next(5, 15);
         BarChart?.Reload();
         return Task.CompletedTask;
     }

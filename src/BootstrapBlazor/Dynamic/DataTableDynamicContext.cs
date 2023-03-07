@@ -62,7 +62,7 @@ public class DataTableDynamicContext : DynamicObjectContext
         DynamicObjectType = CreateType();
 
         // 获得显示列
-        Columns = InternalTableColumn.GetProperties(DynamicObjectType, cols).Where(col => GetShownColumns(col, invisibleColumns, shownColumns, hiddenColumns));
+        Columns = Utility.GetTableColumns(DynamicObjectType, cols).Where(col => GetShownColumns(col, invisibleColumns, shownColumns, hiddenColumns));
 
         OnValueChanged = OnCellValueChanged;
 
