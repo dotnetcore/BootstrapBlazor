@@ -13,7 +13,7 @@ internal class DefaultExcelExport : ITableExcelExport
     /// 
     /// </summary>
     /// <returns></returns>
-    public Task<bool> ExportAsync<TItem>(IEnumerable<TItem> items, IEnumerable<ITableColumn> cols, string? fileName = null) where TItem : class
+    public Task<bool> ExportAsync<TItem>(IEnumerable<TItem> items, IEnumerable<ITableColumn>? cols = null, string? fileName = null) where TItem : class
     {
         return Task.FromResult(false);
     }
