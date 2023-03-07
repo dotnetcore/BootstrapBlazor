@@ -2071,6 +2071,8 @@
     "BlockHeaderTemplateDesc": "在 <code>HeaderTemplate</code> 中使用 <code>Badge</code> 设置挂件",
     "BlockSetHeaderTextTemplateTitle": "代码设置 Header 标题",
     "BlockSetHeaderTextTemplateIntro": "通过设置 <code>TabItem</code> 参数 <code>Text</code> 进行自定义标题设置",
+    "BlockSetTabItemHeaderTextTitle": "代码设置标题图标",
+    "BlockSetTabItemHeaderTextIntro": "通过设置 <code>TabItem</code> 实例方法 <code>SetHeader</code> 进行自定义标题设置",
     "Att1": "是否为带边框卡片样式",
     "Att2": "是否为卡片样式",
     "Att3": "是否仅渲染 Active 标签",
