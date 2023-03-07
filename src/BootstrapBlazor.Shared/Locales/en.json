@@ -4372,20 +4372,20 @@
     "LocatorsNormalButtonText": "Locating"
   },
   "BootstrapBlazor.Shared.Samples.Prints": {
-    "Title": "Print",
-    "SubTitle": "Used to print a document or a local view",
-    "Tips1": "Set up <code style='margin-left: 14px;' > PreviewUrl</code>, open a new page for print preview and click the print button on this page for page printing",
-    "Tips2": "If you are printing a button in the <code>Dialog</code> component when you do not set the <code>PreviewUrl</code>, the pop-up contents are printed",
-    "PreButtonText": "Print",
+    "PrintsTitle": "Print",
+    "PrintsSubTitle": "Used to print a document or a local view",
+    "PrintsTips1": "Set up <code style='margin-left: 14px;' > PreviewUrl</code>, open a new page for print preview and click the print button on this page for page printing",
+    "PrintsTips2": "If you are printing a button in the <code>Dialog</code> component when you do not set the <code>PreviewUrl</code>, the pop-up contents are printed",
+    "PrintsButtonText": "Print",
     "PrintButtonTitle": "Basic usage",
     "PrintButtonIntro": "Print the page by clicking the print button",
-    "PrintP1": "After clicking the print button below, a new page pops up for print preview, confirms that it is correct, and then clicks the print button in the print preview page for printer selection",
+    "PrintsButtonDescription": "After clicking the print button below, a new page pops up for print preview, confirms that it is correct, and then clicks the print button in the print preview page for printer selection",
     "PrintDialogTitle": "Print the bullet window",
     "PrintDialogIntro": "Turn on printing by setting up the <code>ShowPrint</code>",
     "PrintDialogP": "In this example, the pop-up window content is a custom component <code>{0}</code> the <code>Footer</code> where the button itself is located is hidden, so the <code>Print</code> button built into the pop-up window cannot be displayed, and setting the <code>{1}</code> makes the <b>print</b>The button appears in the title bar",
     "PrintServiceTitle": "Print service",
     "PrintServiceIntro": "By setting up the content components to print, call the <b>print service</b>directly print jobs",
-    "DialogTitle": "The data query window"
+    "PrintsDialogTitle": "The data query window"
   },
   "BootstrapBlazor.Shared.Samples.Tags": {
     "Title": "Tag",

@@ -1,0 +1,22 @@
+﻿@inject IStringLocalizer<BootstrapBlazor.Shared.Samples.Prints> Localizer
+@inject DialogService DialogService
+
+<Button Icon="fa-solid fa-print" Text="@Localizer["PrintsButtonText"]" OnClick="OnClickPrint" />
+
+@code {
+    private async Task OnClickPrint()
+    {
+        var op = new DialogOption()
+        {
+            Title = Localizer["PrintsDialogTitle"],
+            ShowPrintButton = true,
+            ShowPrintButtonInHeader = true,
+            ShowFooter = false,
+            BodyContext = 1
+        };
+        op.Component = BootstrapDynamicComponent.CreateComponent<DataDialogComponent>();
+
+        await DialogService.Show(op);
+    }
+}
+
