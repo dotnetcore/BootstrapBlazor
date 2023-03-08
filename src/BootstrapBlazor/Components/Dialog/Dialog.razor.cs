@@ -90,6 +90,11 @@ public partial class Dialog : IDisposable
 
                 // 多弹窗支持
                 CurrentParameter = DialogParameters.LastOrDefault();
+                if(CurrentParameter!=null)
+                {
+                    IsKeyboard = Convert.ToBoolean(CurrentParameter[nameof(IsKeyboard)]);
+                    IsBackdrop = Convert.ToBoolean(CurrentParameter[nameof(IsBackdrop)]);
+                }
 
                 StateHasChanged();
             }

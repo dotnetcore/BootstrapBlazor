@@ -196,6 +196,7 @@ public class DialogOption
             [nameof(ShowPrintButton)] = ShowPrintButton,
             [nameof(ShowPrintButtonInHeader)] = ShowPrintButtonInHeader,
             [nameof(IsKeyboard)] = IsKeyboard,
+            [nameof(IsBackdrop)] = IsBackdrop,
             [nameof(IsAutoCloseAfterSave)] = IsAutoCloseAfterSave,
             [nameof(IsDraggable)] = IsDraggable,
             [nameof(ShowMaximizeButton)] = ShowMaximizeButton
