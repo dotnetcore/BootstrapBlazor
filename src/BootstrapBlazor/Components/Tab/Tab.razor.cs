@@ -462,7 +462,7 @@ public partial class Tab : IHandlerException, IDisposable
             // 检查 Options 优先
             var option = context.Handler.GetCustomAttribute<TabItemOptionAttribute>(false)
                 ?? TabItemMenuBinder.CurrentValue.Binders
-                    .FirstOrDefault(i => i.Key.Equals(url, StringComparison.OrdinalIgnoreCase))
+                    .FirstOrDefault(i => i.Key.TrimStart('/').Equals(url.TrimStart('/'), StringComparison.OrdinalIgnoreCase))
                     .Value;
             if (option != null)
             {
@@ -477,6 +477,7 @@ public partial class Tab : IHandlerException, IDisposable
                 parameters.Add(nameof(TabItem.Closable), Options.Closable);
                 parameters.Add(nameof(TabItem.IsActive), Options.IsActive);
                 parameters.Add(nameof(TabItem.Text), Options.Text);
+                Options.Reset();
             }
             parameters.Add(nameof(TabItem.Url), url);
 
