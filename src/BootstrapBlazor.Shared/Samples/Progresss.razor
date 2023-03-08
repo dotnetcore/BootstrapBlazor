@@ -1,10 +1,10 @@
 ﻿@page "/progresss"
 @inject IStringLocalizer<Progresss> Localizer
 
-<h3>@Localizer["H1"]</h3>
-<h4>@Localizer["H2"]</h4>
+<h3>@Localizer["ProgresssTitle"]</h3>
+<h4>@Localizer["ProgresssDescription"]</h4>
 
-<DemoBlock Title="@Localizer["P1"]" Introduction="@Localizer["P2"]" Name="Progress">
+<DemoBlock Title="@Localizer["ProgresssNormalTitle"]" Introduction="@Localizer["ProgresssNormalIntro"]" Name="Normal">
     <div class="row g-3">
         <div class="col-12">
             <Progress Value="0"></Progress>
@@ -24,15 +24,15 @@
     </div>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["P3"]" Introduction="@Localizer["P4"]" Name="DispalyValue">
+<DemoBlock Title="@Localizer["ProgresssDispalyValueTitle"]" Introduction="@Localizer["ProgresssDispalyValueIntro"]" Name="DispalyValue">
     <Progress Value="25" IsShowValue="true"></Progress>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["P5"]" Introduction="@Localizer["P6"]" Name="Height">
+<DemoBlock Title="@Localizer["ProgresssHeightTitle"]" Introduction="@Localizer["ProgresssHeightIntro"]" Name="Height">
     <Progress Value="25" IsShowValue="true" Height="32"></Progress>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["P7"]" Introduction="@Localizer["P8"]" Name="Color">
+<DemoBlock Title="@Localizer["ProgresssColorTitle"]" Introduction="@Localizer["ProgresssColorIntro"]" Name="Color">
     <div class="row g-3">
         <div class="col-12">
             <Progress Value="25" Color="Color.Success" IsShowValue="true"></Progress>
@@ -49,7 +49,7 @@
     </div>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["P9"]" Introduction="@Localizer["P10"]" Name="Stripe">
+<DemoBlock Title="@Localizer["ProgresssStripeTitle"]" Introduction="@Localizer["ProgresssStripeIntro"]" Name="Stripe">
     <div class="row g-3">
         <div class="col-12">
             <Progress IsStriped="true" Value="25" Color="Color.Success" IsShowValue="true"></Progress>
@@ -66,7 +66,7 @@
     </div>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["P11"]" Introduction="@Localizer["P12"]" Name="Dynamic">
+<DemoBlock Title="@Localizer["ProgresssDynamicTitle"]" Introduction="@Localizer["ProgresssDynamicIntro"]" Name="Dynamic">
     <div class="row g-3">
         <div class="col-12">
             <Progress IsAnimated="true" IsStriped="true" Value="25" Color="Color.Success" IsShowValue="true"></Progress>
@@ -83,7 +83,7 @@
     </div>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["P13"]" Introduction="@Localizer["P14"]" Name="Binding">
+<DemoBlock Title="@Localizer["ProgresssBindingTitle"]" Introduction="@Localizer["ProgresssBindingIntro"]" Name="Binding">
     <div class="row g-3">
         <div class="col-12">
             <BootstrapInput TItem="int" @bind-Value="@Value" />
