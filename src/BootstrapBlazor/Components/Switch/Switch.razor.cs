@@ -124,12 +124,13 @@ public partial class Switch
         {
             Value = !Value;
 
-            // 回调 OnValueChanged 再调用 EventCallback
-            OnValueChanged?.Invoke(Value);
             if (ValueChanged.HasDelegate)
             {
                 await ValueChanged.InvokeAsync(Value);
             }
+
+            // 回调 OnValueChanged 再调用 EventCallback
+            OnValueChanged?.Invoke(Value);
         }
     }
 }
