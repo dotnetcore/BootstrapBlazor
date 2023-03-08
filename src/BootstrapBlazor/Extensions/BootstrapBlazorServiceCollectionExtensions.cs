@@ -160,7 +160,7 @@ public static class BootstrapBlazorServiceCollectionExtensions
     /// <param name="services"></param>
     /// <param name="configureOptions"></param>
     /// <returns></returns>
-    public static IServiceCollection ConfigureTabItemBindOptions(this IServiceCollection services, Action<TabItemMenuBindOptions> configureOptions)
+    public static IServiceCollection ConfigureTabItemMenuBindOptions(this IServiceCollection services, Action<TabItemMenuBindOptions> configureOptions)
     {
         services.Configure(configureOptions);
         return services;
