@@ -90,6 +90,11 @@ public partial class Dialog : IDisposable
 
                 // 多弹窗支持
                 CurrentParameter = DialogParameters.LastOrDefault();
+                if(CurrentParameter!=null)
+                {
+                    IsKeyboard = Convert.ToBoolean(CurrentParameter[nameof(IsKeyboard)]);
+                    IsBackdrop = Convert.ToBoolean(CurrentParameter[nameof(IsBackdrop)]);
+                }
 
                 StateHasChanged();
             }
@@ -100,7 +105,9 @@ public partial class Dialog : IDisposable
         option.Modal = ModalContainer;
 
         // TODO: 下一个版本移除
+#pragma warning disable CS0618 // Type or member is obsolete
         option.Dialog = ModalContainer;
+#pragma warning restore CS0618 // Type or member is obsolete
 
         var parameters = option.ToAttributes();
         var content = option.BodyTemplate ?? option.Component?.Render();
