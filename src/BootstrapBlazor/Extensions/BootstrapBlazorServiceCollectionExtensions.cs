@@ -59,7 +59,7 @@ public static class BootstrapBlazorServiceCollectionExtensions
         services.ConfigureBootstrapBlazorOption(configureOptions);
         services.ConfigureIPLocatorOption();
 
-        services.AddTabItemMenuBindOption();
+        services.AddTabItemMenuBindOptions();
         return services;
     }
 
@@ -148,9 +148,9 @@ public static class BootstrapBlazorServiceCollectionExtensions
     /// </summary>
     /// <param name="services"></param>
     /// <returns></returns>
-    public static IServiceCollection AddTabItemMenuBindOption(this IServiceCollection services)
+    static IServiceCollection AddTabItemMenuBindOptions(this IServiceCollection services)
     {
-        services.AddOptionsMonitor<TabItemMenuBindOption>();
+        services.AddOptionsMonitor<TabItemMenuBindOptions>();
         return services;
     }
 
@@ -160,7 +160,7 @@ public static class BootstrapBlazorServiceCollectionExtensions
     /// <param name="services"></param>
     /// <param name="configureOptions"></param>
     /// <returns></returns>
-    public static IServiceCollection ConfigureTabItemOptions(this IServiceCollection services, Action<TabItemMenuBindOption> configureOptions)
+    public static IServiceCollection ConfigureTabItemBindOptions(this IServiceCollection services, Action<TabItemMenuBindOptions> configureOptions)
     {
         services.Configure(configureOptions);
         return services;
