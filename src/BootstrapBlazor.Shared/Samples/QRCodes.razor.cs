@@ -7,17 +7,10 @@ using BootstrapBlazor.Shared.Services;
 namespace BootstrapBlazor.Shared.Samples;
 
 /// <summary>
-/// 
+/// QRCodes
 /// </summary>
 public sealed partial class QRCodes
 {
-
-    [NotNull]
-    private string? Title { get; set; }
-
-    [NotNull]
-    private string? SubTitle { get; set; }
-
     [NotNull]
     private string? BaseUsageText { get; set; }
 
@@ -26,10 +19,6 @@ public sealed partial class QRCodes
 
     [NotNull]
     private string? SuccessText { get; set; }
-
-    [Inject]
-    [NotNull]
-    private IStringLocalizer<QRCodes>? Localizer { get; set; }
 
     [NotNull]
     private BlockLogger? Trace { get; set; }
@@ -40,18 +29,10 @@ public sealed partial class QRCodes
     {
         base.OnInitialized();
 
-        Title ??= Localizer[nameof(Title)];
-        SubTitle ??= Localizer[nameof(SubTitle)];
         BaseUsageText ??= Localizer[nameof(BaseUsageText)];
         IntroText ??= Localizer[nameof(IntroText)];
         SuccessText ??= Localizer[nameof(SuccessText)];
     } 
-
-    private Task OnGenerated()
-    {
-        Trace.Log(SuccessText);
-        return Task.CompletedTask;
-    }
 
     /// <summary>
     /// 获得属性方法
@@ -65,7 +46,7 @@ public sealed partial class QRCodes
             Description = Localizer[nameof(QRCode.PlaceHolder)],
             Type = "string",
             ValueList = " — ",
-            DefaultValue = Localizer["PlaceHolderValue"]
+            DefaultValue = Localizer["QRCodesPlaceHolderValue"]
         },
         new AttributeItem() {
             Name = nameof(QRCode.Width),
@@ -79,7 +60,7 @@ public sealed partial class QRCodes
             Description = Localizer[nameof(QRCode.ClearButtonText)],
             Type = "string",
             ValueList = " — ",
-            DefaultValue = Localizer["ClearButtonTextValue"]
+            DefaultValue = Localizer["QRCodesClearButtonTextValue"]
         },
         new AttributeItem() {
             Name = nameof(QRCode.ClearButtonIcon),
@@ -93,7 +74,7 @@ public sealed partial class QRCodes
             Description = Localizer[nameof(QRCode.GenerateButtonText)],
             Type = "string",
             ValueList = " — ",
-            DefaultValue = Localizer["GenerateButtonTextValue"]
+            DefaultValue = Localizer["QRCodesGenerateButtonTextValue"]
         },
         new AttributeItem() {
             Name = nameof(QRCode.GenerateButtonIcon),
