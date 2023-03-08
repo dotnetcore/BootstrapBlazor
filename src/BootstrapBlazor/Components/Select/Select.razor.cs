@@ -260,14 +260,14 @@ public partial class Select<TValue> : ISelect
 
         if (CurrentValueAsString != item.Value)
         {
+            // 触发 StateHasChanged
+            CurrentValueAsString = item.Value;
+
             // 触发 SelectedItemChanged 事件
             if (OnSelectedItemChanged != null)
             {
                 await OnSelectedItemChanged(SelectedItem);
             }
-
-            // 触发 StateHasChanged
-            CurrentValueAsString = item.Value;
         }
     }
 
