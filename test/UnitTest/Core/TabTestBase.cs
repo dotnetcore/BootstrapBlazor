@@ -48,6 +48,13 @@ public class TabTestHost : IDisposable
     {
         services.AddBootstrapBlazor(op => op.ToastDelay = 2000);
         services.ConfigureJsonLocalizationOptions(op => op.AdditionalJsonAssemblies = new[] { typeof(Alert).Assembly });
+        services.ConfigureTabItemBindOptions(options =>
+        {
+            options.Binders = new()
+            {
+                { "/Binder", new() { Text = "Index_Binder_Test" } }
+            };
+        });
     }
 
     protected virtual void ConfigureConfigration(IServiceCollection services)
