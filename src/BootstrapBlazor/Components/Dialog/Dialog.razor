@@ -2,8 +2,8 @@
 @inherits BootstrapComponentBase
 
 <Modal @ref="ModalContainer" IsBackdrop="IsBackdrop" IsKeyboard="@IsKeyboard" OnShownAsync="@OnShownAsync" OnCloseAsync="OnCloseAsync">
-    @for (var index = 0; index < DialogParameters.Count; index++)
+    @for (var index = 0; index < DialogParameters.Keys.Count; index++)
     {
-        @RenderDialog(index, DialogParameters[index])
+        @RenderDialog(index, DialogParameters.Keys.ElementAt(index))
     }
 </Modal>
