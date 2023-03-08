@@ -35,6 +35,13 @@ builder.Services.AddBootstrapBlazorServices(options =>
 
 builder.Services.Configure<HubOptions>(option => option.MaximumReceiveMessageSize = null);
 
+builder.Services.ConfigureTabItemMenuBindOptions(options =>
+{
+    options.Binders.Add("layout-demo", new() { Text = "Text 1" });
+    options.Binders.Add("layout-demo?text=Parameter", new() { Text = "Text 2" });
+    options.Binders.Add("layout-demo/text=Parameter", new() { Text = "Text 3" });
+});
+
 var app = builder.Build();
 
 // 启用本地化

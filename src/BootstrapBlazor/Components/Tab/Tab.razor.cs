@@ -3,6 +3,7 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.Extensions.Localization;
+using Microsoft.Extensions.Options;
 using System.Collections.Concurrent;
 using System.Reflection;
 
@@ -212,6 +213,10 @@ public partial class Tab : IHandlerException, IDisposable
     [Inject]
     [NotNull]
     private TabItemTextOptions? Options { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IOptionsMonitor<TabItemBindOptions>? TabItemMenuBinder { get; set; }
 
     private ConcurrentDictionary<TabItem, bool> LazyTabCache { get; } = new();
 
@@ -455,22 +460,26 @@ public partial class Tab : IHandlerException, IDisposable
         if (context.Handler != null)
         {
             // 检查 Options 优先
-            var option = context.Handler.GetCustomAttribute<TabItemOptionAttribute>(false);
-            if (Options.Valid())
+            var option = context.Handler.GetCustomAttribute<TabItemOptionAttribute>(false)
+                ?? TabItemMenuBinder.CurrentValue.Binders
+                    .FirstOrDefault(i => i.Key.TrimStart('/').Equals(url.TrimStart('/'), StringComparison.OrdinalIgnoreCase))
+                    .Value;
+            if (option != null)
             {
-                AddParameters(option);
+                parameters.Add(nameof(TabItem.Icon), option.Icon);
+                parameters.Add(nameof(TabItem.Closable), option.Closable);
+                parameters.Add(nameof(TabItem.IsActive), true);
+                parameters.Add(nameof(TabItem.Text), option.Text);
             }
-            else
+            else if (Options.Valid())
             {
-                if (option != null)
-                {
-                    parameters.Add(nameof(TabItem.Icon), option.Icon);
-                    parameters.Add(nameof(TabItem.Closable), option.Closable);
-                    parameters.Add(nameof(TabItem.IsActive), true);
-                }
-                parameters.Add(nameof(TabItem.Text), option?.Text ?? url.Split("/").FirstOrDefault());
-                parameters.Add(nameof(TabItem.Url), url);
+                parameters.Add(nameof(TabItem.Icon), Options.Icon);
+                parameters.Add(nameof(TabItem.Closable), Options.Closable);
+                parameters.Add(nameof(TabItem.IsActive), Options.IsActive);
+                parameters.Add(nameof(TabItem.Text), Options.Text);
+                Options.Reset();
             }
+            parameters.Add(nameof(TabItem.Url), url);
 
             parameters.Add(nameof(TabItem.ChildContent), new RenderFragment(builder =>
             {
@@ -491,21 +500,6 @@ public partial class Tab : IHandlerException, IDisposable
         }
 
         AddTabItem(parameters);
-
-        void AddParameters(TabItemOptionAttribute? option)
-        {
-            var text = option?.Text ?? Options.Text;
-            var icon = option?.Icon ?? Options.Icon ?? string.Empty;
-            var active = Options.IsActive;
-            var closable = option?.Closable ?? Options.Closable;
-            Options.Reset();
-
-            parameters.Add(nameof(TabItem.Url), url);
-            parameters.Add(nameof(TabItem.Icon), icon);
-            parameters.Add(nameof(TabItem.Closable), closable);
-            parameters.Add(nameof(TabItem.IsActive), active);
-            parameters.Add(nameof(TabItem.Text), text);
-        }
     }
 
     /// <summary>

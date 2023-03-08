@@ -524,7 +524,7 @@ public class TabTest : TabTestBase
     }
 
     [Fact]
-    public async Task TabItemOption_Ok()
+    public void TabItemOptions_Ok()
     {
         var cut = Context.RenderComponent<Tab>(pb =>
         {
@@ -535,8 +535,19 @@ public class TabTest : TabTestBase
             pb.Add(a => a.ShowClose, true);
             pb.Add(a => a.DefaultUrl, "/Dog");
         });
-        await cut.InvokeAsync(() => cut.Instance.AddTab("/Dog", "Dog"));
+        cut.InvokeAsync(() => cut.Instance.AddTab("/Dog", "Dog"));
         var tabItem = cut.FindComponents<DynamicElement>().First(i => i.Markup.Contains("Dog"));
         Assert.DoesNotContain("tabs-item-close", tabItem.Markup);
+    }
+
+    [Fact]
+    public void TabItemMenuBinder_Ok()
+    {
+        var cut = Context.RenderComponent<Tab>(pb =>
+        {
+            pb.Add(a => a.AdditionalAssemblies, new Assembly[] { GetType().Assembly });
+            pb.Add(a => a.DefaultUrl, "/Binder");
+        });
+        cut.Contains("Index_Binder_Test");
     }
 }
