@@ -7,7 +7,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 标签与菜单捆绑配置项
 /// </summary>
-public class TabItemMenuBindOptions
+public class TabItemBindOptions
 {
     /// <summary>
     /// 获得/设置 集合

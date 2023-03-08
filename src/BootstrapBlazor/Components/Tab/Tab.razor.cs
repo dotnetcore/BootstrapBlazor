@@ -216,7 +216,7 @@ public partial class Tab : IHandlerException, IDisposable
 
     [Inject]
     [NotNull]
-    private IOptionsMonitor<TabItemMenuBindOptions>? TabItemMenuBinder { get; set; }
+    private IOptionsMonitor<TabItemBindOptions>? TabItemMenuBinder { get; set; }
 
     private ConcurrentDictionary<TabItem, bool> LazyTabCache { get; } = new();
 
