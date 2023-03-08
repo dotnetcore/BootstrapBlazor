@@ -64,13 +64,6 @@ export class Modal extends BlazorComponent {
             this._modal._config.backdrop = backdrop
             this._modal.show()
         } else {
-            if (!this._state) {
-                this._state = []
-            }
-            this._state.push({
-                keyboard: this._element.getAttribute('data-bs-keyboard'),
-                backdrop: this._element.getAttribute('data-bs-backdrop')
-            })
             this._invoker.invokeMethodAsync(this._invokerShownMethod)
 
             this._modal._config.keyboard = false
@@ -140,10 +133,9 @@ export class Modal extends BlazorComponent {
 
             this._handlerEscape = e => {
                 if (e.key === 'Escape') {
-                    const state = this._state[this._state.length - 1]
-                    if (state.keyboard === 'true') {
+                    const keyboard = this._element.getAttribute('data-bs-keyboard')
+                    if (keyboard === 'true') {
                         this._hide()
-                        this._state.pop()
                     }
                 }
             }
@@ -151,10 +143,9 @@ export class Modal extends BlazorComponent {
             EventHandler.on(document, 'keyup', this._handlerEscape)
             EventHandler.on(this._element, 'click', e => {
                 if (e.target.closest('.modal-dialog') === null) {
-                    const state = this._state[this._state.length - 1]
-                    if (state.backdrop !== 'static') {
+                    const backdrop = this._element.getAttribute('data-bs-backdrop')
+                    if (backdrop !== 'static') {
                         this._hide()
-                        this._state.pop()
                     }
                 }
             })

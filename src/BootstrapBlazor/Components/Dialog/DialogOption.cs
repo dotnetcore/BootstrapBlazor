@@ -185,33 +185,31 @@ public class DialogOption
     {
         var ret = new Dictionary<string, object>
         {
-            [nameof(Size)] = Size,
-            [nameof(FullScreenSize)] = FullScreenSize,
-            [nameof(IsCentered)] = IsCentered,
-            [nameof(IsScrolling)] = IsScrolling,
-            [nameof(ShowCloseButton)] = ShowCloseButton,
-            [nameof(ShowSaveButton)] = ShowSaveButton,
-            [nameof(ShowHeaderCloseButton)] = ShowHeaderCloseButton,
-            [nameof(ShowFooter)] = ShowFooter,
-            [nameof(ShowPrintButton)] = ShowPrintButton,
-            [nameof(ShowPrintButtonInHeader)] = ShowPrintButtonInHeader,
-            [nameof(IsKeyboard)] = IsKeyboard,
-            [nameof(IsBackdrop)] = IsBackdrop,
-            [nameof(IsAutoCloseAfterSave)] = IsAutoCloseAfterSave,
-            [nameof(IsDraggable)] = IsDraggable,
-            [nameof(ShowMaximizeButton)] = ShowMaximizeButton
+            [nameof(ModalDialog.Size)] = Size,
+            [nameof(ModalDialog.FullScreenSize)] = FullScreenSize,
+            [nameof(ModalDialog.IsCentered)] = IsCentered,
+            [nameof(ModalDialog.IsScrolling)] = IsScrolling,
+            [nameof(ModalDialog.ShowCloseButton)] = ShowCloseButton,
+            [nameof(ModalDialog.ShowSaveButton)] = ShowSaveButton,
+            [nameof(ModalDialog.ShowHeaderCloseButton)] = ShowHeaderCloseButton,
+            [nameof(ModalDialog.ShowFooter)] = ShowFooter,
+            [nameof(ModalDialog.ShowPrintButton)] = ShowPrintButton,
+            [nameof(ModalDialog.ShowPrintButtonInHeader)] = ShowPrintButtonInHeader,
+            [nameof(ModalDialog.IsAutoCloseAfterSave)] = IsAutoCloseAfterSave,
+            [nameof(ModalDialog.IsDraggable)] = IsDraggable,
+            [nameof(ModalDialog.ShowMaximizeButton)] = ShowMaximizeButton
         };
         if (!string.IsNullOrEmpty(PrintButtonText))
         {
-            ret.Add(nameof(PrintButtonText), PrintButtonText);
+            ret.Add(nameof(ModalDialog.PrintButtonText), PrintButtonText);
         }
         if (!string.IsNullOrEmpty(Title))
         {
-            ret.Add(nameof(Title), Title);
+            ret.Add(nameof(ModalDialog.Title), Title);
         }
         if (BodyContext != null)
         {
-            ret.Add(nameof(BodyContext), BodyContext);
+            ret.Add(nameof(ModalDialog.BodyContext), BodyContext);
         }
         return ret;
     }
