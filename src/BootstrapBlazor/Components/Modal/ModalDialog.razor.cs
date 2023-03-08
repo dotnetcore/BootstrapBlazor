@@ -158,12 +158,6 @@ public partial class ModalDialog : IHandlerException, IDisposable
     [Parameter]
     public RenderFragment? HeaderTemplate { get; set; }
 
-    ///// <summary>
-    ///// 获得/设置 关闭弹窗回调委托
-    ///// </summary>
-    //[Parameter]
-    //public Func<Task>? OnClose { get; set; }
-
     /// <summary>
     /// 获得/设置 保存按钮回调委托
     /// </summary>
