@@ -17945,7 +17945,6 @@ return jQuery;
   return index_umd;
 
 }));
-//# sourceMappingURL=bootstrap.bundle.js.map
 
 /**
  * 浏览器解析，浏览器、Node.js皆可
