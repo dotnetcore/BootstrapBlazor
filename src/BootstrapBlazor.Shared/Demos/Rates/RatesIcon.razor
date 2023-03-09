@@ -1,0 +1,40 @@
+﻿@inject IStringLocalizer<BootstrapBlazor.Shared.Samples.Rates> Localizer
+
+<div class="row">
+    <div class="col-12 col-sm-6">
+        <Rate @bind-Value="IconListValue" class="custom-rate">
+            <ItemTemplate>
+                <i class="@GetIconList(context)"></i>
+            </ItemTemplate>
+        </Rate>
+    </div>
+    <div class="col-12 col-sm-6">
+        <div class="d-flex align-items-center h-100">
+            @GetIconValueChanged()
+        </div>
+    </div>
+</div>
+
+@code {
+    private int IconListValue { get; set; } = 1;
+
+    private List<string> IconList { get; } = new List<string>()
+    {
+        "fa-solid fa-face-sad-cry",
+        "fa-solid fa-face-sad-tear",
+        "fa-solid fa-face-smile",
+        "fa-solid fa-face-surprise",
+        "fa-solid fa-face-grin-stars"
+    };
+
+    private string GetIconList(int index) => IconList[index - 1];
+
+    private string GetIconValueChanged() => (IconListValue - 1) switch
+    {
+        0 => Localizer["RatesCry"],
+        1 => Localizer["RatesTear"],
+        2 => Localizer["RatesSmile"],
+        3 => Localizer["RatesSurprise"],
+        _ => Localizer["RatesGrin"]
+    };
+}

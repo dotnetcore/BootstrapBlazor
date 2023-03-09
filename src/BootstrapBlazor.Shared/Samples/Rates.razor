@@ -1,47 +1,32 @@
 ﻿@page "/rates"
 @inject IStringLocalizer<Rates> Localizer
 
-<h3>@Localizer["Title"]</h3>
+<h3>@Localizer["RatesTitle"]</h3>
 
-<h4>@Localizer["H1"]</h4>
+<h4>@Localizer["RatesDescription"]</h4>
 
-<DemoBlock Title="@Localizer["Block1Title"]" Introduction="@Localizer["Block1Intro"]" Name="Normal">
-    <Rate Value="@BindValue" ValueChanged="@OnValueChanged" />
-    <BlockLogger @ref="Trace" class="mt-3" />
+<DemoBlock Title="@Localizer["RatesNormalTitle"]"
+           Introduction="@Localizer["RatesNormalIntro"]"
+           Name="Normal"
+           Demo="typeof(Demos.Rates.RatesNormal)">
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["IconTitle"]" Introduction="@Localizer["IconIntro"]" Name="Icon">
+<DemoBlock Title="@Localizer["RatesIconTitle"]"
+           Introduction="@Localizer["RatesIconIntro"]"
+           Name="Icon"
+           Demo="typeof(Demos.Rates.RatesIcon)">
     <Pre>.custom-rate {
     --bb-rate-font-size: 1.7rem;
     --bb-rate-height: 30px;
     --bb-rate-width: 30px;
     --bb-rate-active-color: var(--bs-primary);
 }</Pre>
-    <div class="row">
-        <div class="col-12 col-sm-6">
-            <Rate @bind-Value="IconListValue" class="custom-rate">
-                <ItemTemplate>
-                    <i class="@GetIconList(context)"></i>
-                </ItemTemplate>
-            </Rate>
-        </div>
-        <div class="col-12 col-sm-6">
-            <div class="d-flex align-items-center h-100">
-                @GetIconValueChanged()
-            </div>
-        </div>
-    </div>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["Block2Title"]" Introduction="@Localizer["Block2Intro"]" Name="Disable">
-    <div class="row g-3">
-        <div class="col-6">
-            <Rate Value="@BindValue1" IsDisable="IsDisable" />
-        </div>
-        <div class="col-6">
-            <Switch @bind-Value="IsDisable" OnText="@Localizer["SwitchOn"]" OnColor="Color.Danger" OffText="@Localizer["SwitchOff"]" OffColor="@Color.Success" />
-        </div>
-    </div>
+<DemoBlock Title="@Localizer["RatesDisableTitle"]"
+           Introduction="@Localizer["RatesDisableIntro"]"
+           Name="Disable"
+           Demo="typeof(Demos.Rates.RatesDisable)">
 </DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" />
