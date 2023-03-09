@@ -1,13 +1,13 @@
 ﻿@page "/responsives"
 @inject IStringLocalizer<Responsives> Localizer
 
-<h3>@Localizer["H1"]</h3>
-<h4>@Localizer["H2"]</h4>
+<h3>@Localizer["ResponsivesTitle"]</h3>
+<h4>@Localizer["ResponsivesDescription"]</h4>
 
-<DemoBlock Title="@Localizer["P1"]" Introduction="@Localizer["P2"]" Name="Normal">
-    <div>@Localizer["P3"] <code>Breakpoint</code>：@Size</div>
+<DemoBlock Title="@Localizer["ResponsivesNormalTitle"]"
+           Introduction="@Localizer["ResponsivesNormalIntro"]"
+           Name="Normal"
+           Demo="typeof(Demos.Responsives.ResponsivesNormal)">
 </DemoBlock>
-
-<Responsive OnBreakPointChanged="OnChanged" />
 
 <AttributeTable Items="@GetAttributes()" />

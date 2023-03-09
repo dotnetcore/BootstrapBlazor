@@ -1,0 +1,15 @@
+﻿@inject IStringLocalizer<BootstrapBlazor.Shared.Samples.Responsives> Localizer
+
+<div>@Localizer["ResponsivesNormalIntroCurrentText"] <code>Breakpoint</code>：@Size</div>
+<Responsive OnBreakPointChanged="OnChanged" />
+
+@code {
+    private BreakPoint Size { get; set; }
+
+    private Task OnChanged(BreakPoint size)
+    {
+        Size = size;
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
+}
