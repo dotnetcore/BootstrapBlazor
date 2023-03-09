@@ -2,6 +2,8 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using Microsoft.Extensions.Options;
+
 namespace BootstrapBlazor.Components;
 
 /// <summary>
@@ -49,7 +51,7 @@ public partial class Avatar
     /// 获得/设置 头像框显示图标
     /// </summary>
     [Parameter]
-    public string Icon { get; set; } = "fa-solid fa-user";
+    public string? Icon { get; set; }
 
     /// <summary>
     /// 获得/设置 是否为显示为文字
@@ -81,6 +83,10 @@ public partial class Avatar
     [Parameter]
     public Func<Task<string>>? GetUrlAsync { get; set; }
 
+    [Inject]
+    [NotNull]
+    private IOptions<IconMapperOptions>? Options { get; set; }
+
     /// <summary>
     /// 获得/设置 是否显示图片
     /// </summary>
@@ -93,6 +99,8 @@ public partial class Avatar
     protected override async Task OnParametersSetAsync()
     {
         await base.OnParametersSetAsync();
+
+        Icon ??= Options?.Value.GetIcon(BootstrapIcons.AvatarIcon, "fa-solid fa-user");
 
         if (string.IsNullOrEmpty(Url) && GetUrlAsync != null)
         {

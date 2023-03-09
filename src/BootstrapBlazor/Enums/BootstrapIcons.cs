@@ -12,5 +12,9 @@ public enum BootstrapIcons
     /// <summary>
     /// AnchorLink 组件 Icon 属性图标
     /// </summary>
-    AnchorLinkIcon
+    AnchorLinkIcon,
+    /// <summary>
+    /// Avatar 组件 Icon 属性图标
+    /// </summary>
+    AvatarIcon,
 }
