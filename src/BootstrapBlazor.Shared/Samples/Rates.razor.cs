@@ -5,52 +5,16 @@
 namespace BootstrapBlazor.Shared.Samples;
 
 /// <summary>
-/// 
+/// Rates
 /// </summary>
 public sealed partial class Rates
 {
-    private int BindValue { get; set; } = 3;
-
-    private int BindValue1 { get; set; } = 2;
-
-    private bool IsDisable { get; set; }
-
-    private List<string> IconList { get; } = new List<string>()
-    {
-        "fa-solid fa-face-sad-cry",
-        "fa-solid fa-face-sad-tear",
-        "fa-solid fa-face-smile",
-        "fa-solid fa-face-surprise",
-        "fa-solid fa-face-grin-stars"
-    };
-
-    private string GetIconList(int index) => IconList[index - 1];
-
-    private int IconListValue { get; set; } = 1;
-
-    private BlockLogger? Trace { get; set; }
-
-    private void OnValueChanged(int val)
-    {
-        BindValue = val;
-        Trace?.Log($"{Localizer["Log"]} {val}");
-    }
-
-    private string GetIconValueChanged() => (IconListValue - 1) switch
-    {
-        0 => Localizer["Cry"],
-        1 => Localizer["Tear"],
-        2 => Localizer["Smile"],
-        3 => Localizer["Surprise"],
-        _ => Localizer["Grin"]
-    };
-
     private IEnumerable<EventItem> GetEvents() => new EventItem[]
     {
         new EventItem()
         {
             Name = "ValueChanged",
-            Description =Localizer["Event1"],
+            Description =Localizer["RatesEvent1"],
             Type ="EventCallback<int>"
         }
     };
@@ -60,14 +24,14 @@ public sealed partial class Rates
         // TODO: 移动到数据库中
         new AttributeItem() {
             Name = "Value",
-            Description = Localizer["Att1"],
+            Description = Localizer["RatesValue"],
             Type = "int",
             ValueList = " — ",
             DefaultValue = " — "
         },
         new AttributeItem() {
             Name = "Max",
-            Description = Localizer["AttMax"],
+            Description = Localizer["RatesMax"],
             Type = "int",
             ValueList = " — ",
             DefaultValue = " — "
@@ -75,7 +39,7 @@ public sealed partial class Rates
         new AttributeItem()
         {
             Name = "IsDisabled",
-            Description = Localizer["Att2"],
+            Description = Localizer["RatesMaxIsDisabled"],
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
@@ -83,7 +47,7 @@ public sealed partial class Rates
         new AttributeItem()
         {
             Name = "ItemTemplate",
-            Description = Localizer["AttItemTemplate"],
+            Description = Localizer["RatesItemTemplate"],
             Type = "RenderFragment<int>",
             ValueList = " — ",
             DefaultValue = " — "
