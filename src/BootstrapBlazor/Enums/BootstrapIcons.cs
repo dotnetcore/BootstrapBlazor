@@ -5,12 +5,12 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 图标映射配置类
+/// 组件内置图标枚举
 /// </summary>
-public class IconMapperOptions
+public enum BootstrapIcons
 {
     /// <summary>
-    /// 获得/设置 集合
+    /// AnchorLink 组件 Icon 属性图标
     /// </summary>
-    public Dictionary<BootstrapIcons, string> Items { get; set; } = new();
+    AnchorLinkIcon
 }

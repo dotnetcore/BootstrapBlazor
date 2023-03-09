@@ -2,7 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using Microsoft.Extensions.Localization;
+using Microsoft.Extensions.Options;
 
 namespace BootstrapBlazor.Components;
 
@@ -28,7 +28,11 @@ public partial class AnchorLink
     /// 获得/设置 锚点图标 默认 fa-solid fa-link
     /// </summary>
     [Parameter]
-    public string Icon { get; set; } = "fa-solid fa-link";
+    public string? Icon { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IOptionsMonitor<IconMapperOptions>? Options { get; set; }
 
     private string? IconString => CssBuilder.Default("anchor-link-icon")
         .AddClass(Icon)
@@ -37,4 +41,14 @@ public partial class AnchorLink
     private string? ClassString => CssBuilder.Default("anchor-link")
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
+        Icon ??= Options.CurrentValue.GetIcon(BootstrapIcons.AnchorLinkIcon, "fa-solid fa-link");
+    }
 }
