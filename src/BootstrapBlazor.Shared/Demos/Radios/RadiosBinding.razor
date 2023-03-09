@@ -1,0 +1,42 @@
+﻿@inject IStringLocalizer<BootstrapBlazor.Shared.Samples.Radios> Localizer
+
+<div class="row g-3">
+    <div class="col-12">
+        <RadioList Items="@Items" @bind-Value="@BindRadioItem" OnSelectedChanged="@OnItemChanged"></RadioList>
+    </div>
+    <div class="col-12">
+        Text: @BindRadioItem.Text Value: @BindRadioItem.Value
+    </div>
+</div>
+<BlockLogger class="mt-3" @ref="BinderLog" />
+
+@code {
+    [NotNull]
+    private BlockLogger? BinderLog { get; set; }
+
+    [NotNull]
+    private IEnumerable<SelectedItem>? Items { get; set; }
+
+    private SelectedItem BindRadioItem { get; set; } = new SelectedItem();
+
+    private Task OnItemChanged(IEnumerable<SelectedItem> values, SelectedItem val)
+    {
+        var value = values.FirstOrDefault();
+        BinderLog.Log($"{Localizer["RadiosLog1"]} {value?.Value} {Localizer["RadiosLog1"]} {value?.Text}");
+        return Task.CompletedTask;
+    }
+
+    /// <summary>
+    /// OnInitialized 方法
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        Items = new SelectedItem[]
+        {
+            new SelectedItem("1", Localizer["RadiosAdd1"]),
+            new SelectedItem("2", Localizer["RadiosAdd2"])
+        };
+    }
+}

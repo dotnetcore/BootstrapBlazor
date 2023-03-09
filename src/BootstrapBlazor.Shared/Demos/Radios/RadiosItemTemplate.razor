@@ -1,0 +1,37 @@
+﻿@inject IStringLocalizer<BootstrapBlazor.Shared.Samples.Radios> Localizer
+
+<RadioList TValue="string" Items="@IconDemoValues" IsVertical="true">
+    <ItemTemplate>
+        @if (context is IconSelectedItem item)
+        {
+            <div>
+                <i class="@item.Icon"></i>
+                <span>@item.Text</span>
+            </div>
+        }
+    </ItemTemplate>
+</RadioList>
+
+@code {
+    [NotNull]
+    private IEnumerable<IconSelectedItem>? IconDemoValues { get; set; }
+
+    /// <summary>
+    /// OnInitialized 方法
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        IconDemoValues = new List<IconSelectedItem>()
+        {
+            new IconSelectedItem() { Text = "Item1", Value = "1", Icon = "fa-solid fa-users" },
+            new IconSelectedItem() { Text = "Item2", Value = "2", Icon = "fa-solid fa-users-gear" }
+        };
+    }
+
+    class IconSelectedItem : SelectedItem
+    {
+        public string? Icon { get; set; }
+    }
+}

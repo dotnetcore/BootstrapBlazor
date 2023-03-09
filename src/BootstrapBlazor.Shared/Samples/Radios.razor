@@ -1,109 +1,62 @@
 ﻿@page "/radios"
 @inject IStringLocalizer<Radios> Localizer
 
-<h3>@Localizer["Title"]</h3>
+<h3>@Localizer["RadiosTitle"]</h3>
 
-<h4>@Localizer["H1"]</h4>
+<h4>@Localizer["RadiosDescription"]</h4>
 
-<DemoBlock Title="@Localizer["Block1Title"]" Introduction="@Localizer["Block1Title"]" Name="Normal">
-    <RadioList TValue="string" Items="@DemoValues" OnSelectedChanged="@OnSelectedChanged"></RadioList>
-    <BlockLogger @ref="Trace" class="mt-3" />
+<DemoBlock Title="@Localizer["RadiosNormalTitle"]"
+           Introduction="@Localizer["RadiosNormalIntro"]"
+           Name="Normal"
+           Demo="typeof(Demos.Radios.RadiosNormal)">
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["Block2Title"]" Introduction='@Localizer["Block2Intro"]' Name="Disable">
-    <RadioList TValue="string" Items="@DemoValues" IsDisabled="true" ShowBorder="false"></RadioList>
+<DemoBlock Title="@Localizer["RadiosDisableTitle"]"
+           Introduction='@Localizer["RadiosDisableIntro"]'
+           Name="Disable"
+           Demo="typeof(Demos.Radios.RadiosDisable)">
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["Block3Title"]" Introduction="@Localizer["Block3Intro"]" Name="Label">
-    <RadioList TValue="string" Items="@DemoValues" ShowLabel="true" DisplayText="@Localizer["RadioText"]"></RadioList>
+<DemoBlock Title="@Localizer["RadiosLabelTitle"]"
+           Introduction="@Localizer["RadiosLabelIntro"]"
+           Name="Label"
+           Demo="typeof(Demos.Radios.RadiosLabel)">
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["Block4Title"]" Introduction="@Localizer["Block4Intro"]" Name="Binding">
-    <div class="row g-3">
-        <div class="col-12">
-            <RadioList Items="@Items" @bind-Value="@BindRadioItem" OnSelectedChanged="@OnItemChanged"></RadioList>
-        </div>
-        <div class="col-12">
-            Text: @BindRadioItem.Text Value: @BindRadioItem.Value
-        </div>
-    </div>
-    <BlockLogger class="mt-3" @ref="BinderLog" />
+<DemoBlock Title="@Localizer["RadiosBindingTitle"]"
+           Introduction="@Localizer["RadiosBindingIntro"]"
+           Name="Binding"
+           Demo="typeof(Demos.Radios.RadiosBinding)">
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["Block5Title"]" Introduction="@Localizer["Block5Intro"]" Name="Vertical">
-    <RadioList TValue="string" Items="@DemoValues" IsVertical="true"></RadioList>
+<DemoBlock Title="@Localizer["RadiosVerticalTitle"]"
+           Introduction="@Localizer["RadiosVerticalIntro"]"
+           Name="Vertical"
+           Demo="typeof(Demos.Radios.RadiosVertical)">
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["Block6Title"]" Introduction="@Localizer["Block6Intro"]" Name="Enum">
-    <RadioList @bind-Value="@SelectedEnumItem"></RadioList>
-    <p class="mt-2">@SelectedEnumItem</p>
-    <p>@((MarkupString)Localizer["P1"].Value)</p>
-    <RadioList @bind-Value="@SelectedEnumItem2" IsAutoAddNullItem="true" NullItemText="@Localizer["RadioText2"]"></RadioList>
+<DemoBlock Title="@Localizer["RadiosEnumTitle"]"
+           Introduction="@Localizer["RadiosEnumIntro"]"
+           Name="Enum"
+           Demo="typeof(Demos.Radios.RadiosEnum)">
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["ItemTemplateTitle"]" Introduction="@Localizer["ItemTemplateIntro"]" Name="ItemTemplate">
-    <RadioList TValue="string" Items="@IconDemoValues" IsVertical="true">
-        <ItemTemplate>
-            @if (context is IconSelectedItem item)
-            {
-                <div>
-                    <i class="@item.Icon"></i>
-                    <span>@item.Text</span>
-                </div>
-            }
-        </ItemTemplate>
-    </RadioList>
+<DemoBlock Title="@Localizer["RadiosItemTemplateTitle"]"
+           Introduction="@Localizer["RadiosItemTemplateIntro"]"
+           Name="ItemTemplate"
+           Demo="typeof(Demos.Radios.RadiosItemTemplate)">
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["Block7Title"]" Introduction="@Localizer["Block7Intro"]" Name="Color">
-    <div class="row g-3">
-        <div class="col-12">
-            <RadioList TValue="string" Items="@DemoValues" Color="@Color.Primary"></RadioList>
-        </div>
-        <div class="col-12">
-            <RadioList TValue="string" Items="@DemoValues" Color="@Color.Success"></RadioList>
-        </div>
-        <div class="col-12">
-            <RadioList TValue="string" Items="@DemoValues" Color="@Color.Danger"></RadioList>
-        </div>
-        <div class="col-12">
-            <RadioList TValue="string" Items="@DemoValues" Color="@Color.Info"></RadioList>
-        </div>
-        <div class="col-12">
-            <RadioList TValue="string" Items="@DemoValues" Color="@Color.Warning"></RadioList>
-        </div>
-        <div class="col-12">
-            <RadioList TValue="string" Items="@DemoValues" Color="@Color.Secondary"></RadioList>
-        </div>
-    </div>
+<DemoBlock Title="@Localizer["RadiosColorTitle"]"
+           Introduction="@Localizer["RadiosColorIntro"]"
+           Name="Color"
+           Demo="typeof(Demos.Radios.RadiosColor)">
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["BlockIsButtonTitle"]" Introduction="@Localizer["BlockIsButtonIntro"]" Name="IsButton">
-    <div class="row g-3">
-        <div class="col-12 col-sm-6">
-            <RadioList IsButton="true" @bind-Value="@SelectedEnumItem"></RadioList>
-        </div>
-        <div class="col-12 col-sm-6">
-            <RadioList IsButton="true" @bind-Value="@SelectedEnumItem" IsDisabled="true" Color="Color.Danger"></RadioList>
-        </div>
-        <div class="col-12 col-sm-6">
-            <RadioList IsButton="true" @bind-Value="@SelectedEnumItem" Color="Color.Success" ShowLabel="true" DisplayText="Test"></RadioList>
-        </div>
-        <div class="col-12 col-sm-6">
-            <RadioList IsButton="true" @bind-Value="@SelectedEnumItem" Color="Color.Info" ShowLabel="true" DisplayText="Test"></RadioList>
-        </div>
-    </div>
-
-    <ValidateForm Model="Model" class="mt-3">
-        <div class="row g-3 form-inline">
-            <div class="col-12 col-sm-6">
-                <BootstrapInput @bind-Value="@Model.Name" />
-            </div>
-            <div class="col-12 col-sm-6">
-                <RadioList @bind-Value="@Model.Complete" IsButton="true" Items="FooItems" />
-            </div>
-        </div>
-    </ValidateForm>
+<DemoBlock Title="@Localizer["RadiosIsButtonTitle"]"
+           Introduction="@Localizer["RadiosIsButtonIntro"]"
+           Name="IsButton"
+           Demo="typeof(Demos.Radios.RadiosIsButton)">
 </DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" />
