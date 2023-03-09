@@ -1,5 +1,50 @@
-﻿<h3>RadiosIsButton</h3>
+﻿@inject IStringLocalizer<BootstrapBlazor.Shared.Samples.Radios> Localizer
+@inject IStringLocalizer<Foo> LocalizerFoo
+
+<div class="row g-3">
+    <div class="col-12 col-sm-6">
+        <RadioList IsButton="true" @bind-Value="@SelectedEnumItem"></RadioList>
+    </div>
+    <div class="col-12 col-sm-6">
+        <RadioList IsButton="true" @bind-Value="@SelectedEnumItem" IsDisabled="true" Color="Color.Danger"></RadioList>
+    </div>
+    <div class="col-12 col-sm-6">
+        <RadioList IsButton="true" @bind-Value="@SelectedEnumItem" Color="Color.Success" ShowLabel="true" DisplayText="Test"></RadioList>
+    </div>
+    <div class="col-12 col-sm-6">
+        <RadioList IsButton="true" @bind-Value="@SelectedEnumItem" Color="Color.Info" ShowLabel="true" DisplayText="Test"></RadioList>
+    </div>
+</div>
+
+<ValidateForm Model="Model" class="mt-3">
+    <div class="row g-3 form-inline">
+        <div class="col-12 col-sm-6">
+            <BootstrapInput @bind-Value="@Model.Name" />
+        </div>
+        <div class="col-12 col-sm-6">
+            <RadioList @bind-Value="@Model.Complete" IsButton="true" Items="FooItems" />
+        </div>
+    </div>
+</ValidateForm>
 
 @code {
+    [NotNull]
+    private Foo? Model { get; set; }
 
+    [NotNull]
+    private List<SelectedItem>? FooItems { get; set; }
+
+    [NotNull]
+    private EnumEducation? SelectedEnumItem { get; set; }
+
+    /// <summary>
+    /// OnInitialized 方法
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        Model = Foo.Generate(LocalizerFoo);
+        FooItems = Foo.GetCompleteItems(LocalizerFoo);
+    }
 }

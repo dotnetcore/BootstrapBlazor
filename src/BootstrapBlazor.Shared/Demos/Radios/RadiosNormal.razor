@@ -1,5 +1,33 @@
-﻿<h3>RadiosNormal</h3>
+﻿@inject IStringLocalizer<BootstrapBlazor.Shared.Samples.Radios> Localizer
+
+<RadioList TValue="string" Items="@DemoValues" OnSelectedChanged="@OnSelectedChanged" />
+<BlockLogger @ref="Trace" class="mt-3" />
 
 @code {
+    [NotNull]
+    private BlockLogger? Trace { get; set; }
 
+    [NotNull]
+    private IEnumerable<SelectedItem>? DemoValues { get; set; }
+
+    private Task OnSelectedChanged(IEnumerable<SelectedItem> values, string val)
+    {
+        var value = values.FirstOrDefault();
+        Trace.Log($"{Localizer["RadiosLog1"]} {value?.Value}  {Localizer["RadiosLog2"]}{value?.Text}  {Localizer["RadiosLog3"]}{val}");
+        return Task.CompletedTask;
+    }
+
+    /// <summary>
+    /// OnInitialized 方法
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        DemoValues = new List<SelectedItem>(2)
+        {
+            new SelectedItem("1", Localizer["RadiosItem1"]),
+            new SelectedItem("2", Localizer["RadiosItem2"]) { IsDisabled = true }
+        };
+    }
 }

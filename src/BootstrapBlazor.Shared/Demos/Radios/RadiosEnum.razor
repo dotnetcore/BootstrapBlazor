@@ -1,5 +1,14 @@
-﻿<h3>RadiosEnum</h3>
+﻿@inject IStringLocalizer<BootstrapBlazor.Shared.Samples.Radios> Localizer
+
+<RadioList @bind-Value="@SelectedEnumItem" />
+<p class="mt-2">@SelectedEnumItem</p>
+<p>@((MarkupString)Localizer["RadiosEnumDescription"].Value)</p>
+<RadioList @bind-Value="@SelectedEnumItem2" IsAutoAddNullItem="true" NullItemText="@Localizer["RadiosEnumText"]" />
 
 @code {
+    [NotNull]
+    private EnumEducation? SelectedEnumItem { get; set; }
 
+    [NotNull]
+    private EnumEducation? SelectedEnumItem2 { get; set; }
 }
