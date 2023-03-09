@@ -3,7 +3,6 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.Extensions.Localization;
-using Microsoft.Extensions.Options;
 using System.Collections.Concurrent;
 using System.Reflection;
 

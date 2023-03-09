@@ -3,7 +3,6 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.AspNetCore.Components.Web.Virtualization;
-using Microsoft.Extensions.Options;
 using System.Globalization;
 
 namespace BootstrapBlazor.Components;

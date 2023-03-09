@@ -5,7 +5,6 @@
 using BootstrapBlazor.Localization.Json;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.Extensions.Localization;
-using Microsoft.Extensions.Options;
 using System.Collections.Concurrent;
 using System.Linq.Expressions;
 using System.Reflection;
