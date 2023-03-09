@@ -23,5 +23,8 @@ public class ConfigureIconMapperOptionsTest
 
         var iconService = context.Services.GetRequiredService<IOptions<IconMapperOptions>>();
         Assert.Equal("mdi mdi-link-variant", iconService.Value.Items[ComponentIcons.AnchorLinkIcon]);
+
+        Assert.Equal("mdi mdi-link-variant", iconService.Value.GetIcon(ComponentIcons.AnchorLinkIcon));
+        Assert.Equal("mdi mdi-test", iconService.Value.GetIcon(ComponentIcons.TableSortIcon, "mdi mdi-test"));
     }
 }
