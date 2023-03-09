@@ -58,6 +58,8 @@ public static class BootstrapBlazorServiceCollectionExtensions
 
         services.ConfigureBootstrapBlazorOption(configureOptions);
         services.ConfigureIPLocatorOption();
+
+        services.AddTabItemBindOptions();
         return services;
     }
 
@@ -138,6 +140,29 @@ public static class BootstrapBlazorServiceCollectionExtensions
         services.AddOptions();
         services.TryAddSingleton<IOptionsChangeTokenSource<TOptions>, ConfigurationChangeTokenSource<TOptions>>();
         services.TryAddSingleton<IConfigureOptions<TOptions>, ConfigureOptions<TOptions>>();
+        return services;
+    }
+
+    /// <summary>
+    /// 增加 菜单与标签捆绑类配置项服务
+    /// </summary>
+    /// <param name="services"></param>
+    /// <returns></returns>
+    static IServiceCollection AddTabItemBindOptions(this IServiceCollection services)
+    {
+        services.AddOptionsMonitor<TabItemBindOptions>();
+        return services;
+    }
+
+    /// <summary>
+    /// 增加第三方菜单路由与 Tab 捆绑字典配置
+    /// </summary>
+    /// <param name="services"></param>
+    /// <param name="configureOptions"></param>
+    /// <returns></returns>
+    public static IServiceCollection ConfigureTabItemMenuBindOptions(this IServiceCollection services, Action<TabItemBindOptions> configureOptions)
+    {
+        services.Configure(configureOptions);
         return services;
     }
 }
