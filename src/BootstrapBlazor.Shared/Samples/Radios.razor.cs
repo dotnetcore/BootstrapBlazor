@@ -5,138 +5,64 @@
 namespace BootstrapBlazor.Shared.Samples;
 
 /// <summary>
-/// 
+/// Radios
 /// </summary>
 public sealed partial class Radios
 {
-    [NotNull]
-    private BlockLogger? Trace { get; set; }
-
-    [NotNull]
-    private BlockLogger? BinderLog { get; set; }
-
-    [NotNull]
-    private IEnumerable<SelectedItem>? DemoValues { get; set; }
-
-    [NotNull]
-    private IEnumerable<IconSelectedItem>? IconDemoValues { get; set; }
-
-    private Task OnSelectedChanged(IEnumerable<SelectedItem> values, string val)
-    {
-        var value = values.FirstOrDefault();
-        Trace.Log($"{Localizer["Log1"]} {value?.Value}  {Localizer["Log1"]}{value?.Text}  {Localizer["Log3"]}{val}");
-        return Task.CompletedTask;
-    }
-
-    private Task OnItemChanged(IEnumerable<SelectedItem> values, SelectedItem val)
-    {
-        var value = values.FirstOrDefault();
-        BinderLog.Log($"{Localizer["Log1"]} {value?.Value} {Localizer["Log1"]} {value?.Text}");
-        return Task.CompletedTask;
-    }
-
-    [NotNull]
-    private IEnumerable<SelectedItem>? Items { get; set; }
-
-    private SelectedItem BindRadioItem { get; set; } = new SelectedItem();
-
-    [NotNull]
-    private EnumEducation? SelectedEnumItem { get; set; }
-
-    [NotNull]
-    private EnumEducation? SelectedEnumItem2 { get; set; }
-
-    [Inject]
-    [NotNull]
-    private IStringLocalizer<Foo>? LocalizerFoo { get; set; }
-
-    [NotNull]
-    private Foo? Model { get; set; }
-
-    [NotNull]
-    private List<SelectedItem>? FooItems { get; set; }
-
-    /// <summary>
-    /// OnInitialized 方法
-    /// </summary>
-    protected override void OnInitialized()
-    {
-        base.OnInitialized();
-
-        DemoValues = new List<SelectedItem>(2)
-        {
-            new SelectedItem("1", Localizer["Item1"]),
-            new SelectedItem("2", Localizer["Item2"]) { IsDisabled = true }
-        };
-        Items = new SelectedItem[]
-        {
-            new SelectedItem("1", Localizer["Add1"]),
-            new SelectedItem("2", Localizer["Add2"])
-        };
-        Model = Foo.Generate(LocalizerFoo);
-        FooItems = Foo.GetCompleteItems(LocalizerFoo);
-
-        IconDemoValues = new List<IconSelectedItem>()
-        {
-            new IconSelectedItem() { Text = "Item1", Value = "1", Icon = "fa-solid fa-users" },
-            new IconSelectedItem() { Text = "Item2", Value = "2", Icon = "fa-solid fa-users-gear" }
-        };
-    }
-
     private IEnumerable<AttributeItem> GetAttributes() => new[]
     {
         new AttributeItem() {
             Name = "DisplayText",
-            Description = Localizer["Att1"],
+            Description = Localizer["RadiosDisplayText"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = "—"
         },
         new AttributeItem() {
             Name = "GroupName",
-            Description = Localizer["GroupName"],
+            Description = Localizer["RadiosGroupName"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = "—"
         },
         new AttributeItem() {
             Name = "NullItemText",
-            Description = Localizer["Att2"],
+            Description = Localizer["RadiosNullItemText"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = "—"
         },
         new AttributeItem() {
             Name = "IsDisabled",
-            Description = Localizer["Att3"],
+            Description = Localizer["RadiosIsDisabled"],
             Type = "boolean",
             ValueList = "true / false",
             DefaultValue = "false"
         },
         new AttributeItem() {
             Name = "IsVertical",
-            Description = Localizer["Att4"],
+            Description = Localizer["RadiosIsVertical"],
             Type = "boolean",
             ValueList = "true / false",
             DefaultValue = "false"
         },
         new AttributeItem() {
             Name = nameof(RadioList<string>.IsButton),
-            Description = Localizer["IsButton"],
+            Description = Localizer["RadiosIsButton"],
             Type = "boolean",
             ValueList = "true / false",
             DefaultValue = "false"
         },
         new AttributeItem() {
             Name = "IsAutoAddNullItem",
-            Description = Localizer["Att5"],
+            Description = Localizer["RadiosIsAutoAddNullItem"],
             Type = "boolean",
             ValueList = "true / false",
             DefaultValue = "false"
         },
         new AttributeItem() {
             Name = "Items",
-            Description = Localizer["Att6"],
+            Description = Localizer["RadiosItems"],
             Type = "IEnumerable<TItem>",
             ValueList = " — ",
             DefaultValue = "—"
@@ -152,13 +78,8 @@ public sealed partial class Radios
         new EventItem()
         {
             Name = "OnSelectedChanged",
-            Description = Localizer["Event1"],
+            Description = Localizer["RadiosOnSelectedChangedEvent"],
             Type ="Func<IEnumerable<SelectedItem>, TValue, Task>"
         }
     };
-
-    class IconSelectedItem : SelectedItem
-    {
-        public string? Icon { get; set; }
-    }
 }
