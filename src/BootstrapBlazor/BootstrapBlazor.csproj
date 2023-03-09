@@ -62,6 +62,7 @@
   <ItemGroup>
     <Using Include="BootstrapBlazor.Components" />
     <Using Include="Microsoft.AspNetCore.Components" />
+    <Using Include="Microsoft.Extensions.Options" />
     <Using Include="Microsoft.JSInterop" />
     <Using Include="System.ComponentModel.DataAnnotations" />
   </ItemGroup>

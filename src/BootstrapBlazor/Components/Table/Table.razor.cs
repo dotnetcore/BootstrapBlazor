@@ -3,7 +3,6 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.AspNetCore.Components.Web.Virtualization;
-using Microsoft.Extensions.Options;
 using System.Globalization;
 
 namespace BootstrapBlazor.Components;
@@ -534,6 +533,10 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     [Parameter]
     public Func<TItem, TItem, bool>? ModelEqualityComparer { get; set; }
 
+    [Inject]
+    [NotNull]
+    private IOptions<IconMapperOptions>? IconOptions { get; set; }
+
     private bool UpdateSortTooltip { get; set; }
 
     /// <summary>
@@ -629,11 +632,11 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             LineNoColumnAlignment = Alignment.Center;
         }
 
-        SortIconAsc ??= "fa-solid fa-sort-up";
-        SortIconDesc ??= "fa-solid fa-sort-down";
-        SortIcon ??= "fa-solid fa-sort";
-        FilterIcon ??= "fa-solid fa-filter";
-        ExportButtonIcon ??= "fa-solid fa-download";
+        SortIconAsc ??= IconOptions.Value.GetIcon(ComponentIcons.TableSortIconAsc, "fa-solid fa-sort-up");
+        SortIconDesc ??= IconOptions.Value.GetIcon(ComponentIcons.TableSortDesc, "fa-solid fa-sort-down");
+        SortIcon ??= IconOptions.Value.GetIcon(ComponentIcons.TableSortIcon, "fa-solid fa-sort");
+        FilterIcon ??= IconOptions.Value.GetIcon(ComponentIcons.TableFilterIcon, "fa-solid fa-filter");
+        ExportButtonIcon ??= IconOptions.Value.GetIcon(ComponentIcons.TableExportButtonIcon, "fa-solid fa-download");
     }
 
     /// <summary>

@@ -49,7 +49,7 @@ public partial class Avatar
     /// 获得/设置 头像框显示图标
     /// </summary>
     [Parameter]
-    public string Icon { get; set; } = "fa-solid fa-user";
+    public string? Icon { get; set; }
 
     /// <summary>
     /// 获得/设置 是否为显示为文字
@@ -81,6 +81,10 @@ public partial class Avatar
     [Parameter]
     public Func<Task<string>>? GetUrlAsync { get; set; }
 
+    [Inject]
+    [NotNull]
+    private IOptions<IconMapperOptions>? IconOptions { get; set; }
+
     /// <summary>
     /// 获得/设置 是否显示图片
     /// </summary>
@@ -98,6 +102,15 @@ public partial class Avatar
         {
             Url = await GetUrlAsync();
         }
+    }
+
+    /// <summary>
+    /// OnParametersSet 方法
+    /// </summary>
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+        Icon ??= IconOptions.Value.GetIcon(ComponentIcons.AvatarIcon, "fa-solid fa-user");
     }
 
     /// <summary>

@@ -5,7 +5,6 @@
 using BootstrapBlazor.Localization.Json;
 using BootstrapBlazor.Services;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using Microsoft.Extensions.Options;
 using System.Globalization;
 
 namespace Microsoft.Extensions.DependencyInjection;

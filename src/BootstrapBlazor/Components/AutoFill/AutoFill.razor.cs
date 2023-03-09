@@ -118,8 +118,15 @@ public partial class AutoFill<TValue>
     public bool ShowDropdownListOnFocus { get; set; } = true;
 
     /// <summary>
-    /// 
+    /// 图标
     /// </summary>
+    [Parameter]
+    public string? Icon { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IOptions<IconMapperOptions>? IconOptions { get; set; }
+
     [Inject]
     [NotNull]
     private IStringLocalizer<AutoComplete>? Localizer { get; set; }
@@ -130,15 +137,9 @@ public partial class AutoFill<TValue>
 
     private JSInterop<AutoFill<TValue>>? Interop { get; set; }
 
-    /// <summary>
-    /// 
-    /// </summary>
-    protected ElementReference AutoFillElement { get; set; }
+    private ElementReference AutoFillElement { get; set; }
 
-    /// <summary>
-    /// 
-    /// </summary>
-    protected int? CurrentItemIndex { get; set; }
+    private int? CurrentItemIndex { get; set; }
 
     /// <summary>
     /// OnInitialized 方法
@@ -159,6 +160,8 @@ public partial class AutoFill<TValue>
     protected override void OnParametersSet()
     {
         base.OnParametersSet();
+
+        Icon ??= IconOptions.Value.GetIcon(ComponentIcons.AutoFillIcon, "fa-fw fa-spin fa-solid fa-spinner");
 
         OnGetDisplayText ??= v => v?.ToString() ?? "";
         InputString = OnGetDisplayText(Value);
@@ -327,7 +330,7 @@ public partial class AutoFill<TValue>
     }
 
     /// <summary>
-    /// 
+    ///
     /// </summary>
     /// <param name="val"></param>
     [JSInvokable]
