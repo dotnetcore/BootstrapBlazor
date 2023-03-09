@@ -536,7 +536,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     [Inject]
     [NotNull]
-    private IOptions<IconMapperOptions>? IconMapperOptions { get; set; }
+    private IOptions<IconMapperOptions>? IconOptions { get; set; }
 
     private bool UpdateSortTooltip { get; set; }
 
@@ -633,11 +633,11 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             LineNoColumnAlignment = Alignment.Center;
         }
 
-        SortIconAsc ??= IconMapperOptions.Value.GetIcon(BootstrapIcons.TableSortIconAsc, "fa-solid fa-sort-up");
-        SortIconDesc ??= IconMapperOptions.Value.GetIcon(BootstrapIcons.TableSortDesc, "fa-solid fa-sort-down");
-        SortIcon ??= IconMapperOptions.Value.GetIcon(BootstrapIcons.TableSortIcon, "fa-solid fa-sort");
-        FilterIcon ??= IconMapperOptions.Value.GetIcon(BootstrapIcons.TableFilterIcon, "fa-solid fa-filter");
-        ExportButtonIcon ??= IconMapperOptions.Value.GetIcon(BootstrapIcons.TableExportButtonIcon, "fa-solid fa-download");
+        SortIconAsc ??= IconOptions.Value.GetIcon(ComponentIcons.TableSortIconAsc, "fa-solid fa-sort-up");
+        SortIconDesc ??= IconOptions.Value.GetIcon(ComponentIcons.TableSortDesc, "fa-solid fa-sort-down");
+        SortIcon ??= IconOptions.Value.GetIcon(ComponentIcons.TableSortIcon, "fa-solid fa-sort");
+        FilterIcon ??= IconOptions.Value.GetIcon(ComponentIcons.TableFilterIcon, "fa-solid fa-filter");
+        ExportButtonIcon ??= IconOptions.Value.GetIcon(ComponentIcons.TableExportButtonIcon, "fa-solid fa-download");
     }
 
     /// <summary>

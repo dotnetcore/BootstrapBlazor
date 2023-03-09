@@ -111,13 +111,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "localization", "localizatio
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BootstrapBlazor.BaiduOcr", "src\Extensions\Components\BootstrapBlazor.BaiduOcr\BootstrapBlazor.BaiduOcr.csproj", "{F800DC0F-6829-4B64-B96B-B301A512AF2A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BootstrapBlazor.MaterialDesign.Extensions", "src\Extensions\Components\BootstrapBlazor.Icons.Meterial\BootstrapBlazor.MaterialDesign.Extensions.csproj", "{9E46D275-5BB9-4CF5-87C8-CF178E027BBE}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BootstrapBlazor.MaterialDesign", "src\Extensions\Components\BootstrapBlazor.MaterialDesign\BootstrapBlazor.MaterialDesign.csproj", "{F9E37619-F519-4F73-8457-FFC4271EC443}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BootstrapBlazor.MaterialDesign.Extensions", "src\Extensions\Components\BootstrapBlazor.MaterialDesign.Extensions\BootstrapBlazor.MaterialDesign.Extensions.csproj", "{038C7B50-1ED9-4659-8D0B-CF13DE769571}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BootstrapBlazor.MaterialDesign.Extensions", "src\Extensions\Components\BootstrapBlazor.MaterialDesign.Extensions\BootstrapBlazor.MaterialDesign.Extensions.csproj", "{B4DE45B9-FC78-4CDA-B21F-2B0F96069A09}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BootstrapBlazor.MaterialDesign.Extensions", "src\Extensions\Components\BootstrapBlazor.MaterialDesign.Extensions\BootstrapBlazor.MaterialDesign.Extensions.csproj", "{B61A9684-E6B5-422E-821B-A29DCD079B43}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -217,14 +213,14 @@ Global
 		{F800DC0F-6829-4B64-B96B-B301A512AF2A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F800DC0F-6829-4B64-B96B-B301A512AF2A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F800DC0F-6829-4B64-B96B-B301A512AF2A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1867B312-3C02-45BD-A73B-6AB428D642C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1867B312-3C02-45BD-A73B-6AB428D642C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1867B312-3C02-45BD-A73B-6AB428D642C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1867B312-3C02-45BD-A73B-6AB428D642C6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B4DE45B9-FC78-4CDA-B21F-2B0F96069A09}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B4DE45B9-FC78-4CDA-B21F-2B0F96069A09}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B4DE45B9-FC78-4CDA-B21F-2B0F96069A09}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B4DE45B9-FC78-4CDA-B21F-2B0F96069A09}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F9E37619-F519-4F73-8457-FFC4271EC443}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F9E37619-F519-4F73-8457-FFC4271EC443}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F9E37619-F519-4F73-8457-FFC4271EC443}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F9E37619-F519-4F73-8457-FFC4271EC443}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B61A9684-E6B5-422E-821B-A29DCD079B43}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B61A9684-E6B5-422E-821B-A29DCD079B43}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B61A9684-E6B5-422E-821B-A29DCD079B43}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B61A9684-E6B5-422E-821B-A29DCD079B43}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -261,8 +257,8 @@ Global
 		{6312863E-771D-4EFE-9B9D-071A01222E7A} = {CD062AB6-244D-402A-8F33-C37DAC5856CC}
 		{7F7F3B85-7B15-485C-8DC2-BAFD8C086957} = {CD062AB6-244D-402A-8F33-C37DAC5856CC}
 		{F800DC0F-6829-4B64-B96B-B301A512AF2A} = {CD062AB6-244D-402A-8F33-C37DAC5856CC}
-		{1867B312-3C02-45BD-A73B-6AB428D642C6} = {CD062AB6-244D-402A-8F33-C37DAC5856CC}
-		{B4DE45B9-FC78-4CDA-B21F-2B0F96069A09} = {CD062AB6-244D-402A-8F33-C37DAC5856CC}
+		{F9E37619-F519-4F73-8457-FFC4271EC443} = {CD062AB6-244D-402A-8F33-C37DAC5856CC}
+		{B61A9684-E6B5-422E-821B-A29DCD079B43} = {CD062AB6-244D-402A-8F33-C37DAC5856CC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0DCB0756-34FA-4FD0-AE1D-D3F08B5B3A6B}

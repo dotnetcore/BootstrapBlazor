@@ -128,7 +128,7 @@ public partial class AutoComplete
 
     [Inject]
     [NotNull]
-    private IOptions<IconMapperOptions>? Options { get; set; }
+    private IOptions<IconMapperOptions>? IconOptions { get; set; }
 
     private JSInterop<AutoComplete>? Interop { get; set; }
 
@@ -159,10 +159,13 @@ public partial class AutoComplete
         SkipRegisterEnterEscJSInvoke = true;
     }
 
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
     protected override void OnParametersSet()
     {
         base.OnParametersSet();
-        Icon ??= Options.Value.GetIcon(BootstrapIcons.AutoCompleteIcon, "fa-fw fa-spin fa-solid fa-spinner");
+        Icon ??= IconOptions.Value.GetIcon(ComponentIcons.AutoCompleteIcon, "fa-fw fa-spin fa-solid fa-spinner");
     }
 
     /// <summary>

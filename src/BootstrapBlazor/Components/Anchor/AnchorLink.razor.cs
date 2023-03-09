@@ -32,7 +32,7 @@ public partial class AnchorLink
 
     [Inject]
     [NotNull]
-    private IOptions<IconMapperOptions>? Options { get; set; }
+    private IOptions<IconMapperOptions>? IconOptions { get; set; }
 
     private string? IconString => CssBuilder.Default("anchor-link-icon")
         .AddClass(Icon)
@@ -49,6 +49,6 @@ public partial class AnchorLink
     {
         base.OnParametersSet();
 
-        Icon ??= Options.Value.GetIcon(BootstrapIcons.AnchorLinkIcon, "fa-solid fa-link");
+        Icon ??= IconOptions.Value.GetIcon(ComponentIcons.AnchorLinkIcon, "fa-solid fa-link");
     }
 }

@@ -85,7 +85,7 @@ public partial class Avatar
 
     [Inject]
     [NotNull]
-    private IOptions<IconMapperOptions>? Options { get; set; }
+    private IOptions<IconMapperOptions>? IconOptions { get; set; }
 
     /// <summary>
     /// 获得/设置 是否显示图片
@@ -112,7 +112,7 @@ public partial class Avatar
     protected override void OnParametersSet()
     {
         base.OnParametersSet();
-        Icon ??= Options?.Value.GetIcon(BootstrapIcons.AvatarIcon, "fa-solid fa-user");
+        Icon ??= IconOptions.Value.GetIcon(ComponentIcons.AvatarIcon, "fa-solid fa-user");
     }
 
     /// <summary>

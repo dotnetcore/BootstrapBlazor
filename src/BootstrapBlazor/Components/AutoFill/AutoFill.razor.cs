@@ -126,11 +126,8 @@ public partial class AutoFill<TValue>
 
     [Inject]
     [NotNull]
-    private IOptions<IconMapperOptions>? Options { get; set; }
+    private IOptions<IconMapperOptions>? IconOptions { get; set; }
 
-    /// <summary>
-    ///
-    /// </summary>
     [Inject]
     [NotNull]
     private IStringLocalizer<AutoComplete>? Localizer { get; set; }
@@ -141,15 +138,9 @@ public partial class AutoFill<TValue>
 
     private JSInterop<AutoFill<TValue>>? Interop { get; set; }
 
-    /// <summary>
-    ///
-    /// </summary>
-    protected ElementReference AutoFillElement { get; set; }
+    private ElementReference AutoFillElement { get; set; }
 
-    /// <summary>
-    ///
-    /// </summary>
-    protected int? CurrentItemIndex { get; set; }
+    private int? CurrentItemIndex { get; set; }
 
     /// <summary>
     /// OnInitialized 方法
@@ -171,7 +162,7 @@ public partial class AutoFill<TValue>
     {
         base.OnParametersSet();
 
-        Icon ??= Options.Value.GetIcon(BootstrapIcons.AutoFillIcon, "fa-fw fa-spin fa-solid fa-spinner");
+        Icon ??= IconOptions.Value.GetIcon(ComponentIcons.AutoFillIcon, "fa-fw fa-spin fa-solid fa-spinner");
 
         OnGetDisplayText ??= v => v?.ToString() ?? "";
         InputString = OnGetDisplayText(Value);
