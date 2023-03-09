@@ -23,7 +23,7 @@ public static class IconMapperOptionsExtensions
             { BootstrapIcons.TableSortIconAsc, "mdi mdi-sort-ascending" },
             { BootstrapIcons.TableSortDesc, "mdi mdi-sort-descending" },
             { BootstrapIcons.TableSortIcon, "mdi mdi-sort" },
-            { BootstrapIcons.TableFilterIcon, "mdi mdi-filter-outline" },
+            { BootstrapIcons.TableFilterIcon, "mdi mdi-filter" },
             { BootstrapIcons.TableExportButtonIcon, "mdi mdi-download" }
         };
     }
