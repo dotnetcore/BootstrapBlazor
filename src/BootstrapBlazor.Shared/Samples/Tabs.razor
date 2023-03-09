@@ -324,7 +324,7 @@ public TabItem? TabItem { get; set; }</Pre>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["BlockHeaderTemplateTitle"]" Introduction="@Localizer["BlockHeaderTemplateIntro"]" Name="HeaderTemplate">
-    <Tab IsBorderCard="true">
+    <Tab IsBorderCard="true" @ref="TabSet3">
         <TabItem>
             <HeaderTemplate>
                 <div class="@GetClassString(context)" @onclick="() => OnClickTabItem(context)">
