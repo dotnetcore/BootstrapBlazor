@@ -5,83 +5,16 @@
 namespace BootstrapBlazor.Shared.Samples;
 
 /// <summary>
-/// 
+/// RibbonTabs
 /// </summary>
 public partial class RibbonTabs
 {
-    [NotNull]
-    private IEnumerable<RibbonTabItem>? Items { get; set; }
-
-    /// <summary>
-    /// OnInitialized method
-    /// </summary>
-    protected override void OnInitialized()
-    {
-        Items = new List<RibbonTabItem>()
-        {
-            new()
-            {
-                Text = Localizer["ItemsText1"],
-                Items = new List<RibbonTabItem>()
-                {
-                    new() { Text = Localizer["Items1"], Icon = "fa-solid fa-font-awesome", GroupName = Localizer["ItemsGroupName1"] },
-                    new() { Text = Localizer["Items2"], Icon = "fa-solid fa-font-awesome", GroupName = Localizer["ItemsGroupName1"] },
-                    new() { Text = Localizer["Items3"], Icon = "fa-solid fa-font-awesome", GroupName = Localizer["ItemsGroupName1"] },
-                    new() { Text = Localizer["Items4"], Icon = "fa-solid fa-font-awesome", GroupName = Localizer["ItemsGroupName1"] },
-                    new() { Text = Localizer["Items5"], Icon = "fa-solid fa-font-awesome", GroupName = Localizer["ItemsGroupName1"] },
-                    new() { Text = Localizer["Items6"], Icon = "fa-solid fa-font-awesome", GroupName = Localizer["ItemsGroupName1"] }
-                }
-            },
-            new()
-            {
-                Text = Localizer["ItemsText2"],
-                Items = new List<RibbonTabItem>()
-                {
-                    new() { Text = Localizer["Items7"], Icon = "fa-solid fa-font-awesome", GroupName = Localizer["ItemsGroupName2"] },
-                    new() { Text = Localizer["Items8"], Icon = "fa-solid fa-font-awesome", GroupName = Localizer["ItemsGroupName2"] },
-                    new() { Text = Localizer["Items9"], Icon = "fa-solid fa-font-awesome", GroupName = Localizer["ItemsGroupName2"] },
-                    new() { Text = Localizer["Items10"], Icon = "fa-solid fa-font-awesome", GroupName = Localizer["ItemsGroupName2"] },
-                    new() { Text = Localizer["Items11"], Icon = "fa-solid fa-font-awesome", GroupName = Localizer["ItemsGroupName2"] },
-                    new() { Text = Localizer["Items12"], Icon = "fa-solid fa-font-awesome", GroupName = Localizer["ItemsGroupName2"] }
-                }
-            }
-        };
-
-        ActiveTabText = Localizer["ItemsText1"];
-    }
-
-    private string? ActiveTabText { get; set; }
-
-    private string? FileClassString => CssBuilder.Default("collapse")
-        .AddClass("show", ActiveTabText == Localizer["ItemsText1"])
-        .Build();
-
-    private string? EditClassString => CssBuilder.Default("collapse")
-        .AddClass("show", ActiveTabText == Localizer["ItemsText2"])
-        .Build();
-
-    private Task OnMenuClickAsync(RibbonTabItem item)
-    {
-        ActiveTabText = item.Text;
-        StateHasChanged();
-        return Task.CompletedTask;
-    }
-
-    [NotNull]
-    private BlockLogger? Logger { get; set; }
-
-    private Task OnFloatChanged(bool @float)
-    {
-        Logger.Log($"Float: {@float}");
-        return Task.CompletedTask;
-    }
-
     private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
         new AttributeItem()
         {
             Name = nameof(RibbonTab.ShowFloatButton),
-            Description = Localizer["Attr1"],
+            Description = Localizer["RibbonTabsShowFloatButtonAttr"],
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
@@ -89,7 +22,7 @@ public partial class RibbonTabs
         new AttributeItem()
         {
             Name = nameof(RibbonTab.OnFloatChanged),
-            Description = Localizer["Attr2"],
+            Description = Localizer["RibbonTabsOnFloatChanged"],
             Type = "bool",
             ValueList = "Func<bool, Task>",
             DefaultValue = " — "
@@ -97,7 +30,7 @@ public partial class RibbonTabs
         new AttributeItem()
         {
             Name = nameof(RibbonTab.RibbonArrowUpIcon),
-            Description = Localizer["Attr3"],
+            Description = Localizer["RibbonTabsRibbonArrowUpIcon"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = "fa-solid fa-angle-up fa-2x"
@@ -105,7 +38,7 @@ public partial class RibbonTabs
         new AttributeItem()
         {
             Name = nameof(RibbonTab.RibbonArrowDownIcon),
-            Description = Localizer["Attr4"],
+            Description = Localizer["RibbonTabsRibbonArrowDownIcon"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = "fa-solid fa-angle-down fa-2x"
@@ -113,7 +46,7 @@ public partial class RibbonTabs
         new AttributeItem()
         {
             Name = nameof(RibbonTab.RibbonArrowPinIcon),
-            Description = Localizer["Attr5"],
+            Description = Localizer["RibbonTabsRibbonArrowPinIcon"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = "fa-solid fa-thumbtack fa-rotate-90"
@@ -121,7 +54,7 @@ public partial class RibbonTabs
         new AttributeItem()
         {
             Name = nameof(RibbonTab.ShowFloatButton),
-            Description = Localizer["Attr6"],
+            Description = Localizer["RibbonTabsShowFloatButton"],
             Type = "bool",
             ValueList = " — ",
             DefaultValue = " — "
@@ -129,7 +62,7 @@ public partial class RibbonTabs
         new AttributeItem()
         {
             Name = nameof(RibbonTab.Items),
-            Description = Localizer["Attr7"],
+            Description = Localizer["RibbonTabsItems"],
             Type = "IEnumerable<RibbonTabItem>",
             ValueList = " — ",
             DefaultValue = " — "
@@ -137,7 +70,7 @@ public partial class RibbonTabs
         new AttributeItem()
         {
             Name = nameof(RibbonTab.OnItemClickAsync),
-            Description = Localizer["Attr8"],
+            Description = Localizer["RibbonTabsOnItemClickAsync"],
             Type = "Func<RibbonTabItem, Task>",
             ValueList = " — ",
             DefaultValue = " — "
@@ -153,7 +86,7 @@ public partial class RibbonTabs
         new AttributeItem()
         {
             Name = nameof(RibbonTab.RightButtonsTemplate),
-            Description = Localizer["Attr9"],
+            Description = Localizer["RibbonTabsRightButtonsTemplate"],
             Type = "RenderFragment",
             ValueList = " — ",
             DefaultValue = " — "
