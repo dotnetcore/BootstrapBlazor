@@ -111,7 +111,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "localization", "localizatio
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BootstrapBlazor.BaiduOcr", "src\Extensions\Components\BootstrapBlazor.BaiduOcr\BootstrapBlazor.BaiduOcr.csproj", "{F800DC0F-6829-4B64-B96B-B301A512AF2A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BootstrapBlazor.Icons.Meterial", "src\Extensions\Components\BootstrapBlazor.Icons.Meterial\BootstrapBlazor.Icons.Meterial.csproj", "{9E46D275-5BB9-4CF5-87C8-CF178E027BBE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BootstrapBlazor.Icons.Material", "src\Extensions\Components\BootstrapBlazor.Icons.Meterial\BootstrapBlazor.Icons.Material.csproj", "{9E46D275-5BB9-4CF5-87C8-CF178E027BBE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

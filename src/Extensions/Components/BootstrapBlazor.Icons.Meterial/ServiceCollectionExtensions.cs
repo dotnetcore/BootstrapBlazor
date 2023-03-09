@@ -15,7 +15,7 @@ public static class IconMapperOptionsExtensions
     /// 添加 Meterial 图标到系统
     /// </summary>
     /// <param name="options"></param>
-    public static void AddMeterialIconMapper(this IconMapperOptions options)
+    public static void AddMaterialIconMapper(this IconMapperOptions options)
     {
         options.Items = new()
         {
