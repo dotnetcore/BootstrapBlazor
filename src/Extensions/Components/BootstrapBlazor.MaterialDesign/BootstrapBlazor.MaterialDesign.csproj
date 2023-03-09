@@ -14,10 +14,12 @@
   <ItemGroup>
     <Content Remove="bundleconfig.json" />
     <Content Remove="wwwroot\md\css\*.css" />
+    <Content Remove="wwwroot\md\css\*.css.map" />
   </ItemGroup>
 
   <ItemGroup>
     <None Include="wwwroot\md\css\*.css" />
+    <None Include="wwwroot\md\css\*.css.map" />
     <None Include="bundleconfig.json" />
   </ItemGroup>
 
