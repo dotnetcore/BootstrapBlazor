@@ -342,11 +342,11 @@
     "ProgresssBindingIntro": "绑定数据"
   },
   "BootstrapBlazor.Shared.Samples.Responsives": {
-    "H1": "Responsive 断点监听",
-    "H2": "根据参数条件，确定是否重新渲染响应布局的内容，通常用于响应布局",
-    "P1": "基础用法",
-    "P2": "调整浏览器窗口大小，观察 <code>Breakpoint</code> 的变化",
-    "P3": "当前"
+    "ResponsivesTitle": "Responsive 断点监听",
+    "ResponsivesDescription": "根据参数条件，确定是否重新渲染响应布局的内容，通常用于响应布局",
+    "ResponsivesNormalTitle": "基础用法",
+    "ResponsivesNormalIntro": "调整浏览器窗口大小，观察 <code>Breakpoint</code> 的变化",
+    "ResponsivesNormalIntroCurrentText": "当前"
   },
   "BootstrapBlazor.Shared.Samples.Modals": {
     "ModalsTitle": "Modal 模态框",

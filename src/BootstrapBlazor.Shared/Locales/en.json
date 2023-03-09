@@ -341,11 +341,11 @@
     "ProgresssBindingIntro": "Bind data"
   },
   "BootstrapBlazor.Shared.Samples.Responsives": {
-    "H1": "Responsive breakpoint monitoring",
-    "H2": "Determines whether to re-render the content of a responsive layout based on parameter conditions, usually used for responsive layouts",
-    "P1": "Basic usage",
-    "P2": "Resize the browser window and observe the change of <code>Breakpoint</code>",
-    "P3": "current"
+    "ResponsivesTitle": "Responsive breakpoint monitoring",
+    "ResponsivesDescription": "Determines whether to re-render the content of a responsive layout based on parameter conditions, usually used for responsive layouts",
+    "ResponsivesNormalTitle": "Basic usage",
+    "ResponsivesNormalIntro": "Resize the browser window and observe the change of <code>Breakpoint</code>",
+    "ResponsivesNormalIntroCurrentText": "current"
   },
   "BootstrapBlazor.Shared.Samples.Modals": {
     "ModalsTitle": "Modal box",
