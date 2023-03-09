@@ -4,6 +4,7 @@
 
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Extensions.Localization;
+using Microsoft.Extensions.Options;
 
 namespace BootstrapBlazor.Components;
 
@@ -118,7 +119,17 @@ public partial class AutoFill<TValue>
     public bool ShowDropdownListOnFocus { get; set; } = true;
 
     /// <summary>
-    /// 
+    /// 图标
+    /// </summary>
+    [Parameter]
+    public string? Icon { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IOptions<IconMapperOptions>? Options { get; set; }
+
+    /// <summary>
+    ///
     /// </summary>
     [Inject]
     [NotNull]
@@ -131,12 +142,12 @@ public partial class AutoFill<TValue>
     private JSInterop<AutoFill<TValue>>? Interop { get; set; }
 
     /// <summary>
-    /// 
+    ///
     /// </summary>
     protected ElementReference AutoFillElement { get; set; }
 
     /// <summary>
-    /// 
+    ///
     /// </summary>
     protected int? CurrentItemIndex { get; set; }
 
@@ -159,6 +170,7 @@ public partial class AutoFill<TValue>
     protected override void OnParametersSet()
     {
         base.OnParametersSet();
+        Icon ??= Options.Value.GetIcon(BootstrapIcons.AutoFillIcon, "fa-fw fa-spin fa-solid fa-spinner");
 
         OnGetDisplayText ??= v => v?.ToString() ?? "";
         InputString = OnGetDisplayText(Value);
@@ -327,7 +339,7 @@ public partial class AutoFill<TValue>
     }
 
     /// <summary>
-    /// 
+    ///
     /// </summary>
     /// <param name="val"></param>
     [JSInvokable]
