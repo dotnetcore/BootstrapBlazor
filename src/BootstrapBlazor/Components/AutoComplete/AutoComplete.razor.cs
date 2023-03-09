@@ -4,6 +4,7 @@
 
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Extensions.Localization;
+using Microsoft.Extensions.Options;
 
 namespace BootstrapBlazor.Components;
 
@@ -12,6 +13,7 @@ namespace BootstrapBlazor.Components;
 /// </summary>
 public partial class AutoComplete
 {
+
     private bool IsLoading { get; set; }
 
     private bool IsShown { get; set; }
@@ -112,11 +114,21 @@ public partial class AutoComplete
     public RenderFragment<string>? ItemTemplate { get; set; }
 
     /// <summary>
+    /// 图标
+    /// </summary>
+    [Parameter]
+    public string? Icon { get; set; }
+
+    /// <summary>
     /// IStringLocalizer 服务实例
     /// </summary>
     [Inject]
     [NotNull]
     private IStringLocalizer<AutoComplete>? Localizer { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IOptions<IconMapperOptions>? Options { get; set; }
 
     private JSInterop<AutoComplete>? Interop { get; set; }
 
@@ -145,6 +157,12 @@ public partial class AutoComplete
         FilterItems ??= new List<string>();
 
         SkipRegisterEnterEscJSInvoke = true;
+    }
+
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+        Icon ??= Options.Value.GetIcon(BootstrapIcons.AutoCompleteIcon, "fa-fw fa-spin fa-solid fa-spinner");
     }
 
     /// <summary>
@@ -287,7 +305,7 @@ public partial class AutoComplete
     }
 
     /// <summary>
-    /// 
+    ///
     /// </summary>
     /// <param name="val"></param>
     [JSInvokable]

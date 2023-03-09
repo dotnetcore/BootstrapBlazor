@@ -17,4 +17,8 @@ public enum BootstrapIcons
     /// Avatar 组件 Icon 属性图标
     /// </summary>
     AvatarIcon,
+    /// <summary>
+    /// AutoComplete 组件 Icon 属性图标
+    /// </summary>
+    AutoCompleteIcon,
 }

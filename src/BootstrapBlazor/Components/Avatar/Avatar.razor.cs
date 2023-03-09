@@ -100,12 +100,19 @@ public partial class Avatar
     {
         await base.OnParametersSetAsync();
 
-        Icon ??= Options?.Value.GetIcon(BootstrapIcons.AvatarIcon, "fa-solid fa-user");
-
         if (string.IsNullOrEmpty(Url) && GetUrlAsync != null)
         {
             Url = await GetUrlAsync();
         }
+    }
+
+    /// <summary>
+    /// OnParametersSet 方法
+    /// </summary>
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+        Icon ??= Options?.Value.GetIcon(BootstrapIcons.AvatarIcon, "fa-solid fa-user");
     }
 
     /// <summary>
