@@ -479,6 +479,10 @@ public partial class Tab : IHandlerException, IDisposable
                 parameters.Add(nameof(TabItem.Text), Options.Text);
                 Options.Reset();
             }
+            else
+            {
+                parameters.Add(nameof(TabItem.Text), url.Split("/").FirstOrDefault());
+            }
             parameters.Add(nameof(TabItem.Url), url);
 
             parameters.Add(nameof(TabItem.ChildContent), new RenderFragment(builder =>
