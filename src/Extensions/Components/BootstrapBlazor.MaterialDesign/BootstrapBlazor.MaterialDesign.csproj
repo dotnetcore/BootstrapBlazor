@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+  <Import Project="..\..\..\bundleconfig.props" />
+
+  <PropertyGroup>
+    <Version>7.0.0</Version>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <PackageTags>Bootstrap Blazor WebAssembly wasm UI Components Icon</PackageTags>
+    <Description>Bootstrap UI components extensions of MaterialDesign</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Remove="bundleconfig.json" />
+    <Content Remove="wwwroot\md\css\*.css" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\md\css\*.css" />
+    <None Include="bundleconfig.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BootstrapBlazor" Version="7.0.0" />
+  </ItemGroup>
+  
+</Project>
