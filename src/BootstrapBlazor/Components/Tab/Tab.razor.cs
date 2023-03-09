@@ -479,14 +479,18 @@ public partial class Tab : IHandlerException, IDisposable
                 parameters.Add(nameof(TabItem.Text), Options.Text);
                 Options.Reset();
             }
+            else
+            {
+                parameters.Add(nameof(TabItem.Text), url.Split("/").FirstOrDefault());
+            }
             parameters.Add(nameof(TabItem.Url), url);
 
             parameters.Add(nameof(TabItem.ChildContent), new RenderFragment(builder =>
             {
                 builder.OpenComponent<BootstrapBlazorAuthorizeView>(0);
                 builder.AddAttribute(1, nameof(BootstrapBlazorAuthorizeView.Type), context.Handler);
-                builder.AddAttribute(1, nameof(BootstrapBlazorAuthorizeView.Parameters), context.Parameters);
-                builder.AddAttribute(2, nameof(BootstrapBlazorAuthorizeView.NotAuthorized), NotAuthorized);
+                builder.AddAttribute(2, nameof(BootstrapBlazorAuthorizeView.Parameters), context.Parameters);
+                builder.AddAttribute(3, nameof(BootstrapBlazorAuthorizeView.NotAuthorized), NotAuthorized);
                 builder.CloseComponent();
             }));
         }
