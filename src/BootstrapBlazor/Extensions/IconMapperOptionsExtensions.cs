@@ -10,18 +10,6 @@ namespace BootstrapBlazor.Components;
 public static class IconMapperOptionsExtensions
 {
     /// <summary>
-    /// 添加 FontAwesome 图标到系统
-    /// </summary>
-    /// <param name="options"></param>
-    public static void AddFontAwesomeIconMapper(this IconMapperOptions options)
-    {
-        options.Items = new()
-        {
-            { BootstrapIcons.AnchorLinkIcon, "fa-solid fa-link" }
-        };
-    }
-
-    /// <summary>
     /// 通过指定 Key 获得 Icon 字符串方法
     /// </summary>
     /// <param name="options"></param>
