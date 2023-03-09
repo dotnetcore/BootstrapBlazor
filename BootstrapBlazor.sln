@@ -113,6 +113,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BootstrapBlazor.BaiduOcr", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BootstrapBlazor.MaterialDesign", "src\Extensions\Components\BootstrapBlazor.MaterialDesign\BootstrapBlazor.MaterialDesign.csproj", "{1867B312-3C02-45BD-A73B-6AB428D642C6}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BootstrapBlazor.MaterialDesign.Extensions", "src\Extensions\Components\BootstrapBlazor.MaterialDesign.Extensions\BootstrapBlazor.MaterialDesign.Extensions.csproj", "{B4DE45B9-FC78-4CDA-B21F-2B0F96069A09}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -215,6 +217,10 @@ Global
 		{1867B312-3C02-45BD-A73B-6AB428D642C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1867B312-3C02-45BD-A73B-6AB428D642C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1867B312-3C02-45BD-A73B-6AB428D642C6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B4DE45B9-FC78-4CDA-B21F-2B0F96069A09}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B4DE45B9-FC78-4CDA-B21F-2B0F96069A09}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B4DE45B9-FC78-4CDA-B21F-2B0F96069A09}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B4DE45B9-FC78-4CDA-B21F-2B0F96069A09}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -252,6 +258,7 @@ Global
 		{7F7F3B85-7B15-485C-8DC2-BAFD8C086957} = {CD062AB6-244D-402A-8F33-C37DAC5856CC}
 		{F800DC0F-6829-4B64-B96B-B301A512AF2A} = {CD062AB6-244D-402A-8F33-C37DAC5856CC}
 		{1867B312-3C02-45BD-A73B-6AB428D642C6} = {CD062AB6-244D-402A-8F33-C37DAC5856CC}
+		{B4DE45B9-FC78-4CDA-B21F-2B0F96069A09} = {CD062AB6-244D-402A-8F33-C37DAC5856CC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0DCB0756-34FA-4FD0-AE1D-D3F08B5B3A6B}

@@ -60,6 +60,7 @@ public static class BootstrapBlazorServiceCollectionExtensions
         services.ConfigureIPLocatorOption();
 
         services.AddTabItemBindOptions();
+        services.AddIconMapperOptions();
         return services;
     }
 
@@ -161,6 +162,29 @@ public static class BootstrapBlazorServiceCollectionExtensions
     /// <param name="configureOptions"></param>
     /// <returns></returns>
     public static IServiceCollection ConfigureTabItemMenuBindOptions(this IServiceCollection services, Action<TabItemBindOptions> configureOptions)
+    {
+        services.Configure(configureOptions);
+        return services;
+    }
+
+    /// <summary>
+    /// 增加 图标映射配置项服务
+    /// </summary>
+    /// <param name="services"></param>
+    /// <returns></returns>
+    static IServiceCollection AddIconMapperOptions(this IServiceCollection services)
+    {
+        services.AddOptionsMonitor<IconMapperOptions>();
+        return services;
+    }
+
+    /// <summary>
+    /// 配置图标映射
+    /// </summary>
+    /// <param name="services"></param>
+    /// <param name="configureOptions"></param>
+    /// <returns></returns>
+    public static IServiceCollection ConfigureIconMapperOptions(this IServiceCollection services, Action<IconMapperOptions> configureOptions)
     {
         services.Configure(configureOptions);
         return services;
