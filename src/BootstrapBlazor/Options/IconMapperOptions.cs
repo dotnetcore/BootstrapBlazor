@@ -12,5 +12,5 @@ public class IconMapperOptions
     /// <summary>
     /// 获得/设置 集合
     /// </summary>
-    public Dictionary<BootstrapIcons, string> Items { get; set; } = new();
+    public Dictionary<ComponentIcons, string> Items { get; set; } = new();
 }

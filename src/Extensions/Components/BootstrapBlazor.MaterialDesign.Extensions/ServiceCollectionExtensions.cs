@@ -19,12 +19,12 @@ public static class IconMapperOptionsExtensions
     {
         options.Items = new()
         {
-            { BootstrapIcons.AnchorLinkIcon, "mdi mdi-link-variant" },
-            { BootstrapIcons.TableSortIconAsc, "mdi mdi-sort-ascending" },
-            { BootstrapIcons.TableSortDesc, "mdi mdi-sort-descending" },
-            { BootstrapIcons.TableSortIcon, "mdi mdi-sort" },
-            { BootstrapIcons.TableFilterIcon, "mdi mdi-filter" },
-            { BootstrapIcons.TableExportButtonIcon, "mdi mdi-download" }
+            { ComponentIcons.AnchorLinkIcon, "mdi mdi-link-variant" },
+            { ComponentIcons.TableSortIconAsc, "mdi mdi-sort-ascending" },
+            { ComponentIcons.TableSortDesc, "mdi mdi-sort-descending" },
+            { ComponentIcons.TableSortIcon, "mdi mdi-sort" },
+            { ComponentIcons.TableFilterIcon, "mdi mdi-filter" },
+            { ComponentIcons.TableExportButtonIcon, "mdi mdi-download" }
         };
     }
 }

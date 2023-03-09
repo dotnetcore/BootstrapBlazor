@@ -16,7 +16,7 @@ public static class IconMapperOptionsExtensions
     /// <param name="key"></param>
     /// <param name="defaultValue"></param>
     /// <returns></returns>
-    public static string? GetIcon(this IconMapperOptions options, BootstrapIcons key, string? defaultValue = null)
+    public static string? GetIcon(this IconMapperOptions options, ComponentIcons key, string? defaultValue = null)
     {
         string? icon = null;
         if (options.Items.TryGetValue(key, out var v))
