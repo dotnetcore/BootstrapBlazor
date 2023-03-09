@@ -28,4 +28,29 @@ public enum BootstrapIcons
     /// AutoComplete 组件 Icon 属性图标
     /// </summary>
     AutoFillIcon,
+
+    /// <summary>
+    /// Table 组件 SortIconAsc 属性图标
+    /// </summary>
+    TableSortIconAsc,
+
+    /// <summary>
+    /// Table 组件 SortDesc 属性图标
+    /// </summary>
+    TableSortDesc,
+
+    /// <summary>
+    /// Table 组件 SortIcon 属性图标
+    /// </summary>
+    TableSortIcon,
+
+    /// <summary>
+    /// Table 组件 FilterIcon 属性图标
+    /// </summary>
+    TableFilterIcon,
+
+    /// <summary>
+    /// Table 组件 ExportButtonIcon 属性图标
+    /// </summary>
+    TableExportButtonIcon
 }

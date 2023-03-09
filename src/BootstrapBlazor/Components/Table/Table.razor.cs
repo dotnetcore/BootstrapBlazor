@@ -534,6 +534,10 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     [Parameter]
     public Func<TItem, TItem, bool>? ModelEqualityComparer { get; set; }
 
+    [Inject]
+    [NotNull]
+    private IOptions<IconMapperOptions>? IconMapperOptions { get; set; }
+
     private bool UpdateSortTooltip { get; set; }
 
     /// <summary>
@@ -629,11 +633,11 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             LineNoColumnAlignment = Alignment.Center;
         }
 
-        SortIconAsc ??= "fa-solid fa-sort-up";
-        SortIconDesc ??= "fa-solid fa-sort-down";
-        SortIcon ??= "fa-solid fa-sort";
-        FilterIcon ??= "fa-solid fa-filter";
-        ExportButtonIcon ??= "fa-solid fa-download";
+        SortIconAsc ??= IconMapperOptions.Value.GetIcon(BootstrapIcons.TableSortIconAsc, "fa-solid fa-sort-up");
+        SortIconDesc ??= IconMapperOptions.Value.GetIcon(BootstrapIcons.TableSortDesc, "fa-solid fa-sort-down");
+        SortIcon ??= IconMapperOptions.Value.GetIcon(BootstrapIcons.TableSortIcon, "fa-solid fa-sort");
+        FilterIcon ??= IconMapperOptions.Value.GetIcon(BootstrapIcons.TableFilterIcon, "fa-solid fa-filter");
+        ExportButtonIcon ??= IconMapperOptions.Value.GetIcon(BootstrapIcons.TableExportButtonIcon, "fa-solid fa-download");
     }
 
     /// <summary>
