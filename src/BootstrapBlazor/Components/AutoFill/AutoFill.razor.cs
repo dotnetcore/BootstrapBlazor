@@ -170,6 +170,7 @@ public partial class AutoFill<TValue>
     protected override void OnParametersSet()
     {
         base.OnParametersSet();
+
         Icon ??= Options.Value.GetIcon(BootstrapIcons.AutoFillIcon, "fa-fw fa-spin fa-solid fa-spinner");
 
         OnGetDisplayText ??= v => v?.ToString() ?? "";
