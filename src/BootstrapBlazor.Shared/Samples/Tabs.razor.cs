@@ -16,12 +16,19 @@ public sealed partial class Tabs
     private Tab? TabSet2 { get; set; }
 
     [NotNull]
+    private Tab? TabSet3 { get; set; }
+
+    [NotNull]
     private string? TabText { get; set; }
 
     [NotNull]
     private TabItem? TabItemElement { get; set; }
 
     private string TabItemText { get; set; } = "Test";
+
+    [Inject]
+    [NotNull]
+    private ToastService? ToastService { get; set; }
 
     /// <summary>
     /// <inheritdoc/>
@@ -75,14 +82,13 @@ public sealed partial class Tabs
 
     private bool RemoveEndable => (TabSet?.Items.Count() ?? 4) < 4;
 
-    private static Task RemoveTab(Tab tabset)
+    private static async Task RemoveTab(Tab tabset)
     {
         if (tabset.Items.Count() > 4)
         {
             var item = tabset.Items.Last();
-            tabset.RemoveTab(item);
+            await tabset.RemoveTab(item);
         }
-        return Task.CompletedTask;
     }
 
     private Placement BindPlacement = Placement.Top;
@@ -130,10 +136,14 @@ public sealed partial class Tabs
         return Task.CompletedTask;
     }
 
-    private static void OnClickTabItem(Tab tab) => tab.ActiveTab(0);
+    private async Task OnClickTabItem(TabItem tabItem)
+    {
+        TabSet3.ActiveTab(tabItem);
+        await ToastService.Information("Click TabItem", $"{tabItem.Text} clicked");
+    }
 
-    private static string? GetClassString(Tab tab) => CssBuilder.Default("tabs-item")
-        .AddClass("active", tab.Items.ElementAt(0).IsActive)
+    private static string? GetClassString(TabItem tabItem) => CssBuilder.Default("tabs-item")
+        .AddClass("active", tabItem.IsActive)
         .Build();
 
     /// <summary>
