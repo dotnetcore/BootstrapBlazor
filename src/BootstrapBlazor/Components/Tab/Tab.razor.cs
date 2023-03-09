@@ -489,8 +489,8 @@ public partial class Tab : IHandlerException, IDisposable
             {
                 builder.OpenComponent<BootstrapBlazorAuthorizeView>(0);
                 builder.AddAttribute(1, nameof(BootstrapBlazorAuthorizeView.Type), context.Handler);
-                builder.AddAttribute(1, nameof(BootstrapBlazorAuthorizeView.Parameters), context.Parameters);
-                builder.AddAttribute(2, nameof(BootstrapBlazorAuthorizeView.NotAuthorized), NotAuthorized);
+                builder.AddAttribute(2, nameof(BootstrapBlazorAuthorizeView.Parameters), context.Parameters);
+                builder.AddAttribute(3, nameof(BootstrapBlazorAuthorizeView.NotAuthorized), NotAuthorized);
                 builder.CloseComponent();
             }));
         }
