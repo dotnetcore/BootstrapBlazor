@@ -162,10 +162,17 @@ public partial class Tab : IHandlerException, IDisposable
     public string? DefaultUrl { get; set; }
 
     /// <summary>
+    /// 获得/设置 点击 Tab 时回调方法
+    /// </summary>
+    [Parameter]
+    [Obsolete("请使用 OnClickTabItemAsync 代替")]
+    public Func<TabItem, Task>? OnClickTab { get; set; }
+
+    /// <summary>
     /// 获得/设置 点击 TabItem 时回调方法
     /// </summary>
     [Parameter]
-    public Func<TabItem, Task>? OnClickTab { get; set; }
+    public Func<TabItem, Task>? OnClickTabItemAsync { get; set; }
 
     /// <summary>
     /// 获得/设置 NotFound 标签文本
@@ -219,6 +226,8 @@ public partial class Tab : IHandlerException, IDisposable
 
     private ConcurrentDictionary<TabItem, bool> LazyTabCache { get; } = new();
 
+    private bool HandlerNavigation { get; set; }
+
     /// <summary>
     /// OnInitialized 方法
     /// </summary>
@@ -249,8 +258,31 @@ public partial class Tab : IHandlerException, IDisposable
 
         if (ClickTabToNavigation)
         {
+            if (!HandlerNavigation)
+            {
+                Navigator.LocationChanged += Navigator_LocationChanged;
+            }
             AddTabByUrl();
         }
+        else
+        {
+            RemoveLocationChanged();
+        }
+    }
+
+    private void RemoveLocationChanged()
+    {
+        if (HandlerNavigation)
+        {
+            Navigator.LocationChanged -= Navigator_LocationChanged;
+        }
+    }
+
+    private void Navigator_LocationChanged(object? sender, Microsoft.AspNetCore.Components.Routing.LocationChangedEventArgs e)
+    {
+        AddTabByUrl();
+
+        StateHasChanged();
     }
 
     private void AddTabByUrl()
@@ -306,9 +338,9 @@ public partial class Tab : IHandlerException, IDisposable
     private async Task OnClickTabItem(TabItem item)
     {
         Items.ToList().ForEach(i => i.SetActive(false));
-        if (OnClickTab != null)
+        if (OnClickTabItemAsync != null)
         {
-            await OnClickTab(item);
+            await OnClickTabItemAsync(item);
         }
 
         if (!ClickTabToNavigation)
@@ -646,6 +678,7 @@ public partial class Tab : IHandlerException, IDisposable
     {
         if (disposing)
         {
+            RemoveLocationChanged();
             ErrorLogger?.UnRegister(this);
         }
     }
