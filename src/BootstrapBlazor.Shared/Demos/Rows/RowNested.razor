@@ -1,0 +1,44 @@
+﻿<ValidateForm Model="@Model">
+    <Row ItemsPerRow="ItemsPerRow.Two">
+        <BootstrapInput @bind-Value="@Model.Name" />
+        <Row ItemsPerRow="ItemsPerRow.Two">
+            <Switch @bind-Value="@Model.Complete" />
+            <BootstrapInput @bind-Value="@Model.Address" />
+        </Row>
+    </Row>
+</ValidateForm>
+<div class="mt-3">
+    <Row>
+        <Row ItemsPerRow="ItemsPerRow.Two">
+            <BootstrapInput @bind-Value="@Model.Name" />
+            <BootstrapInput @bind-Value="@Model.Address" />
+        </Row>
+        <Row ItemsPerRow="ItemsPerRow.Three">
+            <BootstrapInput @bind-Value="@Model.Name" />
+            <BootstrapInput @bind-Value="@Model.Address" />
+            <Row ItemsPerRow="ItemsPerRow.Two">
+                <BootstrapInput @bind-Value="@Model.Name" />
+                <BootstrapInput @bind-Value="@Model.Address" />
+            </Row>
+        </Row>
+    </Row>
+</div>
+
+@code {
+    private RowFoo Model { get; } = new()
+    {
+        Name = "张三",
+        Count = 23,
+        Address = "测试地址",
+        DateTime = new DateTime(1997, 12, 05),
+        Educations = new List<EnumEducation> { EnumEducation.Primary, EnumEducation.Middle }
+    };
+
+    private class RowFoo : Foo
+    {
+        [Required(ErrorMessage = "请选择学历")]
+        [Display(Name = "学历")]
+        [AutoGenerateColumn(Order = 60)]
+        public List<EnumEducation>? Educations { get; set; }
+    }
+}
