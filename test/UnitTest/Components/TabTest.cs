@@ -88,7 +88,7 @@ public class TabTest : TabTestBase
                 closedItem = item;
                 return Task.FromResult(true);
             });
-            pb.Add(a => a.OnClickTab, item =>
+            pb.Add(a => a.OnClickTabItemAsync, item =>
             {
                 clicked = true;
                 return Task.CompletedTask;
