@@ -1,48 +1,35 @@
 ﻿@page "/select-trees"
+@inject IStringLocalizer<SelectTrees> Localizer
 
-<h3>@Localizer["H1"]</h3>
-<h4>@Localizer["H2"]</h4>
+<h3>@Localizer["SelectTreesTitle"]</h3>
+<h4>@Localizer["SelectTreesDescription"]</h4>
 
-<DemoBlock Title="@Localizer["P1"]" Introduction="@Localizer["P2"]" Name="Normal">
-    <SelectTree TValue="TreeFoo" Items="Items" />
+<DemoBlock Title="@Localizer["SelectTreesNormalTitle"]"
+           Introduction="@Localizer["SelectTreesNormalIntro"]"
+           Name="Normal"
+           Demo="typeof(Demos.SelectTrees.SelectTreesNormal)">
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["Block2Title"]" Introduction="@Localizer["Block2Intro"]" Name="Disable">
-    <div class="row">
-        <div class="col-12 col-sm-6">
-            <SelectTree TValue="TreeFoo" Color="Color.Primary" Items="Items" IsDisabled="true"></SelectTree>
-        </div>
-    </div>
+<DemoBlock Title="@Localizer["SelectTreesDisableTitle"]"
+           Introduction="@Localizer["SelectTreesDisableIntro"]"
+           Name="Disable"
+           Demo="typeof(Demos.SelectTrees.SelectTreesDisable)">
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["Block3Title"]" Introduction="@Localizer["Block3Intro"]" Name="Binding">
-    <div class="row g-3">
-        <div class="col-12 col-sm-6">
-            <SelectTree Items="Items" @bind-Value="Model"></SelectTree>
-        </div>
-        <div class="col-12 col-sm-6">
-            <BootstrapInput readonly @bind-Value="Model.Text" PlaceHolder="Please select ..." />
-        </div>
-    </div>
+<DemoBlock Title="@Localizer["SelectTreesBindingTitle"]"
+           Introduction="@Localizer["SelectTreesBindingIntro"]"
+           Name="Binding"
+           Demo="typeof(Demos.SelectTrees.SelectTreesBinding)">
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["Block5Title"]" Introduction="@Localizer["Block5Intro"]" Name="ClientValidation">
-    <ValidateForm Model="BindModel">
-        <div class="row g-3">
-            <div class="col-12 col-sm-6">
-                <SelectTree TValue="string" @bind-Value="BindModel.Text" ShowIcon="true" Items="BindItems" />
-            </div>
-            <div class="col-12 col-sm-6 align-self-end">
-                <Button ButtonType="ButtonType.Submit">@Localizer["ButtonText2"]</Button>
-            </div>
-        </div>
-    </ValidateForm>
+<DemoBlock Title="@Localizer["SelectTreesClientValidationTitle"]"
+           Introduction="@Localizer["SelectTreesClientValidationIntro"]"
+           Name="ClientValidation"
+           Demo="typeof(Demos.SelectTrees.SelectTreesClientValidation)">
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["IsPopoverTitle"]" Introduction="@Localizer["IsPopoverIntro"]" Name="IsPopover">
-    <div class="row">
-        <div class="col-12 col-sm-6 overflow-hidden">
-            <SelectTree Items="Items" IsPopover="true" />
-        </div>
-    </div>
+<DemoBlock Title="@Localizer["SelectTreesIsPopoverTitle"]"
+           Introduction="@Localizer["SelectTreesIsPopoverIntro"]"
+           Name="IsPopover"
+           Demo="typeof(Demos.SelectTrees.SelectTreesIsPopover)">
 </DemoBlock>
