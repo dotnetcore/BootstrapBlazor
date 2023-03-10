@@ -3324,19 +3324,19 @@
     "PopoverIntro": "通过设置 <code>IsPopover</code> 参数，组件使用 <code>popover</code> 渲染 <code>UI</code> 防止由于父容器设置 <code>overflow: hidden;</code> 使弹窗无法显示问题"
   },
   "BootstrapBlazor.Shared.Samples.Sliders": {
-    "Title": "Slider 滑块",
-    "H1": "通过拖动滑块在一个固定区间内进行选择",
-    "Block1Title": "基础用法",
-    "Block1Intro": "在拖动滑块时，改变当前值",
-    "Slider1Label": "自定义初始值",
-    "Slider2Label": "禁用",
-    "Block2Title": "Slider 双向绑定",
-    "Block2Intro": "通过拖动滑块在一个固定区间内进行选择",
-    "Slider3Label": "自定义初始值",
-    "Class": "样式",
-    "IsDisabled": "是否禁用",
-    "Value": "组件当前值",
-    "ValueChanged": "ValueChanged 回调方法"
+    "SlidersTitle": "Slider 滑块",
+    "SlidersDescription": "通过拖动滑块在一个固定区间内进行选择",
+    "SlidersNormalTitle": "基础用法",
+    "SlidersNormalIntro": "在拖动滑块时，改变当前值",
+    "SlidersNormalLabel1": "自定义初始值",
+    "SlidersNormalLabel2": "禁用",
+    "SlidersBindingTitle": "Slider 双向绑定",
+    "SlidersBindingIntro": "通过拖动滑块在一个固定区间内进行选择",
+    "SlidersBindingLabel": "自定义初始值",
+    "SlidersClass": "样式",
+    "SlidersIsDisabled": "是否禁用",
+    "SlidersValue": "组件当前值",
+    "SlidersValueChanged": "ValueChanged 回调方法"
   },
   "BootstrapBlazor.Shared.Samples.Switchs": {
     "Title": "Switch 开关",
