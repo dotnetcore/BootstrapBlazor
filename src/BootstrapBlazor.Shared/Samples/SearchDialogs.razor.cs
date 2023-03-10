@@ -5,88 +5,10 @@
 namespace BootstrapBlazor.Shared.Samples;
 
 /// <summary>
-/// 
+/// SearchDialogs
 /// </summary>
 public sealed partial class SearchDialogs
 {
-    [Inject]
-    [NotNull]
-    private DialogService? DialogService { get; set; }
-
-    [NotNull]
-    private BlockLogger? Trace { get; set; }
-
-    private async Task ShowDialog()
-    {
-        var option = new SearchDialogOption<Foo>()
-        {
-            Title = "search popup",
-            Model = new Foo(),
-            ItemsPerRow = 2,
-            RowType = RowType.Inline,
-            OnCloseAsync = () =>
-            {
-                Trace.Log("Close button is clicked");
-                return Task.CompletedTask;
-            },
-            OnResetSearchClick = () =>
-            {
-                Trace.Log("Reset button is clicked");
-                return Task.CompletedTask;
-            },
-            OnSearchClick = () =>
-            {
-                Trace.Log("Search button is clicked");
-                return Task.CompletedTask;
-            }
-        };
-
-        await DialogService.ShowSearchDialog(option);
-    }
-
-    private async Task ShowColumnsDialog()
-    {
-        var model = new Foo();
-        var option = new SearchDialogOption<Foo>()
-        {
-            Title = "Search popup",
-            Model = model,
-            ItemsPerRow = 2,
-            RowType = RowType.Inline,
-            Items = Utility.GenerateColumns<Foo>(p => p.GetFieldName() == nameof(Foo.Name) || p.GetFieldName() == nameof(Foo.Address))
-        };
-        await DialogService.ShowSearchDialog(option);
-    }
-
-    private async Task ShowInlineDialog()
-    {
-        var model = new Foo();
-        var option = new SearchDialogOption<Foo>()
-        {
-            Title = "Search popup",
-            ItemsPerRow = 2,
-            RowType = RowType.Inline,
-            Model = model,
-            Items = Utility.GenerateColumns<Foo>(p => p.GetFieldName() == nameof(Foo.Name) || p.GetFieldName() == nameof(Foo.Address))
-        };
-        await DialogService.ShowSearchDialog(option);
-    }
-
-    private async Task ShowInlineAlignDialog()
-    {
-        var model = new Foo();
-        var option = new SearchDialogOption<Foo>()
-        {
-            Title = "Search popup",
-            ItemsPerRow = 2,
-            RowType = RowType.Inline,
-            LabelAlign = Alignment.Right,
-            Model = model,
-            Items = Utility.GenerateColumns<Foo>(p => p.GetFieldName() == nameof(Foo.Name) || p.GetFieldName() == nameof(Foo.Address))
-        };
-        await DialogService.ShowSearchDialog(option);
-    }
-
     /// <summary>
     /// Get property method
     /// </summary>
