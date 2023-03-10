@@ -9,7 +9,6 @@ namespace BootstrapBlazor.Shared.Samples;
 /// </summary>
 public partial class Skeletons
 {
-
     /// <summary>
     /// 获得属性方法
     /// </summary>
