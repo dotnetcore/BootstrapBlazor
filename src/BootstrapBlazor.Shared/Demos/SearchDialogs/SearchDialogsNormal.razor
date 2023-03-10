@@ -1,0 +1,39 @@
+﻿@inject IStringLocalizer<BootstrapBlazor.Shared.Samples.SearchDialogs> Localizer
+@inject DialogService DialogService
+
+<Button Text="@Localizer["SearchDialogsNormalButtonText"]" OnClickWithoutRender="@ShowDialog" />
+
+<BlockLogger @ref="Trace" class="mt-3" />
+
+@code {
+    [NotNull]
+    private BlockLogger? Trace { get; set; }
+
+    private async Task ShowDialog()
+    {
+        var option = new SearchDialogOption<Foo>()
+        {
+            Title = "search popup",
+            Model = new Foo(),
+            ItemsPerRow = 2,
+            RowType = RowType.Inline,
+            OnCloseAsync = () =>
+            {
+                Trace.Log("Close button is clicked");
+                return Task.CompletedTask;
+            },
+            OnResetSearchClick = () =>
+            {
+                Trace.Log("Reset button is clicked");
+                return Task.CompletedTask;
+            },
+            OnSearchClick = () =>
+            {
+                Trace.Log("Search button is clicked");
+                return Task.CompletedTask;
+            }
+        };
+
+        await DialogService.ShowSearchDialog(option);
+    }
+}
