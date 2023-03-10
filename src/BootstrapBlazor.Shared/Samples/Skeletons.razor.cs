@@ -5,7 +5,7 @@
 namespace BootstrapBlazor.Shared.Samples;
 
 /// <summary>
-/// 
+/// Skeletons
 /// </summary>
 public partial class Skeletons
 {

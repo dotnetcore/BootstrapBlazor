@@ -1,21 +1,21 @@
 ﻿@page "/skeletons"
 @inject IStringLocalizer<Skeletons> Localizer
 
-<h3>@Localizer["Title"]</h3>
+<h3>@Localizer["SkeletonsTitle"]</h3>
 
-<h4>@Localizer["H1"]</h4>
+<h4>@Localizer["SkeletonsDescription"]</h4>
 
-<p><b>@Localizer["b1"]</b></p>
+<p><b>@Localizer["SkeletonsTipsTitle"]</b></p>
 
 <ul class="ul-demo">
-    <li>@Localizer["Li1"]</li>
-    <li>@Localizer["Li2"]</li>
-    <li>@Localizer["Li3"]</li>
-    <li>@Localizer["Li4"]</li>
+    <li>@Localizer["SkeletonsTips1"]</li>
+    <li>@Localizer["SkeletonsTips2"]</li>
+    <li>@Localizer["SkeletonsTips3"]</li>
+    <li>@Localizer["SkeletonsTips4"]</li>
 </ul>
 
-<DemoBlock Title="@Localizer["Block1Title"]" Introduction="@Localizer["Block1Intro"]" Name="Img">
-    <p>@((MarkupString)Localizer["P1"].Value)</p>
+<DemoBlock Title="@Localizer["SkeletonsImgTitle"]" Introduction="@Localizer["SkeletonsImgIntro"]" Name="Img">
+    <p>@((MarkupString)Localizer["SkeletonsImgDescription"].Value)</p>
     <div class="row g-3 skeleton-demo">
         <div class="col-4">
             <SkeletonAvatar Round="false" />
@@ -29,19 +29,21 @@
     </div>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["Block2Title"]" Introduction="@Localizer["Block2Intro"]" Name="Paragraph">
-    <p>@((MarkupString)Localizer["P2"].Value)</p>
+<DemoBlock Title="@Localizer["SkeletonsParagraphTitle"]" Introduction="@Localizer["SkeletonsParagraphIntro"]" Name="Paragraph">
+    <p>@((MarkupString)Localizer["SkeletonsParagraphDescription"].Value)</p>
     <SkeletonParagraph />
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["Block3Title"]" Introduction="@Localizer["Block3Intro"]" Name="Form">
+<DemoBlock Title="@Localizer["SkeletonsFormTitle"]" Introduction="@Localizer["SkeletonsFormIntro"]" Name="Form">
     <SkeletonEditor />
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["Block4Title"]" Introduction="@Localizer["Block4Intro"]" Name="Table">
+<DemoBlock Title="@Localizer["SkeletonsTableTitle"]" Introduction="@Localizer["SkeletonsTableIntro"]" Name="Table">
     <SkeletonTable />
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["BlockTreeTitle"]" Introduction="@Localizer["BlockTreeIntro"]" Name="Tree">
+<DemoBlock Title="@Localizer["SkeletonsTreeTitle"]" Introduction="@Localizer["SkeletonsTreeIntro"]" Name="Tree">
     <SkeletonTree />
 </DemoBlock>
+
+<AttributeTable Items="@GetAttributes()" />
