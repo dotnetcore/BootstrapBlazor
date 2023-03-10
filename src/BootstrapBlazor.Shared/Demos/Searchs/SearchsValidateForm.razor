@@ -1,0 +1,8 @@
+﻿<ValidateForm Model="@Model">
+    <Search Items="StaticItems" IsOnInputTrigger="true" @bind-Value="Model.Name" />
+</ValidateForm>
+
+@code {
+    private Foo Model { get; set; } = new Foo() { Name = "" };
+    private static List<string> StaticItems => new() { "1", "12", "123", "1234", "12345", "123456", "abc", "abcdef", "ABC", "aBcDeFg", "ABCDEFG" };
+}
