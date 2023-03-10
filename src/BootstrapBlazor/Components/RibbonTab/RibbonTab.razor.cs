@@ -143,7 +143,7 @@ public partial class RibbonTab
         }
     }
 
-    private async Task OnClickTab(TabItem item)
+    private async Task OnClickTabItemAsync(TabItem item)
     {
         var tab = Items.FirstOrDefault(i => i.IsActive);
         if (tab != null)
