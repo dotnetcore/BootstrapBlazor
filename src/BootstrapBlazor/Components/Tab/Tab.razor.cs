@@ -166,6 +166,7 @@ public partial class Tab : IHandlerException, IDisposable
     /// </summary>
     [Parameter]
     [Obsolete("请使用 OnClickTabItemAsync 代替")]
+    [ExcludeFromCodeCoverage]
     public Func<TabItem, Task>? OnClickTab { get; set; }
 
     /// <summary>
@@ -260,6 +261,7 @@ public partial class Tab : IHandlerException, IDisposable
         {
             if (!HandlerNavigation)
             {
+                HandlerNavigation = true;
                 Navigator.LocationChanged += Navigator_LocationChanged;
             }
             AddTabByUrl();
@@ -275,6 +277,7 @@ public partial class Tab : IHandlerException, IDisposable
         if (HandlerNavigation)
         {
             Navigator.LocationChanged -= Navigator_LocationChanged;
+            HandlerNavigation = false;
         }
     }
 
@@ -337,7 +340,6 @@ public partial class Tab : IHandlerException, IDisposable
     /// </summary>
     private async Task OnClickTabItem(TabItem item)
     {
-        Items.ToList().ForEach(i => i.SetActive(false));
         if (OnClickTabItemAsync != null)
         {
             await OnClickTabItemAsync(item);
@@ -345,6 +347,7 @@ public partial class Tab : IHandlerException, IDisposable
 
         if (!ClickTabToNavigation)
         {
+            Items.ToList().ForEach(i => i.SetActive(false));
             item.SetActive(true);
             StateHasChanged();
         }
