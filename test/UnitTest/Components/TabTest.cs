@@ -287,14 +287,17 @@ public class TabTest : TabTestBase
             ["Url"] = null,
             ["IsActive"] = true
         }));
-        cut.SetParametersAndRender(pb =>
-        {
-            pb.Add(a => a.ExcludeUrls, new String[] { "/Test" });
-        });
 
         // Remove Tab
         var item = cut.Instance.GetActiveTab();
         Assert.NotNull(item);
+        Assert.Equal("", item.Url);
+
+        cut.InvokeAsync(() => cut.Instance.RemoveTab(item!));
+        item = cut.Instance.GetActiveTab();
+        Assert.NotNull(item);
+        Assert.Equal("Cat", item.Url);
+
         cut.InvokeAsync(() => cut.Instance.RemoveTab(item!));
         item = cut.Instance.GetActiveTab();
         Assert.Null(item);
