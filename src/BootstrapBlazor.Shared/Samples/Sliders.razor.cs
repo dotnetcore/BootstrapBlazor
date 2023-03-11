@@ -5,7 +5,7 @@
 namespace BootstrapBlazor.Shared.Samples;
 
 /// <summary>
-/// 
+/// Sliders
 /// </summary>
 public sealed partial class Sliders
 {
@@ -20,21 +20,21 @@ public sealed partial class Sliders
         // TODO: 移动到数据库中
         new AttributeItem() {
             Name = "Class",
-            Description = Localizer["Class"],
+            Description = Localizer["SlidersClass"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
         },
         new AttributeItem() {
             Name = "IsDisabled",
-            Description = Localizer["IsDisabled"],
+            Description = Localizer["SlidersIsDisabled"],
             Type = "boolean",
             ValueList = " — ",
             DefaultValue = "false"
         },
         new AttributeItem() {
             Name = "Value",
-            Description = Localizer["Value"],
+            Description = Localizer["SlidersValue"],
             Type = "int",
             ValueList = " — ",
             DefaultValue = " — "
@@ -50,7 +50,7 @@ public sealed partial class Sliders
         new EventItem()
         {
             Name = "ValueChanged",
-            Description = Localizer["ValueChanged"],
+            Description = Localizer["SlidersValueChanged"],
             Type ="EventCallback<int>"
         }
     };
