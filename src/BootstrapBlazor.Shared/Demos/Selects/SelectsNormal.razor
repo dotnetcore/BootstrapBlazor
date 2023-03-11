@@ -1,0 +1,46 @@
+﻿<div class="row g-3">
+    <div class="col-12 col-sm-6">
+        <Select Items="Items" OnSelectedItemChanged="OnItemChanged" @bind-Value="Model.Name"></Select>
+    </div>
+    <div class="col-12 col-sm-6">
+        <Select Color="Color.Primary" Items="Items" OnSelectedItemChanged="OnItemChanged" @bind-Value="Model.Name"></Select>
+    </div>
+    <div class="col-12 col-sm-6">
+        <Select Color="Color.Success" Items="Items" OnSelectedItemChanged="OnItemChanged" @bind-Value="Model.Name"></Select>
+    </div>
+    <div class="col-12 col-sm-6">
+        <Select Color="Color.Danger" Items="Items" OnSelectedItemChanged="OnItemChanged" @bind-Value="Model.Name"></Select>
+    </div>
+    <div class="col-12 col-sm-6">
+        <Select Color="Color.Warning" Items="Items" OnSelectedItemChanged="OnItemChanged" @bind-Value="Model.Name"></Select>
+    </div>
+    <div class="col-12 col-sm-6">
+        <Select Color="Color.Info" Items="Items" OnSelectedItemChanged="OnItemChanged" @bind-Value="Model.Name"></Select>
+    </div>
+    <div class="col-12 col-sm-6">
+        <Select Color="Color.Secondary" Items="Items" OnSelectedItemChanged="OnItemChanged" @bind-Value="Model.Name"></Select>
+    </div>
+    <div class="col-12 col-sm-6">
+        <Select Color="Color.Dark" Items="Items" OnSelectedItemChanged="OnItemChanged" @bind-Value="Model.Name"></Select>
+    </div>
+</div>
+<BlockLogger @ref="Trace" class="mt-3" />
+
+@code {
+    private BlockLogger? Trace { get; set; }
+
+    private Foo Model { get; set; } = new Foo();
+
+    private IEnumerable<SelectedItem> Items { get; set; } = new[]
+    {
+        new SelectedItem ("Beijing", "北京"),
+        new SelectedItem ("Shanghai", "上海") { Active = true },
+    };
+
+    private Task OnItemChanged(SelectedItem item)
+    {
+        Trace?.Log($"SelectedItem Text: {item.Text} Value: {item.Value} Selected");
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
+}

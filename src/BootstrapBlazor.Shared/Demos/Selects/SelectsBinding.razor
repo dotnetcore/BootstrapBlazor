@@ -1,0 +1,18 @@
+﻿<div class="row g-3">
+    <div class="col-12 col-sm-6">
+        <Select Color="Color.Primary" Items="Items" @bind-Value="Model.Name"></Select>
+    </div>
+    <div class="col-12 col-sm-6">
+        <BootstrapInput readonly @bind-Value="Model.Name" />
+    </div>
+</div>
+
+@code {
+    private Foo Model { get; set; } = new Foo();
+
+    private IEnumerable<SelectedItem> Items { get; set; } = new[]
+    {
+        new SelectedItem ("Beijing", "北京"),
+        new SelectedItem ("Shanghai", "上海") { Active = true },
+    };
+}

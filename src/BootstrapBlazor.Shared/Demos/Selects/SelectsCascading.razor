@@ -1,0 +1,60 @@
+﻿@using BootstrapBlazor.Shared.Samples;
+@inject IStringLocalizer<Selects> Localizer
+@inject DialogService Dialog
+
+<div class="row g-3">
+    <div class="col-12 col-sm-6">
+        <Select TValue="string" Items="Items3" OnSelectedItemChanged="OnCascadeBindSelectClick" />
+    </div>
+    <div class="col-12 col-sm-6">
+        <Select TValue="string" Items="Items2" />
+    </div>
+    <div class="col-12">
+        <Button Text="@Localizer["SelectsCascadingButtonText1"]" OnClickWithoutRender="OnShowDialog" />
+    </div>
+</div>
+
+@code {
+    private readonly IEnumerable<SelectedItem> Items3 = new SelectedItem[]
+    {
+        new SelectedItem ("", "请选择 ..."),
+        new SelectedItem ("Beijing", "北京") { Active = true },
+        new SelectedItem ("Shanghai", "上海"),
+        new SelectedItem ("Hangzhou", "杭州")
+    };
+
+    private IEnumerable<SelectedItem>? Items2 { get; set; }
+
+    private Task OnShowDialog() => Dialog.Show(new DialogOption()
+    {
+        Title = "弹窗中使用级联下拉框",
+        Component = BootstrapDynamicComponent.CreateComponent<CustomerSelectDialog>()
+    });
+
+    private async Task OnCascadeBindSelectClick(SelectedItem item)
+    {
+        // 模拟异步通讯切换线程
+        await Task.Delay(10);
+        if (item.Value == "Beijing")
+        {
+            Items2 = new SelectedItem[]
+            {
+                new SelectedItem("1","朝阳区") { Active = true},
+                new SelectedItem("2","海淀区"),
+            };
+        }
+        else if (item.Value == "Shanghai")
+        {
+            Items2 = new SelectedItem[]
+            {
+                new SelectedItem("1","静安区"),
+                new SelectedItem("2","黄浦区") { Active = true } ,
+            };
+        }
+        else
+        {
+            Items2 = Enumerable.Empty<SelectedItem>();
+        }
+        StateHasChanged();
+    }
+}

@@ -1,0 +1,33 @@
+﻿@using BootstrapBlazor.Shared.Samples;
+@inject IStringLocalizer<Selects> Localizer
+
+<Divider Text="@Localizer["SelectsDispalyLabelDivider1"]" Alignment="Alignment.Left" style="margin: 2rem 0;"></Divider>
+<ValidateForm Model="Model">
+    <div class="row">
+        <div class="col-12">
+            <Select Color="Color.Primary" Items="Items" @bind-Value="Model.Name" />
+        </div>
+    </div>
+</ValidateForm>
+<Divider Text="@Localizer["SelectsDispalyLabelDivider2"]" Alignment="Alignment.Left" style="margin: 2rem 0;" />
+<div class="row">
+    <div class="col-12">
+        <Select Color="Color.Primary" Items="Items" @bind-Value="Model.Name" />
+    </div>
+</div>
+<Divider Text="@Localizer["SelectsDispalyLabelDivider3"]" Alignment="Alignment.Left" style="margin: 2rem 0;"></Divider>
+<div class="row">
+    <div class="col-12">
+        <Select Color="Color.Primary" Items="Items" @bind-Value="Model.Name" DisplayText="@Localizer["SelectsDispalyLabelSelectText"]" ShowLabel="true" />
+    </div>
+</div>
+
+@code {
+    private Foo Model { get; set; } = new Foo();
+
+    private IEnumerable<SelectedItem> Items { get; set; } = new[]
+    {
+        new SelectedItem ("Beijing", "北京"),
+        new SelectedItem ("Shanghai", "上海") { Active = true },
+    };
+}
