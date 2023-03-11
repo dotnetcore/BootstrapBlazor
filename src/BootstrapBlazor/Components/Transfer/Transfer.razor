@@ -9,7 +9,8 @@
 <div @attributes="@AdditionalAttributes" class="transfer">
     <TransferPanel Items="@LeftItems" Text="@LeftPanelText" IsDisabled="@IsDisabled"
                    ShowSearch="@ShowSearch" SearchPlaceHolderString="@LeftPannelSearchPlaceHolderString"
-                   OnSelectedItemsChanged="@SelectedItemsChanged" OnSetItemClass="OnSetItemClass">
+                   OnSelectedItemsChanged="@SelectedItemsChanged" OnSetItemClass="OnSetItemClass"
+                   HeaderTemplate="LeftHeaderTemplate!" ItemTemplate="LeftItemTemplate!">
     </TransferPanel>
     <div class="transfer-buttons">
         <Button Color="@Color.Primary" IsDisabled="@GetButtonState(RightItems)" OnClick="() => TransferItems(RightItems, LeftItems, false)">
@@ -23,6 +24,7 @@
     </div>
     <TransferPanel Items="@RightItems" Text="@RightPanelText" IsDisabled="@IsDisabled" class="@ValidateClass" Id="@Id"
                    ShowSearch="@ShowSearch" SearchPlaceHolderString="@RightPannelSearchPlaceHolderString"
-                   OnSelectedItemsChanged="@SelectedItemsChanged" OnSetItemClass="OnSetItemClass">
+                   OnSelectedItemsChanged="@SelectedItemsChanged" OnSetItemClass="OnSetItemClass"
+                   HeaderTemplate="RightHeaderTemplate!" ItemTemplate="RightItemTemplate!">
     </TransferPanel>
 </div>
