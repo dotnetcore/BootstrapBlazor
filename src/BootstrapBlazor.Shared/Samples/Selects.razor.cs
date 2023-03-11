@@ -18,13 +18,13 @@ public sealed partial class Selects
         new EventItem()
         {
             Name = "OnSelectedItemChanged",
-            Description = Localizer["OnSelectedItemChanged"],
+            Description = Localizer["SelectsOnSelectedItemChanged"],
             Type = "Func<SelectedItem, Task>"
         },
         new EventItem()
         {
             Name = "OnBeforeSelectedItemChange",
-            Description = Localizer["OnBeforeSelectedItemChange"],
+            Description = Localizer["SelectsOnBeforeSelectedItemChange"],
             Type = "Func<SelectedItem, Task<bool>>"
         }
     };
@@ -38,49 +38,49 @@ public sealed partial class Selects
         // TODO: 移动到数据库中
         new AttributeItem() {
             Name = "ShowLabel",
-            Description = Localizer["ShowLabel"],
+            Description = Localizer["SelectsShowLabel"],
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "true"
         },
         new AttributeItem() {
             Name = "ShowSearch",
-            Description = Localizer["ShowSearch"],
+            Description = Localizer["SelectsShowSearch"],
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
         },
         new AttributeItem() {
             Name = "DisplayText",
-            Description = Localizer["DisplayText"],
+            Description = Localizer["SelectsDisplayText"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
         },
         new AttributeItem() {
             Name = "Class",
-            Description = Localizer["Class"],
+            Description = Localizer["SelectsClass"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
         },
         new AttributeItem() {
             Name = "Color",
-            Description = Localizer["Color"],
+            Description = Localizer["SelectsColor"],
             Type = "Color",
             ValueList = "Primary / Secondary / Success / Danger / Warning / Info / Dark",
             DefaultValue = "Primary"
         },
         new AttributeItem() {
             Name = "IsDisabled",
-            Description = Localizer["IsDisabled"],
+            Description = Localizer["SelectsIsDisabled"],
             Type = "boolean",
             ValueList = "true / false",
             DefaultValue = "false"
         },
         new AttributeItem() {
             Name = "Items",
-            Description = Localizer["Items"],
+            Description = Localizer["SelectsItems"],
             Type = "IEnumerable<SelectedItem>",
             ValueList = " — ",
             DefaultValue = " — "
@@ -94,31 +94,31 @@ public sealed partial class Selects
         },
         new AttributeItem() {
             Name = "ItemTemplate",
-            Description = Localizer["ItemTemplate"],
+            Description = Localizer["SelectsItemTemplate"],
             Type = "RenderFragment<SelectedItem>",
             ValueList = " — ",
             DefaultValue = " — "
         },
         new AttributeItem() {
             Name = "ChildContent",
-            Description = Localizer["ChildContent"],
+            Description = Localizer["SelectsChildContent"],
             Type = "RenderFragment",
             ValueList = " — ",
             DefaultValue = " — "
         },
         new AttributeItem() {
             Name = "Category",
-            Description = Localizer["Category"],
+            Description = Localizer["SelectsCategory"],
             Type = "SwalCategory",
             ValueList = " — ",
             DefaultValue = " SwalCategory.Information "
         },
         new AttributeItem() {
             Name = "Content",
-            Description = Localizer["Content"],
+            Description = Localizer["SelectsContent"],
             Type = "string?",
             ValueList = " — ",
-            DefaultValue = Localizer["ContentDefaultValue"]!
+            DefaultValue = Localizer["SelectsContentDefaultValue"]!
         }
     };
 }
