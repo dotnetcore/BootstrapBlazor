@@ -1,0 +1,9 @@
+﻿<div class="row">
+    <div class="col-12 col-sm-6">
+        <SelectTree TValue="TreeFoo" Color="Color.Primary" Items="Items" IsDisabled="true"></SelectTree>
+    </div>
+</div>
+
+@code {
+    private List<TreeViewItem<TreeFoo>> Items { get; } = TreeFoo.GetTreeItems();
+}
