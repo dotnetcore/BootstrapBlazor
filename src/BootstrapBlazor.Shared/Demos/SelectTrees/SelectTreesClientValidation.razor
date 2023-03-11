@@ -1,30 +1,28 @@
-﻿// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
-// Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
-// Website: https://www.blazor.zone or https://argozhang.github.io/
+﻿@using BootstrapBlazor.Shared.Samples
+@inject IStringLocalizer<SelectTrees> Localizer
 
-namespace BootstrapBlazor.Shared.Samples;
+<ValidateForm Model="BindModel">
+    <div class="row g-3">
+        <div class="col-12 col-sm-6">
+            <SelectTree TValue="string" @bind-Value="BindModel.Text" ShowIcon="true" Items="BindItems" />
+        </div>
+        <div class="col-12 col-sm-6 align-self-end">
+            <Button ButtonType="ButtonType.Submit">@Localizer["SelectTreesClientValidationButtonText"]</Button>
+        </div>
+    </div>
+</ValidateForm>
 
-/// <summary>
-/// 
-/// </summary>
-public partial class SelectTrees
-{
-    [Inject]
-    [NotNull]
-    private IStringLocalizer<SelectTrees>? Localizer { get; set; }
-
-    private List<TreeViewItem<TreeFoo>> Items { get; } = TreeFoo.GetTreeItems();
-
-    [NotNull]
-    private List<TreeViewItem<string>>? BindItems { get; set; }
-
+@code {
     [NotNull]
     private TreeFoo? Model { get; set; }
 
     private TreeFoo BindModel { get; set; } = new TreeFoo();
 
+    [NotNull]
+    private List<TreeViewItem<string>>? BindItems { get; set; }
+
     /// <summary>
-    /// <inheritdoc/>
+    /// OnInitialized
     /// </summary>
     protected override void OnInitialized()
     {
