@@ -212,4 +212,42 @@ public class TransferTest : BootstrapBlazorTestBase
             pb.Add(a => a.Max, 3);
         });
     }
+
+    [Fact]
+    public void Template_Ok()
+    {
+        var cut = Context.RenderComponent<Transfer<string>>(pb =>
+        {
+            pb.Add(a => a.Value, "2,4");
+            pb.Add(a => a.Items, new List<SelectedItem>()
+            {
+                new("1", "Test1"),
+                new("2", "Test2") { Active = true },
+                new("3", "Test3"),
+                new("4", "Test4") { Active = true }
+            });
+            pb.Add(a => a.LeftHeaderTemplate, items => builder =>
+            {
+                builder.AddContent(0, "Left-HeaderTemplate");
+            });
+            pb.Add(a => a.LeftItemTemplate, item => builder =>
+            {
+                builder.AddContent(0, $"Left-ItemTemplate-{item.Text}");
+            });
+            pb.Add(a => a.RightHeaderTemplate, items => builder =>
+            {
+                builder.AddContent(0, "Right-HeaderTemplate");
+            });
+            pb.Add(a => a.RightItemTemplate, item => builder =>
+            {
+                builder.AddContent(0, $"Right-ItemTemplate-{item.Text}");
+            });
+        });
+        cut.Contains("Left-HeaderTemplate");
+        cut.Contains("Left-ItemTemplate-Test1");
+        cut.Contains("Left-ItemTemplate-Test3");
+        cut.Contains("Right-HeaderTemplate");
+        cut.Contains("Right-ItemTemplate-Test2");
+        cut.Contains("Right-ItemTemplate-Test4");
+    }
 }
