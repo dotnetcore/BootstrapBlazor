@@ -3469,7 +3469,11 @@
     "OnSelectedItemsChanged": "The callback method when the component binding data item collection options change",
     "OnSetItemClass": "Set the Item style callback method",
     "Data": "Data",
-    "Backup": "Backup"
+    "Backup": "Backup",
+    "LeftHeaderTemplate": "the left panel Header template",
+    "LeftItemTemplate": "the left panel Item template",
+    "RightHeaderTemplate": "the right panel Header template",
+    "RightItemTemplate": "the right panel Item template"
   },
   "BootstrapBlazor.Shared.Samples.Uploads": {
     "Title": "Upload",

@@ -3483,7 +3483,11 @@
     "OnSelectedItemsChanged": "组件绑定数据项集合选项变化时回调方法",
     "OnSetItemClass": "设置 Item 样式回调方法",
     "Data": "数据",
-    "Backup": "备选"
+    "Backup": "备选",
+    "LeftHeaderTemplate": "左侧数据 Header 模板",
+    "LeftItemTemplate": "左侧数据项模板",
+    "RightHeaderTemplate": "右侧数据 Header 模板",
+    "RightItemTemplate": "右侧数据项模板"
   },
   "BootstrapBlazor.Shared.Samples.Uploads": {
     "Title": "Upload 上传",
