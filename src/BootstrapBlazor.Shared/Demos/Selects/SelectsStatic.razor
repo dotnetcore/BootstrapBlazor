@@ -1,0 +1,14 @@
+﻿@using BootstrapBlazor.Shared.Samples;
+@inject IStringLocalizer<Selects> Localizer
+
+<div class="row">
+    <div class="col-12 col-sm-6">
+        <Select TValue="string">
+            <Options>
+                <SelectOption Text="@Localizer["SelectsOption1"]" Value="1" />
+                <SelectOption Text="@Localizer["SelectsOption2"]" Value="2" Active="true" />
+                <SelectOption Text="@Localizer["SelectsOption3"]" Value="3" />
+            </Options>
+        </Select>
+    </div>
+</div>

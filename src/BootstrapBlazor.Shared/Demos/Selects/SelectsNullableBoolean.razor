@@ -1,0 +1,25 @@
+﻿<div class="row g-3">
+    <div class="col-12 col-sm-6">
+        <Select Items="NullableBoolItems" @bind-Value="SelectedBoolItem">
+        </Select>
+    </div>
+    <div class="col-12 col-sm-6">
+        <div class="form-control">@GetSelectedBoolItemString()</div>
+    </div>
+</div>
+
+@code {
+    private bool? SelectedBoolItem { get; set; }
+
+    private string GetSelectedBoolItemString()
+    {
+        return SelectedBoolItem.HasValue ? SelectedBoolItem.Value.ToString() : "null";
+    }
+
+    private IEnumerable<SelectedItem> NullableBoolItems { get; set; } = new SelectedItem[]
+    {
+        new SelectedItem() { Text = "空值", Value = "" },
+        new SelectedItem() { Text = "True 值", Value = "true" },
+        new SelectedItem() { Text = "False 值", Value = "false" }
+    };
+}

@@ -1,0 +1,18 @@
+﻿<div class="row">
+    <div class="col-12 col-sm-6">
+        <Select TValue="string" Items="Items">
+            <DisplayTemplate>
+                <i class="fa-solid fa-flag"></i>
+                <span>@context?.Text</span>
+            </DisplayTemplate>
+        </Select>
+    </div>
+</div>
+
+@code {
+    private IEnumerable<SelectedItem> Items { get; set; } = new[]
+    {
+        new SelectedItem ("Beijing", "北京"),
+        new SelectedItem ("Shanghai", "上海") { Active = true },
+    };
+}
