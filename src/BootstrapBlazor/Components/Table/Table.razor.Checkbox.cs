@@ -25,15 +25,17 @@ public partial class Table<TItem>
     protected CheckboxState HeaderCheckState()
     {
         var ret = CheckboxState.UnChecked;
-        if (Rows.Any())
+        //过滤掉不可选择的记录
+        var filterRows = ShowRowCheckBox == null ? Rows : Rows.Where(ShowRowCheckBox);
+        if (filterRows.Any())
         {
-            if (Rows.All(AnyRow))
+            if (filterRows.All(AnyRow))
             {
                 // 所有行被选中
                 // all rows are selected
                 ret = CheckboxState.Checked;
             }
-            else if (Rows.Any(AnyRow))
+            else if (filterRows.Any(AnyRow))
             {
                 // 任意一行被选中
                 // any one row is selected
@@ -75,6 +77,14 @@ public partial class Table<TItem>
     public string? CheckboxDisplayText { get; set; }
 
     /// <summary>
+    /// 获得/设置 表格行是否显示选择框 默认全部显示 此属性在 <see cref="IsMultipleSelect"/> 参数为 true 时生效
+    /// </summary>
+    [Parameter]
+    public Func<TItem, bool>? ShowRowCheckBox { get; set; }
+
+    private bool GetShowRowCheckBox(TItem item) => ShowRowCheckBox == null || ShowRowCheckBox(item);
+
+    /// <summary>
     /// 点击 Header 选择复选框时触发此方法
     /// </summary>
     /// <param name="state"></param>
@@ -86,7 +96,7 @@ public partial class Table<TItem>
             case CheckboxState.Checked:
                 // select all
                 SelectedRows.Clear();
-                SelectedRows.AddRange(Rows);
+                SelectedRows.AddRange(ShowRowCheckBox == null ? Rows : Rows.Where(ShowRowCheckBox));
                 await OnSelectedRowsChanged();
                 break;
             case CheckboxState.UnChecked:
