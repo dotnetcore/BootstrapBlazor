@@ -5224,7 +5224,7 @@
     "ColumnTextIntro": "Add column header display name by setting <code>Text</code>",
     "ColumnTextDesc": "The fields in the table component <code>TableColumns</code> template are automatically displayed according to the <code>DisplayName</code> tag value of the bound model. If you want to customize the display name, please set <code>Text</code> property",
     "SelectTitle": "Table with select list",
-    "SelectIntro": "Add the first column of the table by setting <code>IsMultipleSelect=true</code> to select the column",
+    "SelectIntro": "Add the first column of the table by setting <code>IsMultipleSelect=\"true\"</code> to select the column, and the <code>ShowRowCheckboxCallback</code> callback delegate can control whether each row displays the checkbox. In this example, the <code> Complete</code> attribute to control whether to display the checkbox",
     "ShowCheckboxTitle": "Checkbox table with display text",
     "ShowCheckboxIntro": "By setting <code>ShowCheckboxText=true</code> the display text in the first column of the table is <b>select</b>",
     "DisabledTitle": "Select Box Column",

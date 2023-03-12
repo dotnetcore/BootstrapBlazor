@@ -5260,7 +5260,7 @@
     "ColumnTextIntro": "通过设置 <code>Text</code> 增加列头显示名称",
     "ColumnTextDesc": "表格组件 <code>TableColumns</code> 模板中的字段采用的是根据绑定模型的 <code>DisplayName</code> 标签值来自动显示的，如果要自定义显示名称请设置 <code>Text</code> 属性",
     "SelectTitle": "带选择列表格",
-    "SelectIntro": "通过设置 <code>IsMultipleSelect=true</code> 增加表格第一列为选择列",
+    "SelectIntro": "通过设置 <code>IsMultipleSelect=\"true\"</code> 增加表格第一列为选择列，设置 <code>ShowRowCheckboxCallback</code> 属性确定行是否显示选择框，本例中通过 <code>Complete</code> 属性来控制是否显示行的选择框",
     "ShowCheckboxTitle": "带显示文字的选择列表格",
     "ShowCheckboxIntro": "通过设置 <code>ShowCheckboxText=true</code> 表格第一列显示文字为 <b>选择</b>",
     "DisabledTitle": "选择框列",
