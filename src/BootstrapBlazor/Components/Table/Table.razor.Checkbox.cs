@@ -26,7 +26,7 @@ public partial class Table<TItem>
     {
         var ret = CheckboxState.UnChecked;
         //过滤掉不可选择的记录
-        var filterRows = ShowRowCheckBox == null ? Rows : Rows.Where(ShowRowCheckBox);
+        var filterRows = ShowRowCheckbox == null ? Rows : Rows.Where(ShowRowCheckbox);
         if (filterRows.Any())
         {
             if (filterRows.All(AnyRow))
@@ -80,9 +80,9 @@ public partial class Table<TItem>
     /// 获得/设置 表格行是否显示选择框 默认全部显示 此属性在 <see cref="IsMultipleSelect"/> 参数为 true 时生效
     /// </summary>
     [Parameter]
-    public Func<TItem, bool>? ShowRowCheckBox { get; set; }
+    public Func<TItem, bool>? ShowRowCheckbox { get; set; }
 
-    private bool GetShowRowCheckBox(TItem item) => ShowRowCheckBox == null || ShowRowCheckBox(item);
+    private bool GetShowRowCheckbox(TItem item) => ShowRowCheckbox == null || ShowRowCheckbox(item);
 
     /// <summary>
     /// 点击 Header 选择复选框时触发此方法
@@ -96,7 +96,7 @@ public partial class Table<TItem>
             case CheckboxState.Checked:
                 // select all
                 SelectedRows.Clear();
-                SelectedRows.AddRange(ShowRowCheckBox == null ? Rows : Rows.Where(ShowRowCheckBox));
+                SelectedRows.AddRange(ShowRowCheckbox == null ? Rows : Rows.Where(ShowRowCheckbox));
                 await OnSelectedRowsChanged();
                 break;
             case CheckboxState.UnChecked:

@@ -598,7 +598,7 @@ RenderFragment<TItem> RenderRow => item =>
     {
         <td class="@MultiColumnClassString" style="@MultiColumnStyleString">
             <div class="table-cell">
-            @if (GetShowRowCheckBox(item))
+            @if (GetShowRowCheckbox(item))
             {
                 <Checkbox TValue="TItem" Value="@item" ShowLabel="false" State="RowCheckState(item)" OnStateChanged="OnCheck" @onclick:stopPropagation></Checkbox>
             }
