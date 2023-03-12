@@ -6424,6 +6424,39 @@ public class TableTest : TableTestBase
         cut.Contains("table-striped table-hover");
     }
 
+    [Fact]
+    public void ShowRowCheckboxCallback_Ok()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var items = Foo.GenerateFoo(localizer, 2);
+        items[0].Complete = true;
+        items[1].Complete = false;
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.Items, items);
+                pb.Add(a => a.IsMultipleSelect, true);
+            });
+        });
+
+        // rows 只有一行显示 Checkbox 组件
+        var table = cut.FindComponent<Table<Foo>>();
+        Assert.Equal(3, table.FindComponents<Checkbox<Foo>>().Count);
+
+        table.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ShowRowCheckboxCallback, foo => foo.Complete);
+        });
+        Assert.Equal(2, table.FindComponents<Checkbox<Foo>>().Count);
+
+        // click header 第二行不可选择
+        var header = table.Find("thead tr th input");
+        table.InvokeAsync(() => header.Click());
+        Assert.Single(table.Instance.SelectedRows);
+    }
+
     private static DataTable CreateDataTable(IStringLocalizer<Foo> localizer)
     {
         var userData = new DataTable();
