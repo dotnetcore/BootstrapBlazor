@@ -1,7 +1,7 @@
 ﻿@inject IStringLocalizer<Foo> FooLocalizer
 
 <div>
-    <Table TItem="Foo" Items="@Items.Take(3)" IsMultipleSelect="true">
+    <Table TItem="Foo" Items="@Items.Take(3)" IsMultipleSelect="true" ShowRowCheckboxCallback="ShowCheckbox">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" />
             <TableColumn @bind-Field="@context.Name" />
@@ -29,4 +29,6 @@
 
         Items = Foo.GenerateFoo(FooLocalizer);
     }
+
+    private bool ShowCheckbox(Foo foo) => foo.Complete;
 }
