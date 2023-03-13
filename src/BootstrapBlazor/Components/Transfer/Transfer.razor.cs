@@ -8,16 +8,13 @@ using System.Reflection;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// 穿梭框组件
 /// </summary>
 public partial class Transfer<TValue>
 {
-    /// <summary>
-    /// 
-    /// </summary>
     [Inject]
     [NotNull]
-    protected IStringLocalizer<Transfer<TValue>>? Localizer { get; set; }
+    private IStringLocalizer<Transfer<TValue>>? Localizer { get; set; }
 
     /// <summary>
     /// 获得/设置 按钮文本样式
@@ -51,6 +48,7 @@ public partial class Transfer<TValue>
     /// 获得/设置 组件绑定数据项集合
     /// </summary>
     [Parameter]
+    [NotNull]
 #if NET6_0_OR_GREATER
     [EditorRequired]
 #endif
@@ -136,6 +134,30 @@ public partial class Transfer<TValue>
     [Parameter]
     [NotNull]
     public Func<SelectedItem, string?>? OnSetItemClass { get; set; }
+
+    /// <summary>
+    /// 获得/设置 左侧 Pannel Header 模板
+    /// </summary>
+    [Parameter]
+    public RenderFragment<List<SelectedItem>>? LeftHeaderTemplate { get; set; }
+
+    /// <summary>
+    /// 获得/设置 左侧 Pannel Item 模板
+    /// </summary>
+    [Parameter]
+    public RenderFragment<SelectedItem>? LeftItemTemplate { get; set; }
+
+    /// <summary>
+    /// 获得/设置 右侧 Pannel Header 模板
+    /// </summary>
+    [Parameter]
+    public RenderFragment<List<SelectedItem>>? RightHeaderTemplate { get; set; }
+
+    /// <summary>
+    /// 获得/设置 右侧 Pannel Item 模板
+    /// </summary>
+    [Parameter]
+    public RenderFragment<SelectedItem>? RightItemTemplate { get; set; }
 
     /// <summary>
     /// 获得/设置 IStringLocalizerFactory 注入服务实例 默认为 null
@@ -262,7 +284,7 @@ public partial class Transfer<TValue>
             if (ValidateForm == null && (Min > 0 || Max > 0))
             {
                 var validationContext = new ValidationContext(Value);
-                if(FieldIdentifier.HasValue)
+                if (FieldIdentifier.HasValue)
                 {
                     validationContext.MemberName = FieldIdentifier.Value.FieldName;
                 }

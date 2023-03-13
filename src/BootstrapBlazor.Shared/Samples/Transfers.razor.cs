@@ -176,6 +176,34 @@ public sealed partial class Transfers : ComponentBase
             Type = "boolean",
             ValueList = "true / false",
             DefaultValue = "false"
+        },
+        new AttributeItem() {
+            Name = "LeftHeaderTemplate",
+            Description = Localizer["LeftHeaderTemplate"],
+            Type = "RenderFragment",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new AttributeItem() {
+            Name = "LeftItemTemplate",
+            Description = Localizer["LeftItemTemplate"],
+            Type = "RenderFragment",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new AttributeItem() {
+            Name = "RightHeaderTemplate",
+            Description = Localizer["RightHeaderTemplate"],
+            Type = "RenderFragment",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new AttributeItem() {
+            Name = "RightItemTemplate",
+            Description = Localizer["RightItemTemplate"],
+            Type = "RenderFragment",
+            ValueList = " — ",
+            DefaultValue = " — "
         }
     };
 
