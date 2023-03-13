@@ -48,7 +48,7 @@ else
                                 else
                                 {
                                     <DynamicElement href="@item.Url" role="tab" tabindex="-1" class="@GetClassString(item)"
-                                                    TagName="a" TriggerClick="!ClickTabToNavigation" OnClick="@(() => OnClickTabItem(item))"
+                                                    TagName="a" OnClick="@(() => OnClickTabItem(item))"
                                                     PreventDefault="@(!ClickTabToNavigation)">
                                         @if (!string.IsNullOrEmpty(item.Icon))
                                         {

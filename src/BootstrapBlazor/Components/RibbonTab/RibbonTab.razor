@@ -3,7 +3,7 @@
 
 <div @attributes="@AdditionalAttributes" id="@Id" class="@HeaderClassString">
     <div class="ribbon-header">
-        <Tab IsBorderCard="true" OnClickTab="OnClickTab">
+        <Tab IsBorderCard="true" OnClickTabItemAsync="OnClickTabItemAsync">
             @foreach (var item in Items)
             {
                 <TabItem @key="item" Text="@item.Text" IsActive="item.IsActive">
