@@ -76,4 +76,36 @@ public class TransferPanelTest : BootstrapBlazorTestBase
         });
         cut.Contains("disabled=\"disabled\"");
     }
+
+    [Fact]
+    public void HeaderTemplate_Ok()
+    {
+        var cut = Context.RenderComponent<TransferPanel>(pb =>
+        {
+            pb.Add(a => a.HeaderTemplate, items => builder =>
+            {
+                builder.AddContent(0, "HeaderTemplate-Test");
+            });
+        });
+        cut.Contains("HeaderTemplate-Test");
+    }
+
+    [Fact]
+    public void ItemTemplate_Ok()
+    {
+        var cut = Context.RenderComponent<TransferPanel>(pb =>
+        {
+            pb.Add(a => a.Items, new List<SelectedItem>
+            {
+                new("1", "Test1"),
+                new("2", "Test2")
+            });
+            pb.Add(a => a.ItemTemplate, item => builder =>
+            {
+                builder.AddContent(0, $"ItemTemplate-Test-{item.Text}");
+            });
+        });
+        cut.Contains("ItemTemplate-Test-Test1");
+        cut.Contains("ItemTemplate-Test-Test2");
+    }
 }
