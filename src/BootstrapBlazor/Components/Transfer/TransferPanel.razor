@@ -3,8 +3,15 @@
 
 <div @attributes="@AdditionalAttributes" class="@PanelClassString">
     <div class="transfer-panel-header">
-        <Checkbox TValue="SelectedItem" DisplayText="@Text" IsDisabled="@IsDisabled" ShowAfterLabel="true" ShowLabel="false"
-                  State="@HeaderCheckState()" OnStateChanged="@OnHeaderCheck" />
+        @if(HeaderTemplate == null)
+        {
+            <Checkbox TValue="SelectedItem" DisplayText="@Text" IsDisabled="@IsDisabled" ShowAfterLabel="true" ShowLabel="false"
+                      State="@HeaderCheckState()" OnStateChanged="@OnHeaderCheck" />
+        }
+        else
+        {
+            @HeaderTemplate(Items)
+        }
     </div>
     <div class="transfer-panel-body">
         @if (ShowSearch)
@@ -20,10 +27,17 @@
             @{
                 foreach (var item in GetShownItems())
                 {
+                    if(ItemTemplate == null)
+                    {
                     var state = item.Active ? CheckboxState.Checked : CheckboxState.UnChecked;
                     <Checkbox TValue="SelectedItem" IsDisabled="@IsDisabled" class="@GetItemClass(item)"
                               DisplayText="@item.Text" Value="item" ShowAfterLabel="true" ShowLabel="false"
                               State="@state" OnStateChanged="@OnStateChanged"></Checkbox>
+                    }
+                    else
+                    {
+                        @ItemTemplate(item)
+                    }
                 }
             }
         </div>

@@ -50,6 +50,7 @@ public partial class TransferPanel
     /// 获得/设置 数据集合
     /// </summary>
     [Parameter]
+    [NotNull]
 #if NET6_0_OR_GREATER
     [EditorRequired]
 #endif
@@ -93,6 +94,18 @@ public partial class TransferPanel
     [Parameter]
     public bool IsDisabled { get; set; }
 
+    /// <summary>
+    /// 获得/设置 Header 模板
+    /// </summary>
+    [Parameter]
+    public RenderFragment<List<SelectedItem>>? HeaderTemplate { get; set; }
+
+    /// <summary>
+    /// 获得/设置 Item 模板
+    /// </summary>
+    [Parameter]
+    public RenderFragment<SelectedItem>? ItemTemplate { get; set; }
+
     [Inject]
     [NotNull]
     private IStringLocalizer<Transfer<string>>? Localizer { get; set; }
@@ -104,6 +117,7 @@ public partial class TransferPanel
     {
         base.OnParametersSet();
 
+        Items ??= new();
         SearchPlaceHolderString ??= Localizer[nameof(SearchPlaceHolderString)];
         Text ??= Localizer[nameof(Text)];
     }
@@ -114,11 +128,11 @@ public partial class TransferPanel
     protected CheckboxState HeaderCheckState()
     {
         var ret = CheckboxState.Indeterminate;
-        if (Items != null && Items.Any() && Items.All(i => i.Active))
+        if (Items.Any() && Items.All(i => i.Active))
         {
             ret = CheckboxState.Checked;
         }
-        else if (Items != null && !Items.Any(i => i.Active))
+        else if (!Items.Any(i => i.Active))
         {
             ret = CheckboxState.UnChecked;
         }
@@ -200,5 +214,5 @@ public partial class TransferPanel
 
     private List<SelectedItem> GetShownItems() => (string.IsNullOrEmpty(SearchText)
         ? Items
-        : Items?.Where(i => i.Text.Contains(SearchText, StringComparison.OrdinalIgnoreCase)).ToList()) ?? new List<SelectedItem>();
+        : Items.Where(i => i.Text.Contains(SearchText, StringComparison.OrdinalIgnoreCase)).ToList());
 }
