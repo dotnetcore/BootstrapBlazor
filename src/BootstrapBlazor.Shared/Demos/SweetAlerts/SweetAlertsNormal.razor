@@ -1,0 +1,77 @@
+﻿@using BootstrapBlazor.Shared.Samples;
+@inject IStringLocalizer<SweetAlerts> Localizer
+@inject SwalService SwalService
+
+<div class="row g-3">
+    <div class="col-4 align-self-center text-center">
+        <div class="text-success">@Localizer["SweetAlertsNormalSuccess"]</div>
+    </div>
+    <div class="col-4">
+        <div class="swal2-icon swal2-success">
+            <div class="swal2-success-circular-line-left"></div>
+            <span class="swal2-success-line-tip"></span><span class="swal2-success-line-long"></span>
+            <div class="swal2-success-ring"></div><div class="swal2-success-fix"></div>
+            <div class="swal2-success-circular-line-right"></div>
+        </div>
+    </div>
+    <div class="col-4 align-self-center text-center">
+        <Button Icon="fa-solid fa-font-awesome" Text="@Localizer["SweetAlertsPopups"]" Color="Color.Success" OnClick="@(e => OnSwal(SwalCategory.Success))" />
+    </div>
+</div>
+<div class="row g-3">
+    <div class="col-4 align-self-center text-center">
+        <div class="text-danger">@Localizer["SweetAlertsNormalFail"]</div>
+    </div>
+    <div class="col-4">
+        <div class="swal2-icon swal2-error">
+            <span class="swal2-x-mark">
+                <span class="swal2-x-mark-line-left"></span>
+                <span class="swal2-x-mark-line-right"></span>
+            </span>
+        </div>
+    </div>
+    <div class="col-4 align-self-center text-center">
+        <Button Icon="fa-solid fa-font-awesome" Text="@Localizer["SweetAlertsPopups"]" Color="Color.Danger" OnClick="@(e => OnSwal(SwalCategory.Error))" />
+    </div>
+</div>
+<div class="row g-3">
+    <div class="col-4 align-self-center text-center">
+        <div class="text-warning">@Localizer["SweetAlertsNormalWarn"]</div>
+    </div>
+    <div class="col-4">
+        <div class="swal2-icon swal2-warning"></div>
+    </div>
+    <div class="col-4 align-self-center text-center">
+        <Button Icon="fa-solid fa-font-awesome" Text="@Localizer["SweetAlertsPopups"]" Color="Color.Warning" OnClick="@(e => OnSwal(SwalCategory.Warning))" />
+    </div>
+</div>
+<div class="row g-3">
+    <div class="col-4 align-self-center text-center">
+        <div class="text-info">@Localizer["SweetAlertsNormalHint"]</div>
+    </div>
+    <div class="col-4">
+        <div class="swal2-icon swal2-info"></div>
+    </div>
+    <div class="col-4 align-self-center text-center">
+        <Button Icon="fa-solid fa-font-awesome" Text="@Localizer["SweetAlertsPopups"]" Color="Color.Info" OnClick="@(e => OnSwal(SwalCategory.Information))" />
+    </div>
+</div>
+<div class="row g-3">
+    <div class="col-4 align-self-center text-center">
+        <div class="text-secondary">@Localizer["SweetAlertsNormalDoubt"]</div>
+    </div>
+    <div class="col-4">
+        <div class="swal2-icon swal2-question"></div>
+    </div>
+    <div class="col-4 align-self-center text-center">
+        <Button Icon="fa-solid fa-font-awesome" Text="@Localizer["SweetAlertsPopups"]" Color="Color.Secondary" OnClick="@(e => OnSwal(SwalCategory.Question))" />
+    </div>
+</div>
+
+@code {
+    private Task OnSwal(SwalCategory cate) => SwalService.Show(new SwalOption()
+    {
+        Category = cate,
+        Title = "Sweet"
+    });
+}

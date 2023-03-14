@@ -1,0 +1,86 @@
+﻿@using BootstrapBlazor.Shared.Samples
+@using System.Collections.Concurrent
+@inject IStringLocalizer<Timelines> Localizer
+
+<Timeline Items="GetCustomerComponentTimelineItems()" />
+
+@code {
+    private IEnumerable<SelectedItem> Items { get; set; } = Enumerable.Empty<SelectedItem>();
+
+    private readonly ConcurrentQueue<ConsoleMessageItem> _messages = new();
+
+    private readonly CancellationTokenSource _cancelTokenSource = new();
+
+    private readonly AutoResetEvent _locker = new(true);
+
+    private IEnumerable<ConsoleMessageItem> Messages => _messages;
+
+    private static Color GetColor()
+    {
+        var second = DateTime.Now.Second;
+        return (second % 3) switch
+        {
+            1 => Color.Danger,
+            2 => Color.Info,
+            _ => Color.None
+            };
+    }
+
+    /// <summary>
+    /// OnInitializedAsync
+    /// </summary>
+    /// <returns></returns>
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+
+        var _ = Task.Run(async () =>
+        {
+            do
+            {
+                _locker.WaitOne();
+                _messages.Enqueue(new ConsoleMessageItem { Message = $"{DateTimeOffset.Now}: Dispatch Message", Color = GetColor() });
+
+                if (_messages.Count > 8)
+                {
+                    _messages.TryDequeue(out var _);
+                }
+                await InvokeAsync(StateHasChanged);
+                _locker.Set();
+                await Task.Delay(2000, _cancelTokenSource.Token);
+            }
+            while (!_cancelTokenSource.IsCancellationRequested);
+        });
+
+        Items = new SelectedItem[]
+        {
+            new SelectedItem("1", Localizer["TimelinesSelectedItem1"]) { Active=true },
+            new SelectedItem("2", Localizer["TimelinesSelectedItem2"])
+        };
+    }
+
+    private IEnumerable<TimelineItem> GetCustomerComponentTimelineItems() => new TimelineItem[]
+    {
+        new TimelineItem
+        {
+            Color = Color.Success,
+            Component = BootstrapDynamicComponent.CreateComponent<BootstrapBlazor.Components.Console>(new Dictionary<string, object?>
+            {
+                [nameof(BootstrapBlazor.Components.Console.Items)] = Messages
+            }),
+            Description = Localizer["TimelinesDescription1"]
+        },
+        new TimelineItem
+        {
+            Color = Color.Info,
+            Component = BootstrapDynamicComponent.CreateComponent<Counter>(),
+            Description = Localizer["TimelinesDescription2"]
+        },
+        new TimelineItem
+        {
+            Color = Color.Warning,
+            Component = BootstrapDynamicComponent.CreateComponent<FetchData>(),
+            Description = Localizer["TimelinesDescription3"]
+        }
+    };
+}

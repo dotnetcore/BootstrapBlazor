@@ -1,35 +1,41 @@
 ﻿@page "/timelines"
 @inject IStringLocalizer<Timelines> Localizer
 
-<h3>@Localizer["Title"]</h3>
+<h3>@Localizer["TimelinesTitle"]</h3>
 
-<h4>@Localizer["SubTitle"]</h4>
+<h4>@Localizer["TimelinesSubTitle"]</h4>
 
-<DemoBlock Title="@Localizer["BasicUsageTitle"]" Introduction="@Localizer["BasicUsageIntro"]" Name="Normal">
-    <div class="d-flex mb-3 align-items-center">
-        <div class="text-nowrap me-1">@Localizer["BasicUsageP"]</div>
-        <RadioList class="flex-fill" TValue="SelectedItem" OnSelectedChanged="@OnStateChanged" Items="@Items"></RadioList>
-    </div>
-    <Timeline Items="TimelineItems" IsReverse="@IsReverse"></Timeline>
+<DemoBlock Title="@Localizer["TimelinesNormalTitle"]"
+           Introduction="@Localizer["TimelinesNormalIntro"]"
+           Name="Normal"
+           Demo="typeof(Demos.Timelines.TimelinesNormal)">
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["CutomNodeStyleTitle"]" Introduction="@Localizer["CutomNodeStyleIntro"]" Name="CutomNodeStyle">
-    <Timeline Items="CustomerTimelineItems" />
+<DemoBlock Title="@Localizer["TimelinesCutomNodeStyleTitle"]"
+           Introduction="@Localizer["TimelinesCutomNodeStyleIntro"]"
+           Name="CutomNodeStyle"
+           Demo="typeof(Demos.Timelines.TimelinesCutomNodeStyle)">
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["LeftTitle"]" Introduction="@Localizer["LeftIntro"]" Name="Left">
-    <p>@((MarkupString)Localizer["LeftP"].Value)</p>
-    <Timeline Items="AlternateTimelineItems" IsLeft="true" />
+<DemoBlock Title="@Localizer["TimelinesLeftTitle"]"
+           Introduction="@Localizer["TimelinesLeftIntro"]"
+           Name="Left"
+           Demo="typeof(Demos.Timelines.TimelinesLeft)">
+    <p>@((MarkupString)Localizer["TimelinesLeftDescription"].Value)</p>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["AlternateTitle"]" Introduction="@Localizer["AlternateIntro"]" Name="Alternate">
-    <p>@((MarkupString)Localizer["AlternateP"].Value)</p>
-    <Timeline Items="AlternateTimelineItems" IsAlternate="true" />
+<DemoBlock Title="@Localizer["TimelinesAlternateTitle"]"
+           Introduction="@Localizer["TimelinesAlternateIntro"]"
+           Name="Alternate"
+           Demo="typeof(Demos.Timelines.TimelinesAlternate)">
+    <p>@((MarkupString)Localizer["TimelinesAlternateDescription"].Value)</p>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["DispalyCustomComponentTitle"]" Introduction="@Localizer["DispalyCustomComponentIntro"]" Name="DispalyCustomComponent">
-    <p>@((MarkupString)Localizer["DispalyCustomComponentP"].Value)</p>
-    <Timeline Items="GetCustomerComponentTimelineItems()" />
+<DemoBlock Title="@Localizer["TimelinesDispalyCustomComponentTitle"]"
+           Introduction="@Localizer["TimelinesDispalyCustomComponentIntro"]"
+           Name="DispalyCustomComponent"
+           Demo="typeof(Demos.Timelines.TimelinesDispalyCustomComponent)">
+    <p>@((MarkupString)Localizer["TimelinesDispalyCustomComponentDescription"].Value)</p>
 </DemoBlock>
 
 <AttributeTable Items="GetAttributes()" />
