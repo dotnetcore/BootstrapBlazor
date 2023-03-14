@@ -1,0 +1,23 @@
+﻿@using BootstrapBlazor.Shared.Samples;
+@inject IStringLocalizer<SweetAlerts> Localizer
+@inject SwalService SwalService
+
+<Button class="mt-3" Icon="fa-solid fa-font-awesome" Text="@Localizer["SweetAlertsPopups"]" Color="Color.Success" OnClick="@ShowModal" />
+<BlockLogger @ref="Trace" class="mt-3" />
+
+@code {
+    [NotNull]
+    private BlockLogger? Trace { get; set; }
+
+    private async Task ShowModal()
+    {
+        var op = new SwalOption()
+        {
+            Title = Localizer["SwalOptionTitle"],
+            Content = Localizer["SwalOptionContent"]
+        };
+        var ret = await SwalService.ShowModal(op);
+
+        Trace.Log($"{Localizer["SwalConsoleInfo"]}：{ret}");
+    }
+}
