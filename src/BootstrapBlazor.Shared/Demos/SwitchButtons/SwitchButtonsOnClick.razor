@@ -1,0 +1,12 @@
+﻿<SwitchButton OnClick="OnClick" />
+<BlockLogger @ref="Trace" class="mt-3" />
+
+@code {
+    [NotNull]
+    private BlockLogger? Trace { get; set; }
+
+    private void OnClick()
+    {
+        Trace.Log("Clicked");
+    }
+}

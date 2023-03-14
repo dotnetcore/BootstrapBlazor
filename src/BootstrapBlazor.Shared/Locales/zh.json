@@ -658,16 +658,16 @@
     "P40": "TreeItem 属性"
   },
   "BootstrapBlazor.Shared.Samples.SwitchButtons": {
-    "H1": "Switch Button 状态切换按钮",
-    "H2": "点击按钮后切换状态",
-    "P1": "基础用法",
-    "P2": "点击组件自动切换状态",
-    "P3": "初始化状态",
-    "P4": "通过设置 <code>ToggleState</code> 初始化组件状态",
-    "P5": "可通过设置 <code>ToggleStateChanged</code> 回调方法获得当前组件状态",
-    "P6": "点击回调方法",
-    "P7": "通过设置 <code>ToggleState</code> 初始化组件状态",
-    "P8": "<code>OnClick</code> 回调是 <code>EventCallback</code> 会自动刷新当前组件或者页面，若不需要刷新组件或者页面可使用 <code>ToggleStateChanged</code>"
+    "SwitchButtonsTitle": "Switch Button 状态切换按钮",
+    "SwitchButtonsDescription": "点击按钮后切换状态",
+    "SwitchButtonsNormalTitle": "基础用法",
+    "SwitchButtonsNormalIntro": "点击组件自动切换状态",
+    "SwitchButtonsToggleStateTitle": "初始化状态",
+    "SwitchButtonsToggleStateIntro": "通过设置 <code>ToggleState</code> 初始化组件状态",
+    "SwitchButtonsToggleStateDescription": "可通过设置 <code>ToggleStateChanged</code> 回调方法获得当前组件状态",
+    "SwitchButtonsOnClickTitle": "点击回调方法",
+    "SwitchButtonsOnClickIntro": "通过设置 <code>ToggleState</code> 初始化组件状态",
+    "SwitchButtonsOnClickDescription": "<code>OnClick</code> 回调是 <code>EventCallback</code> 会自动刷新当前组件或者页面，若不需要刷新组件或者页面可使用 <code>ToggleStateChanged</code>"
   },
   "BootstrapBlazor.Shared.Samples.Downloads": {
     "H1": "Download 文件下载",
