@@ -21,7 +21,8 @@
         border-bottom: 1px solid var(--bb-lv-border-color);
     }
 
-    .listview.is-vertical .listview-body {
+    .listview.is-vertical .listview-body,
+    .listview.is-vertical .listview-body .accordion-body {
         display: block;
     }
 
