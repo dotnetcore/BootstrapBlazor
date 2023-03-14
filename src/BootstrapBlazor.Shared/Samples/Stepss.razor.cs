@@ -5,7 +5,7 @@
 namespace BootstrapBlazor.Shared.Samples;
 
 /// <summary>
-/// Stepss
+///
 /// </summary>
 public sealed partial class Stepss
 {
