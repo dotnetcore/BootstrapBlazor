@@ -1,0 +1,36 @@
+﻿@using BootstrapBlazor.Shared.Samples
+@inject IStringLocalizer<Tabs> Localizer
+@inject ToastService ToastService
+
+<Tab IsBorderCard="true" @ref="TabSet3">
+    <TabItem>
+        <HeaderTemplate>
+            <div class="@GetClassString(context)" @onclick="() => OnClickTabItem(context)">
+                <i class="fa-solid fa-tv"></i>
+                <span class="mx-2">@Localizer["BlockHeaderTemplateHeaderText"]</span>
+                <Badge Color="Color.Danger" style="position: absolute; right: 2px; top: 2px;">9</Badge>
+            </div>
+        </HeaderTemplate>
+        <ChildContent>
+            <div>@((MarkupString)Localizer["BlockHeaderTemplateDesc"].Value)</div>
+        </ChildContent>
+    </TabItem>
+    <TabItem Text="@Localizer["TabItem8Text"]">
+        <Counter></Counter>
+    </TabItem>
+</Tab>
+
+@code {
+    [NotNull]
+    private Tab? TabSet3 { get; set; }
+
+    private static string? GetClassString(TabItem tabItem) => CssBuilder.Default("tabs-item")
+        .AddClass("active", tabItem.IsActive)
+        .Build();
+
+    private async Task OnClickTabItem(TabItem tabItem)
+    {
+        TabSet3.ActiveTab(tabItem);
+        await ToastService.Information("Click TabItem", $"{tabItem.Text} clicked");
+    }
+}

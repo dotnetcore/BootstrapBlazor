@@ -1,0 +1,62 @@
+﻿@using BootstrapBlazor.Shared.Samples
+@inject IStringLocalizer<Tabs> Localizer
+
+<p>
+    <button type="button" class="btn btn-outline-primary" @onclick="@(e => AddTab(TabSet2))">
+        <i class="fa-solid fa-circle-plus"></i>
+        <span>@Localizer["AddButtonText"]</span>
+    </button>
+    <button type="button" class="btn btn-outline-danger" disabled="@((TabSet2?.Items.Count() > 4) ? null : "true")" @onclick="@(e => RemoveTab(TabSet2!))">
+        <i class="fa-solid fa-circle-minus"></i>
+        <span>@Localizer["RmoveButtonText"]</span>
+    </button>
+</p>
+<Tab ShowExtendButtons="true" ShowClose="true" @ref="TabSet2">
+    <TabItem Text="@Localizer["TabItem1Text"]" Closable="false">
+        <div>@Localizer["TabItem1Content"]</div>
+    </TabItem>
+    <TabItem Text="@Localizer["TabItem2Text"]">
+        <div>@Localizer["TabItem2Content"]</div>
+    </TabItem>
+    <TabItem Text="@Localizer["TabItem3Text"]">
+        <div>@Localizer["TabItem3Content"]</div>
+    </TabItem>
+    <TabItem Text="@Localizer["TabItem4Text"]">
+        <div>@Localizer["TabItem4Content"]</div>
+    </TabItem>
+    <TabItem Text="@Localizer["TabItem7Text"]">
+        <div>@Localizer["TabItem7Content"]</div>
+    </TabItem>
+</Tab>
+
+@code {
+    [NotNull]
+    private Tab? TabSet2 { get; set; }
+
+    private static async Task RemoveTab(Tab tabset)
+    {
+        if (tabset.Items.Count() > 4)
+        {
+            var item = tabset.Items.Last();
+            await tabset.RemoveTab(item);
+        }
+    }
+
+    private Task AddTab(Tab tabset)
+    {
+        var text = $"Tab {tabset.Items.Count() + 1}";
+        tabset.AddTab(new Dictionary<string, object?>
+        {
+            [nameof(TabItem.Text)] = text,
+            [nameof(TabItem.IsActive)] = true,
+            [nameof(TabItem.ChildContent)] = new RenderFragment(builder =>
+            {
+                var index = 0;
+                builder.OpenElement(index++, "div");
+                builder.AddContent(index++, Localizer["BackAddTabText", text]);
+                builder.CloseElement();
+            })
+        });
+        return Task.CompletedTask;
+    }
+}
