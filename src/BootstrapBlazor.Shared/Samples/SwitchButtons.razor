@@ -14,14 +14,14 @@
            Introduction="@Localizer["SwitchButtonsToggleStateIntro"]"
            Name="ToggleState"
            Demo="typeof(Demos.SwitchButtons.SwitchButtonsToggleState)">
-    <p>@Localizer["SwitchButtonsToggleStateDescription"]</p>
+    <p>@((MarkupString)Localizer["SwitchButtonsToggleStateDescription"].Value)</p>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["SwitchButtonsOnClickTitle"]"
            Introduction="@Localizer["SwitchButtonsOnClickIntro"]"
            Name="OnClick"
            Demo="typeof(Demos.SwitchButtons.SwitchButtonsOnClick)">
-    <p>@Localizer["SwitchButtonsOnClickDescription"]</p>
+    <p>@((MarkupString)Localizer["SwitchButtonsOnClickDescription"].Value)</p>
 </DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" />
