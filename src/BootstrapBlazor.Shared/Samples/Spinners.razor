@@ -1,20 +1,20 @@
 ﻿@page "/spinners"
 @inject IStringLocalizer<Spinners> Localizer
 
-<h3>@Localizer["H1"]</h3>
-<h4>@Localizer["H2"]</h4>
+<h3>@Localizer["SpinnersTitle"]</h3>
+<h4>@Localizer["SpinnersDescription"]</h4>
 
 <p>
-    <b>@Localizer["P1"]</b>
+    <b>@Localizer["SpinnersTipsTitle"]</b>
     <br />
-    @Localizer["P2"]
+    @Localizer["SpinnersTips"]
 </p>
 
-<DemoBlock Title="@Localizer["P3"]" Introduction="@Localizer["P4"]" Name="Normal">
+<DemoBlock Title="@Localizer["SpinnersNormalTitle"]" Introduction="@Localizer["SpinnersNormalIntro"]" Name="Normal">
     <Spinner></Spinner>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["P5"]" Introduction="@Localizer["P6"]"  Name="Color">
+<DemoBlock Title="@Localizer["SpinnersColorTitle"]" Introduction="@Localizer["SpinnersColorIntro"]" Name="Color">
     <div class="row g-3">
         <div class="col-6 col-sm-4 col-md-3 col-lg-auto"><Spinner Color="Color.Primary"></Spinner></div>
         <div class="col-6 col-sm-4 col-md-3 col-lg-auto"><Spinner Color="Color.Secondary"></Spinner></div>
@@ -27,11 +27,11 @@
     </div>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["P7"]" Introduction="@Localizer["P8"]" Name="Growing">
+<DemoBlock Title="@Localizer["SpinnersGrowingTitle"]" Introduction="@Localizer["SpinnersGrowingIntro"]" Name="Growing">
     <Spinner SpinnerType="SpinnerType.Grow"></Spinner>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["P9"]" Introduction="@Localizer["P10"]" Name="GrowingColor">
+<DemoBlock Title="@Localizer["SpinnersGrowingColorTitle"]" Introduction="@Localizer["SpinnersGrowingColorIntro"]" Name="GrowingColor">
     <div class="row g-3">
         <div class="col-6 col-sm-4 col-md-3 col-lg-auto"><Spinner SpinnerType="SpinnerType.Grow" Color="Color.Primary"></Spinner></div>
         <div class="col-6 col-sm-4 col-md-3 col-lg-auto"><Spinner SpinnerType="SpinnerType.Grow" Color="Color.Secondary"></Spinner></div>
@@ -44,27 +44,27 @@
     </div>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["P11"]" Introduction="@Localizer["P12"]" Name="Size">
+<DemoBlock Title="@Localizer["SpinnersSizeTitle"]" Introduction="@Localizer["SpinnersSizeIntro"]" Name="Size">
     <div class="row g-3">
         <div class="col-6 col-sm-4 col-md-3 col-lg-auto"><Spinner Size="Size.Small"></Spinner></div>
         <div class="col-6 col-sm-4 col-md-3 col-lg-auto"><Spinner Size="Size.Small" SpinnerType="SpinnerType.Grow"></Spinner></div>
     </div>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["P13"]" Introduction="@Localizer["P14"]" Name="Flex">
+<DemoBlock Title="@Localizer["SpinnersFlexTitle"]" Introduction="@Localizer["SpinnersFlexIntro"]" Name="Flex">
     <div class="d-flex justify-content-center">
         <Spinner></Spinner>
     </div>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["P15"]" Introduction="@Localizer["P16"]" Name="Custom">
+<DemoBlock Title="@Localizer["SpinnersCustomTitle"]" Introduction="@Localizer["SpinnersCustomIntro"]" Name="Custom">
     <div class="d-flex align-items-center">
-        <strong>@Localizer["P17"]</strong>
+        <strong>@Localizer["SpinnersCustomLoading"]</strong>
         <Spinner Class="ms-auto"></Spinner>
     </div>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["P18"]" Introduction="@Localizer["P19"]" Name="Float">
+<DemoBlock Title="@Localizer["SpinnersFloatTitle"]" Introduction="@Localizer["SpinnersFloatIntro"]" Name="Float">
     <Spinner Class="float-end"></Spinner>
 </DemoBlock>
 
