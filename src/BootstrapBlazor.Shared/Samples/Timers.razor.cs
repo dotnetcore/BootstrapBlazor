@@ -5,25 +5,10 @@
 namespace BootstrapBlazor.Shared.Samples;
 
 /// <summary>
-/// 
+/// Timers
 /// </summary>
 public sealed partial class Timers
 {
-    [NotNull]
-    private BlockLogger? Trace { get; set; }
-
-    private Task OnTimeout()
-    {
-        Trace.Log("timer time up");
-        return Task.CompletedTask;
-    }
-
-    private Task OnCancel()
-    {
-        Trace?.Log("timer canceled");
-        return Task.CompletedTask;
-    }
-
     private static IEnumerable<AttributeItem> GetAttributes()
     {
         return new AttributeItem[]

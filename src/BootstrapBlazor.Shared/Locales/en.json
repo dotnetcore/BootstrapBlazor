@@ -169,12 +169,12 @@
     "AttrPlacement": "Location"
   },
   "BootstrapBlazor.Shared.Samples.Timers": {
-    "H1": "Timer",
-    "H2": "For time countdown",
-    "P1": "Basic usage",
-    "P2": "Set the countdown time by setting the <code>Value</code> attribute",
-    "P3": "Color",
-    "P4": "Set the circular progress bar color by setting the <code>Color</code> property"
+    "TimersTitle": "Timer",
+    "TimersDescription": "For time countdown",
+    "TimersNormalTitle": "Basic usage",
+    "TimersNormalIntro": "Set the countdown time by setting the <code>Value</code> attribute",
+    "TimersColorTitle": "Color",
+    "TimersColorIntro": "Set the circular progress bar color by setting the <code>Color</code> property"
   },
   "BootstrapBlazor.Shared.Samples.SweetAlerts": {
     "SweetAlertsTitle": "SweetAlert popup component",
