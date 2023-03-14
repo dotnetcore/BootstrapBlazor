@@ -130,7 +130,10 @@ public partial class Switch
             }
 
             // 回调 OnValueChanged 再调用 EventCallback
-            OnValueChanged?.Invoke(Value);
+            if (OnValueChanged != null)
+            {
+                await OnValueChanged(Value);
+            }
         }
     }
 }
