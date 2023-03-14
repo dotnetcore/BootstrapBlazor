@@ -1,0 +1,7 @@
+﻿@using BootstrapBlazor.Shared.Samples;
+@inject IStringLocalizer<Switchs> Localizer
+
+<Switch OnColor="Color.Danger"
+        OffColor="Color.Success"
+        OnText="@Localizer["SwitchsOnText"]"
+        OffText="@Localizer["SwitchsOffText"]" />
