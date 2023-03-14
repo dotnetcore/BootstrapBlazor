@@ -3406,8 +3406,8 @@
     "TextareasIsDisabled": "是否禁用 默认为 fasle"
   },
   "BootstrapBlazor.Shared.Samples.Toggles": {
-    "OnText": "开启",
-    "OffText": "关闭",
+    "TogglesOnText": "开启",
+    "TogglesOffText": "关闭",
     "TogglesTitle": "Toggle 开关",
     "TogglesSubTitle": "提供最普通的开关应用，值为 <code>true</code> <code>false</code>",
     "TogglesNormalTitle": "基础用法",
