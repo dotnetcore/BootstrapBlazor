@@ -1,0 +1,17 @@
+﻿@using BootstrapBlazor.Shared.Samples;
+@inject IStringLocalizer<Textareas> Localizer
+
+<div class="row g-3">
+    <div class="col-12">
+        <label class="form-label">@Localizer["TextareasLabel"]</label>
+        <Textarea placeholder="@Localizer["TextareasPlaceHolder"]" rows="4" @bind-Value="@Text"></Textarea>
+    </div>
+    <div class="col-12">
+        <label class="form-label">@Localizer["TextareasBindWayBindValue"]</label>
+        <div class="form-control textarea-demo">@Text</div>
+    </div>
+</div>
+
+@code {
+    private string Text { get; set; } = "";
+}

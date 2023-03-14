@@ -5,38 +5,36 @@
 namespace BootstrapBlazor.Shared.Samples;
 
 /// <summary>
-/// 
+/// Textareas
 /// </summary>
 public partial class Textareas
 {
-    private string Text { get; set; } = "";
-
     private IEnumerable<AttributeItem> GetAttributes()
     {
         return new AttributeItem[]
         {
-                new AttributeItem() {
-                    Name = "ShowLabel",
-                    Description = Localizer["ShowLabel"],
-                    Type = "bool",
-                    ValueList = "true|false",
-                    DefaultValue = "false"
-                },
-                new AttributeItem() {
-                    Name = "DisplayText",
-                    Description = Localizer["DisplayText"],
-                    Type = "string",
-                    ValueList = " — ",
-                    DefaultValue = " — "
-                },
-                new AttributeItem()
-                {
-                    Name = "IsDisabled",
-                    Description = Localizer["IsDisabled"],
-                    Type = "bool",
-                    ValueList = "true|false",
-                    DefaultValue = "false"
-                }
+            new AttributeItem() {
+                Name = "ShowLabel",
+                Description = Localizer["TextareasShowLabel"],
+                Type = "bool",
+                ValueList = "true|false",
+                DefaultValue = "false"
+            },
+            new AttributeItem() {
+                Name = "DisplayText",
+                Description = Localizer["TextareasDisplayText"],
+                Type = "string",
+                ValueList = " — ",
+                DefaultValue = " — "
+            },
+            new AttributeItem()
+            {
+                Name = "IsDisabled",
+                Description = Localizer["TextareasIsDisabled"],
+                Type = "bool",
+                ValueList = "true|false",
+                DefaultValue = "false"
+            }
         };
     }
 }
