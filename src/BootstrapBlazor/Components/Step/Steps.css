@@ -178,7 +178,6 @@
 
     .step-icon-inner[class*=fa]:not(.is-status) {
         font-size: 25px;
-        font-weight: 400;
     }
 
 .step:last-of-type.is-flex {
