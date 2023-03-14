@@ -1,22 +1,27 @@
 ﻿@page "/switchbuttons"
 @inject IStringLocalizer<SwitchButtons> Localizer
 
-<h3>@Localizer["H1"]</h3>
-<h4>@Localizer["H2"]</h4>
+<h3>@Localizer["SwitchButtonsTitle"]</h3>
+<h4>@Localizer["SwitchButtonsDescription"]</h4>
 
-<DemoBlock Title="@Localizer["P1"]" Introduction="@Localizer["P2"]" Name="Normal">
-    <SwitchButton />
+<DemoBlock Title="@Localizer["SwitchButtonsNormalTitle"]"
+           Introduction="@Localizer["SwitchButtonsNormalIntro"]"
+           Name="Normal"
+           Demo="typeof(Demos.SwitchButtons.SwitchButtonsNormal)">
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["P3"]" Introduction="@Localizer["P4"]" Name="ToggleState">
-    <p>@Localizer["P5"]</p>
-    <SwitchButton ToggleState="ToggleState" />
+<DemoBlock Title="@Localizer["SwitchButtonsToggleStateTitle"]"
+           Introduction="@Localizer["SwitchButtonsToggleStateIntro"]"
+           Name="ToggleState"
+           Demo="typeof(Demos.SwitchButtons.SwitchButtonsToggleState)">
+    <p>@Localizer["SwitchButtonsToggleStateDescription"]</p>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["P6"]" Introduction="@Localizer["P7"]" Name="OnClick">
-    <p>@Localizer["P8"]</p>
-    <SwitchButton OnClick="OnClick" />
-    <BlockLogger @ref="Trace" class="mt-3" />
+<DemoBlock Title="@Localizer["SwitchButtonsOnClickTitle"]"
+           Introduction="@Localizer["SwitchButtonsOnClickIntro"]"
+           Name="OnClick"
+           Demo="typeof(Demos.SwitchButtons.SwitchButtonsOnClick)">
+    <p>@Localizer["SwitchButtonsOnClickDescription"]</p>
 </DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" />

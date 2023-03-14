@@ -657,16 +657,16 @@
     "P40": "TreeItem property"
   },
   "BootstrapBlazor.Shared.Samples.SwitchButtons": {
-    "H1": "Switch Button state switch button",
-    "H2": "Toggle state after button click",
-    "P1": "Basic usage",
-    "P2": "Click the component to automatically switch the state",
-    "P3": "initialized state",
-    "P4": "Initialize component state by setting <code>ToggleState</code>",
-    "P5": "The current component state can be obtained by setting the <code>ToggleStateChanged</code> callback method",
-    "P6": "click callback method",
-    "P7": "Initialize component state by setting <code>ToggleState</code>",
-    "P8": "<code>OnClick</code> callback is <code>EventCallback</code> will automatically refresh the current component or page, if you don't need to refresh the component or page, you can use <code>ToggleStateChanged</code>"
+    "SwitchButtonsTitle": "Switch Button state switch button",
+    "SwitchButtonsDescription": "Toggle state after button click",
+    "SwitchButtonsNormalTitle": "Basic usage",
+    "SwitchButtonsNormalIntro": "Click the component to automatically switch the state",
+    "SwitchButtonsToggleStateTitle": "initialized state",
+    "SwitchButtonsToggleStateIntro": "Initialize component state by setting <code>ToggleState</code>",
+    "SwitchButtonsToggleStateDescription": "The current component state can be obtained by setting the <code>ToggleStateChanged</code> callback method",
+    "SwitchButtonsOnClickTitle": "click callback method",
+    "SwitchButtonsOnClickIntro": "Initialize component state by setting <code>ToggleState</code>",
+    "SwitchButtonsOnClickDescription": "<code>OnClick</code> callback is <code>EventCallback</code> will automatically refresh the current component or page, if you don't need to refresh the component or page, you can use <code>ToggleStateChanged</code>"
   },
   "BootstrapBlazor.Shared.Samples.Downloads": {
     "H1": "Download file download",

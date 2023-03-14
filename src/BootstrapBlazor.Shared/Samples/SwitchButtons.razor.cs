@@ -5,20 +5,10 @@
 namespace BootstrapBlazor.Shared.Samples;
 
 /// <summary>
-///
+/// SwitchButtons
 /// </summary>
 public partial class SwitchButtons
 {
-    private bool ToggleState { get; set; } = true;
-
-    [NotNull]
-    private BlockLogger? Trace { get; set; }
-
-    private void OnClick()
-    {
-        Trace.Log("Clicked");
-    }
-
     /// <summary>
     /// 获得属性方法
     /// </summary>
