@@ -3395,8 +3395,8 @@
     "TextareasIsDisabled": "Whether to disable Default is fasle"
   },
   "BootstrapBlazor.Shared.Samples.Toggles": {
-    "OnText": "On",
-    "OffText": "Off",
+    "TogglesOnText": "On",
+    "TogglesOffText": "Off",
     "TogglesTitle": "Toggle",
     "TogglesSubTitle": "The most common switching application is available with a value of <code>true</code> <code>false</code>",
     "TogglesNormalTitle": "Basic usage",
