@@ -1,0 +1,110 @@
+﻿@using BootstrapBlazor.Shared.Samples
+@inject IStringLocalizer<Toasts> Localizer
+@inject ToastService ToastService
+
+<div class="row g-3 overflow-hidden">
+    <div class="col-12 col-lg-6 col-xl-3">
+        <Toast class="d-toast show" Options="@Options1" />
+    </div>
+    <div class="col-12 col-lg-6 col-xl-3">
+        <Toast class="d-toast show" Options="@Options2" />
+    </div>
+    <div class="col-12 col-lg-6 col-xl-3">
+        <Toast class="d-toast show" Options="@Options3" />
+    </div>
+    <div class="col-12 col-lg-6 col-xl-3">
+        <Toast class="d-toast show" Options="@Options4" />
+    </div>
+    <div class="col-12 col-lg-6 col-xl-3">
+        <Button Color="Color.Success" Icon="fa-solid fa-circle-check" OnClick="@OnSuccessClick" Text="@Localizer["ToastsSuccess"]"></Button>
+    </div>
+    <div class="col-12 col-lg-6 col-xl-3">
+        <Button Color="Color.Danger" Icon="fa-solid fa-circle-xmark" OnClick="@OnErrorClick" Text="@Localizer["ToastsDanger"]"></Button>
+    </div>
+    <div class="col-12 col-lg-6 col-xl-3">
+        <Button Color="Color.Info" Icon="fa-solid fa-circle-exclamation" OnClick="@OnInfoClick" Text="@Localizer["ToastsInfo"]"></Button>
+    </div>
+    <div class="col-12 col-lg-6 col-xl-3">
+        <Button Color="Color.Warning" Icon="fa-solid fa-triangle-exclamation" OnClick="@OnWarningClick" Text="@Localizer["ToastsWarning"]"></Button>
+    </div>
+</div>
+
+@code {
+    [NotNull]
+    private ToastOption? Options1 { get; set; }
+
+    [NotNull]
+    private ToastOption? Options2 { get; set; }
+
+    [NotNull]
+    private ToastOption? Options3 { get; set; }
+
+    [NotNull]
+    private ToastOption? Options4 { get; set; }
+
+    [CascadingParameter]
+    [NotNull]
+    private BootstrapBlazorRoot? Root { get; set; }
+
+    [NotNull]
+    private ToastContainer? ToastContainer { get; set; }
+
+    /// <summary>
+    /// OnInitialized
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        Options1 = new ToastOption { Title = "Save data", IsAutoHide = false, Content = "Save data successfully, automatically close after 4 seconds" };
+        Options2 = new ToastOption { Category = ToastCategory.Error, Title = "Save data", IsAutoHide = false, Content = "Save data successfully, automatically close after 4 seconds" };
+        Options3 = new ToastOption { Category = ToastCategory.Information, Title = "Prompt information", IsAutoHide = false, Content = "Information prompt pop-up window, automatically closes after 4 seconds" };
+        Options4 = new ToastOption { Category = ToastCategory.Warning, Title = "Warning message", IsAutoHide = false, Content = "Information prompt pop-up window, automatically closes after 4 seconds" };
+
+        ToastContainer = Root.ToastContainer;
+    }
+
+    private async Task OnSuccessClick()
+    {
+        ToastContainer.SetPlacement(Placement.BottomEnd);
+        await ToastService.Show(new ToastOption()
+        {
+            Category = ToastCategory.Success,
+            Title = "Successfully saved",
+            Content = "Save data successfully, automatically close after 4 seconds"
+        });
+    }
+
+    private async Task OnErrorClick()
+    {
+        ToastContainer.SetPlacement(Placement.BottomEnd);
+        await ToastService.Show(new ToastOption()
+        {
+            Category = ToastCategory.Error,
+            Title = "Failed to save",
+            Content = "Failed to save data, automatically closes after 4 seconds"
+        });
+    }
+
+    private async Task OnInfoClick()
+    {
+        ToastContainer.SetPlacement(Placement.BottomEnd);
+        await ToastService.Show(new ToastOption()
+        {
+            Category = ToastCategory.Information,
+            Title = "Notification",
+            Content = "The system adds new components, it will automatically shut down after 4 seconds"
+        });
+    }
+
+    private async Task OnWarningClick()
+    {
+        ToastContainer.SetPlacement(Placement.BottomEnd);
+        await ToastService.Show(new ToastOption()
+        {
+            Category = ToastCategory.Warning,
+            Title = "Warning",
+            Content = "If the system finds abnormality, please deal with it in time, and it will automatically shut down after 4 seconds"
+        });
+    }
+}

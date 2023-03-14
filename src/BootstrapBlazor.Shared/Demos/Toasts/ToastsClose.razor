@@ -1,0 +1,37 @@
+﻿@using BootstrapBlazor.Shared.Samples
+@inject IStringLocalizer<Toasts> Localizer
+@inject ToastService ToastService
+
+<Button Icon="fa-solid fa-triangle-exclamation" OnClick="@OnNotAutoHideClick" Text="@Localizer["ToastsCloseNotificationText"]"></Button>
+
+@code {
+    [CascadingParameter]
+    [NotNull]
+    private BootstrapBlazorRoot? Root { get; set; }
+
+    [NotNull]
+    private ToastContainer? ToastContainer { get; set; }
+
+    /// <summary>
+    /// OnInitialized
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        ToastContainer = Root.ToastContainer;
+    }
+
+    private async Task OnNotAutoHideClick()
+    {
+        ToastContainer.SetPlacement(Placement.BottomEnd);
+
+        await ToastService.Show(new ToastOption()
+        {
+            Category = ToastCategory.Warning,
+            IsAutoHide = false,
+            Title = "Notification",
+            Content = "I will not close automatically, please click the close button in the upper right corner"
+        });
+    }
+}
