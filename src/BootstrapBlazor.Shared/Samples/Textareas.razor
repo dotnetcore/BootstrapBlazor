@@ -1,41 +1,42 @@
 ﻿@page "/textareas"
 @inject IStringLocalizer<Textareas> Localizer
 
-<h3>@Localizer["Title"]</h3>
+<h3>@Localizer["TextareasTitle"]</h3>
 
-<h4>@Localizer["SubTitle"]</h4>
+<h4>@Localizer["TextareasSubTitle"]</h4>
 
-<DemoBlock Title="@Localizer["BasicUsageTitle"]" Introduction="@Localizer["BasicUsageIntro"]" Name="Normal">
-    <label class="form-label">@Localizer["BasicUsageLabel"]</label>
-    <Textarea placeholder="@Localizer["PlaceHolder"]" rows="4"></Textarea>
+<DemoBlock Title="@Localizer["TextareasNormalTitle"]"
+           Introduction="@Localizer["TextareasNormalIntro"]"
+           Name="Normal"
+           Demo="typeof(Demos.Textareas.TextareasNormal)">
+    <label class="form-label">@Localizer["TextareasLabel"]</label>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["DisableTitle"]" Introduction="@Localizer["DisableIntro"]" Name="Disable">
-    <label class="form-label">@Localizer["BasicUsageLabel"]</label>
-    <Textarea placeholder="@Localizer["PlaceHolder"]" rows="4" IsDisabled="true"></Textarea>
+<DemoBlock Title="@Localizer["TextareasDisableTitle"]"
+           Introduction="@Localizer["TextareasDisableIntro"]"
+           Name="Disable"
+           Demo="typeof(Demos.Textareas.TextareasDisable)">
+    <label class="form-label">@Localizer["TextareasLabel"]</label>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["ReadonlyTitle"]" Introduction="@Localizer["ReadonlyIntro"]"  Name="Readonly">
-    <label class="form-label">@Localizer["BasicUsageLabel"]</label>
-    <Textarea placeholder="@Localizer["PlaceHolder"]" rows="4" readonly></Textarea>
+<DemoBlock Title="@Localizer["TextareasReadonlyTitle"]"
+           Introduction="@Localizer["TextareasReadonlyIntro"]"
+           Name="Readonly"
+           Demo="typeof(Demos.Textareas.TextareasReadonly)">
+    <label class="form-label">@Localizer["TextareasLabel"]</label>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["HeightTitle"]" Introduction="@Localizer["HeightIntro"]"  Name="Height">
-    <label class="form-label">@Localizer["BasicUsageLabel"]</label>
-    <Textarea placeholder="@Localizer["PlaceHolder"]" rows="4"></Textarea>
+<DemoBlock Title="@Localizer["TextareasHeightTitle"]"
+           Introduction="@Localizer["TextareasHeightIntro"]"
+           Name="Height"
+           Demo="typeof(Demos.Textareas.TextareasHeight)">
+    <label class="form-label">@Localizer["TextareasLabel"]</label>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["BindWayTitle"]" Introduction="@Localizer["BindWayIntro"]"  Name="BindToWay">
-    <div class="row g-3">
-        <div class="col-12">
-            <label class="form-label">@Localizer["BasicUsageLabel"]</label>
-            <Textarea placeholder="@Localizer["PlaceHolder"]" rows="4" @bind-Value="@Text"></Textarea>
-        </div>
-        <div class="col-12">
-            <label class="form-label">@Localizer["BindValue"]</label>
-            <div class="form-control textarea-demo">@Text</div>
-        </div>
-    </div>
+<DemoBlock Title="@Localizer["TextareasBindWayTitle"]"
+           Introduction="@Localizer["TextareasBindWayIntro"]"
+           Name="BindToWay"
+           Demo="typeof(Demos.Textareas.TextareasBindToWay)">
 </DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" />
