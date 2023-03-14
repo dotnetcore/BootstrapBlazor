@@ -1,0 +1,44 @@
+﻿@using BootstrapBlazor.Shared.Samples
+@inject IStringLocalizer<Toasts> Localizer
+@inject ToastService ToastService
+
+<Button Icon="fa-solid fa-circle-exclamation" OnClick="@OnHeaderTemplateClick" Text="@Localizer["ShowHeaderText"]"></Button>
+
+@code {
+    RenderFragment RenderHeader =>
+        @<div class="d-flex flex-fill pe-3">
+            <svg class="bd-placeholder-img rounded me-2" width="20" height="20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#007aff"></rect></svg>
+            <strong class="me-auto">Bootstrap</strong>
+            <small class="text-muted">just now</small>
+        </div>;
+}
+
+@code {
+    [NotNull]
+    private ToastContainer? ToastContainer { get; set; }
+
+    [CascadingParameter]
+    [NotNull]
+    private BootstrapBlazorRoot? Root { get; set; }
+
+    /// <summary>
+    /// OnInitialized
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        ToastContainer = Root.ToastContainer;
+    }
+
+    private async Task OnHeaderTemplateClick()
+    {
+        ToastContainer.SetPlacement(Placement.BottomEnd);
+        await ToastService.Show(new ToastOption()
+        {
+            Category = ToastCategory.Information,
+            HeaderTemplate = RenderHeader,
+            Content = "The system adds new components, it will automatically shut down after 4 seconds"
+        });
+    }
+}
