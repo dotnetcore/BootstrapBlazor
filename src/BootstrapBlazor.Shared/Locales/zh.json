@@ -169,12 +169,12 @@
     "AttrPlacement": "弹窗位置"
   },
   "BootstrapBlazor.Shared.Samples.Timers": {
-    "H1": "Timer 计时器",
-    "H2": "用于时间倒计时",
-    "P1": "基本用法",
-    "P2": "通过设置 <code>Value</code> 属性设定倒计时时间",
-    "P3": "颜色",
-    "P4": "通过设置 <code>Color</code> 属性设定圆形进度条颜色"
+    "TimersTitle": "Timer 计时器",
+    "TimersDescription": "用于时间倒计时",
+    "TimersNormalTitle": "基本用法",
+    "TimersNormalIntro": "通过设置 <code>Value</code> 属性设定倒计时时间",
+    "TimersColorTitle": "颜色",
+    "TimersColorIntro": "通过设置 <code>Color</code> 属性设定圆形进度条颜色"
   },
   "BootstrapBlazor.Shared.Samples.SweetAlerts": {
     "H1": "SweetAlert 弹窗组件",
