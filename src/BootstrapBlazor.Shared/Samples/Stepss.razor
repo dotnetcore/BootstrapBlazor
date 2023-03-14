@@ -1,58 +1,42 @@
 ﻿@page "/stepss"
 @inject IStringLocalizer<Stepss> Localizer
 
-<h3>@Localizer["Title"]</h3>
+<h3>@Localizer["StepssTitle"]</h3>
 
-<h4>@Localizer["H1"]</h4>
+<h4>@Localizer["StepssDescription"]</h4>
 
-<p>@Localizer["P1"]</p>
+<p>@Localizer["StepssTipsTitle"]</p>
 
-<p>@((MarkupString)Localizer["p2"].Value)</p>
+<p>@((MarkupString)Localizer["StepssTips"].Value)</p>
 
-<DemoBlock Title="@Localizer["Block1Title"]" Introduction="@Localizer["Block1Intro"]" Name="Normal">
-    <Steps Items="@Items" OnStatusChanged="@OnStatusChanged" />
-    <div class="mt-1">
-        <Button OnClick="@NextStep" IsOutline="true">@Localizer["Button1Text"]</Button>
-        <Button OnClick="@ResetStep" IsOutline="true">@Localizer["Button2Text"]</Button>
-    </div>
-    <BlockLogger @ref="Trace" class="mt-3" />
+<DemoBlock Title="@Localizer["StepssNormalTitle"]"
+           Introduction="@Localizer["StepssNormalIntro"]"
+           Name="Normal"
+           Demo="typeof(Demos.Stepss.StepssNormal)">
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["Block2Title"]" Introduction="@Localizer["Block2Intro"]" Name="Step">
-    <Steps>
-        <Step Title="@Localizer["Step1Title"]" Space="25%" Status="StepStatus.Success"></Step>
-        <Step Title="@Localizer["Step2Title"]" Space="25%" Status="StepStatus.Process" StepIndex="1"></Step>
-        <Step Title="@Localizer["Step3Title"]" Space="25%" Status="StepStatus.Error" StepIndex="2"></Step>
-        <Step Title="@Localizer["Step4Title"]" Space="25%" Status="StepStatus.Finish" StepIndex="3"></Step>
-        <Step Title="@Localizer["Step5Title"]" Space="25%" StepIndex="4" IsLast="true"></Step>
-    </Steps>
+<DemoBlock Title="@Localizer["StepssStepTitle"]"
+           Introduction="@Localizer["StepssStepIntro"]"
+           Name="Step"
+           Demo="typeof(Demos.Stepss.StepssStep)">
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["Block3Title"]" Introduction="@Localizer["Block3Intro"]" Name="Desc">
-    <Steps>
-        <Step Title="@Localizer["Step1Title"]" Space="33.33%" Status="StepStatus.Finish" Description="@Localizer["StepDesc1"]"></Step>
-        <Step Title="@Localizer["Step2Title"]" Space="33.33%" Status="StepStatus.Process" StepIndex="2" Description="@Localizer["StepDesc1"]"></Step>
-        <Step Title="@Localizer["Step3Title"]" Space="33.33%" StepIndex="3" Description="@Localizer["StepDesc1"]"></Step>
-        <Step Title="@Localizer["Step4Title"]" Space="33.33%" StepIndex="4" IsLast="true" Description="@Localizer["StepDesc2"]"></Step>
-    </Steps>
+<DemoBlock Title="@Localizer["StepssDescTitle"]"
+           Introduction="@Localizer["StepssDescIntro"]"
+           Name="Desc"
+           Demo="typeof(Demos.Stepss.StepssDesc)">
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["Block4Title"]" Introduction="@Localizer["Block4Intro"]" Name="Middle">
-    <Steps IsCenter="true">
-        <Step Title="@Localizer["Step1Title"]" Space="33.33%" Status="StepStatus.Finish" StepIndex="0" Description="@Localizer["StepDesc1"]"></Step>
-        <Step Title="@Localizer["Step2Title"]" Space="33.33%" Status="StepStatus.Success" StepIndex="1" Description="@Localizer["StepDesc1"]"></Step>
-        <Step Title="@Localizer["Step3Title"]" Space="33.33%" Status="StepStatus.Process" StepIndex="2" Description="@Localizer["StepDesc1"]"></Step>
-        <Step Title="@Localizer["Step4Title"]" Space="33.33%" StepIndex="3" IsLast="true" Description="@Localizer["StepDesc2"]"></Step>
-    </Steps>
+<DemoBlock Title="@Localizer["StepssMiddleTitle"]"
+           Introduction="@Localizer["StepssMiddleIntro"]"
+           Name="Middle"
+           Demo="typeof(Demos.Stepss.StepssMiddle)">
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["Block5Title"]" Introduction="@Localizer["Block5Intro"]" Name="TitleCenter">
-    <Steps IsCenter="true">
-        <Step Title="@Localizer["Step1Title"]" Space="33.33%" IsIcon="true" Icon="fa-solid fa-user" Status="StepStatus.Success" Description="@Localizer["StepDesc1"]"></Step>
-        <Step Title="@Localizer["Step2Title"]" Space="33.33%" IsIcon="true" Icon="fa-solid fa-user-plus" Status="StepStatus.Process" StepIndex="1" Description="@Localizer["StepDesc1"]"></Step>
-        <Step Title="@Localizer["Step3Title"]" Space="33.33%" IsIcon="true" Icon="fa-solid fa-users" StepIndex="2" Description="@Localizer["StepDesc1"]"></Step>
-        <Step Title="@Localizer["Step4Title"]" Space="33.33%" IsIcon="true" Icon="fa-solid fa-user-secret" StepIndex="3" IsLast="true" Description="@Localizer["StepDesc2"]"></Step>
-    </Steps>
+<DemoBlock Title="@Localizer["StepssTitleCenterTitle"]"
+           Introduction="@Localizer["StepssTitleCenterIntro"]"
+           Name="TitleCenter"
+           Demo="typeof(Demos.Stepss.StepssTitleCenter)">
 </DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" />

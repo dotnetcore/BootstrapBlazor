@@ -1,0 +1,9 @@
+﻿@using BootstrapBlazor.Shared.Samples;
+@inject IStringLocalizer<Stepss> Localizer
+
+<Steps IsCenter="true">
+    <Step Title="@Localizer["Step1Title"]" Space="33.33%" Status="StepStatus.Finish" StepIndex="0" Description="@Localizer["StepDesc1"]"></Step>
+    <Step Title="@Localizer["Step2Title"]" Space="33.33%" Status="StepStatus.Success" StepIndex="1" Description="@Localizer["StepDesc1"]"></Step>
+    <Step Title="@Localizer["Step3Title"]" Space="33.33%" Status="StepStatus.Process" StepIndex="2" Description="@Localizer["StepDesc1"]"></Step>
+    <Step Title="@Localizer["Step4Title"]" Space="33.33%" StepIndex="3" IsLast="true" Description="@Localizer["StepDesc2"]"></Step>
+</Steps>
