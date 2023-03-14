@@ -1,16 +1,19 @@
 ﻿@page "/timers"
 @inject IStringLocalizer<Timers> Localizer
 
-<h3>@Localizer["H1"]</h3>
-<h4>@Localizer["H2"]</h4>
+<h3>@Localizer["TimersTitle"]</h3>
+<h4>@Localizer["TimersDescription"]</h4>
 
-<DemoBlock Title="@Localizer["P1"]" Introduction="@Localizer["P2"]"  Name="Normal">
-    <Timer OnTimeout="@OnTimeout" OnCancel="OnCancel" />
-    <BlockLogger @ref="Trace" class="mt-3" />
+<DemoBlock Title="@Localizer["TimersNormalTitle"]"
+           Introduction="@Localizer["TimersNormalIntro"]"
+           Name="Normal"
+           Demo="typeof(Demos.Timers.TimersNormal)">
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["P3"]" Introduction="@Localizer["P4"]" Name="Color">
-    <Timer Color="Color.Warning" />
+<DemoBlock Title="@Localizer["TimersColorTitle"]"
+           Introduction="@Localizer["TimersColorIntro"]"
+           Name="Color"
+           Demo="typeof(Demos.Timers.TimersColor)">
 </DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" />

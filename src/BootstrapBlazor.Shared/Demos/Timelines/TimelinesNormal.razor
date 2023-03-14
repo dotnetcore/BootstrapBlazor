@@ -1,0 +1,51 @@
+﻿@using BootstrapBlazor.Shared.Samples
+@inject IStringLocalizer<Timelines> Localizer
+
+<div class="d-flex mb-3 align-items-center">
+    <div class="text-nowrap me-1">@Localizer["TimelinesNormalDescription"]</div>
+    <RadioList class="flex-fill" TValue="SelectedItem" OnSelectedChanged="@OnStateChanged" Items="@Items"></RadioList>
+</div>
+<Timeline Items="TimelineItems" IsReverse="@IsReverse"></Timeline>
+
+@code {
+    private bool IsReverse { get; set; }
+
+    private IEnumerable<SelectedItem> Items { get; set; } = Enumerable.Empty<SelectedItem>();
+
+    private IEnumerable<TimelineItem> TimelineItems => new TimelineItem[]
+    {
+        new TimelineItem
+        {
+            Content = Localizer["TimelineItemContent1"],
+            Description = DateTime.Now.ToString("yyyy-MM-dd")
+        },
+        new TimelineItem
+        {
+            Content =  Localizer["TimelineItemContent2"],
+            Description = DateTime.Now.AddDays(1).ToString("yyyy-MM-dd")
+        },
+        new TimelineItem
+        {
+            Content =  Localizer["TimelineItemContent3"],
+            Description = DateTime.Now.AddDays(2).ToString("yyyy-MM-dd")
+        }
+    };
+
+    public Task OnStateChanged(IEnumerable<SelectedItem> values, SelectedItem value)
+    {
+        IsReverse = value.Text == Localizer["TimelinesSelectedItem2"];
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+
+        Items = new SelectedItem[]
+        {
+            new SelectedItem("1", Localizer["TimelinesSelectedItem1"]) { Active=true },
+            new SelectedItem("2", Localizer["TimelinesSelectedItem2"])
+        };
+    }
+}
