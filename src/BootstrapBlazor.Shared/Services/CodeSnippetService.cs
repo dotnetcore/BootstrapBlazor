@@ -100,39 +100,6 @@ class CodeSnippetService
         return payload;
     });
 
-    private Task<string> GetContentFromFile(string codeFile) => CacheManager.GetContentFromFileAsync(codeFile, async entry =>
-    {
-        var payload = "";
-
-        if (IsDevelopment)
-        {
-            payload = await ReadFileTextAsync(codeFile);
-        }
-        else
-        {
-            var client = Factory.CreateClient();
-            client.Timeout = TimeSpan.FromSeconds(5);
-
-            if (OperatingSystem.IsBrowser())
-            {
-                client.BaseAddress = new Uri($"{ServerUrl}/api/");
-                payload = await client.GetStringAsync($"Code?fileName={codeFile}");
-            }
-            else
-            {
-                client.BaseAddress = new Uri(SampleUrl);
-                payload = await client.GetStringAsync(codeFile);
-            }
-        }
-        if (Path.GetExtension(codeFile) == ".razor")
-        {
-            // 将资源文件信息替换
-            CacheManager.GetLocalizedStrings(codeFile, LocalizerOptions).ToList().ForEach(l => payload = ReplacePayload(payload, l));
-            payload = ReplaceSymbols(payload);
-        }
-        return payload;
-    });
-
     private static string ReplaceSymbols(string payload) => payload
         .Replace("@@", "@")
         .Replace("&lt;", "<")
