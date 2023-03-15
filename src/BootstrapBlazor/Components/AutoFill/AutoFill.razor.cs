@@ -161,7 +161,7 @@ public partial class AutoFill<TValue>
     {
         base.OnParametersSet();
 
-        Icon ??= IconOptions.Value.GetIcon(ComponentIcons.AutoFillIcon, "fa-fw fa-spin fa-solid fa-spinner");
+        Icon ??= IconOptions.Value.GetIcon(ComponentIcons.AutoFillIcon, Constants.LoadingIcon);
 
         OnGetDisplayText ??= v => v?.ToString() ?? "";
         InputString = OnGetDisplayText(Value);

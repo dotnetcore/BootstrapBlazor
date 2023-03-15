@@ -110,7 +110,7 @@ public partial class Avatar
     protected override void OnParametersSet()
     {
         base.OnParametersSet();
-        Icon ??= IconOptions.Value.GetIcon(ComponentIcons.AvatarIcon, "fa-solid fa-user");
+        Icon ??= IconOptions.Value.GetIcon(ComponentIcons.AvatarIcon, Constants.AvatarIcon);
     }
 
     /// <summary>

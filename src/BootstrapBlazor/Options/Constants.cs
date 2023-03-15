@@ -5,12 +5,27 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// 系统常量
 /// </summary>
-public class Constants
+public static class Constants
 {
     /// <summary>
     /// 
     /// </summary>
     public const string DropdownToggleString = "bb.dropdown";
+
+    /// <summary>
+    /// AnchorLink 组件 Icon 默认图标
+    /// </summary>
+    public const string AnchorLinkIcon = "fa-solid fa-link";
+
+    /// <summary>
+    /// Avatar 组件 Icon 默认图标
+    /// </summary>
+    public const string AvatarIcon = "fa-solid fa-user";
+
+    /// <summary>
+    /// 正在加载默认图标
+    /// </summary>
+    public const string LoadingIcon = "fa-solid fa-fw fa-spin fa-spinner";
 }

@@ -86,7 +86,8 @@ public abstract class ButtonBase : TooltipWrapperBase
     /// 获得/设置 正在加载动画图标 默认为 fa-solid fa-spin fa-spinner
     /// </summary>
     [Parameter]
-    public string LoadingIcon { get; set; } = "fa-fw fa-spin fa-solid fa-spinner";
+    [NotNull]
+    public string? LoadingIcon { get; set; }
 
     /// <summary>
     /// 获得/设置 是否为异步按钮，默认为 false 如果为 true 表示是异步按钮，点击按钮后禁用自身并且等待异步完成，过程中显示 loading 动画
@@ -142,6 +143,10 @@ public abstract class ButtonBase : TooltipWrapperBase
     [CascadingParameter]
     protected ValidateForm? ValidateForm { get; set; }
 
+    [Inject]
+    [NotNull]
+    private IOptions<IconMapperOptions>? IconOptions { get; set; }
+
     /// <summary>
     /// 获得/设置 是否当前正在异步执行操作
     /// </summary>
@@ -169,6 +174,8 @@ public abstract class ButtonBase : TooltipWrapperBase
     protected override void OnParametersSet()
     {
         base.OnParametersSet();
+
+        LoadingIcon ??= IconOptions.Value.GetIcon(ComponentIcons.ButtonLoadingIcon, Constants.LoadingIcon);
 
         if (!IsAsyncLoading)
         {
