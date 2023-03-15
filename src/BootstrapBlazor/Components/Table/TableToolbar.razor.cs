@@ -93,9 +93,9 @@ public partial class TableToolbar<TItem> : ComponentBase
         {
             ret = b;
         }
-        else if (button is TableToolbarButton<TItem> { IsEnableWhenSelectedOneRow: true } || button is TableToolbarPopconfirmButton<TItem> { IsEnableWhenSelectedOneRow: true })
+        else if (button is ITableToolbarButton<TItem> tb)
         {
-            ret = OnGetSelectedRows().Count() != 1;
+            ret = tb.IsDisabledCallback == null ? (tb.IsEnableWhenSelectedOneRow && OnGetSelectedRows().Count() != 1) : tb.IsDisabledCallback(OnGetSelectedRows());
         }
         return ret;
     }

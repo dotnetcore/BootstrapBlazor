@@ -8,7 +8,7 @@ namespace BootstrapBlazor.Components;
 /// 表格 Toolbar 按钮组件
 /// </summary>
 [JSModuleNotInherited]
-public class TableToolbarButton<TItem> : ButtonBase
+public class TableToolbarButton<TItem> : ButtonBase, ITableToolbarButton<TItem>
 {
     /// <summary>
     /// 获得/设置 按钮点击后回调委托
@@ -21,6 +21,12 @@ public class TableToolbarButton<TItem> : ButtonBase
     /// </summary>
     [Parameter]
     public bool IsEnableWhenSelectedOneRow { get; set; }
+
+    /// <summary>
+    /// 获得/设置 按钮是否被禁用回调方法
+    /// </summary>
+    [Parameter]
+    public Func<IEnumerable<TItem>, bool>? IsDisabledCallback { get; set; }
 
     /// <summary>
     /// 获得/设置 是否显示 默认 true 显示

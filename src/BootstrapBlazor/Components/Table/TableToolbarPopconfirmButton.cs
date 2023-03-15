@@ -10,7 +10,7 @@ namespace BootstrapBlazor.Components;
 /// TableToolbarPopconfirmButton 组件
 /// </summary>
 [JSModuleNotInherited]
-public class TableToolbarPopconfirmButton<TItem> : PopConfirmButtonBase
+public class TableToolbarPopconfirmButton<TItem> : PopConfirmButtonBase, ITableToolbarButton<TItem>
 {
     /// <summary>
     /// 获得/设置 按钮点击后回调委托
@@ -29,6 +29,12 @@ public class TableToolbarPopconfirmButton<TItem> : PopConfirmButtonBase
     /// </summary>
     [Parameter]
     public bool IsEnableWhenSelectedOneRow { get; set; }
+
+    /// <summary>
+    /// 获得/设置 按钮是否被禁用回调方法
+    /// </summary>
+    [Parameter]
+    public Func<IEnumerable<TItem>, bool>? IsDisabledCallback { get; set; }
 
     /// <summary>
     /// 获得/设置 Table Toolbar 实例
