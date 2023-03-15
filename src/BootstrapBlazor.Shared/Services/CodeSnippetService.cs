@@ -55,94 +55,18 @@ class CodeSnippetService
     /// 获得示例源码方法
     /// </summary>
     /// <returns></returns>
-    public async Task<string> GetCodeAsync(string codeFile, string? blockTitle, string? demo)
+    public async Task<string> GetCodeAsync(string demo)
     {
-        var content = "";
+        string? content;
         try
         {
-            var payload = await GetContentFromDemo(demo) ?? await GetContentFromFile(codeFile);
-
-            if (blockTitle != null)
-            {
-                // 生成资源文件
-                content = CacheManager.GetCode(codeFile, blockTitle, entry =>
-                {
-                    payload = Filter(payload);
-
-                    entry.SlidingExpiration = TimeSpan.FromMinutes(10);
-                    return payload;
-                });
-            }
-            else
-            {
-                content = payload;
-            }
+            content = await GetContentFromDemo(demo);
         }
         catch (Exception ex) { content = $"Error: {ex.Message}"; }
         return content;
-
-        string Filter(string content)
-        {
-            var beginFlag = "<DemoBlock ";
-            var endFlag = "</DemoBlock>";
-            if (!string.IsNullOrEmpty(blockTitle))
-            {
-                var findStrings = new string[] { $"Name=\"{blockTitle}\"", $"Title=\"{blockTitle}\"" };
-                var endLength = endFlag.Length;
-                while (content.Length > 0)
-                {
-                    var star = content.IndexOf(beginFlag);
-                    if (star == -1)
-                    {
-                        break;
-                    }
-
-                    var length = content.IndexOf(endFlag);
-                    if (length == -1)
-                    {
-                        break;
-                    }
-
-                    var seg = content[star..(length + endLength)];
-                    if (seg.IndexOf(findStrings[0]) > -1 || seg.IndexOf(findStrings[1]) > -1)
-                    {
-                        var lineFlag = "\n";
-                        var seqStar = seg.IndexOf(lineFlag);
-                        var end = seg.IndexOf(endFlag);
-                        var data = seg[seqStar..end];
-                        content = data.Replace("\n    ", "\n").TrimStart('\n');
-                        break;
-                    }
-                    else
-                    {
-                        content = content[(length + endLength)..];
-                    }
-                }
-            }
-            TrimTips();
-            return content;
-
-            void TrimTips()
-            {
-                beginFlag = "<Tips>";
-                endFlag = $"</Tips>{Environment.NewLine}";
-                var endLength = endFlag.Length;
-                var star = content.IndexOf(beginFlag);
-                if (star > -1)
-                {
-                    var length = content.IndexOf(endFlag);
-                    if (length > -1)
-                    {
-                        content = $"{content[..star]}{content[(length + endLength)..]}";
-                    }
-                }
-            }
-        }
     }
 
-    private async Task<string?> GetContentFromDemo(string? demo) => string.IsNullOrEmpty(demo)
-        ? null
-        : await CacheManager.GetContentFromDemoAsync(demo, async entry =>
+    private Task<string> GetContentFromDemo(string demo) => CacheManager.GetContentFromDemoAsync(demo, async entry =>
     {
         var payload = "";
 
