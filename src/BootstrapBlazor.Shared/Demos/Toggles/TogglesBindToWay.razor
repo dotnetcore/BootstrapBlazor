@@ -1,5 +1,43 @@
-﻿<h3>TogglesBindToWay</h3>
+﻿@using BootstrapBlazor.Shared.Samples
+@using System.ComponentModel
+@inject IStringLocalizer<Toggles> Localizer
+
+<div class="row g-3">
+    <div class="col-12">
+        <Toggle OnText="@Localizer["TogglesOnText"]" OffText="@Localizer["TogglesOffText"]" @bind-Value="@Model.BindValue" DisplayText="@Localizer["BindToWayDiaspalyText1"]" />
+    </div>
+    <div class="col-12">
+        <div>@Localizer["BindToWayDiv"] @Model.BindValue</div>
+    </div>
+    <Divider Text="@Localizer["CustomLabelText"]" />
+    <div class="col-12">
+        <p>@((MarkupString)Localizer["BindToWayP2"].Value)</p>
+    </div>
+    <div class="col-12">
+        <Toggle OnText="@Localizer["TogglesOnText"]" OffText="@Localizer["TogglesOffText"]" @bind-Value="@Model.BindValue" DisplayText="@Localizer["CustomLabelText"]" ShowLabel="true" />
+    </div>
+    <Divider Text="@Localizer["OccupantsText"]" />
+    <div class="col-12">
+        <p>@((MarkupString)Localizer["BindToWayP3"].Value)</p>
+    </div>
+    <div class="col-12">
+        <Toggle OnText="@Localizer["TogglesOnText"]" OffText="@Localizer["TogglesOffText"]" @bind-Value="@Model.BindValue" ShowLabel="true" />
+    </div>
+    <Divider Text="@Localizer["NotOccupantsText"]" />
+    <div class="col-12">
+        <p>@((MarkupString)Localizer["BindToWayP4"].Value)</p>
+    </div>
+    <div class="col-12">
+        <Toggle OnText="@Localizer["TogglesOnText"]" OffText="@Localizer["TogglesOffText"]" @bind-Value="@Model.BindValue" DisplayText="@Localizer["NotDisplayText"]" ShowLabel="false" />
+    </div>
+</div>
 
 @code {
+    private class Foo
+    {
+        [DisplayName("绑定标签")]
+        public bool BindValue { get; set; }
+    }
 
+    private Foo Model { get; set; } = new Foo();
 }
