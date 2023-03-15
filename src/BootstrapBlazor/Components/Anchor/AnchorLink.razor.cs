@@ -47,6 +47,6 @@ public partial class AnchorLink
     {
         base.OnParametersSet();
 
-        Icon ??= IconOptions.Value.GetIcon(ComponentIcons.AnchorLinkIcon, "fa-solid fa-link");
+        Icon ??= IconOptions.Value.GetIcon(ComponentIcons.AnchorLinkIcon, Constants.AnchorLinkIcon);
     }
 }
