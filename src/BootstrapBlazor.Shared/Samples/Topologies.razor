@@ -1,15 +1,13 @@
 ﻿@page "/topologies"
-@inherits JSModuleComponentBase
 @inject IStringLocalizer<Topologies> Localizer
-@attribute [JSModuleAutoLoader("topology", ModuleName = "Topology", JSObjectReference = true)]
 
-<h3>@Localizer["H1"]</h3>
-<h4>@((MarkupString)Localizer["H2"].Value)</h4>
+<h3>@Localizer["TopologiesTitle"]</h3>
+<h4>@((MarkupString)Localizer["TopologiesDescription"].Value)</h4>
 
-<DemoBlock Title="@Localizer["P1"]" Introduction="@Localizer["P2"]" Name="Nomal">
-    <div class="topology">
-        <Topology @ref="TopologyElement" Content="@Content" OnBeforePushData="OnBeforePushData"></Topology>
-    </div>
+<DemoBlock Title="@Localizer["TopologiesNomalTitle"]"
+           Introduction="@Localizer["TopologiesNomalIntro"]"
+           Name="Nomal"
+           Demo="typeof(Demos.Topologies.TopologiesNomal)">
 </DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" />

@@ -548,10 +548,10 @@
     "PopupButton": "Pop-ups"
   },
   "BootstrapBlazor.Shared.Samples.Topologies": {
-    "H1": "Topology HMI",
-    "H2": "Rendering of human-computer interface through <code>Topology</code> open source components",
-    "P1": "Basic usage",
-    "P2": "Just load the <code>Json</code> file exported by the website, click the number box below the fan to control the operation"
+    "TopologiesTitle": "Topology HMI",
+    "TopologiesDescription": "Rendering of human-computer interface through <code>Topology</code> open source components",
+    "TopologiesNomalTitle": "Basic usage",
+    "TopologiesNomalIntro": "Just load the <code>Json</code> file exported by the website, click the number box below the fan to control the operation"
   },
   "BootstrapBlazor.Shared.Samples.TreeViews": {
     "H1": "Tree tree control",
