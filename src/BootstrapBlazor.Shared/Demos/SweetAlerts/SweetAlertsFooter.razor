@@ -1,0 +1,20 @@
+﻿@using BootstrapBlazor.Shared.Samples;
+@inject IStringLocalizer<SweetAlerts> Localizer
+@inject SwalService SwalService
+
+<Button Icon="fa-solid fa-font-awesome" Text="@Localizer["SweetAlertsFooterButtonText"]" Color="Color.Success" OnClick="@ShowFooterComponent" />
+
+@code {
+    private async Task ShowFooterComponent()
+    {
+        var op = new SwalOption()
+        {
+            Category = SwalCategory.Error,
+            Title = "Oops...",
+            Content = "Something went wrong!",
+            ShowFooter = true,
+            FooterTemplate = BootstrapDynamicComponent.CreateComponent<SwalFooter>().Render()
+        };
+        await SwalService.Show(op);
+    }
+}

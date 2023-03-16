@@ -1,0 +1,61 @@
+﻿@inject ToastService ToastService
+
+<div class="row g-3 row-cols-3">
+    <div class="col">
+        <Button OnClick="e => OnPlacementClick(Placement.TopStart)">Top Start</Button>
+    </div>
+    <div class="col">
+        <Button OnClick="e => OnPlacementClick(Placement.TopCenter)">Top Center</Button>
+    </div>
+    <div class="col">
+        <Button OnClick="e => OnPlacementClick(Placement.TopEnd)">Top End</Button>
+    </div>
+    <div class="col">
+        <Button OnClick="e => OnPlacementClick(Placement.MiddleStart)">Middle Start</Button>
+    </div>
+    <div class="col">
+        <Button OnClick="e => OnPlacementClick(Placement.MiddleCenter)">Middle Center</Button>
+    </div>
+    <div class="col">
+        <Button OnClick="e => OnPlacementClick(Placement.MiddleEnd)">Middle End</Button>
+    </div>
+    <div class="col">
+        <Button OnClick="e => OnPlacementClick(Placement.BottomStart)">Bottom Start</Button>
+    </div>
+    <div class="col">
+        <Button OnClick="e => OnPlacementClick(Placement.BottomCenter)">Bottom Center</Button>
+    </div>
+    <div class="col">
+        <Button OnClick="e => OnPlacementClick(Placement.BottomEnd)">Bottom End</Button>
+    </div>
+</div>
+
+@code {
+    [NotNull]
+    private ToastContainer? ToastContainer { get; set; }
+
+    [CascadingParameter]
+    [NotNull]
+    private BootstrapBlazorRoot? Root { get; set; }
+
+    /// <summary>
+    /// OnInitialized
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        ToastContainer = Root.ToastContainer;
+    }
+
+    private async Task OnPlacementClick(Placement placement)
+    {
+        ToastContainer.SetPlacement(placement);
+        await ToastService.Show(new ToastOption()
+        {
+            Category = ToastCategory.Information,
+            Title = "Notification",
+            Content = "<b>Toast</b> The component has changed position, it will automatically shut down after 4 seconds"
+        });
+    }
+}

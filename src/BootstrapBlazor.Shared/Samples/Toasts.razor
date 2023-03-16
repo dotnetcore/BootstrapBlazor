@@ -3,97 +3,56 @@
 @inject ToastService ToastService
 @inject IJSRuntime JSRuntime
 
-<h3>@Localizer["H1"]</h3>
-<h4>@Localizer["H2"]</h4>
+<h3>@Localizer["ToastsTitle"]</h3>
+<h4>@Localizer["ToastsSubTitle"]</h4>
 
-<p>@Localizer["P1"]：</p>
+<p>@Localizer["ToastsDescriptionTitle"]：</p>
 
-<p class="code-label">@((MarkupString)Localizer["P2"].Value)</p>
+<p class="code-label">@((MarkupString)Localizer["ToastsTips1"].Value)</p>
 <Pre>@@inject ToastService ToastService</Pre>
 <Pre>[Inject]
 [NotNull]
 private ToastService? ToastService { get; set; }
 </Pre>
-<p class="code-label">@((MarkupString)Localizer["P3"].Value)</p>
+<p class="code-label">@((MarkupString)Localizer["ToastsTips2"].Value)</p>
 <Pre>await ToastService.Success("Title", "Content", autoHide: true);</Pre>
 
-<DemoBlock Title="@Localizer["P4"]" Introduction="@Localizer["P5"]" Name="Normal">
-    <div class="row g-3 overflow-hidden">
-        <div class="col-12 col-lg-6 col-xl-3">
-            <Toast class="d-toast show" Options="@Options1" />
-        </div>
-        <div class="col-12 col-lg-6 col-xl-3">
-            <Toast class="d-toast show" Options="@Options2" />
-        </div>
-        <div class="col-12 col-lg-6 col-xl-3">
-            <Toast class="d-toast show" Options="@Options3" />
-        </div>
-        <div class="col-12 col-lg-6 col-xl-3">
-            <Toast class="d-toast show" Options="@Options4" />
-        </div>
-        <div class="col-12 col-lg-6 col-xl-3">
-            <Button Color="Color.Success" Icon="fa-solid fa-circle-check" OnClick="@OnSuccessClick" Text="@Localizer["P6"]"></Button>
-        </div>
-        <div class="col-12 col-lg-6 col-xl-3">
-            <Button Color="Color.Danger" Icon="fa-solid fa-circle-xmark" OnClick="@OnErrorClick" Text="@Localizer["P7"]"></Button>
-        </div>
-        <div class="col-12 col-lg-6 col-xl-3">
-            <Button Color="Color.Info" Icon="fa-solid fa-circle-exclamation" OnClick="@OnInfoClick" Text="@Localizer["P8"]"></Button>
-        </div>
-        <div class="col-12 col-lg-6 col-xl-3">
-            <Button Color="Color.Warning" Icon="fa-solid fa-triangle-exclamation" OnClick="@OnWarningClick" Text="@Localizer["P9"]"></Button>
-        </div>
+<DemoBlock Title="@Localizer["ToastsNormalTitle"]"
+           Introduction="@Localizer["ToastsNormalIntro"]"
+           Name="Normal"
+           Demo="typeof(Demos.Toasts.ToastsNormal)">
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["ToastsCloseTitle"]"
+           Introduction="@Localizer["ToastsCloseIntro"]"
+           Name="Close"
+           Demo="typeof(Demos.Toasts.ToastsClose)">
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["ToastsShowHeaderTitle"]"
+           Introduction="@Localizer["ToastsShowHeaderIntro"]"
+           Name="ShowHeader"
+           Demo="typeof(Demos.Toasts.ToastsShowHeader)">
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["ToastsHeaderTemplateTitle"]"
+           Introduction="@Localizer["ToastsHeaderTemplateIntro"]"
+           Name="HeaderTemplate"
+           Demo="typeof(Demos.Toasts.ToastsHeaderTemplate)">
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["ToastsPositionTitle"]"
+           Introduction="@Localizer["ToastsPositionIntro"]"
+           Name="Position"
+           Demo="typeof(Demos.Toasts.ToastsPosition)">
+    <div>
+        @((MarkupString)Localizer["ToastsPositionDescription"].Value)
     </div>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["P10"]" Introduction="@Localizer["P11"]" Name="Close">
-    <Button Icon="fa-solid fa-triangle-exclamation" OnClick="@OnNotAutoHideClick" Text="@Localizer["P12"]"></Button>
-</DemoBlock>
+<h4>@Localizer["ToastsPositionAttentionText"]</h4>
 
-<DemoBlock Title="@Localizer["ShowHeaderTitle"]" Introduction="@Localizer["ShowHeaderIntro"]" Name="ShowHeader">
-    <Button Icon="fa-solid fa-circle-exclamation" OnClick="@OnShowHeaderClick" Text="@Localizer["ShowHeaderText"]"></Button>
-</DemoBlock>
-
-<DemoBlock Title="@Localizer["HeaderTemplateTitle"]" Introduction="@Localizer["HeaderTemplateIntro"]" Name="HeaderTemplate">
-    <Button Icon="fa-solid fa-circle-exclamation" OnClick="@OnHeaderTemplateClick" Text="@Localizer["ShowHeaderText"]"></Button>
-</DemoBlock>
-
-<DemoBlock Title="@Localizer["P13"]" Introduction="@Localizer["P14"]" Name="Position">
-    @((MarkupString)Localizer["P15"].Value)
-    <div class="row g-3 row-cols-3">
-        <div class="col">
-            <Button OnClick="e => OnPlacementClick(Placement.TopStart)">Top Start</Button>
-        </div>
-        <div class="col">
-            <Button OnClick="e => OnPlacementClick(Placement.TopCenter)">Top Center</Button>
-        </div>
-        <div class="col">
-            <Button OnClick="e => OnPlacementClick(Placement.TopEnd)">Top End</Button>
-        </div>
-        <div class="col">
-            <Button OnClick="e => OnPlacementClick(Placement.MiddleStart)">Middle Start</Button>
-        </div>
-        <div class="col">
-            <Button OnClick="e => OnPlacementClick(Placement.MiddleCenter)">Middle Center</Button>
-        </div>
-        <div class="col">
-            <Button OnClick="e => OnPlacementClick(Placement.MiddleEnd)">Middle End</Button>
-        </div>
-        <div class="col">
-            <Button OnClick="e => OnPlacementClick(Placement.BottomStart)">Bottom Start</Button>
-        </div>
-        <div class="col">
-            <Button OnClick="e => OnPlacementClick(Placement.BottomCenter)">Bottom Center</Button>
-        </div>
-        <div class="col">
-            <Button OnClick="e => OnPlacementClick(Placement.BottomEnd)">Bottom End</Button>
-        </div>
-    </div>
-</DemoBlock>
-
-<h4>@Localizer["P20"]</h4>
-
-<p>@((MarkupString)Localizer["P21"].Value)</p>
+<p>@((MarkupString)Localizer["ToastsPositionTips"].Value)</p>
 
 <ul class="ul-demo mb-3">
     <li>Success()</li>
@@ -102,28 +61,28 @@ private ToastService? ToastService { get; set; }
     <li>Warning()</li>
 </ul>
 
-<p>@Localizer["P23"]：</p>
+<p>@Localizer["ToastsPositionTips2"]：</p>
 
-<Pre>ToastService?.Success("@Localizer["P24"]", "@Localizer["P25"]");</Pre>
+<Pre>ToastService?.Success("@Localizer["ToastsPositionSaved"]", "@Localizer["ToastsPositionAutoClose"]");</Pre>
 
 <Pre>private void OnInfoClick()
 {
     ToastService.Show(new ToastOption()
     {
-        // @Localizer["P26"]
+        // @Localizer["ToastsPositionCategory"]
         Category = ToastCategory.Information,
 
-        // @Localizer["P27"]
-        Title = "@Localizer["P28"]",
+        // @Localizer["ToastsPositionBoxTitle"]
+        Title = "@Localizer["ToastsPositionNotification"]",
 
-        // @Localizer["P29"]
-        Content = "@Localizer["P30"]"
+        // @Localizer["ToastsPositionContent"]
+        Content = "@Localizer["ToastsPositionAddsNew"]"
     });
 }</Pre>
 
-<Tips>@((MarkupString)Localizer["P31"].Value)</Tips>
+<Tips>@((MarkupString)Localizer["ToastsPositionNote1"].Value)</Tips>
 
-    <p>@((MarkupString)Localizer["P32"].Value)</p>
+    <p>@((MarkupString)Localizer["ToastsPositionNote2"].Value)</p>
 
 <Pre>"BootstrapBlazorOptions": {
     "ToastDelay": 4000,
@@ -131,11 +90,11 @@ private ToastService? ToastService { get; set; }
     "SwalDelay": 4000
 }</Pre>
 
-<p>@((MarkupString)Localizer["P33"].Value)</p>
+<p>@((MarkupString)Localizer["ToastsPositionConfigured"].Value)</p>
 
 <Pre>public void ConfigureServices(IServiceCollection services)
 {
-    // @Localizer["P34"]
+    // @Localizer["ToastsPositionDisappearance"]
     services.Configure&lt;BootstrapBlazorOptions&gt;(options =>
     {
         options.ToastDelay = 4000;
@@ -143,25 +102,16 @@ private ToastService? ToastService { get; set; }
 }
 </Pre>
 
-<div class="mb-3">@((MarkupString)Localizer["P35"].Value)</div>
+<div class="mb-3">@((MarkupString)Localizer["ToastsPositionServerSide"].Value)</div>
 
 <Pre>public void ConfigureServices(IServiceCollection services)
 {
-    // @Localizer["P36"]
+    // @Localizer["ToastsPositionAddComponent"]
     services.AddBootstrapBlazor(options =>
     {
-        // @Localizer["P37"]
+        // @Localizer["ToastsPositionAutomaticDisappearance"]
         options.ToastDelay = 4000;
     });
 }</Pre>
 
 <AttributeTable Items="@GetAttributes()" />
-
-@code {
-    RenderFragment RenderHeader =>
-    @<div class="d-flex flex-fill pe-3">
-        <svg class="bd-placeholder-img rounded me-2" width="20" height="20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#007aff"></rect></svg>
-        <strong class="me-auto">Bootstrap</strong>
-        <small class="text-muted">just now</small>
-    </div>;
-}

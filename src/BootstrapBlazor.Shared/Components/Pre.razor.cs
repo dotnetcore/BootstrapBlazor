@@ -3,7 +3,6 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using BootstrapBlazor.Shared.Services;
-using Microsoft.JSInterop;
 
 namespace BootstrapBlazor.Shared.Components;
 
@@ -33,12 +32,6 @@ public partial class Pre
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
-
-    /// <summary>
-    /// 获得/设置 示例文档名称
-    /// </summary>
-    [Parameter]
-    public string? CodeFile { get; set; }
 
     /// <summary>
     /// 获得/设置 代码段的标题
@@ -121,9 +114,9 @@ public partial class Pre
 
     private async Task GetCodeAsync()
     {
-        if (!string.IsNullOrEmpty(CodeFile))
+        if (!string.IsNullOrEmpty(Demo))
         {
-            var code = await Example.GetCodeAsync(CodeFile, BlockTitle, Demo);
+            var code = await Example.GetCodeAsync(Demo);
             if (!string.IsNullOrEmpty(code))
             {
                 ChildContent = builder =>

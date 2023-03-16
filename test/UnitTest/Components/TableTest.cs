@@ -1913,6 +1913,63 @@ public class TableTest : TableTestBase
     }
 
     [Fact]
+    public void DisabledCallback_Ok()
+    {
+        var foos = new List<Foo>()
+        {
+            new() { Name = "Test1", Complete = true },
+            new() { Name = "Test2", Complete = false },
+            new() { Name = "Test3", Complete = true },
+        };
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.ShowToolbar, true);
+                pb.Add(a => a.IsMultipleSelect, true);
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.Items, foos);
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+                });
+                pb.Add(a => a.TableToolbarAfterTemplate, builder =>
+                {
+                    builder.OpenComponent<TableToolbarButton<Foo>>(0);
+                    builder.AddAttribute(1, nameof(TableToolbarButton<Foo>.Text), "test");
+                    builder.AddAttribute(4, nameof(TableToolbarButton<Foo>.IsDisabledCallback), new Func<IEnumerable<Foo>, bool>(items =>
+                    {
+                        // 选择 true 的行是不禁用 否则都禁用
+                        // 返回 true 禁用 返回 false 不禁用
+                        var ret = items.Any() && items.Where(i => i.Complete).Count() > 0;
+                        return !ret;
+                    }));
+                    builder.CloseComponent();
+
+                    builder.OpenComponent<TableToolbarPopconfirmButton<Foo>>(0);
+                    builder.AddAttribute(9, nameof(TableToolbarPopconfirmButton<Foo>.Text), "test-confirm");
+                    builder.AddAttribute(11, nameof(TableToolbarPopconfirmButton<Foo>.IsDisabledCallback), new Func<IEnumerable<Foo>, bool>(items =>
+                    {
+                        var ret = items.Any() && items.Where(i => !i.Complete).Count() > 0;
+                        return !ret;
+                    }));
+                    builder.CloseComponent();
+                });
+            });
+        });
+        var button = cut.FindComponents<Button>().First(b => b.Instance.Text == "test");
+        Assert.True(button.Instance.IsDisabled);
+
+        // 选中一行
+        var input = cut.Find("tbody tr input");
+        cut.InvokeAsync(() => input.Click());
+        Assert.False(button.Instance.IsDisabled);
+    }
+
+    [Fact]
     public void CardViewToolbarButton_Ok()
     {
         var clickCallback = false;

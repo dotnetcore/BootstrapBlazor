@@ -21,36 +21,14 @@
     <ImageViewer Alt="coverage" IsAsync="true" Url="https://codecov.io/gh/dotnetcore/BootstrapBlazor/branch/main/graph/badge.svg?token=5SXIWHXZC3" />
 </div>
 
-@if (AnySourceCodes)
-{
-    <Tab IsBorderCard="true" @ref="TabSet">
-        <TabItem Text="@Example" Icon="fa-solid fa-desktop">
-            <CascadingValue Value="@RazorFileName" Name="RazorFileName" IsFixed="true">
-                @Body
-            </CascadingValue>
-        </TabItem>
-        <TabItem Text="Razor" Icon="fa-brands fa-html5">
-            <Pre @key="@RazorFileName" CodeFile="@RazorFileName"></Pre>
-        </TabItem>
-        <TabItem Text="C#" Icon="fa-regular fa-file-code">
-            <Pre @key="@CsharpFileName" CodeFile="@CsharpFileName"></Pre>
-        </TabItem>
-        <TabItem Text="@Video" Icon="fa-regular fa-file-video">
-            <Video @key="@VideoFileName" Name="@VideoFileName"></Video>
-            <p><b>交流群</b></p>
-            <QQGroup />
-        </TabItem>
-    </Tab>
-}
-else
-{
-    <CascadingValue Value="@RazorFileName" Name="RazorFileName" IsFixed="true">
-        @Body
-    </CascadingValue>
-}
+<hr />
 
-<div class="tab-navigators">
-    <Button OnClickWithoutRender="() => Goto(2)" Icon="fa-regular fa-file-code" class="btn-fade btn-circle" TooltipText="@Localizer["ViewC#Code"]"></Button>
-    <Button OnClickWithoutRender="() => Goto(1)" Icon="fa-brands fa-html5" class="btn-fade btn-circle" Color="Color.Success" TooltipText="@Localizer["ViewRazorCode"]"></Button>
-    <Button OnClickWithoutRender="() => Goto(0)" Icon="fa-solid fa-book" class="btn-fade btn-circle" Color="Color.Warning" TooltipText="@Localizer["ViewExample"]"></Button>
-</div>
+@Body
+
+<hr />
+
+<Video @key="@VideoFileName" Name="@VideoFileName"></Video>
+
+<p><b>交流群</b></p>
+
+<QQGroup />

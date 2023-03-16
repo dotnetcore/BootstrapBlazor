@@ -1,0 +1,28 @@
+﻿@using BootstrapBlazor.Shared.Samples
+@inject IStringLocalizer<Timelines> Localizer
+
+<Timeline Items="CustomerTimelineItems" />
+
+@code {
+    private IEnumerable<TimelineItem> CustomerTimelineItems => new TimelineItem[]
+    {
+        new TimelineItem
+        {
+            Content = Localizer["TimelineItemContent4"],
+            Description = DateTime.Now.ToString("yyyy-MM-dd")
+        },
+        new TimelineItem
+        {
+            Color = Color.Success,
+            Content = Localizer["TimelineItemContent5"],
+            Description = DateTime.Now.AddDays(2).ToString("yyyy-MM-dd")
+        },
+        new TimelineItem
+        {
+            Color = Color.Danger,
+            Icon = "fa-solid fa-fw fa-font-awesome",
+            Content = Localizer["TimelineItemContent6"],
+            Description = DateTime.Now.AddDays(3).ToString("yyyy-MM-dd")
+        }
+    };
+}

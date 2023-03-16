@@ -1,40 +1,40 @@
 ﻿@page "/tabs"
 @inject IStringLocalizer<Tabs> Localizer
 
-<h3>@Localizer["Title"]</h3>
+<h3>@Localizer["TabsTitle"]</h3>
 
-<h4>@Localizer["H1"]</h4>
+<h4>@Localizer["TabsSubTitle"]</h4>
 
-<p>@((MarkupString)Localizer["P1"].Value)</p>
+<p>@((MarkupString)Localizer["TabsDescription"].Value)</p>
 
 <Tips>
     <p>
-        @((MarkupString)Localizer["TipsP"].Value)
+        @((MarkupString)Localizer["TabsTipsTitle"].Value)
         <ul class="ul-demo mb-3">
-            <li>@Localizer["TipsLi1"]</li>
-            <li>@Localizer["TipsLi2"]</li>
+            <li>@Localizer["TabsTips1"]</li>
+            <li>@Localizer["TabsTips2"]</li>
         </ul>
-        <div>@((MarkupString)Localizer["TipsDiv"].Value)</div>
+        <div>@((MarkupString)Localizer["TabsTips3"].Value)</div>
     </p>
-    <p>@Localizer["TipsP2"]</p>
+    <p>@Localizer["TabsTips4"]</p>
 </Tips>
 
 <p>
-    <b>@Localizer["InfoTitle"]</b>
+    <b>@Localizer["TabsInfoTitle"]</b>
 </p>
 
 <ul class="ul-demo">
-    <li>@((MarkupString)Localizer["InfoItem2"].Value)</li>
-    <li>@((MarkupString)Localizer["InfoItem4"].Value)</li>
+    <li>@((MarkupString)Localizer["TabsInfoItem2"].Value)</li>
+    <li>@((MarkupString)Localizer["TabsInfoItem4"].Value)</li>
 </ul>
 
 <p class="mt-3">
-    <b>@Localizer["QATitle"]</b>
+    <b>@Localizer["TabsQATitle"]</b>
 </p>
 
 <ul class="ul-demo">
-    <li>@((MarkupString)Localizer["QA1"].Value)</li>
-    <li>@((MarkupString)Localizer["QA2"].Value)</li>
+    <li>@((MarkupString)Localizer["TabsQA1"].Value)</li>
+    <li>@((MarkupString)Localizer["TabsQA2"].Value)</li>
 </ul>
 
 <Pre class="mt-3">[CascadingParameter]
@@ -45,324 +45,106 @@ public Tab? TabSet { get; set; }
 [NotNull]
 public TabItem? TabItem { get; set; }</Pre>
 
-<DemoBlock Title="@Localizer["Block1Title"]" Introduction="@Localizer["Block1Intro"]" Name="Normal">
-    <Tab>
-        <TabItem Text="@Localizer["TabItem1Text"]">
-            <div>@Localizer["TabItem1Content"]</div>
-        </TabItem>
-        <TabItem Text="@Localizer["TabItem2Text"]">
-            <div>@Localizer["TabItem2Content"]</div>
-        </TabItem>
-        <TabItem Text="@Localizer["TabItem3Text"]">
-            <div>@Localizer["TabItem3Content"]</div>
-        </TabItem>
-        <TabItem Text="@Localizer["TabItem4Text"]">
-            <div>@Localizer["TabItem4Content"]</div>
-        </TabItem>
-    </Tab>
+<DemoBlock Title="@Localizer["TabsNormalTitle"]"
+           Introduction="@Localizer["TabsNormalIntro"]"
+           Name="Normal"
+           Demo="typeof(Demos.Tabs.TabsNormal)">
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["Block2Title"]" Introduction="@Localizer["Block2Intro"]" Name="Card">
-    <Tab IsCard="true">
-        <TabItem Text="@Localizer["TabItem1Text"]">
-            <div>@Localizer["TabItem1Content"]</div>
-        </TabItem>
-        <TabItem Text="@Localizer["TabItem2Text"]">
-            <div>@Localizer["TabItem2Content"]</div>
-        </TabItem>
-        <TabItem Text="@Localizer["TabItem3Text"]">
-            <div>@Localizer["TabItem3Content"]</div>
-        </TabItem>
-        <TabItem Text="@Localizer["TabItem4Text"]">
-            <div>@Localizer["TabItem4Content"]</div>
-        </TabItem>
-    </Tab>
+<DemoBlock Title="@Localizer["TabsCardTitle"]"
+           Introduction="@Localizer["TabsCardIntro"]"
+           Name="Card"
+           Demo="typeof(Demos.Tabs.TabsCard)">
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["Block3Title"]" Introduction="@Localizer["Block3Intro"]" Name="Border">
-    <Tab IsBorderCard="true">
-        <TabItem Text="@Localizer["TabItem1Text"]">
-            <div>@Localizer["TabItem1Content"]</div>
-        </TabItem>
-        <TabItem Text="@Localizer["TabItem2Text"]">
-            <div>@Localizer["TabItem2Content"]</div>
-        </TabItem>
-        <TabItem Text="@Localizer["TabItem3Text"]">
-            <div>@Localizer["TabItem3Content"]</div>
-        </TabItem>
-        <TabItem Text="@Localizer["TabItem4Text"]">
-            <div>@Localizer["TabItem4Content"]</div>
-        </TabItem>
-    </Tab>
+<DemoBlock Title="@Localizer["TabsBorderTitle"]"
+           Introduction="@Localizer["TabsBorderIntro"]"
+           Name="Border"
+           Demo="typeof(Demos.Tabs.TabsBorder)">
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["Block4Title"]" Introduction="@Localizer["Block4Intro"]" Name="Icon">
-    <Tab IsCard="true">
-        <TabItem Text="@Localizer["TabItem1Text"]" Icon="fa-solid fa-user">
-            <div>@Localizer["TabItem1Content"]</div>
-        </TabItem>
-        <TabItem Text="@Localizer["TabItem2Text"]" Icon="fa-solid fa-gauge-high">
-            <div>@Localizer["TabItem2Content"]</div>
-        </TabItem>
-        <TabItem Text="@Localizer["TabItem3Text"]" Icon="fa-solid fa-sitemap">
-            <div>@Localizer["TabItem3Content"]</div>
-        </TabItem>
-        <TabItem Text="@Localizer["TabItem4Text"]" Icon="fa-solid fa-building-columns">
-            <div>@Localizer["TabItem4Content"]</div>
-        </TabItem>
-    </Tab>
+<DemoBlock Title="@Localizer["TabsIconTitle"]"
+           Introduction="@Localizer["TabsIconIntro"]"
+           Name="Icon"
+           Demo="typeof(Demos.Tabs.TabsIcon)">
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["Block5Title"]" Introduction="@Localizer["Block5Intro"]" Name="Closable">
+<DemoBlock Title="@Localizer["TabsClosableTitle"]"
+           Introduction="@Localizer["TabsClosableIntro"]"
+           Name="Closable"
+           Demo="typeof(Demos.Tabs.TabsClosable)">
     <Tips>
-        @((MarkupString)Localizer["Tips2"].Value)
+        @((MarkupString)Localizer["TabsClosableTips"].Value)
     </Tips>
-    <Tab IsCard="true" ShowClose="true">
-        <TabItem Text="@Localizer["TabItem1Text"]" Icon="fa-solid fa-user" Closable="false">
-            <div>@Localizer["TabItem1Content"]</div>
-        </TabItem>
-        <TabItem Text="@Localizer["TabItem2Text"]" Icon="fa-solid fa-gauge-high">
-            <div>@Localizer["TabItem2Content"]</div>
-        </TabItem>
-        <TabItem Text="@Localizer["TabItem3Text"]" Icon="fa-solid fa-sitemap">
-            <div>@Localizer["TabItem3Content"]</div>
-        </TabItem>
-        <TabItem Text="@Localizer["TabItem4Text"]" Icon="fa-solid fa-building-columns">
-            <div>@Localizer["TabItem4Content"]</div>
-        </TabItem>
-    </Tab>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["Block6Title"]" Introduction="@Localizer["Block6Intro"]" Name="Placement">
-    <p class="text-center">
-        <div class="btn-group">
-            <button class="btn btn-primary" @onclick="e => SetPlacement(Placement.Top)">Top</button>
-            <button class="btn btn-primary" @onclick="e => SetPlacement(Placement.Right)">Right</button>
-            <button class="btn btn-primary" @onclick="e => SetPlacement(Placement.Bottom)">Bottom</button>
-            <button class="btn btn-primary" @onclick="e => SetPlacement(Placement.Left)">Left</button>
-        </div>
-    </p>
-    <Tab Placement="@BindPlacement" Height="200">
-        <TabItem Text="@Localizer["TabItem1Text"]">
-            <div>@Localizer["TabItem1Content"]</div>
-        </TabItem>
-        <TabItem Text="@Localizer["TabItem2Text"]">
-            <div>@Localizer["TabItem2Content"]</div>
-        </TabItem>
-        <TabItem Text="@Localizer["TabItem3Text"]">
-            <div>@Localizer["TabItem3Content"]</div>
-        </TabItem>
-        <TabItem Text="@Localizer["TabItem5Text"]">
-            <div>@Localizer["TabItem5Content"]</div>
-        </TabItem>
-        <TabItem Text="@Localizer["TabItem6Text"]">
-            <div>@Localizer["TabItem6Content"]</div>
-        </TabItem>
-        <TabItem Text="@Localizer["TabItem7Text"]">
-            <div>@Localizer["TabItem7Content"]</div>
-        </TabItem>
-    </Tab>
-    <Divider Text="@Localizer["DividerText"]"></Divider>
-    <Tab Placement="@BindPlacement" IsCard="true" Height="200">
-        <TabItem Text="@Localizer["TabItem1Text"]">
-            <div>@Localizer["TabItem1Content"]</div>
-        </TabItem>
-        <TabItem Text="@Localizer["TabItem2Text"]">
-            <div>@Localizer["TabItem2Content"]</div>
-        </TabItem>
-        <TabItem Text="@Localizer["TabItem3Text"]">
-            <div>@Localizer["TabItem3Content"]</div>
-        </TabItem>
-        <TabItem Text="@Localizer["TabItem5Text"]">
-            <div>@Localizer["TabItem5Content"]</div>
-        </TabItem>
-        <TabItem Text="@Localizer["TabItem6Text"]">
-            <div>@Localizer["TabItem6Content"]</div>
-        </TabItem>
-        <TabItem Text="@Localizer["TabItem7Text"]">
-            <div>@Localizer["TabItem7Content"]</div>
-        </TabItem>
-    </Tab>
-    <Divider Text="@Localizer["DividerText"]"></Divider>
-    <Tab Placement="@BindPlacement" IsBorderCard="true" Height="200">
-        <TabItem Text="@Localizer["TabItem1Text"]">
-            <div>@Localizer["TabItem1Content"]</div>
-        </TabItem>
-        <TabItem Text="@Localizer["TabItem2Text"]">
-            <div>@Localizer["TabItem2Content"]</div>
-        </TabItem>
-        <TabItem Text="@Localizer["TabItem3Text"]">
-            <div>@Localizer["TabItem3Content"]</div>
-        </TabItem>
-        <TabItem Text="@Localizer["TabItem5Text"]">
-            <div>@Localizer["TabItem5Content"]</div>
-        </TabItem>
-        <TabItem Text="@Localizer["TabItem6Text"]">
-            <div>@Localizer["TabItem6Content"]</div>
-        </TabItem>
-        <TabItem Text="@Localizer["TabItem7Text"]">
-            <div>@Localizer["TabItem7Content"]</div>
-        </TabItem>
-    </Tab>
+<DemoBlock Title="@Localizer["TabsPlacementTitle"]"
+           Introduction="@Localizer["TabsPlacementIntro"]"
+           Name="Placement"
+           Demo="typeof(Demos.Tabs.TabsPlacement)">
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["Block7Title"]" Introduction="@Localizer["Block7Intro"]" Name="AddTabItem">
+<DemoBlock Title="@Localizer["TabsAddTabItemTitle"]"
+           Introduction="@Localizer["TabsAddTabItemIntro"]"
+           Name="AddTabItem"
+           Demo="typeof(Demos.Tabs.TabsAddTabItem)">
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["TabsComponentTitle"]"
+           Introduction="@Localizer["TabsComponentIntro"]"
+           Name="Component"
+           Demo="typeof(Demos.Tabs.TabsComponent)">
     <p>
-        <Button Icon="fa-solid fa-circle-plus" OnClickWithoutRender="@(() => AddTab(TabSet))" Text="@Localizer["AddButtonText"]">
-        </Button>
-        <Button Color="Color.Danger" Icon="fa-solid fa-circle-minus" IsDisabled="@RemoveEndable" OnClickWithoutRender="@(() => RemoveTab(TabSet))" Text="@Localizer["RmoveButtonText"]">
-        </Button>
-        <Button Icon="fa-solid fa-font-awesome" OnClickWithoutRender="@(() => Active(TabSet))" Text="@Localizer["ActiveButtonText"]">
-        </Button>
+        @((MarkupString)Localizer["TabsComponentDescription"].Value)
     </p>
-    <Tab IsBorderCard="true" @ref="TabSet">
-        <TabItem Text="@Localizer["TabItem1Text"]">
-            <div>@Localizer["TabItem1Content"]</div>
-        </TabItem>
-        <TabItem Text="@Localizer["TabItem2Text"]">
-            <div>@Localizer["TabItem2Content"]</div>
-        </TabItem>
-        <TabItem Text="@Localizer["TabItem3Text"]">
-            <div>@Localizer["TabItem3Content"]</div>
-        </TabItem>
-        <TabItem Text="@Localizer["TabItem4Text"]">
-            <div>@Localizer["TabItem4Content"]</div>
-        </TabItem>
-        <TabItem Text="@Localizer["TabItem7Text"]">
-            <div>@Localizer["TabItem7Content"]</div>
-        </TabItem>
-    </Tab>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["Block8Title"]" Introduction="@Localizer["Block8Intro"]" Name="Component">
+<DemoBlock Title="@Localizer["TabsDynamicTabItemTitle"]"
+           Introduction="@Localizer["TabsDynamicTabItemIntro"]"
+           Name="DynamicTabItem"
+           Demo="typeof(Demos.Tabs.TabsDynamicTabItem)">
     <p>
-        @((MarkupString)Localizer["P2"].Value)
+        @((MarkupString)Localizer["TabsDynamicTabItemDescription"].Value)
     </p>
-    <Tab IsBorderCard="true">
-        <TabItem Text="@Localizer["TabItem8Text"]">
-            <Counter></Counter>
-        </TabItem>
-        <TabItem Text="@Localizer["TabItem9Text"]">
-            <FetchData></FetchData>
-        </TabItem>
-    </Tab>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["Block9Title"]" Introduction="@Localizer["Block9Intro"]" Name="DynamicTabItem">
-    <p>
-        @((MarkupString)Localizer["P3"].Value)
-    </p>
-    <Layout SideWidth="120px" style="min-height: 180px; border: 1px solid #ddd; border-radius: 4px;">
-        <Header>
-            <div class="header">@Localizer["Block9Div"]</div>
-        </Header>
-        <Side>
-            <div style="border-right: 1px solid #e6e6e6; height: 100%; overflow: auto; padding: 1rem 0; background-color: #f8f9fa;">
-                <Menu Items="@GetSideMenuItems()" IsVertical="true" OnClick="@OnClickMenuItem" @ref="TabMenu" />
-            </div>
-        </Side>
-        <Main>
-            <div class="tab-main-demo">
-                <Tab @ref="TabSetMenu" ShowClose="true">
-                </Tab>
-            </div>
-        </Main>
-    </Layout>
+<DemoBlock Title="@Localizer["TabsAppTitle"]"
+           Introduction="@Localizer["TabsAppIntro"]"
+           Name="App"
+           Demo="typeof(Demos.Tabs.TabsApp)">
+    <Tips>
+        <div>@((MarkupString)Localizer["TabsAppDescription"].Value)</div>
+    </Tips>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["Block10Title"]" Introduction="@Localizer["Block10Intro"]" Name="App">
-    <Tips>@((MarkupString)Localizer["Tips3"].Value)</Tips>
-    <p>
-        <button type="button" class="btn btn-outline-primary" @onclick="@(e => AddTab(TabSet2))">
-            <i class="fa-solid fa-circle-plus"></i>
-            <span>@Localizer["AddButtonText"]</span>
-        </button>
-        <button type="button" class="btn btn-outline-danger" disabled="@((TabSet2?.Items.Count() > 4) ? null : "true")" @onclick="@(e => RemoveTab(TabSet2!))">
-            <i class="fa-solid fa-circle-minus"></i>
-            <span>@Localizer["RmoveButtonText"]</span>
-        </button>
-    </p>
-    <Tab ShowExtendButtons="true" ShowClose="true" @ref="TabSet2">
-        <TabItem Text="@Localizer["TabItem1Text"]" Closable="false">
-            <div>@Localizer["TabItem1Content"]</div>
-        </TabItem>
-        <TabItem Text="@Localizer["TabItem2Text"]">
-            <div>@Localizer["TabItem2Content"]</div>
-        </TabItem>
-        <TabItem Text="@Localizer["TabItem3Text"]">
-            <div>@Localizer["TabItem3Content"]</div>
-        </TabItem>
-        <TabItem Text="@Localizer["TabItem4Text"]">
-            <div>@Localizer["TabItem4Content"]</div>
-        </TabItem>
-        <TabItem Text="@Localizer["TabItem7Text"]">
-            <div>@Localizer["TabItem7Content"]</div>
-        </TabItem>
-    </Tab>
+<DemoBlock Title="@Localizer["TabsIsOnlyRenderActiveTitle"]"
+           Introduction="@Localizer["TabsIsOnlyRenderActiveIntro"]"
+           Name="IsOnlyRenderActive"
+           Demo="typeof(Demos.Tabs.TabsIsOnlyRenderActive)">
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["Block11Title"]" Introduction="@Localizer["Block11Intro"]" Name="IsOnlyRenderActive">
-    <Tab IsBorderCard="true" IsOnlyRenderActiveTab="true">
-        <TabItem Text="@Localizer["TabItem8Text"]">
-            <Counter></Counter>
-        </TabItem>
-        <TabItem Text="@Localizer["TabItem9Text"]">
-            <FetchData></FetchData>
-        </TabItem>
-    </Tab>
+<DemoBlock Title="@Localizer["TabsLazyLoadTitle"]"
+           Introduction="@Localizer["TabsLazyLoadIntro"]"
+           Name="LazyLoad"
+           Demo="typeof(Demos.Tabs.TabsLazyLoad)">
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["LazyLoadTitle"]" Introduction="@Localizer["LazyLoadIntro"]" Name="LazyLoad">
-    <Tab IsBorderCard="true" IsLazyLoadTabItem="true">
-        <TabItem Text="@Localizer["TabItem8Text"]">
-            <Counter></Counter>
-        </TabItem>
-        <TabItem Text="@Localizer["TabItem9Text"]">
-            <FetchData></FetchData>
-        </TabItem>
-    </Tab>
+<DemoBlock Title="@Localizer["TabsHeaderTemplateTitle"]"
+           Introduction="@Localizer["TabsHeaderTemplateIntro"]"
+           Name="HeaderTemplate"
+           Demo="typeof(Demos.Tabs.TabsHeaderTemplate)">
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["BlockHeaderTemplateTitle"]" Introduction="@Localizer["BlockHeaderTemplateIntro"]" Name="HeaderTemplate">
-    <Tab IsBorderCard="true" @ref="TabSet3">
-        <TabItem>
-            <HeaderTemplate>
-                <div class="@GetClassString(context)" @onclick="() => OnClickTabItem(context)">
-                    <i class="fa-solid fa-tv"></i>
-                    <span class="mx-2">@Localizer["BlockHeaderTemplateHeaderText"]</span>
-                    <Badge Color="Color.Danger" style="position: absolute; right: 2px; top: 2px;">9</Badge>
-                </div>
-            </HeaderTemplate>
-            <ChildContent>
-                <div>@((MarkupString)Localizer["BlockHeaderTemplateDesc"].Value)</div>
-            </ChildContent>
-        </TabItem>
-        <TabItem Text="@Localizer["TabItem8Text"]">
-            <Counter></Counter>
-        </TabItem>
-    </Tab>
+<DemoBlock Title="@Localizer["TabsSetHeaderTemplateTitle"]"
+           Introduction="@Localizer["TabsSetHeaderTemplateIntro"]"
+           Name="SetHeaderTemplate"
+           Demo="typeof(Demos.Tabs.TabsSetHeaderTemplate)">
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["BlockSetHeaderTextTemplateTitle"]" Introduction="@Localizer["BlockSetHeaderTextTemplateIntro"]" Name="SetHeaderTemplate">
-    <Tab IsBorderCard="true">
-        <TabItem Text="@Localizer["TabItem8Text"]">
-            <Counter></Counter>
-        </TabItem>
-        <TabItem Text="@Localizer["TabItem9Text"]">
-            <FetchData></FetchData>
-        </TabItem>
-        <TabItem Text="@TabItemText">
-            <DemoTabItem OnSetTitle="@OnSetTitle" />
-        </TabItem>
-    </Tab>
-</DemoBlock>
-
-<DemoBlock Title="@Localizer["BlockSetTabItemHeaderTextTitle"]" Introduction="@Localizer["BlockSetTabItemHeaderTextIntro"]" Name="SetTabItemHeaderText">
-    <Tab IsBorderCard="true">
-        <TabItem Text="Text">
-            <DemoTabItemSetText />
-        </TabItem>
-    </Tab>
+<DemoBlock Title="@Localizer["TabsSetTabItemHeaderTextTitle"]"
+           Introduction="@Localizer["TabsSetTabItemHeaderTextIntro"]"
+           Name="SetTabItemHeaderText"
+           Demo="typeof(Demos.Tabs.TabsSetTabItemHeaderText)">
 </DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" Title="@Localizer["AttTitle"]" />

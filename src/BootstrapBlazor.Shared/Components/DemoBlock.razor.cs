@@ -26,12 +26,6 @@ public sealed partial class DemoBlock
     public string Introduction { get; set; } = "未设置";
 
     /// <summary>
-    /// 文件名 从ComponentLayout传递过来的razor文件名
-    /// </summary>
-    [CascadingParameter(Name = "RazorFileName")]
-    public string? RazorFileName { get; set; }
-
-    /// <summary>
     /// 获得/设置 组件内容
     /// </summary>
     [Parameter]

@@ -5,7 +5,7 @@
     <div class="card-header">
         <span>@HeaderText</span>
         <span class="captcha-refresh" @onclick="@OnClickRefresh">
-            <i class="fa-solid fa-arrows-rotate"></i>
+            <i class="@RefreshIcon"></i>
         </span>
     </div>
     <div class="card-body">
@@ -17,7 +17,7 @@
         <div class="captcha-footer">
             <div class="captcha-bar-bg"></div>
             <div class="captcha-bar">
-                <i class="fa-solid fa-arrow-right"></i>
+                <i class="@BarIcon"></i>
             </div>
             <span class="captcha-bar-text" data-try="@TryText" data-text="@BarText">@BarText</span>
         </div>

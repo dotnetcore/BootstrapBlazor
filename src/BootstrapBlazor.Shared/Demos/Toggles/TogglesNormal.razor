@@ -1,0 +1,42 @@
+﻿@using BootstrapBlazor.Shared.Samples
+@inject IStringLocalizer<Toggles> Localizer
+
+<div class="row g-3">
+    <div class="col-6 col-sm-4 col-md-3 col-lg-auto">
+        <Toggle Value="@BindValue" ValueChanged="@OnValueChanged" OnText="@Localizer["TogglesOnText"]" OffText="@Localizer["TogglesOffText"]" Color="Color.Primary" />
+    </div>
+    <div class="col-6 col-sm-4 col-md-3 col-lg-auto">
+        <Toggle Value="true" OnText="@Localizer["TogglesOnText"]" OffText="@Localizer["TogglesOffText"]" Color="Color.Secondary" />
+    </div>
+    <div class="col-6 col-sm-4 col-md-3 col-lg-auto">
+        <Toggle Value="true" OnText="@Localizer["TogglesOnText"]" OffText="@Localizer["TogglesOffText"]" Color="Color.Success" />
+    </div>
+    <div class="col-6 col-sm-4 col-md-3 col-lg-auto">
+        <Toggle Value="true" OnText="@Localizer["TogglesOnText"]" OffText="@Localizer["TogglesOffText"]" Color="Color.Danger" />
+    </div>
+    <div class="col-6 col-sm-4 col-md-3 col-lg-auto">
+        <Toggle Value="true" OnText="@Localizer["TogglesOnText"]" OffText="@Localizer["TogglesOffText"]" Color="Color.Warning" />
+    </div>
+    <div class="col-6 col-sm-4 col-md-3 col-lg-auto">
+        <Toggle Value="true" OnText="@Localizer["TogglesOnText"]" OffText="@Localizer["TogglesOffText"]" Color="Color.Info" />
+    </div>
+    <div class="col-6 col-sm-4 col-md-3 col-lg-auto">
+        <Toggle Value="true" OnText="@Localizer["TogglesOnText"]" OffText="@Localizer["TogglesOffText"]" Color="Color.Dark" />
+    </div>
+    <div class="col-6 col-sm-4 col-md-3 col-lg-auto">
+        <Toggle Value="false" OnText="@Localizer["TogglesOnText"]" OffText="@Localizer["TogglesOffText"]" Color="Color.Success" />
+    </div>
+</div>
+<BlockLogger @ref="Trace" class="mt-3" />
+
+@code {
+    private bool BindValue { get; set; } = true;
+
+    private BlockLogger? Trace { get; set; }
+
+    private void OnValueChanged(bool val)
+    {
+        BindValue = val;
+        Trace?.Log($"Toggle CurrentValue: {val}");
+    }
+}

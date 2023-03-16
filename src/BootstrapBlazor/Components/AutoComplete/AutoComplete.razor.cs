@@ -164,7 +164,7 @@ public partial class AutoComplete
     protected override void OnParametersSet()
     {
         base.OnParametersSet();
-        Icon ??= IconOptions.Value.GetIcon(ComponentIcons.AutoCompleteIcon, "fa-fw fa-spin fa-solid fa-spinner");
+        Icon ??= IconOptions.Value.GetIcon(ComponentIcons.AutoCompleteIcon, Constants.LoadingIcon);
     }
 
     /// <summary>
