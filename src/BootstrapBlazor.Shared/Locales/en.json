@@ -109,16 +109,20 @@
     "TablesFixedHeaderAndExtendButtonsColumnIntro": "Set <code>Height=200</code> to fix the header, set <code>FixedExtendButtonsColumn</code> to fix the operation column"
   },
   "BootstrapBlazor.Shared.Samples.Tooltips": {
-    "H1": "Tooltip",
-    "H2": "Provides a tooltip after hovering over the mouse or gaining focus",
-    "P1": "Basic usage",
-    "P2": "Often used to display the prompt information when the mouse hovers",
-    "P3": "Button component tooltip",
-    "P4": "Provides a tooltip after hovering over the mouse or gaining focus",
-    "P5": "test component",
-    "P6": "Try to make a new component that is more comfortable to use, you can use it early, the name of the component may be changed later",
-    "P7": "Wrap other components or <code>HTML</code> elements through <code>BootstrapTooltip</code> so that the wrapped object has the function of <code>Tooltip</code>",
-    "P8": "In this example, an icon is wrapped by <code>BootstrapTooltip</code>. When the mouse moves over the icon, the default <code>Tooltip</code> is displayed, which is easier and faster to use."
+    "TooltipsTitle": "Tooltip",
+    "TooltipsDescription": "Provides a tooltip after hovering over the mouse or gaining focus",
+    "TooltipsNomalTitle": "Basic usage",
+    "TooltipsNomalIntro": "Often used to display the prompt information when the mouse hovers",
+    "TooltipsButtonTitle": "Button component tooltip",
+    "TooltipsButtonIntro": "Provides a tooltip after hovering over the mouse or gaining focus",
+    "BootstrapTooltipTitle": "test component",
+    "TooltipsSelectorTitle": "Prompt host settings",
+    "TooltipsSelectorIntro": "Precisely locate trigger prompt box elements by setting <code>Selector</code> parameters",
+    "TooltipsCustomClassTitle": "custom style",
+    "TooltipsCustomClassIntro": "Set the custom style by setting the <code>CustomClass</code> parameter",
+    "BootstrapTooltipIntro": "Try to make a new component that is more comfortable to use, you can use it early, the name of the component may be changed later",
+    "BootstrapTooltipTips1": "Wrap other components or <code>HTML</code> elements through <code>BootstrapTooltip</code> so that the wrapped object has the function of <code>Tooltip</code>",
+    "BootstrapTooltipTips2": "In this example, an icon is wrapped by <code>BootstrapTooltip</code>. When the mouse moves over the icon, the default <code>Tooltip</code> is displayed, which is easier and faster to use."
   },
   "BootstrapBlazor.Shared.Samples.Toasts": {
     "ToastsTitle": "Toast Lightweight Popup",

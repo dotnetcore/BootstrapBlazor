@@ -5,20 +5,10 @@
 namespace BootstrapBlazor.Shared.Samples;
 
 /// <summary>
-/// 
+/// Tooltips
 /// </summary>
 public partial class Tooltips
 {
-    private static string TopString => "Tooltip on top";
-
-    private static string LeftString => "Tooltip on left";
-
-    private static string RightString => "Tooltip on right";
-
-    private static string BottomString => "Tooltip on bottom";
-
-    private static string HtmlString => "This is <a href=\"www.blazor.zone\">Blazor</a> tooltip";
-
     /// <summary>
     /// 获得属性方法
     /// </summary>
