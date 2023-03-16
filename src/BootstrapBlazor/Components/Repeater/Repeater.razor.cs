@@ -18,22 +18,23 @@ public partial class Repeater<TValue>
     /// 获得/设置 数据源
     /// </summary>
     [Parameter]
-    [NotNull]
     public IEnumerable<TValue>? Items { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否显示正在加载信息 默认 true 显示
+    /// </summary>
+    [Parameter]
+    public bool ShowLoading { get; set; } = true;
+
+    /// <summary>
+    /// 获得/设置 正在加载模板
+    /// </summary>
+    [Parameter]
+    public RenderFragment<TValue>? LoadingTemplate { get; set; }
 
     /// <summary>
     /// 获得/设置 模板
     /// </summary>
     [Parameter]
-    public RenderFragment<TValue>? ChildContent { get; set; }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    protected override void OnParametersSet()
-    {
-        base.OnParametersSet();
-
-        Items ??= Enumerable.Empty<TValue>();
-    }
+    public RenderFragment<TValue>? ItemTemplate { get; set; }
 }

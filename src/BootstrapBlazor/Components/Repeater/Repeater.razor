@@ -3,11 +3,31 @@
 @typeparam TValue
 
 <div @attributes="@AdditionalAttributes" class="@RepeaterClassString">
-    @if (ChildContent != null)
+    @if (Items == null)
     {
-        @foreach (var item in Items)
+        // Loading
+        if(ShowLoading)
         {
-            <div @key="item">@ChildContent(item)</div>
+            if (LoadingTemplate == null)
+            {
+                <div class="repeater-loading">
+                    <Spinner Color="Color.Primary" />
+                </div>
+            }
+            else
+            {
+                @LoadingTemplate
+            }
+        }
+    }
+    else
+    {
+        @if (ItemTemplate != null)
+        {
+            @foreach (var item in Items)
+            {
+                <div @key="item">@ItemTemplate(item)</div>
+            }
         }
     }
 </div>
