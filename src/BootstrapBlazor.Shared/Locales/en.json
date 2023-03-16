@@ -1457,10 +1457,16 @@
     "ChildContentIntro": "Set <code>ChildContent</code> for custom the child content"
   },
   "BootstrapBlazor.Shared.Samples.Repeaters": {
-    "RepeaterTitle": "Repeat 组件",
-    "RepeaterDescription": "用户多个重复区域的组件",
-    "RepeaterNormalTitle": "基础用法",
-    "RepeaterNormalIntro": "通过设置 <code>ItemTemplate</code> 模板自定义重复区域内容"
+    "RepeaterTitle": "Repeater",
+    "RepeaterDescription": "Iterates on a collection and use a template to generate the page",
+    "RepeaterNormalTitle": "Normal",
+    "RepeaterNormalIntro": "custom the template by <code>ItemTemplate</code>",
+    "RepeaterLoadingTitle": "Async Data",
+    "RepeaterLoadingIntro": "If <code>Items</code> is not provided, you can set <code>ShowLoading</code> to control whether loading prompt information is displayed. You can customize loading information by using <code>LoadingTemplate</code>",
+    "RepeaterEmptyTitle": "No Data",
+    "RepeaterEmptyIntro": "If <code>Items</code> is empty, use <code>ShowEmpty</code> controls whether no data message is displayed. You can customize the empty data template by <code>EmptyTemplate</code>. <code>EmptyText</code> allows you to customize empty data text information",
+    "RepeaterContainerTitle": "Container Template",
+    "RepeaterContainerIntro": "By setting <code>ContainerTemplate</code> to the container template, the repetitive part of the template is still rendered via <code>ItemTemplate</code>, In this case, the component is rendered as <code>Table</code> using <code>ContainerTemplate</code>"
   },
   "BootstrapBlazor.Shared.Samples.Rows": {
     "RowsTitle": "Row",
