@@ -22,7 +22,7 @@ public partial class Empty
     public string? Image { get; set; }
 
     /// <summary>
-    /// 获得/设置 空状态描述 默认为 null
+    /// 获得/设置 空状态描述 默认为 无数据
     /// </summary>
     [Parameter]
     public string? Text { get; set; }
@@ -44,11 +44,11 @@ public partial class Empty
     private IStringLocalizer<Empty>? Localizer { get; set; }
 
     /// <summary>
-    /// 组件初始化设置
+    /// <inheritdoc/>
     /// </summary>
-    protected override void OnInitialized()
+    protected override void OnParametersSet()
     {
-        base.OnInitialized();
+        base.OnParametersSet();
 
         Text ??= Localizer[nameof(Text)];
     }
