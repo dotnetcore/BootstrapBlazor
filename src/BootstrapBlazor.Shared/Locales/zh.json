@@ -1456,6 +1456,12 @@
     "ChildContentTitle": "自定义内容",
     "ChildContentIntro": "通过设置 <code>ChildContent</code> 参数自定义组件内部显示内容"
   },
+  "BootstrapBlazor.Shared.Samples.Repeates": {
+    "RepeateTitle": "Repeat 组件",
+    "RepeateDescription": "用户多个重复区域的组件",
+    "RepeateNormalTitle": "基础用法",
+    "RepeateNormalIntro": "通过设置 <code>ItemTemplate</code> 模板自定义重复区域内容"
+  },
   "BootstrapBlazor.Shared.Samples.Rows": {
     "RowsTitle": "Row布局组件",
     "RowsDescription": "可简单设置一行显示的组件数量",

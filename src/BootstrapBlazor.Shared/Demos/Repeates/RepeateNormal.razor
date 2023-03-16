@@ -1,0 +1,18 @@
+﻿@inject IStringLocalizer<Foo> FooLocalizer
+
+<Repeate TValue="Foo" Items="Items">
+    <div class="d-flex">
+        @context.Name
+    </div>
+</Repeate>
+
+@code {
+    [NotNull]
+    private List<Foo>? Items { get; set; }
+
+    protected override void OnInitialized()
+    {
+        // 生成数据
+        Items = Foo.GenerateFoo(FooLocalizer, 4);
+    }
+}
