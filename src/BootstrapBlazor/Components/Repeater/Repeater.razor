@@ -5,7 +5,7 @@
 <div @attributes="@AdditionalAttributes" class="@RepeaterClassString">
     @if (Items == null)
     {
-        if(ShowLoading)
+        if (ShowLoading)
         {
             if (LoadingTemplate == null)
             {
@@ -19,14 +19,15 @@
             }
         }
     }
-    else if(Items.Any())
+    else if (Items.Any())
     {
-        @if (ItemTemplate != null)
+        if (ContainerTemplate != null)
         {
-            @foreach (var item in Items)
-            {
-                <div @key="item">@ItemTemplate(item)</div>
-            }
+            @ContainerTemplate(RenderItemTemplate(Items))
+        }
+        else
+        {
+            @RenderItemTemplate(Items)
         }
     }
     else

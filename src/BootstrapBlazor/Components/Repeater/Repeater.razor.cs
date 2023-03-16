@@ -53,6 +53,12 @@ public partial class Repeater<TItem>
     public RenderFragment? EmptyTemplate { get; set; }
 
     /// <summary>
+    /// 获得/设置 容器模板
+    /// </summary>
+    [Parameter]
+    public RenderFragment<RenderFragment>? ContainerTemplate { get; set; }
+
+    /// <summary>
     /// 获得/设置 模板
     /// </summary>
     [Parameter]
@@ -71,4 +77,15 @@ public partial class Repeater<TItem>
 
         EmptyText ??= Localizer[nameof(EmptyText)];
     }
+
+    private RenderFragment RenderItemTemplate(IEnumerable<TItem> items) => builder =>
+    {
+        if (ItemTemplate != null)
+        {
+            foreach (var item in items)
+            {
+                builder.AddContent(0, ItemTemplate(item));
+            }
+        }
+    };
 }
