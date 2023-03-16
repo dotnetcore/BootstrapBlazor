@@ -1,10 +1,10 @@
 ﻿@inject IStringLocalizer<Foo> FooLocalizer
 
-<Repeate TValue="Foo" Items="Items">
+<Repeater TValue="Foo" Items="Items">
     <div class="d-flex">
         @context.Name
     </div>
-</Repeate>
+</Repeater>
 
 @code {
     [NotNull]

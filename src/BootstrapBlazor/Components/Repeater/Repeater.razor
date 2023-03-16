@@ -7,7 +7,7 @@
     {
         @foreach (var item in Items)
         {
-            @ChildContent(item)
+            <div @key="item">@ChildContent(item)</div>
         }
     }
 </div>

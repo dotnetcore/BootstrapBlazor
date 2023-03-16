@@ -1452,6 +1452,12 @@
     "ChildContentTitle": "ChildContent",
     "ChildContentIntro": "Set <code>ChildContent</code> for custom the child content"
   },
+  "BootstrapBlazor.Shared.Samples.Repeaters": {
+    "RepeaterTitle": "Repeat 组件",
+    "RepeaterDescription": "用户多个重复区域的组件",
+    "RepeaterNormalTitle": "基础用法",
+    "RepeaterNormalIntro": "通过设置 <code>ItemTemplate</code> 模板自定义重复区域内容"
+  },
   "BootstrapBlazor.Shared.Samples.Rows": {
     "RowsTitle": "Row",
     "RowsDescription": "The number of components displayed in a row can be easily set",

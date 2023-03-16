@@ -8,7 +8,7 @@ namespace BootstrapBlazor.Components;
 /// Repeat 组件
 /// </summary>
 /// <typeparam name="TValue"></typeparam>
-public partial class Repeate<TValue>
+public partial class Repeater<TValue>
 {
     private string? RepeaterClassString => CssBuilder.Default("repeater")
         .AddClassFromAttributes(AdditionalAttributes)
