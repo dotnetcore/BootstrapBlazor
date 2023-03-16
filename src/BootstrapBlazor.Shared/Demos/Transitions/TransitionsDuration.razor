@@ -1,0 +1,20 @@
+﻿<Button Color="Color.Primary" OnClick="OnFadeInShow" Text="FadeIn"></Button>
+<Transition TransitionType="TransitionType.FadeIn" Show="FadeInShow" Duration="3000" OnTransitionEnd="OnFadeInEndShow">
+    <div class="my-3">FadeIn</div>
+</Transition>
+
+@code {
+    private bool FadeInShow { get; set; }
+
+    private void OnFadeInShow()
+    {
+        FadeInShow = true;
+    }
+
+    private Task OnFadeInEndShow()
+    {
+        FadeInShow = false;
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
+}

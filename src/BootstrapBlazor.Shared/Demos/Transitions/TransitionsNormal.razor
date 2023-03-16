@@ -1,0 +1,20 @@
+﻿<Button Color="Color.Primary" OnClick="OnShow" Text="FadeOut" />
+<Transition TransitionType="TransitionType.FadeOut" Show="Show" OnTransitionEnd="OnShowEnd">
+    <div class="my-3">FadeOut</div>
+</Transition>
+
+@code {
+    private bool Show { get; set; }
+
+    private void OnShow()
+    {
+        Show = true;
+    }
+
+    private Task OnShowEnd()
+    {
+        Show = false;
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
+}
