@@ -30,6 +30,21 @@ public enum ComponentIcons
     AutoFillIcon,
 
     /// <summary>
+    /// Camera 组件 PlayIcon 属性图标
+    /// </summary>
+    CameraPlayIcon,
+
+    /// <summary>
+    /// Camera 组件 StopIcon 属性图标
+    /// </summary>
+    CameraStopIcon,
+
+    /// <summary>
+    /// Camera 组件 PhotoIcon 属性图标
+    /// </summary>
+    CameraPhotoIcon,
+
+    /// <summary>
     /// Button 组件 LoadingIcon 属性图标
     /// </summary>
     ButtonLoadingIcon,
