@@ -151,6 +151,9 @@
   "BootstrapBlazor.Components.PrintButton": {
     "Text": "Print"
   },
+  "BootstrapBlazor.Components.Repeater": {
+    "EmptyText": "No Data"
+  },
   "BootstrapBlazor.Components.Search": {
     "SearchButtonText": "Search"
   },
