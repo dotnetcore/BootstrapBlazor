@@ -23,9 +23,9 @@
         </div>
         <div class="col-12">
             <div class="btn-group">
-                <Button Text="@PlayText" Color="Color.Success" Icon="fa-solid fa-circle-play" IsDisabled="@IsDisabled" data-method="play" data-camera="@ActiveCamera?.Value" />
-                <Button Text="@StopText" Color="Color.Danger" Icon="fa-solid fa-circle-stop" IsDisabled="@IsDisabled" data-method="stop" />
-                <Button Text="@PhotoText" Icon="fa-solid fa-camera-retro" IsDisabled="@CaptureDisabled" data-method="capture" />
+                <Button Text="@PlayText" Color="Color.Success" Icon="@PlayIcon" IsDisabled="@IsDisabled" data-method="play" data-camera="@ActiveCamera?.Value" />
+                <Button Text="@StopText" Color="Color.Danger" Icon="@StopIcon" IsDisabled="@IsDisabled" data-method="stop" />
+                <Button Text="@PhotoText" Icon="@PhotoIcon" IsDisabled="@CaptureDisabled" data-method="capture" />
             </div>
             <a class="d-none download"></a>
         </div>

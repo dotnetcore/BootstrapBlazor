@@ -112,24 +112,45 @@ public partial class Camera : IAsyncDisposable
     public Func<string, Task>? OnCapture { get; set; }
 
     /// <summary>
+    /// 获得/设置 开始按钮图标
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public string? PlayIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 停止按钮图标
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public string? StopIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 拍照按钮图标
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public string? PhotoIcon { get; set; }
+
+    /// <summary>
     /// 获得/设置 开启按钮显示文本 默认为开启
     /// </summary>
-    [NotNull]
     [Parameter]
+    [NotNull]
     public string? PlayText { get; set; }
 
     /// <summary>
     /// 获得/设置 关闭按钮显示文本 默认为关闭
     /// </summary>
-    [NotNull]
     [Parameter]
+    [NotNull]
     public string? StopText { get; set; }
 
     /// <summary>
     /// 获得/设置 拍照按钮显示文本 默认为拍照
     /// </summary>
-    [NotNull]
     [Parameter]
+    [NotNull]
     public string? PhotoText { get; set; }
 
     /// <summary>
@@ -142,6 +163,10 @@ public partial class Camera : IAsyncDisposable
     [Inject]
     [NotNull]
     private IStringLocalizer<Camera>? Localizer { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IOptions<IconMapperOptions>? IconOptions { get; set; }
 
     private string VideoWidthString => $"{VideoWidth}px;";
 
@@ -176,6 +201,10 @@ public partial class Camera : IAsyncDisposable
     protected override void OnParametersSet()
     {
         base.OnParametersSet();
+
+        PlayIcon ??= IconOptions.Value.GetIcon(ComponentIcons.CameraPlayIcon, Constants.CameraPlayIcon);
+        StopIcon ??= IconOptions.Value.GetIcon(ComponentIcons.CameraStopIcon, Constants.CameraStopIcon);
+        PhotoIcon ??= IconOptions.Value.GetIcon(ComponentIcons.CameraPhotoIcon, Constants.CameraPhotoIcon);
 
         if (VideoWidth < 40)
         {
