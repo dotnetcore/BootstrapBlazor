@@ -25,6 +25,15 @@ public static class Constants
     public const string AvatarIcon = "fa-solid fa-user";
 
     /// <summary>
+    /// Captcha 组件 RefreshIcon 默认图标
+    /// </summary>
+    public const string CaptchaRefreshIcon = "fa-solid fa-arrows-rotate";
+
+    /// <summary>
+    /// Captcha 组件 BarIcon 默认图标
+    /// </summary>
+    public const string CaptchaBarIcon = "fa-solid fa-arrow-right";
+
     /// Camera 组件 PlayIcon 属性图标
     /// </summary>
     public const string CameraPlayIcon = "fa-solid fa-circle-play";
