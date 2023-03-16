@@ -1460,7 +1460,9 @@
     "RepeaterTitle": "Repeat 组件",
     "RepeaterDescription": "用户多个重复区域的组件",
     "RepeaterNormalTitle": "基础用法",
-    "RepeaterNormalIntro": "通过设置 <code>ItemTemplate</code> 模板自定义重复区域内容"
+    "RepeaterNormalIntro": "通过设置 <code>ItemTemplate</code> 模板自定义重复区域内容",
+    "RepeaterLoadingTitle": "数据加载",
+    "RepeaterLoadingIntro": "未提供 <code>Items</code> 时通过设置 <code>ShowLoading</code> 控制是否显示正在加载提示信息，可通过 <code>LoadingTemplate</code> 自定义加载信息"
   },
   "BootstrapBlazor.Shared.Samples.Rows": {
     "RowsTitle": "Row布局组件",
