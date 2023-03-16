@@ -50,6 +50,16 @@ public enum ComponentIcons
     ButtonLoadingIcon,
 
     /// <summary>
+    /// Captcha 组件 RefreshIcon 属性图标
+    /// </summary>
+    CaptchaRefreshIcon,
+
+    /// <summary>
+    /// Captcha 组件 BarIcon 属性图标
+    /// </summary>
+    CaptchaBarIcon,
+
+    /// <summary>
     /// Table 组件 SortIconAsc 属性图标
     /// </summary>
     TableSortIconAsc,

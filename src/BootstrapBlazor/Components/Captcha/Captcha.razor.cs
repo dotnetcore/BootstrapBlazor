@@ -125,22 +125,44 @@ public partial class Captcha : IDisposable
     [Parameter]
     public int Height { get; set; } = 155;
 
+    /// <summary>
+    /// 获得/设置 刷新按钮图标 默认值 fa-solid fa-arrows-rotate
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public string? RefreshIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 刷新按钮图标 默认值 fa-solid fa-arrow-right
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public string? BarIcon { get; set; }
+
     [Inject]
     [NotNull]
     private IStringLocalizer<Captcha>? Localizer { get; set; }
 
+    [Inject]
+    [NotNull]
+    private IOptions<IconMapperOptions>? IconOptions { get; set; }
+
+
     /// <summary>
-    /// OnInitialized 方法
+    /// <inheritdoc/>
     /// </summary>
-    protected override void OnInitialized()
+    protected override void OnParametersSet()
     {
-        base.OnInitialized();
+        base.OnParametersSet();
 
         HeaderText ??= Localizer[nameof(HeaderText)];
         BarText ??= Localizer[nameof(BarText)];
         FailedText ??= Localizer[nameof(FailedText)];
         LoadText ??= Localizer[nameof(LoadText)];
         TryText ??= Localizer[nameof(TryText)];
+
+        RefreshIcon ??= IconOptions.Value.GetIcon(ComponentIcons.CaptchaRefreshIcon, Constants.CaptchaRefreshIcon);
+        BarIcon ??= IconOptions.Value.GetIcon(ComponentIcons.CaptchaBarIcon, Constants.CaptchaBarIcon);
     }
 
     /// <summary>
@@ -171,10 +193,6 @@ public partial class Captcha : IDisposable
         return Task.FromResult(ret);
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <returns></returns>
     private CaptchaOption GetCaptchaOption()
     {
         var option = new CaptchaOption()
