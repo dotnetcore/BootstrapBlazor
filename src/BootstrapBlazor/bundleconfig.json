@@ -16,7 +16,7 @@
     "outputFileName": "wwwroot/bundle/bootstrap.blazor.js",
     "inputFiles": [
       "wwwroot/lib/extensions/*.js",
-      "Components/**/!(*.esm).js"
+      "Components/**/!(*.razor).js"
     ],
     "minify": {
       "enabled": false,
@@ -26,8 +26,7 @@
   {
     "outputFileName": "wwwroot/bundle/bootstrap.blazor.min.js",
     "inputFiles": [
-      "wwwroot/lib/extensions/*.js",
-      "Components/**/!(*.esm).js"
+      "wwwroot/bundle/bootstrap.blazor.js"
     ],
     "minify": {
       "enabled": true,
