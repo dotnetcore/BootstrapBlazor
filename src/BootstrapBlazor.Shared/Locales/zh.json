@@ -1459,6 +1459,18 @@
     "ChildContentTitle": "自定义内容",
     "ChildContentIntro": "通过设置 <code>ChildContent</code> 参数自定义组件内部显示内容"
   },
+  "BootstrapBlazor.Shared.Samples.Repeaters": {
+    "RepeaterTitle": "Repeat 组件",
+    "RepeaterDescription": "用户多个重复区域的组件",
+    "RepeaterNormalTitle": "基础用法",
+    "RepeaterNormalIntro": "通过设置 <code>ItemTemplate</code> 模板自定义重复区域内容",
+    "RepeaterLoadingTitle": "数据加载",
+    "RepeaterLoadingIntro": "未提供 <code>Items</code> 时通过设置 <code>ShowLoading</code> 控制是否显示正在加载提示信息，可通过 <code>LoadingTemplate</code> 自定义加载信息",
+    "RepeaterEmptyTitle": "空数据",
+    "RepeaterEmptyIntro": "数据集合 <code>Items</code> 为空时 <code>ShowEmpty</code> 控制是否显示无数据提示信息，可通过 <code>EmptyTemplate</code> 自定义空数据模板，可通过 <code>EmptyText</code> 自定义空数据文字信息",
+    "RepeaterContainerTitle": "容器模板",
+    "RepeaterContainerIntro": "通过设置 <code>ContainerTemplate</code> 容器模板，模板内重复部分仍然通过 <code>ItemTemplate</code> 渲染，本例中通过 <code>ContainerTemplate</code> 将组件渲染成 <code>Table</code>"
+  },
   "BootstrapBlazor.Shared.Samples.Rows": {
     "RowsTitle": "Row布局组件",
     "RowsDescription": "可简单设置一行显示的组件数量",
@@ -4929,6 +4941,7 @@
     "Popover": "弹出窗 Popover",
     "Print": "打印组件 Print",
     "QRCode": "二维码 QRCode",
+    "Repeater": "重复组件 Repeater",
     "Search": "搜索框 Search",
     "Tag": "标签 Tag",
     "Timeline": "时间线 Timeline",

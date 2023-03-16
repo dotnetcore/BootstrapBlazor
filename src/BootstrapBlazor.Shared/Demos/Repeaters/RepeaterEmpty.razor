@@ -1,0 +1,9 @@
+﻿@inject IStringLocalizer<Foo> FooLocalizer
+
+<Repeater TItem="Foo" Items="Items" EmptyText="No Data">
+</Repeater>
+
+@code {
+    [NotNull]
+    private List<Foo>? Items { get; set; } = new();
+}

@@ -533,6 +533,12 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
+                    IsNew = true,
+                    Text = Localizer["Repeater"],
+                    Url = "repeaters"
+                },
+                new()
+                {
                     Text = Localizer["Search"],
                     Url = "searchs"
                 },

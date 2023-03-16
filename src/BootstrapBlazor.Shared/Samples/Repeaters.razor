@@ -1,0 +1,32 @@
+﻿@page "/repeaters"
+@inject IStringLocalizer<Repeaters> Localizer
+
+<h3>@Localizer["RepeaterTitle"]</h3>
+
+<h4>@Localizer["RepeaterDescription"]</h4>
+
+<DemoBlock Title="@Localizer["RepeaterNormalTitle"]"
+           Introduction="@Localizer["RepeaterNormalIntro"]"
+           Name="Normal"
+           Demo="typeof(Demos.Repeaters.RepeaterNormal)">
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["RepeaterLoadingTitle"]"
+           Introduction="@Localizer["RepeaterLoadingIntro"]"
+           Name="Loading"
+           Demo="typeof(Demos.Repeaters.RepeaterLoading)">
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["RepeaterEmptyTitle"]"
+           Introduction="@Localizer["RepeaterEmptyIntro"]"
+           Name="Loading"
+           Demo="typeof(Demos.Repeaters.RepeaterEmpty)">
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["RepeaterContainerTitle"]"
+           Introduction="@Localizer["RepeaterContainerIntro"]"
+           Name="Loading"
+           Demo="typeof(Demos.Repeaters.RepeaterContainer)">
+</DemoBlock>
+
+<AttributeTable Items="@GetAttributes()" />
