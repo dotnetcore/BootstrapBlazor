@@ -1,0 +1,13 @@
+﻿@namespace BootstrapBlazor.Components
+@inherits BootstrapComponentBase
+@typeparam TValue
+
+<div @attributes="@AdditionalAttributes" class="@RepeaterClassString">
+    @if (ChildContent != null)
+    {
+        @foreach (var item in Items)
+        {
+            @ChildContent(item)
+        }
+    }
+</div>

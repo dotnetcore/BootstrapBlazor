@@ -2,49 +2,38 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// Repeat 组件
 /// </summary>
 /// <typeparam name="TValue"></typeparam>
-public partial class Repeater<TValue>
+public partial class Repeate<TValue>
 {
-
     private string? RepeaterClassString => CssBuilder.Default("repeater")
+        .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
     /// <summary>
-    /// 
+    /// 获得/设置 数据源
     /// </summary>
     [Parameter]
     [NotNull]
     public IEnumerable<TValue>? Items { get; set; }
 
     /// <summary>
-    /// 
+    /// 获得/设置 模板
     /// </summary>
     [Parameter]
-    [NotNull]
-    public RenderFragment<IEnumerable<TValue>>? BodyTemplate { get; set; }
+    public RenderFragment<TValue>? ChildContent { get; set; }
 
     /// <summary>
-    /// 
+    /// <inheritdoc/>
     /// </summary>
-    [Parameter]
-    [NotNull]
-    public RenderFragment? HeaderTemplate { get; set; }
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
 
-    /// <summary>
-    /// 
-    /// </summary>
-    [Parameter]
-    [NotNull]
-    public RenderFragment? FooterTemplate { get; set; }
+        Items ??= Enumerable.Empty<TValue>();
+    }
 }
