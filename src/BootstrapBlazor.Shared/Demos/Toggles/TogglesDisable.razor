@@ -1,0 +1,29 @@
+﻿@using BootstrapBlazor.Shared.Samples
+@inject IStringLocalizer<Toggles> Localizer
+
+<div class="row g-3">
+    <div class="col-6 col-sm-4 col-md-3 col-lg-auto">
+        <Toggle IsDisabled="true" Value="true" OnText="@Localizer["TogglesOnText"]" OffText="@Localizer["TogglesOffText"]" Color="Color.Primary" />
+    </div>
+    <div class="col-6 col-sm-4 col-md-3 col-lg-auto">
+        <Toggle IsDisabled="true" Value="true" OnText="@Localizer["TogglesOnText"]" OffText="@Localizer["TogglesOffText"]" Color="Color.Secondary" />
+    </div>
+    <div class="col-6 col-sm-4 col-md-3 col-lg-auto">
+        <Toggle IsDisabled="true" Value="true" OnText="@Localizer["TogglesOnText"]" OffText="@Localizer["TogglesOffText"]" Color="Color.Success" />
+    </div>
+    <div class="col-6 col-sm-4 col-md-3 col-lg-auto">
+        <Toggle IsDisabled="true" Value="true" OnText="@Localizer["TogglesOnText"]" OffText="@Localizer["TogglesOffText"]" Color="Color.Danger" />
+    </div>
+    <div class="col-6 col-sm-4 col-md-3 col-lg-auto">
+        <Toggle IsDisabled="true" Value="true" OnText="@Localizer["TogglesOnText"]" OffText="@Localizer["TogglesOffText"]" Color="Color.Warning" />
+    </div>
+    <div class="col-6 col-sm-4 col-md-3 col-lg-auto">
+        <Toggle IsDisabled="true" Value="true" OnText="@Localizer["TogglesOnText"]" OffText="@Localizer["TogglesOffText"]" Color="Color.Info" />
+    </div>
+    <div class="col-6 col-sm-4 col-md-3 col-lg-auto">
+        <Toggle IsDisabled="true" Value="true" OnText="@Localizer["TogglesOnText"]" OffText="@Localizer["TogglesOffText"]" Color="Color.Dark" />
+    </div>
+    <div class="col-6 col-sm-4 col-md-3 col-lg-auto">
+        <Toggle IsDisabled="true" Value="false" OnText="@Localizer["TogglesOnText"]" OffText="@Localizer["TogglesOffText"]" Color="Color.Success" />
+    </div>
+</div>
