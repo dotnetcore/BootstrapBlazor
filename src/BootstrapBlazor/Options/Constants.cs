@@ -50,6 +50,11 @@ public static class Constants
     public const string CameraPhotoIcon = "fa-solid fa-camera-retro";
 
     /// <summary>
+    /// Collapse 组件 CollapseIcon 属性图标
+    /// </summary>
+    public const string CollapseIcon = "fa-solid fa-circle-chevron-right";
+
+    /// <summary>
     /// 正在加载默认图标
     /// </summary>
     public const string LoadingIcon = "fa-solid fa-fw fa-spin fa-spinner";
