@@ -512,14 +512,14 @@
     "AspectRatioIntro": "设置了高度和宽度,会自动禁用约束图表比例, 图表充满容器"
   },
   "BootstrapBlazor.Shared.Samples.Transitions": {
-    "H1": "Transition 过渡效果",
-    "H2": "BootstarpBlazor 应用在部分组件的过渡动画，你也可以直接使用。",
-    "P1": "基础用法",
-    "P2": "基础动画效果演示",
-    "P3": "动画执行完成回调",
-    "P4": "动画执行完成后执行回调函数",
-    "P5": "设置动画时长",
-    "P6": "通过设置 <code>Duration</code> 参数控制动画时长单位为毫秒"
+    "TransitionsTitle": "Transition 过渡效果",
+    "TransitionsDescription": "BootstarpBlazor 应用在部分组件的过渡动画，你也可以直接使用。",
+    "TransitionsNormalTitle": "基础用法",
+    "TransitionsNormalIntro": "基础动画效果演示",
+    "TransitionsEndCallbackTitle": "动画执行完成回调",
+    "TransitionsEndCallbackIntro": "动画执行完成后执行回调函数",
+    "TransitionsDurationTitle": "设置动画时长",
+    "TransitionsDurationIntro": "通过设置 <code>Duration</code> 参数控制动画时长单位为毫秒"
   },
   "BootstrapBlazor.Shared.Samples.EditDialogs": {
     "Title": "EditDialog 编辑弹窗",

@@ -512,14 +512,14 @@
     "AspectRatioIntro": "Setting the height and width will automatically disable the constraint chart ratio, and the chart will fill the container"
   },
   "BootstrapBlazor.Shared.Samples.Transitions": {
-    "H1": "Transition effect",
-    "H2": "BootstarpBlazor applies the transition animation to some components, you can also use it directly.",
-    "P1": "Basic usage",
-    "P2": "Demonstration of basic animation effects",
-    "P3": "Animation execution complete callback",
-    "P4": "Execute the callback function after the animation is completed",
-    "P5": "Set animation duration",
-    "P6": "Control the animation duration in milliseconds by setting the <code>Duration</code> parameter"
+    "TransitionsTitle": "Transition effect",
+    "TransitionsDescription": "BootstarpBlazor applies the transition animation to some components, you can also use it directly.",
+    "TransitionsNormalTitle": "Basic usage",
+    "TransitionsNormalIntro": "Demonstration of basic animation effects",
+    "TransitionsEndCallbackTitle": "Animation execution complete callback",
+    "TransitionsEndCallbackIntro": "Execute the callback function after the animation is completed",
+    "TransitionsDurationTitle": "Set animation duration",
+    "TransitionsDurationIntro": "Control the animation duration in milliseconds by setting the <code>Duration</code> parameter"
   },
   "BootstrapBlazor.Shared.Samples.EditDialogs": {
     "Title": "EditDialog edit popup",
