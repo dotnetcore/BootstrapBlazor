@@ -151,6 +151,9 @@
   "BootstrapBlazor.Components.PrintButton": {
     "Text": "打印"
   },
+  "BootstrapBlazor.Components.Repeater": {
+    "EmptyText": "无数据"
+  },
   "BootstrapBlazor.Components.Search": {
     "SearchButtonText": "搜索"
   },

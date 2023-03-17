@@ -1,0 +1,49 @@
+﻿@inject IStringLocalizer<Foo> FooLocalizer
+
+<div>
+    <Button OnClick="OnClick" Icon="fa-solid fa-plus" Text="Add"></Button>
+</div>
+
+<Repeater TItem="Foo" Items="Items">
+    <ContainerTemplate>
+        <table class="table">
+            <thead>
+                <tr><th>@FooLocalizer[nameof(Foo.Name)]</th><th>@FooLocalizer[nameof(Foo.Address)]</th><th></th></tr>
+            </thead>
+            <tbody>
+                @context
+            </tbody>
+        </table>
+    </ContainerTemplate>
+    <ItemTemplate>
+        <tr>
+            <td>@context.Name</td>
+            <td>@context.Address</td>
+            <td><Button Size="Size.ExtraSmall" Color="Color.Danger" Icon="fa-solid fa-xmark" Text="Delete" OnClick="() => OnDelete(context)"></Button></td>
+        </tr>
+    </ItemTemplate>
+</Repeater>
+
+@code {
+    [NotNull]
+    private List<Foo>? Items { get; set; }
+
+    protected override void OnInitialized()
+    {
+        // 生成数据
+        Items = Foo.GenerateFoo(FooLocalizer, 4);
+    }
+
+    private void OnClick()
+    {
+        var id = Items.Any() ? Items.Max(i => i.Id) : 0;
+        var foo = Foo.Generate(FooLocalizer);
+        foo.Id = id + 1;
+        Items.Add(foo);
+    }
+
+    private void OnDelete(Foo foo)
+    {
+        Items.Remove(foo);
+    }
+}

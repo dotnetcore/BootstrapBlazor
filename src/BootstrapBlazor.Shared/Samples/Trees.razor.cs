@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Components.Web;
 namespace BootstrapBlazor.Shared.Samples;
 
 /// <summary>
-/// 
+/// Trees
 /// </summary>
 public sealed partial class Trees
 {

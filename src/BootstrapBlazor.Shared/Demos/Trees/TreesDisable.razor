@@ -1,0 +1,12 @@
+﻿<Tree Items="@DisabledItems" ShowCheckbox="true" />
+
+@code {
+    private List<TreeItem> DisabledItems { get; set; } = GetDisabledItems();
+
+    private static List<TreeItem> GetDisabledItems()
+    {
+        var ret = TreeDataFoo.GetTreeItems();
+        ret[1].Items[1].IsDisabled = true;
+        return ret;
+    }
+}

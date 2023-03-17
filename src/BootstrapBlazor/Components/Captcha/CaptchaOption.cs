@@ -20,12 +20,12 @@ public class CaptchaOption
     public int Height { get; set; }
 
     /// <summary>
-    /// 获得/设置 拼图边长
+    /// 获得/设置 拼图边长 默认 42
     /// </summary>
     public int SideLength { get; set; } = 42;
 
     /// <summary>
-    /// 获得/设置 拼图直径
+    /// 获得/设置 拼图直径 默认 9
     /// </summary>
     public int Diameter { get; set; } = 9;
 
@@ -47,5 +47,5 @@ public class CaptchaOption
     /// <summary>
     /// 获得/设置 拼图背景图片路径
     /// </summary>
-    public string ImageUrl { get; set; } = "images/Pic0.jpg";
+    public string? ImageUrl { get; set; }
 }

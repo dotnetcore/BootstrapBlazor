@@ -1,0 +1,35 @@
+﻿@using Microsoft.AspNetCore.Components.Rendering;
+
+<Tree ClickToggleNode="true" Items="GetTemplateItems()" />
+
+@code {
+    private static List<TreeItem> GetTemplateItems()
+    {
+        var ret = TreeDataFoo.GetTreeItems();
+        ret[0].Template = BootstrapDynamicComponent.CreateComponent<CustomerTreeItem>().Render();
+        return ret;
+    }
+
+    private class CustomerTreeItem : ComponentBase
+    {
+        [Inject]
+        [NotNull]
+        private ToastService? ToastService { get; set; }
+
+        /// <summary>
+        /// BuildRenderTree
+        /// </summary>
+        /// <param name="builder"></param>
+        protected override void BuildRenderTree(RenderTreeBuilder builder)
+        {
+            builder.OpenComponent<Button>(0);
+            builder.AddAttribute(1, nameof(Button.Icon), "fa-solid fa-font-awesome");
+            builder.AddAttribute(2, nameof(Button.Text), "Click");
+            builder.AddAttribute(3, nameof(Button.OnClick), EventCallback.Factory.Create<MouseEventArgs>(this, e =>
+            {
+                ToastService.Warning("Custom TreeItem", "Test the TreeItem button click event");
+            }));
+            builder.CloseComponent();
+        }
+    }
+}
