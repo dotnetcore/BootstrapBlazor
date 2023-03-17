@@ -1,0 +1,5 @@
+﻿<Tree Items="@Items" ShowIcon="true" ShowCheckbox="true" ClickToggleNode="true" />
+
+@code {
+    private List<TreeItem> Items { get; set; } = TreeDataFoo.GetTreeItems();
+}

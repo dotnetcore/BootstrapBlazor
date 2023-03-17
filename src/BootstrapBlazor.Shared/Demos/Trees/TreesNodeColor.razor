@@ -1,0 +1,12 @@
+﻿<Tree ClickToggleNode="true" Items="GetColorItems()" />
+
+@code {
+    private static List<TreeItem> GetColorItems()
+    {
+        var ret = TreeDataFoo.GetTreeItems();
+        ret[0].CssClass = "text-primary";
+        ret[1].CssClass = "text-success";
+        ret[2].CssClass = "text-danger";
+        return ret;
+    }
+}
