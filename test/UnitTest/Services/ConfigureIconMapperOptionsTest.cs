@@ -13,18 +13,30 @@ public class ConfigureIconMapperOptionsTest
     public void ConfigureIconMapperOptions_Ok()
     {
         var context = new TestContext();
-        context.Services.ConfigureIconMapperOptions(options =>
+        context.Services.AddSingleton<IIconTheme, MockIconTheme>();
+
+        var iconService = context.Services.GetRequiredService<IIconTheme>();
+        Assert.Equal("mdi mdi-link-variant", iconService.GetIconByKey(ComponentIcons.AnchorLinkIcon));
+        Assert.Equal("mdi mdi-test", iconService.GetIconByKey(ComponentIcons.TableSortIcon, "mdi mdi-test"));
+    }
+
+    internal class MockIconTheme : IIconTheme
+    {
+        private Dictionary<ComponentIcons, string> Icons { get; }
+
+        public MockIconTheme()
         {
-            options.Items = new()
+            Icons = new Dictionary<ComponentIcons, string>()
             {
                 { ComponentIcons.AnchorLinkIcon, "mdi mdi-link-variant" }
             };
-        });
+        }
 
-        var iconService = context.Services.GetRequiredService<IOptions<IconMapperOptions>>();
-        Assert.Equal("mdi mdi-link-variant", iconService.Value.Items[ComponentIcons.AnchorLinkIcon]);
-
-        Assert.Equal("mdi mdi-link-variant", iconService.Value.GetIcon(ComponentIcons.AnchorLinkIcon));
-        Assert.Equal("mdi mdi-test", iconService.Value.GetIcon(ComponentIcons.TableSortIcon, "mdi mdi-test"));
+        /// <summary>
+        /// <inheritdoc/>
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public Dictionary<ComponentIcons, string> GetIcons() => Icons;
     }
 }
