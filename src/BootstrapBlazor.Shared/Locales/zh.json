@@ -552,10 +552,10 @@
     "PopupButton": "弹窗"
   },
   "BootstrapBlazor.Shared.Samples.Topologies": {
-    "H1": "Topology 人机交互界面",
-    "H2": "通过 <code>Topology</code> 开源组件进行人机交互界面的渲染",
-    "P1": "基础用法",
-    "P2": "加载网站导出的 <code>Json</code> 文件即可，点击风扇下方数字框可进行控制操作"
+    "TopologiesTitle": "Topology 人机交互界面",
+    "TopologiesDescription": "通过 <code>Topology</code> 开源组件进行人机交互界面的渲染",
+    "TopologiesNomalTitle": "基础用法",
+    "TopologiesNomalIntro": "加载网站导出的 <code>Json</code> 文件即可，点击风扇下方数字框可进行控制操作"
   },
   "BootstrapBlazor.Shared.Samples.TreeViews": {
     "H1": "Tree 树形控件",
