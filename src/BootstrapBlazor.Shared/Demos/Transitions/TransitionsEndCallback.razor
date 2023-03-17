@@ -1,0 +1,25 @@
+﻿<Button Color="Color.Primary" OnClick="OnTransitionShow" Text="FadeOut"></Button>
+<Transition TransitionType="TransitionType.FadeOut" Show="TransitionEndShow" OnTransitionEnd="OnTransitionEndShow">
+    <div class="my-3">FadeOut</div>
+</Transition>
+<BlockLogger @ref="Trace" />
+
+@code {
+    [NotNull]
+    private BlockLogger? Trace { get; set; }
+
+    private bool TransitionEndShow { get; set; }
+
+    private void OnTransitionShow()
+    {
+        TransitionEndShow = true;
+    }
+
+    private Task OnTransitionEndShow()
+    {
+        TransitionEndShow = false;
+        Trace.Log("animation ends");
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
+}

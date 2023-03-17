@@ -2,44 +2,23 @@
 @namespace BootstrapBlazor.Shared.Samples
 @inject IStringLocalizer<VideoPlayers> Localizer
 
-<h3>@Localizer["Title"]</h3>
+<h3>@Localizer["VideoPlayersTitle"]</h3>
 
 <PackageTips Name="BootstrapBlazor.VideoPlayer" />
 
 <Tips>
-    <p>@((MarkupString)Localizer["Tips"].Value)</p>
+    <p>@((MarkupString)Localizer["VideoPlayersTips"].Value)</p>
 </Tips>
-<DemoBlock Title="@Localizer["BaseUsageText"]" Introduction="@Localizer["BaseUsageIntro"]" Name="Nomal">
-    <div class="row g-3">
-        <div class="col-6">
-            <VideoPlayer MineType="application/x-mpegURL" Url="https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8" />
-        </div>
-        <div class="col-6">
-            <VideoPlayer MineType="video/mp4" Url="//vjs.zencdn.net/v/oceans.mp4" />
-        </div>
-    </div>
-
+<DemoBlock Title="@Localizer["VideoPlayersNomalTitle"]"
+           Introduction="@Localizer["VideoPlayersNomalIntro"]"
+           Name="Nomal"
+           Demo="typeof(Demos.VideoPlayers.VideoPlayersNomal)">
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["BaseUsageText2"]" Introduction="@Localizer["BaseUsageIntro2"]" Name="Nomal">
-
-    <div class="row g-3">
-        <div class="col-6 col-sm-6 col-md-3 col-xl-auto">
-            <Dropdown TValue="string" Items="Items" OnSelectedItemChanged="@ChangeURL" />
-        </div>
-        <div class="col-6 col-sm-6 col-md-6  col-xl-auto">
-            <BootstrapInput @bind-Value="@Url" />
-        </div>
-        <div class="col-6 col-sm-6 col-md-4 col-xl-auto">
-            <BootstrapInput @bind-Value="@MineType" />
-        </div>
-        <div class="col-6 col-sm-6 col-md-2 col-xl-auto">
-            <Button Color="Color.Primary" OnClick="Apply">加载</Button>
-        </div>
-    </div>
-    <br />
-    <VideoPlayer @ref="Player" MineType="@MineType" Url="@Url" Width="500" Height="380" />
-
+<DemoBlock Title="@Localizer["VideoPlayersChangeURLTitle"]"
+           Introduction="@Localizer["VideoPlayersChangeURLIntro"]"
+           Name="ChangeURL"
+           Demo="typeof(Demos.VideoPlayers.VideoPlayersChangeURL)">
 </DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" />

@@ -512,14 +512,14 @@
     "AspectRatioIntro": "Setting the height and width will automatically disable the constraint chart ratio, and the chart will fill the container"
   },
   "BootstrapBlazor.Shared.Samples.Transitions": {
-    "H1": "Transition effect",
-    "H2": "BootstarpBlazor applies the transition animation to some components, you can also use it directly.",
-    "P1": "Basic usage",
-    "P2": "Demonstration of basic animation effects",
-    "P3": "Animation execution complete callback",
-    "P4": "Execute the callback function after the animation is completed",
-    "P5": "Set animation duration",
-    "P6": "Control the animation duration in milliseconds by setting the <code>Duration</code> parameter"
+    "TransitionsTitle": "Transition effect",
+    "TransitionsDescription": "BootstarpBlazor applies the transition animation to some components, you can also use it directly.",
+    "TransitionsNormalTitle": "Basic usage",
+    "TransitionsNormalIntro": "Demonstration of basic animation effects",
+    "TransitionsEndCallbackTitle": "Animation execution complete callback",
+    "TransitionsEndCallbackIntro": "Execute the callback function after the animation is completed",
+    "TransitionsDurationTitle": "Set animation duration",
+    "TransitionsDurationIntro": "Control the animation duration in milliseconds by setting the <code>Duration</code> parameter"
   },
   "BootstrapBlazor.Shared.Samples.EditDialogs": {
     "Title": "EditDialog edit popup",
@@ -6163,11 +6163,11 @@
     "Tips": "<div class=\"code-label\">Precautions</div><div>This component relies on <a href='https://www.nuget.org/packages?q={0}' target='_blank'><code>{0}</code></a>, which needs to reference its component package when using this component</div><div class=\"code-label mt-2\">Nuget Install</div><div>Use nuget.org to install <a href='https://www.nuget.org/packages?q={0}' target='_blank'><code>{0}</code></a> component</div>"
   },
   "BootstrapBlazor.Shared.Samples.FileViewers": {
-    "Title": "FileViewer",
-    "BaseUsageText": "Basic usage",
-    "BaseUsageIntro": "Excel/Word file path or URL",
-    "BaseUsageText2": "Reload file",
-    "BaseUsageIntro2": "Using the Reload method",
-    "Tips": "Currently supports Excel(.docx) and Word(.xlsx) formats.<br/><b>Note</b>:<br/>If throw <code>The type initializer for 'Gdip' threw an exception.<code> error under Linux, please install libgdiplus and enable System. Drawing support.<br/>Enable System.Drawing support for non-Windows platforms in your project file (*.csproj), add:"
+    "VideoPlayersTitle": "FileViewer",
+    "VideoPlayersNomalTitle": "Basic usage",
+    "VideoPlayersNomalIntro": "Excel/Word file path or URL",
+    "VideoPlayersChangeURLTitle": "Reload file",
+    "VideoPlayersChangeURLIntro2": "Using the Reload method",
+    "VideoPlayersTips": "Currently supports Excel(.docx) and Word(.xlsx) formats.<br/><b>Note</b>:<br/>If throw <code>The type initializer for 'Gdip' threw an exception.<code> error under Linux, please install libgdiplus and enable System. Drawing support.<br/>Enable System.Drawing support for non-Windows platforms in your project file (*.csproj), add:"
   }
 }

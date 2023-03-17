@@ -512,14 +512,14 @@
     "AspectRatioIntro": "设置了高度和宽度,会自动禁用约束图表比例, 图表充满容器"
   },
   "BootstrapBlazor.Shared.Samples.Transitions": {
-    "H1": "Transition 过渡效果",
-    "H2": "BootstarpBlazor 应用在部分组件的过渡动画，你也可以直接使用。",
-    "P1": "基础用法",
-    "P2": "基础动画效果演示",
-    "P3": "动画执行完成回调",
-    "P4": "动画执行完成后执行回调函数",
-    "P5": "设置动画时长",
-    "P6": "通过设置 <code>Duration</code> 参数控制动画时长单位为毫秒"
+    "TransitionsTitle": "Transition 过渡效果",
+    "TransitionsDescription": "BootstarpBlazor 应用在部分组件的过渡动画，你也可以直接使用。",
+    "TransitionsNormalTitle": "基础用法",
+    "TransitionsNormalIntro": "基础动画效果演示",
+    "TransitionsEndCallbackTitle": "动画执行完成回调",
+    "TransitionsEndCallbackIntro": "动画执行完成后执行回调函数",
+    "TransitionsDurationTitle": "设置动画时长",
+    "TransitionsDurationIntro": "通过设置 <code>Duration</code> 参数控制动画时长单位为毫秒"
   },
   "BootstrapBlazor.Shared.Samples.EditDialogs": {
     "Title": "EditDialog 编辑弹窗",
@@ -6180,11 +6180,11 @@
     "Tips": "<div class=\"code-label\">注意事项 ：</div><div>本组件依赖于 <a href='https://www.nuget.org/packages?q={0}' target='_blank'><code>{0}</code></a>，使用本组件时需要引用其组件包</div><div class=\"code-label mt-2\">Nuget 包安装</div><div>使用 <a href='https://www.nuget.org/packages?q={0}' target='_blank'>nuget.org</a> 进行 <code>{0}</code> 组件的安装</div>"
   },
   "BootstrapBlazor.Shared.Samples.FileViewers": {
-    "Title": "FileViewer 文件预览器",
-    "BaseUsageText": "基础用法",
-    "BaseUsageIntro": "Excel/Word 文件路径或者URL",
-    "BaseUsageText2": "重新载入文件",
-    "BaseUsageIntro2": "使用 Reload 方法重新载入文件",
-    "Tips": "目前支支持 Excel(.docx) 和 Word(.xlsx) 格式.<br/><b>特别说明:</b><br/>如果 Linux 下提示 <code>The type initializer for 'Gdip' threw an exception.</code> 错误, 则使用需要安装 libgdiplus 并开启 System.Drawing 支持.<br/> 为非 Windows 平台启用 System.Drawing 支持,在你的项目文件中 (*.csproj), 添加:"
+    "VideoPlayersTitle": "FileViewer 文件预览器",
+    "VideoPlayersNomalTitle": "基础用法",
+    "VideoPlayersNomalIntro": "Excel/Word 文件路径或者URL",
+    "VideoPlayersChangeURLTitle": "重新载入文件",
+    "VideoPlayersChangeURLIntro2": "使用 Reload 方法重新载入文件",
+    "VideoPlayersTips": "目前支支持 Excel(.docx) 和 Word(.xlsx) 格式.<br/><b>特别说明:</b><br/>如果 Linux 下提示 <code>The type initializer for 'Gdip' threw an exception.</code> 错误, 则使用需要安装 libgdiplus 并开启 System.Drawing 支持.<br/> 为非 Windows 平台启用 System.Drawing 支持,在你的项目文件中 (*.csproj), 添加:"
   }
 }
