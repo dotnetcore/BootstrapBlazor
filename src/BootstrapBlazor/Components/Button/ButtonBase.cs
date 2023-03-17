@@ -145,7 +145,7 @@ public abstract class ButtonBase : TooltipWrapperBase
 
     [Inject]
     [NotNull]
-    private IOptions<IconMapperOptions>? IconOptions { get; set; }
+    private IIconTheme? IconTheme { get; set; }
 
     /// <summary>
     /// 获得/设置 是否当前正在异步执行操作
@@ -175,7 +175,7 @@ public abstract class ButtonBase : TooltipWrapperBase
     {
         base.OnParametersSet();
 
-        LoadingIcon ??= IconOptions.Value.GetIcon(ComponentIcons.ButtonLoadingIcon, Constants.LoadingIcon);
+        LoadingIcon ??= IconTheme.GetIconByKey(ComponentIcons.ButtonLoadingIcon);
 
         if (!IsAsyncLoading)
         {

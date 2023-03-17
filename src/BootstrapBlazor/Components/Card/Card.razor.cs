@@ -110,7 +110,7 @@ public partial class Card
 
     [Inject]
     [NotNull]
-    private IOptions<IconMapperOptions>? IconOptions { get; set; }
+    private IIconTheme? IconTheme { get; set; }
 
     /// <summary>
     /// <inheritdoc/>
@@ -119,6 +119,6 @@ public partial class Card
     {
         base.OnParametersSet();
 
-        CollapseIcon ??= IconOptions.Value.GetIcon(ComponentIcons.CollapseIcon, Constants.CollapseIcon);
+        CollapseIcon ??= IconTheme.GetIconByKey(ComponentIcons.CollapseIcon);
     }
 }

@@ -5,12 +5,13 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 系统常量
+/// Icon 主题服务
 /// </summary>
-public static class Constants
+public interface IIconTheme
 {
     /// <summary>
-    /// 
+    /// 获得所有图标
     /// </summary>
-    public const string DropdownToggleString = "bb.dropdown";
+    /// <returns></returns>
+    Dictionary<ComponentIcons, string> GetIcons();
 }

@@ -83,7 +83,7 @@ public partial class Avatar
 
     [Inject]
     [NotNull]
-    private IOptions<IconMapperOptions>? IconOptions { get; set; }
+    private IIconTheme? IconTheme { get; set; }
 
     /// <summary>
     /// 获得/设置 是否显示图片
@@ -110,7 +110,7 @@ public partial class Avatar
     protected override void OnParametersSet()
     {
         base.OnParametersSet();
-        Icon ??= IconOptions.Value.GetIcon(ComponentIcons.AvatarIcon, Constants.AvatarIcon);
+        Icon ??= IconTheme.GetIconByKey(ComponentIcons.AvatarIcon);
     }
 
     /// <summary>

@@ -535,7 +535,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     [Inject]
     [NotNull]
-    private IOptions<IconMapperOptions>? IconOptions { get; set; }
+    private IIconTheme? IconTheme { get; set; }
 
     private bool UpdateSortTooltip { get; set; }
 
@@ -632,11 +632,11 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             LineNoColumnAlignment = Alignment.Center;
         }
 
-        SortIconAsc ??= IconOptions.Value.GetIcon(ComponentIcons.TableSortIconAsc, "fa-solid fa-sort-up");
-        SortIconDesc ??= IconOptions.Value.GetIcon(ComponentIcons.TableSortDesc, "fa-solid fa-sort-down");
-        SortIcon ??= IconOptions.Value.GetIcon(ComponentIcons.TableSortIcon, "fa-solid fa-sort");
-        FilterIcon ??= IconOptions.Value.GetIcon(ComponentIcons.TableFilterIcon, "fa-solid fa-filter");
-        ExportButtonIcon ??= IconOptions.Value.GetIcon(ComponentIcons.TableExportButtonIcon, "fa-solid fa-download");
+        SortIconAsc ??= IconTheme.GetIconByKey(ComponentIcons.TableSortIconAsc);
+        SortIconDesc ??= IconTheme.GetIconByKey(ComponentIcons.TableSortDesc);
+        SortIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableSortIcon);
+        FilterIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableFilterIcon);
+        ExportButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableExportButtonIcon);
     }
 
     /// <summary>

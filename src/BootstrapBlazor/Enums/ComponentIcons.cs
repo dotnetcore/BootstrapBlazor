@@ -65,6 +65,11 @@ public enum ComponentIcons
     CaptchaBarIcon,
 
     /// <summary>
+    /// Button 组件 LoadingIcon 图标
+    /// </summary>
+    LoadingIcon,
+
+    /// <summary>
     /// Table 组件 SortIconAsc 属性图标
     /// </summary>
     TableSortIconAsc,

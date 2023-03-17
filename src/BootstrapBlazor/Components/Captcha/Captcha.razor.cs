@@ -145,8 +145,7 @@ public partial class Captcha : IDisposable
 
     [Inject]
     [NotNull]
-    private IOptions<IconMapperOptions>? IconOptions { get; set; }
-
+    private IIconTheme? IconTheme { get; set; }
 
     /// <summary>
     /// <inheritdoc/>
@@ -161,8 +160,8 @@ public partial class Captcha : IDisposable
         LoadText ??= Localizer[nameof(LoadText)];
         TryText ??= Localizer[nameof(TryText)];
 
-        RefreshIcon ??= IconOptions.Value.GetIcon(ComponentIcons.CaptchaRefreshIcon, Constants.CaptchaRefreshIcon);
-        BarIcon ??= IconOptions.Value.GetIcon(ComponentIcons.CaptchaBarIcon, Constants.CaptchaBarIcon);
+        RefreshIcon ??= IconTheme.GetIconByKey(ComponentIcons.CaptchaRefreshIcon);
+        BarIcon ??= IconTheme.GetIconByKey(ComponentIcons.CaptchaBarIcon);
     }
 
     /// <summary>
