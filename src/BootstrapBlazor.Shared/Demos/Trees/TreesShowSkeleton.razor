@@ -1,0 +1,25 @@
+﻿@using BootstrapBlazor.Shared.Samples;
+@inject IStringLocalizer<Trees> Localizer
+
+<Button Text="@Localizer["TreesShowSkeletonButtonText"]" IsAsync="true" Icon="fa-solid fa-font-awesome" OnClick="OnLoadAsyncItems" />
+<Tree Items="@AsyncItems" ShowSkeleton="true" class="mt-3" />
+
+@code {
+    private List<TreeItem>? AsyncItems { get; set; }
+
+    /// <summary>
+    /// OnInitializedAsync 方法
+    /// </summary>
+    /// <returns></returns>
+    protected override async Task OnInitializedAsync()
+    {
+        await OnLoadAsyncItems();
+    }
+
+    private async Task OnLoadAsyncItems()
+    {
+        AsyncItems = null;
+        await Task.Delay(2000);
+        AsyncItems = TreeDataFoo.GetTreeItems();
+    }
+}

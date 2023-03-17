@@ -1,0 +1,22 @@
+﻿<Tree Items="@CheckedItems" ShowCheckbox="true" OnTreeItemChecked="@OnTreeItemChecked" />
+<BlockLogger @ref="TraceChecked" class="mt-3" />
+
+@code {
+    [NotNull]
+    private BlockLogger? TraceChecked { get; set; }
+
+    private List<TreeItem> CheckedItems { get; set; } = GetCheckedItems();
+
+    private static List<TreeItem> GetCheckedItems()
+    {
+        var ret = TreeDataFoo.GetTreeItems();
+        ret[1].Items[1].Checked = true;
+        return ret;
+    }
+
+    private Task OnTreeItemChecked(List<TreeItem> items)
+    {
+        TraceChecked.Log($"Currently selected {items.Count} item");
+        return Task.CompletedTask;
+    }
+}

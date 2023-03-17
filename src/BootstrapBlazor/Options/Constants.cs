@@ -34,6 +34,7 @@ public static class Constants
     /// </summary>
     public const string CaptchaBarIcon = "fa-solid fa-arrow-right";
 
+    /// <summary>
     /// Camera 组件 PlayIcon 属性图标
     /// </summary>
     public const string CameraPlayIcon = "fa-solid fa-circle-play";
