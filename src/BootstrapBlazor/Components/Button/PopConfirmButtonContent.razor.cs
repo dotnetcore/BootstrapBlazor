@@ -24,13 +24,6 @@ public partial class PopConfirmButtonContent
         .Build();
 
     /// <summary>
-    /// 获得 图标样式
-    /// </summary>
-    protected string? IconClass => CssBuilder.Default("text-info")
-        .AddClass(Icon)
-        .Build();
-
-    /// <summary>
     /// 获得/设置 显示标题
     /// </summary>
     [Parameter]
