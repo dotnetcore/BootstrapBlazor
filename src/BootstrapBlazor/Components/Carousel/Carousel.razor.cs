@@ -89,6 +89,22 @@ public partial class Carousel
     [Parameter]
     public bool DisableTouchSwiping { get; set; }
 
+    /// <summary>
+    /// 获得/设置 上一页图标
+    /// </summary>
+    [Parameter]
+    public string? PreviousIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 下一页图标
+    /// </summary>
+    [Parameter]
+    public string? NextIcon { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IIconTheme? IconTheme { get; set; }
+
     private string? DisableTouchSwipingString => DisableTouchSwiping ? "false" : null;
 
     /// <summary>
@@ -97,6 +113,9 @@ public partial class Carousel
     protected override void OnParametersSet()
     {
         base.OnParametersSet();
+
+        PreviousIcon ??= IconTheme.GetIconByKey(ComponentIcons.CarouselPreviousIcon);
+        NextIcon ??= IconTheme.GetIconByKey(ComponentIcons.CarouselNextIcon);
 
         if (Items.Count == 0)
         {

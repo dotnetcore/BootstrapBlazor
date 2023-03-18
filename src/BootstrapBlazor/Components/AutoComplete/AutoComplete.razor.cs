@@ -143,6 +143,10 @@ public partial class AutoComplete
     /// </summary>
     protected int? CurrentItemIndex { get; set; }
 
+    private string? IconString => CssBuilder.Default("ac-loading")
+        .AddClass(Icon, !string.IsNullOrEmpty(Icon))
+        .Build();
+
     /// <summary>
     /// OnInitialized 方法
     /// </summary>
