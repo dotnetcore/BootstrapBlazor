@@ -119,6 +119,6 @@ public partial class Card
     {
         base.OnParametersSet();
 
-        CollapseIcon ??= IconTheme.GetIconByKey(ComponentIcons.CollapseIcon);
+        CollapseIcon ??= IconTheme.GetIconByKey(ComponentIcons.CardCollapseIcon);
     }
 }

@@ -22,7 +22,7 @@ internal class DefaultIconTheme : IIconTheme
             { ComponentIcons.CameraPlayIcon, "fa-solid fa-circle-play" },
             { ComponentIcons.CameraStopIcon, "fa-solid fa-circle-stop" },
             { ComponentIcons.CameraPhotoIcon, "fa-solid fa-camera-retro" },
-            { ComponentIcons.CollapseIcon, "fa-solid fa-circle-chevron-right" },
+            { ComponentIcons.CardCollapseIcon, "fa-solid fa-circle-chevron-right" },
             { ComponentIcons.CarouselPreviousIcon, "fa-solid fa-angle-left" },
             { ComponentIcons.CarouselNextIcon, "fa-solid fa-angle-right" },
 
