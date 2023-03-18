@@ -80,6 +80,16 @@ public enum ComponentIcons
     LoadingIcon,
 
     /// <summary>
+    /// PopConfirmButton 组件 ConfirmIcon 图标
+    /// </summary>
+    PopConfirmButtonConfirmIcon,
+
+    /// <summary>
+    /// PopConfirmButton 组件 Icon 图标
+    /// </summary>
+    PopConfirmButtonContentIcon,
+
+    /// <summary>
     /// Table 组件 SortIconAsc 属性图标
     /// </summary>
     TableSortIconAsc,

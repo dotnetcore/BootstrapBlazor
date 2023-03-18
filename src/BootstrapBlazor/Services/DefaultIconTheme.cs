@@ -28,6 +28,9 @@ internal class DefaultIconTheme : IIconTheme
 
             { ComponentIcons.LoadingIcon, "fa-solid fa-fw fa-spin fa-spinner" },
 
+            { ComponentIcons.PopConfirmButtonConfirmIcon, "fa-solid fa-circle-exclamation" },
+            { ComponentIcons.PopConfirmButtonContentIcon, "fa-solid fa-exclamation-circle" },
+
             { ComponentIcons.TableSortIconAsc, "fa-solid fa-sort-up" },
             { ComponentIcons.TableSortDesc, "fa-solid fa-sort-down" },
             { ComponentIcons.TableSortIcon, "fa-solid fa-sort" },
