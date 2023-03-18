@@ -7,22 +7,23 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// FontAwesome 图标库扩展方法
 /// </summary>
-public static class IconMapperOptionsExtensions
+public static class IIconThemeExtensions
 {
     /// <summary>
     /// 通过指定 Key 获得 Icon 字符串方法
     /// </summary>
-    /// <param name="options"></param>
+    /// <param name="iconTheme"></param>
     /// <param name="key"></param>
-    /// <param name="defaultValue"></param>
+    /// <param name="defaultIcon"></param>
     /// <returns></returns>
-    public static string? GetIcon(this IconMapperOptions options, ComponentIcons key, string? defaultValue = null)
+    public static string? GetIconByKey(this IIconTheme iconTheme, ComponentIcons key, string? defaultIcon = null)
     {
         string? icon = null;
-        if (options.Items.TryGetValue(key, out var v))
+        var icons = iconTheme.GetIcons();
+        if (icons.TryGetValue(key, out var v))
         {
             icon = v;
         }
-        return icon ?? defaultValue;
+        return icon ?? defaultIcon;
     }
 }

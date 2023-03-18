@@ -125,7 +125,7 @@ public partial class AutoFill<TValue>
 
     [Inject]
     [NotNull]
-    private IOptions<IconMapperOptions>? IconOptions { get; set; }
+    private IIconTheme? IconTheme { get; set; }
 
     [Inject]
     [NotNull]
@@ -161,7 +161,7 @@ public partial class AutoFill<TValue>
     {
         base.OnParametersSet();
 
-        Icon ??= IconOptions.Value.GetIcon(ComponentIcons.AutoFillIcon, Constants.LoadingIcon);
+        Icon ??= IconTheme.GetIconByKey(ComponentIcons.AutoFillIcon);
 
         OnGetDisplayText ??= v => v?.ToString() ?? "";
         InputString = OnGetDisplayText(Value);

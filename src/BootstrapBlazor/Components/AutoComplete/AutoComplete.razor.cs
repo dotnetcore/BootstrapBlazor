@@ -127,7 +127,7 @@ public partial class AutoComplete
 
     [Inject]
     [NotNull]
-    private IOptions<IconMapperOptions>? IconOptions { get; set; }
+    private IIconTheme? IconTheme { get; set; }
 
     private JSInterop<AutoComplete>? Interop { get; set; }
 
@@ -164,7 +164,7 @@ public partial class AutoComplete
     protected override void OnParametersSet()
     {
         base.OnParametersSet();
-        Icon ??= IconOptions.Value.GetIcon(ComponentIcons.AutoCompleteIcon, Constants.LoadingIcon);
+        Icon ??= IconTheme.GetIconByKey(ComponentIcons.AutoCompleteIcon);
     }
 
     /// <summary>

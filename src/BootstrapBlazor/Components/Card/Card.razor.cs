@@ -108,6 +108,10 @@ public partial class Card
     [Parameter]
     public bool IsShadow { get; set; }
 
+    [Inject]
+    [NotNull]
+    private IIconTheme? IconTheme { get; set; }
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -115,6 +119,6 @@ public partial class Card
     {
         base.OnParametersSet();
 
-        CollapseIcon ??= "fa-solid fa-circle-chevron-right";
+        CollapseIcon ??= IconTheme.GetIconByKey(ComponentIcons.CollapseIcon);
     }
 }

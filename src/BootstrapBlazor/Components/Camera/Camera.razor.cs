@@ -166,7 +166,7 @@ public partial class Camera : IAsyncDisposable
 
     [Inject]
     [NotNull]
-    private IOptions<IconMapperOptions>? IconOptions { get; set; }
+    private IIconTheme? IconTheme { get; set; }
 
     private string VideoWidthString => $"{VideoWidth}px;";
 
@@ -202,9 +202,9 @@ public partial class Camera : IAsyncDisposable
     {
         base.OnParametersSet();
 
-        PlayIcon ??= IconOptions.Value.GetIcon(ComponentIcons.CameraPlayIcon, Constants.CameraPlayIcon);
-        StopIcon ??= IconOptions.Value.GetIcon(ComponentIcons.CameraStopIcon, Constants.CameraStopIcon);
-        PhotoIcon ??= IconOptions.Value.GetIcon(ComponentIcons.CameraPhotoIcon, Constants.CameraPhotoIcon);
+        PlayIcon ??= IconTheme.GetIconByKey(ComponentIcons.CameraPlayIcon);
+        StopIcon ??= IconTheme.GetIconByKey(ComponentIcons.CameraStopIcon);
+        PhotoIcon ??= IconTheme.GetIconByKey(ComponentIcons.CameraPhotoIcon);
 
         if (VideoWidth < 40)
         {

@@ -45,6 +45,11 @@ public enum ComponentIcons
     CameraPhotoIcon,
 
     /// <summary>
+    /// Collapse 组件 Icon 属性图标
+    /// </summary>
+    CollapseIcon,
+
+    /// <summary>
     /// Button 组件 LoadingIcon 属性图标
     /// </summary>
     ButtonLoadingIcon,
@@ -58,6 +63,11 @@ public enum ComponentIcons
     /// Captcha 组件 BarIcon 属性图标
     /// </summary>
     CaptchaBarIcon,
+
+    /// <summary>
+    /// Button 组件 LoadingIcon 图标
+    /// </summary>
+    LoadingIcon,
 
     /// <summary>
     /// Table 组件 SortIconAsc 属性图标

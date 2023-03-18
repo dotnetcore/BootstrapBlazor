@@ -5,12 +5,13 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 图标映射配置类
+/// Icon 主题服务
 /// </summary>
-public class IconMapperOptions
+public interface IIconTheme
 {
     /// <summary>
-    /// 获得/设置 集合
+    /// 获得所有图标
     /// </summary>
-    public Dictionary<ComponentIcons, string> Items { get; set; } = new();
+    /// <returns></returns>
+    Dictionary<ComponentIcons, string> GetIcons();
 }

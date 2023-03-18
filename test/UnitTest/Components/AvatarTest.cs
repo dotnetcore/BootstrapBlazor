@@ -4,7 +4,7 @@
 
 namespace UnitTest.Components;
 
-public class AvatarTest : TestBase
+public class AvatarTest : BootstrapBlazorTestBase
 {
     [Fact]
     public void IsCircle_Ok()
