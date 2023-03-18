@@ -65,6 +65,16 @@ public enum ComponentIcons
     CaptchaBarIcon,
 
     /// <summary>
+    /// Carousel 组件 PreviousIcon 属性图标
+    /// </summary>
+    CarouselPreviousIcon,
+
+    /// <summary>
+    /// Carousel 组件 NextIcon 属性图标
+    /// </summary>
+    CarouselNextIcon,
+
+    /// <summary>
     /// Button 组件 LoadingIcon 图标
     /// </summary>
     LoadingIcon,
