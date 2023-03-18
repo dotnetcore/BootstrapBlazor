@@ -68,11 +68,6 @@
     background-color: #D1E9FE;
 }
 
-
-.captcha-footer.is-valid .captcha-bar .fa-arrow-right:before {
-    content: "\f00c";
-}
-
 .captcha-footer.is-invalid .captcha-bar {
     border: 1px solid #f57a7a;
     background-color: #f57a7a;
@@ -84,10 +79,6 @@
     border-width: 1px 0 1px 1px;
 }
 
-.captcha-footer.is-invalid .captcha-bar .fa-arrow-right:before {
-    content: "\f00d";
-}
-
 .captcha-footer.is-valid .captcha-bar {
     border: 1px solid #52CCBA;
     background-color: #52CCBA;
@@ -97,8 +88,4 @@
     border: 1px solid #52CCBA;
     border-width: 1px 0 1px 1px;
     background-color: #D2F4EF;
-}
-
-.captcha-footer.is-valid .captcha-bar .fa-arrow-right:before {
-    content: "\f00c";
 }

@@ -47,7 +47,7 @@ public enum ComponentIcons
     /// <summary>
     /// Collapse 组件 Icon 属性图标
     /// </summary>
-    CollapseIcon,
+    CardCollapseIcon,
 
     /// <summary>
     /// Button 组件 LoadingIcon 属性图标
@@ -78,6 +78,16 @@ public enum ComponentIcons
     /// Button 组件 LoadingIcon 图标
     /// </summary>
     LoadingIcon,
+
+    /// <summary>
+    /// PopConfirmButton 组件 ConfirmIcon 图标
+    /// </summary>
+    PopConfirmButtonConfirmIcon,
+
+    /// <summary>
+    /// PopConfirmButton 组件 Icon 图标
+    /// </summary>
+    PopConfirmButtonContentIcon,
 
     /// <summary>
     /// Table 组件 SortIconAsc 属性图标

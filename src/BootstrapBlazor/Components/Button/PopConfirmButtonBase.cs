@@ -123,6 +123,10 @@ public abstract class PopConfirmButtonBase : ButtonBase
     [Parameter]
     public bool ShowShadow { get; set; } = true;
 
+    [Inject]
+    [NotNull]
+    private IIconTheme? IconTheme { get; set; }
+
     /// <summary>
     /// OnParametersSet 方法
     /// </summary>
@@ -130,7 +134,7 @@ public abstract class PopConfirmButtonBase : ButtonBase
     {
         base.OnParametersSet();
 
-        ConfirmIcon ??= "fa-solid fa-circle-exclamation text-info";
+        ConfirmIcon ??= IconTheme.GetIconByKey(ComponentIcons.PopConfirmButtonConfirmIcon);
         Trigger ??= "click";
 
         OnClose ??= () => Task.CompletedTask;

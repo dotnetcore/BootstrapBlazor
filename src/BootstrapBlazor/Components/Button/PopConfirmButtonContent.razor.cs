@@ -24,13 +24,6 @@ public partial class PopConfirmButtonContent
         .Build();
 
     /// <summary>
-    /// 获得 图标样式
-    /// </summary>
-    protected string? IconClass => CssBuilder.Default()
-        .AddClass(Icon)
-        .Build();
-
-    /// <summary>
     /// 获得/设置 显示标题
     /// </summary>
     [Parameter]
@@ -91,6 +84,10 @@ public partial class PopConfirmButtonContent
     [Parameter]
     public Func<Task>? OnClose { get; set; }
 
+    [Inject]
+    [NotNull]
+    private IIconTheme? IconTheme { get; set; }
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -98,7 +95,7 @@ public partial class PopConfirmButtonContent
     {
         base.OnParametersSet();
 
-        Icon ??= "fa-solid fa-exclamation-circle text-info";
+        Icon ??= IconTheme.GetIconByKey(ComponentIcons.PopConfirmButtonContentIcon); ;
     }
 
     /// <summary>

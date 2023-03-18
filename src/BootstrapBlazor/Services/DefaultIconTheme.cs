@@ -22,11 +22,14 @@ internal class DefaultIconTheme : IIconTheme
             { ComponentIcons.CameraPlayIcon, "fa-solid fa-circle-play" },
             { ComponentIcons.CameraStopIcon, "fa-solid fa-circle-stop" },
             { ComponentIcons.CameraPhotoIcon, "fa-solid fa-camera-retro" },
-            { ComponentIcons.CollapseIcon, "fa-solid fa-circle-chevron-right" },
+            { ComponentIcons.CardCollapseIcon, "fa-solid fa-circle-chevron-right" },
             { ComponentIcons.CarouselPreviousIcon, "fa-solid fa-angle-left" },
             { ComponentIcons.CarouselNextIcon, "fa-solid fa-angle-right" },
 
             { ComponentIcons.LoadingIcon, "fa-solid fa-fw fa-spin fa-spinner" },
+
+            { ComponentIcons.PopConfirmButtonConfirmIcon, "fa-solid fa-circle-exclamation text-info" },
+            { ComponentIcons.PopConfirmButtonContentIcon, "fa-solid fa-exclamation-circle text-info" },
 
             { ComponentIcons.TableSortIconAsc, "fa-solid fa-sort-up" },
             { ComponentIcons.TableSortDesc, "fa-solid fa-sort-down" },
