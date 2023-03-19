@@ -1,0 +1,37 @@
+﻿@inject ToastService ToastService
+@implements IDisposable
+
+<div class="row g-3">
+    <div class="col-12 col-sm-6">
+        <ButtonUpload TValue="string" ShowDownloadButton="true" OnDownload="OnDownload" OnDelete="@(fileName => Task.FromResult(true))" DefaultFileList="@DefaultFormatFileList"></ButtonUpload>
+    </div>
+</div>
+
+@code {
+    /// <summary>
+    /// Dispose
+    /// </summary>
+    public void Dispose()
+    {
+        GC.SuppressFinalize(this);
+    }
+
+    private async Task OnDownload(UploadFile item)
+    {
+        await ToastService.Success("文件下载", $"下载 {item.FileName} 成功");
+    }
+
+    private List<UploadFile> DefaultFormatFileList { get; } = new List<UploadFile>()
+    {
+        new UploadFile { FileName = "Test.xls" },
+        new UploadFile { FileName = "Test.doc" },
+        new UploadFile { FileName = "Test.ppt" },
+        new UploadFile { FileName = "Test.mp3" },
+        new UploadFile { FileName = "Test.mp4" },
+        new UploadFile { FileName = "Test.pdf" },
+        new UploadFile { FileName = "Test.cs" },
+        new UploadFile { FileName = "Test.zip" },
+        new UploadFile { FileName = "Test.txt" },
+        new UploadFile { FileName = "Test.dat" }
+    };
+}
