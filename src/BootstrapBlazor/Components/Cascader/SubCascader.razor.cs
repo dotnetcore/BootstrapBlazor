@@ -25,6 +25,12 @@ public partial class SubCascader
     [Parameter]
     public Func<CascaderItem, Task>? OnClick { get; set; }
 
+    /// <summary>
+    /// 获得/设置 子菜单指示图标
+    /// </summary>
+    [Parameter]
+    public string? SubMenuIcon { get; set; }
+
     [CascadingParameter]
     [NotNull]
     private List<CascaderItem>? SelectedItems { get; set; }
