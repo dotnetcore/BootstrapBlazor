@@ -25,6 +25,8 @@ internal class DefaultIconTheme : IIconTheme
             { ComponentIcons.CardCollapseIcon, "fa-solid fa-circle-chevron-right" },
             { ComponentIcons.CarouselPreviousIcon, "fa-solid fa-angle-left" },
             { ComponentIcons.CarouselNextIcon, "fa-solid fa-angle-right" },
+            { ComponentIcons.CascaderIcon, "fa-solid fa-angle-up" },
+            { ComponentIcons.CascaderSubMenuIcon, "fa-solid fa-angle-down" },
 
             { ComponentIcons.LoadingIcon, "fa-solid fa-fw fa-spin fa-spinner" },
 

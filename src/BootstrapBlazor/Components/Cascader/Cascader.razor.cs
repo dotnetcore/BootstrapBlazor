@@ -67,11 +67,31 @@ public partial class Cascader<TValue>
     [Parameter]
     public bool ShowFullLevels { get; set; } = true;
 
+    /// <summary>
+    /// 获得/设置 菜单指示图标
+    /// </summary>
+    [Parameter]
+    public string? Icon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 子菜单指示图标
+    /// </summary>
+    [Parameter]
+    public string? SubMenuIcon { get; set; }
+
     [Inject]
     [NotNull]
     private IStringLocalizer<Cascader<TValue>>? Localizer { get; set; }
 
+    [Inject]
+    [NotNull]
+    private IIconTheme? IconTheme { get; set; }
+
     private string _lastVaslue = string.Empty;
+
+    private string? SubMenuIconString => CssBuilder.Default("nav-link-right")
+        .AddClass(SubMenuIcon, !string.IsNullOrEmpty(SubMenuIcon))
+        .Build();
 
     /// <summary>
     /// OnParametersSet 方法
@@ -79,6 +99,8 @@ public partial class Cascader<TValue>
     protected override void OnParametersSet()
     {
         base.OnParametersSet();
+
+        Icon ??= IconTheme.GetIconByKey(ComponentIcons.CascaderIcon);
 
         Items ??= Enumerable.Empty<CascaderItem>();
 

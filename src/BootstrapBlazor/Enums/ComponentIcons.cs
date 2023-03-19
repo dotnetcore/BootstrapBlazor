@@ -50,6 +50,16 @@ public enum ComponentIcons
     CardCollapseIcon,
 
     /// <summary>
+    /// Cascader 组件 Icon 属性图标
+    /// </summary>
+    CascaderIcon,
+
+    /// <summary>
+    /// Cascader 组件 SubMenuIcon 属性图标
+    /// </summary>
+    CascaderSubMenuIcon,
+
+    /// <summary>
     /// Button 组件 LoadingIcon 属性图标
     /// </summary>
     ButtonLoadingIcon,
