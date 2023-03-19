@@ -12,19 +12,12 @@ namespace Microsoft.Extensions.DependencyInjection;
 public static class IconMapperOptionsExtensions
 {
     /// <summary>
-    /// 添加 Meterial 图标到系统
+    /// 添加 Meterial 图标主题服务
     /// </summary>
-    /// <param name="options"></param>
-    public static void AddMaterialIconMapper(this IconMapperOptions options)
+    /// <param name="services"></param>
+    public static IServiceCollection AddMaterialDesignIconTheme(this IServiceCollection services)
     {
-        options.Items = new()
-        {
-            { ComponentIcons.AnchorLinkIcon, "mdi mdi-link-variant" },
-            { ComponentIcons.TableSortIconAsc, "mdi mdi-sort-ascending" },
-            { ComponentIcons.TableSortDesc, "mdi mdi-sort-descending" },
-            { ComponentIcons.TableSortIcon, "mdi mdi-sort" },
-            { ComponentIcons.TableFilterIcon, "mdi mdi-filter" },
-            { ComponentIcons.TableExportButtonIcon, "mdi mdi-download" }
-        };
+        services.AddSingleton<IIconTheme, DefaultIconTheme>();
+        return services;
     }
 }
