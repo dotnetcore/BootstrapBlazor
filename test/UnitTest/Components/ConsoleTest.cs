@@ -37,6 +37,16 @@ public class ConsoleTest : BootstrapBlazorTestBase
 
         var res = cut.Find(".console-window").HasChildNodes;
         Assert.True(res);
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ItemTemplate, item => builder =>
+            {
+                builder.AddContent(0, $"test-{item.Message}-end");
+            });
+        });
+        cut.Contains("test-Test1-end");
+        cut.Contains("test-Test2-end");
     }
 
     [Fact]
