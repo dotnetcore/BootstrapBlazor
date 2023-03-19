@@ -8,7 +8,7 @@
 }
 <div @attributes="AdditionalAttributes" id="@Id" class="@ClassString" tabindex="-1">
     <input type="text" id="@InputId" readonly disabled="@Disabled" class="@InputClassName" data-bs-toggle="dropdown" placeholder="@PlaceHolder" value="@DisplayTextString" />
-    <span class="@AppendClassName"><i class="fa-solid fa-angle-up"></i></span>
+    <span class="@AppendClassName"><i class="@Icon"></i></span>
     @if (!IsDisabled)
     {
         <div class="dropdown-menu shadow">
@@ -19,7 +19,7 @@
                     {
                         <div class="@ActiveItem("has-leaf dropdown-item", item)" data-val="@item.Value" @onclick="@(e => OnItemClick(item))">
                             <span>@item.Text</span>
-                            <i class="fa-solid fa-angle-down nav-link-right"></i>
+                            <i class="@SubMenuIconString"></i>
                             <ul class="nav sub-menu" @onclick:stopPropagation>
                                 <SubCascader Items="@item.Items" OnClick="@OnItemClick" />
                             </ul>
