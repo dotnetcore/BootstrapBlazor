@@ -1,0 +1,118 @@
+﻿@using BootstrapBlazor.Shared.Samples
+@inject IStringLocalizer<Uploads> Localizer
+@inject ToastService ToastService
+@implements IDisposable
+
+<div class="row g-3">
+    <div class="col-12">
+        <p>@Localizer["AvatarUploadTips1"]</p>
+        <AvatarUpload TValue="string" Accept="image/*" OnChange="@OnAvatarUpload" OnDelete="@(fileName => Task.FromResult(true))"></AvatarUpload>
+    </div>
+    <div class="col-12">
+        <p>@Localizer["AvatarUploadTips2"]</p>
+        <AvatarUpload TValue="string" Accept="image/*" ShowProgress="true" IsCircle="true" OnChange="@OnAvatarUpload" OnDelete="@(fileName => Task.FromResult(true))"></AvatarUpload>
+    </div>
+    <div class="col-12">
+        <p>@((MarkupString)Localizer["AvatarUploadTips3"].Value)</p>
+        <AvatarUpload TValue="string" IsSingle="true" OnChange="@OnAvatarUpload" OnDelete="@(fileName => Task.FromResult(true))"></AvatarUpload>
+        <p>@((MarkupString)Localizer["AvatarUploadTips5"].Value)</p>
+        <p></p>
+        <AvatarUpload TValue="string" Accept="image/gif, image/jpeg" IsSingle="true" OnChange="@OnAvatarUpload" OnDelete="@(fileName => Task.FromResult(true))"></AvatarUpload>
+    </div>
+    <div class="col-12">
+        <p>@((MarkupString)Localizer["AvatarUploadTips6"].Value)</p>
+        <AvatarUpload TValue="string" Accept="image/gif, image/jpeg" IsSingle="true" DefaultFileList="@PreviewFileList"
+                      OnChange="@OnAvatarUpload" OnDelete="@(fileName => Task.FromResult(true))" />
+    </div>
+    <div class="col-12">
+        <p>@((MarkupString)Localizer["AvatarUploadTips7"].Value)</p>
+        <ValidateForm Model="Foo" OnValidSubmit="OnAvatarValidSubmit">
+            <div class="row g-3">
+                <div class="col-12">
+                    <BootstrapInput @bind-Value="@Foo.Name" />
+                </div>
+                <div class="col-12">
+                    <AvatarUpload @bind-Value="@Foo.Picture" IsSingle="true" />
+                </div>
+                <div class="col-12">
+                    <Button ButtonType="@ButtonType.Submit" Text="@Localizer["AvatarUploadButtonText"]"></Button>
+                </div>
+            </div>
+        </ValidateForm>
+    </div>
+</div>
+<BlockLogger @ref="AvatarTrace" class="mt-3" />
+
+@code {
+    /// <summary>
+    /// Dispose
+    /// </summary>
+    public void Dispose()
+    {
+        ReadAvatarToken?.Cancel();
+        GC.SuppressFinalize(this);
+    }
+
+    private static long MaxFileLength => 200 * 1024 * 1024;
+
+    private Person Foo { get; set; } = new Person();
+
+    private List<UploadFile> PreviewFileList { get; } = new(new[] { new UploadFile { PrevUrl = "_content/BootstrapBlazor.Shared/images/Argo.png" } });
+
+    [NotNull]
+    private BlockLogger? AvatarTrace { get; set; }
+
+    private CancellationTokenSource? ReadAvatarToken { get; set; }
+
+    private async Task OnAvatarUpload(UploadFile file)
+    {
+        // 示例代码，使用 base64 格式
+        if (file != null && file.File != null)
+        {
+            var format = file.File.ContentType;
+            if (CheckValidAvatarFormat(format))
+            {
+                ReadAvatarToken ??= new CancellationTokenSource();
+                if (ReadAvatarToken.IsCancellationRequested)
+                {
+                    ReadAvatarToken.Dispose();
+                    ReadAvatarToken = new CancellationTokenSource();
+                }
+
+                await file.RequestBase64ImageFileAsync(format, 640, 480, MaxFileLength, ReadAvatarToken.Token);
+            }
+            else
+            {
+                file.Code = 1;
+                file.Error = Localizer["UploadsFormatError"];
+            }
+
+            if (file.Code != 0)
+            {
+                await ToastService.Error(Localizer["UploadsAvatarMsg"], $"{file.Error} {format}");
+            }
+        }
+    }
+
+    private static bool CheckValidAvatarFormat(string format)
+    {
+        return "jpg;png;bmp;gif;jpeg".Split(';').Any(f => format.Contains(f, StringComparison.OrdinalIgnoreCase));
+    }
+
+    private Task OnAvatarValidSubmit(EditContext context)
+    {
+        AvatarTrace.Log(Foo.Picture?.Name ?? "");
+        return Task.CompletedTask;
+    }
+
+    private class Person
+    {
+        [Required]
+        [StringLength(20, MinimumLength = 2)]
+        public string Name { get; set; } = "Blazor";
+
+        [Required]
+        [FileValidation(Extensions = new string[] { ".png", ".jpg", ".jpeg" }, FileSize = 50 * 1024)]
+        public IBrowserFile? Picture { get; set; }
+    }
+}

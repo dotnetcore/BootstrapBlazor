@@ -1,0 +1,38 @@
+﻿@using BootstrapBlazor.Shared.Samples
+@inject IStringLocalizer<Uploads> Localizer
+
+<ValidateForm Model="Foo" OnValidSubmit="OnSubmit">
+    <div class="row g-3">
+        <div class="col-12">
+            <BootstrapInput @bind-Value="@Foo.Name" />
+        </div>
+        <div class="col-12">
+            <InputUpload @bind-Value="@Foo.Picture" />
+        </div>
+        <div class="col-12">
+            <Button ButtonType="@ButtonType.Submit" Text="@Localizer["UploadFormSettingsButtonText"]"></Button>
+        </div>
+    </div>
+</ValidateForm>
+
+@code {
+    private static Task OnSubmit(EditContext context)
+    {
+        // 示例代码请根据业务情况自行更改
+        // var fileName = Foo.Picture?.Name;
+        return Task.CompletedTask;
+    }
+
+    private Person Foo { get; set; } = new Person();
+
+    private class Person
+    {
+        [Required]
+        [StringLength(20, MinimumLength = 2)]
+        public string Name { get; set; } = "Blazor";
+
+        [Required]
+        [FileValidation(Extensions = new string[] { ".png", ".jpg", ".jpeg" }, FileSize = 50 * 1024)]
+        public IBrowserFile? Picture { get; set; }
+    }
+}

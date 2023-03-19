@@ -1,0 +1,69 @@
+﻿@using BootstrapBlazor.Shared.Samples
+@inject IStringLocalizer<Uploads> Localizer
+@inject ToastService ToastService
+@inject IOptionsMonitor<WebsiteOptions> SiteOptions
+@implements IDisposable
+
+<div class="row g-3">
+    <div class="col-12 col-sm-6">
+        <ButtonUpload TValue="string" IsDirectory="true" OnChange="@OnUploadFolder" OnDelete="@(fileName => Task.FromResult(true))"></ButtonUpload>
+    </div>
+</div>
+
+@code {
+    /// <summary>
+    /// Dispose
+    /// </summary>
+    public void Dispose()
+    {
+        ReadToken?.Cancel();
+        GC.SuppressFinalize(this);
+    }
+
+    private async Task OnUploadFolder(UploadFile file)
+    {
+        // 上传文件夹时会多次回调此方法
+        await SaveToFile(file);
+    }
+
+    private CancellationTokenSource? ReadToken { get; set; }
+
+    private static long MaxFileLength => 200 * 1024 * 1024;
+
+    private async Task<bool> SaveToFile(UploadFile file)
+    {
+        // Server Side 使用
+        // Web Assembly 模式下必须使用 webapi 方式去保存文件到服务器或者数据库中
+        // 生成写入文件名称
+        var ret = false;
+        if (!string.IsNullOrEmpty(SiteOptions.CurrentValue.WebRootPath))
+        {
+            var uploaderFolder = Path.Combine(SiteOptions.CurrentValue.WebRootPath, $"images{Path.DirectorySeparatorChar}uploader");
+            file.FileName = $"{Path.GetFileNameWithoutExtension(file.OriginFileName)}-{DateTimeOffset.Now:yyyyMMddHHmmss}{Path.GetExtension(file.OriginFileName)}";
+            var fileName = Path.Combine(uploaderFolder, file.FileName);
+
+            ReadToken ??= new CancellationTokenSource();
+            ret = await file.SaveToFileAsync(fileName, MaxFileLength, ReadToken.Token);
+
+            if (ret)
+            {
+                // 保存成功
+                file.PrevUrl = $"images/uploader/{file.FileName}";
+            }
+            else
+            {
+                var errorMessage = $"{Localizer["UploadsSaveFileError"]} {file.OriginFileName}";
+                file.Code = 1;
+                file.Error = errorMessage;
+                await ToastService.Error(Localizer["UploadFile"], errorMessage);
+            }
+        }
+        else
+        {
+            file.Code = 1;
+            file.Error = Localizer["UploadsWasmError"];
+            await ToastService.Information(Localizer["UploadsSaveFile"], Localizer["UploadsSaveFileMsg"]);
+        }
+        return ret;
+    }
+}
