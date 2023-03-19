@@ -22,8 +22,8 @@ builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 
 // 更改系统图标为 Meterial
-// 依赖 BootstrapBlazor.Icons.Meterial 包
-// builder.Services.ConfigureIconMapperOptions(options => options.AddMaterialIconMapper());
+// 依赖 BootstrapBlazor.MaterialDesign.Extensions 包
+// builder.Services.AddMaterialDesignIconTheme();
 
 // 获得当前主题配置
 var themes = builder.Configuration.GetSection("Themes")
