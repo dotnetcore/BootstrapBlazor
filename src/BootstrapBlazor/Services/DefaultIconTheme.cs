@@ -38,7 +38,11 @@ internal class DefaultIconTheme : IIconTheme
             { ComponentIcons.TableSortDesc, "fa-solid fa-sort-down" },
             { ComponentIcons.TableSortIcon, "fa-solid fa-sort" },
             { ComponentIcons.TableFilterIcon, "fa-solid fa-filter" },
-            { ComponentIcons.TableExportButtonIcon, "fa-solid fa-download" }
+            { ComponentIcons.TableExportButtonIcon, "fa-solid fa-download" },
+
+            { ComponentIcons.SearchClearButtonIcon, "fa-regular fa-trash-can" },
+            { ComponentIcons.SearchButtonIcon, "fa-fw fa-solid fa-magnifying-glass" },
+            { ComponentIcons.SearchButtonLoadingIcon, "fa-fw fa-spin fa-solid fa-spinner" }
         };
     }
 
