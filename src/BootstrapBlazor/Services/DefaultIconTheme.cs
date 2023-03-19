@@ -27,6 +27,7 @@ internal class DefaultIconTheme : IIconTheme
             { ComponentIcons.CarouselNextIcon, "fa-solid fa-angle-right" },
             { ComponentIcons.CascaderIcon, "fa-solid fa-angle-up" },
             { ComponentIcons.CascaderSubMenuIcon, "fa-solid fa-angle-down" },
+            { ComponentIcons.ConsoleClearButtonIcon, "fa-solid fa-xmark" },
 
             { ComponentIcons.LoadingIcon, "fa-solid fa-fw fa-spin fa-spinner" },
 

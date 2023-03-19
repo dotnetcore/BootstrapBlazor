@@ -148,6 +148,10 @@ public partial class Console
     [NotNull]
     private IStringLocalizer<Console>? Localizer { get; set; }
 
+    [Inject]
+    [NotNull]
+    private IIconTheme? IconTheme { get; set; }
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -160,7 +164,7 @@ public partial class Console
         ClearButtonText ??= Localizer[nameof(ClearButtonText)];
         AutoScrollText ??= Localizer[nameof(AutoScrollText)];
 
-        ClearButtonIcon ??= "fa-solid fa-xmark";
+        ClearButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.ConsoleClearButtonIcon);
         Items ??= Enumerable.Empty<ConsoleMessageItem>();
     }
 
