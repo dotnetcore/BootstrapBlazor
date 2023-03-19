@@ -140,6 +140,12 @@ public partial class Console
     public RenderFragment? HeaderTemplate { get; set; }
 
     /// <summary>
+    /// 获得/设置 Item 模板
+    /// </summary>
+    [Parameter]
+    public RenderFragment<ConsoleMessageItem>? ItemTemplate { get; set; }
+
+    /// <summary>
     /// 获得 是否显示 Footer
     /// </summary>
     protected bool ShowFooter => OnClear != null || ShowAutoScroll || FooterTemplate != null;

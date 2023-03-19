@@ -20,7 +20,14 @@
         <div class="console-window">
             @foreach (var item in Items)
             {
-                <div @key="@item" class="@GetClassString(item)">@item.Message</div>
+                if (ItemTemplate != null)
+                {
+                    @ItemTemplate(item)
+                }
+                else
+                {
+                    <div class="@GetClassString(item)">@item.Message</div>
+                }
             }
         </div>
     </div>
