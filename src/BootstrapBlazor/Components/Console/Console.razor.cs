@@ -110,7 +110,7 @@ public partial class Console
     public string? ClearButtonIcon { get; set; }
 
     /// <summary>
-    /// 获得/设置 按钮 显示图标 默认值为 fa-times
+    /// 获得/设置 清除按钮颜色 默认值为 Color.Secondary
     /// </summary>
     [Parameter]
     public Color ClearButtonColor { get; set; } = Color.Secondary;
