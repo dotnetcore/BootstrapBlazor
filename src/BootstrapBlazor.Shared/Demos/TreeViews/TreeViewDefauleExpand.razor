@@ -1,0 +1,12 @@
+﻿<TreeView TItem="TreeFoo" Items="@ExpandItems" ShowCheckbox="true" />
+
+@code {
+    private List<TreeViewItem<TreeFoo>> ExpandItems { get; set; } = GetExpandItems();
+
+    private static List<TreeViewItem<TreeFoo>> GetExpandItems()
+    {
+        var ret = TreeFoo.GetTreeItems();
+        ret[1].IsExpand = true;
+        return ret;
+    }
+}

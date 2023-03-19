@@ -1,0 +1,36 @@
+﻿@using BootstrapBlazor.Shared.Samples
+@inject IStringLocalizer<TreeViews> Localizer
+
+<Button Text="@Localizer["TreeViewShowSkeletonButtonText"]" IsAsync="true" Icon="fa-solid fa-font-awesome" OnClick="OnLoadAsyncItems" />
+<TreeView TItem="TreeFoo" Items="@AsyncItems" ShowSkeleton="true" OnExpandNodeAsync="OnExpandNodeAsync" class="mt-3" />
+
+@code {
+    private List<TreeViewItem<TreeFoo>>? AsyncItems { get; set; }
+
+    private async Task OnLoadAsyncItems()
+    {
+        AsyncItems = null;
+        await Task.Delay(2000);
+        AsyncItems = TreeFoo.GetTreeItems();
+        AsyncItems[2].Text = "延时加载";
+        AsyncItems[2].HasChildren = true;
+    }
+
+    private static async Task<IEnumerable<TreeViewItem<TreeFoo>>> OnExpandNodeAsync(TreeViewItem<TreeFoo> node)
+    {
+        await Task.Delay(800);
+        var item = node.Value;
+        return new TreeViewItem<TreeFoo>[]
+        {
+            new TreeViewItem<TreeFoo>(new TreeFoo() { Id = $"{item.Id}-101", ParentId = item.Id })
+            {
+                Text = "懒加载子节点1",
+                HasChildren = true
+            },
+            new TreeViewItem<TreeFoo>(new TreeFoo(){ Id = $"{item.Id}-102", ParentId = item.Id })
+            {
+                Text = "懒加载子节点2"
+            }
+        };
+    }
+}

@@ -1,0 +1,15 @@
+﻿<TreeView TItem="TreeFoo" Items="@Items" OnTreeItemClick="@OnTreeItemClick" />
+<BlockLogger @ref="Trace" class="mt-3" />
+
+@code {
+    [NotNull]
+    private BlockLogger? Trace { get; set; }
+
+    private Task OnTreeItemClick(TreeViewItem<TreeFoo> item)
+    {
+        Trace.Log($"TreeItem: {item.Text} clicked");
+        return Task.CompletedTask;
+    }
+
+    private List<TreeViewItem<TreeFoo>> Items { get; set; } = TreeFoo.GetTreeItems();
+}
