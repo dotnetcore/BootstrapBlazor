@@ -1,0 +1,46 @@
+﻿@using Microsoft.AspNetCore.Components.Rendering
+<TreeView TItem="TreeFoo" ClickToggleNode="true" Items="GetTemplateItems()" />
+
+@code {
+    private static List<TreeViewItem<TreeFoo>> GetTemplateItems()
+    {
+        var ret = TreeFoo.GetTreeItems();
+        ret[0].Template = foo => BootstrapDynamicComponent.CreateComponent<CustomerTreeItem>(new Dictionary<string, object?>()
+        {
+            [nameof(CustomerTreeItem.Foo)] = foo
+        }).Render();
+        return ret;
+    }
+
+    private class CustomerTreeItem : ComponentBase
+    {
+        [Inject]
+        [NotNull]
+        private ToastService? ToastService { get; set; }
+
+        [Parameter]
+        [NotNull]
+        public TreeFoo? Foo { get; set; }
+
+        /// <summary>
+        /// BuildRenderTree
+        /// </summary>
+        /// <param name="builder"></param>
+        protected override void BuildRenderTree(RenderTreeBuilder builder)
+        {
+            builder.OpenElement(3, "span");
+            builder.AddAttribute(4, "class", "me-3");
+            builder.AddContent(5, Foo.Text);
+            builder.CloseElement();
+
+            builder.OpenComponent<Button>(0);
+            builder.AddAttribute(1, nameof(Button.Icon), "fa-solid fa-font-awesome");
+            builder.AddAttribute(2, nameof(Button.Text), "Click");
+            builder.AddAttribute(3, nameof(Button.OnClick), EventCallback.Factory.Create<MouseEventArgs>(this, e =>
+            {
+                ToastService.Warning("自定义 TreeItem", "测试 TreeItem 按钮点击事件");
+            }));
+            builder.CloseComponent();
+        }
+    }
+}

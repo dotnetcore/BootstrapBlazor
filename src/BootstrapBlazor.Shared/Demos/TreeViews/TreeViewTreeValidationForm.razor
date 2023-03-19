@@ -1,0 +1,16 @@
+﻿@inject IStringLocalizer<Foo> LocalizerFoo
+
+<ValidateForm Model="@Model">
+    <TreeView TItem="TreeFoo" Items="@Items" OnTreeItemClick="@OnTreeItemClick" ShowCheckbox="true" />
+</ValidateForm>
+
+@code {
+    private List<TreeViewItem<TreeFoo>> Items { get; set; } = TreeFoo.GetTreeItems();
+
+    private Foo Model => Foo.Generate(LocalizerFoo);
+
+    private Task OnTreeItemClick(TreeViewItem<TreeFoo> item)
+    {
+        return Task.CompletedTask;
+    }
+}

@@ -1,0 +1,5 @@
+﻿<TreeView TItem="TreeFoo" Items="@GetIconItems()" ShowIcon="true" ShowCheckbox="true" />
+
+@code {
+    private static List<TreeViewItem<TreeFoo>> GetIconItems() => TreeFoo.GetTreeItems();
+}
