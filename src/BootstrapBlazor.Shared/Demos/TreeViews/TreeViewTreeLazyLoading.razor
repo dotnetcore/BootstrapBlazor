@@ -1,0 +1,30 @@
+﻿<TreeView TItem="TreeFoo" ClickToggleNode="true" Items="@GetLazyItems()" OnExpandNodeAsync="OnExpandNodeAsync" />
+
+@code {
+    private static List<TreeViewItem<TreeFoo>> GetLazyItems()
+    {
+        var ret = TreeFoo.GetTreeItems();
+        ret[1].Items[0].IsExpand = true;
+        ret[2].Text = "懒加载延时";
+        ret[2].HasChildren = true;
+        return ret;
+    }
+
+    private static async Task<IEnumerable<TreeViewItem<TreeFoo>>> OnExpandNodeAsync(TreeViewItem<TreeFoo> node)
+    {
+        await Task.Delay(800);
+        var item = node.Value;
+        return new TreeViewItem<TreeFoo>[]
+        {
+            new TreeViewItem<TreeFoo>(new TreeFoo() { Id = $"{item.Id}-101", ParentId = item.Id })
+            {
+                Text = "懒加载子节点1",
+                HasChildren = true
+            },
+            new TreeViewItem<TreeFoo>(new TreeFoo(){ Id = $"{item.Id}-102", ParentId = item.Id })
+            {
+                Text = "懒加载子节点2"
+            }
+        };
+    }
+}

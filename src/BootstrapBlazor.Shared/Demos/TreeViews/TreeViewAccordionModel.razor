@@ -1,0 +1,28 @@
+﻿<TreeView TItem="TreeFoo" Items="@GetAccordionItems()" OnExpandNodeAsync="OnExpandNodeAsync" ShowCheckbox="true" IsAccordion="true" />
+
+@code {
+    private static List<TreeViewItem<TreeFoo>> GetAccordionItems()
+    {
+        var ret = TreeFoo.GetTreeItems();
+        ret[1].Items[0].HasChildren = true;
+        return ret;
+    }
+
+    private static async Task<IEnumerable<TreeViewItem<TreeFoo>>> OnExpandNodeAsync(TreeViewItem<TreeFoo> node)
+    {
+        await Task.Delay(800);
+        var item = node.Value;
+        return new TreeViewItem<TreeFoo>[]
+        {
+            new TreeViewItem<TreeFoo>(new TreeFoo() { Id = $"{item.Id}-101", ParentId = item.Id })
+            {
+                Text = "懒加载子节点1",
+                HasChildren = true
+            },
+            new TreeViewItem<TreeFoo>(new TreeFoo(){ Id = $"{item.Id}-102", ParentId = item.Id })
+            {
+                Text = "懒加载子节点2"
+            }
+        };
+    }
+}
