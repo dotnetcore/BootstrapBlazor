@@ -21,7 +21,7 @@
                             <span>@item.Text</span>
                             <i class="@SubMenuIconString"></i>
                             <ul class="nav sub-menu" @onclick:stopPropagation>
-                                <SubCascader Items="@item.Items" OnClick="@OnItemClick" />
+                                <SubCascader Items="@item.Items" SubMenuIcon="@SubMenuIconString" OnClick="@OnItemClick" />
                             </ul>
                         </div>
                     }

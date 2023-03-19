@@ -110,7 +110,7 @@ public partial class Console
     public string? ClearButtonIcon { get; set; }
 
     /// <summary>
-    /// 获得/设置 按钮 显示图标 默认值为 fa-times
+    /// 获得/设置 清除按钮颜色 默认值为 Color.Secondary
     /// </summary>
     [Parameter]
     public Color ClearButtonColor { get; set; } = Color.Secondary;
@@ -148,6 +148,10 @@ public partial class Console
     [NotNull]
     private IStringLocalizer<Console>? Localizer { get; set; }
 
+    [Inject]
+    [NotNull]
+    private IIconTheme? IconTheme { get; set; }
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -160,7 +164,7 @@ public partial class Console
         ClearButtonText ??= Localizer[nameof(ClearButtonText)];
         AutoScrollText ??= Localizer[nameof(AutoScrollText)];
 
-        ClearButtonIcon ??= "fa-solid fa-xmark";
+        ClearButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.ConsoleClearButtonIcon);
         Items ??= Enumerable.Empty<ConsoleMessageItem>();
     }
 

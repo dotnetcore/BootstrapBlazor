@@ -101,6 +101,7 @@ public partial class Cascader<TValue>
         base.OnParametersSet();
 
         Icon ??= IconTheme.GetIconByKey(ComponentIcons.CascaderIcon);
+        SubMenuIcon ??= IconTheme.GetIconByKey(ComponentIcons.CascaderSubMenuIcon);
 
         Items ??= Enumerable.Empty<CascaderItem>();
 

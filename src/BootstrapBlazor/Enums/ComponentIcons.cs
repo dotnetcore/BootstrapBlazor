@@ -60,6 +60,11 @@ public enum ComponentIcons
     CascaderSubMenuIcon,
 
     /// <summary>
+    /// Console 组件 ClearButtonIcon 属性图标
+    /// </summary>
+    ConsoleClearButtonIcon,
+
+    /// <summary>
     /// Button 组件 LoadingIcon 属性图标
     /// </summary>
     ButtonLoadingIcon,
