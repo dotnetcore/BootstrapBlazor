@@ -17,8 +17,8 @@ else
     <CascadingValue Value="true" IsFixed="true" Name="IsSearch">
         <EditorForm TModel="TModel" Model="Model" Items="Items" RowType="RowType" ItemsPerRow="ItemsPerRow" LabelAlign="LabelAlign" ShowLabel="ShowLabel" ShowUnsetGroupItemsOnTop="ShowUnsetGroupItemsOnTop">
             <Buttons>
-                <Button Color="Color.Secondary" Icon="fa-regular fa-trash-can" Text="@ResetButtonText" OnClickWithoutRender="@OnResetSearchClick" />
-                <Button Color="Color.Primary" Icon="fa-solid fa-magnifying-glass" Text="@QueryButtonText" OnClickWithoutRender="@OnSearchClick" />
+                <Button Color="Color.Secondary" Icon="@ClearIcon" Text="@ResetButtonText" OnClickWithoutRender="@OnResetSearchClick" />
+                <Button Color="Color.Primary" Icon="@SearchIcon" Text="@QueryButtonText" OnClickWithoutRender="@OnSearchClick" />
             </Buttons>
         </EditorForm>
     </CascadingValue>
