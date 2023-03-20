@@ -125,6 +125,21 @@ public enum ComponentIcons
     DialogSaveButtonIcon,
 
     /// <summary>
+    /// ResultDialog 组件 YesIcon 属性图标
+    /// </summary>
+    ResultDialogYesIcon,
+
+    /// <summary>
+    /// ResultDialog 组件 NoIcon 属性图标
+    /// </summary>
+    ResultDialogNoIcon,
+
+    /// <summary>
+    /// ResultDialog 组件 CloseIcon 属性图标
+    /// </summary>
+    ResultDialogCloseIcon,
+
+    /// <summary>
     /// TimePickerCell 组件 UpIcon 属性图标
     /// </summary>
     TimePickerCellUpIcon,

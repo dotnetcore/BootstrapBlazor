@@ -29,8 +29,7 @@ public partial class ResultDialogFooter
     /// 确认按钮图标
     /// </summary>
     [Parameter]
-    [NotNull]
-    public string? ButtonYesIcon { get; set; } = "fa-solid fa-check";
+    public string? ButtonYesIcon { get; set; }
 
     /// <summary>
     /// 确认按钮颜色
@@ -56,7 +55,7 @@ public partial class ResultDialogFooter
     /// </summary>
     [Parameter]
     [NotNull]
-    public string? ButtonNoIcon { get; set; } = "fa-regular fa-circle-xmark";
+    public string? ButtonNoIcon { get; set; }
 
     /// <summary>
     /// 取消按钮颜色
@@ -83,7 +82,7 @@ public partial class ResultDialogFooter
     /// </summary>
     [Parameter]
     [NotNull]
-    public string? ButtonCloseIcon { get; set; } = "fa-regular fa-circle-xmark";
+    public string? ButtonCloseIcon { get; set; }
 
     /// <summary>
     /// 关闭按钮颜色
@@ -113,16 +112,24 @@ public partial class ResultDialogFooter
     [NotNull]
     private IStringLocalizer<ResultDialogOption>? Localizer { get; set; }
 
+    [Inject]
+    [NotNull]
+    private IIconTheme? IconTheme { get; set; }
+
     /// <summary>
-    /// OnInitialized 方法
+    /// <inheritdoc/>
     /// </summary>
-    protected override void OnInitialized()
+    protected override void OnParametersSet()
     {
-        base.OnInitialized();
+        base.OnParametersSet();
 
         ButtonCloseText ??= Localizer[nameof(ButtonCloseText)];
         ButtonNoText ??= Localizer[nameof(ButtonNoText)];
         ButtonYesText ??= Localizer[nameof(ButtonYesText)];
+
+        ButtonYesIcon ??= IconTheme.GetIconByKey(ComponentIcons.ResultDialogYesIcon);
+        ButtonNoIcon ??= IconTheme.GetIconByKey(ComponentIcons.ResultDialogNoIcon);
+        ButtonCloseIcon ??= IconTheme.GetIconByKey(ComponentIcons.ResultDialogCloseIcon);
     }
 
     private async Task ButtonClick(DialogResult dialogResult)

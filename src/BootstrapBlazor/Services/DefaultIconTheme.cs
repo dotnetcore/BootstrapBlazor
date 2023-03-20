@@ -45,6 +45,10 @@ internal class DefaultIconTheme : IIconTheme
             { ComponentIcons.DialogCloseButtonIcon, "fa-solid fa-fw fa-xmark" },
             { ComponentIcons.DialogSaveButtonIcon, "fa-solid fa-floppy-disk" },
 
+            { ComponentIcons.ResultDialogYesIcon, "fa-solid fa-check" },
+            { ComponentIcons.ResultDialogNoIcon, "fa-regular fa-circle-xmark" },
+            { ComponentIcons.ResultDialogCloseIcon, "fa-regular fa-circle-xmark" },
+
             { ComponentIcons.LoadingIcon, "fa-solid fa-fw fa-spin fa-spinner" },
 
             { ComponentIcons.PopConfirmButtonConfirmIcon, "fa-solid fa-circle-exclamation text-info" },
