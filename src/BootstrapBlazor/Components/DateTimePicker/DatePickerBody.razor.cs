@@ -71,6 +71,7 @@ public partial class DatePickerBody
         .AddClass("d-none", ViewMode != DatePickerViewMode.DateTime)
         .AddClass("is-open", ShowTimePicker)
         .Build();
+
     /// <summary>
     /// 获得 上一月按钮样式
     /// </summary>
@@ -282,6 +283,30 @@ public partial class DatePickerBody
     public DateTime? MinValue { get; set; }
 
     /// <summary>
+    /// 获得/设置 上一年图标
+    /// </summary>
+    [Parameter]
+    public string? PreviousYearIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 上一年图标
+    /// </summary>
+    [Parameter]
+    public string? NextYearIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 上一年图标
+    /// </summary>
+    [Parameter]
+    public string? PreviousMonthIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 上一年图标
+    /// </summary>
+    [Parameter]
+    public string? NextMonthIcon { get; set; }
+
+    /// <summary>
     /// 获得/设置 是否为 Range 内使用 默认为 false
     /// </summary>
     [CascadingParameter]
@@ -290,6 +315,10 @@ public partial class DatePickerBody
     [Inject]
     [NotNull]
     private IStringLocalizer<DateTimePicker<DateTime>>? Localizer { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IIconTheme? IconTheme { get; set; }
 
     [NotNull]
     private string? AiraPrevYearLabel { get; set; }
@@ -390,6 +419,11 @@ public partial class DatePickerBody
         Today ??= Localizer[nameof(Today)];
         Yesterday ??= Localizer[nameof(Yesterday)];
         Week ??= Localizer[nameof(Week)];
+
+        PreviousYearIcon ??= IconTheme.GetIconByKey(ComponentIcons.DatePickBodyPreviousYearIcon);
+        PreviousMonthIcon ??= IconTheme.GetIconByKey(ComponentIcons.DatePickBodyPreviousMonthIcon);
+        NextMonthIcon ??= IconTheme.GetIconByKey(ComponentIcons.DatePickBodyNextMonthIcon);
+        NextYearIcon ??= IconTheme.GetIconByKey(ComponentIcons.DatePickBodyNextYearIcon);
     }
 
     private void SetValue(DateTime val)

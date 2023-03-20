@@ -90,6 +90,26 @@ public enum ComponentIcons
     CarouselNextIcon,
 
     /// <summary>
+    /// DateTimeBody 组件 上一年属性图标
+    /// </summary>
+    DatePickBodyPreviousYearIcon,
+
+    /// <summary>
+    /// DateTimeBody 组件 上一月属性图标
+    /// </summary>
+    DatePickBodyPreviousMonthIcon,
+
+    /// <summary>
+    /// DateTimeBody 组件 下一月属性图标
+    /// </summary>
+    DatePickBodyNextMonthIcon,
+
+    /// <summary>
+    /// DateTimeBody 组件 下一年属性图标
+    /// </summary>
+    DatePickBodyNextYearIcon,
+
+    /// <summary>
     /// Button 组件 LoadingIcon 图标
     /// </summary>
     LoadingIcon,

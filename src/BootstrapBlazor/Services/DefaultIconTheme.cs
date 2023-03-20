@@ -29,6 +29,11 @@ internal class DefaultIconTheme : IIconTheme
             { ComponentIcons.CascaderSubMenuIcon, "fa-solid fa-angle-down" },
             { ComponentIcons.ConsoleClearButtonIcon, "fa-solid fa-xmark" },
 
+            { ComponentIcons.DatePickBodyPreviousYearIcon, "fa-solid fa-angles-left" },
+            { ComponentIcons.DatePickBodyPreviousMonthIcon, "fa-solid fa-angle-left" },
+            { ComponentIcons.DatePickBodyNextMonthIcon, "fa-solid fa-angle-right" },
+            { ComponentIcons.DatePickBodyNextYearIcon, "fa-solid fa-angles-right" },
+
             { ComponentIcons.LoadingIcon, "fa-solid fa-fw fa-spin fa-spinner" },
 
             { ComponentIcons.PopConfirmButtonConfirmIcon, "fa-solid fa-circle-exclamation text-info" },
