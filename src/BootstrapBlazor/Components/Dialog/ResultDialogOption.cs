@@ -14,7 +14,7 @@ public class ResultDialogOption : DialogOption
     /// </summary>
     public ResultDialogOption()
     {
-        base.ShowCloseButton = false;
+        ShowCloseButton = false;
     }
 
     /// <summary>
@@ -30,7 +30,7 @@ public class ResultDialogOption : DialogOption
     /// <summary>
     /// 确认按钮图标
     /// </summary>
-    public string ButtonYesIcon { get; set; } = "fa-solid fa-check";
+    public string? ButtonYesIcon { get; set; }
 
     /// <summary>
     /// 确认按钮颜色
@@ -50,7 +50,7 @@ public class ResultDialogOption : DialogOption
     /// <summary>
     /// 取消按钮图标
     /// </summary>
-    public string ButtonNoIcon { get; set; } = "fa-regular fa-circle-xmark";
+    public string? ButtonNoIcon { get; set; }
 
     /// <summary>
     /// 取消按钮颜色
@@ -65,12 +65,7 @@ public class ResultDialogOption : DialogOption
     /// <summary>
     /// 关闭按钮图标
     /// </summary>
-    public string ButtonCloseIcon { get; set; } = "fa-regular fa-circle-xmark";
-
-    /// <summary>
-    /// 
-    /// </summary>
-    public new bool ShowCloseButton { get; set; } = false;
+    public string? ButtonCloseIcon { get; set; }
 
     /// <summary>
     /// 关闭按钮颜色
