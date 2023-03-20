@@ -72,9 +72,19 @@ public partial class EditDialog<TModel>
     [Parameter]
     public RenderFragment<TModel>? FooterTemplate { get; set; }
 
+    /// <summary>
+    /// 获得/设置 保存按钮图标
+    /// </summary>
+    [Parameter]
+    public string? SaveButtonIcon { get; set; }
+
     [Inject]
     [NotNull]
     private IStringLocalizer<EditDialog<TModel>>? Localizer { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IIconTheme? IconTheme { get; set; }
 
     /// <summary>
     /// OnParametersSet 方法
@@ -82,6 +92,8 @@ public partial class EditDialog<TModel>
     protected override void OnParametersSet()
     {
         base.OnParametersSet();
+
+        SaveButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.DialogSaveButtonIcon);
 
         CloseButtonText ??= Localizer[nameof(CloseButtonText)];
         SaveButtonText ??= Localizer[nameof(SaveButtonText)];
@@ -127,7 +139,7 @@ public partial class EditDialog<TModel>
             }
             builder.OpenComponent<Button>(30);
             builder.AddAttribute(31, nameof(Button.Color), Color.Primary);
-            builder.AddAttribute(32, nameof(Button.Icon), "fa-solid fa-floppy-disk");
+            builder.AddAttribute(32, nameof(Button.Icon), SaveButtonIcon);
             builder.AddAttribute(33, nameof(Button.Text), SaveButtonText);
             builder.AddAttribute(34, nameof(Button.ButtonType), ButtonType.Submit);
             builder.CloseComponent();

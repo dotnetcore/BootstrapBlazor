@@ -42,6 +42,9 @@ internal class DefaultIconTheme : IIconTheme
             { ComponentIcons.DateTimeRangeIcon, "fa-regular fa-calendar-days" },
             { ComponentIcons.DateTimeRangeClearIcon, "fa-solid fa-circle-xmark" },
 
+            { ComponentIcons.DialogCloseButtonIcon, "fa-solid fa-fw fa-xmark" },
+            { ComponentIcons.DialogSaveButtonIcon, "fa-solid fa-floppy-disk" },
+
             { ComponentIcons.LoadingIcon, "fa-solid fa-fw fa-spin fa-spinner" },
 
             { ComponentIcons.PopConfirmButtonConfirmIcon, "fa-solid fa-circle-exclamation text-info" },

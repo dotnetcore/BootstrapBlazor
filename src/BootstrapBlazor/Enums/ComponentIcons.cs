@@ -115,6 +115,16 @@ public enum ComponentIcons
     DateTimePickerIcon,
 
     /// <summary>
+    /// Dialog 组件 CloseButtonIcon 属性图标
+    /// </summary>
+    DialogCloseButtonIcon,
+
+    /// <summary>
+    /// Dialog 组件 CloseButtonIcon 属性图标
+    /// </summary>
+    DialogSaveButtonIcon,
+
+    /// <summary>
     /// TimePickerCell 组件 UpIcon 属性图标
     /// </summary>
     TimePickerCellUpIcon,

@@ -15,6 +15,10 @@ public partial class DialogSaveButton : Button
     [NotNull]
     private IStringLocalizer<ModalDialog>? Localizer { get; set; }
 
+    [Inject]
+    [NotNull]
+    private IIconTheme? IconTheme { get; set; }
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -32,7 +36,7 @@ public partial class DialogSaveButton : Button
     {
         base.OnParametersSet();
 
-        ButtonIcon ??= "fa-solid fa-floppy-disk";
+        ButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.DialogSaveButtonIcon);
         Text ??= Localizer[nameof(ModalDialog.SaveButtonText)];
     }
 }
