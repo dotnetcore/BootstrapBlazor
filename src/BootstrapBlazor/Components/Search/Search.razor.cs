@@ -127,11 +127,8 @@ public partial class Search
         base.OnParametersSet();
 
         ClearButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.SearchClearButtonIcon);
-
         SearchButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.SearchButtonIcon);
-
         SearchButtonLoadingIcon ??= IconTheme.GetIconByKey(ComponentIcons.SearchButtonLoadingIcon);
-
         ButtonIcon = SearchButtonIcon;
     }
 
