@@ -140,6 +140,16 @@ public enum ComponentIcons
     ResultDialogCloseIcon,
 
     /// <summary>
+    /// SearchDialog 组件 ClearIcon 属性图标
+    /// </summary>
+    SearchDialogClearIcon,
+
+    /// <summary>
+    /// SearchDialog 组件 SearchIcon 属性图标
+    /// </summary>
+    SearchDialogSearchIcon,
+
+    /// <summary>
     /// TimePickerCell 组件 UpIcon 属性图标
     /// </summary>
     TimePickerCellUpIcon,

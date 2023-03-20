@@ -49,6 +49,9 @@ internal class DefaultIconTheme : IIconTheme
             { ComponentIcons.ResultDialogNoIcon, "fa-regular fa-circle-xmark" },
             { ComponentIcons.ResultDialogCloseIcon, "fa-regular fa-circle-xmark" },
 
+            { ComponentIcons.SearchDialogClearIcon, "fa-regular fa-trash-can" },
+            { ComponentIcons.SearchDialogSearchIcon, "fa-solid fa-magnifying-glass" },
+
             { ComponentIcons.LoadingIcon, "fa-solid fa-fw fa-spin fa-spinner" },
 
             { ComponentIcons.PopConfirmButtonConfirmIcon, "fa-solid fa-circle-exclamation text-info" },

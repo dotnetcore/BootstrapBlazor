@@ -42,9 +42,25 @@ public partial class SearchDialog<TModel>
     [NotNull]
     public string? QueryButtonText { get; set; }
 
+    /// <summary>
+    /// 获得/设置 清空按钮图标
+    /// </summary>
+    [Parameter]
+    public string? ClearIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 搜索按钮图标
+    /// </summary>
+    [Parameter]
+    public string? SearchIcon { get; set; }
+
     [Inject]
     [NotNull]
     private IStringLocalizer<SearchDialog<TModel>>? Localizer { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IIconTheme? IconTheme { get; set; }
 
     /// <summary>
     /// OnParametersSet 方法
@@ -55,5 +71,8 @@ public partial class SearchDialog<TModel>
 
         ResetButtonText ??= Localizer[nameof(ResetButtonText)];
         QueryButtonText ??= Localizer[nameof(QueryButtonText)];
+
+        ClearIcon ??= IconTheme.GetIconByKey(ComponentIcons.SearchDialogClearIcon);
+        SearchIcon ??= IconTheme.GetIconByKey(ComponentIcons.SearchDialogSearchIcon);
     }
 }
