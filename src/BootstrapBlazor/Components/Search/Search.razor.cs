@@ -25,7 +25,7 @@ public partial class Search
     /// Clear button icon
     /// </summary>
     [Parameter]
-    public string ClearButtonIcon { get; set; } = "fa-regular fa-trash-can";
+    public string? ClearButtonIcon { get; set; }
 
     /// <summary>
     /// Clear button text
@@ -49,13 +49,13 @@ public partial class Search
     /// 获得/设置 搜索按钮图标
     /// </summary>
     [Parameter]
-    public string SearchButtonIcon { get; set; } = "fa-fw fa-solid fa-magnifying-glass";
+    public string? SearchButtonIcon { get; set; }
 
     /// <summary>
     /// 获得/设置 正在搜索按钮图标
     /// </summary>
     [Parameter]
-    public string SearchButtonLoadingIcon { get; set; } = "fa-fw fa-spin fa-solid fa-spinner";
+    public string? SearchButtonLoadingIcon { get; set; }
 
     /// <summary>
     /// 获得/设置 点击搜索后是否自动清空搜索框
@@ -90,6 +90,10 @@ public partial class Search
 
     [Inject]
     [NotNull]
+    private IIconTheme? IconTheme { get; set; }
+
+    [Inject]
+    [NotNull]
     private IStringLocalizer<Search>? Localizer { get; set; }
 
     private JSInterop<Search>? Interop { get; set; }
@@ -110,10 +114,22 @@ public partial class Search
         base.OnInitialized();
 
         SearchButtonText ??= Localizer[nameof(SearchButtonText)];
-        ButtonIcon = SearchButtonIcon;
 
         SkipEnter = true;
         SkipEsc = true;
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
+        ClearButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.SearchClearButtonIcon);
+        SearchButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.SearchButtonIcon);
+        SearchButtonLoadingIcon ??= IconTheme.GetIconByKey(ComponentIcons.SearchButtonLoadingIcon);
+        ButtonIcon = SearchButtonIcon;
     }
 
     /// <summary>

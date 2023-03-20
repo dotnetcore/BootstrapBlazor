@@ -127,5 +127,20 @@ public enum ComponentIcons
     /// <summary>
     /// Table 组件 ExportButtonIcon 属性图标
     /// </summary>
-    TableExportButtonIcon
+    TableExportButtonIcon,
+
+    /// <summary>
+    /// Search 组件 ClearButtonIcon 属性图标
+    /// </summary>
+    SearchClearButtonIcon,
+
+    /// <summary>
+    /// Search 组件 SearchButtonIcon 属性图标
+    /// </summary>
+    SearchButtonIcon,
+
+    /// <summary>
+    /// Search 组件 SearchButtonLoadingIcon 属性图标
+    /// </summary>
+    SearchButtonLoadingIcon
 }
