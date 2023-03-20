@@ -21,6 +21,10 @@ public partial class PrintButton
     [NotNull]
     private IStringLocalizer<PrintButton>? Localizer { get; set; }
 
+    [Inject]
+    [NotNull]
+    private IIconTheme? IconTheme { get; set; }
+
     private string? Target { get; set; }
 
     /// <summary>
@@ -51,9 +55,7 @@ public partial class PrintButton
             Target = "_blank";
         }
 
-        if (string.IsNullOrEmpty(ButtonIcon))
-        {
-            ButtonIcon = "fa-solid fa-fw fa-print";
-        }
+        Icon ??= IconTheme.GetIconByKey(ComponentIcons.PrintButtonIcon);
+        ButtonIcon = Icon;
     }
 }
