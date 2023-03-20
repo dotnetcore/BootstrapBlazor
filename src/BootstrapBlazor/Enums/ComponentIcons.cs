@@ -115,6 +115,16 @@ public enum ComponentIcons
     DateTimePickerIcon,
 
     /// <summary>
+    /// TimePickerCell 组件 UpIcon 属性图标
+    /// </summary>
+    TimePickerCellUpIcon,
+
+    /// <summary>
+    /// TimePickerCell 组件 DownIcon 属性图标
+    /// </summary>
+    TimePickerCellDownIcon,
+
+    /// <summary>
     /// Button 组件 LoadingIcon 图标
     /// </summary>
     LoadingIcon,

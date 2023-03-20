@@ -53,6 +53,14 @@ public partial class TimePickerCell
         .AddClass($"transform: translateY({CalcTranslateY()}px);")
         .Build();
 
+    private string? UpIconString => CssBuilder.Default("time-spinner-arrow time-up")
+        .AddClass(UpIcon, !string.IsNullOrEmpty(UpIcon))
+        .Build();
+
+    private string? DownIconString => CssBuilder.Default("time-spinner-arrow time-down")
+        .AddClass(DownIcon, !string.IsNullOrEmpty(DownIcon))
+        .Build();
+
     /// <summary>
     /// 获得/设置 时间选择框视图模式
     /// </summary>
@@ -70,6 +78,33 @@ public partial class TimePickerCell
     /// </summary>
     [Parameter]
     public EventCallback<TimeSpan> ValueChanged { get; set; }
+
+    /// <summary>
+    /// 获得/设置 向上箭头图标
+    /// </summary>
+    [Parameter]
+    public string? UpIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 向下箭头图标
+    /// </summary>
+    [Parameter]
+    public string? DownIcon { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IIconTheme? IconTheme { get; set; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
+        UpIcon ??= IconTheme.GetIconByKey(ComponentIcons.TimePickerCellUpIcon);
+        DownIcon ??= IconTheme.GetIconByKey(ComponentIcons.TimePickerCellDownIcon);
+    }
 
     /// <summary>
     /// 上翻页按钮调用此方法

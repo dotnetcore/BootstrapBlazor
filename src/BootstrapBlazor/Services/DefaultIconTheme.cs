@@ -36,6 +36,9 @@ internal class DefaultIconTheme : IIconTheme
 
             { ComponentIcons.DateTimePickerIcon, "fa-regular fa-calendar-days" },
 
+            { ComponentIcons.TimePickerCellUpIcon, "fa-solid fa-angle-up" },
+            { ComponentIcons.TimePickerCellDownIcon, "fa-solid fa-angle-down" },
+
             { ComponentIcons.LoadingIcon, "fa-solid fa-fw fa-spin fa-spinner" },
 
             { ComponentIcons.PopConfirmButtonConfirmIcon, "fa-solid fa-circle-exclamation text-info" },
