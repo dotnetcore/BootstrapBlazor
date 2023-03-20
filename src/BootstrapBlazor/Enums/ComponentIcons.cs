@@ -110,6 +110,11 @@ public enum ComponentIcons
     DatePickBodyNextYearIcon,
 
     /// <summary>
+    /// DateTimePicker 组件 Icon 属性图标
+    /// </summary>
+    DateTimePickerIcon,
+
+    /// <summary>
     /// Button 组件 LoadingIcon 图标
     /// </summary>
     LoadingIcon,

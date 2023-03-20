@@ -113,6 +113,10 @@ public partial class DateTimePicker<TValue>
     [NotNull]
     private IStringLocalizer<DateTimePicker<DateTime>>? Localizer { get; set; }
 
+    [Inject]
+    [NotNull]
+    private IIconTheme? IconTheme { get; set; }
+
     [NotNull]
     private string? DatePlaceHolderText { get; set; }
 
@@ -142,7 +146,8 @@ public partial class DateTimePicker<TValue>
         GenericTypeErroMessage ??= Localizer[nameof(GenericTypeErroMessage)];
         DateTimeFormat ??= Localizer[nameof(DateTimeFormat)];
         DateFormat ??= Localizer[nameof(DateFormat)];
-        Icon ??= "fa-regular fa-calendar-days";
+
+        Icon ??= IconTheme.GetIconByKey(ComponentIcons.DateTimePickerIcon);
 
         var type = typeof(TValue);
 

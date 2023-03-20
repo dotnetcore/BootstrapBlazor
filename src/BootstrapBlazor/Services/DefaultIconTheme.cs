@@ -34,6 +34,8 @@ internal class DefaultIconTheme : IIconTheme
             { ComponentIcons.DatePickBodyNextMonthIcon, "fa-solid fa-angle-right" },
             { ComponentIcons.DatePickBodyNextYearIcon, "fa-solid fa-angles-right" },
 
+            { ComponentIcons.DateTimePickerIcon, "fa-regular fa-calendar-days" },
+
             { ComponentIcons.LoadingIcon, "fa-solid fa-fw fa-spin fa-spinner" },
 
             { ComponentIcons.PopConfirmButtonConfirmIcon, "fa-solid fa-circle-exclamation text-info" },
