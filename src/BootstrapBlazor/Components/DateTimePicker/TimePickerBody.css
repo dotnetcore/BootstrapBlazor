@@ -85,11 +85,11 @@
     cursor: pointer;
 }
 
-    .time-spinner-arrow.fa-angle-up {
+    .time-spinner-arrow.time-up {
         top: 10px;
     }
 
-    .time-spinner-arrow.fa-angle-down {
+    .time-spinner-arrow.time-down {
         bottom: 10px;
     }
 

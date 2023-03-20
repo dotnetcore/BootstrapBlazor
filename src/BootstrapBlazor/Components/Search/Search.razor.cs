@@ -107,7 +107,7 @@ public partial class Search
         .Build();
 
     /// <summary>
-    /// OnInitialized 方法
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
     {
@@ -120,7 +120,7 @@ public partial class Search
     }
 
     /// <summary>
-    /// 
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnParametersSet()
     {
@@ -129,6 +129,7 @@ public partial class Search
         ClearButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.SearchClearButtonIcon);
         SearchButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.SearchButtonIcon);
         SearchButtonLoadingIcon ??= IconTheme.GetIconByKey(ComponentIcons.SearchButtonLoadingIcon);
+
         ButtonIcon = SearchButtonIcon;
     }
 
@@ -232,7 +233,7 @@ public partial class Search
     }
 
     /// <summary>
-    /// DisposeAsyncCore 方法
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="disposing"></param>
     /// <returns></returns>
@@ -240,10 +241,7 @@ public partial class Search
     {
         if (disposing)
         {
-            if (Interop != null)
-            {
-                Interop.Dispose();
-            }
+            Interop?.Dispose();
         }
 
         return base.DisposeAsync(disposing);

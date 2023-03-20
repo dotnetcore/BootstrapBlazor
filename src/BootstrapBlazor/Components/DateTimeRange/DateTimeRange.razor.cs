@@ -72,7 +72,6 @@ public partial class DateTimeRange
     /// 获得/设置 清空图标 默认 fa-solid fa-circle-xmark
     /// </summary>
     [Parameter]
-    [NotNull]
     public string? ClearIcon { get; set; }
 
     /// <summary>
@@ -110,7 +109,6 @@ public partial class DateTimeRange
     /// 获得/设置 组件图标 默认 "fa-regular fa-calendar-days"
     /// </summary>
     [Parameter]
-    [NotNull]
     public string? Icon { get; set; }
 
     /// <summary>
@@ -152,6 +150,10 @@ public partial class DateTimeRange
     [NotNull]
     private IStringLocalizerFactory? LocalizerFactory { get; set; }
 
+    [Inject]
+    [NotNull]
+    private IIconTheme? IconTheme { get; set; }
+
     /// <summary>
     /// OnParametersSet 方法
     /// </summary>
@@ -180,8 +182,8 @@ public partial class DateTimeRange
 
         DateFormat ??= Localizer[nameof(DateFormat)];
 
-        Icon ??= "fa-regular fa-calendar-days";
-        ClearIcon ??= "fa-solid fa-circle-xmark";
+        Icon ??= IconTheme.GetIconByKey(ComponentIcons.DateTimeRangeIcon);
+        ClearIcon ??= IconTheme.GetIconByKey(ComponentIcons.DateTimeRangeClearIcon); ;
 
         if (StartValue.ToString("yyyy-MM") == EndValue.ToString("yyyy-MM"))
         {

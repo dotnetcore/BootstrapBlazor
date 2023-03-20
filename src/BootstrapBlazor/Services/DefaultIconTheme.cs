@@ -29,6 +29,19 @@ internal class DefaultIconTheme : IIconTheme
             { ComponentIcons.CascaderSubMenuIcon, "fa-solid fa-angle-down" },
             { ComponentIcons.ConsoleClearButtonIcon, "fa-solid fa-xmark" },
 
+            { ComponentIcons.DatePickBodyPreviousYearIcon, "fa-solid fa-angles-left" },
+            { ComponentIcons.DatePickBodyPreviousMonthIcon, "fa-solid fa-angle-left" },
+            { ComponentIcons.DatePickBodyNextMonthIcon, "fa-solid fa-angle-right" },
+            { ComponentIcons.DatePickBodyNextYearIcon, "fa-solid fa-angles-right" },
+
+            { ComponentIcons.DateTimePickerIcon, "fa-regular fa-calendar-days" },
+
+            { ComponentIcons.TimePickerCellUpIcon, "fa-solid fa-angle-up" },
+            { ComponentIcons.TimePickerCellDownIcon, "fa-solid fa-angle-down" },
+
+            { ComponentIcons.DateTimeRangeIcon, "fa-regular fa-calendar-days" },
+            { ComponentIcons.DateTimeRangeClearIcon, "fa-solid fa-circle-xmark" },
+
             { ComponentIcons.LoadingIcon, "fa-solid fa-fw fa-spin fa-spinner" },
 
             { ComponentIcons.PopConfirmButtonConfirmIcon, "fa-solid fa-circle-exclamation text-info" },
@@ -42,7 +55,7 @@ internal class DefaultIconTheme : IIconTheme
 
             { ComponentIcons.SearchClearButtonIcon, "fa-regular fa-trash-can" },
             { ComponentIcons.SearchButtonIcon, "fa-fw fa-solid fa-magnifying-glass" },
-            { ComponentIcons.SearchButtonLoadingIcon, "fa-fw fa-spin fa-solid fa-spinner" }
+            { ComponentIcons.SearchButtonLoadingIcon, "fa-solid fa-fw fa-spin fa-spinner" }
         };
     }
 

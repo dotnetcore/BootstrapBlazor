@@ -38,10 +38,10 @@
                 @if (ShowLeftButtons)
                 {
                     <button type="button" aria-label="@AiraPrevYearLabel" class="picker-panel-icon-btn" @onclick="@OnClickPrevYear">
-                        <i class="fa-solid fa-angles-left"></i>
+                        <i class="@PreviousYearIcon"></i>
                     </button>
                     <button type="button" aria-label="@AiraPrevMonthLabel" class="@PrevMonthClassName" @onclick="@OnClickPrevMonth">
-                        <i class="fa-solid fa-angle-left"></i>
+                        <i class="@PreviousMonthIcon"></i>
                     </button>
                 }
                 <div class="d-flex align-items-center justify-content-center flex-fill">
@@ -51,10 +51,10 @@
                 @if (ShowRightButtons)
                 {
                     <button type="button" aria-label="@AiraNextMonthLabel" class="@NextMonthClassName" @onclick="@OnClickNextMonth">
-                        <i class="fa-solid fa-angle-right"></i>
+                        <i class="@NextMonthIcon"></i>
                     </button>
                     <button type="button" aria-label="@AiraNextYearLabel" class="picker-panel-icon-btn" @onclick="@OnClickNextYear">
-                        <i class="fa-solid fa-angles-right"></i>
+                        <i class="@NextYearIcon"></i>
                     </button>
                 }
             </div>

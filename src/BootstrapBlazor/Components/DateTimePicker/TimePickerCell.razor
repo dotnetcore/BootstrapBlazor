@@ -3,8 +3,8 @@
 @attribute [JSModuleAutoLoader("time-pick", ModuleName = "TimePicker", JSObjectReference = true)]
 
 <div @attributes="@AdditionalAttributes" class="@ClassString" id="@Id">
-    <i class="time-spinner-arrow fa-solid fa-angle-up" @onclick="OnClickUp"></i>
-    <i class="time-spinner-arrow fa-solid fa-angle-down" @onclick="OnClickDown"></i>
+    <i class="@UpIconString" @onclick="OnClickUp"></i>
+    <i class="@DownIconString" @onclick="OnClickDown"></i>
     <div class="time-spinner-list-wrapper">
         <ul class="time-spinner-list" style="@StyleName">
             <li class="time-spinner-item">&nbsp;</li>
