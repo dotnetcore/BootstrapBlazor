@@ -241,10 +241,7 @@ public partial class Search
     {
         if (disposing)
         {
-            if (Interop != null)
-            {
-                Interop.Dispose();
-            }
+            Interop?.Dispose();
         }
 
         return base.DisposeAsync(disposing);
