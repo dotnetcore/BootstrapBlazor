@@ -58,6 +58,12 @@ public class ChartOptions
     public string? Width { get; set; }
 
     /// <summary>
+    /// 折线图(Line)
+    /// <para>线的宽度(以像素为单位)</para>
+    /// </summary>
+    public double? BorderWidth { get; set; }
+
+    /// <summary>
     /// 获得/设置 数据显示颜色
     /// </summary>
     public Dictionary<string, string> Colors { get; set; } = new Dictionary<string, string>()
