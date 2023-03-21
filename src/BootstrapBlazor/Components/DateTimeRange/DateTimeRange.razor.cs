@@ -106,7 +106,7 @@ public partial class DateTimeRange
     public bool AllowNull { get; set; } = true;
 
     /// <summary>
-    /// 获得/设置 组件图标 默认 "fa-regular fa-calendar-days"
+    /// 获得/设置 组件图标
     /// </summary>
     [Parameter]
     public string? Icon { get; set; }

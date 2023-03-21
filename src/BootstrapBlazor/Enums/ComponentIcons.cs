@@ -180,6 +180,16 @@ public enum ComponentIcons
     DateTimeRangeClearIcon,
 
     /// <summary>
+    /// FilterButton 组件 FilterIcon 图标
+    /// </summary>
+    FilterButtonFilterIcon,
+
+    /// <summary>
+    /// FilterButton 组件 ClearIcon 图标
+    /// </summary>
+    FilterButtonClearIcon,
+
+    /// <summary>
     /// Button 组件 LoadingIcon 图标
     /// </summary>
     LoadingIcon,
