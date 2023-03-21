@@ -19,8 +19,8 @@ else
                 <div class="d-flex flex-fill">
                     @if (ShowMoreButton)
                     {
-                        <Button Color="Color.None" OnClick="OnClickPlus" Icon="fa-fw fa-solid fa-plus" IsDisabled="@(Count == 1)"></Button>
-                        <Button Color="Color.None" OnClick="OnClickMinus" Icon="fa-fw fa-solid fa-minus" IsDisabled="@(Count == 0)"></Button>
+                        <Button Color="Color.None" OnClick="OnClickPlus" Icon="@PlusIcon" IsDisabled="@(Count == 1)"></Button>
+                        <Button Color="Color.None" OnClick="OnClickMinus" Icon="@MinusIcon" IsDisabled="@(Count == 0)"></Button>
                     }
                 </div>
                 <Button Color="Color.None" class="filter-dismiss" OnClick="OnClickReset" Text="@ClearButtonText"></Button>

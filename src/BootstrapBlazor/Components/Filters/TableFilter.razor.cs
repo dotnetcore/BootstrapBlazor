@@ -39,6 +39,18 @@ public partial class TableFilter : IFilter
     public string? Icon { get; set; }
 
     /// <summary>
+    /// 获得/设置 增加过滤条件图标
+    /// </summary>
+    [Parameter]
+    public string? PlusIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 减少过滤条件图标
+    /// </summary>
+    [Parameter]
+    public string? MinusIcon { get; set; }
+
+    /// <summary>
     /// 获得/设置 不支持过滤类型提示信息 默认 null 读取资源文件内容
     /// </summary>
     [Parameter]
@@ -117,6 +129,10 @@ public partial class TableFilter : IFilter
     [NotNull]
     private IStringLocalizer<TableFilter>? Localizer { get; set; }
 
+    [Inject]
+    [NotNull]
+    private IIconTheme? IconTheme { get; set; }
+
     private string? Step => Column.Step?.ToString() ?? "0.01";
 
     /// <summary>
@@ -141,6 +157,9 @@ public partial class TableFilter : IFilter
         FilterButtonText ??= Localizer[nameof(FilterButtonText)];
         ClearButtonText ??= Localizer[nameof(ClearButtonText)];
         NotSupportedMessage ??= Localizer[nameof(NotSupportedMessage)];
+
+        PlusIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableFilterPlusIcon);
+        MinusIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableFilterMinusIcon);
     }
 
     /// <summary>

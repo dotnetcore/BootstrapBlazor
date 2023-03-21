@@ -57,6 +57,9 @@ internal class DefaultIconTheme : IIconTheme
             { ComponentIcons.FilterButtonFilterIcon, "fa-solid fa-filter" },
             { ComponentIcons.FilterButtonClearIcon, "fa-solid fa-ban" },
 
+            { ComponentIcons.TableFilterPlusIcon, "fa-solid fa-plus" },
+            { ComponentIcons.TableFilterMinusIcon, "fa-solid fa-minus" },
+
             { ComponentIcons.LoadingIcon, "fa-solid fa-fw fa-spin fa-spinner" },
 
             { ComponentIcons.PopConfirmButtonConfirmIcon, "fa-solid fa-circle-exclamation text-info" },
