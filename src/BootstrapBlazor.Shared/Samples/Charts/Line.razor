@@ -24,6 +24,10 @@
     <Chart OnInitAsync="() => OnInit(0f, true)" />
 </DemoBlock>
 
+<DemoBlock Title="@Localizer["TwoYaxes"]" Introduction="@Localizer["TwoYaxesIntro"]" Name="TwoYaxes">
+    <Chart OnInitAsync="() => OnInitTwoYaxes(0f, false)" />
+</DemoBlock>
+
 <DemoBlock Title="@Localizer["AspectRatio"]" Introduction="@Localizer["AspectRatioIntro"]" Name="BarAspectRatio">
-    <Chart ChartType="ChartType.Bar" OnInitAsync="() => OnInit(0f,true)" Height="500px" Width="300px" />
+    <Chart OnInitAsync="() => OnInit(0f,false)" Height="500px" Width="500px" />
 </DemoBlock>
