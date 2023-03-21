@@ -477,7 +477,7 @@ public class DialogTest : DialogTestBase
                 return Task.FromResult(save);
             }
         }));
-        var btnClose = cut.FindComponents<Button>().First(i => i.Instance.Icon == "fa-solid fa-fw fa-floppy-disk");
+        var btnClose = cut.FindComponents<Button>().First(i => i.Instance.Icon == "fa-solid fa-floppy-disk");
         cut.InvokeAsync(() => btnClose.Instance.OnClickWithoutRender!.Invoke());
         cut.InvokeAsync(() => modal.Instance.CloseCallback());
         Assert.True(save);
