@@ -104,7 +104,7 @@ public abstract class PopConfirmButtonBase : ButtonBase
     public Color ConfirmButtonColor { get; set; } = Color.Primary;
 
     /// <summary>
-    /// 获得/设置 确认框图标 默认 "fa-solid fa-circle-exclamation text-info"
+    /// 获得/设置 确认框图标
     /// </summary>
     [Parameter]
     [NotNull]
