@@ -190,6 +190,16 @@ public enum ComponentIcons
     FilterButtonClearIcon,
 
     /// <summary>
+    /// TableFilter 组件 PlusIcon 图标
+    /// </summary>
+    TableFilterPlusIcon,
+
+    /// <summary>
+    /// TableFilter 组件 MinusIcon 图标
+    /// </summary>
+    TableFilterMinusIcon,
+
+    /// <summary>
     /// Button 组件 LoadingIcon 图标
     /// </summary>
     LoadingIcon,
