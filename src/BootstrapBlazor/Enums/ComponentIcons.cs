@@ -125,6 +125,16 @@ public enum ComponentIcons
     DialogSaveButtonIcon,
 
     /// <summary>
+    /// Dialog 组件 MaxminzeIcon 属性图标
+    /// </summary>
+    DialogMaxminzeWindowIcon,
+
+    /// <summary>
+    /// Dialog 组件 MaxminzeIcon 属性图标
+    /// </summary>
+    DialogRestoreWindowIcon,
+
+    /// <summary>
     /// ResultDialog 组件 YesIcon 属性图标
     /// </summary>
     ResultDialogYesIcon,
@@ -138,6 +148,16 @@ public enum ComponentIcons
     /// ResultDialog 组件 CloseIcon 属性图标
     /// </summary>
     ResultDialogCloseIcon,
+
+    /// <summary>
+    /// SearchDialog 组件 ClearIcon 属性图标
+    /// </summary>
+    SearchDialogClearIcon,
+
+    /// <summary>
+    /// SearchDialog 组件 SearchIcon 属性图标
+    /// </summary>
+    SearchDialogSearchIcon,
 
     /// <summary>
     /// TimePickerCell 组件 UpIcon 属性图标
