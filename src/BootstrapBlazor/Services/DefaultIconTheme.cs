@@ -54,6 +54,9 @@ internal class DefaultIconTheme : IIconTheme
             { ComponentIcons.SearchDialogClearIcon, "fa-regular fa-trash-can" },
             { ComponentIcons.SearchDialogSearchIcon, "fa-solid fa-magnifying-glass" },
 
+            { ComponentIcons.FilterButtonFilterIcon, "fa-solid fa-filter" },
+            { ComponentIcons.FilterButtonClearIcon, "fa-solid fa-ban" },
+
             { ComponentIcons.LoadingIcon, "fa-solid fa-fw fa-spin fa-spinner" },
 
             { ComponentIcons.PopConfirmButtonConfirmIcon, "fa-solid fa-circle-exclamation text-info" },

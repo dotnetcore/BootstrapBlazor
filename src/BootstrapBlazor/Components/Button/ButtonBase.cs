@@ -44,8 +44,7 @@ public abstract class ButtonBase : TooltipWrapperBase
     /// <summary>
     /// 获得/设置 实际按钮渲染图标
     /// </summary>
-    [Parameter]
-    public string? ButtonIcon { get; set; }
+    protected string? ButtonIcon { get; set; }
 
     /// <summary>
     /// 获得/设置 按钮风格枚举

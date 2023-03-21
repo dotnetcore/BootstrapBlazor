@@ -3,7 +3,7 @@
 @inherits Dropdown<TValue>
 
 <button type="button" class="btn btn-filter dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-    <i class="fa-solid fa-filter" />
+    <i class="@FilterIcon" />
 </button>
 <div class="dropdown-menu shadow">
     @foreach (var item in Items)
@@ -11,4 +11,4 @@
         <div class="@ActiveItem(item)" @onclick="e => OnItemClick(item)">@item.Text</div>
     }
 </div>
-<Button Icon="fa-solid fa-ban text-danger" Color="Color.None" class="btn-ban" OnClickWithoutRender="ClearFilter" />
+<Button Icon="@ClearIcon" Color="Color.None" class="btn-ban text-danger" OnClickWithoutRender="ClearFilter" />
