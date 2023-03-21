@@ -25,7 +25,7 @@
                     }
                     @if (ShowMaximizeButton)
                     {
-                        <Button Color="Color.None" class="btn-maximize" aria-label="@MaximizeAriaLabel" OnClick="@OnToggleMaximize" Icon="@MaximizeIcon"></Button>
+                        <Button Color="Color.None" class="btn-maximize" aria-label="@MaximizeAriaLabel" OnClick="@OnToggleMaximize" Icon="@MaximizeIconString"></Button>
                     }
                     @if (ShowHeaderCloseButton)
                     {
@@ -52,7 +52,7 @@
                         }
                         @if (ShowSaveButton)
                         {
-                            <Button Color="Color.Primary" Text="@SaveButtonText" Icon="fa-solid fa-fw fa-floppy-disk" OnClickWithoutRender="OnClickSave" />
+                            <Button Color="Color.Primary" Text="@SaveButtonText" Icon="@SaveIcon" OnClickWithoutRender="OnClickSave" />
                         }
                         @if (FooterTemplate != null)
                         {
