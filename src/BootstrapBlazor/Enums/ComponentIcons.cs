@@ -232,5 +232,10 @@ public enum ComponentIcons
     /// <summary>
     /// Search 组件 SearchButtonLoadingIcon 属性图标
     /// </summary>
-    SearchButtonLoadingIcon
+    SearchButtonLoadingIcon,
+
+    /// <summary>
+    /// Print 组件 ButtonIcon 属性图标
+    /// </summary>
+    PrintButtonIcon
 }
