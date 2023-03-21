@@ -42,8 +42,10 @@ internal class DefaultIconTheme : IIconTheme
             { ComponentIcons.DateTimeRangeIcon, "fa-regular fa-calendar-days" },
             { ComponentIcons.DateTimeRangeClearIcon, "fa-solid fa-circle-xmark" },
 
-            { ComponentIcons.DialogCloseButtonIcon, "fa-solid fa-fw fa-xmark" },
+            { ComponentIcons.DialogCloseButtonIcon, "fa-solid fa-xmark" },
             { ComponentIcons.DialogSaveButtonIcon, "fa-solid fa-floppy-disk" },
+            { ComponentIcons.DialogMaxminzeIcon, "fa-regular fa-window-maximize" },
+            { ComponentIcons.DialogRestoreButtonIcon, "fa-regular fa-window-restore" },
 
             { ComponentIcons.ResultDialogYesIcon, "fa-solid fa-check" },
             { ComponentIcons.ResultDialogNoIcon, "fa-regular fa-circle-xmark" },

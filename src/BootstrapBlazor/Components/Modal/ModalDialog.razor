@@ -25,7 +25,7 @@
                     }
                     @if (ShowMaximizeButton)
                     {
-                        <Button Color="Color.None" class="btn-maximize" aria-label="@MaximizeAriaLabel" OnClick="@OnToggleMaximize" Icon="@MaximizeIcon"></Button>
+                        <Button Color="Color.None" class="btn-maximize" aria-label="@MaximizeAriaLabel" OnClick="@OnToggleMaximize" Icon="@MaximizeIconString"></Button>
                     }
                     @if (ShowHeaderCloseButton)
                     {
@@ -42,6 +42,10 @@
                 @if (ShowFooter)
                 {
                     <div class="modal-footer">
+                        @if (FooterTemplate != null)
+                        {
+                            @FooterTemplate
+                        }
                         @if (ShowCloseButton)
                         {
                             <DialogCloseButton Text="@CloseButtonText" Icon="@CloseButtonIcon" />
@@ -52,11 +56,7 @@
                         }
                         @if (ShowSaveButton)
                         {
-                            <Button Color="Color.Primary" Text="@SaveButtonText" Icon="fa-solid fa-fw fa-floppy-disk" OnClickWithoutRender="OnClickSave" />
-                        }
-                        @if (FooterTemplate != null)
-                        {
-                            @FooterTemplate
+                            <Button Color="Color.Primary" Text="@SaveButtonText" Icon="@SaveIcon" OnClickWithoutRender="OnClickSave" />
                         }
                     </div>
                 }

@@ -125,6 +125,16 @@ public enum ComponentIcons
     DialogSaveButtonIcon,
 
     /// <summary>
+    /// Dialog 组件 MaxminzeIcon 属性图标
+    /// </summary>
+    DialogMaxminzeIcon,
+
+    /// <summary>
+    /// Dialog 组件 MaxminzeIcon 属性图标
+    /// </summary>
+    DialogRestoreButtonIcon,
+
+    /// <summary>
     /// ResultDialog 组件 YesIcon 属性图标
     /// </summary>
     ResultDialogYesIcon,
