@@ -42,12 +42,17 @@ internal class DefaultIconTheme : IIconTheme
             { ComponentIcons.DateTimeRangeIcon, "fa-regular fa-calendar-days" },
             { ComponentIcons.DateTimeRangeClearIcon, "fa-solid fa-circle-xmark" },
 
-            { ComponentIcons.DialogCloseButtonIcon, "fa-solid fa-fw fa-xmark" },
+            { ComponentIcons.DialogCloseButtonIcon, "fa-solid fa-xmark" },
             { ComponentIcons.DialogSaveButtonIcon, "fa-solid fa-floppy-disk" },
+            { ComponentIcons.DialogMaxminzeWindowIcon, "fa-regular fa-window-maximize" },
+            { ComponentIcons.DialogRestoreWindowIcon, "fa-regular fa-window-restore" },
 
             { ComponentIcons.ResultDialogYesIcon, "fa-solid fa-check" },
             { ComponentIcons.ResultDialogNoIcon, "fa-regular fa-circle-xmark" },
             { ComponentIcons.ResultDialogCloseIcon, "fa-regular fa-circle-xmark" },
+
+            { ComponentIcons.SearchDialogClearIcon, "fa-regular fa-trash-can" },
+            { ComponentIcons.SearchDialogSearchIcon, "fa-solid fa-magnifying-glass" },
 
             { ComponentIcons.LoadingIcon, "fa-solid fa-fw fa-spin fa-spinner" },
 
@@ -61,8 +66,8 @@ internal class DefaultIconTheme : IIconTheme
             { ComponentIcons.TableExportButtonIcon, "fa-solid fa-download" },
 
             { ComponentIcons.SearchClearButtonIcon, "fa-regular fa-trash-can" },
-            { ComponentIcons.SearchButtonIcon, "fa-fw fa-solid fa-magnifying-glass" },
-            { ComponentIcons.SearchButtonLoadingIcon, "fa-solid fa-fw fa-spin fa-spinner" }
+            { ComponentIcons.SearchButtonIcon, "fa-solid fa-magnifying-glass" },
+            { ComponentIcons.SearchButtonLoadingIcon, "fa-solid fa-spin fa-spinner" }
         };
     }
 
