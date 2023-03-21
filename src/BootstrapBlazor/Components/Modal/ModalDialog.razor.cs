@@ -196,14 +196,14 @@ public partial class ModalDialog : IHandlerException, IDisposable
     /// </summary>
     [Parameter]
     [NotNull]
-    public string? MaximizeIcon { get; set; }
+    public string? MaximizeWindowIcon { get; set; }
 
     /// <summary>
     /// 获得/设置 恢复按钮图标
     /// </summary>
     [Parameter]
     [NotNull]
-    public string? RestoreIcon { get; set; }
+    public string? RestoreWindowIcon { get; set; }
 
     /// <summary>
     /// 获得/设置 保存按钮图标
@@ -252,11 +252,11 @@ public partial class ModalDialog : IHandlerException, IDisposable
         PrintButtonText ??= Localizer[nameof(PrintButtonText)];
 
         CloseButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.DialogCloseButtonIcon);
-        MaximizeIcon ??= IconTheme.GetIconByKey(ComponentIcons.DialogMaxminzeIcon);
+        MaximizeWindowIcon ??= IconTheme.GetIconByKey(ComponentIcons.DialogMaxminzeWindowIcon);
         SaveIcon ??= IconTheme.GetIconByKey(ComponentIcons.DialogSaveButtonIcon);
-        RestoreIcon ??= IconTheme.GetIconByKey(ComponentIcons.DialogRestoreButtonIcon);
+        RestoreWindowIcon ??= IconTheme.GetIconByKey(ComponentIcons.DialogRestoreWindowIcon);
 
-        MaximizeIconString = MaximizeIcon;
+        MaximizeIconString = MaximizeWindowIcon;
     }
 
     /// <summary>
@@ -276,7 +276,7 @@ public partial class ModalDialog : IHandlerException, IDisposable
     private void OnToggleMaximize()
     {
         MaximizeStatus = !MaximizeStatus;
-        MaximizeIconString = MaximizeStatus ? RestoreIcon : MaximizeIcon;
+        MaximizeIconString = MaximizeStatus ? RestoreWindowIcon : MaximizeWindowIcon;
     }
 
     private async Task OnClickSave()

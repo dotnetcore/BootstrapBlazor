@@ -42,10 +42,6 @@
                 @if (ShowFooter)
                 {
                     <div class="modal-footer">
-                        @if (FooterTemplate != null)
-                        {
-                            @FooterTemplate
-                        }
                         @if (ShowCloseButton)
                         {
                             <DialogCloseButton Text="@CloseButtonText" Icon="@CloseButtonIcon" />
@@ -57,6 +53,10 @@
                         @if (ShowSaveButton)
                         {
                             <Button Color="Color.Primary" Text="@SaveButtonText" Icon="@SaveIcon" OnClickWithoutRender="OnClickSave" />
+                        }
+                        @if (FooterTemplate != null)
+                        {
+                            @FooterTemplate
                         }
                     </div>
                 }
