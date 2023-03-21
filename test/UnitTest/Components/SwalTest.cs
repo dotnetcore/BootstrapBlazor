@@ -278,7 +278,7 @@ public class SwalTest : SwalTestBase
         // 弹窗显示
         cut.Contains("I am auto hide");
         var alert = cut.FindComponent<SweetAlert>();
-        _ = alert.Instance.DisposeAsync();
+        cut.InvokeAsync(async () => await alert.Instance.DisposeAsync());
     }
 
     private class MockSwalTest : ComponentBase

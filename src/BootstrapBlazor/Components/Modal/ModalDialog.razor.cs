@@ -192,6 +192,27 @@ public partial class ModalDialog : IHandlerException, IDisposable
     public string? SaveButtonText { get; set; }
 
     /// <summary>
+    /// 获得/设置 最大化按钮图标
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public string? MaximizeWindowIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 恢复按钮图标
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public string? RestoreWindowIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 保存按钮图标
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public string? SaveIcon { get; set; }
+
+    /// <summary>
     /// 获得/设置 弹窗容器实例
     /// </summary>
     [CascadingParameter]
@@ -201,6 +222,12 @@ public partial class ModalDialog : IHandlerException, IDisposable
     [Inject]
     [NotNull]
     private IStringLocalizer<ModalDialog>? Localizer { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IIconTheme? IconTheme { get; set; }
+
+    private string? MaximizeIconString { get; set; }
 
     /// <summary>
     /// OnInitialized 方法
@@ -224,7 +251,12 @@ public partial class ModalDialog : IHandlerException, IDisposable
         SaveButtonText ??= Localizer[nameof(SaveButtonText)];
         PrintButtonText ??= Localizer[nameof(PrintButtonText)];
 
-        CloseButtonIcon ??= "fa-solid fa-fw fa-xmark";
+        CloseButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.DialogCloseButtonIcon);
+        MaximizeWindowIcon ??= IconTheme.GetIconByKey(ComponentIcons.DialogMaxminzeWindowIcon);
+        SaveIcon ??= IconTheme.GetIconByKey(ComponentIcons.DialogSaveButtonIcon);
+        RestoreWindowIcon ??= IconTheme.GetIconByKey(ComponentIcons.DialogRestoreWindowIcon);
+
+        MaximizeIconString = MaximizeWindowIcon;
     }
 
     /// <summary>
@@ -241,12 +273,10 @@ public partial class ModalDialog : IHandlerException, IDisposable
 
     private bool MaximizeStatus { get; set; }
 
-    private string MaximizeIcon { get; set; } = "fa-regular fa-window-maximize";
-
     private void OnToggleMaximize()
     {
         MaximizeStatus = !MaximizeStatus;
-        MaximizeIcon = MaximizeStatus ? "fa-regular fa-window-restore" : "fa-regular fa-window-maximize";
+        MaximizeIconString = MaximizeStatus ? RestoreWindowIcon : MaximizeWindowIcon;
     }
 
     private async Task OnClickSave()

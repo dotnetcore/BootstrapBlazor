@@ -125,6 +125,16 @@ public enum ComponentIcons
     DialogSaveButtonIcon,
 
     /// <summary>
+    /// Dialog 组件 MaxminzeIcon 属性图标
+    /// </summary>
+    DialogMaxminzeWindowIcon,
+
+    /// <summary>
+    /// Dialog 组件 MaxminzeIcon 属性图标
+    /// </summary>
+    DialogRestoreWindowIcon,
+
+    /// <summary>
     /// ResultDialog 组件 YesIcon 属性图标
     /// </summary>
     ResultDialogYesIcon,
@@ -138,6 +148,16 @@ public enum ComponentIcons
     /// ResultDialog 组件 CloseIcon 属性图标
     /// </summary>
     ResultDialogCloseIcon,
+
+    /// <summary>
+    /// SearchDialog 组件 ClearIcon 属性图标
+    /// </summary>
+    SearchDialogClearIcon,
+
+    /// <summary>
+    /// SearchDialog 组件 SearchIcon 属性图标
+    /// </summary>
+    SearchDialogSearchIcon,
 
     /// <summary>
     /// TimePickerCell 组件 UpIcon 属性图标
@@ -158,6 +178,16 @@ public enum ComponentIcons
     /// DateTimeRange 组件 ClearIcon 属性图标
     /// </summary>
     DateTimeRangeClearIcon,
+
+    /// <summary>
+    /// FilterButton 组件 FilterIcon 图标
+    /// </summary>
+    FilterButtonFilterIcon,
+
+    /// <summary>
+    /// FilterButton 组件 ClearIcon 图标
+    /// </summary>
+    FilterButtonClearIcon,
 
     /// <summary>
     /// Button 组件 LoadingIcon 图标
@@ -212,5 +242,10 @@ public enum ComponentIcons
     /// <summary>
     /// Search 组件 SearchButtonLoadingIcon 属性图标
     /// </summary>
-    SearchButtonLoadingIcon
+    SearchButtonLoadingIcon,
+
+    /// <summary>
+    /// Print 组件 ButtonIcon 属性图标
+    /// </summary>
+    PrintButtonIcon
 }
