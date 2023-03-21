@@ -1,6 +1,7 @@
 ﻿(function ($) {
     window.chartOption = {
         options: {
+            borderWidth:3,
             responsive: true,
             maintainAspectRatio: true,
             aspectRatio: 2,

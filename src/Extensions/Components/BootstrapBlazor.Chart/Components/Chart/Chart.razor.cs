@@ -85,6 +85,12 @@ public partial class Chart : BootstrapComponentBase, IDisposable
     public int Angle { get; set; }
 
     /// <summary>
+    /// 获得/设置 Line 折线图线的宽度
+    /// </summary>
+    [Parameter]
+    public double BorderWidth { get; set; } = 3;
+
+    /// <summary>
     /// 获得/设置 正在加载文本
     /// </summary>
     [Parameter]
@@ -159,6 +165,7 @@ public partial class Chart : BootstrapComponentBase, IDisposable
             ds.Options.MaintainAspectRatio = ds.Options.MaintainAspectRatio ?? MaintainAspectRatio;
             ds.Options.AspectRatio = ds.Options.AspectRatio ?? AspectRatio;
             ds.Options.ResizeDelay = ds.Options.ResizeDelay ?? ResizeDelay;
+            ds.Options.BorderWidth ??= BorderWidth;
             if (Height != null && Width != null)
             {
                 //设置了高度和宽度,会自动禁用约束图表比例,图表充满容器
