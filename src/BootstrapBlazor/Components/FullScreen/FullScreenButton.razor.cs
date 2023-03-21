@@ -19,6 +19,10 @@ public partial class FullScreenButton
     [NotNull]
     private FullScreenService? FullScrenService { get; set; }
 
+    [Inject]
+    [NotNull]
+    private IIconTheme? IconTheme { get; set; }
+
     private string? ClassString => CssBuilder.Default("btn btn-fs")
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
@@ -33,13 +37,13 @@ public partial class FullScreenButton
         .Build();
 
     /// <summary>
-    /// OnInitialized 方法
+    /// <inheritdoc/>
     /// </summary>
-    protected override void OnInitialized()
+    protected override void OnParametersSet()
     {
-        base.OnInitialized();
+        base.OnParametersSet();
 
-        Icon ??= "fa-solid fa-maximize";
+        Icon ??= IconTheme.GetIconByKey(ComponentIcons.FullScreenButtonIcon);
     }
 
     private Task ToggleFullScreen() => FullScrenService.Toggle();

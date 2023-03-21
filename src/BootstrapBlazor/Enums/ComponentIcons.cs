@@ -255,6 +255,11 @@ public enum ComponentIcons
     SearchButtonLoadingIcon,
 
     /// <summary>
+    /// FullScreenButton 组件 Icon 属性图标
+    /// </summary>
+    FullScreenButtonIcon,
+
+    /// <summary>
     /// Print 组件 ButtonIcon 属性图标
     /// </summary>
     PrintButtonIcon
