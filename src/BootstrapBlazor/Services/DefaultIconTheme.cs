@@ -60,6 +60,8 @@ internal class DefaultIconTheme : IIconTheme
             { ComponentIcons.TableFilterPlusIcon, "fa-solid fa-plus" },
             { ComponentIcons.TableFilterMinusIcon, "fa-solid fa-minus" },
 
+            { ComponentIcons.FullScreenButtonIcon, "fa-solid fa-maximize" },
+
             { ComponentIcons.LoadingIcon, "fa-solid fa-fw fa-spin fa-spinner" },
 
             { ComponentIcons.PopConfirmButtonConfirmIcon, "fa-solid fa-circle-exclamation text-info" },
