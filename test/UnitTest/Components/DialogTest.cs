@@ -328,8 +328,9 @@ public class DialogTest : DialogTestBase
         cut.InvokeAsync(() => btnElement.Click());
         cut.InvokeAsync(() => modal.Instance.CloseCallback());
 
+        // 点击 FooterTemplate 中的 关闭 按钮
         cut.InvokeAsync(() => dialog.ShowModal<MockModalDialogClosingFalse>(resultOption));
-        button = cut.FindComponents<Button>().First(b => b.Instance.Text == "关闭");
+        button = cut.FindComponents<Button>().Last(b => b.Instance.Text == "关闭");
         cut.InvokeAsync(() => button.Instance.OnClick.InvokeAsync());
         cut.InvokeAsync(() => modal.Instance.CloseCallback());
         #endregion
