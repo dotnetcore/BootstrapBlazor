@@ -67,7 +67,9 @@ internal class DefaultIconTheme : IIconTheme
 
             { ComponentIcons.SearchClearButtonIcon, "fa-regular fa-trash-can" },
             { ComponentIcons.SearchButtonIcon, "fa-solid fa-magnifying-glass" },
-            { ComponentIcons.SearchButtonLoadingIcon, "fa-solid fa-spin fa-spinner" }
+            { ComponentIcons.SearchButtonLoadingIcon, "fa-solid fa-fw fa-spin fa-spinner" },
+
+            { ComponentIcons.PrintButtonIcon, "fa-solid fa-fw fa-print" }
         };
     }
 
