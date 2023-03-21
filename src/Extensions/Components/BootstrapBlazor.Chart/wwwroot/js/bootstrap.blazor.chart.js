@@ -57,6 +57,7 @@
             for (var name in option.options.colors) colors.push(name);
 
             var config = {};
+            var scale = {};
             var colorFunc = null;
             if (option.type === 'line') {
                 if ($.isArray(option.data)) {
@@ -151,6 +152,41 @@
                 colorFunc(this);
             });
 
+            scale = {
+                x: {
+                    title: {
+                        display: option.options.x.title != null,
+                        text: option.options.x.title
+                    },
+                    stacked: option.options.x.stacked
+                },
+                y: {
+                    title: {
+                        display: option.options.y.title != null,
+                        text: option.options.y.title
+                    },
+                    stacked: option.options.x.stacked,
+                    position: option.options.y.position
+                }
+            };
+
+            if (option.options.y2.title != null) {
+                scale.y2 = {
+                    title: {
+                        display: option.options.y2.title != null,
+                        text: option.options.y2.title
+                    },
+                    stacked: option.options.x.stacked,
+                    position: option.options.y2.position,
+                    ticks: {
+                        max: option.options.y2.TicksMax,
+                        min: option.options.y2.TicksMin
+                    }
+                };
+            }
+
+            console.log(scale);
+
             return $.extend(true, config, {
                 type: option.type,
                 data: {
@@ -168,23 +204,7 @@
                             text: option.options.title
                         }
                     },
-                    scales: {
-                        x: {
-                            title: {
-                                display: option.options.x.title != null,
-                                text: option.options.x.title
-                            },
-                            stacked: option.options.x.stacked
-                        },
-                        y: {
-                            title: {
-                                display: option.options.y.title != null,
-                                text: option.options.y.title
-                            },
-                            stacked: option.options.x.stacked
-                        }
-                    }
-
+                    scales: scale
                 }
             });
         },
@@ -244,6 +264,7 @@
             var chart = $el.data('chart');
             if (!chart) {
                 var op = $.getChartOption(option);
+                console.log(op);
                 $el.data('chart', chart = new Chart(el.getElementsByTagName('canvas'), op));
                 if (option.options.height !== null) {
                     chart.canvas.parentNode.style.height = option.options.height;

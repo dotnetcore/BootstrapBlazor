@@ -22,10 +22,16 @@ public class ChartOptions
     public ChartAxes X { get; } = new ChartAxes();
 
     /// <summary>
-    /// 获得 X 坐标轴实例集合
+    /// 获得 Y 坐标轴实例集合
     /// </summary>
 
     public ChartAxes Y { get; } = new ChartAxes();
+
+    /// <summary>
+    /// 获得 Y2 坐标轴实例集合
+    /// </summary>
+
+    public ChartAxes Y2 { get; } = new ChartAxes();
 
     /// <summary>
     /// 获得/设置 图表所在canvas是否随其容器大小变化而变化 默认为 true
