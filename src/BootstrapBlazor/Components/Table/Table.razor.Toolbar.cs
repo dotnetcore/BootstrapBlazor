@@ -148,6 +148,12 @@ public partial class Table<TItem>
     public bool FixedMultipleColumn { get; set; }
 
     /// <summary>
+    /// 获得/设置 是否固定明细行 Header 列 默认为 false 不固定
+    /// </summary>
+    [Parameter]
+    public bool FixedDetailRowHeader { get; set; }
+
+    /// <summary>
     /// 获得/设置 是否显示刷新按钮 默认为 true
     /// </summary>
     [Parameter]

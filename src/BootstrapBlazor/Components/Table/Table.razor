@@ -176,7 +176,7 @@
                         @RenderTable(false)
                     </div>
                 }
-                else if (FixedMultipleColumn || FixedExtendButtonsColumn || Columns.Any(col => col.Fixed))
+                else if (FixedDetailRowHeader || FixedMultipleColumn || FixedExtendButtonsColumn || Columns.Any(col => col.Fixed))
                 {
                     <div class="overflow-auto">
                         @RenderTable(true)
@@ -433,7 +433,7 @@ RenderFragment<bool> RenderHeader => hasScroll =>
         <tr>
             @if (ShowDetails())
             {
-                <th>
+                <th class="@DetailColumnClassString" style="@DetailColumnStyleString">
                     <div class="table-cell">&nbsp;</div>
                 </th>
             }
@@ -585,7 +585,7 @@ RenderFragment<TItem> RenderRow => item =>
                  TriggerDoubleClick="@(DoubleClickToEdit || OnDoubleClickRowCallback != null)" OnDoubleClick="() => DoubleClickRow(item)">
     @if (ShowDetails())
     {
-        <td>
+        <td class="@DetailColumnClassString" style="@DetailColumnStyleString">
             <div class="@GetDetailBarClassString(item)">
                 @if (ShowDetailRow == null || ShowDetailRow.Invoke(item))
                 {

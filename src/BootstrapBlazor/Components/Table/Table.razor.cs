@@ -56,7 +56,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         .AddClass("is-clickable", ClickToSelect || DoubleClickToEdit || OnClickRowCallback != null || OnDoubleClickRowCallback != null)
         .AddClass("table-scroll", !IsFixedHeader)
         .AddClass("table-fixed", IsFixedHeader)
-        .AddClass("table-fixed-column", Columns.Any(c => c.Fixed) || FixedExtendButtonsColumn)
+        .AddClass("table-fixed-column", Columns.Any(c => c.Fixed) || FixedExtendButtonsColumn || FixedMultipleColumn || FixedDetailRowHeader)
         .AddClass("table-resize", AllowResizing)
         .AddClass("table-fixed-body", RenderMode == TableRenderMode.CardView && IsFixedHeader)
         .AddClass("table-striped table-hover", ActiveRenderMode == TableRenderMode.CardView && IsStriped)
