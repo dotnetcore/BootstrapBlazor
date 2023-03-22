@@ -38,6 +38,6 @@
     }
 
         ::deep .scroll .menu {
-            width: var(--bs-sidebar-width);
+            width: var(--bb-sidebar-width);
         }
 }

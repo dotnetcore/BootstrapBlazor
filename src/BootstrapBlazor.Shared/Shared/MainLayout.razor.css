@@ -2,6 +2,10 @@
     padding: 1rem;
 }
 
+.section {
+    --bb-sidebar-width: 0;
+}
+
 .sidebar-title {
     height: 50px;
     align-items: center;
@@ -71,8 +75,13 @@
         --ad-margin-bottom: 0;
     }
 
+::deep .table-fix-column-demo {
+    width: calc(100vw - var(--bb-sidebar-width) - 83px);
+}
+
 @media (min-width: 768px) {
     .section {
+        --bb-sidebar-width: 300px;
         display: flex;
         flex-direction: row;
         -webkit-font-smoothing: antialiased;
@@ -83,7 +92,7 @@
     }
 
     .sidebar {
-        width: var(--bs-sidebar-width);
+        width: var(--bb-sidebar-width);
         height: calc(100vh);
         position: sticky;
         top: 0;
