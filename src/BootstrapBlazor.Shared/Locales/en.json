@@ -97,16 +97,16 @@
   "BootstrapBlazor.Shared.Samples.Table.TablesFixedColumn": {
     "TablesFixedColumnTitle": "Fixed column",
     "TablesFixedColumnDescription": "For data with a large number of columns, you can fix the front and rear columns and scroll horizontally to view other data",
-    "TablesFixedColumnNote": "For fixed column usage, please set the fixed column width as much as possible. If it is not set, set it according to the default value of <code>200</code>",
+    "TablesFixedColumnNote": "For fixed column usage, please set the fixed column width as much as possible",
     "TablesFixedColHeaderTitle": "Fixed column header and column footer",
     "TablesFixedColHeaderIntro": "Set the <code>Fixed</code> attribute to fix the header",
     "TablesFixedColHeaderDescription": "In this example, set <code>Name</code> <code>DateTime</code> <code>Complete</code> The first two columns and the last column are fixed columns, and the middle columns are scrolled horizontally",
     "TablesFixedColTableHeaderTitle": "Fixed headers and columns",
-    "TablesFixedColTableHeaderIntro": "Set <code>Height=200</code> to fix the header, set <code>Fixed</code> to fix the column",
+    "TablesFixedColTableHeaderIntro": "Set <code>IsFixedHeader=\"true\"</code> to fix the header, set <code>Fixed</code> to fix the column",
     "TablesFixedExtendButtonsColumnTtile": "Fixed button action column",
     "TablesFixedExtendButtonsColumnIntro": "Set <code>FixedExtendButtonsColumn</code> to fix the action column",
     "TablesFixedHeaderAndExtendButtonsColumnTitle": "Fixed header and button action columns",
-    "TablesFixedHeaderAndExtendButtonsColumnIntro": "Set <code>Height=200</code> to fix the header, set <code>FixedExtendButtonsColumn</code> to fix the operation column"
+    "TablesFixedHeaderAndExtendButtonsColumnIntro": "Set <code>IsFixedHeader=\"true\"</code> to fix the header, set <code>FixedMultipleColumn</code> to fix the checkbox column, set <code>FixedExtendButtonsColumn</code> to fix the operation column"
   },
   "BootstrapBlazor.Shared.Samples.Tooltips": {
     "TooltipsTitle": "Tooltip",
