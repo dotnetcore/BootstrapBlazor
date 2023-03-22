@@ -14,6 +14,12 @@ public sealed partial class GoTop
     private ElementReference GoTopElement { get; set; }
 
     /// <summary>
+    /// 获得/设置 返回顶端 Icon 属性
+    /// </summary>
+    [Parameter]
+    public string? Icon { get; set; }
+
+    /// <summary>
     /// 获得/设置 滚动条所在组件
     /// </summary>
     [Parameter]
@@ -30,14 +36,19 @@ public sealed partial class GoTop
     [NotNull]
     private IStringLocalizer<GoTop>? Localizer { get; set; }
 
+    [Inject]
+    [NotNull]
+    private IIconTheme? IconTheme { get; set; }
+
     /// <summary>
-    /// OnInitialized 方法
+    /// <inheritdoc/>
     /// </summary>
-    protected override void OnInitialized()
+    protected override void OnParametersSet()
     {
-        base.OnInitialized();
+        base.OnParametersSet();
 
         TooltipText ??= Localizer[nameof(TooltipText)];
+        Icon ??= IconTheme.GetIconByKey(ComponentIcons.GoTopIcon);
     }
 
     /// <summary>

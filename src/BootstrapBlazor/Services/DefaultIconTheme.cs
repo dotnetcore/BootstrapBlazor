@@ -64,6 +64,8 @@ internal class DefaultIconTheme : IIconTheme
 
             { ComponentIcons.LoadingIcon, "fa-solid fa-fw fa-spin fa-spinner" },
 
+            { ComponentIcons.GoTopIcon, "fa-solid fa-angle-up" },
+
             { ComponentIcons.PopConfirmButtonConfirmIcon, "fa-solid fa-circle-exclamation text-info" },
             { ComponentIcons.PopConfirmButtonContentIcon, "fa-solid fa-exclamation-circle text-info" },
 

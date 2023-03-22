@@ -205,6 +205,11 @@ public enum ComponentIcons
     LoadingIcon,
 
     /// <summary>
+    /// GoTop 组件 Icon 图标
+    /// </summary>
+    GoTopIcon,
+
+    /// <summary>
     /// PopConfirmButton 组件 ConfirmIcon 图标
     /// </summary>
     PopConfirmButtonConfirmIcon,
