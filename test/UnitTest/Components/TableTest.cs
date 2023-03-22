@@ -1369,6 +1369,39 @@ public class TableTest : TableTestBase
     }
 
     [Fact]
+    public void Column_IsFixedDetailColumn()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.Items, Foo.GenerateFoo(localizer, 2));
+                pb.Add(a => a.IsMultipleSelect, true);
+                pb.Add(a => a.FixedMultipleColumn, true);
+                pb.Add(a => a.ShowLineNo, true);
+                pb.Add(a => a.FixedDetailRowHeaderColumn, true);
+                pb.Add(a => a.LineNoColumnWidth, 100);
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", foo.Name);
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.AddAttribute(3, nameof(TableColumn<Foo, string>.Fixed), true);
+                    builder.CloseComponent();
+                });
+                pb.Add(a => a.DetailColumnWidth, 100);
+                pb.Add(a => a.DetailRowTemplate, foo => builder =>
+                {
+                    builder.AddContent(1, foo.Name);
+                });
+            });
+        });
+        cut.Contains("style=\"left: 0;\"");
+    }
+
+    [Fact]
     public void ColumnFixed_Null()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
