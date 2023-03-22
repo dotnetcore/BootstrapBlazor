@@ -2,6 +2,9 @@
 
 <h3>@Localizer["Header"]</h3>
 <h4>@Localizer["Tip"]</h4>
+<p>@((MarkupString)Localizer["MarkdownsNote"].Value)</p>
+
+<Pre class="no-highlight">builder.Services.Configure&lt;HubOptions&gt;(option => option.MaximumReceiveMessageSize = null);</Pre>
 
 <DemoBlock Title="@Localizer["NormalTitle"]" Introduction="@Localizer["NormalIntro"]" Name="Normal" Demo="typeof(Demos.CherryMarkdown.CherryMarkdownNormal)" />
 

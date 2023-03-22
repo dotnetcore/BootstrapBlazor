@@ -6,6 +6,10 @@
 
 <h4>@Localizer["UploadsSubTitle"]</h4>
 
+<p>@((MarkupString)Localizer["UploadsNote"].Value)</p>
+
+<Pre class="no-highlight">builder.Services.Configure&lt;HubOptions&gt;(option => option.MaximumReceiveMessageSize = null);</Pre>
+
 <DemoBlock Title="@Localizer["UploadNormalTitle"]"
            Introduction="@Localizer["UploadNormalIntro"]"
            Name="Normal"

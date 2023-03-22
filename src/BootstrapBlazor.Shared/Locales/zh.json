@@ -2489,6 +2489,7 @@
   "BootstrapBlazor.Shared.Samples.CherryMarkdowns": {
     "Header": "CherryMarkdown",
     "Tip": "基于 CherryMarkdown 的富文本框组件",
+    "MarkdownsNote": "如果编辑内容过多，可能会触发 <code>signalR</code> 通讯中断问题，请自行调整 <code>HubOptions</code> 配置即可。",
     "NormalTitle": "基础用法",
     "NormalIntro": "使用双向绑定获取对应的 <code>html</code> 和 <code>markdown</code> 内容",
     "FileUploadTitle": "自行处理文件上传事件",
@@ -2699,7 +2700,7 @@
   "BootstrapBlazor.Shared.Samples.Editors": {
     "EditorsTitle": "Editor 富文本框",
     "EditorsDescription": "将输入的文字转化为 <code>html</code> 代码片段",
-    "EditorsTips": "<code>Editor</code> 组件是对 <a href='https://summernote.org/' target='_blank'><code>Summernote 组件</code></a> 的二次封装，如需使用本地化功能请自行官网下载相对应语言包，自行引用即可，<code>zh-CN</code> <code>en-US</code> 已内置；组件所需 <code>css</code> <code>javascript</code> 均按需动态加载，使用者无需设置",
+    "EditorsTips": "<code>Editor</code> 组件是对 <a href='https://summernote.org/' target='_blank'><code>Summernote 组件</code></a> 的二次封装，如需使用本地化功能请自行官网下载相对应语言包，自行引用即可，<code>zh-CN</code> <code>en-US</code> 已内置；组件所需 <code>css</code> <code>javascript</code> 均按需动态加载，使用者无需设置，如果编辑内容过多，可能会触发 <code>signalR</code> 通讯中断问题，请自行调整 <code>HubOptions</code> 配置即可。",
     "EditorNormalTitle": "基础用法",
     "EditorNormalIntro": "默认呈现为 <code>div</code> 点击后变为富文本编辑框",
     "PEditorNormalDescrption": "通过设置 <code>IsEditor</code> 属性值来控制组件默认是 <code>div</code> 还是 <code>editor</code>",
@@ -3046,6 +3047,7 @@
   "BootstrapBlazor.Shared.Samples.Markdowns": {
     "MarkdownsTitle": "Markdown 编辑器",
     "MarkdownsDescription": "提供 Markdown 语法支持的文本编辑器",
+    "MarkdownsNote": "如果编辑内容过多，可能会触发 <code>signalR</code> 通讯中断问题，请自行调整 <code>HubOptions</code> 配置即可。",
     "MarkdownsCss": "CSS 文件",
     "MarkdownsCssText": "无需设置组件自动动态加载",
     "MarkdownsJs": "JS 文件",
@@ -3511,6 +3513,7 @@
   "BootstrapBlazor.Shared.Samples.Uploads": {
     "UploadsTitle": "Upload 上传",
     "UploadsSubTitle": "通过点击上传文件",
+    "UploadsNote": "如果上传文件过大，可能会触发 <code>signalR</code> 通讯中断问题，请自行调整 <code>HubOptions</code> 配置即可。",
     "UploadNormalTitle": "基础用法",
     "UploadNormalIntro": "<code>InputUpload</code> 组件与其他表单组件一起使用，显示文件名称，点击 <b>浏览</b> 按钮后选择文件并上传；通过设置 <code>ShowRemoveButton</code> 参数，显示 <b>删除</b> 按钮，点击删除按钮时回调 <code>OnDelete</code> 委托方法",
     "UploadNormalLabelName": "姓名:",
@@ -6022,11 +6025,11 @@
     "CustomButtonText": "自定义按钮文本",
     "CustomButtonIntro": "自定义按钮文本",
     "ResponsiveInterfaceText": "响应式签名界面",
-    "ResultBase64Text": "签名Base64",
+    "ResultBase64Text": "签名 Base64",
     "ResultText": "您的签名",
     "SignText": "请签名",
-    "Tips": "复杂签名会导致传输数据量大ssr会出现断流显示reload错误,配置更改单个传入集线器消息的最大大小(默认32KB)解决这个问题. <code> builder.Services.AddServerSideBlazor().AddHubOptions(o => o.MaximumReceiveMessageSize = null); </code> ",
-    "TipsResponsive": "设备宽度小于 640px (例如手机) 自动置顶无边框, 宽度小于 500px 按钮自动旋转. 可选透明背景.",
+    "Tips": "复杂签名会导致传输数据量大 ssr 会出现断流显示 reload 错误,配置更改单个传入集线器消息的最大大小(默认 32KB)解决这个问题。<code>builder.Services.AddServerSideBlazor().AddHubOptions(o => o.MaximumReceiveMessageSize = null);</code>",
+    "TipsResponsive": "设备宽度小于 640px (例如手机) 自动置顶无边框, 宽度小于 500px 按钮自动旋转. 可选透明背景。",
     "Title": "SignaturePad 手写签名",
     "SignatureText": "签名",
     "CleanText": "清除"

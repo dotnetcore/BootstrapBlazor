@@ -2479,6 +2479,7 @@
   "BootstrapBlazor.Shared.Samples.CherryMarkdowns": {
     "Header": "CherryMarkdown",
     "Tip": "Rich text box component based on CherryMarkdown",
+    "MarkdownsNote": "If you edit too much content, <code>signalR</code> communication interruption may be triggered. Please adjust the <code>HubOptions</code> configuration.",
     "NormalTitle": "Basic usage",
     "NormalIntro": "Use two-way binding to get the corresponding <code>html</code> and <code>markdown</code> content",
     "FileUploadTitle": "Handle file upload events yourself",
@@ -2689,7 +2690,7 @@
   "BootstrapBlazor.Shared.Samples.Editors": {
     "EditorsTitle": "Editor",
     "EditorsDescription": "Convert the entered text into <code>html</code> code snippets",
-    "EditorsTips": "The <code>Editor</code> component is a secondary package of <a href='https://summernote.org/' target='_blank'><code>Summernote component</code></a>, such as If you need to use the localization function, please download the corresponding language pack from the official website and quote it by yourself. <code>zh-CN</code> <code>en-US</code> has been built in；the required <code>css</code> <code>javascript</code> dynamically loaded on demand",
+    "EditorsTips": "The <code>Editor</code> component is a secondary package of <a href='https://summernote.org/' target='_blank'><code>Summernote component</code></a>, such as If you need to use the localization function, please download the corresponding language pack from the official website and quote it by yourself. <code>zh-CN</code> <code>en-US</code> has been built in；the required <code>css</code> <code>javascript</code> dynamically loaded on demand. If you edit too much content, <code>signalR</code> communication interruption may be triggered. Please adjust the <code>HubOptions</code> configuration.",
     "EditorNormalTitle": "Basic usage",
     "EditorNormalIntro": "The default rendering is <code>div</code> and it becomes a rich text edit box when clicked",
     "PEditorNormalDescrption": "Set the <code>IsEditor</code> attribute value to control whether the component defaults to <code>div</code> or <code>editor</code>",
@@ -3036,6 +3037,7 @@
   "BootstrapBlazor.Shared.Samples.Markdowns": {
     "MarkdownsTitle": "Markdown",
     "MarkdownsDescription": "A text editor that provides support for the Markdown syntax",
+    "MarkdownsNote": "If you edit too much content, <code>signalR</code> communication interruption may be triggered. Please adjust the <code>HubOptions</code> configuration.",
     "MarkdownsCss": "CSS file",
     "MarkdownsCssText": "dynamic import css",
     "MarkdownsJs": "JS file",
@@ -3498,6 +3500,7 @@
   "BootstrapBlazor.Shared.Samples.Uploads": {
     "UploadsTitle": "Upload",
     "UploadsSubTitle": "Upload the file by clicking",
+    "UploadsNote": "If you edit too much content, <code>signalR</code> communication interruption may be triggered. Please adjust the <code>HubOptions</code> configuration.",
     "UploadNormalTitle": "Basic usage",
     "UploadNormalIntro": "The <code>InputUpload</code> component is used with other form components to display the file name, select the file and upload it by clicking the <b>browse button</b>, and by setting the <code>ShowRemoveButton</code> parameter, display the <b>delete button</b>, click the delete button to call back <code>onDelete</code> delegate method",
     "UploadNormalLabelName": "Name:",
