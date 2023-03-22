@@ -121,13 +121,13 @@ public partial class Table<TItem>
         .Build();
 
     private string? DetailColumnClassString => CssBuilder.Default()
-        .AddClass("fixed", FixedDetailRowHeader)
+        .AddClass("fixed", FixedDetailRowHeaderColumn)
         .AddClass("fr", IsLastDetailColumn())
         .Build();
 
     private int MulitiColumnLeft => ShowDetails() ? DetailColumnWidth : 0;
 
-    private string? DetailColumnStyleString => FixedDetailRowHeader ? "left: 0;" : null;
+    private string? DetailColumnStyleString => FixedDetailRowHeaderColumn ? "left: 0;" : null;
 
     private string? MultiColumnStyleString => FixedMultipleColumn ? $"left: {MulitiColumnLeft}px;" : null;
 
