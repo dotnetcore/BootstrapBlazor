@@ -1,14 +1,12 @@
 ﻿@inject IStringLocalizer<Foo> FooLocalizer
 
-<div>
-    <Table TItem="Foo" Items="@Items.Take(10)" RenderMode="TableRenderMode.Table" IsBordered="true" IsMultipleSelect="true" Height="200" IsFixedHeader="true">
-        <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" Width="180" />
-            <TableColumn @bind-Field="@context.Name" Width="100" />
-            <TableColumn @bind-Field="@context.Address" Width="900" />
-        </TableColumns>
-    </Table>
-</div>
+<Table TItem="Foo" Items="@Items.Take(10)" RenderMode="TableRenderMode.Table" IsBordered="true" IsMultipleSelect="true" Height="200" IsFixedHeader="true" class="table-fix-column-demo">
+    <TableColumns>
+        <TableColumn @bind-Field="@context.DateTime" Width="180" />
+        <TableColumn @bind-Field="@context.Name" Width="100" />
+        <TableColumn @bind-Field="@context.Address" Width="900" />
+    </TableColumns>
+</Table>
 
 @code {
     /// <summary>

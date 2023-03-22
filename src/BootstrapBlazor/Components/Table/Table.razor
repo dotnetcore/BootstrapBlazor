@@ -168,23 +168,17 @@
                 {
                     <div class="table-fixed-header">
                         <table class="@TableClassName">
-                            @RenderColgroup.Invoke(true)
-                            @RenderHeader.Invoke(true)
+                            @RenderColgroup(true)
+                            @RenderHeader(true)
                         </table>
                     </div>
                     <div class="table-fixed-body scroll">
-                        @RenderTable.Invoke(false)
-                    </div>
-                }
-                else if (FixedMultipleColumn || FixedExtendButtonsColumn || Columns.Any(col => col.Fixed))
-                {
-                    <div class="overflow-auto">
-                        @RenderTable.Invoke(true)
+                        @RenderTable(false)
                     </div>
                 }
                 else
                 {
-                    @RenderTable.Invoke(true)
+                    @RenderTable(true)
                 }
             }
             else
@@ -281,7 +275,7 @@
         @RenderColgroup.Invoke(false)
         @if (hasHeader)
         {
-            @RenderHeader.Invoke(false)
+            @RenderHeader(false)
         }
         <tbody>
             @if (InsertRowMode == InsertRowMode.First)
@@ -433,7 +427,7 @@ RenderFragment<bool> RenderHeader => hasScroll =>
         <tr>
             @if (ShowDetails())
             {
-                <th>
+                <th class="@DetailColumnClassString" style="@DetailColumnStyleString">
                     <div class="table-cell">&nbsp;</div>
                 </th>
             }
@@ -585,7 +579,7 @@ RenderFragment<TItem> RenderRow => item =>
                  TriggerDoubleClick="@(DoubleClickToEdit || OnDoubleClickRowCallback != null)" OnDoubleClick="() => DoubleClickRow(item)">
     @if (ShowDetails())
     {
-        <td>
+        <td class="@DetailColumnClassString" style="@DetailColumnStyleString">
             <div class="@GetDetailBarClassString(item)">
                 @if (ShowDetailRow == null || ShowDetailRow.Invoke(item))
                 {

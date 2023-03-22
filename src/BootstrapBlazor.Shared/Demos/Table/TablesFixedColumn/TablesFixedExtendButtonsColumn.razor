@@ -1,24 +1,21 @@
 ﻿@inject IStringLocalizer<Foo> LocalizerFoo
 
-<div class="table-fix-column-demo">
-    <Table TItem="Foo"
-           Items="@Items.Take(4)"
-           IsBordered="true"
-           IsStriped="true"
-           RenderMode="TableRenderMode.Table"
-           ShowExtendButtons="true"
-           FixedExtendButtonsColumn="true"
-           class="table-fixed-column-demo">
-        <TableColumns>
-            <TableColumn @bind-Field="@context.Name" Width="100" />
-            <TableColumn @bind-Field="@context.DateTime" Width="180" />
-            <TableColumn @bind-Field="@context.Address" Width="900" />
-            <TableColumn @bind-Field="@context.Education" Width="100" />
-            <TableColumn @bind-Field="@context.Count" Width="100" />
-            <TableColumn @bind-Field="@context.Complete" Width="100" />
-        </TableColumns>
-    </Table>
-</div>
+<Table TItem="Foo"
+        Items="@Items.Take(4)"
+        IsBordered="true"
+        IsStriped="true"
+        RenderMode="TableRenderMode.Table"
+        ShowExtendButtons="true"
+        FixedExtendButtonsColumn="true" class="table-fix-column-demo">
+    <TableColumns>
+        <TableColumn @bind-Field="@context.Name" Width="100" />
+        <TableColumn @bind-Field="@context.DateTime" Width="180" />
+        <TableColumn @bind-Field="@context.Address" Width="900" />
+        <TableColumn @bind-Field="@context.Education" Width="100" />
+        <TableColumn @bind-Field="@context.Count" Width="100" />
+        <TableColumn @bind-Field="@context.Complete" Width="100" />
+    </TableColumns>
+</Table>
 
 @code {
     /// <summary>

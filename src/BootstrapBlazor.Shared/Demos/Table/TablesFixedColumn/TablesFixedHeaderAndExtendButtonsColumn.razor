@@ -1,51 +1,48 @@
 ﻿@inject IStringLocalizer<Foo> LocalizerFoo
 
-<div class="table-fix-column-demo">
-    <Table TItem="Foo"
-           Items="@Items.Take(10)"
-           IsBordered="true"
-           IsStriped="true"
-           IsMultipleSelect="true"
-           IsFixedHeader="true"
-           FixedExtendButtonsColumn="true"
-           Height="200"
-           FixedMultipleColumn="true"
-           ShowExtendButtons="true"
-           RenderMode="TableRenderMode.Table"
-           class="table-fixed-column-demo2">
-        <TableColumns>
-            <TableColumn @bind-Field="@context.Name" Width="100" />
-            <TableColumn @bind-Field="@context.DateTime" Width="180" />
-            <TableColumn @bind-Field="@context.Address" Width="900" />
-            <TableColumn @bind-Field="@context.Education" Width="100" />
-            <TableColumn @bind-Field="@context.Count" Width="100" />
-            <TableColumn @bind-Field="@context.Complete" Width="100" />
-        </TableColumns>
-    </Table>
+<Table TItem="Foo"
+        Items="@Items.Take(10)"
+        IsBordered="true"
+        IsStriped="true"
+        IsMultipleSelect="true"
+        IsFixedHeader="true"
+        FixedExtendButtonsColumn="true"
+        Height="200"
+        FixedMultipleColumn="true"
+        ShowExtendButtons="true"
+        RenderMode="TableRenderMode.Table" class="table-fix-column-demo">
+    <TableColumns>
+        <TableColumn @bind-Field="@context.Name" Width="100" />
+        <TableColumn @bind-Field="@context.DateTime" Width="180" />
+        <TableColumn @bind-Field="@context.Address" Width="900" />
+        <TableColumn @bind-Field="@context.Education" Width="100" />
+        <TableColumn @bind-Field="@context.Count" Width="100" />
+        <TableColumn @bind-Field="@context.Complete" Width="100" />
+    </TableColumns>
+</Table>
 
-    <Table TItem="Foo"
-           Items="@Items.Take(10)"
-           IsBordered="true"
-           IsStriped="true"
-           IsMultipleSelect="true"
-           IsFixedHeader="true"
-           FixedExtendButtonsColumn="true"
-           IsExtendButtonsInRowHeader="true"
-           FixedMultipleColumn="true"
-           ShowExtendButtons="true"
-           RenderMode="TableRenderMode.Table"
-           Height="200"
-           class="table-fixed-column-demo mt-3">
-        <TableColumns>
-            <TableColumn @bind-Field="@context.Name" Width="100" />
-            <TableColumn @bind-Field="@context.DateTime" Width="180" />
-            <TableColumn @bind-Field="@context.Address" Width="900" />
-            <TableColumn @bind-Field="@context.Education" Width="100" />
-            <TableColumn @bind-Field="@context.Count" Width="100" />
-            <TableColumn @bind-Field="@context.Complete" Width="100" />
-        </TableColumns>
-    </Table>
-</div>
+<Table TItem="Foo"
+        Items="@Items.Take(10)"
+        IsBordered="true"
+        IsStriped="true"
+        IsMultipleSelect="true"
+        IsFixedHeader="true"
+        FixedExtendButtonsColumn="true"
+        IsExtendButtonsInRowHeader="true"
+        FixedMultipleColumn="true"
+        ShowExtendButtons="true"
+        RenderMode="TableRenderMode.Table"
+        Height="200"
+        class="table-fix-column-demo mt-3">
+    <TableColumns>
+        <TableColumn @bind-Field="@context.Name" Width="100" />
+        <TableColumn @bind-Field="@context.DateTime" Width="180" />
+        <TableColumn @bind-Field="@context.Address" Width="900" />
+        <TableColumn @bind-Field="@context.Education" Width="100" />
+        <TableColumn @bind-Field="@context.Count" Width="100" />
+        <TableColumn @bind-Field="@context.Complete" Width="100" />
+    </TableColumns>
+</Table>
 
 @code {
     /// <summary>

@@ -41,6 +41,7 @@
         base.OnInitialized();
 
         Items = Foo.GenerateFoo(FooLocalizer);
+        DetailText = Localizer[$"{nameof(DetailText)}{IsDetails}"];
     }
 
     private Func<Foo, Task>? OnDoubleClickRowCallback()

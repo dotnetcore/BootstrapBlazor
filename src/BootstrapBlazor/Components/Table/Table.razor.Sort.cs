@@ -120,7 +120,14 @@ public partial class Table<TItem>
         .AddClass("fr", IsLastMultiColumn())
         .Build();
 
+    private string? DetailColumnClassString => CssBuilder.Default()
+        .AddClass("fixed", FixedDetailRowHeaderColumn)
+        .AddClass("fr", IsLastDetailColumn())
+        .Build();
+
     private int MulitiColumnLeft => ShowDetails() ? DetailColumnWidth : 0;
+
+    private string? DetailColumnStyleString => FixedDetailRowHeaderColumn ? "left: 0;" : null;
 
     private string? MultiColumnStyleString => FixedMultipleColumn ? $"left: {MulitiColumnLeft}px;" : null;
 
@@ -170,7 +177,11 @@ public partial class Table<TItem>
         .AddClass($"left: {GetExtendButtonsColumnLeftMargin()}px;", FixedExtendButtonsColumn && IsExtendButtonsInRowHeader)
         .Build();
 
-    private bool IsLastMultiColumn() => FixedMultipleColumn && (!FixedExtendButtonsColumn || !IsExtendButtonsInRowHeader) && !GetVisibleColumns().Any(i => i.Fixed);
+    private bool IsLastDetailColumn() => !(FixedMultipleColumn && IsMultipleSelect) && IsNotFixedColumn();
+
+    private bool IsLastMultiColumn() => FixedMultipleColumn && IsMultipleSelect && IsNotFixedColumn();
+
+    private bool IsNotFixedColumn() => !(FixedExtendButtonsColumn && IsExtendButtonsInRowHeader) && !GetVisibleColumns().First().Fixed;
 
     private ConcurrentDictionary<ITableColumn, bool> LastFixedColumnCache { get; } = new();
 
