@@ -89,4 +89,39 @@ public partial class Bar
         BarChart?.Reload();
         return Task.CompletedTask;
     }
+
+    private Task<ChartDataSource> OnInitTwoYaxes(bool stacked, bool setTitle = true)
+    {
+        var ds = new ChartDataSource();
+        if (setTitle)
+        {
+            ds.Options.Title = "Bar Histogram";
+        }
+        ds.Options.X.Title = "days";
+        ds.Options.Y.Title = "Numerical value";
+        ds.Options.X.Stacked = stacked;
+        ds.Options.Y.Stacked = stacked;
+        ds.Options.Y2.Title = "Y2 value";
+        ds.Options.Y2.PositionLeft = false;
+
+        ds.Labels = Enumerable.Range(1, BarDataCount).Select(i => i.ToString());
+        var index = 0;
+        ds.Data.Add(new ChartDataset()
+        {
+            Label = $"Y2 Set {index}",
+            IsAxisY2 = index == 0,
+            Data = Enumerable.Range(1, BarDataCount).Select(i => Randomer.Next(20, 7000)).Cast<object>()
+        });
+
+        for (index = 1; index < BarDatasetCount; index++)
+        {
+            ds.Data.Add(new ChartDataset()
+            {
+                Label = $"Y Set {index}",
+                IsAxisY2 = index == 0,
+                Data = Enumerable.Range(1, BarDataCount).Select(i => Randomer.Next(20, 37)).Cast<object>()
+            });
+        }
+        return Task.FromResult(ds);
+    }
 }
