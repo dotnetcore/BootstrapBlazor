@@ -1,23 +1,20 @@
 ﻿@inject IStringLocalizer<Foo> LocalizerFoo
 
-<div class="table-fix-column-demo">
-    <Table TItem="Foo"
-           Items="@Items.Take(4)"
-           RenderMode="TableRenderMode.Table"
-           HeaderStyle="TableHeaderStyle.Light"
-           IsBordered="true"
-           IsStriped="true"
-           class="table-fixed-column-demo">
-        <TableColumns>
-            <TableColumn @bind-Field="@context.Name" Width="100" Fixed="true" />
-            <TableColumn @bind-Field="@context.DateTime" Width="180" Fixed="true" Filterable="true" />
-            <TableColumn @bind-Field="@context.Address" Width="900" Filterable="true" />
-            <TableColumn @bind-Field="@context.Education" Width="100" Filterable="true" />
-            <TableColumn @bind-Field="@context.Count" Width="100" Filterable="true" />
-            <TableColumn @bind-Field="@context.Complete" Width="100" Fixed="true" Filterable="true" />
-        </TableColumns>
-    </Table>
-</div>
+<Table TItem="Foo"
+        Items="@Items.Take(4)"
+        RenderMode="TableRenderMode.Table"
+        HeaderStyle="TableHeaderStyle.Light"
+        IsBordered="true"
+        IsStriped="true" class="table-fix-column-demo">
+    <TableColumns>
+        <TableColumn @bind-Field="@context.Name" Width="100" Fixed="true" />
+        <TableColumn @bind-Field="@context.DateTime" Width="180" Fixed="true" Filterable="true" />
+        <TableColumn @bind-Field="@context.Address" Width="900" Filterable="true" />
+        <TableColumn @bind-Field="@context.Education" Width="100" Filterable="true" />
+        <TableColumn @bind-Field="@context.Count" Width="100" Filterable="true" />
+        <TableColumn @bind-Field="@context.Complete" Width="100" Fixed="true" Filterable="true" />
+    </TableColumns>
+</Table>
 
 @code {
     /// <summary>
