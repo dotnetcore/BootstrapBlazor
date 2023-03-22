@@ -2,7 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using System.ComponentModel;
 using System.Text.Json.Serialization;
 
 namespace BootstrapBlazor.Components;
@@ -47,8 +46,4 @@ public class ChartAxes
     /// 是否对齐到左边 默认 true
     /// </summary>
     public string Position { get => PositionLeft ? "left" : "right"; }
-
-    
-
-
 }

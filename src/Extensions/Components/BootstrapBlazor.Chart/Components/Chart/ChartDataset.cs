@@ -35,7 +35,7 @@ public class ChartDataset
     /// 获得/设置 是否是Y2坐标轴
     /// </summary>
     [JsonIgnore]
-    public bool IsAxisY2 { get; set; } 
+    public bool IsAxisY2 { get; set; }
 
     /// <summary>
     /// Y坐标轴ID
