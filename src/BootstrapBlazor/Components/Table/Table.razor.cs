@@ -54,13 +54,15 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     protected string? WrapperClassName => CssBuilder.Default()
         .AddClass("table-wrapper", IsBordered)
         .AddClass("is-clickable", ClickToSelect || DoubleClickToEdit || OnClickRowCallback != null || OnDoubleClickRowCallback != null)
-        .AddClass("table-scroll", !IsFixedHeader)
+        .AddClass("table-scroll", !IsFixedHeader || FixedColumn)
         .AddClass("table-fixed", IsFixedHeader)
-        .AddClass("table-fixed-column", Columns.Any(c => c.Fixed) || FixedExtendButtonsColumn || FixedMultipleColumn || FixedDetailRowHeaderColumn)
+        .AddClass("table-fixed-column", FixedColumn)
         .AddClass("table-resize", AllowResizing)
         .AddClass("table-fixed-body", RenderMode == TableRenderMode.CardView && IsFixedHeader)
         .AddClass("table-striped table-hover", ActiveRenderMode == TableRenderMode.CardView && IsStriped)
         .Build();
+
+    private bool FixedColumn => FixedExtendButtonsColumn || FixedMultipleColumn || FixedDetailRowHeaderColumn || Columns.Any(c => c.Fixed);
 
     /// <summary>
     /// 获得 Body 内行样式

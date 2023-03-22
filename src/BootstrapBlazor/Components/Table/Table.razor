@@ -176,12 +176,6 @@
                         @RenderTable(false)
                     </div>
                 }
-                else if (FixedDetailRowHeaderColumn || FixedMultipleColumn || FixedExtendButtonsColumn || Columns.Any(col => col.Fixed))
-                {
-                    <div class="overflow-auto">
-                        @RenderTable(true)
-                    </div>
-                }
                 else
                 {
                     @RenderTable(true)
