@@ -200,6 +200,36 @@ public enum ComponentIcons
     TableFilterMinusIcon,
 
     /// <summary>
+    /// ImagePreviewer 组件 PreviousIcon 图标
+    /// </summary>
+    ImagePreviewPreviousIcon,
+
+    /// <summary>
+    /// ImagePreviewer 组件 NextIcon 图标
+    /// </summary>
+    ImagePreviewNextIcon,
+
+    /// <summary>
+    /// ImagePreviewer 组件 MinusIcon 图标
+    /// </summary>
+    ImagePreviewMinusIcon,
+
+    /// <summary>
+    /// ImagePreviewer 组件 PlusIcon 图标
+    /// </summary>
+    ImagePreviewPlusIcon,
+
+    /// <summary>
+    /// ImagePreviewer 组件 RotateLeftIcon 图标
+    /// </summary>
+    ImagePreviewRotateLeftIcon,
+
+    /// <summary>
+    /// ImagePreviewer 组件 RotateRightIcon 图标
+    /// </summary>
+    ImagePreviewRotateRightIcon,
+
+    /// <summary>
     /// Button 组件 LoadingIcon 图标
     /// </summary>
     LoadingIcon,

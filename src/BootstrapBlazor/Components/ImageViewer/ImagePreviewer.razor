@@ -4,7 +4,7 @@
 <div tabindex="-1" class="bb-previewer collapse active" id="@Id" style="z-index: @ZIndex;">
     <div class="bb-viewer-mask"></div>
     <div class="bb-viewer-canvas">
-        <img src="@GetFirstImageUrl()" class="bb-viewer-img" style="transform: scale(1) rotate(0deg); margin-left: 0px; margin-top: 0px;">
+        <img src="@GetFirstImageUrl()" class="bb-viewer-img" style="transform: scale(1) rotate(0deg); margin-left: 0; margin-top: 0;">
     </div>
     <span class="bb-viewer-btn bb-viewer-close">
         <span></span>
@@ -12,21 +12,21 @@
     @if (ShowButtons)
     {
         <span class="bb-viewer-btn bb-viewer-prev">
-            <i class="fa-solid fa-angle-left fa-2x"></i>
+            <i class="@PreviousIcon"></i>
         </span>
         <span class="bb-viewer-btn bb-viewer-next">
-            <i class="fa-solid fa-angle-right fa-2x"></i>
+            <i class="@NextIcon"></i>
         </span>
     }
     <div class="bb-viewer-btn bb-viewer-actions">
         <div class="bb-viewer-actions-inner">
-            <i class="fa-solid fa-magnifying-glass-minus"></i>
-            <i class="fa-solid fa-magnifying-glass-plus"></i>
+            <i class="@MinusIcon"></i>
+            <i class="@PlusIcon"></i>
             <i class="bb-viewer-actions-divider"></i>
             <span class="bb-viewer-full-screen"></span>
             <i class="bb-viewer-actions-divider"></i>
-            <i class="fa-solid fa-rotate-left"></i>
-            <i class="fa-solid fa-rotate-right"></i>
+            <i class="@RotateLeftIcon"></i>
+            <i class="@RotateRightIcon"></i>
         </div>
     </div>
 </div>

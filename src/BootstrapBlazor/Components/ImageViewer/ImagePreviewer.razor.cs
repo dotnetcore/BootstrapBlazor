@@ -26,9 +26,64 @@ public partial class ImagePreviewer
 #endif
     public List<string>? PreviewList { get; set; }
 
+    /// <summary>
+    /// 获得/设置 上一张图片 Icon 图标
+    /// </summary>
+    [Parameter]
+    public string? PreviousIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 下一张图片 Icon 图标
+    /// </summary>
+    [Parameter]
+    public string? NextIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 缩小 Icon 图标
+    /// </summary>
+    [Parameter]
+    public string? MinusIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 方法 Icon 图标
+    /// </summary>
+    [Parameter]
+    public string? PlusIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 向左旋转 Icon 图标
+    /// </summary>
+    [Parameter]
+    public string? RotateLeftIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 向右旋转 Icon 图标
+    /// </summary>
+    [Parameter]
+    public string? RotateRightIcon { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IIconTheme? IconTheme { get; set; }
+
     private string? GetFirstImageUrl() => PreviewList.First();
 
     private bool ShowButtons => PreviewList.Count > 1;
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
+        PreviousIcon ??= IconTheme.GetIconByKey(ComponentIcons.ImagePreviewPreviousIcon);
+        NextIcon ??= IconTheme.GetIconByKey(ComponentIcons.ImagePreviewNextIcon);
+        MinusIcon ??= IconTheme.GetIconByKey(ComponentIcons.ImagePreviewMinusIcon);
+        PlusIcon ??= IconTheme.GetIconByKey(ComponentIcons.ImagePreviewPlusIcon);
+        RotateLeftIcon ??= IconTheme.GetIconByKey(ComponentIcons.ImagePreviewRotateLeftIcon);
+        RotateRightIcon ??= IconTheme.GetIconByKey(ComponentIcons.ImagePreviewRotateRightIcon);
+    }
 
     /// <summary>
     /// <inheritdoc/>

@@ -62,9 +62,16 @@ internal class DefaultIconTheme : IIconTheme
 
             { ComponentIcons.FullScreenButtonIcon, "fa-solid fa-maximize" },
 
-            { ComponentIcons.LoadingIcon, "fa-solid fa-fw fa-spin fa-spinner" },
-
             { ComponentIcons.GoTopIcon, "fa-solid fa-angle-up" },
+
+            { ComponentIcons.ImagePreviewPreviousIcon, "fa-solid fa-angle-left fa-2x" },
+            { ComponentIcons.ImagePreviewNextIcon, "fa-solid fa-angle-right fa-2x" },
+            { ComponentIcons.ImagePreviewMinusIcon, "fa-solid fa-magnifying-glass-minus" },
+            { ComponentIcons.ImagePreviewPlusIcon, "fa-solid fa-magnifying-glass-plus" },
+            { ComponentIcons.ImagePreviewRotateLeftIcon, "fa-solid fa-rotate-left" },
+            { ComponentIcons.ImagePreviewRotateRightIcon, "fa-solid fa-rotate-right" },
+
+            { ComponentIcons.LoadingIcon, "fa-solid fa-fw fa-spin fa-spinner" },
 
             { ComponentIcons.PopConfirmButtonConfirmIcon, "fa-solid fa-circle-exclamation text-info" },
             { ComponentIcons.PopConfirmButtonContentIcon, "fa-solid fa-exclamation-circle text-info" },
