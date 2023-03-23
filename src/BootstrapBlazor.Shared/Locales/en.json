@@ -5011,7 +5011,7 @@
     "TablesHeaderDescription": "When the data structure is complex, multi-level headers can be used to show the hierarchical relationship of the data",
     "TablesHeaderNormalTitle": "Basic usage",
     "TablesHeaderNormalIntro": "Set the <code>MultiHeaderTemplate</code> template",
-    "TablesHeaderNormalTips1": "by setting <code>ShowMultiFilterHeader</code> value to control whether to display the filter header",
+    "TablesHeaderNormalTips1": "By setting <code>ShowMultiFilterHeader</code> value to control whether to display the filter header",
     "TablesHeaderNormalTips2": "Pay attention to the details. After the first column of cells is merged, there will be no cells in the first column of the last row header, so you need to set the style yourself  <code>border-bottom</code> consistent with other cells"
   },
   "BootstrapBlazor.Shared.Demos.Table.TablesHeader.TablesHeaderNormal": {
@@ -5031,6 +5031,8 @@
     "SelectTreesBindingIntro": "The values in the text box change as you change the drop-down option by binding the Model.Name property to the component with Select Tree",
     "SelectTreesClientValidationTitle": "Validation",
     "SelectTreesClientValidationIntro": "validate the value when submit the form. Inside <code>ValidateForm</code>",
+    "SelectTreesEditTitle": "Edit",
+    "SelectTreesEditIntro": "By setting <code>IsEdit=\"true\"</code> you can edit the input textbox",
     "SelectTreesIsPopoverTitle": "IsPopover",
     "SelectTreesIsPopoverIntro": "Set <code>IsPopover</code> to <b>true</b>, use popover render UI prevent The dropdown menu cannot be fully displayed because the parent container is set to <code>overflow: hidden</code>",
     "SelectTreesClientValidationButtonText": "提交"
