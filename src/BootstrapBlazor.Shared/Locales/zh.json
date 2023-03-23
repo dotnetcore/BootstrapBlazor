@@ -3270,6 +3270,8 @@
     "SelectsDisableOption": "下拉框内选项 <b>禁用</b> 示例",
     "SelectsBindingTitle": "Select 双向绑定",
     "SelectsBindingIntro": "通过 <code>Select</code> 组件绑定 <code>Model.Name</code> 属性，改变下拉框选项时，文本框内的数值随之改变。",
+    "SelectsBindingSelectedItemTitle": "Select 双向绑定 SelectItem",
+    "SelectsBindingSelectedItemIntro": "通过 <code>Select</code> 组件绑定 <code>SelectItem</code> 属性，改变下拉框选项时，文本框内的数值随之改变。",
     "SelectsCascadingTitle": "Select 级联绑定",
     "SelectsCascadingIntro": "通过选择第一个下拉框不同选项，第二个下拉框动态填充内容。",
     "SelectsCascadingButtonText1": "弹窗中级联示例",

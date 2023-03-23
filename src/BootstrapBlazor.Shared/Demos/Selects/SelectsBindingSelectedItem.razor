@@ -10,7 +10,7 @@
 @code {
     private SelectedItem? Item { get; set; }
 
-    private string ItemString => Item == null ? "" : $"{Item.Text}({Item.Value})";
+    private string ItemString => Item == null ? "" : $"{Item.Text} ({Item.Value})";
 
     private IEnumerable<SelectedItem> Items { get; set; } = new[]
     {

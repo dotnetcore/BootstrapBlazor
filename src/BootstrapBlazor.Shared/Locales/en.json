@@ -3259,6 +3259,8 @@
     "SelectsDisableOption": "The options in the drop-down box <b>disable</b> the example",
     "SelectsBindingTitle": "Select two-way binding",
     "SelectsBindingIntro": "The values in the text box change as you change the drop-down option by binding the <code>Model.Name</code> property to the component with <code>Select</code> .",
+    "SelectsBindingSelectedItemTitle": "Select two-way binding SelectItem type",
+    "SelectsBindingSelectedItemIntro": "The values in the text box change as you change the drop-down option by binding the <code>SelectItem</code> property to the component with <code>Select</code> .",
     "SelectsCascadingTitle": "Select cascading binding",
     "SelectsCascadingIntro": "The second drop-down box dynamically populates the content by selecting the different options for the first drop-down box.",
     "SelectsCascadingButtonText1": "In Dialog",
