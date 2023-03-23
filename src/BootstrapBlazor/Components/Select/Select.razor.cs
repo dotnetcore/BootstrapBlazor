@@ -163,7 +163,13 @@ public partial class Select<TValue> : ISelect
     private bool TryParseSelectItem(string value, [MaybeNullWhen(false)] out TValue result, out string? validationErrorMessage)
     {
         SelectedItem = DataSource.FirstOrDefault(i => i.Value == value);
-        result = SelectedItem != null ? (TValue)(object)SelectedItem : default;
+
+        // support SelectedItem? type
+        result = default;
+        if (SelectedItem != null)
+        {
+            result = (TValue)(object)SelectedItem;
+        }
         validationErrorMessage = "";
         return SelectedItem != null;
     }
