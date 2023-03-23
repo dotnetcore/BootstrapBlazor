@@ -147,10 +147,6 @@ public partial class Select<TValue> : ISelect
             var item = NullableUnderlyingType == null ? "" : PlaceHolder;
             Items = ValueType.ToSelectList(string.IsNullOrEmpty(item) ? null : new SelectedItem("", item));
         }
-
-        DataSource.Clear();
-        DataSource.AddRange(Items);
-        DataSource.AddRange(Children);
     }
 
     /// <summary>
@@ -193,8 +189,13 @@ public partial class Select<TValue> : ISelect
 
     private void ResetSelectedItem()
     {
+        DataSource.Clear();
+
         if (string.IsNullOrEmpty(SearchText))
         {
+            DataSource.AddRange(Items);
+            DataSource.AddRange(Children);
+
             SelectedItem = DataSource.FirstOrDefault(i => i.Value.Equals(CurrentValueAsString, StringComparison))
                 ?? DataSource.FirstOrDefault(i => i.Active)
                 ?? DataSource.FirstOrDefault();
@@ -208,7 +209,6 @@ public partial class Select<TValue> : ISelect
         }
         else
         {
-            DataSource.Clear();
             DataSource.AddRange(OnSearchTextChanged(SearchText));
         }
     }
@@ -217,7 +217,17 @@ public partial class Select<TValue> : ISelect
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override Task ModuleInitAsync() => InvokeInitAsync(Id, nameof(ConfirmSelectedItem));
+    protected override async Task ModuleInitAsync()
+    {
+        // 首次加载是 Value 不为 null 时触发一次 OnSelectedItemChanged 回调
+        // 此逻辑与 ResetSelectedItem 逻辑互补
+        if (SelectedItem != null && OnSelectedItemChanged != null && !string.IsNullOrEmpty(SelectedItem.Value))
+        {
+            await OnSelectedItemChanged.Invoke(SelectedItem);
+        }
+
+        await InvokeInitAsync(Id, nameof(ConfirmSelectedItem));
+    }
 
     /// <summary>
     /// 客户端回车回调方法
