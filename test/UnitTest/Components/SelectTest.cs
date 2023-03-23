@@ -236,6 +236,26 @@ public class SelectTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void SelectItem_Ok()
+    {
+        var v = new SelectedItem("2", "Text2");
+        var cut = Context.RenderComponent<Select<SelectedItem>>(pb =>
+        {
+            pb.Add(a => a.Items, new List<SelectedItem>
+            {
+                new SelectedItem("1", "Text1"),
+                new SelectedItem("2", "Text2"),
+            });
+            pb.Add(a => a.Value, v);
+            pb.Add(a => a.ValueChanged, EventCallback.Factory.Create<SelectedItem>(this, i => v = i));
+        });
+        Assert.Equal("2", cut.Instance.Value.Value);
+
+        cut.InvokeAsync(() => cut.Find(".dropdown-item").Click());
+        Assert.Equal("1", cut.Instance.Value.Value);
+    }
+
+    [Fact]
     public void SearchIcon_Ok()
     {
         var cut = Context.RenderComponent<Select<string>>(pb =>
