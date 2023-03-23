@@ -154,11 +154,6 @@ public partial class SelectTree<TValue> : IModelEqualityComparer<TValue>
             // 组件未赋值 Value 通过 IsActive 设置默认值
             await TriggerItemChanged(s => s.IsActive);
         }
-        else if (!Equals(Value, CurrentValue))
-        {
-            // 组件外部赋值 导致 Value 与 SelectedValue 不一致重新获取选项
-            await TriggerItemChanged(s => Equals(s.Value, Value));
-        }
     }
 
     /// <summary>
@@ -170,18 +165,9 @@ public partial class SelectTree<TValue> : IModelEqualityComparer<TValue>
     /// <returns></returns>
     protected override bool TryParseValueFromString(string value, [MaybeNullWhen(false)] out TValue result, out string? validationErrorMessage)
     {
-        bool ret;
-        if (ValueType == typeof(string))
-        {
-            result = (TValue)(object)value;
-            validationErrorMessage = null;
-            ret = true;
-        }
-        else
-        {
-            ret = base.TryParseValueFromString(value, out result, out validationErrorMessage);
-        }
-        return ret;
+        result = (TValue)(object)value;
+        validationErrorMessage = null;
+        return true;
     }
 
     private void OnChange(ChangeEventArgs args)
