@@ -62,6 +62,9 @@ public partial class Select<TValue> : ISelect
     /// </summary>
     private List<SelectedItem> Children { get; } = new();
 
+    [NotNull]
+    private List<SelectedItem> DataSource { get; } = new();
+
     /// <summary>
     /// 获得/设置 右侧下拉箭头图标 默认 fa-solid fa-angle-up
     /// </summary>
@@ -109,9 +112,6 @@ public partial class Select<TValue> : ISelect
     [Inject]
     [NotNull]
     private IStringLocalizer<Select<TValue>>? Localizer { get; set; }
-
-    [NotNull]
-    private List<SelectedItem> DataSource { get; } = new();
 
     /// <summary>
     /// 获得 input 组件 Id 方法
@@ -172,25 +172,6 @@ public partial class Select<TValue> : ISelect
         }
         validationErrorMessage = "";
         return SelectedItem != null;
-    }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <param name="value"></param>
-    /// <returns></returns>
-    protected override string? FormatValueAsString(TValue value)
-    {
-        string? ret;
-        if (value is SelectedItem t)
-        {
-            ret = t.Value;
-        }
-        else
-        {
-            ret = base.FormatValueAsString(value);
-        }
-        return ret;
     }
 
     private void ResetSelectedItem()
