@@ -71,6 +71,8 @@ internal class DefaultIconTheme : IIconTheme
             { ComponentIcons.ImagePreviewRotateLeftIcon, "fa-solid fa-rotate-left" },
             { ComponentIcons.ImagePreviewRotateRightIcon, "fa-solid fa-rotate-right" },
 
+            { ComponentIcons.ImageViewerFileIcon, "fa-regular fa-file-image fa-2x" },
+
             { ComponentIcons.LoadingIcon, "fa-solid fa-fw fa-spin fa-spinner" },
 
             { ComponentIcons.PopConfirmButtonConfirmIcon, "fa-solid fa-circle-exclamation text-info" },

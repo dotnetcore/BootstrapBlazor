@@ -230,6 +230,11 @@ public enum ComponentIcons
     ImagePreviewRotateRightIcon,
 
     /// <summary>
+    /// ImageViewer 组件 FileIcon 图标
+    /// </summary>
+    ImageViewerFileIcon,
+
+    /// <summary>
     /// Button 组件 LoadingIcon 图标
     /// </summary>
     LoadingIcon,
