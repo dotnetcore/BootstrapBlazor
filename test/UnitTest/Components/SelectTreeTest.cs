@@ -34,20 +34,16 @@ public class SelectTreeTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void Value_Ok()
+    public void Edit_Ok()
     {
-        var val = "";
         var cut = Context.RenderComponent<SelectTree<string>>(builder =>
         {
             builder.Add(p => p.Items, BindItems);
-            builder.Add(p => p.Value, "Test1");
-            builder.Add(p => p.OnSelectedItemChanged, v =>
-            {
-                val = v;
-                return Task.CompletedTask;
-            });
+            builder.Add(p => p.IsEdit, true);
         });
-        Assert.Equal("Test1", val);
+        var input = cut.Find(".dropdown-toggle input");
+        cut.InvokeAsync(() => input.Change("123"));
+        Assert.Equal("123", cut.Instance.Value);
     }
 
     [Fact]

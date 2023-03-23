@@ -5045,6 +5045,8 @@
     "SelectTreesBindingIntro": "绑定组件内变量，数据自动同步",
     "SelectTreesClientValidationTitle": "客户端验证",
     "SelectTreesClientValidationIntro": "组件内置 <code>ValidateForm</code> 可设置验证规则",
+    "SelectTreesEditTitle": "可输入",
+    "SelectTreesEditIntro": "通过设置 <code>IsEdit=\"true\"</code> 可设置下拉框选择后文本框可输入",
     "SelectTreesIsPopoverTitle": "悬浮弹窗",
     "SelectTreesIsPopoverIntro": "通过设置 <code>IsPopover</code> 参数，组件使用 <code>popover</code> 渲染 <code>UI</code> 防止由于父容器设置 <code>overflow: hidden;</code> 使弹窗无法显示问题",
     "SelectTreesClientValidationButtonText": "提交"

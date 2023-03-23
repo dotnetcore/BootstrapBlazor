@@ -1,0 +1,23 @@
+﻿<div class="row g-3">
+    <div class="col-12 col-sm-6">
+        <SelectTree Items="Items" @bind-Value="@Value" IsEdit="true"></SelectTree>
+    </div>
+    <div class="col-12 col-sm-6">
+        <Display Value="@Value" />
+    </div>
+</div>
+
+@code {
+    private List<TreeViewItem<string>> Items { get; } = new List<TreeViewItem<string>>()
+    {
+        new TreeViewItem<string>("101") { Text = "Text 101" },
+        new TreeViewItem<string>("102") { Text = "Text 102", Items = new List<TreeViewItem<string>>()
+        {
+            new TreeViewItem<string>("2021") { Text = "Text 2021" },
+            new TreeViewItem<string>("2022") { Text = "Text 2022" }
+        }},
+    };
+
+    [NotNull]
+    private string? Value { get; set; }
+}

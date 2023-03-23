@@ -124,9 +124,6 @@ public partial class Select<TValue> : ISelect
     /// </summary>
     private string? InputId => $"{Id}_input";
 
-    [NotNull]
-    private Type? ValueType { get; set; }
-
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -141,7 +138,6 @@ public partial class Select<TValue> : ISelect
         DropdownIcon ??= IconTheme.GetIconByKey(ComponentIcons.SelectDropdownIcon);
 
         // 内置对枚举类型的支持
-        ValueType ??= NullableUnderlyingType ?? typeof(TValue);
         if (!Items.Any() && ValueType.IsEnum())
         {
             var item = NullableUnderlyingType == null ? "" : PlaceHolder;

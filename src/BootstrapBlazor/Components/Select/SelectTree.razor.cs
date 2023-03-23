@@ -106,6 +106,12 @@ public partial class SelectTree<TValue> : IModelEqualityComparer<TValue>
     [Parameter]
     public string? DropdownIcon { get; set; }
 
+    /// <summary>
+    /// 获得/设置 是否可编辑 默认 false
+    /// </summary>
+    [Parameter]
+    public bool IsEdit { get; set; }
+
     [Inject]
     [NotNull]
     private IStringLocalizer<SelectTree<TValue>>? Localizer { get; set; }
@@ -122,11 +128,6 @@ public partial class SelectTree<TValue> : IModelEqualityComparer<TValue>
     private string? InputId => $"{Id}_input";
 
     /// <summary>
-    /// 获得/设置 上次选择值
-    /// </summary>
-    private TValue? SelectedValue { get; set; }
-
-    /// <summary>
     /// 获得/设置 上次选项
     /// </summary>
     private TreeViewItem<TValue>? SelectedItem { get; set; }
@@ -137,7 +138,7 @@ public partial class SelectTree<TValue> : IModelEqualityComparer<TValue>
     private List<TreeViewItem<TValue>>? ExpandedItemsCache { get; set; }
 
     /// <summary>
-    /// OnParametersSet 方法
+    /// <inheritdoc/>
     /// </summary>
     protected override async Task OnParametersSetAsync()
     {
@@ -153,10 +154,27 @@ public partial class SelectTree<TValue> : IModelEqualityComparer<TValue>
             // 组件未赋值 Value 通过 IsActive 设置默认值
             await TriggerItemChanged(s => s.IsActive);
         }
-        else if (!Equals(Value, SelectedValue))
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="value"></param>
+    /// <param name="result"></param>
+    /// <param name="validationErrorMessage"></param>
+    /// <returns></returns>
+    protected override bool TryParseValueFromString(string value, [MaybeNullWhen(false)] out TValue result, out string? validationErrorMessage)
+    {
+        result = (TValue)(object)value;
+        validationErrorMessage = null;
+        return true;
+    }
+
+    private void OnChange(ChangeEventArgs args)
+    {
+        if (args.Value is string v)
         {
-            // 组件外部赋值 导致 Value 与 SelectedValue 不一致重新获取选项
-            await TriggerItemChanged(s => Equals(s.Value, Value));
+            CurrentValueAsString = v;
         }
     }
 
@@ -184,7 +202,7 @@ public partial class SelectTree<TValue> : IModelEqualityComparer<TValue>
     /// </summary>
     private async Task OnItemClick(TreeViewItem<TValue> item)
     {
-        if (!Equals(item.Value, SelectedValue))
+        if (!Equals(item.Value, CurrentValue))
         {
             await ItemChanged(item);
             StateHasChanged();
@@ -198,7 +216,6 @@ public partial class SelectTree<TValue> : IModelEqualityComparer<TValue>
     private async Task ItemChanged(TreeViewItem<TValue> item)
     {
         SelectedItem = item;
-        SelectedValue = item.Value;
         CurrentValue = item.Value;
 
         // 触发 SelectedItemChanged 事件
