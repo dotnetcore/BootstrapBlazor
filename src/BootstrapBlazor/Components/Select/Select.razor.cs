@@ -74,7 +74,6 @@ public partial class Select<TValue> : ISelect
     /// 获得/设置 搜索文本发生变化时回调此方法
     /// </summary>
     [Parameter]
-    [NotNull]
     public Func<string, IEnumerable<SelectedItem>>? OnSearchTextChanged { get; set; }
 
     /// <summary>
@@ -143,7 +142,6 @@ public partial class Select<TValue> : ISelect
         base.OnParametersSet();
 
         Items ??= Enumerable.Empty<SelectedItem>();
-        OnSearchTextChanged ??= text => Items.Where(i => i.Text.Contains(text, StringComparison));
         PlaceHolder ??= Localizer[nameof(PlaceHolder)];
         NoSearchDataText ??= Localizer[nameof(NoSearchDataText)];
         DropdownIcon ??= IconTheme.GetIconByKey(ComponentIcons.SelectDropdownIcon);
@@ -175,9 +173,13 @@ public partial class Select<TValue> : ISelect
                 _ = SelectedItemChanged(SelectedItem);
             }
         }
-        else
+        else if (OnSearchTextChanged != null)
         {
             DataSource = OnSearchTextChanged(SearchText).ToList();
+        }
+        else
+        {
+            DataSource = Items.Where(i => i.Text.Contains(SearchText, StringComparison));
         }
     }
 
