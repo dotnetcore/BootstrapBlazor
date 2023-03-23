@@ -1,0 +1,13 @@
+﻿@using BootstrapBlazor.Shared.Samples
+@inject IStringLocalizer<Splits> Localizer
+
+<div class="border split-demo">
+    <Split IsVertical="true">
+        <FirstPaneTemplate>
+            <div class="d-flex justify-content-center align-items-center h-100">@Localizer["SplitsPannel3"]</div>
+        </FirstPaneTemplate>
+        <SecondPaneTemplate>
+            <div class="d-flex justify-content-center align-items-center h-100">@Localizer["SplitsPannel4"]</div>
+        </SecondPaneTemplate>
+    </Split>
+</div>

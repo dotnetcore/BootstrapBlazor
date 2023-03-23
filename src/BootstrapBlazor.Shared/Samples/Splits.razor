@@ -3,63 +3,30 @@
 
 <h3>@Localizer["SplitsTitle"]</h3>
 
-<DemoBlock Title="@Localizer["SplitsNormalTitle"]" Introduction="@Localizer["SplitsNormalIntro"]" Name="Normal">
-    <div class="border split-demo split-demo-horizontal">
-        <Split>
-            <FirstPaneTemplate>
-                <div class="d-flex justify-content-center align-items-center h-100"></div>
-            </FirstPaneTemplate>
-            <SecondPaneTemplate>
-                <div class="d-flex justify-content-center align-items-center h-100">@Localizer["SplitsPannel2"]</div>
-            </SecondPaneTemplate>
-        </Split>
-    </div>
-</DemoBlock>
+<div>
+    <DemoBlock Title="@Localizer["SplitsNormalTitle"]"
+               Introduction="@Localizer["SplitsNormalIntro"]"
+               Name="Normal"
+               Demo="typeof(Demos.Splits.SplitsNormal)">
+    </DemoBlock>
 
-<DemoBlock Title="@Localizer["SplitsPercentTitle"]" Introduction="@Localizer["SplitsPercentIntro"]" Name="Percent">
-    <div class="border split-demo split-demo-horizontal">
-        <Split Basis="40%">
-            <FirstPaneTemplate>
-                <div class="d-flex justify-content-center align-items-center h-100">@Localizer["SplitsPannel1"]</div>
-            </FirstPaneTemplate>
-            <SecondPaneTemplate>
-                <div class="d-flex justify-content-center align-items-center h-100">@Localizer["SplitsPannel2"]</div>
-            </SecondPaneTemplate>
-        </Split>
-    </div>
-</DemoBlock>
+    <DemoBlock Title="@Localizer["SplitsPercentTitle"]"
+               Introduction="@Localizer["SplitsPercentIntro"]"
+               Name="Percent"
+               Demo="typeof(Demos.Splits.SplitsPercent)">
+    </DemoBlock>
 
-<DemoBlock Title="@Localizer["SplitsVerticalTitle"]" Introduction="@Localizer["SplitsVerticalIntro"]" Name="Vertical">
-    <div class="border split-demo">
-        <Split IsVertical="true">
-            <FirstPaneTemplate>
-                <div class="d-flex justify-content-center align-items-center h-100">@Localizer["SplitsPannel3"]</div>
-            </FirstPaneTemplate>
-            <SecondPaneTemplate>
-                <div class="d-flex justify-content-center align-items-center h-100">@Localizer["SplitsPannel4"]</div>
-            </SecondPaneTemplate>
-        </Split>
-    </div>
-</DemoBlock>
+    <DemoBlock Title="@Localizer["SplitsVerticalTitle"]"
+               Introduction="@Localizer["SplitsVerticalIntro"]"
+               Name="Vertical"
+               Demo="typeof(Demos.Splits.SplitsVertical)">
+    </DemoBlock>
 
-<DemoBlock Title="@Localizer["SplitsNestedTitle"]" Introduction="@Localizer["SplitsNestedIntro"]" Name="Nested">
-    <div class="border split-demo">
-        <Split>
-            <FirstPaneTemplate>
-                <Split IsVertical="true">
-                    <FirstPaneTemplate>
-                        <div class="d-flex justify-content-center align-items-center h-100">@Localizer["SplitsPannel5"]</div>
-                    </FirstPaneTemplate>
-                    <SecondPaneTemplate>
-                        <div class="d-flex justify-content-center align-items-center h-100">@Localizer["SplitsPannel6"]</div>
-                    </SecondPaneTemplate>
-                </Split>
-            </FirstPaneTemplate>
-            <SecondPaneTemplate>
-                <div class="d-flex justify-content-center align-items-center h-100">@Localizer["SplitsPannel7"]</div>
-            </SecondPaneTemplate>
-        </Split>
-    </div>
-</DemoBlock>
+    <DemoBlock Title="@Localizer["SplitsNestedTitle"]"
+               Introduction="@Localizer["SplitsNestedIntro"]"
+               Name="Nested"
+               Demo="typeof(Demos.Splits.SplitsNested)">
+    </DemoBlock>
+</div>
 
 <AttributeTable Items="@GetAttributes()" />
