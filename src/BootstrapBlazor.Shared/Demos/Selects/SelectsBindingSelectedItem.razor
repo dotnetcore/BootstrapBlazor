@@ -1,0 +1,20 @@
+﻿<div class="row g-3">
+    <div class="col-12 col-sm-6">
+        <Select Color="Color.Primary" Items="Items" @bind-Value="Item"></Select>
+    </div>
+    <div class="col-12 col-sm-6">
+        <Display Value="@ItemString"></Display>
+    </div>
+</div>
+
+@code {
+    private SelectedItem? Item { get; set; }
+
+    private string ItemString => Item == null ? "" : $"{Item.Text}({Item.Value})";
+
+    private IEnumerable<SelectedItem> Items { get; set; } = new[]
+    {
+        new SelectedItem ("Beijing", "北京"),
+        new SelectedItem ("Shanghai", "上海") { Active = true },
+    };
+}
