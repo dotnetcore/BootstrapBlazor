@@ -1,0 +1,47 @@
+﻿@using BootstrapBlazor.Shared.Samples
+@inject IStringLocalizer<ValidateForms> Localizer
+
+<ValidateForm Model="@Model">
+    <div class="row g-3">
+        <div class="col-12 col-sm-6">
+            <BootstrapInput @bind-Value="@Model.Name" />
+        </div>
+        <div class="col-12 col-sm-6">
+            <BootstrapInput @bind-Value="@Model.Address" ValidateRules="@CustomerRules" />
+        </div>
+        <div class="col-12">
+            <Button ButtonType="@ButtonType.Submit" Text="@Localizer["ValidateFormsSubmitButtonText"]" />
+        </div>
+    </div>
+</ValidateForm>
+
+@code {
+    private List<IValidator> CustomerRules { get; } = new();
+
+    [NotNull]
+    private Foo? Model { get; set; }
+
+    /// <summary>
+    /// OnInitialized
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        CustomerRules.Add(new FormItemValidator(new EmailAddressAttribute()));
+    }
+
+    /// <summary>
+    /// OnInitializedAsync 方法
+    /// </summary>
+    /// <returns></returns>
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+
+        // 切换线程 模拟异步通过 webapi 加载数据
+        await Task.Yield();
+
+        Model = new() { Name = "Name", Education = EnumEducation.Primary, DateTime = DateTime.Now };
+    }
+}
