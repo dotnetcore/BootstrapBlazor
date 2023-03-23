@@ -73,6 +73,7 @@ public partial class Select<TValue> : ISelect
     /// 获得/设置 搜索文本发生变化时回调此方法
     /// </summary>
     [Parameter]
+    [NotNull]
     public Func<string, IEnumerable<SelectedItem>>? OnSearchTextChanged { get; set; }
 
     /// <summary>
@@ -140,21 +141,60 @@ public partial class Select<TValue> : ISelect
         DropdownIcon ??= IconTheme.GetIconByKey(ComponentIcons.SelectDropdownIcon);
 
         // 内置对枚举类型的支持
-        var t = NullableUnderlyingType ?? typeof(TValue);
-        if (!Items.Any() && t.IsEnum())
+        ValueType ??= NullableUnderlyingType ?? typeof(TValue);
+        if (!Items.Any() && ValueType.IsEnum())
         {
             var item = NullableUnderlyingType == null ? "" : PlaceHolder;
-            Items = typeof(TValue).ToSelectList(string.IsNullOrEmpty(item) ? null : new SelectedItem("", item));
+            Items = ValueType.ToSelectList(string.IsNullOrEmpty(item) ? null : new SelectedItem("", item));
         }
+
+        DataSource.Clear();
+        DataSource.AddRange(Items);
+        DataSource.AddRange(Children);
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="value"></param>
+    /// <param name="result"></param>
+    /// <param name="validationErrorMessage"></param>
+    /// <returns></returns>
+    protected override bool TryParseValueFromString(string value, [MaybeNullWhen(false)] out TValue result, out string? validationErrorMessage) => ValueType == typeof(SelectedItem)
+        ? TryParseSelectItem(value, out result, out validationErrorMessage)
+        : base.TryParseValueFromString(value, out result, out validationErrorMessage);
+
+    private bool TryParseSelectItem(string value, [MaybeNullWhen(false)] out TValue result, out string? validationErrorMessage)
+    {
+        SelectedItem = DataSource.FirstOrDefault(i => i.Value == value);
+        result = SelectedItem != null ? (TValue)(object)SelectedItem : default;
+        validationErrorMessage = "";
+        return SelectedItem != null;
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="value"></param>
+    /// <returns></returns>
+    protected override string? FormatValueAsString(TValue value)
+    {
+        string? ret;
+        if (value is SelectedItem t)
+        {
+            ret = t.Value;
+        }
+        else
+        {
+            ret = base.FormatValueAsString(value);
+        }
+        return ret;
     }
 
     private void ResetSelectedItem()
     {
         if (string.IsNullOrEmpty(SearchText))
         {
-            DataSource = Items.ToList();
-            DataSource.AddRange(Children);
-
             SelectedItem = DataSource.FirstOrDefault(i => i.Value.Equals(CurrentValueAsString, StringComparison))
                 ?? DataSource.FirstOrDefault(i => i.Active)
                 ?? DataSource.FirstOrDefault();
@@ -166,13 +206,10 @@ public partial class Select<TValue> : ISelect
                 _ = SelectedItemChanged(SelectedItem);
             }
         }
-        else if (OnSearchTextChanged != null)
-        {
-            DataSource = OnSearchTextChanged(SearchText).ToList();
-        }
         else
         {
-            DataSource = Items.Where(i => i.Text.Contains(SearchText, StringComparison));
+            DataSource.Clear();
+            DataSource.AddRange(OnSearchTextChanged(SearchText));
         }
     }
 
@@ -180,16 +217,7 @@ public partial class Select<TValue> : ISelect
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override async Task ModuleInitAsync()
-    {
-        // 选项值不为 null 后者 string.Empty 时触发一次 OnSelectedItemChanged 回调
-        if (SelectedItem != null && OnSelectedItemChanged != null && !string.IsNullOrEmpty(SelectedItem.Value))
-        {
-            await OnSelectedItemChanged.Invoke(SelectedItem);
-        }
-
-        await InvokeInitAsync(Id, nameof(ConfirmSelectedItem));
-    }
+    protected override Task ModuleInitAsync() => InvokeInitAsync(Id, nameof(ConfirmSelectedItem));
 
     /// <summary>
     /// 客户端回车回调方法
