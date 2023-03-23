@@ -146,7 +146,7 @@ public partial class Select<TValue> : ISelect
         OnSearchTextChanged ??= text => Items.Where(i => i.Text.Contains(text, StringComparison));
         PlaceHolder ??= Localizer[nameof(PlaceHolder)];
         NoSearchDataText ??= Localizer[nameof(NoSearchDataText)];
-        DropdownIcon ??= "fa-solid fa-angle-up";
+        DropdownIcon ??= IconTheme.GetIconByKey(ComponentIcons.SelectDropdownIcon);
 
         // 内置对枚举类型的支持
         var t = NullableUnderlyingType ?? typeof(TValue);

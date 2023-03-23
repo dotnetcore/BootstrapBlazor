@@ -86,6 +86,9 @@ internal class DefaultIconTheme : IIconTheme
             { ComponentIcons.SearchButtonIcon, "fa-solid fa-magnifying-glass" },
             { ComponentIcons.SearchButtonLoadingIcon, "fa-solid fa-fw fa-spin fa-spinner" },
 
+            { ComponentIcons.SelectDropdownIcon, "fa-solid fa-angle-up" },
+            { ComponentIcons.SelectSearchIcon, "fa-solid fa-magnifying-glass" },
+
             { ComponentIcons.PrintButtonIcon, "fa-solid fa-fw fa-print" }
         };
     }

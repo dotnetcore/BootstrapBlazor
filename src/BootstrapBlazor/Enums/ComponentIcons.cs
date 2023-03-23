@@ -290,6 +290,16 @@ public enum ComponentIcons
     SearchButtonLoadingIcon,
 
     /// <summary>
+    /// Select 组件 DropdownIcon 属性图标
+    /// </summary>
+    SelectDropdownIcon,
+
+    /// <summary>
+    /// Select 组件 SearchIcon 属性图标
+    /// </summary>
+    SelectSearchIcon,
+
+    /// <summary>
     /// FullScreenButton 组件 Icon 属性图标
     /// </summary>
     FullScreenButtonIcon,
