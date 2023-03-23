@@ -172,7 +172,7 @@ public partial class Select<TValue> : ISelect
             // Value 不等于 选中值即不存在
             if (!string.IsNullOrEmpty(SelectedItem?.Value) && CurrentValueAsString != SelectedItem.Value)
             {
-                _ = ItemChanged(SelectedItem);
+                _ = SelectedItemChanged(SelectedItem);
             }
         }
         else
@@ -245,15 +245,11 @@ public partial class Select<TValue> : ISelect
         }
         if (ret)
         {
-            await ItemChanged(item);
+            await SelectedItemChanged(item);
         }
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <returns></returns>
-    private async Task ItemChanged(SelectedItem item)
+    private async Task SelectedItemChanged(SelectedItem item)
     {
         item.Active = true;
         SelectedItem = item;
