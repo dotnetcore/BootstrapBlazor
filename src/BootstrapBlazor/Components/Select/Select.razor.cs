@@ -132,7 +132,6 @@ public partial class Select<TValue> : ISelect
     {
         base.OnInitialized();
 
-        OnSearchTextChanged ??= text => Items.Where(i => i.Text.Contains(text, StringComparison));
         Children = new List<SelectedItem>();
     }
 
@@ -144,6 +143,7 @@ public partial class Select<TValue> : ISelect
         base.OnParametersSet();
 
         Items ??= Enumerable.Empty<SelectedItem>();
+        OnSearchTextChanged ??= text => Items.Where(i => i.Text.Contains(text, StringComparison));
         PlaceHolder ??= Localizer[nameof(PlaceHolder)];
         NoSearchDataText ??= Localizer[nameof(NoSearchDataText)];
         DropdownIcon ??= "fa-solid fa-angle-up";
