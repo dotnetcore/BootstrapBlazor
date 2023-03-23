@@ -1,212 +1,66 @@
 ﻿@page "/validateforms"
 @inject IStringLocalizer<ValidateForms> Localizer
 
-<h3>@Localizer["Title"]</h3>
+<h3>@Localizer["ValidateFormsTitle"]</h3>
 
-<h4>@Localizer["SubTitle"]</h4>
+<h4>@Localizer["ValidateFormsSubTitle"]</h4>
 
-<DemoBlock Title="@Localizer["BasicUsageTitle"]" Introduction="@Localizer["BasicUsageIntro"]" Name="Normal">
-    <p><b>@Localizer["BasicUsageP1"]</b></p>
+<DemoBlock Title="@Localizer["ValidateFormNormalTitle"]" Introduction="@Localizer["ValidateFormNormalIntro"]" Name="Normal" Demo="typeof(Demos.ValidateForms.ValidateFormNormal)">
+    <p><b>@Localizer["ValidateFormNormalBasicUsageDescription"]</b></p>
     <ul class="ul-demo mb-3">
-        <li>@((MarkupString)Localizer["BasicUsageLi1"].Value)</li>
-        <li>@((MarkupString)Localizer["BasicUsageLi2"].Value)</li>
-        <li>@((MarkupString)Localizer["BasicUsageLi3"].Value)</li>
-        <li>@((MarkupString)Localizer["BasicUsageLi4"].Value)</li>
-        <li>@((MarkupString)Localizer["BasicUsageLi5"].Value)</li>
-        <li>@((MarkupString)Localizer["BasicUsageLi6"].Value)</li>
-        <li>@((MarkupString)Localizer["BasicUsageLi7"].Value)</li>
-        <li>@((MarkupString)Localizer["BasicUsageLi9"].Value)</li>
+        <li>@((MarkupString)Localizer["ValidateFormNormalLi1"].Value)</li>
+        <li>@((MarkupString)Localizer["ValidateFormNormalLi2"].Value)</li>
+        <li>@((MarkupString)Localizer["ValidateFormNormalLi3"].Value)</li>
+        <li>@((MarkupString)Localizer["ValidateFormNormalLi4"].Value)</li>
+        <li>@((MarkupString)Localizer["ValidateFormNormalLi5"].Value)</li>
+        <li>@((MarkupString)Localizer["ValidateFormNormalLi6"].Value)</li>
+        <li>@((MarkupString)Localizer["ValidateFormNormalLi7"].Value)</li>
+        <li>@((MarkupString)Localizer["ValidateFormNormalLi9"].Value)</li>
     </ul>
-    <p><b>@Localizer["BasicUsageP2"]</b></p>
+    <p><b>@Localizer["ValidateFormNormalBasicUsageDescription2"]</b></p>
     <ul class="ul-demo mb-3">
-        <li>@((MarkupString)Localizer["BasicUsageLi8"].Value)</li>
-        <li>@((MarkupString)Localizer["FormLabelWidth"].Value)</li>
+        <li>@((MarkupString)Localizer["ValidateFormNormalBasicUsageLi8"].Value)</li>
+        <li>@((MarkupString)Localizer["ValidateFormNormalFormLabelWidth"].Value)</li>
     </ul>
     <p>@((MarkupString)Localizer["LongDisplayDescription"].Value)</p>
-    <ValidateForm Model="@Model" OnFieldValueChanged="@OnFiledChanged"
-                  OnValidSubmit="@OnValidSubmit1" OnInvalidSubmit="@OnInvalidSubmit1">
-        <div class="row g-3">
-            <div class="col-12">
-                <BootstrapInput @bind-Value="@Model.Name" DisplayText="@Localizer["LongDisplayText"]" />
-            </div>
-        </div>
-        <div class="row g-3 form-inline mt-0">
-            <div class="col-12">
-                <BootstrapInput @bind-Value="@Model.Address" DisplayText="@Localizer["LongDisplayText"]" ShowLabelTooltip="true" />
-            </div>
-            <div class="col-12">
-                <Button ButtonType="ButtonType.Submit" Icon="fa-fw fa-solid fa-floppy-disk" Text="@Localizer["ButtonText"]" IsAsync="true" />
-            </div>
-        </div>
-    </ValidateForm>
-    <BlockLogger @ref="Trace" class="mt-3" />
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["InnerComponentTitle"]" Introduction="@Localizer["InnerComponentIntro"]" Name="InnerComponent">
-    <p class="legend">@Localizer["InnerComponentLabel"]</p>
-    <p>@Localizer["InnerComponentP1"]</p>
+<DemoBlock Title="@Localizer["ValidateFormInnerComponentTitle"]" Introduction="@Localizer["ValidateFormInnerComponentIntro"]" Name="InnerComponent" Demo="typeof(Demos.ValidateForms.ValidateFormInnerComponent)">
+    <p class="legend">@Localizer["ValidateFormInnerComponentInnerComponentLabel"]</p>
+    <p>@Localizer["ValidateFormInnerComponentInnerComponentDescription1"]</p>
     <ul class="ul-demo mb-3">
-        <li>@Localizer["InnerComponentLi1"]</li>
-        <li>@Localizer["InnerComponentLi2"]</li>
-        <li>@Localizer["InnerComponentLi3"]</li>
-        <li>@Localizer["InnerComponentLi4"]</li>
-        <li>@Localizer["InnerComponentLi5"]</li>
+        <li>@Localizer["ValidateFormInnerComponentInnerComponentLi1"]</li>
+        <li>@Localizer["ValidateFormInnerComponentInnerComponentLi2"]</li>
+        <li>@Localizer["ValidateFormInnerComponentInnerComponentLi3"]</li>
+        <li>@Localizer["ValidateFormInnerComponentInnerComponentLi4"]</li>
+        <li>@Localizer["ValidateFormInnerComponentInnerComponentLi5"]</li>
     </ul>
-    <p>@((MarkupString)Localizer["InnerComponentP2"].Value)</p>
-    <ValidateForm Model="@Model" OnValidSubmit="@OnValidSubmit"
-                  OnInvalidSubmit="@OnInvalidSubmit">
-        <div class="row g-3">
-            <div class="col-12 col-sm-6">
-                <BootstrapInputGroupLabel @bind-Value="@Model.Name" />
-                <BootstrapInputGroup>
-                    <Display @bind-Value="@Model.Name"></Display>
-                    <BootstrapInputGroupLabel DisplayText="Test" />
-                </BootstrapInputGroup>
-            </div>
-            <div class="col-12 col-sm-6">
-                <BootstrapInputNumber @bind-Value="@Model.Count" />
-            </div>
-            <div class="col-12 col-sm-6">
-                <DateTimePicker @bind-Value="@Model.DateTime" />
-            </div>
-            <div class="col-12 col-sm-6">
-                <Select @bind-Value="@Model.Education" />
-            </div>
-            <div class="col-12">
-                <CheckboxList @bind-Value="@Model.Hobby" Items="@Hobbys" />
-            </div>
-            <div class="col-12">
-                <Button ButtonType="@ButtonType.Submit" Icon="fa-fw fa-solid fa-floppy-disk" IsAsync="true" Text="@Localizer["ButtonText"]" />
-            </div>
-        </div>
-    </ValidateForm>
-    <BlockLogger @ref="Trace2" class="mt-3" />
+    <p>@((MarkupString)Localizer["ValidateFormInnerComponentInnerComponentDescription2"].Value)</p>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["CustomDisplsyErrorTitle"]" Introduction="@Localizer["CustomDisplsyErrorIntro"]" Name="CustomDisplsyError">
-    <p>@((MarkupString)Localizer["CustomDisplsyErrorP1"].Value)</p>
-    <ValidateForm @ref="FooForm" Model="@Model" OnValidSubmit="@OnValidSetError">
-        <div class="row g-3">
-            <div class="col-12 col-sm-6">
-                <BootstrapInput @bind-Value="@Model.Name" />
-            </div>
-            <div class="col-12 col-sm-6">
-                <BootstrapInputNumber @bind-Value="@Model.Count" />
-            </div>
-            <div class="col-12 col-sm-6">
-                <DateTimePicker @bind-Value="@Model.DateTime" />
-            </div>
-            <div class="col-12 col-sm-6">
-                <Select @bind-Value="@Model.Education" />
-            </div>
-            <div class="col-12">
-                <CheckboxList @bind-Value="@Model.Hobby" Items="@Hobbys" />
-            </div>
-            <div class="col-12">
-                <Button ButtonType="@ButtonType.Submit" Text="@Localizer["ButtonText"]" />
-            </div>
-        </div>
-    </ValidateForm>
+<DemoBlock Title="@Localizer["ValidateFormCustomDisplsyErrorTitle"]" Introduction="@Localizer["ValidateFormCustomDisplsyErrorIntro"]" Name="CustomDisplsyError" Demo="typeof(Demos.ValidateForms.ValidateFormCustomDisplsyError)">
+    <p>@((MarkupString)Localizer["ValidateFormCustomDisplsyErrorDescription"].Value)</p>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["ValidatorAllFieldTitle"]" Introduction="@Localizer["ValidatorAllFieldIntro"]" Name="ValidatorAllField">
-    <p>@((MarkupString)Localizer["ValidatorAllFieldP1"].Value)</p>
-    <ValidateForm Model="@Model" OnInvalidSubmit="@OnInvalidSubmitAddress"
-                  ValidateAllProperties="true">
-        <div class="row g-3">
-            <div class="col-12 col-sm-6">
-                <BootstrapInput @bind-Value="@Model.Name" />
-            </div>
-            <div class="col-12 col-sm-6">
-                <BootstrapInputNumber @bind-Value="@Model.Count" />
-            </div>
-            <div class="col-12 col-sm-6">
-                <DateTimePicker @bind-Value="@Model.DateTime" />
-            </div>
-            <div class="col-12 col-sm-6">
-                <Select @bind-Value="@Model.Education" />
-            </div>
-            <div class="col-12">
-                <CheckboxList @bind-Value="@Model.Hobby" Items="@Hobbys" />
-            </div>
-            <div class="col-12">
-                <Button ButtonType="@ButtonType.Submit" Text="@Localizer["ButtonText"]" />
-            </div>
-        </div>
-    </ValidateForm>
-    <BlockLogger @ref="Trace3" class="mt-3" />
+<DemoBlock Title="@Localizer["ValidateFormValidatorAllFieldTitle"]" Introduction="@Localizer["ValidateFormValidatorAllFieldIntro"]" Name="ValidatorAllField" Demo="typeof(Demos.ValidateForms.ValidateFormValidatorAllField)">
+    <p>@((MarkupString)Localizer["ValidateFormValidatorAllFieldDescription"].Value)</p>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["ComplexValidationTitle"]" Introduction="@Localizer["ComplexValidationIntro"]" Name="ComplexValidation">
-    <p>@((MarkupString)Localizer["ComplexValidationP1"].Value)</p>
-    <Pre>@Localizer["ComplexValidationPre"]</Pre>
-    <ValidateForm @ref="ComplexForm" Model="@ComplexModel" OnInvalidSubmit="@OnInvalidComplexModel"
-                  OnValidSubmit="@OnValidComplexModel">
-        <div class="row g-3">
-            <div class="col-12 col-sm-6">
-                <BootstrapInput @bind-Value="@ComplexModel.Name" />
-            </div>
-            <div class="col-12 col-sm-6">
-                <BootstrapInput @bind-Value="@ComplexModel.Dummy.Dummy2.Name" />
-            </div>
-            <div class="col-12">
-                <Button ButtonType="@ButtonType.Submit" Text="@Localizer["ButtonText"]" />
-            </div>
-        </div>
-    </ValidateForm>
-    <BlockLogger @ref="Trace4" class="mt-3" />
-    <p class=mt-3>
-        @foreach (var key in GetValueChagnedFieldCollection())
-        {
-            <div>
-                <span>@key.Key.Model.GetType().Name</span>.<span>@key.Key.FieldName</span>: <span>@key.Value</span>
-            </div>
-        }
-    </p>
+<DemoBlock Title="@Localizer["ValidateFormComplexValidationTitle"]" Introduction="@Localizer["ValidateFormComplexValidationIntro"]" Name="ComplexValidation" Demo="typeof(Demos.ValidateForms.ValidateFormComplexValidation)">
+    <p>@((MarkupString)Localizer["ValidateFormComplexValidationDescription"].Value)</p>
+    <Pre>@Localizer["ValidateFormComplexValidationPre"]</Pre>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["DynamicFormTitle"]" Introduction="@Localizer["DynamicFormIntro"]" Name="DynamicForm">
-    <p>@((MarkupString)Localizer["DynamicFormP1"].Value)</p>
-    <ValidateForm Model="@DynamicModel" OnInvalidSubmit="@OnInvalidDynamicModel"
-                  OnValidSubmit="@OnValidDynamicModel">
-        <div class="row g-3">
-            <div class="col-12 col-sm-6">
-                <BootstrapInput @bind-Value="@DynamicModel.Name" />
-            </div>
-            <div class="col-12 col-sm-6">
-                @if (ShowAddress)
-                {
-                    <BootstrapInput @bind-Value="@DynamicModel.Address" />
-                }
-                else
-                {
-                    <BootstrapInput @bind-Value="@DynamicModel.Count" />
-                }
-            </div>
-            <div class="col-12">
-                <Button ButtonType="@ButtonType.Submit" Text="@Localizer["ButtonText"]" />
-                <Button Text="@Localizer["ChangeButtonText"]" OnClick="OnValidateChange" class="ms-3" />
-                <Button Text="@Localizer["ResetButtonText"]" OnClick="OnValidateReset" class="ms-3" />
-            </div>
-        </div>
-    </ValidateForm>
-    <BlockLogger @ref="Trace5" class="mt-3" />
+<DemoBlock Title="@Localizer["ValidateFormDynamicFormTitle"]" Introduction="@Localizer["ValidateFormDynamicFormIntro"]" Name="DynamicForm" Demo="typeof(Demos.ValidateForms.ValidateFormDynamicForm)">
+    <p>@((MarkupString)Localizer["ValidateFormDynamicFormDescription"].Value)</p>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["InnerFormLabelTitle"]" Introduction="@Localizer["InnerFormLabelIntro"]" Name="InnerFormLabel">
-    <p>@((MarkupString)Localizer["InnerFormLabelP1"].Value)</p>
+<DemoBlock Title="@Localizer["ValidateFormInnerFormLabelTitle"]" Introduction="@Localizer["ValidateFormInnerFormLabelIntro"]" Name="InnerFormLabel" Demo="typeof(Demos.ValidateForms.ValidateFormInnerFormLabel)">
+    <p>@((MarkupString)Localizer["ValidateFormInnerFormLabelDescription"].Value)</p>
     <Pre>&lt;EditorItem @@bind-Field="@@context.Address" ValidateRules="@@CustomerRules" /&gt;</Pre>
-    <ValidateForm Model="@Model">
-        <EditorForm TModel="Foo" ItemsPerRow="2" RowType="RowType.Inline" LabelAlign="Alignment.Right">
-            <FieldItems>
-                <EditorItem @bind-Field="@context.Address" ValidateRules="@CustomerRules" />
-                <EditorItem @bind-Field="@context.Hobby" Items="@Hobbys" />
-            </FieldItems>
-        </EditorForm>
-    </ValidateForm>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["CustomValidationFormTitle"]" Introduction="@Localizer["CustomValidationFormIntro"]" Name="CustomValidationForm">
+<DemoBlock Title="@Localizer["ValidateFormCustomValidationFormTitle"]" Introduction="@Localizer["ValidateFormCustomValidationFormIntro"]" Name="CustomValidationForm" Demo="typeof(Demos.ValidateForms.ValidateFormCustomValidationForm)">
     <p>@((MarkupString)Localizer["CustomValidationFormP1"].Value)</p>
     <Pre>protected override void OnInitialized()
 {
@@ -217,34 +71,10 @@
     // @Localizer["CustomValidationFormComment2"]
     // &lt;BootstrapInput @@bind-Value="@@Model.Address" ValidateRules="@@CustomerRules" /&gt;
 }</Pre>
-    <ValidateForm Model="@Model">
-        <div class="row g-3">
-            <div class="col-12 col-sm-6">
-                <BootstrapInput @bind-Value="@Model.Name" />
-            </div>
-            <div class="col-12 col-sm-6">
-                <BootstrapInput @bind-Value="@Model.Address" ValidateRules="@CustomerRules" />
-            </div>
-            <div class="col-12">
-                <Button ButtonType="@ButtonType.Submit" Text="@Localizer["ButtonText"]" />
-            </div>
-        </div>
-    </ValidateForm>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["ValidateTitle"]" Introduction="@Localizer["ValidateIntro"]" Name="Validate">
-    <p>@((MarkupString)Localizer["ValidateP1"].Value)</p>
-    <ValidateForm Model="@Model" @ref="ValidatorForm">
-        <div class="row g-3">
-            <div class="col-12 col-sm-6">
-                <BootstrapInput @bind-Value="@Model.Name" />
-            </div>
-            <div class="col-12 col-sm-6">
-                <BootstrapInput @bind-Value="@Model.Address" />
-            </div>
-        </div>
-    </ValidateForm>
-    <Button Icon="fa-solid fa-floppy-disk" Text="@Localizer["ValidateButtonText"]" OnClickWithoutRender="OnValidator" class="my-3"></Button>
+<DemoBlock Title="@Localizer["ValidateFormValidateTitle"]" Introduction="@Localizer["ValidateFormValidateIntro"]" Name="Validate" Demo="typeof(Demos.ValidateForms.ValidateFormValidate)">
+    <p>@((MarkupString)Localizer["ValidateFormValidateDescription"].Value)</p>
     <Pre>[NotNull]
 private ValidateForm? ValidatorForm { get; set; }
 
@@ -255,21 +85,8 @@ private Task OnClickValidate()
 }</Pre>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["DisableAutoSubmitFormByEnterTitle"]" Introduction="@Localizer["DisableAutoSubmitFormByEnterIntro"]" Name="DisableAutoSubmitFormByEnter">
+<DemoBlock Title="@Localizer["ValidateFormDisableAutoSubmitFormByEnterTitle"]" Introduction="@Localizer["ValidateFormDisableAutoSubmitFormByEnterIntro"]" Name="DisableAutoSubmitFormByEnter" Demo="typeof(Demos.ValidateForms.ValidateFormDisableAutoSubmitFormByEnter)">
     <p>@((MarkupString)Localizer["DisableAutoSubmitFormByEnterDesc"].Value)</p>
-    <ValidateForm Model="@Model" DisableAutoSubmitFormByEnter="true">
-        <div class="row g-3">
-            <div class="col-12 col-sm-6">
-                <BootstrapInput @bind-Value="@Model.Name" />
-            </div>
-            <div class="col-12 col-sm-6">
-                <BootstrapInput @bind-Value="@Model.Address" ValidateRules="@CustomerRules" />
-            </div>
-            <div class="col-12">
-                <Button ButtonType="@ButtonType.Submit" Text="@Localizer["ButtonText"]" />
-            </div>
-        </div>
-    </ValidateForm>
 </DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" />
