@@ -28,6 +28,12 @@ public abstract class DisplayBase<TValue> : BootstrapModuleComponentBase
     protected Type? NullableUnderlyingType { get; set; }
 
     /// <summary>
+    /// 获得/设置 泛型参数 TValue 可为空类型 Type 实例
+    /// </summary>
+    [NotNull]
+    protected Type? ValueType { get; set; }
+
+    /// <summary>
     /// Gets or sets the value of the input. This should be used with two-way binding.
     /// </summary>
     /// <example>
@@ -101,6 +107,7 @@ public abstract class DisplayBase<TValue> : BootstrapModuleComponentBase
         parameters.SetParameterProperties(this);
 
         NullableUnderlyingType = Nullable.GetUnderlyingType(typeof(TValue));
+        ValueType ??= NullableUnderlyingType ?? typeof(TValue);
 
         if (ValueExpression != null)
         {
