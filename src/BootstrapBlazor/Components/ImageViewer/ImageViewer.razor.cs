@@ -99,6 +99,16 @@ public partial class ImageViewer
     [Parameter]
     public Func<string, Task>? OnLoadAsync { get; set; }
 
+    /// <summary>
+    /// 获得/设置 图片文件图标
+    /// </summary>
+    [Parameter]
+    public string? FileIcon { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IIconTheme? IconTheme { get; set; }
+
     private bool ShowImage => !string.IsNullOrEmpty(Url);
 
     private bool IsLoaded { get; set; }
@@ -106,6 +116,16 @@ public partial class ImageViewer
     private bool IsError { get; set; }
 
     private string? IsAsyncString => IsAsync ? "true" : null;
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
+        FileIcon ??= IconTheme.GetIconByKey(ComponentIcons.ImageViewerFileIcon);
+    }
 
     /// <summary>
     /// <inheritdoc/>
