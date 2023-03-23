@@ -1,4 +1,4 @@
-﻿.split-demo {
+﻿::deep.split-demo {
     height: 200px;
     width: 240px;
     border-color: rgba(0,0,0,.125);
@@ -10,12 +10,12 @@
 }
 
 @media (min-width: 568px) {
-    .split-demo {
+    ::deep .split-demo {
         height: 200px;
         width: 480px;
     }
 
-    .split-demo-horizontal {
+    ::deep.split-demo-horizontal {
         height: 100px;
     }
 }
