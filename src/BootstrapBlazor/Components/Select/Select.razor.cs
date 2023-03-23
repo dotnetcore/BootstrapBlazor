@@ -60,8 +60,10 @@ public partial class Select<TValue> : ISelect
     /// <summary>
     /// Razor 文件中 Options 模板子项
     /// </summary>
+    private List<SelectedItem> Children { get; } = new();
+
     [NotNull]
-    private List<SelectedItem>? Children { get; set; }
+    private List<SelectedItem> DataSource { get; } = new();
 
     /// <summary>
     /// 获得/设置 右侧下拉箭头图标 默认 fa-solid fa-angle-up
@@ -111,9 +113,6 @@ public partial class Select<TValue> : ISelect
     [NotNull]
     private IStringLocalizer<Select<TValue>>? Localizer { get; set; }
 
-    [NotNull]
-    private List<SelectedItem>? DataSource { get; set; }
-
     /// <summary>
     /// 获得 input 组件 Id 方法
     /// </summary>
@@ -125,43 +124,63 @@ public partial class Select<TValue> : ISelect
     /// </summary>
     private string? InputId => $"{Id}_input";
 
-    /// <summary>
-    /// OnInitialized 方法
-    /// </summary>
-    protected override void OnInitialized()
-    {
-        base.OnInitialized();
-
-        OnSearchTextChanged ??= text => Items.Where(i => i.Text.Contains(text, StringComparison));
-        Children = new List<SelectedItem>();
-    }
+    [NotNull]
+    private Type? ValueType { get; set; }
 
     /// <summary>
-    /// OnParametersSet 方法
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnParametersSet()
     {
         base.OnParametersSet();
 
         Items ??= Enumerable.Empty<SelectedItem>();
+        OnSearchTextChanged ??= text => Items.Where(i => i.Text.Contains(text, StringComparison));
         PlaceHolder ??= Localizer[nameof(PlaceHolder)];
         NoSearchDataText ??= Localizer[nameof(NoSearchDataText)];
-        DropdownIcon ??= "fa-solid fa-angle-up";
+        DropdownIcon ??= IconTheme.GetIconByKey(ComponentIcons.SelectDropdownIcon);
 
         // 内置对枚举类型的支持
-        var t = NullableUnderlyingType ?? typeof(TValue);
-        if (!Items.Any() && t.IsEnum())
+        ValueType ??= NullableUnderlyingType ?? typeof(TValue);
+        if (!Items.Any() && ValueType.IsEnum())
         {
             var item = NullableUnderlyingType == null ? "" : PlaceHolder;
-            Items = typeof(TValue).ToSelectList(string.IsNullOrEmpty(item) ? null : new SelectedItem("", item));
+            Items = ValueType.ToSelectList(string.IsNullOrEmpty(item) ? null : new SelectedItem("", item));
         }
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="value"></param>
+    /// <param name="result"></param>
+    /// <param name="validationErrorMessage"></param>
+    /// <returns></returns>
+    protected override bool TryParseValueFromString(string value, [MaybeNullWhen(false)] out TValue result, out string? validationErrorMessage) => ValueType == typeof(SelectedItem)
+        ? TryParseSelectItem(value, out result, out validationErrorMessage)
+        : base.TryParseValueFromString(value, out result, out validationErrorMessage);
+
+    private bool TryParseSelectItem(string value, [MaybeNullWhen(false)] out TValue result, out string? validationErrorMessage)
+    {
+        SelectedItem = DataSource.FirstOrDefault(i => i.Value == value);
+
+        // support SelectedItem? type
+        result = default;
+        if (SelectedItem != null)
+        {
+            result = (TValue)(object)SelectedItem;
+        }
+        validationErrorMessage = "";
+        return SelectedItem != null;
     }
 
     private void ResetSelectedItem()
     {
+        DataSource.Clear();
+
         if (string.IsNullOrEmpty(SearchText))
         {
-            DataSource = Items.ToList();
+            DataSource.AddRange(Items);
             DataSource.AddRange(Children);
 
             SelectedItem = DataSource.FirstOrDefault(i => i.Value.Equals(CurrentValueAsString, StringComparison))
@@ -172,12 +191,12 @@ public partial class Select<TValue> : ISelect
             // Value 不等于 选中值即不存在
             if (!string.IsNullOrEmpty(SelectedItem?.Value) && CurrentValueAsString != SelectedItem.Value)
             {
-                _ = ItemChanged(SelectedItem);
+                _ = SelectedItemChanged(SelectedItem);
             }
         }
         else
         {
-            DataSource = OnSearchTextChanged(SearchText).ToList();
+            DataSource.AddRange(OnSearchTextChanged(SearchText));
         }
     }
 
@@ -187,7 +206,8 @@ public partial class Select<TValue> : ISelect
     /// <returns></returns>
     protected override async Task ModuleInitAsync()
     {
-        // 选项值不为 null 后者 string.Empty 时触发一次 OnSelectedItemChanged 回调
+        // 首次加载是 Value 不为 null 时触发一次 OnSelectedItemChanged 回调
+        // 此逻辑与 ResetSelectedItem 逻辑互补
         if (SelectedItem != null && OnSelectedItemChanged != null && !string.IsNullOrEmpty(SelectedItem.Value))
         {
             await OnSelectedItemChanged.Invoke(SelectedItem);
@@ -197,7 +217,7 @@ public partial class Select<TValue> : ISelect
     }
 
     /// <summary>
-    /// 
+    /// 客户端回车回调方法
     /// </summary>
     /// <param name="index"></param>
     /// <returns></returns>
@@ -245,15 +265,11 @@ public partial class Select<TValue> : ISelect
         }
         if (ret)
         {
-            await ItemChanged(item);
+            await SelectedItemChanged(item);
         }
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <returns></returns>
-    private async Task ItemChanged(SelectedItem item)
+    private async Task SelectedItemChanged(SelectedItem item)
     {
         item.Active = true;
         SelectedItem = item;

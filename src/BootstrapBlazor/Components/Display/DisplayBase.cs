@@ -168,5 +168,17 @@ public abstract class DisplayBase<TValue> : BootstrapModuleComponentBase
     /// </summary>
     /// <param name="value">The value to format.</param>
     /// <returns>A string representation of the value.</returns>
-    protected virtual string? FormatValueAsString(TValue value) => value?.ToString();
+    protected virtual string? FormatValueAsString(TValue value)
+    {
+        string? ret;
+        if (value is SelectedItem item)
+        {
+            ret = item.Value;
+        }
+        else
+        {
+            ret = value?.ToString();
+        }
+        return ret;
+    }
 }
