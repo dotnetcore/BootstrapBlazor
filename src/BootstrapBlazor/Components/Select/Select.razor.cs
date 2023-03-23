@@ -60,8 +60,7 @@ public partial class Select<TValue> : ISelect
     /// <summary>
     /// Razor 文件中 Options 模板子项
     /// </summary>
-    [NotNull]
-    private List<SelectedItem>? Children { get; set; }
+    private List<SelectedItem> Children { get; } = new();
 
     /// <summary>
     /// 获得/设置 右侧下拉箭头图标 默认 fa-solid fa-angle-up
@@ -111,7 +110,7 @@ public partial class Select<TValue> : ISelect
     private IStringLocalizer<Select<TValue>>? Localizer { get; set; }
 
     [NotNull]
-    private List<SelectedItem>? DataSource { get; set; }
+    private List<SelectedItem> DataSource { get; } = new();
 
     /// <summary>
     /// 获得 input 组件 Id 方法
@@ -124,24 +123,18 @@ public partial class Select<TValue> : ISelect
     /// </summary>
     private string? InputId => $"{Id}_input";
 
-    /// <summary>
-    /// OnInitialized 方法
-    /// </summary>
-    protected override void OnInitialized()
-    {
-        base.OnInitialized();
-
-        Children = new List<SelectedItem>();
-    }
+    [NotNull]
+    private Type? ValueType { get; set; }
 
     /// <summary>
-    /// OnParametersSet 方法
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnParametersSet()
     {
         base.OnParametersSet();
 
         Items ??= Enumerable.Empty<SelectedItem>();
+        OnSearchTextChanged ??= text => Items.Where(i => i.Text.Contains(text, StringComparison));
         PlaceHolder ??= Localizer[nameof(PlaceHolder)];
         NoSearchDataText ??= Localizer[nameof(NoSearchDataText)];
         DropdownIcon ??= IconTheme.GetIconByKey(ComponentIcons.SelectDropdownIcon);
@@ -199,7 +192,7 @@ public partial class Select<TValue> : ISelect
     }
 
     /// <summary>
-    /// 
+    /// 客户端回车回调方法
     /// </summary>
     /// <param name="index"></param>
     /// <returns></returns>
