@@ -98,6 +98,8 @@ internal class DefaultIconTheme : IIconTheme
 
             { ComponentIcons.MultiSelectClearIcon, "fa-solid fa-xmark" },
 
+            { ComponentIcons.SelectTreeDropdownIcon, "fa-solid fa-angle-up" },
+
             { ComponentIcons.TableSortIconAsc, "fa-solid fa-sort-up" },
             { ComponentIcons.TableSortDesc, "fa-solid fa-sort-down" },
             { ComponentIcons.TableSortIcon, "fa-solid fa-sort" },
