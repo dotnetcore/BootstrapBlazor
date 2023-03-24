@@ -65,6 +65,10 @@ public partial class Toast
     [CascadingParameter]
     protected ToastContainer? ToastContainer { get; set; }
 
+    [Inject]
+    [NotNull]
+    private IIconTheme? IconTheme { get; set; }
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -72,7 +76,13 @@ public partial class Toast
     {
         base.OnInitialized();
 
-        Options ??= new ToastOption();
+        Options ??= new ToastOption()
+        {
+            SuccessIcon = IconTheme.GetIconByKey(ComponentIcons.ToastSuccessIcon),
+            InformationIcon = IconTheme.GetIconByKey(ComponentIcons.ToastInformationIcon),
+            WarningIcon = IconTheme.GetIconByKey(ComponentIcons.ToastWarningIcon),
+            ErrorIcon = IconTheme.GetIconByKey(ComponentIcons.ToastErrorIcon)
+        };
         Options.Toast = this;
     }
 
