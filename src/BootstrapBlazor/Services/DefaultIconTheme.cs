@@ -118,6 +118,11 @@ internal class DefaultIconTheme : IIconTheme
 
             { ComponentIcons.PrintButtonIcon, "fa-solid fa-fw fa-print" },
 
+            { ComponentIcons.ToastSuccessIcon, "fa-solid fa-check-circle text-success" },
+            { ComponentIcons.ToastInformationIcon, "fa-solid fa-exclamation-circle text-info" },
+            { ComponentIcons.ToastWarningIcon, "fa-solid fa-exclamation-triangle text-warning" },
+            { ComponentIcons.ToastErrorIcon, "fa-solid fa-xmark-circle text-danger" },
+
             { ComponentIcons.TabPreviousIcon, "fa-solid fa-chevron-left" },
             { ComponentIcons.TabNextIcon, "fa-solid fa-chevron-left" },
             { ComponentIcons.TabDropdownIcon, "fa-solid fa-chevron-left" },

@@ -409,6 +409,26 @@ public enum ComponentIcons
     TabNextIcon,
 
     /// <summary>
+    /// ToastOption SuccessIcon 属性图标
+    /// </summary>
+    ToastSuccessIcon,
+
+    /// <summary>
+    /// ToastOption InformationIcon 属性图标
+    /// </summary>
+    ToastInformationIcon,
+
+    /// <summary>
+    /// ToastOption WarningIcon 属性图标
+    /// </summary>
+    ToastWarningIcon,
+
+    /// <summary>
+    /// ToastOption ErrorIcon 属性图标
+    /// </summary>
+    ToastErrorIcon,
+
+    /// <summary>
     /// Tab 组件 DropdownIcon 属性图标
     /// </summary>
     TabDropdownIcon,

@@ -22,22 +22,22 @@ public class ToastOption : PopupOptionBase
     /// <summary>
     /// 获得/设置 成功图标
     /// </summary>
-    public string SuccessIcon { get; set; } = "fa-solid fa-check-circle text-success";
+    public string? SuccessIcon { get; set; }
 
     /// <summary>
     /// 获得/设置 提示图标
     /// </summary>
-    public string InformationIcon { get; set; } = "fa-solid fa-exclamation-circle text-info";
+    public string? InformationIcon { get; set; }
 
     /// <summary>
     /// 获得/设置 错误图标
     /// </summary>
-    public string ErrorIcon { get; set; } = "fa-solid fa-xmark-circle text-danger";
+    public string? ErrorIcon { get; set; }
 
     /// <summary>
     /// 获得/设置 警告图标
     /// </summary>
-    public string WarningIcon { get; set; } = "fa-solid fa-exclamation-triangle text-warning";
+    public string? WarningIcon { get; set; }
 
     /// <summary>
     /// 获得/设置 显示标题
@@ -74,9 +74,6 @@ public class ToastOption : PopupOptionBase
     /// </summary>
     public void Close()
     {
-        if (Toast != null)
-        {
-            Toast.Close();
-        }
+        Toast?.Close();
     }
 }
