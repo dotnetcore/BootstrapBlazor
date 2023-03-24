@@ -264,6 +264,26 @@ public enum ComponentIcons
     GoTopIcon,
 
     /// <summary>
+    /// Pagination 组件 PrevPageIcon 图标
+    /// </summary>
+    PaginationPrevPageIcon,
+
+    /// <summary>
+    /// Pagination 组件 NextPageIcon 图标
+    /// </summary>
+    PaginationNextPageIcon,
+
+    /// <summary>
+    /// Pagination 组件 PrevEllipsisPageIcon 图标
+    /// </summary>
+    PaginationPrevEllipsisPageIcon,
+
+    /// <summary>
+    /// Pagination 组件 NextEllipsisPageIcon 图标
+    /// </summary>
+    PaginationNextEllipsisPageIcon,
+
+    /// <summary>
     /// PopConfirmButton 组件 ConfirmIcon 图标
     /// </summary>
     PopConfirmButtonConfirmIcon,

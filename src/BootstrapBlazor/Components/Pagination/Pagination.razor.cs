@@ -47,25 +47,25 @@ public partial class Pagination
     public Alignment Alignment { get; set; } = Alignment.Right;
 
     /// <summary>
-    /// 获得/设置 上一页图标 默认 fa-solid fa-angle-left
+    /// 获得/设置 上一页图标
     /// </summary>
     [Parameter]
     public string? PrevPageIcon { get; set; }
 
     /// <summary>
-    /// 获得/设置 上一页图标 默认 fa-solid fa-ellipsis
+    /// 获得/设置 上一页图标
     /// </summary>
     [Parameter]
     public string? PrevEllipsisPageIcon { get; set; }
 
     /// <summary>
-    /// 获得/设置 下一页图标 默认 fa-solid fa-angle-right
+    /// 获得/设置 下一页图标
     /// </summary>
     [Parameter]
     public string? NextPageIcon { get; set; }
 
     /// <summary>
-    /// 获得/设置 上一页图标 默认 fa-solid fa-ellipsis
+    /// 获得/设置 上一页图标
     /// </summary>
     [Parameter]
     public string? NextEllipsisPageIcon { get; set; }
@@ -138,6 +138,10 @@ public partial class Pagination
     [Parameter]
     public RenderFragment? PageInfoTemplate { get; set; }
 
+    [Inject]
+    [NotNull]
+    private IIconTheme? IconTheme { get; set; }
+
     private int InternalPageIndex => Math.Min(InternalPageCount, PageIndex);
 
     /// <summary>
@@ -148,10 +152,10 @@ public partial class Pagination
         base.OnParametersSet();
 
         GotoNavigatorLabelText ??= Localizer[nameof(GotoNavigatorLabelText)];
-        PrevPageIcon ??= "fa-solid fa-angle-left";
-        NextPageIcon ??= "fa-solid fa-angle-right";
-        PrevEllipsisPageIcon ??= "fa-solid fa-ellipsis";
-        NextEllipsisPageIcon ??= "fa-solid fa-ellipsis";
+        PrevPageIcon ??= IconTheme.GetIconByKey(ComponentIcons.PaginationPrevPageIcon);
+        NextPageIcon ??= IconTheme.GetIconByKey(ComponentIcons.PaginationNextPageIcon);
+        PrevEllipsisPageIcon ??= IconTheme.GetIconByKey(ComponentIcons.PaginationPrevEllipsisPageIcon);
+        NextEllipsisPageIcon ??= IconTheme.GetIconByKey(ComponentIcons.PaginationNextEllipsisPageIcon);
     }
 
     private async Task OnClick(int index)
