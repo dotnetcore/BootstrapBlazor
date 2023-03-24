@@ -117,7 +117,7 @@ public partial class BootstrapInputNumber<TValue>
 
         ParsingErrorMessage ??= Localizer[nameof(ParsingErrorMessage)];
         MinusIcon ??= IconTheme.GetIconByKey(ComponentIcons.InputNumberMinusIcon);
-        MinusIcon ??= IconTheme.GetIconByKey(ComponentIcons.InputNumberPlusIcon);
+        PlusIcon ??= IconTheme.GetIconByKey(ComponentIcons.InputNumberPlusIcon);
 
         SetStep();
     }
