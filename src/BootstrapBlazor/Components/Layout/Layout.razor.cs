@@ -51,6 +51,12 @@ public partial class Layout : IHandlerException, IAsyncDisposable
     public RenderFragment? Footer { get; set; }
 
     /// <summary>
+    /// 获得/设置 MenuBar 图标
+    /// </summary>
+    [Parameter]
+    public string? MenuBarIcon { get; set; }
+
+    /// <summary>
     /// 获得/设置 Side 模板
     /// </summary>
     [Parameter]
@@ -178,12 +184,13 @@ public partial class Layout : IHandlerException, IAsyncDisposable
     [Parameter]
     public string NotAuthorizeUrl { get; set; } = "/Account/Login";
 
-    /// <summary>
-    ///
-    /// </summary>
     [Inject]
     [NotNull]
-    protected NavigationManager? Navigation { get; set; }
+    private NavigationManager? Navigation { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IIconTheme? IconTheme { get; set; }
 
     private bool SubscribedLocationChangedEvent { get; set; }
 
@@ -347,6 +354,8 @@ public partial class Layout : IHandlerException, IAsyncDisposable
 
         TooltipText ??= Localizer[nameof(TooltipText)];
         SideWidth ??= "300";
+
+        MenuBarIcon ??= IconTheme.GetIconByKey(ComponentIcons.LayoutMenuBarIcon);
     }
 
     /// <summary>

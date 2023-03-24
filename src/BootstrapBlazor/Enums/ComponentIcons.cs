@@ -235,6 +235,11 @@ public enum ComponentIcons
     ImageViewerFileIcon,
 
     /// <summary>
+    /// Layout 组件 MenuBarIcon 图标
+    /// </summary>
+    LayoutMenuBarIcon,
+
+    /// <summary>
     /// Button 组件 LoadingIcon 图标
     /// </summary>
     LoadingIcon,
