@@ -84,8 +84,8 @@ public partial class Rate
     {
         base.OnParametersSet();
 
-        StarIcon ??= IconTheme.GetIconByKey(ComponentIcons.StarIcon);
-        UnStarIcon ??= IconTheme.GetIconByKey(ComponentIcons.UnStarIcon);
+        StarIcon ??= IconTheme.GetIconByKey(ComponentIcons.RateStarIcon);
+        UnStarIcon ??= IconTheme.GetIconByKey(ComponentIcons.RateUnStarIcon);
 
         if (Max < 1)
         {
