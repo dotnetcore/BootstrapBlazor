@@ -284,6 +284,8 @@ public partial class Tab : IHandlerException, IDisposable
         NotFoundTabText ??= Localizer[nameof(NotFoundTabText)];
 
         PreviousIcon ??= IconTheme.GetIconByKey(ComponentIcons.TabPreviousIcon);
+        NextIcon ??= IconTheme.GetIconByKey(ComponentIcons.TabNextIcon);
+        DropdownIcon ??= IconTheme.GetIconByKey(ComponentIcons.TabDropdownIcon);
         CloseIcon ??= IconTheme.GetIconByKey(ComponentIcons.TabCloseIcon);
 
         AdditionalAssemblies ??= new[] { Assembly.GetEntryAssembly()! };

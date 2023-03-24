@@ -129,6 +129,9 @@ public class ToastTest : BootstrapBlazorTestBase
             pb.Add(a => a.Options, new ToastOption());
         });
         await cut.InvokeAsync(() => cut.Instance.Close());
+
+        var option = new ToastOption();
+        option.Close();
     }
 
     [Fact]
