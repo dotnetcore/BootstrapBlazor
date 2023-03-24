@@ -397,7 +397,8 @@ public enum ComponentIcons
     /// SweetAlertBody 组件 ConfirmuttonIcon 属性图标
     /// </summary>
     SweetAlertConfirmIcon,
-    
+
+    /// <summary>
     /// Tab 组件 PreviousIcon 属性图标
     /// </summary>
     TabPreviousIcon,
