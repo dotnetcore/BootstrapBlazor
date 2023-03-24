@@ -235,6 +235,16 @@ public enum ComponentIcons
     ImageViewerFileIcon,
 
     /// <summary>
+    /// InputNumber 组件 MinusIcon 图标
+    /// </summary>
+    InputNumberMinusIcon,
+
+    /// <summary>
+    /// InputNumber 组件 PlusIcon 图标
+    /// </summary>
+    InputNumberPlusIcon,
+
+    /// <summary>
     /// Button 组件 LoadingIcon 图标
     /// </summary>
     LoadingIcon,

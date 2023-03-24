@@ -73,6 +73,9 @@ internal class DefaultIconTheme : IIconTheme
 
             { ComponentIcons.ImageViewerFileIcon, "fa-regular fa-file-image fa-2x" },
 
+            { ComponentIcons.InputNumberMinusIcon, "fa-fw fa-solid fa-circle-minus" },
+            { ComponentIcons.InputNumberPlusIcon, "fa-fw fa-solid fa-circle-plus" },
+
             { ComponentIcons.LoadingIcon, "fa-solid fa-fw fa-spin fa-spinner" },
 
             { ComponentIcons.PopConfirmButtonConfirmIcon, "fa-solid fa-circle-exclamation text-info" },
