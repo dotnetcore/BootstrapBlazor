@@ -416,5 +416,10 @@ public enum ComponentIcons
     /// <summary>
     /// Tab 组件 CloseIcon 属性图标
     /// </summary>
-    TabCloseIcon
+    TabCloseIcon,
+
+    /// <summary>
+    /// Timer 组件 Icon 属性图标
+    /// </summary>
+    TimerIcon
 }

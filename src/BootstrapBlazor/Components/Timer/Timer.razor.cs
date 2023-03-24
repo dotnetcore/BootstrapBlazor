@@ -110,9 +110,19 @@ public partial class Timer
     [NotNull]
     public string? StarText { get; set; }
 
+    /// <summary>
+    /// 获得/设置 Alert 图标
+    /// </summary>
+    [Parameter]
+    public string? Icon { get; set; }
+
     [Inject]
     [NotNull]
     private IStringLocalizer<Timer>? Localizer { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IIconTheme? IconTheme { get; set; }
 
     /// <summary>
     /// <inheritdoc/>
@@ -125,6 +135,8 @@ public partial class Timer
         ResumeText ??= Localizer[nameof(ResumeText)];
         CancelText ??= Localizer[nameof(CancelText)];
         StarText ??= Localizer[nameof(StarText)];
+
+        Icon ??= IconTheme.GetIconByKey(ComponentIcons.TimerIcon);
     }
 
     /// <summary>

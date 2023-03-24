@@ -101,7 +101,7 @@ public partial class SelectTree<TValue> : IModelEqualityComparer<TValue>
     public bool ShowIcon { get; set; }
 
     /// <summary>
-    /// 获得/设置 下拉箭头 Icon 图标 默认 "fa-solid fa-angle-up"
+    /// 获得/设置 下拉箭头 Icon 图标
     /// </summary>
     [Parameter]
     public string? DropdownIcon { get; set; }
