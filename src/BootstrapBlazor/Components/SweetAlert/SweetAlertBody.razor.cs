@@ -75,14 +75,14 @@ public partial class SweetAlertBody
     public bool IsConfirm { get; set; }
 
     /// <summary>
-    /// 获得/设置 关闭按钮图标 默认 fa-solid fa-xmark
+    /// 获得/设置 关闭按钮图标
     /// </summary>
     [Parameter]
     [NotNull]
     public string? CloseButtonIcon { get; set; }
 
     /// <summary>
-    /// 获得/设置 确认按钮图标 默认 fa-solid fa-check
+    /// 获得/设置 确认按钮图标
     /// </summary>
     [Parameter]
     [NotNull]
@@ -121,6 +121,10 @@ public partial class SweetAlertBody
     [CascadingParameter]
     private Func<Task>? CloseModal { get; set; }
 
+    [Inject]
+    [NotNull]
+    private IIconTheme? IconTheme { get; set; }
+
     private string? IconClassString => CssBuilder.Default("swal2-icon")
         .AddClass("swal2-success swal2-animate-success-icon", Category == SwalCategory.Success)
         .AddClass("swal2-error swal2-animate-error-icon", Category == SwalCategory.Error)
@@ -140,8 +144,8 @@ public partial class SweetAlertBody
         CancelButtonText ??= Localizer[nameof(CancelButtonText)];
         ConfirmButtonText ??= Localizer[nameof(ConfirmButtonText)];
 
-        CloseButtonIcon ??= "fa-solid fa-xmark";
-        ConfirmButtonIcon ??= "fa-solid fa-check";
+        CloseButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.SweetAlertCloseIcon);
+        ConfirmButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.SweetAlertConfirmIcon);
     }
 
     private async Task OnClickClose()
