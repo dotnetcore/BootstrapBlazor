@@ -386,5 +386,25 @@ public enum ComponentIcons
     /// <summary>
     /// Print 组件 ButtonIcon 属性图标
     /// </summary>
-    PrintButtonIcon
+    PrintButtonIcon,
+
+    /// <summary>
+    /// Tab 组件 PreviousIcon 属性图标
+    /// </summary>
+    TabPreviousIcon,
+
+    /// <summary>
+    /// Tab 组件 NextIcon 属性图标
+    /// </summary>
+    TabNextIcon,
+
+    /// <summary>
+    /// Tab 组件 DropdownIcon 属性图标
+    /// </summary>
+    TabDropdownIcon,
+
+    /// <summary>
+    /// Tab 组件 CloseIcon 属性图标
+    /// </summary>
+    TabCloseIcon
 }

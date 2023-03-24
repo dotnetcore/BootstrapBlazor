@@ -113,7 +113,12 @@ internal class DefaultIconTheme : IIconTheme
             { ComponentIcons.SelectDropdownIcon, "fa-solid fa-angle-up" },
             { ComponentIcons.SelectSearchIcon, "fa-solid fa-magnifying-glass" },
 
-            { ComponentIcons.PrintButtonIcon, "fa-solid fa-fw fa-print" }
+            { ComponentIcons.PrintButtonIcon, "fa-solid fa-fw fa-print" },
+
+            { ComponentIcons.TabPreviousIcon, "fa-solid fa-chevron-left" },
+            { ComponentIcons.TabNextIcon, "fa-solid fa-chevron-left" },
+            { ComponentIcons.TabDropdownIcon, "fa-solid fa-chevron-left" },
+            { ComponentIcons.TabPreviousIcon, "fa-solid fa-xmark" }
         };
     }
 
