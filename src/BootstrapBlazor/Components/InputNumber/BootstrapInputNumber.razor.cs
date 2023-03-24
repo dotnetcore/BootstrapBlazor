@@ -70,9 +70,25 @@ public partial class BootstrapInputNumber<TValue>
     [Parameter]
     public bool ShowButton { get; set; }
 
+    /// <summary>
+    /// 获得/设置 减小数值图标
+    /// </summary>
+    [Parameter]
+    public string? MinusIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 增加数值图标
+    /// </summary>
+    [Parameter]
+    public string? PlusIcon { get; set; }
+
     [Inject]
     [NotNull]
     private IStringLocalizer<BootstrapInputNumber<TValue>>? Localizer { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IIconTheme? IconTheme { get; set; }
 
     /// <summary>
     /// SetParametersAsync 方法
@@ -93,21 +109,15 @@ public partial class BootstrapInputNumber<TValue>
     }
 
     /// <summary>
-    /// OnInitialized 方法
-    /// </summary>
-    protected override void OnInitialized()
-    {
-        base.OnInitialized();
-
-        ParsingErrorMessage ??= Localizer[nameof(ParsingErrorMessage)];
-    }
-
-    /// <summary>
-    /// OnParametersSet 方法
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnParametersSet()
     {
         base.OnParametersSet();
+
+        ParsingErrorMessage ??= Localizer[nameof(ParsingErrorMessage)];
+        MinusIcon ??= IconTheme.GetIconByKey(ComponentIcons.InputNumberMinusIcon);
+        MinusIcon ??= IconTheme.GetIconByKey(ComponentIcons.InputNumberPlusIcon);
 
         SetStep();
     }
