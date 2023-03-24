@@ -19,25 +19,23 @@
             <div class="transfer-panel-filter">
                 <input type="text" autocomplete="off" placeholder="@SearchPlaceHolderString" disabled="@Disabled" class="input-inner" value="@SearchText" @oninput="@OnSearch" @onkeyup="@OnKeyUp">
                 <span class="@SearchClass" @onclick="@ClearSearch">
-                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <i class="@SearchIcon"></i>
                 </span>
             </div>
         }
         <div role="group" aria-label="checkbox-group" class="@PanelListClassString">
-            @{
-                foreach (var item in GetShownItems())
+            @foreach (var item in GetShownItems())
+            {
+                if(ItemTemplate == null)
                 {
-                    if(ItemTemplate == null)
-                    {
                     var state = item.Active ? CheckboxState.Checked : CheckboxState.UnChecked;
                     <Checkbox TValue="SelectedItem" IsDisabled="@IsDisabled" class="@GetItemClass(item)"
-                              DisplayText="@item.Text" Value="item" ShowAfterLabel="true" ShowLabel="false"
-                              State="@state" OnStateChanged="@OnStateChanged"></Checkbox>
-                    }
-                    else
-                    {
-                        @ItemTemplate(item)
-                    }
+                                DisplayText="@item.Text" Value="item" ShowAfterLabel="true" ShowLabel="false"
+                                State="@state" OnStateChanged="@OnStateChanged"></Checkbox>
+                }
+                else
+                {
+                    @ItemTemplate(item)
                 }
             }
         </div>
