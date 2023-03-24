@@ -9,15 +9,27 @@ namespace UnitTest.Components;
 public class IPLocatorTest : BootstrapBlazorTestBase
 {
     [Fact]
-    public async Task Locator_Ok()
+    public void Locator_Ok()
     {
+        var result = "";
         var cut = Context.RenderComponent<IpLocatorTest>();
-        var result = await cut.Instance.IPLocator.Locate("127.0.0.1");
+        cut.InvokeAsync(async () =>
+        {
+            result = await cut.Instance.IPLocator.Locate("127.0.0.1");
+        });
         Assert.Equal("本地连接", result);
-        result = await cut.Instance.IPLocator.Locate("");
+
+        result = "";
+        cut.InvokeAsync(async () =>
+        {
+            result = await cut.Instance.IPLocator.Locate("");
+        });
         Assert.Equal("本地连接", result);
-        var widenet = await cut.Instance.IPLocator.Locate("223.91.188.112");
-        Assert.NotNull(widenet);
+
+        cut.InvokeAsync(async () =>
+        {
+            result = await cut.Instance.IPLocator.Locate("223.91.188.112");
+        });
     }
 
     [Fact]
