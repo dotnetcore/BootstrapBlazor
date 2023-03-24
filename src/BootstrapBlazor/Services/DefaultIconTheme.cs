@@ -113,6 +113,9 @@ internal class DefaultIconTheme : IIconTheme
             { ComponentIcons.SelectDropdownIcon, "fa-solid fa-angle-up" },
             { ComponentIcons.SelectSearchIcon, "fa-solid fa-magnifying-glass" },
 
+            { ComponentIcons.SweetAlertCloseIcon, "fa-solid fa-xmark" },
+            { ComponentIcons.SweetAlertConfirmIcon, "fa-solid fa-check" },
+
             { ComponentIcons.PrintButtonIcon, "fa-solid fa-fw fa-print" },
 
             { ComponentIcons.TabPreviousIcon, "fa-solid fa-chevron-left" },

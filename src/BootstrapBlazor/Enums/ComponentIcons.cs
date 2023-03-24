@@ -389,6 +389,15 @@ public enum ComponentIcons
     PrintButtonIcon,
 
     /// <summary>
+    /// SweetAlertBody 组件 CloseButtonIcon 属性图标
+    /// </summary>
+    SweetAlertCloseIcon,
+
+    /// <summary>
+    /// SweetAlertBody 组件 ConfirmuttonIcon 属性图标
+    /// </summary>
+    SweetAlertConfirmIcon,
+    
     /// Tab 组件 PreviousIcon 属性图标
     /// </summary>
     TabPreviousIcon,
