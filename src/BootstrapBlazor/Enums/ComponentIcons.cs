@@ -294,6 +294,16 @@ public enum ComponentIcons
     PopConfirmButtonContentIcon,
 
     /// <summary>
+    /// Rate 组件 StarIcon 图标
+    /// </summary>
+    RateStarIcon,
+
+    /// <summary>
+    /// Rate 组件 UnStarIcon 图标
+    /// </summary>
+    RateUnStarIcon,
+
+    /// <summary>
     /// Table 组件 SortIconAsc 属性图标
     /// </summary>
     TableSortIconAsc,
