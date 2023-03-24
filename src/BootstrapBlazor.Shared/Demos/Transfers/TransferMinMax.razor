@@ -1,0 +1,39 @@
+﻿@using BootstrapBlazor.Shared.Samples
+@inject IStringLocalizer<Transfers> Localizer
+
+<ValidateForm Model="@Model6">
+    <div class="row g-3">
+        <div class="col-12">
+            <Transfer Items="@Items6" @bind-Value="@Model6.Hobby" Min="2" Max="4" />
+        </div>
+        <div class="col-12">
+            <Button ButtonType="ButtonType.Submit">@Localizer["ClientValidationButtonText"]</Button>
+        </div>
+    </div>
+</ValidateForm>
+
+@code {
+    [NotNull]
+    private IEnumerable<SelectedItem>? Items6 { get; set; }
+
+    private Foo Model6 { get; set; } = new();
+
+    /// <summary>
+    /// OnInitializedAsync 方法
+    /// </summary>
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+
+        // 模拟异步加载数据源
+        await Task.Delay(100);
+
+        Items6 = GeneratorItems();
+    }
+
+    private IEnumerable<SelectedItem> GeneratorItems() => Enumerable.Range(1, 15).Select(i => new SelectedItem()
+    {
+        Text = $"{Localizer["Data"]} {i:d2}",
+        Value = i.ToString()
+    });
+}

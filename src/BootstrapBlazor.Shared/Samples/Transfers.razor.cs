@@ -5,108 +5,10 @@
 namespace BootstrapBlazor.Shared.Samples;
 
 /// <summary>
-/// 
+/// Transfers
 /// </summary>
 public sealed partial class Transfers : ComponentBase
 {
-    /// <summary>
-    /// 
-    /// </summary>
-    [NotNull]
-    private IEnumerable<SelectedItem>? Items { get; set; }
-
-    [NotNull]
-    private IEnumerable<SelectedItem>? Items1 { get; set; }
-
-    [NotNull]
-    private IEnumerable<SelectedItem>? Items2 { get; set; }
-
-    [NotNull]
-    private List<SelectedItem>? Items3 { get; set; }
-
-    [NotNull]
-    private IEnumerable<SelectedItem>? Items4 { get; set; }
-
-    [NotNull]
-    private IEnumerable<SelectedItem>? Items5 { get; set; }
-
-    [NotNull]
-    private IEnumerable<SelectedItem>? Items6 { get; set; }
-
-    [NotNull]
-    private BlockLogger? Trace { get; set; }
-
-    private IEnumerable<SelectedItem> SelectedValue { get; set; } = Enumerable.Empty<SelectedItem>();
-
-    private Foo Model { get; set; } = new();
-
-    private Foo Model6 { get; set; } = new();
-
-    /// <summary>
-    /// OnInitializedAsync 方法
-    /// </summary>
-    protected override async Task OnInitializedAsync()
-    {
-        await base.OnInitializedAsync();
-
-        // 模拟异步加载数据源
-        await Task.Delay(100);
-
-        Items = GeneratorItems();
-
-        Items1 = GeneratorItems();
-
-        Items2 = GeneratorItems();
-
-        Items3 = Enumerable.Range(1, 15).Select(i => new SelectedItem()
-        {
-            Text = $"{Localizer["Backup"]} {i:d2}",
-            Value = i.ToString()
-        }).ToList();
-
-        var v = SelectedValue.ToList();
-        v.AddRange(Items3.Take(2));
-        v.AddRange(Items3.Skip(4).Take(1));
-        SelectedValue = v;
-
-        Items4 = GeneratorItems();
-
-        Items5 = GeneratorItems();
-
-        Items6 = GeneratorItems();
-    }
-
-    private IEnumerable<SelectedItem> GeneratorItems() =>Enumerable.Range(1, 15).Select(i => new SelectedItem()
-    {
-        Text = $"{Localizer["Data"]} {i:d2}",
-        Value = i.ToString()
-    });
-
-    private void OnAddItem()
-    {
-        var count = Items3.Count + 1;
-        Items3.Add(new SelectedItem(count.ToString(), $"{Localizer["Backup"]} {count:d2}"));
-    }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="items"></param>
-    private Task OnSelectedItemsChanged(IEnumerable<SelectedItem> items)
-    {
-        Trace?.Log(string.Join(" ", items.Select(i => i.Text)));
-        return Task.CompletedTask;
-    }
-
-    private static string? SetItemClass(SelectedItem item) => item.Value switch
-    {
-        "2" => "bg-success text-white",
-        "4" => "bg-info text-white",
-        "6" => "bg-primary text-white",
-        "8" => "bg-warning text-white",
-        _ => null
-    };
-
     /// <summary>
     /// 获得属性方法
     /// </summary>
