@@ -23,7 +23,7 @@ public partial class LogoutLink
     /// 获得/设置 图标
     /// </summary>
     [Parameter]
-    public string Icon { get; set; } = "fa-solid fa-key";
+    public string? Icon { get; set; }
 
     /// <summary>
     /// 获得/设置 按钮文字
@@ -46,14 +46,19 @@ public partial class LogoutLink
     [Parameter]
     public bool ForceLoad { get; set; } = true;
 
+    [Inject]
+    [NotNull]
+    private IIconTheme? IconTheme { get; set; }
+
     /// <summary>
-    /// OnInitialized 方法
+    /// <inheritdoc/>
     /// </summary>
-    protected override void OnInitialized()
+    protected override void OnParametersSet()
     {
-        base.OnInitialized();
+        base.OnParametersSet();
 
         Text ??= Localizer[nameof(Text)];
+        Icon ??= IconTheme.GetIconByKey(ComponentIcons.LogoutLinkIcon);
     }
 
     private void OnLogout() => NavigationManager.NavigateTo(Url, ForceLoad);
