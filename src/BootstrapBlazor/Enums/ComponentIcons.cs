@@ -304,6 +304,21 @@ public enum ComponentIcons
     RateUnStarIcon,
 
     /// <summary>
+    /// RibbonTab 组件 ArrowUpIcon 图标
+    /// </summary>
+    RibbonTabArrowUpIcon,
+
+    /// <summary>
+    /// RibbonTab 组件 ArrowDownIcon 图标
+    /// </summary>
+    RibbonTabArrowDownIcon,
+
+    /// <summary>
+    /// RibbonTab 组件 ArrowPinIcon 图标
+    /// </summary>
+    RibbonTabArrowPinIcon,
+
+    /// <summary>
     /// Table 组件 SortIconAsc 属性图标
     /// </summary>
     TableSortIconAsc,

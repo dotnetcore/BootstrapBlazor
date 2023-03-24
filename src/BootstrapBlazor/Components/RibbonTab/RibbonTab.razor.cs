@@ -26,19 +26,19 @@ public partial class RibbonTab
     /// 获得/设置 选项卡向上箭头图标
     /// </summary>
     [Parameter]
-    public string RibbonArrowUpIcon { get; set; } = "fa-solid fa-angle-up";
+    public string? RibbonArrowUpIcon { get; set; }
 
     /// <summary>
     /// 获得/设置 选项卡向下箭头图标
     /// </summary>
     [Parameter]
-    public string RibbonArrowDownIcon { get; set; } = "fa-solid fa-angle-down";
+    public string? RibbonArrowDownIcon { get; set; }
 
     /// <summary>
     /// 获得/设置 选项卡可固定图标
     /// </summary>
     [Parameter]
-    public string RibbonArrowPinIcon { get; set; } = "fa-solid fa-thumbtack fa-rotate-90";
+    public string? RibbonArrowPinIcon { get; set; }
 
     private bool IsFloat { get; set; }
 
@@ -88,6 +88,10 @@ public partial class RibbonTab
     [Parameter]
     public bool IsBorder { get; set; } = true;
 
+    [Inject]
+    [NotNull]
+    private IIconTheme? IconTheme { get; set; }
+
     private bool IsExpand { get; set; }
 
     private string? HeaderClassString => CssBuilder.Default("ribbon-tab")
@@ -113,6 +117,10 @@ public partial class RibbonTab
     protected override void OnParametersSet()
     {
         base.OnParametersSet();
+
+        RibbonArrowUpIcon ??= IconTheme.GetIconByKey(ComponentIcons.RibbonTabArrowUpIcon);
+        RibbonArrowDownIcon ??= IconTheme.GetIconByKey(ComponentIcons.RibbonTabArrowDownIcon);
+        RibbonArrowPinIcon ??= IconTheme.GetIconByKey(ComponentIcons.RibbonTabArrowPinIcon);
 
         Items ??= Enumerable.Empty<RibbonTabItem>();
         if (!Items.Any(i => i.IsActive))
