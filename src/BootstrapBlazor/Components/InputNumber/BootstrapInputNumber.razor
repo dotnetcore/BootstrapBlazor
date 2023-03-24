@@ -10,11 +10,11 @@
 {
     <div class="input-group">
         <button class="@ButtonClassString" type="button" @onclick="OnClickDec" disabled="@Disabled">
-            <i class="fa-fw fa-solid fa-circle-minus"></i>
+            <i class="@MinusIcon"></i>
         </button>
         <input @attributes="AdditionalAttributes" step="@StepString" min="@Min" max="@Max" id="@Id" type="number" placeholder="@PlaceHolder" class="@InputClassString" disabled="@Disabled" @bind-value="@CurrentValueAsString" @bind-value:event="onchange" @onblur="@OnBlur" @ref="FocusElement" />
         <button class="@ButtonClassString" type="button" @onclick="OnClickInc" disabled="@Disabled">
-            <i class="fa-fw fa-solid fa-circle-plus"></i>
+            <i class="@PlusIcon"></i>
         </button>
     </div>
 }
