@@ -132,8 +132,6 @@ internal class DefaultIconTheme : IIconTheme
             { ComponentIcons.TransferRightIcon, "fa-solid fa-angle-right" },
             { ComponentIcons.TransferPanelSearchIcon, "fa-solid fa-magnifying-glass" },
 
-            { ComponentIcons.TabNextIcon, "fa-solid fa-chevron-left" },
-
             { ComponentIcons.TimerIcon, "fa-solid fa-bell" }
         };
     }
