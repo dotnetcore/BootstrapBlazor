@@ -150,7 +150,7 @@ public partial class MultiSelect<TValue>
         MinErrorMessage ??= Localizer[nameof(MinErrorMessage)];
         MaxErrorMessage ??= Localizer[nameof(MaxErrorMessage)];
 
-        ClearIcon ??= "fa-solid fa-xmark";
+        ClearIcon ??= IconTheme.GetIconByKey(ComponentIcons.MultiSelectClearIcon);
 
         ResetItems();
 
