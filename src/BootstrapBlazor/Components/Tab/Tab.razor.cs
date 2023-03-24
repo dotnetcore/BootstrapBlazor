@@ -209,6 +209,30 @@ public partial class Tab : IHandlerException, IDisposable
     [Parameter]
     public RenderFragment? ButtonTemplate { get; set; }
 
+    /// <summary>
+    /// 获得/设置 上一个标签图标
+    /// </summary>
+    [Parameter]
+    public string? PreviousIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 下一个标签图标
+    /// </summary>
+    [Parameter]
+    public string? NextIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 下拉菜单标签图标
+    /// </summary>
+    [Parameter]
+    public string? DropdownIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 关闭标签图标
+    /// </summary>
+    [Parameter]
+    public string? CloseIcon { get; set; }
+
     [Inject]
     [NotNull]
     private IStringLocalizer<Tab>? Localizer { get; set; }
@@ -224,6 +248,10 @@ public partial class Tab : IHandlerException, IDisposable
     [Inject]
     [NotNull]
     private IOptionsMonitor<TabItemBindOptions>? TabItemMenuBinder { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IIconTheme? IconTheme { get; set; }
 
     private ConcurrentDictionary<TabItem, bool> LazyTabCache { get; } = new();
 
@@ -254,6 +282,9 @@ public partial class Tab : IHandlerException, IDisposable
         CloseAllTabsText ??= Localizer[nameof(CloseAllTabsText)];
         CloseCurrentTabText ??= Localizer[nameof(CloseCurrentTabText)];
         NotFoundTabText ??= Localizer[nameof(NotFoundTabText)];
+
+        PreviousIcon ??= IconTheme.GetIconByKey(ComponentIcons.TabPreviousIcon);
+        CloseIcon ??= IconTheme.GetIconByKey(ComponentIcons.TabCloseIcon);
 
         AdditionalAssemblies ??= new[] { Assembly.GetEntryAssembly()! };
 

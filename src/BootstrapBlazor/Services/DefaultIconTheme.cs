@@ -116,7 +116,12 @@ internal class DefaultIconTheme : IIconTheme
             { ComponentIcons.SweetAlertCloseIcon, "fa-solid fa-xmark" },
             { ComponentIcons.SweetAlertConfirmIcon, "fa-solid fa-check" },
 
-            { ComponentIcons.PrintButtonIcon, "fa-solid fa-fw fa-print" }
+            { ComponentIcons.PrintButtonIcon, "fa-solid fa-fw fa-print" },
+
+            { ComponentIcons.TabPreviousIcon, "fa-solid fa-chevron-left" },
+            { ComponentIcons.TabNextIcon, "fa-solid fa-chevron-left" },
+            { ComponentIcons.TabDropdownIcon, "fa-solid fa-chevron-left" },
+            { ComponentIcons.TabCloseIcon, "fa-solid fa-xmark" }
         };
     }
 

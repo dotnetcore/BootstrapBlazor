@@ -12,11 +12,11 @@ else
             <div class="@WrapClassString">
                 @if (ShouldShowExtendButtons())
                 {
-                    <DynamicElement class="nav-link-bar left" OnClick="@ClickPrevTab"><i class="fa-solid fa-chevron-left"></i></DynamicElement>
+                    <DynamicElement class="nav-link-bar left" OnClick="@ClickPrevTab"><i class="@PreviousIcon"></i></DynamicElement>
                 }
                 else
                 {
-                    <DynamicElement class="tabs-nav-prev" OnClick="@ClickPrevTab"><i class="fa-solid fa-angle-left"></i></DynamicElement>
+                    <DynamicElement class="tabs-nav-prev" OnClick="@ClickPrevTab"><i class="@PreviousIcon"></i></DynamicElement>
                 }
                 <div class="tabs-nav-scroll">
                     <div role="tablist" class="tabs-nav">
@@ -58,7 +58,7 @@ else
                                         @if (ShowClose && item.Closable)
                                         {
                                             <span class="tabs-item-close" @onclick:stopPropagation @onclick:preventDefault @onclick="@(e => RemoveTab(item))">
-                                                <i class="fa-fw fa-solid fa-xmark"></i>
+                                                <i class="@CloseIcon"></i>
                                             </span>
                                         }
                                     </DynamicElement>
@@ -73,9 +73,9 @@ else
                 }
                 @if (ShouldShowExtendButtons())
                 {
-                    <DynamicElement class="nav-link-bar right" OnClick="@ClickNextTab"><i class="fa-solid fa-chevron-right"></i></DynamicElement>
+                    <DynamicElement class="nav-link-bar right" OnClick="@ClickNextTab"><i class="@NextIcon"></i></DynamicElement>
                     <div class="dropdown nav-link-bar dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <div class="nav-link-close"><i class="fa-solid fa-chevron-down"></i></div>
+                        <div class="nav-link-close"><i class="@DropdownIcon"></i></div>
                     </div>
                     <div class="dropdown-menu dropdown-menu-end shadow">
                         <DynamicElement class="dropdown-item" OnClick="@CloseCurrentTab"><span>@CloseCurrentTabText</span></DynamicElement>
@@ -85,7 +85,7 @@ else
                 }
                 else
                 {
-                    <DynamicElement class="tabs-nav-next" OnClick="@ClickNextTab"><i class="fa-solid fa-angle-right"></i></DynamicElement>
+                    <DynamicElement class="tabs-nav-next" OnClick="@ClickNextTab"><i class="@NextIcon"></i></DynamicElement>
                 }
             </div>
         </div>
