@@ -137,6 +137,10 @@ public partial class SelectTree<TValue> : IModelEqualityComparer<TValue>
     [NotNull]
     private List<TreeViewItem<TValue>>? ExpandedItemsCache { get; set; }
 
+    [Inject]
+    [NotNull]
+    private IIconTheme? IconTheme { get; set; }
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -144,7 +148,7 @@ public partial class SelectTree<TValue> : IModelEqualityComparer<TValue>
     {
         await base.OnParametersSetAsync();
 
-        DropdownIcon ??= "fa-solid fa-angle-up";
+        DropdownIcon ??= IconTheme.GetIconByKey(ComponentIcons.SelectTreeDropdownIcon);
         PlaceHolder ??= Localizer[nameof(PlaceHolder)];
 
         Items ??= new List<TreeViewItem<TValue>>();
