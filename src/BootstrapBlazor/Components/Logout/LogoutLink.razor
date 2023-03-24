@@ -4,7 +4,7 @@
 <a href="#" @onclick:preventDefault @onclick="OnLogout">
     @if (!string.IsNullOrEmpty(Icon))
     {
-        <i class="fa-solid fa-key"></i>
+        <i class="@Icon"></i>
     }
     @if (!string.IsNullOrEmpty(Text))
     {

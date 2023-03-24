@@ -77,6 +77,7 @@ internal class DefaultIconTheme : IIconTheme
             { ComponentIcons.InputNumberPlusIcon, "fa-fw fa-solid fa-circle-plus" },
             
             { ComponentIcons.LayoutMenuBarIcon, "fa-solid fa-bars" },
+            { ComponentIcons.LogoutLinkIcon, "fa-solid fa-key" },
 
             { ComponentIcons.LoadingIcon, "fa-solid fa-fw fa-spin fa-spinner" },
 

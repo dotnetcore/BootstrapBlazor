@@ -249,6 +249,11 @@ public enum ComponentIcons
     LayoutMenuBarIcon,
 
     /// <summary>
+    /// LogoutLink 组件 Icon 图标
+    /// </summary>
+    LogoutLinkIcon,
+
+    /// <summary>
     /// Button 组件 LoadingIcon 图标
     /// </summary>
     LoadingIcon,
