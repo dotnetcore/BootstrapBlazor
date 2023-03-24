@@ -13,4 +13,24 @@ public partial class SkeletonTree
         .AddClass(ClassString)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
+
+    /// <summary>
+    /// 获得/设置 Loading 图标
+    /// </summary>
+    [Parameter]
+    public string? Icon { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IIconTheme? IconTheme { get; set; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
+        Icon ??= IconTheme.GetIconByKey(ComponentIcons.LoadingIcon);
+    }
 }
