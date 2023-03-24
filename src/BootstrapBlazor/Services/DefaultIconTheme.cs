@@ -121,7 +121,9 @@ internal class DefaultIconTheme : IIconTheme
             { ComponentIcons.TabPreviousIcon, "fa-solid fa-chevron-left" },
             { ComponentIcons.TabNextIcon, "fa-solid fa-chevron-left" },
             { ComponentIcons.TabDropdownIcon, "fa-solid fa-chevron-left" },
-            { ComponentIcons.TabCloseIcon, "fa-solid fa-xmark" }
+            { ComponentIcons.TabCloseIcon, "fa-solid fa-xmark" },
+
+            { ComponentIcons.TimerIcon, "fa-solid fa-bell" }
         };
     }
 
