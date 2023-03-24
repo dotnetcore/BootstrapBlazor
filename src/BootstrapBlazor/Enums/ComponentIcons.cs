@@ -421,5 +421,20 @@ public enum ComponentIcons
     /// <summary>
     /// Timer 组件 Icon 属性图标
     /// </summary>
-    TimerIcon
+    TimerIcon,
+
+    /// <summary>
+    /// Transfer 组件 LeftIcon 属性图标
+    /// </summary>
+    TransferLeftIcon,
+
+    /// <summary>
+    /// Transfer 组件 RightIcon 属性图标
+    /// </summary>
+    TransferRightIcon,
+
+    /// <summary>
+    /// TransferPanel 组件 SearchIcon 属性图标
+    /// </summary>
+    TransferPanelSearchIcon
 }

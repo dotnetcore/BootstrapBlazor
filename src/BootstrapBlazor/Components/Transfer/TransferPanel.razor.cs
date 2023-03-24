@@ -76,6 +76,12 @@ public partial class TransferPanel
     public bool ShowSearch { get; set; }
 
     /// <summary>
+    /// 获得/设置 搜索框图标
+    /// </summary>
+    [Parameter]
+    public string? SearchIcon { get; set; }
+
+    /// <summary>
     /// 获得/设置 选项状态变化时回调方法
     /// </summary>
     [Parameter]
@@ -110,6 +116,10 @@ public partial class TransferPanel
     [NotNull]
     private IStringLocalizer<Transfer<string>>? Localizer { get; set; }
 
+    [Inject]
+    [NotNull]
+    private IIconTheme? IconTheme { get; set; }
+
     /// <summary>
     /// OnParametersSet 方法
     /// </summary>
@@ -120,6 +130,8 @@ public partial class TransferPanel
         Items ??= new();
         SearchPlaceHolderString ??= Localizer[nameof(SearchPlaceHolderString)];
         Text ??= Localizer[nameof(Text)];
+
+        SearchIcon ??= IconTheme.GetIconByKey(ComponentIcons.TransferPanelSearchIcon);
     }
 
     /// <summary>

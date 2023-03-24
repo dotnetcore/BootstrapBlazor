@@ -73,6 +73,18 @@ public partial class Transfer<TValue>
     public string? RightPanelText { get; set; }
 
     /// <summary>
+    /// 获得/设置 向左侧转移图标
+    /// </summary>
+    [Parameter]
+    public string? LeftIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 向右侧转移图标
+    /// </summary>
+    [Parameter]
+    public string? RightIcon { get; set; }
+
+    /// <summary>
     /// 获得/设置 左侧按钮显示文本
     /// </summary>
     [Parameter]
@@ -166,6 +178,10 @@ public partial class Transfer<TValue>
     [NotNull]
     public IStringLocalizerFactory? LocalizerFactory { get; set; }
 
+    [Inject]
+    [NotNull]
+    private IIconTheme? IconTheme { get; set; }
+
     /// <summary>
     /// OnInitialized 方法
     /// </summary>
@@ -204,6 +220,9 @@ public partial class Transfer<TValue>
         RightPanelText ??= Localizer[nameof(RightPanelText)];
         MinErrorMessage ??= Localizer[nameof(MinErrorMessage)];
         MaxErrorMessage ??= Localizer[nameof(MaxErrorMessage)];
+
+        LeftIcon ??= IconTheme.GetIconByKey(ComponentIcons.TransferLeftIcon);
+        RightIcon ??= IconTheme.GetIconByKey(ComponentIcons.TransferRightIcon);
 
         var list = CurrentValueAsString.Split(',', StringSplitOptions.RemoveEmptyEntries);
         LeftItems.Clear();
