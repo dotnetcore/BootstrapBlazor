@@ -73,15 +73,19 @@ public partial class Rate
     [Parameter]
     public int Max { get; set; } = 5;
 
+    [Inject]
+    [NotNull]
+    private IIconTheme? IconTheme { get; set; }
+
     /// <summary>
-    /// OnParametersSet 方法
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnParametersSet()
     {
         base.OnParametersSet();
 
-        StarIcon ??= "fa-solid fa-star";
-        UnStarIcon ??= "fa-regular fa-star";
+        StarIcon ??= IconTheme.GetIconByKey(ComponentIcons.RateStarIcon);
+        UnStarIcon ??= IconTheme.GetIconByKey(ComponentIcons.RateUnStarIcon);
 
         if (Max < 1)
         {

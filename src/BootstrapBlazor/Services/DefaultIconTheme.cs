@@ -75,7 +75,7 @@ internal class DefaultIconTheme : IIconTheme
 
             { ComponentIcons.InputNumberMinusIcon, "fa-fw fa-solid fa-circle-minus" },
             { ComponentIcons.InputNumberPlusIcon, "fa-fw fa-solid fa-circle-plus" },
-            
+
             { ComponentIcons.LayoutMenuBarIcon, "fa-solid fa-bars" },
             { ComponentIcons.LogoutLinkIcon, "fa-solid fa-key" },
 
@@ -88,6 +88,9 @@ internal class DefaultIconTheme : IIconTheme
 
             { ComponentIcons.PopConfirmButtonConfirmIcon, "fa-solid fa-circle-exclamation text-info" },
             { ComponentIcons.PopConfirmButtonContentIcon, "fa-solid fa-exclamation-circle text-info" },
+
+            { ComponentIcons.RateStarIcon, "fa-solid fa-star" },
+            { ComponentIcons.RateUnStarIcon, "fa-regular fa-star" },
 
             { ComponentIcons.TableSortIconAsc, "fa-solid fa-sort-up" },
             { ComponentIcons.TableSortDesc, "fa-solid fa-sort-down" },
