@@ -1040,14 +1040,11 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
         void SetEditTemplate()
         {
-            if (col.ComponentParameters == null)
+            var onValueChanged = Utility.GetOnValueChangedInvoke<TItem>(col.PropertyType);
+            col.ComponentParameters = new List<KeyValuePair<string, object>>
             {
-                var onValueChanged = Utility.GetOnValueChangedInvoke<TItem>(col.PropertyType);
-                col.ComponentParameters = new List<KeyValuePair<string, object>>
-                {
-                    new(nameof(ValidateBase<string>.OnValueChanged), onValueChanged.Invoke(item, col, (model, column, val) => InternalOnSaveAsync(model, ItemChangedType.Update)))
-                };
-            }
+                new(nameof(ValidateBase<string>.OnValueChanged), onValueChanged(item, col, (model, column, val) => InternalOnSaveAsync(model, ItemChangedType.Update)))
+            };
         }
     }
 
