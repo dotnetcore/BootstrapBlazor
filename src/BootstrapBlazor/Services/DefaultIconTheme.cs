@@ -128,6 +128,9 @@ internal class DefaultIconTheme : IIconTheme
             { ComponentIcons.TabDropdownIcon, "fa-solid fa-chevron-left" },
             { ComponentIcons.TabCloseIcon, "fa-solid fa-xmark" },
 
+            { ComponentIcons.TableTreeIcon, "fa-solid fa-caret-right" },
+            { ComponentIcons.TableTreeExpandIcon, "fa-solid fa-caret-right fa-rotate-90" },
+            { ComponentIcons.TableTreeNodeLoadingIcon, "fa-solid fa-spin fa-spinner" },
             { ComponentIcons.TableToolbarGearIcon, "fa-solid fa-gear" },
 
             { ComponentIcons.TransferLeftIcon, "fa-solid fa-angle-left" },

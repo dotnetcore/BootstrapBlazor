@@ -400,6 +400,21 @@ public enum ComponentIcons
     SweetAlertConfirmIcon,
 
     /// <summary>
+    /// Table 组件 TreeNodeLoadingIcon 属性图标
+    /// </summary>
+    TableTreeNodeLoadingIcon,
+
+    /// <summary>
+    /// Table 组件 TreeIcon 属性图标
+    /// </summary>
+    TableTreeIcon,
+
+    /// <summary>
+    /// Table 组件 TreeExpandIcon 属性图标
+    /// </summary>
+    TableTreeExpandIcon,
+
+    /// <summary>
     /// TableToolbar 组件 GearIcon 属性图标
     /// </summary>
     TableToolbarGearIcon,

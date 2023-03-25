@@ -100,7 +100,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     /// </summary>
     /// <param name="item"></param>
     /// <returns></returns>
-    protected string? GetDetailCaretClassString(TItem item) => CssBuilder.Default("fa-fw")
+    protected string? GetDetailCaretClassString(TItem item) => CssBuilder.Default("node-icon")
         .AddClass(TreeIcon)
         .AddClass("fa-rotate-90", ExpandRows.Contains(item))
         .Build();
@@ -639,6 +639,10 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         SortIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableSortIcon);
         FilterIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableFilterIcon);
         ExportButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableExportButtonIcon);
+
+        TreeIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableTreeIcon);
+        TreeExpandIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableTreeExpandIcon);
+        TreeNodeLoadingIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableTreeNodeLoadingIcon);
     }
 
     /// <summary>
