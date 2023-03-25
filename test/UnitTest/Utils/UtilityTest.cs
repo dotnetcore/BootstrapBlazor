@@ -567,6 +567,16 @@ public class UtilityTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void ReloadOnChange_Ok()
+    {
+        var option = new JsonLocalizationOptions
+        {
+           ReloadOnChange = true
+        };
+        Assert.True(option.ReloadOnChange);
+    }
+
+    [Fact]
     public void GetJsonStringConfig_Fallback()
     {
         // 回落默认语言为 en 测试用例为 zh 找不到资源文件
