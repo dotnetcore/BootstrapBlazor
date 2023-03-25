@@ -40,9 +40,29 @@ public partial class TableToolbar<TItem> : ComponentBase
     [Parameter]
     public bool IsAutoCollapsedToolbarButton { get; set; } = true;
 
+    /// <summary>
+    /// 获得/设置 移动端按钮图标
+    /// </summary>
+    [Parameter]
+    public string? GearIcon { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IIconTheme? IconTheme { get; set; }
+
     private string? ToolbarClassString => CssBuilder.Default("btn-toolbar btn-group")
         .AddClass("d-none d-sm-inline-flex", IsAutoCollapsedToolbarButton)
         .Build();
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
+        GearIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableToolbarGearIcon);
+    }
 
     private async Task OnToolbarButtonClick(TableToolbarButton<TItem> button)
     {

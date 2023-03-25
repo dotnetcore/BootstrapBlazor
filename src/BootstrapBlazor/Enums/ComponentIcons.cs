@@ -400,6 +400,11 @@ public enum ComponentIcons
     SweetAlertConfirmIcon,
 
     /// <summary>
+    /// TableToolbar 组件 GearIcon 属性图标
+    /// </summary>
+    TableToolbarGearIcon,
+
+    /// <summary>
     /// Tab 组件 PreviousIcon 属性图标
     /// </summary>
     TabPreviousIcon,
