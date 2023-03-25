@@ -10,6 +10,7 @@
     --bb-tree-item-active-color: #409eff;
     --bb-tree-item-active-bg: #e9ecef;
     --bb-tree-item-hover-bg: var(--bs-secondary);
+    --bb-tree-icon-margin-right: .5rem;
 }
 
     .tree-view .tree-root {
@@ -67,6 +68,10 @@
 
         .tree-view .tree-node:hover {
             background-color: var(--bb-tree-item-hover-bg);
+        }
+
+        .tree-view .tree-node .tree-icon {
+            margin-right: var(--bb-tree-icon-margin-right);
         }
 
     .tree-view .form-check {
