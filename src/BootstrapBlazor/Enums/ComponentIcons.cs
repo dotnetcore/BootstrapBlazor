@@ -457,5 +457,15 @@ public enum ComponentIcons
     /// <summary>
     /// TransferPanel 组件 SearchIcon 属性图标
     /// </summary>
-    TransferPanelSearchIcon
+    TransferPanelSearchIcon,
+
+    /// <summary>
+    /// TreeView 组件 ExpandNodeIcon 属性图标
+    /// </summary>
+    TreeViewExpandNodeIcon,
+
+    /// <summary>
+    /// TreeView 组件 NodeIcon 属性图标
+    /// </summary>
+    TreeViewNodeIcon
 }

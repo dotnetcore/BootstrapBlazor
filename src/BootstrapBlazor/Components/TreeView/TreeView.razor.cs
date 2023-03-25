@@ -48,9 +48,10 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     /// </summary>
     /// <param name="item"></param>
     /// <returns></returns>
-    private static string? GetCaretClassString(TreeViewItem<TItem> item) => CssBuilder.Default("fa-solid fa-caret-right")
+    private string? GetCaretClassString(TreeViewItem<TItem> item) => CssBuilder.Default("node-icon")
         .AddClass("visible", item.HasChildren || item.Items.Any())
-        .AddClass("fa-rotate-90", item.IsExpand)
+        .AddClass(NodeIcon, !item.IsExpand)
+        .AddClass(ExpandNodeIcon, item.IsExpand)
         .Build();
 
     /// <summary>
@@ -165,12 +166,28 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     [Parameter]
     public Func<TItem, TItem, bool>? ModelEqualityComparer { get; set; }
 
+    /// <summary>
+    /// 获得/设置 Tree Node 节点图标
+    /// </summary>
+    [Parameter]
+    public string? NodeIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 Tree Node 展开节点图标
+    /// </summary>
+    [Parameter]
+    public string? ExpandNodeIcon { get; set; }
+
     [NotNull]
     private string? NotSetOnTreeExpandErrorMessage { get; set; }
 
     [Inject]
     [NotNull]
     private IStringLocalizer<TreeView<TItem>>? Localizer { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IIconTheme? IconTheme { get; set; }
 
     /// <summary>
     /// 节点状态缓存类实例
@@ -191,7 +208,7 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     public bool AutoCheckParent { get; set; }
 
     /// <summary>
-    /// OnInitialized 方法
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
     {
@@ -203,7 +220,18 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     }
 
     /// <summary>
-    /// OnParametersSetAsync 方法
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
+        NodeIcon ??= IconTheme.GetIconByKey(ComponentIcons.TreeViewNodeIcon);
+        ExpandNodeIcon ??= IconTheme.GetIconByKey(ComponentIcons.TreeViewExpandNodeIcon);
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
     protected override async Task OnParametersSetAsync()
