@@ -243,7 +243,8 @@ public enum ComponentIcons
     /// InputNumber 组件 PlusIcon 图标
     /// </summary>
     InputNumberPlusIcon,
-    
+
+    /// <summary>
     /// Layout 组件 MenuBarIcon 图标
     /// </summary>
     LayoutMenuBarIcon,
