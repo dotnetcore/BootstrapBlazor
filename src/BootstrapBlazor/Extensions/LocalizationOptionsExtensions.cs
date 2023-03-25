@@ -45,7 +45,7 @@ internal static class LocalizationOptionsExtensions
             });
             foreach (var file in files)
             {
-                builder.AddJsonFile(file, true, true);
+                builder.AddJsonFile(file, true, false);
             }
         }
 
