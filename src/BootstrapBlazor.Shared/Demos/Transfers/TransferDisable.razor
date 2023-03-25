@@ -1,0 +1,36 @@
+﻿@using BootstrapBlazor.Shared.Samples
+@inject IStringLocalizer<Transfers> Localizer
+
+<Transfer TValue="string"
+          Items="@Items4"
+          IsDisabled="true"
+          LeftPanelText="@Localizer["LeftPannelText"]"
+          RightPanelText="@Localizer["RightPannelText"]"
+          LeftButtonText="@Localizer["LeftButtonText"]"
+          RightButtonText="@Localizer["RightButtonText"]"
+          LeftPannelSearchPlaceHolderString="@Localizer["PlaceHolder"]"
+          RightPannelSearchPlaceHolderString="@Localizer["PlaceHolder"]"
+          ShowSearch="true" />
+
+@code {
+    [NotNull]
+    private IEnumerable<SelectedItem>? Items4 { get; set; }
+
+    /// <summary>
+    /// OnInitializedAsync 方法
+    /// </summary>
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+
+        // 模拟异步加载数据源
+        await Task.Delay(100);
+        Items4 = GeneratorItems();
+    }
+
+    private IEnumerable<SelectedItem> GeneratorItems() => Enumerable.Range(1, 15).Select(i => new SelectedItem()
+    {
+        Text = $"{Localizer["Data"]} {i:d2}",
+        Value = i.ToString()
+    });
+}

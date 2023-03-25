@@ -1,0 +1,38 @@
+﻿@using BootstrapBlazor.Shared.Samples
+@inject IStringLocalizer<Transfers> Localizer
+
+<Transfer TValue="string" Items="@Items" OnSelectedItemsChanged="@OnSelectedItemsChanged" />
+<BlockLogger @ref="Trace" class="mt-3" />
+
+@code {
+    [NotNull]
+    private BlockLogger? Trace { get; set; }
+
+    [NotNull]
+    private IEnumerable<SelectedItem>? Items { get; set; }
+
+    private Task OnSelectedItemsChanged(IEnumerable<SelectedItem> items)
+    {
+        Trace?.Log(string.Join(" ", items.Select(i => i.Text)));
+        return Task.CompletedTask;
+    }
+
+    /// <summary>
+    /// OnInitializedAsync 方法
+    /// </summary>
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+
+        // 模拟异步加载数据源
+        await Task.Delay(100);
+
+        Items = GeneratorItems();
+    }
+
+    private IEnumerable<SelectedItem> GeneratorItems() => Enumerable.Range(1, 15).Select(i => new SelectedItem()
+    {
+        Text = $"{Localizer["Data"]} {i:d2}",
+        Value = i.ToString()
+    });
+}
