@@ -5599,6 +5599,25 @@ public class TableTest : TableTestBase
     }
 
     [Fact]
+    public void GetTreeClassString_Ok()
+    {
+        var instance = new Table<Foo>() { TreeIcon = "fa-solid fa-caret-right", TreeExpandIcon = "fa-solid fa-caret-right fa-rotate-90", TreeNodeLoadingIcon = "fa-solid fa-spin fa-spinner" };
+        var type = instance.GetType();
+        var method = type.GetMethod("GetTreeClassString", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)!;
+        var expected = method.Invoke(instance, new object[] { false })!;
+        Assert.Equal("is-tree fa-solid fa-caret-right", expected.ToString());
+        expected = method.Invoke(instance, new object[] { true })!;
+        Assert.Equal("is-tree fa-solid fa-caret-right fa-rotate-90", expected.ToString());
+
+        var p = type.GetProperty("IsLoadChildren", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)!;
+        p.SetValue(instance, true);
+        expected = method.Invoke(instance, new object[] { false })!;
+        Assert.Equal("is-tree fa-solid fa-spin fa-spinner", expected.ToString());
+        expected = method.Invoke(instance, new object[] { true })!;
+        Assert.Equal("is-tree fa-solid fa-spin fa-spinner", expected.ToString());
+    }
+
+    [Fact]
     public void OnAfterRenderCallback_Ok()
     {
         var callback = false;
