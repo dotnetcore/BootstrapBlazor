@@ -70,10 +70,16 @@ public partial class Table<TItem>
     public bool ShowExportButton { get; set; }
 
     /// <summary>
-    /// 获得/设置 导出按钮图标 默认为 fa-solid fa-download
+    /// 获得/设置 导出按钮图标
     /// </summary>
     [Parameter]
     public string? ExportButtonIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 内置导出 Excel 按钮图标
+    /// </summary>
+    [Parameter]
+    public string? ExcelExportIcon { get; set; }
 
     /// <summary>
     /// 获得/设置 导出数据后是否弹出 Toast 提示框 默认 true
@@ -104,6 +110,12 @@ public partial class Table<TItem>
     /// </summary>
     [Parameter]
     public bool IsAutoCollapsedToolbarButton { get; set; } = true;
+
+    /// <summary>
+    /// 获得/设置 工具栏移动端按钮图标
+    /// </summary>
+    [Parameter]
+    public string? GearIcon { get; set; }
 
     /// <summary>
     /// 获得/设置 扩展按钮是否在前面 默认 false 在行尾
@@ -170,6 +182,12 @@ public partial class Table<TItem>
     /// </summary>
     [Parameter]
     public bool ShowColumnList { get; set; }
+
+    /// <summary>
+    /// 获得/设置 列选择下拉框图标
+    /// </summary>
+    [Parameter]
+    public string? ColumnListButtonIcon { get; set; }
 
     /// <summary>
     /// 获得/设置 保存、删除失败后是否显示 Toast 提示框 默认为 true 显示

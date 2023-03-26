@@ -400,6 +400,71 @@ public enum ComponentIcons
     SweetAlertConfirmIcon,
 
     /// <summary>
+    /// Table 组件 AddButtonIcon 属性图标
+    /// </summary>
+    TableAddButtonIcon,
+
+    /// <summary>
+    /// Table 组件 EditButtonIcon 属性图标
+    /// </summary>
+    TableEditButtonIcon,
+
+    /// <summary>
+    /// Table 组件 DeleteButtonIcon 属性图标
+    /// </summary>
+    TableDeleteButtonIcon,
+
+    /// <summary>
+    /// Table 组件 RefreshButtonIcon 属性图标
+    /// </summary>
+    TableRefreshButtonIcon,
+
+    /// <summary>
+    /// Table 组件 CardViewButtonIcon 属性图标
+    /// </summary>
+    TableCardViewButtonIcon,
+
+    /// <summary>
+    /// Table 组件 ColumnListButtonIcon 属性图标
+    /// </summary>
+    TableColumnListButtonIcon,
+
+    /// <summary>
+    /// Table 组件 ExcelExportIcon 属性图标
+    /// </summary>
+    TableExcelExportIcon,
+
+    /// <summary>
+    /// Table 组件 SearchButtonIcon 属性图标
+    /// </summary>
+    TableSearchButtonIcon,
+
+    /// <summary>
+    /// Table 组件 ResetSearchButtonIcon 属性图标
+    /// </summary>
+    TableResetSearchButtonIcon,
+
+    /// <summary>
+    /// Table 组件 CloseButtonIcon 属性图标
+    /// </summary>
+    TableCloseButtonIcon,
+
+    /// <summary>
+    /// Table 组件 SaveButtonIcon 属性图标
+    /// </summary>
+    TableSaveButtonIcon,
+
+    /// <summary>
+    /// Table 组件 AdvanceButtonIcon 属性图标
+    /// </summary>
+    TableAdvanceButtonIcon,
+
+    /// <summary>
+    /// Table 组件 CancelButtonIcon 属性图标
+    /// </summary>
+    TableCancelButtonIcon,
+
+    /// <summary>
     /// Table 组件 TreeNodeLoadingIcon 属性图标
     /// </summary>
     TableTreeNodeLoadingIcon,
@@ -415,9 +480,14 @@ public enum ComponentIcons
     TableTreeExpandIcon,
 
     /// <summary>
-    /// TableToolbar 组件 GearIcon 属性图标
+    /// Table 组件 CopyColumnButtonIcon 属性图标
     /// </summary>
-    TableToolbarGearIcon,
+    TableCopyColumnButtonIcon,
+
+    /// <summary>
+    /// Table 组件 GearIcon 属性图标
+    /// </summary>
+    TableGearIcon,
 
     /// <summary>
     /// Tab 组件 PreviousIcon 属性图标

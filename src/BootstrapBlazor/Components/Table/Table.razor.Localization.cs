@@ -13,259 +13,331 @@ namespace BootstrapBlazor.Components;
 public partial class Table<TItem>
 {
     /// <summary>
-    /// 新建按钮文本
+    /// 获得/设置 新建按钮文本
     /// </summary>
     [Parameter]
     [NotNull]
     public string? AddButtonText { get; set; }
 
     /// <summary>
-    /// 编辑按钮文本
+    /// 获得/设置 新建按钮图标
+    /// </summary>
+    [Parameter]
+    public string? AddButtonIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 编辑按钮文本
     /// </summary>
     [Parameter]
     [NotNull]
     public string? EditButtonText { get; set; }
 
     /// <summary>
-    /// 更新按钮文本
+    /// 获得/设置 编辑按钮图标
+    /// </summary>
+    [Parameter]
+    public string? EditButtonIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 更新按钮文本
     /// </summary>
     [Parameter]
     [NotNull]
     public string? UpdateButtonText { get; set; }
 
     /// <summary>
-    /// 取消按钮文本
+    /// 获得/设置 取消按钮文本
     /// </summary>
     [Parameter]
     [NotNull]
     public string? CancelButtonText { get; set; }
 
     /// <summary>
-    /// 删除按钮文本
+    /// 获得/设置 取消按钮图标
+    /// </summary>
+    [Parameter]
+    public string? CancelButtonIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 删除按钮文本
     /// </summary>
     [Parameter]
     [NotNull]
     public string? DeleteButtonText { get; set; }
 
     /// <summary>
-    /// 取消删除按钮文本
+    /// 获得/设置 删除按钮图标
+    /// </summary>
+    [Parameter]
+    public string? DeleteButtonIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 取消删除按钮文本
     /// </summary>
     [Parameter]
     [NotNull]
     public string? CancelDeleteButtonText { get; set; }
 
     /// <summary>
-    /// 保存按钮文本
+    /// 获得/设置 保存按钮文本
     /// </summary>
     [Parameter]
     [NotNull]
     public string? SaveButtonText { get; set; }
 
     /// <summary>
-    /// 保存按钮文本
+    /// 获得/设置 保存按钮图标
+    /// </summary>
+    [Parameter]
+    public string? SaveButtonIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 保存按钮文本
     /// </summary>
     [Parameter]
     [NotNull]
     public string? CloseButtonText { get; set; }
 
     /// <summary>
-    /// 确认删除按钮文本
+    /// 获得/设置 保存按钮图标
+    /// </summary>
+    [Parameter]
+    public string? CloseButtonIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 确认删除按钮文本
     /// </summary>
     [Parameter]
     [NotNull]
     public string? ConfirmDeleteButtonText { get; set; }
 
     /// <summary>
-    /// 确认删除弹窗文本
+    /// 获得/设置 确认删除弹窗文本
     /// </summary>
     [Parameter]
     [NotNull]
     public string? ConfirmDeleteContentText { get; set; }
 
     /// <summary>
-    /// 刷新按钮文本
+    /// 获得/设置 刷新按钮文本
     /// </summary>
     [Parameter]
     [NotNull]
     public string? RefreshButtonText { get; set; }
 
     /// <summary>
-    /// 视图按钮文本
+    /// 获得/设置 刷新按钮图标
+    /// </summary>
+    [Parameter]
+    public string? RefreshButtonIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 视图按钮文本
     /// </summary>
     [Parameter]
     [NotNull]
     public string? CardViewButtonText { get; set; }
 
     /// <summary>
-    /// 列显示隐藏按钮提示信息文本
+    /// 获得/设置 视图按钮图标
+    /// </summary>
+    [Parameter]
+    public string? CardViewButtonIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 列显示隐藏按钮提示信息文本
     /// </summary>
     [Parameter]
     [NotNull]
     public string? ColumnButtonTitleText { get; set; }
 
     /// <summary>
-    /// 列按钮文本
+    /// 获得/设置 列按钮文本
     /// </summary>
     [Parameter]
     [NotNull]
     public string? ColumnButtonText { get; set; }
 
     /// <summary>
-    /// 导出按钮文本
+    /// 获得/设置 列拷贝按钮图标
+    /// </summary>
+    [Parameter]
+    public string? CopyColumnButtonIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 导出按钮文本
     /// </summary>
     [Parameter]
     [NotNull]
     public string? ExportButtonText { get; set; }
 
     /// <summary>
-    /// 搜索栏 Placeholder 文本
+    /// 获得/设置 搜索栏 Placeholder 文本
     /// </summary>
     [Parameter]
     [NotNull]
     public string? SearchPlaceholderText { get; set; }
 
     /// <summary>
-    /// 搜索按钮文本
+    /// 获得/设置 搜索按钮文本
     /// </summary>
     [Parameter]
     [NotNull]
     public string? SearchButtonText { get; set; }
 
     /// <summary>
-    /// 搜索弹窗文本
+    /// 获得/设置 搜索按钮图标
+    /// </summary>
+    [Parameter]
+    public string? SearchButtonIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 搜索弹窗文本
     /// </summary>
     [Parameter]
     [NotNull]
     public string? SearchModalTitle { get; set; }
 
     /// <summary>
-    /// 获得/设置 搜索框提示文字
+    /// 获得/设置 获得/设置 搜索框提示文字
     /// </summary>
     [Parameter]
     [NotNull]
     public string? SearchTooltip { get; set; }
 
     /// <summary>
-    /// 重置按钮文本
+    /// 获得/设置 重置按钮文本
     /// </summary>
     [Parameter]
     [NotNull]
     public string? ResetSearchButtonText { get; set; }
 
     /// <summary>
-    /// 高级搜索按钮文本
+    /// 获得/设置 重置按钮图标
+    /// </summary>
+    [Parameter]
+    public string? ResetSearchButtonIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 高级搜索按钮文本
     /// </summary>
     [Parameter]
     [NotNull]
     public string? AdvanceButtonText { get; set; }
 
     /// <summary>
-    /// 新增按钮 Toast 提示 Title 文字
+    /// 获得/设置 高级搜索按钮图标
+    /// </summary>
+    [Parameter]
+    public string? AdvanceButtonIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 新增按钮 Toast 提示 Title 文字
     /// </summary>
     [Parameter]
     [NotNull]
     public string? AddButtonToastTitle { get; set; }
 
     /// <summary>
-    /// 新增按钮 Toast 提示 Content 文字
+    /// 获得/设置 新增按钮 Toast 提示 Content 文字
     /// </summary>
     [Parameter]
     [NotNull]
     public string? AddButtonToastContent { get; set; }
 
     /// <summary>
-    /// 编辑按钮 Toast 提示 Title 文字
+    /// 获得/设置 编辑按钮 Toast 提示 Title 文字
     /// </summary>
     [Parameter]
     [NotNull]
     public string? EditButtonToastTitle { get; set; }
 
     /// <summary>
-    /// 编辑按钮 Toast 未选择时提示 Content 文字
+    /// 获得/设置 编辑按钮 Toast 未选择时提示 Content 文字
     /// </summary>
     [Parameter]
     [NotNull]
     public string? EditButtonToastNotSelectContent { get; set; }
 
     /// <summary>
-    /// 编辑按钮 Toast 选择项设置不可编辑时提示 Content 文字
+    /// 获得/设置 编辑按钮 Toast 选择项设置不可编辑时提示 Content 文字
     /// </summary>
     [Parameter]
     [NotNull]
     public string? EditButtonToastReadonlyContent { get; set; }
 
     /// <summary>
-    /// 编辑按钮 Toast 多项选择时提示 Content 文字
+    /// 获得/设置 编辑按钮 Toast 多项选择时提示 Content 文字
     /// </summary>
     [Parameter]
     [NotNull]
     public string? EditButtonToastMoreSelectContent { get; set; }
 
     /// <summary>
-    /// 编辑按钮 Toast 未提供 Save 方法时提示 Content 文字
+    /// 获得/设置 编辑按钮 Toast 未提供 Save 方法时提示 Content 文字
     /// </summary>
     [Parameter]
     [NotNull]
     public string? EditButtonToastNoSaveMethodContent { get; set; }
 
     /// <summary>
-    /// 保存按钮 Toast 提示 Title 文字
+    /// 获得/设置 保存按钮 Toast 提示 Title 文字
     /// </summary>
     [Parameter]
     [NotNull]
     public string? SaveButtonToastTitle { get; set; }
 
     /// <summary>
-    /// 保存按钮 Toast 提示 Content 文字
+    /// 获得/设置 保存按钮 Toast 提示 Content 文字
     /// </summary>
     [Parameter]
     [NotNull]
     public string? SaveButtonToastContent { get; set; }
 
     /// <summary>
-    /// 保存按钮结果 Toast 提示 Content 文字
+    /// 获得/设置 保存按钮结果 Toast 提示 Content 文字
     /// </summary>
     [Parameter]
     [NotNull]
     public string? SaveButtonToastResultContent { get; set; }
 
     /// <summary>
-    /// 保存成功文字
+    /// 获得/设置 保存成功文字
     /// </summary>
     [Parameter]
     [NotNull]
     public string? SuccessText { get; set; }
 
     /// <summary>
-    /// 保存失败
+    /// 获得/设置 保存失败
     /// </summary>
     [Parameter]
     [NotNull]
     public string? FailText { get; set; }
 
     /// <summary>
-    /// 删除按钮 Toast 提示 Title 文字
+    /// 获得/设置 删除按钮 Toast 提示 Title 文字
     /// </summary>
     [Parameter]
     [NotNull]
     public string? DeleteButtonToastTitle { get; set; }
 
     /// <summary>
-    /// 删除按钮选项中有无法删除项时 Toast 提示文字
+    /// 获得/设置 删除按钮选项中有无法删除项时 Toast 提示文字
     /// </summary>
     [Parameter]
     [NotNull]
     public string? DeleteButtonToastCanNotDeleteContent { get; set; }
 
     /// <summary>
-    /// 删除按钮 Toast 提示 Content 文字
+    /// 获得/设置 删除按钮 Toast 提示 Content 文字
     /// </summary>
     [Parameter]
     [NotNull]
     public string? DeleteButtonToastContent { get; set; }
 
     /// <summary>
-    /// 删除按钮结果 Toast 提示 Content 文字
+    /// 获得/设置 删除按钮结果 Toast 提示 Content 文字
     /// </summary>
     [Parameter]
     [NotNull]
