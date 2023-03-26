@@ -10,7 +10,7 @@
                 <MenuLink Item="@item" data-bs-toggle="collapse" data-bs-target="@GetTargetIdString(item)" />
                 @if (!item.IsDisabled)
                 {
-                    <SideMenu Items="@item.Items" OnClick="@OnClickItem" Id="@GetTargetId(item)" class="collapse" data-bs-parent="@ParentIdString" />
+                    <SideMenu Items="@item.Items" OnClick="@OnClickItem" Id="@GetTargetId(item)" DropdownIcon="@DropdownIcon" class="collapse" data-bs-parent="@ParentIdString" />
                 }
             </li>
         }

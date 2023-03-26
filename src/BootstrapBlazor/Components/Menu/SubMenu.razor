@@ -4,7 +4,7 @@
 <a @attributes="@AdditionalAttributes" class="@ClassString">
     <i class="@GetIconString"></i>
     <span class="text">@Item.Text</span>
-    <i class="fa-solid fa-angle-down nav-link-right"></i>
+    <i class="@DropdownIconString"></i>
     <ul class="nav sub-menu">
         @foreach (var item in Item.Items)
         {
