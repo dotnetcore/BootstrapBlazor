@@ -77,7 +77,7 @@ public partial class Table<TItem>
     /// <param name="isExpand"></param>
     /// <returns></returns>
     protected string? GetTreeClassString(bool isExpand) => CssBuilder.Default("is-tree")
-        .AddClass(TreeIcon, !IsLoadChildren)
+        .AddClass(TreeIcon, !IsLoadChildren && !isExpand)
         .AddClass(TreeExpandIcon, !IsLoadChildren && isExpand)
         .AddClass(TreeNodeLoadingIcon, IsLoadChildren)
         .Build();
