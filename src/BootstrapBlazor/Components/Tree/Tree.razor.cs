@@ -46,9 +46,10 @@ public partial class Tree
     /// </summary>
     /// <param name="item"></param>
     /// <returns></returns>
-    private static string? GetCaretClassString(TreeItem item) => CssBuilder.Default("fa-solid fa-caret-right")
+    private string? GetCaretClassString(TreeItem item) => CssBuilder.Default("node-icon")
         .AddClass("invisible", !item.HasChildNode && !item.Items.Any())
-        .AddClass("fa-rotate-90", !item.IsCollapsed)
+        .AddClass(NodeIcon, item.IsCollapsed)
+        .AddClass(ExpandNodeIcon, !item.IsCollapsed)
         .Build();
 
     /// <summary>
