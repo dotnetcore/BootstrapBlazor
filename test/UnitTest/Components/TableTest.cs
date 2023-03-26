@@ -5601,7 +5601,26 @@ public class TableTest : TableTestBase
     [Fact]
     public void GetTreeClassString_Ok()
     {
-        var instance = new Table<Foo>() { TreeIcon = "fa-solid fa-caret-right", TreeExpandIcon = "fa-solid fa-caret-right fa-rotate-90", TreeNodeLoadingIcon = "fa-solid fa-spin fa-spinner" };
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<FooTree>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.IsTree, true);
+                pb.Add(a => a.OnQueryAsync, op => OnQueryAsync(op, localizer));
+                pb.Add(a => a.TreeNodeConverter, items => BuildTreeAsync(items));
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+                });
+            });
+        });
+
+        var instance = cut.FindComponent<Table<FooTree>>().Instance;
         var type = instance.GetType();
         var method = type.GetMethod("GetTreeClassString", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)!;
         var expected = method.Invoke(instance, new object[] { false })!;
