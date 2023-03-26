@@ -553,7 +553,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         base.OnInitialized();
 
         // 初始化节点缓存
-        treeNodeCache ??= new(Equals);
+        TreeNodeCache ??= new(Equals);
 
         OnInitLocalization();
 
