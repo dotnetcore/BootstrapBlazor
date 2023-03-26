@@ -58,6 +58,9 @@ internal class DefaultIconTheme : IIconTheme
             { ComponentIcons.SearchDialogClearIcon, "fa-regular fa-trash-can" },
             { ComponentIcons.SearchDialogSearchIcon, "fa-solid fa-magnifying-glass" },
 
+            { ComponentIcons.StepIcon, "fa-solid fa-check" },
+            { ComponentIcons.StepErrorIcon, "fa-solid fa-xmark" },
+
             { ComponentIcons.FilterButtonFilterIcon, "fa-solid fa-filter" },
             { ComponentIcons.FilterButtonClearIcon, "fa-solid fa-ban" },
 

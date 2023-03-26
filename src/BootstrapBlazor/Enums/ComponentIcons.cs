@@ -345,6 +345,16 @@ public enum ComponentIcons
     SelectTreeDropdownIcon,
 
     /// <summary>
+    /// Step 组件 Icon 图标
+    /// </summary>
+    StepIcon,
+
+    /// <summary>
+    /// Step 组件 ErrorIcon 图标
+    /// </summary>
+    StepErrorIcon,
+
+    /// <summary>
     /// Table 组件 SortIconAsc 属性图标
     /// </summary>
     TableSortIconAsc,
