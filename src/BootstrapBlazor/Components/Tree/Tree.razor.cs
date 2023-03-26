@@ -46,9 +46,10 @@ public partial class Tree
     /// </summary>
     /// <param name="item"></param>
     /// <returns></returns>
-    private static string? GetCaretClassString(TreeItem item) => CssBuilder.Default("fa-solid fa-caret-right")
+    private string? GetCaretClassString(TreeItem item) => CssBuilder.Default("node-icon")
         .AddClass("invisible", !item.HasChildNode && !item.Items.Any())
-        .AddClass("fa-rotate-90", !item.IsCollapsed)
+        .AddClass(NodeIcon, item.IsCollapsed)
+        .AddClass(ExpandNodeIcon, !item.IsCollapsed)
         .Build();
 
     /// <summary>
@@ -94,6 +95,18 @@ public partial class Tree
     public bool ShowSkeleton { get; set; }
 
     /// <summary>
+    /// 获得/设置 Tree Node 节点图标
+    /// </summary>
+    [Parameter]
+    public string? NodeIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 Tree Node 展开节点图标
+    /// </summary>
+    [Parameter]
+    public string? ExpandNodeIcon { get; set; }
+
+    /// <summary>
     /// 获得/设置 菜单数据集合
     /// </summary>
     [Parameter]
@@ -136,8 +149,12 @@ public partial class Tree
     [Parameter]
     public Func<TreeItem, Task>? OnExpandNode { get; set; }
 
+    [Inject]
+    [NotNull]
+    private IIconTheme? IconTheme { get; set; }
+
     /// <summary>
-    /// OnInitialized 方法
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
     {
@@ -147,25 +164,18 @@ public partial class Tree
     }
 
     /// <summary>
-    /// OnParametersSet 方法
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnParametersSet()
     {
         base.OnParametersSet();
 
-        //if (ActiveItem != null)
-        //{
-        //    var item = ActiveItem;
-        //    while (item.Parent != null)
-        //    {
-        //        item.Parent.IsExpanded = true;
-        //        item = item.Parent;
-        //    }
-        //}
+        NodeIcon ??= IconTheme.GetIconByKey(ComponentIcons.TreeViewNodeIcon);
+        ExpandNodeIcon ??= IconTheme.GetIconByKey(ComponentIcons.TreeViewExpandNodeIcon);
     }
 
     /// <summary>
-    /// OnAfterRenderAsync 方法
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="firstRender"></param>
     /// <returns></returns>

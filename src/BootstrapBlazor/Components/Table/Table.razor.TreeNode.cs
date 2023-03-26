@@ -86,7 +86,7 @@ public partial class Table<TItem>
     /// 节点缓存类实例
     /// </summary>
     [NotNull]
-    protected ExpandableNodeCache<TableTreeNode<TItem>, TItem>? treeNodeCache = null;
+    protected ExpandableNodeCache<TableTreeNode<TItem>, TItem>? TreeNodeCache { get; set; }
 
     /// <summary>
     /// 展开收缩树形数据节点方法
@@ -97,12 +97,12 @@ public partial class Table<TItem>
     {
         if (!IsLoadChildren)
         {
-            if (treeNodeCache.TryFind(TreeRows, item, out var node))
+            if (TreeNodeCache.TryFind(TreeRows, item, out var node))
             {
                 // 重建当前节点缓存
                 IsLoadChildren = true;
                 node.IsExpand = !node.IsExpand;
-                await treeNodeCache.ToggleNodeAsync(node, GetChildrenRowAsync);
+                await TreeNodeCache.ToggleNodeAsync(node, GetChildrenRowAsync);
                 IsLoadChildren = false;
 
                 // 清除缓存
