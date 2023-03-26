@@ -105,8 +105,8 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     /// <param name="item"></param>
     /// <returns></returns>
     protected string? GetDetailCaretClassString(TItem item) => CssBuilder.Default("node-icon")
-        .AddClass(TreeIcon)
-        .AddClass("fa-rotate-90", ExpandRows.Contains(item))
+        .AddClass(TreeIcon, !ExpandRows.Contains(item))
+        .AddClass(TreeExpandIcon, ExpandRows.Contains(item))
         .Build();
 
     private string? LineCellClassString => CssBuilder.Default("table-cell")

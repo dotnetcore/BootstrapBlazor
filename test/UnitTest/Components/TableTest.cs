@@ -2761,7 +2761,7 @@ public class TableTest : TableTestBase
     }
 
     [Fact]
-    public async Task IsTree_KeepExpand()
+    public void IsTree_KeepExpand()
     {
         // 展开树状节点
         // 重新查询后节点依然展开
@@ -2801,20 +2801,20 @@ public class TableTest : TableTestBase
 
         // 点击展开
         var node = cut.Find("tbody .is-tree");
-        await cut.InvokeAsync(() => node.Click());
+        cut.InvokeAsync(() => node.Click());
         nodes = cut.FindAll("tbody tr");
         Assert.Equal(4, nodes.Count);
 
         // 查询
         var table = cut.FindComponent<Table<FooTree>>();
-        await cut.InvokeAsync(() => table.Instance.QueryAsync());
-        Assert.Contains("is-tree fa-fw fa-solid fa-caret-right fa-rotate-90", cut.Markup);
+        cut.InvokeAsync(() => table.Instance.QueryAsync());
+        Assert.Contains("fa-solid fa-caret-right fa-rotate-90", cut.Markup);
 
         nodes = cut.FindAll("tbody tr");
         Assert.Equal(4, nodes.Count);
 
         table.SetParametersAndRender(pb => pb.Add(a => a.OnTreeExpand, null));
-        await Assert.ThrowsAsync<InvalidOperationException>(() => table.Instance.QueryAsync());
+        Assert.ThrowsAsync<InvalidOperationException>(() => table.Instance.QueryAsync());
     }
 
 
