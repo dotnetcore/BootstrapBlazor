@@ -2808,7 +2808,7 @@ public class TableTest : TableTestBase
         // 查询
         var table = cut.FindComponent<Table<FooTree>>();
         cut.InvokeAsync(() => table.Instance.QueryAsync());
-        Assert.Contains("fa-solid fa-caret-right fa-rotate-90", cut.Markup);
+        Assert.Contains("is-tree fa-solid fa-caret-right fa-rotate-90", cut.Markup);
 
         nodes = cut.FindAll("tbody tr");
         Assert.Equal(4, nodes.Count);
@@ -2816,7 +2816,6 @@ public class TableTest : TableTestBase
         table.SetParametersAndRender(pb => pb.Add(a => a.OnTreeExpand, null));
         Assert.ThrowsAsync<InvalidOperationException>(() => table.Instance.QueryAsync());
     }
-
 
     [Fact]
     public async Task IsTree_KeepCollapsed()
