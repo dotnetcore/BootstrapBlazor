@@ -15,7 +15,7 @@ internal class DefaultIconTheme : IIconTheme
             { ComponentIcons.AnchorLinkIcon, "fa-solid fa-link" },
             { ComponentIcons.AvatarIcon, "fa-solid fa-user" },
 
-            { ComponentIcons.ButtonLoadingIcon, "fa-solid fa-fw fa-spin fa-spinner" },
+            { ComponentIcons.ButtonLoadingIcon, "fa-solid fa-spin fa-spinner" },
 
             { ComponentIcons.CaptchaRefreshIcon, "fa-solid fa-arrows-rotate" },
             { ComponentIcons.CaptchaBarIcon, "fa-solid fa-arrow-right" },
@@ -73,8 +73,8 @@ internal class DefaultIconTheme : IIconTheme
 
             { ComponentIcons.ImageViewerFileIcon, "fa-regular fa-file-image fa-2x" },
 
-            { ComponentIcons.InputNumberMinusIcon, "fa-fw fa-solid fa-circle-minus" },
-            { ComponentIcons.InputNumberPlusIcon, "fa-fw fa-solid fa-circle-plus" },
+            { ComponentIcons.InputNumberMinusIcon, "fa-solid fa-circle-minus" },
+            { ComponentIcons.InputNumberPlusIcon, "fa-solid fa-circle-plus" },
 
             { ComponentIcons.LayoutMenuBarIcon, "fa-solid fa-bars" },
             { ComponentIcons.LogoutLinkIcon, "fa-solid fa-key" },
@@ -100,15 +100,9 @@ internal class DefaultIconTheme : IIconTheme
 
             { ComponentIcons.SelectTreeDropdownIcon, "fa-solid fa-angle-up" },
 
-            { ComponentIcons.TableSortIconAsc, "fa-solid fa-sort-up" },
-            { ComponentIcons.TableSortDesc, "fa-solid fa-sort-down" },
-            { ComponentIcons.TableSortIcon, "fa-solid fa-sort" },
-            { ComponentIcons.TableFilterIcon, "fa-solid fa-filter" },
-            { ComponentIcons.TableExportButtonIcon, "fa-solid fa-download" },
-
             { ComponentIcons.SearchClearButtonIcon, "fa-regular fa-trash-can" },
             { ComponentIcons.SearchButtonIcon, "fa-solid fa-magnifying-glass" },
-            { ComponentIcons.SearchButtonLoadingIcon, "fa-solid fa-fw fa-spin fa-spinner" },
+            { ComponentIcons.SearchButtonLoadingIcon, "fa-solid fa-spin fa-spinner" },
 
             { ComponentIcons.SelectDropdownIcon, "fa-solid fa-angle-up" },
             { ComponentIcons.SelectSearchIcon, "fa-solid fa-magnifying-glass" },
@@ -116,7 +110,7 @@ internal class DefaultIconTheme : IIconTheme
             { ComponentIcons.SweetAlertCloseIcon, "fa-solid fa-xmark" },
             { ComponentIcons.SweetAlertConfirmIcon, "fa-solid fa-check" },
 
-            { ComponentIcons.PrintButtonIcon, "fa-solid fa-fw fa-print" },
+            { ComponentIcons.PrintButtonIcon, "fa-solid fa-print" },
 
             { ComponentIcons.ToastSuccessIcon, "fa-solid fa-check-circle text-success" },
             { ComponentIcons.ToastInformationIcon, "fa-solid fa-exclamation-circle text-info" },
@@ -127,6 +121,32 @@ internal class DefaultIconTheme : IIconTheme
             { ComponentIcons.TabNextIcon, "fa-solid fa-chevron-left" },
             { ComponentIcons.TabDropdownIcon, "fa-solid fa-chevron-left" },
             { ComponentIcons.TabCloseIcon, "fa-solid fa-xmark" },
+
+            { ComponentIcons.TableSortIconAsc, "fa-solid fa-sort-up" },
+            { ComponentIcons.TableSortDesc, "fa-solid fa-sort-down" },
+            { ComponentIcons.TableSortIcon, "fa-solid fa-sort" },
+            { ComponentIcons.TableFilterIcon, "fa-solid fa-filter" },
+            { ComponentIcons.TableExportButtonIcon, "fa-solid fa-download" },
+
+            { ComponentIcons.TableAddButtonIcon, "fa-solid fa-plus" },
+            { ComponentIcons.TableEditButtonIcon, "fa-solid fa-pencil" },
+            { ComponentIcons.TableDeleteButtonIcon, "fa-solid fa-xmark" },
+            { ComponentIcons.TableRefreshButtonIcon, "fa-solid fa-arrows-rotate" },
+            { ComponentIcons.TableCardViewButtonIcon, "fa-solid fa-bars" },
+            { ComponentIcons.TableColumnListButtonIcon, "fa-solid fa-table-list" },
+            { ComponentIcons.TableExcelExportIcon, "fa-regular fa-file-excel" },
+            { ComponentIcons.TableSearchButtonIcon, "fa-solid fa-magnifying-glass" },
+            { ComponentIcons.TableResetSearchButtonIcon, "fa-regular fa-trash-can" },
+            { ComponentIcons.TableCloseButtonIcon, "fa-solid fa-xmark" },
+            { ComponentIcons.TableCancelButtonIcon, "fa-solid fa-xmark" },
+            { ComponentIcons.TableSaveButtonIcon, "fa-solid fa-floppy-disk" },
+            { ComponentIcons.TableAdvanceButtonIcon, "fa-solid fa-magnifying-glass-plus" },
+
+            { ComponentIcons.TableTreeIcon, "fa-solid fa-caret-right" },
+            { ComponentIcons.TableTreeExpandIcon, "fa-solid fa-caret-right fa-rotate-90" },
+            { ComponentIcons.TableTreeNodeLoadingIcon, "fa-solid fa-spin fa-spinner" },
+            { ComponentIcons.TableCopyColumnButtonIcon, "fa-regular fa-clipboard" },
+            { ComponentIcons.TableGearIcon, "fa-solid fa-gear" },
 
             { ComponentIcons.TransferLeftIcon, "fa-solid fa-angle-left" },
             { ComponentIcons.TransferRightIcon, "fa-solid fa-angle-right" },

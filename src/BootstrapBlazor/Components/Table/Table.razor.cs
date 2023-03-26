@@ -86,6 +86,10 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         .AddClass("is-load", DetailRows.Contains(item))
         .Build();
 
+    private string? CopyColumnButtonIconString => CssBuilder.Default("col-copy")
+        .AddClass(CopyColumnButtonIcon)
+        .Build();
+
     /// <summary>
     /// 获得明细行样式
     /// </summary>
@@ -100,9 +104,9 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     /// </summary>
     /// <param name="item"></param>
     /// <returns></returns>
-    protected string? GetDetailCaretClassString(TItem item) => CssBuilder.Default("fa-fw")
-        .AddClass(TreeIcon)
-        .AddClass("fa-rotate-90", ExpandRows.Contains(item))
+    protected string? GetDetailCaretClassString(TItem item) => CssBuilder.Default("node-icon")
+        .AddClass(TreeIcon, !ExpandRows.Contains(item))
+        .AddClass(TreeExpandIcon, ExpandRows.Contains(item))
         .Build();
 
     private string? LineCellClassString => CssBuilder.Default("table-cell")
@@ -639,6 +643,26 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         SortIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableSortIcon);
         FilterIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableFilterIcon);
         ExportButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableExportButtonIcon);
+
+        AddButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableAddButtonIcon);
+        EditButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableEditButtonIcon);
+        DeleteButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableDeleteButtonIcon);
+        RefreshButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableRefreshButtonIcon);
+        CardViewButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableCardViewButtonIcon);
+        ColumnListButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableColumnListButtonIcon);
+        ExcelExportIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableExcelExportIcon);
+        SearchButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableSearchButtonIcon);
+        ResetSearchButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableResetSearchButtonIcon);
+        CloseButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableCloseButtonIcon);
+        SaveButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableSaveButtonIcon);
+        AdvanceButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableAdvanceButtonIcon);
+        CancelButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableCancelButtonIcon);
+        CopyColumnButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableCopyColumnButtonIcon);
+        GearIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableGearIcon);
+
+        TreeIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableTreeIcon);
+        TreeExpandIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableTreeExpandIcon);
+        TreeNodeLoadingIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableTreeNodeLoadingIcon);
     }
 
     /// <summary>

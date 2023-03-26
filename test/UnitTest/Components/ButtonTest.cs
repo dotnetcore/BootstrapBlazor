@@ -96,7 +96,7 @@ public class ButtonTest : BootstrapBlazorTestBase
             pb.Add(b => b.Icon, "fa-solid fa-font-awesome");
         });
         Assert.Contains("class=\"fa-solid fa-font-awesome\"", cut.Markup);
-        Assert.Contains("fa-solid fa-fw fa-spin fa-spinner", cut.Instance.LoadingIcon);
+        Assert.Contains("fa-solid fa-spin fa-spinner", cut.Instance.LoadingIcon);
 
         cut.SetParametersAndRender(pb =>
         {

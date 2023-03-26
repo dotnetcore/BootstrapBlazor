@@ -16,7 +16,7 @@ public class PrintTest : BootstrapBlazorTestBase
         {
             pb.AddChildContent<PrintButton>();
         });
-        Assert.Contains("fa-solid fa-fw fa-print", cut.Markup);
+        Assert.Contains("fa-solid fa-print", cut.Markup);
 
         var button = cut.FindComponent<PrintButton>();
         button.SetParametersAndRender(pb =>
