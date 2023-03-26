@@ -49,6 +49,7 @@ internal class DefaultIconTheme : IIconTheme
 
             { ComponentIcons.TopMenuDropdownIcon, "fa-solid fa-angle-down" },
             { ComponentIcons.SideMenuDropdownIcon, "fa-solid fa-angle-down" },
+            { ComponentIcons.MenuLinkArrowIcon, "fa-solid fa-angle-left" },
 
             { ComponentIcons.ResultDialogYesIcon, "fa-solid fa-check" },
             { ComponentIcons.ResultDialogNoIcon, "fa-regular fa-circle-xmark" },
