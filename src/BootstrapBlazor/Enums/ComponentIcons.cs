@@ -190,6 +190,16 @@ public enum ComponentIcons
     FilterButtonClearIcon,
 
     /// <summary>
+    /// SideMenu 组件 DropdownIcon 图标
+    /// </summary>
+    SideMenuDropdownIcon,
+
+    /// <summary>
+    /// TopMenu 组件 DropdownIcon 图标
+    /// </summary>
+    TopMenuDropdownIcon,
+
+    /// <summary>
     /// TableFilter 组件 PlusIcon 图标
     /// </summary>
     TableFilterPlusIcon,

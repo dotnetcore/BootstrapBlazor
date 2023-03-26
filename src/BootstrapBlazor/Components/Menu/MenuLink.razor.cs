@@ -48,15 +48,9 @@ public sealed partial class MenuLink
 
     private NavLinkMatch ItemMatch => string.IsNullOrEmpty(Item.Url) ? NavLinkMatch.All : Item.Match;
 
-    private string? IconString => string.IsNullOrEmpty(Item.Icon)
-        ? (Parent.IsVertical
-            ? (Parent.IsCollapsed
-                ? "fa-none"
-                : "fa-fw fa")
-            : null)
-        : Item.Icon.Contains("fa-fw", StringComparison.OrdinalIgnoreCase)
-            ? Item.Icon
-            : $"{Item.Icon} fa-fw";
+    private string? IconString => CssBuilder.Default("menu-icon")
+        .AddClass(Item.Icon)
+        .Build();
 
     private string? StyleClassString => Parent.IsVertical
         ? (Item.Indent == 0

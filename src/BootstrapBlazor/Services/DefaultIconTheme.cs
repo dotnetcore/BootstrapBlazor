@@ -47,6 +47,9 @@ internal class DefaultIconTheme : IIconTheme
             { ComponentIcons.DialogMaxminzeWindowIcon, "fa-regular fa-window-maximize" },
             { ComponentIcons.DialogRestoreWindowIcon, "fa-regular fa-window-restore" },
 
+            { ComponentIcons.TopMenuDropdownIcon, "fa-solid fa-angle-down" },
+            { ComponentIcons.SideMenuDropdownIcon, "fa-solid fa-angle-down" },
+
             { ComponentIcons.ResultDialogYesIcon, "fa-solid fa-check" },
             { ComponentIcons.ResultDialogNoIcon, "fa-regular fa-circle-xmark" },
             { ComponentIcons.ResultDialogCloseIcon, "fa-regular fa-circle-xmark" },

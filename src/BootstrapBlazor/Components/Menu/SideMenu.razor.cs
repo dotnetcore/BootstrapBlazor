@@ -29,6 +29,13 @@ public partial class SideMenu
     public IEnumerable<MenuItem>? Items { get; set; }
 
     /// <summary>
+    /// 获得/设置 组件数据源
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public string? DropdownIcon { get; set; }
+
+    /// <summary>
     /// 获得/设置 菜单项点击回调委托
     /// </summary>
     [Parameter]
@@ -43,6 +50,10 @@ public partial class SideMenu
     [NotNull]
     private IStringLocalizer<Menu>? Localizer { get; set; }
 
+    [Inject]
+    [NotNull]
+    private IIconTheme? IconTheme { get; set; }
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -55,6 +66,16 @@ public partial class SideMenu
         {
             throw new InvalidOperationException(Localizer["InvalidOperationExceptionMessage"]);
         }
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
+        DropdownIcon ??= IconTheme.GetIconByKey(ComponentIcons.SideMenuDropdownIcon);
     }
 
     private async Task OnClickItem(MenuItem item)
