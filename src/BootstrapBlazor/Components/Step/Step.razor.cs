@@ -33,7 +33,7 @@ public sealed partial class Step
 
     private string? IconClassString => CssBuilder.Default("step-icon-inner")
         .AddClass(Icon, IsIcon || Status == StepStatus.Finish || Status == StepStatus.Success)
-        .AddClass("fa-solid fa-xmark", IsIcon || Status == StepStatus.Error)
+        .AddClass(ErrorStepIcon, IsIcon || Status == StepStatus.Error)
         .AddClass("is-status", !IsIcon && (Status == StepStatus.Finish || Status == StepStatus.Success || Status == StepStatus.Error))
         .Build();
 
@@ -57,7 +57,18 @@ public sealed partial class Step
     /// 获得/设置 步骤显示图标
     /// </summary>
     [Parameter]
-    public string Icon { get; set; } = "fa-solid fa-check";
+    public string? Icon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 步骤显示图标
+    /// </summary>
+    public string? ErrorIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 错误步骤显示图标
+    /// </summary>
+    [Parameter]
+    public string? ErrorStepIcon { get; set; }
 
     /// <summary>
     /// 获得/设置 步骤状态
@@ -118,4 +129,19 @@ public sealed partial class Step
     /// </summary>
     [Parameter]
     public RenderFragment? DescriptionTemplate { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IIconTheme? IconTheme { get; set; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
+        Icon ??= IconTheme.GetIconByKey(ComponentIcons.StepItemIcon);
+        ErrorIcon = IconTheme.GetIconByKey(ComponentIcons.StepItemErrorIcon);
+    }
 }

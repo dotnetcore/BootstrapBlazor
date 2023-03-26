@@ -22,7 +22,8 @@ public partial class Steps
     /// 获得/设置 步骤集合
     /// </summary>
     [Parameter]
-    public IEnumerable<StepItem> Items { get; set; } = Array.Empty<StepItem>();
+    [NotNull]
+    public IEnumerable<StepItem>? Items { get; set; }
 
     /// <summary>
     /// 获得/设置 是否垂直渲染 默认 false 水平渲染
@@ -53,6 +54,10 @@ public partial class Steps
     /// </summary>
     [Parameter]
     public Func<StepStatus, Task>? OnStatusChanged { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IIconTheme? IconTheme { get; set; }
 
     /// <summary>
     /// OnInitialized 方法
@@ -85,6 +90,16 @@ public partial class Steps
                 builder.CloseElement();
             }
         });
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
+        Items = Enumerable.Empty<StepItem>();
     }
 
     /// <summary>
@@ -123,6 +138,7 @@ public partial class Steps
         builder.SetKey(item);
         builder.AddAttribute(index++, nameof(Step.Title), item.Title);
         builder.AddAttribute(index++, nameof(Step.Icon), item.Icon);
+        builder.AddAttribute(index++, nameof(Step.ErrorStepIcon), item.ErrorIcon);
         builder.AddAttribute(index++, nameof(Step.Description), item.Description);
         builder.AddAttribute(index++, nameof(Step.Space), item.Space);
         builder.AddAttribute(index++, nameof(Step.Status), item.Status);

@@ -18,7 +18,12 @@ public class StepItem
     /// <summary>
     /// 获得/设置 步骤显示图标
     /// </summary>
-    public string Icon { get; set; } = "fa-solid fa-check";
+    public string? Icon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 步骤显示图标
+    /// </summary>
+    public string? ErrorIcon { get; set; }
 
     /// <summary>
     /// 获得/设置 步骤状态
