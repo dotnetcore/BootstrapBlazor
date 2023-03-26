@@ -138,7 +138,6 @@ public partial class Steps
         builder.SetKey(item);
         builder.AddAttribute(index++, nameof(Step.Title), item.Title);
         builder.AddAttribute(index++, nameof(Step.Icon), item.Icon);
-        builder.AddAttribute(index++, nameof(Step.ErrorStepIcon), item.ErrorIcon);
         builder.AddAttribute(index++, nameof(Step.Description), item.Description);
         builder.AddAttribute(index++, nameof(Step.Space), item.Space);
         builder.AddAttribute(index++, nameof(Step.Status), item.Status);

@@ -141,7 +141,7 @@ public sealed partial class Step
     {
         base.OnParametersSet();
 
-        Icon ??= IconTheme.GetIconByKey(ComponentIcons.StepItemIcon);
-        ErrorIcon = IconTheme.GetIconByKey(ComponentIcons.StepItemErrorIcon);
+        Icon ??= IconTheme.GetIconByKey(ComponentIcons.StepIcon);
+        ErrorIcon = IconTheme.GetIconByKey(ComponentIcons.StepErrorIcon);
     }
 }

@@ -340,14 +340,14 @@ public enum ComponentIcons
     SelectTreeDropdownIcon,
 
     /// <summary>
-    /// StepItem 组件 Icon 图标
+    /// Step 组件 Icon 图标
     /// </summary>
-    StepItemIcon,
+    StepIcon,
 
     /// <summary>
-    /// StepItem 组件 ErrorIcon 图标
+    /// Step 组件 ErrorIcon 图标
     /// </summary>
-    StepItemErrorIcon,
+    StepErrorIcon,
 
     /// <summary>
     /// Table 组件 SortIconAsc 属性图标
