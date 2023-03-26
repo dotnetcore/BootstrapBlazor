@@ -41,6 +41,12 @@ public sealed partial class SubMenu
     public string? DropdownIcon { get; set; }
 
     /// <summary>
+    /// 获得/设置 菜单箭头图标
+    /// </summary>
+    [Parameter]
+    public string? ArrowIcon { get; set; }
+
+    /// <summary>
     /// 获得/设置 菜单项点击回调委托
     /// </summary>
     [Parameter]

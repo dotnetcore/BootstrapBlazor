@@ -21,8 +21,7 @@ public sealed partial class MenuLink
         .Build();
 
     private string? MenuArrowClassString => CssBuilder.Default("arrow")
-        .AddClass("fa-fw fa", Parent.IsVertical)
-        .AddClass("fa-angle-left", Item.Items.Any())
+        .AddClass(ArrowIcon, Item.Items.Any())
         .Build();
 
     private string? HrefString => (Parent.DisableNavigation || Item.IsDisabled || Item.Items.Any() || string.IsNullOrEmpty(Item.Url)) ? "#" : Item.Url.TrimStart('/');
@@ -37,6 +36,12 @@ public sealed partial class MenuLink
     [Parameter]
     [NotNull]
     public MenuItem? Item { get; set; }
+
+    /// <summary>
+    /// 获得/设置 ArrowIcon 图标
+    /// </summary>
+    [Parameter]
+    public string? ArrowIcon { get; set; }
 
     [CascadingParameter]
     [NotNull]

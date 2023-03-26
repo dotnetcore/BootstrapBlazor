@@ -20,12 +20,12 @@
                         {
                             @if (item.Items.Any())
                             {
-                                <SubMenu Item="@item" DropdownIcon="@DropdownIcon" OnClick="OnClickItem" class="dropdown-item"></SubMenu>
+                                <SubMenu Item="@item" DropdownIcon="@DropdownIcon" ArrowIcon="@ArrowIcon" OnClick="OnClickItem" class="dropdown-item"></SubMenu>
                             }
                             else
                             {
                                 <div class="nav-item" @onclick:stopPropagation @onclick="() => OnClickItem(item)">
-                                    <MenuLink Item="@item" class="dropdown-item" />
+                                    <MenuLink Item="@item" ArrowIcon="@ArrowIcon" class="dropdown-item" />
                                 </div>
                             }
                         }
@@ -36,7 +36,7 @@
         else
         {
             <li class="@GetDropdownClassString(menu)" @onclick:stopPropagation @onclick="() => OnClickItem(menu)">
-                <MenuLink Item="@menu" />
+                <MenuLink Item="@menu" ArrowIcon="@ArrowIcon" />
             </li>
         }
     }

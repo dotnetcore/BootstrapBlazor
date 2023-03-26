@@ -200,6 +200,11 @@ public enum ComponentIcons
     TopMenuDropdownIcon,
 
     /// <summary>
+    /// MenuLink 组件 ArrowIcon 图标
+    /// </summary>
+    MenuLinkArrowIcon,
+
+    /// <summary>
     /// TableFilter 组件 PlusIcon 图标
     /// </summary>
     TableFilterPlusIcon,

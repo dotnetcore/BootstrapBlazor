@@ -30,6 +30,13 @@ public partial class TopMenu
     public string? DropdownIcon { get; set; }
 
     /// <summary>
+    /// 获得/设置 菜单箭头图标
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public string? ArrowIcon { get; set; }
+
+    /// <summary>
     /// 获得/设置 菜单数据集合
     /// </summary>
     [Parameter]
@@ -80,6 +87,7 @@ public partial class TopMenu
         base.OnParametersSet();
 
         DropdownIcon ??= IconTheme.GetIconByKey(ComponentIcons.TopMenuDropdownIcon);
+        ArrowIcon ??= IconTheme.GetIconByKey(ComponentIcons.MenuLinkArrowIcon);
     }
 
     private async Task OnClickItem(MenuItem item)

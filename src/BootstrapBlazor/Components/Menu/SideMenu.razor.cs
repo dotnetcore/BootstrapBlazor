@@ -36,6 +36,13 @@ public partial class SideMenu
     public string? DropdownIcon { get; set; }
 
     /// <summary>
+    /// 获得/设置 菜单箭头图标
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public string? ArrowIcon { get; set; }
+
+    /// <summary>
     /// 获得/设置 菜单项点击回调委托
     /// </summary>
     [Parameter]
@@ -76,6 +83,7 @@ public partial class SideMenu
         base.OnParametersSet();
 
         DropdownIcon ??= IconTheme.GetIconByKey(ComponentIcons.SideMenuDropdownIcon);
+        ArrowIcon ??= IconTheme.GetIconByKey(ComponentIcons.MenuLinkArrowIcon);
     }
 
     private async Task OnClickItem(MenuItem item)

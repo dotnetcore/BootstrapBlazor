@@ -7,7 +7,7 @@
         if (item.Items.Any())
         {
             <li>
-                <MenuLink Item="@item" data-bs-toggle="collapse" data-bs-target="@GetTargetIdString(item)" />
+                <MenuLink Item="@item" ArrowIcon="@ArrowIcon" data-bs-toggle="collapse" data-bs-target="@GetTargetIdString(item)" />
                 @if (!item.IsDisabled)
                 {
                     <SideMenu Items="@item.Items" OnClick="@OnClickItem" Id="@GetTargetId(item)" DropdownIcon="@DropdownIcon" class="collapse" data-bs-parent="@ParentIdString" />
@@ -17,7 +17,7 @@
         else
         {
             <li @onclick:stopPropagation @onclick="() => OnClickItem(item)">
-                <MenuLink Item="@item" />
+                <MenuLink Item="@item" ArrowIcon="@ArrowIcon" />
             </li>
         }
     }
