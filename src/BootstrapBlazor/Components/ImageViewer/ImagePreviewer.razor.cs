@@ -10,6 +10,22 @@ namespace BootstrapBlazor.Components;
 [JSModuleAutoLoader("image-previewer")]
 public partial class ImagePreviewer
 {
+    private string? MinusIconString => CssBuilder.Default("minus-icon")
+        .AddClass(MinusIcon)
+        .Build();
+
+    private string? PlusIconString => CssBuilder.Default("plus-icon")
+        .AddClass(PlusIcon)
+        .Build();
+
+    private string? RotateLeftIconString => CssBuilder.Default("rotate-left")
+        .AddClass(RotateLeftIcon)
+        .Build();
+
+    private string? RotateRightIconString => CssBuilder.Default("rotate-right")
+        .AddClass(RotateRightIcon)
+        .Build();
+
     /// <summary>
     /// 获得/设置 原生 z-index 属性 默认 2050
     /// </summary>
