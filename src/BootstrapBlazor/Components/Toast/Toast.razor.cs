@@ -76,13 +76,11 @@ public partial class Toast
     {
         base.OnInitialized();
 
-        Options ??= new ToastOption()
-        {
-            SuccessIcon = IconTheme.GetIconByKey(ComponentIcons.ToastSuccessIcon),
-            InformationIcon = IconTheme.GetIconByKey(ComponentIcons.ToastInformationIcon),
-            WarningIcon = IconTheme.GetIconByKey(ComponentIcons.ToastWarningIcon),
-            ErrorIcon = IconTheme.GetIconByKey(ComponentIcons.ToastErrorIcon)
-        };
+        Options.SuccessIcon ??= IconTheme.GetIconByKey(ComponentIcons.ToastSuccessIcon);
+        Options.InformationIcon ??= IconTheme.GetIconByKey(ComponentIcons.ToastInformationIcon);
+        Options.WarningIcon ??= IconTheme.GetIconByKey(ComponentIcons.ToastWarningIcon);
+        Options.ErrorIcon ??= IconTheme.GetIconByKey(ComponentIcons.ToastErrorIcon);
+       
         Options.Toast = this;
     }
 
