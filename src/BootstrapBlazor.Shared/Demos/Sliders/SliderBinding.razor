@@ -1,0 +1,15 @@
+﻿@using BootstrapBlazor.Shared.Samples
+@inject IStringLocalizer<Sliders> Localizer
+
+<div class="row g-3">
+    <div class="col-12 col-sm-8">
+        <Slider @bind-Value="@BindValue" Label="@Localizer["SlidersBindingLabel"]"></Slider>
+    </div>
+    <div class="col-12 col-sm-4">
+        <BootstrapInput @bind-Value="@BindValue" readonly></BootstrapInput>
+    </div>
+</div>
+
+@code{
+    private double BindValue { get; set; } = 50;
+}
