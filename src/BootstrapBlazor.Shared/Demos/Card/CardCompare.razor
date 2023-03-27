@@ -2,7 +2,7 @@
 
 <Card IsCollapsible="false" HeaderText="@Localizer["CollapsibleTitle"]" class="mt-3">
     <HeaderTemplate>
-        @Localizer["CollapsibleHeaderTemplate"]
+        <div class="me-2">@Localizer["CollapsibleHeaderTemplate"]</div>
         <Select TValue="string">
             <Options>
                 <SelectOption Text="Test1" Value="" />
@@ -19,7 +19,7 @@
 
 <Card IsCollapsible="true" HeaderText="@Localizer["CollapsibleTitle"]" class="mt-3">
     <HeaderTemplate>
-        @Localizer["CollapsibleHeaderTemplate"]
+        <div class="me-2">@Localizer["CollapsibleHeaderTemplate"]</div>
         <Select TValue="string">
             <Options>
                 <SelectOption Text="Test1" Value="" />
