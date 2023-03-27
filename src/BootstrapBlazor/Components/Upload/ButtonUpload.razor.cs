@@ -62,12 +62,6 @@ public partial class ButtonUpload<TValue>
     public string? ValidStatusIcon { get; set; }
 
     /// <summary>
-    /// 获得/设置 失败图标
-    /// </summary>
-    [Parameter]
-    public string? FailedIcon { get; set; }
-
-    /// <summary>
     /// 获得/设置 删除按钮图标
     /// </summary>
     [Parameter]
@@ -119,5 +113,6 @@ public partial class ButtonUpload<TValue>
         InvalidStatusIcon ??= IconTheme.GetIconByKey(ComponentIcons.ButtonUploadInvalidStatusIcon);
         ValidStatusIcon ??= IconTheme.GetIconByKey(ComponentIcons.ButtonUploadValidStatusIcon);
         DownloadIcon ??= IconTheme.GetIconByKey(ComponentIcons.ButtonUploadDownloadIcon);
+        DeleteIcon ??= IconTheme.GetIconByKey(ComponentIcons.ButtonUploadDeleteIcon);
     }
 }
