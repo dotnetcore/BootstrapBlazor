@@ -148,6 +148,10 @@
                 color: var(--bs-danger);
             }
 
+            .upload .upload-body.is-avatar .upload-item.is-invalid .upload-item-spin {
+                font-size: 3em;
+            }
+
         .upload .upload-body.is-card .upload-item {
             padding: 1rem;
             box-shadow: 0 0 10px 0 rgba(0,0,0,.2);
