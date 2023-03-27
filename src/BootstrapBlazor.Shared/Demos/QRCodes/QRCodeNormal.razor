@@ -1,0 +1,13 @@
+﻿@using BootstrapBlazor.Shared.Samples
+@inject IStringLocalizer<QRCodes> Localizer
+
+<QRCode OnGenerated="@(()=>{Trace.Log(Localizer[nameof(SuccessText)]);return Task.CompletedTask;})" ShowButtons="true"></QRCode>
+<BlockLogger @ref="Trace" class="mt-3" />
+
+@code {
+    [NotNull]
+    private string? SuccessText { get; set; }
+
+    [NotNull]
+    private BlockLogger? Trace { get; set; }
+}
