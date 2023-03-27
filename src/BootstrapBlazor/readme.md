@@ -1,6 +1,7 @@
 # Bootstrap Blazor Component
 
 ## A set of enterprise-class UI components based on Bootstrap and Blazor.
+[![Anurag's GitHub stats](https://github-readme-stats.vercel.app/api?username=ArgoZhang)](https://github.com/anuraghazra/github-readme-stats)
 
 [![License](https://img.shields.io/github/license/argozhang/bootstrapblazor.svg?logo=git&logoColor=red)](https://github.com/ArgoZhang/BootstrapBlazor/blob/main/LICENSE)
 [![Github build](https://img.shields.io/github/actions/workflow/status/ArgoZhang/BootstrapBlazor/build.yml?branch=main&?label=main&logo=github)](https://github.com/ArgoZhang/BootstrapBlazor/actions?query=workflow%3A%22Build+Project%22+branch%3Amain)
