@@ -71,14 +71,14 @@ internal class DefaultIconTheme : IIconTheme
 
             { ComponentIcons.GoTopIcon, "fa-solid fa-angle-up" },
 
-            { ComponentIcons.ImagePreviewPreviousIcon, "fa-solid fa-angle-left fa-2x" },
-            { ComponentIcons.ImagePreviewNextIcon, "fa-solid fa-angle-right fa-2x" },
+            { ComponentIcons.ImagePreviewPreviousIcon, "fa-solid fa-angle-left" },
+            { ComponentIcons.ImagePreviewNextIcon, "fa-solid fa-angle-right" },
             { ComponentIcons.ImagePreviewMinusIcon, "fa-solid fa-magnifying-glass-minus" },
             { ComponentIcons.ImagePreviewPlusIcon, "fa-solid fa-magnifying-glass-plus" },
             { ComponentIcons.ImagePreviewRotateLeftIcon, "fa-solid fa-rotate-left" },
             { ComponentIcons.ImagePreviewRotateRightIcon, "fa-solid fa-rotate-right" },
 
-            { ComponentIcons.ImageViewerFileIcon, "fa-regular fa-file-image fa-2x" },
+            { ComponentIcons.ImageViewerFileIcon, "fa-regular fa-file-image" },
 
             { ComponentIcons.InputNumberMinusIcon, "fa-solid fa-circle-minus" },
             { ComponentIcons.InputNumberPlusIcon, "fa-solid fa-circle-plus" },
@@ -166,7 +166,7 @@ internal class DefaultIconTheme : IIconTheme
 
             // Upload
             { ComponentIcons.AvatarUploadDelteIcon, "fa-regular fa-trash-can" },
-            { ComponentIcons.AvatarUploadLoadingIcon, "fa-solid fa-spinner fa-spin fa-3x" },
+            { ComponentIcons.AvatarUploadLoadingIcon, "fa-solid fa-spinner fa-spin" },
             { ComponentIcons.AvatarUploadAddIcon, "fa-solid fa-plus" },
             { ComponentIcons.AvatarUploadValidStatusIcon, "fa-solid fa-check" },
             { ComponentIcons.AvatarUploadInvalidStatusIcon, "fa-solid fa-xmark" },
