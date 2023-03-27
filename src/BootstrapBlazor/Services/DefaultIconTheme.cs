@@ -162,7 +162,10 @@ internal class DefaultIconTheme : IIconTheme
             { ComponentIcons.TimerIcon, "fa-solid fa-bell" },
 
             { ComponentIcons.TreeViewExpandNodeIcon, "fa-solid fa-caret-right fa-rotate-90" },
-            { ComponentIcons.TreeViewNodeIcon, "fa-solid fa-caret-right" }
+            { ComponentIcons.TreeViewNodeIcon, "fa-solid fa-caret-right" },
+
+            // Upload
+            { ComponentIcons.InputUploadBrowserIcon, "fa-regular fa-folder-open" }
         };
     }
 

@@ -260,6 +260,11 @@ public enum ComponentIcons
     InputNumberPlusIcon,
 
     /// <summary>
+    /// InputUpload 组件 BrowserIcon 图标
+    /// </summary>
+    InputUploadBrowserIcon,
+
+    /// <summary>
     /// Layout 组件 MenuBarIcon 图标
     /// </summary>
     LayoutMenuBarIcon,
