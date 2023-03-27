@@ -50,6 +50,36 @@ public enum ComponentIcons
     CardCollapseIcon,
 
     /// <summary>
+    /// CardUpload 组件 AddIcon 图标
+    /// </summary>
+    CardUploadAddIcon,
+
+    /// <summary>
+    /// CardUpload 组件 StatusIcon 图标
+    /// </summary>
+    CardUploadStatusIcon,
+
+    /// <summary>
+    /// CardUpload 组件 DeleteIcon 图标
+    /// </summary>
+    CardUploadDeleteIcon,
+
+    /// <summary>
+    /// CardUpload 组件 RemoveIcon 图标
+    /// </summary>
+    CardUploadRemoveIcon,
+
+    /// <summary>
+    /// CardUpload 组件 DownloadIcon 图标
+    /// </summary>
+    CardUploadDownloadIcon,
+
+    /// <summary>
+    /// CardUpload 组件 ZoomIcon 图标
+    /// </summary>
+    CardUploadZoomIcon,
+
+    /// <summary>
     /// Cascader 组件 Icon 属性图标
     /// </summary>
     CascaderIcon,

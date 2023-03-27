@@ -166,7 +166,13 @@ internal class DefaultIconTheme : IIconTheme
 
             // Upload
             { ComponentIcons.InputUploadBrowserButtonIcon, "fa-regular fa-folder-open" },
-            { ComponentIcons.InputUploadDeleteButtonIcon, "fa-regular fa-trash-can" }
+            { ComponentIcons.InputUploadDeleteButtonIcon, "fa-regular fa-trash-can" },
+            { ComponentIcons.CardUploadAddIcon, "fa-regular fa-folder-open" },
+            { ComponentIcons.CardUploadStatusIcon, "fa-solid fa-check" },
+            { ComponentIcons.CardUploadDeleteIcon, "fa-solid fa-xmark" },
+            { ComponentIcons.CardUploadRemoveIcon, "fa-regular fa-trash-can" },
+            { ComponentIcons.CardUploadDownloadIcon, "fa-solid fa-download" },
+            { ComponentIcons.CardUploadZoomIcon, "fa-solid fa-magnifying-glass-plus" }
         };
     }
 

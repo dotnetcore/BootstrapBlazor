@@ -33,6 +33,61 @@ public partial class CardUpload<TValue>
     [Parameter]
     public RenderFragment<UploadFile>? IconTemplate { get; set; }
 
+    /// <summary>
+    /// 获得/设置 新建图标
+    /// </summary>
+    [Parameter]
+    public string? AddIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 状态图标
+    /// </summary>
+    [Parameter]
+    public string? StatusIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 删除图标
+    /// </summary>
+    [Parameter]
+    public string? DeleteIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 移除图标
+    /// </summary>
+    [Parameter]
+    public string? RemoveIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 下载图标
+    /// </summary>
+    [Parameter]
+    public string? DownloadIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 放大图标
+    /// </summary>
+    [Parameter]
+    public string? ZoomIcon { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IIconTheme? IconTheme { get; set; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
+        AddIcon ??= IconTheme.GetIconByKey(ComponentIcons.CardUploadAddIcon);
+        StatusIcon ??= IconTheme.GetIconByKey(ComponentIcons.CardUploadStatusIcon);
+        DeleteIcon ??= IconTheme.GetIconByKey(ComponentIcons.CardUploadDeleteIcon);
+        RemoveIcon ??= IconTheme.GetIconByKey(ComponentIcons.CardUploadRemoveIcon);
+        DownloadIcon ??= IconTheme.GetIconByKey(ComponentIcons.CardUploadDownloadIcon);
+        ZoomIcon ??= IconTheme.GetIconByKey(ComponentIcons.CardUploadZoomIcon);
+    }
+
     private static bool IsImage(UploadFile item)
     {
         bool ret;
