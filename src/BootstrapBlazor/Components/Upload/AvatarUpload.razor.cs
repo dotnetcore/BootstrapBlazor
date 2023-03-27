@@ -42,6 +42,14 @@ public partial class AvatarUpload<TValue>
         .AddClass($"height: {Width}px;", IsCircle)
         .Build();
 
+    private string? ValidStatusIconString => CssBuilder.Default("valid-icon")
+        .AddClass(ValidStatusIcon)
+        .Build();
+
+    private string? InvalidStatusIconString => CssBuilder.Default("valid-icon")
+        .AddClass(InvalidStatusIcon)
+        .Build();
+
     /// <summary>
     /// 获得/设置 文件预览框宽度
     /// </summary>
@@ -61,7 +69,55 @@ public partial class AvatarUpload<TValue>
     public bool IsCircle { get; set; }
 
     /// <summary>
-    /// 
+    /// 获得/设置 删除图标
+    /// </summary>
+    [Parameter]
+    public string? DeleteIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 加载图标
+    /// </summary>
+    [Parameter]
+    public string? LoadingIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 新建图标
+    /// </summary>
+    [Parameter]
+    public string? AddIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 状态正常图标
+    /// </summary>
+    [Parameter]
+    public string? ValidStatusIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 状态正常图标
+    /// </summary>
+    [Parameter]
+    public string? InvalidStatusIcon { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IIconTheme? IconTheme { get; set; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
+        DeleteIcon ??= IconTheme.GetIconByKey(ComponentIcons.AvatarUploadDelteIcon);
+        LoadingIcon ??= IconTheme.GetIconByKey(ComponentIcons.AvatarUploadLoadingIcon);
+        AddIcon ??= IconTheme.GetIconByKey(ComponentIcons.AvatarUploadAddIcon);
+        ValidStatusIcon ??= IconTheme.GetIconByKey(ComponentIcons.AvatarUploadValidStatusIcon);
+        InvalidStatusIcon ??= IconTheme.GetIconByKey(ComponentIcons.AvatarUploadInvalidStatusIcon);
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="args"></param>
     /// <returns></returns>

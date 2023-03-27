@@ -15,13 +15,13 @@
                 @if (!IsDisabled)
                 {
                     <div class="upload-item-actions">
-                        <span class="upload-item-delete p-3" @onclick="@(e => OnFileDelete(item))">
-                            <i class="fa-regular fa-trash-can"></i>
+                        <span class="upload-item-delete" @onclick="@(e => OnFileDelete(item))">
+                            <i class="@DeleteIcon"></i>
                         </span>
                         @if (GetShowProgress(item))
                         {
                             <span class="upload-item-spin">
-                                <i class="fa-solid fa-spinner fa-spin fa-3x fa-fw"></i>
+                                <i class="@LoadingIcon"></i>
                             </span>
                         }
                     </div>
@@ -29,8 +29,8 @@
                 @if (!IsCircle)
                 {
                     <span class="upload-item-label">
-                        <i class="fa-solid fa-check"></i>
-                        <i class="fa-solid fa-xmark"></i>
+                        <i class="@ValidStatusIconString"></i>
+                        <i class="@InvalidStatusIconString"></i>
                     </span>
                 }
             </div>
@@ -40,7 +40,7 @@
             <div class="@ItemClassString" style="@PrevStyleString">
                 <div class="upload-item-actions btn-browser">
                     <span class="upload-item-plus">
-                        <i class="fa-solid fa-plus"></i>
+                        <i class="@AddIcon"></i>
                     </span>
                 </div>
             </div>
