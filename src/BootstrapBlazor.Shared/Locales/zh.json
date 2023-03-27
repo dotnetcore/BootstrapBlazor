@@ -1447,21 +1447,21 @@
 
   },
   "BootstrapBlazor.Shared.Samples.Footers": {
-    "Title": "Footer 页脚组件",
-    "H1": "显示在网页的最下方，提供返回顶端按钮",
-    "P1": "<code>Footer</code> 组件使用时注意样式表 <code>position</code> 属性的设置",
-    "BlockTitle": "基础用法",
-    "BlockIntro": "传递滚动条组件的 ID 给页脚组件",
-    "P2": "底部显示 Footer 组件，点击返回顶端时页面自动滚动回顶端",
-    "P3": "本示例传递的是组件客户端 ID",
+    "FootersTitle": "Footer 页脚组件",
+    "FootersDescription": "显示在网页的最下方，提供返回顶端按钮",
+    "FootersTips": "<code>Footer</code> 组件使用时注意样式表 <code>position</code> 属性的设置",
+    "FooterNormalTitle": "基础用法",
+    "FooterNormalIntro": "传递滚动条组件的 ID 给页脚组件",
+    "FootersContent1": "底部显示 Footer 组件，点击返回顶端时页面自动滚动回顶端",
+    "FootersContent2": "本示例传递的是组件客户端 ID",
     "Desc1": "页脚组件显示的文字",
     "Desc2": "页脚组件控制的滚动条组件 ID",
     "ShowGotoDesc": "是否显示右侧导航小组件",
     "ChildContentDesc": "子组件模板",
-    "ShowGotoTitle": "是否显示 Goto 导航",
-    "ShowGotoIntro": "通过设置 <code>ShowGoto</code> 参数，关闭 <code>Footer</code> 右侧导航小组件",
-    "ChildContentTitle": "自定义内容",
-    "ChildContentIntro": "通过设置 <code>ChildContent</code> 参数自定义组件内部显示内容"
+    "FooterShowGotoTitle": "是否显示 Goto 导航",
+    "FooterShowGotoIntro": "通过设置 <code>ShowGoto</code> 参数，关闭 <code>Footer</code> 右侧导航小组件",
+    "FooterChildContentTitle": "自定义内容",
+    "FooterChildContentIntro": "通过设置 <code>ChildContent</code> 参数自定义组件内部显示内容"
   },
   "BootstrapBlazor.Shared.Samples.Repeaters": {
     "RepeaterTitle": "Repeat 组件",

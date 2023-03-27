@@ -5,17 +5,10 @@
 namespace BootstrapBlazor.Shared.Samples;
 
 /// <summary>
-/// 
+/// Footers
 /// </summary>
 public sealed partial class Footers
 {
-    /// <summary>
-    /// 
-    /// </summary>
-    [Inject]
-    [NotNull]
-    public IStringLocalizer<Footers>? Localizer { get; set; }
-
     private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
         // TODO: 移动到数据库中

@@ -1,0 +1,10 @@
+﻿@using BootstrapBlazor.Shared.Samples
+@inject IStringLocalizer<Footers> Localizer
+
+<div class="overflow-auto border border-secondary" style="max-height: 120px;">
+    <div class="p-2" style="height: 200px">
+        <p>@Localizer["FootersContent1"]</p>
+        <p>@Localizer["FootersContent2"]</p>
+    </div>
+    <Footer Text="Bootstrap Blazor" ShowGoto="false" />
+</div>
