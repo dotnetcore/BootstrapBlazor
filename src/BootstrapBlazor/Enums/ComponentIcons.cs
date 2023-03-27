@@ -262,7 +262,12 @@ public enum ComponentIcons
     /// <summary>
     /// InputUpload 组件 BrowserIcon 图标
     /// </summary>
-    InputUploadBrowserIcon,
+    InputUploadBrowserButtonIcon,
+
+    /// <summary>
+    /// InputUpload 组件 BrowserIcon 图标
+    /// </summary>
+    InputUploadDeleteButtonIcon,
 
     /// <summary>
     /// Layout 组件 MenuBarIcon 图标

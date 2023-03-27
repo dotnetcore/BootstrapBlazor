@@ -165,7 +165,8 @@ internal class DefaultIconTheme : IIconTheme
             { ComponentIcons.TreeViewNodeIcon, "fa-solid fa-caret-right" },
 
             // Upload
-            { ComponentIcons.InputUploadBrowserIcon, "fa-regular fa-folder-open" }
+            { ComponentIcons.InputUploadBrowserButtonIcon, "fa-regular fa-folder-open" },
+            { ComponentIcons.InputUploadDeleteButtonIcon, "fa-regular fa-trash-can" }
         };
     }
 
