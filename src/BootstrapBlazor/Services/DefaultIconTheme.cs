@@ -178,7 +178,19 @@ internal class DefaultIconTheme : IIconTheme
             { ComponentIcons.CardUploadDeleteIcon, "fa-solid fa-xmark" },
             { ComponentIcons.CardUploadRemoveIcon, "fa-regular fa-trash-can" },
             { ComponentIcons.CardUploadDownloadIcon, "fa-solid fa-download" },
-            { ComponentIcons.CardUploadZoomIcon, "fa-solid fa-magnifying-glass-plus" }
+            { ComponentIcons.CardUploadZoomIcon, "fa-solid fa-magnifying-glass-plus" },
+
+            { ComponentIcons.FileIconExcel, "fa-regular fa-file-excel" },
+            { ComponentIcons.FileIconDocx, "fa-regular fa-file-word" },
+            { ComponentIcons.FileIconPPT, "fa-regular fa-file-powerpoint" },
+            { ComponentIcons.FileIconAudio, "fa-regular fa-file-audio" },
+            { ComponentIcons.FileIconVideo, "fa-regular fa-file-video" },
+            { ComponentIcons.FileIconCode, "fa-regular fa-file-code" },
+            { ComponentIcons.FileIconPdf, "fa-regular fa-file-pdf" },
+            { ComponentIcons.FileIconZip, "fa-regular fa-file-archive" },
+            { ComponentIcons.FileIconArchive, "fa-regular fa-file-text" },
+            { ComponentIcons.FileIconImage, "fa-regular fa-file-image" },
+            { ComponentIcons.FileIconFile, "fa-regular fa-file" }
         };
     }
 

@@ -652,5 +652,60 @@ public enum ComponentIcons
     /// <summary>
     /// TreeView 组件 NodeIcon 属性图标
     /// </summary>
-    TreeViewNodeIcon
+    TreeViewNodeIcon,
+
+    /// <summary>
+    /// Upload 组件 Excel 文件类型图标
+    /// </summary>
+    FileIconExcel,
+
+    /// <summary>
+    /// Upload 组件 Word 文件类型图标
+    /// </summary>
+    FileIconDocx,
+
+    /// <summary>
+    /// Upload 组件 PPT 文件类型图标
+    /// </summary>
+    FileIconPPT,
+
+    /// <summary>
+    /// Upload 组件 音频文件类型图标
+    /// </summary>
+    FileIconAudio,
+
+    /// <summary>
+    /// Upload 组件 视频文件类型图标
+    /// </summary>
+    FileIconVideo,
+
+    /// <summary>
+    /// Upload 组件 代码文件类型图标
+    /// </summary>
+    FileIconCode,
+
+    /// <summary>
+    /// Upload 组件 PDF 文件类型图标
+    /// </summary>
+    FileIconPdf,
+
+    /// <summary>
+    /// Upload 组件 Zip 文件类型图标
+    /// </summary>
+    FileIconZip,
+
+    /// <summary>
+    /// Upload 组件 文档文件类型图标
+    /// </summary>
+    FileIconArchive,
+
+    /// <summary>
+    /// Upload 组件 Image 文件类型图标
+    /// </summary>
+    FileIconImage,
+
+    /// <summary>
+    /// Upload 组件 File 文件类型图标
+    /// </summary>
+    FileIconFile
 }

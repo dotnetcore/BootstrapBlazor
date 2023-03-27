@@ -42,6 +42,76 @@ public abstract class ButtonUploadBase<TValue> : SingleUploadBase<TValue>
     public Func<UploadFile, Task>? OnDownload { get; set; }
 
     /// <summary>
+    /// 获得/设置 Excel 类型文件图标
+    /// </summary>
+    [Parameter]
+    public string? FileIconExcel { get; set; }
+
+    /// <summary>
+    /// 获得/设置 Excel 类型文件图标
+    /// </summary>
+    [Parameter]
+    public string? FileIconDocx { get; set; }
+
+    /// <summary>
+    /// 获得/设置 Excel 类型文件图标
+    /// </summary>
+    [Parameter]
+    public string? FileIconPPT { get; set; }
+
+    /// <summary>
+    /// 获得/设置 Excel 类型文件图标
+    /// </summary>
+    [Parameter]
+    public string? FileIconAudio { get; set; }
+
+    /// <summary>
+    /// 获得/设置 Excel 类型文件图标
+    /// </summary>
+    [Parameter]
+    public string? FileIconVideo { get; set; }
+
+    /// <summary>
+    /// 获得/设置 Excel 类型文件图标
+    /// </summary>
+    [Parameter]
+    public string? FileIconCode { get; set; }
+
+    /// <summary>
+    /// 获得/设置 Excel 类型文件图标
+    /// </summary>
+    [Parameter]
+    public string? FileIconPdf { get; set; }
+
+    /// <summary>
+    /// 获得/设置 Excel 类型文件图标
+    /// </summary>
+    [Parameter]
+    public string? FileIconZip { get; set; }
+
+    /// <summary>
+    /// 获得/设置 Excel 类型文件图标
+    /// </summary>
+    [Parameter]
+    public string? FileIconArchive { get; set; }
+
+    /// <summary>
+    /// 获得/设置 Excel 类型文件图标
+    /// </summary>
+    [Parameter]
+    public string? FileIconImage { get; set; }
+
+    /// <summary>
+    /// 获得/设置 Excel 类型文件图标
+    /// </summary>
+    [Parameter]
+    public string? FileIconFile { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IIconTheme? IconTheme { get; set; }
+
+    /// <summary>
     /// OnInitialized 方法
     /// </summary>
     protected override void OnInitialized()
@@ -56,7 +126,27 @@ public abstract class ButtonUploadBase<TValue> : SingleUploadBase<TValue>
     }
 
     /// <summary>
-    /// 
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
+        FileIconExcel ??= IconTheme.GetIconByKey(ComponentIcons.FileIconExcel);
+        FileIconDocx ??= IconTheme.GetIconByKey(ComponentIcons.FileIconDocx);
+        FileIconPPT ??= IconTheme.GetIconByKey(ComponentIcons.FileIconPPT);
+        FileIconAudio ??= IconTheme.GetIconByKey(ComponentIcons.FileIconAudio);
+        FileIconVideo ??= IconTheme.GetIconByKey(ComponentIcons.FileIconVideo);
+        FileIconCode ??= IconTheme.GetIconByKey(ComponentIcons.FileIconCode);
+        FileIconPdf ??= IconTheme.GetIconByKey(ComponentIcons.FileIconPdf);
+        FileIconZip ??= IconTheme.GetIconByKey(ComponentIcons.FileIconZip);
+        FileIconArchive ??= IconTheme.GetIconByKey(ComponentIcons.FileIconArchive);
+        FileIconImage ??= IconTheme.GetIconByKey(ComponentIcons.FileIconImage);
+        FileIconFile ??= IconTheme.GetIconByKey(ComponentIcons.FileIconFile);
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="args"></param>
     /// <returns></returns>
@@ -111,13 +201,13 @@ public abstract class ButtonUploadBase<TValue> : SingleUploadBase<TValue>
     }
 
     /// <summary>
-    /// 
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="item"></param>
     /// <returns></returns>
     protected string? GetFileFormatClassString(UploadFile item)
     {
-        var builder = CssBuilder.Default("fa-regular");
+        var builder = CssBuilder.Default("file-icon");
         var fileExtension = Path.GetExtension(item.OriginFileName ?? item.FileName);
         if (!string.IsNullOrEmpty(fileExtension))
         {
@@ -125,17 +215,17 @@ public abstract class ButtonUploadBase<TValue> : SingleUploadBase<TValue>
         }
         var icon = OnGetFileFormat?.Invoke(fileExtension) ?? fileExtension switch
         {
-            ".csv" or ".xls" or ".xlsx" => "fa-file-excel",
-            ".doc" or ".docx" or ".dot" or ".dotx" => "fa-file-word",
-            ".ppt" or ".pptx" => "fa-file-powerpoint",
-            ".wav" or ".mp3" => "fa-file-audio",
-            ".mp4" or ".mov" or ".mkv" => "fa-file-video",
-            ".cs" or ".html" or ".vb" => "fa-file-code",
-            ".pdf" => "fa-file-pdf",
-            ".zip" or ".rar" or ".iso" => "fa-file-archive",
-            ".txt" or ".log" => "fa-file-text",
-            ".jpg" or ".jpeg" or ".png" or ".bmp" or ".gif" => "fa-file-image",
-            _ => "fa-file"
+            ".csv" or ".xls" or ".xlsx" => FileIconExcel,
+            ".doc" or ".docx" or ".dot" or ".dotx" => FileIconDocx,
+            ".ppt" or ".pptx" => FileIconPPT,
+            ".wav" or ".mp3" => FileIconAudio,
+            ".mp4" or ".mov" or ".mkv" => FileIconVideo,
+            ".cs" or ".html" or ".vb" => FileIconCode,
+            ".pdf" => FileIconPdf,
+            ".zip" or ".rar" or ".iso" => FileIconZip,
+            ".txt" or ".log" => FileIconArchive,
+            ".jpg" or ".jpeg" or ".png" or ".bmp" or ".gif" => FileIconImage,
+            _ => FileIconFile
         };
         builder.AddClass(icon);
         return builder.Build();
