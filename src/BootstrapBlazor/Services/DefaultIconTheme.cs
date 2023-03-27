@@ -165,15 +165,23 @@ internal class DefaultIconTheme : IIconTheme
             { ComponentIcons.TreeViewNodeIcon, "fa-solid fa-caret-right" },
 
             // Upload
+            { ComponentIcons.AvatarUploadDelteIcon, "fa-regular fa-trash-can" },
+            { ComponentIcons.AvatarUploadLoadingIcon, "fa-solid fa-spinner fa-spin fa-3x" },
+            { ComponentIcons.AvatarUploadAddIcon, "fa-solid fa-plus" },
+            { ComponentIcons.AvatarUploadValidStatusIcon, "fa-solid fa-check" },
+            { ComponentIcons.AvatarUploadInvalidStatusIcon, "fa-solid fa-xmark" },
+
             { ComponentIcons.ButtonUploadBrowserButtonIcon, "fa-regular fa-folder-open" },
             { ComponentIcons.ButtonUploadLoadingIcon, "fa-solid fa-spinner fa-spin" },
             { ComponentIcons.ButtonUploadInvalidStatusIcon, "fa-regular fa-circle-xmark" },
             { ComponentIcons.ButtonUploadValidStatusIcon, "fa-regular fa-circle-check" },
             { ComponentIcons.ButtonUploadDeleteIcon, "fa-regular fa-trash-can" },
             { ComponentIcons.ButtonUploadDownloadIcon, "fa-solid fa-download" },
+
             { ComponentIcons.InputUploadBrowserButtonIcon, "fa-regular fa-folder-open" },
             { ComponentIcons.InputUploadDeleteButtonIcon, "fa-regular fa-trash-can" },
-            { ComponentIcons.CardUploadAddIcon, "fa-regular fa-folder-open" },
+
+            { ComponentIcons.CardUploadAddIcon, "fa-solid fa-plus" },
             { ComponentIcons.CardUploadStatusIcon, "fa-solid fa-check" },
             { ComponentIcons.CardUploadDeleteIcon, "fa-solid fa-xmark" },
             { ComponentIcons.CardUploadRemoveIcon, "fa-regular fa-trash-can" },

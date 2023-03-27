@@ -20,6 +20,31 @@ public enum ComponentIcons
     AvatarIcon,
 
     /// <summary>
+    /// AvatarUpload 组件 DeleteIcon 属性图标
+    /// </summary>
+    AvatarUploadDelteIcon,
+
+    /// <summary>
+    /// AvatarUpload 组件 LoadingIcon 属性图标
+    /// </summary>
+    AvatarUploadLoadingIcon,
+
+    /// <summary>
+    /// AvatarUpload 组件 AddIcon 属性图标
+    /// </summary>
+    AvatarUploadAddIcon,
+
+    /// <summary>
+    /// AvatarUpload 组件 ValidStatusIcon 属性图标
+    /// </summary>
+    AvatarUploadValidStatusIcon,
+
+    /// <summary>
+    /// AvatarUpload 组件 InvalidStatusIcon 属性图标
+    /// </summary>
+    AvatarUploadInvalidStatusIcon,
+
+    /// <summary>
     /// AutoComplete 组件 Icon 属性图标
     /// </summary>
     AutoCompleteIcon,
