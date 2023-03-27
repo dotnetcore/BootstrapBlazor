@@ -25,7 +25,7 @@ internal class DefaultIconTheme : IIconTheme
             { ComponentIcons.CameraPlayIcon, "mdi mdi-play-circle-outline" },
             { ComponentIcons.CameraStopIcon, "mdi mdi-stop-circle-outline" },
             { ComponentIcons.CameraPhotoIcon, "mdi mdi-camera-outline" },
-            { ComponentIcons.CardCollapseIcon, "mdi mdi-chevron-right" },
+            { ComponentIcons.CardCollapseIcon, "mdi mdi-chevron-right-circle" },
             { ComponentIcons.CarouselPreviousIcon, "mdi mdi-chevron-left" },
             { ComponentIcons.CarouselNextIcon, "mdi mdi-chevron-right" },
             { ComponentIcons.CascaderIcon, "mdi mdi-chevron-up" },
