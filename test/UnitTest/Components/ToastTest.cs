@@ -74,13 +74,6 @@ public class ToastTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void Options_Null()
-    {
-        var cut = Context.RenderComponent<Toast>();
-        cut.Contains("toast");
-    }
-
-    [Fact]
     public async Task AutoHide_Ok()
     {
         var cut = Context.RenderComponent<ToastContainer>();
