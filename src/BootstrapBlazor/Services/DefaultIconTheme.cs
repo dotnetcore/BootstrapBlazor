@@ -162,7 +162,43 @@ internal class DefaultIconTheme : IIconTheme
             { ComponentIcons.TimerIcon, "fa-solid fa-bell" },
 
             { ComponentIcons.TreeViewExpandNodeIcon, "fa-solid fa-caret-right fa-rotate-90" },
-            { ComponentIcons.TreeViewNodeIcon, "fa-solid fa-caret-right" }
+            { ComponentIcons.TreeViewNodeIcon, "fa-solid fa-caret-right" },
+
+            // Upload
+            { ComponentIcons.AvatarUploadDelteIcon, "fa-regular fa-trash-can" },
+            { ComponentIcons.AvatarUploadLoadingIcon, "fa-solid fa-spinner fa-spin fa-3x" },
+            { ComponentIcons.AvatarUploadAddIcon, "fa-solid fa-plus" },
+            { ComponentIcons.AvatarUploadValidStatusIcon, "fa-solid fa-check" },
+            { ComponentIcons.AvatarUploadInvalidStatusIcon, "fa-solid fa-xmark" },
+
+            { ComponentIcons.ButtonUploadBrowserButtonIcon, "fa-regular fa-folder-open" },
+            { ComponentIcons.ButtonUploadLoadingIcon, "fa-solid fa-spinner fa-spin" },
+            { ComponentIcons.ButtonUploadInvalidStatusIcon, "fa-regular fa-circle-xmark" },
+            { ComponentIcons.ButtonUploadValidStatusIcon, "fa-regular fa-circle-check" },
+            { ComponentIcons.ButtonUploadDeleteIcon, "fa-regular fa-trash-can" },
+            { ComponentIcons.ButtonUploadDownloadIcon, "fa-solid fa-download" },
+
+            { ComponentIcons.InputUploadBrowserButtonIcon, "fa-regular fa-folder-open" },
+            { ComponentIcons.InputUploadDeleteButtonIcon, "fa-regular fa-trash-can" },
+
+            { ComponentIcons.CardUploadAddIcon, "fa-solid fa-plus" },
+            { ComponentIcons.CardUploadStatusIcon, "fa-solid fa-check" },
+            { ComponentIcons.CardUploadDeleteIcon, "fa-solid fa-xmark" },
+            { ComponentIcons.CardUploadRemoveIcon, "fa-regular fa-trash-can" },
+            { ComponentIcons.CardUploadDownloadIcon, "fa-solid fa-download" },
+            { ComponentIcons.CardUploadZoomIcon, "fa-solid fa-magnifying-glass-plus" },
+
+            { ComponentIcons.FileIconExcel, "fa-regular fa-file-excel" },
+            { ComponentIcons.FileIconDocx, "fa-regular fa-file-word" },
+            { ComponentIcons.FileIconPPT, "fa-regular fa-file-powerpoint" },
+            { ComponentIcons.FileIconAudio, "fa-regular fa-file-audio" },
+            { ComponentIcons.FileIconVideo, "fa-regular fa-file-video" },
+            { ComponentIcons.FileIconCode, "fa-regular fa-file-code" },
+            { ComponentIcons.FileIconPdf, "fa-regular fa-file-pdf" },
+            { ComponentIcons.FileIconZip, "fa-regular fa-file-archive" },
+            { ComponentIcons.FileIconArchive, "fa-regular fa-file-text" },
+            { ComponentIcons.FileIconImage, "fa-regular fa-file-image" },
+            { ComponentIcons.FileIconFile, "fa-regular fa-file" }
         };
     }
 

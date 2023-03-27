@@ -20,6 +20,31 @@ public enum ComponentIcons
     AvatarIcon,
 
     /// <summary>
+    /// AvatarUpload 组件 DeleteIcon 属性图标
+    /// </summary>
+    AvatarUploadDelteIcon,
+
+    /// <summary>
+    /// AvatarUpload 组件 LoadingIcon 属性图标
+    /// </summary>
+    AvatarUploadLoadingIcon,
+
+    /// <summary>
+    /// AvatarUpload 组件 AddIcon 属性图标
+    /// </summary>
+    AvatarUploadAddIcon,
+
+    /// <summary>
+    /// AvatarUpload 组件 ValidStatusIcon 属性图标
+    /// </summary>
+    AvatarUploadValidStatusIcon,
+
+    /// <summary>
+    /// AvatarUpload 组件 InvalidStatusIcon 属性图标
+    /// </summary>
+    AvatarUploadInvalidStatusIcon,
+
+    /// <summary>
     /// AutoComplete 组件 Icon 属性图标
     /// </summary>
     AutoCompleteIcon,
@@ -28,6 +53,36 @@ public enum ComponentIcons
     /// AutoComplete 组件 Icon 属性图标
     /// </summary>
     AutoFillIcon,
+
+    /// <summary>
+    /// ButtonUpload 组件 LoadingIcon 属性图标
+    /// </summary>
+    ButtonUploadLoadingIcon,
+
+    /// <summary>
+    /// ButtonUpload 组件 FailedInvalidIcon 属性图标
+    /// </summary>
+    ButtonUploadInvalidStatusIcon,
+
+    /// <summary>
+    /// ButtonUpload 组件 FailedValidIcon 属性图标
+    /// </summary>
+    ButtonUploadValidStatusIcon,
+
+    /// <summary>
+    /// ButtonUpload 组件 DownloadIcon 属性图标
+    /// </summary>
+    ButtonUploadDownloadIcon,
+
+    /// <summary>
+    /// ButtonUpload 组件 DeleteIcon 属性图标
+    /// </summary>
+    ButtonUploadDeleteIcon,
+
+    /// <summary>
+    /// ButtonUpload 组件 BrowserButtonIcon 属性图标
+    /// </summary>
+    ButtonUploadBrowserButtonIcon,
 
     /// <summary>
     /// Camera 组件 PlayIcon 属性图标
@@ -48,6 +103,36 @@ public enum ComponentIcons
     /// Collapse 组件 Icon 属性图标
     /// </summary>
     CardCollapseIcon,
+
+    /// <summary>
+    /// CardUpload 组件 AddIcon 图标
+    /// </summary>
+    CardUploadAddIcon,
+
+    /// <summary>
+    /// CardUpload 组件 StatusIcon 图标
+    /// </summary>
+    CardUploadStatusIcon,
+
+    /// <summary>
+    /// CardUpload 组件 DeleteIcon 图标
+    /// </summary>
+    CardUploadDeleteIcon,
+
+    /// <summary>
+    /// CardUpload 组件 RemoveIcon 图标
+    /// </summary>
+    CardUploadRemoveIcon,
+
+    /// <summary>
+    /// CardUpload 组件 DownloadIcon 图标
+    /// </summary>
+    CardUploadDownloadIcon,
+
+    /// <summary>
+    /// CardUpload 组件 ZoomIcon 图标
+    /// </summary>
+    CardUploadZoomIcon,
 
     /// <summary>
     /// Cascader 组件 Icon 属性图标
@@ -258,6 +343,16 @@ public enum ComponentIcons
     /// InputNumber 组件 PlusIcon 图标
     /// </summary>
     InputNumberPlusIcon,
+
+    /// <summary>
+    /// InputUpload 组件 BrowserIcon 图标
+    /// </summary>
+    InputUploadBrowserButtonIcon,
+
+    /// <summary>
+    /// InputUpload 组件 BrowserIcon 图标
+    /// </summary>
+    InputUploadDeleteButtonIcon,
 
     /// <summary>
     /// Layout 组件 MenuBarIcon 图标
@@ -582,5 +677,60 @@ public enum ComponentIcons
     /// <summary>
     /// TreeView 组件 NodeIcon 属性图标
     /// </summary>
-    TreeViewNodeIcon
+    TreeViewNodeIcon,
+
+    /// <summary>
+    /// Upload 组件 Excel 文件类型图标
+    /// </summary>
+    FileIconExcel,
+
+    /// <summary>
+    /// Upload 组件 Word 文件类型图标
+    /// </summary>
+    FileIconDocx,
+
+    /// <summary>
+    /// Upload 组件 PPT 文件类型图标
+    /// </summary>
+    FileIconPPT,
+
+    /// <summary>
+    /// Upload 组件 音频文件类型图标
+    /// </summary>
+    FileIconAudio,
+
+    /// <summary>
+    /// Upload 组件 视频文件类型图标
+    /// </summary>
+    FileIconVideo,
+
+    /// <summary>
+    /// Upload 组件 代码文件类型图标
+    /// </summary>
+    FileIconCode,
+
+    /// <summary>
+    /// Upload 组件 PDF 文件类型图标
+    /// </summary>
+    FileIconPdf,
+
+    /// <summary>
+    /// Upload 组件 Zip 文件类型图标
+    /// </summary>
+    FileIconZip,
+
+    /// <summary>
+    /// Upload 组件 文档文件类型图标
+    /// </summary>
+    FileIconArchive,
+
+    /// <summary>
+    /// Upload 组件 Image 文件类型图标
+    /// </summary>
+    FileIconImage,
+
+    /// <summary>
+    /// Upload 组件 File 文件类型图标
+    /// </summary>
+    FileIconFile
 }

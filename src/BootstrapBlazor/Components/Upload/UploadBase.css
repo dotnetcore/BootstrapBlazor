@@ -61,6 +61,20 @@
                 display: none;
             }
 
+        .upload .upload-body.is-list .loading-icon,
+        .upload .upload-body.is-list .valid-icon {
+            color: var(--bs-success);
+        }
+
+        .upload .upload-body.is-list .delete-icon,
+        .upload .upload-body.is-list .invalid-icon {
+            color: var(--bs-danger);
+        }
+
+        .upload .upload-body.is-list .download-icon {
+            color: var(--bs-primary);
+        }
+
     .upload .upload-body.is-avatar,
     .upload .upload-body.is-card {
         margin: 0;
@@ -131,6 +145,7 @@
 
             .upload .upload-body.is-avatar .upload-item:hover .upload-item-actions .upload-item-delete {
                 display: block;
+                color: var(--bs-danger);
             }
 
         .upload .upload-body.is-card .upload-item {
@@ -210,7 +225,7 @@
     display: none;
 }
 
-    .upload .upload-item .upload-item-label .fa-check {
+    .upload .upload-item .upload-item-label .valid-icon {
         transform: rotate(-45deg);
         font-size: 12px;
     }

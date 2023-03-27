@@ -29,19 +29,19 @@
                 <div class="upload-item-actions">
                     <div class="btn-group">
                         <button type="button" class="btn btn-sm btn-secondary btn-zoom" disabled="@GetDiabledString(item)" @onclick="() => OnClickZoom(item)" aria-label="zoom">
-                            <i class="fa-solid fa-magnifying-glass-plus"></i>
+                            <i class="@ZoomIcon"></i>
                         </button>
                         @if(ShowDownloadButton)
                         {
                             <button type="button" class="btn btn-sm btn-secondary" disabled="@GetDiabledString(item)" @onclick="() => OnClickDownload(item)" aria-label="download">
-                                <i class="fa-solid fa-download"></i>
+                                <i class="@DownloadIcon"></i>
                             </button>
                         }
                     </div>
                     <DynamicElement TagName="button" type="button" class="btn btn-sm btn-outline-danger"
                                     disabled="@GetDeleteButtonDiabledString(item)" aria-label="delete"
                                     TriggerClick="@(!IsDisabled)" OnClick="@(() => OnCardFileDelete(item))">
-                        <i class="fa-regular fa-trash-can"></i>
+                        <i class="@RemoveIcon"></i>
                     </DynamicElement>
                 </div>
                 @if (GetShowProgress(item))
@@ -49,8 +49,8 @@
                     <Progress Color="Color.Success" Height="4" Value="@item.ProgressPercent" />
                 }
                 <span class="upload-item-label">
-                    <i class="fa-solid fa-check"></i>
-                    <i class="fa-solid fa-xmark"></i>
+                    <i class="@StatusIconString"></i>
+                    <i class="@DeleteIcon"></i>
                 </span>
             </div>
         }
@@ -61,7 +61,7 @@
                     @if (!IsDisabled)
                     {
                         <span class="upload-item-plus">
-                            <i class="fa-solid fa-plus"></i>
+                            <i class="@AddIcon"></i>
                         </span>
                     }
                 </div>
