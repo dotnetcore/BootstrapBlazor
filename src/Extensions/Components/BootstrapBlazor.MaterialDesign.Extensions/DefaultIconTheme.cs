@@ -32,16 +32,16 @@ internal class DefaultIconTheme : IIconTheme
             { ComponentIcons.CascaderSubMenuIcon, "mdi mdi-chevron-down" },
             { ComponentIcons.ConsoleClearButtonIcon, "mdi mdi-close" },
 
+            // DateTimePicker 组件
             { ComponentIcons.DatePickBodyPreviousYearIcon, "mdi mdi-chevron-double-left" },
             { ComponentIcons.DatePickBodyPreviousMonthIcon, "mdi mdi-chevron-left" },
             { ComponentIcons.DatePickBodyNextMonthIcon, "mdi mdi-chevron-right" },
             { ComponentIcons.DatePickBodyNextYearIcon, "mdi mdi-chevron-double-right" },
-
             { ComponentIcons.DateTimePickerIcon, "mdi mdi-calendar-outline" },
-
             { ComponentIcons.TimePickerCellUpIcon, "mdi mdi-chevron-up" },
             { ComponentIcons.TimePickerCellDownIcon, "mdi mdi-chevron-down" },
 
+            // DateTimeRange 组件
             { ComponentIcons.DateTimeRangeIcon, "mdi mdi-calendar-range-outline" },
             { ComponentIcons.DateTimeRangeClearIcon, "mdi mdi-close-circle-outline" },
 
@@ -76,8 +76,8 @@ internal class DefaultIconTheme : IIconTheme
 
             { ComponentIcons.ImagePreviewPreviousIcon, "mdi mdi-chevron-left" },
             { ComponentIcons.ImagePreviewNextIcon, "mdi mdi-chevron-right" },
-            { ComponentIcons.ImagePreviewMinusIcon, "mdi mdi-magnify-plus-outline-minus" },
-            { ComponentIcons.ImagePreviewPlusIcon, "mdi mdi-magnify-plus-outline-plus" },
+            { ComponentIcons.ImagePreviewMinusIcon, "mdi mdi-magnify-minus-outline" },
+            { ComponentIcons.ImagePreviewPlusIcon, "mdi mdi-magnify-plus-outline" },
             { ComponentIcons.ImagePreviewRotateLeftIcon, "mdi mdi-file-rotate-left-outline" },
             { ComponentIcons.ImagePreviewRotateRightIcon, "mdi mdi-file-rotate-right-outline" },
 
