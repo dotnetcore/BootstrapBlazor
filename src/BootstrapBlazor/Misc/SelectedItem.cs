@@ -22,7 +22,7 @@ public class SelectedItem
     /// <summary>
     /// 获得/设置 显示名称
     /// </summary>
-    public string Text { get; set; } = "";
+    public virtual string Text { get; set; } = "";
 
     /// <summary>
     /// 获得/设置 选项值
