@@ -165,6 +165,12 @@ internal class DefaultIconTheme : IIconTheme
             { ComponentIcons.TreeViewNodeIcon, "fa-solid fa-caret-right" },
 
             // Upload
+            { ComponentIcons.ButtonUploadBrowserButtonIcon, "fa-regular fa-folder-open" },
+            { ComponentIcons.ButtonUploadLoadingIcon, "fa-solid fa-spinner fa-spin" },
+            { ComponentIcons.ButtonUploadInvalidStatusIcon, "fa-regular fa-circle-xmark" },
+            { ComponentIcons.ButtonUploadValidStatusIcon, "fa-regular fa-circle-check" },
+            { ComponentIcons.ButtonUploadDeleteIcon, "fa-regular fa-trash-can" },
+            { ComponentIcons.ButtonUploadDownloadIcon, "fa-solid fa-download" },
             { ComponentIcons.InputUploadBrowserButtonIcon, "fa-regular fa-folder-open" },
             { ComponentIcons.InputUploadDeleteButtonIcon, "fa-regular fa-trash-can" },
             { ComponentIcons.CardUploadAddIcon, "fa-regular fa-folder-open" },

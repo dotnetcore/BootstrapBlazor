@@ -30,6 +30,36 @@ public enum ComponentIcons
     AutoFillIcon,
 
     /// <summary>
+    /// ButtonUpload 组件 LoadingIcon 属性图标
+    /// </summary>
+    ButtonUploadLoadingIcon,
+
+    /// <summary>
+    /// ButtonUpload 组件 FailedInvalidIcon 属性图标
+    /// </summary>
+    ButtonUploadInvalidStatusIcon,
+
+    /// <summary>
+    /// ButtonUpload 组件 FailedValidIcon 属性图标
+    /// </summary>
+    ButtonUploadValidStatusIcon,
+
+    /// <summary>
+    /// ButtonUpload 组件 DownloadIcon 属性图标
+    /// </summary>
+    ButtonUploadDownloadIcon,
+
+    /// <summary>
+    /// ButtonUpload 组件 DeleteIcon 属性图标
+    /// </summary>
+    ButtonUploadDeleteIcon,
+
+    /// <summary>
+    /// ButtonUpload 组件 BrowserButtonIcon 属性图标
+    /// </summary>
+    ButtonUploadBrowserButtonIcon,
+
+    /// <summary>
     /// Camera 组件 PlayIcon 属性图标
     /// </summary>
     CameraPlayIcon,

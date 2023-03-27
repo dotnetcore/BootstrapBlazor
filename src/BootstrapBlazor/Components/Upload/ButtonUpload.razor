@@ -21,7 +21,7 @@
                     </div>
                     @if (GetShowProgress(item))
                     {
-                        <i class="fa-solid fa-spinner fa-spin fa-fw text-success"></i>
+                        <i class="@LoadingIconString"></i>
                         <Progress Color="Color.Success" Height="2" Value="@item.ProgressPercent" />
                     }
                     else
@@ -29,22 +29,22 @@
                         <div class="upload-buttons">
                             @if (ShowDownloadButton)
                             {
-                                <i class="fa-solid fa-download text-primary" @onclick="() => OnClickDownload(item)"></i>
+                                <i class="@DownloadIconString" @onclick="() => OnClickDownload(item)"></i>
                             }
                             @if (item.Code == 0)
                             {
-                                <i class="fa-regular fa-circle-check text-success"></i>
+                                <i class="@ValidStatusIconString"></i>
                                 @if (!IsDisabled)
                                 {
-                                    <i class="fa-regular fa-trash-can text-danger" @onclick:stopPropagation @onclick="@(e => OnFileDelete(item))"></i>
+                                    <i class="@DeleteIconString" @onclick:stopPropagation @onclick="@(e => OnFileDelete(item))"></i>
                                 }
                             }
                             else
                             {
                                 @if (!IsDisabled)
                                 {
-                                    <i class="fa-regular fa-circle-xmark"></i>
-                                    <i class="fa-regular fa-trash-can text-danger" @onclick:stopPropagation @onclick="@(e => OnFileDelete(item))"></i>
+                                    <i class="@InvalidStatusIconString"></i>
+                                    <i class="@DeleteIconString" @onclick:stopPropagation @onclick="@(e => OnFileDelete(item))"></i>
                                 }
                             }
                         </div>

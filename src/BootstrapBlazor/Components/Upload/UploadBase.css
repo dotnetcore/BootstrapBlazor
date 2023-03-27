@@ -61,6 +61,20 @@
                 display: none;
             }
 
+        .upload .upload-body.is-list .loading-icon,
+        .upload .upload-body.is-list .valid-icon {
+            color: var(--bs-success);
+        }
+
+        .upload .upload-body.is-list .delete-icon,
+        .upload .upload-body.is-list .invalid-icon {
+            color: var(--bs-danger);
+        }
+
+        .upload .upload-body.is-list .download-icon {
+            color: var(--bs-primary);
+        }
+
     .upload .upload-body.is-avatar,
     .upload .upload-body.is-card {
         margin: 0;
