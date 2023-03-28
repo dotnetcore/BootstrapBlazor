@@ -1,54 +1,28 @@
 ﻿@page "/footers"
+@inject IStringLocalizer<Footers> Localizer
 
-<h3>@Localizer["Title"]</h3>
+<h3>@Localizer["FootersTitle"]</h3>
 
-<h4>@Localizer["H1"]</h4>
+<h4>@Localizer["FootersDescription"]</h4>
 
-<p>@((MarkupString)Localizer["P1"].Value)</p>
+<p>@((MarkupString)Localizer["FootersTips"].Value)</p>
 
-<DemoBlock Title="@Localizer["BlockTitle"]" Introduction="@Localizer["BlockIntro"]" Name="Normal">
-    <div id="scroll" class="overflow-auto border border-secondary" style="max-height: 120px;">
-        <div class="p-2" style="height: 200px">
-            <p>@Localizer["P2"]</p>
-            <p>@Localizer["P3"]</p>
-        </div>
-        <Footer Text="Bootstrap Blazor" Target="#scroll" />
-    </div>
+<DemoBlock Title="@Localizer["FooterNormalTitle"]"
+           Introduction="@Localizer["FooterNormalIntro"]"
+           Name="Normal"
+           Demo="typeof(Demos.Footers.FooterNormal)">
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["ShowGotoTitle"]" Introduction="@Localizer["ShowGotoIntro"]" Name="ShowGoto">
-    <div class="overflow-auto border border-secondary" style="max-height: 120px;">
-        <div class="p-2" style="height: 200px">
-            <p>@Localizer["P2"]</p>
-            <p>@Localizer["P3"]</p>
-        </div>
-        <Footer Text="Bootstrap Blazor" ShowGoto="false" />
-    </div>
+<DemoBlock Title="@Localizer["FooterShowGotoTitle"]"
+           Introduction="@Localizer["FooterShowGotoIntro"]"
+           Name="ShowGoto"
+           Demo="typeof(Demos.Footers.FooterShowGoto)">
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["ChildContentTitle"]" Introduction="@Localizer["ChildContentIntro"]" Name="ChildContent">
-    <div class="overflow-auto border border-secondary" style="max-height: 120px;">
-        <div class="p-2" style="height: 200px">
-            <p>@Localizer["P2"]</p>
-            <p>@Localizer["P3"]</p>
-        </div>
-        <Footer>
-            <div class="row g-3 text-center">
-                <div class="col-6 col-md-4 col-lg-3">友情链接</div>
-                <div class="col-6 col-md-4 col-lg-3">友情链接</div>
-                <div class="col-6 col-md-4 col-lg-3">友情链接</div>
-                <div class="col-6 col-md-4 col-lg-3">友情链接</div>
-                <div class="col-6 col-md-4 col-lg-3">友情链接</div>
-                <div class="col-6 col-md-4 col-lg-3">友情链接</div>
-                <div class="col-6 col-md-4 col-lg-3">友情链接</div>
-                <div class="col-6 col-md-4 col-lg-3">友情链接</div>
-                <div class="col-6 col-md-4 col-lg-3">友情链接</div>
-                <div class="col-6 col-md-4 col-lg-3">友情链接</div>
-                <div class="col-6 col-md-4 col-lg-3">友情链接</div>
-                <div class="col-6 col-md-4 col-lg-3">友情链接</div>
-            </div>
-        </Footer>
-    </div>
+<DemoBlock Title="@Localizer["FooterChildContentTitle"]"
+           Introduction="@Localizer["FooterChildContentIntro"]"
+           Name="ChildContent"
+           Demo="typeof(Demos.Footers.FooterChildContent)">
 </DemoBlock>
 
 <CSS>
