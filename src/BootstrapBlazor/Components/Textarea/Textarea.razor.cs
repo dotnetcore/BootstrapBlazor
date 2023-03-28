@@ -7,6 +7,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 
 /// </summary>
+[JSModuleAutoLoader("scroll", ModuleName = "Scroll")]
 public partial class Textarea
 {
     /// <summary>
@@ -15,4 +16,23 @@ public partial class Textarea
     private string? ClassName => CssBuilder.Default("form-control")
         .AddClass(CssClass).AddClass(ValidCss)
         .Build();
+
+    /// <summary>
+    /// 滚动到顶部
+    /// </summary>
+    /// <returns></returns>
+    public Task ScrollToTop() => InvokeExecuteAsync(Id, "toTop");
+
+    /// <summary>
+    /// 滚动到数值
+    /// </summary>
+    /// <returns></returns>
+    public Task ScrollTo(int value) => InvokeExecuteAsync(Id, "to", value);
+
+    /// <summary>
+    /// 滚动到底部
+    /// </summary>
+    /// <returns></returns>
+    public Task ScrollToBottom() => InvokeExecuteAsync(Id,"toBottom");
+
 }
