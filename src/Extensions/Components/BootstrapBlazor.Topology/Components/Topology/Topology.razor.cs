@@ -130,6 +130,12 @@ public partial class Topology
         }
     }
 
+    /// <summary>
+    /// 重置视图 缩放比例 默认 1 即 100%
+    /// </summary>
+    /// <param name="rate"></param>
+    /// <returns></returns>
+    public Task Scale(int rate = 1) => InvokeExecuteAsync(Id, "scale", rate);
     private bool _disposing;
     /// <summary>
     /// DisposeAsync 方法
