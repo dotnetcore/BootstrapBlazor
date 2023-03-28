@@ -1444,21 +1444,21 @@
     "LayoutsAppTips9": "Please refer to <a href='/tabs'>Tab component</a> for practical examples of using <code>Layout</code> component and <code>Tab</code> component together"
   },
   "BootstrapBlazor.Shared.Samples.Footers": {
-    "Title": "Footer",
-    "H1": "Displayed at the bottom of the page, with a back to top button",
-    "P1": "When using <code>Footer</code> components, pay attention to the setting of the style sheet <code>position</code> attribute",
-    "BlockTitle": "Basic usage",
-    "BlockIntro": "Pass the ID of the scroll bar component to the footer component",
-    "P2": "The Footer component is displayed at the bottom, and the page will automatically scroll back to the top when you click to return to the top",
-    "P3": "This example passes the component client ID",
+    "FootersTitle": "Footer",
+    "FootersDescription": "Displayed at the bottom of the page, with a back to top button",
+    "FootersTips": "When using <code>Footer</code> components, pay attention to the setting of the style sheet <code>position</code> attribute",
+    "FooterNormalTitle": "Basic usage",
+    "FooterNormalIntro": "Pass the ID of the scroll bar component to the footer component",
+    "FootersContent1": "The Footer component is displayed at the bottom, and the page will automatically scroll back to the top when you click to return to the top",
+    "FootersContent2": "This example passes the component client ID",
     "Desc1": "The text displayed by the footer component",
     "Desc2": "The ID of the scroll bar component controlled by the footer component",
     "ShowGotoDesc": "Whether to show the goto navigation on the right of footer",
     "ChildContentDesc": "The template of child content",
-    "ShowGotoTitle": "Show Goto",
-    "ShowGotoIntro": "Set <code>ShowGoto</code> to <code>false</code> for hide the <code>Goto</code> navigator on the right of footer",
-    "ChildContentTitle": "ChildContent",
-    "ChildContentIntro": "Set <code>ChildContent</code> for custom the child content"
+    "FooterShowGotoTitle": "Show Goto",
+    "FooterShowGotoIntro": "Set <code>ShowGoto</code> to <code>false</code> for hide the <code>Goto</code> navigator on the right of footer",
+    "FooterChildContentTitle": "ChildContent",
+    "FooterChildContentIntro": "Set <code>ChildContent</code> for custom the child content"
   },
   "BootstrapBlazor.Shared.Samples.Repeaters": {
     "RepeaterTitle": "Repeater",
