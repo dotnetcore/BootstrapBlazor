@@ -136,6 +136,13 @@ public partial class Topology
     /// <param name="rate"></param>
     /// <returns></returns>
     public Task Scale(int rate = 1) => InvokeExecuteAsync(Id, "scale", rate);
+
+    /// <summary>
+    /// 重置视图 自适应大小并且居中显示
+    /// </summary>
+    /// <returns></returns>
+    public Task Reset() => InvokeExecuteAsync(Id, "reset");
+
     private bool _disposing;
     /// <summary>
     /// DisposeAsync 方法
