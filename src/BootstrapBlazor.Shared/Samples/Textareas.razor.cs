@@ -34,6 +34,30 @@ public partial class Textareas
                 Type = "bool",
                 ValueList = "true|false",
                 DefaultValue = "false"
+            },
+            new AttributeItem()
+            {
+                Name = "ScrollToTop",
+                Description = Localizer["TextareasScrollToTop"],
+                Type = "Task",
+                ValueList = "-",
+                DefaultValue = "-"
+            },
+            new AttributeItem()
+            {
+                Name = "ScrollTo",
+                Description = Localizer["TextareasScrollTo"],
+                Type = "Task",
+                ValueList = "-",
+                DefaultValue = "-"
+            },
+            new AttributeItem()
+            {
+                Name = "ScrollToBottom",
+                Description = Localizer["TextareasScrollToBottom"],
+                Type = "Task",
+                ValueList = "-",
+                DefaultValue = "-"
             }
         };
     }

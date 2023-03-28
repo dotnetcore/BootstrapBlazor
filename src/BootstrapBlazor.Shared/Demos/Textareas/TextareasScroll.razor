@@ -1,0 +1,52 @@
+﻿@using BootstrapBlazor.Shared.Samples;
+@inject IStringLocalizer<Textareas> Localizer
+
+<Textarea placeholder="@Localizer["TextareasPlaceHolder"]" rows="10" AutoScrollToBottom="true" @ref="Textarea" @bind-Value="@Text" />
+
+<BootstrapInputGroup>
+    <Button Text="@Localizer["TextareasMockChat"]" OnClick="MockChat" Icon="fa-fw fas fa-comments" />
+    <Button Text="@Localizer["TextareasScrollToBottom"]" OnClick="ScrollToBottom" Icon="fa-thin fa-arrow-down-to-line" />
+    <Button Text="@Localizer["TextareasScrollToTop"]" OnClick="ScrollToTop" Icon="fa-fw fa-thin fa-arrow-up-to-line" />
+    <Button Text="@Localizer["TextareasScrollTo"]" OnClick="ScrollTo20" Icon="fa-fw fas fa-scroll" />
+</BootstrapInputGroup>
+
+@code {
+
+    Textarea? Textarea;
+
+    private string Text { get; set; } = "";
+
+    private int ScrollValue { get; set; }
+
+
+    /// <summary>
+    /// OnInitialized 方法
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        for (int i = 0; i < 20; i++)
+        {
+            Text += $"{((i % 2 == 0) ? "A" : "B")} : {Localizer["TextareasMockChat"]}{i}{Environment.NewLine}";
+        }
+    }
+
+    private async Task ScrollToTop() => await Textarea!.ScrollToTop();
+
+    private async Task ScrollToBottom() => await Textarea!.ScrollToBottom();
+
+    private async Task ScrollTo20() => await Textarea!.ScrollTo(ScrollValue+=20);
+
+    private async Task MockChat()
+    {
+        for (int i = 20; i < 40; i++)
+        {
+            Text += $"{((i % 2 == 0)?"A":"B")} : {Localizer["TextareasMockChat"]}{i}{Environment.NewLine}";
+            StateHasChanged();
+            await Textarea!.ScrollToBottom();
+            await Task.Delay(1000);
+        }
+    }
+
+}
