@@ -33,8 +33,23 @@ export class BlazorTopology extends BlazorComponent {
 
     _execute(args) {
         if (this._topology) {
-            const data = args[1];
-            this._topology.doSocket(JSON.stringify(data))
+            if (args[1] === "reset") {
+                this._topology.fitView()
+                this._topology.centerView()
+            }
+            else if (args[1] === "scale") {
+                if (args.length > 2) {
+                    var t = args[2]
+                    if (t > 0) {
+                        this._topology.scale(t)
+                        this._topology.centerView()
+                    }
+                }
+            }
+            else {
+                const data = args[1];
+                this._topology.doSocket(JSON.stringify(data))
+            }
         }
     }
 
