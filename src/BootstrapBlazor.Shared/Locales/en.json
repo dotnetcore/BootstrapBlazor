@@ -3414,7 +3414,15 @@
     "TextareasBindWayIntro": "Binding variables within a component, data is automatically synchronized",
     "TextareasShowLabel": "Whether to display the front label",
     "TextareasDisplayText": "The front label displays text",
-    "TextareasIsDisabled": "Whether to disable Default is fasle"
+    "TextareasIsDisabled": "Whether to disable Default is fasle",
+    "TextareasScrollTitle": "Content scrolling",
+    "TextareasScrollIntro": "Scroll to bottom/top/position",
+    "TextareasMockChatRun": "Mock chat Run",
+    "TextareasMockChatStop": "Mock chat Stop",
+    "TextareasScrollToBottom": "Scroll to bottom",
+    "TextareasScrollToTop": "Scroll to top",
+    "TextareasScrollTo": "Scroll +20",
+    "TextareasAutoScroll": "Automatic scrolling"
   },
   "BootstrapBlazor.Shared.Samples.Toggles": {
     "TogglesOnText": "On",
