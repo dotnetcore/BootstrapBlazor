@@ -3422,7 +3422,8 @@
     "TextareasMockChat": "Mock chat",
     "TextareasScrollToBottom": "Scroll to bottom",
     "TextareasScrollToTop": "Scroll to top",
-    "TextareasScrollTo": "Scroll +20"
+    "TextareasScrollTo": "Scroll +20",
+    "TextareasAutoScroll": "Automatic scrolling"
   },
   "BootstrapBlazor.Shared.Samples.Toggles": {
     "TogglesOnText": "On",

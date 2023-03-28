@@ -1,13 +1,17 @@
 ﻿@using BootstrapBlazor.Shared.Samples;
 @inject IStringLocalizer<Textareas> Localizer
+@implements IDisposable
 
-<Textarea placeholder="@Localizer["TextareasPlaceHolder"]" rows="10" AutoScrollToBottom="true" @ref="Textarea" @bind-Value="@Text" />
+<Textarea placeholder="@Localizer["TextareasPlaceHolder"]" rows="10" @ref="Textarea" @bind-Value="@Text" IsAutoScroll="IsAutoScroll" />
+
+<p/><p/>
 
 <BootstrapInputGroup>
     <Button Text="@Localizer["TextareasMockChat"]" OnClick="MockChat" Icon="fa-fw fas fa-comments" />
-    <Button Text="@Localizer["TextareasScrollToBottom"]" OnClick="ScrollToBottom" Icon="fa-thin fa-arrow-down-to-line" />
-    <Button Text="@Localizer["TextareasScrollToTop"]" OnClick="ScrollToTop" Icon="fa-fw fa-thin fa-arrow-up-to-line" />
-    <Button Text="@Localizer["TextareasScrollTo"]" OnClick="ScrollTo20" Icon="fa-fw fas fa-scroll" />
+    <Button Text="@Localizer["TextareasScrollToTop"]" OnClick="ScrollToTop" />
+    <Button Text="@Localizer["TextareasScrollToBottom"]" OnClick="ScrollToBottom" />
+    <Button Text="@Localizer["TextareasScrollTo"]" OnClick="ScrollTo20" />
+    <Button Text="@($"{Localizer["TextareasAutoScroll"]}{(IsAutoScroll ? " On":" Off")}" )" OnClick="SwitchAutoScroll" />
 </BootstrapInputGroup>
 
 @code {
@@ -18,6 +22,12 @@
 
     private int ScrollValue { get; set; }
 
+    private bool IsAutoScroll { get; set; } 
+
+    private CancellationTokenSource? CancelTokenSource { get; set; }
+
+    private int Index { get; set; } = 5;
+
 
     /// <summary>
     /// OnInitialized 方法
@@ -26,7 +36,7 @@
     {
         base.OnInitialized();
 
-        for (int i = 0; i < 20; i++)
+        for (int i = 0; i < Index; i++)
         {
             Text += $"{((i % 2 == 0) ? "A" : "B")} : {Localizer["TextareasMockChat"]}{i}{Environment.NewLine}";
         }
@@ -36,17 +46,69 @@
 
     private async Task ScrollToBottom() => await Textarea!.ScrollToBottom();
 
-    private async Task ScrollTo20() => await Textarea!.ScrollTo(ScrollValue+=20);
+    private async Task ScrollTo20() => await Textarea!.ScrollTo(ScrollValue += 20);
 
-    private async Task MockChat()
+    private void SwitchAutoScroll() => IsAutoScroll=!IsAutoScroll;
+
+
+    /// <summary>
+    /// MockChat
+    /// </summary>
+    private Task MockChat()
     {
-        for (int i = 20; i < 40; i++)
+        if (CancelTokenSource != null)
         {
-            Text += $"{((i % 2 == 0)?"A":"B")} : {Localizer["TextareasMockChat"]}{i}{Environment.NewLine}";
-            StateHasChanged();
-            await Textarea!.ScrollToBottom();
-            await Task.Delay(1000);
+            CancelTokenSource.Cancel();
+            CancelTokenSource.Dispose();
+            CancelTokenSource = null;
+            return Task.CompletedTask;
         }
+
+        Task.Run(async () =>
+        {
+            CancelTokenSource ??= new();
+            while (CancelTokenSource != null && !CancelTokenSource.IsCancellationRequested)
+            {
+                Text += $"{((Index % 2 == 0) ? "A" : "B")} : {Localizer["TextareasMockChat"]}{Index}{Environment.NewLine}";
+                Index++;
+                await InvokeAsync(StateHasChanged);
+                System.Console.WriteLine(Text);
+
+                try
+                {
+                    if (CancelTokenSource != null)
+                    {
+                        await Task.Delay(500, CancelTokenSource.Token);
+                    }
+                }
+                catch { }
+            }
+        });
+
+        return Task.CompletedTask;
+    }
+
+    /// <summary>
+    /// Dispose
+    /// </summary>
+    /// <param name="disposing"></param>
+    private void Dispose(bool disposing)
+    {
+        if (disposing && CancelTokenSource != null)
+        {
+            CancelTokenSource.Cancel();
+            CancelTokenSource.Dispose();
+            CancelTokenSource = null;
+        }
+    }
+
+    /// <summary>
+    /// Dispose
+    /// </summary>
+    public void Dispose()
+    {
+        Dispose(true);
+        GC.SuppressFinalize(this);
     }
 
 }

@@ -58,7 +58,15 @@ public partial class Textareas
                 Type = "Task",
                 ValueList = "-",
                 DefaultValue = "-"
-            }
+            },
+            new AttributeItem(){
+                Name = nameof(BootstrapBlazor.Components.Textarea.IsAutoScroll),
+                Description = Localizer["TextareasAutoScroll"],
+                Type = "bool",
+                ValueList = "true|false",
+                DefaultValue = "false"
+            },
+
         };
     }
 }

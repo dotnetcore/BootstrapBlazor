@@ -35,4 +35,21 @@ public partial class Textarea
     /// <returns></returns>
     public Task ScrollToBottom() => InvokeExecuteAsync(Id,"toBottom");
 
+    /// <summary>
+    /// 获得/设置 是否自动滚屏 默认 false
+    /// </summary>
+    [Parameter]
+    public bool IsAutoScroll { get; set; }
+
+    /// <summary>
+    /// 获得 客户端是否自动滚屏标识
+    /// </summary>
+    private string? AutoScrollString => IsAutoScroll ? "auto" : null;
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    protected override Task ModuleExecuteAsync() => InvokeExecuteAsync(Id);
+
 }

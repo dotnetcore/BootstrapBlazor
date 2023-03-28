@@ -3433,7 +3433,8 @@
     "TextareasMockChat": "模拟聊天",
     "TextareasScrollToBottom": "滚动到底部",
     "TextareasScrollToTop": "滚动到顶部",
-    "TextareasScrollTo": "滚动+20"
+    "TextareasScrollTo": "滚动+20",
+    "TextareasAutoScroll": "自动滚屏"
   },
   "BootstrapBlazor.Shared.Samples.Toggles": {
     "TogglesOnText": "开启",
