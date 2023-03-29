@@ -443,16 +443,16 @@
     "Tips": "注意添加引用 JS 文件顺序,否则会导致图表组件一直卡在 '载入中' 界面"
   },
   "BootstrapBlazor.Shared.Samples.Charts.Bubble": {
-    "P1": "Bubble 图",
-    "P2": "通过设置 <code>ChartType</code> 更改图表为 <code>bubble</code> 图",
-    "P3": "随机数据",
-    "P4": "添加数据集",
-    "P5": "移除数据集",
-    "P6": "添加数据",
-    "P7": "移除数据",
-    "Reload": "重载",
-    "AspectRatio": "图表比例",
-    "AspectRatioIntro": "设置了高度和宽度,会自动禁用约束图表比例, 图表充满容器"
+    "BubbleNormalTitle": "Bubble 图",
+    "BubbleNormalIntro": "通过设置 <code>ChartType</code> 更改图表为 <code>bubble</code> 图",
+    "BubbleNormalRandomData": "随机数据",
+    "BubbleNormalAddDataSet": "添加数据集",
+    "BubbleNormalRemoveDataset": "移除数据集",
+    "BubbleNormalAddData": "添加数据",
+    "BubbleNormalRemoveData": "移除数据",
+    "BubbleNormalReload": "重载",
+    "BubbleBarAspectRatioTitle": "图表比例",
+    "BubbleBarAspectRatioIntro": "设置了高度和宽度,会自动禁用约束图表比例, 图表充满容器"
   },
   "BootstrapBlazor.Shared.Samples.Charts.Doughnut": {
     "P1": "Doughnut 图",
