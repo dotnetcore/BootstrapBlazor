@@ -5,7 +5,7 @@
 <Textarea placeholder="@Localizer["TextareasPlaceHolder"]" rows="10" @ref="TextareaElement" @bind-Value="@Text" IsAutoScroll="IsAutoScroll" />
 
 <BootstrapInputGroup>
-    <Button Text="@Localizer["TextareasMockChat"]" OnClick="MockChat" Icon="fa-fw fas fa-comments" />
+    <Button Text="@Localizer[ChatLocalizerName]" OnClick="MockChat" Icon="fa-fw fas fa-comments" />
     <Button Text="@Localizer["TextareasScrollToTop"]" OnClick="ScrollToTop" />
     <Button Text="@Localizer["TextareasScrollToBottom"]" OnClick="ScrollToBottom" />
     <Button Text="@Localizer["TextareasScrollTo"]" OnClick="ScrollTo20" />
@@ -47,6 +47,10 @@
 
     private void SwitchAutoScroll() => IsAutoScroll = !IsAutoScroll;
 
+    private bool IsRunMock { get; set; }
+
+    private string ChatLocalizerName => IsRunMock ? "TextareasMockChatStop" : "TextareasMockChatRun";
+
     /// <summary>
     /// MockChat
     /// </summary>
@@ -59,25 +63,30 @@
             CancelTokenSource = null;
         }
 
-        Task.Run(async () =>
-        {
-            CancelTokenSource ??= new();
-            while (CancelTokenSource != null && !CancelTokenSource.IsCancellationRequested)
-            {
-                Text += $"{((Index % 2 == 0) ? "A" : "B")} : {Localizer["TextareasMockChat"]}{Index}{Environment.NewLine}";
-                Index++;
-                await InvokeAsync(StateHasChanged);
+        IsRunMock = !IsRunMock;
 
-                try
+        if (IsRunMock)
+        {
+            Task.Run(async () =>
+            {
+                CancelTokenSource ??= new();
+                while (CancelTokenSource != null && !CancelTokenSource.IsCancellationRequested)
                 {
-                    if (CancelTokenSource != null)
+                    Text += $"{((Index % 2 == 0) ? "A" : "B")} : {Localizer["TextareasMockChat"]}{Index}{Environment.NewLine}";
+                    Index++;
+                    await InvokeAsync(StateHasChanged);
+
+                    try
                     {
-                        await Task.Delay(500, CancelTokenSource.Token);
+                        if (CancelTokenSource != null)
+                        {
+                            await Task.Delay(500, CancelTokenSource.Token);
+                        }
                     }
+                    catch (TaskCanceledException) { }
                 }
-                catch (TaskCanceledException) { }
-            }
-        });
+            });
+        }
     }
 
     /// <summary>
