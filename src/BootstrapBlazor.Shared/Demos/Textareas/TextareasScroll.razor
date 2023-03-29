@@ -2,9 +2,7 @@
 @inject IStringLocalizer<Textareas> Localizer
 @implements IDisposable
 
-<Textarea placeholder="@Localizer["TextareasPlaceHolder"]" rows="10" @ref="Textarea" @bind-Value="@Text" IsAutoScroll="IsAutoScroll" />
-
-<p/><p/>
+<Textarea placeholder="@Localizer["TextareasPlaceHolder"]" rows="10" @ref="TextareaElement" @bind-Value="@Text" IsAutoScroll="IsAutoScroll" />
 
 <BootstrapInputGroup>
     <Button Text="@Localizer["TextareasMockChat"]" OnClick="MockChat" Icon="fa-fw fas fa-comments" />
@@ -15,22 +13,21 @@
 </BootstrapInputGroup>
 
 @code {
+    [NotNull]
+    private Textarea? TextareaElement { get; set; }
 
-    Textarea? Textarea;
-
-    private string Text { get; set; } = "";
+    private string? Text { get; set; }
 
     private int ScrollValue { get; set; }
 
-    private bool IsAutoScroll { get; set; } 
+    private bool IsAutoScroll { get; set; }
 
     private CancellationTokenSource? CancelTokenSource { get; set; }
 
     private int Index { get; set; } = 5;
 
-
     /// <summary>
-    /// OnInitialized 方法
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
     {
@@ -42,26 +39,24 @@
         }
     }
 
-    private async Task ScrollToTop() => await Textarea!.ScrollToTop();
+    private Task ScrollToTop() => TextareaElement.ScrollToTop();
 
-    private async Task ScrollToBottom() => await Textarea!.ScrollToBottom();
+    private Task ScrollToBottom() => TextareaElement.ScrollToBottom();
 
-    private async Task ScrollTo20() => await Textarea!.ScrollTo(ScrollValue += 20);
+    private Task ScrollTo20() => TextareaElement.ScrollTo(ScrollValue += 20);
 
-    private void SwitchAutoScroll() => IsAutoScroll=!IsAutoScroll;
-
+    private void SwitchAutoScroll() => IsAutoScroll = !IsAutoScroll;
 
     /// <summary>
     /// MockChat
     /// </summary>
-    private Task MockChat()
+    private void MockChat()
     {
         if (CancelTokenSource != null)
         {
             CancelTokenSource.Cancel();
             CancelTokenSource.Dispose();
             CancelTokenSource = null;
-            return Task.CompletedTask;
         }
 
         Task.Run(async () =>
@@ -72,7 +67,6 @@
                 Text += $"{((Index % 2 == 0) ? "A" : "B")} : {Localizer["TextareasMockChat"]}{Index}{Environment.NewLine}";
                 Index++;
                 await InvokeAsync(StateHasChanged);
-                System.Console.WriteLine(Text);
 
                 try
                 {
@@ -81,11 +75,9 @@
                         await Task.Delay(500, CancelTokenSource.Token);
                     }
                 }
-                catch { }
+                catch (TaskCanceledException) { }
             }
         });
-
-        return Task.CompletedTask;
     }
 
     /// <summary>
@@ -110,5 +102,4 @@
         Dispose(true);
         GC.SuppressFinalize(this);
     }
-
 }
