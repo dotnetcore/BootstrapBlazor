@@ -1,0 +1,87 @@
+﻿@inject IStringLocalizer<Doughnut> Localizer
+@using Utility = BootstrapBlazor.Shared.Samples.Charts.Utility
+@using BootstrapBlazor.Shared.Samples.Charts
+
+<Chart ChartType="ChartType.Doughnut" Angle="@Angle" OnInitAsync="@OnInit" OnAfterInitAsync="@OnAfterInit" OnAfterUpdateAsync="@OnAfterUpdate" @ref="DoughnutChart" class="pie" />
+<div class="text-center mt-2 chart">
+    <div class="btn-group">
+        <button class="btn btn-primary" @onclick="e => Utility.RandomData(DoughnutChart)"><i class="fa-brands fa-slack"></i><span>@Localizer["DoughnutNormalRandomData"]</span></button>
+        <button class="btn btn-primary" @onclick="OnReloadChart"><i class="fa-solid fa-chart-column"></i><span>@Localizer["DoughnutNormalReload"]</span></button>
+        <button class="btn btn-primary" @onclick="e => Utility.AddDataSet(DoughnutChart, ref DoughnutDatasetCount)"><i class="fa-solid fa-circle-plus"></i><span>@Localizer["DoughnutNormalAddDataset"]</span></button>
+        <button class="btn btn-primary" @onclick="e => Utility.RemoveDataSet(DoughnutChart, ref DoughnutDatasetCount)"><i class="fa-solid fa-circle-minus"></i><span>@Localizer["DoughnutNormalRemoveDataset"]</span></button>
+        <button class="btn btn-primary" @onclick="e => Utility.AddData(DoughnutChart, ref DoughnutDataCount)"><i class="fa-solid fa-plus"></i><span>@Localizer["DoughnutNormalAddingData"]</span></button>
+        <button class="btn btn-primary" @onclick="e => Utility.RemoveData(DoughnutChart, ref DoughnutDataCount)"><i class="fa-solid fa-minus"></i><span>@Localizer["DoughnutNormalRemoveData"]</span></button>
+        <button class="btn btn-primary" @onclick="@ToggleCircle"><i class="fa-regular fa-circle-notch"></i><span>@Localizer["DoughnutNormalHalf"]</span></button>
+    </div>
+</div>
+<BlockLogger @ref="Logger" class="mt-3" />
+
+@code {
+    private Random Randomer { get; } = new ();
+
+    private int DoughnutDatasetCount = 1;
+
+    private int DoughnutDataCount = 5;
+
+    [NotNull]
+    private Chart? DoughnutChart { get; set; }
+
+    [NotNull]
+    private BlockLogger? Logger { get; set; }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        base.OnAfterRender(firstRender);
+
+        if (firstRender)
+        {
+            Logger.Log("Doughnut is loading data ...");
+        }
+    }
+
+    private Task OnAfterInit()
+    {
+        Logger.Log("Doughnut is initialized");
+        return Task.CompletedTask;
+    }
+
+    private Task OnAfterUpdate(ChartAction action)
+    {
+        Logger.Log($"Doughnut graph update data operation completed -- {action}");
+        return Task.CompletedTask;
+    }
+
+    private Task<ChartDataSource> OnInit()
+    {
+        var ds = new ChartDataSource();
+        ds.Options.Title = "Doughnut Donut Chart";
+        ds.Labels = Utility.Colors.Take(DoughnutDataCount);
+        for (var index = 0; index < DoughnutDatasetCount; index++)
+        {
+            ds.Data.Add(new ChartDataset()
+            {
+                Label = $"Set {index}",
+                Data = Enumerable.Range(1, DoughnutDataCount).Select(i => Randomer.Next(20, 37)).Cast<object>()
+            });
+        }
+        return Task.FromResult(ds);
+    }
+
+    private bool IsCircle { get; set; }
+
+    private int Angle { get; set; }
+
+    private async Task ToggleCircle()
+    {
+        IsCircle = !IsCircle;
+        Angle = IsCircle ? 360 : 0;
+        await DoughnutChart.Update(ChartAction.SetAngle);
+    }
+
+    private Task OnReloadChart()
+    {
+        DoughnutDataCount = Randomer.Next(5, 15);
+        DoughnutChart?.Reload();
+        return Task.CompletedTask;
+    }
+}
