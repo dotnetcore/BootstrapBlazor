@@ -5,62 +5,43 @@
 namespace BootstrapBlazor.Shared.Samples;
 
 /// <summary>
-/// 
+/// FloatingLabels
 /// </summary>
 public partial class FloatingLabels
 {
-    private byte[] ByteArray { get; set; } = new byte[] { 0x01, 0x12, 0x34, 0x56 };
-
-    private static string ByteArrayFormatter(byte[] source) => Convert.ToBase64String(source);
-
-    [NotNull]
-    private Foo? Model { get; set; }
-
-    private static string DateTimeFormatter(DateTime source) => source.ToString("yyyy-MM-dd");
-
-    /// <summary>
-    /// 
-    /// </summary>
-    protected override void OnInitialized()
-    {
-        base.OnInitialized();
-
-        Model = new Foo() { Name = Localizer["TestName"] };
-    }
-
     private IEnumerable<AttributeItem> GetAttributes() => new[]
     {
         new AttributeItem() {
             Name = "ChildContent",
-            Description = Localizer["Att1"].Value,
+            Description = Localizer["FloatingLabelsChildContent"].Value,
             Type = "RenderFragment",
             ValueList = " — ",
             DefaultValue = " — "
         },
         new AttributeItem() {
             Name = "ShowLabel",
-            Description = Localizer["Att2"].Value,
+            Description = Localizer["FloatingLabelsShowLabel"].Value,
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
         },
         new AttributeItem() {
             Name = "DisplayText",
-            Description = Localizer["Att3"].Value,
+            Description = Localizer["FloatingLabelsDisplayText"].Value,
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
         },
         new AttributeItem() {
             Name = "FormatString",
-            Description = Localizer["Att4"].Value,
+            Description = Localizer["FloatingLabelsFormatString"].Value,
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
         },
         new AttributeItem() {
             Name = "Formatter",
-            Description = Localizer["Att5"].Value,
+            Description = Localizer["FloatingLabelsFormatter"].Value,
             Type = "RenderFragment<TItem>",
             ValueList = " — ",
             DefaultValue = " — "
@@ -68,7 +49,7 @@ public partial class FloatingLabels
         new AttributeItem()
         {
             Name = "type",
-            Description = Localizer["Att6"].Value,
+            Description = Localizer["FloatingLabelsType"].Value,
             Type = "string",
             ValueList = "text / number / email / url / password",
             DefaultValue = "text"
@@ -76,7 +57,7 @@ public partial class FloatingLabels
         new AttributeItem()
         {
             Name = "IsDisabled",
-            Description = Localizer["Att7"].Value,
+            Description = Localizer["FloatingLabelsIsDisabled"].Value,
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
