@@ -5957,11 +5957,11 @@
     "ImageViewerErrorTemplateLoadFailed": "加载失败"
   },
   "BootstrapBlazor.Shared.Samples.Geolocations": {
-    "Title": "地理定位/移动距离追踪",
-    "BaseUsageText": "基础用法",
-    "IntroText1": "通过浏览器 API 获取定位信息。",
-    "IntroText2": "单击按钮以获取地理位置坐标。",
-    "IntroText3": "注意: 出于安全考虑，当网页请求获取用户位置信息时，用户会被提示进行授权。注意不同浏览器在请求权限时有不同的策略和方式。Windows10 在未开启定位的情况下无法获取位置。",
+    "GeolocationsTitle": "地理定位/移动距离追踪",
+    "GeolocationNormalText": "基础用法",
+    "GeolocationNormalIntro": "通过浏览器 API 获取定位信息。",
+    "GeolocationNormalIntro2": "单击按钮以获取地理位置坐标。",
+    "GeolocationNormalIntro3": "注意: 出于安全考虑，当网页请求获取用户位置信息时，用户会被提示进行授权。注意不同浏览器在请求权限时有不同的策略和方式。Windows10 在未开启定位的情况下无法获取位置。",
     "GetLocationButtonText": "获取位置",
     "WatchPositionButtonText": "移动距离追踪",
     "ClearWatchPositionButtonText": "停止追踪",
