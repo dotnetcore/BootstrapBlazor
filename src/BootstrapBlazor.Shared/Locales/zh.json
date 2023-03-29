@@ -455,17 +455,17 @@
     "AspectRatioIntro": "设置了高度和宽度,会自动禁用约束图表比例, 图表充满容器"
   },
   "BootstrapBlazor.Shared.Samples.Charts.Doughnut": {
-    "P1": "Doughnut 图",
-    "P2": "通过设置 <code>ChartType</code> 更改图表为 <code>doughnut</code> 图",
-    "P3": "随机数据",
-    "P4": "添加数据集",
-    "P5": "移除数据集",
-    "P6": "添加数据",
-    "P7": "移除数据",
-    "P8": "半圆/全圆",
-    "Reload": "重载",
-    "AspectRatio": "图表比例",
-    "AspectRatioIntro": "设置了高度和宽度,会自动禁用约束图表比例, 图表充满容器"
+    "DoughnutNormalTitle": "Doughnut 图",
+    "DoughnutNormalIntro": "通过设置 <code>ChartType</code> 更改图表为 <code>doughnut</code> 图",
+    "DoughnutNormalRandomData": "随机数据",
+    "DoughnutNormalAddDataset": "添加数据集",
+    "DoughnutNormalRemoveDataset": "移除数据集",
+    "DoughnutNormalAddingData": "添加数据",
+    "DoughnutNormalRemoveData": "移除数据",
+    "DoughnutNormalHalf": "半圆/全圆",
+    "DoughnutNormalReload": "重载",
+    "DoughnutAspectRatioTitle": "图表比例",
+    "DoughnutAspectRatioIntro": "设置了高度和宽度,会自动禁用约束图表比例, 图表充满容器"
   },
   "BootstrapBlazor.Shared.Samples.Charts.Pie": {
     "P1": "Pie 图",
