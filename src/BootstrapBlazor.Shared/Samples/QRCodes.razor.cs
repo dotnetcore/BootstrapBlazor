@@ -2,8 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using BootstrapBlazor.Shared.Services;
-
 namespace BootstrapBlazor.Shared.Samples;
 
 /// <summary>
@@ -11,29 +9,6 @@ namespace BootstrapBlazor.Shared.Samples;
 /// </summary>
 public sealed partial class QRCodes
 {
-    [NotNull]
-    private string? BaseUsageText { get; set; }
-
-    [NotNull]
-    private string? IntroText { get; set; }
-
-    [NotNull]
-    private string? SuccessText { get; set; }
-
-    [NotNull]
-    private BlockLogger? Trace { get; set; }
-    /// <summary>
-    /// OnInitialized 方法
-    /// </summary>
-    protected override void OnInitialized()
-    {
-        base.OnInitialized();
-
-        BaseUsageText ??= Localizer[nameof(BaseUsageText)];
-        IntroText ??= Localizer[nameof(IntroText)];
-        SuccessText ??= Localizer[nameof(SuccessText)];
-    } 
-
     /// <summary>
     /// 获得属性方法
     /// </summary>

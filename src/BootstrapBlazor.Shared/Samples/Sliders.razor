@@ -5,21 +5,16 @@
 
 <h4>@Localizer["SlidersDescription"]</h4>
 
-<DemoBlock Title="@Localizer["SlidersNormalTitle"]" Introduction="@Localizer["SlidersNormalIntro"]"  Name="Normal">
-    <Slider></Slider>
-    <Slider Value="50.0d" Label="@Localizer["SlidersNormalLabel1"]"></Slider>
-    <Slider Value="42.0d" IsDisabled="true" Label="@Localizer["SlidersNormalLabel2"]"></Slider>
+<DemoBlock Title="@Localizer["SlidersNormalTitle"]"
+           Introduction="@Localizer["SlidersNormalIntro"]"
+           Name="Normal"
+           Demo="typeof(Demos.Sliders.SliderNormal)">
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["SlidersBindingTitle"]" Introduction="@Localizer["SlidersBindingIntro"]" Name="SlidersBinding">
-    <div class="row g-3">
-        <div class="col-12 col-sm-8">
-            <Slider @bind-Value="@BindValue" Label="@Localizer["SlidersBindingLabel"]"></Slider>
-        </div>
-        <div class="col-12 col-sm-4">
-            <BootstrapInput @bind-Value="@BindValue" readonly></BootstrapInput>
-        </div>
-    </div>
+<DemoBlock Title="@Localizer["SlidersBindingTitle"]"
+           Introduction="@Localizer["SlidersBindingIntro"]"
+           Name="SlidersBinding"
+           Demo="typeof(Demos.Sliders.SliderBinding)">
 </DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" />

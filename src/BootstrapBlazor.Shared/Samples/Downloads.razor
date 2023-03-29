@@ -1,33 +1,33 @@
 ﻿@page "/downloads"
 @inject IStringLocalizer<Downloads> Localizer
 
-<h3>@Localizer["H1"]</h3>
-<h4>@Localizer["H2"]</h4>
+<h3>@Localizer["DownloadsTitle"]</h3>
+<h4>@Localizer["DownloadsSubTitle"]</h4>
 
 <Tips>
-    <b>@Localizer["P1"]：</b>
+    <b>@Localizer["DownloadsTips1"]：</b>
     <div>
-        @((@MarkupString)Localizer["P2"].Value)
+        @((@MarkupString)Localizer["DownloadsTips2"].Value)
     </div>
 </Tips>
 
 <div class="mb-3">
-    @((@MarkupString)Localizer["P4"].Value)：
-    <Button Icon="fa-solid fa-download" Text="@Localizer["P5"]" OnClick="@DownloadFileAsync"></Button>
+    @((@MarkupString)Localizer["DownloadsExample"].Value)：
+    <Button Icon="fa-solid fa-download" Text="@Localizer["DownloadsExampleButtonText"]" OnClick="@DownloadFileAsync"></Button>
 </div>
-<div class="mb-2">@((@MarkupString)Localizer["P6"].Value)</div>
-<Pre>@Localizer["P7"]</Pre>
-<div class="mb-2">@((@MarkupString)Localizer["P8"].Value)</div>
+<div class="mb-2">@((@MarkupString)Localizer["DownloadsExampleRazorCodeTitle"].Value)</div>
+<Pre>@Localizer["DownloadsExampleRazorCodeContent"]</Pre>
+<div class="mb-2">@((@MarkupString)Localizer["DownloadsExampleCodeTitle"].Value)</div>
 <Pre>private async Task DownloadFileAsync()
 {
     using var stream = await GenerateFileAsync();
-    await DownloadService.DownloadFromStreamAsync("@Localizer["P9"]", stream);
+    await DownloadService.DownloadFromStreamAsync("@Localizer["DownloadsExampleTestFile"]", stream);
 
     static async Task&lt;Stream&gt; GenerateFileAsync()
     {
         var ms = new MemoryStream();
         var writer = new StreamWriter(ms);
-        await writer.WriteLineAsync("@Localizer["P10"]");
+        await writer.WriteLineAsync("@Localizer["DownloadsExampleContent"]");
         await writer.FlushAsync();
         ms.Position = 0;
         return ms;
@@ -36,24 +36,31 @@
 
 @if (!IsWasm)
 {
-    <DemoBlock Title="@Localizer["P11"]" Introduction="@Localizer["P12"]" Name="Normal">
-        <Button IsAsync="true" Icon="fa-solid fa-download" Text="@Localizer["P13"]" OnClickWithoutRender="DownloadPhysicalFileAsync"></Button>
+    <DemoBlock Title="@Localizer["DownloadNormalTitle"]"
+               Introduction="@Localizer["DownloadNormalIntro"]"
+               Name="Normal"
+               Demo="typeof(Demos.Downloads.DownloadNormal)">
     </DemoBlock>
 
-    <DemoBlock Title="@Localizer["P14"]" Introduction="@Localizer["P15"]" Name="Folder">
-        <Button IsAsync="true" Icon="fa-solid fa-download" Text="@Localizer["P16"]" OnClickWithoutRender="DownloadFolderAsync"></Button>
+    <DemoBlock Title="@Localizer["DownloadFolderTitle"]"
+               Introduction="@Localizer["DownloadFolderIntro"]"
+               Name="Folder"
+               Demo="typeof(Demos.Downloads.DownloadFolder)">
     </DemoBlock>
 }
 
-<DemoBlock Title="@Localizer["P17"]" Introduction="@Localizer["P18"]" Name="BigFile">
-    <p>@((MarkupString)Localizer["P19"].Value)</p>
-    <Button IsAsync="true" Icon="fa-solid fa-download" Text="Download" OnClickWithoutRender="DownloadLargeFileAsync"></Button>
+<DemoBlock Title="@Localizer["DownloadBigFileTitle"]"
+           Introduction="@Localizer["DownloadBigFileIntro"]"
+           Name="BigFile"
+           Demo="typeof(Demos.Downloads.DownloadBigFile)">
+    <p>@((MarkupString)Localizer["DownloadBigFileButtonText"].Value)</p>
 </DemoBlock>
 
-@if(!IsWasm)
+@if (!IsWasm)
 {
-    <DemoBlock Title="@Localizer["P20"]" Introduction="@Localizer["P21"]" Name="Image">
-        <p>@((MarkupString)Localizer["P22"].Value)</p>
-        <img src="@TempUrl" style="width: 120px; height: auto;" />
+    <DemoBlock Title="@Localizer["DownloadImageTitle"]"
+               Introduction="@Localizer["DownloadImageIntro"]"
+               Name="Image"
+               Demo="typeof(Demos.Downloads.DownloadImage)">
     </DemoBlock>
 }

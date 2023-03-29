@@ -7,21 +7,28 @@
 
 <PackageTips Name="BootstrapBlazor.BarCode" />
 
-<DemoBlock Title="@Localizer["QRCodesNormalTitle"]" Introduction="@Localizer["QRCodesNormalIntro"]" Name="Normal">
-    <QRCode OnGenerated="@(()=>{Trace.Log(SuccessText);return Task.CompletedTask;})" ShowButtons="true"></QRCode>
-    <BlockLogger @ref="Trace" class="mt-3" />
+<DemoBlock Title="@Localizer["QRCodesNormalTitle"]"
+           Introduction="@Localizer["QRCodesNormalIntro"]"
+           Name="Normal"
+           Demo="typeof(Demos.QRCodes.QRCodeNormal)">
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["QRCodesContentTitle"]" Introduction="@Localizer["QRCodesContentIntro"]" Name="Content">
-    <QRCode Content="https://www.blazor.zone"></QRCode>
+<DemoBlock Title="@Localizer["QRCodesContentTitle"]"
+           Introduction="@Localizer["QRCodesContentIntro"]"
+           Name="Content"
+           Demo="typeof(Demos.QRCodes.QRCodeContent)">
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["QRCodesWidthTitle"]" Introduction="@Localizer["QRCodesWidthIntro"]" Name="Width">
-    <QRCode Content="https://www.blazor.zone" Width="80"></QRCode>
+<DemoBlock Title="@Localizer["QRCodesWidthTitle"]"
+           Introduction="@Localizer["QRCodesWidthIntro"]"
+           Name="Width"
+           Demo="typeof(Demos.QRCodes.QRCodeWidth)">
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["QRCodesColorTitle"]" Introduction="@Localizer["QRCodesColorIntro"]" Name="DarkColor">
-    <QRCode Content="https://www.blazor.zone" DarkColor="#50cd89"></QRCode>
+<DemoBlock Title="@Localizer["QRCodesColorTitle"]"
+           Introduction="@Localizer["QRCodesColorIntro"]"
+           Name="DarkColor"
+           Demo="typeof(Demos.QRCodes.QRCodeDarkColor)">
 </DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" />

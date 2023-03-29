@@ -1,62 +1,51 @@
 ﻿@page "/floatinglabels"
 @inject IStringLocalizer<FloatingLabels> Localizer
 
-<h3>@Localizer["Title"]</h3>
+<h3>@Localizer["FloatingLabelsTitle"]</h3>
 
-<h4>@Localizer["H1"]</h4>
+<h4>@Localizer["FloatingLabelsSubtitle"]</h4>
 
-<DemoBlock Title="@Localizer["Normal"]" Introduction="@Localizer["NormalIntro"]" Name="Normal">
-    <FloatingLabel DisplayText="Text" TValue="string" IsSelectAllTextOnFocus="true" />
+<DemoBlock Title="@Localizer["FloatingLabelNormalTitle"]"
+           Introduction="@Localizer["FloatingLabelNormalIntro"]"
+           Name="Normal"
+           Demo="typeof(Demos.FloatingLabels.FloatingLabelNormal)">
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["DisplayTitle"]" Introduction="@Localizer["DisplayIntro"]" Name="DisplayText">
-    <FloatingLabel DisplayText="Text" Value="@Model.Name" />
+<DemoBlock Title="@Localizer["FloatingLabelDisplayTextTitle"]"
+           Introduction="@Localizer["FloatingLabelDisplayTextIntro"]"
+           Name="DisplayText"
+           Demo="typeof(Demos.FloatingLabels.FloatingLabelDisplayText)">
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["Block3Title"]" Introduction="@Localizer["Block3Intro"]" Name="BindValue">
-    <ValidateForm Model="@Model">
-        <FloatingLabel DisplayText="@Localizer["DisplayText1"]" maxlength="5" @bind-Value="@Model.Name" />
-    </ValidateForm>
+<DemoBlock Title="@Localizer["FloatingLabelBindValueTitle"]"
+           Introduction="@Localizer["FloatingLabelBindValueIntro"]"
+           Name="BindValue"
+           Demo="typeof(Demos.FloatingLabels.FloatingLabelBindValue)">
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["Block4Title"]" Introduction="@Localizer["Block4Intro"]" Name="Password">
-    <p>@((MarkupString)Localizer["P1"].Value)</p>
-    <FloatingLabel DisplayText="@Localizer["DisplayText2"]" TValue="string" type="password" maxlength="5" style="width: 200px;" />
+<DemoBlock Title="@Localizer["FloatingLabelPasswordTitle"]"
+           Introduction="@Localizer["FloatingLabelPasswordIntro"]"
+           Name="Password"
+           Demo="typeof(Demos.FloatingLabels.FloatingLabelPassword)">
+    <p>@((MarkupString)Localizer["FloatingLabelPasswordDescription"].Value)</p>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["Block5Title"]" Introduction="@Localizer["Block5Intro"]" Name="FormatString">
-    <div class="row g-3">
-        <div class="col-12 col-sm-6">
-            <FloatingLabel DisplayText="@Localizer["DisplayText3"]" FormatString="000" step="1" @bind-Value="@Model.Count" />
-        </div>
-        <div class="col-12 col-sm-6 align-self-center">
-            <div class="col-form-label">@Localizer["Div1", @Model.Count.ToString("000")]</div>
-        </div>
-    </div>
+<DemoBlock Title="@Localizer["FloatingLabelFormatStringTitle"]"
+           Introduction="@Localizer["FloatingLabelFormatStringIntro"]"
+           Name="FormatString"
+           Demo="typeof(Demos.FloatingLabels.FloatingLabelFormatString)">
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["Block6Title"]" Introduction="@Localizer["Block6Intro"]" Name="Disabled">
-    <FloatingLabel DisplayText="@Localizer["DisplayText4"]" TValue="string" IsDisabled="true" />
+<DemoBlock Title="@Localizer["FloatingLabelDisabledTitle"]"
+           Introduction="@Localizer["FloatingLabelDisabledIntro"]"
+           Name="Disabled"
+           Demo="typeof(Demos.FloatingLabels.FloatingLabelDisabled)">
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["Block7Title"]" Introduction="@Localizer["Block7Title"]" Name="Formatter">
-    <div class="row g-3">
-        <div class="col-12 col-sm-6 col-form-label align-self-center">@Localizer["Div2"] <code class="ms-1">FormatString</code></div>
-        <div class="col-12 col-sm-6">
-            <FloatingLabel DisplayText="FormatString" Value="DateTime.Now" FormatString="yyyy-MM-dd" IsDisabled="true" />
-        </div>
-        <div class="col-12 col-sm-6 col-form-label align-self-center">@Localizer["Div2"] <code class="ms-1">Formatter</code></div>
-        <div class="col-12 col-sm-6">
-            <FloatingLabel DisplayText="Formatter" Value="DateTime.Now" Formatter="@DateTimeFormatter" IsDisabled="true" />
-        </div>
-    </div>
-    <p class="mt-3">@((MarkupString)Localizer["P2"].Value)</p>
-    <div class="row g-3">
-        <div class="col-12 col-sm-6 col-form-label align-self-center">@Localizer["Div2"] <code class="ms-1">Formatter</code></div>
-        <div class="col-12 col-sm-6">
-            <FloatingLabel DisplayText="@Localizer["DisplayText5"]" Value="@ByteArray" Formatter="@ByteArrayFormatter" IsDisabled="true" />
-        </div>
-    </div>
+<DemoBlock Title="@Localizer["FloatingLabelFormatterTitle"]"
+           Introduction="@Localizer["FloatingLabelFormatterTitle"]"
+           Name="Formatter"
+           Demo="typeof(Demos.FloatingLabels.FloatingLabelFormatter)">
 </DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" />

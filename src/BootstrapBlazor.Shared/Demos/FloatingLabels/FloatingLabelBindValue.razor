@@ -1,0 +1,21 @@
+﻿@using BootstrapBlazor.Shared.Samples
+@inject IStringLocalizer<FloatingLabels> Localizer
+
+<ValidateForm Model="@Model">
+    <FloatingLabel DisplayText="@Localizer["FloatingLabelBindValueDisplayText"]" maxlength="5" @bind-Value="@Model.Name" />
+</ValidateForm>
+
+@code {
+    [NotNull]
+    private Foo? Model { get; set; }
+
+    /// <summary>
+    /// OnInitialized
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        Model = new Foo() { Name = Localizer["FloatingLabelsTestName"] };
+    }
+}

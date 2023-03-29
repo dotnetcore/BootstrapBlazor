@@ -9,8 +9,6 @@ namespace BootstrapBlazor.Shared.Samples;
 /// </summary>
 public sealed partial class Sliders
 {
-    private double BindValue { get; set; } = 50;
-
     /// <summary>
     /// 获得属性方法
     /// </summary>
