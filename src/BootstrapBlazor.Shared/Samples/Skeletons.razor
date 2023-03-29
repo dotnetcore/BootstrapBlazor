@@ -14,36 +14,36 @@
     <li>@Localizer["SkeletonsTips4"]</li>
 </ul>
 
-<DemoBlock Title="@Localizer["SkeletonsImgTitle"]" Introduction="@Localizer["SkeletonsImgIntro"]" Name="Img">
+<DemoBlock Title="@Localizer["SkeletonsImgTitle"]"
+           Introduction="@Localizer["SkeletonsImgIntro"]"
+           Name="Img"
+           Demo="typeof(Demos.Skeletons.SkeletonsImg)">
     <p>@((MarkupString)Localizer["SkeletonsImgDescription"].Value)</p>
-    <div class="row g-3 skeleton-demo">
-        <div class="col-4">
-            <SkeletonAvatar Round="false" />
-        </div>
-        <div class="col-4">
-            <SkeletonAvatar />
-        </div>
-        <div class="col-4">
-            <SkeletonAvatar Circle="true" />
-        </div>
-    </div>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["SkeletonsParagraphTitle"]" Introduction="@Localizer["SkeletonsParagraphIntro"]" Name="Paragraph">
+<DemoBlock Title="@Localizer["SkeletonsParagraphTitle"]"
+           Introduction="@Localizer["SkeletonsParagraphIntro"]"
+           Name="Paragraph"
+           Demo="typeof(Demos.Skeletons.SkeletonsParagraph)">
     <p>@((MarkupString)Localizer["SkeletonsParagraphDescription"].Value)</p>
-    <SkeletonParagraph />
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["SkeletonsFormTitle"]" Introduction="@Localizer["SkeletonsFormIntro"]" Name="Form">
-    <SkeletonEditor />
+<DemoBlock Title="@Localizer["SkeletonsFormTitle"]"
+           Introduction="@Localizer["SkeletonsFormIntro"]"
+           Name="Form"
+           Demo="typeof(Demos.Skeletons.SkeletonsForm)">
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["SkeletonsTableTitle"]" Introduction="@Localizer["SkeletonsTableIntro"]" Name="Table">
-    <SkeletonTable />
+<DemoBlock Title="@Localizer["SkeletonsTableTitle"]"
+           Introduction="@Localizer["SkeletonsTableIntro"]"
+           Name="Table"
+           Demo="typeof(Demos.Skeletons.SkeletonsTable)">
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["SkeletonsTreeTitle"]" Introduction="@Localizer["SkeletonsTreeIntro"]" Name="Tree">
-    <SkeletonTree />
+<DemoBlock Title="@Localizer["SkeletonsTreeTitle"]"
+           Introduction="@Localizer["SkeletonsTreeIntro"]"
+           Name="Tree"
+           Demo="typeof(Demos.Skeletons.SkeletonsTree)">
 </DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" />

@@ -1,0 +1,6 @@
+﻿@using BootstrapBlazor.Shared.Samples
+@inject IStringLocalizer<Sliders> Localizer
+
+<Slider></Slider>
+<Slider Value="50.0d" Label="@Localizer["SlidersNormalLabel1"]"></Slider>
+<Slider Value="42.0d" IsDisabled="true" Label="@Localizer["SlidersNormalLabel2"]"></Slider>
