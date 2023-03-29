@@ -45,4 +45,10 @@ public partial class Textarea
     /// 获得 客户端是否自动滚屏标识
     /// </summary>
     private string? AutoScrollString => IsAutoScroll ? "auto" : null;
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    protected override Task ModuleExecuteAsync() => InvokeExecuteAsync(Id, "refresh");
 }
