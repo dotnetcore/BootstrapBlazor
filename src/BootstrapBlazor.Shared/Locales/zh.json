@@ -468,16 +468,16 @@
     "AspectRatioIntro": "设置了高度和宽度,会自动禁用约束图表比例, 图表充满容器"
   },
   "BootstrapBlazor.Shared.Samples.Charts.Pie": {
-    "P1": "Pie 图",
-    "P2": "通过设置 <code>ChartType</code> 更改图表为 <code>pie</code> 图",
-    "P3": "随机数据",
-    "P4": "添加数据集",
-    "P5": "移除数据集",
-    "P6": "添加数据",
-    "P7": "移除数据",
-    "Reload": "重载",
-    "AspectRatio": "图表比例",
-    "AspectRatioIntro": "设置了高度和宽度,会自动禁用约束图表比例, 图表充满容器"
+    "PieNormalTitle": "Pie 图",
+    "PieNormalIntro": "通过设置 <code>ChartType</code> 更改图表为 <code>pie</code> 图",
+    "PieNormalRandomData": "随机数据",
+    "PieNormalAddDataset": "添加数据集",
+    "PieNormalRemoveDataset": "移除数据集",
+    "PieNormalAddingData": "添加数据",
+    "PieNormalRemoveData": "移除数据",
+    "PieNormalReload": "重载",
+    "PieAspectRatioTitle": "图表比例",
+    "PieAspectRatioIntro": "设置了高度和宽度,会自动禁用约束图表比例, 图表充满容器"
   },
   "BootstrapBlazor.Shared.Samples.Charts.Line": {
     "P1": "Line 图",

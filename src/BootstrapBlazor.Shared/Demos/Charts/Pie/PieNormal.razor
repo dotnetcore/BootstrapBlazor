@@ -1,0 +1,75 @@
+﻿@using Utility = BootstrapBlazor.Shared.Samples.Charts.Utility
+@using BootstrapBlazor.Shared.Samples.Charts
+@inject IStringLocalizer<Pie> Localizer
+
+<Chart ChartType="ChartType.Pie" OnInitAsync="@OnInit" OnAfterInitAsync="@OnAfterInit" OnAfterUpdateAsync="@OnAfterUpdate" @ref="PieChart" />
+<div class="text-center mt-2 chart">
+    <div class="btn-group">
+        <button class="btn btn-primary" @onclick="e => Utility.RandomData(PieChart)"><i class="fa-solid fa-chart-pie"></i><span>@Localizer["PieNormalRandomData"]</span></button>
+        <button class="btn btn-primary" @onclick="OnReloadChart"><i class="fa-solid fa-chart-column"></i><span>@Localizer["PieNormalReload"]</span></button>
+        <button class="btn btn-primary" @onclick="e => Utility.AddDataSet(PieChart, ref PieDatasetCount)"><i class="fa-solid fa-circle-plus"></i><span>@Localizer["PieNormalAddDataset"]</span></button>
+        <button class="btn btn-primary" @onclick="e => Utility.RemoveDataSet(PieChart, ref PieDatasetCount)"><i class="fa-solid fa-circle-minus"></i><span>@Localizer["PieNormalRemoveDataset"]</span></button>
+        <button class="btn btn-primary" @onclick="e => Utility.AddData(PieChart, ref PieDataCount)"><i class="fa-solid fa-plus"></i><span>@Localizer["PieNormalAddingData"]</span></button>
+        <button class="btn btn-primary" @onclick="e => Utility.RemoveData(PieChart, ref PieDataCount)"><i class="fa-solid fa-minus"></i><span>@Localizer["PieNormalRemoveData"]</span></button>
+    </div>
+</div>
+<BlockLogger @ref="Logger" class="mt-3" />
+
+@code {
+    private Random Randomer { get; } = new ();
+
+    private int PieDatasetCount = 1;
+
+    private int PieDataCount = 5;
+
+    [NotNull]
+    private Chart? PieChart { get; set; }
+
+    [NotNull]
+    private BlockLogger? Logger { get; set; }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        base.OnAfterRender(firstRender);
+
+        if (firstRender)
+        {
+            Logger.Log("Pie loading data ...");
+        }
+    }
+
+    private Task OnAfterInit()
+    {
+        Logger.Log("Pie initialization is complete");
+        return Task.CompletedTask;
+    }
+
+    private Task OnAfterUpdate(ChartAction action)
+    {
+        Logger.Log($"Pie Figure update data operation completed -- {action}");
+        return Task.CompletedTask;
+    }
+
+    private Task<ChartDataSource> OnInit()
+    {
+        var ds = new ChartDataSource();
+        ds.Options.Title = "Pie chart";
+        ds.Labels = Utility.Colors.Take(PieDataCount);
+        for (var index = 0; index < PieDatasetCount; index++)
+        {
+            ds.Data.Add(new ChartDataset()
+            {
+                Label = $"Set {index}",
+                Data = Enumerable.Range(1, PieDataCount).Select(i => Randomer.Next(20, 37)).Cast<object>()
+            });
+        }
+        return Task.FromResult(ds);
+    }
+
+    private Task OnReloadChart()
+    {
+        PieDataCount = Randomer.Next(5, 15);
+        PieChart?.Reload();
+        return Task.CompletedTask;
+    }
+}
