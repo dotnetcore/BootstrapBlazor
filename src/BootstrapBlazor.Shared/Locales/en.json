@@ -443,16 +443,16 @@
     "Tips": "Pay attention to the order of adding reference JS files, otherwise the chart component will always be stuck in the 'loading' interface"
   },
   "BootstrapBlazor.Shared.Samples.Charts.Bubble": {
-    "P1": "Bubble diagram",
-    "P2": "Change the chart to a <code>bubble</code> chart by setting <code>ChartType</code>",
-    "P3": "Random data",
-    "P4": "Add dataset",
-    "P5": "Remove dataset",
-    "P6": "Adding data",
-    "P7": "Remove data",
-    "Reload": "Reload",
-    "AspectRatio": "Chart ratio",
-    "AspectRatioIntro": "Setting the height and width will automatically disable the constraint chart ratio, and the chart will fill the container"
+    "BubbleNormalTitle": "Bubble diagram",
+    "BubbleNormalIntro": "Change the chart to a <code>bubble</code> chart by setting <code>ChartType</code>",
+    "BubbleNormalRandomData": "Random data",
+    "BubbleNormalAddDataSet": "Add dataset",
+    "BubbleNormalRemoveDataset": "Remove dataset",
+    "BubbleNormalAddData": "Adding data",
+    "BubbleNormalRemoveData": "Remove data",
+    "BubbleNormalReload": "Reload",
+    "BubbleBarAspectRatioTitle": "Chart ratio",
+    "BubbleBarAspectRatioIntro": "Setting the height and width will automatically disable the constraint chart ratio, and the chart will fill the container"
   },
   "BootstrapBlazor.Shared.Samples.Charts.Doughnut": {
     "DoughnutNormalTitle": "Doughnut diagram",
