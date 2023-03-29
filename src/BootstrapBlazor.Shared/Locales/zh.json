@@ -3425,7 +3425,15 @@
     "TextareasBindWayIntro": "绑定组件内变量，数据自动同步",
     "TextareasShowLabel": "是否显示前置标签",
     "TextareasDisplayText": "前置标签显示文本",
-    "TextareasIsDisabled": "是否禁用 默认为 fasle"
+    "TextareasIsDisabled": "是否禁用 默认为 fasle",
+    "TextareasScrollTitle": "内容滚动",
+    "TextareasScrollIntro": "滚动到底部/顶部/指定位置",
+    "TextareasMockChatRun": "开始模拟聊天",
+    "TextareasMockChatStop": "停止模拟聊天",
+    "TextareasScrollToBottom": "滚动到底部",
+    "TextareasScrollToTop": "滚动到顶部",
+    "TextareasScrollTo": "滚动+20",
+    "TextareasAutoScroll": "自动滚屏"
   },
   "BootstrapBlazor.Shared.Samples.Toggles": {
     "TogglesOnText": "开启",

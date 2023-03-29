@@ -60,7 +60,7 @@ public sealed partial class Consoles
             Description = "是否自动滚屏",
             Type = "bool",
             ValueList = "true|false",
-            DefaultValue = "false"
+            DefaultValue = "true"
         },
         new AttributeItem(){
             Name = "ShowAutoScroll",
