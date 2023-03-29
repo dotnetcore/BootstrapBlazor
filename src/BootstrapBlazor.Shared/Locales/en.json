@@ -468,16 +468,16 @@
     "DoughnutAspectRatioIntro": "Setting the height and width will automatically disable the constraint chart ratio, and the chart will fill the container"
   },
   "BootstrapBlazor.Shared.Samples.Charts.Pie": {
-    "P1": "Pie diagram",
-    "P2": "Change the chart to a <code>pie</code> chart by setting <code>ChartType</code>",
-    "P3": "Random data",
-    "P4": "Add dataset",
-    "P5": "Remove dataset",
-    "P6": "Adding data",
-    "P7": "Remove data",
-    "Reload": "Reload",
-    "AspectRatio": "Chart ratio",
-    "AspectRatioIntro": "Setting the height and width will automatically disable the constraint chart ratio, and the chart will fill the container"
+    "PieNormalTitle": "Pie diagram",
+    "PieNormalIntro": "Change the chart to a <code>pie</code> chart by setting <code>ChartType</code>",
+    "PieNormalRandomData": "Random data",
+    "PieNormalAddDataset": "Add dataset",
+    "PieNormalRemoveDataset": "Remove dataset",
+    "PieNormalAddingData": "Adding data",
+    "PieNormalRemoveData": "Remove data",
+    "PieNormalReload": "Reload",
+    "PieAspectRatioTitle": "Chart ratio",
+    "PieAspectRatioIntro": "Setting the height and width will automatically disable the constraint chart ratio, and the chart will fill the container"
   },
   "BootstrapBlazor.Shared.Samples.Charts.Line": {
     "P1": "Line graph",
