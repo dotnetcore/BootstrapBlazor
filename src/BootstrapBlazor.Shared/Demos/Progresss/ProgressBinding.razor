@@ -1,0 +1,12 @@
+﻿<div class="row g-3">
+    <div class="col-12">
+        <BootstrapInput TItem="int" @bind-Value="@Value" />
+    </div>
+    <div class="col-12">
+        <Progress IsAnimated="true" IsStriped="true" @bind-Value="@Value" Color="Color.Danger" IsShowValue="true"></Progress>
+    </div>
+</div>
+
+@code {
+    private int Value { get; set; } = 75;
+}

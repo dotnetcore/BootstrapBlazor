@@ -5,12 +5,10 @@
 namespace BootstrapBlazor.Shared.Samples;
 
 /// <summary>
-/// 
+/// Progresss
 /// </summary>
 public sealed partial class Progresss
 {
-    private int Value { get; set; } = 75;
-
     /// <summary>
     /// Get property method
     /// </summary>
