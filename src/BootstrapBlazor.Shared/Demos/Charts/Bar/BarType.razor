@@ -1,16 +1,37 @@
-﻿// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
-// Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
-// Website: https://www.blazor.zone or https://argozhang.github.io/
+﻿@using BootstrapBlazor.Shared.Samples.Charts
+@using Utility = BootstrapBlazor.Shared.Samples.Charts.Utility
+@inject IStringLocalizer<Bar> Localizer
 
-namespace BootstrapBlazor.Shared.Samples.Charts;
+<Chart ChartType="ChartType.Bar" OnInitAsync="() => OnInit(false)" OnAfterInitAsync="@OnAfterInit" OnAfterUpdateAsync="@OnAfterUpdate" @ref="BarChart" />
+<div class="text-center mt-2 chart">
+    <div class="btn-group">
+        <button class="btn btn-info" data-method="play" @onclick="@OnPlayChart">
+            <i class="fa-solid fa-circle-play"></i>
+            <span>@Localizer["BarTypeAnimationOn"]</span>
+        </button>
+        <button class="btn btn-info" data-method="stop" @onclick="@OnStopChart">
+            <i class="fa-solid fa-circle-stop"></i>
+            <span>@Localizer["BarTypeAnimationOff"]</span>
+        </button>
+    </div>
+</div>
+<div class="text-center mt-2 chart">
+    <div class="btn-group">
+        <button class="btn btn-primary" @onclick="e => Utility.RandomData(BarChart)"><i class="fa-solid fa-chart-column"></i><span>@Localizer["BarTypeRandomData"]</span></button>
+        <button class="btn btn-primary" @onclick="OnReloadChart"><i class="fa-solid fa-chart-column"></i><span>@Localizer["BarTypeReload"]</span></button>
+        <button class="btn btn-primary" @onclick="e => Utility.AddDataSet(BarChart, ref BarDatasetCount)"><i class="fa-solid fa-circle-plus"></i><span>@Localizer["BarTypeAddDataSet"]</span></button>
+        <button class="btn btn-primary" @onclick="e => Utility.RemoveDataSet(BarChart, ref BarDatasetCount)"><i class="fa-solid fa-circle-minus"></i><span>@Localizer["BarTypeRemoveDataSet"]</span></button>
+        <button class="btn btn-primary" @onclick="e => Utility.AddData(BarChart, ref BarDataCount)"><i class="fa-solid fa-plus"></i><span>@Localizer["BarTypeAddData"]</span></button>
+        <button class="btn btn-primary" @onclick="e => Utility.RemoveData(BarChart, ref BarDataCount)"><i class="fa-solid fa-minus"></i><span>@Localizer["BarTypeRemoveData"]</span></button>
+    </div>
+</div>
+<BlockLogger @ref="Logger" class="mt-3" />
 
-/// <summary>
-/// 
-/// </summary>
-public partial class Bar
-{
+@code {
     private Random Randomer { get; } = new Random();
+
     private int BarDatasetCount = 2;
+
     private int BarDataCount = 7;
 
     [NotNull]
@@ -18,8 +39,9 @@ public partial class Bar
 
     [NotNull]
     private BlockLogger? Logger { get; set; }
+
     /// <summary>
-    /// 
+    /// OnAfterRender
     /// </summary>
     /// <param name="firstRender"></param>
     protected override void OnAfterRender(bool firstRender)
@@ -88,40 +110,5 @@ public partial class Bar
         BarDataCount = Randomer.Next(5, 15);
         BarChart?.Reload();
         return Task.CompletedTask;
-    }
-
-    private Task<ChartDataSource> OnInitTwoYaxes(bool stacked, bool setTitle = true)
-    {
-        var ds = new ChartDataSource();
-        if (setTitle)
-        {
-            ds.Options.Title = "Bar Histogram";
-        }
-        ds.Options.X.Title = "days";
-        ds.Options.Y.Title = "Numerical value";
-        ds.Options.X.Stacked = stacked;
-        ds.Options.Y.Stacked = stacked;
-        ds.Options.Y2.Title = "Y2 value";
-        ds.Options.Y2.PositionLeft = false;
-
-        ds.Labels = Enumerable.Range(1, BarDataCount).Select(i => i.ToString());
-        var index = 0;
-        ds.Data.Add(new ChartDataset()
-        {
-            Label = $"Y2 Set {index}",
-            IsAxisY2 = index == 0,
-            Data = Enumerable.Range(1, BarDataCount).Select(i => Randomer.Next(20, 7000)).Cast<object>()
-        });
-
-        for (index = 1; index < BarDatasetCount; index++)
-        {
-            ds.Data.Add(new ChartDataset()
-            {
-                Label = $"Y Set {index}",
-                IsAxisY2 = index == 0,
-                Data = Enumerable.Range(1, BarDataCount).Select(i => Randomer.Next(20, 37)).Cast<object>()
-            });
-        }
-        return Task.FromResult(ds);
     }
 }
