@@ -5,9 +5,9 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// Textarea 组件
 /// </summary>
-[JSModuleAutoLoader("scroll", ModuleName = "Scroll")]
+[JSModuleAutoLoader]
 public partial class Textarea
 {
     /// <summary>
@@ -33,7 +33,7 @@ public partial class Textarea
     /// 滚动到底部
     /// </summary>
     /// <returns></returns>
-    public Task ScrollToBottom() => InvokeExecuteAsync(Id,"toBottom");
+    public Task ScrollToBottom() => InvokeExecuteAsync(Id, "toBottom");
 
     /// <summary>
     /// 获得/设置 是否自动滚屏 默认 false
@@ -45,11 +45,4 @@ public partial class Textarea
     /// 获得 客户端是否自动滚屏标识
     /// </summary>
     private string? AutoScrollString => IsAutoScroll ? "auto" : null;
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <returns></returns>
-    protected override Task ModuleExecuteAsync() => InvokeExecuteAsync(Id);
-
 }
