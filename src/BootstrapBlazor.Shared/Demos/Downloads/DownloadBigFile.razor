@@ -1,0 +1,24 @@
+﻿@inject DownloadService DownloadService
+
+<Button IsAsync="true" Icon="fa-solid fa-download" Text="Download" OnClickWithoutRender="DownloadLargeFileAsync"></Button>
+
+@code {
+    private async Task DownloadLargeFileAsync()
+    {
+        await using var stream = await GenerateFileStreamAsync();
+        await DownloadService.DownloadFromStreamAsync("测试大文件.txt", stream);
+
+        static async Task<Stream> GenerateFileStreamAsync()
+        {
+            var ms = new MemoryStream();
+            var writer = new StreamWriter(ms);
+            for (var i = 0; i < 1000000; i++)
+            {
+                await writer.WriteLineAsync($"这里是一个大文件下载示例，共循环 100 万次");
+            }
+            await writer.FlushAsync();
+            ms.Position = 0;
+            return ms;
+        }
+    }
+}
