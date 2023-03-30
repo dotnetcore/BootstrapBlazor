@@ -1338,6 +1338,8 @@ public class TableTest : TableTestBase
                 });
             });
         });
+        cut.Contains("style=\"left: 100px;\"");
+        cut.Contains("style=\"left: 36px;\"");
         cut.Contains("style=\"left: 236px;\"");
     }
 
