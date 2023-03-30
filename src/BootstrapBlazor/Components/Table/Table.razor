@@ -451,7 +451,7 @@
                 }
                 @if (ShowLineNo)
                 {
-                    <th>
+                    <th class="@LineNoColumnClassString" style="@LineNoColumnStyleString">
                         <div class="@LineCellClassString">@LineNoText</div>
                     </th>
                 }
@@ -610,7 +610,7 @@
         }
         @if (ShowLineNo)
         {
-            <td>
+            <td class="@LineNoColumnClassString" style="@LineNoColumnStyleString">
                 <div class="@LineCellClassString">@(Rows.IndexOf(item) + 1 + (PageIndex -1) * PageItems)</div>
             </td>
         }

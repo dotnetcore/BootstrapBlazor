@@ -125,11 +125,42 @@ public partial class Table<TItem>
         .AddClass("fr", IsLastDetailColumn())
         .Build();
 
+    private string? LineNoColumnClassString => CssBuilder.Default()
+        .AddClass("fixed", FixedLineNoColumn)
+        .AddClass("fr", IsLastLineNoColumn())
+        .Build();
+
     private int MulitiColumnLeft => ShowDetails() ? DetailColumnWidth : 0;
 
-    private string? DetailColumnStyleString => FixedDetailRowHeaderColumn ? "left: 0;" : null;
+    private int LineNoColumnLeft()
+    {
+        var width = 0;
+        if (GetFixedDetailRowHeaderColumn && GetFixedMultipleSelectColumn)
+        {
+            width = DetailColumnWidth + MultiColumnWidth;
+        }
+        else if (GetFixedMultipleSelectColumn)
+        {
+            width = MultiColumnWidth;
+        }
+        else if (GetFixedDetailRowHeaderColumn)
+        {
+            width = DetailColumnWidth;
+        }
+        return width;
+    }
 
-    private string? MultiColumnStyleString => FixedMultipleColumn ? $"left: {MulitiColumnLeft}px;" : null;
+    private bool GetFixedDetailRowHeaderColumn => FixedDetailRowHeaderColumn && ShowDetails();
+
+    private bool GetFixedMultipleSelectColumn => FixedMultipleColumn && IsMultipleSelect;
+
+    private bool GetFixedLineNoColumn => FixedLineNoColumn && ShowLineNo;
+
+    private string? DetailColumnStyleString => GetFixedDetailRowHeaderColumn ? "left: 0;" : null;
+
+    private string? LineNoColumnStyleString => GetFixedLineNoColumn ? $"left: {LineNoColumnLeft()}px;" : null;
+
+    private string? MultiColumnStyleString => GetFixedMultipleSelectColumn ? $"left: {MulitiColumnLeft}px;" : null;
 
     private int MultiColumnWidth => ShowCheckboxText ? ShowCheckboxTextColumnWidth : CheckboxColumnWidth;
 
@@ -177,9 +208,11 @@ public partial class Table<TItem>
         .AddClass($"left: {GetExtendButtonsColumnLeftMargin()}px;", FixedExtendButtonsColumn && IsExtendButtonsInRowHeader)
         .Build();
 
-    private bool IsLastDetailColumn() => !(FixedMultipleColumn && IsMultipleSelect) && IsNotFixedColumn();
+    private bool IsLastDetailColumn() => !GetFixedMultipleSelectColumn && !GetFixedLineNoColumn && IsNotFixedColumn();
 
-    private bool IsLastMultiColumn() => FixedMultipleColumn && IsMultipleSelect && IsNotFixedColumn();
+    private bool IsLastMultiColumn() => !GetFixedLineNoColumn && IsNotFixedColumn();
+
+    private bool IsLastLineNoColumn() => IsNotFixedColumn();
 
     private bool IsNotFixedColumn() => !(FixedExtendButtonsColumn && IsExtendButtonsInRowHeader) && !GetVisibleColumns().First().Fixed;
 
@@ -304,15 +337,15 @@ public partial class Table<TItem>
             }
             else
             {
-                if (FixedMultipleColumn)
-                {
-                    width += MultiColumnWidth;
-                }
-                if (ShowDetails())
+                if (GetFixedDetailRowHeaderColumn)
                 {
                     width += DetailColumnWidth;
                 }
-                if (ShowLineNo)
+                if (GetFixedMultipleSelectColumn)
+                {
+                    width += MultiColumnWidth;
+                }
+                if (GetFixedLineNoColumn)
                 {
                     width += LineNoColumnWidth;
                 }
