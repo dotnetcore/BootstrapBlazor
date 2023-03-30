@@ -143,6 +143,12 @@ public partial class Topology
     /// <returns></returns>
     public Task Reset() => InvokeExecuteAsync(Id, "reset");
 
+    /// <summary>
+    /// 重置可视化引擎大小
+    /// </summary>
+    /// <returns></returns>
+    public Task Resize(int? width = null, int? height = null) => InvokeExecuteAsync(Id, "resize", width, height);
+
     private bool _disposing;
     /// <summary>
     /// DisposeAsync 方法

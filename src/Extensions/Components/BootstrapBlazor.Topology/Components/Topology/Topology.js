@@ -33,22 +33,33 @@ export class BlazorTopology extends BlazorComponent {
 
     _execute(args) {
         if (this._topology) {
-            if (args[1] === "reset") {
+            var methodName = args[1];
+            if (methodName === "reset") {
                 this._topology.fitView()
                 this._topology.centerView()
             }
-            else if (args[1] === "scale") {
-                if (args.length > 2) {
-                    var t = args[2]
-                    if (t > 0) {
-                        this._topology.scale(t)
-                        this._topology.centerView()
-                    }
+            else if (methodName === "scale" && args.length > 2) {
+                var t = args[2]
+                if (t > 0) {
+                    this._topology.scale(t)
+                    this._topology.centerView()
                 }
             }
+            else if (methodName == "resize") {
+                this._topology.canvas.dirty = true
+                if (args.lengh > 4) {
+                    const width = args[2]
+                    const height = args[3]
+                    this._topology.resize(width, height)
+                }
+                else {
+                    this._topology.resize()
+                }
+                this._topology.fitView()
+                this._topology.centerView()
+            }
             else {
-                const data = args[1];
-                this._topology.doSocket(JSON.stringify(data))
+                this._topology.doSocket(JSON.stringify(methodName))
             }
         }
     }
