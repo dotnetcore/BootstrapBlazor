@@ -1,21 +1,19 @@
 ﻿@inject IStringLocalizer<Foo> LocalizerFoo
 
-<div>
-    <Table TItem="Foo" ShowToolbar="true" ShowRefresh="true" ShowColumnList="true" ShowExtendButtons="true"
-           IsExcel="true" IsPagination="true" PageItemsSource="@PageItemsSource"
-           OnQueryAsync="@OnQueryAsync" OnAddAsync="@OnAddAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync">
-        <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" Width="180" />
-            <TableColumn @bind-Field="@context.Name" />
-            <TableColumn @bind-Field="@context.Address" Readonly="true" />
-            <TableColumn @bind-Field="@context.Education" />
-            <TableColumn @bind-Field="@context.Count" Editable="false" Align="Alignment.Right" />
-            <TableColumn @bind-Field="@context.Complete" Align="Alignment.Center" />
-        </TableColumns>
-    </Table>
+<Table TItem="Foo" ShowToolbar="true" ShowRefresh="true" ShowColumnList="true" ShowExtendButtons="true"
+        IsExcel="true" IsPagination="true" PageItemsSource="@PageItemsSource"
+        OnQueryAsync="@OnQueryAsync" OnAddAsync="@OnAddAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync">
+    <TableColumns>
+        <TableColumn @bind-Field="@context.DateTime" Width="180" />
+        <TableColumn @bind-Field="@context.Name" />
+        <TableColumn @bind-Field="@context.Address" Readonly="true" />
+        <TableColumn @bind-Field="@context.Education" />
+        <TableColumn @bind-Field="@context.Count" Editable="false" Align="Alignment.Right" />
+        <TableColumn @bind-Field="@context.Complete" Align="Alignment.Center" />
+    </TableColumns>
+</Table>
 
-    <BlockLogger @ref="Trace" class="mt-3" />
-</div>
+<BlockLogger @ref="Trace" class="mt-3" />
 
 @code {
     /// <summary>

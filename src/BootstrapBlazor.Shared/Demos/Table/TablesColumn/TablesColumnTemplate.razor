@@ -1,24 +1,22 @@
 ﻿@inject IStringLocalizer<Foo> FooLocalizer
 
-<div>
-    <Table TItem="Foo"
-           IsPagination="true" PageItemsSource="@PageItemsSource"
-           IsStriped="true" IsBordered="true"
-           ShowToolbar="false" IsMultipleSelect="true" ShowExtendButtons="false"
-           OnQueryAsync="@OnQueryAsync">
-        <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" Width="120" FormatString="yyyy-MM-dd" />
-            <TableColumn @bind-Field="@context.Name" Width="100" />
-            <TableColumn @bind-Field="@context.Address" />
-            <TableColumn @bind-Field="@context.Count" />
-            <TableColumn @bind-Field="@context.Id" Text="">
-                <Template Context="v">
-                    <PopConfirmButton Text="Test" Size="Size.ExtraSmall" />
-                </Template>
-            </TableColumn>
-        </TableColumns>
-    </Table>
-</div>
+<Table TItem="Foo"
+        IsPagination="true" PageItemsSource="@PageItemsSource"
+        IsStriped="true" IsBordered="true"
+        ShowToolbar="false" IsMultipleSelect="true" ShowExtendButtons="false"
+        OnQueryAsync="@OnQueryAsync">
+    <TableColumns>
+        <TableColumn @bind-Field="@context.DateTime" Width="120" FormatString="yyyy-MM-dd" />
+        <TableColumn @bind-Field="@context.Name" Width="100" />
+        <TableColumn @bind-Field="@context.Address" />
+        <TableColumn @bind-Field="@context.Count" />
+        <TableColumn @bind-Field="@context.Id" Text="">
+            <Template Context="v">
+                <PopConfirmButton Text="Test" Size="Size.ExtraSmall" />
+            </Template>
+        </TableColumn>
+    </TableColumns>
+</Table>
 
 @code {
     /// <summary>

@@ -2,29 +2,27 @@
 @using System.Collections.Concurrent;
 @inject IStringLocalizer<Foo> FooLocalizer
 
-<div>
-    <Table TItem="Foo"
-           IsPagination="true" PageItemsSource="@PageItemsSource"
-           IsStriped="true" IsBordered="true"
-           ShowToolbar="true" ShowDefaultButtons="false"
-           OnQueryAsync="@OnQueryAsync" ShowDetailRow="ShowDetailRow">
-        <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" Width="180" />
-            <TableColumn @bind-Field="@context.Name" Width="100" />
-            <TableColumn @bind-Field="@context.Address" />
-            <TableColumn @bind-Field="@context.Count" />
-        </TableColumns>
-        <DetailRowTemplate>
-            <Table TItem="DetailRow" IsBordered="true" ShowToolbar="false" Items="@GetDetailDataSource(context)">
-                <TableColumns Context="Detail">
-                    <TableColumn @bind-Field="@Detail.Name" />
-                    <TableColumn @bind-Field="@Detail.DateTime" Width="180" />
-                    <TableColumn @bind-Field="@Detail.Complete" Width="70" />
-                </TableColumns>
-            </Table>
-        </DetailRowTemplate>
-    </Table>
-</div>
+<Table TItem="Foo"
+        IsPagination="true" PageItemsSource="@PageItemsSource"
+        IsStriped="true" IsBordered="true"
+        ShowToolbar="true" ShowDefaultButtons="false"
+        OnQueryAsync="@OnQueryAsync" ShowDetailRow="ShowDetailRow">
+    <TableColumns>
+        <TableColumn @bind-Field="@context.DateTime" Width="180" />
+        <TableColumn @bind-Field="@context.Name" Width="100" />
+        <TableColumn @bind-Field="@context.Address" />
+        <TableColumn @bind-Field="@context.Count" />
+    </TableColumns>
+    <DetailRowTemplate>
+        <Table TItem="DetailRow" IsBordered="true" ShowToolbar="false" Items="@GetDetailDataSource(context)">
+            <TableColumns Context="Detail">
+                <TableColumn @bind-Field="@Detail.Name" />
+                <TableColumn @bind-Field="@Detail.DateTime" Width="180" />
+                <TableColumn @bind-Field="@Detail.Complete" Width="70" />
+            </TableColumns>
+        </Table>
+    </DetailRowTemplate>
+</Table>
 
 @code {
     private ConcurrentDictionary<string, List<DetailRow>> Cache { get; } = new();

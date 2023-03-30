@@ -1,34 +1,32 @@
 ﻿@inject IStringLocalizer<Foo> FooLocalizer
 
-<div>
-    <Table TItem="Foo"
-           IsPagination="true" PageItemsSource="@PageItemsSource"
-           IsStriped="true" IsBordered="true"
-           ShowToolbar="false" IsMultipleSelect="true" ShowExtendButtons="false"
-           OnQueryAsync="@OnQueryAsync">
-        <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" Width="180">
-                <Template Context="value">
-                    @if (value.Row.Complete)
-                    {
-                        <div class="text-success">@value.Value</div>
-                    }
-                    else
-                    {
-                        <div class="text-danger">@value.Value</div>
-                    }
-                </Template>
-            </TableColumn>
-            <TableColumn @bind-Field="@context.Name" Width="100" />
-            <TableColumn @bind-Field="@context.Address" />
-            <TableColumn @bind-Field="@context.Complete" Width="100">
-                <Template Context="value">
-                    <Checkbox Value="@value.Value" IsDisabled="true"></Checkbox>
-                </Template>
-            </TableColumn>
-        </TableColumns>
-    </Table>
-</div>
+<Table TItem="Foo"
+        IsPagination="true" PageItemsSource="@PageItemsSource"
+        IsStriped="true" IsBordered="true"
+        ShowToolbar="false" IsMultipleSelect="true" ShowExtendButtons="false"
+        OnQueryAsync="@OnQueryAsync">
+    <TableColumns>
+        <TableColumn @bind-Field="@context.DateTime" Width="180">
+            <Template Context="value">
+                @if (value.Row.Complete)
+                {
+                    <div class="text-success">@value.Value</div>
+                }
+                else
+                {
+                    <div class="text-danger">@value.Value</div>
+                }
+            </Template>
+        </TableColumn>
+        <TableColumn @bind-Field="@context.Name" Width="100" />
+        <TableColumn @bind-Field="@context.Address" />
+        <TableColumn @bind-Field="@context.Complete" Width="100">
+            <Template Context="value">
+                <Checkbox Value="@value.Value" IsDisabled="true"></Checkbox>
+            </Template>
+        </TableColumn>
+    </TableColumns>
+</Table>
 
 @code {
     /// <summary>

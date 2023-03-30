@@ -1,26 +1,25 @@
 ﻿@inject IStringLocalizer<TablesSetFilterInCode> Localizer
 @inject IStringLocalizer<Foo> FooLocalizer
 
-<div>
-    <div class="mb-2">
-        <Button Text="@Localizer["SetFilterInCodeButtonText1"]" OnClickWithoutRender="SetFilterInCode"></Button>
-        <Button Text="@Localizer["SetFilterInCodeButtonText2"]" OnClickWithoutRender="ResetAllFilters"></Button>
-    </div>
-    <Table TItem="Foo" @ref="TableSetFilter"
-           IsPagination="true" PageItemsSource="@PageItemsSource"
-           IsStriped="true" IsBordered="true" IsMultipleSelect="true"
-           ShowSkeleton="true" ShowFilterHeader="true"
-           OnQueryAsync="@OnQueryAsync">
-        <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" Width="180" Sortable="true"/>
-            <TableColumn @bind-Field="@context.Name" Width="100" Sortable="true" Filterable="true"/>
-            <TableColumn @bind-Field="@context.Address" Sortable="true"/>
-            <TableColumn @bind-Field="@context.Complete" Width="100" Sortable="true" Filterable="true"/>
-            <TableColumn @bind-Field="@context.Education" Width="100" Sortable="true" Filterable="true"/>
-            <TableColumn @bind-Field="@context.Count" Width="150" Sortable="true"/>
-        </TableColumns>
-    </Table>
+<div class="mb-2">
+    <Button Text="@Localizer["SetFilterInCodeButtonText1"]" OnClickWithoutRender="SetFilterInCode"></Button>
+    <Button Text="@Localizer["SetFilterInCodeButtonText2"]" OnClickWithoutRender="ResetAllFilters"></Button>
 </div>
+
+<Table TItem="Foo" @ref="TableSetFilter"
+        IsPagination="true" PageItemsSource="@PageItemsSource"
+        IsStriped="true" IsBordered="true" IsMultipleSelect="true"
+        ShowSkeleton="true" ShowFilterHeader="true"
+        OnQueryAsync="@OnQueryAsync">
+    <TableColumns>
+        <TableColumn @bind-Field="@context.DateTime" Width="180" Sortable="true"/>
+        <TableColumn @bind-Field="@context.Name" Width="100" Sortable="true" Filterable="true"/>
+        <TableColumn @bind-Field="@context.Address" Sortable="true"/>
+        <TableColumn @bind-Field="@context.Complete" Width="100" Sortable="true" Filterable="true"/>
+        <TableColumn @bind-Field="@context.Education" Width="100" Sortable="true" Filterable="true"/>
+        <TableColumn @bind-Field="@context.Count" Width="150" Sortable="true"/>
+    </TableColumns>
+</Table>
 
 @code {
     /// <summary>

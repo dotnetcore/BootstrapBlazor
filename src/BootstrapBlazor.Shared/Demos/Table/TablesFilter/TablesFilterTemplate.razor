@@ -3,30 +3,29 @@
 @inject IStringLocalizer<Foo> FooLocalizer
 @inject IOptionsMonitor<WebsiteOptions> WebsiteOption
 
-<div>
-    <p>@((MarkupString)Localizer["TablesFilterTemplateDescription", ComponentSourceCodeUrl].Value)</p>
-    <Table TItem="Foo"
-           IsPagination="true" PageItemsSource="@PageItemsSource"
-           IsStriped="true" IsBordered="true" IsMultipleSelect="true"
-           ShowSkeleton="true"
-           OnQueryAsync="@OnQueryAsync">
-        <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" Width="180" Sortable="true" Filterable="true"/>
-            <TableColumn @bind-Field="@context.Name" Width="100" Sortable="true" Filterable="true"/>
-            <TableColumn @bind-Field="@context.Address" Sortable="true" Filterable="true"/>
-            <TableColumn @bind-Field="@context.Complete" Width="100" Sortable="true" Filterable="true">
-                <Template Context="value">
-                    <Checkbox Value="@value.Value" IsDisabled="true"></Checkbox>
-                </Template>
-            </TableColumn>
-            <TableColumn @bind-Field="@context.Count" Width="100" Sortable="true" Filterable="true">
-                <FilterTemplate>
-                    <CustomerFilter></CustomerFilter>
-                </FilterTemplate>
-            </TableColumn>
-        </TableColumns>
-    </Table>
-</div>
+<p>@((MarkupString)Localizer["TablesFilterTemplateDescription", ComponentSourceCodeUrl].Value)</p>
+
+<Table TItem="Foo"
+        IsPagination="true" PageItemsSource="@PageItemsSource"
+        IsStriped="true" IsBordered="true" IsMultipleSelect="true"
+        ShowSkeleton="true"
+        OnQueryAsync="@OnQueryAsync">
+    <TableColumns>
+        <TableColumn @bind-Field="@context.DateTime" Width="180" Sortable="true" Filterable="true"/>
+        <TableColumn @bind-Field="@context.Name" Width="100" Sortable="true" Filterable="true"/>
+        <TableColumn @bind-Field="@context.Address" Sortable="true" Filterable="true"/>
+        <TableColumn @bind-Field="@context.Complete" Width="100" Sortable="true" Filterable="true">
+            <Template Context="value">
+                <Checkbox Value="@value.Value" IsDisabled="true"></Checkbox>
+            </Template>
+        </TableColumn>
+        <TableColumn @bind-Field="@context.Count" Width="100" Sortable="true" Filterable="true">
+            <FilterTemplate>
+                <CustomerFilter></CustomerFilter>
+            </FilterTemplate>
+        </TableColumn>
+    </TableColumns>
+</Table>
 
 @code {
     /// <summary>

@@ -1,24 +1,23 @@
 ﻿@inject IStringLocalizer<Foo> Localizer
 @inject IStringLocalizer<TableBaseHeaderStyle> TablesLocalizer
 
-<div>
-    <div class="code-label"><code>Light</code> @TablesLocalizer["TableBaseHeaderStyleMode"]</div>
-    <Table TItem="Foo" Items="@Items.Take(3)" HeaderStyle="TableHeaderStyle.Light" IsBordered="true">
-        <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" Width="180" />
-            <TableColumn @bind-Field="@context.Name" />
-            <TableColumn @bind-Field="@context.Address" />
-        </TableColumns>
-    </Table>
-    <div class="code-label mt-3"><code>Dark</code> @TablesLocalizer["TableBaseHeaderStyleMode"]</div>
-    <Table TItem="Foo" Items="@Items.Take(3)" HeaderStyle="TableHeaderStyle.Dark" IsBordered="true">
-        <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" Width="180" />
-            <TableColumn @bind-Field="@context.Name" />
-            <TableColumn @bind-Field="@context.Address" />
-        </TableColumns>
-    </Table>
-</div>
+<div class="code-label"><code>Light</code> @TablesLocalizer["TableBaseHeaderStyleMode"]</div>
+<Table TItem="Foo" Items="@Items.Take(3)" HeaderStyle="TableHeaderStyle.Light" IsBordered="true">
+    <TableColumns>
+        <TableColumn @bind-Field="@context.DateTime" Width="180" />
+        <TableColumn @bind-Field="@context.Name" />
+        <TableColumn @bind-Field="@context.Address" />
+    </TableColumns>
+</Table>
+
+<div class="code-label mt-3"><code>Dark</code> @TablesLocalizer["TableBaseHeaderStyleMode"]</div>
+<Table TItem="Foo" Items="@Items.Take(3)" HeaderStyle="TableHeaderStyle.Dark" IsBordered="true">
+    <TableColumns>
+        <TableColumn @bind-Field="@context.DateTime" Width="180" />
+        <TableColumn @bind-Field="@context.Name" />
+        <TableColumn @bind-Field="@context.Address" />
+    </TableColumns>
+</Table>
 
 @code {
     /// <summary>

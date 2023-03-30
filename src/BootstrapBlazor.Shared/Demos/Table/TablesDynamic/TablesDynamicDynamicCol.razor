@@ -3,16 +3,14 @@
 @inject IStringLocalizer<Foo> FooLocalizer
 @inject IStringLocalizer<TablesDynamicDynamicCol> Localizer
 
-<div>
-    <Table TItem="DynamicObject" DynamicContext="DataTableDynamicContext" ModelEqualityComparer="ModelEqualityComparer"
-           IsMultipleSelect="true" IsBordered="true" IsStriped="true"
-           ShowToolbar="true" ShowExtendButtons="true">
-        <TableToolbarTemplate>
-            <TableToolbarButton TItem="DynamicObject" Color="Color.Info" Icon="fa-fw fa-solid fa-circle-plus" Text="@ButtonAddColumnText" OnClick="OnAddColumn" />
-            <TableToolbarButton TItem="DynamicObject" Color="Color.Secondary" Icon="fa-fw fa-solid fa-circle-minus" Text="@ButtonRemoveColumnText" OnClick="OnRemoveColumn" />
-        </TableToolbarTemplate>
-    </Table>
-</div>
+<Table TItem="DynamicObject" DynamicContext="DataTableDynamicContext" ModelEqualityComparer="ModelEqualityComparer"
+        IsMultipleSelect="true" IsBordered="true" IsStriped="true"
+        ShowToolbar="true" ShowExtendButtons="true">
+    <TableToolbarTemplate>
+        <TableToolbarButton TItem="DynamicObject" Color="Color.Info" Icon="fa-fw fa-solid fa-circle-plus" Text="@ButtonAddColumnText" OnClick="OnAddColumn" />
+        <TableToolbarButton TItem="DynamicObject" Color="Color.Secondary" Icon="fa-fw fa-solid fa-circle-minus" Text="@ButtonRemoveColumnText" OnClick="OnRemoveColumn" />
+    </TableToolbarTemplate>
+</Table>
 
 @code {
     [NotNull]

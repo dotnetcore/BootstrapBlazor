@@ -1,38 +1,37 @@
 ﻿@inject IStringLocalizer<TablesAutoGenerateSearch> Localizer
 @inject IStringLocalizer<Foo> FooLocalizer
 
-<div>
-    <GroupBox Title="@Localizer["AutoGenerateSearchGroupBoxTitle"]" class="mb-2 mt-3">
-        <div class="row g-3 form-inline">
-            <div class="col-12 col-sm-3">
-                <Switch DisplayText="@Localizer["DisplayText1"]" ShowLabel="true" @bind-Value="SearchModeFlag" />
-            </div>
-            <div class="col-12 col-sm-3">
-                <Switch DisplayText="@Localizer["DisplayText2"]" ShowLabel="true" @bind-Value="ShowSearchText" />
-            </div>
-            <div class="col-12 col-sm-3">
-                <Switch DisplayText="@Localizer["DisplayText3"]" ShowLabel="true" @bind-Value="ShowResetButton" />
-            </div>
-            <div class="col-12 col-sm-3">
-                <Switch DisplayText="@Localizer["DisplayText4"]" ShowLabel="true" @bind-Value="ShowSearchButton" IsDisabled="SearchModeFlag" />
-            </div>
+<GroupBox Title="@Localizer["AutoGenerateSearchGroupBoxTitle"]" class="mb-2 mt-3">
+    <div class="row g-3 form-inline">
+        <div class="col-12 col-sm-3">
+            <Switch DisplayText="@Localizer["DisplayText1"]" ShowLabel="true" @bind-Value="SearchModeFlag" />
         </div>
-    </GroupBox>
-    <Table TItem="Foo"
-           IsPagination="true" PageItemsSource="@PageItemsSource" SearchDialogShowMaximizeButton="true"
-           IsStriped="true" IsBordered="true" SearchModel="@SearchModel" ShowSearch="true"
-           SearchMode="SearchModeValue" ShowResetButton="ShowResetButton" ShowSearchButton="ShowSearchButton"
-           ShowToolbar="true" IsMultipleSelect="true" ShowExtendButtons="true" ShowSearchText="ShowSearchText"
-           AddModalTitle="@Localizer["AddModelTitle"]" EditModalTitle="@Localizer["EditModelTitle"]"
-           OnQueryAsync="@OnQueryAsync" OnAddAsync="@OnAddAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync">
-        <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" Width="180" Filterable="true" />
-            <TableColumn @bind-Field="@context.Name" Searchable="true" />
-            <TableColumn @bind-Field="@context.Address" Searchable="true" />
-            <TableColumn @bind-Field="@context.Education" />
-        </TableColumns>
-    </Table>
-</div>
+        <div class="col-12 col-sm-3">
+            <Switch DisplayText="@Localizer["DisplayText2"]" ShowLabel="true" @bind-Value="ShowSearchText" />
+        </div>
+        <div class="col-12 col-sm-3">
+            <Switch DisplayText="@Localizer["DisplayText3"]" ShowLabel="true" @bind-Value="ShowResetButton" />
+        </div>
+        <div class="col-12 col-sm-3">
+            <Switch DisplayText="@Localizer["DisplayText4"]" ShowLabel="true" @bind-Value="ShowSearchButton" IsDisabled="SearchModeFlag" />
+        </div>
+    </div>
+</GroupBox>
+
+<Table TItem="Foo"
+        IsPagination="true" PageItemsSource="@PageItemsSource" SearchDialogShowMaximizeButton="true"
+        IsStriped="true" IsBordered="true" SearchModel="@SearchModel" ShowSearch="true"
+        SearchMode="SearchModeValue" ShowResetButton="ShowResetButton" ShowSearchButton="ShowSearchButton"
+        ShowToolbar="true" IsMultipleSelect="true" ShowExtendButtons="true" ShowSearchText="ShowSearchText"
+        AddModalTitle="@Localizer["AddModelTitle"]" EditModalTitle="@Localizer["EditModelTitle"]"
+        OnQueryAsync="@OnQueryAsync" OnAddAsync="@OnAddAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync">
+    <TableColumns>
+        <TableColumn @bind-Field="@context.DateTime" Width="180" Filterable="true" />
+        <TableColumn @bind-Field="@context.Name" Searchable="true" />
+        <TableColumn @bind-Field="@context.Address" Searchable="true" />
+        <TableColumn @bind-Field="@context.Education" />
+    </TableColumns>
+</Table>
 
 @code {
     /// <summary>

@@ -1,26 +1,24 @@
 ﻿@inject IStringLocalizer<Foo> FooLocalizer
 
-<div>
-    <Table TItem="Foo"
-           IsPagination="true" PageItemsSource="@PageItemsSource" SearchMode="SearchMode.Top"
-           IsStriped="true" IsBordered="true" CustomerSearchModel="@CustomerSearchModel" ShowSearch="true" ShowSearchText="true"
-           ShowToolbar="true" IsMultipleSelect="true" ShowExtendButtons="true"
-           OnQueryAsync="@OnQueryAsync" OnAddAsync="@OnAddAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync">
-        <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" Width="180" />
-            <TableColumn @bind-Field="@context.Name" Searchable="true" />
-            <TableColumn @bind-Field="@context.Address" Searchable="true" />
-            <TableColumn @bind-Field="@context.Count" />
-            <TableColumn @bind-Field="@context.Education" />
-        </TableColumns>
-        <CustomerSearchTemplate>
-            @if (context is FooSearchModel model)
-            {
-                <FooSearch @bind-Value="@model" />
-            }
-        </CustomerSearchTemplate>
-    </Table>
-</div>
+<Table TItem="Foo"
+        IsPagination="true" PageItemsSource="@PageItemsSource" SearchMode="SearchMode.Top"
+        IsStriped="true" IsBordered="true" CustomerSearchModel="@CustomerSearchModel" ShowSearch="true" ShowSearchText="true"
+        ShowToolbar="true" IsMultipleSelect="true" ShowExtendButtons="true"
+        OnQueryAsync="@OnQueryAsync" OnAddAsync="@OnAddAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync">
+    <TableColumns>
+        <TableColumn @bind-Field="@context.DateTime" Width="180" />
+        <TableColumn @bind-Field="@context.Name" Searchable="true" />
+        <TableColumn @bind-Field="@context.Address" Searchable="true" />
+        <TableColumn @bind-Field="@context.Count" />
+        <TableColumn @bind-Field="@context.Education" />
+    </TableColumns>
+    <CustomerSearchTemplate>
+        @if (context is FooSearchModel model)
+        {
+            <FooSearch @bind-Value="@model" />
+        }
+    </CustomerSearchTemplate>
+</Table>
 
 @code {
     /// <summary>

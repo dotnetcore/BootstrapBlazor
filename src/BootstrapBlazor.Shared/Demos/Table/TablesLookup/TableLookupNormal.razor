@@ -1,17 +1,15 @@
 ﻿@inject IStringLocalizer<Foo> Localizer
 
-<div>
-    @if (Items != null)
-    {
-        <Table TItem="Foo" Items="@Items.Take(3)">
-            <TableColumns>
-                <TableColumn @bind-Field="@context.DateTime" Width="180" />
-                <TableColumn @bind-Field="@context.Name" />
-                <TableColumn @bind-Field="@context.Complete" LookupServiceKey="Foo.Complete" />
-            </TableColumns>
-        </Table>
-    }
-</div>
+@if (Items != null)
+{
+    <Table TItem="Foo" Items="@Items.Take(3)">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Name" />
+            <TableColumn @bind-Field="@context.Complete" LookupServiceKey="Foo.Complete" />
+        </TableColumns>
+    </Table>
+}
 
 @code {
     /// <summary>

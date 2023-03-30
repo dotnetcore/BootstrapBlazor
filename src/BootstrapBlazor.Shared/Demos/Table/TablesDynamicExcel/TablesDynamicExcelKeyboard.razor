@@ -3,11 +3,9 @@
 @inject IStringLocalizer<Foo> LocalizerFoo
 @inject IStringLocalizer<Tables> TablesLocalizer
 
-<div>
-    <Table TItem="DynamicObject" DynamicContext="DataTableKeyboardDynamicContext"
-           IsBordered="true" IsMultipleSelect="true" IsExcel="true" ShowExtendButtons="true">
-    </Table>
-</div>
+<Table TItem="DynamicObject" DynamicContext="DataTableKeyboardDynamicContext"
+        IsBordered="true" IsMultipleSelect="true" IsExcel="true" ShowExtendButtons="true">
+</Table>
 
 @code {
     [NotNull]

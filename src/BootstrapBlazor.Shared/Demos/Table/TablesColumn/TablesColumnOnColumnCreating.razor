@@ -1,14 +1,12 @@
 ﻿@inject IStringLocalizer<Foo> FooLocalizer
 
-<div>
-    <Table TItem="Foo"
-           IsPagination="true" PageItemsSource="@PageItemsSource"
-           IsStriped="true" IsBordered="true" AutoGenerateColumns="true"
-           ShowToolbar="true" IsMultipleSelect="true" ShowExtendButtons="true"
-           ShowDefaultButtons="true" OnSaveAsync="@OnSaveAsync"
-           OnQueryAsync="@OnQueryAsync" OnColumnCreating="@OnColumnCreating" ShowEditButton="true">
-    </Table>
-</div>
+<Table TItem="Foo"
+        IsPagination="true" PageItemsSource="@PageItemsSource"
+        IsStriped="true" IsBordered="true" AutoGenerateColumns="true"
+        ShowToolbar="true" IsMultipleSelect="true" ShowExtendButtons="true"
+        ShowDefaultButtons="true" OnSaveAsync="@OnSaveAsync"
+        OnQueryAsync="@OnQueryAsync" OnColumnCreating="@OnColumnCreating" ShowEditButton="true">
+</Table>
 
 @code {
     /// <summary>
