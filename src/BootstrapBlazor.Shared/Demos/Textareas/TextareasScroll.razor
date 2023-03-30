@@ -2,7 +2,7 @@
 @inject IStringLocalizer<Textareas> Localizer
 @implements IDisposable
 
-<Textarea placeholder="@Localizer["TextareasPlaceHolder"]" rows="10" @ref="TextareaElement" @bind-Value="@Text" IsAutoScroll="IsAutoScroll" />
+<Textarea class="mb-3" placeholder="@Localizer["TextareasPlaceHolder"]" rows="10" @ref="TextareaElement" @bind-Value="@Text" IsAutoScroll="IsAutoScroll" />
 
 <BootstrapInputGroup>
     <Button Text="@Localizer[ChatLocalizerName]" OnClick="MockChat" Icon="fa-fw fas fa-comments" />
