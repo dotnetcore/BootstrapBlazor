@@ -1310,7 +1310,7 @@ public class TableTest : TableTestBase
     }
 
     [Fact]
-    public void Column_IsFixedMultipleColumn()
+    public void FixedColumn_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
@@ -1318,11 +1318,14 @@ public class TableTest : TableTestBase
             pb.AddChildContent<Table<Foo>>(pb =>
             {
                 pb.Add(a => a.RenderMode, TableRenderMode.Table);
-                pb.Add(a => a.Items, Foo.GenerateFoo(localizer, 2));
+                pb.Add(a => a.Items, Foo.GenerateFoo(localizer, 1));
                 pb.Add(a => a.IsMultipleSelect, true);
                 pb.Add(a => a.FixedMultipleColumn, true);
                 pb.Add(a => a.ShowLineNo, true);
+                pb.Add(a => a.FixedLineNoColumn, true);
                 pb.Add(a => a.LineNoColumnWidth, 100);
+                pb.Add(a => a.FixedDetailRowHeaderColumn, true);
+                pb.Add(a => a.DetailColumnWidth, 100);
                 pb.Add(a => a.TableColumns, foo => builder =>
                 {
                     builder.OpenComponent<TableColumn<Foo, string>>(0);
@@ -1331,16 +1334,61 @@ public class TableTest : TableTestBase
                     builder.AddAttribute(3, nameof(TableColumn<Foo, string>.Fixed), true);
                     builder.CloseComponent();
                 });
-                pb.Add(a => a.DetailColumnWidth, 100);
                 pb.Add(a => a.DetailRowTemplate, foo => builder =>
                 {
                     builder.AddContent(1, foo.Name);
                 });
             });
         });
+
+        // DetailRow
+        cut.Contains("style=\"left: 0;\"");
+        // MultipleSelect
         cut.Contains("style=\"left: 100px;\"");
-        cut.Contains("style=\"left: 36px;\"");
+        // LineNo
+        cut.Contains("style=\"left: 136px;\"");
+        // Name
         cut.Contains("style=\"left: 236px;\"");
+
+        var table = cut.FindComponent<Table<Foo>>();
+        table.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.FixedDetailRowHeaderColumn, false);
+        });
+        // MultipleSelect
+        cut.Contains("style=\"left: 0px;\"");
+        // LineNo
+        cut.Contains("style=\"left: 36px;\"");
+        // Name
+        cut.Contains("style=\"left: 136px;\"");
+
+        table.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.FixedMultipleColumn, false);
+        });
+        // LineNo
+        cut.Contains("style=\"left: 0px;\"");
+        // Name
+        cut.Contains("style=\"left: 100px;\"");
+
+        table.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.FixedLineNoColumn, false);
+        });
+        // Name
+        cut.Contains("style=\"left: 0px;\"");
+
+        table.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.FixedDetailRowHeaderColumn, true);
+            pb.Add(a => a.FixedLineNoColumn, true);
+        });
+        // Detail
+        cut.Contains("style=\"left: 0;\"");
+        // LineNo
+        cut.Contains("style=\"left: 100px;\"");
+        // Name
+        cut.Contains("style=\"left: 200px;\"");
     }
 
     [Fact]
