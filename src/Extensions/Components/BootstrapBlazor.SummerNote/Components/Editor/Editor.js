@@ -44,6 +44,14 @@ export function bb_editor_method(el, obj, method, parameter) {
                 return $this.hasClass('open') ? $this.summernote(op) : $this.html();
             }
 
+            const editorLangConfig = $.summernote.lang[options.lang].bb_editor
+            let title = ''
+            let tooltip = ''
+            if (editorLangConfig) {
+                title = editorLangConfig.submit
+                tooltip = editorLangConfig.tooltip
+            }
+
             // div 点击事件
             $this.on('click', op, function (event, args) {
                 var $this = $(this).tooltip('hide');
@@ -70,11 +78,15 @@ export function bb_editor_method(el, obj, method, parameter) {
                                     break;
                             }
                         });
-                    var $done = $('<div class="note-btn-group btn-group note-view note-right"><button type="button" class="note-btn btn btn-sm note-btn-close" tabindex="-1" data-method="submit" title="完成" data-bs-placement="bottom"><i class="fa-solid fa-check"></i></button></div>').appendTo($toolbar).find('button').tooltip({ container: 'body' });
+
+                    var $done = $('<div class="note-btn-group btn-group note-view note-right"><button type="button" class="note-btn btn btn-sm note-btn-close" tabindex="-1" data-method="submit" data-bs-placement="bottom"><i class="fa-solid fa-check"></i></button></div>').appendTo($toolbar).find('button').tooltip({
+                        title: title,
+                        container: 'body'
+                    });
                     $('body').find('.note-group-select-from-files [accept="image/*"]').attr('accept', 'image/bmp,image/png,image/jpg,image/jpeg,image/gif');
                 });
 
-            }).tooltip({ title: '点击展开编辑' });
+            }).tooltip({ title: tooltip });
 
             if (op.value) $this.html(op.value);
             if ($this.hasClass('open')) {
@@ -199,6 +211,19 @@ export function bb_editor_method(el, obj, method, parameter) {
                     },
                     specialChar: {
                         specialChar: "特殊字符", select: "选取特殊字符"
+                    },
+                    bb_editor: {
+                        tooltip: "点击展开编辑",
+                        submit: "完成"
+                    }
+                }
+            });
+            $.extend(true, $.summernote.lang, {
+                "en-US":
+                {
+                    bb_editor: {
+                        tooltip: "Click to edit",
+                        submit: "submit"
                     }
                 }
             });
