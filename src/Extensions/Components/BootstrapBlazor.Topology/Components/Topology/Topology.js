@@ -21,6 +21,7 @@ export class BlazorTopology extends BlazorComponent {
             }
             this._topology.open(JSON.parse(data))
             this._topology.lock(1)
+            this._topology.canvas.dirty = true
             if (isFitView) {
                 this._topology.fitView()
             }
@@ -47,6 +48,11 @@ export class BlazorTopology extends BlazorComponent {
                 }
             }
             else {
+            if (args[1] == "resize") {
+                this._topology.resize()
+                this._topology.fitView()
+                this._topology.centerView()
+            }else {
                 const data = args[1];
                 this._topology.doSocket(JSON.stringify(data))
             }
