@@ -130,24 +130,32 @@ public partial class Table<TItem>
         .AddClass("fr", IsLastLineNoColumn())
         .Build();
 
-    private int MulitiColumnLeft => ShowDetails() ? DetailColumnWidth : 0;
-
     private int LineNoColumnLeft()
     {
-        var width = 0;
+        var left = 0;
         if (GetFixedDetailRowHeaderColumn && GetFixedMultipleSelectColumn)
         {
-            width = DetailColumnWidth + MultiColumnWidth;
+            left = DetailColumnWidth + MultiColumnWidth;
         }
         else if (GetFixedMultipleSelectColumn)
         {
-            width = MultiColumnWidth;
+            left = MultiColumnWidth;
         }
         else if (GetFixedDetailRowHeaderColumn)
         {
-            width = DetailColumnWidth;
+            left = DetailColumnWidth;
         }
-        return width;
+        return left;
+    }
+
+    private int MultipleSelectColumnLeft()
+    {
+        var left = 0;
+        if (GetFixedDetailRowHeaderColumn)
+        {
+            left = DetailColumnWidth;
+        }
+        return left;
     }
 
     private bool GetFixedDetailRowHeaderColumn => FixedDetailRowHeaderColumn && ShowDetails();
@@ -160,7 +168,7 @@ public partial class Table<TItem>
 
     private string? LineNoColumnStyleString => GetFixedLineNoColumn ? $"left: {LineNoColumnLeft()}px;" : null;
 
-    private string? MultiColumnStyleString => GetFixedMultipleSelectColumn ? $"left: {MulitiColumnLeft}px;" : null;
+    private string? MultiColumnStyleString => GetFixedMultipleSelectColumn ? $"left: {MultipleSelectColumnLeft()}px;" : null;
 
     private int MultiColumnWidth => ShowCheckboxText ? ShowCheckboxTextColumnWidth : CheckboxColumnWidth;
 
@@ -214,7 +222,7 @@ public partial class Table<TItem>
 
     private bool IsLastLineNoColumn() => IsNotFixedColumn();
 
-    private bool IsNotFixedColumn() => !(FixedExtendButtonsColumn && IsExtendButtonsInRowHeader) && !GetVisibleColumns().First().Fixed;
+    private bool IsNotFixedColumn() => !(FixedExtendButtonsColumn && IsExtendButtonsInRowHeader) && !(GetVisibleColumns().FirstOrDefault()?.Fixed ?? false);
 
     private ConcurrentDictionary<ITableColumn, bool> LastFixedColumnCache { get; } = new();
 
