@@ -1,16 +1,14 @@
 ﻿@inject IStringLocalizer<Foo> FooLocalizer
 @inject IStringLocalizer<TablesColumnText> Localizer
 
-<div>
-    <Table TItem="Foo" Items="@Items.Take(3)">
-        <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" Text="@Localizer["CustomColText1"]" Width="180" />
-            <TableColumn @bind-Field="@context.Name" Text="@Localizer["CustomColText2"]" />
-            <TableColumn @bind-Field="@context.Address" Text="@Localizer["CustomColText3"]" />
-            <TableColumn @bind-Field="@context.Complete" />
-        </TableColumns>
-    </Table>
-</div>
+<Table TItem="Foo" Items="@Items.Take(3)">
+    <TableColumns>
+        <TableColumn @bind-Field="@context.DateTime" Text="@Localizer["CustomColText1"]" Width="180" />
+        <TableColumn @bind-Field="@context.Name" Text="@Localizer["CustomColText2"]" />
+        <TableColumn @bind-Field="@context.Address" Text="@Localizer["CustomColText3"]" />
+        <TableColumn @bind-Field="@context.Complete" />
+    </TableColumns>
+</Table>
 
 @code {
     /// <summary>

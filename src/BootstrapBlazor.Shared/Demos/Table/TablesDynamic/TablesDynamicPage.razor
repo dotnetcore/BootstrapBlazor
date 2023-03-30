@@ -2,10 +2,9 @@
 @using BootstrapBlazor.Shared.Samples.Table;
 @inject IStringLocalizer<Foo> Localizer
 
-<div>
-    <Table TItem="DynamicObject" DynamicContext="DataTablePageDynamicContext" />
-    <Pagination PageCount="@PageCount" PageIndex="@PageIndex" OnPageLinkClick="@OnPageLinkClick" class="mt-3" />
-</div>
+<Table TItem="DynamicObject" DynamicContext="DataTablePageDynamicContext" />
+
+<Pagination PageCount="@PageCount" PageIndex="@PageIndex" OnPageLinkClick="@OnPageLinkClick" class="mt-3" />
 
 @code{
     [NotNull]

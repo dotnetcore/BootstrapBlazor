@@ -2,9 +2,7 @@
 @using BootstrapBlazor.Shared.Samples.Table;
 @inject IStringLocalizer<Foo> Localizer
 
-<div>
-    <Table TItem="DynamicObject" DynamicContext="DataTableDynamicContext" />
-</div>
+<Table TItem="DynamicObject" DynamicContext="DataTableDynamicContext" />
 
 @code {
     [NotNull]

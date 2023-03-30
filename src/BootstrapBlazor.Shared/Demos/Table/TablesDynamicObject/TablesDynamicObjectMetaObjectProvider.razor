@@ -1,19 +1,17 @@
-﻿<div>
-    <Table TItem="CustomDynamicData" OnQueryAsync="OnQueryAsync"
-           IsStriped="true" IsBordered="true" ShowToolbar="true" ShowColumnList="true" ShowDefaultButtons="false" ShowRefresh="false">
-        <TableColumns>
-            <TableColumn @bind-Field="@context.Fix" Sortable="true" Filterable="true" />
-            @foreach (var element in DynamicColumnList)
-            {
-                <TableColumn Field="@element.ToString()" FieldName="@element.ToString()" Text="@element" Sortable="true" Filterable="true">
-                    <Template Context="v">
-                        <div>Template - @v.Value</div>
-                    </Template>
-                </TableColumn>
-            }
-        </TableColumns>
-    </Table>
-</div>
+﻿<Table TItem="CustomDynamicData" OnQueryAsync="OnQueryAsync"
+        IsStriped="true" IsBordered="true" ShowToolbar="true" ShowColumnList="true" ShowDefaultButtons="false" ShowRefresh="false">
+    <TableColumns>
+        <TableColumn @bind-Field="@context.Fix" Sortable="true" Filterable="true" />
+        @foreach (var element in DynamicColumnList)
+        {
+            <TableColumn Field="@element.ToString()" FieldName="@element.ToString()" Text="@element" Sortable="true" Filterable="true">
+                <Template Context="v">
+                    <div>Template - @v.Value</div>
+                </Template>
+            </TableColumn>
+        }
+    </TableColumns>
+</Table>
 
 @code {
     private static List<string> StaticColumnList => new() { "A", "B", "C", "Z" };

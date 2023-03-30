@@ -1,15 +1,13 @@
 ﻿@inject IStringLocalizer<Foo> FooLocalizer
 
-<div>
-    <Table TItem="Foo" Items="@Items.Take(3)" IsMultipleSelect="true" ShowCheckboxText="true">
-        <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" Width="180" />
-            <TableColumn @bind-Field="@context.Name" />
-            <TableColumn @bind-Field="@context.Address" />
-            <TableColumn @bind-Field="@context.Complete" />
-        </TableColumns>
-    </Table>
-</div>
+<Table TItem="Foo" Items="@Items.Take(3)" IsMultipleSelect="true" ShowCheckboxText="true">
+    <TableColumns>
+        <TableColumn @bind-Field="@context.DateTime" Width="180" />
+        <TableColumn @bind-Field="@context.Name" />
+        <TableColumn @bind-Field="@context.Address" />
+        <TableColumn @bind-Field="@context.Complete" />
+    </TableColumns>
+</Table>
 
 @code {
     /// <summary>

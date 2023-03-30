@@ -1,35 +1,33 @@
 ﻿@inject IStringLocalizer<Foo> LocalizerFoo
 
-<div>
-    <Table TItem="Foo" Items="@Items" IsBordered="true" IsExcel="true" IsFixedHeader="true" Height="500">
-        <TableColumns>
-            <TableColumn @bind-Field="@context.Name" Width="200">
-                <EditTemplate Context="row">
-                    <div class="d-flex disabled">
-                        <div>
-                            <img src="@Foo.GetAvatarUrl(row!.Id)" class="bb-avatar" />
-                        </div>
-                        <div class="ps-2">
-                            <div>@row.Name</div>
-                            <div class="bb-sub">@Foo.GetTitle(row!.Id)</div>
-                        </div>
+<Table TItem="Foo" Items="@Items" IsBordered="true" IsExcel="true" IsFixedHeader="true" Height="500">
+    <TableColumns>
+        <TableColumn @bind-Field="@context.Name" Width="200">
+            <EditTemplate Context="row">
+                <div class="d-flex disabled">
+                    <div>
+                        <img src="@Foo.GetAvatarUrl(row!.Id)" class="bb-avatar" />
                     </div>
-                </EditTemplate>
-            </TableColumn>
-            <TableColumn @bind-Field="@context.Address" />
-            <TableColumn @bind-Field="@context.Education" Width="160" />
-            <TableColumn @bind-Field="@context.Count" Width="160">
-                <EditTemplate Context="row">
-                    <div class="disabled">
-                        <div>@row!.Count %</div>
-                        <Progress Value="@row.Count" Color="@Foo.GetProgressColor(row.Count)"></Progress>
+                    <div class="ps-2">
+                        <div>@row.Name</div>
+                        <div class="bb-sub">@Foo.GetTitle(row!.Id)</div>
                     </div>
-                </EditTemplate>
-            </TableColumn>
-            <TableColumn @bind-Field="@context.Complete" Align="Alignment.Center" Width="80" />
-        </TableColumns>
-    </Table>
-</div>
+                </div>
+            </EditTemplate>
+        </TableColumn>
+        <TableColumn @bind-Field="@context.Address" />
+        <TableColumn @bind-Field="@context.Education" Width="160" />
+        <TableColumn @bind-Field="@context.Count" Width="160">
+            <EditTemplate Context="row">
+                <div class="disabled">
+                    <div>@row!.Count %</div>
+                    <Progress Value="@row.Count" Color="@Foo.GetProgressColor(row.Count)"></Progress>
+                </div>
+            </EditTemplate>
+        </TableColumn>
+        <TableColumn @bind-Field="@context.Complete" Align="Alignment.Center" Width="80" />
+    </TableColumns>
+</Table>
 
 @code {
     /// <summary>

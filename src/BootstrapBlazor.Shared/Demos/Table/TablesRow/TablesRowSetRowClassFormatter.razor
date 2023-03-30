@@ -1,21 +1,19 @@
 ﻿@inject IStringLocalizer<Foo> FooLocalizer
 @inject ToastService ToastService
 
-<div>
-    <Table TItem="Foo" SetRowClassFormatter="@SetRowClassFormatter"
-           IsPagination="true" PageItemsSource="@PageItemsSource"
-           IsStriped="true" IsBordered="true"
-           ShowToolbar="true"
-           ShowDefaultButtons="false" OnDoubleClickRowCallback="@DoubleClickRowCallback"
-           OnQueryAsync="@OnQueryAsync">
-        <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" Width="180" />
-            <TableColumn @bind-Field="@context.Name" Width="100" />
-            <TableColumn @bind-Field="@context.Address" />
-            <TableColumn @bind-Field="@context.Count" />
-        </TableColumns>
-    </Table>
-</div>
+<Table TItem="Foo" SetRowClassFormatter="@SetRowClassFormatter"
+        IsPagination="true" PageItemsSource="@PageItemsSource"
+        IsStriped="true" IsBordered="true"
+        ShowToolbar="true"
+        ShowDefaultButtons="false" OnDoubleClickRowCallback="@DoubleClickRowCallback"
+        OnQueryAsync="@OnQueryAsync">
+    <TableColumns>
+        <TableColumn @bind-Field="@context.DateTime" Width="180" />
+        <TableColumn @bind-Field="@context.Name" Width="100" />
+        <TableColumn @bind-Field="@context.Address" />
+        <TableColumn @bind-Field="@context.Count" />
+    </TableColumns>
+</Table>
 
 @code {
     /// <summary>

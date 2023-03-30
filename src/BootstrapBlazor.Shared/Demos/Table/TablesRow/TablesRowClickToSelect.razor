@@ -1,22 +1,21 @@
 ﻿@inject IStringLocalizer<TablesRowClickToSelect> Localizer
 @inject IStringLocalizer<Foo> FooLocalizer
 
-<div>
-    <Table TItem="Foo"
-           IsPagination="true" PageItemsSource="@PageItemsSource"
-           IsStriped="true" IsBordered="true"
-           ShowToolbar="true"
-           ShowDefaultButtons="false" ClickToSelect="true" OnClickRowCallback="@ClickRow"
-           OnQueryAsync="@OnQueryAsync">
-        <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" Width="180" />
-            <TableColumn @bind-Field="@context.Name" Width="100" />
-            <TableColumn @bind-Field="@context.Address" />
-            <TableColumn @bind-Field="@context.Count" />
-        </TableColumns>
-    </Table>
-    <p>@((MarkupString)Localizer["ClickToSelectP3"].Value) @(CurrentItem?.Name ?? Localizer["ClickToSelectNoneText"])</p>
-</div>
+<Table TItem="Foo"
+        IsPagination="true" PageItemsSource="@PageItemsSource"
+        IsStriped="true" IsBordered="true"
+        ShowToolbar="true"
+        ShowDefaultButtons="false" ClickToSelect="true" OnClickRowCallback="@ClickRow"
+        OnQueryAsync="@OnQueryAsync">
+    <TableColumns>
+        <TableColumn @bind-Field="@context.DateTime" Width="180" />
+        <TableColumn @bind-Field="@context.Name" Width="100" />
+        <TableColumn @bind-Field="@context.Address" />
+        <TableColumn @bind-Field="@context.Count" />
+    </TableColumns>
+</Table>
+
+<p>@((MarkupString)Localizer["ClickToSelectP3"].Value) @(CurrentItem?.Name ?? Localizer["ClickToSelectNoneText"])</p>
 
 @code {
     /// <summary>

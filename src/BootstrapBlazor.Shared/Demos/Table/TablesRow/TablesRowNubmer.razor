@@ -1,21 +1,19 @@
 ﻿@inject IStringLocalizer<TablesRowNubmer> Localizer
 @inject IStringLocalizer<Foo> FooLocalizer
 
-<div>
-    <Table TItem="Foo"
-           IsPagination="true" PageItemsSource="@PageItemsSource"
-           IsStriped="true" IsBordered="true"
-           ShowToolbar="true" ShowLineNo="true" LineNoText="@Localizer["RowNumberText"]"
-           ShowDefaultButtons="false" ClickToSelect="true"
-           OnQueryAsync="@OnQueryAsync">
-        <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" Width="180" />
-            <TableColumn @bind-Field="@context.Name" Width="100" />
-            <TableColumn @bind-Field="@context.Address" />
-            <TableColumn @bind-Field="@context.Count" />
-        </TableColumns>
-    </Table>
-</div>
+<Table TItem="Foo"
+        IsPagination="true" PageItemsSource="@PageItemsSource"
+        IsStriped="true" IsBordered="true"
+        ShowToolbar="true" ShowLineNo="true" LineNoText="@Localizer["RowNumberText"]"
+        ShowDefaultButtons="false" ClickToSelect="true"
+        OnQueryAsync="@OnQueryAsync">
+    <TableColumns>
+        <TableColumn @bind-Field="@context.DateTime" Width="180" />
+        <TableColumn @bind-Field="@context.Name" Width="100" />
+        <TableColumn @bind-Field="@context.Address" />
+        <TableColumn @bind-Field="@context.Count" />
+    </TableColumns>
+</Table>
 
 @code {
     /// <summary>

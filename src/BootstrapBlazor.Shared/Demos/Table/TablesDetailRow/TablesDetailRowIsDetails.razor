@@ -1,25 +1,23 @@
 ﻿@inject IStringLocalizer<TablesDetailRowIsDetails> Localizer
 @inject IStringLocalizer<Foo> FooLocalizer
 
-<div>
-    <Table TItem="Foo" @ref="@Table"
-           IsPagination="true" PageItemsSource="@PageItemsSource"
-           IsStriped="true" IsBordered="true" IsDetails="IsDetails"
-           ShowToolbar="true" ShowDefaultButtons="false" ShowRefresh="false" OnDoubleClickRowCallback="OnDoubleClickRowCallback()!"
-           OnQueryAsync="@OnQueryAsync">
-        <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" Width="180" />
-            <TableColumn @bind-Field="@context.Name" Width="100" />
-            <TableColumn @bind-Field="@context.Address" />
-            <TableColumn @bind-Field="@context.Count" />
-        </TableColumns>
-        <DetailRowTemplate>
-            <div>@Localizer["EducationText"] @typeof(EnumEducation).ToDescriptionString(context.Education.ToString())</div>
-        </DetailRowTemplate>
-    </Table>
+<Table TItem="Foo" @ref="@Table"
+        IsPagination="true" PageItemsSource="@PageItemsSource"
+        IsStriped="true" IsBordered="true" IsDetails="IsDetails"
+        ShowToolbar="true" ShowDefaultButtons="false" ShowRefresh="false" OnDoubleClickRowCallback="OnDoubleClickRowCallback()!"
+        OnQueryAsync="@OnQueryAsync">
+    <TableColumns>
+        <TableColumn @bind-Field="@context.DateTime" Width="180" />
+        <TableColumn @bind-Field="@context.Name" Width="100" />
+        <TableColumn @bind-Field="@context.Address" />
+        <TableColumn @bind-Field="@context.Count" />
+    </TableColumns>
+    <DetailRowTemplate>
+        <div>@Localizer["EducationText"] @typeof(EnumEducation).ToDescriptionString(context.Education.ToString())</div>
+    </DetailRowTemplate>
+</Table>
 
-    <Button Text="@DetailText" OnClick="OnClickDetailRow" class="mt-3"></Button>
-</div>
+<Button Text="@DetailText" OnClick="OnClickDetailRow" class="mt-3"></Button>
 
 @code {
     private static IEnumerable<int> PageItemsSource => new int[] { 4, 10, 20 };

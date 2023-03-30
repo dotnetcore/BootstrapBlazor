@@ -2,22 +2,20 @@
 @inject IStringLocalizer<TablesDetailRowHeight> Localizer
 @inject IStringLocalizer<Foo> FooLocalizer
 
-<div>
-    <Table TItem="Foo" Height="400" IsFixedHeader="true"
-           IsStriped="true" IsBordered="true"
-           ShowToolbar="true" ShowDefaultButtons="false"
-           OnQueryAsync="@OnQueryAsync">
-        <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" Width="180" />
-            <TableColumn @bind-Field="@context.Name" Width="100" />
-            <TableColumn @bind-Field="@context.Address" />
-            <TableColumn @bind-Field="@context.Count" />
-        </TableColumns>
-        <DetailRowTemplate>
-            <div>@Localizer["EducationText"] @typeof(EnumEducation).ToDescriptionString(context.Education.ToString())</div>
-        </DetailRowTemplate>
-    </Table>
-</div>
+<Table TItem="Foo" Height="400" IsFixedHeader="true"
+        IsStriped="true" IsBordered="true"
+        ShowToolbar="true" ShowDefaultButtons="false"
+        OnQueryAsync="@OnQueryAsync">
+    <TableColumns>
+        <TableColumn @bind-Field="@context.DateTime" Width="180" />
+        <TableColumn @bind-Field="@context.Name" Width="100" />
+        <TableColumn @bind-Field="@context.Address" />
+        <TableColumn @bind-Field="@context.Count" />
+    </TableColumns>
+    <DetailRowTemplate>
+        <div>@Localizer["EducationText"] @typeof(EnumEducation).ToDescriptionString(context.Education.ToString())</div>
+    </DetailRowTemplate>
+</Table>
 
 @code {
     [NotNull]

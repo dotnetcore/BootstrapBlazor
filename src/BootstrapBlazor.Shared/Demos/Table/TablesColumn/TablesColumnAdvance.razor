@@ -1,36 +1,34 @@
 ﻿@inject IStringLocalizer<Foo> FooLocalizer
 
-<div>
-    <Table TItem="Foo" IsPagination="true" PageItemsSource="@PageItemsSource" RenderMode="TableRenderMode.Table"
-           IsStriped="true" IsBordered="true" OnQueryAsync="OnQueryAsync">
-        <TableColumns>
-            <TableColumn @bind-Field="@context.Name" Width="220">
-                <Template Context="value">
-                    <div class="d-flex">
-                        <div>
-                            <img src="@Foo.GetAvatarUrl(value.Row.Id)" class="bb-avatar" />
-                        </div>
-                        <div class="ps-2">
-                            <div>@value.Value</div>
-                            <div class="bb-sub">@value.Row.Address</div>
-                        </div>
+<Table TItem="Foo" IsPagination="true" PageItemsSource="@PageItemsSource" RenderMode="TableRenderMode.Table"
+        IsStriped="true" IsBordered="true" OnQueryAsync="OnQueryAsync">
+    <TableColumns>
+        <TableColumn @bind-Field="@context.Name" Width="220">
+            <Template Context="value">
+                <div class="d-flex">
+                    <div>
+                        <img src="@Foo.GetAvatarUrl(value.Row.Id)" class="bb-avatar" />
                     </div>
-                </Template>
-            </TableColumn>
-            <TableColumn @bind-Field="@context.Address" />
-            <TableColumn @bind-Field="@context.Education" Align="Alignment.Center" Width="80" />
-            <TableColumn @bind-Field="@context.Count" Width="160">
-                <Template Context="value">
-                    <div class="w-100">
-                        <div>@value.Value %</div>
-                        <Progress Value="@value.Value" Color="@Foo.GetProgressColor(value.Value)"></Progress>
+                    <div class="ps-2">
+                        <div>@value.Value</div>
+                        <div class="bb-sub">@value.Row.Address</div>
                     </div>
-                </Template>
-            </TableColumn>
-            <TableColumn @bind-Field="@context.Complete" Align="Alignment.Center" Width="80" />
-        </TableColumns>
-    </Table>
-</div>
+                </div>
+            </Template>
+        </TableColumn>
+        <TableColumn @bind-Field="@context.Address" />
+        <TableColumn @bind-Field="@context.Education" Align="Alignment.Center" Width="80" />
+        <TableColumn @bind-Field="@context.Count" Width="160">
+            <Template Context="value">
+                <div class="w-100">
+                    <div>@value.Value %</div>
+                    <Progress Value="@value.Value" Color="@Foo.GetProgressColor(value.Value)"></Progress>
+                </div>
+            </Template>
+        </TableColumn>
+        <TableColumn @bind-Field="@context.Complete" Align="Alignment.Center" Width="80" />
+    </TableColumns>
+</Table>
 
 @code {
     /// <summary>

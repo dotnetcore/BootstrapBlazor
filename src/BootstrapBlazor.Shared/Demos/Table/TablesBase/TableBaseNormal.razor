@@ -1,16 +1,15 @@
 ﻿@inject IStringLocalizer<Foo> Localizer
 @inject IStringLocalizer<TableBaseNormal> TablesLocalizer
 
-<div>
-    <Button Icon="fa-solid fa-arrows-rotate" Text="@RefreshText" OnClick="OnClick" class="my-2" />
-    <Table TItem="Foo" Items="@Items.Take(3)">
-        <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" Width="180" />
-            <TableColumn @bind-Field="@context.Name" />
-            <TableColumn @bind-Field="@context.Address" />
-        </TableColumns>
-    </Table>
-</div>
+<Button Icon="fa-solid fa-arrows-rotate" Text="@RefreshText" OnClick="OnClick" class="my-2" />
+
+<Table TItem="Foo" Items="@Items.Take(3)">
+    <TableColumns>
+        <TableColumn @bind-Field="@context.DateTime" Width="180" />
+        <TableColumn @bind-Field="@context.Name" />
+        <TableColumn @bind-Field="@context.Address" />
+    </TableColumns>
+</Table>
 
 @code {
     /// <summary>

@@ -1,42 +1,40 @@
 ﻿@inject IStringLocalizer<TablesFooterTemplate> Localizer
 @inject IStringLocalizer<Foo> LocalizerFoo
 
-<div>
-    <Table TItem="Foo" ShowFooter="true" class="footer-demo"
-           IsPagination="true" PageItemsSource="@PageItemsSource" OnQueryAsync="@OnQueryAsync">
-        <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" Width="180" />
-            <TableColumn @bind-Field="@context.Name" />
-            <TableColumn @bind-Field="@context.Address" />
-            <TableColumn @bind-Field="@context.Count" />
-        </TableColumns>
-        <FooterTemplate>
-            <tr>
-                <td colspan="4">
-                    <div style="text-align: right;">
-                        <span>@Localizer["TablesFooterTemplateSentences"]</span>
+<Table TItem="Foo" ShowFooter="true" class="footer-demo"
+       IsPagination="true" PageItemsSource="@PageItemsSource" OnQueryAsync="@OnQueryAsync">
+    <TableColumns>
+        <TableColumn @bind-Field="@context.DateTime" Width="180" />
+        <TableColumn @bind-Field="@context.Name" />
+        <TableColumn @bind-Field="@context.Address" />
+        <TableColumn @bind-Field="@context.Count" />
+    </TableColumns>
+    <FooterTemplate>
+        <tr>
+            <td colspan="4">
+                <div style="text-align: right;">
+                    <span>@Localizer["TablesFooterTemplateSentences"]</span>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">
+                <div class="d-flex align-items-center justify-content-end" style="line-height: 3;">@Localizer["TablesFooterTemplateTotal"]</div>
+            </td>
+            <td>
+                <div class="footer-customer">
+                    <div>
+                        Average: @GetAverage(context)
                     </div>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="3">
-                    <div class="d-flex align-items-center justify-content-end" style="line-height: 3;">@Localizer["TablesFooterTemplateTotal"]</div>
-                </td>
-                <td>
-                    <div class="footer-customer">
-                        <div>
-                            Average: @GetAverage(context)
-                        </div>
-                        <hr />
-                        <div>
-                            Sum: @GetSum(context)
-                        </div>
+                    <hr />
+                    <div>
+                        Sum: @GetSum(context)
                     </div>
-                </td>
-            </tr>
-        </FooterTemplate>
-    </Table>
-</div>
+                </div>
+            </td>
+        </tr>
+    </FooterTemplate>
+</Table>
 
 @code {
     private static IEnumerable<int> PageItemsSource => new int[] { 2, 4, 10, 20 };
