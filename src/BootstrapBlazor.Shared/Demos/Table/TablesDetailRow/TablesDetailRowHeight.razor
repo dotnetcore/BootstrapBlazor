@@ -3,9 +3,9 @@
 @inject IStringLocalizer<Foo> FooLocalizer
 
 <Table TItem="Foo" Height="400" IsFixedHeader="true"
-        IsStriped="true" IsBordered="true"
-        ShowToolbar="true" ShowDefaultButtons="false"
-        OnQueryAsync="@OnQueryAsync">
+       IsStriped="true" IsBordered="true"
+       ShowToolbar="true" ShowDefaultButtons="false"
+       OnQueryAsync="@OnQueryAsync">
     <TableColumns>
         <TableColumn @bind-Field="@context.DateTime" Width="180" />
         <TableColumn @bind-Field="@context.Name" Width="100" />
