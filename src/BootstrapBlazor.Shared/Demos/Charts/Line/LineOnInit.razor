@@ -1,0 +1,78 @@
+﻿@using BootstrapBlazor.Shared.Samples.Charts
+@using Utility = BootstrapBlazor.Shared.Samples.Charts.Utility
+@inject IStringLocalizer<Line> Localizer
+
+<Chart @ref="LineChart" OnInitAsync="() => OnInit(0.4f, false)" OnAfterInitAsync="@OnAfterInit" OnAfterUpdateAsync="@OnAfterUpdate" />
+<div class="text-center mt-2 chart">
+    <div class="btn-group">
+        <button class="btn btn-primary" @onclick="e => Utility.RandomData(LineChart)"><i class="fa-solid fa-chart-line"></i><span>@Localizer["LineOnInitRandomData"]</span></button>
+        <button class="btn btn-primary" @onclick="OnReloadChart"><i class="fa-solid fa-chart-column"></i><span>@Localizer["LineOnInitReload"]</span></button>
+        <button class="btn btn-primary" @onclick="e => Utility.AddDataSet(LineChart, ref LineDatasetCount)"><i class="fa-solid fa-circle-plus"></i><span>@Localizer["LineOnInitAddDataset"]</span></button>
+        <button class="btn btn-primary" @onclick="e => Utility.RemoveDataSet(LineChart, ref LineDatasetCount)"><i class="fa-solid fa-circle-minus"></i><span>@Localizer["LineOnInitRemoveDataset"]</span></button>
+        <button class="btn btn-primary" @onclick="e => Utility.AddData(LineChart, ref LineDataCount)"><i class="fa-solid fa-plus"></i><span>@Localizer["LineOnInitAddingData"]</span></button>
+        <button class="btn btn-primary" @onclick="e => Utility.RemoveData(LineChart, ref LineDataCount)"><i class="fa-solid fa-minus"></i><span>@Localizer["LineOnInitRemoveData"]</span></button>
+    </div>
+</div>
+<BlockLogger @ref="Logger" class="mt-3" />
+
+@code {
+    private Random Randomer { get; } = new();
+
+    private int LineDatasetCount = 2;
+
+    private int LineDataCount = 7;
+
+    [NotNull]
+    private Chart? LineChart { get; set; }
+
+    [NotNull]
+    private BlockLogger? Logger { get; set; }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        base.OnAfterRender(firstRender);
+
+        if (firstRender)
+        {
+            Logger.Log("Line loading data ...");
+        }
+    }
+
+    private Task OnAfterInit()
+    {
+        Logger.Log("Line initialization is complete");
+        return Task.CompletedTask;
+    }
+
+    private Task OnAfterUpdate(ChartAction action)
+    {
+        Logger.Log($"Line Figure update data operation completed -- {action}");
+        return Task.CompletedTask;
+    }
+
+    private Task<ChartDataSource> OnInit(float tension, bool hasNull)
+    {
+        var ds = new ChartDataSource();
+        ds.Options.Title = "Line Chart";
+        ds.Options.X.Title = "days";
+        ds.Options.Y.Title = "Numerical value";
+        ds.Labels = Enumerable.Range(1, LineDataCount).Select(i => i.ToString());
+        for (var index = 0; index < LineDatasetCount; index++)
+        {
+            ds.Data.Add(new ChartDataset()
+            {
+                Tension = tension,
+                Label = $"Set {index}",
+                Data = Enumerable.Range(1, LineDataCount).Select((i, index) => (index == 2 && hasNull) ? null! : (object)Randomer.Next(20, 37))
+            });
+        }
+        return Task.FromResult(ds);
+    }
+
+    private Task OnReloadChart()
+    {
+        LineDataCount = Randomer.Next(5, 15);
+        LineChart?.Reload();
+        return Task.CompletedTask;
+    }
+}

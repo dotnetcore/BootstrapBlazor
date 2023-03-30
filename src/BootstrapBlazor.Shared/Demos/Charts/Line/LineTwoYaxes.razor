@@ -1,0 +1,41 @@
+﻿<Chart OnInitAsync="() => OnInitTwoYaxes(0f, false)" />
+
+@code {
+    private Random Randomer { get; } = new ();
+
+    private int LineDatasetCount = 2;
+
+    private int LineDataCount = 7;
+
+    private Task<ChartDataSource> OnInitTwoYaxes(float tension, bool hasNull)
+    {
+        var ds = new ChartDataSource();
+        ds.Options.Title = "Line Chart";
+        ds.Options.X.Title = "days";
+        ds.Options.Y.Title = "Y value";
+        ds.Options.Y2.Title = "Y2 value";
+        ds.Options.Y2.PositionLeft = false;
+
+        ds.Labels = Enumerable.Range(1, LineDataCount).Select(i => i.ToString());
+        var index = 0;
+        ds.Data.Add(new ChartDataset()
+        {
+            Tension = tension,
+            Label = $"Y2 Set {index}",
+            IsAxisY2 = index == 0,
+            Data = Enumerable.Range(1, LineDataCount).Select((i, index) => (index == 2 && hasNull) ? null! : (object)Randomer.Next(20, 7000))
+        });
+
+        for (index = 1; index < LineDatasetCount; index++)
+        {
+            ds.Data.Add(new ChartDataset()
+            {
+                Tension = tension,
+                Label = $"Y Set {index}",
+                IsAxisY2 = index == 0,
+                Data = Enumerable.Range(1, LineDataCount).Select((i, index) => (index == 2 && hasNull) ? null! : (object)Randomer.Next(20, 37))
+            });
+        }
+        return Task.FromResult(ds);
+    }
+}
