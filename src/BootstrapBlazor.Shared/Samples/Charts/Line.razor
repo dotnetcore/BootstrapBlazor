@@ -1,33 +1,32 @@
 ﻿@page "/charts/line"
 @inject IStringLocalizer<Line> Localizer
 
-<DemoBlock Title="@Localizer["P1"]" Introduction="@Localizer["P2"]" Name="LineOnInit">
-    <Chart @ref="LineChart" OnInitAsync="() => OnInit(0.4f, false)" OnAfterInitAsync="@OnAfterInit" OnAfterUpdateAsync="@OnAfterUpdate" />
-    <div class="text-center mt-2 chart">
-        <div class="btn-group">
-            <button class="btn btn-primary" @onclick="e => Utility.RandomData(LineChart)"><i class="fa-solid fa-chart-line"></i><span>@Localizer["P3"]</span></button>
-            <button class="btn btn-primary" @onclick="OnReloadChart"><i class="fa-solid fa-chart-column"></i><span>@Localizer["Reload"]</span></button>
-            <button class="btn btn-primary" @onclick="e => Utility.AddDataSet(LineChart, ref LineDatasetCount)"><i class="fa-solid fa-circle-plus"></i><span>@Localizer["P4"]</span></button>
-            <button class="btn btn-primary" @onclick="e => Utility.RemoveDataSet(LineChart, ref LineDatasetCount)"><i class="fa-solid fa-circle-minus"></i><span>@Localizer["P5"]</span></button>
-            <button class="btn btn-primary" @onclick="e => Utility.AddData(LineChart, ref LineDataCount)"><i class="fa-solid fa-plus"></i><span>@Localizer["P6"]</span></button>
-            <button class="btn btn-primary" @onclick="e => Utility.RemoveData(LineChart, ref LineDataCount)"><i class="fa-solid fa-minus"></i><span>@Localizer["P7"]</span></button>
-        </div>
-    </div>
-    <BlockLogger @ref="Logger" class="mt-3" />
+<DemoBlock Title="@Localizer["LineOnInitTitle"]"
+           Introduction="@Localizer["LineOnInitIntro"]"
+           Name="LineOnInit"
+           Demo="typeof(Demos.Charts.Line.LineOnInit)">
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["P8"]" Introduction="@Localizer["P9"]" Name="LineTension">
-    <Chart OnInitAsync="() => OnInit(0f, false)" />
+<DemoBlock Title="@Localizer["LineTensionTitle"]"
+           Introduction="@Localizer["LineTensionIntro"]"
+           Name="LineTension"
+           Demo="typeof(Demos.Charts.Line.LineTension)">
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["P10"]" Introduction="@Localizer["P11"]" Name="LineNullable">
-    <Chart OnInitAsync="() => OnInit(0f, true)" />
+<DemoBlock Title="@Localizer["LineNullableTitle"]"
+           Introduction="@Localizer["LineNullableIntro"]"
+           Name="LineNullable"
+           Demo="typeof(Demos.Charts.Line.LineNullable)">
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["TwoYaxes"]" Introduction="@Localizer["TwoYaxesIntro"]" Name="TwoYaxes">
-    <Chart OnInitAsync="() => OnInitTwoYaxes(0f, false)" />
+<DemoBlock Title="@Localizer["LineTwoYaxesTitle"]"
+           Introduction="@Localizer["LineTwoYaxesIntro"]"
+           Name="TwoYaxes"
+           Demo="typeof(Demos.Charts.Line.LineTwoYaxes)">
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["AspectRatio"]" Introduction="@Localizer["AspectRatioIntro"]" Name="BarAspectRatio">
-    <Chart OnInitAsync="() => OnInit(0f,false)" Height="500px" Width="500px" />
+<DemoBlock Title="@Localizer["LineBarAspectRatioTitle"]"
+           Introduction="@Localizer["LineBarAspectRatioIntro"]"
+           Name="BarAspectRatio"
+           Demo="typeof(Demos.Charts.Line.LineBarAspectRatio)">
 </DemoBlock>
