@@ -45,9 +45,7 @@ private ToastService? ToastService { get; set; }
            Introduction="@Localizer["ToastsPositionIntro"]"
            Name="Position"
            Demo="typeof(Demos.Toasts.ToastsPosition)">
-    <div>
-        @((MarkupString)Localizer["ToastsPositionDescription"].Value)
-    </div>
+    @((MarkupString)Localizer["ToastsPositionDescription"].Value)
 </DemoBlock>
 
 <h4>@Localizer["ToastsPositionAttentionText"]</h4>
@@ -55,10 +53,10 @@ private ToastService? ToastService { get; set; }
 <p>@((MarkupString)Localizer["ToastsPositionTips"].Value)</p>
 
 <ul class="ul-demo mb-3">
-    <li>Success()</li>
-    <li>Error()</li>
-    <li>Information()</li>
-    <li>Warning()</li>
+    <li><code>Success()</code></li>
+    <li><code>Error()</code></li>
+    <li><code>Information()</code></li>
+    <li><code>Warning()</code></li>
 </ul>
 
 <p>@Localizer["ToastsPositionTips2"]：</p>

@@ -141,7 +141,7 @@
     "ToastsCloseNotificationText": "success notification",
     "ToastsPositionTitle": "Toast display location",
     "ToastsPositionIntro": "Provides settings where the Toast popup appears",
-    "ToastsPositionDescription": "<p>Set the location where the popup appears by setting the <code>Placement</code> value of the <code>Toast</code> component. The default value is <code>BottomEnd</code>. upper right corner</p>",
+    "ToastsPositionDescription": "<p class=\"mb-3\">Set the location where the popup appears by setting the <code>Placement</code> value of the <code>Toast</code> component. The default value is <code>BottomEnd</code>. upper right corner</p>",
     "ToastsPositionAttentionText": "pay attention",
     "ToastsPositionTips": "This component provides functions in the form of injection services, and the user experience is very comfortable when used, and can be called anytime, anywhere <br/>The injection service provides the following shortcut invocation methods:",
     "ToastsPositionTips2": "Examples are as follows",
