@@ -1,16 +1,14 @@
 ﻿@inject IStringLocalizer<Foo> LocalizerFoo
 
-<div>
-    <Table TItem="Foo" PageItemsSource="@PageItemsSource" AutoGenerateColumns="true"
-           IsPagination="true" IsStriped="true" IsBordered="true" IsMultipleSelect="true"
-           ShowToolbar="true" ShowExtendButtons="true" ShowLoadingInFirstRender="false" ShowLoading="false" ShowSearch="true"
-           OnAddAsync="@OnAddAsync" OnEditAsync="@OnEditAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync"
-           OnQueryAsync="@OnQueryAsync">
-        <TableColumns>
-            <TableColumn @bind-Field="@context.Hobby" Items="@Hobbys" />
-        </TableColumns>
-    </Table>
-</div>
+<Table TItem="Foo" PageItemsSource="@PageItemsSource" AutoGenerateColumns="true"
+        IsPagination="true" IsStriped="true" IsBordered="true" IsMultipleSelect="true"
+        ShowToolbar="true" ShowExtendButtons="true" ShowLoadingInFirstRender="false" ShowLoading="false" ShowSearch="true"
+        OnAddAsync="@OnAddAsync" OnEditAsync="@OnEditAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync"
+        OnQueryAsync="@OnQueryAsync">
+    <TableColumns>
+        <TableColumn @bind-Field="@context.Hobby" Items="@Hobbys" />
+    </TableColumns>
+</Table>
 
 @code {
 

@@ -3,7 +3,9 @@
 @inject FanControllerDataService DataService
 @inject SwalService SwalService
 
-<div class="topology">
+<Button OnClickWithoutRender="OnResize" Text="Resize" />
+
+<div class="topology mt-3">
     <Topology @ref="TopologyElement" Content="@Content" OnBeforePushData="OnBeforePushData"></Topology>
 </div>
 
@@ -15,8 +17,14 @@
 
     private JSInterop<TopologiesNomal>? Interop { get; set; }
 
+    private Task OnResize()
+    {
+        TopologyElement.Resize();
+        return Task.CompletedTask;
+    }
+
     /// <summary>
-    /// OnInitialized 方法
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
     {
@@ -47,11 +55,11 @@
     {
         var open = DataService.IsOpen;
         var op = new SwalOption()
-        {
-            Title = open ? "关闭风扇" : "打开风扇",
-            Content = open ? "您确定要关闭风扇吗？" : "您确定要打开风扇吗？",
-            Category = SwalCategory.Information
-        };
+            {
+                Title = open ? "关闭风扇" : "打开风扇",
+                Content = open ? "您确定要关闭风扇吗？" : "您确定要打开风扇吗？",
+                Category = SwalCategory.Information
+            };
         open = !open;
         var ret = await SwalService.ShowModal(op);
         if (ret)

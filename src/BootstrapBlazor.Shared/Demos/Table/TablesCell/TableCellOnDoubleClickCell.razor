@@ -2,16 +2,14 @@
 @inject IStringLocalizer<Foo> FooLocalizer
 @inject IStringLocalizer<TableCellOnDoubleClickCell> Localizer
 
-<div>
-    <Table TItem="Foo" Items="@Items.Take(3)" IsBordered="true" OnDoubleClickCellCallback="@OnDoubleClickCellCallback">
-        <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" Width="180" />
-            <TableColumn @bind-Field="@context.Name" />
-            <TableColumn @bind-Field="@context.Address" />
-            <TableColumn @bind-Field="@context.Complete" />
-        </TableColumns>
-    </Table>
-</div>
+<Table TItem="Foo" Items="@Items.Take(3)" IsBordered="true" OnDoubleClickCellCallback="@OnDoubleClickCellCallback">
+    <TableColumns>
+        <TableColumn @bind-Field="@context.DateTime" Width="180" />
+        <TableColumn @bind-Field="@context.Name" />
+        <TableColumn @bind-Field="@context.Address" />
+        <TableColumn @bind-Field="@context.Complete" />
+    </TableColumns>
+</Table>
 
 @code {
     /// <summary>

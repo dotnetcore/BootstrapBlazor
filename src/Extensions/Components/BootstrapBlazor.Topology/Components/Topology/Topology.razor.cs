@@ -130,6 +130,25 @@ public partial class Topology
         }
     }
 
+    /// <summary>
+    /// 重置视图 缩放比例 默认 1 即 100%
+    /// </summary>
+    /// <param name="rate"></param>
+    /// <returns></returns>
+    public Task Scale(int rate = 1) => InvokeExecuteAsync(Id, "scale", rate);
+
+    /// <summary>
+    /// 重置视图 自适应大小并且居中显示
+    /// </summary>
+    /// <returns></returns>
+    public Task Reset() => InvokeExecuteAsync(Id, "reset");
+
+    /// <summary>
+    /// 重置可视化引擎大小
+    /// </summary>
+    /// <returns></returns>
+    public Task Resize(int? width = null, int? height = null) => InvokeExecuteAsync(Id, "resize", width, height);
+
     private bool _disposing;
     /// <summary>
     /// DisposeAsync 方法

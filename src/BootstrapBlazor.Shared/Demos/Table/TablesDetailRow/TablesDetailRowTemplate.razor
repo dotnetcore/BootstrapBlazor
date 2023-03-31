@@ -3,29 +3,27 @@
 @inject IStringLocalizer<TablesDetailRowTemplate> Localizer
 @inject IStringLocalizer<Foo> FooLocalizer
 
-<div>
-    <Table TItem="Foo" IsPagination="true" PageItemsSource="@PageItemsSource"
-           IsStriped="true" IsBordered="true"
-           ShowToolbar="true" ShowDefaultButtons="false"
-           OnQueryAsync="@OnQueryAsync">
-        <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" Width="180" />
-            <TableColumn @bind-Field="@context.Name" Width="100" />
-            <TableColumn @bind-Field="@context.Address" />
-            <TableColumn @bind-Field="@context.Count" />
-        </TableColumns>
-        <DetailRowTemplate>
-            <Tab>
-                <TabItem Text="明细数据">
-                    <Table TItem="DetailRow" IsBordered="true" ShowToolbar="false" Items="@GetDetailDataSource(context)" AutoGenerateColumns="true"></Table>
-                </TabItem>
-                <TabItem Text="@Localizer["TabItemText"]">
-                    <div>@Localizer["EducationText"] @typeof(EnumEducation).ToDescriptionString(context.Education.ToString())</div>
-                </TabItem>
-            </Tab>
-        </DetailRowTemplate>
-    </Table>
-</div>
+<Table TItem="Foo" IsPagination="true" PageItemsSource="@PageItemsSource"
+       IsStriped="true" IsBordered="true"
+       ShowToolbar="true" ShowDefaultButtons="false"
+       OnQueryAsync="@OnQueryAsync">
+    <TableColumns>
+        <TableColumn @bind-Field="@context.DateTime" Width="180" />
+        <TableColumn @bind-Field="@context.Name" Width="100" />
+        <TableColumn @bind-Field="@context.Address" />
+        <TableColumn @bind-Field="@context.Count" />
+    </TableColumns>
+    <DetailRowTemplate>
+        <Tab>
+            <TabItem Text="明细数据">
+                <Table TItem="DetailRow" IsBordered="true" ShowToolbar="false" Items="@GetDetailDataSource(context)" AutoGenerateColumns="true"></Table>
+            </TabItem>
+            <TabItem Text="@Localizer["TabItemText"]">
+                <div>@Localizer["EducationText"] @typeof(EnumEducation).ToDescriptionString(context.Education.ToString())</div>
+            </TabItem>
+        </Tab>
+    </DetailRowTemplate>
+</Table>
 
 @code {
     private ConcurrentDictionary<string, List<DetailRow>> Cache { get; } = new();

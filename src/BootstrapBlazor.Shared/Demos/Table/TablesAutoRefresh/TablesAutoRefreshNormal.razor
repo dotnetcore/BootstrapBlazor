@@ -1,20 +1,18 @@
 ﻿@inject IStringLocalizer<Foo> LocalizerFoo
 
-<div>
-    <Table TItem="Foo"
-           IsPagination="true" PageItemsSource="@(new int[] { 2, 4 })"
-           IsStriped="true" IsBordered="true" IsMultipleSelect="true"
-           IsAutoRefresh="true" AutoRefreshInterval="2000"
-           OnQueryAsync="@OnAutoQueryAsync">
-        <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" Width="180" />
-            <TableColumn @bind-Field="@context.Name" Width="100" />
-            <TableColumn @bind-Field="@context.Address" />
-            <TableColumn @bind-Field="@context.Count" />
-            <TableColumn @bind-Field="@context.Complete" />
-        </TableColumns>
-    </Table>
-</div>
+<Table TItem="Foo"
+        IsPagination="true" PageItemsSource="@(new int[] { 2, 4 })"
+        IsStriped="true" IsBordered="true" IsMultipleSelect="true"
+        IsAutoRefresh="true" AutoRefreshInterval="2000"
+        OnQueryAsync="@OnAutoQueryAsync">
+    <TableColumns>
+        <TableColumn @bind-Field="@context.DateTime" Width="180" />
+        <TableColumn @bind-Field="@context.Name" Width="100" />
+        <TableColumn @bind-Field="@context.Address" />
+        <TableColumn @bind-Field="@context.Count" />
+        <TableColumn @bind-Field="@context.Complete" />
+    </TableColumns>
+</Table>
 
 @code {
     /// <summary>

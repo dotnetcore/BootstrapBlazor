@@ -1,41 +1,39 @@
 ﻿@inject IStringLocalizer<TablesRowDoubleClickToEdit> Localizer
 @inject IStringLocalizer<Foo> FooLocalizer
 
-<div>
-    <Table TItem="Foo"
-           IsPagination="true" PageItemsSource="@PageItemsSource"
-           IsStriped="true" IsBordered="true"
-           ShowToolbar="true" ShowDeleteButton="false"
-           ClickToSelect="true" DoubleClickToEdit="true"
-           OnQueryAsync="@OnQueryAsync" OnAddAsync="@OnAddAsync" OnSaveAsync="@OnSaveAsync">
-        <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" Width="180" />
-            <TableColumn @bind-Field="@context.Name" Width="100" />
-            <TableColumn @bind-Field="@context.Address" />
-            <TableColumn @bind-Field="@context.Count" />
-        </TableColumns>
-        <EditTemplate>
-            <div class="row g-3">
-                <div class="col-12 col-sm-6">
-                    <BootstrapInput @bind-Value="@context.Name" placeholder="@Localizer["PlaceHolder"].Value" maxlength="50">
-                    </BootstrapInput>
-                </div>
-                <div class="col-12 col-sm-6">
-                    <BootstrapInput @bind-Value="@context.Address" placeholder="@Localizer["PlaceHolder"].Value" maxlength="50">
-                    </BootstrapInput>
-                </div>
-                <div class="col-12 col-sm-6">
-                    <DateTimePicker @bind-Value="@context.DateTime">
-                    </DateTimePicker>
-                </div>
-                <div class="col-12 col-sm-6">
-                    <BootstrapInput @bind-Value="@context.Count">
-                    </BootstrapInput>
-                </div>
+<Table TItem="Foo"
+        IsPagination="true" PageItemsSource="@PageItemsSource"
+        IsStriped="true" IsBordered="true"
+        ShowToolbar="true" ShowDeleteButton="false"
+        ClickToSelect="true" DoubleClickToEdit="true"
+        OnQueryAsync="@OnQueryAsync" OnAddAsync="@OnAddAsync" OnSaveAsync="@OnSaveAsync">
+    <TableColumns>
+        <TableColumn @bind-Field="@context.DateTime" Width="180" />
+        <TableColumn @bind-Field="@context.Name" Width="100" />
+        <TableColumn @bind-Field="@context.Address" />
+        <TableColumn @bind-Field="@context.Count" />
+    </TableColumns>
+    <EditTemplate>
+        <div class="row g-3">
+            <div class="col-12 col-sm-6">
+                <BootstrapInput @bind-Value="@context.Name" placeholder="@Localizer["PlaceHolder"].Value" maxlength="50">
+                </BootstrapInput>
             </div>
-        </EditTemplate>
-    </Table>
-</div>
+            <div class="col-12 col-sm-6">
+                <BootstrapInput @bind-Value="@context.Address" placeholder="@Localizer["PlaceHolder"].Value" maxlength="50">
+                </BootstrapInput>
+            </div>
+            <div class="col-12 col-sm-6">
+                <DateTimePicker @bind-Value="@context.DateTime">
+                </DateTimePicker>
+            </div>
+            <div class="col-12 col-sm-6">
+                <BootstrapInput @bind-Value="@context.Count">
+                </BootstrapInput>
+            </div>
+        </div>
+    </EditTemplate>
+</Table>
 
 @code {
     /// <summary>

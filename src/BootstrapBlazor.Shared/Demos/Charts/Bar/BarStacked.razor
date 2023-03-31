@@ -1,0 +1,32 @@
+﻿<Chart ChartType="ChartType.Bar" OnInitAsync="() => OnInit(true)" />
+
+@code {
+    private Random Randomer { get; } = new Random();
+
+    private int BarDatasetCount = 2;
+
+    private int BarDataCount = 7;
+
+    private Task<ChartDataSource> OnInit(bool stacked, bool setTitle = true)
+    {
+        var ds = new ChartDataSource();
+        if (setTitle)
+        {
+            ds.Options.Title = "Bar Histogram";
+        }
+        ds.Options.X.Title = "days";
+        ds.Options.Y.Title = "Numerical value";
+        ds.Options.X.Stacked = stacked;
+        ds.Options.Y.Stacked = stacked;
+        ds.Labels = Enumerable.Range(1, BarDataCount).Select(i => i.ToString());
+        for (var index = 0; index < BarDatasetCount; index++)
+        {
+            ds.Data.Add(new ChartDataset()
+            {
+                Label = $"Set {index}",
+                Data = Enumerable.Range(1, BarDataCount).Select(i => Randomer.Next(20, 37)).Cast<object>()
+            });
+        }
+        return Task.FromResult(ds);
+    }
+}

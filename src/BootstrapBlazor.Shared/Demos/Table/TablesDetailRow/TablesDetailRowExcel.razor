@@ -1,20 +1,18 @@
 ﻿@inject MockDataTableDynamicService DataTableDynamicService
 
-<div>
-    <Table TItem="DynamicObject" DynamicContext="DataTableDynamicContext"
-           IsStriped="true" IsBordered="true" IsExcel="true"
-           ShowToolbar="true" ShowDefaultButtons="false">
-        <DetailRowTemplate>
-            @{
-                var detailContext = GetDetailDataTableDynamicContext(context);
-            }
-            <div class="p-2 w-100">
-                <Table TItem="DynamicObject" DynamicContext="detailContext" IsStriped="true" IsBordered="true" IsExcel="true">
-                </Table>
-            </div>
-        </DetailRowTemplate>
-    </Table>
-</div>
+<Table TItem="DynamicObject" DynamicContext="DataTableDynamicContext"
+       IsStriped="true" IsBordered="true" IsExcel="true"
+       ShowToolbar="true" ShowDefaultButtons="false">
+    <DetailRowTemplate>
+        @{
+            var detailContext = GetDetailDataTableDynamicContext(context);
+        }
+        <div class="p-2 w-100">
+            <Table TItem="DynamicObject" DynamicContext="detailContext" IsStriped="true" IsBordered="true" IsExcel="true">
+            </Table>
+        </div>
+    </DetailRowTemplate>
+</Table>
 
 @code {
     private DataTableDynamicContext? DataTableDynamicContext { get; set; }

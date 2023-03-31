@@ -1,21 +1,19 @@
 ﻿@inject IStringLocalizer<Foo> FooLocalizer
 
-<div>
-    <Table TItem="Foo"
-           IsPagination="true" PageItemsSource="@PageItemsSource" AllowResizing="true"
-           IsStriped="true" IsBordered="true"
-           ShowToolbar="false" IsMultipleSelect="true" ShowExtendButtons="false"
-           OnQueryAsync="@OnQueryAsync">
-        <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" Width="120" FormatString="yyyy-MM-dd" ShowCopyColumn="true" />
-            <TableColumn @bind-Field="@context.Name" Width="100" ShowCopyColumn="true" />
-            <TableColumn @bind-Field="@context.Address" ShowCopyColumn="true" />
-            <TableColumn @bind-Field="@context.Count" ShowCopyColumn="true" />
-            <TableColumn @bind-Field="@context.Education" ShowCopyColumn="true" />
-            <TableColumn @bind-Field="@context.Complete" ShowCopyColumn="true" />
-        </TableColumns>
-    </Table>
-</div>
+<Table TItem="Foo"
+        IsPagination="true" PageItemsSource="@PageItemsSource" AllowResizing="true"
+        IsStriped="true" IsBordered="true"
+        ShowToolbar="false" IsMultipleSelect="true" ShowExtendButtons="false"
+        OnQueryAsync="@OnQueryAsync">
+    <TableColumns>
+        <TableColumn @bind-Field="@context.DateTime" Width="120" FormatString="yyyy-MM-dd" ShowCopyColumn="true" />
+        <TableColumn @bind-Field="@context.Name" Width="100" ShowCopyColumn="true" />
+        <TableColumn @bind-Field="@context.Address" ShowCopyColumn="true" />
+        <TableColumn @bind-Field="@context.Count" ShowCopyColumn="true" />
+        <TableColumn @bind-Field="@context.Education" ShowCopyColumn="true" />
+        <TableColumn @bind-Field="@context.Complete" ShowCopyColumn="true" />
+    </TableColumns>
+</Table>
 
 @code {
     /// <summary>

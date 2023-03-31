@@ -1,22 +1,14 @@
 ﻿@page "/charts/doughnut"
 @inject IStringLocalizer<Doughnut> Localizer
 
-<DemoBlock Title="@Localizer["P1"]" Introduction="@Localizer["P2"]" Name="Doughnut">
-    <Chart ChartType="ChartType.Doughnut" Angle="@Angle" OnInitAsync="@OnInit" OnAfterInitAsync="@OnAfterInit" OnAfterUpdateAsync="@OnAfterUpdate" @ref="DoughnutChart" class="pie" />
-    <div class="text-center mt-2 chart">
-        <div class="btn-group">
-            <button class="btn btn-primary" @onclick="e => Utility.RandomData(DoughnutChart)"><i class="fa-brands fa-slack"></i><span>@Localizer["P3"]</span></button>
-            <button class="btn btn-primary" @onclick="OnReloadChart"><i class="fa-solid fa-chart-column"></i><span>@Localizer["Reload"]</span></button>
-            <button class="btn btn-primary" @onclick="e => Utility.AddDataSet(DoughnutChart, ref DoughnutDatasetCount)"><i class="fa-solid fa-circle-plus"></i><span>@Localizer["P4"]</span></button>
-            <button class="btn btn-primary" @onclick="e => Utility.RemoveDataSet(DoughnutChart, ref DoughnutDatasetCount)"><i class="fa-solid fa-circle-minus"></i><span>@Localizer["P5"]</span></button>
-            <button class="btn btn-primary" @onclick="e => Utility.AddData(DoughnutChart, ref DoughnutDataCount)"><i class="fa-solid fa-plus"></i><span>@Localizer["P6"]</span></button>
-            <button class="btn btn-primary" @onclick="e => Utility.RemoveData(DoughnutChart, ref DoughnutDataCount)"><i class="fa-solid fa-minus"></i><span>@Localizer["P7"]</span></button>
-            <button class="btn btn-primary" @onclick="@ToggleCircle"><i class="fa-regular fa-circle-notch"></i><span>@Localizer["P8"]</span></button>
-        </div>
-    </div>
-    <BlockLogger @ref="Logger" class="mt-3" />
+<DemoBlock Title="@Localizer["DoughnutNormalTitle"]"
+           Introduction="@Localizer["DoughnutNormalIntro"]"
+           Name="Normal"
+           Demo="typeof(Demos.Charts.Doughnut.DoughnutNormal)">
 </DemoBlock> 
 
-<DemoBlock Title="@Localizer["AspectRatio"]" Introduction="@Localizer["AspectRatioIntro"]" Name="BarAspectRatio">
-    <Chart ChartType="ChartType.Doughnut" OnInitAsync="@OnInit" Height="400px" Width="400px" />
+<DemoBlock Title="@Localizer["DoughnutAspectRatioTitle"]"
+           Introduction="@Localizer["DoughnutAspectRatioIntro"]"
+           Name="AspectRatio"
+           Demo="typeof(Demos.Charts.Doughnut.DoughnutAspectRatio)">
 </DemoBlock>

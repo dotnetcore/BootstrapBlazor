@@ -1,14 +1,12 @@
 ﻿@inject IStringLocalizer<Foo> Localizer
 
-<div>
-    <Table TItem="Foo" Items="@Items.Take(3)" IsBordered="true" IsStriped="true" TableSize="TableSize.Compact">
-        <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" Width="180" Filterable="true" Sortable="true" />
-            <TableColumn @bind-Field="@context.Name" Filterable="true" />
-            <TableColumn @bind-Field="@context.Address" Sortable="true" />
-        </TableColumns>
-    </Table>
-</div>
+<Table TItem="Foo" Items="@Items.Take(3)" IsBordered="true" IsStriped="true" TableSize="TableSize.Compact">
+    <TableColumns>
+        <TableColumn @bind-Field="@context.DateTime" Width="180" Filterable="true" Sortable="true" />
+        <TableColumn @bind-Field="@context.Name" Filterable="true" />
+        <TableColumn @bind-Field="@context.Address" Sortable="true" />
+    </TableColumns>
+</Table>
 
 @code {
     /// <summary>
