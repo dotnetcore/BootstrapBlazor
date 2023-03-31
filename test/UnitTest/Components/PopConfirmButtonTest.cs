@@ -162,6 +162,6 @@ public class PopConfirmButtonTest : PopoverTestBase
     public void ConfirmIcon_Ok()
     {
         var cut = Context.RenderComponent<PopConfirmButtonContent>();
-        cut.Contains("fa-solid fa-circle-exclamation");
+        cut.Contains("text-info fa-solid fa-circle-exclamation");
     }
 }
