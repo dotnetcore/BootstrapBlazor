@@ -88,7 +88,7 @@ public partial class Chart : BootstrapComponentBase, IDisposable
     /// 获得/设置 Line 折线图线的宽度
     /// </summary>
     [Parameter]
-    public double BorderWidth { get; set; } = 3;
+    public double BorderWidth { get; set; }
 
     /// <summary>
     /// 获得/设置 正在加载文本

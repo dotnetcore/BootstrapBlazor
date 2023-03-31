@@ -481,7 +481,7 @@
   },
   "BootstrapBlazor.Shared.Samples.Charts.Line": {
     "LineOnInitTitle": "Line graph",
-    "LineOnInitIntro": "Use <code>OnInit</code> to call back the delegate method, and after assigning the initialization data, the drawing operation can be performed",
+    "LineOnInitIntro": "Use <code>OnInit</code> to call back the delegate method, and after assigning the initialization data, the drawing operation can be performed,By setting the <code>BorderWidth</code> attribute, you can set the line width of the line chart, with a default value of 3",
     "LineOnInitRandomData": "Random data",
     "LineOnInitAddDataset": "Add dataset",
     "LineOnInitRemoveDataset": "Remove dataset",

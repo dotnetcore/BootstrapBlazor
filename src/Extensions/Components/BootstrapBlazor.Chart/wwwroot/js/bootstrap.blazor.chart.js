@@ -1,7 +1,7 @@
 ﻿(function ($) {
     window.chartOption = {
         options: {
-            borderWidth:3,
+            borderWidth: 3,
             responsive: true,
             maintainAspectRatio: true,
             aspectRatio: 2,
@@ -73,6 +73,9 @@
                         });
                     });
                     option.options = $.extend(true, option.options, genericOptions);
+                }
+                if (option.options.borderWidth > 0) {
+                    chartOption.options.borderWidth = option.options.borderWidth;
                 }
                 config = $.extend(true, {}, chartOption);
                 colorFunc = function (data) {
@@ -266,7 +269,7 @@
                 if (option.options.height !== null) {
                     chart.canvas.parentNode.style.height = option.options.height;
                 }
-                if (option.options.width !== null) { 
+                if (option.options.width !== null) {
                     chart.canvas.parentNode.style.width = option.options.width;
                 }
                 $el.removeClass('is-loading').trigger('chart.afterInit');
