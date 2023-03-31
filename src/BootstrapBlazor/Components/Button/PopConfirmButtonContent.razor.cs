@@ -12,15 +12,19 @@ public partial class PopConfirmButtonContent
     /// <summary>
     /// 获得 关闭按钮样式
     /// </summary>
-    protected string? CloseButtonClass => CssBuilder.Default("btn btn-xs")
+    private string? CloseButtonClass => CssBuilder.Default("btn btn-xs")
         .AddClass($"btn-{CloseButtonColor.ToDescriptionString()}")
         .Build();
 
     /// <summary>
     /// 获得 关闭按钮样式
     /// </summary>
-    protected string? ConfirmButtonClass => CssBuilder.Default("btn btn-xs")
+    private string? ConfirmButtonClass => CssBuilder.Default("btn btn-xs")
         .AddClass($"btn-{ConfirmButtonColor.ToDescriptionString()}")
+        .Build();
+
+    private string? IconString => CssBuilder.Default("text-info")
+        .AddClass(Icon)
         .Build();
 
     /// <summary>
@@ -95,7 +99,7 @@ public partial class PopConfirmButtonContent
     {
         base.OnParametersSet();
 
-        Icon ??= IconTheme.GetIconByKey(ComponentIcons.PopConfirmButtonContentIcon); ;
+        Icon ??= IconTheme.GetIconByKey(ComponentIcons.PopConfirmButtonConfirmIcon);
     }
 
     /// <summary>
