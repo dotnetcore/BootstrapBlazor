@@ -19,7 +19,7 @@ export class Textarea extends BlazorComponent {
             position = this._element.scrollHeight
         }
 
-        if (position) {
+        if (!isNaN(position)) {
             this._element.scrollTop = position;
         }
 
