@@ -122,10 +122,10 @@ internal class DefaultIconTheme : IIconTheme
 
             { ComponentIcons.PrintButtonIcon, "mdi mdi-printer-outline" },
 
-            { ComponentIcons.ToastSuccessIcon, "mdi mdi-check-circle text-success" },
-            { ComponentIcons.ToastInformationIcon, "mdi mdi-alert-circle text-info" },
-            { ComponentIcons.ToastWarningIcon, "mdi mdi-alert text-warning" },
-            { ComponentIcons.ToastErrorIcon, "mdi mdi-close-circle text-danger" },
+            { ComponentIcons.ToastSuccessIcon, "mdi mdi-check-circle" },
+            { ComponentIcons.ToastInformationIcon, "mdi mdi-alert-circle" },
+            { ComponentIcons.ToastWarningIcon, "mdi mdi-alert" },
+            { ComponentIcons.ToastErrorIcon, "mdi mdi-close-circle" },
 
             { ComponentIcons.TabPreviousIcon, "mdi mdi-chevron-left" },
             { ComponentIcons.TabNextIcon, "mdi mdi-chevron-left" },
