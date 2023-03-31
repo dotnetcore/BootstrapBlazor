@@ -96,8 +96,8 @@ internal class DefaultIconTheme : IIconTheme
             { ComponentIcons.PaginationPrevEllipsisPageIcon, "mdi mdi-dots-horizontal" },
             { ComponentIcons.PaginationNextEllipsisPageIcon, "mdi mdi-dots-horizontal" },
 
-            { ComponentIcons.PopConfirmButtonConfirmIcon, "mdi mdi-exclamation text-info" },
-            { ComponentIcons.PopConfirmButtonContentIcon, "mdi mdi-exclamation text-info" },
+            { ComponentIcons.PopConfirmButtonConfirmIcon, "mdi mdi-exclamation" },
+            { ComponentIcons.PopConfirmButtonContentIcon, "mdi mdi-exclamation" },
 
             { ComponentIcons.RateStarIcon, "mdi mdi-star" },
             { ComponentIcons.RateUnStarIcon, "mdi mdi-star-outline" },

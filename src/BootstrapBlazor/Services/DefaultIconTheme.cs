@@ -93,8 +93,8 @@ internal class DefaultIconTheme : IIconTheme
             { ComponentIcons.PaginationPrevEllipsisPageIcon, "fa-solid fa-ellipsis" },
             { ComponentIcons.PaginationNextEllipsisPageIcon, "fa-solid fa-ellipsis" },
 
-            { ComponentIcons.PopConfirmButtonConfirmIcon, "fa-solid fa-circle-exclamation text-info" },
-            { ComponentIcons.PopConfirmButtonContentIcon, "fa-solid fa-exclamation-circle text-info" },
+            { ComponentIcons.PopConfirmButtonConfirmIcon, "fa-solid fa-circle-exclamation" },
+            { ComponentIcons.PopConfirmButtonContentIcon, "fa-solid fa-exclamation-circle" },
 
             { ComponentIcons.RateStarIcon, "fa-solid fa-star" },
             { ComponentIcons.RateUnStarIcon, "fa-regular fa-star" },
