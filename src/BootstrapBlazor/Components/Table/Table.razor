@@ -510,7 +510,7 @@
                                     <i class="@GetIconClassString(fieldName)"></i>
                                 }
                             </div>
-                            @if (AllowResizing)
+                            @if (!col.Fixed && AllowResizing)
                             {
                                 <span class="col-resizer"></span>
                             }
