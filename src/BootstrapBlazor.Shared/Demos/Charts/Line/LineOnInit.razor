@@ -2,7 +2,7 @@
 @using Utility = BootstrapBlazor.Shared.Samples.Charts.Utility
 @inject IStringLocalizer<Line> Localizer
 
-<Chart @ref="LineChart" OnInitAsync="() => OnInit(0.4f, false)" OnAfterInitAsync="@OnAfterInit" OnAfterUpdateAsync="@OnAfterUpdate" />
+<Chart @ref="LineChart" BorderWidth="1" OnInitAsync="() => OnInit(0.4f, false)" OnAfterInitAsync="@OnAfterInit" OnAfterUpdateAsync="@OnAfterUpdate" />
 <div class="text-center mt-2 chart">
     <div class="btn-group">
         <button class="btn btn-primary" @onclick="e => Utility.RandomData(LineChart)"><i class="fa-solid fa-chart-line"></i><span>@Localizer["LineOnInitRandomData"]</span></button>
@@ -56,6 +56,7 @@
         ds.Options.Title = "Line Chart";
         ds.Options.X.Title = "days";
         ds.Options.Y.Title = "Numerical value";
+        ds.Options.BorderWidth = Randomer.Next(1, 5);//设置折线图线宽,Options.BorderWidth优先级高于组件上设置的BorderWidth="1"
         ds.Labels = Enumerable.Range(1, LineDataCount).Select(i => i.ToString());
         for (var index = 0; index < LineDatasetCount; index++)
         {

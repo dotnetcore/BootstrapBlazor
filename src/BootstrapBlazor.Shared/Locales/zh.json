@@ -481,7 +481,7 @@
   },
   "BootstrapBlazor.Shared.Samples.Charts.Line": {
     "LineOnInitTitle": "Line 图",
-    "LineOnInitIntro": "使用 <code>OnInit</code> 回调委托方法，对初始化数据进行赋值后，即可进行绘图操作",
+    "LineOnInitIntro": "使用 <code>OnInit</code> 回调委托方法，对初始化数据进行赋值后，即可进行绘图操作，通过设置 <code>BorderWidth</code> 属性，可以设置折线图线宽，默认值3。",
     "LineOnInitRandomData": "随机数据",
     "LineOnInitAddDataset": "添加数据集",
     "LineOnInitRemoveDataset": "移除数据集",
