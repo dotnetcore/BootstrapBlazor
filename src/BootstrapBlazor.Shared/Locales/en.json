@@ -5086,7 +5086,7 @@
     "TableBaseTips1": "<code>Auto</code>: Use <code> cardview </code> mode when the screen is smaller than 768px, otherwise use <code> Table </code> mode",
     "TableBaseTips2": "<code>Table</code>: Table rendering mode, using <code> table </code> elements for data rendering, suitable for viewing data in a wide screen",
     "TableBaseTips3": "<code>CardView</code>：Card rendering mode, using <code> div </code> elements for data rendering, which is suitable for viewing data on a narrow screen",
-    "TableBaseTips4": "<code>TableColumn</code> When using @bind-Field to bind a complex type, you must perform New() initialization in advance",
+    "TableBaseTips4": "<code>TableColumn</code> When using <code>@bind-Field</code> to bind a complex type, All complex type properties must be instantiated",
     "TableBaseNormalTitle": "Basic table",
     "TableBaseNormalIntro": "Basic table presentation usage",
     "TableBaseNormalDescription": "Update data source when clicking button <code> items </code> component <code> Table </code> display data is automatically updated",
