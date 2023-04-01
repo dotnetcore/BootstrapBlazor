@@ -201,7 +201,6 @@ public partial class Chart : BootstrapComponentBase, IDisposable
         }
     }
 
-
     /// <summary>
     /// 重新加载方法, 强制重新渲染图表
     /// </summary>
