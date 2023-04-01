@@ -5117,6 +5117,7 @@
     "TableBaseTips1": "<code>Auto</code>: 当屏幕小于 768px 时使用 <code>CardView</code> 模式，否则使用 <code>Table</code> 模式",
     "TableBaseTips2": "<code>Table</code>: 表格渲染模式，使用 <code>table</code> 元素进行数据渲染，适合宽屏幕下查看数据",
     "TableBaseTips3": "<code>CardView</code>：卡片式渲染模式，使用 <code>div</code> 元素进行数据渲染，适合窄屏幕下查看数据",
+    "TableBaseTips4": "<code>TableColumn</code> 必须使用 <code>@bind-Field</code> 绑定了模型属性，模型属性为复杂类型时，必须初始化此属性；想要绑定只读属性时，先绑定其他可写属性后利用模板显示只读属性",
     "TableBaseNormalTitle": "基础表格",
     "TableBaseNormalIntro": "基础的表格展示用法。",
     "TableBaseNormalDescription": "点击按钮时更新数据源 <code>Items</code> 组件 <code>Table</code> 显示数据自动更新",
