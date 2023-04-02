@@ -3,51 +3,51 @@
 @inherits BootstrapComponentBase
 @layout MainLayout
 
-<h3>@Localizer["H1"]</h3>
+<h3>@Localizer["SpeechsTitle"]</h3>
 
-<h4>@Localizer["H2"]</h4>
+<h4>@Localizer["SpeechsDescription"]</h4>
 
-<p>@Localizer["P1"] <code>Azure</code> @Localizer["P2"] <code>Baidu</code> @Localizer["P3"] <a href="https://www.nuget.org/packages?q=@NugetPackageName" target="_blank"><code>@NugetPackageName</code></a>，@Localizer["P4"]</p>
+<p>@((MarkupString)Localizer["SpeechsDescription1"].Value) <a href="https://www.nuget.org/packages?q=@NugetPackageName" target="_blank"><code>@NugetPackageName</code></a>，@Localizer["SpeechsDescription2"]</p>
 
 <PackageTips Name="@NugetPackageName"></PackageTips>
 
-<div class="code-label mb-2">@Localizer["P9"]</div>
+<div class="code-label mb-2">@Localizer["SpeechsLiTitle"]</div>
 
 <ul class="ul-demo">
-    <li>@Localizer["P10"] <b>@Localizer["P11"]</b> @Localizer["P12"]：<b><i>@Localizer["P13"]</i></b></li>
-    <li>@Localizer["P14"] <b><i>@Localizer["P15"]</i></b></li>
-    <li>@Localizer["P16"]：<b><i>@Localizer["P17"]</i></b></li>
-    <li>@Localizer["P18"] <b>@Localizer["P19"]</b> @Localizer["P20"]</li>
+    <li>@((MarkupString)Localizer["SpeechsLi1"].Value)</li>
+    <li>@((MarkupString)Localizer["SpeechsLi2"].Value)</li>
+    <li>@((MarkupString)Localizer["SpeechsLi3"].Value)</li>
+    <li>@((MarkupString)Localizer["SpeechsLi4"].Value)</li>
 </ul>
 
 <div class="row">
     <div class="col-12 col-sm-auto">
-        <Button Text="@Localizer["P21"]" Icon="fa-fw fa-solid fa-microphone" OnClick="OnStart" style="margin: 1.5rem 0;" />
+        <Button Text="@Localizer["SpeechsButtonText"]" Icon="fa-fw fa-solid fa-microphone" OnClick="OnStart" style="margin: 1.5rem 0;" />
     </div>
     <div class="col-12 col-sm-auto">
         <SpeechWave Show="Show" TotalTime="@TotalTime" class="my-3" />
     </div>
 </div>
 
-<GroupBox Title="@Localizer["P22"]">
-    <BootstrapBlazor.Components.Console HeaderText="@Localizer["P23"]" Items="@ConsoleMessages" Height="140" />
+<GroupBox Title="@Localizer["SpeechsGroupBoxTitle"]">
+    <BootstrapBlazor.Components.Console HeaderText="@Localizer["SpeechsGroupBoxHeaderText"]" Items="@ConsoleMessages" Height="140" />
 </GroupBox>
 
-<div class="code-label mt-3 mb-2">@Localizer["P24"]</div>
+<div class="code-label mt-3 mb-2">@Localizer["SpeechsTips1"]</div>
 
 <div class="mb-2"><b>Program.cs</b></div>
 
-<Pre>// @Localizer["P25"]
+<Pre>// @Localizer["SpeechsTips1Text"]
 <b><i>builder.Services.AddBootstrapBlazorBaiduSpeech();</i></b></Pre>
 
-<div class="code-label mb-2">@Localizer["P26"]</div>
+<div class="code-label mb-2">@Localizer["SpeechsTips2"]</div>
 
-<Pre>// @Localizer["P27"]
+<Pre>// @Localizer["SpeechsTips2Text1"]
 [Inject]
 [NotNull]
 private RecognizerService? RecognizerService { get; set; }
 
-// @Localizer["P28"]
+// @Localizer["SpeechsTips2Text2"]
 [Inject]
 [NotNull]
 private SynthesizerService? SynthesizerService { get; set; }</Pre>
