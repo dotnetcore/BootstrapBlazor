@@ -900,10 +900,10 @@
     "ShowAutoScrollIntro": "Switch auto scroll the data by set <code>ShowAutoScroll</code> parameter"
   },
   "BootstrapBlazor.Shared.Samples.Synthesizers": {
-    "H1": "Synthesizer speech synthesis",
-    "H2": "Convert text content to speech",
-    "P1": "Common usage",
-    "P2": "After clicking to start synthesis, perform speech synthesis on the text content"
+    "SynthesizersTitle": "Synthesizer speech synthesis",
+    "SynthesizersSubTitle": "Convert text content to speech",
+    "SynthesizerNormalTitle": "Common usage",
+    "SynthesizerNormalIntro": "After clicking to start synthesis, perform speech synthesis on the text content"
   },
   "BootstrapBlazor.Shared.Samples.Recognizers": {
     "RecognizersTitle": "Recognizer Speech Recognition",
