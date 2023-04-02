@@ -35,13 +35,6 @@ public partial class LogoutLink
     [NotNull]
     public string? Url { get; set; }
 
-    /// <summary>
-    /// 获得/设置 是否强制加载导航页面 默认 true 
-    /// </summary>
-    /// <remarks>此参数用于 NavigateTo 第二个参数 forceLoad</remarks>
-    [Parameter]
-    public bool ForceLoad { get; set; } = true;
-
     [Inject]
     [NotNull]
     private IIconTheme? IconTheme { get; set; }
