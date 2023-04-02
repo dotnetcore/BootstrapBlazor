@@ -900,10 +900,10 @@
     "ShowAutoScrollIntro": "通过设置 <code>ShowAutoScroll</code> 显示 <code>Checkbox</code> 控制是否自动滚动屏幕"
   },
   "BootstrapBlazor.Shared.Samples.Synthesizers": {
-    "H1": "Synthesizer 语音合成",
-    "H2": "将文本内容转化为语音",
-    "P1": "普通用法",
-    "P2": "点击开始合成后对文本内容进行语音合成"
+    "SynthesizersTitle": "Synthesizer 语音合成",
+    "SynthesizersSubTitle": "将文本内容转化为语音",
+    "SynthesizerNormalTitle": "普通用法",
+    "SynthesizerNormalIntro": "点击开始合成后对文本内容进行语音合成"
   },
   "BootstrapBlazor.Shared.Samples.Recognizers": {
     "RecognizersTitle": "Recognizer 语音识别",
@@ -6089,19 +6089,19 @@
   },
   "BootstrapBlazor.Shared.Samples.Bluetooths": {
     "Title": "Bluetooth & Printer 蓝牙和打印",
-    "BaseUsageText": "基础用法",
+    "BaseUsagTitle": "基础用法",
     "BaseUsageIntro": "连接设备后再执行打印等操作,根据打印机特性写入相应ESC/POS/CPCL命令",
-    "BaseUsageIntro2": "点击连接设备",
+    "BluetoothBatteryLevelIntro": "点击连接设备",
     "ConnectButtonText": "连接",
     "DisconnectButtonText": "断开",
     "ReconnectButtonText": "重连",
     "PrintButtonText": "打印",
     "Url1": "1. 蓝牙打印机 Printer,可打印标签/条码/QR码",
-    "Title2": "Bluetooth Heart Rate 蓝牙心率带",
+    "BluetoothsTitle2": "Bluetooth Heart Rate 蓝牙心率带",
     "GetHeartrateButtonText": "查询心率",
     "StopHeartrateButtonText": "停止读取",
     "Url2": "2. 蓝牙心率带 Heart Rate",
-    "Title3": "Bluetooth Battery Level 蓝牙设备电量",
+    "BluetoothsTitle": "Bluetooth Battery Level 蓝牙设备电量",
     "GetBatteryLevelButtonText": "查询电量",
     "Url3": "3. 蓝牙设备电量 Battery Level",
     "Tips": "服务UUID/ServiceUUID, 默认0xff00<br/>常见打印机ServiceUUID:<br/><code>0000ff00-0000-1000-8000-00805f9b34fb</code><br/><code>e7810a71-73ae-499d-8c15-faa9aef0c3f2</code><br/><code>0000fee7-0000-1000-8000-00805f9b34fb</code><br/>设置组件服务UUID : <code>printer.Opt.ServiceUuid=?</code>"

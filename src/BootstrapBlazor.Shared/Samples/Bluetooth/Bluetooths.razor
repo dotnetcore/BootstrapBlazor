@@ -4,7 +4,7 @@
 
 <h3>@Localizer["Title"]</h3>
 
-<PackageTips Name="BootstrapBlazor.Bluetooth" /> 
+<PackageTips Name="BootstrapBlazor.Bluetooth" />
 
 <h5><a href="/bluetooths">@Localizer["Url1"]</a></h5>
 <h5><a href="/bluetoothheartrates">@Localizer["Url2"]</a></h5>
@@ -14,37 +14,27 @@
     <p>@((MarkupString)Localizer["Tips"].Value)</p>
 </Tips>
 
-<DemoBlock Title="@Localizer["BaseUsageText"]" Introduction="@Localizer["BaseUsageIntro"]" Name="Nomal">
-    @if (ShowUI)
-    {
-        <span>内置UI</span>
-
-        <Printer OnResult="OnResult" ShowUI="true" OnError="OnError" OnUpdateStatus="OnUpdateStatus" OnUpdateError="OnError" OnGetDevices="OnGetDevices" />
-
-    }
-    else
-    {
-        <span>
-            基本用法
-        </span>
-        <Printer @ref="printer" OnResult="OnResult" OnError="OnError" OnUpdateStatus="OnUpdateStatus" OnUpdateError="OnError" OnGetDevices="OnGetDevices" />
-        <div @ref="printer.PrinterElement">
-            <button data-action="btnConnect" class="btn btn-outline-primary">@Localizer["ConnectButtonText"]</button>
-            <button data-action="btnDisconnect" class="btn btn-outline-danger">@Localizer["DisconnectButtonText"]</button>
-            @*<button data-action="btnReconnect" class="btn btn-outline-secondary">@Localizer["ReconnectButtonText"]</button>*@
-            <button data-action="tools" class="btn btn-outline-primary" @onclick="printer.Print">@Localizer["PrintButtonText"]</button>
-        </div>
-    }
-    <hr />
-    <pre>@message</pre>
-    <pre style="color:green">@statusmessage</pre>
-    <pre style="color:red">@errmessage</pre>
-    <p />
-    <button class="btn btn-link" @onclick="SwitchUI ">切换界面</button>
+<DemoBlock Title="@Localizer["BaseUsagTitle"]"
+           Introduction="@Localizer["BaseUsageIntro"]"
+           Name="Nomal"
+           Demo="typeof(Demos.Bluetooths.BluetoothNomal)">
 </DemoBlock>
 
-<BluetoothBatteryLevel />
-<BluetoothHeartRate />
+<h4>@Localizer["BluetoothsTitle"]</h4>
+
+<DemoBlock Title="@Localizer["BaseUsagTitle"]"
+           Introduction="@Localizer["BluetoothBatteryLevelIntro"]"
+           Name="Nomal"
+           Demo="typeof(Demos.Bluetooths.BluetoothBatteryLevel)">
+</DemoBlock>
+
+<h4>@Localizer["BluetoothsTitle2"]</h4>
+
+<DemoBlock Title="@Localizer["BaseUsagTitle"]"
+           Introduction="@Localizer["BluetoothBatteryLevelIntro"]"
+           Name="Nomal"
+           Demo="typeof(Demos.Bluetooths.BluetoothHeartRate)">
+</DemoBlock>
 
 <AttributeTable Title="Printer 组件" Items="@GetAttributes()" />
 

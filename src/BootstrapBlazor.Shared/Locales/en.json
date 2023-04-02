@@ -900,10 +900,10 @@
     "ShowAutoScrollIntro": "Switch auto scroll the data by set <code>ShowAutoScroll</code> parameter"
   },
   "BootstrapBlazor.Shared.Samples.Synthesizers": {
-    "H1": "Synthesizer speech synthesis",
-    "H2": "Convert text content to speech",
-    "P1": "Common usage",
-    "P2": "After clicking to start synthesis, perform speech synthesis on the text content"
+    "SynthesizersTitle": "Synthesizer speech synthesis",
+    "SynthesizersSubTitle": "Convert text content to speech",
+    "SynthesizerNormalTitle": "Common usage",
+    "SynthesizerNormalIntro": "After clicking to start synthesis, perform speech synthesis on the text content"
   },
   "BootstrapBlazor.Shared.Samples.Recognizers": {
     "RecognizersTitle": "Recognizer Speech Recognition",
@@ -6076,19 +6076,19 @@
   },
   "BootstrapBlazor.Shared.Samples.Bluetooths": {
     "Title": "Bluetooth & Printer",
-    "BaseUsageText": "Basic usage",
+    "BaseUsagTitle": "Basic usage",
     "BaseUsageIntro": "After connecting the device, perform operations such as printing, and write the corresponding commands(ESC/POS/CPCL) according to the characteristics of the printer",
-    "BaseUsageIntro2": "Click to connect device",
+    "BluetoothBatteryLevelIntro": "Click to connect device",
     "ConnectButtonText": "Connect",
     "DisconnectButtonText": "Disconnect",
     "ReconnectButtonText": "Reconnect",
     "PrintButtonText": "Print",
     "Url1": "1. Printer, for printable label/barcode/QR code",
-    "Title2": "Bluetooth Heart Rate",
+    "BluetoothsTitle2": "Bluetooth Heart Rate",
     "GetHeartrateButtonText": "Get heart rate",
     "StopHeartrateButtonText": "Stop heart rate",
     "Url2": "2. Heart Rate",
-    "Title3": "Bluetooth Battery Level",
+    "BluetoothsTitle": "Bluetooth Battery Level",
     "GetBatteryLevelButtonText": "Get Battery Level",
     "Url3": "3. Battery Level",
     "Tips": "ServiceUUID, Default <code>0xff00</code><br/>Common Printers ServiceUUID:<br/><code>0000ff00-0000-1000-8000-00805f9b34fb</code><br/><code>e7810a71-73ae-499d-8c15-faa9aef0c3f2</code><br/><code>0000fee7-0000-1000-8000-00805f9b34fb</code><br/>Set up component services UUID : <code>printer.Opt.ServiceUuid=?</code>"
