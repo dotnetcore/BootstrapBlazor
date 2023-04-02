@@ -1,7 +1,7 @@
 ﻿@namespace BootstrapBlazor.Components
 @inherits BootstrapComponentBase
 
-<a href="#" @onclick:preventDefault @onclick="OnLogout">
+<a href="@Url">
     @if (!string.IsNullOrEmpty(Icon))
     {
         <i class="@Icon"></i>
