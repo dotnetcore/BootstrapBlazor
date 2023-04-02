@@ -13,10 +13,6 @@ public partial class LogoutLink
 {
     [Inject]
     [NotNull]
-    private NavigationManager? NavigationManager { get; set; }
-
-    [Inject]
-    [NotNull]
     private IStringLocalizer<LogoutLink>? Localizer { get; set; }
 
     /// <summary>
@@ -37,14 +33,7 @@ public partial class LogoutLink
     /// </summary>
     [Parameter]
     [NotNull]
-    public string Url { get; set; } = "/Account/Logout";
-
-    /// <summary>
-    /// 获得/设置 是否强制加载导航页面 默认 true 
-    /// </summary>
-    /// <remarks>此参数用于 NavigateTo 第二个参数 forceLoad</remarks>
-    [Parameter]
-    public bool ForceLoad { get; set; } = true;
+    public string? Url { get; set; }
 
     [Inject]
     [NotNull]
@@ -59,7 +48,7 @@ public partial class LogoutLink
 
         Text ??= Localizer[nameof(Text)];
         Icon ??= IconTheme.GetIconByKey(ComponentIcons.LogoutLinkIcon);
-    }
 
-    private void OnLogout() => NavigationManager.NavigateTo(Url, ForceLoad);
+        Url ??= "/Account/Logout";
+    }
 }

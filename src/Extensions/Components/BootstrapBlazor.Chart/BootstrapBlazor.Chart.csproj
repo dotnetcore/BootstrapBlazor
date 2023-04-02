@@ -3,7 +3,7 @@
   <Import Project="..\..\..\bundleconfig.props" />
 
   <PropertyGroup>
-    <Version>7.1.0</Version>
+    <Version>7.1.1</Version>
     <PackageTags>Bootstrap Blazor WebAssembly wasm UI Components Chart</PackageTags>
     <Description>Bootstrap UI components extensions of Chart.js</Description>
   </PropertyGroup>
