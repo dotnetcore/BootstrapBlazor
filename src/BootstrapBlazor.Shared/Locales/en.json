@@ -906,15 +906,12 @@
     "SynthesizerNormalIntro": "After clicking to start synthesis, perform speech synthesis on the text content"
   },
   "BootstrapBlazor.Shared.Samples.Recognizers": {
-    "H1": "Recognizer Speech Recognition",
-    "H2": "Convert speech to text with a voice capture device",
-    "P1": "Common usage",
-    "P2": "Click to start recognition to recognize the input voice",
-    "P3": "Instructions for use",
-    "P4": "click",
-    "P5": "start to identify",
-    "P6": "After the script runs, it may prompt for recording permission. After authorization, start speaking. After 5 seconds (configurable), the text box on the right will display the speech recognition result. Do not click directly after speaking.",
-    "P7": "end recognition"
+    "RecognizersTitle": "Recognizer Speech Recognition",
+    "RecognizersSubTitle": "Convert speech to text with a voice capture device",
+    "RecognizerNormalTitle": "Common usage",
+    "RecognizerNormalIntro": "Click to start recognition to recognize the input voice",
+    "RecognizerNormalDescription": "Instructions for use",
+    "RecognizerNormalTips": "click <p>start to identify</p> After the script runs, it may prompt for recording permission. After authorization, start speaking. After 5 seconds (configurable), the text box on the right will display the speech recognition result. Do not click directly after speaking. <p>end recognition</p>"
   },
   "BootstrapBlazor.Shared.Samples.Speechs": {
     "H1": "Speech Recognition and Synthesis",
