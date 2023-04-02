@@ -1,0 +1,79 @@
+﻿@using BootstrapBlazor.Shared.Samples
+@inject IStringLocalizer<Bluetooths> Localizer
+
+@if (ShowUI)
+{
+    <span>内置UI</span>
+
+    <Printer OnResult="OnResult" ShowUI="true" OnError="OnError" OnUpdateStatus="OnUpdateStatus" OnUpdateError="OnError" OnGetDevices="OnGetDevices" />
+
+}
+else
+{
+    <span>
+        基本用法
+    </span>
+    <Printer @ref="printer" OnResult="OnResult" OnError="OnError" OnUpdateStatus="OnUpdateStatus" OnUpdateError="OnError" OnGetDevices="OnGetDevices" />
+    <div @ref="printer.PrinterElement">
+        <button data-action="btnConnect" class="btn btn-outline-primary">@Localizer["ConnectButtonText"]</button>
+        <button data-action="btnDisconnect" class="btn btn-outline-danger">@Localizer["DisconnectButtonText"]</button>
+        @*<button data-action="btnReconnect" class="btn btn-outline-secondary">@Localizer["ReconnectButtonText"]</button>*@
+        <button data-action="tools" class="btn btn-outline-primary" @onclick="printer.Print">@Localizer["PrintButtonText"]</button>
+    </div>
+}
+<hr />
+<pre>@message</pre>
+<pre style="color:green">@statusmessage</pre>
+<pre style="color:red">@errmessage</pre>
+<p />
+<button class="btn btn-link" @onclick="SwitchUI ">切换界面</button>
+
+@code {
+    Printer printer { get; set; } = new Printer();
+
+    /// <summary>
+    /// 显示内置界面
+    /// </summary>
+    bool ShowUI { get; set; } = false;
+
+    private string? message;
+    private string? statusmessage;
+    private string? errmessage;
+
+    private Task OnResult(string message)
+    {
+        this.message = message;
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
+
+    private Task OnUpdateStatus(string message)
+    {
+        this.statusmessage = message;
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
+
+    private Task OnError(string message)
+    {
+        this.errmessage = message;
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
+
+    private Task OnGetDevices(List<string>? devices)
+    {
+        this.message = "";
+        if (devices == null || devices!.Count == 0) return Task.CompletedTask;
+        this.message += $"已配对设备{devices.Count}:{Environment.NewLine}";
+        devices.ForEach(a => this.message += $"   {a}{Environment.NewLine}");
+        //this.message = this.message.Replace(Environment.NewLine, "<br/>");
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
+
+    public void SwitchUI()
+    {
+        ShowUI = !ShowUI;
+    }
+}
