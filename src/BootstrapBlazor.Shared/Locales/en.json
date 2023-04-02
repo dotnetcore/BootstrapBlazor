@@ -6034,7 +6034,7 @@
   },
   "BootstrapBlazor.Shared.Samples.SpeechWaves": {
     "SpeechWaveTitle": "SpeechWave",
-    "H4": "The dynamic plot of the waveform that is displayed when you start acquiring speech",
+    "SpeechWavesDescription": "The dynamic plot of the waveform that is displayed when you start acquiring speech",
     "NormalTitle": "Basic usage",
     "NormalIntro": "Displays the waveform plot",
     "ShowUsedTimeTitle": "The length of the display",
