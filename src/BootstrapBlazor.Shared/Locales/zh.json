@@ -900,10 +900,10 @@
     "ShowAutoScrollIntro": "通过设置 <code>ShowAutoScroll</code> 显示 <code>Checkbox</code> 控制是否自动滚动屏幕"
   },
   "BootstrapBlazor.Shared.Samples.Synthesizers": {
-    "H1": "Synthesizer 语音合成",
-    "H2": "将文本内容转化为语音",
-    "P1": "普通用法",
-    "P2": "点击开始合成后对文本内容进行语音合成"
+    "SynthesizersTitle": "Synthesizer 语音合成",
+    "SynthesizersSubTitle": "将文本内容转化为语音",
+    "SynthesizerNormalTitle": "普通用法",
+    "SynthesizerNormalIntro": "点击开始合成后对文本内容进行语音合成"
   },
   "BootstrapBlazor.Shared.Samples.Recognizers": {
     "RecognizersTitle": "Recognizer 语音识别",
