@@ -6047,7 +6047,7 @@
   },
   "BootstrapBlazor.Shared.Samples.SpeechWaves": {
     "SpeechWaveTitle": "SpeechWave 语音波形图",
-    "H4": "开始采集语音时显示的波形动态图",
+    "SpeechWavesDescription": "开始采集语音时显示的波形动态图",
     "NormalTitle": "基础用法",
     "NormalIntro": "显示波形图",
     "ShowUsedTimeTitle": "显示时长",
@@ -6060,10 +6060,6 @@
     "ShowUsedTimeAttr": "是否显示时长",
     "OnTimeoutAttr": "识别结束后超时回调方法",
     "TotalTimeSecondAttr": "语音识别设置总时长超出过调用 OnTimeout 回调"
-  },
-  "BootstrapBlazor.Shared.Demos.Speechs.SpeechWaveShow": {
-    "ValueButtonText1": "隐藏",
-    "ValueButtonText2": "显示"
   },
   "BootstrapBlazor.Shared.Samples.Reconnectors": {
     "Title": "Reconnector 重连组件",
