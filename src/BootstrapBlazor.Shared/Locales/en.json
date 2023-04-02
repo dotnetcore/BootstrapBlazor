@@ -6031,7 +6031,7 @@
   },
   "BootstrapBlazor.Shared.Samples.SpeechWaves": {
     "SpeechWaveTitle": "SpeechWave",
-    "H4": "The dynamic plot of the waveform that is displayed when you start acquiring speech",
+    "SpeechWavesDescription": "The dynamic plot of the waveform that is displayed when you start acquiring speech",
     "NormalTitle": "Basic usage",
     "NormalIntro": "Displays the waveform plot",
     "ShowUsedTimeTitle": "The length of the display",
@@ -6044,10 +6044,6 @@
     "ShowUsedTimeAttr": "Whether to display the duration",
     "OnTimeoutAttr": "Identify the end-of-timeout callback method",
     "TotalTimeSecondAttr": "Speech recognition is set for a total time longer than calling the OnTimeout callback"
-  },
-  "BootstrapBlazor.Shared.Demos.Speechs.SpeechWaveShow": {
-    "ValueButtonText1": "Hide",
-    "ValueButtonText2": "Show"
   },
   "BootstrapBlazor.Shared.Samples.Reconnectors": {
     "Title": "Reconnector",
