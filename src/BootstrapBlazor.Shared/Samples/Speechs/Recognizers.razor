@@ -1,20 +1,15 @@
 ﻿@page "/recognizers"
 @namespace BootstrapBlazor.Shared.Samples
 @inherits BootstrapComponentBase
+@inject IStringLocalizer<Recognizers> Localizer
 
-<h3>@Localizer["H1"]</h3>
-<h4>@Localizer["H2"]</h4>
+<h3>@Localizer["RecognizersTitle"]</h3>
+<h4>@Localizer["RecognizersSubTitle"]</h4>
 
-<DemoBlock Title="@Localizer["P1"]" Introduction="@Localizer["P2"]" Name="Normal">
-    <p><b>@Localizer["P3"]：</b></p>
-    <p>@Localizer["P4"] <b>@Localizer["P5"]</b> @Localizer["P6"] <b>@Localizer["P7"]</b></p>
-    <div class="row">
-        <div class="col-12 col-sm-6 text-center">
-            <SpeechWave Show="Start" TotalTime="5000" OnTimeout="OnTimeout" class="my-3" />
-            <Button Text="@ButtonText" Icon="fa-fw fa-solid fa-microphone" OnClick="OnStart" />
-        </div>
-        <div class="col-12 col-sm-6">
-            <Textarea Value="@Result" rows="6" />
-        </div>
-    </div>
+<DemoBlock Title="@Localizer["RecognizerNormalTitle"]"
+           Introduction="@Localizer["RecognizerNormalIntro"]"
+           Name="Normal"
+           Demo="typeof(Demos.Speechs.Recognizers.RecognizerNormal)">
+    <p><b>@Localizer["RecognizerNormalDescription"]：</b></p>
+    <p>@((MarkupString)Localizer["RecognizerNormalTips"].Value)</p>
 </DemoBlock>

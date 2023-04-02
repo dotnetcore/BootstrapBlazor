@@ -906,15 +906,12 @@
     "P2": "点击开始合成后对文本内容进行语音合成"
   },
   "BootstrapBlazor.Shared.Samples.Recognizers": {
-    "H1": "Recognizer 语音识别",
-    "H2": "通过语音采集设备将语音转化为文本",
-    "P1": "普通用法",
-    "P2": "点击开始识别后对录入语音进行识别",
-    "P3": "使用说明",
-    "P4": "点击",
-    "P5": "开始识别",
-    "P6": "后，脚本运行可能会提示要求录音权限，授权后开始讲话，5秒后（可配置）右侧文本框显示语音识别结果，请勿讲完话后直接点击",
-    "P7": "结束识别"
+    "RecognizersTitle": "Recognizer 语音识别",
+    "RecognizersSubTitle": "通过语音采集设备将语音转化为文本",
+    "RecognizerNormalTitle": "普通用法",
+    "RecognizerNormalIntro": "点击开始识别后对录入语音进行识别",
+    "RecognizerNormalDescription": "使用说明",
+    "RecognizerNormalTips": "点击 <b>开始识别</b> 后，脚本运行可能会提示要求录音权限，授权后开始讲话，5秒后（可配置）右侧文本框显示语音识别结果，请勿讲完话后直接点击 <p>结束识别</p>"
   },
   "BootstrapBlazor.Shared.Samples.Speechs": {
     "H1": "Speech 语音识别与合成",
