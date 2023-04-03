@@ -1,17 +1,15 @@
-﻿// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
-// Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
-// Website: https://www.blazor.zone or https://argozhang.github.io/
+﻿@using BootstrapBlazor.Shared.Samples
+@inject IStringLocalizer<Bluetooths> Localizer
 
-using BootstrapBlazor.Components;
-using BootstrapBlazor.Shared.Common;
+<button class="btn btn-outline-primary" @onclick="GetHeartrate ">@Localizer["GetHeartrateButtonText"]</button>
+<button class="btn btn-outline-danger" @onclick="StopHeartrate ">@Localizer["StopHeartrateButtonText"]</button>
+<Heartrate @ref="heartrate" OnUpdateValue="OnUpdateValue" OnUpdateStatus="OnUpdateStatus" OnUpdateError="OnError" />
+<h3 style="color:red" data-action="heartrate"></h3>
+<pre>@message</pre>
+<pre style="color:green">@statusmessage</pre>
+<pre style="color:red">@errmessage</pre>
 
-namespace BootstrapBlazor.Shared.Samples;
-
-/// <summary>
-/// 
-/// </summary>
-public partial class BluetoothHeartRate
-{
+@code {
     Heartrate heartrate { get; set; } = new Heartrate();
 
     private string? message;
@@ -33,7 +31,6 @@ public partial class BluetoothHeartRate
         StateHasChanged();
         return Task.CompletedTask;
     }
-
 
     private Task OnUpdateStatus(BluetoothDevice device)
     {
@@ -63,5 +60,5 @@ public partial class BluetoothHeartRate
     public async void StopHeartrate()
     {
         await heartrate.StopHeartrate();
-    } 
+    }
 }

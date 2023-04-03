@@ -2,18 +2,18 @@
 @inject IStringLocalizer<Tables> Localizer
 
 <h3>@Localizer["TableBaseTitle"]</h3>
-
 <h4>@Localizer["TableBaseDescription"]</h4>
 
-<p>@((MarkupString)Localizer["TableBaseExplain1"].Value)</p>
-
-<p>@((MarkupString)Localizer["TableBaseExplain2"].Value)</p>
-
-<ul class="ul-demo">
-    <li>@((MarkupString)Localizer["TableBaseTips1"].Value)</li>
-    <li>@((MarkupString)Localizer["TableBaseTips2"].Value)</li>
-    <li>@((MarkupString)Localizer["TableBaseTips3"].Value)</li>
-</ul>
+<Tips>
+    <p>@((MarkupString)Localizer["TableBaseExplain1"].Value)</p>
+    <p>@((MarkupString)Localizer["TableBaseExplain2"].Value)</p>
+    <ul class="ul-demo">
+        <li>@((MarkupString)Localizer["TableBaseTips1"].Value)</li>
+        <li>@((MarkupString)Localizer["TableBaseTips2"].Value)</li>
+        <li>@((MarkupString)Localizer["TableBaseTips3"].Value)</li>
+    </ul>
+    <p>@((MarkupString)Localizer["TableBaseTips4"].Value)</p>
+</Tips>
 
 <DemoBlock Title="@Localizer["TableBaseNormalTitle"]"
            Introduction="@Localizer["TableBaseNormalIntro"]"

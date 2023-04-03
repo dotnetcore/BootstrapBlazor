@@ -1,17 +1,15 @@
-﻿// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
-// Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
-// Website: https://www.blazor.zone or https://argozhang.github.io/
+﻿@using BootstrapBlazor.Shared.Samples
+@inject IStringLocalizer<Bluetooths> Localizer
 
-using BootstrapBlazor.Components;
-using BootstrapBlazor.Shared.Common;
+<button class="btn btn-outline-primary" @onclick="GetBatteryLevel ">@Localizer["GetBatteryLevelButtonText"]</button>
+<BatteryLevel @ref="batteryLevel" OnUpdateValue="OnUpdateValue" OnUpdateStatus="OnUpdateStatus" OnUpdateError="OnError" />
+<br />
+<progress max="100" value="@value"> @value % </progress>
+<pre>@message</pre>
+<pre style="color:green">@statusmessage</pre>
+<pre style="color:red">@errmessage</pre>
 
-namespace BootstrapBlazor.Shared.Samples;
-
-/// <summary>
-/// 
-/// </summary>
-public partial class BluetoothBatteryLevel
-{
+@code {
     BatteryLevel batteryLevel { get; set; } = new BatteryLevel();
 
     private decimal? value = 0;
@@ -34,7 +32,6 @@ public partial class BluetoothBatteryLevel
         return Task.CompletedTask;
     }
 
-
     private Task OnUpdateStatus(BluetoothDevice device)
     {
         this.statusmessage = device.Status;
@@ -56,5 +53,4 @@ public partial class BluetoothBatteryLevel
     {
         await batteryLevel.GetBatteryLevel();
     }
- 
 }

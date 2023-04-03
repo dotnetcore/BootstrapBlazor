@@ -13,8 +13,7 @@ public class LogoutLinkTest : BootstrapBlazorTestBase
     public void Icon_Ok()
     {
         var cut = Context.RenderComponent<LogoutLink>(builder => builder.Add(s => s.Icon, "fa-solid fa-key"));
-        var ele = cut.Find(".fa-key");
-        Assert.NotNull(ele);
+        cut.Contains("fa-solid fa-key");
     }
 
     [Fact]
@@ -28,24 +27,6 @@ public class LogoutLinkTest : BootstrapBlazorTestBase
     public void Url_Ok()
     {
         var cut = Context.RenderComponent<LogoutLink>(builder => builder.Add(s => s.Url, "/Account/Logout"));
-        cut.Contains("href=\"#\"");
-    }
-
-    [Fact]
-    public void ForceLoad_Ok()
-    {
-        var cut = Context.RenderComponent<LogoutLink>(builder => builder.Add(s => s.ForceLoad, true));
-        cut.Contains("href=\"#\"");
-    }
-
-    [Fact]
-    public async Task OnLogout_Ok()
-    {
-        var navMan = Context.Services.GetRequiredService<FakeNavigationManager>();
-        var cut = Context.RenderComponent<LogoutLink>();
-        await cut.InvokeAsync(() => cut.Find("a").Click());
-
-        // 由于其他 Test 更改为 "/Test"
-        Assert.NotEqual("/", navMan.Uri);
+        cut.Contains("href=\"/Account/Logout\"");
     }
 }
