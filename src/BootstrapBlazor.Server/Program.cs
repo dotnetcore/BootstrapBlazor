@@ -21,10 +21,6 @@ builder.Services.AddResponseCompression();
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 
-// 更改系统图标为 Meterial
-// 依赖 BootstrapBlazor.MaterialDesign.Extensions 包
-// builder.Services.AddMaterialDesignIconTheme();
-
 // 获得当前主题配置
 var themes = builder.Configuration.GetSection("Themes")
     .GetChildren()
@@ -45,6 +41,9 @@ builder.Services.ConfigureTabItemMenuBindOptions(options =>
     options.Binders.Add("layout-demo?text=Parameter", new() { Text = "Text 2" });
     options.Binders.Add("layout-demo/text=Parameter", new() { Text = "Text 3" });
 });
+
+builder.Services.ConfigureMaterialDesignIconTheme();
+builder.Services.ConfigureIconThemeOptions(options => options.ThemeKey = "fa");
 
 var app = builder.Build();
 
