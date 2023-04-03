@@ -11,11 +11,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <!--<PackageReference Include="BootstrapBlazor" Version="7.2.1" />-->
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\BootstrapBlazor\BootstrapBlazor.csproj" />
+    <PackageReference Include="BootstrapBlazor" Version="7.5.0" />
   </ItemGroup>
   
 </Project>
