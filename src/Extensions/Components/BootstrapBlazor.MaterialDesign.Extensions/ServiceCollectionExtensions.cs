@@ -15,9 +15,13 @@ public static class IconMapperOptionsExtensions
     /// 添加 Meterial 图标主题服务
     /// </summary>
     /// <param name="services"></param>
-    public static IServiceCollection AddMaterialDesignIconTheme(this IServiceCollection services)
+    public static IServiceCollection ConfigureMaterialDesignIconTheme(this IServiceCollection services)
     {
-        services.AddSingleton<IIconTheme, DefaultIconTheme>();
+        services.ConfigureIconThemeOptions(options =>
+        {
+            options.ThemeKey = "mdi";
+            options.Icons["mdi"] = DefaultIcon.Icons;
+        });
         return services;
     }
 }
