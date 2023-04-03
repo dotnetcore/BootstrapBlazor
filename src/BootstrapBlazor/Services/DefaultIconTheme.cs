@@ -23,7 +23,10 @@ internal class DefaultIconTheme : IIconTheme
     /// <returns></returns>
     public Dictionary<ComponentIcons, string> GetIcons()
     {
-        Options.Value.Icons.TryGetValue(Options.Value.ThemeKey, out var icons);
-        return icons ?? new Dictionary<ComponentIcons, string>();
+        if (!Options.Value.Icons.TryGetValue(Options.Value.ThemeKey, out var icons))
+        {
+            icons = new Dictionary<ComponentIcons, string>();
+        }
+        return icons;
     }
 }
