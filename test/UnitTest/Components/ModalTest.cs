@@ -103,7 +103,7 @@ public class ModalTest : BootstrapBlazorTestBase
         var render = false;
         var cut = Context.RenderComponent<Modal>(pb =>
         {
-            pb.Add(a => a.FirstAfterRenderCallbackAsync, () =>
+            pb.Add(a => a.FirstAfterRenderCallbackAsync, modal =>
             {
                 render = true;
                 return Task.CompletedTask;
