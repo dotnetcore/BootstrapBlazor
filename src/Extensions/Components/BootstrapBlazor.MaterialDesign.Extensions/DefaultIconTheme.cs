@@ -18,7 +18,7 @@ internal class DefaultIconTheme : IIconTheme
             // Avatar 组件
             { ComponentIcons.AvatarIcon, "mdi mdi-account" },
 
-            { ComponentIcons.ButtonLoadingIcon, "mdi mdi-loading" },
+            { ComponentIcons.ButtonLoadingIcon, "mdi mdi-loading mdi-spin" },
 
             { ComponentIcons.CaptchaRefreshIcon, "mdi mdi-refresh" },
             { ComponentIcons.CaptchaBarIcon, "mdi mdi-chevron-right" },
@@ -89,7 +89,7 @@ internal class DefaultIconTheme : IIconTheme
             { ComponentIcons.LayoutMenuBarIcon, "mdi mdi-menu" },
             { ComponentIcons.LogoutLinkIcon, "mdi mdi-logout" },
 
-            { ComponentIcons.LoadingIcon, "mdi mdi-loading" },
+            { ComponentIcons.LoadingIcon, "mdi mdi-loading mdi-spin" },
 
             { ComponentIcons.PaginationPrevPageIcon, "mdi mdi-chevron-left" },
             { ComponentIcons.PaginationNextPageIcon, "mdi mdi-chevron-right" },
@@ -111,7 +111,7 @@ internal class DefaultIconTheme : IIconTheme
 
             { ComponentIcons.SearchClearButtonIcon, "mdi mdi-trash-can-outline" },
             { ComponentIcons.SearchButtonIcon, "mdi mdi-magnify-plus-outline" },
-            { ComponentIcons.SearchButtonLoadingIcon, "mdi mdi-loading" },
+            { ComponentIcons.SearchButtonLoadingIcon, "mdi mdi-loading mdi-spin" },
 
             { ComponentIcons.SelectDropdownIcon, "mdi mdi-chevron-up" },
             { ComponentIcons.SelectSearchIcon, "mdi mdi-magnify-plus-outline" },
@@ -144,16 +144,16 @@ internal class DefaultIconTheme : IIconTheme
             { ComponentIcons.TableCardViewButtonIcon, "mdi mdi-menu" },
             { ComponentIcons.TableColumnListButtonIcon, "mdi mdi-format-list-bulleted" },
             { ComponentIcons.TableExcelExportIcon, "mdi mdi-file-export-outline" },
-            { ComponentIcons.TableSearchButtonIcon, "mdi mdi-magnify-plus-outline" },
+            { ComponentIcons.TableSearchButtonIcon, "mdi mdi-magnify" },
             { ComponentIcons.TableResetSearchButtonIcon, "mdi mdi-trash-can-outline" },
             { ComponentIcons.TableCloseButtonIcon, "mdi mdi-close" },
             { ComponentIcons.TableCancelButtonIcon, "mdi mdi-close" },
             { ComponentIcons.TableSaveButtonIcon, "mdi mdi-content-save" },
-            { ComponentIcons.TableAdvanceButtonIcon, "mdi mdi-magnify-plus-outline-plus" },
+            { ComponentIcons.TableAdvanceButtonIcon, "mdi mdi-magnify-plus-outline" },
 
             { ComponentIcons.TableTreeIcon, "mdi mdi-menu-right" },
             { ComponentIcons.TableTreeExpandIcon, "mdi mdi-menu-right mdi-rotate-90" },
-            { ComponentIcons.TableTreeNodeLoadingIcon, "mdi mdi-loading" },
+            { ComponentIcons.TableTreeNodeLoadingIcon, "mdi mdi-loading mdi-spin" },
             { ComponentIcons.TableCopyColumnButtonIcon, "mdi mdi-clipboard-outline" },
             { ComponentIcons.TableGearIcon, "mdi mdi-cog" },
 
@@ -168,13 +168,13 @@ internal class DefaultIconTheme : IIconTheme
 
             // Upload
             { ComponentIcons.AvatarUploadDelteIcon, "mdi mdi-trash-can-outline" },
-            { ComponentIcons.AvatarUploadLoadingIcon, "mdi mdi-loading" },
+            { ComponentIcons.AvatarUploadLoadingIcon, "mdi mdi-loading mdi-spin" },
             { ComponentIcons.AvatarUploadAddIcon, "mdi mdi-plus" },
             { ComponentIcons.AvatarUploadValidStatusIcon, "mdi mdi-check" },
             { ComponentIcons.AvatarUploadInvalidStatusIcon, "mdi mdi-close" },
 
             { ComponentIcons.ButtonUploadBrowserButtonIcon, "mdi mdi-folder-open" },
-            { ComponentIcons.ButtonUploadLoadingIcon, "mdi mdi-loading" },
+            { ComponentIcons.ButtonUploadLoadingIcon, "mdi mdi-loading mdi-spin" },
             { ComponentIcons.ButtonUploadInvalidStatusIcon, "mdi mdi-close-circle-outline" },
             { ComponentIcons.ButtonUploadValidStatusIcon, "mdi mdi-check-circle-outline" },
             { ComponentIcons.ButtonUploadDeleteIcon, "mdi mdi-trash-can-outline" },
