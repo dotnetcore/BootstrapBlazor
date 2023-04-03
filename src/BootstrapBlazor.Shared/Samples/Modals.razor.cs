@@ -18,7 +18,7 @@ public sealed partial class Modals
         new AttributeItem() {
             Name = "FirstAfterRenderCallbackAsync",
             Description = Localizer["ModalsAttributesFirstAfterRenderCallbackAsync"],
-            Type = "Func<Task>",
+            Type = "Func<Modal,Task>",
             ValueList = " — ",
             DefaultValue = " — "
         },
