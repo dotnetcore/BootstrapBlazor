@@ -4975,7 +4975,7 @@ public class TableTest : TableTestBase
 
         var table = cut.FindComponent<Table<Foo>>();
         Assert.Contains("fa-solid fa-plus", table.Markup);
-        Assert.Contains("fa-solid fa-pencil", table.Markup);
+        Assert.Contains("fa-regular fa-pen-to-square", table.Markup);
         Assert.Contains("fa-solid fa-xmark", table.Markup);
 
         table.SetParametersAndRender(pb =>
@@ -4983,7 +4983,7 @@ public class TableTest : TableTestBase
             pb.Add(a => a.ShowDefaultButtons, false);
         });
         Assert.DoesNotContain("fa-solid fa-plus", table.Markup);
-        Assert.DoesNotContain("fa-solid fa-pencil", table.Markup);
+        Assert.DoesNotContain("fa-regular fa-pen-to-square", table.Markup);
         Assert.DoesNotContain("fa-solid fa-xmark", table.Markup);
     }
 
@@ -5075,13 +5075,13 @@ public class TableTest : TableTestBase
         });
 
         var table = cut.FindComponent<Table<Foo>>();
-        Assert.Contains("fa-solid fa-pencil", table.Markup);
+        Assert.Contains("fa-regular fa-pen-to-square", table.Markup);
 
         table.SetParametersAndRender(pb =>
         {
             pb.Add(a => a.ShowEditButton, false);
         });
-        Assert.DoesNotContain("fa-solid fa-pencil", table.Markup);
+        Assert.DoesNotContain("fa-regular fa-pen-to-square", table.Markup);
     }
 
     [Fact]
@@ -5141,13 +5141,13 @@ public class TableTest : TableTestBase
         });
 
         var table = cut.FindComponent<Table<Foo>>();
-        Assert.Contains("fa-solid fa-pen", table.Find("tbody").ToMarkup());
+        Assert.Contains("fa-regular fa-pen-to-square", table.Find("tbody").ToMarkup());
 
         table.SetParametersAndRender(pb =>
         {
             pb.Add(a => a.ShowEditButtonCallback, foo => false);
         });
-        Assert.DoesNotContain("fa-solid fa-pen", table.Find("tbody").ToMarkup());
+        Assert.DoesNotContain("fa-regular fa-pen-to-square", table.Find("tbody").ToMarkup());
     }
 
     [Fact]
@@ -5210,13 +5210,13 @@ public class TableTest : TableTestBase
         });
 
         var table = cut.FindComponent<Table<Foo>>();
-        Assert.Contains("fa-solid fa-pen", table.Find("tbody").ToMarkup());
+        Assert.Contains("fa-regular fa-pen-to-square", table.Find("tbody").ToMarkup());
 
         table.SetParametersAndRender(pb =>
         {
             pb.Add(a => a.ShowExtendEditButton, false);
         });
-        Assert.DoesNotContain("fa-solid fa-pen", table.Find("tbody").ToMarkup());
+        Assert.DoesNotContain("fa-regular fa-pen-to-square", table.Find("tbody").ToMarkup());
 
         table.SetParametersAndRender(pb =>
         {
@@ -5224,7 +5224,7 @@ public class TableTest : TableTestBase
             pb.Add(a => a.ShowDefaultButtons, false);
             pb.Add(a => a.ShowEditButtonCallback, foo => true);
         });
-        Assert.Contains("fa-solid fa-pen", table.Find("tbody").ToMarkup());
+        Assert.Contains("fa-regular fa-pen-to-square", table.Find("tbody").ToMarkup());
     }
 
     [Fact]

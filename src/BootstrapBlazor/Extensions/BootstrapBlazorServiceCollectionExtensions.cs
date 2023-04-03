@@ -174,6 +174,19 @@ public static class BootstrapBlazorServiceCollectionExtensions
     static IServiceCollection AddIconTheme(this IServiceCollection services)
     {
         services.TryAddSingleton<IIconTheme, DefaultIconTheme>();
+        services.AddOptionsMonitor<IconThemeOptions>();
+        return services;
+    }
+
+    /// <summary>
+    /// IconThemeOptions 扩展配置方法
+    /// </summary>
+    /// <param name="services"></param>
+    /// <param name="configureOptions"></param>
+    /// <returns></returns>
+    public static IServiceCollection ConfigureIconThemeOptions(this IServiceCollection services, Action<IconThemeOptions> configureOptions)
+    {
+        services.Configure(configureOptions);
         return services;
     }
 }
