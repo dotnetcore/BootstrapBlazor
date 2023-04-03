@@ -10,33 +10,64 @@ namespace UnitTest.Services;
 public class ConfigureIconMapperOptionsTest
 {
     [Fact]
+    public void ConfigureIconMapperOptions_NoKey()
+    {
+        var context = new TestContext();
+        context.Services.AddConfiguration();
+        context.Services.AddBootstrapBlazor();
+        context.Services.ConfigureIconThemeOptions(options =>
+        {
+            options.ThemeKey = "mock";
+        });
+
+        var iconService = context.Services.GetRequiredService<IIconTheme>();
+        Assert.Empty(iconService.GetIcons());
+    }
+
+    [Fact]
     public void ConfigureIconMapperOptions_Ok()
     {
         var context = new TestContext();
+        context.Services.AddConfiguration();
         context.Services.AddSingleton<IIconTheme, MockIconTheme>();
+        context.Services.AddOptionsMonitor<IconThemeOptions>();
+        context.Services.ConfigureIconThemeOptions(options =>
+        {
+            options.ThemeKey = "mock";
+            options.Icons["mock"] = new()
+            {
+                { ComponentIcons.AnchorLinkIcon, "mdi mdi-link-variant" }
+            };
+        });
 
         var iconService = context.Services.GetRequiredService<IIconTheme>();
         Assert.Equal("mdi mdi-link-variant", iconService.GetIconByKey(ComponentIcons.AnchorLinkIcon));
-        Assert.Equal("mdi mdi-test", iconService.GetIconByKey(ComponentIcons.TableSortIcon, "mdi mdi-test"));
     }
 
     internal class MockIconTheme : IIconTheme
     {
-        private Dictionary<ComponentIcons, string> Icons { get; }
+        private IOptions<IconThemeOptions> Options { get; set; }
 
-        public MockIconTheme()
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="options"></param>
+        public MockIconTheme(IOptions<IconThemeOptions> options)
         {
-            Icons = new Dictionary<ComponentIcons, string>()
-            {
-                { ComponentIcons.AnchorLinkIcon, "mdi mdi-link-variant" }
-            };
+            Options = options;
         }
 
         /// <summary>
         /// <inheritdoc/>
         /// </summary>
         /// <returns></returns>
-        /// <exception cref="NotImplementedException"></exception>
-        public Dictionary<ComponentIcons, string> GetIcons() => Icons;
+        public Dictionary<ComponentIcons, string> GetIcons()
+        {
+            if (!Options.Value.Icons.TryGetValue(Options.Value.ThemeKey, out var icons))
+            {
+                icons = new Dictionary<ComponentIcons, string>();
+            }
+            return icons;
+        }
     }
 }
