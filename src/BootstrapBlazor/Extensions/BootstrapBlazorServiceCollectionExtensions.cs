@@ -170,17 +170,11 @@ public static class BootstrapBlazorServiceCollectionExtensions
     /// 增加 图标映射配置项服务
     /// </summary>
     /// <param name="services"></param>
-    /// <param name="configureOptions"></param>
     /// <returns></returns>
-    static IServiceCollection AddIconTheme(this IServiceCollection services, Action<IconThemeOptions>? configureOptions = null)
+    static IServiceCollection AddIconTheme(this IServiceCollection services)
     {
         services.TryAddSingleton<IIconTheme, DefaultIconTheme>();
         services.AddOptionsMonitor<IconThemeOptions>();
-
-        if (configureOptions != null)
-        {
-            services.Configure(configureOptions);
-        }
         return services;
     }
 
