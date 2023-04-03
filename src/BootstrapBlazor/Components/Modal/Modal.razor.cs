@@ -50,7 +50,7 @@ public partial class Modal
     /// 获得/设置 组件已经渲染完毕回调方法
     /// </summary>
     [Parameter]
-    public Func<Task>? FirstAfterRenderCallbackAsync { get; set; }
+    public Func<Modal, Task>? FirstAfterRenderCallbackAsync { get; set; }
 
     /// <summary>
     /// 获得/设置 弹窗已显示时回调此方法
@@ -82,7 +82,7 @@ public partial class Modal
 
         if (firstRender && FirstAfterRenderCallbackAsync != null)
         {
-            await FirstAfterRenderCallbackAsync();
+            await FirstAfterRenderCallbackAsync(this);
         }
     }
 
