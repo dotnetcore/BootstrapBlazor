@@ -135,7 +135,7 @@ internal class DefaultIconTheme : IIconTheme
             { ComponentIcons.TableExportButtonIcon, "fa-solid fa-download" },
 
             { ComponentIcons.TableAddButtonIcon, "fa-solid fa-plus" },
-            { ComponentIcons.TableEditButtonIcon, "fa-solid fa-pencil" },
+            { ComponentIcons.TableEditButtonIcon, "fa-regular fa-pen-to-square" },
             { ComponentIcons.TableDeleteButtonIcon, "fa-solid fa-xmark" },
             { ComponentIcons.TableRefreshButtonIcon, "fa-solid fa-arrows-rotate" },
             { ComponentIcons.TableCardViewButtonIcon, "fa-solid fa-bars" },
