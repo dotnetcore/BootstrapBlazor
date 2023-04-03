@@ -8,7 +8,7 @@
         <div class="blazor-intro-body">
             <p>@Localizer["B1"] <b>Bootstrap</b> <b>Blazor</b> @Localizer["B2"] <a href="@WebsiteOption.CurrentValue.AdminUrl" target="_blank"><b>@Localizer["B3"]</b></a> @Localizer["B4"]。<b>Bootstrap Blazor</b> @((MarkupString)Localizer["B5"].Value)</p>
             <p>
-                @Localizer["P1"] <span class="version">6.6.0</span> @Localizer["P2"] <a target="_blank" href="@UpdateLogUrl"><b>[@Localizer["P3"]]</b></a> @Localizer["P4"] <b>Star</b>
+                @Localizer["P1"] <span class="version">@VersionService.Version</span> @Localizer["P2"] <a target="_blank" href="@UpdateLogUrl"><b>[@Localizer["P3"]]</b></a> @Localizer["P4"] <b>Star</b>
                 <a class="px-2" href="https://github.com/ArgoZhang/BootstrapBlazor" target="_blank">
                     <img src="_content/BootstrapBlazor.Shared/images/git.svg" alt="github" />
                 </a>
