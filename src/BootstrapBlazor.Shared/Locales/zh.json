@@ -4589,7 +4589,9 @@
     "Video": "相关视频",
     "ViewRazorCode": "查看 Razor 代码",
     "ViewC#Code": "查看 C# 代码",
-    "ViewExample": "查看示例"
+    "ViewExample": "查看示例",
+    "IconTheme": "图标主题",
+    "Group": "交流群"
   },
   "BootstrapBlazor.Shared.Samples.Alerts": {
     "Title": "Alert 警告",

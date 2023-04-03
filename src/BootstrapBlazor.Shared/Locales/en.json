@@ -4581,7 +4581,9 @@
     "Video": "Video",
     "ViewRazorCode": "View Razor Code",
     "ViewC#Code": "View C# Code",
-    "ViewExample": "View Example"
+    "ViewExample": "View Example",
+    "IconTheme": "Icon",
+    "Group": "Community"
   },
   "BootstrapBlazor.Shared.Samples.Alerts": {
     "Title": "Alert",

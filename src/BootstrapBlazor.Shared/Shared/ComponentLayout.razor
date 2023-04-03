@@ -22,7 +22,7 @@
 </div>
 
 <div class="d-flex justify-content-center">
-    <div class="me-3" style="line-height: 35px;">图标主题</div>
+    <div class="me-3" style="line-height: 35px;">@Localizer["IconTheme"]</div>
     <div class=""><RadioList TValue="string" Items="IconThemes" Value="@IconThemeKey" OnValueChanged="OnIconThemeChanged"></RadioList></div>
 </div>
 
@@ -34,6 +34,6 @@
 
 <Video @key="@VideoFileName" Name="@VideoFileName"></Video>
 
-<p><b>交流群</b></p>
+<p><b>@Localizer["Group"]</b></p>
 
 <QQGroup />

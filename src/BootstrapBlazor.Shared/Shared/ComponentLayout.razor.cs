@@ -30,7 +30,7 @@ public sealed partial class ComponentLayout
 
     [Inject]
     [NotNull]
-    private IOptions<IconThemeOptions> IconThemeOptions { get; set; }
+    private IOptions<IconThemeOptions>? IconThemeOptions { get; set; }
 
     private string GVPUrl => $"{WebsiteOption.CurrentValue.BootstrapBlazorLink}/badge/star.svg?theme=gvp";
 
