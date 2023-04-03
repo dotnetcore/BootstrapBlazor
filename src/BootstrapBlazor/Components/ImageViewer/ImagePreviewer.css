@@ -54,6 +54,11 @@
     right: 40px;
 }
 
+.bb-viewer-prev,
+.bb-viewer-next {
+    font-size: 2em;
+}
+
 .bb-viewer-close {
     top: 40px;
     right: 40px;

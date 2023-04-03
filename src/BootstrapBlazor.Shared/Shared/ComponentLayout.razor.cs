@@ -28,7 +28,16 @@ public sealed partial class ComponentLayout
     [NotNull]
     private NavigationManager? Navigator { get; set; }
 
+    [Inject]
+    [NotNull]
+    private IOptions<IconThemeOptions>? IconThemeOptions { get; set; }
+
     private string GVPUrl => $"{WebsiteOption.CurrentValue.BootstrapBlazorLink}/badge/star.svg?theme=gvp";
+
+    private List<SelectedItem> IconThemes { get; } = new();
+
+    [NotNull]
+    private string? IconThemeKey { get; set; }
 
     /// <summary>
     /// OnInitialized 方法
@@ -36,6 +45,13 @@ public sealed partial class ComponentLayout
     protected override void OnInitialized()
     {
         base.OnInitialized();
+
+        IconThemes.AddRange(new SelectedItem[]
+        {
+            new("fa", "Font Awesome"),
+            new("mdi", "Material Design")
+        });
+        IconThemeKey = IconThemeOptions.Value.ThemeKey;
 
         Title ??= Localizer[nameof(Title)];
         Video ??= Localizer[nameof(Video)];
@@ -52,5 +68,13 @@ public sealed partial class ComponentLayout
         var comNameWithHash = page.Split("/").LastOrDefault() ?? string.Empty;
         var comName = comNameWithHash.Split("#").FirstOrDefault() ?? string.Empty;
         VideoFileName = comName;
+    }
+
+    private Task OnIconThemeChanged(string key)
+    {
+        IconThemeOptions.Value.ThemeKey = key;
+
+        Navigator.NavigateTo(Navigator.Uri, true);
+        return Task.CompletedTask;
     }
 }

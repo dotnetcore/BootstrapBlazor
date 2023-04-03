@@ -27,6 +27,8 @@
     <PackageReference Include="BootstrapBlazor.FileViewer" Version="7.*" />
     <PackageReference Include="BootstrapBlazor.FontAwesome" Version="7.*" />
     <PackageReference Include="BootstrapBlazor.Markdown" Version="7.*" />
+    <PackageReference Include="BootstrapBlazor.MaterialDesign" Version="7.0.0" />
+    <PackageReference Include="BootstrapBlazor.MaterialDesign.Extensions" Version="7.0.0" />
     <PackageReference Include="BootstrapBlazor.OnScreenKeyboard" Version="7.*" />
     <PackageReference Include="BootstrapBlazor.PdfReader" Version="7.*" />
     <PackageReference Include="BootstrapBlazor.SignaturePad" Version="7.*" />

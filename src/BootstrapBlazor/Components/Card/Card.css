@@ -47,7 +47,7 @@
     }
 
 [aria-expanded="true"] > .card-collapse-arrow {
-    transform: rotate( 90deg);
+    transform: rotate(90deg);
 }
 
 .is-collapsable > .card-body {
