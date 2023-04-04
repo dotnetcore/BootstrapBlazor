@@ -1,6 +1,7 @@
 ﻿@inject IStringLocalizer<AutoCompleteShowLabel> Localizer
 
 <p>@((MarkupString)Localizer["Description"].Value)</p>
+
 <Divider Text="@Localizer["Divider1Text"]" Alignment="Alignment.Left" style="margin: 2rem 0;"></Divider>
 <ValidateForm Model="@Model">
     <AutoComplete Items="@StaticItems" @bind-Value="@Model.Name" ShowLabel="true"/>

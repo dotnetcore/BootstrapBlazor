@@ -25,6 +25,7 @@
 
 @code {
     private static List<string> StaticItems => new() { "1", "12", "123", "1234", "12345", "123456", "abc", "abcdef", "ABC", "aBcDeFg", "ABCDEFG" };
+
     [NotNull]
     private BlockLogger? Trace { get; set; }
     private Task OnSelectedItemChanged(string val)
@@ -32,5 +33,4 @@
         Trace.Log($"Value: {val}");
         return Task.CompletedTask;
     }
-
 }
