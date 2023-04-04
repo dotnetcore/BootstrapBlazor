@@ -1,5 +1,4 @@
-﻿@using BootstrapBlazor.Shared.Samples
-@inject IStringLocalizer<Transfers> Localizer
+﻿@inject IStringLocalizer<Transfers> Localizer
 
 <Transfer Items="@Items" @bind-Value="@SelectedValue" />
 <div class="my-3">Value：@string.Join(";", SelectedValue.Select(i => i.Text))</div>

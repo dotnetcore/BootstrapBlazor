@@ -3,8 +3,6 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using BootstrapBlazor.Shared.Services;
-using Microsoft.Extensions.Options;
-using System;
 
 namespace BootstrapBlazor.Shared.Shared;
 
