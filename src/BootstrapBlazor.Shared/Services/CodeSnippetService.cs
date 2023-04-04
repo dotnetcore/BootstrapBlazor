@@ -116,8 +116,8 @@ class CodeSnippetService
         var index = payload.IndexOf("@inject IStringLocalizer<");
         if (index > -1)
         {
-            var end = payload.IndexOf("\r\n", index, StringComparison.OrdinalIgnoreCase);
-            var target = payload[index..(end + 2)];
+            var end = payload.IndexOf("\n", index, StringComparison.OrdinalIgnoreCase);
+            var target = payload[index..(end + 1)];
             payload = payload.Replace(target, string.Empty);
             payload = payload.TrimStart('\r', '\n');
         }
