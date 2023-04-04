@@ -1,15 +1,15 @@
 ﻿<DateTimeRange @bind-Value="@DateTimeRangeValue" OnConfirm="OnConfirm" />
-<BlockLogger @ref="DateLogger" class="mt-3" />
+<BlockLogger @ref="Trace" class="mt-3" />
 
 @code {
     [NotNull]
-    private BlockLogger? DateLogger { get; set; }
+    private BlockLogger? Trace { get; set; }
 
     private DateTimeRangeValue DateTimeRangeValue { get; set; } = new();
 
     private Task OnConfirm(DateTimeRangeValue value)
     {
-        DateLogger?.Log($"选择的时间范围是: {value.Start:yyyy-MM-dd} - {value.End:yyyy-MM-dd}");
+        Trace?.Log($"选择的时间范围是: {value.Start:yyyy-MM-dd} - {value.End:yyyy-MM-dd}");
         return Task.CompletedTask;
     }
 }

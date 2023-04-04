@@ -5,11 +5,11 @@
         @Localizer["RibbonTabsFloatContent"]
     </RibbonTab>
 </div>
-<BlockLogger @ref="Logger" />
+<BlockLogger @ref="Trace" class="mt-3" />
 
 @code {  
     [NotNull]
-    private BlockLogger? Logger { get; set; }
+    private BlockLogger? Trace { get; set; }
 
     [NotNull]
     private IEnumerable<RibbonTabItem>? Items { get; set; }
@@ -52,7 +52,7 @@
 
     private Task OnFloatChanged(bool @float)
     {
-        Logger.Log($"Float: {@float}");
+        Trace.Log($"Float: {@float}");
         return Task.CompletedTask;
     }
 }

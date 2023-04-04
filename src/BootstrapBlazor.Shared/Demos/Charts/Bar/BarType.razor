@@ -25,7 +25,7 @@
         <button class="btn btn-primary" @onclick="e => Utility.RemoveData(BarChart, ref BarDataCount)"><i class="fa-solid fa-minus"></i><span>@Localizer["BarTypeRemoveData"]</span></button>
     </div>
 </div>
-<BlockLogger @ref="Logger" class="mt-3" />
+<BlockLogger @ref="Trace" class="mt-3" />
 
 @code {
     private Random Randomer { get; } = new Random();
@@ -38,7 +38,7 @@
     private Chart? BarChart { get; set; }
 
     [NotNull]
-    private BlockLogger? Logger { get; set; }
+    private BlockLogger? Trace { get; set; }
 
     /// <summary>
     /// OnAfterRender
@@ -50,17 +50,17 @@
 
         if (firstRender)
         {
-            Logger.Log("Bar loading data ...");
+            Trace.Log("Bar loading data ...");
         }
     }
 
     private Task OnAfterInit()
     {
-        Logger.Log("Bar initialization is complete");
+        Trace.Log("Bar initialization is complete");
         return Task.CompletedTask;
     }
 
-    private Task OnAfterUpdate(ChartAction action) => InvokeAsync(() => Logger.Log($"Bar Figure update data operation completed -- {action}"));
+    private Task OnAfterUpdate(ChartAction action) => InvokeAsync(() => Trace.Log($"Bar Figure update data operation completed -- {action}"));
 
     private Task<ChartDataSource> OnInit(bool stacked, bool setTitle = true)
     {

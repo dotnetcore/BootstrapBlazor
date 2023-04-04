@@ -28,7 +28,7 @@
         </div>
     </div>
 </ValidateForm>
-<BlockLogger @ref="Trace2" class="mt-3" />
+<BlockLogger @ref="Trace" class="mt-3" />
 
 @code {
     [NotNull]
@@ -38,7 +38,7 @@
     private IEnumerable<SelectedItem>? Hobbys { get; set; }
 
     [NotNull]
-    private BlockLogger? Trace2 { get; set; }
+    private BlockLogger? Trace { get; set; }
 
     /// <summary>
     /// OnInitializedAsync 方法
@@ -59,14 +59,14 @@
 
     private async Task OnValidSubmit(EditContext context)
     {
-        Trace2.Log(Localizer["OnValidSubmitSatringLog"]);
+        Trace.Log(Localizer["OnValidSubmitSatringLog"]);
         await Task.Delay(3000);
-        Trace2.Log(Localizer["OnValidSubmitDoneLog"]);
+        Trace.Log(Localizer["OnValidSubmitDoneLog"]);
     }
 
     private Task OnInvalidSubmit(EditContext context)
     {
-        Trace2.Log(Localizer["OnInvalidSubmitCallBackLog"]);
+        Trace.Log(Localizer["OnInvalidSubmitCallBackLog"]);
         return Task.CompletedTask;
     }
 }
