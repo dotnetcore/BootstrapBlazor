@@ -21,17 +21,17 @@
         <Switch Value="true" OnColor="Color.Dark" OnText="@Localizer["SwitchsOnText"]" OffText="@Localizer["SwitchsOffText"]"></Switch>
     </div>
 </div>
-<BlockLogger @ref="Trace" class="mt-3" />
+<Logger @ref="Logger" class="mt-3" />
 
 @code {
     [NotNull]
-    private BlockLogger? Trace { get; set; }
+    private Logger? Logger{ get; set; }
 
     private bool BindValue { get; set; } = true;
 
     private void OnValueChanged(bool val)
     {
         BindValue = val;
-        Trace.Log($"Switch CurrentValue: {val}");
+        Logger.Log($"Switch CurrentValue: {val}");
     }
 }

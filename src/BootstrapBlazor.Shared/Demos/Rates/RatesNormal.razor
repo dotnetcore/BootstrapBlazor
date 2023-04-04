@@ -1,16 +1,17 @@
 ﻿@inject IStringLocalizer<BootstrapBlazor.Shared.Samples.Rates> Localizer
 
 <Rate Value="@BindValue" ValueChanged="@OnValueChanged" />
-<BlockLogger @ref="Trace" class="mt-3" />
+<Logger @ref="Logger" class="mt-3" />
 
 @code {
-    private BlockLogger? Trace { get; set; }
+    [NotNull]
+    private Logger? Logger { get; set; }
 
     private int BindValue { get; set; } = 3;
 
     private void OnValueChanged(int val)
     {
         BindValue = val;
-        Trace?.Log($"{Localizer["RatesLog"]} {val}");
+        Logger.Log($"{Localizer["RatesLog"]} {val}");
     }
 }

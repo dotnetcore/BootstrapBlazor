@@ -21,11 +21,11 @@
     </FooterTemplate>
 </ListView>
 
-<BlockLogger @ref="Trace" class="mt-3" />
+<Logger @ref="Logger" class="mt-3" />
 
 @code {
     [NotNull]
-    private BlockLogger? Trace { get; set; }
+    private Logger? Logger{ get; set; }
 
     [NotNull]
     private IEnumerable<Product>? Products { get; set; }
@@ -47,7 +47,7 @@
 
     private Task OnListViewItemClick(Product item)
     {
-        Trace?.Log($"ListViewItem: {item.Description} clicked");
+        Logger.Log($"ListViewItem: {item.Description} clicked");
         return Task.CompletedTask;
     }
 }

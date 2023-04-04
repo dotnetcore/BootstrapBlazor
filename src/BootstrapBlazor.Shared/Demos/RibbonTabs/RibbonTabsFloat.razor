@@ -5,11 +5,11 @@
         @Localizer["RibbonTabsFloatContent"]
     </RibbonTab>
 </div>
-<BlockLogger @ref="Logger" />
+<Logger @ref="Logger" class="mt-3" />
 
 @code {  
     [NotNull]
-    private BlockLogger? Logger { get; set; }
+    private Logger? Logger{ get; set; }
 
     [NotNull]
     private IEnumerable<RibbonTabItem>? Items { get; set; }

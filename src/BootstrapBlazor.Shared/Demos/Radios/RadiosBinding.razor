@@ -8,11 +8,11 @@
         Text: @BindRadioItem.Text Value: @BindRadioItem.Value
     </div>
 </div>
-<BlockLogger class="mt-3" @ref="BinderLog" />
+<Logger @ref="Logger" class="mt-3" />
 
 @code {
     [NotNull]
-    private BlockLogger? BinderLog { get; set; }
+    private Logger? Logger { get; set; }
 
     [NotNull]
     private IEnumerable<SelectedItem>? Items { get; set; }
@@ -22,7 +22,7 @@
     private Task OnItemChanged(IEnumerable<SelectedItem> values, SelectedItem val)
     {
         var value = values.FirstOrDefault();
-        BinderLog.Log($"{Localizer["RadiosLog1"]} {value?.Value} {Localizer["RadiosLog1"]} {value?.Text}");
+        Logger.Log($"{Localizer["RadiosLog1"]} {value?.Value} {Localizer["RadiosLog1"]} {value?.Text}");
         return Task.CompletedTask;
     }
 

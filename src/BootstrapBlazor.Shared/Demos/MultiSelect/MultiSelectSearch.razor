@@ -3,12 +3,12 @@
 <div>
     <MultiSelect Items="@Items" @bind-Value="@SelectedItemsValue" ShowSearch="true" OnSearchTextChanged="@OnSearch" />
     <div class="mt-3">@SelectedItemsValue</div>
-    <BlockLogger @ref="Trace" class="mt-3" />
+    <Logger @ref="Logger" class="mt-3" />
 </div>
 
 @code {
     [NotNull]
-    private BlockLogger? Trace { get; set; }
+    private Logger? Logger{ get; set; }
 
     [NotNull]
     private List<SelectedItem>? Items { get; set; }
@@ -39,7 +39,7 @@
 
     private IEnumerable<SelectedItem> OnSearch(string searchText)
     {
-        Trace.Log($"{Localizer["MultiSelectSearchLog"]}：{searchText}");
+        Logger.Log($"{Localizer["MultiSelectSearchLog"]}：{searchText}");
         SearchItemsSource ??= GenerateItems();
         return SearchItemsSource.Where(i => i.Text.Contains(searchText, System.StringComparison.OrdinalIgnoreCase));
     }

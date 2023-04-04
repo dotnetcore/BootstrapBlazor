@@ -31,23 +31,23 @@
         </div>
     </div>
 </div>
-<BlockLogger @ref="Trace" class="mt-3" />
+<Logger @ref="Logger" class="mt-3" />
 
 @code {
     [NotNull]
-    private BlockLogger? Trace { get; set; }
+    private Logger? Logger{ get; set; }
 
     private Task OnClose()
     {
         // This method is called back when the confirm button is clicked, and this method will not be called when the cancel button is clicked
-        Trace.Log("OnClose Trigger");
+        Logger.Log("OnClose Trigger");
         return Task.CompletedTask;
     }
 
     private Task OnConfirm()
     {
         // This method is called back when the confirm button is clicked, and this method will not be called when the cancel button is clicked
-        Trace.Log("OnConfirm Trigger");
+        Logger.Log("OnConfirm Trigger");
         return Task.CompletedTask;
     }
 }

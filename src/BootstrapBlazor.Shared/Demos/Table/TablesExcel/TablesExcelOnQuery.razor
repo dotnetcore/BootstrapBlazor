@@ -13,7 +13,7 @@
     </TableColumns>
 </Table>
 
-<BlockLogger @ref="Trace" class="mt-3" />
+<Logger @ref="Logger" class="mt-3" />
 
 @code {
     /// <summary>
@@ -25,7 +25,7 @@
     private List<Foo>? Items { get; set; }
 
     [NotNull]
-    private BlockLogger? Trace { get; set; }
+    private Logger? Logger{ get; set; }
 
     /// <summary>
     /// 绑定数据源代码
@@ -86,7 +86,7 @@
         Items.Insert(0, foo);
 
         // 输出日志信息
-        Trace.Log($"集合值变化通知 列: {Items.Count} - 类型: Add");
+        Logger.Log($"集合值变化通知 列: {Items.Count} - 类型: Add");
         return Task.FromResult(foo);
     }
 
@@ -94,7 +94,7 @@
     {
         // 对象已经更新
         // 输出日志信息
-        Trace.Log($"单元格变化通知 类: Foo - 值: DateTime {item.DateTime}");
+        Logger.Log($"单元格变化通知 类: Foo - 值: DateTime {item.DateTime}");
         return Task.FromResult(true);
     }
 
@@ -103,7 +103,7 @@
         Items.RemoveAll(i => items.Contains(i));
 
         // 输出日志信息
-        Trace.Log($"集合值变化通知 列: {Items.Count} - 类型: Delete");
+        Logger.Log($"集合值变化通知 列: {Items.Count} - 类型: Delete");
         return Task.FromResult(true);
     }
 }

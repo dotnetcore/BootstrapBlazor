@@ -1,7 +1,7 @@
 ﻿@inject IStringLocalizer<DialogModalDialog> Localizer
 
 <Button OnClick="@OnResultDialogClick">@Localizer["ModalDialogButton"]</Button>
-<BlockLogger @ref="Trace" class="mt-3" />
+<Logger @ref="Logger" class="mt-3" />
 
 @code {
     [Inject]
@@ -9,7 +9,7 @@
     private DialogService? DialogService { get; set; }
 
     [NotNull]
-    private BlockLogger? Trace { get; set; }
+    private Logger? Logger{ get; set; }
 
     private int DemoValue1 { get; set; } = 1;
 
@@ -25,6 +25,6 @@
             }
         });
 
-        Trace.Log($"The return value of the popup window is: {result} The return value of the component is: {DemoValue1}");
+        Logger.Log($"The return value of the popup window is: {result} The return value of the component is: {DemoValue1}");
     }
 }

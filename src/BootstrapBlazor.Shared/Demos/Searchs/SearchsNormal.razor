@@ -7,17 +7,17 @@
         Items="@Items"
         OnSearch="@OnSearch"
         IsSelectAllTextOnFocus="true" />
-<BlockLogger @ref="Trace" class="mt-3" />
+<Logger @ref="Logger" class="mt-3" />
 
 @code {
     [NotNull]
-    private BlockLogger? Trace { get; set; }
+    private Logger? Logger{ get; set; }
 
     private static IEnumerable<string> Items => new string[] { "1", "12", "123", "1234" };
 
     private Task OnSearch(string searchText)
     {
-        Trace.Log($"SearchText: {searchText}");
+        Logger.Log($"SearchText: {searchText}");
         return Task.CompletedTask;
     }
 }

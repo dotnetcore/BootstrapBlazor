@@ -1,18 +1,18 @@
 ﻿@inject IStringLocalizer<BootstrapBlazor.Shared.Samples.Menus> Localizer
 
 <Menu Items="@Items" DisableNavigation="true" OnClick="@OnClickMenu" />
-<BlockLogger @ref="Trace" class="mt-3" />
+<Logger @ref="Logger" class="mt-3" />
 
 @code {
     [NotNull]
-    private BlockLogger? Trace { get; set; }
+    private Logger? Logger{ get; set; }
 
     [NotNull]
     private IEnumerable<MenuItem>? Items { get; set; }
 
     private Task OnClickMenu(MenuItem item)
     {
-        Trace.Log($"菜单点击项: {item.Text}");
+        Logger.Log($"菜单点击项: {item.Text}");
         return Task.CompletedTask;
     }
 

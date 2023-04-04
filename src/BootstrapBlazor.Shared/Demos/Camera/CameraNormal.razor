@@ -5,13 +5,13 @@
 {
     <img src="@ImageUrl" class="mt-3" />
 }
-<BlockLogger @ref="Trace" class="mt-3" />
+<Logger @ref="Logger" class="mt-3" />
 
 @code {
     private string? ImageUrl { get; set; }
 
     [NotNull]
-    private BlockLogger? Trace { get; set; }
+    private Logger? Logger{ get; set; }
 
     [NotNull]
     private string? TraceOnInit { get; set; }
@@ -45,33 +45,33 @@
     private Task OnInit(IEnumerable<DeviceItem> devices)
     {
         var cams = string.Join("", devices.Select(i => i.Label));
-        Trace.Log($"{TraceOnInit} {cams}");
+        Logger.Log($"{TraceOnInit} {cams}");
         return Task.CompletedTask;
     }
 
     private Task OnError(string err)
     {
-        Trace.Log($"{TraceOnError} {err}");
+        Logger.Log($"{TraceOnError} {err}");
         return Task.CompletedTask;
     }
 
     private Task OnStart()
     {
         ImageUrl = null;
-        Trace.Log(TraceOnStar);
+        Logger.Log(TraceOnStar);
         return Task.CompletedTask;
     }
 
     private Task OnClose()
     {
-        Trace.Log(TraceOnClose);
+        Logger.Log(TraceOnClose);
         return Task.CompletedTask;
     }
 
     private Task OnCapture(string url)
     {
         ImageUrl = url;
-        Trace.Log(TraceOnCapture);
+        Logger.Log(TraceOnCapture);
         StateHasChanged();
         return Task.CompletedTask;
     }

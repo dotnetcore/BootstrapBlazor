@@ -24,10 +24,11 @@
         <Select Color="Color.Dark" Items="Items" OnSelectedItemChanged="OnItemChanged" @bind-Value="Model.Name"></Select>
     </div>
 </div>
-<BlockLogger @ref="Trace" class="mt-3" />
+<Logger @ref="Logger" class="mt-3" />
 
 @code {
-    private BlockLogger? Trace { get; set; }
+    [NotNull]
+    private Logger? Logger { get; set; }
 
     private Foo Model { get; set; } = new Foo();
 
@@ -39,7 +40,7 @@
 
     private Task OnItemChanged(SelectedItem item)
     {
-        Trace?.Log($"SelectedItem Text: {item.Text} Value: {item.Value} Selected");
+        Logger.Log($"SelectedItem Text: {item.Text} Value: {item.Value} Selected");
         StateHasChanged();
         return Task.CompletedTask;
     }

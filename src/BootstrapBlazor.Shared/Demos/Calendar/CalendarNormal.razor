@@ -1,11 +1,12 @@
 ﻿<Calendar ValueChanged="@OnValueChanged" />
-<BlockLogger @ref="Trace" class="mt-3" />
+<Logger @ref="Logger" class="mt-3" />
 
 @code {
-    private BlockLogger? Trace { get; set; }
+    [NotNull]
+    private Logger? Logger { get; set; }
 
     private void OnValueChanged(DateTime ts)
     {
-        Trace?.Log($"{ts:yyyy-MM-dd}");
+        Logger.Log($"{ts:yyyy-MM-dd}");
     }
 }

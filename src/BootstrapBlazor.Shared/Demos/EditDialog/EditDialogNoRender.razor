@@ -2,12 +2,12 @@
 
 <div>
     <Button Text="@Localizer["PopupButton"]" OnClickWithoutRender="@ShowEditDialog" />
-    <BlockLogger @ref="Trace" class="mt-3" />
+    <Logger @ref="Logger" class="mt-3" />
 </div>
 
 @code {
     [NotNull]
-    private BlockLogger? Trace { get; set; }
+    private Logger? Logger{ get; set; }
 
     [Inject]
     [NotNull]
@@ -48,12 +48,12 @@
             RowType = RowType.Inline,
             OnCloseAsync = () =>
             {
-                Trace.Log("close button is clicked");
+                Logger.Log("close button is clicked");
                 return Task.CompletedTask;
             },
             OnEditAsync = context =>
             {
-                Trace.Log("save button is clicked");
+                Logger.Log("save button is clicked");
                  return Task.FromResult(true);
             }
         };

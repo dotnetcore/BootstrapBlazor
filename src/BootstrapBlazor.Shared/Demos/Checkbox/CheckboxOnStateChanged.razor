@@ -8,16 +8,17 @@
         <BootstrapInput @bind-Value="@BindValue" IsDisabled="true" />
     </div>
 </div>
-<BlockLogger @ref="BinderLog" class="mt-3" />
+<Logger @ref="Logger" class="mt-3" />
 
 @code {
     private bool BindValue { get; set; }
 
-    private BlockLogger? BinderLog { get; set; }
+    [NotNull]
+    private Logger? Logger{ get; set; }
 
     private Task OnItemChanged(CheckboxState state, bool value)
     {
-        BinderLog?.Log($"CheckboxState: {state} - Bind Value: {value}");
+        Logger.Log($"CheckboxState: {state} - Bind Value: {value}");
         return Task.CompletedTask;
     }
 }

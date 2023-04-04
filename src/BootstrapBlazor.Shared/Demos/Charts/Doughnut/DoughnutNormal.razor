@@ -14,7 +14,7 @@
         <button class="btn btn-primary" @onclick="@ToggleCircle"><i class="fa-regular fa-circle-notch"></i><span>@Localizer["DoughnutNormalHalf"]</span></button>
     </div>
 </div>
-<BlockLogger @ref="Logger" class="mt-3" />
+<Logger @ref="Logger" class="mt-3" />
 
 @code {
     private Random Randomer { get; } = new ();
@@ -27,7 +27,7 @@
     private Chart? DoughnutChart { get; set; }
 
     [NotNull]
-    private BlockLogger? Logger { get; set; }
+    private Logger? Logger{ get; set; }
 
     protected override void OnAfterRender(bool firstRender)
     {

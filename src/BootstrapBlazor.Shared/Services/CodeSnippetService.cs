@@ -97,7 +97,7 @@ class CodeSnippetService
         // 将资源文件信息替换
         CacheManager.GetDemoLocalizedStrings(demo, LocalizerOptions).ToList().ForEach(l => payload = ReplacePayload(payload, l));
         payload = ReplaceSymbols(payload);
-        payload = RemoveLocalizer(payload);
+        payload = RemoveBlockStatement(payload, "@inject IStringLocalizer<");
         return payload;
     });
 
@@ -111,9 +111,9 @@ class CodeSnippetService
         .Replace($"@((MarkupString)Localizer[\"{l.Name}\"].Value)", l.Value)
         .Replace($"@Localizer[\"{l.Name}\"]", l.Value);
 
-    private static string RemoveLocalizer(string payload)
+    private static string RemoveBlockStatement(string payload, string removeString)
     {
-        var index = payload.IndexOf("@inject IStringLocalizer<");
+        var index = payload.IndexOf(removeString);
         if (index > -1)
         {
             var end = payload.IndexOf("\n", index, StringComparison.OrdinalIgnoreCase);

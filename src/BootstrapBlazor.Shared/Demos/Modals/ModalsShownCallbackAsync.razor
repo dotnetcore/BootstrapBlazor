@@ -8,18 +8,18 @@
         </BodyTemplate>
     </ModalDialog>
 </Modal>
-<BlockLogger @ref="Trace" class="mt-3" />
+<Logger @ref="Logger" class="mt-3" />
 
 @code {
     [NotNull]
     private Modal? ShownCallbackModal { get; set; }
 
     [NotNull]
-    private BlockLogger? Trace { get; set; }
+    private Logger? Logger{ get; set; }
 
     private Task OnShownCallbackAsync()
     {
-        Trace.Log("弹窗已显示");
+        Logger.Log("弹窗已显示");
         return Task.CompletedTask;
     }
 }

@@ -40,7 +40,7 @@
         </ValidateForm>
     </div>
 </div>
-<BlockLogger @ref="AvatarTrace" class="mt-3" />
+<Logger @ref="Logger" class="mt-3" />
 
 @code {
     /// <summary>
@@ -59,7 +59,7 @@
     private List<UploadFile> PreviewFileList { get; } = new(new[] { new UploadFile { PrevUrl = "_content/BootstrapBlazor.Shared/images/Argo.png" } });
 
     [NotNull]
-    private BlockLogger? AvatarTrace { get; set; }
+    private Logger? Logger{ get; set; }
 
     private CancellationTokenSource? ReadAvatarToken { get; set; }
 
@@ -100,7 +100,7 @@
 
     private Task OnAvatarValidSubmit(EditContext context)
     {
-        AvatarTrace.Log(Foo.Picture?.Name ?? "");
+        Logger.Log(Foo.Picture?.Name ?? "");
         return Task.CompletedTask;
     }
 

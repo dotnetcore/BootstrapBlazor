@@ -24,15 +24,15 @@
         <Tag Color="Color.Dark" ShowDismiss="true" OnDismiss="@DismissClick">@Localizer["Tag7"]</Tag>
     </div>
 </div>
-<BlockLogger @ref="Trace" class="mt-3" />
+<Logger @ref="Logger" class="mt-3" />
 
 @code {
     [NotNull]
-    private BlockLogger? Trace { get; set; }
+    private Logger? Logger{ get; set; }
 
     private Task DismissClick()
     {
-        Trace.Log($"Tag Dismissed");
+        Logger.Log($"Tag Dismissed");
         return Task.CompletedTask;
     }
 }

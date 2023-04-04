@@ -1,12 +1,12 @@
 ﻿@inject IStringLocalizer<QRCodes> Localizer
 
-<QRCode OnGenerated="@(()=>{Trace.Log(Localizer[nameof(SuccessText)]);return Task.CompletedTask;})" ShowButtons="true"></QRCode>
-<BlockLogger @ref="Trace" class="mt-3" />
+<QRCode OnGenerated="@(()=>{Logger.Log(Localizer[nameof(SuccessText)]);return Task.CompletedTask;})" ShowButtons="true"></QRCode>
+<Logger @ref="Logger" class="mt-3" />
 
 @code {
     [NotNull]
     private string? SuccessText { get; set; }
 
     [NotNull]
-    private BlockLogger? Trace { get; set; }
+    private Logger? Logger{ get; set; }
 }

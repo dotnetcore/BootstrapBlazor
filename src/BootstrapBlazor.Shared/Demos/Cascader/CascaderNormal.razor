@@ -27,11 +27,11 @@
         <Cascader TValue="string" Items="@_items" OnSelectedItemChanged="@OnItemChanged" Color="Color.Dark" />
     </div>
 </div>
-<BlockLogger @ref="Trace" class="mt-3" />
+<Logger @ref="Logger" class="mt-3" />
 
 @code {
     [NotNull]
-    private BlockLogger? Trace { get; set; }
+    private Logger? Logger{ get; set; }
 
     private List<CascaderItem> _items = new List<CascaderItem>();
 
@@ -41,7 +41,7 @@
     /// <param name="items"></param>
     private Task OnItemChanged(CascaderItem[] items)
     {
-        Trace.Log($"SelectedItem Text: {items[^1].Text} Value: {items[^1].Value} Selected");
+        Logger.Log($"SelectedItem Text: {items[^1].Text} Value: {items[^1].Value} Selected");
         return Task.CompletedTask;
     }
 

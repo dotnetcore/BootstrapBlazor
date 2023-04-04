@@ -8,16 +8,17 @@
         <BootstrapInput @bind-Value="@BindString" />
     </div>
 </div>
-<BlockLogger @ref="BinderLog" class="mt-3" />
+<Logger @ref="Logger" class="mt-3" />
 
 @code {
-    private BlockLogger? BinderLog { get; set; }
+    [NotNull]
+    private Logger? Logger{ get; set; }
 
     private string BindString { get; set; } = "我爱 Blazor";
 
     private Task OnItemChangedString(CheckboxState state, string value)
     {
-        BinderLog?.Log($"CheckboxState: {state} - Bind Value: {value}");
+        Logger.Log($"CheckboxState: {state} - Bind Value: {value}");
         return Task.CompletedTask;
     }
 }
