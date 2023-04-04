@@ -1,15 +1,15 @@
 ﻿<TreeView TItem="TreeFoo" ShowCheckbox="true" Items="@Items" OnTreeItemChecked="@OnTreeItemChecked" />
-<BlockLogger @ref="Trace" class="mt-3" />
+<Logger @ref="Logger" class="mt-3" />
 
 @code {
     [NotNull]
-    private BlockLogger? Trace { get; set; }
+    private Logger? Logger{ get; set; }
 
     private List<TreeViewItem<TreeFoo>> Items { get; set; } = TreeFoo.GetTreeItems();
 
     private Task OnTreeItemChecked(List<TreeViewItem<TreeFoo>> items)
     {
-        Trace.Log($"当前共选中{items.Count}项");
+        Logger.Log($"当前共选中{items.Count}项");
         return Task.CompletedTask;
     }
 }

@@ -2,11 +2,11 @@
 <Transition TransitionType="TransitionType.FadeOut" Show="TransitionEndShow" OnTransitionEnd="OnTransitionEndShow">
     <div class="my-3">FadeOut</div>
 </Transition>
-<BlockLogger @ref="Trace" />
+<Logger @ref="Logger" />
 
 @code {
     [NotNull]
-    private BlockLogger? Trace { get; set; }
+    private Logger? Logger{ get; set; }
 
     private bool TransitionEndShow { get; set; }
 
@@ -18,7 +18,7 @@
     private Task OnTransitionEndShow()
     {
         TransitionEndShow = false;
-        Trace.Log("animation ends");
+        Logger.Log("animation ends");
         StateHasChanged();
         return Task.CompletedTask;
     }

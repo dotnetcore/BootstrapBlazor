@@ -1,12 +1,12 @@
 ﻿@inject IStringLocalizer<MultiSelectOptionChange> Localizer
 <div>
     <MultiSelect Items="@Items" OnSelectedItemsChanged="@OnSelectedItemsChanged8" Value="@SelectedItemsValue" />
-    <BlockLogger @ref="Trace" class="mt-3" />
+    <Logger @ref="Logger" class="mt-3" />
 </div>
 
 @code {
     [NotNull]
-    private BlockLogger? Trace { get; set; }
+    private Logger? Logger{ get; set; }
 
     [NotNull]
     private List<SelectedItem>? Items { get; set; }
@@ -38,7 +38,7 @@
 
     private Task OnSelectedItemsChanged8(IEnumerable<SelectedItem> items)
     {
-        Trace.Log($"{Localizer["MultiSelectOptionChangeLog"]}：{string.Join(", ", items.Select(i => i.Value))}");
+        Logger.Log($"{Localizer["MultiSelectOptionChangeLog"]}：{string.Join(", ", items.Select(i => i.Value))}");
         return Task.CompletedTask;
     }
 }

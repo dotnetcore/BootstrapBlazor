@@ -21,7 +21,7 @@
             <BootstrapInput TValue="string" PlaceHolder="@PlaceHolderText" @ref="Input" OnEnterAsync="OnEnterSelectAllAsync" />
         </div>
     </div>
-    <BlockLogger class="mt-3" @ref="Trace" />
+    <Logger @ref="Logger" class="mt-3" />
 </div>
 
 @code {
@@ -31,7 +31,7 @@
     private Foo? Model { get; set; }
 
     [NotNull]
-    private BlockLogger? Trace { get; set; }
+    private Logger? Logger{ get; set; }
 
     [NotNull]
     private BootstrapInput<string>? Input { get; set; }
@@ -49,19 +49,19 @@
 
     private Task OnEnterAsync(string val)
     {
-        Trace.Log($"Enter {Localizer["InputsKeyboardLog"]}: {val}");
+        Logger.Log($"Enter {Localizer["InputsKeyboardLog"]}: {val}");
         return Task.CompletedTask;
     }
 
     private Task OnEscAsync(string val)
     {
-        Trace.Log($"Esc {Localizer["InputsKeyboardLog"]}: {val}");
+        Logger.Log($"Esc {Localizer["InputsKeyboardLog"]}: {val}");
         return Task.CompletedTask;
     }
 
     private async Task OnEnterSelectAllAsync(string val)
     {
-        Trace.Log($"Enter call SelectAllText {Localizer["InputsKeyboardLog"]}: {val}");
+        Logger.Log($"Enter call SelectAllText {Localizer["InputsKeyboardLog"]}: {val}");
         await Input.SelectAllTextAsync();
     }
 }

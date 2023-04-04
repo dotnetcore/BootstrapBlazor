@@ -73,7 +73,7 @@
     DataTableDynamicContext.OnChanged = args =>
     {
         // @Localizer["TablesDynamicExcelKeyboardTips2_note2"]
-        Trace.Log($"# valueS: {args.Items.Count()} - type: {args.ChangedType}");
+        Logger.Log($"# valueS: {args.Items.Count()} - type: {args.ChangedType}");
         return Task.CompletedTask;
     };
 }</Pre>
@@ -98,6 +98,6 @@
         }
 
         // @Localizer["TablesDynamicExcelKeyboardTips3_note5"]
-        Trace.Log($"Change Notification: {col.GetFieldName()} - Value: {val?.ToString()}");
+        Logger.Log($"Change Notification: {col.GetFieldName()} - Value: {val?.ToString()}");
     };
 }</Pre>

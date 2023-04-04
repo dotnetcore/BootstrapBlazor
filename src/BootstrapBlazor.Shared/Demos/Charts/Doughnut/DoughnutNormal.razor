@@ -14,7 +14,7 @@
         <button class="btn btn-primary" @onclick="@ToggleCircle"><i class="fa-regular fa-circle-notch"></i><span>@Localizer["DoughnutNormalHalf"]</span></button>
     </div>
 </div>
-<BlockLogger @ref="Trace" class="mt-3" />
+<Logger @ref="Logger" class="mt-3" />
 
 @code {
     private Random Randomer { get; } = new ();
@@ -27,7 +27,7 @@
     private Chart? DoughnutChart { get; set; }
 
     [NotNull]
-    private BlockLogger? Trace { get; set; }
+    private Logger? Logger{ get; set; }
 
     protected override void OnAfterRender(bool firstRender)
     {
@@ -35,19 +35,19 @@
 
         if (firstRender)
         {
-            Trace.Log("Doughnut is loading data ...");
+            Logger.Log("Doughnut is loading data ...");
         }
     }
 
     private Task OnAfterInit()
     {
-        Trace.Log("Doughnut is initialized");
+        Logger.Log("Doughnut is initialized");
         return Task.CompletedTask;
     }
 
     private Task OnAfterUpdate(ChartAction action)
     {
-        Trace.Log($"Doughnut graph update data operation completed -- {action}");
+        Logger.Log($"Doughnut graph update data operation completed -- {action}");
         return Task.CompletedTask;
     }
 

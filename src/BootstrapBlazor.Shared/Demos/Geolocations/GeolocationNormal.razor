@@ -51,14 +51,14 @@
             </div>
         </div>
     }
-    <BlockLogger @ref="Trace" class="mt-3" />
+    <Logger @ref="Logger" class="mt-3" />
 </div>
 
 @code {
     private JSInterop<GeolocationNormal>? Interop { get; set; }
 
     [NotNull]
-    private BlockLogger? Trace { get; set; }
+    private Logger? Logger{ get; set; }
 
     private GeolocationItem? Model { get; set; }
 
@@ -71,7 +71,7 @@
     {
         Interop ??= new JSInterop<GeolocationNormal>(JSRuntime);
         var ret = await Geolocation.GetLocaltion(interop: Interop, component: this, callbackMethodName: nameof(GetLocationCallback));
-        Trace.Log(ret ? Localizer["GetLocationResultSuccess"] : Localizer["GetLocationResultFailed"]);
+        Logger.Log(ret ? Localizer["GetLocationResultSuccess"] : Localizer["GetLocationResultFailed"]);
     }
     private async Task WatchPosition()
     {
@@ -79,12 +79,12 @@
         {
             Interop ??= new JSInterop<GeolocationNormal>(JSRuntime);
             WatchID = await Geolocation.WatchPosition(Interop, this, nameof(GetLocationCallback));
-            Trace.Log(WatchID != 0 ? Localizer["WatchPositionResultSuccess"] : Localizer["WatchPositionResultFailed"]);
-            Trace.Log($"WatchID : {WatchID}");
+            Logger.Log(WatchID != 0 ? Localizer["WatchPositionResultSuccess"] : Localizer["WatchPositionResultFailed"]);
+            Logger.Log($"WatchID : {WatchID}");
         }
         catch (Exception)
         {
-            Trace.Log(Localizer["WatchPositionResultFailed"]);
+            Logger.Log(Localizer["WatchPositionResultFailed"]);
         }
     }
 
@@ -98,7 +98,7 @@
             {
                 WatchID = 0;
             }
-            Trace.Log(ret ? Localizer["ClearWatchPositionResultSuccess"] : Localizer["ClearWatchPositionResultFailed"]);
+            Logger.Log(ret ? Localizer["ClearWatchPositionResultSuccess"] : Localizer["ClearWatchPositionResultFailed"]);
         }
     }
 

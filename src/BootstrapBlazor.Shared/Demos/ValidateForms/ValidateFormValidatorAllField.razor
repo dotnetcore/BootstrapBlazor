@@ -23,7 +23,7 @@
         </div>
     </div>
 </ValidateForm>
-<BlockLogger @ref="Trace" class="mt-3" />
+<Logger @ref="Logger" class="mt-3" />
 
 @code {
     [NotNull]
@@ -33,11 +33,11 @@
     private IEnumerable<SelectedItem>? Hobbys { get; set; }
 
     [NotNull]
-    private BlockLogger? Trace { get; set; }
+    private Logger? Logger{ get; set; }
 
     private Task OnInvalidSubmitAddress(EditContext context)
     {
-        Trace.Log(Localizer["OnInvalidSubmitCallBackLog"]);
+        Logger.Log(Localizer["OnInvalidSubmitCallBackLog"]);
         return Task.CompletedTask;
     }
 

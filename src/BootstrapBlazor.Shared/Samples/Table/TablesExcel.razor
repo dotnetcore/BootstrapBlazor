@@ -36,7 +36,7 @@
     Items.Insert(0, foo);
 
     // @Localizer["TablesExcelNewLogicNote2"]
-    Trace.Log($"@Localizer["TablesExcelNewLogicNote2Log1"]: {Items.Count} - @Localizer["TablesExcelNewLogicNote2Log2"]: Add");
+    Logger.Log($"@Localizer["TablesExcelNewLogicNote2Log1"]: {Items.Count} - @Localizer["TablesExcelNewLogicNote2Log2"]: Add");
     return Task.FromResult(foo);
 }</Pre>
 
@@ -51,7 +51,7 @@
     Items.RemoveAll(i => items.Contains(i));
 
     // @Localizer["TablesExcelDeleteLogicNote2"]
-    Trace.Log($"@Localizer["TablesExcelDeleteLogicNote2Log1"]: {Items.Count} - @Localizer["TablesExcelDeleteLogicNote2Log2"]: Delete");
+    Logger.Log($"@Localizer["TablesExcelDeleteLogicNote2Log1"]: {Items.Count} - @Localizer["TablesExcelDeleteLogicNote2Log2"]: Delete");
     return Task.FromResult(true);
 }</Pre>
 
@@ -64,7 +64,7 @@
 <Pre>private Task&lt;bool&gt; OnDeleteAsync(Foo item, ItemChangedType changedType)
 {
     // @Localizer["TablesExcelUpdateLogicNote"]
-    Trace.Log($"@Localizer["TablesExcelUpdateLogicLog1"] - @Localizer["TablesExcelUpdateLogicLog2"]");
+    Logger.Log($"@Localizer["TablesExcelUpdateLogicLog1"] - @Localizer["TablesExcelUpdateLogicLog2"]");
     return Task.FromResult(true);
 }</Pre>
 

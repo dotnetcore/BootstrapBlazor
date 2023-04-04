@@ -1,15 +1,15 @@
 ﻿<DatePickerBody @bind-Value="Value" OnConfirm="@OnConfirm" ShowFooter="false" />
-<BlockLogger @ref="Trace" class="mt-3" />
+<Logger @ref="Logger" class="mt-3" />
 
 @code {
     [NotNull]
-    private BlockLogger? Trace { get; set; }
+    private Logger? Logger{ get; set; }
 
     private DateTime Value { get; set; } = DateTime.Today;
 
     private Task OnConfirm()
     {
-        Trace.Log($"Value: {Value:yyyy-MM-dd}");
+        Logger.Log($"Value: {Value:yyyy-MM-dd}");
         return Task.CompletedTask;
     }
 }

@@ -13,7 +13,7 @@
         <button class="btn btn-primary" @onclick="e => Utility.RemoveData(BubbleChart, ref BubbleDataCount)"><i class="fa-solid fa-minus"></i><span>@Localizer["BubbleNormalRemoveData"]</span></button>
     </div>
 </div>
-<BlockLogger @ref="Trace" class="mt-3" />
+<Logger @ref="Logger" class="mt-3" />
 
 @code {
     private Random Randomer { get; } = new();
@@ -26,7 +26,7 @@
     private Chart? BubbleChart { get; set; }
 
     [NotNull]
-    private BlockLogger? Trace { get; set; }
+    private Logger? Logger{ get; set; }
 
     protected override void OnAfterRender(bool firstRender)
     {
@@ -34,19 +34,19 @@
 
         if (firstRender)
         {
-            Trace.Log("Bubble is loading data ...");
+            Logger.Log("Bubble is loading data ...");
         }
     }
 
     private Task OnAfterInit()
     {
-        Trace.Log("Bubble is initialized");
+        Logger.Log("Bubble is initialized");
         return Task.CompletedTask;
     }
 
     private Task OnAfterUpdate(ChartAction action)
     {
-        Trace.Log($"Bubble graph update data operation completed -- {action}");
+        Logger.Log($"Bubble graph update data operation completed -- {action}");
         return Task.CompletedTask;
     }
 

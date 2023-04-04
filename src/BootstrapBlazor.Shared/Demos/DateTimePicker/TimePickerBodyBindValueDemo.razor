@@ -1,14 +1,14 @@
 ﻿<TimePickerBody @bind-Value="@Value" OnConfirm="OnConfirm" />
-<BlockLogger @ref="Trace" class="mt-3" />
+<Logger @ref="Logger" class="mt-3" />
 
 @code {
     [NotNull]
-    private BlockLogger? Trace { get; set; }
+    private Logger? Logger{ get; set; }
 
     private TimeSpan Value { get; set; } = DateTime.Now - DateTime.Today;
 
     private void OnConfirm()
     {
-        Trace.Log($"Value: {Value:hh\\:mm\\:ss}");
+        Logger.Log($"Value: {Value:hh\\:mm\\:ss}");
     }
 }

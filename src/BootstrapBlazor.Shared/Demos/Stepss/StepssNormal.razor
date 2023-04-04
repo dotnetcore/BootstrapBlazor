@@ -6,11 +6,11 @@
     <Button OnClick="@NextStep" IsOutline="true">@Localizer["StepssNormalButton1Text"]</Button>
     <Button OnClick="@ResetStep" IsOutline="true">@Localizer["StepssNormalButton2Text"]</Button>
 </div>
-<BlockLogger @ref="Trace" class="mt-3" />
+<Logger @ref="Logger" class="mt-3" />
 
 @code {
     [NotNull]
-    private BlockLogger? Trace { get; set; }
+    private Logger? Logger{ get; set; }
 
     private IEnumerable<StepItem> Items { get; set; } = new StepItem[3];
 
@@ -53,7 +53,7 @@
 
     private Task OnStatusChanged(StepStatus status)
     {
-        Trace.Log($"Steps Status: {status}");
+        Logger.Log($"Steps Status: {status}");
         return Task.CompletedTask;
     }
 }

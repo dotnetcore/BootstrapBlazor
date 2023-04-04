@@ -7,7 +7,7 @@
        IsBordered="true" IsMultipleSelect="true" IsExcel="true" ShowToolbar="true">
 </Table>
 
-<BlockLogger @ref="Trace" class="mt-3" />
+<Logger @ref="Logger" class="mt-3" />
 
 @code {
     [NotNull]
@@ -25,7 +25,7 @@
     private string? ButtonRemoveColumnText { get; set; }
 
     [NotNull]
-    private BlockLogger? Trace { get; set; }
+    private Logger? Logger{ get; set; }
 
     /// <summary>
     /// OnInitialized 方法
@@ -88,12 +88,12 @@
             }
 
             // 输出日志信息
-            Trace.Log($"单元格变化通知 列: {col.GetFieldName()} - 值: {val?.ToString()}");
+            Logger.Log($"单元格变化通知 列: {col.GetFieldName()} - 值: {val?.ToString()}");
         };
         DataTableDynamicContext.OnChanged = args =>
         {
             // 输出日志信息
-            Trace.Log($"集合值变化通知 行: {args.Items.Count()} - 类型: {args.ChangedType}");
+            Logger.Log($"集合值变化通知 行: {args.Items.Count()} - 类型: {args.ChangedType}");
             return Task.CompletedTask;
         };
     }

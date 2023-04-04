@@ -12,11 +12,11 @@
     <div class="col-6 col-sm-4 col-md-3 col-lg-auto"><Button OnClick="@ButtonClick" Color="Color.Link">@Localizer["LinkButton"]</Button></div>
     <div class="col-6 col-sm-4 col-md-3 col-lg-auto"><Button OnClick="@ButtonClick" Color="Color.None">@Localizer["NoneButtonColor"]</Button></div>
 </div>
-<BlockLogger @ref="Trace" class="mt-3" />
+<Logger @ref="Logger" class="mt-3" />
 
 @code {
     [NotNull]
-    private BlockLogger? Trace { get; set; }
+    private Logger? Logger{ get; set; }
 
     /// <summary>
     ///
@@ -24,6 +24,6 @@
     /// <param name="e"></param>
     private void ButtonClick(MouseEventArgs e)
     {
-        Trace.Log($"Button Clicked");
+        Logger.Log($"Button Clicked");
     }
 }

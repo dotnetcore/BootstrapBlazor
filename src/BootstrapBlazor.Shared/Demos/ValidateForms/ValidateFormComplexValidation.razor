@@ -15,7 +15,7 @@
         </div>
     </div>
 </ValidateForm>
-<BlockLogger @ref="Trace" class="mt-3" />
+<Logger @ref="Logger" class="mt-3" />
 <p class=mt-3>
     @foreach (var key in GetValueChagnedFieldCollection())
     {
@@ -27,7 +27,7 @@
 
 @code {
     [NotNull]
-    private BlockLogger? Trace { get; set; }
+    private Logger? Logger{ get; set; }
 
     [NotNull]
     private ValidateForm? ComplexForm { get; set; }
@@ -57,13 +57,13 @@
 
     private Task OnInvalidComplexModel(EditContext context)
     {
-        Trace.Log(Localizer["OnInvalidSubmitCallBackLog"]);
+        Logger.Log(Localizer["OnInvalidSubmitCallBackLog"]);
         return Task.CompletedTask;
     }
 
     private Task OnValidComplexModel(EditContext context)
     {
-        Trace.Log(Localizer["OnValidSubmitCallBackLog"]);
+        Logger.Log(Localizer["OnValidSubmitCallBackLog"]);
         ComplexForm.SetError("Dummy.Dummy2.Name", Localizer["DatabaseExistLog"]);
         return Task.CompletedTask;
     }

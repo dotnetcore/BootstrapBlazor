@@ -1,14 +1,14 @@
 ﻿<AutoRedirect Interval="3000" RedirectUrl="/" OnBeforeRedirectAsync="@OnBeforeRedirectAsync" />
-<BlockLogger @ref="Trace" />
+<Logger @ref="Logger" />
 
 @code {
 
     [NotNull]
-    private BlockLogger? Trace { get; set; }
+    private Logger? Logger{ get; set; }
 
     private Task<bool> OnBeforeRedirectAsync()
     {
-        Trace.Log("Ready to redirect");
+        Logger.Log("Ready to redirect");
         return Task.FromResult(true);
     }
 }

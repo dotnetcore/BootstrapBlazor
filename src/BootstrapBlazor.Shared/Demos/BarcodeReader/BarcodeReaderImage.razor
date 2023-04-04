@@ -1,21 +1,21 @@
 ﻿@inject IStringLocalizer<BarcodeReaderImage> Localizer
 
 <BarcodeReader ScanType="@ScanType.Image" OnResult="@OnImageResult" OnError="@OnImageError" />
-<BlockLogger @ref="Trace" class="mt-3" />
+<Logger @ref="Logger" class="mt-3" />
 
 @code {
     [NotNull]
-    private BlockLogger? Trace { get; set; }
+    private Logger? Logger{ get; set; }
 
     private Task OnImageResult(string barcode)
     {
-        Trace.Log($"{Localizer["ScanCodeLog"]} {barcode}");
+        Logger.Log($"{Localizer["ScanCodeLog"]} {barcode}");
         return Task.CompletedTask;
     }
 
     private Task OnImageError(string err)
     {
-        Trace.Log($"{Localizer["ErrorLog"]} {err}");
+        Logger.Log($"{Localizer["ErrorLog"]} {err}");
         return Task.CompletedTask;
     }
 }

@@ -14,22 +14,23 @@
         <InputUpload TValue="string" ShowDeleteButton="true" OnChange="@OnFileChange" OnDelete="@OnFileDelete"></InputUpload>
     </div>
 </div>
-<BlockLogger @ref="Trace" class="mt-3" />
+<Logger @ref="Logger" class="mt-3" />
 
 @code {
-    private BlockLogger? Trace { get; set; }
+    [NotNull]
+    private Logger? Logger { get; set; }
 
     private Task OnFileChange(UploadFile file)
     {
         // 未真正保存文件
         // file.SaveToFile()
-        Trace?.Log($"{file.File!.Name} {Localizer["UploadsSuccess"]}");
+        Logger.Log($"{file.File!.Name} {Localizer["UploadsSuccess"]}");
         return Task.FromResult("");
     }
 
     private Task<bool> OnFileDelete(UploadFile item)
     {
-        Trace?.Log($"{item.OriginFileName} {Localizer["UploadsRemoveMsg"]}");
+        Logger.Log($"{item.OriginFileName} {Localizer["UploadsRemoveMsg"]}");
         return Task.FromResult(true);
     }
 }

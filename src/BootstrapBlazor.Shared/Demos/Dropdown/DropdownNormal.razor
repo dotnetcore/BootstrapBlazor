@@ -1,11 +1,11 @@
 ﻿@inject IStringLocalizer<DropdownNormal> Localizer
 
 <Dropdown TValue="string" Items="Items" OnSelectedItemChanged="@ShowMessage" Color="Color.Secondary" />
-<BlockLogger @ref="Trace" class="mt-3" />
+<Logger @ref="Logger" class="mt-3" />
 
 @code {
     [NotNull]
-    private BlockLogger? Trace { get; set; }
+    private Logger? Logger{ get; set; }
 
     private List<SelectedItem> Items { get; set; } = new List<SelectedItem> { };
 
@@ -16,7 +16,7 @@
     /// <returns></returns>
     private Task ShowMessage(SelectedItem e)
     {
-        Trace.Log($"Dropdown Item Clicked: Value={e.Value} Text={e.Text}");
+        Logger.Log($"Dropdown Item Clicked: Value={e.Value} Text={e.Text}");
         return Task.CompletedTask;
     }
 
