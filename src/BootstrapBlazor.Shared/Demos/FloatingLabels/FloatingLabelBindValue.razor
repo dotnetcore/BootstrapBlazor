@@ -1,5 +1,4 @@
-﻿@using BootstrapBlazor.Shared.Samples
-@inject IStringLocalizer<FloatingLabels> Localizer
+﻿@inject IStringLocalizer<FloatingLabels> Localizer
 
 <ValidateForm Model="@Model">
     <FloatingLabel DisplayText="@Localizer["FloatingLabelBindValueDisplayText"]" maxlength="5" @bind-Value="@Model.Name" />
