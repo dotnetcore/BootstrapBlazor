@@ -23,7 +23,7 @@ public partial class Logger
     [Parameter]
     public bool IsHtml { get; set; }
 
-    private ConcurrentQueue<string> Message { get; set; } = new();
+    private ConcurrentQueue<string> Message { get; } = new();
 
     /// <summary>
     /// 获得 按钮样式集合
