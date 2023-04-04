@@ -1,5 +1,4 @@
-﻿@using BootstrapBlazor.Shared.Samples
-@inject IStringLocalizer<TreeViews> Localizer
+﻿@inject IStringLocalizer<TreeViews> Localizer
 
 <Button Text="@Localizer["TreeViewShowSkeletonButtonText"]" IsAsync="true" Icon="fa-solid fa-font-awesome" OnClick="OnLoadAsyncItems" />
 <TreeView TItem="TreeFoo" Items="@AsyncItems" ShowSkeleton="true" OnExpandNodeAsync="OnExpandNodeAsync" class="mt-3" />

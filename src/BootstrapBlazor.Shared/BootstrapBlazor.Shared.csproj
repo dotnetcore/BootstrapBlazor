@@ -46,6 +46,7 @@
     <Using Include="BootstrapBlazor.Components" />
     <Using Include="BootstrapBlazor.Shared.Common" />
     <Using Include="BootstrapBlazor.Shared.Components" />
+    <Using Include="BootstrapBlazor.Shared.Samples" />
     <Using Include="Microsoft.AspNetCore.Components" />
     <Using Include="Microsoft.Extensions.Localization" />
     <Using Include="System.ComponentModel.DataAnnotations" />
