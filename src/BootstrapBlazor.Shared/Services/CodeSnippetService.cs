@@ -97,6 +97,7 @@ class CodeSnippetService
         // 将资源文件信息替换
         CacheManager.GetDemoLocalizedStrings(demo, LocalizerOptions).ToList().ForEach(l => payload = ReplacePayload(payload, l));
         payload = ReplaceSymbols(payload);
+        payload = RemoveLocalizer(payload);
         return payload;
     });
 
@@ -110,15 +111,15 @@ class CodeSnippetService
         .Replace($"@((MarkupString)Localizer[\"{l.Name}\"].Value)", l.Value)
         .Replace($"@Localizer[\"{l.Name}\"]", l.Value);
 
-    private async Task<string> ReadFileTextAsync(string codeFile)
+    private static string RemoveLocalizer(string payload)
     {
-        var payload = "";
-        var paths = new string[] { "..", "BootstrapBlazor.Shared", "Samples" };
-        var folder = Path.Combine(ContentRootPath, string.Join(Path.DirectorySeparatorChar, paths));
-        var file = Path.Combine(folder, codeFile);
-        if (File.Exists(file))
+        var index = payload.IndexOf("@inject IStringLocalizer<");
+        if (index > -1)
         {
-            payload = await File.ReadAllTextAsync(file);
+            var end = payload.IndexOf("\r\n", index, StringComparison.OrdinalIgnoreCase);
+            var target = payload[index..(end + 2)];
+            payload = payload.Replace(target, string.Empty);
+            payload = payload.TrimStart('\r', '\n');
         }
         return payload;
     }
