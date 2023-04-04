@@ -26,7 +26,7 @@ internal static class CacheManagerExtensions
         var key = $"Snippet-{CultureInfo.CurrentUICulture.Name}-{nameof(GetDemoLocalizedStrings)}-{typeName}";
         return cache.GetOrCreate(key, (Func<ICacheEntry, IEnumerable<LocalizedString>>)(entry =>
         {
-            return Utility.GetJsonStringByTypeName(options, typeof(CodeSnippetService).Assembly, $"BootstrapBlazor.Shared.Demos.{typeName}");
+            return Utility.GetJsonStringByTypeName(options, typeof(CodeSnippetService).Assembly, $"BootstrapBlazor.Shared.{typeName}");
         }));
     }
 
