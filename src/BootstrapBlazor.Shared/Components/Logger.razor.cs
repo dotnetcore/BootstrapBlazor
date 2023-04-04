@@ -9,7 +9,7 @@ namespace BootstrapBlazor.Shared.Components;
 /// <summary>
 /// Logger 组件
 /// </summary>
-public partial class BlockLogger
+public partial class Logger
 {
     /// <summary>
     /// 获得/设置 用户自定义属性
