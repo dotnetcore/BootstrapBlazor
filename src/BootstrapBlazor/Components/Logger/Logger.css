@@ -1,4 +1,4 @@
-﻿.card-log {
+﻿.logger {
     overflow: hidden auto;
     border: solid 1px #ddd;
     border-radius: var(--bs-border-radius);
@@ -7,6 +7,6 @@
     color: #fff;
 }
 
-    .card-log .log-item:not(:last-child) {
+    .logger .logger-item:not(:last-child) {
         margin-bottom: 0.5rem;
     }

@@ -1,7 +1,10 @@
-﻿<div class="@ClassName">
+﻿@namespace BootstrapBlazor.Components
+@inherits BootstrapComponentBase
+
+<div @attributes="@AdditionalAttributes" class="@ClassName">
     @foreach (var m in Message.Reverse())
     {
-        <div class="log-item">
+        <div class="logger-item">
             @if (IsHtml)
             {
                 @((MarkupString)m)

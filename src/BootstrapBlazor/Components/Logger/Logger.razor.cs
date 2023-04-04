@@ -4,19 +4,13 @@
 
 using System.Collections.Concurrent;
 
-namespace BootstrapBlazor.Shared.Components;
+namespace BootstrapBlazor.Components;
 
 /// <summary>
 /// Logger 组件
 /// </summary>
 public partial class Logger
 {
-    /// <summary>
-    /// 获得/设置 用户自定义属性
-    /// </summary>
-    [Parameter(CaptureUnmatchedValues = true)]
-    public IDictionary<string, object>? AdditionalAttributes { get; set; }
-
     /// <summary>
     /// 获得/设置 最大行数 默认 3 行
     /// </summary>
@@ -35,7 +29,10 @@ public partial class Logger
     /// 获得 按钮样式集合
     /// </summary>
     /// <returns></returns>
-    private string? ClassName => CssBuilder.Default("card-log").AddClassFromAttributes(AdditionalAttributes).AddClass(Class).Build();
+    private string? ClassName => CssBuilder.Default("logger")
+        .AddClass(Class)
+        .AddClassFromAttributes(AdditionalAttributes)
+        .Build();
 
     private string Class { get; set; } = "collapse";
 
