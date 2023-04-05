@@ -1,11 +1,11 @@
 ﻿@inject IStringLocalizer<BootstrapBlazor.Shared.Samples.Menus> Localizer
 
 <Menu Items="@SideMenuItems" DisableNavigation="true" IsVertical="true" OnClick="@OnClickSideMenu" style="width:220px; border-right: 1px solid #e6e6e6; padding-right: 4px;" />
-<Logger @ref="Logger" class="mt-3" />
+<ConsoleLogger @ref="Logger" class="mt-3" />
 
 @code {
     [NotNull]
-    private Logger? Logger { get; set; }
+    private ConsoleLogger? Logger { get; set; }
 
     [NotNull]
     private IEnumerable<MenuItem>? SideMenuItems { get; set; }

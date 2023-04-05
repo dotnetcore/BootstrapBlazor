@@ -40,7 +40,7 @@
         </ValidateForm>
     </div>
 </div>
-<Logger @ref="Logger" class="mt-3" />
+<ConsoleLogger @ref="Logger" class="mt-3" />
 
 @code {
     /// <summary>
@@ -59,7 +59,7 @@
     private List<UploadFile> PreviewFileList { get; } = new(new[] { new UploadFile { PrevUrl = "_content/BootstrapBlazor.Shared/images/Argo.png" } });
 
     [NotNull]
-    private Logger? Logger{ get; set; }
+    private ConsoleLogger? Logger { get; set; }
 
     private CancellationTokenSource? ReadAvatarToken { get; set; }
 

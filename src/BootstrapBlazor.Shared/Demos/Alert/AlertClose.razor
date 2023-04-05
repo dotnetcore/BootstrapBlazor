@@ -5,7 +5,7 @@
 <Alert ShowDismiss="true" OnDismiss="@DismissClick" Color="Color.Warning">@AlertWarningText</Alert>
 <Alert ShowDismiss="true" OnDismiss="@DismissClick" Color="Color.Info">@AlertInfoText</Alert>
 <Alert ShowDismiss="true" OnDismiss="@DismissClick" Color="Color.Dark">@AlertDarkText</Alert>
-<Logger @ref="Logger" class="mt-3" />
+<ConsoleLogger @ref="Logger" class="mt-3" />
 
 @code
 {
@@ -35,7 +35,7 @@
     private string? AlertDarkText { get; set; }
 
     [NotNull]
-    private Logger? Logger{ get; set; }
+    private ConsoleLogger? Logger { get; set; }
 
     protected override void OnInitialized()
     {

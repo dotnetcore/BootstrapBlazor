@@ -25,20 +25,20 @@
         <button class="btn btn-primary" @onclick="e => Utility.RemoveData(BarChart, ref BarDataCount)"><i class="fa-solid fa-minus"></i><span>@Localizer["BarTypeRemoveData"]</span></button>
     </div>
 </div>
-<Logger @ref="Logger" class="mt-3" />
+<ConsoleLogger @ref="Logger" class="mt-3" />
 
 @code {
     private Random Randomer { get; } = new Random();
 
-    private int BarDatasetCount = 2;
+    private int BarDatasetCount { get; set; } = 2;
 
-    private int BarDataCount = 7;
+    private int BarDataCount { get; set; } = 7;
 
     [NotNull]
     private Chart? BarChart { get; set; }
 
     [NotNull]
-    private Logger? Logger{ get; set; }
+    private ConsoleLogger? Logger { get; set; }
 
     /// <summary>
     /// OnAfterRender
@@ -108,7 +108,7 @@
     private Task OnReloadChart()
     {
         BarDataCount = Randomer.Next(5, 15);
-        BarChart?.Reload();
+        BarChart.Reload();
         return Task.CompletedTask;
     }
 }

@@ -11,11 +11,11 @@
         <Checkbox TValue="string" OnStateChanged="@OnStateChanged" DisplayText="@Localizer["StatusText3"]" ShowLabel="true" State="CheckboxState.Indeterminate" />
     </div>
 </div>
-<Logger @ref="Logger" class="mt-3" />
+<ConsoleLogger @ref="Logger" class="mt-3" />
 
 @code {
     [NotNull]
-    private Logger? Logger { get; set; }
+    private ConsoleLogger? Logger { get; set; }
 
     private Task OnStateChanged(CheckboxState state, string value)
     {

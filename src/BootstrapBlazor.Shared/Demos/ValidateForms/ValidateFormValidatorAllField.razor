@@ -23,7 +23,7 @@
         </div>
     </div>
 </ValidateForm>
-<Logger @ref="Logger" class="mt-3" />
+<ConsoleLogger @ref="Logger" class="mt-3" />
 
 @code {
     [NotNull]
@@ -33,7 +33,7 @@
     private IEnumerable<SelectedItem>? Hobbys { get; set; }
 
     [NotNull]
-    private Logger? Logger{ get; set; }
+    private ConsoleLogger? Logger { get; set; }
 
     private Task OnInvalidSubmitAddress(EditContext context)
     {

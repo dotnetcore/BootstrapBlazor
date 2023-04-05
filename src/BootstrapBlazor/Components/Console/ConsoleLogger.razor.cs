@@ -29,7 +29,7 @@ public partial class ConsoleLogger
     /// 获得 按钮样式集合
     /// </summary>
     /// <returns></returns>
-    private string? ClassName => CssBuilder.Default("logger")
+    private string? ClassName => CssBuilder.Default("console-logger")
         .AddClass(Class)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();

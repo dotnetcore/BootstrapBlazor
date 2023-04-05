@@ -15,12 +15,12 @@
             </Card>
         </Dropzone>
     </Row>
-    <Logger @ref="Logger" class="mt-3" />
+    <ConsoleLogger @ref="Logger" class="mt-3" />
 </div>
 
 @code {
     [NotNull]
-    private Logger? Logger{ get; set; }
+    private ConsoleLogger? Logger { get; set; }
 
     [NotNull]
     private List<string>? StrList1 { get; set; }

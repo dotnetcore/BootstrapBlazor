@@ -1,12 +1,12 @@
 ﻿@inject IStringLocalizer<MultiSelectOptionChange> Localizer
 <div>
     <MultiSelect Items="@Items" OnSelectedItemsChanged="@OnSelectedItemsChanged8" Value="@SelectedItemsValue" />
-    <Logger @ref="Logger" class="mt-3" />
+    <ConsoleLogger @ref="Logger" class="mt-3" />
 </div>
 
 @code {
     [NotNull]
-    private Logger? Logger{ get; set; }
+    private ConsoleLogger? Logger { get; set; }
 
     [NotNull]
     private List<SelectedItem>? Items { get; set; }

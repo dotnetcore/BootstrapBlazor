@@ -13,7 +13,7 @@
     </TableColumns>
 </Table>
 
-<Logger @ref="Logger" class="mt-3" />
+<ConsoleLogger @ref="Logger" class="mt-3" />
 
 @code {
     /// <summary>
@@ -25,7 +25,7 @@
     private List<Foo>? Items { get; set; }
 
     [NotNull]
-    private Logger? Logger{ get; set; }
+    private ConsoleLogger? Logger { get; set; }
 
     /// <summary>
     /// 绑定数据源代码

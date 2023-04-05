@@ -1,7 +1,7 @@
 ﻿@inject IStringLocalizer<DialogModalDialog> Localizer
 
 <Button OnClick="@OnResultDialogClick">@Localizer["ModalDialogButton"]</Button>
-<Logger @ref="Logger" class="mt-3" />
+<ConsoleLogger @ref="Logger" class="mt-3" />
 
 @code {
     [Inject]
@@ -9,7 +9,7 @@
     private DialogService? DialogService { get; set; }
 
     [NotNull]
-    private Logger? Logger{ get; set; }
+    private ConsoleLogger? Logger { get; set; }
 
     private int DemoValue1 { get; set; } = 1;
 

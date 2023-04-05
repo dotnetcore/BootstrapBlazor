@@ -6,11 +6,11 @@
         PlaceHolder="@Localizer["SearchsPlaceHolder"]"
         Items="@Items"
         OnSearch="@OnSearch"/>
-<Logger @ref="Logger" class="mt-3" />
+<ConsoleLogger @ref="Logger" class="mt-3" />
 
 @code {
     [NotNull]
-    private Logger? Logger{ get; set; }
+    private ConsoleLogger? Logger { get; set; }
 
     private static IEnumerable<string> Items => new string[] { "1", "12", "123", "1234" };
 
