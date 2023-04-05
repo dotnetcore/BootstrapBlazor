@@ -9,7 +9,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// Logger 组件
 /// </summary>
-public partial class Logger
+public partial class ConsoleLogger
 {
     /// <summary>
     /// 获得/设置 最大行数 默认 3 行
