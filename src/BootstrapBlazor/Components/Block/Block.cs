@@ -63,7 +63,7 @@ public class Block : BootstrapComponentBase
     [Inject]
     private AuthenticationStateProvider? AuthenticationStateProvider { get; set; }
 
-    private bool IsShow { get; set; } = true;
+    private bool IsShow { get; set; }
 
     /// <summary>
     /// OnParametersSetAsync 方法
