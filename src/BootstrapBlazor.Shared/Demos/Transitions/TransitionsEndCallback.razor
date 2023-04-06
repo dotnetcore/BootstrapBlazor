@@ -2,11 +2,11 @@
 <Transition TransitionType="TransitionType.FadeOut" Show="TransitionEndShow" OnTransitionEnd="OnTransitionEndShow">
     <div class="my-3">FadeOut</div>
 </Transition>
-<Logger @ref="Logger" />
+<ConsoleLogger @ref="Logger" />
 
 @code {
     [NotNull]
-    private Logger? Logger{ get; set; }
+    private ConsoleLogger? Logger { get; set; }
 
     private bool TransitionEndShow { get; set; }
 

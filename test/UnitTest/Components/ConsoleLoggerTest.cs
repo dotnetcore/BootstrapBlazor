@@ -4,12 +4,12 @@
 
 namespace UnitTest.Components;
 
-public class LoggerTest : BootstrapBlazorTestBase
+public class ConsoleLoggerTest : BootstrapBlazorTestBase
 {
     [Fact]
     public void IsHtml_Ok()
     {
-        var cut = Context.RenderComponent<Logger>(pb =>
+        var cut = Context.RenderComponent<ConsoleLogger>(pb =>
         {
             pb.Add(a => a.IsHtml, true);
         });
@@ -21,7 +21,7 @@ public class LoggerTest : BootstrapBlazorTestBase
     [Fact]
     public void Max_Ok()
     {
-        var cut = Context.RenderComponent<Logger>(pb =>
+        var cut = Context.RenderComponent<ConsoleLogger>(pb =>
         {
             pb.Add(a => a.Max, 2);
         });

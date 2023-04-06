@@ -1,5 +1,5 @@
 ﻿<Captcha ImagesPath="@ImagesPath" @ref="Captcha" OnValid="@OnValid" />
-<Logger @ref="Logger" class="mt-3" />
+<ConsoleLogger @ref="Logger" class="mt-3" />
 
 @code {
     /// <summary>
@@ -11,7 +11,7 @@
     private Captcha? Captcha { get; set; }
 
     [NotNull]
-    private Logger? Logger { get; set; }
+    private ConsoleLogger? Logger { get; set; }
 
     private void OnValid(bool ret)
     {

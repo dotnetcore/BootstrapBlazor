@@ -327,14 +327,9 @@ public partial class Tab : IHandlerException, IDisposable
 
         // 判断是否排除
         var urls = ExcludeUrls ?? Enumerable.Empty<string>();
-        if (requestUrl == "")
-        {
-            Excluded = urls.Any(u => u == "" || u == "/");
-        }
-        else
-        {
-            Excluded = urls.Any(u => u != "/" && requestUrl.StartsWith(u.TrimStart('/'), StringComparison.OrdinalIgnoreCase));
-        }
+        Excluded = requestUrl == ""
+            ? urls.Any(u => u is "" or "/")
+            : urls.Any(u => u != "/" && requestUrl.StartsWith(u.TrimStart('/'), StringComparison.OrdinalIgnoreCase));
         if (!Excluded)
         {
             // 地址相同参数不同需要重新渲染 TabItem

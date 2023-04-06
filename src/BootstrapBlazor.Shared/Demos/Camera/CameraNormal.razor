@@ -5,13 +5,13 @@
 {
     <img src="@ImageUrl" class="mt-3" />
 }
-<Logger @ref="Logger" class="mt-3" />
+<ConsoleLogger @ref="Logger" class="mt-3" />
 
 @code {
     private string? ImageUrl { get; set; }
 
     [NotNull]
-    private Logger? Logger{ get; set; }
+    private ConsoleLogger? Logger { get; set; }
 
     [NotNull]
     private string? TraceOnInit { get; set; }

@@ -3,11 +3,11 @@
 @inject SwalService SwalService
 
 <Button class="mt-3" Icon="fa-solid fa-font-awesome" Text="@Localizer["SweetAlertsPopups"]" Color="Color.Success" OnClick="@ShowModal" />
-<Logger @ref="Logger" class="mt-3" />
+<ConsoleLogger @ref="Logger" class="mt-3" />
 
 @code {
     [NotNull]
-    private Logger? Logger{ get; set; }
+    private ConsoleLogger? Logger { get; set; }
 
     private async Task ShowModal()
     {

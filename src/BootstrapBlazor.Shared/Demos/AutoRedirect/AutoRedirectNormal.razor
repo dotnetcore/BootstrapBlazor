@@ -1,10 +1,10 @@
 ﻿<AutoRedirect Interval="3000" RedirectUrl="/" OnBeforeRedirectAsync="@OnBeforeRedirectAsync" />
-<Logger @ref="Logger" />
+<ConsoleLogger @ref="Logger" />
 
 @code {
 
     [NotNull]
-    private Logger? Logger{ get; set; }
+    private ConsoleLogger? Logger { get; set; }
 
     private Task<bool> OnBeforeRedirectAsync()
     {

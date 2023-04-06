@@ -7,13 +7,13 @@ using Microsoft.Extensions.Localization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// IconDialog Component
 /// </summary>
 [JSModuleAutoLoader("icon-dialog")]
 public partial class IconDialog
 {
     /// <summary>
-    /// 
+    /// 获得/设置 Icon 名称
     /// </summary>
     [Parameter]
     [NotNull]
@@ -72,20 +72,17 @@ public partial class IconDialog
         ButtonText ??= Localizer[nameof(ButtonText)];
         CopiedTooltipText ??= Localizer[nameof(CopiedTooltipText)];
 
-        IconName = IconName?.Replace("fas", "fa-solid", StringComparison.OrdinalIgnoreCase)
+        IconName ??= "";
+        IconName = IconName
+            .Replace("fas", "fa-solid", StringComparison.OrdinalIgnoreCase)
             .Replace("far", "fa-regular", StringComparison.OrdinalIgnoreCase);
     }
 
     private Task OnValueChanged(string val)
     {
-        if(val == "solid")
-        {
-            IconName = IconName.Replace("fa-regular", "fa-solid");
-        }
-        else
-        {
-            IconName = IconName.Replace("fa-solid", "fa-regular");
-        }
+        IconName = val == "solid"
+            ? IconName.Replace("fa-regular", "fa-solid")
+            : IconName.Replace("fa-solid", "fa-regular");
         return Task.CompletedTask;
     }
 }

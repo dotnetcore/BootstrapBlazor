@@ -13,11 +13,11 @@
     </div>
 </div>
 <TreeView TItem="TreeFoo" Items="@CheckedItems" ShowCheckbox="true" OnTreeItemChecked="@OnTreeItemChecked" IsReset="@IsReset" AutoCheckChildren="@AutoCheckChildren" AutoCheckParent="@AutoCheckParent" />
-<Logger @ref="Logger" class="mt-3" />
+<ConsoleLogger @ref="Logger" class="mt-3" />
 
 @code {
     [NotNull]
-    private Logger? Logger{ get; set; }
+    private ConsoleLogger? Logger { get; set; }
 
     private bool AutoCheckChildren { get; set; }
 

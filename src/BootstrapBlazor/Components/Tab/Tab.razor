@@ -57,7 +57,7 @@ else
                                         <span class="tabs-item-text">@item.Text</span>
                                         @if (ShowClose && item.Closable)
                                         {
-                                            <span class="tabs-item-close" @onclick:stopPropagation @onclick:preventDefault @onclick="@(e => RemoveTab(item))">
+                                            <span class="tabs-item-close" @onclick:stopPropagation @onclick:preventDefault @onclick="() => RemoveTab(item)">
                                                 <i class="@CloseIcon"></i>
                                             </span>
                                         }

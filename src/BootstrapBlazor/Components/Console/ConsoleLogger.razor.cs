@@ -9,7 +9,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// Logger 组件
 /// </summary>
-public partial class Logger
+public partial class ConsoleLogger
 {
     /// <summary>
     /// 获得/设置 最大行数 默认 3 行
@@ -29,7 +29,7 @@ public partial class Logger
     /// 获得 按钮样式集合
     /// </summary>
     /// <returns></returns>
-    private string? ClassName => CssBuilder.Default("logger")
+    private string? ClassName => CssBuilder.Default("console-logger")
         .AddClass(Class)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
