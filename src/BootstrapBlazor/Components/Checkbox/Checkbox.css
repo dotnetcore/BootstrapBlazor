@@ -76,31 +76,38 @@
     cursor: pointer;
 }
 
-.form-check.form-check-success .form-check-input:checked {
+.form-check.form-check-success .form-check-input:checked,
+.form-check.form-check-success .form-check-input[type=checkbox]:indeterminate {
     background-color: var(--bs-success);
 }
 
-.form-check.form-check-danger .form-check-input:checked {
+.form-check.form-check-danger .form-check-input:checked,
+.form-check.form-check-danger .form-check-input[type=checkbox]:indeterminate {
     background-color: var(--bs-danger);
 }
 
-.form-check.form-check-warning .form-check-input:checked {
+.form-check.form-check-warning .form-check-input:checked,
+.form-check.form-check-warning .form-check-input[type=checkbox]:indeterminate {
     background-color: var(--bs-warning);
 }
 
-.form-check.form-check-info .form-check-input:checked {
+.form-check.form-check-info .form-check-input:checked,
+.form-check.form-check-info .form-check-input[type=checkbox]:indeterminate {
     background-color: var(--bs-info);
 }
 
-.form-check.form-check-primary .form-check-input:checked {
+.form-check.form-check-primary .form-check-input:checked,
+.form-check.form-check-primary .form-check-input[type=checkbox]:indeterminate {
     background-color: var(--bs-primary);
 }
 
-.form-check.form-check-secondary .form-check-input:checked {
+.form-check.form-check-secondary .form-check-input:checked,
+.form-check.form-check-secondary .form-check-input[type=checkbox]:indeterminate {
     background-color: var(--bs-secondary);
 }
 
-.form-check.form-check-dark .form-check-input:checked {
+.form-check.form-check-dark .form-check-input:checked,
+.form-check.form-check-dark .form-check-input[type=checkbox]:indeterminate {
     background-color: var(--bs-dark);
 }
 

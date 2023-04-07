@@ -2,13 +2,13 @@
 
 <div class="row g-3 form-inline">
     <div class="col-12 col-sm-4">
-        <Checkbox TValue="string" OnStateChanged="@OnStateChanged" DisplayText="@Localizer["StatusText1"]" ShowLabel="true" State="CheckboxState.Checked" />
+        <Checkbox TValue="string" OnStateChanged="@OnStateChanged" DisplayText="@Localizer["StatusText1"]" ShowLabel="true" Color="Color.Danger" State="CheckboxState.Checked" />
     </div>
     <div class="col-12 col-sm-4">
-        <Checkbox TValue="string" OnStateChanged="@OnStateChanged" DisplayText="@Localizer["StatusText2"]" ShowLabel="true" State="CheckboxState.UnChecked" />
+        <Checkbox TValue="string" OnStateChanged="@OnStateChanged" DisplayText="@Localizer["StatusText2"]" ShowLabel="true" Color="Color.Danger" State="CheckboxState.UnChecked" />
     </div>
     <div class="col-12 col-sm-4">
-        <Checkbox TValue="string" OnStateChanged="@OnStateChanged" DisplayText="@Localizer["StatusText3"]" ShowLabel="true" State="CheckboxState.Indeterminate" />
+        <Checkbox TValue="string" OnStateChanged="@OnStateChanged" DisplayText="@Localizer["StatusText3"]" ShowLabel="true" Color="Color.Danger" State="CheckboxState.Indeterminate" />
     </div>
 </div>
 <ConsoleLogger @ref="Logger" class="mt-3" />
