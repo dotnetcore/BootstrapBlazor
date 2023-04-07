@@ -513,7 +513,9 @@
     "LineTwoYaxesTitle": "Double Y axis",
     "LineTwoYaxesIntro": "Show secondary Y axis: alignment, title and data group",
     "LineBarAspectRatioTitle": "Chart ratio",
-    "LineBarAspectRatioIntro": "Setting the height and width will automatically disable the constraint chart ratio, and the chart will fill the container"
+    "LineBarAspectRatioIntro": "Setting the height and width will automatically disable the constraint chart ratio, and the chart will fill the container",
+    "LineChartJSTitle": "Generate Chart through JS",
+    "LineChartJSIntro": "Due to the underlying reference of<code>BootstrapBlazor.Chart</code>to<code>Chart.JS</code>, we can call and generate charts through JS."
   },
   "BootstrapBlazor.Shared.Samples.Charts.Bar": {
     "BarTypeTitle": "Bar graph",

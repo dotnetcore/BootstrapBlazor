@@ -1,0 +1,86 @@
+﻿@inject IJSRuntime JS
+@inject IOptionsMonitor<WebsiteOptions> SiteOptions
+
+
+<div style="height:370px;width:740px;">
+    <canvas id="lineChartJS"></canvas>
+</div>
+<Button Text="Randomize" OnClick="Randomize" />
+<p>
+    <h2>
+        <code>
+            JavaScript Code
+        </code>
+    </h2>
+</p>
+
+<Pre>
+    @jscode
+</Pre>
+
+@code {
+    /// <summary>
+    /// Random随机数生成器
+    /// </summary>
+    private Random random = new Random();
+
+    /// <summary>
+    /// JS代码段
+    /// JS Code
+    /// </summary>
+    private string jscode = string.Empty;
+
+    private IJSObjectReference jSObject;
+
+    /// <summary>
+    /// OnInitializedAsync
+    /// 读取文件中的JS代码
+    /// Reading JS code from a file
+    /// </summary>
+    /// <returns></returns>
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+
+        //获取JS文件的相对路径
+        var jsFilePath = Path.Combine(SiteOptions.CurrentValue.ContentRootPath, @"\..\BootstrapBlazor.Shared\Demos\Charts\Line\LineChartJS.razor.js");
+
+        //读取源码文本
+        if (File.Exists(jsFilePath))
+        {
+            jscode = File.ReadAllText(jsFilePath, System.Text.Encoding.Default);
+        }
+    }
+
+    /// <summary>
+    /// OnAfterRenderAsync
+    /// 动态导入JS模块，初始化Chart
+    /// Dynamically import JS module and initialize Chart
+    /// </summary>
+    /// <param name="firstRender"></param>
+    /// <returns></returns>
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            var jsmodule = "./_content/BootstrapBlazor.Shared/Demos/Charts/Line/LineChartJS.razor.js";
+            jSObject = await JS.InvokeAsync<IJSObjectReference>("import", jsmodule);
+
+            //随机生成一组数据
+            //Randomly generate a set of data
+            var chartData = Enumerable.Range(1, 7).Select(x => x = random.Next(25, 85)).ToArray();
+
+            await jSObject.InvokeVoidAsync("lineChart", chartData);
+        }
+        await base.OnAfterRenderAsync(firstRender);
+    }
+
+
+    private async Task Randomize()
+    {
+        //随机生成一组数据
+        //Randomly generate a set of data
+        var chartData = Enumerable.Range(1, 7).Select(x => x = random.Next(25, 85)).ToArray();
+        await jSObject.InvokeVoidAsync("randomize", chartData);
+    }
+}
