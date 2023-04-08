@@ -1,24 +1,23 @@
 ﻿@inject IJSRuntime JS
 @inject IOptionsMonitor<WebsiteOptions> SiteOptions
-
+@implements IAsyncDisposable
 
 <div style="height:370px;width:740px;">
     <canvas id="lineChartJS"></canvas>
 </div>
-<Button Text="Randomize" OnClick="Randomize" />
-<p>
-    <h2>
-        <code>
-            JavaScript Code
-        </code>
-    </h2>
-</p>
 
-<Pre>
-    @jscode
-</Pre>
+<Button Text="Randomize" OnClick="Randomize" />
+
+<p><h4><code>JavaScript Code</code></h4></p>
+<Pre>@jscode</Pre>
 
 @code {
+    /// <summary>
+    /// JS互操作实例
+    /// </summary>
+    [NotNull]
+    private IJSObjectReference? jSObject = null;
+
     /// <summary>
     /// Random随机数生成器
     /// </summary>
@@ -30,7 +29,30 @@
     /// </summary>
     private string jscode = string.Empty;
 
-    private IJSObjectReference jSObject;
+    /// <summary>
+    /// Chart Randomize
+    /// </summary>
+    /// <returns></returns>
+    private async Task Randomize()
+    {
+        //随机生成一组数据
+        //Randomly generate a set of data
+        var chartData = Enumerable.Range(1, 7).Select(x => x = random.Next(25, 85)).ToArray();
+        await jSObject.InvokeVoidAsync("randomize", chartData);
+    }
+
+    /// <summary>
+    /// 释放资源
+    /// DisposeAsync
+    /// </summary>
+    public async ValueTask DisposeAsync()
+    {
+        if (jSObject != null)
+        {
+            await jSObject.DisposeAsync();
+        }
+        GC.SuppressFinalize(this);
+    }
 
     /// <summary>
     /// OnInitializedAsync
@@ -41,9 +63,10 @@
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
+        var rootPath = SiteOptions.CurrentValue.ContentRootPath;
 
         //获取JS文件的相对路径
-        var jsFilePath = Path.Combine(SiteOptions.CurrentValue.ContentRootPath, @"\..\BootstrapBlazor.Shared\Demos\Charts\Line\LineChartJS.razor.js");
+        var jsFilePath = @$"{rootPath}\..\BootstrapBlazor.Shared\Demos\Charts\Line\LineChartJS.razor.js";
 
         //读取源码文本
         if (File.Exists(jsFilePath))
@@ -73,14 +96,5 @@
             await jSObject.InvokeVoidAsync("lineChart", chartData);
         }
         await base.OnAfterRenderAsync(firstRender);
-    }
-
-
-    private async Task Randomize()
-    {
-        //随机生成一组数据
-        //Randomly generate a set of data
-        var chartData = Enumerable.Range(1, 7).Select(x => x = random.Next(25, 85)).ToArray();
-        await jSObject.InvokeVoidAsync("randomize", chartData);
     }
 }
