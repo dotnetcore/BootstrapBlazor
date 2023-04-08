@@ -3,7 +3,7 @@
 @implements IAsyncDisposable
 
 <div style="height:370px;width:740px;">
-    <canvas id="lineChartJS"></canvas>
+    <canvas id="@canvasId"></canvas>
 </div>
 
 <Button Text="Randomize" OnClick="Randomize" />
@@ -12,6 +12,12 @@
 <Pre>@jscode</Pre>
 
 @code {
+
+    /// <summary>
+    /// canvasId
+    /// </summary>
+    private readonly string canvasId = "lineChartJS";
+
     /// <summary>
     /// JS互操作实例
     /// </summary>
@@ -38,7 +44,7 @@
         //随机生成一组数据
         //Randomly generate a set of data
         var chartData = Enumerable.Range(1, 7).Select(x => x = random.Next(25, 85)).ToArray();
-        await jSObject.InvokeVoidAsync("randomize", chartData);
+        await jSObject.InvokeVoidAsync("randomize", canvasId, chartData);
     }
 
     /// <summary>
@@ -93,7 +99,7 @@
             //Randomly generate a set of data
             var chartData = Enumerable.Range(1, 7).Select(x => x = random.Next(25, 85)).ToArray();
 
-            await jSObject.InvokeVoidAsync("lineChart", chartData);
+            await jSObject.InvokeVoidAsync("lineChart", canvasId, chartData);
         }
         await base.OnAfterRenderAsync(firstRender);
     }

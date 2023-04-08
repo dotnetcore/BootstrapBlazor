@@ -1,8 +1,8 @@
 ﻿//通过相对路径导入BootstrapBlazor.Chart的Chart.JS模块
 import '/../_content/BootstrapBlazor.Chart/js/bootstrap.blazor.chart.bundle.min.js'
 
-export function lineChart(chartData) {
-    const ctx = document.getElementById('lineChartJS');
+export function lineChart(canvasId, chartData) {
+    const ctx = document.getElementById(canvasId);
 
     const data = {
         labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
@@ -37,12 +37,12 @@ export function lineChart(chartData) {
     };
 
     var chart = new Chart(ctx, config);
-    window['lineChart'] = chart;
+    window[canvasId] = chart;
 }
 
-export function randomize(chartData) {
-    window['lineChart'].data.datasets.forEach(dataset => {
+export function randomize(canvasId, chartData) {
+    window[canvasId].data.datasets.forEach(dataset => {
         dataset.data = chartData;
     });
-    window['lineChart'].update();
+    window[canvasId].update();
 }
