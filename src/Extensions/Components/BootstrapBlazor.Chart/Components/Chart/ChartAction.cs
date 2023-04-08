@@ -51,5 +51,5 @@ public enum ChartAction
     /// 重新渲染图表
     /// </summary>
     [Description("reload")]
-    Reload,
+    Reload
 }
