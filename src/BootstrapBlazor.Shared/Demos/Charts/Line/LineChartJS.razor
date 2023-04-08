@@ -1,4 +1,4 @@
-﻿@inject IOptions<WebsiteOptions> SiteOptions
+﻿@inject IOptionsMonitor<WebsiteOptions> SiteOptions
 @inherits IdComponentBase
 @implements IAsyncDisposable
 
@@ -35,10 +35,14 @@
     {
         await base.OnInitializedAsync();
 
-        var rootPath = SiteOptions.Value.ContentRootPath;
-
+        var rootPath = SiteOptions.CurrentValue.ContentRootPath;
+        var fileName = "/../BootstrapBlazor.Shared/Demos/Charts/Line/LineChartJS.razor.js";
+        if (OperatingSystem.IsWindows())
+        {
+            fileName = fileName.Replace('/', Path.DirectorySeparatorChar);
+        }
         //获取 JS 文件的相对路径
-        var jsFilePath = @$"{rootPath}\..\BootstrapBlazor.Shared\Demos\Charts\Line\LineChartJS.razor.js";
+        var jsFilePath = @$"{rootPath}{fileName}";
 
         //读取源码文本
         if (File.Exists(jsFilePath))
