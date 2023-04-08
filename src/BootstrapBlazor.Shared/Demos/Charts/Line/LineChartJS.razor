@@ -1,107 +1,82 @@
-﻿@inject IJSRuntime JS
-@inject IOptionsMonitor<WebsiteOptions> SiteOptions
+﻿@inject IOptions<WebsiteOptions> SiteOptions
+@inherits IdComponentBase
 @implements IAsyncDisposable
 
-<div style="height:370px;width:740px;">
-    <canvas id="@canvasId"></canvas>
+<div style="height:370px; width:740px;">
+    <canvas id="@Id"></canvas>
 </div>
 
 <Button Text="Randomize" OnClick="Randomize" />
 
-<p><h4><code>JavaScript Code</code></h4></p>
-<Pre>@jscode</Pre>
+<h4><code>JavaScript Code</code></h4>
+<Pre>@Code</Pre>
 
 @code {
-
     /// <summary>
-    /// canvasId
+    /// JS 互操作实例
     /// </summary>
-    private readonly string canvasId = "lineChartJS";
+    private IJSObjectReference? Module { get; set; }
 
     /// <summary>
-    /// JS互操作实例
+    /// Random 随机数生成器
     /// </summary>
-    [NotNull]
-    private IJSObjectReference? jSObject = null;
+    private Random Random { get; } = new();
 
     /// <summary>
-    /// Random随机数生成器
-    /// </summary>
-    private Random random = new Random();
-
-    /// <summary>
-    /// JS代码段
+    /// JS 代码段
     /// JS Code
     /// </summary>
-    private string jscode = string.Empty;
+    private string? Code { get; set; }
 
     /// <summary>
-    /// Chart Randomize
+    /// <inheritdoc />
     /// </summary>
-    /// <returns></returns>
-    private async Task Randomize()
-    {
-        //随机生成一组数据
-        //Randomly generate a set of data
-        var chartData = Enumerable.Range(1, 7).Select(x => x = random.Next(25, 85)).ToArray();
-        await jSObject.InvokeVoidAsync("randomize", canvasId, chartData);
-    }
-
-    /// <summary>
-    /// 释放资源
-    /// DisposeAsync
-    /// </summary>
-    public async ValueTask DisposeAsync()
-    {
-        if (jSObject != null)
-        {
-            await jSObject.DisposeAsync();
-        }
-        GC.SuppressFinalize(this);
-    }
-
-    /// <summary>
-    /// OnInitializedAsync
-    /// 读取文件中的JS代码
-    /// Reading JS code from a file
-    /// </summary>
-    /// <returns></returns>
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
-        var rootPath = SiteOptions.CurrentValue.ContentRootPath;
 
-        //获取JS文件的相对路径
+        var rootPath = SiteOptions.Value.ContentRootPath;
+
+        //获取 JS 文件的相对路径
         var jsFilePath = @$"{rootPath}\..\BootstrapBlazor.Shared\Demos\Charts\Line\LineChartJS.razor.js";
 
         //读取源码文本
         if (File.Exists(jsFilePath))
         {
-            jscode = File.ReadAllText(jsFilePath, System.Text.Encoding.Default);
+            Code = await File.ReadAllTextAsync(jsFilePath, System.Text.Encoding.Default);
         }
     }
 
     /// <summary>
-    /// OnAfterRenderAsync
+    /// <inheritdoc />
     /// 动态导入JS模块，初始化Chart
     /// Dynamically import JS module and initialize Chart
     /// </summary>
     /// <param name="firstRender"></param>
-    /// <returns></returns>
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
+        await base.OnAfterRenderAsync(firstRender);
+
         if (firstRender)
         {
-            var jsmodule = "./_content/BootstrapBlazor.Shared/Demos/Charts/Line/LineChartJS.razor.js";
-            jSObject = await JS.InvokeAsync<IJSObjectReference>("import", jsmodule);
+            Module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/BootstrapBlazor.Shared/Demos/Charts/Line/LineChartJS.razor.js");
 
             //随机生成一组数据
             //Randomly generate a set of data
-            var chartData = Enumerable.Range(1, 7).Select(x => x = random.Next(25, 85)).ToArray();
-
-            await jSObject.InvokeVoidAsync("lineChart", canvasId, chartData);
+            var chartData = Enumerable.Range(1, 7).Select(_ => Random.Next(25, 85)).ToArray();
+            await Module.InvokeVoidAsync("lineChart", Id, chartData);
         }
-        await base.OnAfterRenderAsync(firstRender);
+    }
+
+    private async Task Randomize()
+    {
+        //随机生成一组数据
+        //Randomly generate a set of data
+        var chartData = Enumerable.Range(1, 7).Select(_ => Random.Next(25, 85));
+        if (Module != null)
+        {
+            await Module.InvokeVoidAsync("randomize", Id, chartData);
+        }
     }
 
     private async ValueTask Dispose(bool disposing)
