@@ -54,107 +54,114 @@ const genericOptions = {
 };
 
 const getChartOption = function (option) {
-    var colors = []
-    window.chartColors = option.options.colors
-    for (var name in option.options.colors) colors.push(name)
+    const colors = [];
+    const chartColors = option.options.colors
+    for (const name in option.options.colors) colors.push(name)
 
-    var config = {};
-    var scale = {};
-    var colorFunc = null;
+    let config = {};
+    let scale = {};
+    let colorFunc = null;
     if (option.type === 'line') {
-        if ($.isArray(option.data)) {
-            $.each(option.data, function (i, ele) {
-                $.each(ele.data, function (j, el) {
-                    if (el === null) {
-                        option.data[i].data[j] = NaN;
-                        option.data[i].segment = {
-                            borderColor: ctx => skipped(ctx, 'rgb(0,0,0,0.2)'),
-                            borderDash: ctx => skipped(ctx, [6, 6])
-                        };
-                    }
-                });
-            });
-            option.options = $.extend(true, option.options, genericOptions);
-        }
+        option.data.forEach(function(v) {
+           v.data.forEach(function(d) {
+               if(d === null) {
+                   option.data[i].data[j] = NaN;
+                   option.data[i].segment = {
+                       borderColor: ctx => skipped(ctx, 'rgb(0,0,0,0.2)'),
+                       borderDash: ctx => skipped(ctx, [6, 6])
+                   };
+               }
+           })
+        });
+        option.options = {
+            ...option.options,
+            ...genericOptions
+        };
+
         if (option.options.borderWidth > 0) {
             chartOption.options.borderWidth = option.options.borderWidth;
         }
-        config = $.extend(true, {}, chartOption);
+        config = chartOption;
         colorFunc = function (data) {
-            var color = chartColors[colors.shift()]
-            $.extend(data, {
-                backgroundColor: color,
-                borderColor: color
-            });
+            const color = chartColors[colors.shift()]
+
+            data.backgroundColor = color;
+            data.borderColor = color;
         }
     }
     else if (option.type === 'bar') {
-        config = $.extend(true, {}, chartOption);
+        config = {
+            ...chartOption
+        }
         colorFunc = function (data) {
-            var color = chartColors[colors.shift()]
-            $.extend(data, {
-                backgroundColor: Chart.helpers.color(color).alpha(0.5).rgbString(),
-                borderColor: color,
-                borderWidth: 1
-            });
+            const color = chartColors[colors.shift()]
+
+            data.backgroundColor = Chart.helpers.color(color).alpha(0.5).rgbString();
+            data.borderColor = color;
+            data.borderWidth = 1;
         }
     }
     else if (option.type === 'pie' || option.type === 'doughnut') {
-        config = $.extend(true, {}, chartOption, {
-            options: {
-                scales: {
-                    x: {
-                        display: false
-                    },
-                    y: {
-                        display: false
+        config = {
+            ...chartOption,
+            ...{
+                options: {
+                    scales: {
+                        x: {
+                            display: false
+                        },
+                        y: {
+                            display: false
+                        }
                     }
                 }
             }
-        });
+        };
         colorFunc = function (data) {
-            $.extend(data, {
-                backgroundColor: colors.slice(0, data.data.length).map(function (name) {
-                    return chartColors[name];
-                })
+            data.backgroundColor = colors.slice(0, data.data.length).map(function (name) {
+                return chartColors[name];
             });
         }
 
         if (option.type === 'doughnut') {
-            $.extend(config.options, {
-                cutoutPercentage: 50,
-                animation: {
-                    animateScale: true,
-                    animateRotate: true
+            config.options = {
+                ...config.options,
+                ...{
+                    cutoutPercentage: 50,
+                    animation: {
+                        animateScale: true,
+                        animateRotate: true
+                    }
                 }
-            });
+            };
         }
     }
     else if (option.type === 'bubble') {
-        config = $.extend(true, {}, chartOption, {
-            data: {
-                animation: {
-                    duration: 10000
+        config = {
+            ...chartOption,
+            ...{
+                data: {
+                    animation: {
+                        duration: 10000
+                    },
                 },
-            },
-            options: {
-                tooltips: {
-                    mode: 'point'
+                options: {
+                    tooltips: {
+                        mode: 'point'
+                    }
                 }
             }
-        });
+        };
         colorFunc = function (data) {
-            var color = chartColors[colors.shift()]
-            $.extend(data, {
-                backgroundColor: Chart.helpers.color(color).alpha(0.5).rgbString(),
-                borderWidth: 1,
-                borderColor: color
-            });
+            const color = chartColors[colors.shift()]
+            data.backgroundColor = Chart.helpers.color(color).alpha(0.5).rgbString()
+            data.borderWidth = 1
+            data.borderColor = color
         }
     }
 
-    $.each(option.data, function () {
-        colorFunc(this);
+    option.data.forEach(function (v) {
+        colorFunc(v);
     });
 
     scale = {
@@ -190,26 +197,29 @@ const getChartOption = function (option) {
         };
     }
 
-    return $.extend(true, config, {
-        type: option.type,
-        data: {
-            labels: option.labels,
-            datasets: option.data
-        },
-        options: {
-            responsive: option.options.responsive,
-            maintainAspectRatio: option.options.maintainAspectRatio,
-            aspectRatio: option.options.aspectRatio,
-            resizeDelay: option.options.resizeDelay,
-            plugins: {
-                title: {
-                    display: option.options.title != null,
-                    text: option.options.title
-                }
+    return {
+        ...config,
+        ...{
+            type: option.type,
+            data: {
+                labels: option.labels,
+                datasets: option.data
             },
-            scales: scale
+            options: {
+                responsive: option.options.responsive,
+                maintainAspectRatio: option.options.maintainAspectRatio,
+                aspectRatio: option.options.aspectRatio,
+                resizeDelay: option.options.resizeDelay,
+                plugins: {
+                    title: {
+                        display: option.options.title != null,
+                        text: option.options.title
+                    }
+                },
+                scales: scale
+            }
         }
-    });
+    };
 }
 
 const updateChart = function (config, option) {
