@@ -103,4 +103,25 @@
         }
         await base.OnAfterRenderAsync(firstRender);
     }
+
+    private async ValueTask Dispose(bool disposing)
+    {
+        if (disposing)
+        {
+            if (Module != null)
+            {
+                await Module.DisposeAsync();
+            }
+        }
+    }
+
+    /// <summary>
+    /// 释放资源
+    /// DisposeAsync
+    /// </summary>
+    public async ValueTask DisposeAsync()
+    {
+        await Dispose(true);
+        GC.SuppressFinalize(this);
+    }
 }
