@@ -1,7 +1,6 @@
 ﻿//通过相对路径导入BootstrapBlazor.Chart的Chart.JS模块
-import '../../../../../_content/BootstrapBlazor.Chart/js/bootstrap.blazor.chart.bundle.min.js'
-
-const instance = []
+import '../../../../../_content/BootstrapBlazor.Chart/js/chart.js'
+import Data from '../../../../../_content/BootstrapBlazor/modules/data.js'
 
 export function lineChart(canvasId, chartData) {
     const ctx = document.getElementById(canvasId);
@@ -38,12 +37,19 @@ export function lineChart(canvasId, chartData) {
         }
     };
 
-    instance[canvasId] = new Chart(ctx, config);
+    Data.set(canvasId, new Chart(ctx, config))
 }
 
 export function randomize(canvasId, chartData) {
-    instance[canvasId].data.datasets.forEach(dataset => {
-        dataset.data = chartData;
-    });
-    instance[canvasId].update();
+    const chart = Data.get(canvasId)
+    if(chart) {
+        chart.data.datasets.forEach(dataset => {
+            dataset.data = chartData;
+        });
+        chart.update();
+    }
+}
+
+export function dispose(canvasId) {
+    Data.delete(canvasId)
 }
