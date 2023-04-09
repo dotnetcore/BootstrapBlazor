@@ -274,7 +274,7 @@ const updateChart = function (config, option) {
 }
 
 export function init(el, obj, method, option) {
-    addLink('_content/BootstrapBlazor.Chart/css/bootstrap.blazor.chart.min.css')
+    addLink('_content/BootstrapBlazor.Chart/css/bootstrap.blazor.chart.css')
 
     const op = getChartOption(option)
     const chart = new Chart(el.getElementsByTagName('canvas'), op)
