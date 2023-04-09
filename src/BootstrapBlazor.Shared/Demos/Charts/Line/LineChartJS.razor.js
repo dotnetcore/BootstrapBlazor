@@ -51,5 +51,5 @@ export function randomize(canvasId, chartData) {
 }
 
 export function dispose(canvasId) {
-    Data.delete(canvasId)
+    Data.remove(canvasId)
 }

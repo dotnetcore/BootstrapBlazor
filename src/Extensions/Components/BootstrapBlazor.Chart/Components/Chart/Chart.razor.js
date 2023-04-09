@@ -300,5 +300,5 @@ export function update(el, option, method, angle) {
 }
 
 export function dispose(el) {
-    Data.delete(el)
+    Data.remove(el)
 }
