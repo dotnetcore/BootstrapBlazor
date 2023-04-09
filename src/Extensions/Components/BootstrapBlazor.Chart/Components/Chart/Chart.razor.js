@@ -1,6 +1,5 @@
 ﻿import '../../js/chart.js'
-
-const data = new Map()
+import Data from '../../../BootstrapBlazor/modules/data.js'
 
 const chartOption = {
     options: {
@@ -276,7 +275,7 @@ const updateChart = function (config, option) {
 export function init(el, obj, method, option) {
     const op = getChartOption(option)
     const chart = new Chart(el.getElementsByTagName('canvas'), op)
-    data.set(el, chart)
+    Data.set(el, chart)
 
     if (option.options.height !== null) {
         chart.canvas.parentNode.style.height = option.options.height
@@ -289,7 +288,7 @@ export function init(el, obj, method, option) {
 }
 
 export function update(el, option, method, angle) {
-    const chart = data.get(el)
+    const chart = Data.get(el)
     const op = getChartOption(option)
     op.angle = angle
     op.updateMethod = method
@@ -298,5 +297,5 @@ export function update(el, option, method, angle) {
 }
 
 export function dispose(el) {
-    data.delete(el)
+    Data.delete(el)
 }
