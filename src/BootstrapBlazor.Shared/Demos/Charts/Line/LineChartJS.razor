@@ -42,12 +42,16 @@
             fileName = fileName.Replace('/', Path.DirectorySeparatorChar);
         }
         //获取 JS 文件的相对路径
-        var jsFilePath = @$"{rootPath}{fileName}";
+        var jsFilePath = Path.Combine(rootPath, fileName);
 
         //读取源码文本
         if (File.Exists(jsFilePath))
         {
             Code = await File.ReadAllTextAsync(jsFilePath, System.Text.Encoding.Default);
+        }
+        else
+        {
+            Code = jsFilePath;
         }
     }
 
