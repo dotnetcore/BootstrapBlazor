@@ -36,7 +36,7 @@
         await base.OnInitializedAsync();
 
         var rootPath = SiteOptions.CurrentValue.ContentRootPath;
-        var fileName = "/../BootstrapBlazor.Shared/Demos/Charts/Line/LineChartJS.razor.js";
+        var fileName = "../BootstrapBlazor.Shared/Demos/Charts/Line/LineChartJS.razor.js";
         if (OperatingSystem.IsWindows())
         {
             fileName = fileName.Replace('/', Path.DirectorySeparatorChar);
