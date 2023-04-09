@@ -454,9 +454,6 @@
   "BootstrapBlazor.Shared.Samples.Charts.Index": {
     "Chart": "Chart 图表",
     "ChartIntro": "通过给定数据，绘画各种图表的组件",
-    "AddBelowThisLine": "添加到这行下面",
-    "CSSfile": "CSS 文件",
-    "JSfile": "JS 文件",
     "ChartIntro2": "组件数据在 <code>OnInit</code> 回调委托中进行设置即可",
     "Tips": "注意添加引用 JS 文件顺序,否则会导致图表组件一直卡在 '载入中' 界面"
   },
