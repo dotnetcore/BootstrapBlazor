@@ -1,5 +1,6 @@
 ﻿import '../../js/chart.js'
 import Data from '../../../BootstrapBlazor/modules/data.js'
+import { addLink } from "../../../BootstrapBlazor/modules/utility.js"
 
 const chartOption = {
     options: {
@@ -273,6 +274,8 @@ const updateChart = function (config, option) {
 }
 
 export function init(el, obj, method, option) {
+    addLink('_content/BootstrapBlazor.Chart/css/bootstrap.blazor.chart.min.css')
+
     const op = getChartOption(option)
     const chart = new Chart(el.getElementsByTagName('canvas'), op)
     Data.set(el, chart)
