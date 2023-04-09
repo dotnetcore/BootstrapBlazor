@@ -454,8 +454,7 @@
   "BootstrapBlazor.Shared.Samples.Charts.Index": {
     "Chart": "Chart",
     "ChartIntro": "Drawing components of various charts with given data",
-    "ChartIntro2": "Component data can be set in the <code>OnInit</code> callback delegate",
-    "Tips": "Pay attention to the order of adding reference JS files, otherwise the chart component will always be stuck in the 'loading' interface"
+    "ChartIntro2": "Component data can be set in the <code>OnInit</code> callback delegate"
   },
   "BootstrapBlazor.Shared.Samples.Charts.Bubble": {
     "BubbleNormalTitle": "Bubble diagram",
