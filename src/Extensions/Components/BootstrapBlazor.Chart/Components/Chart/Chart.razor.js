@@ -61,8 +61,8 @@ const getChartOption = function (option) {
     let scale = {}
     let colorFunc = null
     if (option.type === 'line') {
-        option.data.forEach(function(v) {
-           v.data.forEach(function(d) {
+        option.data.forEach(function(v, i) {
+           v.data.forEach(function(d, j) {
                if(d === null) {
                    option.data[i].data[j] = NaN
                    option.data[i].segment = {
