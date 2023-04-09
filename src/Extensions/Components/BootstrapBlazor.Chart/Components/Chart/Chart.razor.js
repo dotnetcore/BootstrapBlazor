@@ -42,8 +42,8 @@ const chartOption = {
     }
 }
 
-const skipped = (ctx, value) => ctx.p0.skip || ctx.p1.skip ? value : undefined;
-const down = (ctx, value) => ctx.p0.parsed.y > ctx.p1.parsed.y ? value : undefined;
+const skipped = (ctx, value) => ctx.p0.skip || ctx.p1.skip ? value : undefined
+const down = (ctx, value) => ctx.p0.parsed.y > ctx.p1.parsed.y ? value : undefined
 
 const genericOptions = {
     fill: false,
@@ -51,42 +51,42 @@ const genericOptions = {
         intersect: false
     },
     radius: 0
-};
+}
 
 const getChartOption = function (option) {
-    const colors = [];
+    const colors = []
     const chartColors = option.options.colors
     for (const name in option.options.colors) colors.push(name)
 
-    let config = {};
-    let scale = {};
-    let colorFunc = null;
+    let config = {}
+    let scale = {}
+    let colorFunc = null
     if (option.type === 'line') {
         option.data.forEach(function(v) {
            v.data.forEach(function(d) {
                if(d === null) {
-                   option.data[i].data[j] = NaN;
+                   option.data[i].data[j] = NaN
                    option.data[i].segment = {
                        borderColor: ctx => skipped(ctx, 'rgb(0,0,0,0.2)'),
                        borderDash: ctx => skipped(ctx, [6, 6])
-                   };
+                   }
                }
            })
-        });
+        })
         option.options = {
             ...option.options,
             ...genericOptions
-        };
+        }
 
         if (option.options.borderWidth > 0) {
-            chartOption.options.borderWidth = option.options.borderWidth;
+            chartOption.options.borderWidth = option.options.borderWidth
         }
-        config = chartOption;
+        config = chartOption
         colorFunc = function (data) {
             const color = chartColors[colors.shift()]
 
-            data.backgroundColor = color;
-            data.borderColor = color;
+            data.backgroundColor = color
+            data.borderColor = color
         }
     }
     else if (option.type === 'bar') {
@@ -96,9 +96,9 @@ const getChartOption = function (option) {
         colorFunc = function (data) {
             const color = chartColors[colors.shift()]
 
-            data.backgroundColor = Chart.helpers.color(color).alpha(0.5).rgbString();
-            data.borderColor = color;
-            data.borderWidth = 1;
+            data.backgroundColor = Chart.helpers.color(color).alpha(0.5).rgbString()
+            data.borderColor = color
+            data.borderWidth = 1
         }
     }
     else if (option.type === 'pie' || option.type === 'doughnut') {
@@ -116,11 +116,11 @@ const getChartOption = function (option) {
                     }
                 }
             }
-        };
+        }
         colorFunc = function (data) {
             data.backgroundColor = colors.slice(0, data.data.length).map(function (name) {
-                return chartColors[name];
-            });
+                return chartColors[name]
+            })
         }
 
         if (option.type === 'doughnut') {
@@ -133,7 +133,7 @@ const getChartOption = function (option) {
                         animateRotate: true
                     }
                 }
-            };
+            }
         }
     }
     else if (option.type === 'bubble') {
@@ -151,7 +151,7 @@ const getChartOption = function (option) {
                     }
                 }
             }
-        };
+        }
         colorFunc = function (data) {
             const color = chartColors[colors.shift()]
             data.backgroundColor = Chart.helpers.color(color).alpha(0.5).rgbString()
@@ -161,8 +161,8 @@ const getChartOption = function (option) {
     }
 
     option.data.forEach(function (v) {
-        colorFunc(v);
-    });
+        colorFunc(v)
+    })
 
     scale = {
         x: {
@@ -180,7 +180,7 @@ const getChartOption = function (option) {
             stacked: option.options.x.stacked,
             position: option.options.y.position
         }
-    };
+    }
 
     if (option.options.y2.title != null) {
         scale.y2 = {
@@ -194,7 +194,7 @@ const getChartOption = function (option) {
                 max: option.options.y2.TicksMax,
                 min: option.options.y2.TicksMin
             }
-        };
+        }
     }
 
     return {
@@ -219,57 +219,57 @@ const getChartOption = function (option) {
                 scales: scale
             }
         }
-    };
+    }
 }
 
 const updateChart = function (config, option) {
     if (option.updateMethod === "addDataset") {
-        config.data.datasets.push(option.data.datasets.pop());
+        config.data.datasets.push(option.data.datasets.pop())
     }
     else if (option.updateMethod === "removeDataset") {
-        config.data.datasets.pop();
+        config.data.datasets.pop()
     }
     else if (option.updateMethod === "addData") {
         if (config.data.datasets.length > 0) {
-            config.data.labels.push(option.data.labels.pop());
+            config.data.labels.push(option.data.labels.pop())
             config.data.datasets.forEach(function (dataset, index) {
-                dataset.data.push(option.data.datasets[index].data.pop());
+                dataset.data.push(option.data.datasets[index].data.pop())
                 if (option.type === 'pie' || option.type === 'doughnut') {
-                    dataset.backgroundColor.push(option.data.datasets[index].backgroundColor.pop());
+                    dataset.backgroundColor.push(option.data.datasets[index].backgroundColor.pop())
                 }
-            });
+            })
         }
     }
     else if (option.updateMethod === "removeData") {
-        config.data.labels.pop(); // remove the label first
+        config.data.labels.pop() // remove the label first
 
         config.data.datasets.forEach(function (dataset) {
-            dataset.data.pop();
+            dataset.data.pop()
             if (option.type === 'pie' || option.type === 'doughnut') {
-                dataset.backgroundColor.pop();
+                dataset.backgroundColor.pop()
             }
-        });
+        })
     }
     else if (option.updateMethod === "setAngle") {
         if (option.type === 'doughnut') {
             if (option.angle === 360) {
-                config.options.circumference = 360;
-                config.options.rotation = -360;
+                config.options.circumference = 360
+                config.options.rotation = -360
             }
             else {
-                config.options.circumference = 180;
-                config.options.rotation = -90;
+                config.options.circumference = 180
+                config.options.rotation = -90
             }
         }
     }
     else if (option.updateMethod === "reload") {
-        config.data = option.data;
-        config.options = option.options;
+        config.data = option.data
+        config.options = option.options
     }
     else {
         config.data.datasets.forEach((dataset, index) => {
-            dataset.data = option.data.datasets[index].data;
-        });
+            dataset.data = option.data.datasets[index].data
+        })
     }
 }
 
@@ -282,19 +282,19 @@ export function init(el, obj, method, option) {
         chart.canvas.parentNode.style.height = option.options.height
     }
     if (option.options.width !== null) {
-        chart.canvas.parentNode.style.width = option.options.width;
+        chart.canvas.parentNode.style.width = option.options.width
     }
     el.classList.remove('is-loading')
-    obj.invokeMethodAsync(method);
+    obj.invokeMethodAsync(method)
 }
 
 export function update(el, option, method, angle) {
     const chart = data.get(el)
-    var op = getChartOption(option);
-    op.angle = angle;
-    op.updateMethod = method;
-    updateChart(chart.config, op);
-    chart.update();
+    const op = getChartOption(option)
+    op.angle = angle
+    op.updateMethod = method
+    updateChart(chart.config, op)
+    chart.update()
 }
 
 export function dispose(el) {
