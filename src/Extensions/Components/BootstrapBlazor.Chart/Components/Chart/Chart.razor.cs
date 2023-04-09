@@ -11,10 +11,13 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// Chart 组件基类
 /// </summary>
-public partial class Chart : BootstrapComponentBase, IDisposable
+public partial class Chart : BootstrapComponentBase, IAsyncDisposable
 {
     [NotNull]
-    private JSInterop<Chart>? Interop { get; set; }
+    private IJSObjectReference? Module { get; set; }
+
+    [NotNull]
+    private DotNetObjectReference<Chart>? Interop { get; set; }
 
     /// <summary>
     /// 获得/设置 EChart DOM 元素实例
@@ -113,6 +116,9 @@ public partial class Chart : BootstrapComponentBase, IDisposable
     /// 获得/设置 组件数据初始化委托方法
     /// </summary>
     [Parameter]
+#if NET6_0_OR_GREATER
+    [EditorRequired]
+#endif
     public Func<Task<ChartDataSource>>? OnInitAsync { get; set; }
 
     /// <summary>
@@ -149,17 +155,17 @@ public partial class Chart : BootstrapComponentBase, IDisposable
     /// <param name="firstRender"></param>
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        base.OnAfterRender(firstRender);
+        await base.OnAfterRenderAsync(firstRender);
 
         if (firstRender)
         {
             if (OnInitAsync == null)
             {
-                throw new InvalidOperationException("OnInit paramenter must be set");
+                throw new InvalidOperationException("OnInit parameter must be set");
             }
 
-            Interop ??= new JSInterop<Chart>(JSRuntime);
             var ds = await OnInitAsync.Invoke();
+            ds.Type ??= ChartType.ToDescriptionString();
             ds.Options.Title = ds.Options.Title ?? Title;
             ds.Options.Responsive = ds.Options.Responsive ?? Responsive;
             ds.Options.MaintainAspectRatio = ds.Options.MaintainAspectRatio ?? MaintainAspectRatio;
@@ -171,7 +177,11 @@ public partial class Chart : BootstrapComponentBase, IDisposable
                 //设置了高度和宽度,会自动禁用约束图表比例,图表充满容器
                 ds.Options.MaintainAspectRatio = false;
             }
-            await Interop.InvokeVoidAsync(this, ChartElement, "bb_chart", nameof(Completed), ds, "", ChartType.ToDescriptionString(), Angle);
+
+            // import javascript
+            Interop = DotNetObjectReference.Create<Chart>(this);
+            Module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/BootstrapBlazor.Chart/Components/Chart/Chart.razor.js");
+            await Module.InvokeVoidAsync("init", ChartElement, Interop, nameof(Completed), ds);
         }
     }
 
@@ -192,7 +202,8 @@ public partial class Chart : BootstrapComponentBase, IDisposable
         if (OnInitAsync != null)
         {
             var ds = await OnInitAsync();
-            await Interop.InvokeVoidAsync(this, ChartElement, "bb_chart", nameof(Completed), ds, action.ToDescriptionString(), ChartType.ToDescriptionString(), Angle);
+            ds.Type ??= ChartType.ToDescriptionString();
+            await Module.InvokeVoidAsync("update", ChartElement, ds, action.ToDescriptionString(), Angle);
 
             if (OnAfterUpdateAsync != null)
             {
@@ -204,40 +215,33 @@ public partial class Chart : BootstrapComponentBase, IDisposable
     /// <summary>
     /// 重新加载方法, 强制重新渲染图表
     /// </summary>
-    public async Task Reload()
-    {
-        if (OnInitAsync != null)
-        {
-            var ds = await OnInitAsync();
-            await Interop.InvokeVoidAsync(this, ChartElement, "bb_chart", nameof(Completed), ds, ChartAction.Reload.ToDescriptionString(), ChartType.ToDescriptionString(), Angle);
-
-            if (OnAfterUpdateAsync != null)
-            {
-                await OnAfterUpdateAsync(ChartAction.Reload);
-            }
-        }
-    }
+    public Task Reload() => Update(ChartAction.Reload);
 
     #region Dispose
     /// <summary>
     /// Dispose 方法
     /// </summary>
     /// <param name="disposing"></param>
-    protected virtual void Dispose(bool disposing)
+    protected virtual async ValueTask DisposeAsync(bool disposing)
     {
         if (disposing)
         {
             Interop?.Dispose();
-            Interop = null;
+
+            if (Module != null)
+            {
+                await Module.InvokeVoidAsync("dispose", ChartElement);
+                await Module.DisposeAsync();
+            }
         }
     }
 
     /// <summary>
     /// Dispose 方法
     /// </summary>
-    public void Dispose()
+    public async ValueTask DisposeAsync()
     {
-        Dispose(true);
+        await DisposeAsync(true);
         GC.SuppressFinalize(this);
     }
     #endregion

@@ -1,9 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk.Razor">
 
-  <Import Project="..\..\..\bundleconfig.props" />
-
   <PropertyGroup>
-    <Version>7.1.1</Version>
+    <Version>7.2.0</Version>
     <PackageTags>Bootstrap Blazor WebAssembly wasm UI Components Chart</PackageTags>
     <Description>Bootstrap UI components extensions of Chart.js</Description>
   </PropertyGroup>
@@ -14,24 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Remove="bundleconfig.json" />
-    <Content Remove="wwwroot\css\bootstrap.blazor.chart.css" />
-    <Content Remove="wwwroot\css\bootstrap.blazor.chart.min.css" />
-    <Content Remove="wwwroot\js\bootstrap.blazor.chart.js" />
-    <Content Remove="wwwroot\js\bootstrap.blazor.chart.min.js" />
-    <Content Remove="wwwroot\js\chart.js" />
-    <Content Remove="wwwroot\js\chart.min.js" />
-    <None Include="bundleconfig.json" />
-    <None Include="wwwroot\css\bootstrap.blazor.chart.css" />
-    <None Include="wwwroot\css\bootstrap.blazor.chart.min.css" />
-    <None Include="wwwroot\js\bootstrap.blazor.chart.js" />
-    <None Include="wwwroot\js\bootstrap.blazor.chart.min.js" />
-    <None Include="wwwroot\js\chart.js" />
-    <None Include="wwwroot\js\chart.min.js" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="BootstrapBlazor" Version="7.0.0" />
+    <PackageReference Include="BootstrapBlazor" Version="7.5.1" />
   </ItemGroup>
 
 </Project>
