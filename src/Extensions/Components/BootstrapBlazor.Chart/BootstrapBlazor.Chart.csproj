@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
-    <Version>7.1.1</Version>
+    <Version>7.2.0</Version>
     <PackageTags>Bootstrap Blazor WebAssembly wasm UI Components Chart</PackageTags>
     <Description>Bootstrap UI components extensions of Chart.js</Description>
   </PropertyGroup>
@@ -12,10 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="BootstrapBlazor" Version="7.0.0" />
+    <PackageReference Include="BootstrapBlazor" Version="7.5.1" />
   </ItemGroup>
 
 </Project>
