@@ -95,7 +95,6 @@ class CodeSnippetService
     private Task<string> GetContentFromDemo(string demo) => CacheManager.GetContentFromDemoAsync(demo, async entry =>
     {
         var payload = "";
-
         var fileName = demo.Replace('.', Path.DirectorySeparatorChar);
         fileName = $"{fileName}.razor";
 
@@ -117,14 +116,14 @@ class CodeSnippetService
 
     private async Task<string> ReadFileContent(string fileName)
     {
-        var payload = string.Empty;
         var client = Factory.CreateClient();
         client.Timeout = TimeSpan.FromSeconds(5);
 
+        string? payload;
         if (OperatingSystem.IsBrowser())
         {
             client.BaseAddress = new Uri($"{ServerUrl}/api/");
-            payload = await client.GetStringAsync($"Code?fileName={fileName}");
+            payload = await client.GetStringAsync($"Code?fileName=BootstrapBlazor.Shared/{fileName}");
         }
         else
         {
