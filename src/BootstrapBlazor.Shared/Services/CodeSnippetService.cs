@@ -78,7 +78,11 @@ class CodeSnippetService
         {
             if (IsDevelopment)
             {
-                var file = Path.Combine(ContentRootPath, fileName);
+                var file = $"{ContentRootPath}\\..\\BootstrapBlazor.Shared\\{fileName}";
+                if (!OperatingSystem.IsWindows())
+                {
+                    file = file.Replace('\\', '/');
+                }
                 if (File.Exists(file))
                 {
                     payload = await File.ReadAllTextAsync(file);
@@ -86,7 +90,7 @@ class CodeSnippetService
             }
             else
             {
-
+                payload = await ReadFileContent(fileName);
             }
         }
         return payload;
