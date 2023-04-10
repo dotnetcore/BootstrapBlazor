@@ -7,8 +7,10 @@ export class Pre extends BlazorComponent {
         addLink('_content/BootstrapBlazor.Shared/lib/highlight/vs.css')
         addScript('_content/BootstrapBlazor.Shared/lib/highlight/highlight.min.js')
         this._pre = this._element.querySelector('pre')
-        this._code = this._pre.querySelector('code')
-        this._setListeners()
+        if (this._pre) {
+            this._code = this._pre.querySelector('code')
+            this._setListeners()
+        }
     }
 
     _setListeners() {

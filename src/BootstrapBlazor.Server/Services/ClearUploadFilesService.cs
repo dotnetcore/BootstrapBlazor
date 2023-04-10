@@ -37,28 +37,28 @@ internal class ClearUploadFilesService : BackgroundService
     {
         _ = TaskServicesManager.GetOrAdd("Clear Upload Files", token =>
         {
-            if (_env != null)
+            var webSiteUrl = $"images{Path.DirectorySeparatorChar}uploader{Path.DirectorySeparatorChar}";
+            var filePath = Path.Combine(_env.WebRootPath, webSiteUrl);
+            if (Directory.Exists(filePath))
             {
-                var webSiteUrl = $"images{Path.DirectorySeparatorChar}uploader{Path.DirectorySeparatorChar}";
-                var filePath = Path.Combine(_env.WebRootPath, webSiteUrl);
-                if (Directory.Exists(filePath))
+                Directory.EnumerateFiles(filePath).Take(10).ToList().ForEach(file =>
                 {
-                    Directory.EnumerateFiles(filePath).Take(10).ToList().ForEach(file =>
+                    try
                     {
-                        try
+                        if (token.IsCancellationRequested)
                         {
-                            if (token.IsCancellationRequested)
-                            {
-                                return;
-                            }
-
-                            File.Delete(file);
+                            return;
                         }
-                        catch { }
-                    });
-                }
 
+                        File.Delete(file);
+                    }
+                    catch
+                    {
+                        // ignored
+                    }
+                });
             }
+
             return Task.CompletedTask;
         }, TriggerBuilder.Build(Cron.Minutely(10)));
 

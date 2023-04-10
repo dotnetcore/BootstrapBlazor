@@ -47,8 +47,8 @@ class CodeSnippetService
         IsDevelopment = options.CurrentValue.IsDevelopment;
         ContentRootPath = options.CurrentValue.ContentRootPath;
         ServerUrl = options.CurrentValue.ServerUrl;
-        SampleUrl = options.CurrentValue.SampleUrl;
-        DemoUrl = $"{SampleUrl}../";
+        SampleUrl = $"{options.CurrentValue.SourceUrl}BootstrapBlazor.Shared/Samples/";
+        DemoUrl = $"{options.CurrentValue.SourceUrl}BootstrapBlazor.Shared/";
     }
 
     /// <summary>
@@ -66,10 +66,39 @@ class CodeSnippetService
         return content;
     }
 
+    /// <summary>
+    /// 获得指定文件源码
+    /// </summary>
+    /// <param name="fileName"></param>
+    /// <returns></returns>
+    public async Task<string> GetFileContentAsync(string fileName)
+    {
+        var payload = "";
+        if (!string.IsNullOrEmpty(fileName))
+        {
+            if (IsDevelopment)
+            {
+                var file = $"{ContentRootPath}\\..\\BootstrapBlazor.Shared\\{fileName}";
+                if (!OperatingSystem.IsWindows())
+                {
+                    file = file.Replace('\\', '/');
+                }
+                if (File.Exists(file))
+                {
+                    payload = await File.ReadAllTextAsync(file);
+                }
+            }
+            else
+            {
+                payload = await ReadFileContent(fileName);
+            }
+        }
+        return payload;
+    }
+
     private Task<string> GetContentFromDemo(string demo) => CacheManager.GetContentFromDemoAsync(demo, async entry =>
     {
         var payload = "";
-
         var fileName = demo.Replace('.', Path.DirectorySeparatorChar);
         fileName = $"{fileName}.razor";
 
@@ -79,19 +108,7 @@ class CodeSnippetService
         }
         else
         {
-            var client = Factory.CreateClient();
-            client.Timeout = TimeSpan.FromSeconds(5);
-
-            if (OperatingSystem.IsBrowser())
-            {
-                client.BaseAddress = new Uri($"{ServerUrl}/api/");
-                payload = await client.GetStringAsync($"Code?fileName={fileName}");
-            }
-            else
-            {
-                client.BaseAddress = new Uri(DemoUrl);
-                payload = await client.GetStringAsync(fileName.Replace('\\', '/'));
-            }
+            payload = await ReadFileContent(fileName);
         }
 
         // 将资源文件信息替换
@@ -100,6 +117,25 @@ class CodeSnippetService
         payload = RemoveBlockStatement(payload, "@inject IStringLocalizer<");
         return payload;
     });
+
+    private async Task<string> ReadFileContent(string fileName)
+    {
+        var client = Factory.CreateClient();
+        client.Timeout = TimeSpan.FromSeconds(5);
+
+        string? payload;
+        if (OperatingSystem.IsBrowser())
+        {
+            client.BaseAddress = new Uri($"{ServerUrl}/api/");
+            payload = await client.GetStringAsync($"Code?fileName=BootstrapBlazor.Shared/{fileName}");
+        }
+        else
+        {
+            client.BaseAddress = new Uri(DemoUrl);
+            payload = await client.GetStringAsync(fileName.Replace('\\', '/'));
+        }
+        return payload;
+    }
 
     private static string ReplaceSymbols(string payload) => payload
         .Replace("@@", "@")
@@ -128,8 +164,7 @@ class CodeSnippetService
     {
         var payload = "";
         var paths = new string[] { "..", "BootstrapBlazor.Shared" };
-        var folder = Path.Combine(ContentRootPath, string.Join(Path.DirectorySeparatorChar, paths));
-        var file = Path.Combine(folder, codeFile);
+        var file = Path.Combine(ContentRootPath, string.Join(Path.DirectorySeparatorChar, paths), codeFile);
         if (File.Exists(file))
         {
             payload = await File.ReadAllTextAsync(file);
