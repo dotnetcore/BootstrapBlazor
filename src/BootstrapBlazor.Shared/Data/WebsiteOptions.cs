@@ -49,7 +49,7 @@ public class WebsiteOptions
     /// <summary>
     /// 
     /// </summary>
-    public string SampleUrl { get; set; } = "https://gitee.com/LongbowEnterprise/BootstrapBlazor/raw/main/src/BootstrapBlazor.Shared/Samples/";
+    public string SourceUrl { get; set; } = "https://gitee.com/LongbowEnterprise/BootstrapBlazor/raw/main/src/";
 
     /// <summary>
     /// 

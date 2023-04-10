@@ -47,8 +47,8 @@ class CodeSnippetService
         IsDevelopment = options.CurrentValue.IsDevelopment;
         ContentRootPath = options.CurrentValue.ContentRootPath;
         ServerUrl = options.CurrentValue.ServerUrl;
-        SampleUrl = options.CurrentValue.SampleUrl;
-        DemoUrl = $"{SampleUrl}../";
+        SampleUrl = $"{options.CurrentValue.SourceUrl}BootstrapBlazor.Shared/Samples/";
+        DemoUrl = $"{options.CurrentValue.SourceUrl}BootstrapBlazor.Shared/";
     }
 
     /// <summary>

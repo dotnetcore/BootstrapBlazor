@@ -27,7 +27,7 @@ public class CodeController : ControllerBase
     public async Task<string> Get([FromQuery] string fileName, [FromServices] HttpClient client, [FromServices] IOptionsMonitor<WebsiteOptions> options)
     {
         var ret = "";
-        client.BaseAddress = new Uri(options.CurrentValue.SampleUrl);
+        client.BaseAddress = new Uri(options.CurrentValue.SourceUrl);
         try
         {
             ret = await client.GetStringAsync(fileName);
