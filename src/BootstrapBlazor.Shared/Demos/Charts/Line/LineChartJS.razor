@@ -1,4 +1,4 @@
-﻿@inject IOptionsMonitor<WebsiteOptions> SiteOptions
+﻿@inject CodeSnippetService CodeSnippetService
 @inherits IdComponentBase
 @implements IAsyncDisposable
 
@@ -35,24 +35,7 @@
     {
         await base.OnInitializedAsync();
 
-        var rootPath = SiteOptions.CurrentValue.ContentRootPath;
-        var fileName = "../BootstrapBlazor.Shared/Demos/Charts/Line/LineChartJS.razor.js";
-        if (OperatingSystem.IsWindows())
-        {
-            fileName = fileName.Replace('/', Path.DirectorySeparatorChar);
-        }
-        //获取 JS 文件的相对路径
-        var jsFilePath = Path.Combine(rootPath, fileName);
-
-        //读取源码文本
-        if (File.Exists(jsFilePath))
-        {
-            Code = await File.ReadAllTextAsync(jsFilePath, System.Text.Encoding.Default);
-        }
-        else
-        {
-            Code = jsFilePath;
-        }
+        Code = await CodeSnippetService.GetFileContentAsync("Demos\\Charts\\Line\\LineChartJS.razor.js");
     }
 
     /// <summary>
