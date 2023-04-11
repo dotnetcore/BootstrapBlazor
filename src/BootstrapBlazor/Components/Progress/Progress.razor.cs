@@ -27,7 +27,7 @@ public partial class Progress
     /// 获得 Style 集合
     /// </summary>
     private string? StyleName => CssBuilder.Default()
-        .AddClass($"width: {Value}%;")
+        .AddClass($"width: {Math.Round(Value, Round)}%;")
         .Build();
 
     /// <summary>
@@ -45,7 +45,7 @@ public partial class Progress
     /// <summary>
     /// 获得 当前值百分比标签文字
     /// </summary>
-    private string? ValueLabelString => IsShowValue ? $"{Value}%" : null;
+    private string? ValueLabelString => IsShowValue ? $"{Math.Round(Value, Round)}%" : null;
 
     /// <summary>
     /// OnParametersSet 方法

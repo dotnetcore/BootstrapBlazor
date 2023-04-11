@@ -42,4 +42,10 @@ public abstract class ProgressBase : BootstrapComponentBase
     /// </summary>
     [Parameter]
     public double Value { get; set; }
+
+    /// <summary>
+    /// 获得/设置 进度值修约小数位数,默认0(即保留为整数)
+    /// </summary>
+    [Parameter]
+    public int Round { get; set; } = 0;
 }
