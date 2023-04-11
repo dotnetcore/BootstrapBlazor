@@ -46,6 +46,10 @@ public abstract class ProgressBase : BootstrapComponentBase
     /// <summary>
     /// 获得/设置 进度值修约小数位数,默认0(即保留为整数)
     /// </summary>
-    [Parameter]
-    public int Round { get; set; } = 0;
+    [Parameter] public int Round { get; set; } = 0;
+
+    /// <summary>
+    /// 获得/设置 进度标签文本
+    /// </summary>
+    [Parameter] public string Text { get; set; } = string.Empty;
 }

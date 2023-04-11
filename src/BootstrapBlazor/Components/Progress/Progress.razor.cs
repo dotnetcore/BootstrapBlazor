@@ -45,7 +45,7 @@ public partial class Progress
     /// <summary>
     /// 获得 当前值百分比标签文字
     /// </summary>
-    private string? ValueLabelString => IsShowValue ? $"{Math.Round(Value, Round)}%" : null;
+    private string? ValueLabelString => IsShowValue ? string.IsNullOrEmpty(Text) ? $"{Math.Round(Value, Round)}%" : Text : null;
 
     /// <summary>
     /// OnParametersSet 方法
