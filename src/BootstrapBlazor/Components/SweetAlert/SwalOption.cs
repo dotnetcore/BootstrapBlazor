@@ -10,6 +10,11 @@ namespace BootstrapBlazor.Components;
 public class SwalOption : PopupOptionBase
 {
     /// <summary>
+    /// 获得/设置 相关弹窗实例
+    /// </summary>
+    internal Modal? Modal { get; set; }
+
+    /// <summary>
     /// 获得/设置 模态弹窗返回值任务实例
     /// </summary>
     internal TaskCompletionSource<bool> ReturnTask { get; } = new TaskCompletionSource<bool>();
@@ -128,5 +133,22 @@ public class SwalOption : PopupOptionBase
             parameters.Add(nameof(ModalDialog.Class), Class);
         }
         return parameters;
+    }
+
+    /// <summary>
+    /// 关闭弹窗方法
+    /// </summary>
+    /// <param name="returnValue">模态弹窗返回值 默认为 true</param>
+    public async Task CloseAsync(bool returnValue = true)
+    {
+        if (Modal != null)
+        {
+            await Modal.Close();
+        }
+
+        if (IsConfirm)
+        {
+            ReturnTask.TrySetResult(returnValue);
+        }
     }
 }

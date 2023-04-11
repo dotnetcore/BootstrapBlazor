@@ -267,6 +267,22 @@ public class SwalTest : SwalTestBase
         Thread.Sleep(1000);
         cut.InvokeAsync(() => modal.Instance.CloseCallback());
 
+        // CloseAsync 方法测试
+        var op = new SwalOption()
+        {
+            Content = "I am close swal",
+            ShowClose = false
+        };
+        cut.InvokeAsync(() => swal.Show(op));
+        cut.DoesNotContain("<button ");
+        cut.InvokeAsync(() => op.CloseAsync());
+        cut.InvokeAsync(() => modal.Instance.CloseCallback());
+
+        // IsConfirm CloseAsync
+        cut.InvokeAsync(() => swal.ShowModal(op));
+        cut.InvokeAsync(() => op.CloseAsync());
+        cut.InvokeAsync(() => modal.Instance.CloseCallback());
+
         // 自动隐藏时间未到时触发 Disposing
         cut.InvokeAsync(() => swal.Show(new SwalOption()
         {
@@ -279,6 +295,7 @@ public class SwalTest : SwalTestBase
         cut.Contains("I am auto hide");
         var alert = cut.FindComponent<SweetAlert>();
         cut.InvokeAsync(async () => await alert.Instance.DisposeAsync());
+        cut.InvokeAsync(() => modal.Instance.CloseCallback());
     }
 
     private class MockSwalTest : ComponentBase
