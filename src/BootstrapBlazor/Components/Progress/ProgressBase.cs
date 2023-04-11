@@ -41,5 +41,5 @@ public abstract class ProgressBase : BootstrapComponentBase
     /// 获得/设置 组件进度值
     /// </summary>
     [Parameter]
-    public int Value { get; set; }
+    public double Value { get; set; }
 }
