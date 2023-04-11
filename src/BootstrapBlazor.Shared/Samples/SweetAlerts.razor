@@ -51,8 +51,7 @@ await SwalService.Show(op);</Pre>
     <p>@((MarkupString)Localizer["SweetAlertsModalTips"].Value)</p>
     <Pre class="no-highlight">var ret = await SwalService.ShowModal(op);
 
-// ShowModal
-Logger.Log($"{ret}");
+Logger.Log(ret);
 </Pre>
 </DemoBlock>
 
@@ -63,13 +62,18 @@ Logger.Log($"{ret}");
     <p>@((MarkupString)Localizer["SweetAlertsFooterDescription"].Value)</p>
 </DemoBlock>
 
+<DemoBlock Title="@Localizer["SweetAlertsAutoCloseTitle"]"
+           Introduction="@Localizer["SweetAlertsAutoCloseIntro"]"
+           Name="Close"
+           Demo="typeof(Demos.SweetAlerts.SweetAlertsAutoClose)">
+    <p>@((MarkupString)Localizer["SweetAlertsAutoCloseDescription"].Value)</p>
+</DemoBlock>
+
 <DemoBlock Title="@Localizer["SweetAlertsCloseTitle"]"
            Introduction="@Localizer["SweetAlertsCloseIntro"]"
            Name="Close"
            Demo="typeof(Demos.SweetAlerts.SweetAlertsClose)">
-    <p>
-        @((MarkupString)Localizer["SweetAlertsCloseDescription"].Value)
-    </p>
+    <p>@((MarkupString)Localizer["SweetAlertsCloseDescription"].Value)</p>
 </DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" />

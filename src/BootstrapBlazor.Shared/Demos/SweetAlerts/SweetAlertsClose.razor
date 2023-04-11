@@ -2,21 +2,20 @@
 @inject IStringLocalizer<SweetAlerts> Localizer
 @inject SwalService SwalService
 
-<Button Icon="fa-solid fa-font-awesome" Text="@Localizer["SweetAlertsCloseButtonText"]" Color="Color.Success" OnClick="@ShowAutoCloseSwal" />
+<Button Icon="fa-solid fa-font-awesome" Text="@Localizer["SweetAlertsCloseButtonText"]" Color="Color.Success" OnClick="@ShowCloseSwal" />
 
 @code {
-    private async Task ShowAutoCloseSwal()
+    private async Task ShowCloseSwal()
     {
         var op = new SwalOption()
         {
             Category = SwalCategory.Error,
             Title = "Oops...",
             Content = "Something went wrong!",
-            ShowFooter = true,
-            IsAutoHide = true,
-            Delay = 4000,
-            FooterTemplate = BootstrapDynamicComponent.CreateComponent<SwalFooter>().Render()
+            ShowClose = false
         };
         await SwalService.Show(op);
+        await Task.Delay(4000);
+        await op.CloseAsync();
     }
 }
