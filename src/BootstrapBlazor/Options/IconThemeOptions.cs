@@ -146,8 +146,8 @@ public class IconThemeOptions
         { ComponentIcons.ToastErrorIcon, "fa-solid fa-xmark-circle" },
 
         { ComponentIcons.TabPreviousIcon, "fa-solid fa-chevron-left" },
-        { ComponentIcons.TabNextIcon, "fa-solid fa-chevron-left" },
-        { ComponentIcons.TabDropdownIcon, "fa-solid fa-chevron-left" },
+        { ComponentIcons.TabNextIcon, "fa-solid fa-chevron-right" },
+        { ComponentIcons.TabDropdownIcon, "fa-solid fa-chevron-down" },
         { ComponentIcons.TabCloseIcon, "fa-solid fa-xmark" },
 
         { ComponentIcons.TableSortIconAsc, "fa-solid fa-sort-up" },

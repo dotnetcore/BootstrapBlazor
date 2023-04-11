@@ -123,8 +123,8 @@ internal class DefaultIcon
         { ComponentIcons.ToastErrorIcon, "mdi mdi-close-circle" },
 
         { ComponentIcons.TabPreviousIcon, "mdi mdi-chevron-left" },
-        { ComponentIcons.TabNextIcon, "mdi mdi-chevron-left" },
-        { ComponentIcons.TabDropdownIcon, "mdi mdi-chevron-left" },
+        { ComponentIcons.TabNextIcon, "mdi mdi-chevron-right" },
+        { ComponentIcons.TabDropdownIcon, "mdi mdi-chevron-down" },
         { ComponentIcons.TabCloseIcon, "mdi mdi-close" },
 
         { ComponentIcons.TableSortIconAsc, "mdi mdi-sort-ascending" },
