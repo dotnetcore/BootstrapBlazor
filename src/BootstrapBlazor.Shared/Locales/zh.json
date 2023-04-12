@@ -340,7 +340,9 @@
     "ProgresssDynamicTitle": "是否动态显示",
     "ProgresssDynamicIntro": "通过 <code>IsAnimated</code> 设置进度条的动态显示",
     "ProgresssBindingTitle": "双向绑定数据",
-    "ProgresssBindingIntro": "绑定数据"
+    "ProgresssBindingIntro": "绑定数据",
+    "ProgresssDecimalsTitle": "小数",
+    "ProgresssDecimalsIntro": "通过设置 <code>Round</code> 参数调整保留小数点位数，默认为 <code>0</code>，通过设置 <code>MidpointRounding</code> 参数调整四舍五入模式，默认为 <code>MidpointRounding.AwayFromZero</code> 四舍五入"
   },
   "BootstrapBlazor.Shared.Samples.Responsives": {
     "ResponsivesTitle": "Responsive 断点监听",
