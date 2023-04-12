@@ -272,9 +272,9 @@ public partial class Table<TItem>
                 SelectedRows.Clear();
             }
 
-            if (SelectedRows.Contains(val))
+            if (SelectedRows.Any(row => Equals(val, row)))
             {
-                SelectedRows.Remove(val);
+                SelectedRows.RemoveAll(row => Equals(val, row));
             }
             else
             {
@@ -306,7 +306,7 @@ public partial class Table<TItem>
     /// </summary>
     /// <param name="val"></param>
     /// <returns></returns>
-    protected virtual bool CheckActive(TItem val) => SelectedRows.Contains(val);
+    protected virtual bool CheckActive(TItem val) => SelectedRows.Any(row => Equals(val, row));
 
     /// <summary>
     /// 
