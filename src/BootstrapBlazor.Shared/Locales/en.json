@@ -340,7 +340,9 @@
     "ProgresssDynamicTitle": "Whether to display dynamically",
     "ProgresssDynamicIntro": "Set the dynamic display of the progress bar through <code>IsAnimated</code>",
     "ProgresssBindingTitle": "Two-way binding data",
-    "ProgresssBindingIntro": "Bind data"
+    "ProgresssBindingIntro": "Bind data",
+    "ProgresssDecimalsTitle": "Decimals",
+    "ProgresssDecimalsIntro": "Adjust the number of decimal places by setting the <code>Round</code> parameter, which defaults to <code>0</code>. Adjust the rounding mode by setting the <code>MidpointRounding</code >parameter, which defaults to <code>MidpointRounding. AwayFromZero</code> rounding"
   },
   "BootstrapBlazor.Shared.Samples.Responsives": {
     "ResponsivesTitle": "Responsive breakpoint monitoring",
