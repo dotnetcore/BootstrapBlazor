@@ -40,7 +40,7 @@ public partial class Progress
     /// <summary>
     /// 获得 当前值
     /// </summary>
-    private string ValueString => Value.ToString();
+    private string ValueString => Math.Round(Value, Round).ToString();
 
     /// <summary>
     /// 获得 当前值百分比标签文字
