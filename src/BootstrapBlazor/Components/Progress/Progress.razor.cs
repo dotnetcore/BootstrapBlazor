@@ -55,6 +55,12 @@ public partial class Progress
     public int Round { get; set; }
 
     /// <summary>
+    /// 获得/设置 保留小数点模式 默认为 AwayFromZero
+    /// </summary>
+    [Parameter]
+    public MidpointRounding MidpointRounding { get; set; } = MidpointRounding.AwayFromZero;
+
+    /// <summary>
     /// 获得/设置 进度标签文本
     /// </summary>
     [Parameter]
@@ -88,7 +94,7 @@ public partial class Progress
         .AddClass($"height: {Height}px;", Height.HasValue)
         .Build();
 
-    private double InternalValue => Round == 0 ? Value : Math.Round(Value, Round, MidpointRounding.AwayFromZero);
+    private double InternalValue => Round == 0 ? Value : Math.Round(Value, Round, MidpointRounding);
 
     /// <summary>
     /// 获得 当前值百分比标签文字
