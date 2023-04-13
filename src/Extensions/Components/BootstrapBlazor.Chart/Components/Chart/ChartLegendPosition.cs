@@ -4,7 +4,7 @@
 
 using System.ComponentModel;
 
-namespace BootstrapBlazor.Chart.Components.Chart;
+namespace BootstrapBlazor.Components;
 
 /// <summary>
 /// Chart图例显示位置枚举
@@ -15,23 +15,23 @@ public enum ChartLegendPosition
     /// 上
     /// </summary>
     [Description("top")]
-    Top,
+    Top = 1,
 
     /// <summary>
     /// 下
     /// </summary>
     [Description("bottom")]
-    Bottom,
+    Bottom = 2,
 
     /// <summary>
     /// 左
     /// </summary>
     [Description("left")]
-    Left,
+    Left = 3,
 
     /// <summary>
     /// 右
     /// </summary>
     [Description("right")]
-    Right,
+    Right = 4,
 }
