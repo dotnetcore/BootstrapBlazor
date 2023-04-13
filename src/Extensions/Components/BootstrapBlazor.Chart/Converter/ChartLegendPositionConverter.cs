@@ -3,8 +3,10 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using BootstrapBlazor.Components;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
-namespace System.Text.Json.Serialization;
+namespace BootstrapBlazor.Chart;
 
 class ChartLegendPositionConverter : JsonConverter<ChartLegendPosition>
 {
