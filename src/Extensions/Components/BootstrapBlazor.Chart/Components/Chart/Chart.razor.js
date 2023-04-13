@@ -163,9 +163,6 @@ const getChartOption = function (option) {
         }
     }
 
-    chartOption.options.legend.display = option.options.displayLegend
-
-
     option.data.forEach(function (v) {
         colorFunc(v)
     })
