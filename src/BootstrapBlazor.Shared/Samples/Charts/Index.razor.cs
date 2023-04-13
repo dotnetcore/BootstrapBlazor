@@ -9,8 +9,9 @@ namespace BootstrapBlazor.Shared.Samples.Charts;
 /// </summary>
 public sealed partial class Index
 {
+
     /// <summary>
-    /// 获得属性列表
+    /// 获得属性方法
     /// </summary>
     /// <returns></returns>
     private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
@@ -58,8 +59,8 @@ public sealed partial class Index
             DefaultValue = "2"
         },
         new AttributeItem() {
-            Name = "ResizeDelay",
-            Description = "设置 图表尺寸延迟变化时间",
+            Name = "设置 图表尺寸延迟变化时间",
+            Description = "",
             Type = "int",
             ValueList = " - ",
             DefaultValue = "0"
@@ -93,18 +94,11 @@ public sealed partial class Index
             DefaultValue = "Update"
         },
         new AttributeItem() {
-            Name = "DisplayLegend",
-            Description = "是否显示图例",
+            Name = "",
+            Description = "",
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "true"
-        },
-        new AttributeItem() {
-            Name = "LegendPosition",
-            Description = "图例显示位置",
-            Type = "ChartLegendPosition",
-            ValueList = "Top|Bottom|Left|Right",
-            DefaultValue = "Top"
         },
         new AttributeItem()
         {
@@ -147,48 +141,5 @@ public sealed partial class Index
             DefaultValue = " - "
         }
 
-    };
-
-    /// <summary>
-    /// 获得方法列表
-    /// </summary>
-    /// <returns></returns>
-    private static IEnumerable<MethodItem> GetMethodAttributes() => new MethodItem[]
-    {
-        new MethodItem()
-        {
-            Name = nameof(BootstrapBlazor.Components.Chart.OnInitAsync),
-            Description = "组件数据初始化委托方法",
-            Parameters = "Func<Task<ChartDataSource>>",
-            ReturnValue = " — "
-        },
-        new MethodItem()
-        {
-            Name = nameof(BootstrapBlazor.Components.Chart.OnAfterInitAsync),
-            Description = "客户端绘制图表完毕后回调此委托方法",
-            Parameters = "Func<Task>",
-            ReturnValue = " — "
-        },
-        new MethodItem()
-        {
-            Name = nameof(BootstrapBlazor.Components.Chart.OnAfterUpdateAsync),
-            Description = "客户端更新图表完毕后回调此委托方法",
-            Parameters = "Func<ChartAction, Task>",
-            ReturnValue = " — "
-        },
-        new MethodItem()
-        {
-            Name = nameof(BootstrapBlazor.Components.Chart.Update),
-            Description = "更新图表方法",
-            Parameters ="Task",
-            ReturnValue = " — "
-        },
-        new MethodItem()
-        {
-            Name = nameof(BootstrapBlazor.Components.Chart.Reload),
-            Description = "重新加载,强制重新渲染图表",
-            Parameters = "Task",
-            ReturnValue = " — "
-        }
     };
 }
