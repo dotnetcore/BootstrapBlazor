@@ -279,11 +279,7 @@ const updateChart = function (config, option) {
     }
 }
 
-export async function init(el, obj, method, option) {
-    await addLink('_content/BootstrapBlazor.Chart/css/bootstrap.blazor.chart.css')
-    el.classList.add('is-loading')
-    el.classList.remove('d-none')
-
+export function init(el, obj, method, option) {
     const op = getChartOption(option)
     const chart = new Chart(el.getElementsByTagName('canvas'), op)
     Data.set(el, chart)
@@ -294,7 +290,7 @@ export async function init(el, obj, method, option) {
     if (option.options.width !== null) {
         chart.canvas.parentNode.style.width = option.options.width
     }
-    el.classList.remove('is-loading')
+    el.querySelector('.chart-loading').classList.add('d-none')
     obj.invokeMethodAsync(method)
 }
 

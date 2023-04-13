@@ -27,7 +27,7 @@ public partial class Chart : BootstrapComponentBase, IAsyncDisposable
     /// <summary>
     /// 获得 样式集合
     /// </summary>
-    private string? ClassName => CssBuilder.Default("chart d-none")
+    private string? ClassName => CssBuilder.Default("chart d-flex justify-content-center align-items-center position-relative is-loading")
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
