@@ -1,9 +1,11 @@
 ﻿import '../../js/chart.js'
 import Data from '../../../BootstrapBlazor/modules/data.js'
-import { addLink } from "../../../BootstrapBlazor/modules/utility.js"
 
 const chartOption = {
     options: {
+        legend: {
+            display: true
+        },
         borderWidth: 3,
         responsive: true,
         maintainAspectRatio: true,
@@ -62,16 +64,22 @@ const getChartOption = function (option) {
     let scale = {}
     let colorFunc = null
     if (option.type === 'line') {
-        option.data.forEach(function(v, i) {
-           v.data.forEach(function(d, j) {
-               if(d === null) {
-                   option.data[i].data[j] = NaN
-                   option.data[i].segment = {
-                       borderColor: ctx => skipped(ctx, 'rgb(0,0,0,0.2)'),
-                       borderDash: ctx => skipped(ctx, [6, 6])
-                   }
-               }
-           })
+        option.data.forEach(function (v, i) {
+            v.data.forEach(function (d, j) {
+                if (d === null) {
+                    option.data[i].data[j] = NaN
+                    option.data[i] = {
+                        ...option.data[i],
+                        ...{
+                            segment: {
+                                borderColor: ctx => skipped(ctx, 'rgb(0,0,0,0.2)') || down(ctx, 'rgb(192,75,75)'),
+                                borderDash: ctx => skipped(ctx, [6, 6])
+                            },
+                            spanGaps: true
+                        }
+                    }
+                }
+            })
         })
         option.options = {
             ...option.options,
@@ -211,6 +219,9 @@ const getChartOption = function (option) {
                 aspectRatio: option.options.aspectRatio,
                 resizeDelay: option.options.resizeDelay,
                 plugins: {
+                    legend: {
+                        display: option.options.displayLegend
+                    },
                     title: {
                         display: option.options.title != null,
                         text: option.options.title
@@ -274,8 +285,6 @@ const updateChart = function (config, option) {
 }
 
 export function init(el, obj, method, option) {
-    addLink('_content/BootstrapBlazor.Chart/css/bootstrap.blazor.chart.css')
-
     const op = getChartOption(option)
     const chart = new Chart(el.getElementsByTagName('canvas'), op)
     Data.set(el, chart)
@@ -286,7 +295,7 @@ export function init(el, obj, method, option) {
     if (option.options.width !== null) {
         chart.canvas.parentNode.style.width = option.options.width
     }
-    el.classList.remove('is-loading')
+    el.querySelector('.chart-loading').classList.add('d-none')
     obj.invokeMethodAsync(method)
 }
 
