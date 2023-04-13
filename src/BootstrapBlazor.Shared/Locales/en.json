@@ -497,7 +497,9 @@
     "PieNormalRemoveData": "Remove data",
     "PieNormalReload": "Reload",
     "PieAspectRatioTitle": "Chart ratio",
-    "PieAspectRatioIntro": "Setting the height and width will automatically disable the constraint chart ratio, and the chart will fill the container"
+    "PieAspectRatioIntro": "Setting the height and width will automatically disable the constraint chart ratio, and the chart will fill the container",
+    "PieLegendPostionTitle": "LegendPostion",
+    "PieLegendPostionIntro": "Set the legend position through <code>LegendPosition</code>"
   },
   "BootstrapBlazor.Shared.Samples.Charts.Line": {
     "LineOnInitTitle": "Line graph",
