@@ -190,24 +190,7 @@ const getChartOption = function (option) {
 
     legend = {
         display: option.options.displayLegend,
-        position: function () {
-            switch (option.options.legendPosition) {
-                case 1:
-                    return 'top'
-                    break;
-                case 2:
-                    return 'bottom'
-                    break;
-                case 3:
-                    return 'left'
-                    break;
-                case 4:
-                    return 'right'
-                    break;
-                default:
-                    return 'top'
-            }
-        }
+        position: option.options.legendPosition
     }
 
     if (option.options.y2.title != null) {

@@ -2,6 +2,9 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using BootstrapBlazor.Chart;
+using System.Text.Json.Serialization;
+
 namespace BootstrapBlazor.Components;
 
 /// <summary>
@@ -74,6 +77,7 @@ public class ChartOptions
     /// <summary>
     /// 获得/设置 图例显示位置 默认 top 显示
     /// </summary>
+    [JsonConverter(typeof(ChartLegendPositionConverter))]
     public ChartLegendPosition LegendPosition { get; set; } = ChartLegendPosition.Top;
 
     /// <summary>
