@@ -15,14 +15,14 @@ internal static class Utility
     /// 
     /// </summary>
     /// <param name="chart"></param>
-    public static Task RandomData(BootstrapBlazor.Components.Chart chart) => chart.Update(ChartAction.Update);
+    public static Task RandomData(Chart chart) => chart.Update(ChartAction.Update);
 
     /// <summary>
     /// 
     /// </summary>
     /// <param name="chart"></param>
     /// <param name="dsCount"></param>
-    public static void AddDataSet(BootstrapBlazor.Components.Chart chart, ref int dsCount)
+    public static void AddDataSet(Chart chart, ref int dsCount)
     {
         if (dsCount < Colors.Count())
         {
@@ -36,7 +36,7 @@ internal static class Utility
     /// </summary>
     /// <param name="chart"></param>
     /// <param name="dsCount"></param>
-    public static void RemoveDataSet(BootstrapBlazor.Components.Chart chart, ref int dsCount)
+    public static void RemoveDataSet(Chart chart, ref int dsCount)
     {
         if (dsCount > 1)
         {
@@ -50,7 +50,7 @@ internal static class Utility
     /// </summary>
     /// <param name="chart"></param>
     /// <param name="daCount"></param>
-    public static void AddData(BootstrapBlazor.Components.Chart chart, ref int daCount)
+    public static void AddData(Chart chart, ref int daCount)
     {
         var limit = chart.ChartType switch
         {
@@ -72,7 +72,7 @@ internal static class Utility
     /// </summary>
     /// <param name="chart"></param>
     /// <param name="daCount"></param>
-    public static void RemoveData(BootstrapBlazor.Components.Chart chart, ref int daCount)
+    public static void RemoveData(Chart chart, ref int daCount)
     {
         var limit = chart.ChartType switch
         {
