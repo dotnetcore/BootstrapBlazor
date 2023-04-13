@@ -3,6 +3,7 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using BootstrapBlazor.Chart;
+
 using System.Text.Json.Serialization;
 
 namespace BootstrapBlazor.Components;
@@ -72,13 +73,33 @@ public class ChartOptions
     /// <summary>
     /// 获得/设置 是否显示图例 默认 true 显示
     /// </summary>
-    public bool DisplayLegend { get; set; } = true;
+    public bool ShowLegend { get; set; } = true;
 
     /// <summary>
     /// 获得/设置 图例显示位置 默认 top 显示
     /// </summary>
     [JsonConverter(typeof(ChartLegendPositionConverter))]
     public ChartLegendPosition LegendPosition { get; set; } = ChartLegendPosition.Top;
+
+    /// <summary>
+    /// 获得/设置 是否显示X轴线 默认 true 显示
+    /// </summary>
+    public bool ShowXLine { get; set; } = true;
+
+    /// <summary>
+    /// 获得/设置 是否显示Y轴线 默认 true 显示
+    /// </summary>
+    public bool ShowYLine { get; set; } = true;
+
+    /// <summary>
+    /// 获得/设置 是否显示X轴刻度 默认 true 显示
+    /// </summary>
+    public bool ShowXScales { get; set; } = true;
+
+    /// <summary>
+    /// 获得/设置 是否显示Y轴刻度 默认 true 显示
+    /// </summary>
+    public bool ShowYScales { get; set; } = true;
 
     /// <summary>
     /// 获得/设置 数据显示颜色
