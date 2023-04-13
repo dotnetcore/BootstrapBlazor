@@ -7,7 +7,7 @@ using System.ComponentModel;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// Chart图例显示位置枚举
+/// Chart 图例显示位置枚举
 /// </summary>
 public enum ChartLegendPosition
 {
