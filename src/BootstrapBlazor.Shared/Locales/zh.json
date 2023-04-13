@@ -497,7 +497,9 @@
     "PieNormalRemoveData": "移除数据",
     "PieNormalReload": "重载",
     "PieAspectRatioTitle": "图表比例",
-    "PieAspectRatioIntro": "设置了高度和宽度,会自动禁用约束图表比例, 图表充满容器"
+    "PieAspectRatioIntro": "设置了高度和宽度,会自动禁用约束图表比例, 图表充满容器",
+    "PieLegendPostionTitle": "图例位置",
+    "PieLegendPostionIntro": "通过 <code>LegendPostion</code> 设置图例位置"
   },
   "BootstrapBlazor.Shared.Samples.Charts.Line": {
     "LineOnInitTitle": "Line 图",
