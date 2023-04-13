@@ -68,6 +68,12 @@ public class ChartOptions
     public double? BorderWidth { get; set; }
 
     /// <summary>
+    /// 是否显示图例
+    /// <para>true or false</para>
+    /// </summary>
+    public bool DisplayLegend { get; set; } = true;
+
+    /// <summary>
     /// 获得/设置 数据显示颜色
     /// </summary>
     public Dictionary<string, string> Colors { get; set; } = new Dictionary<string, string>()

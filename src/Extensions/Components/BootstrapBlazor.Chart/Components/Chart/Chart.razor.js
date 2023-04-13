@@ -4,6 +4,9 @@ import { addLink } from "../../../BootstrapBlazor/modules/utility.js"
 
 const chartOption = {
     options: {
+        legend: {
+            display: true
+        },
         borderWidth: 3,
         responsive: true,
         maintainAspectRatio: true,
@@ -62,16 +65,16 @@ const getChartOption = function (option) {
     let scale = {}
     let colorFunc = null
     if (option.type === 'line') {
-        option.data.forEach(function(v, i) {
-           v.data.forEach(function(d, j) {
-               if(d === null) {
-                   option.data[i].data[j] = NaN
-                   option.data[i].segment = {
-                       borderColor: ctx => skipped(ctx, 'rgb(0,0,0,0.2)'),
-                       borderDash: ctx => skipped(ctx, [6, 6])
-                   }
-               }
-           })
+        option.data.forEach(function (v, i) {
+            v.data.forEach(function (d, j) {
+                if (d === null) {
+                    option.data[i].data[j] = NaN
+                    option.data[i].segment = {
+                        borderColor: ctx => skipped(ctx, 'rgb(0,0,0,0.2)'),
+                        borderDash: ctx => skipped(ctx, [6, 6])
+                    }
+                }
+            })
         })
         option.options = {
             ...option.options,
@@ -160,6 +163,9 @@ const getChartOption = function (option) {
         }
     }
 
+    chartOption.options.legend.display = option.options.displayLegend
+
+
     option.data.forEach(function (v) {
         colorFunc(v)
     })
@@ -211,6 +217,9 @@ const getChartOption = function (option) {
                 aspectRatio: option.options.aspectRatio,
                 resizeDelay: option.options.resizeDelay,
                 plugins: {
+                    legend: {
+                        display: option.options.displayLegend
+                    },
                     title: {
                         display: option.options.title != null,
                         text: option.options.title
