@@ -3,10 +3,6 @@ import Data from '../../../BootstrapBlazor/modules/data.js'
 
 const chartOption = {
     options: {
-        legend: {
-            display: true
-        },
-        borderWidth: 3,
         responsive: true,
         maintainAspectRatio: true,
         aspectRatio: 2,
@@ -62,6 +58,8 @@ const getChartOption = function (option) {
 
     let config = {}
     let scale = {}
+    let legend = {}
+
     let colorFunc = null
     if (option.type === 'line') {
         option.data.forEach(function (v, i) {
@@ -190,6 +188,11 @@ const getChartOption = function (option) {
         }
     }
 
+    legend = {
+        display: option.options.displayLegend,
+        position: option.options.legendPosition
+    }
+
     if (option.options.y2.title != null) {
         scale.y2 = {
             title: {
@@ -219,9 +222,7 @@ const getChartOption = function (option) {
                 aspectRatio: option.options.aspectRatio,
                 resizeDelay: option.options.resizeDelay,
                 plugins: {
-                    legend: {
-                        display: option.options.displayLegend
-                    },
+                    legend: legend,
                     title: {
                         display: option.options.title != null,
                         text: option.options.title
