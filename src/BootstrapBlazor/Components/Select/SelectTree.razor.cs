@@ -144,6 +144,19 @@ public partial class SelectTree<TValue> : IModelEqualityComparer<TValue>
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+
+        if (Value != null)
+        {
+            await TriggerItemChanged(s => Equals(s.Value, Value));
+        }
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
     protected override async Task OnParametersSetAsync()
     {
         await base.OnParametersSetAsync();
@@ -157,13 +170,6 @@ public partial class SelectTree<TValue> : IModelEqualityComparer<TValue>
         {
             // 组件未赋值 Value 通过 IsActive 设置默认值
             await TriggerItemChanged(s => s.IsActive);
-        }
-        else
-        {
-            var allItems = Items.GetAllItems();
-            var item = allItems.FirstOrDefault(s => Equals(s.Value, Value));
-                if (item != null)
-                await ItemChanged(item);
         }
     }
 
