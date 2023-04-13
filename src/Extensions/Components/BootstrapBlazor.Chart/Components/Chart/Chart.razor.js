@@ -279,8 +279,10 @@ const updateChart = function (config, option) {
     }
 }
 
-export function init(el, obj, method, option) {
-    addLink('_content/BootstrapBlazor.Chart/css/bootstrap.blazor.chart.css')
+export async function init(el, obj, method, option) {
+    await addLink('_content/BootstrapBlazor.Chart/css/bootstrap.blazor.chart.css')
+    el.classList.add('is-loading')
+    el.classList.remove('d-none')
 
     const op = getChartOption(option)
     const chart = new Chart(el.getElementsByTagName('canvas'), op)
