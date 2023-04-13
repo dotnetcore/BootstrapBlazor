@@ -68,9 +68,15 @@ const getChartOption = function (option) {
             v.data.forEach(function (d, j) {
                 if (d === null) {
                     option.data[i].data[j] = NaN
-                    option.data[i].segment = {
-                        borderColor: ctx => skipped(ctx, 'rgb(0,0,0,0.2)'),
-                        borderDash: ctx => skipped(ctx, [6, 6])
+                    option.data[i] = {
+                        ...option.data[i],
+                        ...{
+                            segment: {
+                                borderColor: ctx => skipped(ctx, 'rgb(0,0,0,0.2)') || down(ctx, 'rgb(192,75,75)'),
+                                borderDash: ctx => skipped(ctx, [6, 6])
+                            },
+                            spanGaps: true
+                        }
                     }
                 }
             })
