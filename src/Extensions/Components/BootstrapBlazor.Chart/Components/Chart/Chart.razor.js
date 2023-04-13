@@ -1,6 +1,5 @@
 ﻿import '../../js/chart.js'
 import Data from '../../../BootstrapBlazor/modules/data.js'
-import { addLink } from "../../../BootstrapBlazor/modules/utility.js"
 
 const chartOption = {
     options: {
