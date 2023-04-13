@@ -144,6 +144,19 @@ public partial class SelectTree<TValue> : IModelEqualityComparer<TValue>
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+
+        if (Value != null)
+        {
+            await TriggerItemChanged(s => Equals(s.Value, Value));
+        }
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
     protected override async Task OnParametersSetAsync()
     {
         await base.OnParametersSetAsync();
