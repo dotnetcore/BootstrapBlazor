@@ -61,6 +61,38 @@ const getChartOption = function (option) {
     let legend = {}
 
     let colorFunc = null
+
+    scale = {
+        x: {
+            display: option.options.showXScales,
+            title: {
+                display: option.options.x.title != null,
+                text: option.options.x.title
+            },
+            stacked: option.options.x.stacked,
+            grid: {
+                display: option.options.showXLine
+            }
+        },
+        y: {
+            display: option.options.showYScales,
+            title: {
+                display: option.options.y.title != null,
+                text: option.options.y.title
+            },
+            stacked: option.options.x.stacked,
+            position: option.options.y.position,
+            grid: {
+                display: option.options.showYLine
+            }
+        }
+    }
+
+    legend = {
+        display: option.options.showLegend,
+        position: option.options.legendPosition
+    }
+
     if (option.type === 'line') {
         option.data.forEach(function (v, i) {
             v.data.forEach(function (d, j) {
@@ -169,29 +201,6 @@ const getChartOption = function (option) {
     option.data.forEach(function (v) {
         colorFunc(v)
     })
-
-    scale = {
-        x: {
-            title: {
-                display: option.options.x.title != null,
-                text: option.options.x.title
-            },
-            stacked: option.options.x.stacked
-        },
-        y: {
-            title: {
-                display: option.options.y.title != null,
-                text: option.options.y.title
-            },
-            stacked: option.options.x.stacked,
-            position: option.options.y.position
-        }
-    }
-
-    legend = {
-        display: option.options.displayLegend,
-        position: option.options.legendPosition
-    }
 
     if (option.options.y2.title != null) {
         scale.y2 = {
