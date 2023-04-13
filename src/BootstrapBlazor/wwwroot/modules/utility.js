@@ -98,12 +98,25 @@ const addLink = href => {
     let link = links.filter(function (link) {
         return link.href.indexOf(href) > -1
     })
+    let done = link.length > 0;
     if (link.length === 0) {
         link = document.createElement('link')
         link.setAttribute('href', href)
         link.setAttribute("rel", "stylesheet")
         document.getElementsByTagName("head")[0].appendChild(link)
+        link.onload = () => {
+            console.log('href loaded')
+            done = true
+        }
     }
+    return new Promise((resolve, reject) => {
+        const handler = setInterval(() => {
+            if (done) {
+                clearInterval(handler)
+                resolve()
+            }
+        }, 20)
+    })
 }
 
 const removeLink = href => {
