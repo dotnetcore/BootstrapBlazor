@@ -2,6 +2,8 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using BootstrapBlazor.Chart.Components.Chart;
+
 namespace BootstrapBlazor.Components;
 
 /// <summary>
@@ -70,6 +72,11 @@ public class ChartOptions
     /// 获得/设置 是否显示图例 默认 true 显示
     /// </summary>
     public bool DisplayLegend { get; set; } = true;
+
+    /// <summary>
+    /// 获得/设置 图例显示位置 默认 top 显示
+    /// </summary>
+    public ChartLegendPosition LegendPosition { get; set; } = ChartLegendPosition.Top;
 
     /// <summary>
     /// 获得/设置 数据显示颜色
