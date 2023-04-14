@@ -1,4 +1,4 @@
-﻿import BlazorComponent from "../../../_content/BootstrapBlazor/modules/base/blazor-component.js"
+﻿import Data from '../../../BootstrapBlazor/modules/data.js'
 
 export class BlazorQRCode extends BlazorComponent {
     _init() {

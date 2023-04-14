@@ -9,8 +9,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// BarcodeReader 条码扫描
 /// </summary>
-[JSModuleAutoLoader("./_content/BootstrapBlazor.BarCode/barcodereader.bundle.min.js", JSObjectReference = true, ModuleName = "BarcodeReader", Relative = false)]
-public partial class BarcodeReader
+public partial class BarcodeReader : IAsyncDisposable
 {
     private string? AutoStopString => AutoStop ? "true" : null;
 
@@ -132,11 +131,17 @@ public partial class BarcodeReader
     [Parameter]
     public Func<Task>? OnClose { get; set; }
 
-    private IEnumerable<SelectedItem>? Devices { get; set; }
-
     [Inject]
     [NotNull]
     private IStringLocalizer<BarcodeReader>? Localizer { get; set; }
+
+    private IEnumerable<SelectedItem>? Devices { get; set; }
+
+    [NotNull]
+    private IJSObjectReference? Module { get; set; }
+
+    [NotNull]
+    private DotNetObjectReference<BarcodeReader>? Interop { get; set; }
 
     /// <summary>
     /// OnParametersSet 方法
@@ -153,6 +158,25 @@ public partial class BarcodeReader
         NotFoundDevicesString ??= Localizer[nameof(NotFoundDevicesString)];
 
         Devices ??= Enumerable.Empty<SelectedItem>();
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="firstRender"></param>
+    /// <returns></returns>
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+
+        if(firstRender)
+        {
+            // import JavaScript
+            Module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/BootstrapBlazor.BarCode/Components/BarcodeReader/BarcodeReader.razor.js");
+            Interop = DotNetObjectReference.Create<BarcodeReader>(this);
+            await Module.InvokeVoidAsync("init", Id, Interop);
+
+        }
     }
 
     /// <summary>
@@ -223,4 +247,33 @@ public partial class BarcodeReader
         }
         StateHasChanged();
     }
+
+    #region Dispose
+    /// <summary>
+    /// Dispose 方法
+    /// </summary>
+    /// <param name="disposing"></param>
+    protected virtual async ValueTask DisposeAsync(bool disposing)
+    {
+        if (disposing)
+        {
+            Interop?.Dispose();
+
+            if (Module != null)
+            {
+                await Module.InvokeVoidAsync("dispose", Id);
+                await Module.DisposeAsync();
+            }
+        }
+    }
+
+    /// <summary>
+    /// Dispose 方法
+    /// </summary>
+    public async ValueTask DisposeAsync()
+    {
+        await DisposeAsync(true);
+        GC.SuppressFinalize(this);
+    }
+    #endregion
 }
