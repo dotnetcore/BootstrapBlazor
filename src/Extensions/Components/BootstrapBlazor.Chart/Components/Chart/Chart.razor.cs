@@ -183,8 +183,8 @@ public partial class Chart : BootstrapComponentBase, IAsyncDisposable
             }
 
             // import JavaScript
-            Interop = DotNetObjectReference.Create<Chart>(this);
             Module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/BootstrapBlazor.Chart/Components/Chart/Chart.razor.js");
+            Interop = DotNetObjectReference.Create<Chart>(this);
             await Module.InvokeVoidAsync("init", ChartElement, Interop, nameof(Completed), ds);
         }
     }
