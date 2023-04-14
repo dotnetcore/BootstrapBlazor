@@ -58,7 +58,7 @@ public partial class Chart : BootstrapComponentBase, IAsyncDisposable
     public string? Width { get; set; }
 
     /// <summary>
-    /// 获得/设置 图表所在canvas是否随其容器大小变化而变化 默认为 true
+    /// 获得/设置 图表所在 canvas 是否随其容器大小变化而变化 默认为 true
     /// </summary>
     [Parameter]
     public bool Responsive { get; set; } = true;
@@ -70,7 +70,7 @@ public partial class Chart : BootstrapComponentBase, IAsyncDisposable
     public bool MaintainAspectRatio { get; set; } = true;
 
     /// <summary>
-    /// 获得/设置 设置canvas的宽高比（值为1表示canvas是正方形），如果显示定义了canvas的高度，则此属性无效 默认为 2
+    /// 获得/设置 设置 canvas 的宽高比（值为1表示 canvas 是正方形），如果显示定义了 canvas 的高度，则此属性无效 默认为 2
     /// </summary>
     [Parameter]
     public int AspectRatio { get; set; } = 2;
@@ -182,7 +182,7 @@ public partial class Chart : BootstrapComponentBase, IAsyncDisposable
                 ds.Options.MaintainAspectRatio = false;
             }
 
-            // import javascript
+            // import JavaScript
             Interop = DotNetObjectReference.Create<Chart>(this);
             Module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/BootstrapBlazor.Chart/Components/Chart/Chart.razor.js");
             await Module.InvokeVoidAsync("init", ChartElement, Interop, nameof(Completed), ds);
