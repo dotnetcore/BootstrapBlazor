@@ -1,5 +1,6 @@
 ﻿import '../../js/chart.js'
 import Data from '../../../BootstrapBlazor/modules/data.js'
+import EventHandler from "../../../BootstrapBlazor/modules/event-handler.js"
 
 const chartOption = {
     options: {
@@ -307,6 +308,10 @@ export function init(el, obj, method, option) {
     }
     el.querySelector('.chart-loading').classList.add('d-none')
     obj.invokeMethodAsync(method)
+
+    EventHandler.on(window, 'resize', () => {
+        chart.resize();
+    })
 }
 
 export function update(el, option, method, angle) {
@@ -319,5 +324,6 @@ export function update(el, option, method, angle) {
 }
 
 export function dispose(el) {
+    EventHandler.off(window, 'resize')
     Data.remove(el)
 }
