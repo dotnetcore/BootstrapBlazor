@@ -173,9 +173,8 @@ public partial class BarcodeReader : IAsyncDisposable
         {
             // import JavaScript
             Module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/BootstrapBlazor.BarCode/Components/BarcodeReader/BarcodeReader.razor.js");
-            Interop = DotNetObjectReference.Create<BarcodeReader>(this);
+            Interop = DotNetObjectReference.Create(this);
             await Module.InvokeVoidAsync("init", Id, Interop);
-
         }
     }
 
