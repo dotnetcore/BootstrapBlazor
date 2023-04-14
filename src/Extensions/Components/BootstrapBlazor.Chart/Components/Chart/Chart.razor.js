@@ -307,6 +307,10 @@ export function init(el, obj, method, option) {
     }
     el.querySelector('.chart-loading').classList.add('d-none')
     obj.invokeMethodAsync(method)
+
+    window.addEventListener('resize', () => {
+        chart.resize();
+    }, true);
 }
 
 export function update(el, option, method, angle) {
@@ -319,5 +323,9 @@ export function update(el, option, method, angle) {
 }
 
 export function dispose(el) {
+    const chart = Data.get(el)
+    window.removeEventListener('resize', () => {
+        chart.resize();
+    }, true);
     Data.remove(el)
 }
