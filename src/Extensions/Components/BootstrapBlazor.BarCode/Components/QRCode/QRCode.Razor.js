@@ -1,70 +1,71 @@
-﻿import Data from '../../../BootstrapBlazor/modules/data.js'
+﻿import {addScript} from '../../../BootstrapBlazor/modules/utility.js'
+import Data from '../../../BootstrapBlazor/modules/data.js'
 
-export class BlazorQRCode extends BlazorComponent {
-    _init() {
-        // arguments list: methodName content callbackFn
-        BootstrapBlazorModules.addScript('./_content/BootstrapBlazor.BarCode/modules/qrcode.min.js')
-
-        this._invoker = this._config.arguments[0]
-        this._content = this._config.arguments[1]
-        this._invokerMethod = this._config.arguments[2]
-        this._qr = this._element.querySelector(this._config.QRSELECTOR)
-
-        const handler = window.setInterval(() => {
-            if (typeof QRCode === 'function') {
-                window.clearInterval(handler)
-
-                dowork()
+const generate = b => {
+    if (b._qrcode === undefined) {
+        const config = {
+            ...{
+                width: 128,
+                height: 128,
+                colorDark: '#000000',
+                colorLight: '#ffffff'
+            },
+            ...{
+                height: b._height,
+                width: b._height,
+                text: b._content,
+                colorDark: b._colorDark,
+                colorLight: b._colorLight,
+                correctLevel: QRCode.CorrectLevel.H
             }
-        }, 100)
-
-        const dowork = () => {
-            this._generate()
         }
+        b._qrcode = new QRCode(b._qr, config)
+    } else {
+        b._qrcode.clear()
+        b._qrcode.makeCode(b._content)
     }
+    b._invoker.invokeMethodAsync(b._invokerMethod)
+}
 
-    _execute(args) {
-        this._content = args[1]
-        if (this._content.length > 0) {
-            this._generate()
-        }
-        else {
-            this._clear()
-        }
-    }
+const clear = b => {
+    b._qrcode.clear()
+    const img = b._qr.querySelector('img')
+    img.src = ''
+}
 
-    _clear() {
-        this._qrcode.clear()
-        const img = this._qr.querySelector('img')
-        img.src = ''
-    }
+export async function init(el, invoker, content, callback) {
+    await addScript('./_content/BootstrapBlazor.BarCode/qrcode.min.js')
 
-    _generate() {
-        if (this._qrcode === undefined) {
-            const config = {
-                ...this._config,
-                ...{
-                    height: this._config.width,
-                    text: this._content,
-                    correctLevel: QRCode.CorrectLevel.H
-                }
-            }
-            this._qrcode = new QRCode(this._qr, config)
-        }
-        else {
-            this._qrcode.clear()
-            this._qrcode.makeCode(this._content)
-        }
-        this._invoker.invokeMethodAsync(this._invokerMethod)
-    }
+    const b = {}
+    Data.set(el, b)
 
-    static get Default() {
-        return {
-            width: 128,
-            height: 128,
-            colorDark: '#000000',
-            colorLight: '#ffffff',
-            QRSELECTOR: '.qrcode-img'
-        }
+    b._invoker = invoker
+    b._invokerMethod = callback
+    b._element = document.getElementById(el)
+    b._qr = b._element.querySelector('.qrcode-img')
+    b._content = content
+    b._height = b._element.getAttribute('data-bb-width')
+    b._colorLight = b._element.getAttribute('data-bb-color-light')
+    b._colorDark = b._element.getAttribute('data-bb-color-dark')
+
+    generate(b)
+}
+
+export function update(el, content) {
+    const b = Data.get(el)
+
+    b._content = content
+    b._height = b._element.getAttribute('data-bb-width')
+    b._colorLight = b._element.getAttribute('data-bb-color-light')
+    b._colorDark = b._element.getAttribute('data-bb-color-dark')
+
+    if (b._content != null && b._content.length > 0) {
+        generate(b)
+    } else {
+        clear(b)
     }
-} 
+}
+
+export function dispose(el) {
+    Data.remove(el)
+}
