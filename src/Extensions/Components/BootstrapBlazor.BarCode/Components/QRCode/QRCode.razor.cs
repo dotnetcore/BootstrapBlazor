@@ -121,20 +121,16 @@ public partial class QRCode : IAsyncDisposable
     {
         await base.OnAfterRenderAsync(firstRender);
 
-        if(firstRender)
+        if (firstRender)
         {
             // import JavaScript
             Module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/BootstrapBlazor.BarCode/Components/QRCode/QRCode.razor.js");
             Interop = DotNetObjectReference.Create(this);
-            await Module.InvokeVoidAsync("init", Id, Interop, Content);
+            await Module.InvokeVoidAsync("init", Id, Interop, Content, nameof(Generated));
         }
         else
         {
-            if (_content != Content)
-            {
-                _content = Content;
-                await Module.InvokeVoidAsync("update", Id, Content);
-            }
+            await Generate();
         }
     }
 
@@ -142,12 +138,16 @@ public partial class QRCode : IAsyncDisposable
     private async Task Clear()
     {
         Content = "";
-        await Module.InvokeVoidAsync("update", Id, Content);
+        await Generate();
     }
 
     private async Task Generate()
     {
-        await Module.InvokeVoidAsync("update", Id, Content);
+        if (_content != Content)
+        {
+            _content = Content;
+            await Module.InvokeVoidAsync("update", Id, Content);
+        }
     }
 
     /// <summary>

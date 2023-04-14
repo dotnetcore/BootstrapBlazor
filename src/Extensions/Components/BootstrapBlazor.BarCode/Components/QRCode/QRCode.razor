@@ -7,8 +7,8 @@
     {
         <div class="input-group mt-3">
             <input type="text" class="form-control" placeholder="@PlaceHolder" @bind-value="@Content" @bind-value:event="onchange">
-            <Button Icon="@ClearButtonIcon" Text="@ClearButtonText" Color="@Color.Secondary" OnClick="@Clear"></Button>
-            <Button Icon="@GenerateButtonIcon" Text="@GenerateButtonText" Color="@Color.Success" OnClick="@Generate"></Button>
+            <Button Icon="@ClearButtonIcon" Text="@ClearButtonText" Color="@Color.Secondary" OnClickWithoutRender="@Clear"></Button>
+            <Button Icon="@GenerateButtonIcon" Text="@GenerateButtonText" Color="@Color.Success" OnClickWithoutRender="@Generate"></Button>
         </div>
     }
 </div>
