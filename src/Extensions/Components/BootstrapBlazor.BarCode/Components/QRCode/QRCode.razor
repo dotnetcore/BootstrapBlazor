@@ -1,7 +1,7 @@
 ﻿@namespace BootstrapBlazor.Components
-@inherits IdComponentBase
+@inherits BootstrapComponentBase
 
-<div @attributes="@AdditionalAttributes" class="@ClassString" id="@Id" data-bb-width="@Width" data-bb-color-light="@LightColor" data-bb-color-dark="@DarkColor">
+<div @attributes="@AdditionalAttributes" class="@ClassString" data-bb-width="@Width" data-bb-color-light="@LightColor" data-bb-color-dark="@DarkColor" ref="@Element">
     <div class="qrcode-img" style="@ImageStyleString"></div>
     @if (ShowButtons)
     {

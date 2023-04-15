@@ -97,6 +97,11 @@ public partial class QRCode : IAsyncDisposable
     [NotNull]
     private DotNetObjectReference<QRCode>? Interop { get; set; }
 
+    /// <summary>
+    /// 获得/设置 元素实例
+    /// </summary>
+    private ElementReference Element { get; set; }
+
     private string? _content;
 
     /// <summary>
@@ -126,7 +131,7 @@ public partial class QRCode : IAsyncDisposable
             // import JavaScript
             Module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/BootstrapBlazor.BarCode/Components/QRCode/QRCode.razor.js");
             Interop = DotNetObjectReference.Create(this);
-            await Module.InvokeVoidAsync("init", Id, Interop, Content, nameof(Generated));
+            await Module.InvokeVoidAsync("init", Element, Interop, Content, nameof(Generated));
         }
         else
         {
@@ -146,7 +151,7 @@ public partial class QRCode : IAsyncDisposable
         if (_content != Content)
         {
             _content = Content;
-            await Module.InvokeVoidAsync("update", Id, Content);
+            await Module.InvokeVoidAsync("update", Element, Content);
         }
     }
 
@@ -176,7 +181,7 @@ public partial class QRCode : IAsyncDisposable
 
             if (Module != null)
             {
-                await Module.InvokeVoidAsync("dispose", Id);
+                await Module.InvokeVoidAsync("dispose", Element);
                 await Module.DisposeAsync();
             }
         }

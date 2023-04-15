@@ -8,7 +8,7 @@ export async function init(el, invoker) {
     Data.set(el, b)
 
     b._reader = new ZXing.BrowserMultiFormatReader()
-    b._element = document.getElementById(el)
+    b._element = el
     b._scanType = b._element.getAttribute('data-bb-scan')
     b._invoker = invoker
 

@@ -24,7 +24,7 @@ export async function init(el, invoker, content, callback) {
 
     b._invoker = invoker
     b._invokerMethod = callback
-    b._element = document.getElementById(el)
+    b._element = el
     b._qr = b._element.querySelector('.qrcode-img')
 
     b._height = b._element.getAttribute('data-bb-width')
