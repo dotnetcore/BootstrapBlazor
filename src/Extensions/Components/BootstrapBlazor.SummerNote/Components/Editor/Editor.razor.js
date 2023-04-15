@@ -15,7 +15,7 @@ export async function init(el, invoker, methodGetPluginAttrs, methodClickPluginI
 
     const initEditor = () => {
         let option = {focus: true, dialogsInBody: true, height, lang}
-        if (value) {
+        if (value !== '') {
             option.value = value
         }
 
@@ -31,7 +31,7 @@ export async function init(el, invoker, methodGetPluginAttrs, methodClickPluginI
 
         // div 点击事件
         EventHandler.on(editor._editorElement, 'click', async () => {
-            //editor._tooltip.hide()
+            editor._tooltip.hide()
             option.placeholder = editor._editorElement.getAttribute('placeholder')
             const toolbar = await editor._invoker.invokeMethodAsync('GetToolBar')
             editor._editorElement.classList.add('open')
@@ -64,7 +64,7 @@ export async function init(el, invoker, methodGetPluginAttrs, methodClickPluginI
             document.querySelector('.note-group-select-from-files [accept="image/*"]').setAttribute('accept', 'image/bmp,image/png,image/jpg,image/jpeg,image/gif')
         })
 
-        editor._tooptip = new bootstrap.Tooltip(editor._editorElement, {title: tooltip})
+        editor._tooltip = new bootstrap.Tooltip(editor._editorElement, {title: tooltip})
 
         if (option.value) editor._editorElement.innerHTML = option.value
         if (editor._editorElement.classList.contains('open')) {
