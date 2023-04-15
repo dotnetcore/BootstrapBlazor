@@ -144,6 +144,11 @@ public partial class BarcodeReader : IAsyncDisposable
     private DotNetObjectReference<BarcodeReader>? Interop { get; set; }
 
     /// <summary>
+    /// 获得/设置 元素实例
+    /// </summary>
+    private ElementReference Element { get; set; }
+
+    /// <summary>
     /// OnParametersSet 方法
     /// </summary>
     protected override void OnParametersSet()
@@ -174,7 +179,7 @@ public partial class BarcodeReader : IAsyncDisposable
             // import JavaScript
             Module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/BootstrapBlazor.BarCode/Components/BarcodeReader/BarcodeReader.razor.js");
             Interop = DotNetObjectReference.Create(this);
-            await Module.InvokeVoidAsync("init", Id, Interop);
+            await Module.InvokeVoidAsync("init", Element, Interop);
         }
     }
 
@@ -260,7 +265,7 @@ public partial class BarcodeReader : IAsyncDisposable
 
             if (Module != null)
             {
-                await Module.InvokeVoidAsync("dispose", Id);
+                await Module.InvokeVoidAsync("dispose", Element);
                 await Module.DisposeAsync();
             }
         }

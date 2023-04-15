@@ -1,7 +1,7 @@
 ﻿@namespace BootstrapBlazor.Components
 @inherits IdComponentBase
 
-<div class="scanner" id="@Id" data-bb-autostart="@AutoStartString" data-bb-deviceid="@SelectedDeviceId" data-bb-autostop="@AutoStopString" data-bb-scan="@ScanType">
+<div @attributes="AdditionalAttributes" class="scanner" data-bb-autostart="@AutoStartString" data-bb-deviceid="@SelectedDeviceId" data-bb-autostop="@AutoStopString" data-bb-scan="@ScanType" @ref="@Element">
     @if (ScanType == ScanType.Camera)
     {
         <div class="row g-3">

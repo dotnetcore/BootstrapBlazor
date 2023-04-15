@@ -22,7 +22,7 @@ public partial class Chart : BootstrapComponentBase, IAsyncDisposable
     /// <summary>
     /// 获得/设置 EChart DOM 元素实例
     /// </summary>
-    private ElementReference ChartElement { get; set; }
+    private ElementReference Element { get; set; }
 
     /// <summary>
     /// 获得 样式集合
@@ -184,8 +184,8 @@ public partial class Chart : BootstrapComponentBase, IAsyncDisposable
 
             // import JavaScript
             Module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/BootstrapBlazor.Chart/Components/Chart/Chart.razor.js");
-            Interop = DotNetObjectReference.Create<Chart>(this);
-            await Module.InvokeVoidAsync("init", ChartElement, Interop, nameof(Completed), ds);
+            Interop = DotNetObjectReference.Create(this);
+            await Module.InvokeVoidAsync("init", Element, Interop, nameof(Completed), ds);
         }
     }
 
@@ -207,7 +207,7 @@ public partial class Chart : BootstrapComponentBase, IAsyncDisposable
         {
             var ds = await OnInitAsync();
             ds.Type ??= ChartType.ToDescriptionString();
-            await Module.InvokeVoidAsync("update", ChartElement, ds, action.ToDescriptionString(), Angle);
+            await Module.InvokeVoidAsync("update", Element, ds, action.ToDescriptionString(), Angle);
 
             if (OnAfterUpdateAsync != null)
             {
@@ -234,7 +234,7 @@ public partial class Chart : BootstrapComponentBase, IAsyncDisposable
 
             if (Module != null)
             {
-                await Module.InvokeVoidAsync("dispose", ChartElement);
+                await Module.InvokeVoidAsync("dispose", Element);
                 await Module.DisposeAsync();
             }
         }
