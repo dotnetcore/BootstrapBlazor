@@ -1,4 +1,8 @@
 ﻿{
+  "BootstrapBlazor.Shared.Pages.Prac": {
+    "CategoryTitle": "BootstrapBlazor 实战案例",
+    "DashboardSummary": "仪表盘 Dashboard"
+  },
   "BootstrapBlazor.Shared.App": {
     "Title": "Bootstrap Blazor - 组件库",
     "Reload": "重新加载",
