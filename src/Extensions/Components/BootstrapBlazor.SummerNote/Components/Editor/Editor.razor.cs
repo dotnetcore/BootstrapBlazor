@@ -159,7 +159,7 @@ public partial class Editor : IAsyncDisposable
             // import JavaScript
             Module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/BootstrapBlazor.SummerNote/Components/Editor/Editor.razor.js");
             Interop = DotNetObjectReference.Create(this);
-            await Module.InvokeVoidAsync("init", Element, Interop, methodGetPluginAttrs, methodClickPluginItem, nameof(Update), Height, Value ?? "", Language);
+            await Module.InvokeVoidAsync("init", Element, Interop, methodGetPluginAttrs, methodClickPluginItem, Height, Value ?? "", Language);
         }
 
         if (_lastValue != Value)
@@ -239,11 +239,11 @@ public partial class Editor : IAsyncDisposable
     /// <summary>
     /// 执行 editor 的方法
     /// </summary>
-    public async ValueTask DoMethodAysnc(string method, params object[] value)
+    public async ValueTask DoMethodAsync(string method, params object[] value)
     {
         if (Module != null)
         {
-            await Module.InvokeVoidAsync("bb_editor_method", Element, method, value);
+            await Module.InvokeVoidAsync("invoke", Element, method, value);
         }
     }
 
