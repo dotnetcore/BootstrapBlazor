@@ -1,158 +1,137 @@
-﻿export function bb_editor(el, obj, attrMethod, callback, method, height, value, lang) {
-    // 自动加载样式
-    BootstrapBlazorModules.addLink('_content/BootstrapBlazor.SummerNote/css/bootstrap.blazor.editor.min.css');
-    BootstrapBlazorModules.addScript('_content/BootstrapBlazor.SummerNote/js/summernote-bs5.min.js');
+﻿import '../../js/summernote-bs5.min.js'
+import { addLink } from '../../../BootstrapBlazor/modules/utility.js'
+import Data from '../../../BootstrapBlazor/modules/data.js'
 
-    var handler = window.setInterval(function () {
-        if ($.isFunction($.fn.summernote)) {
-            window.clearInterval(handler);
-            dowork();
+const html2edit = (editor, options) => {
+    var $this = $el
+    var op = typeof options == 'object' && options
+
+    //$.bb_lang()
+
+    op = {
+        ...{ focus: true, height: 80, dialogsInBody: true },
+        ...op
+    }
+
+    if (/destroy|hide/.test(options)) {
+        return $this.toggleClass('open').summernote(op)
+    }
+    else if (typeof options == 'string') {
+        return $this.hasClass('open') ? $this.summernote(op) : $this.html()
+    }
+
+    const editorLangConfig = $.summernote.lang[options.lang].bb_editor
+    let title = ''
+    let tooltip = ''
+    if (editorLangConfig) {
+        title = editorLangConfig.submit
+        tooltip = editorLangConfig.tooltip
+    }
+
+    // div 点击事件
+    $this.on('click', op, function (event, args) {
+        var $this = $(this).tooltip('hide')
+        var op = $.extend({ placeholder: $this.attr('placeholder') }, event.data, args || {})
+        op.obj.invokeMethodAsync('GetToolBar').then(result => {
+            var $toolbar = $this.toggleClass('open').summernote($.extend({
+                callbacks: {
+                    onChange: function (htmlString) {
+                        op.obj.invokeMethodAsync(op.callback, htmlString)
+                    }
+                },
+                toolbar: result
+            }, op))
+                .next().find('.note-toolbar')
+                .on('click', 'button[data-method]', { note: $this, op: op }, function (event) {
+                    var $btn = $(this)
+                    switch ($btn.attr('data-method')) {
+                        case 'submit':
+                            $btn.tooltip('dispose')
+                            var $note = event.data.note.toggleClass('open')
+                            var htmlString = $note.summernote('code')
+                            $note.summernote('destroy')
+                            event.data.op.obj.invokeMethodAsync(event.data.op.callback, htmlString)
+                            break
+                    }
+                })
+
+            var $done = $('<div class="note-btn-group btn-group note-view note-right"><button type="button" class="note-btn btn btn-sm note-btn-close" tabindex="-1" data-method="submit" data-bs-placement="bottom"><i class="fa-solid fa-check"></i></button></div>').appendTo($toolbar).find('button').tooltip({
+                title: title,
+                container: 'body'
+            })
+            $('body').find('.note-group-select-from-files [accept="image/*"]').attr('accept', 'image/bmp,image/png,image/jpg,image/jpeg,image/gif')
+        })
+
+    }).tooltip({ title: tooltip })
+
+    if (op.value) $this.html(op.value)
+    if ($this.hasClass('open')) {
+        // 初始化为 editor
+        $this.trigger('click', { focus: false })
+    }
+    return this
+}
+
+export async function init(el, invoker, methodGetPluginAttrs, methodClickPluginItem, callback, height, value, lang) {
+    await addLink('_content/BootstrapBlazor.SummerNote/css/bootstrap.blazor.editor.min.css')
+
+    const initEditor = () => {
+        const editor = el.querySelector(".editor-body")
+        const option = { obj: obj, callback: callback, height: height, lang }
+        if (value) {
+            option.value = value
         }
-    }, 100);
-
-    var dowork = function () {
-        $.bb_editor(el, obj, attrMethod, callback, method, height, value, lang);
-    };
-};
+        html2edit(editor, option)
+    }
+    
+    if (methodGetPluginAttrs) {
+        const result = await obj.invokeMethodAsync(methodGetPluginAttrs)
+        for (var i in result) {
+            (function (plugin, pluginName) {
+                if (pluginName == null) {
+                    return
+                }
+                var pluginObj = {}
+                pluginObj[pluginName] = context => {
+                    var ui = $.summernote.ui
+                    context.memo('button.' + pluginName,
+                        function () {
+                            var button = ui.button({
+                                contents: '<i class="' + plugin.iconClass + '"></i>',
+                                container: "body",
+                                tooltip: plugin.tooltip,
+                                click: async () => {
+                                    const html = await obj.invokeMethodAsync(methodClickPluginItem, pluginName)
+                                    context.invoke('editor.pasteHTML', html)
+                                }
+                            })
+                            return button.render()
+                        })
+                }
+                $.extend($.summernote.plugins, pluginObj)
+            })(result[i], result[i].buttonName)
+        }
+    }
+    initEditor()
+}
 
 export function bb_editor_code(el, obj, value) {
-    $.bb_editor_code(el, obj, value);
-};
+    var $editor = $(el).find(".editor-body")
+    if ($editor.hasClass('open')) {
+        $editor.summernote('code', value)
+    }
+    else {
+        $editor.html(value)
+    }
+}
 
 export function bb_editor_method(el, obj, method, parameter) {
-    $.bb_editor_method(el, method, parameter);
-};
+    var $editor = $(el).find(".editor-body")
+    $editor.toggleClass('open').summernote(method, ...parameter)
+}
 
 (function ($) {
     $.extend({
-        bb_html5edit: function ($el, options) {
-            if (!$.isFunction($.fn.summernote)) {
-                return;
-            }
-
-            var $this = $el;
-            var op = typeof options == 'object' && options;
-
-            $.bb_lang();
-
-            op = $.extend({ focus: true, height: 80, dialogsInBody: true }, op);
-
-            if (/destroy|hide/.test(options)) {
-                return $this.toggleClass('open').summernote(op);
-            }
-            else if (typeof options == 'string') {
-                return $this.hasClass('open') ? $this.summernote(op) : $this.html();
-            }
-
-            const editorLangConfig = $.summernote.lang[options.lang].bb_editor
-            let title = ''
-            let tooltip = ''
-            if (editorLangConfig) {
-                title = editorLangConfig.submit
-                tooltip = editorLangConfig.tooltip
-            }
-
-            // div 点击事件
-            $this.on('click', op, function (event, args) {
-                var $this = $(this).tooltip('hide');
-                var op = $.extend({ placeholder: $this.attr('placeholder') }, event.data, args || {});
-                op.obj.invokeMethodAsync('GetToolBar').then(result => {
-                    var $toolbar = $this.toggleClass('open').summernote($.extend({
-                        callbacks: {
-                            onChange: function (htmlString) {
-                                op.obj.invokeMethodAsync(op.method, htmlString);
-                            }
-                        },
-                        toolbar: result
-                    }, op))
-                        .next().find('.note-toolbar')
-                        .on('click', 'button[data-method]', { note: $this, op: op }, function (event) {
-                            var $btn = $(this);
-                            switch ($btn.attr('data-method')) {
-                                case 'submit':
-                                    $btn.tooltip('dispose');
-                                    var $note = event.data.note.toggleClass('open');
-                                    var htmlString = $note.summernote('code');
-                                    $note.summernote('destroy');
-                                    event.data.op.obj.invokeMethodAsync(event.data.op.method, htmlString);
-                                    break;
-                            }
-                        });
-
-                    var $done = $('<div class="note-btn-group btn-group note-view note-right"><button type="button" class="note-btn btn btn-sm note-btn-close" tabindex="-1" data-method="submit" data-bs-placement="bottom"><i class="fa-solid fa-check"></i></button></div>').appendTo($toolbar).find('button').tooltip({
-                        title: title,
-                        container: 'body'
-                    });
-                    $('body').find('.note-group-select-from-files [accept="image/*"]').attr('accept', 'image/bmp,image/png,image/jpg,image/jpeg,image/gif');
-                });
-
-            }).tooltip({ title: tooltip });
-
-            if (op.value) $this.html(op.value);
-            if ($this.hasClass('open')) {
-                // 初始化为 editor
-                $this.trigger('click', { focus: false });
-            }
-            return this;
-        },
-        bb_editor_code: function (el, obj, value) {
-            var $editor = $(el).find(".editor-body");
-            if ($editor.hasClass('open')) {
-                $editor.summernote('code', value);
-            }
-            else {
-                $editor.html(value);
-            }
-        },
-        bb_editor: function (el, obj, attrMethod, callback, method, height, value, lang) {
-            var invoker = function () {
-                var $editor = $(el).find(".editor-body");
-                var option = { obj: obj, method: method, height: height, lang };
-                if (value) {
-                    option.value = value;
-                }
-                $.bb_html5edit($editor, option);
-            }
-
-            if (attrMethod !== "") {
-                obj.invokeMethodAsync(attrMethod).then(result => {
-                    for (var i in result) {
-                        (function (plugin, pluginName) {
-                            if (pluginName == null) {
-                                return;
-                            }
-                            var pluginObj = {};
-                            pluginObj[pluginName] = function (context) {
-                                var ui = $.summernote.ui;
-                                context.memo('button.' + pluginName,
-                                    function () {
-                                        var button = ui.button({
-                                            contents: '<i class="' + plugin.iconClass + '"></i>',
-                                            container: "body",
-                                            tooltip: plugin.tooltip,
-                                            click: function () {
-                                                obj.invokeMethodAsync(callback, pluginName).then(result => {
-                                                    context.invoke('editor.pasteHTML', result);
-                                                });
-                                            }
-                                        });
-                                        return button.render();
-                                    });
-                            }
-                            $.extend($.summernote.plugins, pluginObj);
-                        })(result[i], result[i].buttonName);
-                    }
-                    invoker();
-                });
-            }
-            else {
-                invoker();
-            }
-        },
-        bb_editor_method: function (el, method, parameter) {
-            var $editor = $(el).find(".editor-body");
-            $editor.toggleClass('open').summernote(method, ...parameter);
-        },
         bb_lang: function () {
             $.extend($.summernote.lang, {
                 "zh-CN":
@@ -217,7 +196,7 @@ export function bb_editor_method(el, obj, method, parameter) {
                         submit: "完成"
                     }
                 }
-            });
+            })
             $.extend(true, $.summernote.lang, {
                 "en-US":
                 {
@@ -226,7 +205,7 @@ export function bb_editor_method(el, obj, method, parameter) {
                         submit: "submit"
                     }
                 }
-            });
+            })
         }
-    });
-})(jQuery);
+    })
+})(jQuery)
