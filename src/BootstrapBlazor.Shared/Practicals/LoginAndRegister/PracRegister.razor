@@ -3,9 +3,20 @@
 @inject MessageService MessageService
 @using System.ComponentModel;
 
-<div class="container">
-    <div class="card shadow-lg o-hidden border-0 my-5">
-        <Card>
+<style>
+    .bg-gradient-primary {
+        background-color: #4e73df;
+        background-image: linear-gradient(180deg, #4e73df 10%, #224abe 100%);
+        background-size: cover;
+        height: -webkit-fill-available;
+        width: -webkit-fill-available;
+        position: absolute;
+    }
+</style>
+
+<div class="bg-gradient-primary">
+    <div class="container">
+        <Card class="shadow-lg o-hidden border-0 my-5">
             <BodyTemplate>
                 <div class="row">
                     <div class="col-lg-5 d-none d-lg-flex">
