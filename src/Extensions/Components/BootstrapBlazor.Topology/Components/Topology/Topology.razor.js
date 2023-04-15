@@ -27,7 +27,7 @@ export function init(el, invoker, data, callback) {
     if (isCenterView) {
         meta._topology.centerView()
     }
-    invoker.invokeMethodAsync(method)
+    invoker.invokeMethodAsync(callback)
 }
 
 export function update(el, data) {
