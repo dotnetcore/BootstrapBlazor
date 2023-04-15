@@ -1,146 +1,5 @@
 ﻿@page "/dashboard"
-@using BootstrapBlazor.Shared.Practicals.Dashboard;
-
-<div>
-    <div class="d-sm-flex justify-content-between align-items-center mb-4">
-        <h3 class="text-dark mb-0">Dashboard</h3>
-        <DateTimePicker @bind-Value="@dateTimePickerValue" OnValueChanged="@((dt)=>{return OnDateTimePickerValueChanged(dt,false);})" />
-    </div>
-    <div class="row">
-        <div class="col-md-6 col-xl-3 mb-4">
-            <Card class="shadow border-start-primary py-2">
-                <BodyTemplate>
-                    <div class="row align-items-center no-gutters">
-                        <div class="col me-2">
-                            <div class="text-uppercase text-primary fw-bold text-xs mb-1"><span>全部委托数量</span></div>
-                            <div class="text-dark fw-bold h5 mb-0"><span>@Data.TestAllCount</span></div>
-                            <div class="text-uppercase text-info fw-bold text-xs mb-1"><span>全部签发数量</span></div>
-                            <div class="row g-0 align-items-center">
-                                <div class="col-auto"><div class="text-dark fw-bold h5 mb-0 me-3"><span>@Data.TestApprovedAllCount</span></div></div>
-                                <div class="col"><Progress Value="@Data.TestApprovedAllScale" IsShowValue="true" Round=1 /></div>
-                            </div>
-                        </div>
-                        <div class="col-auto"><i class="fas fa-calendar fa-2x text-gray-300"></i></div>
-                    </div>
-                </BodyTemplate>
-            </Card>
-        </div>
-        <div class="col-md-6 col-xl-3 mb-4">
-            <Card class="shadow border-start-primary py-2">
-                <BodyTemplate>
-                    <div class="row align-items-center no-gutters">
-                        <div class="col me-2">
-                            <div class="text-uppercase text-primary fw-bold text-xs mb-1"><span>今年委托数量</span></div>
-                            <div class="text-dark fw-bold h5 mb-0"><span>@Data.TestYearCount</span></div>
-                            <div class="text-uppercase text-info fw-bold text-xs mb-1"><span>今年签发数量</span></div>
-                            <div class="row g-0 align-items-center">
-                                <div class="col-auto"><div class="text-dark fw-bold h5 mb-0 me-3"> <span>@Data.TestApprovedYearCount</span></div></div>
-                                <div class="col"><Progress Value="@Data.TestApprovedYearScale" IsShowValue="true" Round=1 /></div>
-                            </div>
-                        </div>
-                        <div class="col-auto"><i class="fas fa-calendar fa-2x text-gray-300"></i></div>
-                    </div>
-                </BodyTemplate>
-            </Card>
-        </div>
-        <div class="col-md-6 col-xl-3 mb-4">
-            <Card class="shadow border-start-primary py-2">
-                <BodyTemplate>
-                    <div class="row align-items-center no-gutters">
-                        <div class="col me-2">
-                            <div class="text-uppercase text-primary fw-bold text-xs mb-1"><span>本月委托数量</span></div>
-                            <div class="text-dark fw-bold h5 mb-0"><span>@Data.TestMonthCount</span></div>
-                            <div class="text-uppercase text-info fw-bold text-xs mb-1"><span>本月签发数量</span></div>
-                            <div class="row g-0 align-items-center">
-                                <div class="col-auto"><div class="text-dark fw-bold h5 mb-0 me-3"><span>@Data.TestApprovedMonthCount</span></div></div>
-                                <div class="col"><Progress Value="@Data.TestApprovedMonthScale" IsShowValue="true" Round=1 /></div>
-                            </div>
-                        </div>
-                        <div class="col-auto"><i class="fas fa-calendar fa-2x text-gray-300"></i></div>
-                    </div>
-                </BodyTemplate>
-            </Card>
-        </div>
-        <div class="col-md-6 col-xl-3 mb-4">
-            <Card class="shadow border-start-primary py-2">
-                <BodyTemplate>
-                    <div class="row align-items-center no-gutters">
-                        <div class="col me-2">
-                            <div class="text-uppercase text-primary fw-bold text-xs mb-1"><span>今日委托数量</span></div>
-                            <div class="text-dark fw-bold h5 mb-0"><span>@Data.TestDayCount</span></div>
-                            <div class="text-uppercase text-info fw-bold text-xs mb-1"><span>今日签发数量</span></div>
-                            <div class="row g-0 align-items-center">
-                                <div class="col-auto"><div class="text-dark fw-bold h5 mb-0 me-3"><span>@Data.TestApprovedDayCount</span></div></div>
-                                <div class="col"><Progress Value="@Data.TestApprovedDayScale" IsShowValue="true" Round=1 /></div>
-                            </div>
-                        </div>
-                        <div class="col-auto"><i class="fas fa-calendar fa-2x text-gray-300"></i></div>
-                    </div>
-                </BodyTemplate>
-            </Card>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-7 col-xl-8">
-            <Card class="shadow mb-4">
-                <HeaderTemplate>
-                    <h6 class="text-primary fw-bold m-0">收样概述</h6>
-                </HeaderTemplate>
-                <BodyTemplate>
-                    <div class="chart-area">
-                        <Chart @ref="BarChart" Height="320px" Width="auto" style="display: block; width: auto; height: 320px;"
-                               ChartType="ChartType.Bar" OnInitAsync="OnInitBarChartAsync" />
-                    </div>
-                </BodyTemplate>
-            </Card>
-        </div>
-        <div class="col-lg-5 col-xl-4">
-            <Card class="shadow mb-4">
-                <HeaderTemplate>
-                    <h6 class="text-primary fw-bold m-0">收样分类</h6>
-                </HeaderTemplate>
-                <BodyTemplate>
-                    <div class="chart-area">
-                        <Chart @ref="PieChart" Height="320px" Width="auto" style="display: block; width: 332px; height: 320px;"
-                               ChartType="ChartType.Doughnut" OnInitAsync="@OnInitPieChartAsync" />
-                    </div>
-                </BodyTemplate>
-            </Card>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-6 mb-4">
-            <Card class="shadow mb-4">
-                <HeaderTemplate>
-                    <h6 class="text-primary fw-bold m-0">分类进度</h6>
-                </HeaderTemplate>
-                <BodyTemplate>
-                    <Scroll Height="320px" style="overflow:scroll;">
-                        <div style="margin-right:10px;">
-                            @{
-                                foreach (var item in Data.TestKKSGroupList)
-                                {
-                                    <h4 class="small fw-bold">@item.KKS @item.NAM<span class="float-end">@(item.Percent)%</span></h4>
-                                    <Progress Value="@item.Percent" IsAnimated="true" Color="@GetColor(item.Percent)" IsShowValue="true" Round=1 />
-                                }
-                            }
-                        </div>
-                    </Scroll>
-                </BodyTemplate>
-            </Card>
-        </div>
-        <div class="col-lg-6 mb-4">
-            <Card class="shadow mb-4">
-                <HeaderTemplate>
-                    <h6 class="text-primary fw-bold m-0">暂无数据</h6>
-                </HeaderTemplate>
-                <BodyTemplate>
-                    <Empty Image="https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg" Text="暂无数据" />
-                </BodyTemplate>
-            </Card>
-        </div>
-    </div>
-</div>
+@using BootstrapBlazor.Shared.Practicals.Dashboard
 
 <style>
     .card-header {
@@ -150,7 +9,137 @@
         padding-top: 1rem !important;
         padding-bottom: 1rem !important;
     }
+
+    .card-title {
+        color: var(--bs-primary);
+        font-weight: bold;
+    }
 </style>
+
+<div class="row g-3">
+    <div class="col-12">
+        <div class="d-flex align-items-center">
+            <div class="text-dark fw-bold me-3">Dashboard</div>
+            <DateTimePicker Value="DateTimePickerValue" OnValueChanged="OnDateTimePickerValueChanged" />
+        </div>
+    </div>
+    <div class="col-md-6 col-xl-3">
+        <Card IsShadow="true">
+            <BodyTemplate>
+                <div class="row align-items-center no-gutters">
+                    <div class="col me-2">
+                        <div class="text-uppercase text-primary fw-bold text-xs mb-1"><span>全部委托数量</span></div>
+                        <div class="text-dark fw-bold h5 mb-0"><span>@Data.TestAllCount</span></div>
+                        <div class="text-uppercase text-info fw-bold text-xs mb-1"><span>全部签发数量</span></div>
+                        <div class="row g-0 align-items-center">
+                            <div class="col-auto"><div class="text-dark fw-bold h5 mb-0 me-3"><span>@Data.TestApprovedAllCount</span></div></div>
+                            <div class="col"><Progress Value="@Data.TestApprovedAllScale" IsShowValue="true" Round="1" /></div>
+                        </div>
+                    </div>
+                    <div class="col-auto"><i class="fas fa-calendar fa-2x text-gray-300"></i></div>
+                </div>
+            </BodyTemplate>
+        </Card>
+    </div>
+    <div class="col-md-6 col-xl-3">
+        <Card IsShadow="true">
+            <BodyTemplate>
+                <div class="row align-items-center no-gutters">
+                    <div class="col me-2">
+                        <div class="text-uppercase text-primary fw-bold text-xs mb-1"><span>今年委托数量</span></div>
+                        <div class="text-dark fw-bold h5 mb-0"><span>@Data.TestYearCount</span></div>
+                        <div class="text-uppercase text-info fw-bold text-xs mb-1"><span>今年签发数量</span></div>
+                        <div class="row g-0 align-items-center">
+                            <div class="col-auto"><div class="text-dark fw-bold h5 mb-0 me-3"> <span>@Data.TestApprovedYearCount</span></div></div>
+                            <div class="col"><Progress Value="@Data.TestApprovedYearScale" IsShowValue="true" Round=1 /></div>
+                        </div>
+                    </div>
+                    <div class="col-auto"><i class="fas fa-calendar fa-2x text-gray-300"></i></div>
+                </div>
+            </BodyTemplate>
+        </Card>
+    </div>
+    <div class="col-md-6 col-xl-3">
+        <Card IsShadow="true">
+            <BodyTemplate>
+                <div class="row align-items-center no-gutters">
+                    <div class="col me-2">
+                        <div class="text-uppercase text-primary fw-bold text-xs mb-1"><span>本月委托数量</span></div>
+                        <div class="text-dark fw-bold h5 mb-0"><span>@Data.TestMonthCount</span></div>
+                        <div class="text-uppercase text-info fw-bold text-xs mb-1"><span>本月签发数量</span></div>
+                        <div class="row g-0 align-items-center">
+                            <div class="col-auto"><div class="text-dark fw-bold h5 mb-0 me-3"><span>@Data.TestApprovedMonthCount</span></div></div>
+                            <div class="col"><Progress Value="@Data.TestApprovedMonthScale" IsShowValue="true" Round=1 /></div>
+                        </div>
+                    </div>
+                    <div class="col-auto"><i class="fas fa-calendar fa-2x text-gray-300"></i></div>
+                </div>
+            </BodyTemplate>
+        </Card>
+    </div>
+    <div class="col-md-6 col-xl-3">
+        <Card IsShadow="true">
+            <BodyTemplate>
+                <div class="row align-items-center no-gutters">
+                    <div class="col me-2">
+                        <div class="text-uppercase text-primary fw-bold text-xs mb-1"><span>今日委托数量</span></div>
+                        <div class="text-dark fw-bold h5 mb-0"><span>@Data.TestDayCount</span></div>
+                        <div class="text-uppercase text-info fw-bold text-xs mb-1"><span>今日签发数量</span></div>
+                        <div class="row g-0 align-items-center">
+                            <div class="col-auto"><div class="text-dark fw-bold h5 mb-0 me-3"><span>@Data.TestApprovedDayCount</span></div></div>
+                            <div class="col"><Progress Value="@Data.TestApprovedDayScale" IsShowValue="true" Round=1 /></div>
+                        </div>
+                    </div>
+                    <div class="col-auto"><i class="fas fa-calendar fa-2x text-gray-300"></i></div>
+                </div>
+            </BodyTemplate>
+        </Card>
+    </div>
+    <div class="col-md-6">
+        <Card IsShadow="true" HeaderText="收样概述">
+            <BodyTemplate>
+                <div class="chart-area">
+                    <Chart @ref="BarChart" Height="320px" Width="auto" style="display: block; width: auto; height: 320px;"
+                           ChartType="ChartType.Bar" OnInitAsync="OnInitBarChartAsync" />
+                </div>
+            </BodyTemplate>
+        </Card>
+    </div>
+    <div class="col-md-6">
+        <Card IsShadow="true" HeaderText="收样分类">
+            <BodyTemplate>
+                <div class="chart-area">
+                    <Chart @ref="PieChart" Height="320px" Width="auto" style="display: block; width: 332px; height: 320px;"
+                           ChartType="ChartType.Doughnut" OnInitAsync="@OnInitPieChartAsync" />
+                </div>
+            </BodyTemplate>
+        </Card>
+    </div>
+    <div class="col-md-6">
+        <Card IsShadow="true" HeaderText="分类进度">
+            <BodyTemplate>
+                <Scroll Height="320px" style="overflow:scroll;">
+                    <div style="margin-right:10px;">
+                        @{
+                            foreach (var item in Data.TestKKSGroupList)
+                            {
+                                <h4 class="small fw-bold">@item.KKS @item.NAM<span class="float-end">@(item.Percent)%</span></h4>
+                                <Progress Value="@item.Percent" IsAnimated="true" Color="@GetColor(item.Percent)" IsShowValue="true" Round=1 />
+                            }
+                        }
+                    </div>
+                </Scroll>
+            </BodyTemplate>
+        </Card>
+    </div>
+    <div class="col-md-6">
+        <Card IsShadow="true" HeaderText="暂无数据">
+            <BodyTemplate>
+                <Empty Image="https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg" Text="暂无数据" />
+            </BodyTemplate>
+        </Card>
+    </div>
+</div>
 
 @code {
     [NotNull]
@@ -159,91 +148,74 @@
     [NotNull]
     private Chart? PieChart { get; set; }
 
-    [NotNull]
+    private DateTime DateTimePickerValue { get; set; } = DateTime.Today;
+
     private DashboardData Data { get; set; } = new DashboardData();
 
-    private DateTime dateTimePickerValue { get; set; } = DateTime.Today;
-
-    private DashboardService dashboardService = new DashboardService();
+    private DashboardService DashboardService { get; set; } = new DashboardService();
 
     /// <summary>
-    /// OnAfterRenderAsync
+    /// <inheritdoc/>
     /// </summary>
-    /// <param name="firstRender"></param>
     /// <returns></returns>
-    protected override async Task OnAfterRenderAsync(bool firstRender)
+    protected override async Task OnInitializedAsync()
     {
-        await base.OnAfterRenderAsync(firstRender);
-        if (firstRender)
-        {
-            await OnDateTimePickerValueChanged(dateTimePickerValue, firstRender);
-        }
+        Data = await DashboardService.GetDashboardDataAsync(DateTimePickerValue);
     }
 
     /// <summary>
     /// 日期切换
     /// </summary>
     /// <returns></returns>
-    private async Task OnDateTimePickerValueChanged(DateTime dt, bool firstRender)
+    private async Task OnDateTimePickerValueChanged(DateTime dt)
     {
-        Data = await dashboardService.GetDashboardDataAsync(dt);
-        if (!firstRender)
-        {
-            await BarChart.Reload();
-            await PieChart.Reload();
-        }
-
-        await InvokeAsync(StateHasChanged);
+        DateTimePickerValue = dt;
+        Data = await DashboardService.GetDashboardDataAsync(dt);
+        await BarChart.Reload();
+        await PieChart.Reload();
+        StateHasChanged();
     }
 
     /// <summary>
     /// 初始化柱形图
     /// </summary>
     /// <returns></returns>
-    private async Task<ChartDataSource> OnInitBarChartAsync()
+    private Task<ChartDataSource> OnInitBarChartAsync()
     {
         var ds = new ChartDataSource();
 
-        if (Data.TestDayGroupList is not null)
+        if (Data.TestDayGroupList != null && Data.TestDayGroupList.Count > 0)
         {
-            if (Data.TestDayGroupList.Count > 0)
-            {
-                var set = new ChartDataset();
-                set.Label = "样品数量";
-                set.Data = Data.TestDayGroupList.Select(x => x.Count).Cast<object>();
+            var set = new ChartDataset();
+            set.Label = "样品数量";
+            set.Data = Data.TestDayGroupList.Select(x => x.Count).Cast<object>();
 
-                ds.Options.Title = $"{dateTimePickerValue.Year}年{dateTimePickerValue.Month}样品数据";
-                ds.Options.X.Title = $"{dateTimePickerValue.Month}";
-                ds.Options.Y.Title = "样品数量";
-                ds.Options.ShowLegend = false;
-                ds.Labels = Data.TestDayGroupList.Select(x => x.Key.ToString());
-                ds.Data.Add(set);
-            }
+            ds.Options.Title = $"{DateTimePickerValue.Year}年{DateTimePickerValue.Month}样品数据";
+            ds.Options.X.Title = $"{DateTimePickerValue.Month}";
+            ds.Options.Y.Title = "样品数量";
+            ds.Options.ShowLegend = false;
+            ds.Labels = Data.TestDayGroupList.Select(x => x.Key.ToString());
+            ds.Data.Add(set);
         }
-
-        return await Task.FromResult(ds);
+        return Task.FromResult(ds);
     }
 
-    private async Task<ChartDataSource> OnInitPieChartAsync()
+    private Task<ChartDataSource> OnInitPieChartAsync()
     {
         var ds = new ChartDataSource();
-        if (Data.TestKKSGroupList is not null)
+        if (Data.TestKKSGroupList != null && Data.TestKKSGroupList.Count > 0)
         {
-            if (Data.TestKKSGroupList.Count > 0)
-            {
-                var set = new ChartDataset();
-                set.Label = $"{dateTimePickerValue.Month}月数量";
-                set.Data = Data.TestKKSGroupList.Select(x => x.Count).Cast<object>();
+            var set = new ChartDataset();
+            set.Label = $"{DateTimePickerValue.Month}月数量";
+            set.Data = Data.TestKKSGroupList.Select(x => x.Count).Cast<object>();
 
-                ds.Labels = Data.TestKKSGroupList.Select(x => $"{x.KKS} {x.NAM}");
-                ds.Options.ShowLegend = false;
-                ds.Options.ShowXScales = false;
-                ds.Options.ShowYScales = false;
-                ds.Data.Add(set);
-            }
+            ds.Labels = Data.TestKKSGroupList.Select(x => $"{x.KKS} {x.NAM}");
+            ds.Options.ShowLegend = false;
+            ds.Options.ShowXScales = false;
+            ds.Options.ShowYScales = false;
+            ds.Data.Add(set);
         }
-
-        return await Task.FromResult(ds);
+        return Task.FromResult(ds);
     }
 
     /// <summary>
@@ -251,18 +223,11 @@
     /// </summary>
     /// <param name="value"></param>
     /// <returns></returns>
-    private Color GetColor(double value)
+    private Color GetColor(double value) => value switch
     {
-        switch (value)
-        {
-            case 100:
-                return Color.Success;
-            case >= 50:
-                return Color.Info;
-            case >= 25:
-                return Color.Danger;
-            default:
-                return Color.Warning;
-        }
-    }
+        100 => Color.Success,
+        >= 50 => Color.Info,
+        >= 25 => Color.Danger,
+        _ => Color.Warning
+    };
 }
