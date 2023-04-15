@@ -4,7 +4,7 @@ import { addLink } from '../../../BootstrapBlazor/modules/utility.js'
 import Data from '../../../BootstrapBlazor/modules/data.js'
 
 export async function init(el, invoker, options, callback) {
-    await addLink('./_content/BootstrapBlazor.CherryMarkdown/css/cherry-markdown.min.css')
+    await addLink('./_content/BootstrapBlazor.Markdown/css/bootstrap.blazor.markdown.min.css')
 
     const md = {}
     Data.set(el, md)
