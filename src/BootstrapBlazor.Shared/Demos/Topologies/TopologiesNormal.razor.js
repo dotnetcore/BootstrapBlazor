@@ -6,7 +6,6 @@ export function init(el, invoker, callback) {
 
     window.BlazorDemoTopology = {}
     window.BlazorDemoTopology.handler = tagName => {
-        const element = el.querySelector('.topology > div')
         invoker.invokeMethodAsync(callback, tagName)
     }
 }
