@@ -101,7 +101,7 @@ public partial class CherryMarkdown : IAsyncDisposable
         if (firstRender)
         {
             // import JavaScript
-            Module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/BootstrapBlazor.Chart/Components/Chart/Chart.razor.js");
+            Module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/BootstrapBlazor.CherryMarkdown/Components/CherryMarkdown/CherryMarkdown.razor.js");
             Interop = DotNetObjectReference.Create(this);
             await Module.InvokeVoidAsync("init", Element, Interop, Option, nameof(Upload));
         }
