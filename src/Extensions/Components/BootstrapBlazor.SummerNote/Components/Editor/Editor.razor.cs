@@ -45,10 +45,10 @@ public partial class Editor : IAsyncDisposable
     public bool IsEditor { get; set; }
 
     /// <summary>
-    /// 获得/设置 设置组件高度
+    /// 获得/设置 设置组件高度 默认高度为 80px
     /// </summary>
     [Parameter]
-    public int Height { get; set; }
+    public int Height { get; set; } = 80;
 
     /// <summary>
     /// 获得/设置 富文本框工具栏工具，默认为空使用默认值
