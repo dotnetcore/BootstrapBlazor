@@ -1,0 +1,13 @@
+﻿@layout PracLayout
+@page "/practicals"
+@inject IStringLocalizer<Prac> Localizer
+
+<ComponentCategory Text="@Localizer["Text6"]">
+    <ComponentCard Text="@Localizer["ChartSummaryText"]" Image="Chart.png" Url="charts/index"></ComponentCard>
+    <ComponentCard Text="@Localizer["ChartLineText"]" Image="Line.jpg" Url="charts/line"></ComponentCard>
+    <ComponentCard Text="@Localizer["ChartBarText"]" Image="Bar.jpg" Url="charts/bar"></ComponentCard>
+    <ComponentCard Text="@Localizer["ChartPieText"]" Image="Pie.jpg" Url="charts/pie"></ComponentCard>
+    <ComponentCard Text="@Localizer["ChartDoughnutText"]" Image="Doughnut.jpg" Url="charts/doughnut"></ComponentCard>
+    <ComponentCard Text="@Localizer["ChartBubbleText"]" Image="Bubble.jpg" Url="charts/bubble"></ComponentCard>
+</ComponentCategory>
+
