@@ -62,6 +62,17 @@ public partial class CherryMarkdown : IAsyncDisposable
     [Parameter]
     public bool? IsViewer { get; set; }
 
+    [NotNull]
+    private IJSObjectReference? Module { get; set; }
+
+    [NotNull]
+    private DotNetObjectReference<CherryMarkdown>? Interop { get; set; }
+
+    /// <summary>
+    /// 获得/设置 DOM 元素实例
+    /// </summary>
+    private ElementReference Element { get; set; }
+
     /// <summary>
     /// OnInitialized 方法
     /// </summary>
@@ -83,22 +94,24 @@ public partial class CherryMarkdown : IAsyncDisposable
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
+    /// <param name="firstRender"></param>
     /// <returns></returns>
-    protected override async Task ModuleInitAsync()
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        await InvokeInitAsync(Id, Option, nameof(Upload));
-    }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <returns></returns>
-    protected override async Task ModuleExecuteAsync()
-    {
-        if (Value != _lastValue)
+        if (firstRender)
         {
-            _lastValue = Value;
-            await InvokeExecuteAsync(Id, Value);
+            // import JavaScript
+            Module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/BootstrapBlazor.Chart/Components/Chart/Chart.razor.js");
+            Interop = DotNetObjectReference.Create(this);
+            await Module.InvokeVoidAsync("init", Element, Interop, Option, nameof(Upload));
+        }
+        else
+        {
+            if (Value != _lastValue)
+            {
+                _lastValue = Value;
+                await Module.InvokeVoidAsync("update", Element, Value);
+            }
         }
     }
 
@@ -113,7 +126,7 @@ public partial class CherryMarkdown : IAsyncDisposable
         var ret = "";
         if (Module != null)
         {
-            var stream = await Module.InvokeAsync<IJSStreamReference>($"{ModuleName}.fetch", Id);
+            var stream = await Module.InvokeAsync<IJSStreamReference>("fetch", Element);
             using var data = await stream.OpenReadStreamAsync();
             uploadFile.UploadStream = data;
             if (OnFileUpload != null)
@@ -168,5 +181,34 @@ public partial class CherryMarkdown : IAsyncDisposable
     /// <param name="method"></param>
     /// <param name="parameters"></param>
     /// <returns></returns>
-    public Task DoMethodAsync(string method, params object[] parameters) => InvokeVoidAsync("invoke", Id, method, parameters);
+    public ValueTask DoMethodAsync(string method, params object[] parameters) => Module.InvokeVoidAsync("invoke", Element, method, parameters);
+
+    #region Dispose
+    /// <summary>
+    /// Dispose 方法
+    /// </summary>
+    /// <param name="disposing"></param>
+    protected virtual async ValueTask DisposeAsync(bool disposing)
+    {
+        if (disposing)
+        {
+            Interop?.Dispose();
+
+            if (Module != null)
+            {
+                await Module.InvokeVoidAsync("dispose", Element);
+                await Module.DisposeAsync();
+            }
+        }
+    }
+
+    /// <summary>
+    /// Dispose 方法
+    /// </summary>
+    public async ValueTask DisposeAsync()
+    {
+        await DisposeAsync(true);
+        GC.SuppressFinalize(this);
+    }
+    #endregion
 }
