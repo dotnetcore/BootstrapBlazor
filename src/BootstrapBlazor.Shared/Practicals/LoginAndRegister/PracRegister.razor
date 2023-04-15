@@ -45,7 +45,7 @@
                                         <BootstrapPassword @bind-Value="Model.Password" class="border-radius" ShowLabel="false" PlaceHolder="请输入密码" />
                                     </div>
                                     <div class="col-sm-6">
-                                        <BootstrapPassword @bind-Value="Model.RePassword" class="border-radius" ShowLabel="false" PlaceHolder="请重复密码" />
+                                        <BootstrapPassword @bind-Value="Model.ConfirmPassword" class="border-radius" ShowLabel="false" PlaceHolder="请重复密码" />
                                     </div>
                                 </div>
                                 <Button Text="注册帐号" OnClickWithoutRender="OnValidator" Color="Color.Primary" class="w-100"></Button>
@@ -97,16 +97,21 @@
 
     class RegisterModel
     {
-        [Description("账号")]
+        [DataType(DataType.Text)]
+        [Display(Name = "账号")]
         [Required(ErrorMessage = "{0}不能为空")]
         public string? UserName { get; set; }
 
-        [Description("密码")]
-        [Required(ErrorMessage = "{0}不能为空")]
+        [NotNull]
+        [Required(ErrorMessage = "请输入密码")]
+        [DataType(DataType.Password)]
+        [Display(Name = "密码")]
         public string? Password { get; set; }
 
-        [Description("密码")]
-        [Required(ErrorMessage = "{0}不能为空")]
-        public string? RePassword { get; set; }
+        [Required(ErrorMessage = "请确认密码")]
+        [Compare(nameof(Password))]
+        [DataType(DataType.Password)]
+        [Display(Name = "确认密码")]
+        public string? ConfirmPassword { get; set; }
     }
 }

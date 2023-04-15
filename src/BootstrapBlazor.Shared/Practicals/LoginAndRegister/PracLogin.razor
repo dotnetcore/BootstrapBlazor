@@ -98,11 +98,13 @@
 
     class LoginModel
     {
-        [Description("账号")]
+        [DataType(DataType.Text)]
+        [Display(Name = "账号")]
         [Required(ErrorMessage = "{0}不能为空")]
         public string? UserName { get; set; }
 
-        [Description("密码")]
+        [DataType(DataType.Password)]
+        [Display(Name = "密码")]
         [Required(ErrorMessage = "{0}不能为空")]
         public string? Password { get; set; }
 
