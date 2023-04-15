@@ -12,6 +12,12 @@
         width: -webkit-fill-available;
         position: absolute;
     }
+
+    .border-radius {
+        font-size: .8rem;
+        border-radius: 10rem;
+        padding: .75rem 1rem;
+    }
 </style>
 
 <div class="bg-gradient-primary">
@@ -34,23 +40,23 @@
                                     </div>
                                     <ValidateForm Model="@Model" @ref="ValidatorForm">
                                         <div class="mb-3">
-                                            <BootstrapInput @bind-Value="Model.UserName" ShowLabel="false" PlaceHolder="请输入账号" />
+                                            <BootstrapInput @bind-Value="Model.UserName" class="border-radius" ShowLabel="false" PlaceHolder="请输入账号" />
                                         </div>
                                         <div class="mb-3">
-                                            <BootstrapPassword @bind-Value="Model.Password" ShowLabel="false" PlaceHolder="请输入密码" />
+                                            <BootstrapPassword @bind-Value="Model.Password" class="border-radius" ShowLabel="false" PlaceHolder="请输入密码" />
                                         </div>
                                         <div class="mb-3">
-                                            <Checkbox @bind-Value="@Model.RememberMe" TValue="bool" ShowLabel="false" ShowAfterLabel="true" DisplayText="记住登陆状态" />
+                                            <Checkbox @bind-Value="@Model.RememberMe" class="border-radius" TValue="bool" ShowLabel="false" ShowAfterLabel="true" DisplayText="记住登陆状态" />
                                         </div>
-                                        <Button Text="登陆" OnClickWithoutRender="OnValidator" Color="Color.Primary" class="w-100"></Button>
+                                        <Button Text="登陆" OnClickWithoutRender="OnValidator" Color="Color.Primary" class="border-radius w-100"></Button>
                                         <hr />
                                         <a>
                                             <i class="fab" />
-                                            <Button Text="忘记密码" Color="Color.Danger" class="w-100" OnClick="@ForgotPassword"></Button>
+                                            <Button Text="忘记密码" Color="Color.Danger" class="border-radius w-100" OnClick="@ForgotPassword"></Button>
                                         </a>
                                         <a>
                                             <i class="fab" />
-                                            <Button Text="用户注册" Color="Color.Info" class="w-100" OnClick="@UserRegistration"></Button>
+                                            <Button Text="用户注册" Color="Color.Info" class="border-radius w-100" OnClick="@UserRegistration"></Button>
                                         </a>
                                     </ValidateForm>
                                 </div>
