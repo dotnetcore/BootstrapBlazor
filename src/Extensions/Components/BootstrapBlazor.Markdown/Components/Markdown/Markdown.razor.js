@@ -1,71 +1,47 @@
-﻿import BlazorComponent from "../../../_content/BootstrapBlazor/modules/base/blazor-component.js"
-import EventHandler from "../../../_content/BootstrapBlazor/modules/base/event-handler.js"
-import { addLink } from "../../../_content/BootstrapBlazor/modules/base/utility.js"
-import { isVisible } from "../../../_content/BootstrapBlazor/modules/base/index.js"
+﻿import '../../lib/tui.editor/toastui-editor-all.min.js'
+import '../../lib/tui.highlight/toastui-editor-plugin-code-syntax-highlight-all.min.js'
+import { addLink } from '../../../BootstrapBlazor/modules/utility.js'
+import Data from '../../../BootstrapBlazor/modules/data.js'
 
-export class Markdown extends BlazorComponent {
-    _init() {
-        addLink('_content/BootstrapBlazor.Markdown/css/bootstrap.blazor.markdown.min.css')
+export async function init(el, invoker, options, callback) {
+    await addLink('./_content/BootstrapBlazor.CherryMarkdown/css/cherry-markdown.min.css')
 
-        this._invoker = this._config.arguments[0]
-        this._options = this._config.arguments[1]
-        this._invokerMethod = this._config.arguments[2]
+    const md = {}
+    Data.set(el, md)
 
-        this._createEditor()
+    md._invoker = invoker
+    md._options = options
+    md._invokerMethod = callback
+    md._element = el
+    md._options.el = el
+    md._options.plugins = [];
+    if (md._options.enableHighlight) {
+        md._options.plugins.push(toastui.Editor.plugin.codeSyntaxHighlight)
     }
+    md._editor = toastui.Editor.factory(md._options)
+    md._editor.on('blur', () => {
+        const val = md._editor.getMarkdown()
+        const html = md._editor.getHTML()
+        md._invoker.invokeMethodAsync(md._invokerMethod, [val, html])
+    })
+}
 
-    _createEditor() {
-        // 修复弹窗内初始化值不正确问题
-        const handler = window.setInterval(() => {
-            if (isVisible(this._element)) {
-                window.clearInterval(handler)
-                this._options.el = this._element
-                this._options.plugins = [];
-                if (this._options.enableHighlight) {
-                    this._options.plugins.push(toastui.Editor.plugin.codeSyntaxHighlight)
-                }
-                this._editor = toastui.Editor.factory(this._options)
-                this._setListeners()
-            }
-        }, 100)
-    }
+export function update(el, val) {
+    const md = Data.get(el)
+    md._editor.setMarkdown(val)
+}
 
-    _setListeners() {
-        this._editor.on('blur', () => {
-            const val = this._editor.getMarkdown()
-            const html = this._editor.getHTML()
-            this._invoker.invokeMethodAsync(this._invokerMethod, [val, html])
-        })
-    }
+export function invoke(el, method, parameters) {
+    const md = Data.get(el)
+    md._editor[method](...parameters);
+    const val = md._editor.getMarkdown()
+    const html = md._editor.getHTML()
+    md._invoker.invokeMethodAsync('Update', [val, html])
+}
 
-    _execute(args) {
-        const method = args[1]
-        if (method === 'update') {
-            this._update(args[2])
-        } else if (method === 'do') {
-            this._do(args[2], args[3])
-        }
-    }
-
-    _update(val) {
-        if (this._editor) {
-            this._editor.setMarkdown(val)
-        }
-    }
-
-    _do(method, parameters = {}) {
-        if (this._editor) {
-            this._editor[method](...parameters);
-            const val = this._editor.getMarkdown()
-            const html = this._editor.getHTML()
-            this._invoker.invokeMethodAsync('Update', [val, html])
-        }
-    }
-
-    _dispose() {
-        if (this._editor) {
-            this._editor.off('blur')
-            this._editor.destroy()
-        }
-    }
+export function dispose(el) {
+    const md = Data.get(el)
+    md._editor.off('blur')
+    md._editor.destroy()
+    Data.remove(el)
 }

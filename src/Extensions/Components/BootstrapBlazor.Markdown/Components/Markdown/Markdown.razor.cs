@@ -10,8 +10,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// Markdown 组件
 /// </summary>
-[JSModuleAutoLoader("./_content/BootstrapBlazor.Markdown/js/bootstrap.blazor.markdown.min.js", JSObjectReference = true, Relative = false)]
-public partial class Markdown
+public partial class Markdown : IAsyncDisposable
 {
     /// <summary>
     /// 获得/设置 控件高度，默认300px
@@ -81,6 +80,17 @@ public partial class Markdown
 
     private MarkdownOption Option { get; } = new();
 
+    [NotNull]
+    private IJSObjectReference? Module { get; set; }
+
+    [NotNull]
+    private DotNetObjectReference<Markdown>? Interop { get; set; }
+
+    /// <summary>
+    /// 获得/设置 DOM 元素实例
+    /// </summary>
+    private ElementReference Element { get; set; }
+
     /// <summary>
     /// 获得 组件样式
     /// </summary>
@@ -110,8 +120,18 @@ public partial class Markdown
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
+    /// <param name="firstRender"></param>
     /// <returns></returns>
-    protected override Task ModuleInitAsync() => InvokeInitAsync(Id, Option, nameof(Update));
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            // import JavaScript
+            Module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/BootstrapBlazor.Markdown/js/bootstrap.blazor.markdown.min.js");
+            Interop = DotNetObjectReference.Create(this);
+            await Module.InvokeVoidAsync("init", Element, Interop, Option, nameof(Update));
+        }
+    }
 
     /// <summary>
     /// 更新组件值方法
@@ -149,7 +169,7 @@ public partial class Markdown
     public new async ValueTask SetValue(string value)
     {
         CurrentValueAsString = value;
-        await InvokeExecuteAsync(Id, "update", Value ?? "");
+        await Module.InvokeVoidAsync("update", Element, Value);
     }
 
     /// <summary>
@@ -158,5 +178,34 @@ public partial class Markdown
     /// <param name="method"></param>
     /// <param name="parameters"></param>
     /// <returns></returns>
-    public Task DoMethodAsync(string method, params object[] parameters) => InvokeExecuteAsync(Id, "do", method, parameters);
+    public ValueTask DoMethodAsync(string method, params object[] parameters) => Module.InvokeVoidAsync("invoke", Element, method, parameters);
+
+    #region Dispose
+    /// <summary>
+    /// Dispose 方法
+    /// </summary>
+    /// <param name="disposing"></param>
+    protected virtual async ValueTask DisposeAsync(bool disposing)
+    {
+        if (disposing)
+        {
+            Interop?.Dispose();
+
+            if (Module != null)
+            {
+                await Module.InvokeVoidAsync("dispose", Element);
+                await Module.DisposeAsync();
+            }
+        }
+    }
+
+    /// <summary>
+    /// Dispose 方法
+    /// </summary>
+    public async ValueTask DisposeAsync()
+    {
+        await DisposeAsync(true);
+        GC.SuppressFinalize(this);
+    }
+    #endregion
 }
