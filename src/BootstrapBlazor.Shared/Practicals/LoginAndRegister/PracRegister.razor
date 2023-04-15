@@ -1,35 +1,95 @@
 ﻿@page "/pracregister"
+@inject NavigationManager Navigation
+@inject MessageService MessageService
+@using System.ComponentModel;
 
 <div class="container">
     <div class="card shadow-lg o-hidden border-0 my-5">
-        <div class="card-body p-0">
-            <div class="row">
-                <div class="col-lg-5 d-none d-lg-flex">
-                    <div class="flex-grow-1 bg-register-image" style="background-image: url('dogs/image2.jpeg');"></div>
-                </div>
-                <div class="col-lg-7">
-                    <div class="p-5">
-                        <div class="text-center">
-                            <h4 class="text-dark mb-4">Create an Account!</h4>
+        <Card>
+            <BodyTemplate>
+                <div class="row">
+                    <div class="col-lg-5 d-none d-lg-flex">
+                        <div class="flex-grow-1 bg-login-image">
+                            <ImageViewer Url="_content/BootstrapBlazor.Shared/images/practicals/loginbg.png" ShowPlaceHolder="true" />
                         </div>
-                        <form class="user">
-                            <div class="row mb-3">
-                                <div class="col-sm-6 mb-3 mb-sm-0"><input id="exampleFirstName" class="form-control form-control-user" type="text" placeholder="First Name" name="first_name" /></div>
-                                <div class="col-sm-6"><input id="exampleLastName" class="form-control form-control-user" type="text" placeholder="Last Name" name="last_name" /></div>
+                    </div>
+                    <div class="col-lg-7">
+                        <div class="p-5">
+                            <div class="text-center">
+                                <h4 class="text-dark mb-4">欢迎使用BootstrapBlazor组件库!</h4>
+                                <h4 class="text-dark mb-4">创建帐号!</h4>
                             </div>
-                            <div class="mb-3"><input id="exampleInputEmail" class="form-control form-control-user" type="email" aria-describedby="emailHelp" placeholder="Email Address" name="email" /></div>
-                            <div class="row mb-3">
-                                <div class="col-sm-6 mb-3 mb-sm-0"><input id="examplePasswordInput" class="form-control form-control-user" type="password" placeholder="Password" name="password" /></div>
-                                <div class="col-sm-6"><input id="exampleRepeatPasswordInput" class="form-control form-control-user" type="password" placeholder="Repeat Password" name="password_repeat" /></div>
-                            </div><button class="btn btn-primary d-block btn-user w-100" type="submit">Register Account</button>
-                            <hr /><a class="btn btn-primary d-block btn-google btn-user w-100 mb-2" role="button"><i class="fab fa-google"></i>  Register with Google</a><a class="btn btn-primary d-block btn-facebook btn-user w-100" role="button"><i class="fab fa-facebook-f"></i>  Register with Facebook</a>
-                            <hr />
-                        </form>
-                        <div class="text-center"><a class="small" href="forgot-password.html">Forgot Password?</a></div>
-                        <div class="text-center"><a class="small" href="login.html">Already have an account? Login!</a></div>
+                            <ValidateForm Model="@Model" @ref="ValidatorForm">
+                                <div class="mb-3">
+                                    <BootstrapInput @bind-Value="Model.UserName" ShowLabel="false" PlaceHolder="请输入账号" />
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                        <BootstrapPassword @bind-Value="Model.Password" ShowLabel="false" PlaceHolder="请输入密码" />
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <BootstrapPassword @bind-Value="Model.RePassword" ShowLabel="false" PlaceHolder="请重复密码" />
+                                    </div>
+                                </div>
+                                <Button Text="注册帐号" OnClickWithoutRender="OnValidator" Color="Color.Primary" class="w-100"></Button>
+                                <hr />
+                                <a>
+                                    <i class="fab" />
+                                    <Button Text="忘记密码" Color="Color.Danger" class="w-100" OnClick="@ForgotPassword"></Button>
+                                </a>
+                                <a>
+                                    <i class="fab" />
+                                    <Button Text="用户登陆" Color="Color.Info" class="w-100" OnClick="@UserLogin"></Button>
+                                </a>
+                            </ValidateForm>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
+            </BodyTemplate>
+        </Card>
     </div>
 </div>
+
+@code {
+    [NotNull]
+    private RegisterModel? Model { get; set; } = new();
+
+    [NotNull]
+    private ValidateForm? ValidatorForm { get; set; }
+
+    private Task UserLogin()
+    {
+        Navigation.NavigateTo("praclogin");
+        return Task.CompletedTask;
+    }
+
+    private async Task ForgotPassword()
+    {
+        await MessageService.Show(new MessageOption() { Content = "忘了就忘了吧..." });
+    }
+
+    private async Task OnValidator()
+    {
+        var result = ValidatorForm.Validate();
+        if (result)
+        {
+            await MessageService.Show(new MessageOption() { Content = "账号注册成功，即将跳转到登陆页面！" });
+            Navigation.NavigateTo("praclogin");
+        }
+    }
+
+    class RegisterModel
+    {
+        [Description("账号")]
+        [Required(ErrorMessage = "{0}不能为空")]
+        public string? UserName { get; set; }
+
+        [Description("密码")]
+        [Required(ErrorMessage = "{0}不能为空")]
+        public string? Password { get; set; }
+
+        [Description("密码")]
+        [Required(ErrorMessage = "{0}不能为空")]
+        public string? RePassword { get; set; }
+    }
+}
