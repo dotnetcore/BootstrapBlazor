@@ -9,8 +9,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// Topology 组件类
 /// </summary>
-[JSModuleAutoLoader("./_content/BootstrapBlazor.Topology/js/bootstrap.blazor.topology.min.js", ModuleName = "BlazorTopology", JSObjectReference = true, Relative = false)]
-public partial class Topology
+public partial class Topology : IAsyncDisposable
 {
     /// <summary>
     /// 获得/设置 JSON 文件内容
@@ -73,11 +72,32 @@ public partial class Topology
 
     private string? IsCenterViewString => IsCenterView ? "true" : null;
 
+    [NotNull]
+    private IJSObjectReference? Module { get; set; }
+
+    [NotNull]
+    private DotNetObjectReference<Topology>? Interop { get; set; }
+
+    /// <summary>
+    /// 获得/设置 EChart DOM 元素实例
+    /// </summary>
+    private ElementReference Element { get; set; }
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
+    /// <param name="firstRender"></param>
     /// <returns></returns>
-    protected override Task ModuleInitAsync() => InvokeInitAsync(Id, Content, nameof(PushData));
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            // import JavaScript
+            Module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/BootstrapBlazor.Topology/Components/Topology/Topology.razor.js");
+            Interop = DotNetObjectReference.Create(this);
+            await Module.InvokeVoidAsync("init", Element, Interop, Content, nameof(PushData));
+        }
+    }
 
     /// <summary>
     /// 开始推送数据方法
@@ -104,7 +124,7 @@ public partial class Topology
                     try
                     {
                         var data = await OnQueryAsync(CancelToken.Token);
-                        await PushData(data, CancelToken.Token);
+                        await PushData(data);
                         await Task.Delay(Interval, CancelToken.Token);
                     }
                     catch (TaskCanceledException)
@@ -120,13 +140,12 @@ public partial class Topology
     /// 推送数据到客户端
     /// </summary>
     /// <param name="items"></param>
-    /// <param name="token"></param>
     /// <returns></returns>
-    public async ValueTask PushData(IEnumerable<TopologyItem> items, CancellationToken token = default)
+    public async ValueTask PushData(IEnumerable<TopologyItem> items)
     {
         if (!_disposing)
         {
-            await InvokeVoidAsync("execute", token, Id, items);
+            await Module.InvokeVoidAsync("update", Element, items);
         }
     }
 
@@ -135,34 +154,56 @@ public partial class Topology
     /// </summary>
     /// <param name="rate"></param>
     /// <returns></returns>
-    public Task Scale(int rate = 1) => InvokeExecuteAsync(Id, "scale", rate);
+    public ValueTask Scale(int rate = 1) => Module.InvokeVoidAsync("scale", Element, rate);
 
     /// <summary>
     /// 重置视图 自适应大小并且居中显示
     /// </summary>
     /// <returns></returns>
-    public Task Reset() => InvokeExecuteAsync(Id, "reset");
+    public ValueTask Reset() => Module.InvokeVoidAsync("reset", Element);
 
     /// <summary>
     /// 重置可视化引擎大小
     /// </summary>
     /// <returns></returns>
-    public Task Resize(int? width = null, int? height = null) => InvokeExecuteAsync(Id, "resize", width, height);
+    public ValueTask Resize(int? width = null, int? height = null) => Module.InvokeVoidAsync("resize", Element, width, height);
 
+    #region Dispose
     private bool _disposing;
+
     /// <summary>
-    /// DisposeAsync 方法
+    /// Dispose 方法
     /// </summary>
     /// <param name="disposing"></param>
-    protected override async ValueTask DisposeAsync(bool disposing)
+    protected virtual async ValueTask DisposeAsync(bool disposing)
     {
         _disposing = true;
-        if (CancelToken != null && disposing)
+        if (disposing)
         {
-            CancelToken.Cancel();
-            CancelToken.Dispose();
-            CancelToken = null;
+            if (CancelToken != null)
+            {
+                CancelToken.Cancel();
+                CancelToken.Dispose();
+                CancelToken = null;
+            }
+
+            Interop?.Dispose();
+
+            if (Module != null)
+            {
+                await Module.InvokeVoidAsync("dispose", Element);
+                await Module.DisposeAsync();
+            }
         }
-        await base.DisposeAsync(disposing);
     }
+
+    /// <summary>
+    /// Dispose 方法
+    /// </summary>
+    public async ValueTask DisposeAsync()
+    {
+        await DisposeAsync(true);
+        GC.SuppressFinalize(this);
+    }
+    #endregion
 }

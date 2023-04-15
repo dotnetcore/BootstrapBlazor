@@ -586,8 +586,8 @@
   "BootstrapBlazor.Shared.Samples.Topologies": {
     "TopologiesTitle": "Topology HMI",
     "TopologiesDescription": "Rendering of human-computer interface through <code>Topology</code> open source components",
-    "TopologiesNomalTitle": "Basic usage",
-    "TopologiesNomalIntro": "Just load the <code>Json</code> file exported by the website, click the number box below the fan to control the operation"
+    "TopologiesNormalTitle": "Basic usage",
+    "TopologiesNormalIntro": "Just load the <code>Json</code> file exported by the website, click the number box below the fan to control the operation"
   },
   "BootstrapBlazor.Shared.Samples.TreeViews": {
     "TreeViewsTitle": "Tree tree control",
