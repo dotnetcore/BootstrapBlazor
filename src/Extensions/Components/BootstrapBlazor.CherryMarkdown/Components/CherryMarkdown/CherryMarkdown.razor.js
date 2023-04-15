@@ -64,18 +64,18 @@ export function fetch(el) {
 export function invoke(el, method, parameters) {
     const md = Data.get(el)
     if (method.indexOf('.') < 0) {
-        this._editor[method](...parameter)
+        md._editor[method](...parameters)
     }
     else {
-        var methods = method.split('.');
-        var m = md._editor[methods[0]];
+        const methods = method.split('.');
+        let m = md._editor[methods[0]];
         for (let i = 1; i < methods.length; i++) {
             m = m[methods[i]]
         }
-        m(...parameter);
+        m(...parameters);
     }
-    var val = md._editor.getMarkdown();
-    var html = md._editor.getHtml();
+    const val = md._editor.getMarkdown();
+    const html = md._editor.getHtml();
     md._invoker.invokeMethodAsync('Update', [val, html]);
 }
 
