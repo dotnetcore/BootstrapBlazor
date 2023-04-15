@@ -1,4 +1,6 @@
-﻿import BlazorComponent from "../../../_content/BootstrapBlazor/modules/base/blazor-component.js"
+﻿import '../../topology.js'
+import Data from '../../../BootstrapBlazor/modules/data.js'
+import EventHandler from "../../../BootstrapBlazor/modules/event-handler.js"
 
 export class BlazorTopology extends BlazorComponent {
     _init() {
