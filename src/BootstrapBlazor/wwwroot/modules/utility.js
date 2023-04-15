@@ -1,4 +1,14 @@
-﻿const isFunction = object => {
+﻿const vibrate = () => {
+    if ('vibrate' in window.navigator) {
+        window.navigator.vibrate([200, 100, 200])
+        const handler = window.setTimeout(function () {
+            window.clearTimeout(handler)
+            window.navigator.vibrate([])
+        }, 1000)
+    }
+}
+
+const isFunction = object => {
     return typeof object === 'function'
 }
 
@@ -76,11 +86,23 @@ const addScript = content => {
     let link = links.filter(function (link) {
         return link.src.indexOf(content) > -1
     })
+    let done = link.length > 0;
     if (link.length === 0) {
         link = document.createElement('script')
         link.setAttribute('src', content)
         document.body.appendChild(link)
+        link.onload = () => {
+            done = true
+        }
     }
+    return new Promise((resolve, reject) => {
+        const handler = setInterval(() => {
+            if (done) {
+                clearInterval(handler)
+                resolve()
+            }
+        }, 20)
+    })
 }
 
 const removeScript = content => {
@@ -105,7 +127,6 @@ const addLink = href => {
         link.setAttribute("rel", "stylesheet")
         document.getElementsByTagName("head")[0].appendChild(link)
         link.onload = () => {
-            console.log('href loaded')
             done = true
         }
     }
@@ -214,5 +235,6 @@ export {
     getWindow,
     getWindowScroll,
     removeLink,
-    removeScript
+    removeScript,
+    vibrate
 }
