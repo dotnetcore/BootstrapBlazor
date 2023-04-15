@@ -127,7 +127,7 @@ public partial class Markdown : IAsyncDisposable
         if (firstRender)
         {
             // import JavaScript
-            Module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/BootstrapBlazor.Markdown/js/bootstrap.blazor.markdown.min.js");
+            Module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/BootstrapBlazor.Markdown/Components/Markdown/Markdown.razor.js");
             Interop = DotNetObjectReference.Create(this);
             await Module.InvokeVoidAsync("init", Element, Interop, Option, nameof(Update));
         }
