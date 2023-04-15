@@ -1,15 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
-    <Version>7.1.0</Version>
+    <Version>7.2.0</Version>
   </PropertyGroup>
-
-  <ItemGroup>
-    <Content Remove="wwwroot\css\cherry-markdown.min.css" />
-    <Content Remove="wwwroot\js\cherry-markdown.min.js" />
-    <None Include="wwwroot\css\cherry-markdown.min.css" />
-    <None Include="wwwroot\js\cherry-markdown.min.js" />
-  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="BootstrapBlazor" Version="7.5.4" />
