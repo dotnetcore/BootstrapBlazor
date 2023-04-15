@@ -44,23 +44,25 @@ export async function init(el, invoker, methodGetPluginAttrs, methodClickPluginI
             option.toolbar = toolbar
             editor.$editor = $(editor._editorElement).summernote(option)
 
-            const editorToolbar = editor._element.querySelector('.note-toolbar')
-            EventHandler.on(editorToolbar, 'click', 'button[data-method]', () => {
+            editor._editorToolbar = editor._element.querySelector('.note-toolbar')
+            EventHandler.on(editor._editorToolbar, 'click', 'button[data-method]', function() {
                 switch (this.getAttribute('data-method')) {
                     case 'submit':
-                        //$btn.tooltip('dispose')
+                        disposeTooltip(editor._submitTooltip)
+                        offEvent(editor._editorToolbar)
                         editor._editorElement.classList.remove('open')
                         const code = editor.$editor.summernote('code')
-                        editor.$editor.summernote('destroy')
+                        disposeEditor(editor)
                         editor._invoker.invokeMethodAsync('Update', code)
                         break
                 }
             })
 
-            // var $done = $('<div class="note-btn-group btn-group note-view note-right"><button type="button" class="note-btn btn btn-sm note-btn-close" tabindex="-1" data-method="submit" data-bs-placement="bottom"><i class="fa-solid fa-check"></i></button></div>').appendTo($toolbar).find('button').tooltip({
-            //     title: title,
-            //     container: 'body'
-            // })
+            editor.$submit = $('<div class="note-btn-group btn-group note-view note-right"><button type="button" class="note-btn btn btn-sm note-btn-close" tabindex="-1" data-method="submit" data-bs-placement="bottom"><i class="fa-solid fa-check"></i></button></div>').appendTo($(editor._editorToolbar)).find('button')
+            editor._submitTooltip = new bootstrap.Tooltip(editor.$submit[0], {
+                 title: title,
+                 container: 'body'
+            })
             document.querySelector('.note-group-select-from-files [accept="image/*"]').setAttribute('accept', 'image/bmp,image/png,image/jpg,image/jpeg,image/gif')
         })
 
@@ -119,24 +121,56 @@ export function invoke(el, method, parameter) {
 }
 
 export function dispose(el) {
+    const editor = Data.get(el)
+    disposeTooltip(editor._submitTooltip)
+    disposeTooltip(editor._tooltip)
+    offEvent(editor._editorToolbar)
+    offEvent(editor._editorElement)
+    disposeEditor(editor)
+
+    for (const propertyName of Object.getOwnPropertyNames(editor)) {
+        editor[propertyName] = null
+        delete editor[propertyName]
+    }
+
     Data.remove(el)
+}
+
+const offEvent = eventEl => {
+    if (eventEl) {
+        EventHandler.off(eventEl, 'click')
+        eventEl = null
+    }
+}
+
+const disposeTooltip = tip => {
+    if (tip) {
+        tip.dispose()
+        tip = null
+    }
+}
+
+const disposeEditor = editor => {
+    if (editor.$editor) {
+        editor.$editor.summernote('destroy')
+        delete editor.$editor
+    }
 }
 
 const bb_lang = function () {
     $.summernote.lang["zh-CN"] = {
-        font:
-            {
-                bold: "粗体",
-                italic: "斜体",
-                underline: "下划线",
-                clear: "清除格式",
-                height: "行高",
-                name: "字体",
-                strikethrough: "删除线",
-                subscript: "下标",
-                superscript: "上标",
-                size: "字号"
-            },
+        font: {
+            bold: "粗体",
+            italic: "斜体",
+            underline: "下划线",
+            clear: "清除格式",
+            height: "行高",
+            name: "字体",
+            strikethrough: "删除线",
+            subscript: "下标",
+            superscript: "上标",
+            size: "字号"
+        },
         image: {
             image: "图片",
             insert: "插入图片",
