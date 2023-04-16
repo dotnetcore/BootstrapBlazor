@@ -10,8 +10,6 @@ internal class VersionService
 {
     private IHttpClientFactory Factory { get; set; }
 
-    private string PackageVersion { get; set; } = "latest";
-
     public string? Version { get; }
 
     /// <summary>
@@ -28,16 +26,6 @@ internal class VersionService
         {
             Version = System.Diagnostics.FileVersionInfo.GetVersionInfo(typeof(BootstrapComponentBase).Assembly.Location).ProductVersion;
         }
-
-        Task.Run(async () =>
-        {
-            do
-            {
-                PackageVersion = await FetchVersionAsync();
-                await Task.Delay(300000);
-            }
-            while (true);
-        });
     }
 
     /// <summary>
