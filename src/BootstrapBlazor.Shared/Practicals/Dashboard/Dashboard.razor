@@ -18,9 +18,9 @@
 
 <div class="row g-3">
     <div class="col-12">
-        <div class="d-flex align-items-center">
-            <div class="text-dark fw-bold me-3">Dashboard</div>
-            <DateTimePicker Value="DateTimePickerValue" OnValueChanged="OnDateTimePickerValueChanged" />
+        <div class="d-sm-flex justify-content-between align-items-center mb-4">
+            <h3 class="text-dark mb-0">Dashboard</h3>
+            <DateTimePicker @bind-Value="@DateTimePickerValue" OnValueChanged="@OnDateTimePickerValueChanged" />
         </div>
     </div>
     <div class="col-md-6 col-xl-3">
@@ -32,7 +32,11 @@
                         <div class="text-dark fw-bold h5 mb-0"><span>@Data.TestAllCount</span></div>
                         <div class="text-uppercase text-info fw-bold text-xs mb-1"><span>全部签发数量</span></div>
                         <div class="row g-0 align-items-center">
-                            <div class="col-auto"><div class="text-dark fw-bold h5 mb-0 me-3"><span>@Data.TestApprovedAllCount</span></div></div>
+                            <div class="col-auto">
+                                <div class="text-dark fw-bold h5 mb-0 me-3">
+                                    <AnimateNumber @bind-Value="@Data.TestApprovedAllCount"></AnimateNumber>
+                                </div>
+                            </div>
                             <div class="col"><Progress Value="@Data.TestApprovedAllScale" IsShowValue="true" Round="1" /></div>
                         </div>
                     </div>

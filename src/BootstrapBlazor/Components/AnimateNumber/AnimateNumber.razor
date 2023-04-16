@@ -1,0 +1,41 @@
+﻿@namespace BootstrapBlazor.Components
+@typeparam TValue
+@inject IJSRuntime JSRuntime
+
+<div @ref="@Element">
+    <span>@Value</span>
+</div>
+
+@code {
+    [NotNull]
+    private IJSObjectReference? Module { get; set; }
+
+    private ElementReference Element { get; set; }
+
+    [Parameter]
+    public virtual TValue Value { get; set; }
+
+    /// <summary>
+    /// 设置 Value 方法
+    /// </summary>
+    /// <returns></returns>
+    public new async ValueTask SetValue(string value)
+    {
+        await Module.InvokeVoidAsync("init", Element, Value);
+    }
+
+    [Parameter]
+    public EventCallback<TValue> ValueChanged { get; set; }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+        if (firstRender)
+        {
+            // import JavaScript
+            Module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/BootstrapBlazor/Components/AnimateNumber/AnimateNumber.razor.js");
+            await Module.InvokeVoidAsync("init", Element, Value);
+        }
+    }
+
+}
