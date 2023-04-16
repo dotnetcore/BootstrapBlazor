@@ -9,7 +9,7 @@ namespace BootstrapBlazor.Shared.Components;
 /// <summary>
 /// 
 /// </summary>
-public class JSModuleComponentBase : BootstrapModuleComponentBase
+public class JSModuleComponentBase : BootstrapModule2ComponentBase
 {
     private static string? _tick;
     private static string? GetVersion()

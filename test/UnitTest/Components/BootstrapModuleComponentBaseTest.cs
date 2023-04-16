@@ -39,7 +39,7 @@ public class BootstrapModuleComponentBaseTest : BootstrapBlazorTestBase
     }
 
     [JSModuleAutoLoader]
-    class MockComponent : BootstrapModuleComponentBase
+    class MockComponent : BootstrapModule2ComponentBase
     {
         public bool Executed { get; set; }
 
@@ -73,7 +73,7 @@ public class BootstrapModuleComponentBaseTest : BootstrapBlazorTestBase
     }
 
     [JSModuleAutoLoader(JSObjectReference = true, ModuleName = "Mock", Relative = true)]
-    class MockObjectReferenceComponent : BootstrapModuleComponentBase
+    class MockObjectReferenceComponent : BootstrapModule2ComponentBase
     {
         public bool InvokeRunned { get; set; }
 
