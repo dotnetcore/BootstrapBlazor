@@ -31,6 +31,11 @@ public class JSModuleAutoLoaderAttribute : Attribute
     public bool Relative { get; set; } = true;
 
     /// <summary>
+    /// 获得/设置 是否自动销毁 JS 默认 true
+    /// </summary>
+    public bool AutoInvokeDispose { get; set; } = true;
+
+    /// <summary>
     /// 构造函数
     /// </summary>
     /// <param name="path"></param>

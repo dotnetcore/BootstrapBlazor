@@ -39,6 +39,11 @@ public abstract class BootstrapModuleComponentBase : IdComponentBase, IAsyncDisp
     protected bool JSObjectReference { get; set; }
 
     /// <summary>
+    /// 获得/设置 是否自动销毁 JS 默认 true
+    /// </summary>
+    protected bool AutoInvokeDispose { get; set; } = true;
+
+    /// <summary>
     /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
@@ -46,6 +51,20 @@ public abstract class BootstrapModuleComponentBase : IdComponentBase, IAsyncDisp
         base.OnInitialized();
 
         OnLoadJSModule();
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="firstRender"></param>
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender && !string.IsNullOrEmpty(ModulePath))
+        {
+            Module ??= JSObjectReference
+                ? await JSRuntime.LoadModule(ModulePath, this, Relative)
+                : await JSRuntime.LoadModule(ModulePath, Relative);
+        }
     }
 
     /// <summary>
@@ -65,6 +84,7 @@ public abstract class BootstrapModuleComponentBase : IdComponentBase, IAsyncDisp
                 ModuleName = attr.ModuleName ?? GetTypeName();
                 JSObjectReference = attr.JSObjectReference;
                 Relative = attr.Relative;
+                AutoInvokeDispose = attr.AutoInvokeDispose;
 
                 string GetTypeName()
                 {
@@ -74,65 +94,6 @@ public abstract class BootstrapModuleComponentBase : IdComponentBase, IAsyncDisp
             }
         }
     }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <param name="firstRender"></param>
-    /// <returns></returns>
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (firstRender && !string.IsNullOrEmpty(ModulePath))
-        {
-            Module ??= JSObjectReference
-                ? await JSRuntime.LoadModule(ModulePath, this, Relative)
-                : await JSRuntime.LoadModule(ModulePath, Relative);
-        }
-
-        await ModuleInvokeVoidAsync(firstRender);
-    }
-
-    /// <summary>
-    /// Load javascript module method
-    /// </summary>
-    /// <returns></returns>
-    protected virtual async Task ModuleInvokeVoidAsync(bool firstRender)
-    {
-        if (firstRender)
-        {
-            await ModuleInitAsync();
-        }
-        else
-        {
-            await ModuleExecuteAsync();
-        }
-    }
-
-    /// <summary>
-    /// call javascript init method
-    /// </summary>
-    /// <returns></returns>
-    protected virtual Task ModuleInitAsync() => InvokeInitAsync(Id);
-
-    /// <summary>
-    /// call javascript execute method
-    /// </summary>
-    /// <returns></returns>
-    protected virtual Task ModuleExecuteAsync() => Task.CompletedTask;
-
-    /// <summary>
-    /// call javascript init method
-    /// </summary>
-    /// <param name="args"></param>
-    /// <returns></returns>
-    protected Task InvokeInitAsync(params object?[]? args) => InvokeVoidAsync("init", args);
-
-    /// <summary>
-    /// call javascript execute method
-    /// </summary>
-    /// <param name="args"></param>
-    /// <returns></returns>
-    protected Task InvokeExecuteAsync(params object?[]? args) => InvokeVoidAsync("execute", args);
 
     /// <summary>
     /// call javascript method
@@ -153,7 +114,7 @@ public abstract class BootstrapModuleComponentBase : IdComponentBase, IAsyncDisp
     {
         if (Module != null)
         {
-            await Module.InvokeVoidAsync($"{ModuleName}.{identifier}", timeout, args);
+            await Module.InvokeVoidAsync(identifier, timeout, args);
         }
     }
 
@@ -168,7 +129,7 @@ public abstract class BootstrapModuleComponentBase : IdComponentBase, IAsyncDisp
     {
         if (Module != null)
         {
-            await Module.InvokeVoidAsync($"{ModuleName}.{identifier}", cancellationToken, args);
+            await Module.InvokeVoidAsync(identifier, cancellationToken, args);
         }
     }
 
@@ -192,7 +153,7 @@ public abstract class BootstrapModuleComponentBase : IdComponentBase, IAsyncDisp
         TValue? ret = default;
         if (Module != null)
         {
-            ret = await Module.InvokeAsync<TValue>($"{ModuleName}.{identifier}", timeout, args);
+            ret = await Module.InvokeAsync<TValue>(identifier, timeout, args);
         }
         return ret;
     }
@@ -209,7 +170,7 @@ public abstract class BootstrapModuleComponentBase : IdComponentBase, IAsyncDisp
         TValue? ret = default;
         if (Module != null)
         {
-            ret = await Module.InvokeAsync<TValue>($"{ModuleName}.{identifier}", cancellationToken, args);
+            ret = await Module.InvokeAsync<TValue>(identifier, cancellationToken, args);
         }
         return ret;
     }
@@ -223,7 +184,10 @@ public abstract class BootstrapModuleComponentBase : IdComponentBase, IAsyncDisp
     {
         if (Module != null && disposing)
         {
-            await Module.InvokeVoidAsync($"{ModuleName}.dispose", Id);
+            if (AutoInvokeDispose)
+            {
+                await Module.InvokeVoidAsync("dispose", Id);
+            }
             await Module.DisposeAsync();
             Module = null;
         }
