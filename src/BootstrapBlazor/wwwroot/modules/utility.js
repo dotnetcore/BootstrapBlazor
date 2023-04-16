@@ -220,6 +220,95 @@ const drag = (element, start, move, end) => {
     EventHandler.on(element, 'touchstart', handleDragStart)
 }
 
+const getDescribedElement = (element, selector = 'aria-describedby') => {
+    if (isElement(element)) {
+        let id = element.getAttribute(selector)
+        if (id) {
+            if (id.indexOf('.') === -1) {
+                id = `#${id}`
+            }
+            return document.querySelector(id)
+        }
+    }
+    return null
+}
+
+const isElement = object => {
+    if (!object || typeof object !== 'object') {
+        return false
+    }
+
+    if (typeof object.jquery !== 'undefined') {
+        object = object[0]
+    }
+
+    return typeof object.nodeType !== 'undefined'
+}
+
+const getElement = object => {
+    // it's a jQuery object or a node element
+    if (isElement(object)) {
+        return object.jquery ? object[0] : object
+    }
+
+    if (typeof object === 'string' && object.length > 0) {
+        return document.querySelector(object)
+    }
+
+    return null
+}
+
+const getElementById = object => {
+    if (typeof object === 'string' && object.length > 0 && object.substring(0, 1) !== '.' && object.substring(0, 1) !== '#') {
+        object = `#${object}`
+    }
+
+    return getElement(object);
+}
+
+const isVisible = element => {
+    if (!isElement(element) || element.getClientRects().length === 0) {
+        return false
+    }
+
+    const elementIsVisible = getComputedStyle(element).getPropertyValue('visibility') === 'visible'
+    // Handle `details` element as its content may falsie appear visible when it is closed
+    const closedDetails = element.closest('details:not([open])')
+
+    if (!closedDetails) {
+        return elementIsVisible
+    }
+
+    if (closedDetails !== element) {
+        const summary = element.closest('summary')
+        if (summary && summary.parentNode !== closedDetails) {
+            return false
+        }
+
+        if (summary === null) {
+            return false
+        }
+    }
+
+    return elementIsVisible
+}
+
+const isDisabled = element => {
+    if (!element || element.nodeType !== Node.ELEMENT_NODE) {
+        return true
+    }
+
+    if (element.classList.contains('disabled')) {
+        return true
+    }
+
+    if (typeof element.disabled !== 'undefined') {
+        return element.disabled
+    }
+
+    return element.hasAttribute('disabled') && element.getAttribute('disabled') !== 'false'
+}
+
 export {
     addLink,
     addScript,
@@ -227,7 +316,13 @@ export {
     drag,
     insertBefore,
     insertAfter,
+    isDisabled,
+    isElement,
     isFunction,
+    isVisible,
+    getElement,
+    getElementById,
+    getDescribedElement,
     getHeight,
     getInnerHeight,
     getInnerWidth,
