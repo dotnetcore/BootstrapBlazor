@@ -1,0 +1,110 @@
+﻿@page "/pracregister"
+@inject NavigationManager Navigation
+@inject MessageService MessageService
+@using System.ComponentModel;
+
+<style>
+    .border-radius {
+        font-size: .8rem;
+        border-radius: 10rem;
+        padding: .75rem 1rem;
+    }
+</style>
+
+<div class="container">
+    <Card class="shadow-lg o-hidden border-0 my-5">
+        <BodyTemplate>
+            <div class="row">
+                <div class="col-lg-5 d-none d-lg-flex">
+                    <div class="flex-grow-1 bg-login-image">
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                             xmlns:xlink="http://www.w3.org/1999/xlink"
+                             width="100%" height="100%" shape-rendering="crispEdges">
+                            <image x="0px" y="0px" width="100%" height="100%" xlink:href="data:img/png;base64,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" />
+                        </svg>
+                    </div>
+                </div>
+                <div class="col-lg-7">
+                    <div class="p-5">
+                        <div class="text-center">
+                            <h4 class="text-dark mb-4">欢迎使用BootstrapBlazor组件库!</h4>
+                            <h4 class="text-dark mb-4">创建帐号!</h4>
+                        </div>
+                        <ValidateForm Model="@Model" @ref="ValidatorForm">
+                            <div class="mb-3">
+                                <BootstrapInput @bind-Value="Model.UserName" class="border-radius" ShowLabel="false" PlaceHolder="请输入账号" />
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-sm-6 mb-3 mb-sm-0">
+                                    <BootstrapPassword @bind-Value="Model.Password" class="border-radius" ShowLabel="false" PlaceHolder="请输入密码" />
+                                </div>
+                                <div class="col-sm-6">
+                                    <BootstrapPassword @bind-Value="Model.ConfirmPassword" class="border-radius" ShowLabel="false" PlaceHolder="请重复密码" />
+                                </div>
+                            </div>
+                            <Button Text="注册帐号" OnClickWithoutRender="OnValidator" Color="Color.Primary" class="border-radius w-100"></Button>
+                            <hr />
+                            <a>
+                                <i class="fab" />
+                                <Button Text="忘记密码" Color="Color.Danger" class="border-radius w-100" OnClick="@ForgotPassword"></Button>
+                            </a>
+                            <a>
+                                <i class="fab" />
+                                <Button Text="用户登陆" Color="Color.Info" class="border-radius w-100" OnClick="@UserLogin"></Button>
+                            </a>
+                        </ValidateForm>
+                    </div>
+                </div>
+            </div>
+        </BodyTemplate>
+    </Card>
+</div>
+
+@code {
+    [NotNull]
+    private RegisterModel? Model { get; set; } = new();
+
+    [NotNull]
+    private ValidateForm? ValidatorForm { get; set; }
+
+    private Task UserLogin()
+    {
+        Navigation.NavigateTo("praclogin");
+        return Task.CompletedTask;
+    }
+
+    private async Task ForgotPassword()
+    {
+        await MessageService.Show(new MessageOption() { Content = "忘了就忘了吧..." });
+    }
+
+    private async Task OnValidator()
+    {
+        var result = ValidatorForm.Validate();
+        if (result)
+        {
+            await MessageService.Show(new MessageOption() { Content = "账号注册成功，即将跳转到登陆页面！" });
+            Navigation.NavigateTo("praclogin");
+        }
+    }
+
+    class RegisterModel
+    {
+        [DataType(DataType.Text)]
+        [Display(Name = "账号")]
+        [Required(ErrorMessage = "{0}不能为空")]
+        public string? UserName { get; set; }
+
+        [NotNull]
+        [Required(ErrorMessage = "请输入密码")]
+        [DataType(DataType.Password)]
+        [Display(Name = "密码")]
+        public string? Password { get; set; }
+
+        [Required(ErrorMessage = "请确认密码")]
+        [Compare(nameof(Password))]
+        [DataType(DataType.Password)]
+        [Display(Name = "确认密码")]
+        public string? ConfirmPassword { get; set; }
+    }
+}

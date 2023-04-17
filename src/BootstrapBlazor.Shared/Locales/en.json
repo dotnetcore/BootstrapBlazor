@@ -1,7 +1,8 @@
 ﻿{
   "BootstrapBlazor.Shared.Pages.Prac": {
     "CategoryTitle": "Bootstrap Blazor Practical Cases",
-    "DashboardSummary": "Dashboard"
+    "DashboardSummary": "Dashboard",
+    "LoginSummary": "Login&Register"
   },
   "BootstrapBlazor.Shared.App": {
     "Title": "Bootstrap Blazor enterprise-level UI component library",

@@ -8,27 +8,27 @@ public class DashboardData
     /// <summary>
     /// 检验数量全部统计
     /// </summary>
-    public int TestAllCount { get; set; }
+    public int TestAllCount { get; init; }
 
     /// <summary>
     /// 检验数量年统计
     /// </summary>
-    public int TestYearCount { get; set; }
+    public int TestYearCount { get; init; }
 
     /// <summary>
     /// 检验数量月统计
     /// </summary>
-    public int TestMonthCount { get; set; }
+    public int TestMonthCount { get; init; }
 
     /// <summary>
     /// 检验数量日统计
     /// </summary>
-    public int TestDayCount { get; set; }
+    public int TestDayCount { get; init; }
 
     /// <summary>
     /// 日检验签发数量
     /// </summary>
-    public int TestApprovedDayCount { get; set; }
+    public int TestApprovedDayCount { get; init; }
 
     /// <summary>
     /// 日检验签发占比
@@ -38,7 +38,7 @@ public class DashboardData
     /// <summary>
     /// 月检验签发数量
     /// </summary>
-    public int TestApprovedMonthCount { get; set; }
+    public int TestApprovedMonthCount { get; init; }
 
     /// <summary>
     /// 月检验签发占比
@@ -48,7 +48,7 @@ public class DashboardData
     /// <summary>
     /// 年检验签发数量
     /// </summary>
-    public int TestApprovedYearCount { get; set; }
+    public int TestApprovedYearCount { get; init; }
 
     /// <summary>
     /// 年检验签发占比
@@ -58,7 +58,7 @@ public class DashboardData
     /// <summary>
     /// 全部检验签发数量
     /// </summary>
-    public int TestApprovedAllCount { get; set; }
+    public int TestApprovedAllCount { get; init; }
 
     /// <summary>
     /// 全部检验签发占比
@@ -68,12 +68,12 @@ public class DashboardData
     /// <summary>
     /// 当年月分组统计
     /// </summary>
-    public List<TestDayGroupData> TestDayGroupList { get; set; } = new();
+    public List<TestDayGroupData> TestDayGroupList { get; init; } = new();
 
     /// <summary>
     /// KKS分类分组统计
     /// </summary>
-    public List<TestKKSGroupData> TestKKSGroupList { get; set; } = new();
+    public List<TestKKSGroupData> TestKKSGroupList { get; init; } = new();
 }
 
 /// <summary>
@@ -81,9 +81,15 @@ public class DashboardData
 /// </summary>
 public class TestDayGroupData
 {
-    public int Key { get; set; }
+    /// <summary>
+    /// Key
+    /// </summary>
+    public int Key { get; init; }
 
-    public int Count { get; set; }
+    /// <summary>
+    /// Count
+    /// </summary>
+    public int Count { get; init; }
 }
 
 /// <summary>
@@ -91,13 +97,28 @@ public class TestDayGroupData
 /// </summary>
 public class TestKKSGroupData
 {
-    public string KKS { get; set; } = string.Empty;
+    /// <summary>
+    /// KKS
+    /// </summary>
+    public string KKS { get; init; } = string.Empty;
 
-    public string NAM { get; set; } = string.Empty;
+    /// <summary>
+    /// NAM
+    /// </summary>
+    public string NAM { get; init; } = string.Empty;
 
-    public int Count { get; set; }
+    /// <summary>
+    /// Count
+    /// </summary>
+    public int Count { get; init; }
 
+    /// <summary>
+    /// ApprovedCount
+    /// </summary>
     public int ApprovedCount { get; set; }
 
+    /// <summary>
+    /// Percent
+    /// </summary>
     public double Percent { get; set; }
 }

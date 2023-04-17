@@ -1,0 +1,12 @@
+﻿::deep .card-header {
+    border-bottom-width: 0;
+    display: flex;
+    align-items: center;
+    padding-top: 1rem !important;
+    padding-bottom: 1rem !important;
+}
+
+::deep .card-title {
+    color: var(--bs-primary);
+    font-weight: bold;
+}
