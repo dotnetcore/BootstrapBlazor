@@ -67,7 +67,7 @@ public abstract class BootstrapModuleComponentBase : IdComponentBase, IAsyncDisp
         if (firstRender && !string.IsNullOrEmpty(ModulePath))
         {
             Module ??= JSObjectReference
-                ? await JSRuntime.LoadModule(ModulePath, this, Relative)
+                ? await JSRuntime.LoadModule3(ModulePath, this, Relative)
                 : await JSRuntime.LoadModule(ModulePath, Relative);
 
             if (AutoInvokeInit)
