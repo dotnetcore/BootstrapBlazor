@@ -2,9 +2,81 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.JSInterop;
+
 namespace UnitTest.Components;
 
 public class BootstrapModuleComponentBaseTest : BootstrapBlazorTestBase
+{
+    [Fact]
+    public void InvokeVoidAsync_Ok()
+    {
+        var cut = Context.RenderComponent<MockComponent>();
+        cut.InvokeAsync(() => cut.Instance.InvokeVoidAsyncTest());
+        Assert.True(cut.Instance.InvokeVoidRunned);
+    }
+
+    [Fact]
+    public void InvokeAsync_Ok()
+    {
+        var cut = Context.RenderComponent<MockObjectReferenceComponent>();
+        cut.InvokeAsync(() => cut.Instance.InvokeAsyncTest());
+        Assert.True(cut.Instance.InvokeRunned);
+        Assert.Equal("Mock", cut.Instance.GetModuleName());
+    }
+
+    [Fact]
+    public void LoadModule()
+    {
+        var jsRuntime = Context.Services.GetRequiredService<IJSRuntime>();
+        _ = jsRuntime.LoadModule("test.js", false);
+        _ = jsRuntime.LoadModule<MockClass>("test", new MockClass(), false);
+    }
+
+    class MockClass
+    {
+
+    }
+
+    [JSModuleAutoLoader]
+    class MockComponent : BootstrapModuleComponentBase
+    {
+        public bool InvokeVoidRunned { get; set; }
+
+        public async Task InvokeVoidAsyncTest()
+        {
+            await base.InvokeVoidAsync(Id);
+            await base.InvokeVoidAsync(Id, TimeSpan.FromMinutes(1));
+
+            using CancellationTokenSource cancellationTokenSource = new CancellationTokenSource(1000);
+            await base.InvokeVoidAsync(Id, cancellationTokenSource.Token);
+
+            InvokeVoidRunned = true;
+        }
+    }
+
+    [JSModuleAutoLoader(JSObjectReference = true, ModuleName = "Mock", Relative = true, AutoInvokeDispose = true, AutoInvokeInit = true)]
+    class MockObjectReferenceComponent : BootstrapModuleComponentBase
+    {
+        public bool InvokeRunned { get; set; }
+
+        public string? GetModuleName() => ModuleName;
+
+        public async Task InvokeAsyncTest()
+        {
+            await base.InvokeAsync<string>(Id);
+            await base.InvokeAsync<string>(Id, TimeSpan.FromMinutes(1));
+
+            using CancellationTokenSource cancellationTokenSource = new CancellationTokenSource(1000);
+            await base.InvokeAsync<string>(Id, cancellationTokenSource.Token);
+
+            InvokeRunned = true;
+        }
+    }
+}
+
+public class BootstrapModule2ComponentBaseTest : BootstrapBlazorTestBase
 {
     [Fact]
     public void OnLoadJSModule_Ok()
@@ -39,7 +111,7 @@ public class BootstrapModuleComponentBaseTest : BootstrapBlazorTestBase
     }
 
     [JSModuleAutoLoader]
-    class MockComponent : BootstrapModuleComponentBase
+    class MockComponent : BootstrapModule2ComponentBase
     {
         public bool Executed { get; set; }
 
@@ -73,7 +145,7 @@ public class BootstrapModuleComponentBaseTest : BootstrapBlazorTestBase
     }
 
     [JSModuleAutoLoader(JSObjectReference = true, ModuleName = "Mock", Relative = true)]
-    class MockObjectReferenceComponent : BootstrapModuleComponentBase
+    class MockObjectReferenceComponent : BootstrapModule2ComponentBase
     {
         public bool InvokeRunned { get; set; }
 

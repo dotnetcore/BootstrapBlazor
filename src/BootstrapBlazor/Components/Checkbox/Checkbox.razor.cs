@@ -143,7 +143,7 @@ public partial class Checkbox<TValue>
     {
         await base.OnAfterRenderAsync(firstRender);
 
-        Module ??= await JSRuntime.LoadModule("base/utility");
+        Module ??= await JSRuntime.LoadModule2("base/utility");
         if (Module != null)
         {
             await Module.InvokeVoidAsync("setIndeterminate", Id, State == CheckboxState.Indeterminate);

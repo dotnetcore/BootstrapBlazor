@@ -8,7 +8,7 @@ namespace BootstrapBlazor.Components;
 /// Ajax 组件
 /// </summary>
 [JSModuleAutoLoader]
-public class Ajax : BootstrapModuleComponentBase
+public class Ajax : BootstrapModule2ComponentBase
 {
     [Inject]
     [NotNull]
