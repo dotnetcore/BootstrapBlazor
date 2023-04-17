@@ -50,6 +50,8 @@
     <None Include="wwwroot\lib\**\*.*" />
     <None Include="wwwroot\bundle\*.*" />
     <None Include="wwwroot\src\**\*.*" />
+    <Content Include="wwwroot\lib\countUp\*.js" />
+    <None Remove ="wwwroot\lib\countUp\*.js" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(Configuration)' == 'Release'">
