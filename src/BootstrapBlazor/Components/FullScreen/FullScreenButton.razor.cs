@@ -17,7 +17,7 @@ public partial class FullScreenButton
 
     [Inject]
     [NotNull]
-    private FullScreenService? FullScrenService { get; set; }
+    private FullScreenService? FullScreenService { get; set; }
 
     [Inject]
     [NotNull]
@@ -46,5 +46,5 @@ public partial class FullScreenButton
         Icon ??= IconTheme.GetIconByKey(ComponentIcons.FullScreenButtonIcon);
     }
 
-    private Task ToggleFullScreen() => FullScrenService.Toggle();
+    private Task ToggleFullScreen() => FullScreenService.Toggle();
 }
