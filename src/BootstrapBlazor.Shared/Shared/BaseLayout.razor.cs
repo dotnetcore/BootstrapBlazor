@@ -88,7 +88,7 @@ public partial class BaseLayout : IAsyncDisposable
     {
         if (firstRender)
         {
-            Module = await JSRuntime.LoadModule($"./_content/BootstrapBlazor.Shared/modules/header.js", relative: false);
+            Module = await JSRuntime.LoadModule2($"./_content/BootstrapBlazor.Shared/modules/header.js", relative: false);
             await Module.InvokeVoidAsync("Header.init");
         }
     }

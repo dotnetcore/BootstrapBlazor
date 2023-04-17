@@ -8,7 +8,7 @@ namespace BootstrapBlazor.Components;
 /// Clipboard 组件部分类
 /// </summary>
 [JSModuleAutoLoader("base/utility")]
-public class Clipboard : BootstrapModuleComponentBase
+public class Clipboard : BootstrapModule2ComponentBase
 {
     /// <summary>
     /// DialogServices 服务实例
