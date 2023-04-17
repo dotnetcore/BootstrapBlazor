@@ -1,0 +1,14 @@
+﻿@page "/count-ups"
+@inject IStringLocalizer<CountUps> Localizer
+
+<h3>@Localizer["Title"]</h3>
+
+<h4>@Localizer["Description"]</h4>
+
+<DemoBlock Title="@Localizer["CountUpsNormalTitle"]" Introduction="@Localizer["CountUpsNormalIntro"]" Name="Normal" Demo="typeof(Demos.CountUp.CountUpNormal)" />
+
+@*<AttributeTable Items="@GetAttributes()" />
+
+<AttributeTable Items="@GetItemAttributes()" Title="@Localizer["ConsoleMessageItem"]" />
+
+*@
