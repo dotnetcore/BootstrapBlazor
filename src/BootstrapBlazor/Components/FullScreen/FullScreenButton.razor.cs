@@ -5,7 +5,7 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// FullScreenButton 组件
 /// </summary>
 public partial class FullScreenButton
 {
