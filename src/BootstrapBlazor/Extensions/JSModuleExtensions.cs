@@ -39,11 +39,11 @@ public static class JSModuleExtensions
     /// <param name="value"></param>
     /// <param name="relative">是否为相对路径 默认 true</param>
     /// <returns></returns>
-    public static async Task<JSModule<TValue>> LoadModule2<TValue>(this IJSRuntime jsRuntime, string fileName, TValue value, bool relative = true) where TValue : class
+    public static async Task<JSModule2<TValue>> LoadModule2<TValue>(this IJSRuntime jsRuntime, string fileName, TValue value, bool relative = true) where TValue : class
     {
         var filePath = relative ? $"./_content/BootstrapBlazor/modules/{fileName}.js?v={GetVersion()}" : fileName;
         var jSObjectReference = await jsRuntime.InvokeAsync<IJSObjectReference>(identifier: "import", filePath);
-        return new JSModule<TValue>(jSObjectReference, value);
+        return new JSModule2<TValue>(jSObjectReference, value);
     }
 
     /// <summary>
@@ -69,11 +69,11 @@ public static class JSModuleExtensions
     /// <param name="value"></param>
     /// <param name="relative">是否为相对路径 默认 true</param>
     /// <returns></returns>
-    public static async Task<JSModule<TValue>> LoadModule<TValue>(this IJSRuntime jsRuntime, string fileName, TValue value, bool relative = true) where TValue : class
+    public static async Task<JSModule2<TValue>> LoadModule<TValue>(this IJSRuntime jsRuntime, string fileName, TValue value, bool relative = true) where TValue : class
     {
         var filePath = relative ? $"./_content/BootstrapBlazor/Components/{fileName}/{fileName}.razor.js" : fileName;
         var jSObjectReference = await jsRuntime.InvokeAsync<IJSObjectReference>(identifier: "import", filePath);
-        return new JSModule<TValue>(jSObjectReference, value);
+        return new JSModule2<TValue>(jSObjectReference, value);
     }
 
     /// <summary>
