@@ -96,6 +96,7 @@ public abstract class BootstrapModuleComponentBase : IdComponentBase, IAsyncDisp
                 Relative = attr.Relative;
                 AutoInvokeDispose = attr.AutoInvokeDispose;
                 AutoInvokeInit = attr.AutoInvokeInit;
+
                 string GetTypeName()
                 {
                     typeName ??= type.GetTypeModuleName();
