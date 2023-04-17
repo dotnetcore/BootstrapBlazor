@@ -7,35 +7,30 @@
 </div>
 
 @code {
+    [Parameter]
+    public virtual TValue? Value { get; set; }
+
+    [Parameter]
+    public EventCallback<TValue> ValueChanged { get; set; }
+
+    private TValue? _previousValue;
+
     [NotNull]
     private IJSObjectReference? Module { get; set; }
 
     private ElementReference Element { get; set; }
 
-    [Parameter]
-    public virtual TValue Value { get; set; }
-
-    /// <summary>
-    /// 设置 Value 方法
-    /// </summary>
-    /// <returns></returns>
-    public new async ValueTask SetValue(string value)
+    protected override async void OnParametersSet()
     {
-        await Module.InvokeVoidAsync("init", Element, Value);
-    }
-
-    [Parameter]
-    public EventCallback<TValue> ValueChanged { get; set; }
-
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        await base.OnAfterRenderAsync(firstRender);
-        if (firstRender)
+        base.OnParametersSet();
+        if (Value is not null)
         {
-            // import JavaScript
-            Module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/BootstrapBlazor/Components/AnimateNumber/AnimateNumber.razor.js");
-            await Module.InvokeVoidAsync("init", Element, Value);
+            if (Value.Equals(_previousValue))
+            {
+                Module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/BootstrapBlazor/Components/AnimateNumber/AnimateNumber.razor.js");
+                await Module.InvokeVoidAsync("init", Element, Value);
+            }
+            _previousValue = Value;
         }
     }
-
 }
