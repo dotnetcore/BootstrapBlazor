@@ -32,6 +32,7 @@ public class BootstrapModuleComponentBaseTest : BootstrapBlazorTestBase
         var jsRuntime = Context.Services.GetRequiredService<IJSRuntime>();
         _ = jsRuntime.LoadModule("test.js", false);
         _ = jsRuntime.LoadModule3<MockClass>("test", new MockClass(), false);
+        _ = jsRuntime.LoadModule3<MockClass>("test", new MockClass(), true);
     }
 
     class MockClass
