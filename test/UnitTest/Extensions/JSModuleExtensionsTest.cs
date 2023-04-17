@@ -15,7 +15,7 @@ public class JSModuleExtensionsTest : BootstrapBlazorTestBase
     public async Task LoadModule_Ok(bool relative)
     {
         var jsRuntime = Context.Services.GetRequiredService<IJSRuntime>();
-        await jsRuntime.LoadModule("./mock.js", relative);
+        await jsRuntime.LoadModule2("./mock.js", relative);
     }
 
     [Theory]
@@ -24,7 +24,7 @@ public class JSModuleExtensionsTest : BootstrapBlazorTestBase
     public async Task LoadModuleOfType_Ok(bool relative)
     {
         var jsRuntime = Context.Services.GetRequiredService<IJSRuntime>();
-        await jsRuntime.LoadModule<MockComponent>("./mock.js", new MockComponent(), relative);
+        await jsRuntime.LoadModule2<MockComponent>("./mock.js", new MockComponent(), relative);
     }
 
     [Fact]

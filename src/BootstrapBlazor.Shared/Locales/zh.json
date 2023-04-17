@@ -6218,5 +6218,11 @@
     "VideoPlayersChangeURLTitle": "重新载入文件",
     "VideoPlayersChangeURLIntro2": "使用 Reload 方法重新载入文件",
     "VideoPlayersTips": "目前支支持 Excel(.docx) 和 Word(.xlsx) 格式.<br/><b>特别说明:</b><br/>如果 Linux 下提示 <code>The type initializer for 'Gdip' threw an exception.</code> 错误, 则使用需要安装 libgdiplus 并开启 System.Drawing 支持.<br/> 为非 Windows 平台启用 System.Drawing 支持,在你的项目文件中 (*.csproj), 添加:"
+  },
+  "BootstrapBlazor.Shared.Samples.CountUps": {
+    "Title": "计数器 CountUp",
+    "Description": "多用于报表数据动态展示，数字以跳动的形式展现",
+    "CountUpsNormalTitle": "基础用法",
+    "CountUpsNormalIntro": "通过设置 <code>Value</code> 参数赋值"
   }
 }

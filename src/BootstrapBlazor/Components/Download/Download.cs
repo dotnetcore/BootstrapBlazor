@@ -8,7 +8,7 @@ namespace BootstrapBlazor.Components;
 /// 下载组件
 /// </summary>
 [JSModuleAutoLoader]
-public class Download : BootstrapModuleComponentBase
+public class Download : BootstrapModule2ComponentBase
 {
     [Inject]
     [NotNull]

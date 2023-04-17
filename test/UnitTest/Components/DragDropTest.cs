@@ -148,8 +148,11 @@ public class DragDropTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(() => div.Drop());
     }
 
-    [Fact]
-    public async Task MaxItem_Ok()
+    [Theory]
+    [InlineData(null)]
+    [InlineData(1)]
+    [InlineData(2)]
+    public async Task MaxItem_Ok(int? items)
     {
         var cut = Context.RenderComponent<Dropzone<string>>(pb =>
         {
@@ -159,7 +162,7 @@ public class DragDropTest : BootstrapBlazorTestBase
         var cut1 = Context.RenderComponent<Dropzone<string>>(pb =>
         {
             pb.Add(a => a.Items, new List<string> { "3", "4" });
-            pb.Add(a => a.MaxItems, 2);
+            pb.Add(a => a.MaxItems, items);
             pb.Add(a => a.ChildContent, v => builder => builder.AddContent(0, v));
             pb.Add(a => a.OnItemDropRejectedByMaxItemLimit, EventCallback.Factory.Create<string>(this, e =>
             {

@@ -243,7 +243,6 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
-                    IsUpdate = true,
                     Text = Localizer["DateTimePicker"],
                     Url = "datetimepickers"
                 },
@@ -309,7 +308,6 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
-                    IsNew = true,
                     Text = Localizer["PulseButton"],
                     Url = "pulsebuttons"
                 },
@@ -330,7 +328,6 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
-                    IsNew = true,
                     Text = Localizer["SelectTree"],
                     Url = "select-trees"
                 },
@@ -404,7 +401,6 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
-                    IsNew = true,
                     Text = Localizer["Bluetooth"],
                     Url = "bluetooths"
                 },
@@ -450,6 +446,12 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
+                    IsNew = true,
+                    Text = Localizer["CountUp"],
+                    Url = "count-ups"
+                },
+                new()
+                {
                     Text = Localizer["Display"],
                     Url = "displays"
                 },
@@ -470,13 +472,11 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
-                    IsNew = true,
                     Text = Localizer["FileIcon"],
                     Url = "fileicons"
                 },
                 new()
                 {
-                    IsNew = true,
                     Text = Localizer["FileViewer"],
                     Url = "FileViewers"
                 },
@@ -517,7 +517,6 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
-                    IsNew = true,
                     Text = Localizer["PdfReader"],
                     Url = "PdfReaders"
                 },
@@ -533,7 +532,6 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
-                    IsNew = true,
                     Text = Localizer["Repeater"],
                     Url = "repeaters"
                 },
@@ -554,7 +552,6 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
-                    IsNew = true,
                     Text = Localizer["SwitchButton"],
                     Url = "switchbuttons"
                 },
@@ -585,7 +582,6 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
-                    IsNew = true,
                     Text = Localizer["TreeView"],
                     Url = "treeviews"
                 },
@@ -596,13 +592,11 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
-                    IsNew = true,
                     Text = Localizer["BaiduOcr"],
                     Url = "ocr"
                 },
                 new()
                 {
-                    IsNew = true,
                     Text = Localizer["VideoPlayer"],
                     Url = "videoPlayers"
                 }
@@ -652,7 +646,6 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
-                    IsNew = true,
                     Text = Localizer["TableDynamicObject"],
                     Url = "tables/dynamicobject"
                 },
@@ -905,7 +898,6 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
-                    IsUpdate = true,
                     Text = Localizer["Tooltip"],
                     Url = "tooltips"
                 }
