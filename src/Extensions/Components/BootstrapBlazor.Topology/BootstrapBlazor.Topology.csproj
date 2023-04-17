@@ -1,9 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk.Razor">
 
-  <Import Project="..\..\..\bundleconfig.props" />
-
   <PropertyGroup>
-    <Version>7.3.2</Version>
+    <Version>7.4.0</Version>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -12,14 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="*.json" />
-    <Content Remove="wwwroot\lib\**\*.*" />
-    <None Include="*.json" />
-    <None Include="wwwroot\lib\**\*.*" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="BootstrapBlazor" Version="7.2.1" />
+    <PackageReference Include="BootstrapBlazor" Version="7.5.4" />
   </ItemGroup>
 
   <ItemGroup>
