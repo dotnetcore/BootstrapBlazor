@@ -2,25 +2,41 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.JSInterop;
+
 namespace UnitTest.Components;
 
 public class BootstrapModuleComponentBaseTest : BootstrapBlazorTestBase
 {
     [Fact]
-    public async Task InvokeVoidAsync_Ok()
+    public void InvokeVoidAsync_Ok()
     {
         var cut = Context.RenderComponent<MockComponent>();
-        await cut.Instance.InvokeVoidAsyncTest();
+        cut.InvokeAsync(() => cut.Instance.InvokeVoidAsyncTest());
         Assert.True(cut.Instance.InvokeVoidRunned);
     }
 
     [Fact]
-    public async Task InvokeAsync_Ok()
+    public void InvokeAsync_Ok()
     {
         var cut = Context.RenderComponent<MockObjectReferenceComponent>();
-        await cut.Instance.InvokeAsyncTest();
+        cut.InvokeAsync(() => cut.Instance.InvokeAsyncTest());
         Assert.True(cut.Instance.InvokeRunned);
         Assert.Equal("Mock", cut.Instance.GetModuleName());
+    }
+
+    [Fact]
+    public void LoadModule()
+    {
+        var jsRuntime = Context.Services.GetRequiredService<IJSRuntime>();
+        _ = jsRuntime.LoadModule("test.js", false);
+        _ = jsRuntime.LoadModule<MockClass>("test", new MockClass(), false);
+    }
+
+    class MockClass
+    {
+
     }
 
     [JSModuleAutoLoader]
