@@ -6,6 +6,9 @@ using BootstrapBlazor.Shared.Services;
 
 namespace BootstrapBlazor.Shared.Practicals.Dashboard;
 
+/// <summary>
+/// Dashboard 组件
+/// </summary>
 public partial class Dashboard
 {
     [NotNull]

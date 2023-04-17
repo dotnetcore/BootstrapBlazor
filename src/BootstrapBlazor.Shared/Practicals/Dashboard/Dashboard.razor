@@ -4,25 +4,25 @@
 {
     <div class="row g-3">
         <div class="col-12">
-            <div class="db-header">
-                <div class="text-dark fw-bold me-3">Dashboard</div>
+            <div class="d-flex align-items-center">
+                <div class="flex-fill text-dark fw-bold me-3">Dashboard</div>
                 <DateTimePicker Value="DateTimePickerValue" OnValueChanged="OnDateTimePickerValueChanged" />
             </div>
         </div>
         <div class="col-md-6 col-xl-3">
             <Card IsShadow="true">
                 <BodyTemplate>
-                    <div class="db-body">
-                        <div class="db-left">
-                            <div class="text-uppercase text-primary fw-bold text-xs mb-1"><span>全部委托数量</span></div>
-                            <div class="text-dark fw-bold h5 mb-0"><span>@Data.TestAllCount</span></div>
-                            <div class="text-uppercase text-info fw-bold text-xs mb-1"><span>全部签发数量</span></div>
+                    <div class="row align-items-center no-gutters">
+                        <div class="col me-2">
+                            <div class=" text-primary fw-bold mb-1"><span>全部委托数量</span></div>
+                            <div class="text-dark fw-bold h5 "><span>@Data.TestAllCount</span></div>
+                            <div class=" text-info fw-bold mb-1"><span>全部签发数量</span></div>
                             <div class="row g-0 align-items-center">
-                                <div class="col-auto"><div class="text-dark fw-bold h5 mb-0 me-3"><span>@Data.TestApprovedAllCount</span></div></div>
+                                <div class="col-auto"><div class="text-dark fw-bold h5  me-3"><span>@Data.TestApprovedAllCount</span></div></div>
                                 <div class="col"><Progress Value="@Data.TestApprovedAllScale" IsShowValue="true" Round="1"></Progress></div>
                             </div>
                         </div>
-                        <div class="db-right"><i class="fa-regular fa-calendar-check"></i></div>
+                        <div class="col-auto"><i class="fa-regular fa-calendar-check fa-2x"></i></div>
                     </div>
                 </BodyTemplate>
             </Card>
@@ -32,15 +32,15 @@
                 <BodyTemplate>
                     <div class="row align-items-center no-gutters">
                         <div class="col me-2">
-                            <div class="text-uppercase text-primary fw-bold text-xs mb-1"><span>今年委托数量</span></div>
-                            <div class="text-dark fw-bold h5 mb-0"><span>@Data.TestYearCount</span></div>
-                            <div class="text-uppercase text-info fw-bold text-xs mb-1"><span>今年签发数量</span></div>
+                            <div class=" text-primary fw-bold mb-1"><span>今年委托数量</span></div>
+                            <div class="text-dark fw-bold h5 "><span>@Data.TestYearCount</span></div>
+                            <div class=" text-info fw-bold mb-1"><span>今年签发数量</span></div>
                             <div class="row g-0 align-items-center">
-                                <div class="col-auto"><div class="text-dark fw-bold h5 mb-0 me-3"> <span>@Data.TestApprovedYearCount</span></div></div>
+                                <div class="col-auto"><div class="text-dark fw-bold h5  me-3"> <span>@Data.TestApprovedYearCount</span></div></div>
                                 <div class="col"><Progress Value="@Data.TestApprovedYearScale" IsShowValue="true" Round="1"></Progress></div>
                             </div>
                         </div>
-                        <div class="col-auto"><i class="fas fa-calendar fa-2x text-gray-300"></i></div>
+                        <div class="col-auto"><i class="fa-regular fa-calendar-check fa-2x"></i></div>
                     </div>
                 </BodyTemplate>
             </Card>
@@ -50,15 +50,15 @@
                 <BodyTemplate>
                     <div class="row align-items-center no-gutters">
                         <div class="col me-2">
-                            <div class="text-uppercase text-primary fw-bold text-xs mb-1"><span>本月委托数量</span></div>
-                            <div class="text-dark fw-bold h5 mb-0"><span>@Data.TestMonthCount</span></div>
-                            <div class="text-uppercase text-info fw-bold text-xs mb-1"><span>本月签发数量</span></div>
+                            <div class=" text-primary fw-bold mb-1"><span>本月委托数量</span></div>
+                            <div class="text-dark fw-bold h5 "><span>@Data.TestMonthCount</span></div>
+                            <div class=" text-info fw-bold mb-1"><span>本月签发数量</span></div>
                             <div class="row g-0 align-items-center">
-                                <div class="col-auto"><div class="text-dark fw-bold h5 mb-0 me-3"><span>@Data.TestApprovedMonthCount</span></div></div>
+                                <div class="col-auto"><div class="text-dark fw-bold h5  me-3"><span>@Data.TestApprovedMonthCount</span></div></div>
                                 <div class="col"><Progress Value="@Data.TestApprovedMonthScale" IsShowValue="true" Round="1"></Progress></div>
                             </div>
                         </div>
-                        <div class="col-auto"><i class="fas fa-calendar fa-2x text-gray-300"></i></div>
+                        <div class="col-auto"><i class="fa-regular fa-calendar-check fa-2x"></i></div>
                     </div>
                 </BodyTemplate>
             </Card>
@@ -68,15 +68,15 @@
                 <BodyTemplate>
                     <div class="row align-items-center no-gutters">
                         <div class="col me-2">
-                            <div class="text-uppercase text-primary fw-bold text-xs mb-1"><span>今日委托数量</span></div>
-                            <div class="text-dark fw-bold h5 mb-0"><span>@Data.TestDayCount</span></div>
-                            <div class="text-uppercase text-info fw-bold text-xs mb-1"><span>今日签发数量</span></div>
+                            <div class=" text-primary fw-bold mb-1"><span>今日委托数量</span></div>
+                            <div class="text-dark fw-bold h5 "><span>@Data.TestDayCount</span></div>
+                            <div class=" text-info fw-bold mb-1"><span>今日签发数量</span></div>
                             <div class="row g-0 align-items-center">
-                                <div class="col-auto"><div class="text-dark fw-bold h5 mb-0 me-3"><span>@Data.TestApprovedDayCount</span></div></div>
+                                <div class="col-auto"><div class="text-dark fw-bold h5  me-3"><span>@Data.TestApprovedDayCount</span></div></div>
                                 <div class="col"><Progress Value="@Data.TestApprovedDayScale" IsShowValue="true" Round="1"></Progress></div>
                             </div>
                         </div>
-                        <div class="col-auto"><i class="fas fa-calendar fa-2x text-gray-300"></i></div>
+                        <div class="col-auto"><i class="fa-regular fa-calendar-check fa-2x"></i></div>
                     </div>
                 </BodyTemplate>
             </Card>

@@ -10,8 +10,3 @@
     color: var(--bs-primary);
     font-weight: bold;
 }
-
-.db-header {
-    display: flex;
-    align-items: center;
-}
