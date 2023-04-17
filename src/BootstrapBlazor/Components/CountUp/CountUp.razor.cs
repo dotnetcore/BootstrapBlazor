@@ -14,15 +14,11 @@ public partial class CountUp<TValue>
     /// 获得/设置 Value 值
     /// </summary>
     [Parameter]
+    [NotNull]
     public TValue? Value { get; set; }
 
-    /// <summary>
-    /// 获得/设置 ValueChanged 回调
-    /// </summary>
-    [Parameter]
-    public EventCallback<TValue> ValueChanged { get; set; }
-
-    private TValue? _previousValue;
+    [NotNull]
+    private TValue? PreviousValue { get; set; }
 
     /// <summary>
     /// <inheritdoc/>
@@ -48,9 +44,9 @@ public partial class CountUp<TValue>
 
         if (firstRender)
         {
-            _previousValue = Value;
+            PreviousValue = Value;
         }
-        else if (_previousValue != null && !_previousValue.Equals(Value))
+        else if (!PreviousValue.Equals(Value))
         {
             await Update(Value);
         }
@@ -69,7 +65,7 @@ public partial class CountUp<TValue>
     /// <returns></returns>
     private async ValueTask Update(TValue? value)
     {
-        _previousValue = value;
+        PreviousValue = value;
 
         if (Module != null)
         {

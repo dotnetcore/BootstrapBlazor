@@ -1,13 +1,14 @@
 ﻿import { CountUp } from "../../lib/countUp/countUp.min.js"
 import Data from "../../modules/data.js"
 
-export function init(id) {
+export function init(id, val) {
     var count = {}
     Data.set(id, count)
 
-    var val = parseFloat(document.getElementById(id).innerHTML)
     if (val) {
-        count._countUp = new CountUp(id, 5234)
+        const countUp = new CountUp(id, val)
+        count._countUp = countUp
+
         if (!countUp.error) {
             countUp.start()
         }
