@@ -72,7 +72,7 @@ public abstract class BootstrapModuleComponentBase : IdComponentBase, IAsyncDisp
 
             if (AutoInvokeInit)
             {
-                await Module.InvokeVoidAsync("init", Id);
+                await InvokeInitAsync();
             }
         }
     }
@@ -105,6 +105,12 @@ public abstract class BootstrapModuleComponentBase : IdComponentBase, IAsyncDisp
             }
         }
     }
+
+    /// <summary>
+    /// call javascript method
+    /// </summary>
+    /// <returns></returns>
+    protected virtual Task InvokeInitAsync() => InvokeVoidAsync("init", Id);
 
     /// <summary>
     /// call javascript method

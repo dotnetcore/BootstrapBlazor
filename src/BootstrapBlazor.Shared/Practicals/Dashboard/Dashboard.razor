@@ -18,9 +18,9 @@
 
 <div class="row g-3">
     <div class="col-12">
-        <div class="d-flex align-items-center">
-            <div class="text-dark fw-bold me-3">Dashboard</div>
-            <DateTimePicker Value="DateTimePickerValue" OnValueChanged="OnDateTimePickerValueChanged" />
+        <div class="d-sm-flex justify-content-between align-items-center mb-4">
+            <h3 class="text-dark mb-0">Dashboard</h3>
+            <DateTimePicker @bind-Value="@DateTimePickerValue" OnValueChanged="@OnDateTimePickerValueChanged" />
         </div>
     </div>
     <div class="col-md-6 col-xl-3">
@@ -29,10 +29,16 @@
                 <div class="row align-items-center no-gutters">
                     <div class="col me-2">
                         <div class="text-uppercase text-primary fw-bold text-xs mb-1"><span>全部委托数量</span></div>
-                        <div class="text-dark fw-bold h5 mb-0"><span>@Data.TestAllCount</span></div>
+                        <div class="text-dark fw-bold h5 mb-0">
+                            <CountUp Value="@Data.TestAllCount"></CountUp>
+                        </div>
                         <div class="text-uppercase text-info fw-bold text-xs mb-1"><span>全部签发数量</span></div>
                         <div class="row g-0 align-items-center">
-                            <div class="col-auto"><div class="text-dark fw-bold h5 mb-0 me-3"><span>@Data.TestApprovedAllCount</span></div></div>
+                            <div class="col-auto">
+                                <div class="text-dark fw-bold h5 mb-0 me-3">
+                                    <CountUp Value="@Data.TestApprovedAllCount"></CountUp>
+                                </div>
+                            </div>
                             <div class="col"><Progress Value="@Data.TestApprovedAllScale" IsShowValue="true" Round="1" /></div>
                         </div>
                     </div>
@@ -47,10 +53,16 @@
                 <div class="row align-items-center no-gutters">
                     <div class="col me-2">
                         <div class="text-uppercase text-primary fw-bold text-xs mb-1"><span>今年委托数量</span></div>
-                        <div class="text-dark fw-bold h5 mb-0"><span>@Data.TestYearCount</span></div>
+                        <div class="text-dark fw-bold h5 mb-0">
+                            <CountUp Value="@Data.TestYearCount"></CountUp>
+                        </div>
                         <div class="text-uppercase text-info fw-bold text-xs mb-1"><span>今年签发数量</span></div>
                         <div class="row g-0 align-items-center">
-                            <div class="col-auto"><div class="text-dark fw-bold h5 mb-0 me-3"> <span>@Data.TestApprovedYearCount</span></div></div>
+                            <div class="col-auto">
+                                <div class="text-dark fw-bold h5 mb-0 me-3">
+                                    <CountUp Value="@Data.TestApprovedYearCount"></CountUp>
+                                </div>
+                            </div>
                             <div class="col"><Progress Value="@Data.TestApprovedYearScale" IsShowValue="true" Round=1 /></div>
                         </div>
                     </div>
@@ -65,10 +77,16 @@
                 <div class="row align-items-center no-gutters">
                     <div class="col me-2">
                         <div class="text-uppercase text-primary fw-bold text-xs mb-1"><span>本月委托数量</span></div>
-                        <div class="text-dark fw-bold h5 mb-0"><span>@Data.TestMonthCount</span></div>
+                        <div class="text-dark fw-bold h5 mb-0">
+                            <CountUp Value="@Data.TestMonthCount"></CountUp>
+                        </div>
                         <div class="text-uppercase text-info fw-bold text-xs mb-1"><span>本月签发数量</span></div>
                         <div class="row g-0 align-items-center">
-                            <div class="col-auto"><div class="text-dark fw-bold h5 mb-0 me-3"><span>@Data.TestApprovedMonthCount</span></div></div>
+                            <div class="col-auto">
+                                <div class="text-dark fw-bold h5 mb-0 me-3">
+                                    <CountUp Value="@Data.TestApprovedMonthCount"></CountUp>
+                                </div>
+                            </div>
                             <div class="col"><Progress Value="@Data.TestApprovedMonthScale" IsShowValue="true" Round=1 /></div>
                         </div>
                     </div>
@@ -83,10 +101,16 @@
                 <div class="row align-items-center no-gutters">
                     <div class="col me-2">
                         <div class="text-uppercase text-primary fw-bold text-xs mb-1"><span>今日委托数量</span></div>
-                        <div class="text-dark fw-bold h5 mb-0"><span>@Data.TestDayCount</span></div>
+                        <div class="text-dark fw-bold h5 mb-0">
+                            <CountUp Value="@Data.TestDayCount"></CountUp>
+                        </div>
                         <div class="text-uppercase text-info fw-bold text-xs mb-1"><span>今日签发数量</span></div>
                         <div class="row g-0 align-items-center">
-                            <div class="col-auto"><div class="text-dark fw-bold h5 mb-0 me-3"><span>@Data.TestApprovedDayCount</span></div></div>
+                            <div class="col-auto">
+                                <div class="text-dark fw-bold h5 mb-0 me-3">
+                                    <CountUp Value="@Data.TestApprovedDayCount"></CountUp>
+                                </div>
+                            </div>
                             <div class="col"><Progress Value="@Data.TestApprovedDayScale" IsShowValue="true" Round=1 /></div>
                         </div>
                     </div>
