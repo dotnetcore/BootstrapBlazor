@@ -243,7 +243,6 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
-                    IsUpdate = true,
                     Text = Localizer["DateTimePicker"],
                     Url = "datetimepickers"
                 },
