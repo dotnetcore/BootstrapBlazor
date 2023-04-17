@@ -1,27 +1,28 @@
 ﻿import { CountUp } from "../../lib/countUp/countUp.min.js"
 import Data from "../../modules/data.js"
 
-export function init(id, val) {
-    var count = {}
+export function init(id, invoker, val, callback) {
+    var count = { invoker, callback }
     Data.set(id, count)
 
-    if (val) {
-        const countUp = new CountUp(id, val)
-        count._countUp = countUp
+    const option = {
+        onCompleteCallback: () => {
+            invoker.invokeMethodAsync(callback)
+        }
+    }
 
-        if (!countUp.error) {
-            countUp.start()
-        }
-        else {
-            console.error(countUp.error)
-        }
+    const countUp = new CountUp(id, val, option)
+    count._countUp = countUp
+
+    if (val > 0) {
+        countUp.start()
     }
 }
 
 export function update(id, value) {
     const count = Data.get(id)
     if (count._countUp) {
-        couont._countUp.update(value)
+        count._countUp.update(value)
     }
 }
 
