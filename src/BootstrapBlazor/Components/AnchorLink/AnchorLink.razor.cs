@@ -5,7 +5,7 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// AnchorLink 组件
 /// </summary>
 [JSModuleAutoLoader]
 public partial class AnchorLink
