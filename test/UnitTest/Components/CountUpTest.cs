@@ -13,7 +13,7 @@ public class CountUpTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.Value, 1234);
         });
-        cut.Contains("<div id=");
+        cut.Contains("<span id=");
 
         cut.SetParametersAndRender(pb =>
         {
@@ -29,7 +29,7 @@ public class CountUpTest : BootstrapBlazorTestBase
             pb.Add(a => a.Value, 1234);
             pb.Add(a => a.AdditionalAttributes, new Dictionary<string, object>() { { "class", "test1" } });
         });
-        cut.Contains("<div class=\"test1\" id=");
+        cut.Contains("<span class=\"test1\" id=");
 
         cut.SetParametersAndRender(pb =>
         {
@@ -44,5 +44,22 @@ public class CountUpTest : BootstrapBlazorTestBase
         {
             Context.RenderComponent<CountUp<string>>();
         });
+    }
+
+    [Fact]
+    public void OnCompleted_Ok()
+    {
+        var completed = false;
+        var cut = Context.RenderComponent<CountUp<int>>(pb =>
+        {
+            pb.Add(a => a.Value, 1234);
+            pb.Add(a => a.OnCompleted, () =>
+            {
+                completed = true;
+                return Task.CompletedTask;
+            });
+        });
+        cut.InvokeAsync(() => cut.Instance.OnCompleteCallback());
+        Assert.True(completed);
     }
 }

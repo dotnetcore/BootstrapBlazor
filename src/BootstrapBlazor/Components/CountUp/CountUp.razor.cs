@@ -7,7 +7,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// CountUp 组件
 /// </summary>
-[JSModuleAutoLoader()]
+[JSModuleAutoLoader(JSObjectReference = true)]
 public partial class CountUp<TValue>
 {
     /// <summary>
@@ -16,6 +16,12 @@ public partial class CountUp<TValue>
     [Parameter]
     [NotNull]
     public TValue? Value { get; set; }
+
+    /// <summary>
+    /// 获得/设置 计数结束回调方法 默认 null
+    /// </summary>
+    [Parameter]
+    public Func<Task>? OnCompleted { get; set; }
 
     [NotNull]
     private TValue? PreviousValue { get; set; }
@@ -56,7 +62,7 @@ public partial class CountUp<TValue>
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Value);
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, Value, nameof(OnCompleteCallback));
 
     /// <summary>
     /// 更新数据方法
@@ -70,6 +76,19 @@ public partial class CountUp<TValue>
         if (Module != null)
         {
             await Module.InvokeVoidAsync("update", Id, Value);
+        }
+    }
+
+    /// <summary>
+    /// OnCompleted 回调方法
+    /// </summary>
+    /// <returns></returns>
+    [JSInvokable]
+    public async Task OnCompleteCallback()
+    {
+        if(OnCompleted != null)
+        {
+            await OnCompleted();
         }
     }
 }

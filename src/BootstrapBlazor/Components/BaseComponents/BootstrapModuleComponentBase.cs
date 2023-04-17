@@ -34,11 +34,6 @@ public abstract class BootstrapModuleComponentBase : IdComponentBase, IAsyncDisp
     protected bool Relative { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否需要 javascript invoke 默认 false
-    /// </summary>
-    protected bool JSObjectReference { get; set; }
-
-    /// <summary>
     /// 获得/设置 是否自动调用 init 默认 true
     /// </summary>
     protected bool AutoInvokeInit { get; set; } = true;
@@ -47,6 +42,11 @@ public abstract class BootstrapModuleComponentBase : IdComponentBase, IAsyncDisp
     /// 获得/设置 是否自动调用 dispose 默认 true
     /// </summary>
     protected bool AutoInvokeDispose { get; set; } = true;
+
+    /// <summary>
+    /// 获得/设置 DotNetObjectReference 实例
+    /// </summary>
+    protected DotNetObjectReference<BootstrapModuleComponentBase>? Interop { get; set; }
 
     /// <summary>
     /// <inheritdoc/>
@@ -66,9 +66,7 @@ public abstract class BootstrapModuleComponentBase : IdComponentBase, IAsyncDisp
     {
         if (firstRender && !string.IsNullOrEmpty(ModulePath))
         {
-            Module ??= JSObjectReference
-                ? await JSRuntime.LoadModule(ModulePath, this, Relative)
-                : await JSRuntime.LoadModule(ModulePath, Relative);
+            Module ??= await JSRuntime.LoadModule(ModulePath, Relative);
 
             if (AutoInvokeInit)
             {
@@ -92,10 +90,14 @@ public abstract class BootstrapModuleComponentBase : IdComponentBase, IAsyncDisp
                 string? typeName = null;
                 ModulePath = attr.Path ?? GetTypeName();
                 ModuleName = attr.ModuleName ?? GetTypeName();
-                JSObjectReference = attr.JSObjectReference;
                 Relative = attr.Relative;
                 AutoInvokeDispose = attr.AutoInvokeDispose;
                 AutoInvokeInit = attr.AutoInvokeInit;
+
+                if (attr.JSObjectReference)
+                {
+                    Interop = DotNetObjectReference.Create<BootstrapModuleComponentBase>(this);
+                }
 
                 string GetTypeName()
                 {
@@ -205,6 +207,12 @@ public abstract class BootstrapModuleComponentBase : IdComponentBase, IAsyncDisp
             {
                 await Module.InvokeVoidAsync("dispose", Id);
             }
+
+            if (Interop != null)
+            {
+                Interop.Dispose();
+            }
+
             await Module.DisposeAsync();
             Module = null;
         }

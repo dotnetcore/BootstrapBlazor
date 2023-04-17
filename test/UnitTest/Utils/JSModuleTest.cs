@@ -54,7 +54,7 @@ public class JSModuleTest
     public async ValueTask JSModuleGeneric_Ok()
     {
         var js = new MockJSObjectReference();
-        var module = new JSModule<object>(js, new Foo());
+        var module = new JSModule2<object>(js, new Foo());
         Assert.NotNull(module);
 
         await module.InvokeVoidAsync("Test.init", "bb_id");
@@ -70,7 +70,7 @@ public class JSModuleTest
     public async ValueTask JSModuleGeneric_Error()
     {
         var js = new MockErrorJSObjectReference();
-        var module = new JSModule<object>(js, new Foo());
+        var module = new JSModule2<object>(js, new Foo());
         await module.InvokeVoidAsync("Test.init", "bb_id");
         await module.DisposeAsync();
     }
@@ -91,7 +91,7 @@ public class JSModuleTest
             return Task.CompletedTask;
         });
 
-        var module2 = new JSModule<Foo>(js, new Foo());
+        var module2 = new JSModule2<Foo>(js, new Foo());
         Assert.ThrowsAsync<JSDisconnectedException>(() =>
         {
             module2.InvokeVoidAsync("test");
@@ -120,7 +120,7 @@ public class JSModuleTest
             return Task.CompletedTask;
         });
 
-        var module2 = new JSModule<Foo>(js, new Foo());
+        var module2 = new JSModule2<Foo>(js, new Foo());
         Assert.ThrowsAsync<TaskCanceledException>(() =>
         {
             module2.InvokeVoidAsync("test", "args1", "args2");

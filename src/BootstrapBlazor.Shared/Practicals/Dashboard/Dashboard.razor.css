@@ -10,3 +10,13 @@
     color: var(--bs-primary);
     font-weight: bold;
 }
+
+.db-progress {
+    height: 24px;
+    display: flex;
+    align-items: center;
+}
+
+    .db-progress ::deep .progress {
+        flex: 1;
+    }
