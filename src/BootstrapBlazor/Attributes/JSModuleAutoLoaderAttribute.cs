@@ -31,7 +31,12 @@ public class JSModuleAutoLoaderAttribute : Attribute
     public bool Relative { get; set; } = true;
 
     /// <summary>
-    /// 获得/设置 是否自动销毁 JS 默认 true
+    /// 获得/设置 是否自动调用 init 默认 true
+    /// </summary>
+    public bool AutoInvokeInit { get; set; } = true;
+
+    /// <summary>
+    /// 获得/设置 是否自动调用 dispose 默认 true
     /// </summary>
     public bool AutoInvokeDispose { get; set; } = true;
 

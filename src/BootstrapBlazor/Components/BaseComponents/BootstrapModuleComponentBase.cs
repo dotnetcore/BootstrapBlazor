@@ -39,7 +39,12 @@ public abstract class BootstrapModuleComponentBase : IdComponentBase, IAsyncDisp
     protected bool JSObjectReference { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否自动销毁 JS 默认 true
+    /// 获得/设置 是否自动调用 init 默认 true
+    /// </summary>
+    protected bool AutoInvokeInit { get; set; } = true;
+
+    /// <summary>
+    /// 获得/设置 是否自动调用 dispose 默认 true
     /// </summary>
     protected bool AutoInvokeDispose { get; set; } = true;
 
@@ -64,6 +69,11 @@ public abstract class BootstrapModuleComponentBase : IdComponentBase, IAsyncDisp
             Module ??= JSObjectReference
                 ? await JSRuntime.LoadModule(ModulePath, this, Relative)
                 : await JSRuntime.LoadModule(ModulePath, Relative);
+
+            if (AutoInvokeInit)
+            {
+                await Module.InvokeVoidAsync("init", Id);
+            }
         }
     }
 
@@ -80,12 +90,12 @@ public abstract class BootstrapModuleComponentBase : IdComponentBase, IAsyncDisp
             if (attr != null)
             {
                 string? typeName = null;
-                ModulePath = attr.Path ?? GetTypeName().ToLowerInvariant();
+                ModulePath = attr.Path ?? GetTypeName();
                 ModuleName = attr.ModuleName ?? GetTypeName();
                 JSObjectReference = attr.JSObjectReference;
                 Relative = attr.Relative;
                 AutoInvokeDispose = attr.AutoInvokeDispose;
-
+                AutoInvokeInit = attr.AutoInvokeInit;
                 string GetTypeName()
                 {
                     typeName ??= type.GetTypeModuleName();
