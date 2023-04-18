@@ -7,8 +7,8 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// FullScreen 组件部分类
 /// </summary>
-[JSModuleAutoLoader]
-public class FullScreen : BootstrapModule2ComponentBase
+[JSModuleAutoLoader("./_content/BootstrapBlazor/modules/fullscreen.js", Relative = false)]
+public class FullScreen : BootstrapModuleComponentBase
 {
     /// <summary>
     /// DialogServices 服务实例
@@ -33,7 +33,8 @@ public class FullScreen : BootstrapModule2ComponentBase
     private async Task Show(FullScreenOption option)
     {
         Option = option;
-        await InvokeExecuteAsync(Id, Option.Element.Context != null ? option.Element : Option.Id);
+
+        await InvokeVoidAsync("execute", Id, Option.Element.Context != null ? option.Element : Option.Id);
     }
 
     /// <summary>
