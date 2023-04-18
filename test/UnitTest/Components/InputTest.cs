@@ -130,8 +130,8 @@ public class InputTest : BootstrapBlazorTestBase
             builder.Add(a => a.OnEnterAsync, v => { val = v; return Task.CompletedTask; });
             builder.Add(a => a.Value, "test");
         });
-        await cut.Instance.EnterCallback();
-        Assert.Equal("test", val);
+        await cut.Instance.EnterCallback("Test1");
+        Assert.Equal("Test1", val);
     }
 
     [Fact]
@@ -142,7 +142,7 @@ public class InputTest : BootstrapBlazorTestBase
         {
             builder.Add(a => a.OnEscAsync, v => { val = v; return Task.CompletedTask; });
         });
-        await cut.Instance.EscCallback("test");
+        await cut.Instance.EscCallback();
         Assert.Equal("test", val);
     }
 
