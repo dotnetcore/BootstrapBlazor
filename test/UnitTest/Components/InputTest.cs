@@ -141,6 +141,7 @@ public class InputTest : BootstrapBlazorTestBase
         var cut = Context.RenderComponent<BootstrapInput<string>>(builder =>
         {
             builder.Add(a => a.OnEscAsync, v => { val = v; return Task.CompletedTask; });
+            builder.Add(a => a.Value, "test");
         });
         await cut.Instance.EscCallback();
         Assert.Equal("test", val);
