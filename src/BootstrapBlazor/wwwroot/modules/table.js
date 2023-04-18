@@ -1,6 +1,6 @@
 ﻿import BlazorComponent from "./base/blazor-component.js"
 import EventHandler from "./base/event-handler.js"
-import { Responsive } from "./responsive.js"
+import { getResponsive } from "./responsive.js"
 import { drag, getDescribedElement, getHeight, getWidth } from "./base/utility.js"
 
 export class Table extends BlazorComponent {
@@ -387,6 +387,6 @@ export class Table extends BlazorComponent {
     }
 
     static getResponsive() {
-        return Responsive.getResponsive()
+        return getResponsive()
     }
 }

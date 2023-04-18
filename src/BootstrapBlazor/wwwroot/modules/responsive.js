@@ -1,31 +1,30 @@
-﻿import SimpleComponent from "./base/simple-component.js"
-import EventHandler from "./base/event-handler.js"
+﻿import Data from "./data.js"
+import EventHandler from "./event-handler.js"
 
-export class Responsive extends SimpleComponent {
-    _init() {
-        this._invoker = this._config.arguments[0]
-        this._invokerMethod = this._config.arguments[1]
-        this._currentBreakpoint = Responsive.getResponsive()
-        this._setListeners()
-    }
-
-    _setListeners() {
-        const resizeHandler = () => {
-            let lastBreakpoint = Responsive.getResponsive()
-            if (lastBreakpoint !== this._currentBreakpoint) {
-                this._currentBreakpoint = lastBreakpoint
-                this._invoker.invokeMethodAsync(this._invokerMethod, lastBreakpoint)
+export function init(id, invoke, callback) {
+    const resp = {
+        invoke,
+        callback,
+        currentBreakpoint: getResponsive(),
+        fn: () => {
+            let lastBreakpoint = getResponsive()
+            if (lastBreakpoint !== resp.currentBreakpoint) {
+                resp.currentBreakpoint = lastBreakpoint
+                invoke.invokeMethodAsync(callback, lastBreakpoint)
             }
-        };
-
-        EventHandler.on(window, 'resize', resizeHandler)
+        }
     }
+    invoke.invokeMethodAsync(callback, resp.currentBreakpoint)
+    EventHandler.on(window, 'resize', resp.fn)
+}
 
-    _dispose() {
-        EventHandler.off(window, 'resize')
-    }
+export function dispose(id) {
+    const resp = Data.get(id)
+    Data.remove(id)
 
-    static getResponsive() {
-        return window.getComputedStyle(document.body, ':before').content.replace(/\"/g, '')
-    }
+    EventHandler.off(window, 'resize', resp.fn)
+}
+
+export function getResponsive() {
+    return window.getComputedStyle(document.body, ':before').content.replace(/\"/g, '')
 }
