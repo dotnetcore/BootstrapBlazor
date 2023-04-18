@@ -7,7 +7,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 网页尺寸变化通知组件
 /// </summary>
-[JSModuleAutoLoader("./_content/BootstrapBlazor/modules/resposive.js", JSObjectReference = true)]
+[JSModuleAutoLoader("./_content/BootstrapBlazor/modules/responsive.js", JSObjectReference = true, Relative = false)]
 public class ResizeNotification : BootstrapModuleComponentBase
 {
     [Inject]
@@ -18,15 +18,7 @@ public class ResizeNotification : BootstrapModuleComponentBase
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override async Task ModuleInitAsync()
-    {
-        if (Module != null)
-        {
-            await InvokeInitAsync(Id, nameof(OnResize));
-            var point = await Module.InvokeAsync<BreakPoint>($"{ModuleName}.getResponsive");
-            await OnResize(point);
-        }
-    }
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, nameof(OnResize));
 
     /// <summary>
     /// JSInvoke 回调方法
