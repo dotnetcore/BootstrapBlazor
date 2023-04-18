@@ -1,55 +1,60 @@
-﻿import SimpleComponent from "./base/simple-component.js"
-import { getElementById, isElement } from "./base/index.js"
+﻿import Data from './data.js'
 
-export class FullScreen extends SimpleComponent {
-    _execute(args) {
-        this._toggleElement = args[0]
-        if (this._toggleElement && !isElement(this._toggleElement)) {
-            this._toggleElement = getElementById(this._toggleElement)
+export function init(id) {
+    const fs = {}
+    Data.set(id, fs)
+
+    fs.toggle = () => {
+        if (isFullscreen()) {
+            exit()
         }
         else {
-            this._toggleElement = document.documentElement
+            fs.enter()
         }
-        this._toggle()
+        fs.toggleElement.classList.toggle('fs-open')
     }
 
-    _toggle() {
-        if(this._isFullscreen()) {
-            this._exit()
-        }
-        else {
-            this._enter()
-        }
-        this._toggleElement.classList.toggle('fs-open')
+    fs.enter = () => {
+        fs.toggleElement.requestFullscreen() ||
+            fs.toggleElement.webkitRequestFullscreen ||
+            fs.toggleElement.mozRequestFullScreen ||
+            fs.toggleElement.msRequestFullscreen
     }
+}
 
-    _enter() {
-        this._toggleElement.requestFullscreen() ||
-        this._toggleElement.webkitRequestFullscreen ||
-        this._toggleElement.mozRequestFullScreen ||
-        this._toggleElement.msRequestFullscreen;
+export function execute(id, el) {
+    const fs = Data.get(id)
+    if (el && typeof (el) === 'string' && el.length > 0) {
+        fs.toggleElement = document.getElementById(el)
     }
-
-    _exit()  {
-        if (document.exitFullscreen) {
-            document.exitFullscreen();
-        }
-        else if (document.mozCancelFullScreen) {
-            document.mozCancelFullScreen();
-        }
-        else if (document.webkitExitFullscreen) {
-            document.webkitExitFullscreen();
-        }
-        else if (document.msExitFullscreen) {
-            document.msExitFullscreen();
-        }
+    else if (el && isElement(el)) {
+        fs.toggleElement = el
     }
+    else {
+        fs.toggleElement = document.documentElement
+    }
+    fs.toggle()
+}
 
-    _isFullscreen() {
-        return document.fullscreen ||
-            document.webkitIsFullScreen ||
-            document.webkitFullScreen ||
-            document.mozFullScreen ||
-            document.msFullScreent
+const isFullscreen = () => {
+    return document.fullscreen ||
+        document.webkitIsFullScreen ||
+        document.webkitFullScreen ||
+        document.mozFullScreen ||
+        document.msFullScreent
+}
+
+const exit = () => {
+    if (document.exitFullscreen) {
+        document.exitFullscreen()
+    }
+    else if (document.mozCancelFullScreen) {
+        document.mozCancelFullScreen()
+    }
+    else if (document.webkitExitFullscreen) {
+        document.webkitExitFullscreen()
+    }
+    else if (document.msExitFullscreen) {
+        document.msExitFullscreen()
     }
 }
