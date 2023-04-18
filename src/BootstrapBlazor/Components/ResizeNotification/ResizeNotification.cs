@@ -7,8 +7,8 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 网页尺寸变化通知组件
 /// </summary>
-[JSModuleAutoLoader("responsive", ModuleName = "Responsive", JSObjectReference = true)]
-public class ResizeNotification : BootstrapModule2ComponentBase
+[JSModuleAutoLoader("./_content/BootstrapBlazor/modules/resposive.js", JSObjectReference = true)]
+public class ResizeNotification : BootstrapModuleComponentBase
 {
     [Inject]
     [NotNull]
