@@ -10,7 +10,7 @@ public class ReponsiveTest : BootstrapBlazorTestBase
     public void Resposive_Ok()
     {
         BreakPoint? point = null;
-        Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Responsive>(pb =>
             {
@@ -21,7 +21,10 @@ public class ReponsiveTest : BootstrapBlazorTestBase
                 });
             });
         });
-        Assert.Equal(BreakPoint.None, point);
+
+        var resp = cut.FindComponent<ResizeNotification>().Instance;
+        cut.InvokeAsync(() => resp.OnResize(BreakPoint.Large));
+        Assert.Equal(BreakPoint.Large, point);
     }
 
     [Fact]
