@@ -36,6 +36,10 @@ export function execute(id, el) {
     fs.toggle()
 }
 
+export function dispose(id) {
+    Data.remove(id)
+}
+
 const isFullscreen = () => {
     return document.fullscreen ||
         document.webkitIsFullScreen ||
