@@ -4746,9 +4746,8 @@ public class TableTest : TableTestBase
             });
         });
 
-        var responsive = Context.Services.GetRequiredService<ResizeNotificationService>();
-        var methodInfo = responsive.GetType().GetMethod("InvokeAsync", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
-        methodInfo?.Invoke(responsive, new object?[] { BreakPoint.ExtraExtraLarge });
+        var resp = cut.FindComponent<ResizeNotification>().Instance;
+        cut.InvokeAsync(() => resp.OnResize(BreakPoint.Large));
     }
 
     [Fact]
