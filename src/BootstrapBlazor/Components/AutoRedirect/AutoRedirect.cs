@@ -7,8 +7,8 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// AutoRedirect component
 /// </summary>
-[JSModuleAutoLoader(JSObjectReference = true)]
-public class AutoRedirect : BootstrapModule2ComponentBase
+[JSModuleAutoLoader("./_content/BootstrapBlazor/modules/autoredirect.js", JSObjectReference = true, Relative = false)]
+public class AutoRedirect : BootstrapModuleComponentBase
 {
     /// <summary>
     /// 获得/设置 重定向地址
@@ -45,7 +45,7 @@ public class AutoRedirect : BootstrapModule2ComponentBase
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override Task ModuleInitAsync() => InvokeInitAsync(Id, Interval, nameof(Lock));
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, Interval, nameof(Lock));
 
     /// <summary>
     /// 锁屏操作由 JS 调用
