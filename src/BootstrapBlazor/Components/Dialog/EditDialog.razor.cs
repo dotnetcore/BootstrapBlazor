@@ -10,7 +10,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 编辑弹窗组件
 /// </summary>
-[JSModuleAutoLoader("edit-dialog")]
+[JSModuleAutoLoader(AutoInvokeInit = false, AutoInvokeDispose = false)]
 public partial class EditDialog<TModel>
 {
     /// <summary>
@@ -118,7 +118,7 @@ public partial class EditDialog<TModel>
     {
         if (ShowLoading)
         {
-            await InvokeExecuteAsync(Id, state);
+            await InvokeVoidAsync("execute", Id, state);
         }
     }
 
