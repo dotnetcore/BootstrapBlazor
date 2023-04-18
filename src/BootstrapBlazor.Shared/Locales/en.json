@@ -1018,8 +1018,8 @@
     "LabelsNormalGroupBox2Tips4": "The fourth text box setting <code>@bind-Value='Dummy.Name' ShowLabel='true' DisplayText='@null'</code> Display the label content under the resource file mechanism<code>Label</code> code>"
   },
   "BootstrapBlazor.Shared.Demos.Labels.LabelsEditorForm": {
-    "LabelsEditorFormDescription1": "<b>Show label</b><div>The <code>ShowLabel</code> property of the <coe>EditorForm</coe> component is not set. If it is not set, it is equivalent to set to <code>true</code>. All components <b>display</b> tags</div>",
-    "LabelsEditorFormDescription2": "<b>Do not display labels</b><div>Set <code>ShowLabel=\"false\"</code>, all form components in the component <b>Do not display</b> tags</div>",
+    "LabelsEditorFormDescription2": "<b>Show label</b><div>The <code>ShowLabel</code> property of the <coe>EditorForm</coe> component is not set. If it is not set, it is equivalent to set to <code>true</code>. All components <b>display</b> tags</div>",
+    "LabelsEditorFormDescription1": "<b>Do not display labels</b><div>Set <code>ShowLabel=\"false\"</code>, all form components in the component <b>Do not display</b> tags</div>",
     "EditorFormLabelAlignRight": "<b>Alignment</b><div><code>LabelAlign=\"Alignment.Right\"</code> set the label alignment is right</div>",
     "EditorFormLabelAlignCenter": "<b>Alignment</b><div><code>LabelAlign=\"Alignment.Center\"</code> set the label alignment is center</div>"
   },
