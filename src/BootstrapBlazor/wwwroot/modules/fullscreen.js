@@ -1,4 +1,5 @@
 ﻿import Data from './data.js'
+import { isElement } from "./utility.js";
 
 export function init(id) {
     const fs = {}
