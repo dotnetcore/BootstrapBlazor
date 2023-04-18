@@ -177,8 +177,17 @@ public partial class Console
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
+    /// <param name="firstRender"></param>
     /// <returns></returns>
-    protected override Task ModuleExecuteAsync() => InvokeExecuteAsync(Id);
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+
+        if(!firstRender)
+        {
+            await InvokeVoidAsync("update", Id);
+        }
+    }
 
     /// <summary>
     /// 清空控制台消息方法
