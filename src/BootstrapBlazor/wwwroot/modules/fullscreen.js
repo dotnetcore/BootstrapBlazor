@@ -1,4 +1,5 @@
 ﻿import Data from './data.js'
+import { isElement } from "./utility.js";
 
 export function init(id) {
     const fs = {}
@@ -34,6 +35,10 @@ export function execute(id, el) {
         fs.toggleElement = document.documentElement
     }
     fs.toggle()
+}
+
+export function dispose(id) {
+    Data.remove(id)
 }
 
 const isFullscreen = () => {
