@@ -1018,8 +1018,8 @@
     "LabelsNormalGroupBox2Tips4": "第四个文本框设置 <code>@bind-Value='Dummy.Name' ShowLabel='true' DisplayText='@null'</code> 显示资源文件机制下的标签内容 <code>Label</code>"
   },
   "BootstrapBlazor.Shared.Demos.Labels.LabelsEditorForm": {
-    "LabelsEditorFormDescription1": "<b>显示标签</b><div>未设置 <coe>EditorForm</coe> 组件的 <code>ShowLabel</code> 属性等同于设置为 <code>true</code>，所有组件 <b>显示</b> 标签</div>",
-    "LabelsEditorFormDescription2": "<b>不显示标签</b><div>设置 <code>ShowLabel=\"false\"</code>，组件内的所有表单组件 <b>不显示</b> 标签</div>",
+    "LabelsEditorFormDescription2": "<b>显示标签</b><div>未设置 <coe>EditorForm</coe> 组件的 <code>ShowLabel</code> 属性等同于设置为 <code>true</code>，所有组件 <b>显示</b> 标签</div>",
+    "LabelsEditorFormDescription1": "<b>不显示标签</b><div>设置 <code>ShowLabel=\"false\"</code>，组件内的所有表单组件 <b>不显示</b> 标签</div>",
     "EditorFormLabelAlignRight": "<b>右对齐</b><div>通过 <code>LabelAlign=\"Alignment.Right\"</code> 设置标签右对齐</div>",
     "EditorFormLabelAlignCenter": "<b>居中对齐</b><div>通过 <code>LabelAlign=\"Alignment.Center\"</code> 设置标签居中对齐</div>"
   },
