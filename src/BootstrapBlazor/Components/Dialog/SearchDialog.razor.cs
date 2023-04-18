@@ -9,7 +9,6 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 查询弹窗组件
 /// </summary>
-[JSModuleNotInherited]
 public partial class SearchDialog<TModel>
 {
     /// <summary>

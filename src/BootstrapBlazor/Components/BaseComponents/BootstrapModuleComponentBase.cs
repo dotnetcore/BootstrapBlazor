@@ -81,29 +81,25 @@ public abstract class BootstrapModuleComponentBase : IdComponentBase, IAsyncDisp
     protected virtual void OnLoadJSModule()
     {
         var type = this.GetType();
-        var inherited = type.GetCustomAttribute<JSModuleNotInheritedAttribute>() == null;
-        if (inherited)
+        var attr = type.GetCustomAttribute<JSModuleAutoLoaderAttribute>(false);
+        if (attr != null)
         {
-            var attr = type.GetCustomAttribute<JSModuleAutoLoaderAttribute>();
-            if (attr != null)
+            string? typeName = null;
+            ModulePath = attr.Path ?? GetTypeName();
+            ModuleName = attr.ModuleName ?? GetTypeName();
+            Relative = attr.Relative;
+            AutoInvokeDispose = attr.AutoInvokeDispose;
+            AutoInvokeInit = attr.AutoInvokeInit;
+
+            if (attr.JSObjectReference)
             {
-                string? typeName = null;
-                ModulePath = attr.Path ?? GetTypeName();
-                ModuleName = attr.ModuleName ?? GetTypeName();
-                Relative = attr.Relative;
-                AutoInvokeDispose = attr.AutoInvokeDispose;
-                AutoInvokeInit = attr.AutoInvokeInit;
+                Interop = DotNetObjectReference.Create<BootstrapModuleComponentBase>(this);
+            }
 
-                if (attr.JSObjectReference)
-                {
-                    Interop = DotNetObjectReference.Create<BootstrapModuleComponentBase>(this);
-                }
-
-                string GetTypeName()
-                {
-                    typeName ??= type.GetTypeModuleName();
-                    return typeName;
-                }
+            string GetTypeName()
+            {
+                typeName ??= type.GetTypeModuleName();
+                return typeName;
             }
         }
     }
