@@ -7,8 +7,8 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 下载组件
 /// </summary>
-[JSModuleAutoLoader]
-public class Download : BootstrapModule2ComponentBase
+[JSModuleAutoLoader("./_content/BootstrapBlazor/modules/download.js", Relative = false, AutoInvokeInit = false, AutoInvokeDispose = false)]
+public class Download : BootstrapModuleComponentBase
 {
     [Inject]
     [NotNull]
@@ -26,12 +26,6 @@ public class Download : BootstrapModule2ComponentBase
     }
 
     /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <returns></returns>
-    protected override Task ModuleInitAsync() => Task.CompletedTask;
-
-    /// <summary>
     /// 调用 download 方法
     /// </summary>
     /// <param name="option"></param>
@@ -42,16 +36,14 @@ public class Download : BootstrapModule2ComponentBase
         {
             throw new InvalidOperationException($"the {nameof(option.FileStream)} is null");
         }
-        if (Module != null)
-        {
+
 #if NET5_0
-            // net 5.0 not support
-            await Task.CompletedTask;
+        // net 5.0 not support
+        await Task.CompletedTask;
 #elif NET6_0_OR_GREATER
-            using var streamRef = new DotNetStreamReference(option.FileStream);
-            await Module.InvokeVoidAsync($"{ModuleName}.downloadFileFromStream", option.FileName, streamRef);
+        using var streamRef = new DotNetStreamReference(option.FileStream);
+        await InvokeVoidAsync("downloadFileFromStream", option.FileName, streamRef);
 #endif
-        }
     }
 
     /// <summary>
@@ -66,10 +58,7 @@ public class Download : BootstrapModule2ComponentBase
             throw new InvalidOperationException($"{nameof(option.Url)} not set");
         }
 
-        if (Module != null)
-        {
-            await Module.InvokeVoidAsync($"{ModuleName}.downloadFileFromUrl", option.FileName, option.Url);
-        }
+        await InvokeVoidAsync("downloadFileFromUrl", option.FileName, option.Url);
     }
 
     /// <summary>
