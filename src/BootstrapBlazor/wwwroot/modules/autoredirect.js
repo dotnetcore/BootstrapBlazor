@@ -1,50 +1,44 @@
-﻿import EventHandler from "./base/event-handler.js"
-import SimpleComponent from "./base/simple-component.js"
+﻿import Data from "./data.js"
+import EventHandler from "./event-handler.js"
 
-export class AutoRedirect extends SimpleComponent {
-    _init() {
-        this._invoker = this._config.arguments[0]
-        this._interval = this._config.arguments[1]
-        this._invokeMethodName = this._config.arguments[2]
-        this._mousePosition = {};
-        this._count = 1000;
-        this._setListeners()
+export function init(id, invoker, interval, callback) {
+    var m = { invoker, interval, callback, mousePosition: {}, count: 1000 }
+    Data.set(id, m)
+
+    m.fnMouseHandler = e => {
+        if (m.mousePosition.screenX !== e.screenX || m.mousePosition.screenY !== e.screenY) {
+            m.mousePosition.screenX = e.screenX
+            m.mousePosition.screenY = e.screenY
+            m.count = 1000
+        }
     }
 
-    _setListeners() {
-        this._fnMouseHandler = e => {
-            if (this._mousePosition.screenX !== e.screenX || this._mousePosition.screenY !== e.screenY) {
-                this._mousePosition.screenX = e.screenX;
-                this._mousePosition.screenY = e.screenY;
-                this._count = 1000;
-            }
-        }
-
-        this._fnKeyHandler = () => {
-            this._count = 1000;
-        }
-
-        EventHandler.on(document, 'mousemove', this._fnMouseHandler);
-        EventHandler.on(document, 'keydown', this._fnKeyHandler)
-
-        this._lockHandler = window.setInterval(() => {
-            this._count += 1000
-            if (this._count > this._interval) {
-                window.clearInterval(this._lockHandler);
-                this._lockHandler = null
-
-                this._invoker.invokeMethodAsync(this._invokeMethodName);
-                this.dispose();
-            }
-        }, 1000);
+    m.fnKeyHandler = () => {
+        m.count = 1000
     }
 
-    _dispose() {
-        EventHandler.off(document, 'mousemove', this._fnMouseHandler);
-        EventHandler.off(document, 'keydown', this._fnKeyHandler)
+    EventHandler.on(document, 'mousemove', m.fnMouseHandler)
+    EventHandler.on(document, 'keydown', m.fnKeyHandler)
 
-        if (this._lockHandler) {
-            window.clearInterval(this._lockHandler);
+    m.lockHandler = setInterval(() => {
+        m.count += 1000
+        if (m.count > m.interval) {
+            clearInterval(m.lockHandler)
+            m.lockHandler = null
+
+            m.invoker.invokeMethodAsync(m.callback)
         }
+    }, 1000)
+}
+
+export function dispose(id) {
+    const m = Data.get(id)
+    Data.remove(id)
+
+    EventHandler.off(document, 'mousemove', m.fnMouseHandler)
+    EventHandler.off(document, 'keydown', m.fnKeyHandler)
+
+    if (m.lockHandler) {
+        clearInterval(m.lockHandler)
     }
 }
