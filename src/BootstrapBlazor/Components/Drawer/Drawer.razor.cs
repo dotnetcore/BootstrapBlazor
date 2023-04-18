@@ -93,8 +93,17 @@ public partial class Drawer
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
+    /// <param name="firstRender"></param>
     /// <returns></returns>
-    protected override Task ModuleExecuteAsync() => InvokeExecuteAsync(Id, IsOpen);
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+
+        if (!firstRender)
+        {
+            await InvokeVoidAsync("execute", Id, IsOpen);
+        }
+    }
 
     /// <summary>
     /// 点击背景遮罩方法
