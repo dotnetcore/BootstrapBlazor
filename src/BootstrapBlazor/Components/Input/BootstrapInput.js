@@ -4,10 +4,10 @@
             var $el = $(el);
             $el.on('keyup', function (e) {
                 if (enter && e.key === 'Enter') {
-                    obj.invokeMethodAsync(enterCallbackMethod);
+                    obj.invokeMethodAsync(enterCallbackMethod, $el.val());
                 }
                 else if (esc && e.key === 'Escape') {
-                    obj.invokeMethodAsync(escCallbackMethod, $el.val());
+                    obj.invokeMethodAsync(escCallbackMethod);
                 }
             });
         },

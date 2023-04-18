@@ -187,28 +187,28 @@ public abstract class BootstrapInputBase<TValue> : ValidateBase<TValue>
     protected override bool TryParseValueFromString(string value, [MaybeNullWhen(false)] out TValue result, out string? validationErrorMessage) => base.TryParseValueFromString(IsTrim ? value.Trim() : value, out result, out validationErrorMessage);
 
     /// <summary>
-    /// 
+    /// 客户端 EnterCallback 回调方法
     /// </summary>
     /// <returns></returns>
     [JSInvokable]
-    public async Task EnterCallback()
+    public async Task EnterCallback(string val)
     {
         if (OnEnterAsync != null)
         {
+            CurrentValueAsString = val;
             await OnEnterAsync(Value);
         }
     }
 
     /// <summary>
-    /// 
+    /// 客户端 EscCallback 回调方法
     /// </summary>
     /// <returns></returns>
     [JSInvokable]
-    public async Task EscCallback(string val)
+    public async Task EscCallback()
     {
         if (OnEscAsync != null)
         {
-            CurrentValueAsString = val;
             await OnEscAsync(Value);
         }
     }
