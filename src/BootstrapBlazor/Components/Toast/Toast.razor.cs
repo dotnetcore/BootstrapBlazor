@@ -7,7 +7,6 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// ToastBox 组件
 /// </summary>
-[JSModuleAutoLoader(JSObjectReference = true)]
 public partial class Toast
 {
     /// <summary>
