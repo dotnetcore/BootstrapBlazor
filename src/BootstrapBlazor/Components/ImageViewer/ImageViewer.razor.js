@@ -1,47 +1,53 @@
-﻿import BlazorComponent from "./base/blazor-component.js"
-import EventHandler from "./base/event-handler.js"
-import { ImagePreviewer } from "./image-previewer.js"
+﻿import Data from "../../modules/data.js"
+import EventHandler from "../../modules/event-handler.js"
 
-export class ImageViewer extends BlazorComponent {
-    _init() {
-        this._img = this._element.querySelector('img')
-        this._prevList = this._config.arguments || []
+const setListeners = viewer => {
+    if (viewer.prevList.length > 0) {
+        EventHandler.on(viewer.img, 'click', () => {
+            if (!viewer.previewer) {
+                viewer.previewer = Data.get(viewer.previewerId)
+            }
+            viewer.previewer.show()
+        })
+    }
+}
 
-        if (this._img && this._config.async) {
-            this._img.setAttribute('src', this._config.arguments[0])
-        }
+export function init(id, url, preList) {
+    const el = document.getElementById(id)
+    const viewer = {
+        element: el,
+        img: el.querySelector('img'),
+        async: el.getAttribute('data-bb-async'),
+        prevList: preList || [],
+        previewerId: el.getAttribute('data-bb-previewer-id')
+    }
+    if (url) {
+        viewer.prevList.push(url)
+    }
+    Data.set(id, viewer)
 
-        this._setListeners()
+    if (viewer.img && viewer.async) {
+        viewer.img.setAttribute('src', url)
     }
 
-    _setListeners() {
+    setListeners(viewer)
+}
 
-        if (this._prevList.length > 0) {
-            EventHandler.on(this._img, 'click', () => {
-                if (!this._previewer) {
-                    const previewerElement = document.getElementById(this._config.previewerId)
-                    if (previewerElement) {
-                        this._previewer = ImagePreviewer.getOrCreateInstance(previewerElement)
-                    }
-                }
-                this._previewer.show()
-            })
-        }
+export function update(id, prevList) {
+    const viewer = Data.get(id)
+    if (viewer.img) {
+        EventHandler.off(viewer.img, 'click')
     }
 
-    _execute(args) {
-        EventHandler.off(this._img, 'click')
+    viewer.prevList = prevList
+    setListeners(viewer)
+}
 
-        this._prevList = args
-        this._setListeners()
-    }
+export function dispose(id) {
+    const viewer = Data.get(id)
+    Data.remove(id)
 
-    _dispose() {
-        EventHandler.off(this._img, 'click')
-
-        if (this._previewer) {
-            this._previewer.dispose()
-            this._previewer = null
-        }
+    if (viewer.img) {
+        EventHandler.off(viewer.img, 'click')
     }
 }
