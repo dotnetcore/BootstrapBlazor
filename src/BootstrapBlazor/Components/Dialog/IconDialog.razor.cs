@@ -9,7 +9,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// IconDialog Component
 /// </summary>
-[JSModuleAutoLoader("icon-dialog")]
+[JSModuleAutoLoader("./_content/BootstrapBlazor/Components/Dialog/IconDialog.razor.js", Relative = false)]
 public partial class IconDialog
 {
     /// <summary>
