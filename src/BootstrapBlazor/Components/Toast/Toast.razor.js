@@ -26,7 +26,7 @@ export function init(id, invoke, callback) {
         }
     })
     EventHandler.on(toast.element, 'hidden.bs.toast', () => {
-        toast.invoker.invokeMethodAsync(toast.callback)
+        toast.invoke.invokeMethodAsync(toast.callback)
     })
     toast.toast.show()
 }
