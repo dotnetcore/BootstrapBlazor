@@ -10,7 +10,6 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 控制台消息组件
 /// </summary>
-[JSModuleAutoLoader]
 public partial class Console
 {
     /// <summary>

@@ -7,7 +7,6 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// Anchor 组件部分类
 /// </summary>
-[JSModuleAutoLoader]
 public partial class Anchor
 {
     /// <summary>

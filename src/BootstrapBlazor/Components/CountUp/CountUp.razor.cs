@@ -7,7 +7,6 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// CountUp 组件
 /// </summary>
-[JSModuleAutoLoader(JSObjectReference = true)]
 public partial class CountUp<TValue>
 {
     /// <summary>

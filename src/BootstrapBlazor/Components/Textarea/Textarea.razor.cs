@@ -7,7 +7,6 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// Textarea 组件
 /// </summary>
-[JSModuleAutoLoader]
 public partial class Textarea
 {
     /// <summary>
