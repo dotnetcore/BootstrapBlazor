@@ -135,14 +135,29 @@ public partial class Menu
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
+    /// <param name="firstRender"></param>
     /// <returns></returns>
-    protected override async Task ModuleExecuteAsync()
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+
+        if (!firstRender)
+        {
+            await InvokeUpdateAsync();
+        }
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    private async Task InvokeUpdateAsync()
     {
         if (ShouldInvoke() && Module != null)
         {
             _isAccordion = IsAccordion;
             _isExpandAll = IsExpandAll;
-            await InvokeExecuteAsync(Id);
+            await InvokeVoidAsync(Id);
         }
 
         bool ShouldInvoke() => IsVertical && (_isAccordion != IsAccordion || _isExpandAll != IsExpandAll);
