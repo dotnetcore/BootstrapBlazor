@@ -25,8 +25,8 @@ public static class JSModuleExtensions
     /// <returns></returns>
     public static async Task<JSModule> LoadModule2(this IJSRuntime jsRuntime, string fileName, bool relative = true)
     {
-        var filePath = relative ? $"./_content/BootstrapBlazor/modules/{fileName}.js?v={GetVersion()}" : fileName;
-        var jSObjectReference = await jsRuntime.InvokeAsync<IJSObjectReference>(identifier: "import", filePath);
+        var filePath = relative ? $"./_content/BootstrapBlazor/modules/{fileName}.js" : fileName;
+        var jSObjectReference = await jsRuntime.InvokeAsync<IJSObjectReference>(identifier: "import", $"{filePath}?v={GetVersion()}");
         return new JSModule(jSObjectReference);
     }
 
@@ -41,8 +41,8 @@ public static class JSModuleExtensions
     /// <returns></returns>
     public static async Task<JSModule2<TValue>> LoadModule2<TValue>(this IJSRuntime jsRuntime, string fileName, TValue value, bool relative = true) where TValue : class
     {
-        var filePath = relative ? $"./_content/BootstrapBlazor/modules/{fileName}.js?v={GetVersion()}" : fileName;
-        var jSObjectReference = await jsRuntime.InvokeAsync<IJSObjectReference>(identifier: "import", filePath);
+        var filePath = relative ? $"./_content/BootstrapBlazor/modules/{fileName}.js" : fileName;
+        var jSObjectReference = await jsRuntime.InvokeAsync<IJSObjectReference>(identifier: "import", $"{filePath}?v={GetVersion()}");
         return new JSModule2<TValue>(jSObjectReference, value);
     }
 
@@ -56,7 +56,7 @@ public static class JSModuleExtensions
     public static async Task<JSModule> LoadModule(this IJSRuntime jsRuntime, string fileName, bool relative = true)
     {
         var filePath = relative ? $"./_content/BootstrapBlazor/Components/{fileName}/{fileName}.razor.js" : fileName;
-        var jSObjectReference = await jsRuntime.InvokeAsync<IJSObjectReference>(identifier: "import", filePath);
+        var jSObjectReference = await jsRuntime.InvokeAsync<IJSObjectReference>(identifier: "import", $"{filePath}?v={GetVersion()}");
         return new JSModule(jSObjectReference);
     }
 
@@ -72,7 +72,7 @@ public static class JSModuleExtensions
     public static async Task<JSModule2<TValue>> LoadModule3<TValue>(this IJSRuntime jsRuntime, string fileName, TValue value, bool relative = true) where TValue : class
     {
         var filePath = relative ? $"./_content/BootstrapBlazor/Components/{fileName}/{fileName}.razor.js" : fileName;
-        var jSObjectReference = await jsRuntime.InvokeAsync<IJSObjectReference>(identifier: "import", filePath);
+        var jSObjectReference = await jsRuntime.InvokeAsync<IJSObjectReference>(identifier: "import", $"{filePath}?v={GetVersion()}");
         return new JSModule2<TValue>(jSObjectReference, value);
     }
 

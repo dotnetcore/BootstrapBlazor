@@ -7,7 +7,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 图片预览组件
 /// </summary>
-[JSModuleAutoLoader("image-previewer")]
+[JSModuleAutoLoader]
 public partial class ImagePreviewer
 {
     private string? MinusIconString => CssBuilder.Default("minus-icon")
@@ -104,12 +104,21 @@ public partial class ImagePreviewer
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
+    /// <param name="firstRender"></param>
     /// <returns></returns>
-    protected override Task ModuleInitAsync() => InvokeInitAsync(Id, PreviewList);
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+
+        if (!firstRender)
+        {
+            await InvokeVoidAsync("update", Id, PreviewList);
+        }
+    }
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override Task ModuleExecuteAsync() => InvokeExecuteAsync(Id, PreviewList);
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, PreviewList);
 }

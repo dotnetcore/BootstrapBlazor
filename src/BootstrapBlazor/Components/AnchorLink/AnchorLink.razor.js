@@ -3,40 +3,44 @@ import Data from "../../modules/data.js"
 import EventHandler from "../../modules/event-handler.js"
 
 export function init(id) {
-    const anchorLink = {}
+    const el = document.getElementById(id)
+    const anchorLink = {
+        element: el
+    }
     Data.set(id, anchorLink)
 
-    const el = document.getElementById(id)
-    const title = el.getAttribute('data-bb-title')
-    anchorLink._element = el
+    if (el) {
+        EventHandler.on(el, 'click', e => {
+            e.preventDefault()
+            const href = location.origin + location.pathname + '#' + id
+            copy(href)
 
-    EventHandler.on(el, 'click', e => {
-        e.preventDefault()
-        const href = location.origin + location.pathname + '#' + id
-        copy(href)
+            const title = el.getAttribute('data-bb-title')
+            if (title) {
+                const tooltip = bootstrap.Tooltip.getOrCreateInstance(el, { title })
+                tooltip.show()
 
-        if (title) {
-            const tooltip = bootstrap.Tooltip.getOrCreateInstance(el, { title })
-            tooltip.show()
-
-            anchorLink._tooltip = tooltip
-            anchorLink.handler = setTimeout(() => {
-                clearTimeout(anchorLink.handler)
-                tooltip.dispose()
-            }, 1000)
-        }
-    })
+                anchorLink.tooltip = tooltip
+                anchorLink.handler = setTimeout(() => {
+                    clearTimeout(anchorLink.handler)
+                    tooltip.dispose()
+                }, 1000)
+            }
+        })
+    }
 }
 
 export function dispose(id) {
-    const anchorLink = Data.get(id)
+    const anchorLink = Data.get(id) || {}
 
-    EventHandler.off(anchorLink._element, 'click')
+    if (anchorLink.element) {
+        EventHandler.off(anchorLink.element, 'click')
 
-    if (anchorLink.handler) {
-        clearTimeout(anchorLink.handler)
-    }
-    if (anchorLink.tooltip) {
-        anchorLink.tooltip.dispose()
+        if (anchorLink.handler) {
+            clearTimeout(anchorLink.handler)
+        }
+        if (anchorLink.tooltip) {
+            anchorLink.tooltip.dispose()
+        }
     }
 }

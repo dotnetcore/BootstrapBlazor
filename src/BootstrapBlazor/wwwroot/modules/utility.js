@@ -216,8 +216,8 @@ const drag = (element, start, move, end) => {
         }, 10)
     }
 
-    EventHandler.on(element, 'mousedown', handleDragStart)
-    EventHandler.on(element, 'touchstart', handleDragStart)
+    element.addEventListener('mousedown', handleDragStart)
+    element.addEventListener('touchstart', handleDragStart)
 }
 
 const getDescribedElement = (element, selector = 'aria-describedby') => {
