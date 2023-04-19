@@ -7,6 +7,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// ToastBox 组件
 /// </summary>
+[JSModuleAutoLoader(JSObjectReference = true)]
 public partial class Toast
 {
     /// <summary>
@@ -103,7 +104,7 @@ public partial class Toast
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override Task ModuleInitAsync() => InvokeInitAsync(Id, nameof(Close));
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, nameof(Close));
 
     /// <summary>
     /// 清除 ToastBox 方法

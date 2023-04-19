@@ -7,7 +7,6 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// Image 组件
 /// </summary>
-[JSModuleAutoLoader]
 public partial class ImageViewer
 {
     /// <summary>

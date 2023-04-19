@@ -1,6 +1,5 @@
 ﻿@namespace BootstrapBlazor.Components
-@inherits BootstrapModule2ComponentBase
-@attribute [JSModuleAutoLoader(JSObjectReference = true)]
+@inherits BootstrapModuleComponentBase
 
 <div @attributes="@AdditionalAttributes" id="@Id" class="@ClassString" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="@AutoHide" data-bs-animation="@AnimationString" data-bs-delay="@DelayString">
     @if (Options.ShowHeader)

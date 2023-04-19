@@ -5,9 +5,8 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// Carousel 组件
 /// </summary>
-[JSModuleAutoLoader]
 public partial class Carousel
 {
     /// <summary>

@@ -7,7 +7,6 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// Drawer 组件基类
 /// </summary>
-[JSModuleAutoLoader]
 public partial class Drawer
 {
     /// <summary>

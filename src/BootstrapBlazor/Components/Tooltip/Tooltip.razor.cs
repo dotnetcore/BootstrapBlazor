@@ -7,7 +7,6 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// BootstrapTooltip 组件
 /// </summary>
-[JSModuleAutoLoader]
 public partial class Tooltip : ITooltip
 {
     /// <summary>
