@@ -10,7 +10,6 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 编辑弹窗组件
 /// </summary>
-[JSModuleAutoLoader("./_content/BootstrapBlazor/Components/Dialog/EditDialog.razor.js", Relative = false, AutoInvokeInit = false, AutoInvokeDispose = false)]
 public partial class EditDialog<TModel>
 {
     /// <summary>

@@ -7,7 +7,6 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 图片预览组件
 /// </summary>
-[JSModuleAutoLoader]
 public partial class ImagePreviewer
 {
     private string? MinusIconString => CssBuilder.Default("minus-icon")

@@ -1,5 +1,6 @@
 ﻿@namespace BootstrapBlazor.Components
 @inherits BootstrapModuleComponentBase
+@attribute [JSModuleAutoLoader]
 
 <div @attributes="AdditionalAttributes" class="@ClassString" id="@Id" data-bb-previewer-id="@PreviewerId" data-bb-async="@IsAsyncString">
     @if (ShowImage)
