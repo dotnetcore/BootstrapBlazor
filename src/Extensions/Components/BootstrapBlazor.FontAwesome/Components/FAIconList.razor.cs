@@ -11,7 +11,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 ///
 /// </summary>
-[JSModuleAutoLoader("./_content/BootstrapBlazor.FontAwesome/modules/icon-list.js", ModuleName = "IconList", JSObjectReference = true, Relative = false)]
+[JSModuleAutoLoader("./_content/BootstrapBlazor.FontAwesome/Components/FAIconList.razor.js", JSObjectReference = true, Relative = false)]
 public partial class FAIconList
 {
     private string? ClassString => CssBuilder.Default("icon-list")
@@ -85,7 +85,7 @@ public partial class FAIconList
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override Task ModuleInitAsync() => InvokeInitAsync(Id, nameof(UpdateIcon), nameof(ShowDialog), IsCopy);
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, nameof(UpdateIcon), nameof(ShowDialog), IsCopy);
 
     /// <summary>
     /// 更新当前选择图标值方法
