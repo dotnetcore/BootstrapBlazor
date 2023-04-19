@@ -1,11 +1,11 @@
-﻿import { getTargetElement, getTransitionDelayDurationFromElement } from "./utility.js"
+﻿import { getTargetElement, getTransitionDelayDurationFromElement } from "../../modules/utility.js"
 import Data from "../../modules/data.js"
 
 export function init(id) {
     const el = document.getElementById(id)
     const menu = {
         element: el,
-        collapses = el.querySelectorAll('[data-bs-toggle="collapse"]'),
+        collapses: el.querySelectorAll('[data-bs-toggle="collapse"]'),
         activeLink: () => {
             let activeLink = menu.element.querySelector('.nav-link.active')
             if (activeLink === null) {
@@ -28,7 +28,7 @@ export function init(id) {
                 activeLink = menu
             }
         },
-        disposeCollapse = (collapse, target) => {
+        disposeCollapse: (collapse, target) => {
             if (collapse._isShown()) {
                 collapse.hide()
 

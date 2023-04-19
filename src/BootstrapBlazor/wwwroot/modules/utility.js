@@ -266,7 +266,21 @@ const getElementById = object => {
     return getElement(object);
 }
 
-const getTransitionDurationFromElement = (element, delay = 80) => {
+const getTargetElement = (element, selector = 'data-bs-target') => {
+    if (isElement(element)) {
+        const id = element.getAttribute(selector)
+        if (id) {
+            return document.querySelector(id)
+        }
+    }
+    return null
+}
+
+const getTransitionDelayDurationFromElement = (element, delay = 80) => {
+    return getTransitionDurationFromElement(element) + delay
+}
+
+const getTransitionDurationFromElement = (element) => {
     if (!element) {
         return 0
     }
@@ -286,7 +300,7 @@ const getTransitionDurationFromElement = (element, delay = 80) => {
     transitionDuration = transitionDuration.split(',')[0]
     transitionDelay = transitionDelay.split(',')[0]
 
-    return (Number.parseFloat(transitionDuration) + Number.parseFloat(transitionDelay)) * 1000 + delay
+    return (Number.parseFloat(transitionDuration) + Number.parseFloat(transitionDelay)) * 1000
 }
 
 const isVisible = element => {
@@ -349,7 +363,8 @@ export {
     getHeight,
     getInnerHeight,
     getInnerWidth,
-    getTransitionDurationFromElement,
+    getTargetElement,
+    getTransitionDelayDurationFromElement,
     getWidth,
     getWindow,
     getWindowScroll,
