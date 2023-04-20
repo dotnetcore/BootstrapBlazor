@@ -58,12 +58,9 @@ const getChartOption = function (option) {
     for (const name in option.options.colors) colors.push(name)
 
     let config = {}
-    let scale = {}
-    let legend = {}
-
     let colorFunc = null
 
-    scale = {
+    let scale = {
         x: {
             display: option.options.showXScales,
             title: {
@@ -89,7 +86,7 @@ const getChartOption = function (option) {
         }
     }
 
-    legend = {
+    let legend = {
         display: option.options.showLegend,
         position: option.options.legendPosition
     }
@@ -300,11 +297,11 @@ export function init(el, obj, method, option) {
     const chart = new Chart(el.getElementsByTagName('canvas'), op)
     Data.set(el, chart)
 
-    if (option.options.height !== null) {
-        chart.canvas.parentNode.style.height = option.options.height
+    if (op.options.height !== null) {
+        chart.canvas.parentNode.style.height = op.options.height
     }
-    if (option.options.width !== null) {
-        chart.canvas.parentNode.style.width = option.options.width
+    if (op.options.width !== null) {
+        chart.canvas.parentNode.style.width = op.options.width
     }
     el.querySelector('.chart-loading').classList.add('d-none')
     obj.invokeMethodAsync(method)
