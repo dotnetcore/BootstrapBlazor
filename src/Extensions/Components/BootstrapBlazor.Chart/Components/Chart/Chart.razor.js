@@ -308,7 +308,7 @@ const updateChart = function (config, option) {
     }
 }
 
-export function init(el, obj, method, option) {
+export function init(el, invoke, method, option) {
     const op = getChartOption(option)
     const chart = new Chart(el.getElementsByTagName('canvas'), op)
     Data.set(el, chart)
@@ -320,7 +320,7 @@ export function init(el, obj, method, option) {
         chart.canvas.parentNode.style.width = op.options.width
     }
     el.querySelector('.chart-loading').classList.add('d-none')
-    obj.invokeMethodAsync(method)
+    invoke.invokeMethodAsync(method)
 
     chart.resizeHandler = () => {
         chart.resize();
