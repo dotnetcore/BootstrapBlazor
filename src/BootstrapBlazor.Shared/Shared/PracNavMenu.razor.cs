@@ -9,7 +9,6 @@ namespace BootstrapBlazor.Shared.Shared;
 /// <summary>
 ///
 /// </summary>
-[JSModuleAutoLoader("menu", ModuleName = "Menu")]
 public partial class PracNavMenu
 {
     [Inject]
