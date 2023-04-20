@@ -14,7 +14,7 @@ public class ChartDataset
     /// <summary>
     /// 获得/设置 数据集合名称
     /// </summary>
-    public string Label { get; set; } = "未设置";
+    public string? Label { get; set; }
 
     /// <summary>
     /// 获得/设置 数据集合
