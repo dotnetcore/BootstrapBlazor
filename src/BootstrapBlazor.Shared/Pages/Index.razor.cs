@@ -7,9 +7,8 @@ using Microsoft.Extensions.Options;
 namespace BootstrapBlazor.Shared.Pages;
 
 /// <summary>
-/// 
+/// Index 组件
 /// </summary>
-[JSModuleAutoLoader]
 public partial class Index
 {
     private string? BodyClassString => CssBuilder.Default(Localizer["BodyClassString"])
@@ -27,5 +26,5 @@ public partial class Index
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override Task ModuleInitAsync() => InvokeInitAsync(Id, Localizer["DynamicText"].Value.ToCharArray(), Localizer["DynamicText1"].Value.ToCharArray(), Localizer["DynamicText2"].Value.ToCharArray());
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Localizer["DynamicText"].Value.ToCharArray(), Localizer["DynamicText1"].Value.ToCharArray(), Localizer["DynamicText2"].Value.ToCharArray());
 }

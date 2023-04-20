@@ -129,5 +129,5 @@ public partial class Pre
         Loaded = true;
     }
 
-    private Task Hightlight() => InvokeExecuteAsync(Id, "highlight");
+    private Task Hightlight() => InvokeVoidAsync("execute", Id, "highlight");
 }

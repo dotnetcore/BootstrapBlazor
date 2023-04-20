@@ -9,7 +9,6 @@ namespace BootstrapBlazor.Shared;
 /// <summary>
 /// App 组件
 /// </summary>
-[JSModuleAutoLoader]
 public partial class App
 {
     [Inject]
@@ -37,7 +36,7 @@ public partial class App
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    protected override Task ModuleInitAsync() => InvokeInitAsync(Localizer["ErrorMessage"].Value, Localizer["Reload"].Value);
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Localizer["ErrorMessage"].Value, Localizer["Reload"].Value);
 
     private async Task Notify(DispatchEntry<GiteePostBody> payload)
     {
