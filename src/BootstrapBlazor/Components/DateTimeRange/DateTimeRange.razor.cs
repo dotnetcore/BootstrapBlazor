@@ -229,13 +229,13 @@ public partial class DateTimeRange
     {
         SelectedValue.Start = item.StartDateTime;
         SelectedValue.End = item.EndDateTime;
-        StartValue = item.StartDateTime;
-        EndValue = StartValue.AddMonths(1);
-        await ClickConfirmButton();
+        StartValue = SelectedValue.Start;
+        EndValue = SelectedValue.End;
 
         if (AutoCloseClickSideBar)
         {
             await InvokeExecuteAsync(Id, "hide");
+            await ClickConfirmButton();
         }
     }
 
