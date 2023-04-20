@@ -1,87 +1,94 @@
 ﻿import EventHandler from "../../BootstrapBlazor/modules/event-handler.js"
+import Data from "../../BootstrapBlazor/modules/data.js"
 import { copy, getDescribedElement, addLink, addScript, getHeight } from "../../BootstrapBlazor/modules/utility.js"
 
-export async function init(id) {
-        await addLink('_content/BootstrapBlazor.Shared/lib/highlight/vs.css')
-        await addScript('_content/BootstrapBlazor.Shared/lib/highlight/highlight.min.js')
-        this._pre = this._element.querySelector('pre')
-        if (this._pre) {
-            this._code = this._pre.querySelector('code')
-            this._setListeners()
-        }
+export async function init(id, title) {
+    await addLink('_content/BootstrapBlazor.Shared/lib/highlight/vs.css')
+    await addScript('_content/BootstrapBlazor.Shared/lib/highlight/highlight.min.js')
+    const element = document.getElementById(id);
+    const pre = {
+        el: element,
+        preelement: element.querySelector('pre'),
+        code: element.querySelector('code')
     }
-
-    _setListeners() {
-        EventHandler.on(this._element, 'click', '.btn-copy', e => {
+    if (pre.preelement) {
+        EventHandler.on(pre.el, 'click', '.btn-copy', e => {
             const text = e.delegateTarget.parentNode.querySelector('code').textContent;
             copy(text)
 
             const tooltip = getDescribedElement(e.delegateTarget)
             if (tooltip) {
-                tooltip.querySelector('.tooltip-inner').innerHTML = this._config.title
+                tooltip.querySelector('.tooltip-inner').innerHTML = title
             }
         })
 
-        EventHandler.on(this._element, 'click', '.btn-plus', e => {
+        EventHandler.on(pre.el, 'click', '.btn-plus', e => {
             e.preventDefault()
             e.stopPropagation();
 
-            let preHeight = getHeight(this._pre)
-            const codeHeight = getHeight(this._code)
+            let preHeight = getHeight(pre.preelement)
+            const codeHeight = getHeight(pre.code)
             if (preHeight < codeHeight) {
                 preHeight = Math.min(codeHeight, preHeight + 100)
             }
-            this._pre.style.maxHeight = `${preHeight}px`
+            pre.preelement.style.maxHeight = `${preHeight}px`
         })
 
-        EventHandler.on(this._element, 'click', '.btn-minus', e => {
+        EventHandler.on(pre.el, 'click', '.btn-minus', e => {
             e.preventDefault()
             e.stopPropagation();
 
-            let preHeight = getHeight(this._pre)
+            let preHeight = getHeight(pre.preelement)
             if (preHeight > 260) {
                 preHeight = Math.max(260, preHeight - 100)
             }
-            this._pre.style.maxHeight = `${preHeight}px`
+            pre.preelement.style.maxHeight = `${preHeight}px`
         })
     }
 
-    _execute(args) {
-        if (args[0] === 'highlight') {
-            if (window.hljs) {
-                this._highlight()
-            }
-            else {
-                this._handler = window.setInterval(() => {
-                    if (window.hljs) {
-                        this._clearInterval()
-                        this._highlight()
-                    }
-                }, 100)
-            }
+    Data.set(id, pre)
+}
+
+export function execute(id, method) {
+    if (method === 'highlight') {
+        if (window.hljs) {
+            highlight(id)
+        }
+        else {
+            const hadnler = window.setInterval(() => {
+                if (window.hljs) {
+                    clearInterval()
+                    highlight(id)
+                }
+            }, 100)
+            Data.set("Interval", hadnler)
         }
     }
+}
 
-    _highlight() {
-        if (this._element) {
-            const code = this._element.querySelector('code')
-            if (code) {
-                window.hljs.highlightBlock(code)
-            }
+function highlight(id) {
+    const data = Data.get(id)
+    if (data.el) {
+        const code = data.el.querySelector('code')
+        if (code) {
+            window.hljs.highlightBlock(code)
         }
     }
+}
 
-    _clearInterval() {
-        if (this._handler) {
-            window.clearInterval(this._handler)
-            delete this._handler
-        }
+function clearInterval() {
+    const handler = Data.get("Interval")
+    if (handler) {
+        window.clearInterval(handler)
     }
+}
 
-    _dispose() {
-        this._clearInterval()
-        EventHandler.off(this._element, 'click', '.btn-copy')
-        EventHandler.off(this._element, 'click', '.btn-plus')
-        EventHandler.off(this._element, 'click', '.btn-minus')
-    }
+export function dispose(id) {
+    clearInterval()
+    const data = Data.get(id)
+    EventHandler.off(data.el, 'click', '.btn-copy')
+    EventHandler.off(data.el, 'click', '.btn-plus')
+    EventHandler.off(data.el, 'click', '.btn-minus')
+    Data.remove(id)
+    Data.remove("Interval")
 }

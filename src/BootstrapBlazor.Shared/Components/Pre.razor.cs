@@ -112,6 +112,12 @@ public partial class Pre
         }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, CopiedText);
+
     private async Task GetCodeAsync()
     {
         if (!string.IsNullOrEmpty(Demo))
