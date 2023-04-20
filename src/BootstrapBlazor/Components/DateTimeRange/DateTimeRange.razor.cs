@@ -229,13 +229,13 @@ public partial class DateTimeRange
     {
         SelectedValue.Start = item.StartDateTime;
         SelectedValue.End = item.EndDateTime;
-        StartValue = item.StartDateTime;
-        EndValue = StartValue.AddMonths(1);
-        await ClickConfirmButton();
+        StartValue = SelectedValue.Start;
+        EndValue = SelectedValue.End;
 
         if (AutoCloseClickSideBar)
         {
             await InvokeExecuteAsync(Id, "hide");
+            await ClickConfirmButton();
         }
     }
 
@@ -295,7 +295,7 @@ public partial class DateTimeRange
             }
         }
         Value.Start = SelectedValue.Start;
-        Value.End = SelectedValue.End.AddDays(1).AddSeconds(-1);
+        Value.End = SelectedValue.End.Date.AddDays(1).AddSeconds(-1);
 
         if (ValueChanged.HasDelegate)
         {

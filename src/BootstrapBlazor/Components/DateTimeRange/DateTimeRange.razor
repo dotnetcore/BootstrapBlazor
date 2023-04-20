@@ -25,8 +25,8 @@
                 <div class="picker-panel-sidebar">
                     @foreach (var item in SidebarItems)
                     {
-                        <div class="sidebar-item">
-                            <div @onclick="@(e => OnClickSidebarItem(item))">@item.Text</div>
+                        <div class="sidebar-item" @key="item">
+                            <div @onclick="() => OnClickSidebarItem(item)">@item.Text</div>
                         </div>
                     }
                 </div>
