@@ -231,6 +231,7 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
         {
             builder.Add(a => a.Value, new DateTimeRangeValue { Start = DateTime.Now.AddDays(1), End = DateTime.Now.AddDays(30) });
             builder.Add(a => a.ShowSidebar, true);
+            builder.Add(a => a.AutoCloseClickSideBar, true);
         });
 
         cut.Find(".sidebar-item > div").Click();
