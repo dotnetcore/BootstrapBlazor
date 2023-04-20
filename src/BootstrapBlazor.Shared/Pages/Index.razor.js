@@ -4,7 +4,7 @@ export function init(id, text1, text2, text3) {
     const el = document.getElementById(id)
     const index = {
         element: el, text1, text2, text3,
-        cursorElement = el.nextElementSibling,
+        cursorElement: el.nextElementSibling,
         type: () => {
             const typeChar = (original, reverse) => {
                 const plant = original.concat()
@@ -58,11 +58,11 @@ export function init(id, text1, text2, text3) {
     }
 
     index.type()
+    Data.set(id, index)
 }
 
 export function dispose(id) {
     const index = Data.get(id)
-    Data.remove(id)
 
     if (index.handler) {
         clearTimeout(index.handler)
@@ -73,4 +73,5 @@ export function dispose(id) {
     if (index.typeHandler) {
         clearTimeout(index.typeHandler)
     }
+    Data.remove(id)
 }
