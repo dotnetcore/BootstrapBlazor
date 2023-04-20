@@ -215,6 +215,22 @@ const getChartOption = function (option) {
         }
     }
 
+    // pie 图除外默认显示 网格线与坐标系
+    if (option.type !== 'pie' && option.type !== 'doughnut') {
+        if (option.options.showXScales === null) {
+            scale.x.display = true
+        }
+        if (option.showXLine === null) {
+            scale.x.grid.display = true
+        }
+        if (option.options.showYScales === null) {
+            scale.y.display = true
+        }
+        if (option.options.showYLine === null) {
+            scale.y.grid.display = true
+        }
+    }
+
     return {
         ...config,
         ...{
