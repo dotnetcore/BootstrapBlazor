@@ -49,7 +49,7 @@ public partial class ThemeChooser
     {
         SiteOptions.CurrentValue.CurrentTheme = item.Value;
 
-        await InvokeExecuteAsync(Id, LinksCache[item.Value]);
+        await InvokeVoidAsync("addScript", LinksCache[item.Value]);
     }
 
     private string? GetThemeItemClass(SelectedItem item) => CssBuilder.Default("theme-item")
