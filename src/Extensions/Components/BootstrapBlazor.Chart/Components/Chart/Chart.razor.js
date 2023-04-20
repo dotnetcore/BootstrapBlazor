@@ -343,4 +343,5 @@ export function dispose(el) {
     Data.remove(el)
 
     EventHandler.off(window, 'resize', chart.resizeHandler)
+    chart.destroy()
 }
