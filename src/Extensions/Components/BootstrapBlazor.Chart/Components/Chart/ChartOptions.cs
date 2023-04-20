@@ -80,24 +80,24 @@ public class ChartOptions
     public ChartLegendPosition LegendPosition { get; set; } = ChartLegendPosition.Top;
 
     /// <summary>
-    /// 获得/设置 是否显示X轴线 默认 true 显示
+    /// 获得/设置 是否显示X轴线
     /// </summary>
-    public bool ShowXLine { get; set; } = true;
+    public bool? ShowXLine { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否显示Y轴线 默认 true 显示
+    /// 获得/设置 是否显示Y轴线
     /// </summary>
-    public bool ShowYLine { get; set; } = true;
+    public bool? ShowYLine { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否显示X轴刻度 默认 true 显示
+    /// 获得/设置 是否显示X轴刻度
     /// </summary>
-    public bool ShowXScales { get; set; } = true;
+    public bool? ShowXScales { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否显示Y轴刻度 默认 true 显示
+    /// 获得/设置 是否显示Y轴刻度
     /// </summary>
-    public bool ShowYScales { get; set; } = true;
+    public bool? ShowYScales { get; set; }
 
     /// <summary>
     /// 获得/设置 数据显示颜色

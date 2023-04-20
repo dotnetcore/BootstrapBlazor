@@ -58,12 +58,9 @@ const getChartOption = function (option) {
     for (const name in option.options.colors) colors.push(name)
 
     let config = {}
-    let scale = {}
-    let legend = {}
-
     let colorFunc = null
 
-    scale = {
+    let scale = {
         x: {
             display: option.options.showXScales,
             title: {
@@ -89,7 +86,7 @@ const getChartOption = function (option) {
         }
     }
 
-    legend = {
+    let legend = {
         display: option.options.showLegend,
         position: option.options.legendPosition
     }
@@ -218,6 +215,22 @@ const getChartOption = function (option) {
         }
     }
 
+    // pie 图除外默认显示 网格线与坐标系
+    if (option.type !== 'pie' && option.type !== 'doughnut') {
+        if (option.options.showXScales === null) {
+            scale.x.display = true
+        }
+        if (option.showXLine === null) {
+            scale.x.grid.display = true
+        }
+        if (option.options.showYScales === null) {
+            scale.y.display = true
+        }
+        if (option.options.showYLine === null) {
+            scale.y.grid.display = true
+        }
+    }
+
     return {
         ...config,
         ...{
@@ -295,23 +308,25 @@ const updateChart = function (config, option) {
     }
 }
 
-export function init(el, obj, method, option) {
+export function init(el, invoke, method, option) {
     const op = getChartOption(option)
     const chart = new Chart(el.getElementsByTagName('canvas'), op)
     Data.set(el, chart)
 
-    if (option.options.height !== null) {
-        chart.canvas.parentNode.style.height = option.options.height
+    if (op.options.height !== null) {
+        chart.canvas.parentNode.style.height = op.options.height
     }
-    if (option.options.width !== null) {
-        chart.canvas.parentNode.style.width = option.options.width
+    if (op.options.width !== null) {
+        chart.canvas.parentNode.style.width = op.options.width
     }
     el.querySelector('.chart-loading').classList.add('d-none')
-    obj.invokeMethodAsync(method)
+    invoke.invokeMethodAsync(method)
 
-    EventHandler.on(window, 'resize', () => {
+    chart.resizeHandler = () => {
         chart.resize();
-    })
+    }
+
+    EventHandler.on(window, 'resize', chart.resizeHandler)
 }
 
 export function update(el, option, method, angle) {
@@ -324,6 +339,9 @@ export function update(el, option, method, angle) {
 }
 
 export function dispose(el) {
-    EventHandler.off(window, 'resize')
+    const chart = Data.get(el)
     Data.remove(el)
+
+    EventHandler.off(window, 'resize', chart.resizeHandler)
+    chart.destroy()
 }
