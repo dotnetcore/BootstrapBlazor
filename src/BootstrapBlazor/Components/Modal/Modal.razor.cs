@@ -7,7 +7,6 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// Modal 组件
 /// </summary>
-[JSModuleAutoLoader(JSObjectReference = true)]
 public partial class Modal
 {
     /// <summary>
@@ -90,7 +89,7 @@ public partial class Modal
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override Task ModuleInitAsync() => InvokeInitAsync(Id, nameof(ShownCallback), nameof(CloseCallback));
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, nameof(ShownCallback), nameof(CloseCallback));
 
     /// <summary>
     /// 添加对话框方法
@@ -168,19 +167,19 @@ public partial class Modal
     /// <summary>
     /// 弹窗状态切换方法
     /// </summary>
-    public Task Toggle() => InvokeExecuteAsync(Id, "toggle");
+    public Task Toggle() => InvokeVoidAsync("execute", Id, "toggle");
 
     /// <summary>
     /// 显示弹窗方法
     /// </summary>
     /// <returns></returns>
-    public Task Show() => InvokeExecuteAsync(Id, "show");
+    public Task Show() => InvokeVoidAsync("execute", Id, "show");
 
     /// <summary>
     /// 关闭当前弹窗方法
     /// </summary>
     /// <returns></returns>
-    public Task Close() => InvokeExecuteAsync(Id, "hide");
+    public Task Close() => InvokeVoidAsync("execute", Id, "hide");
 
     /// <summary>
     /// 设置 Header 文字方法
