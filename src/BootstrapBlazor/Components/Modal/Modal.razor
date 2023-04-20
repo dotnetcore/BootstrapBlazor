@@ -1,5 +1,6 @@
 ﻿@namespace BootstrapBlazor.Components
-@inherits BootstrapModule2ComponentBase
+@inherits BootstrapModuleComponentBase
+@attribute [JSModuleAutoLoader(JSObjectReference = true)]
 
 <div @attributes="@AdditionalAttributes" class="@ClassString" tabindex="-1" role="dialog" data-bs-backdrop="@Backdrop" data-bs-keyboard="@KeyboardString" id="@Id">
     <CascadingValue Value="this" IsFixed="true">
