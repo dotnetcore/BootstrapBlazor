@@ -295,7 +295,7 @@ public partial class DateTimeRange
             }
         }
         Value.Start = SelectedValue.Start;
-        Value.End = SelectedValue.End.AddDays(1).AddSeconds(-1);
+        Value.End = SelectedValue.End.Date.AddDays(1).AddSeconds(-1);
 
         if (ValueChanged.HasDelegate)
         {
