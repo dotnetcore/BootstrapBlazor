@@ -1,11 +1,9 @@
-﻿import BlazorComponent from "../../../_content/BootstrapBlazor/modules/base/blazor-component.js"
-import EventHandler from "../../../_content/BootstrapBlazor/modules/base/event-handler.js"
-import { copy, getDescribedElement, addLink, addScript, getHeight } from "../../../_content/BootstrapBlazor/modules/base/utility.js"
+﻿import EventHandler from "../../BootstrapBlazor/modules/event-handler.js"
+import { copy, getDescribedElement, addLink, addScript, getHeight } from "../../BootstrapBlazor/modules/utility.js"
 
-export class Pre extends BlazorComponent {
-    _init() {
-        addLink('_content/BootstrapBlazor.Shared/lib/highlight/vs.css')
-        addScript('_content/BootstrapBlazor.Shared/lib/highlight/highlight.min.js')
+export async function init(id) {
+        await addLink('_content/BootstrapBlazor.Shared/lib/highlight/vs.css')
+        await addScript('_content/BootstrapBlazor.Shared/lib/highlight/highlight.min.js')
         this._pre = this._element.querySelector('pre')
         if (this._pre) {
             this._code = this._pre.querySelector('code')
