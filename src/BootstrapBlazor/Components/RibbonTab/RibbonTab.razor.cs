@@ -7,7 +7,6 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// RibbonTab 组件
 /// </summary>
-[JSModuleAutoLoader("ribbon-tab", JSObjectReference = true)]
 public partial class RibbonTab
 {
     /// <summary>
@@ -109,7 +108,7 @@ public partial class RibbonTab
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override Task ModuleInitAsync() => InvokeInitAsync(Id, nameof(SetExpand));
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, nameof(SetExpand));
 
     /// <summary>
     /// <inheritdoc/>
