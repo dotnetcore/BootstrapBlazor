@@ -3,17 +3,13 @@
     ad.setAttribute("data-id", 72)
     ad.classList.add("wwads-cn")
     ad.classList.add("wwads-horizontal")
-    var element = document.getElementById(id)
-    if (element) {
-        if (element.getAttribute('data-bb-debug') === 'true') {
+    var el = document.getElementById(id)
+    if (el) {
+        if (el.getAttribute('data-bb-debug') === 'true') {
             ad.classList.add('debug')
         }
 
-        const parent = element.parentNode
-        parent.insertBefore(ad, element.nextSibling)
+        const parent = el.parentNode
+        parent.insertBefore(ad, el.nextSibling)
     }
 }
-
-export function dispose(id) {
-}
-
