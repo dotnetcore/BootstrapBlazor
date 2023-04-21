@@ -53,10 +53,7 @@ public abstract class MultipleUploadBase<TValue> : UploadBase<TValue>
             {
                 await RemoveInvalidTooltip(item);
             }
-            if (DefaultFileList != null)
-            {
-                DefaultFileList.Remove(item);
-            }
+            DefaultFileList?.Remove(item);
         }
         return ret;
     }
@@ -65,7 +62,7 @@ public abstract class MultipleUploadBase<TValue> : UploadBase<TValue>
     /// 移除验证失败 Tooltip 信息
     /// </summary>
     /// <returns></returns>
-    protected Task RemoveInvalidTooltip(UploadFile item) => InvokeExecuteAsync(Id, item.ValidateId, "disposeTooltip");
+    protected Task RemoveInvalidTooltip(UploadFile item) => InvokeVoidAsync("execute", Id, item.ValidateId, "disposeTooltip");
 
     /// <summary>
     /// 是否显示进度条方法

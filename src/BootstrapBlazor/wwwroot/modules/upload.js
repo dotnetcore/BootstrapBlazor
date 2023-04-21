@@ -59,19 +59,19 @@ export function init(id) {
     })
 }
 
-//_execute(args) {
-//    const tooltipId = args[0]
-//    const method = args[1]
-//    if (method === 'disposeTooltip' && tooltipId) {
-//        const element = document.getElementById(tooltipId)
-//        if (element) {
-//            const tooltip = bootstrap.Tooltip.getInstance(element)
-//            if (tooltip) {
-//                tooltip.dispose()
-//            }
-//        }
-//    }
-//}
+export function execute(id, tipId, method) {
+    const upload = Data.get(id)
+
+    if (method === 'disposeTooltip') {
+        const tip = document.getElementById(tipId)
+        if (tip) {
+            const tooltip = bootstrap.Tooltip.getInstance(tip)
+            if (tooltip) {
+                tooltip.dispose()
+            }
+        }
+    }
+}
 
 export function dispose(id) {
     const upload = Data.get(id)
