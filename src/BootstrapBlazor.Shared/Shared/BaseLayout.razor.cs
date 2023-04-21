@@ -25,15 +25,6 @@ public partial class BaseLayout : IAsyncDisposable
     private IOptionsMonitor<WebsiteOptions>? WebsiteOption { get; set; }
 
     [NotNull]
-    private string? DownloadText { get; set; }
-
-    [NotNull]
-    private string? HomeText { get; set; }
-
-    [NotNull]
-    private string? IntroductionText { get; set; }
-
-    [NotNull]
     private string? ComponentsText { get; set; }
 
     [NotNull]
@@ -59,8 +50,6 @@ public partial class BaseLayout : IAsyncDisposable
     [NotNull]
     private static Action? OnInstallable { get; set; }
 
-    private string DownloadUrl => $"{WebsiteOption.CurrentValue.BootstrapBlazorLink}/repository/archive/main.zip";
-
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -68,9 +57,6 @@ public partial class BaseLayout : IAsyncDisposable
     {
         base.OnInitialized();
 
-        DownloadText ??= Localizer[nameof(DownloadText)];
-        HomeText ??= Localizer[nameof(HomeText)];
-        IntroductionText ??= Localizer[nameof(IntroductionText)];
         ComponentsText ??= Localizer[nameof(ComponentsText)];
         FlowText ??= Localizer[nameof(FlowText)];
         InstallAppText ??= Localizer[nameof(InstallAppText)];
@@ -78,19 +64,6 @@ public partial class BaseLayout : IAsyncDisposable
         CancelText ??= Localizer[nameof(CancelText)];
         Title ??= Localizer[nameof(Title)];
         OnInstallable = () => InvokeAsync(StateHasChanged);
-    }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <param name="firstRender"></param>
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (firstRender)
-        {
-            Module = await JSRuntime.LoadModule2($"./_content/BootstrapBlazor.Shared/modules/header.js", relative: false);
-            await Module.InvokeVoidAsync("Header.init");
-        }
     }
 
     /// <summary>

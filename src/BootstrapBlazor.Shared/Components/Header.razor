@@ -1,0 +1,44 @@
+﻿@inherits WebSiteModuleComponentBase
+@attribute [JSModuleAutoLoader("Components/Header.razor.js")]
+
+<header class="navbar-header navbar navbar-expand navbar-dark flex-column flex-md-row px-3">
+    <div class="header-img navbar-brand">
+        <BBLogo />
+        <span>Bootstrap Blazor</span>
+    </div>
+    <div class="navbar-nav-scroll">
+        <ul class="navbar-nav bd-navbar-nav flex-row">
+            <li class="nav-item">
+                <a class="nav-link" href="index">@HomeText</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="introduction">@IntroductionText</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="components">@ComponentsText</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="practicals">实战</a>
+            </li>
+        </ul>
+    </div>
+    <GlobalSearch />
+    <CultureChooser class="flex-md-fill flex-xl-grow-0 justify-content-md-end" />
+    <ul class="navbar-nav ms-3 d-none d-lg-flex">
+        <li class="nav-item">
+            <a class="nav-link p-2" href="https://github.com/ArgoZhang/BootstrapBlazor" target="_blank">
+                <img alt="git" src="_content/BootstrapBlazor.Shared/images/git.svg" />
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link p-2" href="@WebsiteOption.CurrentValue.BootstrapBlazorLink" target="_blank">
+                <img alt="gitee" src="_content/BootstrapBlazor.Shared/images/gitee.svg" />
+            </a>
+        </li>
+        <li class="nav-item">
+            <FullScreenButton class="nav-link p-2" TooltipText="点击切换全屏模式" />
+        </li>
+    </ul>
+    <a class="btn btn-bd-download d-none d-lg-inline-block mb-3 mb-md-0 ms-md-3" target="_blank" href="@DownloadUrl">@DownloadText</a>
+</header>
+
