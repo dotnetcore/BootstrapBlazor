@@ -4847,11 +4847,13 @@
   "BootstrapBlazor.Shared.Components.GlobalSearch": {
     "Search": "搜索想要的组件"
   },
-  "BootstrapBlazor.Shared.Shared.BaseLayout": {
+  "BootstrapBlazor.Shared.Components.Header": {
     "DownloadText": "Download",
     "HomeText": "首页",
-    "IntroductionText": "文档",
     "ComponentsText": "组件",
+    "IntroductionText": "文档"
+  },
+  "BootstrapBlazor.Shared.Shared.BaseLayout": {
     "FlowText": "工作流",
     "InstallAppText": "安装小程序",
     "InstallText": "安装",

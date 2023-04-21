@@ -5,7 +5,7 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// JSModule attribute <see cref="JSModuleNotInheritedAttribute"/> prevent inherited auto load
+/// JSModuleAutoLoaderAttribute class
 /// </summary>
 [AttributeUsage(AttributeTargets.Class)]
 public class JSModuleAutoLoaderAttribute : Attribute

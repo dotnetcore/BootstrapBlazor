@@ -112,6 +112,12 @@ public partial class Pre
         }
     }
 
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, CopiedText);
+
     private async Task GetCodeAsync()
     {
         if (!string.IsNullOrEmpty(Demo))
@@ -129,5 +135,5 @@ public partial class Pre
         Loaded = true;
     }
 
-    private Task Hightlight() => InvokeExecuteAsync(Id, "highlight");
+    private Task Hightlight() => InvokeVoidAsync("execute", Id, "highlight");
 }

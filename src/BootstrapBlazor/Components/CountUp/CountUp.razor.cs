@@ -61,7 +61,7 @@ public partial class CountUp<TValue>
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, Value, nameof(OnCompleteCallback));
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, Value, OnCompleted != null ? nameof(OnCompleteCallback) : null);
 
     /// <summary>
     /// 更新数据方法
@@ -85,7 +85,7 @@ public partial class CountUp<TValue>
     [JSInvokable]
     public async Task OnCompleteCallback()
     {
-        if(OnCompleted != null)
+        if (OnCompleted != null)
         {
             await OnCompleted();
         }
