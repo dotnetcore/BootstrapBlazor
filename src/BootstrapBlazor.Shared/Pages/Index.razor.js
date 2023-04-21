@@ -14,30 +14,32 @@ export function init(id, text1, text2, text3) {
                         if (plant.length > 0) {
                             if (!reverse) {
                                 index.element.textContent = index.element.textContent + plant.shift()
-                            } else {
+                            }
+                            else {
                                 plant.pop()
                                 index.element.textContent = plant.join('')
                             }
-                        } else {
+                        }
+                        else {
                             clearInterval(index.eventHandler)
                             index.eventHandler = false
                             index.cursorElement.classList.remove('active')
 
                             index.typeHandler = window.setTimeout(() => {
-                                window.clearTimeout(index.typeHandler);
+                                window.clearTimeout(index.typeHandler)
                                 index.typeHandler = false
                                 if (reverse) {
-                                    return resolver();
+                                    return resolver()
                                 } else {
                                     typeChar(original, true).then(() => {
-                                        return resolver();
-                                    });
+                                        return resolver()
+                                    })
                                 }
-                            }, 1000);
+                            }, 1000)
                         }
-                    }, 200);
-                });
-            };
+                    }, 200)
+                })
+            }
 
             const loop = () => {
                 index.handler = setTimeout(() => {
@@ -47,9 +49,9 @@ export function init(id, text1, text2, text3) {
                         typeChar(text2, false).then(() => {
                             typeChar(text3).then(() => {
                                 loop()
-                            });
-                        });
-                    });
+                            })
+                        })
+                    })
                 }, 200)
             }
 
@@ -63,6 +65,7 @@ export function init(id, text1, text2, text3) {
 
 export function dispose(id) {
     const index = Data.get(id)
+    Data.remove(id)
 
     if (index.handler) {
         clearTimeout(index.handler)
@@ -73,5 +76,4 @@ export function dispose(id) {
     if (index.typeHandler) {
         clearTimeout(index.typeHandler)
     }
-    Data.remove(id)
 }
