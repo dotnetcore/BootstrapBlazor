@@ -1,19 +1,16 @@
-﻿import EventHandler from "../../../_content/BootstrapBlazor/modules/event-handler.js"
-import { insertAfter } from "../../../_content/BootstrapBlazor/modules/utility.js"
+﻿import { insertAfter } from "../../../_content/BootstrapBlazor/modules/utility.js"
 import Data from "../../../_content/BootstrapBlazor/modules/data.js"
+import EventHandler from "../../../_content/BootstrapBlazor/modules/event-handler.js"
 
 export function init(id) {
-    const element = document.getElementById(id)
-    const themeList = element.querySelector('.theme-list')
+    const el = document.getElementById(id)
+    const themeList = el.querySelector('.theme-list')
 
-    const chooser = {
-        el: element,
-        themeList: themeList
-    }
+    const chooser = { el, themeList }
     Data.set(id, chooser);
 
-    EventHandler.on(chooser.el, 'click', () => {
-        chooser.themeList.classList.toggle('is-open')
+    EventHandler.on(el, 'click', () => {
+        themeList.classList.toggle('is-open')
     })
 }
 
@@ -41,6 +38,7 @@ export function addScript(args) {
 
 export function dispose(id) {
     const data = Data.get(id)
-    EventHandler.off(data.el, 'click')
     Data.remove(id)
+
+    EventHandler.off(data.el, 'click')
 }
