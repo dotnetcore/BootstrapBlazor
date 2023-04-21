@@ -44,6 +44,11 @@ public abstract class BootstrapModuleComponentBase : IdComponentBase, IAsyncDisp
     protected bool AutoInvokeDispose { get; set; } = true;
 
     /// <summary>
+    /// 获得/设置 是否子类自动继承脚本 默认 false
+    /// </summary>
+    public bool Inherit { get; set; }
+
+    /// <summary>
     /// 获得/设置 DotNetObjectReference 实例
     /// </summary>
     protected DotNetObjectReference<BootstrapModuleComponentBase>? Interop { get; set; }
@@ -81,7 +86,7 @@ public abstract class BootstrapModuleComponentBase : IdComponentBase, IAsyncDisp
     protected virtual void OnLoadJSModule()
     {
         var type = this.GetType();
-        var attr = type.GetCustomAttribute<JSModuleAutoLoaderAttribute>(false);
+        var attr = type.GetCustomAttribute<JSModuleAutoLoaderAttribute>(Inherit);
         if (attr != null)
         {
             string? typeName = null;
