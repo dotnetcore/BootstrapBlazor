@@ -231,7 +231,7 @@ public partial class DateTimePicker<TValue>
         CurrentValueAsString = SelectedValue.ToString("yyyy-MM-dd HH:mm:ss");
         if (AutoClose)
         {
-            await InvokeExecuteAsync(Id, "hide");
+            await InvokeVoidAsync("execute", Id, "hide");
         }
     }
 }

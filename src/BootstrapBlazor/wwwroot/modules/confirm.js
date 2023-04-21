@@ -1,7 +1,5 @@
-﻿import BlazorComponent from "./base/blazor-component.js"
-import EventHandler from "./base/event-handler.js"
-import { isDisabled } from "./base/index.js"
-import { getDescribedElement, getDescribedOwner } from "./base/utility.js"
+﻿import { getDescribedElement, getDescribedOwner, isDisabled } from "./utility.js"
+import EventHandler from "./event-handler.js"
 
 export class Confirm extends BlazorComponent {
     static get Default() {
