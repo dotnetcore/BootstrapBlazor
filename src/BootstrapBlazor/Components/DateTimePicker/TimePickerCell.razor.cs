@@ -107,6 +107,12 @@ public partial class TimePickerCell
     }
 
     /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop);
+
+    /// <summary>
     /// 上翻页按钮调用此方法
     /// </summary>
     [JSInvokable]
