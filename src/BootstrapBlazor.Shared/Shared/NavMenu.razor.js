@@ -1,5 +1,5 @@
-﻿import EventHandler from "../../../_content/BootstrapBlazor/modules/event-handler.js"
-import Data from "../../../_content/BootstrapBlazor/modules/data.js"
+﻿import Data from "../../../_content/BootstrapBlazor/modules/data.js"
+import EventHandler from "../../../_content/BootstrapBlazor/modules/event-handler.js"
 
 export function init(id) {
     const navmenu = {
@@ -22,8 +22,8 @@ export function init(id) {
 
 export function dispose(id) {
     const data = Data.get(id);
+    Data.remove(id);
+
     EventHandler.off(data.navbar, 'click');
     EventHandler.off(data.menu, 'click', '.nav-link');
-    Data.remove(id);
 }
-
