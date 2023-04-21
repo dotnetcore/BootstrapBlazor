@@ -1,6 +1,6 @@
 ﻿@namespace BootstrapBlazor.Components
-@inherits BootstrapModule2ComponentBase
-@attribute [JSModuleAutoLoader("time-pick", ModuleName = "TimePicker", JSObjectReference = true)]
+@inherits BootstrapModuleComponentBase
+@attribute [JSModuleAutoLoader("./_content/BootstrapBlazor/Components/DateTimePicker/TimePickerCell.razor.js", JSObjectReference = true, Relative = false)]
 
 <div @attributes="@AdditionalAttributes" class="@ClassString" id="@Id">
     <i class="@UpIconString" @onclick="OnClickUp"></i>
