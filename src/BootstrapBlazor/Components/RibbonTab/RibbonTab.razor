@@ -1,5 +1,6 @@
 ﻿@namespace BootstrapBlazor.Components
-@inherits BootstrapModule2ComponentBase
+@inherits BootstrapModuleComponentBase
+@attribute [JSModuleAutoLoader(JSObjectReference = true)]
 
 <div @attributes="@AdditionalAttributes" id="@Id" class="@HeaderClassString">
     <div class="ribbon-header">
