@@ -18,7 +18,7 @@ public partial class Header
 
     [Inject]
     [NotNull]
-    private IStringLocalizer<BaseLayout>? Localizer { get; set; }
+    private IStringLocalizer<Header>? Localizer { get; set; }
 
     [NotNull]
     private string? HomeText { get; set; }
@@ -44,5 +44,6 @@ public partial class Header
         DownloadText ??= Localizer[nameof(DownloadText)];
         HomeText ??= Localizer[nameof(HomeText)];
         IntroductionText ??= Localizer[nameof(IntroductionText)];
+        ComponentsText ??= Localizer[nameof(ComponentsText)];
     }
 }

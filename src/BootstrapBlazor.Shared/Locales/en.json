@@ -4839,11 +4839,13 @@
   "BootstrapBlazor.Shared.Components.GlobalSearch": {
     "Search": "Search components"
   },
-  "BootstrapBlazor.Shared.Shared.BaseLayout": {
+  "BootstrapBlazor.Shared.Components.Header": {
     "DownloadText": "Download",
     "HomeText": "Home",
-    "IntroductionText": "Documents",
     "ComponentsText": "Components",
+    "IntroductionText": "Documents"
+  },
+  "BootstrapBlazor.Shared.Shared.BaseLayout": {
     "FlowText": "Workflow",
     "InstallAppText": "Install PWA App",
     "InstallText": "Install",

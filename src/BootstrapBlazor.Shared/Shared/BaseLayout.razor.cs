@@ -25,9 +25,6 @@ public partial class BaseLayout : IAsyncDisposable
     private IOptionsMonitor<WebsiteOptions>? WebsiteOption { get; set; }
 
     [NotNull]
-    private string? ComponentsText { get; set; }
-
-    [NotNull]
     private string? FlowText { get; set; }
 
     [NotNull]
@@ -57,7 +54,6 @@ public partial class BaseLayout : IAsyncDisposable
     {
         base.OnInitialized();
 
-        ComponentsText ??= Localizer[nameof(ComponentsText)];
         FlowText ??= Localizer[nameof(FlowText)];
         InstallAppText ??= Localizer[nameof(InstallAppText)];
         InstallText ??= Localizer[nameof(InstallText)];
