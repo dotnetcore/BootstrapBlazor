@@ -5,7 +5,7 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// TooltipWrapperBase 组件
 /// </summary>
 public abstract class TooltipWrapperBase : BootstrapModuleComponentBase
 {
