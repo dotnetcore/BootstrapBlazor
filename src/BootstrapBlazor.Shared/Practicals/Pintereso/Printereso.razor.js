@@ -7,7 +7,7 @@
         var h2 = documentH;
         if (Math.abs(h1 - h2) < 50) {
             invoke.invokeMethodAsync(method);
-            window.scrollTo(0, scrollH - 40);//把滚动条往回滚一点
+            window.scrollTo(0, scrollH - 40);//把滚动条往上滚一点
         }
     }
 }
