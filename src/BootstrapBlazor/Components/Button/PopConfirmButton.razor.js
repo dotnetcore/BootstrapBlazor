@@ -1,20 +1,20 @@
-﻿import { getDescribedElement, getDescribedOwner, isDisabled } from "./utility.js"
-import Data from "./data.js"
-import EventHandler from "./event-handler.js"
+﻿import { getDescribedElement, getDescribedOwner, hackPopover, isDisabled } from "../../modules/utility.js"
+import Data from "../../modules/data.js"
+import EventHandler from "../../modules/event-handler.js"
+
+const config = {
+    class: 'popover-confirm',
+    dismiss: '.popover-confirm-buttons > div',
+    popoverSelector: '.popover-confirm.show'
+}
 
 export function init(id) {
     const el = document.getElementById(id)
     const confirm = {
         el,
-        popover: bootstrap.Popover.getOrCreateInstance(el),
-        config: {
-            class: 'popover-confirm',
-            dismiss: '.popover-confirm-buttons > div',
-            popoverSelector: '.popover-confirm.show'
-        },
-        container = el.querySelector('[data-bb-toggle="confirm"]')
+        container: el.querySelector('[data-bb-toggle="confirm"]')
     }
-    Data.set(id, config)
+    Data.set(id, confirm)
 
     confirm.show = e => {
         const disabled = isDisabled(el);
@@ -24,10 +24,10 @@ export function init(id) {
     }
     confirm.inserted = () => {
         const popover = getDescribedElement(el)
-        const children = cofirm.container.children
+        const children = confirm.container.children
         const len = children.length
         for (let i = 0; i < len; i++) {
-            popover.appendChild(children[0])
+            popover.appendChild(children[i])
         }
     }
     confirm.hide = () => {
@@ -45,24 +45,36 @@ export function init(id) {
     EventHandler.on(el, 'inserted.bs.popover', confirm.inserted)
     EventHandler.on(el, 'hide.bs.popover', confirm.hide)
 
-    if (confirm.config.dismiss != null) {
-        EventHandler.on(document, 'click', confirm.config.dismiss, () => confirm.popover.hide())
+    if (config.dismiss != null) {
+        confirm.dismissHandler = e => {
+            const ele = e.target.closest(config.popoverSelector)
+            if (ele) {
+                const element = getDescribedOwner(ele)
+                if (element) {
+                    const popover = bootstrap.Popover.getInstance(element);
+                    if (popover) {
+                        popover.hide()
+                    }
+                }
+            }
+        }
+        EventHandler.on(document, 'click', config.dismiss, confirm.dismissHandler)
     }
 
     confirm.checkCancel = el => {
         // check button
-        let self = el === el || el.closest('.dropdown-toggle') === el
-        self = self && confirm.popover._isShown()
+        let self = confirm.el === el || el.closest('.dropdown-toggle') === confirm.el
+        self = self && confirm.popover && confirm.popover._isShown()
 
         // check popover
-        self = self || el.closest(confirm.config.popoverSelector)
+        self = self || el.closest(config.popoverSelector)
         return self
     }
 
     confirm.closeConfirm = e => {
         const el = e.target
         if (!confirm.checkCancel(el)) {
-            document.querySelectorAll(confirm.config.popoverSelector).forEach(function (ele) {
+            document.querySelectorAll(config.popoverSelector).forEach(function (ele) {
                 const element = getDescribedOwner(ele)
                 if (element) {
                     const popover = bootstrap.Popover.getInstance(element);
@@ -89,22 +101,37 @@ const toggle = id => {
 }
 
 export function showConfirm(id) {
+    const confirm = Data.get(id)
 
+    if (!confirm.popover) {
+        confirm.popover = new bootstrap.Popover(confirm.el);
+        hackPopover(confirm.popover, config.class)
+        confirm.popover.show()
+    }
 }
 
 export function submit(id) {
-
+    const form = el.closest('form');
+    if (form !== null) {
+        const button = document.createElement('button');
+        button.setAttribute('type', 'submit');
+        button.setAttribute('hidden', 'true');
+        form.append(button);
+        button.click();
+        button.remove();
+    }
 }
 
 export function dispose(id) {
     const confirm = Data.get(id)
     Data.remove(id)
 
-    if (confirm.popover) {
-        confirm.popover.dispose()
+    if (confirm) {
+        if (confirm.popover) {
+            confirm.popover.dispose()
+        }
+        if (config.dismiss) {
+            EventHandler.off(document, 'click', config.dismiss, confirm.dismissHandler)
+        }
     }
-    if (confirm.config.dismiss != null) {
-        EventHandler.off(document, 'click', confirm.config.dismiss)
-    }
-}
 }

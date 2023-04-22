@@ -356,6 +356,22 @@ const isDisabled = element => {
     return element.hasAttribute('disabled') && element.getAttribute('disabled') !== 'false'
 }
 
+const hackPopover = (pop, classList) => {
+    pop._isWithContent = () => true
+
+    const getTipElement = pop._getTipElement
+    const fn = tip => {
+        if (classList) {
+            tip.classList.add(classList)
+        }
+    }
+    pop._getTipElement = () => {
+        let tip = getTipElement.call(pop)
+        fn(tip)
+        return tip
+    }
+}
+
 export {
     addLink,
     addScript,
@@ -379,6 +395,7 @@ export {
     getWidth,
     getWindow,
     getWindowScroll,
+    hackPopover,
     removeLink,
     removeScript,
     vibrate

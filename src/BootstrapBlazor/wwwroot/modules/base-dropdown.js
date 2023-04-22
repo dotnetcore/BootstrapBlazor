@@ -1,4 +1,4 @@
-﻿import { getDescribedElement, getDescribedOwner, isDisabled, isFunction } from "./utility.js"
+﻿import { getDescribedElement, getDescribedOwner, hackPopover, isDisabled, isFunction } from "./utility.js"
 import EventHandler from "./event-handler.js"
 
 export default {
@@ -15,22 +15,6 @@ export default {
         dropdown.toggleElement = el.querySelector(dropdown.toggleClass)
         dropdown.isPopover = dropdown.toggleElement.getAttribute('data-bs-toggle') === 'bb.dropdown'
         dropdown.toggleMenu = el.querySelector(dropdown.dropdown)
-        dropdown.hackPopover = () => {
-            if (dropdown.popover) {
-                dropdown.popover._isWithContent = () => true
-
-                const getTipElement = dropdown.popover._getTipElement
-                const fn = tip => {
-                    tip.classList.add(dropdown.class)
-                }
-                dropdown.popover._getTipElement = () => {
-                    let tip = getTipElement.call(dropdown.popover)
-                    fn(tip)
-                    return tip
-                }
-            }
-        }
-
         dropdown.isShown = () => {
             return dropdown.popover && dropdown.popover._isShown();
         }
@@ -110,7 +94,7 @@ export default {
                     dropdown.popover = bootstrap.Popover.getInstance(dropdown.toggleElement);
                     if (!dropdown.popover) {
                         dropdown.popover = new bootstrap.Popover(dropdown.toggleElement)
-                        dropdown.hackPopover()
+                        hackPopover(dropdown.popover, dropdown.class)
                         dropdown.popover.toggle()
                     }
                 }
