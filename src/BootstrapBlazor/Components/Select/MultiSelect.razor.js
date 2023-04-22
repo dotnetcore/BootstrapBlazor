@@ -8,41 +8,37 @@ export function init(id, invoke, callback) {
     const ms = {
         el, invoke, callback,
         itemsElement: el.querySelector('.multi-select-items'),
-        closeButtonSelector: '.multi-select-close'
+        closeButtonSelector: '.multi-select-close',
+        dropdown: DropdownBase.init(el)
     }
 
-    super._init()
-
-    if (!this._isPopover) {
-        EventHandler.on(this._config._itemsElement, 'click', this._config._closeButtonSelector, () => {
-            const dropdown = bootstrap.Dropdown.getInstance(this._toggle)
-            if (dropdown && dropdown._isShown()) {
-                dropdown.hide()
+    if (!ms.dropdown.isPopover) {
+        EventHandler.on(ms.itemsElement, 'click', ms.closeButtonSelector, () => {
+            const popover = ms.dropdown.popover
+            if (popover && popover._isShown()) {
+                popover.hide()
             }
         })
     }
+    ms.dropdown.clickToggle = e => {
+        const element = e.target.closest(ms._closeButtonSelector);
+        if (element) {
+            e.stopPropagation()
 
-    super._setListeners()
-}
-
-
-_isDisabled() {
-    return isDisabled(this._toggle)
-}
-
-_clickToggle() {
-    const element = event.target.closest(this._config._closeButtonSelector);
-    if (element) {
-        event.stopPropagation()
-
-        this._invoker.invokeMethodAsync(this._invokerMethod, element.getAttribute('data-bb-val'))
+            invoke.invokeMethodAsync(callback, element.getAttribute('data-bb-val'))
+        }
+    }
+    ms.dropdown.isDisabled = () => {
+        return isDisabled(ms.dropdown.toggleElement)
     }
 }
 
 export function dispose(id) {
-    if (!this._isPopover) {
-        EventHandler.off(this._config._itemsElement, 'click', this._config._closeButtonSelector)
-    }
+    const ms = Data.get(id)
+    Data.remove(id)
 
-    super._dispose()
+    if (!ms.dropdonw.isPopover) {
+        EventHandler.off(ms.itemsElement, 'click', ms.closeButtonSelector)
+    }
+    ms.dropdonw.dispose(ms.dropdonw)
 }
