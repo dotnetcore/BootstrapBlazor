@@ -1,8 +1,9 @@
 ﻿@page "/pintereso"
+@using Microsoft.AspNetCore.Components.Rendering;
 
 <div class="container-fluid">
     <div class="row">
-        <div class="card-columns" @ref="@Element">
+        <div class="card-columns">
             @foreach (var item in IamgeList)
             {
                 <div class="card card-pin">
