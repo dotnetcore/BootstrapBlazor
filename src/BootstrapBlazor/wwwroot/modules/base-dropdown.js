@@ -21,7 +21,7 @@ export default {
 
                 const getTipElement = dropdown.popover._getTipElement
                 const fn = tip => {
-                    tip.classList.add(dropdown.config.class)
+                    tip.classList.add(dropdown.class)
                 }
                 dropdown.popover._getTipElement = () => {
                     let tip = getTipElement.call(dropdown.popover)
@@ -77,7 +77,7 @@ export default {
             }
 
             const insertedPopover = () => {
-                const popover = getDescribedElement(dropdown.toggle)
+                const popover = getDescribedElement(dropdown.toggleElement)
                 if (popover) {
                     let body = popover.querySelector('.popover-body')
                     if (!body) {
@@ -105,17 +105,19 @@ export default {
                 el.append(dropdown.toggleMenu);
             }
 
-            const active = () => {
+            const active = e => {
                 if (!dropdown.isDisabled()) {
-                    dropdown.popover = bootstrap.Popover.getInstance(dropdown.toggle);
+                    dropdown.popover = bootstrap.Popover.getInstance(dropdown.toggleElement);
                     if (!dropdown.popover) {
-                        dropdown.popover = new bootstrap.Popover(dropdown.toggle)
+                        dropdown.popover = new bootstrap.Popover(dropdown.toggleElement)
                         dropdown.hackPopover()
                         dropdown.popover.toggle()
                     }
                 }
 
-                dropdown.clickToggle()
+                if (dropdown.clickToggle) {
+                    dropdown.clickToggle(e)
+                }
             }
 
             const closePopover = e => {
