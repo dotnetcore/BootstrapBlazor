@@ -9,7 +9,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// Button 按钮组件
 /// </summary>
-[JSModuleAutoLoader("./_content/BootstrapBlazor/Components/Button/Button.razor.js", Relative = false, AutoInvokeDispose = false)]
+[JSModuleAutoLoader("./_content/BootstrapBlazor/Components/Button/Button.razor.js", Relative = false)]
 public abstract class ButtonBase : TooltipWrapperBase
 {
     /// <summary>
@@ -249,7 +249,7 @@ public abstract class ButtonBase : TooltipWrapperBase
     {
         if (Tooltip == null && !string.IsNullOrEmpty(TooltipText))
         {
-            await InvokeVoidAsync("execute", Id, "showTooltip", TooltipText);
+            await InvokeVoidAsync("showTooltip", Id, TooltipText);
         }
     }
 
@@ -261,7 +261,7 @@ public abstract class ButtonBase : TooltipWrapperBase
     {
         if (Tooltip == null)
         {
-            await InvokeVoidAsync("execute", Id, "removeTooltip");
+            await InvokeVoidAsync("removeTooltip", Id);
         }
     }
 

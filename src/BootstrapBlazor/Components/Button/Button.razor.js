@@ -1,35 +1,29 @@
-﻿import Confirm from "./confirm.js"
+﻿import Data from "../../modules/data.js"
 
-export function execute(id, method, title) {
+export function init(id) {
     const el = document.getElementById(id)
+    const button = { el }
+    Data.set(id, el)
+}
 
-    if (method === 'showTooltip') {
-        bootstrap.Tooltip.getOrCreateInstance(el, {
-            title: title
-        })
+export function showTooltip(id, title) {
+    const button = Data.get(id)
+
+    button.tooltip = bootstrap.Tooltip.getOrCreateInstance(el, {
+        title: title
+    })
+}
+
+export function removeTooltip(id) {
+    const button = Data.get(id)
+
+    if (button.tooltip) {
+        button.tooltip.dispose()
+        delete button.tooltip
     }
-    else if (method === 'removeTooltip') {
-        const tooltip = bootstrap.Tooltip.getInstance(el)
-        if (tooltip) {
-            tooltip.dispose()
-        }
-    }
-    else if (method === 'showConfirm') {
-        let confirm = Confirm.getInstance(el)
-        if (!confirm) {
-            confirm = new Confirm(el)
-            confirm.toggle()
-        }
-    }
-    else if (method === 'submit') {
-        const form = el.closest('form');
-        if (form !== null) {
-            const button = document.createElement('button');
-            button.setAttribute('type', 'submit');
-            button.setAttribute('hidden', 'true');
-            form.append(button);
-            button.click();
-            button.remove();
-        }
-    }
+}
+
+export function dispose(id) {
+    removeTooltip(id)
+    Data.remove(id)
 }
