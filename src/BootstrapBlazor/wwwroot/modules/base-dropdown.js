@@ -1,10 +1,8 @@
 ﻿import { getDescribedElement, getDescribedOwner, isDisabled, isFunction } from "./utility.js"
-import Data from "./data.js"
 import EventHandler from "./event-handler.js"
 
 export default {
-    init(id) {
-        const el = document.getElementById(id)
+    init(el) {
         const dropdown = {
             el,
             class: 'popover-dropdown',
@@ -14,8 +12,8 @@ export default {
                 return isDisabled(el) || isDisabled(el.parentNode) || isDisabled(el.querySelector('.form-control'))
             }
         }
-        dropdown.toggle = el.querySelector(el.toggleClass)
-        dropdown.isPopover = dropdown.toggle.getAttribute('data-bs-toggle') === 'bb.dropdown'
+        dropdown.toggleElement = el.querySelector(dropdown.toggleClass)
+        dropdown.isPopover = dropdown.toggleElement.getAttribute('data-bs-toggle') === 'bb.dropdown'
         dropdown.toggleMenu = el.querySelector(dropdown.dropdown)
         dropdown.hackPopover = () => {
             if (dropdown.popover) {
@@ -38,7 +36,7 @@ export default {
         }
 
         dropdown.setCustomClass = () => {
-            const extraClass = dropdown.toggle.getAttribute('data-bs-custom-class')
+            const extraClass = dropdown.toggleElement.getAttribute('data-bs-custom-class')
             if (extraClass) {
                 dropdown.toggleMenu.classList.add(...extraClass.split(' '))
             }
@@ -166,12 +164,11 @@ export default {
 
             EventHandler.on(el, 'show.bs.dropdown', show)
         }
+
+        return dropdown
     },
 
-    dispose(id) {
-        const dropdown = Data.get(id)
-        Data.remove(id)
-
+    dispose(dropdown) {
         if (dropdown.isPopover) {
             EventHandler.off(dropdown.el, 'show.bs.popover')
             EventHandler.off(dropdown.el, 'inserted.bs.popover')
@@ -180,7 +177,7 @@ export default {
             EventHandler.off(dropdown.toggleMenu, 'click', '.dropdown-item')
         }
         else {
-            EventHandler.off(el, 'show.bs.dropdown')
+            EventHandler.off(dropdown.el, 'show.bs.dropdown')
         }
     }
 }

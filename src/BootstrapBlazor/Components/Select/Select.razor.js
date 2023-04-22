@@ -1,105 +1,105 @@
-﻿import DropdownBase from "./base/base-dropdown.js"
-import EventHandler from "./base/event-handler.js"
-import { getHeight, getInnerHeight } from "./base/utility.js"
+﻿import { getHeight, getInnerHeight } from "../../modules/utility.js"
+import Data from "../../modules/data.js"
+import DropdownBase from "../../modules/base-dropdown.js"
+import EventHandler from "../../modules/event-handler.js"
 
-export class Select extends DropdownBase {
-    _init() {
-        // el, obj, method
-        this._search = this._element.querySelector('input.search-text')
-        this._invoker = this._config.arguments[0]
-        this._invokeMethodName = this._config.arguments[1]
-
-        super._init()
+export function init(id, invoke, callback) {
+    const el = document.getElementById(id)
+    const select = {
+        el, invoke, callback,
+        search: el.querySelector('input.search-text'),
+        dropdown: DropdownBase.init(el)
     }
+    Data.set(id, select)
 
-    _setListeners() {
-        super._setListeners()
-
-        const shown = () => {
-            if (this._search) {
-                this._search.focus();
-            }
-            const prev = this._toggleMenu.querySelector('.dropdown-item.preActive')
-            if (prev) {
-                prev.classList.remove('preActive')
-            }
-            this._scrollToActive()
-        }
-
-        const keydown = e => {
-            e.stopPropagation()
-
-            if (this._toggle.classList.contains('show')) {
-                const items = this._toggleMenu.querySelectorAll('.dropdown-item:not(.search, .disabled)')
-                let activeItem = this._toggleMenu.querySelector('.dropdown-item.preActive') 
-                if (activeItem == null) activeItem = this._toggleMenu.querySelector('.dropdown-item.active')
-
-                if (activeItem) {
-                    if (items.length > 1) {
-                        activeItem.classList.remove('preActive')
-                        if (e.key === "ArrowUp") {
-                            do {
-                                activeItem = activeItem.previousElementSibling
-                            }
-                            while (activeItem && !activeItem.classList.contains('dropdown-item'))
-                            if (!activeItem) {
-                                activeItem = items[items.length - 1]
-                            }
-                            activeItem.classList.add('preActive')
-                            this._scrollToActive(activeItem)
-                        } else if (e.key === "ArrowDown") {
-                            do {
-                                activeItem = activeItem.nextElementSibling
-                            }
-                            while (activeItem && !activeItem.classList.contains('dropdown-item'))
-                            if (!activeItem) {
-                                activeItem = items[0]
-                            }
-                            activeItem.classList.add('preActive')
-                            this._scrollToActive(activeItem)
-                        }
-                    }
-
-                    if (e.key === "Enter") {
-                        this._toggleMenu.classList.remove('show')
-                        let index = this._indexOf(activeItem)
-                        this._invoker.invokeMethodAsync(this._invokeMethodName, index)
-                    }
-                }
-            }
-        }
-
-        EventHandler.on(this._element, 'shown.bs.dropdown', shown);
-        EventHandler.on(this._element, 'keydown', keydown)
-    }
-
-    _indexOf(element) {
-        const items = this._toggleMenu.querySelectorAll('.dropdown-item')
-        return Array.prototype.indexOf.call(items, element)
-    }
-
-    _scrollToActive(activeItem) {
+    select.scrollToActive = activeItem => {
         if (!activeItem) {
-            activeItem = this._toggleMenu.querySelector('.dropdown-item.active')
+            activeItem = select.toggleMenu.querySelector('.dropdown-item.active')
         }
 
         if (activeItem) {
-            const innerHeight = getInnerHeight(this._toggleMenu)
+            const innerHeight = getInnerHeight(select.toggleMenu)
             const itemHeight = getHeight(activeItem);
-            const index = this._indexOf(activeItem)
+            const index = select.indexOf(activeItem)
             const margin = itemHeight * index - (innerHeight - itemHeight) / 2;
             if (margin >= 0) {
-                this._toggleMenu.scrollTo(0, margin);
+                select.toggleMenu.scrollTo(0, margin);
             } else {
-                this._toggleMenu.scrollTo(0, 0);
+                select.toggleMenu.scrollTo(0, 0);
             }
         }
     }
 
-    _dispose() {
-        EventHandler.off(this._element, 'shown.bs.dropdown')
-        EventHandler.off(this._element, 'keydown')
+    select.indexOf = element => {
+        const items = select.toggleMenu.querySelectorAll('.dropdown-item')
+        return Array.prototype.indexOf.call(items, element)
+    }
 
-        super._dispose()
+    const shown = () => {
+        if (select.search) {
+            select.search.focus();
+        }
+        const prev = select.toggleMenu.querySelector('.dropdown-item.preActive')
+        if (prev) {
+            prev.classList.remove('preActive')
+        }
+        select.scrollToActive()
+    }
+
+    const keydown = e => {
+        e.stopPropagation()
+
+        if (select.toggle.classList.contains('show')) {
+            const items = select.toggleMenu.querySelectorAll('.dropdown-item:not(.search, .disabled)')
+            let activeItem = select.toggleMenu.querySelector('.dropdown-item.preActive')
+            if (activeItem == null) activeItem = select.toggleMenu.querySelector('.dropdown-item.active')
+
+            if (activeItem) {
+                if (items.length > 1) {
+                    activeItem.classList.remove('preActive')
+                    if (e.key === "ArrowUp") {
+                        do {
+                            activeItem = activeItem.previousElementSibling
+                        }
+                        while (activeItem && !activeItem.classList.contains('dropdown-item'))
+                        if (!activeItem) {
+                            activeItem = items[items.length - 1]
+                        }
+                        activeItem.classList.add('preActive')
+                        select.scrollToActive(activeItem)
+                    } else if (e.key === "ArrowDown") {
+                        do {
+                            activeItem = activeItem.nextElementSibling
+                        }
+                        while (activeItem && !activeItem.classList.contains('dropdown-item'))
+                        if (!activeItem) {
+                            activeItem = items[0]
+                        }
+                        activeItem.classList.add('preActive')
+                        select.scrollToActive(activeItem)
+                    }
+                }
+
+                if (e.key === "Enter") {
+                    select.toggleMenu.classList.remove('show')
+                    let index = select.indexOf(activeItem)
+                    select.invoke.invokeMethodAsync(select.callback, index)
+                }
+            }
+        }
+    }
+
+    EventHandler.on(select.element, 'shown.bs.dropdown', shown);
+    EventHandler.on(select.element, 'keydown', keydown)
+}
+
+export function dispose(id) {
+    const select = Data.get(id)
+
+    EventHandler.off(select.el, 'shown.bs.dropdown')
+    EventHandler.off(select.el, 'keydown')
+
+    if (select.dropdown) {
+        DropdownBase.dispose(select.dropdown)
     }
 }

@@ -1,6 +1,6 @@
-﻿import DropdownBase from "./base/base-dropdown.js"
-import { isDisabled } from "../../modules/utility.js"
+﻿import { isDisabled } from "../../modules/utility.js"
 import Data from "../../modules/data.js"
+import DropdownBase from "../../modules/base-dropdown.js"
 import EventHandler from "../../modules/event-handler.js"
 
 export function init(id, invoke, callback) {
