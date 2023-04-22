@@ -33,43 +33,9 @@
         }
 }
 
-.card-title {
-    margin-bottom: 0.75rem;
-}
-
-.card-subtitle {
-    margin-top: -0.375rem;
-    margin-bottom: 0;
-}
-
 .card-pin:hover .card-title {
     color: #ffffff;
     margin-top: 10px;
     text-align: center;
     font-size: 1.2em;
-}
-
-.more {
-    color: #d600aa;
-    font-size: 14px;
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    -webkit-transform: translate(-20%, -20%);
-    transform: translate(-20%, -20%);
-    -ms-transform: translate(-50%, -50%);
-}
-
-.overlay {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 100%;
-    width: 100%;
-    opacity: 0;
-    -webkit-transition: .2s ease;
-    transition: .2s ease;
-    background-color: #008CBA;
 }

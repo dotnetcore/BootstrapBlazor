@@ -50,14 +50,17 @@ public partial class Printereso : IAsyncDisposable
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
+    /// <param name="firstRender"></param>
     /// <returns></returns>
-    protected override async Task OnInitializedAsync()
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        await base.OnInitializedAsync();
-
-        Module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/BootstrapBlazor.Shared/Practicals/Pintereso/Printereso.razor.js");
-        Interop = DotNetObjectReference.Create(this);
-        await Module.InvokeVoidAsync("init", Interop, nameof(JsOnScroll));
+        await base.OnAfterRenderAsync(firstRender);
+        if (firstRender)
+        {
+            Module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/BootstrapBlazor.Shared/Practicals/Pintereso/Printereso.razor.js");
+            Interop = DotNetObjectReference.Create(this);
+            await Module.InvokeVoidAsync("init", Interop, nameof(JsOnScroll));
+        }
     }
 
     /// <summary>
