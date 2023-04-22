@@ -71,11 +71,13 @@ export function dispose(id) {
     const pre = Data.get(id)
     Data.remove(id)
 
-    if (pre.handler) {
-        clearInterval(pre.handler)
-    }
+    if (pre) {
+        if (pre.handler) {
+            clearInterval(pre.handler)
+        }
 
-    EventHandler.off(pre.el, 'click', '.btn-copy')
-    EventHandler.off(pre.el, 'click', '.btn-plus')
-    EventHandler.off(pre.el, 'click', '.btn-minus')
+        EventHandler.off(pre.el, 'click', '.btn-copy')
+        EventHandler.off(pre.el, 'click', '.btn-plus')
+        EventHandler.off(pre.el, 'click', '.btn-minus')
+    }
 }
