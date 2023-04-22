@@ -2,7 +2,8 @@
   "BootstrapBlazor.Shared.Pages.Prac": {
     "CategoryTitle": "BootstrapBlazor 实战案例",
     "DashboardSummary": "仪表盘 Dashboard",
-    "LoginSummary": "登陆注册 Login&Register"
+    "LoginSummary": "登陆注册 Login&Register",
+    "PinteresoSummary": "瀑布流图片 Pintereso"
   },
   "BootstrapBlazor.Shared.App": {
     "Title": "Bootstrap Blazor - 组件库",
