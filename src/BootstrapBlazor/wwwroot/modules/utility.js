@@ -233,6 +233,16 @@ const getDescribedElement = (element, selector = 'aria-describedby') => {
     return null
 }
 
+const getDescribedOwner = (element, selector = 'aria-describedby') => {
+    if (isElement(element)) {
+        const id = element.getAttribute('id')
+        if (id) {
+            return document.querySelector(`[${selector}="${id}"]`)
+        }
+    }
+    return null
+}
+
 const isElement = object => {
     if (!object || typeof object !== 'object') {
         return false
@@ -360,6 +370,7 @@ export {
     getElement,
     getElementById,
     getDescribedElement,
+    getDescribedOwner,
     getHeight,
     getInnerHeight,
     getInnerWidth,
