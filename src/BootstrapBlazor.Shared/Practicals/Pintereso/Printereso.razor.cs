@@ -2,10 +2,30 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using Microsoft.JSInterop;
+
+using System.Diagnostics;
+
 namespace BootstrapBlazor.Shared.Practicals.Pintereso;
 
-public partial class Printereso
+public partial class Printereso : IAsyncDisposable
 {
+    [NotNull]
+    private IJSObjectReference? Module { get; set; }
+
+    [NotNull]
+    private DotNetObjectReference<Printereso>? Interop { get; set; }
+
+    [Inject]
+    [NotNull]
+    private JSRuntime? JSRuntime { get; set; }
+
+    /// <summary>
+    /// 获得/设置 DOM 元素实例
+    /// </summary>
+    private ElementReference Element { get; set; }
+
+
     private readonly string[] IamgeList = new string[]
     {
         "https://images.unsplash.com/photo-1489743342057-3448cc7c3bb9?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=6d284a2efbca5f89528546307f7e7b87&auto=format&fit=crop&w=500&q=60",
@@ -33,10 +53,50 @@ public partial class Printereso
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    protected override void OnInitialized()
+    protected override async void OnInitialized()
     {
         base.OnInitialized();
 
-        //Write code here to get your image list
+        Module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/BootstrapBlazor.Shared/Practicals/Pintereso/Printereso.razor.js");
+        Interop = DotNetObjectReference.Create(this);
+        await Module.InvokeVoidAsync("init", Interop, nameof(JsOnScroll), Element);
     }
+
+    /// <summary>
+    /// 滚动到底部后回调此方法
+    /// </summary>
+    [JSInvokable]
+    public void JsOnScroll()
+    {
+        Debug.Print("OnScroll:");
+    }
+
+    #region Dispose
+    /// <summary>
+    /// Dispose 方法
+    /// </summary>
+    /// <param name="disposing"></param>
+    protected virtual async ValueTask DisposeAsync(bool disposing)
+    {
+        if (disposing)
+        {
+            Interop?.Dispose();
+
+            if (Module != null)
+            {
+                await Module.InvokeVoidAsync("dispose", Element);
+                await Module.DisposeAsync();
+            }
+        }
+    }
+
+    /// <summary>
+    /// Dispose 方法
+    /// </summary>
+    public async ValueTask DisposeAsync()
+    {
+        await DisposeAsync(true);
+        GC.SuppressFinalize(this);
+    }
+    #endregion
 }
