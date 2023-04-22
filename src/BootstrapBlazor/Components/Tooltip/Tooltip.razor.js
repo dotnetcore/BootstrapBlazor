@@ -1,9 +1,8 @@
-﻿import Data from "../../modules/data.js"
+﻿import Data from "./data.js"
 
 export function init(id) {
     const el = document.getElementById(id)
     const tip = {
-        el,
         tooltip: new bootstrap.Tooltip(el, { sanitize: el.getAttribute('data-bs-sanitize') !== 'false' })
     }
     Data.set(id, tip)

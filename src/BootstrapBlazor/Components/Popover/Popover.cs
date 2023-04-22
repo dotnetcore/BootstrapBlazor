@@ -42,11 +42,11 @@ public class Popover : Tooltip
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override async Task ModuleInitAsync()
+    protected override async Task InvokeInitAsync()
     {
         if (!string.IsNullOrEmpty(Content))
         {
-            await InvokeInitAsync(Id, Title, Content);
+            await InvokeVoidAsync("init", Id, Title, Content);
         }
     }
 }

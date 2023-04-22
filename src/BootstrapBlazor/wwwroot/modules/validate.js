@@ -1,11 +1,32 @@
-﻿import { Tooltip } from "./tooltip.js"
+﻿import Data from "./data.js"
+import EventHandler from "./event-handler.js"
 
-export class Validate extends Tooltip {
-    _execute(args) {
-        this._tooltip._config.customClass = "is-invalid"
-        this._tooltip._config.title = args[0]
-        if (!this._tooltip._isShown()) {
-            this._tooltip.show()
-        }
+export function execute(id, title) {
+    const el = document.getElementById(id)
+    const v = {
+        el,
+        tip: new bootstrap.Tooltip(el, { title })
+    }
+    Data.set(id, v)
+
+    v.tip._config.customClass = "is-invalid"
+    if (!v.tip._isShown()) {
+        v.tip.show()
+    }
+}
+
+export function dispose(id) {
+    const v = Data.get(id) || {}
+    Data.remove(id)
+
+    if (v.tip) {
+        const delay = 10
+        const handler = setTimeout(() => {
+            clearTimeout(handler)
+            if (v.tip) {
+                v.tip.dispose()
+                delete v.tip
+            }
+        }, delay)
     }
 }

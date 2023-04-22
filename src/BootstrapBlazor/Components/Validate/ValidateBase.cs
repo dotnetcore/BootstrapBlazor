@@ -431,7 +431,7 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
 
     private JSModule? ValidateModule { get; set; }
 
-    private Task<JSModule> LoadValidateModule() => JSRuntime.LoadModule2("validate");
+    private Task<JSModule> LoadValidateModule() => JSRuntime.LoadModule("./_content/BootstrapBlazor/modules/validate.js", false);
 
     /// <summary>
     /// 增加客户端 Tooltip 方法
@@ -443,7 +443,7 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
         if (!string.IsNullOrEmpty(id) && !string.IsNullOrEmpty(ErrorMessage))
         {
             ValidateModule ??= await LoadValidateModule();
-            await ValidateModule.InvokeVoidAsync("Validate.execute", id, ErrorMessage);
+            await ValidateModule.InvokeVoidAsync("execute", id, ErrorMessage);
         }
     }
 
@@ -457,7 +457,7 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
         if (!string.IsNullOrEmpty(id))
         {
             ValidateModule ??= await LoadValidateModule();
-            await ValidateModule.InvokeVoidAsync("Validate.dispose", id);
+            await ValidateModule.InvokeVoidAsync("dispose", id);
         }
     }
 
@@ -484,11 +484,7 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
                 ValidateForm.TryRemoveValidator((FieldIdentifier.Value.FieldName, FieldIdentifier.Value.Model.GetType()), out _);
             }
 
-            if (ValidateModule != null)
-            {
-                var id = RetrieveId();
-                await ValidateModule.InvokeVoidAsync("Validate.dispose", id);
-            }
+            await RemoveValidResult();
         }
 
         await base.DisposeAsync(disposing);
