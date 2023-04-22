@@ -1,4 +1,4 @@
-﻿import Data from "./data.js"
+﻿import Data from "../../modules/data.js"
 
 export function init(id) {
     const el = document.getElementById(id)
