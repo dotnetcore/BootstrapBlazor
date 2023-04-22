@@ -1,4 +1,5 @@
 ﻿import { getDescribedElement, getDescribedOwner, hackPopover, isDisabled } from "../../modules/utility.js"
+import { showTooltip as _showTooltip, removeTooltip as _removeTooltip } from './Button.razor.js'
 import Data from "../../modules/data.js"
 import EventHandler from "../../modules/event-handler.js"
 
@@ -111,6 +112,7 @@ export function showConfirm(id) {
 }
 
 export function submit(id) {
+    const el = document.getElementById(id)
     const form = el.closest('form');
     if (form !== null) {
         const button = document.createElement('button');
@@ -120,6 +122,14 @@ export function submit(id) {
         button.click();
         button.remove();
     }
+}
+
+export function showTooltip(id, title) {
+    _showTooltip(id, title)
+}
+
+export function removeTooltip(id) {
+    _removeTooltip(id)
 }
 
 export function dispose(id) {
