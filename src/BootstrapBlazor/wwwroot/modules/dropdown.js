@@ -1,5 +1,5 @@
-﻿import DropdownBase from "./base/base-dropdown.js"
-import EventHandler from "./base/event-handler.js"
+﻿import DropdownBase from "../../modules/base-dropdown.js"
+import EventHandler from "../../modules/event-handler.js"
 
 export class Dropdown extends DropdownBase {
     _setListeners() {

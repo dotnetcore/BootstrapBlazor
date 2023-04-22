@@ -60,7 +60,7 @@ public partial class PopConfirmButton
         // 回调消费者逻辑 判断是否需要弹出确认框
         if (await OnBeforeClick())
         {
-            await InvokeVoidAsync("execute", Id, "showConfirm");
+            await InvokeVoidAsync("showConfirm", Id);
         }
     }
 
@@ -100,6 +100,6 @@ public partial class PopConfirmButton
 
     private async Task TrySubmit()
     {
-        await InvokeVoidAsync("execute", Id, "submit");
+        await InvokeVoidAsync("submit", Id);
     }
 }

@@ -7,6 +7,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 确认弹窗按钮组件
 /// </summary>
+[JSModuleAutoLoader("./_content/BootstrapBlazor/Components/Button/PopConfirmButton.razor.js", Relative = false)]
 public abstract class PopConfirmButtonBase : ButtonBase
 {
     /// <summary>

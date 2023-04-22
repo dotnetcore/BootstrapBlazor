@@ -3,13 +3,13 @@
 export function init(id) {
     const el = document.getElementById(id)
     const button = { el }
-    Data.set(id, el)
+    Data.set(id, button)
 }
 
 export function showTooltip(id, title) {
     const button = Data.get(id)
 
-    button.tooltip = bootstrap.Tooltip.getOrCreateInstance(el, {
+    button.tooltip = bootstrap.Tooltip.getOrCreateInstance(button.el, {
         title: title
     })
 }

@@ -1,6 +1,6 @@
-﻿import DropdownBase from "./base/base-dropdown.js"
-import EventHandler from "./base/event-handler.js"
-import { isDisabled } from "./base/index.js"
+﻿import { isDisabled } from ".../../modules/utility.js"
+import DropdownBase from "../../modules/base-dropdown.js"
+import EventHandler from "../../modules/event-handler.js"
 
 export class SelectTree extends DropdownBase {
     _init() {
