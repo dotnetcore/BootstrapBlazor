@@ -23,12 +23,6 @@ public abstract class BootstrapModuleComponentBase : IdComponentBase, IAsyncDisp
     protected string? ModulePath { get; set; }
 
     /// <summary>
-    /// The javascript dynamic module name
-    /// </summary>
-    [NotNull]
-    protected string? ModuleName { get; set; }
-
-    /// <summary>
     /// 获得/设置 路径是否为相对路径 默认 false
     /// </summary>
     protected bool Relative { get; set; }
@@ -91,7 +85,6 @@ public abstract class BootstrapModuleComponentBase : IdComponentBase, IAsyncDisp
         {
             string? typeName = null;
             ModulePath = attr.Path ?? GetTypeName();
-            ModuleName = attr.ModuleName ?? GetTypeName();
             Relative = attr.Relative;
             AutoInvokeDispose = attr.AutoInvokeDispose;
             AutoInvokeInit = attr.AutoInvokeInit;

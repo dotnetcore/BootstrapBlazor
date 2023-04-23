@@ -66,8 +66,10 @@ export async function init(id, title) {
 export function execute(id, method) {
     const pre = Data.get(id)
 
-    if (method === 'highlight') {
-        pre.highlight()
+    if (pre) {
+        if (method === 'highlight') {
+            pre.highlight()
+        }
     }
 }
 

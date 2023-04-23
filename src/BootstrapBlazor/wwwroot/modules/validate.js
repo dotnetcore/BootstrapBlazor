@@ -1,5 +1,4 @@
 ﻿import Data from "./data.js"
-import EventHandler from "./event-handler.js"
 
 export function execute(id, title) {
     const el = document.getElementById(id)

@@ -795,7 +795,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override async Task InvokeInitAsync() => ScreenSize = await InvokeAsync<BreakPoint>("getResponsive", Id);
+    protected override async Task InvokeInitAsync() => ScreenSize = await InvokeAsync<BreakPoint>("getResponsive");
 
     private void InternalResetVisibleColumns(IEnumerable<ColumnVisibleItem> columns)
     {

@@ -5,6 +5,9 @@ import EventHandler from "../../modules/event-handler.js"
 
 export function init(id, invoke, callback) {
     const el = document.getElementById(id)
+    if (el == null) {
+        return;
+    }
     const select = {
         el, invoke, callback,
         search: el.querySelector('input.search-text'),
@@ -96,10 +99,12 @@ export function init(id, invoke, callback) {
 export function dispose(id) {
     const select = Data.get(id)
 
-    EventHandler.off(select.el, 'shown.bs.dropdown')
-    EventHandler.off(select.el, 'keydown')
+    if (select) {
+        EventHandler.off(select.el, 'shown.bs.dropdown')
+        EventHandler.off(select.el, 'keydown')
 
-    if (select.dropdown) {
-        DropdownBase.dispose(select.dropdown)
+        if (select.dropdown) {
+            DropdownBase.dispose(select.dropdown)
+        }
     }
 }

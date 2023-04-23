@@ -372,7 +372,7 @@ public partial class Table<TItem>
         if (ShowLoading)
         {
             IsLoading = state;
-            await InvokeExecuteAsync(Id, "load", state ? "show" : "hide");
+            await InvokeVoidAsync("load", Id, state ? "show" : "hide");
         }
     }
 
@@ -385,7 +385,7 @@ public partial class Table<TItem>
     {
         if (ShowLoading && !IsLoading)
         {
-            await InvokeExecuteAsync(Id, "load", state ? "show" : "hide");
+            await InvokeVoidAsync("load", Id, state ? "show" : "hide");
         }
     }
 

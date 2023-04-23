@@ -1,5 +1,5 @@
 ﻿import { getDescribedElement, getDescribedOwner, hackPopover, isDisabled } from "../../modules/utility.js"
-import { showTooltip as _showTooltip, removeTooltip as _removeTooltip } from './Button.razor.js'
+import { showTooltip, removeTooltip } from './Button.razor.js'
 import Data from "../../modules/data.js"
 import EventHandler from "../../modules/event-handler.js"
 
@@ -11,6 +11,10 @@ const config = {
 
 export function init(id) {
     const el = document.getElementById(id)
+    if (el == null) {
+        return
+    }
+
     const confirm = {
         el,
         container: el.querySelector('[data-bb-toggle="confirm"]')
@@ -96,7 +100,7 @@ export function init(id) {
 
 const toggle = id => {
     const confirm = Data.get(id)
-    if (confiirm.popover) {
+    if (confirm && confiirm.popover) {
         confirm.popover.toggle()
     }
 }
@@ -104,7 +108,7 @@ const toggle = id => {
 export function showConfirm(id) {
     const confirm = Data.get(id)
 
-    if (!confirm.popover) {
+    if (confirm && !confirm.popover) {
         confirm.popover = new bootstrap.Popover(confirm.el);
         hackPopover(confirm.popover, config.class)
         confirm.popover.show()
@@ -113,25 +117,19 @@ export function showConfirm(id) {
 
 export function submit(id) {
     const el = document.getElementById(id)
-    const form = el.closest('form');
-    if (form !== null) {
-        const button = document.createElement('button');
-        button.setAttribute('type', 'submit');
-        button.setAttribute('hidden', 'true');
-        form.append(button);
-        button.click();
-        button.remove();
+
+    if (el) {
+        const form = el.closest('form');
+        if (form !== null) {
+            const button = document.createElement('button');
+            button.setAttribute('type', 'submit');
+            button.setAttribute('hidden', 'true');
+            form.append(button);
+            button.click();
+            button.remove();
+        }
     }
 }
-
-export function showTooltip(id, title) {
-    _showTooltip(id, title)
-}
-
-export function removeTooltip(id) {
-    _removeTooltip(id)
-}
-
 export function dispose(id) {
     const confirm = Data.get(id)
     Data.remove(id)
@@ -144,4 +142,9 @@ export function dispose(id) {
             EventHandler.off(document, 'click', config.dismiss, confirm.dismissHandler)
         }
     }
+}
+
+export {
+    showTooltip,
+    removeTooltip
 }

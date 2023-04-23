@@ -1,4 +1,15 @@
-﻿(function ($) {
+﻿import Input from '../Input/BootstrapInput.razor.js'
+
+class AutoComplete extends Input {
+
+}
+
+export function init(id) {
+    const al = new AutoComplete(id)
+    al.
+}
+
+(function ($) {
     $.extend({
         bb_autoScrollItem: function (el, index) {
             var $el = $(el);

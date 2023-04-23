@@ -1,6 +1,7 @@
 ﻿@namespace BootstrapBlazor.Components
 @typeparam TValue
 @inherits ValidateBase<TValue>
+@attribute [JSModuleAutoLoader("../../modules/utility.js", Relative = false, AutoInvokeInit = false, AutoInvokeDispose = false)]
 
 @if (IsShowLabel)
 {

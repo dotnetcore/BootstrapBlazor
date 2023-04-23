@@ -136,18 +136,14 @@ public partial class Checkbox<TValue>
     }
 
     /// <summary>
-    /// 
+    /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         await base.OnAfterRenderAsync(firstRender);
 
-        Module ??= await JSRuntime.LoadModule2("base/utility");
-        if (Module != null)
-        {
-            await Module.InvokeVoidAsync("setIndeterminate", Id, State == CheckboxState.Indeterminate);
-        }
+        await InvokeVoidAsync("setIndeterminate", Id, State == CheckboxState.Indeterminate);
     }
 
     /// <summary>

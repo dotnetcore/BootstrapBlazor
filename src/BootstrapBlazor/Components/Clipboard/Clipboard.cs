@@ -7,8 +7,8 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// Clipboard 组件部分类
 /// </summary>
-[JSModuleAutoLoader("base/utility")]
-public class Clipboard : BootstrapModule2ComponentBase
+[JSModuleAutoLoader("./_content/BootstrapBlazor/modules/utility.js", Relative = false, AutoInvokeInit = false, AutoInvokeDispose = false)]
+public class Clipboard : BootstrapModuleComponentBase
 {
     /// <summary>
     /// DialogServices 服务实例
@@ -28,18 +28,10 @@ public class Clipboard : BootstrapModule2ComponentBase
         ClipboardService.Register(this, Copy);
     }
 
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <returns></returns>
-    protected override Task ModuleInvokeVoidAsync(bool firstRender) => Task.CompletedTask;
-
     private async Task Copy(ClipboardOption option)
     {
-        if (Module != null)
-        {
-            await Module.InvokeVoidAsync("copy", option.Text);
-        }
+        await InvokeVoidAsync("copy", option.Text);
+
         if (option.Callback != null)
         {
             await option.Callback();

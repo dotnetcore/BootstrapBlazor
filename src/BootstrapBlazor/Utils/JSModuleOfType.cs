@@ -8,7 +8,7 @@ namespace BootstrapBlazor.Components;
 /// 模块加载器
 /// </summary>
 /// <typeparam name="TCom"></typeparam>
-public class JSModule2<TCom> : JSModule where TCom : class
+public class JSModule<TCom> : JSModule where TCom : class
 {
     /// <summary>
     /// DotNetReference 实例
@@ -20,7 +20,7 @@ public class JSModule2<TCom> : JSModule where TCom : class
     /// </summary>
     /// <param name="jSObjectReference"></param>
     /// <param name="value"></param>
-    public JSModule2(IJSObjectReference? jSObjectReference, TCom value) : base(jSObjectReference)
+    public JSModule(IJSObjectReference? jSObjectReference, TCom value) : base(jSObjectReference)
     {
         DotNetReference = DotNetObjectReference.Create(value);
     }
