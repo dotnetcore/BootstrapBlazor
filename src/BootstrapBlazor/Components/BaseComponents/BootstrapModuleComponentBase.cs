@@ -83,21 +83,22 @@ public abstract class BootstrapModuleComponentBase : IdComponentBase, IAsyncDisp
         var attr = type.GetCustomAttribute<JSModuleAutoLoaderAttribute>(Inherit);
         if (attr != null)
         {
-            string? typeName = null;
-            ModulePath = attr.Path ?? GetTypeName();
-            Relative = attr.Relative;
+            if (string.IsNullOrEmpty(attr.ModuleName))
+            {
+                ModulePath = attr.Path ?? type.GetTypeModuleName();
+                Relative = attr.Relative;
+            }
+            else
+            {
+                ModulePath = $"./_content/BootstrapBlazor/modules/{attr.ModuleName}.js";
+                Relative = false;
+            }
             AutoInvokeDispose = attr.AutoInvokeDispose;
             AutoInvokeInit = attr.AutoInvokeInit;
 
             if (attr.JSObjectReference)
             {
                 Interop = DotNetObjectReference.Create<BootstrapModuleComponentBase>(this);
-            }
-
-            string GetTypeName()
-            {
-                typeName ??= type.GetTypeModuleName();
-                return typeName;
             }
         }
     }
