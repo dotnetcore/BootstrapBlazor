@@ -9,19 +9,9 @@ namespace BootstrapBlazor.Shared.Practicals.Pintereso;
 /// <summary>
 /// 瀑布流图片
 /// </summary>
-public partial class Printereso : IAsyncDisposable
+public partial class Pintereso
 {
     private readonly Random random = new();
-
-    [NotNull]
-    private IJSObjectReference? Module { get; set; }
-
-    [NotNull]
-    private DotNetObjectReference<Printereso>? Interop { get; set; }
-
-    [Inject]
-    [NotNull]
-    private IJSRuntime? JSRuntime { get; set; }
 
     private readonly List<string> IamgeList = new()
     {
@@ -48,26 +38,15 @@ public partial class Printereso : IAsyncDisposable
     };
 
     /// <summary>
-    /// <inheritdoc/>
+    /// 
     /// </summary>
-    /// <param name="firstRender"></param>
     /// <returns></returns>
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        await base.OnAfterRenderAsync(firstRender);
-        if (firstRender)
-        {
-            Module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/BootstrapBlazor.Shared/Practicals/Pintereso/Printereso.razor.js");
-            Interop = DotNetObjectReference.Create(this);
-            await Module.InvokeVoidAsync("init", Interop, nameof(JsOnScroll));
-        }
-    }
-
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, nameof(InvokeOnScroll));
     /// <summary>
     /// 滚动到底部后回调此方法
     /// </summary>
     [JSInvokable]
-    public async Task JsOnScroll()
+    public void InvokeOnScroll()
     {
         //每次滚动到底部，就给他塞5张新照片。
         for (int i = 0; i < 5; i++)
@@ -76,34 +55,6 @@ public partial class Printereso : IAsyncDisposable
             IamgeList.Add(item);
         }
 
-        await InvokeAsync(StateHasChanged);
+        StateHasChanged();
     }
-
-    #region Dispose
-    /// <summary>
-    /// Dispose 方法
-    /// </summary>
-    /// <param name="disposing"></param>
-    protected virtual async ValueTask DisposeAsync(bool disposing)
-    {
-        if (disposing)
-        {
-            Interop?.Dispose();
-
-            if (Module != null)
-            {
-                await Module.DisposeAsync();
-            }
-        }
-    }
-
-    /// <summary>
-    /// Dispose 方法
-    /// </summary>
-    public async ValueTask DisposeAsync()
-    {
-        await DisposeAsync(true);
-        GC.SuppressFinalize(this);
-    }
-    #endregion
 }

@@ -17,7 +17,6 @@
 }
 
 @media (min-width: 576px) {
-
     .card-columns {
         -webkit-column-count: 5;
         column-count: 5;
