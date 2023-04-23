@@ -7,8 +7,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// FullScreen 组件部分类
 /// </summary>
-[JSModuleAutoLoader("./_content/BootstrapBlazor/modules/fullscreen.js", Relative = false)]
-public class FullScreen : BootstrapModuleComponentBase
+public partial class FullScreen
 {
     /// <summary>
     /// DialogServices 服务实例
