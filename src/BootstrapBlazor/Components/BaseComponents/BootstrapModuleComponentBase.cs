@@ -75,7 +75,7 @@ public abstract class BootstrapModuleComponentBase : IdComponentBase, IAsyncDisp
     protected virtual void OnLoadJSModule()
     {
         var type = this.GetType();
-        var attr = type.GetCustomAttribute<JSModuleAutoLoaderAttribute>(false);
+        var attr = type.GetCustomAttribute<JSModuleAutoLoaderAttribute>();
         if (attr != null)
         {
             if (string.IsNullOrEmpty(attr.ModuleName))
