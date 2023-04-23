@@ -13,16 +13,12 @@ namespace BootstrapBlazor.Components;
 #if NET6_0_OR_GREATER
 [CascadingTypeParameter(nameof(TItem))]
 #endif
-[JSModuleAutoLoader(JSObjectReference = true)]
 public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where TItem : class, new()
 {
     /// <summary>
     /// 获得/设置 内置虚拟化组件实例
     /// </summary>
     protected Virtualize<TItem>? VirtualizeElement { get; set; }
-
-    [NotNull]
-    private JSInterop<Table<TItem>>? Interop { get; set; }
 
     /// <summary>
     /// 获得 Table 组件样式表
@@ -557,8 +553,6 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
         OnInitLocalization();
 
-        Interop = new JSInterop<Table<TItem>>(JSRuntime);
-
         // 设置 OnSort 回调方法
         InternalOnSortAsync = async (sortName, sortOrder) =>
         {
@@ -779,13 +773,13 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         if (_init)
         {
             _init = false;
-            await InvokeVoidAsync("init", Id);
+            await InvokeVoidAsync("init", Id, Interop);
         }
 
         if (UpdateSortTooltip)
         {
             UpdateSortTooltip = false;
-            await InvokeExecuteAsync(Id, "sort");
+            await InvokeVoidAsync("sort", Id);
         }
 
         // 增加去重保护 _loop 为 false 时执行
@@ -801,7 +795,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override async Task ModuleInitAsync() => ScreenSize = await InvokeAsync<BreakPoint>("getResponsive");
+    protected override async Task InvokeInitAsync() => ScreenSize = await InvokeAsync<BreakPoint>("getResponsive", Id);
 
     private void InternalResetVisibleColumns(IEnumerable<ColumnVisibleItem> columns)
     {
