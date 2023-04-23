@@ -3,6 +3,9 @@ import Data from "../../modules/data.js"
 
 export function init(id) {
     const el = document.getElementById(id)
+    if (el === null) {
+        return
+    }
     const menu = {
         element: el,
         collapses: el.querySelectorAll('[data-bs-toggle="collapse"]'),

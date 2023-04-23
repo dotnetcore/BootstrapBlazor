@@ -23,7 +23,6 @@ public class BootstrapModuleComponentBaseTest : BootstrapBlazorTestBase
         var cut = Context.RenderComponent<MockObjectReferenceComponent>();
         cut.InvokeAsync(() => cut.Instance.InvokeAsyncTest());
         Assert.True(cut.Instance.InvokeRunned);
-        Assert.Equal("Mock", cut.Instance.GetModuleName());
     }
 
     [Fact]
@@ -61,8 +60,6 @@ public class BootstrapModuleComponentBaseTest : BootstrapBlazorTestBase
     class MockObjectReferenceComponent : BootstrapModuleComponentBase
     {
         public bool InvokeRunned { get; set; }
-
-        public string? GetModuleName() => ModuleName;
 
         public async Task InvokeAsyncTest()
         {

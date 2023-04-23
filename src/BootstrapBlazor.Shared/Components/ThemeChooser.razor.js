@@ -4,6 +4,9 @@ import EventHandler from "../../../_content/BootstrapBlazor/modules/event-handle
 
 export function init(id) {
     const el = document.getElementById(id)
+    if (el === null) {
+        return
+    }
     const themeList = el.querySelector('.theme-list')
 
     const chooser = { el, themeList }

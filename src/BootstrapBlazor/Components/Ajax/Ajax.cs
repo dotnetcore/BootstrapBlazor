@@ -7,7 +7,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// Ajax 组件
 /// </summary>
-[JSModuleAutoLoader("./_content/BootstrapBlazor/modules/ajax.js", Relative = false, AutoInvokeInit = false, AutoInvokeDispose = false)]
+[JSModuleAutoLoader(ModuleName = "ajax", AutoInvokeInit = false, AutoInvokeDispose = false)]
 public class Ajax : BootstrapModuleComponentBase
 {
     [Inject]
