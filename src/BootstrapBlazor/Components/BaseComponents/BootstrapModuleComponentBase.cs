@@ -23,12 +23,6 @@ public abstract class BootstrapModuleComponentBase : IdComponentBase, IAsyncDisp
     protected string? ModulePath { get; set; }
 
     /// <summary>
-    /// The javascript dynamic module name
-    /// </summary>
-    [NotNull]
-    protected string? ModuleName { get; set; }
-
-    /// <summary>
     /// 获得/设置 路径是否为相对路径 默认 false
     /// </summary>
     protected bool Relative { get; set; }
@@ -84,22 +78,26 @@ public abstract class BootstrapModuleComponentBase : IdComponentBase, IAsyncDisp
         var attr = type.GetCustomAttribute<JSModuleAutoLoaderAttribute>(false);
         if (attr != null)
         {
-            string? typeName = null;
-            ModulePath = attr.Path ?? GetTypeName();
-            ModuleName = attr.ModuleName ?? GetTypeName();
-            Relative = attr.Relative;
+            if (string.IsNullOrEmpty(attr.ModuleName))
+            {
+                ModulePath = attr.Path ?? type.GetTypeModuleName();
+                Relative = attr.Relative;
+                if(!Relative)
+                {
+                    ModulePath = $"./_content/BootstrapBlazor/Components/{ModulePath}";
+                }
+            }
+            else
+            {
+                ModulePath = $"./_content/BootstrapBlazor/modules/{attr.ModuleName}.js";
+                Relative = false;
+            }
             AutoInvokeDispose = attr.AutoInvokeDispose;
             AutoInvokeInit = attr.AutoInvokeInit;
 
             if (attr.JSObjectReference)
             {
                 Interop = DotNetObjectReference.Create<BootstrapModuleComponentBase>(this);
-            }
-
-            string GetTypeName()
-            {
-                typeName ??= type.GetTypeModuleName();
-                return typeName;
             }
         }
     }
