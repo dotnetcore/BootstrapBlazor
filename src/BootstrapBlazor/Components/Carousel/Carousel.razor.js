@@ -3,6 +3,10 @@ import EventHandler from "../../modules/event-handler.js"
 
 export function init(id) {
     const el = document.getElementById(id)
+    if (el === null) {
+        return
+    }
+
     const options = { delay: 10 }
     const carousel = {
         element: el,
@@ -31,6 +35,10 @@ export function init(id) {
 export function dispose(id) {
     const carousel = Data.get(id)
     Data.remove(id)
+
+    if (carousel === null) {
+        return
+    }
 
     if (carousel.carousel !== null) {
         carousel.carousel.dispose()
