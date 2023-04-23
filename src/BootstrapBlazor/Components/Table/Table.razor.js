@@ -298,6 +298,9 @@ const setCopyColumn = table => {
 
 export function init(id) {
     const el = document.getElementById(id)
+    if (el === null) {
+        return
+    }
     const table = {
         el,
         fixedHeader: el.querySelector('.table-fixed') != null,
