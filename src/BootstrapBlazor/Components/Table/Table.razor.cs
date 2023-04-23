@@ -13,7 +13,6 @@ namespace BootstrapBlazor.Components;
 #if NET6_0_OR_GREATER
 [CascadingTypeParameter(nameof(TItem))]
 #endif
-[JSModuleAutoLoader(JSObjectReference = true)]
 public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where TItem : class, new()
 {
     /// <summary>
@@ -785,7 +784,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         if (UpdateSortTooltip)
         {
             UpdateSortTooltip = false;
-            await InvokeExecuteAsync(Id, "sort");
+            await InvokeVoidAsync("sort", Id);
         }
 
         // 增加去重保护 _loop 为 false 时执行
@@ -801,7 +800,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override async Task ModuleInitAsync() => ScreenSize = await InvokeAsync<BreakPoint>("getResponsive");
+    protected override async Task InvokeInitAsync() => ScreenSize = await InvokeAsync<BreakPoint>("getResponsive");
 
     private void InternalResetVisibleColumns(IEnumerable<ColumnVisibleItem> columns)
     {

@@ -1,6 +1,7 @@
 ﻿@namespace BootstrapBlazor.Components
 @typeparam TItem
-@inherits BootstrapModule2ComponentBase
+@inherits BootstrapModuleComponentBase
+@attribute [JSModuleAutoLoader]
 
 <div @attributes="@AdditionalAttributes" class="@ClassName" style="@StyleString" id="@Id">
     <CascadingValue Value="this" IsFixed="true">
