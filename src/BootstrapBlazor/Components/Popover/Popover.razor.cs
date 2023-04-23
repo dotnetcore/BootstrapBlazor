@@ -7,8 +7,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// Popover 弹出窗组件
 /// </summary>
-[JSModuleAutoLoader("./_content/BootstrapBlazor/modules/popover.js", Relative = false)]
-public class Popover : Tooltip
+public partial class Popover
 {
     /// <summary>
     /// 获得/设置 显示文字
