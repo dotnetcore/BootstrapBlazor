@@ -1,0 +1,40 @@
+﻿.card {
+    border: 0;
+}
+
+.card-pin:hover .overlay {
+    opacity: .5;
+    border: 5px solid #f3f3f3;
+    -webkit-transition: ease .2s;
+    transition: ease .2s;
+    background-color: #000000;
+    cursor: -webkit-zoom-in;
+    cursor: zoom-in;
+}
+
+.card-columns .card {
+    margin-bottom: 0.75rem;
+}
+
+@media (min-width: 576px) {
+    .card-columns {
+        -webkit-column-count: 5;
+        column-count: 5;
+        -webkit-column-gap: 1.25rem;
+        column-gap: 1.25rem;
+        orphans: 1;
+        widows: 1;
+    }
+
+        .card-columns .card {
+            display: inline-block;
+            width: 100%;
+        }
+}
+
+.card-pin:hover .card-title {
+    color: #ffffff;
+    margin-top: 10px;
+    text-align: center;
+    font-size: 1.2em;
+}

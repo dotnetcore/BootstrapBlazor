@@ -1,0 +1,15 @@
+﻿@page "/pintereso"
+@inherits WebSiteModuleComponentBase
+@attribute [JSModuleAutoLoader("Practicals/Pintereso/Pintereso.razor.js", JSObjectReference = true)]
+<div class="container-fluid" id="@Id">
+    <div class="row">
+        <div class="card-columns">
+            @foreach (var item in IamgeList)
+            {
+                <div class="card card-pin">
+                    <ImageViewer class="card-img" Url="@item" PreviewList="@(new List<string>() { item })" alt="Card image" />
+                </div>
+            }
+        </div>
+    </div>
+</div>
