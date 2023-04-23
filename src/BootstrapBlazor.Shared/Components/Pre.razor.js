@@ -3,10 +3,14 @@ import Data from "../../BootstrapBlazor/modules/data.js"
 import EventHandler from "../../BootstrapBlazor/modules/event-handler.js"
 
 export async function init(id, title) {
+    const el = document.getElementById(id);
+    if (el === null) {
+        return
+    }
+
     await addScript('_content/BootstrapBlazor.Shared/lib/highlight/highlight.min.js')
     await addLink('_content/BootstrapBlazor.Shared/lib/highlight/vs.min.css')
 
-    const el = document.getElementById(id);
     const pre = {
         element: el,
         preElement: el.querySelector('pre'),
@@ -62,13 +66,17 @@ export async function init(id, title) {
 export function execute(id, method) {
     const pre = Data.get(id)
 
-    if (method === 'highlight') {
+    if (pre && method === 'highlight') {
         pre.highlight()
     }
 }
 
 export function dispose(id) {
     const pre = Data.get(id)
+    if (pre === null) {
+        return
+    }
+
     Data.remove(id)
 
     if (pre.handler) {
