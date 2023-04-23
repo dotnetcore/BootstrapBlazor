@@ -75,29 +75,33 @@ public abstract class BootstrapModuleComponentBase : IdComponentBase, IAsyncDisp
     protected virtual void OnLoadJSModule()
     {
         var type = this.GetType();
-        var attr = type.GetCustomAttribute<JSModuleAutoLoaderAttribute>(false);
-        if (attr != null)
+        var inherited = type.GetCustomAttribute<JSModuleNotInheritedAttribute>() == null;
+        if (inherited)
         {
-            if (string.IsNullOrEmpty(attr.ModuleName))
+            var attr = type.GetCustomAttribute<JSModuleAutoLoaderAttribute>();
+            if (attr != null)
             {
-                ModulePath = attr.Path ?? type.GetTypeModuleName();
-                Relative = attr.Relative;
-                if(!Relative)
+                if (string.IsNullOrEmpty(attr.ModuleName))
                 {
-                    ModulePath = $"./_content/BootstrapBlazor/Components/{ModulePath}";
+                    ModulePath = attr.Path ?? type.GetTypeModuleName();
+                    Relative = attr.Relative;
+                    if (!Relative)
+                    {
+                        ModulePath = $"./_content/BootstrapBlazor/Components/{ModulePath}";
+                    }
                 }
-            }
-            else
-            {
-                ModulePath = $"./_content/BootstrapBlazor/modules/{attr.ModuleName}.js";
-                Relative = false;
-            }
-            AutoInvokeDispose = attr.AutoInvokeDispose;
-            AutoInvokeInit = attr.AutoInvokeInit;
+                else
+                {
+                    ModulePath = $"./_content/BootstrapBlazor/modules/{attr.ModuleName}.js";
+                    Relative = false;
+                }
+                AutoInvokeDispose = attr.AutoInvokeDispose;
+                AutoInvokeInit = attr.AutoInvokeInit;
 
-            if (attr.JSObjectReference)
-            {
-                Interop = DotNetObjectReference.Create<BootstrapModuleComponentBase>(this);
+                if (attr.JSObjectReference)
+                {
+                    Interop = DotNetObjectReference.Create<BootstrapModuleComponentBase>(this);
+                }
             }
         }
     }

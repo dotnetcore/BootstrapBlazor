@@ -233,6 +233,16 @@ const getDescribedElement = (element, selector = 'aria-describedby') => {
     return null
 }
 
+const getDescribedOwner = (element, selector = 'aria-describedby') => {
+    if (isElement(element)) {
+        const id = element.getAttribute('id')
+        if (id) {
+            return document.querySelector(`[${selector}="${id}"]`)
+        }
+    }
+    return null
+}
+
 const isElement = object => {
     if (!object || typeof object !== 'object') {
         return false
@@ -346,6 +356,22 @@ const isDisabled = element => {
     return element.hasAttribute('disabled') && element.getAttribute('disabled') !== 'false'
 }
 
+const hackPopover = (popover, css) => {
+    if (popover) {
+        popover._isWithContent = () => true
+
+        const getTipElement = popover._getTipElement
+        let fn = tip => {
+            tip.classList.add(css)
+        }
+        popover._getTipElement = () => {
+            let tip = getTipElement.call(popover)
+            fn(tip)
+            return tip
+        }
+    }
+}
+
 export {
     addLink,
     addScript,
@@ -360,6 +386,7 @@ export {
     getElement,
     getElementById,
     getDescribedElement,
+    getDescribedOwner,
     getHeight,
     getInnerHeight,
     getInnerWidth,
@@ -368,6 +395,7 @@ export {
     getWidth,
     getWindow,
     getWindowScroll,
+    hackPopover,
     removeLink,
     removeScript,
     vibrate

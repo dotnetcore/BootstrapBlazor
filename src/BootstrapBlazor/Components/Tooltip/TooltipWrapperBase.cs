@@ -5,9 +5,9 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// TooltipWrapperBase 基类
 /// </summary>
-public abstract class TooltipWrapperBase : BootstrapModule2ComponentBase
+public abstract class TooltipWrapperBase : BootstrapModuleComponentBase
 {
     /// <summary>
     /// Tooltip 弹窗位置字符串
