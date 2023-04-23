@@ -296,10 +296,10 @@ const setCopyColumn = table => {
     })
 }
 
-export function init(id, invoke) {
+export function init(id) {
     const el = document.getElementById(id)
     const table = {
-        el, invoke,
+        el,
         fixedHeader: el.querySelector('.table-fixed') != null,
         isExcel: el.querySelector('.table-excel') != null,
         isResizeColumn: el.querySelector('.col-resizer') != null,
