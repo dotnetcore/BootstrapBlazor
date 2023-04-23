@@ -7,6 +7,10 @@ export async function init(id, title) {
     await addLink('_content/BootstrapBlazor.Shared/lib/highlight/vs.min.css')
 
     const el = document.getElementById(id);
+    if (el === null) {
+        return;
+    }
+
     const pre = {
         element: el,
         preElement: el.querySelector('pre'),
