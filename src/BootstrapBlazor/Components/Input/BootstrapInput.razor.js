@@ -1,10 +1,6 @@
 ﻿import Data from '../../modules/data.js'
 import EventHandler from '../../modules/event-handler.js'
 
-export class Input {
-
-}
-
 export function init(el, invoke, enter, enterCallbackMethod, esc, escCallbackMethod) {
     EventHandler.on(el, 'keyup', e => {
         if (enter && e.key === 'Enter') {

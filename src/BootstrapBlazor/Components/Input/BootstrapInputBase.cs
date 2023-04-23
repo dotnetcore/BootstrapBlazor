@@ -150,7 +150,12 @@ public abstract class BootstrapInputBase<TValue> : ValidateBase<TValue>
         }
         if (IsAutoFocus)
         {
-            await Task.Delay(100);
+            if (Modal != null)
+            {
+                // 等待弹窗弹出
+                // TODO: 后台优化
+                await Task.Delay(100);
+            }
             await FocusAsync();
         }
     }
