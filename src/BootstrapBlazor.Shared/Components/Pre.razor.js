@@ -14,6 +14,7 @@ export async function init(id, title) {
     const pre = {
         element: el,
         preElement: el.querySelector('pre'),
+        code: el.querySelector('pre > code'),
         highlight: () => {
             pre.handler = setInterval(() => {
                 if (hljs) {
@@ -29,7 +30,7 @@ export async function init(id, title) {
 
     if (pre.preElement) {
         EventHandler.on(el, 'click', '.btn-copy', e => {
-            const text = e.delegateTarget.parentNode.querySelector('code').textContent;
+            const text = pre.code.textContent;
             copy(text)
 
             const tooltip = getDescribedElement(e.delegateTarget)
