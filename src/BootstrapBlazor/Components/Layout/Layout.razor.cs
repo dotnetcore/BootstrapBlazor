@@ -339,7 +339,7 @@ public partial class Layout : IHandlerException, IAsyncDisposable
                 // 检查当前 Url
                 if (OnAuthorizing != null)
                 {
-                    IsAuthenticated = await OnAuthorizing(Navigation.Uri);
+                    IsAuthenticated = IsAuthenticated && await OnAuthorizing(Navigation.Uri);
                 }
             }
         }
