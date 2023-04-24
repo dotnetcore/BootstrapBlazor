@@ -9,7 +9,6 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// TableFilter 基类
 /// </summary>
-[JSModuleAutoLoader("table-filter")]
 public partial class TableFilter : IFilter
 {
     /// <summary>
@@ -163,15 +162,16 @@ public partial class TableFilter : IFilter
     }
 
     /// <summary>
-    /// <inheritdoc/>
+    /// 
     /// </summary>
     /// <returns></returns>
-    protected override async Task ModuleInitAsync()
+    protected override Task InvokeInitAsync()
     {
         if (!IsHeaderRow)
         {
-            await base.ModuleInitAsync();
+            return base.InvokeInitAsync();
         }
+        return Task.CompletedTask;
     }
 
     /// <summary>
