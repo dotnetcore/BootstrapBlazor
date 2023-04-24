@@ -1,11 +1,26 @@
-﻿import { Tooltip } from "./tooltip.js"
+﻿export function execute(id, title) {
+    const el = document.getElementById(id)
 
-export class Validate extends Tooltip {
-    _execute(args) {
-        this._tooltip._config.customClass = "is-invalid"
-        this._tooltip._config.title = args[0]
-        if (!this._tooltip._isShown()) {
-            this._tooltip.show()
+    if (el) {
+        const tip = bootstrap.Tooltip.getOrCreateInstance(el, { customClass: 'is-invalid', title })
+        if (!tip._isShown()) {
+            tip.show()
+        }
+    }
+}
+
+export function dispose(id) {
+    const el = document.getElementById(id)
+
+    if (el) {
+        const tip = bootstrap.Tooltip.getInstance(el)
+        if (tip) {
+            const handler = setTimeout(() => {
+                clearTimeout(handler)
+                if (tip) {
+                    tip.dispose()
+                }
+            }, 10)
         }
     }
 }
