@@ -5,7 +5,7 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// TooltipWrapperBase 组件
+/// TooltipWrapperBase 基类
 /// </summary>
 public abstract class TooltipWrapperBase : BootstrapModuleComponentBase
 {
@@ -43,16 +43,6 @@ public abstract class TooltipWrapperBase : BootstrapModuleComponentBase
     [Parameter]
     [NotNull]
     public string? TooltipTrigger { get; set; }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    protected override void OnInitialized()
-    {
-        Inherit = true;
-
-        base.OnInitialized();
-    }
 
     /// <summary>
     /// <inheritdoc/>

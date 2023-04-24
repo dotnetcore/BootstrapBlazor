@@ -1,17 +1,16 @@
-﻿import Data from ".modules/data.js"
-
-export function init(id, title, content) {
+﻿export function init(id, title, content) {
     const el = document.getElementById(id)
-    const config = { title, content }
-    const pop = {
-        el, popover: new bootstrap.Popover(el, config)
+    if (el) {
+        new bootstrap.Popover(el, { title, content })
     }
 }
 
 export function dispose(id) {
-    const pop = Data.get(id)
-    Data.remove(id)
-    if (pop.popover) {
-        pop.popover.dispose();
+    const el = document.getElementById(id)
+    if (el) {
+        const pop = bootstrap.Popover.getInstance(el)
+        if (pop) {
+            pop.dispose();
+        }
     }
 }

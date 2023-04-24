@@ -38,11 +38,6 @@ public abstract class BootstrapModuleComponentBase : IdComponentBase, IAsyncDisp
     protected bool AutoInvokeDispose { get; set; } = true;
 
     /// <summary>
-    /// 获得/设置 是否子类自动继承脚本 默认 false
-    /// </summary>
-    public bool Inherit { get; set; }
-
-    /// <summary>
     /// 获得/设置 DotNetObjectReference 实例
     /// </summary>
     protected DotNetObjectReference<BootstrapModuleComponentBase>? Interop { get; set; }
@@ -80,25 +75,35 @@ public abstract class BootstrapModuleComponentBase : IdComponentBase, IAsyncDisp
     protected virtual void OnLoadJSModule()
     {
         var type = this.GetType();
-        var attr = type.GetCustomAttribute<JSModuleAutoLoaderAttribute>(Inherit);
-        if (attr != null)
+        var inherited = type.GetCustomAttribute<JSModuleNotInheritedAttribute>() == null;
+        if (inherited)
         {
-            if (string.IsNullOrEmpty(attr.ModuleName))
+            var attr = type.GetCustomAttribute<JSModuleAutoLoaderAttribute>();
+            if (attr != null)
             {
-                ModulePath = attr.Path ?? type.GetTypeModuleName();
-                Relative = attr.Relative;
-            }
-            else
-            {
-                ModulePath = $"./_content/BootstrapBlazor/modules/{attr.ModuleName}.js";
-                Relative = false;
-            }
-            AutoInvokeDispose = attr.AutoInvokeDispose;
-            AutoInvokeInit = attr.AutoInvokeInit;
+                if (string.IsNullOrEmpty(attr.ModuleName))
+                {
+                    ModulePath = attr.Path ?? type.GetTypeModuleName();
+                    Relative = attr.Relative;
 
-            if (attr.JSObjectReference)
-            {
-                Interop = DotNetObjectReference.Create<BootstrapModuleComponentBase>(this);
+                    // 兼容 扩展组件包
+                    if (!Relative && !ModulePath.StartsWith("./_content/", StringComparison.OrdinalIgnoreCase))
+                    {
+                        ModulePath = $"./_content/BootstrapBlazor/Components/{ModulePath}";
+                    }
+                }
+                else
+                {
+                    ModulePath = $"./_content/BootstrapBlazor/modules/{attr.ModuleName}.js";
+                    Relative = false;
+                }
+                AutoInvokeDispose = attr.AutoInvokeDispose;
+                AutoInvokeInit = attr.AutoInvokeInit;
+
+                if (attr.JSObjectReference)
+                {
+                    Interop = DotNetObjectReference.Create<BootstrapModuleComponentBase>(this);
+                }
             }
         }
     }
@@ -204,6 +209,7 @@ public abstract class BootstrapModuleComponentBase : IdComponentBase, IAsyncDisp
             }
 
             Interop?.Dispose();
+
             await Module.DisposeAsync();
             Module = null;
         }

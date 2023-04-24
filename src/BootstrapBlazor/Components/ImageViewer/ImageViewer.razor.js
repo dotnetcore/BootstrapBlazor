@@ -14,6 +14,9 @@ const setListeners = viewer => {
 
 export function init(id, url, preList) {
     const el = document.getElementById(id)
+    if (el === null) {
+        return
+    }
     const viewer = {
         element: el,
         img: el.querySelector('img'),

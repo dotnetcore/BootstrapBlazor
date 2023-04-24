@@ -7,7 +7,8 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// AutoRedirect component
 /// </summary>
-public partial class AutoRedirect
+[JSModuleAutoLoader(ModuleName = "autoredirect", JSObjectReference = true)]
+public class AutoRedirect : BootstrapModuleComponentBase
 {
     /// <summary>
     /// 获得/设置 重定向地址

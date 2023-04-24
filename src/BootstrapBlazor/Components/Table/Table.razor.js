@@ -1,4 +1,4 @@
-﻿import { getResponsive as _getResponsive } from "../ResizeNotification/ResizeNotification.razor.js"
+﻿import { getResponsive } from "../../modules/responsive.js"
 import { copy, drag, getDescribedElement, getHeight, getWidth } from "../../modules/utility.js"
 import Data from "../../modules/data.js"
 import EventHandler from "../../modules/event-handler.js"
@@ -47,7 +47,7 @@ const fixHeader = table => {
         body.parentNode.style.height = `calc(100% - ${bodyHeight}px)`
     }
 
-    const headerHeight = getHeight(this._thead)
+    const headerHeight = getHeight(table.thead)
     if (headerHeight > 0) {
         body.style.height = `calc(100% - ${headerHeight}px)`
     }
@@ -211,7 +211,7 @@ const setResizeListener = table => {
                     curCol.style.width = `${colWidth + marginX}px`
                     const table = curCol.closest('table')
                     const width = tableWidth + marginX
-                    if (this._fixedHeader) {
+                    if (table.fixedHeader) {
                         table.style.width = `${width}px;`
                     } else {
                         curCol.closest('table').style.width = (width - 6) + 'px'
@@ -296,10 +296,13 @@ const setCopyColumn = table => {
     })
 }
 
-export function init(id, invoke) {
+export function init(id) {
     const el = document.getElementById(id)
+    if (el === null) {
+        return
+    }
     const table = {
-        el, invoke,
+        el,
         fixedHeader: el.querySelector('.table-fixed') != null,
         isExcel: el.querySelector('.table-excel') != null,
         isResizeColumn: el.querySelector('.col-resizer') != null,
@@ -377,6 +380,6 @@ export function dispose(id) {
     }
 }
 
-export function getResponsive() {
-    return _getResponsive()
+export {
+    getResponsive
 }

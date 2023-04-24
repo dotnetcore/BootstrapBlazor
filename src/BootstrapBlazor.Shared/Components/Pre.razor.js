@@ -3,17 +3,18 @@ import Data from "../../BootstrapBlazor/modules/data.js"
 import EventHandler from "../../BootstrapBlazor/modules/event-handler.js"
 
 export async function init(id, title) {
-    await addScript('_content/BootstrapBlazor.Shared/lib/highlight/highlight.min.js')
-    await addLink('_content/BootstrapBlazor.Shared/lib/highlight/vs.min.css')
-
     const el = document.getElementById(id);
     if (el === null) {
-        return;
+        return
     }
+
+    await addScript('_content/BootstrapBlazor.Shared/lib/highlight/highlight.min.js')
+    await addLink('_content/BootstrapBlazor.Shared/lib/highlight/vs.min.css')
 
     const pre = {
         element: el,
         preElement: el.querySelector('pre'),
+        code: el.querySelector('pre > code'),
         highlight: () => {
             pre.handler = setInterval(() => {
                 if (hljs) {
@@ -29,7 +30,7 @@ export async function init(id, title) {
 
     if (pre.preElement) {
         EventHandler.on(el, 'click', '.btn-copy', e => {
-            const text = e.delegateTarget.parentNode.querySelector('code').textContent;
+            const text = pre.code.textContent;
             copy(text)
 
             const tooltip = getDescribedElement(e.delegateTarget)
@@ -66,24 +67,24 @@ export async function init(id, title) {
 export function execute(id, method) {
     const pre = Data.get(id)
 
-    if (pre) {
-        if (method === 'highlight') {
-            pre.highlight()
-        }
+    if (pre && method === 'highlight') {
+        pre.highlight()
     }
 }
 
 export function dispose(id) {
     const pre = Data.get(id)
+    if (pre === null) {
+        return
+    }
+
     Data.remove(id)
 
-    if (pre) {
-        if (pre.handler) {
-            clearInterval(pre.handler)
-        }
-
-        EventHandler.off(pre.el, 'click', '.btn-copy')
-        EventHandler.off(pre.el, 'click', '.btn-plus')
-        EventHandler.off(pre.el, 'click', '.btn-minus')
+    if (pre.handler) {
+        clearInterval(pre.handler)
     }
+
+    EventHandler.off(pre.el, 'click', '.btn-copy')
+    EventHandler.off(pre.el, 'click', '.btn-plus')
+    EventHandler.off(pre.el, 'click', '.btn-minus')
 }

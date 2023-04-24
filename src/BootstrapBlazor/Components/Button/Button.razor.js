@@ -1,34 +1,32 @@
 ﻿import Data from "../../modules/data.js"
 
-export function init(id) {
+const showTooltip = (id, title) => {
     const el = document.getElementById(id)
 
     if (el) {
-        const button = { el }
-        Data.set(id, button)
-    }
-}
-
-export function showTooltip(id, title) {
-    const button = Data.get(id)
-
-    if (button) {
-        button.tooltip = bootstrap.Tooltip.getOrCreateInstance(button.el, {
+        bootstrap.Tooltip.getOrCreateInstance(el, {
             title: title
         })
     }
 }
 
-export function removeTooltip(id) {
-    const button = Data.get(id)
+const removeTooltip = id => {
+    const el = document.getElementById(id)
 
-    if (button && button.tooltip) {
-        button.tooltip.dispose()
-        delete button.tooltip
+    if (el) {
+        const tip = bootstrap.Tooltip.getInstance(el)
+        if (tip) {
+            tip.dispose()
+        }
     }
 }
 
-export function dispose(id) {
+const dispose = id => {
     removeTooltip(id)
-    Data.remove(id)
+}
+
+export {
+    showTooltip,
+    removeTooltip,
+    dispose
 }

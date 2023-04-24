@@ -2,7 +2,8 @@
   "BootstrapBlazor.Shared.Pages.Prac": {
     "CategoryTitle": "Bootstrap Blazor Practical Cases",
     "DashboardSummary": "Dashboard",
-    "LoginSummary": "Login&Register"
+    "LoginSummary": "Login&Register",
+    "PinteresoSummary": "Pintereso"
   },
   "BootstrapBlazor.Shared.App": {
     "Title": "Bootstrap Blazor enterprise-level UI component library",
@@ -734,10 +735,10 @@
     "Title": "Dialog component",
     "Description": "Human-computer interaction by calling the <code>Show</code> method pop-up window by injecting the service",
     "Tip1": "Component usage introduction",
-    "Tip2": "1. inject service <code>DialogService</code>",
-    "Tip3": "2. call its instance <code>api</code>",
-    "Tip4": "3. CascadingParameter",
-    "Tip5": "4. DialogCloseButton",
+    "Tip2": "inject service <code>DialogService</code>",
+    "Tip3": "call <code>DialogOption</code> instance method <code>OnCloseAsync</code>",
+    "Tip4": "CascadingParameter",
+    "Tip5": "DialogCloseButton",
     "DialogTitle": "Data query window",
     "KeyboardTitle": "Basic usage",
     "KeyboardIntro": "Set the basic properties of the modal box by setting the <code>DialogOption</code> property",

@@ -40,7 +40,8 @@ public partial class PracNavMenu
         Menus = new List<MenuItem>
         {
             new MenuItem() { Text="仪表盘 Dashboard",Url="dashboard"},
-            new MenuItem() { Text="登陆和注册 Login & Register",Url="praclogin"}
+            new MenuItem() { Text="登陆和注册 Login & Register",Url="praclogin"},
+            new MenuItem() { Text="瀑布流图片 Pintereso",Url="pintereso"}
         };
 
 

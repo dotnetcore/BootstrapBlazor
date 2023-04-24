@@ -356,19 +356,19 @@ const isDisabled = element => {
     return element.hasAttribute('disabled') && element.getAttribute('disabled') !== 'false'
 }
 
-const hackPopover = (pop, classList) => {
-    pop._isWithContent = () => true
+const hackPopover = (popover, css) => {
+    if (popover) {
+        popover._isWithContent = () => true
 
-    const getTipElement = pop._getTipElement
-    const fn = tip => {
-        if (classList) {
-            tip.classList.add(classList)
+        const getTipElement = popover._getTipElement
+        let fn = tip => {
+            tip.classList.add(css)
         }
-    }
-    pop._getTipElement = () => {
-        let tip = getTipElement.call(pop)
-        fn(tip)
-        return tip
+        popover._getTipElement = () => {
+            let tip = getTipElement.call(popover)
+            fn(tip)
+            return tip
+        }
     }
 }
 

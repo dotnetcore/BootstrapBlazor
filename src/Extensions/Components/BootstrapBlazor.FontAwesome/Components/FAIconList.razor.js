@@ -1,9 +1,12 @@
 ﻿import { copy } from "../../BootstrapBlazor/modules/utility.js"
-import Data from "../..//BootstrapBlazor/modules/data.js"
+import Data from "../../BootstrapBlazor/modules/data.js"
 import EventHandler from "../../BootstrapBlazor/modules/event-handler.js"
 
 export function init(id, invoke, updateMethod, showDialogMethod, copyIcon) {
     const el = document.getElementById(id)
+    if (el === null) {
+        return
+    }
     const faList = {
         element: el,
         invoke,

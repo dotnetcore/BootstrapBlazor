@@ -2,7 +2,8 @@
   "BootstrapBlazor.Shared.Pages.Prac": {
     "CategoryTitle": "BootstrapBlazor 实战案例",
     "DashboardSummary": "仪表盘 Dashboard",
-    "LoginSummary": "登陆注册 Login&Register"
+    "LoginSummary": "登陆注册 Login&Register",
+    "PinteresoSummary": "瀑布流图片 Pintereso"
   },
   "BootstrapBlazor.Shared.App": {
     "Title": "Bootstrap Blazor - 组件库",
@@ -734,10 +735,10 @@
     "Title": "Dialog 对话框组件",
     "Description": "通过注入服务调用 <code>Show</code> 方法弹出窗口进行人机交互",
     "Tip1": "组件使用介绍",
-    "Tip2": "1. 注入服务 <code>DialogService</code>",
-    "Tip3": "2. 调用其实例 <code>api</code>",
-    "Tip4": "3. 级联参数关闭弹窗方法",
-    "Tip5": "4. 关窗按钮",
+    "Tip2": "注入服务 <code>DialogService</code>",
+    "Tip3": "调用其 <code>DialogOption</code> 实例 <code>OnCloseAsync</code> 方法",
+    "Tip4": "级联参数关闭弹窗方法",
+    "Tip5": "关窗按钮",
     "DialogTitle": "数据查询窗口",
     "KeyboardTitle": "基本用法",
     "KeyboardIntro": "通过设置 <code>DialogOption</code> 属性对模态框进行基本属性设置",
@@ -2535,7 +2536,7 @@
     "DisplayTextIntro": "通过设置 <code>Size</code> 属性改变组件大小",
     "ShowAfterLabelTitle": "Label 文字",
     "ShowAfterLabelIntro": "复选框显示文字，通过 <code>DisplayText</code> 设置组件显示文本，点击显示文字时组件状态也会进行翻转",
-    "ShowAfterLabelDescription": "设置<code>DisplayText</code> 属性，或者通过双向绑定均可以显示文本信息",
+    "ShowAfterLabelDescription": "设置 <code>DisplayText</code> 属性，或者通过双向绑定均可以显示文本信息",
     "OnStateChangedTitle": "双向绑定 boolean 数据",
     "OnStateChangedIntro": "绑定组件内变量，数据自动同步，绑定数据类型为 <code>boolean</code> 类型时自动翻转值",
     "BindStringTitle": "双向绑定 string 数据",
@@ -3091,7 +3092,7 @@
     "MarkdownsBrowserButtonText2": "插入一张图片",
     "MarkdownsBrowserButtonText3": "光标移动到最后",
     "MarkdownsBrowserText": "椰子树",
-    "MarkdownsIsViewerDescription": "设置<code>Markdown</code> 编辑器为纯浏览模式，<code>IsViewer='true'</code>",
+    "MarkdownsIsViewerDescription": "设置 <code>Markdown</code> 编辑器为纯浏览模式，<code>IsViewer='true'</code>",
     "MarkdownsValidateTitle": "客户端验证",
     "MarkdownsValidateIntro": "根据自定义验证规则进行数据有效性检查并自动提示",
     "MarkdownsValidateSubmitText": "提交",

@@ -1181,12 +1181,6 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             AutoRefreshCancelTokenSource?.Cancel();
             AutoRefreshCancelTokenSource?.Dispose();
             AutoRefreshCancelTokenSource = null;
-
-            if (Interop != null)
-            {
-                Interop.Dispose();
-                Interop = null;
-            }
         }
 
         await base.DisposeAsync(disposing);
