@@ -9,7 +9,7 @@ using Microsoft.JSInterop;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-///
+/// FAIconList 组件
 /// </summary>
 [JSModuleAutoLoader("./_content/BootstrapBlazor.FontAwesome/Components/FAIconList.razor.js", JSObjectReference = true, Relative = false)]
 public partial class FAIconList
@@ -72,7 +72,7 @@ public partial class FAIconList
     private IStringLocalizer<IconDialog>? Localizer { get; set; }
 
     /// <summary>
-    /// OnParametersSet 方法
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnParametersSet()
     {
@@ -88,7 +88,7 @@ public partial class FAIconList
     protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, nameof(UpdateIcon), nameof(ShowDialog), IsCopy);
 
     /// <summary>
-    /// 更新当前选择图标值方法
+    /// UpdateIcon 方法由 JS Invoke 调用
     /// </summary>
     /// <param name="icon"></param>
     [JSInvokable]
@@ -106,7 +106,7 @@ public partial class FAIconList
     }
 
     /// <summary>
-    ///
+    /// ShowDialog 方法由 JS Invoke 调用
     /// </summary>
     /// <returns></returns>
     [JSInvokable]
