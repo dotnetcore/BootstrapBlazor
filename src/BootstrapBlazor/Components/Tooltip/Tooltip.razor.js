@@ -1,27 +1,27 @@
-﻿import BlazorComponent from "./base/blazor-component.js"
+﻿import Data from "../../modules/data.js"
 
-export class Tooltip extends BlazorComponent {
-    static get Default() {
-        return {
-            arguments: [""]
+export function init(id) {
+    const el = document.getElementById(id)
+    if (el) {
+        const tip = {
+            tooltip: new bootstrap.Tooltip(el, { sanitize: el.getAttribute('data-bs-sanitize') !== 'false' })
         }
+        Data.set(id, tip)
     }
+}
 
-    _init() {
-        const sanitize = this._element.getAttribute('data-bs-sanitize') !== 'false'
-        this._tooltip = new bootstrap.Tooltip(this._element, { sanitize: sanitize })
-    }
+export function dispose(id) {
+    const tip = Data.get(id)
+    Data.remove(id)
 
-    _dispose() {
-        if (this._tooltip) {
-            const delay = 10
-            const tooltip = this._tooltip
-            const handler = window.setTimeout(() => {
-                window.clearTimeout(handler)
-                if (tooltip) {
-                    tooltip.dispose()
-                }
-            }, delay)
-        }
+    if (tip) {
+        const delay = 10
+        const handler = setTimeout(() => {
+            clearTimeout(handler)
+            if (tip.tooltip) {
+                tip.tooltip.dispose()
+                delete tip.tooltip
+            }
+        }, delay)
     }
 }
