@@ -309,6 +309,7 @@ public class LayoutAuthorizationTest : AuthorizateViewTestBase
         var cut = Context.RenderComponent<Layout>(pb =>
         {
             pb.Add(a => a.AdditionalAssemblies, new Assembly[] { GetType().Assembly });
+            pb.Add(a => a.OnAuthorizing, url => Task.FromResult(true));
         });
         cut.Contains("<section class=\"layout\"><header class=\"layout-header\"></header><main class=\"layout-main\"></main></section>");
     }
