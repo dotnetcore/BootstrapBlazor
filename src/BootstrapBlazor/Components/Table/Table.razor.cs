@@ -20,9 +20,6 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     /// </summary>
     protected Virtualize<TItem>? VirtualizeElement { get; set; }
 
-    [NotNull]
-    private JSInterop<Table<TItem>>? Interop { get; set; }
-
     /// <summary>
     /// 获得 Table 组件样式表
     /// </summary>
@@ -555,8 +552,6 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         TreeNodeCache ??= new(Equals);
 
         OnInitLocalization();
-
-        Interop = new JSInterop<Table<TItem>>(JSRuntime);
 
         // 设置 OnSort 回调方法
         InternalOnSortAsync = async (sortName, sortOrder) =>
