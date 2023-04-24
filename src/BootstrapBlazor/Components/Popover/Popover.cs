@@ -7,6 +7,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// Popover 弹出窗组件
 /// </summary>
+[JSModuleAutoLoader(ModuleName = "popover")]
 public class Popover : Tooltip
 {
     /// <summary>
@@ -42,11 +43,11 @@ public class Popover : Tooltip
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override async Task ModuleInitAsync()
+    protected override async Task InvokeInitAsync()
     {
         if (!string.IsNullOrEmpty(Content))
         {
-            await InvokeInitAsync(Id, Title, Content);
+            await InvokeVoidAsync("init", Id, Title, Content);
         }
     }
 }
