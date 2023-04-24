@@ -87,7 +87,7 @@ public abstract class BootstrapModuleComponentBase : IdComponentBase, IAsyncDisp
                     Relative = attr.Relative;
 
                     // 兼容 扩展组件包
-                    if (!Relative && !ModulePath.StartsWith("./_content", StringComparison.OrdinalIgnoreCase))
+                    if (!Relative && !ModulePath.StartsWith("./_content/", StringComparison.OrdinalIgnoreCase))
                     {
                         ModulePath = $"./_content/BootstrapBlazor/Components/{ModulePath}";
                     }
