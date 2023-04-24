@@ -335,6 +335,12 @@ public partial class Layout : IHandlerException, IAsyncDisposable
             if (context.Handler != null)
             {
                 IsAuthenticated = await context.Handler.IsAuthorizedAsync(AuthenticationStateTask, AuthorizationPolicyProvider, AuthorizationService);
+
+                // 检查当前 Url
+                if (OnAuthorizing != null)
+                {
+                    IsAuthenticated = IsAuthenticated && await OnAuthorizing(Navigation.Uri);
+                }
             }
         }
         else
