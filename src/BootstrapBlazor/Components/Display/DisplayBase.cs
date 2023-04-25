@@ -10,7 +10,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 显示组件基类
 /// </summary>
-public abstract class DisplayBase<TValue> : BootstrapModule2ComponentBase
+public abstract class DisplayBase<TValue> : BootstrapModuleComponentBase
 {
     /// <summary>
     /// 是否显示 标签
