@@ -9,7 +9,6 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// TableFilter 基类
 /// </summary>
-[JSModuleAutoLoader("table-filter")]
 public partial class TableFilter : IFilter
 {
     /// <summary>
@@ -166,11 +165,11 @@ public partial class TableFilter : IFilter
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override async Task ModuleInitAsync()
+    protected override async Task InvokeInitAsync()
     {
         if (!IsHeaderRow)
         {
-            await base.ModuleInitAsync();
+            await base.InvokeInitAsync();
         }
     }
 
@@ -194,10 +193,7 @@ public partial class TableFilter : IFilter
     /// 点击确认时回调此方法
     /// </summary>
     /// <returns></returns>
-    private async Task OnClickConfirm()
-    {
-        await OnFilterAsync();
-    }
+    private Task OnClickConfirm() => OnFilterAsync();
 
     /// <summary>
     /// 过滤数据方法
