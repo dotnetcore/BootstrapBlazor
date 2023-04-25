@@ -7,9 +7,9 @@
     [NotNull]
     private ConsoleLogger? Logger { get; set; }
 
-    private int BindValue { get; set; } = 3;
+    private double BindValue { get; set; } = 3.0;
 
-    private void OnValueChanged(int val)
+    private void OnValueChanged(double val)
     {
         BindValue = val;
         Logger.Log($"{Localizer["RatesLog"]} {val}");
