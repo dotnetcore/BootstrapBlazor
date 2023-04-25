@@ -48,4 +48,5 @@ export function dispose(id) {
         EventHandler.off(data.action, 'click', data.dismissSelector)
         Popover.dispose(data.dropdown)
     }
+    Data.remove(id)
 }
