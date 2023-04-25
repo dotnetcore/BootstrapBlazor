@@ -8,7 +8,7 @@ const Popover = {
                 el,
                 class: 'popover-dropdown',
                 toggleClass: '.dropdown-toggle',
-                dropdownMenu: '.dropdown-menu',
+                dropdownSelector: '.dropdown-menu',
                 isDisabled: () => {
                     return isDisabled(el) || isDisabled(el.parentNode) || isDisabled(el.querySelector('.form-control'))
                 }
@@ -17,7 +17,7 @@ const Popover = {
         }
         popover.toggleElement = el.querySelector(popover.toggleClass)
         popover.isPopover = popover.toggleElement.getAttribute('data-bs-toggle') === 'bb.dropdown'
-        popover.toggleMenu = el.querySelector(popover.dropdownMenu)
+        popover.toggleMenu = el.querySelector(popover.dropdownSelector)
         popover.isShown = () => {
             return popover.popover && popover.popover._isShown();
         }
