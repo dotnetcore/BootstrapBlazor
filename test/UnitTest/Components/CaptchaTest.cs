@@ -43,6 +43,7 @@ public class CaptchaTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.ImagesPath, "images");
             pb.Add(a => a.ImagesName, "Pic.jpg");
+            pb.Add(a => a.Max, 8);
             pb.Add(a => a.GetImageName, () => "test.jpg");
         });
         await cut.InvokeAsync(() => cut.Find(".captcha-refresh").Click());

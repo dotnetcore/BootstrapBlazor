@@ -141,6 +141,12 @@ public partial class Captcha : IDisposable
     public string? RefreshIcon { get; set; }
 
     /// <summary>
+    /// 获得/设置 随机图片最大张数 默认 1024
+    /// </summary>
+    [Parameter]
+    public int Max { get; set; } = 1024;
+
+    /// <summary>
     /// 获得/设置 刷新按钮图标 默认值 fa-solid fa-arrow-right
     /// </summary>
     [Parameter]
@@ -224,7 +230,7 @@ public partial class Captcha : IDisposable
 
         if (GetImageName == null)
         {
-            var index = Convert.ToInt32(ImageRandomer.Next(0, 8) / 1.0);
+            var index = Convert.ToInt32(ImageRandomer.Next(0, Max) / 1.0);
             var imageName = Path.GetFileNameWithoutExtension(ImagesName);
             var extendName = Path.GetExtension(ImagesName);
             var fileName = $"{imageName}{index}{extendName}";
