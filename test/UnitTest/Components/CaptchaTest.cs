@@ -16,9 +16,10 @@ public class CaptchaTest : BootstrapBlazorTestBase
             pb.Add(a => a.Width, 280);
             pb.Add(a => a.Height, 150);
             pb.Add(a => a.Offset, 1000);
-            pb.Add(a => a.OnValid, b =>
+            pb.Add(a => a.OnValidAsync, b =>
             {
                 verify = b;
+                return Task.CompletedTask;
             });
         });
         await cut.InvokeAsync(() => cut.Instance.Verify(10, new int[] { 1, 2, 3, 4, 1 }));
@@ -30,7 +31,7 @@ public class CaptchaTest : BootstrapBlazorTestBase
         cut.SetParametersAndRender(pb =>
         {
             pb.Add(a => a.Offset, 5);
-            pb.Add(a => a.OnValid, null);
+            pb.Add(a => a.OnValidAsync, null);
         });
         await cut.InvokeAsync(() => cut.Instance.Verify(10, new int[] { 1, 2, 3, 4, 1 }));
     }

@@ -75,7 +75,15 @@ public partial class Captcha : IDisposable
     /// 获得/设置 验证码结果回调委托
     /// </summary>
     [Parameter]
+    [Obsolete("use OnValidAsync parameter")]
+    [ExcludeFromCodeCoverage]
     public Action<bool>? OnValid { get; set; }
+
+    /// <summary>
+    /// 获得/设置 验证码结果回调委托
+    /// </summary>
+    [Parameter]
+    public Func<bool, Task>? OnValidAsync { get; set; }
 
     /// <summary>
     /// 获得/设置 图床路径 默认值为 images
@@ -185,11 +193,14 @@ public partial class Captcha : IDisposable
     /// 验证方差方法
     /// </summary>
     [JSInvokable]
-    public Task<bool> Verify(int offset, IEnumerable<int> trails)
+    public async Task<bool> Verify(int offset, IEnumerable<int> trails)
     {
         var ret = Math.Abs(offset - OriginX) < Offset && CalcStddev(trails);
-        OnValid?.Invoke(ret);
-        return Task.FromResult(ret);
+        if (OnValidAsync != null)
+        {
+            await OnValidAsync(ret);
+        }
+        return ret;
     }
 
     private CaptchaOption GetCaptchaOption()
