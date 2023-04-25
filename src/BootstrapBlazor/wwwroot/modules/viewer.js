@@ -3,7 +3,7 @@ import EventHandler from "./event-handler.js"
 
 export default {
     init(el, prevList, config) {
-        const previewer = {
+        const viewer = {
             ...{
                 el,
                 prevList,
@@ -23,7 +23,7 @@ export default {
             },
             ...config || {}
         }
-        previewer.show = index => {
+        viewer.show = index => {
             index = index || 0
             viewer.index = index
             viewer.originX = 0
@@ -33,10 +33,10 @@ export default {
 
             // // 消除 body 滚动条
             viewer.body.classList.add('is-img-preview')
-            viewer.element.classList.add('show')
+            viewer.el.classList.add('show')
         }
 
-        previewer.resetImage = () => {
+        viewer.resetImage = () => {
             viewer.prevImg.classList.add('transition-none')
             viewer.prevImg.style.transform = 'scale(1) rotate(0deg)'
             viewer.prevImg.style.marginLeft = '0px'
@@ -47,14 +47,14 @@ export default {
             }, 300)
         }
 
-        previewer.updateImage = index => {
+        viewer.updateImage = index => {
             viewer.resetImage()
             const url = viewer.prevList[index]
-            const img = viewer.element.querySelector('.bb-viewer-canvas > img')
+            const img = viewer.el.querySelector('.bb-viewer-canvas > img')
             img.setAttribute('src', url)
         }
 
-        previewer.processImage = (scaleCallback, rotateCallback) => {
+        viewer.processImage = (scaleCallback, rotateCallback) => {
             const getScale = v => {
                 let scale = 1
                 if (v) {
@@ -81,7 +81,7 @@ export default {
                 return value
             }
 
-            const transform = previewer.prevImg.style.transform
+            const transform = viewer.prevImg.style.transform
             let scale = getScale(transform)
             let rotate = getRotate(transform)
             if (scaleCallback) {
@@ -90,57 +90,57 @@ export default {
             if (rotateCallback) {
                 rotate = rotateCallback(rotate)
             }
-            previewer.prevImg.style.transform = `scale(${scale}) rotate(${rotate}deg)`
+            viewer.prevImg.style.transform = `scale(${scale}) rotate(${rotate}deg)`
 
-            const left = getValue(previewer.prevImg.style.marginLeft)
-            const top = getValue(previewer.prevImg.style.marginTop)
-            previewer.prevImg.style.marginLeft = `${left}px`
-            previewer.prevImg.style.marginTop = `${top}px`
+            const left = getValue(viewer.prevImg.style.marginLeft)
+            const top = getValue(viewer.prevImg.style.marginTop)
+            viewer.prevImg.style.marginLeft = `${left}px`
+            viewer.prevImg.style.marginTop = `${top}px`
         }
 
         // 关闭按钮处理事件
-        EventHandler.on(previewer.closeButton, 'click', () => {
-            previewer.body.classList.remove('is-img-preview')
+        EventHandler.on(viewer.closeButton, 'click', () => {
+            viewer.body.classList.remove('is-img-preview')
             // 恢复 Image
-            previewer.resetImage()
-            previewer.element.classList.remove('show')
+            viewer.resetImage()
+            viewer.el.classList.remove('show')
         })
 
         // 上一张按钮处理事件
         EventHandler.on(el, 'click', '.bb-viewer-prev', () => {
-            previewer.index--
-            if (previewer.index < 0) {
-                previewer.index = previewer.prevList.length - 1
+            viewer.index--
+            if (viewer.index < 0) {
+                viewer.index = viewer.prevList.length - 1
             }
-            previewer.updateImage(viewer.index)
+            viewer.updateImage(viewer.index)
         })
 
         // 下一张按钮处理事件
         EventHandler.on(el, 'click', '.bb-viewer-next', () => {
-            previewer.index++
-            if (previewer.index >= previewer.prevList.length) {
-                previewer.index = 0
+            viewer.index++
+            if (viewer.index >= viewer.prevList.length) {
+                viewer.index = 0
             }
-            previewer.updateImage(previewer.index)
+            viewer.updateImage(viewer.index)
         })
 
         // 全屏/恢复按钮功能
-        EventHandler.on(previewer.fullScreen, 'click', () => {
-            previewer.resetImage()
-            previewer.element.classList.toggle('active')
+        EventHandler.on(viewer.fullScreen, 'click', () => {
+            viewer.resetImage()
+            viewer.el.classList.toggle('active')
         })
 
         // 放大功能
-        EventHandler.on(previewer.zoomOut, 'click', () => viewer.processImage(scale => scale + 0.2))
+        EventHandler.on(viewer.zoomOut, 'click', () => viewer.processImage(scale => scale + 0.2))
 
         // 缩小功能
-        EventHandler.on(previewer.zoomIn, 'click', () => viewer.processImage(scale => Math.max(0.2, scale - 0.2)))
+        EventHandler.on(viewer.zoomIn, 'click', () => viewer.processImage(scale => Math.max(0.2, scale - 0.2)))
 
         // 左旋转功能
-        EventHandler.on(previewer.rotateLeft, 'click', () => viewer.processImage(null, rotate => rotate - 90))
+        EventHandler.on(viewer.rotateLeft, 'click', () => viewer.processImage(null, rotate => rotate - 90))
 
         // 右旋转功能
-        EventHandler.on(previewer.rotateRight, 'click', () => viewer.processImage(null, rotate => rotate + 90))
+        EventHandler.on(viewer.rotateRight, 'click', () => viewer.processImage(null, rotate => rotate + 90))
 
         const handlerWheel = e => {
             e.preventDefault()
@@ -148,64 +148,64 @@ export default {
             const delta = Math.max(-1, Math.min(1, wheel))
             if (delta > 0) {
                 // 放大
-                previewer.processImage(scale => scale + 0.015)
+                viewer.processImage(scale => scale + 0.015)
             } else {
                 // 缩小
-                previewer.processImage(scale => Math.max(0.195, scale - 0.015))
+                viewer.processImage(scale => Math.max(0.195, scale - 0.015))
             }
         }
         // 鼠标放大缩小
-        EventHandler.on(previewer.prevImg, 'mousewheel', handlerWheel)
-        EventHandler.on(previewer.prevImg, 'DOMMouseScroll', handlerWheel)
+        EventHandler.on(viewer.prevImg, 'mousewheel', handlerWheel)
+        EventHandler.on(viewer.prevImg, 'DOMMouseScroll', handlerWheel)
 
         // 点击遮罩关闭功能
-        EventHandler.on(previewer.mask, 'click', () => {
+        EventHandler.on(viewer.mask, 'click', () => {
             viewer.closeButton.click()
         })
 
         // 增加键盘支持
         EventHandler.on(document, 'keydown', e => {
             if (e.key === "ArrowUp") {
-                previewer.zoomOut.click()
+                viewer.zoomOut.click()
             } else if (e.key === "ArrowDown") {
-                previewer.zoomIn.click()
+                viewer.zoomIn.click()
             } else if (e.key === "ArrowLeft") {
-                const prevButton = previewer.element.querySelector('.bb-viewer-prev')
+                const prevButton = viewer.el.querySelector('.bb-viewer-prev')
                 if (prevButton) {
                     prevButton.click()
                 }
             } else if (e.key === "ArrowRight") {
-                const nextButton = previewer.element.querySelector('.bb-viewer-next')
+                const nextButton = viewer.el.querySelector('.bb-viewer-next')
                 if (nextButton) {
                     nextButton.click()
                 }
             } else if (e.key === "Escape") {
-                previewer.closeButton.click()
+                viewer.closeButton.click()
             }
         })
 
         // 缩放处理
-        EventHandler.on(previewer.prevImg, 'touchstart', e => {
+        EventHandler.on(viewer.prevImg, 'touchstart', e => {
             e.preventDefault()
 
             const touches = e.touches
             const events = touches[0]
             const events2 = touches[1]
 
-            previewer.store.pageX = events.pageX
-            previewer.store.pageY = events.pageY
-            previewer.store.moveable = true
+            viewer.store.pageX = events.pageX
+            viewer.store.pageY = events.pageY
+            viewer.store.moveable = true
 
             if (events2) {
-                previewer.store.pageX2 = events2.pageX
-                previewer.store.pageY2 = events2.pageY
+                viewer.store.pageX2 = events2.pageX
+                viewer.store.pageY2 = events2.pageY
             }
 
-            previewer.store.originScale = previewer.store.scale || 1
+            viewer.store.originScale = viewer.store.scale || 1
         })
 
-        EventHandler.on(previewer.prevImg, 'touchmove', e => {
-            if (!previewer.store.moveable) {
+        EventHandler.on(viewer.prevImg, 'touchmove', e => {
+            if (!viewer.store.moveable) {
                 return
             }
 
@@ -215,15 +215,15 @@ export default {
 
             if (events2) {
                 e.preventDefault()
-                if (!previewer.prevImg.classList.contains('transition-none')) {
-                    previewer.prevImg.classList.add('transition-none')
+                if (!viewer.prevImg.classList.contains('transition-none')) {
+                    viewer.prevImg.classList.add('transition-none')
                 }
 
-                if (!previewer.store.pageX2) {
-                    previewer.store.pageX2 = events2.pageX
+                if (!viewer.store.pageX2) {
+                    viewer.store.pageX2 = events2.pageX
                 }
-                if (!previewer.store.pageY2) {
-                    previewer.store.pageY2 = events2.pageY
+                if (!viewer.store.pageY2) {
+                    viewer.store.pageY2 = events2.pageY
                 }
 
                 const getDistance = (start, stop) => Math.hypot(stop.x - start.x, stop.y - start.y)
@@ -236,71 +236,71 @@ export default {
                     y: events2.pageY
                 }) /
                     getDistance({
-                        x: previewer.store.pageX,
-                        y: previewer.store.pageY
+                        x: viewer.store.pageX,
+                        y: viewer.store.pageY
                     }, {
-                        x: previewer.store.pageX2,
-                        y: previewer.store.pageY2
+                        x: viewer.store.pageX2,
+                        y: viewer.store.pageY2
                     })
 
-                let newScale = previewer.store.originScale * zoom
+                let newScale = viewer.store.originScale * zoom
 
-                if (previewer.options.max != null && newScale > previewer.options.max) {
-                    newScale = previewer.options.max
+                if (viewer.options.max != null && newScale > viewer.options.max) {
+                    newScale = viewer.options.max
                 }
 
-                if (previewer.options.min != null && newScale < previewer.options.min) {
-                    newScale = previewer.options.min
+                if (viewer.options.min != null && newScale < viewer.options.min) {
+                    newScale = viewer.options.min
                 }
 
-                previewer.store.scale = newScale
+                viewer.store.scale = newScale
 
-                previewer.processImage(() => newScale)
+                viewer.processImage(() => newScale)
             }
         })
 
         const touchEndHandler = () => {
-            previewer.store.moveable = false
-            previewer.prevImg.classList.remove('transition-none')
+            viewer.store.moveable = false
+            viewer.prevImg.classList.remove('transition-none')
 
-            delete previewer.store.pageX2
-            delete previewer.store.pageY2
+            delete viewer.store.pageX2
+            delete viewer.store.pageY2
         }
 
-        EventHandler.on(previewer.prevImg, 'touchend', touchEndHandler)
+        EventHandler.on(viewer.prevImg, 'touchend', touchEndHandler)
 
-        EventHandler.on(previewer.prevImg, 'touchcancel', touchEndHandler)
+        EventHandler.on(viewer.prevImg, 'touchcancel', touchEndHandler)
 
-        drag(previewer.prevImg,
+        drag(viewer.prevImg,
             e => {
-                previewer.originX = e.clientX || e.touches[0].clientX
-                previewer.originY = e.clientY || e.touches[0].clientY
+                viewer.originX = e.clientX || e.touches[0].clientX
+                viewer.originY = e.clientY || e.touches[0].clientY
 
                 // 偏移量
-                previewer.pt.top = parseInt(previewer.prevImg.style.marginTop)
-                previewer.pt.left = parseInt(previewer.prevImg.style.marginLeft)
+                viewer.pt.top = parseInt(viewer.prevImg.style.marginTop)
+                viewer.pt.left = parseInt(viewer.prevImg.style.marginLeft)
 
-                previewer.prevImg.classList.add('is-drag')
+                viewer.prevImg.classList.add('is-drag')
             },
             e => {
-                if (previewer.prevImg.classList.contains('is-drag')) {
+                if (viewer.prevImg.classList.contains('is-drag')) {
                     const eventX = e.clientX || e.changedTouches[0].clientX
                     const eventY = e.clientY || e.changedTouches[0].clientY
 
-                    const newValX = previewer.pt.left + Math.ceil(eventX - previewer.originX)
-                    const newValY = previewer.pt.top + Math.ceil(eventY - previewer.originY)
+                    const newValX = viewer.pt.left + Math.ceil(eventX - viewer.originX)
+                    const newValY = viewer.pt.top + Math.ceil(eventY - viewer.originY)
 
-                    previewer.prevImg.style.marginLeft = `${newValX}px`
-                    previewer.prevImg.style.marginTop = `${newValY}px`
+                    viewer.prevImg.style.marginLeft = `${newValX}px`
+                    viewer.prevImg.style.marginTop = `${newValY}px`
                 }
 
             },
             () => {
-                previewer.prevImg.classList.remove('is-drag')
+                viewer.prevImg.classList.remove('is-drag')
             }
         )
 
-        return previewer
+        return viewer
     },
 
     dispose(viewer) {
