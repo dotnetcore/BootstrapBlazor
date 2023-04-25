@@ -15,6 +15,7 @@ public partial class Rate
     private string? ClassString => CssBuilder.Default("rate")
         .AddClass("text-nowrap", !IsWrap)
         .AddClass("disabled", IsDisable)
+        .AddClass("readonly", IsReadonly)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
@@ -56,8 +57,16 @@ public partial class Rate
     /// <summary>
     /// 获得/设置 是否禁用 默认为 false
     /// </summary>
+    /// <remarks>禁用模式下图标颜色为灰色，不可点击</remarks>
     [Parameter]
     public bool IsDisable { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否只读 默认为 false
+    /// </summary>
+    /// <remarks>只读情况下图标为彩色，仅不可点击</remarks>
+    [Parameter]
+    public bool IsReadonly { get; set; }
 
     /// <summary>
     /// 获得/设置 是否禁止换行 默认为 true

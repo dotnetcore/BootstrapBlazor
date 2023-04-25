@@ -26,11 +26,15 @@
             margin-right: var(--bb-rate-margin-left);
         }
 
-        .rate .rate-item i:hover {
-            transform: var(--bb-rate-transform);
-            color: var(--bb-rate-hover-color);
-            transition: var(--bb-rate-transition);
-        }
+    .rate.readonly .rate-item {
+        cursor: inherit;
+    }
+
+    .rate:not(.readonly):not(.disabled) .rate-item i:hover {
+        transform: var(--bb-rate-transform);
+        color: var(--bb-rate-hover-color);
+        transition: var(--bb-rate-transition);
+    }
 
     .rate.disabled .rate-item i {
         color: var(--bb-rate-disabled-color);
