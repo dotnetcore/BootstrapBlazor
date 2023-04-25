@@ -41,26 +41,23 @@ public partial class Pintereso
 
     [NotNull]
     [Inject]
-    private BootstrapBlazorHelper? helper { get; set; }
+    private IBootstrapBlazorHelper? helper { get; set; }
 
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
-
-        helper.OnResize += Helper_OnResize;
-        helper.OnClick += Helper_OnClick;
+        await helper.RegisterEvent(BootStrapBlazorEventType.Scroll, Id);
+        helper.OnScroll += Helper_OnScroll;
     }
 
-    private void Helper_OnClick()
+    private void Helper_OnScroll(object? sender, BootStrapBlazorEventArgs e)
     {
-        System.Console.WriteLine("BootstrapBlazorHelperEvent-Helper_OnClick");
+        System.Console.WriteLine("BootstrapBlazorHelperEvent-Helper_OnScroll");
     }
-
-    private void Helper_OnResize()
-    {
-        System.Console.WriteLine("BootstrapBlazorHelperEvent-Helper_OnResize");
-    }
-
 
     /// <summary>
     /// 
