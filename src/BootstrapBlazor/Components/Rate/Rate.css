@@ -39,3 +39,10 @@
     .rate:not(.disabled) .rate-item.is-on i {
         color: var(--bb-rate-active-color);
     }
+
+    .rate .rate-mask {
+        color: var(--bb-rate-active-color);
+        position: absolute;
+        left: 0;
+        overflow: hidden;
+    }
