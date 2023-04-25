@@ -1,6 +1,6 @@
-﻿import EventHandler from "./base/event-handler.js"
+﻿import Data from "./data.js"
+import EventHandler from "./base/event-handler.js"
 import BlazorComponent from "./base/blazor-component.js"
-import { ImagePreviewer } from "./image-previewer.js"
 
 export class Upload extends BlazorComponent {
     static get Default() {
@@ -59,12 +59,11 @@ export class Upload extends BlazorComponent {
 
         EventHandler.on(this._element, 'click', '.btn-zoom', e => {
             if (!this._previewer) {
-                const previewerId = document.getElementById(this._config.previewerId)
-                this._previewer = ImagePreviewer.getOrCreateInstance(previewerId)
+                this._previewer = Data.get(this._config.previewerId)
             }
             const button = e.delegateTarget
             const buttons = [...this._element.querySelectorAll('.btn-zoom')]
-            this._previewer.show(buttons.indexOf(button))
+            this._previewer.viewer.show(buttons.indexOf(button))
         })
     }
 

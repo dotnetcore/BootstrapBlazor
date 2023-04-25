@@ -1,31 +1,29 @@
 ﻿import Data from "../../modules/data.js"
-import Previewer from "../../modules/base-viewer.js"
+import Viewer from "../../modules/viewer.js"
 
 export function init(id, prevList) {
     const el = document.getElementById(id)
-
-    if (el != null) {
+    if (el === null) {
         return
     }
 
-    const baseviewer = Previewer.init(el, prevList)
-    const previewer = {
+    const viewer = {
         el,
-        baseviewer
+        viewer: Viewer.init(el, prevList)
     }
-
-    Data.set(id, previewer)
+    Data.set(id, viewer)
 }
 
 export function update(id, prevList) {
     const viewer = Data.get(id)
-    viewer.baseviewer.prevList = prevList
+    viewer.viewer.prevList = prevList
 }
 
 export function dispose(id) {
     const viewer = Data.get(id)
-    if (viewer) {
-        Previewer.dispose(viewer.baseviewer)
-    }
     Data.remove(id)
+
+    if (viewer) {
+        Viewer.dispose(viewer.viewer)
+    }
 }
