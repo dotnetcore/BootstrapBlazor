@@ -39,7 +39,15 @@ public sealed partial class Rates
         new AttributeItem()
         {
             Name = "IsDisabled",
-            Description = Localizer["RatesMaxIsDisabled"],
+            Description = Localizer["RatesIsDisabled"],
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "false"
+        },
+        new AttributeItem()
+        {
+            Name = "IsReadonly",
+            Description = Localizer["RatesIsReadonly"],
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"

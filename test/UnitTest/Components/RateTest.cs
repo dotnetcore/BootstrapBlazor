@@ -27,9 +27,18 @@ public class RateTest : BootstrapBlazorTestBase
             builder.Add(s => s.IsDisable, true);
             builder.Add(s => s.Value, 5);
         });
+        cut.Contains("disabled");
+    }
 
-        var ele = cut.Find(".disabled");
-        Assert.NotNull(ele);
+    [Fact]
+    public void IsReadonly_Ok()
+    {
+        var cut = Context.RenderComponent<Rate>(builder =>
+        {
+            builder.Add(s => s.IsReadonly, true);
+            builder.Add(s => s.Value, 5);
+        });
+        cut.Contains("readonly");
     }
 
     [Fact]

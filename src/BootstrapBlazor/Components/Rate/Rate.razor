@@ -5,7 +5,7 @@
     @for (int index = 1; index <= Max; index++)
     {
         var i = index;
-        <DynamicElement TagName="span" class="@GetItemClassString(i)" OnClick="() => OnClickItem(i)" TriggerClick="@(!IsDisable)">
+        <DynamicElement TagName="span" class="@GetItemClassString(i)" OnClick="() => OnClickItem(i)" TriggerClick="@(!IsDisable && !IsReadonly)">
             @if (ItemTemplate != null)
             {
                 @ItemTemplate(i)
