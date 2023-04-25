@@ -50,13 +50,13 @@ public partial class Pintereso
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
-        await helper.RegisterEvent(BootStrapBlazorEventType.Scroll, Id);
-        helper.OnScroll += Helper_OnScroll;
+        await helper.RegisterEvent(BootStrapBlazorEventType.Click, Id);
+        helper.OnClick += Helper_OnClick;
     }
 
-    private void Helper_OnScroll(object? sender, BootStrapBlazorEventArgs e)
+    private void Helper_OnClick(object? sender, BootStrapBlazorEventArgs e)
     {
-        System.Console.WriteLine("BootstrapBlazorHelperEvent-Helper_OnScroll");
+        System.Console.WriteLine("BootstrapBlazorHelperEvent-");
     }
 
     /// <summary>

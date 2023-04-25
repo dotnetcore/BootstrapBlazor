@@ -18,9 +18,6 @@ public interface IBootstrapBlazorHelper
     Task RegisterEvent(BootStrapBlazorEventType eventType, string? id);
 
     #region Event
-    /// <summary>
-    /// OnClick
-    /// </summary>
     public event EventHandler<BootStrapBlazorEventArgs> OnClick;
     public event EventHandler<BootStrapBlazorEventArgs> OnDblclick;
     public event EventHandler<BootStrapBlazorEventArgs> OnMouseup;

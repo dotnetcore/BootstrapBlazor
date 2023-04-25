@@ -9,6 +9,9 @@ using System.Text.Json.Serialization;
 
 namespace BootstrapBlazor.Services;
 
+/// <summary>
+/// <inheritdoc/>
+/// </summary>
 public class BootstrapBlazorHelper : IBootstrapBlazorHelper
 {
     private IJSRuntime JSRuntime { get; set; }
@@ -33,7 +36,7 @@ public class BootstrapBlazorHelper : IBootstrapBlazorHelper
     }
 
     #region JSInvok
-    [JSInvokable] public void JSInvokOnClick(BootStrapBlazorEventArgs args) => OnClick.Invoke(this, args);
+    [JSInvokable] public void JSInvokOnClick(BootStrapBlazorEventArgs args) => OnClick?.Invoke(this, args);
     [JSInvokable] public void JSInvokOnDblclick(BootStrapBlazorEventArgs args) => OnDblclick?.Invoke(this, args);
     [JSInvokable] public void JSInvokOnMouseup(BootStrapBlazorEventArgs args) => OnMouseup?.Invoke(this, args);
     [JSInvokable] public void JSInvokOnMousedown(BootStrapBlazorEventArgs args) => OnMousedown?.Invoke(this, args);
@@ -133,19 +136,58 @@ public class BootstrapBlazorHelper : IBootstrapBlazorHelper
     #endregion
 }
 
+/// <summary>
+/// <inheritdoc/>
+/// </summary>
 public class BootStrapBlazorEventArgs : EventArgs
 {
     public bool IsTrusted { get; set; }
+    public bool AltKey { get; set; }
+    public double AltitudeAngle { get; set; }
+    public long AzimuthAngle { get; set; }
     public bool Bubbles { get; set; }
+    public long Button { get; set; }
     public bool Buttons { get; set; }
     public bool CancelBubble { get; set; }
     public bool Cancelable { get; set; }
+    public long ClientX { get; set; }
+    public long ClientY { get; set; }
     public bool Composed { get; set; }
+    public bool CtrlKey { get; set; }
     public bool DefaultPrevented { get; set; }
+    public long Detail { get; set; }
     public long EventPhase { get; set; }
+    public object FromElement { get; set; }
+    public long Height { get; set; }
+    public bool IsPrimary { get; set; }
+    public long LayerX { get; set; }
+    public long LayerY { get; set; }
+    public bool MetaKey { get; set; }
+    public long MovementX { get; set; }
+    public long MovementY { get; set; }
+    public long OffsetX { get; set; }
+    public long OffsetY { get; set; }
+    public long PageX { get; set; }
+    public long PageY { get; set; }
+    public long PointerId { get; set; }
+    public string PointerType { get; set; }
+    public long Pressure { get; set; }
+    public object RelatedTarget { get; set; }
     public bool ReturnValue { get; set; }
+    public long ScreenX { get; set; }
+    public long ScreenY { get; set; }
+    public bool ShiftKey { get; set; }
+    public long TangentialPressure { get; set; }
+    public long TiltX { get; set; }
+    public long TiltY { get; set; }
     public double TimeStamp { get; set; }
+    public object ToElement { get; set; }
+    public long Twist { get; set; }
     public string Type { get; set; }
+    public long Which { get; set; }
+    public long Width { get; set; }
+    public long X { get; set; }
+    public long Y { get; set; }
 }
 
 class EventHandlesConverter : JsonConverter<BootStrapBlazorEventType>
