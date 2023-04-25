@@ -3273,7 +3273,13 @@
     "RatesTear": "哭",
     "RatesSmile": "笑",
     "RatesSurprise": "惊讶",
-    "RatesGrin": "惊喜"
+    "RatesGrin": "惊喜",
+    "RatesShowValueTitle": "显示评分",
+    "RatesShowValueIntro": "通过设置 <code>ShowValue=\"true\"</code> 使组件显示当前值",
+    "RatesIsWrapTitle": "自动折行",
+    "RatesIsWrapIntro": "通过设置 <code>IsWrap=\"true\"</code> 使组件自动折行，默认不折行",
+    "RatesIsWrap": "是否折行",
+    "RatesShowValue": "是否显示值"
   },
   "BootstrapBlazor.Shared.Samples.Selects": {
     "SelectsTitle": "Select 选择器",

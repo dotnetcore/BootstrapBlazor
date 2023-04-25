@@ -3262,7 +3262,13 @@
     "RatesTear": "Tear",
     "RatesSmile": "Smile",
     "RatesSurprise": "Surprise",
-    "RatesGrin": "Grin"
+    "RatesGrin": "Grin",
+    "RatesShowValueTitle": "Show value",
+    "RatesShowValueIntro": "By setting <code>ShowValue=\"true\"</code> to show the value",
+    "RatesIsWrapTitle": "Wrap",
+    "RatesIsWrapIntro": "By setting <code>IsWrap=\"true\"</code> set to wrap. default value is not wrap",
+    "RatesIsWrap": "Wrap",
+    "RatesShowValue": "Show value"
   },
   "BootstrapBlazor.Shared.Samples.Selects": {
     "SelectsTitle": "Select",
