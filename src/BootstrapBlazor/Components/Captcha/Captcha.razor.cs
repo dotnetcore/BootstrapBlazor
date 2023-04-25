@@ -287,11 +287,7 @@ public partial class Captcha : IDisposable
     public async Task Reset()
     {
         var option = GetCaptchaOption();
-        if (Interop == null)
-        {
-            Interop = new JSInterop<Captcha>(JSRuntime);
-        }
-
+        Interop ??= new JSInterop<Captcha>(JSRuntime);
         await Interop.InvokeVoidAsync(this, CaptchaElement, "captcha", nameof(Verify), option);
     }
 }
