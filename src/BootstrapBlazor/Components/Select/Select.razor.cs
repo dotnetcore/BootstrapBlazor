@@ -10,7 +10,6 @@ namespace BootstrapBlazor.Components;
 /// Select 组件实现类
 /// </summary>
 /// <typeparam name="TValue"></typeparam>
-[JSModuleAutoLoader(JSObjectReference = true)]
 public partial class Select<TValue> : ISelect
 {
     [Inject]
@@ -200,7 +199,7 @@ public partial class Select<TValue> : ISelect
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override async Task ModuleInitAsync()
+    protected async override Task InvokeInitAsync()
     {
         // 首次加载是 Value 不为 null 时触发一次 OnSelectedItemChanged 回调
         // 此逻辑与 ResetSelectedItem 逻辑互补
@@ -208,8 +207,7 @@ public partial class Select<TValue> : ISelect
         {
             await OnSelectedItemChanged.Invoke(SelectedItem);
         }
-
-        await InvokeInitAsync(Id, nameof(ConfirmSelectedItem));
+        await InvokeVoidAsync("init", Id, nameof(ConfirmSelectedItem), Interop);
     }
 
     /// <summary>
