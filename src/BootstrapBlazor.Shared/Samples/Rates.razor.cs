@@ -46,6 +46,22 @@ public sealed partial class Rates
         },
         new AttributeItem()
         {
+            Name = "IsWrap",
+            Description = Localizer["RatesIsWrap"],
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "false"
+        },
+        new AttributeItem()
+        {
+            Name = "ShowValue",
+            Description = Localizer["RatesShowValue"],
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "false"
+        },
+        new AttributeItem()
+        {
             Name = "ItemTemplate",
             Description = Localizer["RatesItemTemplate"],
             Type = "RenderFragment<int>",
