@@ -2,6 +2,8 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using BootstrapBlazor.Services;
+
 using Microsoft.JSInterop;
 
 namespace BootstrapBlazor.Shared.Practicals.Pintereso;
@@ -37,11 +39,35 @@ public partial class Pintereso
         "https://images.unsplash.com/photo-1512355144108-e94a235b10af?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=c622d56d975113a08c71c912618b5f83&auto=format&fit=crop&w=500&q=60"
     };
 
+    [NotNull]
+    [Inject]
+    private BootstrapBlazorHelper? helper { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+
+        helper.OnResize += Helper_OnResize;
+        helper.OnClick += Helper_OnClick;
+    }
+
+    private void Helper_OnClick()
+    {
+        System.Console.WriteLine("BootstrapBlazorHelperEvent-Helper_OnClick");
+    }
+
+    private void Helper_OnResize()
+    {
+        System.Console.WriteLine("BootstrapBlazorHelperEvent-Helper_OnResize");
+    }
+
+
     /// <summary>
     /// 
     /// </summary>
     /// <returns></returns>
     protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, nameof(InvokeOnScroll));
+
     /// <summary>
     /// 滚动到底部后回调此方法
     /// </summary>

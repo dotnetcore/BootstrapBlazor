@@ -317,3 +317,10 @@ function hydrateObj(obj, meta) {
 }
 
 export default EventHandler
+
+export function registerEvent(invoke, eventHandles, method) {
+    const jscallback = () => {
+        invoke.invokeMethodAsync(method);
+    }
+    EventHandler.on(window, eventHandles, jscallback)
+}
