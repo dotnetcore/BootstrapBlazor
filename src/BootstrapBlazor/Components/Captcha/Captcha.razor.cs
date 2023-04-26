@@ -7,7 +7,7 @@ using Microsoft.Extensions.Localization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+///
 /// </summary>
 public partial class Captcha : IDisposable
 {
@@ -141,10 +141,10 @@ public partial class Captcha : IDisposable
     public string? RefreshIcon { get; set; }
 
     /// <summary>
-    /// 获得/设置 随机图片最大张数 默认 1024
+    /// 获得/设置 随机图片最大张数 默认 9, 此值从 0 开始， 不包含 Max 值本身，即默认随机 Pic0 - Pic8
     /// </summary>
     [Parameter]
-    public int Max { get; set; } = 1024;
+    public int Max { get; set; } = 9;
 
     /// <summary>
     /// 获得/设置 刷新按钮图标 默认值 fa-solid fa-arrow-right
