@@ -20,19 +20,19 @@ public partial class Textarea
     /// 滚动到顶部
     /// </summary>
     /// <returns></returns>
-    public Task ScrollToTop() => InvokeExecuteAsync(Id, "toTop");
+    public Task ScrollToTop() => InvokeVoidAsync("execute", Id, "toTop");
 
     /// <summary>
     /// 滚动到数值
     /// </summary>
     /// <returns></returns>
-    public Task ScrollTo(int value) => InvokeExecuteAsync(Id, "to", value);
+    public Task ScrollTo(int value) => InvokeVoidAsync("execute", Id, "to", value);
 
     /// <summary>
     /// 滚动到底部
     /// </summary>
     /// <returns></returns>
-    public Task ScrollToBottom() => InvokeExecuteAsync(Id, "toBottom");
+    public Task ScrollToBottom() => InvokeVoidAsync("execute", Id, "toBottom");
 
     /// <summary>
     /// 获得/设置 是否自动滚屏 默认 false
@@ -48,6 +48,15 @@ public partial class Textarea
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
+    /// <param name="firstRender"></param>
     /// <returns></returns>
-    protected override Task ModuleExecuteAsync() => InvokeExecuteAsync(Id, "refresh");
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+
+        if (!firstRender)
+        {
+            await InvokeVoidAsync("execute", Id, "update");
+        }
+    }
 }
