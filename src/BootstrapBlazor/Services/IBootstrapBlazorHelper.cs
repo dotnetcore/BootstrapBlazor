@@ -39,7 +39,7 @@ public interface IBootstrapBlazorHelper
     /// <param name="id"></param>
     /// <param name="tag"></param>
     /// <returns></returns>
-    Task<T> GetIdPropertieByNameAsync<T>(string id, string tag);
+    Task<T?> GetIdPropertieByNameAsync<T>(string id, string tag);
 
     /// <summary>
     /// 通过tag获取元素的属性值
@@ -47,7 +47,7 @@ public interface IBootstrapBlazorHelper
     /// <typeparam name="T"></typeparam>
     /// <param name="tag"></param>
     /// <returns></returns>
-    Task<T> GetDocumentPropertieByNameAsync<T>(string tag);
+    Task<T?> GetDocumentPropertieByNameAsync<T>(string tag);
 
     /// <summary>
     /// 通过tag获取元素的属性值
@@ -56,7 +56,7 @@ public interface IBootstrapBlazorHelper
     /// <param name="element"></param>
     /// <param name="tag"></param>
     /// <returns></returns>
-    Task<T> GetElementPropertieByNameAsync<T>(ElementReference element, string tag);
+    Task<T?> GetElementPropertieByNameAsync<T>(ElementReference element, string tag);
 
     #region Event
     /// <summary>

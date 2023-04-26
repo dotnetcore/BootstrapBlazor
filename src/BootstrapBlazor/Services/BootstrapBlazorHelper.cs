@@ -24,12 +24,34 @@ public class BootstrapBlazorHelper : BootstrapModuleComponentBase, IBootstrapBla
     public async Task RegisterEvent(BootStrapBlazorEventType eventType, ElementReference element) => await InvokeVoidAsync("registerEvent", Interop, eventType, $"JSInvokOn{eventType}", null, element);
 
     /// <inheritdoc/>
-    public async Task<T> GetIdPropertieByNameAsync<T>(string id, string tag) => await Module.InvokeAsync<T>("getIdPropertieByName", id, tag);
+    public async Task<T?> GetIdPropertieByNameAsync<T>(string id, string tag)
+    {
+        if (Module is not null)
+        {
+            return await Module.InvokeAsync<T?>("getIdPropertieByName", id, tag);
+        }
+        return default;
+    }
 
     /// <inheritdoc/>
-    public async Task<T> GetDocumentPropertieByNameAsync<T>(string tag) => await Module.InvokeAsync<T>("getDocumentPropertieByName", tag);
+    public async Task<T?> GetDocumentPropertieByNameAsync<T>(string tag)
+    {
+        if (Module is not null)
+        {
+            return await Module.InvokeAsync<T?>("getDocumentPropertieByName", tag);
+        }
+        return default;
+    }
+
     /// <inheritdoc/>
-    public async Task<T> GetElementPropertieByNameAsync<T>(ElementReference element, string tag) => await Module.InvokeAsync<T>("getElementPropertieByName", element, tag);
+    public async Task<T?> GetElementPropertieByNameAsync<T>(ElementReference element, string tag)
+    {
+        if (Module is not null)
+        {
+            return await Module.InvokeAsync<T?>("getElementPropertieByName", element, tag);
+        }
+        return default;
+    }
 
     #region JSInvok
 
