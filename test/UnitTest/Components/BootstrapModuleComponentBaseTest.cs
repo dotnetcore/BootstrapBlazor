@@ -25,20 +25,6 @@ public class BootstrapModuleComponentBaseTest : BootstrapBlazorTestBase
         Assert.True(cut.Instance.InvokeRunned);
     }
 
-    [Fact]
-    public void LoadModule()
-    {
-        var jsRuntime = Context.Services.GetRequiredService<IJSRuntime>();
-        _ = jsRuntime.LoadModule("test.js", false);
-        _ = jsRuntime.LoadModule3<MockClass>("test", new MockClass(), false);
-        _ = jsRuntime.LoadModule3<MockClass>("test", new MockClass(), true);
-    }
-
-    class MockClass
-    {
-
-    }
-
     [JSModuleAutoLoader]
     class MockComponent : BootstrapModuleComponentBase
     {
