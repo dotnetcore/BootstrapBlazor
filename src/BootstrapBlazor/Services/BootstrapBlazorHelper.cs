@@ -2,8 +2,11 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using Microsoft.JSInterop;
+
 using System.ComponentModel;
 using System.Reflection;
+using System.Reflection.Metadata;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
@@ -22,116 +25,135 @@ public class BootstrapBlazorHelper : IBootstrapBlazorHelper
     [NotNull]
     private DotNetObjectReference<BootstrapBlazorHelper>? Interop { get; set; }
 
-    public BootstrapBlazorHelper(IJSRuntime jSRuntime)
+    public BootstrapBlazorHelper(IJSRuntime js) => JSRuntime = js;
+
+    private async Task ImportModule()
     {
-        JSRuntime = jSRuntime;
+        Module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/BootstrapBlazor/modules/event-handler.js");
+        Interop = DotNetObjectReference.Create(this);
     }
 
     public async Task RegisterEvent(BootStrapBlazorEventType handles, string? Id)
     {
-        Module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/BootstrapBlazor/modules/event-handler.js");
-        Interop = DotNetObjectReference.Create(this);
-        var methodName = $"JSInvokOn{handles}";
-        await Module.InvokeVoidAsync("registerEvent", Interop, handles, methodName, Id);
+        await ImportModule();
+        await Module.InvokeVoidAsync("registerEvent", Interop, handles, $"JSInvokOn{handles}", Id);
+    }
+
+    public async Task<T> GetIdPropertieByNameAsync<T>(string id, string tag)
+    {
+        await ImportModule();
+        return await Module.InvokeAsync<T>("getIdPropertieByName", id, tag);
+    }
+
+    public async Task<T> GetDocumentPropertieByNameAsync<T>(string tag)
+    {
+        await ImportModule();
+        return await Module.InvokeAsync<T>("getDocumentPropertieByName", tag);
+    }
+
+    public async Task<T> GetElementPropertieByNameAsync<T>(ElementReference element, string tag)
+    {
+        await ImportModule();
+        return await Module.InvokeAsync<T>("getElementPropertieByName", element, tag);
     }
 
     #region JSInvok
-    [JSInvokable] public void JSInvokOnClick(BootStrapBlazorEventArgs args) => OnClick?.Invoke(this, args);
-    [JSInvokable] public void JSInvokOnDblclick(BootStrapBlazorEventArgs args) => OnDblclick?.Invoke(this, args);
-    [JSInvokable] public void JSInvokOnMouseup(BootStrapBlazorEventArgs args) => OnMouseup?.Invoke(this, args);
-    [JSInvokable] public void JSInvokOnMousedown(BootStrapBlazorEventArgs args) => OnMousedown?.Invoke(this, args);
-    [JSInvokable] public void JSInvokOnContextmenu(BootStrapBlazorEventArgs args) => OnContextmenu?.Invoke(this, args);
-    [JSInvokable] public void JSInvokOnMousewheel(BootStrapBlazorEventArgs args) => OnMousewheel?.Invoke(this, args);
-    [JSInvokable] public void JSInvokOnDOMMouseScroll(BootStrapBlazorEventArgs args) => OnDOMMouseScroll?.Invoke(this, args);
-    [JSInvokable] public void JSInvokOnMouseover(BootStrapBlazorEventArgs args) => OnMouseover?.Invoke(this, args);
-    [JSInvokable] public void JSInvokOnMouseout(BootStrapBlazorEventArgs args) => OnMouseout?.Invoke(this, args);
-    [JSInvokable] public void JSInvokOnMousemove(BootStrapBlazorEventArgs args) => OnMousemove?.Invoke(this, args);
-    [JSInvokable] public void JSInvokOnSelectstart(BootStrapBlazorEventArgs args) => OnSelectstart?.Invoke(this, args);
-    [JSInvokable] public void JSInvokOnSelectend(BootStrapBlazorEventArgs args) => OnSelectend?.Invoke(this, args);
-    [JSInvokable] public void JSInvokOnKeydown(BootStrapBlazorEventArgs args) => OnKeydown?.Invoke(this, args);
-    [JSInvokable] public void JSInvokOnKeypress(BootStrapBlazorEventArgs args) => OnKeypress?.Invoke(this, args);
-    [JSInvokable] public void JSInvokOnKeyup(BootStrapBlazorEventArgs args) => OnKeyup?.Invoke(this, args);
-    [JSInvokable] public void JSInvokOnOrientationchange(BootStrapBlazorEventArgs args) => OnOrientationchange?.Invoke(this, args);
-    [JSInvokable] public void JSInvokOnTouchstart(BootStrapBlazorEventArgs args) => OnTouchstart?.Invoke(this, args);
-    [JSInvokable] public void JSInvokOnTouchmove(BootStrapBlazorEventArgs args) => OnTouchmove?.Invoke(this, args);
-    [JSInvokable] public void JSInvokOnTouchend(BootStrapBlazorEventArgs args) => OnTouchend?.Invoke(this, args);
-    [JSInvokable] public void JSInvokOnTouchcancel(BootStrapBlazorEventArgs args) => OnTouchcancel?.Invoke(this, args);
-    [JSInvokable] public void JSInvokOnPointerdown(BootStrapBlazorEventArgs args) => OnPointerdown?.Invoke(this, args);
-    [JSInvokable] public void JSInvokOnPointermove(BootStrapBlazorEventArgs args) => OnPointermove?.Invoke(this, args);
-    [JSInvokable] public void JSInvokOnPointerup(BootStrapBlazorEventArgs args) => OnPointerup?.Invoke(this, args);
-    [JSInvokable] public void JSInvokOnPointerleave(BootStrapBlazorEventArgs args) => OnPointerleave?.Invoke(this, args);
-    [JSInvokable] public void JSInvokOnPointercancel(BootStrapBlazorEventArgs args) => OnPointercancel?.Invoke(this, args);
-    [JSInvokable] public void JSInvokOnGesturestart(BootStrapBlazorEventArgs args) => OnGesturestart?.Invoke(this, args);
-    [JSInvokable] public void JSInvokOnGesturechange(BootStrapBlazorEventArgs args) => OnGesturechange?.Invoke(this, args);
-    [JSInvokable] public void JSInvokOnGestureend(BootStrapBlazorEventArgs args) => OnGestureend?.Invoke(this, args);
-    [JSInvokable] public void JSInvokOnFocus(BootStrapBlazorEventArgs args) => OnFocus?.Invoke(this, args);
-    [JSInvokable] public void JSInvokOnBlur(BootStrapBlazorEventArgs args) => OnBlur?.Invoke(this, args);
-    [JSInvokable] public void JSInvokOnChange(BootStrapBlazorEventArgs args) => OnChange?.Invoke(this, args);
-    [JSInvokable] public void JSInvokOnReset(BootStrapBlazorEventArgs args) => OnReset?.Invoke(this, args);
-    [JSInvokable] public void JSInvokOnSelect(BootStrapBlazorEventArgs args) => OnSelect?.Invoke(this, args);
-    [JSInvokable] public void JSInvokOnSubmit(BootStrapBlazorEventArgs args) => OnSubmit?.Invoke(this, args);
-    [JSInvokable] public void JSInvokOnFocusin(BootStrapBlazorEventArgs args) => OnFocusin?.Invoke(this, args);
-    [JSInvokable] public void JSInvokOnFocusout(BootStrapBlazorEventArgs args) => OnFocusout?.Invoke(this, args);
-    [JSInvokable] public void JSInvokOnLoad(BootStrapBlazorEventArgs args) => OnLoad?.Invoke(this, args);
-    [JSInvokable] public void JSInvokOnUnload(BootStrapBlazorEventArgs args) => OnUnload?.Invoke(this, args);
-    [JSInvokable] public void JSInvokOnBeforeunload(BootStrapBlazorEventArgs args) => OnBeforeunload?.Invoke(this, args);
-    [JSInvokable] public void JSInvokOnResize(BootStrapBlazorEventArgs args) => OnResize?.Invoke(this, args);
-    [JSInvokable] public void JSInvokOnMove(BootStrapBlazorEventArgs args) => OnMove?.Invoke(this, args);
-    [JSInvokable] public void JSInvokOnDOMContentLoaded(BootStrapBlazorEventArgs args) => OnDOMContentLoaded?.Invoke(this, args);
-    [JSInvokable] public void JSInvokOnReadystatechange(BootStrapBlazorEventArgs args) => OnReadystatechange?.Invoke(this, args);
-    [JSInvokable] public void JSInvokOnError(BootStrapBlazorEventArgs args) => OnError?.Invoke(this, args);
-    [JSInvokable] public void JSInvokOnAbort(BootStrapBlazorEventArgs args) => OnAbort?.Invoke(this, args);
-    [JSInvokable] public void JSInvokOnScroll(BootStrapBlazorEventArgs args) => OnScroll?.Invoke(this, args);
+    [JSInvokable] public void JSInvokOnClick() => OnClick?.Invoke();
+    [JSInvokable] public void JSInvokOnDblclick() => OnDblclick?.Invoke();
+    [JSInvokable] public void JSInvokOnMouseup() => OnMouseup?.Invoke();
+    [JSInvokable] public void JSInvokOnMousedown() => OnMousedown?.Invoke();
+    [JSInvokable] public void JSInvokOnContextmenu() => OnContextmenu?.Invoke();
+    [JSInvokable] public void JSInvokOnMousewheel() => OnMousewheel?.Invoke();
+    [JSInvokable] public void JSInvokOnDOMMouseScroll() => OnDOMMouseScroll?.Invoke();
+    [JSInvokable] public void JSInvokOnMouseover() => OnMouseover?.Invoke();
+    [JSInvokable] public void JSInvokOnMouseout() => OnMouseout?.Invoke();
+    [JSInvokable] public void JSInvokOnMousemove() => OnMousemove?.Invoke();
+    [JSInvokable] public void JSInvokOnSelectstart() => OnSelectstart?.Invoke();
+    [JSInvokable] public void JSInvokOnSelectend() => OnSelectend?.Invoke();
+    [JSInvokable] public void JSInvokOnKeydown() => OnKeydown?.Invoke();
+    [JSInvokable] public void JSInvokOnKeypress() => OnKeypress?.Invoke();
+    [JSInvokable] public void JSInvokOnKeyup() => OnKeyup?.Invoke();
+    [JSInvokable] public void JSInvokOnOrientationchange() => OnOrientationchange?.Invoke();
+    [JSInvokable] public void JSInvokOnTouchstart() => OnTouchstart?.Invoke();
+    [JSInvokable] public void JSInvokOnTouchmove() => OnTouchmove?.Invoke();
+    [JSInvokable] public void JSInvokOnTouchend() => OnTouchend?.Invoke();
+    [JSInvokable] public void JSInvokOnTouchcancel() => OnTouchcancel?.Invoke();
+    [JSInvokable] public void JSInvokOnPointerdown() => OnPointerdown?.Invoke();
+    [JSInvokable] public void JSInvokOnPointermove() => OnPointermove?.Invoke();
+    [JSInvokable] public void JSInvokOnPointerup() => OnPointerup?.Invoke();
+    [JSInvokable] public void JSInvokOnPointerleave() => OnPointerleave?.Invoke();
+    [JSInvokable] public void JSInvokOnPointercancel() => OnPointercancel?.Invoke();
+    [JSInvokable] public void JSInvokOnGesturestart() => OnGesturestart?.Invoke();
+    [JSInvokable] public void JSInvokOnGesturechange() => OnGesturechange?.Invoke();
+    [JSInvokable] public void JSInvokOnGestureend() => OnGestureend?.Invoke();
+    [JSInvokable] public void JSInvokOnFocus() => OnFocus?.Invoke();
+    [JSInvokable] public void JSInvokOnBlur() => OnBlur?.Invoke();
+    [JSInvokable] public void JSInvokOnChange() => OnChange?.Invoke();
+    [JSInvokable] public void JSInvokOnReset() => OnReset?.Invoke();
+    [JSInvokable] public void JSInvokOnSelect() => OnSelect?.Invoke();
+    [JSInvokable] public void JSInvokOnSubmit() => OnSubmit?.Invoke();
+    [JSInvokable] public void JSInvokOnFocusin() => OnFocusin?.Invoke();
+    [JSInvokable] public void JSInvokOnFocusout() => OnFocusout?.Invoke();
+    [JSInvokable] public void JSInvokOnLoad() => OnLoad?.Invoke();
+    [JSInvokable] public void JSInvokOnUnload() => OnUnload?.Invoke();
+    [JSInvokable] public void JSInvokOnBeforeunload() => OnBeforeunload?.Invoke();
+    [JSInvokable] public void JSInvokOnResize() => OnResize?.Invoke();
+    [JSInvokable] public void JSInvokOnMove() => OnMove?.Invoke();
+    [JSInvokable] public void JSInvokOnDOMContentLoaded() => OnDOMContentLoaded?.Invoke();
+    [JSInvokable] public void JSInvokOnReadystatechange() => OnReadystatechange?.Invoke();
+    [JSInvokable] public void JSInvokOnError() => OnError?.Invoke();
+    [JSInvokable] public void JSInvokOnAbort() => OnAbort?.Invoke();
+    [JSInvokable] public void JSInvokOnScroll() => OnScroll?.Invoke();
 
     #endregion
 
     #region Event
-    public event EventHandler<BootStrapBlazorEventArgs> OnClick;
-    public event EventHandler<BootStrapBlazorEventArgs> OnDblclick;
-    public event EventHandler<BootStrapBlazorEventArgs> OnMouseup;
-    public event EventHandler<BootStrapBlazorEventArgs> OnMousedown;
-    public event EventHandler<BootStrapBlazorEventArgs> OnContextmenu;
-    public event EventHandler<BootStrapBlazorEventArgs> OnMousewheel;
-    public event EventHandler<BootStrapBlazorEventArgs> OnDOMMouseScroll;
-    public event EventHandler<BootStrapBlazorEventArgs> OnMouseover;
-    public event EventHandler<BootStrapBlazorEventArgs> OnMouseout;
-    public event EventHandler<BootStrapBlazorEventArgs> OnMousemove;
-    public event EventHandler<BootStrapBlazorEventArgs> OnSelectstart;
-    public event EventHandler<BootStrapBlazorEventArgs> OnSelectend;
-    public event EventHandler<BootStrapBlazorEventArgs> OnKeydown;
-    public event EventHandler<BootStrapBlazorEventArgs> OnKeypress;
-    public event EventHandler<BootStrapBlazorEventArgs> OnKeyup;
-    public event EventHandler<BootStrapBlazorEventArgs> OnOrientationchange;
-    public event EventHandler<BootStrapBlazorEventArgs> OnTouchstart;
-    public event EventHandler<BootStrapBlazorEventArgs> OnTouchmove;
-    public event EventHandler<BootStrapBlazorEventArgs> OnTouchend;
-    public event EventHandler<BootStrapBlazorEventArgs> OnTouchcancel;
-    public event EventHandler<BootStrapBlazorEventArgs> OnPointerdown;
-    public event EventHandler<BootStrapBlazorEventArgs> OnPointermove;
-    public event EventHandler<BootStrapBlazorEventArgs> OnPointerup;
-    public event EventHandler<BootStrapBlazorEventArgs> OnPointerleave;
-    public event EventHandler<BootStrapBlazorEventArgs> OnPointercancel;
-    public event EventHandler<BootStrapBlazorEventArgs> OnGesturestart;
-    public event EventHandler<BootStrapBlazorEventArgs> OnGesturechange;
-    public event EventHandler<BootStrapBlazorEventArgs> OnGestureend;
-    public event EventHandler<BootStrapBlazorEventArgs> OnFocus;
-    public event EventHandler<BootStrapBlazorEventArgs> OnBlur;
-    public event EventHandler<BootStrapBlazorEventArgs> OnChange;
-    public event EventHandler<BootStrapBlazorEventArgs> OnReset;
-    public event EventHandler<BootStrapBlazorEventArgs> OnSelect;
-    public event EventHandler<BootStrapBlazorEventArgs> OnSubmit;
-    public event EventHandler<BootStrapBlazorEventArgs> OnFocusin;
-    public event EventHandler<BootStrapBlazorEventArgs> OnFocusout;
-    public event EventHandler<BootStrapBlazorEventArgs> OnLoad;
-    public event EventHandler<BootStrapBlazorEventArgs> OnUnload;
-    public event EventHandler<BootStrapBlazorEventArgs> OnBeforeunload;
-    public event EventHandler<BootStrapBlazorEventArgs> OnResize;
-    public event EventHandler<BootStrapBlazorEventArgs> OnMove;
-    public event EventHandler<BootStrapBlazorEventArgs> OnDOMContentLoaded;
-    public event EventHandler<BootStrapBlazorEventArgs> OnReadystatechange;
-    public event EventHandler<BootStrapBlazorEventArgs> OnError;
-    public event EventHandler<BootStrapBlazorEventArgs> OnAbort;
-    public event EventHandler<BootStrapBlazorEventArgs> OnScroll;
+    public event BootStrapBlazorEventHandler OnClick;
+    public event BootStrapBlazorEventHandler OnDblclick;
+    public event BootStrapBlazorEventHandler OnMouseup;
+    public event BootStrapBlazorEventHandler OnMousedown;
+    public event BootStrapBlazorEventHandler OnContextmenu;
+    public event BootStrapBlazorEventHandler OnMousewheel;
+    public event BootStrapBlazorEventHandler OnDOMMouseScroll;
+    public event BootStrapBlazorEventHandler OnMouseover;
+    public event BootStrapBlazorEventHandler OnMouseout;
+    public event BootStrapBlazorEventHandler OnMousemove;
+    public event BootStrapBlazorEventHandler OnSelectstart;
+    public event BootStrapBlazorEventHandler OnSelectend;
+    public event BootStrapBlazorEventHandler OnKeydown;
+    public event BootStrapBlazorEventHandler OnKeypress;
+    public event BootStrapBlazorEventHandler OnKeyup;
+    public event BootStrapBlazorEventHandler OnOrientationchange;
+    public event BootStrapBlazorEventHandler OnTouchstart;
+    public event BootStrapBlazorEventHandler OnTouchmove;
+    public event BootStrapBlazorEventHandler OnTouchend;
+    public event BootStrapBlazorEventHandler OnTouchcancel;
+    public event BootStrapBlazorEventHandler OnPointerdown;
+    public event BootStrapBlazorEventHandler OnPointermove;
+    public event BootStrapBlazorEventHandler OnPointerup;
+    public event BootStrapBlazorEventHandler OnPointerleave;
+    public event BootStrapBlazorEventHandler OnPointercancel;
+    public event BootStrapBlazorEventHandler OnGesturestart;
+    public event BootStrapBlazorEventHandler OnGesturechange;
+    public event BootStrapBlazorEventHandler OnGestureend;
+    public event BootStrapBlazorEventHandler OnFocus;
+    public event BootStrapBlazorEventHandler OnBlur;
+    public event BootStrapBlazorEventHandler OnChange;
+    public event BootStrapBlazorEventHandler OnReset;
+    public event BootStrapBlazorEventHandler OnSelect;
+    public event BootStrapBlazorEventHandler OnSubmit;
+    public event BootStrapBlazorEventHandler OnFocusin;
+    public event BootStrapBlazorEventHandler OnFocusout;
+    public event BootStrapBlazorEventHandler OnLoad;
+    public event BootStrapBlazorEventHandler OnUnload;
+    public event BootStrapBlazorEventHandler OnBeforeunload;
+    public event BootStrapBlazorEventHandler OnResize;
+    public event BootStrapBlazorEventHandler OnMove;
+    public event BootStrapBlazorEventHandler OnDOMContentLoaded;
+    public event BootStrapBlazorEventHandler OnReadystatechange;
+    public event BootStrapBlazorEventHandler OnError;
+    public event BootStrapBlazorEventHandler OnAbort;
+    public event BootStrapBlazorEventHandler OnScroll;
 
     #endregion
 }
@@ -139,56 +161,7 @@ public class BootstrapBlazorHelper : IBootstrapBlazorHelper
 /// <summary>
 /// <inheritdoc/>
 /// </summary>
-public class BootStrapBlazorEventArgs : EventArgs
-{
-    public bool IsTrusted { get; set; }
-    public bool AltKey { get; set; }
-    public double AltitudeAngle { get; set; }
-    public long AzimuthAngle { get; set; }
-    public bool Bubbles { get; set; }
-    public long Button { get; set; }
-    public bool Buttons { get; set; }
-    public bool CancelBubble { get; set; }
-    public bool Cancelable { get; set; }
-    public long ClientX { get; set; }
-    public long ClientY { get; set; }
-    public bool Composed { get; set; }
-    public bool CtrlKey { get; set; }
-    public bool DefaultPrevented { get; set; }
-    public long Detail { get; set; }
-    public long EventPhase { get; set; }
-    public object FromElement { get; set; }
-    public long Height { get; set; }
-    public bool IsPrimary { get; set; }
-    public long LayerX { get; set; }
-    public long LayerY { get; set; }
-    public bool MetaKey { get; set; }
-    public long MovementX { get; set; }
-    public long MovementY { get; set; }
-    public long OffsetX { get; set; }
-    public long OffsetY { get; set; }
-    public long PageX { get; set; }
-    public long PageY { get; set; }
-    public long PointerId { get; set; }
-    public string PointerType { get; set; }
-    public long Pressure { get; set; }
-    public object RelatedTarget { get; set; }
-    public bool ReturnValue { get; set; }
-    public long ScreenX { get; set; }
-    public long ScreenY { get; set; }
-    public bool ShiftKey { get; set; }
-    public long TangentialPressure { get; set; }
-    public long TiltX { get; set; }
-    public long TiltY { get; set; }
-    public double TimeStamp { get; set; }
-    public object ToElement { get; set; }
-    public long Twist { get; set; }
-    public string Type { get; set; }
-    public long Which { get; set; }
-    public long Width { get; set; }
-    public long X { get; set; }
-    public long Y { get; set; }
-}
+public delegate void BootStrapBlazorEventHandler();
 
 class EventHandlesConverter : JsonConverter<BootStrapBlazorEventType>
 {

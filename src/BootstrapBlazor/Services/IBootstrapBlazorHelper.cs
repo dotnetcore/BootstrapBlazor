@@ -17,53 +17,59 @@ public interface IBootstrapBlazorHelper
     /// <returns></returns>
     Task RegisterEvent(BootStrapBlazorEventType eventType, string? id);
 
+    Task<T> GetIdPropertieByNameAsync<T>(string id, string tag);
+
+    Task<T> GetDocumentPropertieByNameAsync<T>(string tag);
+
+    Task<T> GetElementPropertieByNameAsync<T>(ElementReference element, string tag);
+
     #region Event
-    public event EventHandler<BootStrapBlazorEventArgs> OnClick;
-    public event EventHandler<BootStrapBlazorEventArgs> OnDblclick;
-    public event EventHandler<BootStrapBlazorEventArgs> OnMouseup;
-    public event EventHandler<BootStrapBlazorEventArgs> OnMousedown;
-    public event EventHandler<BootStrapBlazorEventArgs> OnContextmenu;
-    public event EventHandler<BootStrapBlazorEventArgs> OnMousewheel;
-    public event EventHandler<BootStrapBlazorEventArgs> OnDOMMouseScroll;
-    public event EventHandler<BootStrapBlazorEventArgs> OnMouseover;
-    public event EventHandler<BootStrapBlazorEventArgs> OnMouseout;
-    public event EventHandler<BootStrapBlazorEventArgs> OnMousemove;
-    public event EventHandler<BootStrapBlazorEventArgs> OnSelectstart;
-    public event EventHandler<BootStrapBlazorEventArgs> OnSelectend;
-    public event EventHandler<BootStrapBlazorEventArgs> OnKeydown;
-    public event EventHandler<BootStrapBlazorEventArgs> OnKeypress;
-    public event EventHandler<BootStrapBlazorEventArgs> OnKeyup;
-    public event EventHandler<BootStrapBlazorEventArgs> OnOrientationchange;
-    public event EventHandler<BootStrapBlazorEventArgs> OnTouchstart;
-    public event EventHandler<BootStrapBlazorEventArgs> OnTouchmove;
-    public event EventHandler<BootStrapBlazorEventArgs> OnTouchend;
-    public event EventHandler<BootStrapBlazorEventArgs> OnTouchcancel;
-    public event EventHandler<BootStrapBlazorEventArgs> OnPointerdown;
-    public event EventHandler<BootStrapBlazorEventArgs> OnPointermove;
-    public event EventHandler<BootStrapBlazorEventArgs> OnPointerup;
-    public event EventHandler<BootStrapBlazorEventArgs> OnPointerleave;
-    public event EventHandler<BootStrapBlazorEventArgs> OnPointercancel;
-    public event EventHandler<BootStrapBlazorEventArgs> OnGesturestart;
-    public event EventHandler<BootStrapBlazorEventArgs> OnGesturechange;
-    public event EventHandler<BootStrapBlazorEventArgs> OnGestureend;
-    public event EventHandler<BootStrapBlazorEventArgs> OnFocus;
-    public event EventHandler<BootStrapBlazorEventArgs> OnBlur;
-    public event EventHandler<BootStrapBlazorEventArgs> OnChange;
-    public event EventHandler<BootStrapBlazorEventArgs> OnReset;
-    public event EventHandler<BootStrapBlazorEventArgs> OnSelect;
-    public event EventHandler<BootStrapBlazorEventArgs> OnSubmit;
-    public event EventHandler<BootStrapBlazorEventArgs> OnFocusin;
-    public event EventHandler<BootStrapBlazorEventArgs> OnFocusout;
-    public event EventHandler<BootStrapBlazorEventArgs> OnLoad;
-    public event EventHandler<BootStrapBlazorEventArgs> OnUnload;
-    public event EventHandler<BootStrapBlazorEventArgs> OnBeforeunload;
-    public event EventHandler<BootStrapBlazorEventArgs> OnResize;
-    public event EventHandler<BootStrapBlazorEventArgs> OnMove;
-    public event EventHandler<BootStrapBlazorEventArgs> OnDOMContentLoaded;
-    public event EventHandler<BootStrapBlazorEventArgs> OnReadystatechange;
-    public event EventHandler<BootStrapBlazorEventArgs> OnError;
-    public event EventHandler<BootStrapBlazorEventArgs> OnAbort;
-    public event EventHandler<BootStrapBlazorEventArgs> OnScroll;
+    public event BootStrapBlazorEventHandler OnClick;
+    public event BootStrapBlazorEventHandler OnDblclick;
+    public event BootStrapBlazorEventHandler OnMouseup;
+    public event BootStrapBlazorEventHandler OnMousedown;
+    public event BootStrapBlazorEventHandler OnContextmenu;
+    public event BootStrapBlazorEventHandler OnMousewheel;
+    public event BootStrapBlazorEventHandler OnDOMMouseScroll;
+    public event BootStrapBlazorEventHandler OnMouseover;
+    public event BootStrapBlazorEventHandler OnMouseout;
+    public event BootStrapBlazorEventHandler OnMousemove;
+    public event BootStrapBlazorEventHandler OnSelectstart;
+    public event BootStrapBlazorEventHandler OnSelectend;
+    public event BootStrapBlazorEventHandler OnKeydown;
+    public event BootStrapBlazorEventHandler OnKeypress;
+    public event BootStrapBlazorEventHandler OnKeyup;
+    public event BootStrapBlazorEventHandler OnOrientationchange;
+    public event BootStrapBlazorEventHandler OnTouchstart;
+    public event BootStrapBlazorEventHandler OnTouchmove;
+    public event BootStrapBlazorEventHandler OnTouchend;
+    public event BootStrapBlazorEventHandler OnTouchcancel;
+    public event BootStrapBlazorEventHandler OnPointerdown;
+    public event BootStrapBlazorEventHandler OnPointermove;
+    public event BootStrapBlazorEventHandler OnPointerup;
+    public event BootStrapBlazorEventHandler OnPointerleave;
+    public event BootStrapBlazorEventHandler OnPointercancel;
+    public event BootStrapBlazorEventHandler OnGesturestart;
+    public event BootStrapBlazorEventHandler OnGesturechange;
+    public event BootStrapBlazorEventHandler OnGestureend;
+    public event BootStrapBlazorEventHandler OnFocus;
+    public event BootStrapBlazorEventHandler OnBlur;
+    public event BootStrapBlazorEventHandler OnChange;
+    public event BootStrapBlazorEventHandler OnReset;
+    public event BootStrapBlazorEventHandler OnSelect;
+    public event BootStrapBlazorEventHandler OnSubmit;
+    public event BootStrapBlazorEventHandler OnFocusin;
+    public event BootStrapBlazorEventHandler OnFocusout;
+    public event BootStrapBlazorEventHandler OnLoad;
+    public event BootStrapBlazorEventHandler OnUnload;
+    public event BootStrapBlazorEventHandler OnBeforeunload;
+    public event BootStrapBlazorEventHandler OnResize;
+    public event BootStrapBlazorEventHandler OnMove;
+    public event BootStrapBlazorEventHandler OnDOMContentLoaded;
+    public event BootStrapBlazorEventHandler OnReadystatechange;
+    public event BootStrapBlazorEventHandler OnError;
+    public event BootStrapBlazorEventHandler OnAbort;
+    public event BootStrapBlazorEventHandler OnScroll;
 
     #endregion
 }

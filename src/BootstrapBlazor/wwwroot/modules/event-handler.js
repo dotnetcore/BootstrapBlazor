@@ -318,65 +318,35 @@ function hydrateObj(obj, meta) {
 
 export default EventHandler
 
-export function registerEvent(invoke, eventHandles, method,id) {
-    const ps = {
-        handler: (e) => {
-            let result = {
-                innerHeight: e.innerHeight,
-                innerWidth: e.innerWidth,
-                isTrusted: e.isTrusted,
-                altKey: e.altKey,
-                altitudeAngle: e.altitudeAngle,
-                azimuthAngle: e.azimuthAngle,
-                bubbles: e.bubbles,
-                button: e.button,
-                buttons: e.bubbles,
-                cancelBubble: e.cancelBubble,
-                cancelable: e.cancelable,
-                clientX: e.clientX,
-                clientY: e.clientY,
-                composed: e.composed,
-                ctrlKey: e.ctrlKey,
-                defaultPrevented: e.defaultPrevented,
-                detail: e.detail,
-                eventPhase: e.eventPhase,
-                fromElement: e.fromElement,
-                height: e.height,
-                isPrimary: e.isPrimary,
-                layerX: e.layerX,
-                layerY: e.layerY,
-                metaKey: e.metaKey,
-                movementX: e.movementX,
-                movementY: e.movementY,
-                offsetX: e.offsetX,
-                offsetY: e.offsetY,
-                pageX: e.pageX,
-                pageY: e.pageY,
-                pointerId: e.pointerId,
-                pointerType: e.pointerType,
-                pressure: e.pressure,
-                relatedTarget: e.relatedTarget,
-                returnValue: e.returnValue,
-                screenX: e.screenX,
-                screenY: e.screenY,
-                shiftKey: e.shiftKey,
-                srcElement: e.srcElement,
-                tangentialPressure: e.tangentialPressure,
-                target: e.target,
-                tiltX: e.tiltX,
-                tiltY: e.tiltY,
-                timeStamp: e.timeStamp,
-                toElement: e.toElement,
-                twist: e.twist,
-                type: e.type,
-                which: e.which,
-                width: e.width,
-                x: e.x,
-                y: e.y,
-            };
-            invoke.invokeMethodAsync(method, result);
-        }
+export function registerEvent(invoke, eventHandles, method, id) {
+    const handler = () => {
+        invoke.invokeMethodAsync(method);
     }
 
-    EventHandler.on(window, eventHandles, ps.handler)
+    EventHandler.on(window, eventHandles, handler)
+}
+
+export function getIdPropertieByName(id, tag) {
+    var el = document.getElementById(id);
+    var result = getPropertie(el, tag);
+    return result;
+}
+
+export function getDocumentPropertieByName(tag) {
+    return getPropertie(document, tag);
+}
+
+export function getElementPropertieByName(el, tag) {
+    return getPropertie(el, tag);
+}
+
+export function getPropertie(obj, tag) {
+    let tags = tag.split('.');
+    let tagsCopy = JSON.parse(JSON.stringify(tags));
+    var object = obj;
+    tagsCopy.map(() => {
+        object = object[tags[0]];
+        tags.shift();
+    })
+    return object;
 }
