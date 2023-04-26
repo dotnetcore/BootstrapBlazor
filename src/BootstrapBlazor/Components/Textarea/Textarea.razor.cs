@@ -48,10 +48,15 @@ public partial class Textarea
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
+    /// <param name="firstRender"></param>
     /// <returns></returns>
-    protected override async Task InvokeInitAsync()
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        await base.InvokeInitAsync();
-        await InvokeVoidAsync("execute", Id, "refresh");
+        await base.OnAfterRenderAsync(firstRender);
+
+        if (!firstRender)
+        {
+            await InvokeVoidAsync("execute", Id, "update");
+        }
     }
 }

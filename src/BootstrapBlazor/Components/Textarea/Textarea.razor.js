@@ -1,47 +1,42 @@
 ﻿import Data from "../../modules/data.js"
 
 export function init(id) {
-    const el = document.getElementById(id)
-
-    if (el != null) {
-        return
+    const text = {
+        prevMethod: '',
+        element: document.getElementById(id)
     }
 
-    const prevMethod = ""
-    const textArea = {
-        el,
-        autoScroll: el.getAttribute('data-bb-scroll') === 'auto',
-        prevMethod,
-        position: 0
-    }
-
-    Data.set(id, textArea)
+    Data.set(id, text)
 }
 
-
 export function execute(id, method, position) {
-    const data = Data.get(id)
-    if (data) {
-        if (method === 'refresh') {
-            method = data.prevMethod
-        }
-        if (method === 'toTop') {
-            position = 0;
-        }
-        if (autoScroll || method === 'toBottom') {
-            position = data.el.scrollHeight
-        }
+    const text = Data.get(id)
 
-        if (!isNaN(position)) {
-            data.el.scrollTop = position;
-        }
+    const autoScroll = text.element.getAttribute('data-bb-scroll') === 'auto'
+    if (method === 'update') {
+        method = this._prevMethod
+    }
+    if (method === 'toTop') {
+        position = 0;
+    }
+    if (autoScroll || method === 'toBottom') {
+        position = text.element.scrollHeight
+    }
 
-        if (method !== 'refresh') {
-            data.prevMethod = method;
-        }
+    if (!isNaN(position)) {
+        text.element.scrollTop = position;
+    }
+
+    if (method !== 'update') {
+        text.prevMethod = method;
     }
 }
 
 export function dispose(id) {
     Data.remove(id)
+}
+
+const autoScroll(id) {
+    const text = Data.get(id)
+    return text.element.getAttribute('data-bb-scroll') === 'auto'
 }
