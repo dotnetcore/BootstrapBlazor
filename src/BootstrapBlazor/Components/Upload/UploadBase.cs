@@ -9,7 +9,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// Upload 组件基类
 /// </summary>
-[JSModuleAutoLoader("./_content/BootstrapBlazor/modules/upload.js", Relative = false)]
+[JSModuleAutoLoader("upload", ModuleName = "Upload")]
 public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
 {
     /// <summary>
@@ -54,16 +54,6 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
     /// </summary>
     [Parameter]
     public Func<UploadFile, Task>? OnChange { get; set; }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    protected override void OnInitialized()
-    {
-        Inherit = true;
-
-        base.OnInitialized();
-    }
 
     /// <summary>
     /// 显示/隐藏验证结果方法

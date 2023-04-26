@@ -1,4 +1,4 @@
-﻿<Captcha ImagesPath="@ImagesPath" @ref="Captcha" OnValid="@OnValid" />
+﻿<Captcha ImagesPath="@ImagesPath" @ref="Captcha" OnValidAsync="@OnValidAsync" />
 <ConsoleLogger @ref="Logger" class="mt-3" />
 
 @code {
@@ -13,17 +13,14 @@
     [NotNull]
     private ConsoleLogger? Logger { get; set; }
 
-    private void OnValid(bool ret)
+    private async Task OnValidAsync(bool ret)
     {
         var result = ret ? "成功" : "失败";
         Logger.Log($"验证码结果 -> {result}");
         if (ret)
         {
-            Task.Run(async () =>
-            {
-                await Task.Delay(1000);
-                await Captcha.Reset();
-            });
+            await Task.Delay(1000);
+            await Captcha.Reset();
         }
     }
 }

@@ -2,10 +2,9 @@
 import Data from '../../../BootstrapBlazor/modules/data.js'
 
 const generate = (b, content) => {
-    b._qrcode.clear()
-    b._qrcode.makeCode(content)
-
-    b._invoker.invokeMethodAsync(b._invokerMethod)
+    b.qrcode.clear()
+    b.qrcode.makeCode(content)
+    b.invoke.invokeMethodAsync(b.callback)
 }
 
 const clear = b => {
@@ -16,20 +15,17 @@ const clear = b => {
     }
 }
 
-export async function init(el, invoker, content, callback) {
+export async function init(el, invoke, content, callback) {
     await addScript('./_content/BootstrapBlazor.BarCode/qrcode.min.js')
 
-    const b = {}
+    const b = {
+        el, invoke, callback,
+        qr: el.querySelector('.qrcode-img'),
+        height: el.getAttribute('data-bb-width'),
+        colorLight: el.getAttribute('data-bb-color-light'),
+        colorDark: el.getAttribute('data-bb-color-dark')
+    }
     Data.set(el, b)
-
-    b._invoker = invoker
-    b._invokerMethod = callback
-    b._element = el
-    b._qr = b._element.querySelector('.qrcode-img')
-
-    b._height = b._element.getAttribute('data-bb-width')
-    b._colorLight = b._element.getAttribute('data-bb-color-light')
-    b._colorDark = b._element.getAttribute('data-bb-color-dark')
 
     const config = {
         ...{
@@ -39,14 +35,14 @@ export async function init(el, invoker, content, callback) {
             colorLight: '#ffffff'
         },
         ...{
-            height: b._height,
-            width: b._height,
-            colorDark: b._colorDark,
-            colorLight: b._colorLight,
+            height: b.height,
+            width: b.height,
+            colorDark: b.colorDark,
+            colorLight: b.colorLight,
             correctLevel: QRCode.CorrectLevel.H
         }
     }
-    b._qrcode = new QRCode(b._qr, config)
+    b.qrcode = new QRCode(b.qr, config)
 
     if (content && content.length > 0) {
         generate(b, content)
@@ -58,7 +54,8 @@ export function update(el, content) {
 
     if (content && content.length > 0) {
         generate(b, content)
-    } else {
+    }
+    else {
         clear(b)
     }
 }

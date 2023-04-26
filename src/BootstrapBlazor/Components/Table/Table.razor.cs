@@ -773,7 +773,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         if (_init)
         {
             _init = false;
-            await InvokeVoidAsync("init", Id, Interop);
+            await InvokeVoidAsync("init", Id);
         }
 
         if (UpdateSortTooltip)

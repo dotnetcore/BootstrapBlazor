@@ -1,4 +1,4 @@
-﻿import Data from "./data.js"
+﻿import Data from "../../modules/data.js"
 
 export function init(id) {
     const text = {
@@ -14,7 +14,7 @@ export function execute(id, method, position) {
 
     const autoScroll = text.element.getAttribute('data-bb-scroll') === 'auto'
     if (method === 'update') {
-        method = this._prevMethod
+        method = text.prevMethod
     }
     if (method === 'toTop') {
         position = 0;
@@ -34,9 +34,4 @@ export function execute(id, method, position) {
 
 export function dispose(id) {
     Data.remove(id)
-}
-
-const autoScroll(id) {
-    const text = Data.get(id)
-    return text.element.getAttribute('data-bb-scroll') === 'auto'
 }

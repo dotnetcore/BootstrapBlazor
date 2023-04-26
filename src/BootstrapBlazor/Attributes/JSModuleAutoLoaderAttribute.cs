@@ -16,7 +16,7 @@ public class JSModuleAutoLoaderAttribute : Attribute
     public string? Path { get; }
 
     /// <summary>
-    /// 获得 模块名称 直接引用 modules 文件夹下文件
+    /// 获得 模块名称
     /// </summary>
     public string? ModuleName { get; set; }
 

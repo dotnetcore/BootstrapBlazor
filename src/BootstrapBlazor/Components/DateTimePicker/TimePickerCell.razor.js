@@ -3,10 +3,6 @@ import EventHandler from "../../modules/event-handler.js"
 
 export function init(id, invoke) {
     const el = document.getElementById(id)
-    if (el == null) {
-        return
-    }
-
     const picker = {
         el, invoke,
         upCallback: 'OnClickUp',
@@ -39,7 +35,5 @@ export function dispose(id) {
     const picker = Data.get(id)
     Data.remove(id)
 
-    if (picker) {
-        EventHandler.off(picker.el, 'mousewheel', picker.spinnerSelector)
-    }
+    EventHandler.off(picker.el, 'mousewheel', picker.spinnerSelector)
 }

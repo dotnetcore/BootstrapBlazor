@@ -1,61 +1,43 @@
 ﻿import { getHeight, getInnerHeight } from "../../modules/utility.js"
 import Data from "../../modules/data.js"
-import DropdownBase from "../../modules/base-dropdown.js"
 import EventHandler from "../../modules/event-handler.js"
+import Popover from "../../modules/base-popover.js"
 
-export function init(id, invoke, callback) {
+export function init(id, method, obj) {
     const el = document.getElementById(id)
+
     if (el == null) {
-        return;
+        return
     }
+
+    const search = el.querySelector("input.search-text")
+    const popover = Popover.init(el)
     const select = {
-        el, invoke, callback,
-        search: el.querySelector('input.search-text'),
-        dropdown: DropdownBase.init(el)
-    }
-    Data.set(id, select)
-
-    select.scrollToActive = activeItem => {
-        if (!activeItem) {
-            activeItem = select.toggleMenu.querySelector('.dropdown-item.active')
-        }
-
-        if (activeItem) {
-            const innerHeight = getInnerHeight(select.toggleMenu)
-            const itemHeight = getHeight(activeItem);
-            const index = select.indexOf(activeItem)
-            const margin = itemHeight * index - (innerHeight - itemHeight) / 2;
-            if (margin >= 0) {
-                select.toggleMenu.scrollTo(0, margin);
-            } else {
-                select.toggleMenu.scrollTo(0, 0);
-            }
-        }
-    }
-
-    select.indexOf = element => {
-        const items = select.toggleMenu.querySelectorAll('.dropdown-item')
-        return Array.prototype.indexOf.call(items, element)
+        el,
+        search,
+        method,
+        obj,
+        popover
     }
 
     const shown = () => {
-        if (select.search) {
-            select.search.focus();
+        if (search) {
+            se.focus();
         }
-        const prev = select.toggleMenu.querySelector('.dropdown-item.preActive')
+        const prev = popover.toggleMenu.querySelector('.dropdown-item.preActive')
         if (prev) {
             prev.classList.remove('preActive')
         }
-        select.scrollToActive()
+        scrollToActive(popover.toggleMenu, prev)
     }
 
     const keydown = e => {
         e.stopPropagation()
 
-        if (select.toggle.classList.contains('show')) {
-            const items = select.toggleMenu.querySelectorAll('.dropdown-item:not(.search, .disabled)')
-            let activeItem = select.toggleMenu.querySelector('.dropdown-item.preActive')
-            if (activeItem == null) activeItem = select.toggleMenu.querySelector('.dropdown-item.active')
+        if (popover.toggleElement.classList.contains('show')) {
+            const items = popover.toggleMenu.querySelectorAll('.dropdown-item:not(.search, .disabled)')
+            let activeItem = popover.toggleMenu.querySelector('.dropdown-item.preActive')
+            if (activeItem == null) activeItem = popover.toggleMenu.querySelector('.dropdown-item.active')
 
             if (activeItem) {
                 if (items.length > 1) {
@@ -69,7 +51,7 @@ export function init(id, invoke, callback) {
                             activeItem = items[items.length - 1]
                         }
                         activeItem.classList.add('preActive')
-                        select.scrollToActive(activeItem)
+                        scrollToActive(popover.toggleMenu, activeItem)
                     } else if (e.key === "ArrowDown") {
                         do {
                             activeItem = activeItem.nextElementSibling
@@ -79,32 +61,56 @@ export function init(id, invoke, callback) {
                             activeItem = items[0]
                         }
                         activeItem.classList.add('preActive')
-                        select.scrollToActive(activeItem)
+                        scrollToActive(popover.toggleMenu, activeItem)
                     }
                 }
 
                 if (e.key === "Enter") {
-                    select.toggleMenu.classList.remove('show')
-                    let index = select.indexOf(activeItem)
-                    select.invoke.invokeMethodAsync(select.callback, index)
+                    popover.toggleMenu.classList.remove('show')
+                    let index = indexOf(activeItem)
+                    obj.invokeMethodAsync(method, index)
                 }
             }
         }
     }
 
-    EventHandler.on(select.element, 'shown.bs.dropdown', shown);
-    EventHandler.on(select.element, 'keydown', keydown)
+    EventHandler.on(el, 'shown.bs.dropdown', shown);
+    EventHandler.on(el, 'keydown', keydown)
+
+    Data.set(id, select)
 }
 
+
 export function dispose(id) {
-    const select = Data.get(id)
+    const data = Data.get(id)
+    if (data) {
+        EventHandler.off(data.el, 'shown.bs.dropdown')
+        EventHandler.off(data.el, 'keydown')
+        Popover.dispose(data.popover)
+    }
+    Data.remove(id)
+}
 
-    if (select) {
-        EventHandler.off(select.el, 'shown.bs.dropdown')
-        EventHandler.off(select.el, 'keydown')
 
-        if (select.dropdown) {
-            DropdownBase.dispose(select.dropdown)
+function scrollToActive(el, activeItem) {
+    if (!activeItem) {
+        activeItem = el.querySelector('.dropdown-item.active')
+    }
+
+    if (activeItem) {
+        const innerHeight = getInnerHeight(el)
+        const itemHeight = getHeight(activeItem);
+        const index = indexOf(el, activeItem)
+        const margin = itemHeight * index - (innerHeight - itemHeight) / 2;
+        if (margin >= 0) {
+            el.scrollTo(0, margin);
+        } else {
+            el.scrollTo(0, 0);
         }
     }
+}
+
+function indexOf(el, element) {
+    const items = el.querySelectorAll('.dropdown-item')
+    return Array.prototype.indexOf.call(items, element)
 }

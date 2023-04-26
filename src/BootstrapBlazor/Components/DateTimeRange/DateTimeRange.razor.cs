@@ -10,7 +10,6 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 ///
 /// </summary>
-[JSModuleAutoLoader("dropdown", ModuleName = "Dropdown")]
 public partial class DateTimeRange
 {
     /// <summary>
@@ -234,7 +233,7 @@ public partial class DateTimeRange
 
         if (AutoCloseClickSideBar)
         {
-            await InvokeVoidAsync("execute", Id, "hide");
+            await InvokeVoidAsync("hide", Id);
             await ClickConfirmButton();
         }
     }

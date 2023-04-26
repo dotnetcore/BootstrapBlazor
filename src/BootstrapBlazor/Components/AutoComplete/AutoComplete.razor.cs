@@ -129,6 +129,8 @@ public partial class AutoComplete
     [NotNull]
     private IIconTheme? IconTheme { get; set; }
 
+    private JSInterop<AutoComplete>? Interop { get; set; }
+
     private string CurrentSelectedItem { get; set; } = "";
 
     /// <summary>
@@ -180,7 +182,7 @@ public partial class AutoComplete
 
         if (CurrentItemIndex.HasValue)
         {
-            await InvokeVoidAsync("bb_autoScrollItem", AutoCompleteElement, CurrentItemIndex.Value);
+            await JSRuntime.InvokeVoidAsync(AutoCompleteElement, "bb_autoScrollItem", CurrentItemIndex.Value);
         }
 
         if (firstRender)
@@ -189,7 +191,7 @@ public partial class AutoComplete
 
             if (Debounce > 0)
             {
-                await JSRuntime.InvokeVoidAsync("bb_setDebounce", FocusElement, Debounce);
+                await JSRuntime.InvokeVoidAsync(FocusElement, "bb_setDebounce", Debounce);
             }
         }
     }
@@ -327,8 +329,23 @@ public partial class AutoComplete
         // 汉字多次触发问题
         if (ValidateForm != null)
         {
-            //Interop ??= new JSInterop<AutoComplete>(JSRuntime);
-            //await Interop.InvokeVoidAsync(this, FocusElement, "bb_composition", nameof(TriggerOnChange));
+            Interop ??= new JSInterop<AutoComplete>(JSRuntime);
+            await Interop.InvokeVoidAsync(this, FocusElement, "bb_composition", nameof(TriggerOnChange));
         }
+    }
+
+    /// <summary>
+    /// DisposeAsyncCore 方法
+    /// </summary>
+    /// <param name="disposing"></param>
+    /// <returns></returns>
+    protected override ValueTask DisposeAsync(bool disposing)
+    {
+        if (disposing)
+        {
+            Interop?.Dispose();
+        }
+
+        return base.DisposeAsync(disposing);
     }
 }

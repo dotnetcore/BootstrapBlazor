@@ -1,35 +1,39 @@
-﻿import { isDisabled } from ".../../modules/utility.js"
-import DropdownBase from "../../modules/base-dropdown.js"
+﻿import Data from "../../modules/data.js"
 import EventHandler from "../../modules/event-handler.js"
+import Popover from "../../modules/base-popover.js"
 
-export class SelectTree extends DropdownBase {
-    _init() {
-        this._input = this._element.querySelector('.form-select')
+export function init(id) {
+    const el = document.getElementById(id)
 
-        super._init()
+    if (el == null) {
+        return
     }
 
-    _setListeners() {
-        EventHandler.on(this._toggleMenu, 'click', '.tree-node', e => {
-            if (this._isPopover) {
-                this._popover.hide()
-            } else {
-                const dropdown = bootstrap.Dropdown.getInstance(this._toggle)
-                if (dropdown) {
-                    dropdown.hide()
-                }
+    const popover = Popover.init(el)
+    const selectTree = {
+        el,
+        input: el.querySelector(".form-select"),
+        popover
+    }
+
+    EventHandler.on(popover.toggleMenu, 'click', '.tree-node', e => {
+        if (popover.isPopover) {
+            popover.hide()
+        } else {
+            const dropdown = bootstrap.Dropdown.getInstance(popover.toggleElement)
+            if (dropdown) {
+                dropdown.hide()
             }
-        })
+        }
+    })
+    Data.set(id, selectTree)
+}
 
-        super._setListeners()
+export function dispose(id) {
+    const data = Data.get(id)
+    if (data) {
+        EventHandler.off(data.popover.toggleMenu, 'click', '.tree-node')
+        Popover.dispose(data.popover)
     }
-
-    _isDisabled() {
-        return isDisabled(this._input)
-    }
-
-    _dispose() {
-        EventHandler.off(this._toggleMenu, 'click', '.tree-node')
-        super._dispose();
-    }
+    Data.remove(id)
 }

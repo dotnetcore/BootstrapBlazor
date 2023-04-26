@@ -1,87 +1,93 @@
-﻿import { ImagePreviewer } from "../Components/ImagePreviewer/ImagePreviewer.razor.js"
-import Data from "../../modules/data.js"
-import EventHandler from "../../modules/event-handler.js"
+﻿import Data from "./data.js"
+import EventHandler from "./base/event-handler.js"
+import BlazorComponent from "./base/blazor-component.js"
 
-export function init(id) {
-    const el = document.getElementById(id)
-    const upload = {
-        el,
-        browserClass: '.btn-browser',
-        inputFile: el.querySelector('[type="file"]'),
-        preventFn: e => {
+export class Upload extends BlazorComponent {
+    static get Default() {
+        return {
+            browserClass: '.btn-browser'
+        }
+    }
+
+    _init() {
+        this._inputFile = this._element.querySelector('[type="file"]')
+        this._setListeners()
+    }
+
+    _setListeners() {
+        EventHandler.on(this._element, 'click', this._config.browserClass, () => {
+            this._inputFile.click()
+        })
+
+        //阻止浏览器默认行为
+        EventHandler.on(document, "dragleave", e => {
             e.preventDefault()
-        }
-    }
-    Data.set(id, upload)
+        })
+        EventHandler.on(document, 'drop', e => {
+            e.preventDefault()
+        })
+        EventHandler.on(document, 'dragenter', e => {
+            e.preventDefault()
+        })
+        EventHandler.on(document, 'dragover', e => {
+            e.preventDefault()
+        })
 
-    EventHandler.on(el, 'click', upload.browserClass, () => {
-        upload.inputFile.click()
-    })
+        EventHandler.on(this._element, 'drop', e => {
+            try {
+                //获取文件对象
+                const fileList = e.dataTransfer.files
 
-    //阻止浏览器默认行为
-    EventHandler.on(document, "dragleave", preventFn)
-    EventHandler.on(document, 'drop', preventFn)
-    EventHandler.on(document, 'dragenter', preventFn)
-    EventHandler.on(document, 'dragover', preventFn)
+                //检测是否是拖拽文件到页面的操作
+                if (fileList.length === 0) {
+                    return false;
+                }
 
-    EventHandler.on(el, 'drop', e => {
-        try {
-            //获取文件对象
-            const fileList = e.dataTransfer.files
-
-            //检测是否是拖拽文件到页面的操作
-            if (fileList.length === 0) {
-                return false;
+                this._inputFile.files = e.dataTransfer.files;
+                const event = new Event('change', { bubbles: true });
+                this._inputFile.dispatchEvent(event);
+            } catch (e) {
+                console.error(e);
             }
+        })
 
-            upload.inputFile.files = e.dataTransfer.files;
+        EventHandler.on(this._element, 'paste', e => {
+            this._inputFile.files = e.clipboardData.files;
             const event = new Event('change', { bubbles: true });
-            upload.inputFile.dispatchEvent(event);
-        } catch (e) {
-            console.error(e);
-        }
-    })
+            this._inputFile.dispatchEvent(event);
+        });
 
-    EventHandler.on(el, 'paste', e => {
-        upload.inputFile.files = e.clipboardData.files;
-        const event = new Event('change', { bubbles: true });
-        upload.inputFile.dispatchEvent(event);
-    });
+        EventHandler.on(this._element, 'click', '.btn-zoom', e => {
+            if (!this._previewer) {
+                this._previewer = Data.get(this._config.previewerId)
+            }
+            const button = e.delegateTarget
+            const buttons = [...this._element.querySelectorAll('.btn-zoom')]
+            this._previewer.viewer.show(buttons.indexOf(button))
+        })
+    }
 
-    EventHandler.on(el, 'click', '.btn-zoom', e => {
-        if (!upload.previewer) {
-            //const previewerId = document.getElementById(this._config.previewerId)
-            //this._previewer = ImagePreviewer.getOrCreateInstance(previewerId)
-        }
-        const button = e.delegateTarget
-        const buttons = [...el.querySelectorAll('.btn-zoom')]
-        //this._previewer.show(buttons.indexOf(button))
-    })
-}
-
-export function execute(id, tipId, method) {
-    const upload = Data.get(id)
-
-    if (method === 'disposeTooltip') {
-        const tip = document.getElementById(tipId)
-        if (tip) {
-            const tooltip = bootstrap.Tooltip.getInstance(tip)
-            if (tooltip) {
-                tooltip.dispose()
+    _execute(args) {
+        const tooltipId = args[0]
+        const method = args[1]
+        if (method === 'disposeTooltip' && tooltipId) {
+            const element = document.getElementById(tooltipId)
+            if (element) {
+                const tooltip = bootstrap.Tooltip.getInstance(element)
+                if (tooltip) {
+                    tooltip.dispose()
+                }
             }
         }
     }
-}
 
-export function dispose(id) {
-    const upload = Data.get(id)
-    Data.remove(id)
-
-    EventHandler.off(el, 'click', upload.browserClass)
-    EventHandler.off(document, 'dragleave', upload.preventFn);
-    EventHandler.off(document, 'drop', upload.preventFn);
-    EventHandler.off(document, 'dragenter', upload.preventFn);
-    EventHandler.off(document, 'dragover', upload.preventFn);
-    EventHandler.off(el, 'drop');
-    EventHandler.off(el, 'paste');
+    _dispose() {
+        EventHandler.off(this._element, 'click', this._config.browserClass)
+        EventHandler.off(document, 'dragleave');
+        EventHandler.off(document, 'drop');
+        EventHandler.off(document, 'dragenter');
+        EventHandler.off(document, 'dragover');
+        EventHandler.off(this._element, 'drop');
+        EventHandler.off(this._element, 'paste');
+    }
 }

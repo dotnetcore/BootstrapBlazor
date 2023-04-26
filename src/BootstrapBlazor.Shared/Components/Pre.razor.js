@@ -74,12 +74,11 @@ export function execute(id, method) {
 
 export function dispose(id) {
     const pre = Data.get(id)
+    Data.remove(id)
+
     if (pre === null) {
         return
     }
-
-    Data.remove(id)
-
     if (pre.handler) {
         clearInterval(pre.handler)
     }

@@ -7,7 +7,9 @@ const setListeners = viewer => {
             if (!viewer.previewer) {
                 viewer.previewer = Data.get(viewer.previewerId)
             }
-            viewer.previewer.show()
+            if (viewer.previewer) {
+                viewer.previewer.viewer.show()
+            }
         })
     }
 }

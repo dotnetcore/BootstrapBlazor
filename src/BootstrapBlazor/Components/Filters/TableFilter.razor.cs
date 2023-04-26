@@ -193,10 +193,7 @@ public partial class TableFilter : IFilter
     /// 点击确认时回调此方法
     /// </summary>
     /// <returns></returns>
-    private async Task OnClickConfirm()
-    {
-        await OnFilterAsync();
-    }
+    private Task OnClickConfirm() => OnFilterAsync();
 
     /// <summary>
     /// 过滤数据方法

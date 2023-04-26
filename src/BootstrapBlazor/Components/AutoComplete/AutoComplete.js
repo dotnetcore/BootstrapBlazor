@@ -1,10 +1,4 @@
-﻿import Input from '../Input/BootstrapInput.razor.js'
-
-export function init(id) {
-
-}
-
-(function ($) {
+﻿(function ($) {
     $.extend({
         bb_autoScrollItem: function (el, index) {
             var $el = $(el);
