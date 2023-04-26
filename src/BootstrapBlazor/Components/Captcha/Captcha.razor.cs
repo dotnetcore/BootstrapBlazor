@@ -7,7 +7,7 @@ using Microsoft.Extensions.Localization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// Captcha 组件
 /// </summary>
 public partial class Captcha : IDisposable
 {
