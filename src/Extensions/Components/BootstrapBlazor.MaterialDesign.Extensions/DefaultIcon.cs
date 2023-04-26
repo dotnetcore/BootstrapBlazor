@@ -110,6 +110,7 @@ internal class DefaultIcon
         { ComponentIcons.SearchButtonLoadingIcon, "mdi mdi-loading mdi-spin" },
 
         { ComponentIcons.SelectDropdownIcon, "mdi mdi-chevron-up" },
+        { ComponentIcons.SelectClearIcon, "mdi mdi-close-circle-outline" },
         { ComponentIcons.SelectSearchIcon, "mdi mdi-magnify-plus-outline" },
 
         { ComponentIcons.SweetAlertCloseIcon, "mdi mdi-close" },
