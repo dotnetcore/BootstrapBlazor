@@ -7,9 +7,9 @@ using Microsoft.Extensions.Localization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// Timer 组件
 /// </summary>
-[JSModuleAutoLoader("base/utility")]
+[JSModuleAutoLoader(ModuleName = "utility", AutoInvokeInit = false, AutoInvokeDispose = false)]
 public partial class Timer
 {
     /// <summary>
@@ -142,22 +142,28 @@ public partial class Timer
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
+    /// <param name="firstRender"></param>
     /// <returns></returns>
-    protected override Task ModuleInitAsync() => Task.CompletedTask;
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+
+        if (!firstRender)
+        {
+            await Timeout();
+        }
+    }
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override async Task ModuleExecuteAsync()
+    private async Task Timeout()
     {
         if (Vibrate)
         {
             Vibrate = false;
-            if (Module != null)
-            {
-                await Module.InvokeVoidAsync("vibrate");
-            }
+            await InvokeVoidAsync("vibrate");
         }
     }
 
